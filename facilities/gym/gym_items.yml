@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=../../.vscode/gym.schema.json
+gym_items:
+  - id: squat_stands
+    vendor_ref: MS-ATX-DICO-SQS
+    name: ATX Free Stands Series 800 Squat Stands
+    type: strength
+    qty: 1
+    state: planned
+    area: garage
+    url: https://motionsports.de/en/products/atx%C2%AE-free-stands-serie-800-kniebeugenstander
+    attrs:
+      width_cm: 61
+      depth_cm: 105.5
+      height_cm: 182.5
+      weight_kg: 100
+    images:
+      - type: product
+        url: https://motionsports.de/cdn/shop/files/ATX-DICO-SQS-SET_MS-Kamera_1.webp?v=1768998356&width=1200
+      - type: installed
+        url: https://motionsports.de/cdn/shop/files/ATX-DICO-SQS-SET_Anwendung_5.webp?v=1768998861&width=2048
+      - type: reference
+        url: https://motionsports.de/cdn/shop/files/Verbindungssstrebe_a38ad0b4-e4fa-4976-8496-f780363b526d.webp?v=1768998356&width=2048
+
+  - id: heavy_bag
+    vendor_ref: G3070
+    name: Heavy Bag
+    type: boxing
+    qty: 1
+    state: planned
+    area: garage
+    url: https://www.geezersboxing.co.uk/geezers-pugilist-super-heavy-punchbag
+    attrs:
+      weight_kg: 65
+      mount: ceiling
+      diameter_cm: 58
+      height_cm: 150
+    images:
+      - type: product
+        url: https://www.geezersboxing.co.uk/media/catalog/product/cache/4dc439ab25628538766a64d05c35b5b4/g/3/g3070.webp
+
+  - id: wrecking_ball
+    vendor_ref: G3065
+    name: Geezers Pugilist Super Heavy Wrecking Ball
+    type: boxing
+    qty: 1
+    state: planned
+    area: garage
+    url: https://www.geezersboxing.co.uk/punching-bags/leather-punchbags/geezers-pugilist-super-heavy-wrecking-ball
+    attrs:
+      weight_kg: 40
+      mount: ceiling
+      diameter_cm: 56
+      height_cm: 66
+    images:
+      - type: product
+        url: https://www.geezersboxing.co.uk/media/catalog/product/cache/4dc439ab25628538766a64d05c35b5b4/g/3/g3065_1.webp
+
+  - id: uppercut_bag
+    name: Lonsdale authentic 3-in-1 uppercut heavy bag
+    type: boxing
+    qty: 1
+    state: owned
+    area: garage
+    attrs:
+      weight_kg: 30
+      mount: ceiling
+      diameter_cm: 51
+      height_cm: 100
+    images:
+      - type: product
+        url: ../../images/uppercut-bag/product.jpg
