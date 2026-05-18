@@ -27,16 +27,11 @@ I remember that well.
 
 ## Next steps (morning)
 
-### 1. Compile TikZ figures (10 min)
-```bash
-cd ~/prj/git/U/paper/figures
-lualatex --interaction=nonstopmode fig1_architecture.tex
-lualatex --interaction=nonstopmode fig4_instrument.tex
-lualatex --interaction=nonstopmode figA2_functors.tex
-```
-MiKTeX 25.4 / lualatex confirmed installed. Then commit the PDFs.
+### ~~1. Compile TikZ figures~~ ✅ DONE (May 19 evening)
+All three TikZ figures compiled (fig1, fig4, figA2). All PDFs built and committed (`298977c`).
+PDFs ready to upload: `paper/soma-field-paper.pdf`, `paper/soma-field-patient-pov.pdf`, `paper/mathematical-co-identification.pdf`
 
-### 2. Submit soma-field paper to bioRxiv (first time — follow these steps)
+### 1. Submit soma-field paper to bioRxiv (first time — follow these steps)
 
 bioRxiv is the standard preprint server for biology/neuroscience. Free. No peer review. Immediate posting. DOI assigned. This is how you get the paper visible while it's under journal review.
 
