@@ -15,12 +15,17 @@ abstract: |
   formal field-theoretic architecture for the limbic system and its coupling to the body
   and autonomic nervous system.
 
-  Drawing on a structural equivalence with Quantum Field Theory and the energy-function
-  formalism of Hopfield neural networks, the model provides a mathematically grounded
-  account of four clinically fundamental phenomena: the sub-perceptual persistence of
-  emotional states; the threshold at which emotion enters conscious awareness; the attractor
-  structure corresponding to fight, flight, freeze, and regulated calm; and the formal
-  mechanism of complex PTSD as a specific configuration of the attractor landscape.
+  Drawing on the energy-function formalism of Hopfield neural networks and a formal
+  identification with Quantum Field Theory — not as metaphor but as shared mathematical
+  structure — the model provides a mathematically grounded account of four clinically
+  fundamental phenomena: the sub-perceptual persistence of emotional states; the threshold
+  at which emotion enters conscious awareness; the attractor structure corresponding to
+  fight, flight, freeze, and regulated calm; and the formal mechanism of complex PTSD as a
+  specific configuration of the attractor landscape. The conscious emotional percept is
+  identified as the one-dimensional impulse response (Green’s function) of an
+  eleven-dimensional coupling manifold, placing emotional experience and fundamental
+  particles in the same mathematical category: both are poles in the propagator of their
+  respective field.
 
   The soma-field adds the component that has been absent from every artificial neural
   network since McCulloch and Pitts (1943): a formal model of the limbic system. Together,
@@ -133,7 +138,7 @@ The Soma-Field Model provides a formal account of what the felt sense is: it is 
 of the emotional field below the perceptual threshold. It is real, causal, and continuously
 present. It shapes cognition and behaviour even when it does not surface as a named feeling.
 
-## 2.3 Quantum Field Theory as a Conceptual Tool
+## 2.3 Quantum Field Theory: Structure, Not Metaphor
 
 Quantum Field Theory (QFT) is the framework of modern particle physics. Its central departure
 from classical physics is the priority of the *field* over the *particle*. In QFT, what we
@@ -170,10 +175,17 @@ motion that never quite crosses the threshold. When the amplitude does cross T, 
 exists: a locally observable excitation. The same structure — field always present,
 consciousness only when threshold crossed — is the core of the Soma-Field Model.*
 
-This paper does not claim that emotions are quantum phenomena in any literal sense. The
-analogy is structural, not ontological. The value of QFT as a conceptual tool is that it
-provides a precise vocabulary for the following set of ideas, which are central to the
-clinical observation of emotion:
+This paper does not claim that emotions are quantum phenomena in any literal sense: the
+soma-field is a classical field, not a quantised one. The claim is stronger and more
+specific than analogy: the mathematical object being constructed — the Green’s function
+of a coupled field manifold — is formally of the same *type* as the objects that arise in
+QFT, differing only in the dimensionality of the manifold and the nature of the probe.
+What was previously described as a structural analogy is here identified as a formal
+correspondence: a particle is a pole in the propagator of its field; a conscious emotional
+percept is a pole in the propagator of the soma-field. Different physics. Same mathematics.
+
+That correspondence gives the model precise vocabulary for the following set of ideas,
+which are central to the clinical observation of emotion:
 
 - A quantity that exists everywhere, continuously, even when unobserved
 - A background of sub-threshold activity that is real and causally effective
@@ -471,6 +483,13 @@ developed in the companion file `src/EmotionOntology.lean`.
 ---
 
 # 3. The Soma-Field Model
+
+The field is primary. The felt emotion is secondary — it is what registers when the
+field is probed. This is the same ontological relationship as between a quantum field
+and a particle: the field exists continuously and everywhere; the particle is what you
+observe at the moment of measurement. The Soma-Field Model does not describe what
+emotions are *made of*. It describes the manifold whose impulse response *is* conscious
+emotional experience.
 
 ## 3.1 Emotions as a Persistent Wave Field
 
