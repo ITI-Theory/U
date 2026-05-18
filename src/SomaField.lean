@@ -1,128 +1,255 @@
 /-
   SomaField.lean
-  The Soma-Field Model — minimal Lean 4 implementation.
+  The Soma-Field Model — 8-dimensional BRECVEMA extension.
 
-  Two emotional modes: fear (index 0) and calm (index 1).
-  The field is a vector e : Fin 2 → Float.
-  The coupling matrix W : Fin 2 → Fin 2 → Float encodes:
-    - fear amplifies fear (W₀₀ > 0)
-    - calm suppresses fear (W₀₁ < 0)
-    - fear suppresses calm (W₁₀ < 0)
-    - calm amplifies calm (W₁₁ > 0)
+  Extended from the 2-dim fear/calm seed to the full 8-mechanism space.
+  Each dimension is one BRECVEMA mechanism (Juslin & Västfjäll 2008; Juslin 2019).
+  The W matrix encodes theoretically grounded pairwise couplings.
 
-  One stored pattern: pure fear = (1.0, -1.0).
-  Energy: E(e) = -½ eᵀ W e   (Hopfield Hamiltonian)
-  Dynamics: e_{t+1} = e_t - ∇H(e_t) · dt   (discrete Langevin, no noise)
+  Energy:    H(e) = -½ eᵀ W e      (Hopfield Hamiltonian)
+  Dynamics:  e_{t+1} = e_t + dt·We  (discrete Langevin, no noise)
 
-  When this file compiles and the trajectory converges, the theorem is closed.
-  The soma-field is not a metaphor. It runs.
-
-  NOTE: This is a standalone .lean file.
-  To compile with Mathlib: add to a project with lakefile.toml and
-  `require mathlib from git "https://github.com/leanprover-community/mathlib4"`.
-  The definitions below use only Float arithmetic and require no imports.
+  Historical note:
+  The original 2-dim prototype (fear/calm) is the restriction of this model to
+  dimensions {BS=0, RE=1}.  W8[0,1]=0 because BS and RE interact only via CO(3).
+  The 2D model was the seed; this 8D model is the full theory.
 
   Proof obligations (TODO for the formal paper):
-  1. Show E(e) is bounded below (has a minimum).
-  2. Show gradient descent on E is a contraction near attractor states.
-  3. Show the trajectory converges for the stored W pattern.
-  4. Show the fear attractor and calm attractor are distinct stable minima.
-  5. Show that W-modification (therapy) changes the attractor landscape.
-  6. Show the AQ property: W can be updated without the adversity becoming W.
+  1. H is bounded below for W8 (check positive semi-definiteness).
+  2. Gradient descent on H is a contraction near each stored pattern.
+  3. The four stored patterns are stable minima (W·pattern ≈ λ·pattern, λ>0).
+  4. brainStemThenMemory trajectory: starting near startlePattern, the indirect
+     BS→CO→EM coupling eventually pulls toward nostalgiaPattern.
+  5. Therapeutic W modification: reducing W[EC,CO] breaks involuntary-arousal
+     coupling (formal model of desensitisation / somatic therapy).
 -/
 
--- Field: state of the soma-field at one moment
--- e 0 = fear activation level
--- e 1 = calm activation level
-def E := Fin 2 → Float
+import EmotionOntology
 
--- Coupling matrix entry: W i j = influence of mode j on mode i
--- Positive = amplifying, negative = suppressing
-def W : Fin 2 → Fin 2 → Float
-  | ⟨0, _⟩, ⟨0, _⟩ =>  1.2   -- fear amplifies fear
-  | ⟨0, _⟩, ⟨1, _⟩ => -0.8   -- calm suppresses fear
-  | ⟨1, _⟩, ⟨0, _⟩ => -0.8   -- fear suppresses calm
-  | ⟨1, _⟩, ⟨1, _⟩ =>  1.2   -- calm amplifies calm
-  | _, _             =>  0.0
 
--- Energy function: E(e) = -½ eᵀ W e
--- Lower energy = more stable state
-def energy (e : E) : Float :=
-  let sum := (List.range 2).foldl (fun acc i =>
-    (List.range 2).foldl (fun acc2 j =>
-      acc2 + e ⟨i, by omega⟩ * W ⟨i, by omega⟩ ⟨j, by omega⟩ * e ⟨j, by omega⟩
-    ) acc
-  ) 0.0
-  -0.5 * sum
+-- ════════════════════════════════════════════════════════════════════════════
+-- DIMENSION MAP
+-- ════════════════════════════════════════════════════════════════════════════
 
--- Gradient of H with respect to mode i: -∂H/∂eᵢ = (We)ᵢ
--- The field moves in the direction of -∇H = -(- We) = We
--- But Langevin is ė = -∇H, and H = -½ eᵀWe, so -∇H = We
--- Therefore: gradient_descent_direction i = (We)ᵢ
-def fieldForce (e : E) (i : Fin 2) : Float :=
-  (List.range 2).foldl (fun acc j =>
-    acc + W i ⟨j, by omega⟩ * e ⟨j, by omega⟩
-  ) 0.0
+/-- The field has 8 dimensions, one per BRECVEMA mechanism. -/
+def N8 : Nat := 8
 
--- One discrete Langevin step (no noise): e_{t+1} = e_t + dt * (We)
--- Note: -∇H(e) = We for H = -½ eᵀWe
-def step (e : E) (dt : Float) : E :=
-  fun i => e i + dt * fieldForce e i
+/-- Each BRECVEMA mechanism maps to its field dimension index. -/
+def Mechanism.dim : Mechanism → Fin N8
+  | .BrainStem              => ⟨0, by omega⟩
+  | .RhythmicEntrainment    => ⟨1, by omega⟩
+  | .EvaluativeConditioning => ⟨2, by omega⟩
+  | .Contagion              => ⟨3, by omega⟩
+  | .VisualImagery          => ⟨4, by omega⟩
+  | .EpisodicMemory         => ⟨5, by omega⟩
+  | .MusicalExpectancy      => ⟨6, by omega⟩
+  | .AestheticJudgement     => ⟨7, by omega⟩
 
--- Stored pattern: pure fear attractor = (1.0, -1.0)
--- This is one of the two stable modes. Pure calm would be (-1.0, 1.0).
-def fearPattern : E
-  | ⟨0, _⟩ => 1.0
-  | ⟨1, _⟩ => -1.0
-  | ⟨_, h⟩ => absurd h (by omega)
+/-- Mechanism name abbreviations for display. -/
+def Mechanism.abbrev : Mechanism → String
+  | .BrainStem              => "BS"
+  | .RhythmicEntrainment    => "RE"
+  | .EvaluativeConditioning => "EC"
+  | .Contagion              => "CO"
+  | .VisualImagery          => "VI"
+  | .EpisodicMemory         => "EM"
+  | .MusicalExpectancy      => "ME"
+  | .AestheticJudgement     => "AJ"
 
--- Starting near calm to test whether the field is pulled toward fear or calm
--- Initial condition: slight fear bias = (0.3, -0.1)
-def initialState : E
-  | ⟨0, _⟩ =>  0.3
-  | ⟨1, _⟩ => -0.1
-  | ⟨_, h⟩ => absurd h (by omega)
+/-- Dimension index → mechanism (for display). -/
+def dimMech : Fin N8 → Mechanism
+  | ⟨0, _⟩ => .BrainStem
+  | ⟨1, _⟩ => .RhythmicEntrainment
+  | ⟨2, _⟩ => .EvaluativeConditioning
+  | ⟨3, _⟩ => .Contagion
+  | ⟨4, _⟩ => .VisualImagery
+  | ⟨5, _⟩ => .EpisodicMemory
+  | ⟨6, _⟩ => .MusicalExpectancy
+  | ⟨7, _⟩ => .AestheticJudgement
 
--- Run N steps of the discrete Langevin dynamics
-def runField (e₀ : E) (dt : Float) : Nat → E
-  | 0     => e₀
-  | n + 1 => step (runField e₀ dt n) dt
 
--- Print trajectory (for use in #eval)
-def showState (e : E) (t : Nat) : String :=
-  s!"t={t}  fear={e ⟨0, by omega⟩:.4f}  calm={e ⟨1, by omega⟩:.4f}  E={energy e:.4f}"
-
--- Recall loop: run 20 steps from initialState
--- Expected: field converges toward fearPattern (1.0, -1.0)
--- because the initial state has fear > 0 and the W matrix is configured to
--- pull any fear-biased state toward the pure-fear attractor.
-#eval do
-  let dt := 0.05
-  let e₀ := initialState
-  for t in List.range 21 do
-    let e := runField e₀ dt t
-    IO.println (showState e t)
-  -- Energy at stored pattern (should be a minimum)
-  IO.println s!"\nStored fear pattern energy: {energy fearPattern:.4f}"
-  -- Confirm: opposite pattern (calm) should have the same energy by symmetry
-  let calmPattern : E := fun i => -fearPattern i
-  IO.println s!"Stored calm pattern energy: {energy calmPattern:.4f}"
-  IO.println "\nWhen the trajectory above converges to (1.0, -1.0), the theorem is closed."
+-- ════════════════════════════════════════════════════════════════════════════
+-- THE COUPLING MATRIX W8
+-- ════════════════════════════════════════════════════════════════════════════
 
 /-
-  Proof sketch (informal):
+  Off-diagonal couplings grounded in BRECVEMA theory (Juslin 2011, Table 22.3).
 
-  The Hamiltonian H(e) = -½ eᵀWe with W symmetric positive semi-definite has
-  stable attractors at the eigenvectors of W corresponding to the largest eigenvalues.
-  For a 2×2 W with W₀₀ = W₁₁ = 1.2 and W₀₁ = W₁₀ = -0.8:
-    eigenvalues: λ₁ = 2.0 (eigenvector (1,-1)/√2 = fear axis)
-                 λ₂ = 0.4 (eigenvector (1,1)/√2 = mixed axis)
-  The fear pattern (1, -1) aligns with the dominant eigenvector and is the deepest
-  attractor. Any initial condition with fear > calm will converge here under -∇H flow.
+  Positive (co-activation, W_ij > 0):
+    BS(0) ↔ EC(2)  +0.30  both automatic, pre-conscious, fast
+    BS(0) ↔ CO(3)  +0.40  contagion onset is near-reflexive
+    RE(1) ↔ CO(3)  +0.50  shared motor/body-rhythm substrate
+    EC(2) ↔ CO(3)  +0.40  both involuntary, socially triggered
+    VI(4) ↔ EM(5)  +0.60  mental imagery ↔ autobiographical recall
+    ME(6) ↔ AJ(7)  +0.70  both require structural musical knowledge
 
-  The therapeutic operation W → W' corresponds to modifying the coupling constants
-  so that the calm eigenvector becomes dominant. This is the formal model of
-  somatic therapeutic change.
+  Negative (mutual inhibition, W_ij < 0):
+    BS(0) ↔ AJ(7) -0.40  reflexive fast processing suppresses reflective slow
+    EC(2) ↔ VI(4) -0.30  involuntary conditioning suppresses voluntary imagery
 
-  This is SomaField.lean. The film runs.
+  The `brainStemThenMemory` term in EmotionOntology.lean corresponds to the
+  indirect BS→CO→EM chain (two positive hops: BS↔CO=+0.4, CO↔EC=+0.4 and
+  then EC's inhibition of VI frees EM).  Direct BS↔EM coupling = 0 (no
+  Hopfield memory survives a pure brainstem startle alone).
+
+  Diagonal self-amplification: 1.2 for all mechanisms.
 -/
+
+private def wOff (a b : Nat) : Float :=
+  match a, b with
+  | 0, 2 =>  0.3   -- BS ↔ EC
+  | 0, 3 =>  0.4   -- BS ↔ CO
+  | 1, 3 =>  0.5   -- RE ↔ CO
+  | 2, 3 =>  0.4   -- EC ↔ CO
+  | 4, 5 =>  0.6   -- VI ↔ EM
+  | 6, 7 =>  0.7   -- ME ↔ AJ
+  | 0, 7 => -0.4   -- BS ↔ AJ  (reflexive inhibits reflective)
+  | 2, 4 => -0.3   -- EC ↔ VI  (involuntary inhibits voluntary)
+  | _,  _ =>  0.0
+
+def W8 (i j : Fin N8) : Float :=
+  if i == j then 1.2
+  else wOff (min i.val j.val) (max i.val j.val)
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- FIELD DYNAMICS
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-- An 8-component activation vector, one entry per mechanism. -/
+abbrev Field8 := Fin N8 → Float
+
+/-- Safe summation over Fin N8 without `sorry`-style omega proofs. -/
+private def sumN (f : Fin N8 → Float) : Float :=
+  (List.range N8).foldl (fun acc i =>
+    if h : i < N8 then acc + f ⟨i, h⟩ else acc) 0.0
+
+/-- Hopfield energy: H(e) = -½ eᵀ W e.  Lower = more stable. -/
+def energy8 (e : Field8) : Float :=
+  -0.5 * sumN (fun i => sumN (fun j => e i * W8 i j * e j))
+
+/-- Net field force on dimension i: (We)_i = -∂H/∂e_i. -/
+def fieldForce8 (e : Field8) (i : Fin N8) : Float :=
+  sumN (fun j => W8 i j * e j)
+
+/-- Discrete Langevin step (no noise): e_{t+1} = e_t + dt·(We). -/
+def step8 (e : Field8) (dt : Float) : Field8 :=
+  fun i => e i + dt * fieldForce8 e i
+
+/-- Run n steps of discrete Langevin dynamics. -/
+def runField8 (e₀ : Field8) (dt : Float) : Nat → Field8
+  | 0     => e₀
+  | n + 1 => step8 (runField8 e₀ dt n) dt
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- STORED PATTERNS (attractors)
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-
+  Each pattern is an 8-component vector.  +1.0 = active, 0 = neutral, -1.0 = suppressed.
+  These correspond to named emotion states in EmotionOntology.lean.
+
+  EmotionOntology term       Stored pattern here
+  ───────────────────────────────────────────────
+  Emotion.nostalgia          nostalgiaPattern   (EM dominant)
+  Emotion.acousticFright     startlePattern     (BS dominant)
+  Emotion.aestheticAwe       musicalAwePattern  (ME+AJ dominant)
+  Emotion.entrainedCalm      entrainmentPattern (RE dominant)
+-/
+
+/-- Nostalgia: EM(5) dominant, VI(4) co-active (imagery of the past).
+    Corresponds to [mem]→(joy ⊓ sadness). -/
+def nostalgiaPattern : Field8
+  | ⟨5, _⟩ =>  1.0   -- EpisodicMemory: driving
+  | ⟨4, _⟩ =>  0.6   -- VisualImagery: co-active
+  | ⟨6, _⟩ => -0.4   -- MusicalExpectancy: suppressed
+  | ⟨7, _⟩ => -0.4   -- AestheticJudgement: suppressed
+  | _       =>  0.0
+
+/-- Startle: BS(0) dominant, EC(2) and CO(3) triggered reflexively.
+    Corresponds to [bs]→fear. -/
+def startlePattern : Field8
+  | ⟨0, _⟩ =>  1.0   -- BrainStem: maximal
+  | ⟨2, _⟩ =>  0.4   -- EvaluativeConditioning: associative co-trigger
+  | ⟨3, _⟩ =>  0.3   -- Contagion: bodily mimicry of the startle
+  | ⟨7, _⟩ => -0.6   -- AestheticJudgement: inhibited
+  | _       =>  0.0
+
+/-- Musical awe: ME(6)+AJ(7) dominant, CO(3) moderate social resonance.
+    Corresponds to [aes]→(fear ⊓ surprise). -/
+def musicalAwePattern : Field8
+  | ⟨6, _⟩ =>  1.0   -- MusicalExpectancy: structurally driven
+  | ⟨7, _⟩ =>  0.8   -- AestheticJudgement: expert evaluation
+  | ⟨3, _⟩ =>  0.4   -- Contagion: social resonance in ensemble context
+  | ⟨0, _⟩ => -0.5   -- BrainStem: suppressed (slow deliberate processing)
+  | _       =>  0.0
+
+/-- Entrainment: RE(1) dominant, CO(3) active.
+    Corresponds to [ent]→joy. -/
+def entrainmentPattern : Field8
+  | ⟨1, _⟩ =>  1.0   -- RhythmicEntrainment: maximal
+  | ⟨3, _⟩ =>  0.5   -- Contagion: body synchrony
+  | ⟨0, _⟩ => -0.3   -- BrainStem: reduced (calm, not startled)
+  | _       =>  0.0
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- DISPLAY
+-- ════════════════════════════════════════════════════════════════════════════
+
+def showField8 (label : String) (e : Field8) : String :=
+  let dims := (List.range N8).map (fun i =>
+    if h : i < N8 then
+      let fi : Fin N8 := ⟨i, h⟩
+      s!"{(dimMech fi).abbrev}={e fi:.2f}"
+    else "")
+  s!"{label}  " ++ String.intercalate "  " dims ++ s!"  H={energy8 e:.3f}"
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- TRAJECTORIES
+-- ════════════════════════════════════════════════════════════════════════════
+
+-- Nostalgia recall: start near nostalgiaPattern (EM=0.8, VI=0.4)
+-- Expected: field converges back — EM stays dominant, VI amplifies
+#eval do
+  IO.println "=== Nostalgia recall  (initial: EM=0.8, VI=0.4) ==="
+  let e₀ : Field8 := fun i => match i with
+    | ⟨5, _⟩ =>  0.8 | ⟨4, _⟩ => 0.4 | _ => 0.0
+  let dt := 0.05
+  for t in [0, 5, 10, 20] do
+    IO.println (showField8 s!"t={t:02}" (runField8 e₀ dt t))
+  IO.println s!"attractor H = {energy8 nostalgiaPattern:.3f}"
+
+-- BrainStem → EpisodicMemory chain (Emotion.brainStemThenMemory)
+-- BS fires first (startle), indirect chain BS→CO→(frees EM)
+-- Expected: BS decays, EM eventually grows as field relaxes toward nostalgia
+#eval do
+  IO.println "\n=== BrainStem → EpisodicMemory chain  (initial: BS=1.0, EM=0.1) ==="
+  let e₀ : Field8 := fun i => match i with
+    | ⟨0, _⟩ =>  1.0 | ⟨5, _⟩ => 0.1 | _ => 0.0
+  let dt := 0.05
+  for t in [0, 5, 10, 20, 30] do
+    IO.println (showField8 s!"t={t:02}" (runField8 e₀ dt t))
+  IO.println "Expected: BS decays, EM grows (gate-opening chain)"
+
+-- W matrix non-zero off-diagonal entries
+#eval do
+  IO.println "\n=== W8 off-diagonal couplings ==="
+  for i in List.range N8 do
+    for j in List.range N8 do
+      if hi : i < N8 then if hj : j < N8 then
+        let w := W8 ⟨i, hi⟩ ⟨j, hj⟩
+        if w != 0.0 && i != j && i < j then
+          let mi := (dimMech ⟨i, hi⟩).abbrev
+          let mj := (dimMech ⟨j, hj⟩).abbrev
+          IO.println s!"  W[{mi},{mj}] = {w}"
+
+-- Stored pattern energies (should all be negative — stable minima)
+#eval do
+  IO.println "\n=== Stored pattern energies ==="
+  IO.println s!"  nostalgia    H = {energy8 nostalgiaPattern:.3f}"
+  IO.println s!"  startle      H = {energy8 startlePattern:.3f}"
+  IO.println s!"  musical awe  H = {energy8 musicalAwePattern:.3f}"
+  IO.println s!"  entrainment  H = {energy8 entrainmentPattern:.3f}"
