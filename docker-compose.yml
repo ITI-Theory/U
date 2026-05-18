@@ -1,0 +1,11 @@
+services:
+  typedb:
+    image: vaticle/typedb:2.28.0
+    ports:
+      - "1729:1729"
+    volumes:
+      - typedb-data:/opt/typedb-all-linux-x86_64/server/data
+    restart: unless-stopped
+
+volumes:
+  typedb-data:

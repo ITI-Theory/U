@@ -1,0 +1,70 @@
+## scripts/query_emotions.tql
+## Example TypeQL queries for the OpenCyc KB.
+## Run in TypeDB Studio (localhost:1729) or via the Python driver.
+
+## ── 1. All emotion classes (direct subtypes of EmotionalState) ──────────────
+match
+  $super isa cyc-class, has cyc-label "EmotionalState";
+  (sub-class: $e, super-class: $super) isa subclass-of;
+  $e has cyc-label $lbl;
+get $e, $lbl;
+limit 50;
+
+## ── 2. The full emotion subhierarchy (any depth) ────────────────────────────
+## TypeDB 2.x does not have native transitive closure, so use Python for deep traversal.
+## For direct subtypes:
+match
+  $root isa cyc-class, has cyc-label $root-lbl;
+  $root-lbl contains "Emotion";
+  (sub-class: $child, super-class: $root) isa subclass-of;
+  $child has cyc-label $child-lbl;
+get $child, $child-lbl;
+
+## ── 3. What does Cyc say blends with Joy? ───────────────────────────────────
+match
+  $joy isa cyc-class, has cyc-label "Joy";
+  (input: $joy, output: $result) isa emotional-blend;
+  $result has cyc-label $lbl;
+get $result, $lbl;
+
+## ── 4. What causes Fear? ────────────────────────────────────────────────────
+match
+  $fear isa cyc-class, has cyc-label "Fear";
+  (cause: $c, effect: $fear) isa causes;
+  $c has cyc-label $lbl;
+get $c, $lbl;
+
+## ── 5. Emotions disjoint from Joy ────────────────────────────────────────────
+match
+  $joy isa cyc-class, has cyc-label "Joy";
+  (left: $joy, right: $other) isa disjoint-from;
+  $other has cyc-label $lbl;
+get $other, $lbl;
+
+## ── 6. All classes that have a WordNet sameAs link ───────────────────────────
+match
+  $c isa cyc-class, has cyc-same-as $sa, has cyc-label $lbl;
+  $sa contains "wordnet";
+get $c, $lbl, $sa;
+limit 20;
+
+## ── 7. Nostalgia — everything Cyc knows ─────────────────────────────────────
+match
+  $n isa cyc-class, has cyc-label "Nostalgia";
+  { $n has cyc-comment $comment; } or
+  { (sub-class: $n, super-class: $parent) isa subclass-of; $parent has cyc-label $parent-lbl; } or
+  { (cause: $cause, effect: $n) isa causes; $cause has cyc-label $cause-lbl; };
+get;
+
+## ── 8. Full list of mechanisms that inhibit an emotion ──────────────────────
+match
+  $e isa cyc-class; $e has cyc-label $e-lbl;
+  (inhibitor: $m, inhibited: $e) isa emotional-inhibition;
+  $m has cyc-label $m-lbl;
+get $e, $e-lbl, $m, $m-lbl;
+
+## ── 9. Count concepts per top-level supertypes ──────────────────────────────
+match
+  $root isa cyc-class, has cyc-label $root-lbl;
+  (sub-class: $child, super-class: $root) isa subclass-of;
+get $root-lbl; count;

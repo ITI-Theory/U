@@ -1,0 +1,97 @@
+##
+## OpenCyc → TypeDB schema
+##
+## OWL concept               TypeDB concept
+## ─────────────────────────────────────────────────────────
+## owl:Class                  cyc-class     (entity)
+## owl:ObjectProperty         cyc-property  (entity, meta)
+## rdfs:subClassOf            subclass-of   (relation)
+## owl:equivalentClass        equivalent-to (relation)
+## owl:disjointWith           disjoint-from (relation)
+## owl:sameAs                 same-as       (relation, for DBpedia/WordNet links)
+## rdf:type                   instance-of   (relation)
+##
+## Emotion-specific OWL ObjectProperties become first-class TypeDB relations:
+##   #$emotionalBlend         emotional-blend
+##   #$emotionalInhibition    emotional-inhibition
+##   #$causes                 causes
+##
+
+define
+
+# ── Attributes ───────────────────────────────────────────────────────────────
+
+cyc-uri     sub attribute, value string;   ## full OWL URI (key)
+cyc-label   sub attribute, value string;   ## rdfs:label (human-readable)
+cyc-comment sub attribute, value string;   ## rdfs:comment
+cyc-same-as sub attribute, value string;   ## owl:sameAs target URI (DBpedia etc.)
+
+# ── Core entities ─────────────────────────────────────────────────────────────
+
+cyc-concept sub entity,
+    abstract,
+    owns cyc-uri @key,
+    owns cyc-label,
+    owns cyc-comment;
+
+## OWL classes (the 239 k concepts)
+cyc-class sub cyc-concept,
+    owns cyc-same-as,
+    plays subclass-of:sub-class,
+    plays subclass-of:super-class,
+    plays equivalent-to:left,
+    plays equivalent-to:right,
+    plays disjoint-from:left,
+    plays disjoint-from:right,
+    plays instance-of:type,
+    plays emotional-blend:input,
+    plays emotional-blend:output,
+    plays emotional-inhibition:inhibitor,
+    plays emotional-inhibition:inhibited,
+    plays causes:cause,
+    plays causes:effect;
+
+## OWL named individuals
+cyc-individual sub cyc-concept,
+    plays instance-of:instance,
+    plays same-as:left,
+    plays same-as:right;
+
+# ── Ontological relations ─────────────────────────────────────────────────────
+
+subclass-of sub relation,
+    relates sub-class,
+    relates super-class;
+
+equivalent-to sub relation,
+    relates left,
+    relates right;
+
+disjoint-from sub relation,
+    relates left,
+    relates right;
+
+instance-of sub relation,
+    relates instance,
+    relates type;
+
+same-as sub relation,
+    relates left,
+    relates right;
+
+# ── Emotion-domain relations (OpenCyc ObjectProperties) ──────────────────────
+
+## (#$emotionalBlend A B)  →  blend-input: A, blend-output: B
+emotional-blend sub relation,
+    relates input,
+    relates output;
+
+## (#$emotionalInhibition A B)  →  W_ij < 0, A suppresses B
+emotional-inhibition sub relation,
+    relates inhibitor,
+    relates inhibited;
+
+## (#$causes A B)  →  mechanism A triggers emotional state B
+causes sub relation,
+    relates cause,
+    relates effect;

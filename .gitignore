@@ -1,0 +1,20 @@
+# OpenCyc OWL download (50 MB — fetch with: python scripts/load_opencyc.py)
+data/
+!data/.gitkeep
+
+# Lean build artefacts
+.lake/
+build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# macOS
+.DS_Store
+
+# Editor
+*.swp
+*~
