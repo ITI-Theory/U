@@ -877,7 +877,7 @@ with dissociative states.*
     │                 │          ╚════════════╝
     └──────────────────────────────► EMOTIONAL STATE SPACE
 ```
-*Figure 2. Schematic energy landscape. Fight/flight are high-energy, unstable local minima.
+*Figure 3b. Schematic energy landscape. Fight/flight are high-energy, unstable local minima.
 Freeze is a low-energy but isolated attractor — easy to enter, hard to escape. Regulated calm
 is the global energy minimum.*
 
@@ -1014,7 +1014,7 @@ expression of emotional intensity.
            (timbre reflects    (pitch/velocity     (field map:
             dissonance)         reflects energy)    wave topology)
 ```
-*Figure 3. The Soma-Field Instrument: input, computation, and multimodal output.*
+*Figure 4. The Soma-Field Instrument: input, computation, and multimodal output.*
 
 ## 6.3 The Feedback Loop
 
@@ -1154,7 +1154,7 @@ traumatised field.
      ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
        small steps do not reach it; a qualitatively different move is needed
 ```
-*Figure 3. The same emotional field mode under two dynamic regimes. Top: regulated
+*Figure 5. The same emotional field mode under two dynamic regimes. Top: regulated
 dynamics — the field oscillates and returns to a low baseline between episodes; conscious
 emotion (above T) is episodic and resolves. Bottom: C-PTSD-modified dynamics — the memory
 kernel elevates the baseline so that the field rarely returns to rest; episodes bleed into
@@ -1533,7 +1533,7 @@ component:
 𝓟 ──→ 𝓞_haptic   (vibration pattern = tension gradient)
 ```
 
-*Figure A1. Output functors: each output modality is an independent functor from 𝓟 to its
+*Figure A2. Output functors: each output modality is an independent functor from 𝓟 to its
 own output category 𝓞. Adding a new output (e.g., a fractal hologram) requires only
 implementing a new functor O; no upstream component changes.*
 
