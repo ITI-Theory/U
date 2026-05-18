@@ -236,6 +236,36 @@ reinstates whole somatic states in response to partial cues — has had no compa
 formal treatment. The architectural description of the vertebrate brain was, until this
 paper, half-built.
 
+**Four kinds of formal intelligence.** This architectural gap can be situated within a
+wider taxonomy. Four quotients have been proposed to describe the landscape of biological
+intelligence across popular and scientific usage. They map onto the formal components of
+this model with an exactness that is not coincidental:
+
+| Quotient | What it measures | Biological substrate | Soma-Field status |
+|---|---|---|---|
+| IQ — cognitive | Pattern recognition, reasoning, prediction | Neocortex | Built (1943–): McCulloch & Pitts → Hopfield → transformers |
+| EQ — emotional | Valuation, arousal, affect regulation | Limbic system | **Built here**: $W$, $K(\tau)$, $H(\mathbf{e})$, $C_\text{HRV}$, $\dot{H}$ |
+| AQ — adversity | Structural resilience under threat | PFC–limbic axis | **Built here**: $S_\text{inst}$, $\partial\|W\|/\partial t$, $C_\text{HRV}^\text{recovery}$ |
+| SQ — social | Attunement, theory of mind, relational navigation | Mirror system, TPJ | *Next paper*: $\kappa_r$, multi-field coupling |
+
+*Table 3. Four dimensions of biological intelligence mapped onto the Soma-Field Model. The
+neocortical lineage (IQ) has been formally modelled for eighty years. Emotional intelligence
+(EQ) and adversity resilience (AQ) are formalised here for the first time. Social
+intelligence (SQ) is defined as the next extension of the framework.*
+
+AQ — adversity quotient — is formally the capacity to update $W$ after adversity
+without the adversity permanently becoming $W$. Its mathematical definition appears in
+Section 3.4; its pathological lower bound is C-PTSD, in which all three components of
+AQ are simultaneously compromised (Appendix B.2).
+
+The AI alignment implication follows directly. Current artificial systems have high IQ by
+construction and zero EQ, AQ, or SQ. The absence of internal valuation means that
+valuation must be injected externally — through reinforcement learning from human feedback
+(RLHF) and related techniques — which is structurally brittle for the same reason that a
+field with no limbic layer is brittle: the system has no internal stake in what it does.
+The Soma-Field formalisation specifies what that internal stake would look like, were it
+ever built.
+
 A further lineage note is worth recording. Ramsauer et al. (2020) demonstrated that
 continuous-state modern Hopfield networks are mathematically equivalent to the
 self-attention mechanism in transformer language models. The softmax attention operation

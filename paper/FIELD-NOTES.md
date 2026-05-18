@@ -472,3 +472,106 @@ runs = proof passes.
 | the-tensor.md | V5 (live) | V4, V5 frozen |
 | FIELD-NOTES.md | this file | started 18 May 2026 |
 | .github-private/profile/README.md | manifesto | original backed up as README.original.md |
+
+---
+
+## Session: 18 May 2026 (post-bioRxiv)
+
+### The String as Green's Function — and What That Changes
+
+*Origin:* Question about the impulse response framing and its implications for string
+theory and for the scope of the paper.
+
+*The observation:* Standard string theory defines the string as THE fundamental
+object. Its vibrational modes are particles. The string is ontologically primary.
+
+The Soma-Field Model inverts this: the 1D conscious percept is the **impulse
+response** (Green's function) of the 11D emotional manifold. The string is not the
+thing — it is what the thing does when probed. Formally:
+
+$$G(x, x') = \langle x | L^{-1} | x' \rangle$$
+
+where $L$ is the differential operator governing the 11D dynamics. The string IS
+the Green's function of the manifold.
+
+**The wave implication (user-identified):**
+"If what's important to the existence of something is the other thing, that means
+it's a wave by definition."
+
+Formally correct. Green's functions always satisfy $L \cdot G = \delta$ where $L$
+is a wave-type operator. So if X is *defined as* the impulse response of Y, then X
+satisfies a wave equation structurally — not because it oscillates but because the
+ontological definition is equivalent to a wave equation solution. The wave character
+is built into the category.
+
+**Other models of what a string is — and where this model fits:**
+
+| Model | What the string *is* | Primary object |
+|---|---|---|
+| Nambu-Goto / Polyakov | 1D geometric object | The string itself |
+| D-branes (Polchinski) | Open string modes on higher-dim branes | The brane |
+| BFSS matrix model | Off-diagonal elements of D0-brane matrices | The matrix |
+| AdS/CFT (Maldacena) | String = large-N limit of boundary gauge theory | The boundary CFT |
+| Ambitwistor strings (Mason & Skinner 2014) | String living in the space of null geodesics — propagation geometry, not spacetime | Propagation geometry |
+| **Soma-Field Model** | String = impulse response = Green's function of 11D manifold | **The manifold's response function** |
+
+Closest to our construction: **ambitwistor strings** — the string lives in
+propagation space, not configuration space. We go one step further: the string
+IS propagation.
+
+**The historical irony:**
+String theory was not discovered as a theory of strings. Veneziano (1968) wrote
+down a scattering amplitude — an S-matrix entry, a response function — and
+Nambu/Nielsen/Susskind later identified the string as whatever produces that
+amplitude. The response came first. The string was reverse-engineered from the
+response function.
+
+Our model recapitulates this order deliberately: we keep the response function
+and do not reify the string.
+
+**The relational ontology consequence:**
+If X = impulse response of Y, then:
+1. X is relational — exists only in relation to Y
+2. X is structurally a wave (Green's function argument above)
+3. If Y is also defined by its response to X, there is no primary object — only
+   the relation exists
+
+This is Rovelli's relational QM and ontic structural realism, derived from
+first principles in the Soma-Field framework.
+
+**The clinical consequence:**
+An emotion is not a thing you have. It is the field's response pattern to being
+probed in a particular configuration of W and stimulus. You cannot hold an emotion
+outside its context any more than you can hold an impulse response outside its
+system. This is the structural reason why decontextualised emotional regulation
+("just calm down") fails: it requests the Green's function of a different system
+than the one running.
+
+**The implication that makes the paper bigger:**
+
+The model was previously framed as "using physics as a conceptual tool for
+understanding emotion." The Green's function identification upgrades this.
+The claim is now:
+
+> Emotional experience and fundamental particles are the same mathematical object:
+> the impulse response (Green's function) of a higher-dimensional coupling manifold.
+> They differ only in the manifold's dimension and the nature of the probe.
+
+This changes the paper from "a formal model of emotion inspired by physics" to
+"a demonstration that emotional experience and physical particles share a common
+mathematical structure." The analogy is not illustrative — it is the claim.
+
+**Specific changes to make:**
+1. Abstract: add sentence — "The conscious percept is identified as the
+   one-dimensional impulse response (Green's function) of this manifold,
+   placing emotional experience and fundamental particles in the same
+   mathematical category."
+2. §2.3: upgrade "QFT as conceptual tool" → "the mathematical object is
+   formally the same type as objects in M-theory, not merely analogous."
+3. Opening of §3: establish the primary/secondary inversion — the field
+   is primary; the felt emotion is the probe response.
+4. Possibly: title change. "The Soma-Field: Emotional Experience as the
+   Green's Function of an 11-Dimensional Coupling Manifold."
+
+*Status:* Not yet applied to paper. Discuss before applying.
+
