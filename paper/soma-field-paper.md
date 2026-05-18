@@ -368,6 +368,78 @@ $W$. Therapy does not fix the tissue. It updates the model.
 
 ---
 
+## 2.7 Correspondence with Existing Emotion Representations
+
+A reasonable objection to any new framework is: *there is already a great deal of structure
+out here.* This is true. The emotion research literature contains several well-developed
+representational systems, and the Soma-Field Model must be positioned relative to them.
+The short answer is that every existing representation is *descriptive*; the Soma-Field
+Model is *dynamical*. The longer answer follows.
+
+**Categorical taxonomies** (Ekman 1972; Plutchik 1980; Parrot 2001) assign names and
+hierarchical membership to emotional states. They are ontologies in the formal sense: a
+T-Box of classes and subclass relations. Plutchik's wheel additionally defines a *blend*
+operation — Love := Joy $\sqcap$ Trust, Awe := Fear $\sqcap$ Surprise — which is precisely
+the OWL2 `intersectionOf` construction. These systems tell you what to call a state. They
+do not tell you how a state evolves, or which attractor a system settles in when two
+mechanisms fire simultaneously.
+
+**Dimensional models** (Russell 1980; Mehrabian and Russell 1974) embed emotions in a
+continuous space, canonically Valence × Arousal (the *circumplex*), sometimes extended to
+Pleasure × Arousal × Dominance. These models capture the *coordinates* of a state.
+The energy landscape of the Soma-Field Model — the function $H(\mathbf{e})$ over
+emotion-space — is the dynamical generalisation of the circumplex: the circumplex is a
+snapshot of positions; the energy landscape is the surface over which the field moves. The
+stable attractors of $H$ are the emotion categories; their coordinates are the circumplex
+positions.
+
+**Process and appraisal models** (Scherer 1999; Frijda 1986; the OCC model of Ortony,
+Clove and Collins 1988) describe the *sequence of evaluations* through which a stimulus
+becomes an emotion. They are closer to the Soma-Field dynamics — they include temporal
+stages — but they are deterministic and single-threaded: one appraisal chain, one output.
+The Soma-Field replaces this with a parallel field update: all modes evolve simultaneously,
+governed by the full $W$ matrix.
+
+**Music-specific schemas** (BRECVEMA, Juslin and Västfjäll 2008; Juslin *et al.* 2011;
+GEMS, Zentner *et al.* 2008) are the closest antecedents to the present model. The
+BRECVEMA framework identifies eight distinct psychological mechanisms through which music
+evokes emotion — Brain stem reflex, Rhythmic entrainment, Evaluative conditioning,
+Contagion, Visual imagery, Episodic memory, Musical expectancy, Aesthetic judgement — each
+with distinct evolutionary origins, processing speeds, and neural substrates. These
+mechanisms are the *object properties* of the emotion-induction ontology: they specify
+which musical features activate which emotional outputs. Juslin explicitly identifies the
+open problem: *"Exploring how various musical emotions come about through the interaction
+of multiple psychological mechanisms is an exciting endeavour that has just begun"*
+[@juslin2011handbook, p. 638]. The $W$ coupling matrix is the formal answer to that open
+problem. Where BRECVEMA gives a list of mechanisms with characteristic outputs, the
+Soma-Field gives the interaction tensor $W_{ij}$ that specifies, with numerical precision,
+what happens when mechanisms $i$ and $j$ fire concurrently.
+
+**Body maps** (Nummenmaa *et al.* 2014) map emotions to their somatic distribution —
+where in the body each emotion is felt. These are precisely the spatial support of the
+soma-field modes: the field configuration corresponding to an attractor state is the
+body map of that emotion. Body maps are measurements of the attractors; the Soma-Field
+is the dynamical system that generates them.
+
+**The formal correspondence table** extends Table 2 to include these systems:
+
+| Existing representation | What it captures | Soma-Field equivalent |
+|---|---|---|
+| Ekman categories | Attractor labels (names) | Values of $\mathbf{e}$ at energy minima |
+| Plutchik dyads ($A \sqcap B$) | Blend attractors | Metastable states between two energy minima |
+| Russell circumplex | Coordinates (valence, arousal) | Projection of $H(\mathbf{e})$ onto two axes |
+| OCC appraisal tree | Single-path sequential process | Single trajectory in the full field |
+| BRECVEMA mechanisms | Object properties: stimulus → emotion | Rows of $W$: mechanism $i$ activates mode $j$ |
+| Body maps (Nummenmaa) | Spatial support of each attractor | Modal structure of $\mathbf{e}$ at each minimum |
+
+None of these correspondences require modifying either the existing representations or the
+Soma-Field Model. They are consequences of the model's structure. The formal machinery for
+exploring these correspondences — typing BRECVEMA mechanisms as Lean inductive constructors,
+Plutchik blends as type intersections, mechanism profiles as decidable propositions — is
+developed in the companion file `src/EmotionOntology.lean`.
+
+---
+
 # 3. The Soma-Field Model
 
 ## 3.1 Emotions as a Persistent Wave Field
