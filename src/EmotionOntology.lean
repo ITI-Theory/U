@@ -589,3 +589,57 @@ def FeynmanDiagram.order : FeynmanDiagram → Nat
   nostalgia           expr    EquivClass          metastable min   emotionalBlend  2-vertex diag
   brainStemThenMemory chain   propertyChain       W_ik · W_kj      causes∘causes   4-vertex diag
 -/
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- LIVE TYPEDB QUERIES  (Interpreter 6 — OpenCyc KB, runtime)
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-
+  Prerequisites:
+    docker compose up -d                        (start TypeDB)
+    pip install -r scripts/requirements.txt
+    python scripts/load_opencyc.py              (load ~239k concepts, ~15 min)
+
+  Then run the #eval blocks below.  Each calls scripts/query_cyc.py via
+  IO.Process.output, querying the live KB and printing results inside Lean.
+
+  This is Interpreter 6: not a typeclass instance (the KB is runtime, not
+  compile-time) but a live bridge between the DSL and the OpenCyc ground truth.
+  Every term in Emotion.* can be sent to TypeDB to retrieve Cyc's own
+  description, its superclass chain, and its cause/effect relations.
+-/
+
+/-- Run a query_cyc.py command and return its output.
+    Requires Python + TypeDB running.  Returns error string on failure. -/
+def queryCyc (args : Array String) : IO String := do
+  let result ← IO.Process.output {
+    cmd  := "python"
+    args := #["scripts/query_cyc.py"] ++ args
+  }
+  return if result.exitCode == 0 then result.stdout
+         else s!"[TypeDB error: {result.stderr.take 200}]"
+
+-- What does Cyc say about Nostalgia?
+-- Expected: parents = PsychologicalAttribute / EmotionalState
+--           causedBy = EpisodicMemoryRetrieval
+#eval queryCyc #["Nostalgia"] >>= IO.println
+
+-- What does Cyc say about Fear?
+#eval queryCyc #["Fear-Emotion"] >>= IO.println
+
+-- What does Cyc say about Joy?
+#eval queryCyc #["Joy-Emotion"] >>= IO.println
+
+-- All direct subtypes of EmotionalState (how many has Cyc?  More than our 14?)
+#eval queryCyc #["--subtypes", "EmotionalState"] >>= IO.println
+
+-- Validate every CycRef string in this file against TypeDB
+-- (runs scripts/validate_cycrefs.py — shows ✓ / ✗ for each)
+#eval do
+  let result ← IO.Process.output {
+    cmd  := "python"
+    args := #["scripts/validate_cycrefs.py"]
+  }
+  IO.println (if result.exitCode == 0 then result.stdout
+              else result.stdout ++ result.stderr)
