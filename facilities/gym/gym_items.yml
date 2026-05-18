@@ -1,5 +1,7 @@
 # yaml-language-server: $schema=../../.vscode/gym.schema.json
+
 gym_items:
+  # strength
   - id: squat_stands
     vendor_ref: MS-ATX-DICO-SQS
     name: ATX Free Stands Series 800 Squat Stands
@@ -21,6 +23,126 @@ gym_items:
       - type: reference
         url: https://motionsports.de/cdn/shop/files/Verbindungssstrebe_a38ad0b4-e4fa-4976-8496-f780363b526d.webp?v=1768998356&width=2048
 
+  - id: atx_connecting_strut
+    name: ATX® connecting strut for free stands
+    vendor_ref: MS-ATX-SQS-BRA
+    url: https://motionsports.de/en/products/atx%C2%AE-verbindungsstrebe-fur-free-stands?pr_prod_strat=jac&pr_rec_id=9b15697a3&pr_rec_pid=9052580348233&pr_ref_pid=9052709519689&pr_seq=uniform
+    qty: 2
+    type: strength
+    state: planned
+    area: garage
+
+  - id: weight_bench
+    vendor_ref: ATX-MBX-750-PU
+    name: ATX Adjustable Weight Bench - Warrior PU
+    type: strength
+    qty: 1
+    state: planned
+    area: garage
+    url: https://motionsports.de/en/products/atx%C2%AE-warrior-bench-hantelbank-wide-mit-pu-polster
+    attrs:
+      weight_kg: 48
+      width_cm: 63.5
+      length_cm: 122.5
+      height_cm: 44
+    images:
+      - type: product
+        url: https://motionsports.de/cdn/shop/files/atx-mbx-750_pu_01.webp?v=1728402421&width=2048
+      - type: dimensions
+        url: https://motionsports.de/cdn/shop/files/ATX-MBX-750-PU__MS_5c78011c-83e1-4b9f-99e3-d4d52a5fc173.webp?v=1728402421&width=2048
+      - type: vertical
+        url: https://motionsports.de/cdn/shop/files/atx-mbx-750-pu_6_08bcaba4-d07c-4058-ab61-00b7a1c9d397.webp?v=1728402421&width=2048
+
+  - id: weight_plate_set
+    name: ATX® Calibrated Steel Plates CC – 150 kg Value Pack
+    vendor_ref: MS-VP-50-LXST-CC
+    url: https://motionsports.de/en/products/atx%C2%AE-calibrated-steel-plates-cc-150-kg-vorteilspaket
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  - id: bumper_plate_set
+    name: ATX Bumper Plate Color Code - 150 kg Set
+    vendor_ref: MS-50-BCU-CC-150KG-SET
+    url: https://motionsports.de/en/products/atx%C2%AE-bumper-plate-color-code-150-kg-set?_pos=4&_fid=343e2733a&_ss=c
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  - id: trap_bar
+    name: Body-Solid Tools Open Trap Bar OTB100
+    vendor_ref: OTB100
+    url: https://bodysolid-europe.com/products/body-solid-tools-open-trap-bar-otb100?variant=48488847343965
+    qty: 1   
+    type: strength
+    state: planned
+    area: garage
+
+  - id: olympic_bar
+    name: ATX Power Bar Black Mamba - spring steel
+    vendor_ref: MS-LH-50-ATX-BM
+    url: https://motionsports.de/en/products/atx%C2%AE-power-bar-black-mamba-federstahl?_pos=7&_fid=8a0a11352&_ss=c
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  - id: dumbell
+    name: Dumbbell with ball bearing 50 mm - incl. fasteners
+    vendor_ref: MS-KH-50-2209
+    url: https://motionsports.de/en/products/kurzhantel-mit-kugellagerung-50-mm-inkl-verschlusse
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  - id: core_trainer_landmine
+    name: ATX® Core Trainer Landmine
+    vendor_ref: MS-ATX-BAHL-5678
+    url: https://motionsports.de/en/products/atx%C2%AE-core-trainer-landmine?pr_prod_strat=pinned&pr_rec_id=9c3f8af92&pr_rec_pid=9052584149321&pr_ref_pid=9052709519689&pr_seq=uniform
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  - id: 50mm_barbell_collar
+    name: ATX Compression Lock Pro with Safety Lock
+    vendor_ref: MS-V-50-HQ-ATX
+    url: https://motionsports.de/en/products/atx%C2%AE-kompressionsverschluss-pro-mit-sicherung?_pos=1&_fid=ab80bc247&_ss=c
+    qty: 4
+    type: strength
+    state: planned
+    area: garage
+
+  - id: rollable_weight_plate_trolley
+    name: ATX Rollable Weight Plate Tree Ø 50 mm
+    vendor_ref: MS-ATX-WPT-3
+    url: https://motionsports.de/en/products/atx%C2%AE-weight-plate-tree-o-50-mm-stander?variant=50011982659913
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  #weight plate set
+
+  #small plate set
+
+  #trx
+
+  #bench crunch ext
+
+  - id: lat_pull_bar
+    name: ATX lat pull bar Black Line
+    vendor_ref: MS-G-7001
+    url: https://motionsports.de/en/products/atx%C2%AE-latzugstange-black-line-lat-bar?pr_prod_strat=e5_desc&pr_rec_id=3bd5e5faf&pr_rec_pid=9052708241737&pr_ref_pid=9052707357001&pr_seq=uniform
+    qty: 1
+    type: strength
+    state: planned
+    area: garage
+
+  # boxing
   - id: heavy_bag
     vendor_ref: G3070
     name: Heavy Bag
@@ -69,3 +191,32 @@ gym_items:
     images:
       - type: product
         url: ../../images/uppercut-bag/product.jpg
+
+  - id: leather_bag_mits_16oz
+    name: TITLE Boxing Old School Leather Bag Boxing Gloves 2.0 Maroon
+    vendor_ref: OSLBG2 16 oz MR
+    url: https://www.titleboxing.com/products/title-boxing-old-school-leather-sparring-gloves-2-0?variant=43659161960663
+    type: boxing
+    qty: 1
+    state: planned
+    area: garage
+
+  - id: trolley
+    name: Roadworx Offroad Cart
+    url: https://www.thomannmusic.ch/intl/roadworx_offroad_cart.htm
+    qty: 2
+    type: boxing
+    state: planned
+    area: garage
+
+  #plates "hook" for double ended bag
+
+  #double end bag
+
+  #glove tape
+
+  #bag springs
+
+  #bag swivels
+
+  #focus mitts

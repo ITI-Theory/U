@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=../../.vscode/gym.schema.json
+
+garage_items:
+
+  # storage
+
+  #boxes for gear
+
+  # Floor
+
+  - id: floor_tile
+    vendor_ref: MS-RTF-20-PRE
+    name: Gymfloor Granulate Floor Protection Plate Premium Extra Fine - 1000 x 1000 x 20 mm
+    type: flooring
+    qty: 15
+    state: planned
+    area: garage
+    url: https://motionsports.de/en/products/gymfloor%C2%AE-granulat-bodenschutzplatte-premium-extra-fein-1000-x-1000-x-20-mm
+    attrs:
+      weight_kg: 18
+      width_cm: 100
+      length_cm: 100
+      height_cm: 2
+    images:
+      - type: product
+        url: https://motionsports.de/cdn/shop/files/rtf-20-pre_03_1.jpg?v=1715867230&width=2048
+# Lights
+
+# Ceiling mounts
+
+#bag mount
+#trx mounts
+
