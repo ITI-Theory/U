@@ -630,3 +630,214 @@ respective underlying field. The original paper stated "not metaphor"; Version 2
    TikZ diagrams (Figs 1, 4, A2) added to paper/figures/.
 
 ---
+
+
+---
+
+## Session Entry — May 2026: Type Poaching — The Method and Its Extensions
+
+### The Method
+
+All substantial theoretical progress in this paper has used a single technique.
+It deserves a name: **structural identification by dimensional isomorphism**.
+
+The procedure:
+1. Write down the dimensional signature (units + pole structure + conservation law)
+   of the unknown emotional quantity.
+2. Search physics for an object with the same signature.
+3. If found: the emotional quantity **is** that object, not analogous to it.
+   Import all theorems, predictions, and machinery wholesale.
+4. Check predictions against clinical data.
+
+Veneziano used this in reverse: had the amplitude, found the theory.
+This paper does it forward. The method is itself publishable as a methodological note.
+
+---
+
+### What Has Already Been Poached
+
+| Emotional quantity | Poached from | Result |
+|---|---|---|
+| Conscious percept | Feynman propagator pole (QFT) | Percept = Green's fn impulse response |
+| Attractor landscape | Ising Hamiltonian / Hopfield energy | H(e) = -½eᵀWe |
+| Perception threshold T_i | Randall-Sundrum brane thickness | Alexithymia = thick brane |
+| Coupling manifold W | G₂ holonomy manifold | Trauma deforms the manifold |
+| BRECVEMA eigenmodes | Normal modes of W | Natural resonances of the field |
+
+---
+
+### Candidates for the Next Round
+
+#### 1. Renormalization Group Flow — Therapy as RG Flow
+
+$$\frac{dW_{ij}}{d\mu} = \beta(W_{ij})$$
+
+\mu = resolution / depth of processing. UV fixed point = raw unprocessed traumatic
+material. IR fixed point = integrated narrative / regulated calm. Therapy is an
+RG flow from UV to IR.
+
+**Key prediction:** The attractor topology (fight/flight/freeze/calm basins) is
+RG-invariant. The coupling weights W_{ij} run with \mu. This is why every
+therapeutic modality (cognitive, somatic, relational) finds the same attractors
+— they are addressing different renormalization scales of the same manifold.
+The Callan-Symanzik equation applies directly:
+
+$$(\mu\partial_\mu + \beta(g)\partial_g - n\gamma) G^{(n)} = 0$$
+
+The n-point correlation functions of the soma-field are scale-covariant;
+their scaling dimensions are the anomalous dimensions \gamma.
+
+---
+
+#### 2. Topological Protection of Trauma — Winding Number / Soliton
+
+Some trauma configurations carry a **topological charge** (winding number)
+that cannot be changed by smooth, small perturbations of the field.
+
+This is the formal account of why cognitive reframing does not resolve trauma:
+cognitive approaches are smooth deformations. A topological charge requires
+a large-amplitude excitation to unwind. EMDR, somatic flooding, MDMA-assisted
+therapy, and psychedelic-assisted processing are candidate topological-charge
+annihilation events: they temporarily increase field energy above the topological
+barrier, permitting the winding number to change.
+
+The stability of trauma is therefore not psychological rigidity — it is
+topological protection. It is the same mechanism that protects magnetic
+monopoles and quantum Hall edge states.
+
+---
+
+#### 3. Wilson Loop / Holonomy — “I’ve Been Through This Before But I’m Different Now”
+
+Parallel transport of an emotional state around a closed therapeutic circuit
+returns not to the starting point but to a rotated one. The difference is the
+holonomy, and it equals the integral of the curvature over the enclosed area:
+
+$$\text{Holonomy}(\gamma) = \mathcal{P}\exp\left(\oint_\gamma A_\mu \, dx^\mu\right)$$
+
+where A_\mu is the connection on the emotional manifold (W as connection, not
+just matrix). A skilled therapist who repeatedly approaches the same material
+from different angles is computing the holonomy of the manifold. The measurement
+IS the therapeutic intervention: the act of transporting the state around the
+loop reveals and partially corrects the curvature.
+
+---
+
+#### 4. Einstein A and B Coefficients — Spontaneous vs Stimulated Emotional Relaxation
+
+Every emotional mode i has:
+- **A_i**: rate of spontaneous relaxation (emotion naturally resolves)
+- **B_i**: rate of stimulated emission (another person’s emotion triggers mode i — contagion)
+
+The ratio A_i / B_i is a fundamental constant of mode i.
+The Einstein relation for the soma-field: A_i = (\omega_i^3 / \pi^2 c^3) B_i
+(where c is the speed of emotional propagation).
+
+**Depression as suppressed A_i:** The mode cannot spontaneously relax.
+Treatment must change W to modify the energy level structure, increasing A_i.
+Antidepressants as stimulated-emission suppressors? (Lower B, maintain A.)
+
+**Emotional contagion as stimulated emission:** B_i determines susceptibility
+to the same emotion in others. High B_i = high empathic resonance in mode i.
+
+---
+
+#### 5. The Emotional Planck Constant \hbar_e — From BPM Dimensional Analysis
+
+The soma-field propagator:
+
+$$[\tilde{G}(\omega)] = \frac{[\sigma_{\text{eff}}^2]}{[\omega^2]}$$
+
+To map onto the QFT propagator [GeV^{-2}], the conversion factor has units
+[emotion / GeV^{-1}] = [emotion · GeV]. Call this \hbar_e.
+
+Setting the natural emotional timescale = cardiac cycle \approx 1s at 60 bpm:
+
+$$\hbar_e \sim 1 \, [\text{emotional unit}] \cdot \text{s}$$
+
+**Consequence:** BPM is not a *correlate* of emotional state. It IS the
+Fourier projection of the soma-field onto the autonomic channel. The HRV power
+spectrum is the soma-field propagator $|\tilde{G}(\omega)|^2$ measured
+non-invasively through the body. HRV biofeedback is direct measurement of
+the field’s spectral density.
+
+This also gives an **emotional de Broglie relation:** each emotional mode has
+a wavelength \lambda_e = h_e / p_e where p_e is the “momentum”
+(rate of change of emotional state). Rapidly-changing states (panic) have
+short wavelengths; slowly-evolving states (grief, longing) have long ones.
+
+---
+
+#### 6. Spontaneous Symmetry Breaking — The Goldstone Afterglow
+
+When the emotional field settles into an attractor basin, the continuous
+symmetry of the field equations is broken. By Goldstone’s theorem, massless
+modes appear — these are the **Goldstone bosons of the soma-field**.
+
+Phenomenology: after an emotion resolves (symmetry breaks), a massless
+residual mode persists indefinitely at arbitrarily low energy. This is the
+“afterimage” or “tonal quality” of an emotion after it nominally resolves —
+the grief that is no longer acute but never fully absent. The Goldstone mode
+costs zero energy to excite. It is always there. This is not pathology; it is
+the formal consequence of having resolved the emotion at all.
+
+---
+
+#### 7. Gravity m³ — The Emotional Gravitational Constant
+
+Newton’s G: [G] = m^3 kg^{-1} s^{-2} = (m/s^2) · (m^2/kg)
+= acceleration / surface_mass_density.
+
+The dimensional isomorphism:
+- Gravitational acceleration g \leftrightarrow emotional arousal \ddot{e}
+  (second derivative of emotional state — onset/offset rate of change)
+- Surface mass density \Sigma \leftrightarrow coupling density W/n
+- Gravitational constant G \leftrightarrow emotional coupling constant G_e
+
+$$G_e = \frac{\ddot{e}_i}{W_{ij}/n}$$
+
+Units: [s^{-2}] / [coupling/neuron] = G_e has units [s^{-2} · neurons / coupling]
+
+**Cardiac version:** d^2(HR)/dt^2 (BPM acceleration, units bpm/s) is the
+directly measurable projection of \ddot{e} onto the cardiac channel.
+G_e can in principle be estimated from HRV ramp-up data.
+
+**Emotional Schwarzschild radius:** For a traumatic memory of “mass” M_k
+(amplitude of memory kernel A_k), the radius inside which no emotional
+state can escape — the attractor well so deep that no trajectory exits —
+
+$$r_s^{(e)} = \frac{2 G_e M_k}{v_e^2}$$
+
+where v_e is the speed of emotional state propagation.
+A “black hole” trauma has r_s^{(e)} > \text{basin diameter}.
+
+---
+
+### The SQ Paper — What Type Poaching Predicts It Will Need
+
+SQ (Social / Relational Intelligence Quotient) requires:
+- **Two-body problem:** the relative coordinate e_1 - e_2 and centre-of-mass e_1 + e_2
+- **Entanglement:** W_{12} off-diagonal blocks — non-zero means the two fields cannot
+  be described independently. Relational trauma = entanglement in the off-diagonal.
+- **Synchrony as resonance:** two soma-fields coupled externally will frequency-lock
+  when \omega_1 \approx \omega_2 (Huygens synchronisation / Arnold tongue). This is
+  attunement. The Arnold tongue width = the bandwidth of empathic coupling.
+- **The dyadic propagator:** G_{12}(\omega) — a 2\times 2 matrix propagator with
+  off-diagonal entries. The poles of det(G_{12}) are the resonances of the dyad.
+
+---
+
+### Open Thread: The Name of the Method
+
+"Type poaching" is vivid but informal. Candidate names:
+1. **Structural identification by dimensional isomorphism** (precise, dull)
+2. **Formal analogy lifting** (Lakoff-adjacent, too soft)
+3. **Mathematical co-identification** (what the paper calls it implicitly)
+4. **Functor-theoretic identification** (accurate: it IS a functor from
+   PhysicsCategory to EmotionCategory that preserves the type signature)
+
+The functor reading: if there exists a functor F: Phys \to Emotion that maps
+the Feynman propagator to the soma-field propagator and preserves composition,
+then the two theories are formally equivalent in all theorems that factor through
+the type signature. The paper is, implicitly, constructing this functor.
+
