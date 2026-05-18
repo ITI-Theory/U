@@ -40,7 +40,8 @@ abstract: |
 keywords:
   - somatic psychotherapy
   - emotional field
-  - quantum field theory analogy
+  - Green's function identification
+  - impulse response
   - Hopfield energy function
   - polyvagal theory
   - biofeedback
@@ -382,6 +383,40 @@ that oscillates and a trauma trace that decays.
 is a single mathematical entity in two notations. These correspondences were not constructed
 after the fact; they are the reason the QFT framework was recognised as relevant.*
 
+**The central identification — particle and percept as poles in their respective propagators.**
+All four correspondences above follow from one structural fact. In QFT, a particle is not
+a separate object from the field. It is a *pole* in the field’s propagator — the Green’s
+function evaluated in momentum space:
+
+$$\tilde{G}_{\text{QFT}}(k^\mu) = \frac{i}{k^2 - m^2 + i\varepsilon}$$
+
+The particle exists precisely when the four-momentum satisfies $k^2 = m^2$ — the
+*on-shell condition*. The particle is the singularity in the field’s response to a
+point source: the field’s Green’s function, evaluated at its own resonance.
+
+Diagonalise $W$ with eigenvalues $\lambda_i$ (the natural resonance frequencies of the
+emotional modes). The soma-field propagator — the two-point correlator
+$\langle e_i(t)\,e_i(t')\rangle$ in the frequency domain — is:
+
+$$\tilde{G}_{ii}(\omega) = \frac{\sigma_{\text{eff}}^2}{\omega^2 + \lambda_i^2}$$
+
+A conscious emotional percept in mode $i$ exists precisely when the excitation
+frequency $\omega$ approaches $i\lambda_i$ — the mode’s natural resonance. The percept
+is the singularity in the soma-field’s response to a somatic probe.
+
+Setting the two propagators side by side:
+
+$$\underbrace{\frac{i}{k^2 - m^2 + i\varepsilon}}_{\text{QFT: particle at mass-shell }k^2=m^2}
+\qquad\longleftrightarrow\qquad
+\underbrace{\frac{\sigma_{\text{eff}}^2}{\omega^2 + \lambda_i^2}}_{\text{Soma-Field: percept at resonance }\omega = i\lambda_i}$$
+
+Both are poles in the propagator of their respective field manifold. A photon is not
+the electromagnetic field; it is the field’s Green’s function evaluated at a resonance.
+A flash of conscious emotion is not the soma-field; it is the field’s Green’s function
+evaluated at a threshold-crossing resonance. The manifolds differ — one is the
+four-dimensional spacetime vacuum, the other is the eleven-dimensional emotional
+coupling geometry. The mathematical type is the same. This is not analogy.
+
 ---
 
 ## 2.6 The Body Schema, Interoception, and Pain
@@ -481,6 +516,15 @@ of multiple psychological mechanisms is an exciting endeavour that has just begu
 problem. Where BRECVEMA gives a list of mechanisms with characteristic outputs, the
 Soma-Field gives the interaction tensor $W_{ij}$ that specifies, with numerical precision,
 what happens when mechanisms $i$ and $j$ fire concurrently.
+
+The deeper connection is spectral. The *eigenmodes* of $W$ — the directions in
+emotion-space that evolve independently — are the natural resonances of the
+soma-field: the patterns the field rings with when struck. BRECVEMA mechanisms
+are inputs: they excite specific rows of $W$. The eigenspectrum of $W$ is the
+response: the set of frequencies the manifold can sustain. Where BRECVEMA is a
+taxonomy of *stimuli*, the eigenspectrum of $W$ is a taxonomy of *responses*.
+Juslin’s open problem — how mechanisms interact — is the question of how
+stimulus-space maps onto eigenmode-space through $W$. Section 3.3 develops this.
 
 **Body maps** (Nummenmaa *et al.* 2014) map emotions to their somatic distribution —
 where in the body each emotion is felt. These are precisely the spatial support of the
