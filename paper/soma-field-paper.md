@@ -588,27 +588,7 @@ The field is characterised by:
   the gut, anger in the jaw and fists)
 - **Temporal dynamics**: the field evolves continuously, driven by the energy function
 
-```
-  SOMATIC WAVE (body)                    NEURAL WAVE (brain / CNS)
-
-  ┌──────────────────────┐              ┌──────────────────────┐
-  │  ≋  jaw / throat  ≋  │              │  ≋   prefrontal   ≋  │  ← cognition
-  │  ≋  chest / heart ≋  │              │  ≋     limbic     ≋  │  ← emotion memory
-  │  ≋  gut / viscera ≋  │              │  ≋   brainstem    ≋  │  ← ANS regulation
-  │  ≋  limbs / fascia≋  │              │  ≋  vagus nerve   ≋  │  ← body↔brain axis
-  └──────────┬───────────┘              └──────────┬───────────┘
-             │                                      │
-             │           ╔═════════════╗            │
-             ╰───────────╢   COUPLED   ╟────────────╯
-                         ╚══════╤══════╝
-                                │
-                 ┌──────────────┴──────────────┐
-                 │       E(x,t) — the field    │
-                 │    ≋  always present  ≋     │
-                 │    ≋  always moving   ≋     │
-                 │    ≋  everywhere      ≋     │
-                 └─────────────────────────────┘
-```
+![](figures/fig1_architecture.pdf){ width=90% }
 *Figure 1. The Soma-Field. The body and brain are not separate containers of emotion but two
 coupled components of a single distributed wave field. Neither is primary; each continuously
 modifies the other. The ≋ symbols indicate that wave activity is always present in each region,
@@ -639,28 +619,15 @@ This accounts for a range of clinically significant phenomena:
 
 *Table 1. Clinical observations mapped onto the perception threshold model.*
 
-```
-  FIELD AMPLITUDE — single emotional mode i, over time
-
-  │                                      ╭──────────────╮
-  │             ╭──╮                    ╱                ╲
-  │   ╭─╮      ╱    ╲                  ╱                  ╲
-  │   ╰─╯ ╭───╯      ╲                ╱                    ╲
-  T ──────────────────╲──────────────╱──────────────────────╲── ← threshold T_i
-  │              ╭─╮   ╲─────╮      ╱                        ╰───
-  │          ────╯ ╰─────────╰──────
-  └──────────────────────────────────────────────────────────────► time
-   │←───────────── sub-perceptual ──────────────│← perceived ───│
-   │  emotion is present, real, causally active  │  emotion is   │
-   │  shapes physiology and behaviour            │  conscious,   │
-   │  (= Gendlin's 'felt sense')                 │  named, felt  │
-   │                                             │               │
-   │  ↕  virtual particle (QFT vacuum)           │  ↕ real particle (field excitation)
-```
+![](figures/fig2_threshold.pdf){ width=90% }
 *Figure 2. The perception threshold T_i for a single emotional mode. The field is active
 continuously (lower trace). Conscious experience arises only when amplitude exceeds T_i
 (upper trace). Everything below the line is still there — shaping body and behaviour
 before it can be named.*
+
+
+![](figures/fig0_field_mode.pdf){ width=95% }
+*Figure 0. Continuous soma-field activity (blue) with a single threshold-crossing event. The field is always active; conscious experience (shaded) arises only when amplitude exceeds the perception threshold θ (red dashed). Below the threshold: real, causally active, but not yet conscious.*
 
 ## 3.3 The Interaction of Emotional Modes
 
@@ -831,30 +798,7 @@ framework, can be understood as:
 The Soma-Field Model proposes that the major attractor basins of the emotional energy
 landscape correspond directly to the autonomic states described by Porges' polyvagal theory.
 
-```
-  ENERGY LANDSCAPE — contour map (view from above)
-  Concentric rings = equal-energy surfaces. Tighter rings = steeper gradient.
-  The field always flows outward from peaks (╳) and inward to minima (☉).
-
-     · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
-   · · ┌─────────────┐ · · · · · · · ┌─────────────┐ · · · · ·
-   · ·┌┤    FIGHT    ├┐· · · · · · ·┌┤   FLIGHT    ├┐· · · · ·
-   · ·││      ╳      ││· · · · · · ·││      ╳      ││· · · · ·
-   · ·└┤  (unstable) ├┘· · · · · · ·└┤  (unstable) ├┘· · · · ·
-   · · └─────────────┘ · · saddle · · └─────────────┘ · · · · ·
-     · · · · · · · · · · ·  zone  · · · · · · · · · · · · · · ·
-     · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
-   · · ┌───────────────────┐ · · · · · · ┌───────────┐ · · · · ·
-   · ·┌┤                   ├┐· · · · · ·┌┤           ├┐· · · · ·
-   · ·││  FREEZE           ││· · · · · ·││     ☉     ││· · · · ·
-   · ·││  (deep, isolated) ││· · · · · ·││   CALM    ││· · · · ·
-   · ·└┤  hard to leave    ├┘· · · · · ·└┤  (global  ├┘· · · · ·
-   · · └───────────────────┘ · · · · · ·  └───────────┘ · · · · ·
-     · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
-
-  ╳ = energy peak (field flows away)    ☉ = global minimum (field flows toward)
-  └─┘ = basin walls (energy barriers)   · = energy contours (denser = steeper)
-```
+![](figures/fig3a_energy_landscape.pdf){ width=95% }
 *Figure 3a. Topographic (bird's-eye) view of the energy landscape. The field always rolls
 downhill toward the nearest minimum. Freeze and calm are both low-energy — but freeze is
 surrounded by high walls. Escape from freeze requires crossing those walls, which means
@@ -1808,16 +1752,7 @@ accessible becomes narrow. Formally: the basin of attraction of the regulated-ca
 shrinks, while the freeze and fight/flight basins widen. Small perturbations are sufficient
 to displace the field into a dysregulated state.
 
-```
-   Standard:         │   C-PTSD:
-                     │
-   ___calm___        │    _calm_
-  /          \       │   /     \
- /   (wide,   \      │  / (narrow\ __________
-|    stable)  |      │ | basin)  |  limit
- \            /      │  \       /   cycle ↻
-  \_________/        │   \_____/
-```
+![](figures/figB1_attractor_basins.pdf){ width=90% }
 *Figure B1. Schematic comparison of the attractor basin topology in standard dynamics (left)
 and C-PTSD-modified dynamics (right). The calm basin narrows; a limit-cycle orbit appears.*
 
@@ -1898,6 +1833,10 @@ never the dominant component. The forward transformation $W \to W^{\prime}$ is n
 second-best option; it is the only coherent one.
 
 ---
+
+
+![](figures/fig5_neurotype_landscapes.pdf){ width=100% }
+*Figure 5. Neurotype comparison: energy landscape modifications for Typical, ADHD, ASC, and C-PTSD dynamics. Each neurotype deforms the attractor topology in a characteristic way.*
 
 ## B.3 ADHD: High-Temperature, Low-Damping Dynamics
 
