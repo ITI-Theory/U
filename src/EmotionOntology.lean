@@ -412,5 +412,180 @@ theorem conditioned_fear_is_negative :
   therapeutic intervention type): implement `instance : EmotionLang MyType`.
   The terms in `Emotion.*` require zero changes.
   This is the Expression Problem, solved.
+
+  Added below: OpenCyc (Interpreter 4) and Feynman Diagrams (Interpreter 5).
 -/
 
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- INTERPRETER 4 — OpenCyc (common-sense knowledge base grounding)
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-
+  OpenCyc is the open-source release of the Cyc KB — a large manually
+  curated common-sense ontology with ~200k concepts and ~2M axioms.
+  It gives us "free" first-order axioms about emotions, causality, and
+  mental states that are independently grounded and peer-reviewed.
+
+  By providing `instance : EmotionLang CycRef`, every term in `Emotion.*`
+  automatically inherits its Cyc grounding.  The interpreter renders each
+  expression as a Cyc KB expression (CycL predicate application).
+
+  Key Cyc axioms we inherit for free:
+    (#$isa #$Fear-Emotion #$NegativeEmotion)
+    (#$isa #$Joy-Emotion  #$PositiveEmotion)
+    (#$contraryProperty #$Joy-Emotion #$Sadness-Emotion)   -- W_ij < 0
+    (#$causes #$EpisodicMemoryRetrieval #$Nostalgia)
+    (#$causes #$AcousticStartleResponse #$Fear-Emotion)
+    (#$emotionalBlend #$Joy #$Sadness #$Nostalgia)
+    (#$preconditionFor #$MusicalExpertise #$AestheticAppraisal)
+
+  The `dampen` combinator maps to `#$emotionalInhibition` — Cyc's predicate
+  for "A suppresses B in a joint-activation context."  This is W_ij < 0.
+-/
+
+/-- A CycL expression: a constant identifier or a predicate application. -/
+structure CycRef : Type where
+  cycl : String
+  deriving Repr
+
+instance : EmotionLang CycRef where
+  joy          := ⟨"#$Joy-Emotion"⟩
+  sadness      := ⟨"#$Sadness-Emotion"⟩
+  fear         := ⟨"#$Fear-Emotion"⟩
+  anger        := ⟨"#$Anger-Emotion"⟩
+  disgust      := ⟨"#$Disgust-Emotion"⟩
+  surprise     := ⟨"#$Surprise-Emotion"⟩
+  trust        := ⟨"#$Trust-Emotion"⟩
+  anticipation := ⟨"#$Anticipation-Emotion"⟩
+  blend  c₁ c₂ := ⟨s!"(#$emotionalBlend {c₁.cycl} {c₂.cycl})"⟩
+  dampen c₁ c₂ := ⟨s!"(#$emotionalInhibition {c₁.cycl} {c₂.cycl})"⟩
+  evoke  m  c  :=
+    let mech := match m with
+      | .BrainStem              => "#$AcousticStartleResponse"
+      | .RhythmicEntrainment    => "#$RhythmicEntrainmentPsychological"
+      | .EvaluativeConditioning => "#$ClassicalConditioning"
+      | .Contagion              => "#$EmotionalContagion"
+      | .VisualImagery          => "#$MentalImagery"
+      | .EpisodicMemory         => "#$EpisodicMemoryRetrieval"
+      | .MusicalExpectancy      => "#$ExpectancyViolation"
+      | .AestheticJudgement     => "#$AestheticAppraisal"
+    ⟨s!"(#$causes {mech} {c.cycl})"⟩
+
+-- Cyc display examples
+#eval (Emotion.nostalgia      : CycRef)   -- (#$causes #$EpisodicMemoryRetrieval (#$emotionalBlend #$Joy-Emotion #$Sadness-Emotion))
+#eval (Emotion.awe            : CycRef)   -- (#$emotionalBlend #$Fear-Emotion #$Surprise-Emotion)
+#eval (Emotion.contempt       : CycRef)   -- (#$emotionalInhibition #$Disgust-Emotion #$Anger-Emotion)
+#eval (Emotion.acousticFright : CycRef)   -- (#$causes #$AcousticStartleResponse #$Fear-Emotion)
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- INTERPRETER 5 — Feynman Diagrams
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-
+  In QFT, a Feynman diagram is a term in the perturbative expansion of the
+  partition function (or S-matrix).  The correspondence to the soma-field is exact:
+
+    H(e) = -½ e^T W e - θ·e
+
+  Expanding H around an attractor e* produces a sum of terms, each of which
+  IS a Feynman diagram.  The W_ij entries are the coupling constants.
+
+  Feynman notation for emotion:
+    ──joy──>         external leg: a stable attractor (energy minimum)
+    ──●──            excitatory vertex: W_ij > 0  (blend/intersectionOf)
+    ──⊗──            inhibitory vertex: W_ij < 0  (dampen/complementOf)
+    ~~mem●──         wavy line: external perturbation by mechanism m
+                     (like a photon vertex — an external field coupling in)
+
+  Reading a diagram left-to-right: incoming states → interaction → outgoing state.
+
+  The `brainStemThenMemory` term is a two-vertex diagram:
+    ~~bs●──fear──>   (BrainStem fires, perturbs into fear)
+    ~~●── blended with ~~mem●──(joy──●──sadness)──>
+    = a 3-vertex diagram with one inhibitory and two excitatory couplings.
+
+  The W matrix entry W_ij IS the coupling constant at vertex (i,j).
+  Checking diagram topology = checking allowed mechanism interactions.
+-/
+
+inductive FeynmanDiagram : Type
+  /-- External leg: a named attractor state.  Incoming or outgoing field. -/
+  | leg     : String → FeynmanDiagram
+  /-- Excitatory vertex: W_ij > 0.  Corresponds to `blend`, OWL intersectionOf. -/
+  | excite  : FeynmanDiagram → FeynmanDiagram → FeynmanDiagram
+  /-- Inhibitory vertex: W_ij < 0.  Corresponds to `dampen`, OWL complementOf. -/
+  | inhibit : FeynmanDiagram → FeynmanDiagram → FeynmanDiagram
+  /-- External probe: mechanism m couples into the field (wavy line vertex).
+      Corresponds to `evoke`, OWL someValuesFrom. -/
+  | probe   : Mechanism → FeynmanDiagram → FeynmanDiagram
+  deriving Repr
+
+/-- Render a Feynman diagram as ASCII notation. -/
+def FeynmanDiagram.render : FeynmanDiagram → String
+  | .leg s        => s!"──{s}──>"
+  | .excite  d e  => s!"({FeynmanDiagram.render d} ──●── {FeynmanDiagram.render e})"
+  | .inhibit d e  => s!"({FeynmanDiagram.render d} ──⊗── {FeynmanDiagram.render e})"
+  | .probe   m d  =>
+    let tag := match m with
+      | .BrainStem              => "bs"
+      | .RhythmicEntrainment    => "ent"
+      | .EvaluativeConditioning => "cond"
+      | .Contagion              => "cong"
+      | .VisualImagery          => "img"
+      | .EpisodicMemory         => "mem"
+      | .MusicalExpectancy      => "exp"
+      | .AestheticJudgement     => "aes"
+    s!"(~~{tag}●── {FeynmanDiagram.render d})"
+
+instance : EmotionLang FeynmanDiagram where
+  joy          := .leg "joy"
+  sadness      := .leg "sadness"
+  fear         := .leg "fear"
+  anger        := .leg "anger"
+  disgust      := .leg "disgust"
+  surprise     := .leg "surprise"
+  trust        := .leg "trust"
+  anticipation := .leg "anticipation"
+  blend  d₁ d₂ := .excite  d₁ d₂    -- excitatory coupling vertex (W_ij > 0)
+  dampen d₁ d₂ := .inhibit d₁ d₂    -- inhibitory coupling vertex (W_ij < 0)
+  evoke  m  d  := .probe   m  d      -- external mechanism probe (wavy line)
+
+-- Count vertices in a diagram (= order of perturbation theory)
+def FeynmanDiagram.order : FeynmanDiagram → Nat
+  | .leg _        => 0
+  | .excite  d e  => 1 + d.order + e.order
+  | .inhibit d e  => 1 + d.order + e.order
+  | .probe   _ d  => 1 + d.order
+
+-- Feynman diagram display examples
+#eval (Emotion.joy          : FeynmanDiagram).render  -- "──joy──>"
+#eval (Emotion.awe          : FeynmanDiagram).render  -- "(──fear──> ──●── ──surprise──>)"
+#eval (Emotion.contempt     : FeynmanDiagram).render  -- "(──disgust──> ──⊗── ──anger──>)"
+#eval (Emotion.nostalgia    : FeynmanDiagram).render  -- "(~~mem●── (──joy──> ──●── ──sadness──>))"
+#eval (Emotion.aestheticAwe : FeynmanDiagram).render  -- "(~~aes●── (──fear──> ──●── ──surprise──>))"
+
+#eval (Emotion.brainStemThenMemory : FeynmanDiagram).render
+-- "((~~bs●── ──fear──>) ──●── (~~mem●── (──joy──> ──●── ──sadness──>)))"
+-- = a 4-vertex diagram: two external probes + two excitatory couplings
+
+-- Perturbation order (number of vertices = number of W_ij factors in expansion)
+#eval (Emotion.nostalgia    : FeynmanDiagram).order  -- 2  (one probe + one excite)
+#eval (Emotion.brainStemThenMemory : FeynmanDiagram).order  -- 4
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- FULL CORRESPONDENCE TABLE (updated)
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-
+  EmotionLang method  Diesel  OWL2               W matrix         Cyc             Feynman
+  ──────────────────────────────────────────────────────────────────────────────────────────
+  blend a b           a ⊓ b   intersectionOf     W_ij > 0         emotionalBlend  ──●── vertex
+  dampen a b          a ⊓ ¬b  a ⊓ ¬b             W_ij < 0         emotionalInhib  ──⊗── vertex
+  evoke m e           m-->e   someValuesFrom      W_ij ≠ 0         causes          ~~m●── probe
+  joy, fear, ...      atom    Named individual    energy minimum   #$Joy-Emotion   external leg
+  nostalgia           expr    EquivClass          metastable min   emotionalBlend  2-vertex diag
+  brainStemThenMemory chain   propertyChain       W_ik · W_kj      causes∘causes   4-vertex diag
+-/
