@@ -10,7 +10,7 @@
 ---
 # 16 May 2026
 
-Looked at Bass-OMatic https://www.youtube.com/watch?v=eVdR2RfXGUw 
+Looked at Bass-OMatic https://www.youtube.com/watch?v=eVdR2RfXGUw
 
 I remember that well.
 ---
