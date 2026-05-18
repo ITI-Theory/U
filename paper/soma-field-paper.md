@@ -3,6 +3,7 @@ title: "The Soma-Field: A Wave-Based Model of Emotional Dynamics and Its Clinica
 subtitle: "Bridging Quantum Field Theory, Neural Energy Functions, and Somatic Psychotherapy"
 author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
+institute: "Independent Researcher, Zurich, Switzerland"
 date: "May 2026"
 lang: en-GB
 abstract: |
@@ -1365,7 +1366,7 @@ John Benjamins.
 ---
 
 *Correspondence regarding this article should be addressed to Alistair Johnson,
-Independent Researcher, Zurich, Switzerland. Email: alistair.johnson@johnsonusm.com*
+Independent Researcher, Zurich, Switzerland. Email: alistair.johnson\@johnsonusm.com*
 
 ---
 

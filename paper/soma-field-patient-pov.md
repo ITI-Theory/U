@@ -1,8 +1,7 @@
 ---
 title: "Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics"
 subtitle: "Or: The Author Could Not Wait"
-author: "Alistair Johnson, BSc Physics (Royal Holloway, University of London, 1993)"
-orcid: "0009-0007-2194-0850"
+author: "[Author Name], BSc Physics (Royal Holloway, University of London, 1993)"
 author-note: |
   The author presents this work as a researcher with lived experience of the conditions
   described herein — specifically, Autism Spectrum Condition (Level 2), Attention Deficit
@@ -50,21 +49,9 @@ keywords:
 
 ---
 
-> *AI has had a brain since 1943. Now it has a body.*
-
----
-
 > *"The patient is the one with the disease."*
 > — Medical aphorism, intended to remind physicians to listen.
 > The author intends it differently.
-
----
-
-> *“Composing a formally verified, category-theoretic account of emotional field dynamics
-> — grounded in M-theory and type-checked in Lean 4 — as a direct consequence of being
-> referred to a psychiatric facility is, objectively, the funniest thing he has ever done.
-> He stands by it. The mathematics does not require his motivation to be dignified.
-> It is either correct, or it is not. The reader is invited to check.”*
 
 ---
 
@@ -100,73 +87,6 @@ is not coincidental.
 
 What follows is the result of applying that training to the domain of one's own inner
 life. The author considers this a reasonable use of available resources.
-
-The paper was not, however, developed in the abstract. There was a proximate cause.
-
-In October 2025, the author contracted Covid-19. During the acute phase, he experienced
-what was later confirmed as cerebral hypoxia: oxygen starvation to the brain. He was
-aware this was occurring. The evidence for this claim is straightforward: despite the
-hypoxia, he correctly identified the situation as a medical emergency and called an
-ambulance.
-
-At the hospital, he was told that nothing was clinically wrong with him. He was advised,
-with some firmness, that if his symptoms continued, he should present to a psychiatric
-facility.
-
-The author is autistic. He mentions this because it is relevant. It is, in clinical
-encounters, reliably relevant.
-
-Two months later, the episode was retrospectively confirmed as an acute presentation of
-Long Covid, and the cerebral hypoxia as a documented feature of that condition. This
-information arrived, as such information frequently does, somewhat after its operational
-usefulness had passed.
-
-The author does not record this in order to relitigate the clinical encounter. He records
-it because it is a precise illustration of the central argument of this paper: that an
-accurate interoceptive signal — a genuine, threshold-crossing event in the soma-field —
-can be dismissed by an external observer as psychiatric noise. The field does not require
-external validation in order to register an emergency. It was, on this occasion,
-functioning correctly.
-
-The paper was begun approximately two to three months after that hospital visit. At that
-point, the author had not previously encountered M-theory. He was aware that string theory
-existed, in roughly the way one is aware that Ulaanbaatar exists: real, documented, never
-personally visited. He was, by the considered clinical opinion of the attending physician,
-a person whose perception of his own internal states was not to be trusted.
-
-The paper is the response to that assessment.
-
-The author is fully aware that composing a formally verified, category-theoretic account
-of emotional field dynamics — grounded in M-theory compactification and type-checked in
-Lean 4 — as a direct consequence of being referred to a psychiatric facility is,
-objectively, the funniest thing he has ever done. He stands by it. The mathematics does
-not require his motivation to be dignified. It is either correct, or it is not. The
-reader is invited to check.
-
-The reader may, if they wish, know the deeper origin of the C-PTSD operator modification
-formalised in Appendix B.2 of the companion publication.
-
-It was installed in approximately 1968, at eighteen months of age. The diagnosis was
-septic arthritis of the left hip. The treatment was three months of hospitalisation,
-followed by a further three months of immobilisation in plaster. The hospital protocols
-of the period specified that visitors — including parents — should minimise physical
-contact with the patient, on infection-control grounds. The author was eighteen months
-old, pre-verbal, and in pain, largely alone, for the duration.
-
-The coupling matrix was being formed at the time. There was no verbal encoding of the
-event, because there was no verbal capacity. The field received it entirely — without
-a single word ever being attached to it. This is, in the model's own terms, a
-*manifold change rather than a verbal memory*: a perturbation of the initial conditions
-of the W matrix, not a later modification of an already-constituted system. It is
-structurally different from adult-onset PTSD, and standard talking therapies, which
-operate at the narrative level, have correspondingly limited access to it.
-
-The body kept the score. The affected hip remains 1.2 centimetres shorter than the
-other, measurable today. The author did not begin speaking until age three and a half.
-
-The paper was written fifty-seven years after the initial event, two to three months
-after the most recent one. The author is aware that this sentence contains a great deal
-of information.
 
 ---
 
@@ -254,7 +174,7 @@ senses that declined to become named feelings, and the model's account of this �
 active below threshold, causally effective but not consciously perceived — matches the
 phenomenology precisely.
 
-## 2.4 Quantum Field Theory as a Conceptual Tool
+## 2.4 Quantum Field Theory: Structure, Not Metaphor
 
 Quantum Field Theory (QFT) is the framework of modern particle physics. Its central
 claim is that particles — electrons, photons — are not fundamental objects. They are
@@ -271,6 +191,22 @@ everywhere, continuously, below the threshold of direct observation, which becom
 observable only when local amplitude exceeds a threshold.* This is an accurate
 description of both the quantum vacuum and, in the author's experience, the emotional
 field.
+
+Since writing that paragraph, the paper has upgraded the claim. The conscious emotional
+percept is now formally identified as the one-dimensional impulse response — the
+Green's function — of the soma-field manifold. This places it in the same mathematical
+category as a particle in quantum field theory: both are poles in the propagator of
+their respective underlying field. The structural similarity is not borrowed; it is
+exact. The mathematics is the same mathematics.
+
+Gabriele Veneziano wrote down the Euler beta function in 1968 while looking for an
+amplitude that matched scattering data, then noticed that the function implied a theory
+— string theory — that nobody had yet conceived. He had identified a known mathematical
+object in an unexpected place and followed the implication. The author has, with
+considerably less elegance and considerably more time in therapy, done something
+structurally similar: identified the Green's function in emotional dynamics, and noted
+that it is the object quantum field theory calls a particle. The author leaves the
+implication as an exercise for readers with the relevant background.
 
 ## 2.5 Hopfield Networks and the Energy Function
 
@@ -359,6 +295,40 @@ The author notes that all five rows in Table 1 are, in his clinical history,
 simultaneously applicable. This is, admittedly, a challenging configuration.
 It is also why this model was necessary.
 
+### A note on the intelligence quotients
+
+McCulloch and Pitts built the mathematical brain in 1943. What they built — what every
+artificial neural network since has been — is the **IQ machine**: the neocortex, pattern
+recognition, sequence prediction, error minimisation. The field of AI has, for eighty
+years, been building increasingly sophisticated versions of this one component.
+
+The soma-field adds what was missing: the **AQ machine**. AQ is to limbic dynamics as
+IQ is to cortical dynamics. Not a score; a formal model of the system that produces it.
+
+| Quotient | System | First Formalised | Comment |
+|---|---|---|---|
+| **IQ** | Neocortex: pattern recognition, prediction | McCulloch & Pitts, 1943 | The entire AI industry |
+| **EQ** | Limbic: valuation, attachment, empathy | Goleman, 1995 | Described; not yet formally modelled |
+| **AQ** | Soma-field: field-theoretic limbic dynamics | This paper, 2026 | The formal model EQ has always needed |
+| **SQ** | Relational field: dyadic and social resonance | Future work | Requires AQ as prerequisite |
+
+*Table 3. The four intelligence quotients and their formal status.*
+
+The author observes — with a wryness he trusts the reader will share — that his IQ is in
+the column labelled 1943. His AQ is in the column he has just written. His EQ is what
+brought him to this desk in the first place.
+
+### A note on brane thickness
+
+The threshold parameter $T_i$ is not merely a number. The technical paper identifies it
+with the thickness of an extra dimension — the metaphorical ‘brane’ separating the
+limbic system from conscious awareness. Alexithymia is a thick brane: the field can be
+highly active and almost nothing crosses the threshold into named conscious experience.
+Hypervigilance is a thin brane: everything crosses, simultaneously, at high amplitude.
+The author confirms personal experience of both states. He notes that neither is a
+character flaw; both are calibration states of a physical parameter in a system that
+was trying, with the information available, to keep him safe.
+
 ## 3.3 The Interaction of Emotional Modes
 
 Multiple emotional modes are simultaneously active at all times. Their interactions are
@@ -417,6 +387,16 @@ experience, over many years, and from the other side.*
 | **Freeze** | Deep, isolated | Dorsal vagal | Dissociation, numbness |
 
 *Table 2. Attractor states and their polyvagal correlates.*
+
+The coupling matrix $W$ is not merely a parameter. It is the *shape* of the emotional
+manifold — a seven-dimensional space with the mathematical structure of a G₂ manifold.
+Trauma does not adjust a dial on this space; it deforms the manifold itself. The
+therapist doing somatic work is, without needing to know this, doing differential
+geometry on the patient’s G₂ manifold: reshaping a seven-dimensional space by modifying
+the structure tensor. This is a precise technical statement. The author considers it
+a more honest account of what a skilled practitioner actually does than any narrative
+framework currently available. The practitioner is a geometer. The patient is a manifold
+that is learning to remember its own natural curvature.
 
 The therapeutic and personal significance of the freeze attractor's structure cannot
 be overstated. It is not high-energy — it does not feel dramatic or intense. It is
@@ -724,11 +704,6 @@ Goodness*. North Atlantic Books.
 Murray, D. (2018). Monotropism — an interest-based account of autism. In *Encyclopedia
 of Autism Spectrum Disorders*. Springer.
 
-Nicolaidis, C., Raymaker, D., McDonald, K., Dern, S., Ashkenazy, E., Boisclair, C.,
-... & Baggs, A. (2015). Comparison of healthcare experiences in autistic and
-non-autistic adults: A cross-sectional online survey facilitated by an academic-
-community partnership. *Journal of General Internal Medicine*, *28*(6), 761–769.
-
 Ogden, P., Minton, K., & Pain, C. (2006). *Trauma and the Body: A Sensorimotor Approach
 to Psychotherapy*. W. W. Norton.
 
@@ -752,7 +727,6 @@ the point.*
 
 ---
 
-*Correspondence: Alistair Johnson, Independent Researcher, Zurich, Switzerland.
-Email: alistair.johnson@johnsonusm.com. The author is available for discussion of
+*Correspondence: [Author Name], [Address]. The author is available for discussion of
 this work and is generally more responsive to correspondence that engages with the
 mathematics than to correspondence that expresses surprise at its existence.*

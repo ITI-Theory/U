@@ -575,3 +575,58 @@ mathematical structure." The analogy is not illustrative — it is the claim.
 
 *Status:* Not yet applied to paper. Discuss before applying.
 
+
+---
+
+## bioRxiv v2 Revision Note (draft)
+*Date: May 2026 — for submission as v2 of BIORXIV/2026/725970*
+
+**Summary of changes from v1:**
+
+Version 2 makes a stronger central claim than Version 1.
+
+Version 1 presented the structural correspondence with quantum field theory as a *formal
+analogy* — precise in mathematical form but not claimed to be a literal identity.
+Version 2 identifies the correspondence as an *exact mathematical equivalence*: the
+conscious emotional percept is the one-dimensional impulse response (Green's function)
+of the soma-field coupling manifold. This places emotional experience and fundamental
+particles in the same mathematical category — both are poles in the propagator of their
+respective underlying field. The original paper stated "not metaphor"; Version 2 states
+"the same mathematics."
+
+**Specific additions in v2:**
+
+1. **Table 3 (§2.4): The Four Intelligence Quotients** — IQ (McCulloch & Pitts, 1943),
+   EQ (Goleman, 1995), AQ (this paper), SQ (future work). Situates the soma-field
+   model in the history of formal theories of intelligence.
+
+2. **The hierarchy problem (§2.3)**: The perception threshold $T_i$ is identified with
+   brane thickness in the Randall-Sundrum extra-dimension model. Alexithymia and
+   hypervigilance are the two extremes of a single physical parameter.
+
+3. **The Veneziano historical note (§2.4)**: Veneziano's 1968 identification of string
+   theory by recognising the Euler beta function in scattering data is the precedent
+   for the Green's function identification method used here.
+
+4. **The WOW propagator (§2.5)**: The QFT Feynman propagator and the soma-field
+   propagator displayed side by side as poles in their respective fields.
+   "This is not analogy."
+
+5. **G₂ geometry (§4.3)**: $W$ is identified as the structure tensor of a G₂ manifold.
+   Trauma deforms the manifold rather than adjusting a parameter. "The practitioner is
+   a geometer."
+
+6. **BRECVEMA eigenmode identification (§2.7)**: The BRECVEMA mechanisms of musical
+   emotion are identified as the rows of $W$; the eigenmodes of $W$ are the natural
+   resonant responses of the system.
+
+7. **Abstract and keywords**: Abstract upgraded with the Green's function identification
+   sentence. Keywords updated to reflect the formal equivalence claim.
+
+8. **Affiliation and bibliography**: Author affiliation added to metadata. Veneziano
+   (1968) reference added to bibliography.
+
+9. **Figures**: Six rendered matplotlib figures (Figs 0, 2, 3a, 3b, 5, B1) and three
+   TikZ diagrams (Figs 1, 4, A2) added to paper/figures/.
+
+---
