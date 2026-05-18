@@ -2,8 +2,8 @@
 
 A formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in M-theory compactification and type-checked in Lean 4.
 
-**bioRxiv preprint**: BIORXIV/2026/725970 (May 18, 2026)  
-**Author**: Alistair Johnson, Independent Researcher, Zurich, Switzerland  
+**bioRxiv preprint**: BIORXIV/2026/725970 (May 18, 2026)
+**Author**: Alistair Johnson, Independent Researcher, Zurich, Switzerland
 **ORCID**: 0009-0007-2194-0850
 
 ## Contents

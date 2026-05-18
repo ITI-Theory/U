@@ -634,23 +634,27 @@ respective underlying field. The original paper stated "not metaphor"; Version 2
 
 ---
 
-## Session Entry — May 2026: Type Poaching — The Method and Its Extensions
+## Session Entry — May 2026: Mathematical Co-identification — The Method and Its Extensions
+*(formerly labelled "Type Poaching" in early notes; renamed May 2026 — see `paper/mathematical-co-identification.md`)*
 
 ### The Method
 
-All substantial theoretical progress in this paper has used a single technique.
-It deserves a name: **structural identification by dimensional isomorphism**.
+All substantial theoretical progress in this paper has used a single technique,
+now formally named **mathematical co-identification**: navigating the typeverse
+(the space of all well-typed mathematical objects) to find a structure whose type
+signature matches the target quantity, then identifying — not analogising — the two.
 
 The procedure:
 1. Write down the dimensional signature (units + pole structure + conservation law)
    of the unknown emotional quantity.
-2. Search physics for an object with the same signature.
+2. Search the typeverse for an object with the same signature.
 3. If found: the emotional quantity **is** that object, not analogous to it.
    Import all theorems, predictions, and machinery wholesale.
 4. Check predictions against clinical data.
 
 Veneziano used this in reverse: had the amplitude, found the theory.
-This paper does it forward. The method is itself publishable as a methodological note.
+This paper does it forward. **The full methodology paper is at
+`paper/mathematical-co-identification.md`** (committed May 2026).
 
 ---
 
@@ -827,17 +831,115 @@ SQ (Social / Relational Intelligence Quotient) requires:
 
 ---
 
-### Open Thread: The Name of the Method
+### RESOLVED: The Name of the Method
 
-"Type poaching" is vivid but informal. Candidate names:
-1. **Structural identification by dimensional isomorphism** (precise, dull)
-2. **Formal analogy lifting** (Lakoff-adjacent, too soft)
-3. **Mathematical co-identification** (what the paper calls it implicitly)
-4. **Functor-theoretic identification** (accurate: it IS a functor from
-   PhysicsCategory to EmotionCategory that preserves the type signature)
+**Mathematical co-identification.** Informal spirit: *typeverse navigation*.
 
-The functor reading: if there exists a functor F: Phys \to Emotion that maps
+The functor reading remains accurate and is included in the methodology paper:
+if there exists a functor $F: \mathbf{Phys} \to \mathbf{Emotion}$ that maps
 the Feynman propagator to the soma-field propagator and preserves composition,
 then the two theories are formally equivalent in all theorems that factor through
-the type signature. The paper is, implicitly, constructing this functor.
+the type signature. The soma-field paper is implicitly constructing this functor;
+the methodology paper names and describes the construction.
+
+---
+
+## Appendix: Partial Map of the Typeverse
+*(From `paper/mathematical-co-identification.md`, §6 — field guide for future poaching)*
+
+Six classes of mathematical structure that recur across domains and are available
+for co-identification. Each entry gives the type fingerprint and what imports.
+
+### Propagator-class
+
+**Fingerprint:** Complex function of frequency with poles on or near the real axis;
+the impulse response of a linear system. Found in: QFT (Feynman propagator), signal
+processing (transfer function), linear systems (Green's function).
+
+**What imports:** Spectral decomposition; Kramers-Kronig (the real and imaginary parts
+of the response are Hilbert transforms of each other — dissipation and natural frequency
+are not independent); optical theorem; Källén-Lehmann representation (any physical
+propagator is a sum of poles).
+
+**Soma-field use:** Already done — the conscious percept is the propagator pole.
+
+---
+
+### Energy-function-class
+
+**Fingerprint:** Scalar $H: \mathbb{R}^n \to \mathbb{R}$, bounded below, non-increasing
+along system trajectories. Found in: statistical mechanics, Hopfield networks,
+Lyapunov theory, optimisation.
+
+**What imports:** Convergence to attractors; capacity bounds (Hopfield's $0.14N$);
+fluctuation-dissipation theorem; stochastic escape (simulated annealing).
+
+**Soma-field use:** Already done — attractor landscape = Ising Hamiltonian.
+
+---
+
+### Topological-class
+
+**Fingerprint:** Integer-valued invariants of field configurations, preserved under
+continuous deformation. Found in: topological field theory (winding numbers,
+Chern-Simons), condensed matter (skyrmions, topological insulators), knot theory.
+
+**What imports:** Protection from perturbation; impossibility of smooth deformation
+between topological sectors; quantisation (only integer winding numbers); threshold
+behaviour (topological transitions require finite-amplitude excitation).
+
+**Soma-field application:** Trauma with non-zero topological charge cannot be resolved
+by smooth interventions (cognitive reframing). EMDR, somatic flooding, MDMA-assisted
+therapy are candidate topological-charge annihilation events — they temporarily raise
+field energy above the topological barrier.
+
+---
+
+### Renormalisation-class
+
+**Fingerprint:** A flow on a space of couplings, parameterised by a scale $\mu$,
+with fixed points and $\beta$-functions. Found in: QFT (RG), statistical mechanics
+(Kadanoff block spins), dynamical systems (centre manifold theorem), ML (neural
+scaling laws).
+
+**What imports:** Universality (IR behaviour depends only on the universality class,
+not microscopic details); $c$-theorem (monotonically decreasing function along the
+flow — an arrow of processing); dimensional transmutation (the traumatic timescale
+$\tau_k$ is an emergent scale, not a fundamental parameter).
+
+**Soma-field use:** Already done — therapy as RG flow from UV (raw trauma) to IR
+(integrated narrative). See §5.5 of the main paper.
+
+---
+
+### Scattering-class
+
+**Fingerprint:** A map from in-states to out-states, constrained by unitarity,
+analyticity, and crossing symmetry. Found in: QM (S-matrix), optics (transfer matrix),
+signal processing (scattering parameters).
+
+**What imports:** Unitarity (emotional content is conserved — nothing permanently lost,
+nothing created from nothing); selection rules (not all transitions are equally probable;
+some are symmetry-forbidden); optical theorem (imaginary part of forward amplitude =
+total cross-section).
+
+**Soma-field application:** A therapeutic session is a scattering event. In-state $|\psi_\text{in}\rangle$,
+interaction with therapist (mediating field), out-state $|\psi_\text{out}\rangle$.
+The S-matrix of the therapeutic interaction has selection rules.
+
+---
+
+### Einstein-coefficient-class
+
+**Fingerprint:** Rates for spontaneous and stimulated transitions between energy levels.
+Found in: quantum optics (Einstein A and B), laser physics, NMR relaxation ($T_1$, $T_2$).
+
+**What imports:** The Einstein relation $A_i = f(\omega_i) B_i$ constrains spontaneous
+vs stimulated rates. NMR analogy is exact: $T_1$ = longitudinal relaxation (return to
+equilibrium); $T_2$ = transverse relaxation (dephasing of coherence).
+
+**Soma-field application:** Every emotional mode has $A_i$ (spontaneous relaxation rate)
+and $B_i$ (contagion rate — stimulated emission by another's emotion).
+Depression = suppressed $A_i$, normal $B_i$. Trauma extends $T_1$; emotional numbing
+extends $T_2$. The NMR pulse sequence is a literal therapeutic protocol template.
 

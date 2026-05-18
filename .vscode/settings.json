@@ -1,24 +1,19 @@
 {
     "json.schemas": [],
     "latex-workshop.intellisense.bibtexJSON.replace": {},
-
     // Use Red Hat YAML as default formatter
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        // Set tab size to 2 spaces for YAML
+        "editor.tabSize": 2
     },
-
     // Automatically add newline at end of files
     "files.insertFinalNewline": true,
-
     // Remove trailing spaces
     "files.trimTrailingWhitespace": true,
-
     // Show invisible characters (optional but helps debugging)
     "editor.renderWhitespace": "all",
-
-    // Set tab size to 2 spaces for YAML
-    "editor.tabSize": 2,
     "cSpell.words": [
         "Lonsdale",
         "MS-ATX-DICO-SQS"
