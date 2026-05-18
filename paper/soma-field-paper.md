@@ -193,6 +193,22 @@ which are central to the clinical observation of emotion:
   excitation of that background
 - The possibility of multiple simultaneous excitations that interact with one another
 
+One further consequence follows. The clinical phenomena of alexithymia — difficulty
+identifying and naming feelings — and its apparent opposite, emotional flooding or
+hypervigilance, have always been treated as separate conditions requiring separate
+explanations. In the Green’s function framing, they are the same structure at two
+extremes of the same parameter: the perception threshold $T_i$ is too high (the bulk
+dynamics cannot cross into observable experience) or too low (bulk fluctuations flood
+the boundary without filtering). This is structurally identical to one of the deepest
+open problems in particle physics — the **hierarchy problem** — which asks why gravity
+is so much weaker than the other forces. The standard answer is that gravity propagates
+in the full higher-dimensional bulk while other forces are confined to a lower-dimensional
+brane; the coupling across the brane boundary determines the apparent weakness. The
+soma-field correspondence is exact: the threshold $T_i$ *is* the brane. Perception is
+confined to the one-dimensional boundary of an eleven-dimensional dynamics. The hierarchy
+of emotional experience — why conscious feeling is so much weaker and more transient than
+the underlying field activity — has the same formal structure as the hierarchy of forces.
+
 ## 2.4 Neural Network Energy Functions and Hopfield Networks
 
 In 1982, John Hopfield (awarded the Nobel Prize in Physics in 2024) proposed a model of
@@ -285,6 +301,15 @@ that drives contemporary large language models is a Hopfield retrieval step. The
 Soma-Field Model sits in this same energy-based lineage: the equations underlying
 associative memory, language understanding, and somatic trauma response are, at the
 appropriate level of abstraction, the same equations.
+
+A historical irony completes the picture. String theory was not discovered as a theory
+of strings. In 1968, Gabriele Veneziano wrote down a scattering amplitude — a response
+function encoding how particles scatter — and only later did Nambu, Nielsen, and Susskind
+identify the string as whatever object produces that amplitude [@veneziano1968]. The
+response function came before the thing. The Soma-Field Model recapitulates this
+historical order deliberately: the primary object is the eleven-dimensional coupling
+manifold; the string — the one-dimensional conscious percept — is what the manifold
+produces when probed. We retain Veneziano’s discovery and decline to reify the string.
 
 ---
 
@@ -840,6 +865,17 @@ coupled to one another, creating a wide basin around regulated calm.
 
 This implies that the energy landscape is a therapeutic object in its own right: understanding
 a patient's $W$ is understanding the structural dynamics of their emotional life.
+
+In the M-theory compactification analogy developed in Appendix A, the coupling topology
+$W$ corresponds to the shape of the compact G$_2$ manifold — the seven-dimensional
+geometry that determines which force-like couplings are allowed and with what strengths.
+That analogy is here made precise: two people differ not merely in their emotional
+*parameter settings* but in their coupling *geometry*. Developmental trauma does not
+set a dial to the wrong value; it deforms the manifold. The therapeutic process of
+modifying $W$ through relational experience, insight, or somatic work is, in this
+language, differential geometry: a continuous deformation of the G$_2$ manifold toward
+a configuration in which the regulated-calm attractor is globally accessible. The
+practitioner is, without having been told so, a geometer.
 
 ---
 
