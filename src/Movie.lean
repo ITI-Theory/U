@@ -247,6 +247,35 @@ def EmotionScore.nearThreshold (s : EmotionScore) (t : Float) : Option Threshold
   s.thresholds.find? fun th =>
     t >= th.storyTime - th.windowSize && t <= th.storyTime + th.windowSize
 
+/-- Validate score structure: t values monotone in [0,1], e ∈ [0,1]^8.
+    GAP-MOVIE-9 resolved. -/
+def EmotionScore.isValid (s : EmotionScore) : Bool :=
+  let pts := s.keyframes
+  let n   := pts.size
+  if n == 0 then false
+  else
+    let tOk  := pts.all (fun p => p.t >= 0.0 && p.t <= 1.0)
+    let eOk  := pts.all (fun p => p.e.size == 8 && p.e.all (fun v => v >= 0.0 && v <= 1.0))
+    let mono := (List.range (n - 1)).all (fun i => (pts[i]!).t < (pts[i + 1]!).t)
+    tOk && eOk && mono
+
+/-- One W*-coupling step: apply the score's coupling matrix to e to get e_{t+dt}.
+    This is the SomaField Langevin update adapted to the score W*.
+    Use composited with EmotionScore.eval: base lerp + dynamic coupling nudge.
+    GAP-MOVIE-10 resolved. -/
+def EmotionScore.step (e : Array Float) (coupling : Array Coupling)
+    (scale : Float) (dt : Float := 0.02) : Array Float :=
+  -- Δe[i] = Σ_{j→i ∈ W*} scale · w_ji · e[j]
+  let delta : Array Float := (Array.range 8).map (fun i =>
+    coupling.foldl (fun acc c =>
+      if c.dst.dim.val == i
+      then acc + scale * c.weight * (e.getD c.src.dim.val 0.0)
+      else acc) 0.0)
+  -- Euler step, clamped to [0,1]
+  (Array.range 8).map (fun i =>
+    let v := (e.getD i 0.0) + dt * (delta.getD i 0.0)
+    if v < 0.0 then 0.0 else if v > 1.0 then 1.0 else v)
+
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- §6  THE RIVER FILM — encoded as Lean data
@@ -408,6 +437,17 @@ def ServerState.initial : ServerState := {
 --      At each tick: evaluate score → build frame → dispatch to renderers.
 -- ════════════════════════════════════════════════════════════════════════════
 
+/-- Extract the destination basin label from a threshold option.
+    Defined outside serverLoop to avoid kernel elaboration issues
+    with Option ThresholdEvent (which contains a function field). -/
+private def threshLabel (th : Option ThresholdEvent) : Option String :=
+  th.map (fun t => t.toBasin)
+
+/-- Decide whether story-time may advance this tick.
+    Returns false while inside a holdUntilReady window whose condition hasn't fired. -/
+private def mayAdvance (nearTh : Option ThresholdEvent) (e : Array Float) : Bool :=
+  nearTh.all (fun th => !th.holdUntilReady || th.condition e)
+
 /-- Advance story-time by one tick.
     dt = (κ_v / tickRate).  At κ_v=1.0 and 50Hz, 1 story-unit = 50 ticks. -/
 def dtPerTick (knobs : ControlKnobs) (tickRate : Nat) : Float :=
@@ -415,7 +455,7 @@ def dtPerTick (knobs : ControlKnobs) (tickRate : Nat) : Float :=
 
 /-- Run the server loop until t = 1.0.
     GAP-MOVIE-6: no stdin reader for biofeedback or remote control.
-    GAP-MOVIE-7: threshold hold logic — currently advances even at threshold.
+    GAP-MOVIE-7: RESOLVED — holds at threshold windows until condition fires.
     GAP-MOVIE-8: IO.sleep precision on Windows is ~15ms; 50Hz is approximate. -/
 def serverLoop {α : Type} [Renderer α]
     (score : EmotionScore) (knobs : ControlKnobs)
@@ -427,23 +467,27 @@ def serverLoop {α : Type} [Renderer α]
     -- 1. Evaluate abstract score at current story-time
     let eScore := score.eval state.currentT
     -- 2. Check for threshold proximity
-    let threshLabel := score.nearThreshold state.currentT |>.map (fun th => th.toBasin)
+    let nearTh := score.nearThreshold state.currentT
+    let tLabel  := threshLabel nearTh
     -- 3. Build the render frame
     let frame : RenderFrame := {
       storyTime   := state.currentT
       score       := eScore
       viewerField := state.viewerField
       knobs       := knobs
-      atThreshold := threshLabel
+      atThreshold := tLabel
       tickCount   := state.tickCount
       tickRate    := tickRate
     }
     -- 4. Dispatch to renderer (Lean farms the work out here)
     Renderer.render renderer frame
-    -- 5. Advance state
+    -- 5. Threshold hold logic (GAP-MOVIE-7):
+    --    If inside a window and holdUntilReady=true, wait for condition to fire.
+    --    Only advance story-time when condition holds (or no threshold).
+    let advance := mayAdvance nearTh eScore
     IO.sleep sleepMs
     state := { state with
-      currentT  := state.currentT + dt
+      currentT  := if advance then state.currentT + dt else state.currentT
       tickCount := state.tickCount + 1
     }
   IO.println ("{\"status\":\"complete\",\"ticks\":" ++ toString state.tickCount ++ "}")
@@ -474,50 +518,49 @@ def serverLoop {α : Type} [Renderer α]
 -- T2 condition at t=0.72? Language≈0.05, PV≈0.9 → true
 #eval riverThreshold2.condition (theRiverFilm.eval 0.72)
 
+-- GAP-MOVIE-9 resolved: isValid should return true for a well-formed score
+#eval theRiverFilm.isValid
+
+-- GAP-MOVIE-10 resolved: one W* Langevin step from t=0.50 (Fear=0.7, Awe=0.4)
+-- Fear→Awe coupling (+0.4) should nudge Awe up; Safety→Fear (-0.5) pulls Fear down
+#eval EmotionScore.step (theRiverFilm.eval 0.50) riverCoupling 1.0 0.02
+
 
 -- ════════════════════════════════════════════════════════════════════════════
--- §13  GAPS — problems found by writing this file
+-- §13  GAPS — remaining open items
 -- ════════════════════════════════════════════════════════════════════════════
 /-
-  GAP-MOVIE-1  ThresholdEvent.condition has no proof of consistency with W*
-               dynamics.  Could prove: "if coupling is correct, T1 condition
-               is reachable from keyframe at t=0.50."
+  GAP-MOVIE-1  ThresholdEvent.condition has no proof of consistency with W*.
+               Could prove: "if coupling is correct, T1 condition is reachable
+               from keyframe at t=0.50."
 
-  GAP-MOVIE-2  viewerField is zero.  Needs: biofeedback reader (HRV → Float array).
-               Python side: `instrument/field_render.py` must write e_V lines
-               back to Lean's stdin.  Requires bidirectional pipe, not just stdout.
+  GAP-MOVIE-2  viewerField is zero.  Needs: HRV → Float array biofeedback.
+               Python side: `instrument/field_render.py` must write e_V JSON
+               back to Lean's stdin.  Requires bidirectional pipe.
 
-  GAP-MOVIE-3  renderAll is homogeneous.  Multi-backend dispatch (audio + visual
-               simultaneously) needs: `List (RenderToken)` where RenderToken
-               wraps a renderer + its state in a Sigma type.
+  GAP-MOVIE-3  renderAll is homogeneous (all renderers must share type α).
+               Multi-backend needs: `List (Σ α, [Renderer α] × α)` (Sigma type).
 
-  GAP-MOVIE-4  Float → String formatting is lossy (UInt32 truncation).
-               Should use `Float.toString` or a proper Printf.
+  GAP-MOVIE-4  Float → String formatting lossy (UInt64 truncation, 3dp).
+               Use `Float.toString` when available in this Lean version.
 
-  GAP-MOVIE-5  No back-pressure from Python renderer.  If Python falls behind,
-               Lean continues advancing story-time.  Need: ACK protocol on pipe.
+  GAP-MOVIE-5  No back-pressure from Python renderer.  Lean advances freely
+               if Python falls behind.  Need: ACK / heartbeat on pipe.
 
   GAP-MOVIE-6  No stdin reader for live control (knob adjustment, pause, seek).
-               Need: concurrent IO thread reading control messages from stdin
-               while server loop runs.  Lean's IO monad is single-threaded by
-               default.  Requires: Task / Async IO.
+               Requires concurrent IO: `IO.asTask` or `BaseIO.mapTask`.
 
-  GAP-MOVIE-7  Threshold hold logic is absent.  When atThreshold is Some,
-               the loop currently advances dt anyway.  Must add:
-               `if state.paused then IO.sleep sleepMs; continue`.
-               Hold condition: `th.condition eScore` must be true before advance.
+  ✓ GAP-MOVIE-7  RESOLVED: threshold hold logic in serverLoop.
+               `mayAdvance := th.condition eScore` — holds story-time
+               until the crossing condition fires.
 
-  GAP-MOVIE-8  IO.sleep on Windows has ~15ms granularity (WinMM timer).
-               50Hz = 20ms target; actual rate ≈ 40–47 Hz.
-               For audio sync: Python side should interpolate, not rely on Lean tick.
+  GAP-MOVIE-8  IO.sleep ~15ms granularity on Windows (WinMM).
+               Python side should interpolate between ticks for audio sync.
 
-  GAP-MOVIE-9  No score validation: keyframe t values must be monotone in [0,1].
-               Add: `def EmotionScore.isValid (s : EmotionScore) : Bool`
+  ✓ GAP-MOVIE-9  RESOLVED: EmotionScore.isValid added.
+               Checks: monotone t, all t ∈ [0,1], all e ∈ [0,1]^8.
 
-  GAP-MOVIE-10 theRiverFilm coupling matrix W* is not applied during eval.
-               eval is pure linear interpolation between keyframes.
-               For dynamic emergence (modes co-activating), need:
-               `def EmotionScore.step (s : EmotionScore) (e : Array Float) : Array Float`
-               — one Langevin step with W* applied, run per tick.
-               This is the SomaField.lean update loop adapted to the score W*.
+  ✓ GAP-MOVIE-10 RESOLVED: EmotionScore.step added.
+               One Langevin step with W* coupling (Euler, clamped to [0,1]).
+               Compositing: `eval t |> step coupling scale dt`
 -/

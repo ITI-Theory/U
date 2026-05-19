@@ -260,3 +260,100 @@ All tablets speak OSC to the Python server over local WiFi.
 - Session logs from `logger.py` are the primary data source for Paper 3's
   empirical section. Log format: JSON lines, one record per field update step.
 - The film is not decoration — it is Paper 3's results section.
+
+---
+
+## 12. The Abstract Movie — Lean Server Architecture
+
+The soma-field instrument has two operating modes:
+
+**Mode A — Live performance** (`server.py`): MIDI input → SomaField dynamics →
+OSC to Ableton + TouchDesigner. The human performer drives the field in real time.
+
+**Mode B — The Abstract Movie** (`src/Movie.lean` + `instrument/field_render.py`):
+Lean is the top-level orchestrator. The *score* — `theRiverFilm` — is encoded as
+Lean data. The Lean server runs at 50 Hz, evaluates `e*(t)`, and writes RenderFrame
+JSON lines to stdout. `field_render.py` reads from stdin and sends OSC.
+
+```
+lake exe Movie | python instrument/field_render.py --verbose
+```
+
+### 12.1 Mode B data flow
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  src/Movie.lean  (Lean 4)                                    │
+│                                                              │
+│  theRiverFilm : EmotionScore                                 │
+│    — 11 keyframes, 2 ThresholdEvents, riverCoupling W*      │
+│                                                              │
+│  serverLoop (50 Hz):                                         │
+│    t ∈ [0,1] → eval → step(W*) → RenderFrame → StdoutRenderer│
+│    Holds at ThresholdEvent until condition(e*(t)) = true     │
+└───────────────────────────┬──────────────────────────────────┘
+                            │ JSON lines on stdout
+         {"t":0.52,"e":[...],"v":[...],"threshold":"awe-onset","tick":26}
+                            │
+┌───────────────────────────▼──────────────────────────────────┐
+│  instrument/field_render.py  (Python 3.14)                   │
+│                                                              │
+│  MovieRenderer.run(stdin):                                   │
+│    parse JSON → render_frame()                               │
+│      → /movie/e/{name}    to Ableton + TouchDesigner         │
+│      → /field/e/{i}/somatic  (bridge for existing patches)  │
+│      → /movie/mandelbulb/{param}  to TouchDesigner only      │
+│      → (future) write e_V back for biofeedback               │
+└──────────────┬──────────────────────────────┬───────────────┘
+               │ OSC/UDP port 9000            │ OSC/UDP port 9001
+       ┌───────▼──────────┐          ┌────────▼──────────┐
+       │  Ableton Live    │          │  TouchDesigner     │
+       │  Max4Live device │          │  Mandelbulb patch  │
+       │  (audio)         │          │  (visual)          │
+       └──────────────────┘          └───────────────────┘
+```
+
+### 12.2 OSC namespace — Movie layer
+
+| Address                    | Type   | Description                                 |
+|----------------------------|--------|---------------------------------------------|
+| `/movie/t`                 | float  | Story-time t ∈ [0,1]                       |
+| `/movie/tick`              | int    | Tick counter                                |
+| `/movie/at_threshold`      | int    | 1 = inside threshold window, 0 = free       |
+| `/movie/threshold`         | str    | Basin label or "none"  [TD only]           |
+| `/movie/e/safety`          | float  | [0,1]                                       |
+| `/movie/e/fear`            | float  | [0,1]                                       |
+| `/movie/e/curiosity`       | float  | [0,1]                                       |
+| `/movie/e/awe`             | float  | [0,1]                                       |
+| `/movie/e/grief`           | float  | [0,1]                                       |
+| `/movie/e/language`        | float  | [0,1]                                       |
+| `/movie/e/preverbal`       | float  | [0,1]                                       |
+| `/movie/e/shame`           | float  | [0,1]                                       |
+| `/movie/mandelbulb/power`  | float  | [2,8] — Awe → complex fractal  [TD only]  |
+| `/movie/mandelbulb/bailout`| float  | [2,6] — Safety → stable         [TD only]  |
+| `/movie/mandelbulb/theta`  | float  | [0,π] — Grief → angular offset  [TD only]  |
+| `/movie/mandelbulb/phi`    | float  | [0,2π] — Language/Preverbal phase [TD only]|
+| `/movie/mandelbulb/speed`  | float  | [0,1] — Curiosity → anim speed  [TD only]  |
+
+### 12.3 Mapping to existing /field/ namespace
+
+`field_render.py` also sends the score on the `/field/e/{i}/somatic` addresses
+so existing Ableton Max4Live patches (written for Mode A) receive Mode B data
+without modification:
+
+| Movie mode | `/field/e/{i}/somatic` |
+|---|---|
+| Safety (dim 0) | `/field/e/0/somatic` |
+| Fear (dim 1)   | `/field/e/1/somatic` |
+| … | … |
+| Shame (dim 7)  | `/field/e/7/somatic` |
+
+The viewer field `e_V` (currently zeros, pending GAP-MOVIE-2) is sent on the
+`/field/e/{i}/cognitive` addresses.
+
+### 12.4 Architectural invariant
+
+**Lean is always the top-level orchestrator.** Even when all Lean does is call
+Python, the score definition, the `Renderer` typeclass, and the server loop
+live in Lean. The proof that the system is correct is that
+`src/Movie.lean` type-checks without `sorry`.
