@@ -197,6 +197,65 @@ The import then proceeds theorem by theorem:
 This distinction — type-level theorems vs. substrate theorems — is the
 primary place where co-identification can fail, and is discussed in Section 7.
 
+## 3.4 The Formal Computational Structure: Abduction, Aesop, and the Loop
+
+The three-step procedure of §§3.1–3.3 is, in formal terms, an instance of
+**abductive inference** in the sense of Peirce (1878). Given an observation
+$O$ and a hypothesis $H$ such that $H \Rightarrow O$, abduction infers $H$ as
+the best explanation of $O$. Applied to the typeverse:
+
+> *Observation*: the quantity $Q$ in domain $D$ has type signature $T$.
+> *Hypothesis*: $Q$ is the known object $K$ with the same signature.
+> *Abduction*: identify $Q := K$ and verify the structural import.
+
+This is not guessing. It is a constrained search under a scoring function,
+where the oracle is "type signatures match" rather than "hash matches" or
+"goal is closed." The algorithm is the same in all three cases.
+
+The Lean 4 proof assistant implements this algorithm directly as the
+`aesop` tactic [@leanprover2021]. `Aesop` performs best-first search
+through a registered lemma set, scores each partial proof state, keeps the
+best candidates, and closes the goal when a complete proof is found. The
+correspondence is exact:
+
+| `Aesop` step | Co-identification step |
+|---|---|
+| Registered lemma set | The typeverse |
+| Try a lemma | Propose a type-match candidate |
+| Score the goal state | Measure type-signature fit |
+| Keep best partial proof | Record candidate correspondences |
+| Close the goal | Full identification: import all theorems |
+
+This is not a metaphor for co-identification — it is an implementation of it.
+The practical consequence is that the full loop can be automated in a formal
+system: given a type signature for $Q$, `Aesop` with the typeverse lemma set
+registered will search for the co-identification proof and either close it
+(identification confirmed and machine-verified) or fail (genuine gap, no
+known match).
+
+The loop in full:
+
+$$
+\text{Observation} \xrightarrow{\text{abduction}} \text{Hypothesis}
+\xrightarrow{\text{Aesop}} \text{Proof} \xrightarrow{\text{import}}
+\text{Predictions} \xrightarrow{\text{test}} \text{New observations}
+\xrightarrow{\;} \cdots
+$$
+
+The loop terminates when either all predictions are confirmed (theory established)
+or a prediction fails (type match was only partial — failure modes are discussed
+in Section 7). At each iteration, the set of available theorems grows by
+import, making subsequent co-identifications easier. This is why theoretical
+progress compounds: each identification increases the density of the typeverse
+neighbourhood around the domain under study.
+
+The abductive loop is not specific to mathematical science. Holmes reasons
+the same way from physical evidence; the password auditor reasons the same
+way from a hash and a character set; the radiologist reasons the same way
+from a film and a pathology atlas. What is specific to mathematical
+co-identification is the nature of the oracle: the scoring function is
+type-signature fit, and the proof assistant can evaluate it exactly.
+
 ---
 
 # 4. Historical Precedents
