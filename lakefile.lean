@@ -13,6 +13,15 @@ lean_lib Emotions where
   roots  := #[`EmotionOntology, `SomaField, `FieldProofs]
 
 /-
+  Movie server — The Abstract Film: Lean high-level API.
+  "The movie is the proof."
+  Depends on EmotionOntology for EmotionLabel primitives.
+-/
+lean_lib Movie where
+  srcDir := "src"
+  roots  := #[`Movie]
+
+/-
   Full Hopfield demo — requires Mathlib.
   Uncomment the `require` block below and run `lake update` to enable.
 -/
