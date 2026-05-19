@@ -18,3 +18,19 @@ __pycache__/
 # Editor
 *.swp
 *~
+
+# VS Code workspace files (contain local machine paths)
+*.code-workspace
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+
+# Instrument session logs
+instrument/logs/
+
+# Temporary files
+tmp/
+nul
