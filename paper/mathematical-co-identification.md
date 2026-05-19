@@ -578,6 +578,15 @@ theorems travel.
 The test: would you submit the claim to a mathematician as a theorem? If not,
 it is analogy. If yes, it is co-identification.
 
+The risk was recognised early by practitioners. Introducing the energy landscape
+for Hopfield networks, Hertz, Krogh, and Palmer note: *"It is often useful (but
+sometimes dangerous) to think of the energy as something like this landscape"*
+[@hertz1991]. The parenthetical is precise: the visualisation is heuristically
+powerful, and that power makes it tempting to reason from the picture rather than
+from the mathematics. Mathematical co-identification guards against this by
+requiring that the *equations of motion* — not the landscape picture — are what
+get matched across domains.
+
 ---
 
 # 8. Epistemological Status
