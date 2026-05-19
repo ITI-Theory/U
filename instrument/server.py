@@ -20,7 +20,7 @@ import signal
 
 from field     import SomaField, N_MODES, ATTRACTORS
 from modifiers import build_params
-from midi_input import MidiInput
+from midi_input import MidiInput, list_ports as midi_list_ports
 from osc_output import OscOutput
 from logger     import SessionLogger
 
@@ -72,14 +72,12 @@ def main():
     args = parser.parse_args()
 
     # List ports if no port specified
-    from midi_input import MidiInput as _MI
-    dummy = _MI("", lambda *a: None)
-    ports = dummy.list_ports()
     if args.midi is None:
+        ports = midi_list_ports()
         print("Available MIDI input ports:")
-        for p in ports:
-            print(f"  {p!r}")
-        print("\nRe-run with --midi <port name>")
+        for i, p in enumerate(ports):
+            print(f"  [{i}] {p!r}")
+        print("\nRe-run with --midi <substring of port name>")
         sys.exit(0)
 
     # Initialise components

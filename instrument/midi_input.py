@@ -1,6 +1,8 @@
 """
 midi_input.py — Receive MIDI from Bome virtual port, update field state.
 
+Uses Windows winmm.dll via ctypes — no python-rtmidi / C++ compiler needed.
+
 Expected CC mapping (matches DESIGN.md §4):
   Twister 1, encoders 1-8  → CC 1-8    somatic intensity, modes 0-7
   Twister 2, encoders 1-8  → CC 9-16   cognitive intensity, modes 0-7
@@ -16,45 +18,110 @@ Expected CC mapping (matches DESIGN.md §4):
 All CC values 0-127 → normalised to [0, 1].
 """
 
-import mido
-import threading
+import ctypes
+import ctypes.wintypes as wt
+from ctypes import windll, WINFUNCTYPE, Structure, c_char, byref, sizeof
 from typing import Callable
+
+
+# ---------------------------------------------------------------------------
+# winmm.dll type definitions
+# ---------------------------------------------------------------------------
+
+winmm = windll.winmm
+
+MMSYSERR_NOERROR  = 0
+CALLBACK_FUNCTION = 0x00030000
+MIM_DATA          = 0x3C3
+
+
+class MIDIINCAPS(Structure):
+    _fields_ = [
+        ("wMid",           wt.WORD),
+        ("wPid",           wt.WORD),
+        ("vDriverVersion", wt.UINT),
+        ("szPname",        c_char * 32),
+        ("dwSupport",      wt.DWORD),
+    ]
+
+
+# Callback type: void CALLBACK MidiInProc(HMIDIIN, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR)
+MIDIINPROC = WINFUNCTYPE(None, wt.HANDLE, wt.UINT,
+                         ctypes.c_void_p, ctypes.c_size_t, ctypes.c_size_t)
+
+
+# ---------------------------------------------------------------------------
+# Module-level helpers
+# ---------------------------------------------------------------------------
+
+def list_ports() -> list[str]:
+    """Return names of all available MIDI input devices."""
+    n = winmm.midiInGetNumDevs()
+    names = []
+    for i in range(n):
+        caps = MIDIINCAPS()
+        winmm.midiInGetDevCapsA(i, byref(caps), sizeof(caps))
+        names.append(caps.szPname.decode("ascii", errors="replace").rstrip("\x00"))
+    return names
+
+
+def _find_port_index(port_name: str) -> int:
+    ports = list_ports()
+    for i, name in enumerate(ports):
+        if port_name.lower() in name.lower():
+            return i
+    raise ValueError(
+        f"MIDI port {port_name!r} not found.\nAvailable ports:\n"
+        + "\n".join(f"  [{i}] {p}" for i, p in enumerate(ports))
+    )
 
 
 def midi_to_float(value: int) -> float:
     return value / 127.0
 
 
+# ---------------------------------------------------------------------------
+# MidiInput class
+# ---------------------------------------------------------------------------
+
 class MidiInput:
     def __init__(self, port_name: str, on_update: Callable):
         """
-        port_name : name of the Bome virtual MIDI port
-        on_update : callback(cc, value_float) called on each CC message
+        port_name : substring of the Bome virtual MIDI port name
+        on_update : callback(cc: int, value: float) for each CC message
         """
         self.port_name = port_name
         self.on_update = on_update
-        self._thread   = None
-        self._running  = False
+        self._handle   = wt.HANDLE(0)
+        self._cb       = None   # keep callback alive (prevent GC)
 
-    def list_ports(self):
-        return mido.get_input_names()
+    @staticmethod
+    def list_ports() -> list[str]:
+        return list_ports()
 
     def start(self):
-        self._running = True
-        self._thread  = threading.Thread(target=self._run, daemon=True)
-        self._thread.start()
-        print(f"MIDI input listening on: {self.port_name!r}")
+        idx = _find_port_index(self.port_name)
+
+        def _callback(hmidi, msg, instance, param1, param2):
+            if msg == MIM_DATA:
+                status = param1 & 0xFF
+                if (status & 0xF0) == 0xB0:          # Control Change
+                    cc  = (param1 >> 8)  & 0x7F
+                    val = (param1 >> 16) & 0x7F
+                    self.on_update(cc, midi_to_float(val))
+
+        self._cb = MIDIINPROC(_callback)
+
+        ret = winmm.midiInOpen(byref(self._handle), idx,
+                               self._cb, 0, CALLBACK_FUNCTION)
+        if ret != MMSYSERR_NOERROR:
+            raise RuntimeError(f"midiInOpen failed with error code {ret}")
+
+        winmm.midiInStart(self._handle)
+        print(f"MIDI input open: [{idx}] {list_ports()[idx]!r}")
 
     def stop(self):
-        self._running = False
+        winmm.midiInStop(self._handle)
+        winmm.midiInClose(self._handle)
+        print("MIDI input closed.")
 
-    def _run(self):
-        try:
-            with mido.open_input(self.port_name) as port:
-                for msg in port:
-                    if not self._running:
-                        break
-                    if msg.type == "control_change":
-                        self.on_update(msg.control, midi_to_float(msg.value))
-        except Exception as e:
-            print(f"MIDI input error: {e}")
