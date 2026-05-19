@@ -471,3 +471,160 @@ axiom QuantumTunnelingChangesWindingNumber
         windingNumber (applyTherapy t trauma) = zeroWinding
   where
     opaque isQuantumTunneling : TherapyOp → ℝ → Prop
+
+
+-- ============================================================
+-- § 8  PhysicsField typeclass
+--      Physics level is a type parameter, not a version upgrade
+-- ============================================================
+
+/--
+The soma-field is parametric over its physics level, exactly as
+`EmotionLang (r : Type)` is parametric over its representation type.
+
+Classical (Γ=0), quantum-Ising (Γ>0), and QFT (RG flow) are all
+instances of the same `PhysicsField` typeclass. This is the
+final-tagless pattern applied one level up: the typeclass is the
+universal structure; instances solidify for computation when needed.
+
+None of the instances is more "real" than the others. The empirical
+question — which physics level best describes the brain — is separate
+from the theoretical structure, which holds at every level simultaneously.
+
+Compare: `awe_is_universal` holds for all `[EmotionLang r]`.
+`TopologyIsPhysicsLevelInvariant` (below) holds for all `[PhysicsField p]`.
+
+AI check: Does `EmotionLang` already use this pattern? (Yes.)
+Is D-Wave a `ClassicalSomaField` or `QuantumIsingField` input?
+(The W matrix is ClassicalSomaField format; D-Wave runs QuantumIsingField.)
+-/
+class PhysicsField (p : Type) where
+  /-- The energy functional H : CouplingMatrix → EmotionState → ℝ. -/
+  hamiltonian          : CouplingMatrix → EmotionState → ℝ
+  /-- Transverse-field tunneling amplitude. Γ = 0 recovers classical Langevin. -/
+  quantumParam         : ℝ
+  /-- Topological invariant — same winding number computation at every level. -/
+  topologicalInvariant : EmotionState → WindingNumber
+
+opaque ClassicalSomaField : Type   -- field.py; Γ = 0; the current instrument
+opaque QuantumIsingField  : Type   -- transverse-field Ising; Γ > 0; D-Wave
+opaque QFTSomaField       : Type   -- RG flow; c-theorem; §5 of main paper
+
+axiom classicalPhysicsField : PhysicsField ClassicalSomaField
+axiom quantumPhysicsField   : PhysicsField QuantumIsingField
+
+/--
+The winding number is independent of physics level.
+
+The same integer labels a topologically protected attractor whether
+computed classically, on a D-Wave, or in QFT. Topological protection
+(THERAPY-2) is not an artefact of the classical approximation — it is
+a property of the topology itself, invariant across all physics levels.
+
+This is the analogue of `awe_is_universal` at the physics level:
+a result that holds for all `[PhysicsField p]` simultaneously.
+
+AI check: Is this consistent with THERAPY-2? (Yes — strengthens it.)
+Is it consistent with QUANT-2 (quantum tunneling changes winding)?
+(Yes — tunneling changes the winding number; the FUNCTOR is invariant,
+meaning the winding number of a GIVEN state is the same across levels,
+but a quantum PROCESS can change it while a classical one cannot.)
+-/
+axiom TopologyIsPhysicsLevelInvariant
+    {p q : Type} [hp : PhysicsField p] [hq : PhysicsField q]
+    (e : EmotionState) :
+    hp.topologicalInvariant e = hq.topologicalInvariant e
+
+
+-- ============================================================
+-- § 9  Categorical Soma Field Theory (CSFT)
+--      The Abramsky–Coecke move applied to the soma-field
+-- ============================================================
+
+/--
+[CSFT-META] The historical progression, now completed one more step:
+
+  Classical wave mechanics     →  Soma Field Theory          (done; paper §1–5)
+  Quantum mechanics            →  Quantum Soma Field Theory  (done; §7 above)
+  Categorical Quantum Mech.   →  Categorical Soma Field Theory  (this section)
+
+In Categorical Quantum Mechanics (Abramsky & Coecke 2004), quantum mechanics
+is re-expressed as a †-compact monoidal category — no Hilbert spaces needed.
+The structure alone (objects, morphisms, tensor, dagger) is enough.
+String diagrams are a sound and complete proof calculus for the theory.
+
+In CSFT the same six-element structure appears:
+
+  Objects      =  emotional state spaces (ℝ¹⁶ classical, ℂ¹⁶ quantum …)
+  Morphisms    =  processes (Langevin step, therapy session, RG flow step)
+  Composition  =  sequential processes (session A then session B)
+  Tensor       =  dyadic field — two people; W₁₂ off-diagonal block
+  Dagger       =  time-reversal: integration reverses encoding
+  Compact      =  genuine entanglement in the quantum dyadic field (QUANT-2)
+
+`EmotionLang (r : Type)` is already categorical: `r` = object,
+`blend / dampen / evoke` = morphisms on `r`.
+`PhysicsField (p : Type)` (§8) parametrises the physics layer.
+`SomaCategory (C : Type)` (this section) is the full categorical structure.
+
+Lean promotion path:
+  `require mathlib` + `Mathlib.CategoryTheory.Monoidal.Dagger`
+  → `SomaCategory` becomes a Lean 4 instance of `†-MonoidalCategory`.
+  Same promotion path as LEAN-1 (rfl), but one categorical level higher.
+
+AI check: Does CQM require Hilbert spaces? (No — any †-monoidal category.)
+Does the soma-field have a dagger? (Yes: time-reversed Langevin equation.)
+Is the dyadic W₁₂ block the tensor product? (Yes — block-matrix structure.)
+-/
+class SomaCategory (C : Type) where
+  /-- Objects: emotional state spaces. -/
+  StateSpace : Type
+  /-- Morphisms: processes between emotional states. -/
+  Process    : StateSpace → StateSpace → Type
+  /-- Identity: the null intervention (no therapy, no dynamics). -/
+  identity   : (A : StateSpace) → Process A A
+  /-- Sequential composition: process A→B then B→D. -/
+  compose    : {A B D : StateSpace} → Process A B → Process B D → Process A D
+  /-- Tensor: dyadic composition — two emotional systems together. -/
+  tensorObj  : StateSpace → StateSpace → StateSpace
+  /-- Dagger: time-reversal. The adjoint of encoding is integration. -/
+  dagger     : {A B : StateSpace} → Process A B → Process B A
+
+opaque ClassicalSomaCategory : Type   -- objects ≅ ℝ¹⁶; morphisms = Langevin steps
+opaque QuantumSomaCategory   : Type   -- objects ≅ ℂ¹⁶; morphisms = unitary + measure
+opaque QFTSomaCategory       : Type   -- objects = field configs; morphisms = RG steps
+
+axiom classicalCSFT : SomaCategory ClassicalSomaCategory
+axiom quantumCSFT   : SomaCategory QuantumSomaCategory
+
+/--
+The winding-number functor F : SomaCategory → ℤ sends each state to its
+topological charge. Smooth morphisms preserve F; topological morphisms
+(EMDR, MDMA-AT, quantum tunneling) change it.
+
+This is THERAPY-2 as a functor property: it holds in EVERY SomaCategory
+instance simultaneously — classical, quantum, QFT. Smooth processes cannot
+resolve topologically protected trauma regardless of which physics level
+is chosen. Only non-smooth (topological) morphisms change the functor value.
+
+In the string diagram language: you cannot untie a knot with smooth wire
+moves; you need to cut and rejoin (a topological operation). The diagram
+IS the proof. Promotion path: prove this in Mathlib.CategoryTheory once
+`SomaCategory` is instantiated as a †-monoidal category.
+
+AI check: Is this consistent with TopologyIsPhysicsLevelInvariant (§8)?
+(Yes — F is the same functor in every instance; §8 is this axiom restricted
+to the PhysicsField sub-structure.)
+-/
+opaque csftWindingNumber : {C : Type} → [SomaCategory C] →
+    SomaCategory.StateSpace C → WindingNumber
+
+opaque csftSmooth : {C : Type} → [SomaCategory C] →
+    {A B : SomaCategory.StateSpace C} → SomaCategory.Process A B → Prop
+
+axiom WindingFunctorPreservesTopology
+    {C : Type} [sc : SomaCategory C]
+    {A B : sc.StateSpace}
+    (p : sc.Process A B)
+    (h : csftSmooth p) :
+    csftWindingNumber A = csftWindingNumber B
