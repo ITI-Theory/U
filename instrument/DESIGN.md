@@ -357,3 +357,136 @@ The viewer field `e_V` (currently zeros, pending GAP-MOVIE-2) is sent on the
 Python, the score definition, the `Renderer` typeclass, and the server loop
 live in Lean. The proof that the system is correct is that
 `src/Movie.lean` type-checks without `sorry`.
+
+---
+
+## 13. The Control Post
+
+The Control Post is the immersive operator interface for the abstract movie.
+It is not a traditional DAW control surface — it is a live window into the
+mathematics of the soma-field.
+
+### 13.1 What it is
+
+Three simultaneous 3D wireframe landscapes rendered in TouchDesigner — one per
+attractor-slice panel. Each panel is a **Poincaré section** of the
+8-dimensional Hopfield energy landscape H(e) = -½ eᵀWe, projected onto a chosen
+pair of emotional modes. In DAW/synthesiser terminology this is an **XY pad**,
+but the surface is mathematically grounded: valleys are attractor basins,
+peaks are repellers, and the gradient arrows show the field's pull direction at
+each point.
+
+The three default panels form a **triptych**:
+
+| Panel | X axis | Y axis | Phenomenological reading |
+|---|---|---|---|
+| 0 | Safety | Fear | Autonomic pole — ventral/dorsal vagal |
+| 1 | Awe | Preverbal | Depth axis — transcendence / oldest soma |
+| 2 | Language | Shame | Social/symbolic axis |
+
+Panel axes can be resteered live from TouchDesigner to any pair of the 8 modes.
+Together the three panels give three orthogonal cross-sections through the
+8-dimensional field — like three faces of a cube, but in 8D.
+
+### 13.2 Rendered elements per panel
+
+Each 32×32 wireframe panel shows:
+
+- **Height field** — `H(eᵢ, eⱼ; e_rest)` on a 32×32 grid.
+  All other modes fixed at the current score e*(t). Height = −H so basins
+  appear as valleys.
+- **Gradient arrows** — `∂H/∂eᵢ`, `∂H/∂eⱼ` at each grid point.
+  Show the field's "pull" direction. Attractor = inward-pointing arrows.
+- **Trajectory marker** — current `e*(t)` projected onto the `(eᵢ, eⱼ)` plane.
+  A lit point moving through the landscape in real time.
+
+### 13.3 Additional visual elements
+
+- **Mandelbulb fractal** — already implemented in `field_render.py`.
+  The full 3D geometry responds to the score via 6 control parameters
+  (power, bailout, theta, phi, speed, shame). This is the primary visual output.
+- **3 attractor-slice wireframes** — the Control Post landscapes above.
+  Simultaneously show the mathematical structure of the state.
+- The combined display: Mandelbulb (immersive fractal) + 3 landscape panels
+  (mathematical control post) = the full visual system.
+
+### 13.4 Data flow
+
+```
+lake exe Movie | python instrument/field_render.py --forward-port 9002 &
+python instrument/control_post.py --verbose
+```
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│  field_render.py  (primary bridge)                                     │
+│  → /movie/e/*  to Ableton (9000) + TouchDesigner (9001)               │
+│  → /movie/e/*  forwarded to Control Post (9002)  [--forward-port]     │
+└──────────────────────────────────────┬─────────────────────────────────┘
+                                       │ /movie/e/* + /movie/t → 9002
+┌──────────────────────────────────────▼─────────────────────────────────┐
+│  control_post.py  (Control Post bridge)                                │
+│  Receives: /movie/e/{name}, /movie/t                                   │
+│  Computes: 3× H(eᵢ,eⱼ;e_rest) on 32×32 grid  (vectorised NumPy)      │
+│  Sends to TD (9001):                                                   │
+│    /landscape/{n}/mesh        — 1024 floats (32×32 height field)       │
+│    /landscape/{n}/gradient    — 2048 floats (32×32 gradient vectors)   │
+│    /landscape/{n}/trajectory  — [x, y, H]  (current position)         │
+│    /landscape/{n}/axes        — [xModeName, yModeName]                 │
+│    /control_post/energy       — global H(e*(t))                        │
+│  Receives from TD:                                                     │
+│    /control/xypad/{n}/axes    — steer panel axes                       │
+│    /control/xypad/{n}/inject  — override mode values                   │
+│    /control/knob/{name}       — knob fader overrides                   │
+│    /control/seek, pause, resume                                        │
+│  Emits to stdout: ControlMessage JSON → Lean (GAP-MOVIE-6/11)         │
+└──────────────────────────────────────┬─────────────────────────────────┘
+                                       │ OSC → 9001
+                             ┌─────────▼─────────────────┐
+                             │  TouchDesigner             │
+                             │  • Mandelbulb fractal SOP  │
+                             │  • 3× wireframe SOP        │
+                             │    (CHOP → DAT → Geometry) │
+                             │  • 3× XY pad controls      │
+                             └───────────────────────────┘
+```
+
+### 13.5 ControlMessage — Lean types (src/Movie.lean §14)
+
+The Control Post emits `ControlMessage` values as JSON on stdout. These are
+formally typed in Lean 4:
+
+```lean
+inductive ControlMessage
+  | Seek             : Float → ControlMessage
+  | SetKnobs         : ControlKnobs → ControlMessage
+  | SetVelocity      : Float → ControlMessage
+  | SetCouplingScale : Float → ControlMessage
+  | SetLandscapeAxes : Fin 3 → MovieMode → MovieMode → ControlMessage
+  | SetModeOverride  : MovieMode → Float → ControlMessage
+  | Pause            : ControlMessage
+  | Resume           : ControlMessage
+  deriving Repr, DecidableEq
+```
+
+`serverLoop` will parse these via `ControlMessage.ofJson` once GAP-MOVIE-6
+(concurrent stdin reader) is implemented.
+
+### 13.6 OSC namespace — Control Post
+
+| Address | Type | Direction | Description |
+|---|---|---|---|
+| `/landscape/{n}/mesh` | float×1024 | → TD | 32×32 height field (H values) |
+| `/landscape/{n}/gradient` | float×2048 | → TD | 32×32 gradient vectors |
+| `/landscape/{n}/trajectory` | float×3 | → TD | [x, y, H] current position |
+| `/landscape/{n}/axes` | str×2 | → TD | [xModeName, yModeName] |
+| `/landscape/{n}/min_h` | float | → TD | mesh minimum (for normalisation) |
+| `/landscape/{n}/max_h` | float | → TD | mesh maximum |
+| `/control_post/t` | float | → TD | current story-time |
+| `/control_post/energy` | float | → TD | global H(e*(t)) |
+| `/control/xypad/{n}/axes` | str×2 | TD → | reconfigure panel axes |
+| `/control/xypad/{n}/inject` | float×2 | TD → | inject (x, y) mode values |
+| `/control/knob/{name}` | float | TD → | ControlKnobs override |
+| `/control/seek` | float | TD → | seek story-time |
+| `/control/pause` | — | TD → | pause story-time |
+| `/control/resume` | — | TD → | resume story-time |

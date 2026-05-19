@@ -563,4 +563,81 @@ def serverLoop {α : Type} [Renderer α]
   ✓ GAP-MOVIE-10 RESOLVED: EmotionScore.step added.
                One Langevin step with W* coupling (Euler, clamped to [0,1]).
                Compositing: `eval t |> step coupling scale dt`
+
+  GAP-MOVIE-11 PENDING: Control Post bridge — no ControlMessage parser in
+               serverLoop.  Types defined in §14.  Requires GAP-MOVIE-6.
 -/
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- §14  THE CONTROL POST — ControlMessage and ControlChannel
+-- ════════════════════════════════════════════════════════════════════════════
+--
+-- "The control post" is the immersive operator interface for the abstract movie.
+-- Three 3D wiremesh attractor-slice landscapes (H(eᵢ, eⱼ) Hopfield energy
+-- surfaces) are rendered in TouchDesigner.  Each panel is an XY pad whose
+-- two axes can be steered to any pair of the 8 emotional modes.  Operators
+-- interact via OSC, which field_render.py / control_post.py forward to Lean
+-- as JSON.  Lean interprets them as ControlMessage values.
+--
+-- Three default landscape panels — the triptych:
+--   Panel 0: Safety vs Fear       (autonomic pole)
+--   Panel 1: Awe vs Preverbal     (depth axis — transcendence)
+--   Panel 2: Language vs Shame    (social/symbolic axis)
+--
+-- Each panel shows:
+--   - 32×32 wireframe mesh of H(eᵢ, eⱼ; e_rest) — basins appear as valleys
+--   - Gradient arrows at each grid point (∂H/∂eᵢ, ∂H/∂eⱼ)
+--   - Trajectory marker: current e*(t) projected onto the (i,j) slice
+--   - Attractor labels (toBasin of nearest ThresholdEvent)
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-- A message from the Control Post to the Movie server.
+    Sent as JSON on the pipe; parsed by serverLoop (GAP-MOVIE-6 + GAP-MOVIE-11). -/
+inductive ControlMessage
+  /-- Jump story-time to t ∈ [0,1].  Seeks instantly; does not hold at thresholds. -/
+  | Seek              : Float → ControlMessage
+  /-- Replace all ControlKnobs at once. -/
+  | SetKnobs          : ControlKnobs → ControlMessage
+  /-- Individual knob overrides — fine-grained panel faders. -/
+  | SetDepth          : Float → ControlMessage
+  | SetVelocity       : Float → ControlMessage
+  | SetResonance      : Float → ControlMessage
+  | SetTexture        : Float → ControlMessage
+  | SetCouplingScale  : Float → ControlMessage
+  /-- Steer a landscape panel's XY axes to a new mode pair.
+      panel ∈ {0,1,2}; the XY pad control surface reconfigures live. -/
+  | SetLandscapeAxes  : Fin 3 → MovieMode → MovieMode → ControlMessage
+  /-- XY pad injection — directly override a mode's activation value.
+      Overrides the score for this tick only; does not modify keyframes. -/
+  | SetModeOverride   : MovieMode → Float → ControlMessage
+  | Pause             : ControlMessage
+  | Resume            : ControlMessage
+  deriving Repr
+-- Note: DecidableEq omitted — ControlMessage contains ControlKnobs whose Float
+-- fields lack a Decidable Eq instance.
+
+/-- Parse a JSON object from the control post into a ControlMessage.
+    Returns none for unrecognised or malformed messages.
+    GAP-MOVIE-11: currently a stub — full implementation requires GAP-MOVIE-6. -/
+def ControlMessage.ofJson (_ : String) : Option ControlMessage := none
+-- ^ stub: replace with proper JSON parser once GAP-MOVIE-6 (stdin reader) lands.
+--   Expected keys: {"type":"Seek","t":0.5}  {"type":"Pause"}
+--   {"type":"SetKnob","knob":"velocity","value":1.2}
+--   {"type":"SetLandscapeAxes","panel":1,"xMode":"awe","yMode":"preverbal"}
+--   {"type":"SetModeOverride","mode":"fear","value":0.3}
+
+/-- The three default attractor-slice panels for the triptych control post.
+    Each entry is (panel_id, xMode, yMode).
+    Python control_post.py computes H(eᵢ,eⱼ;e_rest) on a 32×32 grid
+    using the full vectorised W-weighted energy function. -/
+def defaultLandscapePanels : Array (Fin 3 × MovieMode × MovieMode) := #[
+  (⟨0, by omega⟩, MovieMode.Safety,   MovieMode.Fear),       -- autonomic pole
+  (⟨1, by omega⟩, MovieMode.Awe,      MovieMode.Preverbal),  -- depth axis
+  (⟨2, by omega⟩, MovieMode.Language, MovieMode.Shame),      -- social/symbolic
+]
+
+-- Quick checks for the control post types:
+#eval ControlMessage.Seek 0.5
+#eval ControlMessage.SetLandscapeAxes ⟨1, by omega⟩ MovieMode.Awe MovieMode.Preverbal
+#eval defaultLandscapePanels.map (fun (_, xm, ym) => (xm.dim, ym.dim))

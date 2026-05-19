@@ -168,6 +168,7 @@ class MovieRenderer:
         self,
         ableton_host: str = "127.0.0.1", ableton_port: int = 9000,
         td_host: str = "127.0.0.1",      td_port: int = 9001,
+        forward_host: str = "127.0.0.1", forward_port: Optional[int] = None,
         verbose: bool = False,
         biofeedback: bool = False,
     ):
@@ -175,12 +176,16 @@ class MovieRenderer:
         self.biofeedback = biofeedback
         self._ab: Optional[object] = None
         self._td: Optional[object] = None
+        self._fwd: Optional[object] = None  # Control Post forward target
 
         if _OSC_AVAILABLE:
             self._ab = udp_client.SimpleUDPClient(ableton_host, ableton_port)
             self._td = udp_client.SimpleUDPClient(td_host,      td_port)
             logging.info(f"OSC → Ableton       {ableton_host}:{ableton_port}")
             logging.info(f"OSC → TouchDesigner {td_host}:{td_port}")
+            if forward_port is not None:
+                self._fwd = udp_client.SimpleUDPClient(forward_host, forward_port)
+                logging.info(f"OSC → Control Post  {forward_host}:{forward_port}")
         else:
             logging.warning("OSC unavailable — running in log-only mode")
 
@@ -228,6 +233,11 @@ class MovieRenderer:
 
         for i, name in enumerate(MODE_NAMES):
             self._both(f"/movie/e/{name}", e[i])
+            # Forward to Control Post for landscape computation
+            if self._fwd:
+                self._fwd.send_message(f"/movie/e/{name}", e[i])
+        if self._fwd:
+            self._fwd.send_message("/movie/t", t)
 
         # ── /field/ bridge — compatible with existing Ableton patches ─────
         H = field_energy(e)
@@ -328,6 +338,10 @@ Examples:
                         help="TouchDesigner OSC host (default: 127.0.0.1)")
     parser.add_argument("--td-port",      type=int, default=9001,
                         help="TouchDesigner OSC port (default: 9001)")
+    parser.add_argument("--forward-host", default="127.0.0.1",
+                        help="Control Post OSC host for forwarding (default: 127.0.0.1)")
+    parser.add_argument("--forward-port", type=int, default=None,
+                        help="Forward /movie/* to this port for control_post.py (default: off)")
     parser.add_argument("--verbose", "-v", action="store_true",
                         help="Print per-frame summary to stderr")
     parser.add_argument("--biofeedback", action="store_true",
@@ -346,6 +360,7 @@ Examples:
     renderer = MovieRenderer(
         ableton_host=args.ableton_host, ableton_port=args.ableton_port,
         td_host=args.td_host,           td_port=args.td_port,
+        forward_host=args.forward_host, forward_port=args.forward_port,
         verbose=args.verbose,
         biofeedback=args.biofeedback,
     )
