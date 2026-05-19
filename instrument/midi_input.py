@@ -67,15 +67,17 @@ def list_ports() -> list[str]:
     return names
 
 
-def _find_port_index(port_name: str) -> int:
+def _find_port_indices(port_name: str) -> list[int]:
+    """Return indices of ALL ports whose name contains port_name (case-insensitive)."""
     ports = list_ports()
-    for i, name in enumerate(ports):
-        if port_name.lower() in name.lower():
-            return i
-    raise ValueError(
-        f"MIDI port {port_name!r} not found.\nAvailable ports:\n"
-        + "\n".join(f"  [{i}] {p}" for i, p in enumerate(ports))
-    )
+    indices = [i for i, name in enumerate(ports)
+               if port_name.lower() in name.lower()]
+    if not indices:
+        raise ValueError(
+            f"MIDI port {port_name!r} not found.\nAvailable ports:\n"
+            + "\n".join(f"  [{i}] {p}" for i, p in enumerate(ports))
+        )
+    return indices
 
 
 def midi_to_float(value: int) -> float:
@@ -94,20 +96,21 @@ _active_callbacks: list = []
 class MidiInput:
     def __init__(self, port_name: str, on_update: Callable):
         """
-        port_name : substring of the Bome virtual MIDI port name
+        port_name : substring to match against port names — ALL matching ports
+                    are opened simultaneously (handles two identical devices).
         on_update : callback(cc: int, value: float) for each CC message
         """
         self.port_name = port_name
         self.on_update = on_update
-        self._handle   = wt.HANDLE(0)
-        self._cb       = None   # keep callback alive (prevent GC)
+        self._handles: list = []   # one HANDLE per opened port
 
     @staticmethod
     def list_ports() -> list[str]:
         return list_ports()
 
     def start(self):
-        idx = _find_port_index(self.port_name)
+        indices = _find_port_indices(self.port_name)
+        ports   = list_ports()
 
         def _callback(hmidi, msg, instance, param1, param2):
             if msg == MIM_DATA:
@@ -116,25 +119,33 @@ class MidiInput:
                     ch  = (status & 0x0F) + 1        # 1-indexed MIDI channel
                     cc  = (param1 >> 8)  & 0x7F
                     val = (param1 >> 16) & 0x7F
-                    # Twister 2 sends same CC numbers as Twister 1 but on ch 2
-                    # → shift by 8 so ch2/CC1-8 maps to cognitive band CC9-16
                     if ch == 2:
                         cc += 8
                     self.on_update(cc, midi_to_float(val))
 
-        self._cb = MIDIINPROC(_callback)
-        _active_callbacks.append(self._cb)   # GC anchor
+        # One WINFUNCTYPE wrapper — shared across all port handles.
+        # Must stay referenced for the lifetime of the object.
+        cb = MIDIINPROC(_callback)
+        _active_callbacks.append(cb)
 
-        ret = winmm.midiInOpen(byref(self._handle), idx,
-                               self._cb, 0, CALLBACK_FUNCTION)
-        if ret != MMSYSERR_NOERROR:
-            raise RuntimeError(f"midiInOpen failed with error code {ret}")
+        for idx in indices:
+            handle = wt.HANDLE(0)
+            ret = winmm.midiInOpen(byref(handle), idx,
+                                   cb, 0, CALLBACK_FUNCTION)
+            if ret != MMSYSERR_NOERROR:
+                print(f"WARN: midiInOpen failed for [{idx}] {ports[idx]!r} (rc={ret})")
+                continue
+            winmm.midiInStart(handle)
+            self._handles.append(handle)
+            print(f"MIDI input open: [{idx}] {ports[idx]!r}")
 
-        winmm.midiInStart(self._handle)
-        print(f"MIDI input open: [{idx}] {list_ports()[idx]!r}")
+        if not self._handles:
+            raise RuntimeError("Failed to open any MIDI input port.")
 
     def stop(self):
-        winmm.midiInStop(self._handle)
-        winmm.midiInClose(self._handle)
-        print("MIDI input closed.")
+        for handle in self._handles:
+            winmm.midiInStop(handle)
+            winmm.midiInClose(handle)
+        print(f"MIDI input closed ({len(self._handles)} port(s)).")
+        self._handles.clear()
 
