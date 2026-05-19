@@ -74,9 +74,9 @@ PDFS    := $(SOURCES:.md=.pdf)
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method clean check setup freeze
+.PHONY: all main pov book tensor method music clean check setup freeze
 
-all: $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf
+all: $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf music-affect-dynamics.pdf
 
 main: soma-field-paper.pdf
 
@@ -87,6 +87,12 @@ book: soma-field-book.pdf
 tensor: the-tensor.pdf
 
 method: mathematical-co-identification.pdf
+
+music: music-affect-dynamics.pdf
+
+music-affect-dynamics.pdf: music-affect-dynamics.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
 
 mathematical-co-identification.pdf: mathematical-co-identification.md $(BIB)
 	$(PANDOC) $< -o $@ $(FLAGS) --citeproc --bibliography=$(BIB) --csl=$(CSL)

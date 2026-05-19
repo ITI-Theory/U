@@ -1,3 +1,23 @@
+## 19 May 2026 — Session 2: Instrument, PhD, HKP, Paper 3
+
+- **HKP integrated**: Hertz, Krogh & Palmer (1991) added to bib; two new
+  passages: ADHD adaptive reframing (B.3) and failure-modes HKP warning (§7.4)
+- **Figures embedded**: all 9 rendered PDFs now in soma-field-paper.md;
+  fig0 before §3.3, fig5 in Appendix B.3; ASCII art replaced throughout
+- **PhD path**: interdisciplinary by publication; 3-paper structure mapped;
+  ~18–24 months to submission; ILLC Amsterdam / Sussex best fit
+- **Paper 3 scaffolded**: `paper/music-affect-dynamics.md` — dynamical field
+  model vs Juslin/Sloboda circumplex; Juslin/Sloboda handbook scanned (991pp,
+  stops at 2D — confirmed gap)
+- **Instrument**: `instrument/DESIGN.md` + full Python server scaffolded
+  (field.py, modifiers.py, midi_input.py, osc_output.py, logger.py, server.py)
+- **Hardware confirmed**: 2×Twister, 2×Stream Deck XL, Akai Fire, Push 2,
+  Ableton Suite; Bome+Companion routing arch; Dangbei Atom/HoloGauze on hold
+- **Next**: run `python server.py` with Twister connected; write Max4Live
+  OSC receiver device; add `make music` build to CI
+
+---
+
 ## Handoff Summary
 
 - Continuing workflow setup: simple Diary.md, one file for all notes/tasks.
