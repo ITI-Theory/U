@@ -1,3 +1,48 @@
+## Release Management — Standard Procedure
+
+### How to cut a release
+
+```bash
+# 1. Full rebuild (all PDFs from source)
+cd paper && make && cd ..
+
+# 2. Commit any dirty PDFs / source
+git add -A && git commit -m "release: vX.Y.Z full rebuild"
+
+# 3. Annotated tag — message = what changed since last tag
+git tag -a vX.Y.Z -m "Release vX.Y.Z — one-line summary
+
+- bullet: what changed
+- bullet: papers updated
+- bullet: code added"
+
+# 4. Push commits + tag together
+git push && git push origin vX.Y.Z
+
+# 5. (Optional) GitHub release from tag
+#    → Releases → Draft new → choose tag → paste bullets → attach PDFs
+```
+
+### Versioning convention
+
+`v{major}.{minor}.{patch}-{label}`
+
+| Segment | Increment when |
+|---|---|
+| major | paper submitted / accepted; instrument first live use |
+| minor | new section, new module, new proof |
+| patch | fix, typo, bib entry, PDF rebuild |
+| label | `-alpha` draft / `-biorxiv` preprint upload / `-session{N}` |
+
+### Tag history
+
+| Tag | Commit | Description |
+|---|---|---|
+| `v1.0-biorxiv` | (prior) | bioRxiv v1 upload |
+| `v1.1.0-session4` | `d56477f` | FieldAxioms, FieldProofs, §3.4 abductive loop |
+
+---
+
 ## 19 May 2026 — Session 2: Instrument, PhD, HKP, Paper 3
 
 - **HKP integrated**: Hertz, Krogh & Palmer (1991) added to bib; two new
