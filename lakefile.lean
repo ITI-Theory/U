@@ -10,7 +10,7 @@ package U where
 -/
 lean_lib Emotions where
   srcDir := "src"
-  roots  := #[`EmotionOntology, `SomaField]
+  roots  := #[`EmotionOntology, `SomaField, `FieldProofs]
 
 /-
   Full Hopfield demo — requires Mathlib.

@@ -200,7 +200,9 @@ axiom GoldstoneAfterimagePersists
 -- ============================================================
 
 /--
-[LEAN-1] EmotionLang is a Lean 4 typeclass (final tagless encoding).
+[LEAN-1] ✓ PROMOTED — see `src/FieldProofs.lean`.
+
+EmotionLang is a Lean 4 typeclass (final tagless encoding).
 The term `awe := blend fear surprise` is valid for *any* interpreter `r`
 simultaneously — String, List EmotionLabel, Valence, or any future one.
 
@@ -208,6 +210,12 @@ Every theorem proved about `EmotionLang r` holds for the neuroscience
 reading, the phenomenological reading, and the computational reading *at once*
 by typeclass dispatch. This is universality encoded as ad-hoc polymorphism.
 `deriving DecidableEq` enables Aesop to close type-identity goals automatically.
+
+Proven in `src/FieldProofs.lean`:
+  `awe_is_universal`         — proof: `rfl`
+  `awe_structural_universality` — proof: `⟨rfl, by decide, by decide⟩`
+  `nostalgia_requires_longing`  — proof: `decide`
+  `love_ne_awe`              — proof: `decide`
 
 AI check: Does `src/EmotionOntology.lean` contain `class EmotionLang (r : Type)`?
 Are multiple instances defined for different `r`?
