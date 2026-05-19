@@ -26,12 +26,25 @@ from logger     import SessionLogger
 
 
 # ---------------------------------------------------------------------------
+# MIDI RX telemetry  (written by CC callback, read by main loop)
+# ---------------------------------------------------------------------------
+
+_midi_rx = {"count": 0, "last_cc": -1, "last_val": 0.0}
+
+
+# ---------------------------------------------------------------------------
 # CC → field parameter routing (matches DESIGN.md §4)
 # ---------------------------------------------------------------------------
 
 def make_cc_handler(field: SomaField, params_ref: dict):
     """Return a closure that routes CC messages to field state."""
     def on_cc(cc: int, value: float):
+        # Update telemetry
+        _midi_rx["count"] += 1
+        _midi_rx["last_cc"]  = cc
+        _midi_rx["last_val"] = value
+        print(f"  MIDI CC {cc:>2d} = {value:.3f}  (rx #{_midi_rx['count']})", flush=True)
+
         # Somatic: CCs 1-8 → modes 0-7
         if 1 <= cc <= 8:
             field.set_somatic(cc - 1, value)
@@ -89,8 +102,9 @@ def main():
     midi = MidiInput(args.midi, make_cc_handler(field, params_ref))
     midi.start()
 
-    dt     = 1.0 / args.rate
-    step_n = 0
+    dt        = 1.0 / args.rate
+    step_n    = 0
+    t_zero    = time.time()
 
     def shutdown(sig=None, frame=None):
         print("\nShutting down...")
@@ -116,6 +130,17 @@ def main():
         # Step dynamics
         field.step()
         state = field.state_dict()
+        state["midi_count"]   = _midi_rx["count"]
+        state["last_cc"]      = _midi_rx["last_cc"]
+        state["last_cc_val"]  = _midi_rx["last_val"]
+        state["t"]            = round(time.time() - t_zero, 3)
+
+        # Console readout every 0.5 s (every 25 steps at 50 Hz)
+        if step_n % 25 == 0:
+            att = state['nearest_attractor']
+            print(f"t={state['t']:.1f}  {att:<20}  H={state['H']:+.2f}  "
+                  f"T={state['T_eff']:.4f}  CC_rx={_midi_rx['count']}",
+                  flush=True)
 
         # Output
         osc.send(state)

@@ -15,11 +15,11 @@ import numpy as np
 N_MODES = 8          # emotional modes
 N_DIM   = 16         # state vector dimension (2 per mode: somatic + cognitive)
 
-# Default coupling matrix W — symmetric, negative definite around calm attractor
-# Diagonal: self-damping (negative = restoring force)
-# Off-diagonal: inter-mode coupling (positive = excitatory, negative = inhibitory)
+# Default coupling matrix W — diagonal restoring force toward equilibrium b/W.
+# SIGN NOTE: de/dt = (-We + b)/γ + noise  →  positive diagonal = restoring force
+# toward e = W⁻¹b.  Negative diagonal would create exponential runaway to ±clip.
 _DEFAULT_W = np.zeros((N_DIM, N_DIM))
-np.fill_diagonal(_DEFAULT_W, -0.8)
+np.fill_diagonal(_DEFAULT_W, 0.8)
 
 # Named attractor states (normalised 0–1)
 ATTRACTORS = {
@@ -47,14 +47,16 @@ class SomaField:
 
     def __init__(self, W=None, b=None, gamma=1.0, D=0.01, theta=0.7, dt=0.02):
         self.W     = W if W is not None else _DEFAULT_W.copy()
-        self.b     = b if b is not None else np.zeros(N_DIM)
         self.gamma = gamma        # damping coefficient
         self.D     = D            # noise temperature (diffusion)
         self.theta = theta        # perception threshold
         self.dt    = dt           # integration timestep (seconds)
-
-        self.e     = np.zeros(N_DIM)   # current state vector
         self.rng   = np.random.default_rng()
+
+        # Equilibrium state: regulated_calm.  Bias = W @ e* so that ∇H(e*) = 0.
+        calm   = ATTRACTORS["regulated_calm"].copy()
+        self.b = b if b is not None else (self.W @ calm)
+        self.e = calm.copy()
 
     # ------------------------------------------------------------------
     # Core physics
