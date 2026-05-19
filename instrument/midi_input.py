@@ -45,9 +45,11 @@ class MIDIINCAPS(Structure):
     ]
 
 
-# Callback type: void CALLBACK MidiInProc(HMIDIIN, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR)
+# Callback type — use DWORD (32-bit) for param1/param2; the MIDI message
+# payload sits in the low 24 bits and 32-bit extraction is proven to work
+# on Windows x64 with WinMM.  Using c_size_t (64-bit) silently breaks.
 MIDIINPROC = WINFUNCTYPE(None, wt.HANDLE, wt.UINT,
-                         ctypes.c_void_p, ctypes.c_size_t, ctypes.c_size_t)
+                         ctypes.POINTER(ctypes.c_ulong), wt.DWORD, wt.DWORD)
 
 
 # ---------------------------------------------------------------------------
@@ -80,6 +82,11 @@ def midi_to_float(value: int) -> float:
     return value / 127.0
 
 
+# Module-level store — ctypes callbacks MUST remain referenced here or the GC
+# can collect them even if stored as instance attributes.
+_active_callbacks: list = []
+
+
 # ---------------------------------------------------------------------------
 # MidiInput class
 # ---------------------------------------------------------------------------
@@ -106,11 +113,17 @@ class MidiInput:
             if msg == MIM_DATA:
                 status = param1 & 0xFF
                 if (status & 0xF0) == 0xB0:          # Control Change
+                    ch  = (status & 0x0F) + 1        # 1-indexed MIDI channel
                     cc  = (param1 >> 8)  & 0x7F
                     val = (param1 >> 16) & 0x7F
+                    # Twister 2 sends same CC numbers as Twister 1 but on ch 2
+                    # → shift by 8 so ch2/CC1-8 maps to cognitive band CC9-16
+                    if ch == 2:
+                        cc += 8
                     self.on_update(cc, midi_to_float(val))
 
         self._cb = MIDIINPROC(_callback)
+        _active_callbacks.append(self._cb)   # GC anchor
 
         ret = winmm.midiInOpen(byref(self._handle), idx,
                                self._cb, 0, CALLBACK_FUNCTION)
