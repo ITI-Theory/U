@@ -59,6 +59,7 @@ import json
 import os
 import threading
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
 import matplotlib.pyplot as plt
@@ -90,6 +91,13 @@ COGNITIVE_HUE = 0.58   # steel blue
 BG            = "#0d0d0d"
 PANEL_BG      = "#111111"
 INACTIVE_COL  = "#1c1c1c"
+
+# Wallpaper — loaded once at startup (None = not found, silently skipped)
+_WALLPAPER_PATH = (
+    Path(__file__).parent.parent / "tmp"
+    / "abstract-dark-background-with-purple-lines-generative-ai.jpg"
+)
+WALLPAPER_ALPHA = 0.22   # 0 = invisible, 1 = fully opaque
 
 KNOB_COLS = 4
 KNOB_ROWS = 4
@@ -362,7 +370,7 @@ class TwisterPanel:
         W = KNOB_COLS * CELL_SIZE
         H = KNOB_ROWS * CELL_SIZE
 
-        ax.set_facecolor(PANEL_BG)
+        ax.set_facecolor("none")   # transparent — wallpaper shows through
         ax.set_xlim(0, W)
         ax.set_ylim(0, H)
         ax.set_aspect("equal")
@@ -548,6 +556,21 @@ def main() -> None:
         fig.canvas.manager.set_window_title("Soma-Field — Twister UI")
     except Exception:
         pass
+
+    # ── Wallpaper background ──────────────────────────────────────────────────
+    if _WALLPAPER_PATH.exists():
+        try:
+            _wp_img = plt.imread(str(_WALLPAPER_PATH))
+            ax_wp = fig.add_axes([0, 0, 1, 1], zorder=0)
+            ax_wp.imshow(_wp_img, aspect="auto", alpha=WALLPAPER_ALPHA,
+                         extent=[0, 1, 0, 1], zorder=0,
+                         interpolation="bilinear")
+            ax_wp.axis("off")
+            ax_wp.set_navigate(False)
+        except Exception as _e:
+            print(f"[twister_ui] wallpaper load failed: {_e}")
+    else:
+        print(f"[twister_ui] wallpaper not found at {_WALLPAPER_PATH}")
 
     gs = fig.add_gridspec(
         1, 2,
