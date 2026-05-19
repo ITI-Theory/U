@@ -74,7 +74,8 @@ PDFS    := $(SOURCES:.md=.pdf)
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method music clean check setup freeze
+.PHONY: all main pov book tensor method music clean check setup freeze \
+        de fr it translations translations-clean
 
 all: $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf music-affect-dynamics.pdf
 
@@ -144,3 +145,120 @@ check:
 	@test -f $(CSL) \
 	  && echo "OK: $(CSL)" \
 	  || echo "WARN: $(CSL) not found — run 'make setup' to download"
+# =============================================================================
+# Translations — DE / FR / IT
+# =============================================================================
+# Stub .md files live alongside the English sources:
+#   soma-field-paper.de.md, soma-field-paper.fr.md, soma-field-paper.it.md etc.
+# Run: make translations   (all 18 PDFs)
+#      make de             (6 German PDFs)
+#      make fr             (6 French PDFs)
+#      make it             (6 Italian PDFs)
+#      make translations-clean
+# =============================================================================
+
+FLAGS_DE := $(FLAGS) -V lang=de
+FLAGS_FR := $(FLAGS) -V lang=fr
+FLAGS_IT := $(FLAGS) -V lang=it
+
+BOOK_FLAGS_DE := $(BOOK_FLAGS) -V lang=de
+BOOK_FLAGS_FR := $(BOOK_FLAGS) -V lang=fr
+BOOK_FLAGS_IT := $(BOOK_FLAGS) -V lang=it
+
+PDFS_DE := soma-field-paper.de.pdf soma-field-book.de.pdf soma-field-patient-pov.de.pdf \
+           mathematical-co-identification.de.pdf the-tensor.de.pdf music-affect-dynamics.de.pdf
+
+PDFS_FR := soma-field-paper.fr.pdf soma-field-book.fr.pdf soma-field-patient-pov.fr.pdf \
+           mathematical-co-identification.fr.pdf the-tensor.fr.pdf music-affect-dynamics.fr.pdf
+
+PDFS_IT := soma-field-paper.it.pdf soma-field-book.it.pdf soma-field-patient-pov.it.pdf \
+           mathematical-co-identification.it.pdf the-tensor.it.pdf music-affect-dynamics.it.pdf
+
+translations: $(PDFS_DE) $(PDFS_FR) $(PDFS_IT)
+
+de: $(PDFS_DE)
+
+fr: $(PDFS_FR)
+
+it: $(PDFS_IT)
+
+translations-clean:
+	rm -f $(PDFS_DE) $(PDFS_FR) $(PDFS_IT)
+
+# --- German ---
+
+soma-field-paper.de.pdf: soma-field-paper.de.md
+	$(PANDOC) $< -o $@ $(FLAGS_DE)
+	@echo "Built: $@"
+
+soma-field-book.de.pdf: soma-field-book.de.md
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS_DE)
+	@echo "Built: $@"
+
+soma-field-patient-pov.de.pdf: soma-field-patient-pov.de.md
+	$(PANDOC) $< -o $@ $(FLAGS_DE)
+	@echo "Built: $@"
+
+mathematical-co-identification.de.pdf: mathematical-co-identification.de.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS_DE) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+the-tensor.de.pdf: the-tensor.de.md
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS_DE)
+	@echo "Built: $@"
+
+music-affect-dynamics.de.pdf: music-affect-dynamics.de.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS_DE) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+# --- French ---
+
+soma-field-paper.fr.pdf: soma-field-paper.fr.md
+	$(PANDOC) $< -o $@ $(FLAGS_FR)
+	@echo "Built: $@"
+
+soma-field-book.fr.pdf: soma-field-book.fr.md
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS_FR)
+	@echo "Built: $@"
+
+soma-field-patient-pov.fr.pdf: soma-field-patient-pov.fr.md
+	$(PANDOC) $< -o $@ $(FLAGS_FR)
+	@echo "Built: $@"
+
+mathematical-co-identification.fr.pdf: mathematical-co-identification.fr.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS_FR) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+the-tensor.fr.pdf: the-tensor.fr.md
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS_FR)
+	@echo "Built: $@"
+
+music-affect-dynamics.fr.pdf: music-affect-dynamics.fr.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS_FR) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+# --- Italian ---
+
+soma-field-paper.it.pdf: soma-field-paper.it.md
+	$(PANDOC) $< -o $@ $(FLAGS_IT)
+	@echo "Built: $@"
+
+soma-field-book.it.pdf: soma-field-book.it.md
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS_IT)
+	@echo "Built: $@"
+
+soma-field-patient-pov.it.pdf: soma-field-patient-pov.it.md
+	$(PANDOC) $< -o $@ $(FLAGS_IT)
+	@echo "Built: $@"
+
+mathematical-co-identification.it.pdf: mathematical-co-identification.it.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS_IT) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+the-tensor.it.pdf: the-tensor.it.md
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS_IT)
+	@echo "Built: $@"
+
+music-affect-dynamics.it.pdf: music-affect-dynamics.it.md $(BIB)
+	$(PANDOC) $< -o $@ $(FLAGS_IT) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
