@@ -33,4 +33,20 @@ instrument/logs/
 
 # Temporary files
 tmp/
+dist/
 nul
+/.lake
+
+# Generated paper status outputs
+paper/PAPER_STATUS.md
+paper/paper_status.json
+
+# Generated export artifacts
+paper/*.docx
+
+# Generated instrument media outputs
+instrument/*.gif
+instrument/*_summary.png
+instrument/*_briefing.png
+instrument/quantum_*.png
+instrument/quantum_*.csv
