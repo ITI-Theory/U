@@ -108,6 +108,32 @@ def energy_along_path(W: np.ndarray, b: np.ndarray, n: int = 300) -> tuple:
     return lam, H
 
 
+def energy_surface_2d(
+    W: np.ndarray,
+    b: np.ndarray,
+    axis_x: str,
+    axis_y: str,
+    fixed_state: np.ndarray,
+    res: int = 60,
+) -> tuple:
+    """2D section of H(e) over two chosen modes while other modes are fixed."""
+    ix = IDX[axis_x]
+    iy = IDX[axis_y]
+
+    x = np.linspace(0.0, 1.0, res)
+    y = np.linspace(0.0, 1.0, res)
+    X, Y = np.meshgrid(x, y)
+    Z = np.zeros_like(X)
+
+    for r in range(res):
+        for c in range(res):
+            e = fixed_state.copy()
+            e[ix] = X[r, c]
+            e[iy] = Y[r, c]
+            Z[r, c] = hopfield_energy(e, W, b)
+    return X, Y, Z
+
+
 # ── Classical Langevin dynamics (continuous, e ∈ [0,1]^N) ────────────────────
 def langevin(W: np.ndarray, b: np.ndarray, e0: np.ndarray,
              T: float, dt: float = 0.005, steps: int = 6000, seed: int = 42) -> np.ndarray:
@@ -415,6 +441,94 @@ def main():
         plt.savefig(out_path, dpi=150, bbox_inches='tight',
                     facecolor=fig.get_facecolor())
         print(f"\nPlot saved: {out_path}")
+
+        # ── Additional 3D figure: landscape geometry + trajectories ─────────
+        fig3d = plt.figure(figsize=(16, 10), facecolor='#0a0a0a')
+        bg3d = '#101419'
+
+        e_anchor = bitstring(state_index('Fear'))
+        Xfa, Yfa, Zfa = energy_surface_2d(W, b, 'Fear', 'Awe', e_anchor, res=64)
+
+        ax31 = fig3d.add_subplot(2, 2, 1, projection='3d')
+        ax31.set_facecolor(bg3d)
+        surf1 = ax31.plot_surface(Xfa, Yfa, Zfa, cmap='inferno', linewidth=0.0,
+                                  antialiased=True, alpha=0.92)
+        t_cold = np.linspace(0, len(traj_cold) - 1, 240).astype(int)
+        fc = traj_cold[t_cold, IDX['Fear']]
+        ac = traj_cold[t_cold, IDX['Awe']]
+        zc = np.array([
+            hopfield_energy(traj_cold[i], W, b) for i in t_cold
+        ])
+        ax31.plot(fc, ac, zc, color='#35d4ff', lw=2.2, label='Classical cold path')
+        ax31.set_title('3D Energy Surface: Fear x Awe (cold path)', color='white', fontsize=10)
+        ax31.set_xlabel('Fear', color='#bbbbbb', fontsize=8)
+        ax31.set_ylabel('Awe', color='#bbbbbb', fontsize=8)
+        ax31.set_zlabel('H(e)', color='#bbbbbb', fontsize=8)
+        ax31.tick_params(colors='#aaaaaa', labelsize=7)
+        ax31.legend(loc='upper left', fontsize=7, framealpha=0.8)
+        fig3d.colorbar(surf1, ax=ax31, shrink=0.6, pad=0.12)
+
+        ax32 = fig3d.add_subplot(2, 2, 2, projection='3d')
+        ax32.set_facecolor(bg3d)
+        surf2 = ax32.plot_surface(Xfa, Yfa, Zfa, cmap='viridis', linewidth=0.0,
+                                  antialiased=True, alpha=0.9)
+        t_hot = np.linspace(0, len(traj_hot) - 1, 240).astype(int)
+        fh = traj_hot[t_hot, IDX['Fear']]
+        ah = traj_hot[t_hot, IDX['Awe']]
+        zh = np.array([
+            hopfield_energy(traj_hot[i], W, b) for i in t_hot
+        ])
+        ax32.plot(fh, ah, zh, color='#ffd84d', lw=2.0, label='Classical hot path')
+        ax32.set_title('3D Energy Surface: Fear x Awe (hot path)', color='white', fontsize=10)
+        ax32.set_xlabel('Fear', color='#bbbbbb', fontsize=8)
+        ax32.set_ylabel('Awe', color='#bbbbbb', fontsize=8)
+        ax32.set_zlabel('H(e)', color='#bbbbbb', fontsize=8)
+        ax32.tick_params(colors='#aaaaaa', labelsize=7)
+        ax32.legend(loc='upper left', fontsize=7, framealpha=0.8)
+        fig3d.colorbar(surf2, ax=ax32, shrink=0.6, pad=0.12)
+
+        # Quantum phase trajectory: (Fear occ, Awe-dominant occ, expected energy)
+        ax33 = fig3d.add_subplot(2, 2, 3, projection='3d')
+        ax33.set_facecolor(bg3d)
+        rq_f = rec['fear']
+        rq_a = rec['awe_total']
+        rq_e = rec['energy']
+        ax33.plot(rq_f, rq_a, rq_e, color='#42f58d', lw=2.0)
+        ax33.scatter(rq_f[0], rq_a[0], rq_e[0], color='#ffffff', s=30, label='start')
+        ax33.scatter(rq_f[-1], rq_a[-1], rq_e[-1], color='#ff6677', s=30, label='end')
+        ax33.set_title('Quantum Phase Curve', color='white', fontsize=10)
+        ax33.set_xlabel('P(|Fear>)', color='#bbbbbb', fontsize=8)
+        ax33.set_ylabel('P(Awe-dominant)', color='#bbbbbb', fontsize=8)
+        ax33.set_zlabel('<H_problem>', color='#bbbbbb', fontsize=8)
+        ax33.tick_params(colors='#aaaaaa', labelsize=7)
+        ax33.legend(loc='upper left', fontsize=7, framealpha=0.8)
+
+        # End-state probability skyline for top basis states
+        ax34 = fig3d.add_subplot(2, 2, 4, projection='3d')
+        ax34.set_facecolor(bg3d)
+        prob_final = np.abs(psi_final) ** 2
+        topk = 24
+        top_idx = np.argsort(prob_final)[-topk:]
+        top_probs = prob_final[top_idx]
+        order = np.argsort(top_probs)
+        xs = np.arange(topk)
+        ys = np.zeros(topk)
+        dz = top_probs[order]
+        colors = plt.cm.plasma(np.linspace(0.2, 0.95, topk))
+        ax34.bar3d(xs, ys, np.zeros(topk), 0.7, 0.5, dz, color=colors, shade=True)
+        ax34.set_title('Final Quantum State: Top Basis Probabilities', color='white', fontsize=10)
+        ax34.set_xlabel('Ranked basis index', color='#bbbbbb', fontsize=8)
+        ax34.set_ylabel('', color='#bbbbbb', fontsize=8)
+        ax34.set_zlabel('Probability', color='#bbbbbb', fontsize=8)
+        ax34.tick_params(colors='#aaaaaa', labelsize=7)
+
+        fig3d.suptitle(
+            'QUANT-EXP-1 3D Views: Landscape Topology and Quantum Motion',
+            color='#6bf7d8', fontsize=12, y=0.98
+        )
+        out_path_3d = os.path.join(os.path.dirname(__file__), 'quantum_experiment_3d.png')
+        plt.savefig(out_path_3d, dpi=160, bbox_inches='tight', facecolor=fig3d.get_facecolor())
+        print(f"3D plot saved: {out_path_3d}")
 
     except Exception as exc:
         print(f"\n(Plot skipped: {exc})")
