@@ -422,3 +422,43 @@ at T=0, via tunneling, without structural flooding.
 3. Add quantum-coherence lifetime estimate: how many anneal steps until the wave collapses to classical?
 4. "First quantum intelligence" framing note: carefully phrase as "topological reachability advantage" in paper; "it tunnels" in layperson doc.
 5. Consider adding entropy panel (von Neumann entropy) to wave evolution plots — shows the superposition spreading.
+
+---
+
+## 20 May 2026 — Session: Alps campsite snapshot + full multilingual build
+
+### Request
+
+- Snapshot everything before vacation (Kloentalersee camping run).
+- Full build including the new quantum paper and all language outputs.
+
+### What was done
+
+- Build system updated in [paper/Makefile](paper/Makefile):
+  - Added `quantum-soma-penrose.md` to `SOURCES` so `make all` builds it.
+  - Added DE/FR/IT targets for `quantum-soma-penrose.{de,fr,it}.pdf`.
+  - Included new paper in translation aggregates (`PDFS_DE`, `PDFS_FR`, `PDFS_IT`).
+  - Expanded `clean` target to also remove `mathematical-co-identification.pdf` and `music-affect-dynamics.pdf`.
+- Added multilingual source stubs for new paper:
+  - `paper/quantum-soma-penrose.de.md`
+  - `paper/quantum-soma-penrose.fr.md`
+  - `paper/quantum-soma-penrose.it.md`
+- Full build run from `paper/`:
+  - `make check`
+  - `make all translations`
+
+### Build result
+
+- Status: PASS (all requested PDFs generated).
+- New paper built in EN/DE/FR/IT:
+  - `paper/quantum-soma-penrose.pdf`
+  - `paper/quantum-soma-penrose.de.pdf`
+  - `paper/quantum-soma-penrose.fr.pdf`
+  - `paper/quantum-soma-penrose.it.pdf`
+- Existing multilingual suite also rebuilt in this snapshot.
+
+### Notes
+
+- Pandoc/XeLaTeX emitted non-blocking missing-glyph warnings for some Unicode math symbols.
+- PDFs were still produced successfully; warnings are cosmetic/typographic, not build failures.
+

@@ -76,7 +76,7 @@ BOOK_FLAGS := \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
   --lua-filter=strip-keywords.lua
 
-SOURCES := soma-field-paper.md soma-field-patient-pov.md
+SOURCES := soma-field-paper.md soma-field-patient-pov.md quantum-soma-penrose.md
 PDFS    := $(SOURCES:.md=.pdf)
 
 # -----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ the-tensor.pdf: the-tensor.md
 # Utility targets
 
 clean:
-	rm -f $(PDFS) soma-field-book.pdf the-tensor.pdf
+	rm -f $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf music-affect-dynamics.pdf
 
 # Download APA 7th edition CSL from the official CSL repository (run once)
 setup: $(CSL)
@@ -173,13 +173,16 @@ BOOK_FLAGS_FR := $(BOOK_FLAGS) -V lang=fr
 BOOK_FLAGS_IT := $(BOOK_FLAGS) -V lang=it
 
 PDFS_DE := soma-field-paper.de.pdf soma-field-book.de.pdf soma-field-patient-pov.de.pdf \
-           mathematical-co-identification.de.pdf the-tensor.de.pdf music-affect-dynamics.de.pdf
+		   mathematical-co-identification.de.pdf the-tensor.de.pdf music-affect-dynamics.de.pdf \
+		   quantum-soma-penrose.de.pdf
 
 PDFS_FR := soma-field-paper.fr.pdf soma-field-book.fr.pdf soma-field-patient-pov.fr.pdf \
-           mathematical-co-identification.fr.pdf the-tensor.fr.pdf music-affect-dynamics.fr.pdf
+		   mathematical-co-identification.fr.pdf the-tensor.fr.pdf music-affect-dynamics.fr.pdf \
+		   quantum-soma-penrose.fr.pdf
 
 PDFS_IT := soma-field-paper.it.pdf soma-field-book.it.pdf soma-field-patient-pov.it.pdf \
-           mathematical-co-identification.it.pdf the-tensor.it.pdf music-affect-dynamics.it.pdf
+		   mathematical-co-identification.it.pdf the-tensor.it.pdf music-affect-dynamics.it.pdf \
+		   quantum-soma-penrose.it.pdf
 
 translations: $(PDFS_DE) $(PDFS_FR) $(PDFS_IT)
 
@@ -218,6 +221,10 @@ music-affect-dynamics.de.pdf: music-affect-dynamics.de.md $(BIB)
 	$(PANDOC) $< -o $@ $(FLAGS_DE) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
+quantum-soma-penrose.de.pdf: quantum-soma-penrose.de.md
+	$(PANDOC) $< -o $@ $(FLAGS_DE)
+	@echo "Built: $@"
+
 # --- French ---
 
 soma-field-paper.fr.pdf: soma-field-paper.fr.md
@@ -244,6 +251,10 @@ music-affect-dynamics.fr.pdf: music-affect-dynamics.fr.md $(BIB)
 	$(PANDOC) $< -o $@ $(FLAGS_FR) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
+quantum-soma-penrose.fr.pdf: quantum-soma-penrose.fr.md
+	$(PANDOC) $< -o $@ $(FLAGS_FR)
+	@echo "Built: $@"
+
 # --- Italian ---
 
 soma-field-paper.it.pdf: soma-field-paper.it.md
@@ -268,4 +279,8 @@ the-tensor.it.pdf: the-tensor.it.md
 
 music-affect-dynamics.it.pdf: music-affect-dynamics.it.md $(BIB)
 	$(PANDOC) $< -o $@ $(FLAGS_IT) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+quantum-soma-penrose.it.pdf: quantum-soma-penrose.it.md
+	$(PANDOC) $< -o $@ $(FLAGS_IT)
 	@echo "Built: $@"
