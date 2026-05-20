@@ -1,0 +1,30 @@
+{
+  "journal": "Frontiers in Computational Neuroscience",
+  "article_type": "Hypothesis and Theory",
+  "title": "The Soma-Field Model: A Field-Theoretic Account of Affective Regulation",
+  "authors": [
+    {
+      "name": "Alistair Johnson",
+      "orcid": "0009-0007-2194-0850",
+      "affiliation": "Independent Researcher, Zurich, Switzerland"
+    }
+  ],
+  "ethics_statement": "No human subjects or animal experiments were conducted.",
+  "conflict_of_interest": "The author declares no commercial or financial relationships that could be construed as a potential conflict of interest.",
+  "data_availability": "All code, manuscript sources, and release artifacts are available in the public repository: https://github.com/Alistair-Johnson/U",
+  "keywords": [
+    "affective dynamics",
+    "Hopfield network",
+    "field theory",
+    "interoception",
+    "computational neuroscience"
+  ],
+  "files": {
+    "manuscript_pdf": "paper/soma-field-paper.pdf",
+    "manuscript_docx": "paper/soma-field-paper.docx",
+    "source_markdown": "paper/soma-field-paper.md",
+    "bibliography": "paper/bibliography.bib",
+    "bundle": "dist/U-submission-frontiers-v1.0.5-20260520.zip"
+  },
+  "status": "draft-ready"
+}

@@ -1280,6 +1280,77 @@ dismissal constitutes a category error was produced, as a direct causal conseque
 by the same operator stack that it describes. The paper is the fixed point of its own
 subject matter. The author considers this observation methodologically significant.
 
+## 9.1 Publication Claim Registry
+
+To support claim-level review rather than all-or-nothing acceptance, this manuscript
+registers its highest-impact claims with scope labels and disconfirmation tests.
+
+| Claim ID | Claim | Scope | Evidence in this work | Disconfirmation criterion |
+|---|---|---|---|---|
+| SF-1 | Conscious percept is a propagator pole of the soma-field | S1 Structural | Formal derivation in Sections 2-3 | Inability to express percept dynamics as Green's-function response under stated operator |
+| SF-2 | Emotional attractors are Hopfield-energy minima | S2 Predictive | Energy model and trajectory framework | Constructed update rule under model assumptions with systematic energy ascent |
+| SF-3 | Threshold governs felt vs sub-felt emotional activity | S2 Predictive | Threshold operator and clinical mapping | Reliable high-amplitude mode activity with no threshold-dependent behavioural or physiological signature |
+| SF-4 | Topological barriers explain classical therapeutic plateaus | S2 Predictive | Formal treatment plus linked companion experiments | Controlled demonstration that matched low-noise classical dynamics crosses registered barriers at equivalent rate |
+| SF-5 | Quantum extension yields topological reachability advantage | S2 Predictive | QUANT-EXP-1 companion evidence and linked artifacts | Controlled replication showing no reachability advantage over matched classical baseline |
+
+Scope labels: S1 = structural; S2 = predictive; S3 = independently replicated.
+Current publication target for core claims is S2.
+
+## 9.2 Claim-Evidence-Result Matrix
+
+To make review traceable, each core claim is paired with concrete evidence outputs
+and current result status.
+
+| Claim ID | Evidence artifact(s) | Current result status |
+|---|---|---|
+| SF-1 | Sections 2-3 derivation of field/propagator structure | structural derivation complete |
+| SF-2 | Energy formulation + instrument runtime equations | predictive structure complete |
+| SF-3 | Threshold operator definition + clinical interpretation sections | predictive mapping complete |
+| SF-4 | Barrier analysis and companion sweep outputs (`paper/QUANT-EXP-SWEEP-2026-05-20.md`) | supported in companion results |
+| SF-5 | QUANT-EXP outputs (`instrument/quantum_experiment.py`, `instrument/quantum_sweep_results.csv`) | pilot support: classical cold stuck (Fear approx 0.976, Awe approx 0.000), quantum Awe-dominant occupancy peak approx 0.408 |
+
+This matrix is intended for reviewer navigation and is updated as companion results
+are expanded or independently replicated.
+
+## 9.3 Replication Package Requirements
+
+To make SF-2 through SF-5 externally testable, each release tagged for review must
+ship a minimal replication package that can be executed without private context.
+
+Required contents:
+
+1. model code used for the run (`instrument/quantum_experiment.py` and support modules),
+2. full parameter snapshot ($W$, $\mathbf{b}$, $\gamma$, $D$, $\theta$, temperature policy),
+3. raw trajectory logs with timestamped attractor labels,
+4. analysis scripts that produce the reported summary tables,
+5. frozen output artifacts (CSV/plots) referenced in this manuscript.
+
+A claim remains `S2` until an independent operator reproduces directionally
+consistent outcomes from this package under the same declared protocol.
+
+## 9.4 Reviewer-Risk Objections and Responses
+
+To reduce ambiguity in peer review, the highest-probability objections are mapped
+to bounded responses and concrete upgrade paths.
+
+| Reviewer objection | Current response in this manuscript | Remaining action to reach stronger status |
+|---|---|---|
+| "This is an analogy, not a formal model." | Sections 2-4 define operators, dynamics, and testable predictions; Section 9.1 registers disconfirmation criteria claim-wise. | Promote more claims from `S2` to `S3` via independent replication. |
+| "Evidence is pilot-stage and may not generalize." | Section 9.2 explicitly labels pilot support and companion-only scope. | Add multi-operator replication and blinded protocol variants. |
+| "Quantum advantage may be implementation-specific." | SF-5 includes a controlled disconfirmation criterion against matched classical baselines. | Publish full benchmark harness with pre-registered acceptance thresholds. |
+| "Clinical interpretation may exceed data scope." | Scope labels (`S1`/`S2`/`S3`) and claim registry separate structural from predictive claims. | Add prospective cohort evidence before any clinical-effectiveness claim. |
+
+## 9.5 Independent Replication Ledger Linkage
+
+`S2` to `S3` promotion for this manuscript is governed by
+`paper/INDEPENDENT_REPLICATION_LEDGER.md`.
+
+Tracked claim IDs in ledger scope: `SF-2`, `SF-3`, `SF-4`, `SF-5`.
+
+Promotion gate: a claim is upgraded only when at least one ledger row records an
+independent operator `PASS` with a reproducible package hash and linked raw/derived
+evidence artifacts.
+
 ---
 
 # References

@@ -1,0 +1,19 @@
+{
+  "platform": "PsyArXiv or OSF Preprints",
+  "title": "Music-Affect Dynamics: An Attractor-Based Model and Pilot Protocol",
+  "authors": [
+    {
+      "name": "Alistair Johnson",
+      "orcid": "0009-0007-2194-0850",
+      "affiliation": "Independent Researcher, Zurich, Switzerland"
+    }
+  ],
+  "recommended_journal_after_preprint": "Frontiers in Psychology (Music, Mind, and Brain)",
+  "files": {
+    "manuscript_pdf": "paper/music-affect-dynamics.pdf",
+    "source_markdown": "paper/music-affect-dynamics.md",
+    "bibliography": "paper/bibliography.bib",
+    "freeze_bundle": "dist/U-papers-freeze-v1.0.6-20260520.zip"
+  },
+  "status": "draft-ready"
+}

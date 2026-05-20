@@ -1,0 +1,21 @@
+{
+  "platform": "arXiv",
+  "primary_category": "math-ph",
+  "secondary_category": "q-bio.NC",
+  "title": "Mathematical Co-identification: A Method for Structural Import Across Scientific Domains",
+  "authors": [
+    {
+      "name": "Alistair Johnson",
+      "orcid": "0009-0007-2194-0850",
+      "affiliation": "Independent Researcher, Zurich, Switzerland"
+    }
+  ],
+  "comments": "Includes claim-wise disconfirmation rules, external worked example, and replication-ledger linkage.",
+  "files": {
+    "manuscript_pdf": "paper/mathematical-co-identification.pdf",
+    "source_markdown": "paper/mathematical-co-identification.md",
+    "bibliography": "paper/bibliography.bib",
+    "bundle": "dist/U-submission-arxiv-v1.0.5-20260520.zip"
+  },
+  "status": "draft-ready"
+}

@@ -1562,3 +1562,13 @@ Quantum therapy goes through. QUANT-EXP-1: PASS."*
 The experiment proves it. The layperson doc (`paper/QUANT-EXP-LAYPERSON.md`) explains it.
 The Lean axiom formalises it. The T-shirt is earned.
 
+AJ: Ask
+how eciting...run the experiments and please...some james bond qulality ouput of 3d mesh field etc etc.....us humans...i know..please, keep going
+
+AJ:Ask
+
+mak pkg wit hrun enrty point, index.html or whatever
+
+AJ:Ask
+
+If 5/10 is the minimum standard to reach publication, at what standard are my 3 papers now?

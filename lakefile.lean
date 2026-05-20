@@ -10,7 +10,6 @@ package U where
 -/
 lean_lib Emotions where
   srcDir := "src"
-  roots  := #[`EmotionOntology, `SomaField, `FieldProofs]
 
 /-
   Movie server — The Abstract Film: Lean high-level API.
@@ -29,5 +28,4 @@ lean_lib HopfieldDemo where
   srcDir := "src"
   roots  := #[`Hopfield]
 
--- require mathlib from
---   git "https://github.com/leanprover-community/mathlib4" @ "v4.20.1"
+require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "master"

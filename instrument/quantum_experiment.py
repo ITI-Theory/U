@@ -815,6 +815,178 @@ def run_noise_equivalence(
     return out_csv, out_png
 
 
+def run_bond_briefing(
+    out_png: str = None,
+    out_gif: str = None,
+    fps: int = 14,
+    frames: int = 84,
+) -> tuple:
+    """
+    Render a cinematic "mission briefing" visualization package:
+      - High-resolution 4-panel dashboard with 3D field meshes
+      - Rotating turntable GIF over the Fear-Awe barrier landscape
+    """
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.animation import FuncAnimation, PillowWriter
+    import matplotlib.gridspec as gridspec
+
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_bond_briefing.png')
+    if out_gif is None:
+        out_gif = os.path.join(os.path.dirname(__file__), 'quantum_bond_turntable.gif')
+
+    W, b = experiment_hamiltonian()
+    e0 = bitstring(state_index('Fear'))
+
+    # Compute trajectories and quantum records for the dashboard.
+    traj_cold = langevin(W, b, e0, T=0.02, steps=3500, seed=77)
+    traj_hot = langevin(W, b, e0, T=1.50, steps=3500, seed=99)
+    rec, _ = quantum_anneal(W, b, steps=320, gamma=5.0, schedule='linear')
+
+    # Core metrics for mission card.
+    energies = all_classical_energies(W, b)
+    fear_energy = float(energies[state_index('Fear')])
+    lam, H_path = energy_along_path(W, b)
+    barrier_height = float(H_path.max() - fear_energy)
+    classical_stuck = bool(traj_cold[-1, IDX['Fear']] > 0.5 and traj_cold[-1, IDX['Awe']] < 0.1)
+    q_peak = float(rec['awe_total'].max())
+
+    # Build 3D surface section.
+    e_anchor = bitstring(state_index('Fear'))
+    X, Y, Z = energy_surface_2d(W, b, 'Fear', 'Awe', e_anchor, res=80)
+
+    # Downsample trajectory points for clean rendering.
+    idx_c = np.linspace(0, len(traj_cold) - 1, 260).astype(int)
+    idx_h = np.linspace(0, len(traj_hot) - 1, 260).astype(int)
+    x_c = traj_cold[idx_c, IDX['Fear']]
+    y_c = traj_cold[idx_c, IDX['Awe']]
+    z_c = np.array([hopfield_energy(traj_cold[i], W, b) for i in idx_c])
+    x_h = traj_hot[idx_h, IDX['Fear']]
+    y_h = traj_hot[idx_h, IDX['Awe']]
+    z_h = np.array([hopfield_energy(traj_hot[i], W, b) for i in idx_h])
+
+    # Quantum curve embedded in 3D state space proxy.
+    qx = rec['fear']
+    qy = rec['awe_total']
+    qz = rec['energy']
+
+    # ── Dashboard PNG ──────────────────────────────────────────────────────
+    fig = plt.figure(figsize=(16, 9), facecolor='#070b12')
+    gs = gridspec.GridSpec(2, 2, figure=fig, wspace=0.18, hspace=0.18)
+
+    # Panel A: hero 3D mesh with classical and quantum routes.
+    axA = fig.add_subplot(gs[0, 0], projection='3d')
+    axA.set_facecolor('#0c1320')
+    axA.plot_surface(X, Y, Z, cmap='cividis', alpha=0.80, linewidth=0.0, antialiased=True)
+    axA.plot_wireframe(X, Y, Z, rstride=6, cstride=6, color='#7de2ff', alpha=0.18, linewidth=0.5)
+    axA.plot(x_c, y_c, z_c, color='#ff5d73', lw=2.0, label='Classical cold')
+    axA.plot(x_h, y_h, z_h, color='#ffd166', lw=1.6, alpha=0.9, label='Classical hot')
+    axA.plot(qx, qy, qz, color='#31f28b', lw=2.2, label='Quantum phase')
+    axA.set_title('MISSION FIELD: Fear-Awe Barrier Topology', color='white', fontsize=11)
+    axA.set_xlabel('Fear', color='#c9d1d9', fontsize=8)
+    axA.set_ylabel('Awe / Awe-dominant', color='#c9d1d9', fontsize=8)
+    axA.set_zlabel('Energy', color='#c9d1d9', fontsize=8)
+    axA.tick_params(colors='#b4c0cf', labelsize=7)
+    axA.view_init(elev=28, azim=-54)
+    axA.legend(loc='upper left', fontsize=7, framealpha=0.7)
+
+    # Panel B: alternate 3D angle with contour projection.
+    axB = fig.add_subplot(gs[0, 1], projection='3d')
+    axB.set_facecolor('#0c1320')
+    z_floor = float(np.min(Z) - 0.6)
+    axB.plot_surface(X, Y, Z, cmap='inferno', alpha=0.74, linewidth=0.0)
+    axB.contour(X, Y, Z, zdir='z', offset=z_floor, levels=16, cmap='magma', linewidths=0.8)
+    axB.plot(x_c, y_c, z_c, color='#7bdff2', lw=1.8)
+    axB.plot(qx, qy, qz, color='#64f4ac', lw=2.3)
+    axB.set_zlim(z_floor, float(np.max(Z) + 0.3))
+    axB.set_title('TOPOLOGY VIEW: Contours + Traversal', color='white', fontsize=11)
+    axB.set_xlabel('Fear', color='#c9d1d9', fontsize=8)
+    axB.set_ylabel('Awe', color='#c9d1d9', fontsize=8)
+    axB.set_zlabel('Energy', color='#c9d1d9', fontsize=8)
+    axB.tick_params(colors='#b4c0cf', labelsize=7)
+    axB.view_init(elev=34, azim=36)
+
+    # Panel C: neon timeline occupancy readout.
+    axC = fig.add_subplot(gs[1, 0])
+    axC.set_facecolor('#0c1320')
+    q_steps = np.arange(len(rec['awe_total']))
+    c_steps = np.linspace(0, len(rec['awe_total']) - 1, len(traj_cold))
+    axC.plot(c_steps, traj_cold[:, IDX['Fear']], color='#ff5d73', lw=1.2, alpha=0.90, label='Cold Fear')
+    axC.plot(c_steps, traj_cold[:, IDX['Awe']], color='#6ec6ff', lw=1.2, alpha=0.90, label='Cold Awe')
+    axC.plot(q_steps, rec['awe_total'], color='#31f28b', lw=2.2, label='Quantum Awe-dominant')
+    axC.fill_between(q_steps, 0, rec['awe_total'], color='#31f28b', alpha=0.16)
+    axC.set_title('TACTICAL TIMELINE: Occupancy Evolution', color='white', fontsize=11)
+    axC.set_xlabel('Normalised progression', color='#c9d1d9', fontsize=9)
+    axC.set_ylabel('Activation / Probability', color='#c9d1d9', fontsize=9)
+    axC.set_ylim(-0.04, 1.02)
+    axC.grid(alpha=0.18, color='#6b7c93', linestyle='--', linewidth=0.5)
+    axC.tick_params(colors='#c9d1d9', labelsize=8)
+    for s in axC.spines.values():
+        s.set_color('#2b3a4d')
+    axC.legend(fontsize=7, framealpha=0.72, facecolor='#0f1725', labelcolor='white')
+
+    # Panel D: mission card / key metrics.
+    axD = fig.add_subplot(gs[1, 1])
+    axD.set_facecolor('#0c1320')
+    axD.axis('off')
+    verdict = 'PASS' if classical_stuck and q_peak > 0.05 else 'INCONCLUSIVE'
+    lines = [
+        'OPERATION: QUANT-EXP-1',
+        '',
+        f'Barrier height (continuous): {barrier_height:.3f}',
+        f'Classical cold final Fear:   {traj_cold[-1, IDX["Fear"]]:.3f}',
+        f'Classical cold final Awe:    {traj_cold[-1, IDX["Awe"]]:.3f}',
+        f'Quantum peak Awe-dominant:   {q_peak:.3f}',
+        f'Final quantum expected E:    {rec["energy"][-1]:.3f}',
+        '',
+        'Claim class: Reachability / topology',
+        'Not a wall-clock speed claim.',
+        '',
+        f'VERDICT: {verdict}',
+    ]
+    y = 0.95
+    for i, line in enumerate(lines):
+        color = '#64f4ac' if 'VERDICT' in line else '#d6deeb'
+        size = 13 if i == 0 else 10
+        if 'VERDICT' in line:
+            size = 14
+        axD.text(0.04, y, line, color=color, fontsize=size, family='monospace', transform=axD.transAxes)
+        y -= 0.07 if line else 0.04
+
+    fig.suptitle(
+        'QUANTUM FIELD BRIEFING  ·  CLASSIFIED: TOPOLOGICAL TRANSITION WINDOW',
+        color='#7ee0ff', fontsize=13, y=0.985
+    )
+    fig.savefig(out_png, dpi=170, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+    # ── Turntable GIF ──────────────────────────────────────────────────────
+    fig2 = plt.figure(figsize=(9.5, 7.2), facecolor='#080d15')
+    ax = fig2.add_subplot(111, projection='3d')
+    ax.set_facecolor('#0c1320')
+    ax.plot_surface(X, Y, Z, cmap='plasma', alpha=0.78, linewidth=0.0, antialiased=True)
+    ax.plot_wireframe(X, Y, Z, rstride=7, cstride=7, color='#90e0ef', alpha=0.18, linewidth=0.55)
+    ax.plot(x_c, y_c, z_c, color='#ff6f91', lw=1.8, label='Classical cold')
+    ax.plot(qx, qy, qz, color='#2de2a5', lw=2.3, label='Quantum')
+    ax.set_title('Turntable: Fear-Awe Field Geometry', color='white', fontsize=11)
+    ax.set_xlabel('Fear', color='#c9d1d9', fontsize=8)
+    ax.set_ylabel('Awe/Awe-dom', color='#c9d1d9', fontsize=8)
+    ax.set_zlabel('Energy', color='#c9d1d9', fontsize=8)
+    ax.tick_params(colors='#bcc8d8', labelsize=7)
+    ax.legend(loc='upper left', fontsize=7, framealpha=0.72)
+
+    def update(i: int):
+        ax.view_init(elev=28 + 4.0 * np.sin(i / 18.0), azim=(i * 4.5) % 360)
+        return ()
+
+    anim = FuncAnimation(fig2, update, frames=frames, interval=1000 // max(1, fps), blit=False)
+    anim.save(out_gif, writer=PillowWriter(fps=fps))
+    plt.close(fig2)
+    return out_png, out_gif
+
+
 # ── Main experiment ───────────────────────────────────────────────────────────
 def main(make_animation: bool = False):
     print("=" * 60)
@@ -1135,9 +1307,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Quantum tunneling experiment CLI')
     parser.add_argument(
         '--mode',
-        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'equiv', 'all'],
+        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'equiv', 'bond', 'all'],
         default='run',
-        help='run: base experiment; animate: run+GIF; schedules: schedule comparison; sweep: barrier sweep; phase: barrier-vs-T phase diagram; equiv: noise-equivalence curve+wave plots; all: everything',
+        help='run: base experiment; animate: run+GIF; schedules: schedule comparison; sweep: barrier sweep; phase: barrier-vs-T phase diagram; equiv: noise-equivalence curve+wave plots; bond: cinematic 3D briefing pack; all: everything',
     )
     args = parser.parse_args()
 
@@ -1173,12 +1345,19 @@ if __name__ == '__main__':
         print(f"Equivalence plot saved: {png_path}")
         sys.exit(0)
 
+    if args.mode == 'bond':
+        png_path, gif_path = run_bond_briefing()
+        print(f"Bond briefing plot saved: {png_path}")
+        print(f"Bond turntable GIF saved: {gif_path}")
+        sys.exit(0)
+
     # all
     verdict = main(make_animation=True)
     c1, p1 = run_schedule_comparison()
     c2, p2 = run_barrier_sweep()
     c3, p3 = run_phase_diagram()
     c4, p4 = run_noise_equivalence()
+    b1, b2 = run_bond_briefing()
     print(f"Schedule CSV saved: {c1}")
     print(f"Schedule plot saved: {p1}")
     print(f"Sweep CSV saved: {c2}")
@@ -1187,4 +1366,6 @@ if __name__ == '__main__':
     print(f"Phase plot saved: {p3}")
     print(f"Equivalence CSV saved: {c4}")
     print(f"Equivalence plot saved: {p4}")
+    print(f"Bond briefing plot saved: {b1}")
+    print(f"Bond turntable GIF saved: {b2}")
     sys.exit(0 if verdict == 'PASS' else 1)

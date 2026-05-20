@@ -1,0 +1,10 @@
+name = "hopfield_project"
+version = "0.1.0"
+defaultTargets = ["hopfield_project"]
+
+[[lean_lib]]
+name = "HopfieldProject"
+
+[[lean_exe]]
+name = "hopfield_project"
+root = "Main"

@@ -30,7 +30,9 @@ abstract: |
   flow from physics into emotional dynamics. The paper concludes with a partial
   catalogue of available mathematical structures — a field guide to the
   typeverse — and a discussion of the failure modes that distinguish genuine
-  co-identification from mere analogy.
+  co-identification from mere analogy. A falsifiability protocol is provided
+  to pre-register import claims, define disconfirmation criteria, and separate
+  exploratory structural matches from publication-grade theorem transfer.
 
 keywords:
   - mathematical co-identification
@@ -736,7 +738,182 @@ proof that consists of: (a) the co-identification, (b) the original theorem,
 
 ---
 
-# 10. Conclusions
+# 10. Falsifiability Protocol for Publication Use
+
+To make co-identification scientifically conservative rather than rhetorically
+expansive, we propose a minimal publication protocol. Every import claim should
+be registered in a compact table before narrative elaboration.
+
+## 10.1 Minimal Registration Template
+
+For each proposed identification $Q := P$, the manuscript should provide:
+
+| Field | Requirement |
+|---|---|
+| Claim ID | Stable identifier (e.g., `COID-3`) |
+| Source object | Named theorem-bearing object in source domain |
+| Target object | Precisely defined object in target domain |
+| Signature match | Units, operator form, symmetry group, variational form |
+| Imported theorem | The exact theorem being transferred |
+| Assumptions | Source theorem assumptions, verbatim |
+| Target verification | Explicit check for each assumption |
+| Prediction | Quantitative, testable consequence |
+| Disconfirmation criterion | What empirical or formal result would falsify this import |
+| Status | exploratory / partially validated / validated / falsified |
+
+This prevents drift from identity claims back into analogy language and makes
+review straightforward: a reviewer can reject a single row without rejecting
+the entire framework.
+
+## 10.2 Disconfirmation Rules
+
+An import is treated as falsified if any one of the following holds:
+
+1. A required theorem assumption cannot be established in the target domain.
+2. The mapped operator fails to preserve the claimed invariance.
+3. The pre-registered quantitative prediction is violated under a valid test.
+4. A formally stronger competing mapping explains the same data with fewer assumptions.
+
+This is deliberately strict. Co-identification is useful only to the extent that
+it can fail clearly.
+
+## 10.3 Worked Registration Sketch (Soma-Field)
+
+| Claim ID | Import | Prediction | Disconfirmation |
+|---|---|---|---|
+| `COID-PROP-1` | Percept $:=$ propagator pole | Measurable spectral pole structure in mode responses | No stable pole decomposition under repeated measurement |
+| `COID-ENG-2` | Attractor landscape $:=$ Hopfield energy | Monotone descent under specified update map | Constructed counterexample with increasing energy step under stated rule |
+| `COID-RG-5` | Therapy progression $:=$ RG flow | Scale-dependent coupling evolution with fixed-point classes | No scale-consistent coupling flow under repeated coarse-graining |
+
+The point is not that these rows are finished; the point is that they can be
+evaluated independently and rejected independently.
+
+## 10.4 Reviewer-Facing Scope Labels
+
+To reduce over-claiming risk, each identification row should carry one of three
+scope labels:
+
+- `S1 (Structural)`: operator/formal identity shown; no empirical test yet.
+- `S2 (Predictive)`: structural identity plus at least one passed quantitative prediction.
+- `S3 (Validated)`: independent replication or cross-dataset confirmation.
+
+Most new interdisciplinary work should expect to publish initially at `S1` or
+`S2`, with explicit paths to `S3`.
+
+## 10.5 Negative Control: When Matching Units Is Not Enough
+
+To prevent confirmation bias, each manuscript should include at least one explicit
+non-transfer case. Consider two quantities with superficially compatible units but
+non-matching dynamical structure:
+
+- Candidate A: a damped propagator with pole structure and causal response kernel.
+- Candidate B: a bounded scalar score with no response-operator interpretation.
+
+Even if both can be normalised to the same units, co-identification fails unless
+the operator class and theorem assumptions match. In this case:
+
+1. A admits spectral decomposition and dispersion relations.
+2. B does not define a Green's operator and therefore does not admit those imports.
+
+Conclusion: dimensional compatibility is necessary but not sufficient. Theorem
+transfer requires operator-level identity. This negative control should be treated
+as a required publication check, not an optional caution.
+
+## 10.6 Worked External Example (Non-Soma): Black-Scholes to Heat Equation
+
+To demonstrate portability beyond the Soma-Field case, we provide a compact
+worked transfer in a separate domain.
+
+**Target quantity:** option value $V(S,t)$ in quantitative finance.
+
+**Source object:** solution class of the one-dimensional heat equation.
+
+### Step A: Signature Match
+
+Black-Scholes PDE:
+
+$$
+\frac{\partial V}{\partial t}
++ \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
++ rS \frac{\partial V}{\partial S}
+- rV = 0.
+$$
+
+After the standard log-price and time-reversal change of variables, this maps to:
+
+$$
+\frac{\partial u}{\partial \tau} = \frac{\partial^2 u}{\partial x^2},
+$$
+
+which is exactly the heat operator class.
+
+### Step B: Import Claim
+
+`COID-BS-HEAT-1`: pricing function dynamics are co-identifiable with heat-flow
+dynamics under the stated transform.
+
+### Step C: Assumption Checklist
+
+| Assumption | Status in target domain |
+|---|---|
+| Diffusion operator is parabolic | satisfied by transformed PDE |
+| Volatility parameter treated as constant in base model | satisfied in baseline Black-Scholes |
+| Boundary/terminal condition specified | satisfied by option payoff at expiry |
+| Sufficient regularity for classical solution methods | assumed in standard derivation |
+
+### Step D: Imported Theorem and Prediction
+
+Imported theorem class: existence/uniqueness and smoothing properties for heat
+equation solutions.
+
+Prediction: option value surface inherits parabolic smoothing under the transform;
+numerical schemes valid for heat-equation class apply directly.
+
+### Step E: Disconfirmation Condition
+
+If transformed dynamics are shown not to be parabolic (for the declared model
+assumptions), or if required boundary regularity fails, this specific transfer is
+invalid and theorem import must be withdrawn.
+
+This worked example demonstrates the method in a domain with no dependence on the
+Soma-Field framework.
+
+## 10.7 Replication Package Requirements
+
+Publication-grade use of co-identification requires a compact artifact bundle for
+each registered claim row. Minimum required contents:
+
+1. claim registry table with IDs and scope labels,
+2. assumption checklist tied to the imported theorem class,
+3. executable derivation or notebook for the mapping transform,
+4. quantitative test script for each predictive (`S2`) row,
+5. disconfirmation log recording pass/fail outcomes by claim ID.
+
+Without this package, rows may be read as suggestive structure, but not as
+auditable theorem transfer.
+
+## 10.8 Reviewer-Risk Objections and Responses
+
+| Reviewer objection | Response in this manuscript | Residual risk and next lift |
+|---|---|---|
+| "This renames analogy as mathematics." | Sections 3-4 and 10.1 require operator identity and theorem assumptions, not metaphorical similarity. | Add additional negative controls from unrelated domains. |
+| "Imports are unfalsifiable in practice." | Section 10.2 defines strict disconfirmation rules and row-wise rejection logic. | Publish a public failure ledger with rejected rows. |
+| "Worked examples are domain-selective." | Section 10.6 demonstrates a non-Soma transfer with explicit assumptions and withdrawal condition. | Add a second external example with different operator family. |
+| "Scope claims may drift upward prematurely." | Section 10.4 enforces `S1`/`S2`/`S3` labels and independent evaluation path. | Require independent replication before any `S3` promotion. |
+
+## 10.9 Independent Replication Ledger Linkage
+
+`S2` to `S3` promotion for registered imports is controlled by
+`paper/INDEPENDENT_REPLICATION_LEDGER.md`.
+
+Tracked claim IDs in ledger scope: `COID-PROP-1`, `COID-ENG-2`, `COID-RG-5`,
+`COID-BS-HEAT-1`.
+
+Promotion gate: a row may be relabeled `S3` only when a ledger entry reports
+independent-operator `PASS`, explicit bundle hash, and linked derivation/test
+artifacts for that claim ID.
+
+# 11. Conclusions
 
 Mathematical co-identification is a method, not a shortcut. It requires the same
 precision as any other mathematical procedure, and it fails in precisely the ways
@@ -764,6 +941,11 @@ nor that every theorem from the source domain transfers automatically. Each
 import remains local, assumption-checked, and falsifiable.
 
 The typeverse does not belong to physics. Physics was merely first to explore it.
+
+Operationally, publication-grade use of this method requires claim-wise
+registration, assumption checks, and explicit disconfirmation criteria.
+Without that discipline, co-identification degrades into analogy; with it,
+it becomes a compact engine for theorem transfer and testable prediction.
 
 ---
 

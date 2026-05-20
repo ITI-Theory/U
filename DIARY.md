@@ -158,6 +158,137 @@ tested barrier case."
 - Last actions: Discussed handoff, context switching, and diary continuity.
 - Next step: Keep logging here, use “STOP AND PARK” for context switches.
 
+---
+
+## 20 May 2026 — Session: Paper freeze pipeline completed
+
+- Added `scripts/paper_status.py` to generate `paper/PAPER_STATUS.md` + `paper/paper_status.json`.
+- Added `scripts/package_papers.py` to build freeze-ready paper ZIP with `MANIFEST.json`.
+- Built freeze artifacts: `dist/U-papers-freeze-v1.0.1-20260520.zip` and `dist/U-papers-freeze-v1.0.2-20260520.zip` (83 files each).
+- Verified paper toolchain via `cd paper && make check` (pandoc + xelatex + bib + csl all OK).
+- Updated root README with repeatable status/freeze commands.
+
+## 20 May 2026 — Session: Aggressive submission pass completed
+
+- Added venue checklists:
+  - `paper/SUBMISSION_FRONTIERS_CHECKLIST.md`
+  - `paper/SUBMISSION_ARXIV_CHECKLIST.md`
+- Added one-command submission exporter: `scripts/package_submissions.py`.
+- Exporter now builds both venue packages in one run and adds SHA256 `MANIFEST.json`.
+- Frontiers package includes refreshed `soma-field-paper.docx`, manuscript PDF/MD, bib/csl, figure files, checklist, metadata JSON.
+- arXiv package includes methodology PDF/MD, bib, checklist, metadata JSON.
+- Built artifacts:
+  - `dist/U-submission-frontiers-v1.0.1-20260520.zip`
+  - `dist/U-submission-arxiv-v1.0.1-20260520.zip`
+
+## 20 May 2026 — Session: One big ZIP added to build system
+
+- Added `scripts/package_everything.py` to generate a single master archive.
+- Script refreshes paper status + freeze bundle + submission bundles + quantum test bundle, then packs everything into one ZIP.
+- Added Makefile build target: `make everything-bundle` (from `paper/`).
+- Built master artifact: `dist/U-everything-v1.0.0-20260520.zip`.
+
+## 20 May 2026 — Session: Paper 2 to 8+ and Paper 3 TLC pass
+
+- Strengthened `paper/mathematical-co-identification.md` with publication-grade falsifiability framing.
+- Added explicit `paper/PAPER2_8_TO_10_PLAN.md` with remaining steps to push paper 2 toward 10/10.
+- Expanded `paper/music-affect-dynamics.md` from scaffold to structured pilot manuscript:
+  - full protocol,
+  - preregistered hypotheses + disconfirmation criteria,
+  - trajectory/spectral analysis metrics,
+  - circumplex + AR baseline comparison framework,
+  - concrete limitations/future-work,
+  - non-specialist interpretation section.
+- Rebuilt PDFs:
+  - `paper/mathematical-co-identification.pdf`
+  - `paper/music-affect-dynamics.pdf`
+- Refreshed status exports: `paper/PAPER_STATUS.md`, `paper/paper_status.json`.
+
+## 20 May 2026 — Session: Paper 3 toward 9/10 (stats + results scaffold)
+
+- Added `§4.4 Results Template` to `paper/music-affect-dynamics.md` with fill-in table for H1/H2/H3.
+- Added `§4.5 Statistical Analysis Plan` with primary tests, model metrics, multiplicity policy, and exclusion rules.
+- Rebuilt `paper/music-affect-dynamics.pdf` successfully.
+- Re-ran paper status export (`paper/PAPER_STATUS.md`, `paper/paper_status.json`).
+
+## 20 May 2026 — Session: All-papers push toward 10/10
+
+- Paper 1 (`soma-field-paper.md`): added `§9.1 Publication Claim Registry` with claim IDs, scope labels, and disconfirmation criteria.
+- Paper 2 (`mathematical-co-identification.md`): added `§10.5 Negative Control` to enforce operator-level (not unit-level) transfer checks.
+- Paper 3 (`music-affect-dynamics.md`): added `§5.7 Reproducibility Checklist` for submission-grade replication requirements.
+- Added portfolio tracker: `paper/PAPERS_10_TRACKER.md`.
+- Rebuilt full paper set (`make all`) successfully.
+- Refreshed status and packages:
+  - `paper/PAPER_STATUS.md`, `paper/paper_status.json`
+  - `dist/U-papers-freeze-v1.0.3-20260520.zip`
+  - `dist/U-submission-frontiers-v1.0.2-20260520.zip`
+  - `dist/U-submission-arxiv-v1.0.2-20260520.zip`
+  - `dist/U-everything-v1.0.1-20260520.zip`
+
+## 20 May 2026 — Session: Next iteration strike (measured fill + final hardening)
+
+- Paper 3 (`music-affect-dynamics.md`): added `§4.6 Exploratory Pilot Fill` with measured values from `instrument/logs/session_20260519_051107.jsonl`.
+- Paper 2 (`mathematical-co-identification.md`): added `§10.6 Worked External Example` (Black-Scholes to heat equation transfer with assumption checklist and disconfirmation rule).
+- Paper 1 (`soma-field-paper.md`): added `§9.2 Claim-Evidence-Result Matrix` for reviewer navigation.
+- Rebuilt all paper PDFs and regenerated artifacts.
+- Updated package versions produced in this pass:
+  - `dist/U-papers-freeze-v1.0.4-20260520.zip`
+  - `dist/U-submission-frontiers-v1.0.3-20260520.zip`
+  - `dist/U-submission-arxiv-v1.0.3-20260520.zip`
+  - `dist/U-everything-v1.0.2-20260520.zip` (validated: 240 files)
+
+## 20 May 2026 — Session: Final publication hardening (all three papers)
+
+- Added replication-package requirements and reviewer-risk response mapping directly in:
+  - `paper/soma-field-paper.md` (`§9.3`, `§9.4`)
+  - `paper/mathematical-co-identification.md` (`§10.7`, `§10.8`)
+  - `paper/music-affect-dynamics.md` (`§5.8`, `§5.9`)
+- Updated portfolio state in `paper/PAPERS_10_TRACKER.md` with revised estimates and next action focused on independent replication.
+- Rebuilt paper PDFs and regenerated status/submission artifacts:
+  - `dist/U-papers-freeze-v1.0.5-20260520.zip`
+  - `dist/U-submission-frontiers-v1.0.4-20260520.zip`
+  - `dist/U-submission-arxiv-v1.0.4-20260520.zip`
+- Regenerated and validated master bundle after packaging fix:
+  - `dist/U-everything-v1.0.7-20260520.zip` (validated: 241 files)
+- Fixed master-bundle generator reliability issue in `scripts/package_everything.py`:
+  - excludes the output ZIP currently being written,
+  - excludes prior `dist/U-everything-*.zip` files to avoid recursive master-of-masters growth.
+
+## 20 May 2026 — Session: Evidence mode (independent-replication wiring)
+
+- Created shared evidence artifact: `paper/INDEPENDENT_REPLICATION_LEDGER.md`.
+- Wired ledger linkage and explicit S2->S3 promotion gate into:
+  - `paper/soma-field-paper.md` (`§9.5`)
+  - `paper/mathematical-co-identification.md` (`§10.9`)
+  - `paper/music-affect-dynamics.md` (`§5.10`)
+- Updated tracker sequence in `paper/PAPERS_10_TRACKER.md` to make ledger fill first-class.
+- Rebuilt and repackaged after wiring:
+  - `dist/U-papers-freeze-v1.0.6-20260520.zip`
+  - `dist/U-submission-frontiers-v1.0.5-20260520.zip`
+  - `dist/U-submission-arxiv-v1.0.5-20260520.zip`
+  - `dist/U-everything-v1.0.8-20260520.zip` (validated: 245 files)
+
+## 20 May 2026 — Session: Publication routing + submission prep
+
+- Added publication venue matrix and execution sequence in `paper/PUBLICATION_ROADMAP.md`.
+- Added ready-to-edit metadata templates:
+  - `paper/submission_metadata/frontiers_soma_field.json`
+  - `paper/submission_metadata/arxiv_mathematical_coidentification.json`
+  - `paper/submission_metadata/preprint_music_affect.json`
+- Auto-checked file-existence items in:
+  - `paper/SUBMISSION_FRONTIERS_CHECKLIST.md`
+  - `paper/SUBMISSION_ARXIV_CHECKLIST.md`
+
+## 20 May 2026 — Session: No-APC pivot
+
+- User declined APC-heavy routes; publication plan pivoted to no-fee-first sequence.
+- Updated `paper/PUBLICATION_ROADMAP.md` to prioritize:
+  - arXiv (math paper)
+  - bioRxiv revision (soma paper)
+  - PsyArXiv/OSF preprint (music paper)
+- Added `paper/SUBMISSION_NO_APC_CHECKLIST.md` as operational checklist.
+- Marked Frontiers path as optional in `paper/SUBMISSION_FRONTIERS_CHECKLIST.md`.
+
 
 ---
 # 16 May 2026

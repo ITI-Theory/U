@@ -82,7 +82,7 @@ PDFS    := $(SOURCES:.md=.pdf)
 # -----------------------------------------------------------------------------
 
 .PHONY: all main pov book tensor method music clean check setup freeze \
-        de fr it translations translations-clean
+	de fr it translations translations-clean everything-bundle
 
 all: $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf music-affect-dynamics.pdf
 
@@ -194,6 +194,9 @@ it: $(PDFS_IT)
 
 translations-clean:
 	rm -f $(PDFS_DE) $(PDFS_FR) $(PDFS_IT)
+
+everything-bundle:
+	cd .. && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.0
 
 # --- German ---
 

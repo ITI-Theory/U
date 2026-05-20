@@ -1,5 +1,7 @@
 numpy>=1.26
 scipy>=1.12
+matplotlib>=3.8
+termcolor>=3.0
 # mido and python-osc: pure Python, install normally
 mido>=1.3
 python-osc>=1.8
