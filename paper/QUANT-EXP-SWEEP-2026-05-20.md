@@ -54,3 +54,31 @@ Artifacts:
 2. Noise-equivalence curve: find `T*` where classical reaches same Awe success as quantum.
 3. Anneal schedule variants: linear vs cosine vs pause-near-gap.
 4. Quantized metric: estimate minimum spectral gap proxy during anneal to correlate with success.
+
+---
+
+## Session continuation — 20 May 2026 (sequence: 3 -> 2 -> 1)
+
+Executed in requested order:
+
+1. **3D animation first** (`--mode animate`)
+2. **Schedule comparison second** (`--mode schedules`)
+3. **Barrier sweep third** (`--mode sweep`)
+
+### New artifacts
+
+- `instrument/quantum_experiment_3d.gif`
+- `instrument/quantum_schedule_comparison.csv`
+- `instrument/quantum_schedule_comparison.png`
+
+### Schedule comparison (B10 baseline, gamma=5.0, steps=400)
+
+| Schedule | Peak Awe-dominant | Final energy | Wall sec |
+|---|---:|---:|---:|
+| linear | 0.4077 | -0.8940 | 24.94 |
+| cosine | 0.3875 | -0.8365 | 25.12 |
+| pause  | 0.4038 | -0.8523 | 26.06 |
+
+Interpretation:
+- For this setup, **linear schedule remains strongest** on both peak Awe-dominant occupancy and final expected energy.
+- Pause schedule stays close to linear; cosine underperforms slightly in this parameter regime.

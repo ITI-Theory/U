@@ -43,6 +43,44 @@ git push && git push origin vX.Y.Z
 
 ---
 
+## 20 May 2026 — Session: Requested triple run completed (3 -> 2 -> 1)
+
+### What got done
+
+- Implemented all three requested items in `instrument/quantum_experiment.py`:
+  - **(3)** 3D animation export (`--mode animate`) to `instrument/quantum_experiment_3d.gif`
+  - **(2)** schedule comparison runner (`--mode schedules`) with CSV + PNG outputs
+  - **(1)** integrated barrier sweep mode (`--mode sweep`) with CSV + PNG outputs
+- Added anneal schedule support in quantum simulation:
+  - `linear`, `cosine`, `pause`
+- Added CLI mode switch:
+  - `run`, `animate`, `schedules`, `sweep`, `all`
+
+### Ordered execution done (as requested)
+
+1. `python instrument/quantum_experiment.py --mode animate`
+2. `python instrument/quantum_experiment.py --mode schedules`
+3. `python instrument/quantum_experiment.py --mode sweep`
+
+### Core outcome
+
+- QUANT-EXP-1 remains PASS.
+- Schedule result (B10 baseline): linear best in this regime.
+
+### Next steps (if paused)
+
+1. Snapshot commit these new artifacts + CLI changes.
+2. Add `--seed-count` and `--barrier-min/max/step` CLI args for deeper sweeps.
+3. Add bootstrap confidence intervals for classical success rate and quantum peak occupancy.
+
+### Brainstorm queue
+
+- Add "Topological Reachability Index" as a single paper metric.
+- Add phase-diagram heatmap over `(barrier, T)` for classical vs quantum reachability.
+- Add side-by-side GIF: rotating 3D landscape + timeline cursor of schedule `s(t)`.
+
+---
+
 ## 20 May 2026 — Session: QUANT-EXP sweep + 3D visual stack
 
 ### What got done

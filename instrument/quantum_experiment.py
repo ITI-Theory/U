@@ -37,6 +37,9 @@ Runtime: ~3-5 seconds (exact 256×256 statevector simulation via scipy.linalg.ei
 
 import numpy as np
 from scipy.linalg import eigh
+import argparse
+import csv
+import time
 import sys
 import os
 
@@ -173,8 +176,45 @@ def build_H_driver(n: int = N, gamma: float = 1.0) -> np.ndarray:
     return H
 
 
-def quantum_anneal(W: np.ndarray, b: np.ndarray,
-                   steps: int = 400, gamma: float = 5.0) -> dict:
+def anneal_schedule_s(
+    raw_s: float,
+    schedule: str = 'linear',
+    pause_center: float = 0.60,
+    pause_width: float = 0.20,
+    pause_strength: float = 0.65,
+) -> float:
+    """Map raw [0,1] schedule coordinate to anneal progress s in [0,1]."""
+    x = float(np.clip(raw_s, 0.0, 1.0))
+    if schedule == 'linear':
+        return x
+    if schedule == 'cosine':
+        # Slow near endpoints, faster in the middle.
+        return float(0.5 * (1.0 - np.cos(np.pi * x)))
+    if schedule == 'pause':
+        # Pause around a chosen region (often near minimum-gap neighborhood).
+        lo = max(0.0, pause_center - 0.5 * pause_width)
+        hi = min(1.0, pause_center + 0.5 * pause_width)
+        if hi <= lo:
+            return x
+        if x < lo:
+            return x
+        if x > hi:
+            return x
+        t = (x - lo) / (hi - lo)
+        return float(lo + (hi - lo) * (t ** (1.0 + pause_strength)))
+    return x
+
+
+def quantum_anneal(
+    W: np.ndarray,
+    b: np.ndarray,
+    steps: int = 400,
+    gamma: float = 5.0,
+    schedule: str = 'linear',
+    pause_center: float = 0.60,
+    pause_width: float = 0.20,
+    pause_strength: float = 0.65,
+) -> dict:
     """
     Adiabatic evolution: H(s) = (1-s)·H_driver + s·H_problem,  s: 0 → 1.
 
@@ -205,10 +245,17 @@ def quantum_anneal(W: np.ndarray, b: np.ndarray,
         [bitstring(i)[IDX['Awe']] == 1 and bitstring(i)[IDX['Fear']] == 0
          for i in range(2**N)], dtype=bool)
 
-    rec = {'fear': [], 'awe': [], 'awe_total': [], 'energy': []}
+    rec = {'fear': [], 'awe': [], 'awe_total': [], 'energy': [], 's': []}
 
     for step in range(steps):
-        s = (step + 0.5) / steps
+        raw_s = (step + 0.5) / steps
+        s = anneal_schedule_s(
+            raw_s,
+            schedule=schedule,
+            pause_center=pause_center,
+            pause_width=pause_width,
+            pause_strength=pause_strength,
+        )
         H = (1.0 - s) * H_driver + s * H_problem
         E, V   = eigh(H)
         c      = V.conj().T @ psi
@@ -221,12 +268,233 @@ def quantum_anneal(W: np.ndarray, b: np.ndarray,
         rec['awe'].append(prob[i_awe])
         rec['awe_total'].append(float(prob[awe_mask].sum()))
         rec['energy'].append(float(np.real(psi.conj() @ H_problem @ psi)))
+        rec['s'].append(s)
 
     return {k: np.array(v) for k, v in rec.items()}, psi
 
 
+def generate_3d_animation(
+    W: np.ndarray,
+    b: np.ndarray,
+    traj_cold: np.ndarray,
+    traj_hot: np.ndarray,
+    rec: dict,
+    out_path: str,
+    fps: int = 16,
+    frames: int = 90,
+) -> None:
+    """Render a rotating 3D animation (GIF) of landscape + trajectories."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.animation import FuncAnimation, PillowWriter
+
+    fig = plt.figure(figsize=(8.8, 6.8), facecolor='#0a0a0a')
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_facecolor('#101419')
+
+    e_anchor = bitstring(state_index('Fear'))
+    X, Y, Z = energy_surface_2d(W, b, 'Fear', 'Awe', e_anchor, res=56)
+    ax.plot_surface(X, Y, Z, cmap='inferno', linewidth=0.0, antialiased=True, alpha=0.82)
+
+    idx_cold = np.linspace(0, len(traj_cold) - 1, 220).astype(int)
+    x_c = traj_cold[idx_cold, IDX['Fear']]
+    y_c = traj_cold[idx_cold, IDX['Awe']]
+    z_c = np.array([hopfield_energy(traj_cold[i], W, b) for i in idx_cold])
+    ax.plot(x_c, y_c, z_c, color='#35d4ff', lw=2.2, label='Classical cold')
+
+    idx_hot = np.linspace(0, len(traj_hot) - 1, 220).astype(int)
+    x_h = traj_hot[idx_hot, IDX['Fear']]
+    y_h = traj_hot[idx_hot, IDX['Awe']]
+    z_h = np.array([hopfield_energy(traj_hot[i], W, b) for i in idx_hot])
+    ax.plot(x_h, y_h, z_h, color='#ffd84d', lw=2.0, label='Classical hot')
+
+    # Quantum proxy trajectory embedded into the same 3D frame.
+    qx = rec['fear']
+    qy = rec['awe_total']
+    qz = rec['energy']
+    ax.plot(qx, qy, qz, color='#42f58d', lw=2.1, label='Quantum phase')
+
+    ax.set_title('QUANT-EXP: Rotating 3D Landscape', color='white', fontsize=11)
+    ax.set_xlabel('Fear', color='#bbbbbb')
+    ax.set_ylabel('Awe / Awe-dominant', color='#bbbbbb')
+    ax.set_zlabel('Energy', color='#bbbbbb')
+    ax.tick_params(colors='#aaaaaa', labelsize=8)
+    ax.legend(loc='upper left', fontsize=8, framealpha=0.75)
+
+    def update(i: int):
+        ax.view_init(elev=26, azim=(i * 4) % 360)
+        return ()
+
+    ani = FuncAnimation(fig, update, frames=frames, interval=1000 // max(1, fps), blit=False)
+    ani.save(out_path, writer=PillowWriter(fps=fps))
+    plt.close(fig)
+
+
+def run_schedule_comparison(
+    out_csv: str = None,
+    out_png: str = None,
+    gamma: float = 5.0,
+    steps: int = 400,
+) -> tuple:
+    """Compare linear/cosine/pause schedules on one fixed barrier case."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_schedule_comparison.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_schedule_comparison.png')
+
+    W, b = experiment_hamiltonian()
+    schedules = ['linear', 'cosine', 'pause']
+    rows = []
+    for sch in schedules:
+        t0 = time.perf_counter()
+        rec, _ = quantum_anneal(W, b, steps=steps, gamma=gamma, schedule=sch)
+        wall = time.perf_counter() - t0
+        rows.append({
+            'schedule': sch,
+            'peak_awe_dominant': float(rec['awe_total'].max()),
+            'final_energy': float(rec['energy'][-1]),
+            'wall_sec': wall,
+        })
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=['schedule', 'peak_awe_dominant', 'final_energy', 'wall_sec'])
+        w.writeheader()
+        w.writerows(rows)
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10.8, 4.6), facecolor='#0a0a0a')
+    for ax in (ax1, ax2):
+        ax.set_facecolor('#111111')
+        ax.tick_params(colors='#aaaaaa')
+        for s in ax.spines.values():
+            s.set_color('#333333')
+
+    xs = np.arange(len(rows))
+    labels = [r['schedule'] for r in rows]
+    peaks = [r['peak_awe_dominant'] for r in rows]
+    energies = [r['final_energy'] for r in rows]
+
+    ax1.bar(xs, peaks, color=['#44ddff', '#ffaa33', '#42f58d'])
+    ax1.set_xticks(xs, labels)
+    ax1.set_ylim(0, 1.0)
+    ax1.set_title('Peak Awe-dominant occupancy', color='white', fontsize=10)
+
+    ax2.bar(xs, energies, color=['#44ddff', '#ffaa33', '#42f58d'])
+    ax2.set_xticks(xs, labels)
+    ax2.set_title('Final expected energy', color='white', fontsize=10)
+
+    fig.suptitle('Anneal schedule comparison', color='white', fontsize=11)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return out_csv, out_png
+
+
+def run_barrier_sweep(
+    out_csv: str = None,
+    out_png: str = None,
+    seeds: int = 16,
+) -> tuple:
+    """Run barrier robustness sweep and save CSV + summary plot."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_sweep_results.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_sweep_summary.png')
+
+    def run_classical(W, b, T, steps=6000, thresh=0.5):
+        e0 = bitstring(state_index('Fear'))
+        reached = 0
+        first_hits = []
+        t0 = time.perf_counter()
+        for s in range(seeds):
+            tr = langevin(W, b, e0, T=T, steps=steps, seed=1000 + s)
+            awe = tr[:, IDX['Awe']]
+            ix = np.where(awe >= thresh)[0]
+            if len(ix):
+                reached += 1
+                first_hits.append(int(ix[0]))
+        wall = time.perf_counter() - t0
+        return reached / seeds, (float(np.mean(first_hits)) if first_hits else None), wall
+
+    cases = [
+        ('B8', -8.0, 4.0, 300),
+        ('B10', -10.0, 5.0, 400),
+        ('B12', -12.0, 6.0, 500),
+    ]
+    rows = []
+    for name, barrier, gamma, qsteps in cases:
+        W, b = experiment_hamiltonian()
+        W[IDX['Fear'], IDX['Awe']] = barrier
+        W[IDX['Awe'], IDX['Fear']] = barrier
+
+        cold_sr, cold_hit, cold_wall = run_classical(W, b, T=0.02)
+        hot_sr, hot_hit, hot_wall = run_classical(W, b, T=1.5)
+        t0 = time.perf_counter()
+        rec, _ = quantum_anneal(W, b, steps=qsteps, gamma=gamma, schedule='linear')
+        q_wall = time.perf_counter() - t0
+
+        rows.append({
+            'case': name,
+            'barrier': barrier,
+            'gamma': gamma,
+            'quantum_steps': qsteps,
+            'classical_cold_success_rate': cold_sr,
+            'classical_cold_first_hit': cold_hit,
+            'classical_cold_wall_sec': cold_wall,
+            'classical_hot_success_rate': hot_sr,
+            'classical_hot_first_hit': hot_hit,
+            'classical_hot_wall_sec': hot_wall,
+            'quantum_peak_awe_dominant': float(rec['awe_total'].max()),
+            'quantum_first_hit_step': int(np.where(rec['awe_total'] >= 0.2)[0][0]) if np.any(rec['awe_total'] >= 0.2) else None,
+            'quantum_wall_sec': q_wall,
+            'quantum_final_energy': float(rec['energy'][-1]),
+        })
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+
+    labels = [r['case'] for r in rows]
+    x = np.arange(len(labels))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.8), facecolor='#0d1117')
+    for ax in (ax1, ax2):
+        ax.set_facecolor('#111827')
+        ax.tick_params(colors='#c9d1d9')
+        for s in ax.spines.values():
+            s.set_color('#30363d')
+
+    ax1.bar(x - 0.25, [r['classical_cold_success_rate'] for r in rows], width=0.25, color='#ff4d4d', label='Classical cold T=0.02')
+    ax1.bar(x, [r['classical_hot_success_rate'] for r in rows], width=0.25, color='#f5a623', label='Classical hot T=1.5')
+    ax1.bar(x + 0.25, [1.0 if r['quantum_peak_awe_dominant'] >= 0.2 else 0.0 for r in rows], width=0.25, color='#2dd4bf', label='Quantum reaches Awe-dom')
+    ax1.set_xticks(x, labels)
+    ax1.set_ylim(0, 1.05)
+    ax1.set_title('Reachability by regime', color='white')
+    ax1.legend(fontsize=8)
+
+    ax2.plot(labels, [r['classical_cold_wall_sec'] for r in rows], '-o', color='#ff4d4d', label='Classical cold wall sec')
+    ax2.plot(labels, [r['quantum_wall_sec'] for r in rows], '-o', color='#2dd4bf', label='Quantum wall sec')
+    ax2.set_title('Wall-clock cost (this CPU)', color='white')
+    ax2.set_ylabel('seconds', color='#c9d1d9')
+    ax2.legend(fontsize=8)
+
+    fig.suptitle('QUANT-EXP Sweep: barrier robustness', color='white')
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return out_csv, out_png
+
+
 # ── Main experiment ───────────────────────────────────────────────────────────
-def main():
+def main(make_animation: bool = False):
     print("=" * 60)
     print("QUANT-EXP-1: Soma-Field Quantum Tunneling")
     print("=" * 60)
@@ -530,6 +798,11 @@ def main():
         plt.savefig(out_path_3d, dpi=160, bbox_inches='tight', facecolor=fig3d.get_facecolor())
         print(f"3D plot saved: {out_path_3d}")
 
+        if make_animation:
+            out_anim = os.path.join(os.path.dirname(__file__), 'quantum_experiment_3d.gif')
+            generate_3d_animation(W, b, traj_cold, traj_hot, rec, out_anim)
+            print(f"3D animation saved: {out_anim}")
+
     except Exception as exc:
         print(f"\n(Plot skipped: {exc})")
 
@@ -537,5 +810,41 @@ def main():
 
 
 if __name__ == '__main__':
-    v = main()
-    sys.exit(0 if v == 'PASS' else 1)
+    parser = argparse.ArgumentParser(description='Quantum tunneling experiment CLI')
+    parser.add_argument(
+        '--mode',
+        choices=['run', 'animate', 'schedules', 'sweep', 'all'],
+        default='run',
+        help='run: base experiment; animate: run + GIF; schedules: schedule comparison; sweep: barrier sweep; all: everything',
+    )
+    args = parser.parse_args()
+
+    if args.mode == 'run':
+        verdict = main(make_animation=False)
+        sys.exit(0 if verdict == 'PASS' else 1)
+
+    if args.mode == 'animate':
+        verdict = main(make_animation=True)
+        sys.exit(0 if verdict == 'PASS' else 1)
+
+    if args.mode == 'schedules':
+        csv_path, png_path = run_schedule_comparison()
+        print(f"Schedule CSV saved: {csv_path}")
+        print(f"Schedule plot saved: {png_path}")
+        sys.exit(0)
+
+    if args.mode == 'sweep':
+        csv_path, png_path = run_barrier_sweep()
+        print(f"Sweep CSV saved: {csv_path}")
+        print(f"Sweep plot saved: {png_path}")
+        sys.exit(0)
+
+    # all
+    verdict = main(make_animation=True)
+    c1, p1 = run_schedule_comparison()
+    c2, p2 = run_barrier_sweep()
+    print(f"Schedule CSV saved: {c1}")
+    print(f"Schedule plot saved: {p1}")
+    print(f"Sweep CSV saved: {c2}")
+    print(f"Sweep plot saved: {p2}")
+    sys.exit(0 if verdict == 'PASS' else 1)
