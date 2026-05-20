@@ -8,12 +8,19 @@
 #
 # Quick start:
 #   make setup         # download APA 7th CSL (once only)
-#   make               # build all PDFs
+#   make               # build all English PDFs (default)
 #   make main          # build main academic paper only
 #   make pov           # build patient-POV paper only
 #   make book          # build coffee-table book
-#   make clean         # remove generated PDFs
+#   make clean         # remove generated English PDFs
 #   make check         # verify dependencies
+#
+# Translations (stub files — full translations in progress):
+#   make de            # build all 6 German PDFs
+#   make fr            # build all 6 French PDFs
+#   make it            # build all 6 Italian PDFs
+#   make translations  # build all 18 translation PDFs
+#   make translations-clean  # remove translation PDFs
 #
 # Citation management:
 #   Bibliography data : bibliography.bib  (BibTeX format)
