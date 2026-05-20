@@ -590,6 +590,231 @@ def run_phase_diagram(
     return out_csv, out_png
 
 
+def run_noise_equivalence(
+    out_csv: str = None,
+    out_png: str = None,
+    seeds: int = 12,
+    classical_steps: int = 3000,
+    quantum_steps: int = 200,
+    target_frac: float = 0.90,
+) -> tuple:
+    """
+    For each barrier strength, binary-search the temperature T* such that
+    classical success rate first reaches (target_frac * quantum_peak_awe).
+
+    Produces three panels:
+      (a) T*(barrier) curve — the 'equivalence line'
+      (b) Quantum vs Classical wave-like probability evolution at select barriers
+      (c) Scatter of quantum peak occ vs required T* (efficiency portrait)
+    """
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.collections import LineCollection
+
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_noise_equivalence.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_noise_equivalence.png')
+
+    barriers = np.arange(-14.0, -5.0, 1.0)
+    e0 = bitstring(state_index('Fear'))
+
+    def classical_sr(W, b, T):
+        reached = sum(
+            1 for s in range(seeds)
+            if np.any(langevin(W, b, e0, T=T, steps=classical_steps, seed=3000 + s)[:, IDX['Awe']] >= 0.5)
+        )
+        return reached / seeds
+
+    rows = []
+    wave_data = {}   # barrier → (steps_arr, q_wave, c_wave_lo, c_wave_mid, c_wave_hi)
+
+    for barrier in barriers:
+        W, b = experiment_hamiltonian()
+        W[IDX['Fear'], IDX['Awe']] = barrier
+        W[IDX['Awe'], IDX['Fear']] = barrier
+
+        rec, _ = quantum_anneal(W, b, steps=quantum_steps, gamma=5.0, schedule='linear')
+        q_peak = float(rec['awe_total'].max())
+        target_sr = q_peak * target_frac
+
+        # Binary search T* in [0.01, 3.0]
+        lo, hi = 0.01, 3.0
+        t_star = hi
+        for _ in range(14):
+            mid = (lo + hi) / 2.0
+            sr = classical_sr(W, b, mid)
+            if sr >= target_sr:
+                t_star = mid
+                hi = mid
+            else:
+                lo = mid
+
+        sr_at_tstar = classical_sr(W, b, t_star)
+        rows.append({
+            'barrier': float(barrier),
+            'quantum_peak_awe': q_peak,
+            'target_classical_sr': float(target_sr),
+            'T_star': float(t_star),
+            'classical_sr_at_Tstar': float(sr_at_tstar),
+        })
+
+        # Store wave data for select barriers (-8, -10, -12)
+        if abs(barrier - (-8.0)) < 0.1 or abs(barrier - (-10.0)) < 0.1 or abs(barrier - (-12.0)) < 0.1:
+            # Collect per-step Awe-dominant occupancy across 3 temperature tiers
+            steps_arr = np.arange(quantum_steps)
+            # Low T
+            lo_awe = np.array([
+                langevin(W, b, e0, T=0.05, steps=classical_steps, seed=4000 + s)[:, IDX['Awe']]
+                for s in range(seeds)
+            ])
+            # T*
+            mid_awe = np.array([
+                langevin(W, b, e0, T=max(0.01, t_star), steps=classical_steps, seed=4000 + s)[:, IDX['Awe']]
+                for s in range(seeds)
+            ])
+            # High T
+            hi_awe = np.array([
+                langevin(W, b, e0, T=1.5, steps=classical_steps, seed=4000 + s)[:, IDX['Awe']]
+                for s in range(seeds)
+            ])
+            wave_data[float(barrier)] = {
+                'q_wave': rec['awe_total'],        # shape (quantum_steps,)
+                'q_s': rec['s'],
+                'c_lo': lo_awe,                    # (seeds, classical_steps)
+                'c_mid': mid_awe,
+                'c_hi': hi_awe,
+                't_star': t_star,
+            }
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+
+    # ── Plot ─────────────────────────────────────────────────────────────────
+    DARK = '#0b0f14'
+    MID  = '#111827'
+    SPINE = '#2a3040'
+    TEXT = '#c9d1d9'
+    Q_COL  = '#42f58d'
+    LO_COL = '#ff4d4d'
+    MID_COL = '#ffaa33'
+    HI_COL = '#44ddff'
+
+    def dark_ax(ax):
+        ax.set_facecolor(MID)
+        ax.tick_params(colors=TEXT, labelsize=8)
+        for s in ax.spines.values():
+            s.set_color(SPINE)
+
+    n_wave_cases = len(wave_data)
+    fig = plt.figure(figsize=(18, 12), facecolor=DARK)
+
+    # Row 1: T*(barrier) curve + scatter
+    ax_tstar = fig.add_subplot(3, 2, 1)
+    dark_ax(ax_tstar)
+    barr_vals = [r['barrier'] for r in rows]
+    t_star_vals = [r['T_star'] for r in rows]
+    q_peaks = [r['quantum_peak_awe'] for r in rows]
+
+    ax_tstar.plot(barr_vals, t_star_vals, '-o', color=MID_COL, lw=2.5, ms=6)
+    ax_tstar.axhline(0.05, color=LO_COL, ls=':', lw=1.0, alpha=0.6, label='T=0.05 (cold)')
+    ax_tstar.axhline(1.50, color=HI_COL, ls=':', lw=1.0, alpha=0.6, label='T=1.50 (hot)')
+    ax_tstar.fill_between(barr_vals, 0.05, t_star_vals, alpha=0.18, color=MID_COL,
+                          label='Classical "quantum-equivalent" zone')
+    ax_tstar.set_xlabel('Barrier W[Fear,Awe]', color=TEXT)
+    ax_tstar.set_ylabel('T* (classical matching temperature)', color=TEXT)
+    ax_tstar.set_title('Noise-Equivalence Curve: T*(barrier)', color='white', fontsize=11)
+    ax_tstar.legend(fontsize=7, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+
+    ax_scatter = fig.add_subplot(3, 2, 2)
+    dark_ax(ax_scatter)
+    sc = ax_scatter.scatter(barr_vals, q_peaks, c=t_star_vals, cmap='plasma',
+                            s=70, edgecolors='white', lw=0.5, zorder=4)
+    fig.colorbar(sc, ax=ax_scatter).set_label('T*', color=TEXT)
+    ax_scatter.set_xlabel('Barrier', color=TEXT)
+    ax_scatter.set_ylabel('Quantum peak Awe-dominant', color=TEXT)
+    ax_scatter.set_title('Quantum occupancy vs required classical T*', color='white', fontsize=11)
+
+    # Row 2/3: Wave plots for three barrier cases
+    wave_cases = sorted(wave_data.keys())
+    for ci, bval in enumerate(wave_cases):
+        wd = wave_data[bval]
+        c_lo  = wd['c_lo']   # (seeds, classical_steps)
+        c_mid = wd['c_mid']
+        c_hi  = wd['c_hi']
+        q_w   = wd['q_wave']
+        q_s   = wd['q_s']
+        t_st  = wd['t_star']
+
+        # Normalize classical x-axis: fraction of anneal budget
+        c_x = np.linspace(0, 1, c_lo.shape[1])
+        q_x = np.linspace(0, 1, len(q_w))
+
+        ax = fig.add_subplot(3, 3, 4 + ci)
+        dark_ax(ax)
+
+        # Shade mean±std for each classical tier
+        for arr, col, lbl in [(c_lo, LO_COL, 'T=0.05'), (c_mid, MID_COL, f'T*={t_st:.2f}'), (c_hi, HI_COL, 'T=1.50')]:
+            mean = arr.mean(axis=0)
+            std  = arr.std(axis=0)
+            ax.fill_between(c_x, np.clip(mean - std, 0, 1), np.clip(mean + std, 0, 1),
+                            alpha=0.18, color=col)
+            ax.plot(c_x, mean, color=col, lw=1.5, label=lbl)
+
+        # Quantum occupancy wave (normalised)
+        ax.plot(q_x, q_w, color=Q_COL, lw=2.5, ls='-', label='Quantum Awe-dominant', zorder=5)
+
+        ax.set_xlim(0, 1)
+        ax.set_ylim(-0.04, 1.05)
+        ax.set_xlabel('Normalised time (0→1)', color=TEXT, fontsize=8)
+        ax.set_ylabel('Awe occupancy', color=TEXT, fontsize=8)
+        ax.set_title(f'Wave evolution  barrier={bval:.0f}', color='white', fontsize=9)
+        ax.legend(fontsize=6, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+
+        # Bottom row: colormesh probability heatmap for quantum evolution (all 256 states collapsed to top-16)
+        ax2 = fig.add_subplot(3, 3, 7 + ci)
+        dark_ax(ax2)
+
+        # Re-run to capture per-step full probability vector
+        W2, b2 = experiment_hamiltonian()
+        W2[IDX['Fear'], IDX['Awe']] = bval
+        W2[IDX['Awe'], IDX['Fear']] = bval
+        rec2, _ = quantum_anneal(W2, b2, steps=60, gamma=5.0, schedule='linear')
+
+        # Build heatmap: Awe-dominant + Fear-dominant + other as 3-band
+        s_arr = rec2['s']
+        fear_b = rec2['fear']
+        awe_t  = rec2['awe_total']
+        awe_p  = rec2['awe']
+        other  = 1.0 - rec2['fear'] - rec2['awe_total']
+
+        plot_x = np.arange(len(s_arr))
+        ax2.stackplot(plot_x, fear_b, awe_p, awe_t - awe_p, np.clip(other, 0, 1),
+                      colors=[LO_COL, Q_COL, '#1ab080', '#555566'],
+                      labels=['|Fear⟩', '|Awe⟩ pure', 'Awe-dominant (other)', 'Rest'],
+                      alpha=0.85)
+        ax2.set_xlim(0, len(s_arr) - 1)
+        ax2.set_ylim(0, 1)
+        ax2.set_xlabel('Annealing step', color=TEXT, fontsize=8)
+        ax2.set_ylabel('Probability mass', color=TEXT, fontsize=8)
+        ax2.set_title(f'Quantum state stack  barrier={bval:.0f}', color='white', fontsize=9)
+        ax2.legend(fontsize=6, facecolor='#1a2030', labelcolor='white', framealpha=0.8,
+                   loc='upper right')
+
+    fig.suptitle(
+        'QUANT-EXP: Noise-Equivalence Curve and Quantum Wave Evolution\n'
+        f'T*(barrier): temperature classical dynamics need to match quantum reachability  (target={target_frac*100:.0f}% of quantum peak)',
+        color='white', fontsize=11, y=1.00,
+    )
+    fig.tight_layout(rect=[0, 0, 1, 0.98])
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return out_csv, out_png
+
+
 # ── Main experiment ───────────────────────────────────────────────────────────
 def main(make_animation: bool = False):
     print("=" * 60)
@@ -910,9 +1135,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Quantum tunneling experiment CLI')
     parser.add_argument(
         '--mode',
-        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'all'],
+        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'equiv', 'all'],
         default='run',
-        help='run: base experiment; animate: run + GIF; schedules: schedule comparison; sweep: barrier sweep; phase: barrier-vs-T phase diagram; all: everything',
+        help='run: base experiment; animate: run+GIF; schedules: schedule comparison; sweep: barrier sweep; phase: barrier-vs-T phase diagram; equiv: noise-equivalence curve+wave plots; all: everything',
     )
     args = parser.parse_args()
 
@@ -942,15 +1167,24 @@ if __name__ == '__main__':
         print(f"Phase plot saved: {png_path}")
         sys.exit(0)
 
+    if args.mode == 'equiv':
+        csv_path, png_path = run_noise_equivalence()
+        print(f"Equivalence CSV saved: {csv_path}")
+        print(f"Equivalence plot saved: {png_path}")
+        sys.exit(0)
+
     # all
     verdict = main(make_animation=True)
     c1, p1 = run_schedule_comparison()
     c2, p2 = run_barrier_sweep()
     c3, p3 = run_phase_diagram()
+    c4, p4 = run_noise_equivalence()
     print(f"Schedule CSV saved: {c1}")
     print(f"Schedule plot saved: {p1}")
     print(f"Sweep CSV saved: {c2}")
     print(f"Sweep plot saved: {p2}")
     print(f"Phase CSV saved: {c3}")
     print(f"Phase plot saved: {p3}")
+    print(f"Equivalence CSV saved: {c4}")
+    print(f"Equivalence plot saved: {p4}")
     sys.exit(0 if verdict == 'PASS' else 1)

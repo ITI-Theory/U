@@ -391,3 +391,34 @@ Brainstorming queue
 - Add a finite-step budget comparison panel (same compute budget for classical/quantum simulators).
 - Include first-hit distributions (not only means) as violin or ECDF plots.
 - Estimate a simple gap proxy from instantaneous spectra and correlate with schedule success.
+
+## 2026-05-20 - QUANT-EXP noise-equivalence curve + wave plots + layperson doc
+
+### What I completed
+
+- Added `run_noise_equivalence()` to `instrument/quantum_experiment.py`:
+  - Binary searches T*(barrier) for barriers -14 to -6
+  - 6-panel figure: T* curve, scatter, wave evolution × 3, quantum state stacks × 3
+- Added `--mode equiv` CLI
+- Created `paper/QUANT-EXP-LAYPERSON.md` — plain-language interpretation
+- Updated `paper/QUANT-EXP-SWEEP-2026-05-20.md` with results table + interpretation
+
+### Key results (quantum_noise_equivalence.csv)
+
+T* rises monotonically with barrier strength: T*=0.094 at barrier=-6 to T*=0.129 at barrier=-14.
+But T*~0.1 already floods the classical landscape — quantum gets to the same occupancy
+at T=0, via tunneling, without structural flooding.
+
+### Artifacts generated
+
+- `instrument/quantum_noise_equivalence.csv`
+- `instrument/quantum_noise_equivalence.png`
+- `paper/QUANT-EXP-LAYPERSON.md`
+
+### Brainstorming / next steps
+
+1. Bootstrap replicates for quantum peak Awe to add error bars to the T* curve.
+2. Combined publication figure: phase heatmap + T* curve + example wave in one panel.
+3. Add quantum-coherence lifetime estimate: how many anneal steps until the wave collapses to classical?
+4. "First quantum intelligence" framing note: carefully phrase as "topological reachability advantage" in paper; "it tunnels" in layperson doc.
+5. Consider adding entropy panel (von Neumann entropy) to wave evolution plots — shows the superposition spreading.
