@@ -1,0 +1,47 @@
+# Process Procedures
+
+## Git Hygiene Requirement
+
+This repository must maintain a predictable checkout state.
+
+Required rules:
+
+1. Generated artifacts are not committed unless explicitly release-critical.
+2. Work in two phases:
+   - content/source edits,
+   - optional artifact regeneration for release.
+3. Before opening a PR or tagging a release, run:
+   - `git status --short`
+   - `./.venv/Scripts/python.exe scripts/paper_status.py`
+4. Keep large generated outputs in ignored paths (`dist/`, generated status files, generated media).
+5. If a generated file must be versioned for a release, add it intentionally in a dedicated commit with a clear message.
+
+### Generated Quantum Artifacts Policy
+
+`instrument/quantum_*.csv`, `instrument/quantum_*.png`, and generated `.gif` outputs are treated as build/runtime artifacts.
+
+- They are ignored by default and should not be re-added accidentally.
+- If you need to publish a figure/table in git history, copy it to a curated path first (for example, `paper/figures/`) and commit that curated file only.
+- Do not commit raw sweep outputs directly from `instrument/` unless explicitly required for a reproducibility milestone.
+
+## Recommended Commit Order
+
+1. Source commit:
+   - `.md`, `.py`, `.lean`, checklists, roadmap, metadata templates.
+2. Packaging commit (optional):
+   - regenerate bundles and add only release outputs you explicitly want tracked.
+3. Release note commit:
+   - update `DIARY.md` and any status docs intended for history.
+
+## No-APC Publication Process
+
+1. arXiv submission for `paper/mathematical-co-identification.md`.
+2. bioRxiv revision for `paper/soma-field-paper.md`.
+3. PsyArXiv/OSF preprint for `paper/music-affect-dynamics.md`.
+4. Record IDs/URLs in project logs and regenerate release packages.
+
+Use these operational files:
+
+- `paper/SUBMISSION_NO_APC_CHECKLIST.md`
+- `paper/PUBLICATION_ROADMAP.md`
+- `paper/INDEPENDENT_REPLICATION_LEDGER.md`
