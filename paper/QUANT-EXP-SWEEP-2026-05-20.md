@@ -234,3 +234,13 @@ Use these as tolerance checks, not exact-bit checks:
 | Very slow runtime | CPU contention / low power mode | Re-run on AC power, close heavy apps |
 | Values differ modestly | Numerical schedule sensitivity | Keep claim as range/tendency, not exact point |
 | Unicode glyph warnings in PDF build | XeLaTeX font coverage | Non-blocking for experiment; ignore for numeric outputs |
+
+### Pre-registered hardening checklist (next run)
+
+1. Fix seed table for classical and quantum runs and publish it in this file.
+2. Compute bootstrap 95% CI for quantum peak Awe occupancy at each barrier.
+3. Run negative control A: near-zero Fear-Awe antagonism.
+4. Run negative control B: topology-preserving perturbation.
+5. Report decision outcome:
+  - PASS (claim retained): control behavior matches predictions and CIs remain separated from cold baseline.
+  - EXPLORE (claim softened): otherwise.

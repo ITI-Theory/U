@@ -309,6 +309,29 @@ but not universal.
    mechanics explains consciousness in general. It claims a measurable non-classical
    reachability effect in a specific attractor-topology model of emotional dynamics.
 
+## 10.1 Pre-Registered Hardening Protocol (Next Revision)
+
+To reduce researcher degrees of freedom and improve publication robustness, the next
+revision will include a pre-registered analysis protocol with fixed metrics and thresholds.
+
+1. **Quantum occupancy uncertainty (bootstrap).**
+   - For each barrier, run schedule-jittered anneals with fixed random seed table.
+   - Report bootstrap 95% confidence intervals for peak Awe-dominant occupancy.
+   - Primary reported effect size: quantum peak occupancy minus classical cold occupancy.
+
+2. **Negative control A (barrier removal).**
+   - Set Fear-Awe antagonism to near-zero and rerun identical pipeline.
+   - Expected outcome: reduced quantum-vs-classical differential in reachability.
+
+3. **Negative control B (topology-preserving perturbation).**
+   - Apply perturbations that preserve winding class and basin connectivity.
+   - Expected outcome: no qualitative change in transition class claims.
+
+4. **Claim decision rule.**
+   - Keep the strong reachability statement only if control outcomes match predictions
+     and bootstrap intervals remain separated from the cold-classical baseline.
+   - Otherwise, downgrade to exploratory status.
+
 ---
 
 # 11. Status and Next Steps

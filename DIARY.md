@@ -508,3 +508,29 @@ and improving reproducibility language.
 - XeLaTeX missing-glyph warnings persist for some Unicode math symbols.
 - Warnings are non-blocking; PDFs generated successfully.
 
+
+---
+
+## 20 May 2026 — Session: 8/10 sprint continuation (pre-registered hardening)
+
+### What was added
+
+- `paper/quantum-soma-penrose.md`
+  - Added subsection: **Pre-Registered Hardening Protocol (Next Revision)**
+  - Defines fixed next-run protocol for:
+    - bootstrap CIs for quantum occupancy,
+    - negative control A (barrier removal),
+    - negative control B (topology-preserving perturbation),
+    - explicit claim decision rule (retain vs soften).
+
+- `paper/QUANT-EXP-SWEEP-2026-05-20.md`
+  - Added matching pre-registered hardening checklist so technical note and paper stay aligned.
+
+- Rebuilt: `paper/quantum-soma-penrose.pdf`
+
+### Why this matters
+
+- Converts "future work" into a concrete reviewer-auditable protocol.
+- Reduces researcher degrees of freedom and over-claim risk.
+- Moves quantum paper closer to submission-grade robustness.
+
