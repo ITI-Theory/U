@@ -38,8 +38,9 @@ abstract: |
   applications. Clinical implications for assessment, psychoeducation, and the treatment
   of complex trauma are discussed. A companion experiment (QUANT-EXP-1, May 2026) demonstrates that the
   quantum extension of this model — transverse-field quantum annealing on the same Hopfield
-  landscape — traverses topological barriers that classical dynamics cannot cross, providing
-  the first empirical validation of the therapeutic mechanism theorem.
+  landscape — traverses topological barriers that the tested low-noise classical dynamics
+  does not cross, providing bounded empirical support for the therapeutic mechanism theorem
+  in this model class.
 
 keywords:
   - somatic psychotherapy

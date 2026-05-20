@@ -756,6 +756,13 @@ claim that emotions are particles. It is a claim that the mathematics of
 particles and the mathematics of emotions are the same mathematics, and that
 this fact is useful.
 
+Scope boundary for publication use: co-identification transfers mathematical
+structure, not ontology. A successful transfer means that equations, boundary
+conditions, and theorem assumptions are preserved under the mapping. It does
+not imply that the target domain is physically identical to the source domain,
+nor that every theorem from the source domain transfers automatically. Each
+import remains local, assumption-checked, and falsifiable.
+
 The typeverse does not belong to physics. Physics was merely first to explore it.
 
 ---

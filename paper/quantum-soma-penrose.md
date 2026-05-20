@@ -215,8 +215,9 @@ Its training is gradient descent — in the mathematical sense, exactly the over
 Langevin process studied here. Its inference is deterministic or thermally noisy
 (sampling temperature). It has no attractor structure. It has no topology.
 
-This is not a failure of scale or architecture. It is a structural limitation of the
-*physics*. A classical gradient-descent system operating on a probability landscape:
+This is not merely a failure of scale or architecture. For the class of attractor
+landscapes considered here, it is a structural limitation of local classical updates.
+A classical gradient-descent system operating on a probability landscape:
 
 - Can reach local minima by descending.
 - Can escape local minima by adding noise (temperature, dropout).
@@ -224,16 +225,16 @@ This is not a failure of scale or architecture. It is a structural limitation of
   protected — without either flooding the landscape (losing structure) or adding a
   physically distinct mechanism.
 
-The Soma-Field model is the first emotion model that (a) has explicit attractor structure,
-(b) has topological barrier encoding for trauma, and (c) has demonstrated that quantum
-annealing traverses those barriers where classical dynamics cannot. The model makes a
-prediction that no classical AI system can test against itself: given an emotionally
-realistic coupling matrix with topological trauma encoding, quantum annealing on 8 qubits
-will reach therapeutic attractor basins that classical dynamics cannot reach at equivalent
-noise temperature.
+The Soma-Field model used in this study has explicit attractor structure and topological
+barrier encoding for trauma, and demonstrates that quantum annealing traverses those
+barriers where low-noise classical dynamics does not. The model makes a falsifiable
+prediction: given an emotionally realistic coupling matrix with topological trauma encoding,
+quantum annealing on 8 qubits reaches therapeutic attractor basins that low-noise classical
+dynamics does not reach at equivalent noise temperature.
 
 This is not a claim that AI *is* conscious. It is a claim that **topological reachability
-is a capability that classical AI lacks and quantum systems have**.
+is a capability exhibited by the quantum formulation in this model class and not exhibited
+by the tested low-noise classical baseline**.
 
 ---
 
@@ -275,12 +276,42 @@ The compressed form of this result:
 Long form: *The barrier between Fear and Awe is topological. Classical therapy climbs.
 Quantum therapy goes through.*
 
-The experiment proves it. The Lean axiom formalises it. The layperson document
+The experiment supports this statement within the tested model class. The Lean axiom
+formalises the same structural claim. The layperson document
 (`paper/QUANT-EXP-LAYPERSON.md`) explains it without equations.
 
 ---
 
-# 9. Status and Next Steps
+# 10. Limitations, Controls, and Claim Boundaries
+
+This paper makes a bounded claim. The evidence is strong for this specific model class,
+but not universal.
+
+1. **Simulator evidence, not yet hardware evidence.** QUANT-EXP-1 uses exact statevector
+   simulation. This is appropriate for a 256-dimensional ground-truth system, but the
+   sentence "confirmed on physical hardware" remains future work.
+
+2. **Reachability claim, not runtime-speed claim.** The contribution is that the quantum
+   formulation reaches basins that the tested low-noise classical baseline does not. Wall
+   clock on CPU may be slower for exact quantum simulation and is not the claim.
+
+3. **Current uncertainty reporting is partial.** Classical runs include multi-seed success
+   rates and Wilson intervals in the sweep artifacts. Quantum occupancy uncertainty bars
+   from schedule-jitter/bootstrap analysis are planned next and should be reported in the
+   next revision.
+
+4. **Negative controls are required for publication hardening.** Two controls are
+   pre-specified: (a) remove the Fear-Awe antagonistic barrier and verify that the
+   differential effect narrows; (b) topology-preserving perturbations that should not alter
+   winding-class transitions. These controls are part of the immediate follow-up package.
+
+5. **No ontological claim about consciousness.** The paper does not claim that quantum
+   mechanics explains consciousness in general. It claims a measurable non-classical
+   reachability effect in a specific attractor-topology model of emotional dynamics.
+
+---
+
+# 11. Status and Next Steps
 
 **Current status:**
 

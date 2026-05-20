@@ -462,3 +462,49 @@ at T=0, via tunneling, without structural flooding.
 - Pandoc/XeLaTeX emitted non-blocking missing-glyph warnings for some Unicode math symbols.
 - PDFs were still produced successfully; warnings are cosmetic/typographic, not build failures.
 
+
+---
+
+## 20 May 2026 — Session: 8/10 polish sprint (publication hardening)
+
+### Goal
+
+Raise reviewer confidence before re-publication by tightening claims, adding boundaries,
+and improving reproducibility language.
+
+### Changes made
+
+- `paper/quantum-soma-penrose.md`
+  - Added new section: **Limitations, Controls, and Claim Boundaries**.
+  - Tightened AI/consciousness wording to model-class bounded claims.
+  - Rephrased "proves" style sentence to "supports within tested model class".
+  - Renumbered final status section from 9 -> 11 after new section insertion.
+
+- `paper/QUANT-EXP-SWEEP-2026-05-20.md`
+  - Added **Reproducibility Appendix (v1)** with:
+    - environment assumptions,
+    - exact run commands,
+    - expected output artifact list,
+    - headline tolerance checks,
+    - troubleshooting table.
+
+- `paper/mathematical-co-identification.md`
+  - Added explicit scope boundary paragraph in Conclusions:
+    co-identification transfers structure, not ontology; imports are local,
+    assumption-checked, and falsifiable.
+
+- `paper/soma-field-paper.md`
+  - Tightened two high-claim phrases to tested low-noise/model-class wording.
+
+### Build
+
+- Rebuilt affected PDFs:
+  - `paper/quantum-soma-penrose.pdf`
+  - `paper/mathematical-co-identification.pdf`
+  - `paper/soma-field-paper.pdf`
+
+### Notes
+
+- XeLaTeX missing-glyph warnings persist for some Unicode math symbols.
+- Warnings are non-blocking; PDFs generated successfully.
+

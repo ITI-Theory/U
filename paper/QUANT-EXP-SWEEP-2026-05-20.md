@@ -187,3 +187,50 @@ The `quantum_noise_equivalence.png` shows 6 additional panels:
 - What "tunneling" actually means (not a metaphor — same physics as transistors and the sun).
 - The "first quantum intelligence" framing and why it is carefully bounded.
 - Therapy translation: CBT is gradient descent; psychedelics/EMDR/somatic work are topologically different.
+
+---
+
+## Reproducibility Appendix (v1)
+
+### Environment
+
+- Python: `c:/python314/python.exe`
+- Packages: `numpy`, `scipy`, `matplotlib`
+- Repo root: `U/`
+
+### Commands
+
+Run from repository root:
+
+```bash
+python instrument/quantum_experiment.py --mode sweep
+python instrument/quantum_experiment.py --mode phase
+python instrument/quantum_experiment.py --mode equiv
+```
+
+### Expected output artifacts
+
+- `instrument/quantum_sweep_results.csv`
+- `instrument/quantum_sweep_summary.png`
+- `instrument/quantum_phase_diagram.csv`
+- `instrument/quantum_phase_diagram.png`
+- `instrument/quantum_noise_equivalence.csv`
+- `instrument/quantum_noise_equivalence.png`
+
+### Expected headline checks
+
+Use these as tolerance checks, not exact-bit checks:
+
+1. Sweep cold success near zero across tested barriers (`T=0.02`).
+2. Sweep hot success near one across tested barriers (`T=1.5`).
+3. Quantum peak Awe-dominant occupancy near `0.39-0.42` range.
+4. Noise-equivalence `T*` should increase as barrier magnitude increases.
+
+### Troubleshooting
+
+| Symptom | Likely cause | Action |
+|---|---|---|
+| Missing CSV/PNG outputs | Wrong working directory | Run from repo root (`U/`) |
+| Very slow runtime | CPU contention / low power mode | Re-run on AC power, close heavy apps |
+| Values differ modestly | Numerical schedule sensitivity | Keep claim as range/tendency, not exact point |
+| Unicode glyph warnings in PDF build | XeLaTeX font coverage | Non-blocking for experiment; ignore for numeric outputs |
