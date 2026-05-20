@@ -43,6 +43,55 @@ git push && git push origin vX.Y.Z
 
 ---
 
+## 20 May 2026 — Session: QUANT-EXP sweep + 3D visual stack
+
+### What got done
+
+- Extended `instrument/quantum_experiment.py` with advanced 3D plots:
+  - 3D Fear x Awe energy surface + cold trajectory overlay
+  - 3D Fear x Awe energy surface + hot trajectory overlay
+  - Quantum phase curve: `P(|Fear>)`, `P(Awe-dominant)`, `<H_problem>`
+  - Final-state top-basis probability skyline
+- New artifact: `instrument/quantum_experiment_3d.png`
+- Barrier robustness sweep completed and persisted:
+  - New artifacts:
+    - `instrument/quantum_sweep_results.csv`
+    - `instrument/quantum_sweep_summary.png`
+    - `paper/QUANT-EXP-SWEEP-2026-05-20.md`
+
+### Core numbers (this run)
+
+- Barriers tested: `W[Fear,Awe] = -8, -10, -12`
+- Classical cold (`T=0.02`, 48 runs total): **0/48** Awe crossings
+- Classical hot (`T=1.5`, 48 runs total): **48/48** Awe crossings
+- Quantum schedules (3/3 cases): Awe-dominant occupancy peak ~`0.408–0.410`
+
+### Soundbite (safe claim)
+
+"This is not a wall-clock speed claim; it is a possibility claim: under low-noise dynamics,
+classical never reached Awe in 48 runs, while quantum reached Awe-dominant occupancy in every
+tested barrier case."
+
+### Snapshot status
+
+- 3D graph enhancement already committed and pushed: `1050ce2`
+- Sweep writeup + artifacts prepared in working tree for next snapshot commit.
+
+### Next steps (if session pauses)
+
+1. Commit sweep artifacts + writeup (`QUANT-EXP-SWEEP-2026-05-20.md`, CSV, PNG).
+2. Add `--sweep` mode to `instrument/quantum_experiment.py` to reproduce table in one command.
+3. Add schedule comparison (linear vs cosine vs pause-near-gap).
+4. Add `noise-equivalent classical temperature T*` estimator for paper-friendly fairness metric.
+
+### Brainstorm queue
+
+- Define "Topological Reachability Index" = Awe-entry probability at fixed low noise.
+- Add confidence intervals by seed bootstrap (n=200 trajectories/classical case).
+- Build an animation panel: moving point on 3D surface + synchronized quantum phase trace.
+
+---
+
 ## 19 May 2026 — Session 2: Instrument, PhD, HKP, Paper 3
 
 - **HKP integrated**: Hertz, Krogh & Palmer (1991) added to bib; two new
