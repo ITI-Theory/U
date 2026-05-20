@@ -36,7 +36,10 @@ abstract: |
   in interoceptive neuroscience and phantom limb research. A companion instrument for
   therapeutic use and a formal abstract film specification are described as practical
   applications. Clinical implications for assessment, psychoeducation, and the treatment
-  of complex trauma are discussed.
+  of complex trauma are discussed. A companion experiment (QUANT-EXP-1, May 2026) demonstrates that the
+  quantum extension of this model — transverse-field quantum annealing on the same Hopfield
+  landscape — traverses topological barriers that classical dynamics cannot cross, providing
+  the first empirical validation of the therapeutic mechanism theorem.
 
 keywords:
   - somatic psychotherapy
@@ -44,6 +47,8 @@ keywords:
   - Green's function identification
   - impulse response
   - Hopfield energy function
+  - quantum annealing
+  - topological barrier
   - polyvagal theory
   - biofeedback
   - affect regulation
@@ -194,6 +199,15 @@ which are central to the clinical observation of emotion:
 - The emergence of observable phenomena (conscious feelings) through threshold-crossing
   excitation of that background
 - The possibility of multiple simultaneous excitations that interact with one another
+
+*Note (May 2026):* A subsequent experiment (QUANT-EXP-1) demonstrates that the quantum
+extension of the Hopfield landscape used in this model — replacing the classical Langevin
+process with a transverse-field quantum annealer — produces a measurable *topological
+reachability advantage*: quantum annealing reaches attractor basins that cold classical
+dynamics cannot reach at any finite noise level. This upgrades the formal correspondence
+from a structural claim to a testable empirical prediction. See
+`paper/QUANT-EXP-SWEEP-2026-05-20.md` and `paper/quantum-soma-penrose.md` for the full
+results and theoretical implications.
 
 One further consequence follows. The clinical phenomena of alexithymia — difficulty
 identifying and naming feelings — and its apparent opposite, emotional flooding or
