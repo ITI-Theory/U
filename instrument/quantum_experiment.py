@@ -205,6 +205,17 @@ def anneal_schedule_s(
     return x
 
 
+def proportion_ci_wilson(successes: int, total: int, z: float = 1.96) -> tuple:
+    """Wilson score interval for a Bernoulli proportion (default ~95% CI)."""
+    if total <= 0:
+        return (0.0, 0.0)
+    p = successes / total
+    denom = 1.0 + (z * z) / total
+    center = (p + (z * z) / (2.0 * total)) / denom
+    radius = (z / denom) * np.sqrt((p * (1.0 - p) / total) + (z * z) / (4.0 * total * total))
+    return (float(max(0.0, center - radius)), float(min(1.0, center + radius)))
+
+
 def quantum_anneal(
     W: np.ndarray,
     b: np.ndarray,
@@ -422,7 +433,8 @@ def run_barrier_sweep(
                 reached += 1
                 first_hits.append(int(ix[0]))
         wall = time.perf_counter() - t0
-        return reached / seeds, (float(np.mean(first_hits)) if first_hits else None), wall
+        ci_lo, ci_hi = proportion_ci_wilson(reached, seeds)
+        return reached, reached / seeds, ci_lo, ci_hi, (float(np.mean(first_hits)) if first_hits else None), wall
 
     cases = [
         ('B8', -8.0, 4.0, 300),
@@ -435,8 +447,8 @@ def run_barrier_sweep(
         W[IDX['Fear'], IDX['Awe']] = barrier
         W[IDX['Awe'], IDX['Fear']] = barrier
 
-        cold_sr, cold_hit, cold_wall = run_classical(W, b, T=0.02)
-        hot_sr, hot_hit, hot_wall = run_classical(W, b, T=1.5)
+        cold_n, cold_sr, cold_ci_lo, cold_ci_hi, cold_hit, cold_wall = run_classical(W, b, T=0.02)
+        hot_n, hot_sr, hot_ci_lo, hot_ci_hi, hot_hit, hot_wall = run_classical(W, b, T=1.5)
         t0 = time.perf_counter()
         rec, _ = quantum_anneal(W, b, steps=qsteps, gamma=gamma, schedule='linear')
         q_wall = time.perf_counter() - t0
@@ -446,10 +458,17 @@ def run_barrier_sweep(
             'barrier': barrier,
             'gamma': gamma,
             'quantum_steps': qsteps,
+            'seeds': seeds,
+            'classical_cold_successes': cold_n,
             'classical_cold_success_rate': cold_sr,
+            'classical_cold_ci_low': cold_ci_lo,
+            'classical_cold_ci_high': cold_ci_hi,
             'classical_cold_first_hit': cold_hit,
             'classical_cold_wall_sec': cold_wall,
+            'classical_hot_successes': hot_n,
             'classical_hot_success_rate': hot_sr,
+            'classical_hot_ci_low': hot_ci_lo,
+            'classical_hot_ci_high': hot_ci_hi,
             'classical_hot_first_hit': hot_hit,
             'classical_hot_wall_sec': hot_wall,
             'quantum_peak_awe_dominant': float(rec['awe_total'].max()),
@@ -488,6 +507,84 @@ def run_barrier_sweep(
 
     fig.suptitle('QUANT-EXP Sweep: barrier robustness', color='white')
     fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return out_csv, out_png
+
+
+def run_phase_diagram(
+    out_csv: str = None,
+    out_png: str = None,
+    seeds: int = 8,
+    classical_steps: int = 2500,
+    quantum_steps: int = 220,
+) -> tuple:
+    """Barrier-vs-temperature phase diagram with quantum reference points."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_phase_diagram.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_phase_diagram.png')
+
+    barriers = np.arange(-14.0, -5.0, 1.0)
+    temps = np.array([0.02, 0.05, 0.10, 0.20, 0.50, 1.00, 1.50])
+
+    e0 = bitstring(state_index('Fear'))
+    mat = np.zeros((len(barriers), len(temps)), dtype=float)
+    rows = []
+
+    for i, barrier in enumerate(barriers):
+        W, b = experiment_hamiltonian()
+        W[IDX['Fear'], IDX['Awe']] = barrier
+        W[IDX['Awe'], IDX['Fear']] = barrier
+
+        # Quantum reference for this barrier.
+        rec, _ = quantum_anneal(W, b, steps=quantum_steps, gamma=5.0, schedule='linear')
+        q_peak = float(rec['awe_total'].max())
+
+        for j, T in enumerate(temps):
+            reached = 0
+            for s in range(seeds):
+                tr = langevin(W, b, e0, T=T, steps=classical_steps, seed=2000 + s)
+                if np.any(tr[:, IDX['Awe']] >= 0.5):
+                    reached += 1
+            sr = reached / seeds
+            mat[i, j] = sr
+            rows.append({
+                'barrier': float(barrier),
+                'temperature': float(T),
+                'classical_success_rate': float(sr),
+                'classical_successes': int(reached),
+                'seeds': int(seeds),
+                'quantum_peak_awe_dominant': q_peak,
+            })
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(
+            f,
+            fieldnames=['barrier', 'temperature', 'classical_success_rate', 'classical_successes', 'seeds', 'quantum_peak_awe_dominant'],
+        )
+        w.writeheader()
+        w.writerows(rows)
+
+    fig, ax = plt.subplots(figsize=(9.8, 5.2), facecolor='#0b0f14')
+    ax.set_facecolor('#111827')
+    im = ax.imshow(mat, origin='lower', aspect='auto', cmap='magma', vmin=0.0, vmax=1.0)
+    ax.set_xticks(np.arange(len(temps)), [f'{t:.2f}' if t < 1 else f'{t:.1f}' for t in temps])
+    ax.set_yticks(np.arange(len(barriers)), [f'{b:.0f}' for b in barriers])
+    ax.set_xlabel('Classical temperature T', color='#d0d7de')
+    ax.set_ylabel('Barrier W[Fear,Awe]', color='#d0d7de')
+    ax.set_title('Classical Reachability Phase Diagram\nQuantum reference stays >0 across all barriers', color='white')
+    ax.tick_params(colors='#d0d7de')
+    cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cb.set_label('Classical Awe crossing probability', color='#d0d7de')
+    cb.ax.yaxis.set_tick_params(color='#d0d7de')
+    plt.setp(cb.ax.get_yticklabels(), color='#d0d7de')
+
+    fig.tight_layout()
     fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
     plt.close(fig)
     return out_csv, out_png
@@ -813,9 +910,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Quantum tunneling experiment CLI')
     parser.add_argument(
         '--mode',
-        choices=['run', 'animate', 'schedules', 'sweep', 'all'],
+        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'all'],
         default='run',
-        help='run: base experiment; animate: run + GIF; schedules: schedule comparison; sweep: barrier sweep; all: everything',
+        help='run: base experiment; animate: run + GIF; schedules: schedule comparison; sweep: barrier sweep; phase: barrier-vs-T phase diagram; all: everything',
     )
     args = parser.parse_args()
 
@@ -839,12 +936,21 @@ if __name__ == '__main__':
         print(f"Sweep plot saved: {png_path}")
         sys.exit(0)
 
+    if args.mode == 'phase':
+        csv_path, png_path = run_phase_diagram()
+        print(f"Phase CSV saved: {csv_path}")
+        print(f"Phase plot saved: {png_path}")
+        sys.exit(0)
+
     # all
     verdict = main(make_animation=True)
     c1, p1 = run_schedule_comparison()
     c2, p2 = run_barrier_sweep()
+    c3, p3 = run_phase_diagram()
     print(f"Schedule CSV saved: {c1}")
     print(f"Schedule plot saved: {p1}")
     print(f"Sweep CSV saved: {c2}")
     print(f"Sweep plot saved: {p2}")
+    print(f"Phase CSV saved: {c3}")
+    print(f"Phase plot saved: {p3}")
     sys.exit(0 if verdict == 'PASS' else 1)

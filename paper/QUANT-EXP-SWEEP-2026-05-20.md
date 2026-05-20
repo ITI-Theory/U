@@ -82,3 +82,43 @@ Executed in requested order:
 Interpretation:
 - For this setup, **linear schedule remains strongest** on both peak Awe-dominant occupancy and final expected energy.
 - Pause schedule stays close to linear; cosine underperforms slightly in this parameter regime.
+
+## Continuation — confidence intervals and phase diagram
+
+Added two new analysis layers to make the evidence stats-ready and pause-safe.
+
+### 1) Confidence intervals in barrier sweep
+
+`instrument/quantum_sweep_results.csv` now includes Wilson 95% CI columns:
+
+- `classical_cold_ci_low`, `classical_cold_ci_high`
+- `classical_hot_ci_low`, `classical_hot_ci_high`
+- plus raw counts: `classical_cold_successes`, `classical_hot_successes`, `seeds`
+
+Observed values (16 seeds per barrier):
+
+- Cold (`T=0.02`): success `0/16` in each barrier case, CI upper bound `~0.194`
+- Hot (`T=1.5`): success `16/16` in each barrier case, CI lower bound `~0.806`
+
+This turns the earlier binary sweep claim into a bounded statistical statement.
+
+### 2) Barrier-vs-temperature phase diagram
+
+New artifacts:
+
+- `instrument/quantum_phase_diagram.csv`
+- `instrument/quantum_phase_diagram.png`
+
+Setup:
+
+- Barriers: `-14 .. -6` (unit step)
+- Temperatures: `0.02, 0.05, 0.10, 0.20, 0.50, 1.00, 1.50`
+- Classical: 8 seeds, 2500 steps
+- Quantum reference per barrier: linear anneal, 220 steps
+
+Headline:
+
+- Classical has a clear transition band in `T` (near `0.1 -> 0.2` for strongest barriers).
+- Quantum reference peak Awe-dominant occupancy stays nonzero across all tested barriers (`~0.389-0.410`).
+
+Interpretation remains the same: this is a **reachability topology** result, not a wall-clock superiority claim.

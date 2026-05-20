@@ -360,3 +360,34 @@ pandoc soma-field-paper.md --bibliography bibliography.bib --citeproc --pdf-engi
 
 ---
 
+
+## 2026-05-20 - QUANT-EXP continuation (CI + phase diagram)
+
+What I completed
+- Extended `instrument/quantum_experiment.py` sweep output with Wilson 95% confidence intervals and raw success counts.
+- Added new CLI mode `phase` to generate barrier-vs-temperature phase diagram artifacts.
+- Ran:
+  - `c:/python314/python.exe instrument/quantum_experiment.py --mode sweep`
+  - `c:/python314/python.exe instrument/quantum_experiment.py --mode phase`
+- Updated writeup: `paper/QUANT-EXP-SWEEP-2026-05-20.md`.
+
+Artifacts generated/updated
+- `instrument/quantum_sweep_results.csv` (now includes CI + count columns)
+- `instrument/quantum_sweep_summary.png`
+- `instrument/quantum_phase_diagram.csv`
+- `instrument/quantum_phase_diagram.png`
+
+Key outcomes
+- Cold classical (`T=0.02`) remains 0/16 in all three barrier benchmark cases; Wilson upper bound ~0.194.
+- Hot classical (`T=1.5`) remains 16/16; Wilson lower bound ~0.806.
+- Phase scan shows classical transition region as T rises; quantum reference peak Awe-dominant occupancy remains nonzero across all scanned barriers.
+
+Next steps (priority)
+1. Add bootstrap CIs for quantum peak occupancy by repeating anneals with jittered schedule parameters.
+2. Compute a noise-equivalence curve `T*(barrier)` where classical reaches a target matching quantum occupancy threshold.
+3. Add one publication-style combined figure: heatmap + quantum reference strip + CI summary panel.
+
+Brainstorming queue
+- Add a finite-step budget comparison panel (same compute budget for classical/quantum simulators).
+- Include first-hit distributions (not only means) as violin or ECDF plots.
+- Estimate a simple gap proxy from instantaneous spectra and correlate with schedule success.
