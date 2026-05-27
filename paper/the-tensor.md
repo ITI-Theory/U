@@ -1,7 +1,10 @@
 ---
 title: "The Tensor"
 subtitle: "An Abstract Film Definition"
-date: "17 May 2026"
+author: "Alistair Johnson"
+orcid: "0009-0007-2194-0850"
+institute: "Independent Researcher, Zurich, Switzerland"
+date: "May 2026"
 ---
 
 \newpage

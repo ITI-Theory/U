@@ -225,6 +225,8 @@ def quantum_anneal(
     pause_center: float = 0.60,
     pause_width: float = 0.20,
     pause_strength: float = 0.65,
+    track_gap: bool = False,
+    track_entropy: bool = False,
 ) -> dict:
     """
     Adiabatic evolution: H(s) = (1-s)·H_driver + s·H_problem,  s: 0 → 1.
@@ -257,6 +259,10 @@ def quantum_anneal(
          for i in range(2**N)], dtype=bool)
 
     rec = {'fear': [], 'awe': [], 'awe_total': [], 'energy': [], 's': []}
+    if track_gap:
+        rec['spectral_gap'] = []
+    if track_entropy:
+        rec['shannon_entropy'] = []
 
     for step in range(steps):
         raw_s = (step + 0.5) / steps
@@ -278,6 +284,11 @@ def quantum_anneal(
         rec['fear'].append(prob[i_fear])
         rec['awe'].append(prob[i_awe])
         rec['awe_total'].append(float(prob[awe_mask].sum()))
+        if track_gap:
+            rec['spectral_gap'].append(float(E[1] - E[0]))
+        if track_entropy:
+            H_ent = -np.sum(prob * np.log(prob + 1e-300))
+            rec['shannon_entropy'].append(float(H_ent))
         rec['energy'].append(float(np.real(psi.conj() @ H_problem @ psi)))
         rec['s'].append(s)
 
@@ -815,6 +826,462 @@ def run_noise_equivalence(
     return out_csv, out_png
 
 
+def run_bootstrap_sweep(
+    out_csv: str = None,
+    out_png: str = None,
+    seeds: int = 200,
+) -> tuple:
+    """
+    Re-run barrier sweep with n=200 seeds for bootstrap-grade confidence intervals.
+    Uses Wilson score CIs already built into run_barrier_sweep.
+    """
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_bootstrap_sweep.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_bootstrap_sweep.png')
+    print(f'[bootstrap] Running barrier sweep with seeds={seeds} ...')
+    return run_barrier_sweep(out_csv=out_csv, out_png=out_png, seeds=seeds)
+
+
+def run_negative_controls(
+    out_csv: str = None,
+    out_png: str = None,
+    seeds: int = 16,
+    steps: int = 6000,
+) -> tuple:
+    """
+    Control A: Start from |Awe> — classical cold should stay, quantum should stay.
+               (Verifies no spurious Fear->Awe assignment; Awe is stable for both.)
+    Control B: Remove barrier (W[Fear,Awe]=+0.4) — classical cold should cross freely.
+               (Verifies barrier, not geometry, is what blocks classical.)
+    """
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_negative_controls.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_negative_controls.png')
+
+    rows = []
+
+    # --- Control A: start from Awe, barrier intact ---
+    W_a, b_a = experiment_hamiltonian()   # barrier W[Fear,Awe]=-10
+    e0_awe   = bitstring(state_index('Awe'))
+    cold_awe_start = 0
+    for s in range(seeds):
+        tr = langevin(W_a, b_a, e0_awe, T=0.02, steps=steps, seed=5000 + s)
+        if tr[-1, IDX['Awe']] >= 0.5:
+            cold_awe_start += 1
+    rec_a, _ = quantum_anneal(W_a, b_a, steps=400, gamma=5.0, schedule='linear')
+    rows.append({
+        'control': 'A',
+        'description': 'Start from Awe, barrier intact',
+        'classical_cold_stay_in_awe': cold_awe_start / seeds,
+        'quantum_peak_awe_dominant': float(rec_a['awe_total'].max()),
+        'expected_classical': '>0.9  (already in Awe, no barrier to cross back)',
+        'expected_quantum': '>0.2  (remains Awe-dominant)',
+        'verdict': 'PASS' if (cold_awe_start / seeds >= 0.9 and rec_a['awe_total'].max() >= 0.2) else 'FAIL',
+    })
+
+    # --- Control B: start from Fear, NO barrier (W[Fear,Awe]=+0.4) ---
+    W_b, b_b = build_W_river(), np.zeros(N)
+    b_b[IDX['Fear']] = 1.0
+    b_b[IDX['Awe']]  = 2.0
+    # W_b already has W[Fear,Awe]=+0.4 (cooperative) — no barrier
+    e0_fear = bitstring(state_index('Fear'))
+    cold_no_barrier = 0
+    for s in range(seeds):
+        tr = langevin(W_b, b_b, e0_fear, T=0.02, steps=steps, seed=6000 + s)
+        if tr[-1, IDX['Awe']] >= 0.5:
+            cold_no_barrier += 1
+    rec_b, _ = quantum_anneal(W_b, b_b, steps=400, gamma=5.0, schedule='linear')
+    rows.append({
+        'control': 'B',
+        'description': 'Start from Fear, NO barrier (W[Fear,Awe]=+0.4)',
+        'classical_cold_stay_in_awe': cold_no_barrier / seeds,
+        'quantum_peak_awe_dominant': float(rec_b['awe_total'].max()),
+        'expected_classical': '>0.5  (barrier removed, classical can cross)',
+        'expected_quantum': '>0.2  (easy reach)',
+        'verdict': 'PASS' if (cold_no_barrier / seeds >= 0.5 and rec_b['awe_total'].max() >= 0.2) else 'FAIL',
+    })
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+
+    # ── Plot ──────────────────────────────────────────────────────────────────
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.5), facecolor='#0b0f14')
+    labels  = ['Control A\n(Start Awe)', 'Control B\n(No barrier)']
+    c_rates = [rows[0]['classical_cold_stay_in_awe'], rows[1]['classical_cold_stay_in_awe']]
+    q_peaks = [rows[0]['quantum_peak_awe_dominant'],  rows[1]['quantum_peak_awe_dominant']]
+    verdicts = [rows[0]['verdict'], rows[1]['verdict']]
+
+    for ax in axes:
+        ax.set_facecolor('#111827')
+        ax.tick_params(colors='#c9d1d9')
+        for sp in ax.spines.values():
+            sp.set_color('#2a3040')
+
+    x = np.arange(2)
+    axes[0].bar(x - 0.2, c_rates, width=0.35, color='#ff4d4d', label='Classical cold')
+    axes[0].bar(x + 0.2, q_peaks, width=0.35, color='#42f58d', label='Quantum peak Awe-dom')
+    axes[0].set_xticks(x, labels)
+    axes[0].set_ylim(0, 1.05)
+    axes[0].axhline(0.5,  color='white', ls=':', lw=1.0, alpha=0.5, label='0.5 threshold')
+    axes[0].axhline(0.9,  color='#ffaa33', ls=':', lw=1.0, alpha=0.5, label='0.9 threshold')
+    axes[0].set_title('Negative Controls: Awe rates', color='white')
+    axes[0].legend(fontsize=7, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+
+    for i, (lbl, v) in enumerate(zip(labels, verdicts)):
+        col = '#42f58d' if v == 'PASS' else '#ff4d4d'
+        axes[1].text(0.5, 0.65 - i * 0.35, f'{lbl.replace(chr(10)," ")}\n{v}',
+                     ha='center', va='center', color=col, fontsize=14,
+                     fontweight='bold', transform=axes[1].transAxes)
+    axes[1].axis('off')
+    axes[1].set_facecolor('#111827')
+    axes[1].set_title('Verdicts', color='white')
+
+    fig.suptitle('QUANT-EXP: Negative Controls A & B', color='white', fontsize=12)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+    for row in rows:
+        print(f"  Control {row['control']}: {row['description']}")
+        print(f"    classical={row['classical_cold_stay_in_awe']:.3f}  quantum_peak={row['quantum_peak_awe_dominant']:.3f}  -> {row['verdict']}")
+
+    return out_csv, out_png
+
+
+def run_fixed_seed_table(
+    out_csv: str = None,
+    seeds: int = 10,
+    T_cold: float = 0.02,
+    steps_classical: int = 6000,
+    quantum_steps: int = 400,
+    gamma: float = 5.0,
+) -> str:
+    """
+    Run base experiment with seeds 0..seeds-1, fixed, tabulate classical + quantum.
+    Produces a publication-ready reproducibility table.
+    """
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_fixed_seed_table.csv')
+
+    W, b = experiment_hamiltonian()
+    e0   = bitstring(state_index('Fear'))
+
+    # Single quantum run (deterministic)
+    rec, _ = quantum_anneal(W, b, steps=quantum_steps, gamma=gamma, schedule='linear',
+                            track_gap=True)
+    q_peak     = float(rec['awe_total'].max())
+    q_final_e  = float(rec['energy'][-1])
+    min_gap    = float(np.min(rec['spectral_gap']))
+    gap_step   = int(np.argmin(rec['spectral_gap']))
+
+    rows = []
+    for seed in range(seeds):
+        tr      = langevin(W, b, e0, T=T_cold, steps=steps_classical, seed=seed)
+        final_f = float(tr[-1, IDX['Fear']])
+        final_a = float(tr[-1, IDX['Awe']])
+        peak_a  = float(tr[:, IDX['Awe']].max())
+        crossed = bool(peak_a >= 0.5)
+        rows.append({
+            'seed': seed,
+            'T_cold': T_cold,
+            'classical_final_fear': round(final_f, 4),
+            'classical_final_awe':  round(final_a, 4),
+            'classical_peak_awe':   round(peak_a, 4),
+            'classical_crossed':    crossed,
+            'quantum_peak_awe_dominant': round(q_peak, 4),
+            'quantum_final_energy':      round(q_final_e, 4),
+            'quantum_min_spectral_gap':  round(min_gap, 4),
+            'quantum_gap_step':          gap_step,
+        })
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+
+    classical_successes = sum(1 for r in rows if r['classical_crossed'])
+    print(f'  Fixed-seed table: {seeds} seeds, {classical_successes}/{seeds} classical crossings')
+    print(f'  Quantum peak Awe-dominant: {q_peak:.4f}')
+    print(f'  Minimum spectral gap: {min_gap:.4f} at step {gap_step}/{quantum_steps}')
+    print(f'  CSV: {out_csv}')
+    return out_csv
+
+
+def run_spectral_gap(
+    out_csv: str = None,
+    out_png: str = None,
+) -> tuple:
+    """
+    Track spectral gap E[1]-E[0] of H(s) throughout the anneal for B8/B10/B12.
+    Minimum gap location predicts tunneling bottleneck.
+    """
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    if out_csv is None:
+        out_csv = os.path.join(os.path.dirname(__file__), 'quantum_spectral_gap.csv')
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_spectral_gap.png')
+
+    cases = [
+        ('B8',  -8.0,  4.0, 300),
+        ('B10', -10.0, 5.0, 400),
+        ('B12', -12.0, 6.0, 500),
+    ]
+    rows = []
+    all_gaps = {}
+
+    for name, barrier, gamma, qsteps in cases:
+        W, b = experiment_hamiltonian()
+        W[IDX['Fear'], IDX['Awe']] = barrier
+        W[IDX['Awe'], IDX['Fear']] = barrier
+        rec, _ = quantum_anneal(W, b, steps=qsteps, gamma=gamma,
+                                schedule='linear', track_gap=True)
+        gaps = np.array(rec['spectral_gap'])
+        s_arr = np.array(rec['s'])
+        min_gap  = float(gaps.min())
+        min_step = int(gaps.argmin())
+        min_s    = float(s_arr[min_step])
+        q_peak   = float(rec['awe_total'].max())
+        all_gaps[name] = (s_arr, gaps)
+        rows.append({
+            'case': name,
+            'barrier': barrier,
+            'gamma': gamma,
+            'steps': qsteps,
+            'min_spectral_gap': round(min_gap, 6),
+            'min_gap_step': min_step,
+            'min_gap_s': round(min_s, 4),
+            'quantum_peak_awe_dominant': round(q_peak, 4),
+        })
+        print(f'  {name}: min gap={min_gap:.4f} at s={min_s:.3f} (step {min_step}/{qsteps})')
+
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+
+    # Plot gap curves
+    fig, ax = plt.subplots(figsize=(9, 4.5), facecolor='#0b0f14')
+    ax.set_facecolor('#111827')
+    ax.tick_params(colors='#c9d1d9')
+    for sp in ax.spines.values():
+        sp.set_color('#2a3040')
+    colors = ['#44ddff', '#42f58d', '#ffaa33']
+    for (name, (s_arr, gaps)), col, row in zip(all_gaps.items(), colors, rows):
+        ax.plot(s_arr, gaps, color=col, lw=2.0, label=f"{name} (min={row['min_spectral_gap']:.4f} at s={row['min_gap_s']:.3f})")
+        ax.axvline(row['min_gap_s'], color=col, ls=':', lw=1.0, alpha=0.5)
+    ax.set_xlabel('Anneal progress s', color='#c9d1d9')
+    ax.set_ylabel('Spectral gap E[1]-E[0]', color='#c9d1d9')
+    ax.set_title('Spectral Gap During Anneal: B8 / B10 / B12', color='white', fontsize=11)
+    ax.legend(fontsize=8, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+    fig.tight_layout()
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return out_csv, out_png
+
+
+def run_entropy_panel(
+    out_png: str = None,
+    steps: int = 400,
+    gamma: float = 5.0,
+) -> str:
+    """
+    Plot Shannon entropy H(s) = -Σ p_i ln p_i alongside Fear/Awe occupancies.
+    Shows when quantum superposition is maximal and when it has collapsed.
+    """
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_entropy_panel.png')
+
+    W, b = experiment_hamiltonian()
+    rec, _ = quantum_anneal(W, b, steps=steps, gamma=gamma, schedule='linear',
+                            track_entropy=True, track_gap=True)
+    s_arr = rec['s']
+    H_max = float(np.log(2**N))   # log(256) ≈ 5.545 for uniform superposition
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.5), facecolor='#0b0f14')
+    for ax in axes:
+        ax.set_facecolor('#111827')
+        ax.tick_params(colors='#c9d1d9')
+        for sp in ax.spines.values():
+            sp.set_color('#2a3040')
+
+    # Left: probability evolution
+    axes[0].plot(s_arr, rec['fear'],      color='#ff4d4d', lw=2.0, label='P(Fear)')
+    axes[0].plot(s_arr, rec['awe'],       color='#42f58d', lw=2.0, label='P(Awe)')
+    axes[0].plot(s_arr, rec['awe_total'], color='#44ddff', lw=1.6, ls='--',
+                 label='P(Awe-dominant)')
+    axes[0].set_xlabel('Anneal progress s', color='#c9d1d9')
+    axes[0].set_ylabel('Occupation probability', color='#c9d1d9')
+    axes[0].set_title('State occupancy during anneal', color='white')
+    axes[0].legend(fontsize=8, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+
+    # Right: Shannon entropy
+    axes[1].plot(s_arr, rec['shannon_entropy'], color='#ffaa33', lw=2.0,
+                 label='Shannon entropy H(s)')
+    axes[1].axhline(H_max, color='white', ls=':', lw=1.0, alpha=0.5,
+                    label=f'Max (uniform) = {H_max:.3f}')
+    peak_s = float(s_arr[np.argmax(rec['shannon_entropy'])])
+    peak_H = float(np.max(rec['shannon_entropy']))
+    axes[1].axvline(peak_s, color='#42f58d', ls=':', lw=1.2, alpha=0.7,
+                    label=f'Peak at s={peak_s:.3f} (H={peak_H:.3f})')
+    axes[1].set_xlabel('Anneal progress s', color='#c9d1d9')
+    axes[1].set_ylabel('Shannon entropy (nats)', color='#c9d1d9')
+    axes[1].set_title('Quantum superposition breadth', color='white')
+    axes[1].legend(fontsize=8, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+
+    fig.suptitle('QUANT-EXP: Entropy and Occupancy During Adiabatic Anneal', color='white',
+                 fontsize=11)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+    print(f'  Peak Shannon entropy: {peak_H:.4f} at s={peak_s:.4f}')
+    print(f'  Max possible (uniform): {H_max:.4f}')
+    print(f'  Entropy ratio at peak: {peak_H/H_max:.4f}')
+    print(f'  Plot: {out_png}')
+    return out_png
+
+
+def run_combined_figure(
+    out_png: str = None,
+) -> str:
+    """
+    Four-panel publication figure:
+      A) Phase heatmap (classical reachability vs barrier/temperature)
+      B) T* noise-equivalence curve
+      C) Occupancy wave (base anneal: Fear/Awe vs s)
+      D) Bootstrap CI summary (cold vs quantum at B8/B10/B12)
+    """
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import csv as csv_mod
+
+    if out_png is None:
+        out_png = os.path.join(os.path.dirname(__file__), 'quantum_combined_figure.png')
+
+    instr = os.path.dirname(__file__)
+
+    def read_csv(fname):
+        path = os.path.join(instr, fname)
+        if not os.path.exists(path):
+            return []
+        with open(path, newline='', encoding='utf-8') as f:
+            return list(csv_mod.DictReader(f))
+
+    phase_rows  = read_csv('quantum_phase_diagram.csv')
+    equiv_rows  = read_csv('quantum_noise_equivalence.csv')
+    boot_rows   = read_csv('quantum_bootstrap_sweep.csv')
+
+    fig = plt.figure(figsize=(13, 9), facecolor='#0b0f14')
+    gs  = fig.add_gridspec(2, 2, hspace=0.42, wspace=0.35)
+    axes = [fig.add_subplot(gs[r, c]) for r, c in [(0,0),(0,1),(1,0),(1,1)]]
+
+    for ax in axes:
+        ax.set_facecolor('#111827')
+        ax.tick_params(colors='#c9d1d9', labelsize=8)
+        for sp in ax.spines.values():
+            sp.set_color('#2a3040')
+        ax.xaxis.label.set_color('#c9d1d9')
+        ax.yaxis.label.set_color('#c9d1d9')
+
+    # ── Panel A: Phase heatmap ────────────────────────────────────────────────
+    ax = axes[0]
+    if phase_rows:
+        barriers = sorted(set(float(r['barrier'])     for r in phase_rows))
+        temps    = sorted(set(float(r['temperature']) for r in phase_rows))
+        mat = np.zeros((len(barriers), len(temps)))
+        for r in phase_rows:
+            bi = barriers.index(float(r['barrier']))
+            ti = temps.index(float(r['temperature']))
+            mat[bi, ti] = float(r['classical_success_rate'])
+        im = ax.imshow(mat, aspect='auto', origin='lower', cmap='RdYlGn',
+                       vmin=0, vmax=1,
+                       extent=[min(temps)-0.025, max(temps)+0.025,
+                                min(barriers)-0.5, max(barriers)+0.5])
+        fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label='Classical SR')
+        ax.set_xlabel('Temperature T')
+        ax.set_ylabel('Barrier W[Fear,Awe]')
+        ax.set_title('A  Phase diagram', color='white', fontsize=10)
+    else:
+        ax.text(0.5, 0.5, 'quantum_phase_diagram.csv\nnot found', ha='center',
+                va='center', color='#888', transform=ax.transAxes)
+        ax.set_title('A  Phase diagram', color='white', fontsize=10)
+
+    # ── Panel B: T* noise-equivalence ─────────────────────────────────────────
+    ax = axes[1]
+    if equiv_rows:
+        barriers_e = [float(r['barrier']) for r in equiv_rows if r.get('T_star')]
+        t_stars    = [float(r['T_star'])  for r in equiv_rows if r.get('T_star')]
+        if barriers_e:
+            ax.plot(barriers_e, t_stars, '-o', color='#ffaa33', lw=2.0,
+                    label='T* (classical equiv.)')
+            ax.set_xlabel('Barrier W[Fear,Awe]')
+            ax.set_ylabel('Equivalent classical T*')
+            ax.legend(fontsize=8, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+    ax.set_title('B  Noise-equivalence T* curve', color='white', fontsize=10)
+
+    # ── Panel C: Occupancy wave ────────────────────────────────────────────────
+    ax = axes[2]
+    W_c, b_c = experiment_hamiltonian()
+    rec, _ = quantum_anneal(W_c, b_c, steps=400, gamma=5.0, schedule='linear',
+                            track_entropy=True)
+    ax.plot(rec['s'], rec['fear'],      color='#ff4d4d', lw=2.0, label='P(Fear)')
+    ax.plot(rec['s'], rec['awe_total'], color='#42f58d', lw=2.0, label='P(Awe-dom.)')
+    ax2c = ax.twinx()
+    ax2c.plot(rec['s'], rec['shannon_entropy'], color='#ffaa33', lw=1.4, ls='--',
+              alpha=0.8, label='Entropy')
+    ax2c.set_ylabel('Entropy (nats)', color='#ffaa33', fontsize=8)
+    ax2c.tick_params(colors='#ffaa33', labelsize=7)
+    ax.set_xlabel('Anneal progress s')
+    ax.set_ylabel('Occupation')
+    ax.legend(fontsize=8, facecolor='#1a2030', labelcolor='white', framealpha=0.8,
+              loc='upper left')
+    ax.set_title('C  Occupancy + entropy wave (B10)', color='white', fontsize=10)
+
+    # ── Panel D: Bootstrap CI summary ────────────────────────────────────────
+    ax = axes[3]
+    if boot_rows:
+        cases  = [r['case'] for r in boot_rows]
+        q_peaks = [float(r['quantum_peak_awe_dominant']) for r in boot_rows]
+        ci_lo  = [float(r['classical_cold_ci_low'])  for r in boot_rows]
+        ci_hi  = [float(r['classical_cold_ci_high']) for r in boot_rows]
+        x      = np.arange(len(cases))
+        ax.bar(x, q_peaks, width=0.4, color='#42f58d', alpha=0.9, label='Quantum peak')
+        ax.errorbar(x, [(lo+hi)/2 for lo, hi in zip(ci_lo, ci_hi)],
+                    yerr=[[(lo+hi)/2 - lo for lo, hi in zip(ci_lo, ci_hi)],
+                          [(hi - (lo+hi)/2) for lo, hi in zip(ci_lo, ci_hi)]],
+                    fmt='o', color='#ff4d4d', capsize=5, lw=1.5,
+                    label='Classical cold CI (n=200)')
+        ax.set_xticks(x, cases)
+        ax.set_ylim(0, 0.55)
+        ax.set_ylabel('Awe-dominant occupancy')
+        ax.set_xlabel('Barrier case')
+        ax.legend(fontsize=8, facecolor='#1a2030', labelcolor='white', framealpha=0.8)
+    ax.set_title('D  Bootstrap CI: quantum vs classical cold', color='white', fontsize=10)
+
+    fig.suptitle('QUANT-EXP-1: Combined Publication Figure', color='white', fontsize=12,
+                 fontweight='bold')
+    fig.savefig(out_png, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close(fig)
+    print(f'  Combined figure: {out_png}')
+    return out_png
+
+
 def run_bond_briefing(
     out_png: str = None,
     out_gif: str = None,
@@ -1307,9 +1774,20 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Quantum tunneling experiment CLI')
     parser.add_argument(
         '--mode',
-        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'equiv', 'bond', 'all'],
+        choices=['run', 'animate', 'schedules', 'sweep', 'phase', 'equiv', 'bond',
+                 'bootstrap', 'negctrl', 'seedtable', 'spectral', 'hardening',
+                 'entropy', 'combined', 'all'],
         default='run',
-        help='run: base experiment; animate: run+GIF; schedules: schedule comparison; sweep: barrier sweep; phase: barrier-vs-T phase diagram; equiv: noise-equivalence curve+wave plots; bond: cinematic 3D briefing pack; all: everything',
+        help=(
+            'run: base experiment; animate: run+GIF; schedules: schedule comparison; '
+            'sweep: barrier sweep; phase: barrier-vs-T phase diagram; '
+            'equiv: noise-equivalence curve; bond: cinematic 3D briefing pack; '
+            'bootstrap: sweep with n=200 seeds; negctrl: negative controls A+B; '
+            'seedtable: fixed-seed reproducibility table; spectral: spectral gap proxy; '
+            'hardening: bootstrap+negctrl+seedtable+spectral; '
+            'entropy: Shannon entropy panel; combined: 4-panel publication figure; '
+            'all: everything'
+        ),
     )
     args = parser.parse_args()
 
@@ -1351,6 +1829,54 @@ if __name__ == '__main__':
         print(f"Bond turntable GIF saved: {gif_path}")
         sys.exit(0)
 
+    if args.mode == 'bootstrap':
+        csv_path, png_path = run_bootstrap_sweep(seeds=200)
+        print(f"Bootstrap CSV saved: {csv_path}")
+        print(f"Bootstrap plot saved: {png_path}")
+        sys.exit(0)
+
+    if args.mode == 'negctrl':
+        csv_path, png_path = run_negative_controls()
+        print(f"Negative controls CSV saved: {csv_path}")
+        print(f"Negative controls plot saved: {png_path}")
+        sys.exit(0)
+
+    if args.mode == 'seedtable':
+        csv_path = run_fixed_seed_table()
+        print(f"Fixed-seed table CSV saved: {csv_path}")
+        sys.exit(0)
+
+    if args.mode == 'spectral':
+        csv_path, png_path = run_spectral_gap()
+        print(f"Spectral gap CSV saved: {csv_path}")
+        print(f"Spectral gap plot saved: {png_path}")
+        sys.exit(0)
+
+    if args.mode == 'hardening':
+        print('=== [1/4] Bootstrap sweep (n=200) ===')
+        c1, p1 = run_bootstrap_sweep(seeds=200)
+        print('=== [2/4] Negative controls A & B ===')
+        c2, p2 = run_negative_controls()
+        print('=== [3/4] Fixed-seed table ===')
+        c3 = run_fixed_seed_table()
+        print('=== [4/4] Spectral gap proxy ===')
+        c4, p4 = run_spectral_gap()
+        print(f"\nBootstrap:      {c1}")
+        print(f"Neg controls:   {c2}")
+        print(f"Fixed-seed:     {c3}")
+        print(f"Spectral gap:   {c4}")
+        sys.exit(0)
+
+    if args.mode == 'entropy':
+        png = run_entropy_panel()
+        print(f"Entropy panel: {png}")
+        sys.exit(0)
+
+    if args.mode == 'combined':
+        png = run_combined_figure()
+        print(f"Combined figure: {png}")
+        sys.exit(0)
+
     # all
     verdict = main(make_animation=True)
     c1, p1 = run_schedule_comparison()
@@ -1358,14 +1884,16 @@ if __name__ == '__main__':
     c3, p3 = run_phase_diagram()
     c4, p4 = run_noise_equivalence()
     b1, b2 = run_bond_briefing()
+    cb1, pb1 = run_bootstrap_sweep(seeds=200)
+    cb2, pb2 = run_negative_controls()
+    cb3 = run_fixed_seed_table()
+    cb4, pb4 = run_spectral_gap()
     print(f"Schedule CSV saved: {c1}")
-    print(f"Schedule plot saved: {p1}")
     print(f"Sweep CSV saved: {c2}")
-    print(f"Sweep plot saved: {p2}")
     print(f"Phase CSV saved: {c3}")
-    print(f"Phase plot saved: {p3}")
     print(f"Equivalence CSV saved: {c4}")
-    print(f"Equivalence plot saved: {p4}")
-    print(f"Bond briefing plot saved: {b1}")
-    print(f"Bond turntable GIF saved: {b2}")
+    print(f"Bootstrap CSV saved: {cb1}")
+    print(f"Neg controls CSV saved: {cb2}")
+    print(f"Fixed-seed CSV saved: {cb3}")
+    print(f"Spectral gap CSV saved: {cb4}")
     sys.exit(0 if verdict == 'PASS' else 1)

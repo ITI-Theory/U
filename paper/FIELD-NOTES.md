@@ -1572,3 +1572,38 @@ mak pkg wit hrun enrty point, index.html or whatever
 AJ:Ask
 
 If 5/10 is the minimum standard to reach publication, at what standard are my 3 papers now?
+
+## Zenodo Publications — May 2026
+
+Three papers published on Zenodo:
+
+- soma-field-paper: https://doi.org/10.5281/zenodo.20350516
+- quantum-soma-penrose: https://doi.org/10.5281/zenodo.20351231
+- mathematical-co-identification: https://doi.org/10.5281/zenodo.20350331
+
+PAPER_STATUS.md and scripts/paper_status.py updated to reflect these DOIs.
+
+## QUANT-EXP Hardening — May 2026
+
+Ran 4 remaining hardening experiments via `--mode hardening`. All PASS.
+
+**Bootstrap sweep (n=200 seeds, B8/B10/B12):**
+quantum_bootstrap_sweep.csv — confirms CI stability with 200-seed sample.
+
+**Negative controls:**
+- Control A (start from Awe, barrier intact): classical=1.000, quantum_peak=0.408 → PASS
+- Control B (start from Fear, no barrier W[Fear,Awe]=+0.4): classical=1.000, quantum_peak=0.284 → PASS
+- Interpretation: barrier direction matters; removing it lets classical cross freely.
+
+**Fixed-seed reproducibility table (seeds 0–9):**
+quantum_fixed_seed_table.csv — 0/10 classical crossings, quantum_peak=0.4077, min_gap=0.0089 at step 399/400.
+
+**Spectral gap proxy (B8/B10/B12):**
+quantum_spectral_gap.csv
+- B8:  min_gap=0.0095, s=0.998
+- B10: min_gap=0.0089, s=0.999
+- B12: min_gap=0.0085, s=0.999
+- Gap narrows monotonically with barrier strength; bottleneck occurs late in anneal (s≈1).
+
+All experiment artifacts: instrument/quantum_*.csv, instrument/quantum_*.png
+

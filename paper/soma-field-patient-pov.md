@@ -1,7 +1,9 @@
 ---
 title: "Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics"
 subtitle: "Or: The Author Could Not Wait"
-author: "[Author Name], BSc Physics (Royal Holloway, University of London, 1993)"
+author: "Alistair Johnson, BSc Physics (Royal Holloway, University of London, 1993)"
+orcid: "0009-0007-2194-0850"
+institute: "Independent Researcher, Zurich, Switzerland"
 author-note: |
   The author presents this work as a researcher with lived experience of the conditions
   described herein — specifically, Autism Spectrum Condition (Level 2), Attention Deficit

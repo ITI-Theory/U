@@ -36,6 +36,7 @@ PANDOC  := pandoc
 ENGINE  := xelatex
 BIB     := bibliography.bib
 CSL     := apa-7th.csl
+BUILDDIR := bld
 
 # Core pandoc flags — applied to both papers
 FLAGS := \
@@ -77,52 +78,61 @@ BOOK_FLAGS := \
   --lua-filter=strip-keywords.lua
 
 SOURCES := soma-field-paper.md soma-field-patient-pov.md quantum-soma-penrose.md
-PDFS    := $(SOURCES:.md=.pdf)
+PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method music clean check setup freeze \
+.PHONY: all main pov book tensor method music synthesis clean check setup freeze \
 	de fr it translations translations-clean everything-bundle
 
-all: $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf music-affect-dynamics.pdf
+all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf
 
-main: soma-field-paper.pdf
+main: $(BUILDDIR)/soma-field-paper.pdf
 
-pov: soma-field-patient-pov.pdf
+pov: $(BUILDDIR)/soma-field-patient-pov.pdf
 
-book: soma-field-book.pdf
+book: $(BUILDDIR)/soma-field-book.pdf
 
-tensor: the-tensor.pdf
+tensor: $(BUILDDIR)/the-tensor.pdf
 
-method: mathematical-co-identification.pdf
+method: $(BUILDDIR)/mathematical-co-identification.pdf
 
-music: music-affect-dynamics.pdf
+music: $(BUILDDIR)/music-affect-dynamics.pdf
 
-music-affect-dynamics.pdf: music-affect-dynamics.md $(BIB)
+synthesis: $(BUILDDIR)/soma-field-synthesis.pdf
+
+$(BUILDDIR)/music-affect-dynamics.pdf: music-affect-dynamics.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-mathematical-co-identification.pdf: mathematical-co-identification.md $(BIB)
+$(BUILDDIR)/soma-field-synthesis.pdf: soma-field-synthesis.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-soma-field-book.pdf: soma-field-book.md
+$(BUILDDIR)/mathematical-co-identification.pdf: mathematical-co-identification.md $(BIB) | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(FLAGS) --citeproc --bibliography=$(BIB) --csl=$(CSL)
+	@echo "Built: $@"
+
+$(BUILDDIR)/soma-field-book.pdf: soma-field-book.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS)
 	@echo "Built: $@"
 
-the-tensor.pdf: the-tensor.md
+$(BUILDDIR)/the-tensor.pdf: the-tensor.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS)
 	@echo "Built: $@"
 
-%.pdf: %.md $(BIB)
+$(BUILDDIR)/%.pdf: %.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) # $(CITE_FLAGS)
 	@echo "Built: $@"
 
 # -----------------------------------------------------------------------------
 # Utility targets
 
+$(BUILDDIR):
+	@mkdir -p $@
+
 clean:
-	rm -f $(PDFS) soma-field-book.pdf the-tensor.pdf mathematical-co-identification.pdf music-affect-dynamics.pdf
+	rm -rf $(BUILDDIR)
 
 # Download APA 7th edition CSL from the official CSL repository (run once)
 setup: $(CSL)
@@ -172,17 +182,20 @@ BOOK_FLAGS_DE := $(BOOK_FLAGS) -V lang=de
 BOOK_FLAGS_FR := $(BOOK_FLAGS) -V lang=fr
 BOOK_FLAGS_IT := $(BOOK_FLAGS) -V lang=it
 
-PDFS_DE := soma-field-paper.de.pdf soma-field-book.de.pdf soma-field-patient-pov.de.pdf \
+PDFS_DE := $(addprefix $(BUILDDIR)/, \
+		   soma-field-paper.de.pdf soma-field-book.de.pdf soma-field-patient-pov.de.pdf \
 		   mathematical-co-identification.de.pdf the-tensor.de.pdf music-affect-dynamics.de.pdf \
-		   quantum-soma-penrose.de.pdf
+		   quantum-soma-penrose.de.pdf)
 
-PDFS_FR := soma-field-paper.fr.pdf soma-field-book.fr.pdf soma-field-patient-pov.fr.pdf \
+PDFS_FR := $(addprefix $(BUILDDIR)/, \
+		   soma-field-paper.fr.pdf soma-field-book.fr.pdf soma-field-patient-pov.fr.pdf \
 		   mathematical-co-identification.fr.pdf the-tensor.fr.pdf music-affect-dynamics.fr.pdf \
-		   quantum-soma-penrose.fr.pdf
+		   quantum-soma-penrose.fr.pdf)
 
-PDFS_IT := soma-field-paper.it.pdf soma-field-book.it.pdf soma-field-patient-pov.it.pdf \
+PDFS_IT := $(addprefix $(BUILDDIR)/, \
+		   soma-field-paper.it.pdf soma-field-book.it.pdf soma-field-patient-pov.it.pdf \
 		   mathematical-co-identification.it.pdf the-tensor.it.pdf music-affect-dynamics.it.pdf \
-		   quantum-soma-penrose.it.pdf
+		   quantum-soma-penrose.it.pdf)
 
 translations: $(PDFS_DE) $(PDFS_FR) $(PDFS_IT)
 
@@ -200,90 +213,90 @@ everything-bundle:
 
 # --- German ---
 
-soma-field-paper.de.pdf: soma-field-paper.de.md
+$(BUILDDIR)/soma-field-paper.de.pdf: soma-field-paper.de.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_DE)
 	@echo "Built: $@"
 
-soma-field-book.de.pdf: soma-field-book.de.md
+$(BUILDDIR)/soma-field-book.de.pdf: soma-field-book.de.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS_DE)
 	@echo "Built: $@"
 
-soma-field-patient-pov.de.pdf: soma-field-patient-pov.de.md
+$(BUILDDIR)/soma-field-patient-pov.de.pdf: soma-field-patient-pov.de.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_DE)
 	@echo "Built: $@"
 
-mathematical-co-identification.de.pdf: mathematical-co-identification.de.md $(BIB)
+$(BUILDDIR)/mathematical-co-identification.de.pdf: mathematical-co-identification.de.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_DE) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-the-tensor.de.pdf: the-tensor.de.md
+$(BUILDDIR)/the-tensor.de.pdf: the-tensor.de.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS_DE)
 	@echo "Built: $@"
 
-music-affect-dynamics.de.pdf: music-affect-dynamics.de.md $(BIB)
+$(BUILDDIR)/music-affect-dynamics.de.pdf: music-affect-dynamics.de.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_DE) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-quantum-soma-penrose.de.pdf: quantum-soma-penrose.de.md
+$(BUILDDIR)/quantum-soma-penrose.de.pdf: quantum-soma-penrose.de.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_DE)
 	@echo "Built: $@"
 
 # --- French ---
 
-soma-field-paper.fr.pdf: soma-field-paper.fr.md
+$(BUILDDIR)/soma-field-paper.fr.pdf: soma-field-paper.fr.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_FR)
 	@echo "Built: $@"
 
-soma-field-book.fr.pdf: soma-field-book.fr.md
+$(BUILDDIR)/soma-field-book.fr.pdf: soma-field-book.fr.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS_FR)
 	@echo "Built: $@"
 
-soma-field-patient-pov.fr.pdf: soma-field-patient-pov.fr.md
+$(BUILDDIR)/soma-field-patient-pov.fr.pdf: soma-field-patient-pov.fr.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_FR)
 	@echo "Built: $@"
 
-mathematical-co-identification.fr.pdf: mathematical-co-identification.fr.md $(BIB)
+$(BUILDDIR)/mathematical-co-identification.fr.pdf: mathematical-co-identification.fr.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_FR) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-the-tensor.fr.pdf: the-tensor.fr.md
+$(BUILDDIR)/the-tensor.fr.pdf: the-tensor.fr.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS_FR)
 	@echo "Built: $@"
 
-music-affect-dynamics.fr.pdf: music-affect-dynamics.fr.md $(BIB)
+$(BUILDDIR)/music-affect-dynamics.fr.pdf: music-affect-dynamics.fr.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_FR) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-quantum-soma-penrose.fr.pdf: quantum-soma-penrose.fr.md
+$(BUILDDIR)/quantum-soma-penrose.fr.pdf: quantum-soma-penrose.fr.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_FR)
 	@echo "Built: $@"
 
 # --- Italian ---
 
-soma-field-paper.it.pdf: soma-field-paper.it.md
+$(BUILDDIR)/soma-field-paper.it.pdf: soma-field-paper.it.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_IT)
 	@echo "Built: $@"
 
-soma-field-book.it.pdf: soma-field-book.it.md
+$(BUILDDIR)/soma-field-book.it.pdf: soma-field-book.it.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS_IT)
 	@echo "Built: $@"
 
-soma-field-patient-pov.it.pdf: soma-field-patient-pov.it.md
+$(BUILDDIR)/soma-field-patient-pov.it.pdf: soma-field-patient-pov.it.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_IT)
 	@echo "Built: $@"
 
-mathematical-co-identification.it.pdf: mathematical-co-identification.it.md $(BIB)
+$(BUILDDIR)/mathematical-co-identification.it.pdf: mathematical-co-identification.it.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_IT) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-the-tensor.it.pdf: the-tensor.it.md
+$(BUILDDIR)/the-tensor.it.pdf: the-tensor.it.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS_IT)
 	@echo "Built: $@"
 
-music-affect-dynamics.it.pdf: music-affect-dynamics.it.md $(BIB)
+$(BUILDDIR)/music-affect-dynamics.it.pdf: music-affect-dynamics.it.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_IT) --citeproc --bibliography=$(BIB) --csl=$(CSL)
 	@echo "Built: $@"
 
-quantum-soma-penrose.it.pdf: quantum-soma-penrose.it.md
+$(BUILDDIR)/quantum-soma-penrose.it.pdf: quantum-soma-penrose.it.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_IT)
 	@echo "Built: $@"

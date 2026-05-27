@@ -32,6 +32,24 @@ LANGS = {
 
 PUBLICATION_TRACKER = [
     {
+        "channel": "Zenodo",
+        "document": "soma-field-paper",
+        "status": "published",
+        "evidence": "DOI https://doi.org/10.5281/zenodo.20350516 (May 2026)",
+    },
+    {
+        "channel": "Zenodo",
+        "document": "quantum-soma-penrose",
+        "status": "published",
+        "evidence": "DOI https://doi.org/10.5281/zenodo.20351231 (May 2026)",
+    },
+    {
+        "channel": "Zenodo",
+        "document": "mathematical-co-identification",
+        "status": "published",
+        "evidence": "DOI https://doi.org/10.5281/zenodo.20350331 (May 2026)",
+    },
+    {
         "channel": "bioRxiv",
         "document": "soma-field-paper",
         "status": "posted",
@@ -44,10 +62,16 @@ PUBLICATION_TRACKER = [
         "evidence": "No submission receipt or manuscript ID found in tracked files",
     },
     {
+        "channel": "PsyArXiv",
+        "document": "music-affect-dynamics",
+        "status": "not submitted",
+        "evidence": "Pending post-hardening experiment completion",
+    },
+    {
         "channel": "arXiv",
         "document": "mathematical-co-identification",
-        "status": "not confirmed in repo",
-        "evidence": "No arXiv ID found in tracked files",
+        "status": "not submitted",
+        "evidence": "Submission pending",
     },
 ]
 

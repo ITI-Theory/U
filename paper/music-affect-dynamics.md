@@ -1,7 +1,9 @@
 ---
 title: "A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex"
 author: "Alistair Johnson"
-date: "2026"
+orcid: "0009-0007-2194-0850"
+institute: "Independent Researcher, Zurich, Switzerland"
+date: "May 2026"
 keywords: [soma-field, music and emotion, dynamical systems, attractor dynamics, affective computing, MIDI, real-time systems]
 abstract: |
   The dominant framework for modelling music-induced affect is Russell's
@@ -128,7 +130,7 @@ interoception and pre-verbal affect.
 
 ## 3.1 Hardware Architecture
 
-*(See instrument/DESIGN.md for full specification.)*
+*(Full instrument specification is included in the supplementary archive.)*
 
 | Layer | Hardware |
 |---|---|
@@ -298,7 +300,7 @@ Primary analysis is block-level, with sensitivity analysis at event-level.
 
 ## 4.6 Exploratory Pilot Fill (Single Logged Session)
 
-Using `instrument/logs/session_20260519_051107.jsonl` as an exploratory pilot run,
+Using the pilot session log (available in the supplementary archive) as an exploratory pilot run,
 the first fill of the results template is:
 
 | Hypothesis | Metric | Baseline | Soma-field | Effect size | Confidence interval | Verdict |
