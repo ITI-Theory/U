@@ -65,6 +65,10 @@ ALL_PAPERS = [
     "soma-physical-substrate",
 ]
 
+# Assembled files that live in bld/ rather than paper/.
+# translate_paper() checks BLD_DIR as a fallback for these.
+BLD_ONLY_PAPERS = {"omnibus-body"}
+
 LANG_MAP = {
     "de": {"deepl": "DE",  "pandoc": "de",  "label": "German"},
     "fr": {"deepl": "FR",  "pandoc": "fr",  "label": "French"},
@@ -202,6 +206,8 @@ def translate_paper(paper_name: str, lang_code: str, backend: str,
                     client=None, model: str = "gpt-4o") -> None:
     info     = LANG_MAP[lang_code]
     src_path = PAPER_DIR / f"{paper_name}.md"
+    if not src_path.exists():
+        src_path = BLD_DIR / f"{paper_name}.md"   # fallback for assembled files (e.g. omnibus-body)
     out_path = BLD_DIR   / f"{paper_name}.{lang_code}.md"
 
     if not src_path.exists():
