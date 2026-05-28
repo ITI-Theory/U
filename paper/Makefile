@@ -98,7 +98,8 @@ PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method music synthesis substrate omnibus clean check setup freeze \
+.PHONY: all main pov book tensor method music synthesis substrate omnibus omnibus-royal omnibus-a4 \
+	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
 all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf
@@ -119,17 +120,12 @@ synthesis: $(BUILDDIR)/soma-field-synthesis.pdf
 
 substrate: $(BUILDDIR)/soma-physical-substrate.pdf
 
-# Omnibus flags — Royal format (156×234 mm), sewn case-bound margins, no --number-sections
-# Print spec: Royal 156×234 mm | 115–120 gsm cream offset | sewn case bound | matte cover
-# bindingoffset=6mm accounts for the sewn spine; inner+binding = ~28 mm at gutter
-OMNIBUS_FLAGS := \
+# Shared omnibus base flags (no geometry — set per variant)
+OMNIBUS_BASE := \
   --pdf-engine=$(ENGINE) \
   --standalone \
   --toc \
   --toc-depth=2 \
-  -V "geometry=paperwidth=156mm,paperheight=234mm,top=22mm,bottom=25mm,inner=22mm,outer=18mm,bindingoffset=6mm" \
-  -V fontsize=11pt \
-  -V linestretch=1.5 \
   -V colorlinks=true \
   -V linkcolor=NavyBlue \
   -V urlcolor=NavyBlue \
@@ -140,10 +136,32 @@ OMNIBUS_FLAGS := \
   --lua-filter=strip-keywords.lua \
   $(CITEPROC)
 
-omnibus: | $(BUILDDIR)
+# Omnibus — Royal (156×234 mm), sewn case-bound
+# Print spec: 115–120 gsm cream offset | sewn case bound | matte cover
+# bindingoffset=6mm: inner+binding ≈ 28 mm at gutter
+OMNIBUS_ROYAL_FLAGS := $(OMNIBUS_BASE) \
+  -V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=6mm" \
+  -V fontsize=10pt \
+  -V linestretch=1.3
+
+# Omnibus — A4 duplex, punched for Filofax ring binder
+# inner=28mm leaves clearance for standard ISO-838 punch (holes at ~12mm from edge)
+OMNIBUS_A4_FLAGS := $(OMNIBUS_BASE) \
+  -V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=20mm,bottom=22mm" \
+  -V fontsize=11pt \
+  -V linestretch=1.4
+
+omnibus-royal: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
-	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus.pdf $(OMNIBUS_FLAGS)
-	@echo "Built: $(BUILDDIR)/omnibus.pdf"
+	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-royal.pdf $(OMNIBUS_ROYAL_FLAGS)
+	@echo "Built: $(BUILDDIR)/omnibus-royal.pdf"
+
+omnibus-a4: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/build_omnibus.py
+	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-a4.pdf $(OMNIBUS_A4_FLAGS)
+	@echo "Built: $(BUILDDIR)/omnibus-a4.pdf"
+
+omnibus: omnibus-royal omnibus-a4
 
 $(BUILDDIR)/music-affect-dynamics.pdf: music-affect-dynamics.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) $(CITEPROC)
