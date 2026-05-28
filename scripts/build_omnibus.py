@@ -19,12 +19,13 @@ Structure of the output
 
 Output
 ------
-  paper/bld/omnibus-body.md   (merged source)
-  paper/bld/omnibus.pdf       (built by Makefile via 'make omnibus')
+  paper/bld/omnibus-body.md    (merged source)
+  paper/bld/omnibus-royal.pdf  (built by 'make omnibus-royal' — 156×234mm sewn)
+  paper/bld/omnibus-a4.pdf     (built by 'make omnibus-a4'    — A4 duplex ring-binder)
 
 Usage
 -----
-  make omnibus          (builds PDF via Makefile)
+  make omnibus          (builds both PDF variants via Makefile)
   python scripts/build_omnibus.py   (generates merged .md only)
 """
 
