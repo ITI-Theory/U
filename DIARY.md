@@ -665,3 +665,44 @@ and improving reproducibility language.
 - Reduces researcher degrees of freedom and over-claim risk.
 - Moves quantum paper closer to submission-grade robustness.
 
+AJ: 27.05.2026
+
+Recap:
+
+- The repository U , U bar is the duala
+
+Short/mid term goals for [T]-Theory
+
+- publish more to  https://zenodo.org/records/20350516
+- finish experiments that could breaik this
+- publish a "Thesis" to Zenodo
+
+
+.keys.local (gitignored — safe to put real values here):
+OPENAI_API_KEY  := sk-...
+DEEPL_API_KEY   := your-deepl-key
+
+Then:
+
+make translate        # LLM (GPT-4o) — default, good quality
+make translate-deepl  # DeepL — premium pass when ready to publish
+make translations     # build PDFs from whichever .md files are in bld/
+
+The GitHub Models endpoint also works as a free LLM option — just set OPENAI_BASE_URL := https://models.inference.ai.azure.com and use your GitHub PAT as the key.
+
+
+AJ: 28.05.2026
+
+ZENODO_RELEASE_SHEETS.md — 416-line working document committed to main (379cc87).
+
+Structure:
+
+Step 1 — Two artifact records first (A1: Lean proofs as software, A2: QUANT-EXP-1 as dataset) — create these before anything else so their DOIs exist to reference
+Step 2 — Edit the 3 published records — add IsSupplementedBy links to A1/A2 and IsRelatedTo cross-links
+Step 3 — 6 new paper records (P4–P9) — each with IsSupplementedBy, Cites, and IsPartOf omnibus
+Step 4 — Omnibus record (last) — HasPart all 9 paper DOIs, both PDF formats included
+At the bottom: a DOI registry table with placeholders — fill in as you create each record, since many links are circular (each paper → omnibus, omnibus → each paper).
+
+Key decision for translations: I've recommended uploading them as additional files on the same record as the English PDF (so one DOI per paper regardless of language). Change to separate records if you want language-specific DOIs.
+
+
