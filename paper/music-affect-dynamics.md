@@ -29,9 +29,9 @@ abstract: |
    criteria to make the framework publication-testable rather than descriptive.
 ---
 
-# 1. Introduction
+# Introduction
 
-## 1.1 The Gap in the Literature
+## The Gap in the Literature
 
 The handbook of music and emotion [@juslin2010] runs to nearly a thousand
 pages.  The dominant quantitative framework across it is Russell's
@@ -55,7 +55,7 @@ determines escape.
 
 This paper presents a model that does both.
 
-## 1.2 The Soma-Field Model
+## The Soma-Field Model
 
 The soma-field model (Johnson, 2026a) defines emotional state as a continuous
 vector field on the body–brain system.  In the musical context, we restrict
@@ -74,7 +74,7 @@ of mathematical co-identification (Johnson, 2026b):
 3. **Threshold function** — conscious emotional experience arises when field
    amplitude exceeds a perception threshold $\theta$
 
-## 1.3 Why Music
+## Why Music
 
 Music is uniquely suited to driving the field.  BRECVEMA's mechanisms act as
 *forcing functions* on the energy landscape: rhythmic entrainment modulates
@@ -85,9 +85,9 @@ parameter modulations.
 
 ---
 
-# 2. The Model
+# The Model
 
-## 2.1 State Space
+## State Space
 
 $$\mathbf{e}(t) = (e_1^s, \ldots, e_8^s,\; e_1^c, \ldots, e_8^c) \in [0,1]^{16}$$
 
@@ -96,7 +96,7 @@ of emotional mode $i$.  The eight modes are: *calm*, *anger/fight*,
 *anxiety/flight*, *grief*, *freeze/dissociation*, *hypervigilance*,
 *flow/absorption*, *joy*.
 
-## 2.2 Energy Function and Attractors
+## Energy Function and Attractors
 
 $$H(\mathbf{e}) = \tfrac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \mathbf{b}^\top\mathbf{e}$$
 
@@ -108,14 +108,14 @@ Named attractors match the polyvagal hierarchy and trauma literature:
 *regulated calm* (global minimum), *fight*, *flight* (shallow saddle),
 *freeze* (deep isolated minimum), *flow*, *dissociation*.
 
-## 2.3 Dynamics
+## Dynamics
 
 $$\gamma\,\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t)) + \sqrt{2D}\;\xi(t)$$
 
 where $\gamma$ is damping, $D$ is diffusion (noise temperature), and
 $\xi(t)$ is white noise.  The effective temperature is $T_\text{eff} = D/\gamma$.
 
-## 2.4 Threshold and Conscious Experience
+## Threshold and Conscious Experience
 
 $$\mathcal{P}_i(t) = \mathbf{1}\left[\max(e_i^s,\, e_i^c) > \theta\right]$$
 
@@ -126,9 +126,9 @@ interoception and pre-verbal affect.
 
 ---
 
-# 3. The Instrument
+# The Instrument
 
-## 3.1 Hardware Architecture
+## Hardware Architecture
 
 *(Full instrument specification is included in the supplementary archive.)*
 
@@ -142,14 +142,14 @@ interoception and pre-verbal affect.
 | Visual output | TouchDesigner (Mandelbulb shader) → HDMI → HoloGauze |
 | Field server | Python 3.14, 50 Hz update rate |
 
-## 3.2 MIDI Mapping
+## MIDI Mapping
 
 Twister 1 encodes the 8 somatic components; Twister 2 encodes the 8 cognitive
 components.  Each encoder's turn value maps to $e_i \in [0,1]$; push toggles
 mute.  Encoders 9–12 on each Twister control field parameters ($\gamma$, $D$,
 $\theta$) and neurotype modifiers.
 
-## 3.3 Audio Rendering
+## Audio Rendering
 
 The Max4Live device receives OSC from the Python server and maps:
 
@@ -161,7 +161,7 @@ The Max4Live device receives OSC from the Python server and maps:
 | Threshold crossing $\mathcal{P}_i$ | Trigger: note-on for mode $i$ |
 | Nearest attractor | Scene/track selection |
 
-## 3.4 Visual Rendering
+## Visual Rendering
 
 The Mandelbulb power parameter is driven by $H$; rotation speed by $\|\nabla H\|$;
 colour temperature by $T_\text{eff}$.  Threshold crossings trigger particle bursts.
@@ -169,9 +169,9 @@ Output via HDMI to a short-throw projector onto HoloGauze screen.
 
 ---
 
-# 4. Demonstration Session
+# Demonstration Session
 
-## 4.1 Protocol
+## Protocol
 
 We define a reproducible single-listener demonstration protocol suitable for
 pilot publication and later extension to cohort studies.
@@ -208,7 +208,7 @@ pilot publication and later extension to cohort studies.
 - H3 falsified if transition count does not increase with manipulated
    $T_\text{eff}$.
 
-## 4.2 State Trajectory Analysis
+## State Trajectory Analysis
 
 For each block, we compute:
 
@@ -229,7 +229,7 @@ $$C_{ij}(f) = \frac{|S_{ij}(f)|^2}{S_i(f)S_j(f)}.$$
 This permits direct testing of whether observed musical-affective dynamics are
 consistent with coupled oscillatory mode structure rather than static coordinates.
 
-## 4.3 Comparison with Circumplex Predictions
+## Comparison with Circumplex Predictions
 
 We use two baselines:
 
@@ -248,7 +248,7 @@ misses barrier effects and hysteresis; AR baseline captures short-term dynamics
 but misses attractor geometry. The soma-field model should outperform both on
 transition-timing and hysteresis-sensitive metrics.
 
-## 4.4 Results Template (for Manuscript Fill-In)
+## Results Template (for Manuscript Fill-In)
 
 To support direct submission drafting, we define a compact reporting template.
 Replace bracketed fields after each run.
@@ -267,7 +267,7 @@ Minimum figure set for first submission:
 4. Spectral power and coherence panels for selected mode pairs
 5. Baseline-model error comparison (circumplex, AR, soma-field)
 
-## 4.5 Statistical Analysis Plan
+## Statistical Analysis Plan
 
 Primary analysis is block-level, with sensitivity analysis at event-level.
 
@@ -298,7 +298,7 @@ Primary analysis is block-level, with sensitivity analysis at event-level.
 - Exclude control-dropout segments > 2 s,
 - Keep all other samples; no manual trajectory trimming.
 
-## 4.6 Exploratory Pilot Fill (Single Logged Session)
+## Exploratory Pilot Fill (Single Logged Session)
 
 Using the pilot session log (available in the supplementary archive) as an exploratory pilot run,
 the first fill of the results template is:
@@ -321,9 +321,9 @@ confirmatory without multi-session and multi-operator replication.
 
 ---
 
-# 5. Discussion
+# Discussion
 
-## 5.1 What the Model Adds to BRECVEMA
+## What the Model Adds to BRECVEMA
 
 BRECVEMA remains the best mechanism taxonomy for music-induced affect. The
 soma-field contribution is orthogonal: it supplies state dynamics. In this
@@ -337,7 +337,7 @@ Concretely, the model adds:
 - Testable hysteresis and barrier-crossing predictions
 - A direct bridge from controller gestures to state-space motion
 
-## 5.2 Phase Transitions and Musical Catharsis
+## Phase Transitions and Musical Catharsis
 
 Catharsis is modelled as threshold crossing plus attractor transfer under
 temporarily elevated energy and noise. This yields a measurable event pattern:
@@ -349,7 +349,7 @@ temporarily elevated energy and noise. This yields a measurable event pattern:
 The account is mechanistic rather than metaphorical, and can be falsified by
 absence of this sequence in sessions labelled cathartic by participants.
 
-## 5.3 The ADHD Temperature: A Reframing
+## The ADHD Temperature: A Reframing
 
 The elevated $T_\text{eff}$ of the ADHD modifier is not purely pathological.
 Hertz, Krogh, and Palmer (1991) observed that thermal noise in Hopfield
@@ -359,7 +359,7 @@ a high-temperature listener is not necessarily worse at music engagement —
 they are harder to trap in a single emotional state, which may be a distinct
 form of musical sensitivity.
 
-## 5.4 Limitations
+## Limitations
 
 This manuscript reports a model and a reproducible instrument pipeline, but not
 yet a large-n confirmatory dataset. Main limitations are:
@@ -372,7 +372,7 @@ yet a large-n confirmatory dataset. Main limitations are:
 These are acceptable at pilot stage but must be addressed before strong clinical
 generalisation claims.
 
-## 5.5 Future Work
+## Future Work
 
 - Preregistered multi-participant study with blinded block labels
 - Joint modelling with self-report + physiological channels (HRV, EDA)
@@ -380,7 +380,7 @@ generalisation claims.
 - Multi-listener coupling (ensemble / therapeutic dyad)
 - Public benchmark dataset and baseline scripts for circumplex and AR models
 
-## 5.6 Non-Specialist Interpretation
+## Non-Specialist Interpretation
 
 In plain terms: this model treats music-driven emotion as motion on a landscape,
 not as dots on a chart. Some emotional states are shallow and easy to leave;
@@ -388,7 +388,7 @@ others are deep and sticky. Music can change both where you are and how easy it
 is to move. The key added value is not a new label for feelings, but a measurable
 account of why transitions happen when they do, and why some transitions fail.
 
-## 5.7 Reproducibility Checklist
+## Reproducibility Checklist
 
 For submission and external replication, include the following with each reported run:
 
@@ -402,7 +402,7 @@ For submission and external replication, include the following with each reporte
 Minimum replication criterion: an independent operator reproduces directionally
 consistent outcomes for H1-H3 under the same protocol template.
 
-## 5.8 Reviewer-Risk Objections and Responses
+## Reviewer-Risk Objections and Responses
 
 | Reviewer objection | Current response in this manuscript | Required next evidence |
 |---|---|---|
@@ -411,7 +411,7 @@ consistent outcomes for H1-H3 under the same protocol template.
 | "Controller behavior could explain transitions without field structure." | H1-H3 are framed against circumplex/AR baselines rather than label-only narratives. | Include sham-control and randomized mapping tests. |
 | "No physiological co-validation yet." | Section 5.5 schedules HRV/EDA integration as a preregistered next step. | Joint model showing convergent evidence across self-report, behavior, and physiology. |
 
-## 5.9 Replication Acceptance Rule
+## Replication Acceptance Rule
 
 For publication claims above exploratory scope, acceptance requires all of the
 following:
@@ -424,7 +424,7 @@ following:
 Any failed item does not invalidate the full framework, but does block promotion
 of the affected claim from exploratory to validated status.
 
-## 5.10 Independent Replication Ledger Linkage
+## Independent Replication Ledger Linkage
 
 Promotion beyond exploratory support is tracked in
 `paper/INDEPENDENT_REPLICATION_LEDGER.md`.

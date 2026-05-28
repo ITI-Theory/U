@@ -49,7 +49,7 @@ bibliography: bibliography.bib
 
 ---
 
-# 1. The Missing Layer
+# The Missing Layer
 
 The Soma-Field model [@johnson2026b] establishes that the limbic system and its
 somatic coupling are governed by the same formal apparatus as a quantum field on a
@@ -94,9 +94,9 @@ the testable predictions that follow.
 
 ---
 
-# 2. Biotensegrity: The Architecture of the Somatic Wave
+# Biotensegrity: The Architecture of the Somatic Wave
 
-## 2.1 The Lever Model is Wrong
+## The Lever Model is Wrong
 
 Standard physiological and biomechanical models treat the body as a rigid-lever
 system: bones as struts, muscles as cables pulling across pin-joint connections,
@@ -118,7 +118,7 @@ deep fascial planes to gross musculoskeletal anatomy. Each scale implements the 
 tensegrity geometry. Each is mechanically continuous with the others. The
 architecture is fractal.
 
-## 2.2 Global Propagation
+## Global Propagation
 
 The clinical consequence of this architecture is direct: mechanical information
 does not travel locally through joint-to-joint lever chains. It propagates through
@@ -139,7 +139,7 @@ the full-body freeze — the biotensegrity medium is faster than the nervous sys
 and spatially global in a way that the nervous system, with its point-to-point
 wiring, is not.
 
-## 2.3 Correspondence to the Somatic Wave
+## Correspondence to the Somatic Wave
 
 The Soma-Field model posits a somatic wave $\mathbf{E}_\text{body}(x, t)$ — a
 field defined over the body, propagating continuously, carrying emotional-somatic
@@ -167,9 +167,9 @@ architectural.
 
 ---
 
-# 3. Fascial-Interstitial Continuity: The Pathway and the Armoring
+# Fascial-Interstitial Continuity: The Pathway and the Armoring
 
-## 3.1 Fascia as Active Signalling Tissue
+## Fascia as Active Signalling Tissue
 
 The classical anatomical view of fascia — as inert white packaging, the sheaths
 that dissectors clear away to reach the "real" anatomy — was overturned by
@@ -196,7 +196,7 @@ collagen generate electrical potentials under mechanical stress. DC currents flo
 through the network continuously. The fascial system is simultaneously mechanical,
 chemical, and electrical.
 
-## 3.2 The Interoceptive Pathway
+## The Interoceptive Pathway
 
 Interoception — the body's sensing of its own internal state — is the somatic input
 channel of the Soma-Field model. It is the mechanism by which the body schema is
@@ -217,7 +217,7 @@ therefore requires working at the fascial level — which is precisely what soma
 therapies (Somatic Experiencing, Sensorimotor Psychotherapy, EMDR somatic protocols,
 myofascial release) do, whether or not they are theorised in those terms.
 
-## 3.3 Fascial Armoring as Attractor Depth
+## Fascial Armoring as Attractor Depth
 
 This section develops the most important connection in this paper.
 
@@ -258,7 +258,7 @@ elastography units). The mapping is not known yet — establishing it is part of
 empirical programme in §6 — but the existence of the correspondence is now
 claimed by this paper.
 
-## 3.4 Myofascial Release as Barrier Lowering
+## Myofascial Release as Barrier Lowering
 
 QUANT-EXP-1 demonstrates that quantum annealing can cross barriers that classical
 cold dynamics cannot. This was framed computationally. The fascial literature
@@ -292,9 +292,9 @@ difference and makes it testable (§6).
 
 ---
 
-# 4. Biofield Physiology: The Field Correlate
+# Biofield Physiology: The Field Correlate
 
-## 4.1 Living Systems Emit Coherent Fields
+## Living Systems Emit Coherent Fields
 
 The soma-field is a mathematical field — an abstract object defined by its equations.
 For it to be physically real rather than merely useful, it must have a physical
@@ -333,7 +333,7 @@ between therapist and client, between individuals in rapport, and between indivi
 and coherent social environments. This entrainment is not inferred; it is measured
 by simultaneous ECG recording.
 
-## 4.2 The Rubik Synthesis
+## The Rubik Synthesis
 
 Rubik, Muehsam, Hammerschlag, and Jain [@rubik2015] published a systematic review
 of the biofield hypothesis in 2015, collating evidence from biophoton research,
@@ -357,7 +357,7 @@ emission, and DC skin conductance are all candidate observables. Which observabl
 best couples to which component of the tensor field is an empirical question that
 this model now makes precise enough to ask.
 
-## 4.3 Scope and Epistemic Status
+## Scope and Epistemic Status
 
 The biofield section of this argument carries more epistemic weight than §§2–3, and
 this should be stated explicitly. Biotensegrity and fascial signalling are
@@ -374,13 +374,13 @@ formally — requires empirical work that does not yet exist.
 
 ---
 
-# 5. Three Bridges to the Formal Model
+# Three Bridges to the Formal Model
 
 This section states the three principal connections between the physical substrate
 literature and the formal soma-field model, in a form that makes their testability
 explicit.
 
-## 5.1 Bridge 1: Fascial Armoring = Attractor Depth
+## Bridge 1: Fascial Armoring = Attractor Depth
 
 **Physical claim** [@schleip2003]: Chronic trauma produces chronically elevated
 fascial stiffness, measurable by ultrasound shear-wave elastography, with
@@ -398,7 +398,7 @@ of those states (diaphragm, psoas, posterior cervical chain), compared with matc
 controls. This is measurable by ultrasound elastography independently of any
 subjective report, and the effect should be graded by trauma severity.
 
-## 5.2 Bridge 2: Myofascial Release = Barrier Lowering
+## Bridge 2: Myofascial Release = Barrier Lowering
 
 **Physical claim** [@schleip2003]: Manual and movement-based interventions that
 target the fascial network produce measurable reductions in fascial stiffness and
@@ -422,7 +422,7 @@ produce gradual, integrative shifts; sessions that trigger a crossing of a high
 barrier (large, rapid state transition) should produce different qualitative reports.
 The model predicts this without any additional assumptions.
 
-## 5.3 Bridge 3: Therapist-Client Entrainment = Co-Identification
+## Bridge 3: Therapist-Client Entrainment = Co-Identification
 
 **Physical claim** [@mccratychildre2010]: In effective therapeutic contact,
 measurable physiological entrainment occurs between therapist and client — cardiac
@@ -447,7 +447,7 @@ modality.
 
 ---
 
-# 6. Testable Predictions
+# Testable Predictions
 
 The bridges in §5 generate six primary empirical predictions, ordered from most to
 least accessible with current instrumentation:
@@ -470,7 +470,7 @@ programme.
 
 ---
 
-# 7. Conclusion
+# Conclusion
 
 The Soma-Field model describes a field of emotional dynamics that is formally
 equivalent to a quantum field on an attractor manifold. This paper has argued that

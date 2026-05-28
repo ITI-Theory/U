@@ -37,7 +37,7 @@ keywords:
 
 ---
 
-# 1. Introduction: The Gap Penrose Identified
+# Introduction: The Gap Penrose Identified
 
 In *The Emperor's New Mind* (1989), Roger Penrose made a four-step argument:
 
@@ -63,7 +63,7 @@ The gap is not in Planck-scale gravity. It is in **attractor topology**.
 
 ---
 
-# 2. The Soma-Field Model: A Recap
+# The Soma-Field Model: A Recap
 
 The Soma-Field Model (see `soma-field-paper.md` for the full treatment) represents
 emotional dynamics as a continuous field evolving on a Hopfield energy landscape:
@@ -96,7 +96,7 @@ topologically distinct process.
 
 ---
 
-# 3. The Quantum Extension
+# The Quantum Extension
 
 The quantum extension replaces the classical Hopfield energy with the transverse-field
 Ising Hamiltonian:
@@ -128,9 +128,9 @@ exponentially suppressed but nonzero at any $\Gamma > 0$.
 
 ---
 
-# 4. QUANT-EXP-1: The Experiment
+# QUANT-EXP-1: The Experiment
 
-## 4.1 Setup
+## Setup
 
 - **System**: 8-qubit soma-field Ising Hamiltonian
 - **Coupling**: $W[\mathrm{Fear}, \mathrm{Awe}] = -10$ (strong anti-cooperative topological barrier)
@@ -140,7 +140,7 @@ exponentially suppressed but nonzero at any $\Gamma > 0$.
 - **Implementation**: `scipy.linalg.eigh` exact diagonalisation at each step; no Qiskit,
   no IBM account, runs in $\approx 4$ seconds on commodity CPU
 
-## 4.2 Results
+## Results
 
 The barrier height is confirmed analytically: the continuous interpolation
 $H(\lambda) = -10\lambda^2 + 9\lambda - 1$ reaches a maximum of $+1.025$ at
@@ -154,7 +154,7 @@ $\lambda = 0.45$, giving barrier height $= 2.025$ above the Fear basin.
 
 **QUANT-EXP-1: PASS** — commit `1f52282`, 20 May 2026.
 
-## 4.3 The Noise-Equivalence Curve
+## The Noise-Equivalence Curve
 
 A follow-up sweep computed $T^*(\text{barrier})$: the classical noise temperature required
 to match quantum Awe-basin occupancy across barrier strengths
@@ -177,7 +177,7 @@ data archive (see §11).
 
 ---
 
-# 5. Comparison with Penrose
+# Comparison with Penrose
 
 The table below places this work in the context of Penrose's original argument:
 
@@ -210,7 +210,7 @@ The differences are important:
 
 ---
 
-# 6. Implications for Artificial Intelligence
+# Implications for Artificial Intelligence
 
 Every deployed large language model (GPT-4, Claude, Gemini, Llama) is a classical system.
 Its training is gradient descent — in the mathematical sense, exactly the overdamped
@@ -240,7 +240,7 @@ by the tested low-noise classical baseline**.
 
 ---
 
-# 7. Implications for Therapy
+# Implications for Therapy
 
 The therapeutic translation of the quantum result is direct:
 
@@ -264,7 +264,7 @@ distinct from ordinary emotional regulation, not merely more intense versions of
 
 ---
 
-# 8. Core Finding
+# Core Finding
 
 Every great physical insight has a compressed form:
 
@@ -284,7 +284,7 @@ in the supplementary archive.
 
 ---
 
-# 10. Limitations, Controls, and Claim Boundaries
+# Limitations, Controls, and Claim Boundaries
 
 This paper makes a bounded claim. The evidence is strong for this specific model class,
 but not universal.
@@ -310,7 +310,7 @@ but not universal.
    mechanics explains consciousness in general. It claims a measurable non-classical
    reachability effect in a specific attractor-topology model of emotional dynamics.
 
-## 10.1 Pre-Registered Hardening Protocol — Completed (May 2026)
+## Pre-Registered Hardening Protocol — Completed (May 2026)
 
 The following protocol was pre-registered in the Zenodo v1 release and has been
 executed in full. All outcomes match predictions.
@@ -354,7 +354,7 @@ measurement choice; it survives all pre-registered checks.
 
 ---
 
-# 11. Conclusions
+# Conclusions
 
 This paper presents QUANT-EXP-1: an exact 8-qubit statevector simulation demonstrating
 that quantum annealing reaches therapeutic attractor basins (Awe-dominant states) that

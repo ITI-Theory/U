@@ -61,7 +61,7 @@ keywords:
 
 ---
 
-# 1. Introduction
+# Introduction
 
 A patient sits with their therapist and is asked: *"What are you feeling right now?"* The
 question is deceptively simple. They may say *anxious*, yet that word covers a vast and
@@ -111,9 +111,9 @@ Instrument, a practical tool for therapeutic use. Section 7 addresses clinical i
 
 ---
 
-# 2. Background
+# Background
 
-## 2.1 The Body-Mind Problem in Clinical Practice
+## The Body-Mind Problem in Clinical Practice
 
 Contemporary neuroscience has largely dissolved the Cartesian boundary between body and mind.
 Damasio (1994) demonstrated that emotion is inseparable from rational cognition: patients with
@@ -132,7 +132,7 @@ alone, nor in the body alone, but in a coupled system that is best understood as
 functional unit. The term *soma* — from the Greek for body — is used here to denote this
 unified body-mind system, following the tradition of somatic psychotherapy.
 
-## 2.2 The Felt Sense and Sub-Perceptual Emotion
+## The Felt Sense and Sub-Perceptual Emotion
 
 Gendlin's concept of the *felt sense* (1978) is of particular relevance. He described it as
 "a special kind of internal bodily awareness... a body sense of meaning." It is not an
@@ -146,7 +146,7 @@ The Soma-Field Model provides a formal account of what the felt sense is: it is 
 of the emotional field below the perceptual threshold. It is real, causal, and continuously
 present. It shapes cognition and behaviour even when it does not surface as a named feeling.
 
-## 2.3 Quantum Field Theory: Structure, Not Metaphor
+## Quantum Field Theory: Structure, Not Metaphor
 
 Quantum Field Theory (QFT) is the framework of modern particle physics. Its central departure
 from classical physics is the priority of the *field* over the *particle*. In QFT, what we
@@ -226,7 +226,7 @@ confined to the one-dimensional boundary of an eleven-dimensional dynamics. The 
 of emotional experience — why conscious feeling is so much weaker and more transient than
 the underlying field activity — has the same formal structure as the hierarchy of forces.
 
-## 2.4 Neural Network Energy Functions and Hopfield Networks
+## Neural Network Energy Functions and Hopfield Networks
 
 In 1982, John Hopfield (awarded the Nobel Prize in Physics in 2024) proposed a model of
 associative memory based on a network of interconnected neurons (Hopfield, 1982). The
@@ -330,7 +330,7 @@ produces when probed. We retain Veneziano’s discovery and decline to reify the
 
 ---
 
-## 2.5 The Formal Correspondences: Where the Link Was Seen
+## The Formal Correspondences: Where the Link Was Seen
 
 The structural analogy between QFT and the Soma-Field Model is not merely conceptual.
 There are three places where equations from different disciplines become, after substituting
@@ -435,7 +435,7 @@ coupling geometry. The mathematical type is the same. This is not analogy.
 
 ---
 
-## 2.6 The Body Schema, Interoception, and Pain
+## The Body Schema, Interoception, and Pain
 
 A complete model of the emotional field must address a phenomenon that standard psychological
 accounts of emotion consistently underspecify: the field is not a model of the physical body.
@@ -486,7 +486,7 @@ $W$. Therapy does not fix the tissue. It updates the model.
 
 ---
 
-## 2.7 Correspondence with Existing Emotion Representations
+## Correspondence with Existing Emotion Representations
 
 A reasonable objection to any new framework is: *there is already a great deal of structure
 out here.* This is true. The emotion research literature contains several well-developed
@@ -567,7 +567,7 @@ developed in the companion file `src/EmotionOntology.lean`.
 
 ---
 
-# 3. The Soma-Field Model
+# The Soma-Field Model
 
 The field is primary. The felt emotion is secondary — it is what registers when the
 field is probed. This is the same ontological relationship as between a quantum field
@@ -576,7 +576,7 @@ observe at the moment of measurement. The Soma-Field Model does not describe wha
 emotions are *made of*. It describes the manifold whose impulse response *is* conscious
 emotional experience.
 
-## 3.1 Emotions as a Persistent Wave Field
+## Emotions as a Persistent Wave Field
 
 The foundational claim of the Soma-Field Model is simple: emotions are not events. They are
 a *field* — a distributed, continuous quantity defined over the entire soma (body-mind system)
@@ -609,7 +609,7 @@ coupled components of a single distributed wave field. Neither is primary; each 
 modifies the other. The ≋ symbols indicate that wave activity is always present in each region,
 not only during episodes of conscious feeling.*
 
-## 3.2 The Perception Threshold
+## The Perception Threshold
 
 Not all activity in the emotional field is consciously perceived. The field has a **perception
 threshold** $T_i$ for each emotional mode $i$. Below this threshold, the emotional mode is
@@ -644,7 +644,7 @@ before it can be named.*
 ![](figures/fig0_field_mode.pdf){ width=95% }
 *Figure 0. Continuous soma-field activity (blue) with a single threshold-crossing event. The field is always active; conscious experience (shaded) arises only when amplitude exceeds the perception threshold θ (red dashed). Below the threshold: real, causally active, but not yet conscious.*
 
-## 3.3 The Interaction of Emotional Modes
+## The Interaction of Emotional Modes
 
 Multiple emotional modes are simultaneously active in the field at all times. They do not
 simply co-exist: they interact. The nature of these interactions is encoded in the **emotional
@@ -665,7 +665,7 @@ seeking lower energy, never at absolute rest.
 
 ---
 
-## 3.4 The Three-Layer Architecture
+## The Three-Layer Architecture
 
 The nervous system that implements the soma-field is not architecturally flat. Three
 hierarchically organised layers contribute to field dynamics, each corresponding to a
@@ -787,9 +787,9 @@ special case. The full three-layer equation is the general form.
 
 ---
 
-# 4. The Energy Landscape
+# The Energy Landscape
 
-## 4.1 The Structure of the Emotional Energy Function
+## The Structure of the Emotional Energy Function
 
 The energy function $H(\mathbf{e})$ defines a landscape over the space of possible emotional
 states. Like a physical landscape of hills and valleys, this landscape has:
@@ -808,7 +808,7 @@ framework, can be understood as:
    a deep but unhealthy local minimum (e.g., the freeze state)
 3. **Pointing toward the global minimum**: orienting the field toward regulated calm
 
-## 4.2 Attractor States: Fight, Flight, Freeze, and Regulated Calm
+## Attractor States: Fight, Flight, Freeze, and Regulated Calm
 
 The Soma-Field Model proposes that the major attractor basins of the emotional energy
 landscape correspond directly to the autonomic states described by Porges' polyvagal theory.
@@ -858,7 +858,7 @@ toward regulated calm. This corresponds well to the clinical observation that wo
 dissociated patients requires careful titration of arousal — not too much, not too little —
 before emotional processing is possible.
 
-## 4.3 The Coupling Matrix as a Personal Signature
+## The Coupling Matrix as a Personal Signature
 
 The coupling matrix $W$ is not universal. Each person has a unique $W$, shaped by attachment
 history, trauma, cultural context, and temperament. A person with a history of developmental
@@ -883,9 +883,9 @@ practitioner is, without having been told so, a geometer.
 
 ---
 
-# 5. Dissonance and Resolution
+# Dissonance and Resolution
 
-## 5.1 The Acoustic Analogy
+## The Acoustic Analogy
 
 The Soma-Field Model draws a further structural analogy, this time with acoustics. When two
 sound waves interact, the quality of their interaction — consonance or dissonance — depends
@@ -905,7 +905,7 @@ drives toward resolution.
 directional. Dissonance is the field's way of communicating that it is far from equilibrium
 and that resolution is available.
 
-## 5.2 The Resolution Principle
+## The Resolution Principle
 
 In music, dissonance resolves to consonance. The tritone — the most dissonant interval in
 Western tonality — creates a powerful gravitational pull toward resolution. In counterpoint,
@@ -925,9 +925,9 @@ energy minimum — regulated calm — lies on the other side of the dissonance, 
 
 ---
 
-# 6. The Soma-Field Instrument
+# The Soma-Field Instrument
 
-## 6.1 Rationale
+## Rationale
 
 The Soma-Field Model is not only a theoretical framework. It motivates a practical
 therapeutic instrument: a means by which a person can *externalise* their emotional field —
@@ -938,7 +938,7 @@ below the threshold of conscious awareness, shaping behaviour and physiology wit
 available for reflection. If its activity could be rendered as a signal — a sound, an image,
 a pattern — it could become an object of therapeutic attention.
 
-## 6.2 Design
+## Design
 
 The instrument uses a MIDI controller with 16 rotary knobs as its input interface.
 Eight emotional dimensions are encoded, each represented by two knobs:
@@ -976,7 +976,7 @@ expression of emotional intensity.
 ```
 *Figure 4. The Soma-Field Instrument: input, computation, and multimodal output.*
 
-## 6.3 The Feedback Loop
+## The Feedback Loop
 
 The instrument creates a **closed feedback loop** between the person and their emotional
 field:
@@ -996,7 +996,7 @@ This loop externalises the emotional field's gradient — the direction in which
 only the source of the emotional signal but also its observer, creating the conditions for
 reflection and regulation that are at the heart of therapeutic work.
 
-## 6.4 The Pluggable Emotion Model
+## The Pluggable Emotion Model
 
 No single model of the emotions is assumed. The coupling matrix $W$ — the structure that
 determines how emotional modes interact — is loaded from an external configuration file.
@@ -1008,9 +1008,9 @@ model-agnostic.
 
 ---
 
-# 7. Clinical Implications
+# Clinical Implications
 
-## 7.1 Assessment
+## Assessment
 
 The Soma-Field Model suggests a different orientation for emotional assessment. Rather than
 asking "What emotion do you feel?" — which presupposes threshold-level conscious awareness —
@@ -1024,7 +1024,7 @@ their presenting narratives are superficially similar. The model suggests that t
 structurally different therapeutic challenges: fight/flight require down-regulation, while
 freeze may first require careful up-regulation before down-regulation becomes possible.
 
-## 7.2 Intervention
+## Intervention
 
 The energy function provides a formal basis for several existing clinical interventions:
 
@@ -1039,7 +1039,7 @@ The energy function provides a formal basis for several existing clinical interv
 - **Working with the felt sense** (Gendlin, 1978): attending to sub-threshold field
   activity and allowing it to cross the perception threshold in a supported context
 
-## 7.3 Psychoeducation
+## Psychoeducation
 
 The wave model is immediately accessible to clients who have struggled to understand their
 emotional experience. The statement: *"Your emotions are like waves — they are always there,
@@ -1053,7 +1053,7 @@ but it is not the lowest valley available to you"* — offers a way to discuss t
 state, dissociation, and emotional stuckness without pathologising, while still acknowledging
 the structural difficulty of these states and the work required to shift them.
 
-## 7.4 Neurodivergent Conditions as Operator Modifications
+## Neurodivergent Conditions as Operator Modifications
 
 A clinically significant extension of the Soma-Field Model concerns neurodivergent
 conditions — specifically Autism Spectrum Condition (ASC), Attention Deficit Hyperactivity
@@ -1195,7 +1195,7 @@ well-documented and, within this framework, mathematically predictable.
 
 ---
 
-# 8. Limitations and Future Directions
+# Limitations and Future Directions
 
 The Soma-Field Model is a theoretical framework and must be evaluated as such. Its current
 form makes several idealisations that require scrutiny.
@@ -1228,7 +1228,7 @@ $W$ of a relationship may be as clinically significant as the $W$ of an individu
 
 ---
 
-# 9. Conclusion
+# Conclusion
 
 The Soma-Field Model proposes a formally grounded account of emotional dynamics that is
 consistent with the clinical observations of somatic psychotherapy, polyvagal theory, and
@@ -1280,7 +1280,7 @@ dismissal constitutes a category error was produced, as a direct causal conseque
 by the same operator stack that it describes. The paper is the fixed point of its own
 subject matter. The author considers this observation methodologically significant.
 
-## 9.1 Publication Claim Registry
+## Publication Claim Registry
 
 To support claim-level review rather than all-or-nothing acceptance, this manuscript
 registers its highest-impact claims with scope labels and disconfirmation tests.
@@ -1296,7 +1296,7 @@ registers its highest-impact claims with scope labels and disconfirmation tests.
 Scope labels: S1 = structural; S2 = predictive; S3 = independently replicated.
 Current publication target for core claims is S2.
 
-## 9.2 Claim-Evidence-Result Matrix
+## Claim-Evidence-Result Matrix
 
 To make review traceable, each core claim is paired with concrete evidence outputs
 and current result status.
@@ -1312,7 +1312,7 @@ and current result status.
 This matrix is intended for reviewer navigation and is updated as companion results
 are expanded or independently replicated.
 
-## 9.3 Replication Package Requirements
+## Replication Package Requirements
 
 To make SF-2 through SF-5 externally testable, each release tagged for review must
 ship a minimal replication package that can be executed without private context.
@@ -1328,7 +1328,7 @@ Required contents:
 A claim remains `S2` until an independent operator reproduces directionally
 consistent outcomes from this package under the same declared protocol.
 
-## 9.4 Reviewer-Risk Objections and Responses
+## Reviewer-Risk Objections and Responses
 
 To reduce ambiguity in peer review, the highest-probability objections are mapped
 to bounded responses and concrete upgrade paths.
@@ -1340,7 +1340,7 @@ to bounded responses and concrete upgrade paths.
 | "Quantum advantage may be implementation-specific." | SF-5 includes a controlled disconfirmation criterion against matched classical baselines. | Publish full benchmark harness with pre-registered acceptance thresholds. |
 | "Clinical interpretation may exceed data scope." | Scope labels (`S1`/`S2`/`S3`) and claim registry separate structural from predictive claims. | Add prospective cohort evidence before any clinical-effectiveness claim. |
 
-## 9.5 Independent Replication Ledger Linkage
+## Independent Replication Ledger Linkage
 
 `S2` to `S3` promotion for this manuscript is governed by
 an independent replication ledger maintained in the supplementary archive

@@ -47,7 +47,7 @@ keywords:
 
 ---
 
-# 1. The Programme
+# The Programme
 
 This is a document about structure.
 
@@ -67,7 +67,7 @@ This document describes what was built by navigating, and why the pieces form a 
 
 ---
 
-## 1.1 The Gap the Programme Addresses
+## The Gap the Programme Addresses
 
 Every large language model deployed today is a classical system. Its training is
 gradient descent. Its inference is deterministic or thermally noisy sampling. The
@@ -90,7 +90,7 @@ The programme fills both gaps with the same model, via the same method.
 
 ---
 
-## 1.2 The Structure of the Argument
+## The Structure of the Argument
 
 The argument has three movements and several extensions:
 
@@ -108,9 +108,9 @@ accessible form, for readers without a physics background.
 
 ---
 
-# 2. The Method: Mathematical Co-identification
+# The Method: Mathematical Co-identification
 
-## 2.1 What It Is
+## What It Is
 
 The history of mathematical science contains a recurring event. At a certain moment,
 a scientist recognises that the quantity they are studying is not *like* a quantity
@@ -139,7 +139,7 @@ distinguishes it from analogy, metaphor, and modelling. The key distinction:
 > **Co-identification**: A *is* B under relabelling. Every theorem about B is a
 > theorem about A.
 
-## 2.2 Why It Matters as Method
+## Why It Matters as Method
 
 A co-identification can be wrong. The identification is only valid if the mathematical
 type matches: the same dimensionality, the same algebraic structure, the same
@@ -158,9 +158,9 @@ satisfy and recognising the form.
 
 ---
 
-# 3. The Model: The Soma-Field
+# The Model: The Soma-Field
 
-## 3.1 Five Co-identifications
+## Five Co-identifications
 
 The Soma-Field Model (Johnson, 2026b) is built from five sequential co-identifications,
 each importing a body of mathematics from physics into emotional dynamics:
@@ -212,7 +212,7 @@ life) modifications are irrelevant in the technical sense. This gives the formal
 account of why early trauma is not simply a more intense version of later trauma:
 it is a different class of object.
 
-## 3.2 What the Model Predicts
+## What the Model Predicts
 
 From these five identifications, several predictions follow that are not derivable
 from any existing clinical model:
@@ -247,9 +247,9 @@ from any existing clinical model:
 
 ---
 
-# 4. The Empirical Test: QUANT-EXP-1
+# The Empirical Test: QUANT-EXP-1
 
-## 4.1 The Prediction
+## The Prediction
 
 The soma-field model makes a specific, falsifiable claim: for a Hopfield landscape
 with a topological trauma barrier, low-noise classical Langevin dynamics starting from
@@ -263,7 +263,7 @@ distinguishes the quantum and classical regimes in a measurable way.
 The prediction was registered in the Zenodo v1 deposit of the Soma-Field paper
 (doi:10.5281/zenodo.20350516) before the experiment was run.
 
-## 4.2 The Experiment
+## The Experiment
 
 *Quantum Soma and the Penrose Gap* (Johnson, 2026c) reports QUANT-EXP-1: an exact
 8-qubit statevector simulation on a 256-dimensional Hilbert space, implementing the
@@ -281,7 +281,7 @@ The experimental design:
 - **Primary outcome**: Peak Awe-dominant occupancy (quantum) versus success rate
   of cold-classical crossings.
 
-## 4.3 Results
+## Results
 
 Results are presented against the pre-registered barrier ladder:
 
@@ -312,7 +312,7 @@ is stable at 0.389–0.416 across the full range.
 
 **Verdict:** The strong reachability claim stands. QUANT-EXP-1 is a PASS.
 
-## 4.4 The Penrose Connection
+## The Penrose Connection
 
 The paper situates this result in the context of Penrose's argument about
 non-computability and consciousness. The connection is not that consciousness requires
@@ -329,7 +329,7 @@ The contribution is not to resolve Penrose's claim about consciousness. It is to
 
 ---
 
-# 5. The Lived Case: Field Notes from the Inside
+# The Lived Case: Field Notes from the Inside
 
 *Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics*
 (Johnson, 2026d) performs a function that the formal papers cannot perform: it
@@ -371,9 +371,9 @@ The formal content is a set of operator modifications for the three conditions:
 
 ---
 
-# 6. Extensions: Music, Film, and the Domain Generality of the Model
+# Extensions: Music, Film, and the Domain Generality of the Model
 
-## 6.1 Music-Induced Affect
+## Music-Induced Affect
 
 *A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex*
 (Johnson, 2026e) applies the soma-field framework to a domain where the empirical
@@ -409,7 +409,7 @@ fractal visual output (Mandelbulb projection onto HoloGauze screen). The instrum
 is not described; it is specified formally, with pre-registered hypotheses and
 disconfirmation criteria.
 
-## 6.2 The Tensor: An Abstract Film
+## The Tensor: An Abstract Film
 
 *The Tensor: An Abstract Film Definition* (Johnson, 2026f) extends the framework to
 abstract film. A film is defined not by its pixels but by its **emotional score**: a
@@ -433,7 +433,7 @@ a symphony without being the performance.
 
 ---
 
-# 7. The Argument as a Whole
+# The Argument as a Whole
 
 The six papers form a single argument, and it can be stated in a paragraph:
 
@@ -463,7 +463,7 @@ of the two principal computational substrates of the vertebrate brain.
 
 ---
 
-# 8. What Remains
+# What Remains
 
 The body of work described here is computationally complete. All pre-registered
 hardening checks have been executed. The claims that can be confirmed by simulation
@@ -507,7 +507,7 @@ mechanism of co-identification.
 
 ---
 
-# 9. Data and Code Availability
+# Data and Code Availability
 
 All papers, simulation code, result tables, figures, and Lean 4 formal proofs are
 archived at the following Zenodo records (open access):

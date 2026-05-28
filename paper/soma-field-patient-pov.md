@@ -92,7 +92,7 @@ life. The author considers this a reasonable use of available resources.
 
 ---
 
-# 1. Introduction: The Inadequacy of Existing Maps
+# Introduction: The Inadequacy of Existing Maps
 
 A patient sits with their therapist and is asked: *"What are you feeling right now?"*
 For many people, this question has a navigable answer. For a person with ASD,
@@ -128,9 +128,9 @@ The remainder of this paper presents the result.
 
 ---
 
-# 2. Background
+# Background
 
-## 2.1 Lived Experience as a Research Position
+## Lived Experience as a Research Position
 
 The use of lived experience as a legitimate source of theoretical knowledge — rather than
 merely as anecdotal material awaiting scientific validation — has gained substantial
@@ -147,7 +147,7 @@ background is in physics rather than in qualitative research, so the methodology
 inside; the tools used to formalise them come from mathematical physics. The combination
 is unusual. The author considers it appropriate.
 
-## 2.2 The Body-Mind Problem in Clinical Practice
+## The Body-Mind Problem in Clinical Practice
 
 Contemporary neuroscience has largely dissolved the Cartesian boundary between body and
 mind. Damasio (1994) demonstrated that emotion is inseparable from rational cognition:
@@ -163,7 +163,7 @@ data point: the experience of being in a freeze state while simultaneously being
 to report on one's emotional state is an exercise in the epistemological limits of
 self-report. The instrument designed in Section 6 is a partial response to this problem.
 
-## 2.3 The Felt Sense and Sub-Perceptual Emotion
+## The Felt Sense and Sub-Perceptual Emotion
 
 Gendlin's concept of the *felt sense* (1978) describes a pre-articulate bodily sense
 that is present before an emotion has been named — something whole and present but not
@@ -176,7 +176,7 @@ senses that declined to become named feelings, and the model's account of this �
 active below threshold, causally effective but not consciously perceived — matches the
 phenomenology precisely.
 
-## 2.4 Quantum Field Theory: Structure, Not Metaphor
+## Quantum Field Theory: Structure, Not Metaphor
 
 Quantum Field Theory (QFT) is the framework of modern particle physics. Its central
 claim is that particles — electrons, photons — are not fundamental objects. They are
@@ -210,7 +210,7 @@ structurally similar: identified the Green's function in emotional dynamics, and
 that it is the object quantum field theory calls a particle. The author leaves the
 implication as an exercise for readers with the relevant background.
 
-## 2.5 Hopfield Networks and the Energy Function
+## Hopfield Networks and the Energy Function
 
 In 1982, John Hopfield — awarded the Nobel Prize in Physics in 2024 — proposed a model
 of associative memory whose dynamics were mathematically identical to an Ising spin-glass
@@ -233,9 +233,9 @@ The author found this reasoning persuasive.
 
 ---
 
-# 3. The Soma-Field Model
+# The Soma-Field Model
 
-## 3.1 Emotions as a Persistent Wave Field
+## Emotions as a Persistent Wave Field
 
 The foundational claim is this: emotions are not events. They are a *field* —
 a distributed, continuous quantity defined over the entire soma (body-mind system) at all
@@ -271,7 +271,7 @@ $$\mathbf{E}(x,t) = \mathbf{E}_\text{body}(x,t) \otimes \mathbf{E}_\text{neural}
 ```
 *Figure 1. The Soma-Field: two coupled waves constituting a single unified emotional field.*
 
-## 3.2 The Perception Threshold
+## The Perception Threshold
 
 Not all field activity is consciously perceived. Each emotional mode $i$ has a
 threshold $T_i$:
@@ -331,7 +331,7 @@ The author confirms personal experience of both states. He notes that neither is
 character flaw; both are calibration states of a physical parameter in a system that
 was trying, with the information available, to keep him safe.
 
-## 3.3 The Interaction of Emotional Modes
+## The Interaction of Emotional Modes
 
 Multiple emotional modes are simultaneously active at all times. Their interactions are
 encoded in the **emotional coupling matrix** $W$, where $W_{ij}$ is the influence of
@@ -349,16 +349,16 @@ field is never still. This is not pathology; it is physics.
 
 ---
 
-# 4. The Energy Landscape
+# The Energy Landscape
 
-## 4.1 The Hopfield Energy Function
+## The Hopfield Energy Function
 
 $$H(\mathbf{e}) = -\frac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \boldsymbol{\theta} \cdot \mathbf{e}$$
 
 The field always moves toward lower $H$. The stable states of the system are the
 local minima of $H$ — the attractor basins.
 
-## 4.2 Attractor States: Fight, Flight, Freeze, and Regulated Calm
+## Attractor States: Fight, Flight, Freeze, and Regulated Calm
 
 ```
   ENERGY
@@ -408,7 +408,7 @@ and well-known from the inside.
 
 ---
 
-# 5. Dissonance and Resolution
+# Dissonance and Resolution
 
 When two emotional modes are in an incompatible phase relationship, the field is far
 from equilibrium. This is felt as tension. The acoustic analogy is precise: just as two
@@ -426,7 +426,7 @@ recommend it.
 
 ---
 
-# 6. The Neurodivergent Field: ASD, ADHD, and C-PTSD as Operator Modifications
+# The Neurodivergent Field: ASD, ADHD, and C-PTSD as Operator Modifications
 
 *This section addresses the author's specific clinical picture. It is presented not as
 a case study but as a theoretical elaboration: three structural modifications to the
@@ -448,7 +448,7 @@ ASD + ADHD + C-PTSD — is their composition. The composition does not commute; 
 matters; the joint presentation is structurally different from any of the individual
 conditions or from their sum.
 
-## 6.1 Complex PTSD: Memory Kernel and Asymmetric Coupling
+## Complex PTSD: Memory Kernel and Asymmetric Coupling
 
 C-PTSD adds a **memory kernel**: past activations leave exponentially decaying echoes.
 
@@ -469,7 +469,7 @@ cycle is, in this model, a limit cycle generated by the antisymmetric component 
 It is not a choice, a habit, or a failure of willpower. It is a topological consequence
 of an asymmetric coupling matrix.
 
-## 6.2 ADHD: High Temperature, Low Damping, Pink Noise
+## ADHD: High Temperature, Low Damping, Pink Noise
 
 ADHD modifies the **effective temperature** of the field:
 
@@ -489,7 +489,7 @@ landscape at speed that a low-temperature system does not have.
 The author considers this framing considerably more useful than "difficulty sustaining
 attention."
 
-## 6.3 Autism Spectrum Condition: Sparse Coupling and Modified Projection
+## Autism Spectrum Condition: Sparse Coupling and Modified Projection
 
 ASC modifies the **projection kernels** and the **coupling matrix sparsity**.
 
@@ -507,7 +507,7 @@ significant disadvantages (transitions are hard, unexpected context changes are
 physiologically costly) and significant advantages (depth of engagement, reliability
 of focus once established, resistance to shallow distractors).
 
-## 6.4 The Composed Condition
+## The Composed Condition
 
 $$\gamma_{\text{ADHD}}\, \dot{\mathbf{e}}(t) =
   -\nabla H_{\text{ASC}}(\mathbf{e}(t))
@@ -532,9 +532,9 @@ framings on offer.
 
 ---
 
-# 7. The Soma-Field Instrument
+# The Soma-Field Instrument
 
-## 7.1 Rationale
+## Rationale
 
 The emotional field is normally invisible to its host. It operates below the threshold
 of conscious awareness, shaping behaviour and physiology without being available for
@@ -546,7 +546,7 @@ The instrument externalises the emotional field — renders it as sound, image, 
 biofeedback instrument. It is also, unavoidably, a musical instrument. The author
 considers these compatible.
 
-## 7.2 Design
+## Design
 
 A MIDI controller with 16 rotary knobs. Eight emotional dimensions. Two knobs per
 dimension — one for the somatic component, one for the neural/cognitive component.
@@ -571,14 +571,14 @@ quantum measurement, the collapse of the distributed field onto a specific coord
 ```
 *Figure 3. The Soma-Field Instrument.*
 
-## 7.3 The Feedback Loop
+## The Feedback Loop
 
 The instrument creates a closed feedback loop: the person expresses a state, the system
 reflects it back as sound and image, the person responds. The system does not tell the
 user what they are feeling. It shows them what the field looks like when they report
 what they are feeling. The difference is significant.
 
-## 7.4 Pluggable Emotion Models
+## Pluggable Emotion Models
 
 No single emotion model is assumed. The coupling matrix $W$ is loaded from a
 configuration file. Plutchik, Ekman, the valence-arousal-dominance dimensional model,
@@ -588,9 +588,9 @@ unsurprising.
 
 ---
 
-# 8. Clinical Implications
+# Clinical Implications
 
-## 8.1 Assessment
+## Assessment
 
 The model suggests asking not "What emotion do you feel?" but "What is present in the
 body right now, even if it cannot be named?" This aligns with Focussing-oriented and
@@ -598,14 +598,14 @@ sensorimotor approaches, and is considerably more productive, in the author's ex
 for anyone whose $T_i$ values are elevated or whose somatic-to-neural projection is
 modified.
 
-## 8.2 Intervention
+## Intervention
 
 The energy function provides formal grounding for titration, pendulation, somatic
 resourcing, and felt-sense work. In each case, the therapeutic action can be described
 as: adding energy to approach a frozen state, establishing a stable low-energy region,
 or attending to sub-threshold field activity in a supported context.
 
-## 8.3 Psychoeducation
+## Psychoeducation
 
 *"Your emotions are like waves — they are always there, even when you cannot feel them,
 and they are always moving."*
@@ -614,7 +614,7 @@ This sentence is both clinically useful and technically accurate. The author has
 it more useful than most alternative formulations, including several that were provided
 to him by qualified practitioners. He offers it here as a contribution to the field.
 
-## 8.4 Neurodivergent Profiles as Structural Realities
+## Neurodivergent Profiles as Structural Realities
 
 The most important clinical implication of Section 6 is this: for people with ASD,
 ADHD, and C-PTSD, the challenge of emotional regulation is not a motivational or
@@ -631,7 +631,7 @@ to solve problems that are located in the wrong place.
 
 ---
 
-# 9. Limitations and Future Directions
+# Limitations and Future Directions
 
 The model is theoretical and requires empirical validation. Its QFT analogies are
 structural rather than ontological. The coupling matrix $W$ is idealized as fixed when
@@ -651,7 +651,7 @@ the appendices.
 
 ---
 
-# 10. Conclusion
+# Conclusion
 
 The wave is always there. This is not a metaphor; it is a description of how the
 emotional field actually behaves, as far as the author can determine from the inside.

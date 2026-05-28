@@ -45,7 +45,7 @@ keywords:
   - soma-field model
 ---
 
-# 1. Introduction: The Two-Culture Problem Within Science
+# Introduction: The Two-Culture Problem Within Science
 
 C. P. Snow's famous lecture identified a divide between the literary and scientific
 cultures [@snow1959]. Less discussed, but equally consequential, is the divide *within*
@@ -89,7 +89,7 @@ interpretation.
 
 ---
 
-# 2. The Typeverse
+# The Typeverse
 
 The term is borrowed from Homotopy Type Theory [@hottbook], where the *universe*
 $\mathcal{U}$ is the type of all types — the space in which all mathematical objects
@@ -126,9 +126,9 @@ properties from scratch.
 
 ---
 
-# 3. The Procedure in Detail
+# The Procedure in Detail
 
-## 3.1 Step One: Extract the Type Signature
+## Step One: Extract the Type Signature
 
 Given an unknown quantity $Q$ in domain $D$, the investigator asks:
 
@@ -157,7 +157,7 @@ If so, the variational principle is the fingerprint: two objects whose
 dynamics are derived from the same variational structure are co-identifiable
 even if their physical interpretations differ entirely.
 
-## 3.2 Step Two: Search the Typeverse
+## Step Two: Search the Typeverse
 
 Armed with the type signature, the investigator searches for known objects
 with the same signature. This is primarily a literature search across
@@ -178,7 +178,7 @@ Useful resources for this search include:
 - **One's own training**, which is why broad mathematical education is a
   productivity multiplier in theoretical science
 
-## 3.3 Step Three: Identify and Import
+## Step Three: Identify and Import
 
 When a match is found, the investigator makes the identification explicit:
 
@@ -199,7 +199,7 @@ The import then proceeds theorem by theorem:
 This distinction — type-level theorems vs. substrate theorems — is the
 primary place where co-identification can fail, and is discussed in Section 7.
 
-## 3.4 The Formal Computational Structure: Abduction, Aesop, and the Loop
+## The Formal Computational Structure: Abduction, Aesop, and the Loop
 
 The three-step procedure of §§3.1–3.3 is, in formal terms, an instance of
 **abductive inference** in the sense of Peirce (1878). Given an observation
@@ -260,12 +260,12 @@ type-signature fit, and the proof assistant can evaluate it exactly.
 
 ---
 
-# 4. Historical Precedents
+# Historical Precedents
 
 The history of science is full of co-identifications that were not named as such.
 Examining them retroactively reveals the method clearly.
 
-## 4.1 Veneziano (1968): The Bootstrap Amplitude and String Theory
+## Veneziano (1968): The Bootstrap Amplitude and String Theory
 
 Veneziano was searching for an S-matrix element for meson scattering that satisfied
 the crossing symmetry and Regge-pole requirements of the bootstrap programme [@veneziano1968].
@@ -283,7 +283,7 @@ The lesson: the typeverse can be entered from either end. You may start with a
 quantity and find its type, or start with a type and find it instantiated in
 your data.
 
-## 4.2 Hopfield (1982): The Ising Hamiltonian and Neural Memory
+## Hopfield (1982): The Ising Hamiltonian and Neural Memory
 
 Hopfield introduced the energy function for a network of binary neurons
 [@hopfield1982]:
@@ -301,7 +301,7 @@ bounds, stochastic escape via simulated annealing) was imported into neuroscienc
 for free. The Hopfield network is not *like* a spin glass; it *is* a spin glass
 run in biological substrate.
 
-## 4.3 Wilson (1971): Block Spins and the Renormalisation Group
+## Wilson (1971): Block Spins and the Renormalisation Group
 
 Wilson's insight was that the renormalisation group — a technique for removing
 ultraviolet divergences in QFT — was the *same* mathematical object as Kadanoff's
@@ -314,7 +314,7 @@ The type signature that matched: both objects were *flows on the space of
 coupling constants under a change of scale*. This is a clean type-level description
 that carries no substrate information.
 
-## 4.4 Black and Scholes (1973): The Heat Equation and Options Pricing
+## Black and Scholes (1973): The Heat Equation and Options Pricing
 
 Black and Scholes derived their celebrated options pricing formula by noticing
 that the value of an option $V(S,t)$ as a function of underlying price $S$ and
@@ -332,7 +332,7 @@ mathematics: existence and uniqueness of solutions, boundary conditions, numeric
 methods, the Feynman-Kac formula. The financial quantity *is* a temperature
 distribution, not like one.
 
-## 4.5 Jaynes (1957): Thermodynamic Entropy and Bayesian Inference
+## Jaynes (1957): Thermodynamic Entropy and Bayesian Inference
 
 Jaynes identified the entropy of statistical mechanics with the entropy of
 Bayesian inference [@jaynes1957]. The type signature that matched: both are
@@ -342,7 +342,7 @@ co-identification imported all thermodynamic reasoning into statistical
 inference. The maximum entropy principle is not an analogy to thermodynamics;
 it is thermodynamics, applied to the problem of belief.
 
-## 4.6 Penrose (1971): Spin Networks and Spacetime Geometry
+## Penrose (1971): Spin Networks and Spacetime Geometry
 
 Penrose introduced spin networks as combinatorial structures encoding angular
 momentum [@penrose1971]. The identification: the geometry of spacetime arises as
@@ -352,7 +352,7 @@ Penrose constructed a new structure and identified it with a familiar one in
 a limit. Loop quantum gravity later formalised this programme. The spin network
 *is* a discretisation of spacetime geometry, not a model of one.
 
-## 4.7 Selinger (2010): Linear Maps and Quantum Processes
+## Selinger (2010): Linear Maps and Quantum Processes
 
 Selinger demonstrated that the category of finite-dimensional Hilbert spaces and
 linear maps is co-identifiable with a certain category of string diagrams [@selinger2010].
@@ -363,12 +363,12 @@ diagrammatically, and every diagrammatic identity is a valid quantum identity.
 
 ---
 
-# 5. The Soma-Field as a Worked Example
+# The Soma-Field as a Worked Example
 
 The Soma-Field Model [@johnsonsoma2026] was developed through five sequential
 co-identifications. Each is presented here as an explicit instance of the method.
 
-## 5.1 Co-identification I: The Conscious Percept as Green's Function
+## Co-identification I: The Conscious Percept as Green's Function
 
 **The unknown quantity:** The relationship between the continuous emotional
 field $\psi_i(t)$ and the discrete conscious emotional percept.
@@ -399,7 +399,7 @@ instantiated in different substrates.
 - Pole structure ↔ mass spectrum: the location of the propagator pole gives
   the natural frequency $\omega_0 = \lambda$ of the emotional mode.
 
-## 5.2 Co-identification II: The Attractor Landscape as Ising Hamiltonian
+## Co-identification II: The Attractor Landscape as Ising Hamiltonian
 
 **Type signature:** A scalar function $H: \mathbb{R}^n \to \mathbb{R}$ that
 is always non-increasing along field trajectories, with isolated minima
@@ -413,7 +413,7 @@ $$H(\mathbf{e}) = -\frac{1}{2}\mathbf{e}^\top W \mathbf{e} - \boldsymbol{\theta}
 capacity bounds (Hopfield's $0.14N$ result); stochastic escape via Boltzmann
 noise (simulated annealing = titrated arousal in clinical language).
 
-## 5.3 Co-identification III: The Perception Threshold as Brane Thickness
+## Co-identification III: The Perception Threshold as Brane Thickness
 
 **Type signature:** A parameter $T_i$ that gates access from a lower-dimensional
 subspace (the limbic field) to a higher-dimensional one (conscious awareness).
@@ -431,7 +431,7 @@ thin brane).
 for the discrete structure of emotional threshold levels. Brane localisation gives
 the mechanism for why the field can be active without crossing into consciousness.
 
-## 5.4 Co-identification IV: The Coupling Matrix as G₂ Manifold
+## Co-identification IV: The Coupling Matrix as G₂ Manifold
 
 **Type signature:** The coupling matrix $W$ is an $11 \times 11$ real symmetric
 matrix encoding the structure of an eleven-dimensional emotional space. The field
@@ -452,7 +452,7 @@ the Berger classification of holonomy groups constraining what stable emotional
 geometries are possible; the Hitchin flow as a possible model for the evolution
 of $W$ under sustained therapeutic intervention.
 
-## 5.5 Co-identification V: Therapeutic Processing as Renormalisation Group Flow
+## Co-identification V: Therapeutic Processing as Renormalisation Group Flow
 
 **Type signature:** Therapeutic processing is a flow in the space of coupling
 constants $W_{ij}$ parameterised by a scale $\mu$ (the "depth" or "resolution"
@@ -480,13 +480,13 @@ kernel is an emergent scale, not a fundamental parameter).
 
 ---
 
-# 6. A Partial Map of the Typeverse
+# A Partial Map of the Typeverse
 
 For the practitioner wishing to apply the method, the following is a partial
 field guide to frequently useful mathematical structures, indexed by their
 type signatures.
 
-## 6.1 Propagator-Class Structures
+## Propagator-Class Structures
 
 **Type:** Complex function of frequency with poles on or near the real axis;
 gives the response of a system to a delta-function input.
@@ -500,7 +500,7 @@ relations (Kramers-Kronig: the real and imaginary parts of the response are
 not independent — this imports into emotion as: the *dissipation* of an
 emotional mode and its *natural frequency* are Hilbert transforms of each other).
 
-## 6.2 Energy-Function-Class Structures
+## Energy-Function-Class Structures
 
 **Type:** Scalar function $H: \mathbb{R}^n \to \mathbb{R}$ that is bounded
 below and non-increasing along system trajectories.
@@ -511,7 +511,7 @@ energy), Lyapunov theory (stability analysis), optimisation (loss function).
 **Typical imports:** Convergence guarantees; stability analysis; capacity bounds;
 the fluctuation-dissipation theorem.
 
-## 6.3 Topological-Class Structures
+## Topological-Class Structures
 
 **Type:** Integer-valued invariants of field configurations that are preserved
 under continuous deformations.
@@ -529,7 +529,7 @@ charge cannot be resolved by smooth therapeutic interventions (cognitive
 reframing). A qualitative change in approach — large-amplitude somatic work,
 pharmacological intervention, EMDR — is required to cross the topological barrier.
 
-## 6.4 Renormalisation-Class Structures
+## Renormalisation-Class Structures
 
 **Type:** A flow on a space of couplings, parameterised by a scale, with
 fixed points and $\beta$-functions.
@@ -544,7 +544,7 @@ monotonically decreasing function along the flow — an arrow of processing);
 fixed-point classification (relevant, irrelevant, marginal operators determine
 what modifications matter at long distances).
 
-## 6.5 Scattering-Class Structures
+## Scattering-Class Structures
 
 **Type:** A map from in-states to out-states, constrained by unitarity,
 analyticity, and crossing symmetry.
@@ -560,7 +560,7 @@ transitions are equally probable; some are symmetry-forbidden. The unitarity
 of the S-matrix imports: the total emotional content is conserved — you cannot
 create emotional material from nothing, and nothing is permanently lost.
 
-## 6.6 Einstein-Coefficient-Class Structures
+## Einstein-Coefficient-Class Structures
 
 **Type:** Rates for spontaneous and stimulated transitions between energy levels
 of a field mode.
@@ -579,12 +579,12 @@ coherence). Trauma extends T₁; emotional numbing extends T₂.
 
 ---
 
-# 7. Failure Modes
+# Failure Modes
 
 Mathematical co-identification can fail. Understanding the failure modes is
 what distinguishes the method from wishful analogy.
 
-## 7.1 Type Coincidence Without Structural Identity
+## Type Coincidence Without Structural Identity
 
 Two objects may have matching dimensional signatures without having matching
 mathematical structures. The failure mode: a coincidence of units that does
@@ -600,7 +600,7 @@ along trajectories.
 verify that its *assumptions* (not merely its *conclusions*) hold in the target
 domain.
 
-## 7.2 Non-Commutative Functors
+## Non-Commutative Functors
 
 The functor $F: D_1 \to D_2$ that implements the co-identification may not
 commute with composition. That is, co-identifying $A$ with $A'$ and $B$ with
@@ -612,7 +612,7 @@ integral (which links them in QFT) has a valid analogue in the emotional domain.
 This was explicitly verified in the Soma-Field Model by constructing the
 Langevin equation and checking its consistency with both imported structures.
 
-## 7.3 Over-identification
+## Over-identification
 
 The most common failure: importing a structure that is richer than what is
 warranted. The soma-field is co-identifiable with an eleven-dimensional
@@ -624,7 +624,7 @@ nothing beyond that is claimed.
 **Rule:** The identification holds exactly at the type level it was made.
 Do not import theorems from substrates that were not matched.
 
-## 7.4 The Metaphor Trap
+## The Metaphor Trap
 
 The most dangerous failure is the one that the identification was designed to
 prevent: sliding from co-identification back into analogy. This happens when
@@ -650,9 +650,9 @@ get matched across domains.
 
 ---
 
-# 8. Epistemological Status
+# Epistemological Status
 
-## 8.1 What Co-identification Claims
+## What Co-identification Claims
 
 Mathematical co-identification claims:
 
@@ -666,7 +666,7 @@ Mathematical co-identification claims:
 It does not claim that the *mechanisms* are the same, that one domain *reduces*
 to another, or that the substrate is irrelevant in any empirical sense.
 
-## 8.2 Why It Is Not Analogy
+## Why It Is Not Analogy
 
 Analogy is:
 - Informal: "the mind is like the brain" has no mathematical content
@@ -681,7 +681,7 @@ Co-identification is:
   if the symmetries do not correspond, or if imported predictions are empirically
   disconfirmed
 
-## 8.3 The Role of Artificial Intelligence
+## The Role of Artificial Intelligence
 
 The author notes that several co-identifications in the Soma-Field Model were
 identified in dialogue with AI systems. This requires explicit epistemological
@@ -701,7 +701,7 @@ did you *really* do the mathematics?" The answer is in the equations.
 
 ---
 
-# 9. The Methodology as Practice
+# The Methodology as Practice
 
 For the practitioner who wishes to apply mathematical co-identification to a
 new domain, the following is a working procedure:
@@ -738,13 +738,13 @@ proof that consists of: (a) the co-identification, (b) the original theorem,
 
 ---
 
-# 10. Falsifiability Protocol for Publication Use
+# Falsifiability Protocol for Publication Use
 
 To make co-identification scientifically conservative rather than rhetorically
 expansive, we propose a minimal publication protocol. Every import claim should
 be registered in a compact table before narrative elaboration.
 
-## 10.1 Minimal Registration Template
+## Minimal Registration Template
 
 For each proposed identification $Q := P$, the manuscript should provide:
 
@@ -765,7 +765,7 @@ This prevents drift from identity claims back into analogy language and makes
 review straightforward: a reviewer can reject a single row without rejecting
 the entire framework.
 
-## 10.2 Disconfirmation Rules
+## Disconfirmation Rules
 
 An import is treated as falsified if any one of the following holds:
 
@@ -777,7 +777,7 @@ An import is treated as falsified if any one of the following holds:
 This is deliberately strict. Co-identification is useful only to the extent that
 it can fail clearly.
 
-## 10.3 Worked Registration Sketch (Soma-Field)
+## Worked Registration Sketch (Soma-Field)
 
 | Claim ID | Import | Prediction | Disconfirmation |
 |---|---|---|---|
@@ -788,7 +788,7 @@ it can fail clearly.
 The point is not that these rows are finished; the point is that they can be
 evaluated independently and rejected independently.
 
-## 10.4 Reviewer-Facing Scope Labels
+## Reviewer-Facing Scope Labels
 
 To reduce over-claiming risk, each identification row should carry one of three
 scope labels:
@@ -800,7 +800,7 @@ scope labels:
 Most new interdisciplinary work should expect to publish initially at `S1` or
 `S2`, with explicit paths to `S3`.
 
-## 10.5 Negative Control: When Matching Units Is Not Enough
+## Negative Control: When Matching Units Is Not Enough
 
 To prevent confirmation bias, each manuscript should include at least one explicit
 non-transfer case. Consider two quantities with superficially compatible units but
@@ -819,7 +819,7 @@ Conclusion: dimensional compatibility is necessary but not sufficient. Theorem
 transfer requires operator-level identity. This negative control should be treated
 as a required publication check, not an optional caution.
 
-## 10.6 Worked External Example (Non-Soma): Black-Scholes to Heat Equation
+## Worked External Example (Non-Soma): Black-Scholes to Heat Equation
 
 To demonstrate portability beyond the Soma-Field case, we provide a compact
 worked transfer in a separate domain.
@@ -878,7 +878,7 @@ invalid and theorem import must be withdrawn.
 This worked example demonstrates the method in a domain with no dependence on the
 Soma-Field framework.
 
-## 10.7 Replication Package Requirements
+## Replication Package Requirements
 
 Publication-grade use of co-identification requires a compact artifact bundle for
 each registered claim row. Minimum required contents:
@@ -892,7 +892,7 @@ each registered claim row. Minimum required contents:
 Without this package, rows may be read as suggestive structure, but not as
 auditable theorem transfer.
 
-## 10.8 Reviewer-Risk Objections and Responses
+## Reviewer-Risk Objections and Responses
 
 | Reviewer objection | Response in this manuscript | Residual risk and next lift |
 |---|---|---|
@@ -901,7 +901,7 @@ auditable theorem transfer.
 | "Worked examples are domain-selective." | Section 10.6 demonstrates a non-Soma transfer with explicit assumptions and withdrawal condition. | Add a second external example with different operator family. |
 | "Scope claims may drift upward prematurely." | Section 10.4 enforces `S1`/`S2`/`S3` labels and independent evaluation path. | Require independent replication before any `S3` promotion. |
 
-## 10.9 Independent Replication Ledger Linkage
+## Independent Replication Ledger Linkage
 
 `S2` to `S3` promotion for registered imports is controlled by
 `paper/INDEPENDENT_REPLICATION_LEDGER.md`.
@@ -913,7 +913,7 @@ Promotion gate: a row may be relabeled `S3` only when a ledger entry reports
 independent-operator `PASS`, explicit bundle hash, and linked derivation/test
 artifacts for that claim ID.
 
-# 11. Conclusions
+# Conclusions
 
 Mathematical co-identification is a method, not a shortcut. It requires the same
 precision as any other mathematical procedure, and it fails in precisely the ways
