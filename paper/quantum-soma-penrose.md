@@ -162,11 +162,15 @@ $W[\mathrm{Fear},\mathrm{Awe}] \in \{-6, -7, \ldots, -14\}$.
 
 | Barrier strength | $T^*$ | Quantum peak occupancy |
 |---|---|---|
-| $-6$ | 0.094 | 0.389 |
-| $-8$ | 0.103 | 0.408 |
-| $-10$ | 0.108 | 0.408 |
-| $-12$ | 0.117 | 0.409 |
-| $-14$ | 0.129 | 0.416 |
+| $-6$  | 0.094 | 0.416 |
+| $-7$  | 0.101 | 0.417 |
+| $-8$  | 0.107 | 0.416 |
+| $-9$  | 0.112 | 0.412 |
+| $-10$ | 0.117 | 0.408 |
+| $-11$ | 0.120 | 0.403 |
+| $-12$ | 0.124 | 0.398 |
+| $-13$ | 0.127 | 0.393 |
+| $-14$ | 0.129 | 0.390 |
 
 $T^*$ rises monotonically with barrier strength. At every tested barrier, $T^*$ is large
 enough to flood the landscape — meaning classical dynamics can only match quantum
