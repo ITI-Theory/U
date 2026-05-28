@@ -12,6 +12,7 @@
 #   make main          # build main academic paper only
 #   make pov           # build patient-POV paper only
 #   make book          # build coffee-table book
+#   make omnibus       # build complete collected-works omnibus
 #   make clean         # remove generated English PDFs
 #   make check         # verify dependencies
 #
@@ -97,8 +98,8 @@ PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method music synthesis substrate clean check setup freeze \
-	de fr it translations translations-clean everything-bundle
+.PHONY: all main pov book tensor method music synthesis substrate omnibus clean check setup freeze \
+	de fr it translations translations-clean translate translate-deepl everything-bundle
 
 all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf
 
@@ -117,6 +118,30 @@ music: $(BUILDDIR)/music-affect-dynamics.pdf
 synthesis: $(BUILDDIR)/soma-field-synthesis.pdf
 
 substrate: $(BUILDDIR)/soma-physical-substrate.pdf
+
+# Omnibus flags — BOOK_FLAGS base (no --number-sections) + citeproc + wider TOC
+OMNIBUS_FLAGS := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  --toc-depth=2 \
+  -V geometry:margin=1.2in \
+  -V fontsize=11pt \
+  -V linestretch=1.5 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
+  --lua-filter=strip-keywords.lua \
+  $(CITEPROC)
+
+omnibus: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/build_omnibus.py
+	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus.pdf $(OMNIBUS_FLAGS)
+	@echo "Built: $(BUILDDIR)/omnibus.pdf"
 
 $(BUILDDIR)/music-affect-dynamics.pdf: music-affect-dynamics.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) $(CITEPROC)
