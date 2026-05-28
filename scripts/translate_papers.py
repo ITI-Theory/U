@@ -176,6 +176,62 @@ def _llm_translate(client, text: str, label: str, model: str) -> str:
     return response.choices[0].message.content
 
 
+# GitHub Models free tier limit is ~8k tokens per request.
+# Keep chunks well under that: 18 000 chars ≈ 4 500 tokens leaves room for
+# the system prompt (~500 t) and a full-length translation response (~3 000 t).
+_MAX_CHUNK_CHARS = 18_000
+
+
+def _split_chunks(text: str, max_chars: int = _MAX_CHUNK_CHARS) -> list:
+    """Split Markdown text at heading boundaries, each chunk ≤ max_chars."""
+    import re as _re
+    # Split *before* any line that starts with one or more # chars
+    parts = _re.split(r'(?=\n#{1,4} )', text)
+    chunks, current = [], ""
+    for part in parts:
+        if len(current) + len(part) > max_chars and current:
+            chunks.append(current)
+            current = part
+        else:
+            current += part
+    if current:
+        chunks.append(current)
+    return chunks or [text]
+
+
+def _llm_translate_chunked(client, text: str, label: str, model: str,
+                           cache_key: str = None, cache_dir=None) -> str:
+    """Translate text, splitting into chunks if it exceeds the API token limit.
+
+    If cache_key + cache_dir are provided, each completed chunk is saved to disk
+    so re-running after a rate-limit error resumes from where it left off.
+    """
+    if len(text) <= _MAX_CHUNK_CHARS:
+        return _llm_translate(client, text, label, model)
+    chunks = _split_chunks(text)
+    results = []
+    for i, chunk in enumerate(chunks, 1):
+        cache_file = None
+        if cache_key and cache_dir:
+            from pathlib import Path as _P
+            _cd = _P(cache_dir)
+            _cd.mkdir(parents=True, exist_ok=True)
+            cache_file = _cd / f"{cache_key}.{i:03d}.txt"
+            if cache_file.exists():
+                print(f"\n    chunk {i}/{len(chunks)} ({len(chunk):,} chars)... (cached)",
+                      flush=True)
+                results.append(cache_file.read_text(encoding="utf-8"))
+                continue
+        print(f"\n    chunk {i}/{len(chunks)} ({len(chunk):,} chars)...",
+              end=" ", flush=True)
+        translated = _llm_translate(client, chunk, label, model)
+        if cache_file:
+            cache_file.write_text(translated, encoding="utf-8")
+        results.append(translated)
+        print("ok", flush=True)
+    return "".join(results)
+
+
 def _llm_translate_scalar(client, value, label: str, model: str):
     """Translate a string or list-of-strings YAML value via LLM."""
     if isinstance(value, list):
@@ -242,8 +298,11 @@ def translate_paper(paper_name: str, lang_code: str, backend: str,
         )
         translated_body = protector.restore(result.text)
     else:
+        _cache_dir = BLD_DIR / ".chunk_cache"
+        _cache_key = f"{paper_name}.{lang_code}"
         translated_body = protector.restore(
-            _llm_translate(client, protected_body, info["label"], model)
+            _llm_translate_chunked(client, protected_body, info["label"], model,
+                                   cache_key=_cache_key, cache_dir=_cache_dir)
         )
 
     BLD_DIR.mkdir(exist_ok=True)

@@ -186,7 +186,7 @@ OMNIBUS_A4_IT    := $(OMNIBUS_A4_FLAGS) -V lang=it
 # Translate the assembled omnibus-body.md into DE/FR/IT
 # Requires OPENAI_API_KEY (llm) or DEEPL_API_KEY (deepl) in paper/.keys.local
 translate-omnibus: | $(BUILDDIR)
-	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body
+	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --model gpt-4o-mini
 
 translate-omnibus-deepl: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --backend deepl

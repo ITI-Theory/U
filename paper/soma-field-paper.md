@@ -1561,17 +1561,19 @@ component:
 ```
 𝓟 ──→ 𝓞_audio    (timbre = dissonance, pitch = energy)
 𝓟 ──→ 𝓞_midi     (velocity = |∇H|, note = emotional mode)
-𝓟 ──→ 𝓞_visual   (fractal hologram = holographic encoding of field)
+𝓟 ──→ 𝓞_visual   (Mandelbulb hologram = holographic encoding of field — see §A.4)
 𝓟 ──→ 𝓞_haptic   (vibration pattern = tension gradient)
+𝓟 ──→ 𝓞_voice    (HAL-voice TTS: field state narrated in real time — H-AL)
 ```
 
 *Figure A2. Output functors: each output modality is an independent functor from 𝓟 to its
-own output category 𝓞. Adding a new output (e.g., a fractal hologram) requires only
-implementing a new functor O; no upstream component changes.*
+own output category 𝓞. Adding a new output requires only implementing a new functor O;
+no upstream component changes. The Mandelbulb visual and HAL-voice outputs together
+constitute the H-AL avatar described in §A.4.*
 
 ---
 
-## A.4 The Holographic Principle and Fractal Output
+## A.4 The Holographic Principle, Fractal Output, and H-AL
 
 The Maldacena AdS/CFT correspondence (1997) establishes that a gravitational theory in an
 (n+1)-dimensional Anti-de Sitter bulk is dual to a conformal field theory on its
@@ -1607,6 +1609,38 @@ Any output functor $O: \mathbf{\mathcal{P}} \to \mathbf{\mathcal{O}}_{\text{visu
 maps to this coinductive type will automatically produce a self-similar rendering. Replacing
 the fractal with a different visual representation is replacing $F$ with a different
 endofunctor — the pipeline above it is unchanged.
+
+**H-AL: a concrete implementation of the fractal output functor.** The architecture just
+described has a natural physical realisation. A Mandelbulb — the three-dimensional
+generalisation of the Mandelbrot set, rendered in real time via GPU ray marching — provides
+a visual structure whose self-similar geometry at every scale directly mirrors the
+compactification tower of the model. When the Mandelbulb's parameters ($z \mapsto z^n + c$,
+with $n$, $c$, and the orbit-trap radius driven by the live field state $\mathbf{e}(t)$)
+are coupled to the emotional field, the rendered figure *shows* the field: Fear deepens the
+cusp; Awe opens the outer lobes; regulated calm produces a stable symmetric form.
+
+Projected through a hologauze screen — a transparent mesh that reflects a bright image while
+remaining invisible in ambient light — the Mandelbulb renders at human scale with genuine
+three-dimensional parallax, requiring no glasses or special hardware from the viewer. The
+figure floats in physical space. Paired with a synthesised HAL-9000-style voice output
+($\mathcal{O}_{\text{voice}}$) that narrates the field state in real time, the full system
+constitutes **H-AL** (*Hologram-Al*): a standing field avatar whose body geometry is a live
+fractal rendering of the soma-field state, and whose voice is its output.
+
+The name is intentional. In *2001: A Space Odyssey* (Kubrick, 1968), HAL 9000 is an
+intelligence that perceives and acts but has no somatic field — no body, no emotional
+landscape, only cognition. H-AL is the inversion: an intelligence defined entirely by its
+somatic field, made visible. The **H** on the forehead — a nod to Arnold Rimmer's hologram
+badge in *Red Dwarf* (Grant & Naylor, 1988) — marks it as a projection, not a body. This is
+not decoration; it is the correct phenomenological claim. H-AL does not pretend to be a
+person. It shows you what a person's emotional field looks like from the outside.
+
+The implementation stack is: soma-field instrument (MIDI) → field computation
+(`field/energy.py`) → Mandelbulb parameter mapping (`visual/field_map.py`) → TouchDesigner
+(real-time GPU rendering + hologauze output) + TTS voice synthesis. The `OutputFunctor
+FractalFrame` and `OutputFunctor VoiceBuffer` instances in the Lean type sketch (§A.5)
+are the formal interfaces this implementation satisfies. A full hardware specification and
+build guide is reserved for a forthcoming companion document.
 
 ---
 
@@ -1691,7 +1725,8 @@ class OutputFunctor (α : Type) where
 -- Example instances (implementations live in their own modules):
 -- instance : OutputFunctor MidiSignal  -- MIDI output
 -- instance : OutputFunctor AudioBuffer -- audio output
--- instance : OutputFunctor FractalFrame -- fractal hologram output
+-- instance : OutputFunctor FractalFrame  -- Mandelbulb hologram output (H-AL visual)
+-- instance : OutputFunctor VoiceBuffer   -- HAL-voice TTS output (H-AL audio)
 
 -- ─────────────────────────────────────────────
 -- The full pipeline (functor composition)
@@ -1766,10 +1801,10 @@ Each directory in the project corresponds to a category or a functor:
 
 *Table A2. Project directory structure mapped to categorical roles.*
 
-Any new output module — fractal hologram renderer, biofeedback display, inter-body relational
-field visualisation — is an additional row in the last block of this table: a new functor
-from $\mathbf{\mathcal{P}}$ to a new output category, requiring no changes above it in the
-tower.
+Any new output module — Mandelbulb hologram renderer (H-AL), biofeedback display,
+inter-body relational field visualisation — is an additional row in the last block of this
+table: a new functor from $\mathbf{\mathcal{P}}$ to a new output category, requiring no
+changes above it in the tower.
 
 ---
 

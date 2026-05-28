@@ -452,8 +452,14 @@ The six papers form a single argument, and it can be stated in a paragraph:
 What makes this a research programme rather than a single paper is the **generativity**:
 the method (co-identification) produces results in any domain where an attractor
 landscape with topological structure can be identified. The soma-field is one
-instantiation. Music-induced affect is a second. Abstract film is a third. Each
-generates falsifiable predictions from the same mathematical core.
+instantiation. Music-induced affect is a second. Abstract film is a third. A fourth —
+currently in design — is **H-AL**: a holographic avatar whose body is a live Mandelbulb
+rendering of the emotional field state, projected at human scale through a hologauze screen
+and accompanied by a synthesised voice narrating the field in real time. The geometry of the
+fractal changes as the field changes; regulated calm and trauma produce visually distinct
+and mathematically characterisable forms. The same functor architecture (§A.4 of the main
+paper) supports this output with no changes to the field computation. Each of these
+instantiations generates falsifiable predictions from the same mathematical core.
 
 What makes this a *novel* research programme is the **gap it fills**: no formal
 dynamical model of the limbic system existed before this work. The Hopfield framework

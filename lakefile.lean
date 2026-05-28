@@ -10,6 +10,7 @@ package U where
 -/
 lean_lib Emotions where
   srcDir := "src"
+  roots  := #[`EmotionOntology, `SomaField, `DyadicField]
 
 /-
   Movie server — The Abstract Film: Lean high-level API.

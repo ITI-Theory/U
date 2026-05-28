@@ -1,7 +1,7 @@
 ---
 title: "Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics"
 subtitle: "Or: The Author Could Not Wait"
-author: "Alistair Johnson, BSc Physics (Royal Holloway, University of London, 1993)"
+author: "Alistair Johnson, BSc Physics (Royal Holloway, University of London, 1995)"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 author-note: |
@@ -729,6 +729,7 @@ the point.*
 
 ---
 
-*Correspondence: [Author Name], [Address]. The author is available for discussion of
-this work and is generally more responsive to correspondence that engages with the
-mathematics than to correspondence that expresses surprise at its existence.*
+*Correspondence: Alistair Johnson (ORCID: 0009-0007-2194-0850), Independent Researcher,
+Zurich, Switzerland. The author is available for discussion of this work and is generally
+more responsive to correspondence that engages with the mathematics than to correspondence
+that expresses surprise at its existence.*
