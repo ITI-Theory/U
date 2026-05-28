@@ -507,6 +507,10 @@ trauma.
 
 ---
 
+![Figure 2.1. The body–brain coupling stack. Interoceptive signals from the body feed into the brainstem and autonomic nervous system, which couples bidirectionally to the limbic soma-field (coupling matrix **W**). The field gates input to the prefrontal cortex via the threshold θ; what crosses becomes conscious percept. *Author's original figure.*](figures/fig1_architecture.pdf){width=90%}
+
+---
+
 ## 2.3 The Soma-Field: A Technical Definition
 
 In the Soma-Field Model, we represent the body's emotional state as a vector of
@@ -575,6 +579,10 @@ The next chapter is about that structure.
 
 ---
 
+![Figure 2.2. The soma-field oscillates continuously. Most of the time its modes remain below the perception threshold T (dashed line) — sub-threshold activity that drives physiology and behaviour invisibly. Only a sufficiently large excitation crosses T into felt experience. Interoceptive training and somatic therapy work, in part, by lowering T. *Author's original figure.*](figures/fig0_field_mode.png){width=90%}
+
+---
+
 \newpage
 
 # Chapter 3: The Energy Landscape
@@ -623,38 +631,7 @@ The crucial question — the question that distinguishes a regulated nervous sys
 a dysregulated one, and distinguishes one person's landscape from another's — is: where
 are the valleys? How deep are they? How wide? How many are there?
 
-```
-  ╔═════════════════════════════════════════════════════════════════════╗
-  ║                    THE EMOTIONAL ENERGY LANDSCAPE                   ║
-  ╠═════════════════════════════════════════════════════════════════════╣
-  ║                                                                     ║
-  ║  Energy ▲                                                           ║
-  ║  H(e)   │          sadness                                          ║
-  ║         │            hill                                           ║
-  ║         │   ╭────╮     ╭────╮     ╭──╮     ╭────────╮             ║
-  ║         │   │    │     │    │     │  │     │        │             ║
-  ║         │   │    ╰──╮  │    ╰──╮  │  ╰──╮  │        │             ║
-  ║         │   │       │  │       │  │      │  │        │             ║
-  ║         │   │       ╰──╯       ╰──╯      ╰──╯        │             ║
-  ║         │   │  calm   │  mild  │   alert │  hyper-   │             ║
-  ║         │   │ BASIN   │  hill  │  BASIN  │  vigilant │             ║
-  ║         │   │  *      │        │     *   │   *       │             ║
-  ║         │   │         │        │         │           │             ║
-  ║         └───┴─────────┴────────┴─────────┴───────────┴──→          ║
-  ║                          emotional state space →                   ║
-  ║                                                                     ║
-  ║  * = attractor (stable resting point)                              ║
-  ║  The ball rolls downhill to the nearest *.                         ║
-  ╚═════════════════════════════════════════════════════════════════════╝
-
-  Figure 3.1. The emotional energy landscape. Each dip is an attractor — a stable
-  emotional state that the field naturally rolls toward. The depth of the valley
-  determines how hard it is to escape. The width determines how large a range of
-  perturbations the attractor can absorb. A regulated nervous system has a deep, wide
-  calm basin, with other attractors present but shallower. A trauma-modified nervous
-  system may have a very deep hypervigilance attractor and a shallow or absent calm
-  basin.
-```
+![Figure 3.1. The emotional energy landscape (2D contour). Four attractor basins are visible: Calm (wide, deepest — the global minimum of a regulated nervous system), Freeze (narrow and very deep — easy to fall into, hard to leave), Fight and Flight (intermediate depth). The system rolls downhill to the nearest basin; the depth controls escape difficulty and the width controls resilience to perturbation. *Author's original figure.*](figures/fig3a_energy_landscape.png){width=95%}
 
 ## 3.2 Attractors and Basins
 
@@ -676,6 +653,8 @@ tips into it, escape requires a large input of energy.
 
 This is not a metaphor for how trauma "feels." It is a description of the actual
 dynamics of the system.
+
+![Figure 3.2. Basin of attraction map. Each point in state space is coloured by the attractor it flows to under gradient descent: blue = Calm, purple = Freeze, orange = Fight, green = Flight. The calm basin dominates a regulated landscape. Freeze occupies a small area but is disproportionately deep — a narrow funnel. The boundaries between basins are the separatrices: invisible thresholds in state space that determine which valley a given perturbation resolves to. *Author's original figure.*](figures/figB1_attractor_basins.png){width=90%}
 
 ## 3.3 The Hamiltonian
 
@@ -824,6 +803,10 @@ one-way ratchet.
 
 ---
 
+![Figure 3.3. 1D energy cross-section along a principal axis of the landscape. The height of each barrier between basins determines transition probability: a deep Freeze well with a high approach barrier (right) requires substantial energy input to escape — corresponding clinically to a freeze response that does not self-resolve without intervention. Barrier asymmetry (left-to-right ≠ right-to-left) is the signature of trauma modification. *Author's original figure.*](figures/fig3b_energy_profile.png){width=90%}
+
+---
+
 \newpage
 
 # PART II: HOW THE FIELD CHANGES
@@ -878,38 +861,7 @@ This can be visualised as a landscape that has been tilted and deformed: new dee
 in places that were not attractors before, old deep valleys raised, and the topology of
 connectivity between states changed.
 
-```
-  BEFORE MODIFICATION (W₀ — symmetric, regulated)
-  ┌───────────────────────────────────────────────────────────────┐
-  │  Energy H ▲                                                   │
-  │           │   ╭──╮   ╭──╮   ╭──╮                            │
-  │           │   │  ╰───╯  ╰───╯  │                            │
-  │           │   │     *          │                            │
-  │           │   │   calm         │                            │
-  │           └───┴────────────────┴──→                          │
-  │  Deep calm basin, shallow alert basin                        │
-  └───────────────────────────────────────────────────────────────┘
-
-  AFTER MODIFICATION (W_CPTSD — asymmetric)
-  ┌───────────────────────────────────────────────────────────────┐
-  │  Energy H ▲                                                   │
-  │           │               ╭──╮                               │
-  │           │   ╭──╮        │  │                               │
-  │           │   │  ╰──╮  ╭──╯  ╰──╮                           │
-  │           │   │     │  │        │                            │
-  │           │   │     ╰──╯        │                            │
-  │           │   │ calm  *  alert  │  hypervigilant             │
-  │           │   │(shallowed)      │      ** (deep)             │
-  │           └───┴─────────────────┴──→                         │
-  │  Calm basin shallowed; hypervigilance basin deepened          │
-  └───────────────────────────────────────────────────────────────┘
-
-  Figure 4.1. The C-PTSD modification of the energy landscape. The coupling modification
-  ΔW reshapes the Hamiltonian: the calm attractor becomes shallower and narrower (easier
-  to perturb out of), while a hypervigilance attractor deepens. The resting state of the
-  modified system is shifted toward higher arousal. Getting to calm from hypervigilance
-  requires climbing a steeper hill than the reverse journey.
-```
+![Figure 4.1. Four neurotype landscapes (1D cross-section). *Typical* (upper left): a deep wide Calm basin with accessible secondary states. *C-PTSD* (lower left): Calm shallowed and narrowed, Freeze dominant — the resting state shifts toward high-vigilance. *ADHD* (upper right): all basins flattened, low barriers, rapid transitions — high-temperature dynamics. *ASD* (lower right): narrow steep wells with high barriers between states — strong attractor stability, low noise tolerance, high cost of transitions. *Author's original figure.*](figures/fig5_neurotype_landscapes.png){width=95%}
 
 ## 4.2 Why Hypervigilance Is an Optimisation
 
@@ -990,6 +942,10 @@ The threshold is where the physics and the clinical presentation most visibly co
 >
 > **Hypervigilance attractor** — the deep stability basin in the modified landscape
 > corresponding to high-arousal, high-alert states.
+
+---
+
+![Figure 4.2. The perception threshold T. Mode i (grey) oscillates continuously but never crosses T — it is sub-perceptual, influencing behaviour and physiology without entering felt experience. Mode j (blue) rises through T and becomes a consciously felt emotion. The threshold is the key parameter that distinguishes somatic activation from emotional awareness; its value varies across individuals and can be modified by interoceptive practice, arousal level, and therapeutic work. *Author's original figure.*](figures/fig2_threshold.png){width=90%}
 
 ---
 
@@ -2053,6 +2009,8 @@ The instrument tracks seven primary dimensions of soma-field state:
   progress is tracked as change across these dimensions over time, rather than as
   narrative self-report alone.
 ```
+
+![Figure 9.2. The Soma-Field instrument pipeline. Biofeedback sensors (HRV, EDA, EMG) feed the soma-field model, which produces a real-time emotion vector **e**(t) ∈ ℝ¹¹. This drives The Tensor (the emotional score specification), which controls a synthesis engine (Phase Plant). A feedback loop via therapeutic intervention δW allows the practitioner to modify the coupling matrix directly — closing the loop between measurement and treatment. *Author's original figure.*](figures/fig4_instrument.pdf){width=100%}
 
 ## 9.3 The ABCD Operator Circuit
 
