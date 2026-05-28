@@ -119,13 +119,15 @@ synthesis: $(BUILDDIR)/soma-field-synthesis.pdf
 
 substrate: $(BUILDDIR)/soma-physical-substrate.pdf
 
-# Omnibus flags — BOOK_FLAGS base (no --number-sections) + citeproc + wider TOC
+# Omnibus flags — Royal format (156×234 mm), sewn case-bound margins, no --number-sections
+# Print spec: Royal 156×234 mm | 115–120 gsm cream offset | sewn case bound | matte cover
+# bindingoffset=6mm accounts for the sewn spine; inner+binding = ~28 mm at gutter
 OMNIBUS_FLAGS := \
   --pdf-engine=$(ENGINE) \
   --standalone \
   --toc \
   --toc-depth=2 \
-  -V geometry:margin=1.2in \
+  -V "geometry=paperwidth=156mm,paperheight=234mm,top=22mm,bottom=25mm,inner=22mm,outer=18mm,bindingoffset=6mm" \
   -V fontsize=11pt \
   -V linestretch=1.5 \
   -V colorlinks=true \
