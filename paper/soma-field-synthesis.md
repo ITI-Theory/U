@@ -490,6 +490,21 @@ domain. This constitutes a research programme for clinical collaborators. The
 predictions are pre-specified in §3.2 of this document and in the relevant papers;
 they are not vague.
 
+**Physical substrate.** The model is formally complete but physically silent on the
+tissue substrate in which the soma-field is instantiated in living organisms. A
+companion paper, *The Physical Substrate of the Soma-Field* (Johnson, 2026g), develops
+this layer across three converging research traditions: biotensegrity (Ingber, Levin)
+as the mechanical architecture through which the somatic wave propagates globally;
+fascial-interstitial continuity (Langevin, Schleip, Oschman) as the active signalling
+tissue and physical locus of attractor-depth encoding; and biofield physiology (Popp,
+Ho, McCraty, Rubik) as the candidate physical correlate of the field itself. The most
+clinically significant result is the quantitative correspondence between fascial
+stiffness and attractor depth: chronic fascial armoring measurable by shear-wave
+elastography is the physical implementation of the energy barriers that QUANT-EXP-1
+shows to be quantum-resistant. Myofascial release is thus barrier *lowering* — not
+barrier crossing — and therapist-client physiological entrainment is the physical
+mechanism of co-identification.
+
 ---
 
 # 9. Data and Code Availability
@@ -531,6 +546,9 @@ Johnson, A. (2026e). *A Dynamical Field Model of Music-Induced Affect: Beyond th
 Valence–Arousal Circumplex*. Preprint.
 
 Johnson, A. (2026f). *The Tensor: An Abstract Film Definition*. Preprint.
+
+Johnson, A. (2026g). *The Physical Substrate of the Soma-Field: Biotensegrity, Fascial
+Interoception, and Bioelectric Correlates of Emotional Field Dynamics*. Preprint.
 
 Juslin, P. N., & Sloboda, J. A. (Eds.). (2010). *Handbook of Music and Emotion:
 Theory, Research, Applications*. Oxford University Press.
