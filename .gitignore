@@ -41,6 +41,9 @@ nul
 paper/PAPER_STATUS.md
 paper/paper_status.json
 
+# API keys — local secrets, never commit
+paper/.keys.local
+
 # Generated export artifacts
 paper/*.docx
 

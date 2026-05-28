@@ -1,21 +1,34 @@
 #!/usr/bin/env python3
 """
-translate_papers.py — Translate English .md papers to DE, FR, IT using DeepL API.
+translate_papers.py — Translate English .md papers to DE, FR, IT.
 
-Usage:
-    python scripts/translate_papers.py                       # translate all papers
-    python scripts/translate_papers.py soma-field-paper      # one paper, all langs
-    python scripts/translate_papers.py --langs de fr         # all papers, specific langs
-    python scripts/translate_papers.py soma-field-paper --langs de
+Backends
+--------
+  llm    (default) — OpenAI-compatible API (GPT-4o).  Set OPENAI_API_KEY.
+                     Also works with GitHub Models: set OPENAI_API_KEY to your
+                     GitHub PAT and OPENAI_BASE_URL to
+                     https://models.inference.ai.azure.com
+  deepl             — DeepL API (higher quality, costs money after free tier).
+                     Set DEEPL_API_KEY.
+                     Free tier: https://www.deepl.com/pro-api (500k chars/month)
 
-Requires:
-    pip install deepl PyYAML
-    DEEPL_API_KEY environment variable
-    Free key (500k chars/month): https://www.deepl.com/pro-api
+Usage
+-----
+    python scripts/translate_papers.py                            # all papers, llm
+    python scripts/translate_papers.py soma-field-paper           # one paper, llm
+    python scripts/translate_papers.py --langs de fr              # specific langs
+    python scripts/translate_papers.py --backend deepl            # DeepL backend
+    python scripts/translate_papers.py --model gpt-4.1           # override model
 
-Output:
+Makefile targets (in paper/)
+-----------------------------
+    make translate        # LLM  (OPENAI_API_KEY)
+    make translate-deepl  # DeepL (DEEPL_API_KEY)
+
+Output
+------
     paper/bld/<name>.de.md  (and .fr.md, .it.md)
-    These are picked up directly by 'make translations'.
+    Picked up directly by 'make translations'.
 """
 
 import argparse
@@ -23,12 +36,6 @@ import os
 import re
 import sys
 from pathlib import Path
-
-try:
-    import deepl
-except ImportError:
-    print("Error: deepl package not installed.  Run: pip install deepl", file=sys.stderr)
-    sys.exit(1)
 
 try:
     import yaml
@@ -132,49 +139,106 @@ def render_frontmatter(fm: dict) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Translation helpers
+# LLM backend (OpenAI-compatible)
 # ---------------------------------------------------------------------------
 
-def _translate_scalar(translator: deepl.Translator, value, target_lang: str):
-    """Translate a string or list-of-strings YAML value."""
+LLM_SYSTEM = """\
+You are a professional academic translator specialising in psychology, \
+neuroscience, and somatic therapy. Translate the following English text \
+to {label}.
+
+Rules — follow exactly:
+1. Preserve all markdown formatting: # headings, **bold**, *italic*, tables, \
+bullet lists, numbered lists.
+2. Tokens of the form XPROTnXPROT are protected placeholders — copy them \
+verbatim, do NOT translate or alter them in any way.
+3. Maintain an academic register.  Keep technical terms (e.g. "Soma-Field", \
+"biotensegrity", "Hopfield network") in their established {label} usage or \
+leave untranslated if no standard equivalent exists.
+4. Return ONLY the translated text.  No preamble, no explanations.\
+"""
+
+
+def _llm_translate(client, text: str, label: str, model: str) -> str:
+    """Send text to the LLM and return the translation."""
+    response = client.chat.completions.create(
+        model=model,
+        temperature=0.2,
+        messages=[
+            {"role": "system", "content": LLM_SYSTEM.format(label=label)},
+            {"role": "user",   "content": text},
+        ],
+    )
+    return response.choices[0].message.content
+
+
+def _llm_translate_scalar(client, value, label: str, model: str):
+    """Translate a string or list-of-strings YAML value via LLM."""
     if isinstance(value, list):
-        return [_translate_scalar(translator, v, target_lang) for v in value]
+        return [_llm_translate_scalar(client, v, label, model) for v in value]
+    if not isinstance(value, str) or not value.strip():
+        return value
+    return _llm_translate(client, value, label, model)
+
+
+# ---------------------------------------------------------------------------
+# DeepL backend
+# ---------------------------------------------------------------------------
+
+def _deepl_translate_scalar(translator, value, target_lang: str):
+    """Translate a string or list-of-strings YAML value via DeepL."""
+    if isinstance(value, list):
+        return [_deepl_translate_scalar(translator, v, target_lang) for v in value]
     if not isinstance(value, str) or not value.strip():
         return value
     return translator.translate_text(value, target_lang=target_lang).text
 
 
-def translate_paper(translator: deepl.Translator, paper_name: str, lang_code: str) -> None:
-    info       = LANG_MAP[lang_code]
-    src_path   = PAPER_DIR / f"{paper_name}.md"
-    out_path   = BLD_DIR   / f"{paper_name}.{lang_code}.md"
+# ---------------------------------------------------------------------------
+# Core translate_paper — dispatches to the right backend
+# ---------------------------------------------------------------------------
+
+def translate_paper(paper_name: str, lang_code: str, backend: str,
+                    client=None, model: str = "gpt-4o") -> None:
+    info     = LANG_MAP[lang_code]
+    src_path = PAPER_DIR / f"{paper_name}.md"
+    out_path = BLD_DIR   / f"{paper_name}.{lang_code}.md"
 
     if not src_path.exists():
-        print(f"  SKIP  {paper_name}: source not found ({src_path})", file=sys.stderr)
+        print(f"  SKIP  {paper_name}: source not found", file=sys.stderr)
         return
 
-    print(f"  {paper_name}  →  {info['label']} ...", end=" ", flush=True)
+    print(f"  {paper_name}  →  {info['label']} [{backend}] ...", end=" ", flush=True)
 
-    raw       = src_path.read_text(encoding="utf-8")
-    fm, body  = split_frontmatter(raw)
+    raw      = src_path.read_text(encoding="utf-8")
+    fm, body = split_frontmatter(raw)
 
     # --- Translate selected frontmatter fields ---
     for field in TRANSLATE_FM_FIELDS:
-        if field in fm:
-            fm[field] = _translate_scalar(translator, fm[field], info["deepl"])
+        if field not in fm:
+            continue
+        if backend == "deepl":
+            fm[field] = _deepl_translate_scalar(client, fm[field], info["deepl"])
+        else:
+            fm[field] = _llm_translate_scalar(client, fm[field], info["label"], model)
     fm["lang"] = info["pandoc"]
 
-    # --- Translate body with protected content ---
-    protector       = Protector()
-    protected_body  = protector.protect(body)
+    # --- Translate body with protected placeholders ---
+    protector      = Protector()
+    protected_body = protector.protect(body)
 
-    result          = translator.translate_text(
-        protected_body,
-        target_lang         = info["deepl"],
-        split_sentences     = "nonewlines",
-        preserve_formatting = True,
-    )
-    translated_body = protector.restore(result.text)
+    if backend == "deepl":
+        result         = client.translate_text(
+            protected_body,
+            target_lang         = info["deepl"],
+            split_sentences     = "nonewlines",
+            preserve_formatting = True,
+        )
+        translated_body = protector.restore(result.text)
+    else:
+        translated_body = protector.restore(
+            _llm_translate(client, protected_body, info["label"], model)
+        )
 
     BLD_DIR.mkdir(exist_ok=True)
     out_path.write_text(render_frontmatter(fm) + translated_body, encoding="utf-8")
@@ -187,41 +251,69 @@ def translate_paper(translator: deepl.Translator, paper_name: str, lang_code: st
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Translate Soma-Field papers to DE/FR/IT via DeepL.",
+        description="Translate Soma-Field papers to DE/FR/IT.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
     parser.add_argument(
         "papers", nargs="*",
-        help="Paper names without .md extension. Defaults to all.",
+        help="Paper names without .md extension.  Defaults to all.",
     )
     parser.add_argument(
         "--langs", nargs="+", default=["de", "fr", "it"],
-        choices=list(LANG_MAP.keys()),
-        metavar="LANG",
+        choices=list(LANG_MAP.keys()), metavar="LANG",
         help="Target languages (default: de fr it).",
     )
-    args = parser.parse_args()
-
-    api_key = os.environ.get("DEEPL_API_KEY")
-    if not api_key:
-        print("Error: DEEPL_API_KEY environment variable not set.", file=sys.stderr)
-        print("       Get a free key at: https://www.deepl.com/pro-api", file=sys.stderr)
-        sys.exit(1)
-
+    parser.add_argument(
+        "--backend", choices=["llm", "deepl"], default="llm",
+        help="Translation backend (default: llm).",
+    )
+    parser.add_argument(
+        "--model", default="gpt-4o",
+        help="LLM model name (default: gpt-4o).  Ignored for --backend deepl.",
+    )
+    args   = parser.parse_args()
     papers = args.papers if args.papers else ALL_PAPERS
 
-    translator = deepl.Translator(api_key)
-    usage = translator.get_usage()
-    print(
-        f"DeepL usage: {usage.character.count:,} / {usage.character.limit:,} chars "
-        f"({usage.character.count / usage.character.limit * 100:.1f}%)"
-    )
+    # --- Initialise the chosen backend client ---
+    if args.backend == "deepl":
+        try:
+            import deepl as _deepl
+        except ImportError:
+            print("Error: deepl not installed.  Run: pip install deepl", file=sys.stderr)
+            sys.exit(1)
+        api_key = os.environ.get("DEEPL_API_KEY")
+        if not api_key:
+            print("Error: DEEPL_API_KEY not set.  Add it to paper/.keys.local", file=sys.stderr)
+            sys.exit(1)
+        client = _deepl.Translator(api_key)
+        usage  = client.get_usage()
+        print(
+            f"DeepL usage: {usage.character.count:,} / {usage.character.limit:,} chars "
+            f"({usage.character.count / usage.character.limit * 100:.1f}%)"
+        )
+    else:  # llm
+        try:
+            import openai as _openai
+        except ImportError:
+            print("Error: openai not installed.  Run: pip install openai", file=sys.stderr)
+            sys.exit(1)
+        api_key  = os.environ.get("OPENAI_API_KEY")
+        base_url = os.environ.get("OPENAI_BASE_URL")  # optional — GitHub Models etc.
+        if not api_key:
+            print("Error: OPENAI_API_KEY not set.  Add it to paper/.keys.local", file=sys.stderr)
+            sys.exit(1)
+        kwargs = {"api_key": api_key}
+        if base_url:
+            kwargs["base_url"] = base_url
+        client = _openai.OpenAI(**kwargs)
+        print(f"LLM backend: {args.model}" + (f"  (base: {base_url})" if base_url else ""))
+
     print()
 
     for paper in papers:
         for lang in args.langs:
-            translate_paper(translator, paper, lang)
+            translate_paper(paper, lang, args.backend, client, args.model)
 
     print()
     print("Done.  Run 'make translations' in paper/ to build PDFs.")
