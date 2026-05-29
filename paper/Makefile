@@ -114,7 +114,7 @@ PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
-all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf omnibus-plus
+all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf omnibus omnibus-plus
 
 main: $(BUILDDIR)/soma-field-paper.pdf
 
