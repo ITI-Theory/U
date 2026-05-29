@@ -1354,6 +1354,12 @@ evidence artifacts.
 
 ---
 
+# Acknowledgements
+
+This work exists because ten years of psychotherapy moved the barriers far enough that two events in early 2026 could cross them. The theory is, among other things, a record of that.
+
+---
+
 # References
 
 Damasio, A. (1994). *Descartes' Error: Emotion, Reason and the Human Brain*. Putnam.

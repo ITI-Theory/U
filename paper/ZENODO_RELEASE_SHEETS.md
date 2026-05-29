@@ -384,8 +384,8 @@ bld/omnibus-a4.pdf       (A4 duplex — personal/binder edition)
 Fill these in as records are created:
 
 ```
-LEAN_PROOFS_DOI         = 10.5281/zenodo.XXXXXXX
-QUANT_DATASET_DOI       = 10.5281/zenodo.XXXXXXX
+LEAN_PROOFS_DOI         = 10.5281/zenodo.20437858
+QUANT_DATASET_DOI       = 10.5281/zenodo.20438007
 SYNTHESIS_DOI           = 10.5281/zenodo.XXXXXXX
 SOMA_PHYSICAL_DOI       = 10.5281/zenodo.XXXXXXX
 SOMA_BOOK_DOI           = 10.5281/zenodo.XXXXXXX

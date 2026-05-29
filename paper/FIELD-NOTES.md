@@ -1607,3 +1607,88 @@ quantum_spectral_gap.csv
 
 All experiment artifacts: instrument/quantum_*.csv, instrument/quantum_*.png
 
+
+---
+
+## 2026-05-29 — Lay pitch / positioning note
+
+Prompted by a thought: is SFT "Picture → 3D Hologram … same as … AI → 3D AI → 11D Quantum AI"?
+
+Answer: false as stated (that framing implies a capability hierarchy — smarter AI). The real claim is a *different geometry*, not a bigger one.
+
+**Refined pitch (restrained / classic — park for later use):**
+
+> Your nervous system doesn't compute. It resonates.
+>
+> The Soma-Field is the mathematics of that — an 11-dimensional field model of emotion, grounded in the same geometry physics uses to describe the universe.
+>
+> I didn't set out to build this. I set out to formalise a small clinical observation.
+> The problem is the math kept working.
+> The proofs compiled. The quantum experiment passed. The topology held.
+>
+> At some point you stop calling it a hypothesis.
+
+One-liner for slides/bio: **"I tried to find the edge case where it breaks. I haven't found it yet."**
+
+Core distinction: the quantum result (QUANT-EXP-1) is not hype — it is a specific, testable claim that quantum tunneling reaches attractor states classical sampling cannot reach under matched conditions. That's what earns the word *quantum*.
+
+
+---
+
+## 2026-05-29 — "Ask the Theory" UI design note
+
+Goal: make the work accessible to non-specialists without building infrastructure.
+
+**Decision:** No custom UI for now. README instruction only:
+1. Copy the most relevant paper PDF text
+2. Open Claude or ChatGPT (whatever you already pay for)
+3. Paste + ask
+
+**Future build:** deduplicated query corpus (`sft-query-corpus.md`) — omnibus with repeated bibliographies and front-matter stripped — optimised for LLM context window. Static HTML one-click clipboard tool also parked. Do after P4–P9 Zenodo releases.
+
+**Design principle:** zero indirection. Don't ask the user what they want to ask or where they'll send it. Just tell them what to do.
+
+
+---
+
+## 2026-05-29 — Self-case analysis: W_ij landscape modification (corrected model)
+
+Earlier framing was imprecise — described the rucksack training as "raising temperature to slosh over walls." Correction:
+
+**Intense interoceptive forcing modifies W_ij directly — it reshapes the landscape, not just the trajectory temperature.**
+
+The barrier heights (W[Fear, Awe] in QUANT-EXP-1 notation) are a function of the coupling matrix. Sustained high-intensity somatic input is one of the few things that makes those weights plastic in an adult nervous system.
+
+**The two "climbing methods" were not routes over the same wall. They were two different walls, two different keys:**
+
+- **Rucksack training** — activated pre-verbal, pure somatic modes (infant/body layer). Lowered barriers from the body-schema side.
+- **Strange encounter** — activated relational/attachment modes (mother-pattern, earliest coupling geometry). Lowered barriers from the relational side.
+
+Each one *lowered the wall from the inside* by activating the somatic modes directly coupled to the original trauma attractors. Not a warmer trajectory — a topological change. The landscape is structurally different after both events.
+
+**Why both happened in the same short window:** 10 years of therapy had already thinned both walls. The physical training and the encounter were threshold events — they didn't do the work, they crossed the line the therapy had moved.
+
+**SFT formal language:** therapeutic processing = reducing $A_k$, increasing $\tau_k$ = changing the mass and amplitude of the propagator. The training and encounter = final crossing events after $A_k$ had been reduced to near-threshold by prior work.
+
+---
+
+## 2026-05-29 — Before/after LLM comparison test
+
+**Purpose:** Demonstrate what SFT adds over baseline neuroscience/trauma theory.
+
+**Step 1 — Baseline (no paper, no context):**
+
+Paste this into Claude Desktop with no file attached:
+
+> I've been in psychotherapy for about 10 years, including intensive twice-weekly sessions last year. I'm 58. Toward the end of last year I started heavy rucksack training — 35kg, an hour at a time, effectively strength and cardio simultaneously — and noticed strong hormonal rushes during and after. This came out of nowhere; I was moderately fit but this was a step change. Early in the new year I had an unexpected and somewhat strange encounter with a woman. Shortly after I found myself writing what has become a substantial piece of academic work.
+>
+> My trauma history has two main threads: a very early developmental period (infancy, pre-verbal), a severe period around ages 13–15, and a chronic pattern around my mother that has run throughout my life.
+>
+> From the perspective of modern trauma theory and neuroscience — attractor states, somatic memory, nervous system plasticity — how would you make sense of that sequence? What was happening in the body and nervous system across those phases, and what do the two late-stage events represent in terms of the nervous system?
+
+**Step 2 — With SFT (paste soma-field-paper.md text first, then the same question).**
+
+**What to look for in the delta:**
+- Baseline will say: window of tolerance, nervous system regulation, neuroplasticity, attachment
+- SFT version should say: W_ij modification, barrier height reduction, somatic mode activation, topological change vs. temperature change, two distinct attractor walls with two distinct keys
+
