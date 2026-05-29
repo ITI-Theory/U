@@ -62,8 +62,8 @@ Plus a brief `README.md` in the upload: "Lean 4 (≥ v4.9). Build: `lake build`.
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsSupplementTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
-| IsSupplementTo | 10.5281/zenodo.20350331 | DOI | mathematical-co-identification |
+| IsSupplementTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
+| IsSupplementTo | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification |
 | IsSupplementTo | *(soma-field-synthesis DOI)* | DOI | soma-field-synthesis |
 | IsRelatedTo | https://github.com/Alistair-Johnson/U | URL | Source repository |
 
@@ -117,7 +117,7 @@ paper/QUANT-EXP-SWEEP-2026-05-20.md    (experiment log)
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsSupplementTo | 10.5281/zenodo.20351231 | DOI | quantum-soma-penrose |
+| IsSupplementTo | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose |
 | IsRelatedTo | https://github.com/Alistair-Johnson/U | URL | Source repository |
 | IsRelatedTo | *(soma-field-synthesis DOI)* | DOI | synthesis paper cites this dataset |
 
@@ -133,7 +133,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ### P1 — The Soma-Field Paper
 **Status:** PUBLISHED
-**DOI:** https://doi.org/10.5281/zenodo.20350516
+**DOI:** https://doi.org/10.5281/zenodo.20350515
 
 **Add these related identifiers (edit existing record):**
 
@@ -141,8 +141,8 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 |---|---|---|---|
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 formal proofs |
 | IsSupplementedBy | `QUANT_DATASET_DOI` | DOI | QUANT-EXP-1 dataset (supporting evidence) |
-| IsRelatedTo | 10.5281/zenodo.20350331 | DOI | mathematical-co-identification (companion) |
-| IsRelatedTo | 10.5281/zenodo.20351231 | DOI | quantum-soma-penrose (empirical companion) |
+| IsRelatedTo | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification (companion) |
+| IsRelatedTo | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose (empirical companion) |
 | IsRelatedTo | *(soma-field-synthesis DOI)* | DOI | synthesis / overview paper |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
 
@@ -150,7 +150,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ### P2 — Quantum Topology and Trauma
 **Status:** PUBLISHED
-**DOI:** https://doi.org/10.5281/zenodo.20351231
+**DOI:** https://doi.org/10.5281/zenodo.20351230
 
 **Add these related identifiers:**
 
@@ -158,23 +158,23 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 |---|---|---|---|
 | IsSupplementedBy | `QUANT_DATASET_DOI` | DOI | QUANT-EXP-1 dataset |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs (Hopfield.lean relevant) |
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper (theoretical basis) |
-| IsRelatedTo | 10.5281/zenodo.20350331 | DOI | mathematical-co-identification |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper (theoretical basis) |
+| IsRelatedTo | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
 
 ---
 
 ### P3 — Mathematical Co-identification
 **Status:** PUBLISHED
-**DOI:** https://doi.org/10.5281/zenodo.20350331
+**DOI:** https://doi.org/10.5281/zenodo.20287981
 
 **Add these related identifiers:**
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs (FieldProofs.lean, SomaField.lean) |
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
-| IsRelatedTo | 10.5281/zenodo.20351231 | DOI | quantum-soma-penrose |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
+| IsRelatedTo | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
 
 ---
@@ -200,9 +200,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 |---|---|---|---|
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs |
 | IsSupplementedBy | `QUANT_DATASET_DOI` | DOI | QUANT-EXP-1 dataset |
-| Cites | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
-| Cites | 10.5281/zenodo.20351231 | DOI | quantum-soma-penrose |
-| Cites | 10.5281/zenodo.20350331 | DOI | mathematical-co-identification |
+| Cites | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
+| Cites | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose |
+| Cites | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
 
 **→ Record this DOI as:** `SYNTHESIS_DOI`
@@ -224,7 +224,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper (theoretical basis) |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper (theoretical basis) |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
@@ -255,7 +255,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper (formal basis) |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper (formal basis) |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
@@ -277,7 +277,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
 
@@ -302,7 +302,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | IsRelatedTo | *(omnibus DOI)* | DOI | collected works omnibus |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
 
@@ -322,7 +322,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| IsRelatedTo | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
+| IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs (EmotionOntology.lean) |
 | IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
@@ -362,9 +362,9 @@ bld/omnibus-a4.pdf       (A4 duplex — personal/binder edition)
 
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
-| HasPart | 10.5281/zenodo.20350516 | DOI | soma-field-paper |
-| HasPart | 10.5281/zenodo.20351231 | DOI | quantum-soma-penrose |
-| HasPart | 10.5281/zenodo.20350331 | DOI | mathematical-co-identification |
+| HasPart | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
+| HasPart | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose |
+| HasPart | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification |
 | HasPart | `SYNTHESIS_DOI` | DOI | soma-field-synthesis |
 | HasPart | *(soma-physical-substrate DOI)* | DOI | soma-physical-substrate |
 | HasPart | *(soma-field-book DOI)* | DOI | soma-field-book |
@@ -395,9 +395,9 @@ MUSIC_AFFECT_DOI        = 10.5281/zenodo.XXXXXXX
 OMNIBUS_DOI             = 10.5281/zenodo.XXXXXXX
 
 # Already published:
-SOMA_FIELD_PAPER_DOI    = 10.5281/zenodo.20350516
-QUANTUM_PAPER_DOI       = 10.5281/zenodo.20351231
-MATH_CO_ID_DOI          = 10.5281/zenodo.20350331
+SOMA_FIELD_PAPER_DOI    = 10.5281/zenodo.20350515
+QUANTUM_PAPER_DOI       = 10.5281/zenodo.20351230
+MATH_CO_ID_DOI          = 10.5281/zenodo.20287981
 ```
 
 ---
