@@ -384,6 +384,12 @@ the Lean 4 axiom file are archived at
 
 ---
 
+# Acknowledgements
+
+This work exists because ten years of psychotherapy moved the barriers far enough that two events in early 2026 could cross them. The theory is, among other things, a record of that.
+
+---
+
 # References
 
 Penrose, R. (1989). *The Emperor's New Mind: Concerning Computers, Minds, and the Laws
