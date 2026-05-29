@@ -379,7 +379,7 @@ to support any result reported here. This is explicitly a simulation result.
 
 **Data and code availability.** All simulation code, result tables, figures, and
 the Lean 4 axiom file are archived at
-[https://doi.org/10.5281/zenodo.20351231](https://doi.org/10.5281/zenodo.20351231)
+[https://doi.org/10.5281/zenodo.20351230](https://doi.org/10.5281/zenodo.20351230)
 (Zenodo, open access).
 
 ---
@@ -404,5 +404,5 @@ The replica symmetric solution for the 2D random bond Ising model.
 
 ---
 
-*Supplementary archive (Zenodo):* [https://doi.org/10.5281/zenodo.20351231](https://doi.org/10.5281/zenodo.20351231)
+*Supplementary archive (Zenodo):* [https://doi.org/10.5281/zenodo.20351230](https://doi.org/10.5281/zenodo.20351230)
 Contains: simulation code, sweep CSVs, figures, Lean 4 axioms, and plain-language companion document.

@@ -7,12 +7,12 @@ institute: "Unabhängiger Forscher, Zürich, Schweiz"
 date: "Mai 2026"
 lang: de
 abstract: |
-  *Übersetzung in Vorbereitung. Englisches Original: DOI 10.5281/zenodo.20287982*
+  *Übersetzung in Vorbereitung. Englisches Original: DOI 10.5281/zenodo.20287981*
 ---
 
 *Übersetzungsentwurf — vollständiger Text in Vorbereitung.*
 
-*Englisches Original: mathematical-co-identification.pdf · DOI: 10.5281/zenodo.20287982*
+*Englisches Original: mathematical-co-identification.pdf · DOI: 10.5281/zenodo.20287981*
 
 ---
 
@@ -22,4 +22,4 @@ Die deutsche Übersetzung dieses Dokuments befindet sich in Vorbereitung.
 Bitte beziehen Sie sich auf die englische Originalfassung.
 
 Die vollständige englische Fassung ist verfügbar unter:
-**DOI: 10.5281/zenodo.20287982** (Zenodo)
+**DOI: 10.5281/zenodo.20287981** (Zenodo)

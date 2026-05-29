@@ -538,13 +538,13 @@ information processing networks. *Journal of Cell Science*, 116, 1397–1408.
 https://doi.org/10.1242/jcs.00360
 
 Johnson, A. (2026a). *Mathematical Co-identification: A Method for Structural Import
-Across Scientific Domains*. Zenodo. https://doi.org/10.5281/zenodo.20350331
+Across Scientific Domains*. Zenodo. https://doi.org/10.5281/zenodo.20287981
 
 Johnson, A. (2026b). *The Soma-Field: A Wave-Based Model of Emotional Dynamics and
-Its Clinical Implications*. Zenodo. https://doi.org/10.5281/zenodo.20350516
+Its Clinical Implications*. Zenodo. https://doi.org/10.5281/zenodo.20350515
 
 Johnson, A. (2026c). *Quantum Soma and the Penrose Gap: Topological Reachability in
-the Emotional Attractor Landscape*. Zenodo. https://doi.org/10.5281/zenodo.20351231
+the Emotional Attractor Landscape*. Zenodo. https://doi.org/10.5281/zenodo.20351230
 
 Langevin, H. M., & Huijing, P. A. (2009). Communicating about fascia: history,
 pitfalls, and recommendations. *International Journal of Therapeutic Massage &

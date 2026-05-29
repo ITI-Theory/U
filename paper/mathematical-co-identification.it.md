@@ -7,12 +7,12 @@ institute: "Ricercatore Indipendente, Zurigo, Svizzera"
 date: "Maggio 2026"
 lang: it
 abstract: |
-  *Traduzione in preparazione. Originale inglese: DOI 10.5281/zenodo.20287982*
+  *Traduzione in preparazione. Originale inglese: DOI 10.5281/zenodo.20287981*
 ---
 
 *Traduzione in preparazione — testo completo in arrivo.*
 
-*Originale inglese: mathematical-co-identification.pdf · DOI: 10.5281/zenodo.20287982*
+*Originale inglese: mathematical-co-identification.pdf · DOI: 10.5281/zenodo.20287981*
 
 ---
 
@@ -22,4 +22,4 @@ La traduzione italiana di questo documento è in fase di preparazione.
 Si prega di fare riferimento alla versione originale inglese.
 
 La versione inglese completa è disponibile all'indirizzo:
-**DOI: 10.5281/zenodo.20287982** (Zenodo)
+**DOI: 10.5281/zenodo.20287981** (Zenodo)

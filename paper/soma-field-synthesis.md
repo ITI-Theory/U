@@ -261,7 +261,7 @@ It is a claim about reachability: that the mathematical structure of the barrier
 distinguishes the quantum and classical regimes in a measurable way.
 
 The prediction was registered in the Zenodo v1 deposit of the Soma-Field paper
-(doi:10.5281/zenodo.20350516) before the experiment was run.
+(doi:10.5281/zenodo.20350515) before the experiment was run.
 
 ## The Experiment
 
@@ -520,9 +520,9 @@ archived at the following Zenodo records (open access):
 
 | Paper | DOI |
 |---|---|
-| *The Soma-Field* | [10.5281/zenodo.20350516](https://doi.org/10.5281/zenodo.20350516) |
-| *Mathematical Co-identification* | [10.5281/zenodo.20350331](https://doi.org/10.5281/zenodo.20350331) |
-| *Quantum Soma and the Penrose Gap* | [10.5281/zenodo.20351231](https://doi.org/10.5281/zenodo.20351231) |
+| *The Soma-Field* | [10.5281/zenodo.20350515](https://doi.org/10.5281/zenodo.20350515) |
+| *Mathematical Co-identification* | [10.5281/zenodo.20287981](https://doi.org/10.5281/zenodo.20287981) |
+| *Quantum Soma and the Penrose Gap* | [10.5281/zenodo.20351230](https://doi.org/10.5281/zenodo.20351230) |
 
 The unreviewed papers (*Field Notes from the Inside*, *Music-Induced Affect*,
 *The Tensor*, and this synthesis document) will be deposited on Zenodo as part of
@@ -537,13 +537,13 @@ computational abilities. *Proceedings of the National Academy of Sciences*, 79(8
 2554–2558.
 
 Johnson, A. (2026a). *Mathematical Co-identification: A Method for Structural Import
-Across Scientific Domains*. Zenodo. https://doi.org/10.5281/zenodo.20350331
+Across Scientific Domains*. Zenodo. https://doi.org/10.5281/zenodo.20287981
 
 Johnson, A. (2026b). *The Soma-Field: A Wave-Based Model of Emotional Dynamics and
-Its Clinical Implications*. Zenodo. https://doi.org/10.5281/zenodo.20350516
+Its Clinical Implications*. Zenodo. https://doi.org/10.5281/zenodo.20350515
 
 Johnson, A. (2026c). *Quantum Soma and the Penrose Gap: Topological Reachability in
-the Emotional Attractor Landscape*. Zenodo. https://doi.org/10.5281/zenodo.20351231
+the Emotional Attractor Landscape*. Zenodo. https://doi.org/10.5281/zenodo.20351230
 
 Johnson, A. (2026d). *Field Notes from the Inside: A Patient-Constructed Model of
 Emotional Dynamics*. Preprint.

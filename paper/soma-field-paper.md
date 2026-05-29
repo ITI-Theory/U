@@ -207,7 +207,7 @@ process with a transverse-field quantum annealer — produces a measurable *topo
 reachability advantage*: quantum annealing reaches attractor basins that cold classical
 dynamics cannot reach at any finite noise level. This upgrades the formal correspondence
 from a structural claim to a testable empirical prediction. See the companion paper
-*Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351231) for the full results
+*Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) for the full results
 and theoretical implications.
 
 One further consequence follows. The clinical phenomena of alexithymia — difficulty
@@ -1306,8 +1306,8 @@ and current result status.
 | SF-1 | Sections 2-3 derivation of field/propagator structure | structural derivation complete |
 | SF-2 | Energy formulation + instrument runtime equations | predictive structure complete |
 | SF-3 | Threshold operator definition + clinical interpretation sections | predictive mapping complete |
-| SF-4 | Barrier analysis; companion paper *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351231) | **confirmed (QUANT-EXP-1 PASS)** |
-| SF-5 | QUANT-EXP-1 experiment outputs (see supplementary archive, doi:10.5281/zenodo.20351231) | **confirmed: cold 0/200, CI [0.000, 0.019]; quantum peak 0.408–0.410; all hardening checks PASS** |
+| SF-4 | Barrier analysis; companion paper *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) | **confirmed (QUANT-EXP-1 PASS)** |
+| SF-5 | QUANT-EXP-1 experiment outputs (see supplementary archive, doi:10.5281/zenodo.20351230) | **confirmed: cold 0/200, CI [0.000, 0.019]; quantum peak 0.408–0.410; all hardening checks PASS** |
 
 This matrix is intended for reviewer navigation and is updated as companion results
 are expanded or independently replicated.
@@ -1319,7 +1319,7 @@ ship a minimal replication package that can be executed without private context.
 
 Required contents:
 
-1. simulation code and support modules (see supplementary archive, doi:10.5281/zenodo.20351231),
+1. simulation code and support modules (see supplementary archive, doi:10.5281/zenodo.20351230),
 2. full parameter snapshot ($W$, $\mathbf{b}$, $\gamma$, $D$, $\theta$, temperature policy),
 3. raw trajectory logs with timestamped attractor labels,
 4. analysis scripts that produce the reported summary tables,
@@ -1344,7 +1344,7 @@ to bounded responses and concrete upgrade paths.
 
 `S2` to `S3` promotion for this manuscript is governed by
 an independent replication ledger maintained in the supplementary archive
-(doi:10.5281/zenodo.20350516).
+(doi:10.5281/zenodo.20350515).
 
 Tracked claim IDs in ledger scope: `SF-2`, `SF-3`, `SF-4`, `SF-5`.
 
