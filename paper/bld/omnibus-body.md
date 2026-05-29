@@ -227,7 +227,7 @@ It is a claim about reachability: that the mathematical structure of the barrier
 distinguishes the quantum and classical regimes in a measurable way.
 
 The prediction was registered in the Zenodo v1 deposit of the Soma-Field paper
-(doi:10.5281/zenodo.20350516) before the experiment was run.
+(doi:10.5281/zenodo.20350515) before the experiment was run.
 
 ## The Experiment
 
@@ -486,9 +486,9 @@ archived at the following Zenodo records (open access):
 
 | Paper | DOI |
 |---|---|
-| *The Soma-Field* | [10.5281/zenodo.20350516](https://doi.org/10.5281/zenodo.20350516) |
-| *Mathematical Co-identification* | [10.5281/zenodo.20350331](https://doi.org/10.5281/zenodo.20350331) |
-| *Quantum Soma and the Penrose Gap* | [10.5281/zenodo.20351231](https://doi.org/10.5281/zenodo.20351231) |
+| *The Soma-Field* | [10.5281/zenodo.20350515](https://doi.org/10.5281/zenodo.20350515) |
+| *Mathematical Co-identification* | [10.5281/zenodo.20287981](https://doi.org/10.5281/zenodo.20287981) |
+| *Quantum Soma and the Penrose Gap* | [10.5281/zenodo.20351230](https://doi.org/10.5281/zenodo.20351230) |
 
 The unreviewed papers (*Field Notes from the Inside*, *Music-Induced Affect*,
 *The Tensor*, and this synthesis document) will be deposited on Zenodo as part of
@@ -4227,7 +4227,7 @@ process with a transverse-field quantum annealer — produces a measurable *topo
 reachability advantage*: quantum annealing reaches attractor basins that cold classical
 dynamics cannot reach at any finite noise level. This upgrades the formal correspondence
 from a structural claim to a testable empirical prediction. See the companion paper
-*Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351231) for the full results
+*Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) for the full results
 and theoretical implications.
 
 One further consequence follows. The clinical phenomena of alexithymia — difficulty
@@ -5326,8 +5326,8 @@ and current result status.
 | SF-1 | Sections 2-3 derivation of field/propagator structure | structural derivation complete |
 | SF-2 | Energy formulation + instrument runtime equations | predictive structure complete |
 | SF-3 | Threshold operator definition + clinical interpretation sections | predictive mapping complete |
-| SF-4 | Barrier analysis; companion paper *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351231) | **confirmed (QUANT-EXP-1 PASS)** |
-| SF-5 | QUANT-EXP-1 experiment outputs (see supplementary archive, doi:10.5281/zenodo.20351231) | **confirmed: cold 0/200, CI [0.000, 0.019]; quantum peak 0.408–0.410; all hardening checks PASS** |
+| SF-4 | Barrier analysis; companion paper *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) | **confirmed (QUANT-EXP-1 PASS)** |
+| SF-5 | QUANT-EXP-1 experiment outputs (see supplementary archive, doi:10.5281/zenodo.20351230) | **confirmed: cold 0/200, CI [0.000, 0.019]; quantum peak 0.408–0.410; all hardening checks PASS** |
 
 This matrix is intended for reviewer navigation and is updated as companion results
 are expanded or independently replicated.
@@ -5339,7 +5339,7 @@ ship a minimal replication package that can be executed without private context.
 
 Required contents:
 
-1. simulation code and support modules (see supplementary archive, doi:10.5281/zenodo.20351231),
+1. simulation code and support modules (see supplementary archive, doi:10.5281/zenodo.20351230),
 2. full parameter snapshot ($W$, $\mathbf{b}$, $\gamma$, $D$, $\theta$, temperature policy),
 3. raw trajectory logs with timestamped attractor labels,
 4. analysis scripts that produce the reported summary tables,
@@ -5364,7 +5364,7 @@ to bounded responses and concrete upgrade paths.
 
 `S2` to `S3` promotion for this manuscript is governed by
 an independent replication ledger maintained in the supplementary archive
-(doi:10.5281/zenodo.20350516).
+(doi:10.5281/zenodo.20350515).
 
 Tracked claim IDs in ledger scope: `SF-2`, `SF-3`, `SF-4`, `SF-5`.
 
@@ -6646,7 +6646,7 @@ to support any result reported here. This is explicitly a simulation result.
 
 **Data and code availability.** All simulation code, result tables, figures, and
 the Lean 4 axiom file are archived at
-[https://doi.org/10.5281/zenodo.20351231](https://doi.org/10.5281/zenodo.20351231)
+[https://doi.org/10.5281/zenodo.20351230](https://doi.org/10.5281/zenodo.20351230)
 (Zenodo, open access).
 
 ---

@@ -50,4 +50,57 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 
 ---
 
+## Reference Integrity Test Suite
+
+Automated checks run against all paper source `.md` files (excluding `AI-NOTES*`, `FIELD-NOTES*`, `PUBLISH-NOW*`, `INDEPENDENT_REP*`, `ZENODO_RELEASE*`).
+
+Run: `cd paper && bash scripts/uat_refs.sh` (see script below — embedded for reproducibility).
+
+```bash
+#!/usr/bin/env bash
+# uat_refs.sh — Reference integrity checks
+set -euo pipefail
+PAPER_DIR="$(cd "$(dirname "$0")/../paper" 2>/dev/null || echo ".")"
+cd "$PAPER_DIR"
+EXCLUDE="AI-NOTES|FIELD-NOTES|PUBLISH-NOW|INDEPENDENT_REP|ZENODO_RELEASE"
+FAIL=0
+
+# REF-1: No version DOIs (concept DOIs must be used everywhere)
+echo "=== REF-1: Version DOIs ==="
+HITS=$(grep -rn "zenodo\.\(20350516\|20350331\|20351231\|20287982\)" *.md 2>/dev/null \
+       | grep -vE "$EXCLUDE" || true)
+[ -z "$HITS" ] && echo "PASS" || { echo "FAIL"; echo "$HITS"; FAIL=1; }
+
+# REF-2: Unresolved citation keys ([@key] not in bibliography.bib)
+echo "=== REF-2: Orphan citation keys ==="
+grep -hoh '\[@[a-zA-Z0-9_:.-]*\]' *.md 2>/dev/null \
+  | grep -vE "$EXCLUDE" | sed 's/\[@//;s/\]//' | sort -u > /tmp/uat_cite_refs.txt
+grep "^@" bibliography.bib | sed 's/@[^{]*{//;s/,.*//' | sort > /tmp/uat_bib_keys.txt
+MISSING=$(comm -23 /tmp/uat_cite_refs.txt /tmp/uat_bib_keys.txt)
+[ -z "$MISSING" ] && echo "PASS" || { echo "FAIL: missing keys: $MISSING"; FAIL=1; }
+
+# REF-3: Bare & in bib non-comment fields (should be \& or 'and')
+echo "=== REF-3: Bare ampersands in bibliography.bib ==="
+HITS=$(grep -n "&" bibliography.bib | grep -v "^[[:space:]]*%" | grep -v "\\\\&" || true)
+[ -z "$HITS" ] && echo "PASS" || { echo "FAIL"; echo "$HITS"; FAIL=1; }
+
+# REF-4: Literal placeholder [@key] in paper sources
+echo "=== REF-4: Placeholder [@key] in sources ==="
+HITS=$(grep -rn '\[@key\]' *.md 2>/dev/null | grep -vE "$EXCLUDE" || true)
+[ -z "$HITS" ] && echo "PASS" || { echo "FAIL"; echo "$HITS"; FAIL=1; }
+
+exit $FAIL
+```
+
+| ID | Check | Command | Last Run | Status |
+|---|---|---|---|---|
+| REF-1 | No version DOIs in source files | `grep zenodo.(version)` | 2026-05-29 | **PASS** |
+| REF-2 | All `[@citekey]` resolve in `bibliography.bib` | `comm cite_refs bib_keys` | 2026-05-29 | **PASS** (36 keys, 0 missing) |
+| REF-3 | No bare `&` in non-comment bib fields | `grep & bibliography.bib` | 2026-05-29 | **PASS** (2 `\&` journal names, correctly escaped) |
+| REF-4 | No literal `[@key]` placeholders in paper sources | `grep \[@key\]` | 2026-05-29 | **PASS** |
+
+**Score: 4 PASS · 0 FAIL**
+
+---
+
 <!-- Add further criteria below as needed -->
