@@ -2,8 +2,10 @@
 
 ## What This Repo Is
 Formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in
-M-theory compactification and type-checked in Lean 4. Includes quantum experiment, instrument,
-and 11 papers/datasets (4 languages each).
+M-theory compactification and type-checked in Lean 4. Includes quantum experiment, live instrument,
+facilities planning, and 11 papers/datasets (4 languages each).
+
+This is the **Soma Field Theory (SFT)** engine — the scientific core nested inside the [T]-Theory art movement. See T copilot-instructions for Phase B context.
 
 Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, Zurich
 
@@ -13,10 +15,11 @@ Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, 
 | Path | Purpose |
 |---|---|
 | `paper/` | All paper source (.md) and built PDFs |
-| `src/` | Lean 4 formal proofs (SomaField.lean, Hopfield.lean) |
-| `instrument/` | Python quantum experiment + live instrument server |
-| `scripts/` | paper_status.py, package_papers.py, package_submissions.py, package_everything.py |
-| `dist/` | Freeze ZIPs and submission bundles |
+| `paper/soma/<name>/` | One dir per paper — source .md + translations + paper-specific data |
+| `paper/proofs/` | Lean 4 formal proofs (cross-cutting — not paper-specific) |
+| `paper/scripts/` | paper_status.py, package_papers.py, translate_papers.py, build_omnibus.py |
+| `apps/instrument/` | Python live instrument server (OSC, MIDI, field renderer) |
+| `apps/facilities/` | Gym + studio floor plans, equipment data |
 | `.venv/` | Python venv — activate: `source .venv/Scripts/activate` |
 | `PROCESS.md` | Session-start primer, git hygiene, Zenodo publishing steps |
 | `paper/FIELD-NOTES.md` | Running research log — read last 40 lines to catch up on recent work |
@@ -25,9 +28,8 @@ Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, 
 ```bash
 cd paper && make all          # rebuild all PDFs
 cd paper && make check        # verify toolchain (pandoc + xelatex)
-.venv/Scripts/python scripts/paper_status.py           # regenerate PAPER_STATUS.md + paper_status.json
-.venv/Scripts/python scripts/package_papers.py --version vX.Y.Z   # freeze ZIP
-lake build                    # build Lean proofs
+.venv/Scripts/python paper/scripts/paper_status.py           # regenerate PAPER_STATUS.md + paper_status.json
+.venv/Scripts/python paper/scripts/package_papers.py --version vX.Y.Z   # freeze ZIP
 ```
 
 ## Papers — Publication Status (as of May 30, 2026)
@@ -55,7 +57,7 @@ All 11 records published on Zenodo. Full DOI registry: `paper/ZENODO_RELEASE_SHE
 - **PASS** — quantum annealing reaches Awe basin in 3/3 barrier cases; classical cold 0/48
 - Barrier sweep done: W ∈ {-8, -10, -12}, all PASS, quantum peak ~0.408–0.410
 - Schedule comparison done: linear > cosine > pause
-- 3D animation done: `instrument/quantum_experiment_3d.gif`
+- 3D animation done: `paper/soma/quantum-soma-penrose/quantum_experiment_3d.gif`
 
 ### Remaining Experiments
 1. Barrier ladder sweep: W from -6 to -14 in unit steps

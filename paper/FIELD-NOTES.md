@@ -1788,3 +1788,48 @@ first repo on any new device. U.Dot/bin/HAL reduced to a shim that forwards to T
 
 Same architecture as webpack: entry point + named modules → single stdout stream.
 This is the cross-device AI context bundler. Termux, WSL, Windows — one command.
+
+---
+
+## 2026-05-30 — U repo restructure; Phase B announced
+
+### Restructure completed today
+
+U root cleaned to two conceptual dirs — `paper/` (publish things) and `apps/` (build/run things).
+
+**Litmus test principle established:** "If something would normally have its own repo but doesn't, everything for it must live in one directory." Applies uniformly.
+
+Moves committed:
+- `instrument/` → `apps/instrument/`
+- `facilities/` → `apps/facilities/` (gym + studio floor plans, punch bag images)
+- `src/*.lean` → `paper/proofs/` (cross-cutting Lean proofs — not paper-specific)
+- `scripts/` → `paper/scripts/` (already done prev session)
+- `quantum_*.py/csv/png/gif` → `paper/soma/quantum-soma-penrose/` (already done prev session)
+- `PROCESS_PROCEDURES.md` → `PROCESS.md`
+
+Deleted: Lake scaffold boilerplate, DIARY*.md (superseded by FIELD-NOTES), `dist/` staging leftovers, `data/` (empty), `images/` (moved to gym).
+
+Lean Action CI workflow deleted — it was Lake init default, not intentional.
+
+U root is now: `paper/`, `apps/`, `PROCESS.md`, `README.md`, `docker-compose.yml`.
+
+### Phase B — T-Theory art stage
+
+**Context (from Me/chats/CONVERSATIONS.md):**
+
+[T]-Theory has two distinct layers:
+- **Soma Field Theory (SFT)** — the mathematical/scientific engine. Phase A. Done: 11 papers, Zenodo, quantum experiment. This lives in `U/`.
+- **[T]-Theory** — the overarching cultural/art umbrella. Phase B. Underground rave aesthetic, street art collective, 3D fractal projection mapping, manifesto, merchandise, music (Strandberg + Push 3 + Ableton Live). The science is nested inside this; the outside world sees the art movement first.
+
+**Phase B hardware prerequisites (tonight):**
+- Set up ×3 Android tablets (Termux)
+- Arch Linux on notebook
+- Full hardware stack operational
+
+**Phase B starts tomorrow** — Alps, new repo or new top-level structure needed.
+
+**Open design questions for Phase B:**
+- Where does [T]-Theory art live? New repo `ITI-Theory/T.Art`? or `T/art/`?
+- HAL `lean` pack references `U/src/*.lean` (now `paper/proofs/`) — needs path fix
+- `T.Dot/FIELD-NOTES.md` still to be created (system-level log, follows all devices)
+- `HAL sync` — pull-first automation — to design when back
