@@ -71,8 +71,9 @@ Use this for first-time uploads (new papers, datasets, supplementary materials).
 2. Upload the file(s)
 3. Set **Resource type** (Publication → Preprint for papers; Other for demo/notes)
 4. Fill **Title** and other metadata (authors, description, licence CC BY 4.0, publication date)
-5. Add **Related identifiers** for companion records (use concept DOIs):
-   - `Cites` — papers this work builds on
+5. Add **Related identifiers** for companion records (use concept DOIs).
+   For each entry, fill fields in this order: **Identifier → Scheme (DOI) → Relation → Resource type**
+   - `IsCitedBy` / `Cites` — papers this work builds on
    - `IsSupplementedBy` / `IsSupplementTo` — datasets, proofs
    - `IsPartOf` — omnibus collection
 6. **Save** → **Publish**
