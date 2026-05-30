@@ -167,8 +167,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 ---
 
 ### P3 — Mathematical Co-identification
-**Status:** PUBLISHED
-**DOI:** https://doi.org/10.5281/zenodo.20287981
+**Status:** PUBLISHED — v3 uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20287981
+**v3 DOI:** https://doi.org/10.5281/zenodo.20459780
 
 **Add these related identifiers:**
 
