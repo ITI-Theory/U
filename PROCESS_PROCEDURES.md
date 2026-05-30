@@ -72,7 +72,7 @@ Use this for first-time uploads (new papers, datasets, supplementary materials).
 3. Set **Resource type** (Publication → Preprint for papers; Other for demo/notes)
 4. Fill **Title**
 5. Fill **Publication date**
-6. Fill **Author(s)**
+6. Fill **Author(s)** — Name: `Johnson, Alistair` | ORCID: `0009-0007-2194-0850`
 7. Fill remaining metadata: description, licence (CC BY 4.0)
 8. Add **Related identifiers** for companion records (use concept DOIs).
    For each entry, fill fields in this order: **Relation → Identifier → Scheme (DOI) → Resource type**
