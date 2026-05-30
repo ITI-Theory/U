@@ -1,16 +1,20 @@
-# U — The Soma-Field Papers
+# U — Soma Field Theory
 
-A formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in M-theory compactification and type-checked in Lean 4.
+Formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in
+M-theory compactification and type-checked in Lean 4. 11 papers published on Zenodo.
 
-**bioRxiv preprint**: BIORXIV/2026/725970 (May 18, 2026)
 **Author**: Alistair Johnson, Independent Researcher, Zurich, Switzerland
 **ORCID**: 0009-0007-2194-0850
 
-## Contents
+## Structure
 
-- `paper/` — Source and PDFs for all four documents (main paper, patient POV, book, field notes)
-- `src/` — Lean 4 formal verification (`Hopfield.lean`, `SomaField.lean`)
-- `facilities/` — Workspace notes
+- `paper/` — All paper source (.md), PDFs, scripts, and Lean 4 proofs
+  - `paper/soma/<name>/` — One dir per paper (source + translations + data)
+  - `paper/proofs/` — Cross-cutting Lean 4 formal proofs
+  - `paper/scripts/` — paper_status.py, package_papers.py, translate_papers.py, build_omnibus.py
+- `apps/` — Build/run things
+  - `apps/instrument/` — Python live instrument server (OSC, MIDI, field renderer)
+  - `apps/facilities/` — Gym + studio floor plans and equipment data
 
 ## Building
 
@@ -22,68 +26,19 @@ Requires: pandoc, xelatex, pandoc-citeproc.
 
 ## Paper Status
 
-Generate a live status dashboard of all paper source/PDF pairs:
-
 ```bash
-./.venv/Scripts/python.exe scripts/paper_status.py
+.venv/Scripts/python paper/scripts/paper_status.py
 ```
 
-Outputs:
+Outputs `paper/PAPER_STATUS.md` and `paper/paper_status.json`.
 
-- `paper/PAPER_STATUS.md`
-- `paper/paper_status.json`
-
-## Freeze Package (Portable)
-
-Build a transfer-ready ZIP containing papers, PDFs, bibliography, and integrity manifest:
+## Freeze Package
 
 ```bash
-./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.1
+.venv/Scripts/python paper/scripts/package_papers.py --version vX.Y.Z
 ```
 
-Output:
+## Process
 
-- `dist/U-papers-freeze-v1.0.1-YYYYMMDD.zip`
-
-## Submission Bundles (Frontiers + arXiv)
-
-Build venue-specific submission ZIPs in one command:
-
-```bash
-./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.1
-```
-
-Outputs:
-
-- `dist/U-submission-frontiers-v1.0.1-YYYYMMDD.zip`
-- `dist/U-submission-arxiv-v1.0.1-YYYYMMDD.zip`
-
-Also included in repo:
-
-- `paper/SUBMISSION_FRONTIERS_CHECKLIST.md`
-- `paper/SUBMISSION_ARXIV_CHECKLIST.md`
-
-## One Big ZIP (Everything)
-
-Build a single master archive containing source + all generated release ZIPs:
-
-```bash
-./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.0
-```
-
-Output:
-
-- `dist/U-everything-v1.0.0-YYYYMMDD.zip`
-
-Build-system target (from `paper/`):
-
-```bash
-make everything-bundle
-```
-
-## Process Procedures
-
-Repository process and git hygiene requirements are documented in:
-
-- `PROCESS_PROCEDURES.md`
+Repository process, git hygiene, and Zenodo publishing steps: `PROCESS.md`
 
