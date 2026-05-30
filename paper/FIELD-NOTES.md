@@ -1744,3 +1744,20 @@ Lean 4 gives you:
 4. Show it to a domain expert who has never heard of Lean and ask if they can use it
 
 **Parking note:** This is an independent project thread, not part of U/SFT. Natural home would be a new repo or a T.Ops epic when the time comes. USM `Care.lean` is the seed.
+
+---
+
+## 2026-05-30 — Lean Scribe GUI pattern (correction to previous note)
+
+**Correction:** Lean Scribe is relevant — not for what it does (LLM prompts) but for **how it's built**.
+
+It's a VS Code webview side panel (TypeScript + webpack + CSS, running in VS Code's built-in Chromium webview — not standalone Electron). It reads Lean 4 diagnostics in real time via the LSP. That is exactly the architecture needed for the constraint checker: a clean panel that shows rule ✓/✗ without the user ever seeing Lean syntax.
+
+**Reusable parts (MIT licensed):**
+- `src/` — TypeScript extension host, LSP bridge
+- `media/` — the webview HTML/CSS/JS (the visible panel)
+- `webpack.config.js` — bundles it
+
+**The substitution:** Replace lean-scribe's LLM prompt logic with a constraint validator that reads `{{ diagnostics }}` / `{{ errors }}` from the active `.lean` file and renders them as domain-language rule results.
+
+Start point for the constraint-checker project: fork lean-scribe's panel, strip the LLM layer, wire to a domain rule `.lean` file.
