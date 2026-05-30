@@ -1692,3 +1692,9 @@ Paste this into Claude Desktop with no file attached:
 - Baseline will say: window of tolerance, nervous system regulation, neuroplasticity, attachment
 - SFT version should say: W_ij modification, barrier height reduction, somatic mode activation, topological change vs. temperature change, two distinct attractor walls with two distinct keys
 
+AJ: 29.05.2027
+
+good — parking the book project. Let me save the session transcript first, then we go straight back to the release.
+
+Session saved to chats/session-2026-05-29-release-and-conversations-book.jsonl. When you have more chat files and photos, just drop them in Me/chats/ and re-run assemble_book.py — it'll pick them up.
+
