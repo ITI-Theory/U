@@ -1698,3 +1698,22 @@ good — parking the book project. Let me save the session transcript first, the
 
 Session saved to chats/session-2026-05-29-release-and-conversations-book.jsonl. When you have more chat files and photos, just drop them in Me/chats/ and re-run assemble_book.py — it'll pick them up.
 
+
+---
+
+## 2026-05-30 — USM: origin project note
+
+**USM** = *Unstoppable Sex Machine* — where SEX = *Sensory and Emotion eXternalising Machine*.
+
+The earliest precursor to U. A local-only Lean 4 repo (never pushed, single commit) that was an experiment in using the Lean REPL as a live playground for emotional state — a DSL you could *run*, not just prove. The instinct was right; the problem was there was no model to DSL-ify yet.
+
+Key artefacts that appear in USM and matured into U:
+- `Emotion` inductive type (joy, anger, fear, disgust) → `SomaField.lean` attractor basis
+- `MusicFeeling` with 13 Cowen et al. categories (citing the 2020 PNAS paper) → `music-affect-dynamics`
+- `Control` (valence/arousal/dominance knobs) → the circumplex model SFT supersedes
+- `FromBody` (lush, vibration, sound) → earliest proto-interoception type
+- `PChannelStrip` / `UsmHdi` → first sketch of a state interface
+
+The USM DSL idea is now buildable. SFT supplies the semantics (`SomaField.lean`, propagator $G$, barrier heights $A_k$). A Lean 4 DSL on top would let you write typed, proof-backed emotional state transitions interactively. Parked as a future U extension.
+
+Local dir: `~/prj/git/USM` (preserved, not pushed, not deleted).
