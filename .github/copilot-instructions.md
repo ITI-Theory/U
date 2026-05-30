@@ -18,7 +18,7 @@ Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, 
 | `scripts/` | paper_status.py, package_papers.py, package_submissions.py, package_everything.py |
 | `dist/` | Freeze ZIPs and submission bundles |
 | `.venv/` | Python venv — activate: `source .venv/Scripts/activate` |
-| `PROCESS_PROCEDURES.md` | Session-start primer, git hygiene, Zenodo publishing steps |
+| `PROCESS.md` | Session-start primer, git hygiene, Zenodo publishing steps |
 | `paper/FIELD-NOTES.md` | Running research log — read last 40 lines to catch up on recent work |
 
 ## Build Commands
