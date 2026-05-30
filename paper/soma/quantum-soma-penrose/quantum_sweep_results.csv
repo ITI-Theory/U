@@ -1,0 +1,4 @@
+case,barrier,gamma,quantum_steps,seeds,classical_cold_successes,classical_cold_success_rate,classical_cold_ci_low,classical_cold_ci_high,classical_cold_first_hit,classical_cold_wall_sec,classical_hot_successes,classical_hot_success_rate,classical_hot_ci_low,classical_hot_ci_high,classical_hot_first_hit,classical_hot_wall_sec,quantum_peak_awe_dominant,quantum_first_hit_step,quantum_wall_sec,quantum_final_energy
+B8,-8.0,4.0,300,16,0,0.0,0.0,0.19361341827271994,,1.2209175999742001,16,1.0,0.8063865817272802,1.0,38.375,1.676819600048475,0.4097463729328967,0,23.65107869997155,-0.8730036335590272
+B10,-10.0,5.0,400,16,0,0.0,0.0,0.19361341827271994,,1.122806299943477,16,1.0,0.8063865817272802,1.0,48.125,1.410592700005509,0.40765458776959607,0,27.9230468000751,-0.8939715460280205
+B12,-12.0,6.0,500,16,0,0.0,0.0,0.19361341827271994,,1.6470755999907851,16,1.0,0.8063865817272802,1.0,48.0,1.66484469990246,0.4092312248962938,0,42.37110270000994,-0.9008397584584801

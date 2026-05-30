@@ -1,0 +1,4 @@
+case,barrier,gamma,steps,min_spectral_gap,min_gap_step,min_gap_s,quantum_peak_awe_dominant
+B8,-8.0,4.0,300,0.009501,299,0.9983,0.4097
+B10,-10.0,5.0,400,0.008903,399,0.9988,0.4077
+B12,-12.0,6.0,500,0.008545,499,0.999,0.4092

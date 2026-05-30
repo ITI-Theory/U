@@ -1,0 +1,3 @@
+control,description,classical_cold_stay_in_awe,quantum_peak_awe_dominant,expected_classical,expected_quantum,verdict
+A,"Start from Awe, barrier intact",1.0,0.40765458776959607,">0.9  (already in Awe, no barrier to cross back)",>0.2  (remains Awe-dominant),PASS
+B,"Start from Fear, NO barrier (W[Fear,Awe]=+0.4)",1.0,0.28426367288477106,">0.5  (barrier removed, classical can cross)",>0.2  (easy reach),PASS
