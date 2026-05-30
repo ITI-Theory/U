@@ -1833,3 +1833,35 @@ U root is now: `paper/`, `apps/`, `PROCESS.md`, `README.md`, `docker-compose.yml
 - HAL `lean` pack references `U/src/*.lean` (now `paper/proofs/`) — needs path fix
 - `T.Dot/FIELD-NOTES.md` still to be created (system-level log, follows all devices)
 - `HAL sync` — pull-first automation — to design when back
+
+---
+
+## 2026-05-30 — Phase 2 opens, T.Live named, HAL completed
+
+### Phase naming locked
+Phases renamed from A/B to numbered:
+- Phase 0: Concept (complete)
+- Phase 1: Theory Foundation (complete — 11 papers, Lean 4, QUANT-EXP-1)
+- Phase 2: [T]-Theory (starting — live events, projection, music, fabrication)
+
+Phase 3 (Evidence) dissolved into Phase 2 — live events generate data continuously, not as a future step.
+
+### T.Live named and seeded
+Art/live repo named `T.Live` (not T.Art, T.Aesthetics, T.Real). Lives in `T/live/README.md` until it earns its own repo. Foundation text written: the aesthetic principle, what it holds, where it starts from. Key line: *"The art does not decorate the science. The art is the apparatus."*
+
+### paper/ root cleaned
+Three paper-specific files moved to their `soma/<name>/` dirs:
+- `QUANT-EXP-LAYPERSON.md` → `soma/quantum-soma-penrose/`
+- `QUANT-EXP-SWEEP-2026-05-20.md` → `soma/quantum-soma-penrose/`
+- `PAPER2_8_TO_10_PLAN.md` → `soma/mathematical-co-identification/`
+
+Remaining `AI-NOTES.md` and `AI-NOTES-GEN-CLEAN.md` are extracted chat transcripts — to be archived to `Me/chats/` or deleted next session.
+
+### HAL completed
+- `HAL sync` added (bash + bat): pull-first across T, T.Ops, T.Dot, U, U.Dot, U.Ops, Me
+- `HAL prime --clip / -c`: opt-in clipboard copy, platform auto-detected (xclip / wl-copy / clip / termux-clipboard-set). Default is stdout only.
+- `.github-private` member README updated with phase arc table.
+- `T/.github/copilot-instructions.md` and `T/README.md` fully consistent with new phase names and T.Live.
+
+### Hardware in hand
+×3 Android tablets + Arch notebook on desk. Phase 2 hardware setup begins tonight.
