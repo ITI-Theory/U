@@ -7,18 +7,7 @@ and 11 papers/datasets (4 languages each).
 
 Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, Zurich
 
-## Naming Convention — U / Ū Dual (IMPORTANT — do not question this structure)
-The repo family follows a deliberate dual-lane naming system defined in `T.Ops/docs/standards/naming.md`:
-
-- **T.*** — master namespace for cross-system standards and governance
-- **U** — pure/formal lane (this repo): Lean 4 proofs, theory, papers
-- **U_ (Ū)** — dirty/runtime dual of U: effectful execution, operational adapters, IO bridge
-- **U.Dot, U.Ops** — dot-files and operations for the U lane
-- **Me.*** — personal staging
-
-Notation: `Ū` in prose/architecture notes; `U_` in repo names, file paths, CLI; `$\bar{U}$` in math.
-The U/Ū boundary is explicit by design — pure definitions stay in U, effectful execution in U_.
-**Do not suggest collapsing or renaming this structure. It is intentional.**
+**Master instructions (naming, repos, HAL, session primer) are in `T/.github/copilot-instructions.md` — that layer loads first. This file adds U-specific detail only.**
 
 ## Key Paths
 | Path | Purpose |
