@@ -182,6 +182,24 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ---
 
+## STEP 2b: Create D1 (SFT Demo Case)
+
+---
+
+### D1 — SFT Applied: A Worked Example
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20459825
+**v1 DOI:** https://doi.org/10.5281/zenodo.20459826
+**Record type:** Other
+**Title:** SFT Applied: A Worked Example — Before/After LLM Analysis of a Real Clinical History
+**File uploaded:** `paper/SFT-DEMO-CASE.md`
+
+| Relation | Identifier | Scheme | Note |
+|---|---|---|---|
+| Is supplement to | 10.5281/zenodo.20350515 | DOI | soma-field-paper (P1) |
+
+---
+
 ## STEP 3: Create New Paper Records
 
 ---
