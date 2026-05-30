@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PAPER_DIR = ROOT / "paper"
 
 BASE_DOCS = [
@@ -104,8 +104,8 @@ def build_inventory() -> Dict[str, Dict[str, Dict[str, str]]]:
         inventory[base] = {}
         for lang in LANGS:
             suffix = "" if lang == "en" else f".{lang}"
-            md_path = PAPER_DIR / f"{base}{suffix}.md"
-            pdf_path = PAPER_DIR / f"{base}{suffix}.pdf"
+            md_path = PAPER_DIR / "soma" / base / f"{base}{suffix}.md"
+            pdf_path = PAPER_DIR / "bld" / f"{base}{suffix}.pdf"
             md_state = state_for(md_path)
             pdf_state = state_for(pdf_path)
             inventory[base][lang] = {

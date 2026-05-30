@@ -47,7 +47,7 @@ except ImportError:
 # Paths
 # ---------------------------------------------------------------------------
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR = REPO_ROOT / "paper"
 BLD_DIR   = PAPER_DIR / "bld"
 
@@ -261,7 +261,7 @@ def _deepl_translate_scalar(translator, value, target_lang: str):
 def translate_paper(paper_name: str, lang_code: str, backend: str,
                     client=None, model: str = "gpt-4o") -> None:
     info     = LANG_MAP[lang_code]
-    src_path = PAPER_DIR / f"{paper_name}.md"
+    src_path = PAPER_DIR / "soma" / paper_name / f"{paper_name}.md"
     if not src_path.exists():
         src_path = BLD_DIR / f"{paper_name}.md"   # fallback for assembled files (e.g. omnibus-body)
     out_path = BLD_DIR   / f"{paper_name}.{lang_code}.md"

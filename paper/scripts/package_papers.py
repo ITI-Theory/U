@@ -11,7 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PAPER_DIR = ROOT / "paper"
 DIST_DIR = ROOT / "dist"
 
@@ -49,12 +49,16 @@ def build(version: str) -> Path:
 
     manifest = {}
 
-    for src in sorted(PAPER_DIR.iterdir()):
+    for src in sorted(PAPER_DIR.rglob("*")):
         if not src.is_file():
+            continue
+        if src.is_relative_to(PAPER_DIR / "bld"):
             continue
         if not should_include(src):
             continue
-        dst = staging / "paper" / src.name
+        rel = src.relative_to(PAPER_DIR)
+        dst = staging / "paper" / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
         manifest[str(dst.relative_to(staging)).replace(chr(92), "/")] = compute_sha256(dst)
 

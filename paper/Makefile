@@ -51,7 +51,10 @@ CSL     := apa-7th.csl
 BUILDDIR := bld
 CITEPROC  := --citeproc --bibliography=$(BIB) --csl=$(CSL)
 PYTHON  := /c/Users/alist/.env/Scripts/python.exe
-SCRIPTS := ../scripts
+SCRIPTS := scripts
+
+# Find paper .md sources in soma/ subdirs (one dir per paper)
+vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:ai-method
 
 # API keys — stored in paper/.keys.local (gitignored, never commit this file).
 # Format of .keys.local:

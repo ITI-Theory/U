@@ -33,7 +33,7 @@ import re
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR = REPO_ROOT / "paper"
 BLD_DIR   = PAPER_DIR / "bld"
 
@@ -111,7 +111,7 @@ _REF_RE = re.compile(r"\n#{1,3}\s+References\b[\s\S]*$", re.IGNORECASE)
 
 def get_body(paper_name: str) -> str:
     """Read a source paper and return its body (YAML and References stripped)."""
-    path = PAPER_DIR / f"{paper_name}.md"
+    path = PAPER_DIR / "soma" / paper_name / f"{paper_name}.md"
     if not path.exists():
         print(f"  WARNING: {path.name} not found — skipping", file=sys.stderr)
         return ""

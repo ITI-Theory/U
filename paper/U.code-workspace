@@ -1,14 +1,47 @@
 {
 	"folders": [
-		{ "name": "[T]-Theory/U",              "path": ".." },
-		{ "name": "[T]-Theory/T",              "path": "../../T" },
-		{ "name": "[T]-Theory/T.Ops",          "path": "../../T.Ops" },
-		{ "name": "[T]-Theory/U.Dot",          "path": "../../U.Dot" },
-		{ "name": "[T]-Theory/U.Ops",          "path": "../../U.Ops" },
-		{ "name": "[T]-Theory/.github-private","path": "../../.github-private" },
-		{ "name": "Me/chats",                  "path": "../../../Me/chats" },
-		{ "name": "[T]-Theory/Dist",           "path": "../../Dist" },
-		{ "name": "[T]-Theory/.github",        "path": "../../.github" }
+		{
+			"name": "[T]-Theory/U",
+			"path": ".."
+		},
+		{
+			"name": "[T]-Theory/T",
+			"path": "../../T"
+		},
+		{
+			"name": "[T]-Theory/T.Ops",
+			"path": "../../T.Ops"
+		},
+		{
+			"name": "[T]-Theory/U.Dot",
+			"path": "../../U.Dot"
+		},
+		{
+			"name": "[T]-Theory/U.Ops",
+			"path": "../../U.Ops"
+		},
+		{
+			"name": "[T]-Theory/.github-private",
+			"path": "../../.github-private"
+		},
+		{
+			"name": "Me/chats",
+			"path": "../../../Me/chats"
+		},
+		{
+			"name": "[T]-Theory/Dist",
+			"path": "../../Dist"
+		},
+		{
+			"name": "[T]-Theory/.github",
+			"path": "../../.github"
+		},
+		{
+			"path": "../../../Me"
+		},
+		{
+			"path": "../../../AJ-WiKi"
+		}
 	],
 	"settings": {}
 }
