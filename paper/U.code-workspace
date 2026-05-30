@@ -1,38 +1,14 @@
 {
 	"folders": [
-		{
-                        "name": "ITI-Theory/U",
-                        "path": ".."
-                },
-                {
-                        "name": "ITI-Theory/T",
-                        "path": "../../T"
-                },
-                {
-                        "name": "ITI-Theory/T.Ops",
-                        "path": "../../T.Ops"
-                },
-                {
-                        "name": "ITI-Theory/U.Dot",
-                        "path": "../../U.Dot"
-                },
-                {
-                        "name": "ITI-Theory/U.Ops",
-                        "path": "../../U.Ops"
-                },
-                {
-                        "name": "ITI-Theory/.github-private",
-                        "path": "../../.github-private"
-                },
-                {
-                        "name": "Me/chats",
-                        "path": "../../../Me/chats"
-                },
-                {
-                        "name": "ITI-Theory/Dist",
-                        "path": "../../Dist"
-                },
-                {
-                        "name": "ITI-Theory/.github",
+		{ "name": "[T]-Theory/U",              "path": ".." },
+		{ "name": "[T]-Theory/T",              "path": "../../T" },
+		{ "name": "[T]-Theory/T.Ops",          "path": "../../T.Ops" },
+		{ "name": "[T]-Theory/U.Dot",          "path": "../../U.Dot" },
+		{ "name": "[T]-Theory/U.Ops",          "path": "../../U.Ops" },
+		{ "name": "[T]-Theory/.github-private","path": "../../.github-private" },
+		{ "name": "Me/chats",                  "path": "../../../Me/chats" },
+		{ "name": "[T]-Theory/Dist",           "path": "../../Dist" },
+		{ "name": "[T]-Theory/.github",        "path": "../../.github" }
+	],
 	"settings": {}
 }
