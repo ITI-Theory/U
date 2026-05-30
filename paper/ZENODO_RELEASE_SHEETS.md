@@ -294,6 +294,9 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 ### P7 — Field Notes from the Inside (Patient POV)
 
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460523
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460524
 **Record type:** Preprint
 **Title:** Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics
 **Subtitle:** Or: The Author Could Not Wait
