@@ -132,8 +132,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 ---
 
 ### P1 — The Soma-Field Paper
-**Status:** PUBLISHED
-**DOI:** https://doi.org/10.5281/zenodo.20350515
+**Status:** PUBLISHED — v3 uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20350515
+**v3 DOI:** https://doi.org/10.5281/zenodo.20459538
 
 **Add these related identifiers (edit existing record):**
 
@@ -149,8 +150,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 ---
 
 ### P2 — Quantum Topology and Trauma
-**Status:** PUBLISHED
-**DOI:** https://doi.org/10.5281/zenodo.20351230
+**Status:** PUBLISHED — v3 uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20351230
+**v3 DOI:** https://doi.org/10.5281/zenodo.20459711
 
 **Add these related identifiers:**
 
