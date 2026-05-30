@@ -55,7 +55,8 @@ Use this when a paper has been updated (e.g. acknowledgements added, corrections
 3. **Upload** the new PDF from `paper/bld/<paper-name>.pdf`
 4. Click **Get a DOI** → generate the new version DOI
 5. Click **Add description** → type the version note (e.g. `Added Acknowledgements section`)
-6. **Save** → **Publish**
+6. **Publication date** — Zenodo forces you to set this. Use the date of the **first publication** of this record, not today. Check the original record for that date.
+7. **Save** → **Publish**
 8. Record both DOIs:
    - **Concept DOI** (stable, version-independent) — use this in all cross-references and README links
    - **Version DOI** (this specific upload) — record in `paper/ZENODO_RELEASE_SHEETS.md`
