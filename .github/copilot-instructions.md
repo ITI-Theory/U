@@ -3,9 +3,22 @@
 ## What This Repo Is
 Formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in
 M-theory compactification and type-checked in Lean 4. Includes quantum experiment, instrument,
-and 7 papers (4 languages each).
+and 11 papers/datasets (4 languages each).
 
 Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, Zurich
+
+## Naming Convention — U / Ū Dual (IMPORTANT — do not question this structure)
+The repo family follows a deliberate dual-lane naming system defined in `T.Ops/docs/standards/naming.md`:
+
+- **T.*** — master namespace for cross-system standards and governance
+- **U** — pure/formal lane (this repo): Lean 4 proofs, theory, papers
+- **U_ (Ū)** — dirty/runtime dual of U: effectful execution, operational adapters, IO bridge
+- **U.Dot, U.Ops** — dot-files and operations for the U lane
+- **Me.*** — personal staging
+
+Notation: `Ū` in prose/architecture notes; `U_` in repo names, file paths, CLI; `$\bar{U}$` in math.
+The U/Ū boundary is explicit by design — pure definitions stay in U, effectful execution in U_.
+**Do not suggest collapsing or renaming this structure. It is intentional.**
 
 ## Key Paths
 | Path | Purpose |
@@ -16,6 +29,8 @@ Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, 
 | `scripts/` | paper_status.py, package_papers.py, package_submissions.py, package_everything.py |
 | `dist/` | Freeze ZIPs and submission bundles |
 | `.venv/` | Python venv — activate: `source .venv/Scripts/activate` |
+| `PROCESS_PROCEDURES.md` | Session-start primer, git hygiene, Zenodo publishing steps |
+| `paper/FIELD-NOTES.md` | Running research log — read last 40 lines to catch up on recent work |
 
 ## Build Commands
 ```bash
@@ -26,21 +41,25 @@ cd paper && make check        # verify toolchain (pandoc + xelatex)
 lake build                    # build Lean proofs
 ```
 
-## Papers — Publication Status (as of May 2026)
-| Paper | Status | DOI |
-|---|---|---|
-| soma-field-paper | Zenodo published | https://doi.org/10.5281/zenodo.20350516 |
-| quantum-soma-penrose | Zenodo published | https://doi.org/10.5281/zenodo.20351231 |
-| mathematical-co-identification | Zenodo published | https://doi.org/10.5281/zenodo.20350331 |
-| music-affect-dynamics | Built, not submitted | — |
-| soma-field-patient-pov | Built, not submitted | — |
-| soma-field-book | Built, not submitted | — |
-| the-tensor | Built, not submitted | — |
+## Papers — Publication Status (as of May 30, 2026)
+All 11 records published on Zenodo. Full DOI registry: `paper/ZENODO_RELEASE_SHEETS.md`.
 
-## Git State (as of May 28, 2026)
-- 4 commits ahead of origin/main — **not pushed**
-- Dirty (uncommitted): `paper/FIELD-NOTES.md`, `paper/quantum-soma-penrose.md`, `paper/quantum-soma-penrose.pdf`
-- Untracked: `paper/AI-NOTES.md`, `paper/AI-NOTES-GEN-CLEAN.md`, `paper/PUBLISH-NOW-FILESET.md`
+| ID | Paper | Concept DOI |
+|---|---|---|
+| P1 | soma-field-paper | https://doi.org/10.5281/zenodo.20350515 |
+| P2 | quantum-soma-penrose | https://doi.org/10.5281/zenodo.20351230 |
+| P3 | mathematical-co-identification | https://doi.org/10.5281/zenodo.20287981 |
+| D1 | SFT-DEMO-CASE | https://doi.org/10.5281/zenodo.20459825 |
+| P4 | soma-field-synthesis | https://doi.org/10.5281/zenodo.20460118 |
+| P5 | soma-physical-substrate | https://doi.org/10.5281/zenodo.20460357 |
+| P6 | soma-field-book | https://doi.org/10.5281/zenodo.20460455 |
+| P7 | soma-field-patient-pov | https://doi.org/10.5281/zenodo.20460523 |
+| P8 | the-tensor | https://doi.org/10.5281/zenodo.20460613 |
+| P9 | music-affect-dynamics | https://doi.org/10.5281/zenodo.20460685 |
+| C1 | omnibus | https://doi.org/10.5281/zenodo.20460771 |
+
+## Git State (as of May 30, 2026)
+- All repos clean and pushed (main branch, no uncommitted changes)
 - Standard release procedure: `make && git add -A && git commit && git tag -a vX.Y.Z && git push && git push origin vX.Y.Z`
 
 ## Quantum Experiment Status (QUANT-EXP-1)
