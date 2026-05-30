@@ -145,7 +145,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 | IsRelatedTo | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification (companion) |
 | IsRelatedTo | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose (empirical companion) |
 | IsRelatedTo | *(soma-field-synthesis DOI)* | DOI | synthesis / overview paper |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -162,7 +162,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs (Hopfield.lean relevant) |
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper (theoretical basis) |
 | IsRelatedTo | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -178,7 +178,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs (FieldProofs.lean, SomaField.lean) |
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | IsRelatedTo | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -227,7 +227,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 | Cites | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | Cites | 10.5281/zenodo.20351230 | DOI | quantum-soma-penrose |
 | Cites | 10.5281/zenodo.20287981 | DOI | mathematical-co-identification |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 **→ Record this DOI as:** `SYNTHESIS_DOI`
 
@@ -254,7 +254,7 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper (theoretical basis) |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -288,7 +288,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper (formal basis) |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -312,7 +312,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 |---|---|---|---|
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -339,8 +339,8 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 | Relation | Identifier | Scheme | Note |
 |---|---|---|---|
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
-| IsRelatedTo | *(omnibus DOI)* | DOI | collected works omnibus |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsRelatedTo | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -364,7 +364,7 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 | IsRelatedTo | 10.5281/zenodo.20350515 | DOI | soma-field-paper |
 | IsRelatedTo | `SYNTHESIS_DOI` | DOI | synthesis paper |
 | IsSupplementedBy | `LEAN_PROOFS_DOI` | DOI | Lean 4 proofs (EmotionOntology.lean) |
-| IsPartOf | *(omnibus DOI)* | DOI | collected works omnibus |
+| IsPartOf | 10.5281/zenodo.20460771 | DOI | collected works omnibus |
 
 ---
 
@@ -374,8 +374,9 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 ### C1 — The Soma-Field: Collected Works (Omnibus)
 
-**Create after all paper records exist.**
-
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460771
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460772
 **Record type:** Book
 **Title:** The Soma-Field: Collected Works
 **Subtitle:** A Complete Edition in Two Formats
