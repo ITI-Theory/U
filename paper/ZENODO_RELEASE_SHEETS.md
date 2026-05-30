@@ -260,6 +260,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ### P6 — A Voyage into Trauma (The Book)
 
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460455
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460456
 **Record type:** Book (use "Other" or "Book" type on Zenodo)
 **Title:** A Voyage into Trauma
 **Subtitle:** The Soma-Field Theory of Emotional Life
