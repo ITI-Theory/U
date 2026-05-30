@@ -206,6 +206,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ### P4 — The Soma-Field Research Programme (Synthesis)
 
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460118
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460119
 **Record type:** Preprint
 **Title:** The Soma-Field Research Programme: Method, Model, and Empirical Confirmation
 **Subtitle:** A Synthesis of Six Papers on Emotional Field Dynamics
