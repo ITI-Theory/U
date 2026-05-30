@@ -45,3 +45,36 @@ Use these operational files:
 - `paper/SUBMISSION_NO_APC_CHECKLIST.md`
 - `paper/PUBLICATION_ROADMAP.md`
 - `paper/INDEPENDENT_REPLICATION_LEDGER.md`
+
+## Zenodo: How to Publish a New Version of an Existing Record
+
+Use this when a paper has been updated (e.g. acknowledgements added, corrections) and needs a new version DOI on an existing Zenodo concept record.
+
+1. Go to the existing record URL (e.g. `zenodo.org/records/XXXXXXX`)
+2. Click **New version**
+3. At the "include previous files?" prompt — **skip / do not include** (avoids needing to delete old file)
+4. **Upload** the new PDF from `paper/bld/<paper-name>.pdf`
+5. Click **Get a DOI** → generate the new version DOI
+6. Fill **What's changed** with a one-line description (e.g. `Added Acknowledgements section`)
+7. **Save** → **Publish**
+8. Record both DOIs:
+   - **Concept DOI** (stable, version-independent) — use this in all cross-references and README links
+   - **Version DOI** (this specific upload) — record in `paper/ZENODO_RELEASE_SHEETS.md`
+
+**Note:** The concept DOI never changes between versions. Always cite the concept DOI in papers and READMEs.
+
+## Zenodo: How to Create a New Record
+
+Use this for first-time uploads (new papers, datasets, supplementary materials).
+
+1. Go to [zenodo.org](https://zenodo.org) → **New upload**
+2. Set **Resource type** (Publication → Preprint for papers; Dataset for data; Software for code)
+3. Upload the file(s)
+4. Click **Get a DOI** → generate
+5. Fill metadata — at minimum: title, authors, description, licence (CC BY 4.0), publication date
+6. Add **Related identifiers** for companion records (use concept DOIs):
+   - `Cites` — papers this work builds on
+   - `IsSupplementedBy` / `IsSupplementTo` — datasets, proofs
+   - `IsPartOf` — omnibus collection
+7. **Save** → **Publish**
+8. Record concept DOI in `paper/ZENODO_RELEASE_SHEETS.md` and update `.github-private/profile/README.md`
