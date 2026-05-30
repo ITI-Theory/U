@@ -51,8 +51,8 @@ Use these operational files:
 Use this when a paper has been updated (e.g. acknowledgements added, corrections) and needs a new version DOI on an existing Zenodo concept record.
 
 1. Go to the existing record URL (e.g. `zenodo.org/records/XXXXXXX`)
-2. Click **New version**
-3. At the "include previous files?" prompt — **skip / do not include** (avoids needing to delete old file)
+2. Click **New version** — Zenodo automatically pre-populates all files from the previous version
+3. **Delete** the old PDF from the file list
 4. **Upload** the new PDF from `paper/bld/<paper-name>.pdf`
 5. Click **Get a DOI** → generate the new version DOI
 6. Fill **What's changed** with a one-line description (e.g. `Added Acknowledgements section`)
