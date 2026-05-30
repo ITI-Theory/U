@@ -68,13 +68,12 @@ Use this when a paper has been updated (e.g. acknowledgements added, corrections
 Use this for first-time uploads (new papers, datasets, supplementary materials).
 
 1. Go to [zenodo.org](https://zenodo.org) → **New upload**
-2. Set **Resource type** (Publication → Preprint for papers; Dataset for data; Software for code)
-3. Upload the file(s)
-4. Click **Get a DOI** → generate
-5. Fill metadata — at minimum: title, authors, description, licence (CC BY 4.0), publication date
-6. Add **Related identifiers** for companion records (use concept DOIs):
+2. Upload the file(s)
+3. Set **Resource type** (Publication → Preprint for papers; Other for demo/notes)
+4. Fill **Title** and other metadata (authors, description, licence CC BY 4.0, publication date)
+5. Add **Related identifiers** for companion records (use concept DOIs):
    - `Cites` — papers this work builds on
    - `IsSupplementedBy` / `IsSupplementTo` — datasets, proofs
    - `IsPartOf` — omnibus collection
-7. **Save** → **Publish**
+6. **Save** → **Publish**
 8. Record concept DOI in `paper/ZENODO_RELEASE_SHEETS.md` and update `.github-private/profile/README.md`
