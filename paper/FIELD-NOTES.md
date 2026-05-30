@@ -1717,3 +1717,30 @@ Key artefacts that appear in USM and matured into U:
 The USM DSL idea is now buildable. SFT supplies the semantics (`SomaField.lean`, propagator $G$, barrier heights $A_k$). A Lean 4 DSL on top would let you write typed, proof-backed emotional state transitions interactively. Parked as a future U extension.
 
 Local dir: `~/prj/git/USM` (preserved, not pushed, not deleted).
+
+---
+
+## 2026-05-30 — Lean as a constraint engine for specialised domains
+
+**Core idea:** Lean 4 as the enforcement layer for domain-specific rule systems — not as a theorem prover to be operated by users, but hidden behind a thin interface so domain experts never know it's there.
+
+**The analogy:** An architect changes a load-bearing wall in AutoCAD and the software immediately says "that violates fire regulation §38b." Nobody cares that AutoCAD used a constraint solver. The user just sees "this is not allowed — here's why."
+
+Lean 4 gives you:
+- Rules as propositions (not comments) — they are the constraint, not documentation of it
+- `decide` / `Decidable` predicates that evaluate instantly as you type
+- Exact failure diagnostics: not "invalid" but which rule, which value, which case
+- Widget API for a custom VS Code panel — no Lean syntax visible to the end user
+
+**Relevant prior work found:**
+- `Paperproof` (VS Code extension, 2.2K installs) — renders Lean proof trees as interactive diagrams. Best existing example of "disguised Lean" UI
+- `Lean Scribe` (oliverdressler, 157 installs) — LLM prompt runner *for* Lean; not relevant to this direction
+- USM `Care.lean` — already has `DayCare`, `DayCare.hours`, disability/support types with `#eval` working; first prototype of this pattern
+
+**What's needed to go further:**
+1. Pick one real, narrow rule set (a building code clause, a care-hours cap, a zoning constraint)
+2. Model the happy path + 2–3 violation cases as `Decidable` propositions
+3. Build a minimal widget panel showing ✓/✗ with the violated rule named
+4. Show it to a domain expert who has never heard of Lean and ask if they can use it
+
+**Parking note:** This is an independent project thread, not part of U/SFT. Natural home would be a new repo or a T.Ops epic when the time comes. USM `Care.lean` is the seed.
