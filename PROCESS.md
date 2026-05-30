@@ -1,4 +1,4 @@
-# Process Procedures
+# Process
 
 ## Git Hygiene Requirement
 
@@ -12,17 +12,17 @@ Required rules:
    - optional artifact regeneration for release.
 3. Before opening a PR or tagging a release, run:
    - `git status --short`
-   - `./.venv/Scripts/python.exe scripts/paper_status.py`
+   - `./.venv/Scripts/python.exe paper/scripts/paper_status.py`
 4. Keep large generated outputs in ignored paths (`dist/`, generated status files, generated media).
 5. If a generated file must be versioned for a release, add it intentionally in a dedicated commit with a clear message.
 
 ### Generated Quantum Artifacts Policy
 
-`instrument/quantum_*.csv`, `instrument/quantum_*.png`, and generated `.gif` outputs are treated as build/runtime artifacts.
+`apps/instrument/quantum_*.csv`, `apps/instrument/quantum_*.png`, and generated `.gif` outputs are treated as build/runtime artifacts.
 
 - They are ignored by default and should not be re-added accidentally.
-- If you need to publish a figure/table in git history, copy it to a curated path first (for example, `paper/figures/`) and commit that curated file only.
-- Do not commit raw sweep outputs directly from `instrument/` unless explicitly required for a reproducibility milestone.
+- If you need to publish a figure/table in git history, copy it to a curated path first (e.g. `paper/soma/quantum-soma-penrose/`) and commit that curated file only.
+- Do not commit raw sweep outputs directly from `apps/instrument/` unless explicitly required for a reproducibility milestone.
 
 ## Recommended Commit Order
 
@@ -31,13 +31,13 @@ Required rules:
 2. Packaging commit (optional):
    - regenerate bundles and add only release outputs you explicitly want tracked.
 3. Release note commit:
-   - update `DIARY.md` and any status docs intended for history.
+   - update `paper/FIELD-NOTES.md` and any status docs intended for history.
 
 ## No-APC Publication Process
 
-1. arXiv submission for `paper/mathematical-co-identification.md`.
-2. bioRxiv revision for `paper/soma-field-paper.md`.
-3. PsyArXiv/OSF preprint for `paper/music-affect-dynamics.md`.
+1. arXiv submission for `paper/soma/mathematical-co-identification/`.
+2. bioRxiv revision for `paper/soma/soma-field-paper/`.
+3. PsyArXiv/OSF preprint for `paper/soma/music-affect-dynamics/`.
 4. Record IDs/URLs in project logs and regenerate release packages.
 
 Use these operational files:
@@ -88,7 +88,7 @@ Use this for first-time uploads (new papers, datasets, supplementary materials).
 Use this at the start of any new AI chat session (GitHub Copilot in VS Code, or Claude Sonnet/Opus native or via Copilot). Paste verbatim:
 
 ```
-Session start. Read: FIELD-NOTES.md (last 40 lines) and PROCESS_PROCEDURES.md.
+Session start. Read: FIELD-NOTES.md (last 40 lines) and PROCESS.md.
 Then run: git status -sb in repos U, Me, T.Ops.
 Summarise: what was last worked on, current git state, and what's next. Then wait.
 ```
@@ -98,7 +98,7 @@ Summarise: what was last worked on, current git state, and what's next. Then wai
 **For Claude native (claude.ai Sonnet/Opus):**
 1. Create a **Project** called `[T]-Theory/U`
 2. Set system prompt = contents of `U/.github/copilot-instructions.md`
-3. Add `U/PROCESS_PROCEDURES.md` as project knowledge
+3. Add `U/PROCESS.md` as project knowledge
 4. Then paste the session starter above in each new conversation
 
 **Open workspace command:**
