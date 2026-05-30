@@ -235,6 +235,9 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ### P5 — The Physical Substrate of the Soma-Field
 
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460357
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460358
 **Record type:** Preprint
 **Title:** The Physical Substrate of the Soma-Field
 **Subtitle:** Biotensegrity, Fascial Interoception, and Bioelectric Correlates of Emotional Field Dynamics
