@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+                        "name": "ITI-Theory/U",
+                        "path": ".."
+                },
+                {
+                        "name": "ITI-Theory/T",
+                        "path": "../../T"
+                },
+                {
+                        "name": "ITI-Theory/T.Ops",
+                        "path": "../../T.Ops"
+                },
+                {
+                        "name": "ITI-Theory/U.Dot",
+                        "path": "../../U.Dot"
+                },
+                {
+                        "name": "ITI-Theory/U.Ops",
+                        "path": "../../U.Ops"
+                },
+                {
+                        "name": "ITI-Theory/.github-private",
+                        "path": "../../.github-private"
+                },
+                {
+                        "name": "Me/chats",
+                        "path": "../../../Me/chats"
+                },
+                {
+                        "name": "ITI-Theory/Dist",
+                        "path": "../../Dist"
+                },
+                {
+                        "name": "ITI-Theory/.github",
+	"settings": {}
+}
