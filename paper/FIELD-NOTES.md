@@ -1865,3 +1865,50 @@ Remaining `AI-NOTES.md` and `AI-NOTES-GEN-CLEAN.md` are extracted chat transcrip
 
 ### Hardware in hand
 ×3 Android tablets + Arch notebook on desk. Phase 2 hardware setup begins tonight.
+
+## 2026-05-31 — Infrastructure: provisioning, Xpra, InputLeap, HAL stack notes
+
+Session: Phase 2 infrastructure — tablet + multi-screen setup documented.
+
+### Decisions made
+- **Keyboard/mouse sharing: InputLeap** (confirmed across Xinerama.md,
+  hacker_aesthetic.md). Active successor to Barrier/Synergy. Server on P14s
+  Windows; clients on WSL2 Arch + all 3 tablets.
+- **Display teleportation: Xpra** ("screen for X11"). App runs on P14s WSL2
+  CPU; display attaches to any tablet over LAN. Not Xinerama, not VNC.
+- **Dotfiles: U.Dot authoritative** for all U-lane machines (P14s WSL2 Arch +
+  tablet PRoot Arch). Me/Dot = staging only, do not use for provisioning.
+- **Hardware clarified**: only one notebook — P14s (Windows 11 + WSL2 Arch).
+  No separate bare metal Arch machine. Tablets = Android + Termux + PRoot Arch.
+- **Documentation home**: HAL = source of truth; Tech.md = step-by-step
+  narrative; AJ-WiKi = personal/bookmarks only, do not over-edit.
+
+### Work completed
+- `T.Dot/provisioning/tablets/hosts` — Ansible inventory (3 tablets, port 8022,
+  Termux python, become=false)
+- `T.Dot/provisioning/tablets/site.yml` — Ansible playbook: Termux layer
+  (proot-distro, git, U.Dot + T.Dot clone, HAL symlink) + Arch PRoot layer
+  (xfce4, xpra, picom, conky, dotfile symlinks, Xpra verify)
+- `HAL notes tablets` — IPs, bootstrap sequence, Xpra commands, Ansible note,
+  tablet roles
+- `HAL notes dotfiles` — lane assignment decision documented
+- `HAL notes stack` — full device stack: P14s Windows/WSL2 apps, tablet apps,
+  InputLeap config, Xpra config, soma-field instrument roles per device
+- `AJ-WiKi/Tech.md §Tablets` — Ansible + Xpra steps added in-line
+
+### Bootstrap sequence
+  1. Each tablet (manual):  `pkg install openssh && sshd`
+  2. P14s WSL2 (manual):    `ssh-copy-id -p 8022 u0_aNNN@10.205.183.NNN` × 3
+  3. P14s WSL2 (automated): `ansible-playbook T.Dot/provisioning/tablets/site.yml`
+  4. P14s Windows:          Install InputLeap server, point at WSL2 + tablet IPs
+
+### Commits
+  T.Dot 06f6712, 8157ca0, a8902f7, + stack notes commit
+  AJ-WiKi e551682
+
+### Next
+  1. P14s WSL2: run Ansible playbook against all 3 tablets (need sshd running first)
+  2. InputLeap: install server on P14s Windows, test kbd/mouse on one tablet
+  3. Write conky.conf (fields: field state values, CPU, time)
+  4. Keychron encoder: xev → conky-dim.sh → i3 binding
+  5. soma-field instrument: wire Tablet 1 OSC monitor, Tablet 2 Companion panel
