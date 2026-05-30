@@ -70,11 +70,14 @@ Use this for first-time uploads (new papers, datasets, supplementary materials).
 1. Go to [zenodo.org](https://zenodo.org) → **New upload**
 2. Upload the file(s)
 3. Set **Resource type** (Publication → Preprint for papers; Other for demo/notes)
-4. Fill **Title** and other metadata (authors, description, licence CC BY 4.0, publication date)
-5. Add **Related identifiers** for companion records (use concept DOIs).
-   For each entry, fill fields in this order: **Identifier → Scheme (DOI) → Relation → Resource type**
-   - `IsCitedBy` / `Cites` — papers this work builds on
-   - `IsSupplementedBy` / `IsSupplementTo` — datasets, proofs
-   - `IsPartOf` — omnibus collection
-6. **Save** → **Publish**
-8. Record concept DOI in `paper/ZENODO_RELEASE_SHEETS.md` and update `.github-private/profile/README.md`
+4. Fill **Title**
+5. Fill **Publication date**
+6. Fill **Author(s)**
+7. Fill remaining metadata: description, licence (CC BY 4.0)
+8. Add **Related identifiers** for companion records (use concept DOIs).
+   For each entry, fill fields in this order: **Relation → Identifier → Scheme (DOI) → Resource type**
+   - `Is cited by` / `Cites` — papers this work builds on
+   - `Is supplemented by` / `Is supplement to` — datasets, proofs
+   - `Is part of` — omnibus collection
+9. **Save** → **Publish**
+10. Record concept DOI in `paper/ZENODO_RELEASE_SHEETS.md` and update `.github-private/profile/README.md`
