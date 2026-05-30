@@ -60,6 +60,7 @@ Use this when a paper has been updated (e.g. acknowledgements added, corrections
 8. Record both DOIs:
    - **Concept DOI** (stable, version-independent) — use this in all cross-references and README links
    - **Version DOI** (this specific upload) — record in `paper/ZENODO_RELEASE_SHEETS.md`
+9. Update `.github-private/profile/README.md` with the new version DOI (if that paper is listed there)
 
 **Note:** The concept DOI never changes between versions. Always cite the concept DOI in papers and READMEs.
 
