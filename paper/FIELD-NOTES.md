@@ -1761,3 +1761,30 @@ It's a VS Code webview side panel (TypeScript + webpack + CSS, running in VS Cod
 **The substitution:** Replace lean-scribe's LLM prompt logic with a constraint validator that reads `{{ diagnostics }}` / `{{ errors }}` from the active `.lean` file and renders them as domain-language rule results.
 
 Start point for the constraint-checker project: fork lean-scribe's panel, strip the LLM layer, wire to a domain rule `.lean` file.
+
+---
+
+## 2026-05-30 — HAL migration: U.Dot → T.Dot; HAL prime packs
+
+**Decision:** HAL is a T-level tool, not U-lane. Created `ITI-Theory/T.Dot` as the
+first repo on any new device. U.Dot/bin/HAL reduced to a shim that forwards to T.Dot.
+
+**Architecture:**
+- T.Dot/bin/HAL — canonical HAL (bash, Linux/Termux)
+- T.Dot/bin/HAL.bat — canonical HAL (Windows)
+- U.Dot/bin/HAL — shim (exec T.Dot/bin/HAL "$@")
+
+**Boot sequence now explicit:**
+1. `git clone ITI-Theory/T.Dot` → `T.Dot/bin/HAL init` (any device)
+2. `git clone ITI-Theory/U.Dot` → desktop configs (U-lane workstation only)
+
+**HAL prime packs implemented:**
+`HAL prime [papers] [lean] [process] [issues]`
+- base: instructions + FIELD-NOTES tail-40 + git status
+- papers: all U/paper/*.md paper sources (lowercase-named only)
+- lean: all U/src/*.lean proof files
+- process: full PROCESS_PROCEDURES.md
+- issues: open GitHub issues via gh CLI (T.Ops, U, U.Ops)
+
+Same architecture as webpack: entry point + named modules → single stdout stream.
+This is the cross-device AI context bundler. Termux, WSL, Windows — one command.
