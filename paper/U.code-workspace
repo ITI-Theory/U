@@ -41,6 +41,10 @@
 		},
 		{
 			"path": "../../../AJ-WiKi"
+		},
+		{
+			"name": "[T]-Theory/T.Dot",
+			"path": "../../T.Dot"
 		}
 	],
 	"settings": {}
