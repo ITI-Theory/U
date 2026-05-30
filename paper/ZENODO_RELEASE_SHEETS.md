@@ -346,6 +346,9 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 ### P9 — Music-Induced Affect Dynamics
 
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460685
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460686
 **Record type:** Preprint
 **Title:** A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex
 **File to upload:** `bld/music-affect-dynamics.pdf`
