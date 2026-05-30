@@ -318,6 +318,9 @@ bld/soma-field-book.pdf          (primary — A4 academic layout)
 
 ### P8 — The Tensor
 
+**Status:** PUBLISHED — uploaded 2026-05-30
+**Concept DOI:** https://doi.org/10.5281/zenodo.20460613
+**v1 DOI:** https://doi.org/10.5281/zenodo.20460614
 **Record type:** Other (creative/technical document)
 **Title:** The Tensor: An Abstract Film Definition
 **File to upload:** `bld/the-tensor.pdf`
