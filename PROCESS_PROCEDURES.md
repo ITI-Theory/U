@@ -54,7 +54,7 @@ Use this when a paper has been updated (e.g. acknowledgements added, corrections
 2. Click **New version** — file list starts empty
 3. **Upload** the new PDF from `paper/bld/<paper-name>.pdf`
 4. Click **Get a DOI** → generate the new version DOI
-5. Fill **What's changed** with a one-line description (e.g. `Added Acknowledgements section`)
+5. Click **Add description** → type the version note (e.g. `Added Acknowledgements section`)
 6. **Save** → **Publish**
 8. Record both DOIs:
    - **Concept DOI** (stable, version-independent) — use this in all cross-references and README links
