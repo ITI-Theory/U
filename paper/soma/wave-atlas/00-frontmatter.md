@@ -23,6 +23,12 @@ lang: en
 \frontmatter
 
 \thispagestyle{empty}
+\begin{center}
+\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{soma/wave-atlas/figures/F0_1_cover.png}
+\end{center}
+\newpage
+
+\thispagestyle{empty}
 \vspace*{0.3\textheight}
 \begin{center}
 {\Huge\bfseries The Wave That Is Always There}\\[1em]
