@@ -32,6 +32,11 @@ fractions of a per cent.
 Fields in the Solar Atmosphere. I. Preliminary Report," *Astrophysical
 Journal* 135 (1962): 474–99, <https://doi.org/10.1086/147285>.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{soma/wave-atlas/figures/F4_2_helioseismology.png}
+\end{figure}
+
 > **Figure 4.1** *(PUBLIC)* — A spherical-harmonic mode of the Sun, of
 > low degree, rendered as a deformation. *Credit: NASA / GONG project;
 > public domain.*

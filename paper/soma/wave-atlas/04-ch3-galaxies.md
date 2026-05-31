@@ -62,6 +62,11 @@ not because they contain more matter, but because they contain
 have drifted out of the arm where they were born. The arm is a moving
 *site of star formation*, not a moving assembly of stars.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{soma/wave-atlas/figures/F3_2_density_wave.png}
+\end{figure}
+
 > **Figure 3.2** *(BUILD)* — Schematic of a galactic density wave. Gas
 > streamlines (blue) flow through the slower-moving pattern of higher
 > density (orange). Stars form in the compression zone on the trailing

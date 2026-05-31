@@ -92,6 +92,11 @@ Dimensions," *Nuclear Physics B* 443 (1995): 85–126,
 arXiv:hep-th/9503124. The paper that initiated what is now called the
 *Second Superstring Revolution*.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{soma/wave-atlas/figures/F15_3_mtheory.png}
+\end{figure}
+
 > **Figure 15a.2** *(BUILD)* — The "M-theory hexagon": five
 > ten-dimensional superstring theories arranged around the perimeter,
 > with eleven-dimensional M-theory in the centre. Arrows indicate the

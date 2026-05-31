@@ -49,6 +49,15 @@ the ball out. The person *stuck* in a trauma response is the ball stuck
 at the bottom of a deep valley, waiting for either an external lift or
 an internal reshaping of the landscape.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{soma/wave-atlas/figures/F12_1_landscape.png}
+
+\vspace{0.4em}
+
+\includegraphics[width=0.85\linewidth]{soma/wave-atlas/figures/F12_2_trajectory.png}
+\end{figure}
+
 > **Figure 12.1** *(BUILD)* — Two energy landscapes side by side. *Left:*
 > a healthy landscape with several shallow valleys, easily traversed.
 > *Right:* a trauma-shaped landscape with one deep, narrow valley

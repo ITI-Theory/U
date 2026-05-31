@@ -271,7 +271,7 @@ WAVE_ATLAS_ROYAL_FLAGS := \
   -V toccolor=NavyBlue \
   -V hyperxmp=false \
   -V monofont="Consolas" \
-  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}\usepackage{graphicx}\graphicspath{{./}{soma/wave-atlas/figures/}{figures/}}" \
   --lua-filter=strip-keywords.lua
 
 WAVE_ATLAS_A4_FLAGS := \

@@ -42,6 +42,11 @@ ten cycles per second: the alpha rhythm of a calm human brain.
 The same equation governs all of them. Different substrate, different
 speed, different scale; same equation.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F1_1_standing_wave.png}
+\end{figure}
+
 > **Figure 1.1** — Standing waves on a string at four amplitudes. As the
 > energy in the string increases, the same shape returns, just larger. The
 > shape is determined by the boundary conditions, not by the energy. We

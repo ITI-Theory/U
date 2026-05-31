@@ -29,6 +29,11 @@ thermal forcing.[^holton]
 Dynamic Meteorology*, 5th ed. (Waltham, MA: Academic Press, 2012). The
 standard graduate textbook.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{soma/wave-atlas/figures/F5_1_earth_football.png}
+\end{figure}
+
 > **Figure 5.1** *(PUBLIC)* — A global Rossby-wave pattern in the
 > northern jet stream, satellite view, with the meanders highlighted.
 > *Credit: NOAA; public domain.*

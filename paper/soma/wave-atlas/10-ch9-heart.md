@@ -25,6 +25,15 @@ wave by about 50 milliseconds.
 The whole sequence repeats roughly once a second, every second, for
 about three billion beats over a typical human life.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{soma/wave-atlas/figures/F9_3_ecg.png}
+
+\vspace{0.4em}
+
+\includegraphics[width=0.85\linewidth]{soma/wave-atlas/figures/F9_1_hrv.png}
+\end{figure}
+
 > **Figure 9.1** *(PUBLIC)* — A standard 12-lead ECG, with the P wave,
 > QRS complex, and T wave labelled. *Credit: NIH; public domain.*
 

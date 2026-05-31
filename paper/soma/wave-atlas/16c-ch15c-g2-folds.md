@@ -103,6 +103,11 @@ different gauge group in the four-dimensional effective theory:
 | $E_7$ | $E_7$ | Seven-fold (rare; observed once, hypervigilance complex) |
 | $E_8$ | $E_8$ | Eight-fold; we conjecture this is the full soma-field |
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{soma/wave-atlas/figures/F15_2_g2.png}
+\end{figure}
+
 > **Figure 15c.1** *(BUILD; pair, recto-verso)* — *Left:* recumbent
 > fold in the Helvetic nappes, photographed at outcrop. *Right:* a
 > schematic $A_2$ catastrophe singularity in a G$_2$ manifold. The

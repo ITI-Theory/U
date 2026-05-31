@@ -17,6 +17,11 @@ ratio of daughter-to-parent diameter is the same to within a few
 per cent. If you stripped the colour and the scale bar from each image,
 a non-specialist could not tell which is which.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F8_4_fractal_dims.png}
+\end{figure}
+
 > **Figure 8.1** *(PUBLIC + ORIGINAL)* — Triptych: the Lena Delta in
 > Siberia (NASA Landsat); an oak in winter (original photograph, Zurich
 > 2026); a resin cast of human bronchial tree (Wikimedia, CC). *All

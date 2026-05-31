@@ -131,6 +131,11 @@ in hypervigilance* (the classical anxiety-without-trigger experience).
 Sixteen real numbers per point per time, in summary. A modest field, by
 the standards of physics.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F11_2_eight_modes.png}
+\end{figure}
+
 > **Figure 11.2** — The eight modes of the field, mapped to the body.
 > Each mode has a dominant somatic region (fight in the jaw and
 > shoulders; flight in the chest and limbs; freeze in the gut and

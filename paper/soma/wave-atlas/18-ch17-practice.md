@@ -28,6 +28,16 @@ of doing it once a day, most people report that the difference between
 "I am stressed" and "I am at rest" has become a noticeable, namable
 quantity, where before it was only a vague mood.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F17_1_breath.png}
+\end{figure}
+
+> **Figure 17.1** — A breath drawn as a wave at the resonance frequency
+> (6 breaths per minute). The five-second inhale / five-second exhale
+> entrains the cardiovascular baroreflex at its natural frequency, which
+> is why this particular tempo has an outsized effect on HRV.
+
 You have just begun to read your own soma field. The first piece of
 information you can extract is the *amplitude of the respiratory
 sinus arrhythmia* — the swing of the heart rate across the breath.

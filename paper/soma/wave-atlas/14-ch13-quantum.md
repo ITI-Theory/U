@@ -162,6 +162,19 @@ Three further analyses were carried out:
    before the maximum-amplitude part of the wave reaches the top.
    *Animation: `paper/soma/quantum-soma-penrose/quantum_experiment_3d.gif`.*
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F13_1_quant_exp.png}
+
+\vspace{0.4em}
+
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F13_2_tunnelling.png}
+
+\vspace{0.4em}
+
+\includegraphics[width=0.78\linewidth]{soma/wave-atlas/figures/F13_3_schedule.png}
+\end{figure}
+
 > **Figure 13.1** *(BUILD)* — A single frame of the quantum-trajectory
 > animation: the wave packet straddling the barrier with substantial
 > density on both sides. *From the published animation.*
