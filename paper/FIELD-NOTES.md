@@ -1912,3 +1912,72 @@ Session: Phase 2 infrastructure — tablet + multi-screen setup documented.
   3. Write conky.conf (fields: field state values, CPU, time)
   4. Keychron encoder: xev → conky-dim.sh → i3 binding
   5. soma-field instrument: wire Tablet 1 OSC monitor, Tablet 2 Companion panel
+
+---
+
+## Session: 31 May 2026 — Ansible tablet provisioning: playbook green
+
+### Context
+Continued from Phase 2 hardware session. Ran the Ansible playbook against all 3
+tablets (Lenovo IdeaPad, arm64 Android + Termux). Hit and fixed a sequence of
+real-world bugs. Playbook is now passing through to proot Arch pacman install.
+
+### Bugs fixed (all in T.Dot/provisioning/tablets/site.yml)
+
+1. **proot-distro v5 list format** (commit 2e6a6ae, 2f1470f)
+   v5 is a complete Python rewrite. `list` output contains ANSI escape codes and
+   leading spaces (e.g. `  * archlinux`). The `grep -q '^archlinux'` anchor never
+   matched. Fixed: `grep -q 'archlinux'` (no anchor, stderr redirect).
+
+2. **`t_home` undefined under `--tags`** (commit f4d1a71)
+   Capture HOME/PREFIX and set_fact tasks had no tag so were skipped when running
+   with `--tags`. Fixed: `tags: always` on both tasks.
+
+3. **Git re-run "local modifications"** (commit b994b43)
+   T.Dot was cloned by the playbook, then playbook changes were committed back
+   to T.Dot — re-run detected "local modifications, cannot fast-forward". Fixed:
+   `force: true` on both git clone tasks (T.Dot + U.Dot).
+
+4. **U.Dot private repo / HTTPS auth** (commit 720e627)
+   U.Dot is private; HTTPS clone hung for credentials. Switched to SSH deploy
+   keys. ITI-Theory org had deploy keys disabled by policy — user re-enabled at
+   org member privileges settings. Generated ed25519 keys in Termux `~/.ssh/` on
+   all 3 tablets via playbook, printed pubkeys, user manually added all 3 as
+   read-only deploy keys on ITI-Theory/U.Dot/settings/keys.
+
+5. **proot-distro v5 arm64 image** (commits 7c87fd3, ea2571e)
+   The `archlinux` Docker image is amd64-only. arm64 requires
+   `danhunsaker/archlinuxarm:latest --name archlinux`.
+
+### Results at session end
+| Task | Status |
+|---|---|
+| SSH key auth to all 3 tablets | ✅ |
+| Termux packages (proot-distro, openssh, python, git, x11-repo, termux-x11) | ✅ |
+| proot-distro Arch Linux ARM installed (named 'archlinux') | ✅ |
+| T.Dot cloned (all 3) | ✅ |
+| SSH deploy keys generated on all 3 tablets | ✅ |
+| github.com in known_hosts (all 3) | ✅ |
+| U.Dot cloned via SSH deploy key (all 3) | ✅ |
+| HAL symlinks into `$PREFIX/bin` (all 3) | ✅ |
+| proot Arch pacman install (xfce4 + xpra + picom stack) | 🔄 running at session end |
+| proot dotfile symlinks | ❌ pending |
+| SSH key inside proot Arch | ❌ pending |
+| WSL2 play (p14s) | ❌ pending |
+
+### Deploy keys (record)
+- tablet1: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0HTAX8S0z9mg9P+dmXd9oj0ErzUzHCvcqZjkk/SXqh`
+- tablet2: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH01zE5W0i130PScsasDMN1K313JhT1tegCT+lNYKMm2`
+- tablet3: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEsaXuXcCPicqoQpYknQfXEEHXskoRnhSjBAoPU5zgUP`
+
+### Commits
+  T.Dot: ea2571e → 7c87fd3 → 4e30200 → 2e6a6ae → 2f1470f → 720e627 → f4d1a71 → b994b43
+  (8 commits ahead of origin/main at session end — push pending)
+
+### Next
+  1. Wait for pacman task to complete; check proot SSH keygen + dotfile symlink tasks
+  2. Push T.Dot (8 commits ahead)
+  3. Verify HAL works on a tablet: `ssh -p 8022 ... "HAL prime"`
+  4. Proot Arch: generate SSH key, add to GitHub for U repo access if needed
+  5. InputLeap server on P14s Windows
+  6. conky.conf for soma-field field state display
