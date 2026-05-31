@@ -247,6 +247,101 @@ $(BUILDDIR)/the-tensor.pdf: the-tensor.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS)
 	@echo "Built: $@"
 
+# -----------------------------------------------------------------------------
+# Wave Atlas — coffee-table book (in drafting)
+# Royal 156x234mm sewn case-bound, twoside, openany.
+# Source: soma/wave-atlas/*.md (numbered prefix sets concatenation order).
+# -----------------------------------------------------------------------------
+WAVE_ATLAS_DIR := soma/wave-atlas
+WAVE_ATLAS_SRC := $(sort $(wildcard $(WAVE_ATLAS_DIR)/[0-9]*.md))
+
+WAVE_ATLAS_ROYAL_FLAGS := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  --toc-depth=1 \
+  -V documentclass=book \
+  -V classoption=openany \
+  -V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=6mm" \
+  -V fontsize=11pt \
+  -V linestretch=1.35 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
+  --lua-filter=strip-keywords.lua
+
+WAVE_ATLAS_A4_FLAGS := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  --toc-depth=1 \
+  -V documentclass=book \
+  -V classoption=openany \
+  -V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=22mm,bottom=22mm" \
+  -V fontsize=11pt \
+  -V linestretch=1.4 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
+  --lua-filter=strip-keywords.lua
+
+.PHONY: wave-atlas wave-atlas-a4 wave-atlas-all
+
+wave-atlas: | $(BUILDDIR)
+	@echo "Wave Atlas sources:"
+	@for f in $(WAVE_ATLAS_SRC); do echo "  $$f"; done
+	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas.pdf $(WAVE_ATLAS_ROYAL_FLAGS)
+	@echo "Built: $(BUILDDIR)/wave-atlas.pdf"
+
+wave-atlas-a4: | $(BUILDDIR)
+	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas-a4.pdf $(WAVE_ATLAS_A4_FLAGS)
+	@echo "Built: $(BUILDDIR)/wave-atlas-a4.pdf"
+
+wave-atlas-all: wave-atlas wave-atlas-a4
+
+# Wave Atlas translations — assemble body, translate via LLM, build PDFs.
+# Requires OPENAI_API_KEY in paper/.keys.local for translate-wave-atlas,
+# or DEEPL_API_KEY for translate-wave-atlas-deepl.
+
+WAVE_ATLAS_BODY := $(BUILDDIR)/wave-atlas-body.md
+
+$(WAVE_ATLAS_BODY): $(WAVE_ATLAS_SRC) | $(BUILDDIR)
+	cat $(WAVE_ATLAS_SRC) > $@
+	@echo "Assembled: $@ ($$(wc -w < $@) words)"
+
+.PHONY: wave-atlas-body translate-wave-atlas translate-wave-atlas-deepl \
+	wave-atlas-de wave-atlas-fr wave-atlas-it wave-atlas-translations
+
+wave-atlas-body: $(WAVE_ATLAS_BODY)
+
+translate-wave-atlas: $(WAVE_ATLAS_BODY)
+	$(PYTHON) $(SCRIPTS)/translate_papers.py wave-atlas-body --model gpt-4o-mini
+
+translate-wave-atlas-deepl: $(WAVE_ATLAS_BODY)
+	$(PYTHON) $(SCRIPTS)/translate_papers.py wave-atlas-body --backend deepl
+
+wave-atlas-de: | $(BUILDDIR)
+	$(PANDOC) $(BUILDDIR)/wave-atlas-body.de.md -o $(BUILDDIR)/wave-atlas.de.pdf $(WAVE_ATLAS_ROYAL_FLAGS) -V lang=de
+	@echo "Built: $(BUILDDIR)/wave-atlas.de.pdf"
+
+wave-atlas-fr: | $(BUILDDIR)
+	$(PANDOC) $(BUILDDIR)/wave-atlas-body.fr.md -o $(BUILDDIR)/wave-atlas.fr.pdf $(WAVE_ATLAS_ROYAL_FLAGS) -V lang=fr
+	@echo "Built: $(BUILDDIR)/wave-atlas.fr.pdf"
+
+wave-atlas-it: | $(BUILDDIR)
+	$(PANDOC) $(BUILDDIR)/wave-atlas-body.it.md -o $(BUILDDIR)/wave-atlas.it.pdf $(WAVE_ATLAS_ROYAL_FLAGS) -V lang=it
+	@echo "Built: $(BUILDDIR)/wave-atlas.it.pdf"
+
+wave-atlas-translations: wave-atlas-de wave-atlas-fr wave-atlas-it
+
 $(BUILDDIR)/%.pdf: %.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) # $(CITE_FLAGS)
 	@echo "Built: $@"
