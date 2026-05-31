@@ -1981,3 +1981,80 @@ real-world bugs. Playbook is now passing through to proot Arch pacman install.
   4. Proot Arch: generate SSH key, add to GitHub for U repo access if needed
   5. InputLeap server on P14s Windows
   6. conky.conf for soma-field field state display
+
+---
+
+## Session: 31 May 2026 — XFCE4 + Barrier working; screen switching confirmed
+
+### Context
+Continuation of Phase 2 hardware session. Goal: get 3 Android tablets running
+as external XFCE4 desktops, keyboard/mouse shared from P14s via Barrier.
+
+### What changed from Ansible to Barrier
+Previous session had Arch Linux ARM as the proot distro. During this session the
+proot was switched to **Debian bookworm** (arm64) — more reliable package
+availability for xfce4/barrier stack. site.yml updated accordingly.
+
+### Key bugs resolved
+
+1. **`dbus-launch` not found in Debian bookworm**
+   `dbus-launch` is not in the `dbus` package — it's in `dbus-x11` (not installed).
+   Fix: use `dbus-run-session` (ships with `dbus-daemon`, already present).
+   Working xfce4 start: `DISPLAY=:0 dbus-run-session -- xfce4-session`
+
+2. **barrierc address syntax**
+   `10.133.134.136:24800` was treated as an option flag. Fix: pass address as bare
+   positional arg, add `--display :0` separately:
+   `barrierc --no-tray --disable-crypto --name Tablet2 --display :0 10.133.134.136`
+
+3. **SSL mismatch**
+   Windows Barrier 2.4.0 has SSL enabled by default; Linux client uses
+   `--disable-crypto`. Fix: uncheck "Enable SSL" in Barrier GUI Edit → Settings,
+   then Stop + Start server.
+
+4. **proot `--kill-on-exit` kills barrierc on SSH disconnect**
+   When SSH session closes, the proot-distro wrapper exits, `--kill-on-exit` kills
+   all child processes including barrierc. Fix: wrap in `tmux` (installed via
+   `pkg install tmux`) and add a `while` retry loop so proot is a child of tmux,
+   not SSH.
+
+   Working persistent command:
+   ```bash
+   TMPDIR=/data/data/com.termux/files/usr/tmp \
+   tmux new-session -d -s barrier \
+     "TMPDIR=... proot-distro login debian --bind ... -- \
+      bash -c 'while true; do DISPLAY=:0 barrierc --no-tray --disable-crypto \
+        --name TabletN --display :0 10.133.134.136; sleep 3; done'"
+   ```
+
+### Results at session end
+
+| Item | Status |
+|---|---|
+| Termux:X11 running on all 3 tablets | ✅ |
+| XFCE4 session via dbus-run-session in proot Debian | ✅ all 3 |
+| tmux 3.6b installed on all 3 tablets | ✅ |
+| Barrier server on P14s (SSL off, Tablet1/2/3 configured) | ✅ |
+| barrierc in tmux while-loop (tablet2 + tablet3) | ✅ confirmed alive |
+| Screen switching confirmed (Barrier log: switch to Tablet2) | ✅ |
+| Tablet1 barrierc tmux session | ❌ sshd dropped (tablet went to sleep) |
+| barrier.conf committed to T.Dot | ❌ pending |
+| barrierc + xfce4-session in Ansible site.yml | ❌ pending |
+| termux-wake-lock on each tablet | ❌ needed to prevent sleep |
+
+### SSH details (current)
+- tablet1: `u0_a304@10.133.134.207` port 8022
+- tablet2: `u0_a360@10.133.134.219` port 8022
+- tablet3: `u0_a297@10.133.134.110` port 8022
+- Barrier server (P14s): `10.133.134.136` port 24800
+- Screen names in Barrier GUI: `Tablet1`, `Tablet2`, `Tablet3` (capital T)
+
+### Restart checklist (next session)
+1. Wake all 3 tablets — unlock screens, open Termux app
+2. Run `termux-wake-lock` in Termux on each to prevent sleep
+3. Ensure Termux:X11 app is open and showing XFCE4 desktop on each tablet
+4. Check tablet1 sshd: `ssh -p 8022 u0_a304@10.133.134.207 "echo ok"`
+5. If sshd dead on tablet1: open Termux app manually → `sshd`
+6. Start tmux barrier session on tablet1 (see Tech.md Barrier section)
+7. Commit barrier.conf: copy `%APPDATA%\Barrier\barrier.conf` → `T.Dot/provisioning/tablets/barrier.conf`, git commit
+8. Add xfce4-session + barrierc tmux startup tasks to `T.Dot/provisioning/tablets/site.yml`
