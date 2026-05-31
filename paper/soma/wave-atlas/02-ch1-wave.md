@@ -16,6 +16,10 @@ its shape long enough to be observed at the far end.
 
 That is a wave.
 
+\begin{quote}\small\itshape
+My daughter, age 5, asked me what a wave was. I said: imagine you have a long line of dominoes and you tip the first one. The dominoes don't go anywhere but the falling-over goes from one end to the other. That's a wave. She thought about it for a while and said: but Daddy, the dominoes do go somewhere, they fall over. I had to concede the point.
+\end{quote}
+
 If you slow the flick down and keep doing it, the rope settles into a
 shape: a series of crests and troughs that go up and down without
 travelling. That is a *standing wave*. The matter still doesn't go

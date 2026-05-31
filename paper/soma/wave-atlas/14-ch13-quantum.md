@@ -1,4 +1,8 @@
-# Chapter 13 — Quantum Tunnelling, and the Experiment
+# Chapter 13 — Quantum
+
+\begin{quote}\small\itshape
+A physicist I respect once told me: "The trouble with quantum mechanics is that it works." Every experiment we've ever done at the quantum scale has come out consistent with the theory, and yet the theory's interpretation remains, ninety-eight years after Heisenberg's original formulation, openly contested. This is unusual. Most physical theories are either disproven and discarded or accepted and understood. Quantum mechanics is accepted *and* not understood. That is the situation we work in.
+\end{quote} Tunnelling, and the Experiment
 
 \begin{quote}\itshape
 Sometimes the ball arrives on the other side of the hill without ever

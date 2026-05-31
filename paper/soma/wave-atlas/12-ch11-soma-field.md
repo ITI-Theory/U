@@ -1,5 +1,9 @@
 # Chapter 11 — The Soma Field
 
+\begin{quote}\small\itshape
+The word *soma* is Greek for body. It is used here in deliberate contrast to *psyche* (mind) and to *physis* (matter). The soma field is not a field of the mind; it is not a field of the matter of the body. It is a field of the *living configuration* — the thing the body is *doing*, moment to moment, as a wave-bearing system. Choosing the word *soma* was a deliberate refusal to inherit the mind-body split that has bedevilled Western thinking since Descartes.
+\end{quote}
+
 \begin{quote}\itshape
 The wave is always there. This is not a metaphor.
 \end{quote}

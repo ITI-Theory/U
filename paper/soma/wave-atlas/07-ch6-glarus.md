@@ -6,7 +6,9 @@ argument with chronology.
 \end{quote}
 
 \vspace{1em}
-
+\begin{quote}\small\itshape
+A category-theory professor I know was struggling with a Bach fugue for weeks. Her hands wouldn't do it. Eventually she put the score on the table and *drew* it — bass as a slow curve, treble as a faster tangle, inner voices as coloured spaghetti. "Once I saw it was spaghetti, my hands knew what to do." Structural geology, for me, is the same as drawing the Bach. The mountains were already a tangle of voices; the drawing made them playable.
+\end{quote}
 ## 6.0  A note on what we are doing here
 
 The branch of geology we will use throughout this chapter is *structural
