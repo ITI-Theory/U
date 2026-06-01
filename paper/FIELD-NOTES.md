@@ -2097,3 +2097,98 @@ Not pushed. Not tagged. Not Zenodo'd. Local commit only.
 
 Naming convention: P14 (Phase Dot) is the third "book-class" record after
 soma-field-book (P6, "book-C0") and wave-atlas (P12, "book-C1").
+
+---
+
+## 2026-06-02 — Print spec pivot: 4-book tetralogy, A4, Lulu Premium HC, coated
+
+Tonight reframed the entire print order around the new Layout C book template
+(`paper/sandbox/atlas-design/header-C.tex`). The full Wave Atlas built through
+header-C at Crown Quarto 189×246 = 561 pages. That's the catalyst.
+
+### Decisions made
+
+1. **Trim: A4 (210×297mm) across the whole imprint.** Crown Quarto was novel-
+   sized — wrong feel for what is becoming a coffee-table-grade manifesto
+   imprint. A4 also collapses page count (×0.75) and matches European
+   academic-press defaults. One trim, one template, one shelf identity.
+
+2. **Printer: Lulu Premium Hardcover (replaces Blurb ProLine Pearl).** A4 in
+   Premium HC is a native Lulu trim ("A4 Hardcover Casewrap"). 480pp cap on
+   80# coated; 800pp cap on 60# uncoated. ProLine Pearl was the right call
+   when targeting Mohawk Eggshell + cloth wrap, but Lulu's coated A4 is the
+   correct match for a figure-heavy / equation-heavy art-press object.
+
+3. **Paper: 80# matte coated white.** Gallery-grade for figures, equations,
+   penrose diagrams, experiment plots. ~15% cost premium over uncoated,
+   worth it. All four books on the same stock.
+
+4. **Volumes: 4 books × 4 languages = 16 unique titles (the tetralogy).**
+   - Wave Atlas (1 vol, ~420pp A4)
+   - Phase Dot — Volume I (~550pp A4)
+   - Phase Dot — Volume II (~550pp A4)
+   - Omnibus (~245pp A4)
+
+   Phase Dot drops from the earlier 4-volume split to 2 volumes (fits the
+   480pp coated cap with ~30pp slack each). Natural mid-point in Phase
+   structure TBD when split is performed.
+
+5. **Edition: AJ tetralogy set + 6 give-away copies = 22 books.** No retail
+   tier. The 16-book set is AJ's complete multilingual archive; the 6
+   give-aways are likely English Wave Atlases as the public-facing volume
+   (final allocation when ordering).
+
+### Palette mapping (preserved from v1.0, retargeted to tetralogy)
+
+| Volume | Palette | Cloth | Foil | Notes |
+|---|---|---|---|---|
+| Wave Atlas | Event Horizon (cyan) | charcoal black | copper | the wave |
+| Phase Dot I | Axiomatic (B&W) | linen black | copper | the hidden |
+| Phase Dot II | Axiomatic (B&W) | linen black | copper | identical to I from front; only spine numeral differs |
+| Omnibus | Sovereign Singularity (gold) | deep void black | gold | the unification |
+
+Brand identity (sticker, dust jacket, [T] mark, microdot, frontispiece policy,
+typographic apparatus) carries forward from PRINT-SPEC v1.0 unchanged.
+
+### Cost estimate (Lulu Premium HC, A4, 80# coated, casewrap)
+
+Per-book ≈ $7 base + $0.18/page.
+
+- Full 4-book set (EN): ~$346
+- AJ 16-book multilingual: ~$1,385
+- 6 give-aways (mostly Atlas): ~$400
+- Shipping to Zurich: ~$200
+- **Total ≈ $2,000 (≈ CHF 1,800)**
+
+About the same budget as v1.0 (CHF 1,600) but produces 22 art-press hardbacks
+vs 18 museum books. Per-unit cost lower; aggregate similar.
+
+### Layout C — production-quality template
+
+The sandbox `paper/sandbox/atlas-design/header-C.tex` (~225 lines) is now the
+canonical [T]-Theory book template. Will promote to `paper/templates/tt-atlas.tex`
+tomorrow (not tonight — translation queue running, sandbox stays isolated).
+
+Replaces v1.0's Latin Modern + STIX Two plan:
+- Body: IBM Plex Serif Light
+- Display: IBM Plex Sans Thin
+- Math: IBM Plex Math (`\setmathfont`, bare — Path-mode breaks unicode-math)
+- Mono: IBM Plex Mono
+- Lead: 1.42 (luxe)
+- Geometry change tomorrow: 189×246 → 210×297 with proportional margin scaling
+
+Verified A4 build feasibility: `phase-dot-a4.pdf` already exists at 1098 pages
+on bare pandoc (no Layout C). A4 + Layout C will land near 1100pp → 2-vol split.
+
+### Next session
+
+1. Rebuild Wave Atlas at A4 + Layout C, confirm exact page count
+2. Promote `header-C.tex` → `paper/templates/tt-atlas.tex`
+3. Update Makefile for A4 geometry across all 4 books
+4. Define Phase Dot split point (`assemble_book.py`)
+5. Render dust jacket art for the tetralogy (4 books, same sticker DNA)
+6. Lulu cover template downloads (per spine width once page counts final)
+
+Translation queue still running unattended (phase-dot in progress).
+Patched `translate_papers.py` for 413 token-overflow rotation working.
+
