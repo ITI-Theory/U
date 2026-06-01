@@ -23,9 +23,10 @@ STATE=bld/.queue_state
 mkdir -p bld
 touch "$STATE"
 
-# Model rotation pool — each has its own daily bucket on GitHub Models free tier.
-# Order: small/fast first, big/slow as fallback.
-MODELS="gpt-4o-mini,gpt-4o,Mistral-large-2411,Meta-Llama-3.3-70B-Instruct,Phi-3.5-MoE-instruct,Cohere-command-r-plus-08-2024"
+# Model rotation pool — real GitHub Models chat models (verified via
+# https://models.inference.ai.azure.com/models on 2026-06-01).  Each model
+# has its own daily request bucket on the free tier.
+MODELS="gpt-4o-mini,gpt-4o,Meta-Llama-3.1-405B-Instruct,Meta-Llama-3.1-8B-Instruct"
 
 # Queue: paper-stem (translate_papers.py figures out langs by checking bld/)
 # But translate_papers translates ALL three langs per invocation by default.
