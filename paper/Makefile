@@ -54,7 +54,7 @@ PYTHON  := /c/Users/alist/.env/Scripts/python.exe
 SCRIPTS := scripts
 
 # Find paper .md sources in soma/ subdirs (one dir per paper)
-vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:ai-method
+vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:soma/preverbal-manifold:ai-method
 
 # API keys — stored in paper/.keys.local (gitignored, never commit this file).
 # Format of .keys.local:
@@ -110,18 +110,20 @@ PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method music synthesis substrate omnibus omnibus-royal omnibus-a4 \
+.PHONY: all main pov book tensor method music synthesis substrate preverbal omnibus omnibus-royal omnibus-a4 \
         omnibus-plus \
 	omnibus-royal-de omnibus-royal-fr omnibus-royal-it \
 	omnibus-a4-de omnibus-a4-fr omnibus-a4-it \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
-all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf omnibus omnibus-plus
+all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf $(BUILDDIR)/preverbal-manifold.pdf omnibus omnibus-plus
 
 main: $(BUILDDIR)/soma-field-paper.pdf
 
 pov: $(BUILDDIR)/soma-field-patient-pov.pdf
+
+preverbal: $(BUILDDIR)/preverbal-manifold.pdf
 
 book: $(BUILDDIR)/soma-field-book.pdf
 
