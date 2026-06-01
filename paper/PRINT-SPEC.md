@@ -87,14 +87,15 @@ The full brand sticker (`paper/figures/t-theory-sticker.svg`) is:
 
 **Sticker placement policy:**
 
-- **NOT on the cover.** The cloth cover bears the [T] mark *only* (no QR, no
-  circle, no white background). Foil stamping a QR is unreliable and the
-  QR's URL has a shorter half-life than the foil.
+- **NOT foil-stamped on the cloth cover.** The cloth bears the [T] mark *only*
+  (no QR, no circle). Foil-stamping a QR is unreliable and the QR's URL has
+  a shorter half-life than the foil. The cloth cover is the eternal layer.
+- **YES on the dust jacket — as the dust jacket.** See §4 Dust Jacket.
+  The jacket *is* the sticker, blown up to book scale. All six volumes.
 - **YES on the frontispiece.** First inside page of every volume: the full
   sticker, printed in black on the recto, ~80mm diameter, centred.
 - **YES on the colophon.** Small mono version (~25mm) bottom-left next to
   the copyright statement.
-- **YES on the dust jacket flap.** Wave Atlas only, small inset.
 
 ### Palette assignment per volume
 
@@ -173,19 +174,44 @@ Top → bottom, European reading direction (rotated 90° clockwise from front):
   - IT: `IT`
 - That is the only mark on the back. The cloth is the statement.
 
-### Dust jacket — Wave Atlas only
-- Printed colour wrap over the cloth (5/0 process colour, matte laminate)
-- Front: full-bleed neon-mesh field-art (TBD — render from
-  `apps/instrument/` field engine at 300 dpi, 219×276 mm trim + 15 mm bleed
-  each side for Crown Quarto)
-- Back: trilogy series statement, ISBN-style identifier, copyright,
-  edition note, blurb (~120 words)
-- Spine: mirrors the cloth spine underneath, in cyan on black process,
-  with optional white [T] mark
-- Inside flaps:
-  - Front flap: book blurb, ~80 words
-  - Back flap: author bio, ORCID, link to https://github.com/ITI-Theory,
-    the full sticker (small, inset)
+### Dust jacket — all 6 volumes (the sticker, book-scale)
+
+**Core idea:** the dust jacket *is* the wall sticker, scaled up. Same
+artwork, same QR, same mystery. Pick the book up and you see the sticker
+from across the room. Take the jacket off (or wear it through) and you're
+left with cloth + a tiny foil [T] and nothing else — the monastic layer
+underneath. Two mysteries, one book. The jacket is the loud version; the
+cloth is the quiet version. Both work.
+
+Jackets are cheap. If a jacket gets cracked or battered, throw it away —
+the book is still a book. That disposability is part of the move: the
+sticker has always been a thing that gets stuck somewhere and eventually
+falls off. The jacket honours that.
+
+**Spec (identical across all 6 volumes, sized to each trim):**
+
+- Printed colour wrap over the cloth, 1/0 (black ink only on white stock),
+  matte laminate — single colour to keep the sticker DNA pure
+- **Front:** black field, full bleed. Centred over the front panel: the full
+  sticker artwork from `paper/figures/t-theory-sticker.svg` — white `[T]`
+  top half, white QR code bottom half, no other marks. Roughly 60% of the
+  front-panel width. This is the same artwork that goes on walls; the only
+  thing that changes is scale.
+- **Spine:** thin white `[T]` mark at head, thin white `JOHNSON` at foot,
+  nothing else. No title on the jacket spine — the title lives on the
+  cloth spine underneath, in foil. (Stranger in a bookshop scenario doesn't
+  apply; these are not for sale.)
+- **Back:** the QR alone, smaller (~40mm), bottom-right. No blurb, no text,
+  no ISBN. The QR is its own back-cover statement.
+- **Inside front flap:** one line in white on black, IBM Plex Sans light,
+  10pt centred: *"[T] — the field is real."* Nothing else.
+- **Inside back flap:** ORCID + Zenodo concept-DOI of the volume + URL
+  `github.com/ITI-Theory`, all in 8pt white on black, bottom-aligned. The
+  bookkeeping. Out of the way.
+
+No per-volume variation on the jacket. All six look identical from across
+the room. Differentiation lives on the cloth underneath (spine title +
+volume number for Phase Dot).
 
 ---
 
@@ -321,11 +347,16 @@ Add ~CHF 150 for one or two hard-proof sample volumes before final order →
 - [ ] [T] foil die vector — extract `[T]`-only path from `t-theory-sticker.svg`,
       strip the circle background and QR, outline text, export as
       100% K vector PDF for Blurb
-- [ ] Wave Atlas dust jacket art — render from `apps/instrument/` field engine
+- [ ] Generate the 6 dust-jacket layouts — same sticker artwork scaled to
+      each trim + spine width, 1/0 black on white, matte laminate
 - [ ] Write `templates/tt-book.tex`
 - [ ] Add `palette`, `volume_number`, `volume_role` metadata fields to each
       volume's source YAML
-- [ ] Distil `paper/soma/t-theory/t-theory.md` into a 1-page **series statement** (wave/dot/unified + Field Realism declaration); decide whether the full manifesto also prints as the **preface of Collected Works (Vol III)** — recommended yes
+- [ ] Distil `paper/soma/t-theory/t-theory.md` into a 1-page **series statement**
+      (wave/dot/unified + Field Realism declaration). `t-theory.md` is a
+      **bridge document to Phase 2** — it is referenced, not enshrined.
+      Do NOT print the full manifesto as a preface; the 1-page distillation
+      plus the colophon line is enough.
 - [ ] Update `.github/profile/README.md` for the QR landing
 - [ ] Order one **hard proof** of Phase Dot Vol I before placing full order
 - [ ] (Optional) Decide if **gift recipients** want their names foil-stamped
