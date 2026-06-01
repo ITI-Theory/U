@@ -54,7 +54,7 @@ PYTHON  := /c/Users/alist/.env/Scripts/python.exe
 SCRIPTS := scripts
 
 # Find paper .md sources in soma/ subdirs (one dir per paper)
-vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:soma/preverbal-manifold:ai-method
+vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:soma/preverbal-manifold:soma/phase-dot:ai-method
 
 # API keys — stored in paper/.keys.local (gitignored, never commit this file).
 # Format of .keys.local:
@@ -539,3 +539,86 @@ omnibus-plus: | $(BUILDDIR)
 	@printf '\n\n---\n\n' >> $(BUILDDIR)/omnibus-body-plus.md
 	@cat SFT-DEMO-CASE.md >> $(BUILDDIR)/omnibus-body-plus.md
 	@echo "Built: $(BUILDDIR)/omnibus-body-plus.md"
+
+# -----------------------------------------------------------------------------
+# Phase Dot — the Conversations book (assembled from Me/chats by
+# Me/chats/assemble_book.py).  Royal 156x234mm sewn + A4 duplex.
+# -----------------------------------------------------------------------------
+PHASE_DOT_SRC := soma/phase-dot/phase-dot.md
+
+PHASE_DOT_ROYAL_FLAGS := \
+  --pdf-engine=$(ENGINE) \
+  --from=markdown-tex_math_dollars-tex_math_single_backslash-tex_math_double_backslash-raw_tex \
+  --standalone \
+  --toc \
+  --toc-depth=1 \
+  -V documentclass=book \
+  -V classoption=openany \
+  -V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=6mm" \
+  -V fontsize=11pt \
+  -V linestretch=1.35 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
+  --lua-filter=strip-keywords.lua
+
+PHASE_DOT_A4_FLAGS := \
+  --pdf-engine=$(ENGINE) \
+  --from=markdown-tex_math_dollars-tex_math_single_backslash-tex_math_double_backslash-raw_tex \
+  --standalone \
+  --toc \
+  --toc-depth=1 \
+  -V documentclass=book \
+  -V classoption=openany \
+  -V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=22mm,bottom=22mm" \
+  -V fontsize=11pt \
+  -V linestretch=1.4 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
+  --lua-filter=strip-keywords.lua
+
+.PHONY: phase-dot phase-dot-a4 phase-dot-all phase-dot-assemble \
+        translate-phase-dot translate-phase-dot-deepl \
+        phase-dot-de phase-dot-fr phase-dot-it phase-dot-translations
+
+phase-dot-assemble:
+	$(PYTHON) ../../../Me/chats/assemble_book.py
+
+phase-dot: | $(BUILDDIR)
+	$(PANDOC) $(PHASE_DOT_SRC) -o $(BUILDDIR)/phase-dot.pdf $(PHASE_DOT_ROYAL_FLAGS)
+	@echo "Built: $(BUILDDIR)/phase-dot.pdf"
+
+phase-dot-a4: | $(BUILDDIR)
+	$(PANDOC) $(PHASE_DOT_SRC) -o $(BUILDDIR)/phase-dot-a4.pdf $(PHASE_DOT_A4_FLAGS)
+	@echo "Built: $(BUILDDIR)/phase-dot-a4.pdf"
+
+phase-dot-all: phase-dot phase-dot-a4
+
+translate-phase-dot:
+	$(PYTHON) $(SCRIPTS)/translate_papers.py phase-dot --model gpt-4o-mini
+
+translate-phase-dot-deepl:
+	$(PYTHON) $(SCRIPTS)/translate_papers.py phase-dot --backend deepl
+
+phase-dot-de: | $(BUILDDIR)
+	$(PANDOC) $(BUILDDIR)/phase-dot.de.md -o $(BUILDDIR)/phase-dot.de.pdf $(PHASE_DOT_ROYAL_FLAGS) -V lang=de
+	@echo "Built: $(BUILDDIR)/phase-dot.de.pdf"
+
+phase-dot-fr: | $(BUILDDIR)
+	$(PANDOC) $(BUILDDIR)/phase-dot.fr.md -o $(BUILDDIR)/phase-dot.fr.pdf $(PHASE_DOT_ROYAL_FLAGS) -V lang=fr
+	@echo "Built: $(BUILDDIR)/phase-dot.fr.pdf"
+
+phase-dot-it: | $(BUILDDIR)
+	$(PANDOC) $(BUILDDIR)/phase-dot.it.md -o $(BUILDDIR)/phase-dot.it.pdf $(PHASE_DOT_ROYAL_FLAGS) -V lang=it
+	@echo "Built: $(BUILDDIR)/phase-dot.it.pdf"
+
+phase-dot-translations: phase-dot-de phase-dot-fr phase-dot-it

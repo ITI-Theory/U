@@ -2058,3 +2058,42 @@ availability for xfce4/barrier stack. site.yml updated accordingly.
 6. Start tmux barrier session on tablet1 (see Tech.md Barrier section)
 7. Commit barrier.conf: copy `%APPDATA%\Barrier\barrier.conf` → `T.Dot/provisioning/tablets/barrier.conf`, git commit
 8. Add xfce4-session + barrierc tmux startup tasks to `T.Dot/provisioning/tablets/site.yml`
+
+---
+
+## 2026-06-01 — Phase Dot book (P14 / book-C2) — EN built
+
+The Phase 0 conversations are now a book: `paper/soma/phase-dot/phase-dot.md`.
+Assembled by `Me/chats/assemble_book.py` from 21 .md transcripts in `Me/chats/`
+plus `Me/archive/sessions/AI-NOTES-GEN-CLEAN.md` (the developer-side Copilot
+transcript) as Part II.
+
+Structure:
+- Preface (frank: Feb 2026 7000 CHF legal bill → 4-month phone-under-blanket
+  → COVID-hospital trigger → 18mo septic arthritis hospitalisation as the
+  ground state)
+- Part I — Conversations (19 chats, chronological, April–May 2026)
+- Part II — The Build (the AI-NOTES Copilot transcript)
+- Appendix A — The Hacker Aesthetic (the SMM derivation; was the planned P12
+  methodology paper, folded in as appendix to save a Zenodo record)
+- Appendix B — The Tau Cross (the [T]-Theory brand derivation)
+
+Two-pass strip applied by the assembler:
+- Pass 1: Google AI / Gemini / Copilot UI boilerplate, "Use code with caution",
+  trailing "Would you like / Should I" filler, citation noise, image-grid dumps
+- Pass 2: third-party private names → role nouns (a lawyer, a friend); phone/
+  email scrubbed; jail anecdote in Social Hours augmented with the higher-court
+  100 CHF compensation finding (the arrest was ruled unlawful, the officers
+  fined). Mother stays. Public figures stay. Brand names stay.
+
+Builds:
+- bld/phase-dot.pdf       — Royal 156×234mm, 1813 pp, 3.5 MB
+- bld/phase-dot-a4.pdf    — A4 duplex, 1098 pp, 3.1 MB
+
+Translations to DE/FR/IT pending — paper/.keys.local missing (no OPENAI_API_KEY
+or DEEPL_API_KEY). Same for wave-atlas and omnibus translations.
+
+Not pushed. Not tagged. Not Zenodo'd. Local commit only.
+
+Naming convention: P14 (Phase Dot) is the third "book-class" record after
+soma-field-book (P6, "book-C0") and wave-atlas (P12, "book-C1").
