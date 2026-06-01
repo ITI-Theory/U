@@ -164,22 +164,36 @@ leave untranslated if no standard equivalent exists.
 
 
 def _llm_translate(client, text: str, label: str, model: str) -> str:
-    """Send text to the LLM and return the translation."""
-    response = client.chat.completions.create(
-        model=model,
-        temperature=0.2,
-        messages=[
-            {"role": "system", "content": LLM_SYSTEM.format(label=label)},
-            {"role": "user",   "content": text},
-        ],
-    )
-    return response.choices[0].message.content
+    """Send text to the LLM and return the translation. Retries on transient errors."""
+    import time as _time
+    last_err = None
+    for attempt in range(6):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                temperature=0.2,
+                messages=[
+                    {"role": "system", "content": LLM_SYSTEM.format(label=label)},
+                    {"role": "user",   "content": text},
+                ],
+            )
+            content = response.choices[0].message.content
+            if content is None:
+                # content filter or empty response — surface and retry shorter
+                raise RuntimeError(f"empty response (finish_reason={response.choices[0].finish_reason})")
+            return content
+        except Exception as e:
+            last_err = e
+            delay = min(60, 5 * (2 ** attempt))
+            print(f"\n      [retry {attempt+1}/6 after {delay}s] {type(e).__name__}: {e}", flush=True)
+            _time.sleep(delay)
+    raise RuntimeError(f"LLM call failed after 6 attempts: {last_err}")
 
 
-# GitHub Models free tier limit is ~8k tokens per request.
-# Keep chunks well under that: 18 000 chars ≈ 4 500 tokens leaves room for
-# the system prompt (~500 t) and a full-length translation response (~3 000 t).
-_MAX_CHUNK_CHARS = 18_000
+# GitHub Models free tier limit is ~4k tokens per response on gpt-4o-mini.
+# Keep chunks small enough that prompt+response fits comfortably: 8 000 chars
+# ≈ 2 000 tokens input + ~2 500 tokens output room.
+_MAX_CHUNK_CHARS = 8_000
 
 
 def _split_chunks(text: str, max_chars: int = _MAX_CHUNK_CHARS) -> list:

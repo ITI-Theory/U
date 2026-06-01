@@ -53,3 +53,7 @@ instrument/*_summary.png
 instrument/*_briefing.png
 instrument/quantum_*.png
 instrument/quantum_*.csv
+
+# Translation chunk cache (resume state, intermediate only)
+paper/bld/.chunk_cache/
+paper/bld/translate.log

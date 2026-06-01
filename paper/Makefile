@@ -295,7 +295,27 @@ WAVE_ATLAS_A4_FLAGS := \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
   --lua-filter=strip-keywords.lua
 
-.PHONY: wave-atlas wave-atlas-a4 wave-atlas-all
+# Crown Quarto experiment — 189×246mm (larger than Royal 156×234, OpenStax-ish feel).
+WAVE_ATLAS_CROWN_FLAGS := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  --toc-depth=1 \
+  -V documentclass=book \
+  -V classoption=openany \
+  -V "geometry=paperwidth=189mm,paperheight=246mm,twoside,inner=24mm,outer=20mm,top=24mm,bottom=26mm,bindingoffset=6mm" \
+  -V fontsize=11pt \
+  -V linestretch=1.35 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}\usepackage{graphicx}\graphicspath{{./}{soma/wave-atlas/figures/}{figures/}}" \
+  --lua-filter=strip-keywords.lua
+
+.PHONY: wave-atlas wave-atlas-a4 wave-atlas-all wave-atlas-crown
 
 wave-atlas: | $(BUILDDIR)
 	@echo "Wave Atlas sources:"
@@ -308,6 +328,11 @@ wave-atlas-a4: | $(BUILDDIR)
 	@echo "Built: $(BUILDDIR)/wave-atlas-a4.pdf"
 
 wave-atlas-all: wave-atlas wave-atlas-a4
+
+wave-atlas-crown: | $(BUILDDIR)
+	@echo "Building Wave Atlas (Crown Quarto 189×246mm) from $(words $(WAVE_ATLAS_SRC)) source files..."
+	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas-crown.pdf $(WAVE_ATLAS_CROWN_FLAGS)
+	@echo "Built: $(BUILDDIR)/wave-atlas-crown.pdf"
 
 # Wave Atlas translations — assemble body, translate via LLM, build PDFs.
 # Requires OPENAI_API_KEY in paper/.keys.local for translate-wave-atlas,
