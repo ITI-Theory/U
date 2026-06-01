@@ -48,7 +48,19 @@ in book form.
 
 ---
 
-## 3. Brand identity — sourced from `paper/soma/phase-dot/phase-dot.md` §M-Theory Logo
+## 3. Brand identity — sourced from `paper/soma/phase-dot/phase-dot.md` §M-Theory Logo and `paper/soma/t-theory/t-theory.md` (manifesto)
+
+### The Movement — Field Realism
+
+The books belong to a named art movement, declared in `t-theory.md` on 28 May 2026:
+
+> Da Vinci said geometry is real. The Surrealists said the unconscious is real.
+> The Field Realists say the field is real.
+
+The trilogy is the **founding corpus of Field Realism**. The colophon of every
+volume must carry the line *"First-edition artefact of the Field Realist
+movement, Zürich 2026."* The series statement page (see §5 apparatus) is a
+1-page distillation of `t-theory.md`.
 
 ### The Mark — `[T]`
 
@@ -208,7 +220,7 @@ Order, front → back:
 3. **Frontispiece**: the full sticker, ~80mm, printed black, centred (recto)
 4. **Title page**: `[T]` mark small at top, full title, subtitle, author, year, place; horizontal copper/gold rule at base
 5. **Title verso (copyright page)**: copyright, ORCID, Zenodo DOI of source, edition statement (`First edition · Zürich · 2026 · Set N of 4`), CC-BY-4.0 statement, ISBN if any, printer (`Printed and bound by Blurb, Inc. on Mohawk Eggshell 148gsm`)
-6. **Series statement** page: `[T]-Theory Phase 1 · Volume N of 6` + a one-paragraph statement of the wave/dot duality and where this volume sits in it
+6. **Series statement** page: `[T]-Theory Phase 1 · Volume N of 6` + a one-page distillation of `paper/soma/t-theory/t-theory.md` (the Field Realism manifesto — Vitruvian parallel, tensor/trance pun, sticker as cultural seed, this volume's place in the wave/dot/unified triad)
 7. **Dedication** (recto, italic, single line — TBD)
 8. *Verso blank*
 9. **Table of contents**
@@ -313,7 +325,7 @@ Add ~CHF 150 for one or two hard-proof sample volumes before final order →
 - [ ] Write `templates/tt-book.tex`
 - [ ] Add `palette`, `volume_number`, `volume_role` metadata fields to each
       volume's source YAML
-- [ ] Compose **series statement** paragraph (wave/dot/unified)
+- [ ] Distil `paper/soma/t-theory/t-theory.md` into a 1-page **series statement** (wave/dot/unified + Field Realism declaration); decide whether the full manifesto also prints as the **preface of Collected Works (Vol III)** — recommended yes
 - [ ] Update `.github/profile/README.md` for the QR landing
 - [ ] Order one **hard proof** of Phase Dot Vol I before placing full order
 - [ ] (Optional) Decide if **gift recipients** want their names foil-stamped
