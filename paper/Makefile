@@ -111,13 +111,12 @@ PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 # -----------------------------------------------------------------------------
 
 .PHONY: all main pov book tensor method music synthesis substrate preverbal omnibus omnibus-royal omnibus-a4 \
-        omnibus-plus \
 	omnibus-royal-de omnibus-royal-fr omnibus-royal-it \
 	omnibus-a4-de omnibus-a4-fr omnibus-a4-it \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
-all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf $(BUILDDIR)/preverbal-manifold.pdf omnibus omnibus-plus
+all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf $(BUILDDIR)/preverbal-manifold.pdf omnibus
 
 main: $(BUILDDIR)/soma-field-paper.pdf
 
@@ -555,16 +554,6 @@ $(BUILDDIR)/%.fr.pdf: $(BUILDDIR)/%.fr.md | $(BUILDDIR)
 $(BUILDDIR)/%.it.pdf: $(BUILDDIR)/%.it.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS_IT)
 	@echo "Built: $@"
-# ---------------------------------------------------------------------------
-# Omnibus-plus: omnibus body + SFT demo case (for LLM review / upload)
-# ---------------------------------------------------------------------------
-omnibus-plus: | $(BUILDDIR)
-	$(PYTHON) $(SCRIPTS)/build_omnibus.py
-	@cat $(BUILDDIR)/omnibus-body.md > $(BUILDDIR)/omnibus-body-plus.md
-	@printf '\n\n---\n\n' >> $(BUILDDIR)/omnibus-body-plus.md
-	@cat SFT-DEMO-CASE.md >> $(BUILDDIR)/omnibus-body-plus.md
-	@echo "Built: $(BUILDDIR)/omnibus-body-plus.md"
-
 # -----------------------------------------------------------------------------
 # Phase Dot — the Conversations book (assembled from Me/chats by
 # Me/chats/assemble_book.py).  Royal 156x234mm sewn + A4 duplex.

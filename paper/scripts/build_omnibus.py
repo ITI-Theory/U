@@ -92,6 +92,10 @@ STRUCTURE = [
 
     (r"\newpage",
      "soma-field-patient-pov"),
+
+    # Part III: Clinical case study — closing chapter
+    (r"\newpage" "\n\n" r"\part{Part III: Clinical Demonstration}",
+     "SFT-DEMO-CASE"),
 ]
 
 # ---------------------------------------------------------------------------

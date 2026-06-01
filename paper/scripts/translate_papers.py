@@ -164,13 +164,29 @@ leave untranslated if no standard equivalent exists.
 
 
 def _llm_translate(client, text: str, label: str, model: str) -> str:
-    """Send text to the LLM and return the translation. Retries on transient errors."""
-    import time as _time
+    """Send text to the LLM and return the translation.
+
+    `model` may be a comma-separated list of fallback models.  On a rate-limit
+    (429) error from the current model we rotate to the next one immediately
+    without waiting (each GitHub Models model has its own daily bucket).  On
+    other transient errors we back off exponentially against the current model.
+    If every model in the list is rate-limited, we sleep until UTC midnight
+    (when the daily buckets reset) and retry once more.
+    """
+    import time as _time, datetime as _dt
+    models = [m.strip() for m in str(model).split(",") if m.strip()]
+    if not models:
+        models = ["gpt-4o-mini"]
+    exhausted = set()  # models that returned 429 this call
     last_err = None
-    for attempt in range(6):
+    idx = 0
+    for attempt in range(60):
+        if not models:
+            raise RuntimeError("no models configured")
+        active = models[idx % len(models)]
         try:
             response = client.chat.completions.create(
-                model=model,
+                model=active,
                 temperature=0.2,
                 messages=[
                     {"role": "system", "content": LLM_SYSTEM.format(label=label)},
@@ -179,15 +195,33 @@ def _llm_translate(client, text: str, label: str, model: str) -> str:
             )
             content = response.choices[0].message.content
             if content is None:
-                # content filter or empty response — surface and retry shorter
                 raise RuntimeError(f"empty response (finish_reason={response.choices[0].finish_reason})")
             return content
         except Exception as e:
             last_err = e
-            delay = min(60, 5 * (2 ** attempt))
-            print(f"\n      [retry {attempt+1}/6 after {delay}s] {type(e).__name__}: {e}", flush=True)
+            msg = str(e)
+            is_rate = "429" in msg or "RateLimit" in msg or "rate limit" in msg.lower()
+            if is_rate:
+                exhausted.add(active)
+                remaining = [m for m in models if m not in exhausted]
+                if remaining:
+                    next_model = remaining[0]
+                    print(f"\n      [rate-limit on {active}, rotating to {next_model}]", flush=True)
+                    idx = models.index(next_model)
+                    continue
+                # all models hit daily cap — sleep until UTC midnight + 60s
+                now = _dt.datetime.utcnow()
+                tomorrow = (now + _dt.timedelta(days=1)).replace(hour=0, minute=1, second=0, microsecond=0)
+                sleep_s = max(60, int((tomorrow - now).total_seconds()))
+                print(f"\n      [all {len(models)} models rate-limited; sleeping {sleep_s}s until UTC midnight reset]", flush=True)
+                _time.sleep(sleep_s)
+                exhausted.clear()
+                idx = 0
+                continue
+            delay = min(60, 5 * (2 ** min(attempt, 5)))
+            print(f"\n      [retry {attempt+1} after {delay}s on {active}] {type(e).__name__}: {e}", flush=True)
             _time.sleep(delay)
-    raise RuntimeError(f"LLM call failed after 6 attempts: {last_err}")
+    raise RuntimeError(f"LLM call failed after 60 attempts: {last_err}")
 
 
 # GitHub Models free tier limit is ~4k tokens per response on gpt-4o-mini.
