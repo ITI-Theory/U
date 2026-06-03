@@ -1,0 +1,16 @@
+% chat-head.tex — speaker-turn labels for phase-dot two-column build
+% Included via -H in PHASE_DOT_LETTER_LULU2COL_COMMON.
+% H4 (subsubsection) is used for User/AI turn labels.
+% Styled small and unobtrusive; never appears in TOC at toc-depth=1.
+
+\usepackage{titlesec}
+\usepackage{xcolor}
+\definecolor{chattimecol}{gray}{0.45}
+
+% Redefine \subsubsection: small, sans-serif, gray — not bold, not prominent
+\titleformat{\subsubsection}
+  {\small\sffamily\color{chattimecol}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsubsection}{0pt}{0.7ex plus 0.3ex minus 0.2ex}{0.1ex}

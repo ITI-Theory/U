@@ -2192,3 +2192,33 @@ on bare pandoc (no Layout C). A4 + Layout C will land near 1100pp → 2-vol spli
 Translation queue still running unattended (phase-dot in progress).
 Patched `translate_papers.py` for 413 token-overflow rotation working.
 
+---
+
+## 2026-06-03 — Gestalt paper complete + citeproc wiring
+
+### Session summary
+
+- **gestalt-field-dynamics**: new paper fully onboarded and ready for Zenodo
+  - Added `Historical Context` section (Wertheimer/Lewin/Perls lineage, Russell's two works in context, QFT divergence moment)
+  - Fixed: heading double-numbering, math subscripts, British spelling, table typo (Biamodal→Bimodal)
+  - Proof 2: added W symmetry/negative semi-definite precondition sentence
+  - Conclusion: removed third-person self-reference
+  - References: migrated from hand-written list to pandoc citeproc (`[@key]` inline + nocite block)
+  - 8 new entries added to `bibliography.bib`: wertheimer1912, lewin1936, perls1951, rogers1951, maslow1943, russell1910, russell1921, dirac1928, feynman1948, yangmills1954
+  - Makefile rule: explicit A4 + `$(CITEPROC)` — builds clean at **11 pages**
+- **phase-dot / chat headers**: `chat-headers.lua` + `chat-head.tex` complete — H2 speaker turns → small gray H4, out of TOC. Phase-dot rebuilt at 590pp.
+- **Makefile**: gestalt explicit rule added (A4, citeproc); gestalt wired into `all:` target
+
+### State at shutdown
+- All builds passing
+- Committed (see below)
+- gestalt PDF ready to upload to Zenodo as P10/D2 (new record, not a version of existing)
+- Makefile refactor flagged as next structural task (see below)
+
+### Next session priorities
+1. Zenodo: publish gestalt-field-dynamics (new record)
+2. Makefile refactor — the explicit-rule pattern is now repeated 6+ times; consolidate with a macro or per-paper config include
+3. Wave Atlas rebuild at A4 + Layout C
+4. Promote `header-C.tex` → `paper/templates/tt-atlas.tex`
+5. DUPE_HEADER groups in phase-dot.md (8 groups, 3–31 occurrences each)
+

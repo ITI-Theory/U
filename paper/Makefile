@@ -54,7 +54,7 @@ PYTHON  := /c/Users/alist/.env/Scripts/python.exe
 SCRIPTS := scripts
 
 # Find paper .md sources in soma/ subdirs (one dir per paper)
-vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:soma/preverbal-manifold:soma/phase-dot:ai-method
+vpath %.md soma/soma-field-paper:soma/quantum-soma-penrose:soma/mathematical-co-identification:soma/SFT-DEMO-CASE:soma/soma-field-synthesis:soma/soma-physical-substrate:soma/soma-field-book:soma/soma-field-patient-pov:soma/the-tensor:soma/music-affect-dynamics:soma/t-theory:soma/preverbal-manifold:soma/phase-dot:soma/gestalt-field-dynamics:ai-method
 
 # API keys — stored in paper/.keys.local (gitignored, never commit this file).
 # Format of .keys.local:
@@ -105,24 +105,95 @@ BOOK_FLAGS := \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
   --lua-filter=strip-keywords.lua
 
+# Explicit paper-size variants (FLAGS / BOOK_FLAGS default has no papersize —
+# LaTeX falls back to system default, which is Letter on Windows MiKTeX).
+# Use these when a target must guarantee a specific trim.
+FLAGS_A4 := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  --number-sections \
+  -V "geometry=a4paper,margin=25mm" \
+  -V fontsize=12pt \
+  -V linestretch=1.6 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
+  --lua-filter=strip-keywords.lua
+
+FLAGS_LETTER := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  --number-sections \
+  -V "geometry=letterpaper,margin=1.2in" \
+  -V fontsize=12pt \
+  -V linestretch=1.6 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
+  --lua-filter=strip-keywords.lua
+
+BOOK_FLAGS_A4 := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  -V "geometry=a4paper,margin=25mm" \
+  -V fontsize=12pt \
+  -V linestretch=1.6 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
+  --lua-filter=strip-keywords.lua
+
+BOOK_FLAGS_LETTER := \
+  --pdf-engine=$(ENGINE) \
+  --standalone \
+  --toc \
+  -V "geometry=letterpaper,margin=1.2in" \
+  -V fontsize=12pt \
+  -V linestretch=1.6 \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
+  --lua-filter=strip-keywords.lua
+
 SOURCES := soma-field-paper.md soma-field-patient-pov.md quantum-soma-penrose.md
 PDFS    := $(addprefix $(BUILDDIR)/, $(SOURCES:.md=.pdf))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all main pov book tensor method music synthesis substrate preverbal omnibus omnibus-royal omnibus-a4 \
+.PHONY: all main pov book tensor method music synthesis substrate preverbal gestalt omnibus omnibus-royal omnibus-a4 \
 	omnibus-royal-de omnibus-royal-fr omnibus-royal-it \
 	omnibus-a4-de omnibus-a4-fr omnibus-a4-it \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
-all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf $(BUILDDIR)/preverbal-manifold.pdf omnibus
+all: $(BUILDDIR) $(PDFS) $(BUILDDIR)/soma-field-book.pdf $(BUILDDIR)/the-tensor.pdf $(BUILDDIR)/mathematical-co-identification.pdf $(BUILDDIR)/music-affect-dynamics.pdf $(BUILDDIR)/soma-field-synthesis.pdf $(BUILDDIR)/soma-physical-substrate.pdf $(BUILDDIR)/preverbal-manifold.pdf $(BUILDDIR)/gestalt-field-dynamics.pdf omnibus
 
 main: $(BUILDDIR)/soma-field-paper.pdf
 
 pov: $(BUILDDIR)/soma-field-patient-pov.pdf
 
 preverbal: $(BUILDDIR)/preverbal-manifold.pdf
+
+gestalt: $(BUILDDIR)/gestalt-field-dynamics.pdf
 
 book: $(BUILDDIR)/soma-field-book.pdf
 
@@ -223,6 +294,10 @@ omnibus-a4-it: | $(BUILDDIR)
 
 # Build all 6 translated omnibus PDFs (run translate-omnibus first)
 omnibus-translations: omnibus-royal-de omnibus-royal-fr omnibus-royal-it omnibus-a4-de omnibus-a4-fr omnibus-a4-it
+
+$(BUILDDIR)/gestalt-field-dynamics.pdf: gestalt-field-dynamics.md $(BIB) | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(FLAGS) -V "geometry=a4paper,margin=25mm" $(CITEPROC)
+	@echo "Built: $@"
 
 $(BUILDDIR)/music-affect-dynamics.pdf: music-affect-dynamics.md $(BIB) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(FLAGS) $(CITEPROC)
@@ -600,9 +675,51 @@ PHASE_DOT_A4_FLAGS := \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
   --lua-filter=strip-keywords.lua
 
+# Phase Dot — Letter + two-column, Lulu HC binding (volume-reduction experiment)
+# Goal: fit the full conversations book under Lulu 480pp limit (80# coated).
+# Wider page (215.9mm) + twocolumn reduces page count vs A4 one-column.
+# Three font sizes bracket the 480pp target; build all three and compare.
+# Geometry: Lulu HC Linen Wrap Letter — inner=22mm + bindingoffset=6mm ≈ 28mm
+#           outer=13mm, top/bottom=19mm, columnsep=6mm.
+PHASE_DOT_LETTER_LULU2COL_COMMON := \
+  --pdf-engine=$(ENGINE) \
+  --from=markdown-tex_math_dollars-tex_math_single_backslash-tex_math_double_backslash-raw_tex \
+  --standalone \
+  --toc \
+  --toc-depth=1 \
+  -V documentclass=book \
+  -V classoption="openany,twocolumn" \
+  -V "geometry=letterpaper,twoside,inner=22mm,outer=13mm,top=19mm,bottom=22mm,bindingoffset=6mm,columnsep=6mm" \
+  -V colorlinks=true \
+  -V linkcolor=NavyBlue \
+  -V urlcolor=NavyBlue \
+  -V toccolor=NavyBlue \
+  -V hyperxmp=false \
+  -V monofont="Consolas" \
+  -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}" \
+  --lua-filter=strip-keywords.lua \
+  --lua-filter=twocolumn-tables.lua \
+  --lua-filter=chat-headers.lua \
+  -H chat-head.tex
+
+PHASE_DOT_LETTER_LULU2COL_10_FLAGS := $(PHASE_DOT_LETTER_LULU2COL_COMMON) \
+  -V fontsize=10pt \
+  -V linestretch=1.2
+
+PHASE_DOT_LETTER_LULU2COL_11_FLAGS := $(PHASE_DOT_LETTER_LULU2COL_COMMON) \
+  -V fontsize=11pt \
+  -V linestretch=1.25
+
+PHASE_DOT_LETTER_LULU2COL_12_FLAGS := $(PHASE_DOT_LETTER_LULU2COL_COMMON) \
+  -V fontsize=12pt \
+  -V linestretch=1.3
+
 .PHONY: phase-dot phase-dot-a4 phase-dot-all phase-dot-assemble \
         translate-phase-dot translate-phase-dot-deepl \
-        phase-dot-de phase-dot-fr phase-dot-it phase-dot-translations
+        phase-dot-de phase-dot-fr phase-dot-it phase-dot-translations \
+        phase-dot-royal-lulu phase-dot-a4-lulu \
+        phase-dot-letter-lulu2col-10 phase-dot-letter-lulu2col-11 phase-dot-letter-lulu2col-12 \
+        phase-dot-letter-lulu2col-all
 
 phase-dot-assemble:
 	$(PYTHON) ../../../Me/chats/assemble_book.py
@@ -616,6 +733,25 @@ phase-dot-a4: | $(BUILDDIR)
 	@echo "Built: $(BUILDDIR)/phase-dot-a4.pdf"
 
 phase-dot-all: phase-dot phase-dot-a4
+
+# Descriptive aliases — size + output made explicit
+phase-dot-royal-lulu: phase-dot
+phase-dot-a4-lulu: phase-dot-a4
+
+# Letter two-column variants (volume-reduction experiment)
+phase-dot-letter-lulu2col-10: | $(BUILDDIR)
+	$(PANDOC) $(PHASE_DOT_SRC) -o $(BUILDDIR)/phase-dot-letter-lulu2col-10.pdf $(PHASE_DOT_LETTER_LULU2COL_10_FLAGS)
+	@echo "Built: $(BUILDDIR)/phase-dot-letter-lulu2col-10.pdf"
+
+phase-dot-letter-lulu2col-11: | $(BUILDDIR)
+	$(PANDOC) $(PHASE_DOT_SRC) -o $(BUILDDIR)/phase-dot-letter-lulu2col-11.pdf $(PHASE_DOT_LETTER_LULU2COL_11_FLAGS)
+	@echo "Built: $(BUILDDIR)/phase-dot-letter-lulu2col-11.pdf"
+
+phase-dot-letter-lulu2col-12: | $(BUILDDIR)
+	$(PANDOC) $(PHASE_DOT_SRC) -o $(BUILDDIR)/phase-dot-letter-lulu2col-12.pdf $(PHASE_DOT_LETTER_LULU2COL_12_FLAGS)
+	@echo "Built: $(BUILDDIR)/phase-dot-letter-lulu2col-12.pdf"
+
+phase-dot-letter-lulu2col-all: phase-dot-letter-lulu2col-10 phase-dot-letter-lulu2col-11 phase-dot-letter-lulu2col-12
 
 translate-phase-dot:
 	$(PYTHON) $(SCRIPTS)/translate_papers.py phase-dot --model gpt-4o-mini
