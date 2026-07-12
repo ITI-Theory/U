@@ -43,13 +43,13 @@ BLD_DIR   = PAPER_DIR / "bld"
 
 FRONTMATTER = """\
 ---
-title: "The Soma-Field: Collected Works"
+title: "The Soma-Field: Collected Works — Second Edition"
 author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
 lang: en-GB
-description: "A complete collection of the Soma-Field research programme: from lay introduction to formal proofs, quantum experiment, and clinical applications."
+description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme. Eighteen papers in five parts: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, and the universal scale-invariant theory."
 bibliography: bibliography.bib
 csl: apa-7th.csl
 ---"""
@@ -74,7 +74,7 @@ STRUCTURE = [
     (r"\newpage" "\n\n" r"\part{Interlude: The Tensor --- A Film in Fields}",
      "the-tensor"),
 
-    # Part II: The six formal papers
+    # Part II: The formal apparatus — original six plus gestalt (P10)
     (r"\newpage" "\n\n" r"\part{Part II: The Formal Apparatus}",
      "soma-field-paper"),
 
@@ -91,11 +91,34 @@ STRUCTURE = [
      "music-affect-dynamics"),
 
     (r"\newpage",
+     "gestalt-field-dynamics"),
+
+    # Part III: Clinical demonstrations — patient perspective, demo case, pre-verbal
+    (r"\newpage" "\n\n" r"\part{Part III: Clinical Demonstrations}",
      "soma-field-patient-pov"),
 
-    # Part III: Clinical case study — closing chapter
-    (r"\newpage" "\n\n" r"\part{Part III: Clinical Demonstration}",
+    (r"\newpage",
      "SFT-DEMO-CASE"),
+
+    (r"\newpage",
+     "preverbal-manifold"),
+
+    # Part IV: Extensions and applications
+    # The FM-HN paper unifies 1982 and 2020 Hopfield networks via the soma field.
+    # The swarm paper shows the same Green's function governs drone coordination.
+    # The reader may find the swarm paper surprising; that surprise is the point.
+    (r"\newpage" "\n\n" r"\part{Part IV: Extensions and Applications}",
+     "missing-limbic-layer"),
+
+    (r"\newpage",
+     "swarm-propagator"),
+
+    # Part V: The universal theory — the capstone papers
+    (r"\newpage" "\n\n" r"\part{Part V: The Universal Theory}",
+     "universal-somatic-field"),
+
+    (r"\newpage",
+     "zoomable-somatic-field"),
 ]
 
 # ---------------------------------------------------------------------------
