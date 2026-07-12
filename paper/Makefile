@@ -136,7 +136,7 @@ WAVE_ATLAS_DIR := soma/wave-atlas
 WAVE_ATLAS_SRC := $(sort $(wildcard $(WAVE_ATLAS_DIR)/[0-9]*.md))
 
 WAVE_ATLAS_COMMON := $(RENDER_COMMON) \
-  --resource-path=soma/wave-atlas:soma/wave-atlas/figures \
+  --resource-path="soma/wave-atlas;soma/wave-atlas/figures" \
   -V documentclass=book \
 	-V classoption=openany
 
@@ -153,7 +153,7 @@ WAVE_ATLAS_A4_FLAGS := $(WAVE_ATLAS_COMMON) \
   -V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=22mm,bottom=22mm" \
   -V fontsize=11pt \
   -V linestretch=1.4 \
-  $(WAVE_ATLAS_HEADER_MICRO)
+  $(WAVE_ATLAS_HEADER_GRAPHIC)
 
 # Crown Quarto experiment — 189×246mm (larger than Royal 156×234, OpenStax-ish feel).
 WAVE_ATLAS_CROWN_FLAGS := $(WAVE_ATLAS_COMMON) \

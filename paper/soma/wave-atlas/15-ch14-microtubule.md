@@ -57,14 +57,14 @@ Universe: A Review of the 'Orch OR' Theory," *Physics of Life Reviews*
 The orchestrated objective reduction (*Orch OR*) hypothesis remains
 contested in mainstream neuroscience. The decoherence timescales
 calculated by Max Tegmark in 2000 appeared to rule out microtubule
-quantum effects by many orders of magnitude;[^tegmark] subsequent work
+quantum effects by many orders of magnitude;[^tegmark-mt] subsequent work
 by Hameroff and others has argued that the relevant decoherence
 calculations were too pessimistic, that the microtubule interior is
 protected from the surrounding water by ordered hydration shells, and
 that recent experimental measurements of resonance and conductivity in
 microtubules are consistent with the hypothesis.
 
-[^tegmark]: Max Tegmark, "Importance of Quantum Decoherence in Brain
+[^tegmark-mt]: Max Tegmark, "Importance of Quantum Decoherence in Brain
 Processes," *Physical Review E* 61, no. 4 (2000): 4194–4206.
 
 The honest current state: the microtubule hypothesis is not refuted,
