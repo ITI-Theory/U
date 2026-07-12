@@ -6,6 +6,23 @@ argument with chronology.
 \end{quote}
 
 \vspace{1em}
+
+---
+
+**Scale plate — Chapter 6 (Scale 10: Geological, $10^5$ m)**
+
+| | |
+|---|---|
+| **Physical substrate** | Tectonic plates; Alpine fold-and-thrust belt; Klöntalersee as parabolic resonator |
+| **Interaction field** | Seismic wave field; elastic strain propagator; the lake surface as acoustic Green's function |
+| **Mind matrix** | Crustal stress distribution; geological memory of 250 Myr of collision; the Overthrust as a stored attractor |
+| **Equation setting** | $(\nabla^2 + k^2)G = \delta$; $k = \omega/v_P \approx \omega/6000$ ms$^{-1}$; boundaries: crustal moho below, free surface above |
+| **What interacts** | Plate boundaries via friction; mantle plumes via heat flux; seismic events as impulse sources |
+
+*Chapter 1b (Scale Plates) shows this scale in context with all twenty.*
+
+---
+
 \begin{quote}\small\itshape
 A category-theory professor I know was struggling with a Bach fugue for weeks. Her hands wouldn't do it. Eventually she put the score on the table and *drew* it — bass as a slow curve, treble as a faster tangle, inner voices as coloured spaghetti. "Once I saw it was spaghetti, my hands knew what to do." Structural geology, for me, is the same as drawing the Bach. The mountains were already a tangle of voices; the drawing made them playable.
 \end{quote}
