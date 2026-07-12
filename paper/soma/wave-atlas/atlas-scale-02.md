@@ -97,12 +97,12 @@ field at $x$?*
 
 ---
 
-![The Yukawa potential $V(r) = -g^2 e^{-m r}/r$ plotted against $r$.
-Comparison with the Coulomb potential $V(r) = -e^2/r$ (dashed).
-The Yukawa potential drops to zero exponentially for $r > 1/m$;
-the Coulomb potential extends to infinity. Short-range vs long-range.
-Same G-equation; different $k$.
-*(OpenStax Nuclear Physics, Figure 43.6 adapted)*](figures/yukawa-vs-coulomb-s2-placeholder.pdf){width=80%}
+![The Yukawa potential $e^{-mr}/r$ (solid, nuclear force — Scale 2)
+vs the Coulomb potential $1/r$ (dashed, EM force — Scale 3), both
+on a log scale. The exponential factor makes the nuclear force short-ranged;
+removing it (setting $m=0$, massless photon) gives the Coulomb propagator.
+Same master equation; different wavenumber $k$.
+*(Generated: `FS2_yukawa_vs_coulomb.png`)*](figures/FS2_yukawa_vs_coulomb.png){width=80%}
 
 ---
 

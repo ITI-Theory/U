@@ -156,15 +156,12 @@ heights are different, but the equation is the same.
 
 ---
 
-![Side by side: (left) two conformations of the retinal chromophore
-(Scale 4, $10^{-9}$ m) — two minima of a molecular potential energy
-surface, separated by a barrier. (right) two attractor basins of
-the human soma-field (Scale 8, $10^{0}$ m) — "calm" and "trauma",
-separated by a potential barrier $W$. The double-well shape is identical.
-The photon that crosses the molecular barrier corresponds to the
-music or somatic input that crosses the limbic barrier.
-\textit{The equation has not changed. Only the substrate has.}
-*(Schematic; see LimbicTunnel.lean)*](figures/molecular-limbic-comparison-s4-placeholder.pdf){width=90%}
+![Left: the retinal chromophore double-well (Scale 4, $10^{-9}$ m,
+$W\approx4$ eV) — two conformational minima separated by a barrier.
+Right: the limbic trauma attractor (Scale 8, $10^{0}$ m, $W=10$) —
+two attractor basins separated by a higher barrier. Same double-well
+shape $V(x)=W(x^2-1)^2$, 25 orders of magnitude apart.
+*(Generated: `FS4_molecular_limbic.png`)*](figures/FS4_molecular_limbic.png){width=90%}
 
 ---
 

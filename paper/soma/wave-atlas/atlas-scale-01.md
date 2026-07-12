@@ -20,12 +20,12 @@ $$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')$$
 
 ---
 
-![A string worldsheet: a 1-dimensional string sweeping out a
-2-dimensional surface in spacetime as it moves. The surface is the
-string's history. The vibrational modes of the string are the quantum
-particles at this scale. A closed string (loop) gives gravity; an open
-string (line) gives gauge forces.
-*(OpenStax Modern Physics; string theory schematic)*](figures/string-worldsheet-s1-placeholder.pdf){width=85%}
+![Left: the Simple Harmonic Oscillator — a mass on a spring oscillating
+with frequency $\omega$. Right: the Green's function (impulse response)
+of a damped harmonic system — the field's answer to a unit impulse.
+Both satisfy $\ddot{x}+\omega^2 x=0$ in their source variable.
+These are the same object. The string IS G.
+*(Generated: `FS1_sho_string.png`)*](figures/FS1_sho_string.png){width=85%}
 
 ---
 

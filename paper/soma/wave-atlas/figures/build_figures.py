@@ -485,7 +485,282 @@ def main():
     f15_2_g2()
     f15_3_mtheory()
     f17_1_breath()
+    # --- new scale-chapter figures ---
+    fa_universal_dial()
+    fa_dual_scaling()
+    fa_three_waves()
+    fs0_double_well()
+    fs1_sho_string()
+    fs2_yukawa_vs_coulomb()
+    fs3_four_one_over_r()
+    fs4_molecular_limbic()
+    fs6_wkb_amplitude()
+    fs8_arnold_tongue()
+    fs_softmax_demo()
     print("Done.")
+
+
+# ============================================================
+# NEW FIGURES — scale atlas chapters
+# ============================================================
+
+def fa_universal_dial():
+    """FA — The 20-step universal scale dial (vertical)."""
+    fig, ax = plt.subplots(figsize=(3.5, 9))
+    scales = list(range(21))
+    log_metres = [-35 + n * 3 for n in scales]
+    labels = [
+        "0 Quantum foam", "1 String", "2 Nuclear", "3 Atomic",
+        "4 Molecular", "5 Cellular", "6 Brain/CEMI", "7 Swarms",
+        "8 Organism", "9 City", "10 Geological", "11 Planetary",
+        "12 Orbital", "13 Solar system", "14 Stellar",
+        "15 Galactic arm", "16 Galaxy", "17 Local group",
+        "18 Cosmic web", "19 Observable universe", "20 Universal"
+    ]
+    colors = plt.cm.plasma(np.linspace(0.1, 0.95, 21))
+    for i, (s, lm, lbl, col) in enumerate(zip(scales, log_metres, labels, colors)):
+        ax.barh(i, 1, color=col, alpha=0.7, height=0.8)
+        ax.text(1.05, i, f"$10^{{{lm}}}$ m — {lbl}", va='center', fontsize=7)
+    ax.set_xlim(0, 5.5)
+    ax.set_yticks([])
+    ax.set_xticks([])
+    for s in ax.spines.values():
+        s.set_visible(False)
+    ax.set_title("The 20-Step Scale Dial\n$(\\nabla^2+k^2)G=\\delta$ at every level",
+                 fontsize=9)
+    save(fig, "FA_universal_dial")
+
+
+def fa_dual_scaling():
+    """FA — Physical scale (metres) and mind rank N zoom together."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7, 4), sharey=True)
+    n = np.arange(21)
+    log_m = -35 + 3 * n
+    log_N = [0, 2, 5, 2, 3, 4, 14, 5, 15, 7, 3, 3, 3, 6, 6, 11, 11, 12, 14, 20, 30]
+    ax1.barh(n, log_m, color=ACCENT, alpha=0.7)
+    ax1.set_xlabel("log₁₀(length / m)")
+    ax1.set_title("Physical scale", fontsize=9)
+    ax1.invert_xaxis()
+    ax2.barh(n, log_N, color=WARM, alpha=0.7)
+    ax2.set_xlabel("log₁₀(mind rank N)")
+    ax2.set_title("Mind matrix rank", fontsize=9)
+    for ax in (ax1, ax2):
+        ax.set_yticks(n)
+        ax.set_yticklabels([str(i) for i in n], fontsize=7)
+        for s in ("top", "right"):
+            ax.spines[s].set_visible(False)
+    fig.suptitle("Physical and mind zoom together\n(Dependent Pair Type — cannot zoom independently)",
+                 fontsize=9)
+    plt.tight_layout()
+    save(fig, "FA_dual_scaling")
+
+
+def fa_three_waves():
+    """FA — Same wave shape at three different physical scales."""
+    fig, axes = plt.subplots(1, 3, figsize=(8, 2.5))
+    t = np.linspace(0, 4 * np.pi, 500)
+    y = np.sin(t)
+    titles = ["Ripple on water\n(Scale 7–8, mm–cm)", "Seismic P-wave\n(Scale 10, km)", "Neural action potential\n(Scale 5, mm)"]
+    colors_list = [ACCENT, "#4a8a4a", WARM]
+    for ax, col, title in zip(axes, colors_list, titles):
+        ax.plot(t, y, color=col, lw=1.5)
+        ax.fill_between(t, y, 0, where=y > 0, color=col, alpha=0.15)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_title(title, fontsize=8)
+        for s in ("top", "right", "left"):
+            ax.spines[s].set_visible(False)
+        ax.axhline(0, color="#999", lw=0.5)
+    fig.suptitle("$(\\nabla^2+k^2)G=\\delta$ — three substrates, same wave shape",
+                 fontsize=9)
+    plt.tight_layout()
+    save(fig, "FA_three_waves")
+
+
+def fs0_double_well():
+    """FS0 — The quartic double-well potential V(x) = W(x²-1)²."""
+    fig, ax = plt.subplots(figsize=(5.5, 3.5))
+    x = np.linspace(-1.8, 1.8, 400)
+    for W, col, lbl in [(8, ACCENT, "W=8"), (10, WARM, "W=10"), (12, "#4a8a4a", "W=12")]:
+        V = W * (x**2 - 1)**2
+        ax.plot(x, V, color=col, lw=1.5, label=lbl)
+    ax.axhline(0, color="#ccc", lw=0.5)
+    ax.axvline(-1, color="#999", lw=0.5, ls="--")
+    ax.axvline(1, color="#999", lw=0.5, ls="--")
+    ax.text(-1, -1.5, "trauma\nattractor", ha="center", fontsize=7, color="#666")
+    ax.text(1, -1.5, "resolved\nstate", ha="center", fontsize=7, color="#666")
+    ax.text(0, 8.5, "barrier\nheight W", ha="center", fontsize=7, color="#666")
+    ax.set_xlabel("limbic axis $x$")
+    ax.set_ylabel("$V(x) = W(x^2-1)^2$")
+    ax.set_ylim(-3, 16)
+    ax.legend(fontsize=8, frameon=False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.set_title("The limbic double-well — trauma vs resolved state\n"
+                 "Classical dynamics: trapped. Quantum tunnelling: escape.",
+                 fontsize=9)
+    save(fig, "FS0_double_well")
+
+
+def fs1_sho_string():
+    """FS1 — The SHO is G: harmonic oscillator = impulse response."""
+    fig, axes = plt.subplots(1, 2, figsize=(7.5, 3))
+    t = np.linspace(0, 4 * np.pi, 300)
+    omega = 1.5
+    # Left: SHO oscillation
+    axes[0].plot(t, np.cos(omega * t), color=ACCENT, lw=1.5)
+    axes[0].set_title("Simple Harmonic Oscillator\n$\\ddot{x} + \\omega^2 x = 0$", fontsize=9)
+    axes[0].set_xlabel("time"); axes[0].set_ylabel("$x(t)$")
+    # Right: Green's function G = impulse response
+    tau = np.linspace(0, 6, 300)
+    G = np.exp(-0.3 * tau) * np.cos(omega * tau)
+    axes[1].plot(tau, G, color=WARM, lw=1.5)
+    axes[1].axhline(0, color="#ccc", lw=0.5)
+    axes[1].set_title("Green's function $G(\\tau)$ = impulse response\n"
+                      "$G$ satisfies the SHO equation", fontsize=9)
+    axes[1].set_xlabel("$\\tau = t - t'$"); axes[1].set_ylabel("$G(\\tau)$")
+    for ax in axes:
+        for s in ("top", "right"):
+            ax.spines[s].set_visible(False)
+    fig.text(0.5, 0.01, "These are the same object. The string IS G.", ha="center",
+             fontsize=10, weight="bold", color=INK)
+    plt.tight_layout(rect=[0, 0.08, 1, 1])
+    save(fig, "FS1_sho_string")
+
+
+def fs2_yukawa_vs_coulomb():
+    """FS2 — Yukawa (nuclear) vs Coulomb (EM) propagators."""
+    fig, ax = plt.subplots(figsize=(5.5, 3.5))
+    r = np.linspace(0.01, 5, 500)
+    m_pi = 1.0  # normalised
+    yukawa = np.exp(-m_pi * r) / r
+    coulomb = 1.0 / r
+    ax.semilogy(r, yukawa, color=ACCENT, lw=1.5, label=r"Yukawa: $e^{-m_\pi r}/r$ (nuclear, Scale 2)")
+    ax.semilogy(r, coulomb, color=WARM, lw=1.5, ls="--", label=r"Coulomb: $1/r$ (EM, Scale 3)")
+    ax.axvline(1.0 / m_pi, color=ACCENT, lw=0.7, ls=":", alpha=0.6)
+    ax.text(1.0 / m_pi + 0.1, 2, r"$1/m_\pi$", fontsize=8, color=ACCENT)
+    ax.set_xlabel(r"distance $r$ (normalised)"); ax.set_ylabel(r"$G(r)$")
+    ax.legend(fontsize=8, frameon=False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.set_title("Scale 2→3: massive→massless propagator\n"
+                 "Same equation; $k=m_\\pi$ (Yukawa) vs $k=0$ (Coulomb)", fontsize=9)
+    save(fig, "FS2_yukawa_vs_coulomb")
+
+
+def fs3_four_one_over_r():
+    """FS3 — 1/r appears at four different scales (same G, different substrate)."""
+    fig, axes = plt.subplots(1, 4, figsize=(11, 2.8))
+    r = np.linspace(0.1, 5, 300)
+    G = 1.0 / r
+    titles = ["Electrostatic field\n(Scale 3, Å)", "Sound intensity\nvs distance\n(Scale 8, m)",
+              "Seismic far-field\n(Scale 10, km)", "Gravitational\nfield (Scale 12, AU)"]
+    colors_list = [ACCENT, WARM, "#4a8a4a", "#8a4a8a"]
+    for ax, col, title in zip(axes, colors_list, titles):
+        ax.plot(r, G, color=col, lw=1.5)
+        ax.set_xticks([]); ax.set_yticks([])
+        ax.set_title(title, fontsize=7.5)
+        for s in ("top", "right"):
+            ax.spines[s].set_visible(False)
+    fig.suptitle("$G(r) = 1/r$ — four substrates, one propagator\n"
+                 "The equation has not changed. Only the substrate has.", fontsize=9, y=1.02)
+    plt.tight_layout()
+    save(fig, "FS3_four_one_over_r")
+
+
+def fs4_molecular_limbic():
+    """FS4 — Retinal chromophore double-well vs trauma attractor (same shape, 25 orders of magnitude apart)."""
+    fig, axes = plt.subplots(1, 2, figsize=(8, 3.5))
+    x = np.linspace(-1.8, 1.8, 400)
+    V_mol = 4.0 * (x**2 - 1)**2  # molecular (small W)
+    V_lim = 10.0 * (x**2 - 1)**2  # limbic (large W)
+    axes[0].plot(x, V_mol, color=ACCENT, lw=1.8)
+    axes[0].fill_between(x, V_mol, 0, where=V_mol < 1, color=ACCENT, alpha=0.15)
+    axes[0].set_title("Retinal chromophore\nScale 4: $10^{-9}$ m, $W=4$ eV", fontsize=9)
+    axes[0].text(-1, -1.2, "11-cis\n(dark)", ha="center", fontsize=7)
+    axes[0].text(1, -1.2, "all-trans\n(light)", ha="center", fontsize=7)
+    axes[1].plot(x, V_lim, color=WARM, lw=1.8)
+    axes[1].fill_between(x, V_lim, 0, where=V_lim < 1, color=WARM, alpha=0.15)
+    axes[1].set_title("Limbic trauma attractor\nScale 8: $10^{0}$ m, $W=10$", fontsize=9)
+    axes[1].text(-1, -1.5, "trauma\nstate", ha="center", fontsize=7)
+    axes[1].text(1, -1.5, "resolved\nstate", ha="center", fontsize=7)
+    for ax in axes:
+        ax.set_xlabel("configuration coordinate $x$")
+        ax.set_ylabel("$V(x)$")
+        ax.set_ylim(-3, 20)
+        for s in ("top", "right"):
+            ax.spines[s].set_visible(False)
+    fig.suptitle("Same double-well: $V(x) = W(x^2-1)^2$ — 25 orders of magnitude apart\n"
+                 "The equation has not changed. Only the substrate has.", fontsize=9)
+    plt.tight_layout()
+    save(fig, "FS4_molecular_limbic")
+
+
+def fs6_wkb_amplitude():
+    """FS6 — WKB tunnelling amplitude vs barrier height W."""
+    fig, ax = plt.subplots(figsize=(5.5, 3.5))
+    W = np.linspace(0.1, 15, 300)
+    theta = np.exp(-8 * np.sqrt(2 * W) / 3)
+    ax.semilogy(W, theta, color=ACCENT, lw=2)
+    for W_mark, col in [(8, ACCENT), (10, WARM), (12, "#4a8a4a")]:
+        t_mark = np.exp(-8 * np.sqrt(2 * W_mark) / 3)
+        ax.plot(W_mark, t_mark, 'o', color=col, ms=7)
+        ax.annotate(f"W={W_mark}: Θ≈{t_mark:.1e}", xy=(W_mark, t_mark),
+                    xytext=(W_mark + 0.5, t_mark * 3), fontsize=7.5,
+                    arrowprops=dict(arrowstyle='->', color='#666', lw=0.8))
+    ax.axhline(0, color="#ccc", lw=0.4)
+    ax.set_xlabel("barrier height $W$")
+    ax.set_ylabel(r"$\Theta(W) = \exp(-8\sqrt{2W}/3)$")
+    ax.set_title("WKB tunnelling amplitude (QUANT-EXP-1 barrier sweep)\n"
+                 "Classical rate = 0. Quantum rate = Θ > 0 always.", fontsize=9)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    save(fig, "FS6_wkb_amplitude")
+
+
+def fs8_arnold_tongue():
+    """FS8 — Arnold tongue for two coupled oscillators (Huygens locking)."""
+    fig, ax = plt.subplots(figsize=(5.5, 4))
+    kappa = np.linspace(0, 1.5, 300)
+    delta_omega = np.linspace(-2, 2, 300)
+    K, D = np.meshgrid(kappa, delta_omega)
+    locked = np.abs(D) < K
+    ax.contourf(K, D, locked.astype(float), levels=[0.5, 1.5],
+                colors=[ACCENT], alpha=0.35)
+    ax.contour(K, D, locked.astype(float), levels=[0.5],
+               colors=[ACCENT], linewidths=1.5)
+    ax.axhline(0, color="#888", lw=0.5, ls="--")
+    ax.set_xlabel(r"coupling strength $\kappa = |G_{AB}|$")
+    ax.set_ylabel(r"frequency detuning $\Delta\omega$")
+    ax.text(0.8, 0.0, "LOCKED\n(rapport)", ha="center", va="center",
+            fontsize=9, color=ACCENT, weight="bold")
+    ax.text(0.2, 1.2, "unlocked", ha="center", fontsize=8, color="#888")
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.set_title("Arnold tongue: Huygens frequency locking\n"
+                 "Rapport = two soma-fields locked inside the tongue", fontsize=9)
+    save(fig, "FS8_arnold_tongue")
+
+
+def fs_softmax_demo():
+    """FSx — Correspondence demo: softmax collapses to sign as β→∞."""
+    fig, ax = plt.subplots(figsize=(5.5, 3.5))
+    betas = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 50.0]
+    pos_probs = [np.exp(b * 1.0) / (np.exp(b * 1.0) + np.exp(b * (-1.0))) for b in betas]
+    ax.plot(betas, pos_probs, 'o-', color=ACCENT, lw=1.5, ms=6)
+    ax.axhline(1.0, color=WARM, lw=0.8, ls="--", label="classical sign(+1) = 1")
+    ax.axhline(0.5, color="#999", lw=0.8, ls=":", label="uniform (β=0)")
+    ax.set_xscale("log")
+    ax.set_xlabel(r"inverse temperature $\beta$ (log scale)")
+    ax.set_ylabel(r"softmax$(+1)$")
+    ax.set_ylim(0.45, 1.05)
+    ax.legend(fontsize=8, frameon=False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.set_title("Correspondence Principle: softmax → sign as β → ∞\n"
+                 "Modern HN (2020) → Classical HN (1982) as $\\Phi_{\\text{limbic}} \\to 0$",
+                 fontsize=9)
+    save(fig, "FSx_softmax_correspondence")
 
 
 if __name__ == "__main__":

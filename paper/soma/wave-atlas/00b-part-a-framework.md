@@ -72,12 +72,10 @@ excites a wave in the next. The cascade is the experience.
 
 ---
 
-![Three side-by-side schematics showing the same wave pattern at
-different physical scales: (left) ripple on water, (centre) seismic
-P-wave in rock, (right) neural action potential propagating along an
-axon. Different media, different amplitudes, different speeds.
-Same equation.
-*(Schematic; see Part B, Scales 5, 10, 15)*](figures/three-waves-same-equation-placeholder.pdf){width=95%}
+![The same wave pattern at three physical scales: (left) water surface
+ripple, (centre) seismic P-wave, (right) neural action potential.
+Different media, different amplitudes, different speeds. Same equation.
+*(Generated: `FA_three_waves.png`)*](figures/FA_three_waves.png){width=95%}
 
 ---
 
@@ -333,12 +331,11 @@ a type mismatch would result.
 
 ---
 
-![Two parallel number lines, one for physical scale (top, in metres)
-and one for mind-matrix rank N (bottom, in number of coupled units).
-Both increase together as the zoom dial moves from left to right.
-The lines are connected by dotted vertical links at each scale tick.
-The visual makes the dependency explicit: they move together.
-*(Schematic; see UniversalSomaticField.lean)*](figures/dual-scaling-placeholder.pdf){width=90%}
+![Physical scale (left, in log metres) and mind-matrix rank N (right,
+in log coupled units) both increase together as the zoom dial moves
+from scale 0 (quantum foam) to scale 20 (universal field). The two
+bars are tethered — they cannot move independently.
+*(Generated: `FA_dual_scaling.png`)*](figures/FA_dual_scaling.png){width=90%}
 
 ---
 

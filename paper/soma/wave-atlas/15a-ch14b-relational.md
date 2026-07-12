@@ -124,13 +124,12 @@ limbic-field frequency locking.
 
 ---
 
-![The Arnold tongue: stable frequency-locked region (shaded) in the
-parameter space of coupling strength vs. frequency detuning. Two
-people with similar baseline frequencies and strong coupling lock
-easily. Trauma increases the frequency detuning (shifts the oscillator
-far from typical) and reduces the effective coupling (barriers are
-higher), shrinking the Arnold tongue and making rapport harder.
-*(Based on Pikovsky et al. 2001; OpenStax Physics 2e)*](figures/arnold-tongue-placeholder.pdf){width=80%}
+![The Arnold tongue: the shaded region shows parameter values where
+two coupled oscillators are frequency-locked ("in rapport"). The
+horizontal axis is coupling strength $\kappa=|G_{AB}|$; the vertical
+axis is frequency detuning $\Delta\omega$. Inside the tongue: locked.
+Outside: quasiperiodic. Wider coupling → bigger tongue → easier rapport.
+*(Generated: `FS8_arnold_tongue.png`)*](figures/FS8_arnold_tongue.png){width=80%}
 
 ---
 

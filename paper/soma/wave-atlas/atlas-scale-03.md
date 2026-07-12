@@ -149,14 +149,12 @@ matrix of Scale 3, rendered as a topographic map.
 
 ---
 
-![Four panels showing the same $1/r$ dependence at four different scales:
-(top-left) electrostatic field between two charges (Scale 3, $10^{-10}$ m);
-(top-right) gravitational field between two masses (Scale 12, $10^{9}$ m);
-(bottom-left) seismic far-field amplitude vs. distance (Scale 10, $10^{5}$ m);
-(bottom-right) sound intensity vs. distance from a speaker (Scale 8, $10^{0}$ m).
-All four are $G(r) \propto 1/r$. Different media. Different amplitudes.
-Same equation.
-*(Schematic; OpenStax sources various)*](figures/four-one-over-r-s3-placeholder.pdf){width=95%}
+![The $1/r$ propagator at four different physical scales: electrostatic
+field between charges (Scale 3, Å), sound intensity vs distance from a
+speaker (Scale 8, m), seismic far-field amplitude (Scale 10, km), and
+gravitational field between bodies (Scale 12, AU). All four are
+$G(r)\propto 1/r$. The equation has not changed. Only the substrate has.
+*(Generated: `FS3_four_one_over_r.png`)*](figures/FS3_four_one_over_r.png){width=95%}
 
 ---
 
