@@ -497,7 +497,46 @@ def main():
     fs6_wkb_amplitude()
     fs8_arnold_tongue()
     fs_softmax_demo()
+    # ---- real atlas figures (override grey placeholders) ----
+    real_11d_body_schematic()
+    real_hv_two_branes()
+    real_hydrogen_atom_s3()
+    real_hydrogen_orbitals_s3()
+    real_hydrogen_spectrum_s3()
+    real_nuclear_binding_energy_s2()
+    real_periodic_table_s2()
+    real_periodic_table_energy_s3()
+    real_proton_quarks_s2()
+    real_quantum_foam_s0()
+    real_path_integral_s0()
+    real_soap_bubble_foam_comparison_s0()
+    real_soap_bubbles()
+    real_branching_tree_s0()
+    real_speaker_room_greens()
+    real_m_theory_web_s1()
+    real_coupling_matrix()
+    real_crowd_entrainment()
+    real_friendship_coupling()
+    real_therapy_coupling()
+    real_neurodivergent_parameter_space()
+    real_glarus_thrust()
+    real_thames_waveguide()
+    real_earth_cross_section()
+    real_milky_way_edge_on()
+    real_cosmic_web()
+    real_six_greens_functions()
+    real_invariant_equation_all_scales()
+    real_guitar_impulse()
+    real_murmuration()
     print("Done.")
+
+
+def _save_real(fig, stem):
+    """Save as the placeholder name so it replaces the grey box."""
+    out = OUT / f"{stem}-placeholder.png"
+    fig.savefig(out, dpi=300, facecolor="white")
+    plt.close(fig)
+    print(f"  wrote {out.name}")
 
 
 # ============================================================
@@ -761,6 +800,374 @@ def fs_softmax_demo():
                  "Modern HN (2020) → Classical HN (1982) as $\\Phi_{\\text{limbic}} \\to 0$",
                  fontsize=9)
     save(fig, "FSx_softmax_correspondence")
+
+
+# ============================================================
+# REAL ATLAS FIGURES (30 generated figures, no grey boxes)
+# ============================================================
+
+def real_11d_body_schematic():
+    fig, ax = plt.subplots(figsize=(8, 3.5))
+    ax.set_xlim(0, 11); ax.set_ylim(0, 3); ax.axis("off")
+    blocks = [
+        (0.05, 0.25, "D₁–D₄\n4D Spacetime\n(body in world)", ACCENT),
+        (0.35, 0.20, "D₅–D₇\n3D Propagator\n(CEMI / EMF)", "#4a8a4a"),
+        (0.58, 0.10, "D₈\n1D Limbic\n(barrier)", WARM),
+        (0.72, 0.20, "D₉–D₁₁\n3D Cortex\n(mind matrix)", "#8a4a8a"),
+    ]
+    for (x0, w, label, col) in blocks:
+        rect = plt.Rectangle((x0 * 11, 0.5), w * 11, 2,
+                              facecolor=col, alpha=0.25, edgecolor=col, lw=2)
+        ax.add_patch(rect)
+        ax.text(x0 * 11 + w * 5.5, 1.5, label, ha="center", va="center",
+                fontsize=8.5, color=col)
+    ax.text(5.5, 0.1, "4 + 3 + 1 + 3 = 11 dimensions   —   invisible but not hidden",
+            ha="center", fontsize=10, weight="bold", color=INK)
+    ax.set_title("The 11D Soma-Field: four functional subspaces, all detectable", fontsize=10)
+    _save_real(fig, "11d-body-schematic")
+
+def real_hv_two_branes():
+    fig, ax = plt.subplots(figsize=(7, 3.5))
+    ax.set_xlim(0, 10); ax.set_ylim(0, 4); ax.axis("off")
+    for x, label, col in [(1.5, "Person A\n(Brane 1)", ACCENT), (8.5, "Person B\n(Brane 2)", ACCENT)]:
+        rect = plt.Rectangle((x-0.8, 0.5), 1.6, 3, facecolor=col, alpha=0.2, edgecolor=col, lw=2)
+        ax.add_patch(rect)
+        ax.text(x, 2, label, ha="center", va="center", fontsize=9, color=col)
+    rect2 = plt.Rectangle((2.8, 0.8), 4.4, 2.4, facecolor=WARM, alpha=0.1, edgecolor=WARM, lw=1.5, ls="--")
+    ax.add_patch(rect2)
+    ax.text(5, 2, "Shared Limbic Corridor\n$D_8$ orbifold\n$G_{AB}(\\omega)$", ha="center", va="center", fontsize=9, color=WARM)
+    ax.text(5, 0.2, "Off-diagonal coupling = empathy / rapport", ha="center", fontsize=9, style="italic")
+    ax.set_title("Horava-Witten two-brane: two people, one shared corridor", fontsize=10)
+    _save_real(fig, "hv-two-branes")
+
+def real_hydrogen_atom_s3():
+    fig, ax = plt.subplots(figsize=(4, 4))
+    ax.set_xlim(-3,3); ax.set_ylim(-3,3); ax.set_aspect("equal"); ax.axis("off")
+    nucleus = Circle((0,0), 0.12, color=WARM, zorder=5)
+    ax.add_patch(nucleus)
+    ax.text(0.2, 0.15, "p⁺", fontsize=8, color=WARM)
+    x = np.linspace(-3,3,200); X,Y = np.meshgrid(x,x); R = np.sqrt(X**2+Y**2)
+    cloud = np.exp(-R**2/0.8)
+    ax.contourf(X, Y, cloud, levels=20, cmap="Blues", alpha=0.6)
+    ax.set_title("Hydrogen 1s orbital\n$G_{EM}(r)=e^{ikr}/4\\pi r$\nThe cloud IS G(x,x')", fontsize=9)
+    _save_real(fig, "hydrogen-atom-s3")
+
+def real_hydrogen_orbitals_s3():
+    fig, axes = plt.subplots(1,4,figsize=(10,3))
+    x=np.linspace(-3,3,200); X,Y=np.meshgrid(x,x); R=np.sqrt(X**2+Y**2); PHI=np.arctan2(Y,X)
+    orbitals = [(np.exp(-R),"1s","s-type"),(R*np.exp(-R/2),"2s","1 node"),
+                (R*np.exp(-R/2)*np.cos(PHI),"2p","p-type"),(R**2*np.exp(-R/3)*(3*np.cos(PHI)**2-1),"3d","d-type")]
+    for ax,(orb,name,note) in zip(axes,orbitals):
+        ax.contourf(X,Y,orb**2,levels=15,cmap="plasma",alpha=0.85)
+        ax.set_title(f"{name}\n{note}",fontsize=8); ax.set_xticks([]); ax.set_yticks([]); ax.set_aspect("equal")
+    fig.suptitle("Hydrogen orbitals = eigenmodes of $G_{Coulomb}$\nEach shape = G at different boundary conditions",fontsize=9)
+    _save_real(fig, "hydrogen-orbitals-s3")
+
+def real_hydrogen_spectrum_s3():
+    fig,ax = plt.subplots(figsize=(8,2))
+    wavelengths=[656.3,486.1,434.0,410.2,397.0]; names=["Hα","Hβ","Hγ","Hδ","Hε"]
+    colors_s=["#e00000","#00a0e0","#6000c0","#4000a0","#3000a0"]
+    ax.set_xlim(380,700); ax.set_ylim(0,1); ax.axis("off"); ax.set_facecolor("black"); fig.patch.set_facecolor("black")
+    for lam,col,name in zip(wavelengths,colors_s,names):
+        ax.axvline(lam,color=col,lw=3,alpha=0.9)
+        ax.text(lam,0.85,f"{lam:.1f}nm\n{name}",ha="center",fontsize=7,color=col)
+    ax.text(540,0.35,"Balmer series — eigenvalue spectrum of $G_{Coulomb}$",ha="center",fontsize=9,color="white")
+    _save_real(fig, "hydrogen-spectrum-s3")
+
+def real_nuclear_binding_energy_s2():
+    Z=[1,2,4,6,8,12,16,20,26,28,36,50,82,92]
+    BE=[0,7.07,6.46,7.68,7.98,8.26,8.49,8.55,8.79,8.78,8.61,8.52,7.87,7.59]
+    fig,ax=plt.subplots(figsize=(8,3.5))
+    ax.plot(Z,BE,'o-',color=ACCENT,lw=1.5,ms=5); ax.fill_between(Z,BE,0,alpha=0.15,color=ACCENT)
+    ax.axvline(26,color=WARM,lw=1,ls="--",alpha=0.7); ax.text(27,8,"Fe-56\npeak",fontsize=8,color=WARM)
+    ax.set_xlabel("Atomic number Z"); ax.set_ylabel("Binding energy / nucleon (MeV)")
+    ax.set_title("Nuclear binding energy = eigenvalue spectrum of $G_{Yukawa}$\nMind matrix of Scale 2: which nuclear configurations persist",fontsize=9)
+    for s in ("top","right"): ax.spines[s].set_visible(False)
+    _save_real(fig, "nuclear-binding-energy-s2")
+
+def real_periodic_table_s2():
+    fig,ax=plt.subplots(figsize=(12,5)); ax.set_xlim(-0.5,18.5); ax.set_ylim(-0.5,7.5); ax.axis("off")
+    period_row={1:0,2:0,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:2,12:2,13:2,14:2,15:2,16:2,17:2,18:2,
+                19:3,20:3,21:3,22:3,23:3,24:3,25:3,26:3,27:3,28:3,29:3,30:3,31:3,32:3,33:3,34:3,35:3,36:3}
+    period_col={1:0,2:17,3:0,4:1,5:12,6:13,7:14,8:15,9:16,10:17,11:0,12:1,13:12,14:13,15:14,16:15,17:16,18:17,
+                19:0,20:1,21:2,22:3,23:4,24:5,25:6,26:7,27:8,28:9,29:10,30:11,31:12,32:13,33:14,34:15,35:16,36:17}
+    for Z in range(1,37):
+        if Z not in period_row: continue
+        row=period_row[Z]; col_pos=period_col[Z]
+        color=plt.cm.plasma(Z/36)
+        rect=plt.Rectangle((col_pos-0.45,6.5-row-0.45),0.9,0.9,facecolor=color,alpha=0.75,edgecolor="white",lw=0.5)
+        ax.add_patch(rect); ax.text(col_pos,6.5-row,str(Z),ha="center",va="center",fontsize=7,color="white")
+    ax.text(9,-0.3,"Periodic table (Z=1–36) — each element = a stable Yukawa attractor at Scale 2",ha="center",fontsize=10)
+    ax.set_title("All chemical diversity emerges from Scale-2 nuclear combinatorics",fontsize=10)
+    _save_real(fig, "periodic-table-s2")
+
+def real_periodic_table_energy_s3():
+    IE=[13.6,24.6,5.4,9.3,8.3,11.3,14.5,13.6,17.4,21.6,5.1,7.6,6.0,8.2,10.5,10.4,13.0,15.8,
+        4.3,6.1,6.5,6.8,6.7,6.8,7.4,7.9,7.9,7.6,7.7,9.4,6.0,7.9,9.8,9.8,11.8,14.0]
+    Z=list(range(1,37))
+    fig,ax=plt.subplots(figsize=(9,3.5))
+    colors_ie=[plt.cm.plasma(ie/25) for ie in IE]
+    ax.bar(Z,IE,color=colors_ie,alpha=0.8,edgecolor="white",lw=0.3)
+    for z,ie,name in [(2,24.6,"He"),(10,21.6,"Ne"),(18,15.8,"Ar"),(36,14.0,"Kr")]:
+        ax.text(z,ie+0.3,name,ha="center",fontsize=7,color=WARM)
+    ax.set_xlabel("Atomic number Z"); ax.set_ylabel("Ionization energy (eV)")
+    ax.set_title("Ionization energy = barrier height of the atomic attractor\nNoble gases: deepest wells. Alkali metals: shallowest.",fontsize=9)
+    for s in ("top","right"): ax.spines[s].set_visible(False)
+    _save_real(fig, "periodic-table-energy-s3")
+
+def real_proton_quarks_s2():
+    fig,ax=plt.subplots(figsize=(4.5,4.5)); ax.set_xlim(-2.5,2.5); ax.set_ylim(-2.5,2.5); ax.set_aspect("equal"); ax.axis("off")
+    for angle,qname,qcol in [(90,"u","#e04040"),(210,"u","#40a040"),(330,"d","#4040e0")]:
+        rad=np.radians(angle); x_q,y_q=1.4*np.cos(rad),1.4*np.sin(rad)
+        ax.plot([0,x_q*0.65],[0,y_q*0.65],color=MUTED,lw=2.5,zorder=2)
+        quark=Circle((x_q,y_q),0.35,color=qcol,zorder=5,alpha=0.9); ax.add_patch(quark)
+        ax.text(x_q,y_q,qname,ha="center",va="center",fontsize=10,color="white",weight="bold")
+    ax.set_title("Proton: uud quarks + gluon flux tubes\n$G_{Yukawa}$ = confinement prevents isolation",fontsize=9)
+    _save_real(fig, "proton-quarks-s2")
+
+def real_quantum_foam_s0():
+    fig,ax=plt.subplots(figsize=(6,3.5))
+    rng=np.random.default_rng(42); x=np.linspace(0,10,300); y=np.linspace(0,5,200); X,Y=np.meshgrid(x,y)
+    foam=sum(rng.normal(0,1,X.shape)*np.exp(-((X-rng.uniform(0,10))**2+(Y-rng.uniform(0,5))**2)/rng.uniform(0.1,0.5)) for _ in range(40))
+    ax.contourf(X,Y,foam,levels=30,cmap="twilight_shifted",alpha=0.9); ax.set_xticks([]); ax.set_yticks([])
+    ax.set_title("Quantum foam — Scale 0 ($10^{-35}$ m)\nSpacetime geometry fluctuates: G = prob. amplitude for geometry at x'",fontsize=9)
+    _save_real(fig, "quantum-foam-s0"); _save_real(fig, "quantum-foam")
+
+def real_path_integral_s0():
+    fig,ax=plt.subplots(figsize=(6,4)); ax.set_xlim(-0.5,10.5); ax.set_ylim(-3,3); ax.axis("off")
+    ax.plot(0,0,'o',color=WARM,ms=10,zorder=5); ax.plot(10,0,'o',color=ACCENT,ms=10,zorder=5)
+    ax.text(-0.3,0,"$x'$\n(source)",ha="right",fontsize=9,color=WARM)
+    ax.text(10.3,0,"$x$\n(obs.)",ha="left",fontsize=9,color=ACCENT)
+    rng=np.random.default_rng(0); t=np.linspace(0,10,100)
+    for i in range(15):
+        amp=rng.uniform(0.3,2.5); freq=rng.uniform(0.5,3)
+        path=amp*np.sin(freq*np.pi*t/10)*np.sin(np.pi*t/10)
+        ax.plot(t,path,color=ACCENT if i==0 else MUTED,lw=2.0 if i==0 else 0.8,alpha=0.8 if i==0 else 0.25)
+    ax.text(5,-2.6,"G(x,x') = sum over all paths. The string IS G.",ha="center",fontsize=9,style="italic")
+    ax.set_title("Feynman path integral: between $x'$ and $x$, all paths contribute",fontsize=9)
+    _save_real(fig, "path-integral-s0")
+
+def real_soap_bubble_foam_comparison_s0():
+    fig,axes=plt.subplots(1,2,figsize=(9,3.5))
+    x=np.linspace(-3,3,300); X,Y=np.meshgrid(x,x); R=np.sqrt(X**2+Y**2)
+    rings=np.cos(8*R**2)
+    axes[0].contourf(X,Y,rings,levels=20,cmap="RdYlBu",alpha=0.9)
+    axes[0].set_title("Newton's rings (soap film)\n$10^{-8}$ m — EM interference",fontsize=8.5)
+    axes[0].set_xticks([]); axes[0].set_yticks([])
+    rng=np.random.default_rng(7)
+    foam=sum(rng.normal()*np.cos(rng.uniform(3,15)*X+rng.uniform(3,15)*Y) for _ in range(20))
+    axes[1].contourf(X,Y,foam,levels=20,cmap="RdYlBu",alpha=0.9)
+    axes[1].set_title("Quantum foam interference\n$10^{-35}$ m — gravitational amplitude",fontsize=8.5)
+    axes[1].set_xticks([]); axes[1].set_yticks([])
+    fig.suptitle("Same interference pattern, 27 orders of magnitude apart.\nThe equation has not changed. Only the substrate has.",fontsize=9)
+    _save_real(fig, "soap-bubble-foam-comparison-s0")
+
+def real_soap_bubbles():
+    fig,ax=plt.subplots(figsize=(5,4)); ax.set_xlim(-3,3); ax.set_ylim(-2,2.5); ax.set_aspect("equal"); ax.axis("off")
+    c1=Circle((-1,0),1.4,facecolor=ACCENT,alpha=0.25,edgecolor=ACCENT,lw=2); ax.add_patch(c1)
+    c2=Circle((1,0),1.4,facecolor=WARM,alpha=0.25,edgecolor=WARM,lw=2); ax.add_patch(c2)
+    ax.axvline(0,color="#888",lw=1.5,ls="--",ymin=0.22,ymax=0.78)
+    ax.text(-1,0,"Person A\n$G_{AA}$",ha="center",fontsize=9,color=ACCENT)
+    ax.text(1,0,"Person B\n$G_{BB}$",ha="center",fontsize=9,color=WARM)
+    ax.text(0,1.7,"Shared\nboundary\n$G_{AB}$",ha="center",fontsize=9,color="#666")
+    ax.set_title("Two soma-fields touching:\nthe shared boundary IS the relational field",fontsize=9)
+    _save_real(fig, "soap-bubbles")
+
+def real_branching_tree_s0():
+    fig,ax=plt.subplots(figsize=(6,4)); ax.set_xlim(-1,9); ax.set_ylim(-0.5,6); ax.axis("off")
+    def draw_tree(x,y,angle,depth,length=1.0):
+        if depth==0: return
+        x2=x+length*np.cos(np.radians(angle)); y2=y+length*np.sin(np.radians(angle))
+        ax.plot([x,x2],[y,y2],color=plt.cm.plasma(depth/5),lw=max(0.5,depth*0.4),alpha=0.8)
+        spread=30/depth
+        draw_tree(x2,y2,angle+spread,depth-1,length*0.7); draw_tree(x2,y2,angle-spread,depth-1,length*0.7)
+    draw_tree(4,0,90,5,1.2)
+    ax.text(4,-0.3,"Each branch = a possible universe at Scale 0",ha="center",fontsize=8.5,style="italic")
+    ax.set_title("Quantum branching tree — mind matrix at Scale 0: $N=\\infty$",fontsize=9)
+    _save_real(fig, "branching-tree-s0")
+
+def real_speaker_room_greens():
+    fig,ax=plt.subplots(figsize=(7,4)); ax.set_xlim(0,10); ax.set_ylim(0,6); ax.axis("off")
+    room=plt.Rectangle((0.5,0.5),9,5,fill=False,edgecolor=INK,lw=2); ax.add_patch(room)
+    ax.annotate("",xy=(1.5,3),xytext=(0.8,3),arrowprops=dict(arrowstyle="->",color=ACCENT,lw=2))
+    ax.text(0.5,3.3,"Speaker\n(source)",fontsize=8,color=ACCENT,ha="center")
+    theta=np.linspace(0,2*np.pi,100)
+    for r in [0.8,1.5,2.2,2.9,3.6]:
+        xc=1.5+r*np.cos(theta); yc=3+r*np.sin(theta)
+        mask=(xc>0.5)&(xc<9.5)&(yc>0.5)&(yc<5.5)
+        ax.plot(xc[mask],yc[mask],color=ACCENT,lw=0.8,alpha=0.5)
+    ax.plot(8.5,3,'o',color=WARM,ms=12); ax.text(8.5,3.5,"Listener\n$G(x,x')$",ha="center",fontsize=8,color=WARM)
+    ax.text(5,0.2,"G = room impulse response: what the listener hears given a click at the speaker",ha="center",fontsize=8.5,style="italic")
+    ax.set_title("The Green's function is the field's answer to a unit impulse",fontsize=10)
+    _save_real(fig, "speaker-room-greens")
+
+def real_m_theory_web_s1():
+    fig,ax=plt.subplots(figsize=(6,6)); ax.set_xlim(-3,3); ax.set_ylim(-3,3); ax.set_aspect("equal"); ax.axis("off")
+    theories=["Type I","Type IIA","Type IIB","HE","HO"]
+    angles=np.linspace(90,90+360,6)[:-1]; positions=[(1.8*np.cos(np.radians(a)),1.8*np.sin(np.radians(a))) for a in angles]
+    m=Circle((0,0),0.6,facecolor=ACCENT,alpha=0.8,zorder=5); ax.add_patch(m)
+    ax.text(0,0,"M-theory\n(11D)",ha="center",va="center",fontsize=9,color="white",weight="bold")
+    for (x,y),name in zip(positions,theories):
+        c=Circle((x,y),0.55,facecolor=plt.cm.plasma(theories.index(name)/5),alpha=0.7,zorder=4); ax.add_patch(c)
+        ax.text(x,y,name,ha="center",va="center",fontsize=7.5,color="white")
+        ax.plot([0,x*0.65],[0,y*0.65],color=MUTED,lw=1,zorder=3)
+    ax.set_title("M-theory unification: five string theories = one theory\nThe string's SHO = the worldsheet Green's function G",fontsize=9)
+    _save_real(fig, "m-theory-web-s1")
+
+def real_coupling_matrix():
+    fig,ax=plt.subplots(figsize=(5.5,4.5))
+    matrix=np.array([[0.9,0.9,0.3,0.2],[0.9,0.9,0.2,0.3],[0.3,0.2,0.9,0.9],[0.2,0.3,0.9,0.9]])
+    im=ax.imshow(matrix,cmap="Blues",vmin=0,vmax=1); plt.colorbar(im,ax=ax,fraction=0.046,label="|G|")
+    ax.set_xticks(range(4)); ax.set_yticks(range(4)); ax.set_xticklabels(["A₁","A₂","B₁","B₂"]); ax.set_yticklabels(["A₁","A₂","B₁","B₂"])
+    for(x0,y0,w,h,lbl) in [(-0.5,-0.5,2,2,"$G_{AA}$"),(1.5,-0.5,2,2,"$G_{BB}$"),(-0.5,1.5,2,2,"$G_{AB}$\nempathy"),(1.5,1.5,2,2,"$G_{BA}$\nempathy")]:
+        rect=plt.Rectangle((x0,y0),w,h,fill=False,edgecolor=WARM if "empathy" in lbl else ACCENT,lw=2,ls="--" if "empathy" in lbl else "-"); ax.add_patch(rect)
+    ax.set_title("$G_{AB}(\\omega)$: off-diagonal coupling = empathic resonance",fontsize=9)
+    _save_real(fig, "coupling-matrix")
+
+def real_crowd_entrainment():
+    fig,axes=plt.subplots(1,2,figsize=(9,3.5),sharey=True); t=np.linspace(0,60,500); rng=np.random.default_rng(1)
+    for i in range(6):
+        axes[0].plot(t,np.sin(2*np.pi*rng.uniform(0.9,1.1)*t+rng.uniform(0,2*np.pi)),alpha=0.4,color=plt.cm.Set2(i/7),lw=0.8)
+        axes[1].plot(t,np.sin(2*np.pi*(1+rng.uniform(-0.05,0.05))*t),alpha=0.7,color=plt.cm.Set2(i/7),lw=1.0)
+    for ax,title in zip(axes,["Before music: r=0.12 (uncoupled)","After 90 min: r=0.71 (locked)"]):
+        ax.set_title(title,fontsize=9); ax.set_xlabel("time (s)"); ax.set_yticks([])
+        for s in ("top","right"): ax.spines[s].set_visible(False)
+    fig.suptitle("Crowd entrainment: heart rate phase locking\nMusic = forcing function on shared $G_{AB}$",fontsize=9)
+    _save_real(fig, "crowd-entrainment")
+
+def real_friendship_coupling():
+    fig,ax=plt.subplots(figsize=(6,3.5))
+    stages=["Strangers","Acquaintances","Friends","Close"]; G=[0.02,0.15,0.45,0.75]; tw=[0.1,0.4,0.9,1.5]
+    ax.bar(stages,G,color=[MUTED,"#6090c0",ACCENT,"#0a2a6a"],alpha=0.8,width=0.5)
+    ax2=ax.twinx(); ax2.plot(stages,tw,'o--',color=WARM,ms=8,lw=1.5)
+    ax2.set_ylabel("Arnold tongue width",color=WARM); ax.set_ylabel("$|G_{AB}|$")
+    ax.set_title("Friendship as persistent off-diagonal coupling\nMore history → wider Arnold tongue → easier rapport",fontsize=9)
+    for s in ("top",): ax.spines[s].set_visible(False)
+    _save_real(fig, "friendship-coupling")
+
+def real_therapy_coupling():
+    fig,axes=plt.subplots(1,3,figsize=(10,3.5)); x=np.linspace(-1.8,1.8,300)
+    for ax,W,title,col in zip(axes,[12,0.5,7],["Client alone\nW=12","Therapist alone\nW=0.5","Coupled\n$W_{eff}$=7"],[WARM,ACCENT,"#4a8a4a"]):
+        V=W*(x**2-1)**2; ax.plot(x,V,color=col,lw=2); ax.fill_between(x,V,0,where=V<1.5,alpha=0.15,color=col)
+        ax.set_ylim(-2,20); ax.set_title(title,fontsize=8.5); ax.set_xlabel("$x$"); ax.set_yticks([])
+        for s in ("top","right"): ax.spines[s].set_visible(False)
+    fig.suptitle("Therapy: coupling lowers the effective barrier $W_{eff}=W(1-\\alpha|G_{TC}|^2)$",fontsize=9)
+    _save_real(fig, "therapy-coupling")
+
+def real_neurodivergent_parameter_space():
+    fig,ax=plt.subplots(figsize=(6,5)); ax.set_xlim(0,3); ax.set_ylim(0,15)
+    ax.set_xlabel("Inverse temperature $\\beta$"); ax.set_ylabel("Barrier height $W$")
+    for(beta,W,name,col,marker) in [(0.3,2,"ADHD\n(hot)",WARM,"^"),(1.0,4,"Neurotypical",ACCENT,"o"),(2.2,3,"ASC\n(cold)","#4a6a9a","s"),(1.5,12,"C-PTSD\nW=12","#8a2a2a","D")]:
+        ax.plot(beta,W,marker,ms=14,color=col,alpha=0.85)
+        ax.annotate(name,(beta,W),textcoords="offset points",xytext=(12,5),fontsize=8,color=col)
+    ax.set_title("Neurodivergent profiles in $(\\beta,W)$ parameter space",fontsize=9)
+    for s in ("top","right"): ax.spines[s].set_visible(False)
+    _save_real(fig, "neurodivergent-parameter-space")
+
+def real_glarus_thrust():
+    fig,ax=plt.subplots(figsize=(9,4)); ax.set_xlim(0,10); ax.set_ylim(-1,5); ax.axis("off")
+    ax.add_patch(plt.Polygon([(0,2),(10,3.5),(10,5),(0,4)],facecolor="#c08050",alpha=0.8,edgecolor="#805030",lw=1.5))
+    ax.text(5,3.5,"Verrucano sandstone — 250 million years old",ha="center",fontsize=9,color="white",weight="bold")
+    ax.add_patch(plt.Polygon([(0,-1),(10,-1),(10,2.5),(0,1.5)],facecolor="#7090b0",alpha=0.8,edgecolor="#4060a0",lw=1.5))
+    ax.text(5,0.7,"Eocene flysch — 35 million years old",ha="center",fontsize=9,color="white",weight="bold")
+    ax.plot([0,10],[1.5,2.5],color=WARM,lw=3,zorder=5)
+    ax.text(10.1,2.0,"Glarus Thrust\n(overthrust plane)",fontsize=8.5,va="center",color=WARM)
+    ax.set_title("Glarus Overthrust: 250 Ma rock on 35 Ma rock\nRock moved 35 km — a wave with a 10-million-year period",fontsize=9)
+    _save_real(fig, "glarus-thrust")
+
+def real_thames_waveguide():
+    fig,ax=plt.subplots(figsize=(9,3.5)); ax.set_xlim(0,10); ax.set_ylim(-1,4); ax.axis("off")
+    x=np.linspace(0,10,200); rng=np.random.default_rng(1)
+    y_n=2.5+0.8*np.sin(np.pi*x/10)+0.2*rng.normal(0,1,200)
+    y_s=0.2-0.4*np.sin(np.pi*x/10)+0.15*rng.normal(0,1,200)
+    ax.fill_between(x,y_n,4,color="#c8a060",alpha=0.8); ax.fill_between(x,-1,y_s,color="#c8a060",alpha=0.8)
+    ax.fill_between(x,y_s,y_n,color="#a0c8e8",alpha=0.5)
+    for x0 in [2,4,6,8]:
+        ax.annotate("",xy=(x0+0.8,1.3),xytext=(x0,1.3),arrowprops=dict(arrowstyle="->",color=ACCENT,lw=1.5))
+    ax.text(5,1.3,"Wave propagation →\n(Estuary English / parakeets)",ha="center",va="center",fontsize=8.5,color=ACCENT)
+    ax.text(5,3.5,"Chilterns (north wall)",ha="center",fontsize=8,color="#805030")
+    ax.text(5,-0.7,"North Downs (south wall)",ha="center",fontsize=8,color="#805030")
+    ax.set_title("Thames Valley as geographic wave-guide\nBoundary conditions channel pattern propagation",fontsize=9)
+    _save_real(fig, "thames-waveguide")
+
+def real_earth_cross_section():
+    fig,ax=plt.subplots(figsize=(5,5)); ax.set_xlim(-3,3); ax.set_ylim(-3,3); ax.set_aspect("equal"); ax.axis("off")
+    for r,col,label in [(2.8,"#c8a060","Crust"),(2.2,"#d0804a","Mantle"),(1.3,"#e06020","Outer core"),(0.6,"#f08020","Inner core")]:
+        ax.add_patch(Circle((0,0),r,facecolor=col,edgecolor="white",lw=0.8,alpha=0.9))
+        ax.text(r*0.65,r*0.65,label,ha="center",fontsize=7,color="white",rotation=45)
+    ax.set_title("Earth interior (Scale 11–12)\nMantle convection = $G_{seismic}$ slow wave",fontsize=9)
+    _save_real(fig, "earth-cross-section")
+
+def real_milky_way_edge_on():
+    fig,ax=plt.subplots(figsize=(9,3)); ax.set_facecolor("#050510"); fig.patch.set_facecolor("#050510"); ax.axis("off")
+    rng=np.random.default_rng(42)
+    for _ in range(3000):
+        xi=rng.uniform(-5,5); yi=rng.normal(0,0.15*np.exp(-abs(xi)/2.5)); b=rng.uniform(0.3,1.0)*np.exp(-abs(xi)/2.5)
+        ax.plot(xi,yi,'.',color=(b,b*0.9,b*0.7),ms=rng.uniform(0.5,1.5),alpha=0.6)
+    ax.set_xlim(-5,5); ax.set_ylim(-1.5,1.5)
+    ax.text(0,-1.2,"The Milky Way — spiral arms = resonant modes of galactic $G$\n$N=10^{11}$ stars: mind matrix of Scale 15–16",ha="center",fontsize=8.5,color="white")
+    _save_real(fig, "milky-way-edge-on")
+
+def real_cosmic_web():
+    fig,ax=plt.subplots(figsize=(6,6)); ax.set_aspect("equal"); ax.set_facecolor("#02020a"); fig.patch.set_facecolor("#02020a"); ax.axis("off")
+    rng=np.random.default_rng(99); n=2000; x=rng.uniform(0,1,n); y=rng.uniform(0,1,n)
+    for _ in range(20):
+        cx,cy=rng.uniform(0,1,2); angle=rng.uniform(0,np.pi); t=np.linspace(-0.3,0.3,50)
+        fx=cx+t*np.cos(angle)+rng.normal(0,0.02,50); fy=cy+t*np.sin(angle)+rng.normal(0,0.02,50)
+        ax.plot(fx%1,fy%1,'-',color=(0.6,0.7,1.0),lw=0.5,alpha=0.3)
+    ax.scatter(x,y,s=0.3,color=(0.8,0.9,1.0),alpha=0.4)
+    ax.set_title("Cosmic web — Scale 18–20\nSame G structure as the neural network of a brain",fontsize=9,color="white")
+    _save_real(fig, "cosmic-web")
+
+def real_six_greens_functions():
+    fig,axes=plt.subplots(2,3,figsize=(10,6)); r=np.linspace(0.05,3,200)
+    titles=["Electrostatics\n$G=1/r$\nScale 3","Acoustics\n$G=e^{ikr}/r$\nScale 8","Seismology\n$G=e^{-\\gamma r}/r$\nScale 10",
+            "Nuclear\n$G=e^{-mr}/r$\nScale 2","Cortex/CEMI\n$G=e^{-r/\\lambda}$\nScale 6","Gravity\n$G=1/r$\nScale 12–20"]
+    fns=[1/r,np.cos(3*r)/r,np.exp(-0.3*r)/r,np.exp(-r)/r,np.exp(-r/0.5),1/r]
+    cols=[ACCENT,WARM,"#4a8a4a","#8a4a8a","#8a8a2a","#2a6a8a"]
+    for ax,fn,title,col in zip(axes.flat,fns,titles,cols):
+        ax.plot(r,np.clip(fn,-3,10),color=col,lw=1.5); ax.set_title(title,fontsize=7.5)
+        ax.set_xlabel("$r$"); ax.set_yticks([]); ax.set_ylim(-0.5,8)
+        for s in ("top","right"): ax.spines[s].set_visible(False)
+    fig.suptitle("Six G(x,x') contexts — $(\\nabla^2+k^2)G=\\delta$ with different $k$",fontsize=9)
+    plt.tight_layout()
+    _save_real(fig, "six-greens-functions")
+
+def real_invariant_equation_all_scales():
+    fig=plt.figure(figsize=(12,3)); ax_eq=fig.add_axes([0,0.55,1,0.45]); ax_eq.axis("off")
+    ax_eq.text(0.5,0.5,r"$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')$",ha="center",va="center",fontsize=22,transform=ax_eq.transAxes)
+    ax_eq.text(0.5,0.05,"The same equation at every scale — only $k$ and the substrate change.",ha="center",fontsize=10,transform=ax_eq.transAxes,style="italic")
+    ax_bar=fig.add_axes([0.02,0.05,0.96,0.4]); ax_bar.axis("off")
+    colors_inv=plt.cm.plasma(np.linspace(0.1,0.95,20))
+    labels_inv=["0\nQFoam","1\nString","2\nNucl","3\nAtom","4\nMol","5\nCell","6\nBrain","7\nSwarm","8\nBody","9\nCity",
+                "10\nGeo","11\nPlanet","12\nOrbit","13\nStar","14\nCluster","15\nGalArm","16\nGal","17\nLocal","18\nWeb","19\nUniv"]
+    for i,(col,lbl) in enumerate(zip(colors_inv,labels_inv)):
+        x=0.025+i*0.048
+        ax_bar.add_patch(plt.Rectangle((x,0.1),0.04,0.8,transform=ax_bar.transAxes,facecolor=col,alpha=0.85))
+        ax_bar.text(x+0.02,-0.05,lbl,ha="center",fontsize=5.5,transform=ax_bar.transAxes,va="top")
+    _save_real(fig, "invariant-equation-all-scales")
+
+def real_guitar_impulse():
+    fig,axes=plt.subplots(1,2,figsize=(9,3)); t=np.linspace(0,10,1000)
+    axes[0].plot(t,np.zeros_like(t),color=MUTED,lw=1.5); axes[0].set_title("Field before 2:49",fontsize=9); axes[0].set_ylim(-2,2)
+    response=np.exp(-0.8*(t-2.49))*np.cos(6*(t-2.49))*(t>=2.49)
+    axes[1].axvline(2.49,color=WARM,lw=1.5,ls="--",label="t=2:49")
+    axes[1].plot(t,response,color=ACCENT,lw=1.5,label="$G(t)$ — field response")
+    axes[1].fill_between(t,response,0,where=response>0,alpha=0.15,color=ACCENT)
+    axes[1].set_title("Guitar at 2:49: δ-function probe\nField tunnels out of trauma well",fontsize=9)
+    axes[1].legend(fontsize=7.5,frameon=False); axes[1].set_ylim(-2,2)
+    for ax in axes: ax.set_xlabel("time (s)"); [ax.spines[s].set_visible(False) for s in ("top","right")]
+    fig.suptitle("Music as δ-function probe — the guitar IS G",fontsize=9)
+    _save_real(fig, "guitar-impulse")
+
+def real_murmuration():
+    fig,ax=plt.subplots(figsize=(7,5)); ax.set_facecolor("#1a1a2e"); fig.patch.set_facecolor("#1a1a2e"); ax.axis("off")
+    rng=np.random.default_rng(77); n=2000; t=np.linspace(0,2*np.pi,n)
+    r_base=2+0.5*np.sin(3*t); x=r_base*np.cos(t)+rng.normal(0,0.15,n); y=r_base*np.sin(t)*0.4+rng.normal(0,0.15,n)
+    brightness=0.6+0.4*np.sin(2*t)
+    ax.scatter(x,y,s=0.8,c=[(b,b*0.95,b*0.8) for b in brightness],alpha=0.7)
+    ax.set_title("Murmuration — Scale 7: Active-matter velocity field\nNo central controller. The shape IS the Green's function.",fontsize=9,color="white")
+    _save_real(fig, "murmuration"); _save_real(fig, "murmuration-scale7")
 
 
 if __name__ == "__main__":
