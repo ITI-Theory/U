@@ -1,12 +1,12 @@
 ---
-title: "The Zoomable Artificial Somatic Field: A Scale-Invariant Green's Function Architecture Unifying Quantum, Biological, and Cosmological Dynamics"
+title: "The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture Unifying Quantum, Biological, and Cosmological Dynamics"
 author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
 lang: en-GB
 abstract: |
-  We present the Zoomable Artificial Somatic Field (zASF), a scale-invariant
+  We present the Zoomable Universal Somatic Field (zUSF), a scale-invariant
   field-theoretic architecture in which a single structural equation —
   the Helmholtz Green's function $(\nabla^2 + k^2)G(x,x') = \delta(x-x')$ —
   governs field propagation across twenty orders of magnitude, from quantum
@@ -97,7 +97,7 @@ The string does not vibrate as a material object; it is the field's propagation
 pattern. This is not a reinterpretation — it is a derivation from the structure
 of field equations.
 
-The architecture that results is the **Zoomable Artificial Somatic Field (zASF)**:
+The architecture that results is the **Zoomable Universal Somatic Field (zUSF)**:
 an eleven-dimensional field theory, derived bottom-up from the phenomenology
 of conscious organisms, that is structurally isomorphic to M-theory's
 eleven-dimensional compactification. The isomorphism is not metaphorical;
@@ -142,7 +142,7 @@ Property 3 is the central identification: **the Green's function is the SHO**.
 The SHO of string theory, required at every worldsheet point, is the substrate's
 impulse response. This observation, formalised in the companion file
 `UniversalSomaticField.lean` (axiom `greens_fn_is_SHO`), is the structural
-core of the zASF.
+core of the zUSF.
 
 ## 2.2  Scale Invariance
 
@@ -872,33 +872,33 @@ operating inside the tongue.
 
 # Encapsulation of Related Frameworks
 
-The zASF encapsulates three existing frameworks as special cases or
+The zUSF encapsulates three existing frameworks as special cases or
 scale-restricted projections.
 
 ## 9.1  McFadden's CEMI Theory [@mcfadden2002a; @mcfadden2002b]
 
 McFadden proposes that consciousness correlates with the brain's endogenous
-electromagnetic field. In the zASF: the CEMI field is the Scale-6
-($\sigma = 6$) restriction of the universal propagator $G$. The zASF
+electromagnetic field. In the zUSF: the CEMI field is the Scale-6
+($\sigma = 6$) restriction of the universal propagator $G$. The zUSF
 extends CEMI in two directions: downward to quantum neural noise (Scale 5)
 and upward to multi-organism coupling (§8) and cosmological propagation (Scale 20).
 
 ## 9.2  Schreiber's Modal Homotopy Type Theory
 
 Schreiber (2013) formalises physics in dependent type theory, arriving at
-an 11-dimensional structure from the mathematics of M-theory. The zASF
+an 11-dimensional structure from the mathematics of M-theory. The zUSF
 arrives at the same 11-dimensional structure from the bottom up (clinical
 observation). The structural isomorphism (theorem 3.2) confirms that the
-two approaches describe the same object. The zASF provides the biological
+two approaches describe the same object. The zUSF provides the biological
 execution engine that Schreiber's purely mathematical framework lacks.
 
 ## 9.3  Hoffman's Conscious Agents Model [@hoffman2019]
 
 Hoffman proposes that spacetime is a "user interface" constructed by
-conscious agents; it is not fundamental. The zASF disagrees on one point:
+conscious agents; it is not fundamental. The zUSF disagrees on one point:
 spacetime ($D_{1-4}$) is physically real and causally efficacious. Brain
 surgery alters subjective experience because physical processes in spacetime
-causally affect the CEMI field. However, the zASF agrees that the deeper
+causally affect the CEMI field. However, the zUSF agrees that the deeper
 structure is relational: conscious percepts are poles in the propagator —
 relational objects, not substances. The "conscious agents" in Hoffman's
 framework correspond to 11D organisms that have crossed the threshold $T_c$.
@@ -990,7 +990,7 @@ The framework is falsified if any of the following is observed:
 
 ## 12.1  Scope and Limitations
 
-The zASF is a structural claim. It asserts that the same equation governs
+The zUSF is a structural claim. It asserts that the same equation governs
 propagation at all scales; it does not assert that all scales are
 phenomenologically equivalent or that cosmological structures are conscious
 in the same sense as biological organisms. The consciousness threshold $T_c$
@@ -1013,7 +1013,7 @@ discovered as a consequence.
 This matters epistemologically. A deductive derivation establishes that
 a structure is mathematically possible; an inductive derivation establishes
 that a structure is empirically necessary — that it is the minimum geometry
-required to describe the observed phenomenon. The zASF claims necessity,
+required to describe the observed phenomenon. The zUSF claims necessity,
 not merely possibility.
 
 ## 12.3  Relation to Existing Work
@@ -1030,7 +1030,7 @@ formal verification of the algebraic results.
 
 # Conclusion
 
-The Zoomable Artificial Somatic Field provides a unified scale-invariant
+The Zoomable Universal Somatic Field provides a unified scale-invariant
 description of field propagation from the Planck scale to the cosmic web.
 The central result — that the SHO of string theory is the Green's function
 of the field substrate — resolves a longstanding puzzle in string theory
