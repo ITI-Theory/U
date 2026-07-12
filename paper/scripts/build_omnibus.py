@@ -106,12 +106,16 @@ STRUCTURE = [
     # Part IV: Extensions and applications
     # The FM-HN paper unifies 1982 and 2020 Hopfield networks via the soma field.
     # The swarm paper shows the same Green's function governs drone coordination.
-    # The reader may find the swarm paper surprising; that surprise is the point.
+    # The geographic paper shows the same equation governs dialect spread and bird swarms.
+    # The reader may find the swarm and geography papers surprising; that surprise is the point.
     (r"\newpage" "\n\n" r"\part{Part IV: Extensions and Applications}",
      "missing-limbic-layer"),
 
     (r"\newpage",
      "swarm-propagator"),
+
+    (r"\newpage",
+     "geographic-somatic-field"),
 
     # Part V: The universal theory — the capstone papers
     (r"\newpage" "\n\n" r"\part{Part V: The Universal Theory}",
