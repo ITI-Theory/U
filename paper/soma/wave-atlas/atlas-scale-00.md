@@ -25,7 +25,7 @@ Geometry is no longer smooth. It fluctuates probabilistically, forming
 transient structures that appear and dissolve on timescales of $10^{-44}$
 seconds. There is no "here" or "there" in any fixed sense. The Green's
 function at this scale is a probability amplitude, not a classical wave.
-*(OpenStax University Physics 3, Chapter 39; artistic rendering)*](figures/quantum-foam-s0-placeholder.pdf){width=90%}
+*(OpenStax University Physics 3, Chapter 39; artistic rendering)*](figures/quantum-foam-s0-placeholder.png){width=90%}
 
 ---
 
@@ -58,7 +58,7 @@ in play. This is the deepest known physical substrate.
 The ripples on water (next scale up: electromagnetic at Scale 3) are
 smooth because they are built on an averaging over vast numbers of these
 Planck-scale fluctuations. Coarse-graining is how smoothness emerges.
-*(Schematic; illustrative)*](figures/foam-vs-water-s0-placeholder.pdf){width=85%}
+*(Schematic; illustrative)*](figures/foam-vs-water-s0-placeholder.png){width=85%}
 
 ---
 
@@ -99,7 +99,7 @@ interfere constructively are the classical trajectory. The paths that
 do not are the quantum corrections. The Green's function G is the
 sum — the field's complete answer to "what is the amplitude at $x$
 given a source at $x'$?"
-*(OpenStax Modern Physics; Feynman 1948)*](figures/path-integral-s0-placeholder.pdf){width=85%}
+*(OpenStax Modern Physics; Feynman 1948)*](figures/path-integral-s0-placeholder.png){width=85%}
 
 ---
 
@@ -132,7 +132,7 @@ and coarse-graining takes effect.
 geometries. The "mind" at Scale 0 is the entire branching tree — all
 histories simultaneously. As we zoom out (increase scale), branches
 are pruned by decoherence until only one classical history remains.
-*(Schematic; Everett/Zurek decoherence)*](figures/branching-tree-s0-placeholder.pdf){width=80%}
+*(Schematic; Everett/Zurek decoherence)*](figures/branching-tree-s0-placeholder.png){width=80%}
 
 ---
 
@@ -148,7 +148,7 @@ probability-amplitude interference of quantum foam are mathematically
 identical structures. Both are governed by the same $G$ equation.
 One is $10^{-8}$ m. One is $10^{-35}$ m. The equation has not changed.
 Only the substrate has.
-*(OpenStax University Physics 2e, Figure 27.17 adapted)*](figures/soap-bubble-foam-comparison-s0-placeholder.pdf){width=90%}
+*(OpenStax University Physics 2e, Figure 27.17 adapted)*](figures/soap-bubble-foam-comparison-s0-placeholder.png){width=90%}
 
 ---
 

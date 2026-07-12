@@ -226,7 +226,7 @@ Most of them are already written, in the chapters preceding this one.
 Planck scale at the bottom (quantum foam) to the cosmic web at the top.
 Each tick mark is one row of the table below. The scale bar on the right
 shows the corresponding characteristic length in metres (log scale).
-*(Schematic; OpenStax University Physics Vol. 3, Figure 39.1 adapted)*](figures/20-step-dial-placeholder.pdf){width=60%}
+*(Schematic; OpenStax University Physics Vol. 3, Figure 39.1 adapted)*](figures/20-step-dial-placeholder.png){width=60%}
 
 ---
 
@@ -360,4 +360,4 @@ an electric guitar enters in the left channel only, delivering a
 delta-function impulse to the nervous system of the listener. The
 field's state changes within 200ms. This is the observation that this
 book explains.
-*(Author's field note, June 2026)*](figures/guitar-impulse-placeholder.pdf){width=70%}
+*(Author's field note, June 2026)*](figures/guitar-impulse-placeholder.png){width=70%}

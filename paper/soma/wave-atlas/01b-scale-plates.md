@@ -69,7 +69,7 @@ The equation in the bottom row is the same. Only the right-hand column changes.
 ![Artistic rendering of quantum foam: spacetime at the Planck scale,
 where geometry becomes probabilistic. There are no smooth surfaces;
 only a churning sea of geometric fluctuations.
-*(OpenStax University Physics, Vol. 3, Chapter 39)*](figures/quantum-foam-placeholder.pdf){width=85%}
+*(OpenStax University Physics, Vol. 3, Chapter 39)*](figures/quantum-foam-placeholder.png){width=85%}
 
 ---
 
@@ -93,7 +93,7 @@ only a churning sea of geometric fluctuations.
 ![Visualisation of a quark-gluon plasma — the state of matter in the
 first microseconds after the Big Bang, and recreated briefly in heavy-ion
 colliders. Coloured (charged) particles interact through gluon exchange.
-*(CERN/OpenStax Modern Physics)*](figures/quark-gluon-placeholder.pdf){width=85%}
+*(CERN/OpenStax Modern Physics)*](figures/quark-gluon-placeholder.png){width=85%}
 
 ---
 
@@ -118,7 +118,7 @@ colliders. Coloured (charged) particles interact through gluon exchange.
 — quantum-mechanical interactions between electron clouds. The helix is
 the field's ground state, the lowest-energy configuration of the
 electron density subject to these constraints.
-*(OpenStax Biology 2e, Figure 3.9)*](figures/dna-helix-placeholder.pdf){width=85%}
+*(OpenStax Biology 2e, Figure 3.9)*](figures/dna-helix-placeholder.png){width=85%}
 
 ---
 
@@ -143,7 +143,7 @@ electron density subject to these constraints.
 dendritic branches; the axon hillock makes the binary fire/don't-fire
 decision; the axon terminal releases neurotransmitters into the synaptic
 cleft. The whole structure is a biological Green's function evaluator.
-*(OpenStax Anatomy and Physiology, Figure 12.3)*](figures/neuron-structure-placeholder.pdf){width=85%}
+*(OpenStax Anatomy and Physiology, Figure 12.3)*](figures/neuron-structure-placeholder.png){width=85%}
 
 ---
 
@@ -168,7 +168,7 @@ cleft. The whole structure is a biological Green's function evaluator.
 magnetic field pattern produced by synchronised neural activity. The
 field is real, measurable, and extends outside the skull. This is the
 Conscious Electromagnetic Information (CEMI) field.
-*(Illustrative; source type: OpenStax Neuroscience)*](figures/meg-cemi-placeholder.pdf){width=85%}
+*(Illustrative; source type: OpenStax Neuroscience)*](figures/meg-cemi-placeholder.png){width=85%}
 
 ---
 
@@ -193,7 +193,7 @@ Conscious Electromagnetic Information (CEMI) field.
 no blueprint stored anywhere. The shape is the field.
 Each bird follows three local rules: alignment, cohesion, separation.
 The global pattern emerges from the propagator.
-*(OpenStax Concepts of Biology, Figure 45.2)*](figures/murmuration-scale7-placeholder.pdf){width=85%}
+*(OpenStax Concepts of Biology, Figure 45.2)*](figures/murmuration-scale7-placeholder.png){width=85%}
 
 ---
 
@@ -218,7 +218,7 @@ The global pattern emerges from the propagator.
 network floating inside a tension network of fascia, muscle, and connective
 tissue. The body is not a stack of bones; it is a pre-stressed, globally
 coupled wave medium.
-*(OpenStax Anatomy and Physiology, Figure 7.1 adapted)*](figures/biotensegrity-placeholder.pdf){width=85%}
+*(OpenStax Anatomy and Physiology, Figure 7.1 adapted)*](figures/biotensegrity-placeholder.png){width=85%}
 
 ---
 
@@ -242,7 +242,7 @@ coupled wave medium.
 ![Aerial view of a city at night: light traces the transport network,
 which traces the coupling matrix of the social field. The brightest
 nodes are the highest-interaction-rate relay stations.
-*(OpenStax Sociology 2e, Fig 1.3 adapted)*](figures/city-night-placeholder.pdf){width=85%}
+*(OpenStax Sociology 2e, Fig 1.3 adapted)*](figures/city-night-placeholder.png){width=85%}
 
 ---
 
@@ -268,7 +268,7 @@ The horizontal line crossing the cliff face marks where 250-million-year-old
 Verrucano sandstone rests on 35-million-year-old Eocene flysch.
 The rock moved 35km northward as a coherent sheet over 10 million years.
 This is a wave with a 10-million-year period.
-*(Swiss Tectonic Arena Sardona, UNESCO World Heritage)*](figures/glarus-thrust-placeholder.pdf){width=90%}
+*(Swiss Tectonic Arena Sardona, UNESCO World Heritage)*](figures/glarus-thrust-placeholder.png){width=90%}
 
 ---
 
@@ -293,7 +293,7 @@ This is a wave with a 10-million-year period.
 iron, the dynamo), mantle (silicate rock, partially molten), crust.
 The mantle convects on a timescale of millions of years — a fluid wave
 in extremely slow motion.
-*(OpenStax Earth Science)*](figures/earth-cross-section-placeholder.pdf){width=80%}
+*(OpenStax Earth Science)*](figures/earth-cross-section-placeholder.png){width=80%}
 
 ---
 
@@ -318,7 +318,7 @@ in extremely slow motion.
 and the dark rift of dust obscuring the core. The spiral arms are
 density waves — compressions in the stellar distribution that rotate
 more slowly than the stars themselves.
-*(OpenStax Astronomy 2e, Figure 24.1)*](figures/milky-way-edge-on-placeholder.pdf){width=90%}
+*(OpenStax Astronomy 2e, Figure 24.1)*](figures/milky-way-edge-on-placeholder.png){width=90%}
 
 ---
 
@@ -345,7 +345,7 @@ a web whose pattern resembles the neural network of a brain at
 vastly smaller scale. This similarity is not mystical — it is the
 consequence of the same Green's function governing clustering at
 both scales.
-*(OpenStax Astronomy 2e, Figure 29.4; simulation credit: Illustris)*](figures/cosmic-web-placeholder.pdf){width=90%}
+*(OpenStax Astronomy 2e, Figure 29.4; simulation credit: Illustris)*](figures/cosmic-web-placeholder.png){width=90%}
 
 ---
 
@@ -388,4 +388,4 @@ The whole book is this observation, in twenty photographs.
 Below it: twenty thumbnail photographs, one per scale, arranged in a
 single horizontal row from quantum foam (left) to cosmic web (right).
 This is the book in one image.
-*(Schematic; see all chapters)*](figures/invariant-equation-all-scales-placeholder.pdf){width=100%}
+*(Schematic; see all chapters)*](figures/invariant-equation-all-scales-placeholder.png){width=100%}

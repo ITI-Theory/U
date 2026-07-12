@@ -16,7 +16,7 @@ model for what happens between them.
 shared. The interface is not the property of either bubble; it belongs
 to the relation. Two coupled soma-fields form a shared boundary in
 exactly this way.
-*(OpenStax College Physics 2e, Fig 11.2 — surface tension)*](figures/soap-bubbles-placeholder.pdf){width=85%}
+*(OpenStax College Physics 2e, Fig 11.2 — surface tension)*](figures/soap-bubbles-placeholder.png){width=85%}
 
 ---
 
@@ -46,7 +46,7 @@ boundary where the two 11D manifolds touch.
 person is a brane. The shared limbic corridor is the orbifold line
 segment between them. Fields propagate through the bulk; influence
 crosses the barrier in both directions.
-*(Schematic based on Horava-Witten 1996; see MTheoryIsomorphism.lean)*](figures/hv-two-branes-placeholder.pdf){width=90%}
+*(Schematic based on Horava-Witten 1996; see MTheoryIsomorphism.lean)*](figures/hv-two-branes-placeholder.png){width=90%}
 
 ---
 
@@ -85,7 +85,7 @@ contact. Its magnitude and phase structure encode:
 are bright. Off-diagonal blocks (cross-coupling / empathy) are weaker
 but non-zero whenever the two people are in contact. The Arnold tongue
 (inset) shows the frequency bands where synchronisation is stable.
-*(Schematic; see Pikovsky et al. 2001, Synchronization)*](figures/coupling-matrix-placeholder.pdf){width=85%}
+*(Schematic; see Pikovsky et al. 2001, Synchronization)*](figures/coupling-matrix-placeholder.png){width=85%}
 
 ---
 
@@ -180,7 +180,7 @@ tunnelling occurs.
 therapist field alone — global minimum, low barrier. Right: coupled
 system — shared energy landscape. The barrier W_eff is lower than W.
 The client's escape probability increases with coupling strength.
-*(Schematic; see LimbicTunnel.lean, LimbicHopfield.lean)*](figures/therapy-coupling-placeholder.pdf){width=90%}
+*(Schematic; see LimbicTunnel.lean, LimbicHopfield.lean)*](figures/therapy-coupling-placeholder.png){width=90%}
 
 ---
 
@@ -212,7 +212,7 @@ Limbic Axis as an orbifold with two boundary conditions.
 Strangers: near zero. Acquaintances: small but nonzero. Friends: stable
 nonzero with resilience to perturbation. The Arnold tongue width (inset)
 widens with friendship depth.
-*(Schematic)*](figures/friendship-coupling-placeholder.pdf){width=80%}
+*(Schematic)*](figures/friendship-coupling-placeholder.png){width=80%}
 
 ---
 
@@ -261,7 +261,7 @@ low off-diagonal coupling. Right: after 90 minutes of entraining music —
 the coupling matrix has developed coherent off-diagonal structure;
 the crowd is a collective organism. Heart rate synchrony (bottom)
 increases from r=0.12 to r=0.71 across this transition.
-*(Schematic based on Müller et al. 2013, Frontiers in Psychology)*](figures/crowd-entrainment-placeholder.pdf){width=90%}
+*(Schematic based on Müller et al. 2013, Frontiers in Psychology)*](figures/crowd-entrainment-placeholder.png){width=90%}
 
 ---
 

@@ -25,7 +25,7 @@ blue) connected by tubes of gluon field (the "flux tubes"). The quarks
 cannot be isolated; the energy cost of separating them exceeds the
 energy needed to create a new quark-antiquark pair. Confinement.
 The gluon field tubes are G at nuclear scale.
-*(OpenStax University Physics 3, Figure 44.9; colour added)*](figures/proton-quarks-s2-placeholder.pdf){width=85%}
+*(OpenStax University Physics 3, Figure 44.9; colour added)*](figures/proton-quarks-s2-placeholder.png){width=85%}
 
 ---
 
@@ -59,7 +59,7 @@ number Z) from hydrogen (Z=1) at top-left to oganesson (Z=118).
 Every element is a different nuclear configuration at Scale 2.
 The diversity of the material world at Scales 4–8 is entirely
 determined by which nuclear configurations are stable.
-*(OpenStax Chemistry 2e, Figure 6.1)*](figures/periodic-table-s2-placeholder.pdf){width=90%}
+*(OpenStax Chemistry 2e, Figure 6.1)*](figures/periodic-table-s2-placeholder.png){width=90%}
 
 ---
 
@@ -137,7 +137,7 @@ is the energy of a stable nuclear configuration. The curve peaks at
 iron-56 (most stable nucleus). Everything lighter can fuse; everything
 heavier can fission. The curve is the mind's memory of which
 configurations persist.
-*(OpenStax University Physics 3, Figure 43.2)*](figures/nuclear-binding-energy-s2-placeholder.pdf){width=85%}
+*(OpenStax University Physics 3, Figure 43.2)*](figures/nuclear-binding-energy-s2-placeholder.png){width=85%}
 
 ---
 
@@ -152,7 +152,7 @@ decaying perturbation in the dark-energy-dominated universe, confined
 to the local gravitational well. Both are Yukawa-type propagators:
 $G(r) = e^{-mr}/(4\pi r)$. Different mass parameter $m$. Different
 physical scale. Same equation.
-*(Schematic; see Scale 18 for cosmic comparison)*](figures/yukawa-galaxy-comparison-s2-placeholder.pdf){width=90%}
+*(Schematic; see Scale 18 for cosmic comparison)*](figures/yukawa-galaxy-comparison-s2-placeholder.png){width=90%}
 
 ---
 

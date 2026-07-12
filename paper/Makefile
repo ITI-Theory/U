@@ -136,12 +136,12 @@ WAVE_ATLAS_DIR := soma/wave-atlas
 WAVE_ATLAS_SRC := $(sort $(wildcard $(WAVE_ATLAS_DIR)/[0-9]*.md))
 
 WAVE_ATLAS_COMMON := $(RENDER_COMMON) \
-  --toc-depth=1 \
+  --resource-path=soma/wave-atlas:soma/wave-atlas/figures \
   -V documentclass=book \
 	-V classoption=openany
 
-WAVE_ATLAS_HEADER_MICRO := -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}"
-WAVE_ATLAS_HEADER_GRAPHIC := -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}\usepackage{graphicx}\graphicspath{{./}{soma/wave-atlas/figures/}{figures/}}"
+WAVE_ATLAS_HEADER_MICRO := -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}\usepackage[most]{tcolorbox}"
+WAVE_ATLAS_HEADER_GRAPHIC := -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{microtype}\usepackage[most]{tcolorbox}\usepackage{graphicx}\graphicspath{{./}{soma/wave-atlas/figures/}{figures/}}"
 
 WAVE_ATLAS_ROYAL_FLAGS := $(WAVE_ATLAS_COMMON) \
   -V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=6mm" \
@@ -167,12 +167,12 @@ WAVE_ATLAS_CROWN_FLAGS := $(WAVE_ATLAS_COMMON) \
 wave-atlas: | $(BUILDDIR)
 	@echo "Wave Atlas sources:"
 	@for f in $(WAVE_ATLAS_SRC); do echo "  $$f"; done
-	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas.pdf $(WAVE_ATLAS_ROYAL_FLAGS)
-	@echo "Built: $(BUILDDIR)/wave-atlas.pdf"
+	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas.pdf $(WAVE_ATLAS_A4_FLAGS)
+	@echo "Built: $(BUILDDIR)/wave-atlas.pdf (A4 — default)"
 
-wave-atlas-a4: | $(BUILDDIR)
-	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas-a4.pdf $(WAVE_ATLAS_A4_FLAGS)
-	@echo "Built: $(BUILDDIR)/wave-atlas-a4.pdf"
+wave-atlas-royal: | $(BUILDDIR)
+	$(PANDOC) $(WAVE_ATLAS_SRC) -o $(BUILDDIR)/wave-atlas-royal.pdf $(WAVE_ATLAS_ROYAL_FLAGS)
+	@echo "Built: $(BUILDDIR)/wave-atlas-royal.pdf"
 
 wave-atlas-all: wave-atlas wave-atlas-a4
 

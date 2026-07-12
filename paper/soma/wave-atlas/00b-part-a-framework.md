@@ -31,7 +31,7 @@ This distinction is everything.
 ![A photograph of ripples on the surface of the Klöntalersee, Glarus,
 Switzerland. The water is the medium (the field). The ripples are the
 waves. If you remove the water, the ripples disappear. If you remove
-the ripples, the water remains. *(Author's photograph, 2026)*](figures/klontalersee-ripples-placeholder.pdf){width=90%}
+the ripples, the water remains. *(Author's photograph, 2026)*](figures/klontalersee-ripples-placeholder.png){width=90%}
 
 ---
 
@@ -118,7 +118,7 @@ The answer is G.
 The sound field in the room is G: the response everywhere due to
 a unit impulse at the speaker location. If you know G, you know
 exactly how sound propagates from any source to any listener in this
-room — for any source. *(OpenStax University Physics 2e, Fig 17.1 adapted)*](figures/speaker-room-greens-placeholder.pdf){width=85%}
+room — for any source. *(OpenStax University Physics 2e, Fig 17.1 adapted)*](figures/speaker-room-greens-placeholder.png){width=85%}
 
 ---
 
@@ -178,7 +178,7 @@ photographs beneath them: (1) a speaker in a room, (2) a seismograph,
 (3) an electric field line between two charges, (4) a Feynman diagram,
 (5) a receptive field map of a visual cortex neuron, (6) the author
 dropping a stone in the Klöntalersee. Same G. Different contexts.
-*(Schematic; illustrative)*](figures/six-greens-functions-placeholder.pdf){width=95%}
+*(Schematic; illustrative)*](figures/six-greens-functions-placeholder.png){width=95%}
 
 ---
 
@@ -221,7 +221,7 @@ D5-D7 (orange): the electromagnetic field surrounding the body.
 D8 (red): the limbic regulatory axis (a line segment).
 D9-D11 (green): the cortical information-processing network.
 Total: 4 + 3 + 1 + 3 = 11.
-*(Schematic; see MTheoryIsomorphism.lean, Chapter 11)*](figures/11d-body-schematic-placeholder.pdf){width=85%}
+*(Schematic; see MTheoryIsomorphism.lean, Chapter 11)*](figures/11d-body-schematic-placeholder.png){width=85%}
 
 ---
 
@@ -294,7 +294,7 @@ The zoom operator Λ changes the label without changing the equation.
 (right), with 20 tick marks. The slider knob can be positioned at
 any tick. Below each tick: a thumbnail image of the physical substrate
 at that scale. Below all thumbnails: the same equation, unmoving.
-*(Schematic; Chapter 1b)*](figures/zoom-dial-horizontal-placeholder.pdf){width=95%}
+*(Schematic; Chapter 1b)*](figures/zoom-dial-horizontal-placeholder.png){width=95%}
 
 ---
 

@@ -61,7 +61,7 @@ combinatorics of this worldsheet.
 by duality arrows to a central node labelled M-theory ($d=11$).
 At Scale 1, all five theories are the same theory in different limits.
 M-theory is the master frame.
-*(Schematic; Witten 1995)*](figures/m-theory-web-s1-placeholder.pdf){width=80%}
+*(Schematic; Witten 1995)*](figures/m-theory-web-s1-placeholder.png){width=80%}
 
 ---
 
@@ -106,7 +106,7 @@ propagation, made visible as a 1D trajectory.
 The string's vibrational mode IS this oscillator, for every mode $n$
 on the worldsheet. The innovation of this book: this oscillator is not
 a material object — it is G evaluated at worldsheet source $\sigma'$.
-*(OpenStax University Physics 2e, Figure 15.2 adapted)*](figures/sho-string-identification-s1-placeholder.pdf){width=75%}
+*(OpenStax University Physics 2e, Figure 15.2 adapted)*](figures/sho-string-identification-s1-placeholder.png){width=75%}
 
 ---
 
@@ -144,7 +144,7 @@ Both are Green's functions of the same master equation
 $({\nabla}^2 + k^2)G = \delta$; different boundary conditions give
 different functional forms. The string's logarithmic G is the near-field
 limit; the Coulomb $1/r$ is the far-field limit.
-*(Schematic; Polchinski 1998 adapted)*](figures/string-coulomb-comparison-s1-placeholder.pdf){width=90%}
+*(Schematic; Polchinski 1998 adapted)*](figures/string-coulomb-comparison-s1-placeholder.png){width=90%}
 
 ---
 

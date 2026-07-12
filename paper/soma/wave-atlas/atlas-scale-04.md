@@ -26,7 +26,7 @@ crystallography. The two strands are held by hydrogen bonds (pale blue
 dashed lines). The regular spacing of the base pairs — the periodicity
 of the helix — is the ground state of the molecular mind matrix:
 the lowest-energy spatial configuration the system can adopt.
-*(OpenStax Biology 2e, Figure 3.9; crystallography data: PDB 1BNA)*](figures/dna-helix-s4-placeholder.pdf){width=85%}
+*(OpenStax Biology 2e, Figure 3.9; crystallography data: PDB 1BNA)*](figures/dna-helix-s4-placeholder.png){width=85%}
 
 ---
 
@@ -65,7 +65,7 @@ carbon atom (grey) bonds to four hydrogen atoms (white) with a
 bond angle of 109.5°. This geometry is not arbitrary; it is the
 energy minimum of the electron density wave function under the
 constraint of four bond pairs. Geometry is physics.
-*(OpenStax Chemistry 2e, Figure 7.5)*](figures/methane-tetrahedral-s4-placeholder.pdf){width=70%}
+*(OpenStax Chemistry 2e, Figure 7.5)*](figures/methane-tetrahedral-s4-placeholder.png){width=70%}
 
 ---
 
@@ -105,7 +105,7 @@ molecule) — density concentrated in the bond region between nuclei;
 (right) benzene (C₆H₆) — delocalised ring density (the famous
 aromatic system). Each map is a direct visualisation of G evaluated
 at the molecular boundary conditions.
-*(OpenStax Chemistry 2e; electron density data from DFT calculations)*](figures/electron-density-maps-s4-placeholder.pdf){width=90%}
+*(OpenStax Chemistry 2e; electron density data from DFT calculations)*](figures/electron-density-maps-s4-placeholder.png){width=90%}
 
 ---
 
@@ -148,7 +148,7 @@ just enough energy to flip the molecule from one attractor to the
 other. This is a Scale-4 attractor transition. The same mathematics
 governs the Scale-8 trauma attractor transition — the barrier
 heights are different, but the equation is the same.
-*(OpenStax Biology 2e, Figure 35.13 adapted)*](figures/rhodopsin-conformations-s4-placeholder.pdf){width=80%}
+*(OpenStax Biology 2e, Figure 35.13 adapted)*](figures/rhodopsin-conformations-s4-placeholder.png){width=80%}
 
 ---
 

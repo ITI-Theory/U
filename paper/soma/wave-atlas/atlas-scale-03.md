@@ -25,7 +25,7 @@ $$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')$$
 representing the 1s electron orbital. The cloud is not a picture of the
 electron's position — it is a picture of G: the probability amplitude for
 finding the electron at each point, given the proton as the source.
-*(OpenStax University Physics 3, Figure 8.2)*](figures/hydrogen-atom-s3-placeholder.pdf){width=75%}
+*(OpenStax University Physics 3, Figure 8.2)*](figures/hydrogen-atom-s3-placeholder.png){width=75%}
 
 ---
 
@@ -61,7 +61,7 @@ probability density surfaces. Each orbital is an eigenfunction of the
 Hamiltonian with the Coulomb Green's function as the interaction kernel.
 The shape of each orbital is a resonant mode of G evaluated at the
 atomic boundary conditions — the nuclear Coulomb potential.
-*(OpenStax University Physics 3, Figure 8.6)*](figures/hydrogen-orbitals-s3-placeholder.pdf){width=85%}
+*(OpenStax University Physics 3, Figure 8.6)*](figures/hydrogen-orbitals-s3-placeholder.png){width=85%}
 
 ---
 
@@ -105,7 +105,7 @@ between atomic energy levels — a jump between eigenmodes of the
 Coulomb Green's function. The frequency of each photon emitted is
 the frequency difference between two resonant modes of G. The spectrum
 is a direct readout of G's eigenvalue structure.
-*(OpenStax Chemistry 2e, Figure 6.3)*](figures/hydrogen-spectrum-s3-placeholder.pdf){width=85%}
+*(OpenStax Chemistry 2e, Figure 6.3)*](figures/hydrogen-spectrum-s3-placeholder.png){width=85%}
 
 ---
 
@@ -141,7 +141,7 @@ energy (barrier to removing an electron). Noble gases are deep valleys
 (strongly bound, chemically inert). Alkali metals are shallow peaks
 (easily ionised, chemically reactive). The periodic table IS the mind
 matrix of Scale 3, rendered as a topographic map.
-*(OpenStax Chemistry 2e, Figure 7.13 adapted)*](figures/periodic-table-energy-s3-placeholder.pdf){width=90%}
+*(OpenStax Chemistry 2e, Figure 7.13 adapted)*](figures/periodic-table-energy-s3-placeholder.png){width=90%}
 
 ---
 

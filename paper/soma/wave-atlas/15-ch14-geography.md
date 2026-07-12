@@ -15,7 +15,7 @@ stared at a map and sensed that something was moving.
 ![Murmuration of starlings over the Somerset Levels, UK. Each bird follows
 local rules; the flock exhibits global coherence. The shape is not stored
 anywhere. It is the field.
-*(OpenStax Concepts of Biology, Figure 45.2 — swarm behaviour)*](figures/murmuration-placeholder.pdf){width=90%}
+*(OpenStax Concepts of Biology, Figure 45.2 — swarm behaviour)*](figures/murmuration-placeholder.png){width=90%}
 
 ---
 
@@ -56,7 +56,7 @@ decay.
 ![The Thames Basin from above, showing the east–west corridor between
 the Chilterns and North Downs. Geographic boundaries function as
 wave-guide walls, channelling pattern propagation along the valley floor.
-*(Based on Ordnance Survey data; schematic; OpenStax Earth Sciences)*](figures/thames-waveguide-placeholder.pdf){width=85%}
+*(Based on Ordnance Survey data; schematic; OpenStax Earth Sciences)*](figures/thames-waveguide-placeholder.png){width=85%}
 
 ---
 
@@ -105,7 +105,7 @@ social mobility in the corridor's economic context).
 Contour lines show approximate isoglosses (boundaries of equal
 phonological adoption). The pattern resembles a ripple from a point
 source, deformed by the underlying transport network.
-*(Schematic based on Wells 1982, Rosewarne 1984; OpenStax Linguistics)*](figures/estuary-english-spread-placeholder.pdf){width=80%}
+*(Schematic based on Wells 1982, Rosewarne 1984; OpenStax Linguistics)*](figures/estuary-english-spread-placeholder.png){width=80%}
 
 ---
 
@@ -147,7 +147,7 @@ that drive the convective loops the birds exploit.
 ![Ring-necked parakeet roost at dusk over Staines Reservoir. The flock
 forms a coherent fluid shape with no central controller. This is
 active-matter physics at Scale 7.
-*(Illustrative; source: OpenStax Biology 2e, Fig 43.4 adapted)*](figures/parakeets-roost-placeholder.pdf){width=90%}
+*(Illustrative; source: OpenStax Biology 2e, Fig 43.4 adapted)*](figures/parakeets-roost-placeholder.png){width=90%}
 
 ---
 
@@ -192,7 +192,7 @@ English spread (contours of equal phonological adoption) overlaid on
 the Thames Basin; bottom, a heat map of ring-necked parakeet density
 (RSPB survey data). Both patterns show the same east-west asymmetry
 imposed by the valley's geometry.
-*(Schematic; sources: Wells 1982; RSPB Garden Birdwatch 2023)*](figures/thames-comparison-placeholder.pdf){width=90%}
+*(Schematic; sources: Wells 1982; RSPB Garden Birdwatch 2023)*](figures/thames-comparison-placeholder.png){width=90%}
 
 ---
 
@@ -225,7 +225,7 @@ propagator equation.
 valley acts as a parabolic acoustic resonator. Atmospheric pressure
 waves in the valley persist longer than in the surrounding terrain.
 This is not mystical. It is boundary conditions.
-*(Photograph description; author's field observation 2026)*](figures/klontalersee-placeholder.pdf){width=85%}
+*(Photograph description; author's field observation 2026)*](figures/klontalersee-placeholder.png){width=85%}
 
 ---
 
@@ -267,7 +267,7 @@ ADHD: high temperature (fast exploration, low settling).
 ASD: low temperature (deep attractors, rare transitions).
 C-PTSD: deep barrier (barrier height W elevated, classical escape blocked).
 All three are positions on the $(\beta, W)$ plane, not deficits.
-*(Schematic; see Chapter 11, LimbicHopfield.lean)*](figures/neurodivergent-parameter-space-placeholder.pdf){width=80%}
+*(Schematic; see Chapter 11, LimbicHopfield.lean)*](figures/neurodivergent-parameter-space-placeholder.png){width=80%}
 
 ---
 
