@@ -113,6 +113,29 @@ theorem lse_ge_max {n : ℕ} (hn : 0 < n) (β : ℝ) (hβ : 0 < β) (z : Fin n �
       ≤ ∑ i, Real.exp (β * z i) := Finset.single_le_sum
           (fun i _ => Real.exp_nonneg _) _ (Finset.mem_univ k)
 
+/-! ## 1b. Algorithmic Complexity Comparison
+
+| Model              | Storage    | Update cost        | Steps to converge | Capacity     |
+|--------------------|------------|--------------------|-------------------|--------------|
+| Hopfield 1982      | O(D²)      | O(D²) per step     | O(D)              | ~0.14 · D    |
+| Modern HN 2020     | O(N · D)   | O(N · D) per step  | **O(1)**          | exp(D/2)     |
+| FM-HN (this work)  | O(N · D)   | O(N · D) per step  | O(1) or tunnelled | exp(D/2)     |
+
+The key algorithmic advance in Ramsauer et al. (2020): **one-step convergence**.
+A single application of the softmax update retrieves the stored pattern,
+replacing the O(D)-iteration fixed-point loop of the 1982 model.
+
+The FM-HN inherits one-step convergence in the calm regime (φ = 0).
+In the stressed regime (φ > 0, low β), convergence is no longer
+guaranteed in O(1) steps — instead the network may tunnel to a
+different basin, which can be slower but accesses states unreachable
+by gradient descent. This is the computational cost of escape.
+
+The O(D²) weight matrix of the 1982 model is also notable: it scales
+quadratically with the number of neurons, making it impractical for
+large D. The 2020 model stores patterns as rows of X ∈ ℝ^{N×D},
+which scales linearly in D for fixed N. -/
+
 /-! ## 2. The Two Energy Functions -/
 
 /-- Classical 1982 Hopfield energy: E₈₂(s) = −½ sᵀ W s. -/

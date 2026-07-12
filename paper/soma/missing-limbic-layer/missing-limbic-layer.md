@@ -78,6 +78,8 @@ descends $E_{82}$ monotonically. Stored patterns are local energy minima.
 The network is guaranteed to converge to a fixed point in finite steps.
 Storage capacity is approximately $0.14 \cdot D$ patterns before
 interference degrades recall [@hopfield1982].
+The weight matrix requires $\mathcal{O}(D^2)$ storage and each update step
+costs $\mathcal{O}(D^2)$ operations.
 
 The fundamental limitation: once in a local minimum, the network cannot escape.
 There is no internal mechanism to overcome a topological barrier. Resets require
@@ -96,8 +98,10 @@ stores patterns as rows. The update rule:
 
 $$\xi \leftarrow X^T \cdot \text{softmax}(\beta \cdot X \xi)$$
 
-converges in a single step for well-separated patterns. Exponential storage
-capacity ($e^{D/2}$ patterns) replaces the linear $0.14D$ bound.
+converges in a **single step** for well-separated patterns — an $\mathcal{O}(1)$
+retrieval, down from $\mathcal{O}(D)$ iterations in the 1982 model.
+Exponential storage capacity ($e^{D/2}$ patterns) replaces the linear $0.14D$ bound.
+Each update costs $\mathcal{O}(N \cdot D)$ where $N$ is the number of stored patterns.
 
 The key parameter is $\beta$. Its role is inherited from statistical mechanics:
 high $\beta$ (low temperature) means sharp, deterministic updates; low $\beta$
@@ -373,5 +377,5 @@ nocite: |
   @mcfadden2002b
   @johnson2026b
   @johnson2026c
-  @johnson2026d
+  @johnsonco2026
 ...
