@@ -1,3 +1,17 @@
+# Scale 9 — Society / City ($10^{3}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 9 — Cities and Social Waves ($10^3$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$ \quad
+$k = 1/r_\text{social} \approx 10^{-3}$ m$^{-1}$;
+Substrate: urban infrastructure, crowds;
+Propagator: social interaction kernel;
+Mind rank $N \approx 10^6$–$10^7$ (city population);
+Mind: cultural attractors, norms, dialects (see Ch.\,14).
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 8b — Cities and Brains: Scaling Laws
 
 \begin{quote}\itshape

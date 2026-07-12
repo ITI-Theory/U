@@ -1,3 +1,16 @@
+# Scale 7 — Swarms, Fractals, Life-Patterns ($10^{0}$–$10^{2}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 7 — Swarms / Fractals / Life Patterns ($10^{0}$–$10^{2}$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: trees, rivers, lungs, river networks, ant colonies;
+Propagator: diffusion / branching kernel ($k \to 0$, scale-free);
+Mind rank $N$: swarm size or branching number (self-similar, $N \to \infty$);
+Mind: fractal memory — each branch pattern encodes the whole.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 8 — Trees, Rivers, Lungs
 
 \begin{quote}\itshape

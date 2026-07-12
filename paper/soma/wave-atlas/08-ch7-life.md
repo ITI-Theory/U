@@ -1,3 +1,16 @@
+# Scale 5b — Cellular Life / Biochemical Waves ($10^{-6}$–$10^{-3}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 5b — Cellular Life / Turing Patterns ($10^{-4}$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: cells, embryonic tissue, Turing reaction-diffusion;
+Propagator: diffusion-reaction kernel (Turing 1952);
+Mind rank $N$: developmental gene-regulatory network ($\sim 10^4$ genes);
+Mind: developmental memory — body plan stored as attractor.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 7 — Life: The Wave Becomes a Pattern
 
 \begin{quote}\itshape

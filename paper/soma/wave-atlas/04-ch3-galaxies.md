@@ -1,3 +1,16 @@
+# Scale 15–16 — Galactic ($10^{20}$–$10^{22}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 15–16 — Galaxies as Spiral Waves ($10^{20}$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: stellar populations, dark matter halo;
+Propagator: density-wave kernel / gravitational Green's function;
+Mind rank $N$: number of stars ($\sim 10^{11}$ for Milky Way);
+Mind: galactic kinematics — rotation curve, spiral arm memory.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 3 — Galaxies as Spiral Waves
 
 \begin{quote}\itshape

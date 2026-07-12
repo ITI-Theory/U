@@ -1,3 +1,17 @@
+# Scale 6b — Music as Soma-Field Probe (human / acoustic scale)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 6b — Music as Field Probe ($10^{-1}$–$10^{1}$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: air (acoustic), tissue (somatic), cortex (neural);
+Propagator: acoustic Green's function + CEMI coupling;
+Mind rank $N$: full 11D organism ($\sim 10^{14}$);
+Key result: dissonance is path-dependent (trajectory through G${}_2$ moduli space);
+timbre = Laplace-Beltrami spectrum of the 11D manifold.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 12b — Music as Soma-Field Tool
 
 \begin{quote}\itshape

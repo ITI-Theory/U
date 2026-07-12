@@ -1,3 +1,16 @@
+# Scale 13–14 — Stellar ($10^{9}$–$10^{11}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 13–14 — Stars Ring Like Bells ($10^9$–$10^{11}$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: stellar plasma; $k = \omega/c_s$ (sound speed in plasma $\sim 100$ km/s);
+Propagator: helioseismic Green's function (measured by SOHO/HMI);
+Mind rank $N$: stellar oscillation mode spectrum ($\sim 10^6$ modes);
+Mind: stellar memory — rotation profile, chemical stratification.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 4 — Stars Ring Like Bells
 
 \begin{quote}\itshape

@@ -1,3 +1,16 @@
+# Scale 11–12 — Planetary / Atmospheric ($10^{6}$–$10^{7}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 11–12 — Planets, Weather, Oceans ($10^6$–$10^7$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: atmosphere, oceans, mantle; $k = \omega/c_s$ (sound/Rossby speed);
+Propagator: atmospheric / oceanic wave kernel (Rossby waves, acoustic);
+Mind rank $N$: global climate modes ($\sim 10^3$ coupled oscillators);
+Mind: climate memory — El Ni\~no, ice ages, AMOC as attractor states.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 5 — Planets, Weather, and the Skin of the Earth
 
 \begin{quote}\itshape

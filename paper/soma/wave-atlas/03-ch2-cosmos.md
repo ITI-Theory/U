@@ -1,3 +1,16 @@
+# Scale 18–20 — Cosmic Web / Observable Universe ($10^{24}$–$10^{26}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 18–20 — The Universe Begins as a Wave ($10^{26}$ m)}]
+\textbf{The equation (always):} $(\nabla^2 + k^2)\, G = \delta$;
+Substrate: CMB fluctuations, galaxy filaments, dark energy;
+Propagator: gravitational wave propagator (linearised GR): $\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}$;
+Mind rank $N \to \infty$: the full cosmological state;
+Mind: the self-computing cosmos — if $\phi_\text{cosmic} \geq T_c$: universal consciousness.
+\end{tcolorbox}
+
+\vspace{1em}
+
 # Chapter 2 — The Universe Begins as a Wave
 
 \begin{quote}\itshape
