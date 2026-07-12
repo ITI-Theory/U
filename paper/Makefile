@@ -98,6 +98,37 @@ translate-omnibus: | $(BUILDDIR)
 translate-omnibus-deepl: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --backend deepl
 
+# ---------------------------------------------------------------------------
+# Per-language translate-and-build convenience targets
+#   make omnibus-translate-de   — translate to German, build A4 PDF
+#   make omnibus-translate-fr   — translate to French,  build A4 PDF
+#   make omnibus-translate-it   — translate to Italian, build A4 PDF
+#   make omnibus-translate-en   — EN only (redundant alias for 'make omnibus')
+#   make omnibus-translate      — all four languages
+# Each target runs translation then builds the A4 PDF in one command.
+# ---------------------------------------------------------------------------
+.PHONY: omnibus-translate-de omnibus-translate-fr omnibus-translate-it omnibus-translate-en omnibus-translate
+
+omnibus-translate-de: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --langs de
+	$(PANDOC) $(BUILDDIR)/omnibus-body.de.md -o $(BUILDDIR)/omnibus-a4.de.pdf $(OMNIBUS_A4_FLAGS) -V lang=de
+	@echo "Built: $(BUILDDIR)/omnibus-a4.de.pdf"
+
+omnibus-translate-fr: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --langs fr
+	$(PANDOC) $(BUILDDIR)/omnibus-body.fr.md -o $(BUILDDIR)/omnibus-a4.fr.pdf $(OMNIBUS_A4_FLAGS) -V lang=fr
+	@echo "Built: $(BUILDDIR)/omnibus-a4.fr.pdf"
+
+omnibus-translate-it: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --langs it
+	$(PANDOC) $(BUILDDIR)/omnibus-body.it.md -o $(BUILDDIR)/omnibus-a4.it.pdf $(OMNIBUS_A4_FLAGS) -V lang=it
+	@echo "Built: $(BUILDDIR)/omnibus-a4.it.pdf"
+
+omnibus-translate-en: omnibus
+	@echo "(EN omnibus is 'make omnibus' — already up to date)"
+
+omnibus-translate: omnibus omnibus-translate-de omnibus-translate-fr omnibus-translate-it
+
 define BUILD_OMNIBUS_TRANS_RULE
 .PHONY: omnibus-royal-$(1) omnibus-a4-$(1)
 omnibus-royal-$(1): | $(BUILDDIR)
