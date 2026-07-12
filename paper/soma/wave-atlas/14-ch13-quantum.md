@@ -1,4 +1,22 @@
-# Chapter 13 — Quantum
+# Scale 5 — Cellular / Quantum ($10^{-6}$–$10^{-3}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 5 — Cellular / Neural / Quantum ($10^{-6}$ m)}]
+
+\textbf{The equation (always):}
+$$({\nabla}^2 + k^2)\, G(x, x') = \delta(x - x')$$
+
+\begin{tabular}{ll}
+\textbf{$k$ at this scale:} & $k = 1/\lambda_\text{axon} \approx 1/0.5$ mm $\approx 2000$ m$^{-1}$ \\
+\textbf{Physical substrate:} & Neurons, synapses, axons; quantum biology \\
+\textbf{Propagator $G$:} & Synaptic transfer function; WKB tunnelling kernel \\
+\textbf{Mind matrix rank $N$:} & $N \approx 10^{4}$ per neuron; $10^{14}$ for the brain \\
+\textbf{Boundary conditions:} & Cell membrane; confinement to axon diameter \\
+\textbf{Key result:} & QUANT-EXP-1: quantum tunnelling 3/3 vs classical 0/48 \\
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{1em}
 
 \begin{quote}\small\itshape
 A physicist I respect once told me: "The trouble with quantum mechanics is that it works." Every experiment we've ever done at the quantum scale has come out consistent with the theory, and yet the theory's interpretation remains, ninety-eight years after Heisenberg's original formulation, openly contested. This is unusual. Most physical theories are either disproven and discarded or accepted and understood. Quantum mechanics is accepted *and* not understood. That is the situation we work in.

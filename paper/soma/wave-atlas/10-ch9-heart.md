@@ -1,4 +1,22 @@
-# Chapter 9 — The Cardiac Field
+# Scale 8 — The Human Organism / Cardiac Field ($10^{0}$ m)
+
+\begin{tcolorbox}[colback=gray!8, colframe=gray!40,
+  title=\textbf{Scale 8 — Human Organism ($10^{0}$ m)}]
+
+\textbf{The equation (always):}
+$$({\nabla}^2 + k^2)\, G(x, x') = \delta(x - x')$$
+
+\begin{tabular}{ll}
+\textbf{$k$ at this scale:} & $k = \omega/c_\text{tissue} \approx 2\pi f_\text{cardiac}/c_s$; $f \approx 1$ Hz \\
+\textbf{Physical substrate:} & Body: heart, vasculature, biotensegrity frame \\
+\textbf{Propagator $G$:} & Cardiac EMF; the body's loudest field signal \  & \ (detectable by MCG up to 2 m from the body) \\
+\textbf{Mind matrix rank $N$:} & Full 11D organism: $N \sim 10^{14}$–$10^{15}$ \\
+\textbf{Boundary conditions:} & Body surface; extracorporeal field decay as $1/r^3$ \\
+\textbf{Consciousness:} & Full 11D organism; limbic $D_8$ bridge active \\
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{1em}
 
 \begin{quote}\itshape
 The heart is the loudest electromagnetic event the body makes. It is
