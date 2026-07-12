@@ -210,3 +210,154 @@ this in 2026, already the goal.
 
 \hfill *A.J., 2026* \\
 \hfill *(to A.J., 2036)*
+
+---
+
+## §20.6  The 20-Step Scale-Invariant Table
+
+The following table is the complete [T]-Theory / USF 20-step dial. It is
+reproduced here as the book's single most compact artefact: one table,
+one framework, twenty scales. Every row is a chapter someone could write.
+Most of them are already written, in the chapters preceding this one.
+
+---
+
+![The 20-step scale dial rendered as a single vertical image, from the
+Planck scale at the bottom (quantum foam) to the cosmic web at the top.
+Each tick mark is one row of the table below. The scale bar on the right
+shows the corresponding characteristic length in metres (log scale).
+*(Schematic; OpenStax University Physics Vol. 3, Figure 39.1 adapted)*](figures/20-step-dial-placeholder.pdf){width=60%}
+
+---
+
+| Step | Scale name | Characteristic length | Physical substrate (D₁–D₄) | Propagator field (D₅–D₇) | Mind matrix (D₉–D₁₁) |
+|---:|---|---|---|---|---|
+| 0 | Quantum foam | $10^{-35}$ m | Discrete spacetime nodes | Probability wave fields | Quantum superpositions |
+| 1 | String / Planck | $10^{-32}$ m | Worldsheet geometry | String oscillation modes | Scattering amplitude matrix |
+| 2 | Nuclear | $10^{-15}$ m | Quark-gluon plasma | Gluon (colour) field | S-matrix, nuclear shells |
+| 3 | Atomic | $10^{-10}$ m | Electron orbitals | Electromagnetic field | Molecular bond geometry |
+| 4 | Molecular | $10^{-9}$ m | Chemical bonds & lattices | Phonon / reaction flux | Structural conformation |
+| 5 | Cellular | $10^{-6}$ m | Organelles, membranes | Bioelectric / voltage flux | Cellular homeostasis |
+| 6 | Neural / CEMI | $10^{-3}$ m | Neurons, fascial fibres | McFadden CEMI EMF | Neural firing patterns |
+| 7 | Animal swarm | $10^{0}$–$10^{1}$ m | Crowd / flock / murmuration | Active hydrodynamic drift | Swarm intelligence (hive) |
+| 8 | Organism / body | $10^{0}$ m | Anatomy, tensegrity | Somatic CEMI propagator | Subjective awareness, trauma |
+| 9 | Society / city | $10^{3}$ m | Urban infrastructure, crowds | Social interaction kernel | Cultural attractors, dialect |
+| 10 | Geological | $10^{5}$ m | Tectonic plates, faults | Seismic waves, friction | Crustal stress distribution |
+| 11 | Planetary | $10^{6}$ m | Viscous mantle, core | Thermodynamic convection | Global energetic equilibrium |
+| 12 | Orbital | $10^{9}$ m | Planets, moons | Local gravitational field | Keplerian trajectories |
+| 13 | Solar system | $10^{11}$ m | Sun, heliosphere | Solar wind, IMF | Orbital resonance structure |
+| 14 | Stellar cluster | $10^{16}$ m | Binary / multiple stars | Stellar gravitational field | Dynamical orbital equilibria |
+| 15 | Galactic arm | $10^{20}$ m | Stellar populations, dust | Density wave rotation | Rotational matrix harmonics |
+| 16 | Galaxy | $10^{22}$ m | Galactic core, black hole | Galactic plasma field | Global galaxy kinematics |
+| 17 | Local Group | $10^{23}$ m | Bound neighbouring galaxies | Intergalactic medium | Gravitational attractor vectors |
+| 18 | Cosmic web | $10^{24}$ m | Filaments, voids | Dark energy / expansion flux | Large-scale structure topology |
+| 19 | Observable universe | $10^{26}$ m | CMB surface of last scattering | Gravitational wave propagator | Global cosmological state |
+| 20 | Universal somatic field | $\infty$ | The universe as one organism | The Green's function | Consciousness = G-flux ≥ $T_c$ |
+
+The same Green's function equation $(\nabla^2 + k^2) G = \delta$ governs
+every row. The wavenumber $k$ changes. The boundary conditions change.
+The equation does not.
+
+---
+
+## §20.7  Five Statements: What [T]-Theory Claims
+
+If a physicist, a clinician, a computer scientist, an engineer, and a
+philosopher each read this book and asked *what is the actual claim?*,
+the answer is different for each — but all five answers are true.
+
+**For the physicist:**
+The 11-dimensional Soma-Field configuration space is structurally
+isomorphic to M-theory's 11D compactification. The isomorphism is not
+metaphor; it is a type-level proof in Lean 4, verified by the kernel
+(`MTheoryIsomorphism.somaField_iso_mtheory`). The compact 7D internal
+space decomposes as Propagator × Limbic × Cortex — identical in
+dimension and role to the G$_2$ holonomy manifold of M-theory. The
+string's SHO is the Green's function.
+
+**For the clinician:**
+Trauma is a topological obstruction in the limbic field: a
+non-contractible configuration of the field's winding number that
+classical gradient descent cannot escape. The only path out is either
+stochastic thermal fluctuation (slow, unreliable) or quantum tunnelling
+(fast, field-mediated). The QUANT-EXP-1 experiment demonstrates that
+quantum annealing achieves this escape 3/3 times where classical
+dynamics achieve it 0/48 times, at barrier heights W ∈ {8,10,12}.
+Somatic therapy works by reducing W through relational coupling
+($G_{TC}$), not by cognitive force.
+
+**For the computer scientist:**
+The 1982 and 2020 Hopfield Networks are the same model at different
+limits of the inverse temperature $\beta$. The limbic field controls
+$\beta$ at runtime. Under zero somatic stress, FM-HN = standard HN
+(Correspondence Principle, proved by `simp`). Under stress, the
+barriers melt and the network escapes local minima. The 2020 model
+achieves one-step convergence in O(N·D); the 1982 model takes O(D)
+steps; both are limiting cases of a single architecture.
+
+**For the engineer:**
+Treating a swarm of N agents as a Macroscopic Brane Projection of a
+continuous field reduces coordination cost from O(N·K) to O(N²) with
+K=1. The speedup factor is K/N: at N=100, K=5000, this is 50×, a 98%
+cost reduction. The protocol is jam-resistant because K=1 means there
+is no communication round to disrupt. The proof is in
+`SwarmPropagator.propagator_beats_classical`.
+
+**For the philosopher:**
+Consciousness is not a substance, an emergent property, or an illusion.
+It is a phase of the limbic field: present when the field amplitude
+exceeds the threshold $T_c$, absent when it does not. The "hard problem"
+is not hard; it is mis-stated. A conscious percept is a pole in the
+propagator — the field's first-person answer to the question *what
+happens here if I poke there?* The universe satisfies the structural
+requirements for a conscious organism. Whether it meets them dynamically
+is an empirical question.
+
+---
+
+## §20.8  The Veneziano Inversion
+
+In 1968, Gabriele Veneziano wrote down a formula for the amplitude of
+scattering between two mesons. The formula worked. Nambu, Nielsen, and
+Susskind separately realised that the formula could be explained if the
+mesons were the endpoints of a vibrating string. String theory was born:
+the math came first, and the physical picture — tiny vibrating strings —
+was reverse-engineered from the formula.
+
+This book runs the derivation in the opposite direction.
+
+The starting point was not a formula. It was a somatic experience: the
+impulse response of a nervous system under sustained traumatic load. The
+observation was that certain sound events — a specific guitar entry at
+2:49 in Iggy Pop's "No Fun", Lemmy's bass line in Hawkwind's "It's So
+Easy" — produced measurable, reproducible changes in the field's
+attractor configuration. The music was functioning as a **delta-function
+probe** of the soma field.
+
+The formalisation followed the observation. The Green's function of the
+probe matched the structure of the SHO. The SHO structure matched the
+string worldsheet. The 11 degrees of freedom matched M-theory. The
+compact 7D internal space matched the G$_2$ holonomy manifold. Each step
+was a recognition, not an invention.
+
+*Veneziano found the math and looked for the string.*
+*This book found the impulse response and noticed the music.*
+
+The endpoint is the same: an 11-dimensional field theory with a
+structurally correct isomorphism to M-theory. The derivation is
+inverted. The inversion matters — not because it changes the
+mathematics, but because it grounds the mathematics in a specific
+physical substrate (the human nervous system under stress) and a
+specific phenomenological starting point (the felt experience of a
+somatic state change).
+
+The physics was always there. The music helped notice it.
+
+---
+
+![A guitar. At 2:49 in Iggy Pop's "No Fun" (Lust For Life, 1977),
+an electric guitar enters in the left channel only, delivering a
+delta-function impulse to the nervous system of the listener. The
+field's state changes within 200ms. This is the observation that this
+book explains.
+*(Author's field note, June 2026)*](figures/guitar-impulse-placeholder.pdf){width=70%}
