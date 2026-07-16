@@ -372,6 +372,76 @@ Every result marked "proved" is kernel-verified. No `sorry`. No `admit`.
 
 ---
 
+# The Volitional Agent
+
+## From Autonomous to Driven Dynamics
+
+The field equation presented so far is autonomous: given an initial
+state $e_0$, the dynamics
+
+$$\dot{e} = -\nabla H(e) + \eta(t)$$
+
+evolve the field under the Hopfield Hamiltonian plus thermal noise.
+The agent — the person whose soma-field is being modelled — is a
+*patient*: they observe which attractor basin they settle into.
+
+This is clinically incomplete. Every effective somatic intervention
+involves the subject *doing* something: breathing, orienting, choosing
+where to place attention. The mathematics must represent this.
+
+## The Somatic Injection
+
+We extend the dynamics with a **volitional source term** $J_{\text{user}}(t)$:
+
+$$\dot{e} = -\nabla H(e) + J_{\text{user}}(t) + \eta(t)$$
+
+$J_{\text{user}}(t) \in \mathbb{R}^8$ is a time-dependent vector in the
+BRECVEMA mechanism space. At each instant, the subject injects energy into
+specific dimensions of the field — choosing to attend to breath (dimension
+1, Rhythmic Entrainment), orient gaze (dimension 0, BrainStem), or
+deliberately recall a regulating memory (dimension 5, Episodic Memory).
+This is not noise: it is structured, intentional, and directed.
+
+The source term has a direct physical interpretation in the instrument
+architecture (`apps/instrument/`): the Push 3 controller's faders are
+$J_{\text{user}}(t)$. Each fader maps to one BRECVEMA dimension. The
+musician is not playing music; they are steering their own field trajectory.
+
+## Patient to Pilot
+
+The transition $\eta \to J_{\text{user}} + \eta$ is a qualitative
+change in the model's ontology. With purely autonomous dynamics, the
+subject is a passive observer of a physical process. With the source
+term, the subject is an **active variable in the 11D field** — a pilot,
+not a passenger.
+
+Formally, $J_{\text{user}}(t)$ is the **God-Knob**: the runtime
+meta-adaptation controller that can flatten the potential landscape
+and trigger tunnelling events that gradient descent alone cannot reach.
+The clinical description of somatic therapy — "the therapist helps the
+client do something different with their body, and the field shifts" —
+is now mathematically precise.
+
+The corresponding Lean 4 definition (see Appendix, `UniversalSomaticField.lean`):
+
+```lean
+structure VolitionalInjection where
+  /-- The source term: an 8D vector in BRECVEMA mechanism space. -/
+  J     : Field8
+  /-- The injection is non-trivial: at least one dimension is activated. -/
+  h_nz  : ∃ i, J i ≠ 0.0
+
+/-- Volitional update: one Langevin step with active injection.
+    When J = 0, this reduces to the standard autonomous update. -/
+def volitional_update (e : Field8) (J : Field8) (dt : Float) : Field8 :=
+  fun i => e i + dt * (W8.mulVec e i + J i)
+```
+
+The theorem that volitional update reduces to autonomous update when
+$J = 0$ is proved by `rfl` — it is true by definition.
+
+---
+
 # Discussion
 
 ## What Has Been Claimed

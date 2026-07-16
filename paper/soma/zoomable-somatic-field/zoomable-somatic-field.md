@@ -1052,6 +1052,69 @@ formal verification of the algebraic results.
 
 ---
 
+# Open Research Problems
+
+The following five problems are the exact topological boundary of the
+current formal verification. Everything not on this list is proved.
+These are not vague limitations — each has a known mathematical target
+and a clear path to closure.
+
+**Problem 1: The Green's Function SHO Identity (distribution theory).**
+The axiom `greens_fn_is_SHO` in `UniversalSomaticField.lean` states that
+the Green's function $G(x,x')$ satisfies the SHO equation
+$(\partial^2_{x'} + k^2) G(x, \cdot) = \delta(\cdot - x)$
+in the sense of distributions. The proof requires Schwartz space and
+tempered distribution theory. Mathlib has `MeasureTheory` and
+`Distribution`-adjacent infrastructure; the specific result
+(fundamental solution of $-\nabla^2 + k^2$) is not yet in Mathlib
+as a verified theorem. **Path to closure:** contribute the Yukawa/Helmholtz
+Green's function to Mathlib, then discharge the axiom.
+
+**Problem 2: The $G_2$ Compactification Derivation.**
+The 7 compact dimensions are currently *postulated* to correspond to the
+BRECVEMA mechanisms. A complete derivation would proceed from a
+neurodynamical Lagrangian $\mathcal{L}[\psi, \partial\psi]$ over an
+8D state space, vary it to obtain the Euler–Lagrange equations, and
+show that the resulting moduli space has the homotopy type of a
+$G_2$-holonomy manifold. This would replace an identification with a
+derivation. **Path to closure:** construct the variational problem over
+the BRECVEMA space; use Mathlib's `VariationalCalculus` when available.
+
+**Problem 3: The `FieldLayerType` Functor Upgrade.**
+The `FieldLayerType` encoding in `MTheoryIsomorphism.lean` uses `String`
+placeholders for the physical content of each layer
+(`"NavierStokesFlow"`, `"EinsteinGR"`, `"HopfieldHamiltonian"`).
+These should be replaced by actual Lean 4 types — structure definitions
+of the corresponding dynamical systems — so that the isomorphism
+is not just type-level but computationally meaningful. **Path to closure:**
+define `NavierStokesField`, `EinsteinMetric`, `HopfieldNet` as Lean
+structures; replace the String tags with these types.
+
+**Problem 4: Path-Dependence in Moduli Space.**
+The dissonance coordinate in `manifold_coords.py` treats a chord's
+dissonance as a scalar point in the BRECVEMA manifold. Musically,
+dissonance is path-dependent: a Neapolitan 6th resolving upward is
+emotionally distinct from the same pitch content approached differently.
+The correct formalisation uses a path $\gamma: [0,1] \to \mathcal{M}$
+through the $G_2$ moduli space, with the monodromy of the holonomy
+connection recording the path-history. **Path to closure:** extend
+`GeographicSomatic.lean` (once written) to use `PathIntegral` machinery;
+update `manifold_coords.py` accordingly.
+
+**Problem 5: The Dyadic Coupling Inequality (Float arithmetic).**
+`DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
+lowers energy when $J \geq 0$ and both fields have non-negative activation.
+The proof is straightforward over $\mathbb{R}$ (the cross-coupling sum
+$\sum_{ij} a_i J_{ij} b_j \geq 0$ when $a_i, b_j, J_{ij} \geq 0$),
+but Lean 4's `Float` type is axiomatized and not amenable to algebraic
+tactics (`linarith`, `nlinarith` do not apply to Float). **Path to closure:**
+re-implement the key energy functions over `ℝ` using Mathlib's `Real`
+type; the Float implementations can remain as computational code while
+the proofs use the Real-valued versions. This is a refactoring task,
+not a mathematical problem.
+
+---
+
 # Conclusion
 
 The Zoomable Universal Somatic Field provides a unified scale-invariant

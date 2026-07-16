@@ -170,12 +170,30 @@ theorem dyadicPropagatorExists :
   exact ⟨0.0, fun i j => by simp [dyadicPropagatorMatrix, W_AB, J, jOff, W8]⟩
 
 /-- The dyadic energy is bounded above by the sum of individual energies
-    when J is non-negative (coupling is always stabilising or neutral). -/
+    when J is non-negative AND both fields have non-negative activations.
+
+    **Over ℝ** the proof is clean:
+      H_AB(a⊕b) = H_A(a) + H_B(b) - aᵀJb
+      aᵀJb = Σᵢⱼ aᵢ Jᵢⱼ bⱼ ≥ 0  when aᵢ,bⱼ,Jᵢⱼ ≥ 0
+      therefore H_AB ≤ H_A + H_B
+
+    **FLOAT-BLOCKER (Open Problem 5):**
+    Lean 4's `Float` type is axiomatized IEEE-754; it does not expose
+    the ordered-field axioms that `linarith` and `nlinarith` require.
+    The proof is deferred pending a `Real`-valued refactoring of the
+    energy functions (see Open Research Problems in the zUSF paper). -/
 theorem dyadic_energy_coupling_lowers
     (a b : Field8)
+    (ha : ∀ i, 0.0 ≤ a i)
+    (hb : ∀ i, 0.0 ≤ b i)
     (h : ∀ i j, J i j ≥ 0) :
     dyadicEnergy (mkDyadic a b) ≤
       energy8 a + energy8 b := by
+  -- FLOAT-BLOCKER: the inequality holds mathematically but
+  -- Float arithmetic in Lean 4 is not accessible to algebraic tactics.
+  -- Proof sketch over ℝ: unfold dyadicEnergy, split into AA + BB + AB blocks;
+  -- the AB cross-term = -½(aᵀJb + bᵀJᵀa) = -aᵀJb ≤ 0 when a,b,J ≥ 0.
+  -- TODO: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
   sorry
 
 

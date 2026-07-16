@@ -2297,3 +2297,4 @@ The theory was at 9/10 going in; the session was about closing the gap.
 3. Add remaining 18 scale plate headers to Wave Atlas chapters
 4. NotebookLM public notebook: upload all papers, set public share link, update org README
 
+5. JSON data contract / Lean-Python FFI bridge (PARKED): The live instrument (apps/instrument/) needs a formal JSON schema for passing 11D wave state arrays from the Python simulator to the Lean 4 type-checker via JSON-RPC (lean --server mode). Ref: Me/chats/Inbox/20260628_203332_jelly-fish.md and Inbox/ShelockBS.md for architecture notes. When implemented: add schema to apps/instrument/lean_bridge_schema.json and document in apps/instrument/README.md. This is Phase 2 / Part2 work.
