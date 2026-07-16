@@ -54,3 +54,49 @@
 
 % 7. Smaller code font
 \makeatletter\AtBeginDocument{\@ifpackageloaded{fancyvrb}{\fvset{fontsize=\small}}{}}\makeatother
+
+% ---------------------------------------------------------------------------
+% 8. Custom title page — minimal, elegant, [T]-Theory branded
+%    Sticker: figures/t-theory-sticker.png (60mm, upper right)
+%    Layout: sticker | thick rule | title | thin rule | subtitle | author/date
+% ---------------------------------------------------------------------------
+\usepackage{graphicx}
+\makeatletter
+\let\old@maketitle\maketitle
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \thispagestyle{empty}
+    % Sticker — upper right
+    \begin{flushright}
+      \IfFileExists{figures/t-theory-sticker.png}{%
+        \includegraphics[width=55mm]{figures/t-theory-sticker.png}%
+      }{%
+        {\sffamily\bfseries\color{heading}\huge[T]}%
+      }
+    \end{flushright}
+    \vfill
+    % Title block
+    {\color{heading}\hrule height 2pt}
+    \vspace{6mm}
+    {\Huge\bfseries\sffamily\color{heading}\@title\par}
+    \vspace{4mm}
+    {\color{rulecolor}\hrule height 0.6pt}
+    \vspace{4mm}
+    \@ifundefined{@subtitle}{}{%
+      {\large\itshape\color{black!70}\@subtitle\par}%
+      \vspace{8mm}%
+    }
+    \vfill
+    {\large\sffamily \@author\par}
+    \vspace{2mm}
+    {\small\sffamily\color{black!60} Independent Researcher, Zurich, Switzerland\par}
+    \vspace{1mm}
+    {\small\sffamily\color{accent} ORCID: 0009-0007-2194-0850\par}
+    \vspace{4mm}
+    {\color{rulecolor}\hrule height 0.4pt}
+    \vspace{3mm}
+    {\small\sffamily\color{black!60}\@date\par}
+  \end{titlepage}
+  \clearpage
+}
+\makeatother

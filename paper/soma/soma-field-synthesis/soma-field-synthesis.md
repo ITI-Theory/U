@@ -247,6 +247,8 @@ from any existing clinical model:
 
 ---
 
+\newpage
+
 # The Empirical Test: QUANT-EXP-1
 
 ## The Prediction
