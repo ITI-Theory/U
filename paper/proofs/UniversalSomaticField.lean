@@ -1,6 +1,8 @@
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Topology.Basic
+import SomaField
 
 /-!
 # UniversalSomaticField.lean — The Capstone
@@ -116,7 +118,7 @@ def scaleNames : Fin 21 → String
   | ⟨17, _⟩ => "Galaxy cluster (10²³ m)"
   | ⟨18, _⟩ => "Large-scale structure / filaments (10²⁴ m)"
   | ⟨19, _⟩ => "Observable universe boundary (10²⁶ m)"
-  | ⟨20, _⟩ => "Cosmic web (full extent)"
+  | _ => "Cosmic web (full extent)"
 
 /-- The field equation is instantiated at every scale.
     Same structural type; different boundary conditions. -/
@@ -150,11 +152,11 @@ theorem hierarchy_8_lt_11 : (8 : ℕ) < 11 := by norm_num
 theorem hierarchy_4_lt_11 : (4 : ℕ) < 11 := by norm_num
 
 /-- Every 11D organism contains an 8D somatic core. -/
-theorem eleven_contains_eight : Is11DOrganism → Is8DOrganism :=
+def eleven_contains_eight : Is11DOrganism → Is8DOrganism :=
   fun _ => ⟨8, rfl⟩
 
 /-- Every 8D organism contains a 4D spacetime core. -/
-theorem eight_contains_four : Is8DOrganism → Is4DOrganism :=
+def eight_contains_four : Is8DOrganism → Is4DOrganism :=
   fun _ => ⟨4, rfl⟩
 
 /-- The universe, modelled as a single 11D organism, is conscious by definition.
@@ -190,7 +192,7 @@ def isConscious (φ : LimbicAmplitude) : Prop := consciousnessThreshold ≤ φ
 theorem consciousness_dichotomy (φ : LimbicAmplitude) :
     isPreconscious φ ∨ isConscious φ := by
   unfold isPreconscious isConscious
-  exact lt_or_le φ consciousnessThreshold
+  exact lt_or_ge φ consciousnessThreshold
 
 /-- Consciousness is monotone: raising the amplitude cannot destroy awareness. -/
 theorem consciousness_monotone (φ₁ φ₂ : LimbicAmplitude)
@@ -246,9 +248,9 @@ axiom sft_grounds_hoffman :
     This is the cosmological limit of the Correspondence Principle:
     the same Green's function framework that governs neural firing
     governs gravitational wave emission. -/
-/-- **CLOSED — LEAN-USF-5: kernel-verified.**
+/-- **CLOSED - LEAN-USF-5: kernel-verified.**
     We construct the witness explicitly: scale level 19 (observable universe
-    boundary, 10²⁶ m) satisfies `n.val = 19` by `rfl`, and the field equation
+    boundary, 10^26 m) satisfies `n.val = 19` by `rfl`, and the field equation
     is inhabited at every scale by `scale_invariance_inhabited`. -/
 theorem cosmological_correspondence :
     ∃ (n : ScaleLevel), n.val = 19 ∧
@@ -284,18 +286,20 @@ structured somatic intervention: breath, gaze, deliberate recall.
 structure VolitionalInjection where
   /-- The source term: one component per BRECVEMA mechanism. -/
   J    : Field8
-  /-- The injection is non-trivial: at least one dimension is activated. -/
-  h_nz : ∃ i, J i ≠ 0.0
+
+/-- Non-trivial injection predicate. -/
+def VolitionalInjection.isActive (vi : VolitionalInjection) : Prop :=
+  ∃ i, vi.J i ≠ 0.0
 
 /-- Autonomous update: one Langevin step without volitional input.
     e_{t+1} = e_t + dt · W8 · e_t -/
 def autonomous_update (e : Field8) (dt : Float) : Field8 :=
-  fun i => e i + dt * W8.mulVec e i
+  fun i => e i + dt * fieldForce8 e i
 
 /-- Volitional update: one Langevin step with active injection.
     e_{t+1} = e_t + dt · (W8 · e_t + J_user) -/
 def volitional_update (e : Field8) (J : Field8) (dt : Float) : Field8 :=
-  fun i => e i + dt * (W8.mulVec e i + J i)
+  fun i => e i + dt * (fieldForce8 e i + J i)
 
 /-- **LEAN-USF-PILOT — kernel-verified.**
     When J = 0, volitional update equals autonomous update: the pilot is

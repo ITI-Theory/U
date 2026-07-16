@@ -1,6 +1,7 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
 import Mathlib.Analysis.InnerProductSpace.Basic
+import Mathlib.Analysis.Calculus.Deriv.Basic
 
 /-!
 # MTheoryIsomorphism.lean — The 11D Soma-Field / M-Theory Structural Isomorphism
@@ -192,19 +193,19 @@ axiom greens_fn_is_sho (ω : ℝ) (hω : 0 < ω) (G : GreensFn) :
 /-! ## 6. Scale Invariance -/
 
 /-- A scale transformation: rescale all spatial dimensions by factor λ > 0. -/
-def scaleTransform (λ : ℝ) (hλ : 0 < λ) (s : SomaField11D) : SomaField11D :=
-  { spacetime  := fun i => λ * s.spacetime i
-    propagator := fun i => λ * s.propagator i
-    limbic     := λ * s.limbic
-    cortex     := fun i => λ * s.cortex i }
+def scaleTransform (sc : ℝ) (hsc : 0 < sc) (s : SomaField11D) : SomaField11D :=
+  { spacetime  := fun i => sc * s.spacetime i
+    propagator := fun i => sc * s.propagator i
+    limbic     := sc * s.limbic
+    cortex     := fun i => sc * s.cortex i }
 
 /-- The M-theory isomorphism commutes with scale transformations.
     This is the formal statement of scale invariance:
     the 11D structure is preserved at every zoom level. -/
-theorem scale_iso_commutes (λ : ℝ) (hλ : 0 < λ) (s : SomaField11D) :
-    toMTheory (scaleTransform λ hλ s) =
-    (fun (m : MTheory11D) => (fun i => λ * m.1 i,
-      (fun i => λ * m.2.1 i, λ * m.2.2.1, fun i => λ * m.2.2.2 i)))
+theorem scale_iso_commutes (sc : ℝ) (hsc : 0 < sc) (s : SomaField11D) :
+    toMTheory (scaleTransform sc hsc s) =
+    (fun (m : MTheory11D) => (fun i => sc * m.1 i,
+      (fun i => sc * m.2.1 i, sc * m.2.2.1, fun i => sc * m.2.2.2 i)))
       (toMTheory s) := by
   simp [toMTheory, scaleTransform]
 

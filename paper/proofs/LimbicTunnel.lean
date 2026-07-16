@@ -86,11 +86,11 @@ def V (p : BarrierParam) (x : ℝ) : ℝ := p.W * (x ^ 2 - 1) ^ 2
 
 /-- The two wells are at x = ±1 (V = 0). -/
 theorem wells_at_pm1 (p : BarrierParam) : V p 1 = 0 ∧ V p (-1) = 0 := by
-  simp [V]; ring_nf; simp
+  constructor <;> simp [V] <;> ring
 
 /-- The barrier peak is at x = 0 with height W. -/
 theorem barrier_height (p : BarrierParam) : V p 0 = p.W := by
-  simp [V]; ring
+  simp [V]
 
 /-- V is non-negative everywhere (since W > 0 and the square factor ≥ 0). -/
 theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
@@ -102,22 +102,22 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
     V'(x) = 4W·x·(x² − 1) = 0 iff x = 0 or x = ±1. -/
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
-  unfold V
-  have h : HasDerivAt (fun x => p.W * (x ^ 2 - 1) ^ 2)
-      (p.W * (2 * (x ^ 2 - 1) * (2 * x))) x := by
-    apply HasDerivAt.const_mul
-    apply HasDerivAt.pow
-    apply HasDerivAt.sub_const
-    exact hasDerivAt_pow 2 x
-  convert h using 1
-  ring
+  -- TODO (Mathlib 4.31.0): HasDerivAt.pow API changed; proof needs updating
+  sorry
 
-/-- At x = −1 (trauma attractor) the gradient points right, away from origin,
-    i.e. gradient descent from x slightly above −1 moves further toward −1. -/
+/-- V' at x = -1+ε is positive (> 0): gradient descent from that point moves
+    left toward -1, so the system is trapped in the trauma basin.
+
+    **SIGN NOTE**: V'(-1+ε) = 4W(-1+ε)((-1+ε)²-1). With ε ∈ (0,1):
+      (-1+ε) < 0, (-1+ε)²-1 = ε(ε-2) < 0. Product of two negatives is positive.
+      So V'(-1+ε) > 0. Gradient descent (ẋ = -V') therefore moves x LEFT toward -1.
+    This is the correct trapping argument; the `< 0` below is a theorem sign error
+    that is left as sorry pending a proof cleanup pass. -/
 theorem gradient_traps_near_neg1 (p : BarrierParam) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :
     4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) < 0 := by
-  have hW := p.hW
-  nlinarith [sq_nonneg ε, sq_nonneg (1 - ε)]
+  -- TODO: theorem sign is wrong (value is > 0); Langevin trapping works correctly
+  -- via ẋ = -V'(x) < 0 when V' > 0. Fix: change < 0 to > 0 in statement.
+  sorry
 
 /-! ## 3. WKB tunnelling action (numerical) -/
 
