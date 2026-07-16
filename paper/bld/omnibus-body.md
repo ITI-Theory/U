@@ -10808,6 +10808,30 @@ structure FieldEquation (n : ScaleLevel) where
   G : ℝ → ℝ → ℝ
 ```
 
+**Remark on the choice of 20 levels.** The dial is continuous: equation (1)
+holds at every scale, not only at the 20 named positions. The 20 levels are a
+pedagogical discretization, not a fundamental quantity. The choice is motivated
+by two considerations. First, the observable span from the Planck length
+($\ell_P \approx 10^{-35}$ m) to the Hubble radius ($c/H_0 \approx 10^{26}$ m)
+is 61 decades; at a resolution of approximately 3 decades per step — the
+minimum at which the substrate changes qualitatively — this gives
+$\lceil 61/3 \rceil = 21$ positions (levels 0 through 20). Second, the 20
+steps coincide with five major qualitative phase transitions at which the
+governing physics changes character, each spanning approximately four steps:
+
+| Transition | Levels | Nature of change |
+|---|---|---|
+| Quantum → Classical | 0–4 | Spacetime geometry emerges; probability amplitude collapses to matter |
+| Chemistry → Biology | 4–7 | Self-replication and homeostatic regulation appear |
+| Individual → Collective | 7–10 | Agency distributes across coupled agents |
+| Geological → Stellar | 10–14 | Self-gravity dominates over chemical binding |
+| Stellar → Cosmic | 14–20 | Dark energy and expansion compete with gravity |
+
+The number 20 is therefore not arbitrary, but it is also not uniquely determined.
+A discretization into 15 or 25 steps would be equally defensible. The scientific
+claim is about the invariance of equation (1), not about the count of steps.
+The steps are tick marks on a continuous dial.
+
 ## 4.2  Physical and Mind Scaling
 
 Physical scaling proceeds through the characteristic length
