@@ -80,9 +80,9 @@ OMNIBUS_ROYAL_FLAGS := $(OMNIBUS_BASE) \
 # Omnibus — A4 duplex, punched for Filofax ring binder
 # Compact 10pt layout — same density as two-column without longtable breakage
 OMNIBUS_A4_FLAGS := $(OMNIBUS_BASE) \
-  -V "geometry=a4paper,twoside,inner=22mm,outer=16mm,top=18mm,bottom=18mm" \
+  -V "geometry=a4paper,twoside,inner=22mm,outer=16mm,top=20mm,bottom=22mm" \
   -V fontsize=10pt \
-  -V linestretch=1.2
+  -V linestretch=1.35
 
 omnibus-royal: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
@@ -140,9 +140,9 @@ THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
 # Reduces page count from ~444pp to ~300pp.
 THESIS_A4_2COL_FLAGS := $(THESIS_FLAGS_BASE) \
 	$(CITEPROC) \
-	-V "geometry=a4paper,twoside,inner=22mm,outer=16mm,top=18mm,bottom=18mm" \
+	-V "geometry=a4paper,twoside,inner=22mm,outer=16mm,top=20mm,bottom=22mm" \
 	-V fontsize=10pt \
-	-V linestretch=1.2
+	-V linestretch=1.35
 
 thesis-royal: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_thesis.py
