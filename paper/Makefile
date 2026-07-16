@@ -78,11 +78,11 @@ OMNIBUS_ROYAL_FLAGS := $(OMNIBUS_BASE) \
   -V linestretch=1.3
 
 # Omnibus — A4 duplex, punched for Filofax ring binder
-# inner=28mm leaves clearance for standard ISO-838 punch (holes at ~12mm from edge)
+# Compact 10pt layout — same density as two-column without longtable breakage
 OMNIBUS_A4_FLAGS := $(OMNIBUS_BASE) \
-  -V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=20mm,bottom=22mm" \
-  -V fontsize=11pt \
-  -V linestretch=1.4
+  -V "geometry=a4paper,twoside,inner=22mm,outer=16mm,top=18mm,bottom=18mm" \
+  -V fontsize=10pt \
+  -V linestretch=1.2
 
 omnibus-royal: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py

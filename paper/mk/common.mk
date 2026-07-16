@@ -29,6 +29,7 @@ RENDER_COMMON := \
   -V toccolor=NavyBlue \
   -V hyperxmp=false \
   -V monofont="Consolas" \
+  --include-in-header=journal.tex \
   --lua-filter=strip-keywords.lua
 
 # Core pandoc flags — factor the shared options first, then compose per target
@@ -44,6 +45,14 @@ PANDOC_LETTER      := $(PANDOC_NUMBERED) -V "geometry=letterpaper,margin=1.2in"
 PANDOC_BOOK        := $(PANDOC_UNNUMBERED) -V "geometry=margin=1.2in"
 PANDOC_BOOK_A4     := $(PANDOC_UNNUMBERED) -V "geometry=a4paper,margin=25mm"
 PANDOC_BOOK_LETTER := $(PANDOC_UNNUMBERED) -V "geometry=letterpaper,margin=1.2in"
+
+# Two-column journal style for individual papers
+# Uses classoption=twocolumn; longtable fix in journal.tex activates automatically
+PANDOC_2COL_A4     := $(PANDOC_NUMBERED) \
+  -V "geometry=a4paper,twoside,inner=18mm,outer=14mm,top=18mm,bottom=20mm" \
+  -V classoption=twocolumn \
+  -V fontsize=10pt \
+  -V linestretch=1.2
 
 FLAGS := $(PANDOC_A4)
 
