@@ -1,5 +1,10 @@
 name = "SomaField"
-defaultTargets = ["SomaField"]
+defaultTargets = [
+  "EmotionOntology", "Hopfield", "FieldProofs", "SomaField",
+  "DyadicField", "LimbicTunnel", "MTheoryIsomorphism", "LimbicHopfield",
+  "SwarmPropagator", "UniversalSomaticField", "Movie",
+  "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark"
+]
 
 # ---------------------------------------------------------------------------
 # Dependencies
@@ -14,21 +19,73 @@ rev = "v4.31.0"
 [[require]]
 # Physlib (formerly PhysLean / HepLean): physics formalisation library.
 # Contains: QuantumInfo (density matrices, quantum channels, Stein's lemma),
-#           Physlib (quantum mechanics, field theory, particle physics),
-#           PhyslibAlpha (lower review bar; AI-generated content welcome).
+#           Physlib (quantum mechanics, field theory, particle physics).
 # Relevant for: LimbicTunnel WKB, QuantumSim, SomaNetwork, QUANT-EXP-1.
-# After adding: run `lake exe cache get && lake build` (~1-2 GB download).
 name = "physlib"
 git = "https://github.com/leanprover-community/physlib.git"
 rev = "v4.31.0"
 
 # ---------------------------------------------------------------------------
-# Library target
+# Library targets — one per proof file (flat directory, no module hierarchy)
+# All files live in paper/proofs/; each is its own top-level module.
 # ---------------------------------------------------------------------------
 
 [[lean_lib]]
-name = "SomaField"
-# All proof files live in paper/proofs/
+name = "EmotionOntology"
 srcDir = "paper/proofs"
-# Allow sorry for Open Problem stubs (they are explicitly marked)
-moreLeanArgs = ["-Dwarn.sorry=true"]
+
+[[lean_lib]]
+name = "Hopfield"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "FieldProofs"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "SomaField"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "DyadicField"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "LimbicTunnel"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "MTheoryIsomorphism"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "LimbicHopfield"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "SwarmPropagator"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "UniversalSomaticField"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "Movie"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "QuantumSim"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "SomaNetwork"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "ScaleUniverse"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "Benchmark"
+srcDir = "paper/proofs"

@@ -1,7 +1,7 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
 import Mathlib.Analysis.InnerProductSpace.Basic
-import Mathlib.Algebra.BigOperators.Basic
+import Mathlib.Algebra.BigOperators.Finprod
 
 /-!
 # SwarmPropagator.lean
@@ -117,7 +117,7 @@ def propagatorCost (N : ℕ) : ℕ := N * N
 theorem propagator_beats_classical (N K : ℕ) (hN : 0 < N) (hK : N < K) :
     propagatorCost N < classicalCost N K := by
   unfold propagatorCost classicalCost
-  exact Nat.mul_lt_mul_left hN hK
+  nlinarith
 
 /-- The propagator break-even point is at K = N. -/
 theorem breakeven_at_N (N : ℕ) :
@@ -143,9 +143,8 @@ def speedupRatio (N K : ℕ) : ℚ := K / N
 theorem speedup_monotone_in_K (N K₁ K₂ : ℕ) (hN : 0 < N) (h : K₁ < K₂) :
     speedupRatio N K₁ < speedupRatio N K₂ := by
   unfold speedupRatio
-  apply Rat.div_lt_div_right
-  · exact_mod_cast Nat.pos_iff_ne_zero.mp hN
-  · exact_mod_cast h
+  apply div_lt_div_of_pos_right _ (by exact_mod_cast hN)
+  exact_mod_cast h
 
 /-- Concrete speedup demo at N=100 agents. -/
 def speedupDemo : List (ℕ × ℕ × ℕ × ℕ) :=

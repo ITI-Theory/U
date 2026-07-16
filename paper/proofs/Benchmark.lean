@@ -1,3 +1,6 @@
+import SomaField
+import Mathlib.Data.Real.Basic
+
 /-!
 # Benchmark.lean — Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
 
@@ -19,9 +22,6 @@ The O(N²) complexity theorem (`onN2_lt_onNK` in SwarmPropagator.lean)
 proves the single-step cost is strictly lower than K-round iteration.
 This file shows it running.
 -/
-
-import SomaField
-import Mathlib.Data.Real.Basic
 
 namespace SomaField.Benchmark
 

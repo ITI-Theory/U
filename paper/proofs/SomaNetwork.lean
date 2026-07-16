@@ -1,3 +1,6 @@
+import Mathlib.Data.Real.Basic
+import SomaField
+
 /-!
 # SomaNetwork.lean — Common Typeclass Interface
 
@@ -50,9 +53,6 @@ The typeclass here is the bridge.
   `SomaNetwork` instances for all three exist below,
   differing only in their `tunnelGate` implementation.
 -/
-
-import Mathlib.Data.Real.Basic
-import SomaField
 
 namespace SomaField.Network
 

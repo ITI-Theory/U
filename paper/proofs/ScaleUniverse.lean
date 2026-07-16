@@ -1,3 +1,8 @@
+import Mathlib.Data.Real.Basic
+import SomaField
+import SwarmPropagator
+import MTheoryIsomorphism
+
 /-!
 # ScaleUniverse.lean — T_TheoryUniverse: The 20-Scale Dependent Type
 
@@ -34,11 +39,6 @@ that would replace the String placeholders at scales 0–2.
 `import Physlib.ClassicalMechanics` provides Lagrangian/Hamiltonian
 types for scales 10–13.
 -/
-
-import Mathlib.Data.Real.Basic
-import SomaField
-import SwarmPropagator
-import MTheoryIsomorphism
 
 namespace SomaField.Universe
 

@@ -1,3 +1,8 @@
+import Mathlib.Data.Complex.Basic
+import Mathlib.Data.Matrix.Basic
+import Mathlib.LinearAlgebra.Matrix.DotProduct
+import LimbicTunnel
+
 /-!
 # QuantumSim.lean — Minimal Quantum Simulator
 
@@ -34,11 +39,6 @@ of the `tunnelingGate` defined here.
   - `SchrodingerEquation` (continuous-time version of `applyOperator`)
   - `WKBApproximation` (rigorous version of our `wkbGate` definition)
 -/
-
-import Mathlib.Data.Complex.Basic
-import Mathlib.Data.Matrix.Basic
-import Mathlib.LinearAlgebra.Matrix.DotProduct
-import LimbicTunnel
 
 namespace SomaField.QuantumSim
 

@@ -37,14 +37,14 @@ def N8 : Nat := 8
 
 /-- Each BRECVEMA mechanism maps to its field dimension index. -/
 def Mechanism.dim : Mechanism → Fin N8
-  | .BrainStem              => ⟨0, by omega⟩
-  | .RhythmicEntrainment    => ⟨1, by omega⟩
-  | .EvaluativeConditioning => ⟨2, by omega⟩
-  | .Contagion              => ⟨3, by omega⟩
-  | .VisualImagery          => ⟨4, by omega⟩
-  | .EpisodicMemory         => ⟨5, by omega⟩
-  | .MusicalExpectancy      => ⟨6, by omega⟩
-  | .AestheticJudgement     => ⟨7, by omega⟩
+  | .BrainStem              => ⟨0, by decide⟩
+  | .RhythmicEntrainment    => ⟨1, by decide⟩
+  | .EvaluativeConditioning => ⟨2, by decide⟩
+  | .Contagion              => ⟨3, by decide⟩
+  | .VisualImagery          => ⟨4, by decide⟩
+  | .EpisodicMemory         => ⟨5, by decide⟩
+  | .MusicalExpectancy      => ⟨6, by decide⟩
+  | .AestheticJudgement     => ⟨7, by decide⟩
 
 /-- Mechanism name abbreviations for display. -/
 def Mechanism.abbrev : Mechanism → String
@@ -203,9 +203,9 @@ def showField8 (label : String) (e : Field8) : String :=
   let dims := (List.range N8).map (fun i =>
     if h : i < N8 then
       let fi : Fin N8 := ⟨i, h⟩
-      s!"{(dimMech fi).abbrev}={e fi:.2f}"
+      s!"{(dimMech fi).abbrev}={e fi}"
     else "")
-  s!"{label}  " ++ String.intercalate "  " dims ++ s!"  H={energy8 e:.3f}"
+  s!"{label}  " ++ String.intercalate "  " dims ++ s!"  H={energy8 e}"
 
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -220,8 +220,8 @@ def showField8 (label : String) (e : Field8) : String :=
     | ⟨5, _⟩ =>  0.8 | ⟨4, _⟩ => 0.4 | _ => 0.0
   let dt := 0.05
   for t in [0, 5, 10, 20] do
-    IO.println (showField8 s!"t={t:02}" (runField8 e₀ dt t))
-  IO.println s!"attractor H = {energy8 nostalgiaPattern:.3f}"
+    IO.println (showField8 s!"t={t}" (runField8 e₀ dt t))
+  IO.println s!"attractor H = {energy8 nostalgiaPattern}"
 
 -- BrainStem → EpisodicMemory chain (Emotion.brainStemThenMemory)
 -- BS fires first (startle), indirect chain BS→CO→(frees EM)
@@ -232,7 +232,7 @@ def showField8 (label : String) (e : Field8) : String :=
     | ⟨0, _⟩ =>  1.0 | ⟨5, _⟩ => 0.1 | _ => 0.0
   let dt := 0.05
   for t in [0, 5, 10, 20, 30] do
-    IO.println (showField8 s!"t={t:02}" (runField8 e₀ dt t))
+    IO.println (showField8 s!"t={t}" (runField8 e₀ dt t))
   IO.println "Expected: BS decays, EM grows (gate-opening chain)"
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -265,7 +265,7 @@ def threshold8 : Field8
   | ⟨5, _⟩ => 0.50   -- EpisodicMemory
   | ⟨6, _⟩ => 0.50   -- MusicalExpectancy
   | ⟨7, _⟩ => 0.70   -- AestheticJudgement (requires expertise/reflection)
-  | ⟨n+8, h⟩ => absurd h (by omega)
+  | ⟨n+8, h⟩ => absurd h (by decide)
 
 /-- Mode i of field state `e` is consciously perceptible when its amplitude
     exceeds the perception threshold.  Below threshold: emotion is sub-perceptual
@@ -357,7 +357,7 @@ noncomputable def somaticPropagatorPoles : Fin 8 → ℝ :=
 -- Stored pattern energies (should all be negative — stable minima)
 #eval do
   IO.println "\n=== Stored pattern energies ==="
-  IO.println s!"  nostalgia    H = {energy8 nostalgiaPattern:.3f}"
-  IO.println s!"  startle      H = {energy8 startlePattern:.3f}"
-  IO.println s!"  musical awe  H = {energy8 musicalAwePattern:.3f}"
-  IO.println s!"  entrainment  H = {energy8 entrainmentPattern:.3f}"
+  IO.println s!"  nostalgia    H = {energy8 nostalgiaPattern}"
+  IO.println s!"  startle      H = {energy8 startlePattern}"
+  IO.println s!"  musical awe  H = {energy8 musicalAwePattern}"
+  IO.println s!"  entrainment  H = {energy8 entrainmentPattern}"

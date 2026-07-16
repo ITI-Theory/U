@@ -87,27 +87,37 @@ def sgn (x : Float) : Float :=
   if x ≥ 0.0 then 1.0 else -1.0
 
 /-- Hebbian outer product for one stored pattern p: Wᵢⱼ = pᵢ · pⱼ. -/
+private def addWmat (a b : Wmat) : Wmat := fun i j => a i j + b i j
+private def zeroWmat : Wmat := fun _ _ => 0.0
 def outer (p : Pattern) : Wmat :=
-  Matrix.of fun i j => p i * p j
+  fun i j => p i * p j
 
 /-- Learn a list of patterns: W = (1/n) · Σₖ pₖ pₖᵀ  (Hebbian learning).
     Each pattern lowers the energy at that state; patterns compete for capacity. -/
 def store (ps : List Pattern) : Wmat :=
-  let n   : Float := ps.length
-  let tot : Wmat  := ps.foldl (fun acc p => acc + outer p) 0
-  (1.0 / n) • tot
+  let n := Float.ofNat ps.length
+  fun i j => ps.foldl (fun acc p => acc + outer p i j) 0.0 * (1.0 / n)
+
+/-- Float matrix-vector multiply (avoids NonUnitalNonAssocSemiring Float requirement). -/
+private def mulVecH (w : Wmat) (s : Pattern) (i : Fin D) : Float :=
+  (List.range D).foldl (fun acc j =>
+    if h : j < D then acc + w i ⟨j, h⟩ * s ⟨j, h⟩ else acc) 0.0
 
 /-- One synchronous recall step: new state = sign(W · s).
     Run this repeatedly until the state stops changing. -/
 def step (w : Wmat) (s : Pattern) : Pattern :=
-  fun i => sgn (w.mulVec s i)
+  fun i => sgn (mulVecH w s i)
+
+/-- Dot product of two patterns. -/
+private def dotH (u v : Pattern) : Float :=
+  (List.range D).foldl (fun acc i =>
+    if h : i < D then acc + u ⟨i, h⟩ * v ⟨i, h⟩ else acc) 0.0
 
 /-- Hopfield energy: E(s) = −½ sᵀ W s.
     Lower energy = more stable state.
     Stored patterns are local minima.
     Proof obligation: this is non-increasing under `step`. -/
 def energy (w : Wmat) (s : Pattern) : Float :=
-  let Ws := w.mulVec s
-  -0.5 * (Finset.univ : Finset (Fin D)).sum fun i => s i * Ws i
+  -0.5 * dotH s (mulVecH w s)
 
 end HopfieldDemo

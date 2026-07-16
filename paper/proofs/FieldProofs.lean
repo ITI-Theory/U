@@ -1,3 +1,5 @@
+import EmotionOntology
+
 /-!
 # FieldProofs.lean — Promoted Axioms
 
@@ -18,8 +20,6 @@ No `sorry`. No `admit`. Just Prove It.
 simultaneously by typeclass dispatch. `awe_is_universal` takes
 one word to prove (`rfl`) because universality is built into the type.
 -/
-
-import EmotionOntology
 
 open EmotionLang Emotion
 
@@ -107,13 +107,13 @@ theorem love_ne_awe :
 -- Gap markers — axioms not yet provable; proof obligation documented
 -- ============================================================
 
-/-- [CO-ID-1-GAP] The percept = propagator pole co-identification requires
+/- [CO-ID-1-GAP] The percept = propagator pole co-identification requires
     a propagator definition in src/. Not yet present.
     Next step: add `def somaticPropagator` to SomaField.lean, then
     this gap becomes a theorem. -/
 #check @EmotionLang   -- typeclass is here; propagator definition is the gap
 
-/-- [CO-ID-2-GAP] Attractor = Hopfield minimum requires the Hopfield energy
+/- [CO-ID-2-GAP] Attractor = Hopfield minimum requires the Hopfield energy
     function in Lean. Present in instrument/field.py (H = ½eᵀWe − bᵀe)
     and mentioned in src/Hopfield.lean, but not yet a Lean def over EmotionState.
     Next step: define `def hopfieldH` in SomaField.lean. -/
