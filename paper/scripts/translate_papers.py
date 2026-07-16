@@ -201,10 +201,11 @@ def _llm_translate(client, text: str, label: str, model: str) -> str:
             last_err = e
             msg = str(e)
             is_rate = "429" in msg or "RateLimit" in msg or "rate limit" in msg.lower()
+            is_too_big = "413" in msg or "tokens_limit" in msg.lower() or "too large" in msg.lower() or "context_length" in msg.lower()
             is_unknown = "unknown_model" in msg or "Unknown model" in msg or "400" in msg and "model" in msg.lower()
-            if is_rate or is_unknown:
+            if is_rate or is_unknown or is_too_big:
                 exhausted.add(active)
-                reason = "rate-limit" if is_rate else "unknown_model"
+                reason = "rate-limit" if is_rate else ("too-big" if is_too_big else "unknown_model")
                 remaining = [m for m in models if m not in exhausted]
                 if remaining:
                     next_model = remaining[0]
@@ -212,8 +213,8 @@ def _llm_translate(client, text: str, label: str, model: str) -> str:
                     idx = models.index(next_model)
                     continue
                 if not is_rate:
-                    # all models unknown — config error, not transient
-                    raise RuntimeError(f"all models rejected: {last_err}")
+                    # all models unknown or too-big — config error, not transient
+                    raise RuntimeError(f"all models rejected ({reason}): {last_err}")
                 # all models hit daily cap — sleep until UTC midnight + 60s
                 now = _dt.datetime.utcnow()
                 tomorrow = (now + _dt.timedelta(days=1)).replace(hour=0, minute=1, second=0, microsecond=0)

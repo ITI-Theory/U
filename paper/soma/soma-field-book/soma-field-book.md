@@ -138,7 +138,7 @@ A note on boxes. Throughout the book you will find four types:
 
 \newpage
 
-# Chapter 1: What the Body Remembers
+# What the Body Remembers
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -166,7 +166,7 @@ A note on boxes. Throughout the book you will find four types:
 
 ---
 
-## 1.1 The Waiting Room
+## The Waiting Room
 
 Picture a waiting room. You are sitting in a chair, waiting for a routine appointment.
 Nothing unusual is happening. The lighting is fluorescent. There is a plant in the corner
@@ -191,7 +191,7 @@ doing it accurately, given what it knows.
 The question this book asks is: what does the body know, and how did it learn it, and
 what does it mean to change that learning?
 
-## 1.2 What Trauma Is (and Is Not)
+## What Trauma Is (and Is Not)
 
 The word *trauma* is used in many ways. In this book, it has a specific meaning.
 
@@ -245,7 +245,7 @@ calibration has not.
 
 ---
 
-## 1.3 The Polyvagal Ladder
+## The Polyvagal Ladder
 
 In the 1990s, neuroscientist Stephen Porges developed what he called Polyvagal Theory —
 an account of the autonomic nervous system that begins not with the familiar
@@ -290,7 +290,7 @@ danger — and the body can, at exactly the same moment, be running the threat r
 at full intensity. Both are responding to real information. They are just reading
 different signals.
 
-## 1.4 The Freeze Response
+## The Freeze Response
 
 The freeze response is the least understood of the three states and, for many trauma
 survivors, the most characteristic.
@@ -319,7 +319,7 @@ at something slightly to the left of wherever they are. They are not being diffi
 They are not choosing not to engage. They are playing dead because the body has
 concluded that this is the appropriate moment to play dead.
 
-## 1.5 Why This Matters for Treatment
+## Why This Matters for Treatment
 
 If trauma is a modification of a prediction model — an accurate learning from an
 overwhelming experience — then the therapeutic question is not *how do we fix the
@@ -374,7 +374,7 @@ provide, and it is the subject of Chapter 6.
 
 \newpage
 
-# Chapter 2: A Field of Feeling
+# A Field of Feeling
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -399,7 +399,7 @@ provide, and it is the subject of Chapter 6.
 
 ---
 
-## 2.1 What a Field Is
+## What a Field Is
 
 Imagine the gravitational field of the Earth.
 
@@ -420,7 +420,7 @@ The key insight of the Soma-Field Model is this: **emotion is a field phenomenon
 Not a metaphor. A precise claim about how emotional signals distribute themselves in
 the body, interact with each other, and evolve over time.
 
-## 2.2 Emotions in the Body
+## Emotions in the Body
 
 Antonio Damasio, in his somatic marker hypothesis (1994), proposed that emotions are
 fundamentally body states: that what we call "emotion" is the brain's representation
@@ -511,7 +511,7 @@ trauma.
 
 ---
 
-## 2.3 The Soma-Field: A Technical Definition
+## The Soma-Field: A Technical Definition
 
 In the Soma-Field Model, we represent the body's emotional state as a vector of
 activation levels across a set of emotional dimensions. Call this vector $\mathbf{e}$:
@@ -585,7 +585,7 @@ The next chapter is about that structure.
 
 \newpage
 
-# Chapter 3: The Energy Landscape
+# The Energy Landscape
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -609,7 +609,7 @@ The next chapter is about that structure.
 
 ---
 
-## 3.1 Hills and Valleys
+## Hills and Valleys
 
 Imagine placing a ball on a hilly landscape. If you place it at the bottom of a valley
 and give it a small push, it rolls away from where you pushed it — and then rolls back.
@@ -633,7 +633,7 @@ are the valleys? How deep are they? How wide? How many are there?
 
 ![Figure 3.1. The emotional energy landscape (2D contour). Four attractor basins are visible: Calm (wide, deepest — the global minimum of a regulated nervous system), Freeze (narrow and very deep — easy to fall into, hard to leave), Fight and Flight (intermediate depth). The system rolls downhill to the nearest basin; the depth controls escape difficulty and the width controls resilience to perturbation. *Author's original figure.*](figures/fig3a_energy_landscape.png){width=95%}
 
-## 3.2 Attractors and Basins
+## Attractors and Basins
 
 An **attractor** is a stable state — a bottom of a valley. A **basin of attraction** is
 the set of all points from which the system rolls toward a given attractor: the "catchment
@@ -656,7 +656,7 @@ dynamics of the system.
 
 ![Figure 3.2. Basin of attraction map. Each point in state space is coloured by the attractor it flows to under gradient descent: blue = Calm, purple = Freeze, orange = Fight, green = Flight. The calm basin dominates a regulated landscape. Freeze occupies a small area but is disproportionately deep — a narrow funnel. The boundaries between basins are the separatrices: invisible thresholds in state space that determine which valley a given perturbation resolves to. *Author's original figure.*](figures/figB1_attractor_basins.png){width=90%}
 
-## 3.3 The Hamiltonian
+## The Hamiltonian
 
 The landscape has a name in physics: the **Hamiltonian**. Denoted $H$, it is a function
 that assigns an energy value to every possible state of the system.
@@ -748,7 +748,7 @@ where you are going next.
 
 ---
 
-## 3.4 The Coupling Matrix
+## The Coupling Matrix
 
 The matrix $W$ — the coupling matrix — is the central object of the model. It encodes
 the emotional architecture of a nervous system: which modes excite each other, which
@@ -815,7 +815,7 @@ one-way ratchet.
 
 \newpage
 
-# Chapter 4: The Weight on the Field
+# The Weight on the Field
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -839,7 +839,7 @@ one-way ratchet.
 
 ---
 
-## 4.1 The Modification
+## The Modification
 
 Complex PTSD (C-PTSD) is distinguished from single-incident PTSD by the presence of
 repeated, prolonged, or developmental trauma — particularly trauma that occurred in
@@ -863,7 +863,7 @@ connectivity between states changed.
 
 ![Figure 4.1. Four neurotype landscapes (1D cross-section). *Typical* (upper left): a deep wide Calm basin with accessible secondary states. *C-PTSD* (lower left): Calm shallowed and narrowed, Freeze dominant — the resting state shifts toward high-vigilance. *ADHD* (upper right): all basins flattened, low barriers, rapid transitions — high-temperature dynamics. *ASD* (lower right): narrow steep wells with high barriers between states — strong attractor stability, low noise tolerance, high cost of transitions. *Author's original figure.*](figures/fig5_neurotype_landscapes.png){width=95%}
 
-## 4.2 Why Hypervigilance Is an Optimisation
+## Why Hypervigilance Is an Optimisation
 
 A nervous system that has adapted to an environment of chronic threat has correctly
 learned that:
@@ -887,7 +887,7 @@ to incorporate evidence that the current environment is different." These are ve
 different operations, with very different implications for what kind of therapeutic
 intervention is useful.
 
-## 4.3 Thresholds and Consciousness
+## Thresholds and Consciousness
 
 There is a parameter in the model that has not yet been introduced, and it does a great
 deal of work. This is the **threshold** $T$ — denoted with the capital $T$ that recurs
@@ -951,7 +951,7 @@ The threshold is where the physics and the clinical presentation most visibly co
 
 \newpage
 
-# Chapter 5: Memory Written in the Body
+# Memory Written in the Body
 
 ---
 
@@ -966,7 +966,7 @@ The threshold is where the physics and the clinical presentation most visibly co
 
 ---
 
-## 5.1 Two Kinds of Memory
+## Two Kinds of Memory
 
 When you remember a conversation from last week, you are using **episodic memory** — the
 explicit, narrative record of events that occurred at specific times and places. Episodic
@@ -985,7 +985,7 @@ system, in the way sensory signals are gated before they reach cortical processi
 Trauma creates primarily somatic memory. This is why it is not resolved by talking about
 it. The body has stored information in a form that language does not reach.
 
-## 5.2 The Memory Kernel
+## The Memory Kernel
 
 In the Soma-Field Model, the effect of past activation on present dynamics is captured
 by a **memory kernel** $K(\tau)$. This is a function that says: an activation of the
@@ -1032,7 +1032,7 @@ is the decay time (how long the trace persists before fading).
   activation. Over time, the field cycles at an elevated level without returning to rest.
 ```
 
-## 5.3 Why Early Traces Persist
+## Why Early Traces Persist
 
 The decay time $\tau_k$ is central: it determines how long a trace remains active.
 
@@ -1051,7 +1051,7 @@ the memory is not a modification of an already-formed architecture. The architec
 itself was shaped by the conditions of the traumatic period. This is addressed more
 formally in Chapter 6.
 
-## 5.4 What Therapy Does
+## What Therapy Does
 
 In the language of the memory kernel, effective somatic therapy does two things:
 
@@ -1111,7 +1111,7 @@ episodes: to restore the gap between activations in which recovery occurs.
 
 \newpage
 
-# Chapter 6: How Early Is Early?
+# How Early Is Early?
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -1136,7 +1136,7 @@ episodes: to restore the gap between activations in which recovery occurs.
 
 ---
 
-## 6.1 Developmental Time
+## Developmental Time
 
 Children are not small adults. The nervous system develops in stages, and each stage
 has different capacities — for encoding, for integration, for language, for explicit
@@ -1157,7 +1157,7 @@ an approximate threshold.
 The parameter $\tau_d$ — **developmental age at trauma** — is the age at which the
 primary modification occurred.
 
-## 6.2 Below the Threshold: Pre-Verbal Trauma
+## Below the Threshold: Pre-Verbal Trauma
 
 For $\tau_d < \tau_c$ (pre-verbal trauma), several things are different from the
 late-trauma case.
@@ -1183,7 +1183,7 @@ self-before-trauma never developed. There is nowhere to return to.
 This is not a pessimistic statement. It is a precise one. And precision here matters
 because it changes the therapeutic question.
 
-## 6.3 The Interpolation
+## The Interpolation
 
 The coupling matrix for a traumatised nervous system can be written as a function of
 developmental age:
@@ -1237,7 +1237,7 @@ the operation $W \to W_0$ — extracting the baseline from the current coupling 
 defined. The $W_0$ was never the dominant component. It cannot be recovered because it
 was not formed.
 
-## 6.4 Forward Transformation
+## Forward Transformation
 
 What *is* possible, for pre-verbal trauma, is a **forward transformation**: the
 construction of a new coupling matrix $W'$ that has desirable properties — wider
@@ -1496,7 +1496,7 @@ In the valley at dusk, this is not a metaphor. It is audible.
 
 \newpage
 
-# Chapter 7: The Same Equation, Three Times
+# The Same Equation, Three Times
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -1524,7 +1524,7 @@ In the valley at dusk, this is not a metaphor. It is audible.
 
 ---
 
-## 7.1 The Moment of Recognition
+## The Moment of Recognition
 
 The Soma-Field Model did not begin with a plan to connect it to quantum field theory.
 It began with a neuroscience question: what is the simplest mathematical model of an
@@ -1542,7 +1542,7 @@ you write down "the simplest model of a field with stable states," you land on a
 equation that appears in three separate disciplines because three separate disciplines
 have independently answered the same mathematical question.
 
-## 7.2 The Same Hamiltonian
+## The Same Hamiltonian
 
 The Ising model (condensed matter physics, early 20th century) describes a lattice of
 interacting spins — magnetic moments that can point up or down:
@@ -1611,7 +1611,7 @@ absent layer — the limbic system — for which he had no formal language at th
 
 ---
 
-## 7.3 The Wick Rotation: One Substitution
+## The Wick Rotation: One Substitution
 
 The deepest correspondence in the model is the one that connects quantum mechanics to
 trauma memory. It requires a single substitution.
@@ -1672,7 +1672,7 @@ This is the Wick-rotated propagator. The QFT field mass $m$ corresponds to $1/\t
 The propagator amplitude $1/2m$ corresponds to $A_k$. These are not analogous. They are
 the same mathematical object with different domain-specific names.
 
-## 7.4 Feynman Diagrams for Emotions
+## Feynman Diagrams for Emotions
 
 Feynman diagrams were developed in the 1940s as a way of computing interactions in
 quantum field theory. They represent particles as lines and interactions (couplings) as
@@ -1713,7 +1713,7 @@ The clinical relevance: the Feynman diagram language gives us a way to represent
 compute emotional interactions combinatorially — to ask what the "Feynman rules" for
 emotional coupling are, and what composite interactions are possible.
 
-## 7.5 The Correspondence Table
+## The Correspondence Table
 
 ```
   ┌──────────────────────────┬────────────────────────────────────┐
@@ -1781,7 +1781,7 @@ emotional coupling are, and what composite interactions are possible.
 
 \newpage
 
-# Chapter 8: The Nervous System as Phase Diagram
+# The Nervous System as Phase Diagram
 
 ---
 
@@ -1796,7 +1796,7 @@ emotional coupling are, and what composite interactions are possible.
 
 ---
 
-## 8.1 Phase Transitions
+## Phase Transitions
 
 Water can exist as ice, liquid, or steam. At atmospheric pressure, it transitions between
 these phases at specific temperatures: 0°C and 100°C. The transitions are dramatic:
@@ -1810,7 +1810,7 @@ Phase transitions appear wherever there is an energy landscape with multiple sta
 phases, and a parameter (temperature, pressure, magnetic field) that shifts the relative
 stability of those phases. They are universal.
 
-## 8.2 The Three Phases of the Nervous System
+## The Three Phases of the Nervous System
 
 The polyvagal hierarchy describes three functional states of the autonomic nervous
 system. In the Soma-Field Model, these correspond to three distinct phases of the field:
@@ -1862,7 +1862,7 @@ From the model's perspective, they were gradually approaching a phase boundary, 
 transition happened when they crossed it. The discontinuity is real — it is a property
 of the phase diagram, not a failure of self-awareness.
 
-## 8.3 ADHD: A Thermodynamic Framing
+## ADHD: A Thermodynamic Framing
 
 Attention Deficit Hyperactivity Disorder (ADHD) presents quite differently from C-PTSD
 in the soma-field model. Rather than a modification of the coupling matrix structure,
@@ -1939,7 +1939,7 @@ the thermal energy to reach it from almost anywhere.
 
 \newpage
 
-# Chapter 9: The Instrument
+# The Instrument
 
 ---
 
@@ -1954,7 +1954,7 @@ the thermal energy to reach it from almost anywhere.
 
 ---
 
-## 9.1 The Map Is Not the Territory
+## The Map Is Not the Territory
 
 The Soma-Field Model is a mathematical description. Like all mathematical descriptions
 of physical or biological systems, it simplifies. The soma-field is not the body; it is
@@ -1972,7 +1972,7 @@ asks about the body: current activation levels across the emotional modes, attra
 dwell times, threshold accessibility, interoceptive accuracy. The goal is to make the
 model's parameters observable.
 
-## 9.2 The Seven Dimensions
+## The Seven Dimensions
 
 The instrument tracks seven primary dimensions of soma-field state:
 
@@ -2012,7 +2012,7 @@ The instrument tracks seven primary dimensions of soma-field state:
 
 ![Figure 9.2. The Soma-Field instrument pipeline. Biofeedback sensors (HRV, EDA, EMG) feed the soma-field model, which produces a real-time emotion vector **e**(t) ∈ ℝ¹¹. This drives The Tensor (the emotional score specification), which controls a synthesis engine (Phase Plant). A feedback loop via therapeutic intervention δW allows the practitioner to modify the coupling matrix directly — closing the loop between measurement and treatment. *Author's original figure.*](figures/fig4_instrument.pdf){width=100%}
 
-## 9.3 The ABCD Operator Circuit
+## The ABCD Operator Circuit
 
 The instrument is organised around four operators that act on the soma-field:
 
@@ -2075,7 +2075,7 @@ longitudinal function: measuring change across sessions.
 
 \newpage
 
-# Chapter 10: Forward Transformation
+# Forward Transformation
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -2099,7 +2099,7 @@ longitudinal function: measuring change across sessions.
 
 ---
 
-## 10.1 The Wrong Goal
+## The Wrong Goal
 
 The dominant model of trauma recovery involves, in some form, a return. Processing the
 memory until it no longer carries charge. Resolving the dissociated parts. Finding the
@@ -2124,7 +2124,7 @@ restore — never narrows to nothing.
 This is not a failure of the therapy or the therapist. It is a consequence of using the
 wrong map. The destination does not exist; the voyage toward it cannot terminate.
 
-## 10.2 The Right Goal
+## The Right Goal
 
 Forward transformation changes the question.
 
@@ -2170,7 +2170,7 @@ landscape being constructed, not recovered.
   tools as the mechanism of landscape modification.
 ```
 
-## 10.3 What Therapy Does
+## What Therapy Does
 
 In the language of the model, effective somatic therapy for pre-verbal trauma does the
 following, measurable in terms of the model's parameters:
@@ -2199,7 +2199,7 @@ functional, more flexible, and more capable of safety. The model does not specif
 these changes are achieved — that is the domain of clinical practice. It specifies what
 is changing when they are achieved.
 
-## 10.4 The Therapeutic Relationship as Field Coupling
+## The Therapeutic Relationship as Field Coupling
 
 A note on the relational dimension, which the model's formalism can sometimes obscure.
 
@@ -2258,7 +2258,7 @@ is the instrument.
 
 \newpage
 
-# Chapter 11: A Voyage into the Field
+# A Voyage into the Field
 
 > **LEARNING OBJECTIVES**
 >
@@ -2303,7 +2303,7 @@ echo in present navigation. This chapter develops the geometry of the voyage.
 
 ---
 
-## 11.1 The Navigable Landscape
+## The Navigable Landscape
 
 In Chapter 4 we introduced the Hamiltonian $H(\mathbf{e})$ as the energy function of the
 emotional field. The state of the field is a point in the high-dimensional space of all
@@ -2366,7 +2366,7 @@ predicts this before any clinical experience confirms it.
 
 ---
 
-## 11.2 Emotions Looking for Each Other
+## Emotions Looking for Each Other
 
 In particle physics, interactions are drawn as Feynman diagrams: lines representing
 particles moving through space and time, meeting at vertices where something happens.
@@ -2477,7 +2477,7 @@ are the sessions that change something permanently.
 
 ---
 
-## 11.3 The Emotional Score
+## The Emotional Score
 
 A musical score is not a performance. It is the abstract structure that can be performed
 in many ways — by different orchestras, in different halls, at different tempos — while
@@ -2537,7 +2537,7 @@ emotional experience: $H_V$ has changed.
 
 ---
 
-## 11.4 The Holographic Clinic
+## The Holographic Clinic
 
 In theoretical physics, the holographic principle (Susskind, 1995; Bousso, 2002) states
 that the complete description of a volume of space can be encoded on its boundary surface,
@@ -2575,7 +2575,7 @@ The body has been keeping a precise record. The therapist's task is to read it.
 
 ---
 
-## 11.5 EmotionML: Labels Without Dynamics
+## EmotionML: Labels Without Dynamics
 
 The W3C EmotionML standard (Schröder et al., 2011) provides a formal vocabulary for
 annotating emotional states in human-computer interaction. It specifies representation

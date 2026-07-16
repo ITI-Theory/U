@@ -1,0 +1,66 @@
+% Layout A — tufte-book baseline
+% Asymmetric margins, side notes, side captions out of the box.
+% Body type: tufte's default (ETBembo-like via fbb), or override to Plex Serif.
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% Plex Serif body + display — use family names so fontspec resolves via system fontconfig
+\setmainfont{IBMPlexSerif}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Light,
+  ItalicFont     = *-LightItalic,
+  BoldFont       = *-SemiBold,
+  BoldItalicFont = *-SemiBoldItalic,
+]
+\setsansfont{IBMPlexSans}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Light,
+  ItalicFont     = *-LightItalic,
+  BoldFont       = *-SemiBold,
+  Scale          = MatchLowercase,
+]
+\setmonofont{IBMPlexMono}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  ItalicFont     = *-Italic,
+  BoldFont       = *-SemiBold,
+  Scale          = MatchLowercase,
+]
+\setmathfont{IBM Plex Math}
+
+% Accent colour — cyan from Event Horizon palette, dimmed for ink
+\usepackage[dvipsnames]{xcolor}
+\definecolor{atlas}{HTML}{0088A8}
+
+% Looser body leading — coffee-table breathes
+\renewcommand{\baselinestretch}{1.30}
+
+% Override tufte-book's \maketitle (uppercase macro chokes on pandoc subtitle)
+\makeatletter
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}\null\vfill
+  \begin{flushleft}
+    {\Huge\bfseries\color{atlas}\@title\par}\vspace{1em}
+    {\Large\itshape\@author\par}\vspace{0.5em}
+    {\@date\par}
+  \end{flushleft}\vfill\newpage}
+\makeatother
+
+% Neutralise tufte-book's automatic case-changing (chokes on pandoc \texorpdfstring etc.)
+\makeatletter
+\AtBeginDocument{%
+  \let\MakeTextUppercase\@firstofone
+  \let\MakeTextLowercase\@firstofone
+  \DeclareRobustCommand{\smallcaps}[1]{\textsc{##1}}%
+  \DeclareRobustCommand{\allcaps}[1]{##1}%
+  \DeclareRobustCommand{\newlinetospace}[1]{##1}%
+  \DeclareRobustCommand{\smallcapsspacing}[1]{##1}%
+  \DeclareRobustCommand{\allcapsspacing}[1]{##1}%
+}
+\makeatother

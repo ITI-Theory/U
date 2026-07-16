@@ -1,0 +1,280 @@
+% Layout C — Coffee-table maximalist (v2)
+% Ghost numbers, hairline rules, atlas-cyan accents, big folios, epigraph styling.
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{lettrine}
+\usepackage{titletoc}
+
+\definecolor{atlas}{HTML}{00B4D8}
+\definecolor{atlasdeep}{HTML}{004858}
+\definecolor{atlassoft}{HTML}{8FBFCC}
+
+\setmainfont{IBMPlexSerif}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Light,
+  ItalicFont     = *-LightItalic,
+  BoldFont       = *-SemiBold,
+  BoldItalicFont = *-SemiBoldItalic,
+]
+\setsansfont{IBMPlexSans}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Thin,
+  ItalicFont     = *-ThinItalic,
+  BoldFont       = *-Light,
+  Scale          = MatchLowercase,
+]
+\setmonofont{IBMPlexMono}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  ItalicFont     = *-Italic,
+  BoldFont       = *-Bold,
+  Scale          = MatchLowercase,
+]
+\setmathfont{IBM Plex Math}
+
+% ---------------- Chapter opener
+% Ghost number top-right, label + hairline + title bottom-left.
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  \thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north east, inner sep=0pt]
+      at ([xshift=-22mm, yshift=-22mm]current page.north east)
+      {\fontsize{260}{260}\selectfont\color{atlassoft!30}\thechapter};
+  \end{tikzpicture}%
+  \tsticker%
+  \vspace*{95mm}%
+  {\noindent\sffamily\fontsize{8.5}{10}\selectfont\color{atlas}\MakeUppercase{Chapter \thechapter}\par}
+  \vspace{3mm}%
+  {\noindent\color{atlas}\rule{45mm}{0.6pt}\par}
+  \vspace{8mm}%
+  {\noindent\bfseries\color{atlasdeep}\fontsize{48}{54}\selectfont\raggedright #1\par}
+  \vspace{18mm}%
+}
+\renewcommand{\@makeschapterhead}[1]{%
+  \thispagestyle{empty}%
+  \tsticker%
+  \vspace*{95mm}%
+  {\noindent\bfseries\color{atlasdeep}\fontsize{42}{48}\selectfont\raggedright #1\par}
+  \vspace{18mm}%
+}
+\makeatother
+
+% ---------------- Section / subsection
+\titleformat{\section}[hang]
+  {\normalfont\bfseries\Large\raggedright\color{atlasdeep}}
+  {\thesection\quad}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{2.5\baselineskip}{0.6\baselineskip}
+
+\titleformat{\subsection}[hang]
+  {\normalfont\sffamily\bfseries\large\raggedright\color{atlas}}
+  {\thesubsection\quad}
+  {0pt}
+  {}
+
+% ---------------- Body: ranged left, generous leading
+\renewcommand{\baselinestretch}{1.42}
+\setlength{\parskip}{0.7\baselineskip}
+\setlength{\parindent}{0pt}
+\raggedright
+
+% Epigraph / pull-quote styling — patch pandoc's `quote` env at begin-document
+\AtBeginDocument{%
+  \renewenvironment{quote}%
+    {\list{}{\leftmargin=12mm\rightmargin=12mm\topsep=1.0\baselineskip}%
+     \item\relax\itshape\color{atlasdeep}}%
+    {\endlist}%
+}
+
+% ---------------- Running heads & folios
+% Verso (LE): big folio + chapter title in sans-soft
+% Recto (RO): section title in sans-soft + big folio
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+\fancyhead[LE]{{\sffamily\fontsize{28}{28}\selectfont\color{atlas}\thepage}\hspace{4mm}{\sffamily\footnotesize\color{atlassoft}\nouppercase{\leftmark}}}
+\fancyhead[RO]{{\sffamily\footnotesize\color{atlassoft}\nouppercase{\rightmark}}\hspace{4mm}{\sffamily\fontsize{28}{28}\selectfont\color{atlas}\thepage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{34pt}
+\setlength{\headsep}{14mm}
+
+% Plain pagestyle (chapter opener pages) — suppress header, atlas folio at bottom centre
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\sffamily\footnotesize\color{atlassoft}\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% Captions — small sans, atlas accent on the label
+\usepackage[font=small,labelfont={sf,color=atlas},textfont=it]{caption}
+
+% Lettrine — atlas-coloured drop cap, 3 lines deep
+\renewcommand{\LettrineFontHook}{\color{atlasdeep}\bfseries}
+\setlength{\DefaultFindent}{1pt}
+\setlength{\DefaultNindent}{4pt}
+\renewcommand{\DefaultLraise}{0.0}
+\renewcommand{\DefaultLoversize}{0.05}
+
+% ---------------- TOC styling
+\renewcommand{\contentsname}{\normalfont\bfseries\color{atlasdeep}\Huge Contents}
+\titlecontents{part}[0em]
+  {\addvspace{2.0\baselineskip}\sffamily\Large\bfseries\color{atlas}}
+  {}
+  {}
+  {}
+  []
+\titlecontents{chapter}[0em]
+  {\addvspace{1.2\baselineskip}\sffamily\large\bfseries\color{atlasdeep}}
+  {\color{atlas}\contentslabel[\thecontentslabel]{2.5em}\hspace{0.5em}}
+  {}
+  {\hfill\sffamily\normalsize\color{atlas}\thecontentspage}
+\titlecontents{section}[2.8em]
+  {\addvspace{0.2\baselineskip}\sffamily\small\color{atlasdeep}}
+  {\color{atlassoft}\contentslabel[\thecontentslabel]{2.2em}}
+  {}
+  {\hfill\sffamily\footnotesize\color{atlassoft}\thecontentspage}
+
+% ---------------- Part divider — full-page atlas-cyan slab + giant Roman numeral
+\makeatletter
+\renewcommand{\@endpart}{\thispagestyle{empty}\if@twoside\hbox{}\newpage\fi}
+\renewcommand{\part}{\cleardoublepage\thispagestyle{empty}\@startpart}
+\def\@startpart{\secdef\@part\@spart}
+\def\@part[#1]#2{%
+  \refstepcounter{part}%
+  \addcontentsline{toc}{part}{\partname~\thepart\hspace{1em}#1}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[atlas] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center, text=white] at (current page.center)
+      {\fontsize{300}{300}\selectfont\bfseries\Roman{part}};
+    \node[anchor=south, text=white, yshift=40mm] at (current page.center)
+      {\sffamily\fontsize{10}{12}\selectfont\MakeUppercase{\partname~\Roman{part}}};
+    \node[anchor=north, text=white, yshift=-50mm, text width=120mm, align=center] at (current page.center)
+      {\bfseries\fontsize{28}{34}\selectfont #2};
+  \end{tikzpicture}%
+  \null\newpage\thispagestyle{empty}\null\newpage}
+\makeatother
+
+% ---------------- [T] sticker mark — small atlas-cyan square w/ white T, top-left of chapter opener
+\newcommand{\tsticker}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, fill=atlas, text=white, inner sep=4pt, minimum width=12mm, minimum height=12mm]
+      at ([xshift=22mm, yshift=-22mm]current page.north west)
+      {\sffamily\bfseries\Large T};
+  \end{tikzpicture}%
+}
+
+% ---------------- Margin pull-quote macro
+% Usage: \marginpullquote{The wave is the mood. The particle is the moment.}
+\setlength{\marginparwidth}{32mm}
+\setlength{\marginparsep}{5mm}
+\newcommand{\marginpullquote}[1]{%
+  \marginpar{\raggedright\sffamily\itshape\small\color{atlasdeep}#1\par
+    \vspace{2pt}\color{atlas}\rule{12mm}{0.4pt}}%
+}
+
+% ---------------- Quote attribution helper — italic body, small-caps source flush right
+% Usage: \attrquote{The wave is older than the equation.}{Field Notes, 2024}
+\newcommand{\attrquote}[2]{%
+  \begin{quote}#1\par
+    \vspace{0.4\baselineskip}\hfill{\normalfont\scshape\footnotesize\color{atlas}— #2}\end{quote}%
+}
+
+% ---------------- Plate environment — boxed figure w/ atlas-soft frame
+% Usage: \begin{plate}[height in mm]{caption}...\end{plate} (placeholder rule by default)
+\newenvironment{plate}[2][55]{%
+  \begin{figure}\centering
+    \begingroup\color{atlassoft}%
+    \fbox{\color{black}\rule{0pt}{#1mm}\rule{140mm}{0pt}}%
+    \endgroup
+    \caption*{#2}%
+}{\end{figure}}
+
+% ---------------- Typography tidy
+\frenchspacing
+\clubpenalty=10000   % widow control
+\widowpenalty=10000
+\hyphenpenalty=400   % discourage hyphenation but allow when needed
+\emergencystretch=2em
+
+% ---------------- Chapter-end ornament — three atlas diamonds, centred
+% Usage: \chapterend  (place at end of chapter source)
+\newcommand{\chapterend}{%
+  \vspace{2.0\baselineskip}%
+  \begin{center}\color{atlas}\fontsize{14}{14}\selectfont
+    $\diamond$\quad$\diamond$\quad$\diamond$%
+  \end{center}%
+  \vspace{1.0\baselineskip}%
+}
+
+% ---------------- Display pullquote — block-level, large italic, atlas-deep
+% Usage: \pullquote{The wave is the mood. The particle is the moment.}
+\newcommand{\pullquote}[1]{%
+  \par\vspace{1.2\baselineskip}%
+  \begin{center}%
+    \begin{minipage}{0.78\linewidth}%
+      \raggedright\itshape\color{atlasdeep}\fontsize{16}{22}\selectfont #1\par
+      \vspace{4pt}\color{atlas}\rule{20mm}{0.6pt}%
+    \end{minipage}%
+  \end{center}%
+  \par\vspace{1.2\baselineskip}%
+}
+
+% ---------------- Half-title page
+% Usage: \halftitle{The Wave Atlas}
+\newcommand{\halftitle}[1]{%
+  \thispagestyle{empty}%
+  \vspace*{90mm}%
+  {\centering\sffamily\bfseries\color{atlasdeep}\fontsize{36}{42}\selectfont #1\par}%
+  \vspace{8mm}%
+  {\centering\color{atlas}\rule{30mm}{0.6pt}\par}%
+  \clearpage
+}
+
+% ---------------- Title page (full)
+% Usage: \atlastitlepage{The Wave Atlas}{Eleven views of the soma field}{Alistair Johnson}{Zürich, 2026}
+\newcommand{\atlastitlepage}[4]{%
+  \thispagestyle{empty}%
+  \tsticker%
+  \vspace*{60mm}%
+  {\noindent\sffamily\fontsize{9}{11}\selectfont\color{atlas}\MakeUppercase{[T]-Theory~/~Volume~I}\par}
+  \vspace{4mm}{\noindent\color{atlas}\rule{45mm}{0.6pt}\par}\vspace{12mm}%
+  {\noindent\bfseries\color{atlasdeep}\fontsize{60}{66}\selectfont\raggedright #1\par}
+  \vspace{8mm}%
+  {\noindent\itshape\color{atlasdeep}\fontsize{18}{22}\selectfont\raggedright #2\par}
+  \vfill
+  {\noindent\sffamily\color{atlasdeep}\large #3\par}
+  \vspace{2mm}%
+  {\noindent\sffamily\footnotesize\color{atlassoft} #4\par}
+  \clearpage
+}
+
+% ---------------- Colophon page
+% Usage: \colophon  (back-matter)
+\newcommand{\colophon}{%
+  \thispagestyle{empty}%
+  \vspace*{120mm}%
+  \begin{center}%
+    \begin{minipage}{0.7\linewidth}%
+      \centering\sffamily\footnotesize\color{atlasdeep}%
+      Set in IBM Plex Serif Light, IBM Plex Sans Thin, and IBM Plex Math.\\[4pt]
+      Composed with X{\kern-.125em\lower.5ex\hbox{E}\kern-.1667em}\LaTeX\ via Pandoc.\\[4pt]
+      Atlas palette: \textcolor{atlas}{\#00B4D8} / \textcolor{atlasdeep}{\#004858} / \textcolor{atlassoft}{\#8FBFCC}.\\[4pt]
+      Printed for [T]-Theory, Zürich.
+      \par\vspace{6pt}\color{atlas}\rule{20mm}{0.4pt}%
+    \end{minipage}%
+  \end{center}%
+}

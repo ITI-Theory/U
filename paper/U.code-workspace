@@ -47,5 +47,7 @@
 			"path": "../../T.Dot"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "AJ-WiKi"
+	}
 }

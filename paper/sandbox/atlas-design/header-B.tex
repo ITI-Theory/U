@@ -1,0 +1,51 @@
+% Layout B — KOMA scrbook + sidenotes
+% Single wide-margin column with side-notes for footnotes & figure captions.
+% Less radical than tufte-book; more "modern monograph" than coffee-table.
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{marginnote}
+\usepackage{sidenotes}
+\usepackage{unicode-math}
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{atlas}{HTML}{0088A8}
+
+\setmainfont{IBMPlexSerif}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Text,
+  ItalicFont     = *-TextItalic,
+  BoldFont       = *-Bold,
+  BoldItalicFont = *-BoldItalic,
+]
+\setsansfont{IBMPlexSans}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  ItalicFont     = *-Italic,
+  BoldFont       = *-Bold,
+  Scale          = MatchLowercase,
+]
+\setmonofont{IBMPlexMono}[
+  Path           = C:/Users/alist/AppData/Roaming/MiKTeX/fonts/opentype/ibm/plex/,
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  ItalicFont     = *-Italic,
+  BoldFont       = *-Bold,
+  Scale          = MatchLowercase,
+]
+\setmathfont{IBM Plex Math}
+
+% Chapter heads — KOMA's setkomafont
+\setkomafont{chapter}{\normalfont\bfseries\Huge\raggedright\color{atlas}}
+\setkomafont{section}{\normalfont\bfseries\Large\raggedright}
+\setkomafont{subsection}{\normalfont\bfseries\large}
+
+% Margin note styling
+\renewcommand*{\marginfont}{\sffamily\footnotesize\color{atlas!80!black}}
+
+\renewcommand{\baselinestretch}{1.30}
+\setlength{\parskip}{0.6\baselineskip}
+\setlength{\parindent}{0pt}

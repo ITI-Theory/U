@@ -34,7 +34,7 @@ The territory is the body. The voyage is inward.
 
 # Part I: The Format
 
-## 1. The Emotional Score
+## The Emotional Score
 
 A film is defined by its **emotional score**: a vector-valued trajectory
 
@@ -62,7 +62,7 @@ The standard mode vocabulary for this project uses seven primary axes:
 Additional modes can be added per score. Pre-verbal affect, disgust, rage, and
 the somatic marker of HRV coherence may all appear as named axes.
 
-## 2. Threshold Events
+## Threshold Events
 
 At specified story-times $t_k$, the score may declare a **threshold crossing** —
 a non-perturbative event in which the emotional field transitions between attractor
@@ -80,7 +80,7 @@ The rendering system must hold the score near the threshold approach for as long
 as necessary until the crossing condition is met — whether by the score's internal
 dynamics or by the viewer's biofeedback signalling readiness.
 
-## 3. Control Knobs
+## Control Knobs
 
 The score is rendered through a set of **control parameters** $\kappa$ that the
 viewer, clinician, or runtime system can adjust. These are continuous dials, not
@@ -95,7 +95,7 @@ binary switches.
 | Mode mask | $\kappa_m \subseteq \{1..n\}$ | Which emotional modes are active in this rendering. A viewer without a shame attractor may have $Sh$ masked; the score is rendered without that channel. |
 | Coupling scale | $\kappa_W \in [0.5, 2]$ | Global scale on the coupling matrix $W^*$ of the score. High values increase inter-mode interaction; the emotional landscape becomes more complex and entangled. |
 
-## 4. The Rendering Function
+## The Rendering Function
 
 The screen signal $S(t)$ — the actual audio and visual output — is:
 
@@ -114,7 +114,7 @@ depth) and visual parameters (fractal dimension, colour temperature, edge
 sharpness, motion speed, light level). The mapping is specified per rendering
 implementation; the score is independent of any specific renderer.
 
-## 5. The Somatic Loop
+## The Somatic Loop
 
 When the viewer's field $\mathbf{e}_V(t)$ is available — via HRV monitor,
 skin conductance, posture sensor, or simply therapist observation — the system
