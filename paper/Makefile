@@ -39,6 +39,8 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 
 .PHONY: all help omnibus omnibus-royal omnibus-a4 \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
+	lean-appendix \
+	thesis thesis-royal thesis-a4 \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
@@ -49,8 +51,9 @@ help:
 	@echo ""
 	@echo "  make             build all English PDFs"
 	@echo "  make omnibus     both omnibus editions (Royal + A4)"
+	@echo "  make lean-appendix  standalone PDF of all Lean 4 proofs"
+	@echo "  make thesis      thesis edition (Royal + A4) with preamble + Lean appendix"
 	@echo "  make de/fr/it    all PDFs in that language"
-	@echo "  make wave-atlas  Wave Atlas book"
 	@echo "  make clean       remove English PDFs"
 	@echo "  make check       verify pandoc + xelatex"
 	@echo ""
@@ -91,6 +94,57 @@ omnibus-a4: | $(BUILDDIR)
 	@echo "Built: $(BUILDDIR)/omnibus-a4.pdf"
 
 omnibus: omnibus-royal omnibus-a4
+
+# ---------------------------------------------------------------------------
+# Lean appendix — standalone PDF of all Lean 4 proof files
+# Re-run this whenever a .lean file in paper/proofs/ changes.
+# The build_omnibus.py and build_thesis.py scripts also call this
+# automatically, so 'make omnibus' and 'make thesis' are always current.
+# ---------------------------------------------------------------------------
+
+lean-appendix: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/build_lean_appendix.py
+	$(PANDOC) soma/lean-proofs-appendix/lean-proofs-appendix.md \
+		-o $(BUILDDIR)/lean-proofs-appendix.pdf \
+		$(PANDOC_A4) --highlight-style=tango
+	@echo "Built: $(BUILDDIR)/lean-proofs-appendix.pdf"
+
+# ---------------------------------------------------------------------------
+# Thesis — same content as omnibus with thesis-specific apparatus:
+#   Abstract · Declaration · Preface · Overview (preamble chapter)
+#   then Parts I–V (identical to omnibus)
+#   then Appendix: Formal Lean 4 Verifications
+# ---------------------------------------------------------------------------
+
+THESIS_FLAGS_BASE := $(RENDER_COMMON) \
+	--toc-depth=3 \
+	-V header-includes="\usepackage{amsmath}\usepackage{amssymb}"
+
+# Thesis — Royal (156×234 mm), suitable for case-bound submission copy
+THESIS_ROYAL_FLAGS := $(THESIS_FLAGS_BASE) \
+	$(CITEPROC) \
+	-V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=8mm" \
+	-V fontsize=10pt \
+	-V linestretch=1.3
+
+# Thesis — A4 duplex, punched for ring-binder
+THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
+	$(CITEPROC) \
+	-V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=20mm,bottom=22mm" \
+	-V fontsize=11pt \
+	-V linestretch=1.4
+
+thesis-royal: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/build_thesis.py
+	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-royal.pdf $(THESIS_ROYAL_FLAGS)
+	@echo "Built: $(BUILDDIR)/thesis-royal.pdf"
+
+thesis-a4: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/build_thesis.py
+	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4.pdf $(THESIS_A4_FLAGS)
+	@echo "Built: $(BUILDDIR)/thesis-a4.pdf"
+
+thesis: thesis-royal thesis-a4
 
 translate-omnibus: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --model gpt-4o-mini

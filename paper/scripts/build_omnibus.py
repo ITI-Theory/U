@@ -2,6 +2,9 @@
 """
 build_omnibus.py — Assemble all papers into a single omnibus document.
 
+Calls build_lean_appendix.py first to ensure the Lean appendix source
+(soma/lean-proofs-appendix/lean-proofs-appendix.md) is current.
+
 Structure of the output
 -----------------------
   [Unified YAML frontmatter]
@@ -32,6 +35,18 @@ Usage
 import re
 import sys
 from pathlib import Path
+
+# Lean appendix generator — run before assembly to keep proofs current.
+# Import is deferred to main() to avoid circular-import issues when
+# build_thesis.py imports from this module.
+def _regenerate_lean_appendix() -> None:
+    import importlib.util, os
+    here = Path(__file__).parent
+    spec = importlib.util.spec_from_file_location(
+        "build_lean_appendix", here / "build_lean_appendix.py")
+    mod = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    mod.main()
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR = REPO_ROOT / "paper"
@@ -123,6 +138,11 @@ STRUCTURE = [
 
     (r"\newpage",
      "zoomable-somatic-field"),
+
+    # Appendix: Lean 4 formal proofs — included in the body so any reader
+    # (human or AI) sees the actual type-checked code, not a pointer to it.
+    (r"\newpage" "\n\n" r"\appendix" "\n\n" r"\part{Appendix: Formal Lean 4 Verifications}",
+     "lean-proofs-appendix"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -158,6 +178,11 @@ def get_body(paper_name: str) -> str:
 
 def main() -> None:
     BLD_DIR.mkdir(exist_ok=True)
+
+    # Keep lean appendix source current before assembling the omnibus.
+    print("Generating lean-proofs-appendix.md …")
+    _regenerate_lean_appendix()
+
     out_path = BLD_DIR / "omnibus-body.md"
 
     sections: list[str] = [FRONTMATTER]
