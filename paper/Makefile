@@ -20,6 +20,7 @@ $(eval $(call register, missing-limbic-layer,           citeproc, en,    limbic 
 $(eval $(call register, swarm-propagator,               citeproc, en,    swarm   ))
 $(eval $(call register, universal-somatic-field,        citeproc, en,    usf     ))
 $(eval $(call register, zoomable-somatic-field,         citeproc, en,    zsf     ))
+$(eval $(call register, experimental-validation,        citeproc, en,    exp     ))
 $(eval $(call register, geographic-somatic-field,       citeproc, en,    geo     ))
 $(eval $(call register, mathematical-co-identification, citeproc, multi, method  ))
 $(eval $(call register, music-affect-dynamics,          citeproc, multi, music   ))

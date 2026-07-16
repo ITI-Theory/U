@@ -2298,3 +2298,28 @@ The theory was at 9/10 going in; the session was about closing the gap.
 4. NotebookLM public notebook: upload all papers, set public share link, update org README
 
 5. JSON data contract / Lean-Python FFI bridge (PARKED): The live instrument (apps/instrument/) needs a formal JSON schema for passing 11D wave state arrays from the Python simulator to the Lean 4 type-checker via JSON-RPC (lean --server mode). Ref: Me/chats/Inbox/20260628_203332_jelly-fish.md and Inbox/ShelockBS.md for architecture notes. When implemented: add schema to apps/instrument/lean_bridge_schema.json and document in apps/instrument/README.md. This is Phase 2 / Part2 work.
+
+### 2026-07-17 Session additions
+
+**P19 experimental-validation.md** — 15pp experimental benchmarks paper:
+  four-model comparison (1982/2016/2020/FM-HN), MNIST corrupted character test,
+  Kuramoto/GHZ/Britain-1939 macroscopic benchmarks, God-Knob hysteresis test,
+  QUANT-EXP-1 reframing. Registered in Makefile (alias: exp) and omnibus Part V.
+  Bib entries added: kuramoto1984chemical, greenberger1989going, krotov2016dense.
+
+**Phase 2 priority 1 — Lean as proper library with tests:**
+  The lakefile.toml is already the foundation. Next steps:
+  - Add `[[lean_exe]] name = "tests"` with #test assertion blocks
+  - Contribute `greens_fn_is_SHO` (Green's function as SHO) to Physlib
+  - Add `#test` for key theorems (consciousness_dichotomy, onN2_lt_onNK, etc.)
+  - This makes the project a genuine Lean community resource
+
+**Making U public — WHEN:**
+  Make ITI-Theory/U public AFTER:
+  1. Lean build is confirmed clean (lake build returns 0)
+  2. Zenodo DOIs updated in bibliography.bib for all 6 new papers
+  3. README.md updated with build instructions
+  Command: GitHub → Settings → Danger Zone → Make Public
+
+6. Lean library + tests: See Phase 2 priority 1 above.
+7. 3D wireframe models: For swarm/tectonic experiments in Wave Atlas (Part2/book/).

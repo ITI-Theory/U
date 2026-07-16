@@ -139,6 +139,9 @@ STRUCTURE = [
     (r"\newpage",
      "zoomable-somatic-field"),
 
+    (r"\newpage",
+     "experimental-validation"),
+
     # Appendix: Lean 4 formal proofs — included in the body so any reader
     # (human or AI) sees the actual type-checked code, not a pointer to it.
     (r"\newpage" "\n\n" r"\appendix" "\n\n" r"\part{Appendix: Formal Lean 4 Verifications}",
