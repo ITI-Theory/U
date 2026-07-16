@@ -12,6 +12,8 @@ csl: apa-7th.csl
 ---
 
 
+\clearpage
+
 # Abstract
 
 This monograph presents a formal mathematical theory of affective dynamics —
@@ -75,6 +77,8 @@ transition.
 
 ---
 
+\clearpage
+
 # Declaration of Originality
 
 I, Alistair Johnson (ORCID: 0009-0007-2194-0850), declare that this work is
@@ -97,6 +101,8 @@ in the repository.
 *Alistair Johnson, Zurich, 2026*
 
 ---
+
+\clearpage
 
 # Preface
 
@@ -142,6 +148,8 @@ That is enough to warrant the label *theory* rather than *speculation*.
 *A.J., Zurich, July 2026*
 
 ---
+
+\clearpage
 
 # Overview of the Work
 
