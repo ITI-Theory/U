@@ -277,6 +277,43 @@ interpolation between them.
 When the Lean server type-checks and the film runs, the proof passes.
 The film is the compiled test.""",
     ),
+    (
+        "QuantumSim.lean",
+        "Minimal Quantum Simulator: Formal QUANT-EXP-1 Validation",
+        """\
+The minimal quantum simulator designed to formally validate QUANT-EXP-1
+inside Lean 4.  Scoped to exactly three things: `QuantumState` (complex
+vector in $\\mathbb{C}^n$), `QuantumOperator` (unitary/Hermitian matrix),
+and the WKB tunnelling gate connecting directly to `LimbicTunnel.lean`.
+
+**What is formally established:** `fear_awe_orthogonal` (orthonormal basis);
+`wkbGate_creates_awe` (after the WKB gate, awe component is non-zero for W>0);
+`quant_exp_1_awe_reachable` (Born probability of |awe⟩ strictly positive —
+the formal statement of the quantum experiment result).""",
+    ),
+    (
+        "SomaNetwork.lean",
+        "The Common Interface: SomaNetwork Typeclass (Lean ↔ Python)",
+        """\
+The `SomaNetwork` typeclass: the single interface governing both formal
+Lean proofs and Python/GPU simulation.  Implements the design from the
+2026-06-28 session.  Three instances: `somaFieldNetwork` (USF 2026, WKB
+gate), `hopfield1982` (classical, no tunnelling), and the Python mirror
+specification (`apps/instrument/soma_network.py`) as documentation.
+The Python `Protocol` has the same four methods (`dim`, `energy`,
+`propagate`, `tunnel_gate`) — this is the FFI contract.""",
+    ),
+    (
+        "ScaleUniverse.lean",
+        "T_TheoryUniverse: The 20-Scale Dependent Type",
+        """\
+The `T_TheoryUniverse` dependent structure: [T]-Theory encoded as a
+Lean type where the *type* of the field layer changes with scale.
+4 of 21 scales upgraded from `String` to real types (Open Problem 3
+partial closure): `CellularSynapse→Field8`, `BrainCEMI→CemiField`,
+`OrganismBody→Field8`, `SwarmCrowd→SwarmState 8`.
+`human_swarm_same_rank` proves both governed by rank-2 tensors.""",
+    ),
 ]
 
 
