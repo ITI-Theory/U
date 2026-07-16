@@ -314,6 +314,21 @@ partial closure): `CellularSynapse→Field8`, `BrainCEMI→CemiField`,
 `OrganismBody→Field8`, `SwarmCrowd→SwarmState 8`.
 `human_swarm_same_rank` proves both governed by rank-2 tensors.""",
     ),
+    (
+        "Benchmark.lean",
+        "The Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026",
+        """\
+The experiment that confirms what the proofs predict.  Four models start
+from `startlePattern` (fear/startle attractor) and attempt to reach
+`musicalAwePattern` (awe attractor).  The first three cannot escape the
+fear basin; FM-HN USF 2026 reaches awe in one WKB gate application.
+
+Runs as `#eval runBenchmark` and prints a comparison table: steps to
+convergence, final distance from awe target, and wall-clock time via
+`IO.monoMsTime`.  Ends with the three Lean-verified theorems that
+predicted the result: `onN2_lt_onNK`, `correspondence_principle`,
+`quant_exp_1_awe_reachable`.""",
+    ),
 ]
 
 
