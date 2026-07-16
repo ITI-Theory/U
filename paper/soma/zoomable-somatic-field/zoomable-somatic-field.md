@@ -65,6 +65,11 @@ keywords:
 
 # Introduction
 
+> *They saw a guitar string.*
+> *I heard the music.*
+>
+> \hfill --- A.J. (after Feynman)
+
 The search for a unified description of physical reality has proceeded, since
 Newton, by identifying common mathematical structures across phenomena that
 appear superficially different. Fourier analysis revealed that the vibration

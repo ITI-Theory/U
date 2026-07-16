@@ -108,6 +108,8 @@ accessible form, for readers without a physics background.
 
 ---
 
+\newpage
+
 # The Method: Mathematical Co-identification
 
 ## What It Is
