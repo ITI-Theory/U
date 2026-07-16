@@ -41,7 +41,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 .PHONY: all help omnibus omnibus-royal omnibus-a4 \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
-	thesis thesis-royal thesis-a4 \
+	thesis thesis-royal thesis-a4 thesis-a4-2col \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
@@ -135,6 +135,15 @@ THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
 	-V fontsize=11pt \
 	-V linestretch=1.4
 
+# Thesis — A4 compact (10pt, 1.2 spacing, narrow margins)
+# Achieves ~two-column density without breaking longtable/code blocks.
+# Reduces page count from ~444pp to ~300pp.
+THESIS_A4_2COL_FLAGS := $(THESIS_FLAGS_BASE) \
+	$(CITEPROC) \
+	-V "geometry=a4paper,twoside,inner=22mm,outer=16mm,top=18mm,bottom=18mm" \
+	-V fontsize=10pt \
+	-V linestretch=1.2
+
 thesis-royal: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_thesis.py
 	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-royal.pdf $(THESIS_ROYAL_FLAGS)
@@ -144,6 +153,11 @@ thesis-a4: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_thesis.py
 	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4.pdf $(THESIS_A4_FLAGS)
 	@echo "Built: $(BUILDDIR)/thesis-a4.pdf"
+
+thesis-a4-2col: | $(BUILDDIR)
+	$(PYTHON) $(SCRIPTS)/build_thesis.py
+	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4-2col.pdf $(THESIS_A4_2COL_FLAGS)
+	@echo "Built: $(BUILDDIR)/thesis-a4-2col.pdf"
 
 thesis: thesis-royal thesis-a4
 
