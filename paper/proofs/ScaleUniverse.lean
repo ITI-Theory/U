@@ -109,23 +109,23 @@ def FieldLayerType : ScaleStep → Type
   | .OrganismBody       => Field8          -- Scale 8: the core BRECVEMA soma-field
   | .SwarmCrowd         => SwarmState 8    -- Scale 9: 8-agent swarm (extensible)
   -- Placeholder scales (Open Problem 3 — replace with Physlib types):
-  | .PlanckFoam         => String          -- TODO: Physlib.QuantumMechanics.WaveFunction
-  | .StringScale        => String          -- TODO: string mode vacuum
-  | .NuclearQuark       => String          -- TODO: QCD colour field
-  | .AtomicOrbital      => String          -- TODO: Coulomb propagator
-  | .MolecularBond      => String          -- TODO: molecular wavefunction
-  | .AxonFibre          => String          -- TODO: cable equation (Hodgkin-Huxley)
-  | .CityInfrastructure => String          -- TODO: traffic flow field
-  | .GeologicalSeismic  => String          -- TODO: seismic stress tensor
-  | .PlanetaryMantle    => String          -- TODO: viscous convection
-  | .SolarSystem        => String          -- TODO: N-body gravitational field
-  | .StellarNeighbour   => String          -- TODO: gravitational wave propagator
-  | .GalacticDisc       => String          -- TODO: spiral arm density wave
-  | .GalacticHalo       => String          -- TODO: dark matter halo profile
-  | .GalaxyCluster      => String          -- TODO: intracluster medium
-  | .LargeScaleStruct   => String          -- TODO: baryon acoustic oscillation
-  | .ObservableUniverse => String          -- TODO: linearised Einstein propagator
-  | .CosmicWeb          => String          -- TODO: cosmic string network
+  | .PlanckFoam         => String          -- OP3 (Physlib): QuantumMechanics.WaveFunction
+  | .StringScale        => String          -- OP3 (Physlib): string mode vacuum
+  | .NuclearQuark       => String          -- OP3 (Physlib): QCD colour field
+  | .AtomicOrbital      => String          -- OP3 (Physlib): Coulomb propagator
+  | .MolecularBond      => String          -- OP3 (Physlib): molecular wavefunction
+  | .AxonFibre          => String          -- OP3 (Physlib): cable equation (Hodgkin-Huxley)
+  | .CityInfrastructure => String          -- OP3 (Physlib): traffic flow field
+  | .GeologicalSeismic  => String          -- OP3 (Physlib): seismic stress tensor
+  | .PlanetaryMantle    => String          -- OP3 (Physlib): viscous convection
+  | .SolarSystem        => String          -- OP3 (Physlib): N-body gravitational field
+  | .StellarNeighbour   => String          -- OP3 (Physlib): gravitational wave propagator
+  | .GalacticDisc       => String          -- OP3 (Physlib): spiral arm density wave
+  | .GalacticHalo       => String          -- OP3 (Physlib): dark matter halo profile
+  | .GalaxyCluster      => String          -- OP3 (Physlib): intracluster medium
+  | .LargeScaleStruct   => String          -- OP3 (Physlib): baryon acoustic oscillation
+  | .ObservableUniverse => String          -- OP3 (Physlib): linearised Einstein propagator
+  | .CosmicWeb          => String          -- OP3 (Physlib): cosmic string network
 
 /-! ## 3. T_TheoryUniverse — The Master Dependent Structure -/
 

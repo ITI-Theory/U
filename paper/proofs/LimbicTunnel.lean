@@ -102,22 +102,23 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
     V'(x) = 4W·x·(x² − 1) = 0 iff x = 0 or x = ±1. -/
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
-  -- TODO (Mathlib 4.31.0): HasDerivAt.pow API changed; proof needs updating
+  -- OP-LT-1 (Mathlib 4.31.0): HasDerivAt.pow renamed; tracked in Open Problems.
+  -- Path to closure: update to HasDerivAt.pow_succ or HasDerivAt.comp once API stabilises.
   sorry
 
-/-- V' at x = -1+ε is positive (> 0): gradient descent from that point moves
-    left toward -1, so the system is trapped in the trauma basin.
+/-- V'(-1+ε) is POSITIVE for ε ∈ (0,1): the gradient points RIGHT (away from -1),
+    so Langevin drift ė = -V'(x) points LEFT toward -1 — the system is trapped.
 
-    **SIGN NOTE**: V'(-1+ε) = 4W(-1+ε)((-1+ε)²-1). With ε ∈ (0,1):
-      (-1+ε) < 0, (-1+ε)²-1 = ε(ε-2) < 0. Product of two negatives is positive.
-      So V'(-1+ε) > 0. Gradient descent (ẋ = -V') therefore moves x LEFT toward -1.
-    This is the correct trapping argument; the `< 0` below is a theorem sign error
-    that is left as sorry pending a proof cleanup pass. -/
+    Proof: (-1+ε) < 0 and (-1+ε)^2 - 1 = ε(ε-2) < 0 for ε ∈ (0,1).
+    Product of two negatives is positive; multiply by 4W > 0. -/
 theorem gradient_traps_near_neg1 (p : BarrierParam) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :
-    4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) < 0 := by
-  -- TODO: theorem sign is wrong (value is > 0); Langevin trapping works correctly
-  -- via ẋ = -V'(x) < 0 when V' > 0. Fix: change < 0 to > 0 in statement.
-  sorry
+    0 < 4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) := by
+  have hW := p.hW
+  have h1 : -1 + ε < 0 := by linarith
+  have h2 : (-1 + ε) ^ 2 - 1 < 0 := by
+    nlinarith [mul_pos hε (show 0 < 2 - ε from by linarith)]
+  have h4 : 4 * p.W * (-1 + ε) < 0 := by nlinarith
+  exact mul_pos_of_neg_of_neg h4 h2
 
 /-! ## 3. WKB tunnelling action (numerical) -/
 

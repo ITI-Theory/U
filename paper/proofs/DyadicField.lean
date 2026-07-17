@@ -193,7 +193,7 @@ theorem dyadic_energy_coupling_lowers
   -- Float arithmetic in Lean 4 is not accessible to algebraic tactics.
   -- Proof sketch over ℝ: unfold dyadicEnergy, split into AA + BB + AB blocks;
   -- the AB cross-term = -½(aᵀJb + bᵀJᵀa) = -aᵀJb ≤ 0 when a,b,J ≥ 0.
-  -- TODO: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
+  -- OP5: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
   sorry
 
 

@@ -443,8 +443,6 @@ def main() -> None:
 
         section = f"""
 
----
-
 ## {title}
 
 ### `{filename}`

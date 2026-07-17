@@ -12429,8 +12429,6 @@ The source files are reproduced in full below, in dependency order.
 ```
 
 
----
-
 ## The Foundation: Hopfield Associative Memory
 
 ### `Hopfield.lean`
@@ -12578,8 +12576,6 @@ end HopfieldDemo
 
 ```
 
-
----
 
 ## Emotion as an Algebra: The Final-Tagless DSL
 
@@ -13287,8 +13283,6 @@ def queryCyc (args : Array String) : IO String := do
 ```
 
 
----
-
 ## Promoted Axioms: First Theorems from the DSL
 
 ### `FieldProofs.lean`
@@ -13428,8 +13422,6 @@ theorem love_ne_awe :
 
 ```
 
-
----
 
 ## The 8-Dimensional Soma-Field
 
@@ -13820,8 +13812,6 @@ noncomputable def somaticPropagatorPoles : Fin 8 → ℝ :=
 ```
 
 
----
-
 ## The Dyadic Propagator: Co-Regulation
 
 ### `DyadicField.lean`
@@ -14037,7 +14027,7 @@ theorem dyadic_energy_coupling_lowers
   -- Float arithmetic in Lean 4 is not accessible to algebraic tactics.
   -- Proof sketch over ℝ: unfold dyadicEnergy, split into AA + BB + AB blocks;
   -- the AB cross-term = -½(aᵀJb + bᵀJᵀa) = -aᵀJb ≤ 0 when a,b,J ≥ 0.
-  -- TODO: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
+  -- OP5: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
   sorry
 
 
@@ -14063,8 +14053,6 @@ theorem dyadic_energy_coupling_lowers
 
 ```
 
-
----
 
 ## Quantum Tunnelling in the Limbic Gate
 
@@ -14192,22 +14180,23 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
     V'(x) = 4W·x·(x² − 1) = 0 iff x = 0 or x = ±1. -/
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
-  -- TODO (Mathlib 4.31.0): HasDerivAt.pow API changed; proof needs updating
+  -- OP-LT-1 (Mathlib 4.31.0): HasDerivAt.pow renamed; tracked in Open Problems.
+  -- Path to closure: update to HasDerivAt.pow_succ or HasDerivAt.comp once API stabilises.
   sorry
 
-/-- V' at x = -1+ε is positive (> 0): gradient descent from that point moves
-    left toward -1, so the system is trapped in the trauma basin.
+/-- V'(-1+ε) is POSITIVE for ε ∈ (0,1): the gradient points RIGHT (away from -1),
+    so Langevin drift ė = -V'(x) points LEFT toward -1 — the system is trapped.
 
-    **SIGN NOTE**: V'(-1+ε) = 4W(-1+ε)((-1+ε)²-1). With ε ∈ (0,1):
-      (-1+ε) < 0, (-1+ε)²-1 = ε(ε-2) < 0. Product of two negatives is positive.
-      So V'(-1+ε) > 0. Gradient descent (ẋ = -V') therefore moves x LEFT toward -1.
-    This is the correct trapping argument; the `< 0` below is a theorem sign error
-    that is left as sorry pending a proof cleanup pass. -/
+    Proof: (-1+ε) < 0 and (-1+ε)^2 - 1 = ε(ε-2) < 0 for ε ∈ (0,1).
+    Product of two negatives is positive; multiply by 4W > 0. -/
 theorem gradient_traps_near_neg1 (p : BarrierParam) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :
-    4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) < 0 := by
-  -- TODO: theorem sign is wrong (value is > 0); Langevin trapping works correctly
-  -- via ẋ = -V'(x) < 0 when V' > 0. Fix: change < 0 to > 0 in statement.
-  sorry
+    0 < 4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) := by
+  have hW := p.hW
+  have h1 : -1 + ε < 0 := by linarith
+  have h2 : (-1 + ε) ^ 2 - 1 < 0 := by
+    nlinarith [mul_pos hε (show 0 < 2 - ε from by linarith)]
+  have h4 : 4 * p.W * (-1 + ε) < 0 := by nlinarith
+  exact mul_pos_of_neg_of_neg h4 h2
 
 /-! ## 3. WKB tunnelling action (numerical) -/
 
@@ -14304,8 +14293,6 @@ end SomaField.LimbicTunnel
 
 ```
 
-
----
 
 ## M-Theory Isomorphism: 11-Dimensional Architecture
 
@@ -14569,8 +14556,6 @@ end SomaField.MTheory
 
 ```
 
-
----
 
 ## The FM-HN Correspondence Principle
 
@@ -14896,8 +14881,6 @@ end LimbicHopfield
 ```
 
 
----
-
 ## Swarm Coordination via Green's Function Propagators
 
 ### `SwarmPropagator.lean`
@@ -15161,8 +15144,6 @@ end SomaField.SwarmPropagator
 
 ```
 
-
----
 
 ## The Capstone: Universal Somatic Field
 
@@ -15517,8 +15498,6 @@ end SomaField.Universal
 
 ```
 
-
----
 
 ## The Abstract Film: Type-Level Specification
 
@@ -16208,8 +16187,6 @@ def defaultLandscapePanels : Array (Fin 3 × MovieMode × MovieMode) := #[
 ```
 
 
----
-
 ## Minimal Quantum Simulator: Formal QUANT-EXP-1 Validation
 
 ### `QuantumSim.lean`
@@ -16395,8 +16372,6 @@ end SomaField.QuantumSim
 
 ```
 
-
----
 
 ## The Common Interface: SomaNetwork Typeclass (Lean ↔ Python)
 
@@ -16625,8 +16600,6 @@ end SomaField.Network
 ```
 
 
----
-
 ## T_TheoryUniverse: The 20-Scale Dependent Type
 
 ### `ScaleUniverse.lean`
@@ -16750,23 +16723,23 @@ def FieldLayerType : ScaleStep → Type
   | .OrganismBody       => Field8          -- Scale 8: the core BRECVEMA soma-field
   | .SwarmCrowd         => SwarmState 8    -- Scale 9: 8-agent swarm (extensible)
   -- Placeholder scales (Open Problem 3 — replace with Physlib types):
-  | .PlanckFoam         => String          -- TODO: Physlib.QuantumMechanics.WaveFunction
-  | .StringScale        => String          -- TODO: string mode vacuum
-  | .NuclearQuark       => String          -- TODO: QCD colour field
-  | .AtomicOrbital      => String          -- TODO: Coulomb propagator
-  | .MolecularBond      => String          -- TODO: molecular wavefunction
-  | .AxonFibre          => String          -- TODO: cable equation (Hodgkin-Huxley)
-  | .CityInfrastructure => String          -- TODO: traffic flow field
-  | .GeologicalSeismic  => String          -- TODO: seismic stress tensor
-  | .PlanetaryMantle    => String          -- TODO: viscous convection
-  | .SolarSystem        => String          -- TODO: N-body gravitational field
-  | .StellarNeighbour   => String          -- TODO: gravitational wave propagator
-  | .GalacticDisc       => String          -- TODO: spiral arm density wave
-  | .GalacticHalo       => String          -- TODO: dark matter halo profile
-  | .GalaxyCluster      => String          -- TODO: intracluster medium
-  | .LargeScaleStruct   => String          -- TODO: baryon acoustic oscillation
-  | .ObservableUniverse => String          -- TODO: linearised Einstein propagator
-  | .CosmicWeb          => String          -- TODO: cosmic string network
+  | .PlanckFoam         => String          -- OP3 (Physlib): QuantumMechanics.WaveFunction
+  | .StringScale        => String          -- OP3 (Physlib): string mode vacuum
+  | .NuclearQuark       => String          -- OP3 (Physlib): QCD colour field
+  | .AtomicOrbital      => String          -- OP3 (Physlib): Coulomb propagator
+  | .MolecularBond      => String          -- OP3 (Physlib): molecular wavefunction
+  | .AxonFibre          => String          -- OP3 (Physlib): cable equation (Hodgkin-Huxley)
+  | .CityInfrastructure => String          -- OP3 (Physlib): traffic flow field
+  | .GeologicalSeismic  => String          -- OP3 (Physlib): seismic stress tensor
+  | .PlanetaryMantle    => String          -- OP3 (Physlib): viscous convection
+  | .SolarSystem        => String          -- OP3 (Physlib): N-body gravitational field
+  | .StellarNeighbour   => String          -- OP3 (Physlib): gravitational wave propagator
+  | .GalacticDisc       => String          -- OP3 (Physlib): spiral arm density wave
+  | .GalacticHalo       => String          -- OP3 (Physlib): dark matter halo profile
+  | .GalaxyCluster      => String          -- OP3 (Physlib): intracluster medium
+  | .LargeScaleStruct   => String          -- OP3 (Physlib): baryon acoustic oscillation
+  | .ObservableUniverse => String          -- OP3 (Physlib): linearised Einstein propagator
+  | .CosmicWeb          => String          -- OP3 (Physlib): cosmic string network
 
 /-! ## 3. T_TheoryUniverse — The Master Dependent Structure -/
 
@@ -16868,8 +16841,6 @@ end SomaField.Universe
 
 ```
 
-
----
 
 ## The Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
 
