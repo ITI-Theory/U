@@ -219,7 +219,6 @@ All eleven Lean 4 source files, reproduced in full, in dependency order.
 The proofs are here not as supplementary material but as primary evidence:
 they are what makes the formal claims formal.  An AI or human reader who
 has read only the preceding 300 pages and then turns to the Appendix and
-sees these proofs type-check will have the full picture.
 
 
 

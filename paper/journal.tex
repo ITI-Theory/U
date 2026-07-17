@@ -47,11 +47,6 @@
 \setlength{\headheight}{14pt}
 \fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\footnotesize\thepage}\renewcommand{\headrulewidth}{0pt}}
 
-% 6. longtable fix (two-column mode only)
-\makeatletter
-\AtBeginDocument{\if@twocolumn\renewenvironment{longtable}[2][c]{\begin{table*}\centering\begin{tabular}{#2}}{\end{tabular}\end{table*}}\let\endhead\relax\let\endfirsthead\relax\let\endfoot\relax\let\endlastfoot\relax\fi}
-\makeatother
-
 % 7. Code blocks — syntax colours from tango; no full-width grey background
 %    (Background makes narrow columns look wide; colours are enough.)
 \makeatletter
@@ -110,14 +105,16 @@
 \makeatother
 
 % ---------------------------------------------------------------------------
-% 9. Lean appendix page-break configuration
-%    \leanappendixstart — call once at the start of the Lean proofs appendix.
-%    Each \subsection (= each embedded proof file) will then start on a new page.
-%    Defined here (style/config layer); called from lean-proofs-appendix.md.
+% 9. Two-column layout — Lean appendix reverts to one-column for code
+%    longtable → table* conversion handled by twocol-tables.lua (pre-xelatex).
+%    \leanappendixstart: switch to \onecolumn + page-break each file.
 % ---------------------------------------------------------------------------
 \makeatletter
 \newcommand{\leanappendixstart}{%
+  \onecolumn%                         % full-width single-column for Lean code
   \let\lean@subsection\subsection
   \renewcommand{\subsection}[1]{\clearpage\lean@subsection{##1}}%
 }
+% Visible column separator line in two-column mode
+\AtBeginDocument{\if@twocolumn\setlength{\columnseprule}{0.4pt}\fi}
 \makeatother
