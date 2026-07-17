@@ -41,7 +41,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 .PHONY: all help omnibus omnibus-royal omnibus-a4 \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
-	thesis thesis-royal thesis-a4 thesis-a4-2col \
+	thesis thesis-royal thesis-a4 thesis-a4-compact thesis-a4-2col \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
@@ -136,8 +136,8 @@ THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
 	-V linestretch=1.4
 
 # Thesis — A4 compact single-column (10pt, 1.35 spacing, narrow margins)
-# journal.tex provides the professional two-column LOOK without actual two-column layout.
-THESIS_A4_2COL_FLAGS := $(THESIS_FLAGS_BASE) \
+# Named 'compact' to distinguish from standard thesis-a4 (11pt, wider margins).
+THESIS_A4_COMPACT_FLAGS := $(THESIS_FLAGS_BASE) \
 	$(CITEPROC) \
 	-V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
 	-V fontsize=10pt \
@@ -153,12 +153,15 @@ thesis-a4: | $(BUILDDIR)
 	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4.pdf $(THESIS_A4_FLAGS)
 	@echo "Built: $(BUILDDIR)/thesis-a4.pdf"
 
-thesis-a4-2col: | $(BUILDDIR)
+thesis-a4-compact: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_thesis.py
-	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4-2col.pdf $(THESIS_A4_2COL_FLAGS)
-	@echo "Built: $(BUILDDIR)/thesis-a4-2col.pdf"
+	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4-compact.pdf $(THESIS_A4_COMPACT_FLAGS)
+	@echo "Built: $(BUILDDIR)/thesis-a4-compact.pdf"
 
-thesis: thesis-royal thesis-a4
+# thesis-a4-2col kept as alias for backwards compatibility
+thesis-a4-2col: thesis-a4-compact
+
+thesis: thesis-royal thesis-a4 thesis-a4-compact
 
 translate-omnibus: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --model gpt-4o-mini

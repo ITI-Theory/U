@@ -253,24 +253,22 @@ above it, each more primitive, each mobilised in sequence as the perceived threa
 increases.
 
 ```
-```text
-╭──────────────────────────────────────────────────────────────────────╮
-│  VENTRAL VAGAL STATE           Social engagement branch             │
-│  Safe, connected, curious      Myelinated vagus nerve               │
-│  Window of Tolerance           Heart rate regulated                 │
-│  ─────────────────────────── ← most recently evolved                │
-├──────────────────────────────────────────────────────────────────────┤
-│  SYMPATHETIC STATE             Mobilisation branch                  │
-│  Alert, energised, defensive   Spinal cord pathway                  │
-│  Fight or flight               Heart rate elevated                  │
-│  ─────────────────────────── ← older                               │
-├──────────────────────────────────────────────────────────────────────┤
-│  DORSAL VAGAL STATE            Immobilisation branch                │
-│  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
-│  Dissociation, numbing         Heart rate dropped                   │
-│  ─────────────────────────── ← most ancient                        │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+  ╭──────────────────────────────────────────────────────────────────────╮
+  │  VENTRAL VAGAL STATE           Social engagement branch             │
+  │  Safe, connected, curious      Myelinated vagus nerve               │
+  │  Window of Tolerance           Heart rate regulated                 │
+  │  ─────────────────────────── ← most recently evolved                │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │  SYMPATHETIC STATE             Mobilisation branch                  │
+  │  Alert, energised, defensive   Spinal cord pathway                  │
+  │  Fight or flight               Heart rate elevated                  │
+  │  ─────────────────────────── ← older                               │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │  DORSAL VAGAL STATE            Immobilisation branch                │
+  │  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
+  │  Dissociation, numbing         Heart rate dropped                   │
+  │  ─────────────────────────── ← most ancient                        │
+  ╰──────────────────────────────────────────────────────────────────────╯
 
   Figure 1.1. The polyvagal hierarchy. Under conditions of safety, the most evolved
   system (ventral vagal) governs — enabling social connection, learning, and curiosity.
@@ -1181,31 +1179,30 @@ $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right)$$
   STRUCTURAL FRACTION f(τ_d) = tanh(τ_d / τ_c)
   ┌──────────────────────────────────────────────────────────────────┐
   │                                                                  │
-```text
-│  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
-│  (how    │                               ╭─────╯              │
-│  much    │                         ╭────╯                     │
-│  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
-│          │                        ↑                           │
-│          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
-│          │                 ╭──╯                               │
-│          │             ╭──╯                                   │
-│          │         ╭──╯                                       │
-│          │  0.0 ───╯                                          │
-│          └──────────────────────────────────────────────────→ │
-│           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
-│                       (36)                                     │
-│                                                                │
-│  Left of τ_c:  W is mostly W_trauma — structural             │
-│  Right of τ_c: W is mostly W₀ — perturbative                 │
-└──────────────────────────────────────────────────────────────────┘
+  │  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
+  │  (how    │                               ╭─────╯              │
+  │  much    │                         ╭────╯                     │
+  │  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
+  │          │                        ↑                           │
+  │          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
+  │          │                 ╭──╯                               │
+  │          │             ╭──╯                                   │
+  │          │         ╭──╯                                       │
+  │          │  0.0 ───╯                                          │
+  │          └──────────────────────────────────────────────────→ │
+  │           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
+  │                       (36)                                     │
+  │                                                                │
+  │  Left of τ_c:  W is mostly W_trauma — structural             │
+  │  Right of τ_c: W is mostly W₀ — perturbative                 │
+  └──────────────────────────────────────────────────────────────────┘
 
-Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
-of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
-as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
-coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
-the baseline accounts for about three-quarters of the coupling. The interpolation is
-smooth: there is no sharp cutoff, just a continuous change in character.
+  Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
+  of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
+  as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
+  coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
+  the baseline accounts for about three-quarters of the coupling. The interpolation is
+  smooth: there is no sharp cutoff, just a continuous change in character.
 ```
 
 At $\tau_d = 0$: $f = 0$ and $W = W_{\text{trauma}}$. There is no baseline component.
@@ -1314,13 +1311,12 @@ to return somewhere but to arrive somewhere for the first time.
 # Interlude: A Voyage to the Alps
 
 ```
-╭──────────────────────────────────────────────────────────────────╮
-│                                                                  │
-│   "Everything floats: the universe, the mountains, the body.   │
-│    The question is only what it is floating in."               │
-│                                                                  │
-╰──────────────────────────────────────────────────────────────────╯
-```
+  ╭──────────────────────────────────────────────────────────────────╮
+  │                                                                  │
+  │   "Everything floats: the universe, the mountains, the body.   │
+  │    The question is only what it is floating in."               │
+  │                                                                  │
+  ╰──────────────────────────────────────────────────────────────────╯
 ```
 
 There is a campsite in the Klöntal valley, in the canton of Glarus, Switzerland, that I

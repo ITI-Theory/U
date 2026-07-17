@@ -856,13 +856,9 @@ A note on boxes. Throughout the book you will find four types:
 # What the Body Remembers
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The body keeps the score."                                   │
-  │                                                                  │
-  │                                   — Bessel van der Kolk, 2014   │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The body keeps the score."
+> — Bessel van der Kolk, 2014
+>
 ```
 
 ---
@@ -1092,13 +1088,9 @@ provide, and it is the subject of Chapter 6.
 # A Field of Feeling
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The body is the unconscious mind."                           │
-  │                                                                  │
-  │                                   — Candace Pert, 1997          │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The body is the unconscious mind."
+> — Candace Pert, 1997
+>
 ```
 
 ---
@@ -1303,12 +1295,9 @@ The next chapter is about that structure.
 # The Energy Landscape
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "Nature does not create mountains and valleys at random.      │
-  │    They are shaped by the forces beneath them."                 │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "Nature does not create mountains and valleys at random.
+> They are shaped by the forces beneath them."
+>
 ```
 
 ---
@@ -1533,12 +1522,9 @@ one-way ratchet.
 # The Weight on the Field
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The question is not why the behaviour persists,              │
-  │    but what it was optimised for."                              │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The question is not why the behaviour persists,
+> but what it was optimised for."
+>
 ```
 
 ---
@@ -1719,9 +1705,8 @@ is the decay time (how long the trace persists before fading).
   REGULATED: No significant memory kernel
   ┌─────────────────────────────────────────────────────────────┐
   │  Field  ▲                                                   │
-  │  activ. │      ╭──╮                                         │
-  │         │      │  │   (episode resolves; field returns       │
-  │         │  ────╯  ╰─────────────────────────────────────   │
+> │      │  │   (episode resolves; field returns
+>
   │         │                              baseline              │
   │         └──────────────────────────────────────────────→    │
   │                            time                             │
@@ -1730,8 +1715,7 @@ is the decay time (how long the trace persists before fading).
   C-PTSD: Significant memory kernel — traces persist
   ┌─────────────────────────────────────────────────────────────┐
   │  Field  ▲                                                   │
-  │  activ. │      ╭──╮                    ╭──╮                 │
-  │         │      │  ╰─╮    ╭──╮      ╭───╯  ╰─╮              │
+>
   │         │  ────╯    ╰────╯  ╰──────╯         ╰──────       │
   │         │                                                   │
   │         └──────────────────────────────────────────────→    │
@@ -1829,11 +1813,8 @@ episodes: to restore the gap between activations in which recovery occurs.
 # How Early Is Early?
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "Before language, there is only the body."                   │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "Before language, there is only the body."
+>
 ```
 
 ---
@@ -2214,14 +2195,10 @@ In the valley at dusk, this is not a metaphor. It is audible.
 # The Same Equation, Three Times
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The unreasonable effectiveness of mathematics in the         │
-  │    natural sciences."                                           │
-  │                                                                  │
-  │                               — Eugene Wigner, 1960             │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The unreasonable effectiveness of mathematics in the
+> natural sciences."
+> — Eugene Wigner, 1960
+>
 ```
 
 ---
@@ -2600,14 +2577,12 @@ In the ADHD regime, $\sigma_0$ is large and $\gamma$ is small. The implications:
   ──── e(t): settles at attractor, brief excursions, returns
 
          ─────────╮
-                  │  ╭──────────────────────────────────── calm
-                  ╰──╯
+>
 
   ADHD (high σ₀, low γ):
   ──── e(t): fast, wide excursions, brief attractor dwell
 
-        ╭╮   ╭──╮  ╭╮╭╮    ╭──╮  ╭╮
-  ──────╯╰───╯  ╰──╯╰╯╰────╯  ╰──╯╰──  rapid wide movement
+>
 
   Figure 8.2. Field dynamics in neurotypical (top) and ADHD (bottom) regimes.
   ADHD is not a broken attractor structure — the landscape may be quite normal.
@@ -2793,12 +2768,9 @@ longitudinal function: measuring change across sessions.
 # Forward Transformation
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The opposite of trauma is not safety.                        │
-  │    It is a nervous system that can find safety."               │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The opposite of trauma is not safety.
+> It is a nervous system that can find safety."
+>
 ```
 
 ---
@@ -2864,8 +2836,7 @@ landscape being constructed, not recovered.
   │  CURRENT LANDSCAPE (W)          TARGET LANDSCAPE (W')          │
   │                                                                  │
   │  Energy H ▲                     Energy H ▲                     │
-  │           │  ╭──╮  ╭──╮                  │╭───╮               │
-  │           │  │  │  │  │                  ││   ╰──────         │
+>
   │           │  │  ╰──╯  │                  │╰─ calm *           │
   │           │  │calm *  │  hyper*          │    wide basin       │
   │           │  │(narrow)│  (deep)          │                    │

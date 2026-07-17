@@ -757,24 +757,22 @@ above it, each more primitive, each mobilised in sequence as the perceived threa
 increases.
 
 ```
-```text
-╭──────────────────────────────────────────────────────────────────────╮
-│  VENTRAL VAGAL STATE           Social engagement branch             │
-│  Safe, connected, curious      Myelinated vagus nerve               │
-│  Window of Tolerance           Heart rate regulated                 │
-│  ─────────────────────────── ← most recently evolved                │
-├──────────────────────────────────────────────────────────────────────┤
-│  SYMPATHETIC STATE             Mobilisation branch                  │
-│  Alert, energised, defensive   Spinal cord pathway                  │
-│  Fight or flight               Heart rate elevated                  │
-│  ─────────────────────────── ← older                               │
-├──────────────────────────────────────────────────────────────────────┤
-│  DORSAL VAGAL STATE            Immobilisation branch                │
-│  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
-│  Dissociation, numbing         Heart rate dropped                   │
-│  ─────────────────────────── ← most ancient                        │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+  ╭──────────────────────────────────────────────────────────────────────╮
+  │  VENTRAL VAGAL STATE           Social engagement branch             │
+  │  Safe, connected, curious      Myelinated vagus nerve               │
+  │  Window of Tolerance           Heart rate regulated                 │
+  │  ─────────────────────────── ← most recently evolved                │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │  SYMPATHETIC STATE             Mobilisation branch                  │
+  │  Alert, energised, defensive   Spinal cord pathway                  │
+  │  Fight or flight               Heart rate elevated                  │
+  │  ─────────────────────────── ← older                               │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │  DORSAL VAGAL STATE            Immobilisation branch                │
+  │  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
+  │  Dissociation, numbing         Heart rate dropped                   │
+  │  ─────────────────────────── ← most ancient                        │
+  ╰──────────────────────────────────────────────────────────────────────╯
 
   Figure 1.1. The polyvagal hierarchy. Under conditions of safety, the most evolved
   system (ventral vagal) governs — enabling social connection, learning, and curiosity.
@@ -1685,31 +1683,30 @@ $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right)$$
   STRUCTURAL FRACTION f(τ_d) = tanh(τ_d / τ_c)
   ┌──────────────────────────────────────────────────────────────────┐
   │                                                                  │
-```text
-│  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
-│  (how    │                               ╭─────╯              │
-│  much    │                         ╭────╯                     │
-│  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
-│          │                        ↑                           │
-│          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
-│          │                 ╭──╯                               │
-│          │             ╭──╯                                   │
-│          │         ╭──╯                                       │
-│          │  0.0 ───╯                                          │
-│          └──────────────────────────────────────────────────→ │
-│           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
-│                       (36)                                     │
-│                                                                │
-│  Left of τ_c:  W is mostly W_trauma — structural             │
-│  Right of τ_c: W is mostly W₀ — perturbative                 │
-└──────────────────────────────────────────────────────────────────┘
+  │  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
+  │  (how    │                               ╭─────╯              │
+  │  much    │                         ╭────╯                     │
+  │  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
+  │          │                        ↑                           │
+  │          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
+  │          │                 ╭──╯                               │
+  │          │             ╭──╯                                   │
+  │          │         ╭──╯                                       │
+  │          │  0.0 ───╯                                          │
+  │          └──────────────────────────────────────────────────→ │
+  │           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
+  │                       (36)                                     │
+  │                                                                │
+  │  Left of τ_c:  W is mostly W_trauma — structural             │
+  │  Right of τ_c: W is mostly W₀ — perturbative                 │
+  └──────────────────────────────────────────────────────────────────┘
 
-Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
-of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
-as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
-coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
-the baseline accounts for about three-quarters of the coupling. The interpolation is
-smooth: there is no sharp cutoff, just a continuous change in character.
+  Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
+  of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
+  as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
+  coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
+  the baseline accounts for about three-quarters of the coupling. The interpolation is
+  smooth: there is no sharp cutoff, just a continuous change in character.
 ```
 
 At $\tau_d = 0$: $f = 0$ and $W = W_{\text{trauma}}$. There is no baseline component.
@@ -1818,13 +1815,12 @@ to return somewhere but to arrive somewhere for the first time.
 # Interlude: A Voyage to the Alps
 
 ```
-╭──────────────────────────────────────────────────────────────────╮
-│                                                                  │
-│   "Everything floats: the universe, the mountains, the body.   │
-│    The question is only what it is floating in."               │
-│                                                                  │
-╰──────────────────────────────────────────────────────────────────╯
-```
+  ╭──────────────────────────────────────────────────────────────────╮
+  │                                                                  │
+  │   "Everything floats: the universe, the mountains, the body.   │
+  │    The question is only what it is floating in."               │
+  │                                                                  │
+  ╰──────────────────────────────────────────────────────────────────╯
 ```
 
 There is a campsite in the Klöntal valley, in the canton of Glarus, Switzerland, that I
@@ -4163,20 +4159,19 @@ persist as observable particles. The vacuum is active, but sub-threshold.
   A SINGLE FIELD MODE — amplitude over time
   (e.g. a mode of the electromagnetic field; or, later, a mode of the emotional field)
 
-```text
-│                                    ╭──────────────────╮
-│          ╭──╮              ╭──╮   ╱                    ╲             ╭──
-│   ╭─╮   ╱    ╲    ╭─╮    ╱    ╲ ╱                      ╲    ╭──╮  ╱
-│  ╱   ╲ ╱      ╲  ╱   ╲  ╱      ╳                        ╲  ╱    ╲╱
-T ╱─────╲╱────────╲╯─────╲╯────────────────────────────────╲╱──────────── T
-│         ╲────────╯       ╲──────╯                          ╲────────────
-│
-└──────────────────────────────────────────────────────────────────────► time
+  │                                    ╭──────────────────╮
+  │          ╭──╮              ╭──╮   ╱                    ╲             ╭──
+  │   ╭─╮   ╱    ╲    ╭─╮    ╱    ╲ ╱                      ╲    ╭──╮  ╱
+  │  ╱   ╲ ╱      ╲  ╱   ╲  ╱      ╳                        ╲  ╱    ╲╱
+  T ╱─────╲╱────────╲╯─────╲╯────────────────────────────────╲╱──────────── T
+  │         ╲────────╯       ╲──────╯                          ╲────────────
+  │
+  └──────────────────────────────────────────────────────────────────────► time
 
-←─── VIRTUAL: field fluctuates but stays sub-threshold ────────────→ ←REAL→
-     present, active, causally real — but not locally detectable        ↑
-     (the QUANTUM VACUUM: not empty; seething with activity)        particle
-                                                                    created
+  ←─── VIRTUAL: field fluctuates but stays sub-threshold ────────────→ ←REAL→
+       present, active, causally real — but not locally detectable        ↑
+       (the QUANTUM VACUUM: not empty; seething with activity)        particle
+                                                                      created
 ```
 *Figure 0. A single field mode in quantum field theory. The field oscillates continuously.
 Below the detection threshold T, excitations are sub-threshold — real and causally active,
@@ -4200,7 +4195,7 @@ which are central to the clinical observation of emotion:
 - A quantity that exists everywhere, continuously, even when unobserved
 - A background of sub-threshold activity that is real and causally effective
 - The emergence of observable phenomena (conscious feelings) through threshold-crossing
-excitation of that background
+  excitation of that background
 - The possibility of multiple simultaneous excitations that interact with one another
 
 *Note (May 2026):* A subsequent experiment (QUANT-EXP-1) demonstrates that the quantum
@@ -4587,9 +4582,9 @@ at all times.
 This field has two coupled components:
 
 1. **The somatic wave** $\mathbf{E}_\text{body}(x,t)$: distributed across the body as patterns
- of visceral sensation, muscle tone, proprioception, interoception, and autonomic state.
+   of visceral sensation, muscle tone, proprioception, interoception, and autonomic state.
 2. **The neural wave** $\mathbf{E}_\text{neural}(x,t)$: distributed across the nervous system
- as patterns of activation in cortical, subcortical, and peripheral neural circuits.
+   as patterns of activation in cortical, subcortical, and peripheral neural circuits.
 
 These two components are not separate systems. They are coupled — each continuously
 influencing the other. The total emotional field is their combined state:
@@ -4601,8 +4596,8 @@ The field is characterised by:
 - **Multiplicity**: multiple emotional modes can be simultaneously active and interfering
 - **Continuity**: it exists at all times, not only during episodes of conscious feeling
 - **Spatial distribution**: different aspects of the field are localised in different regions
-of the soma (the familiar clinical observation that grief is felt in the chest, fear in
-the gut, anger in the jaw and fists)
+  of the soma (the familiar clinical observation that grief is felt in the chest, fear in
+  the gut, anger in the jaw and fists)
 - **Temporal dynamics**: the field evolves continuously, driven by the energy function
 
 ![](figures/fig1_architecture.pdf){ width=90% }
@@ -4709,8 +4704,8 @@ is crossed. When $\dot{H}(t) < 0$ (heart decelerating), it tilts toward rest. Th
 three-layer equation including the cardiac acceleration term is:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H_0(\mathbf{e}) + \alpha\,\dot{H}(t)\,\boldsymbol{\beta}
-+ R_{\text{PFC}}(\mathbf{e}, t)
-+ \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
+  + R_{\text{PFC}}(\mathbf{e}, t)
+  + \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
 
 The two cardiac terms serve distinct functions: $C_{\text{HRV}}$ (state) modulates the
 noise floor; $\dot{H}$ (acceleration) tilts the deterministic landscape. Both are needed
@@ -4767,8 +4762,8 @@ represented as a regulatory term $R_{\text{PFC}}(\mathbf{e}, t)$. The full field
 becomes:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
-+ R_{\text{PFC}}(\mathbf{e}, t)
-+ \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
+  + R_{\text{PFC}}(\mathbf{e}, t)
+  + \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
 
 $R_{\text{PFC}}$ represents voluntary attention, therapeutic technique, and conscious
 reappraisal acting on the field. It is not a correction of Layer 2 but a modulation of
@@ -4805,9 +4800,9 @@ The key property of an energy function is directionality: the field always moves
 framework, can be understood as:
 
 1. **Changing the landscape**: modifying $W$ — the coupling matrix — through new relational
- experience, insight, or somatic work, so that the energy minima are in healthier locations
+   experience, insight, or somatic work, so that the energy minima are in healthier locations
 2. **Adding energy to escape a trap**: helping the field accumulate enough energy to escape
- a deep but unhealthy local minimum (e.g., the freeze state)
+   a deep but unhealthy local minimum (e.g., the freeze state)
 3. **Pointing toward the global minimum**: orienting the field toward regulated calm
 
 ## Attractor States: Fight, Flight, Freeze, and Regulated Calm
@@ -4823,21 +4818,21 @@ first gaining energy before losing it again. This is the clinical challenge of w
 with dissociative states.*
 
 ```
-ENERGY
-  │
-H │        fight/flight
-  │        ┌──┐  ┌──┐
-  │        │  │  │  │
-  │   _____|  │  │  │_____
-  │  │         \/        │
-  │  │       saddle       │
-  │  │     (transition)   │
-  │  │                    │    ╔════════════╗
-  │  │         freeze     │    ║            ║
-  │  │         ┌──┐       │    ║  regulated ║◄── global minimum
-  │  │_________|  │_______|    ║    calm    ║
-  │                 │          ╚════════════╝
-  └──────────────────────────────► EMOTIONAL STATE SPACE
+  ENERGY
+    │
+  H │        fight/flight
+    │        ┌──┐  ┌──┐
+    │        │  │  │  │
+    │   _____|  │  │  │_____
+    │  │         \/        │
+    │  │       saddle       │
+    │  │     (transition)   │
+    │  │                    │    ╔════════════╗
+    │  │         freeze     │    ║            ║
+    │  │         ┌──┐       │    ║  regulated ║◄── global minimum
+    │  │_________|  │_______|    ║    calm    ║
+    │                 │          ╚════════════╝
+    └──────────────────────────────► EMOTIONAL STATE SPACE
 ```
 *Figure 3b. Schematic energy landscape. Fight/flight are high-energy, unstable local minima.
 Freeze is a low-energy but isolated attractor — easy to enter, hard to escape. Regulated calm
@@ -4953,28 +4948,28 @@ separately but coupled in the computation. Each knob has a continuous range, all
 expression of emotional intensity.
 
 ```
-                  ┌─────────────────────────────────────┐
-                  │         MIDI CONTROLLER              │
-                  │                                      │
-                  │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
-                  │  emotion1  emotion2  emotion3  emotion4│
-                  │                                      │
-                  │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
-                  │  emotion5  emotion6  emotion7  emotion8│
-                  └─────────────────────────────────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────┐
-                         │  ENERGY FUNCTION  │
-                         │  H(e) computed    │
-                         │  ∇H(e) computed   │
-                         └──────────────────┘
-                                    │
-                  ┌─────────────────┼─────────────────┐
-                  ▼                 ▼                  ▼
-           AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
-         (timbre reflects    (pitch/velocity     (field map:
-          dissonance)         reflects energy)    wave topology)
+                    ┌─────────────────────────────────────┐
+                    │         MIDI CONTROLLER              │
+                    │                                      │
+                    │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
+                    │  emotion1  emotion2  emotion3  emotion4│
+                    │                                      │
+                    │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
+                    │  emotion5  emotion6  emotion7  emotion8│
+                    └─────────────────────────────────────┘
+                                      │
+                                      ▼
+                           ┌──────────────────┐
+                           │  ENERGY FUNCTION  │
+                           │  H(e) computed    │
+                           │  ∇H(e) computed   │
+                           └──────────────────┘
+                                      │
+                    ┌─────────────────┼─────────────────┐
+                    ▼                 ▼                  ▼
+             AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
+           (timbre reflects    (pitch/velocity     (field map:
+            dissonance)         reflects energy)    wave topology)
 ```
 *Figure 4. The Soma-Field Instrument: input, computation, and multimodal output.*
 
@@ -4986,11 +4981,11 @@ field:
 1. The person expresses their current emotional state by adjusting the knobs
 2. The system computes the energy function $H(\mathbf{e})$ and its gradient $\nabla H$
 3. The energy level, dissonance, and proximity to attractor states are rendered as:
- - **Sound**: harmonic content and timbre reflect the consonance or dissonance of the
-   current state
- - **MIDI output**: pitch rises with tension, resolves as energy decreases
- - **Visual**: a real-time map of the emotional field, showing wave activity,
-   threshold crossings, and the direction of the energy gradient
+   - **Sound**: harmonic content and timbre reflect the consonance or dissonance of the
+     current state
+   - **MIDI output**: pitch rises with tension, resolves as energy decreases
+   - **Visual**: a real-time map of the emotional field, showing wave activity,
+     threshold crossings, and the direction of the energy gradient
 4. The person hears and sees their emotional field, and adjusts the knobs in response
 
 This loop externalises the emotional field's gradient — the direction in which it is
@@ -5031,15 +5026,15 @@ freeze may first require careful up-regulation before down-regulation becomes po
 The energy function provides a formal basis for several existing clinical interventions:
 
 - **Grounding and titration** (Levine, 2010): adding small, controlled amounts of energy
-to the field to approach — without flooding — a previously frozen or avoided emotional
-state
+  to the field to approach — without flooding — a previously frozen or avoided emotional
+  state
 - **Pendulation** (Levine, 2010): oscillating between a dissonant state and a resource
-state, progressively widening the tolerance window — equivalent to approaching the
-energy minimum via a series of small excursions
+  state, progressively widening the tolerance window — equivalent to approaching the
+  energy minimum via a series of small excursions
 - **Somatic resourcing** (Ogden et al., 2006): establishing a stable low-energy region
-in the landscape that the field can return to after excursions into high-energy territory
+  in the landscape that the field can return to after excursions into high-energy territory
 - **Working with the felt sense** (Gendlin, 1978): attending to sub-threshold field
-activity and allowing it to cross the perception threshold in a supported context
+  activity and allowing it to cross the perception threshold in a supported context
 
 ## Psychoeducation
 
@@ -5087,14 +5082,13 @@ flashbacks, and hypervigilance are, in this framework, limit-cycle oscillations 
 traumatised field.
 
 ```
-REGULATED FIELD  (symmetric W, no memory kernel)
-─────────────────────────────────────────────────────────────────────────────
+  REGULATED FIELD  (symmetric W, no memory kernel)
+  ─────────────────────────────────────────────────────────────────────────────
 
-│              ╭───────╮                     ╭────────────────╮
-│    ╭──╮     ╱         ╲          ╭──╮     ╱                  ╲      ╭─
-│   ╱    ╲   ╱           ╲  ╭─╮  ╱    ╲   ╱                    ╲    ╱
-T ─╱──────╲─╱─────────────╲─╯─╰─╱──────╲─╱──────────────────────╲──╱── T
-```
+  │              ╭───────╮                     ╭────────────────╮
+  │    ╭──╮     ╱         ╲          ╭──╮     ╱                  ╲      ╭─
+  │   ╱    ╲   ╱           ╲  ╭─╮  ╱    ╲   ╱                    ╲    ╱
+  T ─╱──────╲─╱─────────────╲─╯─╰─╱──────╲─╱──────────────────────╲──╱── T
   │           ╲               ╰───╯        ╲                        ╲──╯
   │            ╰───────────────────────────────────────────────────────────
   └──────────────────────────────────────────────────────────────────────► t
@@ -5106,17 +5100,16 @@ T ─╱──────╲─╱─────────────╲─
   C-PTSD MODIFIED FIELD  (asymmetric W, memory kernel K(t-s) present)
   ─────────────────────────────────────────────────────────────────────────────
 
-```text
-│╭──────────╮          ╭──────────╮          ╭──────────────────────────
-T│            ╲  ╭──╮  ╱            ╲  ╭──╮  ╱                          ── T
-││             ╲╱    ╲╱              ╲╱    ╲╱
-││   ← even the troughs stay near T or above: baseline is elevated
-└──────────────────────────────────────────────────────────────────────► t
-   ↑ memory kernel: each activation feeds energy back into the next
-   ↑ field rarely returns to true rest — past states re-enter present dynamics
-   ↑ almost entirely above T: activation is the default, not the exception
-   ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
-     small steps do not reach it; a qualitatively different move is needed
+  │╭──────────╮          ╭──────────╮          ╭──────────────────────────
+  T│            ╲  ╭──╮  ╱            ╲  ╭──╮  ╱                          ── T
+  ││             ╲╱    ╲╱              ╲╱    ╲╱
+  ││   ← even the troughs stay near T or above: baseline is elevated
+  └──────────────────────────────────────────────────────────────────────► t
+     ↑ memory kernel: each activation feeds energy back into the next
+     ↑ field rarely returns to true rest — past states re-enter present dynamics
+     ↑ almost entirely above T: activation is the default, not the exception
+     ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
+       small steps do not reach it; a qualitatively different move is needed
 ```
 *Figure 5. The same emotional field mode under two dynamic regimes. Top: regulated
 dynamics — the field oscillates and returns to a low baseline between episodes; conscious

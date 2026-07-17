@@ -25,13 +25,11 @@ def is_complex_art(lines):
 
 def strip_box_border(line):
     """Remove leading/trailing │ and whitespace from a box content line."""
-    # Remove leading whitespace, then │, then up to 3 spaces
     line = line.lstrip()
     if line.startswith('│'):
         line = line[1:]
         if line.startswith('  '):
             line = line[2:]
-    # Remove trailing │ and whitespace
     line = line.rstrip()
     if line.endswith('│'):
         line = line[:-1].rstrip()
@@ -65,14 +63,12 @@ def convert_boxes(text):
                 content_lines.append(stripped)
 
             if is_complex_art(content_lines):
-                # Complex ASCII art → plain text fenced block (Consolas monospace)
-                result.append('```text\n')
-                for cl in [lines[i]] + box_lines + ([lines[j]] if j < len(lines) else []):
-                    s = cl.rstrip('\n')
-                    if s.startswith('  '):
-                        s = s[2:]
-                    result.append(s + '\n')
-                result.append('```\n')
+                # Complex ASCII art — leave completely unchanged
+                result.append(line)
+                for bl in box_lines:
+                    result.append(bl)
+                if j < len(lines):
+                    result.append(lines[j])
             else:
                 # Simple quote box → pandoc blockquote
                 non_empty = [l for l in content_lines if l.strip()]
@@ -81,8 +77,8 @@ def convert_boxes(text):
                     if cl:
                         result.append(f'> {cl}\n')
                 result.append('>\n')
+                changes += 1
 
-            changes += 1
             i = j + 1  # skip past the ╰ line
         else:
             result.append(line)
