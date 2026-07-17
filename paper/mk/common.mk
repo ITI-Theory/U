@@ -29,6 +29,7 @@ RENDER_COMMON := \
   -V toccolor=NavyBlue \
   -V hyperxmp=false \
   -V monofont="Consolas" \
+  --highlight-style=tango \
   --include-in-header=journal.tex \
   --lua-filter=strip-keywords.lua
 

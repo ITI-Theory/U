@@ -286,6 +286,8 @@ accessible form, for readers without a physics background.
 
 ---
 
+\newpage
+
 # The Method: Mathematical Co-identification
 
 ## What It Is
@@ -335,6 +337,8 @@ It was discovered by writing down the equations the emotional system was observe
 satisfy and recognising the form.
 
 ---
+
+\newpage
 
 # The Model: The Soma-Field
 
@@ -10879,6 +10883,11 @@ organism.
 
 # Introduction
 
+> *They saw a guitar string.*
+> *I heard the music.*
+>
+> \hfill --- A.J. (after Feynman)
+
 The search for a unified description of physical reality has proceeded, since
 Newton, by identifying common mathematical structures across phenomena that
 appear superficially different. Fourier analysis revealed that the vibration
@@ -12415,6 +12424,10 @@ lake build
 
 The source files are reproduced in full below, in dependency order.
 
+```{=latex}
+\leanappendixstart
+```
+
 
 ---
 
@@ -12438,7 +12451,7 @@ weight construction, synchronous update step.  The convergence theorems are
 stated as proof obligations (marked with comments) — the foundations are in
 place, the full convergence proof closes in `SomaField.lean`.
 
-```lean
+```haskell
 import Mathlib.Data.Matrix.Basic
 
 /-!
@@ -12592,7 +12605,7 @@ produces longing, awe involves fear, etc.).  The Feynman diagram interpreter
 maps each emotional expression to its perturbation-theory diagram, making the
 connection to quantum field theory concrete and type-checked.
 
-```lean
+```haskell
 /-
   EmotionOntology.lean — Final Tagless Emotion DSL
   "Separating Church and State"
@@ -13291,7 +13304,7 @@ work.  `awe_structural_universality` bundles String, label-set, and membership
 results into a single conjunction, demonstrating that three different proof
 strategies are unified by a single term.
 
-```lean
+```haskell
 import EmotionOntology
 
 /-!
@@ -13439,7 +13452,7 @@ trajectory that models the indirect BS→CO→EM coupling.  The propagator
 resolvent matrix `G(λ) = (λI − W8)⁻¹` is defined; its poles are the
 eigenvalues of W8 — the resonant emotional modes of the field.
 
-```lean
+```haskell
 /-
   SomaField.lean
   The Soma-Field Model — 8-dimensional BRECVEMA extension.
@@ -13828,7 +13841,7 @@ The poles of the dyadic propagator are the *shared modes* of the coupled
 system — emotional states co-accessible to both persons.  This gives
 Porges' polyvagal co-regulation a precise spectral interpretation.
 
-```lean
+```haskell
 /-
   DyadicField.lean — GAP-1: The Dyadic Propagator
 
@@ -14074,7 +14087,7 @@ remains trapped in the dysregulated basin.
 amplitude even when classical paths are blocked), and the D₈ orbifold
 barrier potential `V_barrier`.
 
-```lean
+```haskell
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 
@@ -14314,7 +14327,7 @@ cosmological structure.
 at the organism's own scale), and `somatic_universality` (every system with
 the 11D decomposition admits a somatic interpretation).
 
-```lean
+```haskell
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
 import Mathlib.Analysis.InnerProductSpace.Basic
@@ -14581,7 +14594,7 @@ Clinical operators are formalised as modifications to the W matrix:
 when limbic field is constant), `adhd_increased_variance`, `asc_specificity`,
 `cptsd_decoupling`.  All theorems are Lean kernel-verified.
 
-```lean
+```haskell
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Matrix.Basic
@@ -14907,7 +14920,7 @@ occlusion because the propagator has full spectral coverage), and
 `murmuration_emergence` (large-N limit produces a single dominant pole =
 coherent murmuration).
 
-```lean
+```haskell
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
 import Mathlib.Analysis.InnerProductSpace.Basic
@@ -15176,7 +15189,7 @@ kernel-verified.  The consciousness threshold and cosmological limit are
 stated as axioms pending full PDE / cosmology scaffolding in Mathlib — the
 type signature is settled even if the tactic proof is deferred.
 
-```lean
+```haskell
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Matrix.Basic
@@ -15547,7 +15560,7 @@ interpolation between them.
 When the Lean server type-checks and the film runs, the proof passes.
 The film is the compiled test.
 
-```lean
+```haskell
 /-
   Movie.lean — The Abstract Movie: Lean High-Level API
   "The movie is the proof."
@@ -16211,7 +16224,7 @@ and the WKB tunnelling gate connecting directly to `LimbicTunnel.lean`.
 `quant_exp_1_awe_reachable` (Born probability of |awe⟩ strictly positive —
 the formal statement of the quantum experiment result).
 
-```lean
+```haskell
 import Mathlib.Data.Complex.Basic
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
@@ -16397,7 +16410,7 @@ specification (`apps/instrument/soma_network.py`) as documentation.
 The Python `Protocol` has the same four methods (`dim`, `energy`,
 `propagate`, `tunnel_gate`) — this is the FFI contract.
 
-```lean
+```haskell
 import Mathlib.Data.Real.Basic
 import SomaField
 
@@ -16625,7 +16638,7 @@ partial closure): `CellularSynapse→Field8`, `BrainCEMI→CemiField`,
 `OrganismBody→Field8`, `SwarmCrowd→SwarmState 8`.
 `human_swarm_same_rank` proves both governed by rank-2 tensors.
 
-```lean
+```haskell
 import Mathlib.Data.Real.Basic
 import SomaField
 import SwarmPropagator
@@ -16873,7 +16886,7 @@ convergence, final distance from awe target, and wall-clock time via
 predicted the result: `onN2_lt_onNK`, `correspondence_principle`,
 `quant_exp_1_awe_reachable`.
 
-```lean
+```haskell
 import SomaField
 import Mathlib.Data.Real.Basic
 

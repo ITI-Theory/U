@@ -100,3 +100,16 @@
   \clearpage
 }
 \makeatother
+
+% ---------------------------------------------------------------------------
+% 9. Lean appendix page-break configuration
+%    \leanappendixstart — call once at the start of the Lean proofs appendix.
+%    Each \subsection (= each embedded proof file) will then start on a new page.
+%    Defined here (style/config layer); called from lean-proofs-appendix.md.
+% ---------------------------------------------------------------------------
+\makeatletter
+\newcommand{\leanappendixstart}{%
+  \let\lean@subsection\subsection
+  \renewcommand{\subsection}[1]{\clearpage\lean@subsection{##1}}%
+}
+\makeatother

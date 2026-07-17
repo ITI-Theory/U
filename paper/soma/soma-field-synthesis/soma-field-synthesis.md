@@ -160,6 +160,8 @@ satisfy and recognising the form.
 
 ---
 
+\newpage
+
 # The Model: The Soma-Field
 
 ## Five Co-identifications

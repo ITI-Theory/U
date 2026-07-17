@@ -417,6 +417,10 @@ lake build
 ```
 
 The source files are reproduced in full below, in dependency order.
+
+```{=latex}
+\leanappendixstart
+```
 """
 
 
@@ -447,7 +451,7 @@ def main() -> None:
 
 {textwrap.dedent(description).strip()}
 
-```lean
+```haskell
 {code}
 ```
 """
