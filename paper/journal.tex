@@ -52,8 +52,16 @@
 \AtBeginDocument{\if@twocolumn\renewenvironment{longtable}[2][c]{\begin{table*}\centering\begin{tabular}{#2}}{\end{tabular}\end{table*}}\let\endhead\relax\let\endfirsthead\relax\let\endfoot\relax\let\endlastfoot\relax\fi}
 \makeatother
 
-% 7. Smaller code font
-\makeatletter\AtBeginDocument{\@ifpackageloaded{fancyvrb}{\fvset{fontsize=\small}}{}}\makeatother
+% 7. Code blocks — syntax colours from tango; no full-width grey background
+%    (Background makes narrow columns look wide; colours are enough.)
+\makeatletter
+\AtBeginDocument{%
+  \@ifpackageloaded{fancyvrb}{\fvset{fontsize=\small}}{}%
+  \@ifpackageloaded{framed}{%
+    \renewenvironment{Shaded}{}{}%   % colours yes, background box no
+  }{}%
+}
+\makeatother
 
 % ---------------------------------------------------------------------------
 % 8. Custom title page — minimal, elegant, [T]-Theory branded
