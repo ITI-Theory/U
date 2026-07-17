@@ -116,3 +116,25 @@
   \renewcommand{\subsection}[1]{\clearpage\lean@subsection{##1}}%
 }
 \makeatother
+
+% ---------------------------------------------------------------------------
+% 10. Modern blockquote / callout box styling
+%     Replaces ASCII box-drawing borders.
+%     pandoc `> ` blockquotes render as \begin{quote}...\end{quote}.
+%     We restyle these with a navy left rule + italic text.
+% ---------------------------------------------------------------------------
+\usepackage{mdframed}
+\surroundwithmdframed[
+  linewidth=2pt,
+  linecolor=heading,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  backgroundcolor=heading!4,
+  skipabove=10pt,
+  skipbelow=10pt,
+  innerleftmargin=12pt,
+  innerrightmargin=8pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt
+]{quote}

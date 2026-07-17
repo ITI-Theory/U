@@ -162,19 +162,20 @@ persist as observable particles. The vacuum is active, but sub-threshold.
   A SINGLE FIELD MODE — amplitude over time
   (e.g. a mode of the electromagnetic field; or, later, a mode of the emotional field)
 
-  │                                    ╭──────────────────╮
-  │          ╭──╮              ╭──╮   ╱                    ╲             ╭──
-  │   ╭─╮   ╱    ╲    ╭─╮    ╱    ╲ ╱                      ╲    ╭──╮  ╱
-  │  ╱   ╲ ╱      ╲  ╱   ╲  ╱      ╳                        ╲  ╱    ╲╱
-  T ╱─────╲╱────────╲╯─────╲╯────────────────────────────────╲╱──────────── T
-  │         ╲────────╯       ╲──────╯                          ╲────────────
-  │
-  └──────────────────────────────────────────────────────────────────────► time
+```text
+│                                    ╭──────────────────╮
+│          ╭──╮              ╭──╮   ╱                    ╲             ╭──
+│   ╭─╮   ╱    ╲    ╭─╮    ╱    ╲ ╱                      ╲    ╭──╮  ╱
+│  ╱   ╲ ╱      ╲  ╱   ╲  ╱      ╳                        ╲  ╱    ╲╱
+T ╱─────╲╱────────╲╯─────╲╯────────────────────────────────╲╱──────────── T
+│         ╲────────╯       ╲──────╯                          ╲────────────
+│
+└──────────────────────────────────────────────────────────────────────► time
 
-  ←─── VIRTUAL: field fluctuates but stays sub-threshold ────────────→ ←REAL→
-       present, active, causally real — but not locally detectable        ↑
-       (the QUANTUM VACUUM: not empty; seething with activity)        particle
-                                                                      created
+←─── VIRTUAL: field fluctuates but stays sub-threshold ────────────→ ←REAL→
+     present, active, causally real — but not locally detectable        ↑
+     (the QUANTUM VACUUM: not empty; seething with activity)        particle
+                                                                    created
 ```
 *Figure 0. A single field mode in quantum field theory. The field oscillates continuously.
 Below the detection threshold T, excitations are sub-threshold — real and causally active,
@@ -198,7 +199,7 @@ which are central to the clinical observation of emotion:
 - A quantity that exists everywhere, continuously, even when unobserved
 - A background of sub-threshold activity that is real and causally effective
 - The emergence of observable phenomena (conscious feelings) through threshold-crossing
-  excitation of that background
+excitation of that background
 - The possibility of multiple simultaneous excitations that interact with one another
 
 *Note (May 2026):* A subsequent experiment (QUANT-EXP-1) demonstrates that the quantum
@@ -585,9 +586,9 @@ at all times.
 This field has two coupled components:
 
 1. **The somatic wave** $\mathbf{E}_\text{body}(x,t)$: distributed across the body as patterns
-   of visceral sensation, muscle tone, proprioception, interoception, and autonomic state.
+ of visceral sensation, muscle tone, proprioception, interoception, and autonomic state.
 2. **The neural wave** $\mathbf{E}_\text{neural}(x,t)$: distributed across the nervous system
-   as patterns of activation in cortical, subcortical, and peripheral neural circuits.
+ as patterns of activation in cortical, subcortical, and peripheral neural circuits.
 
 These two components are not separate systems. They are coupled — each continuously
 influencing the other. The total emotional field is their combined state:
@@ -599,8 +600,8 @@ The field is characterised by:
 - **Multiplicity**: multiple emotional modes can be simultaneously active and interfering
 - **Continuity**: it exists at all times, not only during episodes of conscious feeling
 - **Spatial distribution**: different aspects of the field are localised in different regions
-  of the soma (the familiar clinical observation that grief is felt in the chest, fear in
-  the gut, anger in the jaw and fists)
+of the soma (the familiar clinical observation that grief is felt in the chest, fear in
+the gut, anger in the jaw and fists)
 - **Temporal dynamics**: the field evolves continuously, driven by the energy function
 
 ![](figures/fig1_architecture.pdf){ width=90% }
@@ -707,8 +708,8 @@ is crossed. When $\dot{H}(t) < 0$ (heart decelerating), it tilts toward rest. Th
 three-layer equation including the cardiac acceleration term is:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H_0(\mathbf{e}) + \alpha\,\dot{H}(t)\,\boldsymbol{\beta}
-  + R_{\text{PFC}}(\mathbf{e}, t)
-  + \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
++ R_{\text{PFC}}(\mathbf{e}, t)
++ \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
 
 The two cardiac terms serve distinct functions: $C_{\text{HRV}}$ (state) modulates the
 noise floor; $\dot{H}$ (acceleration) tilts the deterministic landscape. Both are needed
@@ -765,8 +766,8 @@ represented as a regulatory term $R_{\text{PFC}}(\mathbf{e}, t)$. The full field
 becomes:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
-  + R_{\text{PFC}}(\mathbf{e}, t)
-  + \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
++ R_{\text{PFC}}(\mathbf{e}, t)
++ \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
 
 $R_{\text{PFC}}$ represents voluntary attention, therapeutic technique, and conscious
 reappraisal acting on the field. It is not a correction of Layer 2 but a modulation of
@@ -803,9 +804,9 @@ The key property of an energy function is directionality: the field always moves
 framework, can be understood as:
 
 1. **Changing the landscape**: modifying $W$ — the coupling matrix — through new relational
-   experience, insight, or somatic work, so that the energy minima are in healthier locations
+ experience, insight, or somatic work, so that the energy minima are in healthier locations
 2. **Adding energy to escape a trap**: helping the field accumulate enough energy to escape
-   a deep but unhealthy local minimum (e.g., the freeze state)
+ a deep but unhealthy local minimum (e.g., the freeze state)
 3. **Pointing toward the global minimum**: orienting the field toward regulated calm
 
 ## Attractor States: Fight, Flight, Freeze, and Regulated Calm
@@ -821,21 +822,21 @@ first gaining energy before losing it again. This is the clinical challenge of w
 with dissociative states.*
 
 ```
-  ENERGY
-    │
-  H │        fight/flight
-    │        ┌──┐  ┌──┐
-    │        │  │  │  │
-    │   _____|  │  │  │_____
-    │  │         \/        │
-    │  │       saddle       │
-    │  │     (transition)   │
-    │  │                    │    ╔════════════╗
-    │  │         freeze     │    ║            ║
-    │  │         ┌──┐       │    ║  regulated ║◄── global minimum
-    │  │_________|  │_______|    ║    calm    ║
-    │                 │          ╚════════════╝
-    └──────────────────────────────► EMOTIONAL STATE SPACE
+ENERGY
+  │
+H │        fight/flight
+  │        ┌──┐  ┌──┐
+  │        │  │  │  │
+  │   _____|  │  │  │_____
+  │  │         \/        │
+  │  │       saddle       │
+  │  │     (transition)   │
+  │  │                    │    ╔════════════╗
+  │  │         freeze     │    ║            ║
+  │  │         ┌──┐       │    ║  regulated ║◄── global minimum
+  │  │_________|  │_______|    ║    calm    ║
+  │                 │          ╚════════════╝
+  └──────────────────────────────► EMOTIONAL STATE SPACE
 ```
 *Figure 3b. Schematic energy landscape. Fight/flight are high-energy, unstable local minima.
 Freeze is a low-energy but isolated attractor — easy to enter, hard to escape. Regulated calm
@@ -951,28 +952,28 @@ separately but coupled in the computation. Each knob has a continuous range, all
 expression of emotional intensity.
 
 ```
-                    ┌─────────────────────────────────────┐
-                    │         MIDI CONTROLLER              │
-                    │                                      │
-                    │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
-                    │  emotion1  emotion2  emotion3  emotion4│
-                    │                                      │
-                    │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
-                    │  emotion5  emotion6  emotion7  emotion8│
-                    └─────────────────────────────────────┘
-                                      │
-                                      ▼
-                           ┌──────────────────┐
-                           │  ENERGY FUNCTION  │
-                           │  H(e) computed    │
-                           │  ∇H(e) computed   │
-                           └──────────────────┘
-                                      │
-                    ┌─────────────────┼─────────────────┐
-                    ▼                 ▼                  ▼
-             AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
-           (timbre reflects    (pitch/velocity     (field map:
-            dissonance)         reflects energy)    wave topology)
+                  ┌─────────────────────────────────────┐
+                  │         MIDI CONTROLLER              │
+                  │                                      │
+                  │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
+                  │  emotion1  emotion2  emotion3  emotion4│
+                  │                                      │
+                  │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
+                  │  emotion5  emotion6  emotion7  emotion8│
+                  └─────────────────────────────────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────┐
+                         │  ENERGY FUNCTION  │
+                         │  H(e) computed    │
+                         │  ∇H(e) computed   │
+                         └──────────────────┘
+                                    │
+                  ┌─────────────────┼─────────────────┐
+                  ▼                 ▼                  ▼
+           AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
+         (timbre reflects    (pitch/velocity     (field map:
+          dissonance)         reflects energy)    wave topology)
 ```
 *Figure 4. The Soma-Field Instrument: input, computation, and multimodal output.*
 
@@ -984,11 +985,11 @@ field:
 1. The person expresses their current emotional state by adjusting the knobs
 2. The system computes the energy function $H(\mathbf{e})$ and its gradient $\nabla H$
 3. The energy level, dissonance, and proximity to attractor states are rendered as:
-   - **Sound**: harmonic content and timbre reflect the consonance or dissonance of the
-     current state
-   - **MIDI output**: pitch rises with tension, resolves as energy decreases
-   - **Visual**: a real-time map of the emotional field, showing wave activity,
-     threshold crossings, and the direction of the energy gradient
+ - **Sound**: harmonic content and timbre reflect the consonance or dissonance of the
+   current state
+ - **MIDI output**: pitch rises with tension, resolves as energy decreases
+ - **Visual**: a real-time map of the emotional field, showing wave activity,
+   threshold crossings, and the direction of the energy gradient
 4. The person hears and sees their emotional field, and adjusts the knobs in response
 
 This loop externalises the emotional field's gradient — the direction in which it is
@@ -1029,15 +1030,15 @@ freeze may first require careful up-regulation before down-regulation becomes po
 The energy function provides a formal basis for several existing clinical interventions:
 
 - **Grounding and titration** (Levine, 2010): adding small, controlled amounts of energy
-  to the field to approach — without flooding — a previously frozen or avoided emotional
-  state
+to the field to approach — without flooding — a previously frozen or avoided emotional
+state
 - **Pendulation** (Levine, 2010): oscillating between a dissonant state and a resource
-  state, progressively widening the tolerance window — equivalent to approaching the
-  energy minimum via a series of small excursions
+state, progressively widening the tolerance window — equivalent to approaching the
+energy minimum via a series of small excursions
 - **Somatic resourcing** (Ogden et al., 2006): establishing a stable low-energy region
-  in the landscape that the field can return to after excursions into high-energy territory
+in the landscape that the field can return to after excursions into high-energy territory
 - **Working with the felt sense** (Gendlin, 1978): attending to sub-threshold field
-  activity and allowing it to cross the perception threshold in a supported context
+activity and allowing it to cross the perception threshold in a supported context
 
 ## Psychoeducation
 
@@ -1085,13 +1086,14 @@ flashbacks, and hypervigilance are, in this framework, limit-cycle oscillations 
 traumatised field.
 
 ```
-  REGULATED FIELD  (symmetric W, no memory kernel)
-  ─────────────────────────────────────────────────────────────────────────────
+REGULATED FIELD  (symmetric W, no memory kernel)
+─────────────────────────────────────────────────────────────────────────────
 
-  │              ╭───────╮                     ╭────────────────╮
-  │    ╭──╮     ╱         ╲          ╭──╮     ╱                  ╲      ╭─
-  │   ╱    ╲   ╱           ╲  ╭─╮  ╱    ╲   ╱                    ╲    ╱
-  T ─╱──────╲─╱─────────────╲─╯─╰─╱──────╲─╱──────────────────────╲──╱── T
+│              ╭───────╮                     ╭────────────────╮
+│    ╭──╮     ╱         ╲          ╭──╮     ╱                  ╲      ╭─
+│   ╱    ╲   ╱           ╲  ╭─╮  ╱    ╲   ╱                    ╲    ╱
+T ─╱──────╲─╱─────────────╲─╯─╰─╱──────╲─╱──────────────────────╲──╱── T
+```
   │           ╲               ╰───╯        ╲                        ╲──╯
   │            ╰───────────────────────────────────────────────────────────
   └──────────────────────────────────────────────────────────────────────► t
@@ -1103,16 +1105,17 @@ traumatised field.
   C-PTSD MODIFIED FIELD  (asymmetric W, memory kernel K(t-s) present)
   ─────────────────────────────────────────────────────────────────────────────
 
-  │╭──────────╮          ╭──────────╮          ╭──────────────────────────
-  T│            ╲  ╭──╮  ╱            ╲  ╭──╮  ╱                          ── T
-  ││             ╲╱    ╲╱              ╲╱    ╲╱
-  ││   ← even the troughs stay near T or above: baseline is elevated
-  └──────────────────────────────────────────────────────────────────────► t
-     ↑ memory kernel: each activation feeds energy back into the next
-     ↑ field rarely returns to true rest — past states re-enter present dynamics
-     ↑ almost entirely above T: activation is the default, not the exception
-     ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
-       small steps do not reach it; a qualitatively different move is needed
+```text
+│╭──────────╮          ╭──────────╮          ╭──────────────────────────
+T│            ╲  ╭──╮  ╱            ╲  ╭──╮  ╱                          ── T
+││             ╲╱    ╲╱              ╲╱    ╲╱
+││   ← even the troughs stay near T or above: baseline is elevated
+└──────────────────────────────────────────────────────────────────────► t
+   ↑ memory kernel: each activation feeds energy back into the next
+   ↑ field rarely returns to true rest — past states re-enter present dynamics
+   ↑ almost entirely above T: activation is the default, not the exception
+   ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
+     small steps do not reach it; a qualitatively different move is needed
 ```
 *Figure 5. The same emotional field mode under two dynamic regimes. Top: regulated
 dynamics — the field oscillates and returns to a low baseline between episodes; conscious
@@ -1431,14 +1434,14 @@ structure-preserving map between categories. The category-theoretic formalizatio
 Soma-Field Model does three things:
 
 1. Makes explicit the **scale hierarchy** from the 11D emotional manifold to the 1D
-   conscious percept — each step is a functor, and the composition of functors is the
-   full pipeline
+ conscious percept — each step is a functor, and the composition of functors is the
+ full pipeline
 2. Defines a **type-theoretically correct interface** at each layer boundary, so that any
-   layer can be replaced (different emotion model, different output renderer, different
-   field representation) without disturbing the others
+ layer can be replaced (different emotion model, different output renderer, different
+ field representation) without disturbing the others
 3. Connects the **holographic principle** to the fractal visual output: both are instances
-   of the same categorical structure — a lower-dimensional boundary encoding a
-   higher-dimensional bulk
+ of the same categorical structure — a lower-dimensional boundary encoding a
+ higher-dimensional bulk
 
 ---
 
@@ -1464,19 +1467,20 @@ The Soma-Field Model proposes an analogous compactification tower for emotional 
 *Table A1. The compactification tower: M-theory levels and their Soma-Field analogues.*
 
 ```
-  G₂ COMPACT MANIFOLD M₇ — schematic (seven compactified dimensions, projected to 2D)
-  This is the 'hidden' geometry that the full emotional field lives in.
+G₂ COMPACT MANIFOLD M₇ — schematic (seven compactified dimensions, projected to 2D)
+This is the 'hidden' geometry that the full emotional field lives in.
 
-       φ¹     φ²     φ³     φ⁴     φ⁵     φ⁶     φ⁷
-        │      │      │      │      │      │      │
-  ──────┼──────┼──────┼──────┼──────┼──────┼──────┼──── boundary
-        │      │      │      │      │      │      │
-  ┌─────┴──────┴──────┴──────┴──────┴──────┴──────┴─────┐
-  │     ╭────╮        ╭────╮        ╭────╮        ╭────╮ │
-  │    ╱  ·  ╲       ╱  ·  ╲       ╱  ·  ╲       ╱  ·  ╲│
-  │   │   ·   │─────│   ·   │─────│   ·   │─────│   ·   ││
-  │    ╲  ·  ╱       ╲  ·  ╱       ╲  ·  ╱       ╲  ·  ╱│
-  │     ╰──┬─╯        ╰──┬─╯        ╰──┬─╯        ╰──┬─╯ │
+     φ¹     φ²     φ³     φ⁴     φ⁵     φ⁶     φ⁷
+      │      │      │      │      │      │      │
+──────┼──────┼──────┼──────┼──────┼──────┼──────┼──── boundary
+      │      │      │      │      │      │      │
+┌─────┴──────┴──────┴──────┴──────┴──────┴──────┴─────┐
+│     ╭────╮        ╭────╮        ╭────╮        ╭────╮ │
+│    ╱  ·  ╲       ╱  ·  ╲       ╱  ·  ╲       ╱  ·  ╲│
+│   │   ·   │─────│   ·   │─────│   ·   │─────│   ·   ││
+│    ╲  ·  ╱       ╲  ·  ╱       ╲  ·  ╱       ╲  ·  ╱│
+│     ╰──┬─╯        ╰──┬─╯        ╰──┬─╯        ╰──┬─╯ │
+```
   │        │  ╲          │  ╲          │  ╲          │    │
   │        │   ╰─────────┘   ╰─────────┘   ╰─────────┘    │
   │                    G₂ holonomy group                    │
@@ -2368,18 +2372,19 @@ state at lag $(t-s)$ influences the present.
 ```
                        K(t-s): memory kernel = loop propagator
                        (decays with lag: distant past has less weight)
-                      ╭──────────────────────────────╮
-                      │                              │
-  e ─────────────────[*]────────────────────────────[*]───────────────────► e(t)
-          e(s)        ^                              ^
-          past        |                              |
-          state       vertex 1: past state          vertex 2: loop re-enters
-                      enters loop                   current dynamics
+```text
+                    ╭──────────────────────────────╮
+                    │                              │
+e ─────────────────[*]────────────────────────────[*]───────────────────► e(t)
+        e(s)        ^                              ^
+        past        |                              |
+        state       vertex 1: past state          vertex 2: loop re-enters
+                    enters loop                   current dynamics
 
-  K = 0 (no trauma):            K != 0 (trauma present):
-  ───────────────────────────►  ─────────────[*loop*]──────────────────────►
-  clean propagation             propagation with memory self-correction
-  standard Hopfield             past state alters present gradient
+K = 0 (no trauma):            K != 0 (trauma present):
+───────────────────────────►  ─────────────[*loop*]──────────────────────►
+clean propagation             propagation with memory self-correction
+standard Hopfield             past state alters present gradient
 ```
 
 In QFT, loop diagrams introduce corrections of order $\hbar$ — the quantum regime absent
@@ -2408,47 +2413,47 @@ symmetry breaking — the system must choose one vacuum from among several, and 
 between vacua are non-perturbative.
 
 ```
-  ENERGY LANDSCAPE (schematic H vs. state):
+ENERGY LANDSCAPE (schematic H vs. state):
 
-  H
-  ^
-  |          *                    *
-  |         / \                  / \      (fight/flight: shallow local minima)
-  |        /   \                /   \
-  |       /     *──────────────*     \
-  |      /      (mobilised — saddle)  \
-  |     /                              \
-  |    *                                *──────────────────────*
-  |   (ventral:                         (dorsal:
-  |    global minimum,                   deep isolated well,
-  |    regulated calm)                   trapped shutdown)
-  |
-  +──────────────────────────────────────────────────────────► state
+H
+^
+|          *                    *
+|         / \                  / \      (fight/flight: shallow local minima)
+|        /   \                /   \
+|       /     *──────────────*     \
+|      /      (mobilised — saddle)  \
+|     /                              \
+|    *                                *──────────────────────*
+|   (ventral:                         (dorsal:
+|    global minimum,                   deep isolated well,
+|    regulated calm)                   trapped shutdown)
+|
++──────────────────────────────────────────────────────────► state
 
-  TRANSITIONS IN STRING DIAGRAM NOTATION:
+TRANSITIONS IN STRING DIAGRAM NOTATION:
 
-  ┌───────────────────────────────────────────────────────────────────┐
-  │                                                                   │
-  │  SAFE / CONNECTED (ventral vagal)                    H = global  │
-  │  ─────────────────────────────────────────────────   minimum    │
-  │                         |                                        │
-  │           "threat signal: |grad H| exceeds T_down"               │
-  │                         |                                        │
-  │                         v                                        │
-  │  FIGHT / FLIGHT (sympathetic)                        H = shallow │
-  │  ─────────────────────────────────────────────────   local min  │
-  │                         |                                        │
-  │           "overwhelm: mobilisation cannot resolve threat"         │
-  │                         |                                        │
-  │                         v                                        │
-  │  FREEZE / SHUTDOWN (dorsal vagal)                    H = deep   │
-  │  ─────────────────────────────────────────────────   isolated   │
-  │                                                       well      │
-  │    <-------- therapeutic re-entry is non-perturbative ---------->│
-  │    (small perturbations do not escape the well;                  │
-  │     a qualitatively different intervention is required)          │
-  │                                                                   │
-  └───────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────┐
+│                                                                   │
+│  SAFE / CONNECTED (ventral vagal)                    H = global  │
+│  ─────────────────────────────────────────────────   minimum    │
+│                         |                                        │
+│           "threat signal: |grad H| exceeds T_down"               │
+│                         |                                        │
+│                         v                                        │
+│  FIGHT / FLIGHT (sympathetic)                        H = shallow │
+│  ─────────────────────────────────────────────────   local min  │
+│                         |                                        │
+│           "overwhelm: mobilisation cannot resolve threat"         │
+│                         |                                        │
+│                         v                                        │
+│  FREEZE / SHUTDOWN (dorsal vagal)                    H = deep   │
+│  ─────────────────────────────────────────────────   isolated   │
+│                                                       well      │
+│    <-------- therapeutic re-entry is non-perturbative ---------->│
+│    (small perturbations do not escape the well;                  │
+│     a qualitatively different intervention is required)          │
+│                                                                   │
+└───────────────────────────────────────────────────────────────────┘
 ```
 
 In Lean 4, this is the `AttractorBasin` inductive type with the `classifyAttractor`
@@ -2492,18 +2497,19 @@ Not stuck, but cycling.
 In string diagram terms, the distinction is topological:
 
 ```
-  Symmetric W (standard Hopfield): all paths are gradient descents
+Symmetric W (standard Hopfield): all paths are gradient descents
 
-  e ──────────────────────────────────────────────────────► attractor
-                    (monotone decrease in H; fixed point guaranteed)
+e ──────────────────────────────────────────────────────► attractor
+                  (monotone decrease in H; fixed point guaranteed)
 
-  Asymmetric W (C-PTSD): some paths are limit cycles
+Asymmetric W (C-PTSD): some paths are limit cycles
 
-  e ────────────────╮
-        ^           │
-        |           │ (loop: e returns to near-starting point;
-        |           │  no fixed point is reached; H oscillates)
-        ╰───────────╯
+e ────────────────╮
+      ^           │
+      |           │ (loop: e returns to near-starting point;
+      |           │  no fixed point is reached; H oscillates)
+      ╰───────────╯
+```
 ```
 
 The convergence theorem is the main theorem of the Hopfield network formalism. It is the

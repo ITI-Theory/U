@@ -74,6 +74,8 @@ accessible form, for readers without a physics background.
 
 ---
 
+\newpage
+
 # The Method: Mathematical Co-identification
 
 ## What It Is
@@ -123,6 +125,8 @@ It was discovered by writing down the equations the emotional system was observe
 satisfy and recognising the form.
 
 ---
+
+\newpage
 
 # The Model: The Soma-Field
 
@@ -212,6 +216,8 @@ from any existing clinical model:
    is the prediction that QUANT-EXP-1 was designed to test.
 
 ---
+
+\newpage
 
 # The Empirical Test: QUANT-EXP-1
 
@@ -639,13 +645,9 @@ A note on boxes. Throughout the book you will find four types:
 # What the Body Remembers
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The body keeps the score."                                   │
-  │                                                                  │
-  │                                   — Bessel van der Kolk, 2014   │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The body keeps the score."
+> — Bessel van der Kolk, 2014
+>
 ```
 
 ---
@@ -755,22 +757,24 @@ above it, each more primitive, each mobilised in sequence as the perceived threa
 increases.
 
 ```
-  ╭──────────────────────────────────────────────────────────────────────╮
-  │  VENTRAL VAGAL STATE           Social engagement branch             │
-  │  Safe, connected, curious      Myelinated vagus nerve               │
-  │  Window of Tolerance           Heart rate regulated                 │
-  │  ─────────────────────────── ← most recently evolved                │
-  ├──────────────────────────────────────────────────────────────────────┤
-  │  SYMPATHETIC STATE             Mobilisation branch                  │
-  │  Alert, energised, defensive   Spinal cord pathway                  │
-  │  Fight or flight               Heart rate elevated                  │
-  │  ─────────────────────────── ← older                               │
-  ├──────────────────────────────────────────────────────────────────────┤
-  │  DORSAL VAGAL STATE            Immobilisation branch                │
-  │  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
-  │  Dissociation, numbing         Heart rate dropped                   │
-  │  ─────────────────────────── ← most ancient                        │
-  ╰──────────────────────────────────────────────────────────────────────╯
+```text
+╭──────────────────────────────────────────────────────────────────────╮
+│  VENTRAL VAGAL STATE           Social engagement branch             │
+│  Safe, connected, curious      Myelinated vagus nerve               │
+│  Window of Tolerance           Heart rate regulated                 │
+│  ─────────────────────────── ← most recently evolved                │
+├──────────────────────────────────────────────────────────────────────┤
+│  SYMPATHETIC STATE             Mobilisation branch                  │
+│  Alert, energised, defensive   Spinal cord pathway                  │
+│  Fight or flight               Heart rate elevated                  │
+│  ─────────────────────────── ← older                               │
+├──────────────────────────────────────────────────────────────────────┤
+│  DORSAL VAGAL STATE            Immobilisation branch                │
+│  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
+│  Dissociation, numbing         Heart rate dropped                   │
+│  ─────────────────────────── ← most ancient                        │
+╰──────────────────────────────────────────────────────────────────────╯
+```
 
   Figure 1.1. The polyvagal hierarchy. Under conditions of safety, the most evolved
   system (ventral vagal) governs — enabling social connection, learning, and curiosity.
@@ -875,13 +879,9 @@ provide, and it is the subject of Chapter 6.
 # A Field of Feeling
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The body is the unconscious mind."                           │
-  │                                                                  │
-  │                                   — Candace Pert, 1997          │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The body is the unconscious mind."
+> — Candace Pert, 1997
+>
 ```
 
 ---
@@ -1086,12 +1086,9 @@ The next chapter is about that structure.
 # The Energy Landscape
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "Nature does not create mountains and valleys at random.      │
-  │    They are shaped by the forces beneath them."                 │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "Nature does not create mountains and valleys at random.
+> They are shaped by the forces beneath them."
+>
 ```
 
 ---
@@ -1316,12 +1313,9 @@ one-way ratchet.
 # The Weight on the Field
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The question is not why the behaviour persists,              │
-  │    but what it was optimised for."                              │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The question is not why the behaviour persists,
+> but what it was optimised for."
+>
 ```
 
 ---
@@ -1502,9 +1496,8 @@ is the decay time (how long the trace persists before fading).
   REGULATED: No significant memory kernel
   ┌─────────────────────────────────────────────────────────────┐
   │  Field  ▲                                                   │
-  │  activ. │      ╭──╮                                         │
-  │         │      │  │   (episode resolves; field returns       │
-  │         │  ────╯  ╰─────────────────────────────────────   │
+> │      │  │   (episode resolves; field returns
+>
   │         │                              baseline              │
   │         └──────────────────────────────────────────────→    │
   │                            time                             │
@@ -1513,8 +1506,7 @@ is the decay time (how long the trace persists before fading).
   C-PTSD: Significant memory kernel — traces persist
   ┌─────────────────────────────────────────────────────────────┐
   │  Field  ▲                                                   │
-  │  activ. │      ╭──╮                    ╭──╮                 │
-  │         │      │  ╰─╮    ╭──╮      ╭───╯  ╰─╮              │
+>
   │         │  ────╯    ╰────╯  ╰──────╯         ╰──────       │
   │         │                                                   │
   │         └──────────────────────────────────────────────→    │
@@ -1612,11 +1604,8 @@ episodes: to restore the gap between activations in which recovery occurs.
 # How Early Is Early?
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "Before language, there is only the body."                   │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "Before language, there is only the body."
+>
 ```
 
 ---
@@ -1696,30 +1685,31 @@ $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right)$$
   STRUCTURAL FRACTION f(τ_d) = tanh(τ_d / τ_c)
   ┌──────────────────────────────────────────────────────────────────┐
   │                                                                  │
-  │  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
-  │  (how    │                               ╭─────╯              │
-  │  much    │                         ╭────╯                     │
-  │  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
-  │          │                        ↑                           │
-  │          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
-  │          │                 ╭──╯                               │
-  │          │             ╭──╯                                   │
-  │          │         ╭──╯                                       │
-  │          │  0.0 ───╯                                          │
-  │          └──────────────────────────────────────────────────→ │
-  │           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
-  │                       (36)                                     │
-  │                                                                │
-  │  Left of τ_c:  W is mostly W_trauma — structural             │
-  │  Right of τ_c: W is mostly W₀ — perturbative                 │
-  └──────────────────────────────────────────────────────────────────┘
+```text
+│  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
+│  (how    │                               ╭─────╯              │
+│  much    │                         ╭────╯                     │
+│  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
+│          │                        ↑                           │
+│          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
+│          │                 ╭──╯                               │
+│          │             ╭──╯                                   │
+│          │         ╭──╯                                       │
+│          │  0.0 ───╯                                          │
+│          └──────────────────────────────────────────────────→ │
+│           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
+│                       (36)                                     │
+│                                                                │
+│  Left of τ_c:  W is mostly W_trauma — structural             │
+│  Right of τ_c: W is mostly W₀ — perturbative                 │
+└──────────────────────────────────────────────────────────────────┘
 
-  Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
-  of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
-  as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
-  coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
-  the baseline accounts for about three-quarters of the coupling. The interpolation is
-  smooth: there is no sharp cutoff, just a continuous change in character.
+Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
+of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
+as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
+coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
+the baseline accounts for about three-quarters of the coupling. The interpolation is
+smooth: there is no sharp cutoff, just a continuous change in character.
 ```
 
 At $\tau_d = 0$: $f = 0$ and $W = W_{\text{trauma}}$. There is no baseline component.
@@ -1828,12 +1818,13 @@ to return somewhere but to arrive somewhere for the first time.
 # Interlude: A Voyage to the Alps
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "Everything floats: the universe, the mountains, the body.   │
-  │    The question is only what it is floating in."               │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────╮
+│                                                                  │
+│   "Everything floats: the universe, the mountains, the body.   │
+│    The question is only what it is floating in."               │
+│                                                                  │
+╰──────────────────────────────────────────────────────────────────╯
+```
 ```
 
 There is a campsite in the Klöntal valley, in the canton of Glarus, Switzerland, that I
@@ -1997,14 +1988,10 @@ In the valley at dusk, this is not a metaphor. It is audible.
 # The Same Equation, Three Times
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The unreasonable effectiveness of mathematics in the         │
-  │    natural sciences."                                           │
-  │                                                                  │
-  │                               — Eugene Wigner, 1960             │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The unreasonable effectiveness of mathematics in the
+> natural sciences."
+> — Eugene Wigner, 1960
+>
 ```
 
 ---
@@ -2383,14 +2370,12 @@ In the ADHD regime, $\sigma_0$ is large and $\gamma$ is small. The implications:
   ──── e(t): settles at attractor, brief excursions, returns
 
          ─────────╮
-                  │  ╭──────────────────────────────────── calm
-                  ╰──╯
+>
 
   ADHD (high σ₀, low γ):
   ──── e(t): fast, wide excursions, brief attractor dwell
 
-        ╭╮   ╭──╮  ╭╮╭╮    ╭──╮  ╭╮
-  ──────╯╰───╯  ╰──╯╰╯╰────╯  ╰──╯╰──  rapid wide movement
+>
 
   Figure 8.2. Field dynamics in neurotypical (top) and ADHD (bottom) regimes.
   ADHD is not a broken attractor structure — the landscape may be quite normal.
@@ -2576,12 +2561,9 @@ longitudinal function: measuring change across sessions.
 # Forward Transformation
 
 ```
-  ╭──────────────────────────────────────────────────────────────────╮
-  │                                                                  │
-  │   "The opposite of trauma is not safety.                        │
-  │    It is a nervous system that can find safety."               │
-  │                                                                  │
-  ╰──────────────────────────────────────────────────────────────────╯
+> "The opposite of trauma is not safety.
+> It is a nervous system that can find safety."
+>
 ```
 
 ---
@@ -2647,8 +2629,7 @@ landscape being constructed, not recovered.
   │  CURRENT LANDSCAPE (W)          TARGET LANDSCAPE (W')          │
   │                                                                  │
   │  Energy H ▲                     Energy H ▲                     │
-  │           │  ╭──╮  ╭──╮                  │╭───╮               │
-  │           │  │  │  │  │                  ││   ╰──────         │
+>
   │           │  │  ╰──╯  │                  │╰─ calm *           │
   │           │  │calm *  │  hyper*          │    wide basin       │
   │           │  │(narrow)│  (deep)          │                    │
@@ -4182,19 +4163,20 @@ persist as observable particles. The vacuum is active, but sub-threshold.
   A SINGLE FIELD MODE — amplitude over time
   (e.g. a mode of the electromagnetic field; or, later, a mode of the emotional field)
 
-  │                                    ╭──────────────────╮
-  │          ╭──╮              ╭──╮   ╱                    ╲             ╭──
-  │   ╭─╮   ╱    ╲    ╭─╮    ╱    ╲ ╱                      ╲    ╭──╮  ╱
-  │  ╱   ╲ ╱      ╲  ╱   ╲  ╱      ╳                        ╲  ╱    ╲╱
-  T ╱─────╲╱────────╲╯─────╲╯────────────────────────────────╲╱──────────── T
-  │         ╲────────╯       ╲──────╯                          ╲────────────
-  │
-  └──────────────────────────────────────────────────────────────────────► time
+```text
+│                                    ╭──────────────────╮
+│          ╭──╮              ╭──╮   ╱                    ╲             ╭──
+│   ╭─╮   ╱    ╲    ╭─╮    ╱    ╲ ╱                      ╲    ╭──╮  ╱
+│  ╱   ╲ ╱      ╲  ╱   ╲  ╱      ╳                        ╲  ╱    ╲╱
+T ╱─────╲╱────────╲╯─────╲╯────────────────────────────────╲╱──────────── T
+│         ╲────────╯       ╲──────╯                          ╲────────────
+│
+└──────────────────────────────────────────────────────────────────────► time
 
-  ←─── VIRTUAL: field fluctuates but stays sub-threshold ────────────→ ←REAL→
-       present, active, causally real — but not locally detectable        ↑
-       (the QUANTUM VACUUM: not empty; seething with activity)        particle
-                                                                      created
+←─── VIRTUAL: field fluctuates but stays sub-threshold ────────────→ ←REAL→
+     present, active, causally real — but not locally detectable        ↑
+     (the QUANTUM VACUUM: not empty; seething with activity)        particle
+                                                                    created
 ```
 *Figure 0. A single field mode in quantum field theory. The field oscillates continuously.
 Below the detection threshold T, excitations are sub-threshold — real and causally active,
@@ -4218,7 +4200,7 @@ which are central to the clinical observation of emotion:
 - A quantity that exists everywhere, continuously, even when unobserved
 - A background of sub-threshold activity that is real and causally effective
 - The emergence of observable phenomena (conscious feelings) through threshold-crossing
-  excitation of that background
+excitation of that background
 - The possibility of multiple simultaneous excitations that interact with one another
 
 *Note (May 2026):* A subsequent experiment (QUANT-EXP-1) demonstrates that the quantum
@@ -4605,9 +4587,9 @@ at all times.
 This field has two coupled components:
 
 1. **The somatic wave** $\mathbf{E}_\text{body}(x,t)$: distributed across the body as patterns
-   of visceral sensation, muscle tone, proprioception, interoception, and autonomic state.
+ of visceral sensation, muscle tone, proprioception, interoception, and autonomic state.
 2. **The neural wave** $\mathbf{E}_\text{neural}(x,t)$: distributed across the nervous system
-   as patterns of activation in cortical, subcortical, and peripheral neural circuits.
+ as patterns of activation in cortical, subcortical, and peripheral neural circuits.
 
 These two components are not separate systems. They are coupled — each continuously
 influencing the other. The total emotional field is their combined state:
@@ -4619,8 +4601,8 @@ The field is characterised by:
 - **Multiplicity**: multiple emotional modes can be simultaneously active and interfering
 - **Continuity**: it exists at all times, not only during episodes of conscious feeling
 - **Spatial distribution**: different aspects of the field are localised in different regions
-  of the soma (the familiar clinical observation that grief is felt in the chest, fear in
-  the gut, anger in the jaw and fists)
+of the soma (the familiar clinical observation that grief is felt in the chest, fear in
+the gut, anger in the jaw and fists)
 - **Temporal dynamics**: the field evolves continuously, driven by the energy function
 
 ![](figures/fig1_architecture.pdf){ width=90% }
@@ -4727,8 +4709,8 @@ is crossed. When $\dot{H}(t) < 0$ (heart decelerating), it tilts toward rest. Th
 three-layer equation including the cardiac acceleration term is:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H_0(\mathbf{e}) + \alpha\,\dot{H}(t)\,\boldsymbol{\beta}
-  + R_{\text{PFC}}(\mathbf{e}, t)
-  + \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
++ R_{\text{PFC}}(\mathbf{e}, t)
++ \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
 
 The two cardiac terms serve distinct functions: $C_{\text{HRV}}$ (state) modulates the
 noise floor; $\dot{H}$ (acceleration) tilts the deterministic landscape. Both are needed
@@ -4785,8 +4767,8 @@ represented as a regulatory term $R_{\text{PFC}}(\mathbf{e}, t)$. The full field
 becomes:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
-  + R_{\text{PFC}}(\mathbf{e}, t)
-  + \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
++ R_{\text{PFC}}(\mathbf{e}, t)
++ \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
 
 $R_{\text{PFC}}$ represents voluntary attention, therapeutic technique, and conscious
 reappraisal acting on the field. It is not a correction of Layer 2 but a modulation of
@@ -4823,9 +4805,9 @@ The key property of an energy function is directionality: the field always moves
 framework, can be understood as:
 
 1. **Changing the landscape**: modifying $W$ — the coupling matrix — through new relational
-   experience, insight, or somatic work, so that the energy minima are in healthier locations
+ experience, insight, or somatic work, so that the energy minima are in healthier locations
 2. **Adding energy to escape a trap**: helping the field accumulate enough energy to escape
-   a deep but unhealthy local minimum (e.g., the freeze state)
+ a deep but unhealthy local minimum (e.g., the freeze state)
 3. **Pointing toward the global minimum**: orienting the field toward regulated calm
 
 ## Attractor States: Fight, Flight, Freeze, and Regulated Calm
@@ -4841,21 +4823,21 @@ first gaining energy before losing it again. This is the clinical challenge of w
 with dissociative states.*
 
 ```
-  ENERGY
-    │
-  H │        fight/flight
-    │        ┌──┐  ┌──┐
-    │        │  │  │  │
-    │   _____|  │  │  │_____
-    │  │         \/        │
-    │  │       saddle       │
-    │  │     (transition)   │
-    │  │                    │    ╔════════════╗
-    │  │         freeze     │    ║            ║
-    │  │         ┌──┐       │    ║  regulated ║◄── global minimum
-    │  │_________|  │_______|    ║    calm    ║
-    │                 │          ╚════════════╝
-    └──────────────────────────────► EMOTIONAL STATE SPACE
+ENERGY
+  │
+H │        fight/flight
+  │        ┌──┐  ┌──┐
+  │        │  │  │  │
+  │   _____|  │  │  │_____
+  │  │         \/        │
+  │  │       saddle       │
+  │  │     (transition)   │
+  │  │                    │    ╔════════════╗
+  │  │         freeze     │    ║            ║
+  │  │         ┌──┐       │    ║  regulated ║◄── global minimum
+  │  │_________|  │_______|    ║    calm    ║
+  │                 │          ╚════════════╝
+  └──────────────────────────────► EMOTIONAL STATE SPACE
 ```
 *Figure 3b. Schematic energy landscape. Fight/flight are high-energy, unstable local minima.
 Freeze is a low-energy but isolated attractor — easy to enter, hard to escape. Regulated calm
@@ -4971,28 +4953,28 @@ separately but coupled in the computation. Each knob has a continuous range, all
 expression of emotional intensity.
 
 ```
-                    ┌─────────────────────────────────────┐
-                    │         MIDI CONTROLLER              │
-                    │                                      │
-                    │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
-                    │  emotion1  emotion2  emotion3  emotion4│
-                    │                                      │
-                    │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
-                    │  emotion5  emotion6  emotion7  emotion8│
-                    └─────────────────────────────────────┘
-                                      │
-                                      ▼
-                           ┌──────────────────┐
-                           │  ENERGY FUNCTION  │
-                           │  H(e) computed    │
-                           │  ∇H(e) computed   │
-                           └──────────────────┘
-                                      │
-                    ┌─────────────────┼─────────────────┐
-                    ▼                 ▼                  ▼
-             AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
-           (timbre reflects    (pitch/velocity     (field map:
-            dissonance)         reflects energy)    wave topology)
+                  ┌─────────────────────────────────────┐
+                  │         MIDI CONTROLLER              │
+                  │                                      │
+                  │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
+                  │  emotion1  emotion2  emotion3  emotion4│
+                  │                                      │
+                  │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
+                  │  emotion5  emotion6  emotion7  emotion8│
+                  └─────────────────────────────────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────┐
+                         │  ENERGY FUNCTION  │
+                         │  H(e) computed    │
+                         │  ∇H(e) computed   │
+                         └──────────────────┘
+                                    │
+                  ┌─────────────────┼─────────────────┐
+                  ▼                 ▼                  ▼
+           AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
+         (timbre reflects    (pitch/velocity     (field map:
+          dissonance)         reflects energy)    wave topology)
 ```
 *Figure 4. The Soma-Field Instrument: input, computation, and multimodal output.*
 
@@ -5004,11 +4986,11 @@ field:
 1. The person expresses their current emotional state by adjusting the knobs
 2. The system computes the energy function $H(\mathbf{e})$ and its gradient $\nabla H$
 3. The energy level, dissonance, and proximity to attractor states are rendered as:
-   - **Sound**: harmonic content and timbre reflect the consonance or dissonance of the
-     current state
-   - **MIDI output**: pitch rises with tension, resolves as energy decreases
-   - **Visual**: a real-time map of the emotional field, showing wave activity,
-     threshold crossings, and the direction of the energy gradient
+ - **Sound**: harmonic content and timbre reflect the consonance or dissonance of the
+   current state
+ - **MIDI output**: pitch rises with tension, resolves as energy decreases
+ - **Visual**: a real-time map of the emotional field, showing wave activity,
+   threshold crossings, and the direction of the energy gradient
 4. The person hears and sees their emotional field, and adjusts the knobs in response
 
 This loop externalises the emotional field's gradient — the direction in which it is
@@ -5049,15 +5031,15 @@ freeze may first require careful up-regulation before down-regulation becomes po
 The energy function provides a formal basis for several existing clinical interventions:
 
 - **Grounding and titration** (Levine, 2010): adding small, controlled amounts of energy
-  to the field to approach — without flooding — a previously frozen or avoided emotional
-  state
+to the field to approach — without flooding — a previously frozen or avoided emotional
+state
 - **Pendulation** (Levine, 2010): oscillating between a dissonant state and a resource
-  state, progressively widening the tolerance window — equivalent to approaching the
-  energy minimum via a series of small excursions
+state, progressively widening the tolerance window — equivalent to approaching the
+energy minimum via a series of small excursions
 - **Somatic resourcing** (Ogden et al., 2006): establishing a stable low-energy region
-  in the landscape that the field can return to after excursions into high-energy territory
+in the landscape that the field can return to after excursions into high-energy territory
 - **Working with the felt sense** (Gendlin, 1978): attending to sub-threshold field
-  activity and allowing it to cross the perception threshold in a supported context
+activity and allowing it to cross the perception threshold in a supported context
 
 ## Psychoeducation
 
@@ -5105,13 +5087,14 @@ flashbacks, and hypervigilance are, in this framework, limit-cycle oscillations 
 traumatised field.
 
 ```
-  REGULATED FIELD  (symmetric W, no memory kernel)
-  ─────────────────────────────────────────────────────────────────────────────
+REGULATED FIELD  (symmetric W, no memory kernel)
+─────────────────────────────────────────────────────────────────────────────
 
-  │              ╭───────╮                     ╭────────────────╮
-  │    ╭──╮     ╱         ╲          ╭──╮     ╱                  ╲      ╭─
-  │   ╱    ╲   ╱           ╲  ╭─╮  ╱    ╲   ╱                    ╲    ╱
-  T ─╱──────╲─╱─────────────╲─╯─╰─╱──────╲─╱──────────────────────╲──╱── T
+│              ╭───────╮                     ╭────────────────╮
+│    ╭──╮     ╱         ╲          ╭──╮     ╱                  ╲      ╭─
+│   ╱    ╲   ╱           ╲  ╭─╮  ╱    ╲   ╱                    ╲    ╱
+T ─╱──────╲─╱─────────────╲─╯─╰─╱──────╲─╱──────────────────────╲──╱── T
+```
   │           ╲               ╰───╯        ╲                        ╲──╯
   │            ╰───────────────────────────────────────────────────────────
   └──────────────────────────────────────────────────────────────────────► t
@@ -5123,16 +5106,17 @@ traumatised field.
   C-PTSD MODIFIED FIELD  (asymmetric W, memory kernel K(t-s) present)
   ─────────────────────────────────────────────────────────────────────────────
 
-  │╭──────────╮          ╭──────────╮          ╭──────────────────────────
-  T│            ╲  ╭──╮  ╱            ╲  ╭──╮  ╱                          ── T
-  ││             ╲╱    ╲╱              ╲╱    ╲╱
-  ││   ← even the troughs stay near T or above: baseline is elevated
-  └──────────────────────────────────────────────────────────────────────► t
-     ↑ memory kernel: each activation feeds energy back into the next
-     ↑ field rarely returns to true rest — past states re-enter present dynamics
-     ↑ almost entirely above T: activation is the default, not the exception
-     ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
-       small steps do not reach it; a qualitatively different move is needed
+```text
+│╭──────────╮          ╭──────────╮          ╭──────────────────────────
+T│            ╲  ╭──╮  ╱            ╲  ╭──╮  ╱                          ── T
+││             ╲╱    ╲╱              ╲╱    ╲╱
+││   ← even the troughs stay near T or above: baseline is elevated
+└──────────────────────────────────────────────────────────────────────► t
+   ↑ memory kernel: each activation feeds energy back into the next
+   ↑ field rarely returns to true rest — past states re-enter present dynamics
+   ↑ almost entirely above T: activation is the default, not the exception
+   ↑ 'regulated calm' requires a non-perturbative transition (the instanton):
+     small steps do not reach it; a qualitatively different move is needed
 ```
 *Figure 5. The same emotional field mode under two dynamic regimes. Top: regulated
 dynamics — the field oscillates and returns to a low baseline between episodes; conscious
@@ -10665,6 +10649,11 @@ organism.
 
 # Introduction
 
+> *They saw a guitar string.*
+> *I heard the music.*
+>
+> \hfill --- A.J. (after Feynman)
+
 The search for a unified description of physical reality has proceeded, since
 Newton, by identifying common mathematical structures across phenomena that
 appear superficially different. Fourier analysis revealed that the vibration
@@ -12201,8 +12190,10 @@ lake build
 
 The source files are reproduced in full below, in dependency order.
 
+```{=latex}
+\leanappendixstart
+```
 
----
 
 ## The Foundation: Hopfield Associative Memory
 
@@ -12224,7 +12215,7 @@ weight construction, synchronous update step.  The convergence theorems are
 stated as proof obligations (marked with comments) — the foundations are in
 place, the full convergence proof closes in `SomaField.lean`.
 
-```lean
+```haskell
 import Mathlib.Data.Matrix.Basic
 
 /-!
@@ -12352,8 +12343,6 @@ end HopfieldDemo
 ```
 
 
----
-
 ## Emotion as an Algebra: The Final-Tagless DSL
 
 ### `EmotionOntology.lean`
@@ -12378,7 +12367,7 @@ produces longing, awe involves fear, etc.).  The Feynman diagram interpreter
 maps each emotional expression to its perturbation-theory diagram, making the
 connection to quantum field theory concrete and type-checked.
 
-```lean
+```haskell
 /-
   EmotionOntology.lean — Final Tagless Emotion DSL
   "Separating Church and State"
@@ -13060,8 +13049,6 @@ def queryCyc (args : Array String) : IO String := do
 ```
 
 
----
-
 ## Promoted Axioms: First Theorems from the DSL
 
 ### `FieldProofs.lean`
@@ -13077,7 +13064,7 @@ work.  `awe_structural_universality` bundles String, label-set, and membership
 results into a single conjunction, demonstrating that three different proof
 strategies are unified by a single term.
 
-```lean
+```haskell
 import EmotionOntology
 
 /-!
@@ -13202,8 +13189,6 @@ theorem love_ne_awe :
 ```
 
 
----
-
 ## The 8-Dimensional Soma-Field
 
 ### `SomaField.lean`
@@ -13225,7 +13210,7 @@ trajectory that models the indirect BS→CO→EM coupling.  The propagator
 resolvent matrix `G(λ) = (λI − W8)⁻¹` is defined; its poles are the
 eigenvalues of W8 — the resonant emotional modes of the field.
 
-```lean
+```haskell
 /-
   SomaField.lean
   The Soma-Field Model — 8-dimensional BRECVEMA extension.
@@ -13593,8 +13578,6 @@ noncomputable def somaticPropagatorPoles : Fin 8 → ℝ :=
 ```
 
 
----
-
 ## The Dyadic Propagator: Co-Regulation
 
 ### `DyadicField.lean`
@@ -13614,7 +13597,7 @@ The poles of the dyadic propagator are the *shared modes* of the coupled
 system — emotional states co-accessible to both persons.  This gives
 Porges' polyvagal co-regulation a precise spectral interpretation.
 
-```lean
+```haskell
 /-
   DyadicField.lean — GAP-1: The Dyadic Propagator
 
@@ -13810,7 +13793,7 @@ theorem dyadic_energy_coupling_lowers
   -- Float arithmetic in Lean 4 is not accessible to algebraic tactics.
   -- Proof sketch over ℝ: unfold dyadicEnergy, split into AA + BB + AB blocks;
   -- the AB cross-term = -½(aᵀJb + bᵀJᵀa) = -aᵀJb ≤ 0 when a,b,J ≥ 0.
-  -- TODO: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
+  -- OP5: refactor energy8 / dyadicEnergy to use ℝ; close with linarith.
   sorry
 
 
@@ -13837,8 +13820,6 @@ theorem dyadic_energy_coupling_lowers
 ```
 
 
----
-
 ## Quantum Tunnelling in the Limbic Gate
 
 ### `LimbicTunnel.lean`
@@ -13860,7 +13841,7 @@ remains trapped in the dysregulated basin.
 amplitude even when classical paths are blocked), and the D₈ orbifold
 barrier potential `V_barrier`.
 
-```lean
+```haskell
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 
@@ -13965,22 +13946,38 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
     V'(x) = 4W·x·(x² − 1) = 0 iff x = 0 or x = ±1. -/
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
-  -- TODO (Mathlib 4.31.0): HasDerivAt.pow API changed; proof needs updating
-  sorry
+  unfold V
+  -- Avoid HasDerivAt.pow (renamed in 4.31.0): use HasDerivAt.comp instead.
+  -- d/dt (t² - 1) at t = x is 2x
+  have h1 : HasDerivAt (fun t => t ^ 2 - 1) (2 * x) x := by
+    have h := (hasDerivAt_pow 2 x).sub (hasDerivAt_const x 1)
+    simp only [Nat.cast_ofNat, pow_one, mul_one, sub_zero] at h
+    exact h
+  -- d/ds (s²) at s = x² - 1 is 2(x² - 1)
+  have h2 : HasDerivAt (fun s => s ^ 2) (2 * (x ^ 2 - 1)) (x ^ 2 - 1) := by
+    have h := hasDerivAt_pow 2 (x ^ 2 - 1)
+    simp only [Nat.cast_ofNat, pow_one, mul_one] at h
+    exact h
+  -- Chain rule: d/dt (t² - 1)² at x = 2(x²-1) * 2x
+  have h3 : HasDerivAt (fun t => (t ^ 2 - 1) ^ 2) (2 * (x ^ 2 - 1) * (2 * x)) x :=
+    h2.comp x h1
+  -- Multiply by constant p.W; arithmetic closes by ring
+  convert h3.const_mul p.W using 1
+  ring
 
-/-- V' at x = -1+ε is positive (> 0): gradient descent from that point moves
-    left toward -1, so the system is trapped in the trauma basin.
+/-- V'(-1+ε) is POSITIVE for ε ∈ (0,1): the gradient points RIGHT (away from -1),
+    so Langevin drift ė = -V'(x) points LEFT toward -1 — the system is trapped.
 
-    **SIGN NOTE**: V'(-1+ε) = 4W(-1+ε)((-1+ε)²-1). With ε ∈ (0,1):
-      (-1+ε) < 0, (-1+ε)²-1 = ε(ε-2) < 0. Product of two negatives is positive.
-      So V'(-1+ε) > 0. Gradient descent (ẋ = -V') therefore moves x LEFT toward -1.
-    This is the correct trapping argument; the `< 0` below is a theorem sign error
-    that is left as sorry pending a proof cleanup pass. -/
+    Proof: (-1+ε) < 0 and (-1+ε)^2 - 1 = ε(ε-2) < 0 for ε ∈ (0,1).
+    Product of two negatives is positive; multiply by 4W > 0. -/
 theorem gradient_traps_near_neg1 (p : BarrierParam) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :
-    4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) < 0 := by
-  -- TODO: theorem sign is wrong (value is > 0); Langevin trapping works correctly
-  -- via ẋ = -V'(x) < 0 when V' > 0. Fix: change < 0 to > 0 in statement.
-  sorry
+    0 < 4 * p.W * (-1 + ε) * ((-1 + ε) ^ 2 - 1) := by
+  have hW := p.hW
+  have h1 : -1 + ε < 0 := by linarith
+  have h2 : (-1 + ε) ^ 2 - 1 < 0 := by
+    nlinarith [mul_pos hε (show 0 < 2 - ε from by linarith)]
+  have h4 : 4 * p.W * (-1 + ε) < 0 := by nlinarith
+  exact mul_pos_of_neg_of_neg h4 h2
 
 /-! ## 3. WKB tunnelling action (numerical) -/
 
@@ -14078,8 +14075,6 @@ end SomaField.LimbicTunnel
 ```
 
 
----
-
 ## M-Theory Isomorphism: 11-Dimensional Architecture
 
 ### `MTheoryIsomorphism.lean`
@@ -14100,7 +14095,7 @@ cosmological structure.
 at the organism's own scale), and `somatic_universality` (every system with
 the 11D decomposition admits a somatic interpretation).
 
-```lean
+```haskell
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
 import Mathlib.Analysis.InnerProductSpace.Basic
@@ -14343,8 +14338,6 @@ end SomaField.MTheory
 ```
 
 
----
-
 ## The FM-HN Correspondence Principle
 
 ### `LimbicHopfield.lean`
@@ -14367,7 +14360,7 @@ Clinical operators are formalised as modifications to the W matrix:
 when limbic field is constant), `adhd_increased_variance`, `asc_specificity`,
 `cptsd_decoupling`.  All theorems are Lean kernel-verified.
 
-```lean
+```haskell
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Matrix.Basic
@@ -14463,8 +14456,9 @@ theorem softmax_sum_one {n : ℕ} (hn : 0 < n) (β : ℝ) (z : Fin n → ℝ) :
   unfold softmax
   have hden : 0 < ∑ j, Real.exp (β * z j) :=
     Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
-  -- TODO (Mathlib 4.31.0): Finset.sum_div renamed; use Finset.sum_div_distrib or similar
-  sorry
+  -- \u2211 i, f i / c = (\u2211 i, f i) / c = c / c = 1
+  simp_rw [div_eq_mul_inv]
+  rw [← Finset.sum_mul, mul_inv_cancel₀ (ne_of_gt hden)]
 
 /-- Log-sum-exp at inverse temperature β. -/
 noncomputable def lse {n : ℕ} (β : ℝ) (hβ : 0 < β) (z : Fin n → ℝ) : ℝ :=
@@ -14475,8 +14469,14 @@ theorem lse_ge_max {n : ℕ} (hn : 0 < n) (β : ℝ) (hβ : 0 < β) (z : Fin n �
     z k ≤ lse β hβ z := by
   unfold lse
   rw [div_mul_eq_mul_div, le_div_iff₀ hβ]
-  -- API note (Mathlib 4.31.0): Real.log_exp renamed; use monotone approach
-  sorry -- TODO: rw [← Real.log_exp (...)]; Real.log API changed in 4.31.0
+  have hpos : 0 < ∑ i, Real.exp (β * z i) :=
+    Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
+  calc z k * β
+      = β * z k                          := by ring
+    _ = Real.log (Real.exp (β * z k)) := (Real.log_exp _).symm
+    _ ≤ Real.log (∑ i, Real.exp (β * z i)) := by
+        apply Real.log_le_log (Real.exp_pos _)
+        exact Finset.single_le_sum (fun i _ => Real.exp_nonneg _) _ (Finset.mem_univ k)
 
 /-! ## 1b. Algorithmic Complexity Comparison
 
@@ -14669,8 +14669,6 @@ end LimbicHopfield
 ```
 
 
----
-
 ## Swarm Coordination via Green's Function Propagators
 
 ### `SwarmPropagator.lean`
@@ -14693,7 +14691,7 @@ occlusion because the propagator has full spectral coverage), and
 `murmuration_emergence` (large-N limit produces a single dominant pole =
 coherent murmuration).
 
-```lean
+```haskell
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
 import Mathlib.Analysis.InnerProductSpace.Basic
@@ -14935,8 +14933,6 @@ end SomaField.SwarmPropagator
 ```
 
 
----
-
 ## The Capstone: Universal Somatic Field
 
 ### `UniversalSomaticField.lean`
@@ -14962,7 +14958,7 @@ kernel-verified.  The consciousness threshold and cosmological limit are
 stated as axioms pending full PDE / cosmology scaffolding in Mathlib — the
 type signature is settled even if the tactic proof is deferred.
 
-```lean
+```haskell
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Matrix.Basic
@@ -15291,8 +15287,6 @@ end SomaField.Universal
 ```
 
 
----
-
 ## The Abstract Film: Type-Level Specification
 
 ### `Movie.lean`
@@ -15333,7 +15327,7 @@ interpolation between them.
 When the Lean server type-checks and the film runs, the proof passes.
 The film is the compiled test.
 
-```lean
+```haskell
 /-
   Movie.lean — The Abstract Movie: Lean High-Level API
   "The movie is the proof."
@@ -15981,8 +15975,6 @@ def defaultLandscapePanels : Array (Fin 3 × MovieMode × MovieMode) := #[
 ```
 
 
----
-
 ## Minimal Quantum Simulator: Formal QUANT-EXP-1 Validation
 
 ### `QuantumSim.lean`
@@ -15997,7 +15989,7 @@ and the WKB tunnelling gate connecting directly to `LimbicTunnel.lean`.
 `quant_exp_1_awe_reachable` (Born probability of |awe⟩ strictly positive —
 the formal statement of the quantum experiment result).
 
-```lean
+```haskell
 import Mathlib.Data.Complex.Basic
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
@@ -16169,8 +16161,6 @@ end SomaField.QuantumSim
 ```
 
 
----
-
 ## The Common Interface: SomaNetwork Typeclass (Lean ↔ Python)
 
 ### `SomaNetwork.lean`
@@ -16183,7 +16173,7 @@ specification (`apps/instrument/soma_network.py`) as documentation.
 The Python `Protocol` has the same four methods (`dim`, `energy`,
 `propagate`, `tunnel_gate`) — this is the FFI contract.
 
-```lean
+```haskell
 import Mathlib.Data.Real.Basic
 import SomaField
 
@@ -16398,8 +16388,6 @@ end SomaField.Network
 ```
 
 
----
-
 ## T_TheoryUniverse: The 20-Scale Dependent Type
 
 ### `ScaleUniverse.lean`
@@ -16411,7 +16399,7 @@ partial closure): `CellularSynapse→Field8`, `BrainCEMI→CemiField`,
 `OrganismBody→Field8`, `SwarmCrowd→SwarmState 8`.
 `human_swarm_same_rank` proves both governed by rank-2 tensors.
 
-```lean
+```haskell
 import Mathlib.Data.Real.Basic
 import SomaField
 import SwarmPropagator
@@ -16523,23 +16511,23 @@ def FieldLayerType : ScaleStep → Type
   | .OrganismBody       => Field8          -- Scale 8: the core BRECVEMA soma-field
   | .SwarmCrowd         => SwarmState 8    -- Scale 9: 8-agent swarm (extensible)
   -- Placeholder scales (Open Problem 3 — replace with Physlib types):
-  | .PlanckFoam         => String          -- TODO: Physlib.QuantumMechanics.WaveFunction
-  | .StringScale        => String          -- TODO: string mode vacuum
-  | .NuclearQuark       => String          -- TODO: QCD colour field
-  | .AtomicOrbital      => String          -- TODO: Coulomb propagator
-  | .MolecularBond      => String          -- TODO: molecular wavefunction
-  | .AxonFibre          => String          -- TODO: cable equation (Hodgkin-Huxley)
-  | .CityInfrastructure => String          -- TODO: traffic flow field
-  | .GeologicalSeismic  => String          -- TODO: seismic stress tensor
-  | .PlanetaryMantle    => String          -- TODO: viscous convection
-  | .SolarSystem        => String          -- TODO: N-body gravitational field
-  | .StellarNeighbour   => String          -- TODO: gravitational wave propagator
-  | .GalacticDisc       => String          -- TODO: spiral arm density wave
-  | .GalacticHalo       => String          -- TODO: dark matter halo profile
-  | .GalaxyCluster      => String          -- TODO: intracluster medium
-  | .LargeScaleStruct   => String          -- TODO: baryon acoustic oscillation
-  | .ObservableUniverse => String          -- TODO: linearised Einstein propagator
-  | .CosmicWeb          => String          -- TODO: cosmic string network
+  | .PlanckFoam         => String          -- OP3 (Physlib): QuantumMechanics.WaveFunction
+  | .StringScale        => String          -- OP3 (Physlib): string mode vacuum
+  | .NuclearQuark       => String          -- OP3 (Physlib): QCD colour field
+  | .AtomicOrbital      => String          -- OP3 (Physlib): Coulomb propagator
+  | .MolecularBond      => String          -- OP3 (Physlib): molecular wavefunction
+  | .AxonFibre          => String          -- OP3 (Physlib): cable equation (Hodgkin-Huxley)
+  | .CityInfrastructure => String          -- OP3 (Physlib): traffic flow field
+  | .GeologicalSeismic  => String          -- OP3 (Physlib): seismic stress tensor
+  | .PlanetaryMantle    => String          -- OP3 (Physlib): viscous convection
+  | .SolarSystem        => String          -- OP3 (Physlib): N-body gravitational field
+  | .StellarNeighbour   => String          -- OP3 (Physlib): gravitational wave propagator
+  | .GalacticDisc       => String          -- OP3 (Physlib): spiral arm density wave
+  | .GalacticHalo       => String          -- OP3 (Physlib): dark matter halo profile
+  | .GalaxyCluster      => String          -- OP3 (Physlib): intracluster medium
+  | .LargeScaleStruct   => String          -- OP3 (Physlib): baryon acoustic oscillation
+  | .ObservableUniverse => String          -- OP3 (Physlib): linearised Einstein propagator
+  | .CosmicWeb          => String          -- OP3 (Physlib): cosmic string network
 
 /-! ## 3. T_TheoryUniverse — The Master Dependent Structure -/
 
@@ -16642,8 +16630,6 @@ end SomaField.Universe
 ```
 
 
----
-
 ## The Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
 
 ### `Benchmark.lean`
@@ -16659,7 +16645,7 @@ convergence, final distance from awe target, and wall-clock time via
 predicted the result: `onN2_lt_onNK`, `correspondence_principle`,
 `quant_exp_1_awe_reachable`.
 
-```lean
+```haskell
 import SomaField
 import Mathlib.Data.Real.Basic
 
