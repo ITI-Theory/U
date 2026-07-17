@@ -135,22 +135,13 @@ THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
 	-V fontsize=11pt \
 	-V linestretch=1.4
 
-# Thesis — A4 two-column, two-pass build:
-#   1. pandoc → .tex (with classoption=twocolumn + citeproc)
-#   2. fix_longtable.py patches longtable → table* in the .tex
-#   3. xelatex × 2 compiles the patched .tex
-THESIS_A4_2COL_BASE := --pdf-engine=$(ENGINE) --standalone --toc --toc-depth=3 \
-	-V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue \
-	-V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" \
-	--highlight-style=tango \
-	--include-in-header=journal.tex \
-	--lua-filter=strip-keywords.lua \
-	-V "header-includes=\usepackage{amsmath}\usepackage{amssymb}" \
+# Thesis — A4 compact single-column (10pt, 1.35 spacing, narrow margins)
+# journal.tex provides the professional two-column LOOK without actual two-column layout.
+THESIS_A4_2COL_FLAGS := $(THESIS_FLAGS_BASE) \
 	$(CITEPROC) \
-	-V "geometry=a4paper,twoside,inner=18mm,outer=14mm,top=18mm,bottom=20mm,columnsep=8mm" \
-	-V classoption=twocolumn \
+	-V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
 	-V fontsize=10pt \
-	-V linestretch=1.2
+	-V linestretch=1.35
 
 thesis-royal: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_thesis.py
@@ -164,19 +155,7 @@ thesis-a4: | $(BUILDDIR)
 
 thesis-a4-2col: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_thesis.py
-	@echo "Step 1: pandoc → .tex"
-	$(PANDOC) $(BUILDDIR)/thesis-body.md -t latex $(THESIS_A4_2COL_BASE) \
-		-o $(BUILDDIR)/thesis-2col-raw.tex
-	@echo "Step 2: fix longtable → table*"
-	$(PYTHON) $(SCRIPTS)/fix_longtable.py $(BUILDDIR)/thesis-2col-raw.tex \
-		$(BUILDDIR)/thesis-2col-fixed.tex
-	@echo "Step 3: xelatex (pass 1)"
-	xelatex -output-directory=$(BUILDDIR) -interaction=batchmode \
-		$(BUILDDIR)/thesis-2col-fixed.tex > /dev/null 2>&1 || true
-	@echo "Step 4: xelatex (pass 2 -- resolves refs)"
-	xelatex -output-directory=$(BUILDDIR) -interaction=batchmode \
-		$(BUILDDIR)/thesis-2col-fixed.tex > /dev/null 2>&1 || true
-	mv $(BUILDDIR)/thesis-2col-fixed.pdf $(BUILDDIR)/thesis-a4-2col.pdf
+	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4-2col.pdf $(THESIS_A4_2COL_FLAGS)
 	@echo "Built: $(BUILDDIR)/thesis-a4-2col.pdf"
 
 thesis: thesis-royal thesis-a4

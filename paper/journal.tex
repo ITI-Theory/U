@@ -105,16 +105,14 @@
 \makeatother
 
 % ---------------------------------------------------------------------------
-% 9. Two-column layout — Lean appendix reverts to one-column for code
-%    longtable → table* conversion handled by twocol-tables.lua (pre-xelatex).
-%    \leanappendixstart: switch to \onecolumn + page-break each file.
+% 9. Lean appendix page-break configuration
+%    \leanappendixstart — call once at the start of the Lean proofs appendix.
+%    Each \subsection (= each embedded proof file) starts on a new page.
+%    Defined here (style/config layer); called from lean-proofs-appendix.md.
 % ---------------------------------------------------------------------------
 \makeatletter
 \newcommand{\leanappendixstart}{%
-  \onecolumn%                         % full-width single-column for Lean code
   \let\lean@subsection\subsection
   \renewcommand{\subsection}[1]{\clearpage\lean@subsection{##1}}%
 }
-% Visible column separator line in two-column mode
-\AtBeginDocument{\if@twocolumn\setlength{\columnseprule}{0.4pt}\fi}
 \makeatother
