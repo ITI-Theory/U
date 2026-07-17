@@ -102,9 +102,24 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
     V'(x) = 4W·x·(x² − 1) = 0 iff x = 0 or x = ±1. -/
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
-  -- OP-LT-1 (Mathlib 4.31.0): HasDerivAt.pow renamed; tracked in Open Problems.
-  -- Path to closure: update to HasDerivAt.pow_succ or HasDerivAt.comp once API stabilises.
-  sorry
+  unfold V
+  -- Avoid HasDerivAt.pow (renamed in 4.31.0): use HasDerivAt.comp instead.
+  -- d/dt (t² - 1) at t = x is 2x
+  have h1 : HasDerivAt (fun t => t ^ 2 - 1) (2 * x) x := by
+    have h := (hasDerivAt_pow 2 x).sub (hasDerivAt_const x 1)
+    simp only [Nat.cast_ofNat, pow_one, mul_one, sub_zero] at h
+    exact h
+  -- d/ds (s²) at s = x² - 1 is 2(x² - 1)
+  have h2 : HasDerivAt (fun s => s ^ 2) (2 * (x ^ 2 - 1)) (x ^ 2 - 1) := by
+    have h := hasDerivAt_pow 2 (x ^ 2 - 1)
+    simp only [Nat.cast_ofNat, pow_one, mul_one] at h
+    exact h
+  -- Chain rule: d/dt (t² - 1)² at x = 2(x²-1) * 2x
+  have h3 : HasDerivAt (fun t => (t ^ 2 - 1) ^ 2) (2 * (x ^ 2 - 1) * (2 * x)) x :=
+    h2.comp x h1
+  -- Multiply by constant p.W; arithmetic closes by ring
+  convert h3.const_mul p.W using 1
+  ring
 
 /-- V'(-1+ε) is POSITIVE for ε ∈ (0,1): the gradient points RIGHT (away from -1),
     so Langevin drift ė = -V'(x) points LEFT toward -1 — the system is trapped.

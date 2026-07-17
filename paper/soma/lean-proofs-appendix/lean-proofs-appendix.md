@@ -1834,9 +1834,24 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
     V'(x) = 4W·x·(x² − 1) = 0 iff x = 0 or x = ±1. -/
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
-  -- OP-LT-1 (Mathlib 4.31.0): HasDerivAt.pow renamed; tracked in Open Problems.
-  -- Path to closure: update to HasDerivAt.pow_succ or HasDerivAt.comp once API stabilises.
-  sorry
+  unfold V
+  -- Avoid HasDerivAt.pow (renamed in 4.31.0): use HasDerivAt.comp instead.
+  -- d/dt (t² - 1) at t = x is 2x
+  have h1 : HasDerivAt (fun t => t ^ 2 - 1) (2 * x) x := by
+    have h := (hasDerivAt_pow 2 x).sub (hasDerivAt_const x 1)
+    simp only [Nat.cast_ofNat, pow_one, mul_one, sub_zero] at h
+    exact h
+  -- d/ds (s²) at s = x² - 1 is 2(x² - 1)
+  have h2 : HasDerivAt (fun s => s ^ 2) (2 * (x ^ 2 - 1)) (x ^ 2 - 1) := by
+    have h := hasDerivAt_pow 2 (x ^ 2 - 1)
+    simp only [Nat.cast_ofNat, pow_one, mul_one] at h
+    exact h
+  -- Chain rule: d/dt (t² - 1)² at x = 2(x²-1) * 2x
+  have h3 : HasDerivAt (fun t => (t ^ 2 - 1) ^ 2) (2 * (x ^ 2 - 1) * (2 * x)) x :=
+    h2.comp x h1
+  -- Multiply by constant p.W; arithmetic closes by ring
+  convert h3.const_mul p.W using 1
+  ring
 
 /-- V'(-1+ε) is POSITIVE for ε ∈ (0,1): the gradient points RIGHT (away from -1),
     so Langevin drift ė = -V'(x) points LEFT toward -1 — the system is trapped.
@@ -2329,8 +2344,9 @@ theorem softmax_sum_one {n : ℕ} (hn : 0 < n) (β : ℝ) (z : Fin n → ℝ) :
   unfold softmax
   have hden : 0 < ∑ j, Real.exp (β * z j) :=
     Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
-  -- TODO (Mathlib 4.31.0): Finset.sum_div renamed; use Finset.sum_div_distrib or similar
-  sorry
+  -- \u2211 i, f i / c = (\u2211 i, f i) / c = c / c = 1
+  simp_rw [div_eq_mul_inv]
+  rw [← Finset.sum_mul, mul_inv_cancel₀ (ne_of_gt hden)]
 
 /-- Log-sum-exp at inverse temperature β. -/
 noncomputable def lse {n : ℕ} (β : ℝ) (hβ : 0 < β) (z : Fin n → ℝ) : ℝ :=
@@ -2341,8 +2357,14 @@ theorem lse_ge_max {n : ℕ} (hn : 0 < n) (β : ℝ) (hβ : 0 < β) (z : Fin n �
     z k ≤ lse β hβ z := by
   unfold lse
   rw [div_mul_eq_mul_div, le_div_iff₀ hβ]
-  -- API note (Mathlib 4.31.0): Real.log_exp renamed; use monotone approach
-  sorry -- TODO: rw [← Real.log_exp (...)]; Real.log API changed in 4.31.0
+  have hpos : 0 < ∑ i, Real.exp (β * z i) :=
+    Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
+  calc z k * β
+      = β * z k                          := by ring
+    _ = Real.log (Real.exp (β * z k)) := (Real.log_exp _).symm
+    _ ≤ Real.log (∑ i, Real.exp (β * z i)) := by
+        apply Real.log_le_log (Real.exp_pos _)
+        exact Finset.single_le_sum (fun i _ => Real.exp_nonneg _) _ (Finset.mem_univ k)
 
 /-! ## 1b. Algorithmic Complexity Comparison
 

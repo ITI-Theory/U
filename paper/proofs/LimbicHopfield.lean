@@ -93,8 +93,9 @@ theorem softmax_sum_one {n : ℕ} (hn : 0 < n) (β : ℝ) (z : Fin n → ℝ) :
   unfold softmax
   have hden : 0 < ∑ j, Real.exp (β * z j) :=
     Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
-  -- TODO (Mathlib 4.31.0): Finset.sum_div renamed; use Finset.sum_div_distrib or similar
-  sorry
+  -- \u2211 i, f i / c = (\u2211 i, f i) / c = c / c = 1
+  simp_rw [div_eq_mul_inv]
+  rw [← Finset.sum_mul, mul_inv_cancel₀ (ne_of_gt hden)]
 
 /-- Log-sum-exp at inverse temperature β. -/
 noncomputable def lse {n : ℕ} (β : ℝ) (hβ : 0 < β) (z : Fin n → ℝ) : ℝ :=
@@ -105,8 +106,14 @@ theorem lse_ge_max {n : ℕ} (hn : 0 < n) (β : ℝ) (hβ : 0 < β) (z : Fin n �
     z k ≤ lse β hβ z := by
   unfold lse
   rw [div_mul_eq_mul_div, le_div_iff₀ hβ]
-  -- API note (Mathlib 4.31.0): Real.log_exp renamed; use monotone approach
-  sorry -- TODO: rw [← Real.log_exp (...)]; Real.log API changed in 4.31.0
+  have hpos : 0 < ∑ i, Real.exp (β * z i) :=
+    Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
+  calc z k * β
+      = β * z k                          := by ring
+    _ = Real.log (Real.exp (β * z k)) := (Real.log_exp _).symm
+    _ ≤ Real.log (∑ i, Real.exp (β * z i)) := by
+        apply Real.log_le_log (Real.exp_pos _)
+        exact Finset.single_le_sum (fun i _ => Real.exp_nonneg _) _ (Finset.mem_univ k)
 
 /-! ## 1b. Algorithmic Complexity Comparison
 
