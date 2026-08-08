@@ -13,15 +13,27 @@ lang: en-GB
 # Abstract
 
 This monograph presents a formal mathematical theory of affective dynamics —
-the **Universal Somatic Field (USF)** framework — developed across seventeen
+the **Universal Somatic Field (USF)** framework — developed across nineteen
 papers and formally verified in Lean 4.
 
 The central thesis is that emotional experience is not an epiphenomenon of
-neural computation but a real physical field with measurable dynamics, governed
-by the same mathematics that describes quantum fields, protein folding, and
-cosmological structure.  The theory makes this claim precise enough to be
-falsified, and provides the formal verification infrastructure necessary to
-evaluate it rigorously.
+neural computation but a real physical field with measurable dynamics — and that
+the governing equations of that field are, structurally and precisely, the
+equations of quantum field theory, M-theory, and statistical mechanics.  Not as
+analogy.  As identity.
+
+This was not assumed by importing physics into psychology.  It was derived
+inductively: by counting the minimum functional degrees of freedom required to
+describe a system with a body, an affective field, and a mind, and discovering
+that the result is isomorphic to M-theory's eleven-dimensional architecture.  The
+isomorphism is not a design choice.  It is a theorem — verified by the Lean 4
+proof kernel, which has no stake in the outcome.
+
+The theory makes its claims precise enough to be falsified.  It provides the
+formal verification infrastructure necessary to evaluate them rigorously.  The
+method used to find the equations — Mathematical Co-identification, an honest
+account of the abductive search — is documented in its own paper and is now
+history.  The results stand without it.
 
 **The core model** treats the emotional state vector `e ∈ ℝ⁸` as a point in
 an 8-dimensional BRECVEMA mechanism space (Juslin & Västfjäll 2008) and

@@ -17,15 +17,27 @@ csl: apa-7th.csl
 # Abstract
 
 This monograph presents a formal mathematical theory of affective dynamics —
-the **Universal Somatic Field (USF)** framework — developed across seventeen
+the **Universal Somatic Field (USF)** framework — developed across nineteen
 papers and formally verified in Lean 4.
 
 The central thesis is that emotional experience is not an epiphenomenon of
-neural computation but a real physical field with measurable dynamics, governed
-by the same mathematics that describes quantum fields, protein folding, and
-cosmological structure.  The theory makes this claim precise enough to be
-falsified, and provides the formal verification infrastructure necessary to
-evaluate it rigorously.
+neural computation but a real physical field with measurable dynamics — and that
+the governing equations of that field are, structurally and precisely, the
+equations of quantum field theory, M-theory, and statistical mechanics.  Not as
+analogy.  As identity.
+
+This was not assumed by importing physics into psychology.  It was derived
+inductively: by counting the minimum functional degrees of freedom required to
+describe a system with a body, an affective field, and a mind, and discovering
+that the result is isomorphic to M-theory's eleven-dimensional architecture.  The
+isomorphism is not a design choice.  It is a theorem — verified by the Lean 4
+proof kernel, which has no stake in the outcome.
+
+The theory makes its claims precise enough to be falsified.  It provides the
+formal verification infrastructure necessary to evaluate them rigorously.  The
+method used to find the equations — Mathematical Co-identification, an honest
+account of the abductive search — is documented in its own paper and is now
+history.  The results stand without it.
 
 **The core model** treats the emotional state vector `e ∈ ℝ⁸` as a point in
 an 8-dimensional BRECVEMA mechanism space (Juslin & Västfjäll 2008) and
@@ -334,6 +346,67 @@ The Soma-Field Model is the worked example throughout. The identification was no
 discovered by reading physics textbooks and looking for something that felt similar.
 It was discovered by writing down the equations the emotional system was observed to
 satisfy and recognising the form.
+
+## When MCI Is Over: The Verification Threshold
+
+Here is something no paper on scientific method says clearly enough.
+
+Every scientist who produces a major structural identification — Hopfield recognising
+the Ising Hamiltonian, Veneziano recognising the Euler Beta function — does so by
+being, for a period, a *type astronaut*.  They are scanning the existing mathematical
+universe for a structure whose type signature matches the phenomenon they are studying.
+This is abductive reasoning: not deduction from first principles, not induction from
+data alone, but the systematic search of a known solution space for a structure that
+fits.  It is, to be direct, a form of academic hacking.  And it is how most of
+the connective work of mathematical science actually gets done.
+
+What no one says — because scientists do not typically publish the search, only the
+result — is that the moment of structural identity is also the moment the method
+becomes irrelevant.
+
+When Veneziano published his scattering amplitude, he did not need to cite the
+library where he found the Beta function.  The formula was true.  Every theorem about
+the Beta function was now a theorem about hadronic scattering.  The library visit was
+the ladder; the amplitude was the building.  The ladder came down.
+
+The present work makes this transition explicit, because being explicit about it is
+itself a contribution.  Every reader of the earlier papers — particularly
+*Mathematical Co-identification* — has correctly understood that MCI was the search
+engine.  What should now be equally clear is that the search is over.
+
+The exact moment the search ended was when the Lean 4 kernel accepted the proof.
+Not when a reviewer accepted a paper.  Not when a human mathematician checked the
+algebra.  When a formal proof-checking engine with no stake in the outcome closed the
+goal.  That is the verification threshold.  Before it: exploration.  After it:
+structural fact.
+
+**What the work therefore rests on is not MCI.  It rests on four things:**
+
+1. **Inductive structural necessity.** The 11-dimensional decomposition of a
+   body-field-mind system is not an analogy with M-theory.  It is the minimum
+   geometry required to account for the functional degrees of freedom of a conscious
+   organism.  The isomorphism to M-theory is a *theorem*, not a design choice.
+
+2. **Structural identity, not analogy.** A co-identification is not "A is like B."
+   It is "A *is* B under relabelling."  Every theorem about B becomes a theorem about
+   A — immediately, without re-derivation.  This is categorically different from
+   saying that emotional dynamics *resemble* a Hopfield network.  They *are* one.
+
+3. **Scale invariance.** The same Helmholtz Green's function equation governs 20
+   scales of physical reality, from quantum foam to the cosmic web.  This is a
+   discovered law.  MCI was used to find it; it stands whether or not MCI is
+   remembered.
+
+4. **Kernel verification.** The Lean 4 proofs are the epistemological gold standard.
+   A human reviewer can miss a subtle error.  The kernel cannot.  Kernel-verified
+   theorems are exactly as true as the axioms they depend on — and the axioms are
+   explicit and listed.
+
+The *mathematical-co-identification* paper remains an accurate account of how the
+work was done — and naming the search process honestly is itself a contribution, in
+a discipline where the search is usually erased.  But readers coming to the thesis or
+omnibus now should understand that they are reading the *results*, not the method.
+The method is in the history.  The results are in the formal proofs.
 
 ---
 
