@@ -24,7 +24,6 @@ abstract: |
   Programme: subsequent papers apply the same master equation to geophysics,
   social dynamics, game theory, and law, each written for the relevant
   domain's audience without requiring familiarity with the others.
-keywords: [Universal Somatic Field, M-theory, Green's function, scale invariance, HoTT, Lean 4, cosmology, astrophysics, 11-dimensional manifold]
 ---
 
 # Introduction: The Elevator Question
