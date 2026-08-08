@@ -102,7 +102,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Clinical Psychology and Psychotherapy",
         "audience": "clinical psychologists, therapists, psychiatrists",
         "field": "clinical psychology, psychotherapy, trauma studies",
-        "papers": ["c:soma-field-patient-pov", "c:SFT-DEMO-CASE", "c:missing-limbic-layer", "c:preverbal-manifold"],
+        "papers": ["c:soma-field-patient-pov", "c:SFT-DEMO-CASE", "c:missing-limbic-layer", "c:preverbal-manifold",
+                   "c:soma-field-synthesis", "c:experimental-validation", "c:soma-field-paper"],
         "prompt_extra": "Write for practitioners. Lead with the clinical implications: trauma wells, somatic injection, the God-Knob as therapeutic intervention. No excessive physics. The DEMO-CASE paper should be presented as illustrating the framework in action.",
     },
     {
@@ -111,7 +112,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Computer Science and AI",
         "audience": "computer scientists, AI researchers, software engineers",
         "field": "computer science, artificial intelligence, formal verification",
-        "papers": ["c:swarm-propagator", "c:experimental-validation", "c:soma-field-synthesis", "c:mathematical-co-identification"],
+        "papers": ["c:swarm-propagator", "c:experimental-validation", "c:soma-field-synthesis",
+                   "c:mathematical-co-identification", "c:lean-proofs-appendix", "c:soma-field-paper"],
         "prompt_extra": "Lead with the Lean 4 kernel verification and the O(N^2) result. The Benchmark.lean timing comparison is the concrete deliverable. The swarm coordination result has immediate applications in multi-agent AI.",
     },
     {
@@ -120,7 +122,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Formal Logic and Mathematics",
         "audience": "mathematicians, logicians, type theorists",
         "field": "formal mathematics, type theory, algebraic topology, HoTT",
-        "papers": ["c:mathematical-co-identification", "c:soma-field-paper", "c:universal-somatic-field", "c:zoomable-somatic-field"],
+        "papers": ["c:mathematical-co-identification", "c:soma-field-paper", "c:universal-somatic-field",
+                   "c:zoomable-somatic-field", "c:lean-proofs-appendix"],
         "prompt_extra": "Lead with the HoTT formulation and the dependent type architecture. The 20-scale ScaleUniverse type is a mathematical object. The consciousness threshold theorem as a sharp dichotomy. Lean 4 proofs as primary evidence.",
     },
     {
@@ -129,7 +132,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Consciousness Studies and Philosophy of Mind",
         "audience": "philosophers of mind, consciousness researchers",
         "field": "philosophy of mind, consciousness studies, phenomenology",
-        "papers": ["c:universal-somatic-field", "c:quantum-soma-penrose", "c:soma-physical-substrate", "c:preverbal-manifold"],
+        "papers": ["c:universal-somatic-field", "c:quantum-soma-penrose", "c:soma-physical-substrate",
+                   "c:preverbal-manifold", "c:soma-field-synthesis", "c:soma-field-paper", "c:missing-limbic-layer"],
         "prompt_extra": "Lead with the consciousness threshold T_c as a phase transition. The hard problem is not mysterious; it is mis-stated. Qualia are the internal view of the field crossing T_c. Connect to Chalmers, IIT, and CEMI. The Penrose quantum tunnelling connection.",
     },
     {
@@ -138,7 +142,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Complex Systems and Emergence",
         "audience": "complex systems researchers, network scientists",
         "field": "complex systems, emergence, self-organisation, network science",
-        "papers": ["c:zoomable-somatic-field", "c:geographic-somatic-field", "c:swarm-propagator", "c:gestalt-field-dynamics"],
+        "papers": ["c:zoomable-somatic-field", "c:geographic-somatic-field", "c:swarm-propagator",
+                   "c:gestalt-field-dynamics", "c:soma-field-paper", "c:soma-field-synthesis"],
         "prompt_extra": "Lead with the 20-scale invariance and what it means for emergence: the same dynamics at every scale. The geographic somatic field paper shows the same equation governing dialect spread and bird murmurations. Power-law statistics as signatures of criticality.",
     },
     {
@@ -156,7 +161,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Geophysics and Earth Sciences",
         "audience": "geophysicists, seismologists, Earth scientists",
         "field": "geophysics, seismology, tectonics, Earth sciences",
-        "papers": ["c:geographic-somatic-field", "c:zoomable-somatic-field", "f:soma-geophysics"],
+        "papers": ["c:geographic-somatic-field", "c:zoomable-somatic-field", "f:soma-geophysics",
+                   "c:soma-field-paper", "c:soma-field-synthesis", "c:universal-somatic-field"],
         "prompt_extra": "Lead with the seismic propagator as an instance of the master Green's function. The WKB prediction for earthquake nucleation as the main testable result. Rock strata as geological memory. Contrast with standard Gutenberg-Richter without theoretical derivation.",
     },
     {
@@ -165,7 +171,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Social Science and Sociology",
         "audience": "sociologists, social psychologists, anthropologists",
         "field": "sociology, social psychology, anthropology, political science",
-        "papers": ["c:geographic-somatic-field", "c:swarm-propagator", "f:soma-social-intelligence"],
+        "papers": ["c:geographic-somatic-field", "c:swarm-propagator", "f:soma-social-intelligence",
+                   "c:gestalt-field-dynamics", "c:soma-field-synthesis", "c:soma-field-paper"],
         "prompt_extra": "Lead with rapport as Huygens frequency locking and the SQ definition. The geographic somatic field paper shows real geographic social phenomena. The swarm O(N^2) result applies to organisational coordination. Social trust as spectral gap.",
     },
     {
@@ -174,7 +181,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Economics and Game Theory",
         "audience": "economists, game theorists, financial mathematicians",
         "field": "economics, game theory, financial mathematics, mechanism design",
-        "papers": ["c:swarm-propagator", "c:experimental-validation", "f:soma-game-theory"],
+        "papers": ["c:swarm-propagator", "c:experimental-validation", "f:soma-game-theory",
+                   "c:soma-field-synthesis", "c:mathematical-co-identification", "c:soma-field-paper"],
         "prompt_extra": "Lead with Nash equilibrium = Hopfield minimum. Market crashes as topological phase transitions. The WKB prediction for minimum regulatory intervention strength. The prisoner's dilemma as topological obstruction. O(N^2) coordination as market efficiency target.",
     },
     {
@@ -183,7 +191,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Law and Jurisprudence",
         "audience": "legal scholars, jurisprudents, political scientists, policymakers",
         "field": "law, jurisprudence, political theory, regulatory studies",
-        "papers": ["c:soma-field-synthesis", "c:universal-somatic-field", "f:soma-law"],
+        "papers": ["c:soma-field-synthesis", "c:universal-somatic-field", "f:soma-law",
+                   "c:mathematical-co-identification", "c:soma-field-paper", "c:soma-physical-substrate"],
         "prompt_extra": "Lead with rights as topological invariants. The rule of law as ergodicity. Legal uncertainty as attractor fragmentation. Do not assume physics background; introduce the key concepts through legal analogies first. The constitutional meta-constraint argument is the most accessible entry point.",
     },
     {
@@ -192,7 +201,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Philosophy, Politics, and Economics",
         "audience": "PPE students and scholars, political economists, philosophers",
         "field": "philosophy, politics, economics (Oxford PPE tradition)",
-        "papers": ["c:soma-field-synthesis", "f:soma-game-theory", "f:soma-law", "c:soma-field-patient-pov"],
+        "papers": ["c:soma-field-synthesis", "f:soma-game-theory", "f:soma-law", "c:soma-field-patient-pov",
+                   "c:universal-somatic-field", "c:mathematical-co-identification", "c:soma-field-paper"],
         "prompt_extra": "This is the edge-case test book. PPE covers philosophy (consciousness, mind-body), politics (governance, regulation), and economics (game theory, markets). Show that the same master equation governs all three. The patient-perspective paper grounds the abstraction in lived experience.",
     },
     {
@@ -201,7 +211,8 @@ DOMAINS = [
         "subtitle": "[T]-Theory Volume: Psychiatry, ASD, and Trauma",
         "audience": "psychiatrists, psychologists, neurodivergent people and their families",
         "field": "psychiatry, clinical psychology, neurodevelopmental conditions",
-        "papers": ["c:missing-limbic-layer", "c:preverbal-manifold", "c:soma-field-patient-pov", "f:soma-asd-unified"],
+        "papers": ["c:missing-limbic-layer", "c:preverbal-manifold", "c:soma-field-patient-pov", "f:soma-asd-unified",
+                   "c:experimental-validation", "c:quantum-soma-penrose", "c:soma-physical-substrate"],
         "prompt_extra": "Lead with the operator modification framing: ASC and CPTSD are not disorders but field modifications. The ASD operator (high beta, narrow Arnold tongue) and the CPTSD operator (non-ergodic, EC decoupled). Why they co-occur. Clinical implications for therapeutic order. Write with care for the lived experience of neurodivergent readers.",
     },
 ]
@@ -267,6 +278,10 @@ def main():
         generate_kappas()
         return
 
+    if "--omnibus" in sys.argv:
+        build_omnibus()
+        return
+
     target_ids = [a for a in sys.argv[1:] if not a.startswith("--")]
     if not target_ids:
         target_ids = [d["id"] for d in DOMAINS]
@@ -278,9 +293,72 @@ def main():
         out_path.write_text(body, encoding="utf-8")
         lines = body.count("\n")
         size_kb = out_path.stat().st_size / 1024
-        print(f"  → {out_path.name}  ({lines:,} lines, {size_kb:.0f} KB)")
+        print(f"  -> {out_path.name}  ({lines:,} lines, {size_kb:.0f} KB)")
 
     print(f"\nAll done. Run 'make all' to build PDFs.")
+
+
+def build_omnibus():
+    """Assemble all 15 books into one T-Theory omnibus file."""
+    print("\nBuilding T-Theory Omnibus...")
+
+    # Papers excluded from the omnibus (too large / code-heavy for single-pass PDF)
+    OMNIBUS_EXCLUDE = {"lean-proofs-appendix"}
+
+    opening_path = FRACTAL_DIR / "ttheory-opening.md"
+    if not opening_path.exists():
+        print("  WARNING: ttheory-opening.md not found", file=sys.stderr)
+        opening_text = ""
+    else:
+        opening_text = opening_path.read_text(encoding="utf-8").strip()
+
+    frontmatter = """\
+---
+title: "[T]-Theory: The Complete Fractal Programme"
+subtitle: "Fifteen Domain Books on the Universal Somatic Field"
+author: "Alistair Johnson"
+orcid: "0009-0007-2194-0850"
+institute: "Independent Researcher, Zurich, Switzerland"
+date: "2026"
+lang: en-GB
+bibliography: ../../paper/bibliography.bib
+csl: ../../paper/apa-7th.csl
+---"""
+
+    sections = [frontmatter, f"\n\n{opening_text}\n"]
+
+    for domain in DOMAINS:
+        print(f"\n  Assembling: {domain['id']}")
+        # Build a filtered version of the book (excluding omnibus_exclude papers)
+        dom_copy = dict(domain)
+        dom_copy["papers"] = [p for p in domain["papers"]
+                              if p.split(":", 1)[-1] not in OMNIBUS_EXCLUDE]
+        # Inline assembly (kappa + filtered papers + conclusion)
+        book_sections = []
+        kappa_path = KAPPA_DIR / f"kappa-{domain['id']}.md"
+        if kappa_path.exists():
+            book_sections.append(kappa_path.read_text(encoding="utf-8").strip())
+            print(f"    + kappa-{domain['id']}")
+        for paper_ref in dom_copy["papers"]:
+            body = get_paper_body(paper_ref)
+            if body:
+                pname = paper_ref.split(":", 1)[-1] if ":" in paper_ref else paper_ref
+                book_sections.append(f"\\newpage\n\n{body}")
+                print(f"    + {pname}")
+        conc_path = CONC_DIR / f"conclusion-{domain['id']}.md"
+        if conc_path.exists():
+            book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
+            print(f"    + conclusion-{domain['id']}")
+        book_body = "\n\n".join(book_sections)
+        sections.append(f"\n\n\\newpage\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+
+    full_text = "\n".join(sections)
+    out_path = BLD_DIR / "ttheory-omnibus-body.md"
+    out_path.write_text(full_text, encoding="utf-8")
+    size_mb = out_path.stat().st_size / (1024 * 1024)
+    lines = full_text.count("\n")
+    print(f"\n  -> {out_path.name}  ({lines:,} lines, {size_mb:.1f} MB)")
+    print("  Run 'make omnibus' to build the PDF.")
 
 
 def generate_kappas():
