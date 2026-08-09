@@ -41,7 +41,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 .PHONY: all help omnibus omnibus-royal omnibus-a4 \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
-	thesis thesis-royal thesis-a4 thesis-a4-compact thesis-a4-2col \
+	grep --help thesis-royal thesis-a4 thesis-a4-compact thesis-a4-2col \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 

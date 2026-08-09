@@ -2323,3 +2323,40 @@ The theory was at 9/10 going in; the session was about closing the gap.
 
 6. Lean library + tests: See Phase 2 priority 1 above.
 7. 3D wireframe models: For swarm/tectonic experiments in Wave Atlas (Part2/book/).
+
+## 2026-08-09 — Session: Fractal Programme v2, BFSS Lean, P10, T-Theory Omnibus
+
+**Fractal Programme v2.0** (Part2/fractal-programme/):
+- 15 domain books built, all expanded to thesis scale (38KB → 172–240KB)
+- 15 conclusion chapters written (3,000–4,000 words each)
+- T-Theory omnibus: 4.5MB PDF, [T] sticker cover page, 15 books concatenated
+- `make omnibus` / `make all` fully functional
+- lean-proofs-appendix added to computer-science and formal-mathematics books
+
+**P10: soma-temporal-dynamics** (paper/soma/soma-temporal-dynamics/):
+- Retarded Green's function G_R(x,t;x',t'), Somatic Memory Kernel K(τ)=K₀e^{-τ/τ_m}
+- Kramers mean first-passage time, WKB temporal barrier
+- Therapeutic intervention as optimal control problem
+- Type-theoretic section: causality as dependent type G_R:(t t':Time)→(t'<t)→Field
+
+**Lean proofs — physlib-grounded (paper/proofs/):**
+- MTheoryIsomorphism.lean v4: replaces 4+3+1+3=11 with genuine physlib theorems
+  (trajectory_equationOfMotion, planeWave_waveEquation, ω_sq)
+- BFSSIsomorphism.lean (NEW): first Lean formalisation of BFSS/M-theory connection
+  BFSS cortex via IsHermitian.eigenvalues, D3-brane gauge field, HW orbifold
+
+**HoTT/Σ-type notation added:**
+- universal-somatic-field: Σ-type formulation, fiber bundle, Zoom Operator type
+- soma-temporal-dynamics: retarded propagator as dependent type (causality proof)
+
+**Zenodo queue (awaiting upload):**
+- P10: soma-temporal-dynamics.pdf
+- P11: zoomable-somatic-field.pdf
+- P12: experimental-validation.pdf
+- P13: missing-limbic-layer.pdf
+- C2: ttheory-omnibus-zenodo.pdf
+Upload at: https://zenodo.org/uploads/new
+
+**Post-release TODO:**
+- Update GitHub org README (QR code landing page)
+- Create public NotebookLM notebook with main PDFs, link from GH page

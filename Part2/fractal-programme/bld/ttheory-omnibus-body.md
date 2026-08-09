@@ -6970,10 +6970,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -21464,10 +21491,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -23149,10 +23203,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -39163,10 +39244,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -46821,10 +46929,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -51780,10 +51915,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
