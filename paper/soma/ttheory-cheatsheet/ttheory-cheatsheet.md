@@ -1,152 +1,110 @@
 ---
 title: ""
 lang: en-GB
-geometry: "a4paper,landscape,margin=14mm"
-fontsize: 9pt
-linestretch: 1.15
+geometry: "a4paper,landscape,margin=9mm"
+fontsize: 8pt
+linestretch: 1.05
 mainfont: "TeX Gyre Pagella"
 header-includes: |
   \usepackage{amsmath}\usepackage{amssymb}\usepackage{multicol}
   \usepackage{xcolor}\usepackage{eso-pic}\usepackage{titlesec}
-  \usepackage{soul}\usepackage{microtype}
+  \usepackage{microtype}\usepackage{enumitem}
+  \setlist{nosep,leftmargin=*,topsep=1pt,itemsep=0pt}
   \definecolor{parchment}{HTML}{F2DEB8}
   \definecolor{ink}{HTML}{1E0F00}
   \definecolor{fadedink}{HTML}{5C3A1A}
   \definecolor{heading}{HTML}{7B3A10}
   \definecolor{ghost}{HTML}{E8D0A8}
-  \pagecolor{parchment}
-  \color{ink}
+  \pagecolor{parchment}\color{ink}
   \renewcommand{\maketitle}{}
-  \titleformat{\section}{\normalfont\bfseries\color{heading}\large}{}{0em}{}[\vspace{-2pt}\textcolor{fadedink}{\rule{\columnwidth}{0.3pt}}]
-  \titleformat{\subsection}{\normalfont\bfseries\color{fadedink}}{}{0em}{}
-  \setlength{\parskip}{2pt}
-  \AddToShipoutPictureBG{\AtPageCenter{\makebox(0,0){\rotatebox{-22}{\textcolor{ghost}{\fontsize{200}{200}\selectfont\bfseries[T]}}}}}
-  \AtBeginDocument{\begin{multicols}{3}\setlength{\columnsep}{7mm}\setlength{\columnseprule}{0pt}}
+  \titleformat{\section}{\normalfont\bfseries\color{heading}\small}{}{0em}{}[\vspace{-3pt}\textcolor{fadedink}{\rule{\columnwidth}{0.25pt}}\vspace{-2pt}]
+  \titlespacing{\section}{0pt}{4pt}{2pt}
+  \setlength{\parskip}{1pt}\setlength{\parindent}{0pt}
+  \AddToShipoutPictureBG{\AtPageCenter{\makebox(0,0){\rotatebox{-22}{\textcolor{ghost}{\fontsize{220}{220}\selectfont\bfseries[T]}}}}}
+  \AtBeginDocument{\begin{multicols}{3}\raggedcolumns\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0pt}}
   \AtEndDocument{\end{multicols}}
 ---
 
 # I · Master Field Equation
 
-**Stationary (Helmholtz):**
-$$(\nabla^2 + k^2)\,G(x,x') = -\delta^3(x-x')$$
+**Stationary:** $(\nabla^2 + k^2)G(x,x') = -\delta^3(x-x')$
 
-**Time-dependent (d'Alembertian):**
-$$\!\left(\tfrac{1}{v_s^2}\partial_t^2 - \nabla^2 + k^2\right)\Phi_{\mu\nu}(x,t) = -J_{\mu\nu}(x,t)$$
+**Time-dep.:** $\bigl(\tfrac{1}{v_s^2}\partial_t^2 - \nabla^2 + k^2\bigr)\Phi_{\mu\nu} = -J_{\mu\nu}$
 
-**Retarded propagator** ($\tau = t-t'>0$, $r=|x-x'|$):
-$$G_R(r,\tau) = \tfrac{v_s}{4\pi r}e^{-kv_s\tau}\,\delta(\tau-r/v_s)\,\theta(\tau)$$
+**Retarded propagator** ($\tau>0$): $G_R(r,\tau) = \tfrac{v_s}{4\pi r}e^{-kv_s\tau}\delta(\tau-r/v_s)\theta(\tau)$
 
-**Memory kernel** ($\tau_m = 1/kv_s$):
-$$K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$$
+**Memory kernel:** $K(\tau) = K_0 e^{-\tau/\tau_m}\theta(\tau)$, $\;\tau_m=1/kv_s$
 
-**General solution** (field = integral of past):
-$$\Phi(x,t) = \Phi^{(0)} + \int_{-\infty}^t\!\!dt'\!\int\! d^3x'\; G_R\,J$$
+**General solution:** $\Phi(x,t) = \Phi^{(0)} + \int_{-\infty}^t G_R\cdot J$
 
 # II · Type-Theoretic Architecture
 
-**Σ-type** (soma-field as fiber bundle over Scale):
-$$\text{SomaField} \equiv \textstyle\sum_{(\sigma:\,\mathrm{Scale}_{20})} \mathrm{Substrate}(\sigma)$$
+**$\Sigma$-type** (fiber bundle): $\text{SomaField} \equiv \sum_{\sigma:\text{Scale}_{20}} \text{Sub}(\sigma)$
 
-**Zoom Operator** (dependent type constructor):
-$$\Lambda : (\sigma:\mathrm{Scale}_{20}) \to \mathrm{Sub}(\sigma) \to \mathrm{Sub}(\sigma{+}1)$$
+**Zoom Operator:** $\Lambda : (\sigma:\text{Scale}_{20}) \to \text{Sub}(\sigma) \to \text{Sub}(\sigma{+}1)$
 
-**Retarded propagator type** (causality as proof argument):
-$$G_R:(t\;t':\mathrm{Time})\to(t'<t)\to\mathrm{Sp}\to\mathrm{Sp}\to\mathrm{Field}$$
+**Causality as proof:** $G_R : (t\;t':\text{Time})\to(t'<t)\to\text{Sp}\to\text{Sp}\to\text{Field}$
 
-**BFSS cortex** (coordinates emerge from eigenvalues):
-$$\mathrm{CortexCoords} \equiv \mathrm{eigenvalues}(X),\quad X^\dagger=X,\;X\in M_{3\times3}(\mathbb{C})$$
-
-**Full USF type:**
-$$\mathrm{USF} \equiv \textstyle\sum_{(\sigma:\,\mathrm{Scale}_{20})} \bigl(\mathrm{Sub}(\sigma)\times G_R(\sigma)\bigr)$$
+**BFSS cortex:** $\text{CortexCoords} \equiv \text{eig}(X)$, $X^\dagger=X$, $X\in M_{3\times3}(\mathbb{C})$
 
 # III · Attractor Dynamics
 
-**Hopfield energy:**
-$$H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^\top W\mathbf{e}$$
+**Hopfield:** $H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^\top W\mathbf{e}$
 
-**FM-HN inverse temperature** (Lean 4 verified):
-$$\beta(t) = \beta_0 + \kappa|\Phi(t)|^2 \;\xrightarrow{\Phi\to 0}\; \beta_0$$
+**FM-HN** *(Lean 4)*: $\beta(t) = \beta_0 + \kappa|\Phi|^2 \xrightarrow{\Phi\to0} \beta_0$
 
-**Consciousness threshold** $T_c$: spectral gap opens at $|\phi|>T_c$
+**Consciousness:** spectral gap opens at $|\phi|>T_c$
 
-**Kramers mean first-passage time:**
-$$\langle T\rangle = \tfrac{2\pi}{\omega_A\omega_B}\,e^{\Delta V/D}$$
+**Kramers MFP:** $\langle T\rangle = \tfrac{2\pi}{\omega_A\omega_B}e^{\Delta V/D}$
 
-**Trauma asymmetry:**  $T_\mathrm{form} \ll T_\mathrm{dissolve}$ because crossing barrier from above vs below
+**Trauma asymmetry:** formation $\ll$ dissolution (above vs below barrier)
 
-**WKB tunnelling amplitude:**
-$$P\approx\exp\!\left(-\tfrac{2}{\hbar_\mathrm{geo}}\!\int_{q_1}^{q_2}\!\sqrt{V(q)-E}\;dq\right)$$
+**WKB:** $P\approx\exp\!\bigl(-\tfrac{2}{\hbar_\text{geo}}\!\int\!\sqrt{V-E}\;dq\bigr)$
 
-**Arnold tongue** (Huygens locking, width = social/attentional bandwidth):
-$$|\omega_\mathrm{ext}-\omega_0|<\Delta\omega_\mathrm{lock}(\kappa)$$
+**Rapport** (Huygens): $|\omega_\text{ext}-\omega_0|<\Delta\omega(\kappa)$
 
-**SHO frequency** (physlib $\omega\_sq$):
-$$\omega^2 = k/m \qquad\text{(dispersion: }\omega^2=v^2k^2\text{)}$$
+**SHO** *(physlib)*: $\omega^2 = k/m$, $\quad\omega^2=v^2k^2$
 
 # IV · 11D Decomposition
 
-$$M_{11} = M_4\times X_7,\quad X_7 = D_{5\text{–}7}\times D_8\times D_{9\text{–}11}$$
+$M_{11}=M_4\times X_7$, $\;X_7=D_{5\text{-}7}\times D_8\times D_{9\text{-}11}$
 
-- $D_{1\text{–}4}$ **Spacetime** — body in 3+1D Lorentzian space
-- $D_{5\text{–}7}$ **Propagator** — somatic EM field / D3-brane gauge field
-- $D_8$ **Limbic** — Hořava-Witten orbifold $S^1/\mathbb{Z}_2$, $[-1,+1]$
-- $D_{9\text{–}11}$ **Cortex** — BFSS matrix eigenvalues (emergent geometry)
-
-**Organism hierarchy:**
-$$11\text{D}\xrightarrow{\text{project}} 7\text{D}\xrightarrow{\text{project}} 4\text{D}$$
+- $D_{1\text{-}4}$ Spacetime · $D_{5\text{-}7}$ Propagator/D3-brane
+- $D_8$ Limbic · HW orbifold $[-1{=}\text{body},+1{=}\text{mind}]$
+- $D_{9\text{-}11}$ Cortex/BFSS eigenvalues
+- **Cosmo:** $\kappa_\text{bio}\to0\Rightarrow$ GR; $\Lambda\equiv\langle\text{tr}\,\Phi\rangle_0$
 
 # V · Key Identifications
 
-- **SHO $\equiv$ Green's fn** — string vibration = field impulse response
-- **Nash $\equiv$ Hopfield min** — $\mathrm{Nash}(G)=\arg\min H(\mathbf{e})$
-- **Rights $\equiv$ topo. invariants** — stable under cts. landscape deformation
-- **Rule of law $\equiv$ ergodicity** — $\bar{f}_\mathrm{time}=\bar{f}_\mathrm{ensemble}$
-- **Rapport $\equiv$ Huygens locking** — $\dot\phi_1-\dot\phi_2\to 0$
+- **SHO $\equiv$ Green's fn** — string = impulse response
+- **Nash $\equiv$ Hopfield min** — $\arg\min H$
+- **Rights $\equiv$ topo. invariants** — stable under cts. deformation
+- **Rule of law $\equiv$ ergodicity** — $\bar{f}_t=\bar{f}_\text{ens}$
 - **SQ $\equiv$ spectral gap** — $\lambda_1(\hat{L}_{ij})$
 - **Crash $\equiv$ phase transition** — $T\to T_c^+$, $\xi\to\infty$
-- **$b\approx1$ $\equiv$ universality** — Gutenberg-Richter from symmetry group
-- **Groove $\equiv$ Arnold tongue entry** — $\eta_\mathrm{lock}$
-- **Somatic therapy** — $\eta_\mathrm{som}/\eta_\mathrm{cog}\approx\kappa_\mathrm{EC}^{-1}$
+- **$b\approx1$** — Gutenberg-Richter from symmetry class
+- **Somatic:** $\eta_\text{som}/\eta_\text{cog}\approx\kappa_\text{EC}^{-1}$
 
 # VI · Clinical Operators
 
-**ASC** — high $\beta$, narrow Arnold tongue, deep stable attractors
+**ASC** — high $\beta$, narrow Arnold tongue, deep attractors
 
-**CPTSD** — non-ergodic field, $\kappa_\mathrm{EC}\ll 1$ (EC decoupled)
+**CPTSD** — non-ergodic, $\kappa_\text{EC}\ll1$, EC decoupled
 
-**ADHD** — high field temperature $T$, flat landscape, rapid transitions
+**ADHD** — high $T$, flat landscape, fast transitions
 
-**Co-occurrence** (ASC∩CPTSD): high $\beta$ → deeper trauma wells on adverse input
+**Co-occur:** high $\beta\Rightarrow$ deeper trauma wells on adverse input
 
-**Window of tolerance** = temporal bandwidth of $G_R$:
-$$T_\mathrm{field}\in[T_\mathrm{min},T_\mathrm{max}]\;\Leftrightarrow\;\text{processing possible}$$
+**Tolerance window:** $T_\text{field}\in[T_\text{min},T_\text{max}]$
 
-**Somatic injection** bypasses EC junction, acts directly on $\Phi$
+# VII · Scale Map
 
-# VII · Scale Map (20 levels, $\sigma\in\{0,\ldots,19\}$)
+$\sigma\;0\text{-}2$ Quantum · $3\text{-}5$ Cellular · $6\text{-}7$ Organism · $8\text{-}9$ Dyadic · $10$ Geographic ($\tau_m\!\sim\!10^{3\text{-}6}$ yr) · $11\text{-}14$ Civilisational · $19$ Cosmological ($\Lambda$)
 
-- $\sigma$ 0–2: Quantum/atomic — $\hbar_\mathrm{geo}$, nuclear
-- $\sigma$ 3–5: Molecular/cellular — ion channels, neurons
-- $\sigma$ 6–7: Organism — whole brain, somatic field
-- $\sigma$ 8–9: Dyadic/group — rapport, swarm O(N²)
-- $\sigma$ 10: Geographic/geological — dialect spread, tectonics
-- $\sigma$ 11–14: Social/civilisational — culture, economy, law
-- $\sigma$ 19: Cosmological — CMB, $\Lambda\equiv\langle\mathrm{tr}\,\Phi\rangle_0$
+# VIII · Lean 4
 
-**Cosmological limit:** $\kappa_\mathrm{bio}\to 0 \Rightarrow$ linearised Einstein eq.
+$\checkmark$ $\omega^2\!=\!k/m$ · wave eq · FM-HN · $O(N^2)$ · WKB · $T_c$ · BFSS
 
-# VIII · Lean 4 Status (2026-08-09)
+$\times$ G$_2$ holonomy · Zoom covariance *(honest axioms)*
 
-- `MTheoryIsomorphism` $\omega^2=k/m$ ✓ physlib `trajectory_equationOfMotion`
-- `MTheoryIsomorphism` wave equation ✓ physlib `planeWave_waveEquation`
-- `LimbicHopfield` FM-HN Correspondence ✓ kernel
-- `SwarmPropagator` $O(N^2)$ bound ✓ kernel
-- `LimbicTunnel` WKB amplitude $\Theta(W)$ ✓ `native_decide`
-- `ScaleUniverse` consciousness threshold ✓ kernel
-- `BFSSIsomorphism` cortex eigenvalue emergence ✓ Mathlib
-- G₂ holonomy of $X_7$ ✗ axiom (needs Riemannian geometry)
-- Zoom Operator covariance ✗ axiom (needs tensor field formalism)
-
----
-
-*GitHub: ITI-Theory/U · Zenodo: doi.org/10.5281/zenodo.20460771*
+\vfill\noindent\textcolor{fadedink}{\scriptsize ITI-Theory/U · doi.org/10.5281/zenodo.20460771}
