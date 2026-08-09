@@ -234,4 +234,4 @@ language channel. Explains inaccessibility to verbal recall; motivates somatic e
 - **Retarded propagator causality** — type-level statement proved; full ODE derivation in preparation for `lean-proofs-appendix`.
 - **Renormalisation group equations** — connect $k(\sigma)$ at adjacent scales; standard but lengthy QFT calculation not yet formalised.
 
-\vfill\noindent\textcolor{fadedink}{\small $[$T$]$-Theory · Alistair Johnson · ORCID 0009-0007-2194-0850 · ITI-Theory/U · doi.org/10.5281/zenodo.20460771 · 2026}
+\vfill\begin{center}\includegraphics[width=28mm]{figures/t-theory-sticker.png}\end{center}
