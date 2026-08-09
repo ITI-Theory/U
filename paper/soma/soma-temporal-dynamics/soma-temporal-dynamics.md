@@ -469,12 +469,28 @@ Lean 4 theorem; the exponential decay of the memory kernel should follow as a
 corollary; the Kramers mean first-passage time formula should be derived from
 the field equation in the overdamped limit.
 
-These formalisations are in preparation and will be incorporated into the
-lean-proofs-appendix in a future update. The formal statement of causality — that
-the retarded Green's function satisfies $G_R = 0$ for $t < t'$ — is a type-level
-constraint that can be encoded as a proof obligation in the Lean 4 type system,
-ensuring that the temporal dynamics are consistent with the causal structure of
-spacetime.
+The formal statement of causality — that $G_R = 0$ for $t < t'$ — is precisely
+a **dependent type constraint** in the Lean 4 type system. In the type-theoretic
+reading, the retarded propagator has the type:
+
+$$G_R : (t\,t' : \mathrm{Time}) \to (t' < t) \to \mathrm{Space} \to \mathrm{Space} \to \mathrm{Field}$$
+
+The inequality $t' < t$ is a proof argument — a term of type `Prop` that must
+be supplied at every call site. The Lean 4 kernel enforces causality at compile
+time: any use of the propagator that does not supply a proof of $t' < t$ is a
+type error. The temporal arrow of time is not a convention but a structural
+constraint woven into the type signature of the propagator.
+
+This is the type-theoretic completion of the USF's kinematic picture. The spatial
+Σ-type (the soma-field as a dependent sum over scale levels, established in
+`ScaleUniverse.lean`) is joined by the temporal dependent type (the retarded
+propagator as a function that takes a causality proof). Together they give the
+full USF type:
+
+$$\text{USF} \;\equiv\; \sum_{\sigma : \mathrm{Scale}_{20}} \left( \mathrm{Substrate}(\sigma) \;\times\; G_R(\sigma) \right)$$
+
+where $G_R(\sigma)$ is the retarded propagator at scale $\sigma$, carrying the
+causality constraint as a proof argument.
 
 ## The Unified Kinematic Picture
 
