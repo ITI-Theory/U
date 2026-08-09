@@ -131,9 +131,21 @@ theorem boundary_not_interior (i : Fin 2) : ¬ limbicInterior (limbicBoundary i)
 
 axiom G₂_holonomy_iso : ∃ (_ : CompactX7 → CompactX7), True
 
-axiom scale_invariance_full :
-    ∀ (sc : ℝ) (_ : 0 < sc) (f₀ : ℝ → EuclideanSpace ℝ (Fin 3)) (v : ℝ)
-      (s : Direction 3) (_ : ContDiff ℝ 2 f₀) (t : Time) (x : Space 3),
-    WaveEquation (somaticPropagatorMode (fun r => f₀ (sc * r)) (v / sc) s) t x (v / sc)
+/-- **PROVED** (was axiom): Zoom Operator covariance — the wave equation is
+    preserved under simultaneous rescaling of amplitude and velocity.
+    If f₀ is C², then f₀(sc··) is C², and planeWave_waveEquation applies directly.
+
+    Physical meaning: rescaling (v,k) → (v/sc, k/sc) preserves ω = vk (dispersion
+    relation), so the same equation holds at the new scale with new coupling constants.
+    This closes the Zoom Operator covariance proof obligation. -/
+theorem scale_invariance_full
+    (sc : ℝ) (_ : 0 < sc) (f₀ : ℝ → EuclideanSpace ℝ (Fin 3)) (v : ℝ)
+    (s : Direction 3) (hf₀ : ContDiff ℝ 2 f₀) (t : Time) (x : Space 3) :
+    WaveEquation (somaticPropagatorMode (fun r => f₀ (sc * r)) (v / sc) s) t x (v / sc) := by
+  simp only [somaticPropagatorMode]
+  apply planeWave_waveEquation (v / sc) s _ _ t x
+  -- Goal: ContDiff ℝ 2 (fun r => f₀ (sc * r))
+  -- This is f₀ ∘ (fun r => sc * r); the inner map is smooth (linear), outer is hf₀.
+  exact hf₀.comp (by fun_prop)
 
 end SomaField.MTheory
