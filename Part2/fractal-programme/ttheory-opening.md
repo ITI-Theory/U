@@ -1,5 +1,11 @@
 # [T]-Theory: A Complete Programme
 
+\begin{center}
+\includegraphics[width=45mm]{../../paper/figures/t-theory-sticker.png}
+\end{center}
+
+\vspace{2mm}
+
 ## Science, Art, and the Universal Field
 
 **[T]-Theory** is both a scientific framework and an art movement. The brackets around the T are intentional: they mark the boundary between the formal system (the mathematics inside) and the cultural practice (the art, music, and lived philosophy that surrounds it).
