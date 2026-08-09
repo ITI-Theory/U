@@ -101,3 +101,6 @@ srcDir = "paper/proofs"
 [[lean_lib]]
 name = "RenormalisationGroup"
 srcDir = "paper/proofs"
+[[lean_lib]]
+name = "USF_OSAxioms"
+srcDir = "paper/proofs"
