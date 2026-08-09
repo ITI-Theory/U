@@ -13,11 +13,7 @@ csl: ../../paper/apa-7th.csl
 
 # [T]-Theory: A Complete Programme
 
-\begin{center}
-\includegraphics[width=45mm]{../../paper/figures/t-theory-sticker.png}
-\end{center}
-
-\vspace{2mm}
+![](t-theory-sticker.png){width=55mm fig-align="center"}
 
 ## Science, Art, and the Universal Field
 
