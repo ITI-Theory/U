@@ -3,7 +3,7 @@ defaultTargets = [
   "EmotionOntology", "Hopfield", "FieldProofs", "SomaField",
   "DyadicField", "LimbicTunnel", "MTheoryIsomorphism", "LimbicHopfield",
   "SwarmPropagator", "UniversalSomaticField", "Movie",
-  "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark"
+  "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism"
 ]
 
 # ---------------------------------------------------------------------------
@@ -88,4 +88,8 @@ srcDir = "paper/proofs"
 
 [[lean_lib]]
 name = "Benchmark"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "BFSSIsomorphism"
 srcDir = "paper/proofs"
