@@ -1,18 +1,28 @@
 ---
-title: "[T]-Theory — Reference Card"
-author: "Alistair Johnson · ORCID 0009-0007-2194-0850"
-date: "2026"
+title: ""
 lang: en-GB
-geometry: "a4paper,landscape,margin=12mm"
+geometry: "a4paper,landscape,margin=14mm"
 fontsize: 9pt
-linestretch: 1.1
+linestretch: 1.15
+mainfont: "TeX Gyre Pagella"
 header-includes: |
   \usepackage{amsmath}\usepackage{amssymb}\usepackage{multicol}
-  \usepackage{booktabs}\usepackage{array}\usepackage{xcolor}
-  \AtBeginDocument{\begin{multicols}{3}}
+  \usepackage{xcolor}\usepackage{eso-pic}\usepackage{titlesec}
+  \usepackage{soul}\usepackage{microtype}
+  \definecolor{parchment}{HTML}{F2DEB8}
+  \definecolor{ink}{HTML}{1E0F00}
+  \definecolor{fadedink}{HTML}{5C3A1A}
+  \definecolor{heading}{HTML}{7B3A10}
+  \definecolor{ghost}{HTML}{E8D0A8}
+  \pagecolor{parchment}
+  \color{ink}
+  \renewcommand{\maketitle}{}
+  \titleformat{\section}{\normalfont\bfseries\color{heading}\large}{}{0em}{}[\vspace{-2pt}\textcolor{fadedink}{\rule{\columnwidth}{0.3pt}}]
+  \titleformat{\subsection}{\normalfont\bfseries\color{fadedink}}{}{0em}{}
+  \setlength{\parskip}{2pt}
+  \AddToShipoutPictureBG{\AtPageCenter{\makebox(0,0){\rotatebox{-22}{\textcolor{ghost}{\fontsize{200}{200}\selectfont\bfseries[T]}}}}}
+  \AtBeginDocument{\begin{multicols}{3}\setlength{\columnsep}{7mm}\setlength{\columnseprule}{0pt}}
   \AtEndDocument{\end{multicols}}
-  \setlength{\columnsep}{8mm}
-  \setlength{\columnseprule}{0.3pt}
 ---
 
 # I · Master Field Equation
