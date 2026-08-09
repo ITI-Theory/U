@@ -1,0 +1,42 @@
+% ttheory-titlepage.tex — Custom title page for the [T]-Theory Fractal Programme omnibus.
+% Mirrors the thesis title page (paper/bld/thesis-2col-fixed.tex lines 218-258).
+\usepackage{graphicx}
+\makeatletter
+\let\old@maketitle\maketitle
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \thispagestyle{empty}
+    % Sticker — upper right
+    \begin{flushright}
+      \IfFileExists{t-theory-sticker.png}{%
+        \includegraphics[width=55mm]{t-theory-sticker.png}%
+      }{%
+        {\sffamily\bfseries\huge[T]}%
+      }
+    \end{flushright}
+    \vfill
+    % Title block
+    {\hrule height 2pt}
+    \vspace{6mm}
+    {\Huge\bfseries\sffamily\@title\par}
+    \vspace{4mm}
+    {\hrule height 0.6pt}
+    \vspace{4mm}
+    \@ifundefined{@subtitle}{}{%
+      {\large\itshape\@subtitle\par}%
+      \vspace{8mm}%
+    }
+    \vfill
+    {\large\sffamily \@author\par}
+    \vspace{2mm}
+    {\small\sffamily Independent Researcher, Zurich, Switzerland\par}
+    \vspace{1mm}
+    {\small\sffamily ORCID: 0009-0007-2194-0850\par}
+    \vspace{4mm}
+    {\hrule height 0.4pt}
+    \vspace{3mm}
+    {\small\sffamily\@date\par}
+  \end{titlepage}
+  \clearpage
+}
+\makeatother

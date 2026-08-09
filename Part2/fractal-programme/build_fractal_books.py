@@ -312,17 +312,16 @@ def build_omnibus():
     else:
         opening_text = opening_path.read_text(encoding="utf-8").strip()
 
-    # Suppress pandoc auto-title page; our opening.md provides the title page.
+    # ttheory-titlepage.tex overrides \maketitle to show sticker + styled title page.
     frontmatter = """\
 ---
-title: ""
+title: "[T]-Theory: The Complete Fractal Programme"
+subtitle: "Fifteen Domain Books on the Universal Somatic Field"
+author: "Alistair Johnson"
+date: "2026"
 lang: en-GB
-title-meta: "[T]-Theory: The Complete Fractal Programme"
-author-meta: "Alistair Johnson"
 bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
-header-includes: |
-  \\renewcommand{\\maketitle}{}
 ---"""
 
     sections = [frontmatter, f"\n\n{opening_text}\n"]

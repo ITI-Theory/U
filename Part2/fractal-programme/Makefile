@@ -44,6 +44,7 @@ OMNIBUS_FLAGS := \
   -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue \
   -V monofont="Consolas" --highlight-style=tango \
   --include-in-header=../../paper/journal.tex \
+  --include-in-header=ttheory-titlepage.tex \
   --lua-filter=../../paper/strip-keywords.lua \
   --citeproc --bibliography=../../paper/bibliography.bib \
   --csl=../../paper/apa-7th.csl \
