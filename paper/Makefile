@@ -28,6 +28,9 @@ $(eval $(call register, soma-field-synthesis,           citeproc, multi, synthes
 $(eval $(call register, soma-physical-substrate,        citeproc, multi, substrate))
 $(eval $(call register, soma-field-book,                book,     multi, book    ))
 $(eval $(call register, the-tensor,                     book,     multi, tensor  ))
+$(eval $(call register, soma-temporal-dynamics,         citeproc, en,    temporal))
+$(eval $(call register, usf-euclidean-qft,              citeproc, en,    osqft   ))
+$(eval $(call register, usf-interacting-qft,           citeproc, en,    intqft  ))
 
 # Derived target lists (computed from registry)
 _ALL_EN_PDFS := $(addprefix $(BUILDDIR)/, $(addsuffix .pdf, $(ALL_DOCS)))

@@ -33,7 +33,7 @@ cd paper && make check        # verify toolchain (pandoc + xelatex)
 ```
 
 ## Papers — Publication Status (as of May 30, 2026)
-All 11 records published on Zenodo. Full DOI registry: `paper/ZENODO_RELEASE_SHEETS.md`.
+All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P15 written 2026-08-10. Full DOI registry: `paper/ZENODO_RELEASE_SHEETS.md`.
 
 | ID | Paper | Concept DOI |
 |---|---|---|
@@ -48,6 +48,13 @@ All 11 records published on Zenodo. Full DOI registry: `paper/ZENODO_RELEASE_SHE
 | P8 | the-tensor | https://doi.org/10.5281/zenodo.20460613 |
 | P9 | music-affect-dynamics | https://doi.org/10.5281/zenodo.20460685 |
 | C1 | omnibus | https://doi.org/10.5281/zenodo.20460771 |
+| P10 | soma-temporal-dynamics | pending Zenodo upload |
+| P11 | zoomable-somatic-field | pending Zenodo upload |
+| P12 | experimental-validation | pending Zenodo upload |
+| P13 | missing-limbic-layer | pending Zenodo upload |
+| C2 | ttheory-fractal-omnibus | pending Zenodo upload |
+| P14 | usf-euclidean-qft | not yet submitted |
+| P15 | usf-interacting-qft | research programme paper, not yet submitted |
 
 ## Git State (as of May 30, 2026)
 - All repos clean and pushed (main branch, no uncommitted changes)
