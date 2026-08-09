@@ -7,6 +7,7 @@
 \usepackage{titlesec}
 \usepackage{microtype}
 \usepackage{enumitem}
+\usepackage{booktabs}
 \setlist{nosep,leftmargin=*,topsep=1pt,itemsep=0pt}
 \definecolor{parchment}{HTML}{F2DEB8}
 \definecolor{ink}{HTML}{1E0F00}
@@ -17,9 +18,10 @@
 \color{ink}
 \renewcommand{\maketitle}{}
 \titleformat{\section}{\normalfont\bfseries\color{heading}\small}{}{0em}{}[\vspace{-3pt}\textcolor{fadedink}{\rule{\columnwidth}{0.25pt}}\vspace{-2pt}]
-\titlespacing{\section}{0pt}{4pt}{2pt}
+\titlespacing{\section}{0pt}{5pt}{2pt}
 \setlength{\parskip}{1pt}
 \setlength{\parindent}{0pt}
-\AddToShipoutPictureBG{\AtPageCenter{\makebox(0,0){\rotatebox{-22}{\textcolor{ghost}{\fontsize{220}{220}\selectfont\bfseries[T]}}}}}
-\AtBeginDocument{\begin{multicols}{3}\raggedcolumns\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0pt}}
+\AddToShipoutPictureBG{%
+  \AtPageCenter{\makebox(0,0){\rotatebox{-22}{\textcolor{ghost}{\fontsize{180}{180}\selectfont\bfseries[T]}}}}}
+\AtBeginDocument{\begin{multicols}{4}\raggedcolumns\setlength{\columnsep}{5mm}\setlength{\columnseprule}{0pt}}
 \AtEndDocument{\end{multicols}}
