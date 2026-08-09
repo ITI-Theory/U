@@ -4,26 +4,29 @@ defaultTargets = [
   "DyadicField", "LimbicTunnel", "MTheoryIsomorphism", "LimbicHopfield",
   "SwarmPropagator", "UniversalSomaticField", "Movie",
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
-  "TemporalDynamics", "RenormalisationGroup"
+  "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms"
 ]
 
 # ---------------------------------------------------------------------------
-# Dependencies
+# Dependencies — mathlib LAST so our v4.31.0 pin wins over transitive pins
 # ---------------------------------------------------------------------------
 
 [[require]]
-# Mathlib: the community Lean 4 mathematics library (~200k theorems)
-name = "mathlib"
-git = "https://github.com/leanprover-community/mathlib4.git"
+# physlib v4.31.0
+name = "physlib"
+git = "https://github.com/leanprover-community/physlib.git"
 rev = "v4.31.0"
 
 [[require]]
-# Physlib (formerly PhysLean / HepLean): physics formalisation library.
-# Contains: QuantumInfo (density matrices, quantum channels, Stein's lemma),
-#           Physlib (quantum mechanics, field theory, particle physics).
-# Relevant for: LimbicTunnel WKB, QuantumSim, SomaNetwork, QUANT-EXP-1.
-name = "physlib"
-git = "https://github.com/leanprover-community/physlib.git"
+# OSforGFF at pre-PR6 commit — written for v4.29.0, patching transitive deps for v4.31.0
+name = "OSforGFF"
+git = "https://github.com/mrdouglasny/OSforGFF.git"
+rev = "60ab679e09b764de6dfe01767ae361ac1bea30b8"
+
+[[require]]
+# Mathlib LAST — overrides any transitive pins from OSforGFF
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
 rev = "v4.31.0"
 
 # ---------------------------------------------------------------------------

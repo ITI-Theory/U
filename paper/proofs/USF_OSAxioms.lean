@@ -1,12 +1,12 @@
-import Physlib.ClassicalMechanics.WaveEquation.Basic
+import OSforGFF.OS.Master
 
 /-!
 # USF_OSAxioms.lean — Free-Field USF Satisfies Osterwalder-Schrader Axioms
 
 ## Status
 
-The theorem statement is proved up to one sorry, which will close once the USF
-toolchain is updated to Lean v4.33.0-rc1 (to match OSforGFF).
+Fully proved — 0 sorries. OSforGFF is pinned at pre-PR6 commit (Lean v4.29.0 era),
+compatible with our v4.31.0 toolchain.
 
 ## The Connection
 
@@ -59,14 +59,13 @@ The interacting theory (with Hopfield coupling κ) is the next step.
 
 ## Proof
 
-The proof is a single import + application of the master theorem. It is currently
-marked `sorry` pending toolchain upgrade from v4.31.0 to v4.33.0-rc1. The proof
-method is fully specified and requires no further mathematical work.
+The proof is a single application of `gaussianFreeField_satisfies_all_OS_axioms`
+from OSforGFF (Douglas, Hoback, Mei, Nissim 2026) under the identification m_GFF ↔ k_USF.
 -/
 
 namespace SomaField.OSAxioms
 
-open ClassicalMechanics Space Time
+open OSforGFF
 
 /-! ## The Identification Theorem -/
 
@@ -74,48 +73,30 @@ open ClassicalMechanics Space Time
     Under this identification, all GFF results apply to the free-field USF. -/
 def USF_mass_identification (k : ℝ) : ℝ := k
 
-/-- OS0: The USF generating functional Z[f] = exp(-½ C(f,f)) is analytic.
-    Follows from gaussianFreeField_satisfies_all_OS_axioms via k ↔ m. -/
-theorem USF_OS0_Analyticity (k : ℝ) (hk : 0 < k) : True := trivial
+/-- OS0: The USF generating functional Z[f] = exp(-½ C(f,f)) is analytic. -/
+theorem USF_OS0_Analyticity (k : ℝ) [Fact (0 < k)] :
+    OS0_Analyticity (μ_GFF k) :=
+  (gaussianFreeField_satisfies_all_OS_axioms k).os0
 
 /-- OS3: The free-field USF satisfies Reflection Positivity.
-    This guarantees a physical Hilbert space via Wick rotation.
-    The retarded propagator (proved in TemporalDynamics.lean) is the
-    Minkowski-space version of this Euclidean field. -/
-theorem USF_OS3_ReflectionPositivity (k : ℝ) (hk : 0 < k) : True := trivial
+    Guarantees a physical Hilbert space via Wick rotation. -/
+theorem USF_OS3_ReflectionPositivity (k : ℝ) [Fact (0 < k)] :
+    OS3_ReflectionPositivity (μ_GFF k) :=
+  (gaussianFreeField_satisfies_all_OS_axioms k).os3
 
-/-- OS4: The free-field USF satisfies Clustering.
-    This is precisely the exponential decay of the memory kernel:
-    K(τ) = K₀·exp(-τ/τ_m)·θ(τ), proved in TemporalDynamics.lean.
-    The clustering rate is τ_m = 1/(k·v_s). -/
-theorem USF_OS4_Clustering (k : ℝ) (hk : 0 < k) : True := trivial
+/-- OS4: The free-field USF satisfies Clustering — the exponential decay
+    K(τ) = K₀·exp(-τ/τ_m)·θ(τ) proved in TemporalDynamics.lean. -/
+theorem USF_OS4_Clustering (k : ℝ) [Fact (0 < k)] :
+    OS4_Clustering (μ_GFF k) :=
+  (gaussianFreeField_satisfies_all_OS_axioms k).os4_clustering
 
 /-- **MASTER THEOREM**: The free-field USF satisfies all 5 Osterwalder-Schrader
     axioms for a Euclidean quantum field theory.
 
-    PROOF METHOD: This follows immediately from
-      OSforGFF.OS.Master.gaussianFreeField_satisfies_all_OS_axioms k
-    under the identification m_GFF ↔ k_USF, once the USF toolchain is
-    updated to Lean v4.33.0-rc1 (OSforGFF's toolchain version).
-
-    The proof requires:
-      import OSforGFF.OS.Master
-      exact gaussianFreeField_satisfies_all_OS_axioms k
-
-    SORRY: pending toolchain sync from v4.31.0 → v4.33.0-rc1.
-    No further mathematical work is required. -/
-theorem freefield_USF_satisfies_OS_axioms (k : ℝ) (hk : 0 < k) :
-    True ∧ True ∧ True ∧ True ∧ True ∧ True :=
-  ⟨trivial, trivial, trivial, trivial, trivial, trivial⟩
-
--- INTENDED PROOF (once OSforGFF is imported):
--- theorem freefield_USF_satisfies_OS_axioms (k : ℝ) [Fact (0 < k)] :
---     OS0_Analyticity (μ_GFF k) ∧
---     OS1_Regularity (μ_GFF k) ∧
---     OS2_EuclideanInvariance (μ_GFF k) ∧
---     OS3_ReflectionPositivity (μ_GFF k) ∧
---     OS4_Clustering (μ_GFF k) ∧
---     OS4_Ergodicity (μ_GFF k) :=
---   gaussianFreeField_satisfies_all_OS_axioms k
+    Proved via `gaussianFreeField_satisfies_all_OS_axioms` (Douglas, Hoback,
+    Mei, Nissim 2026) under the identification m_GFF ↔ k_USF. -/
+theorem freefield_USF_satisfies_OS_axioms (k : ℝ) [Fact (0 < k)] :
+    SatisfiesAllOS (μ_GFF k) :=
+  gaussianFreeField_satisfies_all_OS_axioms k
 
 end SomaField.OSAxioms
