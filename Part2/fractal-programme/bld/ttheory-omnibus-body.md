@@ -1,19 +1,46 @@
 ---
-title: "[T]-Theory: The Complete Fractal Programme"
-subtitle: "Fifteen Domain Books on the Universal Somatic Field"
-author: "Alistair Johnson"
-orcid: "0009-0007-2194-0850"
-institute: "Independent Researcher, Zurich, Switzerland"
-date: "2026"
+title: ""
 lang: en-GB
+title-meta: "[T]-Theory: The Complete Fractal Programme"
+author-meta: "Alistair Johnson"
 bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
+header-includes: |
+  \renewcommand{\maketitle}{}
 ---
 
 
 # [T]-Theory: A Complete Programme
 
-![](t-theory-sticker.png){width=55mm fig-align="center"}
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+
+\includegraphics[width=55mm]{t-theory-sticker.png}
+
+\vspace{1.5cm}
+
+{\Huge\bfseries [T]-Theory}
+
+\vspace{0.4cm}
+
+{\LARGE The Complete Fractal Programme}
+
+\vspace{0.6cm}
+
+{\large Fifteen Domain Books on the Universal Somatic Field}
+
+\vspace{1.5cm}
+
+{\normalsize Alistair Johnson}\\[0.2cm]
+{\small ORCID: 0009-0007-2194-0850}\\
+{\small Independent Researcher, Zurich, Switzerland}\\[0.2cm]
+{\small 2026}
+
+\vfill
+\end{titlepage}
+
+\newpage
 
 ## Science, Art, and the Universal Field
 
