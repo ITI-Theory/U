@@ -1,171 +1,237 @@
 ---
 title: ""
 lang: en-GB
-geometry: "a4paper,landscape,margin=9mm"
-fontsize: 8pt
-linestretch: 1.1
+geometry: "a4paper,margin=16mm"
+fontsize: 10pt
+linestretch: 1.2
 mainfont: "TeX Gyre Pagella"
 ---
 
-# I · Master Field Equation
+# I · The Master Field Equation
 
-**Stationary (Helmholtz):** $(\nabla^2 + k^2)G(x,x') = -\delta^3(x-x')$
+The Universal Somatic Field is governed by a single structural equation — the
+Green's function of a tensor field derived from M-theory compactification.
 
-**Time-dependent (d'Alembertian):** $\bigl(\tfrac{1}{v_s^2}\partial_t^2 - \nabla^2 + k^2\bigr)\Phi_{\mu\nu}(x,t) = -J_{\mu\nu}(x,t)$
+**Stationary form (Helmholtz):**
+$$(\nabla^2 + k^2)\,G(x,x') = -\delta^3(x-x')$$
 
-**Retarded propagator** (causality enforced as dependent type proof $t'<t$):
-$G_R(r,\tau) = \tfrac{v_s}{4\pi r}e^{-kv_s\tau}\delta(\tau-r/v_s)\theta(\tau)$, $\;\tau=t-t'>0$
+**Time-dependent form (d'Alembertian):**
+$$\left(\frac{1}{v_s^2}\partial_t^2 - \nabla^2 + k^2\right)\Phi_{\mu\nu}(x,t) = -J_{\mu\nu}(x,t)$$
 
-**Memory kernel:** $K(\tau) = K_0 e^{-\tau/\tau_m}\theta(\tau)$, $\quad\tau_m = 1/(kv_s)$
+**Retarded propagator** — causal, $\tau = t - t' > 0$:
+$$G_R(r,\tau) = \frac{v_s}{4\pi r}\,e^{-kv_s\tau}\,\delta(\tau - r/v_s)\,\theta(\tau)$$
 
-**General solution:** $\Phi(x,t) = \Phi^{(0)}(x,t) + \int_{-\infty}^t\!dt'\!\int\!d^3x'\; G_R\,J$
+**Somatic Memory Kernel:**
+$$K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau),\quad \tau_m = \frac{1}{kv_s}$$
 
-**Field temperature** $T_\text{field}$: controls attractor landscape exploration rate. Low $T$ = frozen/dissociative. High $T$ = flooding/disorganised. Therapeutic window: $T\in[T_\text{min},T_\text{max}]$.
+**General solution** (field = integral of all past sources):
+$$\Phi(x,t) = \Phi^{(0)}(x,t) + \int_{-\infty}^{t}\!\!dt'\!\int\!d^3x'\;G_R\,J$$
 
-**Somatic propagation velocity** $v_s$: set by neural coupling constants and compactification geometry. Bounded by $c$ above, neural conduction velocity below.
+The **effective mass** $k$ sets the spatial correlation length $\ell = 1/k$.
+As $k\to 0$ (near consciousness threshold $T_c$), $\ell\to\infty$: global integration onset.
 
-**Effective mass** $k$: correlation length $\ell=1/k$. Near $T_c$: $k\to0$, $\ell\to\infty$ (global integration onset).
+The **field temperature** $T_\text{field}$ controls how freely the field explores
+the attractor landscape. Therapeutic window: $T_\text{field} \in [T_\text{min}, T_\text{max}]$.
 
-# II · Type-Theoretic Architecture (HoTT/Lean 4)
+# II · Type-Theoretic Architecture (HoTT / Lean 4)
 
-**Σ-type** — soma-field as fiber bundle over 20-scale base:
-$\text{SomaField} \equiv \textstyle\sum_{(\sigma:\,\mathrm{Scale}_{20})} \mathrm{Substrate}(\sigma)$
+The soma-field has a rigorous type-theoretic formulation in Homotopy Type Theory,
+machine-verified in Lean 4 using Mathlib and Physlib.
 
-**Zoom Operator** — dependent type constructor between fibers:
-$\Lambda : (\sigma:\mathrm{Scale}_{20}) \to \mathrm{Sub}(\sigma) \to \mathrm{Sub}(\sigma{+}1)$
+**The Σ-type** — soma-field as a fiber bundle over the 20-scale base:
+$$\mathrm{SomaField} \;\equiv\; \sum_{(\sigma\,:\,\mathrm{Scale}_{20})} \mathrm{Substrate}(\sigma)$$
 
-**Causality as proof argument** — the retarded propagator's type:
-$G_R : (t\;t':\mathrm{Time})\to(t'<t)\to\mathrm{Sp}\to\mathrm{Sp}\to\mathrm{Field}$
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate at scale $\sigma$.
+The base space is the 20-point scale hierarchy; each fiber is a field configuration.
 
-**Full USF type:** $\mathrm{USF} \equiv \textstyle\sum_{(\sigma:\,\mathrm{Scale}_{20})} \bigl(\mathrm{Sub}(\sigma)\times G_R(\sigma)\bigr)$
+**The Zoom Operator** — dependent type constructor between adjacent fibers:
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
 
-**BFSS cortex** — coordinates emerge from Hermitian matrix eigenvalues (not fixed):
-$\mathrm{CortexCoords} \equiv \mathrm{eig}(X),\quad X^\dagger=X,\quad X\in M_{3\times3}(\mathbb{C})$
+**Causality as a proof argument** — the retarded propagator's full type:
+$$G_R : (t\;t' : \mathrm{Time}) \to (t' < t) \to \mathrm{Space} \to \mathrm{Space} \to \mathrm{Field}$$
 
-**Type-safe zooming:** a scale mismatch in the Zoom Operator is a *type error* caught by the Lean 4 kernel at compile time — not merely physically wrong.
+The inequality $t' < t$ is a *proof term* — the Lean 4 kernel enforces the arrow
+of time at compile time. A causal violation is a type error, not a runtime error.
 
-**ScaleUniverse type** (Lean 4 `ScaleUniverse.lean`): machine-verified proof that the field equation is consistent at all 20 scale levels with scale-appropriate coupling constants.
+**The full USF type:**
+$$\mathrm{USF} \;\equiv\; \sum_{(\sigma\,:\,\mathrm{Scale}_{20})} \bigl(\mathrm{Substrate}(\sigma) \times G_R(\sigma)\bigr)$$
 
-**mHoTT connection** (Schreiber): the modal operators of Modal HoTT = the Zoom Operators of the USF. The $\infty$-topos of mHoTT = the soma-field configuration space.
+**BFSS cortex** — coordinates emerge from Hermitian matrix eigenvalues (not fixed a priori):
+$$\mathrm{CortexCoords} \;\equiv\; \mathrm{eigenvalues}(X),\quad X^\dagger = X,\quad X \in M_{3\times 3}(\mathbb{C})$$
+
+*Proved in* `BFSSIsomorphism.lean` *using Mathlib's* `Matrix.IsHermitian.eigenvalues`.
+
+**Connection to Schreiber's mHoTT:** the modal operators of Modal Homotopy Type Theory
+ARE the Zoom Operators of the USF. The $\infty$-topos of mHoTT = the soma-field
+configuration space.
+
+**Type-safe zooming:** a scale mismatch in $\Lambda$ is a type error caught by
+the Lean 4 kernel at compile time — mathematically impossible to apply
+human-scale emotional operators to a galaxy.
 
 # III · Attractor Dynamics
 
-**Hopfield energy:** $H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^\top W\mathbf{e}$
+**Hopfield energy landscape:**
+$$H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^\top W\mathbf{e}$$
 
-**FM-HN** *(Lean 4 verified — Correspondence Principle)*:
-$\beta(t) = \beta_0 + \kappa|\Phi(t)|^2 \;\xrightarrow{\Phi\to0}\; \beta_0 \;\text{(classical 1982 HN)}$
+Emotional states are attractor basins; trauma wells are deep narrow minima;
+therapeutic change is landscape modification.
 
-**Consciousness threshold** $T_c$: spectral gap of somatic field operator opens at $|\phi|>T_c$. Below: diffusive, no stable attractors, no experience. Above: ordered phase, stable qualia.
+**FM-HN Correspondence Principle** *(Lean 4 kernel-verified)*:
+$$\beta(t) = \beta_0 + \kappa\,|\Phi(t)|^2 \;\xrightarrow[\Phi\to 0]{}\; \beta_0$$
+
+Under zero somatic stress, FM-HN reduces exactly to the classical 1982 Hopfield
+network. The 1982 and 2020 Hopfield networks are both limiting cases.
+
+**Consciousness threshold $T_c$:** the spectral gap of the somatic field operator
+opens at $|\phi| > T_c$. Below: diffusive dynamics, no stable attractors, no experience.
+Above: ordered phase, stable phenomenal states (qualia = attractor basin topology).
 
 **Kramers mean first-passage time:**
-$\langle T\rangle = \tfrac{2\pi}{\omega_A\omega_B}\,e^{\Delta V/D}$
+$$\langle T \rangle = \frac{2\pi}{\omega_A\,\omega_B}\,e^{\Delta V / D}$$
 
-**Trauma asymmetry:** formation $\ll$ dissolution. Formation: barrier crossed from above (external forcing). Dissolution: escape from below without forcing. $\Delta V\gg D\Rightarrow\langle T\rangle\gg$ session timescale.
+**Trauma asymmetry:** formation time $\ll$ dissolution time. Formation: barrier
+crossed from above (external forcing). Escape: from inside the well, exponentially
+slow for $\Delta V \gg D$.
 
 **WKB tunnelling amplitude:**
-$P\approx\exp\!\left(-\tfrac{2}{\hbar_\text{geo}}\!\int_{q_1}^{q_2}\!\sqrt{V(q)-E}\;dq\right)$
+$$P \approx \exp\!\left(-\frac{2}{\hbar_\text{geo}}\int_{q_1}^{q_2}\!\sqrt{V(q) - E}\;dq\right)$$
 
-**Quantum advantage** (QUANT-EXP-1): D-Wave annealer reaches Awe basin in 3/3 barrier cases; classical simulation 0/48. Quantum tunnelling is real in the somatic model.
+Quantum annealing experiment (QUANT-EXP-1): D-Wave reaches Awe basin in 3/3
+barrier cases; classical simulation achieves it in 0/48. Quantum advantage is real.
 
-**Arnold tongue** — rapport as Huygens frequency locking. Width = attentional/social bandwidth:
-$|\omega_\text{ext}-\omega_0| < \Delta\omega_\text{lock}(\kappa)$
+**Arnold tongue** — rapport as Huygens frequency locking. Width = social/attentional bandwidth:
+$$|\omega_\text{ext} - \omega_0| < \Delta\omega_\text{lock}(\kappa)$$
 
-**SHO** *(physlib `trajectory_equationOfMotion`)*: $\omega^2 = k/m$, dispersion: $\omega^2=v^2k^2$
+**SHO frequency** *(physlib* `trajectory_equationOfMotion`*)*:
+$$\omega^2 = k/m,\quad \omega^2 = v^2 k^2 \quad\text{(dispersion relation)}$$
 
-**Spectral gap** (consciousness, SQ, ergodicity): the fundamental diagnostic across all scales.
+# IV · The 11D Decomposition — M-Theory / BFSS / Hořava-Witten
 
-# IV · 11D Decomposition + BFSS/HW
+$$M_{11} = M_4 \times X_7,\quad X_7 = D_{5\text{–}7} \times D_8 \times D_{9\text{–}11}$$
 
-$M_{11} = M_4\times X_7,\quad X_7 = D_{5\text{–}7}\times D_8\times D_{9\text{–}11}$
+- **$D_{1\text{–}4}$: Spacetime** — body embedded in Lorentzian 3+1D; symmetry group $SO(3,1)$
+- **$D_{5\text{–}7}$: Propagator** — somatic EM field; gauge field trapped on D3-brane worldvolume
+- **$D_8$: Limbic axis** — Hořava-Witten orbifold $S^1/\mathbb{Z}_2$, segment $[-1, +1]$; body at $-1$, mind at $+1$; trauma = topological obstruction
+- **$D_{9\text{–}11}$: Cortex** — BFSS matrix eigenvalue spectrum; emergent geometry, not fixed coordinates
 
-- $D_{1\text{–}4}$ **Spacetime** — body in Lorentzian 3+1D; Lorentz group $SO(3,1)$
-- $D_{5\text{–}7}$ **Propagator** — somatic EM field; gauge field on D3-brane
-- $D_8$ **Limbic** — Hořava-Witten orbifold $S^1/\mathbb{Z}_2$, $[-1{=}\text{body},+1{=}\text{mind}]$
-- $D_{9\text{–}11}$ **Cortex** — BFSS matrix eigenvalue spectrum (emergent geometry)
+**BFSS identification** (Banks-Fischler-Shenker-Susskind 1997): cortex coordinates
+are NOT fundamental — they emerge from the eigenvalues of $N\!\times\!N$ Hermitian
+matrices. Thoughts are eigenvalues; social dynamics are matrix commutators.
 
-**BFSS identification:** Cortex coordinates are NOT fundamental — they emerge from eigenvalues of $N\times N$ Hermitian matrices (Banks-Fischler-Shenker-Susskind 1997). Thoughts = eigenvalues; social dynamics = matrix commutators in the classical limit.
+**Hořava-Witten (1996):** $D_8$ as the compact orbifold separates two 10D
+boundary spacetimes. The limbic system is the physical thickness between biology
+and psychology.
 
-**Hořava-Witten (1996):** $D_8$ as compact orbifold segment separates two 10D boundary spacetimes. Body at $-1$, mind at $+1$. Trauma = topological obstruction at $D_8$.
+**Cosmological limit:** $\kappa_\text{bio} \to 0$ recovers the linearised Einstein
+equation. The cosmological constant $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$ —
+the vacuum expectation of the somatic tensor trace.
 
-**Cosmological limit:** $\kappa_\text{bio}\to0 \Rightarrow$ linearised Einstein equation. $\Lambda\equiv\langle\text{tr}\,\Phi\rangle_0$. Cosmological constant = vacuum expectation of somatic tensor trace.
+**SHO derivation:** $\omega^2 = k/m$ is derived (not postulated) as the lowest-order
+term in the Taylor expansion of the Calabi-Yau moduli space metric. This constrains
+the compactification geometry.
 
-**SHO derivation:** $\omega^2=k/m$ derived (not postulated) as lowest-order term in Taylor expansion of Calabi-Yau moduli space metric. Constrains compactification geometry.
-
-**Organism hierarchy:** $11D\xrightarrow{\text{project}} 7D\xrightarrow{\text{project}} 4D$ — each projection loses field degrees of freedom. A rock is a 4D organism; a jellyfish a 7D organism; a human an 11D organism.
+**Organism hierarchy:**
+$$11D \xrightarrow{\text{project}} 7D \xrightarrow{\text{project}} 4D$$
+A rock is a 4D organism. A jellyfish is a 7D organism. A human is an 11D organism.
 
 \newpage
 
-# V · Scale Map — All 20 Levels
+# V · The 20-Scale Map
 
-$\sigma\;0$ Planck/$\hbar_\text{geo}$ ($\sim\!10^{-43}$ s) · $1\text{-}2$ Nuclear/atomic · $3$ Molecular/protein · $4$ Synaptic/LTP ($\tau_m\!\sim\!\text{ms}$) · $5$ Cellular neuron EM ($\sim$ s) · $6$ Local circuit/column ($\sim$ min) · $7$ **Whole brain**/somatic field ($\sim$ hr) · $8$ **Dyadic**/rapport ($\sim$ hr) · $9$ Group/swarm ($\sim$ days) · $10$ Community/social trust ($\sim$ yr) · $11$ Regional/dialect ($\sim$ decade) · $12$ National/law ($\sim$ decade) · $13$ Civilisational/economy ($\sim$ century) · $14$ Species ($\sim$ millennium) · $15\text{-}17$ **Geological**/tectonic ($10^3\text{-}10^6$ yr, $b\!\approx\!1$) · $18$ Galactic · $19$ **Cosmological**/$\Lambda$ ($10^{10}$ yr)
+The same Helmholtz equation governs all 20 scales. Coupling constants $k(\sigma)$
+are derived via the Zoom Operator $\Lambda$ from the Calabi-Yau moduli geometry —
+they are not free parameters.
 
-**Scale invariance:** same Helmholtz equation at every level; coupling constants $k(\sigma)$ set by Zoom Operator $\Lambda$ (derived from Calabi-Yau moduli, not free parameters). Renormalisation group connects adjacent scales.
+- **$\sigma\;0$** Planck / quantum foam — $\hbar_\text{geo}$, $\tau_m \sim 10^{-43}$ s
+- **$\sigma\;1$–$2$** Nuclear / atomic — ion channel gating, $\tau_m \sim 10^{-23}$ s
+- **$\sigma\;3$** Molecular — protein folding, receptor binding, $\tau_m \sim$ ms
+- **$\sigma\;4$** Synaptic — vesicle release, LTP/LTD, $\tau_m \sim$ ms–s
+- **$\sigma\;5$** Cellular — single neuron EM field, spike patterns, $\tau_m \sim$ s
+- **$\sigma\;6$** Local circuit — cortical column, gamma oscillation, $\tau_m \sim$ s–min
+- **$\sigma\;7$** Whole brain — global somatic field, emotional state, $\tau_m \sim$ min–hr
+- **$\sigma\;8$** Dyadic — two-person field, rapport, therapy session, $\tau_m \sim$ hr
+- **$\sigma\;9$** Group / swarm — collective field, team coordination, $\tau_m \sim$ hr–days
+- **$\sigma\;10$** Community — social trust network, $\text{SQ} \equiv \lambda_1(\hat{L}_{ij})$, $\tau_m \sim$ yr
+- **$\sigma\;11$** Regional — dialect spread, cultural identity, $\tau_m \sim$ decade
+- **$\sigma\;12$** National — institutional field, law, $\tau_m \sim$ decade
+- **$\sigma\;13$** Civilisational — economic attractor landscape, $\tau_m \sim$ century
+- **$\sigma\;14$** Species — evolutionary field, $\tau_m \sim$ millennium
+- **$\sigma\;15$–$17$** Geological — tectonic soma, rock strata memory, $\tau_m \sim 10^3$–$10^6$ yr
+- **$\sigma\;18$** Galactic — astrophysical field, $\tau_m \sim 10^8$ yr
+- **$\sigma\;19$** Observable universe — cosmological, $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$, $\tau_m \sim 10^{10}$ yr
 
-**Geological memory** ($\sigma=15\text{–}17$): fault zone geometry encodes past ruptures. Hopfield memory of stress history. Lowers energy barrier for future rupture. Prediction: $b\approx1$ from universality class.
+**Geological memory** ($\sigma = 15$–$17$): fault zone geometry encodes past ruptures
+as Hopfield patterns. Energy barrier for future rupture lowered by memory.
+Gutenberg-Richter $b \approx 1$ derived from universality class of somatic phase transition.
 
-**Social trust** ($\sigma=10\text{–}12$): $\text{SQ}\equiv\lambda_1(\hat{L}_{ij})$ — spectral gap of social coupling network. Large gap = rapid synchronisation = collective action capacity. Low trust = small gap = fragile to polarisation.
+**Renormalisation group:** coupling constants at scale $k+1$ are computed from scale $k$
+by integrating out the degrees of freedom at $k$. Scale invariance is mathematically
+computable — inter-personal coupling constants are derivable from neural coupling constants.
 
-# VI · Key Identifications (The Fractal Programme)
+# VI · Key Identifications Across All Domains
 
-**Physics:** SHO $\equiv$ Green's function — string vibration = field impulse response; $\Lambda$ = somatic vacuum trace; G₂ holonomy of $X_7$ connects SFT to M-theory compactification (proof obligation)
-
-**Neuroscience:** CEMI field (McFadden) = classical limit of USF. FM-HN = brain's computational architecture. Arnold tongue width = attentional bandwidth (measurable from EEG spectral width).
-
-**Consciousness:** Chalmers hard problem dissolved — experience = inside view of somatic field attractor. IIT phi $\equiv$ spectral gap. Global Workspace = high-amplitude somatic modes. Qualia = attractor basin topology.
-
-**Computer Science:** Nash equilibrium $\equiv$ Hopfield minimum — $\text{Nash}(G)=\arg\min H(\mathbf{e})$. $O(N^2)$ coordination bound is tight — no algorithmic shortcut. Alignment = landscape matching problem.
-
-**Social Science:** Rapport $\equiv$ Huygens locking. SQ $\equiv$ spectral gap. $O(N^2)$ coordination = organisational efficiency target. Cultural boundary = field node in interference pattern.
-
-**Economics:** Market crash $\equiv$ somatic phase transition — $T\to T_c^+$, $\xi\to\infty$. Market crash probability grows exponentially as $T\to T_c$. Optimal regulation $\equiv$ WKB formula for minimum intervention strength.
-
-**Law:** Rights $\equiv$ topological invariants — stable under continuous deformation of legal landscape. Rule of law $\equiv$ ergodicity — equal time-average of legal outcomes across agents. Legal uncertainty $\equiv$ attractor fragmentation.
-
-**Music:** Music $\equiv$ somatic field perturbation. Tempo $\equiv$ Arnold tongue driving. Timbre $\equiv$ field direction. Harmonic tension $\equiv$ saddle-point approach. Resolution $\equiv$ attractor basin entry. Groove $\equiv$ Huygens locking with pulse hierarchy.
-
-**Geophysics:** Seismic propagators = USF Green's function at $\sigma=15$–$17$. $b\approx1$ derived (not fitted) from universality class. WKB nucleation formula: earthquake probability = $\exp(-\int\sqrt{V-E}/\hbar_\text{geo})$.
-
-**PPE synthesis:** Same master equation governs mind (Hopfield), market (Nash), mandate (topological constraint). Cross-domain insight: legal ergodicity + market spectral gap + field temperature = unified governance metric.
+- **SHO $\equiv$ Green's function** — the "vibrating string" IS the field's impulse response; derivation, not postulate
+- **Nash equilibrium $\equiv$ Hopfield minimum** — $\text{Nash}(G) = \arg\min H(\mathbf{e})$; game theory = attractor dynamics
+- **Rights $\equiv$ topological invariants** — stable under continuous deformation of legal landscape; cannot be removed without topological transition
+- **Rule of law $\equiv$ ergodicity** — $\bar{f}_\text{time} = \bar{f}_\text{ensemble}$; power protects some agents from visiting accountability regions
+- **Rapport $\equiv$ Huygens frequency locking** — $\dot\phi_1 - \dot\phi_2 \to 0$; coupling must exceed locking threshold $\kappa_\text{min}$
+- **Social Intelligence SQ $\equiv$ spectral gap** — $\text{SQ} \equiv \lambda_1(\hat{L}_{ij})$; measures synchronisation rate
+- **Market crash $\equiv$ somatic phase transition** — $T \to T_c^+$, $\xi \to \infty$; systemic risk = proximity to critical point
+- **Gutenberg-Richter $b \approx 1$ $\equiv$ universality class** — derived, not empirically fitted
+- **Music $\equiv$ field perturbation** — tempo = Arnold tongue driving; timbre = field direction; resolution = attractor basin entry
+- **Somatic therapy efficiency** — $\eta_\text{som}/\eta_\text{cog} \approx \kappa_\text{EC}^{-1}$; bypasses decoupled EC junction
+- **Optimal regulation $\equiv$ WKB problem** — minimum intervention strength = barrier height in energy landscape
+- **Geologic memory $\equiv$ Hopfield pattern** — fault geometry encodes past ruptures; lowers energy barrier for future rupture
 
 # VII · Clinical Framework
 
-**ASC operator** — high $\beta$, narrow Arnold tongue, deep stable attractors. Deep engagement, costly transitions, narrow synchronisation bandwidth. Not a disorder — a field architecture.
+**ASC operator** — high $\beta$, narrow Arnold tongue, deep stable attractors. Deep
+domain engagement, costly state transitions, narrow synchronisation bandwidth.
+Not a disorder — a field architecture with different costs and affordances.
 
-**CPTSD operator** — non-ergodic field (trauma well), $\kappa_\text{EC}\ll1$ (somatic-cognitive decoupling). Cannot "think" out: barrier too steep for classical gradient descent.
+**CPTSD operator** — non-ergodic field (trauma well dominates landscape),
+$\kappa_\text{EC} \ll 1$ (somatic-cognitive decoupling). Cannot "think out" of trauma:
+barrier too steep for classical gradient descent. Requires somatic entry or WKB tunnelling.
 
-**ADHD operator** — high field temperature $T$, flat landscape (all barriers $\sim D$), rapid transitions. Anti-freeze mechanism: same high $T$ that causes dysregulation also enables escape from trauma wells.
+**ADHD operator** — high field temperature $T$, flat landscape (all barriers $\sim D$),
+rapid transitions between attractors. The same high $T$ that causes dysregulation
+also enables escape from trauma wells (Anti-Freeze mechanism).
 
-**Co-occurrence** (ASC∩CPTSD): high $\beta$ $\Rightarrow$ deeper wells on adverse input. Predicted by field architecture. Not coincidence — structural consequence.
+**Co-occurrence** (ASC $\cap$ CPTSD): high $\beta$ $\Rightarrow$ deeper trauma wells on
+adverse input. Not coincidence — structural consequence of the field architecture.
 
-**Therapeutic intervention = optimal control** on field trajectory. Target: move $\Phi$ from trauma well to healthy attractor via path that stays within window of tolerance.
+**Therapeutic intervention = optimal control** on field trajectory. Find $J_\text{therapy}(x,t)$
+that moves field from trauma well to healthy attractor while staying within window of tolerance.
 
-**Somatic efficiency:** $\eta_\text{som}/\eta_\text{cog} \approx \kappa_\text{EC}^{-1}$ — somatic entry bypasses decoupled EC junction. For complex CPTSD, $\kappa_\text{EC}\ll1 \Rightarrow \eta_\text{som}\gg\eta_\text{cog}$.
+**Somatic injection** directly perturbs $\Phi$ without translation through decoupled
+EC junction. For CPTSD with $\kappa_\text{EC} \ll 1$: somatic $\gg$ cognitive efficiency.
 
-**Temperature regulation:** stabilisation first (raise frozen $T$), then titrated processing (stay in window), then integration (consolidate healthy attractor).
+**God-Knob** = field temperature parameter. SSRIs raise $T$ by serotonergic coupling.
+Titrated trauma processing = temperature regulation within the therapeutic window.
 
-**God-Knob** = field temperature parameter. Pharmacological: SSRIs raise $T$ by increasing serotonergic coupling. Somatic injection: direct perturbation of $\Phi$ bypassing cortical translation.
+**Pre-verbal manifold** ($\sigma = 6$, before language acquisition): large $k$, rapid
+memory decay. Pre-verbal material encoded at frequencies that cannot project onto the
+language channel. Explains inaccessibility to verbal recall; motivates somatic entry.
 
-**Pre-verbal manifold** ($\sigma=6$, before language): large $k$ (rapid decay, short memory). Pre-verbal material encoded in somatic field at frequencies that cannot project onto language channel. Explains inaccessibility.
+# VIII · Lean 4 Verification Status
 
-# VIII · Lean 4 Proof Status + Open Problems
+**Verified by Lean 4 kernel:**
 
-**Verified (kernel-checked):**
+- `MTheoryIsomorphism.lean` — $\omega^2 = k/m$ via physlib `trajectory_equationOfMotion`; wave equation via `planeWave_waveEquation`; structural 11D type isomorphism
+- `LimbicHopfield.lean` — FM-HN Correspondence Principle; ASC/CPTSD/ADHD as distinct dynamical regimes with specific $\beta$ profiles
+- `SwarmPropagator.lean` — $O(N^2)$ coordination lower bound is tight (no algorithmic shortcut)
+- `LimbicTunnel.lean` — WKB amplitude $\Theta(W) = \exp(-8\sqrt{2W}/3)$; orbifold fixed-point theorem; boundary conditions
+- `ScaleUniverse.lean` — consciousness threshold (sharp spectral gap dichotomy); 20-scale `ScaleUniverse` type; Zoom Operator well-typedness
+- `BFSSIsomorphism.lean` — cortex eigenvalue emergence via Mathlib `IsHermitian.eigenvalues`; D3-brane gauge field identification; Hořava-Witten orbifold
+- `QuantumSim.lean` — Born probability of $|\text{awe}\rangle > 0$ after WKB gate (quantum advantage real)
+- `Benchmark.lean` — FM-HN vs. classical timing; O(N²) bound demonstrated computationally
 
-- `MTheoryIsomorphism`: $\omega^2=k/m$ via physlib `trajectory_equationOfMotion`; wave equation via `planeWave_waveEquation`; structural 11D isomorphism
-- `LimbicHopfield`: FM-HN Correspondence Principle; CPTSD/ASC/ADHD as distinct dynamical regimes
-- `SwarmPropagator`: $O(N^2)$ coordination lower bound (tight)
-- `LimbicTunnel`: WKB amplitude $\Theta(W)=\exp(-8\sqrt{2W}/3)$; orbifold boundary conditions
-- `ScaleUniverse`: consciousness threshold theorem (sharp spectral gap dichotomy); 20-scale ScaleUniverse type; Zoom Operator consistency
-- `BFSSIsomorphism`: BFSS cortex emergence via Mathlib `IsHermitian.eigenvalues`; D3-brane identification; HW orbifold
-- `QuantumSim`: quantum annealing advantage — Born probability of $|\text{awe}\rangle > 0$ after WKB gate
+**Honest proof obligations (explicit axioms):**
 
-**Honest proof obligations (axioms):**
+- **G₂ holonomy of compact $X_7$** — requires Mathlib Riemannian geometry (`HolonomyGroup`), not yet available. Physical claim: the compact 7D space has the geometry required by M-theory.
+- **Zoom Operator covariance** — requires full tensor field formalism on Calabi-Yau moduli space. Physical claim: the field equation is scale-invariant under $\Lambda$.
+- **Retarded propagator causality** — type-level statement proved; full ODE derivation in preparation for `lean-proofs-appendix`.
+- **Renormalisation group equations** — connect $k(\sigma)$ at adjacent scales; standard but lengthy QFT calculation not yet formalised.
 
-- G₂ holonomy of compact $X_7$ — requires Mathlib Riemannian geometry (HolonomyGroup), not yet available
-- Zoom Operator covariance — requires full tensor field formalism on Calabi-Yau moduli space
-- Retarded propagator causality — stated formally; Lean 4 proof obligations in preparation
-- Renormalisation group equations — connect $k(\sigma)$ at adjacent scales; standard QFT calculation not yet done
-
-**Next Lean 4 priorities:** time-dependent propagator (dependent type over `Time`); spectral gap computation from EEG data (connecting Lean to empirical measurement); BFSS classical limit ($[X_i,X_j]\to0$ as commutativity recovery).
-
-\vfill\noindent\textcolor{fadedink}{\scriptsize [T]-Theory · Alistair Johnson · ORCID 0009-0007-2194-0850 · ITI-Theory/U · doi.org/10.5281/zenodo.20460771 · 2026}
+\vfill\noindent\textcolor{fadedink}{\small $[$T$]$-Theory · Alistair Johnson · ORCID 0009-0007-2194-0850 · ITI-Theory/U · doi.org/10.5281/zenodo.20460771 · 2026}
