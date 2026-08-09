@@ -4,7 +4,7 @@ defaultTargets = [
   "DyadicField", "LimbicTunnel", "MTheoryIsomorphism", "LimbicHopfield",
   "SwarmPropagator", "UniversalSomaticField", "Movie",
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
-  "TemporalDynamics"
+  "TemporalDynamics", "RenormalisationGroup"
 ]
 
 # ---------------------------------------------------------------------------
@@ -96,4 +96,8 @@ name = "BFSSIsomorphism"
 srcDir = "paper/proofs"
 [[lean_lib]]
 name = "TemporalDynamics"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
+name = "RenormalisationGroup"
 srcDir = "paper/proofs"
