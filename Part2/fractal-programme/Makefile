@@ -35,6 +35,26 @@ all: $(addprefix $(BUILDDIR)/book-, $(addsuffix .pdf, $(DOMAINS)))
 omnibus: $(BUILDDIR)/ttheory-omnibus.pdf
 	@echo "T-Theory omnibus built."
 
+vol1: $(BUILDDIR)/ttheory-vol1.pdf
+	@echo "T-Theory Vol I: Foundation built."
+
+vol2: $(BUILDDIR)/ttheory-vol2.pdf
+	@echo "T-Theory Vol II: Application built."
+
+$(BUILDDIR)/ttheory-vol1-body.md: FORCE | $(BUILDDIR)
+	$(PYTHON) build_fractal_books.py --vol1
+
+$(BUILDDIR)/ttheory-vol2-body.md: FORCE | $(BUILDDIR)
+	$(PYTHON) build_fractal_books.py --vol2
+
+$(BUILDDIR)/ttheory-vol1.pdf: $(BUILDDIR)/ttheory-vol1-body.md | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
+	@echo "Built: $@"
+
+$(BUILDDIR)/ttheory-vol2.pdf: $(BUILDDIR)/ttheory-vol2-body.md | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
+	@echo "Built: $@"
+
 $(BUILDDIR)/ttheory-omnibus-body.md: FORCE | $(BUILDDIR)
 	$(PYTHON) build_fractal_books.py --omnibus
 
@@ -68,7 +88,7 @@ $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
 clean:
-	rm -f $(BUILDDIR)/book-*.pdf $(BUILDDIR)/book-*-body.md $(BUILDDIR)/ttheory-omnibus*
+	rm -f $(BUILDDIR)/book-*.pdf $(BUILDDIR)/book-*-body.md $(BUILDDIR)/ttheory-omnibus* $(BUILDDIR)/ttheory-vol*
 
-.PHONY: all omnibus kappas bodies clean FORCE $(addprefix book-, $(DOMAINS))
+.PHONY: all omnibus vol1 vol2 kappas bodies clean FORCE $(addprefix book-, $(DOMAINS))
 FORCE:

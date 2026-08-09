@@ -282,6 +282,18 @@ def main():
         build_omnibus()
         return
 
+    if "--vol1" in sys.argv:
+        build_volume(VOL1_IDS, "vol1",
+                     "[T]-Theory: The Fractal Programme — Volume I: Foundation",
+                     "Gateway · Physics · Formal Mathematics · Neuroscience · Consciousness · Complex Systems · Computer Science")
+        return
+
+    if "--vol2" in sys.argv:
+        build_volume(VOL2_IDS, "vol2",
+                     "[T]-Theory: The Fractal Programme — Volume II: Application",
+                     "Music & Arts · Geophysics · Social Science · Economics · Law · PPE · Clinical Psychology · Psychiatry / ASD")
+        return
+
     target_ids = [a for a in sys.argv[1:] if not a.startswith("--")]
     if not target_ids:
         target_ids = [d["id"] for d in DOMAINS]
@@ -296,6 +308,66 @@ def main():
         print(f"  -> {out_path.name}  ({lines:,} lines, {size_kb:.0f} KB)")
 
     print(f"\nAll done. Run 'make all' to build PDFs.")
+
+
+# Vol I: Foundation — abstract/theoretical books
+VOL1_IDS = ["gateway", "physics", "formal-mathematics", "neuroscience",
+             "consciousness", "complex-systems", "computer-science"]
+
+# Vol II: Application — domain/clinical books
+VOL2_IDS = ["music-arts", "geophysics", "social-science", "economics",
+             "law", "ppe", "clinical-psychology", "psychiatry-asd"]
+
+
+def build_volume(domain_ids: list, vol_tag: str, title: str, subtitle: str):
+    """Assemble a volume of the [T]-Theory Fractal Programme."""
+    print(f"\nBuilding [T]-Theory {vol_tag.upper()}...")
+
+    OMNIBUS_EXCLUDE = {"lean-proofs-appendix"}
+
+    frontmatter = f"""\
+---
+title: "{title}"
+subtitle: "{subtitle}"
+author: "Alistair Johnson"
+date: "2026"
+lang: en-GB
+bibliography: ../../paper/bibliography.bib
+csl: ../../paper/apa-7th.csl
+---"""
+
+    sections = [frontmatter]
+
+    for domain_id in domain_ids:
+        domain = get_domain(domain_id)
+        print(f"\n  Assembling: {domain_id}")
+        book_sections = []
+        kappa_path = KAPPA_DIR / f"kappa-{domain_id}.md"
+        if kappa_path.exists():
+            book_sections.append(kappa_path.read_text(encoding="utf-8").strip())
+            print(f"    + kappa-{domain_id}")
+        dom_papers = [p for p in domain["papers"]
+                      if p.split(":", 1)[-1] not in OMNIBUS_EXCLUDE]
+        for paper_ref in dom_papers:
+            body = get_paper_body(paper_ref)
+            if body:
+                pname = paper_ref.split(":", 1)[-1] if ":" in paper_ref else paper_ref
+                book_sections.append(f"\\newpage\n\n{body}")
+                print(f"    + {pname}")
+        conc_path = CONC_DIR / f"conclusion-{domain_id}.md"
+        if conc_path.exists():
+            book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
+            print(f"    + conclusion-{domain_id}")
+        book_body = "\n\n".join(book_sections)
+        sections.append(f"\n\n\\newpage\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+
+    full_text = "\n".join(sections)
+    out_path = BLD_DIR / f"ttheory-{vol_tag}-body.md"
+    out_path.write_text(full_text, encoding="utf-8")
+    size_mb = out_path.stat().st_size / (1024 * 1024)
+    lines = full_text.count("\n")
+    print(f"\n  -> {out_path.name}  ({lines:,} lines, {size_mb:.1f} MB)")
+    print(f"  Run 'make {vol_tag}' to build the PDF.")
 
 
 def build_omnibus():
