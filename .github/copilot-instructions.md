@@ -47,6 +47,7 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P15 w
 | P7 | soma-field-patient-pov | https://doi.org/10.5281/zenodo.20460523 |
 | P8 | the-tensor | https://doi.org/10.5281/zenodo.20460613 |
 | P9 | music-affect-dynamics | https://doi.org/10.5281/zenodo.20460685 |
+| D2 | lean-proofs-appendix | https://doi.org/10.5281/zenodo.20437858 |
 | C1 | omnibus | https://doi.org/10.5281/zenodo.20460771 |
 | P10 | soma-temporal-dynamics | pending Zenodo upload |
 | P11 | zoomable-somatic-field | pending Zenodo upload |

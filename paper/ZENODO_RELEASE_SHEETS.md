@@ -200,6 +200,15 @@ Add related identifiers to the three existing records via the Zenodo "New versio
 
 ---
 
+### D2 — Lean 4 Formal Proofs Appendix
+**Status:** PUBLISHED
+**Concept DOI:** https://doi.org/10.5281/zenodo.20437858
+**Record type:** Software / Dataset
+**Title:** Lean 4 Formal Proofs: The Soma-Field Model
+**File:** `lean-proofs-appendix.pdf`
+
+---
+
 ## STEP 3: Create New Paper Records
 
 ---
