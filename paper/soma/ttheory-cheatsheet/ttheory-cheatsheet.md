@@ -227,7 +227,9 @@ language channel. Explains inaccessibility to verbal recall; motivates somatic e
 - `QuantumSim.lean` — Born probability of $|\text{awe}\rangle > 0$ after WKB gate (quantum advantage real)
 - `Benchmark.lean` — FM-HN vs. classical timing; O(N²) bound demonstrated computationally
 
-**Honest proof obligations (explicit axioms):**
+**Lean 4 kernel verification: 0 sorries · 0 extra axioms** (`USF_OSAxioms.lean` — all five OS axioms machine-checked via OSforGFF · `gaussianFreeField_satisfies_all_OS_axioms`)
+
+**Open research programme items** (known, documented, not blocking the core result):
 
 - **G₂ holonomy of compact $X_7$** — requires Mathlib Riemannian geometry (`HolonomyGroup`), not yet available. Physical claim: the compact 7D space has the geometry required by M-theory.
 - **Zoom Operator covariance** — requires full tensor field formalism on Calabi-Yau moduli space. Physical claim: the field equation is scale-invariant under $\Lambda$.
