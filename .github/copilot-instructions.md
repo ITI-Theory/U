@@ -33,7 +33,7 @@ cd paper && make check        # verify toolchain (pandoc + xelatex)
 ```
 
 ## Papers — Publication Status (as of May 30, 2026)
-All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P15 written 2026-08-10. Full DOI registry: `paper/ZENODO_RELEASE_SHEETS.md`.
+All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 written/queued 2026-08-10. Full DOI registry: `paper/ZENODO_RELEASE_SHEETS.md`.
 
 | ID | Paper | Concept DOI |
 |---|---|---|
@@ -56,6 +56,11 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P15 w
 | C2 | ttheory-fractal-omnibus | pending Zenodo upload |
 | P14 | usf-euclidean-qft | not yet submitted |
 | P15 | usf-interacting-qft | research programme paper, not yet submitted |
+| P16 | geographic-somatic-field | not yet submitted |
+| P17 | gestalt-field-dynamics | not yet submitted |
+| P18 | preverbal-manifold | not yet submitted |
+| P19 | swarm-propagator | not yet submitted |
+| P20 | universal-somatic-field | not yet submitted |
 
 ## Git State (as of May 30, 2026)
 - All repos clean and pushed (main branch, no uncommitted changes)
