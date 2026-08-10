@@ -48,11 +48,11 @@ $(BUILDDIR)/ttheory-vol2-body.md: FORCE | $(BUILDDIR)
 	$(PYTHON) build_fractal_books.py --vol2
 
 $(BUILDDIR)/ttheory-vol1.pdf: $(BUILDDIR)/ttheory-vol1-body.md | $(BUILDDIR)
-	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
+	$(PANDOC) $< -o $@ $(VOLUME_FLAGS)
 	@echo "Built: $@"
 
 $(BUILDDIR)/ttheory-vol2.pdf: $(BUILDDIR)/ttheory-vol2-body.md | $(BUILDDIR)
-	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
+	$(PANDOC) $< -o $@ $(VOLUME_FLAGS)
 	@echo "Built: $@"
 
 $(BUILDDIR)/ttheory-omnibus-body.md: FORCE | $(BUILDDIR)
@@ -71,6 +71,9 @@ OMNIBUS_FLAGS := \
   -V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
   -V fontsize=11pt -V linestretch=1.4 \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{placeins}"
+
+# Volume flags — same as omnibus but with TOC (split volumes are small enough)
+VOLUME_FLAGS := $(OMNIBUS_FLAGS) --toc --toc-depth=2
 
 $(BUILDDIR)/ttheory-omnibus.pdf: $(BUILDDIR)/ttheory-omnibus-body.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
