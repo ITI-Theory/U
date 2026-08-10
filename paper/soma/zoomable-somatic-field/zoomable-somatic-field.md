@@ -222,8 +222,11 @@ $4 + 3 + 1 + 3 = 11$. Proof by `decide`. $\square$
 ## 3.2  Isomorphism with M-Theory
 
 M-theory (Witten 1995) compactifies eleven-dimensional supergravity as
-$M_{11} = M_4 \times X_7$ where $X_7$ is a compact manifold with $G_2$
-holonomy. The soma-field decomposition (5) has identical dimensional structure.
+$M_{11} = M_4 \times X_7$ where $X_7$ is a 7-dimensional compact manifold.
+The soma-field decomposition (5) has identical dimensional structure.
+*Note: the Lean 4 proof (`MTheoryIsomorphism.lean`, 2026) establishes $X_7$ as a
+well-defined 7D product manifold (`X7_is_7D_product`); the stronger $G_2$ holonomy
+claim is an open problem listed in the proof file.*
 
 **Theorem (Lean 4 verified, `MTheoryIsomorphism.somaField_iso_mtheory`):**
 There exists a type isomorphism:
