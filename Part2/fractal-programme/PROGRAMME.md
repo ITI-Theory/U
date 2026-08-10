@@ -101,41 +101,60 @@ Approximate entry level for each book — useful when recommending to colleagues
 
 ## The Soma Waterfall (process)
 
-The programme was built using a V-model adapted from ESA systems engineering practice,
-extended upward on the left to include the pre-formal cognitive stages that every
-serious research project passes through but almost no-one documents.
+The V-model is the standard systems-engineering lifecycle used by ESA and NATO
+for safety-critical software: the left arm decomposes requirements down to
+implementation; the right arm verifies back up to acceptance. Both arms are
+real and populated — the right is not a rubber stamp.
+
+This project uses an extended V with an additional pre-formal left arm above
+the standard engineering entry point. That extension is documented below
+because it exists in every serious project and is almost never written down.
 
 ```
-CONCEPTUAL (left arm — not part of formal engineering)
-─────────────────────────────────────────────────────
-Cookie Monster   lateral thinking, brainstorm, spaghetti cooking
-Harry Potter     mental serialisation — AI chats as Pensieve,
-                 capturing ideas before they evaporate
-Sherlock Holmes  abductive synthesis — type signature extraction,
-                 converging on the minimal claim
-                 ↓
-─────────── KERNEL ─ formal mathematical core ───────────────────  ← RED
-                 ↓
-Reichenbach      formal verification — Lean 4, zero sorries,
-                 scaffold comes down, only proof remains
-─────────────────────────────────────────────────────
-FORMAL (right arm — standard V: build → test → release)
+ PRE-FORMAL                          │                        RELEASE
+ (not in methodology)                │                    (formal output)
+                                     │
+ Cookie Monster ─────────────────────┤──────────────── Zenodo / Lulu archive
+  diverge, brainstorm,               │                  20 papers, DOIs, print
+  lateral thinking                   │                  editions, public record
+          │                          │                          ▲
+ Harry Potter ───────────────────────┤─────────────── Omnibus + Fractal Programme
+  serialise — AI chats as            │                  integrated, readable by
+  Pensieve; capture structure        │                  15 audiences, NLM live
+  before it evaporates               │                          ▲
+          │                          │                          │
+ Sherlock Holmes ────────────────────┤──────────────── 20 individual papers
+  converge — abductive               │                  each verified against
+  synthesis, extract the             │                  kernel, peer-readable
+  minimal type signature             │                          ▲
+          │                          │                          │
+──────────┼──────── ENGINEERING ENTRY POINT ───────────────────┼──────────
+          │                          │                          │
+ Reichenbach ────────────────────────┴──────────────── Lean 4 proofs
+  formal verification                                   USF_OSAxioms.lean
+  Lean 4, zero sorries                                  0 sorries · 0 axioms
+  scaffold comes down                                   machine-checked
+          │                                                     │
+          └──────────────── KERNEL (red) ────────────────────────
+                      G(x,y) = e^{-k|x-y|} / 4πk|x-y|
+                      the Helmholtz Green's function
+                      the single invariant both arms serve
 ```
 
-The comical names are deliberate. These four stages exist in every significant
-engineering and research project; they simply go unnamed because no organisation
-wants to admit to a "Cookie Monster phase" in its methodology documentation.
-Naming them here is an act of honesty, not levity. The key point is that they
-are *not* part of the engineering methodology — they happen before the V starts.
-The V-model proper begins at Reichenbach.
+**Left arm:** Everything above the engineering entry point is real work. A
+conversation with an AI assistant about whether a release is correct, whether
+a file should be dropped, whether a claim holds — that is Harry Potter stage
+work. It is not engineering. It is the cognitive scaffolding that makes
+engineering possible. The names are comical precisely to make this boundary
+visible: no organisation documents this phase, which is why so many projects
+go wrong during it.
 
-The red kernel is the invariant: `G(x,y) = e^{-k|x-y|} / 4πk|x-y|`, the
-Helmholtz Green's function. Everything above it on the left was in service of
-finding it. Everything above it on the right is in service of proving and
-distributing it.
+**Right arm:** Also real and fully populated. The Lean 4 proofs are unit
+verification. The individual papers are integration tests — each one must
+derive its results from the kernel alone. The omnibus and fractal programme
+are system integration. Zenodo and Lulu are acceptance and deployment.
+The right arm has outputs you can cite, print, and hand to a colleague.
 
-The Harry Potter stage lives in AI chat logs — the kind of extended conversation
-with an AI assistant where you are thinking out loud and the model is acting as
-an externalised Pensieve, capturing structure before it solidifies.
-The Sherlock stage is this directory.
-The Reichenbach stage is `paper/proofs/`.
+The V-model proper — the part that counts as methodology — begins at
+Reichenbach and runs right. Everything to the left of the entry point
+is prior art that made the kernel possible.
