@@ -184,6 +184,31 @@ def mkDyadicℝ (a b : Fin 8 → ℝ) : Fin 16 → ℝ :=
 def dyadicEnergyℝ (s : Fin 16 → ℝ) : ℝ :=
   -(1/2) * ∑ i : Fin 16, ∑ j : Fin 16, s i * W_ABℝ i j * s j
 
+-- Small helpers so the block decomposition simp stays fast
+private lemma mkD_cast (a b : Fin 8 → ℝ) (i : Fin 8) :
+    mkDyadicℝ a b (Fin.castAdd 8 i) = a i := by
+  simp [mkDyadicℝ, Fin.coe_castAdd, i.isLt]
+
+private lemma mkD_nat (a b : Fin 8 → ℝ) (i : Fin 8) :
+    mkDyadicℝ a b (Fin.natAdd 8 i) = b i := by
+  simp [mkDyadicℝ, Fin.coe_natAdd]; omega
+
+private lemma W_AA (i j : Fin 8) :
+    W_ABℝ (Fin.castAdd 8 i) (Fin.castAdd 8 j) = W8ℝ i j := by
+  simp [W_ABℝ, Fin.coe_castAdd, i.isLt, j.isLt]
+
+private lemma W_BB (i j : Fin 8) :
+    W_ABℝ (Fin.natAdd 8 i) (Fin.natAdd 8 j) = W8ℝ i j := by
+  simp [W_ABℝ, Fin.coe_natAdd]; omega
+
+private lemma W_AB (i j : Fin 8) :
+    W_ABℝ (Fin.castAdd 8 i) (Fin.natAdd 8 j) = Jℝ i j := by
+  simp [W_ABℝ, Fin.coe_castAdd, Fin.coe_natAdd, i.isLt]; omega
+
+private lemma W_BA (i j : Fin 8) :
+    W_ABℝ (Fin.natAdd 8 i) (Fin.castAdd 8 j) = Jℝ i j := by
+  simp [W_ABℝ, Fin.coe_castAdd, Fin.coe_natAdd, j.isLt]; omega
+
 /-- Block decomposition: the 16-dim sum splits into 4 eight-dim blocks. -/
 private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     ∑ i : Fin N16, ∑ j : Fin N16,
@@ -192,18 +217,9 @@ private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     (∑ i : Fin 8, ∑ j : Fin 8, b i * W8ℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, a i * Jℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) := by
-  -- Fin 16 = Fin (8+8); split outer then inner sums
-  simp only [N16, show 16 = 8 + 8 from rfl, Fin.sum_univ_add]
-  -- After split: AA + AB on castAdd side, BA + BB on natAdd side
+  simp only [N16, show 16 = 8 + 8 from rfl]
   simp_rw [Fin.sum_univ_add]
-  -- Simplify mkDyadicℝ and W_ABℝ in each block
-  simp only [mkDyadicℝ, W_ABℝ, Fin.coe_castAdd, Fin.coe_natAdd, Fin.val_mk,
-             show ∀ i : Fin 8, i.val < 8 from Fin.is_lt,
-             show ∀ i : Fin 8, ¬ (8 + i.val < 8) from by intro i; omega,
-             show ∀ i : Fin 8, 8 + i.val ≥ 8 from by intro i; omega,
-             Nat.not_lt, le_refl, ite_true, ite_false]
-  simp only [show ∀ i : Fin 8, 8 + i.val - 8 = i.val from by intro i; omega]
-  -- The four blocks are now AA + AB + BA + BB; rearrange to match RHS
+  simp only [mkD_cast, mkD_nat, W_AA, W_BB, W_AB, W_BA]
   abel
 
 /-- **PROVED:** Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0. -/
