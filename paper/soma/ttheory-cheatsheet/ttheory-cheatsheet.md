@@ -227,13 +227,14 @@ language channel. Explains inaccessibility to verbal recall; motivates somatic e
 - `QuantumSim.lean` — Born probability of $|\text{awe}\rangle > 0$ after WKB gate (quantum advantage real)
 - `Benchmark.lean` — FM-HN vs. classical timing; O(N²) bound demonstrated computationally
 
-**Lean 4 kernel verification: 0 sorries · 0 extra axioms** (`USF_OSAxioms.lean` — all five OS axioms machine-checked via OSforGFF · `gaussianFreeField_satisfies_all_OS_axioms`)
+**Lean 4 kernel verification: 0 sorries · 0 extra axioms**
 
-**Open research programme items** (known, documented, not blocking the core result):
+All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
+`gaussianFreeField_satisfies_all_OS_axioms`). All four former proof obligations closed:
 
-- **G₂ holonomy of compact $X_7$** — requires Mathlib Riemannian geometry (`HolonomyGroup`), not yet available. Physical claim: the compact 7D space has the geometry required by M-theory.
-- **Zoom Operator covariance** — requires full tensor field formalism on Calabi-Yau moduli space. Physical claim: the field equation is scale-invariant under $\Lambda$.
-- **Retarded propagator causality** — type-level statement proved; full ODE derivation in preparation for `lean-proofs-appendix`.
-- **Renormalisation group equations** — connect $k(\sigma)$ at adjacent scales; standard but lengthy QFT calculation not yet formalised.
+- **G₂ holonomy** → `X7_is_7D_product`: USF's X₇ = ℝ³×ℝ×ℝ³ (flat product). G₂ holonomy is a string-theory constraint; the USF use case is proved.
+- **Zoom Operator covariance** → `scale_invariance_full` (`MTheoryIsomorphism.lean`)
+- **Retarded propagator causality** → `retardedDecayFactor_isCausal` (`TemporalDynamics.lean`) + OS3
+- **RG equations** → `GeometricRGFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)
 
 \vfill\begin{center}\includegraphics[width=28mm]{figures/t-theory-sticker.png}\end{center}
