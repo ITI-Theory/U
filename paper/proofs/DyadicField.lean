@@ -184,17 +184,40 @@ def mkDyadicℝ (a b : Fin 8 → ℝ) : Fin 16 → ℝ :=
 def dyadicEnergyℝ (s : Fin 16 → ℝ) : ℝ :=
   -(1/2) * ∑ i : Fin 16, ∑ j : Fin 16, s i * W_ABℝ i j * s j
 
-/-- **PROVED:** Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0.
-    Proof: the cross-coupling sum aᵀJb ≥ 0 by `coupling_sum_nonneg`. -/
+/-- Block decomposition: the 16-dim sum splits into 4 eight-dim blocks. -/
+private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
+    ∑ i : Fin N16, ∑ j : Fin N16,
+      mkDyadicℝ a b i * W_ABℝ i j * mkDyadicℝ a b j =
+    (∑ i : Fin 8, ∑ j : Fin 8, a i * W8ℝ i j * a j) +
+    (∑ i : Fin 8, ∑ j : Fin 8, b i * W8ℝ i j * b j) +
+    (∑ i : Fin 8, ∑ j : Fin 8, a i * Jℝ i j * b j) +
+    (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) := by
+  -- Fin 16 = Fin (8+8); split outer then inner sums
+  simp only [N16, show 16 = 8 + 8 from rfl, Fin.sum_univ_add]
+  -- After split: AA + AB on castAdd side, BA + BB on natAdd side
+  simp_rw [Fin.sum_univ_add]
+  -- Simplify mkDyadicℝ and W_ABℝ in each block
+  simp only [mkDyadicℝ, W_ABℝ, Fin.coe_castAdd, Fin.coe_natAdd, Fin.val_mk,
+             show ∀ i : Fin 8, i.val < 8 from Fin.is_lt,
+             show ∀ i : Fin 8, ¬ (8 + i.val < 8) from by intro i; omega,
+             show ∀ i : Fin 8, 8 + i.val ≥ 8 from by intro i; omega,
+             Nat.not_lt, le_refl, ite_true, ite_false]
+  simp only [show ∀ i : Fin 8, 8 + i.val - 8 = i.val from by intro i; omega]
+  -- The four blocks are now AA + AB + BA + BB; rearrange to match RHS
+  abel
+
+/-- **PROVED:** Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0. -/
 theorem dyadic_energy_coupling_lowers_ℝ
     (a b : Fin 8 → ℝ)
     (ha : ∀ i, 0 ≤ a i) (hb : ∀ i, 0 ≤ b i) :
     dyadicEnergyℝ (mkDyadicℝ a b) ≤ energy8ℝ a + energy8ℝ b := by
-  simp only [dyadicEnergyℝ, energy8ℝ, mkDyadicℝ, W_ABℝ]
-  -- The 16×16 sum decomposes into AA + BB + AB + BA blocks.
-  -- The AB+BA cross-term = -aᵀJb - bᵀJᵀa = -2·aᵀJb ≤ 0 by coupling_sum_nonneg.
-  -- Block decomposition: pending Finset.sum_fin_eq_sum_range or similar.
-  sorry -- architecture correct; block-sum splitting is boilerplate
+  have hab := coupling_sum_nonneg a b Jℝ ha hb (fun i j => Jℝ_nonneg i j)
+  have hba : 0 ≤ ∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j := by
+    apply Finset.sum_nonneg; intro i _
+    apply Finset.sum_nonneg; intro j _
+    exact mul_nonneg (mul_nonneg (hb i) (Jℝ_nonneg i j)) (ha j)
+  simp only [dyadicEnergyℝ, energy8ℝ, dyadic_block_decomp a b]
+  linarith
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- STUBS AND THEOREMS
