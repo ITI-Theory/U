@@ -58,9 +58,9 @@ $(BUILDDIR)/ttheory-vol2.pdf: $(BUILDDIR)/ttheory-vol2-body.md | $(BUILDDIR)
 $(BUILDDIR)/ttheory-omnibus-body.md: FORCE | $(BUILDDIR)
 	$(PYTHON) build_fractal_books.py --omnibus
 
-# Omnibus uses simpler flags — no TOC (too large for single-pass XeLaTeX)
+# Omnibus flags — TOC confirmed working despite document size
 OMNIBUS_FLAGS := \
-  --pdf-engine=$(ENGINE) --standalone \
+  --pdf-engine=$(ENGINE) --standalone --toc --toc-depth=2 \
   -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue \
   -V monofont="Consolas" --highlight-style=tango \
   --include-in-header=../../paper/journal.tex \
@@ -72,8 +72,8 @@ OMNIBUS_FLAGS := \
   -V fontsize=11pt -V linestretch=1.4 \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{placeins}"
 
-# Volume flags — same as omnibus but with TOC (split volumes are small enough)
-VOLUME_FLAGS := $(OMNIBUS_FLAGS) --toc --toc-depth=2
+# Volume flags — same as omnibus (TOC already included)
+VOLUME_FLAGS := $(OMNIBUS_FLAGS)
 
 $(BUILDDIR)/ttheory-omnibus.pdf: $(BUILDDIR)/ttheory-omnibus-body.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
