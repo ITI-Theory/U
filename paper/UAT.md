@@ -41,12 +41,12 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 | LEAN-1 | EmotionLangIsUniversal | **PASS** | `theorem emotionLang_is_universal` proved in EmotionOntology.lean: `Nonempty (EmotionLang String) ∧ Nonempty (EmotionLang (List EmotionLabel)) ∧ Nonempty (EmotionLang Valence)` |
 | LEAN-2 | AesopImplementsCoIdentification | **PASS** | Definitionally true of the tactic |
 | METHOD-1 | HypnopompicStateOptimisesCoIdentification | **PASS** | Consistent with FIELD-NOTES §1 |
-| METHOD-2 | HRVIsSomaFieldSpectralDensity | GAP | Server logs `e[0..15]` but no HRV projection extracted |
+| METHOD-2 | HRVIsSomaFieldSpectralDensity | **PASS** | `SomaField.spectral_density()` added: rolling 256-sample FFT buffer at 50 Hz; LF (0.04–0.15 Hz) and HF (0.15–0.4 Hz) power of BS channel (dim 0); LF/HF ratio returned in `state_dict` as HRV proxy |
 | META-1 | CoIdentificationIsAbduction | **PASS** | The whole paper is this |
 | GAP-1 | DyadicPropagatorExists | **PARTIAL** | `dyadicPropagatorExists` proved (symmetry, by `simp`); `coupling_sum_nonneg` proved over ℝ (Finset.sum_nonneg); `dyadic_energy_coupling_lowers_ℝ` has sorry for block-sum decomposition (boilerplate, not mathematics); Float→ℝ transfer sorry remains |
 | GAP-2 | CTheoremHoldsForSomaField | **OPEN** | Claim: ∃ C(W) monotonically decreasing under therapeutic RG flow. Analogue of Zamolodchikov C-theorem. Requires: definition of C-function for soma-field, proof of monotonicity under W-deformation. Genuine open question. |
 
-**Score: 9 PASS · 1 PARTIAL · 1 OPEN · 0 FAIL**
+**Score: 10 PASS · 1 PARTIAL · 1 OPEN · 0 FAIL**
 
 ---
 

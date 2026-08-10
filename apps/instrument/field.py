@@ -10,6 +10,7 @@ All units normalised to [0, 1] from MIDI input.
 """
 
 import numpy as np
+from collections import deque
 
 
 N_MODES = 8          # emotional modes
@@ -57,6 +58,8 @@ class SomaField:
         calm   = ATTRACTORS["regulated_calm"].copy()
         self.b = b if b is not None else (self.W @ calm)
         self.e = calm.copy()
+        # Rolling history for spectral density (HRV projection) — METHOD-2
+        self._history: deque = deque(maxlen=256)  # ~5 s at 50 Hz
 
     # ------------------------------------------------------------------
     # Core physics
@@ -77,6 +80,7 @@ class SomaField:
         noise      = np.sqrt(2 * self.D / self.dt) * self.rng.standard_normal(N_DIM)
         de         = (-self.grad_H() + noise) * (self.dt / self.gamma)
         self.e     = np.clip(self.e + de, 0.0, 1.0)
+        self._history.append(self.e.copy())
 
     def threshold_crossings(self):
         """Return list of mode indices whose amplitude exceeds theta."""
@@ -110,9 +114,31 @@ class SomaField:
         if name in ATTRACTORS:
             self.e = ATTRACTORS[name].copy()
 
-    # ------------------------------------------------------------------
     # Summary for OSC / logging
     # ------------------------------------------------------------------
+
+    def spectral_density(self) -> dict:
+        """Power spectral density of field dimensions from rolling history.
+
+        Maps USF claim: HRV = spectral density of the brainstem (BS, dim 0) channel.
+        LF 0.04–0.15 Hz ~ sympathetic; HF 0.15–0.4 Hz ~ parasympathetic.
+        """
+        n = len(self._history)
+        if n < 64:
+            return {"ready": False, "n_samples": n}
+        arr   = np.array(self._history)                     # (n, N_DIM)
+        freqs = np.fft.rfftfreq(n, d=self.dt)
+        psd   = (np.abs(np.fft.rfft(arr, axis=0)) ** 2) / n
+        bs    = psd[:, 0]                                    # brainstem channel
+        lf    = float(bs[(freqs >= 0.04) & (freqs < 0.15)].sum())
+        hf    = float(bs[(freqs >= 0.15) & (freqs < 0.40)].sum())
+        return {
+            "ready":    True,
+            "lf_power": lf,
+            "hf_power": hf,
+            "lf_hf":    lf / hf if hf > 0 else float("inf"),
+            "n_samples": n,
+        }
 
     def state_dict(self):
         return {
@@ -122,4 +148,5 @@ class SomaField:
             "T_eff":            float(self.D / self.gamma),
             "threshold_cross":  self.threshold_crossings(),
             "nearest_attractor": self.nearest_attractor()[0],
+            "spectral_density":  self.spectral_density(),
         }
