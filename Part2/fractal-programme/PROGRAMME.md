@@ -79,6 +79,32 @@ make fractal-law    # law paper
 
 ---
 
+## Reader level guide
+
+Each book is written for its own disciplinary audience. The table below gives the target field and an approximate entry level — useful when explaining the scope to colleagues.
+
+| # | Book / directory | Target academic field | Entry level |
+|---|---|---|---|
+| 1 | `soma-astrophysics/` | Astrophysics, quantum gravity, HoTT | PhD / postdoc |
+| 2 | `soma-geophysics/` | Geophysics, seismology, Earth systems | Masters / PhD |
+| 3 | `soma-social-intelligence/` | Social psychology, cognitive science | Undergrad II / Masters |
+| 4 | `soma-game-theory/` | Economics, game theory, complex systems | Masters / PhD |
+| 5 | `soma-law/` | Legal theory, regulation, PPE | Masters (law) |
+| 6 | `soma-asd-unified/` | Psychiatry, neurodevelopment, clinical psych | Masters / PhD (clinical) |
+| 7 | `swarm-propagator` (P19, canonical) | Computer science, robotics, multi-agent AI | Masters / PhD |
+| 8 | `music-affect-dynamics` (P9, canonical) | Music cognition, affective science | Undergrad II / Masters |
+| 9 | `quantum-soma-penrose` (P2, canonical) | Quantum biology, consciousness studies | PhD / postdoc |
+| 10 | `missing-limbic-layer` (P13, canonical) | Neuroscience, psychiatry | Masters / PhD |
+| 11 | `preverbal-manifold` (P18, canonical) | Developmental psych, trauma studies | Masters (clinical) |
+| 12 | `geographic-somatic-field` (P16, canonical) | Human geography, urban science | Masters |
+| 13 | Consciousness studies (planned) | Philosophy of mind, IIT, panpsychism | Masters / PhD |
+| 14 | Formal mathematics (planned) | Type theory, category theory | PhD |
+| 15 | PPE / philosophy (planned) | Political philosophy, ethics | Masters |
+
+**Level key (approximate):** Undergrad II = second/third year; Masters = MSc/MA; PhD = doctoral; Postdoc = active researcher in the field. The level reflects required background — *not* the difficulty of the USF argument itself, which is always presented in the domain's own vocabulary.
+
+---
+
 ## What this is NOT
 
 - It is not a rewrite of the existing papers.
