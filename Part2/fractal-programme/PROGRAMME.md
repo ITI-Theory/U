@@ -101,15 +101,41 @@ Approximate entry level for each book — useful when recommending to colleagues
 
 ## The Soma Waterfall (process)
 
-How the programme was built:
+The programme was built using a V-model adapted from ESA systems engineering practice,
+extended upward on the left to include the pre-formal cognitive stages that every
+serious research project passes through but almost no-one documents.
 
 ```
-Cookie Monster  →  brainstorm, lateral thinking, the spaghetti cooking
-Harry Potter    →  mental serialization, chat logs as Pensieve
-Sherlock Holmes →  abductive synthesis, type signature extraction
-Reichenbach     →  kernel verification, the scaffold comes down
+CONCEPTUAL (left arm — not part of formal engineering)
+─────────────────────────────────────────────────────
+Cookie Monster   lateral thinking, brainstorm, spaghetti cooking
+Harry Potter     mental serialisation — AI chats as Pensieve,
+                 capturing ideas before they evaporate
+Sherlock Holmes  abductive synthesis — type signature extraction,
+                 converging on the minimal claim
+                 ↓
+─────────── KERNEL ─ formal mathematical core ───────────────────  ← RED
+                 ↓
+Reichenbach      formal verification — Lean 4, zero sorries,
+                 scaffold comes down, only proof remains
+─────────────────────────────────────────────────────
+FORMAL (right arm — standard V: build → test → release)
 ```
 
-The chats in `Me/chats/Inbox/` are the Harry Potter stage.
-This directory is the Sherlock stage.
-The Lean 4 proofs are Reichenbach.
+The comical names are deliberate. These four stages exist in every significant
+engineering and research project; they simply go unnamed because no organisation
+wants to admit to a "Cookie Monster phase" in its methodology documentation.
+Naming them here is an act of honesty, not levity. The key point is that they
+are *not* part of the engineering methodology — they happen before the V starts.
+The V-model proper begins at Reichenbach.
+
+The red kernel is the invariant: `G(x,y) = e^{-k|x-y|} / 4πk|x-y|`, the
+Helmholtz Green's function. Everything above it on the left was in service of
+finding it. Everything above it on the right is in service of proving and
+distributing it.
+
+The Harry Potter stage lives in AI chat logs — the kind of extended conversation
+with an AI assistant where you are thinking out loud and the model is acting as
+an externalised Pensieve, capturing structure before it solidifies.
+The Sherlock stage is this directory.
+The Reichenbach stage is `paper/proofs/`.
