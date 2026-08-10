@@ -44,7 +44,6 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 .PHONY: all help omnibus omnibus-royal omnibus-a4 \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
-	grep --help thesis-royal thesis-a4 thesis-a4-compact thesis-a4-2col \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
@@ -56,7 +55,7 @@ help:
 	@echo "  make             build all English PDFs"
 	@echo "  make omnibus     both omnibus editions (Royal + A4)"
 	@echo "  make lean-appendix  standalone PDF of all Lean 4 proofs"
-	@echo "  make thesis      thesis edition (Royal + A4) with preamble + Lean appendix"
+#	@echo "  make thesis      thesis edition (Royal + A4) [disabled — use omnibus]"
 	@echo "  make de/fr/it    all PDFs in that language"
 	@echo "  make clean       remove English PDFs"
 	@echo "  make check       verify pandoc + xelatex"
@@ -114,57 +113,47 @@ lean-appendix: | $(BUILDDIR)
 	@echo "Built: $(BUILDDIR)/lean-proofs-appendix.pdf"
 
 # ---------------------------------------------------------------------------
-# Thesis — same content as omnibus with thesis-specific apparatus:
-#   Abstract · Declaration · Preface · Overview (preamble chapter)
-#   then Parts I–V (identical to omnibus)
-#   then Appendix: Formal Lean 4 Verifications
+# Thesis targets disabled — omnibus is the canonical release format.
+# Sources (build_thesis.py, preamble) and flags kept for reference.
+# To re-enable: uncomment below and add thesis targets back to .PHONY.
 # ---------------------------------------------------------------------------
 
-THESIS_FLAGS_BASE := $(RENDER_COMMON) \
-	--toc-depth=3 \
-	-V header-includes="\usepackage{amsmath}\usepackage{amssymb}"
-
-# Thesis — Royal (156×234 mm), suitable for case-bound submission copy
-THESIS_ROYAL_FLAGS := $(THESIS_FLAGS_BASE) \
-	$(CITEPROC) \
-	-V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=8mm" \
-	-V fontsize=10pt \
-	-V linestretch=1.3
-
-# Thesis — A4 duplex, punched for ring-binder
-THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
-	$(CITEPROC) \
-	-V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=20mm,bottom=22mm" \
-	-V fontsize=11pt \
-	-V linestretch=1.4
-
-# Thesis — A4 compact single-column (10pt, 1.35 spacing, narrow margins)
-# Named 'compact' to distinguish from standard thesis-a4 (11pt, wider margins).
-THESIS_A4_COMPACT_FLAGS := $(THESIS_FLAGS_BASE) \
-	$(CITEPROC) \
-	-V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
-	-V fontsize=10pt \
-	-V linestretch=1.35
-
-thesis-royal: | $(BUILDDIR)
-	$(PYTHON) $(SCRIPTS)/build_thesis.py
-	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-royal.pdf $(THESIS_ROYAL_FLAGS)
-	@echo "Built: $(BUILDDIR)/thesis-royal.pdf"
-
-thesis-a4: | $(BUILDDIR)
-	$(PYTHON) $(SCRIPTS)/build_thesis.py
-	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4.pdf $(THESIS_A4_FLAGS)
-	@echo "Built: $(BUILDDIR)/thesis-a4.pdf"
-
-thesis-a4-compact: | $(BUILDDIR)
-	$(PYTHON) $(SCRIPTS)/build_thesis.py
-	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4-compact.pdf $(THESIS_A4_COMPACT_FLAGS)
-	@echo "Built: $(BUILDDIR)/thesis-a4-compact.pdf"
-
-# thesis-a4-2col kept as alias for backwards compatibility
-thesis-a4-2col: thesis-a4-compact
-
-thesis: thesis-royal thesis-a4 thesis-a4-compact
+# THESIS_FLAGS_BASE := $(RENDER_COMMON) \
+# 	--toc-depth=3 \
+# 	-V header-includes="\usepackage{amsmath}\usepackage{amssymb}"
+#
+# THESIS_ROYAL_FLAGS := $(THESIS_FLAGS_BASE) \
+# 	$(CITEPROC) \
+# 	-V "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=8mm" \
+# 	-V fontsize=10pt \
+# 	-V linestretch=1.3
+#
+# THESIS_A4_FLAGS := $(THESIS_FLAGS_BASE) \
+# 	$(CITEPROC) \
+# 	-V "geometry=a4paper,twoside,inner=28mm,outer=20mm,top=20mm,bottom=22mm" \
+# 	-V fontsize=11pt \
+# 	-V linestretch=1.4
+#
+# THESIS_A4_COMPACT_FLAGS := $(THESIS_FLAGS_BASE) \
+# 	$(CITEPROC) \
+# 	-V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
+# 	-V fontsize=10pt \
+# 	-V linestretch=1.35
+#
+# thesis-royal: | $(BUILDDIR)
+# 	$(PYTHON) $(SCRIPTS)/build_thesis.py
+# 	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-royal.pdf $(THESIS_ROYAL_FLAGS)
+#
+# thesis-a4: | $(BUILDDIR)
+# 	$(PYTHON) $(SCRIPTS)/build_thesis.py
+# 	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4.pdf $(THESIS_A4_FLAGS)
+#
+# thesis-a4-compact: | $(BUILDDIR)
+# 	$(PYTHON) $(SCRIPTS)/build_thesis.py
+# 	$(PANDOC) $(BUILDDIR)/thesis-body.md -o $(BUILDDIR)/thesis-a4-compact.pdf $(THESIS_A4_COMPACT_FLAGS)
+#
+# thesis-a4-2col: thesis-a4-compact
+# thesis: thesis-royal thesis-a4 thesis-a4-compact
 
 translate-omnibus: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/translate_papers.py omnibus-body --model gpt-4o-mini
