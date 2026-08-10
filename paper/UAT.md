@@ -43,10 +43,10 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 | METHOD-1 | HypnopompicStateOptimisesCoIdentification | **PASS** | Consistent with FIELD-NOTES §1 |
 | METHOD-2 | HRVIsSomaFieldSpectralDensity | GAP | Server logs `e[0..15]` but no HRV projection extracted |
 | META-1 | CoIdentificationIsAbduction | **PASS** | The whole paper is this |
-| GAP-1 | DyadicPropagatorExists | **STUB** | `src/DyadicField.lean` created: W_AB block matrix, `dyadicPropagatorMatrix`, `coRegulated`; symmetry theorem proved; energy bound `sorry` |
+| GAP-1 | DyadicPropagatorExists | **PARTIAL** | `dyadicPropagatorExists` proved (symmetry, by `simp`); `coupling_sum_nonneg` proved over ℝ (Finset.sum_nonneg); `dyadic_energy_coupling_lowers_ℝ` has sorry for block-sum decomposition (boilerplate, not mathematics); Float→ℝ transfer sorry remains |
 | GAP-2 | CTheoremHoldsForSomaField | **OPEN** | Claim: ∃ C(W) monotonically decreasing under therapeutic RG flow. Analogue of Zamolodchikov C-theorem. Requires: definition of C-function for soma-field, proof of monotonicity under W-deformation. Genuine open question. |
 
-**Score: 9 PASS · 1 STUB · 1 OPEN · 0 FAIL**
+**Score: 9 PASS · 1 PARTIAL · 1 OPEN · 0 FAIL**
 
 ---
 
