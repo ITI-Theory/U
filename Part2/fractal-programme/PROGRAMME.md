@@ -111,19 +111,23 @@ the standard engineering entry point. That extension is documented below
 because it exists in every serious project and is almost never written down.
 
 ```
- PRE-FORMAL                          │                        RELEASE
- (not in methodology)                │                    (formal output)
+ PRE-FORMAL                          │                        VALIDATION
+ (not in methodology)                │                    (right-arm mirror)
                                      │
- Cookie Monster ─────────────────────┤──────────────── Zenodo / Lulu archive
-  diverge, brainstorm,               │                  20 papers, DOIs, print
-  lateral thinking                   │                  editions, public record
-          │                          │                          ▲
- Harry Potter ───────────────────────┤─────────────── Omnibus + Fractal Programme
+ Cookie Monster ─────────────────────┼──────────────── Cookie Monster test
+  diverge, brainstorm,               │                  Can a non-specialist
+  lateral thinking                   │                  understand it?
+  the hardest audience               │                  → book-gateway.pdf
+  to reach — if you can              │                  → NLM live notebook
+  reach them, you've                 │                  If yes: PROBLEM NAILED
+  nailed the problem                 │                          ▲
+          │                          │                          │
+ Harry Potter ───────────────────────┼─────────────── Omnibus + Fractal Programme
   serialise — AI chats as            │                  integrated, readable by
-  Pensieve; capture structure        │                  15 audiences, NLM live
+  Pensieve; capture structure        │                  15 specialist audiences
   before it evaporates               │                          ▲
           │                          │                          │
- Sherlock Holmes ────────────────────┤──────────────── 20 individual papers
+ Sherlock Holmes ────────────────────┼──────────────── 20 individual papers
   converge — abductive               │                  each verified against
   synthesis, extract the             │                  kernel, peer-readable
   minimal type signature             │                          ▲
@@ -149,11 +153,20 @@ engineering possible. The names are comical precisely to make this boundary
 visible: no organisation documents this phase, which is why so many projects
 go wrong during it.
 
-**Right arm:** Also real and fully populated. The Lean 4 proofs are unit
-verification. The individual papers are integration tests — each one must
-derive its results from the kernel alone. The omnibus and fractal programme
-are system integration. Zenodo and Lulu are acceptance and deployment.
-The right arm has outputs you can cite, print, and hand to a colleague.
+**Right arm — Cookie Monster test (top):** The hardest validation in the
+whole V. Cookie Monster is not a joke audience — they are Penny from The Big
+Bang Theory: intelligent, curious, no specialist background, and with no
+obligation to persist if you lose them. If the gateway book and the NLM
+notebook can be understood by someone with no physics, no maths, and no
+clinical training, the problem is solved at the hardest level. Every
+specialist audience below that is easier. This test has a binary result:
+either a non-specialist can follow the argument, or the theory has not yet
+been translated — not simplified, translated.
+
+**Right arm — formal outputs (below):** The individual papers are integration
+tests — each must derive its results from the kernel alone. The omnibus and
+fractal programme are system integration across 15 domains. Zenodo and Lulu
+are deployment: the public, citable, printable record.
 
 The V-model proper — the part that counts as methodology — begins at
 Reichenbach and runs right. Everything to the left of the entry point
