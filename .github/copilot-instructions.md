@@ -61,7 +61,8 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 w
 | P18 | preverbal-manifold | not yet submitted |
 | P19 | swarm-propagator | not yet submitted |
 | P20 | universal-somatic-field | not yet submitted |
-| P21 | cosmological-constant-derivation | not yet submitted — Λ ≡ ⟨tr Φ⟩₀; numerical estimate Λ_USF ≈ H₀²/c² within factor 2 of Λ_obs |
+| P21 | cosmological-constant-derivation | pending Zenodo upload — Λ ≡ ⟨tr Φ⟩₀; Λ_USF = (21/11)H₀²/c² within 7% of Λ_obs |
+| P22 | dark-matter-spatial-vacuum | not yet submitted — Ω_DM = 3/11 from spatial block vacuum; 2.9% off Planck 2018 |
 
 ## Git State (as of May 30, 2026)
 - All repos clean and pushed (main branch, no uncommitted changes)

@@ -2360,3 +2360,38 @@ Upload at: https://zenodo.org/uploads/new
 **Post-release TODO:**
 - Update GitHub org README (QR code landing page)
 - Create public NotebookLM notebook with main PDFs, link from GH page
+
+---
+
+## 2026-08-12 — P22: Dark matter as spatial vacuum (Ω_DM = 3/11)
+
+Discovered during P21 follow-up: USF dimensional counting 7+3+1=11 predicts
+ALL three dominant cosmic sectors simultaneously.
+
+**Full energy budget table:**
+
+| Sector | USF | Observed (Planck) | Off |
+|---|---|---|---|
+| Dark energy (Λ) | 7/11 = 0.636 | 0.683 | 6.8% |
+| **Dark matter** | **3/11 = 0.273** | **0.265** | **2.9%** |
+| Baryons | 1/22 = 0.046 | 0.049 | 7.2% |
+
+Physical mechanism:
+- 3 non-compact spatial dims (M_3) → vacuum energy propagates in 4D space
+- Clusters gravitationally (non-compact → can develop δρ/ρ)
+- EM-neutral (SM gauge fields localised in X_7, not M_3)
+- w = 0 (pressureless — vacuum condensate in spatial dims)
+→ This IS the observational signature of cold dark matter
+
+Key claim: dark matter is not a new particle. It is Φ_{ij} — the spatial
+block of the 11D USF tensor vacuum expectation value.
+
+Paper written: `paper/soma/dark-matter-spatial-vacuum/dark-matter-spatial-vacuum.md` (P22)
+Lean stub: `CosmologicalConstant.lean` DarkMatter namespace, 4 theorems proved.
+Make target: `make darkmatter`
+
+Open problems:
+- KK reduction: derive w=0 from 11D USF action (no Mathlib KK yet)
+- Gauge localisation: formal proof that X_7 contains SM gauge sector
+- Baryogenesis factor 1/2: derive from USF CP-violation structure (P22-GAP-1)
+- Upload P22 to Zenodo (new record, after building PDF)

@@ -6,27 +6,23 @@ date: "2026"
 lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
+abstract: |
+  We derive the cosmological constant $\Lambda$ as the vacuum expectation value
+  of the trace of the Universal Somatic Field tensor: $\Lambda \equiv \langle
+  \mathrm{tr}\,\Phi_{\mu\nu}\rangle_0$. The identification avoids the standard
+  zero-point-energy approach (which overshoots by $10^{117}$) by treating $\Lambda$
+  as a **classical background amplitude** rather than a quantum fluctuation sum.
+
+  Numerical estimate: the required field amplitude $\Phi_0 \approx 0.4\,M_\text{Pl}$
+  is a natural Planck-scale compactification value. The leading-order estimate
+  gives $\Lambda_\text{USF} \approx H_0^2/c^2 \approx 0.49\,\Lambda_\text{obs}$;
+  including the compact-dimension fraction (7 compact / 11 total) refines this to
+  $\Lambda_\text{USF} = (21/11)H_0^2/c^2 \approx 0.93\,\Lambda_\text{obs}$ — a 7\%
+  discrepancy attributable to Calabi-Yau moduli geometry. The formal proof of the
+  cosmological correspondence axiom requires linearised general relativity in Mathlib.
 ---
 
-# Abstract
-
-We derive the cosmological constant $\Lambda$ as the vacuum expectation value
-of the trace of the Universal Somatic Field tensor: $\Lambda \equiv \langle
-\mathrm{tr}\,\Phi_{\mu\nu}\rangle_0$. The identification avoids the standard
-zero-point-energy approach (which overshoots by $10^{117}$) by treating $\Lambda$
-as a **classical background amplitude** rather than a quantum fluctuation sum.
-
-Numerical estimate: the required field amplitude $\Phi_0 \approx 0.4\,M_\text{Pl}$
-is a natural Planck-scale compactification value. The leading-order estimate
-gives $\Lambda_\text{USF} \approx H_0^2/c^2 \approx 0.49\,\Lambda_\text{obs}$;
-including the compact-dimension fraction (7 compact / 11 total) refines this to
-$\Lambda_\text{USF} = (21/11)H_0^2/c^2 \approx 0.93\,\Lambda_\text{obs}$ — a 7\%
-discrepancy attributable to Calabi-Yau moduli geometry. The formal proof of the
-cosmological correspondence axiom requires linearised general relativity in Mathlib.
-
----
-
-# 1  The Cosmological Constant Problem — USF Reframing
+# The Cosmological Constant Problem — USF Reframing
 
 The standard approach to the cosmological constant computes the zero-point
 energy of all quantum fields up to a UV cutoff $k_c$:
@@ -59,9 +55,9 @@ is the vacuum amplitude of the somatic tensor trace, and $M_\text{Pl}^2 = \hbar 
 
 ---
 
-# 2  Numerical Estimate
+# Numerical Estimate
 
-## 2.1  Required vacuum amplitude
+## Required vacuum amplitude
 
 From the Friedmann equation:
 $$\Lambda_\text{obs} = \frac{3\Omega_\Lambda H_0^2}{c^2}
@@ -78,7 +74,7 @@ $$\ell_P\,\Phi_0 \approx 2.4\times10^{34}\times 1.616\times10^{-35} \approx 0.39
 **This is order-of-magnitude unity.** The required vacuum amplitude is approximately
 $0.4\,M_\text{Pl}$ — a natural Planck-scale value at the compactification boundary.
 
-## 2.2  Derivation of $\Phi_0 \sim M_\text{Pl}$ from compactification
+## Derivation of $\Phi_0 \sim M_\text{Pl}$ from compactification
 
 The USF is a tensor field on $M_{11} = M_4 \times X_7$. At the Planck scale
 ($\sigma = 0$), the field amplitude is set by the compactification scale:
@@ -114,7 +110,7 @@ $\Lambda \sim H_0^2/c^2$ is shorthand for the consistency condition
 $H_0 = c\sqrt{\Lambda/3\Omega_\Lambda}$ — $H_0$ is the *output* of the framework
 once $\Lambda$ is fixed, not the input.
 
-## 2.3  Preliminary first-order estimate
+## Preliminary first-order estimate
 
 $$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.7\times10^{-53}\,\text{m}^{-2}$$
 $$\frac{\Lambda_\text{USF}^\text{(1)}}{\Lambda_\text{obs}} = \frac{1}{3\Omega_\Lambda} \approx 0.49$$
@@ -123,7 +119,7 @@ This unrefined calculation captures 49\% of the observed value. The factor
 $3\Omega_\Lambda \approx 2.05$ is resolved in \S2.4 by compact-dimension
 counting, bringing the estimate to 93\%.
 
-## 2.4  Dark energy fraction from compact-dimension counting
+## Dark energy fraction from compact-dimension counting
 
 The factor $3\Omega_\Lambda$ has a natural 11D interpretation. Of the 11
 total dimensions:
@@ -164,9 +160,9 @@ check: $\rho_\Lambda$ is constant while $\rho_\text{crit}(t)$ varies.
 
 ---
 
-# 3  Formal Status
+# Formal Status
 
-## 3.1  Lean 4 formalisation mapping
+## Lean 4 formalisation mapping
 
 The structural claims of this paper are formalised in
 `paper/proofs/CosmologicalConstant.lean` and `UniversalSomaticField.lean`:
@@ -182,7 +178,7 @@ The structural claims of this paper are formalised in
 | Universe satisfies 11D structure | `universe_is_11D_organism` | axiom |
 | $w = -1$ equation of state | `usf_equation_of_state` | axiom (needs GR) |
 
-## 3.2  Remaining proof obligations
+## Remaining proof obligations
 
 1. **Linearised GR in Mathlib.** The equation
    $\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}$ needs to be formalised. Mathlib's
@@ -204,9 +200,9 @@ The structural claims of this paper are formalised in
 
 ---
 
-# 4  Discussion
+# Discussion
 
-## 4.1  Why this avoids the cosmological constant problem
+## Why this avoids the cosmological constant problem
 
 The standard problem arises from computing $\rho_\Lambda = \frac{1}{2}\int
 \omega_k\,d^3k/(2\pi)^3$ — the sum of zero-point energies of all modes up to
@@ -226,7 +222,7 @@ field oscillating at Hubble frequency. It is not zero (the universe is not
 truly empty — the somatic field has a non-zero vacuum) and it is not large
 (the amplitude is Planck-scale but the frequency is Hubble-scale).
 
-## 4.2  The factor $3\Omega_\Lambda$
+## The factor $3\Omega_\Lambda$
 
 The remaining discrepancy factor $\sim 2$ corresponds to $3\Omega_\Lambda$.
 In the USF framework:
@@ -243,7 +239,7 @@ In the USF framework:
 A precise derivation requires the Calabi-Yau moduli metric, which determines
 how the 11D energy density projects onto $M_4$.
 
-## 4.3  Testable predictions and current observational status
+## Testable predictions and current observational status
 
 **Equation of state (w = −1 exactly).** A classical background condensate in
 its regulated vacuum has $w = p/\rho = -1$ — de Sitter expansion, no phantom
@@ -288,7 +284,7 @@ the FM-HN correspondence principle.
 
 ---
 
-# 5  Conclusion
+# Conclusion
 
 The cosmological constant is the vacuum expectation value of the somatic tensor
 trace, $\Lambda = k_\text{cosm}^2\,\Phi_0^2/M_\text{Pl}^2$, where $\Phi_0 \sim

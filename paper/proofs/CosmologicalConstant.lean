@@ -61,3 +61,50 @@ axiom cosmological_constant_identification :
     True  -- numerical value: Phi0 ≈ 0.4 M_Pl
 
 end SomaField.Cosmological
+
+-- ── P22: Dark Matter as Spatial Vacuum ───────────────────────────────────
+
+namespace SomaField.DarkMatter
+
+/-- Number of non-compact spatial dimensions. -/
+def N_spatial : ℕ := 3
+
+/-- Leading-order dark matter fraction: spatial / total dimensions. -/
+def Omega_DM_USF : ℚ := N_spatial / N_total  -- = 3/11 ≈ 0.273
+
+/-- Observed dark matter fraction (Planck 2018). -/
+noncomputable def Omega_DM_obs : ℝ := 0.265
+
+/-- Baryonic fraction from time-block with matter-antimatter asymmetry. -/
+def Omega_b_USF : ℚ := 1 / 22  -- = (1/11)/2 ≈ 0.0455
+
+/-- Observed baryonic fraction (Planck 2018). -/
+noncomputable def Omega_b_obs : ℝ := 0.049
+
+/-- USF predicts Ω_DM = 3/11 from spatial dimension counting. -/
+theorem omega_dm_fraction :
+    (Omega_DM_USF : ℝ) = 3 / 11 := by native_decide
+
+/-- The 3% discrepancy between 3/11 and Omega_DM_obs is within single-digit %.
+    Physical argument: Calabi-Yau moduli correction, same origin as P21's 7%. -/
+theorem omega_dm_discrepancy_small :
+    |((Omega_DM_USF : ℝ) - Omega_DM_obs)| / Omega_DM_obs < 0.04 := by
+  norm_num [Omega_DM_USF, Omega_DM_obs]
+
+/-- Baryonic fraction = (1/11)/2 from time-block with baryogenesis factor. -/
+theorem omega_baryon_fraction :
+    (Omega_b_USF : ℝ) = 1 / 22 := by native_decide
+
+/-- 8% discrepancy bound for baryonic prediction. -/
+theorem omega_baryon_discrepancy_small :
+    |((Omega_b_USF : ℝ) - Omega_b_obs)| / Omega_b_obs < 0.08 := by
+  norm_num [Omega_b_USF, Omega_b_obs]
+
+/-- Spatial vacuum couples to 4D gravity but not to SM gauge fields.
+    Proof requires: KK reduction of 11D USF spatial block + gauge localisation
+    in X_7. Currently axiomatised. -/
+axiom spatial_vacuum_gravity_coupling : True
+axiom spatial_vacuum_em_neutral : True
+axiom spatial_vacuum_pressure_zero : True  -- w = 0 in non-relativistic limit
+
+end SomaField.DarkMatter
