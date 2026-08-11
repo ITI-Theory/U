@@ -31,6 +31,7 @@ $(eval $(call register, the-tensor,                     book,     multi, tensor 
 $(eval $(call register, soma-temporal-dynamics,         citeproc, en,    temporal))
 $(eval $(call register, usf-euclidean-qft,              citeproc, en,    osqft   ))
 $(eval $(call register, usf-interacting-qft,           citeproc, en,    intqft  ))
+$(eval $(call register, cosmological-constant-derivation, citeproc, en,  cosconst))
 
 # Derived target lists (computed from registry)
 _ALL_EN_PDFS := $(addprefix $(BUILDDIR)/, $(addsuffix .pdf, $(ALL_DOCS)))

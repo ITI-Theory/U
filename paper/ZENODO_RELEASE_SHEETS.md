@@ -463,3 +463,14 @@ MATH_CO_ID_DOI          = 10.5281/zenodo.20287981
 ## Translations
 
 Once `make translate` is verified, translation PDFs (`bld/*.de.pdf`, `bld/*.fr.pdf`, `bld/*.it.pdf`) can be uploaded as additional files on the same Zenodo record as their English parent, or as separate language-specific records linked with `IsTranslationOf` / `IsTranslatedBy`. Recommend: upload as additional files on the same record to keep DOIs unified.
+
+## P21 — Cosmological Constant Derivation (new, 2026-08-11)
+
+**Title:** The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field: Λ ≡ ⟨tr Φ⟩₀ from USF Compactification
+
+**Type:** Publication → Preprint  
+**Keywords:** cosmological constant, Universal Somatic Field, vacuum energy, compactification, M-theory, Planck scale, dark energy, de Sitter  
+**Description:** Derives the cosmological constant as the vacuum expectation value of the somatic tensor trace. The required field amplitude Φ₀ ≈ 0.4 M_Pl is a natural Planck-scale compactification value, giving Λ_USF ≈ H₀²/c² within a factor of 2 of Λ_obs. The discrepancy factor 3Ω_Λ ≈ 2.05 is attributed to Calabi-Yau moduli geometry. Avoids the standard fine-tuning problem by treating Λ as a classical background amplitude rather than a zero-point energy sum.  
+**Related:** `Is part of` → C1v2 omnibus DOI (concept: https://doi.org/10.5281/zenodo.20460771)
+
+**Status:** Not yet uploaded — draft paper created 2026-08-11.
