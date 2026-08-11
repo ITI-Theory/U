@@ -61,6 +61,7 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 w
 | P18 | preverbal-manifold | not yet submitted |
 | P19 | swarm-propagator | not yet submitted |
 | P20 | universal-somatic-field | not yet submitted |
+| P21 | cosmological-constant-derivation | not yet written — stub: Λ ≡ ⟨tr Φ⟩₀ from USF vacuum; needs numerical estimate + linearised GR |
 
 ## Git State (as of May 30, 2026)
 - All repos clean and pushed (main branch, no uncommitted changes)
