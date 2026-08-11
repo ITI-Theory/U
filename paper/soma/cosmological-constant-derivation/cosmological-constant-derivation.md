@@ -183,18 +183,35 @@ In the USF framework:
 A precise derivation requires the Calabi-Yau moduli metric, which determines
 how the 11D energy density projects onto $M_4$.
 
-## 4.3  Testable prediction
+## 4.3  Testable predictions and current observational status
 
-**Equation of state.** A classical background field with $w = -1$ (de Sitter)
-is consistent with the somatic field in its regulated calm vacuum. The USF
-predicts $w = -1$ exactly — no deviation from de Sitter, no phantom energy.
-Current observations constrain $w = -1.028 \pm 0.032$ [@planck2018cosmology],
-consistent with the USF prediction at $1\sigma$.
+**Equation of state (w = −1 exactly).** A classical background condensate in
+its regulated vacuum has $w = p/\rho = -1$ — de Sitter expansion, no phantom
+energy. Any detection of $w \neq -1$ would **falsify the P21 claim** that
+$\Lambda$ is a classical USF condensate; it would require either a dynamical
+(quintessence) field or a modification to the USF framework at Scale 19–20.
 
-**Variation of $\Lambda$.** If $\Omega_\Lambda$ is determined by the moduli
-geometry, it is a fixed number in this vacuum and should not vary with
-redshift. Current Stage IV surveys (DESI, Euclid) will constrain $\Omega_\Lambda(z)$
-to better than 1\%; the USF predicts null variation.
+*Current status:* DESI 2025 [@desi2025dr1] reports $w_0 = -0.727 \pm 0.067$,
+$w_a = -1.05 \pm 0.27$ (BAO + CMB + SNe Ia), suggesting $w \neq -1$ at
+$\sim 2.8\sigma$. This is a **direct tension with P21**. It is not yet a
+falsification (the tension is below $3\sigma$ and systematics are under
+investigation), but it is the highest-stakes current test of the claim.
+Stage IV surveys (DESI Year-5, Euclid full survey) will resolve this within
+2–3 years.
+
+**Null variation of Λ with redshift.** The USF condensate amplitude is fixed
+by the Planck-scale boundary condition at $\sigma = 0$ and does not evolve
+with redshift. The prediction $\Omega_\Lambda(z) = \mathrm{const}$ is testable
+to better than 1\% by Stage IV surveys. Any detection of
+$d\Omega_\Lambda/dz \neq 0$ would similarly falsify the condensate picture.
+
+**Scope of falsification.** The predictions test the Scale 19–20 (cosmological)
+limit of the USF. If they fail, the USF framework at clinical, biological, and
+quantum scales (Scales 5–8, as tested by QUANT-EXP-1 and the benchmark suite)
+remains unaffected. The falsification is specific to the claim that the
+cosmological constant is a USF condensate; it does not extend to the
+Osterwalder–Schrader axiom verification, the swarm coordination theorem, or
+the FM-HN correspondence principle.
 
 ---
 
