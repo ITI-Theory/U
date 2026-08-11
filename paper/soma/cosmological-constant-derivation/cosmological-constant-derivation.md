@@ -42,9 +42,16 @@ with the **vacuum field amplitude** at the cosmological scale, not with the
 zero-point energy of all modes.
 
 **Definition.** The cosmological somatic field is the restriction of the USF
-propagator to Scale 19–20 ($\sigma = 19$, observable universe). Its vacuum state
-is the regulated attractor of the 11-dimensional field under cosmological boundary
-conditions. The cosmological constant is:
+propagator to Scale 19–20 ($\sigma = 19$, observable universe). Rather than
+constructing the vacuum state via the standard summation of Simple Harmonic
+Oscillator (SHO) decoupling modes — which produces the $10^{117}$ ZPE
+catastrophe — the USF defines the vacuum expectation value through
+**non-local Green function boundary propagators**. This is mathematically
+analogous to the strongly-correlated condensed-matter systems (e.g.
+high-temperature superconductors) where non-local Green functions replace
+the BCS phonon-SHO approximation. Its stable vacuum state is the regulated
+attractor of the 11-dimensional field under cosmological boundary conditions.
+The cosmological constant is:
 $$\boxed{\Lambda \equiv \frac{k_\text{cosm}^2\,\langle\mathrm{tr}\,\Phi\rangle_0^2}
 {M_\text{Pl}^2 c^2}}$$
 where $k_\text{cosm} = H_0/c$ is the cosmic wavenumber, $\langle\mathrm{tr}\,\Phi\rangle_0$
@@ -186,10 +193,14 @@ The structural claims of this paper are formalised in
    requires computing the projection of the 11D USF onto $M_4$ through the
    Calabi-Yau fibre. This is the content of axiom `calabi_yau_rg_coefficients`.
 
-3. **Renormalisation.** The USF 1-loop effective action needs to be shown
-   UV-finite at the compactification cutoff $k_c = \ell_s^{-1}$. For the
-   free field (proved via OS axioms), UV finiteness follows from OS3 reflection
-   positivity. For the interacting field, this is P15's open programme.
+3. **Renormalisation and propagator finiteness.** The USF 1-loop effective
+   action needs to be shown UV-finite at the compactification cutoff
+   $k_c = \ell_s^{-1}$. Because the framework replaces standard SHO mode-sums
+   with non-local Green function propagators, UV-finiteness is naturally
+   enforced via boundary-condition regulation rather than counter-term
+   subtraction. For the free field (proved via OS axioms), UV-finiteness
+   follows directly from OS3 reflection positivity. For the interacting field,
+   this is P15's open programme.
 
 ---
 
