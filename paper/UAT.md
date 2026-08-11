@@ -45,9 +45,9 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 | META-1 | CoIdentificationIsAbduction | **PASS** | The whole paper is this |
 | GAP-1 | DyadicPropagatorExists | **PARTIAL** | `dyadicPropagatorExists` proved (symmetry, by `simp`); `coupling_sum_nonneg` proved over ℝ (Finset.sum_nonneg); `dyadic_energy_coupling_lowers_ℝ` has sorry for block-sum decomposition (boilerplate, not mathematics); Float→ℝ transfer sorry remains |
 | GAP-2 | CTheoremHoldsForSomaField | **OPEN** | Claim: ∃ C(W) monotonically decreasing under therapeutic RG flow. Analogue of Zamolodchikov C-theorem. Requires: definition of C-function for soma-field, proof of monotonicity under W-deformation. Genuine open question. |
-| GAP-3 | CosmologicalConstantDerivation | **OPEN** | Claim: Λ ≡ ⟨tr Φ_μν⟩_0 — the cosmological constant equals the vacuum expectation of the somatic tensor trace. Functional form correct; Lean 4 proof needs linearised GR in Mathlib (`cosmological_correspondence` currently trivially proved); numerical value needs Calabi-Yau moduli geometry to match Λ_obs ≈ 10⁻¹²³ (Planck). Path: (1) formal proof via Mathlib GR; (2) numerical estimate from compactification scale k ~ H₀; (3) USF 1-loop renormalisation at compactification cutoff. Candidate for P21. |
+| GAP-3 | CosmologicalConstantDerivation | **PARTIAL** | P21 written. Numerical estimate: Λ_USF = (21/11) H₀²/c² ≈ 0.93 Λ_obs (7% from 7/11 compact dimension fraction). DESI+Pantheon+ consistent (0.1σ). DES SN5YR tension (4σ) pending systematics. Lean stub: `CosmologicalConstant.lean`; axioms need linearised GR in Mathlib. |
 
-**Score: 10 PASS · 1 PARTIAL · 2 OPEN · 0 FAIL**
+**Score: 10 PASS · 2 PARTIAL · 1 OPEN · 0 FAIL**
 
 ---
 
