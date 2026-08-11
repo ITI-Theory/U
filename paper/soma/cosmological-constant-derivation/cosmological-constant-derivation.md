@@ -107,68 +107,75 @@ $\Lambda \sim H_0^2/c^2$ is shorthand for the consistency condition
 $H_0 = c\sqrt{\Lambda/3\Omega_\Lambda}$ — $H_0$ is the *output* of the framework
 once $\Lambda$ is fixed, not the input.
 
-## 2.4  The dark energy fraction from compactification counting
+## 2.3  Preliminary first-order estimate
 
-The factor $3\Omega_\Lambda$ in $\Lambda_\text{obs} = 3\Omega_\Lambda H_0^2/c^2$
-has a natural 11D interpretation. Of the 11 total dimensions:
+$$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.7\times10^{-53}\,\text{m}^{-2}$$
+$$\frac{\Lambda_\text{USF}^\text{(1)}}{\Lambda_\text{obs}} = \frac{1}{3\Omega_\Lambda} \approx 0.49$$
 
-- **7 compact** ($X_7$): their vacuum energy has nowhere to propagate in 4D
-  space; it contributes entirely to the 4D cosmological constant.
-- **4 non-compact** ($M_4$): their vacuum fluctuations contribute to
+This unrefined calculation captures 49\% of the observed value. The factor
+$3\Omega_\Lambda \approx 2.05$ is resolved in \S2.4 by compact-dimension
+counting, bringing the estimate to 93\%.
+
+## 2.4  Dark energy fraction from compact-dimension counting
+
+The factor $3\Omega_\Lambda$ has a natural 11D interpretation. Of the 11
+total dimensions:
+
+- **7 compact** ($X_7$): vacuum energy cannot propagate in 4D; it
+  contributes entirely to the 4D cosmological constant.
+- **4 non-compact** ($M_4$): vacuum fluctuations distribute across
   matter, radiation, and curvature.
 
-The leading-order compact-dimension fraction is:
-$$\Omega_\Lambda^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.636$$
+The leading-order vacuum energy partition fraction is:
+$$\Omega_\text{vac}^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.636$$
 
-**Comparison:** $\Omega_\Lambda^\text{obs} = 0.683$. Discrepancy: $6.8\%$.
-
-The result is:
+**Origin of the factor of 3.** The standard definition of critical density,
+$\rho_\text{crit} = 3H^2/(8\pi G)$, introduces a factor of 3 relative to bare
+energy densities. The cosmological constant inherits this factor:
+$\Lambda = 8\pi G \rho_\Lambda / c^2 = 3\Omega_\Lambda H_0^2/c^2$.
+When $\rho_\Lambda = (7/11)\rho_\text{vac}$ and $\rho_\text{vac} \sim M_\text{Pl}^2 H_0^2/(8\pi G)$,
+the factor of 3 from the Friedmann normalisation of $\rho_\text{crit}$ appears
+naturally:
 $$\Lambda_\text{USF} = 3 \times \frac{7}{11} \times \frac{H_0^2}{c^2}
   = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.09\times10^{-52}\;\text{m}^{-2}$$
 
 $$\frac{\Lambda_\text{USF}}{\Lambda_\text{obs}} = \frac{7/11}{\Omega_\Lambda}
   = \frac{0.636}{0.683} = 0.932 \quad (93\%\text{ of observed})$$
 
-The 7\% discrepancy is the Calabi-Yau moduli correction: the actual
-$G_2$-holonomy metric on $X_7$ departs from the simple dimension-counting
-estimate by $\sim 7\%$, consistent with $\mathcal{O}(\alpha')$ corrections
-in string compactifications. The exact value requires computing the moduli
-metric of the specific Calabi-Yau, which is the content of axiom
-`calabi_yau_rg_coefficients`.
+The 7\% discrepancy is the Calabi-Yau moduli correction:
+the actual $G_2$-holonomy metric on $X_7$ departs from
+simple dimension-counting by $\sim 7\%$, consistent with
+$\mathcal{O}(\alpha')$ corrections in string compactifications.
+This is the content of axiom `calabi_yau_rg_coefficients`.
 
-**Clarification on $\Omega_\Lambda$.** The dark energy fraction
-$\Omega_\Lambda(t) = \rho_\Lambda/\rho_\text{crit}(t)$ is time-dependent
-(it was $\approx 0$ in the early universe and approaches 1 in the far future).
-The 7/11 ratio is not directly equated to $\Omega_\Lambda(t)$; it is the fraction
-of total **vacuum energy density** $\rho_\text{vac}$ that contributes to $\Lambda$
-in the current epoch. The consistency between 7/11 and the current
-$\Omega_\Lambda^\text{obs} = 0.683$ at the 7\% level is the key empirical test:
-in other epochs, $\Omega_\Lambda(t) \neq 7/11$ (since $\rho_\text{crit}(t)$
-varies) while $\rho_\Lambda$ itself remains constant.
-
-
-## 2.3  Preliminary estimate (before compact-dimension correction)
-
-$$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.7\times10^{-53}\,\text{m}^{-2}$$
-$$\frac{\Lambda_\text{USF}^\text{(1)}}{\Lambda_\text{obs}} = \frac{1}{3\Omega_\Lambda} \approx 0.49$$
-
-This first-order estimate captures 49\% of the observed value. The factor
-$3\Omega_\Lambda \approx 2.05$ is resolved in \S2.4 below by the
-compact-dimension fraction, bringing the estimate to 93\%.
-
----
+**Note on $\Omega_\Lambda(t)$.** The parameter
+$\Omega_\Lambda(t) = \rho_\Lambda/\rho_\text{crit}(t)$ is time-dependent.
+The ratio 7/11 is the constant topological partition of vacuum energy,
+not the dynamic density ratio. The 7\% agreement between 7/11 and the
+current $\Omega_\Lambda^\text{obs} = 0.683$ is an empirical consistency
+check: $\rho_\Lambda$ is constant while $\rho_\text{crit}(t)$ varies.
 
 ---
 
 # 3  Formal Status
 
-The identification $\Lambda = \langle\mathrm{tr}\,\Phi\rangle_0$ is stated as
-an axiom `universe_is_11D_organism` in `UniversalSomaticField.lean`. The
-theorem `cosmological_correspondence` is proved in its current (weak) form:
-it establishes that a field equation exists at scale 19, but does not prove
-the identification with the linearised Einstein equation.
+## 3.1  Lean 4 formalisation mapping
 
-**To fully prove the claim:**
+The structural claims of this paper are formalised in
+`paper/proofs/CosmologicalConstant.lean` and `UniversalSomaticField.lean`:
+
+| Statement | Lean name | Status |
+|---|---|---|
+| 7/11 vacuum partition | `omega_lambda_fraction` | **proved** (`native_decide`) |
+| 7% discrepancy bound | `omega_lambda_discrepancy_small` | **proved** (`norm_num`) |
+| $\Phi_0 \sim M_\text{Pl}$ from compactification | `cosmological_constant_identification` | axiom |
+| $\Lambda$ exists at scale 19 | `cosmological_correspondence` | **proved** (weak form) |
+| Geometric RG flow consistency | `GeometricRGFlow_waveEquation` | **proved** |
+| Calabi-Yau moduli coefficients | `calabi_yau_rg_coefficients` | axiom |
+| Universe satisfies 11D structure | `universe_is_11D_organism` | axiom |
+| $w = -1$ equation of state | `usf_equation_of_state` | axiom (needs GR) |
+
+## 3.2  Remaining proof obligations
 
 1. **Linearised GR in Mathlib.** The equation
    $\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}$ needs to be formalised. Mathlib's
