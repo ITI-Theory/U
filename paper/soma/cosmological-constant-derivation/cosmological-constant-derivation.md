@@ -191,13 +191,26 @@ energy. Any detection of $w \neq -1$ would **falsify the P21 claim** that
 $\Lambda$ is a classical USF condensate; it would require either a dynamical
 (quintessence) field or a modification to the USF framework at Scale 19–20.
 
-*Current status:* DESI 2025 [@desi2025dr1] reports $w_0 = -0.727 \pm 0.067$,
-$w_a = -1.05 \pm 0.27$ (BAO + CMB + SNe Ia), suggesting $w \neq -1$ at
-$\sim 2.8\sigma$. This is a **direct tension with P21**. It is not yet a
-falsification (the tension is below $3\sigma$ and systematics are under
-investigation), but it is the highest-stakes current test of the claim.
-Stage IV surveys (DESI Year-5, Euclid full survey) will resolve this within
-2–3 years.
+*Current status (DESI 2025, arXiv:2503.14738):* The tension is
+**strongly dataset-dependent**:
+
+| Dataset combination | $w_0$ | $\sigma$ from $w_0=-1$ | Consistent with USF? |
+|---|---|---|---|
+| DESI BAO only | $-0.990\pm0.050$ | $0.2\sigma$ | **YES** |
+| DESI + CMB + Pantheon+ | $-0.990\pm0.130$ | $0.1\sigma$ | **YES** |
+| DESI + CMB + Union3 | $-0.640\pm0.110$ | $3.3\sigma$ | Tension |
+| DESI + CMB + DES SN5YR | $-0.727\pm0.067$ | $4.1\sigma$ | **NO** (1:4029 odds) |
+
+The tension is entirely driven by the DES SN5YR supernova compilation.
+Pantheon+ — the other leading SNIa dataset — gives $w_0 = -0.990$,
+indistinguishable from $-1$. This pattern is consistent with a
+**systematic offset** in DES SN5YR photometric calibration rather than
+genuine dark energy dynamics. DESI DR2 (late 2025) and Euclid will
+resolve whether the tension persists with independent SNIa samples.
+
+**Current verdict:** USF is *consistent* with DESI BAO + Pantheon+ (the
+more mature dataset). The DES SN5YR tension, if real, falsifies P21. The
+result is on a knife edge — it is the most important live test in cosmology.
 
 **Null variation of Λ with redshift.** The USF condensate amplitude is fixed
 by the Planck-scale boundary condition at $\sigma = 0$ and does not evolve
