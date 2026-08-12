@@ -69,7 +69,7 @@ OMNIBUS_FLAGS := \
   --citeproc --bibliography=../../paper/bibliography.bib \
   --csl=../../paper/apa-7th.csl \
   -V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
-  -V fontsize=11pt -V linestretch=1.4 \
+  -V fontsize=11pt -V linestretch=1.39 \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{placeins}"
 
 # Volume flags — same as omnibus (TOC already included)
