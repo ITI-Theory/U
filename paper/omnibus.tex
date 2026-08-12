@@ -20,6 +20,8 @@
 \definecolor{heading}{RGB}{26,63,110}
 \definecolor{accent}{RGB}{0,160,120}
 \definecolor{rulecolor}{RGB}{180,190,200}
+% Pre-mixed solid: 4% heading on white — avoids PDF transparency from xcolor mixing
+\definecolor{headingbg}{RGB}{246,247,249}
 
 \makeatletter
 \AtBeginDocument{\@ifpackageloaded{hyperref}{\hypersetup{linkcolor=heading,citecolor=heading,urlcolor=accent}}{}}
@@ -120,7 +122,7 @@
 \surroundwithmdframed[%
   linewidth=2pt, linecolor=heading,
   topline=false, bottomline=false, rightline=false,
-  backgroundcolor=heading!4,
+  backgroundcolor=headingbg,
   skipabove=10pt, skipbelow=10pt,
   innerleftmargin=12pt, innerrightmargin=8pt,
   innertopmargin=6pt, innerbottommargin=6pt]{quote}
