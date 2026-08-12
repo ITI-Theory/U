@@ -63,8 +63,7 @@ author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
-lang: en-GB
-description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme. Eighteen papers in five parts: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, and the universal scale-invariant theory."
+description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme. Twenty-two papers in five parts: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, and the universal scale-invariant theory."
 bibliography: bibliography.bib
 csl: apa-7th.csl
 ---"""
@@ -172,15 +171,31 @@ _REF_RE = re.compile(r"\n#{1,3}\s+References\b[\s\S]*$", re.IGNORECASE)
 # Helpers
 # ---------------------------------------------------------------------------
 
+def get_title(paper_name: str) -> str:
+    """Extract display title from a paper's YAML frontmatter."""
+    path = PAPER_DIR / "soma" / paper_name / f"{paper_name}.md"
+    if not path.exists():
+        return paper_name.replace("-", " ").title()
+    text = path.read_text(encoding="utf-8")
+    for pat in [r'^title:\s*"([^"]+)"', r"^title:\s*'([^']+)'", r'^title:\s*(.+?)\s*$']:
+        m = re.search(pat, text, re.MULTILINE)
+        if m:
+            return m.group(1).strip()
+    return paper_name
+
+
 def get_body(paper_name: str) -> str:
-    """Read a source paper and return its body (YAML and References stripped)."""
+    """Read a source paper and return its body (YAML and References stripped).
+    Headings shifted down one level so injected chapter title doesn't clash."""
     path = PAPER_DIR / "soma" / paper_name / f"{paper_name}.md"
     if not path.exists():
         print(f"  WARNING: {path.name} not found — skipping", file=sys.stderr)
         return ""
     text = path.read_text(encoding="utf-8")
-    text = _FM_RE.sub("", text, count=1)   # strip YAML frontmatter
-    text = _REF_RE.sub("", text)            # strip trailing References section
+    text = _FM_RE.sub("", text, count=1)
+    text = _REF_RE.sub("", text)
+    # Shift headings down 1 level: # → ##, ## → ###, etc.
+    text = re.sub(r'^(#{1,5})(?= )', r'#\1', text, flags=re.MULTILINE)
     return text.strip()
 
 
@@ -203,9 +218,10 @@ def main() -> None:
         if part_divider:
             sections.append(f"\n\n{part_divider}\n")
         if paper_name:
-            body = get_body(paper_name)
+            title = get_title(paper_name)
+            body  = get_body(paper_name)
             if body:
-                sections.append(f"\n\n{body}\n")
+                sections.append(f"\n\n# {title}\n\n{body}\n")
                 print(f"  + {paper_name}")
 
     output = "\n".join(sections)

@@ -42,6 +42,8 @@ The third layer is implication. If the Universal Somatic Field is a real physica
 
 This book is the gateway volume of the **[T]-Theory Fractal Programme** — a set of fifteen books, each applying the Universal Somatic Field to a different academic domain. Physicists will find a volume grounding the field in quantum field theory and M-theory. Neuroscientists will find a volume connecting it to the electromagnetic theory of consciousness. Clinicians will find a volume on trauma and therapy. Lawyers, economists, geophysicists, musicologists — each field has its own book, written in its own language, showing how the same master equation governs phenomena that discipline had studied in isolation.
 
+Recent work extended the framework to cosmology with striking results. The same eleven-dimensional structure that fixes the geometry of emotional attractor states also predicts, without any free parameters, two of the largest numbers in physics: the cosmological constant — the energy driving the accelerating expansion of the universe — falls within 7% of the measured value; and the fraction of the universe made of dark matter falls within 3% of the Planck satellite's measurement. These predictions come from counting dimensions (seven compact, three spatial, one temporal), not from fitting the data. The equation that describes how a memory gets stuck is the same equation that describes why 27% of the universe is invisible.
+
 This is the gateway. It asks only that you follow the logic, and stay curious.
 
 The stone is in the water. Watch the ripples.

@@ -1,0 +1,143 @@
+% omnibus.tex — memoir-class header for the USF collected works omnibus.
+% Used by: make omnibus-royal / omnibus-a4
+% Individual papers use journal.tex (article class) — this file does not affect them.
+% memoir replaces titlesec + fancyhdr with its own native systems.
+
+% ── 1. Typography ─────────────────────────────────────────────────────────────
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{needspace}
+% Line spacing handled natively by memoir — \linespread needs no package.
+% (Avoids the setspace/\setstretch ordering conflict with pandoc's template.)
+\linespread{1.32}
+
+% ── 2. Fonts ──────────────────────────────────────────────────────────────────
+\setmainfont{TeX Gyre Pagella}[Ligatures=TeX,Numbers=OldStyle]
+\setsansfont{Lato}[Ligatures=TeX,BoldFont=Lato Bold]
+
+% ── 3. Colour palette ─────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{heading}{RGB}{26,63,110}
+\definecolor{accent}{RGB}{0,160,120}
+\definecolor{rulecolor}{RGB}{180,190,200}
+
+\makeatletter
+\AtBeginDocument{\@ifpackageloaded{hyperref}{\hypersetup{linkcolor=heading,citecolor=heading,urlcolor=accent}}{}}
+\makeatother
+
+% ── 4. Chapter style (memoir native) ──────────────────────────────────────────
+% No "Chapter N" label — just number + title + rule, matching journal.tex section style
+\makechapterstyle{usf}{%
+  \setlength{\beforechapskip}{24pt}%
+  \setlength{\afterchapskip}{14pt}%
+  \renewcommand{\printchaptername}{}%
+  \renewcommand{\chapternamenum}{}%
+  \renewcommand{\chapnumfont}{\large\bfseries\sffamily\color{heading}}%
+  \renewcommand{\printchapternum}{\chapnumfont\thechapter.\enspace}%
+  \renewcommand{\chaptitlefont}{\LARGE\bfseries\sffamily\color{heading}}%
+  \renewcommand{\printchaptertitle}[1]{%
+    \needspace{6\baselineskip}\chaptitlefont ##1%
+    \par\nobreak\vskip 6pt{\color{rulecolor}\hrule height 0.6pt}\vskip 8pt%
+  }%
+  \renewcommand{\afterchaptertitle}{}%
+}
+\chapterstyle{usf}
+
+% ── 5. Section / subsection headings ──────────────────────────────────────────
+\setsecheadstyle{\needspace{5\baselineskip}\Large\bfseries\sffamily\color{heading}}
+\setbeforesecskip{-16pt plus -4pt minus -2pt}
+\setaftersecskip{6pt}
+\setsubsecheadstyle{\needspace{4\baselineskip}\large\bfseries\sffamily\color{heading}}
+\setbeforesubsecskip{-12pt plus -3pt minus -2pt}
+\setaftersubsecskip{3pt}
+\setsubsubsecheadstyle{\needspace{3\baselineskip}\normalsize\itshape\sffamily\color{heading}}
+\setbeforesubsubsecskip{-8pt plus -2pt minus -2pt}
+\setaftersubsubsecskip{2pt}
+
+% ── 6. Part style ─────────────────────────────────────────────────────────────
+\renewcommand{\partnamefont}{\Large\bfseries\sffamily\color{heading}}
+\renewcommand{\partnumfont}{\Large\bfseries\sffamily\color{heading}}
+\renewcommand{\parttitlefont}{\Huge\bfseries\sffamily\color{heading}}
+
+% ── 7. Running headers (memoir page style engine) ─────────────────────────────
+% Even pages: page# left, PAPER TITLE right
+% Odd  pages: SECTION TITLE left, page# right
+\setlength{\headheight}{14pt}
+\makepagestyle{usf}
+\makerunningwidth{usf}{\textwidth}
+\makeheadrule{usf}{\textwidth}{0.4pt}
+\makeheadfootruleprefix{usf}{\color{rulecolor}}{}
+\makeevenhead{usf}{\footnotesize\thepage}{}{\footnotesize\sffamily\textcolor{heading}{\leftmark}}
+\makeoddhead{usf}{\footnotesize\sffamily\textcolor{heading}{\rightmark}}{}{\footnotesize\thepage}
+% chapter → leftmark (paper title on even pages — "which paper am I in?")
+% section → rightmark (section title on odd pages — "where in the paper?")
+\createmark{chapter}{left}{nonumber}{}{}
+\createmark{section}{right}{nonumber}{}{}
+\pagestyle{usf}
+\aliaspagestyle{chapter}{usf}
+\aliaspagestyle{part}{usf}
+
+% ── 8. Custom title page — [T]-Theory branded (matches journal.tex) ──────────
+\makeatletter
+\let\omni@old@maketitle\maketitle
+\renewcommand{\maketitle}{%
+  \begin{titlingpage}
+    \thispagestyle{empty}
+    \begin{flushright}
+      \IfFileExists{figures/t-theory-sticker.png}{%
+        \includegraphics[width=55mm]{figures/t-theory-sticker.png}%
+      }{%
+        {\sffamily\bfseries\textcolor{heading}{\huge[T]}}%
+      }
+    \end{flushright}
+    \vfill
+    {\textcolor{heading}{\hrule height 2pt}}
+    \vspace{6mm}
+    {\Huge\bfseries\sffamily\textcolor{heading}{\@title}\par}
+    \vspace{4mm}
+    {\textcolor{rulecolor}{\hrule height 0.6pt}}
+    \vspace{4mm}
+    \@ifundefined{@subtitle}{}{%
+      {\large\itshape\color{black!70}\@subtitle\par}\vspace{8mm}%
+    }
+    \vfill
+    {\large\sffamily\@author\par}
+    \vspace{2mm}
+    {\small\sffamily\color{black!60}Independent Researcher, Zurich, Switzerland\par}
+    \vspace{1mm}
+    {\small\sffamily\textcolor{accent}{ORCID: 0009-0007-2194-0850}\par}
+    \vspace{4mm}
+    {\textcolor{rulecolor}{\hrule height 0.4pt}}
+    \vspace{3mm}
+    {\small\sffamily\color{black!60}\@date\par}
+  \end{titlingpage}
+  \clearpage
+}
+\makeatother
+
+% ── 9. Blockquote styling (left-rule callout, matching journal.tex) ───────────
+\usepackage{mdframed}
+\surroundwithmdframed[%
+  linewidth=2pt, linecolor=heading,
+  topline=false, bottomline=false, rightline=false,
+  backgroundcolor=heading!4,
+  skipabove=10pt, skipbelow=10pt,
+  innerleftmargin=12pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt]{quote}
+
+% ── 10. Widow / orphan ────────────────────────────────────────────────────────
+\widowpenalty=9999
+\clubpenalty=9999
+\displaywidowpenalty=9999
+
+% ── 9. Code blocks ────────────────────────────────────────────────────────────
+\makeatletter
+\AtBeginDocument{%
+  \@ifpackageloaded{fancyvrb}{\fvset{fontsize=\small}}{}%
+  \@ifpackageloaded{framed}{\renewenvironment{Shaded}{}{}}{}%
+}
+\makeatother
+
+% ── 10. Lean appendix helper (used by lean-proofs-appendix content) ───────────
+% In the omnibus, single-column — the column-switch is a no-op.
+\newcommand{\leanappendixstart}{}

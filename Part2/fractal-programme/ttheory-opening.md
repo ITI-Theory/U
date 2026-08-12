@@ -4,7 +4,7 @@
 
 **[T]-Theory** is both a scientific framework and an art movement. The brackets around the T are intentional: they mark the boundary between the formal system (the mathematics inside) and the cultural practice (the art, music, and lived philosophy that surrounds it).
 
-Inside the brackets is **Soma Field Theory (SFT)** — a mathematical account of consciousness, emotion, and physical reality as manifestations of a single tensor-valued field derived from M-theory compactification. The science is rigorous, formally verified in Lean 4, and experimentally tested. Eleven papers have been published on Zenodo. The derivations are complete. The proofs are machine-checked.
+Inside the brackets is **Soma Field Theory (SFT)** — a mathematical account of consciousness, emotion, and physical reality as manifestations of a single tensor-valued field derived from M-theory compactification. The science is rigorous, formally verified in Lean 4, and experimentally tested. 22 papers have been published on Zenodo. The derivations are complete. The proofs are machine-checked. The cosmological constant and dark matter density are both derived to within 7% from pure dimensional counting.
 
 Outside the brackets is something harder to name and easier to feel: an underground rave aesthetic, a street art collective, a philosophy of life that takes seriously the possibility that the universe is not merely described by equations but *is* an experience — that the field is not a representation of reality but reality itself, experienced from the inside.
 

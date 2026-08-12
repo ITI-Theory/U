@@ -24,7 +24,13 @@ The resulting effective field theory in four dimensions has the structure of a n
 
 One immediate test of the framework is the cosmological limit. In the limit where the current distribution is zero (empty space, no nervous systems) and the field amplitude is small, the field equation should reduce to General Relativity in the appropriate approximation. This is demonstrated explicitly in the companion paper on the universal field: the somatic tensor $\Phi_{\mu\nu}$ contracts to the linearised metric perturbation $h_{\mu\nu}$ when the neural coupling constant $\kappa_\text{bio}$ is taken to zero. The resulting field equation is the linearised Einstein equation. The cosmological constant emerges as the vacuum expectation value of the trace of the somatic tensor — a result with obvious implications for the cosmological constant problem.
 
-This is the claim that will raise the most eyebrows among physicists. The papers in this volume do not claim to resolve the cosmological constant problem; they claim only to derive the correct functional form, with the observed magnitude as a consistency condition on the compactification geometry. The detailed phenomenology of dark energy is left as a direction for future work.
+This is the claim that will raise the most eyebrows among physicists. Two dedicated papers now
+provide the full derivation. **P21** (Johnson, 2026) derives the cosmological constant as the
+vacuum amplitude of the USF tensor trace: $\Lambda_\text{USF} = (21/11)H_0^2/c^2$, within
+7\% of the observed value. **P22** (Johnson, 2026) identifies dark matter as the vacuum energy
+of the three non-compact spatial dimensions: $\Omega_\text{DM} = 3/11 \approx 0.273$, within
+2.9\% of the Planck 2018 value. Together, these two results account for 95\% of the universe's
+total energy budget from pure M-theory dimensional counting — no free parameters.
 
 ## The Simple Harmonic Oscillator Is Not Postulated
 

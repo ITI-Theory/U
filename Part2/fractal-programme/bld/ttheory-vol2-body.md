@@ -12071,7 +12071,7 @@ The following claims require further experimental work:
    amplitude via magnetoencephalography in human participants during somatic
    threshold events.
 
-2. **Dyadic propagator poles** (Open Problem 5 in the zUSF paper):
+2. **Dyadic propagator poles** (GAP-1 in the USF test suite):
    the spectral correspondence between the dyadic propagator poles and
    interpersonal synchrony metrics has not been measured.
 
@@ -26273,7 +26273,7 @@ The following claims require further experimental work:
    amplitude via magnetoencephalography in human participants during somatic
    threshold events.
 
-2. **Dyadic propagator poles** (Open Problem 5 in the zUSF paper):
+2. **Dyadic propagator poles** (GAP-1 in the USF test suite):
    the spectral correspondence between the dyadic propagator poles and
    interpersonal synchrony metrics has not been measured.
 
@@ -29870,7 +29870,7 @@ The following claims require further experimental work:
    amplitude via magnetoencephalography in human participants during somatic
    threshold events.
 
-2. **Dyadic propagator poles** (Open Problem 5 in the zUSF paper):
+2. **Dyadic propagator poles** (GAP-1 in the USF test suite):
    the spectral correspondence between the dyadic propagator poles and
    interpersonal synchrony metrics has not been measured.
 

@@ -4,16 +4,17 @@ author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
-lang: en-GB
-description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme. Eighteen papers in five parts: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, and the universal scale-invariant theory."
+description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme. Twenty-two papers in five parts: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, and the universal scale-invariant theory."
 bibliography: bibliography.bib
 csl: apa-7th.csl
 ---
 
 
+# The Soma-Field Research Programme: Method, Model, and Empirical Confirmation
+
 ---
 
-# The Programme
+## The Programme
 
 This is a document about structure.
 
@@ -33,7 +34,7 @@ This document describes what was built by navigating, and why the pieces form a 
 
 ---
 
-## The Gap the Programme Addresses
+### The Gap the Programme Addresses
 
 Every large language model deployed today is a classical system. Its training is
 gradient descent. Its inference is deterministic or thermally noisy sampling. The
@@ -56,7 +57,7 @@ The programme fills both gaps with the same model, via the same method.
 
 ---
 
-## The Structure of the Argument
+### The Structure of the Argument
 
 The argument has three movements and several extensions:
 
@@ -76,9 +77,9 @@ accessible form, for readers without a physics background.
 
 \newpage
 
-# The Method: Mathematical Co-identification
+## The Method: Mathematical Co-identification
 
-## What It Is
+### What It Is
 
 The history of mathematical science contains a recurring event. At a certain moment,
 a scientist recognises that the quantity they are studying is not *like* a quantity
@@ -107,7 +108,7 @@ distinguishes it from analogy, metaphor, and modelling. The key distinction:
 > **Co-identification**: A *is* B under relabelling. Every theorem about B is a
 > theorem about A.
 
-## Why It Matters as Method
+### Why It Matters as Method
 
 A co-identification can be wrong. The identification is only valid if the mathematical
 type matches: the same dimensionality, the same algebraic structure, the same
@@ -124,7 +125,7 @@ discovered by reading physics textbooks and looking for something that felt simi
 It was discovered by writing down the equations the emotional system was observed to
 satisfy and recognising the form.
 
-## When MCI Is Over: The Verification Threshold
+### When MCI Is Over: The Verification Threshold
 
 Here is something no paper on scientific method says clearly enough.
 
@@ -189,9 +190,9 @@ The method is in the history.  The results are in the formal proofs.
 
 \newpage
 
-# The Model: The Soma-Field
+## The Model: The Soma-Field
 
-## Five Co-identifications
+### Five Co-identifications
 
 The Soma-Field Model (Johnson, 2026b) is built from five sequential co-identifications,
 each importing a body of mathematics from physics into emotional dynamics:
@@ -243,7 +244,7 @@ life) modifications are irrelevant in the technical sense. This gives the formal
 account of why early trauma is not simply a more intense version of later trauma:
 it is a different class of object.
 
-## What the Model Predicts
+### What the Model Predicts
 
 From these five identifications, several predictions follow that are not derivable
 from any existing clinical model:
@@ -280,9 +281,9 @@ from any existing clinical model:
 
 \newpage
 
-# The Empirical Test: QUANT-EXP-1
+## The Empirical Test: QUANT-EXP-1
 
-## The Prediction
+### The Prediction
 
 The soma-field model makes a specific, falsifiable claim: for a Hopfield landscape
 with a topological trauma barrier, low-noise classical Langevin dynamics starting from
@@ -296,7 +297,7 @@ distinguishes the quantum and classical regimes in a measurable way.
 The prediction was registered in the Zenodo v1 deposit of the Soma-Field paper
 (doi:10.5281/zenodo.20350515) before the experiment was run.
 
-## The Experiment
+### The Experiment
 
 *Quantum Soma and the Penrose Gap* (Johnson, 2026c) reports QUANT-EXP-1: an exact
 8-qubit statevector simulation on a 256-dimensional Hilbert space, implementing the
@@ -314,7 +315,7 @@ The experimental design:
 - **Primary outcome**: Peak Awe-dominant occupancy (quantum) versus success rate
   of cold-classical crossings.
 
-## Results
+### Results
 
 Results are presented against the pre-registered barrier ladder:
 
@@ -345,7 +346,7 @@ is stable at 0.389–0.416 across the full range.
 
 **Verdict:** The strong reachability claim stands. QUANT-EXP-1 is a PASS.
 
-## The Penrose Connection
+### The Penrose Connection
 
 The paper situates this result in the context of Penrose's argument about
 non-computability and consciousness. The connection is not that consciousness requires
@@ -362,7 +363,7 @@ The contribution is not to resolve Penrose's claim about consciousness. It is to
 
 ---
 
-# The Lived Case: Field Notes from the Inside
+## The Lived Case: Field Notes from the Inside
 
 *Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics*
 (Johnson, 2026d) performs a function that the formal papers cannot perform: it
@@ -404,9 +405,9 @@ The formal content is a set of operator modifications for the three conditions:
 
 ---
 
-# Extensions: Music, Film, and the Domain Generality of the Model
+## Extensions: Music, Film, and the Domain Generality of the Model
 
-## Music-Induced Affect
+### Music-Induced Affect
 
 *A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex*
 (Johnson, 2026e) applies the soma-field framework to a domain where the empirical
@@ -442,7 +443,7 @@ fractal visual output (Mandelbulb projection onto HoloGauze screen). The instrum
 is not described; it is specified formally, with pre-registered hypotheses and
 disconfirmation criteria.
 
-## The Tensor: An Abstract Film
+### The Tensor: An Abstract Film
 
 *The Tensor: An Abstract Film Definition* (Johnson, 2026f) extends the framework to
 abstract film. A film is defined not by its pixels but by its **emotional score**: a
@@ -466,7 +467,7 @@ a symphony without being the performance.
 
 ---
 
-# The Argument as a Whole
+## The Argument as a Whole
 
 The six papers form a single argument, and it can be stated in a paragraph:
 
@@ -502,7 +503,7 @@ of the two principal computational substrates of the vertebrate brain.
 
 ---
 
-# What Remains
+## What Remains
 
 The body of work described here is computationally complete. All pre-registered
 hardening checks have been executed. The claims that can be confirmed by simulation
@@ -546,7 +547,7 @@ mechanism of co-identification.
 
 ---
 
-# Data and Code Availability
+## Data and Code Availability
 
 All papers, simulation code, result tables, figures, and Lean 4 formal proofs are
 archived at the following Zenodo records (open access):
@@ -571,11 +572,13 @@ the next release of the research archive.
 
 
 
-\newpage
-
 # A Voyage into Trauma
 
-## *The Soma-Field Theory of Emotional Life*
+\newpage
+
+## A Voyage into Trauma
+
+### *The Soma-Field Theory of Emotional Life*
 
 **Alistair Johnson**
 
@@ -592,7 +595,7 @@ the next release of the research archive.
 
 ---
 
-# Preface: The T's
+## Preface: The T's
 
 This book began as a physics paper.
 
@@ -657,7 +660,7 @@ of it.
 
 ---
 
-# How to Read This Book
+## How to Read This Book
 
 This book is written for three kinds of reader, and you can navigate it differently
 depending on which you are.
@@ -697,13 +700,13 @@ A note on boxes. Throughout the book you will find four types:
 
 \newpage
 
-# PART I: THE BODY KNOWS
+## PART I: THE BODY KNOWS
 
 ---
 
 \newpage
 
-# What the Body Remembers
+## What the Body Remembers
 
 ```
 > "The body keeps the score."
@@ -727,7 +730,7 @@ A note on boxes. Throughout the book you will find four types:
 
 ---
 
-## The Waiting Room
+### The Waiting Room
 
 Picture a waiting room. You are sitting in a chair, waiting for a routine appointment.
 Nothing unusual is happening. The lighting is fluorescent. There is a plant in the corner
@@ -752,7 +755,7 @@ doing it accurately, given what it knows.
 The question this book asks is: what does the body know, and how did it learn it, and
 what does it mean to change that learning?
 
-## What Trauma Is (and Is Not)
+### What Trauma Is (and Is Not)
 
 The word *trauma* is used in many ways. In this book, it has a specific meaning.
 
@@ -806,7 +809,7 @@ calibration has not.
 
 ---
 
-## The Polyvagal Ladder
+### The Polyvagal Ladder
 
 In the 1990s, neuroscientist Stephen Porges developed what he called Polyvagal Theory —
 an account of the autonomic nervous system that begins not with the familiar
@@ -851,7 +854,7 @@ danger — and the body can, at exactly the same moment, be running the threat r
 at full intensity. Both are responding to real information. They are just reading
 different signals.
 
-## The Freeze Response
+### The Freeze Response
 
 The freeze response is the least understood of the three states and, for many trauma
 survivors, the most characteristic.
@@ -880,7 +883,7 @@ at something slightly to the left of wherever they are. They are not being diffi
 They are not choosing not to engage. They are playing dead because the body has
 concluded that this is the appropriate moment to play dead.
 
-## Why This Matters for Treatment
+### Why This Matters for Treatment
 
 If trauma is a modification of a prediction model — an accurate learning from an
 overwhelming experience — then the therapeutic question is not *how do we fix the
@@ -935,7 +938,7 @@ provide, and it is the subject of Chapter 6.
 
 \newpage
 
-# A Field of Feeling
+## A Field of Feeling
 
 ```
 > "The body is the unconscious mind."
@@ -956,7 +959,7 @@ provide, and it is the subject of Chapter 6.
 
 ---
 
-## What a Field Is
+### What a Field Is
 
 Imagine the gravitational field of the Earth.
 
@@ -977,7 +980,7 @@ The key insight of the Soma-Field Model is this: **emotion is a field phenomenon
 Not a metaphor. A precise claim about how emotional signals distribute themselves in
 the body, interact with each other, and evolve over time.
 
-## Emotions in the Body
+### Emotions in the Body
 
 Antonio Damasio, in his somatic marker hypothesis (1994), proposed that emotions are
 fundamentally body states: that what we call "emotion" is the brain's representation
@@ -1068,7 +1071,7 @@ trauma.
 
 ---
 
-## The Soma-Field: A Technical Definition
+### The Soma-Field: A Technical Definition
 
 In the Soma-Field Model, we represent the body's emotional state as a vector of
 activation levels across a set of emotional dimensions. Call this vector $\mathbf{e}$:
@@ -1142,7 +1145,7 @@ The next chapter is about that structure.
 
 \newpage
 
-# The Energy Landscape
+## The Energy Landscape
 
 ```
 > "Nature does not create mountains and valleys at random.
@@ -1163,7 +1166,7 @@ The next chapter is about that structure.
 
 ---
 
-## Hills and Valleys
+### Hills and Valleys
 
 Imagine placing a ball on a hilly landscape. If you place it at the bottom of a valley
 and give it a small push, it rolls away from where you pushed it — and then rolls back.
@@ -1187,7 +1190,7 @@ are the valleys? How deep are they? How wide? How many are there?
 
 ![Figure 3.1. The emotional energy landscape (2D contour). Four attractor basins are visible: Calm (wide, deepest — the global minimum of a regulated nervous system), Freeze (narrow and very deep — easy to fall into, hard to leave), Fight and Flight (intermediate depth). The system rolls downhill to the nearest basin; the depth controls escape difficulty and the width controls resilience to perturbation. *Author's original figure.*](figures/fig3a_energy_landscape.png){width=95%}
 
-## Attractors and Basins
+### Attractors and Basins
 
 An **attractor** is a stable state — a bottom of a valley. A **basin of attraction** is
 the set of all points from which the system rolls toward a given attractor: the "catchment
@@ -1210,7 +1213,7 @@ dynamics of the system.
 
 ![Figure 3.2. Basin of attraction map. Each point in state space is coloured by the attractor it flows to under gradient descent: blue = Calm, purple = Freeze, orange = Fight, green = Flight. The calm basin dominates a regulated landscape. Freeze occupies a small area but is disproportionately deep — a narrow funnel. The boundaries between basins are the separatrices: invisible thresholds in state space that determine which valley a given perturbation resolves to. *Author's original figure.*](figures/figB1_attractor_basins.png){width=90%}
 
-## The Hamiltonian
+### The Hamiltonian
 
 The landscape has a name in physics: the **Hamiltonian**. Denoted $H$, it is a function
 that assigns an energy value to every possible state of the system.
@@ -1302,7 +1305,7 @@ where you are going next.
 
 ---
 
-## The Coupling Matrix
+### The Coupling Matrix
 
 The matrix $W$ — the coupling matrix — is the central object of the model. It encodes
 the emotional architecture of a nervous system: which modes excite each other, which
@@ -1363,13 +1366,13 @@ one-way ratchet.
 
 \newpage
 
-# PART II: HOW THE FIELD CHANGES
+## PART II: HOW THE FIELD CHANGES
 
 ---
 
 \newpage
 
-# The Weight on the Field
+## The Weight on the Field
 
 ```
 > "The question is not why the behaviour persists,
@@ -1390,7 +1393,7 @@ one-way ratchet.
 
 ---
 
-## The Modification
+### The Modification
 
 Complex PTSD (C-PTSD) is distinguished from single-incident PTSD by the presence of
 repeated, prolonged, or developmental trauma — particularly trauma that occurred in
@@ -1414,7 +1417,7 @@ connectivity between states changed.
 
 ![Figure 4.1. Four neurotype landscapes (1D cross-section). *Typical* (upper left): a deep wide Calm basin with accessible secondary states. *C-PTSD* (lower left): Calm shallowed and narrowed, Freeze dominant — the resting state shifts toward high-vigilance. *ADHD* (upper right): all basins flattened, low barriers, rapid transitions — high-temperature dynamics. *ASD* (lower right): narrow steep wells with high barriers between states — strong attractor stability, low noise tolerance, high cost of transitions. *Author's original figure.*](figures/fig5_neurotype_landscapes.png){width=95%}
 
-## Why Hypervigilance Is an Optimisation
+### Why Hypervigilance Is an Optimisation
 
 A nervous system that has adapted to an environment of chronic threat has correctly
 learned that:
@@ -1438,7 +1441,7 @@ to incorporate evidence that the current environment is different." These are ve
 different operations, with very different implications for what kind of therapeutic
 intervention is useful.
 
-## Thresholds and Consciousness
+### Thresholds and Consciousness
 
 There is a parameter in the model that has not yet been introduced, and it does a great
 deal of work. This is the **threshold** $T$ — denoted with the capital $T$ that recurs
@@ -1502,7 +1505,7 @@ The threshold is where the physics and the clinical presentation most visibly co
 
 \newpage
 
-# Memory Written in the Body
+## Memory Written in the Body
 
 ---
 
@@ -1517,7 +1520,7 @@ The threshold is where the physics and the clinical presentation most visibly co
 
 ---
 
-## Two Kinds of Memory
+### Two Kinds of Memory
 
 When you remember a conversation from last week, you are using **episodic memory** — the
 explicit, narrative record of events that occurred at specific times and places. Episodic
@@ -1536,7 +1539,7 @@ system, in the way sensory signals are gated before they reach cortical processi
 Trauma creates primarily somatic memory. This is why it is not resolved by talking about
 it. The body has stored information in a form that language does not reach.
 
-## The Memory Kernel
+### The Memory Kernel
 
 In the Soma-Field Model, the effect of past activation on present dynamics is captured
 by a **memory kernel** $K(\tau)$. This is a function that says: an activation of the
@@ -1581,7 +1584,7 @@ is the decay time (how long the trace persists before fading).
   activation. Over time, the field cycles at an elevated level without returning to rest.
 ```
 
-## Why Early Traces Persist
+### Why Early Traces Persist
 
 The decay time $\tau_k$ is central: it determines how long a trace remains active.
 
@@ -1600,7 +1603,7 @@ the memory is not a modification of an already-formed architecture. The architec
 itself was shaped by the conditions of the traumatic period. This is addressed more
 formally in Chapter 6.
 
-## What Therapy Does
+### What Therapy Does
 
 In the language of the memory kernel, effective somatic therapy does two things:
 
@@ -1660,7 +1663,7 @@ episodes: to restore the gap between activations in which recovery occurs.
 
 \newpage
 
-# How Early Is Early?
+## How Early Is Early?
 
 ```
 > "Before language, there is only the body."
@@ -1682,7 +1685,7 @@ episodes: to restore the gap between activations in which recovery occurs.
 
 ---
 
-## Developmental Time
+### Developmental Time
 
 Children are not small adults. The nervous system develops in stages, and each stage
 has different capacities — for encoding, for integration, for language, for explicit
@@ -1703,7 +1706,7 @@ an approximate threshold.
 The parameter $\tau_d$ — **developmental age at trauma** — is the age at which the
 primary modification occurred.
 
-## Below the Threshold: Pre-Verbal Trauma
+### Below the Threshold: Pre-Verbal Trauma
 
 For $\tau_d < \tau_c$ (pre-verbal trauma), several things are different from the
 late-trauma case.
@@ -1729,7 +1732,7 @@ self-before-trauma never developed. There is nowhere to return to.
 This is not a pessimistic statement. It is a precise one. And precision here matters
 because it changes the therapeutic question.
 
-## The Interpolation
+### The Interpolation
 
 The coupling matrix for a traumatised nervous system can be written as a function of
 developmental age:
@@ -1783,7 +1786,7 @@ the operation $W \to W_0$ — extracting the baseline from the current coupling 
 defined. The $W_0$ was never the dominant component. It cannot be recovered because it
 was not formed.
 
-## Forward Transformation
+### Forward Transformation
 
 What *is* possible, for pre-verbal trauma, is a **forward transformation**: the
 construction of a new coupling matrix $W'$ that has desirable properties — wider
@@ -1873,7 +1876,7 @@ to return somewhere but to arrive somewhere for the first time.
 
 \newpage
 
-# Interlude: A Voyage to the Alps
+## Interlude: A Voyage to the Alps
 
 ```
   ╭──────────────────────────────────────────────────────────────────╮
@@ -1924,7 +1927,7 @@ standing waves in a resonant cavity — that continue to oscillate after the act
 event has passed. The memory kernel $K(\tau)$ is the body's version of the valley's
 echo: not a recording, but a resonance that continues to shape what comes next.
 
-## Everything Floats
+### Everything Floats
 
 Geology teaches, and physics confirms, that everything floats.
 
@@ -1951,7 +1954,7 @@ A galaxy, a tectonic plate, a nervous system: all governed by gradient descent o
 potential with external forcing. The scales span 25 orders of magnitude. The structure
 does not vary.
 
-## Reading the Mountain
+### Reading the Mountain
 
 The Glarus Thrust (Glarner Hauptüberschiebung) is the tectonic feature that makes this
 region a UNESCO World Heritage Site. It is a thrust fault on which an enormous slab of
@@ -1994,7 +1997,7 @@ legible if you know how to read it.
 For pre-verbal trauma at $\tau_d \approx 18$ months: the Verrucano is very old, very
 deep in the developmental history, and emphatically on top.
 
-## M-Theory: Everything Floats in More Dimensions
+### M-Theory: Everything Floats in More Dimensions
 
 M-theory, the current best candidate for a unified theory of physics, proposes that the
 universe is a *brane* — a membrane — floating in an 11-dimensional space. Our familiar
@@ -2012,7 +2015,7 @@ behaviour without entering conscious experience — is the body's version of the
 dimensions: real, causally active, not directly observable. Interoceptive practice is
 the project of unfolding them: making accessible what was previously curled below $T$.
 
-## The Valley at Dusk
+### The Valley at Dusk
 
 I use Phase Plant, a modular synthesizer, to work with acoustic field recordings —
 routing them through resonant filter banks, mapping the frequencies that a resonant
@@ -2036,13 +2039,13 @@ In the valley at dusk, this is not a metaphor. It is audible.
 
 \newpage
 
-# PART III: THE PHYSICS UNDERNEATH
+## PART III: THE PHYSICS UNDERNEATH
 
 ---
 
 \newpage
 
-# The Same Equation, Three Times
+## The Same Equation, Three Times
 
 ```
 > "The unreasonable effectiveness of mathematics in the
@@ -2066,7 +2069,7 @@ In the valley at dusk, this is not a metaphor. It is audible.
 
 ---
 
-## The Moment of Recognition
+### The Moment of Recognition
 
 The Soma-Field Model did not begin with a plan to connect it to quantum field theory.
 It began with a neuroscience question: what is the simplest mathematical model of an
@@ -2084,7 +2087,7 @@ you write down "the simplest model of a field with stable states," you land on a
 equation that appears in three separate disciplines because three separate disciplines
 have independently answered the same mathematical question.
 
-## The Same Hamiltonian
+### The Same Hamiltonian
 
 The Ising model (condensed matter physics, early 20th century) describes a lattice of
 interacting spins — magnetic moments that can point up or down:
@@ -2153,7 +2156,7 @@ absent layer — the limbic system — for which he had no formal language at th
 
 ---
 
-## The Wick Rotation: One Substitution
+### The Wick Rotation: One Substitution
 
 The deepest correspondence in the model is the one that connects quantum mechanics to
 trauma memory. It requires a single substitution.
@@ -2214,7 +2217,7 @@ This is the Wick-rotated propagator. The QFT field mass $m$ corresponds to $1/\t
 The propagator amplitude $1/2m$ corresponds to $A_k$. These are not analogous. They are
 the same mathematical object with different domain-specific names.
 
-## Feynman Diagrams for Emotions
+### Feynman Diagrams for Emotions
 
 Feynman diagrams were developed in the 1940s as a way of computing interactions in
 quantum field theory. They represent particles as lines and interactions (couplings) as
@@ -2255,7 +2258,7 @@ The clinical relevance: the Feynman diagram language gives us a way to represent
 compute emotional interactions combinatorially — to ask what the "Feynman rules" for
 emotional coupling are, and what composite interactions are possible.
 
-## The Correspondence Table
+### The Correspondence Table
 
 ```
   ┌──────────────────────────┬────────────────────────────────────┐
@@ -2323,7 +2326,7 @@ emotional coupling are, and what composite interactions are possible.
 
 \newpage
 
-# The Nervous System as Phase Diagram
+## The Nervous System as Phase Diagram
 
 ---
 
@@ -2338,7 +2341,7 @@ emotional coupling are, and what composite interactions are possible.
 
 ---
 
-## Phase Transitions
+### Phase Transitions
 
 Water can exist as ice, liquid, or steam. At atmospheric pressure, it transitions between
 these phases at specific temperatures: 0°C and 100°C. The transitions are dramatic:
@@ -2352,7 +2355,7 @@ Phase transitions appear wherever there is an energy landscape with multiple sta
 phases, and a parameter (temperature, pressure, magnetic field) that shifts the relative
 stability of those phases. They are universal.
 
-## The Three Phases of the Nervous System
+### The Three Phases of the Nervous System
 
 The polyvagal hierarchy describes three functional states of the autonomic nervous
 system. In the Soma-Field Model, these correspond to three distinct phases of the field:
@@ -2404,7 +2407,7 @@ From the model's perspective, they were gradually approaching a phase boundary, 
 transition happened when they crossed it. The discontinuity is real — it is a property
 of the phase diagram, not a failure of self-awareness.
 
-## ADHD: A Thermodynamic Framing
+### ADHD: A Thermodynamic Framing
 
 Attention Deficit Hyperactivity Disorder (ADHD) presents quite differently from C-PTSD
 in the soma-field model. Rather than a modification of the coupling matrix structure,
@@ -2473,13 +2476,13 @@ the thermal energy to reach it from almost anywhere.
 
 \newpage
 
-# PART IV: WHAT CHANGES
+## PART IV: WHAT CHANGES
 
 ---
 
 \newpage
 
-# The Instrument
+## The Instrument
 
 ---
 
@@ -2494,7 +2497,7 @@ the thermal energy to reach it from almost anywhere.
 
 ---
 
-## The Map Is Not the Territory
+### The Map Is Not the Territory
 
 The Soma-Field Model is a mathematical description. Like all mathematical descriptions
 of physical or biological systems, it simplifies. The soma-field is not the body; it is
@@ -2512,7 +2515,7 @@ asks about the body: current activation levels across the emotional modes, attra
 dwell times, threshold accessibility, interoceptive accuracy. The goal is to make the
 model's parameters observable.
 
-## The Seven Dimensions
+### The Seven Dimensions
 
 The instrument tracks seven primary dimensions of soma-field state:
 
@@ -2552,7 +2555,7 @@ The instrument tracks seven primary dimensions of soma-field state:
 
 ![Figure 9.2. The Soma-Field instrument pipeline. Biofeedback sensors (HRV, EDA, EMG) feed the soma-field model, which produces a real-time emotion vector **e**(t) ∈ ℝ¹¹. This drives The Tensor (the emotional score specification), which controls a synthesis engine (Phase Plant). A feedback loop via therapeutic intervention δW allows the practitioner to modify the coupling matrix directly — closing the loop between measurement and treatment. *Author's original figure.*](figures/fig4_instrument.pdf){width=100%}
 
-## The ABCD Operator Circuit
+### The ABCD Operator Circuit
 
 The instrument is organised around four operators that act on the soma-field:
 
@@ -2615,7 +2618,7 @@ longitudinal function: measuring change across sessions.
 
 \newpage
 
-# Forward Transformation
+## Forward Transformation
 
 ```
 > "The opposite of trauma is not safety.
@@ -2636,7 +2639,7 @@ longitudinal function: measuring change across sessions.
 
 ---
 
-## The Wrong Goal
+### The Wrong Goal
 
 The dominant model of trauma recovery involves, in some form, a return. Processing the
 memory until it no longer carries charge. Resolving the dissociated parts. Finding the
@@ -2661,7 +2664,7 @@ restore — never narrows to nothing.
 This is not a failure of the therapy or the therapist. It is a consequence of using the
 wrong map. The destination does not exist; the voyage toward it cannot terminate.
 
-## The Right Goal
+### The Right Goal
 
 Forward transformation changes the question.
 
@@ -2706,7 +2709,7 @@ landscape being constructed, not recovered.
   tools as the mechanism of landscape modification.
 ```
 
-## What Therapy Does
+### What Therapy Does
 
 In the language of the model, effective somatic therapy for pre-verbal trauma does the
 following, measurable in terms of the model's parameters:
@@ -2735,7 +2738,7 @@ functional, more flexible, and more capable of safety. The model does not specif
 these changes are achieved — that is the domain of clinical practice. It specifies what
 is changing when they are achieved.
 
-## The Therapeutic Relationship as Field Coupling
+### The Therapeutic Relationship as Field Coupling
 
 A note on the relational dimension, which the model's formalism can sometimes obscure.
 
@@ -2788,13 +2791,13 @@ is the instrument.
 
 \newpage
 
-# PART V: APPLICATIONS
+## PART V: APPLICATIONS
 
 ---
 
 \newpage
 
-# A Voyage into the Field
+## A Voyage into the Field
 
 > **LEARNING OBJECTIVES**
 >
@@ -2839,7 +2842,7 @@ echo in present navigation. This chapter develops the geometry of the voyage.
 
 ---
 
-## The Navigable Landscape
+### The Navigable Landscape
 
 In Chapter 4 we introduced the Hamiltonian $H(\mathbf{e})$ as the energy function of the
 emotional field. The state of the field is a point in the high-dimensional space of all
@@ -2902,7 +2905,7 @@ predicts this before any clinical experience confirms it.
 
 ---
 
-## Emotions Looking for Each Other
+### Emotions Looking for Each Other
 
 In particle physics, interactions are drawn as Feynman diagrams: lines representing
 particles moving through space and time, meeting at vertices where something happens.
@@ -3013,7 +3016,7 @@ are the sessions that change something permanently.
 
 ---
 
-## The Emotional Score
+### The Emotional Score
 
 A musical score is not a performance. It is the abstract structure that can be performed
 in many ways — by different orchestras, in different halls, at different tempos — while
@@ -3073,7 +3076,7 @@ emotional experience: $H_V$ has changed.
 
 ---
 
-## The Holographic Clinic
+### The Holographic Clinic
 
 In theoretical physics, the holographic principle (Susskind, 1995; Bousso, 2002) states
 that the complete description of a volume of space can be encoded on its boundary surface,
@@ -3111,7 +3114,7 @@ The body has been keeping a precise record. The therapist's task is to read it.
 
 ---
 
-## EmotionML: Labels Without Dynamics
+### EmotionML: Labels Without Dynamics
 
 The W3C EmotionML standard (Schröder et al., 2011) provides a formal vocabulary for
 annotating emotional states in human-computer interaction. It specifies representation
@@ -3216,7 +3219,7 @@ second layer strictly includes the first.
 
 \newpage
 
-# Epilogue: The T's
+## Epilogue: The T's
 
 There are four T's in this book, and they are not accidental.
 
@@ -3274,50 +3277,50 @@ The voyage is yours.
 
 \newpage
 
-# Appendices
+## Appendices
 
 ---
 
-## Appendix A: The Mathematics in Full
+### Appendix A: The Mathematics in Full
 
 *The following is a condensed version of the academic paper* Soma-Field Model of
 Emotional Dynamics and C-PTSD *for readers who want the formal derivations. Full
 derivations, Lean 4 type sketches, and bibliography are in the companion document
 `soma-field-paper.md`.*
 
-### A.1 The Hamiltonian
+#### A.1 The Hamiltonian
 
 $$H(\mathbf{e}) = -\frac{1}{2}\,\mathbf{e}^{\top} W\, \mathbf{e} - \boldsymbol{\theta}^{\top}\mathbf{e}$$
 
 where $W \in \mathbb{R}^{n \times n}$ is the coupling matrix and
 $\boldsymbol{\theta} \in \mathbb{R}^n$ is the threshold bias vector.
 
-### A.2 The Dynamics
+#### A.2 The Dynamics
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \sigma_0\,\eta(t) = W\mathbf{e} + \boldsymbol{\theta} + \sigma_0\,\eta(t)$$
 
 where $\eta(t)$ is white noise with $\langle\eta_i(t)\eta_j(s)\rangle = \delta_{ij}\delta(t-s)$.
 
-### A.3 The C-PTSD Modification
+#### A.3 The C-PTSD Modification
 
 $$W_{\text{C-PTSD}} = W_0 + \Delta W, \qquad \Delta W_{ij} \neq \Delta W_{ji}$$
 
 The asymmetry of $\Delta W$ breaks the gradient flow property and introduces directional
 cycles in the landscape.
 
-### A.4 The Memory Kernel
+#### A.4 The Memory Kernel
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \int_0^t K(t-s)\,\mathbf{e}(s)\,ds + \sigma_0\,\eta(t)$$
 
 $$K(\tau) = \sum_k A_k\, e^{-\tau/\tau_k}$$
 
-### A.5 Developmental Time Parameterisation
+#### A.5 Developmental Time Parameterisation
 
 $$W(\tau_d) = f(\tau_d)\cdot W_0 + \bigl(1 - f(\tau_d)\bigr)\cdot W_{\text{trauma}}$$
 
 $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right), \qquad \tau_c \approx 36 \text{ months}$$
 
-### A.6 The QFT Correspondence
+#### A.6 The QFT Correspondence
 
 Under the Wick rotation $t \to -i\tau$:
 
@@ -3329,7 +3332,7 @@ Under the Wick rotation $t \to -i\tau$:
 
 ---
 
-## Appendix B: Lean 4 Type Sketches
+### Appendix B: Lean 4 Type Sketches
 
 The following are proof sketches in Lean 4. `sorry` marks open proof obligations.
 
@@ -3377,7 +3380,7 @@ theorem preVerbalIsStructural {n : ℕ} (profile : TraumaProfile n)
 
 ---
 
-## Appendix C: The Cross-Language Correspondence Table
+### Appendix C: The Cross-Language Correspondence Table
 
 | Mathematical language | Emotional dynamics |
 |---|---|
@@ -3403,7 +3406,7 @@ theorem (2011) for the categorical column and the Wick rotation for the QFT colu
 
 ---
 
-## Appendix D: Glossary
+### Appendix D: Glossary
 
 **Amplitude $A_k$** — The strength of a trauma memory trace's influence on the current
 soma-field. Reduced by effective somatic therapy.
@@ -3481,7 +3484,7 @@ function flexibly, process information, and engage socially.
 
 ---
 
-## Bibliography
+### Bibliography
 
 The following references are cited in this book. Full academic citation details are in
 the companion document `bibliography.bib`.
@@ -3509,7 +3512,7 @@ the companion document `bibliography.bib`.
 
 \newpage
 
-## Listening Notes
+### Listening Notes
 
 This book was written in a single session on the night of 16–17 May 2026.
 
@@ -3526,9 +3529,11 @@ Both choices were correct.
 
 
 
+# The Tensor
+
 \newpage
 
-# The Tensor
+## The Tensor
 
 *An Abstract Film Definition*
 
@@ -3551,9 +3556,9 @@ The territory is the body. The voyage is inward.
 
 ---
 
-# Part I: The Format
+## Part I: The Format
 
-## The Emotional Score
+### The Emotional Score
 
 A film is defined by its **emotional score**: a vector-valued trajectory
 
@@ -3581,7 +3586,7 @@ The standard mode vocabulary for this project uses seven primary axes:
 Additional modes can be added per score. Pre-verbal affect, disgust, rage, and
 the somatic marker of HRV coherence may all appear as named axes.
 
-## Threshold Events
+### Threshold Events
 
 At specified story-times $t_k$, the score may declare a **threshold crossing** —
 a non-perturbative event in which the emotional field transitions between attractor
@@ -3599,7 +3604,7 @@ The rendering system must hold the score near the threshold approach for as long
 as necessary until the crossing condition is met — whether by the score's internal
 dynamics or by the viewer's biofeedback signalling readiness.
 
-## Control Knobs
+### Control Knobs
 
 The score is rendered through a set of **control parameters** $\kappa$ that the
 viewer, clinician, or runtime system can adjust. These are continuous dials, not
@@ -3614,7 +3619,7 @@ binary switches.
 | Mode mask | $\kappa_m \subseteq \{1..n\}$ | Which emotional modes are active in this rendering. A viewer without a shame attractor may have $Sh$ masked; the score is rendered without that channel. |
 | Coupling scale | $\kappa_W \in [0.5, 2]$ | Global scale on the coupling matrix $W^*$ of the score. High values increase inter-mode interaction; the emotional landscape becomes more complex and entangled. |
 
-## The Rendering Function
+### The Rendering Function
 
 The screen signal $S(t)$ — the actual audio and visual output — is:
 
@@ -3633,7 +3638,7 @@ depth) and visual parameters (fractal dimension, colour temperature, edge
 sharpness, motion speed, light level). The mapping is specified per rendering
 implementation; the score is independent of any specific renderer.
 
-## The Somatic Loop
+### The Somatic Loop
 
 When the viewer's field $\mathbf{e}_V(t)$ is available — via HRV monitor,
 skin conductance, posture sensor, or simply therapist observation — the system
@@ -3675,7 +3680,7 @@ definition of what a therapist does.
 
 \newpage
 
-# Part II: The River Film
+## Part II: The River Film
 
 *A score. Not a story.*
 
@@ -3687,7 +3692,7 @@ session of deep somatic therapy, or a voyage through a bloodstream in a
 miniaturised submarine. The score is invariant. The river is one surface over
 which it is played.
 
-## Score Parameters
+### Score Parameters
 
 ```
 TITLE:        The River Film (working title)
@@ -3698,7 +3703,7 @@ DEFAULT KAPPA: depth=0.7, velocity=1.0, resonance=0.0, texture=0.4,
                coupling_scale=1.0
 ```
 
-## Emotional Trajectory
+### Emotional Trajectory
 
 The seven primary modes over story-time $t \in [0, 1]$:
 
@@ -3722,7 +3727,7 @@ PREVERBAL 1    1    1    2    3    5    7    9    6    3    1
               (the encounter; the deepest attractor)
 ```
 
-## Phase Descriptions
+### Phase Descriptions
 
 **Phase 1: Departure** $t \in [0, 0.25]$
 
@@ -3807,9 +3812,9 @@ bank. The world has not changed. You have.
 
 \newpage
 
-# Part III: The Rendering Architecture
+## Part III: The Rendering Architecture
 
-## Audio Rendering
+### Audio Rendering
 
 The emotional score maps to audio parameters through a continuous, differentiable
 function. The following mapping is a reference implementation; specific renderers
@@ -3855,7 +3860,7 @@ Two people hearing the same score may hear music that is recognisably related �
 same structure, same threshold events, same overall arc — but with different
 timbres, different depths, different durations at the instanton.
 
-## Visual Rendering
+### Visual Rendering
 
 The abstract visual rendering drives a fractal or generative system. The reference
 implementation uses a Mandelbulb renderer with the following parameter mapping:
@@ -3885,7 +3890,7 @@ A landscape that makes sense.
 The emotional score determines which of these states the visual system is in at
 each moment of the film.
 
-## The Somatic Loop: Biofeedback Integration
+### The Somatic Loop: Biofeedback Integration
 
 If the viewer wears an HRV monitor or similar:
 
@@ -3928,9 +3933,9 @@ $\mathbf{e}^*$. This is a formal implementation of therapeutic presence.
 
 \newpage
 
-# Part IV: Extensions and Applications
+## Part IV: Extensions and Applications
 
-## The Trilogy of Containers
+### The Trilogy of Containers
 
 The River Film score can be realised in at least three containers without changing
 a single value in the score definition:
@@ -3945,7 +3950,7 @@ All three are the same film. All three cross the same two thresholds at the same
 story-times. All three return along the asymmetric path. The rendering renders all
 three identically — because the score is what is being rendered, not the container.
 
-## Composing with the Score
+### Composing with the Score
 
 A composer working with this system does not write notes. They write trajectories.
 The compositional decisions are:
@@ -3964,7 +3969,7 @@ wider threshold distance from the freeze attractor. The score should reflect thi
 the return is not a reversal of the departure, but a different path to a different
 version of home.
 
-## String Diagrams as Score Notation
+### String Diagrams as Score Notation
 
 For multi-character scores — where the coupling between multiple viewer fields is
 part of the composition — string diagrams provide the notation. Each wire is a
@@ -3978,7 +3983,7 @@ all coupling to the same screen signal $S(t)$. The emotional score is the abstra
 specification of what $S(t)$ does. The audience's collective response is
 the tensor product of $N$ individual trajectories, all shaped by the same source.
 
-## The Tensor Trilogy
+### The Tensor Trilogy
 
 This document is part of a three-part project:
 
@@ -3992,7 +3997,7 @@ The paper defines the model. The book explains the model. This document **runs**
 the model — or more precisely, defines the interface by which an audio-visual
 rendering system can instantiate the model as a real-time experience.
 
-## The Pensieve Problem
+### The Pensieve Problem
 
 In *Harry Potter*, Dumbledore uses his wand to extract a thought from his mind —
 it emerges as a silvery thread — and deposits it in a stone basin called the
@@ -4035,7 +4040,7 @@ reads back.
 
 \newpage
 
-# Appendix: Score File Format
+## Appendix: Score File Format
 
 A machine-readable score would be expressed as follows. This is a sketch of the
 format; a full specification is a separate engineering document.
@@ -4113,13 +4118,15 @@ score:
 
 
 
+# The Soma-Field: A Wave-Based Model of Emotional Dynamics and Its Clinical Implications
+
 ---
 
 > *AI has had a brain since 1943. Now it has a body.*
 
 ---
 
-# Introduction
+## Introduction
 
 A patient sits with their therapist and is asked: *"What are you feeling right now?"* The
 question is deceptively simple. They may say *anxious*, yet that word covers a vast and
@@ -4169,9 +4176,9 @@ Instrument, a practical tool for therapeutic use. Section 7 addresses clinical i
 
 ---
 
-# Background
+## Background
 
-## The Body-Mind Problem in Clinical Practice
+### The Body-Mind Problem in Clinical Practice
 
 Contemporary neuroscience has largely dissolved the Cartesian boundary between body and mind.
 Damasio (1994) demonstrated that emotion is inseparable from rational cognition: patients with
@@ -4190,7 +4197,7 @@ alone, nor in the body alone, but in a coupled system that is best understood as
 functional unit. The term *soma* — from the Greek for body — is used here to denote this
 unified body-mind system, following the tradition of somatic psychotherapy.
 
-## The Felt Sense and Sub-Perceptual Emotion
+### The Felt Sense and Sub-Perceptual Emotion
 
 Gendlin's concept of the *felt sense* (1978) is of particular relevance. He described it as
 "a special kind of internal bodily awareness... a body sense of meaning." It is not an
@@ -4204,7 +4211,7 @@ The Soma-Field Model provides a formal account of what the felt sense is: it is 
 of the emotional field below the perceptual threshold. It is real, causal, and continuously
 present. It shapes cognition and behaviour even when it does not surface as a named feeling.
 
-## Quantum Field Theory: Structure, Not Metaphor
+### Quantum Field Theory: Structure, Not Metaphor
 
 Quantum Field Theory (QFT) is the framework of modern particle physics. Its central departure
 from classical physics is the priority of the *field* over the *particle*. In QFT, what we
@@ -4284,7 +4291,7 @@ confined to the one-dimensional boundary of an eleven-dimensional dynamics. The 
 of emotional experience — why conscious feeling is so much weaker and more transient than
 the underlying field activity — has the same formal structure as the hierarchy of forces.
 
-## Neural Network Energy Functions and Hopfield Networks
+### Neural Network Energy Functions and Hopfield Networks
 
 In 1982, John Hopfield (awarded the Nobel Prize in Physics in 2024) proposed a model of
 associative memory based on a network of interconnected neurons (Hopfield, 1982). The
@@ -4388,7 +4395,7 @@ produces when probed. We retain Veneziano’s discovery and decline to reify the
 
 ---
 
-## The Formal Correspondences: Where the Link Was Seen
+### The Formal Correspondences: Where the Link Was Seen
 
 The structural analogy between QFT and the Soma-Field Model is not merely conceptual.
 There are three places where equations from different disciplines become, after substituting
@@ -4493,7 +4500,7 @@ coupling geometry. The mathematical type is the same. This is not analogy.
 
 ---
 
-## The Body Schema, Interoception, and Pain
+### The Body Schema, Interoception, and Pain
 
 A complete model of the emotional field must address a phenomenon that standard psychological
 accounts of emotion consistently underspecify: the field is not a model of the physical body.
@@ -4544,7 +4551,7 @@ $W$. Therapy does not fix the tissue. It updates the model.
 
 ---
 
-## Correspondence with Existing Emotion Representations
+### Correspondence with Existing Emotion Representations
 
 A reasonable objection to any new framework is: *there is already a great deal of structure
 out here.* This is true. The emotion research literature contains several well-developed
@@ -4625,7 +4632,7 @@ developed in the companion file `src/EmotionOntology.lean`.
 
 ---
 
-# The Soma-Field Model
+## The Soma-Field Model
 
 The field is primary. The felt emotion is secondary — it is what registers when the
 field is probed. This is the same ontological relationship as between a quantum field
@@ -4634,7 +4641,7 @@ observe at the moment of measurement. The Soma-Field Model does not describe wha
 emotions are *made of*. It describes the manifold whose impulse response *is* conscious
 emotional experience.
 
-## Emotions as a Persistent Wave Field
+### Emotions as a Persistent Wave Field
 
 The foundational claim of the Soma-Field Model is simple: emotions are not events. They are
 a *field* — a distributed, continuous quantity defined over the entire soma (body-mind system)
@@ -4667,7 +4674,7 @@ coupled components of a single distributed wave field. Neither is primary; each 
 modifies the other. The ≋ symbols indicate that wave activity is always present in each region,
 not only during episodes of conscious feeling.*
 
-## The Perception Threshold
+### The Perception Threshold
 
 Not all activity in the emotional field is consciously perceived. The field has a **perception
 threshold** $T_i$ for each emotional mode $i$. Below this threshold, the emotional mode is
@@ -4702,7 +4709,7 @@ before it can be named.*
 ![](figures/fig0_field_mode.pdf){ width=95% }
 *Figure 0. Continuous soma-field activity (blue) with a single threshold-crossing event. The field is always active; conscious experience (shaded) arises only when amplitude exceeds the perception threshold θ (red dashed). Below the threshold: real, causally active, but not yet conscious.*
 
-## The Interaction of Emotional Modes
+### The Interaction of Emotional Modes
 
 Multiple emotional modes are simultaneously active in the field at all times. They do not
 simply co-exist: they interact. The nature of these interactions is encoded in the **emotional
@@ -4723,7 +4730,7 @@ seeking lower energy, never at absolute rest.
 
 ---
 
-## The Three-Layer Architecture
+### The Three-Layer Architecture
 
 The nervous system that implements the soma-field is not architecturally flat. Three
 hierarchically organised layers contribute to field dynamics, each corresponding to a
@@ -4845,9 +4852,9 @@ special case. The full three-layer equation is the general form.
 
 ---
 
-# The Energy Landscape
+## The Energy Landscape
 
-## The Structure of the Emotional Energy Function
+### The Structure of the Emotional Energy Function
 
 The energy function $H(\mathbf{e})$ defines a landscape over the space of possible emotional
 states. Like a physical landscape of hills and valleys, this landscape has:
@@ -4866,7 +4873,7 @@ framework, can be understood as:
    a deep but unhealthy local minimum (e.g., the freeze state)
 3. **Pointing toward the global minimum**: orienting the field toward regulated calm
 
-## Attractor States: Fight, Flight, Freeze, and Regulated Calm
+### Attractor States: Fight, Flight, Freeze, and Regulated Calm
 
 The Soma-Field Model proposes that the major attractor basins of the emotional energy
 landscape correspond directly to the autonomic states described by Porges' polyvagal theory.
@@ -4916,7 +4923,7 @@ toward regulated calm. This corresponds well to the clinical observation that wo
 dissociated patients requires careful titration of arousal — not too much, not too little —
 before emotional processing is possible.
 
-## The Coupling Matrix as a Personal Signature
+### The Coupling Matrix as a Personal Signature
 
 The coupling matrix $W$ is not universal. Each person has a unique $W$, shaped by attachment
 history, trauma, cultural context, and temperament. A person with a history of developmental
@@ -4941,9 +4948,9 @@ practitioner is, without having been told so, a geometer.
 
 ---
 
-# Dissonance and Resolution
+## Dissonance and Resolution
 
-## The Acoustic Analogy
+### The Acoustic Analogy
 
 The Soma-Field Model draws a further structural analogy, this time with acoustics. When two
 sound waves interact, the quality of their interaction — consonance or dissonance — depends
@@ -4963,7 +4970,7 @@ drives toward resolution.
 directional. Dissonance is the field's way of communicating that it is far from equilibrium
 and that resolution is available.
 
-## The Resolution Principle
+### The Resolution Principle
 
 In music, dissonance resolves to consonance. The tritone — the most dissonant interval in
 Western tonality — creates a powerful gravitational pull toward resolution. In counterpoint,
@@ -4983,9 +4990,9 @@ energy minimum — regulated calm — lies on the other side of the dissonance, 
 
 ---
 
-# The Soma-Field Instrument
+## The Soma-Field Instrument
 
-## Rationale
+### Rationale
 
 The Soma-Field Model is not only a theoretical framework. It motivates a practical
 therapeutic instrument: a means by which a person can *externalise* their emotional field —
@@ -4996,7 +5003,7 @@ below the threshold of conscious awareness, shaping behaviour and physiology wit
 available for reflection. If its activity could be rendered as a signal — a sound, an image,
 a pattern — it could become an object of therapeutic attention.
 
-## Design
+### Design
 
 The instrument uses a MIDI controller with 16 rotary knobs as its input interface.
 Eight emotional dimensions are encoded, each represented by two knobs:
@@ -5034,7 +5041,7 @@ expression of emotional intensity.
 ```
 *Figure 4. The Soma-Field Instrument: input, computation, and multimodal output.*
 
-## The Feedback Loop
+### The Feedback Loop
 
 The instrument creates a **closed feedback loop** between the person and their emotional
 field:
@@ -5054,7 +5061,7 @@ This loop externalises the emotional field's gradient — the direction in which
 only the source of the emotional signal but also its observer, creating the conditions for
 reflection and regulation that are at the heart of therapeutic work.
 
-## The Pluggable Emotion Model
+### The Pluggable Emotion Model
 
 No single model of the emotions is assumed. The coupling matrix $W$ — the structure that
 determines how emotional modes interact — is loaded from an external configuration file.
@@ -5066,9 +5073,9 @@ model-agnostic.
 
 ---
 
-# Clinical Implications
+## Clinical Implications
 
-## Assessment
+### Assessment
 
 The Soma-Field Model suggests a different orientation for emotional assessment. Rather than
 asking "What emotion do you feel?" — which presupposes threshold-level conscious awareness —
@@ -5082,7 +5089,7 @@ their presenting narratives are superficially similar. The model suggests that t
 structurally different therapeutic challenges: fight/flight require down-regulation, while
 freeze may first require careful up-regulation before down-regulation becomes possible.
 
-## Intervention
+### Intervention
 
 The energy function provides a formal basis for several existing clinical interventions:
 
@@ -5097,7 +5104,7 @@ The energy function provides a formal basis for several existing clinical interv
 - **Working with the felt sense** (Gendlin, 1978): attending to sub-threshold field
   activity and allowing it to cross the perception threshold in a supported context
 
-## Psychoeducation
+### Psychoeducation
 
 The wave model is immediately accessible to clients who have struggled to understand their
 emotional experience. The statement: *"Your emotions are like waves — they are always there,
@@ -5111,7 +5118,7 @@ but it is not the lowest valley available to you"* — offers a way to discuss t
 state, dissociation, and emotional stuckness without pathologising, while still acknowledging
 the structural difficulty of these states and the work required to shift them.
 
-## Neurodivergent Conditions as Operator Modifications
+### Neurodivergent Conditions as Operator Modifications
 
 A clinically significant extension of the Soma-Field Model concerns neurodivergent
 conditions — specifically Autism Spectrum Condition (ASC), Attention Deficit Hyperactivity
@@ -5253,7 +5260,7 @@ well-documented and, within this framework, mathematically predictable.
 
 ---
 
-# Limitations and Future Directions
+## Limitations and Future Directions
 
 The Soma-Field Model is a theoretical framework and must be evaluated as such. Its current
 form makes several idealisations that require scrutiny.
@@ -5294,7 +5301,7 @@ interacting (Hopfield-coupled) theory is addressed in P15.
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Soma-Field Model proposes a formally grounded account of emotional dynamics that is
 consistent with the clinical observations of somatic psychotherapy, polyvagal theory, and
@@ -5346,7 +5353,7 @@ dismissal constitutes a category error was produced, as a direct causal conseque
 by the same operator stack that it describes. The paper is the fixed point of its own
 subject matter. The author considers this observation methodologically significant.
 
-## Publication Claim Registry
+### Publication Claim Registry
 
 To support claim-level review rather than all-or-nothing acceptance, this manuscript
 registers its highest-impact claims with scope labels and disconfirmation tests.
@@ -5362,7 +5369,7 @@ registers its highest-impact claims with scope labels and disconfirmation tests.
 Scope labels: S1 = structural; S2 = predictive; S3 = independently replicated.
 Current publication target for core claims is S2.
 
-## Claim-Evidence-Result Matrix
+### Claim-Evidence-Result Matrix
 
 To make review traceable, each core claim is paired with concrete evidence outputs
 and current result status.
@@ -5378,7 +5385,7 @@ and current result status.
 This matrix is intended for reviewer navigation and is updated as companion results
 are expanded or independently replicated.
 
-## Replication Package Requirements
+### Replication Package Requirements
 
 To make SF-2 through SF-5 externally testable, each release tagged for review must
 ship a minimal replication package that can be executed without private context.
@@ -5394,7 +5401,7 @@ Required contents:
 A claim remains `S2` until an independent operator reproduces directionally
 consistent outcomes from this package under the same declared protocol.
 
-## Reviewer-Risk Objections and Responses
+### Reviewer-Risk Objections and Responses
 
 To reduce ambiguity in peer review, the highest-probability objections are mapped
 to bounded responses and concrete upgrade paths.
@@ -5406,7 +5413,7 @@ to bounded responses and concrete upgrade paths.
 | "Quantum advantage may be implementation-specific." | SF-5 includes a controlled disconfirmation criterion against matched classical baselines. | Publish full benchmark harness with pre-registered acceptance thresholds. |
 | "Clinical interpretation may exceed data scope." | Scope labels (`S1`/`S2`/`S3`) and claim registry separate structural from predictive claims. | Add prospective cohort evidence before any clinical-effectiveness claim. |
 
-## Independent Replication Ledger Linkage
+### Independent Replication Ledger Linkage
 
 `S2` to `S3` promotion for this manuscript is governed by
 an independent replication ledger maintained in the supplementary archive
@@ -5420,7 +5427,7 @@ evidence artifacts.
 
 ---
 
-# Acknowledgements
+## Acknowledgements
 
 This work exists because ten years of psychotherapy moved the barriers far enough that two events in early 2026 could cross them. The theory is, among other things, a record of that.
 
@@ -5432,7 +5439,9 @@ This work exists because ten years of psychotherapy moved the barriers far enoug
 
 
 
-# Introduction: The Two-Culture Problem Within Science
+# Mathematical Co-identification: A Method for Structural Import Across Scientific Domains
+
+## Introduction: The Two-Culture Problem Within Science
 
 C. P. Snow's famous lecture identified a divide between the literary and scientific
 cultures [@snow1959]. Less discussed, but equally consequential, is the divide *within*
@@ -5476,7 +5485,7 @@ interpretation.
 
 ---
 
-# The Typeverse
+## The Typeverse
 
 The term is borrowed from Homotopy Type Theory [@hottbook], where the *universe*
 $\mathcal{U}$ is the type of all types — the space in which all mathematical objects
@@ -5513,9 +5522,9 @@ properties from scratch.
 
 ---
 
-# The Procedure in Detail
+## The Procedure in Detail
 
-## Step One: Extract the Type Signature
+### Step One: Extract the Type Signature
 
 Given an unknown quantity $Q$ in domain $D$, the investigator asks:
 
@@ -5544,7 +5553,7 @@ If so, the variational principle is the fingerprint: two objects whose
 dynamics are derived from the same variational structure are co-identifiable
 even if their physical interpretations differ entirely.
 
-## Step Two: Search the Typeverse
+### Step Two: Search the Typeverse
 
 Armed with the type signature, the investigator searches for known objects
 with the same signature. This is primarily a literature search across
@@ -5565,7 +5574,7 @@ Useful resources for this search include:
 - **One's own training**, which is why broad mathematical education is a
   productivity multiplier in theoretical science
 
-## Step Three: Identify and Import
+### Step Three: Identify and Import
 
 When a match is found, the investigator makes the identification explicit:
 
@@ -5586,7 +5595,7 @@ The import then proceeds theorem by theorem:
 This distinction — type-level theorems vs. substrate theorems — is the
 primary place where co-identification can fail, and is discussed in Section 7.
 
-## The Formal Computational Structure: Abduction, Aesop, and the Loop
+### The Formal Computational Structure: Abduction, Aesop, and the Loop
 
 The three-step procedure of §§3.1–3.3 is, in formal terms, an instance of
 **abductive inference** in the sense of Peirce (1878). Given an observation
@@ -5647,12 +5656,12 @@ type-signature fit, and the proof assistant can evaluate it exactly.
 
 ---
 
-# Historical Precedents
+## Historical Precedents
 
 The history of science is full of co-identifications that were not named as such.
 Examining them retroactively reveals the method clearly.
 
-## Veneziano (1968): The Bootstrap Amplitude and String Theory
+### Veneziano (1968): The Bootstrap Amplitude and String Theory
 
 Veneziano was searching for an S-matrix element for meson scattering that satisfied
 the crossing symmetry and Regge-pole requirements of the bootstrap programme [@veneziano1968].
@@ -5670,7 +5679,7 @@ The lesson: the typeverse can be entered from either end. You may start with a
 quantity and find its type, or start with a type and find it instantiated in
 your data.
 
-## Hopfield (1982): The Ising Hamiltonian and Neural Memory
+### Hopfield (1982): The Ising Hamiltonian and Neural Memory
 
 Hopfield introduced the energy function for a network of binary neurons
 [@hopfield1982]:
@@ -5688,7 +5697,7 @@ bounds, stochastic escape via simulated annealing) was imported into neuroscienc
 for free. The Hopfield network is not *like* a spin glass; it *is* a spin glass
 run in biological substrate.
 
-## Wilson (1971): Block Spins and the Renormalisation Group
+### Wilson (1971): Block Spins and the Renormalisation Group
 
 Wilson's insight was that the renormalisation group — a technique for removing
 ultraviolet divergences in QFT — was the *same* mathematical object as Kadanoff's
@@ -5701,7 +5710,7 @@ The type signature that matched: both objects were *flows on the space of
 coupling constants under a change of scale*. This is a clean type-level description
 that carries no substrate information.
 
-## Black and Scholes (1973): The Heat Equation and Options Pricing
+### Black and Scholes (1973): The Heat Equation and Options Pricing
 
 Black and Scholes derived their celebrated options pricing formula by noticing
 that the value of an option $V(S,t)$ as a function of underlying price $S$ and
@@ -5719,7 +5728,7 @@ mathematics: existence and uniqueness of solutions, boundary conditions, numeric
 methods, the Feynman-Kac formula. The financial quantity *is* a temperature
 distribution, not like one.
 
-## Jaynes (1957): Thermodynamic Entropy and Bayesian Inference
+### Jaynes (1957): Thermodynamic Entropy and Bayesian Inference
 
 Jaynes identified the entropy of statistical mechanics with the entropy of
 Bayesian inference [@jaynes1957]. The type signature that matched: both are
@@ -5729,7 +5738,7 @@ co-identification imported all thermodynamic reasoning into statistical
 inference. The maximum entropy principle is not an analogy to thermodynamics;
 it is thermodynamics, applied to the problem of belief.
 
-## Penrose (1971): Spin Networks and Spacetime Geometry
+### Penrose (1971): Spin Networks and Spacetime Geometry
 
 Penrose introduced spin networks as combinatorial structures encoding angular
 momentum [@penrose1971]. The identification: the geometry of spacetime arises as
@@ -5739,7 +5748,7 @@ Penrose constructed a new structure and identified it with a familiar one in
 a limit. Loop quantum gravity later formalised this programme. The spin network
 *is* a discretisation of spacetime geometry, not a model of one.
 
-## Selinger (2010): Linear Maps and Quantum Processes
+### Selinger (2010): Linear Maps and Quantum Processes
 
 Selinger demonstrated that the category of finite-dimensional Hilbert spaces and
 linear maps is co-identifiable with a certain category of string diagrams [@selinger2010].
@@ -5750,12 +5759,12 @@ diagrammatically, and every diagrammatic identity is a valid quantum identity.
 
 ---
 
-# The Soma-Field as a Worked Example
+## The Soma-Field as a Worked Example
 
 The Soma-Field Model [@johnsonsoma2026] was developed through five sequential
 co-identifications. Each is presented here as an explicit instance of the method.
 
-## Co-identification I: The Conscious Percept as Green's Function
+### Co-identification I: The Conscious Percept as Green's Function
 
 **The unknown quantity:** The relationship between the continuous emotional
 field $\psi_i(t)$ and the discrete conscious emotional percept.
@@ -5786,7 +5795,7 @@ instantiated in different substrates.
 - Pole structure ↔ mass spectrum: the location of the propagator pole gives
   the natural frequency $\omega_0 = \lambda$ of the emotional mode.
 
-## Co-identification II: The Attractor Landscape as Ising Hamiltonian
+### Co-identification II: The Attractor Landscape as Ising Hamiltonian
 
 **Type signature:** A scalar function $H: \mathbb{R}^n \to \mathbb{R}$ that
 is always non-increasing along field trajectories, with isolated minima
@@ -5800,7 +5809,7 @@ $$H(\mathbf{e}) = -\frac{1}{2}\mathbf{e}^\top W \mathbf{e} - \boldsymbol{\theta}
 capacity bounds (Hopfield's $0.14N$ result); stochastic escape via Boltzmann
 noise (simulated annealing = titrated arousal in clinical language).
 
-## Co-identification III: The Perception Threshold as Brane Thickness
+### Co-identification III: The Perception Threshold as Brane Thickness
 
 **Type signature:** A parameter $T_i$ that gates access from a lower-dimensional
 subspace (the limbic field) to a higher-dimensional one (conscious awareness).
@@ -5818,7 +5827,7 @@ thin brane).
 for the discrete structure of emotional threshold levels. Brane localisation gives
 the mechanism for why the field can be active without crossing into consciousness.
 
-## Co-identification IV: The Coupling Matrix as G₂ Manifold
+### Co-identification IV: The Coupling Matrix as G₂ Manifold
 
 **Type signature:** The coupling matrix $W$ is an $11 \times 11$ real symmetric
 matrix encoding the structure of an eleven-dimensional emotional space. The field
@@ -5839,7 +5848,7 @@ the Berger classification of holonomy groups constraining what stable emotional
 geometries are possible; the Hitchin flow as a possible model for the evolution
 of $W$ under sustained therapeutic intervention.
 
-## Co-identification V: Therapeutic Processing as Renormalisation Group Flow
+### Co-identification V: Therapeutic Processing as Renormalisation Group Flow
 
 **Type signature:** Therapeutic processing is a flow in the space of coupling
 constants $W_{ij}$ parameterised by a scale $\mu$ (the "depth" or "resolution"
@@ -5867,13 +5876,13 @@ kernel is an emergent scale, not a fundamental parameter).
 
 ---
 
-# A Partial Map of the Typeverse
+## A Partial Map of the Typeverse
 
 For the practitioner wishing to apply the method, the following is a partial
 field guide to frequently useful mathematical structures, indexed by their
 type signatures.
 
-## Propagator-Class Structures
+### Propagator-Class Structures
 
 **Type:** Complex function of frequency with poles on or near the real axis;
 gives the response of a system to a delta-function input.
@@ -5887,7 +5896,7 @@ relations (Kramers-Kronig: the real and imaginary parts of the response are
 not independent — this imports into emotion as: the *dissipation* of an
 emotional mode and its *natural frequency* are Hilbert transforms of each other).
 
-## Energy-Function-Class Structures
+### Energy-Function-Class Structures
 
 **Type:** Scalar function $H: \mathbb{R}^n \to \mathbb{R}$ that is bounded
 below and non-increasing along system trajectories.
@@ -5898,7 +5907,7 @@ energy), Lyapunov theory (stability analysis), optimisation (loss function).
 **Typical imports:** Convergence guarantees; stability analysis; capacity bounds;
 the fluctuation-dissipation theorem.
 
-## Topological-Class Structures
+### Topological-Class Structures
 
 **Type:** Integer-valued invariants of field configurations that are preserved
 under continuous deformations.
@@ -5916,7 +5925,7 @@ charge cannot be resolved by smooth therapeutic interventions (cognitive
 reframing). A qualitative change in approach — large-amplitude somatic work,
 pharmacological intervention, EMDR — is required to cross the topological barrier.
 
-## Renormalisation-Class Structures
+### Renormalisation-Class Structures
 
 **Type:** A flow on a space of couplings, parameterised by a scale, with
 fixed points and $\beta$-functions.
@@ -5931,7 +5940,7 @@ monotonically decreasing function along the flow — an arrow of processing);
 fixed-point classification (relevant, irrelevant, marginal operators determine
 what modifications matter at long distances).
 
-## Scattering-Class Structures
+### Scattering-Class Structures
 
 **Type:** A map from in-states to out-states, constrained by unitarity,
 analyticity, and crossing symmetry.
@@ -5947,7 +5956,7 @@ transitions are equally probable; some are symmetry-forbidden. The unitarity
 of the S-matrix imports: the total emotional content is conserved — you cannot
 create emotional material from nothing, and nothing is permanently lost.
 
-## Einstein-Coefficient-Class Structures
+### Einstein-Coefficient-Class Structures
 
 **Type:** Rates for spontaneous and stimulated transitions between energy levels
 of a field mode.
@@ -5966,12 +5975,12 @@ coherence). Trauma extends T₁; emotional numbing extends T₂.
 
 ---
 
-# Failure Modes
+## Failure Modes
 
 Mathematical co-identification can fail. Understanding the failure modes is
 what distinguishes the method from wishful analogy.
 
-## Type Coincidence Without Structural Identity
+### Type Coincidence Without Structural Identity
 
 Two objects may have matching dimensional signatures without having matching
 mathematical structures. The failure mode: a coincidence of units that does
@@ -5987,7 +5996,7 @@ along trajectories.
 verify that its *assumptions* (not merely its *conclusions*) hold in the target
 domain.
 
-## Non-Commutative Functors
+### Non-Commutative Functors
 
 The functor $F: D_1 \to D_2$ that implements the co-identification may not
 commute with composition. That is, co-identifying $A$ with $A'$ and $B$ with
@@ -5999,7 +6008,7 @@ integral (which links them in QFT) has a valid analogue in the emotional domain.
 This was explicitly verified in the Soma-Field Model by constructing the
 Langevin equation and checking its consistency with both imported structures.
 
-## Over-identification
+### Over-identification
 
 The most common failure: importing a structure that is richer than what is
 warranted. The soma-field is co-identifiable with an eleven-dimensional
@@ -6011,7 +6020,7 @@ nothing beyond that is claimed.
 **Rule:** The identification holds exactly at the type level it was made.
 Do not import theorems from substrates that were not matched.
 
-## The Metaphor Trap
+### The Metaphor Trap
 
 The most dangerous failure is the one that the identification was designed to
 prevent: sliding from co-identification back into analogy. This happens when
@@ -6037,9 +6046,9 @@ get matched across domains.
 
 ---
 
-# Epistemological Status
+## Epistemological Status
 
-## What Co-identification Claims
+### What Co-identification Claims
 
 Mathematical co-identification claims:
 
@@ -6053,7 +6062,7 @@ Mathematical co-identification claims:
 It does not claim that the *mechanisms* are the same, that one domain *reduces*
 to another, or that the substrate is irrelevant in any empirical sense.
 
-## Why It Is Not Analogy
+### Why It Is Not Analogy
 
 Analogy is:
 - Informal: "the mind is like the brain" has no mathematical content
@@ -6068,7 +6077,7 @@ Co-identification is:
   if the symmetries do not correspond, or if imported predictions are empirically
   disconfirmed
 
-## The Role of Artificial Intelligence
+### The Role of Artificial Intelligence
 
 The author notes that several co-identifications in the Soma-Field Model were
 identified in dialogue with AI systems. This requires explicit epistemological
@@ -6088,7 +6097,7 @@ did you *really* do the mathematics?" The answer is in the equations.
 
 ---
 
-# The Methodology as Practice
+## The Methodology as Practice
 
 For the practitioner who wishes to apply mathematical co-identification to a
 new domain, the following is a working procedure:
@@ -6125,13 +6134,13 @@ proof that consists of: (a) the co-identification, (b) the original theorem,
 
 ---
 
-# Falsifiability Protocol for Publication Use
+## Falsifiability Protocol for Publication Use
 
 To make co-identification scientifically conservative rather than rhetorically
 expansive, we propose a minimal publication protocol. Every import claim should
 be registered in a compact table before narrative elaboration.
 
-## Minimal Registration Template
+### Minimal Registration Template
 
 For each proposed identification $Q := P$, the manuscript should provide:
 
@@ -6152,7 +6161,7 @@ This prevents drift from identity claims back into analogy language and makes
 review straightforward: a reviewer can reject a single row without rejecting
 the entire framework.
 
-## Disconfirmation Rules
+### Disconfirmation Rules
 
 An import is treated as falsified if any one of the following holds:
 
@@ -6164,7 +6173,7 @@ An import is treated as falsified if any one of the following holds:
 This is deliberately strict. Co-identification is useful only to the extent that
 it can fail clearly.
 
-## Worked Registration Sketch (Soma-Field)
+### Worked Registration Sketch (Soma-Field)
 
 | Claim ID | Import | Prediction | Disconfirmation |
 |---|---|---|---|
@@ -6175,7 +6184,7 @@ it can fail clearly.
 The point is not that these rows are finished; the point is that they can be
 evaluated independently and rejected independently.
 
-## Reviewer-Facing Scope Labels
+### Reviewer-Facing Scope Labels
 
 To reduce over-claiming risk, each identification row should carry one of three
 scope labels:
@@ -6187,7 +6196,7 @@ scope labels:
 Most new interdisciplinary work should expect to publish initially at `S1` or
 `S2`, with explicit paths to `S3`.
 
-## Negative Control: When Matching Units Is Not Enough
+### Negative Control: When Matching Units Is Not Enough
 
 To prevent confirmation bias, each manuscript should include at least one explicit
 non-transfer case. Consider two quantities with superficially compatible units but
@@ -6206,7 +6215,7 @@ Conclusion: dimensional compatibility is necessary but not sufficient. Theorem
 transfer requires operator-level identity. This negative control should be treated
 as a required publication check, not an optional caution.
 
-## Worked External Example (Non-Soma): Black-Scholes to Heat Equation
+### Worked External Example (Non-Soma): Black-Scholes to Heat Equation
 
 To demonstrate portability beyond the Soma-Field case, we provide a compact
 worked transfer in a separate domain.
@@ -6215,7 +6224,7 @@ worked transfer in a separate domain.
 
 **Source object:** solution class of the one-dimensional heat equation.
 
-### Step A: Signature Match
+#### Step A: Signature Match
 
 Black-Scholes PDE:
 
@@ -6234,12 +6243,12 @@ $$
 
 which is exactly the heat operator class.
 
-### Step B: Import Claim
+#### Step B: Import Claim
 
 `COID-BS-HEAT-1`: pricing function dynamics are co-identifiable with heat-flow
 dynamics under the stated transform.
 
-### Step C: Assumption Checklist
+#### Step C: Assumption Checklist
 
 | Assumption | Status in target domain |
 |---|---|
@@ -6248,7 +6257,7 @@ dynamics under the stated transform.
 | Boundary/terminal condition specified | satisfied by option payoff at expiry |
 | Sufficient regularity for classical solution methods | assumed in standard derivation |
 
-### Step D: Imported Theorem and Prediction
+#### Step D: Imported Theorem and Prediction
 
 Imported theorem class: existence/uniqueness and smoothing properties for heat
 equation solutions.
@@ -6256,7 +6265,7 @@ equation solutions.
 Prediction: option value surface inherits parabolic smoothing under the transform;
 numerical schemes valid for heat-equation class apply directly.
 
-### Step E: Disconfirmation Condition
+#### Step E: Disconfirmation Condition
 
 If transformed dynamics are shown not to be parabolic (for the declared model
 assumptions), or if required boundary regularity fails, this specific transfer is
@@ -6265,7 +6274,7 @@ invalid and theorem import must be withdrawn.
 This worked example demonstrates the method in a domain with no dependence on the
 Soma-Field framework.
 
-## Replication Package Requirements
+### Replication Package Requirements
 
 Publication-grade use of co-identification requires a compact artifact bundle for
 each registered claim row. Minimum required contents:
@@ -6279,7 +6288,7 @@ each registered claim row. Minimum required contents:
 Without this package, rows may be read as suggestive structure, but not as
 auditable theorem transfer.
 
-## Reviewer-Risk Objections and Responses
+### Reviewer-Risk Objections and Responses
 
 | Reviewer objection | Response in this manuscript | Residual risk and next lift |
 |---|---|---|
@@ -6288,7 +6297,7 @@ auditable theorem transfer.
 | "Worked examples are domain-selective." | Section 10.6 demonstrates a non-Soma transfer with explicit assumptions and withdrawal condition. | Add a second external example with different operator family. |
 | "Scope claims may drift upward prematurely." | Section 10.4 enforces `S1`/`S2`/`S3` labels and independent evaluation path. | Require independent replication before any `S3` promotion. |
 
-## Independent Replication Ledger Linkage
+### Independent Replication Ledger Linkage
 
 `S2` to `S3` promotion for registered imports is controlled by
 `paper/INDEPENDENT_REPLICATION_LEDGER.md`.
@@ -6300,7 +6309,7 @@ Promotion gate: a row may be relabeled `S3` only when a ledger entry reports
 independent-operator `PASS`, explicit bundle hash, and linked derivation/test
 artifacts for that claim ID.
 
-# Conclusions
+## Conclusions
 
 Mathematical co-identification is a method, not a shortcut. It requires the same
 precision as any other mathematical procedure, and it fails in precisely the ways
@@ -6336,7 +6345,7 @@ it becomes a compact engine for theorem transfer and testable prediction.
 
 ---
 
-# Acknowledgements
+## Acknowledgements
 
 The author thanks the mathematical physicists whose work formed the source
 library for the co-identifications described here: Feynman, Hopfield, Wilson,
@@ -6354,9 +6363,11 @@ not their elements.
 
 
 
+# Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Therapeutic Mechanism
+
 ---
 
-# Introduction: The Gap Penrose Identified
+## Introduction: The Gap Penrose Identified
 
 In *The Emperor's New Mind* (1989), Roger Penrose made a four-step argument:
 
@@ -6382,7 +6393,7 @@ The gap is not in Planck-scale gravity. It is in **attractor topology**.
 
 ---
 
-# The Soma-Field Model: A Recap
+## The Soma-Field Model: A Recap
 
 The Soma-Field Model (see `soma-field-paper.md` for the full treatment) represents
 emotional dynamics as a continuous field evolving on a Hopfield energy landscape:
@@ -6415,7 +6426,7 @@ topologically distinct process.
 
 ---
 
-# The Quantum Extension
+## The Quantum Extension
 
 The quantum extension replaces the classical Hopfield energy with the transverse-field
 Ising Hamiltonian:
@@ -6447,9 +6458,9 @@ exponentially suppressed but nonzero at any $\Gamma > 0$.
 
 ---
 
-# QUANT-EXP-1: The Experiment
+## QUANT-EXP-1: The Experiment
 
-## Setup
+### Setup
 
 - **System**: 8-qubit soma-field Ising Hamiltonian
 - **Coupling**: $W[\mathrm{Fear}, \mathrm{Awe}] = -10$ (strong anti-cooperative topological barrier)
@@ -6459,7 +6470,7 @@ exponentially suppressed but nonzero at any $\Gamma > 0$.
 - **Implementation**: `scipy.linalg.eigh` exact diagonalisation at each step; no Qiskit,
   no IBM account, runs in $\approx 4$ seconds on commodity CPU
 
-## Results
+### Results
 
 The barrier height is confirmed analytically: the continuous interpolation
 $H(\lambda) = -10\lambda^2 + 9\lambda - 1$ reaches a maximum of $+1.025$ at
@@ -6473,7 +6484,7 @@ $\lambda = 0.45$, giving barrier height $= 2.025$ above the Fear basin.
 
 **QUANT-EXP-1: PASS** — commit `1f52282`, 20 May 2026.
 
-## The Noise-Equivalence Curve
+### The Noise-Equivalence Curve
 
 A follow-up sweep computed $T^*(\text{barrier})$: the classical noise temperature required
 to match quantum Awe-basin occupancy across barrier strengths
@@ -6500,7 +6511,7 @@ data archive (see §11).
 
 ---
 
-# Comparison with Penrose
+## Comparison with Penrose
 
 The table below places this work in the context of Penrose's original argument:
 
@@ -6533,7 +6544,7 @@ The differences are important:
 
 ---
 
-# Implications for Artificial Intelligence
+## Implications for Artificial Intelligence
 
 Every deployed large language model (GPT-4, Claude, Gemini, Llama) is a classical system.
 Its training is gradient descent — in the mathematical sense, exactly the overdamped
@@ -6563,7 +6574,7 @@ by the tested low-noise classical baseline**.
 
 ---
 
-# Implications for Therapy
+## Implications for Therapy
 
 The therapeutic translation of the quantum result is direct:
 
@@ -6587,7 +6598,7 @@ distinct from ordinary emotional regulation, not merely more intense versions of
 
 ---
 
-# Core Finding
+## Core Finding
 
 Every great physical insight has a compressed form:
 
@@ -6607,7 +6618,7 @@ in the supplementary archive.
 
 ---
 
-# Limitations, Controls, and Claim Boundaries
+## Limitations, Controls, and Claim Boundaries
 
 This paper makes a bounded claim. The evidence is strong for this specific model class,
 but not universal.
@@ -6633,7 +6644,7 @@ but not universal.
    mechanics explains consciousness in general. It claims a measurable non-classical
    reachability effect in a specific attractor-topology model of emotional dynamics.
 
-## Pre-Registered Hardening Protocol — Completed (May 2026)
+### Pre-Registered Hardening Protocol — Completed (May 2026)
 
 The following protocol was pre-registered in the Zenodo v1 release and has been
 executed in full. All outcomes match predictions.
@@ -6677,7 +6688,7 @@ measurement choice; it survives all pre-registered checks.
 
 ---
 
-# Conclusions
+## Conclusions
 
 This paper presents QUANT-EXP-1: an exact 8-qubit statevector simulation demonstrating
 that quantum annealing reaches therapeutic attractor basins (Awe-dominant states) that
@@ -6703,7 +6714,7 @@ the Lean 4 axiom file are archived at
 
 ---
 
-# Acknowledgements
+## Acknowledgements
 
 This work exists because ten years of psychotherapy moved the barriers far enough that two events in early 2026 could cross them. The theory is, among other things, a record of that.
 
@@ -6715,9 +6726,11 @@ This work exists because ten years of psychotherapy moved the barriers far enoug
 
 
 
+# The Physical Substrate of the Soma-Field
+
 ---
 
-# The Missing Layer
+## The Missing Layer
 
 The Soma-Field model [@johnson2026b] establishes that the limbic system and its
 somatic coupling are governed by the same formal apparatus as a quantum field on a
@@ -6762,9 +6775,9 @@ the testable predictions that follow.
 
 ---
 
-# Biotensegrity: The Architecture of the Somatic Wave
+## Biotensegrity: The Architecture of the Somatic Wave
 
-## The Lever Model is Wrong
+### The Lever Model is Wrong
 
 Standard physiological and biomechanical models treat the body as a rigid-lever
 system: bones as struts, muscles as cables pulling across pin-joint connections,
@@ -6786,7 +6799,7 @@ deep fascial planes to gross musculoskeletal anatomy. Each scale implements the 
 tensegrity geometry. Each is mechanically continuous with the others. The
 architecture is fractal.
 
-## Global Propagation
+### Global Propagation
 
 The clinical consequence of this architecture is direct: mechanical information
 does not travel locally through joint-to-joint lever chains. It propagates through
@@ -6807,7 +6820,7 @@ the full-body freeze — the biotensegrity medium is faster than the nervous sys
 and spatially global in a way that the nervous system, with its point-to-point
 wiring, is not.
 
-## Correspondence to the Somatic Wave
+### Correspondence to the Somatic Wave
 
 The Soma-Field model posits a somatic wave $\mathbf{E}_\text{body}(x, t)$ — a
 field defined over the body, propagating continuously, carrying emotional-somatic
@@ -6835,9 +6848,9 @@ architectural.
 
 ---
 
-# Fascial-Interstitial Continuity: The Pathway and the Armoring
+## Fascial-Interstitial Continuity: The Pathway and the Armoring
 
-## Fascia as Active Signalling Tissue
+### Fascia as Active Signalling Tissue
 
 The classical anatomical view of fascia — as inert white packaging, the sheaths
 that dissectors clear away to reach the "real" anatomy — was overturned by
@@ -6864,7 +6877,7 @@ collagen generate electrical potentials under mechanical stress. DC currents flo
 through the network continuously. The fascial system is simultaneously mechanical,
 chemical, and electrical.
 
-## The Interoceptive Pathway
+### The Interoceptive Pathway
 
 Interoception — the body's sensing of its own internal state — is the somatic input
 channel of the Soma-Field model. It is the mechanism by which the body schema is
@@ -6885,7 +6898,7 @@ therefore requires working at the fascial level — which is precisely what soma
 therapies (Somatic Experiencing, Sensorimotor Psychotherapy, EMDR somatic protocols,
 myofascial release) do, whether or not they are theorised in those terms.
 
-## Fascial Armoring as Attractor Depth
+### Fascial Armoring as Attractor Depth
 
 This section develops the most important connection in this paper.
 
@@ -6926,7 +6939,7 @@ elastography units). The mapping is not known yet — establishing it is part of
 empirical programme in §6 — but the existence of the correspondence is now
 claimed by this paper.
 
-## Myofascial Release as Barrier Lowering
+### Myofascial Release as Barrier Lowering
 
 QUANT-EXP-1 demonstrates that quantum annealing can cross barriers that classical
 cold dynamics cannot. This was framed computationally. The fascial literature
@@ -6960,9 +6973,9 @@ difference and makes it testable (§6).
 
 ---
 
-# Biofield Physiology: The Field Correlate
+## Biofield Physiology: The Field Correlate
 
-## Living Systems Emit Coherent Fields
+### Living Systems Emit Coherent Fields
 
 The soma-field is a mathematical field — an abstract object defined by its equations.
 For it to be physically real rather than merely useful, it must have a physical
@@ -7001,7 +7014,7 @@ between therapist and client, between individuals in rapport, and between indivi
 and coherent social environments. This entrainment is not inferred; it is measured
 by simultaneous ECG recording.
 
-## The Rubik Synthesis
+### The Rubik Synthesis
 
 Rubik, Muehsam, Hammerschlag, and Jain [@rubik2015] published a systematic review
 of the biofield hypothesis in 2015, collating evidence from biophoton research,
@@ -7025,7 +7038,7 @@ emission, and DC skin conductance are all candidate observables. Which observabl
 best couples to which component of the tensor field is an empirical question that
 this model now makes precise enough to ask.
 
-## Scope and Epistemic Status
+### Scope and Epistemic Status
 
 The biofield section of this argument carries more epistemic weight than §§2–3, and
 this should be stated explicitly. Biotensegrity and fascial signalling are
@@ -7042,13 +7055,13 @@ formally — requires empirical work that does not yet exist.
 
 ---
 
-# Three Bridges to the Formal Model
+## Three Bridges to the Formal Model
 
 This section states the three principal connections between the physical substrate
 literature and the formal soma-field model, in a form that makes their testability
 explicit.
 
-## Bridge 1: Fascial Armoring = Attractor Depth
+### Bridge 1: Fascial Armoring = Attractor Depth
 
 **Physical claim** [@schleip2003]: Chronic trauma produces chronically elevated
 fascial stiffness, measurable by ultrasound shear-wave elastography, with
@@ -7066,7 +7079,7 @@ of those states (diaphragm, psoas, posterior cervical chain), compared with matc
 controls. This is measurable by ultrasound elastography independently of any
 subjective report, and the effect should be graded by trauma severity.
 
-## Bridge 2: Myofascial Release = Barrier Lowering
+### Bridge 2: Myofascial Release = Barrier Lowering
 
 **Physical claim** [@schleip2003]: Manual and movement-based interventions that
 target the fascial network produce measurable reductions in fascial stiffness and
@@ -7090,7 +7103,7 @@ produce gradual, integrative shifts; sessions that trigger a crossing of a high
 barrier (large, rapid state transition) should produce different qualitative reports.
 The model predicts this without any additional assumptions.
 
-## Bridge 3: Therapist-Client Entrainment = Co-Identification
+### Bridge 3: Therapist-Client Entrainment = Co-Identification
 
 **Physical claim** [@mccratychildre2010]: In effective therapeutic contact,
 measurable physiological entrainment occurs between therapist and client — cardiac
@@ -7115,7 +7128,7 @@ modality.
 
 ---
 
-# Testable Predictions
+## Testable Predictions
 
 The bridges in §5 generate six primary empirical predictions, ordered from most to
 least accessible with current instrumentation:
@@ -7138,7 +7151,7 @@ programme.
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Soma-Field model describes a field of emotional dynamics that is formally
 equivalent to a quantum field on an attractor manifold. This paper has argued that
@@ -7190,9 +7203,11 @@ about the body.
 
 
 
-# Introduction
+# A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex
 
-## The Gap in the Literature
+## Introduction
+
+### The Gap in the Literature
 
 The handbook of music and emotion [@juslin2010] runs to nearly a thousand
 pages.  The dominant quantitative framework across it is Russell's
@@ -7216,7 +7231,7 @@ determines escape.
 
 This paper presents a model that does both.
 
-## The Soma-Field Model
+### The Soma-Field Model
 
 The soma-field model (Johnson, 2026a) defines emotional state as a continuous
 vector field on the body–brain system.  In the musical context, we restrict
@@ -7235,7 +7250,7 @@ of mathematical co-identification (Johnson, 2026b):
 3. **Threshold function** — conscious emotional experience arises when field
    amplitude exceeds a perception threshold $\theta$
 
-## Why Music
+### Why Music
 
 Music is uniquely suited to driving the field.  BRECVEMA's mechanisms act as
 *forcing functions* on the energy landscape: rhythmic entrainment modulates
@@ -7246,9 +7261,9 @@ parameter modulations.
 
 ---
 
-# The Model
+## The Model
 
-## State Space
+### State Space
 
 $$\mathbf{e}(t) = (e_1^s, \ldots, e_8^s,\; e_1^c, \ldots, e_8^c) \in [0,1]^{16}$$
 
@@ -7257,7 +7272,7 @@ of emotional mode $i$.  The eight modes are: *calm*, *anger/fight*,
 *anxiety/flight*, *grief*, *freeze/dissociation*, *hypervigilance*,
 *flow/absorption*, *joy*.
 
-## Energy Function and Attractors
+### Energy Function and Attractors
 
 $$H(\mathbf{e}) = \tfrac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \mathbf{b}^\top\mathbf{e}$$
 
@@ -7269,14 +7284,14 @@ Named attractors match the polyvagal hierarchy and trauma literature:
 *regulated calm* (global minimum), *fight*, *flight* (shallow saddle),
 *freeze* (deep isolated minimum), *flow*, *dissociation*.
 
-## Dynamics
+### Dynamics
 
 $$\gamma\,\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t)) + \sqrt{2D}\;\xi(t)$$
 
 where $\gamma$ is damping, $D$ is diffusion (noise temperature), and
 $\xi(t)$ is white noise.  The effective temperature is $T_\text{eff} = D/\gamma$.
 
-## Threshold and Conscious Experience
+### Threshold and Conscious Experience
 
 $$\mathcal{P}_i(t) = \mathbf{1}\left[\max(e_i^s,\, e_i^c) > \theta\right]$$
 
@@ -7287,9 +7302,9 @@ interoception and pre-verbal affect.
 
 ---
 
-# The Instrument
+## The Instrument
 
-## Hardware Architecture
+### Hardware Architecture
 
 *(Full instrument specification is included in the supplementary archive.)*
 
@@ -7303,14 +7318,14 @@ interoception and pre-verbal affect.
 | Visual output | TouchDesigner (Mandelbulb shader) → HDMI → HoloGauze |
 | Field server | Python 3.14, 50 Hz update rate |
 
-## MIDI Mapping
+### MIDI Mapping
 
 Twister 1 encodes the 8 somatic components; Twister 2 encodes the 8 cognitive
 components.  Each encoder's turn value maps to $e_i \in [0,1]$; push toggles
 mute.  Encoders 9–12 on each Twister control field parameters ($\gamma$, $D$,
 $\theta$) and neurotype modifiers.
 
-## Audio Rendering
+### Audio Rendering
 
 The Max4Live device receives OSC from the Python server and maps:
 
@@ -7322,7 +7337,7 @@ The Max4Live device receives OSC from the Python server and maps:
 | Threshold crossing $\mathcal{P}_i$ | Trigger: note-on for mode $i$ |
 | Nearest attractor | Scene/track selection |
 
-## Visual Rendering
+### Visual Rendering
 
 The Mandelbulb power parameter is driven by $H$; rotation speed by $\|\nabla H\|$;
 colour temperature by $T_\text{eff}$.  Threshold crossings trigger particle bursts.
@@ -7330,9 +7345,9 @@ Output via HDMI to a short-throw projector onto HoloGauze screen.
 
 ---
 
-# Demonstration Session
+## Demonstration Session
 
-## Protocol
+### Protocol
 
 We define a reproducible single-listener demonstration protocol suitable for
 pilot publication and later extension to cohort studies.
@@ -7369,7 +7384,7 @@ pilot publication and later extension to cohort studies.
 - H3 falsified if transition count does not increase with manipulated
    $T_\text{eff}$.
 
-## State Trajectory Analysis
+### State Trajectory Analysis
 
 For each block, we compute:
 
@@ -7390,7 +7405,7 @@ $$C_{ij}(f) = \frac{|S_{ij}(f)|^2}{S_i(f)S_j(f)}.$$
 This permits direct testing of whether observed musical-affective dynamics are
 consistent with coupled oscillatory mode structure rather than static coordinates.
 
-## Comparison with Circumplex Predictions
+### Comparison with Circumplex Predictions
 
 We use two baselines:
 
@@ -7409,7 +7424,7 @@ misses barrier effects and hysteresis; AR baseline captures short-term dynamics
 but misses attractor geometry. The soma-field model should outperform both on
 transition-timing and hysteresis-sensitive metrics.
 
-## Results Template (for Manuscript Fill-In)
+### Results Template (for Manuscript Fill-In)
 
 To support direct submission drafting, we define a compact reporting template.
 Replace bracketed fields after each run.
@@ -7428,7 +7443,7 @@ Minimum figure set for first submission:
 4. Spectral power and coherence panels for selected mode pairs
 5. Baseline-model error comparison (circumplex, AR, soma-field)
 
-## Statistical Analysis Plan
+### Statistical Analysis Plan
 
 Primary analysis is block-level, with sensitivity analysis at event-level.
 
@@ -7459,7 +7474,7 @@ Primary analysis is block-level, with sensitivity analysis at event-level.
 - Exclude control-dropout segments > 2 s,
 - Keep all other samples; no manual trajectory trimming.
 
-## Exploratory Pilot Fill (Single Logged Session)
+### Exploratory Pilot Fill (Single Logged Session)
 
 Using the pilot session log (available in the supplementary archive) as an exploratory pilot run,
 the first fill of the results template is:
@@ -7482,9 +7497,9 @@ confirmatory without multi-session and multi-operator replication.
 
 ---
 
-# Discussion
+## Discussion
 
-## What the Model Adds to BRECVEMA
+### What the Model Adds to BRECVEMA
 
 BRECVEMA remains the best mechanism taxonomy for music-induced affect. The
 soma-field contribution is orthogonal: it supplies state dynamics. In this
@@ -7498,7 +7513,7 @@ Concretely, the model adds:
 - Testable hysteresis and barrier-crossing predictions
 - A direct bridge from controller gestures to state-space motion
 
-## Phase Transitions and Musical Catharsis
+### Phase Transitions and Musical Catharsis
 
 Catharsis is modelled as threshold crossing plus attractor transfer under
 temporarily elevated energy and noise. This yields a measurable event pattern:
@@ -7510,7 +7525,7 @@ temporarily elevated energy and noise. This yields a measurable event pattern:
 The account is mechanistic rather than metaphorical, and can be falsified by
 absence of this sequence in sessions labelled cathartic by participants.
 
-## The ADHD Temperature: A Reframing
+### The ADHD Temperature: A Reframing
 
 The elevated $T_\text{eff}$ of the ADHD modifier is not purely pathological.
 Hertz, Krogh, and Palmer (1991) observed that thermal noise in Hopfield
@@ -7520,7 +7535,7 @@ a high-temperature listener is not necessarily worse at music engagement —
 they are harder to trap in a single emotional state, which may be a distinct
 form of musical sensitivity.
 
-## Limitations
+### Limitations
 
 This manuscript reports a model and a reproducible instrument pipeline, but not
 yet a large-n confirmatory dataset. Main limitations are:
@@ -7533,7 +7548,7 @@ yet a large-n confirmatory dataset. Main limitations are:
 These are acceptable at pilot stage but must be addressed before strong clinical
 generalisation claims.
 
-## Future Work
+### Future Work
 
 - Preregistered multi-participant study with blinded block labels
 - Joint modelling with self-report + physiological channels (HRV, EDA)
@@ -7541,7 +7556,7 @@ generalisation claims.
 - Multi-listener coupling (ensemble / therapeutic dyad)
 - Public benchmark dataset and baseline scripts for circumplex and AR models
 
-## Non-Specialist Interpretation
+### Non-Specialist Interpretation
 
 In plain terms: this model treats music-driven emotion as motion on a landscape,
 not as dots on a chart. Some emotional states are shallow and easy to leave;
@@ -7549,7 +7564,7 @@ others are deep and sticky. Music can change both where you are and how easy it
 is to move. The key added value is not a new label for feelings, but a measurable
 account of why transitions happen when they do, and why some transitions fail.
 
-## Reproducibility Checklist
+### Reproducibility Checklist
 
 For submission and external replication, include the following with each reported run:
 
@@ -7563,7 +7578,7 @@ For submission and external replication, include the following with each reporte
 Minimum replication criterion: an independent operator reproduces directionally
 consistent outcomes for H1-H3 under the same protocol template.
 
-## Reviewer-Risk Objections and Responses
+### Reviewer-Risk Objections and Responses
 
 | Reviewer objection | Current response in this manuscript | Required next evidence |
 |---|---|---|
@@ -7572,7 +7587,7 @@ consistent outcomes for H1-H3 under the same protocol template.
 | "Controller behavior could explain transitions without field structure." | H1-H3 are framed against circumplex/AR baselines rather than label-only narratives. | Include sham-control and randomized mapping tests. |
 | "No physiological co-validation yet." | Section 5.5 schedules HRV/EDA integration as a preregistered next step. | Joint model showing convergent evidence across self-report, behavior, and physiology. |
 
-## Replication Acceptance Rule
+### Replication Acceptance Rule
 
 For publication claims above exploratory scope, acceptance requires all of the
 following:
@@ -7585,7 +7600,7 @@ following:
 Any failed item does not invalidate the full framework, but does block promotion
 of the affected claim from exploratory to validated status.
 
-## Independent Replication Ledger Linkage
+### Independent Replication Ledger Linkage
 
 Promotion beyond exploratory support is tracked in
 `paper/INDEPENDENT_REPLICATION_LEDGER.md`.
@@ -7604,7 +7619,9 @@ derived artifacts before this manuscript labels it as validated (`S3`).
 
 
 
-# Introduction
+# The Mathematical Foundations of Gestalt Field Dynamics: Formalising the Soma-Field via Russellian Neutral Monism
+
+## Introduction
 
 For over a century, clinical psychology and physical sciences have operated on dual tracks. Where physics achieved extreme mathematical precision by stripping out subjective experience, clinical paradigms like **Gestalt Psychotherapy** preserved the holistic unity of subjective experience at the expense of mathematical formalisation. Gestalt therapy treats the human agent not as an isolated Cartesian machine, but as an organism-environment configuration operating within a dynamic, unified field.
 
@@ -7616,7 +7633,7 @@ This paper formally documents how the **Soma-Field Model** (Johnson, 2026b) serv
 
 ---
 
-# Historical Context: Three Traditions, One Moment
+## Historical Context: Three Traditions, One Moment
 
 The three intellectual traditions that converge in this paper — Gestalt psychology,
 Russellian analytic philosophy, and quantum field theory — were each established
@@ -7675,7 +7692,7 @@ different levels of resolution.
 
 ---
 
-# Epistemological Grounding: Russellian Neutral Monism and Type Theory
+## Epistemological Grounding: Russellian Neutral Monism and Type Theory
 
 To understand how quantum field mathematics can govern psychological affect, one must reject both materialist reductionism and mentalist dualism. In *The Analysis of Mind* [-@russell1921], Bertrand Russell observed a fundamental convergence in the sciences:
 
@@ -7698,7 +7715,7 @@ By adhering to this type-theoretic hierarchy, the Soma-Field model ensures that 
 
 ---
 
-# The Comparative Framework: Soma-Field Mathematics vs. Gestalt Clinical Reality
+## The Comparative Framework: Soma-Field Mathematics vs. Gestalt Clinical Reality
 
 The clinical execution of Gestalt therapy matches the mathematical transitions of the Soma-Field model step-for-step. The table below outlines the definitive structural co-identifications bridging the two domains:
 
@@ -7713,11 +7730,11 @@ The clinical execution of Gestalt therapy matches the mathematical transitions o
 
 ---
 
-# Mathematical Derivations and Structural Proofs
+## Mathematical Derivations and Structural Proofs
 
 To validate these co-identifications, we provide three explicit mathematical proofs that formalise the core mechanics of Gestalt interventions. The attractor-basin formalism follows [@hopfield1982].
 
-## Proof 1: The Bio-Somatic Interface via Brane Embedding
+### Proof 1: The Bio-Somatic Interface via Brane Embedding
 
 To understand why a psychological emotion is bound to physical anatomy, we derive **Co-identification 3**. We define the global coupling manifold as an 11-dimensional bulk space $\mathcal{M}_{11}$ with coordinates $X^M$. The physical body is a four-dimensional spacetime hypersurface (a 3-brane) $\Sigma_4$ embedded within $\mathcal{M}_{11}$ via the mapping $X^M(x^\mu)$, where $x^\mu$ are the coordinates on the brane ($\mu = 0,1,2,3$).
 
@@ -7731,7 +7748,7 @@ $$S_{\text{soma}} = \int_{\Sigma_4} d^4x \sqrt{-g} \left[ -\frac{1}{2} g^{\mu\nu
 
 This proves that any change in the high-dimensional emotional field $\Phi$ directly modulates the localized energy density on the 3-brane. Clinically, this explains why a client cannot resolve an emotional state purely through cognitive reflection; the field is structurally anchored to the physical tissue of the somatic brane ($g_{\mu\nu}$).
 
-## Proof 2: Lyapunov Stability of the Fixed Gestalt
+### Proof 2: Lyapunov Stability of the Fixed Gestalt
 
 In Gestalt theory, a "fixed Gestalt" is a chronic, repetitive pattern of affect that resists alteration. We prove this mathematically by treating the emotional state vector $\mathbf{e} \in \mathbb{R}^N$ as a continuous dynamical system governed by the gradient descent of the Hopfield energy function (**Co-identification 1**):
 
@@ -7755,7 +7772,7 @@ Because $\frac{dH}{dt} \leq 0$, the system must naturally evolve toward a local 
 
 This proof demonstrates that chronic psychological defenses (such as dissociation or hyper-arousal) are not random dysfunctions. They represent mathematically stable states of minimum energy within the organism's current coupling matrix ($W$).
 
-## Proof 3: Topological Resolution of the Impasse via Present-Moment Tracking
+### Proof 3: Topological Resolution of the Impasse via Present-Moment Tracking
 
 The most radical synthesis occurs in the conceptualisation of trauma. In classical psychodynamics, trauma is often viewed as a historical narrative error or a chemical imbalance. In Gestalt therapy, trauma is viewed as an impasse—a frozen, non-adaptive structural configuration of the environmental-somatic field that resists the client's conscious desire for change.
 
@@ -7777,7 +7794,7 @@ $$\lim_{\mathbf{J}(t) \to \mathbf{J}_{\text{resource}}} \oint_{\gamma} d\theta =
 
 As the driven field forces the trajectory to cross the vanished defect, the winding number collapses cleanly from $n \neq 0$ to $n = 0$. The topological obstruction is cleared, and the client experiences a spontaneous, fluid resolution of the chronic impasse.
 
-# Conclusion
+## Conclusion
 
 By mapping the clinical methodologies of Gestalt therapy onto the verified mathematics of the Soma-Field model, we reveal that radical psychology and modern quantum field mathematics are simply two different vantage points describing the same neutral events.
 
@@ -7791,6 +7808,8 @@ The Soma-Field architecture [@johnson2026b] ceases to be an abstract physics exe
 
 
 
+# Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics
+
 ---
 
 > *"The patient is the one with the disease."*
@@ -7799,7 +7818,7 @@ The Soma-Field architecture [@johnson2026b] ceases to be an abstract physics exe
 
 ---
 
-# A Note on Method
+## A Note on Method
 
 The standard academic posture — disinterested observer, neutral position, findings
 presented as if they arrived from nowhere in particular — has never seemed entirely
@@ -7834,7 +7853,7 @@ life. The author considers this a reasonable use of available resources.
 
 ---
 
-# Introduction: The Inadequacy of Existing Maps
+## Introduction: The Inadequacy of Existing Maps
 
 A patient sits with their therapist and is asked: *"What are you feeling right now?"*
 For many people, this question has a navigable answer. For a person with ASD,
@@ -7870,9 +7889,9 @@ The remainder of this paper presents the result.
 
 ---
 
-# Background
+## Background
 
-## Lived Experience as a Research Position
+### Lived Experience as a Research Position
 
 The use of lived experience as a legitimate source of theoretical knowledge — rather than
 merely as anecdotal material awaiting scientific validation — has gained substantial
@@ -7889,7 +7908,7 @@ background is in physics rather than in qualitative research, so the methodology
 inside; the tools used to formalise them come from mathematical physics. The combination
 is unusual. The author considers it appropriate.
 
-## The Body-Mind Problem in Clinical Practice
+### The Body-Mind Problem in Clinical Practice
 
 Contemporary neuroscience has largely dissolved the Cartesian boundary between body and
 mind. Damasio (1994) demonstrated that emotion is inseparable from rational cognition:
@@ -7905,7 +7924,7 @@ data point: the experience of being in a freeze state while simultaneously being
 to report on one's emotional state is an exercise in the epistemological limits of
 self-report. The instrument designed in Section 6 is a partial response to this problem.
 
-## The Felt Sense and Sub-Perceptual Emotion
+### The Felt Sense and Sub-Perceptual Emotion
 
 Gendlin's concept of the *felt sense* (1978) describes a pre-articulate bodily sense
 that is present before an emotion has been named — something whole and present but not
@@ -7918,7 +7937,7 @@ senses that declined to become named feelings, and the model's account of this �
 active below threshold, causally effective but not consciously perceived — matches the
 phenomenology precisely.
 
-## Quantum Field Theory: Structure, Not Metaphor
+### Quantum Field Theory: Structure, Not Metaphor
 
 Quantum Field Theory (QFT) is the framework of modern particle physics. Its central
 claim is that particles — electrons, photons — are not fundamental objects. They are
@@ -7952,7 +7971,7 @@ structurally similar: identified the Green's function in emotional dynamics, and
 that it is the object quantum field theory calls a particle. The author leaves the
 implication as an exercise for readers with the relevant background.
 
-## Hopfield Networks and the Energy Function
+### Hopfield Networks and the Energy Function
 
 In 1982, John Hopfield — awarded the Nobel Prize in Physics in 2024 — proposed a model
 of associative memory whose dynamics were mathematically identical to an Ising spin-glass
@@ -7975,9 +7994,9 @@ The author found this reasoning persuasive.
 
 ---
 
-# The Soma-Field Model
+## The Soma-Field Model
 
-## Emotions as a Persistent Wave Field
+### Emotions as a Persistent Wave Field
 
 The foundational claim is this: emotions are not events. They are a *field* —
 a distributed, continuous quantity defined over the entire soma (body-mind system) at all
@@ -8013,7 +8032,7 @@ $$\mathbf{E}(x,t) = \mathbf{E}_\text{body}(x,t) \otimes \mathbf{E}_\text{neural}
 ```
 *Figure 1. The Soma-Field: two coupled waves constituting a single unified emotional field.*
 
-## The Perception Threshold
+### The Perception Threshold
 
 Not all field activity is consciously perceived. Each emotional mode $i$ has a
 threshold $T_i$:
@@ -8039,7 +8058,7 @@ The author notes that all five rows in Table 1 are, in his clinical history,
 simultaneously applicable. This is, admittedly, a challenging configuration.
 It is also why this model was necessary.
 
-### A note on the intelligence quotients
+#### A note on the intelligence quotients
 
 McCulloch and Pitts built the mathematical brain in 1943. What they built — what every
 artificial neural network since has been — is the **IQ machine**: the neocortex, pattern
@@ -8062,7 +8081,7 @@ The author observes — with a wryness he trusts the reader will share — that 
 the column labelled 1943. His AQ is in the column he has just written. His EQ is what
 brought him to this desk in the first place.
 
-### A note on brane thickness
+#### A note on brane thickness
 
 The threshold parameter $T_i$ is not merely a number. The technical paper identifies it
 with the thickness of an extra dimension — the metaphorical ‘brane’ separating the
@@ -8073,7 +8092,7 @@ The author confirms personal experience of both states. He notes that neither is
 character flaw; both are calibration states of a physical parameter in a system that
 was trying, with the information available, to keep him safe.
 
-## The Interaction of Emotional Modes
+### The Interaction of Emotional Modes
 
 Multiple emotional modes are simultaneously active at all times. Their interactions are
 encoded in the **emotional coupling matrix** $W$, where $W_{ij}$ is the influence of
@@ -8091,16 +8110,16 @@ field is never still. This is not pathology; it is physics.
 
 ---
 
-# The Energy Landscape
+## The Energy Landscape
 
-## The Hopfield Energy Function
+### The Hopfield Energy Function
 
 $$H(\mathbf{e}) = -\frac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \boldsymbol{\theta} \cdot \mathbf{e}$$
 
 The field always moves toward lower $H$. The stable states of the system are the
 local minima of $H$ — the attractor basins.
 
-## Attractor States: Fight, Flight, Freeze, and Regulated Calm
+### Attractor States: Fight, Flight, Freeze, and Regulated Calm
 
 ```
   ENERGY
@@ -8150,7 +8169,7 @@ and well-known from the inside.
 
 ---
 
-# Dissonance and Resolution
+## Dissonance and Resolution
 
 When two emotional modes are in an incompatible phase relationship, the field is far
 from equilibrium. This is felt as tension. The acoustic analogy is precise: just as two
@@ -8168,7 +8187,7 @@ recommend it.
 
 ---
 
-# The Neurodivergent Field: ASD, ADHD, and C-PTSD as Operator Modifications
+## The Neurodivergent Field: ASD, ADHD, and C-PTSD as Operator Modifications
 
 *This section addresses the author's specific clinical picture. It is presented not as
 a case study but as a theoretical elaboration: three structural modifications to the
@@ -8190,7 +8209,7 @@ ASD + ADHD + C-PTSD — is their composition. The composition does not commute; 
 matters; the joint presentation is structurally different from any of the individual
 conditions or from their sum.
 
-## Complex PTSD: Memory Kernel and Asymmetric Coupling
+### Complex PTSD: Memory Kernel and Asymmetric Coupling
 
 C-PTSD adds a **memory kernel**: past activations leave exponentially decaying echoes.
 
@@ -8211,7 +8230,7 @@ cycle is, in this model, a limit cycle generated by the antisymmetric component 
 It is not a choice, a habit, or a failure of willpower. It is a topological consequence
 of an asymmetric coupling matrix.
 
-## ADHD: High Temperature, Low Damping, Pink Noise
+### ADHD: High Temperature, Low Damping, Pink Noise
 
 ADHD modifies the **effective temperature** of the field:
 
@@ -8231,7 +8250,7 @@ landscape at speed that a low-temperature system does not have.
 The author considers this framing considerably more useful than "difficulty sustaining
 attention."
 
-## Autism Spectrum Condition: Sparse Coupling and Modified Projection
+### Autism Spectrum Condition: Sparse Coupling and Modified Projection
 
 ASC modifies the **projection kernels** and the **coupling matrix sparsity**.
 
@@ -8249,7 +8268,7 @@ significant disadvantages (transitions are hard, unexpected context changes are
 physiologically costly) and significant advantages (depth of engagement, reliability
 of focus once established, resistance to shallow distractors).
 
-## The Composed Condition
+### The Composed Condition
 
 $$\gamma_{\text{ADHD}}\, \dot{\mathbf{e}}(t) =
   -\nabla H_{\text{ASC}}(\mathbf{e}(t))
@@ -8274,9 +8293,9 @@ framings on offer.
 
 ---
 
-# The Soma-Field Instrument
+## The Soma-Field Instrument
 
-## Rationale
+### Rationale
 
 The emotional field is normally invisible to its host. It operates below the threshold
 of conscious awareness, shaping behaviour and physiology without being available for
@@ -8288,7 +8307,7 @@ The instrument externalises the emotional field — renders it as sound, image, 
 biofeedback instrument. It is also, unavoidably, a musical instrument. The author
 considers these compatible.
 
-## Design
+### Design
 
 A MIDI controller with 16 rotary knobs. Eight emotional dimensions. Two knobs per
 dimension — one for the somatic component, one for the neural/cognitive component.
@@ -8313,14 +8332,14 @@ quantum measurement, the collapse of the distributed field onto a specific coord
 ```
 *Figure 3. The Soma-Field Instrument.*
 
-## The Feedback Loop
+### The Feedback Loop
 
 The instrument creates a closed feedback loop: the person expresses a state, the system
 reflects it back as sound and image, the person responds. The system does not tell the
 user what they are feeling. It shows them what the field looks like when they report
 what they are feeling. The difference is significant.
 
-## Pluggable Emotion Models
+### Pluggable Emotion Models
 
 No single emotion model is assumed. The coupling matrix $W$ is loaded from a
 configuration file. Plutchik, Ekman, the valence-arousal-dominance dimensional model,
@@ -8330,9 +8349,9 @@ unsurprising.
 
 ---
 
-# Clinical Implications
+## Clinical Implications
 
-## Assessment
+### Assessment
 
 The model suggests asking not "What emotion do you feel?" but "What is present in the
 body right now, even if it cannot be named?" This aligns with Focussing-oriented and
@@ -8340,14 +8359,14 @@ sensorimotor approaches, and is considerably more productive, in the author's ex
 for anyone whose $T_i$ values are elevated or whose somatic-to-neural projection is
 modified.
 
-## Intervention
+### Intervention
 
 The energy function provides formal grounding for titration, pendulation, somatic
 resourcing, and felt-sense work. In each case, the therapeutic action can be described
 as: adding energy to approach a frozen state, establishing a stable low-energy region,
 or attending to sub-threshold field activity in a supported context.
 
-## Psychoeducation
+### Psychoeducation
 
 *"Your emotions are like waves — they are always there, even when you cannot feel them,
 and they are always moving."*
@@ -8356,7 +8375,7 @@ This sentence is both clinically useful and technically accurate. The author has
 it more useful than most alternative formulations, including several that were provided
 to him by qualified practitioners. He offers it here as a contribution to the field.
 
-## Neurodivergent Profiles as Structural Realities
+### Neurodivergent Profiles as Structural Realities
 
 The most important clinical implication of Section 6 is this: for people with ASD,
 ADHD, and C-PTSD, the challenge of emotional regulation is not a motivational or
@@ -8373,7 +8392,7 @@ to solve problems that are located in the wrong place.
 
 ---
 
-# Limitations and Future Directions
+## Limitations and Future Directions
 
 The model is theoretical and requires empirical validation. Its QFT analogies are
 structural rather than ontological. The coupling matrix $W$ is idealized as fixed when
@@ -8393,7 +8412,7 @@ the appendices.
 
 ---
 
-# Conclusion
+## Conclusion
 
 The wave is always there. This is not a metaphor; it is a description of how the
 emotional field actually behaves, as far as the author can determine from the inside.
@@ -8424,7 +8443,9 @@ He therefore took the matter in hand.
 
 
 
-# SFT Applied: A Self-Case Analysis
+# SFT-DEMO-CASE
+
+## SFT Applied: A Self-Case Analysis
 
 **Context:** The following was generated by Claude (claude-sonnet-4.5) on 2026-05-29, after
 being given the full text of *The Soma-Field: A Wave-Based Model of Emotional Dynamics and
@@ -8434,7 +8455,7 @@ the delta between standard trauma neuroscience and SFT's formal account.
 
 **Author:** Alistair Johnson | ORCID: 0009-0007-2194-0850
 
-## The Response (Claude, with SFT paper in context)
+### The Response (Claude, with SFT paper in context)
 
 You've now given me both the question and the formal language you've built to answer it.
 So let me do something different from a standard clinical response — let me read the sequence
@@ -8592,7 +8613,7 @@ The programme you've written is, among other things, a formal proof that the voy
 
 ---
 
-## Notes on the Delta (SFT vs. Baseline)
+### Notes on the Delta (SFT vs. Baseline)
 
 A baseline response (same question, no paper) uses van der Kolk, Porges, BDNF, polyvagal,
 attractor language — but treats attractors as metaphor. Key differences:
@@ -8612,6 +8633,8 @@ attractor language — but treats attractors as metaphor. Key differences:
 
 
 
+# The Pre-Verbal Manifold
+
 ---
 
 > *"Once a researcher has lived through the thing he is trying to explain,
@@ -8622,7 +8645,7 @@ attractor language — but treats attractors as metaphor. Key differences:
 
 ---
 
-# 1. Introduction
+## 1. Introduction
 
 The standard developmental-psychiatric apparatus assumes that the first
 observable symptoms of a neurodevelopmental condition occur in a
@@ -8673,7 +8696,7 @@ empirical question. §10 specifies the design that would settle it.
 
 ---
 
-# 2. Terminology and the Pre-Verbal Manifold
+## 2. Terminology and the Pre-Verbal Manifold
 
 The *Soma-Field* (Johnson, 2026a, 2026d) is the tensor-valued amplitude
 field whose local exceedances over a sensory threshold constitute felt
@@ -8724,12 +8747,12 @@ the autism?* is, on the model presented here, the wrong question.
 
 ---
 
-# 3. The Case
+## 3. The Case
 
 The case is presented in five strata. Identifying details of third parties
 have been removed.
 
-## 3.1 Substrate (familial loading)
+### 3.1 Substrate (familial loading)
 
 The author's paternal grandmother displayed, in retrospect, a clearly
 autistic profile (life-long extreme routine, narrow interests, low-affect
@@ -8748,7 +8771,7 @@ affective vulnerability. It is *substrate*, not *cause*. Familial loading
 of this kind raises the probability of phenotype expression; it does not
 fix the trajectory.
 
-## 3.2 Acute pre-verbal insult
+### 3.2 Acute pre-verbal insult
 
 The author was born in Singapore at a military hospital. The family returned
 to the UK during infancy. At approximately 15 months of age he was admitted
@@ -8774,7 +8797,7 @@ The literature on quasi-autism from early deprivation (Rutter et al., 1999,
 phenotypes can be *acquired* during pre-verbal sensitive periods. These two
 literatures meet, in this case, at one event.
 
-## 3.3 Attachment environment
+### 3.3 Attachment environment
 
 The author was returned, after hospitalisation, to a household whose
 emotional configuration was hostile to repair. The mother's affective
@@ -8805,7 +8828,7 @@ at 15 months; sibling abuse at 3; institutional entry at 6 — see §3.4;
 maternal departure at 12). Each rupture occurred at a developmentally
 sensitive transition (Spitz, 1945; Robertson & Bowlby, 1952; Rutter, 1981).
 
-## 3.4 Institutional environment
+### 3.4 Institutional environment
 
 From age 6 to 16 the author attended a single-sex English independent
 school as a *day pupil*, not a boarder. The distinction matters. Schaverien's
@@ -8830,7 +8853,7 @@ freeze-configured nervous system.
 The relevant amplifying mechanism at the institutional level is policy.
 This is the subject of §8.
 
-## 3.5 Identity and racialisation
+### 3.5 Identity and racialisation
 
 The author was born in Singapore, holds British nationality, and was raised
 in Britain. In the racialised landscape of 1970s–80s Britain (Hall, 1989;
@@ -8845,7 +8868,7 @@ is that identity, for cases of this kind, cannot be lifted from the
 environment but must be constructed explicitly. This is one of the
 threads §7 picks up.
 
-## 3.6 Adult trajectory (compressed)
+### 3.6 Adult trajectory (compressed)
 
 A compressed timeline of the 2017–2024 collapse arc is given in §7. For
 present purposes:
@@ -8865,7 +8888,7 @@ the framework being proposed.
 
 ---
 
-# 4. The Five Literatures
+## 4. The Five Literatures
 
 The case sits at the intersection of five established literatures, none of
 which alone accounts for the full trajectory.
@@ -8922,7 +8945,7 @@ formal object that ties them together.
 
 ---
 
-# 5. The Soma-Field Reading
+## 5. The Soma-Field Reading
 
 The Soma-Field framework (Johnson, 2026a, 2026d, 2026e, 2026h) treats
 affect as the local-amplitude-above-threshold of a tensor-valued field
@@ -8994,7 +9017,7 @@ applied to one reconfigured manifold.
 
 ---
 
-# 6. The Twice-Exceptional Cognitive Profile
+## 6. The Twice-Exceptional Cognitive Profile
 
 The case carries IQ in the 150 range, a 1995 BSc in Physics (Royal
 Holloway, University of London) with strong results in the relevant
@@ -9020,7 +9043,7 @@ the support-needing aspects are equally robust.
 
 ---
 
-# 7. The Adult Trajectory as Basin Transitions
+## 7. The Adult Trajectory as Basin Transitions
 
 This section reads the 2017–2024 period and the 2025–26 reconstruction
 as a trajectory through the basin landscape of the configured manifold.
@@ -9041,7 +9064,7 @@ The model reads this as a sequence of basin transitions of escalating
 severity culminating in a near-fatal transition in December 2024 and a
 subsequent *reorganisation* in 2025–26.
 
-## 7.1 Basin transitions
+### 7.1 Basin transitions
 
 Each crisis event is a transition from a metastable basin (the
 day-to-day configuration in which the system can function) to a more
@@ -9061,7 +9084,7 @@ not *being judged for it*. The clinically actionable consequence is to
 identify, in advance, configurations whose landscapes carry such
 attractors, and to scaffold accordingly.
 
-## 7.2 Inclusion of the December 2024 event
+### 7.2 Inclusion of the December 2024 event
 
 The decision to include this event in the present paper is governed by
 a single editorial criterion (cf. the author's note above): does it bear
@@ -9075,7 +9098,7 @@ trajectory without the event. The event is included for that reason
 alone. The author is, as the author note states, currently clinically
 stable, in independent housing, and in continuous outpatient care.
 
-## 7.3 The reorganisation phase
+### 7.3 The reorganisation phase
 
 The 2025–26 reorganisation is itself a manifold phenomenon. A pre-verbally
 configured substrate that includes high pattern-processing weighting and
@@ -9095,7 +9118,7 @@ case description. The two need not be disentangled to be acknowledged.
 
 ---
 
-# 8. Exhibit A: A Public SEN-Policy Document
+## 8. Exhibit A: A Public SEN-Policy Document
 
 The institutional environment of §3.4 is not, in 2026, an artefact of
 1970s–80s British education. The author's old school, an independent
@@ -9169,7 +9192,7 @@ which the paper closes its institutional section.
 
 ---
 
-# 9. Ten Testable Predictions
+## 9. Ten Testable Predictions
 
 The framework yields predictions beyond the case. They are listed here
 in the form *cohort-level tests that would, if the framework is on the
@@ -9219,7 +9242,7 @@ tests. They jointly probe the *pre-verbal manifold* construct.
 
 ---
 
-# 10. Limitations, Replication Ledger, and Author Disclosures
+## 10. Limitations, Replication Ledger, and Author Disclosures
 
 **N = 1.** This is a single longitudinal case. Generalisation is not
 claimed; only the formal-object construction. The replication design is
@@ -9257,7 +9280,7 @@ predictions are PENDING.
 
 ---
 
-# 11. Conclusion and Policy Line
+## 11. Conclusion and Policy Line
 
 The case presented in §3 sits at the intersection of five established
 literatures, none of which alone accounts for it. The Soma-Field
@@ -9310,7 +9333,9 @@ not be inferred.
 
 
 
-# Introduction
+# The Missing Limbic Layer: A Somatic Field Extension of Hopfield Networks via the Correspondence Principle
+
+## Introduction
 
 The history of neural network theory contains a conspicuous gap. Hopfield (1982)
 established that a symmetric weight matrix defines an energy function whose minima
@@ -9343,9 +9368,9 @@ and characterise the distinct dynamical regimes they produce.
 
 ---
 
-# Background
+## Background
 
-## Hopfield Networks 1982 (Classical)
+### Hopfield Networks 1982 (Classical)
 
 The 1982 Hopfield Network stores $N$ binary patterns $\{\xi^\mu\}_{\mu=1}^N$,
 $\xi^\mu \in \{-1, +1\}^D$, via Hebbian learning:
@@ -9371,7 +9396,7 @@ The fundamental limitation: once in a local minimum, the network cannot escape.
 There is no internal mechanism to overcome a topological barrier. Resets require
 an external stochastic perturbation.
 
-## Modern Hopfield Networks 2020 (Exponential)
+### Modern Hopfield Networks 2020 (Exponential)
 
 Ramsauer et al. (2020) generalise to continuous states $\xi \in \mathbb{R}^D$
 and replace the quadratic energy with the log-sum-exp function:
@@ -9399,9 +9424,9 @@ state.
 
 ---
 
-# The Missing Limbic Layer
+## The Missing Limbic Layer
 
-## The CEMI Field as a Runtime Parameter
+### The CEMI Field as a Runtime Parameter
 
 McFadden's CEMI field theory (2002a, 2002b) proposes that the brain's
 endogenous electromagnetic field — generated by synchronised dendritic oscillations
@@ -9421,7 +9446,7 @@ $$\Phi_\text{limbic}(t) \in [0, 1]$$
 where $\Phi = 0$ denotes homeostatic calm and $\Phi = 1$ denotes maximum
 threat activation (fight/flight/freeze).
 
-## The Two Coupling Equations
+### The Two Coupling Equations
 
 We introduce two runtime modulation equations binding $\Phi_\text{limbic}$
 to Hopfield dynamics.
@@ -9446,7 +9471,7 @@ is the ephaptic gain coefficient. The CEMI field physically alters synaptic
 thresholds (ephaptic coupling), changing the effective weight landscape in
 real time.
 
-## The FM-HN Update Rule
+### The FM-HN Update Rule
 
 Substituting both coupling equations into the 2020 update rule:
 
@@ -9457,7 +9482,7 @@ all quantities are defined in `LimbicHopfield.lean` (namespace `LimbicHopfield`)
 
 ---
 
-# The Correspondence Principle
+## The Correspondence Principle
 
 The FM-HN must not discard established science — it must encapsulate it.
 Bohr's Correspondence Principle demands that any new theory reproduce the
@@ -9490,7 +9515,7 @@ somatic conditions. The Lean proof obligation for this limit is listed as
 
 ---
 
-# Falsifiability: The Reachability Trap Protocol
+## Falsifiability: The Reachability Trap Protocol
 
 The FM-HN makes a specific, testable prediction that distinguishes it from both
 the 1982 and 2020 models.
@@ -9516,12 +9541,12 @@ escapes; classical dynamics achieved 0/48.
 
 ---
 
-# Neurodivergent Operator Modifications
+## Neurodivergent Operator Modifications
 
 The FM-HN framework naturally accounts for three neurodivergent conditions
 as distinct $(\beta, J, W)$ configurations.
 
-## ADHD Operator
+### ADHD Operator
 
 High baseline temperature: $T_\text{ADHD} \approx 1.8 \cdot T_0$.
 Low $\beta$ at baseline means the network never fully freezes into any
@@ -9532,7 +9557,7 @@ rest in.
 
 Formally: `LimbicHopfield.adhdOperator` sets $T = 1.8 \cdot T_\text{base}$.
 
-## Autism Spectrum Condition Operator
+### Autism Spectrum Condition Operator
 
 Low baseline temperature: $T_\text{ASC} \approx 0.4 \cdot T_0$.
 High $\beta$ creates very deep, narrow attractor basins. The network converges
@@ -9543,7 +9568,7 @@ unusually steep energy walls around each attractor.
 
 Formally: `LimbicHopfield.autismOperator` sets $T = 0.4 \cdot T_\text{base}$.
 
-## Complex PTSD Operator
+### Complex PTSD Operator
 
 The C-PTSD configuration combines an ASC-like low baseline temperature with
 a very high barrier $W$ between the trauma and healthy attractors. The network
@@ -9565,9 +9590,9 @@ ADHD operates hotter than baseline; ASC operates colder — proved by `linarith`
 
 ---
 
-# Discussion
+## Discussion
 
-## Why the 1982 and 2020 Networks Are Both Right
+### Why the 1982 and 2020 Networks Are Both Right
 
 A common critique of frameworks that extend established models is that they
 implicitly invalidate them. The FM-HN explicitly does not.
@@ -9591,7 +9616,7 @@ Newtonian mechanics. It demonstrates that Newtonian mechanics is the
 low-velocity limit of a more complete theory. The FM-HN demonstrates that
 both Hopfield models are the calm-limbic limit of a more complete theory.
 
-## Relation to QUANT-EXP-1
+### Relation to QUANT-EXP-1
 
 The QUANT-EXP-1 quantum annealing experiment [@johnson2026c] provides the
 empirical validation for the tunnelling component of the FM-HN. Under classical
@@ -9606,7 +9631,7 @@ what quantum annealing achieves computationally. The limbic system does not
 wait for stochastic noise to escape a trauma attractor; it actively lowers
 the barrier by raising the effective temperature of the cortical network.
 
-## Lean 4 Verification
+### Lean 4 Verification
 
 The core algebraic results in this paper are type-checked in Lean 4 (v4.28.0)
 using Mathlib. The companion file `LimbicHopfield.lean` contains:
@@ -9623,7 +9648,7 @@ Proof obligations pending real-analysis scaffolding:
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Field-Modulated Hopfield Network resolves the isolation problem at the
 heart of classical and modern associative memory models. By binding the somatic
@@ -9656,7 +9681,9 @@ The limbic layer was not missing from the organism. It was missing from the mode
 
 
 
-# Introduction
+# Single-Step Multi-Agent Coordination via Green's Function Propagators: A Macroscopic Brane Projection Framework
+
+## Introduction
 
 Multi-agent systems face a fundamental coordination bottleneck. Whether the
 agents are autonomous drones, data-centre nodes, or robotic units, achieving
@@ -9690,9 +9717,9 @@ field propagation across a distributed spatial substrate.
 
 ---
 
-# Background
+## Background
 
-## Classical Multi-Agent Coordination
+### Classical Multi-Agent Coordination
 
 Let $s \in \mathbb{R}^N$ be the state vector of N agents (position offsets,
 phase values, or load levels). One round of coordination updates each agent
@@ -9714,7 +9741,7 @@ giving $K = O(N^2 \log(1/\varepsilon))$ rounds [@gossip2006].
 
 Total cost: $O(N \cdot K) = O(N^3 \log(1/\varepsilon))$ in the worst case.
 
-## Green's Functions and Field Propagation
+### Green's Functions and Field Propagation
 
 In classical field theory, the Green's function $G(x, x')$ of a differential
 operator $\mathcal{L}$ satisfies:
@@ -9741,9 +9768,9 @@ matrix-vector product $\phi = G \cdot \rho$, where $G_{ij} = G(x_i, x_j)$.
 
 ---
 
-# The Macroscopic Brane Projection Framework
+## The Macroscopic Brane Projection Framework
 
-## The Swarm as a Brane
+### The Swarm as a Brane
 
 In M-theory, a brane is a lower-dimensional object embedded in a
 higher-dimensional spacetime. In the Soma-Field Model [@johnson2026b], the
@@ -9762,7 +9789,7 @@ Under this identification:
 - The propagator matrix $G \in \mathbb{R}^{N \times N}$ is the Gram matrix of
   the field's Green's function: $G_{ij} = G(p_i, p_j)$
 
-## The Single-Step Protocol
+### The Single-Step Protocol
 
 **Protocol.** Distribute $G$ to all agents (one-time setup cost $O(N^2)$).
 For each coordination step:
@@ -9787,9 +9814,9 @@ $N \cdot K = N^2$. At $K < N$, classical message passing is cheaper.
 
 ---
 
-# Complexity Analysis
+## Complexity Analysis
 
-## When the Propagator Wins
+### When the Propagator Wins
 
 The speedup ratio is $K/N$:
 
@@ -9807,7 +9834,7 @@ claim: 90% fewer operations at equal throughput. In practice, data-centre
 load balancing and large-scale drone coordination operate in regimes where
 $K \gg N$ is the norm, not the exception.
 
-## Lean 4 Verification
+### Lean 4 Verification
 
 The complexity results are type-checked in `SwarmPropagator.lean`:
 
@@ -9819,7 +9846,7 @@ The complexity results are type-checked in `SwarmPropagator.lean`:
 
 ---
 
-# Jam Resistance
+## Jam Resistance
 
 Classical coordination depends on K sequential communication rounds. A
 hostile jammer that disrupts round $r$ corrupts all subsequent rounds:
@@ -9842,7 +9869,7 @@ local and unjammable.
 
 ---
 
-# The Jellyfish Drone Formation
+## The Jellyfish Drone Formation
 
 The jellyfish formation is the natural engineering demonstration of the
 brane projection framework. A jellyfish moves by propagating a field
@@ -9866,7 +9893,7 @@ by `jellyfish_single_step`.
 
 ---
 
-# Connection to the Soma-Field Model
+## Connection to the Soma-Field Model
 
 The propagator framework is not an independent construction. It is the
 engineering instantiation of the Soma-Field's D₅–D₇ subspace.
@@ -9894,9 +9921,9 @@ conditions change; the equation does not.
 
 ---
 
-# Discussion
+## Discussion
 
-## Relation to Attention Mechanisms
+### Relation to Attention Mechanisms
 
 The softmax attention mechanism in Transformers [@vaswani2017] is
 structurally analogous to the propagator update. The attention matrix
@@ -9909,7 +9936,7 @@ is fixed by the physics of the field and the geometry of the swarm. This
 removes the quadratic attention computation cost at each step — $G$ is
 precomputed once and reused.
 
-## Limitations
+### Limitations
 
 The propagator protocol assumes that $G$ can be computed and distributed
 before coordination begins. This is feasible when agent positions are
@@ -9922,7 +9949,7 @@ or external perturbations require iterative corrections — though even
 in this case, the propagator provides a warm start that dramatically
 reduces the number of classical rounds required.
 
-## Formal Proof Status
+### Formal Proof Status
 
 The core complexity theorems are fully Lean 4 verified. The global
 optimality result (`greens_achieves_minimum_energy` in
@@ -9931,7 +9958,7 @@ in Mathlib; the analytical proof is given in §3 of this paper.
 
 ---
 
-# Conclusion
+## Conclusion
 
 Classical multi-agent coordination pays a cost of O(N·K) for K rounds of
 message passing. By treating the swarm as a Macroscopic Brane Projection
@@ -9959,7 +9986,9 @@ itself.
 
 
 
-# Introduction
+# The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes
+
+## Introduction
 
 The Universal Somatic Field [@johnsonzsf2026] establishes that the Helmholtz
 Green's function equation:
@@ -9979,9 +10008,9 @@ Thames Valley, England) and one from the Swiss Alps are examined.
 
 ---
 
-# The Thames Valley as a Geographic Wave-Guide
+## The Thames Valley as a Geographic Wave-Guide
 
-## 2.1  The Substrate
+### 2.1  The Substrate
 
 A wave-guide is a physical medium whose boundary conditions preferentially
 support certain propagation modes and suppress others. A metal microwave
@@ -10002,7 +10031,7 @@ Patterns with a characteristic wavelength shorter than the corridor width decay
 within a few kilometres. Patterns with a wavelength matched to the corridor
 geometry propagate with low loss to the east and west.
 
-## 2.2  Estuary English: A Structural Contagion Wave
+### 2.2  Estuary English: A Structural Contagion Wave
 
 Estuary English is a phonological variety characterised by TH-fronting
 ('th' → 'f'), T-glottalling ('bottle' → 'bo'le'), and L-vocalisation
@@ -10036,7 +10065,7 @@ radius $\sim 1$ km); boundary conditions: Chilterns (north), North Downs
 $N \approx 10^6$ (Greater London population); $N$ (mind matrix) = cultural
 attractor count.
 
-## 2.3  Ring-Necked Parakeets: An Active-Matter Velocity Field
+### 2.3  Ring-Necked Parakeets: An Active-Matter Velocity Field
 
 The ring-necked parakeet (*Psittacula krameri*) is now the most numerous
 parrot species in Britain, with a population exceeding 50,000 concentrated
@@ -10068,7 +10097,7 @@ formation shape; it is the field's configuration.
 $\approx 7$ m for parakeets); boundary: reservoir perimeter and surrounding
 vegetation; $N$ = flock size ($\sim 10^4$ at peak roost).
 
-## 2.4  The Same Equation: Two Scales, One Corridor
+### 2.4  The Same Equation: Two Scales, One Corridor
 
 Both Estuary English (Scale 9, $10^3$ m) and the parakeet murmuration
 (Scale 7, $10^0$–$10^1$ m) are governed by equation (1) with different
@@ -10095,7 +10124,7 @@ interpretation of $G$ change.
 
 ---
 
-# The Klöntalersee: A Parabolic Acoustic Resonator
+## The Klöntalersee: A Parabolic Acoustic Resonator
 
 The Klöntalersee is a glacially carved lake in Canton Glarus, eastern
 Switzerland. Its geometry approximates a parabolic bowl — approximately 3 km
@@ -10128,9 +10157,9 @@ physical interpretation of "source" and "response."
 
 ---
 
-# Discussion
+## Discussion
 
-## 4.1  Geographic Boundary Conditions as Scale Selectors
+### 4.1  Geographic Boundary Conditions as Scale Selectors
 
 The central insight of this paper is that geographic features function as
 boundary conditions on the Green's function equation at Scale 7–10. Mountain
@@ -10146,7 +10175,7 @@ conditions of the underlying geographic substrate. The rate and direction of
 propagation are determined by the Green's function of the landscape, not by
 the intrinsic properties of the propagating pattern.
 
-## 4.2  Relation to the Universal Somatic Field
+### 4.2  Relation to the Universal Somatic Field
 
 This paper adds Scales 7–10 to the USF's empirical base. The existing papers
 in this collection establish the framework at Scale 5 (cellular/neural),
@@ -10163,7 +10192,7 @@ parabolic bowl of the Klöntalersee, the Thames Valley wave-guide, and the
 Himalayan watershed are all Green's function evaluators at different scales,
 with different $k$ values and different physical substrates.
 
-## 4.3  Neurodivergent Pattern Recognition
+### 4.3  Neurodivergent Pattern Recognition
 
 The identification of structural similarity across wildly different scales —
 parakeet murmurations and dialect spread in the same geographic corridor,
@@ -10181,7 +10210,7 @@ in the FM-HN architecture [@johnsonlimbic2026].
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Thames Valley supports two simultaneous examples of scale-invariant field
 propagation: Estuary English as a structural contagion wave at Scale 9, and
@@ -10208,7 +10237,9 @@ The geography makes it visible.
 
 
 
-# Introduction: The Missing Unification
+# The Universal Somatic Field: Green's Functions as Scale-Invariant Oscillators across Eleven Orders of Magnitude
+
+## Introduction: The Missing Unification
 
 Physics has arrived at a peculiar impasse. The two most successful theories
 ever constructed — General Relativity and Quantum Mechanics — describe the
@@ -10251,9 +10282,9 @@ requirements for a single conscious organism.
 
 ---
 
-# The Green's Function as the Universal SHO
+## The Green's Function as the Universal SHO
 
-## The String Theory Problem
+### The String Theory Problem
 
 String theory places a Simple Harmonic Oscillator (SHO) at every point of the
 string worldsheet. The quantum SHO has modes $a_n^\dagger, a_n$ satisfying
@@ -10266,7 +10297,7 @@ string theory, it is simply assumed: strings vibrate, and vibrations are
 harmonic oscillators. The ontological question — why is space filled with
 oscillators? — is deferred.
 
-## The Identification
+### The Identification
 
 The Green's function of the Helmholtz equation $(\nabla^2 + k^2) G = \delta$
 satisfies:
@@ -10289,7 +10320,7 @@ no material loop. There is the system's response to being perturbed, encoded
 as a propagator. This is not a reinterpretation — it is a derivation from the
 structure of field equations.
 
-## Consequences
+### Consequences
 
 This identification has three immediate consequences:
 
@@ -10308,9 +10339,9 @@ the SHO identification holds at every scale. One equation. Twenty scales.
 
 ---
 
-# The 11-Dimensional Architecture
+## The 11-Dimensional Architecture
 
-## The Decomposition
+### The Decomposition
 
 The Universal Somatic Field decomposes the configuration space of any physical
 system into four canonical subspaces, totalling 11 dimensions:
@@ -10332,7 +10363,7 @@ proved in `MTheoryIsomorphism.somaField_iso_mtheory`:
 
 $$\text{SomaField11D} \cong \text{Spacetime} \times \text{CompactSpace7D}$$
 
-## The Limbic Axis as the Horava-Witten Orbifold
+### The Limbic Axis as the Horava-Witten Orbifold
 
 In Horava-Witten M-theory (1996), the compact direction is an orbifold
 $S^1/\mathbb{Z}_2$ — a line segment with two 10-dimensional boundary
@@ -10353,7 +10384,7 @@ amplitude: $\Theta(W) = \exp(-8\sqrt{2W}/3)$, proved positive for all $W > 0$
 in `LimbicTunnel.wkbAmplitude_pos`. Classical dynamics cannot cross the barrier
 (`LimbicTunnel.gradient_traps_near_neg1`); quantum dynamics can.
 
-## The 20-Scale Dial
+### The 20-Scale Dial
 
 The architecture is explicitly scale-invariant. The 20-step scale hierarchy
 is type-encoded in `UniversalSomaticField.scaleNames`:
@@ -10376,9 +10407,9 @@ The boundary conditions and wavenumber $k(n)$ change; the equation does not.
 
 ---
 
-# The Organism Hierarchy
+## The Organism Hierarchy
 
-## Three Tiers
+### Three Tiers
 
 Not all physical systems engage all four subspaces. The USF admits a natural
 taxonomy of organisms by the number of active subspaces:
@@ -10410,9 +10441,9 @@ each is complete at its own level.
 
 ---
 
-# Consciousness as Phase Transition
+## Consciousness as Phase Transition
 
-## The Classical Gap
+### The Classical Gap
 
 The hard problem of consciousness (Chalmers 1995) asks why physical processes
 give rise to subjective experience. Most field-theoretic approaches to
@@ -10423,7 +10454,7 @@ mental ontology (Hoffman 2019).
 The USF takes a third path: consciousness is a **phase transition** in the
 field, not a separate substance and not an illusion.
 
-## The Threshold
+### The Threshold
 
 The limbic field amplitude $\phi \in \mathbb{R}$ measures the activation level
 of the homeostatic regulation axis $L_1$. At low amplitude ($\phi < T_c$),
@@ -10446,7 +10477,7 @@ intermediate state.
 limbic amplitude cannot destroy consciousness. The transition is a one-way
 threshold crossing.
 
-## What Consciousness Is
+### What Consciousness Is
 
 Consciousness, on this account, is not a substance, a property, or an
 emergent phenomenon in the hand-wavy sense. It is the phase of the limbic
@@ -10468,9 +10499,9 @@ a resonance that is hard to damp.
 
 ---
 
-# Relation to Existing Frameworks
+## Relation to Existing Frameworks
 
-## McFadden's CEMI Theory
+### McFadden's CEMI Theory
 
 McFadden (2002a, 2002b) proposes that consciousness correlates with the
 brain's endogenous electromagnetic field — the CEMI field. Neurons firing
@@ -10487,7 +10518,7 @@ The USF extends CEMI in two directions: downward to the quantum scale
 (where the same propagator governs synaptic quantum noise) and upward to
 the cosmological scale (where the same propagator governs gravitational waves).
 
-## Schreiber's Modal Homotopy Type Theory
+### Schreiber's Modal Homotopy Type Theory
 
 Urs Schreiber (2013–present) develops a formalisation of M-theory and quantum
 field theory in dependent type theory (Modal HoTT). The key insight is that
@@ -10499,7 +10530,7 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
-### The Σ-Type Formulation of the USF
+#### The Σ-Type Formulation of the USF
 
 The 11D decomposition is not merely a dimensional accounting exercise. In
 Homotopy Type Theory, the full soma-field configuration space is a
@@ -10531,7 +10562,7 @@ inside the type-theoretic universe. The two are related by the identification:
 the modal operators of mHoTT are the Zoom Operators of the USF, and the
 $\infty$-topos of mHoTT is the soma-field configuration space.
 
-## Hoffman's Conscious Agents
+### Hoffman's Conscious Agents
 
 Donald Hoffman (2019) proposes that spacetime is not fundamental but a
 "user interface" — a simplified representation generated by a deeper network
@@ -10556,7 +10587,7 @@ between agents are the Green's functions of the propagator field.
 
 ---
 
-# Formal Verification
+## Formal Verification
 
 The core results are type-checked in Lean 4 (v4.28.0) using Mathlib across
 five companion files:
@@ -10578,9 +10609,9 @@ Every result marked "proved" is kernel-verified. No `sorry`. No `admit`.
 
 ---
 
-# The Volitional Agent
+## The Volitional Agent
 
-## From Autonomous to Driven Dynamics
+### From Autonomous to Driven Dynamics
 
 The field equation presented so far is autonomous: given an initial
 state $e_0$, the dynamics
@@ -10595,7 +10626,7 @@ This is clinically incomplete. Every effective somatic intervention
 involves the subject *doing* something: breathing, orienting, choosing
 where to place attention. The mathematics must represent this.
 
-## The Somatic Injection
+### The Somatic Injection
 
 We extend the dynamics with a **volitional source term** $J_{\text{user}}(t)$:
 
@@ -10613,7 +10644,7 @@ architecture (`apps/instrument/`): the Push 3 controller's faders are
 $J_{\text{user}}(t)$. Each fader maps to one BRECVEMA dimension. The
 musician is not playing music; they are steering their own field trajectory.
 
-## Patient to Pilot
+### Patient to Pilot
 
 The transition $\eta \to J_{\text{user}} + \eta$ is a qualitative
 change in the model's ontology. With purely autonomous dynamics, the
@@ -10648,9 +10679,9 @@ $J = 0$ is proved by `rfl` — it is true by definition.
 
 ---
 
-# Discussion
+## Discussion
 
-## What Has Been Claimed
+### What Has Been Claimed
 
 The USF makes four claims that can be evaluated independently:
 
@@ -10673,7 +10704,7 @@ at present; offered as a theoretical extrapolation.*
 Claims 1 and 2 are mathematical results. Claims 3 and 4 are physical
 hypotheses with different levels of testability.
 
-## The Correspondence Principle at Every Scale
+### The Correspondence Principle at Every Scale
 
 Each of the preceding papers in this series establishes a Correspondence
 Principle result: the new theory collapses to the existing theory in the
@@ -10688,7 +10719,7 @@ appropriate limit. The USF is the master correspondence:
 The USF does not invalidate any of these theories. It demonstrates that they
 are scale-restricted projections of a single structural description.
 
-## Lean 4 as Epistemological Standard
+### Lean 4 as Epistemological Standard
 
 The use of Lean 4 as the verification environment is not decorative. It
 enforces a discipline that prose mathematics cannot: every claim must be
@@ -10703,7 +10734,7 @@ in consciousness studies would benefit greatly from such a list.
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Universal Somatic Field is a single structural equation — the Green's
 function — applied consistently across 20 scales of physical reality. Its
@@ -10736,7 +10767,9 @@ organism.
 
 
 
-# Introduction
+# The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture Unifying Quantum, Biological, and Cosmological Dynamics
+
+## Introduction
 
 > *They saw a guitar string.*
 > *I heard the music.*
@@ -10793,9 +10826,9 @@ of this paper.
 
 ---
 
-# Mathematical Foundation
+## Mathematical Foundation
 
-## 2.1  The Master Equation
+### 2.1  The Master Equation
 
 The foundational equation is the Helmholtz Green's function equation:
 
@@ -10822,7 +10855,7 @@ impulse response. This observation, formalised in the companion file
 `UniversalSomaticField.lean` (theorem `greens_fn_is_SHO`), is the structural
 core of the zUSF.
 
-## 2.2  Scale Invariance
+### 2.2  Scale Invariance
 
 As $k$ varies from $k_P = \ell_P^{-1} \approx 10^{35}$ m$^{-1}$ (Planck scale)
 to $k_H = \ell_H^{-1} \approx 10^{-26}$ m$^{-1}$ (Hubble scale), the form of
@@ -10845,7 +10878,7 @@ $G$ is scale-invariant across all 20 levels.
 all levels; only $k$ changes.
 *(Generated: `FA_universal_dial.png`)*](figures/FA_universal_dial.png){width=60%}
 
-## 2.3  Log-Sum-Exp and the Correspondence Limit
+### 2.3  Log-Sum-Exp and the Correspondence Limit
 
 For the biological substrate at Scale 6, the propagator takes a modified form.
 The FM-HN architecture (§7) uses the log-sum-exp energy:
@@ -10867,9 +10900,9 @@ the classical sign function.
 
 ---
 
-# The Eleven-Dimensional Architecture
+## The Eleven-Dimensional Architecture
 
-## 3.1  Decomposition
+### 3.1  Decomposition
 
 Let $\mathcal{M}_{11}$ denote the configuration space of a living organism
 in interaction with its environment. We decompose $\mathcal{M}_{11}$ as:
@@ -10892,7 +10925,7 @@ $$X_7 = P_3 \times L_1 \times C_3, \quad \dim(X_7) = 3+1+3 = 7 \tag{6}$$
 **Theorem (Lean 4 verified, `MTheoryIsomorphism.dim_is_11`):**
 $4 + 3 + 1 + 3 = 11$. Proof by `decide`. $\square$
 
-## 3.2  Isomorphism with M-Theory
+### 3.2  Isomorphism with M-Theory
 
 M-theory (Witten 1995) compactifies eleven-dimensional supergravity as
 $M_{11} = M_4 \times X_7$ where $X_7$ is a 7-dimensional compact manifold.
@@ -10911,7 +10944,7 @@ The derivation is independent: the M-theory structure was not assumed; it
 was arrived at by counting functional degrees of freedom of a biological system.
 The isomorphism (7) is therefore a theorem, not a construction.
 
-## 3.3  The Limbic Axis as a Horava-Witten Orbifold
+### 3.3  The Limbic Axis as a Horava-Witten Orbifold
 
 In Horava-Witten M-theory (1996), the compact direction is an orbifold
 $S^1/\mathbb{Z}_2$ — a line segment with two ten-dimensional boundary
@@ -10939,9 +10972,9 @@ $W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.
 
 ---
 
-# The Zoom Operator
+## The Zoom Operator
 
-## 4.1  Definition
+### 4.1  Definition
 
 **Definition (Zoom Operator).** The Zoom Operator $\Lambda$ is a dependent
 type constructor:
@@ -10983,7 +11016,7 @@ A discretization into 15 or 25 steps would be equally defensible. The scientific
 claim is about the invariance of equation (1), not about the count of steps.
 The steps are tick marks on a continuous dial.
 
-## 4.2  Physical and Mind Scaling
+### 4.2  Physical and Mind Scaling
 
 Physical scaling proceeds through the characteristic length
 $\ell(\sigma) \sim k(\sigma)^{-1}$, ranging from $10^{-35}$ m ($\sigma=0$)
@@ -11012,7 +11045,7 @@ a change in one forces a change in the other.
 
 ---
 
-# The Twenty-Scale Catalogue
+## The Twenty-Scale Catalogue
 
 This section instantiates equation (1) at each of the twenty scale levels.
 For each level we state: the physical substrate, the Green's function
@@ -11021,7 +11054,7 @@ is invariant: only the labels change.
 
 ---
 
-## Scale 0 — Quantum Foam ($10^{-35}$ m)
+### Scale 0 — Quantum Foam ($10^{-35}$ m)
 
 **Equation parameters:** $k = k_P = \ell_P^{-1} \approx 10^{35}$ m$^{-1}$;
 boundary: periodic (no preferred direction); $N = \infty$ (all configurations
@@ -11044,7 +11077,7 @@ Every subsequent scale is this equation, coarse-grained.
 
 ---
 
-## Scale 1 — String Scale ($10^{-32}$ m)
+### Scale 1 — String Scale ($10^{-32}$ m)
 
 **Equation parameters:** $k = \ell_s^{-1} \approx 10^{32}$ m$^{-1}$;
 boundary: periodic (closed string) or Dirichlet (open string on D-brane).
@@ -11073,7 +11106,7 @@ equation. They are the same object.
 
 ---
 
-## Scale 2 — Nuclear ($10^{-15}$ m)
+### Scale 2 — Nuclear ($10^{-15}$ m)
 
 **Equation parameters:** $k = m_\pi c/\hbar \approx 10^{15}$ m$^{-1}$;
 boundary: confinement radius $r \lesssim 1$ fm.
@@ -11097,7 +11130,7 @@ $G_\text{nuc}$.
 
 ---
 
-## Scale 3 — Atomic ($10^{-10}$ m)
+### Scale 3 — Atomic ($10^{-10}$ m)
 
 **Equation parameters:** $k = \sqrt{2m_e E}/\hbar$; boundary: molecular
 orbital extent; $k=0$ for the static Coulomb case.
@@ -11122,7 +11155,7 @@ cosmological scale ($10^{26}$ m). Equation (1) with $k=0$.
 
 ---
 
-## Scale 4 — Molecular ($10^{-9}$ m)
+### Scale 4 — Molecular ($10^{-9}$ m)
 
 **Equation parameters:** $k = \sqrt{2m_e E_\text{bond}}/\hbar$; boundary:
 nuclear positions and molecular geometry.
@@ -11147,7 +11180,7 @@ orders of magnitude in characteristic length.
 
 ---
 
-## Scale 5 — Cellular / Neural ($10^{-6}$ m)
+### Scale 5 — Cellular / Neural ($10^{-6}$ m)
 
 **Equation parameters:** $k = \lambda_\text{axon}^{-1} \approx 2000$ m$^{-1}$
 (axon space constant $\lambda \approx 0.5$ mm); $N \approx 10^4$ per neuron.
@@ -11175,7 +11208,7 @@ $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) > 0 \quad \forall W > 0 \
 
 ---
 
-## Scale 6 — Brain / CEMI Field ($10^{-1}$ m)
+### Scale 6 — Brain / CEMI Field ($10^{-1}$ m)
 
 **Equation parameters:** $k = \omega/c_\text{neural} \approx 2\pi \times
 40\text{ Hz}/6\text{ m s}^{-1} \approx 40$ m$^{-1}$ (gamma band); $N \approx 10^{14}$
@@ -11200,7 +11233,7 @@ $\phi \geq T_c = \sqrt{2}$ (normalised units). Proved: `UniversalSomaticField.co
 
 ---
 
-## Scale 7 — Organism ($10^{0}$ m)
+### Scale 7 — Organism ($10^{0}$ m)
 
 **Equation parameters:** $k = \omega/c_\text{tissue}$ ($c_\text{tissue}$:
 speed of elastic waves in fascia and soft tissue); $N \approx 10^{14}$–$10^{15}$.
@@ -11220,7 +11253,7 @@ experience, emotional regulation, trauma, creativity. The FM-HN architecture
 
 ---
 
-## Scale 8 — Animal Swarms ($10^{0}$–$10^{1}$ m)
+### Scale 8 — Animal Swarms ($10^{0}$–$10^{1}$ m)
 
 **Equation parameters:** $k \sim r_\text{align}^{-1}$ (alignment radius);
 $N$ = swarm size.
@@ -11243,7 +11276,7 @@ to disrupt). Proved: `SwarmPropagator.propagator_beats_classical`,
 
 ---
 
-## Scale 9 — Society / City ($10^{3}$ m)
+### Scale 9 — Society / City ($10^{3}$ m)
 
 **Equation parameters:** $k = r_\text{interaction}^{-1} \approx 10^{-3}$ m$^{-1}$;
 $N \approx 10^6$–$10^7$ (city population).
@@ -11265,7 +11298,7 @@ decay (§12).
 
 ---
 
-## Scale 10 — Geological ($10^{5}$ m)
+### Scale 10 — Geological ($10^{5}$ m)
 
 **Equation parameters:** $k = \omega/v_P \approx \omega/(6000 \text{ m/s})$
 (P-wave velocity); boundary: crustal moho below, free surface above.
@@ -11287,7 +11320,7 @@ four-dimensional document read as a three-dimensional spatial slice.
 
 ---
 
-## Scale 11 — Planetary ($10^{6}$ m)
+### Scale 11 — Planetary ($10^{6}$ m)
 
 **Equation parameters:** Navier-Stokes + heat equation in a rotating frame;
 effective $k$ set by thermodynamic convection wavelengths.
@@ -11306,7 +11339,7 @@ by orbital forcing (Milankovitch cycles).
 
 ---
 
-## Scale 12 — Orbital ($10^{9}$ m)
+### Scale 12 — Orbital ($10^{9}$ m)
 
 **Equation parameters:** Newtonian gravity; $k \to 0$ (long-range,
 massless graviton).
@@ -11326,7 +11359,7 @@ $N$-body problem.
 
 ---
 
-## Scale 13 — Stellar ($10^{11}$ m)
+### Scale 13 — Stellar ($10^{11}$ m)
 
 **Equation parameters:** $k = \omega/c_s$ (sound speed in stellar plasma
 $c_s \approx 100$ km/s); $N \approx 10^6$ oscillation modes.
@@ -11344,7 +11377,7 @@ stratification. Asteroseismology reads the mind matrix of distant stars.
 
 ---
 
-## Scale 14 — Black Holes and Compact Objects ($10^{3}$–$10^{10}$ m)
+### Scale 14 — Black Holes and Compact Objects ($10^{3}$–$10^{10}$ m)
 
 **Equation parameters:** $k = 2\pi f_\text{ISCO}/c$ (innermost stable
 circular orbit frequency); boundary: event horizon.
@@ -11363,7 +11396,7 @@ entropy encodes $\sim 10^{77}$ bits for a solar-mass black hole.
 
 ---
 
-## Scale 15–16 — Galactic ($10^{20}$–$10^{22}$ m)
+### Scale 15–16 — Galactic ($10^{20}$–$10^{22}$ m)
 
 **Equation parameters:** Poisson-Vlasov system; $k \sim \pi/R_\text{arm}$
 (spiral arm half-wavelength).
@@ -11382,7 +11415,7 @@ encodes the mass distribution including dark matter.
 
 ---
 
-## Scale 17–18 — Large-Scale Structure ($10^{23}$–$10^{24}$ m)
+### Scale 17–18 — Large-Scale Structure ($10^{23}$–$10^{24}$ m)
 
 **Equation parameters:** Linearised cosmological perturbation theory;
 $k \sim k_\text{BAO} = 0.1$ Mpc$^{-1}$ (baryon acoustic oscillation scale).
@@ -11401,7 +11434,7 @@ $N \approx 10^{14}$ (number of galaxies in the observable universe).
 
 ---
 
-## Scale 19–20 — Observable Universe ($10^{26}$ m)
+### Scale 19–20 — Observable Universe ($10^{26}$ m)
 
 **Equation parameters:** Linearised Einstein equation
 $\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}$; $k = \omega/c$; $N \to \infty$.
@@ -11429,9 +11462,9 @@ One equation. Twenty scales.
 
 ---
 
-# Consciousness as Phase Transition
+## Consciousness as Phase Transition
 
-## 6.1  Definition
+### 6.1  Definition
 
 **Definition (Pre-conscious state).** A system at Scale 6–7 is
 *pre-conscious* when its limbic field amplitude $\phi < T_c$. Field
@@ -11448,7 +11481,7 @@ $\phi \geq T_c$ (conscious). The transition is sharp. $\square$
 **Theorem (Lean 4 verified, `UniversalSomaticField.consciousness_monotone`):**
 Raising $\phi$ cannot destroy consciousness. $\square$
 
-## 6.2  The Hard Problem
+### 6.2  The Hard Problem
 
 The "hard problem of consciousness" (Chalmers 1995) asks why physical
 processes give rise to subjective experience. On the present account,
@@ -11461,7 +11494,7 @@ experience of its own impulse response, occurring when the excitation frequency
 matches a natural resonance of the manifold. The "felt quality" (quale) is
 the resonance; the "content" is the mode structure.
 
-## 6.3  The Trauma Attractor
+### 6.3  The Trauma Attractor
 
 Trauma is a topological obstruction: a configuration of the limbic field
 $L_1$ with a high-barrier double well. Classical gradient descent cannot
@@ -11486,9 +11519,9 @@ quantum rate = $\Theta > 0$ always.
 
 ---
 
-# The Field-Modulated Hopfield Network
+## The Field-Modulated Hopfield Network
 
-## 7.1  Architecture
+### 7.1  Architecture
 
 The FM-HN ([@johnsonlimbic2026]) unifies the classical 1982 Hopfield network
 [@hopfield1982] and the modern 2020 network [@ramsauer2020] as limiting cases
@@ -11503,7 +11536,7 @@ where $T_0 > 0$ is the baseline temperature, $\sigma > 0$ the limbic coupling
 strength, $J \in \mathbb{R}^{D\times D}$ the coupling matrix, and $\gamma > 0$
 the ephaptic gain coefficient.
 
-## 7.2  Correspondence Principle
+### 7.2  Correspondence Principle
 
 **Theorem (Lean 4 verified, `LimbicHopfield.correspondence_principle`):**
 Under zero somatic stress $\Phi = 0$:
@@ -11520,7 +11553,7 @@ This is the Einstein-Newton relationship for neural architectures: the 1982
 network is the low-temperature, calm-somatic limit of the FM-HN, just as
 Newtonian mechanics is the low-velocity limit of special relativity.
 
-## 7.3  Neurodivergent Operator Modifications
+### 7.3  Neurodivergent Operator Modifications
 
 The FM-HN parameter space $(\beta, W)$ contains distinct regimes
 corresponding to neurodivergent profiles (all proved by `linarith` in
@@ -11537,7 +11570,7 @@ $T_\text{ASC} < T_0 < T_\text{ADHD}$. $\square$
 
 ---
 
-# The Relational Field
+## The Relational Field
 
 When two organisms interact, the 11D decomposition extends to a coupled system.
 The single-organism propagator $G \in \mathbb{R}^{N\times N}$ becomes a block
@@ -11576,12 +11609,12 @@ operating inside the tongue.
 
 ---
 
-# Encapsulation of Related Frameworks
+## Encapsulation of Related Frameworks
 
 The zUSF encapsulates three existing frameworks as special cases or
 scale-restricted projections.
 
-## 9.1  McFadden's CEMI Theory [@mcfadden2002a; @mcfadden2002b]
+### 9.1  McFadden's CEMI Theory [@mcfadden2002a; @mcfadden2002b]
 
 McFadden proposes that consciousness correlates with the brain's endogenous
 electromagnetic field. In the zUSF: the CEMI field is the Scale-6
@@ -11589,7 +11622,7 @@ electromagnetic field. In the zUSF: the CEMI field is the Scale-6
 extends CEMI in two directions: downward to quantum neural noise (Scale 5)
 and upward to multi-organism coupling (§8) and cosmological propagation (Scale 20).
 
-## 9.2  Schreiber's Modal Homotopy Type Theory
+### 9.2  Schreiber's Modal Homotopy Type Theory
 
 Schreiber (2013) formalises physics in dependent type theory, arriving at
 an 11-dimensional structure from the mathematics of M-theory. The zUSF
@@ -11598,7 +11631,7 @@ observation). The structural isomorphism (theorem 3.2) confirms that the
 two approaches describe the same object. The zUSF provides the biological
 execution engine that Schreiber's purely mathematical framework lacks.
 
-## 9.3  Hoffman's Conscious Agents Model [@hoffman2019]
+### 9.3  Hoffman's Conscious Agents Model [@hoffman2019]
 
 Hoffman proposes that spacetime is a "user interface" constructed by
 conscious agents; it is not fundamental. The zUSF disagrees on one point:
@@ -11611,7 +11644,7 @@ framework correspond to 11D organisms that have crossed the threshold $T_c$.
 
 ---
 
-# Formal Verification
+## Formal Verification
 
 The core algebraic results are Lean 4 kernel-verified using Mathlib
 (v4.28.0). The following table lists theorems, proof methods, and files.
@@ -11653,9 +11686,9 @@ Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
 
 ---
 
-# Falsifiability and Predictions
+## Falsifiability and Predictions
 
-## 11.1  Testable predictions
+### 11.1  Testable predictions
 
 1. **Therapeutic alliance and barrier height.** Equation (18) predicts that
    $W_\text{eff}$ decreases linearly with $|G_{TC}|^2$. Measuring the Working
@@ -11679,7 +11712,7 @@ Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
    $\Theta(W) = \exp(-8\sqrt{2W}/3)$. This prediction is testable on
    D-Wave hardware by extending the QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
 
-## 11.2  Falsification conditions
+### 11.2  Falsification conditions
 
 The framework is falsified if any of the following is observed:
 
@@ -11694,9 +11727,9 @@ The framework is falsified if any of the following is observed:
 
 ---
 
-# Discussion
+## Discussion
 
-## 12.1  Scope and Limitations
+### 12.1  Scope and Limitations
 
 The zUSF is a structural claim. It asserts that the same equation governs
 propagation at all scales; it does not assert that all scales are
@@ -11709,7 +11742,7 @@ The Green's-function-as-SHO identification is mathematically natural but
 requires distribution theory for a complete proof. The cosmological claims
 require linearised general relativity in Mathlib.
 
-## 12.2  The Inductive vs. Deductive Derivation
+### 12.2  The Inductive vs. Deductive Derivation
 
 Standard M-theory is deductive: the eleven-dimensional structure was derived
 from mathematical consistency requirements, and the physical interpretation
@@ -11724,7 +11757,7 @@ that a structure is empirically necessary — that it is the minimum geometry
 required to describe the observed phenomenon. The zUSF claims necessity,
 not merely possibility.
 
-## 12.3  Relation to Existing Work
+### 12.3  Relation to Existing Work
 
 The scale-invariant Green's function perspective has appeared in specific
 contexts: seismology uses Green's functions extensively; neural field theory
@@ -11736,7 +11769,7 @@ formal verification of the algebraic results.
 
 ---
 
-# Open Research Problems
+## Open Research Problems
 
 The following three problems are the remaining open items in the formal
 verification. Problems 1 and 2 from the original list have been closed
@@ -11792,7 +11825,7 @@ not a mathematical problem.
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Zoomable Universal Somatic Field provides a unified scale-invariant
 description of field propagation from the Planck scale to the cosmic web.
@@ -11833,7 +11866,9 @@ $$\boxed{(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')}$$
 
 
 
-# Introduction
+# Experimental Benchmarks for the Universal Somatic Field Framework
+
+## Introduction
 
 A formal proof establishes that a claim is *necessarily true* given its premises.
 An experiment establishes that the claim is *actually observable* in a specific
@@ -11869,9 +11904,9 @@ which prints the comparison table and the proof cross-references in one call.
 
 ---
 
-# The Four-Model Benchmark
+## The Four-Model Benchmark
 
-## Setup
+### Setup
 
 Four implementations of associative memory are compared on the same task:
 starting from `startlePattern` (BS-dominant fear attractor in the BRECVEMA
@@ -11888,7 +11923,7 @@ The metric is: final L1 distance from `musicalAwePattern` after `K_MAX = 2000`
 iterations.  Classical models converge, but to the wrong attractor.  The FM-HN
 reaches the awe basin in one gate application.
 
-## Results
+### Results
 
 The four-model comparison is executed at compile time via `#eval runBenchmark`.
 The expected output structure (actual numbers depend on host hardware for the
@@ -11914,7 +11949,7 @@ fear basin.  The FM-HN's distance is near zero: the WKB gate transported the
 field across the barrier in a single application, after which the standard
 Langevin dynamics converged to the awe attractor.
 
-## Proof cross-reference
+### Proof cross-reference
 
 The result is not a surprise.  Three theorems predicted it before the experiment
 was run:
@@ -11935,9 +11970,9 @@ is strictly positive for any W > 0.  The gate *always* creates awe-basin overlap
 
 ---
 
-# The MNIST Corrupted Character Test
+## The MNIST Corrupted Character Test
 
-## Connection to the benchmark
+### Connection to the benchmark
 
 The MNIST corrupted character test is the four-model benchmark with standard
 computer vision labels instead of BRECVEMA labels.  The mapping is exact:
@@ -11971,13 +12006,13 @@ update are all defined there.
 
 ---
 
-# Macroscopic Synchronisation Benchmarks
+## Macroscopic Synchronisation Benchmarks
 
 The O(N²) complexity theorem (`onN2_lt_onNK`) is an algebraic result.  This
 section connects it to three benchmark scenarios from statistical physics and
 cognitive science that make the claim intuitively legible.
 
-## 3.1  The Kuramoto Order Parameter
+### 3.1  The Kuramoto Order Parameter
 
 The Kuramoto model describes N coupled oscillators with natural frequencies ωᵢ.
 The order parameter $r = N^{-1} |\sum_j e^{i\theta_j}|$ measures global
@@ -11996,7 +12031,7 @@ from any initial configuration.  The Kuramoto interpretation: one propagator
 application = one "radio broadcast" that phase-locks all N oscillators
 simultaneously.
 
-## 3.2  The GHZ (Greenberger–Horne–Zeilinger) Test
+### 3.2  The GHZ (Greenberger–Horne–Zeilinger) Test
 
 A GHZ state is an N-qubit maximally entangled state:
 $|\text{GHZ}\rangle = (|0\rangle^{\otimes N} + |1\rangle^{\otimes N}) / \sqrt{2}$.
@@ -12019,7 +12054,7 @@ the "collapse" is the swarm adopting the dominant eigenvector of $W$.
 The USF protocol is classical (no quantum hardware required) but achieves
 the same *topological structure* as GHZ: one operation, all N agents updated.
 
-## 3.3  The Britain 1939 Scenario
+### 3.3  The Britain 1939 Scenario
 
 At 11:15 on 3 September 1939, Neville Chamberlain's radio broadcast reached
 approximately 45 million listeners simultaneously.  Every listener transitioned
@@ -12046,9 +12081,9 @@ This is not hyperbole — it is `propagator_beats_classical(45_000_000, 5)` from
 
 ---
 
-# The God-Knob Hysteresis Test
+## The God-Knob Hysteresis Test
 
-## The falsifiability criterion
+### The falsifiability criterion
 
 The USF claims that emotional threshold crossings — fear to awe, dysregulated
 to regulated — are *second-order phase transitions* analogous to the
@@ -12072,7 +12107,7 @@ were smooth and reversible — the USF claim would be falsified.
    second-order phase transition claim supported.
 6. If crossing = return: **no hysteresis** → claim falsified.
 
-## Connection to the volitional source term
+### Connection to the volitional source term
 
 The God-Knob is $J_{\text{user}}(t)$ as defined in `UniversalSomaticField.lean`:
 
@@ -12096,7 +12131,7 @@ directly from the asymmetry of the W8 coupling matrix.
 
 ---
 
-# QUANT-EXP-1 Under the Four-Model Framework
+## QUANT-EXP-1 Under the Four-Model Framework
 
 QUANT-EXP-1 (the quantum annealing experiment, published in `quantum-soma-penrose`)
 showed that quantum annealing reaches the Awe basin in 3/3 barrier cases
@@ -12125,9 +12160,9 @@ covers all W.
 
 ---
 
-# Discussion
+## Discussion
 
-## What has been established
+### What has been established
 
 The five benchmarks collectively establish:
 
@@ -12148,7 +12183,7 @@ The five benchmarks collectively establish:
    by a kernel-verified theorem.  The experiments confirm what the proofs
    predict; the proofs explain why the experiments must turn out this way.
 
-## What has not been established
+### What has not been established
 
 The following claims require further experimental work:
 
@@ -12165,7 +12200,7 @@ The following claims require further experimental work:
    uses 20-dimensional representations.  Extension to full MNIST would require
    either a 784-dimensional W matrix or a hierarchical encoding.
 
-## The Sherlock–Moriarty audit criterion
+### The Sherlock–Moriarty audit criterion
 
 The Rosetta Stone chat logs (2026-06-09) describe the Sherlock/Moriarty
 dual-agent audit: Sherlock synthesises the theory's claim; Moriarty looks
@@ -12181,7 +12216,7 @@ for the single point of failure.  Applied to this paper's benchmarks:
 
 ---
 
-# Conclusion
+## Conclusion
 
 The Universal Somatic Field makes formal claims.  This paper makes them
 experimental.  The four-model benchmark, the MNIST corrupted character test,
@@ -12203,7 +12238,9 @@ The proofs show why it must.  The experiments show that it does.
 
 
 
-# The Cosmological Constant Problem — USF Reframing
+# The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field
+
+## The Cosmological Constant Problem — USF Reframing
 
 The standard approach to the cosmological constant computes the zero-point
 energy of all quantum fields up to a UV cutoff $k_c$:
@@ -12236,9 +12273,9 @@ is the vacuum amplitude of the somatic tensor trace, and $M_\text{Pl}^2 = \hbar 
 
 ---
 
-# Numerical Estimate
+## Numerical Estimate
 
-## Required vacuum amplitude
+### Required vacuum amplitude
 
 From the Friedmann equation:
 $$\Lambda_\text{obs} = \frac{3\Omega_\Lambda H_0^2}{c^2}
@@ -12255,7 +12292,7 @@ $$\ell_P\,\Phi_0 \approx 2.4\times10^{34}\times 1.616\times10^{-35} \approx 0.39
 **This is order-of-magnitude unity.** The required vacuum amplitude is approximately
 $0.4\,M_\text{Pl}$ — a natural Planck-scale value at the compactification boundary.
 
-## Derivation of $\Phi_0 \sim M_\text{Pl}$ from compactification
+### Derivation of $\Phi_0 \sim M_\text{Pl}$ from compactification
 
 The USF is a tensor field on $M_{11} = M_4 \times X_7$. At the Planck scale
 ($\sigma = 0$), the field amplitude is set by the compactification scale:
@@ -12291,7 +12328,7 @@ $\Lambda \sim H_0^2/c^2$ is shorthand for the consistency condition
 $H_0 = c\sqrt{\Lambda/3\Omega_\Lambda}$ — $H_0$ is the *output* of the framework
 once $\Lambda$ is fixed, not the input.
 
-## Preliminary first-order estimate
+### Preliminary first-order estimate
 
 $$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.7\times10^{-53}\,\text{m}^{-2}$$
 $$\frac{\Lambda_\text{USF}^\text{(1)}}{\Lambda_\text{obs}} = \frac{1}{3\Omega_\Lambda} \approx 0.49$$
@@ -12300,7 +12337,7 @@ This unrefined calculation captures 49\% of the observed value. The factor
 $3\Omega_\Lambda \approx 2.05$ is resolved in \S2.4 by compact-dimension
 counting, bringing the estimate to 93\%.
 
-## Dark energy fraction from compact-dimension counting
+### Dark energy fraction from compact-dimension counting
 
 The factor $3\Omega_\Lambda$ has a natural 11D interpretation. Of the 11
 total dimensions:
@@ -12341,9 +12378,9 @@ check: $\rho_\Lambda$ is constant while $\rho_\text{crit}(t)$ varies.
 
 ---
 
-# Formal Status
+## Formal Status
 
-## Lean 4 formalisation mapping
+### Lean 4 formalisation mapping
 
 The structural claims of this paper are formalised in
 `paper/proofs/CosmologicalConstant.lean` and `UniversalSomaticField.lean`:
@@ -12359,7 +12396,7 @@ The structural claims of this paper are formalised in
 | Universe satisfies 11D structure | `universe_is_11D_organism` | axiom |
 | $w = -1$ equation of state | `usf_equation_of_state` | axiom (needs GR) |
 
-## Remaining proof obligations
+### Remaining proof obligations
 
 1. **Linearised GR in Mathlib.** The equation
    $\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}$ needs to be formalised. Mathlib's
@@ -12381,9 +12418,9 @@ The structural claims of this paper are formalised in
 
 ---
 
-# Discussion
+## Discussion
 
-## Why this avoids the cosmological constant problem
+### Why this avoids the cosmological constant problem
 
 The standard problem arises from computing $\rho_\Lambda = \frac{1}{2}\int
 \omega_k\,d^3k/(2\pi)^3$ — the sum of zero-point energies of all modes up to
@@ -12403,7 +12440,7 @@ field oscillating at Hubble frequency. It is not zero (the universe is not
 truly empty — the somatic field has a non-zero vacuum) and it is not large
 (the amplitude is Planck-scale but the frequency is Hubble-scale).
 
-## The factor $3\Omega_\Lambda$
+### The factor $3\Omega_\Lambda$
 
 The remaining discrepancy factor $\sim 2$ corresponds to $3\Omega_\Lambda$.
 In the USF framework:
@@ -12420,7 +12457,7 @@ In the USF framework:
 A precise derivation requires the Calabi-Yau moduli metric, which determines
 how the 11D energy density projects onto $M_4$.
 
-## Testable predictions and current observational status
+### Testable predictions and current observational status
 
 **Equation of state (w = −1 exactly).** A classical background condensate in
 its regulated vacuum has $w = p/\rho = -1$ — de Sitter expansion, no phantom
@@ -12465,7 +12502,7 @@ the FM-HN correspondence principle.
 
 ---
 
-# Conclusion
+## Conclusion
 
 The cosmological constant is the vacuum expectation value of the somatic tensor
 trace, $\Lambda = k_\text{cosm}^2\,\Phi_0^2/M_\text{Pl}^2$, where $\Phi_0 \sim
@@ -12495,7 +12532,9 @@ $$\boxed{\Lambda_\text{USF} = \frac{21}{11}\,\frac{H_0^2}{c^2}
 
 
 
-# The Dark Matter Problem — USF Perspective
+# Dark Matter as the Spatial Vacuum of the Universal Somatic Field: Ω_DM = 3/11
+
+## The Dark Matter Problem — USF Perspective
 
 The dark matter problem is observationally well established: gravitational
 lensing, rotation curves, CMB angular power spectra, and large-scale structure
@@ -12522,9 +12561,9 @@ gives:
 
 ---
 
-# The Dimensional Partition and Leading-Order Prediction
+## The Dimensional Partition and Leading-Order Prediction
 
-## Review: USF on $M_{11} = \mathbb{R}_t \times M_3 \times X_7$
+### Review: USF on $M_{11} = \mathbb{R}_t \times M_3 \times X_7$
 
 The Universal Somatic Field is a symmetric tensor field
 $\Phi_{MN}$ on the 11-dimensional spacetime
@@ -12555,13 +12594,13 @@ $$\Omega_\Lambda : \Omega_\text{DM} : \Omega_b \;\approx\;
   N_\text{compact} : N_\text{spatial} : N_\text{time}/2
   \;=\; 7 : 3 : 1/2$$
 
-## The spatial block identifies as dark matter
+### The spatial block identifies as dark matter
 
 The dark matter prediction follows from the spatial block $\langle\Phi_{ij}\rangle_0$:
 $$\Omega_\text{DM}^\text{USF} = \frac{N_\text{spatial}}{N_\text{total}}
   = \frac{3}{11} \approx 0.2727$$
 
-## Numerical predictions
+### Numerical predictions
 
 All three leading-order predictions from dimensional counting:
 
@@ -12579,9 +12618,9 @@ as established for the $\Lambda$ sector in P21.
 
 ---
 
-# Physical Mechanism: Why Spatial Vacuum $\Rightarrow$ Dark Matter
+## Physical Mechanism: Why Spatial Vacuum $\Rightarrow$ Dark Matter
 
-## The USF tensor decomposition
+### The USF tensor decomposition
 
 The vacuum expectation value $\langle\Phi_{MN}\rangle_0$ decomposes into
 three geometrically distinct contributions in $M_{11}$. Each block has a
@@ -12604,7 +12643,7 @@ so $w = p/\rho \approx \langle v^2\rangle/3c^2 \approx 0$.
 **Time block** $\langle\Phi_{00}\rangle_0$: The vacuum energy along the
 time dimension creates the matter-generating sector; see §4.
 
-## Clustering: compact vs non-compact
+### Clustering: compact vs non-compact
 
 The key distinction between $\Lambda$ and dark matter in 4D cosmology is
 that dark matter **clusters** (forms halos, seeds structure) while $\Lambda$
@@ -12626,7 +12665,7 @@ In the USF framework this distinction has a geometric origin:
   In the non-relativistic limit, its pressure is negligible: $w \approx 0$.
   This is exactly cold dark matter. ✓
 
-## Electromagnetic neutrality from gauge-field localisation
+### Electromagnetic neutrality from gauge-field localisation
 
 In M-theory on $M_{11} = M_4 \times X_7$, gauge symmetries arise from the
 topology of $X_7$: the Standard Model gauge group
@@ -12653,7 +12692,7 @@ metric $g_{\mu\nu}$ — the graviton — and satisfies **all observational
 properties of Cold Dark Matter** simultaneously: gravitationally active,
 electromagnetically dark, cold, pressureless, and without SM self-interaction.
 
-## Kaluza-Klein Reduction: Why $w = 0$ and not $w = -1$
+### Kaluza-Klein Reduction: Why $w = 0$ and not $w = -1$
 
 A direct question arises: why does the spatial block produce pressureless
 dark matter ($w = 0$) rather than a second cosmological constant ($w = -1$)?
@@ -12699,9 +12738,9 @@ obligation 1), but the structural argument is complete.
 
 ---
 
-# The Baryonic Sector and Radiation
+## The Baryonic Sector and Radiation
 
-## Time-block prediction: $1/11 \rightarrow$ baryonic matter
+### Time-block prediction: $1/11 \rightarrow$ baryonic matter
 
 The remaining dimension is the time direction $\mathbb{R}_t$. Its vacuum
 block $\langle\Phi_{00}\rangle_0$ contributes a fraction $1/11 \approx 0.091$
@@ -12723,7 +12762,7 @@ $1/2$ is taken as the baryogenesis efficiency parameter from standard
 cosmology, not derived from USF first principles. The derivation of this
 factor from the USF CP-violation structure is an open problem (see §5).
 
-## The radiation sector and dilution resolution
+### The radiation sector and dilution resolution
 
 The sum of the three USF predictions undershoots unity:
 $$\frac{7}{11} + \frac{3}{11} + \frac{1}{22} = \frac{14 + 6 + 1}{22} = \frac{21}{22} \approx 0.955$$
@@ -12749,9 +12788,9 @@ The discrepancy of $\sim 4.3\%$ has two contributions:
 
 ---
 
-# Formal Status
+## Formal Status
 
-## Lean 4 formalisation
+### Lean 4 formalisation
 
 The numerical claims are formalised in
 `paper/proofs/CosmologicalConstant.lean` (extended for P22):
@@ -12766,7 +12805,7 @@ The numerical claims are formalised in
 | Baryonic fraction $= 1/22$ | `omega_baryon_fraction` | **proved** (`native_decide`) |
 | 8\% baryon discrepancy bound | `omega_baryon_discrepancy_small` | **proved** (`norm_num`) |
 
-## Remaining proof obligations
+### Remaining proof obligations
 
 1. **KK reduction of spatial block.** A rigorous derivation of
    $w = 0$ for $\langle\Phi_{ij}\rangle_0$ requires the Kaluza-Klein
@@ -12786,9 +12825,9 @@ The numerical claims are formalised in
 
 ---
 
-# Discussion
+## Discussion
 
-## Testable predictions
+### Testable predictions
 
 The USF identification of dark matter with the spatial vacuum makes specific
 predictions beyond the density:
@@ -12818,7 +12857,7 @@ perturbations should therefore be **adiabatic** and closely related to the
 metric perturbation spectrum. This is consistent with CMB observations, which
 strongly favour adiabatic initial conditions [@planck2018cosmology].
 
-## Comparison with standard dark matter candidates
+### Comparison with standard dark matter candidates
 
 | Property | WIMP | Axion | USF spatial vacuum |
 |---|---|---|---|
@@ -12833,7 +12872,7 @@ The USF spatial vacuum matches all observational constraints while making
 the additional prediction that **no direct detection will ever succeed** —
 a strong, falsifiable claim.
 
-## Is this coincidence?
+### Is this coincidence?
 
 The 2.9\% agreement between $3/11$ and $\Omega_\text{DM}$ warrants scrutiny.
 The possible fractions $k/11$ for $k \in \{1,\ldots,10\}$ are uniformly
@@ -12866,7 +12905,7 @@ therefore inappropriate — the question is whether the dimensional structure of
 M-theory, fixed independently by the compactification, agrees with observation.
 It does, to 2.9\%.
 
-## Scope of falsification
+### Scope of falsification
 
 If the DM prediction fails — e.g., a WIMP is discovered at LHC Run 5, or
 a dark matter self-interaction is detected by the Bullet Cluster successor
@@ -12883,7 +12922,7 @@ dark matter, not the core somatic field theory.
 
 ---
 
-# Conclusion
+## Conclusion
 
 Dimensional counting in the 11D USF compactification predicts the dark matter
 energy fraction:
@@ -12918,7 +12957,9 @@ baryogenesis factor $1/2$ from USF first principles.
 
 
 
-# Introduction: Time in the Somatic Field
+# Temporal Dynamics of the Universal Somatic Field: Retarded Propagators, Transition Rates, and the Memory of Feeling
+
+## Introduction: Time in the Somatic Field
 
 The Universal Somatic Field has been introduced and developed across a series of
 papers that have, with one exception, characterised it in the *stationary* regime:
@@ -12948,7 +12989,7 @@ are clinically significant: they give quantitative meaning to concepts such as
 the window of tolerance, the rate of trauma formation, the speed of therapeutic
 change, and the timescale of emotional memory consolidation.
 
-## Organisation of the Paper
+### Organisation of the Paper
 
 Section 2 derives the retarded Green's function from the time-dependent somatic
 field equation. Section 3 introduces the Somatic Memory Kernel and shows how it
@@ -12959,9 +13000,9 @@ and formulates therapeutic intervention as an optimal control problem. Section 6
 draws clinical implications. Section 7 places the results in the context of the
 broader USF programme.
 
-# The Time-Dependent Somatic Field Equation
+## The Time-Dependent Somatic Field Equation
 
-## The Field Equation
+### The Field Equation
 
 The stationary somatic field equation (established in the companion papers) is:
 
@@ -12990,7 +13031,7 @@ parts of the field influence each other. As the system approaches the consciousn
 threshold $T_c$, $k \to 0$ and $\ell \to \infty$: the correlation length diverges,
 signalling the onset of global integration.
 
-## The Retarded Green's Function
+### The Retarded Green's Function
 
 The retarded Green's function $G_R(x,t;\,x',t')$ satisfies:
 
@@ -13020,7 +13061,7 @@ or in a highly integrated system) means slow temporal decay: the field "remember
 perturbations for a long time. A large $k$ (sub-threshold, highly localised) means
 rapid decay: the field forgets quickly.
 
-## The General Solution
+### The General Solution
 
 Given the retarded Green's function, the general solution for the somatic field
 at time $t$ is:
@@ -13033,9 +13074,9 @@ accumulates the influence of all past sources $J_{\mu\nu}(x',t')$ at earlier
 times $t' < t$, weighted by the retarded Green's function. This is the field's
 memory: it is the integral of past influences.
 
-# The Somatic Memory Kernel
+## The Somatic Memory Kernel
 
-## Definition
+### Definition
 
 The **Somatic Memory Kernel** $K(t - t')$ is the temporal part of the retarded
 Green's function, integrated over the spatial variables:
@@ -13050,7 +13091,7 @@ events (small $\tau$) have full influence; distant events have exponentially
 reduced influence. The timescale $\tau_m$ determines how far back in time the field
 "looks" when computing its present state.
 
-## Three Regimes of Memory
+### Three Regimes of Memory
 
 The memory timescale $\tau_m$ takes qualitatively different values in three
 phenomenologically distinct regimes:
@@ -13074,7 +13115,7 @@ the field is near the critical point, the correlation length is very large, and
 past perturbations decay extraordinarily slowly — in the limit $k \to 0$,
 the memory is permanent.
 
-## Trauma Re-experiencing as Memory Kernel Resonance
+### Trauma Re-experiencing as Memory Kernel Resonance
 
 The characteristic symptom of PTSD and complex PTSD — the involuntary
 re-experiencing of traumatic events as if they were present — receives a precise
@@ -13095,7 +13136,7 @@ well determines the barrier height (relevant for escape rate, as in the existing
 WKB analysis); the $k$-value of the trauma-well basin determines the memory
 timescale (relevant for re-experiencing frequency and vividness).
 
-## Conditioned Response Decay
+### Conditioned Response Decay
 
 The extinction of conditioned responses — the gradual weakening of an emotional
 response to a stimulus after repeated unreinforced presentations — is the
@@ -13109,9 +13150,9 @@ the memory kernel contribution to decay. The therapy does not erase the memory �
 it reduces $K_0$, the initial amplitude of the kernel, through the accumulation
 of unreinforced presentations that progressively lower the well depth.
 
-# WKB Estimate of the Temporal Barrier
+## WKB Estimate of the Temporal Barrier
 
-## Transition Rate in the Time Domain
+### Transition Rate in the Time Domain
 
 The stationary WKB analysis gives the barrier *height* in the energy landscape.
 The time-dependent formulation adds the temporal dimension: how long does a
@@ -13134,7 +13175,7 @@ to the field temperature $T_\text{field}$).
 In the somatic field, this formula gives the expected time to make a spontaneous
 emotional transition from state A to state B without external perturbation.
 
-## Asymmetry of Formation and Dissolution
+### Asymmetry of Formation and Dissolution
 
 The Kramers formula immediately explains a clinically well-established asymmetry:
 **trauma formation is much faster than trauma dissolution**. The reason is the
@@ -13156,7 +13197,7 @@ This is not a failure of the person trapped in the trauma well. It is the
 physics: a ball dropped into a deep pit takes far less energy to drop than to
 climb back out. The somatic field is following its equations.
 
-## The Window of Tolerance as Temporal Bandwidth
+### The Window of Tolerance as Temporal Bandwidth
 
 The clinical concept of the "window of tolerance" — the range of field temperatures
 within which therapeutic processing of traumatic material is possible — receives
@@ -13185,9 +13226,9 @@ This gives a quantitative grounding for the standard clinical instruction to "ti
 trauma processing — to regulate the field temperature so that processing occurs
 within the window.
 
-# Therapeutic Intervention as Optimal Control
+## Therapeutic Intervention as Optimal Control
 
-## The Forced Field Equation
+### The Forced Field Equation
 
 The full time-dependent field equation with external therapeutic forcing is:
 
@@ -13217,7 +13258,7 @@ to different spatial and temporal profiles of $J_\text{therapy}$:
   current. SSRIs, for example, raise the field temperature by increasing
   serotonergic coupling, making the field more willing to explore the landscape.
 
-## The Optimal Control Problem
+### The Optimal Control Problem
 
 Given a current field configuration $\Phi(x,t_0)$ (assessed at the start of
 therapy) and a target configuration $\Phi^\star(x)$ (the healthy regulated
@@ -13238,7 +13279,7 @@ solution *exists*, is *computable in principle*, and provides a *principled
 criterion* for evaluating any proposed therapeutic approach: does it approximate
 the optimal control trajectory, or does it systematically deviate from it?
 
-## Why Somatic Entry Is Faster: A Formal Account
+### Why Somatic Entry Is Faster: A Formal Account
 
 The claim made in the clinical companion papers [@johnson2026clinical] — that
 somatic entry to traumatic material is more efficient than cognitive entry — now
@@ -13264,9 +13305,9 @@ decoupled CPTSD presentations (small $\kappa_\text{EC}$), this ratio can be
 large — consistent with the clinical observation that complex trauma often requires
 body-based approaches to access what decades of talking cannot reach.
 
-# The Temporal Somatic Field Across Scales
+## The Temporal Somatic Field Across Scales
 
-## Developmental Timescales
+### Developmental Timescales
 
 The memory kernel framework applies across the developmental lifespan. The
 somatic field of a developing organism has a time-dependent wavenumber $k(t)$
@@ -13287,7 +13328,7 @@ the memory kernel of the pre-verbal field has decayed to zero by the time the
 verbal apparatus is present to encode it. The somatic field retained the event,
 but in a form that does not project onto the language channel.
 
-## Geological and Astrophysical Timescales
+### Geological and Astrophysical Timescales
 
 The same retarded propagator applies at geological and astrophysical scales,
 with the scale-appropriate velocity $v_s$ and wavenumber $k$. At geological
@@ -13305,9 +13346,9 @@ years. The cosmic microwave background is the long-memory trace of quantum
 fluctuations in the very early universe: an exponentially decayed but still
 detectable somatic memory of the universe's infancy.
 
-# Implications and Open Questions
+## Implications and Open Questions
 
-## Measurable Predictions
+### Measurable Predictions
 
 The temporal dynamics framework makes several predictions that are, in principle,
 directly testable with existing technology.
@@ -13336,7 +13377,7 @@ therapeutic sessions are most productive when physiological frequency indicators
 are within a specific band — and that this band is the same band predicted by
 the Kramers formula for the given barrier height.
 
-## The Time Variable in the Lean 4 Formalisation
+### The Time Variable in the Lean 4 Formalisation
 
 The spatial (stationary) aspects of the USF have been formally verified in
 Lean 4 [@johnson2026lean]. The time-dependent formulation introduces new proof
@@ -13368,7 +13409,7 @@ $$\text{USF} \;\equiv\; \sum_{\sigma : \mathrm{Scale}_{20}} \left( \mathrm{Subst
 where $G_R(\sigma)$ is the retarded propagator at scale $\sigma$, carrying the
 causality constraint as a proof argument.
 
-## The Unified Kinematic Picture
+### The Unified Kinematic Picture
 
 The temporal dynamics paper completes the kinematic picture of the Universal
 Somatic Field. The full specification of the field now includes:
@@ -13387,7 +13428,7 @@ The field is now fully specified in both space and time. The attractor landscape
 tells us where the field goes; the temporal dynamics tell us how fast it gets
 there, how long it stays, and what traces it leaves behind.
 
-# Conclusion
+## Conclusion
 
 The temporal dynamics of the Universal Somatic Field are governed by the retarded
 Green's function, the Somatic Memory Kernel, and the Kramers transition rate
@@ -13426,7 +13467,9 @@ long ago it happened and how much it mattered.
 
 # Appendix: Formal Lean 4 Verifications
 
-## What is Lean 4?
+## Appendix: Formal Lean 4 Verifications
+
+### What is Lean 4?
 
 Lean 4 is a *dependent type theory* proof assistant and programming language
 developed at Microsoft Research and now maintained by the Lean FRO.  A Lean 4
@@ -13440,7 +13483,7 @@ An informal proof can contain gaps, ambiguities, or subtly incorrect steps that
 survive peer review for years.  A Lean proof cannot: either the kernel closes
 it, or it does not compile.  There is no middle ground.
 
-## What Mathlib provides
+### What Mathlib provides
 
 The theorems in this appendix are built on top of **Mathlib** — the community
 Lean 4 library containing over 200,000 proved results in algebra, analysis,
@@ -13450,7 +13493,7 @@ verified machinery of matrix spectral theory.  The Hopfield energy descent,
 the propagator poles, the WKB amplitude, the M-theory isomorphism — all are
 built on this verified foundation.
 
-## What is established in this appendix
+### What is established in this appendix
 
 The eleven files that follow collectively establish:
 
@@ -13475,22 +13518,22 @@ in Mathlib).  Two results in `UniversalSomaticField.lean` are stated as
 scaffolding.  All other results are unconditionally kernel-verified.  Every
 `sorry` and every `axiom` is explicitly marked and explained in the source.
 
-## How to verify these proofs yourself
+### How to verify these proofs yourself
 
 ```bash
-# 1. Install Lean 4 (elan toolchain manager)
+## 1. Install Lean 4 (elan toolchain manager)
 curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh
 
-# 2. Clone the repository
+## 2. Clone the repository
 git clone https://github.com/ITI-Theory/U.git
 cd U
 
-# 3. Build the Lean project (downloads Mathlib cache — ~2 GB first run)
+## 3. Build the Lean project (downloads Mathlib cache — ~2 GB first run)
 lake exe cache get
 lake build
 
-# 4. The proofs are in paper/proofs/
-# Any file that builds without error is kernel-verified.
+## 4. The proofs are in paper/proofs/
+## Any file that builds without error is kernel-verified.
 ```
 
 The source files are reproduced in full below, in dependency order.
@@ -13500,9 +13543,9 @@ The source files are reproduced in full below, in dependency order.
 ```
 
 
-## The Foundation: Hopfield Associative Memory
+### The Foundation: Hopfield Associative Memory
 
-### `Hopfield.lean`
+#### `Hopfield.lean`
 
 The simplest starting point: what is a neural network?  This file implements
 a classical Hopfield associative memory over `ℝ^20` (a 5×4 pixel grid) in
@@ -13524,7 +13567,7 @@ place, the full convergence proof closes in `SomaField.lean`.
 import Mathlib.Data.Matrix.Basic
 
 /-!
-# Hopfield Associative Memory — minimal demo
+## Hopfield Associative Memory — minimal demo
 
 This is the simplest "what is a neural network?" you can write in Lean.
 
@@ -13648,9 +13691,9 @@ end HopfieldDemo
 ```
 
 
-## Emotion as an Algebra: The Final-Tagless DSL
+### Emotion as an Algebra: The Final-Tagless DSL
 
-### `EmotionOntology.lean`
+#### `EmotionOntology.lean`
 
 The emotional vocabulary formalised as a typeclass algebra using the
 *final-tagless* (Church / State separation) pattern.  A single abstract
@@ -14354,9 +14397,9 @@ def queryCyc (args : Array String) : IO String := do
 ```
 
 
-## Promoted Axioms: First Theorems from the DSL
+### Promoted Axioms: First Theorems from the DSL
 
-### `FieldProofs.lean`
+#### `FieldProofs.lean`
 
 Former axioms — claims that were assumed in an earlier draft — are here
 promoted to theorems with Lean kernel proofs.  Every proof closes with
@@ -14373,7 +14416,7 @@ strategies are unified by a single term.
 import EmotionOntology
 
 /-!
-# FieldProofs.lean — Promoted Axioms
+## FieldProofs.lean — Promoted Axioms
 
 **Status**: Lean kernel verified.
 **Source**: promoted from `paper/FieldAxioms.lean`.
@@ -14494,9 +14537,9 @@ theorem love_ne_awe :
 ```
 
 
-## The 8-Dimensional Soma-Field
+### The 8-Dimensional Soma-Field
 
-### `SomaField.lean`
+#### `SomaField.lean`
 
 The core model: the Soma-Field extended from the original 2-dimensional
 fear/calm prototype to the full 8-dimensional BRECVEMA mechanism space
@@ -14883,9 +14926,9 @@ noncomputable def somaticPropagatorPoles : Fin 8 → ℝ :=
 ```
 
 
-## The Dyadic Propagator: Co-Regulation
+### The Dyadic Propagator: Co-Regulation
 
-### `DyadicField.lean`
+#### `DyadicField.lean`
 
 The soma-field extended to a two-person (dyadic) system — the therapist–client
 dyad, or any two persons in relational contact.  The dyadic coupling matrix
@@ -15188,9 +15231,9 @@ theorem dyadic_energy_coupling_lowers
 ```
 
 
-## Quantum Tunnelling in the Limbic Gate
+### Quantum Tunnelling in the Limbic Gate
 
-### `LimbicTunnel.lean`
+#### `LimbicTunnel.lean`
 
 The limbic system formalised as a quantum tunnelling barrier.  The emotional
 state must tunnel through a D₈-orbifold potential barrier to transition
@@ -15214,12 +15257,12 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 
 /-!
-# LimbicTunnel.lean — The Limbic Barrier and Quantum Tunneling
+## LimbicTunnel.lean — The Limbic Barrier and Quantum Tunneling
 
 **Status**: Core lemmas kernel-verified. WKB amplitude proved via `native_decide`
 and `norm_num`. Quantum advantage stated formally; empirical support in QUANT-EXP-1.
 
-## The Physical Story
+### The Physical Story
 
 The Soma-Field model decomposes 11D configuration space as:
 
@@ -15232,7 +15275,7 @@ D₈ is a **topological barrier**: a 1-dimensional line segment connecting the
 physical somatic field to the cortical mind network. Trauma creates a deep
 attractor well on one side. Resolution requires crossing or tunnelling through.
 
-## The Double-Well Model
+### The Double-Well Model
 
 We represent the state along D₈ as a scalar `x : ℝ` and define:
 
@@ -15247,13 +15290,13 @@ This is the standard quartic double-well — used in quantum mechanics since
 Landau & Lifshitz (1977) §50. We use it as a *computational metaphor*:
 the equations are the same, the physical substrate is the limbic regulation axis.
 
-## QUANT-EXP-1 Results (empirical, formalised as axioms below)
+### QUANT-EXP-1 Results (empirical, formalised as axioms below)
 
   Classical Langevin dynamics:  0 / 48 escapes from trauma well
   Quantum annealing (D-Wave):   3 / 3  escapes to Awe basin
   Barrier sweep:  W ∈ {8, 10, 12} — all PASS for quantum, all FAIL for classical
 
-## WKB Tunnelling Amplitude (analytic)
+### WKB Tunnelling Amplitude (analytic)
 
 For energy E = 0 (ground state tunnelling through barrier of height W):
 
@@ -15443,9 +15486,9 @@ end SomaField.LimbicTunnel
 ```
 
 
-## M-Theory Isomorphism: 11-Dimensional Architecture
+### M-Theory Isomorphism: 11-Dimensional Architecture
 
-### `MTheoryIsomorphism.lean`
+#### `MTheoryIsomorphism.lean`
 
 The 11-dimensional geometry of the Soma-Field formalised as an isomorphism
 between the Universal Somatic Field (USF) and an M-theory compactification.
@@ -15469,7 +15512,7 @@ import Physlib.ClassicalMechanics.HarmonicOscillator.Solution
 import Physlib.ClassicalMechanics.WaveEquation.Basic
 
 /-!
-# MTheoryIsomorphism.lean — Soma-Field / M-Theory Isomorphism (physlib-grounded v4)
+## MTheoryIsomorphism.lean — Soma-Field / M-Theory Isomorphism (physlib-grounded v4)
 
 Uses physlib's actual proved theorems:
 - `ClassicalMechanics.HarmonicOscillator.InitialConditions.trajectory_equationOfMotion`
@@ -15635,9 +15678,9 @@ end SomaField.MTheory
 ```
 
 
-## The FM-HN Correspondence Principle
+### The FM-HN Correspondence Principle
 
-### `LimbicHopfield.lean`
+#### `LimbicHopfield.lean`
 
 The Frequency-Modulated Hopfield Network (FM-HN): the limbic field modulates
 the Hopfield inverse-temperature β at runtime, unifying the 1982 Hopfield
@@ -15664,12 +15707,12 @@ import Mathlib.Data.Matrix.Basic
 import Mathlib.Algebra.BigOperators.Finprod
 
 /-!
-# LimbicHopfield.lean — The FM-HN Correspondence Principle
+## LimbicHopfield.lean — The FM-HN Correspondence Principle
 
 **Status**: Correspondence limit proved (`norm_num` / `simp`).
 Full energy-descent and modulation theorems: proof obligations listed.
 
-## The Central Claim
+### The Central Claim
 
 Classical (1982) and Modern (2018) Hopfield Networks are not two different theories.
 They are **two limits of a single equation**, parameterised by inverse temperature β:
@@ -15684,7 +15727,7 @@ Under high somatic stress (trauma / fight / flight): β drops → barriers melt 
 This is Bohr's Correspondence Principle applied to neural computation:
 the new theory *encapsulates* the old — it does not replace it.
 
-## The Two Models
+### The Two Models
 
 **Hopfield 1982 (Classical)**
 - State:   s ∈ {±1}^D
@@ -15701,7 +15744,7 @@ the new theory *encapsulates* the old — it does not replace it.
 where X ∈ ℝ^{N×D} stores N patterns as rows,
 lse(β, z) = (1/β) · log Σᵢ exp(β zᵢ) is the log-sum-exp.
 
-## The Correspondence Limit
+### The Correspondence Limit
 
 As β → ∞:
   softmax(β · z)ᵢ → 𝟙[i = argmax z]  (indicator of maximum)
@@ -15966,9 +16009,9 @@ end LimbicHopfield
 ```
 
 
-## Swarm Coordination via Green's Function Propagators
+### Swarm Coordination via Green's Function Propagators
 
-### `SwarmPropagator.lean`
+#### `SwarmPropagator.lean`
 
 The soma-field Green's function extended to multi-agent coordination.
 Drone swarms and bird murmurations are governed by the same propagator as
@@ -15995,13 +16038,13 @@ import Mathlib.Analysis.InnerProductSpace.Basic
 import Mathlib.Algebra.BigOperators.Finprod
 
 /-!
-# SwarmPropagator.lean
-# Single-Step Multi-Agent Coordination via Green's Function Propagators
+## SwarmPropagator.lean
+## Single-Step Multi-Agent Coordination via Green's Function Propagators
 
 **Status**: Core complexity theorems kernel-verified. Global optimality stated
 as axiom (requires variational calculus scaffolding).
 
-## The Central Claim
+### The Central Claim
 
 Classical multi-agent coordination (drone swarms, data-centre load balancing,
 robotic fleets) iterates neighbour-to-neighbour message passing for K rounds
@@ -16018,7 +16061,7 @@ the complete coordination solution. A single matrix-vector product:
 achieves what K rounds of message passing achieves, for well-defined field
 boundary conditions.
 
-## When O(N²) beats O(N·K)
+### When O(N²) beats O(N·K)
 
 The crossover is at K > N:
 
@@ -16034,7 +16077,7 @@ The crossover is at K > N:
 For swarm coordination tasks where K is large (global consensus, long-range
 coordination, fault-tolerant routing), the propagator approach dominates.
 
-## The Jellyfish Swarm (Proof of Concept)
+### The Jellyfish Swarm (Proof of Concept)
 
 The primary engineering proof-of-concept is the jellyfish drone formation:
 a lead drone broadcasts a field excitation; all follower drones compute
@@ -16045,7 +16088,7 @@ from inter-drone messaging.
 This eliminates the communication bottleneck entirely: a jammed radio channel
 cannot prevent coordination because no channel is needed after G is distributed.
 
-## Connection to MTheoryIsomorphism.lean
+### Connection to MTheoryIsomorphism.lean
 
 The propagator space D₅–D₇ (PropagatorSpace in MTheoryIsomorphism.lean) is
 precisely the domain of G. A swarm is the field's brane projection onto the
@@ -16230,9 +16273,9 @@ end SomaField.SwarmPropagator
 ```
 
 
-## The Capstone: Universal Somatic Field
+### The Capstone: Universal Somatic Field
 
-### `UniversalSomaticField.lean`
+#### `UniversalSomaticField.lean`
 
 The type-level capstone of the entire Soma-Field programme.  This file
 synthesises all companion proofs and establishes three new results:
@@ -16263,13 +16306,13 @@ import Mathlib.Topology.Basic
 import SomaField
 
 /-!
-# UniversalSomaticField.lean — The Capstone
+## UniversalSomaticField.lean — The Capstone
 
 **Status**: Scale-invariance theorem and organism hierarchy kernel-verified.
 Consciousness threshold, cosmological limit, and full SHO identity stated
 as axioms pending PDE / cosmology scaffolding in Mathlib.
 
-## What This File Proves
+### What This File Proves
 
 This file is the type-level capstone of the Soma-Field project.
 It synthesises the companion files:
@@ -16288,7 +16331,7 @@ and proves three new results:
   3. The universal organism theorem: any system with the 11D decomposition
      admits a somatic interpretation.
 
-## The Central Claim
+### The Central Claim
 
 String theory requires a Simple Harmonic Oscillator (SHO) at every point
 of the worldsheet. This SHO is not a material object — it is the
@@ -16588,9 +16631,9 @@ end SomaField.Universal
 ```
 
 
-## The Abstract Film: Type-Level Specification
+### The Abstract Film: Type-Level Specification
 
-### `Movie.lean`
+#### `Movie.lean`
 
 *The movie is the proof.*
 
@@ -17276,9 +17319,9 @@ def defaultLandscapePanels : Array (Fin 3 × MovieMode × MovieMode) := #[
 ```
 
 
-## Minimal Quantum Simulator: Formal QUANT-EXP-1 Validation
+### Minimal Quantum Simulator: Formal QUANT-EXP-1 Validation
 
-### `QuantumSim.lean`
+#### `QuantumSim.lean`
 
 The minimal quantum simulator designed to formally validate QUANT-EXP-1
 inside Lean 4.  Scoped to exactly three things: `QuantumState` (complex
@@ -17297,13 +17340,13 @@ import Mathlib.LinearAlgebra.Matrix.DotProduct
 import LimbicTunnel
 
 /-!
-# QuantumSim.lean — Minimal Quantum Simulator
+## QuantumSim.lean — Minimal Quantum Simulator
 
 **Status**: Definitions complete; tunnelling theorem kernel-verified.
 Designed to be the exact minimal scaffold needed to formally validate
 QUANT-EXP-1 (the quantum annealing experiment) inside Lean 4.
 
-## Scope (from 2026-06-28 design session)
+### Scope (from 2026-06-28 design session)
 
 The simulator does NOT attempt to replicate Qiskit or PennyLane.
 It handles exactly three things:
@@ -17314,7 +17357,7 @@ It handles exactly three things:
 
 This is ~100 lines. No GPU needed. The proofs are symbolic.
 
-## Connection to the SFT experiment
+### Connection to the SFT experiment
 
 The quantum annealing experiment (QUANT-EXP-1) showed:
   - Quantum: Awe basin reached in 3/3 barrier cases (W ∈ {8, 10, 12})
@@ -17325,7 +17368,7 @@ amplitude (from `LimbicTunnel.lean`) IS the matrix element that the
 quantum annealer implements.  The experiment is a physical realisation
 of the `tunnelingGate` defined here.
 
-## With Physlib (once installed)
+### With Physlib (once installed)
 
 `import Physlib.QuantumMechanics` provides:
   - `HilbertSpace` (infinite-dimensional; replace ℂⁿ for general case)
@@ -17462,9 +17505,9 @@ end SomaField.QuantumSim
 ```
 
 
-## The Common Interface: SomaNetwork Typeclass (Lean ↔ Python)
+### The Common Interface: SomaNetwork Typeclass (Lean ↔ Python)
 
-### `SomaNetwork.lean`
+#### `SomaNetwork.lean`
 
 The `SomaNetwork` typeclass: the single interface governing both formal
 Lean proofs and Python/GPU simulation.  Implements the design from the
@@ -17479,13 +17522,13 @@ import Mathlib.Data.Real.Basic
 import SomaField
 
 /-!
-# SomaNetwork.lean — Common Typeclass Interface
+## SomaNetwork.lean — Common Typeclass Interface
 
 **Status**: Typeclass definitions kernel-verified.
 **Purpose**: The single interface that governs BOTH formal Lean proofs
 AND Python/GPU simulation, as designed in the 2026-06-28 session.
 
-## The Problem This Solves
+### The Problem This Solves
 
 The SFT has two validation paths:
 
@@ -17498,7 +17541,7 @@ The SFT has two validation paths:
 These two paths use the SAME mathematics but DIFFERENT substrate.
 The typeclass here is the bridge.
 
-## The Design (from jelly-fish.md, 2026-06-28)
+### The Design (from jelly-fish.md, 2026-06-28)
 
     class SomaNetwork (State Space : Type) where
       dimension  : ℕ
@@ -17509,7 +17552,7 @@ The typeclass here is the bridge.
   Lean instance → State = Field8 (from SomaField.lean), proofs use linarith
   Python mirror → State = np.ndarray, implementation calls the GPU
 
-## Python mirror (apps/instrument/soma_network.py)
+### Python mirror (apps/instrument/soma_network.py)
 
   class SomaNetwork(Protocol):
       def dimension(self) -> int: ...
@@ -17520,7 +17563,7 @@ The typeclass here is the bridge.
   The Python implementation of this Protocol is the FFI contract
   (see FIELD-NOTES.md item 5 for the full JSON-RPC bridge spec).
 
-## Benchmark structure (from jelly-fish.md)
+### Benchmark structure (from jelly-fish.md)
 
   The historical comparison that "sells" the paper:
     Hopfield 1982:       classical, converges to local minima
@@ -17689,9 +17732,9 @@ end SomaField.Network
 ```
 
 
-## T_TheoryUniverse: The 20-Scale Dependent Type
+### T_TheoryUniverse: The 20-Scale Dependent Type
 
-### `ScaleUniverse.lean`
+#### `ScaleUniverse.lean`
 
 The `T_TheoryUniverse` dependent structure: [T]-Theory encoded as a
 Lean type where the *type* of the field layer changes with scale.
@@ -17707,12 +17750,12 @@ import SwarmPropagator
 import MTheoryIsomorphism
 
 /-!
-# ScaleUniverse.lean — T_TheoryUniverse: The 20-Scale Dependent Type
+## ScaleUniverse.lean — T_TheoryUniverse: The 20-Scale Dependent Type
 
 **Status**: Types kernel-verified; FieldLayerType partially upgraded
 from String to real types (Open Problem 3 partial closure).
 
-## What this file establishes
+### What this file establishes
 
 The 20-scale dial from the zUSF paper, encoded as a Lean dependent type.
 The key insight from the 2026-06-28 session:
@@ -17727,7 +17770,7 @@ This directly addresses Open Problem 3 (FieldLayerType Functor Upgrade):
 the scales we have Lean definitions for return real types;
 the others return String (placeholder, pending Open Problem 3 closure).
 
-## Connection to M-theory
+### Connection to M-theory
 
 The 11 = 4 + 7 decomposition from MTheoryIsomorphism.lean maps to:
   Dimensions 1–4: spacetime (ScaleStep → spacetime geometry)
@@ -17735,7 +17778,7 @@ The 11 = 4 + 7 decomposition from MTheoryIsomorphism.lean maps to:
   Dimension 8:    limbic axis (Float — the WKB barrier constant)
   Dimensions 9–11: mind/operator (tensor rank)
 
-## With Physlib (once installed)
+### With Physlib (once installed)
 
 `import Physlib.QuantumMechanics` provides typed quantum states
 that would replace the String placeholders at scales 0–2.
@@ -17931,9 +17974,9 @@ end SomaField.Universe
 ```
 
 
-## The Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
+### The Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
 
-### `Benchmark.lean`
+#### `Benchmark.lean`
 
 The experiment that confirms what the proofs predict.  Four models start
 from `startlePattern` (fear/startle attractor) and attempt to reach
@@ -17951,7 +17994,7 @@ import SomaField
 import Mathlib.Data.Real.Basic
 
 /-!
-# Benchmark.lean — Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
+## Benchmark.lean — Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
 
 This file does two things:
 

@@ -4,7 +4,7 @@
 
 The **Fractal Programme** is the second layer of the [T]-Theory research.
 
-The first layer — the 19 papers in `paper/soma/` — is the **canonical core**:
+The first layer — the 22 papers in `paper/soma/` — is the **canonical core**:
 the deep mathematical and clinical work, written for peer review.
 
 The second layer — this directory — is the **translation layer**:
