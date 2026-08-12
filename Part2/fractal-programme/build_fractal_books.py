@@ -312,7 +312,7 @@ def main():
     print(f"\nAll done. Run 'make all' to build PDFs.")
 
 
-# Vol I: Foundation — abstract/theoretical books
+# Vol I: Foundation — abstract/theoretical books + Phase 2 gateway
 VOL1_IDS = ["gateway", "physics", "formal-mathematics", "neuroscience",
              "consciousness", "complex-systems", "computer-science"]
 
@@ -362,6 +362,13 @@ csl: ../../paper/apa-7th.csl
             print(f"    + conclusion-{domain_id}")
         book_body = "\n\n".join(book_sections)
         sections.append(f"\n\n\\newpage\n\n\\markboth{{{domain['title']}}}{{}}\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+
+    # P23 closing chapter: Vol I (Foundation) ends with the gateway to Phase 2
+    if vol_tag == "vol1":
+        p23 = get_canonical_body("ttheory-phenomena")
+        if p23:
+            sections.append(f"\n\n\\newpage\n\n\\markboth{{The [T]-Phenomena}}{{}}\n\n# Closing: The Gateway to Phase 2\n\n{p23}\n")
+            print(f"  + ttheory-phenomena (Vol I closing chapter)")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / f"ttheory-{vol_tag}-body.md"
@@ -424,6 +431,12 @@ csl: ../../paper/apa-7th.csl
             print(f"    + conclusion-{domain['id']}")
         book_body = "\n\n".join(book_sections)
         sections.append(f"\n\n\\newpage\n\n\\markboth{{{domain['title']}}}{{}}\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+
+    # P23 as the closing chapter of the complete omnibus
+    p23 = get_canonical_body("ttheory-phenomena")
+    if p23:
+        sections.append(f"\n\n\\newpage\n\n\\part{{The Gateway to Phase 2}}\n\n\\markboth{{The [T]-Phenomena}}{{}}\n\n# The [T]-Theory Phenomena\n\n{p23}\n")
+        print(f"  + ttheory-phenomena (omnibus closing)")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / "ttheory-omnibus-body.md"

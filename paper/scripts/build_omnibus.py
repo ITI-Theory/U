@@ -147,6 +147,9 @@ STRUCTURE = [
     (r"\newpage",
      "dark-matter-spatial-vacuum"),
 
+    (r"\newpage" "\n\n" r"\part{Part VI: The Gateway}",
+     "ttheory-phenomena"),
+
     # Appendix: Lean 4 formal proofs — included in the body so any reader
     # (human or AI) sees the actual type-checked code, not a pointer to it.
     (r"\newpage" "\n\n" r"\appendix" "\n\n" r"\part{Appendix A: Temporal Dynamics}",
