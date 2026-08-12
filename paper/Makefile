@@ -88,6 +88,7 @@ OMNIBUS_BASE := $(_OMNIBUS_CORE) \
 	--toc-depth=2 \
 	-V documentclass=memoir \
 	-V classoption=openany \
+	-V classoption=a4paper \
 	-V header-includes="\usepackage{amsmath}\usepackage{amssymb}" \
   $(CITEPROC)
 

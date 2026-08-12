@@ -74,11 +74,13 @@
     \thispagestyle{empty}
     % Sticker — upper right
     \begin{flushright}
-      \IfFileExists{figures/t-theory-sticker.png}{%
+      \IfFileExists{figures/t-theory-sticker-print.png}{%
+        \includegraphics[width=55mm]{figures/t-theory-sticker-print.png}%
+      }{\IfFileExists{figures/t-theory-sticker.png}{%
         \includegraphics[width=55mm]{figures/t-theory-sticker.png}%
       }{%
         {\sffamily\bfseries\color{heading}\huge[T]}%
-      }
+      }}
     \end{flushright}
     \vfill
     % Title block
