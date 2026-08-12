@@ -361,7 +361,7 @@ csl: ../../paper/apa-7th.csl
             book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
             print(f"    + conclusion-{domain_id}")
         book_body = "\n\n".join(book_sections)
-        sections.append(f"\n\n\\newpage\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+        sections.append(f"\n\n\\newpage\n\n\\markboth{{{domain['title']}}}{{}}\n\n# Volume: {domain['title']}\n\n{book_body}\n")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / f"ttheory-{vol_tag}-body.md"
@@ -423,7 +423,7 @@ csl: ../../paper/apa-7th.csl
             book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
             print(f"    + conclusion-{domain['id']}")
         book_body = "\n\n".join(book_sections)
-        sections.append(f"\n\n\\newpage\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+        sections.append(f"\n\n\\newpage\n\n\\markboth{{{domain['title']}}}{{}}\n\n# Volume: {domain['title']}\n\n{book_body}\n")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / "ttheory-omnibus-body.md"

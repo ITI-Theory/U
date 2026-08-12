@@ -11,6 +11,8 @@ csl: ../../paper/apa-7th.csl
 
 \newpage
 
+\markboth{[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos}{}
+
 # Volume: [T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos
 
 # Introduction: What If Everything Feels?
@@ -4919,6 +4921,8 @@ What happens next depends on who reads this, and what they do with it.
 
 \newpage
 
+\markboth{Field Equations of Mind: A Physics Perspective on the Universal Somatic Field}{}
+
 # Volume: Field Equations of Mind: A Physics Perspective on the Universal Somatic Field
 
 # Introduction: A Green's Function for Everything
@@ -8999,6 +9003,8 @@ The equations are written. The predictions are made. Physics has work to do.
 
 \newpage
 
+\markboth{Dependent Types and the Geometry of Feeling: A Mathematical Account}{}
+
 # Volume: Dependent Types and the Geometry of Feeling: A Mathematical Account
 
 # Introduction: When Feeling Has a Type
@@ -12941,6 +12947,8 @@ The mathematics of experience is a field waiting to be built. The foundations ar
 
 \newpage
 
+\markboth{The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics}{}
+
 # Volume: The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics
 
 # Introduction: The Field Your Instruments Cannot Yet Measure
@@ -15848,6 +15856,8 @@ The field is measurable. The instruments are not yet built. The programme is cle
 
 
 \newpage
+
+\markboth{The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field}{}
 
 # Volume: The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field
 
@@ -20196,6 +20206,8 @@ The hard problem is not hard. It is a phase transition. The physics describes it
 
 \newpage
 
+\markboth{Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework}{}
+
 # Volume: Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework
 
 # Introduction: The Same Equation at Every Scale
@@ -23974,6 +23986,8 @@ The same equation. Every scale. The renormalisation group connects them all.
 
 
 \newpage
+
+\markboth{Verified Emotional Computing: The Universal Somatic Field as Software Architecture}{}
 
 # Volume: Verified Emotional Computing: The Universal Somatic Field as Software Architecture
 

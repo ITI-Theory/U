@@ -11,6 +11,8 @@ csl: ../../paper/apa-7th.csl
 
 \newpage
 
+\markboth{The Physics of Music and Affect: A Field-Theoretic Account of Aesthetic Experience}{}
+
 # Volume: The Physics of Music and Affect: A Field-Theoretic Account of Aesthetic Experience
 
 # Introduction: Music Knows Something Physics Forgot
@@ -4601,6 +4603,8 @@ The score is the field trajectory. The performance is the traversal. The experie
 
 \newpage
 
+\markboth{The Geological Soma: Seismic Propagation and Tectonic Criticality}{}
+
 # Volume: The Geological Soma: Seismic Propagation and Tectonic Criticality
 
 # Introduction: The Earth Has a Somatic Field Too
@@ -8564,6 +8568,8 @@ The Earth is a field system with a long memory. The equations describe both.
 
 \newpage
 
+\markboth{The Physics of Society: Collective Dynamics, Rapport, and Social Field Theory}{}
+
 # Volume: The Physics of Society: Collective Dynamics, Rapport, and Social Field Theory
 
 # Introduction: Society Is a Field System
@@ -11397,6 +11403,8 @@ Society is a field. The equations describe it. The measurements are possible.
 
 
 \newpage
+
+\markboth{Economic Criticality: Game Theory, Market Dynamics, and the Somatic Field}{}
 
 # Volume: Economic Criticality: Game Theory, Market Dynamics, and the Somatic Field
 
@@ -15094,6 +15102,8 @@ The equilibrium is a Hopfield minimum. The dynamics are physical. The policy imp
 
 
 \newpage
+
+\markboth{Topology of Justice: Law, Rights, and the Geometry of Social Constraint}{}
 
 # Volume: Topology of Justice: Law, Rights, and the Geometry of Social Constraint
 
@@ -19143,6 +19153,8 @@ Law is topology applied to social dynamics. The geometry of justice is computabl
 
 
 \newpage
+
+\markboth{Mind, Market, and Mandate: A Field-Theoretic Synthesis for PPE}{}
 
 # Volume: Mind, Market, and Mandate: A Field-Theoretic Synthesis for PPE
 
@@ -23500,6 +23512,8 @@ Mind, market, and mandate. The field is the common ground.
 
 \newpage
 
+\markboth{Trauma as Topology: A Field-Theoretic Manual for Clinical Practice}{}
+
 # Volume: Trauma as Topology: A Field-Theoretic Manual for Clinical Practice
 
 # Introduction: When the Map Is the Territory
@@ -27667,6 +27681,8 @@ The field is the terrain of therapy. Knowing its geometry makes the work more pr
 
 
 \newpage
+
+\markboth{Rewiring the Field: A Formal Account of Neurodivergence and Trauma}{}
 
 # Volume: Rewiring the Field: A Formal Account of Neurodivergence and Trauma
 
