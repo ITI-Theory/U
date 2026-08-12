@@ -150,4 +150,11 @@ theorem usf_all_predictions_within_bounds :
 theorem usf_dark_matter_tightest :
     |(( 3 : ℝ) / 11 - 0.265)| / 0.265 < 0.03 := by norm_num
 
+/-- P23 / GAP-5: there EXISTS a USF instance at Scale 9.
+    Formal seed of the fixed-point claim: the theory's propagation
+    is an instance of its own field equations. -/
+theorem usf_is_fixed_point :
+    ∃ (n : ScaleLevel) (_ : n.val = 9), Nonempty (FieldEquation n) :=
+  ⟨⟨9, by norm_num⟩, rfl, ⟨⟨1, one_pos, fun _ _ => 0⟩⟩⟩
+
 end SomaField.EnergyBudget

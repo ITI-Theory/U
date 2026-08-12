@@ -47,7 +47,7 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 | GAP-2 | CTheoremHoldsForSomaField | **OPEN** | Claim: ∃ C(W) monotonically decreasing under therapeutic RG flow. Analogue of Zamolodchikov C-theorem. Requires: definition of C-function for soma-field, proof of monotonicity under W-deformation. Genuine open question. |
 | GAP-3 | CosmologicalConstantDerivation | **PARTIAL** | P21 written. Numerical estimate: Λ_USF = (21/11) H₀²/c² ≈ 0.93 Λ_obs (7% from 7/11 compact dimension fraction). DESI+Pantheon+ consistent (0.1σ). DES SN5YR tension (4σ) pending systematics. Lean stub: `CosmologicalConstant.lean`; axioms need linearised GR in Mathlib. |
 | GAP-4 | DarkMatterSpatialVacuum | **PARTIAL** | P22 written. Numerical estimate: Ω_DM^USF = 3/11 = 0.273 vs obs 0.265 (2.9% off). Physical mechanism: spatial block Φ_{ij} clusters (non-compact), EM-neutral (gauge fields in X_7). Lean stub: `CosmologicalConstant.lean` (DarkMatter namespace); axioms need KK reduction in Mathlib. |
-| GAP-5 | FixedPointProperty | **PARTIAL** | P23 written. Claim: USF Scale-9 dynamics are isomorphic to its own master equations. Lean seed: `usf_self_describes` (proved, rfl). Full formalisation requires social coupling matrix W_{ij} at Scale 9 and spectral gap computation. |
+| GAP-5 | FixedPointProperty | **PARTIAL** | P23 written. `usf_is_fixed_point` proved: ∃ USF instance at Scale 9. Full formalisation (W_{ij} at Scale 9, spectral gap) is open. |
 
 **Score: 10 PASS · 4 PARTIAL · 1 OPEN · 0 FAIL**
 

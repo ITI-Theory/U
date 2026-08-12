@@ -103,21 +103,17 @@ theorem V_nonneg (p : BarrierParam) (x : ℝ) : 0 ≤ V p x := by
 theorem deriv_V (p : BarrierParam) (x : ℝ) :
     HasDerivAt (V p) (4 * p.W * x * (x ^ 2 - 1)) x := by
   unfold V
-  -- Avoid HasDerivAt.pow (renamed in 4.31.0): use HasDerivAt.comp instead.
-  -- d/dt (t² - 1) at t = x is 2x
+  -- Mathlib 4.31: hasDerivAt_pow removed; use HasDerivAt.pow method on hasDerivAt_id
   have h1 : HasDerivAt (fun t => t ^ 2 - 1) (2 * x) x := by
-    have h := (hasDerivAt_pow 2 x).sub (hasDerivAt_const x 1)
-    simp only [Nat.cast_ofNat, pow_one, mul_one, sub_zero] at h
+    have h := ((hasDerivAt_id x).pow 2).sub (hasDerivAt_const x 1)
+    simp only [id, Nat.cast_ofNat, pow_one, mul_one, sub_zero, one_mul] at h
     exact h
-  -- d/ds (s²) at s = x² - 1 is 2(x² - 1)
   have h2 : HasDerivAt (fun s => s ^ 2) (2 * (x ^ 2 - 1)) (x ^ 2 - 1) := by
-    have h := hasDerivAt_pow 2 (x ^ 2 - 1)
-    simp only [Nat.cast_ofNat, pow_one, mul_one] at h
+    have h := (hasDerivAt_id (x ^ 2 - 1)).pow 2
+    simp only [id, Nat.cast_ofNat, pow_one, mul_one, one_mul] at h
     exact h
-  -- Chain rule: d/dt (t² - 1)² at x = 2(x²-1) * 2x
   have h3 : HasDerivAt (fun t => (t ^ 2 - 1) ^ 2) (2 * (x ^ 2 - 1) * (2 * x)) x :=
     h2.comp x h1
-  -- Multiply by constant p.W; arithmetic closes by ring
   convert h3.const_mul p.W using 1
   ring
 
