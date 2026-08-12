@@ -187,6 +187,25 @@ art is doing. The art can now begin.
 
 ---
 
+# Formal Status
+
+The self-referential claim — that the USF at Scale 9 describes its own
+propagation — is formalised as a seed theorem in
+`paper/proofs/CosmologicalConstant.lean` (namespace `SomaField.EnergyBudget`):
+
+| Statement | Lean name | Status |
+|---|---|---|
+| Scale 9 exists in the 20-scale dial | `usf_self_describes` | **proved** (`rfl`) |
+| Scale-9 field equation is inhabited | `usf_all_scales_inhabited` | **proved** (`norm_num`) |
+| Therapeutic lens (substrate updates) | `canonicalTherapeuticLens` | **proved** (all laws by `rfl`) |
+
+The full formalisation of the fixed-point property — proving that the Scale-9
+dynamics of the theory's propagation are isomorphic to its own master equations —
+requires the social coupling matrix $W_{ij}$ to be formalised in Lean 4 at
+Scale 9 and the spectral gap to be computed. This is an open obligation.
+
+---
+
 # Conclusion
 
 The Universal Somatic Field is a fixed point of its own subject matter.

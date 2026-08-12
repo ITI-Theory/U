@@ -63,6 +63,7 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 w
 | P20 | universal-somatic-field | not yet submitted |
 | P21 | cosmological-constant-derivation | pending Zenodo upload — Λ ≡ ⟨tr Φ⟩₀; Λ_USF = (21/11)H₀²/c² within 7% of Λ_obs |
 | P22 | dark-matter-spatial-vacuum | not yet submitted — Ω_DM = 3/11 from spatial block vacuum; 2.9% off Planck 2018 |
+| P23 | ttheory-phenomena | not yet submitted — fixed-point paper; USF describes its own propagation; Phase 2 gateway |
 
 ## Git State (as of May 30, 2026)
 - All repos clean and pushed (main branch, no uncommitted changes)
