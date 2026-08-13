@@ -120,6 +120,7 @@ def W8 (i j : Fin N8) : Float :=
 /-- An 8-component activation vector, one entry per mechanism. -/
 abbrev Field8 := Fin N8 → Float
 
+
 /-- Safe summation over Fin N8 without `sorry`-style omega proofs. -/
 private def sumN (f : Fin N8 → Float) : Float :=
   (List.range N8).foldl (fun acc i =>
@@ -141,6 +142,7 @@ def step8 (e : Field8) (dt : Float) : Field8 :=
 def runField8 (e₀ : Field8) (dt : Float) : Nat → Field8
   | 0     => e₀
   | n + 1 => step8 (runField8 e₀ dt n) dt
+
 
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -320,10 +322,11 @@ def W8ℝ : Matrix (Fin 8) (Fin 8) ℝ :=
 /-- W8ℝ is symmetric: swapping indices leaves the value unchanged,
     because off-diagonal entries are defined via min/max (order-free). -/
 private lemma W8ℝ_symm (i j : Fin 8) : W8ℝ i j = W8ℝ j i := by
-  simp only [W8ℝ]
+  unfold W8ℝ
   by_cases h : i = j
-  · simp [h]
-  · simp only [if_neg h, if_neg (Ne.symm h)]
+  · subst h; rfl
+  · have h' : j ≠ i := Ne.symm h
+    simp only [h, h', ite_false]
     rw [min_comm, max_comm]
 
 /-- **CO-ID-1 — PASS**: W8ℝ is real-symmetric (Hermitian over ℝ).
