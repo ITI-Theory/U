@@ -2395,3 +2395,30 @@ Open problems:
 - Gauge localisation: formal proof that X_7 contains SM gauge sector
 - Baryogenesis factor 1/2: derive from USF CP-violation structure (P22-GAP-1)
 - Upload P22 to Zenodo (new record, after building PDF)
+
+---
+
+## 2026-08-13 — Lean build clean: SomaField + DyadicField
+
+**Build status**: `lake build DyadicField` → exit 0. All 2590 modules.
+
+**Root causes found and fixed (multi-hour debug session):**
+- **Hang**: `step8` and `dyadicStep` returned lazy closures → $9^{20}$ / $17^{30}$ re-evaluations.
+  Fixed: pre-compute all values eagerly in `List.map`, return index lookup.
+- **Lake buffers `#eval` output** for freshly-compiled modules (only flushed on completion).
+  Trace markers were firing but invisible — this masked the true hang location.
+- **`λ` is a Lean 4.31 keyword** — renamed to `ev` in SomaField and DyadicField.
+- **ℝ-valued definitions need `noncomputable`** — `wOffℝ`, `W8ℝ`, `Jℝ`, `W_ABℝ`, etc.
+- **`abbrev N8/N16` + `have : N8 = 8 := rfl`** needed to give omega concrete values.
+- **`N8 = 8` opaque to omega** even with `abbrev` — need explicit `rfl` hint per proof site.
+- **`by decide` on free `n`** in `threshold8 | ⟨n+8, h⟩` → changed to `unfold N8 at h; omega`.
+- **`show Aᴴ = A`** fails (ᴴ not parsed in `show` position) → removed `show`, let `ext` unfold.
+- **Bool `&&` branches** give omega no hypotheses → restructured `W_AB`/`W_ABℝ` to nested `if h : P`.
+- **Dangling docstring** before commented `#eval` block → changed `/-- ... -/` to `-- ...`.
+
+**Sorries (all in stubs, none in core theorems):**
+- `SomaField.lean` — `perceptIsPropagatorPole_nostalgia` (propagator poles ↔ attractor patterns)
+- `DyadicField.lean` — `dyadic_block_decomp`, `dyadicPropagatorExists`, `dyadic_energy_coupling_lowers`
+- Core files (USF_OSAxioms, BFSSIsomorphism, ScaleUniverse, TemporalDynamics, Hopfield): **0 sorries**
+
+**Docs updated**: P22–P24 added to org READMEs; "0 sorries" claim scoped to core theorems.

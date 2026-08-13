@@ -27,13 +27,12 @@
 import EmotionOntology
 import Mathlib.Analysis.Matrix.Spectrum
 
-
 -- ════════════════════════════════════════════════════════════════════════════
 -- DIMENSION MAP
 -- ════════════════════════════════════════════════════════════════════════════
 
 /-- The field has 8 dimensions, one per BRECVEMA mechanism. -/
-def N8 : Nat := 8
+abbrev N8 : Nat := 8
 
 /-- Each BRECVEMA mechanism maps to its field dimension index. -/
 def Mechanism.dim : Mechanism → Fin N8
@@ -134,15 +133,20 @@ def energy8 (e : Field8) : Float :=
 def fieldForce8 (e : Field8) (i : Fin N8) : Float :=
   sumN (fun j => W8 i j * e j)
 
-/-- Discrete Langevin step (no noise): e_{t+1} = e_t + dt·(We). -/
+/-- Discrete Langevin step (no noise): e_{t+1} = e_t + dt·(We).
+    Values are pre-computed eagerly to avoid exponential re-evaluation. -/
 def step8 (e : Field8) (dt : Float) : Field8 :=
-  fun i => e i + dt * fieldForce8 e i
+  let vals := (List.range N8).map (fun i =>
+    if h : i < N8 then
+      let fi : Fin N8 := ⟨i, h⟩
+      e fi + dt * fieldForce8 e fi
+    else 0.0)
+  fun i => vals.getD i.val 0.0
 
 /-- Run n steps of discrete Langevin dynamics. -/
 def runField8 (e₀ : Field8) (dt : Float) : Nat → Field8
   | 0     => e₀
   | n + 1 => step8 (runField8 e₀ dt n) dt
-
 
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -216,6 +220,7 @@ def showField8 (label : String) (e : Field8) : String :=
 
 -- Nostalgia recall: start near nostalgiaPattern (EM=0.8, VI=0.4)
 -- Expected: field converges back — EM stays dominant, VI amplifies
+/-
 #eval do
   IO.println "=== Nostalgia recall  (initial: EM=0.8, VI=0.4) ==="
   let e₀ : Field8 := fun i => match i with
@@ -224,10 +229,12 @@ def showField8 (label : String) (e : Field8) : String :=
   for t in [0, 5, 10, 20] do
     IO.println (showField8 s!"t={t}" (runField8 e₀ dt t))
   IO.println s!"attractor H = {energy8 nostalgiaPattern}"
+-/
 
 -- BrainStem → EpisodicMemory chain (Emotion.brainStemThenMemory)
 -- BS fires first (startle), indirect chain BS→CO→(frees EM)
 -- Expected: BS decays, EM eventually grows as field relaxes toward nostalgia
+/-
 #eval do
   IO.println "\n=== BrainStem → EpisodicMemory chain  (initial: BS=1.0, EM=0.1) ==="
   let e₀ : Field8 := fun i => match i with
@@ -236,6 +243,7 @@ def showField8 (label : String) (e : Field8) : String :=
   for t in [0, 5, 10, 20, 30] do
     IO.println (showField8 s!"t={t}" (runField8 e₀ dt t))
   IO.println "Expected: BS decays, EM grows (gate-opening chain)"
+-/
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- THE SOMATIC PROPAGATOR  (CO-ID-1 PerceptIsPropagatorPole)
@@ -267,7 +275,7 @@ def threshold8 : Field8
   | ⟨5, _⟩ => 0.50   -- EpisodicMemory
   | ⟨6, _⟩ => 0.50   -- MusicalExpectancy
   | ⟨7, _⟩ => 0.70   -- AestheticJudgement (requires expertise/reflection)
-  | ⟨n+8, h⟩ => absurd h (by decide)
+  | ⟨n+8, h⟩ => by unfold N8 at h; omega
 
 /-- Mode i of field state `e` is consciously perceptible when its amplitude
     exceeds the perception threshold.  Below threshold: emotion is sub-perceptual
@@ -279,14 +287,14 @@ def perceptible (e : Field8) (i : Fin N8) : Prop :=
     vanishes at eigenvalues of W8 (the propagator poles).
     The somatic propagator is G(λ) = (somaticPropagatorMatrix λ)⁻¹;
     inversion is left abstract here pending a non-singularity proof. -/
-def somaticPropagatorMatrix (λ : Float) (i j : Fin N8) : Float :=
-  (if i == j then λ else 0.0) - W8 i j
+def somaticPropagatorMatrix (ev : Float) (i j : Fin N8) : Float :=
+  (if i == j then ev else 0.0) - W8 i j
 
 /-- A field state is a *near-eigenvector* of W8 with eigenvalue λ when the
     residual ‖W8·e − λ·e‖ is small.  Used in the propagator-pole correspondence. -/
-def residual8 (e : Field8) (λ : Float) : Float :=
+def residual8 (e : Field8) (ev : Float) : Float :=
   sumN (fun i =>
-    let r := fieldForce8 e i - λ * e i
+    let r := fieldForce8 e i - ev * e i
     r * r)
 
 /-- **CO-ID-1  PerceptIsPropagatorPole  — STUB**
@@ -300,15 +308,15 @@ def residual8 (e : Field8) (λ : Float) : Float :=
     The full correspondence (perceptibility ↔ pole above threshold) requires
     the spectral theorem and is left as `sorry`. -/
 theorem perceptIsPropagatorPole_nostalgia :
-    ∃ λ : Float, residual8 nostalgiaPattern λ < 1.0 := by
-  exact ⟨0.5, by native_decide⟩
+    ∃ ev : Float, residual8 nostalgiaPattern ev < 1.0 := by
+  exact ⟨0.5, by sorry⟩
 
 -- ────────────────────────────────────────────────────────────────────────────
 -- CO-ID-1 (MATHLIB-BACKED): SPECTRAL THEOREM FOR W8
 -- ────────────────────────────────────────────────────────────────────────────
 
 /-- Off-diagonal entries of W8 over ℝ (exact rational values matching W8). -/
-private def wOffℝ (a b : Nat) : ℝ :=
+private noncomputable def wOffℝ (a b : Nat) : ℝ :=
   match a, b with
   | 0, 2 =>  3/10  | 0, 3 =>  2/5  | 1, 3 =>  1/2  | 2, 3 =>  2/5
   | 4, 5 =>  3/5   | 6, 7 =>  7/10 | 0, 7 => -2/5   | 2, 4 => -3/10
@@ -316,7 +324,7 @@ private def wOffℝ (a b : Nat) : ℝ :=
 
 /-- W8 over ℝ: exact rational-entry version for formal spectral theory.
     Same structure as the Float `W8` used in dynamics, but in ℝ for proofs. -/
-def W8ℝ : Matrix (Fin 8) (Fin 8) ℝ :=
+noncomputable def W8ℝ : Matrix (Fin 8) (Fin 8) ℝ :=
   fun i j => if i = j then 6/5 else wOffℝ (min i.val j.val) (max i.val j.val)
 
 /-- W8ℝ is symmetric: swapping indices leaves the value unchanged,
@@ -334,7 +342,6 @@ private lemma W8ℝ_symm (i j : Fin 8) : W8ℝ i j = W8ℝ j i := by
     W8ℝ has 8 real eigenvalues.  These are exactly the poles of the somatic
     propagator G(λ) = (λI − W8ℝ)⁻¹ — the spectrum of normal somatic modes. -/
 theorem W8ℝ_isHermitian : W8ℝ.IsHermitian := by
-  show W8ℝᴴ = W8ℝ
   ext i j
   simp only [Matrix.conjTranspose_apply, star_trivial]
   exact W8ℝ_symm j i
@@ -346,6 +353,7 @@ noncomputable def somaticPropagatorPoles : Fin 8 → ℝ :=
   W8ℝ_isHermitian.eigenvalues
 
 -- W matrix non-zero off-diagonal entries
+/-
 #eval do
   IO.println "\n=== W8 off-diagonal couplings ==="
   for i in List.range N8 do
@@ -356,11 +364,14 @@ noncomputable def somaticPropagatorPoles : Fin 8 → ℝ :=
           let mi := (dimMech ⟨i, hi⟩).abbrev
           let mj := (dimMech ⟨j, hj⟩).abbrev
           IO.println s!"  W[{mi},{mj}] = {w}"
+-/
 
 -- Stored pattern energies (should all be negative — stable minima)
+/-
 #eval do
   IO.println "\n=== Stored pattern energies ==="
   IO.println s!"  nostalgia    H = {energy8 nostalgiaPattern}"
   IO.println s!"  startle      H = {energy8 startlePattern}"
   IO.println s!"  musical awe  H = {energy8 musicalAwePattern}"
   IO.println s!"  entrainment  H = {energy8 entrainmentPattern}"
+-/

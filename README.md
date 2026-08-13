@@ -3,7 +3,7 @@
 Formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in
 M-theory compactification, type-checked in Lean 4, and applied across 15 academic domains.
 
-**21 canonical papers · 15 fractal programme books · OS axioms machine-verified (0 sorries)**
+**24 canonical papers · 15 fractal programme books · OS axioms machine-verified (0 sorries)**
 
 **Author**: Alistair Johnson · Independent Researcher · Zurich, Switzerland
 **ORCID**: [0009-0007-2194-0850](https://orcid.org/0009-0007-2194-0850)
@@ -15,7 +15,7 @@ M-theory compactification, type-checked in Lean 4, and applied across 15 academi
 
 | Path | Contents |
 |---|---|
-| `paper/soma/` | 21 canonical papers (P1–P21), source `.md` + built PDFs |
+| `paper/soma/` | 24 canonical papers (P1–P24), source `.md` + built PDFs |
 | `paper/proofs/` | Lean 4 formal proofs — OS axioms, M-theory isomorphism, RG flow, causality |
 | `paper/bld/` | Built PDFs including omnibus (all 21 papers) and cheatsheet |
 | `paper/scripts/` | Build scripts: `build_omnibus.py`, `paper_status.py`, `package_papers.py` |
