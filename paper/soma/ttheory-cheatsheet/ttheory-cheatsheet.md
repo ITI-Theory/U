@@ -8,17 +8,29 @@ mainfont: "TeX Gyre Pagella"
 ---
 
 \begin{center}
-{\LARGE\bfseries\sffamily [T]-Theory: A Universal Theory of Everything}\\[3pt]
+{\LARGE\bfseries\sffamily [T]-Theory: A Universal Theory of Everything}\\[6pt]
 {\large\sffamily\color{heading} One Equation.\enspace 61 Decades.\enspace Mind, Body, and Cosmos.}
 \end{center}
 
-\vspace{-2pt}
-\noindent\textbf{Proved (Lean 4, 0 sorries):} SHO = Green's function (derived, not postulated) $\cdot$ 11D manifold = minimum geometry for a conscious organism $\cdot$ Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ $\cdot$ Theory is a fixed-point attractor of its own subject matter (P23)
+\vspace{5pt}
+\noindent\textbf{Proved (Lean 4, 0 sorries):}
+\begin{itemize}
+\item SHO = Green's function (derived, not postulated as a primitive)
+\item 11D manifold = minimum geometry for a conscious vertebrate organism
+\item Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ (61 orders of magnitude)
+\item Theory is a fixed-point attractor of its own subject matter (P23)
+\end{itemize}
 
-\vspace{1pt}
-\noindent\textbf{Numerical hits (Planck 2018):} $\Omega_\Lambda = 7/11$ \textbf{(93.2\% accuracy)} $\cdot$ $\Omega_c = 3/11$ \textbf{(97.1\% accuracy)} $\cdot$ Dark sector = 95.5\% of cosmic energy from one integer partition $\cdot$ $w = -1$ exact (live test: DESI / Euclid)
+\vspace{3pt}
+\noindent\textbf{Numerical hits (Planck 2018):}
+\begin{itemize}
+\item $\Omega_\Lambda = 7/11$ \textbf{(93.2\%)} — dark energy
+\item $\Omega_c = 3/11$ \textbf{(97.1\%)} — dark matter, gravity only
+\item Dark sector = \textbf{95.5\%} of cosmic budget from one integer partition
+\item $w = -1$ exact — live test: DESI~DR1 / Euclid
+\end{itemize}
 
-\vspace{2pt}\hrule\vspace{4pt}
+\vspace{4pt}\hrule\vspace{4pt}
 
 # I · The Master Field Equation
 
