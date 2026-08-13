@@ -63,18 +63,6 @@ name = "MTheoryIsomorphism"
 srcDir = "paper/proofs"
 
 [[lean_lib]]
-name = "G2Compactification"
-srcDir = "paper/proofs"
-
-[[lean_lib]]
-name = "BRECVEMAField"
-srcDir = "paper/proofs"
-
-[[lean_lib]]
-name = "BRECVEMAVariational"
-srcDir = "paper/proofs"
-
-[[lean_lib]]
 name = "LimbicHopfield"
 srcDir = "paper/proofs"
 
