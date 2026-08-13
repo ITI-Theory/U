@@ -12,25 +12,34 @@ mainfont: "TeX Gyre Pagella"
 {\large\sffamily\color{heading} One Equation.\enspace 61 Decades.\enspace Mind, Body, and Cosmos.}
 \end{center}
 
-\vspace{5pt}
-\noindent\textbf{Proved (Lean 4, 0 sorries):}
+\vspace{4pt}
+\end{multicols}
+
+\noindent\colorbox{ghost}{\begin{minipage}{\dimexpr\textwidth-2\fboxsep\relax}
+\vspace{4pt}
+\begin{minipage}[t]{0.48\textwidth}
+\textbf{\color{heading}Proved (Lean 4, 0 sorries):}
 \begin{itemize}
 \item SHO = Green's function (derived, not postulated as a primitive)
 \item 11D manifold = minimum geometry for a conscious vertebrate organism
 \item Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ (61 orders of magnitude)
 \item Theory is a fixed-point attractor of its own subject matter (P23)
 \end{itemize}
-
-\vspace{3pt}
-\noindent\textbf{Numerical hits (Planck 2018):}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\textbf{\color{heading}Numerical hits (Planck 2018):}
 \begin{itemize}
 \item $\Omega_\Lambda = 7/11$ \textbf{(93.2\%)} — dark energy
 \item $\Omega_c = 3/11$ \textbf{(97.1\%)} — dark matter, gravity only
 \item Dark sector = \textbf{95.5\%} of cosmic budget from one integer partition
 \item $w = -1$ exact — live test: DESI~DR1 / Euclid
 \end{itemize}
+\end{minipage}
+\vspace{3pt}
+\end{minipage}}
 
-\vspace{4pt}\hrule\vspace{4pt}
+\vspace{5pt}
+\begin{multicols}{2}
 
 # I · The Master Field Equation
 
@@ -233,6 +242,8 @@ Titrated trauma processing = temperature regulation within the therapeutic windo
 **Pre-verbal manifold** ($\sigma = 6$, before language acquisition): large $k$, rapid
 memory decay. Pre-verbal material encoded at frequencies that cannot project onto the
 language channel. Explains inaccessibility to verbal recall; motivates somatic entry.
+
+\clearpage
 
 # VIII · Lean 4 Verification Status
 
