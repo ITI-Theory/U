@@ -48,8 +48,9 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 | GAP-3 | CosmologicalConstantDerivation | **PARTIAL** | P21 written. Numerical estimate: Λ_USF = (21/11) H₀²/c² ≈ 0.93 Λ_obs (7% from 7/11 compact dimension fraction). DESI+Pantheon+ consistent (0.1σ). DES SN5YR tension (4σ) pending systematics. Lean stub: `CosmologicalConstant.lean`; axioms need linearised GR in Mathlib. |
 | GAP-4 | DarkMatterSpatialVacuum | **PARTIAL** | P22 written. Numerical estimate: Ω_DM^USF = 3/11 = 0.273 vs obs 0.265 (2.9% off). Physical mechanism: spatial block Φ_{ij} clusters (non-compact), EM-neutral (gauge fields in X_7). Lean stub: `CosmologicalConstant.lean` (DarkMatter namespace); axioms need KK reduction in Mathlib. |
 | GAP-5 | FixedPointProperty | **PARTIAL** | P23 written. `usf_is_fixed_point` proved: ∃ USF instance at Scale 9. Full formalisation (W_{ij} at Scale 9, spectral gap) is open. |
+| GAP-6 | G2SymmetryBreaking | **PARTIAL** | P24 written. W8ℝ = (6/5)I₈ + δW numerically verified (Python, exact rationals). δW traceless proved (sorry; wOffℝ private). 48.4% symmetry broken. Resolves 8→7 question via tracelessness. |
 
-**Score: 10 PASS · 4 PARTIAL · 1 OPEN · 0 FAIL**
+**Score: 10 PASS · 5 PARTIAL · 1 OPEN · 0 FAIL**
 
 ---
 

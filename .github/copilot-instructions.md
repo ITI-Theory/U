@@ -64,6 +64,7 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 w
 | P21 | cosmological-constant-derivation | pending Zenodo upload — Λ ≡ ⟨tr Φ⟩₀; Λ_USF = (21/11)H₀²/c² within 7% of Λ_obs |
 | P22 | dark-matter-spatial-vacuum | not yet submitted — Ω_DM = 3/11 from spatial block vacuum; 2.9% off Planck 2018 |
 | P23 | ttheory-phenomena | not yet submitted — fixed-point paper; USF describes its own propagation; Phase 2 gateway |
+| P24 | g2-symmetry-breaking | not yet submitted — W8ℝ = (6/5)I₈ + δW; 48.4% G₂ symmetry broken; resolves 8→7 dimension question |
 
 ## Git State (as of May 30, 2026)
 - All repos clean and pushed (main branch, no uncommitted changes)
