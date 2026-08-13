@@ -630,7 +630,7 @@ def FeynmanDiagram.order : FeynmanDiagram → Nat
     pip install -r scripts/requirements.txt
     python scripts/load_opencyc.py              (load ~239k concepts, ~15 min)
 
-  Then run the #eval blocks below.  Each calls scripts/query_cyc.py via
+  Then run the #eval blocks below.  Each calls paper/scripts/query_cyc.py via
   IO.Process.output, querying the live KB and printing results inside Lean.
 
   This is Interpreter 6: not a typeclass instance (the KB is runtime, not
@@ -644,7 +644,7 @@ def FeynmanDiagram.order : FeynmanDiagram → Nat
 def queryCyc (args : Array String) : IO String := do
   let result ← IO.Process.output {
     cmd  := "python"
-    args := #["scripts/query_cyc.py"] ++ args
+    args := #["paper/scripts/query_cyc.py"] ++ args
   }
   return if result.exitCode == 0 then result.stdout
          else s!"[TypeDB error: {result.stderr.take 200}]"
@@ -664,12 +664,12 @@ def queryCyc (args : Array String) : IO String := do
 #eval queryCyc #["--subtypes", "EmotionalState"] >>= IO.println
 
 -- Validate every CycRef string in this file against TypeDB
--- (runs scripts/validate_cycrefs.py — shows ✓ / ✗ for each)
+-- (runs paper/scripts/validate_cycrefs.py — shows ✓ / ✗ for each)
 #eval do
   try
     let result ← IO.Process.output {
       cmd  := "python"
-      args := #["scripts/validate_cycrefs.py"]
+      args := #["paper/scripts/validate_cycrefs.py"]
     }
     IO.println (if result.exitCode == 0 then result.stdout
                 else s!"exit {result.exitCode}")
