@@ -28,11 +28,12 @@ mainfont: "TeX Gyre Pagella"
 \begin{minipage}[t]{0.48\textwidth}
 \textbf{\color{heading}Numerical hits (Planck 2018):}
 \begin{itemize}
-\item $\Omega_\Lambda = 7/11$ \textbf{(93.2\%)} — dark energy
-\item $\Omega_c = 3/11$ \textbf{(97.1\%)} — dark matter, gravity only
-\item Dark sector = \textbf{95.5\%} of cosmic budget from one integer partition
-\item $w = -1$ exact — live test: DESI~DR1 / Euclid
+\item $\Omega_\Lambda = 7/11$ \textbf{(93.2\%)} — dark energy as compactified vacuum
+\item $\Omega_c = 3/11$ \textbf{(97.1\%)} — dark matter as spatial vacuum; gravity only; no direct detection possible
+\item $w = -1$ exact — live knife-edge test: DESI~DR1 \& Euclid
 \end{itemize}
+\vspace{2pt}
+\noindent\textit{[T]-Theory accounts for \textbf{95.5\%} of the total mass-energy of the universe via a zero-parameter geometric derivation.}
 \end{minipage}
 \vspace{3pt}
 \end{minipage}}
@@ -138,6 +139,8 @@ $$|\omega_\text{ext} - \omega_0| < \Delta\omega_\text{lock}(\kappa)$$
 **SHO frequency** *(physlib* `trajectory_equationOfMotion`*)*:
 $$\omega^2 = k/m,\quad \omega^2 = v^2 k^2 \quad\text{(dispersion relation)}$$
 
+\columnbreak
+
 # IV · The 11D Decomposition — M-Theory / BFSS / Hořava-Witten
 
 $$M_{11} = M_4 \times X_7,\quad X_7 = D_{5\text{–}7} \times D_8 \times D_{9\text{–}11}$$
@@ -240,6 +243,10 @@ Titrated trauma processing = temperature regulation within the therapeutic windo
 **Pre-verbal manifold** ($\sigma = 6$, before language acquisition): large $k$, rapid
 memory decay. Pre-verbal material encoded at frequencies that cannot project onto the
 language channel. Explains inaccessibility to verbal recall; motivates somatic entry.
+
+\clearpage
+
+\clearpage
 
 # VIII · Lean 4 Verification Status
 
