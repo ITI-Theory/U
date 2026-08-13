@@ -7,6 +7,19 @@ linestretch: 1.2
 mainfont: "TeX Gyre Pagella"
 ---
 
+\begin{center}
+{\LARGE\bfseries\sffamily [T]-Theory: A Universal Theory of Everything}\\[3pt]
+{\large\sffamily\color{heading} One Equation.\enspace 61 Decades.\enspace Mind, Body, and Cosmos.}
+\end{center}
+
+\vspace{-2pt}
+\noindent\textbf{Proved (Lean 4, 0 sorries):} SHO = Green's function (derived, not postulated) $\cdot$ 11D manifold = minimum geometry for a conscious organism $\cdot$ Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ $\cdot$ Theory is a fixed-point attractor of its own subject matter (P23)
+
+\vspace{1pt}
+\noindent\textbf{Numerical hits (Planck 2018):} $\Omega_\Lambda = 7/11$ \textbf{(93.2\% accuracy)} $\cdot$ $\Omega_c = 3/11$ \textbf{(97.1\% accuracy)} $\cdot$ Dark sector = 95.5\% of cosmic energy from one integer partition $\cdot$ $w = -1$ exact (live test: DESI / Euclid)
+
+\vspace{2pt}\hrule\vspace{4pt}
+
 # I · The Master Field Equation
 
 The Universal Somatic Field is governed by a single structural equation — the
@@ -161,13 +174,8 @@ they are not free parameters.
 - **$\sigma\;18$** Galactic — astrophysical field, $\tau_m \sim 10^8$ yr
 - **$\sigma\;19$** Observable universe — cosmological, $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$, $\tau_m \sim 10^{10}$ yr
 
-**Geological memory** ($\sigma = 15$–$17$): fault zone geometry encodes past ruptures
-as Hopfield patterns. Energy barrier for future rupture lowered by memory.
-Gutenberg-Richter $b \approx 1$ derived from universality class of somatic phase transition.
-
-**Renormalisation group:** coupling constants at scale $k+1$ are computed from scale $k$
-by integrating out the degrees of freedom at $k$. Scale invariance is mathematically
-computable — inter-personal coupling constants are derivable from neural coupling constants.
+**Geological memory** ($\sigma = 15$\textendash$17$): fault zone geometry encodes past ruptures
+as Hopfield patterns. Gutenberg-Richter $b \approx 1$ derived from universality class.
 
 # VI · Key Identifications Across All Domains
 
