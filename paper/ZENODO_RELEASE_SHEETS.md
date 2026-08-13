@@ -1,6 +1,11 @@
-# Zenodo Release Sheets
+# Zenodo Release Sheets — ARCHIVED
+
+> **Superseded.** This file covered the original P1–P9 release (May 2026) and is kept as a historical record.
+> Current runbook: [`Dist/zenodo/README.md`](https://github.com/ITI-Theory/Dist/tree/main/zenodo/README.md)
+> Master paper registry: [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml)
+
 **Author:** Alistair Johnson | ORCID: 0009-0007-2194-0850
-**Last updated:** May 2026
+**Last updated:** May 2026 (archived Aug 2026)
 **License for all records:** CC BY 4.0
 
 ---

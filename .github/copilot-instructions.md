@@ -33,7 +33,7 @@ cd paper && make check        # verify toolchain (pandoc + xelatex)
 ```
 
 ## Papers — Publication Status (as of May 30, 2026)
-All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 written/queued 2026-08-10. Full DOI registry: `paper/ZENODO_RELEASE_SHEETS.md`.
+All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 written/queued 2026-08-10. **Master registry: [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml)** — DOIs, status, file paths.
 
 | ID | Paper | Concept DOI |
 |---|---|---|
