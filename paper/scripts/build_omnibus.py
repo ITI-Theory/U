@@ -147,6 +147,9 @@ STRUCTURE = [
     (r"\newpage",
      "dark-matter-spatial-vacuum"),
 
+    (r"\newpage",
+     "g2-symmetry-breaking"),
+
     (r"\newpage" "\n\n" r"\part{Part VI: The Gateway}",
      "ttheory-phenomena"),
 

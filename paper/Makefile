@@ -33,6 +33,7 @@ $(eval $(call register, usf-euclidean-qft,              citeproc, en,    osqft  
 $(eval $(call register, usf-interacting-qft,           citeproc, en,    intqft  ))
 $(eval $(call register, cosmological-constant-derivation, citeproc, en,  cosconst))
 $(eval $(call register, dark-matter-spatial-vacuum,       citeproc, en,  darkmatter))
+$(eval $(call register, g2-symmetry-breaking,             citeproc, en,  g2break  ))
 $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenomena))
 
 # Derived target lists (computed from registry)

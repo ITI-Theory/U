@@ -128,8 +128,12 @@ def gauge_constraint (W : BRECVEMAMatrix) : Prop :=
     Bottleneck: steps (3) and (4) require Riemannian holonomy in Mathlib (P-future). -/
 theorem moduli_space_is_G2_homotopy
     (L : NeurodynamicalLagrangian)
-    -- The AJ gauge constraint (the 8→7 reduction — THE OPEN PROBLEM)
-    (h_gauge : gauge_constraint L.coupling)
+    -- The AJ gauge constraint (the 8→7 reduction — THE OPEN PROBLEM)  -- NOTE: Numerical test shows W8ℝ row sums are ALL non-zero:
+  --   BS=3/2, RE=17/10, EC=8/5, CO=5/2, VI=3/2, EM=9/5, ME=19/10, AJ=3/2
+  -- The zero-sum gauge criterion is FALSIFIED for the empirical W8ℝ.
+  -- Revised picture (P24): W8ℝ = (6/5)I₈ + δW where δW is traceless.
+  -- The G₂-symmetric component is (6/5)I₈; the 7D structure comes from
+  -- tracelessness of δW (8 symmetry-breaking modes summing to zero = 7 dof).    (h_gauge : gauge_constraint L.coupling)
     -- Coupling matrix is symmetric (mutual emotional coupling is symmetric)
     (h_sym : ∀ i j : Fin 8, L.coupling i j = L.coupling j i)
     -- Trace-free coupling (Ricci-flat condition — required for G₂ holonomy)
