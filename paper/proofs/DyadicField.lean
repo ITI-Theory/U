@@ -27,8 +27,8 @@
 -/
 
 import SomaField
-import Mathlib.Algebra.BigOperators.Group.Finset
-import Mathlib.Algebra.Order.Ring.Lemmas
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.Algebra.Order.Ring.Basic
 
 
 -- ════════════════════════════════════════════════════════════════════════════
