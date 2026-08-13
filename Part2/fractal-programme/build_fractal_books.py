@@ -86,7 +86,7 @@ DOMAINS = [
         "field": "mathematical physics, astrophysics, quantum field theory",
         "papers": ["c:soma-field-paper", "c:quantum-soma-penrose", "c:universal-somatic-field",
                    "c:zoomable-somatic-field", "c:cosmological-constant-derivation",
-                   "c:dark-matter-spatial-vacuum"],
+                   "c:dark-matter-spatial-vacuum", "c:g2-symmetry-breaking"],
         "prompt_extra": "Assume fluency with QFT, GR, and M-theory. Lead with the Green's function identification and the cosmological limit. Mention that the SHO of string theory is derived here, not postulated.",
     },
     {
