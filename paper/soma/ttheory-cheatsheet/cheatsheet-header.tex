@@ -22,5 +22,6 @@
 \setlength{\parindent}{0pt}
 \AddToShipoutPictureBG{%
   \AtPageCenter{\makebox(0,0){\rotatebox{-20}{\textcolor{ghost}{\fontsize{160}{160}\selectfont\bfseries[T]}}}}}
-\AtBeginDocument{\begin{multicols}{2}\setlength{\columnsep}{7mm}\setlength{\columnseprule}{0pt}}
+% multicols started manually in markdown after the full-width abstract block
+\newcommand{\startcolumns}{\begin{multicols}{2}\setlength{\columnsep}{7mm}\setlength{\columnseprule}{0pt}}
 \AtEndDocument{\end{multicols}}

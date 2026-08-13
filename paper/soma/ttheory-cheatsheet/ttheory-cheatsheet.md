@@ -13,7 +13,6 @@ mainfont: "TeX Gyre Pagella"
 \end{center}
 
 \vspace{4pt}
-\end{multicols}
 
 \noindent\colorbox{ghost}{\begin{minipage}{\dimexpr\textwidth-2\fboxsep\relax}
 \vspace{4pt}
@@ -38,8 +37,7 @@ mainfont: "TeX Gyre Pagella"
 \vspace{3pt}
 \end{minipage}}
 
-\vspace{5pt}
-\begin{multicols}{2}
+\startcolumns
 
 # I · The Master Field Equation
 
@@ -242,8 +240,6 @@ Titrated trauma processing = temperature regulation within the therapeutic windo
 **Pre-verbal manifold** ($\sigma = 6$, before language acquisition): large $k$, rapid
 memory decay. Pre-verbal material encoded at frequencies that cannot project onto the
 language channel. Explains inaccessibility to verbal recall; motivates somatic entry.
-
-\clearpage
 
 # VIII · Lean 4 Verification Status
 
