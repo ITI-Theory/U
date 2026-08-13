@@ -63,6 +63,10 @@ name = "MTheoryIsomorphism"
 srcDir = "paper/proofs"
 
 [[lean_lib]]
+name = "G2Compactification"
+srcDir = "paper/proofs"
+
+[[lean_lib]]
 name = "LimbicHopfield"
 srcDir = "paper/proofs"
 
