@@ -177,17 +177,18 @@ end SomaField.Variational
     anisotropies (ME-AJ: +0.7, VI-EM: +0.6, BS-AJ: -0.4). -/
 theorem brecvema_G2_decomposition :
     Matrix.trace (SomaField.W8ℝ - (6/5 : ℝ) • (1 : Matrix (Fin 8) (Fin 8) ℝ)) = 0 := by
-  -- tr(W8ℝ) = 8 × (6/5) because all diagonal entries = 6/5
-  -- tr((6/5)I₈) = 8 × (6/5) by definition of trace of scalar matrix
-  -- Difference = 0. Full Lean proof deferred pending private wOffℝ exposure.
-  sorry  -- numerically verified: see Python computation in FIELD-NOTES 2026-08-13
+  -- tr(W8ℝ - (6/5)I₈) = ∑ i, (W8ℝ i i - 6/5) = ∑ i, (6/5 - 6/5) = 0
+  -- Diagonal entries of W8ℝ are all 6/5 by definition; wOffℝ only appears off-diagonal.
+  simp only [Matrix.trace, Matrix.diag, Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply,
+             SomaField.W8ℝ, eq_self_iff_true, if_true, Finset.sum_const_zero]
+  norm_num
 
 /-- Corollary: The symmetry-breaking δW has 7 independent degrees of freedom
     (tracelessness removes 1 from 8), consistent with the 7D compact sector X₇. -/
-theorem delta_W_dof : 
-    ∃ (delta_W : BRECVEMAMatrix), 
+theorem delta_W_dof :
+    ∃ (delta_W : BRECVEMAMatrix),
       (∀ i j, SomaField.W8ℝ i j = (6/5 : ℝ) * (if i = j then 1 else 0) + delta_W i j) ∧
       Matrix.trace delta_W = 0 :=
-  ⟨SomaField.W8ℝ - (6/5 : ℝ) • 1, 
+  ⟨SomaField.W8ℝ - (6/5 : ℝ) • 1,
    fun i j => by simp [Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply]; ring,
    brecvema_G2_decomposition⟩

@@ -197,8 +197,20 @@ private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     (∑ i : Fin 8, ∑ j : Fin 8, a i * W8ℝ i j * a j) +
     (∑ i : Fin 8, ∑ j : Fin 8, b i * W8ℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, a i * Jℝ i j * b j) +
-    (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) :=
-  sorry -- dif_pos/dif_neg mechanics; mathematical claim is clear
+    (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) := by
+  -- Split Fin 16 = Fin (8+8) using Fin.sum_univ_add
+  change ∑ i : Fin (8+8), ∑ j : Fin (8+8), _ = _
+  simp_rw [Fin.sum_univ_add]
+  -- Simplify mkDyadicℝ and W_ABℝ on each of the 4 quadrants
+  simp only [mkDyadicℝ, W_ABℝ,
+    -- castAdd i: val = i.val < 8
+    show ∀ i : Fin 8, (Fin.castAdd 8 i).val < 8 from Fin.castAdd_lt 8,
+    -- natAdd i: val = 8 + i.val ≥ 8
+    show ∀ i : Fin 8, ¬ (Fin.natAdd 8 i).val < 8 from
+      fun i => by simp [Fin.natAdd_mk]; omega,
+    dif_pos, dif_neg, not_and, not_lt]
+  simp only [Fin.castAdd_mk, Fin.natAdd_mk, Nat.add_sub_cancel_left]
+  ring
 
 /-- **PROVED:** Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0. -/
 theorem dyadic_energy_coupling_lowers_ℝ
