@@ -252,7 +252,46 @@ Lean 4 source: https://github.com/or4nge19/NeuralNetworks
 - `step_range`, `fixed_point_iff`, `energy_at_fixed_point`, `energy_nondec_at_fixed` — PROVED
 - `attractor_exists`, `eventually_periodic` — sorry (upgrade needed)
 
+---
+
 ## ISS-012: Add lean-appendix to lake - OPEN
 
 If a proof changes, lean-appendix is built. Now, not all PDF might want to be rebuilt if
 lean-appendix changes, the target could at print a list out, or instructions for an AI.
+
+**Questions for AJ:**
+1. Lake vs Makefile: should lean-appendix rebuild be a **Lake target** (triggered by
+   `bld`) or a **Makefile rule** (e.g. `make lean-appendix` as a dependency)?
+2. On change, should the output be: (a) a list of affected PDFs, (b) a message
+   "run `make omnibus` to update", or (c) write an instruction file for the AI?
+3. Font warning: ℝ, ⟨, ⟩ are missing from Consolas in PDF code blocks — should we
+   switch monofont for the lean-appendix chapter (e.g. DejaVu Sans Mono or Fira Code)?
+
+---
+
+## ISS-013: Add U/UAT script - OPEN
+
+See PROCESS.md:100, thats the basis for a script, except lean-appendix should already exist,
+see ISS-012,
+
+```**Pre-upload code check (run before each release — not NotebookLM):**
+- `grep -ri Float paper/proofs/*.lean | grep -v Movie.lean` → must be empty
+- `make lean-appendix` → must build; `lean-proofs-appendix.md` must match current proofs
+- `bld` → must exit 0 (3912/3912 jobs)
+```
+
+Script live in `U/bin/XXX`, not sure of name and besides, it will also need an AI, that's OK.
+just print instructions for now if needed. Note: Although this is in the build, i guess it must be
+triggered manually. unless the target writes instructions to a file, or?
+
+other checks I am sure exist.
+
+**Questions for AJ:**
+1. Script name: `uat`, `release-check`, `pre-release`, or something else?
+2. Output: stdout only, or also write to a timestamped log file (e.g. `uat-2026-08-14.log`)?
+3. Lean-appendix check: should the script (a) regenerate it by calling
+   `build_lean_appendix.py`, or (b) just warn if `.md` is older than any `.lean` file?
+4. "Other checks I am sure exist" — want me to scan PROCESS.md + ISSUES.md and
+   propose a full checklist now, or keep v1 minimal (just the three checks listed)?
+
+---
