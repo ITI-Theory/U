@@ -2422,3 +2422,27 @@ Open problems:
 - Core files (USF_OSAxioms, BFSSIsomorphism, ScaleUniverse, TemporalDynamics, Hopfield): **0 sorries**
 
 **Docs updated**: P22–P24 added to org READMEs; "0 sorries" claim scoped to core theorems.
+
+---
+
+## Session: 2026-08-14 — ISS-009 Float purge + Hopfield proofs
+
+**Build status:** 3912/3912 jobs clean (exit 0). Full Lean 4.31.0 build.
+
+**ISS-009 CLOSED** — zero `Float` in all `paper/proofs/*.lean` (except Movie.lean):
+- `SomaField.lean`, `DyadicField.lean`: core Field8→ℝ migration (W8, patterns, energy, step)
+- `Hopfield.lean`, `Benchmark.lean`: Float→ℝ rewrite (noncomputable, Real.exp, sgn via Classical)
+- `ScaleUniverse.lean`: CemiField + T_TheoryUniverse struct fields Float→ℝ
+- `SomaNetwork.lean`, `CosmologicalConstant.lean`: float in Python pseudocode/comments replaced
+- `LimbicTunnel.lean`, `LimbicHopfield.lean`, `QuantumSim.lean`: Mathlib 4.31 API fixes
+  (hasDerivAt_pow, single_le_sum, Complex.abs→‖·‖, Real.pi_gt_three → Pi.Bounds import)
+
+**Hopfield proofs:**
+- `step_range`, `fixed_point_iff`, `energy_at_fixed_point`, `energy_nondec_at_fixed` — PROVED
+- `attractor_exists`, `eventually_periodic` — sorry; see ISS-011
+- Reference: Cipollina et al. arXiv:2512.07766 (full Lean 4 formalization found)
+  Key insight: needs SpinState (not ℝ) + asynchronous update for convergence proofs
+
+**ISS-007 CLOSED** — `bld` alias confirmed working.
+
+**Next:** Phase 2 begins. Papers (ISS-001 Zenodo uploads), then [T]-Theory art/music layer.
