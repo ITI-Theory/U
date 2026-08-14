@@ -4,6 +4,9 @@ Issue tracker for work that spans sessions or needs a future decision.
 Format: `ISS-NNN: Title — STATUS`
 Status: OPEN | IN-PROGRESS | CLOSED
 
+Tip: Folding in vscode (turns file into a Issues UI), You can fold regions using the folding icons on the gutter between line numbers and line start.
+Use Shift + Click on the folding icon to fold or unfold the region and all regions inside.
+
 ---
 
 ## ISS-001: Phase 1 wrap — Zenodo uploads + NLM UAT — OPEN
@@ -13,10 +16,20 @@ Four records need new versions (content changed). Four new records (P21–P24) n
 NLM UAT validates the content before release is declared complete.
 
 **Actions:**
+UAT - See `UAT Testing` in `.../U/PROCESS.md`
+- [ ] Setup NLM
+
+UAT: U
+- [ ] Verification (Sherlock)
+- [ ] Validation (Harry P)
+- [ ] The CM (CheatSheet)
+
+UAT: Dist
 
 Zenodo — version patches (go to record → New version → upload → Publish):
 - [ ] P11 zoomable-somatic-field — Problems 1+2 closed; axiom table updated
 - [ ] P12 experimental-validation — "Open Problem 5" → "GAP-1 in USF test suite"
+- [ ] D2 lean-proofs-appendix — regenerated 2026-08-14 (Float→ℝ); upload new version
 - [ ] C1v2 omnibus-v2 — rebuilt with updated P11
 - [ ] C2 fractal-programme — rebuilt with TOC + updated P12
 
@@ -238,3 +251,8 @@ Lean 4 source: https://github.com/or4nge19/NeuralNetworks
 **Status of current proofs (2026-08-14):**
 - `step_range`, `fixed_point_iff`, `energy_at_fixed_point`, `energy_nondec_at_fixed` — PROVED
 - `attractor_exists`, `eventually_periodic` — sorry (upgrade needed)
+
+## ISS-012: Add lean-appendix to lake - OPEN
+
+If a proof changes, lean-appendix is built. Now, not all PDF might want to be rebuilt if
+lean-appendix changes, the target could at print a list out, or instructions for an AI.
