@@ -1105,17 +1105,17 @@ connection recording the path-history. **Path to closure:** extend
 `GeographicSomatic.lean` (once written) to use `PathIntegral` machinery;
 update `manifold_coords.py` accordingly.
 
-**Problem 5: The Dyadic Coupling Inequality (Float arithmetic).**
+**Problem 5: The Dyadic Coupling Inequality.**
 `DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
 lowers energy when $J \geq 0$ and both fields have non-negative activation.
-The proof is straightforward over $\mathbb{R}$ (the cross-coupling sum
-$\sum_{ij} a_i J_{ij} b_j \geq 0$ when $a_i, b_j, J_{ij} \geq 0$),
-but Lean 4's `Float` type is axiomatized and not amenable to algebraic
-tactics (`linarith`, `nlinarith` do not apply to Float). **Path to closure:**
-re-implement the key energy functions over `ℝ` using Mathlib's `Real`
-type; the Float implementations can remain as computational code while
-the proofs use the Real-valued versions. This is a refactoring task,
-not a mathematical problem.
+**[Partially closed — August 2026]** The Float implementations have been
+removed and the energy functions re-implemented over $\mathbb{R}$.
+The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
+The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
+$\mathbb{R}$-transfer stub; the mathematical content is established.
+**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
+`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
+`dyadic_block_decomp` (ISS-005).
 
 ---
 

@@ -300,3 +300,15 @@ other checks I am sure exist.
    propose a full checklist now, or keep v1 minimal (just the three checks listed)?
 
 ---
+
+## ISS-014: Open Problem 4 — Path-Dependence in Moduli Space — OPEN
+
+From paper section "Open Research Problems" (P11 zoomable-somatic-field).
+
+Dissonance is path-dependent (a Neapolitan 6th resolving upward ≠ same pitch approached
+differently). Current `manifold_coords.py` treats it as a scalar point.
+
+**Fix:** path $\gamma: [0,1] \to \mathcal{M}$ through G₂ moduli space with monodromy
+recording path-history. Requires `GeographicSomatic.lean` (P16, not yet written).
+
+**Blocking:** Phase 2 / post-release.
