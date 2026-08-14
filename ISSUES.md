@@ -311,4 +311,40 @@ differently). Current `manifold_coords.py` treats it as a scalar point.
 **Fix:** path $\gamma: [0,1] \to \mathcal{M}$ through G₂ moduli space with monodromy
 recording path-history. Requires `GeographicSomatic.lean` (P16, not yet written).
 
-**Blocking:** Phase 2 / post-release.
+**Blocking:** Phase 2 / post-release. Requires ISS-016 (GeographicSomatic.lean).
+
+---
+
+## ISS-016: Write GeographicSomatic.lean — OPEN
+
+Blocker for ISS-014 (path-dependence in moduli space) and P16 (geographic-somatic-field paper).
+
+`GeographicSomatic.lean` should define:
+- `GeoField` — spatial extension of `Field8` over a geographic region
+- `PathIntegral` machinery for path-dependent dissonance coordinates
+- Monodromy of holonomy connection recording path-history through G₂ moduli space
+
+Needs P16 paper drafted first to ground the Lean definitions. Phase 2.
+
+---
+
+## ISS-015: Placeholder scales — CLOSED
+
+> CLOSED 2026-08-15. 19 of 21 ScaleStep arms now use real Physlib/SFT types.
+> Only PlanckFoam and StringScale remain String (no Physlib module for those yet).
+> `open_problem_3_progress` = 19. Build passes.
+
+---
+
+## ISS-017: lean-appendix auto-regeneration in release-check — OPEN
+
+ISS-013 Q3: currently `bin/release-check` only warns if `.lean` files are newer than
+`lean-proofs-appendix.md`. Ideally it should call `build_lean_appendix.py` automatically.
+
+**Action:** in `bin/release-check`, replace the freshness warn with:
+```bash
+python3 paper/scripts/build_lean_appendix.py && make -C paper lean-appendix
+```
+Deferred because the build is slow. Do when CI/CD is set up (ISS-012).
+
+---

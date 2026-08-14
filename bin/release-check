@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# U/bin/uat — pre-release UAT checks
-# Run from repo root: bin/uat
+# U/bin/release-check — pre-release checks
+# Run from repo root: bin/release-check
 # Exit 0 = all checks pass; exit 1 = failures found
 
 REPO=$(cd "$(dirname "$0")/.." && pwd)
@@ -86,6 +86,44 @@ hdr "7. Lean build"
 echo "  NOTE  Run 'bld' manually — takes several minutes"
 echo "        Expected: Build completed successfully (3912 jobs) exit 0"
 ok "Deferred to manual run"
+
+# ── 8. Debug options left in proof files ──────────────────────────────────
+hdr "8. Debug options in proof files"
+DEBUG=$(grep -rn "set_option.*true\|#check\|#print\|#eval!\|set_option maxRecDepth\|set_option trace" \
+        paper/proofs/*.lean 2>/dev/null | grep -v "^.*--" || true)
+if [[ -z "$DEBUG" ]]; then
+  ok "No debug options or #check/#print left in proof files"
+else
+  warn "Debug items found (review before release):"
+  echo "$DEBUG" | sed 's/^/    /'
+fi
+
+# ── 9. PAPERS.yaml DOIs for published papers ───────────────────────────────
+hdr "9. PAPERS.yaml — published papers have DOIs"
+MISSING_DOI=$(python3 -c "
+import yaml, sys
+data = yaml.safe_load(open('../Dist/PAPERS.yaml'))
+missing = []
+for section in data.values():
+  if isinstance(section, list):
+    for p in section:
+      if p.get('status') == 'published' and not p.get('doi','').strip():
+        missing.append(p.get('id','?'))
+print('\n'.join(missing))
+" 2>/dev/null || echo "")
+if [[ -z "$MISSING_DOI" ]]; then
+  ok "All published papers have DOIs"
+else
+  fail "Published papers missing DOI: $MISSING_DOI"
+fi
+
+# ── 10. Expected Dist PDFs present ────────────────────────────────────────
+hdr "10. Key Dist PDFs present"
+for pdf in ../Dist/papers/omnibus-a4.pdf \
+           ../Dist/papers/lean-proofs-appendix.pdf \
+           ../Dist/papers/cosmological-constant-derivation.pdf; do
+  [[ -f "$pdf" ]] && ok "$(basename $pdf)" || fail "MISSING: $pdf"
+done
 
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
