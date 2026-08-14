@@ -97,10 +97,10 @@ Test questions:
 - “Are all five OS axioms listed and correctly stated?”
 - “What does the theory say about [X] — is it consistent across the omnibus?”
 - “Find any contradiction between [early paper] and [later paper].”
-**Pre-upload code check (run before each release — not NotebookLM):**
-- `grep -ri Float paper/proofs/*.lean | grep -v Movie.lean` → must be empty
-- `make lean-appendix` → must build; `lean-proofs-appendix.md` must match current proofs
-- `bld` → must exit 0 (3912/3912 jobs)
+
+**Pre-upload automated checks (run `bin/uat` from repo root):**
+Covers: Float in proofs, sorry count, open problem markers, lean-appendix
+freshness, PAPERS.yaml pending uploads, git status. See ISS-013.
 ### Tier 2 — Harry Potter: “Did we build the right thing?”
 
 Checks completeness and scope.

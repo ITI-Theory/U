@@ -269,7 +269,12 @@ lean-appendix changes, the target could at print a list out, or instructions for
 
 ---
 
-## ISS-013: Add U/UAT script - OPEN
+## ISS-013: Add U/UAT script — CLOSED
+
+> CLOSED 2026-08-14. Script written to `U/bin/uat`.
+> Checks: Float, sorry stubs, open problem markers, lean-appendix freshness,
+> PAPERS.yaml pending uploads, git status, build reminder.
+> PROCESS.md Tier 1 updated to reference `bin/uat`.
 
 See PROCESS.md:100, thats the basis for a script, except lean-appendix should already exist,
 see ISS-012,
@@ -287,7 +292,7 @@ triggered manually. unless the target writes instructions to a file, or?
 other checks I am sure exist.
 
 **Questions for AJ:**
-1. Script name: `uat`, `release-check`, `pre-release`, or something else?
+1. Script name: `uat`, `release-check`, `pre-release`, or something else? - `release-check`
 2. Output: stdout only, or also write to a timestamped log file (e.g. `uat-2026-08-14.log`)?
 3. Lean-appendix check: should the script (a) regenerate it by calling
    `build_lean_appendix.py`, or (b) just warn if `.md` is older than any `.lean` file?

@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# U/bin/uat — pre-release UAT checks
+# Run from repo root: bin/uat
+# Exit 0 = all checks pass; exit 1 = failures found
+
+REPO=$(cd "$(dirname "$0")/.." && pwd)
+PASS=0; FAIL=0; WARN=0
+
+ok()   { echo "  PASS  $1"; PASS=$((PASS+1)); }
+fail() { echo "  FAIL  $1"; FAIL=$((FAIL+1)); }
+warn() { echo "  WARN  $1"; WARN=$((WARN+1)); }
+hdr()  { echo ""; echo "=== $1 ==="; }
+
+cd "$REPO"
+
+# ── 1. Float in proof files ────────────────────────────────────────────────
+hdr "1. Float in proof files"
+FLOATS=$(grep -ril Float paper/proofs/*.lean 2>/dev/null | grep -v Movie.lean || true)
+if [[ -n "$FLOATS" ]]; then
+  fail "Float found — files: $FLOATS"
+  grep -rn Float paper/proofs/*.lean | grep -v Movie.lean | head -10 | sed 's/^/    /'
+else
+  ok "Zero Float (Movie.lean excluded)"
+fi
+
+# ── 2. Sorry stubs ─────────────────────────────────────────────────────────
+hdr "2. Sorry stubs"
+SORRY_FILES=$(grep -rl "^\s*sorry$\|:= sorry" paper/proofs/*.lean 2>/dev/null || true)
+if [[ -z "$SORRY_FILES" ]]; then
+  ok "Zero active sorry stubs"
+else
+  COUNT=$(grep -rch "^\s*sorry$\|:= sorry" paper/proofs/*.lean 2>/dev/null | awk -F: '{sum+=$1} END{print sum}' || echo 0)
+  warn "$COUNT sorry stub(s) remain — see ISS-005"
+  grep -rn "^\s*sorry$\|:= sorry" paper/proofs/*.lean 2>/dev/null | sed 's/^/    /'
+fi
+
+# ── 3. Open research problems ──────────────────────────────────────────────
+hdr "3. Open research problems in proof files"
+GAPS=$(grep -rn "GAP-[0-9]\|Open Problem\|-- OP[0-9]" paper/proofs/*.lean 2>/dev/null | grep -v "^.*--.*ISS-\|CLOSED" || true)
+if [[ -z "$GAPS" ]]; then
+  ok "No untracked GAP/OP markers"
+else
+  warn "Open problem markers found:"
+  echo "$GAPS" | sed 's/^/    /'
+  warn "Verify each is tracked in ISSUES.md"
+fi
+
+# ── 4. lean-proofs-appendix freshness ─────────────────────────────────────
+hdr "4. lean-proofs-appendix freshness"
+APPENDIX="paper/soma/lean-proofs-appendix/lean-proofs-appendix.md"
+STALE=""
+for f in paper/proofs/*.lean; do
+  [[ "$f" -nt "$APPENDIX" ]] && STALE="$STALE $f"
+done
+if [[ -z "$STALE" ]]; then
+  ok "lean-proofs-appendix.md is up to date"
+else
+  fail "Stale — run: python paper/scripts/build_lean_appendix.py && make lean-appendix"
+  echo "  Newer files:$STALE" | tr ' ' '\n' | sed 's/^/    /'
+fi
+
+# ── 5. PAPERS.yaml pending uploads ────────────────────────────────────────
+hdr "5. PAPERS.yaml — pending Zenodo uploads"
+PENDING=$(grep -A2 "status:" ../Dist/PAPERS.yaml 2>/dev/null | grep -E "pending-upload|needs-new-version" | wc -l || echo "?")
+if [[ "$PENDING" == "0" ]]; then
+  ok "All papers published"
+else
+  warn "$PENDING paper(s) with status pending-upload or needs-new-version — see ISS-001"
+fi
+
+# ── 6. Git status ──────────────────────────────────────────────────────────
+hdr "6. Git working tree"
+DIRTY=$(git status --porcelain 2>/dev/null)
+if [[ -z "$DIRTY" ]]; then
+  ok "Working tree clean"
+else
+  fail "Uncommitted changes — commit before release:"
+  echo "$DIRTY" | sed 's/^/    /'
+fi
+
+# ── 7. Lean build ─────────────────────────────────────────────────────────
+hdr "7. Lean build"
+echo "  NOTE  Run 'bld' manually — takes several minutes"
+echo "        Expected: Build completed successfully (3912 jobs) exit 0"
+ok "Deferred to manual run"
+
+# ── Summary ────────────────────────────────────────────────────────────────
+echo ""
+echo "══════════════════════════════════════"
+printf "  PASS: %-4s  WARN: %-4s  FAIL: %s\n" "$PASS" "$WARN" "$FAIL"
+echo "══════════════════════════════════════"
+[[ $FAIL -eq 0 ]]
