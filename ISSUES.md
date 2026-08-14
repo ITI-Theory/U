@@ -48,7 +48,10 @@ NLM UAT (see UAT section in this file's PROCESS.md):
 
 ---
 
-## ISS-003: PDF encoding — cosmological-constant cover page — IN-PROGRESS
+## ISS-003: PDF encoding — cosmological-constant cover page — CLOSED
+
+> CLOSED 2026-08-14. Source .md fixed (LaTeX `\langle\mathrm{tr}\,\Phi\rangle_0`);
+> PDF rebuilt (`make cosconst`) and synced to `Dist/papers/`.
 
 **File:** `Dist/papers/cosmological-constant-derivation.pdf`
 
@@ -66,7 +69,10 @@ Pending: rebuild PDF (`make cosmological`) and sync to Dist.
 
 ---
 
-## ISS-004: Lulu metadata — add spine info to PAPERS.yaml — OPEN
+## ISS-004: Lulu metadata — add spine info to PAPERS.yaml — CLOSED
+
+> CLOSED 2026-08-14. Added `lulu_spine_title` and `lulu_spine_author` to C1, C1v2, C2
+> in `Dist/PAPERS.yaml`. Format: short title + "Alistair Johnson".
 
 Lulu requires spine title and spine author at upload time. Currently not in PAPERS.yaml.
 
@@ -152,7 +158,15 @@ Review required
 
 ---
 
-## ISS-008: check for commented out evals, TODO's, etc - OPEN
+## ISS-008: check for commented out evals, TODO's, etc — CLOSED
+
+> CLOSED 2026-08-14. Audit findings:
+> - `DyadicField.lean` — `#eval` demo in `/-` block (OK, noncomputable)
+> - `BRECVEMAVariational.lean` — active `#eval` for W8 row sum (computable, intentional)
+> - `EmotionOntology.lean` — many active `#eval` blocks (String/computable, intentional demo layer)
+> - `Movie.lean` — 3 active `#eval` blocks (Float-only file, excluded from ISS-009)
+> - `Benchmark.lean` — `--#eval runBenchmark` commented (noncomputable ℝ, correct)
+> No action required.
 
 ---
 
@@ -196,10 +210,11 @@ test : `grep -i float paper/proofs/*.lean | grep -v Movie.lean `
 
 ---
 
-## ISS-010: check for TODO's in proofs - OPEN
+## ISS-010: check for TODO's in proofs — CLOSED
 
-eg see paper/proofs/SomaField.lean:  Proof obligations (TODO for the formal paper):, that has a
-comment of 5 proofs, some of which may be done
+> CLOSED 2026-08-14. Single TODO found: `SomaField.lean:17` — 5 proof obligations.
+> Updated to reflect current status (two are sorry'd in ISS-005,
+> three are open Phase-2 work). No other TODO/FIXME markers in proof files.
 
 ---
 

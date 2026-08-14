@@ -14,14 +14,13 @@
   dimensions {BS=0, RE=1}.  W8[0,1]=0 because BS and RE interact only via CO(3).
   The 2D model was the seed; this 8D model is the full theory.
 
-  Proof obligations (TODO for the formal paper):
-  1. H is bounded below for W8 (check positive semi-definiteness).
-  2. Gradient descent on H is a contraction near each stored pattern.
-  3. The four stored patterns are stable minima (W·pattern ≈ λ·pattern, λ>0).
-  4. brainStemThenMemory trajectory: starting near startlePattern, the indirect
-     BS→CO→EM coupling eventually pulls toward nostalgiaPattern.
-  5. Therapeutic W modification: reducing W[EC,CO] breaks involuntary-arousal
-     coupling (formal model of desensitisation / somatic therapy).
+  Proof obligations (status as of 2026-08-14):
+  1. H bounded below for W8 — PARTIAL: nostalgia_convergence proves ∥W8ℝ·e∥² ≥ 0;
+     spectral bound needs W8ℝ.IsHermitian eigenvalue lower bound (Mathlib available)
+  2. Gradient descent contraction near stored patterns — OPEN (ISS-005)
+  3. Stored patterns are stable minima — OPEN: perceptIsPropagatorPole_nostalgia (sorry, ISS-005)
+  4. brainStemThenMemory trajectory — OPEN: brainStemActivatesContagion (sorry, ISS-005)
+  5. Therapeutic W modification — OPEN (Phase 2 / ISS-005)
 -/
 
 import EmotionOntology
