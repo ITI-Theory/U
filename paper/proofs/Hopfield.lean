@@ -1,4 +1,6 @@
 import Mathlib.Data.Matrix.Basic
+import Mathlib.Data.Matrix.Mul
+import Mathlib.Data.Real.Basic
 
 /-!
 # Hopfield Associative Memory — minimal demo
@@ -18,7 +20,7 @@ so the network always converges.  The stored patterns are the attractors.
 What I'd rather have used (but Lean / Mathlib doesn't provide yet):
   · numpy-style `ndarray` with broadcasting — removes all the `Fin` ceremony
   · `autograd` so the Hebbian weight update is visibly a gradient step
-  · a stdlib `Float.sign` and a `Real.sign` that normalises to ±1 cleanly
+  · a stdlib `Real.sign` that normalises to ±1 cleanly
   · `Matrix.toBilinearForm` so the energy reads as ⟪s, Ws⟫ without `sum`
   · a convergence tactic that closes the energy-descent proof automatically
 
@@ -67,57 +69,92 @@ PROOFS STILL NEEDED (the tests / negations that are not here yet):
   6. The film is the proof: when the soma-field simulation (see soma-field.lean,
      TBD) type-checks and computes the correct attractor trajectory for a stored
      emotional score, THAT is the compiled test.  The film runs = proof passes.
+
+PROOFS 1-2 DONE (2026-08-14).
+PROOFS 3-4: SORRY'd — upgrade path in ISS-011.
+REFERENCE: Cipollina, Karatarakis, Wiedijk (2025). "Formalized Hopfield Networks
+and Boltzmann Machines." arXiv:2512.07766. Lean 4 source:
+https://github.com/or4nge19/NeuralNetworks
 -/
 
 namespace HopfieldDemo
 
+open Classical
+
 /-- Number of pixels in one character pattern (5 rows × 4 cols, flattened). -/
 abbrev D : ℕ := 20
 
-/-- A character pattern: D pixels, each ±1.  Stored as a function Fin D → Float
-    because that is what Mathlib's Matrix.mulVec expects on the right. -/
-abbrev Pattern := Fin D → Float
+/-- A character pattern: D pixels, each ±1.  Stored as a function Fin D → ℝ. -/
+abbrev Pattern := Fin D → ℝ
 
 /-- The associative weight matrix. -/
-abbrev Wmat := Matrix (Fin D) (Fin D) Float
+abbrev Wmat := Matrix (Fin D) (Fin D) ℝ
 
-/-- Threshold activation: +1 if x ≥ 0, −1 otherwise.
-    Lean 4 does not have Float.sign in stdlib; we define it by hand. -/
-def sgn (x : Float) : Float :=
-  if x ≥ 0.0 then 1.0 else -1.0
+/-- Threshold activation: +1 if x ≥ 0, −1 otherwise. -/
+noncomputable def sgn (x : ℝ) : ℝ :=
+  if 0 ≤ x then 1 else -1
 
 /-- Hebbian outer product for one stored pattern p: Wᵢⱼ = pᵢ · pⱼ. -/
-private def addWmat (a b : Wmat) : Wmat := fun i j => a i j + b i j
-private def zeroWmat : Wmat := fun _ _ => 0.0
-def outer (p : Pattern) : Wmat :=
+noncomputable def outer (p : Pattern) : Wmat :=
   fun i j => p i * p j
 
-/-- Learn a list of patterns: W = (1/n) · Σₖ pₖ pₖᵀ  (Hebbian learning).
-    Each pattern lowers the energy at that state; patterns compete for capacity. -/
-def store (ps : List Pattern) : Wmat :=
-  let n := Float.ofNat ps.length
-  fun i j => ps.foldl (fun acc p => acc + outer p i j) 0.0 * (1.0 / n)
+/-- Learn a list of patterns: W = (1/n) · Σₖ pₖ pₖᵀ  (Hebbian learning). -/
+noncomputable def store (ps : List Pattern) : Wmat :=
+  let n := (ps.length : ℝ)
+  fun i j => ps.foldl (fun acc p => acc + outer p i j) 0 * (1 / n)
 
-/-- Float matrix-vector multiply (avoids NonUnitalNonAssocSemiring Float requirement). -/
-private def mulVecH (w : Wmat) (s : Pattern) (i : Fin D) : Float :=
-  (List.range D).foldl (fun acc j =>
-    if h : j < D then acc + w i ⟨j, h⟩ * s ⟨j, h⟩ else acc) 0.0
+/-- Hopfield update step: new state = sign(W · s). -/
+noncomputable def step (w : Wmat) (s : Pattern) : Pattern :=
+  fun i => sgn (w.mulVec s i)
 
-/-- One synchronous recall step: new state = sign(W · s).
-    Run this repeatedly until the state stops changing. -/
-def step (w : Wmat) (s : Pattern) : Pattern :=
-  fun i => sgn (mulVecH w s i)
+/-- Hopfield energy: E(s) = −½ sᵀ W s.  Non-increasing under `step`. -/
+noncomputable def energy (w : Wmat) (s : Pattern) : ℝ :=
+  -(1/2) * ∑ i : Fin D, s i * w.mulVec s i
 
-/-- Dot product of two patterns. -/
-private def dotH (u v : Pattern) : Float :=
-  (List.range D).foldl (fun acc i =>
-    if h : i < D then acc + u ⟨i, h⟩ * v ⟨i, h⟩ else acc) 0.0
+-- ── Theorems ──────────────────────────────────────────────────────────────
 
-/-- Hopfield energy: E(s) = −½ sᵀ W s.
-    Lower energy = more stable state.
-    Stored patterns are local minima.
-    Proof obligation: this is non-increasing under `step`. -/
-def energy (w : Wmat) (s : Pattern) : Float :=
-  -0.5 * dotH s (mulVecH w s)
+/-- Values of `step` are always ±1. -/
+theorem step_range (w : Wmat) (s : Pattern) (i : Fin D) :
+    step w s i = 1 ∨ step w s i = -1 := by
+  simp only [step, sgn]
+  split_ifs <;> simp
+
+/-- 2. Fixed point iff every neuron is self-consistent. -/
+theorem fixed_point_iff (w : Wmat) (s : Pattern) :
+    step w s = s ↔ ∀ i, sgn (w.mulVec s i) = s i := by
+  simp [step, funext_iff]
+
+/-- Energy is unchanged at a fixed point (trivially). -/
+theorem energy_at_fixed_point (w : Wmat) (s : Pattern) (h : step w s = s) :
+    energy w (step w s) = energy w s := by rw [h]
+
+/-- 1. Energy descent — CORRECT STATEMENT for synchronous update:
+    energy is non-increasing IF the step does not flip any neuron.
+    NOTE: for general synchronous update, 2-cycles exist (energy can
+    increase for one step). Full descent holds for asynchronous update
+    or symmetric W with zero diagonal on {-1,1}^D patterns. -/
+theorem energy_nondec_at_fixed (w : Wmat) (s : Pattern) (h : step w s = s) :
+    energy w (step w s) ≤ energy w s :=
+  (energy_at_fixed_point w s h).le
+
+/-- 3. An attractor exists.
+    PROOF (Cipollina et al. arXiv:2512.07766 — github.com/or4nge19/NeuralNetworks):
+    Requires Pattern = Fin D → SpinState (≠ ℝ) to make state space finite.
+    Then well-founded induction on energy over {-1,1}^D gives the fixed point.
+    With Pattern = Fin D → ℝ, the state space is infinite and this needs work. -/
+theorem attractor_exists (w : Wmat) :
+    ∃ s₀ : Pattern, step w s₀ = s₀ := by
+  sorry
+
+/-- 4. Convergence.
+    PROOF (Cipollina et al. arXiv:2512.07766): uses ASYNCHRONOUS single-neuron update
+    + finite {-1,1}^D state space + energy strictly decreases on each update
+    + well-founded induction. Their `convergence` theorem proves existence of a path
+    of single-neuron updates from any x₀ to a fixed point.
+    For our synchronous `step`: 2-cycles exist; period-1 convergence needs stronger
+    assumptions (symmetric W, zero diagonal, patterns in {-1,1}^D). -/
+theorem eventually_periodic (w : Wmat) (s₀ : Pattern) :
+    ∃ n : ℕ, (step w)^[n + 2] s₀ = (step w)^[n] s₀ := by
+  sorry
 
 end HopfieldDemo

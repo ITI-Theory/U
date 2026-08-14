@@ -157,8 +157,7 @@ theorem moduli_space_is_G2_homotopy
     If TRUE: AJ is the somatic gauge mode, and the G₂ derivation closes.
     If FALSE: identify which mechanism satisfies zero row sum,
               OR identify the correct constraint (may be more subtle). -/
--- #eval (Finset.univ.sum (fun j : Fin 8 => SomaField.W8ℝ ⟨7, by decide⟩ j))
--- ↑ uncomment to test; requires Float→ℝ coercion or native_decide on Float.
+#eval (Finset.univ.sum (fun j : Fin 8 => SomaField.W8 ⟨7, by decide⟩ j))
 
 end SomaField.Variational
 

@@ -1,0 +1,1 @@
+alias bld='LEAN_NUM_THREADS=2 lake build'

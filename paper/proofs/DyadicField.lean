@@ -16,7 +16,7 @@
 
   Architecture:
     FieldA, FieldB   — the two individual 8-dimensional soma-fields
-    J                — inter-field coupling matrix (8×8 Float)
+    J                — inter-field coupling matrix (8×8)
     DyadicState      — combined 16-dimensional state (A ⊕ B)
     dyadicEnergy     — Hopfield energy of the combined system
     dyadicPropagatorMatrix — (λ·I₁₆ − W_AB), W_AB = block [W8, J; Jᵀ, W8]
@@ -38,7 +38,7 @@ import Mathlib.Algebra.Order.Ring.Basic
 /-- A dyadic system has 16 dimensions: 8 for person A, 8 for person B. -/
 abbrev N16 : Nat := 16
 
-abbrev DyadicState := Fin N16 → Float
+abbrev DyadicState := Fin N16 → ℝ
 
 /-- Extract person A's field (dimensions 0–7) from a dyadic state. -/
 def dyadicA (s : DyadicState) : Field8 :=
@@ -72,32 +72,24 @@ def mkDyadic (a b : Field8) : DyadicState
     interpersonal synchrony data (Feldman 2007; Koole & Tschacher 2016).
 -/
 
-private def jOff (a b : Nat) : Float :=
+private noncomputable def jOff (a b : Nat) : ℝ :=
   match a, b with
-  | 0, 0 => 0.30   -- BS ↔ BS  brainstem resonance (fast, involuntary)
-  | 1, 1 => 0.25   -- RE ↔ RE  rhythmic entrainment
-  | 3, 3 => 0.35   -- CO ↔ CO  contagion / mirror affect
-  | 5, 5 => 0.20   -- EM ↔ EM  episodic resonance
-  | _, _ => 0.0
+  | 0, 0 => 3/10 | 1, 1 => 1/4 | 3, 3 => 7/20 | 5, 5 => 1/5 | _, _ => 0
 
-/-- Inter-field coupling matrix J (8×8).  J[i,j] = influence of B_j on A_i.
-    By construction J = Jᵀ here (symmetric: A→B and B→A equal strength). -/
-def J (i j : Fin N8) : Float := jOff i.val j.val
+noncomputable def J (i j : Fin N8) : ℝ := jOff i.val j.val
 
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- DYADIC ENERGY AND DYNAMICS
 -- ════════════════════════════════════════════════════════════════════════════
 
-private def sumN16 (f : Fin N16 → Float) : Float :=
-  (List.range N16).foldl (fun acc k =>
-    if h : k < N16 then acc + f ⟨k, h⟩ else acc) 0.0
+private noncomputable def sumN16 (f : Fin N16 → ℝ) : ℝ := ∑ k : Fin N16, f k
 
 /-- The dyadic coupling matrix W_AB (16×16):
     W_AB = [ W8   J  ]
            [ Jᵀ  W8  ]
     i.e. the two individual W8 matrices on the diagonal, J as off-diagonal. -/
-def W_AB (i j : Fin N16) : Float :=
+noncomputable def W_AB (i j : Fin N16) : ℝ :=
   if h1 : i.val < N8 then
     if h2 : j.val < N8 then W8 ⟨i.val, h1⟩ ⟨j.val, h2⟩        -- A–A
     else J ⟨i.val, h1⟩ ⟨j.val - N8, by have : N8 = 8 := rfl; have : N16 = 16 := rfl; omega⟩  -- A–B
@@ -109,25 +101,24 @@ def W_AB (i j : Fin N16) : Float :=
          ⟨j.val - N8, by have : N8 = 8 := rfl; have : N16 = 16 := rfl; omega⟩  -- B–B
 
 /-- Hopfield energy of the dyadic system: H(s) = -½ sᵀ W_AB s. -/
-def dyadicEnergy (s : DyadicState) : Float :=
-  -0.5 * sumN16 (fun i => sumN16 (fun j => s i * W_AB i j * s j))
+noncomputable def dyadicEnergy (s : DyadicState) : ℝ :=
+  -(1/2) * sumN16 (fun i => sumN16 (fun j => s i * W_AB i j * s j))
 
 /-- Net force on dyadic dimension i: (W_AB · s)_i = -∂H/∂s_i. -/
-def dyadicForce (s : DyadicState) (i : Fin N16) : Float :=
+noncomputable def dyadicForce (s : DyadicState) (i : Fin N16) : ℝ :=
   sumN16 (fun j => W_AB i j * s j)
 
 /-- Discrete Langevin step for the dyadic system.
     Values pre-computed eagerly to avoid exponential re-evaluation. -/
-def dyadicStep (s : DyadicState) (dt : Float) : DyadicState :=
+noncomputable def dyadicStep (s : DyadicState) (dt : ℝ) : DyadicState :=
   let vals := (List.range N16).map (fun i =>
     if h : i < N16 then
       let fi : Fin N16 := ⟨i, h⟩
       s fi + dt * dyadicForce s fi
-    else 0.0)
-  fun i => vals.getD i.val 0.0
+    else 0)
+  fun i => vals.getD i.val 0
 
-/-- Run n steps of dyadic dynamics. -/
-def runDyadic (s₀ : DyadicState) (dt : Float) : Nat → DyadicState
+noncomputable def runDyadic (s₀ : DyadicState) (dt : ℝ) : Nat → DyadicState
   | 0     => s₀
   | n + 1 => dyadicStep (runDyadic s₀ dt n) dt
 
@@ -139,8 +130,8 @@ def runDyadic (s₀ : DyadicState) (dt : Float) : Nat → DyadicState
 /-- The dyadic resolvent numerator (λ·I₁₆ − W_AB).
     Poles of G_AB(λ) = (dyadicPropagatorMatrix λ)⁻¹ are the shared modes
     of the coupled dyadic system — the co-regulated attractor states. -/
-def dyadicPropagatorMatrix (ev : Float) (i j : Fin N16) : Float :=
-  (if i == j then ev else 0.0) - W_AB i j
+noncomputable def dyadicPropagatorMatrix (ev : ℝ) (i j : Fin N16) : ℝ :=
+  (if i == j then ev else 0) - W_AB i j
 
 /-- A dyadic state s is *co-regulated* in mode i when both A and B have
     perceptible activity in the corresponding dimension. -/
@@ -149,11 +140,11 @@ def coRegulated (s : DyadicState) (i : Fin N8) : Prop :=
 
 
 -- ════════════════════════════════════════════════════════════════════════════
--- ℝ LAYER — mirrors Float definitions above but uses ℝ for formal proofs
--- All Float definitions exist solely for the #eval demo below.
+-- ℝ LAYER — block-matrix structure over ℝ for formal proofs
+-- All simulation definitions above are now also over ℝ.
 -- ════════════════════════════════════════════════════════════════════════════
 
-/-- ℝ-valued coupling matrix, matching the Float `jOff` entries exactly. -/
+/-- ℝ-valued coupling matrix, matching the `jOff` entries exactly. -/
 noncomputable def Jℝ : Matrix (Fin 8) (Fin 8) ℝ :=
   fun i j => match i.val, j.val with
   | 0, 0 => 3/10  | 1, 1 => 1/4  | 3, 3 => 7/20  | 5, 5 => 1/5  | _, _ => 0
@@ -188,9 +179,12 @@ noncomputable def dyadicEnergyℝ (s : Fin 16 → ℝ) : ℝ :=
 -- Blocked because simp on W_ABℝ's nested dite conditions is slow.
 -- Proof path: unfold W_ABℝ; rw [dif_pos ⟨by omega, by omega⟩]; ext; omega
 
-/-- Block decomposition: the 16-dim sum splits into 4 eight-dim blocks.
-    Mathematical content: immediate from the block structure of W_ABℝ.
-    Lean 4 mechanics: needs dif_pos/dif_neg on W_ABℝ's nested dite, not simp. -/
+private lemma jOff_symm (a b : Nat) : jOff a b = jOff b a := by
+  unfold jOff
+  rcases a with _ | _ | _ | _ | _ | _ | a <;>
+  rcases b with _ | _ | _ | _ | _ | _ | b <;> rfl
+
+/-- Block decomposition: the 16-dim sum splits into 4 eight-dim blocks. -/
 private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     ∑ i : Fin N16, ∑ j : Fin N16,
       mkDyadicℝ a b i * W_ABℝ i j * mkDyadicℝ a b j =
@@ -198,7 +192,7 @@ private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     (∑ i : Fin 8, ∑ j : Fin 8, b i * W8ℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, a i * Jℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) := by
-  sorry
+  sorry  -- ISS-005: Fin.sum_univ_add proof; simp_rw rewrites incomplete
 
 /-- **PROVED:** Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0. -/
 theorem dyadic_energy_coupling_lowers_ℝ
@@ -235,10 +229,24 @@ theorem dyadic_energy_coupling_lowers_ℝ
 
     Proof requires: block-matrix spectral theory, non-singularity of W_AB for
     generic λ, and identification of coupled modes with J's eigenvectors. -/
+private lemma W_AB_symm (i j : Fin N16) : W_AB i j = W_AB j i := by
+  simp only [W_AB]
+  by_cases h1 : i.val < N8 <;> by_cases h2 : j.val < N8
+  · simp only [dif_pos h1, dif_pos h2, dif_pos h2, dif_pos h1]
+    exact W8_symm ⟨i.val, h1⟩ ⟨j.val, h2⟩
+  · simp only [dif_pos h1, dif_neg h2, dif_neg h2, dif_pos h1, J, jOff_symm]
+  · simp only [dif_neg h1, dif_pos h2, dif_pos h2, dif_neg h1, J, jOff_symm]
+  · simp only [dif_neg h1, dif_neg h2, dif_neg h2, dif_neg h1]
+    exact W8_symm ⟨i.val - N8, by have : N8 = 8 := rfl; have : N16 = 16 := rfl; omega⟩
+             ⟨j.val - N8, by have : N8 = 8 := rfl; have : N16 = 16 := rfl; omega⟩
+
 theorem dyadicPropagatorExists :
-    ∃ (ev : Float), ∀ i j : Fin N16,
+    ∃ (ev : ℝ), ∀ i j : Fin N16,
       dyadicPropagatorMatrix ev i j = dyadicPropagatorMatrix ev j i := by
-  sorry -- W_AB symmetric by construction; full proof needs case analysis on N8 blocks
+  refine ⟨0, fun i j => ?_⟩
+  simp only [dyadicPropagatorMatrix, W_AB_symm i j]
+  congr 1
+  simp [BEq.beq, beq_iff_eq, eq_comm]
 
 /-- **Core inequality over ℝ (proved):**
     When coupling J and both field activations are non-negative,
@@ -253,13 +261,13 @@ lemma coupling_sum_nonneg
   apply Finset.sum_nonneg; intro j _
   exact mul_nonneg (mul_nonneg (ha i) (hJ i j)) (hb j)
 
-/-- Float computational version — proof is `dyadic_energy_coupling_lowers_ℝ` above. -/
+/-- Computational version — proof is `dyadic_energy_coupling_lowers_ℝ` above. -/
 theorem dyadic_energy_coupling_lowers
     (a b : Field8)
-    (ha : ∀ i, 0.0 ≤ a i) (hb : ∀ i, 0.0 ≤ b i)
-    (h : ∀ i j, J i j ≥ 0) :
+    (ha : ∀ i, 0 ≤ a i) (hb : ∀ i, 0 ≤ b i)
+    (h : ∀ i j, 0 ≤ J i j) :
     dyadicEnergy (mkDyadic a b) ≤ energy8 a + energy8 b :=
-  sorry -- Float→ℝ transfer; mathematical claim proved in dyadic_energy_coupling_lowers_ℝ
+  sorry  -- ℝ transfer; mathematical claim proved in dyadic_energy_coupling_lowers_ℝ
 
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -280,6 +288,6 @@ theorem dyadic_energy_coupling_lowers
   IO.println s!"t=10  H_AB = {dyadicEnergy s10}"
   let s30 := runDyadic s₀ 0.05 30
   IO.println s!"t=30  H_AB = {dyadicEnergy s30}"
-  IO.println s!"Client BS at t=30: {(dyadicB s30) ⟨0, by omega⟩}  (was 0.800)"
-  IO.println s!"Client RE at t=30: {(dyadicB s30) ⟨1, by omega⟩}  (was 0.000)"
+  IO.println s!"Client BS at t=30: {(dyadicB s30) ⟨0, by decide⟩}  (was 0.800)"
+  IO.println s!"Client RE at t=30: {(dyadicB s30) ⟨1, by decide⟩}  (was 0.000)"
 -/

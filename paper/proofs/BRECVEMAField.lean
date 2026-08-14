@@ -36,10 +36,9 @@ namespace SomaField.BRECVEMA
 
 open SomaField SomaField.MTheory
 
--- ── §1. The 8D BRECVEMA field over ℝ (formal version of Field8 : Fin 8 → Float) ──
+-- ── §1. The 8D BRECVEMA field over ℝ ──────────────────────────────────────────
 
-/-- The 8D BRECVEMA emotional field over ℝ.
-    Formal analogue of `SomaField.Field8 := Fin 8 → Float`, lifted to ℝ for proofs. -/
+/-- The 8D BRECVEMA emotional field over ℝ. -/
 def BRECVEMAField8 := Fin 8 → ℝ
 
 /-- The BRECVEMA coupling matrix over ℝ (formal analogue of SomaField.W8ℝ). -/

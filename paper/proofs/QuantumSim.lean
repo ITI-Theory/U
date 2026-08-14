@@ -1,6 +1,8 @@
 import Mathlib.Data.Complex.Basic
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.DotProduct
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds
+import Mathlib.Analysis.Real.Pi.Bounds
 import LimbicTunnel
 
 /-!
@@ -65,7 +67,7 @@ def innerProduct {n : ℕ} (φ ψ : QuantumState n) : ℂ :=
 
 /-- Born probability: p = |⟨φ|ψ⟩|² — the measurement probability. -/
 noncomputable def bornProb {n : ℕ} (φ ψ : QuantumState n) : ℝ :=
-  Complex.abs (innerProduct φ ψ) ^ 2
+  ‖innerProduct φ ψ‖ ^ 2
 
 /-! ## 2. The Soma-Field Hamiltonian as a Quantum Operator -/
 
@@ -105,12 +107,10 @@ noncomputable def wkbGate (W : ℝ) : QuantumOperator 2 :=
 /-- The fear state has unit norm (it is a valid quantum state). -/
 theorem fearState_norm : innerProduct fearState fearState = 1 := by
   simp [innerProduct, fearState, innerProduct, Fin.sum_univ_two]
-  norm_num
 
 /-- The awe state has unit norm. -/
 theorem aweState_norm : innerProduct aweState aweState = 1 := by
   simp [innerProduct, aweState, Fin.sum_univ_two]
-  norm_num
 
 /-- Fear and awe are orthogonal: ⟨fear|awe⟩ = 0. -/
 theorem fear_awe_orthogonal : innerProduct fearState aweState = 0 := by
@@ -125,20 +125,19 @@ theorem fear_awe_orthogonal : innerProduct fearState aweState = 0 := by
     so sin(wkbAmplitude W) > 0, giving non-zero awe component. -/
 theorem wkbGate_creates_awe (W : ℝ) (hW : 0 < W) :
     (applyOperator (wkbGate W) fearState 1) ≠ 0 := by
-  simp [applyOperator, wkbGate, fearState, Fin.sum_univ_two]
-  -- The awe component after gate = i·sin(wkbAmplitude W)
-  -- wkbAmplitude W > 0 when W > 0 (from LimbicTunnel)
-  -- so sin is non-zero in a neighbourhood of 0
-  have hamp := SomaField.LimbicTunnel.wkbAmplitude_pos hW
+  have hamp : 0 < SomaField.LimbicTunnel.wkbAmplitude W :=
+    SomaField.LimbicTunnel.wkbAmplitude_pos W
+  have hlt1 : SomaField.LimbicTunnel.wkbAmplitude W < 1 :=
+    SomaField.LimbicTunnel.wkbAmplitude_lt_one W hW
+  have hlt_pi : SomaField.LimbicTunnel.wkbAmplitude W < Real.pi :=
+    lt_trans hlt1 (by linarith [Real.pi_gt_three])
+  have hsin : 0 < Real.sin (SomaField.LimbicTunnel.wkbAmplitude W) :=
+    Real.sin_pos_of_pos_of_lt_pi hamp hlt_pi
+  simp only [applyOperator, wkbGate, fearState, Fin.sum_univ_two]
   intro h
-  simp [Complex.ext_iff] at h
-  have := Real.sin_pos_of_pos_of_lt_pi hamp (by
-    -- wkbAmplitude W = exp(-W) < 1 < π for W > 0
-    have : SomaField.LimbicTunnel.wkbAmplitude W < 1 := by
-      simp [SomaField.LimbicTunnel.wkbAmplitude]
-      exact Real.exp_lt_one_iff.mpr (by linarith)
-    linarith [Real.pi_gt_three])
-  linarith [h.2]
+  apply_fun Complex.im at h
+  simp at h
+  linarith
 
 /-! ## 5. Connection to QUANT-EXP-1 -/
 
@@ -152,16 +151,10 @@ theorem quant_exp_1_awe_reachable (W : ℝ) (hW : 0 < W) :
     0 < bornProb aweState (applyOperator (wkbGate W) fearState) := by
   unfold bornProb
   apply pow_pos
-  apply Complex.abs.pos
-  -- ⟨awe|wkbGate W|fear⟩ = i·sin(wkbAmplitude W) ≠ 0
-  simp [innerProduct, aweState, Fin.sum_univ_two, applyOperator, wkbGate]
-  have hamp := SomaField.LimbicTunnel.wkbAmplitude_pos hW
-  apply Complex.ne_zero_of_abs_ne_zero
-  simp [Complex.abs_apply]
-  exact Real.sin_ne_zero_iff.mpr (Or.inl ⟨hamp, by
-    have : SomaField.LimbicTunnel.wkbAmplitude W < 1 := by
-      simp [SomaField.LimbicTunnel.wkbAmplitude]
-      exact Real.exp_lt_one_iff.mpr (by linarith)
-    linarith [Real.pi_gt_three]⟩)
+  rw [norm_pos_iff]
+  simp only [innerProduct, aweState, Fin.sum_univ_two,
+             Matrix.cons_val_zero, Matrix.cons_val_one,
+             map_zero, map_one, zero_mul, zero_add, one_mul]
+  exact wkbGate_creates_awe W hW
 
 end SomaField.QuantumSim

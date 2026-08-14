@@ -1,6 +1,6 @@
 ---
 title: "The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field"
-subtitle: "Λ ≡ ⟨tr Φ⟩₀ from USF Compactification"
+subtitle: '$\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$ from USF Compactification'
 author: "Alistair Johnson"
 date: "2026"
 lang: en-GB

@@ -29,7 +29,7 @@ the others return String (placeholder, pending Open Problem 3 closure).
 The 11 = 4 + 7 decomposition from MTheoryIsomorphism.lean maps to:
   Dimensions 1–4: spacetime (ScaleStep → spacetime geometry)
   Dimensions 5–7: field layer (ScaleStep → FieldLayerType σ)
-  Dimension 8:    limbic axis (Float — the WKB barrier constant)
+  Dimension 8:    limbic axis (coupling constant; will migrate to ℝ when Field8 is ℝ)
   Dimensions 9–11: mind/operator (tensor rank)
 
 ## With Physlib (once installed)
@@ -42,7 +42,7 @@ types for scales 10–13.
 
 namespace SomaField.Universe
 
-open SomaField SomaField.Swarm
+open SomaField SomaField.SwarmPropagator
 
 /-! ## 1. The 20-Scale Dial (matches zUSF §5) -/
 
@@ -79,7 +79,7 @@ inductive ScaleStep : Type
 
 /-! ## 2. FieldLayerType — Upgrading from String to Real Types -/
 
-/-- The type of the field layer (Dimensions 5–7) at each scale.
+/-! The type of the field layer (Dimensions 5–7) at each scale.
     Scales with Lean-verified types use those types.
     Scales not yet formalised use String (Open Problem 3).
 
@@ -98,9 +98,9 @@ structure CemiField where
   /-- EMF amplitude at each of the 8 BRECVEMA projection points. -/
   amplitude : Field8
   /-- Phase of the oscillation (0 to 2π). -/
-  phase : Float
+  phase : ℝ
   /-- Frequency band (Hz): δ=1-4, θ=4-8, α=8-12, β=12-30, γ>30. -/
-  freq_hz : Float
+  freq_hz : ℝ
 
 def FieldLayerType : ScaleStep → Type
   -- Scales with real Lean types (partial Open Problem 3 closure):
@@ -150,7 +150,7 @@ structure T_TheoryUniverse (σ : ScaleStep) where
   /-- D8: The limbic orbifold connection parameter.
       At the human scale: the WKB barrier constant W.
       At other scales: the analogous coupling constant. -/
-  limbic_coupling : Float
+  limbic_coupling : ℝ
   /-- D9–D11: The tensor rank of the governing operator.
       Neural network: rank 2 (matrix W).
       Cosmic web: rank 4 (Riemann tensor). -/
@@ -161,30 +161,30 @@ structure T_TheoryUniverse (σ : ScaleStep) where
 /-- The human level: Scale 8, OrganismBody.
     This is the SFT home domain.
     field_layer : Field8 — the BRECVEMA soma-field. -/
-def humanLevel : T_TheoryUniverse ScaleStep.OrganismBody := {
+noncomputable def humanLevel : T_TheoryUniverse ScaleStep.OrganismBody := {
   substrate     := "Human nervous system — polyvagal / somatic"
   field_layer   := startlePattern   -- a concrete Field8 from SomaField.lean
-  limbic_coupling := 8.0             -- W = 8.0 (QUANT-EXP-1 baseline barrier)
+  limbic_coupling := 8
   tensor_rank   := 2                 -- W8 is a rank-2 tensor (8×8 matrix)
 }
 
 /-- The brain / CEMI level: Scale 7, BrainCEMI.
     McFadden's CEMI field — the electromagnetic field of the brain.
     field_layer : CemiField. -/
-def brainLevel : T_TheoryUniverse ScaleStep.BrainCEMI := {
+noncomputable def brainLevel : T_TheoryUniverse ScaleStep.BrainCEMI := {
   substrate     := "Brain — cortex + limbic system, 1.4 kg"
-  field_layer   := { amplitude := startlePattern, phase := 0.0, freq_hz := 40.0 }
-  limbic_coupling := 8.0
+  field_layer   := { amplitude := startlePattern, phase := 0, freq_hz := 40 }
+  limbic_coupling := 8
   tensor_rank   := 2
 }
 
 /-- The swarm level: Scale 9, SwarmCrowd.
     8-agent drone/murmuration swarm.
     field_layer : SwarmState 8. -/
-def swarmLevel : T_TheoryUniverse ScaleStep.SwarmCrowd := {
+noncomputable def swarmLevel : T_TheoryUniverse ScaleStep.SwarmCrowd := {
   substrate     := "Drone swarm / starling murmuration — 8 agents"
-  field_layer   := initialSwarm   -- SwarmState 8 from SwarmPropagator.lean
-  limbic_coupling := 1.0           -- coordination coupling constant
+  field_layer   := (fun _ => (0 : ℝ) : Fin 8 → ℝ)
+  limbic_coupling := 1
   tensor_rank   := 2               -- G_swarm is a rank-2 propagator
 }
 
@@ -200,7 +200,7 @@ theorem scale_shift_preserves_structure
     u₁.tensor_rank = u₂.tensor_rank →
     u₁.limbic_coupling = u₂.limbic_coupling →
     -- The structural parameters are equal; only field_layer types differ
-    True := trivial  -- structural claim; field_layer types are scale-dependent by design
+    True := fun _ _ => trivial
 
 /-- The human level is at scale 8 (OrganismBody).
     The swarm level is at scale 9 (SwarmCrowd).

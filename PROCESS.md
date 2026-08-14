@@ -15,6 +15,7 @@ Required rules:
    - `./.venv/Scripts/python.exe paper/scripts/paper_status.py`
 4. Keep large generated outputs in ignored paths (`dist/`, generated status files, generated media).
 5. If a generated file must be versioned for a release, add it intentionally in a dedicated commit with a clear message.
+6. **Never commit Lean files that do not compile.** Run `lake build` and confirm exit 0 before every commit touching `.lean` files. A build that was passing before your changes must still pass after.
 
 ### Generated Quantum Artifacts Policy
 
@@ -32,19 +33,6 @@ Required rules:
    - regenerate bundles and add only release outputs you explicitly want tracked.
 3. Release note commit:
    - update `paper/FIELD-NOTES.md` and any status docs intended for history.
-
-## No-APC Publication Process
-
-1. arXiv submission for `paper/soma/mathematical-co-identification/`.
-2. bioRxiv revision for `paper/soma/soma-field-paper/`.
-3. PsyArXiv/OSF preprint for `paper/soma/music-affect-dynamics/`.
-4. Record IDs/URLs in project logs and regenerate release packages.
-
-Use these operational files:
-
-- `paper/SUBMISSION_NO_APC_CHECKLIST.md`
-- `paper/PUBLICATION_ROADMAP.md`
-- `paper/INDEPENDENT_REPLICATION_LEDGER.md`
 
 ## Zenodo: How to Publish a New Version of an Existing Record
 
@@ -81,7 +69,63 @@ Use this for first-time uploads (new papers, datasets, supplementary materials).
    - `Is supplemented by` / `Is supplement to` — datasets, proofs
    - `Is part of` — omnibus collection
 9. **Save** → **Publish**
-10. Record concept DOI in `paper/ZENODO_RELEASE_SHEETS.md` and update `.github-private/profile/README.md`
+10. Record concept DOI in `Dist/PAPERS.yaml` and update org README DOI tables
+
+**Detailed form fields:** `Dist/zenodo/README.md`
+
+## UAT Testing (CM → HP → SH framework)
+
+Run before declaring any release complete. Uses a private NotebookLM notebook (`nlm-uat`).
+
+### Setup
+
+1. Create a new private NotebookLM notebook at https://notebooklm.google.com
+2. Name it `nlm-uat`
+3. Upload the files relevant to the test (see tiers below)
+4. **Delete the notebook when done** — always start fresh
+
+### Tier 1 — Sherlock: “Did we build it right?”
+
+Checks formal correctness and internal consistency.
+
+Files to load:
+- New Omnibus PDF (`Dist/papers/omnibus-a4.pdf`)
+- New Fractal Thesis PDF (`Dist/papers/ttheory-omnibus.pdf`)
+- Old versions of both (for comparison — load and toggle off when not comparing)
+
+Test questions:
+- “Are all five OS axioms listed and correctly stated?”
+- “What does the theory say about [X] — is it consistent across the omnibus?”
+- “Find any contradiction between [early paper] and [later paper].”
+
+### Tier 2 — Harry Potter: “Did we build the right thing?”
+
+Checks completeness and scope.
+
+Files to load: same as Tier 1, plus any new papers being validated.
+
+Test questions:
+- “What open problems are listed and which are now closed?”
+- “Is the D-Wave quantum experiment described? Is the result stated?”
+- “Is the cosmological constant derivation present? Is dark matter addressed?”
+
+### Tier 3 — Cookie Monster: “Can anyone understand it?”
+
+Checks accessibility. The cheat-sheet is the primary test artefact.
+
+Files to load:
+- `Dist/stuff/ttheory-cheatsheet.pdf` — primary test document
+- Optionally: one domain book from the Fractal Thesis for context
+
+Test questions:
+- “From the cheat-sheet alone, what is the USF?”
+- “What is the Zoom Operator?”
+- “Explain the Hopfield energy function from what’s on this sheet.”
+
+### Pass criteria
+
+All three tiers pass when no new contradictions, gaps, or incomprehensible sections are found.
+Log results in `FIELD-NOTES.md` with date and notebook name.
 
 ## Session Start — Standard Primer Prompt
 

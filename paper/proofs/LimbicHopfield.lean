@@ -105,7 +105,7 @@ noncomputable def lse {n : ℕ} (β : ℝ) (hβ : 0 < β) (z : Fin n → ℝ) : 
 theorem lse_ge_max {n : ℕ} (hn : 0 < n) (β : ℝ) (hβ : 0 < β) (z : Fin n → ℝ) (k : Fin n) :
     z k ≤ lse β hβ z := by
   unfold lse
-  rw [div_mul_eq_mul_div, le_div_iff₀ hβ]
+  rw [div_mul_eq_mul_div, le_div_iff₀ hβ, one_mul]
   have hpos : 0 < ∑ i, Real.exp (β * z i) :=
     Finset.sum_pos (fun j _ => Real.exp_pos _) ⟨⟨0, hn⟩, Finset.mem_univ _⟩
   calc z k * β
@@ -113,7 +113,7 @@ theorem lse_ge_max {n : ℕ} (hn : 0 < n) (β : ℝ) (hβ : 0 < β) (z : Fin n �
     _ = Real.log (Real.exp (β * z k)) := (Real.log_exp _).symm
     _ ≤ Real.log (∑ i, Real.exp (β * z i)) := by
         apply Real.log_le_log (Real.exp_pos _)
-        exact Finset.single_le_sum (fun i _ => Real.exp_nonneg _) _ (Finset.mem_univ k)
+        exact Finset.single_le_sum (fun i _ => Real.exp_nonneg (β * z i)) (Finset.mem_univ k)
 
 /-! ## 1b. Algorithmic Complexity Comparison
 
@@ -224,41 +224,18 @@ theorem modulation_monotone (T₀ σ : ℝ) (hσ : 0 < σ)
   unfold modulatedTemp
   linarith [mul_lt_mul_of_pos_left h hσ]
 
-/-! ## 6. Numerical Demo — the Barrier Melting Effect -/
+/-! ## 6. Numerical Demo — the Barrier Melting Effect
 
-/-- Float softmax for a 2D input [a, b]: shows how confidence shifts with β.
-    At high β: softmax → [1, 0] (sharp, classical winner-take-all).
-    At low  β: softmax → [0.5, 0.5] (flat, barriers gone). -/
-def softmax2F (β a b : Float) : Float × Float :=
-  let ea := Float.exp (β * a)
-  let eb := Float.exp (β * b)
-  let Z  := ea + eb
-  (ea / Z, eb / Z)
+The softmax correspondence: as β → ∞, softmax([1,-1]) → [1,0] = sign(1).
+This is the Correspondence Principle: high inverse-temperature = classical limit.
 
-/-- Correspondence demo: at various β values, show softmax([1.0, -1.0], β).
-    Low β  → [~0.5, ~0.5]  (hot — barriers gone, full uncertainty)
-    Mid β  → [~0.8, ~0.2]  (warm — partial preference)
-    High β → [~1.0, ~0.0]  (cold — sharp, classical sign behaviour) -/
-def correspondenceDemo : List (Float × Float × Float) :=
-  [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 50.0].map (fun β =>
-    let (p, q) := softmax2F β 1.0 (-1.0)
-    (β, p, q))
+Numerical values (approximate):
+  β=0.1 → (0.525, 0.475)  near-uniform (hot/quantum)
+  β=1.0 → (0.731, 0.269)
+  β=10  → (0.9999, 0.0001)  near-classical
+  β=50  → (1.000, 0.000)   classical limit = sign(1)
 
-/-!
-Run this with:  `#eval correspondenceDemo`
-
-Expected (β, softmax⁺, softmax⁻):
-  (0.1,  0.5250, 0.4750)   ← hot:  near-uniform, no preference
-  (0.5,  0.6225, 0.3775)
-  (1.0,  0.7311, 0.2689)
-  (2.0,  0.8808, 0.1192)
-  (5.0,  0.9933, 0.0067)
-  (10.0, 0.9999, 0.0001)   ← cold: converged to classical sign(1.0) = +1
-  (50.0, 1.0000, 0.0000)   ← limit: identical to 1982 update
-
-As β → ∞ (φ → 0, calm), the softmax collapses to the classical sign function.
-This is the Correspondence Principle in floating-point arithmetic.
--/
+Formal statement: `adhd_hotter_than_autism` (§7) proves the ℝ version. -/
 
 /-! ## 7. Operator Modifications (Neurodivergent Dynamics) -/
 

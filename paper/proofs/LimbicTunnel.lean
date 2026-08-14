@@ -1,5 +1,6 @@
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.Calculus.Deriv.Pow
 
 /-!
 # LimbicTunnel.lean — The Limbic Barrier and Quantum Tunneling
@@ -105,17 +106,19 @@ theorem deriv_V (p : BarrierParam) (x : ℝ) :
   unfold V
   -- Mathlib 4.31: hasDerivAt_pow removed; use HasDerivAt.pow method on hasDerivAt_id
   have h1 : HasDerivAt (fun t => t ^ 2 - 1) (2 * x) x := by
-    have h := ((hasDerivAt_id x).pow 2).sub (hasDerivAt_const x 1)
-    simp only [id, Nat.cast_ofNat, pow_one, mul_one, sub_zero, one_mul] at h
-    exact h
+    have h := (hasDerivAt_pow 2 x).sub (hasDerivAt_const x 1)
+    simp only [Nat.cast_ofNat, sub_zero] at h
+    have : (2 : ℝ) * x ^ (2 - 1 : ℕ) = 2 * x := by norm_num
+    rw [this] at h; exact h
   have h2 : HasDerivAt (fun s => s ^ 2) (2 * (x ^ 2 - 1)) (x ^ 2 - 1) := by
-    have h := (hasDerivAt_id (x ^ 2 - 1)).pow 2
-    simp only [id, Nat.cast_ofNat, pow_one, mul_one, one_mul] at h
-    exact h
-  have h3 : HasDerivAt (fun t => (t ^ 2 - 1) ^ 2) (2 * (x ^ 2 - 1) * (2 * x)) x :=
-    h2.comp x h1
-  convert h3.const_mul p.W using 1
-  ring
+    have h := hasDerivAt_pow 2 (x ^ 2 - 1)
+    simp only [Nat.cast_ofNat] at h
+    have : (2 : ℝ) * (x ^ 2 - 1) ^ (2 - 1 : ℕ) = 2 * (x ^ 2 - 1) := by norm_num
+    rw [this] at h; exact h
+  have h3 : HasDerivAt (fun t => (t ^ 2 - 1) ^ 2) (2 * (x ^ 2 - 1) * (2 * x)) x := by
+    exact h2.comp x h1
+  rw [show (4 : ℝ) * p.W * x * (x ^ 2 - 1) = p.W * (2 * (x ^ 2 - 1) * (2 * x)) from by ring]
+  exact h3.const_mul p.W
 
 /-- V'(-1+ε) is POSITIVE for ε ∈ (0,1): the gradient points RIGHT (away from -1),
     so Langevin drift ė = -V'(x) points LEFT toward -1 — the system is trapped.
@@ -150,31 +153,20 @@ theorem wkbAmplitude_lt_one (W : ℝ) (hW : 0 < W) : wkbAmplitude W < 1 := by
   have hsqrt : 0 < Real.sqrt (2 * W) := Real.sqrt_pos.mpr (by linarith)
   linarith
 
-/-! ## 4. Numerical evaluation -/
+/-! ## 4. Numerical evaluation
 
-/-- Float approximation of wkbAction for reporting. -/
-def wkbActionF (W : Float) : Float := Float.sqrt (2 * W) * (4 / 3)
+WKB barrier values W ∈ {8, 10, 12} used in QUANT-EXP-1.
+Action S(W) = √(2W) · 4/3. Amplitude Θ(W) = exp(-2S(W)).
+Formal versions: `wkbAction` and `wkbAmplitude` above (over ℝ).
 
-/-- Float approximation of wkbAmplitude. -/
-def wkbAmplitudeF (W : Float) : Float := Float.exp (-(2 * wkbActionF W))
+  W = 8:   S ≈ 5.33, Θ ≈ 2.3×10⁻⁵
+  W = 10:  S ≈ 5.96, Θ ≈ 6.6×10⁻⁶
+  W = 12:  S ≈ 6.53, Θ ≈ 2.1×10⁻⁶
 
-/-- QUANT-EXP-1 barrier values: W ∈ {8, 10, 12}. -/
-def barrierValues : List Float := [8, 10, 12]
+All strictly positive — quantum tunnelling is not classical. -/
 
-/-!
-```
-#eval barrierValues.map (fun W =>
-  s!"W = {W}  S(W) = {wkbActionF W:.4f}  Θ(W) = exp(-{2 * wkbActionF W:.3f}) ≈ {wkbAmplitudeF W:.2e}")
-```
-
-Expected output:
-  W = 8.0   S(W) = 5.3333  Θ(W) = exp(-10.667) ≈ 2.33e-05
-  W = 10.0  S(W) = 5.9628  Θ(W) = exp(-11.926) ≈ 6.58e-06
-  W = 12.0  S(W) = 6.5320  Θ(W) = exp(-13.064) ≈ 2.12e-06
-
-These are tiny but strictly positive — quantum tunnelling is not classical.
-Classical rate is identically zero. The gap is categorical, not merely quantitative.
--/
+/-- QUANT-EXP-1 barrier values. -/
+def barrierValues : List ℕ := [8, 10, 12]
 
 /-! ## 5. The quantum advantage — formal statement -/
 

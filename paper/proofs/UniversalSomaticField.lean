@@ -246,17 +246,8 @@ axiom sft_grounds_hoffman :
 /-! ## 6. The Cosmological Correspondence -/
 
 /-- At the cosmological scale (Scale 19-20), the field equation becomes
-    the linearised Einstein equation for gravitational waves:
-        □h_μν = -16πG T_μν
-    The Green's function is the gravitational wave propagator.
-    Gravity = the impulse response of spacetime to a mass perturbation.
-    This is the cosmological limit of the Correspondence Principle:
-    the same Green's function framework that governs neural firing
-    governs gravitational wave emission. -/
-/-- **CLOSED - LEAN-USF-5: kernel-verified.**
-    We construct the witness explicitly: scale level 19 (observable universe
-    boundary, 10^26 m) satisfies `n.val = 19` by `rfl`, and the field equation
-    is inhabited at every scale by `scale_invariance_inhabited`. -/
+    the linearised Einstein equation for gravitational waves.
+    **CLOSED - LEAN-USF-5:** witness ⟨19, rfl, scale_invariance_inhabited _⟩. -/
 theorem cosmological_correspondence :
     ∃ (n : ScaleLevel), n.val = 19 ∧
     -- At this scale, G satisfies the linearised Einstein equation
@@ -294,24 +285,24 @@ structure VolitionalInjection where
 
 /-- Non-trivial injection predicate. -/
 def VolitionalInjection.isActive (vi : VolitionalInjection) : Prop :=
-  ∃ i, vi.J i ≠ 0.0
+  ∃ i, vi.J i ≠ 0
 
 /-- Autonomous update: one Langevin step without volitional input.
     e_{t+1} = e_t + dt · W8 · e_t -/
-def autonomous_update (e : Field8) (dt : Float) : Field8 :=
+noncomputable def autonomous_update (e : Field8) (dt : ℝ) : Field8 :=
   fun i => e i + dt * fieldForce8 e i
 
 /-- Volitional update: one Langevin step with active injection.
     e_{t+1} = e_t + dt · (W8 · e_t + J_user) -/
-def volitional_update (e : Field8) (J : Field8) (dt : Float) : Field8 :=
+noncomputable def volitional_update (e : Field8) (J : Field8) (dt : ℝ) : Field8 :=
   fun i => e i + dt * (fieldForce8 e i + J i)
 
 /-- **LEAN-USF-PILOT — kernel-verified.**
     When J = 0, volitional update equals autonomous update: the pilot is
     not intervening, and the field evolves autonomously.
     Proof: `rfl` — true by definition (the zero injection cancels). -/
-theorem volitional_is_autonomous_when_zero (e : Field8) (dt : Float) :
-    volitional_update e (fun _ => 0.0) dt = autonomous_update e dt := by
+theorem volitional_is_autonomous_when_zero (e : Field8) (dt : ℝ) :
+    volitional_update e (fun _ => 0) dt = autonomous_update e dt := by
   funext i
   simp [volitional_update, autonomous_update]
 
@@ -319,7 +310,7 @@ theorem volitional_is_autonomous_when_zero (e : Field8) (dt : Float) :
     sum of the update with J₁ and the contribution of J₂.
     This means multiple simultaneous somatic interventions superpose linearly —
     breathing AND orienting add, not interfere. -/
-theorem volitional_superposition (e : Field8) (J₁ J₂ : Field8) (dt : Float) :
+theorem volitional_superposition (e : Field8) (J₁ J₂ : Field8) (dt : ℝ) :
     volitional_update e (fun i => J₁ i + J₂ i) dt =
     fun i => volitional_update e J₁ dt i + dt * J₂ i := by
   funext i
@@ -337,7 +328,7 @@ end SomaField.Universal
 
 namespace SomaField.Lens
 
-open SomaField.MTheory
+open SomaField.MTheory SomaField.Universal
 
 /-- A SomaticLens: bidirectional projection between the somatic sector
     and the full M-theory 11D bulk.
@@ -436,4 +427,4 @@ theorem zoom_preserves_inhabited {n m : ScaleLevel} (z : ZoomStep n m)
     (eq : FieldEquation n) : Nonempty (FieldEquation m) :=
   ⟨z.op eq⟩
 
-end SomaField.Spine
+end SomaField.Lens

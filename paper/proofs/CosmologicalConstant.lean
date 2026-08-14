@@ -111,18 +111,10 @@ end SomaField.DarkMatter
 
 -- ── Combined energy budget (P21 + P22) ───────────────────────────────────
 -- All predictions are exact rationals; discrepancy bounds proved over ℝ by
--- norm_num with no floating-point computation involved.
+-- norm_num with no approximate computation involved.
 
 namespace SomaField.EnergyBudget
 
-/-
-  The Python calculations earlier used Float arithmetic, which the user
-  correctly flagged. This namespace reproduces all results in exact ℚ/ℝ.
-
-  Python floats have ~15 sig figs; Planck 2018 measurements have ~3-4 sig figs.
-  There was no accuracy problem in practice, but these Lean proofs are the
-  canonical machine-verified version.
--/
 
 /-- The sole input: 7 compact + 3 spatial + 1 temporal = 11 total dimensions.
     This integer equation is the only hypothesis for all three predictions. -/
@@ -137,7 +129,7 @@ theorem usf_dark_sector_fraction :
     (7 : ℚ) / 11 + 3 / 11 = 10 / 11 := by norm_num
 
 /-- All three Planck 2018 predictions simultaneously within single-digit % bounds.
-    This is the machine-verified replacement for the Python floating-point check.
+    This is the machine-verified replacement for the Python numerical check.
     Observed values: Ω_Λ = 0.683, Ω_DM = 0.265, Ω_b = 0.049 (Planck 2018). -/
 theorem usf_all_predictions_within_bounds :
     |(( 7 : ℝ) / 11 - 0.683)| / 0.683 < 0.08 ∧   -- Λ: 6.8% off

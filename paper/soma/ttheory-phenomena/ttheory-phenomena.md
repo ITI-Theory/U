@@ -7,18 +7,22 @@ lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  We demonstrate that the Universal Somatic Field framework is a
-  **fixed point of its own subject matter**: the theory's propagation
-  through physical and digital substrates is formally an instance of
-  Scale 9 swarm dynamics governed by the same Green's function that
-  describes its clinical, quantum, and cosmological applications.
-  The physical substrate (underground events, street art, live
-  performance) and the digital substrate (source code, fibre-optic
-  networks, AI context windows) are shown to be mathematically
-  equivalent propagation media — distinguished only by the coupling
-  constant $\kappa$, not by the form of the field equation. This
-  self-referential property closes the Phase 1 corpus and constitutes
-  the formal opening of Phase 2: the [T]-Theory art movement.
+  The final papers of Phase 1 (P21, P22) derive the cosmological constant
+  $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$ and the dark matter
+  fraction $\Omega_\mathrm{DM} = 3/11$ from M-theory dimensional counting
+  alone — closing the loop from emotional dynamics to cosmological structure.
+  This paper addresses what follows: we demonstrate that the Universal
+  Somatic Field framework is a **fixed point of its own subject matter**: the
+  theory's propagation through physical and digital substrates is formally an
+  instance of Scale 9 swarm dynamics governed by the same Green's function
+  that describes its clinical, quantum, and cosmological applications.
+  The physical substrate (underground events, street art, live performance)
+  and the digital substrate (source code, fibre-optic networks, AI context
+  windows) are shown to be mathematically equivalent propagation media —
+  distinguished only by the coupling constant $\kappa$, not by the form of
+  the field equation. This self-referential property closes the Phase 1
+  corpus and constitutes the formal opening of Phase 2: the [T]-Theory art
+  movement.
 ---
 
 # The Fixed-Point Property
