@@ -41,6 +41,8 @@ lines += ["papers: all"]
 for e in entries:
     if not e.get("file"):
         continue
+    if e.get("build") == "manual":
+        continue  # manually managed — no bld source
     dst = f"{DIST}/{e['file']}"
     lines.append(cp(src_of(e), dst))
     if e.get("file_royal"):

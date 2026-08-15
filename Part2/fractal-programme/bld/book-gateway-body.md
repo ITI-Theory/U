@@ -11,6 +11,14 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+## The Green Propagator
+
+**G-ID:** *The Universal Propagator — G(x,x’) at the Hubble scale*
+
+The Green Propagator answers the most fundamental question in physics: if something happens here, what is felt there? In this gateway book, it is the invisible thread connecting every chapter — from the vibration of a guitar string to the emotional state of a person in crisis to the expansion of the observable universe. You do not need the mathematics to feel it. Look for the moments when the book shows two very different things behaving in exactly the same way: that sameness is the propagator at work. The whole programme has one equation; this book shows you what it means.
+
+
+
 # Introduction: What If Everything Feels?
 
 There is a question that serious scientists rarely ask aloud: why does anything feel like anything? Not just humans — why does a bruised knee hurt, why does music make you cry, why does standing at the edge of a cliff produce something that isn't quite fear and isn't quite exhilaration but is unmistakably *something*? The standard picture of science tells us to ask how neurons fire, how hormones travel, how evolutionary pressures shaped behaviour. But it has very little to say about the experience itself — the raw, undeniable fact that there is something it is like to be you, reading these words, right now.
@@ -54,6 +62,8 @@ The third layer is implication. If the Universal Somatic Field is a real physica
 ## This Is Part of a Larger Programme
 
 This book is the gateway volume of the **[T]-Theory Fractal Programme** — a set of fifteen books, each applying the Universal Somatic Field to a different academic domain. Physicists will find a volume grounding the field in quantum field theory and M-theory. Neuroscientists will find a volume connecting it to the electromagnetic theory of consciousness. Clinicians will find a volume on trauma and therapy. Lawyers, economists, geophysicists, musicologists — each field has its own book, written in its own language, showing how the same master equation governs phenomena that discipline had studied in isolation.
+
+Recent work extended the framework to cosmology with striking results. The same eleven-dimensional structure that fixes the geometry of emotional attractor states also predicts, without any free parameters, two of the largest numbers in physics: the cosmological constant — the energy driving the accelerating expansion of the universe — falls within 7% of the measured value; and the fraction of the universe made of dark matter falls within 3% of the Planck satellite's measurement. These predictions come from counting dimensions (seven compact, three spatial, one temporal), not from fitting the data. The equation that describes how a memory gets stuck is the same equation that describes why 27% of the universe is invisible.
 
 This is the gateway. It asks only that you follow the logic, and stay curious.
 
@@ -4740,6 +4750,14 @@ Future theoretical work should address the relational field: the observation, fa
 systemic and relational approaches to psychotherapy, that emotional fields are not bounded
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
+
+**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
+*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
+rigorous framework of constructive quantum field theory. The proof is machine-verified
+in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
+the Minkowski continuation proved in the temporal-dynamics companion paper. The
+interacting (Hopfield-coupled) theory is addressed in P15.
 
 ---
 

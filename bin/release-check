@@ -104,7 +104,7 @@ fi
 
 # ── 9. PAPERS.yaml DOIs for published papers ───────────────────────────────
 hdr "9. PAPERS.yaml — published papers have DOIs"
-MISSING_DOI=$(python3 -c "
+MISSING_DOI=$(py -c "
 import yaml, sys
 data = yaml.safe_load(open('../Dist/PAPERS.yaml'))
 missing = []
@@ -123,7 +123,7 @@ fi
 
 # ── 10. Dist PDFs match PAPERS.yaml ──────────────────────────────────────
 hdr "10. Dist PDFs — files listed in PAPERS.yaml exist"
-python3 -c "
+py -c "
 import yaml, os, sys
 data = yaml.safe_load(open('../Dist/PAPERS.yaml'))
 missing = []

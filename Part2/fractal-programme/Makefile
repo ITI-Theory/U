@@ -16,9 +16,10 @@ BOOK_FLAGS := \
   -V fontsize=11pt -V linestretch=1.4 \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}"
 
-DOMAINS := gateway physics neuroscience clinical-psychology computer-science \
-           formal-mathematics consciousness complex-systems music-arts \
-           geophysics social-science economics law ppe psychiatry-asd
+DOMAINS := gateway physics complex-systems formal-mathematics \
+           neuroscience consciousness computer-science \
+           music-arts clinical-psychology psychiatry-asd \
+           social-science geophysics law ppe economics
 
 $(BUILDDIR)/book-%-body.md: FORCE | $(BUILDDIR)
 	$(PYTHON) build_fractal_books.py $*
