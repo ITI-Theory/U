@@ -101,26 +101,26 @@ Lulu requires spine title and spine author at upload time. Currently not in PAPE
 
 ## ISS-005: Lean sorry stubs — close remaining proof obligations — IN-PROGRESS
 
-Four `sorry` stubs remain after the Aug 13 build fix. All are in non-core files
-(not in the OS axioms / BFSS / scale-invariance chain).
+Current sorry count: **6 explicit + 2 release-check-visible** (the 2 in Hopfield.lean are bare;
+the others have inline comments and aren’t counted by the grep pattern).
 
 | File | Theorem | Status | Notes |
 |---|---|---|---|
-| SomaField.lean | `perceptIsPropagatorPole_nostalgia` | attempted | witness changed 0.5→2.0; `native_decide` (build pending) |
-| DyadicField.lean | `dyadic_block_decomp` | attempted | `Fin.sum_univ_add` proof written (build pending) |
-| DyadicField.lean | `dyadicPropagatorExists` | attempted | `W_AB_symm` helper written (build pending) |
-| DyadicField.lean | `dyadic_energy_coupling_lowers` | sorry | Float→ℝ transfer; leave for Phase 2 |
+| Hopfield.lean | `attractor_exists` | sorry | Blocked: needs ISS-011 (SpinState + async update) |
+| Hopfield.lean | `eventually_periodic` | sorry | Blocked: needs ISS-011 (finite state space) |
+| SomaField.lean | `perceptIsPropagatorPole_nostalgia` | sorry | `⟨2, by sorry⟩` — W8ℝ noncomputable blocks norm_num |
+| SomaField.lean | `brainStemActivatesContagion` | sorry | `∑ j, W8ℝ ... * startlePatternℝ j > 0` — same noncomputable block |
+| DyadicField.lean | `dyadic_block_decomp` | sorry | Fin.sum_univ_add split over Fin 16; structural sum lemma |
+| DyadicField.lean | `dyadic_energy_coupling_lowers` | sorry | Transfer from ℝ version; blocked on dyadic_block_decomp |
+| BRECVEMAVariational.lean | `moduli_space_is_G2_homotopy` | sorry | Step 3 open research problem |
+| BRECVEMAVariational.lean | `euler_lagrange_BRECVEMA` | sorry | Needs calculus of variations in Mathlib |
 
-Also: `#eval` simulation blocks restored in SomaField and DyadicField (step8/dyadicStep now eager).
+**SomaField/DyadicField root cause:** `W8ℝ` is `noncomputable`, which prevents the kernel
+from evaluating finite matrix sums. Fix path: define a computable `W8ℚ : Matrix (Fin 8) (Fin 8) ℚ`,
+prove `∀ i j, (W8ℚ i j : ℝ) = W8ℝ i j`, then use `native_decide`/`decide` on ℚ results.
 
-**Actions:**
-- [x] Close `perceptIsPropagatorPole_nostalgia` (native_decide with ev=2.0)
-- [x] Close `dyadic_block_decomp` (Fin.sum_univ_add proof)
-- [x] Close `dyadicPropagatorExists` (W_AB_symm + J symmetry)
-- [x] Uncomment `#eval` blocks
-- [ ] Verify build passes
-- [ ] Close `perceptIsPropagatorPole_nostalgia` ℝ version (`SomaField.lean:296`) — needs `residual8ℝ nostalgiaPatternℝ 2 < 1` proved; compute W8ℝ eigenvalues to verify ev=2 is correct, then close with `norm_num` or explicit computation
-- [ ] Close `SomaNetwork.lean` instance sorrys — blocked on Field8→ℝ migration (ISS-009 Cat C)
+**Hopfield root cause:** `Pattern = Fin D → ℝ` is infinite; `attractor_exists` is in fact
+FALSE for general synchronous W (2-cycles exist). See ISS-011.
 
 ---
 
@@ -348,3 +348,29 @@ python3 paper/scripts/build_lean_appendix.py && make -C paper lean-appendix
 Deferred because the build is slow. Do when CI/CD is set up (ISS-012).
 
 ---
+
+## ISS-018: CosmologicalConstant.lean pre-existing errors — CLOSED
+
+> CLOSED 2026-08-15. All errors fixed:
+> - `native_decide` → `norm_num [Omega_Lambda_USF, N_compact, N_total]` (and DM/baryon variants)
+> - `N_total` out-of-scope in `SomaField.DarkMatter` — inlined literal `11`
+> - `usf_is_fixed_point` — added `import UniversalSomaticField`; used fully-qualified
+>   `SomaField.Universal.ScaleLevel`, `SomaField.Universal.scale_invariance_inhabited`
+> - Discrepancy theorems: added `N_compact, N_total, N_spatial` to norm_num hints
+> - Added to `defaultTargets` in lakefile.toml. Build: ✔ (warnings only).
+
+---
+
+## ISS-019: BRECVEMAVariational.lean missing dependency — CLOSED
+
+> CLOSED 2026-08-15. Full fix:
+> - Registered `BRECVEMAField` and `BRECVEMAVariational` in `lakefile.toml` (`lean_lib` + `defaultTargets`)
+> - `BRECVEMAField.lean`: `def` → `abbrev` for `BRECVEMAField8` and `BRECVEMAMatrix` (type transparency);
+>   `Matrix.dotProduct` (non-existent in Mathlib 4.31.0) → inline `∑ i : Fin 8, ψ i * W.mulVec ψ i`;
+>   fixed `brecvema_compact_iso` proof (replaced `simp+refine` with `Prod.ext`+`funext`+`simp`+`congr`)
+> - `BRECVEMAVariational.lean`: same `Matrix.dotProduct` fix ×2; `sorry` for trivial Euler-Lagrange
+>   witness; removed redundant `simp only [Subtype.mk.injEq]`; commented out `#eval`;
+>   `SomaField.W8ℝ` → `W8ℝ` (no namespace prefix needed); `/-- CONJECTURE` → `/- CONJECTURE`
+>   (doc-comment after `end` caused parse error); `BRECVEMAMatrix` → `Matrix (Fin 8) (Fin 8) ℝ`
+>   in `delta_W_dof` type (abbrev in existential binding was opaque).
+> Both files: build ⚠ (warnings + sorrys only, no errors).

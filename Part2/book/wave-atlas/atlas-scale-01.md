@@ -24,8 +24,7 @@ $$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')$$
 with frequency $\omega$. Right: the Green's function (impulse response)
 of a damped harmonic system — the field's answer to a unit impulse.
 Both satisfy $\ddot{x}+\omega^2 x=0$ in their source variable.
-These are the same object. The string IS G.
-*(Generated: `FS1_sho_string.png`)*](figures/FS1_sho_string.png){width=85%}
+These are the same object. The string IS G.](figures/FS1_sho_string.png){width=85%}
 
 ---
 

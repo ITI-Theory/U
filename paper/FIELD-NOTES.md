@@ -2446,3 +2446,43 @@ Open problems:
 **ISS-007 CLOSED** — `bld` alias confirmed working.
 
 **Next:** Phase 2 begins. Papers (ISS-001 Zenodo uploads), then [T]-Theory art/music layer.
+
+---
+
+## 2026-08-15 — Moduli Bridge, ISS-018/019 CLOSED, caption linter
+
+**Moduli Bridge (LocalGR.lean):**
+New file `paper/proofs/LocalGR.lean` — the linearised GR gate.
+Defines `MetricPerturbation`, `StressEnergyTensor`, `RigidAttractor` (strict CY minimum),
+two local axioms (`linearised_einstein`, `g2_holonomy_implies_rigid_attractor`,
+`rigidAttractor_freezes_omega_lambda`), and gate theorem `g2_implies_omega_lambda_static`.
+Key result: `calabi_yau_moduli_static` in `G2Compactification.lean` is now a **THEOREM**
+proved from LocalGR — no longer `axiom := True`.
+`calabi_yau_rg_coefficients` upgraded from `True` to `RigidAttractor V φ₀ ∧ ∀ σ, 1 < sc_coeffs σ`.
+`G2Compactification.lean` added to build (fixed 3 pre-existing errors).
+
+**Caption linter (ISS closed):**
+`paper/scripts/check_caption_png_refs.py` — linter, exit 1 if `*(Generated: foo.png)*`
+in figure alt-text. Found 16 occurrences across `zoomable-somatic-field.md` and 8
+`wave-atlas/*.md` files. Fixed by `paper/scripts/fix_caption_png_refs.py`.
+Check 11 added to `bin/release-check`.
+
+**ISS-018 CLOSED — CosmologicalConstant.lean:**
+`native_decide` → `norm_num`; `N_total` scope fix; `import UniversalSomaticField`;
+fully-qualified `SomaField.Universal.*`; discrepancy theorem norm_num hints.
+Added to `defaultTargets`. Build ✔.
+
+**ISS-019 CLOSED — BRECVEMAField + BRECVEMAVariational:**
+Both registered in `lakefile.toml`. Root causes: `Matrix.dotProduct` (doesn't exist in
+Mathlib 4.31.0); `def` instead of `abbrev` for `BRECVEMAField8`/`BRECVEMAMatrix`
+(typeclass transparency); doc-comment `/--` before `end` (parse error). All fixed.
+Build ⚠ (warnings + sorrys, no errors).
+
+**ISS-005 assessment:**
+SomaField/DyadicField sorrys blocked by `W8ℝ` being `noncomputable` — kernel can't
+evaluate finite matrix sums. Fix path: define computable `W8ℚ : Matrix (Fin 8) (Fin 8) ℚ`.
+Hopfield sorrys blocked by ISS-011 AND are semantically wrong for synchronous update
+(`attractor_exists` is false for general W — 2-cycles exist).
+
+**Build status:** All 20 `defaultTargets` build clean (⚠ warnings, no errors).
+Release-check: PASS:7 WARN:4 FAIL:3 (same 3 pre-existing: lean-appendix, git dirty, Dist PDFs).

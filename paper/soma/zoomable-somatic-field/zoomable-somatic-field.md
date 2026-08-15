@@ -169,8 +169,7 @@ $G$ is scale-invariant across all 20 levels.
 
 ![The 20-step scale dial: each level coloured from violet (Planck) to yellow
 (cosmic). The master equation $(\nabla^2+k^2)G=\delta$ is invariant across
-all levels; only $k$ changes.
-*(Generated: `FA_universal_dial.png`)*](figures/FA_universal_dial.png){width=60%}
+all levels; only $k$ changes.](figures/FA_universal_dial.png){width=60%}
 
 ## 2.3  Log-Sum-Exp and the Correspondence Limit
 
@@ -189,8 +188,7 @@ This limit — the Correspondence Principle — is verified in
 
 ![Correspondence Principle: softmax$(+1)$ converges to 1 as $\beta \to \infty$
 (log scale). At $\beta=50$, the output is numerically indistinguishable from
-the classical sign function.
-*(Generated: `FSx_softmax_correspondence.png`)*](figures/FSx_softmax_correspondence.png){width=75%}
+the classical sign function.](figures/FSx_softmax_correspondence.png){width=75%}
 
 ---
 
@@ -261,8 +259,7 @@ models the energy barrier between somatic and cortical attractors. At $x=-1$
 `LimbicTunnel.gradient_traps_near_neg1` (proved by `nlinarith`).
 
 ![The quartic double-well potential $V(x)=W(x^2-1)^2$ for barrier heights
-$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.
-*(Generated: `FS0_double_well.png`)*](figures/FS0_double_well.png){width=75%}
+$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.](figures/FS0_double_well.png){width=75%}
 
 ---
 
@@ -334,8 +331,7 @@ determines both simultaneously. $\square$
 
 ![Physical scale (left, log metres) and mind rank N (right, log units)
 both increase with $\sigma$ from 0 to 20. The two bars are tethered —
-a change in one forces a change in the other.
-*(Generated: `FA_dual_scaling.png`)*](figures/FA_dual_scaling.png){width=85%}
+a change in one forces a change in the other.](figures/FA_dual_scaling.png){width=85%}
 
 ---
 
@@ -395,8 +391,7 @@ Each selects a different low-energy physics. Our universe occupies one vacuum.
 
 ![Left: the Simple Harmonic Oscillator ($\ddot{x}+\omega^2 x=0$). Right: the
 Green's function $G(\tau)$ of a harmonic system — both satisfy the SHO
-equation. They are the same object.
-*(Generated: `FS1_sho_string.png`)*](figures/FS1_sho_string.png){width=80%}
+equation. They are the same object.](figures/FS1_sho_string.png){width=80%}
 
 ---
 
@@ -419,8 +414,7 @@ across all stable nuclei). Binding energy curve = eigenvalue spectrum of
 $G_\text{nuc}$.
 
 ![Yukawa potential $e^{-mr}/r$ (nuclear, solid) versus Coulomb potential $1/r$
-(electromagnetic, dashed). Same master equation; different mass parameter $k$.
-*(Generated: `FS2_yukawa_vs_coulomb.png`)*](figures/FS2_yukawa_vs_coulomb.png){width=70%}
+(electromagnetic, dashed). Same master equation; different mass parameter $k$.](figures/FS2_yukawa_vs_coulomb.png){width=70%}
 
 ---
 
@@ -808,8 +802,7 @@ while classical Langevin dynamics achieve 0/48.
 
 ![WKB tunnelling amplitude $\Theta(W)$ vs. barrier height $W$.
 QUANT-EXP-1 values ($W=8,10,12$) marked. Classical rate = 0;
-quantum rate = $\Theta > 0$ always.
-*(Generated: `FS6_wkb_amplitude.png`)*](figures/FS6_wkb_amplitude.png){width=70%}
+quantum rate = $\Theta > 0$ always.](figures/FS6_wkb_amplitude.png){width=70%}
 
 ---
 
@@ -898,8 +891,7 @@ rate of symptomatic improvement in trauma-spectrum conditions.
 
 ![The Arnold tongue: stable frequency-locked region (shaded) in the
 parameter space of coupling strength vs. frequency detuning. Rapport =
-operating inside the tongue.
-*(Generated: `FS8_arnold_tongue.png`)*](figures/FS8_arnold_tongue.png){width=70%}
+operating inside the tongue.](figures/FS8_arnold_tongue.png){width=70%}
 
 ---
 

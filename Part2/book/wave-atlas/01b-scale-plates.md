@@ -15,8 +15,7 @@ and the mind matrix look like at each level of the zoom.
 ![The 20-step scale dial: each scale level is a horizontal bar
 coloured from violet (quantum, Scale 0) to yellow (cosmic, Scale 20).
 The right-hand column shows the characteristic length in metres.
-This is the book's index. Every chapter is one bar.
-*(Generated: `FA_universal_dial.png`)*](figures/FA_universal_dial.png){width=50%}
+This is the book's index. Every chapter is one bar.](figures/FA_universal_dial.png){width=50%}
 
 ---
 

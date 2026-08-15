@@ -160,8 +160,7 @@ heights are different, but the equation is the same.
 $W\approx4$ eV) — two conformational minima separated by a barrier.
 Right: the limbic trauma attractor (Scale 8, $10^{0}$ m, $W=10$) —
 two attractor basins separated by a higher barrier. Same double-well
-shape $V(x)=W(x^2-1)^2$, 25 orders of magnitude apart.
-*(Generated: `FS4_molecular_limbic.png`)*](figures/FS4_molecular_limbic.png){width=90%}
+shape $V(x)=W(x^2-1)^2$, 25 orders of magnitude apart.](figures/FS4_molecular_limbic.png){width=90%}
 
 ---
 

@@ -1434,7 +1434,8 @@ theorem brainStemActivatesContagion :
     0 < W8ℝ.mulVec startlePatternℝ ⟨3, by decide⟩ := by
   -- value = W8ℝ[3,0]*1 + W8ℝ[3,2]*2/5 + W8ℝ[3,3]*3/10 = 23/25 > 0
   show 0 < ∑ j : Fin 8, W8ℝ ⟨3, by decide⟩ j * startlePatternℝ j
-  sorry  -- ISS-005: pure rational arithmetic; Finset.sum expansion tactic TBD
+  -- value = 2/5·1 + 1/2·0 + 2/5·(2/5) + 6/5·(3/10) = 23/25; noncomputable W8ℝ blocks decide
+  sorry  -- ISS-005: needs computable W8ℚ transfer (W8ℝ noncomputable prevents norm_num)
 
 -- W matrix non-zero off-diagonal entries
 /-
@@ -1484,13 +1485,13 @@ Porges' polyvagal co-regulation a precise spectral interpretation.
 
 ```haskell
 /-
-  DyadicField.lean — GAP-1: The Dyadic Propagator [PROVED 2026-08-14]
+  DyadicField.lean — The Dyadic Propagator
 
   The soma-field model so far describes a single person's emotional field.
   The dyadic propagator extends this to two coupled soma-fields:
   the therapist–client dyad, or any two persons in relational contact.
 
-  Core claim (GAP-1 DyadicPropagatorExists):
+  Core claim (DyadicPropagatorExists):
     The coupled dyadic system has its own propagator G_AB(λ), whose poles
     are the *shared modes* of the two fields — the emotional states that
     become available to both persons through the coupling.
@@ -1699,7 +1700,7 @@ theorem dyadic_energy_coupling_lowers_ℝ
 -- STUBS AND THEOREMS
 -- ════════════════════════════════════════════════════════════════════════════
 
-/-- **GAP-1  DyadicPropagatorExists  — PROVED**
+/-- **DyadicPropagatorExists**
 
     The dyadic propagator G_AB(λ) = (λ·I₁₆ − W_AB)⁻¹ exists and has poles
     at the eigenvalues of W_AB.
@@ -4128,6 +4129,7 @@ The Python `Protocol` has the same four methods (`dim`, `energy`,
 
 ```haskell
 import Mathlib.Data.Real.Basic
+import Mathlib.Analysis.SpecialFunctions.Exp
 import SomaField
 
 /-!
@@ -4210,27 +4212,25 @@ class SomaNetwork (State Space : Type) where
 
 /-! ## 2. The SFT Instance (Lean — abstract Field8) -/
 
-/-- The soma-field network as a SomaNetwork instance.
-    State = Field8; pending Field8→ℝ migration (ISS-009). -/
+/-- The soma-field network instance over Field8 = Fin N8 → ℝ. -/
 noncomputable instance somaFieldNetwork : SomaNetwork Field8 Field8 where
-  dim := N8
-  energy := sorry
-  propagate := sorry
-  tunnelGate := sorry
-  isAttractor := sorry  -- pending Field8→ℝ migration (ISS-009)
+  dim        := N8
+  energy     := energy8
+  propagate  := step8
+  tunnelGate := fun e W =>
+    let T := Real.exp (-W)
+    fun i => e i * T + musicalAwePattern i * (1 - T)
+  isAttractor := fun e => ∀ i : Fin N8, fieldForce8 e i = 0
 
 /-! ## 3. Hopfield 1982 Instance (for historical benchmark) -/
 
-/-- Hopfield 1982: no tunnelling gate (identity), synchronous update.
-    The `tunnelGate` is the identity — classical dynamics only.
-    Starting from a fear-like state, the network cannot escape the fear basin
-    (the energy barrier blocks gradient descent). -/
+/-- Hopfield 1982: synchronous update, no tunnelling gate. -/
 noncomputable instance hopfield1982 : SomaNetwork Field8 Field8 where
-  dim := N8
-  energy := sorry
-  propagate := sorry
-  tunnelGate := fun e _ => e
-  isAttractor := sorry  -- pending Field8→ℝ migration (ISS-009)
+  dim        := N8
+  energy     := energy8
+  propagate  := step8
+  tunnelGate := fun e _ => e  -- identity: classical dynamics, no tunnelling
+  isAttractor := fun e => ∀ i : Fin N8, fieldForce8 e i = 0
 
 /-! ## 4. Key Theorems -/
 

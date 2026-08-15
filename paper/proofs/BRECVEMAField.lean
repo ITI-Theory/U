@@ -39,14 +39,14 @@ open SomaField SomaField.MTheory
 -- ── §1. The 8D BRECVEMA field over ℝ ──────────────────────────────────────────
 
 /-- The 8D BRECVEMA emotional field over ℝ. -/
-def BRECVEMAField8 := Fin 8 → ℝ
+abbrev BRECVEMAField8 := Fin 8 → ℝ
 
 /-- The BRECVEMA coupling matrix over ℝ (formal analogue of SomaField.W8ℝ). -/
-def BRECVEMAMatrix := Matrix (Fin 8) (Fin 8) ℝ
+abbrev BRECVEMAMatrix := Matrix (Fin 8) (Fin 8) ℝ
 
 /-- Hopfield energy over ℝ: H(ψ) = -½ ψᵀ W ψ. -/
 noncomputable def brecvema_energy (W : BRECVEMAMatrix) (ψ : BRECVEMAField8) : ℝ :=
-  -1/2 * (Matrix.dotProduct ψ (W.mulVec ψ))
+  -(1/2) * ∑ i : Fin 8, ψ i * W.mulVec ψ i
 
 -- ── §2. The gauge-fixed 7D vacuum sector ─────────────────────────────────────────
 
@@ -104,10 +104,16 @@ def compact_to_somatic (c : CompactX7) : SomaticVacuumSector where
     recovers the same compact sector. -/
 theorem brecvema_compact_iso (c : CompactX7) :
     somatic_to_compact (compact_to_somatic c) = c := by
-  simp [somatic_to_compact, compact_to_somatic]
-  refine ⟨funext fun ⟨i, hi⟩ => ?_, rfl, funext fun ⟨i, hi⟩ => ?_⟩
-  · simp; omega
-  · simp; omega
+  apply Prod.ext
+  · funext ⟨i, hi⟩
+    simp [somatic_to_compact, compact_to_somatic, dif_pos hi]
+  · apply Prod.ext
+    · simp [somatic_to_compact, compact_to_somatic]
+    · funext ⟨i, hi⟩
+      simp only [somatic_to_compact, compact_to_somatic,
+                 dif_neg (show ¬(i + 4 < 3) from by omega),
+                 dif_neg (show i + 4 ≠ 3 from by omega)]
+      congr 1
 
 -- ── §4. The BRECVEMA ↔ SomaField11D typed link ───────────────────────────────────
 

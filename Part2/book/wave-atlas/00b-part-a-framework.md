@@ -74,8 +74,7 @@ excites a wave in the next. The cascade is the experience.
 
 ![The same wave pattern at three physical scales: (left) water surface
 ripple, (centre) seismic P-wave, (right) neural action potential.
-Different media, different amplitudes, different speeds. Same equation.
-*(Generated: `FA_three_waves.png`)*](figures/FA_three_waves.png){width=95%}
+Different media, different amplitudes, different speeds. Same equation.](figures/FA_three_waves.png){width=95%}
 
 ---
 
@@ -334,8 +333,7 @@ a type mismatch would result.
 ![Physical scale (left, in log metres) and mind-matrix rank N (right,
 in log coupled units) both increase together as the zoom dial moves
 from scale 0 (quantum foam) to scale 20 (universal field). The two
-bars are tethered — they cannot move independently.
-*(Generated: `FA_dual_scaling.png`)*](figures/FA_dual_scaling.png){width=90%}
+bars are tethered — they cannot move independently.](figures/FA_dual_scaling.png){width=90%}
 
 ---
 

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# U/bin/release-build — rebuild all PDFs from current source
+# Run from repo root: bin/release-build
+# Run BEFORE bin/release-check to ensure PDFs are current.
+
+REPO=$(cd "$(dirname "$0")/.." && pwd)
+cd "$REPO"
+
+ok()  { echo "  OK    $1"; }
+fail(){ echo "  FAIL  $1"; exit 1; }
+hdr() { echo ""; echo "=== $1 ==="; }
+
+# ── 1. Regenerate lean-proofs-appendix.md ─────────────────────────────────
+hdr "1. Regenerate lean-proofs-appendix.md"
+python paper/scripts/build_lean_appendix.py \
+  && ok "lean-proofs-appendix.md regenerated" \
+  || fail "build_lean_appendix.py failed"
+
+# ── 2. Rebuild lean-appendix PDF ──────────────────────────────────────────
+hdr "2. Rebuild lean-proofs-appendix PDF"
+make -C paper lean-appendix \
+  && ok "lean-proofs-appendix.pdf built" \
+  || fail "make lean-appendix failed"
+
+# ── 3. Rebuild omnibus (A4 + Royal) ───────────────────────────────────────
+hdr "3. Rebuild omnibus"
+make -C paper omnibus \
+  && ok "omnibus-a4.pdf + omnibus-royal.pdf built" \
+  || fail "make omnibus failed"
+
+# ── 4. Sync to Dist/papers ────────────────────────────────────────────────
+hdr "4. Sync to Dist/papers"
+cp paper/bld/lean-proofs-appendix.pdf ../Dist/papers/ && ok "lean-proofs-appendix.pdf"
+cp paper/bld/omnibus-a4.pdf           ../Dist/papers/ && ok "omnibus-a4.pdf"
+cp paper/bld/omnibus-royal.pdf        ../Dist/papers/ && ok "omnibus-royal.pdf"
+
+# ── NOTE: manual steps ────────────────────────────────────────────────────
+echo ""
+echo "  NOTE  The following are NOT built from U/paper/Makefile:"
+echo "        Dist/papers/ttheory-cheatsheet.pdf  — designed separately"
+echo "        Dist/papers/ttheory-omnibus.pdf       — built from separate source"
+echo "        Dist/zenodo/C2-ttheory-fractal-programme.pdf — see ISS-001"
+echo "        Update those manually before Zenodo upload."
+echo ""
+echo "  Next: run bin/release-check to verify everything is clean."

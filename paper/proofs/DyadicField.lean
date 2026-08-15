@@ -1,11 +1,11 @@
 /-
-  DyadicField.lean — GAP-1: The Dyadic Propagator [PROVED 2026-08-14]
+  DyadicField.lean — The Dyadic Propagator
 
   The soma-field model so far describes a single person's emotional field.
   The dyadic propagator extends this to two coupled soma-fields:
   the therapist–client dyad, or any two persons in relational contact.
 
-  Core claim (GAP-1 DyadicPropagatorExists):
+  Core claim (DyadicPropagatorExists):
     The coupled dyadic system has its own propagator G_AB(λ), whose poles
     are the *shared modes* of the two fields — the emotional states that
     become available to both persons through the coupling.
@@ -214,7 +214,7 @@ theorem dyadic_energy_coupling_lowers_ℝ
 -- STUBS AND THEOREMS
 -- ════════════════════════════════════════════════════════════════════════════
 
-/-- **GAP-1  DyadicPropagatorExists  — PROVED**
+/-- **DyadicPropagatorExists**
 
     The dyadic propagator G_AB(λ) = (λ·I₁₆ − W_AB)⁻¹ exists and has poles
     at the eigenvalues of W_AB.

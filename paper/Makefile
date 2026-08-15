@@ -35,6 +35,7 @@ $(eval $(call register, cosmological-constant-derivation, citeproc, en,  coscons
 $(eval $(call register, dark-matter-spatial-vacuum,       citeproc, en,  darkmatter))
 $(eval $(call register, g2-symmetry-breaking,             citeproc, en,  g2break  ))
 $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenomena))
+$(eval $(call register, ttheory-cheatsheet,               citeproc, en,  cheatsheet))
 
 # Derived target lists (computed from registry)
 _ALL_EN_PDFS := $(addprefix $(BUILDDIR)/, $(addsuffix .pdf, $(ALL_DOCS)))

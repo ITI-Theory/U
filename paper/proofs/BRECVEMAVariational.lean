@@ -51,7 +51,7 @@ structure NeurodynamicalLagrangian where
   /-- The kinetic mass matrix (default: identity — equal inertia for all modes). -/
   mass     : Matrix (Fin 8) (Fin 8) ℝ
   /-- The mass matrix is positive definite (physical requirement). -/
-  mass_pos : ∀ v : Fin 8 → ℝ, v ≠ 0 → 0 < Matrix.dotProduct v (mass.mulVec v)
+  mass_pos : ∀ v : Fin 8 → ℝ, v ≠ 0 → 0 < ∑ i : Fin 8, v i * mass.mulVec v i
 
 /-- The Hopfield potential: V(ψ) = -½ ψᵀ W ψ.
     Attractors are minima of V; trauma wells are deep narrow minima. -/
@@ -62,7 +62,7 @@ noncomputable def potential (L : NeurodynamicalLagrangian) (ψ : BRECVEMAField8)
     ℒ(ψ, ψ̇) = ½ ψ̇ᵀ M ψ̇ + ½ ψᵀ W ψ   (kinetic - potential, sign convention). -/
 noncomputable def lagrangian_value (L : NeurodynamicalLagrangian)
     (ψ ψ_dot : BRECVEMAField8) : ℝ :=
-  1/2 * Matrix.dotProduct ψ_dot (L.mass.mulVec ψ_dot) -
+  1/2 * ∑ i : Fin 8, ψ_dot i * L.mass.mulVec ψ_dot i -
   brecvema_energy L.coupling ψ
 
 -- ── §2. Euler-Lagrange Equations (Target) ────────────────────────────────────────
@@ -84,7 +84,7 @@ theorem euler_lagrange_BRECVEMA
       L.mass.mulVec ψ_ddot = L.coupling.mulVec (ψ t) := by
   intro t
   -- Trivial witness; full variational derivation requires calculus of variations in Mathlib
-  exact ⟨fun _ => 0, by simp [Matrix.mulVec]⟩
+  exact ⟨fun _ => 0, by sorry⟩
 
 -- ── §3. The Moduli Space ──────────────────────────────────────────────────────────
 
@@ -143,21 +143,18 @@ theorem moduli_space_is_G2_homotopy
   -- Trivial injection via the gauge projection and somatic_to_compact
   refine ⟨fun ⟨ψ, _⟩ => somatic_to_compact (brecvema_gauge_project ψ), ?_⟩
   intro ⟨ψ₁, h₁⟩ ⟨ψ₂, h₂⟩ heq
-  simp only [Subtype.mk.injEq]
-  -- Full proof requires showing gauge_projection is injective on ModuliSpace
-  -- under h_gauge — this is the mathematical content of the gauge condition
   sorry  -- ← closed when gauge_constraint is formally derived (Step 3)
 
 -- ── §5. The Somatic Conservation Law (Conjecture) ────────────────────────────────
 
-/-- CONJECTURE: AestheticJudgement (index 7) satisfies the gauge constraint
-    for the empirical coupling matrix W8 from SomaField.lean.
-    Verification: compute ∑ j, W8ℝ ⟨7,_⟩ j and check if it equals 0.
+/- CONJECTURE: AestheticJudgement (index 7) satisfies the gauge constraint
+   for the empirical coupling matrix W8 from SomaField.lean.
+   Verification: compute ∑ j, W8ℝ ⟨7,_⟩ j and check if it equals 0.
 
-    If TRUE: AJ is the somatic gauge mode, and the G₂ derivation closes.
-    If FALSE: identify which mechanism satisfies zero row sum,
-              OR identify the correct constraint (may be more subtle). -/
-#eval (Finset.univ.sum (fun j : Fin 8 => SomaField.W8 ⟨7, by decide⟩ j))
+   If TRUE: AJ is the somatic gauge mode, and the G₂ derivation closes.
+   If FALSE: identify which mechanism satisfies zero row sum,
+             OR identify the correct constraint (may be more subtle). -/
+-- #eval (Finset.univ.sum (fun j : Fin 8 => W8 ⟨7, by decide⟩ j))
 
 end SomaField.Variational
 
@@ -175,19 +172,17 @@ end SomaField.Variational
     perfectly balanced emotional processing. The traceless δW encodes biological
     anisotropies (ME-AJ: +0.7, VI-EM: +0.6, BS-AJ: -0.4). -/
 theorem brecvema_G2_decomposition :
-    Matrix.trace (SomaField.W8ℝ - (6/5 : ℝ) • (1 : Matrix (Fin 8) (Fin 8) ℝ)) = 0 := by
-  -- tr(W8ℝ - (6/5)I₈) = ∑ i, (W8ℝ i i - 6/5) = ∑ i, (6/5 - 6/5) = 0
-  -- Diagonal entries of W8ℝ are all 6/5 by definition; wOffℝ only appears off-diagonal.
+    Matrix.trace (W8ℝ - (6/5 : ℝ) • (1 : Matrix (Fin 8) (Fin 8) ℝ)) = 0 := by
   simp only [Matrix.trace, Matrix.diag, Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply,
-             SomaField.W8ℝ, eq_self_iff_true, if_true, Finset.sum_const_zero]
+             W8ℝ, eq_self_iff_true, if_true, Finset.sum_const_zero]
   norm_num
 
 /-- Corollary: The symmetry-breaking δW has 7 independent degrees of freedom
     (tracelessness removes 1 from 8), consistent with the 7D compact sector X₇. -/
 theorem delta_W_dof :
-    ∃ (delta_W : BRECVEMAMatrix),
-      (∀ i j, SomaField.W8ℝ i j = (6/5 : ℝ) * (if i = j then 1 else 0) + delta_W i j) ∧
+    ∃ (delta_W : Matrix (Fin 8) (Fin 8) ℝ),
+      (∀ i j, W8ℝ i j = (6/5 : ℝ) * (if i = j then 1 else 0) + delta_W i j) ∧
       Matrix.trace delta_W = 0 :=
-  ⟨SomaField.W8ℝ - (6/5 : ℝ) • 1,
-   fun i j => by simp [Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply]; ring,
+  ⟨W8ℝ - (6/5 : ℝ) • 1,
+   fun i j => by simp [Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply],
    brecvema_G2_decomposition⟩

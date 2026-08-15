@@ -153,8 +153,7 @@ matrix of Scale 3, rendered as a topographic map.
 field between charges (Scale 3, Å), sound intensity vs distance from a
 speaker (Scale 8, m), seismic far-field amplitude (Scale 10, km), and
 gravitational field between bodies (Scale 12, AU). All four are
-$G(r)\propto 1/r$. The equation has not changed. Only the substrate has.
-*(Generated: `FS3_four_one_over_r.png`)*](figures/FS3_four_one_over_r.png){width=95%}
+$G(r)\propto 1/r$. The equation has not changed. Only the substrate has.](figures/FS3_four_one_over_r.png){width=95%}
 
 ---
 

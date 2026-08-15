@@ -296,7 +296,8 @@ theorem brainStemActivatesContagion :
     0 < W8ℝ.mulVec startlePatternℝ ⟨3, by decide⟩ := by
   -- value = W8ℝ[3,0]*1 + W8ℝ[3,2]*2/5 + W8ℝ[3,3]*3/10 = 23/25 > 0
   show 0 < ∑ j : Fin 8, W8ℝ ⟨3, by decide⟩ j * startlePatternℝ j
-  sorry  -- ISS-005: pure rational arithmetic; Finset.sum expansion tactic TBD
+  -- value = 2/5·1 + 1/2·0 + 2/5·(2/5) + 6/5·(3/10) = 23/25; noncomputable W8ℝ blocks decide
+  sorry  -- ISS-005: needs computable W8ℚ transfer (W8ℝ noncomputable prevents norm_num)
 
 -- W matrix non-zero off-diagonal entries
 /-

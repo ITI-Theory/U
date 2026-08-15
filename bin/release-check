@@ -45,11 +45,11 @@ P2=$(grep -A1 "theorem X7_is_7D_product" paper/proofs/MTheoryIsomorphism.lean 2>
 
 # Problems 3-5 open — just list GAP/OP markers from proof files
 echo "  Open problems (GAP/OP markers in proofs):"
-grep -rn "GAP-[0-9]\|-- OP[0-9]" paper/proofs/*.lean 2>/dev/null | grep -v "^.*-- ISS-\|CLOSED" | sort -u | sed 's/^/    /'
+grep -rn "GAP-[0-9]\|-- OP[0-9]" paper/proofs/*.lean 2>/dev/null | grep -v "CLOSED\|PROVED\|ISS-0" | sort -u | sed 's/^/    /'
 warn "Problems 3+ open — verify tracked in ISSUES.md (ISS-014 = Problem 4)"
 
 # ── 4. lean-proofs-appendix freshness ─────────────────────────────────────
-hdr "4. lean-proofs-appendix freshness"
+hdr "4. lean-proofs-appendix + omnibus freshness"
 APPENDIX="paper/soma/lean-proofs-appendix/lean-proofs-appendix.md"
 STALE=""
 for f in paper/proofs/*.lean; do
@@ -58,9 +58,13 @@ done
 if [[ -z "$STALE" ]]; then
   ok "lean-proofs-appendix.md is up to date"
 else
-  fail "Stale — run: python paper/scripts/build_lean_appendix.py && make lean-appendix"
+  fail "lean-appendix stale — run: bin/release-build"
   echo "  Newer files:$STALE" | tr ' ' '\n' | sed 's/^/    /'
 fi
+# omnibus freshness vs lean-appendix
+[[ "paper/bld/omnibus-a4.pdf" -nt "$APPENDIX" ]] \
+  && ok "omnibus-a4.pdf is newer than lean-appendix" \
+  || warn "omnibus may be stale vs lean-appendix — run: bin/release-build"
 
 # ── 5. PAPERS.yaml pending uploads ────────────────────────────────────────
 hdr "5. PAPERS.yaml — pending Zenodo uploads"
@@ -117,13 +121,34 @@ else
   fail "Published papers missing DOI: $MISSING_DOI"
 fi
 
-# ── 10. Expected Dist PDFs present ────────────────────────────────────────
-hdr "10. Key Dist PDFs present"
-for pdf in ../Dist/papers/omnibus-a4.pdf \
-           ../Dist/papers/lean-proofs-appendix.pdf \
-           ../Dist/papers/cosmological-constant-derivation.pdf; do
-  [[ -f "$pdf" ]] && ok "$(basename $pdf)" || fail "MISSING: $pdf"
-done
+# ── 10. Dist PDFs match PAPERS.yaml ──────────────────────────────────────
+hdr "10. Dist PDFs — files listed in PAPERS.yaml exist"
+python3 -c "
+import yaml, os, sys
+data = yaml.safe_load(open('../Dist/PAPERS.yaml'))
+missing = []
+for section in data.values():
+  if isinstance(section, list):
+    for p in section:
+      f = p.get('file','')
+      if f and not os.path.exists(f'../Dist/{f}'):
+        missing.append(f'  MISS  ../Dist/{f}  ({p.get(\"id\",\"?\")})')
+for m in missing:
+  print(m)
+sys.exit(len(missing))
+" 2>/dev/null
+RC=$?
+[[ $RC -eq 0 ]] && ok "All PAPERS.yaml file: entries found in Dist" || fail "$RC PDF(s) listed in PAPERS.yaml missing from Dist"
+
+# ── 11. PNG refs in figure captions ──────────────────────────────────────
+hdr "11. PNG filenames in figure captions"
+PY_CHECK=$(py paper/scripts/check_caption_png_refs.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "No embedded PNG refs in captions"
+else
+  fail "PNG refs in captions — will print as literal text in PDF"
+  echo "$PY_CHECK" | grep -v "^OK" | sed 's/^/    /'
+fi
 
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""

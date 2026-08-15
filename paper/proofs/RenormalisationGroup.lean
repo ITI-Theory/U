@@ -1,5 +1,6 @@
 import Physlib.ClassicalMechanics.WaveEquation.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import LocalGR
 
 open ClassicalMechanics Space Time
 
@@ -97,9 +98,12 @@ Lean 4 or Mathlib.  The structural existence proof above establishes that
 the framework is self-consistent.  The specific dynamics must await future work.
 -/
 
+/-- The CY moduli stabilise at a rigid attractor that fixes the 20-level RG scale factors.
+    Form: a strict minimum V'(φ₀) = 0, strictly convex neighbourhood, plus λ_σ > 1.
+    The specific values of λ_σ require a one-loop CY path integral (future work). -/
 axiom calabi_yau_rg_coefficients :
-    ∃ (sc_coeffs : Fin 19 → ℝ),
-      (∀ σ, 1 < sc_coeffs σ) ∧
-      True -- placeholder for the Calabi-Yau moduli condition
+    ∃ (sc_coeffs : Fin 19 → ℝ) (V : ℝ → ℝ) (φ₀ : ℝ),
+      SomaField.LocalGR.RigidAttractor V φ₀ ∧
+      ∀ σ : Fin 19, 1 < sc_coeffs σ
 
 end SomaField.RG

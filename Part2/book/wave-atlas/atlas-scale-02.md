@@ -101,8 +101,7 @@ field at $x$?*
 vs the Coulomb potential $1/r$ (dashed, EM force — Scale 3), both
 on a log scale. The exponential factor makes the nuclear force short-ranged;
 removing it (setting $m=0$, massless photon) gives the Coulomb propagator.
-Same master equation; different wavenumber $k$.
-*(Generated: `FS2_yukawa_vs_coulomb.png`)*](figures/FS2_yukawa_vs_coulomb.png){width=80%}
+Same master equation; different wavenumber $k$.](figures/FS2_yukawa_vs_coulomb.png){width=80%}
 
 ---
 

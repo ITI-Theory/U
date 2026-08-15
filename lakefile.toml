@@ -4,7 +4,8 @@ defaultTargets = [
   "DyadicField", "LimbicTunnel", "MTheoryIsomorphism", "LimbicHopfield",
   "SwarmPropagator", "UniversalSomaticField", "Movie",
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
-  "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms"
+  "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms",
+  "LocalGR", "G2Compactification", "BRECVEMAField", "LocalGeometry"
 ]
 
 # ---------------------------------------------------------------------------
@@ -106,4 +107,22 @@ name = "RenormalisationGroup"
 srcDir = "paper/proofs"
 [[lean_lib]]
 name = "USF_OSAxioms"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "LocalGR"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "LocalGeometry"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "CosmologicalConstant"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "G2Compactification"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "BRECVEMAField"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "BRECVEMAVariational"
 srcDir = "paper/proofs"

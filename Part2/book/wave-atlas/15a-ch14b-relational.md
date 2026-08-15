@@ -128,8 +128,7 @@ limbic-field frequency locking.
 two coupled oscillators are frequency-locked ("in rapport"). The
 horizontal axis is coupling strength $\kappa=|G_{AB}|$; the vertical
 axis is frequency detuning $\Delta\omega$. Inside the tongue: locked.
-Outside: quasiperiodic. Wider coupling → bigger tongue → easier rapport.
-*(Generated: `FS8_arnold_tongue.png`)*](figures/FS8_arnold_tongue.png){width=80%}
+Outside: quasiperiodic. Wider coupling → bigger tongue → easier rapport.](figures/FS8_arnold_tongue.png){width=80%}
 
 ---
 

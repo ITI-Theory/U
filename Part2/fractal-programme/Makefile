@@ -32,8 +32,8 @@ $(addprefix book-, $(DOMAINS)): book-%: $(BUILDDIR)/book-%.pdf
 all: $(addprefix $(BUILDDIR)/book-, $(addsuffix .pdf, $(DOMAINS)))
 	@echo "All 15 fractal books built."
 
-omnibus: $(BUILDDIR)/ttheory-omnibus.pdf
-	@echo "T-Theory omnibus built."
+fractal-thesis: $(BUILDDIR)/ttheory-omnibus.pdf
+	@echo "T-Theory fractal thesis built."
 
 vol1: $(BUILDDIR)/ttheory-vol1.pdf
 	@echo "T-Theory Vol I: Foundation built."
@@ -93,5 +93,5 @@ $(BUILDDIR):
 clean:
 	rm -f $(BUILDDIR)/book-*.pdf $(BUILDDIR)/book-*-body.md $(BUILDDIR)/ttheory-omnibus* $(BUILDDIR)/ttheory-vol*
 
-.PHONY: all omnibus vol1 vol2 kappas bodies clean FORCE $(addprefix book-, $(DOMAINS))
+.PHONY: all fractal-thesis vol1 vol2 kappas bodies clean FORCE $(addprefix book-, $(DOMAINS))
 FORCE:

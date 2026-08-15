@@ -1,4 +1,5 @@
 import Mathlib.Data.Real.Basic
+import Mathlib.Analysis.SpecialFunctions.Exp
 import SomaField
 
 /-!
@@ -81,27 +82,25 @@ class SomaNetwork (State Space : Type) where
 
 /-! ## 2. The SFT Instance (Lean — abstract Field8) -/
 
-/-- The soma-field network as a SomaNetwork instance.
-    State = Field8; pending Field8→ℝ migration (ISS-009). -/
+/-- The soma-field network instance over Field8 = Fin N8 → ℝ. -/
 noncomputable instance somaFieldNetwork : SomaNetwork Field8 Field8 where
-  dim := N8
-  energy := sorry
-  propagate := sorry
-  tunnelGate := sorry
-  isAttractor := sorry  -- pending Field8→ℝ migration (ISS-009)
+  dim        := N8
+  energy     := energy8
+  propagate  := step8
+  tunnelGate := fun e W =>
+    let T := Real.exp (-W)
+    fun i => e i * T + musicalAwePattern i * (1 - T)
+  isAttractor := fun e => ∀ i : Fin N8, fieldForce8 e i = 0
 
 /-! ## 3. Hopfield 1982 Instance (for historical benchmark) -/
 
-/-- Hopfield 1982: no tunnelling gate (identity), synchronous update.
-    The `tunnelGate` is the identity — classical dynamics only.
-    Starting from a fear-like state, the network cannot escape the fear basin
-    (the energy barrier blocks gradient descent). -/
+/-- Hopfield 1982: synchronous update, no tunnelling gate. -/
 noncomputable instance hopfield1982 : SomaNetwork Field8 Field8 where
-  dim := N8
-  energy := sorry
-  propagate := sorry
-  tunnelGate := fun e _ => e
-  isAttractor := sorry  -- pending Field8→ℝ migration (ISS-009)
+  dim        := N8
+  energy     := energy8
+  propagate  := step8
+  tunnelGate := fun e _ => e  -- identity: classical dynamics, no tunnelling
+  isAttractor := fun e => ∀ i : Fin N8, fieldForce8 e i = 0
 
 /-! ## 4. Key Theorems -/
 
