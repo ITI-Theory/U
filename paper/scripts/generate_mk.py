@@ -87,7 +87,18 @@ for e in entries:
         lines.append(cp(src_of(e), f"{DIST}/stuff/{e['stuff']}"))
 lines.append("")
 
-lines += ["dist: papers zenodo nlm lulu stuff", ""]
+lines += ["dist: papers zenodo nlm lulu stuff nlm-uat", ""]
+
+# nlm-uat: four files for NotebookLM QA comparison -----------------------
+# Each entry generates two rules: copy current PDF as AFTER target.
+# The BEFORE snapshot must be taken manually before a rebuild.
+lines += ["nlm-uat: papers"]
+for e in entries:
+    if e.get("nlm_uat"):
+        slug = e["nlm_uat"]
+        src  = f"{DIST}/{e['file']}"
+        lines.append(cp(src, f"{DIST}/nlm-uat/{slug}-AFTER.pdf"))
+lines.append("")
 
 (OUT / "dist.mk").write_text("\n".join(lines), encoding="utf-8")
 n = len([e for e in entries if e.get("file")])

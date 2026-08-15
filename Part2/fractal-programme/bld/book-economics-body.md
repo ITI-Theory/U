@@ -11,6 +11,23 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-economics.pdf}
+\tableofcontents
+\clearpage
+```
+
+
+
+
+## The Green Propagator
+
+**G-ID:** *The Nash Attractor Resolvent — (H-λ)⁻¹ determining market equilibrium*
+
+The Nash Attractor Resolvent is the operator $(H_\mathrm{market} - \lambda I)^{-1}$ — the mathematical object that determines which Nash equilibria exist, how stable they are, and which one a market will settle into from a given initial condition. In this book you will see that every major result in classical and behavioural economics can be re-expressed as a statement about the spectrum of this resolvent: Arrow-Debreu as the existence of a stable pole, market failure as a degenerate eigenvalue, Keynes’s animal spirits as field temperature fluctuations destabilising shallow basins. As you read, the question at the centre of every chapter is the same: given the coupling matrix $W_\mathrm{market}$, where do the poles lie, and which one dominates?
+
+
+
 # Introduction: The Equilibrium Is Not Where You Think
 
 Game theory rests on the Nash equilibrium: a stable strategy profile from which no individual player has an incentive to deviate unilaterally. Nash proved that every finite game has at least one such equilibrium (in mixed strategies), and the concept has become the foundational solution concept of non-cooperative game theory. But the Nash equilibrium has a problem that economists have been grappling with for decades: there is usually more than one, they are often difficult to find, agents in practice do not always play them, and the equilibria that game theory predicts are frequently less efficient than what actually occurs in repeated real-world games.
@@ -686,7 +703,7 @@ The following claims require further experimental work:
    amplitude via magnetoencephalography in human participants during somatic
    threshold events.
 
-2. **Dyadic propagator poles** (Open Problem 5 in the zUSF paper):
+2. **Dyadic propagator poles** (GAP-1 in the USF test suite):
    the spectral correspondence between the dyadic propagator poles and
    interpersonal synchrony metrics has not been measured.
 
@@ -3523,6 +3540,14 @@ Future theoretical work should address the relational field: the observation, fa
 systemic and relational approaches to psychotherapy, that emotional fields are not bounded
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
+
+**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
+*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
+rigorous framework of constructive quantum field theory. The proof is machine-verified
+in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
+the Minkowski continuation proved in the temporal-dynamics companion paper. The
+interacting (Hopfield-coupled) theory is addressed in P15.
 
 ---
 

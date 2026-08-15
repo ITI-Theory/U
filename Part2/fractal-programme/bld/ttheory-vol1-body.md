@@ -9,6 +9,24 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/noir-page.pdf}
+\null\thispagestyle{empty}\clearpage
+```
+
+
+
+
+```{=latex}
+\tableofcontents
+\clearpage
+```
+
+
+
+
 \newpage
 
 \markboth{[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos}{}
@@ -7275,8 +7293,7 @@ $G$ is scale-invariant across all 20 levels.
 
 ![The 20-step scale dial: each level coloured from violet (Planck) to yellow
 (cosmic). The master equation $(\nabla^2+k^2)G=\delta$ is invariant across
-all levels; only $k$ changes.
-*(Generated: `FA_universal_dial.png`)*](figures/FA_universal_dial.png){width=60%}
+all levels; only $k$ changes.](figures/FA_universal_dial.png){width=60%}
 
 ## 2.3  Log-Sum-Exp and the Correspondence Limit
 
@@ -7295,8 +7312,7 @@ This limit — the Correspondence Principle — is verified in
 
 ![Correspondence Principle: softmax$(+1)$ converges to 1 as $\beta \to \infty$
 (log scale). At $\beta=50$, the output is numerically indistinguishable from
-the classical sign function.
-*(Generated: `FSx_softmax_correspondence.png`)*](figures/FSx_softmax_correspondence.png){width=75%}
+the classical sign function.](figures/FSx_softmax_correspondence.png){width=75%}
 
 ---
 
@@ -7367,8 +7383,7 @@ models the energy barrier between somatic and cortical attractors. At $x=-1$
 `LimbicTunnel.gradient_traps_near_neg1` (proved by `nlinarith`).
 
 ![The quartic double-well potential $V(x)=W(x^2-1)^2$ for barrier heights
-$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.
-*(Generated: `FS0_double_well.png`)*](figures/FS0_double_well.png){width=75%}
+$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.](figures/FS0_double_well.png){width=75%}
 
 ---
 
@@ -7440,8 +7455,7 @@ determines both simultaneously. $\square$
 
 ![Physical scale (left, log metres) and mind rank N (right, log units)
 both increase with $\sigma$ from 0 to 20. The two bars are tethered —
-a change in one forces a change in the other.
-*(Generated: `FA_dual_scaling.png`)*](figures/FA_dual_scaling.png){width=85%}
+a change in one forces a change in the other.](figures/FA_dual_scaling.png){width=85%}
 
 ---
 
@@ -7501,8 +7515,7 @@ Each selects a different low-energy physics. Our universe occupies one vacuum.
 
 ![Left: the Simple Harmonic Oscillator ($\ddot{x}+\omega^2 x=0$). Right: the
 Green's function $G(\tau)$ of a harmonic system — both satisfy the SHO
-equation. They are the same object.
-*(Generated: `FS1_sho_string.png`)*](figures/FS1_sho_string.png){width=80%}
+equation. They are the same object.](figures/FS1_sho_string.png){width=80%}
 
 ---
 
@@ -7525,8 +7538,7 @@ across all stable nuclei). Binding energy curve = eigenvalue spectrum of
 $G_\text{nuc}$.
 
 ![Yukawa potential $e^{-mr}/r$ (nuclear, solid) versus Coulomb potential $1/r$
-(electromagnetic, dashed). Same master equation; different mass parameter $k$.
-*(Generated: `FS2_yukawa_vs_coulomb.png`)*](figures/FS2_yukawa_vs_coulomb.png){width=70%}
+(electromagnetic, dashed). Same master equation; different mass parameter $k$.](figures/FS2_yukawa_vs_coulomb.png){width=70%}
 
 ---
 
@@ -7914,8 +7926,7 @@ while classical Langevin dynamics achieve 0/48.
 
 ![WKB tunnelling amplitude $\Theta(W)$ vs. barrier height $W$.
 QUANT-EXP-1 values ($W=8,10,12$) marked. Classical rate = 0;
-quantum rate = $\Theta > 0$ always.
-*(Generated: `FS6_wkb_amplitude.png`)*](figures/FS6_wkb_amplitude.png){width=70%}
+quantum rate = $\Theta > 0$ always.](figures/FS6_wkb_amplitude.png){width=70%}
 
 ---
 
@@ -8004,8 +8015,7 @@ rate of symptomatic improvement in trauma-spectrum conditions.
 
 ![The Arnold tongue: stable frequency-locked region (shaded) in the
 parameter space of coupling strength vs. frequency detuning. Rapport =
-operating inside the tongue.
-*(Generated: `FS8_arnold_tongue.png`)*](figures/FS8_arnold_tongue.png){width=70%}
+operating inside the tongue.](figures/FS8_arnold_tongue.png){width=70%}
 
 ---
 
@@ -8211,17 +8221,17 @@ connection recording the path-history. **Path to closure:** extend
 `GeographicSomatic.lean` (once written) to use `PathIntegral` machinery;
 update `manifold_coords.py` accordingly.
 
-**Problem 5: The Dyadic Coupling Inequality (Float arithmetic).**
+**Problem 5: The Dyadic Coupling Inequality.**
 `DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
 lowers energy when $J \geq 0$ and both fields have non-negative activation.
-The proof is straightforward over $\mathbb{R}$ (the cross-coupling sum
-$\sum_{ij} a_i J_{ij} b_j \geq 0$ when $a_i, b_j, J_{ij} \geq 0$),
-but Lean 4's `Float` type is axiomatized and not amenable to algebraic
-tactics (`linarith`, `nlinarith` do not apply to Float). **Path to closure:**
-re-implement the key energy functions over `ℝ` using Mathlib's `Real`
-type; the Float implementations can remain as computational code while
-the proofs use the Real-valued versions. This is a refactoring task,
-not a mathematical problem.
+**[Partially closed — August 2026]** The Float implementations have been
+removed and the energy functions re-implemented over $\mathbb{R}$.
+The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
+The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
+$\mathbb{R}$-transfer stub; the mathematical content is established.
+**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
+`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
+`dyadic_block_decomp` (ISS-005).
 
 ---
 
@@ -12070,8 +12080,7 @@ $G$ is scale-invariant across all 20 levels.
 
 ![The 20-step scale dial: each level coloured from violet (Planck) to yellow
 (cosmic). The master equation $(\nabla^2+k^2)G=\delta$ is invariant across
-all levels; only $k$ changes.
-*(Generated: `FA_universal_dial.png`)*](figures/FA_universal_dial.png){width=60%}
+all levels; only $k$ changes.](figures/FA_universal_dial.png){width=60%}
 
 ## 2.3  Log-Sum-Exp and the Correspondence Limit
 
@@ -12090,8 +12099,7 @@ This limit — the Correspondence Principle — is verified in
 
 ![Correspondence Principle: softmax$(+1)$ converges to 1 as $\beta \to \infty$
 (log scale). At $\beta=50$, the output is numerically indistinguishable from
-the classical sign function.
-*(Generated: `FSx_softmax_correspondence.png`)*](figures/FSx_softmax_correspondence.png){width=75%}
+the classical sign function.](figures/FSx_softmax_correspondence.png){width=75%}
 
 ---
 
@@ -12162,8 +12170,7 @@ models the energy barrier between somatic and cortical attractors. At $x=-1$
 `LimbicTunnel.gradient_traps_near_neg1` (proved by `nlinarith`).
 
 ![The quartic double-well potential $V(x)=W(x^2-1)^2$ for barrier heights
-$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.
-*(Generated: `FS0_double_well.png`)*](figures/FS0_double_well.png){width=75%}
+$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.](figures/FS0_double_well.png){width=75%}
 
 ---
 
@@ -12235,8 +12242,7 @@ determines both simultaneously. $\square$
 
 ![Physical scale (left, log metres) and mind rank N (right, log units)
 both increase with $\sigma$ from 0 to 20. The two bars are tethered —
-a change in one forces a change in the other.
-*(Generated: `FA_dual_scaling.png`)*](figures/FA_dual_scaling.png){width=85%}
+a change in one forces a change in the other.](figures/FA_dual_scaling.png){width=85%}
 
 ---
 
@@ -12296,8 +12302,7 @@ Each selects a different low-energy physics. Our universe occupies one vacuum.
 
 ![Left: the Simple Harmonic Oscillator ($\ddot{x}+\omega^2 x=0$). Right: the
 Green's function $G(\tau)$ of a harmonic system — both satisfy the SHO
-equation. They are the same object.
-*(Generated: `FS1_sho_string.png`)*](figures/FS1_sho_string.png){width=80%}
+equation. They are the same object.](figures/FS1_sho_string.png){width=80%}
 
 ---
 
@@ -12320,8 +12325,7 @@ across all stable nuclei). Binding energy curve = eigenvalue spectrum of
 $G_\text{nuc}$.
 
 ![Yukawa potential $e^{-mr}/r$ (nuclear, solid) versus Coulomb potential $1/r$
-(electromagnetic, dashed). Same master equation; different mass parameter $k$.
-*(Generated: `FS2_yukawa_vs_coulomb.png`)*](figures/FS2_yukawa_vs_coulomb.png){width=70%}
+(electromagnetic, dashed). Same master equation; different mass parameter $k$.](figures/FS2_yukawa_vs_coulomb.png){width=70%}
 
 ---
 
@@ -12709,8 +12713,7 @@ while classical Langevin dynamics achieve 0/48.
 
 ![WKB tunnelling amplitude $\Theta(W)$ vs. barrier height $W$.
 QUANT-EXP-1 values ($W=8,10,12$) marked. Classical rate = 0;
-quantum rate = $\Theta > 0$ always.
-*(Generated: `FS6_wkb_amplitude.png`)*](figures/FS6_wkb_amplitude.png){width=70%}
+quantum rate = $\Theta > 0$ always.](figures/FS6_wkb_amplitude.png){width=70%}
 
 ---
 
@@ -12799,8 +12802,7 @@ rate of symptomatic improvement in trauma-spectrum conditions.
 
 ![The Arnold tongue: stable frequency-locked region (shaded) in the
 parameter space of coupling strength vs. frequency detuning. Rapport =
-operating inside the tongue.
-*(Generated: `FS8_arnold_tongue.png`)*](figures/FS8_arnold_tongue.png){width=70%}
+operating inside the tongue.](figures/FS8_arnold_tongue.png){width=70%}
 
 ---
 
@@ -13006,17 +13008,17 @@ connection recording the path-history. **Path to closure:** extend
 `GeographicSomatic.lean` (once written) to use `PathIntegral` machinery;
 update `manifold_coords.py` accordingly.
 
-**Problem 5: The Dyadic Coupling Inequality (Float arithmetic).**
+**Problem 5: The Dyadic Coupling Inequality.**
 `DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
 lowers energy when $J \geq 0$ and both fields have non-negative activation.
-The proof is straightforward over $\mathbb{R}$ (the cross-coupling sum
-$\sum_{ij} a_i J_{ij} b_j \geq 0$ when $a_i, b_j, J_{ij} \geq 0$),
-but Lean 4's `Float` type is axiomatized and not amenable to algebraic
-tactics (`linarith`, `nlinarith` do not apply to Float). **Path to closure:**
-re-implement the key energy functions over `ℝ` using Mathlib's `Real`
-type; the Float implementations can remain as computational code while
-the proofs use the Real-valued versions. This is a refactoring task,
-not a mathematical problem.
+**[Partially closed — August 2026]** The Float implementations have been
+removed and the energy functions re-implemented over $\mathbb{R}$.
+The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
+The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
+$\mathbb{R}$-transfer stub; the mathematical content is established.
+**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
+`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
+`dyadic_block_decomp` (ISS-005).
 
 ---
 
@@ -20520,8 +20522,7 @@ $G$ is scale-invariant across all 20 levels.
 
 ![The 20-step scale dial: each level coloured from violet (Planck) to yellow
 (cosmic). The master equation $(\nabla^2+k^2)G=\delta$ is invariant across
-all levels; only $k$ changes.
-*(Generated: `FA_universal_dial.png`)*](figures/FA_universal_dial.png){width=60%}
+all levels; only $k$ changes.](figures/FA_universal_dial.png){width=60%}
 
 ## 2.3  Log-Sum-Exp and the Correspondence Limit
 
@@ -20540,8 +20541,7 @@ This limit — the Correspondence Principle — is verified in
 
 ![Correspondence Principle: softmax$(+1)$ converges to 1 as $\beta \to \infty$
 (log scale). At $\beta=50$, the output is numerically indistinguishable from
-the classical sign function.
-*(Generated: `FSx_softmax_correspondence.png`)*](figures/FSx_softmax_correspondence.png){width=75%}
+the classical sign function.](figures/FSx_softmax_correspondence.png){width=75%}
 
 ---
 
@@ -20612,8 +20612,7 @@ models the energy barrier between somatic and cortical attractors. At $x=-1$
 `LimbicTunnel.gradient_traps_near_neg1` (proved by `nlinarith`).
 
 ![The quartic double-well potential $V(x)=W(x^2-1)^2$ for barrier heights
-$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.
-*(Generated: `FS0_double_well.png`)*](figures/FS0_double_well.png){width=75%}
+$W \in \{8,10,12\}$ corresponding to the QUANT-EXP-1 sweep.](figures/FS0_double_well.png){width=75%}
 
 ---
 
@@ -20685,8 +20684,7 @@ determines both simultaneously. $\square$
 
 ![Physical scale (left, log metres) and mind rank N (right, log units)
 both increase with $\sigma$ from 0 to 20. The two bars are tethered —
-a change in one forces a change in the other.
-*(Generated: `FA_dual_scaling.png`)*](figures/FA_dual_scaling.png){width=85%}
+a change in one forces a change in the other.](figures/FA_dual_scaling.png){width=85%}
 
 ---
 
@@ -20746,8 +20744,7 @@ Each selects a different low-energy physics. Our universe occupies one vacuum.
 
 ![Left: the Simple Harmonic Oscillator ($\ddot{x}+\omega^2 x=0$). Right: the
 Green's function $G(\tau)$ of a harmonic system — both satisfy the SHO
-equation. They are the same object.
-*(Generated: `FS1_sho_string.png`)*](figures/FS1_sho_string.png){width=80%}
+equation. They are the same object.](figures/FS1_sho_string.png){width=80%}
 
 ---
 
@@ -20770,8 +20767,7 @@ across all stable nuclei). Binding energy curve = eigenvalue spectrum of
 $G_\text{nuc}$.
 
 ![Yukawa potential $e^{-mr}/r$ (nuclear, solid) versus Coulomb potential $1/r$
-(electromagnetic, dashed). Same master equation; different mass parameter $k$.
-*(Generated: `FS2_yukawa_vs_coulomb.png`)*](figures/FS2_yukawa_vs_coulomb.png){width=70%}
+(electromagnetic, dashed). Same master equation; different mass parameter $k$.](figures/FS2_yukawa_vs_coulomb.png){width=70%}
 
 ---
 
@@ -21159,8 +21155,7 @@ while classical Langevin dynamics achieve 0/48.
 
 ![WKB tunnelling amplitude $\Theta(W)$ vs. barrier height $W$.
 QUANT-EXP-1 values ($W=8,10,12$) marked. Classical rate = 0;
-quantum rate = $\Theta > 0$ always.
-*(Generated: `FS6_wkb_amplitude.png`)*](figures/FS6_wkb_amplitude.png){width=70%}
+quantum rate = $\Theta > 0$ always.](figures/FS6_wkb_amplitude.png){width=70%}
 
 ---
 
@@ -21249,8 +21244,7 @@ rate of symptomatic improvement in trauma-spectrum conditions.
 
 ![The Arnold tongue: stable frequency-locked region (shaded) in the
 parameter space of coupling strength vs. frequency detuning. Rapport =
-operating inside the tongue.
-*(Generated: `FS8_arnold_tongue.png`)*](figures/FS8_arnold_tongue.png){width=70%}
+operating inside the tongue.](figures/FS8_arnold_tongue.png){width=70%}
 
 ---
 
@@ -21456,17 +21450,17 @@ connection recording the path-history. **Path to closure:** extend
 `GeographicSomatic.lean` (once written) to use `PathIntegral` machinery;
 update `manifold_coords.py` accordingly.
 
-**Problem 5: The Dyadic Coupling Inequality (Float arithmetic).**
+**Problem 5: The Dyadic Coupling Inequality.**
 `DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
 lowers energy when $J \geq 0$ and both fields have non-negative activation.
-The proof is straightforward over $\mathbb{R}$ (the cross-coupling sum
-$\sum_{ij} a_i J_{ij} b_j \geq 0$ when $a_i, b_j, J_{ij} \geq 0$),
-but Lean 4's `Float` type is axiomatized and not amenable to algebraic
-tactics (`linarith`, `nlinarith` do not apply to Float). **Path to closure:**
-re-implement the key energy functions over `ℝ` using Mathlib's `Real`
-type; the Float implementations can remain as computational code while
-the proofs use the Real-valued versions. This is a refactoring task,
-not a mathematical problem.
+**[Partially closed — August 2026]** The Float implementations have been
+removed and the energy functions re-implemented over $\mathbb{R}$.
+The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
+The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
+$\mathbb{R}$-transfer stub; the mathematical content is established.
+**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
+`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
+`dyadic_block_decomp` (ISS-005).
 
 ---
 

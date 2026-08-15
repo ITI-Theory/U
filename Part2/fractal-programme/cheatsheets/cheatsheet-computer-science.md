@@ -81,7 +81,7 @@ propagates coordination signals between agents in a single step.
 # IV · ISS Backlog
 
 \begin{itemize}
-\item \textbf{ISS-005}: \texttt{brainStemActivatesContagion} — needs computable $W_8^\mathbb{Q}$
+\item \textbf{ISS-005}: \texttt{brainStemActivatesContagion} — needs computable $W_8^{\mathbb{Q}}$
 \item \textbf{ISS-011}: Hopfield SpinState upgrade for convergence proofs
 \item \textbf{ISS-017}: Auto-regen lean-appendix in release-check
 \item \textbf{Mathlib gap}: Riemannian holonomy · GR perturbation theory · KK spectral theory

@@ -11,6 +11,23 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-ppe.pdf}
+\tableofcontents
+\clearpage
+```
+
+
+
+
+## The Green Propagator
+
+**G-ID:** *The Mandate Consensus Propagator — collective decision kernel in democratic field theory*
+
+The Mandate Consensus Propagator is the collective decision kernel — the mathematical description of how individual preferences aggregate into a shared political will, how long that will persists, and under what conditions it dissolves. In this book you will encounter three disciplines that have historically spoken past each other: philosophy (what is the good?), politics (who decides?), and economics (at what cost?). The propagator is the common language. Watch for how the same mathematical object — a Green’s function with characteristic timescale $\tau_\mathrm{mandate}$ — appears in Rawlsian deliberation, in Arrow’s impossibility theorem, and in market mechanism design. The question of collective action is, at its mathematical core, a question about the topology of this propagator.
+
+
+
 # Introduction: The Same Field Governs Mind, Market, and Mandate
 
 Oxford PPE — Philosophy, Politics, and Economics — is an unusual curriculum. It was assembled in 1920 with the explicit intention that the three disciplines illuminate each other: that philosophical rigour improves political reasoning, that economic analysis sharpens political choices, that political reality disciplines philosophical abstraction, that philosophical foundations constrain economic modelling. In practice, the three disciplines have increasingly gone their separate ways. Philosophy of mind has little contact with macroeconomics. Political theory debates justice in near-total isolation from game theory. Economists build equilibrium models without engaging the philosophical foundations of rational choice. The integrative promise of PPE has been partially fulfilled in applied ethics and political economy, but the deepest integration — a single framework that governs all three domains from first principles — has not been achieved.
@@ -1857,10 +1874,37 @@ different direction: bottom-up from clinical observation of trauma, rather
 than top-down from mathematical physics. The structural isomorphism between
 the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
 
+### The Σ-Type Formulation of the USF
+
+The 11D decomposition is not merely a dimensional accounting exercise. In
+Homotopy Type Theory, the full soma-field configuration space is a
+**dependent sum type** (Σ-type):
+
+$$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
+
+where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
+at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+the total space is the soma-field configuration space; the base space is the
+20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
+configuration at that scale. The Lean 4 type `ScaleUniverse` in
+`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+
+The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
+between adjacent fibers:
+
+$$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
+
+This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
+application of human-scale emotional operators to galaxy-scale configurations.
+A scale mismatch is not merely physically wrong — it is a *type error*, caught
+at compile time before any computation runs.
+
 The USF does something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
-inside the type-theoretic universe.
+inside the type-theoretic universe. The two are related by the identification:
+the modal operators of mHoTT are the Zoom Operators of the USF, and the
+$\infty$-topos of mHoTT is the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -4155,6 +4199,14 @@ Future theoretical work should address the relational field: the observation, fa
 systemic and relational approaches to psychotherapy, that emotional fields are not bounded
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
+
+**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
+*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
+rigorous framework of constructive quantum field theory. The proof is machine-verified
+in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
+the Minkowski continuation proved in the temporal-dynamics companion paper. The
+interacting (Hopfield-coupled) theory is addressed in P15.
 
 ---
 

@@ -9,6 +9,24 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/noir-page.pdf}
+\null\thispagestyle{empty}\clearpage
+```
+
+
+
+
+```{=latex}
+\tableofcontents
+\clearpage
+```
+
+
+
+
 # [T]-Theory: A Complete Programme
 
 ## Science, Art, and the Universal Field

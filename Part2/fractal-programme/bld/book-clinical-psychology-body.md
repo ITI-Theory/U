@@ -11,6 +11,23 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-clinical-psychology.pdf}
+\tableofcontents
+\clearpage
+```
+
+
+
+
+## The Green Propagator
+
+**G-ID:** *Trauma-Well Resolution — escape probability from a somatic attractor basin*
+
+The Trauma-Well Resolution is the escape probability from a deep, narrow attractor basin in somatic field space — the mathematical answer to the clinical question: how likely is this person to recover? In this book, every chapter is organised around this central object. The assessment tools measure the well's depth and width; the intervention protocols are designed to raise the field temperature or reshape the basin geometry; the case studies show what the trajectory through the landscape looks like in real clinical time. As you read, hold in mind that the trauma is not the person — it is a feature of the energy landscape the person is navigating, and landscapes can be changed.
+
+
+
 # Introduction: When the Map Is the Territory
 
 Clinical practice rests on an implicit assumption that most therapists carry without examining: that psychological experience is, at bottom, a story the mind tells about itself. The language of therapy — schemas, narratives, inner parts, defences — is a language of representation. The troubled client is thought to carry distorted representations of self and world, and the therapeutic task is to revise those representations: to update the story, challenge the cognitive distortion, rewrite the narrative, befriend the inner child.
@@ -2794,7 +2811,7 @@ The following claims require further experimental work:
    amplitude via magnetoencephalography in human participants during somatic
    threshold events.
 
-2. **Dyadic propagator poles** (Open Problem 5 in the zUSF paper):
+2. **Dyadic propagator poles** (GAP-1 in the USF test suite):
    the spectral correspondence between the dyadic propagator poles and
    interpersonal synchrony metrics has not been measured.
 
@@ -4008,6 +4025,14 @@ Future theoretical work should address the relational field: the observation, fa
 systemic and relational approaches to psychotherapy, that emotional fields are not bounded
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
+
+**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
+*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
+rigorous framework of constructive quantum field theory. The proof is machine-verified
+in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
+the Minkowski continuation proved in the temporal-dynamics companion paper. The
+interacting (Hopfield-coupled) theory is addressed in P15.
 
 ---
 

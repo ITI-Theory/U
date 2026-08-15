@@ -11,6 +11,23 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-psychiatry-asd.pdf}
+\tableofcontents
+\clearpage
+```
+
+
+
+
+## The Green Propagator
+
+**G-ID:** *Clinical Operator Propagator — resolvent of the Hopfield Hamiltonian in the clinical regime*
+
+The Clinical Operator Propagator is the resolvent of the Hopfield Hamiltonian evaluated in the clinical parameter regime — the mathematical object that tells you which attractor basin the patient's emotional system will settle into, given its current coupling matrix $W_8$. In this book, every diagnostic category is a different topology of this resolvent: ASD is a coupling matrix with altered off-diagonal structure, ADHD is one operating at elevated field temperature, CPTSD is one with an anomalously deep trauma well. The pharmacological interventions you know are perturbations to the parameters of the resolvent. As you read, the clinical pictures will become geometrically legible. The book's aim is not to reduce persons to equations, but to give the equations enough precision that the person's complexity is visible, not obscured.
+
+
+
 # Introduction: Not Broken, Modified
 
 Autism spectrum conditions (ASC) and post-traumatic stress presentations — including complex PTSD (CPTSD) and developmental trauma — are among the most prevalent and most misunderstood presentations in contemporary psychiatry. They co-occur at rates far above chance: estimates of CPTSD prevalence in autistic adults range from 40% to 70% in clinical samples. They share surface features — heightened sensory sensitivity, social difficulties, emotional dysregulation, executive dysfunction — that lead to frequent diagnostic confusion and mis-attribution. And they are both treated, far too often, as deficits to be corrected rather than as field configurations to be understood.
@@ -2221,7 +2238,7 @@ The following claims require further experimental work:
    amplitude via magnetoencephalography in human participants during somatic
    threshold events.
 
-2. **Dyadic propagator poles** (Open Problem 5 in the zUSF paper):
+2. **Dyadic propagator poles** (GAP-1 in the USF test suite):
    the spectral correspondence between the dyadic propagator poles and
    interpersonal synchrony metrics has not been measured.
 

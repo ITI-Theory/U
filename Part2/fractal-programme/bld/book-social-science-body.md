@@ -11,6 +11,23 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-social-science.pdf}
+\tableofcontents
+\clearpage
+```
+
+
+
+
+## The Green Propagator
+
+**G-ID:** *The Rapport Propagator — social interaction kernel for coordination and contagion waves*
+
+The Rapport Propagator is the two-point correlation function between two agents’ emotional fields — it measures how much of what one person feels, the other comes to feel, and over what timescale. In this book it is the basic building block of social cohesion, cultural transmission, and institutional memory. Each paper in the collection examines a different manifestation of the same kernel: linguistic innovation spreading across geographic space, collective behaviour coordinating in cities, social norms stabilising as attractor configurations. As you read, look for the moment when individual psychology (one person, one field) becomes collective dynamics (a population, one shared field). That transition — always happening at the same mathematical threshold — is the rapport propagator becoming dominant.
+
+
+
 # Introduction: Society Is a Field System
 
 Social science has long been drawn to physics for its metaphors. Sociologists speak of social *forces* and *fields*; economists model *equilibria*; political scientists speak of *polarisation* and *momentum*. These are borrowings from the vocabulary of physics, used to give intuitive shape to phenomena that resist purely narrative description. But they are metaphors, not derivations. No social scientist has derived the inverse-square law for social influence, or written down the Lagrangian for political polarisation, or computed the spectral gap of a social network from first principles.
@@ -2672,6 +2689,14 @@ Future theoretical work should address the relational field: the observation, fa
 systemic and relational approaches to psychotherapy, that emotional fields are not bounded
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
+
+**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
+*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
+rigorous framework of constructive quantum field theory. The proof is machine-verified
+in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
+the Minkowski continuation proved in the temporal-dynamics companion paper. The
+interacting (Hopfield-coupled) theory is addressed in P15.
 
 ---
 

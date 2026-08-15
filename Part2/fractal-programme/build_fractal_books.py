@@ -23,6 +23,31 @@ BLD_DIR     = FRACTAL_DIR / "bld"
 KAPPA_DIR   = FRACTAL_DIR / "kappas"
 CONC_DIR    = FRACTAL_DIR / "conclusions"
 
+# PDF paths for includepdf injection (— absolute paths required; xelatex runs in temp dir)
+_BLD_ABS = str(BLD_DIR.resolve()).replace("\\", "/")
+
+def _noir_block() -> str:
+    return (
+        "\n\n```{=latex}\n"
+        "\\clearpage\n"
+        "\\null\\thispagestyle{empty}\\clearpage\n"
+        f"\\includepdf{{{_BLD_ABS}/noir-page.pdf}}\n"
+        "\\null\\thispagestyle{empty}\\clearpage\n"
+        "```\n\n"
+    )
+
+def _cheatsheet_toc(domain_id: str) -> str:
+    return (
+        "\n\n```{=latex}\n"
+        f"\\includepdf{{{_BLD_ABS}/cheatsheet-{domain_id}.pdf}}\n"
+        "\\tableofcontents\n"
+        "\\clearpage\n"
+        "```\n\n"
+    )
+
+def _toc_only() -> str:
+    return "\n\n```{=latex}\n\\tableofcontents\n\\clearpage\n```\n\n"
+
 # Strips YAML frontmatter from canonical papers (same as build_omnibus.py)
 _FM_RE  = re.compile(r"^---\n[\s\S]*?\n---\n\n?", re.MULTILINE)
 _REF_RE = re.compile(r"\n#{1,3}\s+References\b[\s\S]*$", re.IGNORECASE)
@@ -79,6 +104,7 @@ DOMAINS = [
         "prompt_extra": "Write for an intelligent non-specialist. No equations required. Use the elevator pitch style. The book should be the one a geophysicist could hand to their partner to explain what they're reading about.",
         "green_id": "The Universal Propagator — G(x,x’) at the Hubble scale",
         "green_narrative": "The Green Propagator answers the most fundamental question in physics: if something happens here, what is felt there? In this gateway book, it is the invisible thread connecting every chapter — from the vibration of a guitar string to the emotional state of a person in crisis to the expansion of the observable universe. You do not need the mathematics to feel it. Look for the moments when the book shows two very different things behaving in exactly the same way: that sameness is the propagator at work. The whole programme has one equation; this book shows you what it means.",
+        "noir_page": True,
     },
     {
         "id": "physics",
@@ -276,6 +302,16 @@ csl: ../../paper/apa-7th.csl
 
     sections = [frontmatter]
 
+    # Noir page (gateway only) — pre-built PDF, blank verso before and after
+    if domain.get("noir_page"):
+        sections.append(_noir_block())
+        print("  + noir-page")
+        sections.append(_cheatsheet_toc(domain_id))
+        print(f"  + cheatsheet-{domain_id}")
+    else:  # all other books: cheatsheet then TOC
+        sections.append(_cheatsheet_toc(domain_id))
+        print(f"  + cheatsheet-{domain_id}")
+
     # G-ID narrative section — injected before kappa so it opens every book
     green_id        = domain.get("green_id", "")
     green_narrative = domain.get("green_narrative", "")
@@ -379,7 +415,7 @@ bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 ---"""
 
-    sections = [frontmatter]
+    sections = [frontmatter, _noir_block(), _toc_only()]
 
     for domain_id in domain_ids:
         domain = get_domain(domain_id)
@@ -446,7 +482,7 @@ bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 ---"""
 
-    sections = [frontmatter, f"\n\n{opening_text}\n"]
+    sections = [frontmatter, _noir_block(), _toc_only(), f"\n\n{opening_text}\n"]
 
     for domain in DOMAINS:
         print(f"\n  Assembling: {domain['id']}")

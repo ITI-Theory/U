@@ -11,6 +11,23 @@ csl: ../../paper/apa-7th.csl
 ---
 
 
+```{=latex}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-music-arts.pdf}
+\tableofcontents
+\clearpage
+```
+
+
+
+
+## The Green Propagator
+
+**G-ID:** *Aesthetic Field Perturbation — BRECVEMA impulse response to musical stimulus*
+
+The Aesthetic Field Perturbation is what happens to the 8-dimensional BRECVEMA emotional field when a musical stimulus arrives: the brainstem reflex fires, the rhythm-entrained body starts to move, the memory of a lost person surfaces, and the aesthetic judgement integrates it all into a single felt response. In this book, each paper illuminates a different mechanism in that chain. The propagator is the impulse response — how strongly, how long, and through which pathways the music moves through you. The ‘chills’ response is the field briefly crossing the consciousness threshold $T_c$; the musical climax is the field approaching its maximum correlation length. As you read, the music you have loved all your life will acquire a geometry.
+
+
+
 # Introduction: Music Knows Something Physics Forgot
 
 Music works. This is the embarrassment at the centre of music psychology: we have an enormous body of evidence showing that music reliably produces specific emotional responses in listeners, that these responses are cross-cultural in their broad outlines, that they involve both peripheral physiological changes (heart rate, skin conductance, temperature) and central phenomenal changes (the felt quality of the experience), and that these effects can be predicted from structural features of the music — tempo, mode, harmonic progression, timbre, rhythm. What we lack is a theory. We know what music does; we do not know *why* it does it, in any deep sense.
