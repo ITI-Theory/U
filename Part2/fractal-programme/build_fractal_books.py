@@ -26,6 +26,10 @@ CONC_DIR    = FRACTAL_DIR / "conclusions"
 # PDF paths for includepdf injection (— absolute paths required; xelatex runs in temp dir)
 _BLD_ABS = str(BLD_DIR.resolve()).replace("\\", "/")
 
+def _master_cheatsheet_pdf() -> str:
+    """Return the single reference cheatsheet used in every domain book."""
+    return f"{_BLD_ABS}/cheatsheet-master.pdf"
+
 def _noir_block() -> str:
     return (
         "\n\n```{=latex}\n"
@@ -39,7 +43,8 @@ def _noir_block() -> str:
 def _cheatsheet_toc(domain_id: str) -> str:
     return (
         "\n\n```{=latex}\n"
-        f"\\includepdf{{{_BLD_ABS}/cheatsheet-{domain_id}.pdf}}\n"
+        f"\\includepdf{{{_master_cheatsheet_pdf()}}}\n"
+        "\\setcounter{page}{1}\n"
         "\\tableofcontents\n"
         "\\clearpage\n"
         "```\n\n"
@@ -307,10 +312,10 @@ csl: ../../paper/apa-7th.csl
         sections.append(_noir_block())
         print("  + noir-page")
         sections.append(_cheatsheet_toc(domain_id))
-        print(f"  + cheatsheet-{domain_id}")
+        print("  + cheatsheet-master")
     else:  # all other books: cheatsheet then TOC
         sections.append(_cheatsheet_toc(domain_id))
-        print(f"  + cheatsheet-{domain_id}")
+        print("  + cheatsheet-master")
 
     # G-ID narrative section — injected before kappa so it opens every book
     green_id        = domain.get("green_id", "")
@@ -415,7 +420,7 @@ bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 ---"""
 
-    sections = [frontmatter, _noir_block(), _toc_only()]
+    sections = [frontmatter, _toc_only()]
 
     for domain_id in domain_ids:
         domain = get_domain(domain_id)
@@ -482,7 +487,7 @@ bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 ---"""
 
-    sections = [frontmatter, _noir_block(), _toc_only(), f"\n\n{opening_text}\n"]
+    sections = [frontmatter, _toc_only(), f"\n\n{opening_text}\n"]
 
     for domain in DOMAINS:
         print(f"\n  Assembling: {domain['id']}")

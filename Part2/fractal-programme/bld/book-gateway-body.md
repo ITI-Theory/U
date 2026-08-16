@@ -22,7 +22,8 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-gateway.pdf}
+\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\setcounter{page}{1}
 \tableofcontents
 \clearpage
 ```

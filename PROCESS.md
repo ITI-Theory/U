@@ -98,9 +98,19 @@ Test questions:
 - “What does the theory say about [X] — is it consistent across the omnibus?”
 - “Find any contradiction between [early paper] and [later paper].”
 
-**Pre-upload automated checks (run `bin/release-check` from repo root):**
-Covers: Float in proofs, sorry count, open problem markers, lean-appendix
-freshness, PAPERS.yaml pending uploads, git status. See ISS-013.
+**Release-candidate workflow (run from the U repo root):**
+
+1. Run `bin/release-build` to rebuild candidates in `U`; it never copies files to `Dist`.
+2. Perform the relevant PDF/reader QA, then run `bin/release-check` as the pre-release gate.
+3. Only after approval, promote the selected candidates to the separate `Dist` release repository.
+
+The same steps are available as `make uat-build` and `make uat-check`. Release
+candidates are English-only; translation tooling is deferred and does not form
+part of the candidate or release workflow.
+
+`bin/release-check` covers Float in proofs, sorry count, open problem markers,
+lean-appendix freshness, PAPERS.yaml pending uploads, git status, and release-file
+integrity. See ISS-013.
 ### Tier 2 — Harry Potter: “Did we build the right thing?”
 
 Checks completeness and scope.

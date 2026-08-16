@@ -48,6 +48,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "AJ-WiKi"
+		"liveServer.settings.multiRootWorkspaceName": "AJ-WiKi",
+		"makefile.configureOnOpen": false
 	}
 }

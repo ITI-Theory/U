@@ -9,7 +9,8 @@ vpath %.md soma/SFT-DEMO-CASE soma/t-theory ai-method
 # --- Document registry (one line per document) ---
 # $(eval $(call register, id, class, langs, alias))
 #   class: paper | citeproc | book
-#   langs: en | multi
+#   langs: en | multi (translation tooling is retained but deferred; release
+#   candidates are English-only until translations are explicitly re-enabled)
 #   alias: short make target (auto-generates .PHONY + rule)
 $(eval $(call register, soma-field-paper,               paper,    multi, main    ))
 $(eval $(call register, soma-field-patient-pov,         paper,    multi, pov     ))
@@ -61,7 +62,7 @@ help:
 	@echo "  make omnibus     both omnibus editions (Royal + A4)"
 	@echo "  make lean-appendix  standalone PDF of all Lean 4 proofs"
 #	@echo "  make thesis      thesis edition (Royal + A4) [disabled — use omnibus]"
-	@echo "  make de/fr/it    all PDFs in that language"
+	@echo "  English-only release builds are active; translations are deferred"
 	@echo "  make clean       remove English PDFs"
 	@echo "  make check       verify pandoc + xelatex"
 	@echo ""
@@ -241,7 +242,10 @@ $(BUILDDIR)/$(1).$(2).pdf: $(BUILDDIR)/$(1).$(2).md $(if $(filter citeproc,$($(1
 	@echo "Built: $$@"
 endef
 
-TRANS_LANGS := de fr it
+# Translations are retained as dormant tooling, but only English is currently
+# supported for candidate and release builds. Set explicitly when translation
+# work resumes.
+TRANS_LANGS ?=
 $(foreach d,$(ALL_DOCS),$(eval $(call BUILD_EN_RULE,$(d))))
 $(foreach d,$(ALL_DOCS),$(foreach l,$(TRANS_LANGS),$(if $(filter multi,$($(d).langs)),$(eval $(call BUILD_TRANS_RULE,$(d),$(l))),)))
 

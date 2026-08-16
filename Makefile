@@ -7,7 +7,8 @@ DIST  := ../Dist
 
 include mk/dist.mk
 
-.PHONY: all lean lean-appendix omnibus fractal-thesis cheatsheet dist generate list
+.PHONY: all lean lean-appendix omnibus fractal-thesis cheatsheet \
+	uat-build uat-check release-build release-check dist generate list
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
@@ -26,6 +27,19 @@ fractal-thesis:
 	$(MAKE) -C Part2/fractal-programme fractal-thesis
 
 all: lean-appendix omnibus fractal-thesis cheatsheet
+
+# Release candidates are built and checked in U. Dist is only the destination
+# for an explicitly approved release.
+uat-build:
+	bin/release-build
+
+uat-check:
+	bin/release-check
+
+# Familiar release names remain aliases for the UAT gate.
+release-build: uat-build
+
+release-check: uat-check
 
 generate:
 	py paper/scripts/generate_mk.py
