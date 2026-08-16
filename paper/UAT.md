@@ -5,6 +5,58 @@ Deliberately kept high-level; add specifics as they become clear.
 
 ---
 
+## Release scope and UAT manifest — 2026 final programme release
+
+This is the controlling UAT scope for the final [T]-Theory programme release.
+Candidates are built and accepted in `U`. `Dist` receives only accepted artefacts.
+The review record below applies to the distinct candidate PDFs; copies for each
+distribution channel are then verified against that accepted source PDF.
+
+| Channel | Release policy | UAT treatment |
+|---|---|---|
+| Zenodo | Canonical papers P1–P24, D1, D2, the paper omnibus (C1v2), and the complete fractal thesis (C2). | Review each formal record PDF. Individual fractal books and Volumes I/II are **not** Zenodo records. |
+| NotebookLM | Two current PDFs: the accepted current paper omnibus and the accepted fractal thesis. | Verify both files are the accepted candidates and together cover the current programme. |
+| Lulu | Personal print files: current paper omnibus, Fractal Volume I, and Fractal Volume II. | Visual print review after their source candidates are accepted. |
+| `Dist/papers` and landing pages | A mirror and public download surface, not an independent release. | Verify file names, links, descriptions, and checksums only after candidate acceptance. |
+| `Dist/stuff` | The master cheatsheet and supporting supplementary materials. | Review the master cheatsheet once, then verify the distributed copy. |
+
+### Live Zenodo baseline — checked 2026-08-16
+
+The ITI-Theory community currently contains 25 live records: P1–P20, D1, D2,
+the paper omnibus C1v2, the fractal thesis C2, and the separate QUANT-EXP-1
+experiment record. P21–P24 are not yet live.
+
+Before final promotion, this UAT must decide the action for every formal record:
+
+| Action | Records | Reason / UAT gate |
+|---|---|---|
+| New Zenodo record | P21, P22, P23, P24 | Review and accept the current candidate PDF and metadata. |
+| New Zenodo version | P11, P12, D2, C1v2, C2 | Local source changed after the live record. Verify the exact accepted change before upload. |
+| Published, no update currently indicated | P1–P10 except P11/P12, P13–P20, D1, QUANT-EXP-1 | Confirm during source review that no unrecorded substantive change exists. |
+| Not a Zenodo publication | 15 individual fractal books; Fractal Volumes I and II; master cheatsheet | Review for NotebookLM/Lulu/`Dist` as applicable, but do not prepare Zenodo metadata. |
+
+### Candidate-to-source map
+
+| Candidate class | Candidate PDF(s) | Authoritative source |
+|---|---|---|
+| Canonical papers | P1–P24 | `paper/soma/<slug>/<slug>.md` (registry: `../Dist/PAPERS.yaml`) |
+| D1 clinical case | `SFT-DEMO-CASE.pdf` | `paper/soma/SFT-DEMO-CASE/SFT-DEMO-CASE.md` |
+| D2 proofs appendix | `lean-proofs-appendix.pdf` | `paper/proofs/*.lean` → `paper/scripts/build_lean_appendix.py` → `paper/soma/lean-proofs-appendix/lean-proofs-appendix.md` |
+| Paper omnibus | `omnibus-a4.pdf` / print variant | `paper/scripts/build_omnibus.py` plus its canonical-paper inputs; historical sequence is intentional, but later corrections must be signposted. |
+| Fractal thesis, volumes, and 15 books | `ttheory-omnibus.pdf`, `ttheory-vol1.pdf`, `ttheory-vol2.pdf`, `book-*.pdf` | `Part2/fractal-programme/build_fractal_books.py`, its kappas/conclusions, and the canonical-paper inputs. The fractal thesis is the current canonical synthesis, not a historical record. |
+| Master cheatsheet | `cheatsheet-master.pdf` | `paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md` and `cheatsheet-header.tex` |
+
+### Required UAT sequence
+
+1. Freeze and build the candidate set in `U`.
+2. Visually accept each distinct PDF, recording comments and rebuilds here.
+3. Review every listed Markdown source for claim status, consistency, citations, and
+   the historical-versus-canonical distinction above.
+4. Verify the two NotebookLM PDFs, Lulu files, `Dist` copies, and public GitHub landing-page links.
+5. Promote only accepted candidates to `Dist`, then execute the Zenodo new-version/new-record actions.
+
+---
+
 ## U-1 Personal Information
 
 **Criterion:** Papers must not contain personal information that would be
