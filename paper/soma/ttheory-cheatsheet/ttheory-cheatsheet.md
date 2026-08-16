@@ -14,6 +14,13 @@ mainfont: "TeX Gyre Pagella"
 
 \vspace{4pt}
 
+\noindent\textit{Why this exists:} a disturbance in one place changes what is
+possible somewhere else. [T]-Theory asks what becomes testable when propagation,
+memory, and collective coordination are treated as one field problem — across
+matter, minds, markets, and the cosmos.
+
+\vspace{5pt}
+
 \noindent\colorbox{ghost}{\begin{minipage}{\dimexpr\textwidth-2\fboxsep\relax}
 \vspace{4pt}
 \begin{minipage}[t]{0.48\textwidth}
@@ -22,7 +29,7 @@ mainfont: "TeX Gyre Pagella"
 \item SHO = Green's function (derived, not postulated as a primitive)
 \item 11D manifold = minimum geometry for a conscious vertebrate organism
 \item Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ (61 orders of magnitude)
-\item Theory is a fixed-point attractor of its own subject matter (P23)
+\item Theory is a proposed fixed-point attractor of its own subject matter (see the [T]-Theory phenomena paper)
 \end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\textwidth}
@@ -90,7 +97,10 @@ of time at compile time. A causal violation is a type error, not a runtime error
 $$\mathrm{USF} \;\equiv\; \sum_{(\sigma\,:\,\mathrm{Scale}_{20})} \bigl(\mathrm{Substrate}(\sigma) \times G_R(\sigma)\bigr)$$
 
 **BFSS cortex** — coordinates emerge from Hermitian matrix eigenvalues (not fixed a priori):
-$$\mathrm{CortexCoords} \;\equiv\; \mathrm{eigenvalues}(X),\quad X^\dagger = X,\quad X \in M_{3\times 3}(\mathbb{C})$$
+$$\begin{aligned}
+\mathrm{CortexCoords} &\;\equiv\; \mathrm{eigenvalues}(X),\\
+X^\dagger &= X,\qquad X \in M_{3\times 3}(\mathbb{C}).
+\end{aligned}$$
 
 *Proved in* `BFSSIsomorphism.lean` *using Mathlib's* `Matrix.IsHermitian.eigenvalues`.
 
@@ -138,8 +148,6 @@ $$|\omega_\text{ext} - \omega_0| < \Delta\omega_\text{lock}(\kappa)$$
 
 **SHO frequency** *(physlib* `trajectory_equationOfMotion`*)*:
 $$\omega^2 = k/m,\quad \omega^2 = v^2 k^2 \quad\text{(dispersion relation)}$$
-
-\columnbreak
 
 # IV · The 11D Decomposition — M-Theory / BFSS / Hořava-Witten
 
@@ -243,10 +251,6 @@ Titrated trauma processing = temperature regulation within the therapeutic windo
 **Pre-verbal manifold** ($\sigma = 6$, before language acquisition): large $k$, rapid
 memory decay. Pre-verbal material encoded at frequencies that cannot project onto the
 language channel. Explains inaccessibility to verbal recall; motivates somatic entry.
-
-\clearpage
-
-\clearpage
 
 # VIII · Lean 4 Verification Status
 

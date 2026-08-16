@@ -100,13 +100,13 @@ Test questions:
 
 **Release-candidate workflow (run from the U repo root):**
 
-1. Run `bin/release-build` to rebuild candidates in `U`; it never copies files to `Dist`.
+1. Run `make generate` when adopting the latest `Dist/PAPERS.yaml` registry, then run
+   `make uat-build` to rebuild candidates in `U`; neither command copies files to `Dist`.
 2. Perform the relevant PDF/reader QA, then run `bin/release-check` as the pre-release gate.
 3. Only after approval, promote the selected candidates to the separate `Dist` release repository.
 
-The same steps are available as `make uat-build` and `make uat-check`. Release
-candidates are English-only; translation tooling is deferred and does not form
-part of the candidate or release workflow.
+Release candidates are English-only; translation tooling is deferred and does
+not form part of the candidate or release workflow.
 
 `bin/release-check` covers Float in proofs, sorry count, open problem markers,
 lean-appendix freshness, PAPERS.yaml pending uploads, git status, and release-file

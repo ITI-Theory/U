@@ -10,6 +10,7 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
+\setcounter{tocdepth}{-1}
 \tableofcontents
 \clearpage
 ```
@@ -17,11 +18,23 @@ csl: ../../paper/apa-7th.csl
 
 
 
-\newpage
-
-\markboth{[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos}{}
-
-# Volume: [T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos
+```{=latex}
+\part{[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos}
+\markboth{[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos}{[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos}
+\begin{center}
+{\large\itshape An Introduction to the Fractal Programme\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: The Universal Propagator — G(x,x’) at the Hubble scale\par}
+\vspace{4mm}
+{\sffamily Reader: The Generalist\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-4.pdf}
+\clearpage
+```
 
 # Introduction: What If Everything Feels?
 
@@ -734,8 +747,9 @@ you. The appendices contain the full mathematics as it appears in the academic p
 **If you are a physicist, mathematician, or computationalist** who has arrived here by
 accident or curiosity — you will recognise the Hamiltonian formulation immediately. The
 novel content for you is in Chapters 6, 7, and Appendix A. The Lean 4 type sketches in
-Appendix B may be of particular interest; they are incomplete proofs, marked with
-`sorry` where the hard work remains, and they represent a research programme.
+Appendix B may be of particular interest; they are historical illustrative sketches,
+and their `sorry` markers identify work not formalised in those examples. Current proof
+status is recorded separately in the Lean appendix and UAT manifest.
 
 A note on boxes. Throughout the book you will find four types:
 
@@ -4749,13 +4763,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -4927,11 +4942,23 @@ What happens next depends on who reads this, and what they do with it.
 
 
 
-\newpage
-
-\markboth{Field Equations of Mind: A Physics Perspective on the Universal Somatic Field}{}
-
-# Volume: Field Equations of Mind: A Physics Perspective on the Universal Somatic Field
+```{=latex}
+\part{Field Equations of Mind: A Physics Perspective on the Universal Somatic Field}
+\markboth{Field Equations of Mind: A Physics Perspective on the Universal Somatic Field}{Field Equations of Mind: A Physics Perspective on the Universal Somatic Field}
+\begin{center}
+{\large\itshape [T]-Theory Volume: Mathematical Physics\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: The Master Green’s Function — (∇²+k²)G=δ in relativistic field theory\par}
+\vspace{4mm}
+{\sffamily Reader: Astrophysicist\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-physics-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-physics-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-physics-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-physics-4.pdf}
+\clearpage
+```
 
 # Introduction: A Green's Function for Everything
 
@@ -6152,13 +6179,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -6810,7 +6838,7 @@ is type-encoded in `UniversalSomaticField.scaleNames`:
 | 5 | Cellular | Neural synapse | Synaptic impulse response |
 | 7 | Brain | CEMI field | Cortical EMF propagator |
 | 8 | Organism | Body | Somatic EMF (full USF) |
-| 9 | Swarm | Drone formation | Jellyfish kernel (P16) |
+| 9 | Swarm | Drone formation | Jellyfish coordination kernel |
 | 11 | Geological | Seismic waves | Earth's elastic Green's function |
 | 12 | Planetary | Mantle convection | Thermodynamic propagator |
 | 15 | Galactic | Dark matter halo | Gravitational lensing kernel |
@@ -7118,6 +7146,38 @@ at present; offered as a theoretical extrapolation.*
 Claims 1 and 2 are mathematical results. Claims 3 and 4 are physical
 hypotheses with different levels of testability.
 
+## Current Extensions: Cosmos, Symmetry, and [T]-Theory
+
+The scale architecture has since been extended in three directions. First,
+*The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic
+Field* proposes that the compact-sector contribution of an eleven-dimensional
+model provides a cosmological-constant term. *Dark Matter as the Spatial
+Vacuum of the Universal Somatic Field* proposes that the non-compact spatial
+sector supplies a cold, gravitationally coupled component. The fractions 7/11
+and 3/11 follow exactly from the proposed dimensional partition; identifying
+them with observed cosmological sectors is a physical model that remains to be
+tested against expansion history, clustering, and perturbation data.
+
+Second, *G2 Symmetry Breaking in the Universal Somatic Field* separates the
+eight-channel BRECVEMA coupling matrix into a scalar component and an exactly
+traceless residual. The matrix identity is exact for the stated rational
+entries. Its connection to compact-sector geometry is a proposed bridge, not a
+completed derivation of biological couplings from compactification.
+
+Third, [T]-Theory names the cultural and cross-domain extension of this
+research programme: the Fractal Thesis, music, visual work, live events, and
+domain-specific applications. It is not an additional physical theory. Its
+role is to communicate, test, and extend the use of the framework across
+domains. An artwork or application does not provide evidence for a physical
+claim; a formal theorem does not decide an artwork's value. The two layers are
+related by a shared vocabulary of propagation and coupling, but they retain
+different standards of evidence.
+
+This yields a practical reading rule. A claim is either a formal statement,
+a model with stated assumptions, an empirical result under a stated protocol,
+or an interpretation. The categories can inform one another, but none should
+be silently substituted for another.
+
 ## The Correspondence Principle at Every Scale
 
 Each of the preceding papers in this series establishes a Correspondence
@@ -7125,8 +7185,8 @@ Principle result: the new theory collapses to the existing theory in the
 appropriate limit. The USF is the master correspondence:
 
 - At Scale 7 (brain): USF → CEMI field theory (McFadden)
-- At Scale 8 (organism): USF → Soma-Field Model (P1–P13, this series)
-- At Scale 9 (swarm): USF → Green's function propagator (P16, this series)
+- At Scale 8 (organism): USF → the earlier Soma-Field clinical and computational models
+- At Scale 9 (swarm): USF → the Green's-function multi-agent coordination model
 - At infinite scale: USF → the formal structure of Modal HoTT (Schreiber)
 - At zero limbic amplitude: USF → classical, non-conscious field dynamics
 
@@ -7668,7 +7728,7 @@ $\partial_t \mathbf{v} + \lambda(\mathbf{v}\cdot\nabla)\mathbf{v} = -\nabla P + 
 Global formation emerges from local interactions propagated through the swarm
 by the same Green's function structure as all preceding scales.
 
-**Key result (swarm coordination, P16 [@johnsonswarm2026]):**
+**Key result (the companion swarm-coordination paper [@johnsonswarm2026]):**
 Treating the swarm as a macroscopic brane projection reduces coordination
 cost from $O(N \cdot K)$ to $O(N^2)$ with $K=1$. The Green's function
 replaces $K$ rounds of message-passing with a single matrix-vector product.
@@ -7861,6 +7921,34 @@ condition is met dynamically is an empirical question.
 identical to the Coulomb propagator at Scale 3 (both are $1/r$ forms of
 equation (1) with $k=0$) and to the synaptic transfer function at Scale 5.
 One equation. Twenty scales.
+
+## The Cosmic Energy Ledger
+
+The final zoom level makes the programme's strongest quantitative proposal
+visible. In the stated eleven-dimensional compactification model, the total
+dimension count separates into seven compact, three non-compact spatial, and
+one temporal direction:
+
+$$11 = 7 + 3 + 1.$$
+
+The compact-sector bookkeeping gives a leading fraction $7/11$ for a
+cosmological-constant contribution. The spatial-sector bookkeeping gives
+
+$$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.273,$$
+
+to be compared with the Planck 2018 estimate $\Omega_\text{DM} = 0.265$.
+The numerical fraction is exact arithmetic; its cosmological interpretation
+is a model-dependent hypothesis. It earns attention only if the proposed
+spatial sector also produces the observed cold, clustering, electromagnetically
+neutral behaviour of dark matter, while the compact sector remains compatible
+with an equation of state $w=-1$. Those are direct ways for the model to fail.
+
+The result is an unusually sharp bridge between scales. The same dimensional
+architecture that organises the propagator, limbic axis, and information layer
+in the biological model also supplies a candidate accounting of cosmic energy.
+If that bridge survives cosmological tests, it is not an analogy. If it fails,
+the failure is localised to the cosmological extrapolation rather than hidden
+behind the rest of the programme.
 
 ---
 
@@ -8112,6 +8200,13 @@ Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
    $\Theta(W) = \exp(-8\sqrt{2W}/3)$. This prediction is testable on
    D-Wave hardware by extending the QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
 
+5. **Cosmic energy partition.** The compactification model predicts a
+  spatial-sector fraction $\Omega_\text{DM}=3/11$ and requires that sector to
+  behave as cold, gravitationally clustering, electromagnetically neutral
+  matter. It also requires the compact-sector contribution to remain
+  compatible with $w=-1$. These predictions can be tested against expansion,
+  lensing, halo, and large-scale-structure observations.
+
 ## 11.2  Falsification conditions
 
 The framework is falsified if any of the following is observed:
@@ -8124,6 +8219,9 @@ The framework is falsified if any of the following is observed:
   steps (contradicts `jam_resistant`)
 - Two systems with type-mismatched scale parameters successfully couple
   (contradicts the dependent-type architecture of the Zoom Operator)
+- The proposed spatial sector is shown to have non-gravitational Standard Model
+  couplings, substantial pressure, or a perturbation spectrum incompatible
+  with cold dark matter (falsifies the cosmological extrapolation)
 
 ---
 
@@ -8212,16 +8310,29 @@ connection recording the path-history. **Path to closure:** extend
 update `manifold_coords.py` accordingly.
 
 **Problem 5: The Dyadic Coupling Inequality.**
-`DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
-lowers energy when $J \geq 0$ and both fields have non-negative activation.
-**[Partially closed — August 2026]** The Float implementations have been
-removed and the energy functions re-implemented over $\mathbb{R}$.
-The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
-The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
-$\mathbb{R}$-transfer stub; the mathematical content is established.
-**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
-`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
-`dyadic_block_decomp` (ISS-005).
+The Float implementations have been removed and the energy functions are
+implemented over $\mathbb{R}$. The dyadic propagator, block decomposition,
+and coupling-lowers-energy path are kernel-verified with no active Lean
+`sorry`. **Status:** formal proof obligation closed; empirical and
+interpretive validation remains separate.
+
+---
+
+# The [T]-Theory Extension
+
+[T]-Theory is the public, cultural, and cross-domain extension of this work.
+The Fractal Thesis applies the same Green's-function grammar to fifteen
+disciplines and carries the programme into music, visual work, live events,
+and public conversation. Its role is not to turn art into evidence or to use
+scientific vocabulary as decoration. It is to make the translation problem
+explicit: when does a shared propagator structure give a testable model, and
+when does it provide an interpretive lens?
+
+The answer must remain visible. Lean theorems establish their stated formal
+claims; experiments test their stated protocols; cosmological models stand or
+fall on cosmological data; [T]-Theory explores how the framework travels once
+it enters human culture. The layers belong to one programme, but they do not
+borrow certainty from one another.
 
 ---
 
@@ -8436,7 +8547,8 @@ The structural claims of this paper are formalised in
    enforced via boundary-condition regulation rather than counter-term
    subtraction. For the free field (proved via OS axioms), UV-finiteness
    follows directly from OS3 reflection positivity. For the interacting field,
-   this is P15's open programme.
+  this is the open programme of *Osterwalder–Schrader Axioms for the
+  Interacting Universal Somatic Field*.
 
 ---
 
@@ -8483,7 +8595,7 @@ how the 11D energy density projects onto $M_4$.
 
 **Equation of state (w = −1 exactly).** A classical background condensate in
 its regulated vacuum has $w = p/\rho = -1$ — de Sitter expansion, no phantom
-energy. Any detection of $w \neq -1$ would **falsify the P21 claim** that
+energy. Any detection of $w \neq -1$ would **falsify this paper's claim** that
 $\Lambda$ is a classical USF condensate; it would require either a dynamical
 (quintessence) field or a modification to the USF framework at Scale 19–20.
 
@@ -8505,7 +8617,8 @@ genuine dark energy dynamics. DESI DR2 (late 2025) and Euclid will
 resolve whether the tension persists with independent SNIa samples.
 
 **Current verdict:** USF is *consistent* with DESI BAO + Pantheon+ (the
-more mature dataset). The DES SN5YR tension, if real, falsifies P21. The
+more mature dataset). The DES SN5YR tension, if real, falsifies this
+cosmological-constant model. The
 result is on a knife edge — it is the most important live test in cosmology.
 
 **Null variation of Λ with redshift.** The USF condensate amplitude is fixed
@@ -8566,12 +8679,13 @@ tuned couplings. The USF framework offers a structurally different
 resolution: **dark matter is not a new particle but the vacuum field energy
 of the three non-compact spatial dimensions of the M-theory compactification**.
 
-This paper is the direct companion to P21 [@johnson2026cosconst], which
+This paper is the direct companion to *The Cosmological Constant as the Vacuum
+Amplitude of the Universal Somatic Field* [@johnson2026cosconst], which
 identifies the cosmological constant $\Lambda$ with the vacuum energy of the
 seven compact dimensions. The complete dimensional partition of the 11D USF
 gives:
 
-- **7 compact** ($X_7$): $\Lambda$ — P21.
+- **7 compact** ($X_7$): proposed cosmological-constant sector.
 - **3 spatial non-compact** ($M_3$): dark matter — **this paper**.
 - **1 temporal** ($\mathbb{R}_t$): baryonic matter — auxiliary claim, §4.
 
@@ -8630,7 +8744,7 @@ The three largest components of the cosmic energy budget are each predicted
 to within a single-digit percentage from a single integer decomposition
 (7, 3, 1) of 11 spacetime dimensions. The Calabi-Yau moduli geometry
 introduces corrections of order $\mathcal{O}(\alpha')$ to each sector,
-as established for the $\Lambda$ sector in P21.
+as proposed for the $\Lambda$ sector in the companion paper.
 
 ---
 
@@ -8646,7 +8760,8 @@ well-defined 4D interpretation under the Kaluza-Klein reduction:
 7 compact directions cannot propagate in 4D; it contributes equally to all
 4D directions as a constant background. Under KK reduction, this appears as
 the 4D cosmological constant $\Lambda$ with equation of state $w = -1$. This
-is the content of P21 [@johnson2026cosconst].
+is the proposed mechanism in the companion cosmological-constant paper
+[@johnson2026cosconst].
 
 **Spatial block** $\langle\Phi_{ij}\rangle_0$: The vacuum energy in the
 3 non-compact spatial directions propagates in 4D Minkowski space. Under
@@ -8789,7 +8904,8 @@ $$\Omega_\Lambda + \Omega_\text{DM} + \Omega_b + \Omega_\nu + \Omega_r
 
 The discrepancy of $\sim 4.3\%$ has two contributions:
 
-1. **Calabi-Yau moduli corrections** (as in P21): the $\mathcal{O}(\alpha')$
+1. **Calabi-Yau moduli corrections** (as proposed in the companion
+  cosmological-constant paper): the $\mathcal{O}(\alpha')$
    geometry of $X_7$ adjusts each sector by $\sim 7\%$. For $\Lambda$ this
    shifts $7/11 \to 0.683$ (+7.4\%). For dark matter the corresponding shift
    is $3/11 \to 0.265$ (-2.9\% — a different sign because the spatial block
@@ -8809,7 +8925,7 @@ The discrepancy of $\sim 4.3\%$ has two contributions:
 ## Lean 4 formalisation
 
 The numerical claims are formalised in
-`paper/proofs/CosmologicalConstant.lean` (extended for P22):
+`paper/proofs/CosmologicalConstant.lean`:
 
 | Statement | Lean name | Status |
 |---|---|---|
@@ -8837,7 +8953,7 @@ The numerical claims are formalised in
 3. **Baryogenesis factor.** Deriving the factor $1/2$ for the time-block
    from USF CP-violation structure requires: (a) identification of the
    USF analogue of the Sakharov conditions, (b) computation of the
-   net baryon number from the time-block vacuum. Open problem (P22-GAP-1).
+  net baryon number from the time-block vacuum. This remains an open problem.
 
 ---
 
@@ -8900,10 +9016,12 @@ not astronomically small in isolation.
 
 What elevates this from coincidence to a physical argument is the
 **structural reason** for the integer 3: these are precisely the three
-non-compact spatial dimensions of 11D spacetime, already fixed by P21's
-Calabi-Yau compactification structure. The integer 3 is not a fit parameter;
+non-compact spatial dimensions of 11D spacetime, already fixed by the
+companion cosmological-constant model's Calabi-Yau compactification structure.
+The integer 3 is not a fit parameter;
 it is the number of non-compact spatial dimensions in the same M-theory
-framework used to derive $\Lambda$ in P21. The framework predicted $\Lambda$
+framework used to derive $\Lambda$ in that companion model. The model predicts
+$\Lambda$
 correctly at the 7\% level before this paper existed; the $\Omega_\text{DM}$
 prediction at 2.9\% is a **zero-free-parameter prediction** from an already-fixed
 framework.
@@ -8911,7 +9029,8 @@ framework.
 In fact, $N_\text{spatial} = 3$ is not even a choice within the framework.
 Given the M-theory total $N_\text{total} = 11$ and the compact count
 $N_\text{compact} = 7$ fixed by the $G_2$-holonomy compactification
-(established in P21), the spatial count is fully determined by subtraction:
+(as specified by the companion model), the spatial count is fully determined
+by subtraction:
 $$N_\text{spatial} = N_\text{total} - N_\text{compact} - N_\text{time}
   = 11 - 7 - 1 = 3$$
 The prediction $\Omega_\text{DM} = 3/11$ has **exactly zero free parameters**:
@@ -8930,7 +9049,7 @@ spatial vacuum. It would NOT falsify:
 
 - The USF framework at clinical/biological scales (Scales 5–8).
 - The Osterwalder-Schrader axiom verification.
-- The P21 cosmological constant identification.
+- The companion cosmological-constant model.
 - The QUANT-EXP-1 quantum annealing result.
 
 The falsification is specific to the cosmological extrapolation of USF to
@@ -8952,7 +9071,8 @@ neutral (SM gauge fields are localised in $X_7$), and is pressureless ($w=0$
 in the non-relativistic limit). It matches the complete observational profile
 of cold dark matter without introducing a new particle species.
 
-Together with P21's result $\Omega_\Lambda = 7/11$ (6.8\% accuracy), the USF
+Together with the companion model's proposed $\Omega_\Lambda = 7/11$
+(6.8\% discrepancy), the USF
 accounts for 95\% of the universe's energy budget — the dark energy and dark
 matter sectors — from the single integer decomposition $11 = 7 + 3 + 1$ of
 the M-theory spacetime dimension.
@@ -8967,7 +9087,8 @@ baryogenesis factor $1/2$ from USF first principles.
 
 # Introduction: The 8→7 Dimension Question
 
-P22 [@johnson2026darkmatter] identified dark matter with the vacuum energy of the
+*Dark Matter as the Spatial Vacuum of the Universal Somatic Field*
+[@johnson2026darkmatter] proposes that dark matter is the vacuum energy of the
 three non-compact spatial dimensions of the USF and derived the cosmological
 energy budget from the dimensional partition $11 = 7 + 3 + 1$. The compact sector
 $X_7$ has $G_2$ holonomy. But the biological emotional field is 8-dimensional
@@ -9115,7 +9236,8 @@ $\|\delta W\|_F \to 0$ while $\mathrm{tr}(\delta W) = 0$ is conserved.
 The $8 \to 7$ dimension reduction is resolved: the 8D biological field has a 7D
 $G_2$-symmetric vacuum (the tracelessness of $\delta W$ ensures the effective
 compact geometry is 7D), consistent with the compact sector $X_7$ of the USF
-M-theory compactification (P21, P22).
+M-theory compactification proposed in the companion cosmological-constant and
+spatial-vacuum papers.
 
 ---
 
@@ -9157,11 +9279,23 @@ The equations are written. The predictions are made. Physics has work to do.
 
 
 
-\newpage
-
-\markboth{Dependent Types and the Geometry of Feeling: A Mathematical Account}{}
-
-# Volume: Dependent Types and the Geometry of Feeling: A Mathematical Account
+```{=latex}
+\part{Dependent Types and the Geometry of Feeling: A Mathematical Account}
+\markboth{Dependent Types and the Geometry of Feeling: A Mathematical Account}{Dependent Types and the Geometry of Feeling: A Mathematical Account}
+\begin{center}
+{\large\itshape [T]-Theory Volume: Formal Logic and Mathematics\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: Functorial Green’s Function — category-theoretic propagator between field spaces\par}
+\vspace{4mm}
+{\sffamily Reader: Type Theorist\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-formal-mathematics-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-formal-mathematics-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-formal-mathematics-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-formal-mathematics-4.pdf}
+\clearpage
+```
 
 # Introduction: When Feeling Has a Type
 
@@ -11296,13 +11430,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -11597,7 +11732,7 @@ is type-encoded in `UniversalSomaticField.scaleNames`:
 | 5 | Cellular | Neural synapse | Synaptic impulse response |
 | 7 | Brain | CEMI field | Cortical EMF propagator |
 | 8 | Organism | Body | Somatic EMF (full USF) |
-| 9 | Swarm | Drone formation | Jellyfish kernel (P16) |
+| 9 | Swarm | Drone formation | Jellyfish coordination kernel |
 | 11 | Geological | Seismic waves | Earth's elastic Green's function |
 | 12 | Planetary | Mantle convection | Thermodynamic propagator |
 | 15 | Galactic | Dark matter halo | Gravitational lensing kernel |
@@ -11905,6 +12040,38 @@ at present; offered as a theoretical extrapolation.*
 Claims 1 and 2 are mathematical results. Claims 3 and 4 are physical
 hypotheses with different levels of testability.
 
+## Current Extensions: Cosmos, Symmetry, and [T]-Theory
+
+The scale architecture has since been extended in three directions. First,
+*The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic
+Field* proposes that the compact-sector contribution of an eleven-dimensional
+model provides a cosmological-constant term. *Dark Matter as the Spatial
+Vacuum of the Universal Somatic Field* proposes that the non-compact spatial
+sector supplies a cold, gravitationally coupled component. The fractions 7/11
+and 3/11 follow exactly from the proposed dimensional partition; identifying
+them with observed cosmological sectors is a physical model that remains to be
+tested against expansion history, clustering, and perturbation data.
+
+Second, *G2 Symmetry Breaking in the Universal Somatic Field* separates the
+eight-channel BRECVEMA coupling matrix into a scalar component and an exactly
+traceless residual. The matrix identity is exact for the stated rational
+entries. Its connection to compact-sector geometry is a proposed bridge, not a
+completed derivation of biological couplings from compactification.
+
+Third, [T]-Theory names the cultural and cross-domain extension of this
+research programme: the Fractal Thesis, music, visual work, live events, and
+domain-specific applications. It is not an additional physical theory. Its
+role is to communicate, test, and extend the use of the framework across
+domains. An artwork or application does not provide evidence for a physical
+claim; a formal theorem does not decide an artwork's value. The two layers are
+related by a shared vocabulary of propagation and coupling, but they retain
+different standards of evidence.
+
+This yields a practical reading rule. A claim is either a formal statement,
+a model with stated assumptions, an empirical result under a stated protocol,
+or an interpretation. The categories can inform one another, but none should
+be silently substituted for another.
+
 ## The Correspondence Principle at Every Scale
 
 Each of the preceding papers in this series establishes a Correspondence
@@ -11912,8 +12079,8 @@ Principle result: the new theory collapses to the existing theory in the
 appropriate limit. The USF is the master correspondence:
 
 - At Scale 7 (brain): USF → CEMI field theory (McFadden)
-- At Scale 8 (organism): USF → Soma-Field Model (P1–P13, this series)
-- At Scale 9 (swarm): USF → Green's function propagator (P16, this series)
+- At Scale 8 (organism): USF → the earlier Soma-Field clinical and computational models
+- At Scale 9 (swarm): USF → the Green's-function multi-agent coordination model
 - At infinite scale: USF → the formal structure of Modal HoTT (Schreiber)
 - At zero limbic amplitude: USF → classical, non-conscious field dynamics
 
@@ -12455,7 +12622,7 @@ $\partial_t \mathbf{v} + \lambda(\mathbf{v}\cdot\nabla)\mathbf{v} = -\nabla P + 
 Global formation emerges from local interactions propagated through the swarm
 by the same Green's function structure as all preceding scales.
 
-**Key result (swarm coordination, P16 [@johnsonswarm2026]):**
+**Key result (the companion swarm-coordination paper [@johnsonswarm2026]):**
 Treating the swarm as a macroscopic brane projection reduces coordination
 cost from $O(N \cdot K)$ to $O(N^2)$ with $K=1$. The Green's function
 replaces $K$ rounds of message-passing with a single matrix-vector product.
@@ -12648,6 +12815,34 @@ condition is met dynamically is an empirical question.
 identical to the Coulomb propagator at Scale 3 (both are $1/r$ forms of
 equation (1) with $k=0$) and to the synaptic transfer function at Scale 5.
 One equation. Twenty scales.
+
+## The Cosmic Energy Ledger
+
+The final zoom level makes the programme's strongest quantitative proposal
+visible. In the stated eleven-dimensional compactification model, the total
+dimension count separates into seven compact, three non-compact spatial, and
+one temporal direction:
+
+$$11 = 7 + 3 + 1.$$
+
+The compact-sector bookkeeping gives a leading fraction $7/11$ for a
+cosmological-constant contribution. The spatial-sector bookkeeping gives
+
+$$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.273,$$
+
+to be compared with the Planck 2018 estimate $\Omega_\text{DM} = 0.265$.
+The numerical fraction is exact arithmetic; its cosmological interpretation
+is a model-dependent hypothesis. It earns attention only if the proposed
+spatial sector also produces the observed cold, clustering, electromagnetically
+neutral behaviour of dark matter, while the compact sector remains compatible
+with an equation of state $w=-1$. Those are direct ways for the model to fail.
+
+The result is an unusually sharp bridge between scales. The same dimensional
+architecture that organises the propagator, limbic axis, and information layer
+in the biological model also supplies a candidate accounting of cosmic energy.
+If that bridge survives cosmological tests, it is not an analogy. If it fails,
+the failure is localised to the cosmological extrapolation rather than hidden
+behind the rest of the programme.
 
 ---
 
@@ -12899,6 +13094,13 @@ Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
    $\Theta(W) = \exp(-8\sqrt{2W}/3)$. This prediction is testable on
    D-Wave hardware by extending the QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
 
+5. **Cosmic energy partition.** The compactification model predicts a
+  spatial-sector fraction $\Omega_\text{DM}=3/11$ and requires that sector to
+  behave as cold, gravitationally clustering, electromagnetically neutral
+  matter. It also requires the compact-sector contribution to remain
+  compatible with $w=-1$. These predictions can be tested against expansion,
+  lensing, halo, and large-scale-structure observations.
+
 ## 11.2  Falsification conditions
 
 The framework is falsified if any of the following is observed:
@@ -12911,6 +13113,9 @@ The framework is falsified if any of the following is observed:
   steps (contradicts `jam_resistant`)
 - Two systems with type-mismatched scale parameters successfully couple
   (contradicts the dependent-type architecture of the Zoom Operator)
+- The proposed spatial sector is shown to have non-gravitational Standard Model
+  couplings, substantial pressure, or a perturbation spectrum incompatible
+  with cold dark matter (falsifies the cosmological extrapolation)
 
 ---
 
@@ -12999,16 +13204,29 @@ connection recording the path-history. **Path to closure:** extend
 update `manifold_coords.py` accordingly.
 
 **Problem 5: The Dyadic Coupling Inequality.**
-`DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
-lowers energy when $J \geq 0$ and both fields have non-negative activation.
-**[Partially closed — August 2026]** The Float implementations have been
-removed and the energy functions re-implemented over $\mathbb{R}$.
-The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
-The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
-$\mathbb{R}$-transfer stub; the mathematical content is established.
-**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
-`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
-`dyadic_block_decomp` (ISS-005).
+The Float implementations have been removed and the energy functions are
+implemented over $\mathbb{R}$. The dyadic propagator, block decomposition,
+and coupling-lowers-energy path are kernel-verified with no active Lean
+`sorry`. **Status:** formal proof obligation closed; empirical and
+interpretive validation remains separate.
+
+---
+
+# The [T]-Theory Extension
+
+[T]-Theory is the public, cultural, and cross-domain extension of this work.
+The Fractal Thesis applies the same Green's-function grammar to fifteen
+disciplines and carries the programme into music, visual work, live events,
+and public conversation. Its role is not to turn art into evidence or to use
+scientific vocabulary as decoration. It is to make the translation problem
+explicit: when does a shared propagator structure give a testable model, and
+when does it provide an interpretive lens?
+
+The answer must remain visible. Lean theorems establish their stated formal
+claims; experiments test their stated protocols; cosmological models stand or
+fall on cosmological data; [T]-Theory explores how the framework travels once
+it enters human culture. The layers belong to one programme, but they do not
+borrow certainty from one another.
 
 ---
 
@@ -13093,11 +13311,23 @@ The mathematics of experience is a field waiting to be built. The foundations ar
 
 
 
-\newpage
-
-\markboth{The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics}{}
-
-# Volume: The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics
+```{=latex}
+\part{The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics}
+\markboth{The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics}{The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics}
+\begin{center}
+{\large\itshape [T]-Theory Volume: Neuroscience\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: The Cortical EMF Propagator — macroscopic field from synchronised neural firing\par}
+\vspace{4mm}
+{\sffamily Reader: Neuroscientist\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-4.pdf}
+\clearpage
+```
 
 # Introduction: The Field Your Instruments Cannot Yet Measure
 
@@ -13491,7 +13721,7 @@ energy barrier between attractor states $i$ and $j$ in the Hopfield network, whe
 $r$ is the somatic representation zone of the relevant emotional state pair.
 High stiffness = high barrier = deep attractor basin.
 
-**Testable prediction (P1)**: Populations with documented high-barrier emotional
+**Testable prediction 1**: Populations with documented high-barrier emotional
 states (CPTSD, complex trauma, chronic anxiety disorder) should show systematically
 elevated fascial stiffness in regions corresponding to the somatic representation
 of those states (diaphragm, psoas, posterior cervical chain), compared with matched
@@ -13510,13 +13740,13 @@ transitions more accessible. If initial barrier is $W = -12$ and intervention re
 it to $W = -6$, QUANT-EXP-1 results [@johnson2026c] suggest that classical thermal
 dynamics can now cross what previously required quantum assistance.
 
-**Testable prediction (P2)**: The probability of emotional state transition following
+**Testable prediction 2**: The probability of emotional state transition following
 myofascial release should increase monotonically with the degree of reduction in
 fascial stiffness. This is testable by measuring both pre/post fascial stiffness
 (elastography) and pre/post emotional state (validated affect measures + HRV) in a
 within-subjects design across a series of somatic therapy sessions.
 
-**Testable prediction (P3)**: The phenomenological *character* of the transition
+**Testable prediction 3**: The phenomenological *character* of the transition
 should differ predictably: sessions that lower the barrier significantly should
 produce gradual, integrative shifts; sessions that trigger a crossing of a high
 barrier (large, rapid state transition) should produce different qualitative reports.
@@ -13538,7 +13768,7 @@ electromagnetic entrainment. The therapist does not merely witness the client's
 state; the therapist's attractor landscape is temporarily modified by coupling to
 the client's, and this modification is the mechanism of therapeutic resonance.
 
-**Testable prediction (P4)**: The degree of measurable physiological entrainment
+**Testable prediction 4**: The degree of measurable physiological entrainment
 (HRV coherence synchronisation) between therapist and client should predict
 therapeutic outcome — reduction in client fascial stiffness and shift in validated
 affect measures — independently of the specific technique used. Sessions with high
@@ -13554,16 +13784,16 @@ least accessible with current instrumentation:
 
 | # | Prediction | Method | Population |
 |---|---|---|---|
-| P1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
-| P2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
-| P3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
-| P4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
-| P5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
-| P6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
+| Prediction 1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
+| Prediction 2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
+| Prediction 3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
+| Prediction 4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
+| Prediction 5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
+| Prediction 6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
 
-Predictions P1–P4 are testable with instrumentation available in clinical research
-centres now. P5 requires specialised biophoton detection (available in approximately
-a dozen research centres worldwide). P6 requires the prior development of a validated
+Predictions 1–4 are testable with instrumentation available in clinical research
+centres now. Prediction 5 requires specialised biophoton detection (available in approximately
+a dozen research centres worldwide). Prediction 6 requires the prior development of a validated
 soma-field state classification instrument — a prerequisite for large-scale empirical
 work that is not yet available and is noted as the primary methodological gap in this
 programme.
@@ -14052,17 +14282,17 @@ reactivity, attachment behaviour, social orientation and perceptual style.
 
 Three properties follow.
 
-**(P1) The pre-verbal manifold is observable only through projections.**
+**Claim 1. The pre-verbal manifold is observable only through projections.**
 Standard diagnostic categories — autism, ADHD, attachment disorder, cPTSD —
 are scoring instruments for those projections. They are not the manifold.
 Multiple categorical scores can be downstream of one underlying configuration.
 
-**(P2) Onset-based dating is, for events within the window, undefined.**
+**Claim 2. Onset-based dating is, for events within the window, undefined.**
 Asking *when did the autism start?* is, for cases of this kind, a malformed
 question. The relevant configuration was laid down before the diagnostic
 category had a foothold.
 
-**(P3) The genetic / acquired distinction is, within the window, weaker than
+**Claim 3. The genetic / acquired distinction is, within the window, weaker than
 the language suggests.** Sensitive-period plasticity means that constitutional
 loading and environmental perturbation co-determine the same structures
 (Belsky & Pluess, 2009; Ellis et al., 2011). The case that follows illustrates
@@ -14555,12 +14785,12 @@ right track, return positive*. The predictions are deliberately specific.
    age-matched controls (testing the L4 mechanism).
 9. **Genetic moderation.** Within the cohort, polygenic risk scores
    for ASD will moderate but not fully account for adult phenotype severity
-   (testing the §2 P3 claim that the genetic/acquired distinction is
+   (testing the Section 2 third claim that the genetic/acquired distinction is
    weaker than the language suggests).
 10. **Diagnostic age.** Within the cohort, age at first ASD diagnosis
     will be substantially higher than the population mean for autistic
     adults of equivalent severity, because onset-based diagnostic
-    criteria systematically miss them (testing the §2 P2 claim).
+   criteria systematically miss them (testing the Section 2 second claim).
 
 These are designed as a coherent test suite, not as ten independent
 tests. They jointly probe the *pre-verbal manifold* construct.
@@ -15823,13 +16053,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -16003,11 +16234,23 @@ The field is measurable. The instruments are not yet built. The programme is cle
 
 
 
-\newpage
-
-\markboth{The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field}{}
-
-# Volume: The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field
+```{=latex}
+\part{The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field}
+\markboth{The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field}{The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field}
+\begin{center}
+{\large\itshape [T]-Theory Volume: Consciousness Studies and Philosophy of Mind\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: Conscious Percept Propagator Pole — singularity at phase transition threshold Tᴄ\par}
+\vspace{4mm}
+{\sffamily Reader: Philosopher\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-consciousness-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-consciousness-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-consciousness-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-consciousness-4.pdf}
+\clearpage
+```
 
 # Introduction: The Hard Problem Is Mis-Stated
 
@@ -16212,7 +16455,7 @@ is type-encoded in `UniversalSomaticField.scaleNames`:
 | 5 | Cellular | Neural synapse | Synaptic impulse response |
 | 7 | Brain | CEMI field | Cortical EMF propagator |
 | 8 | Organism | Body | Somatic EMF (full USF) |
-| 9 | Swarm | Drone formation | Jellyfish kernel (P16) |
+| 9 | Swarm | Drone formation | Jellyfish coordination kernel |
 | 11 | Geological | Seismic waves | Earth's elastic Green's function |
 | 12 | Planetary | Mantle convection | Thermodynamic propagator |
 | 15 | Galactic | Dark matter halo | Gravitational lensing kernel |
@@ -16520,6 +16763,38 @@ at present; offered as a theoretical extrapolation.*
 Claims 1 and 2 are mathematical results. Claims 3 and 4 are physical
 hypotheses with different levels of testability.
 
+## Current Extensions: Cosmos, Symmetry, and [T]-Theory
+
+The scale architecture has since been extended in three directions. First,
+*The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic
+Field* proposes that the compact-sector contribution of an eleven-dimensional
+model provides a cosmological-constant term. *Dark Matter as the Spatial
+Vacuum of the Universal Somatic Field* proposes that the non-compact spatial
+sector supplies a cold, gravitationally coupled component. The fractions 7/11
+and 3/11 follow exactly from the proposed dimensional partition; identifying
+them with observed cosmological sectors is a physical model that remains to be
+tested against expansion history, clustering, and perturbation data.
+
+Second, *G2 Symmetry Breaking in the Universal Somatic Field* separates the
+eight-channel BRECVEMA coupling matrix into a scalar component and an exactly
+traceless residual. The matrix identity is exact for the stated rational
+entries. Its connection to compact-sector geometry is a proposed bridge, not a
+completed derivation of biological couplings from compactification.
+
+Third, [T]-Theory names the cultural and cross-domain extension of this
+research programme: the Fractal Thesis, music, visual work, live events, and
+domain-specific applications. It is not an additional physical theory. Its
+role is to communicate, test, and extend the use of the framework across
+domains. An artwork or application does not provide evidence for a physical
+claim; a formal theorem does not decide an artwork's value. The two layers are
+related by a shared vocabulary of propagation and coupling, but they retain
+different standards of evidence.
+
+This yields a practical reading rule. A claim is either a formal statement,
+a model with stated assumptions, an empirical result under a stated protocol,
+or an interpretation. The categories can inform one another, but none should
+be silently substituted for another.
+
 ## The Correspondence Principle at Every Scale
 
 Each of the preceding papers in this series establishes a Correspondence
@@ -16527,8 +16802,8 @@ Principle result: the new theory collapses to the existing theory in the
 appropriate limit. The USF is the master correspondence:
 
 - At Scale 7 (brain): USF → CEMI field theory (McFadden)
-- At Scale 8 (organism): USF → Soma-Field Model (P1–P13, this series)
-- At Scale 9 (swarm): USF → Green's function propagator (P16, this series)
+- At Scale 8 (organism): USF → the earlier Soma-Field clinical and computational models
+- At Scale 9 (swarm): USF → the Green's-function multi-agent coordination model
 - At infinite scale: USF → the formal structure of Modal HoTT (Schreiber)
 - At zero limbic amplitude: USF → classical, non-conscious field dynamics
 
@@ -17280,7 +17555,7 @@ energy barrier between attractor states $i$ and $j$ in the Hopfield network, whe
 $r$ is the somatic representation zone of the relevant emotional state pair.
 High stiffness = high barrier = deep attractor basin.
 
-**Testable prediction (P1)**: Populations with documented high-barrier emotional
+**Testable prediction 1**: Populations with documented high-barrier emotional
 states (CPTSD, complex trauma, chronic anxiety disorder) should show systematically
 elevated fascial stiffness in regions corresponding to the somatic representation
 of those states (diaphragm, psoas, posterior cervical chain), compared with matched
@@ -17299,13 +17574,13 @@ transitions more accessible. If initial barrier is $W = -12$ and intervention re
 it to $W = -6$, QUANT-EXP-1 results [@johnson2026c] suggest that classical thermal
 dynamics can now cross what previously required quantum assistance.
 
-**Testable prediction (P2)**: The probability of emotional state transition following
+**Testable prediction 2**: The probability of emotional state transition following
 myofascial release should increase monotonically with the degree of reduction in
 fascial stiffness. This is testable by measuring both pre/post fascial stiffness
 (elastography) and pre/post emotional state (validated affect measures + HRV) in a
 within-subjects design across a series of somatic therapy sessions.
 
-**Testable prediction (P3)**: The phenomenological *character* of the transition
+**Testable prediction 3**: The phenomenological *character* of the transition
 should differ predictably: sessions that lower the barrier significantly should
 produce gradual, integrative shifts; sessions that trigger a crossing of a high
 barrier (large, rapid state transition) should produce different qualitative reports.
@@ -17327,7 +17602,7 @@ electromagnetic entrainment. The therapist does not merely witness the client's
 state; the therapist's attractor landscape is temporarily modified by coupling to
 the client's, and this modification is the mechanism of therapeutic resonance.
 
-**Testable prediction (P4)**: The degree of measurable physiological entrainment
+**Testable prediction 4**: The degree of measurable physiological entrainment
 (HRV coherence synchronisation) between therapist and client should predict
 therapeutic outcome — reduction in client fascial stiffness and shift in validated
 affect measures — independently of the specific technique used. Sessions with high
@@ -17343,16 +17618,16 @@ least accessible with current instrumentation:
 
 | # | Prediction | Method | Population |
 |---|---|---|---|
-| P1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
-| P2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
-| P3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
-| P4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
-| P5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
-| P6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
+| Prediction 1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
+| Prediction 2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
+| Prediction 3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
+| Prediction 4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
+| Prediction 5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
+| Prediction 6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
 
-Predictions P1–P4 are testable with instrumentation available in clinical research
-centres now. P5 requires specialised biophoton detection (available in approximately
-a dozen research centres worldwide). P6 requires the prior development of a validated
+Predictions 1–4 are testable with instrumentation available in clinical research
+centres now. Prediction 5 requires specialised biophoton detection (available in approximately
+a dozen research centres worldwide). Prediction 6 requires the prior development of a validated
 soma-field state classification instrument — a prerequisite for large-scale empirical
 work that is not yet available and is noted as the primary methodological gap in this
 programme.
@@ -17499,17 +17774,17 @@ reactivity, attachment behaviour, social orientation and perceptual style.
 
 Three properties follow.
 
-**(P1) The pre-verbal manifold is observable only through projections.**
+**Claim 1. The pre-verbal manifold is observable only through projections.**
 Standard diagnostic categories — autism, ADHD, attachment disorder, cPTSD —
 are scoring instruments for those projections. They are not the manifold.
 Multiple categorical scores can be downstream of one underlying configuration.
 
-**(P2) Onset-based dating is, for events within the window, undefined.**
+**Claim 2. Onset-based dating is, for events within the window, undefined.**
 Asking *when did the autism start?* is, for cases of this kind, a malformed
 question. The relevant configuration was laid down before the diagnostic
 category had a foothold.
 
-**(P3) The genetic / acquired distinction is, within the window, weaker than
+**Claim 3. The genetic / acquired distinction is, within the window, weaker than
 the language suggests.** Sensitive-period plasticity means that constitutional
 loading and environmental perturbation co-determine the same structures
 (Belsky & Pluess, 2009; Ellis et al., 2011). The case that follows illustrates
@@ -18002,12 +18277,12 @@ right track, return positive*. The predictions are deliberately specific.
    age-matched controls (testing the L4 mechanism).
 9. **Genetic moderation.** Within the cohort, polygenic risk scores
    for ASD will moderate but not fully account for adult phenotype severity
-   (testing the §2 P3 claim that the genetic/acquired distinction is
+   (testing the Section 2 third claim that the genetic/acquired distinction is
    weaker than the language suggests).
 10. **Diagnostic age.** Within the cohort, age at first ASD diagnosis
     will be substantially higher than the population mean for autistic
     adults of equivalent severity, because onset-based diagnostic
-    criteria systematically miss them (testing the §2 P2 claim).
+   criteria systematically miss them (testing the Section 2 second claim).
 
 These are designed as a coherent test suite, not as ten independent
 tests. They jointly probe the *pre-verbal manifold* construct.
@@ -19824,13 +20099,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -20352,11 +20628,23 @@ The hard problem is not hard. It is a phase transition. The physics describes it
 
 
 
-\newpage
-
-\markboth{Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework}{}
-
-# Volume: Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework
+```{=latex}
+\part{Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework}
+\markboth{Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework}{Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework}
+\begin{center}
+{\large\itshape [T]-Theory Volume: Complex Systems and Emergence\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: Scale-Invariant Propagator — G invariant under renormalisation group flow\par}
+\vspace{4mm}
+{\sffamily Reader: Network Researcher\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-4.pdf}
+\clearpage
+```
 
 # Introduction: The Same Equation at Every Scale
 
@@ -20897,7 +21185,7 @@ $\partial_t \mathbf{v} + \lambda(\mathbf{v}\cdot\nabla)\mathbf{v} = -\nabla P + 
 Global formation emerges from local interactions propagated through the swarm
 by the same Green's function structure as all preceding scales.
 
-**Key result (swarm coordination, P16 [@johnsonswarm2026]):**
+**Key result (the companion swarm-coordination paper [@johnsonswarm2026]):**
 Treating the swarm as a macroscopic brane projection reduces coordination
 cost from $O(N \cdot K)$ to $O(N^2)$ with $K=1$. The Green's function
 replaces $K$ rounds of message-passing with a single matrix-vector product.
@@ -21090,6 +21378,34 @@ condition is met dynamically is an empirical question.
 identical to the Coulomb propagator at Scale 3 (both are $1/r$ forms of
 equation (1) with $k=0$) and to the synaptic transfer function at Scale 5.
 One equation. Twenty scales.
+
+## The Cosmic Energy Ledger
+
+The final zoom level makes the programme's strongest quantitative proposal
+visible. In the stated eleven-dimensional compactification model, the total
+dimension count separates into seven compact, three non-compact spatial, and
+one temporal direction:
+
+$$11 = 7 + 3 + 1.$$
+
+The compact-sector bookkeeping gives a leading fraction $7/11$ for a
+cosmological-constant contribution. The spatial-sector bookkeeping gives
+
+$$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.273,$$
+
+to be compared with the Planck 2018 estimate $\Omega_\text{DM} = 0.265$.
+The numerical fraction is exact arithmetic; its cosmological interpretation
+is a model-dependent hypothesis. It earns attention only if the proposed
+spatial sector also produces the observed cold, clustering, electromagnetically
+neutral behaviour of dark matter, while the compact sector remains compatible
+with an equation of state $w=-1$. Those are direct ways for the model to fail.
+
+The result is an unusually sharp bridge between scales. The same dimensional
+architecture that organises the propagator, limbic axis, and information layer
+in the biological model also supplies a candidate accounting of cosmic energy.
+If that bridge survives cosmological tests, it is not an analogy. If it fails,
+the failure is localised to the cosmological extrapolation rather than hidden
+behind the rest of the programme.
 
 ---
 
@@ -21341,6 +21657,13 @@ Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
    $\Theta(W) = \exp(-8\sqrt{2W}/3)$. This prediction is testable on
    D-Wave hardware by extending the QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
 
+5. **Cosmic energy partition.** The compactification model predicts a
+  spatial-sector fraction $\Omega_\text{DM}=3/11$ and requires that sector to
+  behave as cold, gravitationally clustering, electromagnetically neutral
+  matter. It also requires the compact-sector contribution to remain
+  compatible with $w=-1$. These predictions can be tested against expansion,
+  lensing, halo, and large-scale-structure observations.
+
 ## 11.2  Falsification conditions
 
 The framework is falsified if any of the following is observed:
@@ -21353,6 +21676,9 @@ The framework is falsified if any of the following is observed:
   steps (contradicts `jam_resistant`)
 - Two systems with type-mismatched scale parameters successfully couple
   (contradicts the dependent-type architecture of the Zoom Operator)
+- The proposed spatial sector is shown to have non-gravitational Standard Model
+  couplings, substantial pressure, or a perturbation spectrum incompatible
+  with cold dark matter (falsifies the cosmological extrapolation)
 
 ---
 
@@ -21441,16 +21767,29 @@ connection recording the path-history. **Path to closure:** extend
 update `manifold_coords.py` accordingly.
 
 **Problem 5: The Dyadic Coupling Inequality.**
-`DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
-lowers energy when $J \geq 0$ and both fields have non-negative activation.
-**[Partially closed — August 2026]** The Float implementations have been
-removed and the energy functions re-implemented over $\mathbb{R}$.
-The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
-The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
-$\mathbb{R}$-transfer stub; the mathematical content is established.
-**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
-`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
-`dyadic_block_decomp` (ISS-005).
+The Float implementations have been removed and the energy functions are
+implemented over $\mathbb{R}$. The dyadic propagator, block decomposition,
+and coupling-lowers-energy path are kernel-verified with no active Lean
+`sorry`. **Status:** formal proof obligation closed; empirical and
+interpretive validation remains separate.
+
+---
+
+# The [T]-Theory Extension
+
+[T]-Theory is the public, cultural, and cross-domain extension of this work.
+The Fractal Thesis applies the same Green's-function grammar to fifteen
+disciplines and carries the programme into music, visual work, live events,
+and public conversation. Its role is not to turn art into evidence or to use
+scientific vocabulary as decoration. It is to make the translation problem
+explicit: when does a shared propagator structure give a testable model, and
+when does it provide an interpretive lens?
+
+The answer must remain visible. Lean theorems establish their stated formal
+claims; experiments test their stated protocols; cosmological models stand or
+fall on cosmological data; [T]-Theory explores how the framework travels once
+it enters human culture. The layers belong to one programme, but they do not
+borrow certainty from one another.
 
 ---
 
@@ -23385,13 +23724,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -24125,11 +24465,23 @@ The same equation. Every scale. The renormalisation group connects them all.
 
 
 
-\newpage
-
-\markboth{Verified Emotional Computing: The Universal Somatic Field as Software Architecture}{}
-
-# Volume: Verified Emotional Computing: The Universal Somatic Field as Software Architecture
+```{=latex}
+\part{Verified Emotional Computing: The Universal Somatic Field as Software Architecture}
+\markboth{Verified Emotional Computing: The Universal Somatic Field as Software Architecture}{Verified Emotional Computing: The Universal Somatic Field as Software Architecture}
+\begin{center}
+{\large\itshape [T]-Theory Volume: Computer Science and AI\par}
+\vspace{10mm}
+{\sffamily\bfseries G-ID: Affective State Propagator — computational kernel for agent field dynamics\par}
+\vspace{4mm}
+{\sffamily Reader: Lean 4 Engineer\par}
+\end{center}
+\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-4.pdf}
+\clearpage
+```
 
 # Introduction: Verified Emotional Computing
 
@@ -27485,13 +27837,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -27677,26 +28030,23 @@ The types check. The proofs are done. The engineering begins.
 
 # The Fixed-Point Property
 
-Twenty-two papers have now been published under the Universal Somatic
-Field programme. The last two — P21 [@johnson2026cosconst] and P22
-[@johnson2026darkmatter] — derived the cosmological constant and dark
-matter density from dimensional counting, accounts for 95\% of the
-universe's total energy budget from a single integer partition. The
+The Universal Somatic Field programme now includes companion papers on the
+cosmological constant [@johnson2026cosconst] and spatial-vacuum dark matter
+[@johnson2026darkmatter]. They propose dimensional-partition accounts of these
+sectors and report leading-order numerical comparisons. The
 programme began with a clinical question (what is an emotion, formally?)
-and ended with a cosmological answer (the vacuum energy of three spatial
-dimensions is dark matter).
+and now reaches cosmological hypotheses about the vacuum energy of three
+spatial dimensions.
 
 This paper asks a different question: **what kind of thing is [T]-Theory
 itself?**
 
-The answer, developed below, is that [T]-Theory is a phenomenon — a
-concrete instance of the scale-9 field dynamics it describes. It is not
-merely *about* swarms and propagation. It *is* a swarm. Its spread
-through culture, code, and community obeys the same Helmholtz Green's
-function equation that governs every other phenomenon the theory
-describes. This is not a metaphor. It is a structural identification in
-the technical sense: the same propagator, the same energy function, the
-same topology.
+The proposal developed below is that [T]-Theory can be treated as a
+phenomenon of scale-9 field dynamics. Its spread through culture, code, and
+community can be modelled using propagation, coupling, and attractor concepts.
+This is a programme-level structural analogy whose full formalisation remains
+open; it is not evidence that cultural transmission is physically identical to
+neural or cosmological dynamics.
 
 This property is unusual for a physical theory. General relativity does
 not describe the propagation of general relativity. The Standard Model
@@ -27751,7 +28101,7 @@ it. Shared visceral experience — a beat, a gesture, a moment of
 recognition — synchronises field states across agents with low
 dissipation.
 
-This is the **Phase 2 substrate**: a planned programme of live events,
+This is the cultural programme's physical substrate: planned live events,
 performance art, and collective experience that uses the same
 mathematical structure the papers describe, delivered through the body
 rather than the page.
@@ -27811,33 +28161,27 @@ phenomenon the theory predicts.
 
 ---
 
-# The Gateway to Phase 2
+# The Gateway to [T]-Theory
 
-Phase 1 of the programme is now complete. It consists of twenty-two
-papers establishing the Universal Somatic Field as a formally verified,
-experimentally tested, scale-invariant framework for emotional dynamics
-and its extensions to quantum mechanics, formal mathematics, and
-cosmology. The Lean 4 proofs have zero sorries in the core axiom
-verification. The quantum annealing experiment (QUANT-EXP-1) passed all
-three barrier conditions. The cosmological predictions agree with Planck
-2018 at 7\% and 2.9\% respectively.
+The foundational research corpus contains formal models, Lean 4 proofs,
+computational experiments, and current physical hypotheses. Their evidential
+status differs: a type-checked result proves its formal statement, an
+experiment supports only its stated protocol, and a cosmological numerical
+comparison remains a model-dependent consistency check.
 
-Phase 2 begins here.
-
-Phase 2 is the [T]-Theory programme in its outer form: the translation
+[T]-Theory is the programme's outer form: the translation
 of the framework into music (Strandberg guitar, Ableton Live, Push 3),
 live events, projection mapping, merchandise, and street art. The
-relationship between Phase 1 and Phase 2 is not that one is the
+relationship between the research corpus and [T]-Theory is not that one is the
 "explanation" and the other is the "illustration." They are two modes
 of the same field, operating in different substrates with different
 coupling constants. The science and the art are the same investigation
 conducted with different instruments.
 
-The formal opening condition for Phase 2 is satisfied when the
-Phase 1 corpus forms a closed, self-referential system: when the theory
-is sufficient to describe its own propagation. This paper establishes
-that condition. The science is complete enough to describe what the
-art is doing. The art can now begin.
+The research corpus supplies a vocabulary for describing its own propagation.
+This paper proposes that vocabulary as a framework for the cultural programme;
+it does not establish a completed fixed-point theorem. The art can now begin
+without being asked to serve as evidence for the physical claims.
 
 ---
 
@@ -27870,7 +28214,7 @@ dynamics it formally describes. The substrate changes the coupling
 constant; it does not change the field equation.
 
 This self-referential closure is not a quirk. It is the condition that
-makes Phase 2 possible: a cultural programme that uses the science as
+makes the cultural programme possible: a cultural programme that uses the science as
 its structural skeleton and the art as its propagation medium, in the
 knowledge that both are governed by the same master equation.
 
@@ -27880,3 +28224,16 @@ $$\boxed{(\nabla^2 + k^2)\,G = \delta \quad \text{at every scale,
   in every substrate, from quantum foam to the cosmic web.}}$$
 
 ---
+
+
+
+\newpage
+
+# [T]-Theory Cheatsheet
+
+```{=latex}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-gateway-4.pdf}
+```

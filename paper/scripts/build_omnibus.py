@@ -63,7 +63,7 @@ author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
-description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme. Twenty-two papers in five parts: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, and the universal scale-invariant theory."
+description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, the universal scale-invariant theory, and the [T]-Theory gateway."
 bibliography: bibliography.bib
 csl: apa-7th.csl
 ---"""

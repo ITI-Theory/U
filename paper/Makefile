@@ -37,6 +37,7 @@ $(eval $(call register, dark-matter-spatial-vacuum,       citeproc, en,  darkmat
 $(eval $(call register, g2-symmetry-breaking,             citeproc, en,  g2break  ))
 $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenomena))
 $(eval $(call register, ttheory-cheatsheet,               citeproc, en,  cheatsheet))
+$(eval $(call register, SFT-DEMO-CASE,                     citeproc, en,  demo-case))
 
 # Derived target lists (computed from registry)
 _ALL_EN_PDFS := $(addprefix $(BUILDDIR)/, $(addsuffix .pdf, $(ALL_DOCS)))
@@ -249,6 +250,17 @@ TRANS_LANGS ?=
 $(foreach d,$(ALL_DOCS),$(eval $(call BUILD_EN_RULE,$(d))))
 $(foreach d,$(ALL_DOCS),$(foreach l,$(TRANS_LANGS),$(if $(filter multi,$($(d).langs)),$(eval $(call BUILD_TRANS_RULE,$(d),$(l))),)))
 
+# The cheatsheet is a self-contained booklet with its own palette and column
+# environment; it must not inherit the journal-paper renderer.
+$(BUILDDIR)/ttheory-cheatsheet.pdf: soma/ttheory-cheatsheet/ttheory-cheatsheet.md \
+	soma/ttheory-cheatsheet/cheatsheet-header.tex | $(BUILDDIR)
+	$(PANDOC) $< -o $@ \
+		--pdf-engine=$(ENGINE) --standalone \
+		--include-in-header=soma/ttheory-cheatsheet/cheatsheet-header.tex \
+		-V "geometry=a4paper,margin=16mm" \
+		-V fontsize=10pt -V linestretch=1.2 \
+		-V mainfont="TeX Gyre Pagella"
+	@echo "Built: $@"
 
 include mk/utils.mk
 

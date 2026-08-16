@@ -21,12 +21,13 @@ abstract: |
   the system toward the $G_2$ attractor. This provides the first quantitative
   connection between the $G_2$ holonomy geometry of the USF compact sector and the
   biological coupling matrix, resolving the $8 \to 7$ dimensional reduction question
-  raised in P22.
+  raised by the spatial-vacuum dark-matter model.
 ---
 
 # Introduction: The 8→7 Dimension Question
 
-P22 [@johnson2026darkmatter] identified dark matter with the vacuum energy of the
+*Dark Matter as the Spatial Vacuum of the Universal Somatic Field*
+[@johnson2026darkmatter] proposes that dark matter is the vacuum energy of the
 three non-compact spatial dimensions of the USF and derived the cosmological
 energy budget from the dimensional partition $11 = 7 + 3 + 1$. The compact sector
 $X_7$ has $G_2$ holonomy. But the biological emotional field is 8-dimensional
@@ -174,7 +175,8 @@ $\|\delta W\|_F \to 0$ while $\mathrm{tr}(\delta W) = 0$ is conserved.
 The $8 \to 7$ dimension reduction is resolved: the 8D biological field has a 7D
 $G_2$-symmetric vacuum (the tracelessness of $\delta W$ ensures the effective
 compact geometry is 7D), consistent with the compact sector $X_7$ of the USF
-M-theory compactification (P21, P22).
+M-theory compactification proposed in the companion cosmological-constant and
+spatial-vacuum papers.
 
 ---
 

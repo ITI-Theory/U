@@ -12,7 +12,12 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-clinical-psychology-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-clinical-psychology-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-clinical-psychology-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-clinical-psychology-4.pdf}
 \setcounter{page}{1}
 \tableofcontents
 \clearpage
@@ -1330,17 +1335,17 @@ reactivity, attachment behaviour, social orientation and perceptual style.
 
 Three properties follow.
 
-**(P1) The pre-verbal manifold is observable only through projections.**
+**Claim 1. The pre-verbal manifold is observable only through projections.**
 Standard diagnostic categories — autism, ADHD, attachment disorder, cPTSD —
 are scoring instruments for those projections. They are not the manifold.
 Multiple categorical scores can be downstream of one underlying configuration.
 
-**(P2) Onset-based dating is, for events within the window, undefined.**
+**Claim 2. Onset-based dating is, for events within the window, undefined.**
 Asking *when did the autism start?* is, for cases of this kind, a malformed
 question. The relevant configuration was laid down before the diagnostic
 category had a foothold.
 
-**(P3) The genetic / acquired distinction is, within the window, weaker than
+**Claim 3. The genetic / acquired distinction is, within the window, weaker than
 the language suggests.** Sensitive-period plasticity means that constitutional
 loading and environmental perturbation co-determine the same structures
 (Belsky & Pluess, 2009; Ellis et al., 2011). The case that follows illustrates
@@ -1833,12 +1838,12 @@ right track, return positive*. The predictions are deliberately specific.
    age-matched controls (testing the L4 mechanism).
 9. **Genetic moderation.** Within the cohort, polygenic risk scores
    for ASD will moderate but not fully account for adult phenotype severity
-   (testing the §2 P3 claim that the genetic/acquired distinction is
+   (testing the Section 2 third claim that the genetic/acquired distinction is
    weaker than the language suggests).
 10. **Diagnostic age.** Within the cohort, age at first ASD diagnosis
     will be substantially higher than the population mean for autistic
     adults of equivalent severity, because onset-based diagnostic
-    criteria systematically miss them (testing the §2 P2 claim).
+   criteria systematically miss them (testing the Section 2 second claim).
 
 These are designed as a coherent test suite, not as ten independent
 tests. They jointly probe the *pre-verbal manifold* construct.
@@ -4027,13 +4032,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 

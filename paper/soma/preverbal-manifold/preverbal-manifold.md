@@ -174,17 +174,17 @@ reactivity, attachment behaviour, social orientation and perceptual style.
 
 Three properties follow.
 
-**(P1) The pre-verbal manifold is observable only through projections.**
+**Claim 1. The pre-verbal manifold is observable only through projections.**
 Standard diagnostic categories — autism, ADHD, attachment disorder, cPTSD —
 are scoring instruments for those projections. They are not the manifold.
 Multiple categorical scores can be downstream of one underlying configuration.
 
-**(P2) Onset-based dating is, for events within the window, undefined.**
+**Claim 2. Onset-based dating is, for events within the window, undefined.**
 Asking *when did the autism start?* is, for cases of this kind, a malformed
 question. The relevant configuration was laid down before the diagnostic
 category had a foothold.
 
-**(P3) The genetic / acquired distinction is, within the window, weaker than
+**Claim 3. The genetic / acquired distinction is, within the window, weaker than
 the language suggests.** Sensitive-period plasticity means that constitutional
 loading and environmental perturbation co-determine the same structures
 (Belsky & Pluess, 2009; Ellis et al., 2011). The case that follows illustrates
@@ -677,12 +677,12 @@ right track, return positive*. The predictions are deliberately specific.
    age-matched controls (testing the L4 mechanism).
 9. **Genetic moderation.** Within the cohort, polygenic risk scores
    for ASD will moderate but not fully account for adult phenotype severity
-   (testing the §2 P3 claim that the genetic/acquired distinction is
+   (testing the Section 2 third claim that the genetic/acquired distinction is
    weaker than the language suggests).
 10. **Diagnostic age.** Within the cohort, age at first ASD diagnosis
     will be substantially higher than the population mean for autistic
     adults of equivalent severity, because onset-based diagnostic
-    criteria systematically miss them (testing the §2 P2 claim).
+   criteria systematically miss them (testing the Section 2 second claim).
 
 These are designed as a coherent test suite, not as ten independent
 tests. They jointly probe the *pre-verbal manifold* construct.
@@ -1105,7 +1105,7 @@ neurodevelopmental response: Toward an integrative model. *(in press)*.
 
 ---
 
-*End of P13 draft v0.1 — June 2026. This is an initial draft. Editorial
+*End of draft v0.1 — June 2026. This is an initial draft. Editorial
 review pending. The §10 replication ledger row is PENDING. The redaction
 guide for the personal-material strata is in the project repository at
 `AJ-WiKi/Family.md` (private).*

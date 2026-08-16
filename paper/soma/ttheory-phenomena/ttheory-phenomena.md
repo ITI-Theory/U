@@ -1,5 +1,5 @@
 ---
-title: "The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Gateway to Phase 2"
+title: "The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Cultural Programme"
 subtitle: "A Scale-9 Fixed Point and the Substrate-Independent Propagator"
 author: "Alistair Johnson"
 date: "2026"
@@ -7,46 +7,41 @@ lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  The final papers of Phase 1 (P21, P22) derive the cosmological constant
+  Two companion papers on the cosmological constant and spatial-vacuum dark
+  matter propose that dimensional counting yields the cosmological constant
   $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$ and the dark matter
   fraction $\Omega_\mathrm{DM} = 3/11$ from M-theory dimensional counting
-  alone — closing the loop from emotional dynamics to cosmological structure.
-  This paper addresses what follows: we demonstrate that the Universal
-  Somatic Field framework is a **fixed point of its own subject matter**: the
-  theory's propagation through physical and digital substrates is formally an
-  instance of Scale 9 swarm dynamics governed by the same Green's function
+  alone. This paper addresses what follows: it proposes that the Universal
+  Somatic Field framework can be studied as a **fixed point of its own subject
+  matter**. Its propagation through physical and digital substrates is treated
+  as an instance of Scale 9 swarm dynamics governed by the same Green's function
   that describes its clinical, quantum, and cosmological applications.
   The physical substrate (underground events, street art, live performance)
   and the digital substrate (source code, fibre-optic networks, AI context
-  windows) are shown to be mathematically equivalent propagation media —
-  distinguished only by the coupling constant $\kappa$, not by the form of
-  the field equation. This self-referential property closes the Phase 1
-  corpus and constitutes the formal opening of Phase 2: the [T]-Theory art
-  movement.
+  windows) are proposed as comparable propagation media. This is a programme
+  hypothesis, not a proof of physical equivalence. It introduces the
+  [T]-Theory cultural and cross-domain programme.
 ---
 
 # The Fixed-Point Property
 
-Twenty-two papers have now been published under the Universal Somatic
-Field programme. The last two — P21 [@johnson2026cosconst] and P22
-[@johnson2026darkmatter] — derived the cosmological constant and dark
-matter density from dimensional counting, accounts for 95\% of the
-universe's total energy budget from a single integer partition. The
+The Universal Somatic Field programme now includes companion papers on the
+cosmological constant [@johnson2026cosconst] and spatial-vacuum dark matter
+[@johnson2026darkmatter]. They propose dimensional-partition accounts of these
+sectors and report leading-order numerical comparisons. The
 programme began with a clinical question (what is an emotion, formally?)
-and ended with a cosmological answer (the vacuum energy of three spatial
-dimensions is dark matter).
+and now reaches cosmological hypotheses about the vacuum energy of three
+spatial dimensions.
 
 This paper asks a different question: **what kind of thing is [T]-Theory
 itself?**
 
-The answer, developed below, is that [T]-Theory is a phenomenon — a
-concrete instance of the scale-9 field dynamics it describes. It is not
-merely *about* swarms and propagation. It *is* a swarm. Its spread
-through culture, code, and community obeys the same Helmholtz Green's
-function equation that governs every other phenomenon the theory
-describes. This is not a metaphor. It is a structural identification in
-the technical sense: the same propagator, the same energy function, the
-same topology.
+The proposal developed below is that [T]-Theory can be treated as a
+phenomenon of scale-9 field dynamics. Its spread through culture, code, and
+community can be modelled using propagation, coupling, and attractor concepts.
+This is a programme-level structural analogy whose full formalisation remains
+open; it is not evidence that cultural transmission is physically identical to
+neural or cosmological dynamics.
 
 This property is unusual for a physical theory. General relativity does
 not describe the propagation of general relativity. The Standard Model
@@ -101,7 +96,7 @@ it. Shared visceral experience — a beat, a gesture, a moment of
 recognition — synchronises field states across agents with low
 dissipation.
 
-This is the **Phase 2 substrate**: a planned programme of live events,
+This is the cultural programme's physical substrate: planned live events,
 performance art, and collective experience that uses the same
 mathematical structure the papers describe, delivered through the body
 rather than the page.
@@ -161,33 +156,27 @@ phenomenon the theory predicts.
 
 ---
 
-# The Gateway to Phase 2
+# The Gateway to [T]-Theory
 
-Phase 1 of the programme is now complete. It consists of twenty-two
-papers establishing the Universal Somatic Field as a formally verified,
-experimentally tested, scale-invariant framework for emotional dynamics
-and its extensions to quantum mechanics, formal mathematics, and
-cosmology. The Lean 4 proofs have zero sorries in the core axiom
-verification. The quantum annealing experiment (QUANT-EXP-1) passed all
-three barrier conditions. The cosmological predictions agree with Planck
-2018 at 7\% and 2.9\% respectively.
+The foundational research corpus contains formal models, Lean 4 proofs,
+computational experiments, and current physical hypotheses. Their evidential
+status differs: a type-checked result proves its formal statement, an
+experiment supports only its stated protocol, and a cosmological numerical
+comparison remains a model-dependent consistency check.
 
-Phase 2 begins here.
-
-Phase 2 is the [T]-Theory programme in its outer form: the translation
+[T]-Theory is the programme's outer form: the translation
 of the framework into music (Strandberg guitar, Ableton Live, Push 3),
 live events, projection mapping, merchandise, and street art. The
-relationship between Phase 1 and Phase 2 is not that one is the
+relationship between the research corpus and [T]-Theory is not that one is the
 "explanation" and the other is the "illustration." They are two modes
 of the same field, operating in different substrates with different
 coupling constants. The science and the art are the same investigation
 conducted with different instruments.
 
-The formal opening condition for Phase 2 is satisfied when the
-Phase 1 corpus forms a closed, self-referential system: when the theory
-is sufficient to describe its own propagation. This paper establishes
-that condition. The science is complete enough to describe what the
-art is doing. The art can now begin.
+The research corpus supplies a vocabulary for describing its own propagation.
+This paper proposes that vocabulary as a framework for the cultural programme;
+it does not establish a completed fixed-point theorem. The art can now begin
+without being asked to serve as evidence for the physical claims.
 
 ---
 
@@ -220,7 +209,7 @@ dynamics it formally describes. The substrate changes the coupling
 constant; it does not change the field equation.
 
 This self-referential closure is not a quirk. It is the condition that
-makes Phase 2 possible: a cultural programme that uses the science as
+makes the cultural programme possible: a cultural programme that uses the science as
 its structural skeleton and the art as its propagation medium, in the
 knowledge that both are governed by the same master equation.
 

@@ -7,8 +7,9 @@ DIST  := ../Dist
 
 include mk/dist.mk
 
-.PHONY: all lean lean-appendix omnibus fractal-thesis cheatsheet \
-	uat-build uat-check release-build release-check dist generate list
+.PHONY: all build registry-papers registry-fractal lean lean-appendix omnibus \
+	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
+	dist generate list
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
@@ -21,17 +22,27 @@ omnibus:
 	$(MAKE) -C paper omnibus
 
 cheatsheet:
-	$(MAKE) -C paper cheatsheet
+	$(MAKE) -C Part2/fractal-programme bld/booklet-gateway.pdf
 
 fractal-thesis:
 	$(MAKE) -C Part2/fractal-programme fractal-thesis
 
-all: lean-appendix omnibus fractal-thesis cheatsheet
+registry-papers:
+	$(MAKE) -C paper $(REGISTRY_PAPER_TARGETS)
+
+registry-fractal:
+	$(MAKE) -C Part2/fractal-programme $(REGISTRY_FRACTAL_PREREQUISITES) $(REGISTRY_FRACTAL_TARGETS)
+
+# PAPERS.yaml is adopted explicitly through `make generate`; these targets
+# build the resulting U candidate snapshot without promoting anything to Dist.
+build: registry-papers registry-fractal
+
+all: build
 
 # Release candidates are built and checked in U. Dist is only the destination
 # for an explicitly approved release.
 uat-build:
-	bin/release-build
+	$(MAKE) build
 
 uat-check:
 	bin/release-check

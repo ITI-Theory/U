@@ -293,8 +293,8 @@ coupling strength. Proving OS axioms for the interacting theory would require:
    interacting sector, likely requiring new lemmas in the companion proof
    library.
 
-This programme is designated **P15** in the SFT publication series and
-constitutes the next major formal-verification target.
+This interacting extension constitutes the next major formal-verification
+target.
 
 ---
 
@@ -312,8 +312,8 @@ is:
 
 The USF is, to our knowledge, the first model of emotional and somatic
 dynamics to be placed within the rigorous framework of axiomatic quantum field
-theory with a machine-verified proof. The interacting theory (P15) is the
-natural sequel.
+theory with a machine-verified proof. The interacting extension is the natural
+sequel.
 
 ---
 

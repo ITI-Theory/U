@@ -7,7 +7,8 @@ date: "2026"
 lang: en-GB
 status: "Research programme — proof obligations identified, not yet closed"
 abstract: |
-  The companion paper P14 established that the free-field Universal Somatic
+  The companion paper *The Universal Somatic Field as a Euclidean Quantum
+  Field Theory* established that the free-field Universal Somatic
   Field (USF) satisfies all five Osterwalder–Schrader (OS) axioms, placing
   it within the rigorous framework of axiomatic Euclidean quantum field
   theory. The present paper develops the programme for proving OS axioms
@@ -39,7 +40,8 @@ csl: "../../apa-7th.csl"
 
 ## 1 Motivation and Context
 
-The free-field USF was proved (P14) to satisfy OS0–OS4 via its identification
+The free-field USF was proved in the companion free-field paper to satisfy
+OS0–OS4 via its identification
 with the massive Gaussian Free Field. That result, though fundamental, covers
 only the linearised theory. The physical USF includes a Hopfield coupling
 $\kappa > 0$ that introduces non-linearity, attractor dynamics, and the
@@ -113,7 +115,7 @@ requires the full Glimm–Jaffe machinery.
 
 **Current status.** The quadratic (single-component, $V = -\frac{W}{2}\phi^2$)
 case is handled by mass renormalisation: $k_{\text{eff}}^2 = k^2 - \kappa W > 0$.
-OS3 holds by the free-field result (P14) with $k_{\text{eff}}$.
+OS3 holds by the free-field result with $k_{\text{eff}}$.
 
 For the multi-component Hopfield theory the proof is *open*.
 
@@ -194,7 +196,8 @@ This phase structure matches the clinical phenomenology:
 The interacting USF presents a tractable research programme at the interface
 of constructive QFT and formal verification:
 
-**Closed (P14):** Free-field USF satisfies OS0–OS4 (Lean 4, 0 sorries).
+**Established in the companion free-field paper:** Free-field USF satisfies
+OS0–OS4 in its stated Lean 4 formalisation.
 
 **Closed (this paper):** Single-component Hopfield USF below critical coupling
 satisfies OS0–OS4 via mass renormalisation.

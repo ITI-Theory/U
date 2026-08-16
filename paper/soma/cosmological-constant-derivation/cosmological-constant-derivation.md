@@ -196,7 +196,8 @@ The structural claims of this paper are formalised in
    enforced via boundary-condition regulation rather than counter-term
    subtraction. For the free field (proved via OS axioms), UV-finiteness
    follows directly from OS3 reflection positivity. For the interacting field,
-   this is P15's open programme.
+  this is the open programme of *Osterwalder–Schrader Axioms for the
+  Interacting Universal Somatic Field*.
 
 ---
 
@@ -243,7 +244,7 @@ how the 11D energy density projects onto $M_4$.
 
 **Equation of state (w = −1 exactly).** A classical background condensate in
 its regulated vacuum has $w = p/\rho = -1$ — de Sitter expansion, no phantom
-energy. Any detection of $w \neq -1$ would **falsify the P21 claim** that
+energy. Any detection of $w \neq -1$ would **falsify this paper's claim** that
 $\Lambda$ is a classical USF condensate; it would require either a dynamical
 (quintessence) field or a modification to the USF framework at Scale 19–20.
 
@@ -265,7 +266,8 @@ genuine dark energy dynamics. DESI DR2 (late 2025) and Euclid will
 resolve whether the tension persists with independent SNIa samples.
 
 **Current verdict:** USF is *consistent* with DESI BAO + Pantheon+ (the
-more mature dataset). The DES SN5YR tension, if real, falsifies P21. The
+more mature dataset). The DES SN5YR tension, if real, falsifies this
+cosmological-constant model. The
 result is on a knife edge — it is the most important live test in cosmology.
 
 **Null variation of Λ with redshift.** The USF condensate amplitude is fixed

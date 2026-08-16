@@ -391,7 +391,7 @@ energy barrier between attractor states $i$ and $j$ in the Hopfield network, whe
 $r$ is the somatic representation zone of the relevant emotional state pair.
 High stiffness = high barrier = deep attractor basin.
 
-**Testable prediction (P1)**: Populations with documented high-barrier emotional
+**Testable prediction 1**: Populations with documented high-barrier emotional
 states (CPTSD, complex trauma, chronic anxiety disorder) should show systematically
 elevated fascial stiffness in regions corresponding to the somatic representation
 of those states (diaphragm, psoas, posterior cervical chain), compared with matched
@@ -410,13 +410,13 @@ transitions more accessible. If initial barrier is $W = -12$ and intervention re
 it to $W = -6$, QUANT-EXP-1 results [@johnson2026c] suggest that classical thermal
 dynamics can now cross what previously required quantum assistance.
 
-**Testable prediction (P2)**: The probability of emotional state transition following
+**Testable prediction 2**: The probability of emotional state transition following
 myofascial release should increase monotonically with the degree of reduction in
 fascial stiffness. This is testable by measuring both pre/post fascial stiffness
 (elastography) and pre/post emotional state (validated affect measures + HRV) in a
 within-subjects design across a series of somatic therapy sessions.
 
-**Testable prediction (P3)**: The phenomenological *character* of the transition
+**Testable prediction 3**: The phenomenological *character* of the transition
 should differ predictably: sessions that lower the barrier significantly should
 produce gradual, integrative shifts; sessions that trigger a crossing of a high
 barrier (large, rapid state transition) should produce different qualitative reports.
@@ -438,7 +438,7 @@ electromagnetic entrainment. The therapist does not merely witness the client's
 state; the therapist's attractor landscape is temporarily modified by coupling to
 the client's, and this modification is the mechanism of therapeutic resonance.
 
-**Testable prediction (P4)**: The degree of measurable physiological entrainment
+**Testable prediction 4**: The degree of measurable physiological entrainment
 (HRV coherence synchronisation) between therapist and client should predict
 therapeutic outcome — reduction in client fascial stiffness and shift in validated
 affect measures — independently of the specific technique used. Sessions with high
@@ -454,16 +454,16 @@ least accessible with current instrumentation:
 
 | # | Prediction | Method | Population |
 |---|---|---|---|
-| P1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
-| P2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
-| P3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
-| P4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
-| P5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
-| P6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
+| Prediction 1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
+| Prediction 2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
+| Prediction 3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
+| Prediction 4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
+| Prediction 5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
+| Prediction 6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
 
-Predictions P1–P4 are testable with instrumentation available in clinical research
-centres now. P5 requires specialised biophoton detection (available in approximately
-a dozen research centres worldwide). P6 requires the prior development of a validated
+Predictions 1–4 are testable with instrumentation available in clinical research
+centres now. Prediction 5 requires specialised biophoton detection (available in approximately
+a dozen research centres worldwide). Prediction 6 requires the prior development of a validated
 soma-field state classification instrument — a prerequisite for large-scale empirical
 work that is not yet available and is noted as the primary methodological gap in this
 programme.

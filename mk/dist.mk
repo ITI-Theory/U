@@ -2,6 +2,11 @@
 # GENERATED from Dist/PAPERS.yaml by paper/scripts/generate_mk.py
 # DO NOT EDIT -- run: make generate
 
+# Candidate build inputs adopted from PAPERS.yaml at generation time.
+REGISTRY_PAPER_TARGETS := main quantum method synthesis substrate book pov tensor music temporal zsf exp limbic osqft intqft geo gestalt preverbal swarm usf cosconst darkmatter phenomena g2break demo-case lean-appendix omnibus-a4 omnibus-royal
+REGISTRY_FRACTAL_PREREQUISITES := 
+REGISTRY_FRACTAL_TARGETS := fractal-thesis vol1 vol2 book-gateway book-physics book-neuroscience book-clinical-psychology book-computer-science book-formal-mathematics book-consciousness book-complex-systems book-music-arts book-geophysics book-social-science book-economics book-law book-ppe book-psychiatry-asd
+
 .PHONY: papers zenodo nlm lulu stuff dist
 
 papers: all
@@ -29,6 +34,7 @@ papers: all
 	cp -f $(PAPER)/dark-matter-spatial-vacuum.pdf                    $(DIST)/papers/dark-matter-spatial-vacuum.pdf
 	cp -f $(PAPER)/ttheory-phenomena.pdf                             $(DIST)/papers/ttheory-phenomena.pdf
 	cp -f $(PAPER)/g2-symmetry-breaking.pdf                          $(DIST)/papers/g2-symmetry-breaking.pdf
+	cp -f $(PAPER)/SFT-DEMO-CASE.pdf                                 $(DIST)/papers/SFT-DEMO-CASE.pdf
 	cp -f $(PAPER)/lean-proofs-appendix.pdf                          $(DIST)/papers/lean-proofs-appendix.pdf
 	cp -f $(PAPER)/omnibus.pdf                                       $(DIST)/papers/omnibus-a4.pdf
 	cp -f $(PAPER)/omnibus.pdf                                       $(DIST)/papers/omnibus-royal.pdf
@@ -37,7 +43,21 @@ papers: all
 	cp -f $(FRAC)/ttheory-fractal-programme.pdf                      $(DIST)/papers/ttheory-omnibus.pdf
 	cp -f $(FRAC)/ttheory-vol1.pdf                                   $(DIST)/papers/ttheory-vol1.pdf
 	cp -f $(FRAC)/ttheory-vol2.pdf                                   $(DIST)/papers/ttheory-vol2.pdf
-	cp -f $(PAPER)/ttheory-cheatsheet.pdf                            $(DIST)/papers/ttheory-cheatsheet.pdf
+	cp -f $(FRAC)/booklet-gateway.pdf                                $(DIST)/papers/ttheory-cheatsheet.pdf
+	cp -f $(FRAC)/ttheory-book-gateway.pdf                           $(DIST)/papers/book-gateway.pdf
+	cp -f $(FRAC)/ttheory-book-physics.pdf                           $(DIST)/papers/book-physics.pdf
+	cp -f $(FRAC)/ttheory-book-neuroscience.pdf                      $(DIST)/papers/book-neuroscience.pdf
+	cp -f $(FRAC)/ttheory-book-clinical-psychology.pdf               $(DIST)/papers/book-clinical-psychology.pdf
+	cp -f $(FRAC)/ttheory-book-computer-science.pdf                  $(DIST)/papers/book-computer-science.pdf
+	cp -f $(FRAC)/ttheory-book-formal-mathematics.pdf                $(DIST)/papers/book-formal-mathematics.pdf
+	cp -f $(FRAC)/ttheory-book-consciousness.pdf                     $(DIST)/papers/book-consciousness.pdf
+	cp -f $(FRAC)/ttheory-book-complex-systems.pdf                   $(DIST)/papers/book-complex-systems.pdf
+	cp -f $(FRAC)/ttheory-book-music-arts.pdf                        $(DIST)/papers/book-music-arts.pdf
+	cp -f $(FRAC)/ttheory-book-geophysics.pdf                        $(DIST)/papers/book-geophysics.pdf
+	cp -f $(FRAC)/ttheory-book-social-science.pdf                    $(DIST)/papers/book-social-science.pdf
+	cp -f $(FRAC)/ttheory-book-economics.pdf                         $(DIST)/papers/book-economics.pdf
+	cp -f $(FRAC)/ttheory-book-law.pdf                               $(DIST)/papers/book-law.pdf
+	cp -f $(FRAC)/ttheory-book-ppe.pdf                               $(DIST)/papers/book-ppe.pdf
 	cp -f $(FRAC)/ttheory-book-psychiatry-asd.pdf                    $(DIST)/papers/book-psychiatry-asd.pdf
 
 zenodo: all
@@ -107,10 +127,24 @@ lulu: all
 	cp -f $(PAPER)/omnibus-v2.pdf                                    $(DIST)/lulu/01-omnibus-v2.pdf
 	cp -f $(FRAC)/ttheory-vol1.pdf                                   $(DIST)/lulu/03-ttheory-vol1-foundation.pdf
 	cp -f $(FRAC)/ttheory-vol2.pdf                                   $(DIST)/lulu/04-ttheory-vol2-application.pdf
+	cp -f $(FRAC)/ttheory-book-gateway.pdf                           $(DIST)/lulu/ttheory-book-gateway.pdf
+	cp -f $(FRAC)/ttheory-book-physics.pdf                           $(DIST)/lulu/ttheory-book-physics.pdf
+	cp -f $(FRAC)/ttheory-book-neuroscience.pdf                      $(DIST)/lulu/ttheory-book-neuroscience.pdf
+	cp -f $(FRAC)/ttheory-book-clinical-psychology.pdf               $(DIST)/lulu/ttheory-book-clinical-psychology.pdf
+	cp -f $(FRAC)/ttheory-book-computer-science.pdf                  $(DIST)/lulu/ttheory-book-computer-science.pdf
+	cp -f $(FRAC)/ttheory-book-formal-mathematics.pdf                $(DIST)/lulu/ttheory-book-formal-mathematics.pdf
+	cp -f $(FRAC)/ttheory-book-consciousness.pdf                     $(DIST)/lulu/ttheory-book-consciousness.pdf
+	cp -f $(FRAC)/ttheory-book-complex-systems.pdf                   $(DIST)/lulu/ttheory-book-complex-systems.pdf
+	cp -f $(FRAC)/ttheory-book-music-arts.pdf                        $(DIST)/lulu/ttheory-book-music-arts.pdf
+	cp -f $(FRAC)/ttheory-book-geophysics.pdf                        $(DIST)/lulu/ttheory-book-geophysics.pdf
+	cp -f $(FRAC)/ttheory-book-social-science.pdf                    $(DIST)/lulu/ttheory-book-social-science.pdf
+	cp -f $(FRAC)/ttheory-book-economics.pdf                         $(DIST)/lulu/ttheory-book-economics.pdf
+	cp -f $(FRAC)/ttheory-book-law.pdf                               $(DIST)/lulu/ttheory-book-law.pdf
+	cp -f $(FRAC)/ttheory-book-ppe.pdf                               $(DIST)/lulu/ttheory-book-ppe.pdf
 	cp -f $(FRAC)/ttheory-book-psychiatry-asd.pdf                    $(DIST)/lulu/ttheory-book-psychiatry-asd.pdf
 
 stuff: all
-	cp -f $(PAPER)/ttheory-cheatsheet.pdf                            $(DIST)/stuff/ttheory-cheatsheet.pdf
+	cp -f $(FRAC)/booklet-gateway.pdf                                $(DIST)/stuff/ttheory-cheatsheet.pdf
 
 dist: papers zenodo nlm lulu stuff nlm-uat
 

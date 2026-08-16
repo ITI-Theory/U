@@ -1226,13 +1226,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -1660,9 +1661,10 @@ build guide is reserved for a forthcoming companion document.
 
 ## A.5 Lean 4 Type Sketches
 
-The following sketches use Lean 4 syntax (Mathlib conventions). They are illustrative rather
-than complete; `sorry` marks positions requiring additional measure-theoretic or
-proof-theoretic development.
+The following is an illustrative historical design sketch, not the current
+`paper/proofs/` source inventory. Its `sorry` markers identify the sketch's
+unformalised measure-theoretic and eigenanalysis steps; current proof status is
+recorded in the Lean appendix and UAT manifest.
 
 ```lean
 import Mathlib.LinearAlgebra.Matrix.DotProduct

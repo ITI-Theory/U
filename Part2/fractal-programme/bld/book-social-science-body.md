@@ -12,7 +12,12 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-social-science-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-social-science-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-social-science-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-social-science-4.pdf}
 \setcounter{page}{1}
 \tableofcontents
 \clearpage
@@ -2691,13 +2696,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 

@@ -18,7 +18,7 @@ distribution channel are then verified against that accepted source PDF.
 | NotebookLM | Two current PDFs: the accepted current paper omnibus and the accepted fractal thesis. | Verify both files are the accepted candidates and together cover the current programme. |
 | Lulu | Personal print files: current paper omnibus, Fractal Volume I, and Fractal Volume II. | Visual print review after their source candidates are accepted. |
 | `Dist/papers` and landing pages | A mirror and public download surface, not an independent release. | Verify file names, links, descriptions, and checksums only after candidate acceptance. |
-| `Dist/stuff` | The master cheatsheet and supporting supplementary materials. | Review the master cheatsheet once, then verify the distributed copy. |
+| `Dist/stuff` | The default cheatsheet and supporting supplementary materials. | Review the default cheatsheet once, then verify the distributed copy. |
 
 ### Live Zenodo baseline — checked 2026-08-16
 
@@ -33,7 +33,7 @@ Before final promotion, this UAT must decide the action for every formal record:
 | New Zenodo record | P21, P22, P23, P24 | Review and accept the current candidate PDF and metadata. |
 | New Zenodo version | P11, P12, D2, C1v2, C2 | Local source changed after the live record. Verify the exact accepted change before upload. |
 | Published, no update currently indicated | P1–P10 except P11/P12, P13–P20, D1, QUANT-EXP-1 | Confirm during source review that no unrecorded substantive change exists. |
-| Not a Zenodo publication | 15 individual fractal books; Fractal Volumes I and II; master cheatsheet | Review for NotebookLM/Lulu/`Dist` as applicable, but do not prepare Zenodo metadata. |
+| Not a Zenodo publication | 15 individual fractal books; Fractal Volumes I and II; default cheatsheet | Review for NotebookLM/Lulu/`Dist` as applicable, but do not prepare Zenodo metadata. |
 
 ### Candidate-to-source map
 
@@ -44,11 +44,11 @@ Before final promotion, this UAT must decide the action for every formal record:
 | D2 proofs appendix | `lean-proofs-appendix.pdf` | `paper/proofs/*.lean` → `paper/scripts/build_lean_appendix.py` → `paper/soma/lean-proofs-appendix/lean-proofs-appendix.md` |
 | Paper omnibus | `omnibus-a4.pdf` / print variant | `paper/scripts/build_omnibus.py` plus its canonical-paper inputs; historical sequence is intentional, but later corrections must be signposted. |
 | Fractal thesis, volumes, and 15 books | `ttheory-omnibus.pdf`, `ttheory-vol1.pdf`, `ttheory-vol2.pdf`, `book-*.pdf` | `Part2/fractal-programme/build_fractal_books.py`, its kappas/conclusions, and the canonical-paper inputs. The fractal thesis is the current canonical synthesis, not a historical record. |
-| Master cheatsheet | `cheatsheet-master.pdf` | `paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md` and `cheatsheet-header.tex` |
+| Default cheatsheet | `ttheory-cheatsheet.pdf` | `paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md` and `cheatsheet-header.tex` |
 
 ### Required UAT sequence
 
-1. Freeze and build the candidate set in `U`.
+1. Adopt the intended `Dist/PAPERS.yaml` snapshot with `make generate`, then build the candidate set with `make uat-build` in `U`.
 2. Visually accept each distinct PDF, recording comments and rebuilds here.
 3. Review every listed Markdown source for claim status, consistency, citations, and
    the historical-versus-canonical distinction above.
@@ -95,7 +95,7 @@ Source of truth: `src/SomaField.lean`, `instrument/field.py`, published papers.
 | METHOD-1 | HypnopompicStateOptimisesCoIdentification | **PASS** | Consistent with FIELD-NOTES §1 |
 | METHOD-2 | HRVIsSomaFieldSpectralDensity | **PASS** | `SomaField.spectral_density()` added: rolling 256-sample FFT buffer at 50 Hz; LF (0.04–0.15 Hz) and HF (0.15–0.4 Hz) power of BS channel (dim 0); LF/HF ratio returned in `state_dict` as HRV proxy |
 | META-1 | CoIdentificationIsAbduction | **PASS** | The whole paper is this |
-| GAP-1 | DyadicPropagatorExists | **PARTIAL** | `dyadicPropagatorExists` proved; `coupling_sum_nonneg` proved; `dyadic_block_decomp` sorry replaced with `Fin.sum_univ_add` + dif_pos/dif_neg proof (build pending verification); Float→ℝ transfer sorry remains |
+| GAP-1 | DyadicPropagatorExists | **PARTIAL** | `dyadicPropagatorExists`, `coupling_sum_nonneg`, and the block-decomposition/real-transfer path are proved. The remaining work is empirical and model-level validation, not an active Lean `sorry`. |
 | GAP-2 | CTheoremHoldsForSomaField | **OPEN** | Claim: ∃ C(W) monotonically decreasing under therapeutic RG flow. Analogue of Zamolodchikov C-theorem. Requires: definition of C-function for soma-field, proof of monotonicity under W-deformation. Genuine open question. |
 | GAP-3 | CosmologicalConstantDerivation | **PARTIAL** | P21 written. Numerical estimate: Λ_USF = (21/11) H₀²/c² ≈ 0.93 Λ_obs (7% from 7/11 compact dimension fraction). DESI+Pantheon+ consistent (0.1σ). DES SN5YR tension (4σ) pending systematics. Lean stub: `CosmologicalConstant.lean`; axioms need linearised GR in Mathlib. |
 | GAP-4 | DarkMatterSpatialVacuum | **PARTIAL** | P22 written. Numerical estimate: Ω_DM^USF = 3/11 = 0.273 vs obs 0.265 (2.9% off). Physical mechanism: spatial block Φ_{ij} clusters (non-compact), EM-neutral (gauge fields in X_7). Lean stub: `CosmologicalConstant.lean` (DarkMatter namespace); axioms need KK reduction in Mathlib. |

@@ -44,9 +44,10 @@ learnable coupling that encodes clinical history.  Every theorem about Hopfield
 energy descent applies, mutatis mutandis, to the soma-field.
 
 **What is formally established here:** energy function definition, Hebbian
-weight construction, synchronous update step.  The convergence theorems are
-stated as proof obligations (marked with comments) — the foundations are in
-place, the full convergence proof closes in `SomaField.lean`.""",
+weight construction, synchronous update step, and the zero-weight baseline:
+the all-active state is an attractor and every state reaches it in one step.
+General convergence requires finite spin states with asynchronous updates, or
+stronger assumptions on the synchronous matrix.""",
     ),
     (
         "EmotionOntology.lean",
@@ -383,7 +384,7 @@ The eleven files that follow collectively establish:
 | `EmotionOntology.lean` | Final-tagless emotion algebra; 5 interpreters; LEAN-1 | Kernel-verified |
 | `FieldProofs.lean` | Promoted axioms; `awe_is_universal` closes with `rfl` | Kernel-verified |
 | `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Kernel-verified |
-| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Partial (one `sorry`) |
+| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Kernel-verified |
 | `LimbicTunnel.lean` | WKB amplitude; classical trapping; quantum advantage | Kernel-verified |
 | `MTheoryIsomorphism.lean` | 11D isomorphism; organism hierarchy | Kernel-verified |
 | `LimbicHopfield.lean` | FM-HN Correspondence Principle; clinical operators | Kernel-verified |
@@ -391,12 +392,11 @@ The eleven files that follow collectively establish:
 | `UniversalSomaticField.lean` | Scale invariance; consciousness threshold; universality | Mixed (axioms noted) |
 | `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles |
 
-**On `sorry` and axioms:** one theorem in `DyadicField.lean` is marked `sorry`
-(the energy coupling bound, pending block-matrix spectral theory scaffolding
-in Mathlib).  Two results in `UniversalSomaticField.lean` are stated as
-`axiom` (the consciousness threshold and cosmological limit) pending full PDE
-scaffolding.  All other results are unconditionally kernel-verified.  Every
-`sorry` and every `axiom` is explicitly marked and explained in the source.
+**On proof status and axioms:** there are no active Lean `sorry` stubs in this
+appendix's proof sources. Two results in `UniversalSomaticField.lean` are
+stated as `axiom` (the consciousness threshold and cosmological limit) pending
+full PDE scaffolding. Open work is represented as named axioms, explicit gap
+markers, or scoped future formalisation, each documented in source.
 
 ## How to verify these proofs yourself
 

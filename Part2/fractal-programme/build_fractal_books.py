@@ -16,19 +16,28 @@ import sys
 import os
 from pathlib import Path
 
+import yaml
+
 REPO_ROOT   = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR   = REPO_ROOT / "paper"
 FRACTAL_DIR = Path(__file__).resolve().parent
 BLD_DIR     = FRACTAL_DIR / "bld"
 KAPPA_DIR   = FRACTAL_DIR / "kappas"
 CONC_DIR    = FRACTAL_DIR / "conclusions"
+REGISTRY    = REPO_ROOT.parent / "Dist" / "PAPERS.yaml"
 
 # PDF paths for includepdf injection (— absolute paths required; xelatex runs in temp dir)
 _BLD_ABS = str(BLD_DIR.resolve()).replace("\\", "/")
 
-def _master_cheatsheet_pdf() -> str:
-    """Return the single reference cheatsheet used in every domain book."""
-    return f"{_BLD_ABS}/cheatsheet-master.pdf"
+def _booklet_cheatsheet_pdf(domain_id: str) -> str:
+    """Return the four-page booklet assigned to a specific domain book."""
+    return f"{_BLD_ABS}/booklet-{domain_id}.pdf"
+
+def _booklet_pages(domain_id: str) -> str:
+    return "\n".join(
+        f"\\includepdf[pages=1]{{{_BLD_ABS}/booklet-{domain_id}-{page}.pdf}}"
+        for page in range(1, 5)
+    )
 
 def _noir_block() -> str:
     return (
@@ -43,7 +52,9 @@ def _noir_block() -> str:
 def _cheatsheet_toc(domain_id: str) -> str:
     return (
         "\n\n```{=latex}\n"
-        f"\\includepdf{{{_master_cheatsheet_pdf()}}}\n"
+        "\\clearpage\n"
+        "\\null\\thispagestyle{empty}\\clearpage\n"
+        f"{_booklet_pages(domain_id)}\n"
         "\\setcounter{page}{1}\n"
         "\\tableofcontents\n"
         "\\clearpage\n"
@@ -51,11 +62,229 @@ def _cheatsheet_toc(domain_id: str) -> str:
     )
 
 def _toc_only() -> str:
-    return "\n\n```{=latex}\n\\tableofcontents\n\\clearpage\n```\n\n"
+    return "\n\n```{=latex}\n\\setcounter{tocdepth}{-1}\n\\tableofcontents\n\\clearpage\n```\n\n"
+
+def _latex_text(text: str) -> str:
+    """Escape registry and domain text inserted into raw LaTeX blocks."""
+    return (text.replace("\\", r"\\textbackslash{}")
+                .replace("&", r"\\&")
+                .replace("%", r"\\%")
+                .replace("_", r"\\_"))
+
+def _book_part_opening(domain_id: str) -> str:
+    """Create a navigable opening page before a book inside a composite volume."""
+    domain = get_domain(domain_id)
+    registry_book = get_registry_book(domain_id)
+    title = _latex_text(domain["title"])
+    subtitle = _latex_text(domain["subtitle"])
+    green_id = _latex_text(registry_book["green_id"])
+    audience = _latex_text(registry_book["audience"])
+    return (
+        "\n\n```{=latex}\n"
+        f"\\part{{{title}}}\n"
+        f"\\markboth{{{title}}}{{{title}}}\n"
+        "\\begin{center}\n"
+        f"{{\\large\\itshape {subtitle}\\par}}\n"
+        "\\vspace{10mm}\n"
+        f"{{\\sffamily\\bfseries G-ID: {green_id}\\par}}\n"
+        "\\vspace{4mm}\n"
+        f"{{\\sffamily Reader: {audience}\\par}}\n"
+        "\\end{center}\n"
+        "\\clearpage\n"
+        f"{_booklet_pages(domain_id)}\n"
+        "\\clearpage\n"
+        "```\n\n"
+    )
+
+def _gateway_cheatsheet_note() -> str:
+    return (
+        "\n\n## A Note on the Cheatsheet\n\n"
+        "The four-page [T]-Theory Cheatsheet appears at the end of this Gateway. "
+        "It is the programme's standalone public summary: a pre-reading map "
+        "for the Fractal Programme, the academic papers, and the wider cultural "
+        "work. Read it now as a preview, or return to it after this book as a "
+        "compact record of what the Gateway has opened.\n"
+    )
 
 # Strips YAML frontmatter from canonical papers (same as build_omnibus.py)
 _FM_RE  = re.compile(r"^---\n[\s\S]*?\n---\n\n?", re.MULTILINE)
 _REF_RE = re.compile(r"\n#{1,3}\s+References\b[\s\S]*$", re.IGNORECASE)
+
+DEFAULT_BOOKLET_WHY = (
+    "a disturbance in one place changes what is possible somewhere else. "
+    "[T]-Theory asks what becomes testable when propagation, memory, and "
+    "collective coordination are treated as one field problem — across matter, "
+    "minds, markets, and the cosmos."
+)
+
+BOOKLET_WHY = {
+    "gateway": (
+        "the same question links a guitar string, a felt emotion, a social "
+        "encounter, and the night sky: if something happens here, what is felt "
+        "there? [T]-Theory treats that question as a field problem and gives a "
+        "reader one equation from which to enter the whole programme."
+    ),
+    "physics": (
+        "a Green's function is not just a technical solution; it is the most "
+        "direct account of how a disturbance becomes an effect. [T]-Theory "
+        "uses that common response law to connect field theory, compactification, "
+        "and the cosmological questions of dark energy and dark matter."
+    ),
+    "complex-systems": (
+        "complex systems become intelligible when their many local interactions "
+        "are read as one evolving field. [T]-Theory treats emergence, criticality, "
+        "and long-range coordination as different expressions of a shared "
+        "propagator and attractor landscape."
+    ),
+    "formal-mathematics": (
+        "a good formal system does more than describe an idea: it makes invalid "
+        "moves impossible. [T]-Theory uses dependent types, proofs, and field "
+        "geometry to ask which claims about propagation survive machine checking."
+    ),
+    "neuroscience": (
+        "neural activity is not only a collection of neurons firing; it is also "
+        "a field that integrates activity across tissue and time. [T]-Theory "
+        "treats the cortical electromagnetic field as a testable bridge between "
+        "local signals, global coordination, and felt state."
+    ),
+    "consciousness": (
+        "the hard problem changes shape when consciousness is approached as a "
+        "transition in an integrated physical field. [T]-Theory asks what happens "
+        "when correlation, propagation, and regulation cross the threshold from "
+        "local processing to a unified point of view."
+    ),
+    "computer-science": (
+        "software, proof, and coordination all depend on how information moves "
+        "through a structured system. [T]-Theory treats propagators as computational "
+        "objects: they can be verified in Lean, tested in networks, and used to "
+        "reason about collective action."
+    ),
+    "music-arts": (
+        "music makes a field audible: rhythm, expectation, memory, and bodily "
+        "response become one moving pattern. [T]-Theory treats art as an instrument "
+        "for exploring affective propagation, not as decoration added after the science."
+    ),
+    "clinical-psychology": (
+        "a person is not their trauma; trauma can be modelled as a constrained "
+        "path through an energy landscape. [T]-Theory asks how field temperature, "
+        "memory, and safe intervention change the chances of leaving a deep attractor."
+    ),
+    "psychiatry-asd": (
+        "different nervous systems need not be reduced to deficits or labels. "
+        "[T]-Theory treats attention, sensory regulation, memory, and social "
+        "coupling as field architectures with distinct costs, affordances, and paths to support."
+    ),
+    "social-science": (
+        "society is made of relations that carry trust, attention, fear, and "
+        "meaning across people. [T]-Theory treats rapport, contagion, and collective "
+        "coordination as propagating patterns that can be described without erasing "
+        "individual agency."
+    ),
+    "geophysics": (
+        "the Earth records disturbances as waves, faults, and long-lived material "
+        "memory. [T]-Theory treats seismic propagation as a physical instance of "
+        "the same Green's-function grammar used to study memory and response at other scales."
+    ),
+    "law": (
+        "law asks which social commitments remain stable when power and circumstance "
+        "change. [T]-Theory treats rights, precedent, and institutional constraint as "
+        "patterns of propagation and invariance in a collective field."
+    ),
+    "ppe": (
+        "philosophy, politics, and economics meet wherever individual choices become "
+        "collective outcomes. [T]-Theory treats minds, markets, and mandates as coupled "
+        "fields, asking which structures create stable cooperation and which trap a society."
+    ),
+    "economics": (
+        "an equilibrium tells us where a market can settle, but not how it "
+        "gets there, why it becomes trapped, or what intervention can move it. "
+        "[T]-Theory treats markets as field dynamics: shocks, prices, policy, "
+        "and coordination become forces acting on an economic landscape."
+    ),
+}
+
+HUD_HEADERS = {
+    "economics": "ECONOMIC SCAN",
+    "law": "LEGAL INFERENCE",
+}
+
+def get_registry_book(domain_id: str) -> dict:
+    """Return the authoritative Dist registry record for a Fractal book."""
+    registry = yaml.safe_load(REGISTRY.read_text(encoding="utf-8"))
+    slug = f"ttheory-book-{domain_id}"
+    for record in registry["collections"]:
+        if record["slug"] == slug:
+            return record
+    raise ValueError(f"Missing registry record for {slug}")
+
+def field_notes_block(domain_id: str) -> str:
+    domain = get_domain(domain_id)
+    hud_header = HUD_HEADERS.get(domain_id, "FIELD SCAN")
+    registry_book = get_registry_book(domain_id)
+
+    identity = {
+        "G-ID": registry_book["green_id"],
+        "DOMAIN": domain["field"],
+        "READER": registry_book["audience"],
+        "SCALE": registry_book["hud_scale"],
+        "EQUATION": registry_book["hud_equation"],
+        "OPERATOR": registry_book["hud_operator"],
+    }
+    notes = {
+        "INVARIANT": registry_book["hud_invariant"],
+        "OBSERVABLE": registry_book["hud_observable"],
+        "PENDING": registry_book["hud_status"],
+    }
+
+    def render_lines(items: dict[str, str], markers: bool) -> str:
+        lines = []
+        for key, value in items.items():
+            label = f"\\texttt{{\\textbf{{{key}:>}}}}"
+            if markers and key == "PENDING":
+                value = "\\textcolor{ledorange}{[ ~ AWAITING ]} " + value
+            elif markers and key in {"EVIDENCE", "ABDUCE", "DEDUCE"}:
+                value = "\\textcolor{hudok}{[ + ]} " + value
+            lines.append(f"{label} {value}")
+        return "\\\\\n".join(lines)
+
+    identity_content = render_lines(identity, False)
+    analysis_content = render_lines(notes, True)
+    if not analysis_content:
+        analysis_content = "\\textbf{READING} Use the shared mathematics as a domain lens; this flyer identifies the relevant propagator."
+
+    return (
+        "\n\n\\finishbookletcolumns\n"
+        "\\begin{center}\\includegraphics[width=20mm]{figures/t-theory-sticker.png}\\end{center}\n"
+        "\\vfill\n"
+        "\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.35pt}}\n"
+        "\\vspace{1pt}\\noindent{\\sffamily\\tiny\\color{hudtext}"
+        f"\\textcolor{{white}}{{[}} FIELD NOTES / {hud_header} \\textcolor{{white}}{{]}}\\hfill"
+        "\\textcolor{ledorange}{[ ~ AWAITING VALIDATION ]}}\\par\n"
+        "\\vspace{2pt}\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.25pt}}\\par\\vspace{2pt}"
+        "\\noindent{\\scriptsize\\color{hudtext}\\raggedright "
+        + identity_content + "}\n"
+        "\\par\\vspace{3pt}\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.25pt}}\\par\\vspace{2pt}"
+        "\\noindent{\\sffamily\\tiny\\color{hudtext}\\textcolor{white}{[} ABDUCTING:> \\textcolor{white}{]}}\\par\n"
+        "\\vspace{1pt}\\noindent{\\scriptsize\\color{hudtext}\\raggedright "
+        + analysis_content + "}\n"
+        "\\vspace{2pt}\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.35pt}}\n"
+    )
+
+def build_booklet_source(domain_id: str) -> None:
+    """Create a domain booklet by replacing only the default elevator pitch."""
+    source = PAPER_DIR / "soma/ttheory-cheatsheet/ttheory-cheatsheet.md"
+    text = source.read_text(encoding="utf-8")
+    pitch = BOOKLET_WHY.get(domain_id, DEFAULT_BOOKLET_WHY)
+    pattern = r"\\noindent\\textit\{Why this exists:\}.*?\n\n\\vspace\{5pt\}"
+    replacement = "\\noindent\\textit{Why:} " + pitch + "\n\n\\vspace{5pt}"
+    output, count = re.subn(pattern, lambda _: replacement, text, count=1, flags=re.DOTALL)
+    if count != 1:
+        raise ValueError("Default booklet elevator pitch marker not found")
+    footer = "\n\\vfill\\begin{center}\\includegraphics[width=28mm]{figures/t-theory-sticker.png}\\end{center}"
+    output = output.replace(footer, field_notes_block(domain_id), 1)
+    out_path = BLD_DIR / f"booklet-{domain_id}.md"
+    out_path.write_text(output, encoding="utf-8")
+    print(f"  -> {out_path.name}")
 
 def get_canonical_body(paper_name: str) -> str:
     """Load a paper from paper/soma/ (the canonical 19)."""
@@ -311,11 +540,11 @@ csl: ../../paper/apa-7th.csl
     if domain.get("noir_page"):
         sections.append(_noir_block())
         print("  + noir-page")
-        sections.append(_cheatsheet_toc(domain_id))
-        print("  + cheatsheet-master")
+        sections.append(_toc_only())
+        sections.append(_gateway_cheatsheet_note())
     else:  # all other books: cheatsheet then TOC
         sections.append(_cheatsheet_toc(domain_id))
-        print("  + cheatsheet-master")
+        print("  + four-page booklet")
 
     # G-ID narrative section — injected before kappa so it opens every book
     green_id        = domain.get("green_id", "")
@@ -350,6 +579,25 @@ csl: ../../paper/apa-7th.csl
         sections.append(f"\n\n\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}\n")
         print(f"  + conclusion-{domain_id}")
 
+    if domain_id == "gateway":
+        rosetta = get_canonical_body("zoomable-somatic-field")
+        if rosetta:
+            sections.append(
+                "\n\n\\newpage\n\n\\appendix\n\n"
+                "# Technical Foundation: The Zoomable Universal Somatic Field\n\n"
+                "*The academic Rosetta Stone for the [T]-Theory Fractal Programme.*\n\n"
+                f"{rosetta}\n"
+            )
+            print("  + zoomable-somatic-field (Gateway technical foundation)")
+
+        sections.append(
+            "\n\n\\newpage\n\n# [T]-Theory Cheatsheet\n\n"
+            "```{=latex}\n"
+            f"{_booklet_pages(domain_id)}\n"
+            "```\n"
+        )
+        print("  + default cheatsheet (Gateway closing handout)")
+
     return "\n".join(sections)
 
 
@@ -360,6 +608,11 @@ def main():
 
     if "--kappas" in sys.argv:
         generate_kappas()
+        return
+
+    if "--booklet" in sys.argv:
+        domain_id = sys.argv[sys.argv.index("--booklet") + 1]
+        build_booklet_source(domain_id)
         return
 
     if "--omnibus" in sys.argv:
@@ -443,7 +696,7 @@ csl: ../../paper/apa-7th.csl
             book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
             print(f"    + conclusion-{domain_id}")
         book_body = "\n\n".join(book_sections)
-        sections.append(f"\n\n\\newpage\n\n\\markboth{{{domain['title']}}}{{}}\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+        sections.append(_book_part_opening(domain_id) + book_body + "\n")
 
     # P23 closing chapter: Vol I (Foundation) ends with the gateway to Phase 2
     if vol_tag == "vol1":
@@ -451,6 +704,14 @@ csl: ../../paper/apa-7th.csl
         if p23:
             sections.append(f"\n\n\\newpage\n\n\\markboth{{The [T]-Phenomena}}{{}}\n\n# Closing: The Gateway to Phase 2\n\n{p23}\n")
             print(f"  + ttheory-phenomena (Vol I closing chapter)")
+
+    sections.append(
+        "\n\n\\newpage\n\n# [T]-Theory Cheatsheet\n\n"
+        "```{=latex}\n"
+        f"{_booklet_pages('gateway')}\n"
+        "```\n"
+    )
+    print("  + default cheatsheet (volume closing handout)")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / f"ttheory-{vol_tag}-body.md"
@@ -512,13 +773,21 @@ csl: ../../paper/apa-7th.csl
             book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
             print(f"    + conclusion-{domain['id']}")
         book_body = "\n\n".join(book_sections)
-        sections.append(f"\n\n\\newpage\n\n\\markboth{{{domain['title']}}}{{}}\n\n# Volume: {domain['title']}\n\n{book_body}\n")
+        sections.append(_book_part_opening(domain["id"]) + book_body + "\n")
 
     # P23 as the closing chapter of the complete omnibus
     p23 = get_canonical_body("ttheory-phenomena")
     if p23:
         sections.append(f"\n\n\\newpage\n\n\\part{{The Gateway to Phase 2}}\n\n\\markboth{{The [T]-Phenomena}}{{}}\n\n# The [T]-Theory Phenomena\n\n{p23}\n")
         print(f"  + ttheory-phenomena (omnibus closing)")
+
+    sections.append(
+        "\n\n\\newpage\n\n# [T]-Theory Cheatsheet\n\n"
+        "```{=latex}\n"
+        f"{_booklet_pages('gateway')}\n"
+        "```\n"
+    )
+    print("  + default cheatsheet (Fractal Thesis closing handout)")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / "ttheory-omnibus-body.md"

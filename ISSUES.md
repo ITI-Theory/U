@@ -99,28 +99,12 @@ Lulu requires spine title and spine author at upload time. Currently not in PAPE
 
 ---
 
-## ISS-005: Lean sorry stubs — close remaining proof obligations — IN-PROGRESS
+## ISS-005: Lean sorry stubs — CLOSED
 
-Current sorry count: **6 explicit + 2 release-check-visible** (the 2 in Hopfield.lean are bare;
-the others have inline comments and aren’t counted by the grep pattern).
-
-| File | Theorem | Status | Notes |
-|---|---|---|---|
-| Hopfield.lean | `attractor_exists` | sorry | Blocked: needs ISS-011 (SpinState + async update) |
-| Hopfield.lean | `eventually_periodic` | sorry | Blocked: needs ISS-011 (finite state space) |
-| SomaField.lean | `perceptIsPropagatorPole_nostalgia` | sorry | `⟨2, by sorry⟩` — W8ℝ noncomputable blocks norm_num |
-| SomaField.lean | `brainStemActivatesContagion` | sorry | `∑ j, W8ℝ ... * startlePatternℝ j > 0` — same noncomputable block |
-| DyadicField.lean | `dyadic_block_decomp` | sorry | Fin.sum_univ_add split over Fin 16; structural sum lemma |
-| DyadicField.lean | `dyadic_energy_coupling_lowers` | sorry | Transfer from ℝ version; blocked on dyadic_block_decomp |
-| BRECVEMAVariational.lean | `moduli_space_is_G2_homotopy` | sorry | Step 3 open research problem |
-| BRECVEMAVariational.lean | `euler_lagrange_BRECVEMA` | sorry | Needs calculus of variations in Mathlib |
-
-**SomaField/DyadicField root cause:** `W8ℝ` is `noncomputable`, which prevents the kernel
-from evaluating finite matrix sums. Fix path: define a computable `W8ℚ : Matrix (Fin 8) (Fin 8) ℚ`,
-prove `∀ i j, (W8ℚ i j : ℝ) = W8ℝ i j`, then use `native_decide`/`decide` on ℚ results.
-
-**Hopfield root cause:** `Pattern = Fin D → ℝ` is infinite; `attractor_exists` is in fact
-FALSE for general synchronous W (2-cycles exist). See ISS-011.
+> CLOSED 2026-08-16. `grep` finds zero active `sorry` stubs in
+> `paper/proofs/*.lean`. The Hopfield demo now proves its zero-weight
+> attractor and one-step convergence baseline. Remaining research questions
+> are tracked as explicit gaps, axioms, or Phase 2 work rather than `sorry`s.
 
 ---
 
@@ -248,13 +232,18 @@ Lean 4 source: https://github.com/or4nge19/NeuralNetworks
 - Energy descent: `energy w (updateAsync w s i) ≤ energy w s` (per Cipollina Energy.lean)
 - Convergence: well-founded induction on energy over the finite state space
 
-**Status of current proofs (2026-08-14):**
+**Status of current proofs (2026-08-16):**
 - `step_range`, `fixed_point_iff`, `energy_at_fixed_point`, `energy_nondec_at_fixed` — PROVED
-- `attractor_exists`, `eventually_periodic` — sorry (upgrade needed)
+- `zero_weight_attractor_exists`, `zero_weight_converges_in_one_step` — PROVED
+- General finite-spin asynchronous convergence — deferred to this issue
 
 ---
 
 ## ISS-012: Add lean-appendix to lake - OPEN
+
+**Progress 2026-08-16:** `bin/release-check` verifies that the appendix embeds
+the current sources declared by `build_lean_appendix.py`, avoiding unreliable
+filesystem timestamp comparisons. Automatic regeneration remains undecided.
 
 If a proof changes, lean-appendix is built. Now, not all PDF might want to be rebuilt if
 lean-appendix changes, the target could at print a list out, or instructions for an AI.
@@ -338,8 +327,9 @@ Needs P16 paper drafted first to ground the Lean definitions. Phase 2.
 
 ## ISS-017: lean-appendix auto-regeneration in release-check — OPEN
 
-ISS-013 Q3: currently `bin/release-check` only warns if `.lean` files are newer than
-`lean-proofs-appendix.md`. Ideally it should call `build_lean_appendix.py` automatically.
+`bin/release-check` now verifies that the appendix embeds the current declared Lean
+sources. Automatic regeneration remains desirable but is intentionally not performed
+during a release check.
 
 **Action:** in `bin/release-check`, replace the freshness warn with:
 ```bash

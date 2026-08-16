@@ -12,7 +12,12 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-music-arts-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-music-arts-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-music-arts-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-music-arts-4.pdf}
 \setcounter{page}{1}
 \tableofcontents
 \clearpage
@@ -1181,8 +1186,9 @@ you. The appendices contain the full mathematics as it appears in the academic p
 **If you are a physicist, mathematician, or computationalist** who has arrived here by
 accident or curiosity — you will recognise the Hamiltonian formulation immediately. The
 novel content for you is in Chapters 6, 7, and Appendix A. The Lean 4 type sketches in
-Appendix B may be of particular interest; they are incomplete proofs, marked with
-`sorry` where the hard work remains, and they represent a research programme.
+Appendix B may be of particular interest; they are historical illustrative sketches,
+and their `sorry` markers identify work not formalised in those examples. Current proof
+status is recorded separately in the Lean appendix and UAT manifest.
 
 A note on boxes. Throughout the book you will find four types:
 

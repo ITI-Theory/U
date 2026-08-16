@@ -186,7 +186,7 @@ is type-encoded in `UniversalSomaticField.scaleNames`:
 | 5 | Cellular | Neural synapse | Synaptic impulse response |
 | 7 | Brain | CEMI field | Cortical EMF propagator |
 | 8 | Organism | Body | Somatic EMF (full USF) |
-| 9 | Swarm | Drone formation | Jellyfish kernel (P16) |
+| 9 | Swarm | Drone formation | Jellyfish coordination kernel |
 | 11 | Geological | Seismic waves | Earth's elastic Green's function |
 | 12 | Planetary | Mantle convection | Thermodynamic propagator |
 | 15 | Galactic | Dark matter halo | Gravitational lensing kernel |
@@ -494,6 +494,38 @@ at present; offered as a theoretical extrapolation.*
 Claims 1 and 2 are mathematical results. Claims 3 and 4 are physical
 hypotheses with different levels of testability.
 
+## Current Extensions: Cosmos, Symmetry, and [T]-Theory
+
+The scale architecture has since been extended in three directions. First,
+*The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic
+Field* proposes that the compact-sector contribution of an eleven-dimensional
+model provides a cosmological-constant term. *Dark Matter as the Spatial
+Vacuum of the Universal Somatic Field* proposes that the non-compact spatial
+sector supplies a cold, gravitationally coupled component. The fractions 7/11
+and 3/11 follow exactly from the proposed dimensional partition; identifying
+them with observed cosmological sectors is a physical model that remains to be
+tested against expansion history, clustering, and perturbation data.
+
+Second, *G2 Symmetry Breaking in the Universal Somatic Field* separates the
+eight-channel BRECVEMA coupling matrix into a scalar component and an exactly
+traceless residual. The matrix identity is exact for the stated rational
+entries. Its connection to compact-sector geometry is a proposed bridge, not a
+completed derivation of biological couplings from compactification.
+
+Third, [T]-Theory names the cultural and cross-domain extension of this
+research programme: the Fractal Thesis, music, visual work, live events, and
+domain-specific applications. It is not an additional physical theory. Its
+role is to communicate, test, and extend the use of the framework across
+domains. An artwork or application does not provide evidence for a physical
+claim; a formal theorem does not decide an artwork's value. The two layers are
+related by a shared vocabulary of propagation and coupling, but they retain
+different standards of evidence.
+
+This yields a practical reading rule. A claim is either a formal statement,
+a model with stated assumptions, an empirical result under a stated protocol,
+or an interpretation. The categories can inform one another, but none should
+be silently substituted for another.
+
 ## The Correspondence Principle at Every Scale
 
 Each of the preceding papers in this series establishes a Correspondence
@@ -501,8 +533,8 @@ Principle result: the new theory collapses to the existing theory in the
 appropriate limit. The USF is the master correspondence:
 
 - At Scale 7 (brain): USF → CEMI field theory (McFadden)
-- At Scale 8 (organism): USF → Soma-Field Model (P1–P13, this series)
-- At Scale 9 (swarm): USF → Green's function propagator (P16, this series)
+- At Scale 8 (organism): USF → the earlier Soma-Field clinical and computational models
+- At Scale 9 (swarm): USF → the Green's-function multi-agent coordination model
 - At infinite scale: USF → the formal structure of Modal HoTT (Schreiber)
 - At zero limbic amplitude: USF → classical, non-conscious field dynamics
 

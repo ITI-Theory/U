@@ -12,7 +12,12 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-neuroscience-4.pdf}
 \setcounter{page}{1}
 \tableofcontents
 \clearpage
@@ -423,7 +428,7 @@ energy barrier between attractor states $i$ and $j$ in the Hopfield network, whe
 $r$ is the somatic representation zone of the relevant emotional state pair.
 High stiffness = high barrier = deep attractor basin.
 
-**Testable prediction (P1)**: Populations with documented high-barrier emotional
+**Testable prediction 1**: Populations with documented high-barrier emotional
 states (CPTSD, complex trauma, chronic anxiety disorder) should show systematically
 elevated fascial stiffness in regions corresponding to the somatic representation
 of those states (diaphragm, psoas, posterior cervical chain), compared with matched
@@ -442,13 +447,13 @@ transitions more accessible. If initial barrier is $W = -12$ and intervention re
 it to $W = -6$, QUANT-EXP-1 results [@johnson2026c] suggest that classical thermal
 dynamics can now cross what previously required quantum assistance.
 
-**Testable prediction (P2)**: The probability of emotional state transition following
+**Testable prediction 2**: The probability of emotional state transition following
 myofascial release should increase monotonically with the degree of reduction in
 fascial stiffness. This is testable by measuring both pre/post fascial stiffness
 (elastography) and pre/post emotional state (validated affect measures + HRV) in a
 within-subjects design across a series of somatic therapy sessions.
 
-**Testable prediction (P3)**: The phenomenological *character* of the transition
+**Testable prediction 3**: The phenomenological *character* of the transition
 should differ predictably: sessions that lower the barrier significantly should
 produce gradual, integrative shifts; sessions that trigger a crossing of a high
 barrier (large, rapid state transition) should produce different qualitative reports.
@@ -470,7 +475,7 @@ electromagnetic entrainment. The therapist does not merely witness the client's
 state; the therapist's attractor landscape is temporarily modified by coupling to
 the client's, and this modification is the mechanism of therapeutic resonance.
 
-**Testable prediction (P4)**: The degree of measurable physiological entrainment
+**Testable prediction 4**: The degree of measurable physiological entrainment
 (HRV coherence synchronisation) between therapist and client should predict
 therapeutic outcome — reduction in client fascial stiffness and shift in validated
 affect measures — independently of the specific technique used. Sessions with high
@@ -486,16 +491,16 @@ least accessible with current instrumentation:
 
 | # | Prediction | Method | Population |
 |---|---|---|---|
-| P1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
-| P2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
-| P3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
-| P4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
-| P5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
-| P6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
+| Prediction 1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
+| Prediction 2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
+| Prediction 3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
+| Prediction 4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
+| Prediction 5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
+| Prediction 6 | Transitions from Fear-dominant to Awe-dominant states (as defined by QUANT-EXP-1 attractor labels) correlate with measurable HRV spectral shift from LF-dominant to HF-dominant | HRV spectral analysis + soma-field state labelling instrument | Clinical transition cases |
 
-Predictions P1–P4 are testable with instrumentation available in clinical research
-centres now. P5 requires specialised biophoton detection (available in approximately
-a dozen research centres worldwide). P6 requires the prior development of a validated
+Predictions 1–4 are testable with instrumentation available in clinical research
+centres now. Prediction 5 requires specialised biophoton detection (available in approximately
+a dozen research centres worldwide). Prediction 6 requires the prior development of a validated
 soma-field state classification instrument — a prerequisite for large-scale empirical
 work that is not yet available and is noted as the primary methodological gap in this
 programme.
@@ -988,17 +993,17 @@ reactivity, attachment behaviour, social orientation and perceptual style.
 
 Three properties follow.
 
-**(P1) The pre-verbal manifold is observable only through projections.**
+**Claim 1. The pre-verbal manifold is observable only through projections.**
 Standard diagnostic categories — autism, ADHD, attachment disorder, cPTSD —
 are scoring instruments for those projections. They are not the manifold.
 Multiple categorical scores can be downstream of one underlying configuration.
 
-**(P2) Onset-based dating is, for events within the window, undefined.**
+**Claim 2. Onset-based dating is, for events within the window, undefined.**
 Asking *when did the autism start?* is, for cases of this kind, a malformed
 question. The relevant configuration was laid down before the diagnostic
 category had a foothold.
 
-**(P3) The genetic / acquired distinction is, within the window, weaker than
+**Claim 3. The genetic / acquired distinction is, within the window, weaker than
 the language suggests.** Sensitive-period plasticity means that constitutional
 loading and environmental perturbation co-determine the same structures
 (Belsky & Pluess, 2009; Ellis et al., 2011). The case that follows illustrates
@@ -1491,12 +1496,12 @@ right track, return positive*. The predictions are deliberately specific.
    age-matched controls (testing the L4 mechanism).
 9. **Genetic moderation.** Within the cohort, polygenic risk scores
    for ASD will moderate but not fully account for adult phenotype severity
-   (testing the §2 P3 claim that the genetic/acquired distinction is
+   (testing the Section 2 third claim that the genetic/acquired distinction is
    weaker than the language suggests).
 10. **Diagnostic age.** Within the cohort, age at first ASD diagnosis
     will be substantially higher than the population mean for autistic
     adults of equivalent severity, because onset-based diagnostic
-    criteria systematically miss them (testing the §2 P2 claim).
+   criteria systematically miss them (testing the Section 2 second claim).
 
 These are designed as a coherent test suite, not as ten independent
 tests. They jointly probe the *pre-verbal manifold* construct.
@@ -2761,13 +2766,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 

@@ -12,7 +12,12 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-complex-systems-4.pdf}
 \setcounter{page}{1}
 \tableofcontents
 \clearpage
@@ -570,7 +575,7 @@ $\partial_t \mathbf{v} + \lambda(\mathbf{v}\cdot\nabla)\mathbf{v} = -\nabla P + 
 Global formation emerges from local interactions propagated through the swarm
 by the same Green's function structure as all preceding scales.
 
-**Key result (swarm coordination, P16 [@johnsonswarm2026]):**
+**Key result (the companion swarm-coordination paper [@johnsonswarm2026]):**
 Treating the swarm as a macroscopic brane projection reduces coordination
 cost from $O(N \cdot K)$ to $O(N^2)$ with $K=1$. The Green's function
 replaces $K$ rounds of message-passing with a single matrix-vector product.
@@ -763,6 +768,34 @@ condition is met dynamically is an empirical question.
 identical to the Coulomb propagator at Scale 3 (both are $1/r$ forms of
 equation (1) with $k=0$) and to the synaptic transfer function at Scale 5.
 One equation. Twenty scales.
+
+## The Cosmic Energy Ledger
+
+The final zoom level makes the programme's strongest quantitative proposal
+visible. In the stated eleven-dimensional compactification model, the total
+dimension count separates into seven compact, three non-compact spatial, and
+one temporal direction:
+
+$$11 = 7 + 3 + 1.$$
+
+The compact-sector bookkeeping gives a leading fraction $7/11$ for a
+cosmological-constant contribution. The spatial-sector bookkeeping gives
+
+$$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.273,$$
+
+to be compared with the Planck 2018 estimate $\Omega_\text{DM} = 0.265$.
+The numerical fraction is exact arithmetic; its cosmological interpretation
+is a model-dependent hypothesis. It earns attention only if the proposed
+spatial sector also produces the observed cold, clustering, electromagnetically
+neutral behaviour of dark matter, while the compact sector remains compatible
+with an equation of state $w=-1$. Those are direct ways for the model to fail.
+
+The result is an unusually sharp bridge between scales. The same dimensional
+architecture that organises the propagator, limbic axis, and information layer
+in the biological model also supplies a candidate accounting of cosmic energy.
+If that bridge survives cosmological tests, it is not an analogy. If it fails,
+the failure is localised to the cosmological extrapolation rather than hidden
+behind the rest of the programme.
 
 ---
 
@@ -1014,6 +1047,13 @@ Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
    $\Theta(W) = \exp(-8\sqrt{2W}/3)$. This prediction is testable on
    D-Wave hardware by extending the QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
 
+5. **Cosmic energy partition.** The compactification model predicts a
+  spatial-sector fraction $\Omega_\text{DM}=3/11$ and requires that sector to
+  behave as cold, gravitationally clustering, electromagnetically neutral
+  matter. It also requires the compact-sector contribution to remain
+  compatible with $w=-1$. These predictions can be tested against expansion,
+  lensing, halo, and large-scale-structure observations.
+
 ## 11.2  Falsification conditions
 
 The framework is falsified if any of the following is observed:
@@ -1026,6 +1066,9 @@ The framework is falsified if any of the following is observed:
   steps (contradicts `jam_resistant`)
 - Two systems with type-mismatched scale parameters successfully couple
   (contradicts the dependent-type architecture of the Zoom Operator)
+- The proposed spatial sector is shown to have non-gravitational Standard Model
+  couplings, substantial pressure, or a perturbation spectrum incompatible
+  with cold dark matter (falsifies the cosmological extrapolation)
 
 ---
 
@@ -1114,16 +1157,29 @@ connection recording the path-history. **Path to closure:** extend
 update `manifold_coords.py` accordingly.
 
 **Problem 5: The Dyadic Coupling Inequality.**
-`DyadicField.lean` contains one `sorry`: the theorem that dyadic coupling
-lowers energy when $J \geq 0$ and both fields have non-negative activation.
-**[Partially closed — August 2026]** The Float implementations have been
-removed and the energy functions re-implemented over $\mathbb{R}$.
-The mathematical claim is fully proved in `dyadic_energy_coupling_lowers_ℝ`.
-The remaining `sorry` in `dyadic_energy_coupling_lowers` is a deferred
-$\mathbb{R}$-transfer stub; the mathematical content is established.
-**Path to full closure:** connect `dyadicEnergy` (uses noncomputable
-`sumN16`) to `dyadicEnergyR` via the block-decomposition lemma
-`dyadic_block_decomp` (ISS-005).
+The Float implementations have been removed and the energy functions are
+implemented over $\mathbb{R}$. The dyadic propagator, block decomposition,
+and coupling-lowers-energy path are kernel-verified with no active Lean
+`sorry`. **Status:** formal proof obligation closed; empirical and
+interpretive validation remains separate.
+
+---
+
+# The [T]-Theory Extension
+
+[T]-Theory is the public, cultural, and cross-domain extension of this work.
+The Fractal Thesis applies the same Green's-function grammar to fifteen
+disciplines and carries the programme into music, visual work, live events,
+and public conversation. Its role is not to turn art into evidence or to use
+scientific vocabulary as decoration. It is to make the translation problem
+explicit: when does a shared propagator structure give a testable model, and
+when does it provide an interpretive lens?
+
+The answer must remain visible. Lean theorems establish their stated formal
+claims; experiments test their stated protocols; cosmological models stand or
+fall on cosmological data; [T]-Theory explores how the framework travels once
+it enters human culture. The layers belong to one programme, but they do not
+borrow certainty from one another.
 
 ---
 
@@ -3066,13 +3122,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 

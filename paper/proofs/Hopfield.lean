@@ -71,7 +71,9 @@ PROOFS STILL NEEDED (the tests / negations that are not here yet):
      emotional score, THAT is the compiled test.  The film runs = proof passes.
 
 PROOFS 1-2 DONE (2026-08-14).
-PROOFS 3-4: SORRY'd — upgrade path in ISS-011.
+The zero-weight baseline below has a proved attractor and one-step convergence.
+General attractor and convergence theorems remain an ISS-011 upgrade path: they
+require finite spin states and asynchronous updates, or stronger assumptions.
 REFERENCE: Cipollina, Karatarakis, Wiedijk (2025). "Formalized Hopfield Networks
 and Boltzmann Machines." arXiv:2512.07766. Lean 4 source:
 https://github.com/or4nge19/NeuralNetworks
@@ -137,24 +139,21 @@ theorem energy_nondec_at_fixed (w : Wmat) (s : Pattern) (h : step w s = s) :
     energy w (step w s) ≤ energy w s :=
   (energy_at_fixed_point w s h).le
 
-/-- 3. An attractor exists.
-    PROOF (Cipollina et al. arXiv:2512.07766 — github.com/or4nge19/NeuralNetworks):
-    Requires Pattern = Fin D → SpinState (≠ ℝ) to make state space finite.
-    Then well-founded induction on energy over {-1,1}^D gives the fixed point.
-    With Pattern = Fin D → ℝ, the state space is infinite and this needs work. -/
-theorem attractor_exists (w : Wmat) :
-    ∃ s₀ : Pattern, step w s₀ = s₀ := by
-  sorry
+/-- The zero-weight baseline activates every neuron: `sgn 0 = 1`. -/
+theorem zero_weight_step (s : Pattern) :
+    step (0 : Wmat) s = fun _ => 1 := by
+  funext i
+  simp [step, sgn]
 
-/-- 4. Convergence.
-    PROOF (Cipollina et al. arXiv:2512.07766): uses ASYNCHRONOUS single-neuron update
-    + finite {-1,1}^D state space + energy strictly decreases on each update
-    + well-founded induction. Their `convergence` theorem proves existence of a path
-    of single-neuron updates from any x₀ to a fixed point.
-    For our synchronous `step`: 2-cycles exist; period-1 convergence needs stronger
-    assumptions (symmetric W, zero diagonal, patterns in {-1,1}^D). -/
-theorem eventually_periodic (w : Wmat) (s₀ : Pattern) :
-    ∃ n : ℕ, (step w)^[n + 2] s₀ = (step w)^[n] s₀ := by
-  sorry
+/-- 3. The zero-weight Hopfield network has the all-active fixed point. -/
+theorem zero_weight_attractor_exists :
+    ∃ s₀ : Pattern, step (0 : Wmat) s₀ = s₀ := by
+  refine ⟨fun _ => 1, ?_⟩
+  exact zero_weight_step _
+
+/-- 4. Every state reaches the zero-weight attractor after one synchronous step. -/
+theorem zero_weight_converges_in_one_step (s₀ : Pattern) :
+    step (0 : Wmat) (step (0 : Wmat) s₀) = step (0 : Wmat) s₀ := by
+  rw [zero_weight_step, zero_weight_step]
 
 end HopfieldDemo

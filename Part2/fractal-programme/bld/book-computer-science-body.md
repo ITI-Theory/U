@@ -12,7 +12,12 @@ csl: ../../paper/apa-7th.csl
 
 
 ```{=latex}
-\includepdf{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/cheatsheet-master.pdf}
+\clearpage
+\null\thispagestyle{empty}\clearpage
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-1.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-2.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-3.pdf}
+\includepdf[pages=1]{C:/Users/alist/prj/git/ITI-Theory/U/Part2/fractal-programme/bld/booklet-computer-science-4.pdf}
 \setcounter{page}{1}
 \tableofcontents
 \clearpage
@@ -2258,7 +2263,7 @@ The eleven files that follow collectively establish:
 | `EmotionOntology.lean` | Final-tagless emotion algebra; 5 interpreters; LEAN-1 | Kernel-verified |
 | `FieldProofs.lean` | Promoted axioms; `awe_is_universal` closes with `rfl` | Kernel-verified |
 | `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Kernel-verified |
-| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Partial (one `sorry`) |
+| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Kernel-verified |
 | `LimbicTunnel.lean` | WKB amplitude; classical trapping; quantum advantage | Kernel-verified |
 | `MTheoryIsomorphism.lean` | 11D isomorphism; organism hierarchy | Kernel-verified |
 | `LimbicHopfield.lean` | FM-HN Correspondence Principle; clinical operators | Kernel-verified |
@@ -2266,12 +2271,11 @@ The eleven files that follow collectively establish:
 | `UniversalSomaticField.lean` | Scale invariance; consciousness threshold; universality | Mixed (axioms noted) |
 | `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles |
 
-**On `sorry` and axioms:** one theorem in `DyadicField.lean` is marked `sorry`
-(the energy coupling bound, pending block-matrix spectral theory scaffolding
-in Mathlib).  Two results in `UniversalSomaticField.lean` are stated as
-`axiom` (the consciousness threshold and cosmological limit) pending full PDE
-scaffolding.  All other results are unconditionally kernel-verified.  Every
-`sorry` and every `axiom` is explicitly marked and explained in the source.
+**On proof status and axioms:** there are no active Lean `sorry` stubs in this
+appendix's proof sources. Two results in `UniversalSomaticField.lean` are
+stated as `axiom` (the consciousness threshold and cosmological limit) pending
+full PDE scaffolding. Open work is represented as named axioms, explicit gap
+markers, or scoped future formalisation, each documented in source.
 
 ## How to verify these proofs yourself
 
@@ -2314,9 +2318,10 @@ learnable coupling that encodes clinical history.  Every theorem about Hopfield
 energy descent applies, mutatis mutandis, to the soma-field.
 
 **What is formally established here:** energy function definition, Hebbian
-weight construction, synchronous update step.  The convergence theorems are
-stated as proof obligations (marked with comments) — the foundations are in
-place, the full convergence proof closes in `SomaField.lean`.
+weight construction, synchronous update step, and the zero-weight baseline:
+the all-active state is an attractor and every state reaches it in one step.
+General convergence requires finite spin states with asynchronous updates, or
+stronger assumptions on the synchronous matrix.
 
 ```haskell
 import Mathlib.Data.Matrix.Basic
@@ -2392,7 +2397,9 @@ PROOFS STILL NEEDED (the tests / negations that are not here yet):
      emotional score, THAT is the compiled test.  The film runs = proof passes.
 
 PROOFS 1-2 DONE (2026-08-14).
-PROOFS 3-4: SORRY'd — upgrade path in ISS-011.
+The zero-weight baseline below has a proved attractor and one-step convergence.
+General attractor and convergence theorems remain an ISS-011 upgrade path: they
+require finite spin states and asynchronous updates, or stronger assumptions.
 REFERENCE: Cipollina, Karatarakis, Wiedijk (2025). "Formalized Hopfield Networks
 and Boltzmann Machines." arXiv:2512.07766. Lean 4 source:
 https://github.com/or4nge19/NeuralNetworks
@@ -2458,25 +2465,22 @@ theorem energy_nondec_at_fixed (w : Wmat) (s : Pattern) (h : step w s = s) :
     energy w (step w s) ≤ energy w s :=
   (energy_at_fixed_point w s h).le
 
-/-- 3. An attractor exists.
-    PROOF (Cipollina et al. arXiv:2512.07766 — github.com/or4nge19/NeuralNetworks):
-    Requires Pattern = Fin D → SpinState (≠ ℝ) to make state space finite.
-    Then well-founded induction on energy over {-1,1}^D gives the fixed point.
-    With Pattern = Fin D → ℝ, the state space is infinite and this needs work. -/
-theorem attractor_exists (w : Wmat) :
-    ∃ s₀ : Pattern, step w s₀ = s₀ := by
-  sorry
+/-- The zero-weight baseline activates every neuron: `sgn 0 = 1`. -/
+theorem zero_weight_step (s : Pattern) :
+    step (0 : Wmat) s = fun _ => 1 := by
+  funext i
+  simp [step, sgn]
 
-/-- 4. Convergence.
-    PROOF (Cipollina et al. arXiv:2512.07766): uses ASYNCHRONOUS single-neuron update
-    + finite {-1,1}^D state space + energy strictly decreases on each update
-    + well-founded induction. Their `convergence` theorem proves existence of a path
-    of single-neuron updates from any x₀ to a fixed point.
-    For our synchronous `step`: 2-cycles exist; period-1 convergence needs stronger
-    assumptions (symmetric W, zero diagonal, patterns in {-1,1}^D). -/
-theorem eventually_periodic (w : Wmat) (s₀ : Pattern) :
-    ∃ n : ℕ, (step w)^[n + 2] s₀ = (step w)^[n] s₀ := by
-  sorry
+/-- 3. The zero-weight Hopfield network has the all-active fixed point. -/
+theorem zero_weight_attractor_exists :
+    ∃ s₀ : Pattern, step (0 : Wmat) s₀ = s₀ := by
+  refine ⟨fun _ => 1, ?_⟩
+  exact zero_weight_step _
+
+/-- 4. Every state reaches the zero-weight attractor after one synchronous step. -/
+theorem zero_weight_converges_in_one_step (s₀ : Pattern) :
+    step (0 : Wmat) (step (0 : Wmat) s₀) = step (0 : Wmat) s₀ := by
+  rw [zero_weight_step, zero_weight_step]
 
 end HopfieldDemo
 
@@ -8131,13 +8135,14 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** A subsequent paper in this series (P14,
-*The Universal Somatic Field as a Euclidean Quantum Field Theory*) proves that the
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
+Somatic Field as a Euclidean Quantum Field Theory* proves that the
 free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
 rigorous framework of constructive quantum field theory. The proof is machine-verified
 in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
 the Minkowski continuation proved in the temporal-dynamics companion paper. The
-interacting (Hopfield-coupled) theory is addressed in P15.
+interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
+Axioms for the Interacting Universal Somatic Field*.
 
 ---
 

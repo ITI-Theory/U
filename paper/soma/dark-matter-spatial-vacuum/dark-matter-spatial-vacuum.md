@@ -19,7 +19,8 @@ abstract: |
   Einstein equations but carries no Standard Model gauge charges (EM, weak, or
   strong), because gauge fields are localised on the compact sector $X_7$. It
   clusters gravitationally (w = 0) while the compact-sector vacuum gives the
-  cosmological constant (w = -1, P21). Together with P21's result
+  cosmological constant (w = -1). Together with the companion
+  cosmological-constant model's result
   $\Omega_\Lambda = 7/11$, dimensional counting from the 11D USF accounts
   for 95\% of the universe's total energy budget.
 ---
@@ -40,12 +41,13 @@ tuned couplings. The USF framework offers a structurally different
 resolution: **dark matter is not a new particle but the vacuum field energy
 of the three non-compact spatial dimensions of the M-theory compactification**.
 
-This paper is the direct companion to P21 [@johnson2026cosconst], which
+This paper is the direct companion to *The Cosmological Constant as the Vacuum
+Amplitude of the Universal Somatic Field* [@johnson2026cosconst], which
 identifies the cosmological constant $\Lambda$ with the vacuum energy of the
 seven compact dimensions. The complete dimensional partition of the 11D USF
 gives:
 
-- **7 compact** ($X_7$): $\Lambda$ — P21.
+- **7 compact** ($X_7$): proposed cosmological-constant sector.
 - **3 spatial non-compact** ($M_3$): dark matter — **this paper**.
 - **1 temporal** ($\mathbb{R}_t$): baryonic matter — auxiliary claim, §4.
 
@@ -104,7 +106,7 @@ The three largest components of the cosmic energy budget are each predicted
 to within a single-digit percentage from a single integer decomposition
 (7, 3, 1) of 11 spacetime dimensions. The Calabi-Yau moduli geometry
 introduces corrections of order $\mathcal{O}(\alpha')$ to each sector,
-as established for the $\Lambda$ sector in P21.
+as proposed for the $\Lambda$ sector in the companion paper.
 
 ---
 
@@ -120,7 +122,8 @@ well-defined 4D interpretation under the Kaluza-Klein reduction:
 7 compact directions cannot propagate in 4D; it contributes equally to all
 4D directions as a constant background. Under KK reduction, this appears as
 the 4D cosmological constant $\Lambda$ with equation of state $w = -1$. This
-is the content of P21 [@johnson2026cosconst].
+is the proposed mechanism in the companion cosmological-constant paper
+[@johnson2026cosconst].
 
 **Spatial block** $\langle\Phi_{ij}\rangle_0$: The vacuum energy in the
 3 non-compact spatial directions propagates in 4D Minkowski space. Under
@@ -263,7 +266,8 @@ $$\Omega_\Lambda + \Omega_\text{DM} + \Omega_b + \Omega_\nu + \Omega_r
 
 The discrepancy of $\sim 4.3\%$ has two contributions:
 
-1. **Calabi-Yau moduli corrections** (as in P21): the $\mathcal{O}(\alpha')$
+1. **Calabi-Yau moduli corrections** (as proposed in the companion
+  cosmological-constant paper): the $\mathcal{O}(\alpha')$
    geometry of $X_7$ adjusts each sector by $\sim 7\%$. For $\Lambda$ this
    shifts $7/11 \to 0.683$ (+7.4\%). For dark matter the corresponding shift
    is $3/11 \to 0.265$ (-2.9\% — a different sign because the spatial block
@@ -283,7 +287,7 @@ The discrepancy of $\sim 4.3\%$ has two contributions:
 ## Lean 4 formalisation
 
 The numerical claims are formalised in
-`paper/proofs/CosmologicalConstant.lean` (extended for P22):
+`paper/proofs/CosmologicalConstant.lean`:
 
 | Statement | Lean name | Status |
 |---|---|---|
@@ -311,7 +315,7 @@ The numerical claims are formalised in
 3. **Baryogenesis factor.** Deriving the factor $1/2$ for the time-block
    from USF CP-violation structure requires: (a) identification of the
    USF analogue of the Sakharov conditions, (b) computation of the
-   net baryon number from the time-block vacuum. Open problem (P22-GAP-1).
+  net baryon number from the time-block vacuum. This remains an open problem.
 
 ---
 
@@ -374,10 +378,12 @@ not astronomically small in isolation.
 
 What elevates this from coincidence to a physical argument is the
 **structural reason** for the integer 3: these are precisely the three
-non-compact spatial dimensions of 11D spacetime, already fixed by P21's
-Calabi-Yau compactification structure. The integer 3 is not a fit parameter;
+non-compact spatial dimensions of 11D spacetime, already fixed by the
+companion cosmological-constant model's Calabi-Yau compactification structure.
+The integer 3 is not a fit parameter;
 it is the number of non-compact spatial dimensions in the same M-theory
-framework used to derive $\Lambda$ in P21. The framework predicted $\Lambda$
+framework used to derive $\Lambda$ in that companion model. The model predicts
+$\Lambda$
 correctly at the 7\% level before this paper existed; the $\Omega_\text{DM}$
 prediction at 2.9\% is a **zero-free-parameter prediction** from an already-fixed
 framework.
@@ -385,7 +391,8 @@ framework.
 In fact, $N_\text{spatial} = 3$ is not even a choice within the framework.
 Given the M-theory total $N_\text{total} = 11$ and the compact count
 $N_\text{compact} = 7$ fixed by the $G_2$-holonomy compactification
-(established in P21), the spatial count is fully determined by subtraction:
+(as specified by the companion model), the spatial count is fully determined
+by subtraction:
 $$N_\text{spatial} = N_\text{total} - N_\text{compact} - N_\text{time}
   = 11 - 7 - 1 = 3$$
 The prediction $\Omega_\text{DM} = 3/11$ has **exactly zero free parameters**:
@@ -404,7 +411,7 @@ spatial vacuum. It would NOT falsify:
 
 - The USF framework at clinical/biological scales (Scales 5–8).
 - The Osterwalder-Schrader axiom verification.
-- The P21 cosmological constant identification.
+- The companion cosmological-constant model.
 - The QUANT-EXP-1 quantum annealing result.
 
 The falsification is specific to the cosmological extrapolation of USF to
@@ -426,7 +433,8 @@ neutral (SM gauge fields are localised in $X_7$), and is pressureless ($w=0$
 in the non-relativistic limit). It matches the complete observational profile
 of cold dark matter without introducing a new particle species.
 
-Together with P21's result $\Omega_\Lambda = 7/11$ (6.8\% accuracy), the USF
+Together with the companion model's proposed $\Omega_\Lambda = 7/11$
+(6.8\% discrepancy), the USF
 accounts for 95\% of the universe's energy budget — the dark energy and dark
 matter sectors — from the single integer decomposition $11 = 7 + 3 + 1$ of
 the M-theory spacetime dimension.

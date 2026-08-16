@@ -25,12 +25,44 @@ def cp(src, dst):
 
 def src_of(e):
     bld = SRCS.get(e.get("build", "paper"), "$(PAPER)")
-    return f"{bld}/{e['slug']}.pdf"
+    return f"{bld}/{e.get('bld_file', e['slug'] + '.pdf')}"
+
+def build_targets(entry):
+    targets = entry.get("make_targets")
+    if targets:
+        return targets
+    if entry.get("make_alias"):
+        return [entry["make_alias"]]
+    if entry.get("build") == "fractal" and entry.get("slug", "").startswith("ttheory-book-"):
+        return [f"book-{entry['slug'].removeprefix('ttheory-book-')}"]
+    return []
+
+paper_targets = []
+fractal_targets = []
+fractal_prerequisites = []
+for entry in entries:
+    if entry.get("build") == "manual":
+        continue
+    targets = build_targets(entry)
+    if entry.get("build", "paper") == "fractal":
+        fractal_targets.extend(targets)
+        fractal_prerequisites.extend(entry.get("make_prerequisites", []))
+    else:
+        paper_targets.extend(targets)
+
+paper_targets = list(dict.fromkeys(paper_targets))
+fractal_targets = list(dict.fromkeys(fractal_targets))
+fractal_prerequisites = list(dict.fromkeys(fractal_prerequisites))
 
 lines = [
     "# dist.mk -- distribution copy rules",
     "# GENERATED from Dist/PAPERS.yaml by paper/scripts/generate_mk.py",
     "# DO NOT EDIT -- run: make generate",
+    "",
+    "# Candidate build inputs adopted from PAPERS.yaml at generation time.",
+    f"REGISTRY_PAPER_TARGETS := {' '.join(paper_targets)}",
+    f"REGISTRY_FRACTAL_PREREQUISITES := {' '.join(fractal_prerequisites)}",
+    f"REGISTRY_FRACTAL_TARGETS := {' '.join(fractal_targets)}",
     "",
     ".PHONY: papers zenodo nlm lulu stuff dist",
     "",

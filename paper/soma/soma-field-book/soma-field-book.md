@@ -111,8 +111,9 @@ you. The appendices contain the full mathematics as it appears in the academic p
 **If you are a physicist, mathematician, or computationalist** who has arrived here by
 accident or curiosity — you will recognise the Hamiltonian formulation immediately. The
 novel content for you is in Chapters 6, 7, and Appendix A. The Lean 4 type sketches in
-Appendix B may be of particular interest; they are incomplete proofs, marked with
-`sorry` where the hard work remains, and they represent a research programme.
+Appendix B may be of particular interest; they are historical illustrative sketches,
+and their `sorry` markers identify work not formalised in those examples. Current proof
+status is recorded separately in the Lean appendix and UAT manifest.
 
 A note on boxes. Throughout the book you will find four types:
 

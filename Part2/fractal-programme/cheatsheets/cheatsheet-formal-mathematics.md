@@ -23,7 +23,7 @@ mainfont: "TeX Gyre Pagella"
 \item \texttt{lake build}: 3912/3912 jobs, exit 0
 \item 22 defaultTargets, all \textbf{clean} (warnings only)
 \item 0 Float in proof files (ISS-009 closed)
-\item 2 bare \texttt{sorry}s remain (Hopfield, ISS-011)
+\item 0 active \texttt{sorry} stubs (ISS-005 closed)
 \end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\textwidth}

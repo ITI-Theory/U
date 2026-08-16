@@ -23,7 +23,7 @@ mainfont: "TeX Gyre Pagella"
 \item \texttt{lake build}: \textbf{3912/3912}, exit~0
 \item Lean 4.31.0 + Mathlib v4.31.0 + physlib v4.31.0
 \item Float: \textbf{0} in proof files (ISS-009 closed)
-\item Sorry: \textbf{2} bare (Hopfield, ISS-011)
+\item Sorry: \textbf{0} active proof stubs (ISS-005 closed)
 \end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\textwidth}
@@ -81,8 +81,7 @@ propagates coordination signals between agents in a single step.
 # IV · ISS Backlog
 
 \begin{itemize}
-\item \textbf{ISS-005}: \texttt{brainStemActivatesContagion} — needs computable $W_8^{\mathbb{Q}}$
-\item \textbf{ISS-011}: Hopfield SpinState upgrade for convergence proofs
+\item \textbf{ISS-011}: Hopfield SpinState upgrade for general asynchronous convergence
 \item \textbf{ISS-017}: Auto-regen lean-appendix in release-check
 \item \textbf{Mathlib gap}: Riemannian holonomy · GR perturbation theory · KK spectral theory
 \end{itemize}

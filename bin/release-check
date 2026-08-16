@@ -51,20 +51,27 @@ warn "Problems 3+ open — verify tracked in ISSUES.md (ISS-014 = Problem 4)"
 # ── 4. lean-proofs-appendix freshness ─────────────────────────────────────
 hdr "4. lean-proofs-appendix + omnibus freshness"
 APPENDIX="paper/soma/lean-proofs-appendix/lean-proofs-appendix.md"
-STALE=""
-for f in paper/proofs/*.lean; do
-  [[ "$f" -nt "$APPENDIX" ]] && STALE="$STALE $f"
-done
-if [[ -z "$STALE" ]]; then
-  ok "lean-proofs-appendix.md is up to date"
+APPENDIX_STALE=$(py -c "
+from pathlib import Path
+from paper.scripts.build_lean_appendix import LEAN_FILES
+appendix = Path('$APPENDIX').read_text(encoding='utf-8')
+missing = []
+for filename, *_ in LEAN_FILES:
+    source = (Path('paper/proofs') / filename).read_text(encoding='utf-8')
+    if source not in appendix:
+        missing.append(filename)
+print('\\n'.join(missing))
+" 2>/dev/null)
+if [[ -z "$APPENDIX_STALE" ]]; then
+  ok "lean-proofs-appendix.md embeds current Lean sources"
 else
-  fail "lean-appendix stale — run: bin/release-build"
-  echo "  Newer files:$STALE" | tr ' ' '\n' | sed 's/^/    /'
+  fail "lean-appendix stale — run: make lean-appendix"
+  echo "$APPENDIX_STALE" | sed 's/^/    /'
 fi
 # omnibus freshness vs lean-appendix
 [[ "paper/bld/omnibus-a4.pdf" -nt "$APPENDIX" ]] \
   && ok "omnibus-a4.pdf is newer than lean-appendix" \
-  || warn "omnibus may be stale vs lean-appendix — run: bin/release-build"
+  || warn "omnibus may be stale vs lean-appendix — run: make uat-build"
 
 # ── 5. PAPERS.yaml pending uploads ────────────────────────────────────────
 hdr "5. PAPERS.yaml — pending Zenodo uploads"
@@ -106,7 +113,7 @@ fi
 hdr "9. PAPERS.yaml — published papers have DOIs"
 MISSING_DOI=$(py -c "
 import yaml, sys
-data = yaml.safe_load(open('../Dist/PAPERS.yaml'))
+data = yaml.safe_load(open('../Dist/PAPERS.yaml', encoding='utf-8'))
 missing = []
 for section in data.values():
   if isinstance(section, list):
@@ -125,14 +132,14 @@ fi
 hdr "10. Dist PDFs — files listed in PAPERS.yaml exist"
 py -c "
 import yaml, os, sys
-data = yaml.safe_load(open('../Dist/PAPERS.yaml'))
+data = yaml.safe_load(open('../Dist/PAPERS.yaml', encoding='utf-8'))
 missing = []
 for section in data.values():
   if isinstance(section, list):
     for p in section:
       f = p.get('file','')
-      if f and not os.path.exists(f'../Dist/{f}'):
-        missing.append(f'  MISS  ../Dist/{f}  ({p.get(\"id\",\"?\")})')
+      if f and not os.path.exists(os.path.join('../Dist', f)):
+        missing.append('  MISS  ../Dist/{}  ({})'.format(f, p.get('id', '?')))
 for m in missing:
   print(m)
 sys.exit(len(missing))
@@ -148,6 +155,42 @@ if [[ $? -eq 0 ]]; then
 else
   fail "PNG refs in captions — will print as literal text in PDF"
   echo "$PY_CHECK" | grep -v "^OK" | sed 's/^/    /'
+fi
+
+# ── 12. Cheatsheet booklet page counts ─────────────────────────────────────
+hdr "12. Cheatsheet booklets"
+CANONICAL_CHEATSHEET="paper/bld/ttheory-cheatsheet.pdf"
+if [[ ! -f "$CANONICAL_CHEATSHEET" ]]; then
+  fail "Canonical cheatsheet missing — run: make cheatsheet"
+else
+  CHEATSHEET_PAGES=$(pdfinfo "$CANONICAL_CHEATSHEET" 2>/dev/null | awk '/^Pages:/ {print $2}')
+  if [[ "$CHEATSHEET_PAGES" == "4" ]]; then
+    ok "Canonical cheatsheet is exactly four pages"
+  else
+    fail "Canonical cheatsheet must be four pages; found ${CHEATSHEET_PAGES:-unknown}"
+  fi
+fi
+
+BOOKLET_DIR="Part2/fractal-programme/bld"
+BOOKLET_MISSING=""
+BOOKLET_WRONG=""
+for domain in gateway physics complex-systems formal-mathematics neuroscience \
+              consciousness computer-science music-arts clinical-psychology \
+              psychiatry-asd social-science geophysics law ppe economics; do
+  booklet="$BOOKLET_DIR/booklet-$domain.pdf"
+  if [[ ! -f "$booklet" ]]; then
+    BOOKLET_MISSING="$BOOKLET_MISSING $domain"
+  else
+    pages=$(pdfinfo "$booklet" 2>/dev/null | awk '/^Pages:/ {print $2}')
+    [[ "$pages" == "4" ]] || BOOKLET_WRONG="$BOOKLET_WRONG $domain($pages)"
+  fi
+done
+if [[ -n "$BOOKLET_MISSING" ]]; then
+  fail "Missing four-page booklet(s):$BOOKLET_MISSING"
+elif [[ -n "$BOOKLET_WRONG" ]]; then
+  fail "Booklet page-count mismatch:$BOOKLET_WRONG"
+else
+  ok "All 15 booklets are exactly four pages"
 fi
 
 # ── Summary ────────────────────────────────────────────────────────────────
