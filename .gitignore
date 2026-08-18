@@ -41,6 +41,10 @@ nul
 uat/staging/
 uat/zenodo-community.json
 
+# Local-only visual QA and retired experimental output
+Part2/fractal-programme/bld/qa/
+paper/bld/universal-somatic-field-rosetta.pdf
+
 # Generated paper status outputs
 paper/PAPER_STATUS.md
 paper/paper_status.json
