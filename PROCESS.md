@@ -75,6 +75,10 @@ Use this for first-time uploads (new papers, datasets, supplementary materials).
 
 ## UAT Testing (CM → HP → SH framework)
 
+The canonical release sequence and the Papers/[T]-Theory split live in
+`Dist/README.md`. This section defines the local U candidate and NotebookLM
+work only; it does not authorize promotion or Zenodo release.
+
 Run before declaring any release complete. Uses a private NotebookLM notebook (`nlm-uat`).
 
 ### Setup
@@ -98,12 +102,13 @@ Test questions:
 - “What does the theory say about [X] — is it consistent across the omnibus?”
 - “Find any contradiction between [early paper] and [later paper].”
 
-**Release-candidate workflow (run from the U repo root):**
+**Local candidate workflow (run from the U repo root):**
 
-1. Run `make generate` when adopting the latest `Dist/PAPERS.yaml` registry, then run
-   `make uat-build` to rebuild candidates in `U`; neither command copies files to `Dist`.
-2. Perform the relevant PDF/reader QA, then run `bin/release-check` as the pre-release gate.
-3. Only after approval, promote the selected candidates to the separate `Dist` release repository.
+1. Run `make generate` when adopting the latest `Dist/PAPERS.yaml` registry.
+2. Build and hash the selected track: `make uat-stage-papers` or
+   `make uat-stage-ttheory`. Files land in ignored `uat/staging/<track>/`.
+3. Perform track-specific PDF/reader QA, then run `bin/release-check`.
+4. Follow `Dist/README.md` for acceptance, promotion, Lulu, and Zenodo ordering.
 
 Release candidates are English-only; translation tooling is deferred and does
 not form part of the candidate or release workflow.

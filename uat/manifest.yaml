@@ -1,0 +1,25 @@
+# UAT staging manifest
+# Candidate sources are relative to U/. Generated staging output is ignored.
+
+papers:
+  purpose: "Scientific papers and C1v2 omnibus acceptance"
+  worksheet: uat/papers-omnibus-nlm-uat.md
+  readme: uat/staging-readme-papers.md
+  files:
+    - paper/bld/omnibus-a4.pdf
+    - paper/bld/lean-proofs-appendix.pdf
+    - paper/bld/SFT-DEMO-CASE.pdf
+    - paper/bld/zoomable-somatic-field.pdf
+    - paper/bld/experimental-validation.pdf
+    - paper/bld/cosmological-constant-derivation.pdf
+    - paper/bld/dark-matter-spatial-vacuum.pdf
+    - paper/bld/ttheory-phenomena.pdf
+    - paper/bld/g2-symmetry-breaking.pdf
+
+ttheory:
+  purpose: "Fractal Thesis, print volumes, and cheatsheet acceptance"
+  files:
+    - Part2/fractal-programme/bld/ttheory-omnibus.pdf
+    - Part2/fractal-programme/bld/ttheory-vol1.pdf
+    - Part2/fractal-programme/bld/ttheory-vol2.pdf
+    - Part2/fractal-programme/bld/booklet-gateway.pdf

@@ -7,8 +7,10 @@ Deliberately kept high-level; add specifics as they become clear.
 
 ## Release scope and UAT manifest — 2026 final programme release
 
-This is the controlling UAT scope for the final [T]-Theory programme release.
-Candidates are built and accepted in `U`. `Dist` receives only accepted artefacts.
+This is the controlling acceptance specification for the final [T]-Theory programme release.
+The canonical operational sequence, including Papers/[T]-Theory track separation,
+is `Dist/README.md`. Candidates are built and accepted in `U`; `Dist` receives
+only accepted artefacts.
 The review record below applies to the distinct candidate PDFs; copies for each
 distribution channel are then verified against that accepted source PDF.
 
@@ -48,12 +50,27 @@ Before final promotion, this UAT must decide the action for every formal record:
 
 ### Required UAT sequence
 
-1. Adopt the intended `Dist/PAPERS.yaml` snapshot with `make generate`, then build the candidate set with `make uat-build` in `U`.
-2. Visually accept each distinct PDF, recording comments and rebuilds here.
-3. Review every listed Markdown source for claim status, consistency, citations, and
+1. Follow the release track selected in `Dist/README.md`.
+2. Adopt the intended `Dist/PAPERS.yaml` snapshot with `make generate`, then stage the track with `make uat-stage-papers` or `make uat-stage-ttheory` in `U`.
+3. Visually accept each distinct staged PDF, recording comments and rebuilds here.
+4. Review every listed Markdown source for claim status, consistency, citations, and
    the historical-versus-canonical distinction above.
-4. Verify the two NotebookLM PDFs, Lulu files, `Dist` copies, and public GitHub landing-page links.
-5. Promote only accepted candidates to `Dist`, then execute the Zenodo new-version/new-record actions.
+5. Verify the selected NotebookLM PDFs before Lulu review; then verify Lulu files, `Dist` copies, and public GitHub landing-page links.
+6. Promote only accepted candidates to `Dist`, then execute the Zenodo new-version/new-record actions.
+
+---
+
+### Papers RC2 NotebookLM Result - 2026-08-18
+
+**Decision:** Papers track accepted with deferred C-3 reader bridges.
+
+Sherlock and Harry Potter checks passed for formal-claim alignment, P11/P12
+status, G2 scope, cosmological limitations, and D1's self-case boundary. The
+G2 review confirmed that the $8 \to 7$ result is algebraic compatibility, not
+a proved compact $G_2$-holonomy metric. Cookie Monster identified reader
+bridges for OS axioms, Wick rotation, Arnold tongue, and D1-orbifold; these
+are non-blocking next-iteration enhancements. Full prompts, citations, and
+acceptance evidence are in `U/uat/papers-omnibus-nlm-uat.md`.
 
 ---
 

@@ -19,9 +19,9 @@ abstract: |
   VI–EM and ME–AJ couplings; negative anisotropy in the BS–AJ channel (stress
   suppresses aesthetics). Therapeutic intervention reduces $\|\delta W\|_F$, driving
   the system toward the $G_2$ attractor. This provides the first quantitative
-  connection between the $G_2$ holonomy geometry of the USF compact sector and the
-  biological coupling matrix, resolving the $8 \to 7$ dimensional reduction question
-  raised by the spatial-vacuum dark-matter model.
+  connection between a $G_2$-symmetric compactification interpretation and the
+  biological coupling matrix. It resolves the algebraic $8 \to 7$ reduction in
+  the coupling decomposition; it does not derive a $G_2$-holonomy metric for $X_7$.
 ---
 
 # Introduction: The 8→7 Dimension Question
@@ -30,17 +30,21 @@ abstract: |
 [@johnson2026darkmatter] proposes that dark matter is the vacuum energy of the
 three non-compact spatial dimensions of the USF and derived the cosmological
 energy budget from the dimensional partition $11 = 7 + 3 + 1$. The compact sector
-$X_7$ has $G_2$ holonomy. But the biological emotional field is 8-dimensional
-(BRECVEMA, eight mechanisms). Why 8D biology on a 7D compact manifold?
+In an M-theory compactification interpretation, a compact seven-manifold may
+carry $G_2$ holonomy. The current USF formal core proves only a well-defined
+flat 7D product for $X_7$. But the biological emotional field is 8-dimensional
+(BRECVEMA, eight mechanisms). How does its algebraic structure relate to a
+seven-dimensional compact-sector interpretation?
 
 This paper resolves the question. The 8D BRECVEMA field $W_8$ decomposes
 as the $G_2$-invariant part plus a traceless symmetry-breaking term. The
 $G_2$-invariant part is exactly $\tfrac{6}{5} I_8$ — a diagonal matrix. The
 remaining 7 off-diagonal degrees of freedom constitute the symmetry-breaking
 $\delta W$, which lives in the 7D adjoint representation of $G_2$. The
-biological emotional system operates on the 8D field, but its $G_2$-symmetric
-vacuum is 7D — the tracelessness of $\delta W$ ensures that the 7D compact
-manifold $X_7$ is the correct geometric description.
+biological emotional system operates on the 8D field, while its traceless
+symmetry-breaking sector is seven-dimensional. This supplies an algebraic
+compatibility result for a 7D compact-sector interpretation; it does not by
+itself prove the metric geometry or holonomy of $X_7$.
 
 ---
 
@@ -150,8 +154,8 @@ as the system approaches the $G_2$ attractor).
 |---|---|---|
 | $W_{G_2} = (6/5) I_8$ defined | `BRECVEMAVariational.lean` | proved (`native_decide`) |
 | $\delta W = W_8 - W_{G_2}$ traceless | `BRECVEMAVariational.lean` | proved (`norm_num`) |
-| $G_2$-invariant matrix = $\lambda I_n$ | Schur's lemma | axiom (requires Mathlib Lie theory) |
-| $\text{moduli\_space\_is\_G2\_homotopy}$ | `BRECVEMAVariational.lean` | sorry (step 3 open) |
+| $G_2$-invariant matrix = $\lambda I_n$ | Schur's lemma | interpretation requires Lie-theory formalisation |
+| $\text{moduli\_space\_is\_G2\_homotopy}$ | `BRECVEMAVariational.lean` | open formalisation (gauge constraint derivation) |
 
 The numerical decomposition ($\|\delta W\|_F / \|W_8\|_F = 0.484$) is computed
 exactly using the rational matrix entries; Python floating-point is used only for
@@ -172,11 +176,11 @@ anisotropies; the BS–AJ anti-correlation (stress suppresses aesthetics) is the
 dominant negative anisotropy. Therapeutic progress corresponds to
 $\|\delta W\|_F \to 0$ while $\mathrm{tr}(\delta W) = 0$ is conserved.
 
-The $8 \to 7$ dimension reduction is resolved: the 8D biological field has a 7D
-$G_2$-symmetric vacuum (the tracelessness of $\delta W$ ensures the effective
-compact geometry is 7D), consistent with the compact sector $X_7$ of the USF
-M-theory compactification proposed in the companion cosmological-constant and
-spatial-vacuum papers.
+The $8 \to 7$ algebraic reduction is resolved: the 8D biological field has a
+seven-dimensional traceless symmetry-breaking sector, compatible with the 7D
+compact-sector interpretation used by the companion cosmological-constant and
+spatial-vacuum papers. Deriving a compact $G_2$-holonomy metric remains a
+separate open geometric problem.
 
 ---
 

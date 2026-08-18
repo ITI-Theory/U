@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""Audit public Zenodo community records against Dist/PAPERS.yaml.
+
+Usage:
+    bin/zenodo-audit
+    bin/zenodo-audit --json uat/zenodo-community.json
+
+The command is read-only. It queries every public record currently assigned to
+https://zenodo.org/communities/iti-theory/ and compares concept DOIs with the
+master registry in the sibling Dist repository.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+
+import yaml
+
+U_ROOT = Path(__file__).resolve().parent.parent
+DIST_REGISTRY = U_ROOT.parent / "Dist" / "PAPERS.yaml"
+API_URL = "https://zenodo.org/api/communities/iti-theory/records"
+
+
+def fetch_community_records() -> list[dict]:
+    records = []
+    page = 1
+    while True:
+        url = f"{API_URL}?{urlencode({'page': page, 'size': 25})}"
+        request = Request(url, headers={"Accept": "application/json", "User-Agent": "ITI-Theory-zenodo-audit/1.0"})
+        try:
+            with urlopen(request, timeout=30) as response:
+                payload = json.load(response)
+        except HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace")
+            raise RuntimeError(f"Zenodo API HTTP {error.code}: {detail}") from error
+        except URLError as error:
+            raise RuntimeError(f"Zenodo API unavailable: {error.reason}") from error
+        hits = payload["hits"]["hits"]
+        records.extend(hits)
+        if len(records) >= payload["hits"]["total"] or not hits:
+            return records
+        page += 1
+
+
+def registry_entries() -> list[dict]:
+    registry = yaml.safe_load(DIST_REGISTRY.read_text(encoding="utf-8"))
+    return [
+        entry
+        for section in registry.values()
+        if isinstance(section, list)
+        for entry in section
+    ]
+
+
+def concept_doi(record: dict) -> str:
+    return record.get("conceptdoi") or record.get("metadata", {}).get("doi") or record.get("doi") or ""
+
+
+def public_summary(record: dict) -> dict:
+    metadata = record.get("metadata", {})
+    return {
+        "record_id": str(record["id"]),
+        "version_doi": record.get("doi"),
+        "concept_doi": concept_doi(record),
+        "title": metadata.get("title"),
+        "publication_date": metadata.get("publication_date"),
+        "modified": record.get("modified"),
+        "files": [
+            {"name": file["key"], "size": file["size"], "checksum": file["checksum"]}
+            for file in record.get("files", [])
+        ],
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--json", type=Path, metavar="PATH", help="write the complete audit snapshot as JSON")
+    args = parser.parse_args()
+
+    public_records = fetch_community_records()
+    entries = registry_entries()
+    registry_by_doi = {entry["doi"]: entry for entry in entries if entry.get("doi")}
+    public_by_concept_doi = {concept_doi(record): record for record in public_records if concept_doi(record)}
+    public_by_version_doi = {record.get("doi"): record for record in public_records if record.get("doi")}
+
+    registry_missing = [
+        entry for entry in entries
+        if entry.get("status") in {"published", "needs-new-version"}
+        and entry.get("doi")
+        and entry["doi"] not in public_by_concept_doi
+        and entry["doi"] not in public_by_version_doi
+    ]
+    registry_version_dois = [
+        entry for entry in entries
+        if entry.get("doi") in public_by_version_doi
+        and entry["doi"] not in public_by_concept_doi
+    ]
+    community_untracked = [
+        record for record in public_records
+        if concept_doi(record) not in registry_by_doi
+        and record.get("doi") not in registry_by_doi
+    ]
+
+    snapshot = {
+        "fetched_at": datetime.now(UTC).isoformat(),
+        "community": "iti-theory",
+        "api_url": API_URL,
+        "records": [public_summary(record) for record in public_records],
+        "registry_missing_from_community": [
+            {"id": entry.get("id"), "slug": entry.get("slug"), "concept_doi": entry.get("doi")}
+            for entry in registry_missing
+        ],
+        "registry_entries_using_version_dois": [
+            {
+                "id": entry.get("id"),
+                "slug": entry.get("slug"),
+                "version_doi": entry.get("doi"),
+                "concept_doi": concept_doi(public_by_version_doi[entry["doi"]]),
+            }
+            for entry in registry_version_dois
+        ],
+        "community_records_missing_from_registry": [public_summary(record) for record in community_untracked],
+    }
+
+    print(f"Zenodo community records: {len(public_records)}")
+    print(f"Registry published/current-version records absent from community: {len(registry_missing)}")
+    for entry in registry_missing:
+        print(f"  MISS  {entry.get('id', '?'):8} {entry.get('slug', '?')}  {entry.get('doi')}")
+    print(f"Registry entries using version DOI instead of concept DOI: {len(registry_version_dois)}")
+    for entry in registry_version_dois:
+        record = public_by_version_doi[entry["doi"]]
+        print(f"  DRIFT {entry.get('id', '?'):8} {entry.get('slug', '?')}  {entry['doi']} -> {concept_doi(record)}")
+    print(f"Community records absent from registry: {len(community_untracked)}")
+    for record in community_untracked:
+        print(f"  EXTRA {record['id']:8} {concept_doi(record)}  {record.get('metadata', {}).get('title', '')}")
+
+    if args.json:
+        args.json.parent.mkdir(parents=True, exist_ok=True)
+        args.json.write_text(json.dumps(snapshot, indent=2) + "\n", encoding="utf-8")
+        print(f"Wrote audit snapshot: {args.json}")
+
+    sys.exit(bool(registry_missing or registry_version_dois or community_untracked))
+
+
+if __name__ == "__main__":
+    main()

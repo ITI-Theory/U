@@ -9,7 +9,7 @@ include mk/dist.mk
 
 .PHONY: all build registry-papers registry-fractal lean lean-appendix omnibus \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
-	dist generate list
+	uat-stage-papers uat-stage-ttheory dist generate list
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
@@ -46,6 +46,14 @@ uat-build:
 
 uat-check:
 	bin/release-check
+
+# Copy the selected candidate PDFs into ignored UAT staging directories and
+# record their SHA-256 hashes. The manifest is U/uat/manifest.yaml.
+uat-stage-papers: registry-papers
+	py paper/scripts/stage_uat.py papers
+
+uat-stage-ttheory: registry-fractal
+	py paper/scripts/stage_uat.py ttheory
 
 # Familiar release names remain aliases for the UAT gate.
 release-build: uat-build

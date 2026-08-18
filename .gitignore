@@ -37,6 +37,10 @@ dist/
 nul
 /.lake
 
+# Generated UAT candidate copies and hashes
+uat/staging/
+uat/zenodo-community.json
+
 # Generated paper status outputs
 paper/PAPER_STATUS.md
 paper/paper_status.json
