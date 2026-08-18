@@ -10,6 +10,42 @@ csl: apa-7th.csl
 ---
 
 
+```{=latex}
+\omnipaperdivider{The Soma-Field Research Programme: Method, Model, and Empirical Confirmation}{soma-field-synthesis}
+```
+
+
+
+## Abstract
+
+This document is the linking narrative for a body of work that spans six papers,
+a formal proof suite, a computational experiment, a real-time therapeutic instrument,
+and a popular account. The papers do not merely share a topic; they form a single
+argument in three movements.
+
+The first movement establishes a **method**: mathematical co-identification, the
+procedure by which a mathematical object known to be well-behaved in one domain
+is recognised as the same object governing a different domain, importing every
+theorem about it as a result. This is not analogy; it is identity under relabelling.
+
+The second movement applies that method to produce a **model**: the Soma-Field,
+a field-theoretic account of emotional dynamics in which the limbic system is
+given the same formal apparatus that physicists use to describe quantum fields —
+because the governing equations are the same equations. The model is not an
+approximation. It is a co-identification.
+
+The third movement subjects the model to an **empirical test**: QUANT-EXP-1, a
+pre-registered computational experiment demonstrating that quantum annealing
+traverses topological trauma barriers that low-noise classical dynamics cannot
+cross. The experiment was proposed by the model, specified before it was run,
+and passed all pre-registered hardening checks.
+
+Together, these three movements constitute a research programme: a new method,
+a non-trivial application of it, and an empirical confirmation of the application's
+central claim.
+
+
+
 # The Soma-Field Research Programme: Method, Model, and Empirical Confirmation
 
 ---
@@ -566,9 +602,16 @@ the next release of the research archive.
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Part I: The Body Knows}
+
+
+
+```{=latex}
+\omnipaperdivider{A Voyage into Trauma}{soma-field-book}
+```
+
 
 
 
@@ -3524,9 +3567,16 @@ Both choices were correct.
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Interlude: The Tensor --- A Film in Fields}
+
+
+
+```{=latex}
+\omnipaperdivider{The Tensor}{the-tensor}
+```
+
 
 
 
@@ -4113,9 +4163,54 @@ score:
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Part II: The Formal Apparatus}
+
+
+
+```{=latex}
+\omnipaperdivider{The Soma-Field: A Wave-Based Model of Emotional Dynamics and Its Clinical Implications}{soma-field-paper}
+```
+
+
+
+## Abstract
+
+Since McCulloch and Pitts (1943), artificial neural networks have provided increasingly
+sophisticated formal models of one component of biological intelligence: the neocortex —
+pattern recognition, sequence prediction, and error minimisation. The complementary
+component — the limbic system, responsible for valuation, threat detection, arousal
+modulation, and the somatic state reinstatement that underlies trauma — has received no
+formal mathematical treatment. This paper proposes the **Soma-Field Model**: the first
+formal field-theoretic architecture for the limbic system and its coupling to the body
+and autonomic nervous system.
+
+Drawing on the energy-function formalism of Hopfield neural networks and a formal
+identification with Quantum Field Theory — not as metaphor but as shared mathematical
+structure — the model provides a mathematically grounded account of four clinically
+fundamental phenomena: the sub-perceptual persistence of emotional states; the threshold
+at which emotion enters conscious awareness; the attractor structure corresponding to
+fight, flight, freeze, and regulated calm; and the formal mechanism of complex PTSD as a
+specific configuration of the attractor landscape. The conscious emotional percept is
+identified as the one-dimensional impulse response (Green’s function) of an
+eleven-dimensional coupling manifold, placing emotional experience and fundamental
+particles in the same mathematical category: both are poles in the propagator of their
+respective field.
+
+The soma-field adds the component that has been absent from every artificial neural
+network since McCulloch and Pitts (1943): a formal model of the limbic system. Together,
+the Hopfield framework and the Soma-Field Model constitute the first complete formal
+description of the two principal computational substrates of the vertebrate brain. The
+body schema and somatic pain states are incorporated as field modes, grounding the model
+in interoceptive neuroscience and phantom limb research. A companion instrument for
+therapeutic use and a formal abstract film specification are described as practical
+applications. Clinical implications for assessment, psychoeducation, and the treatment
+of complex trauma are discussed. A companion experiment (QUANT-EXP-1, May 2026) demonstrates that the
+quantum extension of this model — transverse-field quantum annealing on the same Hopfield
+landscape — traverses topological barriers that the tested low-noise classical dynamics
+does not cross, providing bounded empirical support for the therapeutic mechanism theorem
+in this model class.
 
 
 
@@ -5441,6 +5536,43 @@ This work exists because ten years of psychotherapy moved the barriers far enoug
 
 
 
+```{=latex}
+\omnipaperdivider{Mathematical Co-identification: A Method for Structural Import Across Scientific Domains}{mathematical-co-identification}
+```
+
+
+
+## Abstract
+
+The history of mathematical science contains a recurring event that is poorly
+named and therefore poorly taught: the discovery that a quantity in one domain
+is not *like* a quantity in another domain, but *is* the same mathematical
+object under a change of label. When this identification is made precisely,
+every theorem about the source object is imported into the target domain for
+free. The practitioner who can navigate the space of mathematical types —
+finding the object that matches their problem before re-deriving it from
+scratch — can compress decades of theoretical development into weeks.
+
+This paper names the practice **mathematical co-identification**, describes
+it as a formal procedure, and argues that it is a distinct scientific method
+with its own validity criteria, failure modes, and epistemological status. It
+is not analogy, not metaphor, not modelling, and not speculation. It is the
+act of recognising that two paths through the typeverse lead to the same point.
+
+Seven historical precedents are examined: Veneziano (1968), Hopfield (1982),
+Wilson (1971), Black-Scholes (1973), Jaynes (1957), Penrose (1971), and
+Selinger (2010). A worked example is provided in the form of the Soma-Field
+Model, where five sequential co-identifications imported the propagator,
+energy function, brane mechanics, G₂ holonomy, and renormalisation group
+flow from physics into emotional dynamics. The paper concludes with a partial
+catalogue of available mathematical structures — a field guide to the
+typeverse — and a discussion of the failure modes that distinguish genuine
+co-identification from mere analogy. A falsifiability protocol is provided
+to pre-register import claims, define disconfirmation criteria, and separate
+exploratory structural matches from publication-grade theorem transfer.
+
+
+
 # Mathematical Co-identification: A Method for Structural Import Across Scientific Domains
 
 ## Introduction: The Two-Culture Problem Within Science
@@ -6365,6 +6497,32 @@ not their elements.
 
 
 
+```{=latex}
+\omnipaperdivider{Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Therapeutic Mechanism}{quantum-soma-penrose}
+```
+
+
+
+## Abstract
+
+Roger Penrose argued in *The Emperor's New Mind* (1989) that classical computation
+cannot account for consciousness, and proposed quantum gravity as the missing
+ingredient. The specific mechanism he proposed — Orch-OR, quantum coherence in
+neuronal microtubules — remains experimentally unconfirmed. This paper identifies
+a related but more specific and more testable instance of the same gap: classical
+Langevin dynamics cannot traverse topological barriers in the Soma-Field attractor
+landscape, but quantum annealing can. The experiment QUANT-EXP-1 (May 2026)
+demonstrates this result on an 8-qubit Hopfield instance with analytic ground
+truth, running in under five seconds on commodity hardware with no quantum device
+required. The contribution is threefold: (1) the Penrose gap is located precisely
+in attractor topology rather than in quantum gravity; (2) the gap is closed by a
+mechanism that is measurable, reproducible, and runnable on current NISQ hardware;
+(3) the implication for artificial intelligence is that the topological blindness
+of classical gradient-descent systems is a structural limitation, not a scaling
+problem.
+
+
+
 # Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Therapeutic Mechanism
 
 ---
@@ -6725,6 +6883,43 @@ This work exists because ten years of psychotherapy moved the barriers far enoug
 
 
 \newpage
+
+
+
+```{=latex}
+\omnipaperdivider{The Physical Substrate of the Soma-Field}{soma-physical-substrate}
+```
+
+
+
+## Abstract
+
+The Soma-Field model describes emotional dynamics as a tensor-valued field over an
+attractor landscape, formally equivalent to a Hopfield network with topological
+structure [@johnson2026b]. The model is mathematically complete: it derives its
+dynamics from first principles, generates falsifiable predictions, and has passed
+pre-registered computational validation (QUANT-EXP-1) [@johnson2026c]. What it
+does not address is the physical substrate in which such a field is instantiated
+in living tissue.
+
+This paper identifies three bodies of empirical research that jointly constitute
+that substrate. Biotensegrity [@ingber1997; @ingber2003; @levin2002] establishes
+that the body is a pre-tensioned continuous mechanical network at all scales: this
+is the architecture through which the somatic wave propagates globally rather than
+locally. Fascial-interstitial continuity research [@langevin2009; @schleip2003;
+@oschman2016] identifies fascia as an active innervated signalling tissue — the
+physical pathway of interoception — and documents that chronic trauma produces
+measurable increases in fascial stiffness that correspond quantitatively to deep
+Hopfield attractor basins. Biofield physiology [@popp2003; @ho1998;
+@mccratychildre2010; @rubik2015] documents coherent electromagnetic and biophotonic
+emissions from living tissue that are the most plausible physical candidates for
+the field correlate itself.
+
+Three explicit bridges are developed. Fascial armoring corresponds to high energy
+barriers in the attractor landscape; myofascial release is barrier lowering rather
+than barrier crossing; therapist-client physiological entrainment is the physical
+mechanism of mathematical co-identification [@johnson2026a]. Each bridge generates
+testable predictions outside the computational domain.
 
 
 
@@ -7205,6 +7400,38 @@ about the body.
 
 
 
+```{=latex}
+\omnipaperdivider{A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex}{music-affect-dynamics}
+```
+
+
+
+## Abstract
+
+The dominant framework for modelling music-induced affect is Russell's
+valence–arousal circumplex: a static two-dimensional map on which emotional
+states are located as points.  The framework describes *where* a listener
+is emotionally, but not *how* they move there, what forces act on them, what
+traps them, or what allows escape.  We present a dynamical field model of
+music-induced affect in which emotional state is a continuous vector
+$\mathbf{e}(t) \in \mathbb{R}^{16}$, governed by a Langevin equation with
+an energy function $H(\mathbf{e})$ whose local minima are the named
+attractor states of the polyvagal and trauma literature (regulated calm,
+fight, flight, freeze, flow, dissociation).  The model is implemented as a
+real-time instrument: a MIDI controller array maps to the state vector;
+a Python field server computes energy, gradient, and threshold crossings
+at 50 Hz; audio output (Ableton Live) and 3D fractal visual output
+(Mandelbulb, projected onto HoloGauze) are driven by the field state via
+OSC.  We demonstrate the instrument in a recorded session and analyse the
+resulting state trajectory against circumplex predictions.  The model
+makes predictions that the circumplex cannot: phase transitions into and
+out of attractor states, the adaptive function of high effective temperature
+ (ADHD modifier), and the depth asymmetry of freeze versus regulated calm.
+ We specify preregistered hypotheses, baseline models, and disconfirmation
+ criteria to make the framework publication-testable rather than descriptive.
+
+
+
 # A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex
 
 ## Introduction
@@ -7621,6 +7848,18 @@ derived artifacts before this manuscript labels it as validated (`S3`).
 
 
 
+```{=latex}
+\omnipaperdivider{The Mathematical Foundations of Gestalt Field Dynamics: Formalising the Soma-Field via Russellian Neutral Monism}{gestalt-field-dynamics}
+```
+
+
+
+## Abstract
+
+This paper establishes a formal, non-metaphorical bridge between the clinical dynamics of Gestalt Psychotherapy and the mathematical architecture of Quantum Field Theory (QFT), utilising Bertrand Russell's Neutral Monism and Type Theory as an epistemological lattice. While Gestalt therapy historically relies on qualitative field descriptions to treat trauma, the Soma-Field model provides the quantitative verification mechanism. We demonstrate that Gestalt stuckness maps directly onto non-contractible topological loops with discrete winding numbers within a G2 holonomy manifold. By formalising clinical somatic tracking as a trajectory through an un-obstructed phase space, we reconcile the mind-body dualism through verifiable, type-safe field operations.
+
+
+
 # The Mathematical Foundations of Gestalt Field Dynamics: Formalising the Soma-Field via Russellian Neutral Monism
 
 ## Introduction
@@ -7804,9 +8043,41 @@ The Soma-Field architecture [@johnson2026b] ceases to be an abstract physics exe
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Part III: Clinical Demonstrations}
+
+
+
+```{=latex}
+\omnipaperdivider{Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics}{soma-field-patient-pov}
+```
+
+
+
+## Abstract
+
+There is a tradition, well-established in academic medicine, of researchers developing
+theoretical frameworks that are, in retrospect, transparently autobiographical. This
+paper does not conceal that tradition; it simply acknowledges it upfront. The author
+presents the Soma-Field Model: a formally grounded account of emotional dynamics in
+which emotions are conceived as a persistent distributed wave field co-inhabiting the
+body and nervous system, perceived only when a local amplitude exceeds a threshold, and
+governed by an energy function — borrowed from Hopfield network theory — that drives the
+field toward stable attractor states corresponding to fight, flight, freeze, and
+regulated calm.
+
+The model was not developed because an academic gap was identified in the literature.
+It was developed because the existing models of emotional experience were inadequate for
+the author's own case, the appropriate specialist had not yet appeared, and the author
+has a degree in physics and a limited supply of patience. The mathematics are, to the
+best of the author's knowledge, correct. The clinical observations are primary source
+material.
+
+A categorical formalization, Lean 4 type sketches, and mathematical operator
+modifications for Autism Spectrum Condition, ADHD, and Complex PTSD are included, partly
+because they are necessary for a complete treatment and partly because, once one has
+started borrowing from M-Theory, there is very little reason to stop.
 
 
 
@@ -8445,6 +8716,13 @@ He therefore took the matter in hand.
 
 
 
+```{=latex}
+\omnipaperdivider{SFT-DEMO-CASE}{SFT-DEMO-CASE}
+```
+
+
+
+
 # SFT-DEMO-CASE
 
 ## SFT Applied: A Self-Case Analysis
@@ -8632,6 +8910,58 @@ attractor language — but treats attractors as metaphor. Key differences:
 
 
 \newpage
+
+
+
+```{=latex}
+\omnipaperdivider{The Pre-Verbal Manifold}{preverbal-manifold}
+```
+
+
+
+## Abstract
+
+This paper presents a single longitudinal case in which a pre-verbal physical
+trauma (septic arthritis of the hip at approximately 15 months, three months
+of hospitalisation followed by three months of immobilisation, with a
+permanent 1.3 cm leg-length discrepancy and a documented speech delay until
+age 3.5) sits inside a layered developmental trajectory comprising
+disorganised attachment, sibling restraint trauma, single-sex day-pupil
+institutionalisation, maternal abandonment in early adolescence, third-culture
+identity, racialised adolescence in 1970s–80s Britain, mid-life affective
+collapse including psychiatric hospitalisation and a near-fatal suicide
+attempt in December 2024, and an unusual reconstruction phase in 2025–26
+centred on formal theory-building.
+
+The trajectory crosses five established literatures: quasi-autism from early
+deprivation (Rutter et al., 1999, 2007); pre-verbal trauma encoding (Schore,
+2001; Gaensbauer, 2002); the pain-imprint hypothesis (Anand & Scalzo, 2000);
+inflammation–neurodevelopment pathways (Estes & McAllister, 2016); and
+ICD-11 Complex PTSD (Maercker et al., 2022). None of these literatures, taken
+individually, accounts for the full trajectory. The combination does.
+
+The paper proposes the *pre-verbal manifold* as a formal object: a
+developmental coupling structure whose attractor landscape is shaped during
+pre-verbal sensitive periods and which is, thereafter, observable only
+through downstream projections — speech profile, social orientation,
+perceptual style, autonomic baseline, attachment behaviour. Standard
+onset-based diagnostic categories (autism, ADHD, attachment disorder, cPTSD)
+are reinterpreted as five projections of one reconfigured manifold rather
+than five comorbid conditions. The framework is formalised within the
+Soma-Field model (Johnson, 2026a–k).
+
+Three implications follow. First, the conceptual distinction between
+*genetic* and *acquired* neurodevelopmental phenotypes loses sharpness once
+pre-verbal critical-period plasticity is taken seriously. Second,
+developmental-psychiatric onset criteria that rely on *first observable
+symptoms in language-capable children* systematically misclassify cases of
+this kind. Third, secondary educational policies that filter for "mild"
+presentations, charge additional fees for accommodation, and subordinate
+external clinical diagnoses to in-house gatekeeping (a public exhibit is
+analysed in §8) function as structural amplifiers of the same diathesis.
+
+The paper closes with a policy line, a redaction guide, and a replication
+ledger.
 
 
 
@@ -9329,9 +9659,35 @@ not be inferred.
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Part IV: Extensions and Applications}
+
+
+
+```{=latex}
+\omnipaperdivider{The Missing Limbic Layer: A Somatic Field Extension of Hopfield Networks via the Correspondence Principle}{missing-limbic-layer}
+```
+
+
+
+## Abstract
+
+We present the Field-Modulated Hopfield Network (FM-HN), a unified architecture
+in which the classical 1982 and modern 2020 Hopfield Networks emerge as two
+limiting cases of a single equation parameterised by an inverse temperature β
+that is controlled at runtime by the somatic electromagnetic field. The central
+result is a formal Correspondence Principle proof: under zero somatic stress,
+the FM-HN field equations collapse exactly to standard connectionist dynamics.
+Under non-zero somatic stress, the Limbic Electromagnetic Field (CEMI;
+McFadden 2002a, 2002b) modulates β and the weight matrix W in real time,
+enabling escape from local minima without stochastic resets. We derive two
+coupling equations — a temperature modulation and a weight modulation — and
+demonstrate their falsifiability via the Reachability Trap protocol. We further
+show that three neurodivergent conditions (ADHD, Autism Spectrum Condition,
+and Complex PTSD) correspond to distinct dynamical regimes of the FM-HN,
+each characterised by a specific β profile and barrier geometry. The
+architecture is Lean 4 type-checked in the companion file `LimbicHopfield.lean`.
 
 
 
@@ -9683,6 +10039,33 @@ The limbic layer was not missing from the organism. It was missing from the mode
 
 
 
+```{=latex}
+\omnipaperdivider{Single-Step Multi-Agent Coordination via Green's Function Propagators: A Macroscopic Brane Projection Framework}{swarm-propagator}
+```
+
+
+
+## Abstract
+
+Classical multi-agent coordination protocols — drone swarms, robotic fleets,
+distributed data-centre scheduling — achieve global consensus through
+iterative neighbour-to-neighbour message passing requiring O(N·K) operations
+for N agents and K convergence rounds. We present a field-theoretic
+reformulation in which the swarm is treated as a Macroscopic Brane Projection
+of a continuous electromagnetic field. Under this formulation, the Green's
+function of the field serves as a propagator matrix G ∈ ℝ^{N×N}, and a
+single matrix-vector product G·s replaces the K-round iteration entirely.
+The resulting protocol achieves O(N²) coordination cost with K=1 always,
+yielding a K/N speedup factor over classical protocols — a 50× reduction at
+typical operating parameters (N=100, K=5000). We prove the complexity
+advantage formally in Lean 4, derive the break-even condition K=N, and
+demonstrate jam resistance as a corollary of K=1. The framework is grounded
+in the Soma-Field Model's 11-dimensional configuration space decomposition,
+where the propagator occupies dimensions D₅–D₇. The jellyfish drone formation
+is presented as the primary engineering proof-of-concept.
+
+
+
 # Single-Step Multi-Agent Coordination via Green's Function Propagators: A Macroscopic Brane Projection Framework
 
 ## Introduction
@@ -9988,6 +10371,35 @@ itself.
 
 
 
+```{=latex}
+\omnipaperdivider{The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes}{geographic-somatic-field}
+```
+
+
+
+## Abstract
+
+We demonstrate that the same Green's function equation governing neural field
+propagation at the biological scale ($10^{-1}$ m) also governs the propagation
+of cultural and biological patterns through geographic substrates at the societal
+scale ($10^3$–$10^5$ m). Two worked examples from the Thames Valley, United
+Kingdom, are presented: the spread of Estuary English as a structural contagion
+wave through a coupled population, and the formation and migration of ring-necked
+parakeet murmurations as an active-matter velocity field. Both phenomena occupy
+Scales 7–9 on the Universal Somatic Field scale dial and are governed by the
+same $(\nabla^2 + k^2)G = \delta$ propagator equation with substrate-appropriate
+boundary conditions. The Thames Valley acts as a geographic wave-guide: its
+north-south topographic boundaries (Chilterns, North Downs) channel propagation
+along the east-west axis, selecting which patterns can survive long-range
+transmission and which decay. A third example — the Klöntalersee basin in Glarus,
+Switzerland — demonstrates the parabolic resonator structure of a glacially
+carved valley as an acoustic Green's function evaluator at the geological scale
+($10^5$ m). The framework extends the Universal Somatic Field to geography and
+demonstrates that the theory is not confined to biological or cosmological substrates:
+the same equation governs wherever fields propagate through bounded media.
+
+
+
 # The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes
 
 ## Introduction
@@ -10233,9 +10645,40 @@ The geography makes it visible.
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Part V: The Universal Theory}
+
+
+
+```{=latex}
+\omnipaperdivider{The Universal Somatic Field: Green's Functions as Scale-Invariant Oscillators across Eleven Orders of Magnitude}{universal-somatic-field}
+```
+
+
+
+## Abstract
+
+We present the Universal Somatic Field (USF), a scale-invariant field-theoretic
+architecture in which a single structural equation — the Green's function of a
+field substrate — governs dynamics from quantum foam (10⁻³⁵ m) to the cosmic
+web (10²⁶ m). The central identification is that the Simple Harmonic Oscillator
+(SHO) required by string theory at each worldsheet point is not a material
+object but the impulse response — the Green's function — of the field at that
+point. This dissolves the ontological puzzle of the "vibrating string" by
+replacing it with a relational statement: the string is what the substrate
+answers when asked. The architecture decomposes an 11-dimensional configuration
+space into four canonical subspaces — Spacetime (4D), Propagator (3D), Limbic
+Axis (1D), Cortex (3D) — whose product is structurally isomorphic to M-theory's
+11D compactification. Within this framework, a conscious organism is any system
+in which the limbic field amplitude crosses a critical threshold, triggering a
+phase transition from sub-perceptual propagation to first-person awareness.
+The universe itself satisfies the structural requirements for such a system.
+We prove the core algebraic results in Lean 4 (v4.28.0) using Mathlib and
+demonstrate that the USF encapsulates three existing frameworks — McFadden's
+CEMI theory, Schreiber's Modal Homotopy Type Theory, and Hoffman's Conscious
+Agents — as special cases or projections. The complete Lean 4 formalisation
+is available at the companion repository.
 
 
 
@@ -10798,6 +11241,70 @@ organism.
 
 
 \newpage
+
+
+
+```{=latex}
+\omnipaperdivider{The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture Unifying Quantum, Biological, and Cosmological Dynamics}{zoomable-somatic-field}
+```
+
+
+
+## Abstract
+
+We present the Zoomable Universal Somatic Field (zUSF), a scale-invariant
+field-theoretic architecture in which a single structural equation —
+the Helmholtz Green's function $(\nabla^2 + k^2)G(x,x') = \delta(x-x')$ —
+governs field propagation across twenty orders of magnitude, from quantum
+foam ($10^{-35}$ m) to the observable universe ($10^{26}$ m). The central
+identification is that the Simple Harmonic Oscillator required by string
+theory at each worldsheet point is the Green's function of the field
+substrate: the system's impulse response. This dissolves the ontological
+puzzle of the vibrating string and provides a derivation where string theory
+offers only a postulate.
+
+The architecture decomposes an eleven-dimensional configuration space into
+four canonical subspaces — Spacetime ($4D$), Propagator ($3D$), Limbic
+Axis ($1D$), Cortex ($3D$) — whose product is structurally isomorphic to
+M-theory's eleven-dimensional compactification. The Zoom Operator $\Lambda$
+is formalised as a dependent type constructor that instantiates the field
+equation with substrate-appropriate boundary conditions and wavenumber
+$k(\sigma)$ at each scale level $\sigma \in \{0,\ldots,20\}$. The mind
+matrix — the system's information-processing layer — scales via tensor
+rank $N(\sigma)$, from $N \approx 10^2$ at nuclear scale to $N \to \infty$
+at cosmic scale; physical and mind dimensions are tethered by a dependent
+pair type and cannot zoom independently.
+
+The same eleven-dimensional bookkeeping motivates two current cosmological
+hypotheses. The compact-sector fraction gives a leading-order dark-energy
+contribution of $7/11$, while the three non-compact spatial dimensions give
+$\Omega_\text{DM} = 3/11 \approx 0.273$, compared with the Planck 2018
+value $0.265$. These relations are not consequences of the scale architecture
+alone: their physical interpretation depends on a stated compactification
+model, and they make falsifiable predictions about cosmic expansion,
+clustering, and gauge neutrality.
+
+Within this framework, consciousness is a phase transition: present when the
+limbic field amplitude $\phi$ exceeds a critical threshold $T_c$, absent
+below it. Trauma is a topological obstruction in the limbic field — a
+non-contractible configuration requiring quantum tunnelling to resolve.
+The Field-Modulated Hopfield Network (FM-HN) provides a falsifiable
+computational model in which the limbic field controls the inverse
+temperature $\beta$ of the associative memory network at runtime; under
+zero somatic stress the FM-HN reduces exactly to the classical 1982
+Hopfield network (Correspondence Principle, Lean 4 verified).
+
+Multi-agent coordination is shown to reduce from $O(N \cdot K)$ to
+$O(N^2)$ with $K=1$ when agents are treated as a macroscopic brane
+projection of the field, with the Green's function propagator
+replacing iterative message-passing.
+
+The architecture encapsulates three existing frameworks as special cases:
+McFadden's CEMI field theory (Scale 6 restriction), Schreiber's Modal
+Homotopy Type Theory (structural isomorphism), and Hoffman's Conscious
+Agents model (with the physical substrate anchor that model lacks). Core
+algebraic results are machine-checked in Lean~4 (v4.28.0) using Mathlib;
+the complete axiom list is given in §11.
 
 
 
@@ -11943,6 +12450,32 @@ $$\boxed{(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')}$$
 
 
 
+```{=latex}
+\omnipaperdivider{Experimental Benchmarks for the Universal Somatic Field Framework}{experimental-validation}
+```
+
+
+
+## Abstract
+
+The Universal Somatic Field (USF) framework makes formal claims about computational
+efficiency, attractor reachability, and phase-transition dynamics.  This paper
+presents five experimental benchmarks that move those claims from *proved* to
+*demonstrated*: (1) a four-model timed comparison of Hopfield 1982, Hopfield 2016,
+Hopfield 2020, and the FM-HN USF 2026 on a fear-to-awe basin-crossing task;
+(2) the MNIST corrupted character test, showing that classical networks settle into
+false attractors while the FM-HN escapes via the WKB tunnelling gate; (3) macroscopic
+synchronisation benchmarks (GHZ entanglement, Kuramoto order parameter, the
+Britain 1939 radio broadcast scenario) that ground the O(N²) complexity theorem
+in empirically familiar phenomena; (4) the God-Knob hysteresis test, which checks
+whether emotional threshold crossings exhibit second-order phase-transition
+asymmetry; and (5) a direct replication of QUANT-EXP-1 under the four-model
+framework.  All benchmarks are implemented as executable Lean 4 `#eval` blocks
+in `Benchmark.lean`, cross-referenced against three kernel-verified theorems.
+The experiments confirm what the proofs predict.
+
+
+
 # Experimental Benchmarks for the Universal Somatic Field Framework
 
 ## Introduction
@@ -12315,6 +12848,30 @@ The proofs show why it must.  The experiments show that it does.
 
 
 
+```{=latex}
+\omnipaperdivider{The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field}{cosmological-constant-derivation}
+```
+
+
+
+## Abstract
+
+We derive the cosmological constant $\Lambda$ as the vacuum expectation value
+of the trace of the Universal Somatic Field tensor: $\Lambda \equiv \langle
+\mathrm{tr}\,\Phi_{\mu\nu}\rangle_0$. The identification avoids the standard
+zero-point-energy approach (which overshoots by $10^{117}$) by treating $\Lambda$
+as a **classical background amplitude** rather than a quantum fluctuation sum.
+
+Numerical estimate: the required field amplitude $\Phi_0 \approx 0.4\,M_\text{Pl}$
+is a natural Planck-scale compactification value. The leading-order estimate
+gives $\Lambda_\text{USF} \approx H_0^2/c^2 \approx 0.49\,\Lambda_\text{obs}$;
+including the compact-dimension fraction (7 compact / 11 total) refines this to
+$\Lambda_\text{USF} = (21/11)H_0^2/c^2 \approx 0.93\,\Lambda_\text{obs}$ — a 7\%
+discrepancy attributable to Calabi-Yau moduli geometry. The formal proof of the
+cosmological correspondence axiom requires linearised general relativity in Mathlib.
+
+
+
 # The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field
 
 ## The Cosmological Constant Problem — USF Reframing
@@ -12608,6 +13165,33 @@ $$\boxed{\Lambda_\text{USF} = \frac{21}{11}\,\frac{H_0^2}{c^2}
 
 
 \newpage
+
+
+
+```{=latex}
+\omnipaperdivider{Dark Matter as the Spatial Vacuum of the Universal Somatic Field: Ω\_DM = 3/11}{dark-matter-spatial-vacuum}
+```
+
+
+
+## Abstract
+
+We identify dark matter with the vacuum expectation value of the Universal
+Somatic Field (USF) restricted to the three non-compact spatial dimensions
+of the M-theory compactification $M_{11} = \mathbb{R}_t \times M_3 \times X_7$.
+The leading-order prediction from dimensional counting is:
+$$\Omega_\text{DM}^\text{USF} = \frac{N_\text{spatial}}{N_\text{total}}
+  = \frac{3}{11} \approx 0.273$$
+compared with the Planck 2018 value $\Omega_\text{DM}^\text{obs} = 0.265$ —
+a **2.9\% discrepancy**. The physical mechanism is distinct from particle dark
+matter models: the spatial vacuum block of $\Phi_{ij}$ couples to the 4D
+Einstein equations but carries no Standard Model gauge charges (EM, weak, or
+strong), because gauge fields are localised on the compact sector $X_7$. It
+clusters gravitationally (w = 0) while the compact-sector vacuum gives the
+cosmological constant (w = -1). Together with the companion
+cosmological-constant model's result
+$\Omega_\Lambda = 7/11$, dimensional counting from the 11D USF accounts
+for 95\% of the universe's total energy budget.
 
 
 
@@ -13039,6 +13623,32 @@ baryogenesis factor $1/2$ from USF first principles.
 
 
 
+```{=latex}
+\omnipaperdivider{G₂ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal}{g2-symmetry-breaking}
+```
+
+
+
+## Abstract
+
+The BRECVEMA coupling matrix $W_8$ of the Universal Somatic Field decomposes
+uniquely as $W_8 = W_{G_2} + \delta W$, where $W_{G_2} = \tfrac{6}{5} I_8$ is the
+$G_2$-invariant component and $\delta W$ is a traceless symmetry-breaking term.
+The $G_2$-symmetric limit $W_{G_2}$ corresponds to perfectly balanced emotional
+processing — all eight BRECVEMA mechanisms equally coupled, no directional
+anisotropy. The empirical biological matrix $W_8$ (calibrated from Juslin 2019)
+is $48.4\%$ symmetry-broken from this ideal: $\|\delta W\|_F / \|W_8\|_F = 0.484$.
+The symmetry-breaking modes are traceless (their eigenvalues sum to zero) and
+correspond to specific emotional dynamics: strong positive anisotropy in the
+VI–EM and ME–AJ couplings; negative anisotropy in the BS–AJ channel (stress
+suppresses aesthetics). Therapeutic intervention reduces $\|\delta W\|_F$, driving
+the system toward the $G_2$ attractor. This provides the first quantitative
+connection between a $G_2$-symmetric compactification interpretation and the
+biological coupling matrix. It resolves the algebraic $8 \to 7$ reduction in
+the coupling decomposition; it does not derive a $G_2$-holonomy metric for $X_7$.
+
+
+
 # G₂ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal
 
 ## Introduction: The 8→7 Dimension Question
@@ -13203,9 +13813,34 @@ separate open geometric problem.
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Part VI: The Gateway}
+
+
+
+```{=latex}
+\omnipaperdivider{The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Cultural Programme}{ttheory-phenomena}
+```
+
+
+
+## Abstract
+
+Two companion papers on the cosmological constant and spatial-vacuum dark
+matter propose that dimensional counting yields the cosmological constant
+$\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$ and the dark matter
+fraction $\Omega_\mathrm{DM} = 3/11$ from M-theory dimensional counting
+alone. This paper addresses what follows: it proposes that the Universal
+Somatic Field framework can be studied as a **fixed point of its own subject
+matter**. Its propagation through physical and digital substrates is treated
+as an instance of Scale 9 swarm dynamics governed by the same Green's function
+that describes its clinical, quantum, and cosmological applications.
+The physical substrate (underground events, street art, live performance)
+and the digital substrate (source code, fibre-optic networks, AI context
+windows) are proposed as comparable propagation media. This is a programme
+hypothesis, not a proof of physical equivalence. It introduces the
+[T]-Theory cultural and cross-domain programme.
 
 
 
@@ -13410,11 +14045,44 @@ $$\boxed{(\nabla^2 + k^2)\,G = \delta \quad \text{at every scale,
 
 
 
-\newpage
+\cleardoublepage
 
 \appendix
 
 \part{Appendix A: Temporal Dynamics}
+
+
+
+```{=latex}
+\omnipaperdivider{Temporal Dynamics of the Universal Somatic Field: Retarded Propagators, Transition Rates, and the Memory of Feeling}{soma-temporal-dynamics}
+```
+
+
+
+## Abstract
+
+The Universal Somatic Field (USF) has been established as a scale-invariant
+field-theoretic architecture governing dynamics from quantum foam to the
+cosmic web. Previous papers have characterised the field's attractor structure,
+its Green's function identification, and its Lean 4 formal verification. The
+present paper completes the kinematic picture by developing the full
+time-dependent formulation. We derive the retarded Green's function
+$G_R(x,t;\,x',t')$ of the somatic field, characterise the relaxation
+time $\tau$ of attractor dynamics as a function of the spectral gap, and
+give a Wentzel--Kramers--Brillouin (WKB) estimate for the temporal barrier
+in emotional state transitions. We introduce the Somatic Memory Kernel
+$K(t - t')$ — the exponentially decaying influence of past field
+configurations on present dynamics — and show that it accounts for
+autobiographical memory, trauma re-experiencing, and the decay of conditioned
+responses within a single analytic framework. The Field-Modulated Hopfield
+Network (FM-HN) is extended to include an explicit time-dependent forcing
+current $J(x,t)$, enabling a treatment of therapeutic intervention as an
+optimal control problem on the field trajectory. Clinical implications
+include a field-theoretic derivation of why trauma processing is slower than
+trauma formation, and a quantitative account of the window of tolerance as
+a temporal bandwidth constraint on the retarded propagator. Core results
+are consistent with the Lean 4 formalisations in the companion
+lean-proofs-appendix paper.
 
 
 
@@ -13920,9 +14588,16 @@ long ago it happened and how much it mattered.
 
 
 
-\newpage
+\cleardoublepage
 
 \part{Appendix B: Formal Lean 4 Verifications}
+
+
+
+```{=latex}
+\omnipaperdivider{Appendix: Formal Lean 4 Verifications}{lean-proofs-appendix}
+```
+
 
 
 

@@ -8,6 +8,8 @@
 % 2. Fonts (XeLaTeX fontspec)
 \setmainfont{TeX Gyre Pagella}[Ligatures=TeX,Numbers=OldStyle]
 \setsansfont{Lato}[Ligatures=TeX,BoldFont=Lato Bold]
+\setmonofont{JetBrains Mono}
+\input{unicode-math-text.tex}
 
 % 3. Colours
 \usepackage{xcolor}
@@ -108,11 +110,36 @@
     {\small\sffamily\color{black!60}\@date\par}
   \end{titlepage}
   \clearpage
+  \thispagestyle{empty}\null\clearpage
 }
 \makeatother
 
 % ---------------------------------------------------------------------------
-% 9. Lean appendix page-break configuration
+% 9. Physical paper opening sequence
+%    Title recto → blank verso → abstract recto → blank verso → TOC recto
+%    → first numbered section recto. This is intentionally print-facing.
+% ---------------------------------------------------------------------------
+\makeatletter
+\newcommand{\usfrectostart}{%
+  \clearpage
+  \ifodd\value{page}
+    \thispagestyle{empty}\null\clearpage
+  \fi
+}
+\let\usf@endabstract\endabstract
+\renewcommand{\endabstract}{%
+  \usf@endabstract
+  \usfrectostart
+}
+\let\usf@tableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \usf@tableofcontents
+  \usfrectostart
+}
+\makeatother
+
+% ---------------------------------------------------------------------------
+% 10. Lean appendix page-break configuration
 %    \leanappendixstart — call once at the start of the Lean proofs appendix.
 %    Each \subsection (= each embedded proof file) starts on a new page.
 %    Defined here (style/config layer); called from lean-proofs-appendix.md.
@@ -125,7 +152,7 @@
 \makeatother
 
 % ---------------------------------------------------------------------------
-% 10. Modern blockquote / callout box styling
+% 11. Modern blockquote / callout box styling
 %     Replaces ASCII box-drawing borders.
 %     pandoc `> ` blockquotes render as \begin{quote}...\end{quote}.
 %     We restyle these with a navy left rule + italic text.

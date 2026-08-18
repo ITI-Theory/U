@@ -14,6 +14,8 @@
 % ── 2. Fonts ──────────────────────────────────────────────────────────────────
 \setmainfont{TeX Gyre Pagella}[Ligatures=TeX,Numbers=OldStyle]
 \setsansfont{Lato}[Ligatures=TeX,BoldFont=Lato Bold]
+\setmonofont{JetBrains Mono}
+\input{unicode-math-text.tex}
 
 % ── 3. Colour palette ─────────────────────────────────────────────────────────
 \usepackage{xcolor}
@@ -113,11 +115,29 @@
     \vspace{3mm}
     {\small\sffamily\color{black!60}\@date\par}
   \end{titlingpage}
-  \clearpage
+  \cleardoublepage
 }
 \makeatother
 
-% ── 9. Blockquote styling (left-rule callout, matching journal.tex) ───────────
+% ── 9. Visible opening for each contained paper ─────────────────────────────
+% The divider itself is the recto start of a paper; its content follows after.
+\newcommand{\omnipaperdivider}[2]{%
+  \cleardoublepage
+  \thispagestyle{empty}%
+  \vspace*{0.30\textheight}%
+  \begin{center}%
+    {\small\sffamily\color{accent}PAPER\par}%
+    \vspace{8mm}%
+    {\Huge\bfseries\sffamily\color{heading}#1\par}%
+    \vspace{7mm}%
+    {\color{rulecolor}\rule{0.72\textwidth}{0.6pt}\par}%
+    \vspace{5mm}%
+    {\small\sffamily\color{black!60}#2\par}%
+  \end{center}%
+  \clearpage
+}
+
+% ── 10. Blockquote styling (left-rule callout, matching journal.tex) ──────────
 \usepackage{mdframed}
 \surroundwithmdframed[%
   linewidth=2pt, linecolor=heading,
@@ -127,12 +147,12 @@
   innerleftmargin=12pt, innerrightmargin=8pt,
   innertopmargin=6pt, innerbottommargin=6pt]{quote}
 
-% ── 10. Widow / orphan ────────────────────────────────────────────────────────
+% ── 11. Widow / orphan ───────────────────────────────────────────────────────
 \widowpenalty=9999
 \clubpenalty=9999
 \displaywidowpenalty=9999
 
-% ── 9. Code blocks ────────────────────────────────────────────────────────────
+% ── 12. Code blocks ───────────────────────────────────────────────────────────
 \makeatletter
 \AtBeginDocument{%
   \@ifpackageloaded{fancyvrb}{\fvset{fontsize=\small}}{}%
@@ -140,6 +160,6 @@
 }
 \makeatother
 
-% ── 10. Lean appendix helper (used by lean-proofs-appendix content) ───────────
+% ── 13. Lean appendix helper (used by lean-proofs-appendix content) ──────────
 % In the omnibus, single-column — the column-switch is a no-op.
 \newcommand{\leanappendixstart}{}

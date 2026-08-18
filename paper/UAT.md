@@ -74,6 +74,43 @@ acceptance evidence are in `U/uat/papers-omnibus-nlm-uat.md`.
 
 ---
 
+### Papers Omnibus Physical Format Result - 2026-08-18
+
+**Decision:** PASS.
+
+`make check-omnibus-format` verified the print-format contract for the
+rebuilt `omnibus-a4.pdf`: physical page 2 is blank inside cover, physical page
+3 begins the master contents, master TOC depth is 1, 24 named paper-divider
+pages are declared, and every divider begins recto. The format source of truth
+is `paper/FORMAT.md`. This is a layout-only rebuild; the prior Papers RC2
+NotebookLM scientific acceptance remains applicable.
+
+---
+
+### Individual Paper Physical Format Result - 2026-08-18
+
+**Decision:** PASS for the title/abstract contract.
+
+`make -B synthesis check-individual-format PAPER=soma-field-synthesis`
+verified physical page 1 as title, page 2 as blank inside cover, page 3 as
+abstract-only recto, page 4 as blank abstract verso, page 5 as contents, and
+the first numbered section as recto. `journal.tex` is now a declared dependency
+of every standard individual-paper PDF, so future shared cover-style changes
+trigger rebuilds.
+
+---
+
+### Papers Render Integrity Result - 2026-08-18
+
+**Decision:** PASS.
+
+After installing JetBrains Mono, the full `make check-glyph-warnings` Papers
+render gate passed with zero missing-glyph and zero unresolved-reference
+warnings. Mathematical Unicode is mapped through TeX math rather than relying
+on a text/code font. The gate is required before Papers promotion.
+
+---
+
 ## U-1 Personal Information
 
 **Criterion:** Papers must not contain personal information that would be

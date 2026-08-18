@@ -82,6 +82,7 @@ bld/booklet-%.pdf: bld/booklet-%.md ../../paper/soma/ttheory-cheatsheet/cheatshe
 	$(PANDOC) $< -o $@ \
 		--pdf-engine=$(ENGINE) --standalone \
 		--include-in-header=../../paper/soma/ttheory-cheatsheet/cheatsheet-header.tex \
+		--include-in-header=../../paper/unicode-math-text.tex \
 		-V "geometry=a4paper,margin=16mm" \
 		-V fontsize=10pt -V linestretch=1.2 \
 		-V mainfont="TeX Gyre Pagella" \

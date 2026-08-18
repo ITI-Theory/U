@@ -36,6 +36,8 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
+
 # Lean appendix generator — run before assembly to keep proofs current.
 # Import is deferred to main() to avoid circular-import issues when
 # build_thesis.py imports from this module.
@@ -81,15 +83,15 @@ STRUCTURE = [
      "soma-field-synthesis"),
 
     # Part I: The lay book
-    (r"\newpage" "\n\n" r"\part{Part I: The Body Knows}",
+    (r"\cleardoublepage" "\n\n" r"\part{Part I: The Body Knows}",
      "soma-field-book"),
 
     # Interlude: The Tensor — bridge to Phase 2 / Art
-    (r"\newpage" "\n\n" r"\part{Interlude: The Tensor --- A Film in Fields}",
+    (r"\cleardoublepage" "\n\n" r"\part{Interlude: The Tensor --- A Film in Fields}",
      "the-tensor"),
 
     # Part II: The formal apparatus — original six plus gestalt (P10)
-    (r"\newpage" "\n\n" r"\part{Part II: The Formal Apparatus}",
+    (r"\cleardoublepage" "\n\n" r"\part{Part II: The Formal Apparatus}",
      "soma-field-paper"),
 
     (r"\newpage",
@@ -108,7 +110,7 @@ STRUCTURE = [
      "gestalt-field-dynamics"),
 
     # Part III: Clinical demonstrations — patient perspective, demo case, pre-verbal
-    (r"\newpage" "\n\n" r"\part{Part III: Clinical Demonstrations}",
+    (r"\cleardoublepage" "\n\n" r"\part{Part III: Clinical Demonstrations}",
      "soma-field-patient-pov"),
 
     (r"\newpage",
@@ -122,7 +124,7 @@ STRUCTURE = [
     # The swarm paper shows the same Green's function governs drone coordination.
     # The geographic paper shows the same equation governs dialect spread and bird swarms.
     # The reader may find the swarm and geography papers surprising; that surprise is the point.
-    (r"\newpage" "\n\n" r"\part{Part IV: Extensions and Applications}",
+    (r"\cleardoublepage" "\n\n" r"\part{Part IV: Extensions and Applications}",
      "missing-limbic-layer"),
 
     (r"\newpage",
@@ -132,7 +134,7 @@ STRUCTURE = [
      "geographic-somatic-field"),
 
     # Part V: The universal theory — the capstone papers
-    (r"\newpage" "\n\n" r"\part{Part V: The Universal Theory}",
+    (r"\cleardoublepage" "\n\n" r"\part{Part V: The Universal Theory}",
      "universal-somatic-field"),
 
     (r"\newpage",
@@ -150,15 +152,15 @@ STRUCTURE = [
     (r"\newpage",
      "g2-symmetry-breaking"),
 
-    (r"\newpage" "\n\n" r"\part{Part VI: The Gateway}",
+    (r"\cleardoublepage" "\n\n" r"\part{Part VI: The Gateway}",
      "ttheory-phenomena"),
 
     # Appendix: Lean 4 formal proofs — included in the body so any reader
     # (human or AI) sees the actual type-checked code, not a pointer to it.
-    (r"\newpage" "\n\n" r"\appendix" "\n\n" r"\part{Appendix A: Temporal Dynamics}",
+    (r"\cleardoublepage" "\n\n" r"\appendix" "\n\n" r"\part{Appendix A: Temporal Dynamics}",
      "soma-temporal-dynamics"),
 
-    (r"\newpage" "\n\n" r"\part{Appendix B: Formal Lean 4 Verifications}",
+    (r"\cleardoublepage" "\n\n" r"\part{Appendix B: Formal Lean 4 Verifications}",
      "lean-proofs-appendix"),
 ]
 
@@ -190,6 +192,17 @@ def get_title(paper_name: str) -> str:
     return paper_name
 
 
+def get_metadata(paper_name: str) -> dict:
+    """Read the YAML front matter for a canonical paper."""
+    path = PAPER_DIR / "soma" / paper_name / f"{paper_name}.md"
+    if not path.exists():
+        return {}
+    match = _FM_RE.match(path.read_text(encoding="utf-8"))
+    if not match:
+        return {}
+    return yaml.safe_load(match.group(0).removeprefix("---\n").rsplit("\n---", 1)[0]) or {}
+
+
 def get_body(paper_name: str) -> str:
     """Read a source paper and return its body (YAML and References stripped).
     Headings shifted down one level so injected chapter title doesn't clash."""
@@ -203,6 +216,30 @@ def get_body(paper_name: str) -> str:
     # Shift headings down 1 level: # → ##, ## → ###, etc.
     text = re.sub(r'^(#{1,5})(?= )', r'#\1', text, flags=re.MULTILINE)
     return text.strip()
+
+
+def _latex_text(text: str) -> str:
+    """Escape plain titles inserted into the raw-LaTeX paper divider."""
+    return (text.replace("\\", r"\textbackslash{}")
+                .replace("&", r"\&")
+                .replace("%", r"\%")
+                .replace("_", r"\_"))
+
+
+def paper_divider(title: str, slug: str) -> str:
+    """Return the visible recto opening page for an included paper."""
+    return (
+        "\n\n```{=latex}\n"
+        f"\\omnipaperdivider{{{_latex_text(title)}}}{{{_latex_text(slug)}}}\n"
+        "```\n"
+    )
+
+
+def paper_abstract(abstract: object) -> str:
+    """Return a visible abstract block when the source supplies one."""
+    if not abstract:
+        return ""
+    return f"\n\n## Abstract\n\n{str(abstract).strip()}\n"
 
 
 # ---------------------------------------------------------------------------
@@ -224,9 +261,12 @@ def main() -> None:
         if part_divider:
             sections.append(f"\n\n{part_divider}\n")
         if paper_name:
-            title = get_title(paper_name)
+            metadata = get_metadata(paper_name)
+            title = metadata.get("title", get_title(paper_name))
             body  = get_body(paper_name)
             if body:
+                sections.append(paper_divider(title, paper_name))
+                sections.append(paper_abstract(metadata.get("abstract")))
                 sections.append(f"\n\n# {title}\n\n{body}\n")
                 print(f"  + {paper_name}")
 

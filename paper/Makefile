@@ -48,7 +48,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all help omnibus omnibus-royal omnibus-a4 \
+.PHONY: all help omnibus omnibus-royal omnibus-a4 check-omnibus-format check-individual-format check-glyph-warnings \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
 	clean check setup freeze \
@@ -76,7 +76,9 @@ help:
 # memoir class is incompatible with titlesec/fancyhdr in journal.tex;
 # omnibus.tex provides the memoir-native equivalents.
 _OMNIBUS_CORE := \
-  --pdf-engine=$(ENGINE) \
+	--pdf-engine=latexmk \
+	--pdf-engine-opt=-xelatex \
+	--pdf-engine-opt=-silent \
   --standalone \
   --toc \
   -V colorlinks=true \
@@ -84,13 +86,13 @@ _OMNIBUS_CORE := \
   -V urlcolor=NavyBlue \
   -V toccolor=NavyBlue \
   -V hyperxmp=false \
-  -V monofont="Consolas" \
-  --highlight-style=tango \
+	-V monofont="JetBrains Mono" \
+	--syntax-highlighting=tango \
   --include-in-header=omnibus.tex \
   --lua-filter=strip-keywords.lua
 
 OMNIBUS_BASE := $(_OMNIBUS_CORE) \
-	--toc-depth=2 \
+	--toc-depth=1 \
 	-V documentclass=memoir \
 	-V classoption=openany \
 	-V classoption=a4paper \
@@ -110,17 +112,27 @@ OMNIBUS_A4_FLAGS := $(OMNIBUS_BASE) \
   -V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
   -V fontsize=10pt
 
-omnibus-royal: | $(BUILDDIR)
+omnibus-royal: omnibus.tex unicode-math-text.tex | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
 	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-royal.pdf $(OMNIBUS_ROYAL_FLAGS)
 	@echo "Built: $(BUILDDIR)/omnibus-royal.pdf"
 
-omnibus-a4: | $(BUILDDIR)
+omnibus-a4: omnibus.tex unicode-math-text.tex | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
 	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-a4.pdf $(OMNIBUS_A4_FLAGS)
 	@echo "Built: $(BUILDDIR)/omnibus-a4.pdf"
 
 omnibus: omnibus-a4
+
+check-omnibus-format: omnibus-a4
+	$(PYTHON) $(SCRIPTS)/check_omnibus_format.py
+
+PAPER ?= soma-field-synthesis
+check-individual-format: $(BUILDDIR)/$(PAPER).pdf
+	$(PYTHON) $(SCRIPTS)/check_individual_format.py $(BUILDDIR)/$(PAPER).pdf
+
+check-glyph-warnings:
+	$(PYTHON) $(SCRIPTS)/check_glyph_warnings.py
 
 # ---------------------------------------------------------------------------
 # Lean appendix — standalone PDF of all Lean 4 proof files
@@ -133,7 +145,7 @@ lean-appendix: | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_lean_appendix.py
 	$(PANDOC) soma/lean-proofs-appendix/lean-proofs-appendix.md \
 		-o $(BUILDDIR)/lean-proofs-appendix.pdf \
-		$(PANDOC_A4) --highlight-style=tango
+		$(PANDOC_A4) --syntax-highlighting=tango
 	@echo "Built: $(BUILDDIR)/lean-proofs-appendix.pdf"
 
 # ---------------------------------------------------------------------------
@@ -231,7 +243,7 @@ omnibus-translations: omnibus-royal-de omnibus-royal-fr omnibus-royal-it omnibus
 # --- Rule generation from registry ---
 # EN rule: source via vpath; flags + citeproc derived from doc class
 define BUILD_EN_RULE
-$(BUILDDIR)/$(1).pdf: $(1).md $(if $(filter citeproc,$($(1).class)),$(BIB),) | $(BUILDDIR)
+$(BUILDDIR)/$(1).pdf: $(1).md journal.tex unicode-math-text.tex strip-keywords.lua $(if $(filter citeproc,$($(1).class)),$(BIB),) | $(BUILDDIR)
 	$(PANDOC) $$< -o $$@ $(if $(filter book,$($(1).class)),$(BOOK_FLAGS),$(FLAGS)) $(if $(filter citeproc,$($(1).class)),$(CITEPROC),)
 	@echo "Built: $$@"
 endef
@@ -257,6 +269,7 @@ $(BUILDDIR)/ttheory-cheatsheet.pdf: soma/ttheory-cheatsheet/ttheory-cheatsheet.m
 	$(PANDOC) $< -o $@ \
 		--pdf-engine=$(ENGINE) --standalone \
 		--include-in-header=soma/ttheory-cheatsheet/cheatsheet-header.tex \
+		--include-in-header=unicode-math-text.tex \
 		-V "geometry=a4paper,margin=16mm" \
 		-V fontsize=10pt -V linestretch=1.2 \
 		-V mainfont="TeX Gyre Pagella"

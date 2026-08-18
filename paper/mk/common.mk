@@ -28,8 +28,8 @@ RENDER_COMMON := \
   -V urlcolor=NavyBlue \
   -V toccolor=NavyBlue \
   -V hyperxmp=false \
-  -V monofont="Consolas" \
-  --highlight-style=tango \
+  -V monofont="JetBrains Mono" \
+  --syntax-highlighting=tango \
   --include-in-header=journal.tex \
   --lua-filter=strip-keywords.lua
 
