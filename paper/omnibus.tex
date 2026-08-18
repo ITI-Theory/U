@@ -7,6 +7,7 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{needspace}
+\usepackage{pdfpages}
 % Line spacing handled natively by memoir — \linespread needs no package.
 % (Avoids the setspace/\setstretch ordering conflict with pandoc's template.)
 \linespread{1.32}
@@ -120,22 +121,25 @@
 \makeatother
 
 % ── 9. Visible opening for each contained paper ─────────────────────────────
-% The divider itself is the recto start of a paper; its content follows after.
-\newcommand{\omnipaperdivider}[2]{%
-  \cleardoublepage
+% Each included paper remains a complete PDF facsimile with local pagination.
+\newcommand{\omnipaperdivider}[3]{%
   \thispagestyle{empty}%
   \vspace*{0.30\textheight}%
   \begin{center}%
-    {\small\sffamily\color{accent}PAPER\par}%
+    {\small\sffamily\color{accent}COLLECTION PAPER\par}%
+    \vspace{2mm}%
+    {\small\sffamily\color{accent}#1\par}%
     \vspace{8mm}%
-    {\Huge\bfseries\sffamily\color{heading}#1\par}%
+    {\Huge\bfseries\sffamily\color{heading}#2\par}%
     \vspace{7mm}%
     {\color{rulecolor}\rule{0.72\textwidth}{0.6pt}\par}%
     \vspace{5mm}%
-    {\small\sffamily\color{black!60}#2\par}%
+    {\small\sffamily\color{black!60}#3\par}%
   \end{center}%
+  \addcontentsline{toc}{chapter}{#2}%
   \clearpage
 }
+\newcommand{\collectionblank}{\thispagestyle{empty}\null\newpage}
 
 % ── 10. Blockquote styling (left-rule callout, matching journal.tex) ──────────
 \usepackage{mdframed}

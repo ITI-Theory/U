@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the mechanical print-format contract for the Papers Omnibus."""
+"""Verify the mechanical print-format contract for the Papers collection."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import yaml
 from pathlib import Path
 
 PAPER_DIR = Path(__file__).resolve().parent.parent
-BODY = PAPER_DIR / "bld" / "omnibus-body.md"
+BODY = PAPER_DIR / "bld" / "papers-collection.md"
 PDF = PAPER_DIR / "bld" / "omnibus-a4.pdf"
 BUILD_SCRIPT = PAPER_DIR / "scripts" / "build_omnibus.py"
 
@@ -48,18 +48,19 @@ def main() -> None:
     divider_count = body.count("\\omnipaperdivider{")
     if divider_count == 0:
         fail("no paper divider commands found")
-    if not re.search(r"\\cleardoublepage\s+\\part\{", body):
-        fail("major parts are not preceded by cleardoublepage")
-    if not re.search(r"\\cleardoublepage\s+\\appendix", body):
-        fail("appendix is not preceded by cleardoublepage")
+    include_count = body.count("\\includepdf[")
+    if include_count != divider_count:
+        fail("every paper divider must be followed by one facsimile PDF inclusion")
+    if "Papers merged" in body or "\\part{" in body:
+        fail("collection source still contains merged-manuscript structure")
 
     build_namespace: dict[str, object] = {"__file__": str(BUILD_SCRIPT), "__name__": "omnibus_format"}
     exec(BUILD_SCRIPT.read_text(encoding="utf-8"), build_namespace)
     for _, slug in build_namespace["STRUCTURE"]:
         if slug:
-            abstract = source_abstract(slug)
-            if abstract and abstract not in body:
-                fail(f"abstract missing from merged body: {slug}")
+            expected_pdf = f"bld/{slug}.pdf"
+            if expected_pdf not in body:
+                fail(f"facsimile PDF missing from collection source: {slug}")
 
     first_pages = page_text(PDF, 1, 3).split("\f")
     if len(first_pages) < 3:
@@ -69,11 +70,17 @@ def main() -> None:
     if "Contents" not in first_pages[2]:
         fail("physical page 3 does not begin the master contents")
 
-    divider_slugs = re.findall(r"\\omnipaperdivider\{.*?\}\{([^}]+)\}", body, re.DOTALL)
+    dividers = re.findall(
+        r"\\omnipaperdivider\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}", body
+    )
     all_pages = page_text(PDF, 1, 10000).split("\f")
-    for slug in divider_slugs:
+    for _label, _title, slug in dividers:
         page_number = next(
-            (index + 1 for index, page in enumerate(all_pages) if slug in page and "PAPER" in page),
+            (
+                index + 1
+                for index, page in enumerate(all_pages)
+                if "COLLECTION PAPER" in page and slug in page
+            ),
             None,
         )
         if page_number is None:
@@ -81,7 +88,7 @@ def main() -> None:
         if page_number % 2 == 0:
             fail(f"paper divider is not recto: {slug} on page {page_number}")
 
-    print(f"PASS  {divider_count} paper divider pages declared")
+    print(f"PASS  {divider_count} paper PDFs included as facsimiles")
     print("PASS  title, blank inside cover, and master contents structure")
     print("PASS  recto major parts and appendix contract")
     print("PASS  every paper divider begins on an odd physical page")

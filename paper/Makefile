@@ -45,6 +45,15 @@ _MULTI_DOCS  := $(foreach d,$(ALL_DOCS),$(if $(filter multi,$($(d).langs)),$(d),
 PDFS_DE := $(addprefix $(BUILDDIR)/, $(addsuffix .de.pdf, $(_MULTI_DOCS)))
 PDFS_FR := $(addprefix $(BUILDDIR)/, $(addsuffix .fr.pdf, $(_MULTI_DOCS)))
 PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
+OMNIBUS_PDF_SOURCES := $(addprefix $(BUILDDIR)/,$(addsuffix .pdf, \
+	soma-field-synthesis soma-field-book the-tensor soma-field-paper \
+	mathematical-co-identification quantum-soma-penrose soma-physical-substrate \
+	music-affect-dynamics gestalt-field-dynamics soma-field-patient-pov \
+	SFT-DEMO-CASE preverbal-manifold missing-limbic-layer swarm-propagator \
+	geographic-somatic-field universal-somatic-field zoomable-somatic-field \
+	experimental-validation cosmological-constant-derivation \
+	dark-matter-spatial-vacuum g2-symmetry-breaking ttheory-phenomena \
+	soma-temporal-dynamics))
 
 # -----------------------------------------------------------------------------
 
@@ -112,14 +121,14 @@ OMNIBUS_A4_FLAGS := $(OMNIBUS_BASE) \
   -V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
   -V fontsize=10pt
 
-omnibus-royal: omnibus.tex unicode-math-text.tex | $(BUILDDIR)
+omnibus-royal: omnibus.tex unicode-math-text.tex $(OMNIBUS_PDF_SOURCES) lean-appendix | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
-	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-royal.pdf $(OMNIBUS_ROYAL_FLAGS)
+	$(PANDOC) $(BUILDDIR)/papers-collection.md -o $(BUILDDIR)/omnibus-royal.pdf $(OMNIBUS_ROYAL_FLAGS)
 	@echo "Built: $(BUILDDIR)/omnibus-royal.pdf"
 
-omnibus-a4: omnibus.tex unicode-math-text.tex | $(BUILDDIR)
+omnibus-a4: omnibus.tex unicode-math-text.tex $(OMNIBUS_PDF_SOURCES) lean-appendix | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
-	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-a4.pdf $(OMNIBUS_A4_FLAGS)
+	$(PANDOC) $(BUILDDIR)/papers-collection.md -o $(BUILDDIR)/omnibus-a4.pdf $(OMNIBUS_A4_FLAGS)
 	@echo "Built: $(BUILDDIR)/omnibus-a4.pdf"
 
 omnibus: omnibus-a4

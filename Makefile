@@ -7,7 +7,7 @@ DIST  := ../Dist
 
 include mk/dist.mk
 
-.PHONY: all build registry-papers registry-fractal lean lean-appendix omnibus \
+.PHONY: all build registry-papers registry-papers-royal registry-fractal lean lean-appendix omnibus \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
 	uat-stage-papers uat-stage-ttheory dist generate list
 
@@ -29,6 +29,9 @@ fractal-thesis:
 
 registry-papers:
 	$(MAKE) -C paper $(REGISTRY_PAPER_TARGETS)
+
+registry-papers-royal:
+	$(MAKE) -C paper $(REGISTRY_PAPER_ROYAL_TARGETS)
 
 registry-fractal:
 	$(MAKE) -C Part2/fractal-programme $(REGISTRY_FRACTAL_PREREQUISITES) $(REGISTRY_FRACTAL_TARGETS)

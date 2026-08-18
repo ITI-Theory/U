@@ -18,17 +18,20 @@ format checks enforce the parts that can be verified automatically.
 - Every contained work begins recto (an odd physical page).
 - A contained work begins with a divider page that names the work clearly.
 - Major appendices begin recto and have a prose-to-proof separation page.
-- Page numbers remain continuous within the bound volume.
+- A collection preserves the local pagination of each contained work; the PDF
+  viewer's physical page count provides the bound-volume position.
 - Mathematical Unicode in prose and code listings is rendered through TeX math;
   the monospaced code font must not be relied on for mathematical glyphs.
 
 ## Papers Omnibus Profile
 
-- `omnibus-a4.pdf` and `omnibus-royal.pdf` use master TOC depth 1.
-- Each canonical paper gets a named divider page before its content.
-- The divider page states the parent Part, paper title, and source slug.
-- Parts and appendices use `\cleardoublepage`.
-- The Lean proof appendix is separated from prose by its own recto part page.
+- `omnibus-a4.pdf` and `omnibus-royal.pdf` are facsimile collections of
+  complete individual paper PDFs, not merged Markdown bodies.
+- The master contents lists the contained papers; internal paper headings stay
+  in their own PDFs and their own tables of contents.
+- Each canonical paper gets a named recto divider stating its collection label,
+  title, and source slug before its facsimile.
+- The Lean proof appendix remains a complete standalone appendix PDF.
 
 ## Individual Paper Profile
 
