@@ -14,6 +14,7 @@ OUTPUT_DIR = PAPER_DIR / "bld" / "uat-context"
 
 TECHNICAL_SOURCES = [
     ("paper/FORMAT.md", "markdown"),
+    ("paper/OMNIBUS_DOCUMENT_MODEL.md", "markdown"),
     ("paper/Makefile", "makefile"),
     ("paper/mk/common.mk", "makefile"),
     ("paper/journal.tex", "tex"),
@@ -91,7 +92,8 @@ def build_context() -> str:
         source = U_ROOT / relative_path
         if not source.is_file():
             raise FileNotFoundError(f"Missing UAT context source: {relative_path}")
-        lines += [f"## `{relative_path}`", "", f"```{language}", source.read_text(encoding="utf-8").rstrip(), "```", ""]
+        content = source.read_text(encoding="utf-8").replace("\r\n", "\n").rstrip()
+        lines += [f"## `{relative_path}`", "", f"```{language}", content, "```", ""]
     return "\n".join(lines)
 
 

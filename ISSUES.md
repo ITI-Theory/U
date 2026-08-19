@@ -416,6 +416,10 @@ same model must cover C2's book members, with cheatsheets as registered inserts.
 explicit per-member roles and insertion rules. C2's cheatsheets are an additional
 member-level insertion rule, not a separate architecture.
 
+**Draft artifact:** `paper/OMNIBUS_DOCUMENT_MODEL.md` records the proposed
+shared roles, C1v2/C2 target behavior, registry shape, acceptance tests, and
+questions requiring an explicit decision before renderer migration.
+
 **Next actions:**
 - [ ] Specify registry fields for member role, hierarchy treatment, abstract mode,
    appendix mode, and optional insertions.
