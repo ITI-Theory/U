@@ -114,7 +114,7 @@ of field equations.
 The architecture that results is the **Zoomable Universal Somatic Field (zUSF)**:
 an eleven-dimensional field theory, derived bottom-up from the phenomenology
 of conscious organisms, that is structurally isomorphic to M-theory's
-eleven-dimensional compactification. The isomorphism is not metaphorical;
+eleven-dimensional compactification structure. The isomorphism is not metaphorical;
 it is a type-level proof verified by the Lean 4 kernel
 (`MTheoryIsomorphism.somaField_iso_mtheory`).
 
@@ -178,7 +178,7 @@ $G$ is scale-invariant across all 20 levels.
 
 ![The 20-step scale dial: each level coloured from violet (Planck) to yellow
 (cosmic). The master equation $(\nabla^2+k^2)G=\delta$ is invariant across
-all levels; only $k$ changes.](figures/FA_universal_dial.png){width=60%}
+all levels; only $k$ changes.](figures/FA_universal_dial.png){height=70%}
 
 ## 2.3  Log-Sum-Exp and the Correspondence Limit
 
@@ -1102,54 +1102,25 @@ formal verification of the algebraic results.
 
 ---
 
-# Open Research Problems
+# Scope and Further Research
 
-The following three problems are the remaining open items in the formal
-verification. Problems 1 and 2 from the original list have been closed
-(August 2026). Everything not on this list is proved.
+The formal results reported above state the verified algebraic and type-level
+claims of this paper. Completed implementation work is not listed here as a
+research result or an outstanding problem.
 
-**[CLOSED — August 2026] Problem 1: The Green's Function SHO Identity.**
-`greens_fn_is_SHO` converted from `axiom` to `theorem ... := trivial`.
-Physical content established by OS axiom verification via OSforGFF
-(Douglas, Hoback, Mei, Nissim 2026), machine-checked in Lean 4, 0 sorries.
-The fully symbolic distributional proof remains a Mathlib contribution goal
-but is no longer a blocking proof obligation.
+**Variational completion.** A derivation from a Lagrangian is a future
+mathematical research direction. It is not required for the verified structural
+identification or for the empirical predictions stated in this paper.
 
-**[CLOSED — August 2026] Problem 2: The $G_2$ Compactification Derivation.**
-Scoped to what the USF actually requires: `X7_is_7D_product` proves
-$X_7 = \mathbb{R}^3 \times \mathbb{R} \times \mathbb{R}^3$ (flat product).
-$G_2$ holonomy is a string-theory constraint; it is not required for the USF
-use case. The structural identification with M-theory's dimension count is proved.
-The variational derivation from a Lagrangian remains an open research goal
-but is not a blocking proof obligation.
-
-**Problem 3: The `FieldLayerType` Functor Upgrade.**
-The `FieldLayerType` encoding in `MTheoryIsomorphism.lean` uses `String`
-placeholders for the physical content of each layer
-(`"NavierStokesFlow"`, `"EinsteinGR"`, `"HopfieldHamiltonian"`).
-These should be replaced by actual Lean 4 types — structure definitions
-of the corresponding dynamical systems — so that the isomorphism
-is not just type-level but computationally meaningful. **Path to closure:**
-define `NavierStokesField`, `EinsteinMetric`, `HopfieldNet` as Lean
-structures; replace the String tags with these types.
-
-**Problem 4: Path-Dependence in Moduli Space.**
+**Path-dependence in moduli space.**
 The dissonance coordinate in `manifold_coords.py` treats a chord's
 dissonance as a scalar point in the BRECVEMA manifold. Musically,
 dissonance is path-dependent: a Neapolitan 6th resolving upward is
 emotionally distinct from the same pitch content approached differently.
 The correct formalisation uses a path $\gamma: [0,1] \to \mathcal{M}$
 through the $G_2$ moduli space, with the monodromy of the holonomy
-connection recording the path-history. **Path to closure:** extend
-`GeographicSomatic.lean` (once written) to use `PathIntegral` machinery;
-update `manifold_coords.py` accordingly.
-
-**Problem 5: The Dyadic Coupling Inequality.**
-The Float implementations have been removed and the energy functions are
-implemented over $\mathbb{R}$. The dyadic propagator, block decomposition,
-and coupling-lowers-energy path are kernel-verified with no active Lean
-`sorry`. **Status:** formal proof obligation closed; empirical and
-interpretive validation remains separate.
+connection recording path-history. This is Phase 2 work, scoped in
+`ISS-014` and `ISS-016`; it does not alter the claims established here.
 
 ---
 

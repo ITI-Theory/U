@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Build the source for the Soma-Field facsimile paper collection.
+"""Build the C1v2 merged omnibus from Dist/PAPERS.yaml.
 
-The collection contains complete, independently rendered paper PDFs. It does
-not merge their Markdown bodies or impose a shared chapter hierarchy.
+PAPERS.yaml owns the collection's identity, ordered membership, and part
+openings. This script only turns that registry data and paper sources into a
+single merged Markdown manuscript for Pandoc.
 """
 
 from __future__ import annotations
 
 import re
-import subprocess
+import sys
 from pathlib import Path
 
 import yaml
@@ -16,116 +17,107 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR = REPO_ROOT / "paper"
 BLD_DIR = PAPER_DIR / "bld"
+REGISTRY_PATH = REPO_ROOT.parent / "Dist" / "PAPERS.yaml"
+COLLECTION_ID = "C1v2"
 
-FRONTMATTER = """\
----
-title: "Soma-Field Papers: A Facsimile Collection"
-author: "Alistair Johnson"
-orcid: "0009-0007-2194-0850"
-institute: "Independent Researcher, Zurich, Switzerland"
-date: "2026"
-description: "A collection of complete, independently paginated Soma-Field and Universal Somatic Field papers."
----"""
-
-# (collection label, source slug). Labels orient the reader but do not create
-# a book-style hierarchy inside the contained papers.
-STRUCTURE = [
-    ("Orientation", "soma-field-synthesis"),
-    ("Orientation", "soma-field-book"),
-    ("Orientation", "the-tensor"),
-    ("Foundations", "soma-field-paper"),
-    ("Foundations", "mathematical-co-identification"),
-    ("Foundations", "quantum-soma-penrose"),
-    ("Foundations", "soma-physical-substrate"),
-    ("Foundations", "music-affect-dynamics"),
-    ("Foundations", "gestalt-field-dynamics"),
-    ("Clinical studies", "soma-field-patient-pov"),
-    ("Clinical studies", "SFT-DEMO-CASE"),
-    ("Clinical studies", "preverbal-manifold"),
-    ("Applications", "missing-limbic-layer"),
-    ("Applications", "swarm-propagator"),
-    ("Applications", "geographic-somatic-field"),
-    ("Universal theory", "universal-somatic-field"),
-    ("Universal theory", "zoomable-somatic-field"),
-    ("Universal theory", "experimental-validation"),
-    ("Universal theory", "cosmological-constant-derivation"),
-    ("Universal theory", "dark-matter-spatial-vacuum"),
-    ("Universal theory", "g2-symmetry-breaking"),
-    ("Gateway", "ttheory-phenomena"),
-    ("Appendices", "soma-temporal-dynamics"),
-    ("Appendices", "lean-proofs-appendix"),
-]
-
-_FRONTMATTER = re.compile(r"^---\n(.*?)\n---", re.DOTALL)
+_FRONTMATTER = re.compile(r"^---\n[\s\S]*?\n---\n\n?", re.MULTILINE)
+_REFERENCES = re.compile(r"\n#{1,3}\s+References\b[\s\S]*$", re.IGNORECASE)
 
 
-def get_metadata(slug: str) -> dict[str, object]:
-    source = PAPER_DIR / "soma" / slug / f"{slug}.md"
-    match = _FRONTMATTER.match(source.read_text(encoding="utf-8"))
-    return yaml.safe_load(match.group(1)) if match else {}
+def fail(message: str) -> None:
+    print(f"ERROR  {message}", file=sys.stderr)
+    raise SystemExit(1)
+
+
+def load_registry() -> tuple[dict[str, object], dict[str, dict[str, object]]]:
+    registry = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
+    collection = next(
+        (entry for entry in registry.get("collections", []) if entry.get("id") == COLLECTION_ID),
+        None,
+    )
+    if not collection:
+        fail(f"collection not found in registry: {COLLECTION_ID}")
+    entries = {
+        entry["slug"]: entry
+        for section in ("canonical_papers", "datasets")
+        for entry in registry.get(section, [])
+        if entry.get("slug")
+    }
+    members = collection.get("members")
+    if not isinstance(members, list) or not members:
+        fail(f"{COLLECTION_ID} requires a non-empty members list in PAPERS.yaml")
+    slugs = [member.get("slug") for member in members]
+    if any(not slug for slug in slugs) or len(slugs) != len(set(slugs)):
+        fail(f"{COLLECTION_ID} members must have unique non-empty slugs")
+    missing = [slug for slug in slugs if slug not in entries]
+    if missing:
+        fail(f"registry members not found in canonical records: {', '.join(missing)}")
+    return collection, entries
+
+
+def collection_frontmatter(collection: dict[str, object]) -> str:
+    required = ("title", "author", "orcid", "institute", "date", "description")
+    missing = [field for field in required if not collection.get(field)]
+    if missing:
+        fail(f"{COLLECTION_ID} missing front-matter fields: {', '.join(missing)}")
+    metadata = {field: collection[field] for field in required}
+    metadata.update({"bibliography": "bibliography.bib", "csl": "apa-7th.csl"})
+    return "---\n" + yaml.safe_dump(
+        metadata, allow_unicode=True, default_flow_style=False, sort_keys=False
+    ) + "---"
+
+
+def source_path(slug: str) -> Path:
+    return PAPER_DIR / "soma" / slug / f"{slug}.md"
+
+
+def body(slug: str) -> str:
+    path = source_path(slug)
+    if not path.is_file():
+        fail(f"missing omnibus member source: {path}")
+    text = _FRONTMATTER.sub("", path.read_text(encoding="utf-8"), count=1)
+    text = _REFERENCES.sub("", text)
+    return re.sub(r"^(#{1,5})(?= )", r"#\1", text, flags=re.MULTILINE).strip()
 
 
 def latex_text(value: object) -> str:
-    return (
-        str(value)
-        .replace("\\", r"\textbackslash{}")
-        .replace("&", r"\&")
-        .replace("%", r"\%")
-        .replace("_", r"\_")
-    )
+    return str(value).replace("\\", r"\textbackslash{}").replace("&", r"\&").replace("%", r"\%").replace("_", r"\_")
 
 
-def raw_latex(command: str) -> str:
-    return f"\n\n```{{=latex}}\n{command}\n```\n"
+def divider(title: str, slug: str) -> str:
+    return "\n\n```{=latex}\n" + f"\\omnipaperdivider{{{latex_text(title)}}}{{{latex_text(slug)}}}\n" + "```\n"
 
 
-def pdf_page_count(slug: str) -> int:
-    source = BLD_DIR / f"{slug}.pdf"
-    result = subprocess.run(
-        ["pdfinfo", str(source)], check=True, capture_output=True, text=True
-    )
-    match = re.search(r"^Pages:\s+(\d+)$", result.stdout, re.MULTILINE)
-    if not match:
-        raise RuntimeError(f"could not determine page count: {source}")
-    return int(match.group(1))
+def abstract(value: object) -> str:
+    return f"\n\n## Abstract\n\n{str(value).strip()}\n" if value else ""
 
 
 def main() -> None:
     BLD_DIR.mkdir(exist_ok=True)
-    output = [
-        FRONTMATTER,
-        raw_latex(r"\tableofcontents\cleardoublepage\chapter*{Collection Map}"),
-        "This volume preserves each paper as a complete facsimile, including its own title pages, contents, references, and local pagination.\n",
-    ]
+    collection, entries = load_registry()
+    sections = [collection_frontmatter(collection)]
 
-    # The cover, blank inside cover, master contents, and collection map end
-    # on physical page 8 in both editions. Track imported page counts from
-    # there because pdfpages does not advance memoir's page counter.
-    physical_pages = 8
-    for label, slug in STRUCTURE:
-        if physical_pages % 2:
-            output.append(raw_latex(r"\collectionblank"))
-            physical_pages += 1
-        metadata = get_metadata(slug)
-        title = latex_text(metadata.get("title", slug.replace("-", " ").title()))
-        output.append(
-            raw_latex(
-                f"\\omnipaperdivider{{{latex_text(label)}}}{{{title}}}{{{latex_text(slug)}}}"
-            )
-        )
-        output.append(
-            raw_latex(
-                rf"\includepdf[pages=-,artifact=false,pagecommand={{\thispagestyle{{empty}}}}]{{bld/{slug}.pdf}}"
-            )
-        )
-        physical_pages += 1 + pdf_page_count(slug)
+    for member in collection["members"]:
+        slug = member["slug"]
+        entry = entries[slug]
+        part = member.get("part")
+        if part:
+            prefix = "\\cleardoublepage\n\n"
+            if member.get("appendix"):
+                prefix += "\\appendix\n\n"
+            sections.append(prefix + f"\\part{{{latex_text(part)}}}\n")
+        source_body = body(slug)
+        sections.append(divider(str(entry["title"]), slug))
+        sections.append(abstract(entry.get("abstract")))
+        sections.append(f"\n\n# {entry['title']}\n\n{source_body}\n")
+        print(f"  + {slug}")
 
-    target = BLD_DIR / "papers-collection.md"
-    target.write_text("\n".join(output), encoding="utf-8")
+    output = "\n".join(sections)
+    target = BLD_DIR / "omnibus-body.md"
+    target.write_text(output, encoding="utf-8")
     print(f"Written: {target.relative_to(REPO_ROOT)}")
-    print(f"  Papers included: {len(STRUCTURE)}")
-    print(f"  Physical pages: {physical_pages}")
-    print("  Format: complete-PDF facsimiles with original local pagination")
+    print(f"  Papers merged: {len(collection['members'])}")
+    print(f"  Registry: {COLLECTION_ID} ({REGISTRY_PATH.name})")
 
 
 if __name__ == "__main__":

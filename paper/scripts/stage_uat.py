@@ -39,6 +39,8 @@ def main() -> None:
         source_paths.append(("Worksheet", track["worksheet"]))
     if track.get("readme"):
         source_paths.append(("Instructions", track["readme"]))
+    for relative_path in track.get("context_files", []):
+        source_paths.append(("Context", relative_path))
 
     for kind, relative_path in source_paths:
         source = U_ROOT / relative_path

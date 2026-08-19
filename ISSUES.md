@@ -290,7 +290,7 @@ other checks I am sure exist.
 
 ---
 
-## ISS-014: Open Problem 4 — Path-Dependence in Moduli Space — OPEN
+## ISS-014: Phase 2 research — Path-Dependence in Moduli Space — OPEN
 
 From paper section "Open Research Problems" (P11 zoomable-somatic-field).
 
@@ -364,3 +364,97 @@ Deferred because the build is slow. Do when CI/CD is set up (ISS-012).
 >   (doc-comment after `end` caused parse error); `BRECVEMAMatrix` → `Matrix (Fin 8) (Fin 8) ℝ`
 >   in `delta_W_dof` type (abbrev in existential binding was opaque).
 > Both files: build ⚠ (warnings + sorrys only, no errors).
+
+---
+
+## ISS-020: Registry-Driven Pandoc Lua Hooks — OPEN
+
+**Problem:** Paper and omnibus prose currently risks hand-written references to
+project-wide counts, DOI/status values, and cross-paper locations. Those links
+drift when the registry or collection changes.
+
+**Decision:** Lua-first for Pandoc rendering logic, project-wide. Use a Pandoc
+Lua filter, not Python string replacement, to resolve a small hook vocabulary
+from `Dist/PAPERS.yaml` during rendering. Candidate hooks include paper count,
+registered paper identity, DOI, status, and cross-paper reference.
+
+**Decision boundary:** `PAPERS.yaml` remains the sole source of release metadata.
+Lua may resolve only explicitly documented hooks. It must not become a general
+template language or silently rewrite scientific prose.
+
+**Next actions:**
+- [ ] Define the initial hook syntax and allowed registry fields.
+- [ ] Implement a Pandoc Lua filter with fixture-based pass/fail tests.
+- [ ] Add one real omnibus or paper use-case before expanding the vocabulary.
+
+**AI opinion:** Start this immediately. The existing Lua filters are cleanup
+filters, not a registry hook framework. A narrow, tested hook layer is a quick
+win; unrestricted macro substitution would recreate the drift it is meant to prevent.
+
+---
+
+## ISS-021: Shared Omnibus Document Model — OPEN
+
+**Problem:** C1v2 is a collected-work manuscript containing papers, a book,
+and appendices. C2 is likewise a book of domain books, additionally placing
+cheatsheets within its constituent books. The correct hierarchy for books,
+papers, abstracts, dividers, TOC depth, and appendices is not yet a settled
+registry-level document model.
+
+**External proposal considered:** Classify members as `book` or `paper`; promote
+book internal structure while keeping papers as atomic chapters. Render abstracts
+as short chapter summaries in the omnibus. Generate the synthesis table from the
+registry rather than retaining a hand-written copy in a paper forematter. The
+same model must cover C2's book members, with cheatsheets as registered inserts.
+
+**Decision boundary:** C1v2 and C2 should share one documented model with
+explicit per-member roles and insertion rules. C2's cheatsheets are an additional
+member-level insertion rule, not a separate architecture.
+
+**Next actions:**
+- [ ] Specify registry fields for member role, hierarchy treatment, abstract mode,
+   appendix mode, and optional insertions.
+- [ ] Write accepted page/TOC examples for C1v2 and C2 before changing renderers.
+- [ ] Prototype the book-member treatment on `soma-field-book`; compare with the
+   current merged output using focused format checks.
+- [ ] Move generated registry views such as the synthesis table out of handwritten
+   paper prose only after the document model is accepted.
+
+**AI opinion:** This is the highest-value design issue. Do not optimize the build
+until the intended reader-facing hierarchy is explicit and shared by C1v2/C2.
+
+---
+
+## ISS-022: Omnibus Build Modularity Evaluation — OPEN
+
+**Problem:** The current merge-then-render approach can create hidden coupling:
+a formatting or hierarchy change in one source can alter unrelated omnibus
+output. The question is not compile speed; it is whether explicit document
+boundaries make a book-of-books easier to reason about, test, and finish.
+
+**External proposal considered:** Generate per-member TeX files and assemble via
+LaTeX `subfiles`/`combine`, or pass the ordered Markdown list directly to Pandoc
+with Lua structural transforms. `subfiles.sty` is installed locally;
+`combine.sty` is not currently installed. The proposal also suggests removing
+the generated `omnibus-body.md` intermediate.
+
+**Decision boundary:** Do not replace the merged build merely because modular
+LaTeX is conventional. `subfiles` is appropriate only if child documents can
+share the master preamble while preserving a single registry-owned TOC,
+continuous pagination, citations, and quality gates. `combine` is not a
+current option. Any Lua/Pandoc approach must retain those same guarantees.
+
+**Next actions:**
+- [ ] Complete ISS-021's C1v2/C2 document model first.
+- [ ] Build a two-member `subfiles` prototype using registry-owned member roles.
+- [ ] Build an equivalent direct multi-file Pandoc + Lua prototype.
+- [ ] Compare isolation of local changes, TOC, citations, continuous pagination,
+   page references, and output stability.
+- [ ] Adopt only if it reduces integration coupling without creating a second
+   hard-coded member inventory.
+
+**AI opinion:** `subfiles` is the strongest existing-package candidate because
+it models a book of independently compilable documents; it is not yet proven
+compatible with the current Pandoc-generated TeX. Investigate after ISS-021,
+with Lua as the default metadata/structure layer. The acceptance test is easier
+integration and fewer unrelated regressions, not a faster build.

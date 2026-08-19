@@ -25,7 +25,7 @@ abstract: |
 
 # The Fixed-Point Property
 
-The Universal Somatic Field programme now includes companion papers on the
+The Universal Somatic Field programme [@johnson2026soma] now includes companion papers on the
 cosmological constant [@johnson2026cosconst] and spatial-vacuum dark matter
 [@johnson2026darkmatter]. They propose dimensional-partition accounts of these
 sectors and report leading-order numerical comparisons. The
@@ -55,7 +55,7 @@ The formal name for this property is a **fixed point under the scale
 functor**: when the Zoom Operator $\Lambda$ is applied to the theory as
 an object at Scale 9, the resulting field equation is isomorphic to the
 theory's own equations. The theory is a scale-invariant attractor of
-itself.
+itself, in the type-theoretic spirit of structural physics [@schreiber2013].
 
 ---
 
@@ -116,7 +116,8 @@ server networks as structured data. The cables do not carry the theory's
 meaning. They carry the field equations that define the theory's
 meaning. The meaning is reconstructed at each node (each reader, each
 AI model, each researcher) through the same process of field coupling
-that the theory describes at clinical scales.
+that the theory describes at clinical scales. The formal proof corpus is
+documented in [@johnson2026proofs].
 
 The formal identification is: **code is the Type-1 structural fact**
 [@johnson2026usf] of the theory — the durable crystallisation of a

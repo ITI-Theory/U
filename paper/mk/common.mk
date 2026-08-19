@@ -35,7 +35,7 @@ RENDER_COMMON := \
 
 # Core pandoc flags — factor the shared options first, then compose per target
 PANDOC_BASE := $(RENDER_COMMON) \
-  -V fontsize=12pt \
+  -V fontsize=11pt \
   -V linestretch=1.6 \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}"
 

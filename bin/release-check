@@ -37,16 +37,23 @@ fi
 # ── 3. Open research problems ──────────────────────────────────────────────
 hdr "3. Open research problems"
 
-# Problems 1+2 must be CLOSED (trivial proofs, no sorry)
-P1=$(grep -A1 "theorem greens_fn_is_SHO" paper/proofs/UniversalSomaticField.lean 2>/dev/null | grep -c "trivial" || echo 0)
-P2=$(grep -A1 "theorem X7_is_7D_product" paper/proofs/MTheoryIsomorphism.lean 2>/dev/null | grep -c "trivial" || echo 0)
-[[ "$P1" -ge 1 ]] && ok "Problem 1 CLOSED: greens_fn_is_SHO := trivial" || fail "Problem 1 NOT closed — greens_fn_is_SHO missing trivial proof"
-[[ "$P2" -ge 1 ]] && ok "Problem 2 CLOSED: X7_is_7D_product := trivial" || fail "Problem 2 NOT closed — X7_is_7D_product missing trivial proof"
+STALE_PROBLEMS=$(py paper/scripts/check_stale_problem_labels.py \
+  --pdf paper/bld/zoomable-somatic-field.pdf \
+  --pdf paper/bld/lean-proofs-appendix.pdf 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "No stale resolved-problem labels in P11 or proof appendix"
+else
+  fail "Stale resolved-problem labels found — rebuild affected candidate PDFs"
+  echo "$STALE_PROBLEMS" | sed 's/^/    /'
+fi
 
-# Problems 3-5 open — just list GAP/OP markers from proof files
-echo "  Open problems (GAP/OP markers in proofs):"
-grep -rn "GAP-[0-9]\|-- OP[0-9]" paper/proofs/*.lean 2>/dev/null | grep -v "CLOSED\|PROVED\|ISS-0" | sort -u | sed 's/^/    /'
-warn "Problems 3+ open — verify tracked in ISSUES.md (ISS-014 = Problem 4)"
+RESEARCH_GAPS=$(grep -rn "GAP-[0-9]\|-- OP[0-9]" paper/proofs/*.lean 2>/dev/null | grep -v "CLOSED\|PROVED\|ISS-0" | sort -u || true)
+if [[ -z "$RESEARCH_GAPS" ]]; then
+  ok "No explicit proof-level research gaps"
+else
+  warn "Explicit proof-level research gaps remain — verify ISSUES.md tracking"
+  echo "$RESEARCH_GAPS" | sed 's/^/    /'
+fi
 
 # ── 4. lean-proofs-appendix freshness ─────────────────────────────────────
 hdr "4. lean-proofs-appendix + omnibus freshness"

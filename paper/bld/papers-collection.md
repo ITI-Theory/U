@@ -65,6 +65,12 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
+\collectionblank
+```
+
+
+
+```{=latex}
 \omnipaperdivider{Foundations}{The Soma-Field: A Wave-Based Model of Emotional Dynamics and Its Clinical Implications}{soma-field-paper}
 ```
 
@@ -84,6 +90,12 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 ```{=latex}
 \includepdf[pages=-,artifact=false,pagecommand={\thispagestyle{empty}}]{bld/mathematical-co-identification.pdf}
+```
+
+
+
+```{=latex}
+\collectionblank
 ```
 
 
@@ -155,7 +167,7 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
-\omnipaperdivider{Clinical studies}{Sft Demo Case}{SFT-DEMO-CASE}
+\omnipaperdivider{Clinical studies}{SFT Applied: A Self-Case Analysis}{SFT-DEMO-CASE}
 ```
 
 
@@ -185,6 +197,12 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
+\collectionblank
+```
+
+
+
+```{=latex}
 \omnipaperdivider{Applications}{The Missing Limbic Layer: A Somatic Field Extension of Hopfield Networks via the Correspondence Principle}{missing-limbic-layer}
 ```
 
@@ -209,12 +227,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
-\collectionblank
-```
-
-
-
-```{=latex}
 \omnipaperdivider{Applications}{The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes}{geographic-somatic-field}
 ```
 
@@ -222,12 +234,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 ```{=latex}
 \includepdf[pages=-,artifact=false,pagecommand={\thispagestyle{empty}}]{bld/geographic-somatic-field.pdf}
-```
-
-
-
-```{=latex}
-\collectionblank
 ```
 
 
@@ -257,6 +263,12 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
+\collectionblank
+```
+
+
+
+```{=latex}
 \omnipaperdivider{Universal theory}{Experimental Benchmarks for the Universal Somatic Field Framework}{experimental-validation}
 ```
 
@@ -269,12 +281,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
-\collectionblank
-```
-
-
-
-```{=latex}
 \omnipaperdivider{Universal theory}{The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field}{cosmological-constant-derivation}
 ```
 
@@ -282,12 +288,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 ```{=latex}
 \includepdf[pages=-,artifact=false,pagecommand={\thispagestyle{empty}}]{bld/cosmological-constant-derivation.pdf}
-```
-
-
-
-```{=latex}
-\collectionblank
 ```
 
 
@@ -317,12 +317,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
-\collectionblank
-```
-
-
-
-```{=latex}
 \omnipaperdivider{Gateway}{The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Cultural Programme}{ttheory-phenomena}
 ```
 
@@ -335,12 +329,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 
 ```{=latex}
-\collectionblank
-```
-
-
-
-```{=latex}
 \omnipaperdivider{Appendices}{Temporal Dynamics of the Universal Somatic Field: Retarded Propagators, Transition Rates, and the Memory of Feeling}{soma-temporal-dynamics}
 ```
 
@@ -348,12 +336,6 @@ This volume preserves each paper as a complete facsimile, including its own titl
 
 ```{=latex}
 \includepdf[pages=-,artifact=false,pagecommand={\thispagestyle{empty}}]{bld/soma-temporal-dynamics.pdf}
-```
-
-
-
-```{=latex}
-\collectionblank
 ```
 
 

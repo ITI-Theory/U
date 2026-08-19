@@ -41,11 +41,11 @@ csl: "../../apa-7th.csl"
 ## 1 Motivation and Context
 
 The free-field USF was proved in the companion free-field paper to satisfy
-OS0–OS4 via its identification
-with the massive Gaussian Free Field. That result, though fundamental, covers
+OS0–OS4 via its identification with the massive Gaussian Free Field
+[@johnson2026usf; @douglas2026osgff; @osterwalder1973]. That result, though fundamental, covers
 only the linearised theory. The physical USF includes a Hopfield coupling
 $\kappa > 0$ that introduces non-linearity, attractor dynamics, and the
-pattern-completion behaviour that constitutes emotional memory.
+pattern-completion behaviour that constitutes emotional memory [@hopfield1982].
 
 The interacting theory is:
 
@@ -181,7 +181,8 @@ below $\kappa_c$ the field is in the Gaussian (healthy) phase with unique
 vacuum; at $\kappa_c$ the correlation length diverges; above $\kappa_c$ the
 symmetry breaks and the field settles into an attractor (trauma basin).
 
-This phase structure matches the clinical phenomenology:
+This phase structure matches the clinical phenomenology and the scale-dependent
+USF architecture [@johnson2026usf]:
 
 | Phase | $\kappa$ | Field state | Clinical analogue |
 |---|---|---|---|

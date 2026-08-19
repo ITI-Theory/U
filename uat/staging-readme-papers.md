@@ -23,12 +23,17 @@ notebook. The files include:
 - candidate PDFs;
 - `papers-omnibus-nlm-uat.md`, the versioned UAT worksheet and evidence log;
 - `MANIFEST.md`, which identifies the exact source artifacts and SHA-256 hashes.
+- `PAPERS.md`, a readable generated view of the master registry;
+- `BUILD_CONTEXT.md`, labeled build, format, TeX, Make, and validation sources;
+- `papers-build-review.md` and `dev-handover.md`, context for architectural review.
 
 ## What To Do In NotebookLM
 
 The instruction above directs NotebookLM to `papers-omnibus-nlm-uat.md`, which
 contains every question, evidence rule, completed finding, and acceptance
-decision. Do not use chat history as a release input.
+decision. Use `PAPERS.md` for registry questions and `BUILD_CONTEXT.md` plus
+the two review documents for build/format questions. Do not use chat history
+as a release input.
 
 ## What To Do After NotebookLM
 

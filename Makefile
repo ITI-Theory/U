@@ -53,6 +53,7 @@ uat-check:
 # Copy the selected candidate PDFs into ignored UAT staging directories and
 # record their SHA-256 hashes. The manifest is U/uat/manifest.yaml.
 uat-stage-papers: registry-papers
+	$(MAKE) -C paper uat-context-papers
 	py paper/scripts/stage_uat.py papers
 
 uat-stage-ttheory: registry-fractal

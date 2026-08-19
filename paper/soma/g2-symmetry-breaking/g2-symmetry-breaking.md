@@ -12,7 +12,8 @@ abstract: |
   $G_2$-invariant component and $\delta W$ is a traceless symmetry-breaking term.
   The $G_2$-symmetric limit $W_{G_2}$ corresponds to perfectly balanced emotional
   processing — all eight BRECVEMA mechanisms equally coupled, no directional
-  anisotropy. The empirical biological matrix $W_8$ (calibrated from Juslin 2019)
+  anisotropy. The empirical biological matrix $W_8$ (calibrated from Juslin 2019
+  [@juslin2019musical])
   is $48.4\%$ symmetry-broken from this ideal: $\|\delta W\|_F / \|W_8\|_F = 0.484$.
   The symmetry-breaking modes are traceless (their eigenvalues sum to zero) and
   correspond to specific emotional dynamics: strong positive anisotropy in the
@@ -31,8 +32,9 @@ abstract: |
 three non-compact spatial dimensions of the USF and derived the cosmological
 energy budget from the dimensional partition $11 = 7 + 3 + 1$. The compact sector
 In an M-theory compactification interpretation, a compact seven-manifold may
-carry $G_2$ holonomy. The current USF formal core proves only a well-defined
-flat 7D product for $X_7$. But the biological emotional field is 8-dimensional
+carry $G_2$ holonomy [@witten1995; @horava1996; @berger1955; @joyce1996]. The
+current USF formal core proves only a well-defined flat 7D product for $X_7$
+[@johnson2026usf]. But the biological emotional field is 8-dimensional
 (BRECVEMA, eight mechanisms). How does its algebraic structure relate to a
 seven-dimensional compact-sector interpretation?
 
@@ -75,7 +77,8 @@ maximal symmetry — no directional anisotropy, no preferred emotional mode.
 
 # The Decomposition of W₈
 
-The empirical matrix $W_8$ (calibrated from Juslin 2019, Table 22.3) has
+The empirical matrix $W_8$ (calibrated from Juslin 2019 [@juslin2019musical,
+Table 22.3]) has
 diagonal entries all equal to $\tfrac{6}{5}$ and non-zero off-diagonal entries:
 
 | Coupling | Value |

@@ -45,25 +45,21 @@ _MULTI_DOCS  := $(foreach d,$(ALL_DOCS),$(if $(filter multi,$($(d).langs)),$(d),
 PDFS_DE := $(addprefix $(BUILDDIR)/, $(addsuffix .de.pdf, $(_MULTI_DOCS)))
 PDFS_FR := $(addprefix $(BUILDDIR)/, $(addsuffix .fr.pdf, $(_MULTI_DOCS)))
 PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
-OMNIBUS_PDF_SOURCES := $(addprefix $(BUILDDIR)/,$(addsuffix .pdf, \
-	soma-field-synthesis soma-field-book the-tensor soma-field-paper \
-	mathematical-co-identification quantum-soma-penrose soma-physical-substrate \
-	music-affect-dynamics gestalt-field-dynamics soma-field-patient-pov \
-	SFT-DEMO-CASE preverbal-manifold missing-limbic-layer swarm-propagator \
-	geographic-somatic-field universal-somatic-field zoomable-somatic-field \
-	experimental-validation cosmological-constant-derivation \
-	dark-matter-spatial-vacuum g2-symmetry-breaking ttheory-phenomena \
-	soma-temporal-dynamics))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all help omnibus omnibus-royal omnibus-a4 check-omnibus-format check-individual-format check-glyph-warnings \
+.PHONY: all help omnibus omnibus-royal omnibus-a4 glyph-papers uat-context-papers check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
 	clean check setup freeze \
 	de fr it translations translations-clean translate translate-deepl everything-bundle
 
 all: $(_ALL_EN_PDFS) omnibus | $(BUILDDIR)
+
+glyph-papers: $(_ALL_EN_PDFS) lean-appendix
+
+uat-context-papers:
+	$(PYTHON) $(SCRIPTS)/generate_uat_context.py
 
 help:
 	@echo "Soma-Field Papers -- PDF Build System"
@@ -121,14 +117,14 @@ OMNIBUS_A4_FLAGS := $(OMNIBUS_BASE) \
   -V "geometry=a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm" \
   -V fontsize=10pt
 
-omnibus-royal: omnibus.tex unicode-math-text.tex $(OMNIBUS_PDF_SOURCES) lean-appendix | $(BUILDDIR)
+omnibus-royal: omnibus.tex unicode-math-text.tex lean-appendix | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
-	$(PANDOC) $(BUILDDIR)/papers-collection.md -o $(BUILDDIR)/omnibus-royal.pdf $(OMNIBUS_ROYAL_FLAGS)
+	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-royal.pdf $(OMNIBUS_ROYAL_FLAGS)
 	@echo "Built: $(BUILDDIR)/omnibus-royal.pdf"
 
-omnibus-a4: omnibus.tex unicode-math-text.tex $(OMNIBUS_PDF_SOURCES) lean-appendix | $(BUILDDIR)
+omnibus-a4: omnibus.tex unicode-math-text.tex lean-appendix | $(BUILDDIR)
 	$(PYTHON) $(SCRIPTS)/build_omnibus.py
-	$(PANDOC) $(BUILDDIR)/papers-collection.md -o $(BUILDDIR)/omnibus-a4.pdf $(OMNIBUS_A4_FLAGS)
+	$(PANDOC) $(BUILDDIR)/omnibus-body.md -o $(BUILDDIR)/omnibus-a4.pdf $(OMNIBUS_A4_FLAGS)
 	@echo "Built: $(BUILDDIR)/omnibus-a4.pdf"
 
 omnibus: omnibus-a4
@@ -139,6 +135,12 @@ check-omnibus-format: omnibus-a4
 PAPER ?= soma-field-synthesis
 check-individual-format: $(BUILDDIR)/$(PAPER).pdf
 	$(PYTHON) $(SCRIPTS)/check_individual_format.py $(BUILDDIR)/$(PAPER).pdf
+
+check-paper-figures: $(BUILDDIR)/$(PAPER).pdf
+	$(PYTHON) $(SCRIPTS)/check_paper_figures.py $(PAPER) --pdf $(BUILDDIR)/$(PAPER).pdf
+
+check-paper-references: $(BUILDDIR)/$(PAPER).pdf
+	$(PYTHON) $(SCRIPTS)/check_paper_references.py $(PAPER) --pdf $(BUILDDIR)/$(PAPER).pdf
 
 check-glyph-warnings:
 	$(PYTHON) $(SCRIPTS)/check_glyph_warnings.py

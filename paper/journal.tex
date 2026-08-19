@@ -27,11 +27,11 @@
 % 4. Section headings  (\needspace prevents orphaned headers at bottom of page)
 \usepackage{needspace}
 \usepackage{titlesec}
-\titleformat{\part}[display]{\needspace{8\baselineskip}\LARGE\bfseries\sffamily\color{heading}\centering}{Part \thepart}{12pt}{\Huge\bfseries}
-\titleformat{\chapter}{\needspace{8\baselineskip}\huge\bfseries\sffamily\color{heading}}{\thechapter.}{0.5em}{}[{\color{rulecolor}\hrule height 0.6pt}]
-\titleformat{\section}{\needspace{5\baselineskip}\Large\bfseries\sffamily\color{heading}}{\thesection}{0.8em}{{\color{rulecolor}\hrule height 0.6pt}\vspace{3pt}}[]
-\titleformat{\subsection}{\needspace{4\baselineskip}\large\bfseries\sffamily\color{heading}}{\thesubsection}{0.8em}{}
-\titleformat{\subsubsection}{\needspace{3\baselineskip}\normalsize\itshape\sffamily\color{heading}}{\thesubsubsection}{0.8em}{}
+\titleformat{\part}[display]{\needspace{12\baselineskip}\LARGE\bfseries\sffamily\color{heading}\centering}{Part \thepart}{12pt}{\Huge\bfseries}
+\titleformat{\chapter}{\needspace{12\baselineskip}\huge\bfseries\sffamily\color{heading}}{\thechapter.}{0.5em}{}[{\color{rulecolor}\hrule height 0.6pt}]
+\titleformat{\section}{\needspace{10\baselineskip}\Large\bfseries\sffamily\color{heading}}{\thesection}{0.8em}{{\color{rulecolor}\hrule height 0.6pt}\vspace{3pt}}[]
+\titleformat{\subsection}{\needspace{7\baselineskip}\large\bfseries\sffamily\color{heading}}{\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}{\needspace{5\baselineskip}\normalsize\itshape\sffamily\color{heading}}{\thesubsubsection}{0.8em}{}
 \titlespacing*{\chapter}{0pt}{20pt plus 6pt minus 4pt}{10pt}
 \titlespacing*{\section}{0pt}{16pt plus 4pt minus 2pt}{6pt}
 \titlespacing*{\subsection}{0pt}{12pt plus 3pt minus 2pt}{3pt}
@@ -41,6 +41,10 @@
 \widowpenalty=9999
 \clubpenalty=9999
 \displaywidowpenalty=9999
+\brokenpenalty=10000
+\predisplaypenalty=10000
+\usepackage{float}
+\floatplacement{figure}{H}
 
 % 5. Running headers
 \usepackage{fancyhdr}
@@ -123,19 +127,28 @@
 \newcommand{\usfrectostart}{%
   \clearpage
   \ifodd\value{page}
+  \else
     \thispagestyle{empty}\null\clearpage
   \fi
 }
 \let\usf@endabstract\endabstract
+\let\usf@abstract\abstract
+\renewcommand{\abstract}{\usf@abstract\thispagestyle{empty}}
+\AtBeginEnvironment{abstract}{\thispagestyle{empty}}
+\AtEndEnvironment{abstract}{\thispagestyle{empty}}
 \renewcommand{\endabstract}{%
   \usf@endabstract
-  \usfrectostart
+  \clearpage
+  \thispagestyle{empty}\null\clearpage
 }
 \let\usf@tableofcontents\tableofcontents
 \renewcommand{\tableofcontents}{%
+  \pagenumbering{arabic}%
+  \setcounter{page}{1}%
   \usf@tableofcontents
   \usfrectostart
 }
+\usepackage{etoolbox}
 \makeatother
 
 % ---------------------------------------------------------------------------

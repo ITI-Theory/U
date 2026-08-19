@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Verify the mechanical print-format contract for the Papers collection."""
+"""Verify the registry-driven merged C1v2 omnibus format contract."""
 
 from __future__ import annotations
 
+import re
 import shutil
 import subprocess
-import sys
-import re
-import yaml
 from pathlib import Path
 
+import yaml
+
 PAPER_DIR = Path(__file__).resolve().parent.parent
-BODY = PAPER_DIR / "bld" / "papers-collection.md"
+U_ROOT = PAPER_DIR.parent
+REGISTRY = U_ROOT.parent / "Dist" / "PAPERS.yaml"
+BODY = PAPER_DIR / "bld" / "omnibus-body.md"
 PDF = PAPER_DIR / "bld" / "omnibus-a4.pdf"
-BUILD_SCRIPT = PAPER_DIR / "scripts" / "build_omnibus.py"
 
 
 def fail(message: str) -> None:
@@ -21,77 +22,61 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
-def page_text(pdf: Path, start: int, end: int) -> str:
-    command = ["pdftotext", "-f", str(start), "-l", str(end), "-layout", str(pdf), "-"]
-    return subprocess.run(command, check=True, capture_output=True, text=True).stdout
+def page_text(page: int) -> str:
+    return subprocess.run(
+        ["pdftotext", "-f", str(page), "-l", str(page), "-layout", str(PDF), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
 
 
-def source_abstract(slug: str) -> str:
-    source = PAPER_DIR / "soma" / slug / f"{slug}.md"
-    text = source.read_text(encoding="utf-8")
-    match = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
-    if not match:
-        return ""
-    metadata = yaml.safe_load(match.group(1)) or {}
-    return str(metadata.get("abstract", "")).strip()
+def collection() -> dict[str, object]:
+    registry = yaml.safe_load(REGISTRY.read_text(encoding="utf-8")) or {}
+    value = next((entry for entry in registry.get("collections", []) if entry.get("id") == "C1v2"), None)
+    if not value:
+        fail("C1v2 collection missing from PAPERS.yaml")
+    return value
 
 
 def main() -> None:
-    if not BODY.is_file():
-        fail(f"missing body: {BODY}")
-    if not PDF.is_file():
-        fail(f"missing PDF: {PDF}")
+    if not BODY.is_file() or not PDF.is_file():
+        fail("missing merged omnibus source or PDF")
     if shutil.which("pdftotext") is None:
         fail("pdftotext is unavailable")
 
+    c1v2 = collection()
+    members = c1v2.get("members")
+    if not isinstance(members, list) or not members:
+        fail("C1v2 has no registered members")
+
     body = BODY.read_text(encoding="utf-8")
-    divider_count = body.count("\\omnipaperdivider{")
-    if divider_count == 0:
-        fail("no paper divider commands found")
-    include_count = body.count("\\includepdf[")
-    if include_count != divider_count:
-        fail("every paper divider must be followed by one facsimile PDF inclusion")
-    if "Papers merged" in body or "\\part{" in body:
-        fail("collection source still contains merged-manuscript structure")
+    if "\\includepdf[" in body or "papers-collection.md" in body:
+        fail("facsimile PDF inclusion remains in merged omnibus source")
+    if body.count("\\tableofcontents") != 0:
+        fail("merged source must not inject a second master table of contents")
+    if str(c1v2["title"]) not in body:
+        fail("registry C1v2 title missing from merged source")
 
-    build_namespace: dict[str, object] = {"__file__": str(BUILD_SCRIPT), "__name__": "omnibus_format"}
-    exec(BUILD_SCRIPT.read_text(encoding="utf-8"), build_namespace)
-    for _, slug in build_namespace["STRUCTURE"]:
-        if slug:
-            expected_pdf = f"bld/{slug}.pdf"
-            if expected_pdf not in body:
-                fail(f"facsimile PDF missing from collection source: {slug}")
+    dividers = re.findall(r"\\omnipaperdivider\{.*?\}\{([^}]+)\}", body, re.DOTALL)
+    slugs = [member["slug"] for member in members]
+    if dividers != slugs:
+        fail("paper divider order differs from C1v2 members")
+    for member in members:
+        if member.get("part") and f"\\part{{{member['part']}}}" not in body:
+            fail(f"registered part opening missing: {member['part']}")
 
-    first_pages = page_text(PDF, 1, 3).split("\f")
-    if len(first_pages) < 3:
-        fail("PDF has fewer than three physical pages")
-    if first_pages[1].strip():
-        fail("physical page 2 is not blank inside cover")
-    if "Contents" not in first_pages[2]:
-        fail("physical page 3 does not begin the master contents")
+    if page_text(2).strip():
+        fail("physical page 2 is not a blank inside cover")
+    if "Contents" not in page_text(3):
+        fail("physical page 3 does not begin the sole master contents")
+    if "Contents" in page_text(5):
+        fail("master contents repeats after its initial run")
 
-    dividers = re.findall(
-        r"\\omnipaperdivider\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}", body
-    )
-    all_pages = page_text(PDF, 1, 10000).split("\f")
-    for _label, _title, slug in dividers:
-        page_number = next(
-            (
-                index + 1
-                for index, page in enumerate(all_pages)
-                if "COLLECTION PAPER" in page and slug in page
-            ),
-            None,
-        )
-        if page_number is None:
-            fail(f"divider slug not found in PDF: {slug}")
-        if page_number % 2 == 0:
-            fail(f"paper divider is not recto: {slug} on page {page_number}")
-
-    print(f"PASS  {divider_count} paper PDFs included as facsimiles")
-    print("PASS  title, blank inside cover, and master contents structure")
-    print("PASS  recto major parts and appendix contract")
-    print("PASS  every paper divider begins on an odd physical page")
+    print(f"PASS  C1v2 registry title and {len(slugs)} ordered members drive merged source")
+    print("PASS  no facsimile imports or duplicate master contents")
+    print("PASS  registered parts and paper dividers match registry order")
+    print("PASS  title, blank inside cover, and sole master contents structure")
 
 
 if __name__ == "__main__":

@@ -5,6 +5,11 @@ papers:
   purpose: "Scientific papers and C1v2 omnibus acceptance"
   worksheet: uat/papers-omnibus-nlm-uat.md
   readme: uat/staging-readme-papers.md
+  context_files:
+    - paper/bld/uat-context/PAPERS.md
+    - paper/bld/uat-context/BUILD_CONTEXT.md
+    - uat/papers-build-review.md
+    - uat/dev-handover.md
   files:
     - paper/bld/omnibus-a4.pdf
     - paper/bld/lean-proofs-appendix.pdf

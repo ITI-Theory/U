@@ -10,7 +10,7 @@ format checks enforce the parts that can be verified automatically.
 - A blank inside-cover is physical page 2.
 - For an individual paper, the abstract begins recto on physical page 3.
 - A blank abstract verso is physical page 4; the table of contents begins
-  recto on physical page 5.
+  recto on physical page 5 and begins its own printed folio sequence at 1.
 - Deliberately inserted blank pages contain no text and occur only on even
   physical pages.
 - The master table of contents begins on physical page 3.
@@ -18,20 +18,20 @@ format checks enforce the parts that can be verified automatically.
 - Every contained work begins recto (an odd physical page).
 - A contained work begins with a divider page that names the work clearly.
 - Major appendices begin recto and have a prose-to-proof separation page.
-- A collection preserves the local pagination of each contained work; the PDF
-  viewer's physical page count provides the bound-volume position.
+- The omnibus carries one continuous pagination and one master table of
+  contents; it does not reproduce individual-paper front matter or local TOCs.
 - Mathematical Unicode in prose and code listings is rendered through TeX math;
   the monospaced code font must not be relied on for mathematical glyphs.
 
 ## Papers Omnibus Profile
 
-- `omnibus-a4.pdf` and `omnibus-royal.pdf` are facsimile collections of
-  complete individual paper PDFs, not merged Markdown bodies.
-- The master contents lists the contained papers; internal paper headings stay
-  in their own PDFs and their own tables of contents.
-- Each canonical paper gets a named recto divider stating its collection label,
-  title, and source slug before its facsimile.
-- The Lean proof appendix remains a complete standalone appendix PDF.
+- `omnibus-a4.pdf` and `omnibus-royal.pdf` are a single merged manuscript.
+- C1v2 in `Dist/PAPERS.yaml` owns its title, front matter, ordered members, and
+  part openings; the build script contains no duplicate collection inventory.
+- The master contents lists the merged hierarchy once; included paper-local
+  covers, abstracts, TOCs, pagination, and reference sections are not repeated.
+- Each canonical paper gets a named recto divider before its merged body.
+- The Lean proof appendix is merged as the final registered appendix.
 
 ## Individual Paper Profile
 
@@ -39,6 +39,8 @@ format checks enforce the parts that can be verified automatically.
   inside-cover page.
 - The abstract occupies the following recto page without contents material.
 - A blank verso follows the abstract; the table of contents begins recto.
+- The table of contents begins at printed page 1, independently of the cover
+  and preliminary physical leaves.
 - After the table of contents, the first numbered section begins recto.
 - This rule applies to every individual paper rendered through `journal.tex`.
 

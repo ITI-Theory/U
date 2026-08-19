@@ -310,9 +310,9 @@ The Python `Protocol` has the same four methods (`dim`, `energy`,
         """\
 The `T_TheoryUniverse` dependent structure: [T]-Theory encoded as a
 Lean type where the *type* of the field layer changes with scale.
-4 of 21 scales upgraded from `String` to real types (Open Problem 3
-partial closure): `CellularSynapse→Field8`, `BrainCEMI→CemiField`,
-`OrganismBody→Field8`, `SwarmCrowd→SwarmState 8`.
+Nineteen of twenty-one scales use real Physlib or SFT types; only
+`PlanckFoam` and `StringScale` retain boundary `String` tags while suitable
+quantum-gravity modules remain unavailable.
 `human_swarm_same_rank` proves both governed by rank-2 tensors.""",
     ),
     (

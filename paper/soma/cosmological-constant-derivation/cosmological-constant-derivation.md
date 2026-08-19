@@ -31,7 +31,8 @@ $$\rho_\Lambda^\text{ZPE} = \frac{1}{2}\int_0^{k_c}\frac{d^3k}{(2\pi)^3}
 
 For a string-scale cutoff $k_c = \ell_s^{-1} \approx 10/\ell_P$, this gives
 $\Lambda_\text{ZPE} \approx 6 \times 10^{64}$ m$^{-2}$, overshooting the observed
-value $\Lambda_\text{obs} \approx 1.09 \times 10^{-52}$ m$^{-2}$ by $10^{117}$.
+value $\Lambda_\text{obs} \approx 1.09 \times 10^{-52}$ m$^{-2}$ by $10^{117}$
+[@planck2018cosmology].
 
 The USF reframing abandons this calculation entirely. Instead, we identify $\Lambda$
 with the **vacuum field amplitude** at the cosmological scale, not with the
@@ -76,7 +77,10 @@ $0.4\,M_\text{Pl}$ — a natural Planck-scale value at the compactification boun
 
 ## Derivation of $\Phi_0 \sim M_\text{Pl}$ from compactification
 
-The USF is a tensor field on $M_{11} = M_4 \times X_7$. At the Planck scale
+The USF is a tensor field on $M_{11} = M_4 \times X_7$, following the
+eleven-dimensional compactification setting of M-theory [@witten1995] and its
+manifold-with-boundary extension [@horava1996]. The USF scale architecture and
+Zoom Operator are developed in [@johnson2026usf]. At the Planck scale
 ($\sigma = 0$), the field amplitude is set by the compactification scale:
 $$\Phi_0^{(\sigma=0)} \sim \ell_P^{-1} = M_\text{Pl}/(\hbar c)$$
 
@@ -132,6 +136,9 @@ total dimensions:
 The leading-order vacuum energy partition fraction is:
 $$\Omega_\text{vac}^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.636$$
 
+The complementary non-compact spatial-sector accounting is developed in the
+companion dark-matter analysis [@johnson2026darkmatter].
+
 **Origin of the factor of 3.** The standard definition of critical density,
 $\rho_\text{crit} = 3H^2/(8\pi G)$, introduces a factor of 3 relative to bare
 energy densities. The cosmological constant inherits this factor:
@@ -165,7 +172,8 @@ check: $\rho_\Lambda$ is constant while $\rho_\text{crit}(t)$ varies.
 ## Lean 4 formalisation mapping
 
 The structural claims of this paper are formalised in
-`paper/proofs/CosmologicalConstant.lean` and `UniversalSomaticField.lean`:
+`paper/proofs/CosmologicalConstant.lean` and `UniversalSomaticField.lean`,
+using Lean 4 [@leanprover2021]:
 
 | Statement | Lean name | Status |
 |---|---|---|
@@ -195,7 +203,7 @@ The structural claims of this paper are formalised in
    with non-local Green function propagators, UV-finiteness is naturally
    enforced via boundary-condition regulation rather than counter-term
    subtraction. For the free field (proved via OS axioms), UV-finiteness
-   follows directly from OS3 reflection positivity. For the interacting field,
+  follows directly from OS3 reflection positivity [@osterwalder1973]. For the interacting field,
   this is the open programme of *Osterwalder–Schrader Axioms for the
   Interacting Universal Somatic Field*.
 
@@ -248,7 +256,7 @@ energy. Any detection of $w \neq -1$ would **falsify this paper's claim** that
 $\Lambda$ is a classical USF condensate; it would require either a dynamical
 (quintessence) field or a modification to the USF framework at Scale 19–20.
 
-*Current status (DESI 2025, arXiv:2503.14738):* The tension is
+*Current status (DESI 2025, arXiv:2503.14738 [@desi2025dr1]):* The tension is
 **strongly dataset-dependent**:
 
 | Dataset combination | $w_0$ | $\sigma$ from $w_0=-1$ | Consistent with USF? |
