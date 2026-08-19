@@ -383,9 +383,14 @@ Lua may resolve only explicitly documented hooks. It must not become a general
 template language or silently rewrite scientific prose.
 
 **Next actions:**
-- [ ] Define the initial hook syntax and allowed registry fields.
-- [ ] Implement a Pandoc Lua filter with fixture-based pass/fail tests.
+- [x] Define the initial hook syntax and allowed registry fields.
+- [x] Implement a Pandoc Lua filter with fixture-based pass/fail tests.
 - [ ] Add one real omnibus or paper use-case before expanding the vocabulary.
+
+**Prototype result (2026-08-19):** `paper/registry-hooks.lua` resolves
+`{{papers.count}}`, `{{paper:ID.title|doi|status}}`, and
+`{{collection:ID.title|status}}` directly from `PAPERS.yaml`; its Pandoc
+fixture passes. This is the project-wide rendering-hook foundation.
 
 **AI opinion:** Start this immediately. The existing Lua filters are cleanup
 filters, not a registry hook framework. A narrow, tested hook layer is a quick
@@ -446,15 +451,23 @@ current option. Any Lua/Pandoc approach must retain those same guarantees.
 
 **Next actions:**
 - [ ] Complete ISS-021's C1v2/C2 document model first.
-- [ ] Build a two-member `subfiles` prototype using registry-owned member roles.
+- [x] Build a two-member `subfiles` prototype using registry-owned member roles.
+- [x] Test the installed `combine` class using its documented invocation.
 - [ ] Build an equivalent direct multi-file Pandoc + Lua prototype.
 - [ ] Compare isolation of local changes, TOC, citations, continuous pagination,
    page references, and output stability.
 - [ ] Adopt only if it reduces integration coupling without creating a second
    hard-coded member inventory.
 
-**AI opinion:** `subfiles` is the strongest existing-package candidate because
-it models a book of independently compilable documents; it is not yet proven
-compatible with the current Pandoc-generated TeX. Investigate after ISS-021,
-with Lua as the default metadata/structure layer. The acceptance test is easier
-integration and fewer unrelated regressions, not a faster build.
+**Prototype result (2026-08-19):** `subfiles` compiles the two-member master
+and each child independently under XeLaTeX, sharing the master preamble and
+master TOC. `combine` is installed but fails even under its canonical example
+with `Extra \endgroup` on `\begin{document}`; its own documentation also warns
+that citations and TOCs are local to imports and that modified LaTeX internals
+may produce grouping errors. Rule out `combine` for C1v2/C2.
+
+**AI opinion:** `subfiles` is the only viable installed package candidate. It
+models separately compilable documents without `combine`'s incompatible
+document-boundary surgery. Investigate it after ISS-021, with Lua as the
+default metadata/structure layer. The acceptance test is easier integration and
+fewer unrelated regressions, not a faster build.

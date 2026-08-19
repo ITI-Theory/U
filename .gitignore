@@ -64,4 +64,5 @@ instrument/quantum_*.csv
 
 # Translation chunk cache (resume state, intermediate only)
 paper/bld/.chunk_cache/
+paper/prototypes/modular-omnibus/bld/
 paper/bld/translate.log

@@ -48,7 +48,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all help omnibus omnibus-royal omnibus-a4 glyph-papers uat-context-papers check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
+.PHONY: all help omnibus omnibus-royal omnibus-a4 glyph-papers uat-context-papers check-registry-hooks check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
 	clean check setup freeze \
@@ -60,6 +60,9 @@ glyph-papers: $(_ALL_EN_PDFS) lean-appendix
 
 uat-context-papers:
 	$(PYTHON) $(SCRIPTS)/generate_uat_context.py
+
+check-registry-hooks:
+	$(PYTHON) $(SCRIPTS)/check_registry_hooks.py
 
 help:
 	@echo "Soma-Field Papers -- PDF Build System"
