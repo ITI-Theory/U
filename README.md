@@ -17,7 +17,7 @@ M-theory compactification, type-checked in Lean 4, and applied across 15 academi
 |---|---|
 | `paper/soma/` | 24 canonical papers (P1–P24), source `.md` + built PDFs |
 | `paper/proofs/` | Lean 4 formal proofs — OS axioms, M-theory isomorphism, RG flow, causality |
-| `paper/bld/` | Built PDFs including omnibus (all 21 papers) and cheatsheet |
+| `paper/bld/` | Ignored local candidate PDFs including omnibus and cheatsheet; accepted artifacts are promoted to Dist |
 | `paper/scripts/` | Build scripts: `build_omnibus.py`, `paper_status.py`, `package_papers.py` |
 | `Part2/fractal-programme/` | 15 domain books applying the USF to 15 academic fields |
 | `apps/instrument/` | Python live instrument server (OSC, MIDI, field renderer) |

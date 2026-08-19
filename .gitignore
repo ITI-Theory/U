@@ -28,6 +28,11 @@ __pycache__/
 *.fls
 *.fdb_latexmk
 
+# Candidate PDFs and assembled manuscript bodies stay local to U. Accepted
+# release artifacts are promoted deliberately to the Dist repository.
+/paper/bld/
+/Part2/fractal-programme/bld/
+
 # Instrument session logs
 instrument/logs/
 

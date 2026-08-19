@@ -6,7 +6,10 @@ This repository must maintain a predictable checkout state.
 
 Required rules:
 
-1. Generated artifacts are not committed unless explicitly release-critical.
+1. Generated artifacts are not committed in U unless explicitly release-critical.
+   `paper/bld/` and `Part2/fractal-programme/bld/` are ignored local candidate
+   trees; accepted PDFs are promoted deliberately to Dist, the distribution
+   repository.
 2. Work in two phases:
    - content/source edits,
    - optional artifact regeneration for release.
