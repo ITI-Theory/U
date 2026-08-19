@@ -12,6 +12,8 @@ camera.position.set(0, 0.55, 8.3);
 
 const root = new THREE.Group();
 scene.add(root);
+const rockProjection = new THREE.Group();
+scene.add(rockProjection);
 const cyan = new THREE.Color('#14e5ff');
 const violet = new THREE.Color('#8f47ff');
 const pink = new THREE.Color('#ff3bce');
@@ -185,6 +187,7 @@ const fieldLabels = [
   ['MIND', 'D9-11 / CORTEX FIELD', pink, [2.45, 2.63, 0]],
   ['EMF', 'GREEN FUNCTION / WHOLE-BODY RESPONSE', emfGreen, [2.45, -1.12, 0]],
 ];
+const fieldLabelMarkers = [];
 for (const [label, detail, color, position] of fieldLabels) {
   const sprite = document.createElement('canvas');
   sprite.width = 640; sprite.height = 150;
@@ -196,7 +199,7 @@ for (const [label, detail, color, position] of fieldLabels) {
   context.font = 'bold 20px monospace'; context.fillStyle = '#eaf5ff'; context.fillText(detail, 24, 112);
   const texture = new THREE.CanvasTexture(sprite);
   const marker = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.96 }));
-  marker.position.fromArray(position); marker.scale.set(2.16, 0.5, 1); scene.add(marker);
+  marker.position.fromArray(position); marker.scale.set(2.16, 0.5, 1); scene.add(marker); fieldLabelMarkers.push(marker);
 }
 
 const grid = new THREE.GridHelper(12, 30, 0x12384b, 0x0b1928);
@@ -209,31 +212,58 @@ for (let index = 0; index < 650; index += 1) starPositions.push((Math.random() -
 stars.geometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
 scene.add(stars);
 
+// 4D projection: inert spacetime worldline and planetary/rock shell.
+const rockMaterial = new THREE.MeshBasicMaterial({ color: 0x7e858d, wireframe: true, transparent: true, opacity: 0 });
+const rock = new THREE.Mesh(new THREE.IcosahedronGeometry(1.25, 3), rockMaterial);
+rock.position.set(0, 0, 0);
+rockProjection.add(rock);
+const worldline = new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, -3.5, 0), new THREE.Vector3(0, 3.5, 0)]),
+  new THREE.LineBasicMaterial({ color: 0x9ba3ad, transparent: true, opacity: 0 }),
+);
+rockProjection.add(worldline);
+
 const scaleProfiles = [
-  ['QUANTUM FOAM', 'k0 = lP^-1', 'M11 = M4 x P3 x L1 x C3'], ['STRING SCALE', 'Gstring(s,s\') = -(alpha\'/2) ln|s-s\'|^2', 'SHO = Green function'],
-  ['NUCLEAR', 'Gnuc(r) = e^(-mpi r) / (4 pi r)', 'massive carrier'], ['ATOMIC', 'GEM(r) = 1 / (4 pi r)', 'massless Coulomb limit'],
-  ['MOLECULAR', '(nabla^2 + k^2) G = delta', 'conformational attractors'], ['CELLULAR / NEURAL', 'E(s) = -(1/2) s^T W s', 'synaptic transfer'],
-  ['BRAIN / CEMI', 'phi >= Tc = sqrt(2)', 'physical brain field / threshold'], ['ORGANISM', '(nabla^2 + k^2) G = delta', 'nervous electricity -> full-body EMF response'],
-  ['ANIMAL SWARM', 'G replaces iterative messaging', 'macroscopic brane projection'], ['SOCIETY / CITY', 'P(si -> 1) = sigma(sum Gij sj - theta)', 'social kernel'],
-  ['GEOLOGICAL', 'k = omega / vP', 'seismic Green function'], ['PLANETARY', '(nabla^2 + k^2) G = delta', 'planetary modes'],
-  ['ORBITAL', 'G(r) ~ 1/r', 'gravitational propagation'], ['STELLAR', 'G(r) ~ 1/r', 'stellar field'],
-  ['COMPACT OBJECT', 'GR propagator', 'boundary geometry'], ['GALACTIC', 'Gsigma = Gsigma+1', 'scale covariance'],
-  ['GALACTIC HALO', 'OmegaDM = 3/11', 'spatial vacuum fraction'], ['LARGE SCALE', 'k(sigma) = k0 / Lambda^sigma', 'geometric RG flow'],
-  ['COSMIC WEB', 'Lambda : sigma -> k(sigma)', 'type-safe scale invariance'], ['OBSERVABLE UNIVERSE', 'LambdaUSF = (21/11) H0^2 / c^2', 'OmegaDM = 3/11 / Omegavac = 7/11'],
+  ['QUANTUM FOAM', '10^-35 m', '10^35 m^-1', 'infinity'], ['STRING SCALE', '10^-32 m', '10^32 m^-1', '10^500'],
+  ['NUCLEAR', '10^-15 m', '10^15 m^-1', '10^5'], ['ATOMIC', '10^-10 m', '10^10 m^-1', '10^2'],
+  ['MOLECULAR', '10^-9 m', '10^9 m^-1', '10^3'], ['CELLULAR / NEURAL', '10^-6 m', '10^3 m^-1', '10^4'],
+  ['BRAIN / CEMI', '10^-1 m', '40 m^-1', '10^14'], ['ORGANISM', '10^0 m', 'k_tissue', '10^14-10^15'],
+  ['HUMAN / VERTEBRATE', '10^0-10^1 m', 'k_tissue', '11D active'], ['SOCIETY / CITY', '10^3 m', '10^-3 m^-1', '10^3 modes'],
+  ['GEOLOGICAL', '10^5 m', 'omega / vP', 'earth modes'], ['PLANETARY', '10^6 m', 'k_planet', '1'],
+  ['ORBITAL', '10^9 m', '1/r', '1'], ['STELLAR', '10^11 m', '1/r', '1'],
+  ['COMPACT OBJECT', '10^10 m', 'k_GR', '1'], ['GALACTIC', '10^20 m', 'k_gal', '1'],
+  ['GALACTIC HALO', '10^22 m', 'k_halo', '1'], ['LARGE SCALE', '10^24 m', 'k0 / Lambda^17', '1'],
+  ['COSMIC WEB', '10^25 m', 'k0 / Lambda^18', '1'], ['OBSERVABLE UNIVERSE', '10^26 m', 'H0 / c', '1'],
 ];
-const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 7, brecvema: false };
+const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 8, brecvema: false };
 for (const name of ['somatic', 'limbic', 'cognitive', 'scale']) document.querySelector(`#${name}`).addEventListener('input', event => { state[name] = Number(event.target.value); updateScaleReadout(); });
 const scaleReadout = document.querySelector('#scale-readout');
 const equationTitle = document.querySelector('#equation-title');
 const equationPrimary = document.querySelector('#equation-primary');
 const equationSecondary = document.querySelector('#equation-secondary');
+const projectionReadout = document.querySelector('#projection-readout');
+const dimensionReadout = document.querySelector('#dimension-readout');
+const wavenumberReadout = document.querySelector('#wavenumber-readout');
+const lengthReadout = document.querySelector('#length-readout');
+const rankReadout = document.querySelector('#rank-readout');
+const typeStatus = document.querySelector('#type-status');
 const brecvemaButton = document.querySelector('#brecvema');
 function updateScaleReadout() {
-  const [label, equation, detail] = scaleProfiles[state.scale];
+  const [label, length, wavenumber, rank] = scaleProfiles[state.scale];
+  const isHuman = state.scale === 8;
+  const isFeeling = state.scale === 6;
+  const isProjection = state.scale >= 12;
   scaleReadout.textContent = `SIGMA ${String(state.scale).padStart(2, '0')} / ${label}`;
-  equationTitle.textContent = `ACTIVE SCALE: ${label}`;
-  equationPrimary.textContent = equation;
-  equationSecondary.textContent = detail;
+  projectionReadout.textContent = isHuman ? '11D THINKING MIND / M11 ACTIVE' : isFeeling ? '8D FEELING ORGANISM / M4 + P3 + L1' : isProjection ? '4D SPACETIME PROJECTION / M4 ONLY' : 'PROPAGATOR-BOUND SCALE STATE';
+  equationTitle.textContent = `DEPENDENT PAIR AT SIGMA ${String(state.scale).padStart(2, '0')}`;
+  equationPrimary.textContent = 'SomaField = SUM(sigma:Scale20) Substrate(sigma)';
+  equationSecondary.textContent = 'Lambda: Substrate(sigma) -> Substrate(sigma + 1)';
+  dimensionReadout.textContent = isHuman ? 'M4 + P3 + L1 + C3 = 11D' : isFeeling ? 'M4 + P3 + L1 = 8D' : isProjection ? 'M4 = 4D / worldline only' : 'Substrate-dependent projection';
+  wavenumberReadout.textContent = wavenumber;
+  lengthReadout.textContent = length;
+  rankReadout.textContent = rank;
+  typeStatus.textContent = isHuman ? 'LEAN: SCALE-COMPATIBLE / HUMAN OPERATORS ENABLED' : isFeeling ? 'LEAN: FEELING ORGANISM / CORTEX UNAVAILABLE' : isProjection ? 'LEAN TYPE ERROR: BRECVEMA REQUIRES ORGANISM SUBSTRATE' : 'LEAN: SCALE TRANSITION / SUBSTRATE CONSTRAINED';
+  typeStatus.classList.toggle('error', !isHuman && state.brecvema);
 }
 brecvemaButton.addEventListener('click', () => {
   state.brecvema = !state.brecvema;
@@ -241,6 +271,7 @@ brecvemaButton.addEventListener('click', () => {
   brecvemaButton.classList.toggle('active', state.brecvema);
   brecvemaButton.setAttribute('aria-pressed', String(state.brecvema));
   brecvemaButton.textContent = state.brecvema ? 'BRECVEMA / P.N.S. ACTIVE' : 'BRECVEMA / P.N.S.';
+  updateScaleReadout();
 });
 updateScaleReadout();
 
@@ -252,36 +283,46 @@ function frame() {
   root.rotation.y = Math.sin(time * 0.18) * 0.24;
   root.rotation.x = Math.sin(time * 0.13) * 0.035;
   const scaleFraction = state.scale / 19;
+  const humanWeight = Math.max(0, 1 - Math.abs(state.scale - 8) / 2);
+  const feelingWeight = Math.max(0, 1 - Math.abs(state.scale - 6) / 3);
+  const rockWeight = state.scale >= 12 ? Math.min(1, (state.scale - 11) / 3) : 0;
+  const isProjection = state.scale >= 12;
+  root.visible = !isProjection;
+  for (const marker of fieldLabelMarkers) marker.visible = !isProjection;
   root.scale.setScalar(1);
+  root.position.y = 0;
+  rockProjection.scale.setScalar(0.75 + rockWeight * 0.75);
+  rockMaterial.opacity = rockWeight * 0.75;
+  worldline.material.opacity = rockWeight * 0.78;
   brecvemaLayer.rotation.y = time * 0.16;
   const somaticPulse = 1 + state.somatic * (0.08 + Math.sin(time * 2.2) * 0.05);
   somaticRing.scale.setScalar(somaticPulse * (1 + scaleFraction * 0.12)); somaticRing.material.opacity = 0.25 + state.somatic * 0.7;
-  somaCore.material.opacity = 0.08 + state.somatic * 0.42;
+  somaCore.material.opacity = (0.08 + state.somatic * 0.42) * Math.max(feelingWeight, humanWeight);
   for (const [index, layer] of somaDimensions.entries()) {
     layer.scale.setScalar(1 + scaleFraction * 0.16 + state.somatic * (0.08 + index * 0.025) + Math.sin(time * 1.6 + index) * 0.025);
     layer.material.opacity = 0.18 + state.somatic * 0.5;
   }
-  limbicRing.scale.setScalar(1 + state.limbic * (0.12 + Math.sin(time * 1.5) * 0.07)); limbicRing.material.opacity = 0.2 + state.limbic * 0.75;
-  limbicCore.material.opacity = 0.2 + state.limbic * 0.75;
-  thresholdRing.position.y = 2.4 + state.cognitive * 0.75; thresholdRing.material.opacity = 0.2 + state.cognitive * 0.8;
-  cortex.material.opacity = 0.18 + state.cognitive * 0.75;
-  brainPhysical.material.opacity = 0.3 + state.cognitive * 0.65;
-  neuralMaterial.opacity = 0.3 + state.cognitive * 0.62;
+  limbicRing.scale.setScalar(1 + state.limbic * (0.12 + Math.sin(time * 1.5) * 0.07)); limbicRing.material.opacity = (0.2 + state.limbic * 0.75) * feelingWeight;
+  limbicCore.material.opacity = (0.2 + state.limbic * 0.75) * feelingWeight;
+  thresholdRing.position.y = 2.4 + state.cognitive * 0.75; thresholdRing.material.opacity = (0.2 + state.cognitive * 0.8) * humanWeight;
+  cortex.material.opacity = (0.18 + state.cognitive * 0.75) * humanWeight;
+  brainPhysical.material.opacity = (0.3 + state.cognitive * 0.65) * humanWeight;
+  neuralMaterial.opacity = (0.3 + state.cognitive * 0.62) * feelingWeight;
   const emfAmplitude = 0.06 + (state.somatic + state.cognitive) * 0.1;
-  emfShell.material.opacity = emfAmplitude;
-  emfHalo.material.opacity = emfAmplitude * 0.5;
-  emfCloud.material.opacity = 0.06 + state.cognitive * 0.2;
+  emfShell.material.opacity = emfAmplitude * feelingWeight;
+  emfHalo.material.opacity = emfAmplitude * 0.5 * feelingWeight;
+  emfCloud.material.opacity = (0.06 + state.cognitive * 0.2) * feelingWeight;
   emfCloud.material.size = 0.015 + state.cognitive * 0.025;
   emfCloud.rotation.y = time * 0.045;
   emfShell.scale.set(1.08 + Math.sin(time * 1.4) * state.cognitive * 0.035, 1 + Math.sin(time * 1.2) * 0.025, 0.72);
   for (const [index, contour] of emfContours.entries()) {
     contour.scale.setScalar(1 + state.cognitive * 0.16 + Math.sin(time * 1.1 + index) * 0.045);
-    contour.material.opacity = 0.05 + state.cognitive * 0.18;
+    contour.material.opacity = (0.05 + state.cognitive * 0.18) * feelingWeight;
   }
   stars.material.size = 0.018 + scaleFraction * 0.032;
   stars.material.opacity = 0.28 + scaleFraction * 0.52;
-  for (const mesh of body) mesh.material.opacity = 0.32 + state.somatic * 0.52;
-  for (const line of limbs) line.material.opacity = 0.35 + state.somatic * 0.55;
+  for (const mesh of body) mesh.material.opacity = (0.18 + state.somatic * 0.5) * (1 - rockWeight * 0.9);
+  for (const line of limbs) line.material.opacity = (0.25 + state.somatic * 0.5) * (1 - rockWeight * 0.9);
   renderer.render(scene, camera); requestAnimationFrame(frame);
 }
 frame();

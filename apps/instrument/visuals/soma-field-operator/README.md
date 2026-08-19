@@ -30,9 +30,15 @@ The scene exposes three normalised fields in `[0, 1]`:
 
 ## Splash-page layers
 
+- **Organism hierarchy**: the default $\sigma=8$ state is the 11D thinking
+	human ($M_4 + P_3 + L_1 + C_3$). At $\sigma=6$, the cortex is unavailable
+	and the scene shows the 8D feeling organism ($M_4 + P_3 + L_1$). At
+	planetary/orbital scales ($\sigma\ge12$), the internal structure is projected
+	away into an inert 4D rock/worldline ($M_4$).
 - **Zoom Operator**: selects $\sigma \in \{0,\ldots,19\}$ and updates the
-	active substrate label, field spread, and equation watermark. The operator
-	uses $k(\sigma) = k_0 / \Lambda^\sigma$ as its scale-law reference.
+	active substrate label, field spread, $k$, characteristic length $\ell$, mind
+	matrix rank $N$, and equation ledger. The operator uses
+	$k(\sigma) = k_0 / \Lambda^\sigma$ as its scale-law reference.
 - **BRECVEMA / P.N.S.**: reveals the eight mechanism channels -- BrainStem,
 	Rhythmic Entrainment, Evaluative Conditioning, Contagion, Visual Imagery,
 	Episodic Memory, Musical Expectancy, and Aesthetic Judgement -- converging
