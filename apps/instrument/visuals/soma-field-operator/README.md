@@ -5,15 +5,18 @@ projection work, and non-medical field figures.
 
 ## Visual language
 
-- Cyan and hot pink: D1-4 somatic field layers through the body and lower torso
-- Electric blue: D5-7 nervous-system tract and cortical branching
+- Cyan and hot pink: D1-4 somatic field layers through the whole body
+- Gold: D5-7 physical nervous system, including spinal and peripheral electrical pathways
+- Green: EMF / Green-function response shell extending around the complete body
 - Electric violet: D8 limbic coupling core in the thorax
-- Hot pink: D9-11 cortical threshold/cognitive layer
+- Hot pink: D9-11 non-physical cortex/mind field around the physical brain
 - Articulated male-coded wireframe: a symbolic field substrate, not anatomy or a clinical claim
 
 The live and exported composition must read in this order: **BODY** (D1-4),
-**LIMBIC** (D8), then **MIND** (D5-7 plus D9-11). The oversized field labels
-are deliberate projection and landing-page anchors, not UI decoration.
+**NERVES** (D5-7), **LIMBIC** (D8), then **MIND** (D9-11). The green EMF
+shell makes the causal relation visible: electrical nervous-system activity
+produces a whole-body field response. The oversized labels are deliberate
+projection and landing-page anchors, not UI decoration.
 
 ## Runtime contract
 

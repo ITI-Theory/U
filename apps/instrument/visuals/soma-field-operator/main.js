@@ -16,6 +16,8 @@ const cyan = new THREE.Color('#14e5ff');
 const violet = new THREE.Color('#8f47ff');
 const pink = new THREE.Color('#ff3bce');
 const blue = new THREE.Color('#287dff');
+const gold = new THREE.Color('#f6c75a');
+const emfGreen = new THREE.Color('#56f0a2');
 
 function wireSphere(radius, color, position, scale = [1, 1, 1], opacity = 0.65) {
   const geometry = new THREE.SphereGeometry(radius, 18, 12);
@@ -71,10 +73,10 @@ const limbs = [
   ...[...shoulders, ...elbows, ...wrists, ...hips, ...knees, ...ankles].map(point => joint(point)),
 ];
 
-// Eight neural dimensions: a visible spinal tract and branching cortical lattice.
+// Physical nervous system: electrical pathways through the complete body.
 const neural = new THREE.Group();
 root.add(neural);
-const neuralMaterial = new THREE.LineBasicMaterial({ color: blue, transparent: true, opacity: 0.78 });
+const neuralMaterial = new THREE.LineBasicMaterial({ color: gold, transparent: true, opacity: 0.82 });
 const spinePoints = [];
 for (let y = -0.2; y < 2.45; y += 0.11) spinePoints.push(new THREE.Vector3(Math.sin(y * 8) * 0.03, y, 0.11));
 neural.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(spinePoints), neuralMaterial));
@@ -84,9 +86,53 @@ for (let index = 0; index < 12; index += 1) {
   neural.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, y, 0.11), endpoint]), neuralMaterial));
 }
 
-const cortex = wireSphere(0.38, blue, [0, 2.88, 0.02], [1.02, 0.72, 0.9], 0.78);
+const nerveRoutes = [
+  [[0, 1.85, 0.08], shoulders[0], elbows[0], wrists[0]],
+  [[0, 1.85, 0.08], shoulders[1], elbows[1], wrists[1]],
+  [[0, -0.28, 0.08], hips[0], knees[0], ankles[0]],
+  [[0, -0.28, 0.08], hips[1], knees[1], ankles[1]],
+];
+for (const route of nerveRoutes) {
+  neural.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(route.map(point => new THREE.Vector3(...point))), neuralMaterial));
+  for (let index = 0; index < route.length - 1; index += 1) {
+    const start = new THREE.Vector3(...route[index]);
+    const end = new THREE.Vector3(...route[index + 1]);
+    const direction = end.clone().sub(start);
+    const segment = wireCapsule(0.027, Math.max(0.02, direction.length() - 0.05), gold, start.clone().add(end).multiplyScalar(0.5).toArray(), [0, 0, 0], 0.86);
+    segment.material.wireframe = false;
+    segment.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+    neural.add(segment);
+  }
+}
+
+const brainPhysical = wireSphere(0.33, gold, [0, 2.84, 0.06], [1.0, 0.7, 0.86], 0.92);
+brainPhysical.material.wireframe = false;
+brainPhysical.material.opacity = 0.62;
+const cortex = wireSphere(0.52, pink, [0, 2.9, 0.02], [1.08, 0.76, 0.95], 0.34);
 const limbicCore = wireSphere(0.27, violet, [0, 1.7, 0.1], [1.15, 0.72, 0.82], 0.85);
 const somaCore = wireSphere(0.82, pink, [0, 0.42, 0.03], [0.88, 1.35, 0.62], 0.22);
+
+// Green EMF response shell: a full-body propagator field sourced by neural activity.
+const emfField = new THREE.Group();
+root.add(emfField);
+const emfShell = wireCapsule(1.08, 4.5, emfGreen, [0, 0.08, -0.03], [0, 0, 0], 0.12);
+emfShell.scale.set(1.08, 1, 0.72);
+emfField.add(emfShell);
+const emfHalo = wireCapsule(1.28, 4.72, emfGreen, [0, 0.08, -0.05], [0, 0, 0], 0.035);
+emfHalo.scale.set(1.02, 1, 0.62);
+emfField.add(emfHalo);
+const emfCloudPositions = [];
+for (let index = 0; index < 420; index += 1) {
+  const angle = Math.random() * Math.PI * 2;
+  const height = -2.75 + Math.random() * 5.8;
+  const radius = 0.95 + Math.random() * 0.5;
+  emfCloudPositions.push(Math.cos(angle) * radius, height, Math.sin(angle) * radius * 0.6);
+}
+const emfCloud = new THREE.Points(
+  new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(emfCloudPositions, 3)),
+  new THREE.PointsMaterial({ color: emfGreen, size: 0.025, transparent: true, opacity: 0.18 }),
+);
+emfField.add(emfCloud);
 
 // BRECVEMA: eight peripheral mechanism channels converging on the D8 limbic core.
 const brecvemaLayer = new THREE.Group();
@@ -124,11 +170,20 @@ const somaticRing = ring(1.06, cyan, 0.12);
 const limbicRing = ring(0.9, violet, 1.68);
 const thresholdRing = ring(0.64, pink, 2.86);
 const somaDimensions = [-0.82, -0.48, -0.12, 0.25].map((y, index) => ring(0.78 + index * 0.09, index % 2 ? cyan : pink, y));
+const emfContours = [-1.55, -0.3, 0.95, 2.2].map((y, index) => {
+  const contour = ring(1.14 + index * 0.08, emfGreen, y);
+  contour.rotation.y = index % 2 ? Math.PI / 5 : -Math.PI / 6;
+  contour.material.opacity = 0.16;
+  emfField.add(contour);
+  return contour;
+});
 
 const fieldLabels = [
-  ['BODY', 'D1-4 / SOMA', cyan, [-2.35, -0.22, 0]],
-  ['LIMBIC', 'D8 / COUPLING', violet, [2.25, 1.58, 0]],
-  ['MIND', 'D5-7 NEURAL + D9-11 CORTEX', pink, [2.15, 2.35, 0]],
+  ['BODY', 'D1-4 / SOMA', cyan, [0, -2.5, 0]],
+  ['NERVES', 'D5-7 / ELECTRICAL P.N.S.', gold, [2.65, 0.25, 0]],
+  ['LIMBIC', 'D8 / COUPLING', violet, [2.65, 1.48, 0]],
+  ['MIND', 'D9-11 / CORTEX FIELD', pink, [2.45, 2.63, 0]],
+  ['EMF', 'GREEN FUNCTION / WHOLE-BODY RESPONSE', emfGreen, [2.45, -1.12, 0]],
 ];
 for (const [label, detail, color, position] of fieldLabels) {
   const sprite = document.createElement('canvas');
@@ -141,7 +196,7 @@ for (const [label, detail, color, position] of fieldLabels) {
   context.font = 'bold 20px monospace'; context.fillStyle = '#eaf5ff'; context.fillText(detail, 24, 112);
   const texture = new THREE.CanvasTexture(sprite);
   const marker = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.96 }));
-  marker.position.fromArray(position); marker.scale.set(2.42, 0.57, 1); root.add(marker);
+  marker.position.fromArray(position); marker.scale.set(2.16, 0.5, 1); scene.add(marker);
 }
 
 const grid = new THREE.GridHelper(12, 30, 0x12384b, 0x0b1928);
@@ -158,7 +213,7 @@ const scaleProfiles = [
   ['QUANTUM FOAM', 'k0 = lP^-1', 'M11 = M4 x P3 x L1 x C3'], ['STRING SCALE', 'Gstring(s,s\') = -(alpha\'/2) ln|s-s\'|^2', 'SHO = Green function'],
   ['NUCLEAR', 'Gnuc(r) = e^(-mpi r) / (4 pi r)', 'massive carrier'], ['ATOMIC', 'GEM(r) = 1 / (4 pi r)', 'massless Coulomb limit'],
   ['MOLECULAR', '(nabla^2 + k^2) G = delta', 'conformational attractors'], ['CELLULAR / NEURAL', 'E(s) = -(1/2) s^T W s', 'synaptic transfer'],
-  ['BRAIN / CEMI', 'phi >= Tc = sqrt(2)', 'consciousness threshold'], ['ORGANISM', 'M11 = M4 x P3 x L1 x C3', 'full 11D soma field'],
+  ['BRAIN / CEMI', 'phi >= Tc = sqrt(2)', 'physical brain field / threshold'], ['ORGANISM', '(nabla^2 + k^2) G = delta', 'nervous electricity -> full-body EMF response'],
   ['ANIMAL SWARM', 'G replaces iterative messaging', 'macroscopic brane projection'], ['SOCIETY / CITY', 'P(si -> 1) = sigma(sum Gij sj - theta)', 'social kernel'],
   ['GEOLOGICAL', 'k = omega / vP', 'seismic Green function'], ['PLANETARY', '(nabla^2 + k^2) G = delta', 'planetary modes'],
   ['ORBITAL', 'G(r) ~ 1/r', 'gravitational propagation'], ['STELLAR', 'G(r) ~ 1/r', 'stellar field'],
@@ -210,7 +265,19 @@ function frame() {
   limbicCore.material.opacity = 0.2 + state.limbic * 0.75;
   thresholdRing.position.y = 2.4 + state.cognitive * 0.75; thresholdRing.material.opacity = 0.2 + state.cognitive * 0.8;
   cortex.material.opacity = 0.18 + state.cognitive * 0.75;
-  neuralMaterial.opacity = 0.22 + state.cognitive * 0.7;
+  brainPhysical.material.opacity = 0.3 + state.cognitive * 0.65;
+  neuralMaterial.opacity = 0.3 + state.cognitive * 0.62;
+  const emfAmplitude = 0.06 + (state.somatic + state.cognitive) * 0.1;
+  emfShell.material.opacity = emfAmplitude;
+  emfHalo.material.opacity = emfAmplitude * 0.5;
+  emfCloud.material.opacity = 0.06 + state.cognitive * 0.2;
+  emfCloud.material.size = 0.015 + state.cognitive * 0.025;
+  emfCloud.rotation.y = time * 0.045;
+  emfShell.scale.set(1.08 + Math.sin(time * 1.4) * state.cognitive * 0.035, 1 + Math.sin(time * 1.2) * 0.025, 0.72);
+  for (const [index, contour] of emfContours.entries()) {
+    contour.scale.setScalar(1 + state.cognitive * 0.16 + Math.sin(time * 1.1 + index) * 0.045);
+    contour.material.opacity = 0.05 + state.cognitive * 0.18;
+  }
   stars.material.size = 0.018 + scaleFraction * 0.032;
   stars.material.opacity = 0.28 + scaleFraction * 0.52;
   for (const mesh of body) mesh.material.opacity = 0.32 + state.somatic * 0.52;
