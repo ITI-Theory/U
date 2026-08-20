@@ -1,0 +1,309 @@
+# Operator Theory Contract
+# Canonical data contract for the Soma Field Operator UI.
+# PAPERS.yaml remains the publication registry; this file defines visual/theory navigation.
+
+schema_version: 1
+app:
+  id: soma-field-operator
+  role: "Interactive presentation and exploration layer above the [T]-Theory Cheat Sheets"
+  scope: "Models the theory's stated structures and source links, not the universe itself"
+  source_of_truth:
+    - "paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md"
+    - "Part2/fractal-programme/cheatsheets/"
+  provenance_policy:
+    formal: "Only statements linked to a paper/proof source may be labelled formal or verified."
+    interpretive: "Cross-domain visual mappings are labelled interpretive hypotheses."
+    clinical: "Human clinical vocabulary is never projected onto non-human scales without an explicit retyping note."
+
+morphisms:
+  zoom_operator:
+    symbol: "Lambda_sigma"
+    type: "Substrate(sigma) -> Substrate(sigma + 1)"
+    inverse: "Pi_sigma: Substrate(sigma + 1) -> Substrate(sigma)"
+    meaning: "Scale change preserves a declared structural invariant while retyping the substrate and observables."
+    required_ui:
+      - "Every step from sigma 0 through sigma 19 changes the scene, substrate, observable, and equation ledger."
+      - "Forward and reverse controls expose the source and target scale explicitly."
+      - "The UI never implies that human-scale variables retain their literal units at another scale."
+  hierarchy_projection:
+    symbol: "pi_11_to_8_to_4"
+    type: "M11 -> M8 -> M4"
+    meaning: "Complexity projection, independent of zoom."
+    levels:
+      M4: "physical spacetime substrate; body/worldline representation"
+      M8: "M4 + P3 + L1; propagator plus regulation/attractor representation"
+      M11: "M4 + P3 + L1 + C3; integrated cortex/matrix representation"
+
+layers:
+  M4:
+    dimensions: "D1-4"
+    label: "SPACETIME / SUBSTRATE"
+    visual: "Grey wireframe or scale-specific material/worldline geometry"
+    status: formal
+  P3:
+    dimensions: "D5-7"
+    label: "PROPAGATOR / GREEN RESPONSE"
+    visual: "One field-response volume, not multiple duplicate rings"
+    status: formal
+  L1:
+    dimensions: "D8"
+    label: "REGULATION / ATTRACTOR AXIS"
+    visual: "Double-well potential, barrier depth, transition trajectory"
+    status: formal_at_organism_scale
+  C3:
+    dimensions: "D9-11"
+    label: "CORTEX / MATRIX GEOMETRY"
+    visual: "Head-local fractal and matrix-spectrum geometry"
+    status: formal_at_organism_scale
+
+affect_operator:
+  working_name: "BRECVEMA dynamics"
+  terminology_status: pending_confirmation
+  principle: "Affect dynamics may be rendered at every scale only after variables are retyped for that substrate."
+  human_scale:
+    status: sourced
+    source: "P9 music-affect-dynamics and the Cheat Sheets"
+    model: "Music-induced mechanisms act as forcing functions on a 16-dimensional soma-field state."
+    state_space: "e(t) in [0,1]^16: eight somatic and eight cognitive affect-mode intensities."
+    mechanisms:
+      - {
+          id: B,
+          name: "Brainstem reflex",
+          effect: "Fast sensory salience forcing",
+          parameter: "J(t)",
+          field_action: "Injects a transient source into the field",
+        }
+      - {
+          id: R,
+          name: "Rhythmic entrainment",
+          effect: "Synchronisation with periodic drive",
+          parameter: "gamma",
+          field_action: "Modulates damping and phase locking",
+        }
+      - {
+          id: E1,
+          name: "Evaluative conditioning",
+          effect: "Learned cue association",
+          parameter: "b",
+          field_action: "Shifts the attractor bias vector",
+        }
+      - {
+          id: C,
+          name: "Emotional contagion",
+          effect: "Interpersonal coupling",
+          parameter: "kappa",
+          field_action: "Changes coupling to an external field",
+        }
+      - {
+          id: V,
+          name: "Visual imagery",
+          effect: "Internally generated representation",
+          parameter: "J_internal(t)",
+          field_action: "Adds an endogenous source trajectory",
+        }
+      - {
+          id: E2,
+          name: "Episodic memory",
+          effect: "Past event reactivation",
+          parameter: "K(tau)",
+          field_action: "Reweights the memory kernel",
+        }
+      - {
+          id: M,
+          name: "Musical expectancy",
+          effect: "Anticipated resolution or violation",
+          parameter: "Delta V",
+          field_action: "Creates transient wells and barriers",
+        }
+      - {
+          id: A,
+          name: "Aesthetic judgement",
+          effect: "Appraisal of form and value",
+          parameter: "b",
+          field_action: "Shifts the cognitive bias vector",
+        }
+    controls:
+      - "BreCVEMA mechanism channels"
+      - "attractor depth"
+      - "field temperature"
+      - "coupling / entrainment"
+  cross_scale:
+    status: interpretive_hypothesis
+    guardrail: "Do not claim that a city, planet, or universe has human emotions. Render homologous regulation, memory, coupling, and attractor dynamics instead."
+    ui_mode: "AFFECT DYNAMICS: OFF | INTERPRETIVE | HUMAN-CLINICAL"
+    modes:
+      off: "Hides affect overlay; formal field/scale information remains visible."
+      interpretive: "Shows retyped dynamics: stability, forcing, memory, coupling, and attractor transitions at the selected scale."
+      human_clinical: "Available only at declared organism/clinical scales; exposes BRECVEMA labels and clinical language."
+
+zoom_levels:
+  - {
+      sigma: 0,
+      label: "Quantum foam",
+      substrate: "vacuum fluctuation",
+      visual_mode: "quantum-lattice",
+      observable: "hbar_geo / tau_m",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 1,
+      label: "String scale",
+      substrate: "worldsheet / compactification",
+      visual_mode: "compactification",
+      observable: "mode spectrum",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 2,
+      label: "Nuclear",
+      substrate: "nuclear field",
+      visual_mode: "nuclear-shell",
+      observable: "binding response",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 3,
+      label: "Atomic",
+      substrate: "atomic field",
+      visual_mode: "orbital-field",
+      observable: "Coulomb kernel",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 4,
+      label: "Molecular",
+      substrate: "molecular landscape",
+      visual_mode: "molecular-network",
+      observable: "folding basin",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 5,
+      label: "Cellular / neural",
+      substrate: "cell and local EMF",
+      visual_mode: "cell-field",
+      observable: "membrane response",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 6,
+      label: "Local circuit",
+      substrate: "cortical column",
+      visual_mode: "circuit-field",
+      observable: "oscillation / coherence",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 7,
+      label: "Whole brain",
+      substrate: "global somatic field",
+      visual_mode: "brain-field",
+      observable: "percept threshold",
+      affect_mode: "human-clinical",
+    }
+  - {
+      sigma: 8,
+      label: "Human / vertebrate",
+      substrate: "11D organism",
+      visual_mode: "organism",
+      observable: "M4 + P3 + L1 + C3",
+      affect_mode: "human-clinical",
+    }
+  - {
+      sigma: 9,
+      label: "Dyadic",
+      substrate: "two-person field",
+      visual_mode: "dyadic-coupling",
+      observable: "rapport / locking",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 10,
+      label: "Group / swarm",
+      substrate: "collective field",
+      visual_mode: "swarm",
+      observable: "coordination / spectral gap",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 11,
+      label: "Community",
+      substrate: "social network",
+      visual_mode: "network",
+      observable: "trust / coupling",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 12,
+      label: "Regional",
+      substrate: "cultural field",
+      visual_mode: "regional-flow",
+      observable: "memory / diffusion",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 13,
+      label: "Civilisational",
+      substrate: "institutional field",
+      visual_mode: "civilisation",
+      observable: "attractor landscape",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 14,
+      label: "Species",
+      substrate: "evolutionary field",
+      visual_mode: "species-tree",
+      observable: "selection / memory",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 15,
+      label: "Geological",
+      substrate: "tectonic soma",
+      visual_mode: "tectonic",
+      observable: "strain / fault memory",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 16,
+      label: "Planetary",
+      substrate: "planetary field",
+      visual_mode: "planetary",
+      observable: "global modes",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 17,
+      label: "Stellar",
+      substrate: "stellar field",
+      visual_mode: "stellar",
+      observable: "helioseismic modes",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 18,
+      label: "Galactic",
+      substrate: "galactic field",
+      visual_mode: "galactic",
+      observable: "lensing kernel",
+      affect_mode: "interpretive",
+    }
+  - {
+      sigma: 19,
+      label: "Observable universe",
+      substrate: "cosmological field",
+      visual_mode: "cosmic-web",
+      observable: "Lambda_USF / H0",
+      affect_mode: "interpretive",
+    }
+
+implementation_requirements:
+  - "Read zoom_levels from this contract; remove hard-coded scale profiles from main.js."
+  - "Each zoom level must change composition, camera framing, motion, labels, and ledger; labels alone are insufficient."
+  - "Hierarchy control and zoom control remain independent axes."
+  - "The current 4D/8D/11D organism scene is the sigma 8 visual mode, not the universal fallback."
+  - "Add a Cheat Sheet drawer with source title, claim status, and deep link per selected scale/layer."
+  - "Add a claim badge: FORMAL, SOURCED, or INTERPRETIVE."
+  - "Replace the BRECVEMA overlay toggle with a selectable eight-mechanism inspector: full name, effect, affected parameter, field action, and highlighted route into L1."
+  - "Use explicit transition states while a scene morphs between scales."

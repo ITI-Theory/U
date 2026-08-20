@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Soma Field Operator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css" integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew" crossorigin="anonymous" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -12,6 +13,29 @@
       <section class="field-readout" aria-label="Field controls">
         <p class="eyebrow">[T] / SOMA FIELD OPERATOR</p>
         <h1>11D BODY MAP</h1>
+        <details class="operator-manual">
+          <summary>HOW TO OPERATE</summary>
+          <ol>
+            <li>Set dimensional projection: 4D body, 8D feeling, or 11D mind.</li>
+            <li>Turn the zoom operator to change the active scale substrate.</li>
+            <li>Open BRECVEMA to trace a music-affect mechanism into the limbic field.</li>
+            <li>Open CHEAT SHEET to inspect the selected claim, source, and proof status.</li>
+          </ol>
+        </details>
+        <details class="cheat-sheet" aria-label="Cheat Sheet evidence">
+          <summary>CHEAT SHEET / EVIDENCE</summary>
+          <article>
+            <p id="cheat-sheet-badge" class="claim-badge">FORMAL</p>
+            <h2 id="cheat-sheet-title">11D Thinking Mind</h2>
+            <p id="cheat-sheet-summary">The organism view combines physical substrate, propagator, limbic regulation, and cortex/matrix geometry.</p>
+            <code id="cheat-sheet-source">paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md</code>
+          </article>
+        </details>
+        <section class="hierarchy" aria-label="Organism hierarchy">
+          <button class="hierarchy-button" data-level="4" type="button"><strong>4D</strong><span>M4 / BODY + BRAIN + NERVES</span></button>
+          <button class="hierarchy-button" data-level="8" type="button"><strong>8D</strong><span>M4 + P3 + L1 / FEELING</span></button>
+          <button class="hierarchy-button active" data-level="11" type="button"><strong>11D</strong><span>M4 + P3 + L1 + C3 / MIND</span></button>
+        </section>
         <div class="control"><label for="somatic">SOMATIC</label><input id="somatic" type="range" min="0" max="1" value="0.72" step="0.01" /></div>
         <div class="control"><label for="limbic">LIMBIC</label><input id="limbic" type="range" min="0" max="1" value="0.86" step="0.01" /></div>
         <div class="control"><label for="cognitive">COGNITIVE</label><input id="cognitive" type="range" min="0" max="1" value="0.46" step="0.01" /></div>
@@ -19,6 +43,26 @@
         <output id="scale-readout" class="scale-readout">SIGMA 08 / HUMAN VERTEBRATE</output>
         <output id="projection-readout" class="projection-readout">11D THINKING MIND / M11 ACTIVE</output>
         <button id="brecvema" class="mode-button" type="button" aria-pressed="false">BRECVEMA / P.N.S.</button>
+        <section id="brecvema-inspector" class="brecvema-inspector" aria-label="BRECVEMA mechanism inspector" hidden>
+          <p class="inspector-kicker">MUSIC-INDUCED AFFECT MECHANISMS</p>
+          <div id="mechanism-grid" class="mechanism-grid" role="group" aria-label="Select a BRECVEMA mechanism">
+            <button type="button" data-mechanism="B" title="Brainstem reflex">B</button>
+            <button type="button" data-mechanism="R" title="Rhythmic entrainment">R</button>
+            <button type="button" data-mechanism="E1" title="Evaluative conditioning">E1</button>
+            <button type="button" data-mechanism="C" title="Emotional contagion">C</button>
+            <button type="button" data-mechanism="V" title="Visual imagery">V</button>
+            <button type="button" data-mechanism="E2" title="Episodic memory">E2</button>
+            <button type="button" data-mechanism="M" title="Musical expectancy">M</button>
+            <button type="button" data-mechanism="A" title="Aesthetic judgement">A</button>
+          </div>
+          <article class="mechanism-detail" aria-live="polite">
+            <h2 id="mechanism-name">Brainstem reflex</h2>
+            <p id="mechanism-effect">Fast sensory salience enters the field as a transient source.</p>
+            <dl><div><dt>PARAMETER</dt><dd id="mechanism-parameter">J(t)</dd></div><div><dt>FIELD ACTION</dt><dd id="mechanism-action">Injects a transient source into the field</dd></div></dl>
+            <p id="mechanism-equation" class="mechanism-equation">gamma e-dot = -grad H(e) + J(t)</p>
+            <p class="mechanism-source">SOURCED / P9 MUSIC-AFFECT DYNAMICS</p>
+          </article>
+        </section>
         <section class="math-readout" aria-live="polite">
           <p id="equation-title">DEPENDENT-TYPE MORPHISM</p>
           <code id="equation-primary">SomaField = SUM(sigma:Scale20) Substrate(sigma)</code>
@@ -33,8 +77,21 @@
         </section>
         <button id="export" type="button">EXPORT FRAME</button>
       </section>
-      <p class="field-note">BODY: D1-4 / NERVES: D5-7 / LIMBIC: D8 / MIND: D9-11 / EMF: WHOLE-BODY GREEN RESPONSE</p>
+      <aside class="equation-wall" aria-live="polite">
+        <p class="equation-kicker">DEPENDENT-TYPE MORPHISM INTERFACE</p>
+        <h2 id="wall-title">LEVEL 3 / 11D THINKING MIND</h2>
+        <div class="equation-block primary" id="wall-architecture" data-tex="\mathcal{M}_{11}=M_4\times P_3\times L_1\times C_3"></div>
+        <div class="equation-block" id="wall-state" data-tex="\Psi(t)=(X_{M_4}(t),G_{P_3}(t),\ell_{L_1}(t),M_{C_3}(t))"></div>
+        <div class="equation-block" id="wall-dynamics" data-tex="(\nabla^2+k^2)G(x,x')=\delta(x-x')"></div>
+        <div class="equation-block" id="wall-level-law" data-tex="[X_a,X_b]\neq0\quad\Rightarrow\quad\operatorname{Spec}(X)=\operatorname{thought}"></div>
+        <div class="equation-notes">
+          <span id="wall-dimensions">D_{1-4}+D_{5-7}+D_8+D_{9-11}=11</span>
+          <span id="wall-status">C_3 / BFSS matrix spectrum active</span>
+        </div>
+      </aside>
+      <p class="field-note">M4: BODY / P3: PROPAGATOR + EMF / L1: LIMBIC / C3: CORTEX + MIND</p>
     </main>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js" integrity="sha384-2B8pfmZZ6JlVoScJm/5hQfNS2TI/6hPqDZInzzPc8oHpN5SgeNOf4LzREO6p5YtZ" crossorigin="anonymous"></script>
     <script type="module" src="./main.js"></script>
   </body>
 </html>

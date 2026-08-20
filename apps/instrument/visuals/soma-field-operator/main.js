@@ -20,6 +20,7 @@ const pink = new THREE.Color('#ff3bce');
 const blue = new THREE.Color('#287dff');
 const gold = new THREE.Color('#f6c75a');
 const emfGreen = new THREE.Color('#56f0a2');
+const physicalGrey = new THREE.Color('#8c98a5');
 
 function wireSphere(radius, color, position, scale = [1, 1, 1], opacity = 0.65) {
   const geometry = new THREE.SphereGeometry(radius, 18, 12);
@@ -114,6 +115,37 @@ const cortex = wireSphere(0.52, pink, [0, 2.9, 0.02], [1.08, 0.76, 0.95], 0.34);
 const limbicCore = wireSphere(0.27, violet, [0, 1.7, 0.1], [1.15, 0.72, 0.82], 0.85);
 const somaCore = wireSphere(0.82, pink, [0, 0.42, 0.03], [0.88, 1.35, 0.62], 0.22);
 
+// L1: homeostatic axis as a visible double-well potential and tunnelling barrier.
+const limbicWell = new THREE.Group();
+root.add(limbicWell);
+const wellMaterial = new THREE.LineBasicMaterial({ color: violet, transparent: true, opacity: 0.82 });
+const wellPoints = [];
+for (let index = 0; index <= 80; index += 1) {
+  const x = -0.72 + index / 80 * 1.44;
+  const y = (x * x - 0.26) ** 2 * 2.7;
+  wellPoints.push(new THREE.Vector3(x, y, 0));
+}
+const wellCurve = new THREE.Line(new THREE.BufferGeometry().setFromPoints(wellPoints), wellMaterial);
+wellCurve.position.set(0, 0.9, 0.62);
+limbicWell.add(wellCurve);
+const barrier = new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0.9, 0.62), new THREE.Vector3(0, 1.44, 0.62)]),
+  new THREE.LineBasicMaterial({ color: pink, transparent: true, opacity: 0.72 }),
+);
+limbicWell.add(barrier);
+
+// C3: a compact matrix/fractal proxy emerging inside the head, not the physical brain.
+const mindFractal = new THREE.Group();
+root.add(mindFractal);
+const fractalMaterial = new THREE.MeshBasicMaterial({ color: pink, wireframe: true, transparent: true, opacity: 0.72 });
+for (let index = 0; index < 42; index += 1) {
+  const phase = index * 2.399963;
+  const radius = 0.08 + (index % 7) * 0.045;
+  const node = new THREE.Mesh(new THREE.IcosahedronGeometry(0.035 + (index % 3) * 0.012, 1), fractalMaterial);
+  node.position.set(Math.cos(phase) * radius, 2.9 + Math.sin(phase * 1.7) * radius * 0.62, Math.sin(phase) * radius * 0.5);
+  mindFractal.add(node);
+}
+
 // Green EMF response shell: a full-body propagator field sourced by neural activity.
 const emfField = new THREE.Group();
 root.add(emfField);
@@ -139,23 +171,36 @@ emfField.add(emfCloud);
 // BRECVEMA: eight peripheral mechanism channels converging on the D8 limbic core.
 const brecvemaLayer = new THREE.Group();
 root.add(brecvemaLayer);
-const mechanismNames = ['BS', 'RE', 'EC', 'CO', 'VI', 'EM', 'ME', 'AJ'];
+const mechanisms = [
+  { id: 'B', visual: 'B', name: 'Brainstem reflex', effect: 'Fast sensory salience enters the field as a transient source.', parameter: 'J(t)', action: 'Injects a transient source into the field', equation: '\\gamma\\dot{\\mathbf{e}}=-\\nabla H(\\mathbf{e})+J(t)' },
+  { id: 'R', visual: 'R', name: 'Rhythmic entrainment', effect: 'A periodic drive brings body and musical rhythm into synchronisation.', parameter: '\\gamma', action: 'Modulates damping and phase locking', equation: '|\\omega_{\\mathrm{ext}}-\\omega_0|<\\Delta\\omega_{\\mathrm{lock}}(\\kappa)' },
+  { id: 'E1', visual: 'EC', name: 'Evaluative conditioning', effect: 'Learned associations alter what the field expects from a cue.', parameter: '\\mathbf{b}', action: 'Shifts the attractor bias vector', equation: 'H(\\mathbf{e})=\\tfrac12\\mathbf{e}^\\top W\\mathbf{e}-\\mathbf{b}^\\top\\mathbf{e}' },
+  { id: 'C', visual: 'C', name: 'Emotional contagion', effect: 'Another person acts as a coupled external field.', parameter: '\\kappa', action: 'Changes coupling to an external field', equation: '\\dot{\\phi}_1-\\dot{\\phi}_2\\to0\\quad(\\kappa>\\kappa_{\\min})' },
+  { id: 'V', visual: 'V', name: 'Visual imagery', effect: 'Internally generated imagery supplies an endogenous source trajectory.', parameter: 'J_{\\mathrm{internal}}(t)', action: 'Adds an endogenous source trajectory', equation: '\\Phi=\\Phi^{(0)}+G_R\\ast(J_{\\mathrm{external}}+J_{\\mathrm{internal}})' },
+  { id: 'E2', visual: 'EM', name: 'Episodic memory', effect: 'Past events re-enter the present through the memory kernel.', parameter: 'K(\\tau)', action: 'Reweights the memory kernel', equation: 'K(\\tau)=K_0e^{-\\tau/\\tau_m}\\theta(\\tau)' },
+  { id: 'M', visual: 'ME', name: 'Musical expectancy', effect: 'Resolution and violation shape temporary attractor wells and barriers.', parameter: '\\Delta V', action: 'Creates transient wells and barriers', equation: '\\langle T\\rangle\\propto e^{\\Delta V/D}' },
+  { id: 'A', visual: 'AJ', name: 'Aesthetic judgement', effect: 'Appraisal of form and value shifts cognitive preference in the field.', parameter: '\\mathbf{b}', action: 'Shifts the cognitive bias vector', equation: 'H(\\mathbf{e})\\mapsto H(\\mathbf{e})-\\Delta\\mathbf{b}^\\top\\mathbf{e}' },
+];
 const mechanismAnchors = [
   [-0.72, 2.1, 0.08], [0.72, 2.1, 0.08], [-1.05, 1.1, 0.1], [1.05, 1.1, 0.1],
   [-0.92, 0.1, 0.12], [0.92, 0.1, 0.12], [-0.52, -0.62, 0.1], [0.52, -0.62, 0.1],
 ];
 const mechanismMaterial = new THREE.MeshBasicMaterial({ color: pink, transparent: true, opacity: 0.95 });
-const mechanismLineMaterial = new THREE.LineBasicMaterial({ color: violet, transparent: true, opacity: 0.6 });
+const mechanismChannels = [];
 for (const [index, anchor] of mechanismAnchors.entries()) {
+  const mechanism = mechanisms[index];
   const node = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07, 1), mechanismMaterial);
   node.position.fromArray(anchor); brecvemaLayer.add(node);
-  brecvemaLayer.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...anchor), new THREE.Vector3(0, 1.7, 0.1)]), mechanismLineMaterial));
+  const lineMaterial = new THREE.LineBasicMaterial({ color: violet, transparent: true, opacity: 0.6 });
+  const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...anchor), new THREE.Vector3(0, 1.7, 0.1)]), lineMaterial);
+  brecvemaLayer.add(line);
   const labelCanvas = document.createElement('canvas');
   labelCanvas.width = 96; labelCanvas.height = 48;
   const labelContext = labelCanvas.getContext('2d');
-  labelContext.font = 'bold 24px monospace'; labelContext.fillStyle = '#ff3bce'; labelContext.fillText(mechanismNames[index], 4, 28);
+  labelContext.font = 'bold 24px monospace'; labelContext.fillStyle = '#ff3bce'; labelContext.fillText(mechanism.visual, 4, 28);
   const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(labelCanvas), transparent: true }));
   label.position.set(anchor[0] + (anchor[0] < 0 ? -0.18 : 0.18), anchor[1] + 0.1, 0.14); label.scale.set(0.34, 0.17, 1); brecvemaLayer.add(label);
+  mechanismChannels.push({ id: mechanism.id, node, line, label });
 }
 brecvemaLayer.visible = false;
 
@@ -181,14 +226,13 @@ const emfContours = [-1.55, -0.3, 0.95, 2.2].map((y, index) => {
 });
 
 const fieldLabels = [
-  ['BODY', 'D1-4 / SOMA', cyan, [0, -2.5, 0]],
-  ['NERVES', 'D5-7 / ELECTRICAL P.N.S.', gold, [2.65, 0.25, 0]],
-  ['LIMBIC', 'D8 / COUPLING', violet, [2.65, 1.48, 0]],
-  ['MIND', 'D9-11 / CORTEX FIELD', pink, [2.45, 2.63, 0]],
-  ['EMF', 'GREEN FUNCTION / WHOLE-BODY RESPONSE', emfGreen, [2.45, -1.12, 0]],
+  ['M4 BODY', 'D1-4 / PHYSICAL BRAIN + NERVES', cyan, [0, -2.5, 0], 4],
+  ['P3 PROPAGATOR', 'D5-7 / GREEN EMF RESPONSE', emfGreen, [2.65, 0.25, 0], 8],
+  ['L1 LIMBIC', 'D8 / HOMEOSTATIC COUPLING', violet, [2.65, 1.48, 0], 8],
+  ['C3 MIND', 'D9-11 / CORTEX FIELD', pink, [0.2, 3.82, 0], 11],
 ];
 const fieldLabelMarkers = [];
-for (const [label, detail, color, position] of fieldLabels) {
+for (const [label, detail, color, position, level] of fieldLabels) {
   const sprite = document.createElement('canvas');
   sprite.width = 640; sprite.height = 150;
   const context = sprite.getContext('2d');
@@ -199,7 +243,7 @@ for (const [label, detail, color, position] of fieldLabels) {
   context.font = 'bold 20px monospace'; context.fillStyle = '#eaf5ff'; context.fillText(detail, 24, 112);
   const texture = new THREE.CanvasTexture(sprite);
   const marker = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.96 }));
-  marker.position.fromArray(position); marker.scale.set(2.16, 0.5, 1); scene.add(marker); fieldLabelMarkers.push(marker);
+  marker.position.fromArray(position); marker.scale.set(2.16, 0.5, 1); scene.add(marker); fieldLabelMarkers.push({ marker, level });
 }
 
 const grid = new THREE.GridHelper(12, 30, 0x12384b, 0x0b1928);
@@ -235,7 +279,7 @@ const scaleProfiles = [
   ['GALACTIC HALO', '10^22 m', 'k_halo', '1'], ['LARGE SCALE', '10^24 m', 'k0 / Lambda^17', '1'],
   ['COSMIC WEB', '10^25 m', 'k0 / Lambda^18', '1'], ['OBSERVABLE UNIVERSE', '10^26 m', 'H0 / c', '1'],
 ];
-const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 8, brecvema: false };
+const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 8, level: 11, brecvema: false, selectedMechanism: 'B' };
 for (const name of ['somatic', 'limbic', 'cognitive', 'scale']) document.querySelector(`#${name}`).addEventListener('input', event => { state[name] = Number(event.target.value); updateScaleReadout(); });
 const scaleReadout = document.querySelector('#scale-readout');
 const equationTitle = document.querySelector('#equation-title');
@@ -247,32 +291,114 @@ const wavenumberReadout = document.querySelector('#wavenumber-readout');
 const lengthReadout = document.querySelector('#length-readout');
 const rankReadout = document.querySelector('#rank-readout');
 const typeStatus = document.querySelector('#type-status');
+const wallTitle = document.querySelector('#wall-title');
+const wallArchitecture = document.querySelector('#wall-architecture');
+const wallState = document.querySelector('#wall-state');
+const wallDynamics = document.querySelector('#wall-dynamics');
+const wallLevelLaw = document.querySelector('#wall-level-law');
+const wallDimensions = document.querySelector('#wall-dimensions');
+const wallStatus = document.querySelector('#wall-status');
 const brecvemaButton = document.querySelector('#brecvema');
+const cheatSheetBadge = document.querySelector('#cheat-sheet-badge');
+const cheatSheetTitle = document.querySelector('#cheat-sheet-title');
+const cheatSheetSummary = document.querySelector('#cheat-sheet-summary');
+const cheatSheetSource = document.querySelector('#cheat-sheet-source');
+const brecvemaInspector = document.querySelector('#brecvema-inspector');
+const mechanismButtons = [...document.querySelectorAll('[data-mechanism]')];
+const mechanismName = document.querySelector('#mechanism-name');
+const mechanismEffect = document.querySelector('#mechanism-effect');
+const mechanismParameter = document.querySelector('#mechanism-parameter');
+const mechanismAction = document.querySelector('#mechanism-action');
+const mechanismEquation = document.querySelector('#mechanism-equation');
+const hierarchyButtons = [...document.querySelectorAll('.hierarchy-button')];
+const cheatSheetProfiles = {
+  4: {
+    badge: 'FORMAL',
+    title: '4D Physical Substrate',
+    summary: 'Physical body, brain, and nervous system in Lorentzian spacetime; propagator, limbic, and cortex layers are projected away.',
+    source: 'paper/soma/soma-physical-substrate/soma-physical-substrate.md',
+  },
+  8: {
+    badge: 'SOURCED',
+    title: '8D Feeling Organism',
+    summary: 'The physical substrate is coupled to a Green-function propagator and a limbic attractor axis, including barrier and transition dynamics.',
+    source: 'paper/soma/missing-limbic-layer/missing-limbic-layer.md',
+  },
+  11: {
+    badge: 'FORMAL',
+    title: '11D Thinking Mind',
+    summary: 'The organism view combines physical substrate, propagator, limbic regulation, and cortex/matrix geometry.',
+    source: 'paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md',
+  },
+};
+function renderWallMath() {
+  for (const element of [wallArchitecture, wallState, wallDynamics, wallLevelLaw]) {
+    const tex = element.dataset.tex;
+    if (globalThis.katex) globalThis.katex.render(tex, element, { displayMode: true, throwOnError: false });
+    else element.textContent = tex;
+  }
+}
+function selectMechanism(id) {
+  const mechanism = mechanisms.find(candidate => candidate.id === id);
+  if (!mechanism) return;
+  state.selectedMechanism = id;
+  mechanismName.textContent = mechanism.name;
+  mechanismEffect.textContent = mechanism.effect;
+  mechanismParameter.textContent = mechanism.parameter;
+  mechanismAction.textContent = mechanism.action;
+  if (globalThis.katex) globalThis.katex.render(mechanism.equation, mechanismEquation, { displayMode: false, throwOnError: false });
+  else mechanismEquation.textContent = mechanism.equation;
+  for (const button of mechanismButtons) button.classList.toggle('active', button.dataset.mechanism === id);
+}
 function updateScaleReadout() {
   const [label, length, wavenumber, rank] = scaleProfiles[state.scale];
-  const isHuman = state.scale === 8;
-  const isFeeling = state.scale === 6;
+  const isHuman = state.level === 11;
+  const isFeeling = state.level === 8;
+  const isPhysical = state.level === 4;
   const isProjection = state.scale >= 12;
   scaleReadout.textContent = `SIGMA ${String(state.scale).padStart(2, '0')} / ${label}`;
-  projectionReadout.textContent = isHuman ? '11D THINKING MIND / M11 ACTIVE' : isFeeling ? '8D FEELING ORGANISM / M4 + P3 + L1' : isProjection ? '4D SPACETIME PROJECTION / M4 ONLY' : 'PROPAGATOR-BOUND SCALE STATE';
+  projectionReadout.textContent = isProjection ? '4D SPACETIME PROJECTION / M4 ONLY' : isHuman ? '11D THINKING MIND / M11 ACTIVE' : isFeeling ? '8D FEELING ORGANISM / M4 + P3 + L1' : '4D PHYSICAL BODY / M4 ONLY';
   equationTitle.textContent = `DEPENDENT PAIR AT SIGMA ${String(state.scale).padStart(2, '0')}`;
-  equationPrimary.textContent = 'SomaField = SUM(sigma:Scale20) Substrate(sigma)';
-  equationSecondary.textContent = 'Lambda: Substrate(sigma) -> Substrate(sigma + 1)';
-  dimensionReadout.textContent = isHuman ? 'M4 + P3 + L1 + C3 = 11D' : isFeeling ? 'M4 + P3 + L1 = 8D' : isProjection ? 'M4 = 4D / worldline only' : 'Substrate-dependent projection';
+  equationPrimary.textContent = isPhysical || isProjection ? 'M4 = R^3_body x R_time / g(mu,nu)' : isFeeling ? '(nabla^2 + k^2) G = delta ; L1 = S1 / Z2' : 'SomaField = SUM(sigma:Scale20) Substrate(sigma)';
+  equationSecondary.textContent = isPhysical || isProjection ? 'Lorentzian metric + causal structure' : isFeeling ? 'P3 propagator + L1 homeostatic tunnel' : 'Lambda: Substrate(sigma) -> Substrate(sigma + 1)';
+  dimensionReadout.textContent = isProjection ? 'M4 = 4D / worldline only' : isHuman ? 'M4 + P3 + L1 + C3 = 11D' : isFeeling ? 'M4 + P3 + L1 = 8D' : 'M4 = 4D / physical body, brain, nerves';
   wavenumberReadout.textContent = wavenumber;
   lengthReadout.textContent = length;
   rankReadout.textContent = rank;
-  typeStatus.textContent = isHuman ? 'LEAN: SCALE-COMPATIBLE / HUMAN OPERATORS ENABLED' : isFeeling ? 'LEAN: FEELING ORGANISM / CORTEX UNAVAILABLE' : isProjection ? 'LEAN TYPE ERROR: BRECVEMA REQUIRES ORGANISM SUBSTRATE' : 'LEAN: SCALE TRANSITION / SUBSTRATE CONSTRAINED';
+  typeStatus.textContent = isProjection ? 'LEAN TYPE ERROR: BRECVEMA REQUIRES ORGANISM SUBSTRATE' : isHuman ? 'LEAN: SCALE-COMPATIBLE / HUMAN OPERATORS ENABLED' : isFeeling ? 'LEAN: FEELING ORGANISM / CORTEX UNAVAILABLE' : 'LEAN: PHYSICAL SUBSTRATE / NO PROPAGATOR OR LIMBIC REGULATION';
   typeStatus.classList.toggle('error', !isHuman && state.brecvema);
+  for (const button of hierarchyButtons) button.classList.toggle('active', Number(button.dataset.level) === state.level);
+  wallTitle.textContent = isHuman ? 'LEVEL 3 / 11D THINKING MIND' : isFeeling ? 'LEVEL 2 / 8D FEELING ORGANISM' : isPhysical ? 'LEVEL 1 / 4D PHYSICAL BODY' : '4D SPACETIME PROJECTION';
+  wallArchitecture.dataset.tex = isHuman ? '\\mathcal{M}_{11}=M_4\\times P_3\\times L_1\\times C_3' : isFeeling ? '\\mathcal{M}_8=M_4\\times P_3\\times L_1' : '\\mathcal{M}_4=\\mathbb{R}^3_{\\mathrm{body}}\\times\\mathbb{R}_{\\mathrm{time}}';
+  wallState.dataset.tex = isHuman ? '\\Psi=(X,G,\\ell,M)\\in\\mathcal{M}_{11}' : isFeeling ? '\\Psi=(X,G,\\ell)\\in\\mathcal{M}_8' : 'x^\\mu=(t,x,y,z)\\in\\mathcal{M}_4';
+  wallDynamics.dataset.tex = isHuman ? '(\\nabla^2+k^2)G=\\delta\\ ;\\ \\phi\\geq T_c' : isFeeling ? '(\\nabla^2+k^2)G=\\delta\\ ;\\ V_L(\\ell)=W(\\ell^2-1)^2' : 'ds^2=g_{\\mu\\nu}dx^\\mu dx^\\nu';
+  wallLevelLaw.dataset.tex = isHuman ? '[X_a,X_b]\\neq0\\ ;\\ \\operatorname{Spec}(X)=\\operatorname{thought}' : isFeeling ? '\\mathcal{T}\\sim e^{-S_E/\\hbar_{\\mathrm{eff}}}\\ ;\\ W>0' : '\\nabla_\\mu T^{\\mu\\nu}=0\\ ;\\ \\text{causal worldline}';
+  wallDimensions.textContent = isHuman ? 'D1-4 + D5-7 + D8 + D9-11 = 11' : isFeeling ? 'D1-4 + D5-7 + D8 = 8' : 'D1-4 = physical spacetime';
+  wallStatus.textContent = isHuman ? 'C3 / BFSS matrix spectrum + conscious percept' : isFeeling ? 'P3 / CEMI Green response + L1 trauma well' : 'Matter, brain, nervous system / no EMF propagator';
+  const cheatSheet = cheatSheetProfiles[state.level];
+  cheatSheetBadge.textContent = cheatSheet.badge;
+  cheatSheetBadge.classList.toggle('sourced', cheatSheet.badge === 'SOURCED');
+  cheatSheetTitle.textContent = cheatSheet.title;
+  cheatSheetSummary.textContent = cheatSheet.summary;
+  cheatSheetSource.textContent = cheatSheet.source;
+  renderWallMath();
 }
 brecvemaButton.addEventListener('click', () => {
   state.brecvema = !state.brecvema;
-  brecvemaLayer.visible = state.brecvema;
+  brecvemaInspector.hidden = !state.brecvema;
   brecvemaButton.classList.toggle('active', state.brecvema);
   brecvemaButton.setAttribute('aria-pressed', String(state.brecvema));
-  brecvemaButton.textContent = state.brecvema ? 'BRECVEMA / P.N.S. ACTIVE' : 'BRECVEMA / P.N.S.';
+  brecvemaButton.textContent = state.brecvema ? 'BRECVEMA / INSPECTOR OPEN' : 'BRECVEMA / P.N.S.';
+  if (state.brecvema) selectMechanism(state.selectedMechanism);
   updateScaleReadout();
 });
+for (const button of mechanismButtons) button.addEventListener('click', () => selectMechanism(button.dataset.mechanism));
+for (const button of hierarchyButtons) {
+  button.addEventListener('click', () => {
+    state.level = Number(button.dataset.level);
+    updateScaleReadout();
+  });
+}
 updateScaleReadout();
 
 function resize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
@@ -280,34 +406,51 @@ addEventListener('resize', resize); resize();
 const clock = new THREE.Clock();
 function frame() {
   const time = clock.getElapsedTime();
-  root.rotation.y = Math.sin(time * 0.18) * 0.24;
-  root.rotation.x = Math.sin(time * 0.13) * 0.035;
+  root.rotation.y = state.level === 4 ? 0 : Math.sin(time * 0.18) * 0.24;
+  root.rotation.x = state.level === 4 ? 0 : Math.sin(time * 0.13) * 0.035;
   const scaleFraction = state.scale / 19;
-  const humanWeight = Math.max(0, 1 - Math.abs(state.scale - 8) / 2);
-  const feelingWeight = Math.max(0, 1 - Math.abs(state.scale - 6) / 3);
+  const humanWeight = state.level === 11 ? 1 : 0;
+  const feelingWeight = state.level >= 8 ? 1 : 0;
+  const physicalWeight = state.level >= 4 ? 1 : 0;
   const rockWeight = state.scale >= 12 ? Math.min(1, (state.scale - 11) / 3) : 0;
   const isProjection = state.scale >= 12;
   root.visible = !isProjection;
-  for (const marker of fieldLabelMarkers) marker.visible = !isProjection;
+  for (const { marker, level } of fieldLabelMarkers) marker.visible = !isProjection && state.level >= level;
   root.scale.setScalar(1);
   root.position.y = 0;
   rockProjection.scale.setScalar(0.75 + rockWeight * 0.75);
   rockMaterial.opacity = rockWeight * 0.75;
   worldline.material.opacity = rockWeight * 0.78;
   brecvemaLayer.rotation.y = time * 0.16;
+  brecvemaLayer.visible = state.brecvema && state.level === 11 && !isProjection;
+  for (const channel of mechanismChannels) {
+    const selected = channel.id === state.selectedMechanism;
+    channel.line.material.color.copy(selected ? pink : violet);
+    channel.line.material.opacity = selected ? 0.98 : 0.12;
+    channel.node.scale.setScalar(selected ? 1.75 : 0.78);
+    channel.label.material.opacity = selected ? 1 : 0.3;
+  }
   const somaticPulse = 1 + state.somatic * (0.08 + Math.sin(time * 2.2) * 0.05);
-  somaticRing.scale.setScalar(somaticPulse * (1 + scaleFraction * 0.12)); somaticRing.material.opacity = 0.25 + state.somatic * 0.7;
-  somaCore.material.opacity = (0.08 + state.somatic * 0.42) * Math.max(feelingWeight, humanWeight);
+  somaticRing.scale.setScalar(somaticPulse * (1 + scaleFraction * 0.12)); somaticRing.material.opacity = (0.25 + state.somatic * 0.7) * humanWeight;
+  somaCore.material.opacity = (0.08 + state.somatic * 0.42) * humanWeight;
   for (const [index, layer] of somaDimensions.entries()) {
     layer.scale.setScalar(1 + scaleFraction * 0.16 + state.somatic * (0.08 + index * 0.025) + Math.sin(time * 1.6 + index) * 0.025);
-    layer.material.opacity = 0.18 + state.somatic * 0.5;
+    layer.material.opacity = (0.18 + state.somatic * 0.5) * humanWeight;
   }
   limbicRing.scale.setScalar(1 + state.limbic * (0.12 + Math.sin(time * 1.5) * 0.07)); limbicRing.material.opacity = (0.2 + state.limbic * 0.75) * feelingWeight;
   limbicCore.material.opacity = (0.2 + state.limbic * 0.75) * feelingWeight;
+  limbicWell.visible = state.level >= 8;
+  limbicWell.scale.setScalar(0.9 + state.limbic * 0.2);
+  wellMaterial.opacity = (0.45 + state.limbic * 0.45) * feelingWeight;
+  barrier.material.opacity = (0.25 + state.limbic * 0.55) * feelingWeight;
   thresholdRing.position.y = 2.4 + state.cognitive * 0.75; thresholdRing.material.opacity = (0.2 + state.cognitive * 0.8) * humanWeight;
   cortex.material.opacity = (0.18 + state.cognitive * 0.75) * humanWeight;
-  brainPhysical.material.opacity = (0.3 + state.cognitive * 0.65) * humanWeight;
-  neuralMaterial.opacity = (0.3 + state.cognitive * 0.62) * feelingWeight;
+  mindFractal.visible = state.level === 11;
+  mindFractal.rotation.y = time * 0.72;
+  mindFractal.rotation.z = Math.sin(time * 0.6) * 0.24;
+  fractalMaterial.opacity = (0.22 + state.cognitive * 0.72) * humanWeight;
+  brainPhysical.material.opacity = (0.3 + state.cognitive * 0.65) * physicalWeight;
+  neuralMaterial.opacity = 0.3 + state.cognitive * 0.62;
   const emfAmplitude = 0.06 + (state.somatic + state.cognitive) * 0.1;
   emfShell.material.opacity = emfAmplitude * feelingWeight;
   emfHalo.material.opacity = emfAmplitude * 0.5 * feelingWeight;
@@ -321,8 +464,14 @@ function frame() {
   }
   stars.material.size = 0.018 + scaleFraction * 0.032;
   stars.material.opacity = 0.28 + scaleFraction * 0.52;
-  for (const mesh of body) mesh.material.opacity = (0.18 + state.somatic * 0.5) * (1 - rockWeight * 0.9);
-  for (const line of limbs) line.material.opacity = (0.25 + state.somatic * 0.5) * (1 - rockWeight * 0.9);
+  for (const mesh of body) {
+    mesh.material.opacity = (0.18 + state.somatic * 0.5) * physicalWeight * (1 - rockWeight * 0.9);
+    mesh.material.color.copy(state.level === 4 ? physicalGrey : cyan);
+  }
+  for (const line of limbs) {
+    line.material.opacity = (0.25 + state.somatic * 0.5) * physicalWeight * (1 - rockWeight * 0.9);
+    line.material.color.copy(state.level === 4 ? physicalGrey : cyan);
+  }
   renderer.render(scene, camera); requestAnimationFrame(frame);
 }
 frame();

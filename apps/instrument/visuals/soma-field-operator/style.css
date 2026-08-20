@@ -4,10 +4,29 @@
 * { box-sizing: border-box; }
 html, body, main { width: 100%; min-height: 100%; margin: 0; background: var(--ink); overflow: hidden; }
 canvas { display: block; width: 100vw; height: 100vh; }
-.field-readout { position: fixed; top: 24px; left: 24px; width: min(310px, calc(100vw - 48px)); padding: 16px; border: 1px solid rgba(20,229,255,.55); background: rgba(5,7,14,.72); box-shadow: 0 0 34px rgba(20,229,255,.12); backdrop-filter: blur(9px); }
+.field-readout { position: fixed; z-index: 2; top: 24px; left: 24px; width: min(310px, calc(100vw - 48px)); padding: 16px; border: 1px solid rgba(20,229,255,.55); background: rgba(5,7,14,.72); box-shadow: 0 0 34px rgba(20,229,255,.12); backdrop-filter: blur(9px); }
 .eyebrow, .field-note, label, button { font-family: 'Space Mono', monospace; letter-spacing: 0; }
 .eyebrow { margin: 0 0 7px; color: var(--cyan); font-size: 10px; }
 h1 { margin: 0 0 17px; color: var(--text); font: 800 22px/1 'Syne', sans-serif; }
+.operator-manual { margin: -8px 0 14px; border: 1px solid rgba(20,229,255,.32); background: rgba(20,229,255,.04); }
+.operator-manual summary { padding: 8px 10px; color: var(--cyan); cursor: pointer; font: 700 9px/1.2 'Space Mono', monospace; }
+.operator-manual[open] summary { border-bottom: 1px solid rgba(20,229,255,.25); }
+.operator-manual ol { display: grid; gap: 5px; margin: 0; padding: 9px 13px 10px 27px; color: #d7e8f6; font: 8px/1.4 'Space Mono', monospace; }
+.cheat-sheet { margin: -7px 0 14px; border: 1px solid rgba(255,59,206,.42); background: rgba(255,59,206,.05); }
+.cheat-sheet summary { padding: 8px 10px; color: var(--pink); cursor: pointer; font: 700 9px/1.2 'Space Mono', monospace; }
+.cheat-sheet[open] summary { border-bottom: 1px solid rgba(255,59,206,.28); }
+.cheat-sheet article { padding: 10px; }
+.cheat-sheet h2 { margin: 7px 0 5px; color: var(--text); font: 800 13px/1.1 'Syne', sans-serif; }
+.cheat-sheet article > p:not(.claim-badge) { margin: 0 0 8px; color: #d7e8f6; font: 8px/1.4 'Space Mono', monospace; }
+.cheat-sheet code { display: block; color: var(--cyan); font: 8px/1.35 'Space Mono', monospace; overflow-wrap: anywhere; }
+.claim-badge { display: inline-block; margin: 0; padding: 3px 5px; color: var(--ink); background: var(--cyan); font: 700 8px/1 'Space Mono', monospace; }
+.claim-badge.sourced { background: var(--pink); }
+.hierarchy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 0 0 15px; }
+.hierarchy-button { display: grid; gap: 3px; margin: 0; min-height: 52px; padding: 7px 4px; color: #aeb8ce; border: 1px solid rgba(174,184,206,.38); background: rgba(255,255,255,.03); font-family: 'Space Mono', monospace; text-align: left; }
+.hierarchy-button strong { color: var(--text); font-size: 16px; }
+.hierarchy-button span { font-size: 7px; line-height: 1.25; }
+.hierarchy-button.active { color: var(--ink); border-color: var(--cyan); background: var(--cyan); }
+.hierarchy-button.active strong { color: var(--ink); }
 .control { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 9px; margin: 11px 0; }
 label { color: #aeb8ce; font-size: 10px; }
 input { accent-color: var(--pink); width: 100%; }
@@ -17,6 +36,20 @@ button { width: 100%; margin-top: 12px; padding: 10px; color: var(--ink); border
 .projection-readout { display: block; margin: 2px 0 8px; color: var(--pink); font: 700 9px/1.3 'Space Mono', monospace; }
 .mode-button { color: var(--text); border: 1px solid var(--violet); background: rgba(143,71,255,.16); }
 .mode-button.active { color: var(--ink); background: var(--violet); box-shadow: 0 0 22px rgba(143,71,255,.45); }
+.brecvema-inspector { margin-top: 10px; padding: 10px; border: 1px solid rgba(143,71,255,.58); background: rgba(143,71,255,.1); }
+.inspector-kicker { margin: 0 0 8px; color: var(--violet); font: 700 8px/1.35 'Space Mono', monospace; }
+.mechanism-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.mechanism-grid button { min-height: 30px; margin: 0; padding: 5px; color: var(--text); border: 1px solid rgba(234,245,255,.3); background: rgba(5,7,14,.55); font: 700 9px/1 'Space Mono', monospace; }
+.mechanism-grid button.active { color: var(--ink); border-color: var(--pink); background: var(--pink); }
+.mechanism-detail { margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(143,71,255,.36); }
+.mechanism-detail h2 { margin: 0 0 5px; color: var(--text); font: 800 13px/1.1 'Syne', sans-serif; }
+.mechanism-detail > p { margin: 0; color: #d7e8f6; font: 9px/1.4 'Space Mono', monospace; }
+.mechanism-detail dl { display: grid; gap: 4px; margin: 8px 0; }
+.mechanism-detail dl div { display: grid; grid-template-columns: 73px 1fr; gap: 5px; }
+.mechanism-detail dt { color: var(--violet); font: 700 8px/1.3 'Space Mono', monospace; }
+.mechanism-detail dd { margin: 0; color: var(--text); font: 8px/1.3 'Space Mono', monospace; }
+.mechanism-equation { color: var(--cyan) !important; overflow-wrap: anywhere; }
+.mechanism-source { margin-top: 8px !important; color: var(--pink) !important; font-size: 8px !important; }
 .math-readout { margin-top: 13px; padding: 10px; border-left: 2px solid var(--pink); background: rgba(255,59,206,.07); }
 .math-readout p { margin: 0 0 6px; color: var(--pink); font: 700 9px/1.2 'Space Mono', monospace; }
 .math-readout code { display: block; color: var(--text); font: 10px/1.45 'Space Mono', monospace; overflow-wrap: anywhere; }
@@ -27,5 +60,14 @@ button { width: 100%; margin-top: 12px; padding: 10px; color: var(--ink); border
 .physics-ledger dd { margin: 0; color: #d7e8f6; font: 9px/1.25 'Space Mono', monospace; }
 .type-status { margin: 9px 0 0; color: var(--cyan); font: 700 8px/1.35 'Space Mono', monospace; }
 .type-status.error { color: var(--pink); }
+.equation-wall { position: fixed; z-index: 2; right: 24px; bottom: 46px; width: min(43vw, 590px); min-height: min(62vh, 620px); padding: 26px; border: 1px solid rgba(255,59,206,.42); background: rgba(5,7,14,.58); box-shadow: 0 0 42px rgba(255,59,206,.11); backdrop-filter: blur(9px); }
+.equation-kicker { margin: 0 0 9px; color: var(--pink); font: 700 10px/1.3 'Space Mono', monospace; }
+.equation-wall h2 { margin: 0 0 24px; color: var(--text); font: 800 26px/1.1 'Syne', sans-serif; }
+.equation-block { display: flex; align-items: center; min-height: 58px; margin: 0 0 16px; padding: 12px 0; border-top: 1px solid rgba(234,245,255,.16); color: #d7e8f6; font-size: 18px; overflow-wrap: anywhere; }
+.equation-block.primary { min-height: 72px; color: var(--cyan); border-top: 2px solid var(--cyan); font-size: 27px; }
+.equation-block .katex-display { margin: 0; width: 100%; overflow-x: auto; overflow-y: hidden; }
+.equation-block .katex { font-size: 1em; }
+.equation-notes { display: grid; gap: 8px; margin-top: 24px; padding-top: 15px; border-top: 1px solid rgba(255,59,206,.35); color: var(--pink); font: 700 10px/1.35 'Space Mono', monospace; }
 .field-note { position: fixed; right: 24px; bottom: 20px; margin: 0; color: rgba(234,245,255,.7); font-size: 10px; text-align: right; }
-@media (max-width: 600px) { .field-readout { top: 12px; left: 12px; padding: 13px; width: min(286px, calc(100vw - 24px)); } .field-note { right: 12px; bottom: 12px; width: 230px; } .math-readout { display: none; } }
+@media (max-width: 900px) { .equation-wall { display: none; } }
+@media (max-width: 600px) { .field-readout { top: 12px; left: 12px; padding: 13px; width: min(286px, calc(100vw - 24px)); } .field-note { right: 12px; bottom: 12px; width: 230px; } .math-readout { display: none; } .hierarchy-button span { font-size: 6px; } }

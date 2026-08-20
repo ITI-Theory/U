@@ -35,6 +35,9 @@ The scene exposes three normalised fields in `[0, 1]`:
 	and the scene shows the 8D feeling organism ($M_4 + P_3 + L_1$). At
 	planetary/orbital scales ($\sigma\ge12$), the internal structure is projected
 	away into an inert 4D rock/worldline ($M_4$).
+- **Hierarchy controls**: the 4D, 8D, and 11D controls are direct projection
+	shortcuts: 4D selects the rock/worldline projection, 8D selects the feeling
+	organism, and 11D selects the full human/vertebrate mind.
 - **Zoom Operator**: selects $\sigma \in \{0,\ldots,19\}$ and updates the
 	active substrate label, field spread, $k$, characteristic length $\ell$, mind
 	matrix rank $N$, and equation ledger. The operator uses

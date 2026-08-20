@@ -270,6 +270,33 @@ def field_notes_block(domain_id: str) -> str:
         "\\vspace{2pt}\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.35pt}}\n"
     )
 
+def sherlock_evidence_block(domain_id: str) -> str:
+    """Render the auditable source boundary for a domain Cheat Sheet."""
+    domain = get_domain(domain_id)
+    sources = []
+    for paper_ref in domain["papers"]:
+        source_type, source_id = paper_ref.split(":", 1)
+        if source_type == "c":
+            sources.append(f"PAPER: {source_id}")
+        else:
+            sources.append(f"FRACTAL SOURCE: {source_id}")
+
+    source_list = "; ".join(sources)
+    return (
+        "\n\\par\\vspace{4pt}\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.35pt}}\n"
+        "\\vspace{1pt}\\noindent{\\sffamily\\tiny\\color{hudtext}"
+        "\\textcolor{white}{[} SHERLOCK / EVIDENCE AUDIT \\textcolor{white}{]}}\\par\n"
+        "\\vspace{2pt}\\noindent{\\scriptsize\\color{hudtext}\\raggedright "
+        "\\texttt{WHY:>} The opening claim is a reading guide; it is not itself a proof.\\\\\n"
+        f"\\texttt{{SOURCES:>}} {source_list}.\\\\\n"
+        "\\texttt{FORMAL:>} Label only an explicitly linked Lean theorem or proof output.\\\\\n"
+        "\\texttt{SOURCED:>} Label claims grounded in the listed papers or this Cheat Sheet.\\\\\n"
+        "\\texttt{INTERPRETIVE:>} Label domain mappings, visualisations, and open hypotheses.\\\\\n"
+        "\\texttt{MORIARTY:>} Does this summary claim more than its linked evidence establishes?"
+        "}\n"
+        "\\vspace{2pt}\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.35pt}}\n"
+    )
+
 def build_booklet_source(domain_id: str) -> None:
     """Create a domain booklet by replacing only the default elevator pitch."""
     source = PAPER_DIR / "soma/ttheory-cheatsheet/ttheory-cheatsheet.md"
@@ -281,7 +308,7 @@ def build_booklet_source(domain_id: str) -> None:
     if count != 1:
         raise ValueError("Default booklet elevator pitch marker not found")
     footer = "\n\\vfill\\begin{center}\\includegraphics[width=28mm]{figures/t-theory-sticker.png}\\end{center}"
-    output = output.replace(footer, field_notes_block(domain_id), 1)
+    output = output.replace(footer, field_notes_block(domain_id) + sherlock_evidence_block(domain_id), 1)
     out_path = BLD_DIR / f"booklet-{domain_id}.md"
     out_path.write_text(output, encoding="utf-8")
     print(f"  -> {out_path.name}")
