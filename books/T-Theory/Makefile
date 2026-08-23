@@ -3,8 +3,10 @@ PANDOC  := pandoc
 ENGINE  := xelatex
 GS      ?= gswin64c
 BUILDDIR := bld
-GATEWAY_SOURCE := gateway.md
-GATEWAY_FILTER := gateway.lua
+FORMAT_DIR := format
+GATEWAY_SOURCE := gateway/gateway.md
+FORMAT_FILTERS := --lua-filter=$(FORMAT_DIR)/macros.lua --lua-filter=$(FORMAT_DIR)/layout.lua
+FORMAT_CSS := $(FORMAT_DIR)/site.css
 
 define MKDIR_P
 mkdir -p "$(1)"
@@ -46,11 +48,11 @@ bld/noir-page.pdf: noir-page.md | $(BUILDDIR)
 	@echo "Built: $@"
 
 # The public Gateway is rendered directly from its canonical Markdown source.
-bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(GATEWAY_FILTER) | $(BUILDDIR)
+bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua $(FORMAT_DIR)/layout.lua | $(BUILDDIR)
 	$(PANDOC) $< -o $@ \
 		--pdf-engine=$(ENGINE) --standalone \
 		--include-in-header=../../paper/unicode-math-text.tex \
-		--lua-filter=$(GATEWAY_FILTER) \
+		$(FORMAT_FILTERS) \
 		-V "geometry=a4paper,margin=16mm" \
 		-V fontsize=10pt -V linestretch=1.2 \
 		-V mainfont="TeX Gyre Pagella" \
@@ -60,10 +62,10 @@ bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(GATEWAY_FILTER) | $(BUILDDIR)
 .PHONY: gateway-html
 gateway-html: $(BUILDDIR)/booklet-gateway.html
 
-$(BUILDDIR)/booklet-gateway.html: $(GATEWAY_SOURCE) $(GATEWAY_FILTER) gateway.css | $(BUILDDIR)
+$(BUILDDIR)/booklet-gateway.html: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua $(FORMAT_DIR)/layout.lua $(FORMAT_CSS) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ --standalone --mathjax \
-		--lua-filter=$(GATEWAY_FILTER) \
-		--css=../gateway.css \
+		$(FORMAT_FILTERS) \
+		--css=../$(FORMAT_CSS) \
 		-M title="[T]-Theory: A Universal Theory of Everything"
 	@echo "Built Gateway HTML: $@"
 
