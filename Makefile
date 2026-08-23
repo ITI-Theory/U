@@ -2,8 +2,9 @@
 # mk/dist.mk -- distribution cp rules -- GENERATED, run: make generate
 
 PAPER := paper/bld
-FRAC  := Part2/fractal-programme/bld
-DIST  := ../Dist
+BOOKS_DIR := books/T-Theory
+FRAC := $(BOOKS_DIR)/bld
+DIST := ../Dist
 
 include mk/dist.mk
 
@@ -22,10 +23,10 @@ omnibus:
 	$(MAKE) -C paper omnibus
 
 cheatsheet:
-	$(MAKE) -C Part2/fractal-programme bld/booklet-gateway.pdf
+	$(MAKE) -C $(BOOKS_DIR) bld/booklet-gateway.pdf
 
 fractal-thesis:
-	$(MAKE) -C Part2/fractal-programme fractal-thesis
+	$(MAKE) -C $(BOOKS_DIR) fractal-thesis
 
 registry-papers:
 	$(MAKE) -C paper $(REGISTRY_PAPER_TARGETS)
@@ -34,7 +35,7 @@ registry-papers-royal:
 	$(MAKE) -C paper $(REGISTRY_PAPER_ROYAL_TARGETS)
 
 registry-fractal:
-	$(MAKE) -C Part2/fractal-programme $(REGISTRY_FRACTAL_PREREQUISITES) $(REGISTRY_FRACTAL_TARGETS)
+	$(MAKE) -C $(BOOKS_DIR) $(REGISTRY_FRACTAL_PREREQUISITES) $(REGISTRY_FRACTAL_TARGETS)
 
 # PAPERS.yaml is adopted explicitly through `make generate`; these targets
 # build the resulting U candidate snapshot without promoting anything to Dist.
@@ -61,7 +62,7 @@ uat-stage-ttheory: registry-fractal
 	py paper/scripts/stage_uat.py ttheory
 
 uat-stage-lulu-proofs: registry-papers registry-fractal
-	$(MAKE) -C Part2/fractal-programme vol1-10pt
+	$(MAKE) -C $(BOOKS_DIR) vol1-10pt
 	$(MAKE) -C paper/lulu-cover proof-set
 	py paper/scripts/stage_uat.py lulu-proofs
 

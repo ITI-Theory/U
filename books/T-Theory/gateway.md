@@ -1,51 +1,32 @@
 ---
-title: ""
+title: "[T]-Theory: A Universal Theory of Everything"
 lang: en-GB
-geometry: "a4paper,margin=16mm"
-fontsize: 10pt
-linestretch: 1.2
-mainfont: "TeX Gyre Pagella"
 ---
 
-\begin{center}
-{\LARGE\bfseries\sffamily [T]-Theory: A Universal Theory of Everything}\\[6pt]
-{\large\sffamily\color{heading} One Equation.\enspace 61 Decades.\enspace Mind, Body, and Cosmos.}
-\end{center}
+# [T]-Theory: A Universal Theory of Everything
 
-\vspace{4pt}
+One Equation. 61 Decades. Mind, Body, and Cosmos.
 
-\noindent\textit{Why this exists:} a disturbance in one place changes what is
-possible somewhere else. [T]-Theory asks what becomes testable when propagation,
-memory, and collective coordination are treated as one field problem — across
-matter, minds, markets, and the cosmos.
+Why: a disturbance in one place changes what is possible somewhere else.
+[T]-Theory asks what becomes testable when propagation, memory, and collective
+coordination are treated as one field problem across matter, minds, markets, and
+the cosmos.
 
-\vspace{5pt}
+## Proved
 
-\noindent\colorbox{ghost}{\begin{minipage}{\dimexpr\textwidth-2\fboxsep\relax}
-\vspace{4pt}
-\begin{minipage}[t]{0.48\textwidth}
-\textbf{\color{heading}Proved (Lean 4, 0 sorries):}
-\begin{itemize}
-\item SHO = Green's function (derived, not postulated as a primitive)
-\item 11D manifold = minimum geometry for a conscious vertebrate organism
-\item Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ (61 orders of magnitude)
-\item Theory is a proposed fixed-point attractor of its own subject matter (see the [T]-Theory phenomena paper)
-\end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\textbf{\color{heading}Numerical hits (Planck 2018):}
-\begin{itemize}
-\item $\Omega_\Lambda = 7/11$ \textbf{(93.2\%)} — dark energy as compactified vacuum
-\item $\Omega_c = 3/11$ \textbf{(97.1\%)} — dark matter as spatial vacuum; gravity only; no direct detection possible
-\item $w = -1$ exact — live knife-edge test: DESI~DR1 \& Euclid
-\end{itemize}
-\vspace{2pt}
-\noindent\textit{[T]-Theory accounts for \textbf{95.5\%} of the total mass-energy of the universe via a zero-parameter geometric derivation.}
-\end{minipage}
-\vspace{3pt}
-\end{minipage}}
+- SHO = Green's function, derived rather than postulated as a primitive.
+- 11D manifold = minimum geometry for a conscious vertebrate organism.
+- Scale invariance from $10^{-35}\text{m}$ to $10^{26}\text{m}$.
+- Theory as a proposed fixed-point attractor of its own subject matter.
 
-\startcolumns
+## Numerical Hits
+
+- $\Omega_\Lambda = 7/11$ (93.2%): dark energy as compactified vacuum.
+- $\Omega_c = 3/11$ (97.1%): dark matter as spatial vacuum.
+- $w = -1$ exactly: a live knife-edge test for DESI DR1 and Euclid.
+
+[T]-Theory accounts for **95.5%** of the total mass-energy of the universe via
+a zero-parameter geometric derivation.
 
 # I · The Master Field Equation
 
@@ -178,8 +159,6 @@ the compactification geometry.
 $$11D \xrightarrow{\text{project}} 7D \xrightarrow{\text{project}} 4D$$
 A rock is a 4D organism. A jellyfish is a 7D organism. A human is an 11D organism.
 
-\newpage
-
 # V · The 20-Scale Map
 
 The same Helmholtz equation governs all 20 scales. Coupling constants $k(\sigma)$
@@ -275,4 +254,4 @@ All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
 - **Retarded propagator causality** → `retardedDecayFactor_isCausal` (`TemporalDynamics.lean`) + OS3
 - **RG equations** → `GeometricRGFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)
 
-\vfill\begin{center}\includegraphics[width=28mm]{figures/t-theory-sticker.png}\end{center}
+![T-Theory](t-theory-sticker.png)

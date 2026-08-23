@@ -33,6 +33,7 @@ node_modules/
 # release artifacts are promoted deliberately to the Dist repository.
 /paper/bld/
 /Part2/fractal-programme/bld/
+/books/T-Theory/bld/
 
 # Instrument session logs
 instrument/logs/

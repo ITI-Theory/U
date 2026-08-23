@@ -1,27 +1,14 @@
-# Fractal Programme Makefile — 15 domain books
-# Override at invocation when a project-specific interpreter is required,
-# e.g. `make PYTHON=/path/to/python all`.
-PYTHON  ?= python
+# [T]-Theory books Makefile
 PANDOC  := pandoc
 ENGINE  := xelatex
 GS      ?= gswin64c
 BUILDDIR := bld
+GATEWAY_SOURCE := gateway.md
+GATEWAY_FILTER := gateway.lua
 
-ifeq ($(OS),Windows_NT)
-define MKDIR_P
-if not exist "$(1)" mkdir "$(1)"
-endef
-define COPY_FILE
-copy /Y "$(1)" "$(2)" >NUL
-endef
-else
 define MKDIR_P
 mkdir -p "$(1)"
 endef
-define COPY_FILE
-cp "$(1)" "$(2)"
-endef
-endif
 
 BOOK_FLAGS := \
   --pdf-engine=$(ENGINE) --standalone --toc-depth=2 \
@@ -58,18 +45,12 @@ bld/noir-page.pdf: noir-page.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(NOIR_FLAGS)
 	@echo "Built: $@"
 
-# Each domain booklet retains the common four-page reference and varies only
-# its opening elevator pitch.
-bld/booklet-%.md: ../../paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md build_fractal_books.py | $(BUILDDIR)
-	$(PYTHON) build_fractal_books.py --booklet $*
-
-bld/booklet-%.pdf: bld/booklet-%.md ../../paper/soma/ttheory-cheatsheet/cheatsheet-header.tex | $(BUILDDIR)
-	mkdir -p $(BUILDDIR)/figures
-	cp ../../paper/figures/t-theory-sticker.png $(BUILDDIR)/figures/
+# The public Gateway is rendered directly from its canonical Markdown source.
+bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(GATEWAY_FILTER) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ \
 		--pdf-engine=$(ENGINE) --standalone \
-		--include-in-header=../../paper/soma/ttheory-cheatsheet/cheatsheet-header.tex \
 		--include-in-header=../../paper/unicode-math-text.tex \
+		--lua-filter=$(GATEWAY_FILTER) \
 		-V "geometry=a4paper,margin=16mm" \
 		-V fontsize=10pt -V linestretch=1.2 \
 		-V mainfont="TeX Gyre Pagella" \
@@ -79,8 +60,9 @@ bld/booklet-%.pdf: bld/booklet-%.md ../../paper/soma/ttheory-cheatsheet/cheatshe
 .PHONY: gateway-html
 gateway-html: $(BUILDDIR)/booklet-gateway.html
 
-$(BUILDDIR)/booklet-gateway.html: $(BUILDDIR)/booklet-gateway.md gateway.css | $(BUILDDIR)
+$(BUILDDIR)/booklet-gateway.html: $(GATEWAY_SOURCE) $(GATEWAY_FILTER) gateway.css | $(BUILDDIR)
 	$(PANDOC) $< -o $@ --standalone --mathjax \
+		--lua-filter=$(GATEWAY_FILTER) \
 		--css=../gateway.css \
 		-M title="[T]-Theory: A Universal Theory of Everything"
 	@echo "Built Gateway HTML: $@"
