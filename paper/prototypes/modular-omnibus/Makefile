@@ -1,13 +1,11 @@
 ENGINE := xelatex
 OUT := bld
 
-.PHONY: all subfiles combine clean
+.PHONY: all subfiles clean
 
-all: subfiles combine
+all: subfiles
 
 subfiles: $(OUT)/subfiles-master.pdf $(OUT)/subfiles-paper-a.pdf $(OUT)/subfiles-book-b.pdf
-
-combine: $(OUT)/combine-master.pdf $(OUT)/combine-paper-a.pdf $(OUT)/combine-book-b.pdf
 
 $(OUT):
 	mkdir -p $(OUT)
@@ -21,16 +19,6 @@ $(OUT)/subfiles-paper-a.pdf: subfiles/paper-a.tex subfiles/master.tex | $(OUT)
 
 $(OUT)/subfiles-book-b.pdf: subfiles/book-b.tex subfiles/master.tex | $(OUT)
 	cd subfiles && $(ENGINE) -interaction=nonstopmode -jobname=subfiles-book-b -output-directory=../$(OUT) book-b.tex
-
-$(OUT)/combine-master.pdf: combine/master.tex combine/paper-a.tex combine/book-b.tex | $(OUT)
-	cd combine && $(ENGINE) -interaction=nonstopmode -jobname=combine-master -output-directory=../$(OUT) master.tex
-	cd combine && $(ENGINE) -interaction=nonstopmode -jobname=combine-master -output-directory=../$(OUT) master.tex
-
-$(OUT)/combine-paper-a.pdf: combine/paper-a.tex | $(OUT)
-	cd combine && $(ENGINE) -interaction=nonstopmode -jobname=combine-paper-a -output-directory=../$(OUT) paper-a.tex
-
-$(OUT)/combine-book-b.pdf: combine/book-b.tex | $(OUT)
-	cd combine && $(ENGINE) -interaction=nonstopmode -jobname=combine-book-b -output-directory=../$(OUT) book-b.tex
 
 clean:
 	rm -rf $(OUT)

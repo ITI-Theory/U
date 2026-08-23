@@ -200,6 +200,16 @@ else
   ok "All 15 booklets are exactly four pages"
 fi
 
+# ── 13. Lulu page caps ────────────────────────────────────────────────────
+hdr "13. Lulu print page caps"
+LULU_CHECK=$(py paper/scripts/check_lulu_pages.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "All registry-designated Lulu artifacts are within page limits"
+else
+  fail "Lulu page cap failure"
+  echo "$LULU_CHECK" | sed 's/^/    /'
+fi
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

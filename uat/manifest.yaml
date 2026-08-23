@@ -23,8 +23,34 @@ papers:
 
 ttheory:
   purpose: "Fractal Thesis, print volumes, and cheatsheet acceptance"
+  worksheet: uat/ttheory-nlm-uat.md
+  readme: uat/staging-readme-ttheory.md
+  context_files:
+    - paper/bld/uat-context/PAPERS.md
+    - paper/bld/uat-context/BUILD_CONTEXT.md
+    - paper/OMNIBUS_DOCUMENT_MODEL.md
+    - uat/papers-build-review.md
+    - uat/ttheory-build-review.md
+    - uat/dev-handover.md
   files:
     - Part2/fractal-programme/bld/ttheory-omnibus.pdf
     - Part2/fractal-programme/bld/ttheory-vol1.pdf
+    - Part2/fractal-programme/bld/ttheory-vol1-10pt.pdf
     - Part2/fractal-programme/bld/ttheory-vol2.pdf
     - Part2/fractal-programme/bld/booklet-gateway.pdf
+
+lulu-proofs:
+  purpose: "Lulu A4 Hardcover Linen Wrap with Dust Jacket comparison proofs"
+  worksheet: uat/ttheory-nlm-uat.md
+  readme: uat/staging-readme-ttheory.md
+  files:
+    - paper/bld/omnibus-a4.pdf
+    - Part2/fractal-programme/bld/ttheory-vol1.pdf
+    - Part2/fractal-programme/bld/ttheory-vol1-10pt.pdf
+    - Part2/fractal-programme/bld/book-gateway.pdf
+    - paper/bld/lulu-covers/01-omnibus-v2-linen-wrap-proof.pdf
+    - paper/bld/lulu-covers/01-omnibus-v2-dust-jacket.pdf
+    - paper/bld/lulu-covers/03-ttheory-vol1-foundation-linen-wrap-proof.pdf
+    - paper/bld/lulu-covers/03-ttheory-vol1-foundation-dust-jacket.pdf
+    - paper/bld/lulu-covers/ttheory-book-gateway-linen-wrap-proof.pdf
+    - paper/bld/lulu-covers/ttheory-book-gateway-dust-jacket.pdf

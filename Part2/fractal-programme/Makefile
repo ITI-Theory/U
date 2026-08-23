@@ -47,15 +47,6 @@ ALL_BOOKLET_PAGES := $(foreach domain,$(DOMAINS),$(addprefix $(BUILDDIR)/booklet
 
 .SECONDARY: $(addprefix $(BUILDDIR)/booklet-, $(addsuffix .pdf, $(DOMAINS)))
 
-# Cheatsheet flags — standalone per-domain reference card with parchment style
-CHEATSHEET_FLAGS := \
-  --pdf-engine=$(ENGINE) --standalone \
-  --include-in-header=../../paper/soma/ttheory-cheatsheet/cheatsheet-header.tex \
-  --include-in-header=ttheory-packages.tex \
-  -V "geometry=a4paper,margin=16mm" \
-  -V fontsize=10pt -V linestretch=1.2 \
-  -V mainfont="TeX Gyre Pagella"
-
 NOIR_FLAGS := \
   --pdf-engine=$(ENGINE) --standalone \
   --include-in-header=noir-header.tex \
@@ -66,10 +57,6 @@ NOIR_FLAGS := \
 bld/noir-page.pdf: noir-page.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(NOIR_FLAGS)
 	@echo "Built: $@"
-
-bld/cheatsheet-%.pdf: cheatsheets/cheatsheet-%.md | $(BUILDDIR)
-	$(PANDOC) $< -o $@ $(CHEATSHEET_FLAGS)
-	@echo "Built cheatsheet: $@"
 
 # Each domain booklet retains the common four-page reference and varies only
 # its opening elevator pitch.
@@ -88,6 +75,15 @@ bld/booklet-%.pdf: bld/booklet-%.md ../../paper/soma/ttheory-cheatsheet/cheatshe
 		-V mainfont="TeX Gyre Pagella" \
 		--pdf-engine-opt="-output-directory=$(abspath $(BUILDDIR))"
 	@echo "Built domain booklet: $@"
+
+.PHONY: gateway-html
+gateway-html: $(BUILDDIR)/booklet-gateway.html
+
+$(BUILDDIR)/booklet-gateway.html: $(BUILDDIR)/booklet-gateway.md gateway.css | $(BUILDDIR)
+	$(PANDOC) $< -o $@ --standalone --mathjax \
+		--css=../gateway.css \
+		-M title="[T]-Theory: A Universal Theory of Everything"
+	@echo "Built Gateway HTML: $@"
 
 define BOOKLET_PAGE_RULE
 bld/booklet-%-$(1).pdf: bld/booklet-%.pdf | $(BUILDDIR)
@@ -127,6 +123,9 @@ fractal-thesis: $(BUILDDIR)/ttheory-omnibus.pdf
 vol1: $(BUILDDIR)/ttheory-vol1.pdf
 	@echo "T-Theory Vol I: Foundation built."
 
+vol1-10pt: $(BUILDDIR)/ttheory-vol1-10pt.pdf
+	@echo "T-Theory Vol I: Foundation 10pt comparison built."
+
 vol2: $(BUILDDIR)/ttheory-vol2.pdf
 	@echo "T-Theory Vol II: Application built."
 
@@ -138,6 +137,10 @@ $(BUILDDIR)/ttheory-vol2-body.md: FORCE | $(BUILDDIR)
 
 $(BUILDDIR)/ttheory-vol1.pdf: $(BUILDDIR)/ttheory-vol1-body.md $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(VOLUME_FLAGS)
+	@echo "Built: $@"
+
+$(BUILDDIR)/ttheory-vol1-10pt.pdf: $(BUILDDIR)/ttheory-vol1-body.md $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(VOLUME_10PT_FLAGS)
 	@echo "Built: $@"
 
 $(BUILDDIR)/ttheory-vol2.pdf: $(BUILDDIR)/ttheory-vol2-body.md $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
@@ -163,8 +166,10 @@ OMNIBUS_FLAGS := \
   -V fontsize=11pt -V linestretch=1.39 \
   -V header-includes="\usepackage{amsmath}\usepackage{amssymb}\usepackage{placeins}"
 
-# Volume flags — same as omnibus (TOC already included)
-VOLUME_FLAGS := $(OMNIBUS_FLAGS)
+# Print volumes use 10pt for a denser A4 book format. The Fractal omnibus,
+# individual domain books, and all Papers outputs retain their 11pt profiles.
+VOLUME_FLAGS := $(subst -V fontsize=11pt,-V fontsize=10pt,$(OMNIBUS_FLAGS))
+VOLUME_10PT_FLAGS := $(VOLUME_FLAGS)
 
 $(BUILDDIR)/ttheory-omnibus.pdf: $(BUILDDIR)/ttheory-omnibus-body.md $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
@@ -184,5 +189,5 @@ $(BUILDDIR):
 clean:
 	rm -f $(BUILDDIR)/book-*.pdf $(BUILDDIR)/book-*-body.md $(BUILDDIR)/ttheory-omnibus* $(BUILDDIR)/ttheory-vol*
 
-.PHONY: all fractal-thesis vol1 vol2 kappas bodies clean FORCE
+.PHONY: all fractal-thesis vol1 vol1-10pt vol2 kappas bodies clean FORCE
 FORCE:

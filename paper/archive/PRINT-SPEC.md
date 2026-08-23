@@ -155,7 +155,7 @@ encoded **only** in the printed language tag on the back cover bottom:
   - Colour tier set **per volume** based on figure density:
     - **Premium Colour:** Wave Atlas, Omnibus (figures, plots, equations)
     - **Standard Colour:** Phase Dot I, Phase Dot II (prose, chats, no figures)
-  - 480pp cap on 80# coated (drove Phase Dot 2-vol split; safe with ~30pp slack)
+  - 800pp cap on 80# coated (drove Phase Dot 2-vol split; keep operational slack below this limit)
   - Foil stamping NOT offered → cover design uses **deboss on linen + printed
     accent + the dust jacket** as the primary visible layer (see Dust Jacket below)
   - EU printer fulfillment (typically Czech Republic / Poland) — short ship to Zürich

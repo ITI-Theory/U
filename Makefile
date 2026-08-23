@@ -9,7 +9,7 @@ include mk/dist.mk
 
 .PHONY: all build registry-papers registry-papers-royal registry-fractal lean lean-appendix omnibus \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
-	uat-stage-papers uat-stage-ttheory dist generate list
+	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate list
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
@@ -57,7 +57,19 @@ uat-stage-papers: registry-papers
 	py paper/scripts/stage_uat.py papers
 
 uat-stage-ttheory: registry-fractal
+	$(MAKE) -C paper uat-context-papers
 	py paper/scripts/stage_uat.py ttheory
+
+uat-stage-lulu-proofs: registry-papers registry-fractal
+	$(MAKE) -C Part2/fractal-programme vol1-10pt
+	$(MAKE) -C paper/lulu-cover proof-set
+	py paper/scripts/stage_uat.py lulu-proofs
+
+uat-stage-mirror:
+	py paper/scripts/stage_uat_mirror.py
+
+uat-stage-full: uat-stage-papers uat-stage-ttheory
+	@echo Full UAT packages staged: papers + ttheory
 
 # Familiar release names remain aliases for the UAT gate.
 release-build: uat-build

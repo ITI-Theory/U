@@ -3,16 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Soma Field Operator</title>
+    <title>Soma Machine</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css" integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew" crossorigin="anonymous" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <main>
       <canvas id="operator" aria-label="Soma Field Operator visual"></canvas>
+      <section id="abstract-splash" class="abstract-splash" role="dialog" aria-modal="true" aria-labelledby="abstract-splash-title">
+        <div class="abstract-splash__frame">
+          <p class="abstract-splash__kicker">[T]-THEORY / FIELD SCAN / ARCHIVE 01</p>
+          <h1 id="abstract-splash-title">THE ZOOMABLE UNIVERSAL SOMATIC FIELD</h1>
+          <p class="abstract-splash__status">RESEARCH PROGRAMME / FORMAL ARCHITECTURE + SOURCED RESULTS + TESTABLE HYPOTHESES</p>
+          <div id="abstract-splash-copy" class="abstract-splash__copy"></div>
+          <code id="abstract-splash-source" class="abstract-splash__source"></code>
+          <button id="abstract-splash-enter" class="abstract-splash__enter" type="button">OK / ENTER FIELD ATLAS</button>
+        </div>
+      </section>
       <section class="field-readout" aria-label="Field controls">
-        <p class="eyebrow">[T] / SOMA FIELD OPERATOR</p>
-        <h1>11D BODY MAP</h1>
+        <p class="eyebrow">[T] / SOMA MACHINE</p>
+        <h1>FIELD ATLAS</h1>
         <details class="operator-manual">
           <summary>HOW TO OPERATE</summary>
           <ol>
@@ -29,19 +39,68 @@
             <h2 id="cheat-sheet-title">11D Thinking Mind</h2>
             <p id="cheat-sheet-summary">The organism view combines physical substrate, propagator, limbic regulation, and cortex/matrix geometry.</p>
             <code id="cheat-sheet-source">paper/soma/ttheory-cheatsheet/ttheory-cheatsheet.md</code>
+            <p id="visual-todo" class="visual-todo">VISUAL TODO / ATLAS DATA PENDING</p>
+            <section class="display-config" aria-label="Cheat Sheet display configuration">
+              <label for="display-preset">DISPLAY</label>
+              <select id="display-preset" aria-label="Cheat Sheet display preset"></select>
+              <div id="cheat-sheet-toggles" class="cheat-sheet-toggles" role="group" aria-label="Cheat Sheet sections"></div>
+            </section>
+            <div id="cheat-sheet-ledger" class="cheat-sheet-ledger" aria-live="polite"></div>
           </article>
+        </details>
+        <details class="atlas-coverage" aria-label="Atlas implementation coverage">
+          <summary>ATLAS COVERAGE</summary>
+          <section id="atlas-coverage-ledger" class="atlas-coverage__ledger"></section>
         </details>
         <section class="hierarchy" aria-label="Organism hierarchy">
           <button class="hierarchy-button" data-level="4" type="button"><strong>4D</strong><span>M4 / BODY + BRAIN + NERVES</span></button>
           <button class="hierarchy-button" data-level="8" type="button"><strong>8D</strong><span>M4 + P3 + L1 / FEELING</span></button>
           <button class="hierarchy-button active" data-level="11" type="button"><strong>11D</strong><span>M4 + P3 + L1 + C3 / MIND</span></button>
         </section>
+        <div class="control select-control"><label for="implementation">USF MODEL</label><select id="implementation" aria-label="USF model"></select></div>
+        <section class="view-mode" aria-label="Field view mode">
+          <button id="view-3d" class="active" type="button" aria-pressed="true">3D</button>
+          <button id="view-2d" type="button" aria-pressed="false">2D</button>
+        </section>
+        <div class="legacy-control" aria-hidden="true"><select id="route" tabindex="-1"></select><output id="path-readout"></output><output id="path-edge-readout"></output></div>
+        <div class="control scale-control"><label for="scale">ZOOM OPERATOR</label><input id="scale" type="range" min="0" max="4" value="0" step="1" /></div>
+        <output id="scale-readout" class="scale-readout">I / QUANTUM TO CLASSICAL</output>
+        <section class="scale-stepper" aria-label="Zoom controls">
+          <button id="scale-down" type="button" title="Previous model level" aria-label="Previous model level">−</button>
+          <button id="scale-up" type="button" title="Next model level" aria-label="Next model level">+</button>
+        </section>
+        <details class="zoom-equation">
+          <summary>FULL MODEL MATHEMATICS</summary>
+          <section class="math-depth-controls" aria-label="Mathematics detail">
+            <button id="math-depth-down" type="button" title="Show less mathematics" aria-label="Show less mathematics">−</button>
+            <output id="math-depth-readout">INVARIANT</output>
+            <button id="math-depth-up" type="button" title="Show more mathematics" aria-label="Show more mathematics">+</button>
+          </section>
+          <div id="zoom-equation-full" class="zoom-equation-full" aria-live="polite"></div>
+          <code id="zoom-equation-source"></code>
+        </details>
+        <fieldset class="lens-layers" aria-label="Observation layers">
+          <legend>OBSERVATION LAYERS</legend>
+          <label><input id="lens-physics" type="checkbox" checked /> PHYSICS</label>
+          <label><input id="lens-response" type="checkbox" checked /> RESPONSE</label>
+          <label><input id="lens-mirror" type="checkbox" /> MIRROR</label>
+        </fieldset>
         <div class="control"><label for="somatic">SOMATIC</label><input id="somatic" type="range" min="0" max="1" value="0.72" step="0.01" /></div>
         <div class="control"><label for="limbic">LIMBIC</label><input id="limbic" type="range" min="0" max="1" value="0.86" step="0.01" /></div>
         <div class="control"><label for="cognitive">COGNITIVE</label><input id="cognitive" type="range" min="0" max="1" value="0.46" step="0.01" /></div>
-        <div class="control scale-control"><label for="scale">ZOOM OPERATOR</label><input id="scale" type="range" min="0" max="19" value="8" step="1" /></div>
-        <output id="scale-readout" class="scale-readout">SIGMA 08 / HUMAN VERTEBRATE</output>
+        <section class="canonical-range legacy-control" aria-label="Canonical I to V range">
+          <label for="canonical-start">CANONICAL RANGE</label>
+          <select id="canonical-start" aria-label="Canonical range start"></select>
+          <span>→</span>
+          <select id="canonical-end" aria-label="Canonical range end"></select>
+          <button id="canonical-expand" type="button">EXPAND</button>
+        </section>
+        <output id="canonical-readout" class="path-transport-readout">I → V / 0-20 OOM / CONTIGUOUS</output>
+        <div class="legacy-control" aria-hidden="true"><button id="path-back" type="button"></button><button id="path-play" type="button"></button><button id="path-next" type="button"></button><input id="path-bpm" type="range" value="92" /><output id="path-transport-readout"></output></div>
         <output id="projection-readout" class="projection-readout">11D THINKING MIND / M11 ACTIVE</output>
+        <div class="control"><label for="response-time">RESPONSE TIME</label><input id="response-time" type="range" min="0" max="1" value="0" step="0.01" /></div>
+        <output id="time-readout" class="scale-readout">T = 0.00 / READY FOR IMPULSE</output>
+        <button id="poke" class="poke-button" type="button">POKE FIELD / J(t)</button>
         <button id="brecvema" class="mode-button" type="button" aria-pressed="false">BRECVEMA / P.N.S.</button>
         <section id="brecvema-inspector" class="brecvema-inspector" aria-label="BRECVEMA mechanism inspector" hidden>
           <p class="inspector-kicker">MUSIC-INDUCED AFFECT MECHANISMS</p>
@@ -63,6 +122,19 @@
             <p class="mechanism-source">SOURCED / P9 MUSIC-AFFECT DYNAMICS</p>
           </article>
         </section>
+        <details id="appraisal-panel" class="appraisal-panel">
+          <summary>APPRAISAL / CONTEXT</summary>
+          <p class="appraisal-note">CODA / context weights the episode; it does not replace mechanism inputs.</p>
+          <div id="appraisal-controls"></div>
+          <p id="appraisal-readout" class="appraisal-readout">NO APPRAISAL WEIGHTS SELECTED</p>
+          <p class="mechanism-source">SOURCED / CODA 2022 / DESIGN INPUT</p>
+        </details>
+        <details id="body-map-panel" class="body-map-panel">
+          <summary>BODY MAP / 8x8 FIELD</summary>
+          <p class="appraisal-note">Stacked mechanism profile on a hardware-neutral spatial grid.</p>
+          <div id="body-grid" class="body-grid" aria-label="8 by 8 body field grid"></div>
+          <p id="body-map-status" class="mechanism-source">DESIGN MAP / SOURCE AUDIT PENDING</p>
+        </details>
         <section class="math-readout" aria-live="polite">
           <p id="equation-title">DEPENDENT-TYPE MORPHISM</p>
           <code id="equation-primary">SomaField = SUM(sigma:Scale20) Substrate(sigma)</code>
@@ -75,11 +147,20 @@
           </dl>
           <p id="type-status" class="type-status">LEAN: SCALE-COMPATIBLE / HUMAN OPERATORS ENABLED</p>
         </section>
+        <details class="settings-panel">
+          <summary>SETTINGS</summary>
+          <div class="control transport-control"><label for="background-dim">FRACTAL DEPTH</label><input id="background-dim" type="range" min="0" max="1" value="0" step="0.01" /></div>
+          <div class="control transport-control"><label for="fractal-quality">FRACTAL DETAIL</label><input id="fractal-quality" type="range" min="0.35" max="1" value="0.6" step="0.05" /></div>
+        </details>
         <button id="export" type="button">EXPORT FRAME</button>
       </section>
       <aside class="equation-wall" aria-live="polite">
         <p class="equation-kicker">DEPENDENT-TYPE MORPHISM INTERFACE</p>
         <h2 id="wall-title">LEVEL 3 / 11D THINKING MIND</h2>
+        <section class="wall-stepper" aria-label="Model level controls">
+          <button id="wall-scale-down" type="button" title="Previous model level" aria-label="Previous model level">−</button>
+          <button id="wall-scale-up" type="button" title="Next model level" aria-label="Next model level">+</button>
+        </section>
         <div class="equation-block primary" id="wall-architecture" data-tex="\mathcal{M}_{11}=M_4\times P_3\times L_1\times C_3"></div>
         <div class="equation-block" id="wall-state" data-tex="\Psi(t)=(X_{M_4}(t),G_{P_3}(t),\ell_{L_1}(t),M_{C_3}(t))"></div>
         <div class="equation-block" id="wall-dynamics" data-tex="(\nabla^2+k^2)G(x,x')=\delta(x-x')"></div>

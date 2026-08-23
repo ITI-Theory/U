@@ -48,7 +48,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all help omnibus omnibus-royal omnibus-a4 glyph-papers uat-context-papers check-registry-hooks check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
+.PHONY: all help omnibus omnibus-royal omnibus-a4 glyph-papers lulu-cover uat-context-papers check-registry-hooks check-unicode-diagrams check-lulu-pages check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
 	clean check setup freeze \
@@ -63,6 +63,15 @@ uat-context-papers:
 
 check-registry-hooks:
 	$(PYTHON) $(SCRIPTS)/check_registry_hooks.py
+
+check-unicode-diagrams:
+	$(PYTHON) $(SCRIPTS)/check_unicode_diagrams.py $(if $(STRICT),--strict)
+
+check-lulu-pages:
+	$(PYTHON) $(SCRIPTS)/check_lulu_pages.py
+
+lulu-cover:
+	$(MAKE) -C lulu-cover $(LULU_COVER_TARGET) COVER=$(COVER) INTERIOR=$(INTERIOR) TITLE="$(TITLE)" SUBTITLE="$(SUBTITLE)"
 
 help:
 	@echo "Soma-Field Papers -- PDF Build System"

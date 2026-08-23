@@ -412,7 +412,7 @@ as short chapter summaries in the omnibus. Generate the synthesis table from the
 registry rather than retaining a hand-written copy in a paper forematter. The
 same model must cover C2's book members, with cheatsheets as registered inserts.
 
-**Decision boundary:** C1v2 and C2 should share one documented model with
+**Decision:** C1v2 and C2 share one documented model with
 explicit per-member roles and insertion rules. C2's cheatsheets are an additional
 member-level insertion rule, not a separate architecture.
 
@@ -429,8 +429,9 @@ questions requiring an explicit decision before renderer migration.
 - [ ] Move generated registry views such as the synthesis table out of handwritten
    paper prose only after the document model is accepted.
 
-**AI opinion:** This is the highest-value design issue. Do not optimize the build
-until the intended reader-facing hierarchy is explicit and shared by C1v2/C2.
+**AI opinion:** The reader-facing hierarchy is now decided. Next implementation
+must use Lua/registry transforms to produce the two-level master TOC without
+turning it into a many-page inventory.
 
 ---
 
@@ -475,3 +476,153 @@ models separately compilable documents without `combine`'s incompatible
 document-boundary surgery. Investigate it after ISS-021, with Lua as the
 default metadata/structure layer. The acceptance test is easier integration and
 fewer unrelated regressions, not a faster build.
+
+---
+
+## ISS-023: C2 Vol II exceeds Lulu 800-page cap — OPEN
+
+**Measured state (2026-08-19):** Registry-driven `check_lulu_pages.py`
+enforces `lulu_page_limit: 800` for every Lulu-designated artifact.
+
+| Artifact | Pages | Limit | Result |
+|---|---:|---:|---|
+| C1v2 | 423 | 800 | PASS |
+| C2 Vol I | 758 | 800 | PASS |
+| C2 Vol II | 828 | 800 | FAIL |
+| Each individual C2 domain book | 83–236 | 800 | PASS |
+
+**Decision boundary:** Do not promote `ttheory-vol2.pdf` to `Dist/lulu/` while
+it exceeds the registered cap. The normal A4/NLM artifact can remain valid;
+this blocks the dedicated print artifact only.
+
+**Next actions:**
+- [ ] Identify a natural C2 Vol II split or move one coherent domain book to
+   another registered volume.
+- [ ] Rebuild the resulting print volumes with the Lulu A4 profile.
+- [ ] Recalculate page counts and cover spine dimensions before Lulu preview.
+
+**AI opinion:** Split Vol II by a coherent reader/domain boundary rather than
+shrinking typography or margins to force 28 pages under the cap. Individual
+domain books already provide valid local Lulu outputs.
+
+---
+
+## ISS-024: Effect specification and causal-response interpreter — OPEN
+
+**Tag:** Future / USM formal foundation
+
+**Problem:** The incoming UAT sketch `uat/RC1.1/inbox/SomaMachine/SomaUniverse.lean`
+correctly identifies a useful Rosetta connection between abstract effect management,
+scale-indexed universes, and causal impulse response. Its current direct claim
+`SomaticIO ≃ ImpulseResponse` is too strong, and its lens laws cannot hold for a
+lossy 11D-to-soma projection. It contains `sorry` placeholders and must not be
+treated as an active proof.
+
+**Decision:** Define a small, no-`sorry` Lean kernel in the existing proof
+architecture:
+
+```text
+EffectSpec σ α -> typed Universe σ -> causal response interpreter -> ObservationLens
+```
+
+The interpreter expresses how a selected substrate turns a declared forcing term
+or observation request into a scale-appropriate response trajectory. It is not an
+identity between Lean `IO` and a Green's function.
+
+**Purpose:** Give USM's `POKE FIELD / J(t)`, scale selection, response time, and
+future mirror lens a type-safe conceptual foundation without asserting new physics.
+
+**Sources:**
+- `paper/proofs/ScaleUniverse.lean`
+- `paper/proofs/EmotionOntology.lean`
+- `uat/RC1.1/inbox/SomaMachine/SomaUniverse.lean` (design sketch only)
+
+**Actions:**
+- [ ] Reconcile the 20/21 scale conventions before defining the new type.
+- [ ] Define `EffectSpec`, a response interpreter contract, and an observation
+   lens with lawful non-lossy semantics.
+- [ ] Prove only structural/type-safety facts; keep physical theorems in their
+   specific existing modules.
+- [ ] Add a focused Lake target and build it with no `sorry`.
+
+---
+
+## ISS-025: USM human route — appraisal and context layer (CODA) — OPEN
+
+**Tag:** Current USM specification / literature update
+
+**Problem:** The human music-affect UI currently uses BRECVEMA mechanisms as
+forcing lenses. Current music-emotion literature also emphasizes appraisal,
+goals, personal relevance, context, individual history, and meaning as dynamic
+contributors to an emotional episode. The same music can produce different
+responses for different listeners or situations.
+
+**Decision:** Do not replace BRECVEMA. Model it as a mechanism/input layer and
+add a sourced, optional `APPRAISAL / CONTEXT` layer that weights or interprets
+the episode:
+
+```text
+music features + BRECVEMA mechanism profile + appraisal/context
+-> field forcing and parameter weighting
+-> response trajectory and reportable experience
+```
+
+**Candidate appraisal dimensions:** novelty/familiarity, expectation, goal
+relevance, goal conduciveness, certainty, coping potential, agency, lyrics or
+other extra-musical context. These remain user-selectable educational inputs,
+not diagnoses or claims of measured personal psychology.
+
+**Source:** Lennie & Eerola (2022), *The CODA Model: A Review and Skeptical
+Extension of the Constructionist Model of Emotional Episodes Induced by Music*,
+Frontiers in Psychology, 13:822264, doi:10.3389/fpsyg.2022.822264.
+
+**Actions:**
+- [ ] Add CODA/appraisal provenance to the human music-affect Cheat Sheet and
+   USM MVP specification.
+- [ ] Design a compact appraisal/context panel that can coexist with multi-select
+   BRECVEMA mechanisms.
+- [ ] State which controls are sourced descriptions, simulation inputs, or future
+   experimental variables.
+- [ ] Update P9 literature review and bibliography after a focused source audit.
+
+---
+
+## ISS-026: USM human route — body-map and 8x8 field-grid renderer — OPEN
+
+**Tag:** Current USM specification / visual instrument
+
+**Problem:** The human music-affect UI needs a specific spatial rendering of
+selected mechanisms and field state. A generic body wireframe is insufficient.
+The same representation should later map naturally to an 8x8 pad/controller
+surface, but no MIDI or Push integration is required now.
+
+**Decision:** Define a hardware-neutral 8x8 field grid as the canonical spatial
+control/rendering representation. The body map is a named human-scale view onto
+grid regions; non-human scales can retarget the same grid to their own substrate.
+
+```text
+BRECVEMA + appraisal/context + field state
+-> region weights on 8x8 field grid
+-> body-map overlay in USM
+-> future controller, OSC, audio, or projection mapping
+```
+
+**Evidence boundary:** Body-map descriptions must distinguish published
+body-sensation findings, USF field interpretation, and unsupported artistic
+placement. Do not present a one-to-one mechanism-to-body-region map as settled
+fact without a source-specific audit.
+
+**Candidate sources:**
+- Nummenmaa et al. (2014), *Bodily maps of emotions*, PNAS.
+- 2024 *Bodily Maps of Musical Sensations* research (verify exact bibliographic
+   record and findings before implementation).
+- P9 music-affect dynamics for the forcing and field-state side.
+
+**Actions:**
+- [ ] Audit the body-map papers and extract only defensible region/measurement
+   claims.
+- [ ] Define the 8x8 grid coordinate system, region names, aggregation rules,
+   and visual encoding.
+- [ ] Add stacked-region rendering for multi-selected mechanisms.
+- [ ] Keep the web demo hardware-free; specify a future controller adapter only
+   after the on-screen grid is accepted.

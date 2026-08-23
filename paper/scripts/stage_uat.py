@@ -25,7 +25,7 @@ def sha256(path: Path) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("track", choices=("papers", "ttheory"))
+    parser.add_argument("track", choices=("papers", "ttheory", "lulu-proofs"))
     args = parser.parse_args()
 
     manifest = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))

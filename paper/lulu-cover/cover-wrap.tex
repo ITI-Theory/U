@@ -1,0 +1,75 @@
+% Generic Lulu cover-wrap renderer.
+% Build with: xelatex "\def\CoverId{<registry lulu identifier>}\input{cover-wrap.tex}"
+% The corresponding config/<CoverId>.tex must be transcribed from Lulu's
+% downloadable project template after the matching interior PDF is uploaded.
+
+\ifdefined\CoverId\else
+  \errmessage{CoverId is required; see lulu-cover/README.md}
+\fi
+\expandafter\input\expandafter{config/\CoverId.tex}
+
+\documentclass{article}
+\usepackage[paperwidth=\CoverCanvasWidth,paperheight=\CoverCanvasHeight,margin=0pt,noheadfoot]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\definecolor{TBlack}{HTML}{0A0A0A}
+\definecolor{TGold}{HTML}{C9A84C}
+\definecolor{TWhite}{HTML}{F5F5F0}
+\definecolor{TGrey}{HTML}{888888}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{Lato}
+
+\newcommand{\covertext}[5]{%
+  \node[anchor=center,text width=#3,align=center] at (#1,#2) {#4#5};%
+}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay,x=1mm,y=1mm]
+  \fill[TBlack] (current page.south west) rectangle (current page.north east);
+
+  % Full-bleed artwork only. Lulu templates supply all trim, bleed, and hinge
+  % coordinates; no guide marks are emitted into the upload PDF.
+  \foreach \index in {1,...,8} {
+    \draw[TGold!20,line width=0.3pt,opacity=0.4]
+      ($(current page.west)+(0,\index*3.5cm)$)
+      .. controls ($(current page.center)+(0,\index*1.2cm-5cm)$)
+      and ($(current page.center)+(2cm,\index*0.8cm-4cm)$) ..
+      ($(current page.east)+(0,\index*2.8cm)$);
+  }
+
+  % Back panel: optional publication description; no ISBN is emitted unless a
+  % product configuration explicitly supplies one.
+  \node[anchor=center,text width=\CoverBackTextWidth,align=center]
+    at (\CoverBackCenterX,\CoverPanelCenterY) {
+      {\fontsize{10}{13}\selectfont\sffamily\color{TGrey}\CoverBackText}
+    };
+
+  % Spine stays clear of the template's configured edge tolerances.
+  \node[anchor=center,rotate=90,text width=\CoverSpineTextWidth,align=center]
+    at (\CoverSpineCenterX,\CoverPanelCenterY) {
+      {\fontsize{9}{12}\selectfont\sffamily\bfseries\color{TGold}\CoverSpineText}
+    };
+
+  % Front panel.
+  \node[anchor=center,opacity=0.06]
+    at (\CoverFrontCenterX,\CoverPanelCenterY+20mm) {
+      \fontsize{160}{160}\selectfont\sffamily\bfseries\color{TGold}[T]
+    };
+  \node[anchor=north,text width=\CoverFrontTextWidth,align=center]
+    at (\CoverFrontCenterX,\CoverFrontTopY) {
+      {\fontsize{11}{14}\selectfont\sffamily\color{TGrey}[T]-THEORY RESEARCH PROGRAMME}\\[8mm]
+      {\fontsize{28}{34}\selectfont\rmfamily\bfseries\color{TWhite}\CoverTitle}\\[5mm]
+      {\fontsize{14}{18}\selectfont\rmfamily\color{TGold}\CoverSubtitle}\\[4mm]
+      {\color{TGold}\rule{100mm}{0.5pt}}
+    };
+  \node[anchor=center,text width=\CoverFrontTextWidth,align=center]
+    at (\CoverFrontCenterX,\CoverFrontAuthorY) {
+      {\fontsize{16}{20}\selectfont\rmfamily\color{TWhite}\CoverAuthor}\\[3mm]
+      {\fontsize{10}{13}\selectfont\sffamily\color{TGrey}\CoverAffiliation}
+    };
+\end{tikzpicture}
+\end{document}

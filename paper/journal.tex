@@ -9,7 +9,15 @@
 \setmainfont{TeX Gyre Pagella}[Ligatures=TeX,Numbers=OldStyle]
 \setsansfont{Lato}[Ligatures=TeX,BoldFont=Lato Bold]
 \setmonofont{JetBrains Mono}
-\input{unicode-math-text.tex}
+\IfFileExists{unicode-math-text.tex}{%
+  \input{unicode-math-text.tex}%
+}{%
+  \IfFileExists{../../paper/unicode-math-text.tex}{%
+    \input{../../paper/unicode-math-text.tex}%
+  }{%
+    \PackageError{journal}{unicode-math-text.tex not found}{}%
+  }%
+}
 
 % 3. Colours
 \usepackage{xcolor}

@@ -253,32 +253,7 @@ from "calm" to "alarmed." It is a hierarchy of three systems, each older than th
 above it, each more primitive, each mobilised in sequence as the perceived threat
 increases.
 
-```
-  ╭──────────────────────────────────────────────────────────────────────╮
-  │  VENTRAL VAGAL STATE           Social engagement branch             │
-  │  Safe, connected, curious      Myelinated vagus nerve               │
-  │  Window of Tolerance           Heart rate regulated                 │
-  │  ─────────────────────────── ← most recently evolved                │
-  ├──────────────────────────────────────────────────────────────────────┤
-  │  SYMPATHETIC STATE             Mobilisation branch                  │
-  │  Alert, energised, defensive   Spinal cord pathway                  │
-  │  Fight or flight               Heart rate elevated                  │
-  │  ─────────────────────────── ← older                               │
-  ├──────────────────────────────────────────────────────────────────────┤
-  │  DORSAL VAGAL STATE            Immobilisation branch                │
-  │  Shutdown, collapse, freeze    Unmyelinated vagus nerve             │
-  │  Dissociation, numbing         Heart rate dropped                   │
-  │  ─────────────────────────── ← most ancient                        │
-  ╰──────────────────────────────────────────────────────────────────────╯
-
-  Figure 1.1. The polyvagal hierarchy. Under conditions of safety, the most evolved
-  system (ventral vagal) governs — enabling social connection, learning, and curiosity.
-  As perceived threat increases, the sympathetic system activates, preparing the body
-  for action. If the threat is overwhelming or escape is impossible, the oldest system
-  (dorsal vagal) takes over: immobilisation, shutdown, disconnection. Trauma often
-  involves the system being stuck at a lower rung long after the original threat has
-  passed.
-```
+![The polyvagal hierarchy. Under conditions of safety, the most evolved system (ventral vagal) governs, enabling social connection, learning, and curiosity. As perceived threat increases, the sympathetic system activates, preparing the body for action. If the threat is overwhelming or escape is impossible, the oldest system (dorsal vagal) takes over: immobilisation, shutdown, disconnection. Trauma often involves the system being stuck at a lower rung long after the original threat has passed.](figures/fig_polyvagal_ladder.pdf){width=95%}
 
 The critical word in that last sentence is *perceived*. The hierarchy responds to what
 the body detects as dangerous, not to what the thinking mind judges as dangerous. These
@@ -437,35 +412,7 @@ temperature of organs. Interoceptive accuracy — how precisely a person can rea
 own body signals — varies widely between individuals and is significantly disrupted by
 trauma.
 
-```
-  ┌─────────────────────────────────────────────────────────────────────┐
-  │                    INTEROCEPTIVE BODY MAP                          │
-  │                                                                     │
-  │     ┌──────────┐        Fear:      rapid heartbeat, tight chest    │
-  │     │   HEAD   │        Shame:     face flush, stomach drop        │
-  │     └────┬─────┘        Calm:      slow breath, warm belly         │
-  │          │              Anger:     jaw clench, shoulder tension     │
-  │     ┌────┴─────┐        Grief:     throat constriction, chest heavy │
-  │     │  CHEST   │        Joy:       chest expansion, light limbs    │
-  │     │ ♥  lungs │        Freeze:    whole-body stillness, cold       │
-  │     └────┬─────┘        Disgust:   gut recoil, throat closing      │
-  │          │                                                          │
-  │     ┌────┴─────┐        Each emotion has a characteristic          │
-  │     │  BELLY   │        distribution across the body —             │
-  │     │  gut     │        a spatial pattern of activation.           │
-  │     └────┬─────┘        This pattern is what the Soma-Field        │
-  │          │              Model calls the emotional field state.      │
-  │     ┌────┴─────┐                                                    │
-  │     │  PELVIS  │                                                    │
-  │     │  limbs   │                                                    │
-  │     └──────────┘                                                    │
-  └─────────────────────────────────────────────────────────────────────┘
-
-  Figure 2.1. The body map of emotional activation. Emotions are not events in the head;
-  they are distributed patterns of physiological arousal across the body. Research by
-  Nummenmaa et al. (2014) mapped these patterns by asking participants to colour body
-  silhouettes where they felt each emotion. The patterns are consistent across cultures.
-```
+![The body map of emotional activation. Emotions are not events in the head; they are distributed patterns of physiological arousal across the body. Research by Nummenmaa et al. (2014) mapped these patterns by asking participants to colour body silhouettes where they felt each emotion. The patterns are consistent across cultures.](figures/fig_interoceptive_body_map.pdf){width=95%}
 
 ---
 
@@ -987,35 +934,7 @@ This is a sum of decaying exponentials. Each term represents a distinct trauma t
 $A_k$ is the amplitude (how strongly the trace affects the current field) and $\tau_k$
 is the decay time (how long the trace persists before fading).
 
-```
-  REGULATED: No significant memory kernel
-  ┌─────────────────────────────────────────────────────────────┐
-  │  Field  ▲                                                   │
-> │      │  │   (episode resolves; field returns
->
-  │         │                              baseline              │
-  │         └──────────────────────────────────────────────→    │
-  │                            time                             │
-  └─────────────────────────────────────────────────────────────┘
-
-  C-PTSD: Significant memory kernel — traces persist
-  ┌─────────────────────────────────────────────────────────────┐
-  │  Field  ▲                                                   │
->
-  │         │  ────╯    ╰────╯  ╰──────╯         ╰──────       │
-  │         │                                                   │
-  │         └──────────────────────────────────────────────→    │
-  │                            time                             │
-  │  Baseline elevated; episodes bleed into one another;        │
-  │  field rarely returns to original rest level                │
-  └─────────────────────────────────────────────────────────────┘
-
-  Figure 5.1. The effect of the trauma memory kernel on field dynamics. In a regulated
-  system (top), a field activation episode resolves and the field returns to a low
-  resting level. In the C-PTSD-modified system (bottom), the memory kernel elevates
-  the baseline between episodes, so that subsequent episodes begin from a higher resting
-  activation. Over time, the field cycles at an elevated level without returning to rest.
-```
+![The effect of the trauma memory kernel on field dynamics. In a regulated system, an activation episode resolves and the field returns to a low resting level. In the C-PTSD-modified system, persistent traces elevate the baseline between episodes, so subsequent episodes begin from a higher resting activation.](figures/fig_memory_kernel.pdf){width=95%}
 
 ## Why Early Traces Persist
 
@@ -1176,35 +1095,7 @@ where $f$ is a smooth interpolation function:
 
 $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right)$$
 
-```
-  STRUCTURAL FRACTION f(τ_d) = tanh(τ_d / τ_c)
-  ┌──────────────────────────────────────────────────────────────────┐
-  │                                                                  │
-  │  f(τ_d) ▲  1.0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╭──────────     │
-  │  (how    │                               ╭─────╯              │
-  │  much    │                         ╭────╯                     │
-  │  is W₀)  │  0.76 ─ ─ ─ ─ ─ ─ ─ ─ ─╯  ← f(τ_c) = tanh(1)    │
-  │          │                        ↑                           │
-  │          │  0.5 ─ ─ ─ ─ ─ ─ ─ ╭──╯                           │
-  │          │                 ╭──╯                               │
-  │          │             ╭──╯                                   │
-  │          │         ╭──╯                                       │
-  │          │  0.0 ───╯                                          │
-  │          └──────────────────────────────────────────────────→ │
-  │           0    τ_c/2  τ_c    2τ_c    3τ_c      τ_d (months)  │
-  │                       (36)                                     │
-  │                                                                │
-  │  Left of τ_c:  W is mostly W_trauma — structural             │
-  │  Right of τ_c: W is mostly W₀ — perturbative                 │
-  └──────────────────────────────────────────────────────────────────┘
-
-  Figure 6.1. The structural fraction f(τ_d). This function describes what proportion
-  of the coupling matrix is neurotypical baseline (W₀) versus trauma-formed (W_trauma),
-  as a function of developmental age at trauma. At τ_d = 0 (birth or in utero), the
-  coupling is entirely trauma-formed: f = 0. At τ_d = τ_c ≈ 36 months, f ≈ 0.76:
-  the baseline accounts for about three-quarters of the coupling. The interpolation is
-  smooth: there is no sharp cutoff, just a continuous change in character.
-```
+![The structural fraction $f(\tau_d)=\tanh(\tau_d/\tau_c)$. The curve describes what proportion of the coupling matrix is neurotypical baseline $W_0$ versus trauma-formed $W_{\text{trauma}}$ as a function of developmental age at trauma. At $\tau_d=\tau_c\approx36$ months, the baseline accounts for about three-quarters of the coupling.](figures/fig_structural_fraction.pdf){width=95%}
 
 At $\tau_d = 0$: $f = 0$ and $W = W_{\text{trauma}}$. There is no baseline component.
 
@@ -1334,25 +1225,7 @@ arrive at the other end with startling clarity. The valley is a natural resonato
 limestone and dolomite walls, near-perfect parabolic geometry, and an acoustic character
 that makes sound oscillate long after the source has fallen silent.
 
-```
-  PARABOLIC VALLEY CROSS-SECTION
-
-    valley rim                    valley rim
-    (limestone)                   (limestone)
-          ╲    ~   ~   ~   ~   ~   ╱
-           ╲  ~               ~  ╱   ← sound reflects from walls
-            ╲ ~  → source ←  ~ ╱
-             ╲~               ~╱
-              ╲ ~  converge  ~╱
-               ────────────────
-                  valley floor
-
-  A parabolic cross-section focuses incoming sound to the focal region.
-  The same geometry governs satellite dishes, reflector telescopes, and
-  the resonant cavities of musical instruments. Mountain valleys with this
-  profile produce exceptional acoustics — sound oscillates long after the
-  source goes quiet.
-```
+![A parabolic valley cross-section. Reflected sound focuses toward the focal region; the same geometry appears in dishes, telescopes, and resonant musical cavities.](figures/fig_parabolic_valley.pdf){width=90%}
 
 The valley's acoustic behaviour is the physical intuition behind the soma-field wave
 description. The emotional field has modes — preferred patterns of activation, like
@@ -1612,35 +1485,7 @@ weight $e^{-\beta\hat{H}}$ from statistical mechanics (at inverse temperature
 $\beta = \tau/\hbar$). The Wick rotation is the bridge between quantum mechanics
 and thermal physics.
 
-```
-  ╔════════════════════════════════════════════════════════════════════╗
-  ║                    THE WICK ROTATION                               ║
-  ╠════════════════════════════════════════════════════════════════════╣
-  ║                                                                    ║
-  ║  QUANTUM MECHANICS               THERMAL / SOMATIC PHYSICS        ║
-  ║  (real time t)                   (imaginary time τ = it)          ║
-  ║                                                                    ║
-  ║  e^{-iHt/ℏ}    ──────────────→   e^{-Hτ/ℏ}                       ║
-  ║                   t → -iτ                                         ║
-  ║                                                                    ║
-  ║  oscillates:                     decays:                          ║
-  ║                                                                    ║
-  ║       ╭╮  ╭╮  ╭╮                    │╲                            ║
-  ║   ────╯╰──╯╰──╯╰──                  │  ╲                          ║
-  ║                                     │    ╲___                     ║
-  ║  Quantum wave                        │        ─────────           ║
-  ║  function: oscillates               Thermal weight: decays        ║
-  ║                                                                    ║
-  ║  The i is the only difference between these two functions.        ║
-  ║  Remove i → quantum oscillation becomes exponential decay.        ║
-  ╚════════════════════════════════════════════════════════════════════╝
-
-  Figure 7.1. The Wick rotation. A single substitution (t → -iτ) transforms the
-  oscillatory quantum phase factor into the real decaying exponential of thermal
-  physics. The memory kernel K(τ) = Σ Aₖ e^{-|τ|/τₖ} has exactly this form. The
-  i in the quantum exponent is the only mathematical difference between a quantum
-  field that oscillates and a trauma trace that decays.
-```
+![The Wick rotation. The substitution $t\to-i\tau$ transforms an oscillatory quantum phase factor into a decaying thermal weight. The trauma memory kernel has this decaying form.](figures/fig_wick_rotation.pdf){width=90%}
 
 And the memory kernel for C-PTSD trauma?
 

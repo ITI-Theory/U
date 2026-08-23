@@ -29,7 +29,9 @@ Status: draft for ISS-021 review. This defines the reader-facing model before an
 - Formal, clinical, application, and universal-theory members are `paper` roles.
 - Temporal dynamics and Lean proofs are `appendix` roles.
 - Abstracts are concise member summaries immediately after the divider, not standalone pages.
-- The master TOC shows Parts, member titles, and book-internal chapters; it does not show every paper subsection.
+- The master TOC shows every member title and its immediate internal chapters;
+  this two-level view must make book boundaries and book purpose obvious without
+  expanding into every lower subsection.
 
 ## C2 Target
 
@@ -37,7 +39,8 @@ Status: draft for ISS-021 review. This defines the reader-facing model before an
 - The default domain pattern is: part opening, registered four-page cheatsheet insert, book TOC, book body.
 - Gateway is an explicit exception: noir insert near the opening; its cheatsheet is the closing handout.
 - Volumes I/II are filtered views of the same C2 member model, not independent hierarchy logic.
-- The C2 master TOC lists domain book titles. Each book’s internal TOC remains local to that book.
+- The C2 master TOC lists every domain-book title and its immediate internal
+  chapters. Each book retains a local TOC for deeper navigation.
 
 ## Registry Shape To Decide
 
@@ -73,7 +76,12 @@ members:
 
 ## Decision Questions
 
-1. Should the C1v2 master TOC expose book-internal chapter titles, or only book titles?
-2. Should a paper summary use source abstract text verbatim or a separate registry summary field?
-3. Are P6 and P8 both `book` roles, or is `the-tensor` an interlude with different rules?
-4. Does C2 use true locally numbered book chapters in the master, or preserve each book’s local numbering?
+1. **Decided:** expose a two-level master TOC everywhere: member title plus
+  immediate internal chapter titles. Typography must distinguish book chapters
+  from ordinary member entries.
+2. **Decided:** preserve source abstract text verbatim whenever an omnibus
+  summary is rendered; do not create editorial replacement summaries.
+3. **Decided:** P6 is a `book`; P8 is an `interlude` book role with the same
+  two-level TOC treatment but its own part-opening typography.
+4. **Decided:** C2 preserves book-local chapter numbering while the master TOC
+  shows the book title and immediate chapter names as visually subordinate entries.

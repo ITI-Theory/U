@@ -15,6 +15,163 @@ app:
     interpretive: "Cross-domain visual mappings are labelled interpretive hypotheses."
     clinical: "Human clinical vocabulary is never projected onto non-human scales without an explicit retyping note."
 
+usf_models:
+  architecture:
+    type: "Lambda_M(sigma) = (substrate, k, boundary_conditions, operator, Green_function)"
+    invariant: "L_(M,sigma) G_(M,sigma) = delta_sigma"
+    source: "paper/soma/zoomable-somatic-field/zoomable-somatic-field.md sections 2, 4, and 5"
+  catalogue:
+    - id: canonical-i-v
+      role: "Physics-derived five-sector solution"
+      equation_view: "direct sums over canonical scale bands"
+    - id: universal-1-20
+      role: "Twenty-tick pedagogical catalogue"
+      equation_view: "one substrate-specific propagator per tick"
+    - id: bird-flock
+      role: "Avian organism and collective active-matter solution"
+      equation_view: "shared architecture with avian aerodynamic and flock operators"
+  universal_1_20:
+    - {
+        sigma: 1,
+        label: string,
+        length: "10^-32 m",
+        operator: "worldsheet Green function",
+        relation: "SHO Fourier modes",
+      }
+    - {
+        sigma: 2,
+        label: nuclear,
+        length: "10^-15 m",
+        operator: "Yukawa kernel",
+        relation: "massive mediator gives finite range",
+      }
+    - {
+        sigma: 3,
+        label: atomic,
+        length: "10^-10 m",
+        operator: "Coulomb kernel",
+        relation: "massless k->0 limit",
+      }
+    - {
+        sigma: 4,
+        label: molecular,
+        length: "10^-9 m",
+        operator: "Schrodinger Green function",
+        relation: "nuclear geometry selects eigenmodes",
+      }
+    - {
+        sigma: 5,
+        label: cellular_neural,
+        length: "10^-6 m",
+        operator: "cable equation",
+        relation: "synaptic impulse response",
+      }
+    - {
+        sigma: 6,
+        label: brain_cemi,
+        length: "10^-1 m",
+        operator: "CEMI propagator",
+        relation: "ephaptic field feeds back to firing",
+      }
+    - {
+        sigma: 7,
+        label: organism,
+        length: "10^0 m",
+        operator: "somatic CEMI field",
+        relation: "biotensegrity wave medium",
+      }
+    - {
+        sigma: 8,
+        label: animal_swarm,
+        length: "10^0-10^1 m",
+        operator: "Toner-Tu velocity field",
+        relation: "local alignment produces global formation",
+      }
+    - {
+        sigma: 9,
+        label: society_city,
+        length: "10^3 m",
+        operator: "social interaction kernel",
+        relation: "network coupling selects cultural attractors",
+      }
+    - {
+        sigma: 10,
+        label: geological,
+        length: "10^5 m",
+        operator: "seismic Green function",
+        relation: "elastic modes preserve stress history",
+      }
+    - {
+        sigma: 11,
+        label: planetary,
+        length: "10^6 m",
+        operator: "convection kernel",
+        relation: "thermal and rotational forcing",
+      }
+    - {
+        sigma: 12,
+        label: orbital,
+        length: "10^9 m",
+        operator: "gravitational Coulomb kernel",
+        relation: "orbital resonance eigenstates",
+      }
+    - {
+        sigma: 13,
+        label: stellar,
+        length: "10^11 m",
+        operator: "helioseismic Green function",
+        relation: "oscillation spectrum reads interior structure",
+      }
+    - {
+        sigma: 14,
+        label: compact_object,
+        length: "10^3-10^10 m",
+        operator: "quasi-normal mode",
+        relation: "event horizon sets boundary",
+      }
+    - {
+        sigma: 15,
+        label: galactic_disc,
+        length: "10^20 m",
+        operator: "Poisson-Vlasov density wave",
+        relation: "stable pattern speeds",
+      }
+    - {
+        sigma: 16,
+        label: galactic_halo,
+        length: "10^22 m",
+        operator: "Poisson-Vlasov density wave",
+        relation: "mass distribution shapes rotation curve",
+      }
+    - {
+        sigma: 17,
+        label: galaxy_cluster,
+        length: "10^23 m",
+        operator: "BAO kernel",
+        relation: "cosmological perturbation propagation",
+      }
+    - {
+        sigma: 18,
+        label: cosmic_filaments,
+        length: "10^24 m",
+        operator: "BAO kernel",
+        relation: "web connectivity and topology",
+      }
+    - {
+        sigma: 19,
+        label: observable_universe,
+        length: "10^26 m",
+        operator: "retarded gravitational-wave propagator",
+        relation: "linearised Einstein response",
+      }
+    - {
+        sigma: 20,
+        label: cosmic_web,
+        length: "10^26 m",
+        operator: "retarded gravitational-wave propagator",
+        relation: "full cosmological boundary",
+      }
+
 morphisms:
   zoom_operator:
     symbol: "Lambda_sigma"
@@ -307,3 +464,41 @@ implementation_requirements:
   - "Add a claim badge: FORMAL, SOURCED, or INTERPRETIVE."
   - "Replace the BRECVEMA overlay toggle with a selectable eight-mechanism inspector: full name, effect, affected parameter, field action, and highlighted route into L1."
   - "Use explicit transition states while a scene morphs between scales."
+
+# Provisional implementation atlas. This is the one table that declares what
+# can be displayed at each visual tick and how the next tick retypes it.
+# `visual_sigma` is the existing 0-19 Three.js/theory-atlas coordinate.
+# `catalogue_sigma` is the 1-20 pedagogical catalogue coordinate. They are
+# deliberately both present until the application migrates to one resolver.
+scale_atlas:
+  coordinate_policy: "visual_sigma 0-19 maps to catalogue_sigma 1-20; canonical bands retain their declared sigma ranges."
+  primitive_grammar: [core, shell, boundary, joint, limb, node, link, contour, orbit, volume, field]
+  cardinality_kinds: [singular, population, collective, network, field]
+  provenance_kinds: [formal, sourced, interpretive, placeholder]
+  transition_rule: "Carry declared primitives forward only by retyping their relation; never imply literal anatomical identity across substrates."
+  entries:
+    - { id: quantum-foam, visual_sigma: 0, catalogue_sigma: 1, band: I, kind: field, composition: [field, contour, node], transition_out: compactification, visual_mode: quantum-lattice, status: implemented, provenance: sourced }
+    - { id: string-boundary, visual_sigma: 1, catalogue_sigma: 2, band: I, kind: field, composition: [shell, field, node], transition_out: nuclear-binding, visual_mode: compactification, status: placeholder, provenance: sourced }
+    - { id: nuclear, visual_sigma: 2, catalogue_sigma: 3, band: I, kind: singular, composition: [core, shell, node, field], transition_out: atomic-orbital, visual_mode: nuclear-shell, status: placeholder, provenance: sourced }
+    - { id: atomic, visual_sigma: 3, catalogue_sigma: 4, band: I, kind: singular, composition: [core, shell, contour, field], transition_out: molecular-bond, visual_mode: orbital-field, status: placeholder, provenance: sourced }
+    - { id: molecular, visual_sigma: 4, catalogue_sigma: 5, band: II, kind: population, composition: [node, link, contour, field], transition_out: cellular-boundary, visual_mode: molecular-network, status: placeholder, provenance: sourced }
+    - { id: cell, visual_sigma: 5, catalogue_sigma: 6, band: II, kind: singular, composition: [boundary, shell, core, volume, joint, limb], transition_out: cellular-population, visual_mode: cell-field, status: implemented, provenance: interpretive }
+    - { id: cellular-population, visual_sigma: 6, catalogue_sigma: 7, band: II, kind: population, composition: [boundary, core, volume, node, link, field], transition_out: organism-integration, visual_mode: circuit-field, status: placeholder, provenance: interpretive }
+    - { id: organism, visual_sigma: 7, catalogue_sigma: 8, band: III, kind: singular, composition: [core, shell, joint, limb, field, contour], transition_out: coupled-organisms, visual_mode: brain-field, status: placeholder, provenance: sourced }
+    - { id: human-vertebrate, visual_sigma: 8, catalogue_sigma: 9, band: III, kind: singular, composition: [core, shell, joint, limb, volume, field, contour], transition_out: dyadic-coupling, visual_mode: organism, status: implemented, provenance: sourced }
+    - { id: dyad, visual_sigma: 9, catalogue_sigma: 10, band: III, kind: collective, composition: [core, joint, limb, node, link, field], transition_out: collective-alignment, visual_mode: dyadic-coupling, status: placeholder, provenance: sourced }
+    - { id: swarm, visual_sigma: 10, catalogue_sigma: 11, band: III, kind: collective, composition: [node, link, field, contour], transition_out: network-institution, visual_mode: swarm, status: placeholder, provenance: sourced }
+    - { id: community-city, visual_sigma: 11, catalogue_sigma: 12, band: IV, kind: network, composition: [node, link, boundary, field], transition_out: regional-constraint, visual_mode: network, status: placeholder, provenance: interpretive }
+    - { id: regional-system, visual_sigma: 12, catalogue_sigma: 13, band: IV, kind: network, composition: [boundary, node, link, field, contour], transition_out: orbital-system, visual_mode: regional-flow, status: placeholder, provenance: interpretive }
+    - { id: orbital-system, visual_sigma: 13, catalogue_sigma: 14, band: IV, kind: singular, composition: [core, orbit, node, link, field], transition_out: stellar-neighborhood, visual_mode: stellar, status: implemented, provenance: sourced }
+    - { id: stellar-neighborhood, visual_sigma: 14, catalogue_sigma: 15, band: V, kind: population, composition: [core, shell, orbit, node, link, field], transition_out: galactic-disc, visual_mode: stellar, status: implemented, provenance: sourced }
+    - { id: geological, visual_sigma: 15, catalogue_sigma: 16, band: IV, kind: field, composition: [boundary, volume, contour, field], transition_out: planetary-mode, visual_mode: tectonic, status: placeholder, provenance: sourced }
+    - { id: planetary, visual_sigma: 16, catalogue_sigma: 17, band: IV, kind: singular, composition: [core, shell, field, contour], transition_out: stellar-mode, visual_mode: planetary, status: placeholder, provenance: sourced }
+    - { id: stellar-cluster, visual_sigma: 17, catalogue_sigma: 18, band: V, kind: population, composition: [core, shell, node, link, field], transition_out: galactic-web, visual_mode: stellar, status: placeholder, provenance: sourced }
+    - { id: galactic, visual_sigma: 18, catalogue_sigma: 19, band: V, kind: network, composition: [core, node, link, contour, field], transition_out: cosmic-web, visual_mode: galactic, status: placeholder, provenance: sourced }
+    - { id: cosmic-web, visual_sigma: 19, catalogue_sigma: 20, band: V, kind: network, composition: [node, link, contour, field], transition_out: null, visual_mode: cosmic-web, status: implemented, provenance: sourced }
+
+  named_solutions:
+    - { id: bird, kind: singular, visual_sigma: 8, parent_id: organism, composition: [core, shell, joint, limb, field], transition_out: flock, provenance: sourced, status: placeholder }
+    - { id: flock, kind: collective, visual_sigma: 10, parent_id: bird, composition: [node, link, field, contour], transition_out: colony-roost, provenance: sourced, status: placeholder }
+    - { id: colony-roost, kind: network, visual_sigma: 11, parent_id: flock, composition: [node, link, boundary, field], transition_out: regional-system, provenance: sourced, status: placeholder }

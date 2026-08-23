@@ -42,31 +42,7 @@ keywords:
   - emotional field theory
   - Hopfield energy function
   - polyvagal theory
-  - autism
-  - ADHD
-  - complex PTSD
-  - quantum field theory analogy
-  - autoethnographic theory
----
-
----
-
-> *"The patient is the one with the disease."*
-> — Medical aphorism, intended to remind physicians to listen.
-> The author intends it differently.
-
----
-
-# A Note on Method
-
-The standard academic posture — disinterested observer, neutral position, findings
-presented as if they arrived from nowhere in particular — has never seemed entirely
-credible to the author. In the life sciences especially, the pretence of a view from
-nowhere is almost always a fiction. Researchers study what compels them. Compulsion has
-a cause.
-
-This paper dispenses with the fiction. The theoretical framework presented here was
-developed by a person with ASD, ADHD, and Complex PTSD who could not find an adequate
+  ![The Soma-Field Instrument: MIDI controls report emotional dimensions, the energy function computes the field state, and coordinated audio, MIDI, and visual outputs render it.](figures/fig_midi_controller.pdf){width=95%}
 formal account of his own emotional experience in the existing literature, who had studied
 physics at university, and who eventually concluded that the most efficient solution was
 to build one himself. The result is offered not as a confessional but as a theoretical
@@ -259,17 +235,7 @@ These are not separate systems:
 
 $$\mathbf{E}(x,t) = \mathbf{E}_\text{body}(x,t) \otimes \mathbf{E}_\text{neural}(x,t)$$
 
-```
-          SOMATIC WAVE                     NEURAL WAVE
-         (body, viscera,                  (cortex, limbic,
-          fascia, ANS)                     brainstem, PNS)
-               │                                 │
-               └──────────── COUPLED ────────────┘
-                                  │
-                         EMOTIONAL FIELD E(x,t)
-                     (always present, always active)
-```
-*Figure 1. The Soma-Field: two coupled waves constituting a single unified emotional field.*
+![The Soma-Field: somatic and neural waves couple to form a single unified emotional field.](figures/fig_coupled_waves.pdf){width=90%}
 
 ## The Perception Threshold
 
@@ -360,26 +326,7 @@ local minima of $H$ — the attractor basins.
 
 ## Attractor States: Fight, Flight, Freeze, and Regulated Calm
 
-```
-  ENERGY
-    │
-  H │        fight/flight
-    │        ┌──┐  ┌──┐
-    │        │  │  │  │
-    │   _____|  │  │  │_____
-    │  │         \/        │
-    │  │       saddle       │
-    │  │     (transition)   │
-    │  │                    │    ╔════════════╗
-    │  │         freeze     │    ║            ║
-    │  │         ┌──┐       │    ║  regulated ║◄── global minimum
-    │  │_________|  │_______|    ║    calm    ║
-    │                 │          ╚════════════╝
-    └──────────────────────────────► EMOTIONAL STATE SPACE
-```
-*Figure 2. The emotional energy landscape. The freeze state is not high-energy — it is
-isolated. This distinction matters enormously. The author is aware of this from personal
-experience, over many years, and from the other side.*
+![The emotional energy landscape. Freeze is not high-energy but isolated: a deep attractor separated by barriers. Regulated calm is the global minimum.](figures/fig3b_energy_profile.pdf){width=90%}
 
 | Attractor | Energy | Polyvagal Correlate | Clinical Presentation |
 |---|---|---|---|
@@ -553,23 +500,7 @@ dimension — one for the somatic component, one for the neural/cognitive compon
 The act of setting a knob is the act of reporting an emotional state: it is the
 quantum measurement, the collapse of the distributed field onto a specific coordinate.
 
-```
-                    ┌─────────────────────────────────────┐
-                    │         MIDI CONTROLLER              │
-                    │  [K1][K2]  [K3][K4]  [K5][K6]  [K7][K8]  │
-                    │  emotion1  emotion2  emotion3  emotion4│
-                    │  [K9][K10] [K11][K12][K13][K14][K15][K16] │
-                    │  emotion5  emotion6  emotion7  emotion8│
-                    └─────────────────────────────────────┘
-                                      │
-                           ┌──────────────────┐
-                           │  H(e) and ∇H(e)  │
-                           └──────────────────┘
-                    ┌─────────────────┼─────────────────┐
-                    ▼                 ▼                  ▼
-             AUDIO OUTPUT        MIDI OUTPUT       VISUAL OUTPUT
-```
-*Figure 3. The Soma-Field Instrument.*
+![The Soma-Field Instrument. Sixteen MIDI controls report emotional dimensions; the energy function produces coordinated audio, MIDI, and visual outputs.](figures/fig_midi_controller.pdf){width=95%}
 
 ## The Feedback Loop
 

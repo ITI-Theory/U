@@ -1,0 +1,26 @@
+:root {
+  --parchment: #f2deb8;
+  --ink: #1e0f00;
+  --heading: #7b3a10;
+  --panel: #ead5a5;
+}
+
+body {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: "TeX Gyre Pagella", Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+h1, h2, h3 { color: var(--heading); font-family: "TeX Gyre Heros", sans-serif; }
+h1 { text-align: center; }
+h2 { border-bottom: 1px solid var(--heading); padding-bottom: .25rem; }
+blockquote, table { background: var(--panel); padding: 1rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .5rem; border-bottom: 1px solid #b98b5e; text-align: left; vertical-align: top; }
+pre, code { overflow-wrap: anywhere; }
+@media (max-width: 640px) { body { padding: 1rem; } table { display: block; overflow-x: auto; } }

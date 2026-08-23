@@ -65,3 +65,26 @@ npm run start
 
 The `EXPORT FRAME` control writes a PNG from the current canvas state for a
 paper or social derivative. Keep the procedural scene as the source of truth.
+
+## Data architecture freeze
+
+Read this README before changing the Operator. The app is now frozen against
+new hard-coded theory, publication, scale, route, equation, G-ID, or claim
+tables in JavaScript. The existing hand-authored tables are migration debt,
+not a pattern for new work.
+
+Authority remains outside the browser bundle:
+
+| Source | Owns |
+|---|---|
+| `Dist/PAPERS.yaml` | Publication metadata, domain-book G-IDs, HUD equation/operator/invariant/observable fields |
+| `operator-theory.yaml` | Operator routes, visual contracts, scale transitions, and claim boundaries |
+| Paper Markdown and Lean proofs | Scientific prose, equations, and formal-proof status |
+
+The next implementation phase adds `make operator-generate`. It must validate
+those source files and emit one generated app-data module. Browser JavaScript
+may contain reusable renderers, controls, and a stable renderer registry such
+as `renderers['quantum-foam']`; it must not copy the authority data. Missing
+renderer IDs must appear as explicit placeholders and in a generated coverage
+report. This boundary supports finite and unbounded path catalogues without
+expanding control logic.

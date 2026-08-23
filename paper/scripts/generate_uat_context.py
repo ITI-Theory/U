@@ -26,6 +26,9 @@ TECHNICAL_SOURCES = [
     ("paper/scripts/check_paper_figures.py", "python"),
     ("paper/scripts/check_stale_problem_labels.py", "python"),
     ("paper/scripts/stage_uat.py", "python"),
+    ("Part2/fractal-programme/Makefile", "makefile"),
+    ("Part2/fractal-programme/build_fractal_books.py", "python"),
+    ("Part2/fractal-programme/ttheory-packages.tex", "tex"),
 ]
 
 

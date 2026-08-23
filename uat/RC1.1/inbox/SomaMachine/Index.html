@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soma Field Operator — [T]-Theory Console</title>
+  
+  <!-- CSS Styling -->
+  <link rel="stylesheet" href="./style.css">
+  
+  <!-- KaTeX CSS for beautiful equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  
+  <!-- KaTeX library -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+</head>
+<body>
+
+  <div id="app-container">
+    
+    <!-- Left Floating/Translucent Control Panel -->
+    <div id="sidebar">
+      <h1>Soma Console</h1>
+      <div class="subtitle">Universal Somatic Field Engine [v6.0]</div>
+      
+      <!-- Current Claim Badging -->
+      <div class="badge-container">
+        <span id="claim-badge" class="badge formal">Formal</span>
+        <span id="scale-badge" class="badge sourced">Human-Clinical</span>
+      </div>
+
+      <!-- Segmented Dimension Selector -->
+      <div class="section-title">Hierarchy Projection</div>
+      <div class="segmented-control" id="dimension-selector">
+        <button class="active" data-dim="11D">11D</button>
+        <button data-dim="8D">8D</button>
+        <button data-dim="4D">4D</button>
+      </div>
+
+      <!-- General View Settings -->
+      <div class="section-title">Lens Configuration</div>
+      <div class="input-group">
+        <label for="lens-selector">Active Perspective</label>
+        <select id="lens-selector">
+          <option value="Human / Clinical">Human / Clinical (σ = 8)</option>
+          <option value="Swarms / Collective">Swarms / Collective (σ = 7)</option>
+          <option value="Geophysics / Landscape">Geophysics / Landscape (σ = 15)</option>
+          <option value="Astrophysics / Cosmology">Astrophysics / Cosmology (σ = 19)</option>
+        </select>
+      </div>
+
+      <!-- Morphing Process-Relational Explanation Card -->
+      <div class="section-title">Explanatory Ledger</div>
+      <div id="explanation-card">
+        <div id="explanation-title">The Cold Cathedral</div>
+        <div id="explanation-body">We stand in a silent, ancient limestone cathedral...</div>
+        <div id="katex-ledger">V = L \times W \times H</div>
+      </div>
+
+      <!-- Interactive Somatic Injection -->
+      <div class="section-title">Somatic Forcing Injector</div>
+      <div class="input-group">
+        <label for="somatic-dropdown">BRECVEMA Mechanism</label>
+        <select id="somatic-dropdown">
+          <option value="B">Brainstem reflex (J_t)</option>
+          <option value="R">Rhythmic entrainment (γ)</option>
+          <option value="E1">Evaluative conditioning (b)</option>
+          <option value="C">Emotional contagion (κ)</option>
+          <option value="V">Visual imagery (J_internal)</option>
+          <option value="E2">Episodic memory (K_tau)</option>
+          <option value="M">Musical expectancy (ΔV)</option>
+          <option value="A">Aesthetic judgement (b)</option>
+        </select>
+      </div>
+      <button id="btn-poke" class="btn-toggle active" style="border-color: var(--color-propagator); color: var(--color-propagator);">Inject Somatic Impulse (Poke)</button>
+
+      <!-- Somatic Mirror Box Activation -->
+      <div class="section-title">Univalent Mirror Loop</div>
+      <button id="btn-mirror" class="btn-toggle">Somatic Mirror Box [OFF]</button>
+    </div>
+
+    <!-- WebGL Viewport -->
+    <div id="canvas-container">
+      <div id="viewport-instruction">Click mesh to poke / disrupt the field</div>
+      <canvas id="webgl-canvas"></canvas>
+      
+      <!-- Bottom HUD Timeline Scrubber -->
+      <div id="bottom-timeline">
+        <div class="timeline-controls">
+          <span class="timeline-label">Scale Zoom (σ)</span>
+          <input type="range" id="zoom-range" min="0" max="19" value="8" step="1">
+          <span id="val-zoom" class="value-display" style="width: 30px;">8</span>
+        </div>
+        
+        <div class="timeline-controls">
+          <span class="timeline-label">Zoom Smoothing (τ)</span>
+          <input type="range" id="smoothing-range" min="0.05" max="3.0" value="0.5" step="0.05">
+          <span id="val-smoothing" class="value-display" style="width: 30px;">0.50</span>
+        </div>
+
+        <div class="timeline-controls">
+          <span class="timeline-label">Langevin Noise (σ_0)</span>
+          <input type="range" id="noise-range" min="0.0" max="1.0" value="0.1" step="0.05">
+          <span id="val-noise" class="value-display" style="width: 30px;">0.10</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load Global Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Main Vite Orchestrator -->
+  <script type="module" src="./main.js"></script>
+
+</body>
+</html>

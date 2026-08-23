@@ -36,8 +36,8 @@
 \AddToShipoutPictureBG{%
   \AtPageCenter{\makebox(0,0){\rotatebox{-20}{\textcolor{ghost}{\fontsize{160}{160}\selectfont\bfseries[T]}}}}}
 % multicols started manually in markdown after the full-width abstract block
-\newcommand{\startcolumns}{\begin{multicols}{2}\setlength{\columnsep}{7mm}\setlength{\columnseprule}{0pt}}
 \newif\ifbookletcolumnsopen
 \bookletcolumnsopentrue
+\newcommand{\startcolumns}{\begin{multicols}{2}\setlength{\columnsep}{7mm}\setlength{\columnseprule}{0pt}}
 \newcommand{\finishbookletcolumns}{\ifbookletcolumnsopen\end{multicols}\bookletcolumnsopenfalse\fi}
 \AtEndDocument{\finishbookletcolumns}
