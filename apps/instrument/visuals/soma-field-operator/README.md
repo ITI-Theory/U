@@ -59,7 +59,8 @@ scene is the portable visual reference and paper-frame exporter.
 ## Run
 
 ```bash
-npm install
+# npm install
+cd apps/instrument/visuals/soma-field-operator/
 npm run start
 ```
 

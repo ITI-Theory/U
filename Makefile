@@ -1,12 +1,12 @@
 # Top-level U/ build orchestrator
-# mk/dist.mk -- distribution cp rules -- GENERATED, run: make generate
+# lib/mk/dist.mk -- distribution cp rules -- GENERATED, run: make generate
 
 PAPER := paper/bld
 BOOKS_DIR := books/T-Theory
 FRAC := $(BOOKS_DIR)/bld
 DIST := ../Dist
 
-include mk/dist.mk
+include lib/mk/dist.mk
 
 .PHONY: all build registry-papers registry-papers-royal registry-fractal lean lean-appendix omnibus \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
@@ -79,7 +79,7 @@ release-check: uat-check
 
 generate:
 	py paper/scripts/generate_mk.py
-	@echo Regenerated mk/dist.mk
+	@echo Regenerated lib/mk/dist.mk
 
 list:
-	@grep "^[a-z][a-z-]*:" mk/dist.mk
+	@grep "^[a-z][a-z-]*:" lib/mk/dist.mk

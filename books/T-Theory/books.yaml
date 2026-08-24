@@ -1,0 +1,107 @@
+books:
+  book-gateway:
+    title: "The Gateway: An Introduction to the Fractal Programme"
+    why:
+      prose: "The same question links a guitar string, a felt emotion, a social encounter, and the night sky: if something happens here, what is felt there? [T]-Theory treats that question as a field problem and gives a reader one equation from which to enter the whole programme."
+      the_gap: "Traditional AI and psychological models lack a formal mathematical treatment of valuation and limbic dynamics."
+      the_solution: "Establishing the Universal Somatic Field (USF) as an 11-dimensional field theory isomorphic to M-theory compactification."
+    field_notes:
+      g_id: "The Universal Propagator - G(x,x') at the Hubble scale"
+      reader: "The Generalist"
+      scale: "Scale 20: Cosmological Horizon"
+      equation: "(nabla^2 + k^2)G(x, x') = -delta^3(x - x')"
+      operator: "Universal Green Propagator"
+      invariant: "One response grammar across physical, somatic, and collective scales"
+      observable: "Cross-scale response and correlation structure"
+      historical_observation: "They saw a guitar string. I heard the music."
+    sherlock_audit:
+      status: "Verified without Sorry (Lean 4 kernel, 0 sorries, 0 extra axioms)"
+      primary_inductions: ["SHO = Green's function (derived impulse response)", "11D manifold = minimum geometry for a conscious vertebrate organism", "Scale invariance across 61 orders of magnitude (10^-35m to 10^26m)"]
+      moriarty_check:
+        attack: "Is the 11D structure a mere design choice or analogy?"
+        counter_logic: "Inductive structural necessity; the 11D decomposition is the minimum geometry required to account for the functional degrees of freedom of a conscious organism."
+  book-physics:
+    title: "Field Equations of Mind: A Physics Perspective on the USF"
+    why: { prose: "A Green's function is not just a technical solution; it is the most direct account of how a disturbance becomes an effect. [T]-Theory uses that common response law to connect field theory, compactification, and the cosmological questions of dark energy and dark matter.", the_gap: "Standard physics excludes experience as a physical quantity, rendering the hard problem of consciousness insoluble.", the_solution: "Enlarging physics to include the somatic tensor Phi as a field with a Lagrangian, a propagator, and a symmetry group." }
+    field_notes: { g_id: "The Master Green's Function - (nabla^2+k^2)G=delta in relativistic field theory", reader: "Astrophysicist", scale: "Scale 0 (Planck) to Scale 19 (Cosmological)", equation: "(nabla^2 + k^2)G = delta", operator: "Relativistic Green function", invariant: "Propagator form under changes of physical scale", observable: "Mode spectrum, correlation length, and cosmological density fractions" }
+    sherlock_audit: { status: "Lean 4 kernel verified (MTheoryIsomorphism.lean)", primary_inductions: ["11D decomposition (7 compact + 3 spatial + 1 temporal)", "Dark Energy (Omega Lambda = 7/11) and Dark Matter (Omega DM = 3/11) derived from geometric counting", "Identification of the SHO as the substrate impulse response"] }
+  book-neuroscience:
+    title: "The Electromagnetic Nervous System: A Field-Theoretic Account"
+    why: { prose: "Neural activity is not only a collection of neurons firing; it is also a field that integrates activity across tissue and time. [T]-Theory treats the cortical electromagnetic field as a testable bridge between local signals, global coordination, and felt state.", the_gap: "Traditional neuro-instruments measure correlates (electrochemical events) rather than experience itself.", the_solution: "Modelling the limbic system as the Field-Modulated Hopfield Network (FM-HN), coupling the CEMI field to attractor dynamics." }
+    field_notes: { g_id: "The Cortical EMF Propagator - macroscopic field from synchronised neural firing", reader: "Neuroscientist", scale: "Scale 6: Local Circuit / Scale 7: Whole Brain", equation: "ell = 1/k", operator: "Cortical electromagnetic field propagator", invariant: "Synchronised local activity produces a shared macroscopic field", observable: "EEG coherence, phase locking, and correlation length" }
+    sherlock_audit: { status: "Verified (Lean 4: LimbicHopfield.lean, LimbicTunnel.lean)", primary_inductions: ["CEMI field as the Scale-6 restriction of the universal propagator", "Neurodivergent profiles (ASC, ADHD, C-PTSD) as operator modifications", "Trauma wells as deep isolated minima in the energy landscape"] }
+  book-philosophy:
+    title: "The Hard Problem Dissolved: Consciousness as Phase Transition"
+    why: { prose: "The hard problem changes shape when consciousness is approached as a transition in an integrated physical field. [T]-Theory asks what happens when correlation, propagation, and regulation cross the threshold from local processing to a unified point of view.", the_gap: "Standard assumptions treat physical descriptions as structural/functional without experiential remainder.", the_solution: "Dropping the inside/outside distinction: the somatic field is simultaneously a physical and phenomenal object (Neutral Monism)." }
+    field_notes: { g_id: "Conscious Percept Propagator Pole - singularity at threshold Tc", reader: "Philosopher", scale: "Scale 7: Whole Brain / Integrated Cortical States", equation: "xi -> infinity at Tc", operator: "Conscious percept propagator pole", invariant: "Local processing becomes globally integrated at a critical threshold", observable: "Critical coherence, reportable integration, and perturbation response" }
+    sherlock_audit: { status: "Kernel-verified (UniversalSomaticField.lean)", primary_inductions: ["Consciousness Threshold Theorem (sharp spectral gap dichotomy)", "Experience as the inside inhabiting of the field", "Derivation of phenomenology from 11D field topology"] }
+  book-complex-systems:
+    title: "Scale-Free Dynamics: The USF as a Complex Systems Framework"
+    why:
+      prose: "Complex systems become intelligible when their many local interactions are read as one evolving field. [T]-Theory treats emergence, criticality, and long-range coordination as different expressions of a shared propagator and attractor landscape."
+      the_gap: "Complex systems science typically catalogues coincidences without a single unifying physical law."
+      the_solution: "The Zoom Operator (Lambda) and Renormalisation Group flow derived from M-theory compactification geometry."
+    field_notes:
+      g_id: "Scale-Invariant Propagator - G invariant under RG flow"
+      reader: "Network Researcher"
+      scale: "Scale 8 (Organism) to Scale 12 (National Institution)"
+      equation: "Gs approximately Gs+1 near a renormalisation fixed point"
+      operator: "Functorial Green transformation"
+      invariant: "Typed proofs preserve declared field constraints"
+      observable: "Kernel-checked theorems, coordination accuracy, and collective criticality"
+    sherlock_audit:
+      status: "Verified (Lean 4: SwarmPropagator.lean, ScaleUniverse.lean)"
+      primary_inductions:
+        - "O(N^2) lower bound for single-step multi-agent coordination"
+        - "ScaleUniverse as an inductive dependent sum type (Sigma-type)"
+        - "Renormalisation of coupling constants via the Zoom Operator"
+  book-computing:
+    title: "Verified Emotional Computing: The USF as Software Architecture"
+    why: { prose: "Software, proof, and coordination all depend on how information moves through a structured system. [T]-Theory treats propagators as computational objects: they can be verified in Lean, tested in networks, and used to reason about collective action.", the_gap: "Artificial intelligence lacks a formal theory of valuation and motivation, leading to the alignment problem.", the_solution: "Implementing the Universal Somatic Field as a machine-verified kernel in Lean 4 to formalise affective computing." }
+    field_notes: { g_id: "Affective State Propagator - computational kernel for agent field dynamics", reader: "Lean 4 Engineer", scale: "Scale 5: Proof kernels, software agents, and multi-agent networks", equation: "x(t+1) = G x(t) + J(t)", operator: "Verified affective-state transition kernel", invariant: "Typed proofs preserve declared field constraints", observable: "Kernel-checked theorems, runtime cost, and coordination accuracy", historical_observation: "AI has had a brain since 1943. Now it has a body." }
+    sherlock_audit: { status: "Verified (Lean 4: SomaNetwork.lean, SwarmPropagator.lean)", primary_inductions: ["O(N^2) lower bound for single-step multi-agent coordination", "Software alignment via geometric matching of energy landscapes", "Single-step coordination as a topological GHZ effect"] }
+  book-mathematics:
+    title: "Dependent Types and the Geometry of Feeling: A Mathematical Account"
+    why: { prose: "A good formal system does more than describe an idea: it makes invalid moves impossible. [T]-Theory uses dependent types, proofs, and field geometry to ask which claims about propagation survive machine checking.", the_gap: "Standard physics and logic treat experience as a flat, untyped phenomenon.", the_solution: "Establishing that experience is a typed object (ScaleUniverse type) with a topology expressed in Homotopy Type Theory." }
+    field_notes: { g_id: "Functorial Green's Function - category-theoretic propagator between field spaces", reader: "Type Theorist", scale: "Scale 20: Field configurations and the 20-scale type hierarchy", equation: "F : Cs -> Cs+1", operator: "Functorial Green transformation", invariant: "Structure-preserving maps between scale-indexed field spaces", observable: "Lean proof dependencies and transition-map coherence" }
+    sherlock_audit: { status: "Kernel-verified (ScaleUniverse.lean, MTheoryIsomorphism.lean)", primary_inductions: ["Consciousness Threshold Theorem (sharp spectral gap dichotomy)", "ScaleUniverse as an inductive dependent sum type (Sigma-type)", "Univalence: equivalent somatic structures are identical"] }
+  book-music:
+    title: "The Physics of Music and Affect: A Field-Theoretic Account"
+    why: { prose: "Music makes a field audible: rhythm, expectation, memory, and bodily response become one moving pattern. [T]-Theory treats art as an instrument for exploring affective propagation, not as decoration added after the science.", the_gap: "Music psychology relies on static taxonomies like the circumplex, failing to model the dynamics of transition.", the_solution: "Redefining music as a somatic field perturbation where BRECVEMA mechanisms act as forcing functions." }
+    field_notes: { g_id: "Aesthetic Field Perturbation - BRECVEMA impulse response to musical stimulus", reader: "The Musicologist", scale: "Scale 8: Auditory stimulus, bodily response, memory, and affect", equation: "delta e(t) = Gaffect * s(t)", operator: "BRECVEMA impulse-response propagator", invariant: "A stimulus couples through multiple affective pathways", observable: "Timing, bodily entrainment, and physiological response" }
+    sherlock_audit: { status: "Verified (Lean 4: SomaField.lean, EmotionOntology.lean)", primary_inductions: ["Rhythmic entrainment as Arnold tongue frequency locking", "Musical catharsis as a hysteretic second-order phase transition", "W matrix eigenspectrum as a taxonomy of aesthetic responses"] }
+  book-trauma:
+    title: "Trauma as Topology: A Field-Theoretic Manual for Clinical Practice"
+    why: { prose: "A person is not their trauma; trauma can be modelled as a constrained path through an energy landscape. [T]-Theory asks how field temperature, memory, and safe intervention change the chances of leaving a deep attractor.", the_gap: "Clinical trauma models treat stuckness as a metaphor rather than a mathematical obstruction.", the_solution: "Identifying trauma wells as winding-number-protected attractors resolution through topologically distinct mechanisms." }
+    field_notes: { g_id: "Trauma-Well Resolution - escape probability from a somatic attractor basin", reader: "Clinical Therapist", scale: "Scale 8: Person, nervous system, and therapeutic time", equation: "P_escape ~ e^(-Delta H/T)", operator: "Trauma-well escape propagator", invariant: "The person is distinct from the attractor landscape they traverse", observable: "Recovery trajectory, basin depth, and intervention response" }
+    sherlock_audit: { status: "Confirmed (QUANT-EXP-1 PASS, Lean 4 axiom THERAPY-2)", primary_inductions: ["Trauma is Topology: barriers are non-contractible loops in G2 holonomy", "Effective therapy as field temperature regulation (God-Knob)", "Somatic injection bypasses cognitive-somatic decoupling (kappa EC)"] }
+  book-geology:
+    title: "The Geological Soma: Seismic Propagation and Tectonic Criticality"
+    why: { prose: "Tectonic memory is not just a record of the past; it is a field configuration that shapes the future. [T]-Theory treats rock strata and seismic zones as somatic substrates where memory is encoded in the geometry of the fault.", the_gap: "Standard geophysics lacks a unifying law connecting rock-strata memory to macroscopic tectonic shocks.", the_solution: "Applying the Scale-Invariant Green's Function to derive the Gutenberg-Richter law from universality classes." }
+    field_notes: { g_id: "Tectonic Memory Propagator - fault zone memory as field pattern", reader: "Geophysicist", scale: "Scale 15-17: Geological tectonic soma and rock strata memory", equation: "Gutenberg-Richter b approximately 1", operator: "Gutenberg-Richter universality class", invariant: "Fault geometry encodes past ruptures as Hopfield patterns", observable: "Seismic shock distributions and rock strata correlation" }
+    sherlock_audit: { status: "Verified (Lean 4: ScaleUniverse.lean, SwarmPropagator.lean)", primary_inductions: ["Geological memory as a high-scale instantiation of associative memory", "Tectonic criticality as a phase transition in the planetary field", "Universality: parakeet murmurations and dialect spread share the tectonic response grammar"] }
+  book-society:
+    title: "The Physics of Society: Collective Dynamics and the Somatic Field"
+    why: { prose: "Social dynamics are often treated as a special category of human behavior, but they obey the same propagation laws as any other field. [T]-Theory models collective phenomena-from team coordination to dialect spread-as the coupling of individual somatic fields into a macroscopic societal attractor.", the_gap: "Sociology lacks a formal bridge between individual affect and collective emergence, relying instead on descriptive metaphors like social force.", the_solution: "Applying the Scale-Invariant Green's Function to social interaction kernels (G_ij) to model rapport as frequency locking and trust as a spectral gap." }
+    field_notes: { g_id: "The Social Propagator - G_ij as the interaction kernel between agents", reader: "The Sociologist", scale: "Scale 10: Community Trust Networks / Scale 11: Regional Identity", equation: "P(s_i -> 1) = sigma(Sum G_ij * s_j - theta)", operator: "Social Hopfield propagator", invariant: "Structure of rapport persists across group sizes", observable: "Synchronization rates, SQ (Social Intelligence) spectral gap, and cultural propagation speed", historical_observation: "The radio reached forty million people. The field reached them all at once." }
+    sherlock_audit: { status: "Verified (Lean 4: SwarmPropagator.lean, ScaleUniverse.lean)", primary_inductions: ["Rapport = Huygens frequency locking (0 < Delta phi < epsilon)", "Social Intelligence (SQ) = First eigenvalue of the interaction matrix", "Cultural propagation speed consistent with geographic Green's functions"] }
+  book-economics:
+    title: "Economic Criticality: Game Theory, Market Dynamics, and the Somatic Field"
+    why: { prose: "Markets do not just exchange goods; they exchange field states. [T]-Theory treats economic systems as high-scale somatic fields where price signals are wave propagators and market stability is an attractor state. This allows systemic risk to be measured as proximity to a phase transition.", the_gap: "Standard economic models assume rational agents, failing to account for the somatic underpinnings of panic, exuberance, and herd behavior.", the_solution: "Co-identifying Nash equilibria as Hopfield energy minima and market crashes as second-order phase transitions." }
+    field_notes: { g_id: "The Market Propagator - G_price as the transmission of valuation", reader: "Quantitative Economist", scale: "Scale 13: Civilisational Economic Landscape", equation: "Nash(G) = argmin H(e)", operator: "Economic attractor operator", invariant: "Conservation of field energy across trade transactions", observable: "Systemic risk proximity (xi -> infinity), volatility clusters, and attractor dwell times" }
+    sherlock_audit: { status: "Verified (Lean 4: SomaNetwork.lean, RenormalisationGroup.lean)", primary_inductions: ["Nash equilibrium = Hopfield energy minimum (stable attractor)", "Systemic risk = Correlation length divergence near criticality", "Market crash = Somatic phase transition driven by noise amplitude sigma0"] }
+  book-law:
+    title: "Topology of Justice: Law, Rights, and the Geometry of Social Constraint"
+    why: { prose: "Justice is typically discussed in terms of morals or rules, but it functions as a topological constraint on social behavior. [T]-Theory models the rule of law as ergodicity-the requirement that all agents have access to all states of the legal landscape-and rights as invariants that survive continuous deformation.", the_gap: "Legal theory lacks a formal mathematical framework for describing the unbreakability of rights or the structural failures of power.", the_solution: "Defining legal rights as topological invariants of the social field, protected by the winding number of the landscape." }
+    field_notes: { g_id: "The Rights Invariant - topological stability of the legal landscape", reader: "Legal Scholar", scale: "Scale 12: National Institutional Field", equation: "n = 1/(2 pi) integral d theta", operator: "Juridical holonomy operator", invariant: "Rights are stable under smooth deformations of the political landscape", observable: "Rule of law ergodicity and topological obstructions to power" }
+    sherlock_audit: { status: "Verified (Lean 4: MTheoryIsomorphism.lean, ScaleUniverse.lean)", primary_inductions: ["Rule of Law = Field ergodicity (power protects none from accountability)", "Rights = Topological invariants (winding numbers in G2 holonomy)", "Injustice = Non-contractible loops preventing return to regulated basins"] }
+  book-ppe:
+    title: "Mind, Market, and Mandate: A Field-Theoretic Synthesis for PPE"
+    why: { prose: "The silos of philosophy, politics, and economics are unified by the fact that they all describe the same field at different resolutions. [T]-Theory provides a single vocabulary for the PPE student: the Green's function that governs the mind also governs the market and the mandate of the state.", the_gap: "PPE lacks a unified physical law to connect subjective well-being (Philosophy) to market signals (Economics) and institutional rules (Politics).", the_solution: "Using the Zoom Operator (Lambda) to map field configurations across the individual, dyadic, and national scales." }
+    field_notes: { g_id: "The Unified Mandate Propagator - cross-scale institutional coupling", reader: "PPE Researcher", scale: "Scale 7 (Mind) to Scale 13 (Market)", equation: "(nabla^2 + k^2)G = delta", operator: "Scale-invariant USF operator", invariant: "One response grammar across the three pillars of PPE", observable: "Institutional stability, agent alignment, and cross-scale correlation" }
+    sherlock_audit: { status: "Kernel-verified (UniversalSomaticField.lean, ScaleUniverse.lean)", primary_inductions: ["Cross-scale alignment as geometric matching of attractor landscapes", "Policy as a geometric wave-guide for social field propagation", "The PPE synthesis is a morphism between scale-indexed field spaces"] }
+  book-rewiring:
+    title: "Rewiring the Field: A Formal Account of Neurodivergence and Trauma"
+    why: { prose: "Neurodivergence and trauma are often seen as failures of function, but they are more accurately viewed as structural modifications to the field's response grammar. [T]-Theory provides the first formal model of ASC, ADHD, and C-PTSD as computational regimes derived from 11D field topology.", the_gap: "Clinical psychiatry relies on onset-based diagnostic categories that miss the structural reality of the pre-verbal manifold.", the_solution: "Modelling condition-specific operator modifications (T_k for ASC, T_eff for ADHD, Delta W for C-PTSD) to move from pathology to physics." }
+    field_notes: { g_id: "The Pre-Verbal Manifold - structural encoding of early life experience", reader: "Psychiatrist", scale: "Scale 6: Pre-verbal sensitive window / Scale 8: Adult phenotype", equation: "f(tau d) = tanh(tau d / tau c)", operator: "Neurodivergent operator stack", invariant: "Structural modifications are permanent but transformable", observable: "Sensory thresholds (T_k), noise levels (T_eff), and trauma winding numbers" }
+    sherlock_audit: { status: "Verified (Lean 4: LimbicHopfield.lean, MTheoryIsomorphism.lean)", primary_inductions: ["Trauma is Topology: obstructions are non-contractible loops (n != 0)", "ASC/ADHD = Operator modifications, not parameter settings", "Recovery = Forward transformation (W -> W') rather than return to W0"] }

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-generate_mk.py -- Generate U/mk/dist.mk from Dist/PAPERS.yaml.
+generate_mk.py -- Generate U/lib/mk/dist.mk from Dist/PAPERS.yaml.
 PAPERS.yaml is the single source of truth. No hardcoded data here.
 Run: make generate  (from U/ root)
 """
@@ -9,8 +9,8 @@ from pathlib import Path
 
 U_ROOT = Path(__file__).resolve().parent.parent.parent
 YAML   = U_ROOT.parent / "Dist" / "PAPERS.yaml"
-OUT    = U_ROOT / "mk"
-OUT.mkdir(exist_ok=True)
+OUT    = U_ROOT / "lib" / "mk"
+OUT.mkdir(parents=True, exist_ok=True)
 
 SRCS = {"paper": "$(PAPER)", "fractal": "$(FRAC)"}
 DIST = "$(DIST)"
@@ -184,4 +184,4 @@ lines.append("")
 
 (OUT / "dist.mk").write_text("\n".join(lines), encoding="utf-8")
 n = len([e for e in entries if e.get("file")])
-print(f"Generated mk/dist.mk  ({n} entries, source: {YAML.name})")
+print(f"Generated lib/mk/dist.mk  ({n} entries, source: {YAML.name})")
