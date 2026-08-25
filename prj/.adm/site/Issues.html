@@ -341,6 +341,10 @@ stability.</label></li>
 <li><label><input type="checkbox" />Adopt only if it reduces integration
 coupling without creating a second hard-coded member
 inventory.</label></li>
+<li><label><input type="checkbox" />Replace
+<code>books/T-Theory/build_fractal_books.py</code> with the accepted
+registry-driven Pandoc/Lua body assembly, then remove the
+script.</label></li>
 </ul>
 <p><strong>Prototype result (2026-08-19):</strong> <code>subfiles</code>
 compiles the two-member master and each child independently under
@@ -726,6 +730,41 @@ a cheat sheet and record coverage.</label></li>
 source/build/insertion contract from the completed example.</label></li>
 <li><label><input type="checkbox" />Implement the remaining cheat sheets
 through that shared contract.</label></li>
+</ul>
+<hr />
+</div></details>
+<details class="issue" data-tags="release">
+<summary>
+<span class="issue-toggle" aria-hidden="true"></span>
+<span class="issue-id">ISS-032</span>
+<span class="issue-title">t-theory.org landing page and sticker QR destination</span>
+<span class="status status-open">OPEN</span>
+<span class="issue-tags"><span class="tag">release</span></span>
+<span class="issue-dates"><span>created=2026-08-25</span></span>
+</summary>
+<div class="issue-content">
+<p>Make <code>https://www.t-theory.org/</code> the canonical public
+destination for sticker QR codes, rather than a GitHub repository URL.
+The existing <code>ITI-Theory/t-theory.org</code> GitHub Pages
+repository has <code>CNAME</code> and <code>index.html</code>; its
+landing page needs the same immediate [T]-Theory orientation as the
+GitHub organization profile and the <code>T</code> repository landing
+page.</p>
+<p><strong>Actions:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Verify the GitHub Pages deployment
+and custom-domain resolution for
+<code>www.t-theory.org</code>.</label></li>
+<li><label><input type="checkbox" />Publish a minimal
+<code>t-theory.org</code> landing page with the [T]-Theory identity,
+two-layer explanation, and primary public links.</label></li>
+<li><label><input type="checkbox" />Update the sticker QR source to
+<code>https://www.t-theory.org/</code>, regenerate the affected sticker
+asset, and verify the destination by scanning it.</label></li>
+<li><label><input type="checkbox" />Create <code>lib/images/</code> and
+add the validated <code>tt-qr-t-theory-org.*</code> assets before a
+separate, verified move/rename of existing QR assets to
+<code>tt-qr-github-t-theory.*</code>.</label></li>
 </ul>
 </div></details>
 </div>

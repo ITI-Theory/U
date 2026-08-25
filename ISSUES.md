@@ -724,3 +724,26 @@ sheets.
 - [ ] Define the common source/build/insertion contract from the completed
    example.
 - [ ] Implement the remaining cheat sheets through that shared contract.
+
+---
+
+## ISS-032: t-theory.org landing page and sticker QR destination — OPEN
+{{Tags release}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+
+Make `https://www.t-theory.org/` the canonical public destination for sticker
+QR codes, rather than a GitHub repository URL. The existing
+`ITI-Theory/t-theory.org` GitHub Pages repository has `CNAME` and `index.html`;
+its landing page needs the same immediate [T]-Theory orientation as the GitHub
+organization profile and the `T` repository landing page.
+
+**Actions:**
+- [ ] Verify the GitHub Pages deployment and custom-domain resolution for
+   `www.t-theory.org`.
+- [ ] Publish a minimal `t-theory.org` landing page with the [T]-Theory identity,
+   two-layer explanation, and primary public links.
+- [ ] Update the sticker QR source to `https://www.t-theory.org/`, regenerate the
+   affected sticker asset, and verify the destination by scanning it.
+- [ ] Create `lib/images/` and add the validated `tt-qr-t-theory-org.*` assets
+   before a separate, verified move/rename of existing QR assets to
+   `tt-qr-github-t-theory.*`.
