@@ -766,6 +766,72 @@ add the validated <code>tt-qr-t-theory-org.*</code> assets before a
 separate, verified move/rename of existing QR assets to
 <code>tt-qr-github-t-theory.*</code>.</label></li>
 </ul>
+<hr />
+</div></details>
+<details class="issue" data-tags="area.papers,area.books">
+<summary>
+<span class="issue-toggle" aria-hidden="true"></span>
+<span class="issue-id">ISS-033</span>
+<span class="issue-title">Archive publication and print context curation</span>
+<span class="status status-open">OPEN</span>
+<span class="issue-tags"><span class="tag">area.papers</span><span class="tag">area.books</span></span>
+<span class="issue-dates"><span>created=2026-08-26</span></span>
+</summary>
+<div class="issue-content">
+<p><code>paper/archive/</code> contains durable source material
+alongside dated publication snapshots and submission checklists. In
+particular, <code>PRINT-SPEC.md</code> documents the [T]-Theory
+tetralogy, mark, sticker, and physical-print decisions, but its QR
+destination is now superseded by ISS-032 and other operational content
+may also be stale.</p>
+<p><strong>Actions:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Audit the archive Markdown files and
+classify each as durable reference, current operational guide, or
+historical snapshot.</label></li>
+<li><label><input type="checkbox" />Move or distil still-valid print,
+publication, and brand decisions into maintained Markdown documentation
+without silently carrying forward stale claims, dates, or
+destinations.</label></li>
+<li><label><input type="checkbox" />Leave an explicit archive pointer or
+status note for retained historical records so their date and authority
+are clear.</label></li>
+</ul>
+<hr />
+</div></details>
+<details class="issue" data-tags="area.ops,area.papers,area.books">
+<summary>
+<span class="issue-toggle" aria-hidden="true"></span>
+<span class="issue-id">ISS-034</span>
+<span class="issue-title">Paper script ownership and generated-content boundaries</span>
+<span class="status status-open">OPEN</span>
+<span class="issue-tags"><span class="tag">area.ops</span><span class="tag">area.papers</span><span class="tag">area.books</span></span>
+<span class="issue-dates"><span>created=2026-08-26</span></span>
+</summary>
+<div class="issue-content">
+<p><code>paper/scripts/</code> has accumulated build generators,
+validators, packaging, translation, staging, and maintenance tools with
+uneven ownership and output contracts.
+<code>build_lean_appendix.py</code> is still active: root and paper
+Makefiles invoke it and <code>build_thesis.py</code> imports it, but it
+embeds hundreds of lines of reader-facing Markdown in Python.</p>
+<p><strong>Actions:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Inventory each script’s caller,
+inputs, outputs, generated-file policy, and current release/build
+role.</label></li>
+<li><label><input type="checkbox" />Identify obsolete, duplicated, or
+unowned scripts and decide whether to retire, consolidate, or document
+them.</label></li>
+<li><label><input type="checkbox" />Extract the Lean appendix’s
+reader-facing Markdown into an appropriate maintained source/template
+while preserving the ordered Lean-file catalogue and existing build
+contract.</label></li>
+<li><label><input type="checkbox" />Keep Makefiles as the canonical
+build graph; any replacement must avoid hard-coded duplicate source
+inventories and retain a focused regeneration check for the checked-in
+appendix source.</label></li>
+</ul>
 </div></details>
 </div>
 <script src="issues.js"></script>

@@ -747,3 +747,48 @@ organization profile and the `T` repository landing page.
 - [ ] Create `lib/images/` and add the validated `tt-qr-t-theory-org.*` assets
    before a separate, verified move/rename of existing QR assets to
    `tt-qr-github-t-theory.*`.
+
+---
+
+## ISS-033: Archive publication and print context curation — OPEN
+{{Tags area.papers, area.books}}
+{{Fields date.created=2026-08-26, date.start=, date.end=, epic=}}
+
+`paper/archive/` contains durable source material alongside dated publication
+snapshots and submission checklists. In particular, `PRINT-SPEC.md` documents
+the [T]-Theory tetralogy, mark, sticker, and physical-print decisions, but its
+QR destination is now superseded by ISS-032 and other operational content may
+also be stale.
+
+**Actions:**
+- [ ] Audit the archive Markdown files and classify each as durable reference,
+   current operational guide, or historical snapshot.
+- [ ] Move or distil still-valid print, publication, and brand decisions into
+   maintained Markdown documentation without silently carrying forward stale
+   claims, dates, or destinations.
+- [ ] Leave an explicit archive pointer or status note for retained historical
+   records so their date and authority are clear.
+
+---
+
+## ISS-034: Paper script ownership and generated-content boundaries — OPEN
+{{Tags area.ops, area.papers, area.books}}
+{{Fields date.created=2026-08-26, date.start=, date.end=, epic=}}
+
+`paper/scripts/` has accumulated build generators, validators, packaging,
+translation, staging, and maintenance tools with uneven ownership and output
+contracts. `build_lean_appendix.py` is still active: root and paper Makefiles
+invoke it and `build_thesis.py` imports it, but it embeds hundreds of lines of
+reader-facing Markdown in Python.
+
+**Actions:**
+- [ ] Inventory each script's caller, inputs, outputs, generated-file policy,
+   and current release/build role.
+- [ ] Identify obsolete, duplicated, or unowned scripts and decide whether to
+   retire, consolidate, or document them.
+- [ ] Extract the Lean appendix's reader-facing Markdown into an appropriate
+   maintained source/template while preserving the ordered Lean-file catalogue
+   and existing build contract.
+- [ ] Keep Makefiles as the canonical build graph; any replacement must avoid
+   hard-coded duplicate source inventories and retain a focused regeneration
+   check for the checked-in appendix source.
