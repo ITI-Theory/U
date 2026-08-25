@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# U/bin/issues-check — validate ISSUES.md metadata and epic detail files
+# Run from any directory: bin/issues-check
+
+set -euo pipefail
+
+REPO=$(cd "$(dirname "$0")/.." && pwd)
+
+pandoc "$REPO/ISSUES.md" \
+  --from=markdown \
+  --to=plain \
+  --lua-filter="$REPO/lib/format/issues-check.lua" \
+  >/dev/null

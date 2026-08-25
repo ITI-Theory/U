@@ -1,8 +1,29 @@
+---
+tags: area.instrument, area.ops, area.papers, area.books, project.soma-field-operator, projection.3d, release, uat
+fields: date.created, date.start, date.end, epic
+---
+
 # Issues — U / [T]-Theory Research Programme
 
 Issue tracker for work that spans sessions or needs a future decision.
 Format: `ISS-NNN: Title — STATUS`
 Status: OPEN | IN-PROGRESS | CLOSED
+
+## Issue Metadata
+
+The front matter declares the controlled tag vocabulary and required fields.
+Use one macro of each kind directly below every new or migrated issue heading:
+
+```markdown
+{{Tags area.instrument, project.soma-field-operator, projection.3d}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=ISS-027-soma-field-operator-projection}}
+```
+
+Tags are comma-separated semantic labels; a dot expresses hierarchy, not a
+filesystem location. Fields are comma-separated `name=value` pairs; each value
+is one string. Dates use `YYYY-MM-DD`; leave unknown values empty. `epic=` has
+no detail file. A non-empty `epic` value names `prj/.adm/issues/<value>.md`,
+which must link back to this register.
 
 Tip: Folding in vscode (turns file into a Issues UI), You can fold regions using the folding icons on the gutter between line numbers and line start.
 Use Shift + Click on the folding icon to fold or unfold the region and all regions inside.
@@ -626,3 +647,46 @@ fact without a source-specific audit.
 - [ ] Add stacked-region rendering for multi-selected mechanisms.
 - [ ] Keep the web demo hardware-free; specify a future controller adapter only
    after the on-screen grid is accepted.
+
+---
+
+## ISS-027: Soma Field Operator stereoscopic projection — OPEN
+{{Tags area.instrument, project.soma-field-operator, projection.3d}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=ISS-027-soma-field-operator-projection}}
+
+**Epic:** [ISS-027-soma-field-operator-projection.md](prj/.adm/issues/ISS-027-soma-field-operator-projection.md)
+
+Add a projector-facing stereoscopic output mode to the Soma Field Operator for
+the Dangbei Atom, while retaining its existing browser UI and normal display
+mode.
+
+---
+
+## ISS-028: Large issue-body convention — OPEN
+{{Tags area.ops}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+
+Define and validate the register-to-detail-file convention for issues whose
+context, decisions, or sub-issues exceed the main register entry.
+
+**Actions:**
+- [ ] Specify the minimum metadata and reciprocal link required in a detail file.
+- [ ] Define validation for `epic=<slug>` resolving to
+   `prj/.adm/issues/<slug>.md` and the file resolving back to its register issue.
+- [ ] Apply the convention to future large issues without duplicating register
+   metadata into the detail file.
+
+---
+
+## ISS-029: Administration chat browser — OPEN
+{{Tags area.ops}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+
+Defer chat ingestion and browser design until the issue index is stable. The
+issue browser remains focused on the canonical `ISSUES.md` register.
+
+**Actions:**
+- [ ] Define the canonical source, metadata, navigation, and retention rules for
+   administration chats before adding them to the local browser.
+- [ ] Remove `prj/.adm/chats/example-vlogs-interview-video-using-drone.md` when
+   the chat design is implemented or the example is no longer needed.

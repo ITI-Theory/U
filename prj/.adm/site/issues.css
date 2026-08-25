@@ -1,0 +1,106 @@
+body {
+  max-width: 76rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  color: #182128;
+  background: #f7f5ef;
+  font-family: "TeX Gyre Pagella", Georgia, serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: "TeX Gyre Heros", "Arial Narrow", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+h1 { border-bottom: 3px solid #e3404f; }
+h2 { margin-top: 2rem; border-bottom: 1px solid #9eb7bc; }
+code, pre { font-family: "Fira Code", Consolas, monospace; }
+a { color: #006f7d; }
+blockquote { border-left: 4px solid #e3404f; margin-left: 0; padding-left: 1rem; }
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+.issue-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #9eb7bc;
+  font-family: "TeX Gyre Heros", "Arial Narrow", sans-serif;
+  font-size: 0.9rem;
+}
+
+.tag-filters {
+  display: flex;
+  flex: 1 1 30rem;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag-filter, #clear-filters {
+  border: 1px solid #9eb7bc;
+  border-radius: 4px;
+  background: #fffdf7;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+}
+
+.tag-filter[aria-pressed="true"] {
+  border-color: #006f7d;
+  background: #d7eff0;
+}
+
+.issue-list {
+  border: 1px solid #9eb7bc;
+  border-top: 0;
+}
+
+.issue {
+  border-top: 1px solid #d3d9d7;
+}
+
+.issue:first-child { border-top: 0; }
+
+.issue > summary {
+  display: grid;
+  grid-template-columns: 1rem 5.6rem minmax(14rem, 1fr) auto minmax(12rem, auto) minmax(8rem, auto);
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.issue > summary::-webkit-details-marker { display: none; }
+.issue-toggle::before { content: "+"; color: #006f7d; font-weight: bold; }
+.issue[open] > summary .issue-toggle::before { content: "−"; }
+.issue[open] > summary { background: #edf4f2; }
+.issue-id, .issue-dates { color: #53636a; font-family: "Fira Code", Consolas, monospace; font-size: 0.78rem; }
+.issue-title { font-family: "TeX Gyre Heros", "Arial Narrow", sans-serif; font-weight: bold; }
+.status { font-family: "TeX Gyre Heros", "Arial Narrow", sans-serif; font-size: 0.72rem; font-weight: bold; }
+.status-open { color: #1a6b3c; }
+.issue-tags, .issue-dates { display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: flex-end; }
+.tag, .epic-mark { border-radius: 1rem; background: #e4e2c7; padding: 0.12rem 0.45rem; font-family: "TeX Gyre Heros", "Arial Narrow", sans-serif; font-size: 0.72rem; white-space: nowrap; }
+.issue-dates span { white-space: nowrap; }
+.issue-content { margin: 0 0.7rem 0.8rem 7.15rem; padding: 0.2rem 1rem 0.8rem; border-left: 2px solid #9eb7bc; }
+.issue-content ul.task-list { margin-left: 0; padding-left: 1.6rem; }
+.issue-content ul.task-list li { margin: 0.25rem 0; }
+.issue-content input[type="checkbox"] { accent-color: #006f7d; }
+.issue-content input[type="checkbox"][disabled] { opacity: 1; }
+.epic-body { margin-top: 1rem; border: 1px solid #9eb7bc; }
+.epic-body > summary { cursor: pointer; padding: 0.55rem 0.7rem; font-family: "TeX Gyre Heros", "Arial Narrow", sans-serif; font-weight: bold; }
+.epic-content { padding: 0 1rem 0.8rem; }
+
+@media (max-width: 52rem) {
+  body { margin: 1rem auto; padding: 0 0.8rem; }
+  .issue > summary { grid-template-columns: 1rem 5.6rem 1fr; }
+  .status, .issue-tags, .issue-dates { grid-column: 3; justify-content: flex-start; }
+  .issue-content { margin-left: 1.5rem; }
+}
