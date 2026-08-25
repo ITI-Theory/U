@@ -484,6 +484,8 @@ current option. Any Lua/Pandoc approach must retain those same guarantees.
    page references, and output stability.
 - [ ] Adopt only if it reduces integration coupling without creating a second
    hard-coded member inventory.
+- [ ] Replace `books/T-Theory/build_fractal_books.py` with the accepted
+   registry-driven Pandoc/Lua body assembly, then remove the script.
 
 **Prototype result (2026-08-19):** `subfiles` compiles the two-member master
 and each child independently under XeLaTeX, sharing the master preamble and
@@ -690,3 +692,35 @@ issue browser remains focused on the canonical `ISSUES.md` register.
    administration chats before adding them to the local browser.
 - [ ] Remove `prj/.adm/chats/example-vlogs-interview-video-using-drone.md` when
    the chat design is implemented or the example is no longer needed.
+
+---
+
+## ISS-030: Zoomable hierarchy transition tables — OPEN
+{{Tags area.instrument}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+
+Replace one-off zoomable organism hierarchy level morphs with a table-driven
+transition model that defines the mapping, interpolation, and controls for each
+adjacent scale transition.
+
+**Actions:**
+- [ ] Define the transition-table schema from the working level-morph example.
+- [ ] Apply the schema to every supported adjacent hierarchy transition.
+- [ ] Validate continuity, controls, and visual semantics across the full scale
+   range.
+
+---
+
+## ISS-031: Cheat-sheet coverage and build contract — OPEN
+{{Tags area.papers, area.books}}
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+
+Use the completed cheat-sheet slice to define and apply a shared source, build,
+registration, and insertion contract for all required paper and book cheat
+sheets.
+
+**Actions:**
+- [ ] Audit which papers and books require a cheat sheet and record coverage.
+- [ ] Define the common source/build/insertion contract from the completed
+   example.
+- [ ] Implement the remaining cheat sheets through that shared contract.

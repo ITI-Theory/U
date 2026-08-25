@@ -97,7 +97,7 @@ adm: issues
 
 $(ISSUES_HTML): ISSUES.md $(ADM_ISSUE_MD) $(ADM_CHAT_MD) $(ADM_SITE)/issues-template.html $(ADM_SITE)/issues-index.lua $(ADM_SITE)/issues.css $(ADM_SITE)/issues.js
 	@mkdir -p $(ADM_SITE)
-	pandoc ISSUES.md --from=markdown+task_lists+lists_without_preceding_blankline --to=html5 --standalone \
+	pandoc ISSUES.md --from=markdown+task_lists+lists_without_preceding_blankline --to=html5 --standalone --eol=lf \
 		--template=$(ADM_SITE)/issues-template.html \
 		--lua-filter=$(ADM_SITE)/issues-index.lua \
 		--output=$@

@@ -49,6 +49,7 @@
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "[T]-Theory/U",
-		"makefile.configureOnOpen": false
+		"makefile.configureOnOpen": false,
+		"files.eol": "\n"
 	}
 }

@@ -1,5 +1,6 @@
 # Shared tool/runtime vars
 PANDOC    := pandoc
+PANDOC_EOL := --eol=lf
 ENGINE    := xelatex
 BIB       := bibliography.bib
 CSL       := apa-7th.csl

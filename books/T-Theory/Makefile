@@ -1,5 +1,6 @@
 # [T]-Theory books Makefile
 PANDOC  := pandoc
+PANDOC_EOL := --eol=lf
 ENGINE  := xelatex
 GS      ?= gswin64c
 BUILDDIR := bld
@@ -66,7 +67,7 @@ bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua | $(BUILDDIR
 gateway-html: $(BUILDDIR)/booklet-gateway.html
 
 $(BUILDDIR)/booklet-gateway.html: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua $(FORMAT_CSS) | $(BUILDDIR)
-	$(PANDOC) $< -o $@ --standalone --mathjax \
+	$(PANDOC) $< -o $@ --standalone --mathjax $(PANDOC_EOL) \
 		$(FORMAT_FILTERS) \
 		--css=../../../lib/format/site.css \
 		-M title="[T]-Theory: A Universal Theory of Everything"
