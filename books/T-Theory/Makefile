@@ -67,9 +67,9 @@ bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua | $(BUILDDIR
 gateway-html: $(BUILDDIR)/booklet-gateway.html
 
 $(BUILDDIR)/booklet-gateway.html: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua $(FORMAT_CSS) | $(BUILDDIR)
-	$(PANDOC) $< -o $@ --standalone --mathjax $(PANDOC_EOL) \
+	$(PANDOC) $< -o $@ --standalone --embed-resources --mathjax $(PANDOC_EOL) \
 		$(FORMAT_FILTERS) \
-		--css=../../../lib/format/site.css \
+				--css=../../lib/format/site.css \
 		-M title="[T]-Theory: A Universal Theory of Everything"
 	@echo "Built Gateway HTML: $@"
 

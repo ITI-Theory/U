@@ -20,8 +20,19 @@ h1, h2, h3 { color: var(--heading); font-family: "TeX Gyre Heros", sans-serif; }
 h1 { text-align: center; }
 h2 { border-bottom: 1px solid var(--heading); padding-bottom: .25rem; }
 blockquote, table { background: var(--panel); padding: 1rem; }
+.claim-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: var(--panel);
+}
+.claim-panel > div { min-width: 0; }
+.claim-panel p:first-child { color: var(--heading); }
+.claim-panel ul { padding-left: 1.25rem; }
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: .5rem; border-bottom: 1px solid #b98b5e; text-align: left; vertical-align: top; }
 pre, code { overflow-wrap: anywhere; }
 .page-break { break-before: page; page-break-before: always; }
-@media (max-width: 640px) { body { padding: 1rem; } table { display: block; overflow-x: auto; } }
+@media (max-width: 640px) { body { padding: 1rem; } .claim-panel { grid-template-columns: 1fr; } table { display: block; overflow-x: auto; } }

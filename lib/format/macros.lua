@@ -155,6 +155,35 @@ local function booklet_why(book)
   })
 end
 
+local function claim_panel(block)
+  if not FORMAT:match("latex") then
+    return block
+  end
+
+  local columns = {}
+  for _, child in ipairs(block.content) do
+    if child.t == "Div" then
+      table.insert(columns, pandoc.write(pandoc.Pandoc(child.content), "latex"))
+    end
+  end
+  if #columns ~= 2 then
+    error("claim-panel requires exactly two child divs")
+  end
+
+  return pandoc.RawBlock("latex", string.format([[
+\noindent\colorbox{ghost}{\begin{minipage}{\dimexpr\textwidth-2\fboxsep\relax}
+\vspace{4pt}
+\begin{minipage}[t]{0.48\textwidth}
+\color{heading}%s
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\color{heading}%s
+\end{minipage}
+\vspace{3pt}
+\end{minipage}}
+]], columns[1], columns[2]))
+end
+
 local function booklet_body_blocks()
   local input = PANDOC_STATE.input_files[1]
   local body_path = path.normalize(path.join({ path.directory(input), "..", "booklet", "booklet_body.md" }))
@@ -166,27 +195,25 @@ local function booklet_body_blocks()
   handle:close()
 
   local blocks = pandoc.List:new()
-  local include = false
   for _, block in ipairs(document.blocks) do
     local heading = block.t == "Header" and pandoc.utils.stringify(block) or ""
-    if block.t == "RawBlock" and (block.format == "tex" or block.format == "latex")
-      and block.text:find("Proved %(Lean 4, 0 sorries%)") then
-      local panel = block.text:gsub("@@TEXTBF@@", string.char(92) .. "textbf")
-      blocks:insert(pandoc.RawBlock("latex", panel))
-    end
-    if heading == "I · The Master Field Equation" then
-      include = true
-    end
-    if include and heading == "I · The Master Field Equation" then
-      if FORMAT:match("latex") then
+    if block.t == "Div" and block.classes:includes("claim-panel") then
+      blocks:insert(claim_panel(block))
+    else
+      if heading == "I · The Master Field Equation" and FORMAT:match("latex") then
         blocks:insert(pandoc.RawBlock("latex", "\\startcolumns"))
       end
-    end
-    if include then
       blocks:insert(block)
     end
   end
   return blocks
+end
+
+function Div(element)
+  if element.classes:includes("claim-panel") then
+    return claim_panel(element)
+  end
+  return element
 end
 
 local function booklet_field_notes(book)
@@ -200,7 +227,7 @@ local function booklet_field_notes(book)
     local analysis = line("INVARIANT", notes.invariant) .. line("OBSERVABLE", notes.observable)
     return pandoc.List:new({ pandoc.RawBlock("latex", string.format([[
 \finishbookletcolumns
-\begin{center}\includegraphics[width=20mm]{t-theory-sticker.png}\end{center}
+\begin{center}\includegraphics[width=20mm]{../../lib/images/sticker/tt-qr-t-theory-org.png}\end{center}
 \vfill
 \noindent\textcolor{hudline}{\rule{\textwidth}{0.35pt}}
 \vspace{1pt}\noindent{\sffamily\tiny\color{hudtext}\textcolor{white}{[} FIELD NOTES / FIELD SCAN \textcolor{white}{]}\hfill\textcolor{ledorange}{[ ~ AWAITING VALIDATION ]}}\par

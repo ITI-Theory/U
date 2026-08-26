@@ -198,7 +198,7 @@ BOOKLET_WHY = {
     "economics": (
         "an equilibrium tells us where a market can settle, but not how it "
         "gets there, why it becomes trapped, or what intervention can move it. "
-        "[T]-Theory treats markets as field dynamics: shocks, prices, policy, "
+        "[T]-Theory treats markets as field dynamics: shocks,  prices, policy, "
         "and coordination become forces acting on an economic landscape."
     ),
 }
@@ -254,7 +254,7 @@ def field_notes_block(domain_id: str) -> str:
 
     return (
         "\n\n\\finishbookletcolumns\n"
-        "\\begin{center}\\includegraphics[width=20mm]{figures/t-theory-sticker.png}\\end{center}\n"
+        "\\begin{center}\\includegraphics[width=20mm]{../../lib/images/sticker/tt-qr-t-theory-org.png}\\end{center}\n"
         "\\vfill\n"
         "\\noindent\\textcolor{hudline}{\\rule{\\textwidth}{0.35pt}}\n"
         "\\vspace{1pt}\\noindent{\\sffamily\\tiny\\color{hudtext}"
@@ -307,7 +307,7 @@ def build_booklet_source(domain_id: str) -> None:
     output, count = re.subn(pattern, lambda _: replacement, text, count=1, flags=re.DOTALL)
     if count != 1:
         raise ValueError("Default booklet elevator pitch marker not found")
-    footer = "\n\\vfill\\begin{center}\\includegraphics[width=28mm]{figures/t-theory-sticker.png}\\end{center}"
+    footer = "\n\\vfill\\begin{center}\\includegraphics[width=28mm]{../../lib/images/sticker/tt-qr-t-theory-org.png}\\end{center}"
     output = output.replace(footer, field_notes_block(domain_id) + sherlock_evidence_block(domain_id), 1)
     out_path = BLD_DIR / f"booklet-{domain_id}.md"
     out_path.write_text(output, encoding="utf-8")

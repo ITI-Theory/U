@@ -254,4 +254,4 @@ All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
 - **Retarded propagator causality** → `retardedDecayFactor_isCausal` (`TemporalDynamics.lean`) + OS3
 - **RG equations** → `GeometricRGFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)
 
-![T-Theory](t-theory-sticker.png)
+![T-Theory](../../lib/images/sticker/tt-qr-t-theory-org.png)

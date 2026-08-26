@@ -18,6 +18,14 @@ from that SVG with `rsvg-convert` and ImageMagick. A local ZXing decode of the
 screen PNG confirmed the exact payload `https://www.t-theory.org/`; it does not
 yet replace any live sticker artwork.
 
+## Preserved GitHub-Target Assets
+
+The `tt-qr-github-t-theory.*` files preserve the prior sticker family, whose QR
+target is `https://github.com/ITI-Theory`. They were moved here from
+`paper/figures/` after the custom-domain family was committed, with the
+byte-identical former `books/T-Theory/t-theory-sticker.png` removed. Live
+renderers now use the `tt-qr-t-theory-org-*` assets.
+
 ## Related Work
 
 - [Current print specification](../../../paper/archive/PRINT-SPEC.md) records
