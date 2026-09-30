@@ -48,6 +48,21 @@ local function format_paper(blocks, file)
       end
       return code
     end,
+    Image = function(image)
+      if path.is_relative(image.src) then
+        local source = path.normalize(path.join({ path.directory(file), image.src }))
+        local handle = io.open(source)
+        if handle then
+          handle:close()
+        elseif image.src:match("^figures/") then
+          source = path.normalize(
+            path.join({ path.directory(file), "..", "..", image.src })
+          )
+        end
+        image.src = source:gsub("\\", "/")
+      end
+      return image
+    end,
   }
 
   local result = pandoc.List:new()
@@ -78,6 +93,46 @@ local function add_paper(file)
   local blocks = pandoc.List:new({ pandoc.Header(1, title) })
   blocks:extend(format_paper(document.blocks, file))
   return blocks
+end
+
+local function add_file(file)
+  local input = PANDOC_STATE.input_files[1]
+  local source = path.normalize(path.join({ path.directory(input), file }))
+  local handle, message = io.open(source)
+  if not handle then
+    error("Cannot read AddFile source " .. source .. ": " .. message)
+  end
+
+  local content = handle:read("*a")
+  handle:close()
+  return system.with_working_directory(path.directory(source), function()
+    return pandoc.read(content, "markdown", PANDOC_READER_OPTIONS).blocks
+  end)
+end
+
+local function insert_pdf(file, recto)
+  if not FORMAT:match("latex") then
+    return pandoc.List:new()
+  end
+
+  local input = PANDOC_STATE.input_files[1]
+  local source = path.normalize(path.join({ path.directory(input), file }))
+  if path.is_relative(source) then
+    source = path.normalize(path.join({ pandoc.system.get_working_directory(), source }))
+  end
+  local handle, message = io.open(source)
+  if not handle then
+    error("Cannot read PDF insert " .. source .. ": " .. message)
+  end
+  handle:close()
+
+  local before = "\\clearpage\n"
+  if recto then
+    before = before .. "\\ifodd\\value{page}\\else\\null\\thispagestyle{empty}\\clearpage\\fi\n"
+  end
+  return pandoc.RawBlock("latex", before
+    .. "\\includepdf[pages=-,pagecommand={\\thispagestyle{empty}}]{"
+    .. source:gsub("\\", "/") .. "}")
 end
 
 local function meta_text(value)
@@ -314,6 +369,11 @@ function Para(element)
     return add_paper(paper)
   end
 
+  local file = text:match("^{{AddFile%s+(.+)}}$")
+  if file then
+    return add_file(file)
+  end
+
   if text == "{{AddPage}}" then
     if FORMAT:match("latex") then
       return pandoc.RawBlock("latex", "\\clearpage")
@@ -322,6 +382,22 @@ function Para(element)
       return pandoc.RawBlock("html", '<div class="page-break"></div>')
     end
     return pandoc.Div({}, pandoc.Attr("", { "page-break" }))
+  end
+
+  local pdf, placement = text:match("^{{AddPDF%s+([^%s}]+)%s*(%S*)}}$")
+  if pdf then
+    if placement ~= "" and placement ~= "recto" then
+      error("AddPDF placement must be recto when specified")
+    end
+    return insert_pdf(pdf, placement == "recto")
+  end
+
+  local booklet, booklet_placement = text:match("^{{AddBooklet%s+([^%s}]+)%s*(%S*)}}$")
+  if booklet then
+    if booklet_placement ~= "" and booklet_placement ~= "recto" then
+      error("AddBooklet placement must be recto when specified")
+    end
+    return insert_pdf(booklet, booklet_placement == "recto")
   end
 
   if text == "{{BookletHeader}}" then

@@ -6,11 +6,10 @@ GS      ?= gswin64c
 BUILDDIR := bld
 FORMAT_DIR := ../../lib/format
 BOOKLET_HEADER := format/cheatsheet-header.tex
-GATEWAY_SOURCE := gateway/gateway.md
 FORMAT_FILTERS := --lua-filter=$(FORMAT_DIR)/macros.lua
 FORMAT_CSS := $(FORMAT_DIR)/site.css
-COMPLEX_SYSTEMS_SOURCE := complex-systems/book-complex-systems.md
 BOOKLET_SOURCES := $(wildcard */booklet-*.md)
+BOOK_SOURCES := $(wildcard */book-*.md)
 
 define MKDIR_P
 mkdir -p "$(1)"
@@ -51,28 +50,6 @@ bld/noir-page.pdf: noir-page.md | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(NOIR_FLAGS)
 	@echo "Built: $@"
 
-# The public Gateway is rendered directly from its canonical Markdown source.
-bld/booklet-gateway.pdf: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
-	$(PANDOC) $< -o $@ \
-		--pdf-engine=$(ENGINE) --standalone \
-		--include-in-header=../../paper/unicode-math-text.tex \
-		$(FORMAT_FILTERS) \
-		-V "geometry=a4paper,margin=16mm" \
-		-V fontsize=10pt -V linestretch=1.2 \
-		-V mainfont="TeX Gyre Pagella" \
-		--pdf-engine-opt="-output-directory=$(abspath $(BUILDDIR))"
-	@echo "Built domain booklet: $@"
-
-.PHONY: gateway-html
-gateway-html: $(BUILDDIR)/booklet-gateway.html
-
-$(BUILDDIR)/booklet-gateway.html: $(GATEWAY_SOURCE) $(FORMAT_DIR)/macros.lua $(FORMAT_CSS) | $(BUILDDIR)
-	$(PANDOC) $< -o $@ --standalone --embed-resources --mathjax $(PANDOC_EOL) \
-		$(FORMAT_FILTERS) \
-				--css=../../lib/format/site.css \
-		-M title="[T]-Theory: A Universal Theory of Everything"
-	@echo "Built Gateway HTML: $@"
-
 define BOOKLET_PAGE_RULE
 bld/booklet-%-$(1).pdf: bld/booklet-%.pdf | $(BUILDDIR)
 	$(GS) -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dNOPAUSE -dBATCH \
@@ -80,19 +57,6 @@ bld/booklet-%-$(1).pdf: bld/booklet-%.pdf | $(BUILDDIR)
 	@echo "Prepared booklet page $(1): $$@"
 endef
 $(foreach page,1 2 3 4,$(eval $(call BOOKLET_PAGE_RULE,$(page))))
-
-# Gateway alone includes the noir page. Every domain book uses its own booklet.
-bld/book-gateway.pdf: bld/book-gateway-body.md bld/noir-page.pdf \
-  bld/booklet-gateway-1.pdf bld/booklet-gateway-2.pdf \
-  bld/booklet-gateway-3.pdf bld/booklet-gateway-4.pdf | $(BUILDDIR)
-	$(PANDOC) bld/book-gateway-body.md -o $@ $(BOOK_FLAGS)
-	@echo "Built: $@"
-
-# First Make/Pandoc-native book: its source visibly defines its complete order.
-bld/book-complex-systems.pdf: $(COMPLEX_SYSTEMS_SOURCE) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
-	$(PANDOC) $< -o $@ $(BOOK_FLAGS) --toc --lua-filter=$(FORMAT_DIR)/macros.lua
-	@echo "Built: $@"
-
 
 .SECONDEXPANSION:
 bld/booklet-%.pdf: $$(wildcard */booklet-$$*.md) books.yaml booklet/booklet_body.md $(BOOKLET_HEADER) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
@@ -106,6 +70,27 @@ bld/booklet-%.pdf: $$(wildcard */booklet-$$*.md) books.yaml booklet/booklet_body
 		-V fontsize=10pt -V linestretch=1.2 \
 		-V mainfont="TeX Gyre Pagella"
 	@echo "Built domain booklet: $@"
+
+bld/booklet-%.html: $$(wildcard */booklet-$$*.md) $(FORMAT_DIR)/macros.lua $(FORMAT_CSS) | $(BUILDDIR)
+	$(PANDOC) $< -o $@ --standalone --embed-resources --mathjax $(PANDOC_EOL) \
+		--lua-filter=$(FORMAT_DIR)/macros.lua \
+		--css=$(FORMAT_DIR)/site.css
+	@echo "Built domain booklet HTML: $@"
+
+bld/book-%.pdf: $$(wildcard */book-$$*.md) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS) --toc --lua-filter=$(FORMAT_DIR)/macros.lua
+	@echo "Built domain book: $@"
+
+bld/book-gateway.pdf: gateway/book-gateway.md bld/noir-page.pdf bld/booklet-gateway.pdf format/gateway-template.tex $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
+	$(PANDOC) $< -o $@ $(BOOK_FLAGS) --toc --template=format/gateway-template.tex \
+		-V gateway-noir="$(abspath bld/noir-page.pdf)" --lua-filter=$(FORMAT_DIR)/macros.lua
+	@echo "Built Gateway book: $@"
+
+bld/book-%.html: $$(wildcard */book-$$*.md) $(FORMAT_DIR)/macros.lua $(FORMAT_CSS) | $(BUILDDIR)
+	$(PANDOC) $< -o $@ --standalone --embed-resources --mathjax $(PANDOC_EOL) \
+		--lua-filter=$(FORMAT_DIR)/macros.lua \
+		--css=$(FORMAT_DIR)/site.css
+	@echo "Built domain book HTML: $@"
 
 bld/book-%.pdf: bld/book-%-body.md bld/booklet-%-1.pdf \
   bld/booklet-%-2.pdf bld/booklet-%-3.pdf bld/booklet-%-4.pdf | $(BUILDDIR)
