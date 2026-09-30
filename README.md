@@ -68,3 +68,20 @@ and the extended ESA-style methodology documentation.
 Repository process, git hygiene, and Zenodo publishing steps: `PROCESS.md`
 Zenodo runbook and upload queue: [`ITI-Theory/Dist/zenodo/`](https://github.com/ITI-Theory/Dist/tree/main/zenodo)
 
+## Issue Metadata
+
+`ISSUES.md` is the canonical cross-session issue register. Its YAML front
+matter is the controlled vocabulary enforced by `bin/issues-check`:
+
+- `tags:` is the complete allowed tag list. Add a tag there before using it in
+	an issue's `{{Tags ...}}` macro.
+- `fields:` is the complete allowed field list for `{{Fields ...}}` macros.
+- A non-empty `epic=` field requires a reciprocal detail file at
+	`prj/.adm/issues/<epic>.md` with `fields.issue=ISS-NNN`.
+
+Validate changes with:
+
+```bash
+bin/issues-check
+```
+

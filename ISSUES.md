@@ -1,5 +1,5 @@
 ---
-tags: area.instrument, area.ops, area.papers, area.books, project.soma-field-operator, projection.3d, release, uat
+tags: area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, project.soma-field-operator, projection.3d, release, uat
 fields: date.created, date.start, date.end, epic
 ---
 
@@ -792,3 +792,26 @@ reader-facing Markdown in Python.
 - [ ] Keep Makefiles as the canonical build graph; any replacement must avoid
    hard-coded duplicate source inventories and retain a focused regeneration
    check for the checked-in appendix source.
+
+---
+
+## ISS-035: Path-sensitive transition dynamics — OPEN
+{{Tags area.theory, area.proofs, area.clinical}}
+{{Fields date.created=2026-09-30, date.start=, date.end=, epic=}}
+
+Extend the current attractor-and-barrier account of state transition with a
+path-sensitive model. A transition may be limited not only by one high local
+barrier, but by the cumulative action or coordination cost of many constrained
+micro-transitions. This is an open theoretical and empirical question; it must
+not be presented as an established clinical mechanism without evidence.
+
+**Actions:**
+- [ ] Distinguish the current potential/energy-landscape account from candidate
+   minimum-action, stochastic-path, and path-integral formulations.
+- [ ] Define the proposed state space, admissible paths, action functional, and
+   observable predictions before changing papers or Lean theorems.
+- [ ] Specify what data could distinguish a single-barrier explanation from a
+   distributed path-cost explanation in trauma or overload transitions.
+- [ ] Introduce the extension in the philosophy book as a clearly labelled open
+   hypothesis, then decide whether it warrants a dedicated paper and formal
+   development.
