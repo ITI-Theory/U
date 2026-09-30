@@ -108,9 +108,12 @@ Large chats in `Me/chats/Inbox/`: `20260808_232411_Mind_Body.md`,
 `20260712_182317_NotebookLM_Rosetta.md`, `20260719_161902_MS_Copilot_opinion.md`,
 the two `Rosetta_Stone_of_ASO` exports, `Rosetta.md`, `Gestalt-pseudo.md`,
 `20260628_203332_jelly-fish.md`, `limbic-hop*.md`, `20260628_194732_HopfieldN.md`,
-`LewisH.md`, `20260808_232149_ASD_is_CPTSD.md`; new notebooks added after
-2026-10-01. Review new chats for novelty against existing material before
-reading them in full: many repeat earlier conversations.
+`LewisH.md`, `20260808_232149_ASD_is_CPTSD.md`. Review new chats for novelty
+against existing material before reading them in full: many repeat earlier
+conversations.
+
+The notebooks added on 2026-10-01 have been triaged (see the Notebook Review
+in `CURRENT.md`).
 
 ## Reading Notes
 

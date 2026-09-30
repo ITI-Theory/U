@@ -59,6 +59,52 @@ In the author's order after the philosophy book:
    systems at each level (for example belief systems).
 5. *Phase Dot*: complete it; it should eventually hold most of the chats.
 
+## Notebook Review (2026-10-01)
+
+The seven notebooks added on 2026-10-01 were triaged against everything
+already read. Verdict: little new theory; most is NotebookLM restating the
+programme with inflated certainty. *The Rosetta Stone of Systems and
+Processes* is a re-export of the Rosetta notes chat. Usable material, by
+roadmap item:
+
+- **Done:** P21 used $H_0 = 70$ for $\Lambda_\text{USF}$ but Planck $H_0$ for
+  $\Lambda_\text{obs}$; fixed (1.01 vs 1.09 $\times10^{-52}$ m$^{-2}$), and
+  "$\Omega_\Lambda(z)$ = const" corrected to "$\Lambda$ ($\rho_\Lambda$) is
+  constant".
+- **Decision needed (cosmology):** P21/P22 compare against rounded values
+  (0.683, 0.265, 0.049). Exact Planck 2018 (TT,TE,EE+lowE+lensing) gives
+  $\Omega_\Lambda = 0.6847$, $\Omega_c \approx 0.2645$, $\Omega_b \approx
+  0.0493$, $H_0 = 67.36$: discrepancies 7.1%, 3.1%, 7.8% (not 6.8%, 2.9%,
+  7.2%). Adopting them breaks the "within 3%" dark-matter theorem in
+  `paper/proofs/CosmologicalConstant.lean`, so papers and Lean change
+  together. The Lean doc comments `dΩ_Λ/dz = 0` (CosmologicalConstant,
+  G2Compactification, LocalGR) share the $\Omega_\Lambda(z)$ wording error.
+  P22 could add a falsifiable null prediction: no direct-detection signal if
+  dark matter is a spatial-block vacuum without Standard Model charge.
+- **Papers / ISS-035:** a path-integral change means defining a state space,
+  admissible paths, an action functional (barrier sum, Kramers cost, control
+  effort, or an Onsager-Machlup functional), and observables that separate
+  one high barrier from many coordinated micro-transitions, including path
+  history (monodromy). Host it in Temporal Dynamics (P10) or a follow-up;
+  Quantum Topology (P2) keeps its WKB/instanton wording. Source:
+  `Me/chats/notebooks/Papers_Omnibus_NotebookLM_UAT_Deployment_Guide/wkb_path_integral_note-v2.md`, `-v3.md`.
+- **Books:** each book needs a domain introduction spread (specialist
+  label, G-ID, zoom note); a per-book G-ID registry; "61 decades of
+  magnitude" as the headline with twenty scales as tick marks; a print guide
+  of about 32,000 words and 80-110 A4 pages per book.
+- **App:** a display-mode axis `4d-baseline | 7d-usf-field | 8d-life |
+  11d-mind` in `operator-theory.yaml`; a gravity view pairing a baseline GR
+  render with the Green-function render; mind rank $N(\sigma)$ beside physical
+  scale; the user source term $J_\text{user}(t)$ as a control; a benchmark
+  suite for validation. Keep theory data out of browser JS (README freeze).
+- **Wave Atlas:** a twenty-scale G-ID registry; Physical/Field/Mind parallel
+  layout; notebook figures 1, 2, 4, 5 are usable only if redrawn and badged
+  `INTERPRETIVE`.
+- **Quarantined:** the claim that autism is pre-verbal C-PTSD (at most a
+  research question); the C-PTSD pilot protocol (needs ethics, consent, and
+  safeguarding before any use); the post-operative case (N=1 field note);
+  all NotebookLM "verified", "zero sorries", and "proves" statements.
+
 ## Known Issues
 
 - `paper/soma/lean-proofs-appendix` and several generated book passages say
