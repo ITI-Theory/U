@@ -82,32 +82,39 @@ books:
           ],
       }
   book-philosophy:
-    title: "The Hard Problem Dissolved: Consciousness as Phase Transition"
+    title: "[T]-Theory: Philosophy"
     why:
       {
-        prose: "The hard problem changes shape when consciousness is approached as a transition in an integrated physical field. [T]-Theory asks what happens when correlation, propagation, and regulation cross the threshold from local processing to a unified point of view.",
-        the_gap: "Standard assumptions treat physical descriptions as structural/functional without experiential remainder.",
-        the_solution: "Dropping the inside/outside distinction: the somatic field is simultaneously a physical and phenomenal object (Neutral Monism).",
+        prose: "Russell wrote the history of philosophy as a history of effects: what philosophers did to the societies that received them. [T]-Theory is a theory of response rather than of the push. This book reads the whole programme, and the history of philosophy with it, through one time-invariant response grammar.",
+        the_gap: "Physical description gives structure; it is silent on what that structure is like from the inside, and on when a system has a unified point of view.",
+        the_solution: "Separate one question into three: the formal threshold (checked in Lean), the physical threshold (open to measurement), and the intrinsic nature of the field (a Russellian, neutral-monist reading).",
       }
     field_notes:
       {
-        g_id: "Conscious Percept Propagator Pole - singularity at threshold Tc",
+        g_id: "Conscious Percept Propagator Pole - threshold Tc (formal predicate; physical threshold open)",
         reader: "Philosopher",
-        scale: "Scale 7: Whole Brain / Integrated Cortical States",
-        equation: "xi -> infinity at Tc",
-        operator: "Conscious percept propagator pole",
-        invariant: "Local processing becomes globally integrated at a critical threshold",
-        observable: "Critical coherence, reportable integration, and perturbation response",
+        scale: "Scale 7: Whole Brain; the time axis from the Big Bang to the history of philosophy",
+        equation: "phi(t) = integral of K(t - t') J(t') dt'",
+        operator: "Time-invariant response kernel K(t - t')",
+        invariant: "One response grammar across eras: the parameters drift, the form of the kernel does not",
+        observable: "Threshold crossing, reportable integration, and the social reception of ideas",
+        historical_observation: "Russell read philosophers as effects of their societies and causes of later ones.",
       }
     sherlock_audit:
       {
-        status: "Kernel-verified (UniversalSomaticField.lean)",
+        status: "Formal: consciousness_dichotomy (UniversalSomaticField.lean) proves only that an amplitude lies below, or at or above, sqrt 2. Everything else here is interpretive or open.",
         primary_inductions:
           [
-            "Consciousness Threshold Theorem (sharp spectral gap dichotomy)",
-            "Experience as the inside inhabiting of the field",
-            "Derivation of phenomenology from 11D field topology",
+            "Threshold dichotomy: kernel-verified as arithmetic on the reals",
+            "Consciousness as a threshold crossing: open hypothesis; needs a measure and calibration of Tc",
+            "Experience as the inside of the field (neutral monism): interpretive",
+            "History of philosophy as time-invariant response: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does a theorem about a real number say anything about experience?",
+            counter_logic: "No. It fixes the formal predicate; the physical threshold must be measured, and the reading of experience is argued, not proved.",
+          },
       }
   book-complex-systems:
     title: "Scale-Free Dynamics: The USF as a Complex Systems Framework"

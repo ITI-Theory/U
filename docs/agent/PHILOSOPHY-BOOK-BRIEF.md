@@ -82,9 +82,10 @@ Use `THEORY-STATUS.md` labels throughout. In particular:
 
 ## Deliverable Boundary
 
-Produce the two source files. Do not claim they have been built. Makefile
-registration, app changes, and edits to published papers are separate tasks
-(papers change only through new Zenodo versions). The book must include a
+Produce the two source files (done in first draft, 2026-10-01). Registering
+the domain in the Makefile aggregate targets, app changes, and edits to
+published papers are separate tasks (papers change only through new Zenodo
+versions). The book must include a
 clearly labelled Sherlock source-note appendix identifying which ideas still
 need formal, empirical, or source-level verification.
 
