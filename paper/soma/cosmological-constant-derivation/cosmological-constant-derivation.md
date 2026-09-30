@@ -63,7 +63,7 @@ is the vacuum amplitude of the somatic tensor trace, and $M_\text{Pl}^2 = \hbar 
 From the Friedmann equation:
 $$\Lambda_\text{obs} = \frac{3\Omega_\Lambda H_0^2}{c^2}
   \approx 1.09\times10^{-52}\,\text{m}^{-2} \quad (\Omega_\Lambda = 0.683,\;
-  H_0 = 70.0\;\text{km/s/Mpc})$$
+  H_0 = 67.4\;\text{km/s/Mpc})$$
 
 Setting $\Lambda_\text{USF} = \Lambda_\text{obs}$ and solving for $\Phi_0$:
 $$\Phi_0 = \sqrt{\frac{\Lambda_\text{obs}\,M_\text{Pl}^2 c^2}{k_\text{cosm}^2}}
@@ -147,7 +147,7 @@ When $\rho_\Lambda = (7/11)\rho_\text{vac}$ and $\rho_\text{vac} \sim M_\text{Pl
 the factor of 3 from the Friedmann normalisation of $\rho_\text{crit}$ appears
 naturally:
 $$\Lambda_\text{USF} = 3 \times \frac{7}{11} \times \frac{H_0^2}{c^2}
-  = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.09\times10^{-52}\;\text{m}^{-2}$$
+  = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.01\times10^{-52}\;\text{m}^{-2}$$
 
 $$\frac{\Lambda_\text{USF}}{\Lambda_\text{obs}} = \frac{7/11}{\Omega_\Lambda}
   = \frac{0.636}{0.683} = 0.932 \quad (93\%\text{ of observed})$$
@@ -280,9 +280,12 @@ result is on a knife edge — it is the most important live test in cosmology.
 
 **Null variation of Λ with redshift.** The USF condensate amplitude is fixed
 by the Planck-scale boundary condition at $\sigma = 0$ and does not evolve
-with redshift. The prediction $\Omega_\Lambda(z) = \mathrm{const}$ is testable
-to better than 1\% by Stage IV surveys. Any detection of
-$d\Omega_\Lambda/dz \neq 0$ would similarly falsify the condensate picture.
+with redshift. The prediction is that $\Lambda$ (equivalently $\rho_\Lambda$)
+is constant, so the dark-energy equation of state is $w = -1$; the density
+parameter $\Omega_\Lambda(z) = \rho_\Lambda/\rho_\text{crit}(z)$ still evolves
+because $\rho_\text{crit}$ does. This is testable to better than 1\% by Stage
+IV surveys. Any detection of $d\rho_\Lambda/dz \neq 0$ would similarly falsify
+the condensate picture.
 
 **Scope of falsification.** The predictions test the Scale 19–20 (cosmological)
 limit of the USF. If they fail, the USF framework at clinical, biological, and
@@ -312,9 +315,9 @@ Calabi-Yau moduli correction.
 The primary remaining formal obligation is linearised GR in Mathlib.
 
 $$\boxed{\Lambda_\text{USF} = \frac{21}{11}\,\frac{H_0^2}{c^2}
-  \approx 1.09\times10^{-52}\;\text{m}^{-2}
+  \approx 1.01\times10^{-52}\;\text{m}^{-2}
   \quad\text{vs}\quad
-  \Lambda_\text{obs} = 1.09\times10^{-52}\;\text{m}^{-2} \;(7\%\text{ off})}$$
+  \Lambda_\text{obs} \approx 1.09\times10^{-52}\;\text{m}^{-2} \;(7\%\text{ off})}$$
 
 ---
 
