@@ -2,29 +2,56 @@
 
 ## Purpose
 
-Use this packet to resume [T]-Theory work without a broad repository scan.
-Read `SOURCES.md` before proposing or making changes.
+Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
+`THEORY-STATUS.md`, and the brief for the active task.
 
-## Last Checkpoint
+## Active Task: the Philosophy Book
 
-- Gateway rendering migration: `3eb5af9 Refactor Gateway book rendering`.
-- Issue metadata and LF text policy: `6b949f1 Document issue metadata and normalize text endings`.
-- Before any commit, run `git status -sb`; do not infer the worktree state from an editor file counter.
+Brief: `PHILOSOPHY-BOOK-BRIEF.md`. The philosophy volume is the programme's
+last book: a philosopher's retrospective treatment of [T]-Theory, organised
+around Russell's history of philosophy as the history of philosophy's effects,
+the time-invariant response grammar, the Soma Machine's time axis, and
+Sherlock as modern philosophy of knowledge representation.
 
-## Accepted Book Architecture
+State on 2026-10-01:
 
-- Reader-facing book content belongs in source-owned Markdown under `books/T-Theory/<domain>/`.
-- Makefiles own the build graph.
-- `lib/format/macros.lua` owns reusable Pandoc directives.
-- Lua transforms semantic source into output-specific presentation; it must not become a second content store.
-- The Gateway is exceptional: its noir page precedes the local TOC, implemented by `books/T-Theory/format/gateway-template.tex`.
-- PDF-only artifacts such as fixed-layout booklet inserts use `{{AddPDF ...}}` or `{{AddBooklet ...}}`; HTML does not emulate those inserts.
+- Both anchors, the Sherlock/Russell/origin chats, the Collected Works
+  notebook, `uat/`, the Lean surface, and the Visual Operator have been read.
+- Book direction agreed (see the brief). The chapter outline in
+  `PHILOSOPHY-BOOK-OUTLINE.md` awaits author review.
+- No book source has been written yet.
 
-## Current Priorities
+## Book Architecture
 
-1. Produce a read-only philosophy/Atlas/app integration proposal from the curated source list.
-2. Decide the first shared registry between the app, Atlas, and philosophy book.
-3. Build release candidates only after source and print contracts are stable; Zenodo and Lulu remain the delivery goals.
+- Reader-facing book content is source-owned Markdown under
+  `books/T-Theory/<domain>/`.
+- Makefiles own the build graph; `lib/format/macros.lua` owns reusable Pandoc
+  directives. Lua transforms source into presentation and is not a content
+  store.
+- A booklet is front matter with `book_id` plus the `{{Booklet...}}` macros.
+  Its text comes from the matching record in `books/T-Theory/books.yaml` and
+  the shared `books/T-Theory/booklet/booklet_body.md`.
+- The Gateway is exceptional: its noir page precedes the local TOC
+  (`books/T-Theory/format/gateway-template.tex`).
+- PDF-only inserts use `{{AddPDF ...}}` or `{{AddBooklet ...}}`.
+
+## Deferred Work (agreed, not started)
+
+- Rewrite each of the fifteen generated books' shared introduction in its own
+  book's style.
+- Expand the books that are still slim.
+- Prefix every book title with "[T]-Theory:".
+- Complete *Phase Dot*, which should eventually hold most of the chats.
+- Review new chats and notebooks for novelty before reading them in full.
+
+## Known Issues
+
+- The `book-philosophy` record in `books.yaml` labels its interpretive claims
+  as kernel-verified. Fix it together with the book.
+- `paper/soma/lean-proofs-appendix` and several book passages say "no
+  sorries"; seven real `sorry`s remain (see `THEORY-STATUS.md`).
+- Published papers change only through new Zenodo versions. Flag problems;
+  do not edit published papers in place.
 
 ## Focused Checks
 
@@ -37,7 +64,8 @@ git diff --check
 
 ## Guardrails
 
-- Do not search the repository beyond `SOURCES.md` unless given explicit approval.
-- Do not present an interpretation, simulation, or planned experiment as a proved or empirical result.
+- Run `git status -sb` before any commit.
+- Do not present an interpretation, simulation, or planned experiment as a
+  proved or empirical result.
 - Do not commit generated candidate PDFs from ignored build directories.
 - Do not modify legacy `gateway.md.OBSOLETE`.
