@@ -39,5 +39,8 @@ Then in the app: Settings → MOTHER → API / LOCAL BRIDGE, and press ASK MOTHE
   `INTERPRETIVE / MAY ERR` marker.
 - `mother.local.json` and `.venv/` are gitignored; login cookies stay in
   notebooklm-py's own storage outside the repository.
+- The public notebook is `https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944`;
+  it is the app's default for WEB mode and must be shared as *anyone with the
+  link can view* for visitors to use it.
 - The name is a private homage to MU/TH/UR 6000 in *Alien* (1979); choose an
   original name before any public release.

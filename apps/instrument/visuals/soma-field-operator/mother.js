@@ -6,6 +6,8 @@
 
 const STORAGE = { mode: 'mother-mode', notebook: 'mother-notebook-url', bridge: 'mother-bridge-url' };
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
+// The programme's public notebook (NotebookLM is now served from notebook.google.com).
+const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
 
 function read(key, fallback) {
   try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; }
@@ -100,7 +102,7 @@ export function createMother({ getContext }) {
   }
 
   modeSelect.value = read(STORAGE.mode, 'off');
-  notebookInput.value = read(STORAGE.notebook, '');
+  notebookInput.value = read(STORAGE.notebook, '') || DEFAULT_NOTEBOOK;
   bridgeInput.value = read(STORAGE.bridge, '');
   for (const control of [modeSelect, notebookInput, bridgeInput]) control.addEventListener('change', sync);
   sync();
@@ -128,7 +130,7 @@ export function createMother({ getContext }) {
 
     if (modeSelect.value === 'web') {
       const url = notebookInput.value.trim();
-      if (!/^https:\/\/notebooklm\.google\.com\//.test(url)) {
+      if (!/^https:\/\/notebook(lm)?\.google\.com\//.test(url)) {
         await type('NO PUBLIC NOTEBOOK SET. ADD ITS URL IN SETTINGS.');
         return;
       }

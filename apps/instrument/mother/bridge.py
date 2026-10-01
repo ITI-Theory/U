@@ -33,7 +33,7 @@ def notebook_id() -> str:
     value = os.environ.get("MOTHER_NOTEBOOK_ID")
     config = HERE / "mother.local.json"
     if not value and config.exists():
-        value = json.loads(config.read_text(encoding="utf-8")).get("notebook_id")
+        value = json.loads(config.read_text(encoding="utf-8-sig")).get("notebook_id")
     if not value:
         raise SystemExit("Set MOTHER_NOTEBOOK_ID or create mother.local.json with {\"notebook_id\": \"...\"}")
     return value
