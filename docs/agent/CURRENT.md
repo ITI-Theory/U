@@ -5,6 +5,36 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
+## Resume Here (paused 2026-10-02, 00:20)
+
+Done on 2026-10-01 evening (all pushed; last commit 76c498e):
+- H-AL persona (MOTHER | H-AL switch, API mode) — 8c2bc96.
+- High-DPI fix for compare / 3D SBS; A3 Atlas picture pages now use
+  full-screen 16:10 captures (1920x1200 @2.585) with a caption band — 67ae40f.
+- Time axis (`registry/eras.yaml`, TIME / ERA slider, `era=`), What's
+  Different? tours (`registry/questions/`, `q=`, flagship gravity + time
+  bending), 8D hysteresis / 11D QUANT-EXP-1 demos (`dynamics.js`), and the
+  differences ledger `DIFFERENCES.md` — 76c498e.
+
+Next, in the author's order of interest:
+1. Rebuild the A3 Atlas (`python build_atlas.py --a3`; it now has the Time
+   Axis and What's Different? sections) and recheck before printfactory.ch.
+2. Penrose index: chapter/equation index of *The Road to Reality*
+   (`C:\Users\alist\OneDrive\tmp\books\road to reality-roger penrose.pdf`)
+   mapped to level ids and difference classes; no verbatim text. Other useful
+   baselines in that folder: OpenStax Astronomy 2e / Psychology 2e /
+   Introduction to Philosophy (CC BY), Physical Geology 2e, Carroll & Ostlie,
+   Juslin, Koelsch, Gabriel *Fields of Sense*.
+3. More "same poke, different outcome" demos (dyad phase-lock, cellular
+   threshold) from `DIFFERENCES.md` section 3.
+4. Cosmetic: gravity-scene clock labels cut at the compare split; world-space
+   label boxes under side panels.
+5. Still queued: Zenodo tokens + sandbox run; MOTHER terminal (xterm.js,
+   Git Bash tab); Piper HAL voice; offline MOTHER/H-AL (Ollama).
+
+Agent note: background agents are cancelled if the author's message interrupts
+a blocking tool call; launch them, then end the turn.
+
 ## Active Task: the Philosophy Book
 
 Brief: `PHILOSOPHY-BOOK-BRIEF.md`. The philosophy volume is the programme's
