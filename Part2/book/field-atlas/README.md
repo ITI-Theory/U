@@ -31,8 +31,9 @@ python build_atlas.py            # bld/field-atlas.md and bld/field-atlas.pdf
 python build_atlas.py --md-only
 # A3 landscape picture atlas (printfactory.ch): full-bleed console per level,
 # text page in three columns, compare view. Needs the print set first:
-#   node scripts/capture.mjs --only print --width 1754 --height 1240 --scale 2.83
-#   (apps/instrument/visuals/soma-field-operator), then JPEGs in figures/app/print
+#   node scripts/capture.mjs --only print --width 1920 --height 1200 --scale 2.585
+#   (apps/instrument/visuals/soma-field-operator): the app exactly as a full-screen
+#   16:10 display shows it, 4963 px wide. Then JPEGs (q92) in figures/app/print.
 python build_atlas.py --a3          # bld/field-atlas-a3.pdf
 ```
 

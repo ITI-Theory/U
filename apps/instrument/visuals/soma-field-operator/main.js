@@ -2147,6 +2147,7 @@ syncTTheoryUI();
 renderZoomEquation();
 updateScaleReadout();
 
+const viewportSize = new THREE.Vector2();
 function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -2166,8 +2167,8 @@ const clock = new THREE.Clock();
 function renderScene() {
   if (state.stereoSbs && state.viewMode === '3d') {
     stereoCamera.update(camera);
-    const width = renderer.domElement.width;
-    const height = renderer.domElement.height;
+    // setViewport/setScissor take CSS pixels; three.js applies the pixel ratio.
+    const { x: width, y: height } = renderer.getSize(viewportSize);
     const halfWidth = Math.floor(width / 2);
     renderer.setScissorTest(true);
     for (const [x, eyeCamera] of [[0, stereoCamera.cameraL], [halfWidth, stereoCamera.cameraR]]) {
@@ -2400,8 +2401,7 @@ function applyScene(time, delta, responsePulse) {
 function renderCompare(time, delta, responsePulse) {
   const userLens = state.tTheory;
   const userLevel = state.level;
-  const width = renderer.domElement.width;
-  const height = renderer.domElement.height;
+  const { x: width, y: height } = renderer.getSize(viewportSize);
   const halfWidth = Math.floor(width / 2);
   const viewCamera = state.viewMode === '2d' ? overheadCamera : camera;
   renderer.setScissorTest(true);

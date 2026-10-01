@@ -31,11 +31,15 @@ FORMAT = "royal"
 PRINT_IMAGES = ATLAS / "figures" / "app" / "print"
 
 
-def full_bleed(image: Path) -> list[str]:
-    # A whole page filled by one app screenshot (A3 landscape, 300 dpi).
+def full_bleed(image: Path, caption: str) -> list[str]:
+    # A dark A3 page: the full-screen (16:10) app screenshot across the full
+    # width, never stretched or cropped, with a caption band underneath.
+    caption = caption.replace("&", "\\&").replace("%", "\\%").replace("#", "\\#")
     return [
         "\\clearpage\\thispagestyle{empty}",
-        f"\\AddToShipoutPictureBG*{{\\AtPageLowerLeft{{\\includegraphics[width=\\paperwidth,height=\\paperheight]{{{image.as_posix()}}}}}}}",
+        "\\AddToShipoutPictureBG*{\\AtPageLowerLeft{\\color[RGB]{5,7,14}\\rule{\\paperwidth}{\\paperheight}}}",
+        f"\\AddToShipoutPictureBG*{{\\AtPageUpperLeft{{\\raisebox{{-\\height}}{{\\includegraphics[width=\\paperwidth]{{{image.as_posix()}}}}}}}}}",
+        f"\\AddToShipoutPictureBG*{{\\AtPageLowerLeft{{\\hspace*{{14mm}}\\raisebox{{13mm}}{{\\color[RGB]{{120,220,240}}\\ttfamily\\large {caption}}}}}}}",
         "\\mbox{}\\clearpage",
         "",
     ]
@@ -152,7 +156,7 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
     out = []
     if FORMAT == "a3":
         if pictures["lens-on"]:
-            out += full_bleed(pictures["lens-on"])
+            out += full_bleed(pictures["lens-on"], f"{data['label'].upper()}  /  SOMA MACHINE  /  T-THEORY LENS ON")
         else:
             missing.append(f"print image for {level_id} (run capture --only print)")
     out += ["\\newpage", "", f"## {data['label']} {{#level-{level_id}}}", ""]
@@ -200,7 +204,7 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
             text += [f"### Transition: {data['label']} to {labels.get(target, target)}", "", edge_body, ""]
     out += [columns("\n".join(text)), ""]
     if FORMAT == "a3" and pictures["compare"]:
-        out += full_bleed(pictures["compare"])
+        out += full_bleed(pictures["compare"], f"{data['label'].upper()}  /  SOMA MACHINE  /  4D PHYSICS BASELINE | T-THEORY")
     return "\n".join(out)
 
 
@@ -294,7 +298,7 @@ def main() -> None:
         "--citeproc", f"--bibliography={BIB}", f"--csl={CSL}",
         *page, "-V", "mainfont=TeX Gyre Pagella", "-V", "monofont=Consolas",
         "-V", "colorlinks=true", "-V", "linkcolor=NavyBlue", "-V", "urlcolor=NavyBlue",
-        "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}\\usepackage{graphicx}\\usepackage{multicol}\\usepackage{eso-pic}\\setlength{\\columnsep}{9mm}\\newcommand{\\colsbegin}{\\begin{multicols}{3}}\\newcommand{\\colsend}{\\end{multicols}}",
+        "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}\\usepackage{graphicx}\\usepackage{xcolor}\\usepackage{multicol}\\usepackage{eso-pic}\\setlength{\\columnsep}{9mm}\\newcommand{\\colsbegin}{\\begin{multicols}{3}}\\newcommand{\\colsend}{\\end{multicols}}",
     ]
     result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if result.returncode != 0:
