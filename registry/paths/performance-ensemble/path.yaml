@@ -1,0 +1,13 @@
+id: performance-ensemble
+label: Performance Ensemble / Audience
+nodes:
+- human-vertebrate
+- dyad
+- human-group
+- society-city
+edges:
+- organism-couple-dyad
+- dyad--human-group
+- human-group--society-city
+purpose: 'From a performer to a duo, an ensemble and its audience, and the city that hosts the performance: how timing and
+  attention spread through music and live art.'

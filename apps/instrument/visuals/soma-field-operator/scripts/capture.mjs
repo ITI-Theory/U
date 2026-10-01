@@ -53,7 +53,8 @@ async function main() {
   const implemented = new Set(data.coverage.available_renderer_ids);
   const modelForPath = id => data.models.find(model => model.paths.includes(id))?.id;
 
-  await rm(args.out, { recursive: true, force: true });
+  // Only a full run starts from an empty folder; filtered runs update in place.
+  if (!args.levels && !args.paths && args.only === 'all') await rm(args.out, { recursive: true, force: true });
   await mkdir(path.join(args.out, 'plates'), { recursive: true });
 
   const server = await createServer({ root: appDir, logLevel: 'error', server: { host: '127.0.0.1', port: 0 } });

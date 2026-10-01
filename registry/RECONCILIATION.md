@@ -4,7 +4,7 @@ Author decision (2026-10-01): rows formerly marked `REVIEW` stay separate shared
 
 | Level id | Chosen label | canonical-5 | universal-21 | bird-flock | App former label | Atlas former label | Operator former label | Review note |
 |---|---:|---:|---:|---:|---|---|---|---|
-| `animal-swarm` | Animal Swarm / Group | III | 8 | — | GROUP / SWARM sigma 10 | Scale 7 Animal Swarm / Murmuration | 08 / ANIMAL SWARM | KEEP: separate shared level; each model selects (author, 2026-10-01) |
+| `animal-swarm` | Animal Swarm | III | 8 | — | GROUP / SWARM sigma 10 | Scale 7 Animal Swarm / Murmuration | 08 / ANIMAL SWARM | KEEP: separate shared level; each model selects (author, 2026-10-01) |
 | `atomic` | Atomic | I | 3 | — | ATOMIC sigma 3 | implicit between Scale 2 and Scale 4 | 03 / ATOMIC |  |
 | `bird` | Bird | — | — | bird | named solution bird | not a Field Atlas level | bird-flock 07 / BIRD |  |
 | `cellular-synaptic` | Cellular / Synaptic | II | 5 | — | CELLULAR / SYNAPTIC sigma 5 | Scale 5 Cellular / Neural Synapse | 05 / CELLULAR |  |
@@ -43,3 +43,8 @@ Author decision (2026-10-01): rows formerly marked `REVIEW` stay separate shared
 - Split universal catalogue physics ticks (`orbital-system`, `stellar`, `compact-object`, `galactic-halo`, `galaxy-cluster`, `cosmic-filaments`, `cosmic-web`) from broader app scenes where the old app folded them together.
 - Retained route-only app levels (`dyad`, `regional-institutional`, `civilisational-solar`, `species-stellar`, `stellar-cluster`) outside universal-21 when no unique catalogue coordinate exists.
 - Cookie-register prose is draft; `TODO` means the child-level explanation needs author wording.
+
+## Canonical set (author, 2026-10-01)
+
+- New level `human-group` (Small Group / Crowd / Assembly) between `dyad` and `society-city`; `animal-swarm` relabelled "Animal Swarm" (groups of people now have their own level).
+- Paths `animal-to-church` and `community-to-institution` merged into `human-assembly-to-institution`; the app maps the old ids.

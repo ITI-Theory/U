@@ -208,3 +208,5 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .compare-card__sources { display: flex; flex-wrap: wrap; gap: 8px; font-size: 10px; opacity: .8; }
 .compare-card__sources a { color: var(--cyan); }
 .compare-card__cycle { float: right; margin: -2px 0 4px 8px; padding: 3px 8px; color: var(--ink); border: 0; background: var(--violet); font: 700 10px/1 'Space Mono', monospace; cursor: pointer; }
+.contour-toggle { display: flex; align-items: center; gap: 4px; margin: -4px 0 10px; color: #d7e8f6; font-size: 8px; letter-spacing: .06em; }
+.contour-toggle input { width: auto; margin: 0; }

@@ -1,0 +1,19 @@
+id: human-assembly-to-institution
+label: Assembly to Institution
+nodes:
+- human-vertebrate
+- dyad
+- human-group
+- society-city
+- regional-institutional
+- civilisational-solar
+- species-stellar
+edges:
+- organism-couple-dyad
+- dyad--human-group
+- human-group--society-city
+- community-region
+- region-civilisation
+- civilisation-species
+purpose: 'From one person through pairs, groups, congregations, and cities to institutions, cultures, and civilisations: how
+  practices, rules, and memory propagate. Institutions carry and constrain; they do not feel.'

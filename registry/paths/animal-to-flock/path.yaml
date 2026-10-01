@@ -1,5 +1,5 @@
 id: animal-to-flock
-label: Organism to Flock
+label: Animal Swarm / Active Matter
 nodes:
 - human-vertebrate
 - dyad
@@ -7,5 +7,5 @@ nodes:
 edges:
 - organism-couple-dyad
 - dyad-flock
-purpose: 'Migrated existing route: Organism to Flock.'
-source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js
+purpose: 'From a single animal body to a moving collective: flocks, schools, herds, and murmurations, where local alignment
+  rules produce waves that cross the whole group.'

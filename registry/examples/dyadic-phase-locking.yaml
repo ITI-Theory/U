@@ -1,7 +1,7 @@
 id: dyadic-phase-locking
 label: Dyadic / Phase Locking
 level: dyad
-paths: [full-atlas, animal-to-flock, animal-to-church]
+paths: [full-atlas, animal-to-flock, human-assembly-to-institution, dyadic-care]
 summary: Two separate bodies are modelled first as ordinary coupled oscillators, then as an interpretive account of interpersonal timing and co-regulation.
 steps:
   - axis: 4d-baseline

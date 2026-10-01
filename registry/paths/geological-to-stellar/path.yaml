@@ -3,9 +3,13 @@ label: Geological to Stellar
 nodes:
 - geological
 - planetary
-- stellar-cluster
+- orbital-system
+- stellar
+- compact-object
 edges:
 - fault-planet
-- planet-star
-purpose: 'Migrated existing route: Geological to Stellar.'
-source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js
+- planetary--orbital-system
+- orbital-system--stellar
+- stellar--compact-object
+purpose: 'From rock and faults to a whole planet, its orbits, its star, and the remnants stars leave behind: response from
+  earthquakes to stellar oscillation.'

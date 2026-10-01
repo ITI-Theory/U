@@ -1,0 +1,39 @@
+id: human-group
+label: Small Group / Crowd / Assembly
+sector: collective
+length_scale: 10^1 to 10^3 m
+response_time: 10^3 s
+response_time_basis: group response, from a crowd wave in seconds to a meeting or ritual over hours
+substrate: families, teams, audiences, ensembles, crowds, and ritual assemblies
+field: shared timing, attention, and norm propagation among many people
+equation: \dot\theta_i=\omega_i+\frac{K}{N}\sum_{j=1}^{N}\sin(\theta_j-\theta_i)
+explain:
+  cookie:
+    text: A group is many people together, like a choir, a team, or a crowd at a match. The model watches how timing and mood
+      can spread from person to person.
+    draft: true
+  general: 'The group level follows families, teams, audiences, ensembles, and crowds: how timing, attention, and shared norms
+    spread among many people who each remain separate persons.'
+  specialist: The substrate is a set of organism-scale systems coupled through sound, sight, movement, and shared rules. Kuramoto-type
+    phase coupling is a standard minimal model for synchrony (applause, choirs, crowd waves). The propagator is many-to-many
+    response with delays; norms act as slow boundary conditions. The group propagates and coordinates; it is not itself a
+    feeling subject.
+atlas_rows:
+  physical: Several to thousands of people in shared space or on a shared channel.
+  field: Phase coupling, attention and norm propagation, contagion and entrainment across many people.
+  mind: Each person feels; the group propagates and coordinates. No group mind is claimed.
+  equation_setting: \dot\theta_i=\omega_i+\frac{K}{N}\sum_{j=1}^{N}\sin(\theta_j-\theta_i)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P16
+- P19
+renderer:
+  id: human-group
+media: []
+former_labels:
+  app: none
+  field_atlas: none
+  operator_contract: new level (path inventory, 2026-10-01)

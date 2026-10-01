@@ -59,6 +59,10 @@ export function get(id) {
   return registry.get(id) ?? placeholderFactory(id);
 }
 
+export function has(id) {
+  return registry.has(id);
+}
+
 export function listRenderers() {
   return [...registry.keys()].sort();
 }

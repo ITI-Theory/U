@@ -1,5 +1,5 @@
 id: micro-to-life
-label: Micro to Organism
+label: Micro to Life
 nodes:
 - quantum-foam
 - string-boundary
@@ -19,5 +19,5 @@ edges:
 - cellular-circuit
 - circuit-brain
 - brain-organism
-purpose: 'Migrated existing route: Micro to Organism.'
-source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js
+purpose: 'From the Planck boundary through nuclei, atoms, molecules, cells, circuits, and the brain to a living body: the
+  route by which the programme builds an organism from physics.'

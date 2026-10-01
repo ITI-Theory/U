@@ -33,7 +33,7 @@ sources:
 - P21
 - P22
 renderer:
-  id: cosmic-web
+  id: observable-universe
 media:
 - path: Part2/book/field-atlas/figures/cosmic-web-placeholder.png
   kind: atlas-figure

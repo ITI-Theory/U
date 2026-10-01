@@ -2,13 +2,15 @@ import * as THREE from 'three';
 import { levels as registryLevels, paths as registryPaths, models as registryModels, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
-import { get, register } from './renderers/index.js';
-import quantumFoamRenderer from './renderers/quantum-foam.js';
-import thoughtSparksRenderer from './renderers/thought-sparks.js';
+import { get, has as hasRenderer, register } from './renderers/index.js';
 import { FieldAudio } from './audio/field-audio.js';
 
-register(quantumFoamRenderer.id, quantumFoamRenderer);
-register(thoughtSparksRenderer.id, thoughtSparksRenderer);
+// Every renderers/*.js module registers itself through its default export
+// ({ id, create }); adding a renderer never requires editing this file.
+const rendererModules = import.meta.glob(['./renderers/*.js', '!./renderers/index.js'], { eager: true });
+for (const module of Object.values(rendererModules)) {
+  if (module.default?.id && module.default?.create) register(module.default.id, module.default);
+}
 
 const levelsById = new Map(registryLevels.map(level => [level.id, level]));
 const pathsById = new Map(registryPaths.map(path => [path.id, path]));
@@ -775,7 +777,7 @@ scene.add(cosmicField);
 function updateCellularField(time, pulse) {
   const cellularBand = activeLevel().id === 'cellular-synaptic';
   const displayLevel = activeDimensionLevel();
-  const visible = cellularBand && state.viewMode === '3d';
+  const visible = false; // The dedicated cellular renderer replaces this legacy 3D field.
   cellularField.visible = visible;
   for (const domain of cellularDomains) {
     domain.group.position.x = domain.baseX + Math.sin(time * 0.28 + domain.phase) * 0.12;
@@ -959,13 +961,13 @@ function smoothstep(value) {
 
 function updatePartSeeds(time, pulse) {
   const progress = Math.max(0, Math.min(1, (state.visualScale - 8) / 2));
-  const activePath = state.route === 'full-atlas' || state.route === 'animal-to-flock' || state.route === 'animal-to-church';
+  const activePath = state.route === 'full-atlas' || state.route === 'animal-to-flock' || state.route === 'human-assembly-to-institution';
   const active = activePath && state.visualScale >= 7.98 && state.visualScale <= 10.15 && state.level >= 4;
   partSeeds.visible = active;
   if (!active) return;
   const dyadMix = smoothstep(Math.min(1, progress * 2));
   const targetMix = smoothstep(Math.max(0, progress * 2 - 1));
-  const church = state.route === 'animal-to-church';
+  const church = state.route === 'human-assembly-to-institution';
   for (let index = 0; index < partSeedCount; index += 1) {
     const anchor = partSeedAnchors[index % partSeedAnchors.length];
     const phase = index * 2.399963;
@@ -996,7 +998,7 @@ function updatePartSeeds(time, pulse) {
 }
 
 function updateCollectiveForeground(time, pulse) {
-  const church = state.route === 'animal-to-church' && state.visualScale >= 8.7;
+  const church = state.route === 'human-assembly-to-institution' && state.visualScale >= 8.7;
   const flockRoute = state.route === 'animal-to-flock' && state.visualScale >= 8.7;
   collectiveForeground.visible = church || flockRoute;
   const churchMix = church ? smoothstep((state.visualScale - 8.7) / 1.3) : 0;
@@ -1100,6 +1102,7 @@ function readHashState() {
     model: params.get('model'),
     reader: params.get('reader'),
     compare: params.get('compare'),
+    contours: params.get('contours'),
   };
 }
 
@@ -1127,6 +1130,7 @@ const state = {
   viewMode: '3d',
   stereoSbs: false,
   compare: false,
+  contours: false,
   tTheory: true,
   brecvema: false,
   selectedMechanism: 'B',
@@ -1197,6 +1201,11 @@ const mathDepthUp = document.querySelector('#math-depth-up');
 const mathDepthReadout = document.querySelector('#math-depth-readout');
 const pathReadout = document.querySelector('#path-readout');
 const lensControls = [...document.querySelectorAll('.lens-layers input')];
+const contoursInput = document.querySelector('#contours');
+contoursInput.addEventListener('change', () => {
+  state.contours = contoursInput.checked;
+  writeHashState();
+});
 const wallTitle = document.querySelector('#wall-title');
 const equationKicker = document.querySelector('.equation-kicker');
 const wallArchitecture = document.querySelector('#wall-architecture');
@@ -1264,8 +1273,12 @@ function applyHashState({ render = true } = {}) {
     state.reader = hashState.reader;
   }
   state.compare = hashState.compare === '1';
+  state.contours = hashState.contours === '1';
+  document.querySelector('#contours').checked = state.contours;
   if (hashState.hasPath) {
-    const hashedRoute = registryPaths.find(route => route.id === hashState.path);
+    // Paths merged into the canonical set (2026-10-01) keep their old links working.
+    const pathId = { 'animal-to-church': 'human-assembly-to-institution', 'community-to-institution': 'human-assembly-to-institution' }[hashState.path] ?? hashState.path;
+    const hashedRoute = registryPaths.find(route => route.id === pathId);
     if (hashedRoute) {
       state.route = hashedRoute.id;
       const routeModel = registryModels.find(model => model.paths?.includes(hashedRoute.id));
@@ -1678,6 +1691,7 @@ function hashForState() {
   params.set('model', state.implementation);
   params.set('reader', state.reader);
   if (state.compare) params.set('compare', '1');
+  if (state.contours) params.set('contours', '1');
   return `#${params.toString()}`;
 }
 
@@ -2226,7 +2240,7 @@ function applyScene(time, delta, responsePulse) {
   const currentLevel = activeLevel();
   const quantumMode = currentLevel.id === 'quantum-foam' && displayLevel === 4;
   backgroundMaterial.uniforms.uLevel.value = displayLevel;
-  backgroundMaterial.uniforms.uPath.value = state.implementation === 'canonical-5' ? 1 : state.route === 'animal-to-flock' ? 2 : state.route === 'animal-to-church' ? 3 : 0;
+  backgroundMaterial.uniforms.uPath.value = state.implementation === 'canonical-5' ? 1 : state.route === 'animal-to-flock' ? 2 : state.route === 'human-assembly-to-institution' ? 3 : 0;
   const profile = fractalProfiles[Math.min(fractalProfiles.length - 1, Math.floor(state.visualScale / 2))];
   backgroundMaterial.uniforms.uPower.value = profile.power;
   backgroundMaterial.uniforms.uFold.value = profile.fold;
@@ -2272,6 +2286,15 @@ function applyScene(time, delta, responsePulse) {
   grid.visible = !quantumMode;
   updatePartSeeds(time, responsePulse);
   updateCollectiveForeground(time, responsePulse);
+  // A dedicated renderer for the active level replaces the legacy shared visuals.
+  if (hasRenderer(renderState.rendererId) && !organismLevelIds.has(currentLevel.id)) {
+    cellularField.visible = false;
+    stellarField.visible = false;
+    cosmicField.visible = false;
+    partSeeds.visible = false;
+    collectiveForeground.visible = false;
+    for (const layer of morphologyLayers) layer.material.opacity = 0;
+  }
   const humanWeight = tTheoryLayerOn && displayLevel === 11 ? humanSceneWeight : 0;
   const feelingWeight = tTheoryLayerOn && displayLevel >= 8 ? humanSceneWeight : 0;
   const physicalWeight = displayLevel >= 4 ? humanSceneWeight : 0;

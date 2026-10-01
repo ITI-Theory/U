@@ -1,7 +1,7 @@
 id: philosophy-public-record
 label: Philosophy / The Public Record
 level: society-city
-paths: [full-atlas, community-to-institution]
+paths: [full-atlas, human-assembly-to-institution]
 summary: The philosophy prototype is grounded as a public history of texts and arguments, then treated as an interpretive model of cultural propagation and conceptual compression.
 steps:
   - axis: 4d-baseline

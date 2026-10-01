@@ -1,7 +1,7 @@
 id: acoustic-cathedral
 label: Acoustic / The Cathedral
 level: society-city
-paths: [full-atlas, animal-to-church, community-to-institution]
+paths: [full-atlas, human-assembly-to-institution]
 summary: A cathedral is treated first as an ordinary acoustic enclosure, then as an interpretive bridge from built resonance to somatic and cognitive response.
 steps:
   - axis: 4d-baseline

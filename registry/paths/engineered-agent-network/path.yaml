@@ -1,0 +1,9 @@
+id: engineered-agent-network
+label: Engineered Agent Network
+nodes:
+- animal-swarm
+- society-city
+edges:
+- animal-swarm--society-city
+purpose: From swarms of engineered agents (drones, robots, software agents) to the networks and infrastructures of a city,
+  where a precomputed propagator can replace message passing.

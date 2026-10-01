@@ -32,7 +32,7 @@ sources:
 - P16
 - P20
 renderer:
-  id: orbital-system
+  id: civilisational
 media: []
 former_labels:
   app: CIVILISATIONAL / SOLAR sigma 13

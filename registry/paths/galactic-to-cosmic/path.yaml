@@ -2,8 +2,16 @@ id: galactic-to-cosmic
 label: Galactic to Cosmic
 nodes:
 - galactic-disc
+- galactic-halo
+- galaxy-cluster
+- cosmic-filaments
 - observable-universe
+- cosmic-web
 edges:
-- galaxy-universe
-purpose: 'Migrated existing route: Galactic to Cosmic.'
-source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js
+- galactic-disc--galactic-halo
+- galactic-halo--galaxy-cluster
+- galaxy-cluster--cosmic-filaments
+- cosmic-filaments--observable-universe
+- observable-universe--cosmic-web
+purpose: 'From a galaxy disc and its dark halo to clusters, filaments, and the observable universe: gravitational response
+  on the largest scales.'

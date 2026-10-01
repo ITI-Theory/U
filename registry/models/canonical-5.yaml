@@ -3,6 +3,14 @@ label: I-V / Canonical Physics
 description: Five physics-derived transition sectors of the shared USF architecture.
 paths:
 - full-atlas
+- micro-to-life
+- dyadic-care
+- animal-to-flock
+- engineered-agent-network
+- performance-ensemble
+- human-assembly-to-institution
+- geological-to-stellar
+- galactic-to-cosmic
 levels:
 - coordinate: I
   label: Quantum to Classical
@@ -19,26 +27,34 @@ levels:
   - cellular-synaptic
   - local-circuit
   - whole-brain-cemi
+  - human-vertebrate
 - coordinate: III
   label: Individual to Collective
   levels:
-  - whole-brain-cemi
   - human-vertebrate
   - dyad
+  - human-group
   - animal-swarm
-- coordinate: IV
-  label: Geological to Stellar
-  levels:
   - society-city
   - regional-institutional
   - civilisational-solar
   - species-stellar
+- coordinate: IV
+  label: Geological to Stellar
+  levels:
   - geological
   - planetary
+  - orbital-system
+  - stellar
+  - compact-object
 - coordinate: V
   label: Stellar to Cosmic
   levels:
-  - species-stellar
+  - stellar
   - stellar-cluster
   - galactic-disc
+  - galactic-halo
+  - galaxy-cluster
+  - cosmic-filaments
   - observable-universe
+  - cosmic-web

@@ -1,0 +1,9 @@
+id: dyadic-care
+label: Organism to Dyadic Care
+nodes:
+- human-vertebrate
+- dyad
+edges:
+- organism-couple-dyad
+purpose: 'From one body to two in contact: couples, carers and infants, therapist and client. The path follows coupling, timing,
+  and repair between two persons who remain separate.'

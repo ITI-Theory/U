@@ -1,0 +1,27 @@
+id: choir-synchrony
+label: Choir / Synchrony
+level: human-group
+paths: [performance-ensemble, human-assembly-to-institution, full-atlas]
+summary: 'A choir is used as a bounded human-group example: ordinary synchronisation of voices and breath is kept distinct from interpretive claims about group response and institutional memory.'
+steps:
+  - axis: 4d-baseline
+    title: Coupled Voices in a Room
+    body: >-
+      A choir gives a measurable group-synchrony case. Singers remain separate bodies, but they align pitch entrances, vowels, breath, pulse, and phrase endings through hearing, sight, score, conductor gesture, and rehearsal. A Kuramoto-style model captures only the timing slice: each singer has a phase and preferred rate, while coupling pulls phases toward a shared pulse when the signal is strong enough. The model is useful for onset locking and drift, not for meaning, text, belief, or musical value.
+    equation: '\dot\theta_i=\omega_i+\frac{K}{N}\sum_{j=1}^{N}\sin(\theta_j-\theta_i)'
+    badge: SOURCED
+    sources: [kuramoto1984chemical, acebron2005kuramoto, strogatz2003sync, neda2000physics]
+  - axis: 8d-life
+    title: Breath, Attention, and Affective Forcing
+    body: >-
+      The Soma-Field reading treats choral synchrony as an organised source of forcing for organism-scale response. Pulse, breath, harmony, room acoustics, facial cueing, memory, and expectation can alter damping, attention, and affective bias for singers and listeners. This does not claim that the choir becomes a single person or that a performance has a guaranteed effect. It states a testable mapping: measured timing and sound should help predict response trajectories better than static ratings alone.
+    equation: '\gamma\dot{\mathbf e}=-\nabla H(\mathbf e)+J_{\mathrm{choir}}(t)'
+    badge: INTERPRETIVE
+    sources: [P9, P19, juslin2013, large1999dynamics]
+  - axis: 11d-mind
+    title: From Ensemble to Institution
+    body: >-
+      At the programme layer, the choir becomes a path example rather than a proof. A rehearsal group can become an ensemble; an ensemble can become an audience event; repeated events can become a civic or religious institution with calendars, archives, roles, and norms. The 11D reading compares those response layers under declared mappings. It does not identify music, belief, city, and consciousness as one substance. The safe claim is navigational: the same example can be followed across paths while evidence labels remain visible.
+    equation: 'G_{\mathrm{choir}\to\mathrm{city}}(x,x'';t)'
+    badge: INTERPRETIVE
+    sources: [P16, P19, P20, durkheim1912elementary, north1990institutions]

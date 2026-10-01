@@ -1,3 +1,5 @@
+import { createContourLayer } from './lib/contours.js';
+
 function makeGaussianTexture(THREE) {
   const canvas = document.createElement('canvas');
   canvas.width = 128;
@@ -43,6 +45,12 @@ export const quantumFoamRenderer = {
     surface.rotation.x = -Math.PI / 2;
     surface.position.y = -1.55;
     foam.add(surface);
+
+    // Optional iso-lines of the fluctuating field (CONTOURS toggle).
+    const contours = createContourLayer(THREE, { levels: [-0.15, 0.05, 0.25, 0.45, 0.65, 0.82, 1.0, 1.2] });
+    surface.add(contours.object);
+    const contourColumns = 97;
+    const contourRows = 61;
 
     const threshold = new THREE.Mesh(
       new THREE.PlaneGeometry(8.4, 5.2),
@@ -135,20 +143,20 @@ export const quantumFoamRenderer = {
         const densityVisible = state.viewMode === '2d' && level >= 8 && visibility > 0.01 && state.tTheory;
         foam.visible = visibility > 0.01 && !densityVisible;
         const surfacePositions = surfaceGeometry.attributes.position;
+        const spikes = Array.from({ length: 4 }, (_, spike) => [
+          Math.sin(time * (0.13 + spike * 0.02) + spike * 4.7) * 3.3,
+          Math.cos(time * (0.17 + spike * 0.015) + spike * 2.9) * 1.9,
+          0.82 + 0.26 * Math.sin(time * 0.7 + spike * 1.9) + (level === 4 || level === 8 ? pulse * 0.7 : 0),
+        ]);
+        const heightAt = (x, z) => {
+          let height = Math.sin(x * 2.1 + time * 2.4) * 0.13 + Math.cos(z * 2.8 - time * 1.8) * 0.1;
+          for (const [spikeX, spikeZ, amplitude] of spikes) height += Math.exp(-((x - spikeX) ** 2 + (z - spikeZ) ** 2) / 0.11) * amplitude;
+          return height;
+        };
         for (let index = 0; index < surfacePositions.count; index += 1) {
           const x = surfacePositions.getX(index);
           const z = surfacePositions.getY(index);
-          const rollingHeight = Math.sin(x * 2.1 + time * 2.4) * 0.13 + Math.cos(z * 2.8 - time * 1.8) * 0.1;
-          let noiseSpike = 0;
-          for (let spike = 0; spike < 4; spike += 1) {
-            const spikeX = Math.sin(time * (0.13 + spike * 0.02) + spike * 4.7) * 3.3;
-            const spikeZ = Math.cos(time * (0.17 + spike * 0.015) + spike * 2.9) * 1.9;
-            const distanceSquared = (x - spikeX) ** 2 + (z - spikeZ) ** 2;
-            const amplitude = 0.82 + 0.26 * Math.sin(time * 0.7 + spike * 1.9)
-              + (level === 4 || level === 8 ? pulse * 0.7 : 0);
-            noiseSpike += Math.exp(-distanceSquared / 0.11) * amplitude;
-          }
-          const height = rollingHeight + noiseSpike;
+          const height = heightAt(x, z);
           surfacePositions.setZ(index, height);
           if (visibility > 0.02 && previousHeights[index] < 0.82 && height >= 0.82) {
             const item = matter[nextMatter++ % matter.length];
@@ -161,7 +169,17 @@ export const quantumFoamRenderer = {
           previousHeights[index] = height;
         }
         surfacePositions.needsUpdate = true;
-        surface.material.opacity = visibility * (0.42 + pulse * 0.18);
+        // Same local (x, y) the wireframe uses for heightAt; the layer is a child of the surface mesh.
+        contours.update({
+          columns: contourColumns,
+          rows: contourRows,
+          height: (col, row) => heightAt(-4.2 + col * 8.4 / (contourColumns - 1), 2.6 - row * 5.2 / (contourRows - 1)),
+          x: col => -4.2 + col * 8.4 / (contourColumns - 1),
+          y: row => 2.6 - row * 5.2 / (contourRows - 1),
+          visible: Boolean(state.contours) && visibility > 0.01,
+        });
+        contours.setOpacity(visibility);
+        surface.material.opacity = visibility * (state.contours ? 0.16 : 0.42 + pulse * 0.18);
         threshold.material.opacity = visibility * 0.08;
         for (const item of matter) {
           const age = time - item.bornAt;
@@ -224,6 +242,7 @@ export const quantumFoamRenderer = {
       dispose() {
         scene.remove(group);
         gaussianTexture.dispose();
+        contours.dispose();
       },
     };
   },

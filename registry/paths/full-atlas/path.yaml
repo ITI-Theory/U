@@ -1,5 +1,5 @@
 id: full-atlas
-label: Full Atlas / 0 to 19
+label: Full Atlas / Spine
 nodes:
 - quantum-foam
 - string-boundary
@@ -11,16 +11,23 @@ nodes:
 - whole-brain-cemi
 - human-vertebrate
 - dyad
+- human-group
 - animal-swarm
 - society-city
 - regional-institutional
 - civilisational-solar
-- species-stellar
 - geological
 - planetary
+- orbital-system
+- stellar
+- compact-object
 - stellar-cluster
 - galactic-disc
+- galactic-halo
+- galaxy-cluster
+- cosmic-filaments
 - observable-universe
+- cosmic-web
 edges:
 - foam-string
 - string-nuclear
@@ -31,13 +38,22 @@ edges:
 - circuit-brain
 - brain-organism
 - organism-couple-dyad
-- dyad-flock
-- dyad-church
+- dyad--human-group
+- human-group--animal-swarm
+- animal-swarm--society-city
 - community-region
 - region-civilisation
-- civilisation-species
+- civilisational-solar--geological
 - fault-planet
-- planet-star
-- galaxy-universe
-purpose: 'Migrated existing route: Full Atlas / 0 to 19.'
-source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js
+- planetary--orbital-system
+- orbital-system--stellar
+- stellar--compact-object
+- compact-object--stellar-cluster
+- stellar-cluster--galactic-disc
+- galactic-disc--galactic-halo
+- galactic-halo--galaxy-cluster
+- galaxy-cluster--cosmic-filaments
+- cosmic-filaments--observable-universe
+- observable-universe--cosmic-web
+purpose: 'The spine of the atlas: every main level in order of scale, from the Planck boundary to the cosmic web. Adjacent
+  levels on the spine are neighbours in scale, not proved transitions; the specialised paths follow single systems more closely.'

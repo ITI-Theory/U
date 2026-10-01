@@ -174,6 +174,33 @@ Captured as directions; not yet scheduled. Sources: the author's message of
 - **Audio** is now in (Audio Contract in `SOMA-MACHINE-MVP.md`); the live
   instrument (controllers, SOmaFX guitar VST, Ableton) stays a later track.
 
+## Canonical set (author, 2026-10-01)
+
+Rule: if the books or papers discuss a system, the app and the Atlas carry
+it. A path inventory of the 15 books and 27 main papers
+(`files/atlas/PATH-INVENTORY.md` in the session folder) produced the set the
+author approved:
+
+- **Models:** `canonical-5` (sectors I-V: Quantum to Classical, Chemistry to
+  Biology, Individual to Collective, Geological to Stellar, Stellar to
+  Cosmic) and `universal-21` (the coarse 0-20 ladder); `bird-flock` stays as
+  a named side model. Other levels are path refinements, not extra ticks.
+- **New level:** `human-group` (small group / crowd / assembly) between
+  `dyad` and `society-city`. Each person feels; the group propagates.
+- **Paths (10):** `full-atlas` (27-level spine), `micro-to-life`,
+  `dyadic-care`, `animal-to-flock` (relabelled Animal Swarm / Active Matter),
+  `bird-flock`, `engineered-agent-network`, `performance-ensemble`,
+  `human-assembly-to-institution` (merges `animal-to-church` and
+  `community-to-institution`; old links still resolve), `geological-to-stellar`
+  and `galactic-to-cosmic` (both extended so no level is orphaned).
+- **Out of scope:** ecosystem, forest, mycelium, hive, shoal, volcano
+  (one-off metaphors in the corpus).
+- **Adding a level or path** is adding files: `registry/levels/<id>.yaml` +
+  `<id>.md`, or `registry/paths/<id>/path.yaml` + one `edges/<from>--<to>.md`
+  per step. The app generator picks them up; the Atlas build fails until a
+  new level is placed in `atlas.yaml`, and reports orphan levels and stub
+  text.
+
 ## Later
 
 - Penrose, *The Road to Reality*: a private chapter-to-equation-to-level index
