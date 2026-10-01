@@ -31,6 +31,7 @@ export default {
 | `state.level` | display dimension `4`, `8`, or `11` (lens off is always 4) |
 | `state.viewMode` | `'3d'` or `'2d'` (top-down orthographic camera) |
 | `state.contours` | draw iso-lines of your field if you have one (`lib/contours.js`) |
+| `state.style` | RICE switches (visual customisation, as in Linux ricing): `fluorescence` (microscopy colours for cells and molecules, emission glow for atoms), `falsecolour` (astronomy palettes), `glow` (halos, additive glow), `motion` (idle rhythms). All off must still give a clean, legible line drawing. |
 | `state.somatic`, `state.limbic`, `state.cognitive` | sliders 0..1 (human levels; may tint other levels gently) |
 | `state.responseTime` | 0..1 across a poke (4 s of wall-clock time; 1 = one level τ) |
 | `pulse` | poke response, 1 at impact decaying as `exp(-3.4 t)` |

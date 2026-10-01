@@ -1103,6 +1103,7 @@ function readHashState() {
     reader: params.get('reader'),
     compare: params.get('compare'),
     contours: params.get('contours'),
+    styleoff: params.get('styleoff'),
   };
 }
 
@@ -1131,6 +1132,8 @@ const state = {
   stereoSbs: false,
   compare: false,
   contours: false,
+  // Imaging styles (renderers read these); all off gives a plain line drawing.
+  style: { fluorescence: true, falsecolour: true, glow: true, motion: true },
   tTheory: true,
   brecvema: false,
   selectedMechanism: 'B',
@@ -1206,6 +1209,12 @@ contoursInput.addEventListener('change', () => {
   state.contours = contoursInput.checked;
   writeHashState();
 });
+for (const key of Object.keys(state.style)) {
+  document.querySelector(`#style-${key}`).addEventListener('change', event => {
+    state.style[key] = event.target.checked;
+    writeHashState();
+  });
+}
 const wallTitle = document.querySelector('#wall-title');
 const equationKicker = document.querySelector('.equation-kicker');
 const wallArchitecture = document.querySelector('#wall-architecture');
@@ -1275,6 +1284,11 @@ function applyHashState({ render = true } = {}) {
   state.compare = hashState.compare === '1';
   state.contours = hashState.contours === '1';
   document.querySelector('#contours').checked = state.contours;
+  const styleOff = new Set((hashState.styleoff ?? '').split('.').filter(Boolean));
+  for (const key of Object.keys(state.style)) {
+    state.style[key] = !styleOff.has(key);
+    document.querySelector(`#style-${key}`).checked = state.style[key];
+  }
   if (hashState.hasPath) {
     // Paths merged into the canonical set (2026-10-01) keep their old links working.
     const pathId = { 'animal-to-church': 'human-assembly-to-institution', 'community-to-institution': 'human-assembly-to-institution' }[hashState.path] ?? hashState.path;
@@ -1692,6 +1706,8 @@ function hashForState() {
   params.set('reader', state.reader);
   if (state.compare) params.set('compare', '1');
   if (state.contours) params.set('contours', '1');
+  const styleOff = Object.keys(state.style).filter(key => !state.style[key]);
+  if (styleOff.length) params.set('styleoff', styleOff.join('.'));
   return `#${params.toString()}`;
 }
 
@@ -2298,7 +2314,12 @@ function applyScene(time, delta, responsePulse) {
   const humanWeight = tTheoryLayerOn && displayLevel === 11 ? humanSceneWeight : 0;
   const feelingWeight = tTheoryLayerOn && displayLevel >= 8 ? humanSceneWeight : 0;
   const physicalWeight = displayLevel >= 4 ? humanSceneWeight : 0;
-  root.scale.setScalar(0.72);
+  // Physiological idle rhythms: breathing (~0.25 Hz) and a lub-dub heartbeat (72 bpm).
+  const motion = state.style.motion ? 1 : 0;
+  const breath = Math.sin(time * Math.PI * 2 * 0.25) * motion;
+  const beatPhase = time % (60 / 72);
+  const heartbeat = (Math.exp(-((beatPhase / 0.05) ** 2)) + 0.6 * Math.exp(-(((beatPhase - 0.28) / 0.05) ** 2))) * motion;
+  root.scale.set(0.72 * (1 + breath * 0.006), 0.72 * (1 + breath * 0.004), 0.72 * (1 + breath * 0.014));
   root.position.y = -0.1;
   brecvemaLayer.rotation.y = time * 0.16;
   const humanScale = organismLevelIds.has(currentLevel.id);
@@ -2347,7 +2368,7 @@ function applyScene(time, delta, responsePulse) {
   stars.material.opacity = 0.28 + scaleFraction * 0.52;
     if (!quantumMode) stars.material.opacity = 0.28 + scaleFraction * 0.52;
   for (const mesh of body) {
-    mesh.material.opacity = (0.18 + state.somatic * 0.5) * physicalWeight;
+    mesh.material.opacity = (0.18 + state.somatic * 0.5 + heartbeat * 0.06) * physicalWeight;
     mesh.material.color.copy(displayLevel === 4 ? physicalGrey : cyan);
   }
   for (const line of limbs) {

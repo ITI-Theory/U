@@ -100,7 +100,14 @@
           <label><input id="lens-response" type="checkbox" checked /> RESPONSE</label>
           <label><input id="lens-mirror" type="checkbox" /> MIRROR</label>
         </fieldset>
-        <label class="contour-toggle" title="Draw iso-lines (level sets) of the field where the level's renderer supports them"><input id="contours" type="checkbox" /> CONTOURS</label>
+        <fieldset class="style-layers" aria-label="Rice: visual customisation" title="Rice: visual customisation, as in Linux ricing. All off gives a plain line drawing.">
+          <legend>RICE</legend>
+          <label title="Fluorescence-microscopy colours for cells and molecules; emission glow for atoms"><input id="style-fluorescence" type="checkbox" autocomplete="off" checked /> FLUORESCENCE</label>
+          <label title="False-colour astronomy for nebulae, galaxies, and hot gas"><input id="style-falsecolour" type="checkbox" autocomplete="off" checked /> FALSE COLOUR</label>
+          <label title="Soft glow and halos"><input id="style-glow" type="checkbox" autocomplete="off" checked /> GLOW</label>
+          <label title="Idle rhythms: breathing, heartbeat, drifting, rotating"><input id="style-motion" type="checkbox" autocomplete="off" checked /> MOTION</label>
+          <label title="Draw iso-lines (level sets) of the field where the level's renderer supports them"><input id="contours" type="checkbox" autocomplete="off" /> CONTOURS</label>
+        </fieldset>
         <div class="control"><label for="somatic">SOMATIC</label><input id="somatic" type="range" min="0" max="1" value="0.72" step="0.01" /></div>
         <div class="control"><label for="limbic">LIMBIC</label><input id="limbic" type="range" min="0" max="1" value="0.86" step="0.01" /></div>
         <div class="control"><label for="cognitive">COGNITIVE</label><input id="cognitive" type="range" min="0" max="1" value="0.46" step="0.01" /></div>
