@@ -38,7 +38,14 @@ for _, record in ipairs(records) do
     table.insert(targets, target)
     file:write(".PHONY: " .. target .. "\n")
     file:write(target .. ":\n")
-    file:write("\t$(MAKE) -f Makefile jacket linen-wrap COVER='" .. make_quote(record.lulu) .. "' INTERIOR='" .. interior .. "' TITLE='" .. make_quote(record.lulu_title or record.title) .. "' SUBTITLE='Hardcover Linen Wrap'\n\n")
+    -- "Title — Subtitle" in the registry becomes title and subtitle; dashes go to TeX ASCII
+    -- ligatures because make on Windows mangles UTF-8 in command-line arguments.
+    local full = record.lulu_title or record.title
+    local title, subtitle = full:match("^(.-)%s+\u{2014}%s+(.+)$")
+    title = title or full
+    subtitle = subtitle or record.lulu_subtitle or ""
+    local function ascii(text) return (text:gsub("\u{2014}", "---"):gsub("\u{2013}", "--")) end
+    file:write("\t$(MAKE) -f Makefile jacket linen-wrap COVER='" .. make_quote(record.lulu) .. "' INTERIOR='" .. interior .. "' TITLE='" .. make_quote(ascii(title)) .. "' SUBTITLE='" .. make_quote(ascii(subtitle)) .. "'\n\n")
   end
 end
 file:write(".PHONY: all\nall: " .. table.concat(targets, " ") .. "\n")
