@@ -11,6 +11,9 @@ Runs with the MOTHER environment (notebooklm-py, unofficial; your own login):
     apps\\instrument\\mother\\.venv\\Scripts\\python uat\\scripts\\nlm_uat.py papers
     ... nlm_uat.py ttheory --items TS-1,TH-2
     ... nlm_uat.py papers --notebook <id>      # reuse an uploaded notebook
+
+NotebookLM has a per-account daily chat quota (shared with MOTHER); the
+script pauses between questions (--pause, default 45 s).
 """
 from __future__ import annotations
 
@@ -64,7 +67,7 @@ async def upload(client, notebook_id: str, folder: Path) -> None:
     await client.sources.wait_for_sources(notebook_id, source_ids, timeout=900)
 
 
-async def run(track: str, notebook_id: str | None, only: set[str] | None) -> Path:
+async def run(track: str, notebook_id: str | None, only: set[str] | None, pause: float = 45.0) -> Path:
     folder = UAT / "staging" / track
     worksheet = folder / WORKSHEETS[track]
     if not worksheet.exists():
@@ -81,7 +84,9 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None) -> Pat
             print(f"notebook {notebook_id}", flush=True)
             await upload(client, notebook_id, folder)
         titles = {source.id: getattr(source, "title", None) or source.id for source in await client.sources.list(notebook_id)}
-        for item in items:
+        for index, item in enumerate(items):
+            if index:
+                await asyncio.sleep(pause)  # pace like a person: the chat quota is per account
             prompt = f"Execute worksheet item {item['id']} ({item['title']}) from {worksheet.name}.\nQuestion: {item['question']}\n{FORMAT}"
             print(f"ask {item['id']}", flush=True)
             try:
@@ -127,12 +132,13 @@ def main() -> None:
     parser.add_argument("--notebook", help="reuse an existing notebook id (skip upload)")
     parser.add_argument("--items", help="comma-separated item ids, e.g. S-1,H-2")
     parser.add_argument("--list", action="store_true", help="list the worksheet items and exit")
+    parser.add_argument("--pause", type=float, default=45.0, help="seconds between questions (default 45)")
     args = parser.parse_args()
     if args.list:
         for item in worksheet_items(UAT / "staging" / args.track / WORKSHEETS[args.track]):
             print(f"{item['id']:6} {item['title']}: {item['question'][:90]}")
         return
-    asyncio.run(run(args.track, args.notebook, set(args.items.split(",")) if args.items else None))
+    asyncio.run(run(args.track, args.notebook, set(args.items.split(",")) if args.items else None, args.pause))
 
 
 if __name__ == "__main__":
