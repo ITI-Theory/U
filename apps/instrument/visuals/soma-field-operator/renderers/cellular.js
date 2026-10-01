@@ -51,7 +51,7 @@ function makeDeformedSphereGeometry(THREE, radius, phase = 0) {
   return geometry;
 }
 
-function animateDeformedSphere(THREE, geometry, time, pulse, fieldOn) {
+function animateDeformedSphere(THREE, geometry, time, pulse, fieldOn, motionOn = true) {
   const { radius, directions, factors } = geometry.userData;
   const position = geometry.attributes.position;
   for (let index = 0; index < position.count; index += 1) {
@@ -59,8 +59,8 @@ function animateDeformedSphere(THREE, geometry, time, pulse, fieldOn) {
     const x = directions[offset];
     const y = directions[offset + 1];
     const z = directions[offset + 2];
-    const voltage = fieldOn ? 0.024 * Math.sin(8.5 * x + 4.3 * y - time * 4.8) : 0;
-    const breathing = 0.012 * Math.sin(time * 1.15 + x * 3.2 + z * 4.1) + pulse * 0.018;
+    const voltage = fieldOn ? 0.024 * Math.sin(8.5 * x + 4.3 * y - (motionOn ? time * 4.8 : 0)) : 0;
+    const breathing = (motionOn ? 0.012 * Math.sin(time * 1.15 + x * 3.2 + z * 4.1) : 0) + pulse * 0.018;
     const r = radius * (factors[index] + breathing + voltage);
     position.setXYZ(index, x * r, y * r, z * r);
   }
@@ -95,6 +95,17 @@ export const cellularRenderer = {
     const green = new THREE.Color('#56f0a2');
     const dapiBlue = new THREE.Color('#3d7bff');
     const mitoOrange = new THREE.Color('#ff7040');
+    const cytoplasmFluoro = new THREE.Color(0x062133);
+    const nucleolusFluoro = new THREE.Color(0x8eb2ff);
+    const ribosomeFluoro = new THREE.Color(0xeaf5ff);
+    const neutralCytoplasm = new THREE.Color('#152226');
+    const neutralMembrane = new THREE.Color('#86a3a6');
+    const neutralNucleus = new THREE.Color('#697b9a');
+    const neutralActin = new THREE.Color('#8fa38e');
+    const neutralMito = new THREE.Color('#a36e57');
+    const neutralOrganelle = new THREE.Color('#8aa0a2');
+    const mutedField = new THREE.Color('#91a8a0');
+    const mutedSignal = new THREE.Color('#c0ad78');
     const group = new THREE.Group();
     group.name = 'cellular-renderer';
     group.position.set(-0.35, -0.02, 0);
@@ -431,6 +442,7 @@ export const cellularRenderer = {
         new THREE.MeshBasicMaterial({ color: index % 2 ? green : pink, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }),
       );
       ring.rotation.set(index * 0.67, Math.PI / 2 + index * 0.31, index * 0.43);
+      ring.userData.baseRotation = ring.rotation.clone();
       soma.add(ring);
       potentialRings.push(ring);
     }
@@ -461,13 +473,70 @@ export const cellularRenderer = {
     );
     group.add(fieldLines);
 
-    function updateVesicles(time, pulse) {
+    function setBlending(material, glowOn) {
+      const next = glowOn ? THREE.AdditiveBlending : THREE.NormalBlending;
+      if (material.blending !== next) {
+        material.blending = next;
+        material.needsUpdate = true;
+      }
+    }
+
+    function applyStyle(style, fieldOn) {
+      const fluorescenceOn = style.fluorescence !== false;
+      const glowOn = style.glow !== false;
+      const falsecolourOn = style.falsecolour !== false;
+      const additiveMaterials = [
+        cytoplasmMaterial, membraneMaterial, nucleusMaterial, nucleolusMaterial, erMaterial,
+        ribosomeMaterial, golgiMaterial, mitochondriaMaterial, cristaeMaterial, cytoskeletonMaterial,
+        vesicleMaterial, channelMaterial, neuriteMaterial, synapseMaterial, lineFieldMaterial,
+        fieldLines.material, postMembrane.material, postDensity.material, nucleusEnvelope.material,
+      ];
+      for (const material of additiveMaterials) setBlending(material, glowOn);
+      for (const shell of fieldShells) setBlending(shell.material, glowOn);
+      for (const ring of potentialRings) setBlending(ring.material, glowOn);
+      for (const sprite of [nucleusGlow, cytoplasmGlow, actionCore, ...synapticVesicles, ...transmitters]) setBlending(sprite.material, glowOn);
+      for (const item of mitochondria) setBlending(item.halo.material, glowOn);
+
+      cytoplasmMaterial.color.copy(fluorescenceOn ? cytoplasmFluoro : neutralCytoplasm);
+      membraneMaterial.color.copy(fluorescenceOn ? cyan : neutralMembrane);
+      membraneWireMaterial.color.copy(fluorescenceOn ? cyan : neutralMembrane);
+      nucleusMaterial.color.copy(fluorescenceOn ? dapiBlue : neutralNucleus);
+      nucleusEnvelope.material.color.copy(fluorescenceOn ? dapiBlue : neutralNucleus);
+      nucleusGlow.material.color.copy(fluorescenceOn ? dapiBlue : neutralNucleus);
+      cytoplasmGlow.material.color.copy(fluorescenceOn ? cyan : neutralMembrane);
+      nucleolusMaterial.color.copy(fluorescenceOn ? nucleolusFluoro : mutedSignal);
+      erMaterial.color.copy(fluorescenceOn ? cyan : neutralOrganelle);
+      ribosomeMaterial.color.copy(fluorescenceOn ? ribosomeFluoro : neutralOrganelle);
+      golgiMaterial.color.copy(fluorescenceOn ? pink : neutralOrganelle);
+      mitochondriaMaterial.color.copy(fluorescenceOn ? mitoOrange : neutralMito);
+      cristaeMaterial.color.copy(fluorescenceOn ? gold : mutedSignal);
+      cytoskeletonMaterial.color.copy(fluorescenceOn ? green : neutralActin);
+      vesicleMaterial.color.copy(fluorescenceOn ? gold : mutedSignal);
+      channelMaterial.color.copy(fluorescenceOn ? green : neutralActin);
+      neuriteMaterial.color.copy(fluorescenceOn ? cyan : neutralMembrane);
+      synapseMaterial.color.copy(fluorescenceOn ? pink : neutralOrganelle);
+      postMembrane.material.color.copy(fluorescenceOn ? cyan : neutralMembrane);
+      postDensity.material.color.copy(fluorescenceOn ? green : neutralActin);
+      lineFieldMaterial.color.copy(falsecolourOn ? green : mutedField);
+      fieldLines.material.color.copy(falsecolourOn ? pink : mutedField);
+      for (const shell of fieldShells) shell.material.color.copy(falsecolourOn ? green : mutedField);
+      for (const item of mitochondria) item.halo.material.color.copy(fluorescenceOn ? mitoOrange : neutralMito);
+      for (const [index, sprite] of synapticVesicles.entries()) sprite.material.color.copy(fluorescenceOn ? (index % 2 ? gold : pink) : mutedSignal);
+      for (const [index, sprite] of transmitters.entries()) sprite.material.color.copy(falsecolourOn ? (index % 3 ? green : gold) : mutedSignal);
+
+      nucleusGlow.visible = glowOn;
+      cytoplasmGlow.visible = glowOn;
+      for (const item of mitochondria) item.halo.visible = glowOn;
+      if (!fieldOn) fieldLines.material.opacity = 0;
+    }
+
+    function updateVesicles(time, pulse, motionOn) {
       for (const [index, seed] of vesicleSeeds.entries()) {
-        const angle = seed.angle + time * seed.speed * 0.62;
-        const wobble = Math.sin(time * 0.45 + index) * 0.028;
+        const angle = seed.angle + (motionOn ? time * seed.speed * 0.62 : 0);
+        const wobble = motionOn ? Math.sin(time * 0.45 + index) * 0.028 : 0;
         tempObject.position.set(
           Math.cos(angle) * seed.radius * 0.74 + wobble,
-          Math.sin(angle * 1.4 + time * 0.12) * seed.radius * 0.55,
+          Math.sin(angle * 1.4 + (motionOn ? time * 0.12 : 0)) * seed.radius * 0.55,
           seed.z + Math.sin(angle) * 0.12,
         );
         tempObject.scale.setScalar(seed.scale * (1 + pulse * 0.25));
@@ -477,37 +546,41 @@ export const cellularRenderer = {
       vesicles.instanceMatrix.needsUpdate = true;
     }
 
-    function updateSynapse(time, fieldOn, pulse, responseTime) {
+    function updateSynapse(time, fieldOn, pulse, responseTime, style) {
+      const motionOn = style.motion !== false;
+      const glowOn = style.glow !== false;
+      const fluorescenceOn = style.fluorescence !== false;
       for (const [index, sprite] of synapticVesicles.entries()) {
-        const angle = index * 2.399963 + time * 0.45;
+        sprite.visible = glowOn || fluorescenceOn;
+        const angle = index * 2.399963 + (motionOn ? time * 0.45 : 0);
         sprite.position.set(2.72 + Math.cos(angle) * 0.12, -0.1 + Math.sin(angle * 1.3) * 0.11, Math.sin(angle) * 0.12);
         sprite.scale.setScalar(0.09 + (index % 3) * 0.012);
-        sprite.material.opacity = 0.44 + pulse * 0.35;
+        sprite.material.opacity = glowOn ? 0.44 + pulse * 0.35 : fluorescenceOn ? 0.24 + pulse * 0.16 : 0.12 + pulse * 0.1;
       }
       const release = fieldOn ? pulse * Math.sin(Math.PI * responseTime) : 0;
       for (const [index, sprite] of transmitters.entries()) {
         const stagger = (index % 8) / 8;
         const progress = clamp01((responseTime - stagger * 0.16) / 0.5);
-        const active = release > 0.02 && progress > 0 && progress < 1;
+        const active = glowOn && release > 0.02 && progress > 0 && progress < 1;
         sprite.visible = active;
         if (!active) continue;
-        const y = -0.26 + (index % 6) * 0.075 + Math.sin(time * 6 + index) * 0.018;
+        const y = -0.26 + (index % 6) * 0.075 + (motionOn ? Math.sin(time * 6 + index) * 0.018 : 0);
         sprite.position.set(2.94 + progress * 0.36, y, -0.15 + ((index * 37) % 9) * 0.037);
         sprite.scale.setScalar(0.055 + release * 0.06);
         sprite.material.opacity = release * (1 - Math.abs(progress - 0.5) * 1.1);
       }
       for (const [index, line] of cleftLines.entries()) {
         line.material.opacity = 0.16 + (fieldOn ? release * 0.45 : 0);
-        line.material.color.copy(fieldOn && release > 0.2 ? gold : green);
+        line.material.color.copy(fieldOn && release > 0.2 ? gold : (style.falsecolour === false ? mutedField : green));
         line.geometry.attributes.position.needsUpdate = true;
-        line.position.z = Math.sin(time * 1.4 + index) * 0.02;
+        line.position.z = motionOn ? Math.sin(time * 1.4 + index) * 0.02 : 0;
       }
     }
 
-    function updateFieldLines(time, level11, pulse) {
+    function updateFieldLines(time, level11, pulse, motionOn) {
       const positions = fieldLines.geometry.attributes.position.array;
       for (let index = 0; index < 12; index += 1) {
-        const a = index / 12 * Math.PI * 2 + time * 0.18;
+        const a = index / 12 * Math.PI * 2 + (motionOn ? time * 0.18 : 0);
         const y = Math.sin(a * 2.1) * 0.72;
         const z = Math.cos(a) * 0.42;
         const offset = index * 6;
@@ -533,38 +606,57 @@ export const cellularRenderer = {
         const fieldOn = Boolean(state.tTheory && state.level >= 8);
         const level11 = Boolean(state.tTheory && state.level >= 11);
         const softenedPulse = clamp01(pulse);
+        const style = {
+          fluorescence: true,
+          falsecolour: true,
+          glow: true,
+          motion: true,
+          ...(state.style ?? {}),
+        };
+        const fluorescenceOn = style.fluorescence !== false;
+        const falsecolourOn = style.falsecolour !== false;
+        const glowOn = style.glow !== false;
+        const motionOn = style.motion !== false;
+        const allPlain = !fluorescenceOn && !falsecolourOn && !glowOn && !motionOn;
+        const motionTime = motionOn ? time : 0;
+        applyStyle(style, fieldOn);
 
-        group.rotation.y = Math.sin(time * 0.16) * 0.1;
-        group.rotation.x = Math.sin(time * 0.13) * 0.035;
-        const lifePulse = Math.sin(time * Math.PI * 0.4);
+        group.rotation.y = motionOn ? Math.sin(time * 0.16) * 0.1 : 0;
+        group.rotation.x = motionOn ? Math.sin(time * 0.13) * 0.035 : 0;
+        const lifePulse = motionOn ? Math.sin(time * Math.PI * 0.4) : 0;
         soma.scale.setScalar(1 + lifePulse * 0.02 + softenedPulse * 0.035);
-        animateDeformedSphere(THREE, cytoplasmGeometry, time, softenedPulse, fieldOn);
-        animateDeformedSphere(THREE, membraneShell.geometry, time + 0.4, softenedPulse * 0.6, fieldOn);
-        cytoplasmMaterial.opacity = (fieldOn ? 0.2 : 0.13) + lifePulse * 0.025 + softenedPulse * 0.08;
-        membraneMaterial.opacity = (fieldOn ? 0.25 : 0.18) + lifePulse * 0.025 + softenedPulse * 0.08;
-        membraneWire.material.opacity = fieldOn ? 0.05 : 0.16;
-        channelMaterial.opacity = 0.62 + (fieldOn ? 0.15 + softenedPulse * 0.2 : 0);
+        animateDeformedSphere(THREE, cytoplasmGeometry, motionTime, softenedPulse, fieldOn, motionOn);
+        animateDeformedSphere(THREE, membraneShell.geometry, motionTime + 0.4, softenedPulse * 0.6, fieldOn, motionOn);
+        cytoplasmMaterial.opacity = allPlain ? 0.035 + softenedPulse * 0.03 : (fieldOn ? 0.2 : 0.13) + lifePulse * 0.025 + softenedPulse * 0.08;
+        membraneMaterial.opacity = allPlain ? 0.045 + softenedPulse * 0.04 : (fieldOn ? 0.25 : 0.18) + lifePulse * 0.025 + softenedPulse * 0.08;
+        membraneWire.material.opacity = allPlain ? 0.36 : fieldOn ? 0.05 : 0.16;
+        channelMaterial.opacity = allPlain ? 0.44 : 0.62 + (fieldOn ? 0.15 + softenedPulse * 0.2 : 0);
 
-        nucleus.rotation.y = time * 0.1;
-        nucleus.scale.setScalar(1 + Math.sin(time * 1.1) * 0.025 + softenedPulse * 0.04);
-        nucleusGlow.material.opacity = 0.24 + Math.max(0, lifePulse) * 0.08 + softenedPulse * 0.08;
+        nucleus.rotation.y = motionOn ? time * 0.1 : 0;
+        nucleus.scale.setScalar(1 + (motionOn ? Math.sin(time * 1.1) * 0.025 : 0) + softenedPulse * 0.04);
+        nucleusMaterial.opacity = allPlain ? 0.2 : fluorescenceOn ? 0.86 : 0.42;
+        nucleusEnvelope.material.opacity = allPlain ? 0.22 : fluorescenceOn ? 0.34 : 0.24;
+        nucleusGlow.material.opacity = glowOn ? 0.24 + Math.max(0, lifePulse) * 0.08 + softenedPulse * 0.08 : 0;
         nucleusGlow.scale.setScalar(1.02 + Math.max(0, lifePulse) * 0.08 + softenedPulse * 0.08);
-        cytoplasmGlow.material.opacity = (fieldOn ? 0.16 : 0.11) + Math.max(0, lifePulse) * 0.04 + softenedPulse * 0.08;
-        nucleolus.scale.setScalar(1 + Math.sin(time * 1.7) * 0.05);
-        cytoskeleton.rotation.y = time * 0.025;
-        centrioles.rotation.z = time * 0.34;
-        updateVesicles(time, softenedPulse);
+        cytoplasmGlow.material.opacity = glowOn ? (fieldOn ? 0.16 : 0.11) + Math.max(0, lifePulse) * 0.04 + softenedPulse * 0.08 : 0;
+        nucleolus.scale.setScalar(1 + (motionOn ? Math.sin(time * 1.7) * 0.05 : 0));
+        nucleolusMaterial.opacity = allPlain ? 0.28 : 0.86;
+        cytoskeleton.rotation.y = motionOn ? time * 0.025 : 0;
+        cytoskeletonMaterial.opacity = allPlain ? 0.58 : fluorescenceOn ? 0.52 : 0.4;
+        centrioles.rotation.z = motionOn ? time * 0.34 : 0;
+        updateVesicles(motionTime, softenedPulse, motionOn);
 
         for (const [index, item] of mitochondria.entries()) {
           item.mito.position.copy(item.basePosition);
-          item.mito.position.x += Math.sin(time * 0.63 + item.phase) * 0.015;
-          item.mito.position.y += Math.sin(time * 0.82 + item.phase) * 0.018;
-          item.mito.position.z += Math.cos(time * 0.58 + item.phase) * 0.012;
+          item.mito.position.x += motionOn ? Math.sin(time * 0.63 + item.phase) * 0.015 : 0;
+          item.mito.position.y += motionOn ? Math.sin(time * 0.82 + item.phase) * 0.018 : 0;
+          item.mito.position.z += motionOn ? Math.cos(time * 0.58 + item.phase) * 0.012 : 0;
           item.mito.rotation.copy(item.baseRotation);
-          item.mito.rotation.z += Math.sin(time * 0.74 + index) * 0.055;
+          item.mito.rotation.z += motionOn ? Math.sin(time * 0.74 + index) * 0.055 : 0;
+          item.mito.material.opacity = allPlain ? 0.42 : fluorescenceOn ? 0.92 : 0.62;
           item.halo.position.copy(item.mito.position);
           item.halo.scale.set(0.48 + softenedPulse * 0.1, 0.24 + softenedPulse * 0.05, 1);
-          item.halo.material.opacity = 0.16 + Math.max(0, Math.sin(time * 0.9 + item.phase)) * 0.06 + softenedPulse * 0.08;
+          item.halo.material.opacity = glowOn ? 0.16 + (motionOn ? Math.max(0, Math.sin(time * 0.9 + item.phase)) * 0.06 : 0) + softenedPulse * 0.08 : 0;
           for (const line of item.cristae) {
             line.position.copy(item.mito.position);
             line.rotation.copy(item.mito.rotation);
@@ -573,10 +665,11 @@ export const cellularRenderer = {
 
         for (const [index, ring] of potentialRings.entries()) {
           ring.visible = fieldOn;
-          ring.rotation.z += 0.002 + index * 0.0006;
-          ring.material.opacity = fieldOn ? 0.14 + softenedPulse * 0.18 + 0.12 * Math.max(0, Math.sin(time * 3.1 - index * 0.7)) : 0;
-          ring.material.color.copy(index % 2 ? green : cyan).lerp(pink, clamp01(0.5 + 0.5 * Math.sin(time * 2.4 + index)));
-          ring.scale.setScalar(1 + Math.sin(time * 1.7 + index) * 0.025 + softenedPulse * 0.04);
+          if (motionOn) ring.rotation.z += 0.002 + index * 0.0006;
+          else ring.rotation.copy(ring.userData.baseRotation);
+          ring.material.opacity = fieldOn ? (glowOn ? 0.14 : 0.08) + softenedPulse * 0.18 + (motionOn ? 0.12 * Math.max(0, Math.sin(time * 3.1 - index * 0.7)) : 0) : 0;
+          ring.material.color.copy(falsecolourOn ? (index % 2 ? green : cyan) : mutedField).lerp(falsecolourOn ? pink : mutedSignal, motionOn ? clamp01(0.5 + 0.5 * Math.sin(time * 2.4 + index)) : 0.35);
+          ring.scale.setScalar(1 + (motionOn ? Math.sin(time * 1.7 + index) * 0.025 : 0) + softenedPulse * 0.04);
         }
 
         const activePulse = fieldOn && softenedPulse > 0.01;
@@ -589,21 +682,22 @@ export const cellularRenderer = {
           actionBand.scale.setScalar(0.7 + softenedPulse * 1.1);
           actionCore.scale.setScalar(0.38 + softenedPulse * 0.48);
           actionBand.material.opacity = softenedPulse * 0.92;
-          actionCore.material.opacity = softenedPulse * 0.72;
+          actionBand.material.color.copy(falsecolourOn ? gold : mutedSignal);
+          actionCore.material.opacity = glowOn ? softenedPulse * 0.72 : 0;
         } else {
           actionBand.material.opacity = 0;
           actionCore.material.opacity = 0;
         }
 
-        updateSynapse(time, fieldOn, softenedPulse, responseTime);
+        updateSynapse(time, fieldOn, softenedPulse, responseTime, style);
         for (const [index, shell] of fieldShells.entries()) {
           shell.visible = fieldOn;
           shell.scale.setScalar(1 + responseTime * (0.36 + index * 0.28) + softenedPulse * 0.12);
-          shell.rotation.y = time * (0.05 + index * 0.03);
-          shell.material.opacity = fieldOn ? (0.08 + softenedPulse * 0.22) * (1 - index * 0.42) : 0;
+          shell.rotation.y = motionOn ? time * (0.05 + index * 0.03) : 0;
+          shell.material.opacity = fieldOn ? ((glowOn ? 0.08 : 0.035) + softenedPulse * 0.22) * (1 - index * 0.42) : 0;
         }
-        postDensity.material.opacity = fieldOn ? 0.26 + softenedPulse * 0.2 : 0.12;
-        updateFieldLines(time, level11, softenedPulse);
+        postDensity.material.opacity = allPlain ? 0.16 : fieldOn ? 0.26 + softenedPulse * 0.2 : 0.12;
+        updateFieldLines(time, level11, softenedPulse, motionOn);
       },
       dispose() {
         scene.remove(group);
