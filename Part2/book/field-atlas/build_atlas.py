@@ -26,6 +26,29 @@ BLD = ATLAS / "bld"
 BIB = REPO / "paper" / "bibliography.bib"
 CSL = REPO / "paper" / "apa-7th.csl"
 
+# "royal" (156 x 234 mm book) or "a3" (A3 landscape picture atlas, printfactory.ch).
+FORMAT = "royal"
+PRINT_IMAGES = ATLAS / "figures" / "app" / "print"
+
+
+def full_bleed(image: Path) -> list[str]:
+    # A whole page filled by one app screenshot (A3 landscape, 300 dpi).
+    return [
+        "\\clearpage\\thispagestyle{empty}",
+        f"\\AddToShipoutPictureBG*{{\\AtPageLowerLeft{{\\includegraphics[width=\\paperwidth,height=\\paperheight]{{{image.as_posix()}}}}}}}",
+        "\\mbox{}\\clearpage",
+        "",
+    ]
+
+
+def columns(markdown: str) -> str:
+    # Three columns on A3 pages; tables (longtable) cannot sit inside multicols.
+    if FORMAT != "a3" or re.search(r"^\|[:\- |]+\|\s*$", markdown, re.M):
+        return markdown
+    # Macros: pandoc would pass a whole \begin...\end environment through unconverted.
+    return f"\\colsbegin\n\n{markdown}\n\n\\colsend"
+
+
 AXIS_TITLES = {"4d-baseline": "4D / physics baseline", "8d-life": "8D / life and regulation", "11d-mind": "11D / mind"}
 
 
@@ -125,7 +148,14 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
     else:
         front, body = split_front_matter(entry_path.read_text(encoding="utf-8"))
     claims = data.get("claims", {})
-    out = ["\\newpage", "", f"## {data['label']} {{#level-{level_id}}}", ""]
+    pictures = {view: next(PRINT_IMAGES.glob(f"*-{level_id}--{view}.jpg"), None) or next(PRINT_IMAGES.glob(f"*-{level_id}--{view}.png"), None) for view in ("lens-on", "compare")}
+    out = []
+    if FORMAT == "a3":
+        if pictures["lens-on"]:
+            out += full_bleed(pictures["lens-on"])
+        else:
+            missing.append(f"print image for {level_id} (run capture --only print)")
+    out += ["\\newpage", "", f"## {data['label']} {{#level-{level_id}}}", ""]
     out += [
         "| | |",
         "|:--|:--|",
@@ -139,7 +169,9 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
         "",
     ]
     plates = [ATLAS / "figures" / "app" / "plates" / f"{level_id}--lens-{lens}.png" for lens in ("off", "on")]
-    if all(plate.exists() for plate in plates):
+    if FORMAT == "a3":
+        pass  # the full-bleed pages carry the pictures
+    elif all(plate.exists() for plate in plates):
         out += [
             " ".join(f"![]({plate.relative_to(ATLAS).as_posix()}){{width=49%}}" for plate in plates),
             "",
@@ -148,13 +180,14 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
         ]
     else:
         missing.append(f"plates for {level_id} (run npm run capture)")
-    out += [demote(body, 1), ""]
+    text = [demote(body, 1), ""]
     for figure in front.get("figures") or []:
-        out += [f"![]({(Path('figures') / figure).as_posix()}){{width=80%}}", ""]
+        width = "\\columnwidth" if FORMAT == "a3" else "80%"
+        text += [f"![]({(Path('figures') / figure).as_posix()}){{width={width}}}", ""]
     for example in examples.get(level_id, []):
-        out += [f"### Worked example: {example['label']}", "", example.get("summary", ""), ""]
+        text += [f"### Worked example: {example['label']}", "", example.get("summary", ""), ""]
         for step in example["steps"]:
-            out += [
+            text += [
                 f"**{AXIS_TITLES.get(step['axis'], step['axis'])}: {step['title']}** ({step['badge']})",
                 "",
                 step["body"].strip(),
@@ -164,8 +197,16 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
             ]
     for (source, target), (edge, edge_body) in edges.items():
         if source == level_id:
-            out += [f"### Transition: {data['label']} to {labels.get(target, target)}", "", edge_body, ""]
+            text += [f"### Transition: {data['label']} to {labels.get(target, target)}", "", edge_body, ""]
+    out += [columns("\n".join(text)), ""]
+    if FORMAT == "a3" and pictures["compare"]:
+        out += full_bleed(pictures["compare"])
     return "\n".join(out)
+
+
+def front_or_back(path: Path) -> str:
+    heading, _, rest = path.read_text(encoding="utf-8").strip().partition("\n")
+    return f"{heading}\n\n{columns(rest.strip())}"
 
 
 def assemble() -> tuple[str, list[str]]:
@@ -204,11 +245,11 @@ def assemble() -> tuple[str, list[str]]:
         "",
     ]
     for name in atlas["front"]:
-        parts += [(ATLAS / name).read_text(encoding="utf-8").strip(), ""]
+        parts += [front_or_back(ATLAS / name), ""]
     parts += ["\\mainmatter", ""]
     for number, sector in enumerate(atlas["sectors"], start=1):
         front, body = split_front_matter((ATLAS / sector["file"]).read_text(encoding="utf-8"))
-        parts += [f"# Sector {front.get('sector', number)}: {front.get('title', '')}", "", body, ""]
+        parts += [f"# Sector {front.get('sector', number)}: {front.get('title', '')}", "", columns(body), ""]
         for level_id in sector["levels"]:
             parts += [level_spread(level_id, labels, edges, examples, missing, paths), ""]
     parts += [models_part(models, labels), "", paths_part(paths, labels, edges, examples, missing), ""]
@@ -218,7 +259,7 @@ def assemble() -> tuple[str, list[str]]:
             missing.append(f"level {level_id} is on no path")
     parts += ["\\backmatter", ""]
     for name in atlas["back"]:
-        parts += [(ATLAS / name).read_text(encoding="utf-8").strip(), ""]
+        parts += [front_or_back(ATLAS / name), ""]
     parts += ["# References {.unnumbered}", "", "::: {#refs}", ":::", ""]
     return "\n".join(parts), missing
 
@@ -227,25 +268,33 @@ def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser()
     parser.add_argument("--md-only", action="store_true")
+    parser.add_argument("--a3", action="store_true", help="A3 landscape picture atlas (printfactory.ch)")
     args = parser.parse_args()
+    global FORMAT
+    FORMAT = "a3" if args.a3 else "royal"
+    stem = "field-atlas-a3" if args.a3 else "field-atlas"
     markdown, missing = assemble()
     BLD.mkdir(exist_ok=True)
-    md_path = BLD / "field-atlas.md"
+    md_path = BLD / f"{stem}.md"
     md_path.write_text(markdown, encoding="utf-8", newline="\n")
     print(f"wrote {md_path} ({len(markdown.split())} words)")
     for item in missing:
         print(f"missing: {item}")
     if args.md_only:
         return
-    pdf_path = BLD / "field-atlas.pdf"
+    pdf_path = BLD / f"{stem}.pdf"
+    page = (
+        ["-V", "geometry=paperwidth=420mm,paperheight=297mm,margin=18mm,top=20mm,bottom=20mm", "-V", "fontsize=11pt", "-V", "linestretch=1.12"]
+        if FORMAT == "a3"
+        else ["-V", "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=20mm,outer=16mm,top=20mm,bottom=22mm", "-V", "fontsize=10pt"]
+    )
     command = [
         "pandoc", str(md_path), "-o", str(pdf_path),
         "--pdf-engine=xelatex", "--standalone", f"--resource-path={ATLAS}",
         "--citeproc", f"--bibliography={BIB}", f"--csl={CSL}",
-        "-V", "geometry=paperwidth=156mm,paperheight=234mm,twoside,inner=20mm,outer=16mm,top=20mm,bottom=22mm",
-        "-V", "fontsize=10pt", "-V", "mainfont=TeX Gyre Pagella", "-V", "monofont=Consolas",
+        *page, "-V", "mainfont=TeX Gyre Pagella", "-V", "monofont=Consolas",
         "-V", "colorlinks=true", "-V", "linkcolor=NavyBlue", "-V", "urlcolor=NavyBlue",
-        "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}",
+        "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}\\usepackage{graphicx}\\usepackage{multicol}\\usepackage{eso-pic}\\setlength{\\columnsep}{9mm}\\newcommand{\\colsbegin}{\\begin{multicols}{3}}\\newcommand{\\colsend}{\\end{multicols}}",
     ]
     result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if result.returncode != 0:
