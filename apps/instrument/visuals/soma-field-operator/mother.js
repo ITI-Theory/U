@@ -16,6 +16,43 @@ function write(key, value) {
   try { localStorage.setItem(key, value); } catch { /* storage unavailable */ }
 }
 
+function escapeHtml(text) {
+  return text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+function renderMath(tex, display) {
+  try {
+    return globalThis.katex ? globalThis.katex.renderToString(tex, { displayMode: display, throwOnError: false }) : escapeHtml(tex);
+  } catch {
+    return escapeHtml(tex);
+  }
+}
+
+// NotebookLM answers are Markdown with LaTeX; render a safe subset.
+function renderAnswer(markdown) {
+  const maths = [];
+  const stash = (tex, display) => `\u0000${maths.push(renderMath(tex.replace(/\\\\/g, '\\'), display)) - 1}\u0000`;
+  let text = markdown
+    .replace(/\\{1,2}\[([\s\S]+?)\\{1,2}\]/g, (_, tex) => stash(tex, true))
+    .replace(/\\{1,2}\(([\s\S]+?)\\{1,2}\)/g, (_, tex) => stash(tex, false))
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => stash(tex, true));
+  text = escapeHtml(text);
+  const lines = text.split('\n').map(line => {
+    if (/^\s*(-{3,}|\*{3,})\s*$/.test(line)) return '<hr>';
+    const heading = line.match(/^#{1,6}\s+(.*)$/);
+    if (heading) return `<h4>${heading[1]}</h4>`;
+    const item = line.match(/^\s*(?:[-*]|\d+\.)\s+(.*)$/);
+    if (item) return `<li>${item[1]}</li>`;
+    return line.trim() ? `<p>${line}</p>` : '';
+  });
+  return lines.join('')
+    .replace(/(<li>.*?<\/li>)+/g, match => `<ul>${match}</ul>`)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*]+?)\*/g, '$1<em>$2</em>')
+    .replace(/\[(\d+(?:\s*[,\u2013-]\s*\d+)*)\]/g, '<sup class="mother-cite">[$1]</sup>')
+    .replace(/\u0000(\d+)\u0000/g, (_, index) => maths[Number(index)]);
+}
+
 function composePrompt(question, context) {
   const register = {
     cookie: 'Explain as if to a curious ten-year-old.',
@@ -67,7 +104,7 @@ export function createMother({ getContext }) {
   terminal.setAttribute('aria-label', 'MOTHER interface');
   terminal.innerHTML = `
     <header><span>MU/TH/UR // [T]-THEORY INTERFACE</span><button type="button" class="mother-close" aria-label="Close">X</button></header>
-    <pre class="mother-log" aria-live="polite"></pre>
+    <div class="mother-log" aria-live="polite"></div>
     <form class="mother-form"><span>&gt;</span><input class="mother-input" autocomplete="off" placeholder="ASK ABOUT THIS VIEW" /></form>`;
   document.body.append(terminal);
   const log = terminal.querySelector('.mother-log');
@@ -78,12 +115,15 @@ export function createMother({ getContext }) {
   function type(text, speed = 12) {
     typing = typing.then(() => new Promise(resolve => {
       let index = 0;
+      const line = document.createElement('div');
+      line.className = 'mother-line';
+      log.append(line);
       const step = () => {
-        log.textContent += text.slice(index, index + 3);
+        line.textContent += text.slice(index, index + 3);
         index += 3;
         log.scrollTop = log.scrollHeight;
         if (index < text.length) setTimeout(step, speed);
-        else { log.textContent += '\n'; resolve(); }
+        else resolve();
       };
       step();
     }));
@@ -118,6 +158,12 @@ export function createMother({ getContext }) {
     }
   });
   terminal.querySelector('.mother-close').addEventListener('click', () => { terminal.hidden = true; });
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -126,7 +172,10 @@ export function createMother({ getContext }) {
     input.value = '';
     const context = getContext();
     const prompt = composePrompt(question, context);
-    log.textContent += `\n> ${question}\n`;
+    const asked = document.createElement('div');
+    asked.className = 'mother-line mother-question';
+    asked.textContent = `> ${question}`;
+    log.append(asked);
 
     if (modeSelect.value === 'web') {
       const url = notebookInput.value.trim();
@@ -150,8 +199,13 @@ export function createMother({ getContext }) {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? `HTTP ${response.status}`);
-      await type(data.answer ?? '(NO ANSWER)', 6);
-      if (data.citations?.length) await type(`SOURCES: ${data.citations.join('; ')}`);
+      await typing;
+      const answer = document.createElement('div');
+      answer.className = 'mother-answer';
+      answer.innerHTML = renderAnswer(data.answer ?? '(NO ANSWER)');
+      log.append(answer);
+      log.scrollTop = log.scrollHeight;
+      if (data.citations?.length) await type(`SOURCES: ${data.citations.map((title, index) => `[${index + 1}] ${title}`).join('; ')}`);
       await type('[INTERPRETIVE / MAY ERR: CHECK THE CITED SOURCES]');
     } catch (error) {
       await type(`BRIDGE OFFLINE OR ERROR: ${error.message}\nSTART IT WITH apps/instrument/mother/run_bridge.ps1`);

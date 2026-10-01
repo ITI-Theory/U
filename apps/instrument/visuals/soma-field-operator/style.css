@@ -223,3 +223,14 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .mother-log { margin: 0; padding: 12px; overflow: auto; white-space: pre-wrap; }
 .mother-form { display: flex; gap: 8px; align-items: center; padding: 8px 12px; border-top: 1px solid #2f8f4f; }
 .mother-input { flex: 1; color: #b9ffcb; border: 0; outline: 0; background: transparent; font: 13px 'Space Mono', monospace; }
+
+.mother-line { white-space: pre-wrap; }
+.mother-question { margin-top: 10px; color: #c9ffd6; }
+.mother-answer { margin: 6px 0; color: #9dffb5; }
+.mother-answer h4 { margin: 10px 0 4px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.mother-answer p { margin: 0 0 6px; }
+.mother-answer ul { margin: 0 0 6px 18px; padding: 0; }
+.mother-answer strong { color: #d9ffe3; }
+.mother-answer .katex { color: #d9ffe3; font-size: 1em; }
+.mother-cite { color: #4fbf74; font-size: .75em; }
+.mother-answer hr { border: 0; border-top: 1px solid #2f8f4f; margin: 10px 0; }

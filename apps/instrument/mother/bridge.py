@@ -123,8 +123,13 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(400, {"error": "empty question"})
                 return
             self._json(200, self.bridge.ask(prompt[:8000]))
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+            print("[mother] client went away before the answer arrived")
         except Exception as error:  # report, do not crash the bridge
-            self._json(500, {"error": f"{type(error).__name__}: {error}"})
+            try:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
+            except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+                pass
 
     def log_message(self, fmt: str, *args) -> None:
         print(f"[mother] {self.address_string()} {fmt % args}")
