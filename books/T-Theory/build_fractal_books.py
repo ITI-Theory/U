@@ -34,8 +34,9 @@ def _booklet_cheatsheet_pdf(domain_id: str) -> str:
     return f"{_BLD_ABS}/booklet-{domain_id}.pdf"
 
 def _booklet_pages(domain_id: str) -> str:
+    booklet_id = next((d.get("booklet_id", d["id"]) for d in DOMAINS if d["id"] == domain_id), domain_id)
     return "\n".join(
-        f"\\includepdf[pages=1]{{{_BLD_ABS}/booklet-{domain_id}-{page}.pdf}}"
+        f"\\includepdf[pages=1]{{{_BLD_ABS}/booklet-{booklet_id}-{page}.pdf}}"
         for page in range(1, 5)
     )
 
@@ -349,6 +350,109 @@ def get_paper_body(paper_ref: str) -> str:
         return get_fractal_body(paper_ref)
 
 
+_PART_BLOCK_RE = re.compile(r"```\{=latex\}\n\\part\{([^}]*)\}\n```")
+
+_ADDPAPER_RE = re.compile(r"^\{\{AddPaper\s+([^}\s]+)\}\}[ \t]*$", re.MULTILINE)
+_MACRO_LINE_RE = re.compile(r"^\{\{(AddPage|AddBooklet[^}]*|AddPDF[^}]*)\}\}[ \t]*$", re.MULTILINE)
+_TITLE_RE = re.compile(r'^title:\s*"?(.*?)"?\s*$', re.MULTILINE)
+
+
+def source_book_path(domain: dict) -> Path | None:
+    """Return a domain's source-owned book, if it has one."""
+    if domain.get("source_book"):
+        return FRACTAL_DIR / domain["source_book"]
+    candidate = FRACTAL_DIR / domain["id"] / f"book-{domain['id']}.md"
+    return candidate if candidate.exists() else None
+
+
+def paper_ref_path(paper_ref: str) -> Path:
+    """Resolve a 'c:name' or 'f:name' paper reference to its Markdown file."""
+    kind, name = paper_ref.split(":", 1) if ":" in paper_ref else ("c", paper_ref)
+    if kind == "f":
+        return FRACTAL_DIR / name / f"{name}.md"
+    return PAPER_DIR / "soma" / name / f"{name}.md"
+
+
+def paper_title(path: Path) -> str:
+    match = _TITLE_RE.search(path.read_text(encoding="utf-8")[:4000])
+    return match.group(1).strip() if match else path.stem
+
+
+def paper_block(path: Path, book_title: str, seen: dict | None) -> str:
+    """Render one paper for a volume, printing each paper once per volume.
+
+    `seen` maps a paper path to the book in which it was first printed. A
+    repeated paper becomes a short cross-reference.
+    """
+    key = str(path.resolve()).lower()
+    title = paper_title(path)
+    if seen is not None and path.stem == "lean-proofs-appendix":
+        return (f"\\newpage\n\n# {title} {{.unnumbered}}\n\n"
+                "*The Lean 4 proof appendix is published separately as dataset D2 "
+                "and is not reprinted in this volume.*")
+    if seen is not None and key in seen:
+        return (f"\\newpage\n\n# {title} {{.unnumbered}}\n\n"
+                f"*This paper is printed in full in* {seen[key]}*. It is read here "
+                f"through the lens of this book; see the surrounding chapters.*")
+    if seen is not None:
+        seen[key] = f"*{book_title}*"
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    text = _FM_RE.sub("", text, count=1)
+    text = _REF_RE.sub("", text).strip()
+    if not text.startswith("# "):
+        text = f"# {title}\n\n{text}"
+    return f"\\newpage\n\n{text}"
+
+
+def get_source_book_body(domain: dict, seen: dict | None = None) -> str:
+    """Load a source-owned book for inclusion in a composite volume.
+
+    The volume supplies the book's part opening and cheat sheet, so the
+    book's own front matter and PDF inserts are dropped, its internal parts
+    become unnumbered headings, and `{{AddPaper}}` lines are expanded (once
+    per volume when `seen` is given).
+    """
+    path = source_book_path(domain)
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    text = _FM_RE.sub("", text, count=1)
+    text = text.split("\n# [T]-Theory Cheatsheet", 1)[0]
+    text = _PART_BLOCK_RE.sub(lambda m: f"# Part: {m.group(1)} {{.unnumbered}}", text)
+    text = _ADDPAPER_RE.sub(
+        lambda m: paper_block((FRACTAL_DIR / m.group(1)).resolve(), domain["title"], seen), text)
+    text = _MACRO_LINE_RE.sub(lambda m: "\\newpage" if m.group(1) == "AddPage" else "", text)
+    return text.strip()
+
+
+def get_generated_book_body(domain: dict, seen: dict | None = None) -> str:
+    """Assemble kappa + papers + conclusion for a domain without a source book."""
+    domain_id = domain["id"]
+    parts = []
+    kappa_path = KAPPA_DIR / f"kappa-{domain_id}.md"
+    if kappa_path.exists():
+        parts.append(kappa_path.read_text(encoding="utf-8").strip())
+    for paper_ref in domain["papers"]:
+        if paper_ref.split(":", 1)[-1] == "lean-proofs-appendix":
+            continue
+        path = paper_ref_path(paper_ref)
+        if path.exists():
+            parts.append(paper_block(path, domain["title"], seen))
+        else:
+            print(f"  WARNING: paper not found: {paper_ref}", file=sys.stderr)
+    conc_path = CONC_DIR / f"conclusion-{domain_id}.md"
+    if conc_path.exists():
+        parts.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
+    return "\n\n".join(parts)
+
+
+def get_volume_book_body(domain: dict, seen: dict) -> str:
+    """Return a domain's content for a composite volume, deduplicating papers."""
+    if source_book_path(domain):
+        print(f"    = {source_book_path(domain).relative_to(FRACTAL_DIR)} (source-owned)")
+        return get_source_book_body(domain, seen)
+    print("    = kappa + papers + conclusion (generated)")
+    return get_generated_book_body(domain, seen)
+
+
 # ---------------------------------------------------------------------------
 # Domain definitions — 15 books total
 # Each entry: id, title, subtitle, audience, field, papers, kappa_prompt_extra
@@ -429,8 +533,10 @@ DOMAINS = [
     },
     {
         "id": "consciousness",
-        "title": "The Hard Problem Dissolved: Consciousness as a Phase Transition in a Physical Field",
-        "subtitle": "[T]-Theory Volume: Consciousness Studies and Philosophy of Mind",
+        "title": "[T]-Theory: Philosophy",
+        "subtitle": "Consciousness, Effect, and Proof in the Fractal Programme",
+        "source_book": "philosophy/book-philosophy.md",
+        "booklet_id": "philosophy",
         "audience": "philosophers of mind, consciousness researchers",
         "field": "philosophy of mind, consciousness studies, phenomenology",
         "papers": ["c:universal-somatic-field", "c:quantum-soma-penrose", "c:soma-physical-substrate",
@@ -649,7 +755,7 @@ def main():
     if "--vol1" in sys.argv:
         build_volume(VOL1_IDS, "vol1",
                      "[T]-Theory: The Fractal Programme — Volume I: Foundation",
-                     "Gateway · Physics · Formal Mathematics · Neuroscience · Consciousness · Complex Systems · Computer Science")
+                     "Gateway · Physics · Formal Mathematics · Neuroscience · Philosophy · Complex Systems · Computer Science")
         return
 
     if "--vol2" in sys.argv:
@@ -687,8 +793,6 @@ def build_volume(domain_ids: list, vol_tag: str, title: str, subtitle: str):
     """Assemble a volume of the [T]-Theory Fractal Programme."""
     print(f"\nBuilding [T]-Theory {vol_tag.upper()}...")
 
-    OMNIBUS_EXCLUDE = {"lean-proofs-appendix"}
-
     frontmatter = f"""\
 ---
 title: "{title}"
@@ -701,28 +805,12 @@ csl: ../../paper/apa-7th.csl
 ---"""
 
     sections = [frontmatter, _toc_only()]
+    seen: dict = {}
 
     for domain_id in domain_ids:
         domain = get_domain(domain_id)
         print(f"\n  Assembling: {domain_id}")
-        book_sections = []
-        kappa_path = KAPPA_DIR / f"kappa-{domain_id}.md"
-        if kappa_path.exists():
-            book_sections.append(kappa_path.read_text(encoding="utf-8").strip())
-            print(f"    + kappa-{domain_id}")
-        dom_papers = [p for p in domain["papers"]
-                      if p.split(":", 1)[-1] not in OMNIBUS_EXCLUDE]
-        for paper_ref in dom_papers:
-            body = get_paper_body(paper_ref)
-            if body:
-                pname = paper_ref.split(":", 1)[-1] if ":" in paper_ref else paper_ref
-                book_sections.append(f"\\newpage\n\n{body}")
-                print(f"    + {pname}")
-        conc_path = CONC_DIR / f"conclusion-{domain_id}.md"
-        if conc_path.exists():
-            book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
-            print(f"    + conclusion-{domain_id}")
-        book_body = "\n\n".join(book_sections)
+        book_body = get_volume_book_body(domain, seen)
         sections.append(_book_part_opening(domain_id) + book_body + "\n")
 
     # P23 closing chapter: Vol I (Foundation) ends with the gateway to Phase 2
@@ -753,9 +841,6 @@ def build_omnibus():
     """Assemble all 15 books into one T-Theory omnibus file."""
     print("\nBuilding T-Theory Omnibus...")
 
-    # Papers excluded from the omnibus (too large / code-heavy for single-pass PDF)
-    OMNIBUS_EXCLUDE = {"lean-proofs-appendix"}
-
     opening_path = FRACTAL_DIR / "ttheory-opening.md"
     if not opening_path.exists():
         print("  WARNING: ttheory-opening.md not found", file=sys.stderr)
@@ -776,30 +861,11 @@ csl: ../../paper/apa-7th.csl
 ---"""
 
     sections = [frontmatter, _toc_only(), f"\n\n{opening_text}\n"]
+    seen: dict = {}
 
     for domain in DOMAINS:
         print(f"\n  Assembling: {domain['id']}")
-        # Build a filtered version of the book (excluding omnibus_exclude papers)
-        dom_copy = dict(domain)
-        dom_copy["papers"] = [p for p in domain["papers"]
-                              if p.split(":", 1)[-1] not in OMNIBUS_EXCLUDE]
-        # Inline assembly (kappa + filtered papers + conclusion)
-        book_sections = []
-        kappa_path = KAPPA_DIR / f"kappa-{domain['id']}.md"
-        if kappa_path.exists():
-            book_sections.append(kappa_path.read_text(encoding="utf-8").strip())
-            print(f"    + kappa-{domain['id']}")
-        for paper_ref in dom_copy["papers"]:
-            body = get_paper_body(paper_ref)
-            if body:
-                pname = paper_ref.split(":", 1)[-1] if ":" in paper_ref else paper_ref
-                book_sections.append(f"\\newpage\n\n{body}")
-                print(f"    + {pname}")
-        conc_path = CONC_DIR / f"conclusion-{domain['id']}.md"
-        if conc_path.exists():
-            book_sections.append(f"\\newpage\n\n{conc_path.read_text(encoding='utf-8').strip()}")
-            print(f"    + conclusion-{domain['id']}")
-        book_body = "\n\n".join(book_sections)
+        book_body = get_volume_book_body(domain, seen)
         sections.append(_book_part_opening(domain["id"]) + book_body + "\n")
 
     # P23 as the closing chapter of the complete omnibus

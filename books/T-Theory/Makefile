@@ -1,5 +1,6 @@
 # [T]-Theory books Makefile
 PANDOC  := pandoc
+PYTHON  ?= python
 PANDOC_EOL := --eol=lf
 ENGINE  := xelatex
 GS      ?= gswin64c
@@ -35,9 +36,13 @@ DOMAINS := gateway physics complex-systems formal-mathematics \
            music-arts clinical-psychology psychiatry-asd \
            social-science geophysics law ppe economics
 
-ALL_BOOKLET_PAGES := $(foreach domain,$(DOMAINS),$(addprefix $(BUILDDIR)/booklet-$(domain)-,$(addsuffix .pdf,1 2 3 4)))
+# The consciousness domain is the source-owned philosophy book; its cheat
+# sheet is the philosophy booklet.
+BOOKLET_DOMAINS := $(subst consciousness,philosophy,$(DOMAINS))
 
-.SECONDARY: $(addprefix $(BUILDDIR)/booklet-, $(addsuffix .pdf, $(DOMAINS)))
+ALL_BOOKLET_PAGES := $(foreach domain,$(BOOKLET_DOMAINS),$(addprefix $(BUILDDIR)/booklet-$(domain)-,$(addsuffix .pdf,1 2 3 4)))
+
+.SECONDARY: $(addprefix $(BUILDDIR)/booklet-, $(addsuffix .pdf, $(BOOKLET_DOMAINS)))
 
 NOIR_FLAGS := \
   --pdf-engine=$(ENGINE) --standalone \
@@ -51,7 +56,7 @@ bld/noir-page.pdf: noir-page.md | $(BUILDDIR)
 	@echo "Built: $@"
 
 define BOOKLET_PAGE_RULE
-bld/booklet-%-$(1).pdf: bld/booklet-%.pdf | $(BUILDDIR)
+$(filter %-$(1).pdf,$(ALL_BOOKLET_PAGES)): bld/booklet-%-$(1).pdf: bld/booklet-%.pdf | $(BUILDDIR)
 	$(GS) -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dNOPAUSE -dBATCH \
 		-dFirstPage=$(1) -dLastPage=$(1) -sOutputFile=$$@ $$<
 	@echo "Prepared booklet page $(1): $$@"
@@ -59,7 +64,7 @@ endef
 $(foreach page,1 2 3 4,$(eval $(call BOOKLET_PAGE_RULE,$(page))))
 
 .SECONDEXPANSION:
-bld/booklet-%.pdf: $$(wildcard */booklet-$$*.md) books.yaml booklet/booklet_body.md $(BOOKLET_HEADER) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
+$(BOOKLET_DOMAINS:%=bld/booklet-%.pdf): bld/booklet-%.pdf: $$(wildcard */booklet-$$*.md) books.yaml booklet/booklet_body.md $(BOOKLET_HEADER) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
 	$(PANDOC) $< -o $@ \
 		--pdf-engine=$(ENGINE) --standalone \
 		--metadata-file=books.yaml \
@@ -77,9 +82,20 @@ bld/booklet-%.html: $$(wildcard */booklet-$$*.md) $(FORMAT_DIR)/macros.lua $(FOR
 		--css=$(FORMAT_DIR)/site.css
 	@echo "Built domain booklet HTML: $@"
 
-bld/book-%.pdf: $$(wildcard */book-$$*.md) $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
+# Source-owned books (`<domain>/book-<id>.md`) are built directly. A static
+# pattern keeps this rule from capturing generated books, which are assembled
+# by build_fractal_books.py through `bld/book-%-body.md`.
+SOURCE_BOOK_IDS := $(patsubst book-%.md,%,$(notdir $(filter-out bld/%,$(wildcard */book-*.md))))
+SOURCE_BOOK_PDFS := $(filter-out bld/book-gateway.pdf,$(SOURCE_BOOK_IDS:%=bld/book-%.pdf))
+
+$(SOURCE_BOOK_PDFS): bld/book-%.pdf: $$(wildcard */book-$$*.md) bld/booklet-%.pdf $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS) --toc --lua-filter=$(FORMAT_DIR)/macros.lua
 	@echo "Built domain book: $@"
+
+# The registry names the philosophy volume by its original domain id.
+bld/book-consciousness.pdf: bld/book-philosophy.pdf
+	$(PYTHON) -c "import shutil, sys; shutil.copyfile(sys.argv[1], sys.argv[2])" $< $@
+	@echo "Built: $@ (from $<)"
 
 bld/book-gateway.pdf: gateway/book-gateway.md bld/noir-page.pdf bld/booklet-gateway.pdf format/gateway-template.tex $(FORMAT_DIR)/macros.lua | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(BOOK_FLAGS) --toc --template=format/gateway-template.tex \

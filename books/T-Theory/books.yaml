@@ -15,7 +15,7 @@ books:
       observable: "Cross-scale response and correlation structure"
       historical_observation: "They saw a guitar string. I heard the music."
     sherlock_audit:
-      status: "Verified without Sorry (Lean 4 kernel, 0 sorries, 0 extra axioms)"
+      status: "Lean files across the programme check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
         [
           "SHO = Green's function (derived impulse response)",
@@ -45,7 +45,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean 4 kernel verified (MTheoryIsomorphism.lean)",
+        status: "Lean files cited (MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "11D decomposition (7 compact + 3 spatial + 1 temporal)",
@@ -73,7 +73,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: LimbicHopfield.lean, LimbicTunnel.lean)",
+        status: "Lean files cited (LimbicHopfield.lean, LimbicTunnel.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "CEMI field as the Scale-6 restriction of the universal propagator",
@@ -131,7 +131,7 @@ books:
       invariant: "Typed proofs preserve declared field constraints"
       observable: "Kernel-checked theorems, coordination accuracy, and collective criticality"
     sherlock_audit:
-      status: "Verified (Lean 4: SwarmPropagator.lean, ScaleUniverse.lean)"
+      status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
         - "O(N^2) lower bound for single-step multi-agent coordination"
         - "ScaleUniverse as an inductive dependent sum type (Sigma-type)"
@@ -157,7 +157,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: SomaNetwork.lean, SwarmPropagator.lean)",
+        status: "Lean files cited (SomaNetwork.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "O(N^2) lower bound for single-step multi-agent coordination",
@@ -185,7 +185,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Kernel-verified (ScaleUniverse.lean, MTheoryIsomorphism.lean)",
+        status: "Lean files cited (ScaleUniverse.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Consciousness Threshold Theorem (sharp spectral gap dichotomy)",
@@ -213,7 +213,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: SomaField.lean, EmotionOntology.lean)",
+        status: "Lean files cited (SomaField.lean, EmotionOntology.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Rhythmic entrainment as Arnold tongue frequency locking",
@@ -241,7 +241,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Confirmed (QUANT-EXP-1 PASS, Lean 4 axiom THERAPY-2)",
+        status: "QUANT-EXP-1 is a simulation (8-qubit statevector, no hardware); THERAPY-2 is an axiom in FieldAxioms.lean, not a theorem. The inductions below are interpretive or open hypotheses.",
         primary_inductions:
           [
             "Trauma is Topology: barriers are non-contractible loops in G2 holonomy",
@@ -269,7 +269,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: ScaleUniverse.lean, SwarmPropagator.lean)",
+        status: "Lean files cited (ScaleUniverse.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Geological memory as a high-scale instantiation of associative memory",
@@ -298,7 +298,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: SwarmPropagator.lean, ScaleUniverse.lean)",
+        status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Rapport = Huygens frequency locking (0 < Delta phi < epsilon)",
@@ -326,7 +326,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: SomaNetwork.lean, RenormalisationGroup.lean)",
+        status: "Lean files cited (SomaNetwork.lean, RenormalisationGroup.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Nash equilibrium = Hopfield energy minimum (stable attractor)",
@@ -354,7 +354,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: MTheoryIsomorphism.lean, ScaleUniverse.lean)",
+        status: "Lean files cited (MTheoryIsomorphism.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Rule of Law = Field ergodicity (power protects none from accountability)",
@@ -382,7 +382,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Kernel-verified (UniversalSomaticField.lean, ScaleUniverse.lean)",
+        status: "Lean files cited (UniversalSomaticField.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Cross-scale alignment as geometric matching of attractor landscapes",
@@ -410,7 +410,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Verified (Lean 4: LimbicHopfield.lean, MTheoryIsomorphism.lean)",
+        status: "Lean files cited (LimbicHopfield.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Trauma is Topology: obstructions are non-contractible loops (n != 0)",
