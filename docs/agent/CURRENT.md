@@ -46,18 +46,21 @@ State on 2026-10-01:
 
 ## Deferred Work (agreed, not started)
 
-In the author's order after the philosophy book:
+In the author's order (2026-10-01; target: Fractal Thesis to the printer
+before Monday 2026-10-05):
 
-1. Papers: decide whether the path-integral extension (`ISS-035`) changes any
-   paper; published papers change only through new Zenodo versions.
-2. Books: rewrite each generated book's shared introduction in its own style;
-   expand the books that are still slim; prefix every title with
-   "[T]-Theory:".
+1. Fractal Thesis: every book source-owned, padded, and hardened; each paper
+   printed once per print volume (in progress).
+2. Paper omnibus: harden the papers (including the Planck decision below and
+   any `ISS-035` path-integral change); new Zenodo versions only through the
+   Papers track.
 3. Visual app (Soma Machine / Soma Field Operator): bring it up to date with
    the papers, books, and the philosophy book's time axis (Appendix C).
 4. Wave Atlas: use app screenshots at all twenty levels, plus the extra
    systems at each level (for example belief systems).
-5. *Phase Dot*: complete it; it should eventually hold most of the chats.
+
+Not now: completing *Phase Dot* (valuable but not core; the philosophy book
+already treats it as an incomplete source record).
 
 ## Notebook Review (2026-10-01)
 

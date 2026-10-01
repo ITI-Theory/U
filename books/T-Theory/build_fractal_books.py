@@ -389,11 +389,11 @@ def paper_block(path: Path, book_title: str, seen: dict | None) -> str:
     if seen is not None and path.stem == "lean-proofs-appendix":
         return (f"\\newpage\n\n# {title} {{.unnumbered}}\n\n"
                 "*The Lean 4 proof appendix is published separately as dataset D2 "
-                "and is not reprinted in this volume.*")
+                "and is not reprinted in this volume.*\n")
     if seen is not None and key in seen:
         return (f"\\newpage\n\n# {title} {{.unnumbered}}\n\n"
                 f"*This paper is printed in full in* {seen[key]}*. It is read here "
-                f"through the lens of this book; see the surrounding chapters.*")
+                f"through the lens of this book; see the surrounding chapters.*\n")
     if seen is not None:
         seen[key] = f"*{book_title}*"
     text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
@@ -401,7 +401,7 @@ def paper_block(path: Path, book_title: str, seen: dict | None) -> str:
     text = _REF_RE.sub("", text).strip()
     if not text.startswith("# "):
         text = f"# {title}\n\n{text}"
-    return f"\\newpage\n\n{text}"
+    return f"\\newpage\n\n{text}\n"
 
 
 def get_source_book_body(domain: dict, seen: dict | None = None) -> str:
