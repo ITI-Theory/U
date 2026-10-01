@@ -1,0 +1,30 @@
+id: black-hole-ringdown-gw150914
+label: Black-Hole Ringdown / GW150914
+level: compact-object
+paths: [full-atlas]
+summary: "GW150914 is used as a sourced compact-object example: a binary black-hole merger produces a damped ringdown in general relativity, then the atlas reads ringdown only as response grammar."
+steps:
+  - axis: 4d-baseline
+    title: A Damped Strong-Gravity Return
+    body: >-
+      GW150914 was the first direct gravitational-wave detection from a binary black-hole merger. In general relativity the late signal is well approximated by quasi-normal ringdown: the remnant black hole is perturbed, then returns toward a stationary Kerr state through damped modes. A simplified response has the form $h(t)=A e^{-t/\tau}\cos(\omega t+\phi)$, where frequency and damping time are set mainly by remnant mass and spin. This is sourced gravitational-wave physics, not a metaphor.
+      The measured strain is compared with waveform models.
+    equation: 'h(t)=A e^{-t/\tau}\cos(\omega t+\phi)'
+    badge: SOURCED
+    sources: [abbott2016gw, shapiro1983black]
+  - axis: 8d-life
+    title: Response Without Subjectivity
+    body: >-
+      The Soma-Field reading keeps the response shape and discards any mental attribution. A compact object is not treated as alive, aware, or emotionally expressive. The useful comparison is dynamical: a sharp perturbation excites allowed modes, and the observable return carries information about boundary conditions. In biological or behavioural systems, damping and recovery must be measured with their own variables. The shared word is response, not identity of substrate or experience.
+      Each substrate needs its own instruments and separate error model.
+    equation: '\gamma\dot{\mathbf e}=-\nabla H(\mathbf e)+J(t)'
+    badge: INTERPRETIVE
+    sources: [P1, P5, P10]
+  - axis: 11d-mind
+    title: Ringdown as Atlas Grammar
+    body: >-
+      At the programme layer, ringdown becomes a disciplined example for the atlas: source, kernel, boundary condition, decay, and inferred state. The compact-object equation is not promoted into a proof of consciousness or a solution to the black-hole information problem. It is a template for asking whether other levels also expose their hidden state through measurable returns after perturbation. That cross-scale comparison is useful only while each level keeps its own evidence label and substrate.
+      The example therefore constrains language before extending analogy.
+    equation: 'G(t)\propto e^{-t/\tau_{\mathrm{ring}}}\cos(\omega_{\mathrm{QNM}}t)'
+    badge: INTERPRETIVE
+    sources: [P20, P21, P24]

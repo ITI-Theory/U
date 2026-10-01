@@ -1,0 +1,27 @@
+id: action-potential-cable-response
+label: Cellular / The Cable Response
+level: cellular-synaptic
+paths: [full-atlas, micro-to-life]
+summary: The action potential and dendritic cable equation are treated first as ordinary membrane biophysics, then as a cautious model of biological response filtering across scales.
+steps:
+  - axis: 4d-baseline
+    title: A Current Pulse in a Membrane Cable
+    body: >-
+      The grounded example is a dendrite or axon segment receiving a brief current input. Standard cable theory represents the membrane as capacitance, leakage, axial resistance, and source current. A pulse does not travel unchanged: it spreads, decays with distance, charges the membrane, and may trigger voltage-gated channels if threshold is reached. Hodgkin-Huxley dynamics explain the regenerative spike; Rall's cable theory explains how geometry filters subthreshold inputs before they reach the soma.
+    equation: 'c_m\partial_t V=\frac{a}{2R_i}\partial_x^2V-\frac{V}{R_m}+I(x,t)'
+    badge: SOURCED
+    sources: [hodgkin1952quantitative, rall1962theory, P5]
+  - axis: 8d-life
+    title: Biological Filtering of an Impulse
+    body: >-
+      The 8D reading keeps the impulse-response structure and changes the vocabulary carefully. A biological perturbation is filtered by membrane state, synaptic history, metabolism, and local coupling before it becomes an output. This is not a claim that one dendrite feels a stimulus or that voltage is emotion. It is a model of how living tissue can transform a small event into a thresholded response whose timing and amplitude matter for the next scale.
+    equation: '\delta V(t)=\int G_{\mathrm{cable}}(t-t'')I(t'')\,dt'''
+    badge: INTERPRETIVE
+    sources: [P1, P5, P13]
+  - axis: 11d-mind
+    title: Response Grammar without Cellular Mind
+    body: >-
+      At the 11D layer, the cable example becomes a disciplined analogy for projection across scales. A source, kernel, threshold, and output can be compared with other response systems, provided the losses are named. Molecular channel details disappear into conductance; cellular timing becomes a circuit variable; whole-person meaning is not present at the membrane. The example therefore supports a response grammar, not a proof that cells are conscious or that microphysics alone explains experience.
+    equation: '\Phi_{\mathrm{next}}=\mathcal{P}(G_{\mathrm{cable}}\ast I)'
+    badge: INTERPRETIVE
+    sources: [P8, P20, P23]

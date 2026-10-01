@@ -1,0 +1,433 @@
+id: spaceengine-objects
+label: SpaceEngine object classes (coverage checklist)
+purpose: Checklist only; no SpaceEngine content is used.
+fetched_at: '2026-10-01'
+source_urls:
+- https://spaceengine.org/manual/making-addons/creating-a-dso/
+- https://spaceengine.org/manual/making-addons/creating-a-star/
+- https://spaceengine.org/manual/making-addons/creating-a-planet/
+- https://spaceengine.org/manual/making-addons/introduction/
+objects:
+- id: elliptical-galaxy
+  label: Elliptical galaxy
+  group: galaxies
+  level: galactic-disc
+  status: partial
+  classical: Collisionless stellar dynamics in a spheroidal potential; governed by Jeans equations and Poisson gravity.
+  ttheory: 'interpretive: Mass-density impulse enters a Poisson Green response over galactic time; individual stellar orbits
+    are integrated out.'
+  note: Registry has galactic-disc/halo levels, but no morphology-neutral galaxy level.
+- id: lenticular-galaxy
+  label: Lenticular galaxy
+  group: galaxies
+  level: galactic-disc
+  status: covered
+  classical: Disc-plus-bulge stellar dynamics with little gas; governed by Poisson gravity and Jeans equations.
+  ttheory: 'interpretive: Source is mass distribution; disc-bulge response propagates by gravity while stellar microphysics
+    is integrated out.'
+- id: spiral-galaxy
+  label: Spiral galaxy
+  group: galaxies
+  level: galactic-disc
+  status: covered
+  classical: Rotating stellar and gas disc; governed by Poisson gravity, density-wave theory, and hydrodynamics.
+  ttheory: 'interpretive: Density impulses shear through the disc Green kernel over rotation time; stellar interiors are integrated
+    out.'
+- id: barred-spiral-galaxy
+  label: Barred spiral galaxy
+  group: galaxies
+  level: galactic-disc
+  status: covered
+  classical: A non-axisymmetric bar drives resonances and gas flow; governed by Poisson gravity and orbital resonance theory.
+  ttheory: 'interpretive: Bar forcing is the source; galactic propagator returns resonant orbits while individual cloud chemistry
+    is integrated out.'
+- id: irregular-galaxy
+  label: Irregular galaxy
+  group: galaxies
+  level: galactic-disc
+  status: partial
+  classical: Chaotic stellar, gas, and feedback dynamics; governed by Poisson gravity plus turbulent interstellar hydrodynamics.
+  ttheory: 'interpretive: Uneven mass and feedback impulses enter a galactic Green response; small-scale star formation is
+    integrated out.'
+  note: Best mapped to galactic-disc despite absent ordered disc morphology.
+- id: quasar
+  label: Quasar / active galactic nucleus
+  group: galaxies
+  level: compact-object
+  status: partial
+  classical: Accreting supermassive black hole; governed by general relativity, accretion-disc equations, and radiative transfer.
+  ttheory: 'interpretive: Central stress-energy impulse drives compact-object response; host-galaxy detail is integrated out
+    into boundary conditions.'
+  note: Needs an active-galactic-nucleus/accretion example across compact-object and galactic levels.
+- id: diffuse-nebula
+  label: Diffuse nebula
+  group: nebulae
+  level: galactic-disc
+  status: covered
+  classical: Ionised or dusty interstellar gas; governed by radiative transfer, magnetohydrodynamics, and recombination balance.
+  ttheory: 'interpretive: Radiation and shock sources filter through gas-density Green response; stars and grains are integrated
+    out statistically.'
+  note: 'Suggestion: add an interstellar-medium / nebular-plasma level or example.'
+- id: emission-nebula
+  label: Emission nebula
+  group: nebulae
+  level: galactic-disc
+  status: covered
+  classical: Photoionised gas emits recombination lines; governed by Stromgren-sphere balance and radiative transfer.
+  ttheory: 'interpretive: UV source impulse propagates through ionisation response; individual atoms are integrated out into
+    emissivity fields.'
+  note: 'Suggestion: add an H II / photoionised-nebula example under a nebular level.'
+- id: reflection-nebula
+  label: Reflection nebula
+  group: nebulae
+  level: galactic-disc
+  status: covered
+  classical: Dust scatters starlight; governed by Mie/Rayleigh scattering and radiative-transfer equations.
+  ttheory: 'interpretive: Incident light is the source; scattering Green response returns colour and brightness while grains
+    are averaged out.'
+  note: 'Suggestion: add a dust-scattering nebula renderer feature/example.'
+- id: dark-nebula
+  label: Dark nebula
+  group: nebulae
+  level: galactic-disc
+  status: covered
+  classical: Cold dust and molecular gas obscure background light; governed by extinction law and molecular-cloud virial balance.
+  ttheory: 'interpretive: Background radiation is filtered by opacity response; unresolved grains and molecules are integrated
+    out.'
+  note: 'Suggestion: add a molecular-cloud/dust-extinction nebula level or example.'
+- id: planetary-nebula
+  label: Planetary nebula
+  group: nebulae
+  level: stellar
+  status: covered
+  classical: Expanding ionised shell around a white dwarf; governed by stellar-wind interaction and photoionisation equations.
+  ttheory: 'interpretive: White-dwarf radiation and wind impulse drive shell response; stellar interior and shell clumps are
+    integrated out.'
+  note: 'Suggestion: add a post-stellar-shell example connected to compact-object and nebular levels.'
+- id: supernova-remnant
+  label: Supernova remnant
+  group: nebulae
+  level: stellar
+  status: covered
+  classical: Expanding blast wave and shocked ejecta; governed by Sedov-Taylor similarity and magnetohydrodynamics.
+  ttheory: 'interpretive: Explosion impulse propagates as shock Green response; ejecta microphysics is integrated out into
+    shell variables.'
+  note: 'Suggestion: add a shock-remnant level/example spanning stellar and interstellar media.'
+- id: open-cluster
+  label: Open star cluster
+  group: star-clusters
+  level: stellar-cluster
+  status: covered
+  classical: Young loose stellar association; governed by Newtonian N-body gravity, relaxation, and tidal disruption.
+  ttheory: 'interpretive: Stellar masses source a cluster propagator over crossing time; individual stellar surfaces are integrated
+    out.'
+- id: globular-cluster
+  label: Globular star cluster
+  group: star-clusters
+  level: stellar-cluster
+  status: covered
+  classical: Dense old stellar system; governed by N-body gravity, two-body relaxation, and core-collapse dynamics.
+  ttheory: 'interpretive: Many-body gravitational impulse returns phase-space structure; stellar interiors are integrated
+    out into mass and luminosity.'
+- id: galactic-center-cluster
+  label: Galactic-centre star cluster
+  group: star-clusters
+  level: stellar-cluster
+  status: partial
+  classical: Dense nuclear cluster around a central mass; governed by N-body gravity, tides, and relativistic precession.
+  ttheory: 'interpretive: Central mass and stellar impulses share a cluster propagator; accretion microphysics is integrated
+    out.'
+  note: Could use an explicit nuclear-cluster example near compact-object level.
+- id: main-sequence-star
+  label: Main-sequence star (OBAFGKM)
+  group: stars
+  level: stellar
+  status: covered
+  classical: Hydrostatic plasma powered by fusion; governed by stellar-structure equations and radiative transfer.
+  ttheory: 'interpretive: Thermal and gravitational sources excite stellar modes; particle collisions are integrated out into
+    pressure and opacity.'
+- id: giant-supergiant-star
+  label: Giant or supergiant star
+  group: stars
+  level: stellar
+  status: covered
+  classical: Evolved luminous plasma envelope; governed by stellar-structure equations, convection, and mass-loss hydrodynamics.
+  ttheory: 'interpretive: Evolutionary forcing changes the stellar Green response; unresolved convection and winds are integrated
+    into mode spectra.'
+- id: subdwarf-star
+  label: Subdwarf star
+  group: stars
+  level: stellar
+  status: covered
+  classical: Low-luminosity metal-poor or stripped star; governed by stellar-structure equations and spectral classification.
+  ttheory: 'interpretive: Composition and mass are sources; stellar response filters them while nuclear microphysics is integrated
+    out.'
+- id: wolf-rayet-star
+  label: Wolf-Rayet star
+  group: stars
+  level: stellar
+  status: covered
+  classical: Hot stripped massive star with strong winds; governed by radiative transfer and line-driven wind equations.
+  ttheory: 'interpretive: Radiation pressure is the source; wind response carries mass-loss history while line microphysics
+    is integrated out.'
+- id: carbon-zirconium-star
+  label: Carbon / zirconium star
+  group: stars
+  level: stellar
+  status: covered
+  classical: Cool chemically enriched giant; governed by stellar evolution, dredge-up, molecular opacity, and radiative transfer.
+  ttheory: 'interpretive: Composition history sources spectral response; nuclear-burning detail is integrated out into abundances
+    and opacity.'
+- id: brown-dwarf
+  label: Brown dwarf
+  group: stars
+  level: stellar
+  status: partial
+  classical: Substellar object without sustained hydrogen fusion; governed by cooling tracks, degeneracy pressure, and atmospheric
+    chemistry.
+  ttheory: 'interpretive: Thermal history sources a weak stellar-like response; fusion networks are integrated out or absent.'
+  note: Best current fit is stellar, but a substellar-body example would improve coverage.
+- id: white-dwarf
+  label: White dwarf
+  group: remnants
+  level: compact-object
+  status: covered
+  classical: Electron-degenerate stellar remnant; governed by Chandrasekhar mass relation and cooling equations.
+  ttheory: 'interpretive: Degenerate boundary stores response; progenitor detail is integrated out into mass, composition,
+    and cooling time.'
+- id: neutron-star
+  label: Neutron star
+  group: remnants
+  level: compact-object
+  status: covered
+  classical: Nuclear-density remnant; governed by Tolman-Oppenheimer-Volkoff structure and magnetohydrodynamics.
+  ttheory: 'interpretive: Strong-gravity impulse returns compact-object modes; nuclear microphysics is integrated out into
+    equation-of-state parameters.'
+- id: pulsar
+  label: Pulsar
+  group: remnants
+  level: compact-object
+  status: covered
+  classical: Rotating magnetised neutron star; governed by dipole spin-down, plasma magnetosphere, and timing equations.
+  ttheory: 'interpretive: Rotational impulse clocks a compact propagator; magnetospheric detail is integrated out into timing
+    residuals.'
+- id: black-hole
+  label: Black hole
+  group: remnants
+  level: compact-object
+  status: covered
+  classical: Strong-gravity object with horizon; governed by Kerr geometry, geodesics, and black-hole perturbation theory.
+  ttheory: 'interpretive: Stress-energy perturbation returns ringdown Green response; interior detail is integrated out into
+    mass and spin.'
+- id: wormhole
+  label: Wormhole
+  group: speculative
+  level: compact-object
+  status: covered
+  classical: Speculative spacetime tunnel solution; governed by Einstein field equations with exotic energy-condition issues.
+  ttheory: 'interpretive: Treat only as a renderer/speculative geometry; no programme result supplies a stable propagator
+    level.'
+  note: Theoretical solution only; no observational evidence. Mentioned under compact-object.
+- id: stellar-corona
+  label: Stellar corona
+  group: stellar-features
+  level: stellar
+  status: covered
+  classical: Hot magnetised outer plasma; governed by magnetohydrodynamics, reconnection, and radiative-loss equations.
+  ttheory: 'interpretive: Magnetic impulse propagates through stellar boundary response; particle kinetics are integrated
+    out into MHD variables.'
+- id: accretion-disc
+  label: Accretion disc
+  group: compact-object-features
+  level: compact-object
+  status: covered
+  classical: Rotating inflow around a compact object; governed by Shakura-Sunyaev alpha-disc equations and relativistic hydrodynamics.
+  ttheory: 'interpretive: Mass inflow is source; viscous Green response converts angular momentum while turbulence is integrated
+    out.'
+  note: 'Suggestion: add an accretion-flow level or compact-object renderer example.'
+- id: relativistic-jet
+  label: Relativistic jet
+  group: compact-object-features
+  level: compact-object
+  status: covered
+  classical: Collimated plasma outflow; governed by relativistic magnetohydrodynamics and Blandford-Znajek/Blandford-Payne
+    mechanisms.
+  ttheory: 'interpretive: Spin and magnetic flux source a directed response; disc turbulence is integrated out into jet power.'
+  note: 'Suggestion: add a jet/outflow renderer feature tied to accretion and compact-object levels.'
+- id: planetary-system
+  label: Planetary system
+  group: orbital-systems
+  level: orbital-system
+  status: covered
+  classical: Bodies orbit a shared mass; governed by Newtonian N-body gravity and perturbation theory.
+  ttheory: 'interpretive: Mass impulses propagate through inverse-distance Green response; surfaces and atmospheres are integrated
+    out.'
+- id: barycenter
+  label: Barycenter / binary-system centre
+  group: orbital-systems
+  level: orbital-system
+  status: covered
+  classical: Common centre of mass for orbiting bodies; governed by centre-of-mass dynamics and Keplerian elements.
+  ttheory: 'interpretive: Effective source is total mass distribution; internal bodies are integrated out into orbital boundary
+    conditions.'
+- id: terrestrial-planet
+  label: Terrestrial planet
+  group: planets
+  level: planetary
+  status: covered
+  classical: Rocky differentiated body; governed by geophysics, hydrostatic equilibrium, heat transport, and Navier-Stokes
+    flow.
+  ttheory: 'interpretive: Interior and surface impulses filter through planetary response; mineral microphysics is integrated
+    out into rheology.'
+- id: ocean-world
+  label: Ocean world
+  group: planets
+  level: planetary
+  status: covered
+  classical: Planet or moon with global liquid layer; governed by geophysical fluid dynamics and thermodynamic phase balance.
+  ttheory: 'interpretive: Heat and tidal sources drive ocean response; molecular water dynamics are integrated out into circulation
+    fields.'
+- id: desert-ice-lava-world
+  label: Desert, ice, or lava world
+  group: planets
+  level: planetary
+  status: covered
+  classical: Surface state set by energy balance, volatile inventory, rheology, and volcanism; governed by thermodynamics
+    and geophysics.
+  ttheory: 'interpretive: Boundary forcing selects planetary response; local mineral and melt details are integrated out.'
+- id: gas-giant
+  label: Gas giant
+  group: planets
+  level: planetary
+  status: covered
+  classical: Massive fluid planet; governed by hydrostatic equilibrium, convection, rotation, and atmospheric Navier-Stokes
+    equations.
+  ttheory: 'interpretive: Heat and rotation source banded response; cloud microphysics is integrated out into flow variables.'
+- id: ice-giant
+  label: Ice giant
+  group: planets
+  level: planetary
+  status: covered
+  classical: Volatile-rich giant planet; governed by interior convection, magnetic dynamo theory, and atmospheric dynamics.
+  ttheory: 'interpretive: Interior heat and magnetic sources filter through planetary Green response; chemistry is integrated
+    out.'
+- id: dwarf-planet
+  label: Dwarf planet
+  group: planets
+  level: planetary
+  status: partial
+  classical: Small rounded body in solar orbit; governed by self-gravity, impact history, volatile transport, and orbital
+    dynamics.
+  ttheory: 'interpretive: Small-body forcing enters planetary response weakly; unresolved regolith and ices are integrated
+    out.'
+  note: Planetary level fits, but a minor-planet example would clarify scale.
+- id: moon
+  label: Moon
+  group: moons
+  level: planetary
+  status: covered
+  classical: Natural satellite shaped by tides, impacts, geology, and orbit; governed by N-body and geophysical equations.
+  ttheory: 'interpretive: Tidal and impact impulses filter through satellite response; internal heterogeneity is integrated
+    out.'
+- id: dwarf-moon
+  label: Dwarf moon / irregular moon
+  group: moons
+  level: orbital-system
+  status: partial
+  classical: Small irregular satellite; governed by orbital perturbations, tidal torques, impacts, and rubble mechanics.
+  ttheory: 'interpretive: Orbital impulse dominates the response; surface detail is integrated out into mass and shape.'
+  note: Needs a minor-body example bridging orbital-system and planetary levels.
+- id: asteroid
+  label: Asteroid
+  group: small-bodies
+  level: orbital-system
+  status: partial
+  classical: Rocky minor body; governed by Keplerian perturbations, collisions, Yarkovsky drift, and rubble-pile mechanics.
+  ttheory: 'interpretive: Solar and collision impulses enter orbital response; regolith and shape are integrated out.'
+  note: Orbital level covers trajectory, not composition or rubble physics.
+- id: comet
+  label: Comet
+  group: small-bodies
+  level: orbital-system
+  status: covered
+  classical: Icy minor body with sublimation; governed by orbital dynamics, heat balance, and gas-dust outflow equations.
+  ttheory: 'interpretive: Solar heating is source; outgassing response changes orbit and tail while nucleus microstructure
+    is integrated out.'
+  note: 'Suggestion: add a comet/outgassing example or small-icy-body level.'
+- id: asteroid-belt
+  label: Asteroid belt / debris belt
+  group: small-bodies
+  level: orbital-system
+  status: covered
+  classical: Population of minor bodies in resonant zones; governed by N-body perturbations and collisional cascade equations.
+  ttheory: 'interpretive: Resonance and collision impulses propagate statistically; individual bodies are integrated out into
+    distribution functions.'
+  note: 'Suggestion: add a debris-population example under orbital-system or a new debris-disc level.'
+- id: planetary-rings
+  label: Planetary rings
+  group: planetary-features
+  level: orbital-system
+  status: covered
+  classical: Thin particulate disc shaped by tides, collisions, resonances, and self-gravity; governed by N-body and kinetic
+    theory.
+  ttheory: 'interpretive: Tidal source drives ring response; grains are integrated out into optical depth and density waves.'
+  note: 'Suggestion: add ring renderer feature/example, likely under orbital-system.'
+- id: planetary-atmosphere
+  label: Planetary atmosphere
+  group: planetary-features
+  level: planetary
+  status: covered
+  classical: Gaseous envelope; governed by radiative transfer, hydrostatic balance, chemistry, and Navier-Stokes equations.
+  ttheory: 'interpretive: Stellar and surface sources filter through atmospheric response; molecules are integrated out into
+    state variables.'
+- id: cloud-layer
+  label: Planetary cloud layer
+  group: planetary-features
+  level: planetary
+  status: covered
+  classical: Condensed aerosol layer moved by winds; governed by microphysics, radiation, and atmospheric dynamics.
+  ttheory: 'interpretive: Moisture and thermal impulses enter atmospheric propagator; droplets are integrated out into opacity
+    and coverage.'
+- id: aurora
+  label: Aurora
+  group: planetary-features
+  level: planetary
+  status: covered
+  classical: Magnetospheric particles excite upper atmosphere; governed by Lorentz force, plasma physics, and emission-line
+    radiation.
+  ttheory: 'interpretive: Solar-wind impulse couples to magnetic response; particle cascades are integrated out into luminous
+    bands.'
+- id: ocean-layer
+  label: Ocean layer
+  group: planetary-features
+  level: planetary
+  status: covered
+  classical: Liquid surface or subsurface layer; governed by geophysical fluid dynamics, tides, and heat transport.
+  ttheory: 'interpretive: Heat, wind, and tide sources propagate through ocean response; molecular turbulence is integrated
+    out.'
+- id: surface-terrain
+  label: Surface terrain
+  group: planetary-features
+  level: planetary
+  status: covered
+  classical: Solid surface relief shaped by impacts, tectonics, erosion, and volcanism; governed by geomorphology and mechanics.
+  ttheory: 'interpretive: Impact and interior impulses leave boundary response; mineral grains are integrated out into terrain
+    fields.'
+- id: comet-tail
+  label: Comet tail
+  group: small-body-features
+  level: orbital-system
+  status: covered
+  classical: Dust and ion outflow swept by radiation pressure and solar wind; governed by plasma and drag equations.
+  ttheory: 'interpretive: Solar impulse drives an outflow propagator; grains and ions are integrated out into tail brightness.'
+  note: 'Suggestion: add comet-tail renderer feature with solar-wind response.'
+- id: procedural-particle-effect
+  label: Procedural particle effect
+  group: rendering-effects
+  level: null
+  status: out-of-scope
+  classical: Renderer approximates unresolved luminous matter; governed by particle/sprite sampling, alpha blending, and radiative-transfer
+    approximations.
+  ttheory: 'interpretive: Display impulse is a visual proxy only; unresolved objects are integrated out by renderer sampling,
+    not theory.'
+  note: Renderer technique, not an astrophysical object class.

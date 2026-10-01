@@ -1,0 +1,27 @@
+id: hydrogen-atom-response
+label: Hydrogen Atom as Response
+level: atomic
+paths: [full-atlas]
+summary: Hydrogen is used as the clean atomic case where a Coulomb source produces quantised response, then as a bounded analogy for response landscapes at higher programme layers.
+steps:
+  - axis: 4d-baseline
+    title: Coulomb Source, Quantised Spectrum
+    body: >-
+      In ordinary physics, the hydrogen atom is one proton and one electron governed to first approximation by the Schrödinger equation with a Coulomb potential. The proton supplies the charge source; the electron state is a wavefunction whose allowed bound energies produce the Rydberg spectrum. The orbital is not a path around the nucleus, but a probability amplitude whose squared magnitude gives a measurement distribution. Spectroscopy checks the response with high precision, and later corrections add spin, relativity, and quantum electrodynamics.
+    equation: 'H\psi=\left[-\frac{\hbar^2}{2\mu}\nabla^2-\frac{e^2}{4\pi\epsilon_0 r}\right]\psi=E\psi'
+    badge: SOURCED
+    sources: [bohr1913, schrodinger1926, griffiths2018qm]
+  - axis: 8d-life
+    title: Atomic Response as a Limited Analogy
+    body: >-
+      In the Soma-Field reading, hydrogen is kept as a disciplined analogy for response grammar, not as a living unit. A local source and boundary condition select a lawful response; later biological examples can also be described by sources, kernels, and relaxation, but their variables are chemical, cellular, or physiological. The analogy is useful only when the substrate is restated at each level. It does not imply that atoms feel or that atomic spectra are emotions.
+    equation: '\gamma\dot{\mathbf e}=-\nabla H(\mathbf e)+J(t)'
+    badge: INTERPRETIVE
+    sources: [P1, P5, P10]
+  - axis: 11d-mind
+    title: Kernel Grammar, Not Physical Identity
+    body: >-
+      At the 11D programme layer, the hydrogen example becomes a minimal kernel grammar: a source, a boundary, an allowed response, and a measured projection. The comparison is methodological. It asks whether very different domains can be represented by declared response maps without erasing their physics. Hydrogen remains an atom; a somatic or cognitive state remains a higher-level system. Any claim that one formal architecture links them must specify the mapping and carry an interpretive or open-hypothesis label.
+    equation: 'G_C(r)=\frac{1}{4\pi r}'
+    badge: INTERPRETIVE
+    sources: [P20, P21, P24]

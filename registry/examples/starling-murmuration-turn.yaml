@@ -1,0 +1,27 @@
+id: starling-murmuration-turn
+label: Starling Murmuration / Turning Wave
+level: animal-swarm
+paths: [full-atlas, bird-flock]
+summary: A starling turn wave is first treated as measured collective motion, then read as a response grammar for many bounded agents without making the flock into a subject.
+steps:
+  - axis: 4d-baseline
+    title: A Measured Collective Turn
+    body: >-
+      In ordinary science, a murmuration turn is a change in heading propagating through many birds. The baseline data are positions, velocities, neighbour relations, and timing reconstructed from cameras or other tracking systems, with uncertainty from occlusion, calibration, lighting, weather, and sampling. Active-matter models describe the coarse velocity field, while individual-based models keep birds as discrete agents. The key scientific point is that a wave-like group response can arise from local updates without a central commander or a single group mind.
+    equation: '\partial_t\mathbf v+\lambda(\mathbf v\cdot\nabla)\mathbf v=-\nabla P+D_T\nabla^2\mathbf v'
+    badge: SOURCED
+    sources: [vicsek1995novel, toner1995long, ballerini2008interaction, bialek2012statistical, cavagna2010scale]
+  - axis: 8d-life
+    title: Local Response, Group-Scale Propagation
+    body: >-
+      The Soma-Field reading keeps the response structure and changes the domain. A local cue, predator motion, or neighbour turn is treated as forcing; the flock's measured velocity field is the response display. This does not give the flock a human affective state or clinical meaning. It says that bounded agents can produce a propagating pattern when their local kernels couple. The useful test is whether the response model predicts turn speed, attenuation, or boundary deformation better than a static alignment snapshot.
+    equation: 'G_{\mathrm{swarm}}(\mathbf x,t;\mathbf x_0,t_0)'
+    badge: INTERPRETIVE
+    sources: [P19, P20]
+  - axis: 11d-mind
+    title: Projection Without a Flock Subject
+    body: >-
+      At the programme layer, the murmuration becomes a clean example of projection discipline. The same abstract grammar--source, kernel, response, boundary--can be compared with dyads or organismal fields, but the variables are retyped at each step and evidence labels must change with them. Birds remain birds; the flock field is a coarse projection over many bodies; the roost is a later density pattern. The example therefore supports cross-scale notation only under declared assumptions, not an identity claim between mind, animal group, and landscape.
+    equation: '\Pi_{\mathrm{flock}}\colon \{\mathbf x_i,\mathbf v_i\}_{i=1}^N\mapsto(\rho_b,\mathbf v_b)'
+    badge: INTERPRETIVE
+    sources: [P19, P24]

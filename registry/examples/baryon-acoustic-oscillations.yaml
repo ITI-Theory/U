@@ -1,0 +1,27 @@
+id: baryon-acoustic-oscillations
+label: Baryon Acoustic Oscillations / Frozen Sound Wave
+level: cosmic-web
+paths: [full-atlas, galactic-to-cosmic]
+summary: Baryon acoustic oscillations are treated first as a standard cosmological ruler, then as a bounded response-grammar example for frozen early-universe waves.
+steps:
+  - axis: 4d-baseline
+    title: A Frozen Sound Horizon
+    body: >-
+      Before recombination, photons and baryons formed a hot plasma in which pressure waves travelled outward from overdensities. When photons decoupled, the baryon wave stalled at the sound horizon while dark matter continued to cluster gravitationally. The result is a small preferred separation in the later galaxy correlation function, used as a standard ruler for cosmic expansion. This is ordinary cosmology: plasma physics, gravity, recombination, and statistics, not an analogy added after the fact.
+    equation: 'r_s(z_d)=\int_{z_d}^{\infty}\frac{c_s(z)}{H(z)}\,dz'
+    badge: SOURCED
+    sources: [eisenstein2005bao, planck2018cosmology]
+  - axis: 8d-life
+    title: Response without Organism
+    body: >-
+      The 8D programme reading keeps the response grammar and drops any biological claim. A pulse propagates through a medium, freezes when the medium changes state, and later appears as a statistical bias in structure. That resembles response memory, but it is not life, sensation, or regulation. The safe use is formal: a forcing history leaves a measurable kernel after coarse-graining. Any comparison to living response must state the variables and losses under translation.
+    equation: '\delta\rho_b(\mathbf{x})=\int G_{\mathrm{BAO}}(\mathbf{x}-\mathbf{x}'')\,\delta_i(\mathbf{x}'')\,d^3x'''
+    badge: INTERPRETIVE
+    sources: [P20, P21]
+  - axis: 11d-mind
+    title: A Cosmic Ruler, Not Cosmic Mind
+    body: >-
+      At the 11D layer, BAO is a disciplined example of compactification: many early plasma variables are projected into one late-time ruler. The programme may compare this with other domains where history is compressed into a present response coordinate, but it must not claim that the universe remembers as a subject. The useful question is whether the mapping preserves equations, observables, and failure conditions after projection.
+    equation: '\mathcal{P}_{\mathrm{late}}=\Pi_{\mathrm{survey}}\!\left[G_{\mathrm{BAO}}\ast\delta_i\right]'
+    badge: INTERPRETIVE
+    sources: [P3, P20, P21]

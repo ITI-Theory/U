@@ -1,0 +1,30 @@
+id: earth-free-oscillations
+label: Earth Free Oscillations After a Great Earthquake
+level: planetary
+paths: [full-atlas, geological-to-stellar]
+summary: A great earthquake excites Earth's normal modes; the example keeps the seismology as the sourced baseline, then reads the ringing as a cautious model of layered response.
+steps:
+  - axis: 4d-baseline
+    title: A Planet Rings in Normal Modes
+    body: >-
+      A very large earthquake can excite free oscillations of the whole Earth. In ordinary seismology the planet is treated as an elastic, self-gravitating body with normal modes; each mode has a frequency, damping time, and spatial pattern. The famous spheroidal mode 0S2 has a period of roughly fifty-four minutes. The equation is an eigenvalue problem: density and elastic structure determine which modes can ring and how the seismometer records them.
+      Observed spectra after great earthquakes constrain mantle and core structure independently of any interpretive overlay.
+    equation: '\mathcal L\mathbf u=\omega^2\rho\,\mathbf u'
+    badge: SOURCED
+    sources: [aki2002quantitative, kanamori1977energy, masters2000earth]
+  - axis: 8d-life
+    title: Layered Response Without Sentience
+    body: >-
+      The Soma-Field reading keeps only the response grammar. A sudden impulse enters a layered body; the observed motion depends on structure, damping, coupling, and boundary conditions. This is a useful analogy for delayed regulation, but it is not a claim that Earth has feelings or that a human body is a planet. The relevant comparison is formal: impulse in, filtered ringing out, with the medium's prior structure deciding the response.
+      Each proposed comparison must name its variables before the analogy is used.
+    equation: 'G(\omega)=(\mathcal L-\omega^2\rho+i\omega\Gamma)^{-1}'
+    badge: INTERPRETIVE
+    sources: [P16, P20]
+  - axis: 11d-mind
+    title: Normal Modes as Atlas Grammar
+    body: >-
+      At the programme layer, the example becomes a disciplined way to compare response across scales. A normal-mode spectrum shows that a complex object can answer an impulse through a small set of measurable patterns after many details are integrated out. That supports the Atlas grammar only under declared mappings. It does not prove universal mind, planetary consciousness, or clinical mechanism; it marks which statements are sourced seismology and which are interpretive projection.
+      The useful output is an evidence-labelled distinction between measured modes and programme metaphors.
+    equation: '\Phi_{\mathrm{response}}=\sum_n a_n e^{-\gamma_n t}\psi_n'
+    badge: INTERPRETIVE
+    sources: [P20, P21, P24]

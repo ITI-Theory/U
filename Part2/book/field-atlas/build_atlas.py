@@ -58,7 +58,65 @@ def load_edges() -> dict[tuple[str, str], tuple[dict, str]]:
     return edges
 
 
-def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing: list[str]) -> str:
+def load_models_and_paths() -> tuple[list[dict], list[dict]]:
+    models = [yaml.safe_load(p.read_text(encoding="utf-8")) for p in sorted(REGISTRY.glob("models/*.yaml"))]
+    paths = [yaml.safe_load(p.read_text(encoding="utf-8")) for p in sorted(REGISTRY.glob("paths/*/path.yaml"))]
+    return models, paths
+
+
+def model_levels(model: dict) -> list[tuple[str, str, list[str]]]:
+    """(coordinate, label, level ids) rows; canonical-5 groups several levels per coordinate."""
+    rows = []
+    for entry in model.get("levels", []):
+        ids = entry.get("levels") or [entry.get("level")]
+        rows.append((str(entry.get("coordinate")), entry.get("label", ""), ids))
+    return rows
+
+
+def level_link(level_id: str, labels: dict[str, str]) -> str:
+    return f"[{labels.get(level_id, level_id)}](#level-{level_id})"
+
+
+def models_part(models: list[dict], labels: dict[str, str]) -> str:
+    out = ["# Models {#part-models}", "",
+           "A model is a named way of reading the ladder: its own coordinates over the shared levels. "
+           "The same level can carry different coordinates in different models; the level itself does not change.", ""]
+    for model in models:
+        out += [f"## {model['label']} {{#model-{model['id']}}}", "", model.get("description", ""), "",
+                "| Coordinate | Name | Levels |", "|:--|:--|:--|"]
+        for coordinate, label, ids in model_levels(model):
+            out.append(f"| {cell(coordinate)} | {cell(label)} | {', '.join(level_link(i, labels) for i in ids if i)} |")
+        out += ["", f"Paths in this model: {', '.join(f'[{p}](#path-{p})' for p in model.get('paths', [])) or 'none'}.", ""]
+    return "\n".join(out)
+
+
+def paths_part(paths: list[dict], labels: dict[str, str], edges, examples, missing: list[str]) -> str:
+    out = ["# Paths {#part-paths}", "",
+           "A path is an ordered route through the levels, one transition per step. Paths are how the app "
+           "moves between levels, and how a single system (a body, a flock, a city, a planet) is followed up the ladder.", ""]
+    for path in paths:
+        purpose = path.get("purpose", "")
+        if not purpose or purpose.startswith("Migrated"):
+            missing.append(f"reader-facing purpose for path {path['id']}")
+            purpose = ""
+        out += [f"## {path['label']} {{#path-{path['id']}}}", "", purpose, ""]
+        for index, level_id in enumerate(path["nodes"], start=1):
+            out.append(f"{index}. {level_link(level_id, labels)}")
+        out.append("")
+        steps = list(zip(path["nodes"], path["nodes"][1:]))
+        if steps:
+            out += ["| Step | Operation | Kernel | Badge |", "|:--|:--|:--|:--|"]
+            for source, target in steps:
+                edge = edges.get((source, target), ({}, ""))[0]
+                out.append(f"| {labels.get(source, source)} to {labels.get(target, target)} | {cell(edge.get('label', '-'))} | {cell(edge.get('kernel', '-'))} | {edge.get('claim', '-')} |")
+            out.append("")
+        path_examples = [e for group in examples.values() for e in group if path["id"] in e.get("paths", [])]
+        if path_examples:
+            out += ["Worked examples on this path: " + "; ".join(f"{e['label']} (at {level_link(e['level'], labels)})" for e in path_examples) + ".", ""]
+    return "\n".join(out)
+
+
+def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing: list[str], paths: list[dict] | None = None) -> str:
     data = yaml.safe_load((REGISTRY / "levels" / f"{level_id}.yaml").read_text(encoding="utf-8"))
     entry_path = REGISTRY / "levels" / f"{level_id}.md"
     if not entry_path.exists():
@@ -77,6 +135,7 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
         f"| Field | {cell(data.get('field', ''))} |",
         f"| Equation | ${data.get('equation', '')}$ |",
         f"| Badges | physical {claims.get('physical', '-')}, field {claims.get('field', '-')}, mind {claims.get('mind', '-')} |",
+        f"| Paths | {', '.join(f'[{p['label']}](#path-{p['id']})' for p in (paths or []) if level_id in p['nodes']) or 'none yet'} |",
         "",
     ]
     plates = [ATLAS / "figures" / "app" / "plates" / f"{level_id}--lens-{lens}.png" for lens in ("off", "on")]
@@ -121,10 +180,12 @@ def assemble() -> tuple[str, list[str]]:
         example = yaml.safe_load(path.read_text(encoding="utf-8"))
         examples.setdefault(example["level"], []).append(example)
     missing: list[str] = []
+    models, paths = load_models_and_paths()
     listed = [level for sector in atlas["sectors"] for level in sector["levels"]]
     unlisted = sorted(set(labels) - set(listed))
     if unlisted:
-        missing.append(f"levels not in atlas.yaml: {', '.join(unlisted)}")
+        # Every registry level must be in the book; a new level folder makes the build fail until placed.
+        raise SystemExit(f"levels in the registry but not in atlas.yaml: {', '.join(unlisted)}")
 
     parts = [
         "---",
@@ -149,7 +210,12 @@ def assemble() -> tuple[str, list[str]]:
         front, body = split_front_matter((ATLAS / sector["file"]).read_text(encoding="utf-8"))
         parts += [f"# Sector {front.get('sector', number)}: {front.get('title', '')}", "", body, ""]
         for level_id in sector["levels"]:
-            parts += [level_spread(level_id, labels, edges, examples, missing), ""]
+            parts += [level_spread(level_id, labels, edges, examples, missing, paths), ""]
+    parts += [models_part(models, labels), "", paths_part(paths, labels, edges, examples, missing), ""]
+    on_paths = {level for path in paths for level in path["nodes"]}
+    for level_id in listed:
+        if level_id not in on_paths:
+            missing.append(f"level {level_id} is on no path")
     parts += ["\\backmatter", ""]
     for name in atlas["back"]:
         parts += [(ATLAS / name).read_text(encoding="utf-8").strip(), ""]
