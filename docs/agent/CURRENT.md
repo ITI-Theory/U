@@ -50,8 +50,27 @@ State on 2026-10-01:
 - Full candidate build passes (2026-10-01 03:30): omnibus 1,296 pages,
   Volume I 680, Volume II 655, all fifteen standalone books, zero citation
   warnings.
-- Next: visual QA of the PDFs, paper omnibus rebuild, NotebookLM staging
-  (`make uat-stage-ttheory`), Lulu preview (author), then the app and Atlas.
+- Next: visual QA of the PDFs, NotebookLM check, Lulu preview (author), then
+  the app and Atlas.
+
+## Release Hand-off (2026-10-01, 04:10)
+
+- Candidates built in U: `paper/bld/omnibus-a4.pdf` (427 pages),
+  `books/T-Theory/bld/ttheory-vol1.pdf` (680), `ttheory-vol2.pdf` (655),
+  `ttheory-omnibus.pdf` (1,296), all fifteen domain books and booklets.
+- Staged for NotebookLM UAT with SHA-256 manifests:
+  `uat/staging/papers/` (15 artefacts) and `uat/staging/ttheory/` (13).
+- Lulu (author): preview Volumes I and II and the paper omnibus, then order.
+  Promote to Dist with `make lulu` (or the copy rule) after acceptance.
+- Zenodo new versions needed (content changed 2026-10-01): D1, D2, P1-P20
+  (P11 and P12 were already `needs-new-version`). P4's standalone title is now
+  "The Soma-Field Research Programme: Method, Model, and Computational Test"
+  (the registry title "A Synthesis" is unchanged). First uploads: P21
+  (pending-review), P22, P23, P24 (pending-upload).
+- Build environment notes: `paper/mk/common.mk` hard-codes `PYTHON`; run
+  `make PYTHON=python ...` here. `omnibus-a4` needs Perl for latexmk (Git for
+  Windows: `C:\Program Files\Git\usr\bin` on PATH). `make -B` fails on the
+  `bld` directory rule; delete targets instead.
 
 ## Book Architecture
 

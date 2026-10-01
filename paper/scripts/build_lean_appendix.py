@@ -461,7 +461,7 @@ def main() -> None:
         print(f"  + {filename}  ({len(code.splitlines())} lines)")
 
     output = "".join(sections)
-    OUT_FILE.write_text(output, encoding="utf-8")
+    OUT_FILE.write_text(output, encoding="utf-8", newline="\n")
 
     lines   = output.count("\n")
     size_kb = OUT_FILE.stat().st_size / 1024
