@@ -1,0 +1,32 @@
+id: dyad
+label: Dyad
+sector: collective
+length_scale: 10^1 m
+substrate: two coupled organisms
+field: interpersonal propagator and entrainment
+equation: '|omega_A - omega_B| < Delta omega_lock(kappa)'
+explain:
+  cookie:
+    text: 'Draft: Dyad is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Dyad: interpersonal propagator and entrainment over two coupled organisms.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=DYADIC sigma 9; atlas=route-only; operator=organism-couple-dyad.'
+atlas_rows:
+  physical: two coupled organisms
+  field: interpersonal propagator and entrainment
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: '|omega_A - omega_B| < Delta omega_lock(kappa)'
+claims:
+  physical: FORMAL
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P3
+- P19
+renderer:
+  id: dyad
+media: []
+former_labels:
+  app: DYADIC sigma 9
+  wave_atlas: route-only
+  operator_contract: organism-couple-dyad

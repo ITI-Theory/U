@@ -1,0 +1,33 @@
+id: galactic-halo
+label: Galactic Halo
+sector: cosmological
+length_scale: 10^22 m
+substrate: galactic halo mass distribution
+field: Poisson-Vlasov density wave
+equation: nabla^2 Phi_16 = 4 pi G rho_halo
+explain:
+  cookie:
+    text: 'Draft: Galactic Halo is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Galactic Halo: Poisson-Vlasov density wave over galactic halo mass distribution.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=folded into GALACTIC; atlas=not separately
+    plated; operator=16 / GALACTIC HALO.'
+atlas_rows:
+  physical: galactic halo mass distribution
+  field: Poisson-Vlasov density wave
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: nabla^2 Phi_16 = 4 pi G rho_halo
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P20
+- P22
+renderer:
+  id: galactic-halo
+media: []
+former_labels:
+  app: folded into GALACTIC
+  wave_atlas: not separately plated
+  operator_contract: 16 / GALACTIC HALO

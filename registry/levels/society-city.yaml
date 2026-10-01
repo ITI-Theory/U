@@ -1,0 +1,35 @@
+id: society-city
+label: Society / City
+sector: collective
+length_scale: 10^3 m
+substrate: urban infrastructure and social network
+field: social interaction and diffusion kernel
+equation: partial_t u = D nabla^2 u + f(u)
+explain:
+  cookie:
+    text: 'Draft: Society / City is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Society / City: social interaction and diffusion kernel over urban infrastructure and social network.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=COMMUNITY / CITY sigma 11; atlas=Scale
+    9 Society / City; operator=09 / SOCIETY / CITY.'
+atlas_rows:
+  physical: urban infrastructure and social network
+  field: social interaction and diffusion kernel
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: partial_t u = D nabla^2 u + f(u)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P16
+- P19
+renderer:
+  id: community-city
+media:
+- path: Part2/book/wave-atlas/figures/city-night-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: COMMUNITY / CITY sigma 11
+  wave_atlas: Scale 9 Society / City
+  operator_contract: 09 / SOCIETY / CITY

@@ -1,0 +1,11 @@
+id: bird-flock
+label: Bird / Flock / Colony
+nodes:
+- bird
+- flock
+- colony-roost
+edges:
+- bird-flock
+- flock-colony
+purpose: 'Migrated existing route: Bird / Flock / Colony.'
+source: apps/instrument/visuals/soma-field-operator/zoom-implementations.js

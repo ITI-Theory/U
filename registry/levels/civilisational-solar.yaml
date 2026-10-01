@@ -1,0 +1,34 @@
+id: civilisational-solar
+label: Civilisational / Solar
+sector: systemic
+length_scale: 10^6 to 10^11 m
+substrate: large social systems or orbital systems
+field: attractor landscape or gravitational/orbital response
+equation: nabla^2 Phi = 4 pi G rho
+explain:
+  cookie:
+    text: 'Draft: Civilisational / Solar is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Civilisational / Solar: attractor landscape or gravitational/orbital response over large social systems or orbital
+    systems.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=CIVILISATIONAL / SOLAR sigma 13; atlas=overlaps
+    Wave Scale 13-15; operator=app systemic sigma 13.'
+atlas_rows:
+  physical: large social systems or orbital systems
+  field: attractor landscape or gravitational/orbital response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: nabla^2 Phi = 4 pi G rho
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P16
+- P20
+renderer:
+  id: orbital-system
+media: []
+former_labels:
+  app: CIVILISATIONAL / SOLAR sigma 13
+  wave_atlas: overlaps Wave Scale 13-15
+  operator_contract: app systemic sigma 13

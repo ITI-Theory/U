@@ -1,0 +1,23 @@
+id: micro-to-life
+label: Micro to Organism
+nodes:
+- quantum-foam
+- string-boundary
+- nuclear
+- atomic
+- molecular
+- cellular-synaptic
+- local-circuit
+- whole-brain-cemi
+- human-vertebrate
+edges:
+- foam-string
+- string-nuclear
+- nuclear-atomic
+- atomic-molecular
+- molecular-cellular
+- cellular-circuit
+- circuit-brain
+- brain-organism
+purpose: 'Migrated existing route: Micro to Organism.'
+source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js

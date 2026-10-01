@@ -1,0 +1,33 @@
+id: local-circuit
+label: Local Circuit
+sector: network
+length_scale: 10^-3 to 10^-1 m
+substrate: axon, local circuit, and cortical column
+field: propagating neural current
+equation: (v_s^-2 d_t^2 - nabla^2 + k^2)Phi = -J
+explain:
+  cookie:
+    text: 'Draft: Local Circuit is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Local Circuit: propagating neural current over axon, local circuit, and cortical column.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=LOCAL CIRCUIT sigma 6; atlas=app-only
+    refinement; operator=zoom 6 Local circuit.'
+atlas_rows:
+  physical: axon, local circuit, and cortical column
+  field: propagating neural current
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: (v_s^-2 d_t^2 - nabla^2 + k^2)Phi = -J
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P5
+- P13
+renderer:
+  id: local-circuit
+media: []
+former_labels:
+  app: LOCAL CIRCUIT sigma 6
+  wave_atlas: app-only refinement
+  operator_contract: zoom 6 Local circuit

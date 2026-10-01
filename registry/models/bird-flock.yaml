@@ -1,0 +1,12 @@
+id: bird-flock
+label: Bird / Flock
+description: Named avian solution from zoom-implementations.js.
+paths:
+- bird-flock
+levels:
+- coordinate: bird
+  level: bird
+- coordinate: flock
+  level: flock
+- coordinate: colony-roost
+  level: colony-roost

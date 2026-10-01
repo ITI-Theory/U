@@ -1,0 +1,35 @@
+id: whole-brain-cemi
+label: Whole Brain / CEMI
+sector: organismal
+length_scale: 10^-1 m
+substrate: whole-brain neural and electromagnetic field
+field: CEMI propagator
+equation: (nabla^2 + k_CEMI^2)G = delta
+explain:
+  cookie:
+    text: 'Draft: Whole Brain / CEMI is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Whole Brain / CEMI: CEMI propagator over whole-brain neural and electromagnetic field.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=WHOLE BRAIN / CEMI sigma 7; atlas=Scale
+    6 Brain / CEMI Field; operator=06 / BRAIN / CEMI.'
+atlas_rows:
+  physical: whole-brain neural and electromagnetic field
+  field: CEMI propagator
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: (nabla^2 + k_CEMI^2)G = delta
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P5
+- P13
+renderer:
+  id: whole-brain
+media:
+- path: Part2/book/wave-atlas/figures/meg-cemi-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: WHOLE BRAIN / CEMI sigma 7
+  wave_atlas: Scale 6 Brain / CEMI Field
+  operator_contract: 06 / BRAIN / CEMI

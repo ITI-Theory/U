@@ -1,0 +1,33 @@
+id: galaxy-cluster
+label: Galaxy Cluster
+sector: cosmological
+length_scale: 10^23 m
+substrate: galaxy cluster
+field: BAO / cosmological perturbation kernel
+equation: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_17=delta^(4)
+explain:
+  cookie:
+    text: TODO
+    draft: true
+  general: 'Galaxy Cluster: BAO / cosmological perturbation kernel over galaxy cluster.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=compare STELLAR / CLUSTER; atlas=not
+    separately plated; operator=17 / CLUSTER.'
+atlas_rows:
+  physical: galaxy cluster
+  field: BAO / cosmological perturbation kernel
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_17=delta^(4)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P20
+- P22
+renderer:
+  id: galaxy-cluster
+media: []
+former_labels:
+  app: compare STELLAR / CLUSTER
+  wave_atlas: not separately plated
+  operator_contract: 17 / CLUSTER

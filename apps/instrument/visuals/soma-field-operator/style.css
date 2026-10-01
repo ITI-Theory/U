@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
 
-:root { --ink: #05070e; --cyan: #14e5ff; --violet: #8f47ff; --pink: #ff3bce; --text: #eaf5ff; }
+:root { --ink: #05070e; --cyan: #14e5ff; --violet: #8f47ff; --pink: #ff3bce; --emf: #56f0a2; --gold: #f6c75a; --text: #eaf5ff; }
 * { box-sizing: border-box; }
 html, body, main { width: 100%; min-height: 100%; margin: 0; background: var(--ink); overflow: hidden; }
 canvas { display: block; width: 100vw; height: 100vh; }
@@ -109,13 +109,22 @@ button { width: 100%; margin-top: 12px; padding: 10px; color: var(--ink); border
 .zoom-equation-full .model-equation .katex-display { grid-column: 2; min-width: 0; }
 .scale-stepper { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 7px 0 11px 101px; }
 .scale-stepper button { min-height: 31px; margin: 0; padding: 0; color: var(--text); border: 1px solid rgba(20,229,255,.62); background: rgba(20,229,255,.12); font-size: 18px; }
-.view-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin: 8px 0; }
+.view-mode { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin: 8px 0; }
 .view-mode button { min-height: 29px; margin: 0; color: var(--text); border: 1px solid rgba(86,240,162,.45); background: rgba(86,240,162,.07); font: 700 11px/1 'Space Mono', monospace; }
 .view-mode button.active { color: #06100d; border-color: var(--emf); background: var(--emf); }
 .zoom-equation code { display: block; padding: 0 8px 8px; color: var(--cyan); font: 7px/1.3 'Space Mono', monospace; overflow-wrap: anywhere; }
 .projection-readout { display: block; margin: 2px 0 8px; color: var(--pink); font: 700 9px/1.3 'Space Mono', monospace; }
 .mode-button { color: var(--text); border: 1px solid var(--violet); background: rgba(143,71,255,.16); }
 .mode-button.active { color: var(--ink); background: var(--violet); box-shadow: 0 0 22px rgba(143,71,255,.45); }
+.t-theory-toggle { margin: 8px 0; }
+body.t-theory-off .t-theory-toggle { color: var(--ink); border-color: var(--cyan); background: var(--cyan); box-shadow: 0 0 22px rgba(20,229,255,.35); }
+body.t-theory-off .lens-layers label:not(:first-of-type),
+body.t-theory-off #brecvema,
+body.t-theory-off #appraisal-panel,
+body.t-theory-off #body-map-panel,
+body.t-theory-off #thought-sparks-panel { display: none; }
+body.t-theory-off .equation-wall .equation-block:not(.primary),
+body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: none; }
 .brecvema-inspector { margin-top: 10px; padding: 10px; border: 1px solid rgba(143,71,255,.58); background: rgba(143,71,255,.1); }
 .inspector-kicker { margin: 0 0 8px; color: var(--violet); font: 700 8px/1.35 'Space Mono', monospace; }
 .mechanism-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
@@ -140,10 +149,12 @@ button { width: 100%; margin-top: 12px; padding: 10px; color: var(--ink); border
 .body-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; width: min(100%, 220px); margin: 8px auto; }
 .body-cell { aspect-ratio: 1; min-width: 0; border: 1px solid rgba(174,184,206,.2); background: rgba(174,184,206,.05); transition: background .2s ease, box-shadow .2s ease; }
 .body-cell.active { box-shadow: 0 0 8px rgba(255,59,206,.7); }
-.settings-panel { margin-top: 12px; padding: 8px; border: 1px solid rgba(174,184,206,.28); background: rgba(255,255,255,.025); }
-.settings-panel summary { color: #aeb8ce; cursor: pointer; font: 700 8px/1.2 'Space Mono', monospace; }
+.settings-panel, .thought-sparks-panel { margin-top: 12px; padding: 8px; border: 1px solid rgba(174,184,206,.28); background: rgba(255,255,255,.025); }
+.settings-panel summary, .thought-sparks-panel summary { color: #aeb8ce; cursor: pointer; font: 700 8px/1.2 'Space Mono', monospace; }
 .settings-panel[open] summary { margin-bottom: 5px; }
 .settings-panel .control:last-child { margin-bottom: 0; }
+.thought-sparks-panel { border-color: rgba(246,199,90,.42); background: rgba(246,199,90,.045); }
+.thought-sparks-panel summary { color: var(--gold); }
 .math-readout { margin-top: 13px; padding: 10px; border-left: 2px solid var(--pink); background: rgba(255,59,206,.07); }
 .math-readout p { margin: 0 0 6px; color: var(--pink); font: 700 9px/1.2 'Space Mono', monospace; }
 .math-readout code { display: block; color: var(--text); font: 10px/1.45 'Space Mono', monospace; overflow-wrap: anywhere; }

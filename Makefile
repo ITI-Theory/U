@@ -15,7 +15,7 @@ include lib/mk/dist.mk
 
 .PHONY: all build registry-papers registry-papers-royal registry-fractal lean lean-appendix omnibus \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
-	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate list issues-html issues adm
+	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
@@ -85,6 +85,9 @@ release-check: uat-check
 generate:
 	py paper/scripts/generate_mk.py
 	@echo Regenerated lib/mk/dist.mk
+
+operator-generate:
+	.venv/Scripts/python.exe apps/instrument/visuals/soma-field-operator/scripts/generate.py
 
 list:
 	@grep "^[a-z][a-z-]*:" lib/mk/dist.mk

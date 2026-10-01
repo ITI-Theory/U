@@ -1,0 +1,33 @@
+id: atomic
+label: Atomic
+sector: micro-physical
+length_scale: 10^-10 m
+substrate: electron cloud and atomic orbital
+field: electromagnetic response
+equation: G_C(r)=1/(4 pi r)
+explain:
+  cookie:
+    text: 'Draft: Atomic is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Atomic: electromagnetic response over electron cloud and atomic orbital.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=ATOMIC sigma 3; atlas=implicit between
+    Scale 2 and Scale 4; operator=03 / ATOMIC.'
+atlas_rows:
+  physical: electron cloud and atomic orbital
+  field: electromagnetic response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: G_C(r)=1/(4 pi r)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P14
+- P20
+renderer:
+  id: atomic
+media: []
+former_labels:
+  app: ATOMIC sigma 3
+  wave_atlas: implicit between Scale 2 and Scale 4
+  operator_contract: 03 / ATOMIC

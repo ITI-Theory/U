@@ -58,9 +58,11 @@
           <button class="hierarchy-button active" data-level="11" type="button"><strong>11D</strong><span>M4 + P3 + L1 + C3 / MIND</span></button>
         </section>
         <div class="control select-control"><label for="implementation">USF MODEL</label><select id="implementation" aria-label="USF model"></select></div>
+        <button id="t-theory-toggle" class="mode-button t-theory-toggle active" type="button" aria-pressed="true">T-THEORY: ON</button>
         <section class="view-mode" aria-label="Field view mode">
           <button id="view-3d" class="active" type="button" aria-pressed="true">3D</button>
           <button id="view-2d" type="button" aria-pressed="false">2D</button>
+          <button id="view-sbs" type="button" aria-pressed="false">3D SBS</button>
         </section>
         <div class="legacy-control" aria-hidden="true"><select id="route" tabindex="-1"></select><output id="path-readout"></output><output id="path-edge-readout"></output></div>
         <div class="control scale-control"><label for="scale">ZOOM OPERATOR</label><input id="scale" type="range" min="0" max="4" value="0" step="1" /></div>
@@ -151,6 +153,12 @@
           <summary>SETTINGS</summary>
           <div class="control transport-control"><label for="background-dim">FRACTAL DEPTH</label><input id="background-dim" type="range" min="0" max="1" value="0" step="0.01" /></div>
           <div class="control transport-control"><label for="fractal-quality">FRACTAL DETAIL</label><input id="fractal-quality" type="range" min="0.35" max="1" value="0.6" step="0.05" /></div>
+        </details>
+        <details id="thought-sparks-panel" class="thought-sparks-panel">
+          <summary>THOUGHT SPARKS / INTERPRETIVE</summary>
+          <p class="mechanism-source">INTERPRETIVE / Thoughts as threshold crossings of a classical noisy field (not quantum events)</p>
+          <div class="control transport-control"><label for="thought-noise">NOISE D</label><input id="thought-noise" type="range" min="0.01" max="0.6" value="0.16" step="0.01" /></div>
+          <div class="control transport-control"><label for="thought-threshold">THRESHOLD T_c</label><input id="thought-threshold" type="range" min="0.2" max="1.4" value="0.82" step="0.01" /></div>
         </details>
         <button id="export" type="button">EXPORT FRAME</button>
       </section>

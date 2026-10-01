@@ -1,0 +1,32 @@
+id: compact-object
+label: Compact Object
+sector: cosmological
+length_scale: 10^3 to 10^10 m
+substrate: compact object boundary
+field: quasi-normal mode response
+equation: G_14(t) proportional to exp(-t/tau_ring) cos(omega_QNM t)
+explain:
+  cookie:
+    text: TODO
+    draft: true
+  general: 'Compact Object: quasi-normal mode response over compact object boundary.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=no separate app level; atlas=not separately
+    plated; operator=14 / COMPACT OBJECT.'
+atlas_rows:
+  physical: compact object boundary
+  field: quasi-normal mode response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: G_14(t) proportional to exp(-t/tau_ring) cos(omega_QNM t)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P20
+renderer:
+  id: compact-object
+media: []
+former_labels:
+  app: no separate app level
+  wave_atlas: not separately plated
+  operator_contract: 14 / COMPACT OBJECT

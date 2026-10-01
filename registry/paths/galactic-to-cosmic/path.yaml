@@ -1,0 +1,9 @@
+id: galactic-to-cosmic
+label: Galactic to Cosmic
+nodes:
+- galactic-disc
+- observable-universe
+edges:
+- galaxy-universe
+purpose: 'Migrated existing route: Galactic to Cosmic.'
+source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js

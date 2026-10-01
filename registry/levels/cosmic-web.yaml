@@ -1,0 +1,36 @@
+id: cosmic-web
+label: Cosmic Web
+sector: cosmological
+length_scale: 10^26 m
+substrate: full cosmological boundary
+field: retarded light-cone propagator
+equation: G_20(x,x')=theta(t-t')delta((x-x')^2)/(2pi)
+explain:
+  cookie:
+    text: 'Draft: Cosmic Web is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Cosmic Web: retarded light-cone propagator over full cosmological boundary.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=renderer id for OBSERVABLE UNIVERSE;
+    atlas=Scale 20 in dial title; operator=20 / COSMIC WEB.'
+atlas_rows:
+  physical: full cosmological boundary
+  field: retarded light-cone propagator
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: G_20(x,x')=theta(t-t')delta((x-x')^2)/(2pi)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P20
+- P21
+- P22
+renderer:
+  id: cosmic-web
+media:
+- path: Part2/book/wave-atlas/figures/cosmic-web-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: renderer id for OBSERVABLE UNIVERSE
+  wave_atlas: Scale 20 in dial title
+  operator_contract: 20 / COSMIC WEB

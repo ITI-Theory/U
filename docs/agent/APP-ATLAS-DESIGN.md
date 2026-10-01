@@ -81,6 +81,15 @@ product:
   the app: deep links such as
   `https://www.t-theory.org/app/#level=<id>&path=<id>&lens=<id>`, which can
   also be printed as QR codes on Atlas plates and book pages.
+- **Readers never see repository paths.** Source resolution: a paper or book
+  resolves through `Dist/PAPERS.yaml` to its title and concept DOI
+  (`https://doi.org/...`, the canonical citable version); material not on
+  Zenodo (Wave Atlas chapters, cheat sheets) resolves to its page on
+  `https://www.t-theory.org/`; a missing mapping shows the title with
+  "not yet published", never a path. Repository paths stay in the registry
+  and appear only in a developer view. Roles: Zenodo is the canonical
+  archive, t-theory.org the front door and app host, Dist the release
+  workshop and registry.
 - **Screenshots from the app, diagrams into the app.** A capture script drives
   the app headlessly and saves screenshots per level, path, lens, and extra
   system into the Atlas figures; the Atlas diagrams are attached to their

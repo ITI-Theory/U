@@ -1,0 +1,51 @@
+id: universal-21
+label: 0-20 / Universal Catalogue
+description: Twenty-one pedagogical tick marks with reconciled labels.
+paths:
+- micro-to-life
+- animal-to-flock
+- geological-to-stellar
+- galactic-to-cosmic
+levels:
+- coordinate: 0
+  level: quantum-foam
+- coordinate: 1
+  level: string-boundary
+- coordinate: 2
+  level: nuclear
+- coordinate: 3
+  level: atomic
+- coordinate: 4
+  level: molecular
+- coordinate: 5
+  level: cellular-synaptic
+- coordinate: 6
+  level: whole-brain-cemi
+- coordinate: 7
+  level: human-vertebrate
+- coordinate: 8
+  level: animal-swarm
+- coordinate: 9
+  level: society-city
+- coordinate: 10
+  level: geological
+- coordinate: 11
+  level: planetary
+- coordinate: 12
+  level: orbital-system
+- coordinate: 13
+  level: stellar
+- coordinate: 14
+  level: compact-object
+- coordinate: 15
+  level: galactic-disc
+- coordinate: 16
+  level: galactic-halo
+- coordinate: 17
+  level: galaxy-cluster
+- coordinate: 18
+  level: cosmic-filaments
+- coordinate: 19
+  level: observable-universe
+- coordinate: 20
+  level: cosmic-web

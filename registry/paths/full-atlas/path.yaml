@@ -1,0 +1,43 @@
+id: full-atlas
+label: Full Atlas / 0 to 19
+nodes:
+- quantum-foam
+- string-boundary
+- nuclear
+- atomic
+- molecular
+- cellular-synaptic
+- local-circuit
+- whole-brain-cemi
+- human-vertebrate
+- dyad
+- animal-swarm
+- society-city
+- regional-institutional
+- civilisational-solar
+- species-stellar
+- geological
+- planetary
+- stellar-cluster
+- galactic-disc
+- observable-universe
+edges:
+- foam-string
+- string-nuclear
+- nuclear-atomic
+- atomic-molecular
+- molecular-cellular
+- cellular-circuit
+- circuit-brain
+- brain-organism
+- organism-couple-dyad
+- dyad-flock
+- dyad-church
+- community-region
+- region-civilisation
+- civilisation-species
+- fault-planet
+- planet-star
+- galaxy-universe
+purpose: 'Migrated existing route: Full Atlas / 0 to 19.'
+source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js

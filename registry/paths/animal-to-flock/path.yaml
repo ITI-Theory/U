@@ -1,0 +1,11 @@
+id: animal-to-flock
+label: Organism to Flock
+nodes:
+- human-vertebrate
+- dyad
+- animal-swarm
+edges:
+- organism-couple-dyad
+- dyad-flock
+purpose: 'Migrated existing route: Organism to Flock.'
+source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js

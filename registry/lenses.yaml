@@ -1,0 +1,35 @@
+id: operator-lenses
+claim_badges:
+- FORMAL
+- SOURCED
+- INTERPRETIVE
+ttheory:
+- id: 'off'
+  label: T-Theory Off / Physics Baseline
+  description: Ordinary 4D physics only; hide [T]-Theory layers.
+- id: 'on'
+  label: T-Theory On
+  description: Restore propagator, regulation, cortex/matrix, mirror, and affect overlays when allowed.
+display_axes:
+- id: 4d-baseline
+  label: 4D Baseline
+  claim: SOURCED
+- id: 7d-usf-field
+  label: 7D USF Field
+  claim: INTERPRETIVE
+- id: 8d-life
+  label: 8D Life / Regulation
+  claim: INTERPRETIVE
+- id: 11d-mind
+  label: 11D Mind / Cortex Matrix
+  claim: INTERPRETIVE
+affect_modes:
+- id: 'off'
+  label: Affect Off
+- id: interpretive
+  label: Interpretive dynamics
+- id: human-clinical
+  label: Human clinical
+  allowed_levels:
+  - whole-brain-cemi
+  - human-vertebrate

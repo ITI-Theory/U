@@ -1,0 +1,11 @@
+id: animal-to-church
+label: Organism to Church
+nodes:
+- human-vertebrate
+- dyad
+- society-city
+edges:
+- organism-couple-dyad
+- dyad-church
+purpose: 'Migrated existing route: Organism to Church.'
+source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js

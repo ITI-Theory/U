@@ -1,0 +1,36 @@
+id: observable-universe
+label: Observable Universe
+sector: cosmological
+length_scale: 10^26 m
+substrate: cosmic web, clusters, voids, and metric
+field: retarded gravitational response
+equation: Box h_mn = -16 pi G T_mn
+explain:
+  cookie:
+    text: 'Draft: Observable Universe is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Observable Universe: retarded gravitational response over cosmic web, clusters, voids, and metric.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=OBSERVABLE UNIVERSE sigma 19; atlas=Scale
+    18-20 Cosmic Web to Universal; operator=19 / UNIVERSE.'
+atlas_rows:
+  physical: cosmic web, clusters, voids, and metric
+  field: retarded gravitational response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: Box h_mn = -16 pi G T_mn
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P20
+- P21
+- P22
+renderer:
+  id: cosmic-web
+media:
+- path: Part2/book/wave-atlas/figures/cosmic-web-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: OBSERVABLE UNIVERSE sigma 19
+  wave_atlas: Scale 18-20 Cosmic Web to Universal
+  operator_contract: 19 / UNIVERSE

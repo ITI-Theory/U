@@ -1,0 +1,33 @@
+id: string-boundary
+label: String / Planck Boundary
+sector: micro-physical
+length_scale: 10^-32 m
+substrate: worldsheet and compactification boundary
+field: worldsheet propagator
+equation: G_string(s,s')=-(alpha'/2) log |s-s'|^2
+explain:
+  cookie:
+    text: 'Draft: String / Planck Boundary is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'String / Planck Boundary: worldsheet propagator over worldsheet and compactification boundary.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=STRING / PLANCK BOUNDARY sigma 1; atlas=atlas-scale-01.md;
+    operator=01 / STRING.'
+atlas_rows:
+  physical: worldsheet and compactification boundary
+  field: worldsheet propagator
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: G_string(s,s')=-(alpha'/2) log |s-s'|^2
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P11
+- P20
+renderer:
+  id: string-boundary
+media: []
+former_labels:
+  app: STRING / PLANCK BOUNDARY sigma 1
+  wave_atlas: atlas-scale-01.md
+  operator_contract: 01 / STRING

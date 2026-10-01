@@ -1,0 +1,11 @@
+id: geological-to-stellar
+label: Geological to Stellar
+nodes:
+- geological
+- planetary
+- stellar-cluster
+edges:
+- fault-planet
+- planet-star
+purpose: 'Migrated existing route: Geological to Stellar.'
+source: apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js

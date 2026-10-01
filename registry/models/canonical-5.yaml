@@ -1,0 +1,44 @@
+id: canonical-5
+label: I-V / Canonical Physics
+description: Five physics-derived transition sectors of the shared USF architecture.
+paths:
+- full-atlas
+levels:
+- coordinate: I
+  label: Quantum to Classical
+  levels:
+  - quantum-foam
+  - string-boundary
+  - nuclear
+  - atomic
+  - molecular
+- coordinate: II
+  label: Chemistry to Biology
+  levels:
+  - molecular
+  - cellular-synaptic
+  - local-circuit
+  - whole-brain-cemi
+- coordinate: III
+  label: Individual to Collective
+  levels:
+  - whole-brain-cemi
+  - human-vertebrate
+  - dyad
+  - animal-swarm
+- coordinate: IV
+  label: Geological to Stellar
+  levels:
+  - society-city
+  - regional-institutional
+  - civilisational-solar
+  - species-stellar
+  - geological
+  - planetary
+- coordinate: V
+  label: Stellar to Cosmic
+  levels:
+  - species-stellar
+  - stellar-cluster
+  - galactic-disc
+  - observable-universe

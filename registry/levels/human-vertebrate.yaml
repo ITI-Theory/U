@@ -1,0 +1,37 @@
+id: human-vertebrate
+label: Human / Vertebrate
+sector: organismal
+length_scale: 10^0 m
+substrate: biotensegrity body, nervous system, and cortex
+field: somatic CEMI and limbic response
+equation: gamma e_dot = -grad H(e) + sqrt(2D) xi(t) + J(t)
+explain:
+  cookie:
+    text: 'Draft: Human / Vertebrate is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Human / Vertebrate: somatic CEMI and limbic response over biotensegrity body, nervous system, and cortex.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=HUMAN / VERTEBRATE sigma 8; atlas=Scale
+    8 Human Organism; operator=07 / ORGANISM.'
+atlas_rows:
+  physical: biotensegrity body, nervous system, and cortex
+  field: somatic CEMI and limbic response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: gamma e_dot = -grad H(e) + sqrt(2D) xi(t) + J(t)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P1
+- P5
+- P9
+- P13
+renderer:
+  id: human-vertebrate
+media:
+- path: Part2/book/wave-atlas/figures/biotensegrity-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: HUMAN / VERTEBRATE sigma 8
+  wave_atlas: Scale 8 Human Organism
+  operator_contract: 07 / ORGANISM

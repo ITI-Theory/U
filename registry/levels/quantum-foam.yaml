@@ -1,0 +1,35 @@
+id: quantum-foam
+label: Quantum Foam
+sector: micro-physical
+length_scale: 10^-35 m
+substrate: pre-geometric quantum fluctuations
+field: quantum amplitude
+equation: G_P(x,x') = <x | G | x'>
+explain:
+  cookie:
+    text: 'Draft: Quantum Foam is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Quantum Foam: quantum amplitude over pre-geometric quantum fluctuations.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=QUANTUM FOAM sigma 0; atlas=Scale 0 Planck
+    / Quantum Foam; operator=zoom 0; catalogue boundary.'
+atlas_rows:
+  physical: pre-geometric quantum fluctuations
+  field: quantum amplitude
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: G_P(x,x') = <x | G | x'>
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P11
+- P20
+renderer:
+  id: quantum-foam
+media:
+- path: Part2/book/wave-atlas/figures/quantum-foam-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: QUANTUM FOAM sigma 0
+  wave_atlas: Scale 0 Planck / Quantum Foam
+  operator_contract: zoom 0; catalogue boundary

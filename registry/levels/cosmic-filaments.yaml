@@ -1,0 +1,34 @@
+id: cosmic-filaments
+label: Cosmic Filaments
+sector: cosmological
+length_scale: 10^24 m
+substrate: cosmic filaments
+field: BAO / web connectivity kernel
+equation: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_18=delta^(4)
+explain:
+  cookie:
+    text: 'Draft: Cosmic Filaments is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Cosmic Filaments: BAO / web connectivity kernel over cosmic filaments.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=folded into OBSERVABLE UNIVERSE; atlas=Scale
+    18-20 Cosmic Web; operator=18 / FILAMENTS.'
+atlas_rows:
+  physical: cosmic filaments
+  field: BAO / web connectivity kernel
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_18=delta^(4)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P20
+- P21
+- P22
+renderer:
+  id: cosmic-filaments
+media: []
+former_labels:
+  app: folded into OBSERVABLE UNIVERSE
+  wave_atlas: Scale 18-20 Cosmic Web
+  operator_contract: 18 / FILAMENTS

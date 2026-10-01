@@ -6,6 +6,12 @@ import { getScaleMorphism } from './scale-morphisms.js';
 import { getSceneCoverageSummary, namedSolutionCoverage, sceneCoverage } from './scene-coverage.js';
 import { canonicalBands, expandCanonicalRange, getUSFModel, usfModels, zoomEquation } from './zoom-implementations.js';
 import { zUSFAbstract, zUSFAbstractSource } from './zusf-abstract.js';
+import { get, register } from './renderers/index.js';
+import quantumFoamRenderer from './renderers/quantum-foam.js';
+import thoughtSparksRenderer from './renderers/thought-sparks.js';
+
+register(quantumFoamRenderer.id, quantumFoamRenderer);
+register(thoughtSparksRenderer.id, thoughtSparksRenderer);
 
 const abstractSplash = document.querySelector('#abstract-splash');
 const abstractSplashCopy = document.querySelector('#abstract-splash-copy');
@@ -54,6 +60,8 @@ cellKeyLight.position.set(-3, 4, 6);
 scene.add(cellKeyLight);
 const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
 camera.position.set(0, 0.35, 9.2);
+const stereoCamera = new THREE.StereoCamera();
+stereoCamera.eyeSep = 0.064;
 const overheadCamera = new THREE.OrthographicCamera(-5, 5, 5, -5, 0.1, 100);
 overheadCamera.position.set(0, 12, 0);
 overheadCamera.up.set(0, 0, -1);
@@ -501,71 +509,24 @@ const morphologyLayers = [
   return { ...config, positions, geometry, material, points };
 });
 
-// At sigma 0, render transient cross-sections instead of another undifferentiated
-// point cloud: an emergence, separation, and recombination motif for the vacuum field.
-const quantumFoam = new THREE.Group();
-const quantumFoamRings = Array.from({ length: 18 }, (_, index) => {
-  const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(0.26, 0.012, 8, 32),
-    new THREE.MeshBasicMaterial({ color: index % 2 ? cyan : pink, transparent: true, opacity: 0 }),
-  );
-  quantumFoam.add(ring);
-  return ring;
-});
-scene.add(quantumFoam);
-const quantumSurfaceGeometry = new THREE.PlaneGeometry(8.4, 5.2, 32, 22);
-const quantumSurface = new THREE.Mesh(
-  quantumSurfaceGeometry,
-  new THREE.MeshBasicMaterial({ color: cyan, wireframe: true, transparent: true, opacity: 0, depthWrite: false }),
-);
-quantumSurface.rotation.x = -Math.PI / 2;
-quantumSurface.position.y = -1.55;
-quantumFoam.add(quantumSurface);
-const quantumThreshold = new THREE.Mesh(
-  new THREE.PlaneGeometry(8.4, 5.2),
-  new THREE.MeshBasicMaterial({ color: gold, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide }),
-);
-quantumThreshold.rotation.x = -Math.PI / 2;
-quantumThreshold.position.y = -0.73;
-quantumFoam.add(quantumThreshold);
-const quantumMatter = Array.from({ length: 32 }, (_, index) => {
-  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: gaussianTexture, color: cyan, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
-  const particle = new THREE.Sprite(new THREE.SpriteMaterial({ map: gaussianTexture, color: gold, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
-  halo.visible = false;
-  particle.visible = false;
-  quantumFoam.add(halo, particle);
-  return { halo, particle, active: false, bornAt: -Infinity, x: 0, z: 0, height: 0 };
-});
-const quantumEmf = new THREE.Group();
-const quantumEmfContours = Array.from({ length: quantumMatter.length }, (_, index) => {
-  const contour = new THREE.Mesh(
-    new THREE.TorusGeometry(0.28, 0.026, 10, 48),
-    new THREE.MeshBasicMaterial({ color: emfGreen, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }),
-  );
-  quantumEmf.add(contour);
-  return contour;
-});
-const quantumEmfLinks = new THREE.LineSegments(
-  new THREE.BufferGeometry(),
-  new THREE.LineBasicMaterial({ color: emfGreen, transparent: true, opacity: 0, depthWrite: false }),
-);
-quantumEmf.add(quantumEmfLinks);
-scene.add(quantumEmf);
-const densityCanvas = document.createElement('canvas');
-densityCanvas.width = 160;
-densityCanvas.height = 100;
-const densityContext = densityCanvas.getContext('2d');
-const densityTexture = new THREE.CanvasTexture(densityCanvas);
-densityTexture.colorSpace = THREE.SRGBColorSpace;
-const densityMap = new THREE.Mesh(
+const quantumFoam = get('quantum-foam').create(scene, THREE);
+const thoughtSparks = get('thought-sparks').create(scene, THREE);
+
+const cellularDensityCanvas = document.createElement('canvas');
+cellularDensityCanvas.width = 160;
+cellularDensityCanvas.height = 100;
+const cellularDensityContext = cellularDensityCanvas.getContext('2d');
+const cellularDensityTexture = new THREE.CanvasTexture(cellularDensityCanvas);
+cellularDensityTexture.colorSpace = THREE.SRGBColorSpace;
+const cellularDensityMap = new THREE.Mesh(
   new THREE.PlaneGeometry(9.6, 6),
-  new THREE.MeshBasicMaterial({ map: densityTexture, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }),
+  new THREE.MeshBasicMaterial({ map: cellularDensityTexture, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }),
 );
-densityMap.rotation.x = -Math.PI / 2;
-densityMap.position.y = -1.5;
-densityMap.visible = false;
-scene.add(densityMap);
-let lastDensityMapUpdate = 0;
+cellularDensityMap.rotation.x = -Math.PI / 2;
+cellularDensityMap.position.y = -1.5;
+cellularDensityMap.visible = false;
+scene.add(cellularDensityMap);
+let lastCellularDensityMapUpdate = 0;
 const cellularField = new THREE.Group();
 cellularField.visible = false;
 scene.add(cellularField);
@@ -658,11 +619,9 @@ const cosmicLinks = new THREE.LineSegments(new THREE.BufferGeometry(), new THREE
 cosmicField.add(cosmicLinks);
 cosmicField.visible = false;
 scene.add(cosmicField);
-const quantumPreviousHeights = new Float32Array(759);
-let quantumNextMatter = 0;
-
 function updateCellularField(time, pulse) {
   const cellularBand = state.implementation === 'canonical-i-v' && state.scale === 4;
+  const displayLevel = activeDimensionLevel();
   const visible = cellularBand && state.viewMode === '3d';
   cellularField.visible = visible;
   for (const domain of cellularDomains) {
@@ -679,10 +638,10 @@ function updateCellularField(time, pulse) {
     for (const organelle of domain.organelles.children) organelle.material.opacity = 0.72 + pulse * 0.28;
     domain.halo.rotation.set(time * 0.18 + domain.phase, time * 0.27 - domain.phase, time * 0.34 + domain.phase);
     domain.halo.scale.setScalar(1 + Math.sin(time * 1.8 + domain.phase) * 0.05 + pulse * 0.2);
-    for (const contour of domain.halo.children) contour.material.opacity = state.level === 8 ? 0.42 + pulse * 0.35 : 0;
+    for (const contour of domain.halo.children) contour.material.opacity = state.tTheory && displayLevel === 8 ? 0.42 + pulse * 0.35 : 0;
   }
   const links = [];
-  if (state.level === 8) for (let source = 0; source < cellularDomains.length; source += 1) {
+  if (state.tTheory && displayLevel === 8) for (let source = 0; source < cellularDomains.length; source += 1) {
     for (let target = source + 1; target < cellularDomains.length; target += 1) {
       const from = cellularDomains[source].group.position;
       const to = cellularDomains[target].group.position;
@@ -690,7 +649,7 @@ function updateCellularField(time, pulse) {
     }
   }
   cellularLinks.geometry.setAttribute('position', new THREE.Float32BufferAttribute(links, 3));
-  cellularLinks.material.opacity = visible && state.level === 8 ? 0.58 + pulse * 0.34 : 0;
+  cellularLinks.material.opacity = visible && state.tTheory && displayLevel === 8 ? 0.58 + pulse * 0.34 : 0;
 }
 
 function updateAstralFields(time, pulse) {
@@ -727,40 +686,10 @@ function updateAstralFields(time, pulse) {
   }
 }
 
-function drawDensityMap(activeMatter, time, pulse) {
-  const { width, height } = densityCanvas;
-  const image = densityContext.createImageData(width, height);
-  const data = image.data;
-  const impulseRadius = 0.32 + state.responseTime * 4.8;
-  for (let pixelY = 0; pixelY < height; pixelY += 1) {
-    for (let pixelX = 0; pixelX < width; pixelX += 1) {
-      const x = (pixelX / width - 0.5) * 9.6;
-      const z = (pixelY / height - 0.5) * 6;
-      let density = 0;
-      for (const matter of activeMatter) {
-        const age = time - matter.bornAt;
-        density += Math.exp(-((x - matter.x) ** 2 + (z - matter.z) ** 2) / 3.1) * Math.max(0.5, 1 - age / 14);
-      }
-      const impulseDistance = Math.hypot(x, z);
-      const impulseCore = Math.exp(-(impulseDistance ** 2) / 0.3) * pulse * 1.5;
-      const impulseRing = Math.exp(-((impulseDistance - impulseRadius) ** 2) / 0.035) * pulse * 1.8;
-      density += impulseCore + impulseRing;
-      const contour = density > 0.03 && Math.abs((density * 8) % 1 - 0.5) < 0.052;
-      const intensity = Math.min(1, density * 0.78);
-      const offset = (pixelY * width + pixelX) * 4;
-      data[offset] = Math.round(20 + 236 * intensity);
-      data[offset + 1] = Math.round(30 + 216 * Math.min(1, intensity * 1.28));
-      data[offset + 2] = Math.round(52 + 203 * (1 - intensity * 0.35));
-      data[offset + 3] = Math.round((intensity * 0.68 + (contour ? 0.4 : 0)) * 255);
-    }
-  }
-  densityContext.putImageData(image, 0, 0);
-  densityTexture.needsUpdate = true;
-}
-
 function drawCellularDensityMap(time, pulse) {
-  const { width, height } = densityCanvas;
-  const image = densityContext.createImageData(width, height);
+  const displayLevel = activeDimensionLevel();
+  const { width, height } = cellularDensityCanvas;
+  const image = cellularDensityContext.createImageData(width, height);
   const data = image.data;
   for (let pixelY = 0; pixelY < height; pixelY += 1) {
     for (let pixelX = 0; pixelX < width; pixelX += 1) {
@@ -779,118 +708,33 @@ function drawCellularDensityMap(time, pulse) {
         membrane += Math.exp(-((distance - domain.radius) ** 2) / 0.009);
         const nucleusDistance = Math.hypot(x - (centerX + domain.radius * 0.22), z - (centerZ + domain.radius * 0.16));
         nucleus += Math.exp(-(nucleusDistance ** 2) / (domain.radius * domain.radius * 0.11));
-        if (state.level === 8) emf += Math.exp(-(distance ** 2) / (domain.radius * domain.radius * 3.1))
+        if (displayLevel === 8) emf += Math.exp(-(distance ** 2) / (domain.radius * domain.radius * 3.1))
           * Math.cos(distance * 11 - time * 5.2 + domain.phase);
       }
-      const contourBand = state.level === 8 && Math.abs((emf * 3.6) % 1) < 0.055 ? 1 : 0;
+      const contourBand = displayLevel === 8 && Math.abs((emf * 3.6) % 1) < 0.055 ? 1 : 0;
       const intensity = Math.min(1, cytoplasm + membrane * 0.86 + nucleus * 0.94 + pulse * 0.14);
       const offset = (pixelY * width + pixelX) * 4;
       const emfIntensity = Math.min(1, Math.abs(emf) * 0.68 + contourBand * 0.55 + pulse * 0.16);
-      data[offset] = Math.round(state.level === 8 ? 8 + 48 * intensity + 20 * emfIntensity : 9 + 245 * (membrane * 0.65 + nucleus * 0.95 + pulse * 0.1));
-      data[offset + 1] = Math.round(state.level === 8 ? 26 + 224 * emfIntensity : 22 + 222 * (cytoplasm + membrane * 0.88 + pulse * 0.16));
-      data[offset + 2] = Math.round(state.level === 8 ? 40 + 190 * (0.24 + intensity * 0.35 + contourBand * 0.45) : 43 + 190 * (cytoplasm + membrane * 0.42 + nucleus * 0.45));
-      data[offset + 3] = Math.round(state.level === 8 ? Math.min(1, 0.22 + emfIntensity * 0.78) * 255 : Math.min(1, intensity * 0.94 + membrane * 0.25) * 255);
+      data[offset] = Math.round(displayLevel === 8 ? 8 + 48 * intensity + 20 * emfIntensity : 9 + 245 * (membrane * 0.65 + nucleus * 0.95 + pulse * 0.1));
+      data[offset + 1] = Math.round(displayLevel === 8 ? 26 + 224 * emfIntensity : 22 + 222 * (cytoplasm + membrane * 0.88 + pulse * 0.16));
+      data[offset + 2] = Math.round(displayLevel === 8 ? 40 + 190 * (0.24 + intensity * 0.35 + contourBand * 0.45) : 43 + 190 * (cytoplasm + membrane * 0.42 + nucleus * 0.45));
+      data[offset + 3] = Math.round(displayLevel === 8 ? Math.min(1, 0.22 + emfIntensity * 0.78) * 255 : Math.min(1, intensity * 0.94 + membrane * 0.25) * 255);
     }
   }
-  densityContext.putImageData(image, 0, 0);
-  densityTexture.needsUpdate = true;
+  cellularDensityContext.putImageData(image, 0, 0);
+  cellularDensityTexture.needsUpdate = true;
 }
 
-function updateQuantumFoam(time, pulse) {
-  const visibility = Math.max(0, 1 - state.visualScale / 1.5);
-  const quantumDensityVisible = state.viewMode === '2d' && state.level >= 8 && visibility > 0.01;
-  const cellularDensityVisible = state.viewMode === '2d' && state.level === 8
-    && state.implementation === 'canonical-i-v' && state.scale === 4;
-  const densityVisible = quantumDensityVisible || cellularDensityVisible;
-  quantumFoam.visible = visibility > 0.01 && !densityVisible;
-  const surfacePositions = quantumSurfaceGeometry.attributes.position;
-  for (let index = 0; index < surfacePositions.count; index += 1) {
-    const x = surfacePositions.getX(index);
-    const z = surfacePositions.getY(index);
-    const rollingHeight = Math.sin(x * 2.1 + time * 2.4) * 0.13 + Math.cos(z * 2.8 - time * 1.8) * 0.1;
-    let noiseSpike = 0;
-    for (let spike = 0; spike < 4; spike += 1) {
-      const spikeX = Math.sin(time * (0.13 + spike * 0.02) + spike * 4.7) * 3.3;
-      const spikeZ = Math.cos(time * (0.17 + spike * 0.015) + spike * 2.9) * 1.9;
-      const distanceSquared = (x - spikeX) ** 2 + (z - spikeZ) ** 2;
-      const amplitude = 0.82 + 0.26 * Math.sin(time * 0.7 + spike * 1.9)
-        + (state.level === 4 || state.level === 8 ? pulse * 0.7 : 0);
-      noiseSpike += Math.exp(-distanceSquared / 0.11) * amplitude;
-    }
-    const height = rollingHeight + noiseSpike;
-    surfacePositions.setZ(index, height);
-    if (visibility > 0.02 && quantumPreviousHeights[index] < 0.82 && height >= 0.82) {
-      const matter = quantumMatter[quantumNextMatter++ % quantumMatter.length];
-      matter.active = true;
-      matter.bornAt = time;
-      matter.x = x;
-      matter.z = z;
-      matter.height = height;
-    }
-    quantumPreviousHeights[index] = height;
+
+function updateCellularDensityLayer(time, pulse) {
+  const visible = state.viewMode === '2d' && activeDimensionLevel() === 8
+    && state.implementation === 'canonical-i-v' && state.scale === 4 && state.tTheory;
+  cellularDensityMap.visible = visible;
+  cellularDensityMap.material.opacity = visible ? 0.96 : 0;
+  if (visible && (pulse > 0.01 || time - lastCellularDensityMapUpdate > 1 / 15)) {
+    drawCellularDensityMap(time, pulse);
+    lastCellularDensityMapUpdate = time;
   }
-  surfacePositions.needsUpdate = true;
-  quantumSurface.material.opacity = visibility * (0.42 + pulse * 0.18);
-  quantumThreshold.material.opacity = visibility * 0.08;
-  for (const matter of quantumMatter) {
-    const age = time - matter.bornAt;
-    const alive = matter.active && age < 12;
-    matter.halo.visible = alive;
-    matter.particle.visible = alive;
-    if (!alive) continue;
-    let interaction = 0;
-    for (const neighbor of quantumMatter) {
-      if (neighbor === matter || !neighbor.active || time - neighbor.bornAt >= 12) continue;
-      interaction += Math.exp(-((matter.x - neighbor.x) ** 2 + (matter.z - neighbor.z) ** 2) / 0.44);
-    }
-    const persistence = Math.max(0, 1 - age / 12);
-    const brightness = Math.min(1, 0.34 + interaction * 0.3 + persistence * 0.4);
-    matter.halo.position.set(matter.x, -1.55 + matter.height, matter.z);
-    matter.particle.position.set(matter.x, -1.55 + matter.height, matter.z);
-    matter.halo.scale.setScalar(0.5 + interaction * 0.24 + persistence * 0.16);
-    matter.particle.scale.setScalar(0.12 + interaction * 0.07 + persistence * 0.08);
-    matter.halo.material.opacity = visibility * brightness * 0.42;
-    matter.particle.material.opacity = visibility * brightness;
-  }
-  for (const ring of quantumFoamRings) ring.visible = false;
-  const emfVisible = visibility > 0.01 && state.level === 8;
-  quantumEmf.visible = emfVisible && !densityVisible;
-  const activeMatter = quantumMatter.filter(matter => matter.active && time - matter.bornAt < 12);
-  densityMap.visible = densityVisible;
-  densityMap.material.opacity = densityVisible ? 0.96 : 0;
-  const refreshDensityMap = densityVisible && (pulse > 0.01 || time - lastDensityMapUpdate > 1 / 15);
-  if (refreshDensityMap) {
-    if (quantumDensityVisible) drawDensityMap(activeMatter, time, pulse);
-    if (cellularDensityVisible) drawCellularDensityMap(time, pulse);
-    lastDensityMapUpdate = time;
-  }
-  for (const [index, contour] of quantumEmfContours.entries()) {
-    const matter = activeMatter[index];
-    contour.visible = Boolean(matter);
-    if (!matter) continue;
-    contour.position.set(matter.x, -1.55 + matter.height, matter.z);
-    contour.rotation.set(time * 0.34 + index, time * 0.21 + index * 0.5, time * 0.27);
-    contour.scale.setScalar(1.12 + Math.sin(time * 1.4 + index) * 0.12);
-    contour.material.opacity = emfVisible ? 0.68 : 0;
-  }
-  const linkPositions = [];
-  for (let source = 0; source < activeMatter.length; source += 1) {
-    let nearest = -1;
-    let nearestDistance = Infinity;
-    for (let target = 0; target < activeMatter.length; target += 1) {
-      if (source === target) continue;
-      const distance = Math.hypot(activeMatter[source].x - activeMatter[target].x, activeMatter[source].z - activeMatter[target].z);
-      if (distance < nearestDistance) {
-        nearest = target;
-        nearestDistance = distance;
-      }
-    }
-    if (nearest < 0 || nearestDistance > 3.1) continue;
-    linkPositions.push(activeMatter[source].x, -1.55 + activeMatter[source].height, activeMatter[source].z);
-    linkPositions.push(activeMatter[nearest].x, -1.55 + activeMatter[nearest].height, activeMatter[nearest].z);
-  }
-  quantumEmfLinks.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linkPositions, 3));
-  quantumEmfLinks.material.opacity = emfVisible ? Math.min(0.9, 0.34 + activeMatter.length * 0.045) : 0;
 }
 
 // Part seeds make the organism-to-collective transition legible. They are
@@ -1089,7 +933,20 @@ function loadDisplaySections() {
   }
 }
 
-const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 0, visualScale: 0, level: 11, viewMode: '3d', brecvema: false, selectedMechanism: 'B', selectedMechanisms: new Set(), appraisal: Object.fromEntries(appraisalDimensions.map(dimension => [dimension.id, 0])), implementation: 'canonical-i-v', canonicalStart: 'I', canonicalEnd: 'V', zoomTicks: canonicalBands.map(band => band.oom[0]), route: 'canonical-i-v', lenses: new Set(['physics', 'response']), responseTime: 0, impulse: 0, displaySections: new Set(loadDisplaySections()), transport: { playing: false, bpm: 92, position: 0, quantization: 4, nextAt: 0 }, backgroundDepth: 0, mathDepth: 0 };
+function readHashState() {
+  const params = new URLSearchParams(location.hash.slice(1));
+  return {
+    hasLevel: params.has('level'),
+    hasPath: params.has('path'),
+    hasLens: params.has('lens'),
+    level: params.get('level'),
+    path: params.get('path'),
+    lens: params.get('lens'),
+  };
+}
+
+const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 0, visualScale: 0, level: 11, viewMode: '3d', stereoSbs: false, tTheory: true, brecvema: false, selectedMechanism: 'B', selectedMechanisms: new Set(), appraisal: Object.fromEntries(appraisalDimensions.map(dimension => [dimension.id, 0])), implementation: 'canonical-i-v', canonicalStart: 'I', canonicalEnd: 'V', zoomTicks: canonicalBands.map(band => band.oom[0]), route: 'canonical-i-v', lenses: new Set(['physics', 'response']), responseTime: 0, impulse: 0, displaySections: new Set(loadDisplaySections()), transport: { playing: false, bpm: 92, position: 0, quantization: 4, nextAt: 0 }, backgroundDepth: 0, mathDepth: 0, thoughtNoiseD: 0.16, thoughtThreshold: 0.82 };
+let suppressHashWrite = false;
 for (const name of ['somatic', 'limbic', 'cognitive', 'response-time']) document.querySelector(`#${name}`).addEventListener('input', event => {
   const stateKey = name === 'response-time' ? 'responseTime' : name;
   state[stateKey] = Number(event.target.value);
@@ -1120,6 +977,7 @@ const mathDepthReadout = document.querySelector('#math-depth-readout');
 const pathReadout = document.querySelector('#path-readout');
 const lensControls = [...document.querySelectorAll('.lens-layers input')];
 const wallTitle = document.querySelector('#wall-title');
+const equationKicker = document.querySelector('.equation-kicker');
 const wallArchitecture = document.querySelector('#wall-architecture');
 const wallState = document.querySelector('#wall-state');
 const wallDynamics = document.querySelector('#wall-dynamics');
@@ -1139,6 +997,11 @@ const pathEdgeReadout = document.querySelector('#path-edge-readout');
 const scaleInput = document.querySelector('#scale');
 const view2dButton = document.querySelector('#view-2d');
 const view3dButton = document.querySelector('#view-3d');
+const stereoSbsButton = document.querySelector('#view-sbs');
+const tTheoryButton = document.querySelector('#t-theory-toggle');
+const thoughtSparksPanel = document.querySelector('#thought-sparks-panel');
+const thoughtNoiseInput = document.querySelector('#thought-noise');
+const thoughtThresholdInput = document.querySelector('#thought-threshold');
 const wallScaleDown = document.querySelector('#wall-scale-down');
 const wallScaleUp = document.querySelector('#wall-scale-up');
 const pathBack = document.querySelector('#path-back');
@@ -1162,6 +1025,53 @@ const bodyMapPanel = document.querySelector('#body-map-panel');
 const bodyGridElement = document.querySelector('#body-grid');
 const bodyMapStatus = document.querySelector('#body-map-status');
 const hierarchyButtons = [...document.querySelectorAll('.hierarchy-button')];
+const fieldNote = document.querySelector('.field-note');
+
+function applyHashState({ render = true } = {}) {
+  const hashState = readHashState();
+  if (hashState.hasLens) {
+    if (hashState.lens === 'off') state.tTheory = false;
+    if (hashState.lens === 'on') state.tTheory = true;
+  }
+  if (hashState.hasPath) {
+    const hashedRoute = scalePaths.find(route => route.id === hashState.path);
+    if (hashedRoute) {
+      state.route = hashedRoute.id;
+      const routeModel = usfModels.find(model => model.route === hashedRoute.id);
+      if (routeModel) state.implementation = routeModel.id;
+    }
+  }
+  state.zoomTicks = state.implementation === 'canonical-i-v'
+    ? canonicalBands.map(band => band.oom[0])
+    : Array.from({ length: 20 }, (_, sigma) => sigma);
+  if (hashState.hasLevel) {
+    const hashedSigma = Number(hashState.level);
+    if (Number.isInteger(hashedSigma) && hashedSigma >= 0 && hashedSigma <= 19) {
+      if (!state.zoomTicks.includes(hashedSigma)) {
+        state.implementation = 'universal-1-20';
+        state.route = 'full-atlas';
+        state.zoomTicks = Array.from({ length: 20 }, (_, sigma) => sigma);
+      }
+      state.scale = hashedSigma;
+      state.visualScale = hashedSigma;
+    }
+  }
+  state.transport.playing = false;
+  state.transport.nextAt = 0;
+  if (!render) return;
+  suppressHashWrite = true;
+  routeSelect.value = state.route;
+  implementationSelect.value = state.implementation;
+  pathPlay.classList.remove('active');
+  pathPlay.setAttribute('aria-pressed', 'false');
+  pathPlay.textContent = 'PLAY PATH';
+  syncScaleControl();
+  renderZoomEquation();
+  updateScaleReadout();
+  suppressHashWrite = false;
+}
+
+applyHashState({ render: false });
 for (const route of scalePaths) routeSelect.add(new Option(route.label, route.id));
 routeSelect.value = state.route;
 for (const model of usfModels) implementationSelect.add(new Option(model.label, model.id));
@@ -1422,6 +1332,79 @@ function activeZoom() {
   return { scales: state.zoomTicks, label: state.implementation === 'canonical-i-v' ? 'I-V CANONICAL' : '0-20 OOM EXPANDED' };
 }
 
+function activeDimensionLevel() {
+  return state.tTheory ? state.level : 4;
+}
+
+function baselineEquation(plate) {
+  if (plate.sigma === 8) return '4D physiology, acoustics, motion, and measured nervous-system observables';
+  if (plate.sigma === 7) return '(nabla^2 + k_brain^2)G = delta';
+  return plate.equation;
+}
+
+function baselineField(plate) {
+  if (plate.sigma === 8) return 'ordinary physiological observables';
+  if (plate.sigma === 7) return 'neural tissue and measured EM activity';
+  return plate.field;
+}
+
+function equationToLatex(equation) {
+  const exact = new Map([
+    ['G_P(x,x\') = <x | G | x\'>', 'G_P(x,x\')=\\langle x\\mid G\\mid x\'\\rangle'],
+    ['G_string(s,s\') = -(alpha\'/2) log |s-s\'|^2', 'G_{\\mathrm{string}}(s,s\')=-\\frac{\\alpha\'}{2}\\log\\lvert s-s\'\\rvert^2'],
+    ['G_Y(r) = e^{-m r} / (4 pi r)', 'G_Y(r)=\\frac{e^{-mr}}{4\\pi r}'],
+    ['G_C(r) = 1 / (4 pi r)', 'G_C(r)=\\frac{1}{4\\pi r}'],
+    ['H psi = E psi', 'H\\psi=E\\psi'],
+    ['(d^2/dx^2 - lambda^-2)V = I_inject', '(\\partial_x^2-\\lambda^{-2})V=I_{\\mathrm{inject}}'],
+    ['(v_s^-2 d_t^2 - nabla^2 + k^2)Phi = -J', '(v_s^{-2}\\partial_t^2-\\nabla^2+k^2)\\Phi=-J'],
+    ['(nabla^2 + k_CEMI^2)G = delta', '(\\nabla^2+k_{\\mathrm{CEMI}}^2)G=\\delta'],
+    ['(nabla^2 + k_brain^2)G = delta', '(\\nabla^2+k_{\\mathrm{brain}}^2)G=\\delta'],
+    ['gamma e_dot = -grad H(e) + sqrt(2D) xi(t) + J(t)', '\\gamma\\dot{e}=-\\nabla H(e)+\\sqrt{2D}\\,\\xi(t)+J(t)'],
+    ['|omega_A - omega_B| < Delta omega_lock(kappa)', '|\\omega_A-\\omega_B|<\\Delta\\omega_{\\mathrm{lock}}(\\kappa)'],
+    ['partial_t v + lambda(v dot grad)v = -grad P + D_T nabla^2 v', '\\partial_t\\mathbf v+\\lambda(\\mathbf v\\cdot\\nabla)\\mathbf v=-\\nabla P+D_T\\nabla^2\\mathbf v'],
+    ['partial_t u = D nabla^2 u + f(u)', '\\partial_t u=D\\nabla^2u+f(u)'],
+    ['(nabla^2 + k_geo^2)G_geo = delta', '(\\nabla^2+k_{\\mathrm{geo}}^2)G_{\\mathrm{geo}}=\\delta'],
+    ['nabla^2 Phi = 4 pi G rho', '\\nabla^2\\Phi=4\\pi G\\rho'],
+    ['omega^2 = k/m', '\\omega^2=k/m'],
+    ['rho partial_tt u_i = C_ijkl partial_j partial_k u_l', '\\rho\\,\\partial_{tt}u_i=C_{ijkl}\\partial_j\\partial_ku_l'],
+    ['rho(D_t u) = -grad P + eta nabla^2 u + rho g', '\\rho(D_t\\mathbf u)=-\\nabla P+\\eta\\nabla^2\\mathbf u+\\rho\\mathbf g'],
+    ['Box h_mn = -16 pi G T_mn', '\\Box h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}'],
+  ]);
+  if (exact.has(equation)) return exact.get(equation);
+  return `\\text{${String(equation).replace(/[{}\\]/g, '').replace(/\s+/g, '\\;')}}`;
+}
+
+function hashForState() {
+  const params = new URLSearchParams();
+  params.set('level', String(state.scale));
+  params.set('path', state.route);
+  params.set('lens', state.tTheory ? 'on' : 'off');
+  return `#${params.toString()}`;
+}
+
+function writeHashState() {
+  if (suppressHashWrite) return;
+  const nextHash = hashForState();
+  if (location.hash !== nextHash) history.replaceState(null, '', nextHash);
+}
+
+function syncTTheoryUI() {
+  document.body.classList.toggle('t-theory-off', !state.tTheory);
+  tTheoryButton.textContent = `T-THEORY: ${state.tTheory ? 'ON' : 'OFF'}`;
+  tTheoryButton.classList.toggle('active', state.tTheory);
+  tTheoryButton.setAttribute('aria-pressed', String(state.tTheory));
+  fieldNote.textContent = state.tTheory
+    ? 'M4: BODY / P3: PROPAGATOR + EMF / L1: LIMBIC / C3: CORTEX + MIND'
+    : 'PHYSICS BASELINE: 4D BODY / BRAIN / NERVES ONLY';
+  if (!state.tTheory && state.brecvema) {
+    state.brecvema = false;
+    brecvemaInspector.hidden = true;
+    brecvemaButton.classList.remove('active');
+    brecvemaButton.setAttribute('aria-pressed', 'false');
+    brecvemaButton.textContent = 'BRECVEMA / P.N.S.';
+  }
+}
+
 function syncScaleControl() {
   const zoom = activeZoom();
   const position = Math.max(0, zoom.scales.indexOf(state.scale));
@@ -1475,14 +1458,15 @@ function toggleTransport() {
 }
 function updateScaleReadout() {
   const plate = getPlate(state.scale);
-  const isHuman = state.level === 11;
-  const isFeeling = state.level === 8;
-  const isPhysical = state.level === 4;
+  const displayLevel = activeDimensionLevel();
+  const isHuman = displayLevel === 11;
+  const isFeeling = displayLevel === 8;
+  const isPhysical = displayLevel === 4;
   const humanScale = state.scale === 7 || state.scale === 8;
   const primaryReading = isPhysical ? plate.physical : isFeeling ? plate.response : plate.integration;
-  const activeLensLabels = lenses.filter(lens => state.lenses.has(lens.id)).map(lens => lens.label);
+  const activeLensLabels = state.tTheory ? lenses.filter(lens => state.lenses.has(lens.id)).map(lens => lens.label) : ['PHYSICS BASELINE'];
   const mirrorReading = plate.mirror.enabled ? `Mirror contour available: ${plate.mirror.terms.join(', ')}.` : 'Mirror contour is not enabled for this biological reading.';
-  const reading = [primaryReading, state.lenses.has('mirror') ? mirrorReading : ''].filter(Boolean).join(' ');
+  const reading = state.tTheory ? [primaryReading, state.lenses.has('mirror') ? mirrorReading : ''].filter(Boolean).join(' ') : plate.physical;
   const badge = isPhysical ? plate.claim.physical : isFeeling ? plate.claim.response : plate.claim.integration;
   const route = getScalePath(state.route);
   const edge = route.edges.map(getPathEdge).find(candidate => candidate?.from === state.scale)
@@ -1494,17 +1478,21 @@ function updateScaleReadout() {
   scaleReadout.textContent = canonicalBand
     ? `${canonicalBand.id} / ${canonicalBand.label.split('/ ')[1]} / σ ${canonicalBand.oom[0]}–${canonicalBand.oom[1]}`
     : `SIGMA ${String(state.scale).padStart(2, '0')} / ${plate.label}`;
-  projectionReadout.textContent = `${state.level}D / ${activeLensLabels.join(' + ')} / ${plate.substrate.toUpperCase()}`;
-  equationTitle.textContent = `${activeLensLabels.join(' + ')} / ${plate.label}`;
-  equationPrimary.textContent = plate.equation;
+  projectionReadout.textContent = state.tTheory
+    ? `${displayLevel}D / ${activeLensLabels.join(' + ')} / ${plate.substrate.toUpperCase()}`
+    : `PHYSICS BASELINE / 4D / ${plate.substrate.toUpperCase()}`;
+  equationTitle.textContent = state.tTheory ? `${activeLensLabels.join(' + ')} / ${plate.label}` : `PHYSICS BASELINE / ${plate.label}`;
+  equationPrimary.textContent = state.tTheory ? plate.equation : baselineEquation(plate);
   equationSecondary.textContent = isPhysical ? plate.physical : isFeeling ? plate.response : plate.integration;
   dimensionReadout.textContent = isHuman ? 'M4 + P3 + L1 + C3 = 11D' : isFeeling ? 'M4 + P3 + L1 = 8D' : 'M4 = 4D / PHYSICS BASELINE';
-  wavenumberReadout.textContent = plate.field;
+  wavenumberReadout.textContent = state.tTheory ? plate.field : baselineField(plate);
   lengthReadout.textContent = plate.length;
   rankReadout.textContent = humanScale ? 'human-scale eligible' : 'typed substrate reading';
   timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / ${plate.time.toUpperCase()}`;
-  typeStatus.textContent = `${badge} / ${humanScale ? 'HUMAN-SCALE VOCABULARY AVAILABLE' : 'RETYPE VARIABLES FOR SELECTED SUBSTRATE'}`;
-  typeStatus.classList.toggle('error', !isHuman && state.brecvema);
+  typeStatus.textContent = state.tTheory
+    ? `${badge} / ${humanScale ? 'HUMAN-SCALE VOCABULARY AVAILABLE' : 'RETYPE VARIABLES FOR SELECTED SUBSTRATE'}`
+    : `${badge} / PHYSICS BASELINE ACTIVE`;
+  typeStatus.classList.toggle('error', state.tTheory && !isHuman && state.brecvema);
   pathReadout.textContent = route.id === 'full-atlas'
     ? 'DEFAULT PATH / 0 QUANTUM FOAM -> 19 OBSERVABLE UNIVERSE'
     : `PATH / ${route.purpose}`;
@@ -1515,28 +1503,35 @@ function updateScaleReadout() {
   for (const control of lensControls) {
     if (control.id === 'lens-mirror') {
       control.disabled = !plate.mirror.enabled;
-      if (!plate.mirror.enabled) state.lenses.delete('mirror');
+      if (!plate.mirror.enabled || !state.tTheory) state.lenses.delete('mirror');
     }
+    control.disabled = !state.tTheory || (control.id === 'lens-mirror' && !plate.mirror.enabled);
     control.checked = state.lenses.has(control.id.replace('lens-', ''));
   }
-  brecvemaButton.disabled = !humanScale;
-  appraisalPanel.hidden = !humanScale;
-  bodyMapPanel.hidden = !humanScale;
-  brecvemaButton.title = humanScale ? 'Open the human music-affect mechanism lens' : 'BRECVEMA is available at the human biological scales only';
+  brecvemaButton.disabled = !humanScale || !state.tTheory;
+  appraisalPanel.hidden = !humanScale || !state.tTheory;
+  bodyMapPanel.hidden = !humanScale || !state.tTheory;
+  thoughtSparksPanel.hidden = !humanScale || !state.tTheory;
+  brecvemaButton.title = humanScale && state.tTheory ? 'Open the human music-affect mechanism lens' : 'BRECVEMA is available at the human biological scales only when T-Theory is on';
   const quantumCanonical = state.implementation === 'canonical-i-v' && state.scale < 7;
   for (const button of hierarchyButtons) {
     const isElevenDimensional = Number(button.dataset.level) === 11;
-    button.disabled = quantumCanonical && isElevenDimensional;
-    button.classList.toggle('active', Number(button.dataset.level) === state.level);
+    button.disabled = (!state.tTheory && Number(button.dataset.level) !== 4) || (quantumCanonical && isElevenDimensional);
+    button.classList.toggle('active', Number(button.dataset.level) === displayLevel);
   }
-  wallTitle.textContent = canonicalBand ? `${canonicalBand.id} / ${canonicalBand.label.split('/ ')[1]}` : `${state.level}D / ${plate.label}`;
+  equationKicker.textContent = state.tTheory ? 'DEPENDENT-TYPE MORPHISM INTERFACE' : 'PHYSICS BASELINE';
+  wallTitle.textContent = state.tTheory
+    ? (canonicalBand ? `${canonicalBand.id} / ${canonicalBand.label.split('/ ')[1]}` : `${displayLevel}D / ${plate.label}`)
+    : `PHYSICS BASELINE / ${plate.label}`;
   wallArchitecture.dataset.tex = isHuman ? '\\mathcal{M}_{11}=M_4\\times P_3\\times L_1\\times C_3' : isFeeling ? '\\mathcal{M}_8=M_4\\times P_3\\times L_1' : '\\mathcal{M}_4';
   wallState.dataset.tex = canonicalBand
     ? `\\sigma\\in[${canonicalBand.oom[0]},${canonicalBand.oom[1]}]`
     : '\\mathrm{Substrate}(\\sigma)=\\text{' + plate.substrate.replace(/ /g, '\\;') + '}';
-  wallDynamics.dataset.tex = canonicalBand
+  wallDynamics.dataset.tex = !state.tTheory
+    ? equationToLatex(baselineEquation(plate))
+    : canonicalBand
     ? `\\mathcal F_{${canonicalBand.id}}=\\bigoplus_{\\sigma=${canonicalBand.oom[0]}}^{${canonicalBand.oom[1]}}[(\\nabla_\\sigma^2+k_\\sigma^2)G_\\sigma=\\delta_\\sigma]`
-    : plate.equation.replace(/\^/g, '^');
+    : equationToLatex(plate.equation);
   wallLevelLaw.dataset.tex = canonicalBand
     ? `\\text{${canonicalBand.change.replace(/ /g, '\\;')}}`
     : isFeeling ? 'G_R\\ast J\\;\\Rightarrow\\;\\text{causal response}' : isHuman ? '\\operatorname{Spec}(X)=\\text{integrated organization}' : '\\text{physics baseline at selected scale}';
@@ -1544,7 +1539,7 @@ function updateScaleReadout() {
   wallStatus.textContent = `${badge} / ${reading}`;
   cheatSheetBadge.textContent = badge;
   cheatSheetBadge.classList.toggle('sourced', badge === 'SOURCED');
-  cheatSheetTitle.textContent = `${state.level}D ${plate.label}`;
+  cheatSheetTitle.textContent = `${displayLevel}D ${plate.label}`;
   cheatSheetSummary.textContent = reading;
   cheatSheetSource.textContent = plate.source;
   visualTodo.textContent = `${plate.visual.status} / ${plate.visual.next}`;
@@ -1554,6 +1549,8 @@ function updateScaleReadout() {
   displayPreset.value = matchingPreset?.id ?? 'custom';
   renderCheatSheetLedger(sheet, edge);
   renderWallMath();
+  syncTTheoryUI();
+  writeHashState();
 }
 routeSelect.addEventListener('change', () => {
   state.route = routeSelect.value;
@@ -1623,6 +1620,16 @@ for (const control of lensControls) control.addEventListener('change', () => {
   else state.lenses.delete(lens);
   updateScaleReadout();
 });
+tTheoryButton.addEventListener('click', () => {
+  state.tTheory = !state.tTheory;
+  updateScaleReadout();
+});
+thoughtNoiseInput.addEventListener('input', () => {
+  state.thoughtNoiseD = Number(thoughtNoiseInput.value);
+});
+thoughtThresholdInput.addEventListener('input', () => {
+  state.thoughtThreshold = Number(thoughtThresholdInput.value);
+});
 document.querySelector('#poke').addEventListener('click', () => {
   state.impulse = 1;
   state.responseTime = 0;
@@ -1651,13 +1658,30 @@ for (const button of hierarchyButtons) {
 for (const [mode, button] of [['2d', view2dButton], ['3d', view3dButton]]) {
   button.addEventListener('click', () => {
     state.viewMode = mode;
+    if (mode === '2d') state.stereoSbs = false;
     view2dButton.classList.toggle('active', mode === '2d');
     view3dButton.classList.toggle('active', mode === '3d');
     view2dButton.setAttribute('aria-pressed', String(mode === '2d'));
     view3dButton.setAttribute('aria-pressed', String(mode === '3d'));
+    stereoSbsButton.classList.toggle('active', state.stereoSbs);
+    stereoSbsButton.setAttribute('aria-pressed', String(state.stereoSbs));
+    resize();
   });
 }
+stereoSbsButton.addEventListener('click', () => {
+  state.stereoSbs = !state.stereoSbs;
+  if (state.stereoSbs) state.viewMode = '3d';
+  view2dButton.classList.toggle('active', state.viewMode === '2d');
+  view3dButton.classList.toggle('active', state.viewMode === '3d' && !state.stereoSbs);
+  stereoSbsButton.classList.toggle('active', state.stereoSbs);
+  view2dButton.setAttribute('aria-pressed', String(state.viewMode === '2d'));
+  view3dButton.setAttribute('aria-pressed', String(state.viewMode === '3d' && !state.stereoSbs));
+  stereoSbsButton.setAttribute('aria-pressed', String(state.stereoSbs));
+  resize();
+});
+addEventListener('hashchange', () => applyHashState());
 syncScaleControl();
+syncTTheoryUI();
 renderZoomEquation();
 updateScaleReadout();
 
@@ -1665,7 +1689,7 @@ function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   backgroundMaterial.uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
-  camera.aspect = innerWidth / innerHeight;
+  camera.aspect = (state.stereoSbs ? innerWidth / 2 : innerWidth) / innerHeight;
   camera.updateProjectionMatrix();
   const aspect = innerWidth / innerHeight;
   overheadCamera.left = -5 * aspect;
@@ -1676,6 +1700,44 @@ function resize() {
 }
 addEventListener('resize', resize); resize();
 const clock = new THREE.Clock();
+
+function renderScene() {
+  if (state.stereoSbs && state.viewMode === '3d') {
+    stereoCamera.update(camera);
+    const width = renderer.domElement.width;
+    const height = renderer.domElement.height;
+    const halfWidth = Math.floor(width / 2);
+    renderer.setScissorTest(true);
+    for (const [x, eyeCamera] of [[0, stereoCamera.cameraL], [halfWidth, stereoCamera.cameraR]]) {
+      renderer.setViewport(x, 0, halfWidth, height);
+      renderer.setScissor(x, 0, halfWidth, height);
+      renderer.autoClear = true;
+      renderer.render(backgroundScene, backgroundCamera);
+      renderer.autoClear = false;
+      renderer.clearDepth();
+      renderer.render(scene, eyeCamera);
+    }
+    renderer.setScissorTest(false);
+    renderer.setViewport(0, 0, width, height);
+    renderer.autoClear = true;
+    return;
+  }
+  renderer.autoClear = true;
+  renderer.render(backgroundScene, backgroundCamera);
+  renderer.autoClear = false;
+  renderer.clearDepth();
+  renderer.render(scene, state.viewMode === '2d' ? overheadCamera : camera);
+  renderer.autoClear = true;
+}
+
+function rendererState() {
+  return {
+    ...state,
+    level: activeDimensionLevel(),
+    rendererId: state.scale === 0 ? 'quantum-foam' : state.scale === 7 || state.scale === 8 ? 'thought-sparks' : null,
+  };
+}
+
 function frame() {
   const time = clock.getElapsedTime();
   const delta = clock.getDelta();
@@ -1699,8 +1761,10 @@ function frame() {
   const responsePulse = state.impulse * (1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15) * Math.exp(-state.responseTime * 3.4);
   backgroundMaterial.uniforms.uTime.value = time;
   backgroundMaterial.uniforms.uScale.value = state.visualScale;
-  const quantumMode = state.implementation === 'canonical-i-v' && state.scale === 0 && state.level === 4;
-  backgroundMaterial.uniforms.uLevel.value = state.level;
+  const displayLevel = activeDimensionLevel();
+  const tTheoryLayerOn = state.tTheory;
+  const quantumMode = state.implementation === 'canonical-i-v' && state.scale === 0 && displayLevel === 4;
+  backgroundMaterial.uniforms.uLevel.value = displayLevel;
   backgroundMaterial.uniforms.uPath.value = state.implementation === 'canonical-i-v' ? 1 : state.route === 'animal-to-flock' ? 2 : state.route === 'animal-to-church' ? 3 : 0;
   const profile = fractalProfiles[Math.min(fractalProfiles.length - 1, Math.floor(state.visualScale / 2))];
   backgroundMaterial.uniforms.uPower.value = profile.power;
@@ -1713,8 +1777,8 @@ function frame() {
   backgroundMaterial.uniforms.uCognitive.value = state.cognitive;
   backgroundMaterial.uniforms.uPulse.value = responsePulse;
   updateStarflight(delta, profile, responsePulse);
-  root.rotation.y = state.level === 4 ? 0 : Math.sin(time * 0.18) * 0.24;
-  root.rotation.x = state.level === 4 ? 0 : Math.sin(time * 0.13) * 0.035;
+  root.rotation.y = displayLevel === 4 ? 0 : Math.sin(time * 0.18) * 0.24;
+  root.rotation.x = displayLevel === 4 ? 0 : Math.sin(time * 0.13) * 0.035;
   const scaleFraction = state.visualScale / 19;
   const humanSceneWeight = state.implementation === 'canonical-i-v'
     ? Math.max(0, 1 - Math.abs(state.visualScale - 7) / 2)
@@ -1728,30 +1792,33 @@ function frame() {
   const fromMorphism = getScaleMorphism(fromSigma);
   const toMorphism = getScaleMorphism(toSigma);
   root.visible = !astralCanonical && humanSceneWeight > 0.01;
-  for (const { marker, level } of fieldLabelMarkers) marker.visible = !astralCanonical && humanSceneWeight > 0.01 && state.level >= level;
+  for (const { marker, level } of fieldLabelMarkers) marker.visible = !astralCanonical && humanSceneWeight > 0.01 && displayLevel >= level;
   for (const layer of morphologyLayers) {
     updateMorphologyLayer(layer, fromMorphism, toMorphism, morphologyMix, time, responsePulse);
-    const levelWeight = state.level >= layer.level ? 1 : 0;
+    const levelWeight = displayLevel >= layer.level && (tTheoryLayerOn || layer.level === 4) ? 1 : 0;
     layer.material.opacity = cellularCanonical || astralCanonical ? 0 : morphologyWeight * levelWeight * (layer.key === 'physical' ? 0.68 : layer.key === 'response' ? 0.82 : 0.72);
     layer.material.size = layer.size * (1 + responsePulse * (layer.key === 'response' ? 2.4 : 1.15));
   }
   scaleField.rotation.y = time * 0.06 + state.visualScale * 0.13;
   scaleField.rotation.z = Math.sin(time * 0.13) * 0.08;
-  updateQuantumFoam(time, responsePulse);
+  const renderState = rendererState();
+  quantumFoam.update(renderState, time, responsePulse);
+  thoughtSparks.update(renderState, time, responsePulse);
+  updateCellularDensityLayer(time, responsePulse);
   updateCellularField(time, responsePulse);
   updateAstralFields(time, responsePulse);
   stars.material.opacity = quantumMode ? 0.08 : 0.28 + scaleFraction * 0.52;
   grid.visible = !quantumMode;
   updatePartSeeds(time, responsePulse);
   updateCollectiveForeground(time, responsePulse);
-  const humanWeight = state.level === 11 ? humanSceneWeight : 0;
-  const feelingWeight = state.level >= 8 ? humanSceneWeight : 0;
-  const physicalWeight = state.level >= 4 ? humanSceneWeight : 0;
+  const humanWeight = tTheoryLayerOn && displayLevel === 11 ? humanSceneWeight : 0;
+  const feelingWeight = tTheoryLayerOn && displayLevel >= 8 ? humanSceneWeight : 0;
+  const physicalWeight = displayLevel >= 4 ? humanSceneWeight : 0;
   root.scale.setScalar(0.72);
   root.position.y = -0.1;
   brecvemaLayer.rotation.y = time * 0.16;
   const humanScale = state.scale === 7 || state.scale === 8;
-  brecvemaLayer.visible = state.brecvema && humanScale && state.level === 11 && humanSceneWeight > 0.01;
+  brecvemaLayer.visible = tTheoryLayerOn && state.brecvema && humanScale && displayLevel === 11 && humanSceneWeight > 0.01;
   for (const channel of mechanismChannels) {
     const selected = state.selectedMechanisms.has(channel.id);
     channel.line.material.color.copy(selected ? pink : violet);
@@ -1769,13 +1836,13 @@ function frame() {
   }
   limbicRing.scale.setScalar(1 + state.limbic * (0.12 + Math.sin(time * 1.5) * 0.07) + responsePulse * 0.3); limbicRing.material.opacity = (0.05 + state.limbic * 0.15 + responsePulse * 0.1) * feelingWeight;
   limbicCore.material.opacity = (0.2 + state.limbic * 0.75 + responsePulse * 0.25) * feelingWeight;
-  limbicWell.visible = state.level >= 8;
+  limbicWell.visible = tTheoryLayerOn && displayLevel >= 8;
   limbicWell.scale.setScalar(0.9 + state.limbic * 0.2);
   wellMaterial.opacity = (0.45 + state.limbic * 0.45 + responsePulse * 0.25) * feelingWeight;
   barrier.material.opacity = (0.25 + state.limbic * 0.55 + responsePulse * 0.35) * feelingWeight;
   thresholdRing.position.y = 2.4 + state.cognitive * 0.75; thresholdRing.material.opacity = (0.2 + state.cognitive * 0.8) * humanWeight;
   cortex.material.opacity = (0.18 + state.cognitive * 0.75) * humanWeight;
-  mindFractal.visible = state.level === 11;
+  mindFractal.visible = tTheoryLayerOn && displayLevel === 11;
   mindFractal.rotation.y = time * 0.72;
   mindFractal.rotation.z = Math.sin(time * 0.6) * 0.24;
   fractalMaterial.opacity = (0.22 + state.cognitive * 0.72) * humanWeight;
@@ -1797,19 +1864,14 @@ function frame() {
     if (!quantumMode) stars.material.opacity = 0.28 + scaleFraction * 0.52;
   for (const mesh of body) {
     mesh.material.opacity = (0.18 + state.somatic * 0.5) * physicalWeight;
-    mesh.material.color.copy(state.level === 4 ? physicalGrey : cyan);
+    mesh.material.color.copy(displayLevel === 4 ? physicalGrey : cyan);
   }
   for (const line of limbs) {
     line.material.opacity = (0.25 + state.somatic * 0.5) * physicalWeight;
-    line.material.color.copy(state.level === 4 ? physicalGrey : cyan);
+    line.material.color.copy(displayLevel === 4 ? physicalGrey : cyan);
   }
   if (state.impulse) timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / RESPONSE DECAY ${getPlate(state.scale).time.toUpperCase()}`;
-  renderer.autoClear = true;
-  renderer.render(backgroundScene, backgroundCamera);
-  renderer.autoClear = false;
-  renderer.clearDepth();
-  renderer.render(scene, state.viewMode === '2d' ? overheadCamera : camera);
-  renderer.autoClear = true;
+  renderScene();
   requestAnimationFrame(frame);
 }
 frame();

@@ -1,0 +1,32 @@
+id: bird
+label: Bird
+sector: named-solution
+length_scale: 10^0 m
+substrate: avian body
+field: aerodynamic forcing and muscle/gravity response
+equation: M_b x_ddot = F_aero + F_gravity + F_muscle
+explain:
+  cookie:
+    text: 'Draft: Bird is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Bird: aerodynamic forcing and muscle/gravity response over avian body.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=named solution bird; atlas=not a Wave
+    Atlas level; operator=bird-flock 07 / BIRD.'
+atlas_rows:
+  physical: avian body
+  field: aerodynamic forcing and muscle/gravity response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: M_b x_ddot = F_aero + F_gravity + F_muscle
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P19
+renderer:
+  id: bird
+media: []
+former_labels:
+  app: named solution bird
+  wave_atlas: not a Wave Atlas level
+  operator_contract: bird-flock 07 / BIRD

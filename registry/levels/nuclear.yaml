@@ -1,0 +1,35 @@
+id: nuclear
+label: Nuclear
+sector: micro-physical
+length_scale: 10^-15 m
+substrate: quark, gluon, and hadron system
+field: short-range nuclear response
+equation: G_Y(r)=e^{-m r}/(4 pi r)
+explain:
+  cookie:
+    text: 'Draft: Nuclear is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Nuclear: short-range nuclear response over quark, gluon, and hadron system.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=NUCLEAR sigma 2; atlas=Scale 2 Nuclear
+    / Quark-Gluon; operator=02 / NUCLEAR.'
+atlas_rows:
+  physical: quark, gluon, and hadron system
+  field: short-range nuclear response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: G_Y(r)=e^{-m r}/(4 pi r)
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P14
+- P20
+renderer:
+  id: nuclear
+media:
+- path: Part2/book/wave-atlas/figures/quark-gluon-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: NUCLEAR sigma 2
+  wave_atlas: Scale 2 Nuclear / Quark-Gluon
+  operator_contract: 02 / NUCLEAR

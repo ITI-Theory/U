@@ -1,0 +1,34 @@
+id: flock
+label: Flock
+sector: named-solution
+length_scale: 10^0 to 10^1 m
+substrate: avian flock
+field: active-matter flock propagation
+equation: partial_t v_b + lambda_b(v_b dot nabla)v_b = -nabla P_b + D_b nabla^2 v_b + f_aero
+explain:
+  cookie:
+    text: 'Draft: Flock is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Flock: active-matter flock propagation over avian flock.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=named solution flock; atlas=related to
+    Scale 7 Animal Swarm; operator=bird-flock 08 / FLOCK.'
+atlas_rows:
+  physical: avian flock
+  field: active-matter flock propagation
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: partial_t v_b + lambda_b(v_b dot nabla)v_b = -nabla P_b + D_b nabla^2 v_b + f_aero
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P19
+renderer:
+  id: flock
+media:
+- path: Part2/book/wave-atlas/figures/murmuration-scale7-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: named solution flock
+  wave_atlas: related to Scale 7 Animal Swarm
+  operator_contract: bird-flock 08 / FLOCK

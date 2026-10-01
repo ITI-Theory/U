@@ -1,0 +1,32 @@
+id: colony-roost
+label: Colony / Roost
+sector: named-solution
+length_scale: 10^3 m
+substrate: avian colony or roost network
+field: continuity and density flow
+equation: rho_dot_b + nabla dot(rho_b v_b)=0
+explain:
+  cookie:
+    text: 'Draft: Colony / Roost is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Colony / Roost: continuity and density flow over avian colony or roost network.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=named solution colony-roost; atlas=not
+    a Wave Atlas level; operator=bird-flock 09 / COLONY / ROOST.'
+atlas_rows:
+  physical: avian colony or roost network
+  field: continuity and density flow
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: rho_dot_b + nabla dot(rho_b v_b)=0
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P19
+renderer:
+  id: colony-roost
+media: []
+former_labels:
+  app: named solution colony-roost
+  wave_atlas: not a Wave Atlas level
+  operator_contract: bird-flock 09 / COLONY / ROOST

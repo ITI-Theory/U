@@ -1,0 +1,35 @@
+id: cellular-synaptic
+label: Cellular / Synaptic
+sector: network
+length_scale: 10^-6 m
+substrate: membrane, ion channel, and synapse
+field: bioelectric and synaptic response
+equation: (d^2/dx^2 - lambda^-2)V = I_inject
+explain:
+  cookie:
+    text: 'Draft: Cellular / Synaptic is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Cellular / Synaptic: bioelectric and synaptic response over membrane, ion channel, and synapse.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=CELLULAR / SYNAPTIC sigma 5; atlas=Scale
+    5 Cellular / Neural Synapse; operator=05 / CELLULAR.'
+atlas_rows:
+  physical: membrane, ion channel, and synapse
+  field: bioelectric and synaptic response
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: (d^2/dx^2 - lambda^-2)V = I_inject
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P5
+- P13
+renderer:
+  id: cellular
+media:
+- path: Part2/book/wave-atlas/figures/neuron-structure-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: CELLULAR / SYNAPTIC sigma 5
+  wave_atlas: Scale 5 Cellular / Neural Synapse
+  operator_contract: 05 / CELLULAR

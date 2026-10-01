@@ -1,0 +1,35 @@
+id: geological
+label: Geological
+sector: geological
+length_scale: 10^5 m
+substrate: tectonic plates and fault systems
+field: elastic and seismic Green function
+equation: rho partial_tt u_i = C_ijkl partial_j partial_k u_l
+explain:
+  cookie:
+    text: 'Draft: Geological is what answers when this kind of thing is poked.'
+    draft: true
+  general: 'Geological: elastic and seismic Green function over tectonic plates and fault systems.'
+  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=GEOLOGICAL sigma 15; atlas=Scale 10 Geological
+    / Seismic; operator=10 / GEOLOGICAL.'
+atlas_rows:
+  physical: tectonic plates and fault systems
+  field: elastic and seismic Green function
+  mind: Information/organization row from source; interpretive unless specifically sourced.
+  equation_setting: rho partial_tt u_i = C_ijkl partial_j partial_k u_l
+claims:
+  physical: SOURCED
+  field: SOURCED
+  mind: INTERPRETIVE
+sources:
+- P16
+- P20
+renderer:
+  id: geological
+media:
+- path: Part2/book/wave-atlas/figures/glarus-thrust-placeholder.png
+  kind: atlas-figure
+former_labels:
+  app: GEOLOGICAL sigma 15
+  wave_atlas: Scale 10 Geological / Seismic
+  operator_contract: 10 / GEOLOGICAL

@@ -4,6 +4,9 @@
   "type": "module",
   "scripts": {
     "start": "vite --host 127.0.0.1",
+    "prestart": "npm run generate",
+    "generate": "python scripts/generate.py",
+    "prebuild": "npm run generate",
     "build": "vite build"
   },
   "dependencies": {
