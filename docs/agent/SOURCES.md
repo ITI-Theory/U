@@ -24,8 +24,12 @@ to trust it. Paths are relative to `U/` unless they start with `Me/`.
 | 14035-18768 | Lean 4 Formal Proofs Appendix |
 
 `Part2/fractal-programme/bld/ttheory-omnibus-body.md`: all fifteen books,
-59,275 lines. Each book is a generated introduction and conclusion around
-embedded papers (`books/T-Theory/build_fractal_books.py`).
+59,275 lines, as they stood before 2026-10-01 (a stale snapshot; the line
+map below refers to it). The current books are source-owned in
+`books/T-Theory/<id>/book-<id>.md`; the current assembled body is
+`books/T-Theory/bld/ttheory-omnibus-body.md`. Each old book was a generated
+introduction and conclusion around embedded papers
+(`books/T-Theory/build_fractal_books.py`).
 
 | Lines | Book |
 |---|---|

@@ -58,8 +58,26 @@ State on 2026-10-01:
 - Candidates built in U: `paper/bld/omnibus-a4.pdf` (427 pages),
   `books/T-Theory/bld/ttheory-vol1.pdf` (680), `ttheory-vol2.pdf` (655),
   `ttheory-omnibus.pdf` (1,296), all fifteen domain books and booklets.
-- Staged for NotebookLM UAT with SHA-256 manifests:
-  `uat/staging/papers/` (15 artefacts) and `uat/staging/ttheory/` (13).
+- Staged for NotebookLM UAT with SHA-256 manifests (re-staged 2026-10-01
+  late morning): `uat/staging/papers/` (every changed paper and dataset plus
+  the omnibus) and `uat/staging/ttheory/` (thesis, both volumes, Philosophy,
+  Gateway booklet). The earlier `ttheory` stage held stale August builds:
+  `uat/manifest.yaml`, the Lulu cover jobs, `check_lulu_pages.py`,
+  `release-check`, and `PROCESS.md` still pointed at the retired
+  `Part2/fractal-programme/bld`; all now use `books/T-Theory/bld`.
+- Zenodo is scripted: `bin/zenodo-publish` (`plan`, `new-version`, `create`;
+  sandbox first; drafts by default; live publish needs `--publish --yes`;
+  refuses Dist files whose SHA-256 is not in a staging manifest). Metadata:
+  `Dist/zenodo/metadata.yaml`. Tokens: `ZENODO_SANDBOX_TOKEN`, `ZENODO_TOKEN`.
+- Dist registry updated: `discipline` and `level` on every record; public
+  Zenodo titles kept, with `source_title` for the paper's own title (P2, P4,
+  P20 renamed for hardening); statuses current; book records retitled.
+- Author decision (2026-10-01): UAT is ready but not started; the app and
+  Atlas review comes first so errors found there reach the release.
+- t-theory.org: QR assets already encode `https://www.t-theory.org/` and all
+  U renderers use them (ISS-032). Remaining: site content in
+  `ITI-Theory/t-theory.org`, domain check, and `Dist/stuff/t-theory-sticker.png`
+  (old GitHub QR).
 - Lulu (author): preview Volumes I and II and the paper omnibus, then order.
   Promote to Dist with `make lulu` (or the copy rule) after acceptance.
 - Zenodo new versions needed (content changed 2026-10-01): D1, D2, P1-P20

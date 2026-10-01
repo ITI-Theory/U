@@ -12,14 +12,32 @@ papers:
     - uat/dev-handover.md
   files:
     - paper/bld/omnibus-a4.pdf
-    - paper/bld/lean-proofs-appendix.pdf
-    - paper/bld/SFT-DEMO-CASE.pdf
+    - paper/bld/usf-euclidean-qft.pdf
+    - paper/bld/usf-interacting-qft.pdf
+    - paper/bld/soma-field-paper.pdf
+    - paper/bld/quantum-soma-penrose.pdf
+    - paper/bld/mathematical-co-identification.pdf
+    - paper/bld/soma-field-synthesis.pdf
+    - paper/bld/soma-physical-substrate.pdf
+    - paper/bld/soma-field-book.pdf
+    - paper/bld/soma-field-patient-pov.pdf
+    - paper/bld/the-tensor.pdf
+    - paper/bld/music-affect-dynamics.pdf
+    - paper/bld/soma-temporal-dynamics.pdf
     - paper/bld/zoomable-somatic-field.pdf
     - paper/bld/experimental-validation.pdf
+    - paper/bld/missing-limbic-layer.pdf
+    - paper/bld/geographic-somatic-field.pdf
+    - paper/bld/gestalt-field-dynamics.pdf
+    - paper/bld/preverbal-manifold.pdf
+    - paper/bld/swarm-propagator.pdf
+    - paper/bld/universal-somatic-field.pdf
     - paper/bld/cosmological-constant-derivation.pdf
     - paper/bld/dark-matter-spatial-vacuum.pdf
     - paper/bld/ttheory-phenomena.pdf
     - paper/bld/g2-symmetry-breaking.pdf
+    - paper/bld/SFT-DEMO-CASE.pdf
+    - paper/bld/lean-proofs-appendix.pdf
 
 ttheory:
   purpose: "Fractal Thesis, print volumes, and cheatsheet acceptance"
@@ -33,11 +51,11 @@ ttheory:
     - uat/ttheory-build-review.md
     - uat/dev-handover.md
   files:
-    - Part2/fractal-programme/bld/ttheory-omnibus.pdf
-    - Part2/fractal-programme/bld/ttheory-vol1.pdf
-    - Part2/fractal-programme/bld/ttheory-vol1-10pt.pdf
-    - Part2/fractal-programme/bld/ttheory-vol2.pdf
-    - Part2/fractal-programme/bld/booklet-gateway.pdf
+    - books/T-Theory/bld/ttheory-omnibus.pdf
+    - books/T-Theory/bld/ttheory-vol1.pdf
+    - books/T-Theory/bld/ttheory-vol2.pdf
+    - books/T-Theory/bld/book-philosophy.pdf
+    - books/T-Theory/bld/booklet-gateway.pdf
 
 lulu-proofs:
   purpose: "Lulu A4 Hardcover Linen Wrap with Dust Jacket comparison proofs"
@@ -45,9 +63,9 @@ lulu-proofs:
   readme: uat/staging-readme-ttheory.md
   files:
     - paper/bld/omnibus-a4.pdf
-    - Part2/fractal-programme/bld/ttheory-vol1.pdf
-    - Part2/fractal-programme/bld/ttheory-vol1-10pt.pdf
-    - Part2/fractal-programme/bld/book-gateway.pdf
+    - books/T-Theory/bld/ttheory-vol1.pdf
+    - books/T-Theory/bld/ttheory-vol1-10pt.pdf
+    - books/T-Theory/bld/book-gateway.pdf
     - paper/bld/lulu-covers/01-omnibus-v2-linen-wrap-proof.pdf
     - paper/bld/lulu-covers/01-omnibus-v2-dust-jacket.pdf
     - paper/bld/lulu-covers/03-ttheory-vol1-foundation-linen-wrap-proof.pdf

@@ -11,7 +11,7 @@ import yaml
 
 U_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_BLD = U_ROOT / "paper" / "bld"
-FRACTAL_BLD = U_ROOT / "Part2" / "fractal-programme" / "bld"
+FRACTAL_BLD = U_ROOT / "books" / "T-Theory" / "bld"
 REGISTRY = U_ROOT.parent / "Dist" / "PAPERS.yaml"
 
 

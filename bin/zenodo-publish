@@ -1,0 +1,472 @@
+#!/usr/bin/env python3
+"""Publish [T]-Theory records to Zenodo from Dist/PAPERS.yaml.
+
+Usage:
+    # Create tokens at zenodo.org -> Applications -> Personal access tokens.
+    # Required scopes: deposit:write and deposit:actions.
+    # Live:    set ZENODO_TOKEN=<token>
+    # Sandbox: set ZENODO_SANDBOX_TOKEN=<sandbox token>
+
+    bin/zenodo-publish plan
+    bin/zenodo-publish --sandbox plan
+    bin/zenodo-publish --sandbox create P22
+    bin/zenodo-publish --sandbox new-version P11 --update-metadata
+    bin/zenodo-publish new-version P11 --publish --yes
+
+Workflow: test on sandbox first, then run plan, create or update an unpublished
+Zenodo draft, inspect the draft URL, and only then publish with --publish. Live
+publishing additionally requires --yes. Tokens are sent only in Authorization
+headers and are never printed.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+import time
+from datetime import date
+from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote, urlencode
+from urllib.request import Request, urlopen
+
+try:
+    import yaml
+except ImportError as exc:  # pragma: no cover - defensive; repo tools already use PyYAML.
+    raise SystemExit("PyYAML is required; install the repository Python dependencies first.") from exc
+
+U_ROOT = Path(__file__).resolve().parent.parent
+DIST_ROOT = U_ROOT.parent / "Dist"
+REGISTRY_PATH = DIST_ROOT / "PAPERS.yaml"
+METADATA_PATH = DIST_ROOT / "zenodo" / "metadata.yaml"
+COMMUNITY = "iti-theory"
+CREATOR = {
+    "name": "Johnson, Alistair",
+    "orcid": "0009-0007-2194-0850",
+    "affiliation": "Independent Researcher, Zurich, Switzerland",
+}
+USER_AGENT = "ITI-Theory-zenodo-publish/1.0"
+LIVE_BASE = "https://zenodo.org"
+SANDBOX_BASE = "https://sandbox.zenodo.org"
+TODAY = date.today().isoformat()
+PLAN_STATUSES = {"needs-new-version", "pending-upload"}
+
+
+class ZenodoError(RuntimeError):
+    """Raised for API and local validation failures."""
+
+
+def read_yaml(path: Path) -> object:
+    if not path.exists():
+        raise ZenodoError(f"Missing required file: {path}")
+    with path.open("r", encoding="utf-8") as handle:
+        return yaml.safe_load(handle)
+
+
+def registry_entries() -> list[dict]:
+    data = read_yaml(REGISTRY_PATH)
+    if not isinstance(data, dict):
+        raise ZenodoError(f"Registry is not a YAML mapping: {REGISTRY_PATH}")
+    entries = [entry for section in data.values() if isinstance(section, list) for entry in section]
+    return [entry for entry in entries if isinstance(entry, dict) and entry.get("id")]
+
+
+def registry_by_id() -> dict[str, dict]:
+    entries = registry_entries()
+    by_id = {str(entry["id"]): entry for entry in entries}
+    return by_id
+
+
+def upload_metadata() -> dict[str, dict]:
+    data = read_yaml(METADATA_PATH)
+    if not isinstance(data, dict):
+        raise ZenodoError(f"Metadata is not a YAML mapping: {METADATA_PATH}")
+    return {str(key): value for key, value in data.items() if not str(key).startswith("_")}
+
+
+def selected_entries(ids: list[str]) -> list[dict]:
+    by_id = registry_by_id()
+    missing = [record_id for record_id in ids if record_id not in by_id]
+    if missing:
+        raise ZenodoError(f"Unknown registry id(s): {', '.join(missing)}")
+    return [by_id[record_id] for record_id in ids]
+
+
+def dist_file(entry: dict) -> Path | None:
+    rel = entry.get("zenodo_file") or entry.get("file")
+    if not rel:
+        return None
+    return DIST_ROOT / Path(str(rel))
+
+
+def action_for(entry: dict) -> str | None:
+    status = entry.get("status")
+    if status == "needs-new-version":
+        return "new-version"
+    if status == "pending-upload":
+        return "create"
+    return None
+
+
+def file_name(entry: dict) -> str:
+    path = dist_file(entry)
+    if path is None:
+        return "<no file>"
+    return path.name
+
+
+def format_plan_line(entry: dict, metadata: dict[str, dict]) -> tuple[str, bool]:
+    action = action_for(entry) or "skip"
+    path = dist_file(entry)
+    file_ok = bool(path and path.exists())
+    meta_ok = entry["id"] in metadata
+    doi_ok = bool(entry.get("doi")) if action == "new-version" else True
+    ok = file_ok and meta_ok and doi_ok
+    problems = []
+    if not file_ok:
+        problems.append("missing file")
+    if not meta_ok:
+        problems.append("missing metadata")
+    if not doi_ok:
+        problems.append("missing concept DOI")
+    suffix = "OK" if ok else "ERROR: " + "; ".join(problems)
+    return (
+        f"{entry['id']:12} {action:11} {entry.get('status', ''):17} "
+        f"{file_name(entry):45} {suffix}",
+        ok,
+    )
+
+
+def plan() -> int:
+    metadata = upload_metadata()
+    rows = [entry for entry in registry_entries() if entry.get("status") in PLAN_STATUSES]
+    counts = {"new-version": 0, "create": 0, "errors": 0}
+    print("Zenodo publishing plan")
+    print(f"Registry: {REGISTRY_PATH}")
+    print(f"Metadata: {METADATA_PATH}")
+    print()
+    for entry in rows:
+        line, ok = format_plan_line(entry, metadata)
+        print(line)
+        action = action_for(entry)
+        if action:
+            counts[action] += 1
+        if not ok:
+            counts["errors"] += 1
+    print()
+    print(
+        "Summary: "
+        f"{len(rows)} records; "
+        f"{counts['new-version']} new-version; "
+        f"{counts['create']} create; "
+        f"{counts['errors']} errors"
+    )
+    return 1 if counts["errors"] else 0
+
+
+class ZenodoClient:
+    def __init__(self, base_url: str, token: str):
+        self.base_url = base_url.rstrip("/")
+        self.token = token
+
+    def api_url(self, path: str) -> str:
+        if path.startswith("http://") or path.startswith("https://"):
+            return path
+        return f"{self.base_url}/api/{path.lstrip('/')}"
+
+    def request(
+        self,
+        method: str,
+        path: str,
+        payload: dict | None = None,
+        data: bytes | None = None,
+        content_type: str | None = "application/json",
+        expected: tuple[int, ...] = (200, 201, 202, 204),
+    ) -> dict:
+        headers = {
+            "Accept": "application/json",
+            "Authorization": f"Bearer {self.token}",
+            "User-Agent": USER_AGENT,
+        }
+        body = data
+        if payload is not None:
+            body = json.dumps(payload).encode("utf-8")
+            content_type = "application/json"
+        if content_type:
+            headers["Content-Type"] = content_type
+        request = Request(self.api_url(path), data=body, headers=headers, method=method)
+        try:
+            with urlopen(request, timeout=120) as response:
+                status = response.getcode()
+                raw = response.read()
+        except HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace")
+            raise ZenodoError(f"Zenodo API HTTP {error.code}: {detail}") from error
+        except URLError as error:
+            raise ZenodoError(f"Zenodo API unavailable: {error.reason}") from error
+        finally:
+            time.sleep(0.25)
+        if status not in expected:
+            detail = raw.decode("utf-8", errors="replace")
+            raise ZenodoError(f"Zenodo API HTTP {status}: {detail}")
+        if not raw:
+            return {}
+        try:
+            return json.loads(raw.decode("utf-8"))
+        except json.JSONDecodeError:
+            return {"raw": raw.decode("utf-8", errors="replace")}
+
+    def upload_file(self, bucket_url: str, path: Path, upload_name: str) -> dict:
+        if not path.exists():
+            raise ZenodoError(f"Missing upload file: {path}")
+        target = f"{bucket_url.rstrip('/')}/{quote(upload_name)}"
+        return self.request("PUT", target, data=path.read_bytes(), content_type=None)
+
+
+def token_from_env(sandbox: bool) -> str:
+    name = "ZENODO_SANDBOX_TOKEN" if sandbox else "ZENODO_TOKEN"
+    token = os.environ.get(name)
+    if not token:
+        raise ZenodoError(f"Environment variable {name} is not set")
+    return token
+
+
+def base_metadata(entry: dict, metadata_entry: dict) -> dict:
+    upload_type = metadata_entry.get("upload_type")
+    if not upload_type:
+        raise ZenodoError(f"metadata.yaml entry {entry['id']} is missing upload_type")
+    record_metadata = {
+        "upload_type": upload_type,
+        "title": entry.get("title"),
+        "creators": [CREATOR],
+        "description": metadata_entry.get("description", ""),
+        "keywords": metadata_entry.get("keywords", []),
+        "license": "cc-by-4.0",
+        "access_right": "open",
+        "publication_date": TODAY,
+        "communities": [{"identifier": COMMUNITY}],
+    }
+    if upload_type == "publication":
+        publication_type = metadata_entry.get("publication_type")
+        if not publication_type:
+            raise ZenodoError(f"metadata.yaml entry {entry['id']} is missing publication_type")
+        record_metadata["publication_type"] = publication_type
+    for optional in ("related_identifiers", "language", "notes", "version"):
+        if metadata_entry.get(optional):
+            record_metadata[optional] = metadata_entry[optional]
+    return record_metadata
+
+
+def merge_metadata(existing: dict, entry: dict, metadata_entry: dict, publication_date: str) -> dict:
+    merged = dict(existing)
+    merged["version"] = TODAY
+    merged["publication_date"] = publication_date
+    for key, value in base_metadata(entry, metadata_entry).items():
+        if key in {"title", "description", "keywords", "upload_type", "publication_type", "related_identifiers"}:
+            merged[key] = value
+    return merged
+
+
+def doi_suffix(doi: str) -> str:
+    if not doi:
+        raise ZenodoError("Missing DOI")
+    suffix = doi.rstrip("/").split("zenodo.")[-1]
+    if not suffix.isdigit():
+        raise ZenodoError(f"Could not determine Zenodo record id from DOI: {doi}")
+    return suffix
+
+
+def latest_record(client: ZenodoClient, concept_doi: str) -> dict:
+    concept_id = doi_suffix(concept_doi)
+    record = client.request("GET", f"records/{concept_id}")
+    latest_link = record.get("links", {}).get("latest")
+    if latest_link and latest_link != record.get("links", {}).get("self"):
+        record = client.request("GET", latest_link)
+    return record
+
+
+def first_publication_date(client: ZenodoClient, concept_doi: str, fallback: str) -> str:
+    query = urlencode({"q": f'conceptdoi:"{concept_doi}"', "all_versions": "true", "size": 100})
+    try:
+        payload = client.request("GET", f"records?{query}")
+    except ZenodoError:
+        return fallback
+    hits = payload.get("hits", {}).get("hits", [])
+    dates = [hit.get("metadata", {}).get("publication_date") for hit in hits]
+    dates = [item for item in dates if item]
+    return min(dates) if dates else fallback
+
+
+def delete_draft_files(client: ZenodoClient, draft: dict) -> None:
+    draft_id = draft["id"]
+    for item in list(draft.get("files", [])):
+        if item.get("id"):
+            client.request("DELETE", f"deposit/depositions/{draft_id}/files/{item['id']}", expected=(204,))
+        elif item.get("links", {}).get("self"):
+            client.request("DELETE", item["links"]["self"], expected=(204,))
+        else:
+            name = item.get("filename") or item.get("key") or "<unknown>"
+            raise ZenodoError(f"Cannot delete existing draft file without delete link/id: {name}")
+
+
+def require_entries_metadata(entries: list[dict], metadata: dict[str, dict], allow_unstaged: bool = False) -> None:
+    missing = [entry["id"] for entry in entries if entry["id"] not in metadata]
+    if missing:
+        raise ZenodoError(f"Missing metadata.yaml entry for: {', '.join(missing)}")
+    missing_files = [f"{entry['id']} ({dist_file(entry)})" for entry in entries if not dist_file(entry) or not dist_file(entry).exists()]
+    if missing_files:
+        raise ZenodoError("Missing upload file(s): " + ", ".join(missing_files))
+    if not allow_unstaged:
+        accepted = staged_hashes()
+        unstaged = [f"{entry['id']} ({dist_file(entry).name})" for entry in entries
+                    if file_sha256(dist_file(entry)) not in accepted]
+        if unstaged:
+            raise ZenodoError(
+                "Dist file(s) do not match any UAT-staged candidate (promote the accepted "
+                "build from U first, or pass --allow-unstaged): " + ", ".join(unstaged))
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def staged_hashes() -> set[str]:
+    """SHA-256 values recorded in U/uat/staging/*/MANIFEST.md (accepted candidates)."""
+    hashes: set[str] = set()
+    for manifest in (U_ROOT / "uat" / "staging").glob("*/MANIFEST.md"):
+        hashes.update(re.findall(r"`([0-9a-f]{64})`", manifest.read_text(encoding="utf-8")))
+    return hashes
+
+
+def print_draft(entry: dict, draft: dict) -> None:
+    url = draft.get("links", {}).get("html") or draft.get("links", {}).get("latest_draft_html") or draft.get("links", {}).get("self")
+    print(f"{entry['id']}: draft ready (unpublished): {url}")
+
+
+def print_publish_yaml(entry: dict, published: dict) -> None:
+    version_doi = published.get("doi") or published.get("metadata", {}).get("prereserve_doi", {}).get("doi")
+    concept_doi = published.get("conceptdoi") or entry.get("doi") or version_doi
+    print(f"{entry['id']}: published")
+    print(f"  concept DOI: {concept_doi}")
+    print(f"  version DOI: {version_doi}")
+    print("  PAPERS.yaml lines:")
+    print(f"    doi: \"{concept_doi}\"")
+    print(f"    zenodo_version_doi: \"{version_doi}\"")
+    print("    status: published")
+
+
+def publish_or_report(client: ZenodoClient, entry: dict, draft: dict, publish: bool) -> None:
+    if not publish:
+        print_draft(entry, draft)
+        return
+    published = client.request("POST", f"deposit/depositions/{draft['id']}/actions/publish")
+    print_publish_yaml(entry, published)
+
+
+def create_records(args: argparse.Namespace) -> int:
+    metadata = upload_metadata()
+    entries = selected_entries(args.ids)
+    require_entries_metadata(entries, metadata, args.allow_unstaged)
+    client = ZenodoClient(SANDBOX_BASE if args.sandbox else LIVE_BASE, token_from_env(args.sandbox))
+    for entry in entries:
+        record_metadata = base_metadata(entry, metadata[entry["id"]])
+        draft = client.request("POST", "deposit/depositions", payload={})
+        draft_id = draft["id"]
+        draft = client.request("PUT", f"deposit/depositions/{draft_id}", payload={"metadata": record_metadata})
+        bucket = draft.get("links", {}).get("bucket")
+        if not bucket:
+            raise ZenodoError(f"Draft {draft_id} has no bucket link")
+        client.upload_file(bucket, dist_file(entry), file_name(entry))
+        draft = client.request("GET", f"deposit/depositions/{draft_id}")
+        publish_or_report(client, entry, draft, args.publish)
+    return 0
+
+
+def new_versions(args: argparse.Namespace) -> int:
+    metadata = upload_metadata()
+    entries = selected_entries(args.ids)
+    require_entries_metadata(entries, metadata, args.allow_unstaged)
+    no_doi = [entry["id"] for entry in entries if not entry.get("doi")]
+    if no_doi:
+        raise ZenodoError(f"New-version requires concept DOI for: {', '.join(no_doi)}")
+    client = ZenodoClient(SANDBOX_BASE if args.sandbox else LIVE_BASE, token_from_env(args.sandbox))
+    for entry in entries:
+        latest = latest_record(client, entry["doi"])
+        latest_id = latest["id"]
+        publication_date = first_publication_date(
+            client,
+            entry["doi"],
+            latest.get("metadata", {}).get("publication_date") or TODAY,
+        )
+        response = client.request("POST", f"deposit/depositions/{latest_id}/actions/newversion")
+        draft_url = response.get("links", {}).get("latest_draft")
+        draft = client.request("GET", draft_url or f"deposit/depositions/{latest_id}")
+        delete_draft_files(client, draft)
+        draft_metadata = dict(draft.get("metadata") or latest.get("metadata") or {})
+        draft_metadata["version"] = TODAY
+        draft_metadata["publication_date"] = publication_date
+        if args.update_metadata:
+            draft_metadata = merge_metadata(draft_metadata, entry, metadata[entry["id"]], publication_date)
+        draft = client.request("PUT", f"deposit/depositions/{draft['id']}", payload={"metadata": draft_metadata})
+        bucket = draft.get("links", {}).get("bucket")
+        if not bucket:
+            raise ZenodoError(f"Draft {draft['id']} has no bucket link")
+        client.upload_file(bucket, dist_file(entry), file_name(entry))
+        draft = client.request("GET", f"deposit/depositions/{draft['id']}")
+        publish_or_report(client, entry, draft, args.publish)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--sandbox", action="store_true", help="use sandbox.zenodo.org and ZENODO_SANDBOX_TOKEN")
+    parser.add_argument("--publish", action="store_true", help="publish after preparing the draft; default leaves draft unpublished")
+    parser.add_argument("--yes", action="store_true", help="required with --publish on live Zenodo")
+    parser.add_argument("--allow-unstaged", action="store_true", help="upload even if the Dist file hash is not in a U/uat/staging manifest")
+    parser.add_argument("--update-metadata", action="store_true", help="new-version only: update title/description/keywords from metadata.yaml")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers.add_parser("plan", help="show records requiring upload or new version; no network writes")
+    new_version = subparsers.add_parser("new-version", help="create new versions for existing concept DOIs")
+    new_version.add_argument("ids", nargs="+")
+    create = subparsers.add_parser("create", help="create new Zenodo depositions")
+    create.add_argument("ids", nargs="+")
+    return parser
+
+
+def normalise_argv(argv: list[str]) -> list[str]:
+    """Allow global safety flags before or after the subcommand."""
+    global_flags = {"--sandbox", "--publish", "--yes", "--update-metadata", "--allow-unstaged"}
+    flags = [item for item in argv if item in global_flags]
+    rest = [item for item in argv if item not in global_flags]
+    return flags + rest
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args(normalise_argv(sys.argv[1:]))
+    if args.command == "plan":
+        return plan()
+    if args.publish and not args.sandbox and not args.yes:
+        parser.error("--yes is required with --publish on live Zenodo")
+    if args.command == "new-version":
+        return new_versions(args)
+    if args.command == "create":
+        return create_records(args)
+    parser.error(f"Unknown command: {args.command}")
+    return 2
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except ZenodoError as error:
+        print(f"zenodo-publish: error: {error}", file=sys.stderr)
+        raise SystemExit(1)

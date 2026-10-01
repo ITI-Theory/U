@@ -178,7 +178,7 @@ else
   fi
 fi
 
-BOOKLET_DIR="Part2/fractal-programme/bld"
+BOOKLET_DIR="books/T-Theory/bld"
 BOOKLET_MISSING=""
 BOOKLET_WRONG=""
 for domain in gateway physics complex-systems formal-mathematics neuroscience \
