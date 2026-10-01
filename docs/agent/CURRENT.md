@@ -90,6 +90,31 @@ State on 2026-10-01:
   Windows: `C:\Program Files\Git\usr\bin` on PATH). `make -B` fails on the
   `bld` directory rule; delete targets instead.
 
+## App and Atlas: First Slice (2026-10-01)
+
+Design: `APP-ATLAS-DESIGN.md`. Commits `414f48a` (registry, generator,
+renderer registry, lens) and `e03e610` (integration, content, library panel).
+
+- `registry/` is the single source: 30 level files, 8 paths (graphs with
+  edge notes), 3 models, `lenses.yaml`. `RECONCILIATION.md` lists 13 label
+  rows marked REVIEW for the author.
+- The app generator (`scripts/generate.py`, run by `prestart`/`prebuild`)
+  writes the gitignored `generated/` data, resolves sources through
+  `Dist/PAPERS.yaml` (DOI) or `https://www.t-theory.org/atlas/<slug>`, and
+  fails on placeholder text.
+- Working and checked in the browser: deep links
+  (`#level=<id>&path=&lens=&model=&reader=`; old numeric levels still
+  resolve), T-Theory OFF/ON lens, library panel ("More Information"),
+  cookie/general/specialist reader switch, KaTeX abstract splash, organism
+  only at `human-vertebrate`, no body at Quantum Foam.
+- Not yet checked: thought-sparks visuals; 3D SBS on the Dangbei Atom.
+- Renderers: 2 of 28 exist (`quantum-foam`, `thought-sparks`); the rest show
+  labelled placeholders.
+- Next: label review; more renderers; automated screenshots per level, path
+  and lens into the Wave Atlas; Atlas diagrams in the app; deep-link QR;
+  time axis (`eras.yaml`); Penrose index (cite chapters only; the text is
+  private); Sherlock concept registry (`registry/concepts/`).
+
 ## Book Architecture
 
 - Reader-facing book content is source-owned Markdown under
@@ -116,6 +141,7 @@ before Monday 2026-10-05):
    Papers track.
 3. Visual app (Soma Machine / Soma Field Operator): bring it up to date with
    the papers, books, and the philosophy book's time axis (Appendix C).
+   First registry-driven slice done; see "App and Atlas: First Slice".
 4. Wave Atlas: use app screenshots at all twenty levels, plus the extra
    systems at each level (for example belief systems).
 
