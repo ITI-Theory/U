@@ -71,6 +71,10 @@ export const planetaryRenderer = {
   create(scene, THREE) {
     const group = new THREE.Group();
     scene.add(group);
+    const ambient = new THREE.AmbientLight('#27364a', 0.9);
+    const keyLight = new THREE.DirectionalLight('#fff4d0', 2.6);
+    keyLight.position.set(-3.8, 2.1, 4.6);
+    group.add(ambient, keyLight);
 
     const glowTexture = makeRadialTexture(THREE, [
       [0, 'rgba(255,255,255,0.95)'],
@@ -92,25 +96,27 @@ export const planetaryRenderer = {
     const atmosphere = makeGlowSprite(THREE, glowTexture, { color: PALETTE.blue, opacity: 0.72, scale: 4.35 });
     planet.add(atmosphere);
     const ocean = new THREE.Mesh(
-      new THREE.CircleGeometry(1.82, 128),
-      new THREE.MeshBasicMaterial({ map: planetFalsecolour, color: '#ffffff', transparent: true, opacity: 0.96 }),
+      new THREE.SphereGeometry(1.82, 128, 64),
+      new THREE.MeshPhongMaterial({ map: planetFalsecolour, color: '#ffffff', emissive: '#020712', shininess: 8 }),
     );
+    ocean.rotation.set(0.16, -0.48, -0.08);
     planet.add(ocean);
     const limb = new THREE.Mesh(
       new THREE.RingGeometry(1.79, 1.94, 128),
       new THREE.MeshBasicMaterial({ color: PALETTE.cyan, transparent: true, opacity: 0.48, depthWrite: false, blending: THREE.AdditiveBlending }),
     );
+    limb.position.z = 0.32;
     planet.add(limb);
 
     const zones = [
-      createSectorMesh(THREE, { innerRadius: 0, outerRadius: 0.58, start: -0.92, end: 0.92, color: '#ffdc72', opacity: 0.95 }),
-      createSectorMesh(THREE, { innerRadius: 0.58, outerRadius: 1.36, start: -0.92, end: 0.92, color: '#d75c2d', opacity: 0.88 }),
-      createSectorMesh(THREE, { innerRadius: 1.36, outerRadius: 1.74, start: -0.92, end: 0.92, color: '#7750d7', opacity: 0.82 }),
-      createSectorMesh(THREE, { innerRadius: 1.74, outerRadius: 1.86, start: -0.92, end: 0.92, color: '#62e1a7', opacity: 0.9 }),
+      createSectorMesh(THREE, { innerRadius: 0, outerRadius: 0.58, start: -0.92, end: 0.92, color: '#ffdc72', opacity: 0.95, depth: 0.34 }),
+      createSectorMesh(THREE, { innerRadius: 0.58, outerRadius: 1.36, start: -0.92, end: 0.92, color: '#d75c2d', opacity: 0.88, depth: 0.3 }),
+      createSectorMesh(THREE, { innerRadius: 1.36, outerRadius: 1.74, start: -0.92, end: 0.92, color: '#7750d7', opacity: 0.82, depth: 0.24 }),
+      createSectorMesh(THREE, { innerRadius: 1.74, outerRadius: 1.86, start: -0.92, end: 0.92, color: '#62e1a7', opacity: 0.9, depth: 0.18 }),
     ];
     for (const [index, mesh] of zones.entries()) {
       mesh.rotation.z = -0.18;
-      mesh.position.z = 0.04 + index * 0.002;
+      mesh.position.z = 1.92 + index * 0.025;
       planet.add(mesh);
     }
 
@@ -139,14 +145,14 @@ export const planetaryRenderer = {
       for (let i = 0; i < 11; i += 1) {
         const sprite = makeGlowSprite(THREE, auroraTexture, { color: PALETTE.green, opacity: 0.72, scale: 0.28 });
         const angle = -1.15 + i * 2.3 / 10;
-        sprite.position.set(Math.sin(angle) * 0.65, y + Math.cos(angle) * 0.08 * Math.sign(y), 0.15);
+        sprite.position.set(Math.sin(angle) * 0.65, y + Math.cos(angle) * 0.08 * Math.sign(y), 1.94);
         planet.add(sprite);
         auroras.push(sprite);
       }
       for (let i = 0; i < 8; i += 1) {
         const x = -0.62 + i * 0.18;
         const curtain = createArcLine(THREE, { radiusX: 0.05, radiusY: 0.32 + (i % 3) * 0.05, start: -1.25, end: 1.25, color: PALETTE.green, opacity: 0.4, z: 0.2, segments: 28 });
-        curtain.position.set(x, y, 0);
+        curtain.position.set(x, y, 1.94);
         curtain.rotation.z = Math.PI / 2;
         planet.add(curtain);
         curtains.push(curtain);
@@ -193,6 +199,7 @@ export const planetaryRenderer = {
         const naturalZones = ['#d9c48a', '#9a5f32', '#6e5848', '#8ba391'];
         if (ocean.material.map !== (falsecolourOn ? planetFalsecolour : planetNatural)) {
           ocean.material.map = falsecolourOn ? planetFalsecolour : planetNatural;
+          ocean.material.emissive.set(falsecolourOn ? '#020712' : '#050607');
           ocean.material.needsUpdate = true;
         }
         setMaterialColor(limb.material, falsecolourOn ? PALETTE.cyan : '#9fb7c6');
@@ -207,13 +214,15 @@ export const planetaryRenderer = {
         }
         const ring = Math.exp(-2.7 * (state.responseTime ?? 0)) * Math.sin((state.responseTime ?? 0) * Math.PI * 6);
         const idle = (motionOn ? 0.028 * Math.sin(time * 0.55) : 0);
-        const deformation = idle + ring * 0.12 + pulse * 0.08;
-        planet.scale.set(1 + deformation, 1 - deformation * 0.72, 1);
+        const deformation = idle + ring * 0.18 + pulse * 0.16;
+        planet.scale.set(1 + deformation, 1 - deformation * 0.82, 1 + deformation * 0.24);
         planet.rotation.z = motionOn ? 0.08 * Math.sin(time * 0.12) : 0;
+        ocean.rotation.y = -0.48 + styleTime * 0.045;
         for (const [index, loop] of convection.entries()) loop.rotation.z = styleTime * (index % 2 ? -0.24 : 0.24) + index;
+        magnetosphere.visible = lensOn || state.contours;
         for (const [index, line] of fieldLines.entries()) {
           setGlowBlending(THREE, line.material, glowOn);
-          line.material.opacity = (glowOn ? 0.16 : 0.32) + (motionOn ? 0.12 * Math.sin(time * 0.65 + index) ** 2 : 0.03);
+          line.material.opacity = lensOn ? (glowOn ? 0.2 : 0.34) + (motionOn ? 0.14 * Math.sin(time * 0.65 + index) ** 2 : 0.04) : 0;
         }
         for (const [index, sprite] of auroras.entries()) {
           sprite.visible = glowOn;

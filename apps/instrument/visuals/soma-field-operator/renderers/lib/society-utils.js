@@ -2,6 +2,29 @@ export function clamp01(value) {
   return Math.max(0, Math.min(1, value));
 }
 
+export function styleFlags(state) {
+  return {
+    fluorescence: true,
+    falsecolour: true,
+    glow: true,
+    motion: true,
+    ...(state.style ?? {}),
+  };
+}
+
+export function setMaterialColor(material, color) {
+  if (material?.color) material.color.set(color);
+}
+
+export function setGlowBlending(THREE, material, glowOn) {
+  if (!material) return;
+  const next = glowOn ? THREE.AdditiveBlending : THREE.NormalBlending;
+  if (material.blending !== next) {
+    material.blending = next;
+    material.needsUpdate = true;
+  }
+}
+
 export function makeGlowTexture(THREE, stops = [
   [0, 'rgba(255,255,255,1)'],
   [0.22, 'rgba(20,229,255,0.7)'],

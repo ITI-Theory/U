@@ -8,6 +8,42 @@ export const collectivePalette = {
   grey: 0xaec7d8,
 };
 
+export const linePalette = {
+  ink: 0xc8d1d8,
+  dim: 0x687b88,
+  paper: 0xe8eef2,
+};
+
+export function styleFlags(state) {
+  return {
+    fluorescence: true,
+    falsecolour: true,
+    glow: true,
+    motion: true,
+    ...(state?.style ?? {}),
+  };
+}
+
+export function setGlowBlending(THREE, material, glowOn, glowBlending = THREE.AdditiveBlending) {
+  const next = glowOn ? glowBlending : THREE.NormalBlending;
+  if (material.blending !== next) {
+    material.blending = next;
+    material.needsUpdate = true;
+  }
+}
+
+export function setMaterialColor(material, color) {
+  material.color.set(color);
+}
+
+export function biologicalColor(style, neonColor, inkColor = linePalette.ink) {
+  return style.fluorescence === false ? inkColor : neonColor;
+}
+
+export function fieldColor(style, neonColor, inkColor = linePalette.dim) {
+  return style.falsecolour === false ? inkColor : neonColor;
+}
+
 export function makeGlowTexture(THREE, inner = 'rgba(255,255,255,0.95)', mid = 'rgba(20,229,255,0.45)', outer = 'rgba(20,229,255,0)') {
   const canvas = document.createElement('canvas');
   canvas.width = 128;
@@ -39,6 +75,34 @@ export function makeLabelTexture(THREE, lines, { color = '#14e5ff', width = 640,
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
+}
+
+export function makeTextSprite(THREE, text, {
+  color = '#e8eef2',
+  width = 300,
+  height = 92,
+  font = 'bold 34px monospace',
+  background = 'rgba(5,7,14,0.58)',
+  scale = [0.72, 0.22, 1],
+} = {}) {
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d');
+  context.clearRect(0, 0, width, height);
+  if (background) {
+    context.fillStyle = background;
+    context.fillRect(0, 0, width, height);
+  }
+  context.fillStyle = color;
+  context.font = font;
+  context.textBaseline = 'middle';
+  context.fillText(text, 18, height / 2);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.78, depthWrite: false }));
+  sprite.scale.set(...scale);
+  return sprite;
 }
 
 export function disposeObject(object) {

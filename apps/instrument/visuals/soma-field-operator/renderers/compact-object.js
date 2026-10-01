@@ -23,7 +23,7 @@ export const compactObjectRenderer = {
     blackHole.position.set(-1.1, 0.1, 0);
     group.add(blackHole);
     const lensRing = new THREE.Mesh(
-      new THREE.RingGeometry(0.48, 0.72, 128),
+      new THREE.RingGeometry(0.5, 0.58, 160),
       new THREE.MeshBasicMaterial({ color: PALETTE.gold, transparent: true, opacity: 0.7, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }),
     );
     const horizon = new THREE.Mesh(
@@ -31,30 +31,55 @@ export const compactObjectRenderer = {
       new THREE.MeshBasicMaterial({ color: '#000000', transparent: true, opacity: 1 }),
     );
     blackHole.add(lensRing, horizon);
+    const discSurfaceGeometry = new THREE.RingGeometry(0.68, 1.82, 192, 6);
+    const colors = [];
+    const color = new THREE.Color();
+    const positions = discSurfaceGeometry.getAttribute('position');
+    for (let i = 0; i < positions.count; i += 1) {
+      const x = positions.getX(i);
+      const y = positions.getY(i);
+      const radius = Math.hypot(x, y);
+      const angle = Math.atan2(y, x);
+      const innerHeat = 1 - Math.min(1, Math.max(0, (radius - 0.68) / 1.14));
+      const dopplerBoost = 0.55 + 0.45 * Math.max(0, Math.cos(angle - 0.35));
+      color.setHSL(0.05 + innerHeat * 0.08, 1, 0.28 + innerHeat * 0.38 + dopplerBoost * 0.24);
+      colors.push(color.r, color.g, color.b);
+    }
+    discSurfaceGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    const discSurface = new THREE.Mesh(
+      discSurfaceGeometry,
+      new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.62, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }),
+    );
+    discSurface.rotation.set(0.38, 0, -0.18);
+    discSurface.scale.y = 0.42;
+    discSurface.position.z = -0.08;
+    blackHole.add(discSurface);
     const discRings = [];
     for (let i = 0; i < 7; i += 1) {
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(0.76 + i * 0.14, 0.83 + i * 0.14, 128),
         new THREE.MeshBasicMaterial({ color: i < 3 ? PALETTE.gold : PALETTE.pink, transparent: true, opacity: 0.22 + i * 0.035, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }),
       );
-      ring.scale.y = 0.33;
-      ring.rotation.z = -0.12;
+      ring.rotation.set(0.38, 0, -0.12);
+      ring.scale.y = 0.42;
       blackHole.add(ring);
       discRings.push(ring);
     }
     const doppler = createArcLine(THREE, { radiusX: 1.2, radiusY: 0.4, start: -0.25, end: 1.28, color: '#fff0a8', opacity: 0.95, z: 0.13, segments: 56 });
+    doppler.rotation.x = 0.38;
+    doppler.scale.y = 0.42;
     blackHole.add(doppler);
     const hotEdge = new THREE.Mesh(
       new THREE.RingGeometry(0.64, 0.7, 128),
       new THREE.MeshBasicMaterial({ color: '#fff0a8', transparent: true, opacity: 0.8, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }),
     );
-    hotEdge.scale.y = 0.34;
-    hotEdge.rotation.z = -0.12;
+    hotEdge.rotation.set(0.38, 0, -0.12);
+    hotEdge.scale.y = 0.42;
     blackHole.add(hotEdge);
     const lensedFarSide = [];
     for (let i = 0; i < 4; i += 1) {
-      const arc = createArcLine(THREE, { radiusX: 0.92 + i * 0.16, radiusY: 0.54 + i * 0.08, start: 0.08, end: Math.PI - 0.08, color: i < 2 ? PALETTE.gold : PALETTE.pink, opacity: 0.34, z: 0.22 + i * 0.006, segments: 72 });
-      arc.position.y = 0.02 + i * 0.04;
+      const arc = createArcLine(THREE, { radiusX: 0.92 + i * 0.16, radiusY: 0.46 + i * 0.08, start: 0.05, end: Math.PI - 0.05, color: i < 2 ? PALETTE.gold : PALETTE.pink, opacity: 0.34, z: 0.26 + i * 0.012, segments: 72 });
+      arc.position.y = 0.28 + i * 0.08;
       blackHole.add(arc);
       lensedFarSide.push(arc);
     }
@@ -125,6 +150,9 @@ export const compactObjectRenderer = {
         const lensOn = Boolean(state.tTheory && state.level >= 8);
         const styleTime = motionOn ? time : 0;
         blackHole.rotation.z = styleTime * 0.1;
+        discSurface.rotation.z = -0.18 + styleTime * 0.34;
+        discSurface.material.opacity = glowOn ? 0.54 : 0.38;
+        setGlowBlending(THREE, discSurface.material, glowOn);
         setGlowBlending(THREE, lensRing.material, glowOn);
         setMaterialColor(lensRing.material, falsecolourOn ? PALETTE.gold : '#b7a77d');
         for (const [index, ring] of discRings.entries()) {

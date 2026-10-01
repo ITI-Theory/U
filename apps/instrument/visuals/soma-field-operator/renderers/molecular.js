@@ -88,6 +88,24 @@ export const molecularRenderer = {
     molecule.add(makeBond(THREE, chromophore[0], chromophore[1], bondMaterial));
     molecule.add(makeBond(THREE, chromophore[1], chromophore[2], bondMaterial));
 
+    const barrelRibs = Array.from({ length: 10 }, (_, index) => {
+      const line = createDynamicLine(THREE, 2, { color: '#14e5ff', opacity: 0.32 });
+      setLinePoints(line, [atoms[index], atoms[10 + index]]);
+      molecule.add(line);
+      return line;
+    });
+    const barrelRims = [-0.54, 0.58].map((y, ringIndex) => {
+      const line = createDynamicLine(THREE, 80, { color: ringIndex ? '#56f0a2' : '#14e5ff', opacity: 0.26 });
+      const points = [];
+      for (let step = 0; step < 80; step += 1) {
+        const angle = (step / 79) * Math.PI * 2;
+        points.push([Math.cos(angle) * 1.45, y, Math.sin(angle) * 0.82]);
+      }
+      setLinePoints(line, points);
+      molecule.add(line);
+      return line;
+    });
+
     const density = new THREE.Points(
       makeDensity(THREE, atoms),
       new THREE.PointsMaterial({ size: 0.034, vertexColors: true, transparent: true, opacity: 0.23, depthWrite: false, blending: THREE.AdditiveBlending }),
@@ -161,6 +179,16 @@ export const molecularRenderer = {
         for (const material of [carbon, oxygen, nitrogen]) material.emissiveIntensity = style.glow ? 0.3 : 0.05;
         bondMaterial.color.set(style.fluorescence ? 0xbfefff : 0xa8adae);
         bondMaterial.opacity = style.glow ? 0.55 : 0.7;
+        for (const [index, line] of barrelRibs.entries()) {
+          line.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
+          line.material.color.set(style.fluorescence ? (index % 2 ? 0x56f0a2 : 0x14e5ff) : 0x98a2a4);
+          line.material.opacity = style.glow && style.fluorescence ? 0.28 : 0.38;
+        }
+        for (const [index, line] of barrelRims.entries()) {
+          line.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
+          line.material.color.set(style.fluorescence ? (index ? 0x56f0a2 : 0x14e5ff) : 0xa2a8a5);
+          line.material.opacity = style.glow && style.fluorescence ? 0.24 : 0.34;
+        }
         density.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
         if (density.material.vertexColors !== style.fluorescence) {
           density.material.vertexColors = style.fluorescence;

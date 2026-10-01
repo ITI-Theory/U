@@ -24,6 +24,10 @@ export const orbitalSystemRenderer = {
   create(scene, THREE) {
     const group = new THREE.Group();
     scene.add(group);
+    const ambient = new THREE.AmbientLight('#283246', 0.8);
+    const keyLight = new THREE.DirectionalLight('#fff1c4', 2.2);
+    keyLight.position.set(-2.4, 1.8, 3.8);
+    group.add(ambient, keyLight);
 
     const starTexture = makeRadialTexture(THREE, [
       [0, 'rgba(255,255,255,1)'],
@@ -51,8 +55,8 @@ export const orbitalSystemRenderer = {
     star.position.set(-1.15, 0.1, 0.03);
     group.add(star);
     const starDisc = new THREE.Mesh(
-      new THREE.CircleGeometry(0.21, 48),
-      new THREE.MeshBasicMaterial({ color: '#f2c061', transparent: true, opacity: 0.9 }),
+      new THREE.SphereGeometry(0.26, 48, 24),
+      new THREE.MeshBasicMaterial({ color: '#ffd46f', transparent: true, opacity: 0.94 }),
     );
     starDisc.position.copy(star.position);
     starDisc.position.z = 0.09;
@@ -68,8 +72,8 @@ export const orbitalSystemRenderer = {
       orbit.position.copy(star.position);
       group.add(orbit);
       const planet = new THREE.Mesh(
-        new THREE.CircleGeometry(def.size, 32),
-        new THREE.MeshBasicMaterial({ map: planetTextures[orbitDefs.indexOf(def)], color: '#ffffff', transparent: true, opacity: 0.92 }),
+        new THREE.SphereGeometry(def.size, 48, 24),
+        new THREE.MeshPhongMaterial({ map: planetTextures[orbitDefs.indexOf(def)], color: '#ffffff', shininess: 6 }),
       );
       group.add(planet);
       let ring = null;
@@ -78,19 +82,19 @@ export const orbitalSystemRenderer = {
           new THREE.RingGeometry(def.size * 1.35, def.size * 2.15, 48),
           new THREE.MeshBasicMaterial({ color: PALETTE.gold, transparent: true, opacity: 0.62, depthWrite: false, side: THREE.DoubleSide }),
         );
-        ring.scale.y = 0.35;
+        ring.rotation.x = 1.18;
         group.add(ring);
       }
       return { ...def, orbit, planet, ring };
     });
 
     const moonOrbit = createArcLine(THREE, { radiusX: 0.28, radiusY: 0.13, color: '#dff9ff', opacity: 0.32, z: 0.06, segments: 48 });
-    const moon = new THREE.Mesh(new THREE.CircleGeometry(0.045, 16), new THREE.MeshBasicMaterial({ color: '#dfeaff', transparent: true, opacity: 0.8 }));
+    const moon = new THREE.Mesh(new THREE.SphereGeometry(0.045, 18, 10), new THREE.MeshPhongMaterial({ color: '#dfeaff', emissive: '#111722' }));
     group.add(moonOrbit, moon);
 
     const belt = new THREE.Group();
     const beltParticles = [];
-    for (let i = 0; i < 520; i += 1) {
+    for (let i = 0; i < 860; i += 1) {
       const sprite = makeGlowSprite(THREE, particleTexture, { color: i % 3 ? PALETTE.cyan : PALETTE.gold, opacity: 0.48, scale: 0.035 + (i % 5) * 0.006 });
       const radius = 2.15 + (i % 37) * 0.011 + 0.08 * Math.sin(i * 1.7);
       const angle = i * 2.399963;
@@ -106,6 +110,13 @@ export const orbitalSystemRenderer = {
     const ionTail = createPolyline(THREE, [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.8, 0.14, -0.01), new THREE.Vector3(1.55, 0.2, -0.01)], { color: PALETTE.cyan, opacity: 0.62, blending: THREE.AdditiveBlending });
     const dustTail = createPolyline(THREE, [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.65, -0.16, -0.01), new THREE.Vector3(1.35, -0.36, -0.01)], { color: PALETTE.gold, opacity: 0.48, blending: THREE.AdditiveBlending });
     comet.add(cometHead, ionTail, dustTail);
+    const tailGlow = [];
+    for (let i = 0; i < 18; i += 1) {
+      const sprite = makeGlowSprite(THREE, particleTexture, { color: i % 2 ? PALETTE.cyan : PALETTE.gold, opacity: 0.34, scale: 0.16 - i * 0.005 });
+      sprite.position.set(0.18 + i * 0.08, (i % 2 ? 0.07 : -0.08) + i * 0.008, -0.005);
+      comet.add(sprite);
+      tailGlow.push(sprite);
+    }
     group.add(comet);
 
     const potentialHost = new THREE.Object3D();
@@ -156,6 +167,8 @@ export const orbitalSystemRenderer = {
           const x = star.position.x + Math.cos(theta) * def.rx;
           const y = star.position.y + Math.sin(theta) * def.ry;
           def.planet.position.set(x, y, 0.08);
+          def.planet.rotation.y = styleTime * (0.45 + index * 0.16);
+          def.planet.rotation.x = 0.28;
           if (def.planet.material.map !== (falsecolourOn ? planetTextures[index] : mutedPlanetTextures[index])) {
             def.planet.material.map = falsecolourOn ? planetTextures[index] : mutedPlanetTextures[index];
             def.planet.material.needsUpdate = true;
@@ -196,6 +209,11 @@ export const orbitalSystemRenderer = {
         setMaterialColor(ionTail.material, falsecolourOn ? PALETTE.cyan : '#aab8c0');
         setMaterialColor(dustTail.material, falsecolourOn ? PALETTE.gold : '#b0a58f');
         cometHead.material.opacity = glowOn ? 0.9 : 0.45;
+        for (const [index, sprite] of tailGlow.entries()) {
+          setGlowBlending(THREE, sprite.material, glowOn);
+          setMaterialColor(sprite.material, falsecolourOn ? (index % 2 ? PALETTE.cyan : PALETTE.gold) : '#aaa69a');
+          sprite.material.opacity = glowOn ? 0.42 - index * 0.012 : 0.2 - index * 0.004;
+        }
         potentialHost.visible = lensOn || state.contours;
         contours.update({
           columns,

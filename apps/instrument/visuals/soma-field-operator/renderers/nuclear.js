@@ -213,10 +213,13 @@ export const nuclearRenderer = {
         actionMaterial.color.set(style.falsecolour ? 0x5ff0df : 0x8c969b);
         actionMaterial.emissive.set(style.glow ? (style.falsecolour ? 0x123bff : 0x1f2528) : 0x000000);
         actionMaterial.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
+        actionMaterial.wireframe = !style.glow;
         actionMaterial.opacity = style.glow ? 0.22 + pulse * 0.06 : 0.48;
+        grid.material.color.set(style.falsecolour ? 0x3d7bff : 0x65737c);
+        grid.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
         for (const slice of slices) {
           slice.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
-          slice.material.opacity = style.falsecolour ? 0.64 : 0.36;
+          slice.material.opacity = style.falsecolour ? 0.64 : 0.48;
         }
         protonMaterial.color.set(style.falsecolour ? 0xff6dbd : 0x9b7f83);
         neutronMaterial.color.set(style.falsecolour ? 0x76dbff : 0x8f9aa0);

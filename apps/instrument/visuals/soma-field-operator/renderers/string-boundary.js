@@ -127,7 +127,8 @@ export const stringBoundaryRenderer = {
         closed.material.color.set(style.falsecolour ? 0x14e5ff : 0xb0bac0);
         open.material.color.set(style.falsecolour ? 0xf6c75a : 0xc2b896);
         brane.material.color.set(style.falsecolour ? 0x3d7bff : 0x41506a);
-        brane.material.opacity = (lens ? 0.14 : 0.08) + pulse * 0.03;
+        brane.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
+        brane.material.opacity = (style.glow ? (lens ? 0.14 : 0.08) : (lens ? 0.2 : 0.14)) + pulse * 0.03;
         closed.material.opacity = 0.78 + pulse * 0.12;
         open.material.opacity = 0.82 + pulse * 0.14;
         source.material.opacity = lens && style.glow ? 0.45 + pulse * 0.5 : 0;
@@ -145,10 +146,11 @@ export const stringBoundaryRenderer = {
         }
         for (const [index, tick] of ticks.entries()) {
           const u = (index + 0.5) / ticks.length;
-          const point = openPoint(u, time, pulse);
+          const point = openPoint(u, t, pulse);
           const normal = [0, 0.12 + (style.motion ? 0.04 * Math.sin(index + t * 2.4) : 0), 0.03];
           setLinePoints(tick, [[point[0], point[1], point[2]], [point[0], point[1] + normal[1], point[2] + normal[2]]]);
           tick.visible = lens;
+          tick.material.color.set(style.falsecolour ? 0x56f0a2 : 0xa2aaa7);
           tick.material.opacity = lens ? 0.58 * (style.motion ? 0.55 + 0.45 * Math.sin(t * 2 + index) : 0.65) : 0;
         }
       },

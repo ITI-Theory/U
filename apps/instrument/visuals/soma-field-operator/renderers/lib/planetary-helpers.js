@@ -116,6 +116,7 @@ export function createSectorMesh(THREE, {
   color = PALETTE.gold,
   opacity = 0.75,
   blending = THREE.NormalBlending,
+  depth = 0,
 } = {}) {
   const shape = new THREE.Shape();
   for (let index = 0; index <= segments; index += 1) {
@@ -133,7 +134,10 @@ export function createSectorMesh(THREE, {
   } else {
     shape.lineTo(0, 0);
   }
-  const geometry = new THREE.ShapeGeometry(shape);
+  const geometry = depth > 0
+    ? new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: 4 })
+    : new THREE.ShapeGeometry(shape);
+  if (depth > 0) geometry.translate(0, 0, -depth / 2);
   const material = new THREE.MeshBasicMaterial({
     color,
     transparent: true,

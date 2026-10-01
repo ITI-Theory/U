@@ -6,11 +6,17 @@ function makeBalmerTexture(THREE, fluorescence = true) {
   canvas.height = 130;
   const context = canvas.getContext('2d');
   const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
-  gradient.addColorStop(0, 'rgba(80,0,255,0.18)');
-  gradient.addColorStop(0.35, 'rgba(0,160,255,0.16)');
-  gradient.addColorStop(0.55, 'rgba(0,255,160,0.10)');
-  gradient.addColorStop(0.76, 'rgba(255,190,0,0.13)');
-  gradient.addColorStop(1, 'rgba(255,0,0,0.20)');
+  if (fluorescence) {
+    gradient.addColorStop(0, 'rgba(80,0,255,0.18)');
+    gradient.addColorStop(0.35, 'rgba(0,160,255,0.16)');
+    gradient.addColorStop(0.55, 'rgba(0,255,160,0.10)');
+    gradient.addColorStop(0.76, 'rgba(255,190,0,0.13)');
+    gradient.addColorStop(1, 'rgba(255,0,0,0.20)');
+  } else {
+    gradient.addColorStop(0, 'rgba(110,118,124,0.11)');
+    gradient.addColorStop(0.55, 'rgba(145,150,146,0.09)');
+    gradient.addColorStop(1, 'rgba(128,112,104,0.12)');
+  }
   context.fillStyle = 'rgba(3,5,12,0.92)';
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = gradient;
@@ -31,7 +37,7 @@ function makeBalmerTexture(THREE, fluorescence = true) {
   for (const [wavelength, color, label] of lines) {
     const x = 16 + ((wavelength - 400) / 300) * (canvas.width - 32);
     context.shadowColor = color;
-    context.shadowBlur = 22;
+    context.shadowBlur = fluorescence ? 22 : 0;
     context.strokeStyle = color;
     context.lineWidth = wavelength === 656 ? 9 : 6;
     context.beginPath();
@@ -160,11 +166,11 @@ export const atomicRenderer = {
         const transition = Math.max(pulse, style.motion ? 0.5 + 0.5 * Math.sin(t * 0.7) : 0.45);
         for (const cloud of [s1, p2, d3]) {
           cloud.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
-          if (cloud.material.vertexColors !== style.falsecolour) {
-            cloud.material.vertexColors = style.falsecolour;
+          if (cloud.material.vertexColors !== style.fluorescence) {
+            cloud.material.vertexColors = style.fluorescence;
             cloud.material.needsUpdate = true;
           }
-          cloud.material.color.set(style.falsecolour ? 0xffffff : 0xaab0b2);
+          cloud.material.color.set(style.fluorescence ? 0xffffff : 0xaab0b2);
         }
         s1.rotation.y = style.motion ? t * 0.08 : 0;
         p2.rotation.set(style.motion ? Math.sin(t * 0.18) * 0.12 : 0, style.motion ? t * 0.16 : 0, 0);
@@ -172,6 +178,7 @@ export const atomicRenderer = {
         s1.material.opacity = (style.glow ? 0.42 : 0.55) + pulse * 0.08;
         p2.material.opacity = (style.glow ? 0.28 : 0.42) + transition * 0.14;
         d3.material.opacity = (style.glow ? 0.22 : 0.36) + (1 - transition) * 0.1;
+        nucleus.material.color.set(style.fluorescence ? 0xf6c75a : 0xb8ad8e);
         nucleus.scale.setScalar(0.32 + pulse * 0.12);
         nucleus.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
         nucleus.material.opacity = style.glow ? 0.95 : 0.62;

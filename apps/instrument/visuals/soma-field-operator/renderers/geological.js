@@ -17,11 +17,47 @@ function makeArrow(THREE, color) {
   return group;
 }
 
+function makeStrataTexture(THREE, color, accent, index) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 96;
+  const context = canvas.getContext('2d');
+  context.fillStyle = color;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.globalAlpha = 0.34;
+  context.strokeStyle = accent;
+  context.lineWidth = 2;
+  for (let y = 10; y < 96; y += 14) {
+    context.beginPath();
+    for (let x = 0; x <= 256; x += 8) {
+      const yy = y + Math.sin(x * 0.055 + index * 1.7) * 3 + Math.sin(x * 0.17 + y) * 1.4;
+      if (x === 0) context.moveTo(x, yy);
+      else context.lineTo(x, yy);
+    }
+    context.stroke();
+  }
+  context.globalAlpha = 0.18;
+  for (let i = 0; i < 80; i += 1) {
+    context.fillStyle = i % 2 ? '#ffffff' : '#000000';
+    context.fillRect((i * 53) % 256, (i * 29 + index * 7) % 96, 2 + (i % 4), 1);
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(2.5, 1);
+  return texture;
+}
+
 export const geologicalRenderer = {
   id: 'geological',
   create(scene, THREE) {
     const group = new THREE.Group();
     scene.add(group);
+    const ambient = new THREE.AmbientLight('#30313a', 1.1);
+    const keyLight = new THREE.DirectionalLight('#fff0c4', 2.4);
+    keyLight.position.set(-2.2, 3.2, 3.8);
+    group.add(ambient, keyLight);
 
     const glowTexture = makeRadialTexture(THREE, [
       [0, 'rgba(255,255,255,0.95)'],
@@ -32,8 +68,9 @@ export const geologicalRenderer = {
 
     const block = new THREE.Group();
     block.position.set(0, -0.28, 0);
-    block.rotation.x = -0.12;
-    block.rotation.y = 0.16;
+    block.rotation.x = -0.42;
+    block.rotation.y = 0.42;
+    block.rotation.z = 0.02;
     group.add(block);
 
     const strata = [
@@ -45,9 +82,10 @@ export const geologicalRenderer = {
       { y: -1.32, h: 0.48, color: '#2c638f', sober: '#3f5968', shift: 0.04 },
     ];
     const strataMeshes = strata.map((layer, index) => {
+      const texture = makeStrataTexture(THREE, layer.color, index % 2 ? '#f6c75a' : '#dff9ff', index);
       const mesh = new THREE.Mesh(
         new THREE.BoxGeometry(5.9, layer.h, 1.15),
-        new THREE.MeshBasicMaterial({ color: layer.color, transparent: true, opacity: 0.86 }),
+        new THREE.MeshLambertMaterial({ map: texture, color: layer.color, transparent: true, opacity: 0.92 }),
       );
       mesh.position.set(layer.shift, layer.y, 0);
       block.add(mesh);
@@ -60,6 +98,13 @@ export const geologicalRenderer = {
       }
       return mesh;
     });
+
+    const topCap = new THREE.Mesh(
+      new THREE.BoxGeometry(5.95, 0.04, 1.2),
+      new THREE.MeshLambertMaterial({ color: '#53645b', transparent: true, opacity: 0.62 }),
+    );
+    topCap.position.set(0, 1.18, 0);
+    block.add(topCap);
 
     const fault = new THREE.Mesh(
       new THREE.PlaneGeometry(6.2, 0.08),
@@ -157,6 +202,7 @@ export const geologicalRenderer = {
           const shear = (motionOn ? Math.sin(time * 0.18) : 0) * 0.09;
           mesh.position.x = strata[index].shift + shear * (index < 3 ? 1 : -1);
         }
+        setMaterialColor(topCap.material, falsecolourOn ? '#53645b' : '#6d6d62');
         setGlowBlending(THREE, fault.material, glowOn);
         setGlowBlending(THREE, hangingWall.material, glowOn);
         setGlowBlending(THREE, pWave.material, glowOn);

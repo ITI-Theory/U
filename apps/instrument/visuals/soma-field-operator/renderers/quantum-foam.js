@@ -232,11 +232,14 @@ export const quantumFoamRenderer = {
         foamMaterial.color.set(style.falsecolour ? 0x85ffd5 : 0x8fa0a0);
         foamMaterial.emissive.set(style.glow ? (style.falsecolour ? 0x0bd6cc : 0x1f2b2c) : 0x000000);
         foamMaterial.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
+        foamMaterial.wireframe = !style.glow;
         foamMaterial.opacity = style.glow ? (lens ? 0.46 : 0.36) : 0.62;
         foamMaterial.emissiveIntensity = style.glow ? 0.62 + pulse * 0.36 : 0;
+        box.material.color.set(style.falsecolour ? 0x14e5ff : 0x6f7c82);
+        box.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
         for (const plane of cutPlanes) {
           plane.material.blending = style.glow ? THREE.AdditiveBlending : THREE.NormalBlending;
-          plane.material.opacity = style.falsecolour ? 0.78 : 0.36;
+          plane.material.opacity = style.falsecolour ? 0.78 : 0.48;
         }
         volume.rotation.y = style.motion ? Math.sin(t * 0.11) * 0.18 : 0;
         volume.rotation.x = style.motion ? Math.sin(t * 0.09) * 0.05 : 0;
@@ -255,7 +258,7 @@ export const quantumFoamRenderer = {
           if (previousHeights[index] < 0.82 && height >= 0.82) {
             const item = matter[nextMatter++ % matter.length];
             item.active = true;
-            item.bornAt = t;
+            item.bornAt = time;
             item.x = x;
             item.z = z;
             item.height = height;
@@ -275,7 +278,7 @@ export const quantumFoamRenderer = {
         surface.material.opacity = state.contours ? 0.14 : 0.23;
         threshold.material.opacity = 0.045 + pulse * 0.06;
         for (const item of matter) {
-          const age = t - item.bornAt;
+          const age = time - item.bornAt;
           const alive = item.active && age < 10;
           item.halo.visible = alive;
           item.particle.visible = alive;

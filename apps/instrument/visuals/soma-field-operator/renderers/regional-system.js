@@ -6,6 +6,9 @@ import {
   makeLabelTexture,
   makeLine,
   pointOnPolyline,
+  setGlowBlending,
+  setMaterialColor,
+  styleFlags,
 } from './lib/society-utils.js';
 
 function makeTerrainTexture(THREE) {
@@ -149,6 +152,19 @@ export const regionalSystemRenderer = {
       group.add(line);
       return { aIndex, bIndex, type, points, line };
     });
+    const responseCanvas = document.createElement('canvas');
+    responseCanvas.width = 192;
+    responseCanvas.height = 128;
+    const responseContext = responseCanvas.getContext('2d');
+    const responseTexture = new THREE.CanvasTexture(responseCanvas);
+    responseTexture.colorSpace = THREE.SRGBColorSpace;
+    const responsePlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(7.55, 4.95),
+      new THREE.MeshBasicMaterial({ map: responseTexture, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }),
+    );
+    responsePlane.rotation.x = -Math.PI / 2;
+    responsePlane.position.y = -0.985;
+    group.add(responsePlane);
 
     const townMeshes = towns.map((town, index) => {
       const radius = 0.08 + town.pop * 0.18;
@@ -164,6 +180,10 @@ export const regionalSystemRenderer = {
       group.add(halo);
       return { sphere, halo, town, radius };
     });
+    const sourceNode = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture, color: pink, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+    sourceNode.position.set(towns[0].x, -0.72, towns[0].z);
+    sourceNode.scale.setScalar(0.54);
+    group.add(sourceNode);
 
     const flowCount = 220;
     const flowPositions = new Float32Array(flowCount * 3);
@@ -183,6 +203,7 @@ export const regionalSystemRenderer = {
     group.add(flowPoints);
     const flowData = Array.from({ length: flowCount }, (_, index) => ({
       route: routeRecords[index % routeRecords.length],
+      routeIndex: index % routeRecords.length,
       offset: (index * 0.38196601125) % 1,
       speed: 0.025 + (index % 19) * 0.002,
       color: index % 4 === 0 ? gold : (index % 3 === 0 ? pink : green),
@@ -208,10 +229,56 @@ export const regionalSystemRenderer = {
       return mark;
     });
     const target = new THREE.Vector3();
+    const neutralRoute = new THREE.Color('#cbd7d0');
     const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: labelTexture, transparent: true, opacity: 0.72, depthWrite: false }));
     label.position.set(0.25, -2.12, 0.42);
     label.scale.set(3.62, 0.9, 1);
     group.add(label);
+    let lastResponseDraw = -Infinity;
+
+    function drawResponse(styleTime, response, falsecolourOn) {
+      if (styleTime - lastResponseDraw < 0.08) return;
+      lastResponseDraw = styleTime;
+      const image = responseContext.createImageData(responseCanvas.width, responseCanvas.height);
+      const data = image.data;
+      const front = 0.8 + response * 3.6;
+      const source = towns[0];
+      for (let py = 0; py < responseCanvas.height; py += 1) {
+        const z = 2.45 - (py / (responseCanvas.height - 1)) * 4.9;
+        for (let px = 0; px < responseCanvas.width; px += 1) {
+          const x = -3.775 + (px / (responseCanvas.width - 1)) * 7.55;
+          const mountainDelay = x > 0.25 && x < 1.25 ? 0.52 : 0;
+          const borderReflect = x > 1.35 ? 0.24 : 0;
+          const d = Math.hypot((x - source.x) * 0.82, (z - source.z) * 1.12) + mountainDelay + borderReflect;
+          const corridors = routeRecords.reduce((best, route) => {
+            let nearest = 99;
+            for (let p = 0; p < route.points.length; p += 4) {
+              const point = route.points[p];
+              nearest = Math.min(nearest, Math.hypot(point.x - x, point.z - z));
+            }
+            return Math.max(best, Math.exp(-(nearest ** 2) / 0.018));
+          }, 0);
+          const ridge = Math.exp(-((d - front) ** 2) / 0.035) * (0.55 + corridors * 0.85);
+          const wake = Math.exp(-(d ** 2) / Math.max(0.2, front * 1.05)) * 0.22;
+          const contour = Math.abs(((d - front) * 4.8) % 1) < 0.04 ? 0.34 : 0;
+          const value = clamp01(ridge + wake + contour + corridors * 0.22);
+          const offset = (py * responseCanvas.width + px) * 4;
+          if (falsecolourOn) {
+            data[offset] = Math.round(40 + 215 * clamp01(ridge + contour));
+            data[offset + 1] = Math.round(80 + 165 * clamp01(wake + corridors * 0.72));
+            data[offset + 2] = Math.round(44 + 130 * clamp01(corridors + contour));
+          } else {
+            const ink = Math.round(126 + 118 * value);
+            data[offset] = ink;
+            data[offset + 1] = ink;
+            data[offset + 2] = ink;
+          }
+          data[offset + 3] = Math.round(225 * value);
+        }
+      }
+      responseContext.putImageData(image, 0, 0);
+      responseTexture.needsUpdate = true;
+    }
 
     return {
       group,
@@ -219,57 +286,85 @@ export const regionalSystemRenderer = {
         const active = state.rendererId === 'regional-system';
         group.visible = active;
         if (!active) return;
+        const style = styleFlags(state);
+        const falsecolourOn = style.falsecolour !== false;
+        const glowOn = style.glow !== false;
+        const motionOn = style.motion !== false;
+        const styleTime = motionOn ? time : 0;
         const fieldOn = state.tTheory && state.level >= 8;
-        terrain.material.opacity = fieldOn ? 0.76 : 0.9;
-        boundaryMaterial.opacity = fieldOn ? 0.48 + pulse * 0.12 : 0.24;
+        const response = fieldOn ? Math.max(state.responseTime, 0.32 + (motionOn ? 0.04 * Math.sin(time * 0.22) : 0)) : state.responseTime;
+        setGlowBlending(THREE, terrain.material, glowOn);
+        setGlowBlending(THREE, responsePlane.material, glowOn);
+        terrain.material.opacity = falsecolourOn ? (fieldOn ? 0.76 : 0.9) : 0.28;
+        boundaryMaterial.opacity = fieldOn ? 0.52 + (glowOn ? pulse * 0.14 : 0) : 0.28;
+        setGlowBlending(THREE, boundaryMaterial, glowOn);
+        setMaterialColor(boundaryMaterial, falsecolourOn ? pink : '#d5c7d2');
+        setMaterialColor(mountainMaterial, falsecolourOn ? gold : '#b7b2a4');
         for (const [index, boundary] of boundaries.entries()) {
-          boundary.material.opacity = (fieldOn ? 0.36 : 0.18) + 0.04 * Math.sin(time * 0.22 + index);
+          boundary.material.opacity = (fieldOn ? 0.44 : 0.24) + (motionOn ? 0.04 * Math.sin(time * 0.22 + index) : 0);
         }
 
         for (const [index, record] of routeRecords.entries()) {
-          const ruleReach = clamp01(state.responseTime * 1.35 - index * 0.055);
-          record.line.material.opacity = (fieldOn ? 0.38 + 0.36 * ruleReach : 0.42) + 0.06 * Math.sin(time * 0.4 + index);
+          const ruleReach = clamp01(response * 1.35 - index * 0.055);
+          setGlowBlending(THREE, record.line.material, glowOn);
+          const routeColor = falsecolourOn ? linkMaterials[record.type].color : neutralRoute;
+          record.line.material.color.copy(routeColor);
+          record.line.material.opacity = (fieldOn ? 0.46 + 0.42 * ruleReach : (glowOn ? 0.46 : 0.7)) + (motionOn ? 0.06 * Math.sin(time * 0.4 + index) : 0);
         }
 
         for (let index = 0; index < flowCount; index += 1) {
           const item = flowData[index];
-          const t = (item.offset + time * item.speed) % 1;
+          const t = (item.offset + styleTime * item.speed) % 1;
           pointOnPolyline(item.route.points, t, target);
           const offset = index * 3;
           flowPositions[offset] = target.x;
-          flowPositions[offset + 1] = target.y + 0.04 * Math.sin(time * 2.5 + index);
+          flowPositions[offset + 1] = target.y + (motionOn ? 0.04 * Math.sin(time * 2.5 + index) : 0);
           flowPositions[offset + 2] = target.z;
-          const routeDelay = routeRecords.indexOf(item.route) * 0.045;
-          const reached = fieldOn && state.responseTime > routeDelay + t * 0.55;
-          const color = reached ? gold : item.color;
+          const routeDelay = item.routeIndex * 0.045;
+          const reached = fieldOn && response > routeDelay + t * 0.55;
+          const color = falsecolourOn ? (reached ? gold : item.color) : (reached ? gold : green);
           flowColors[offset] = color.r;
           flowColors[offset + 1] = color.g;
           flowColors[offset + 2] = color.b;
         }
         flowGeometry.attributes.position.needsUpdate = true;
         flowGeometry.attributes.color.needsUpdate = true;
-        flowPoints.material.opacity = fieldOn ? 0.92 : 0.68;
+        setGlowBlending(THREE, flowPoints.material, glowOn);
+        flowPoints.material.opacity = glowOn ? (fieldOn ? 0.92 : 0.7) : 0.5;
+
+        responsePlane.visible = fieldOn;
+        drawResponse(styleTime, response, falsecolourOn);
+        responsePlane.material.opacity = fieldOn ? (glowOn ? 1.0 + pulse * 0.12 : 0.45) : 0;
+        sourceNode.material.opacity = fieldOn && glowOn ? 0.48 + pulse * 0.42 : 0;
+        sourceNode.scale.setScalar(0.48 + pulse * 0.28);
 
         for (const [index, townRecord] of townMeshes.entries()) {
-          const reach = clamp01(state.responseTime * 1.8 - Math.hypot(townRecord.town.x + 1.1, townRecord.town.z + 0.1) * 0.2);
-          townRecord.sphere.scale.setScalar(1 + 0.08 * Math.sin(time * 0.8 + index) + pulse * 0.08 * reach);
-          townRecord.halo.material.opacity = 0.2 + 0.18 * townRecord.town.pop + (fieldOn ? reach * 0.34 : 0);
-          townRecord.halo.scale.setScalar(townRecord.radius * (4.2 + reach * 5.5 + pulse));
+          const reach = clamp01(response * 1.8 - Math.hypot(townRecord.town.x + 1.1, townRecord.town.z + 0.1) * 0.2);
+          setGlowBlending(THREE, townRecord.sphere.material, glowOn);
+          setGlowBlending(THREE, townRecord.halo.material, glowOn);
+          setMaterialColor(townRecord.sphere.material, falsecolourOn ? (index === 0 ? gold : cyan) : '#dde3dd');
+          townRecord.sphere.scale.setScalar(1 + (motionOn ? 0.08 * Math.sin(time * 0.8 + index) : 0) + pulse * 0.08 * reach);
+          townRecord.halo.material.opacity = glowOn ? 0.2 + 0.18 * townRecord.town.pop + (fieldOn ? reach * 0.34 : 0) : 0;
+          townRecord.halo.scale.setScalar(townRecord.radius * (4.2 + reach * 5.5 + (glowOn ? pulse : 0)));
         }
 
         for (const [index, marker] of fieldRings.entries()) {
           const route = routeRecords[index];
-          const progress = clamp01(state.responseTime * 1.42 - index * 0.055);
+          const progress = clamp01(response * 1.42 - index * 0.055);
           pointOnPolyline(route.points, progress, target);
           marker.position.copy(target);
           const size = 0.3 + progress * 0.9 + pulse * 0.18;
           marker.scale.set(size * (route.type === 'border' ? 0.65 : 1.15), size * 0.72, 1);
-          marker.material.opacity = fieldOn ? (state.contours ? 0.3 : 0.15) * Math.sin(Math.PI * progress) + pulse * 0.05 : 0;
+          setGlowBlending(THREE, marker.material, glowOn);
+          setMaterialColor(marker.material, falsecolourOn ? (index % 2 ? pink : gold) : '#f0ead8');
+          marker.material.opacity = fieldOn ? (state.contours ? 0.42 : 0.24) * Math.sin(Math.PI * progress) + (glowOn ? pulse * 0.05 : 0) : 0;
         }
         for (const [index, mark] of delayMarks.entries()) {
           const delay = index * 0.07;
-          const reach = clamp01(state.responseTime * 1.45 - delay);
-          mark.material.opacity = fieldOn ? reach * (0.08 + 0.16 * Math.sin(time * 0.5 + index) ** 2) : 0;
+          const reach = clamp01(response * 1.45 - delay);
+          setGlowBlending(THREE, mark.material, glowOn);
+          setMaterialColor(mark.material, falsecolourOn ? pink : '#efe8dd');
+          mark.material.opacity = fieldOn ? reach * (0.12 + (motionOn ? 0.22 * Math.sin(time * 0.5 + index) ** 2 : 0.12)) : 0;
           mark.scale.setScalar(0.8 + reach * 1.8);
         }
         label.material.opacity = 0.58 + (fieldOn ? 0.18 : 0.04);
@@ -279,6 +374,7 @@ export const regionalSystemRenderer = {
         disposeObject(group);
         glowTexture.dispose();
         terrainTexture.dispose();
+        responseTexture.dispose();
         labelTexture.dispose();
       },
     };

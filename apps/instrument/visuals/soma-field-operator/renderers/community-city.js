@@ -4,6 +4,9 @@ import {
   makeGlowTexture,
   makeLabelTexture,
   makeLineSegments,
+  setGlowBlending,
+  setMaterialColor,
+  styleFlags,
 } from './lib/society-utils.js';
 
 function makeStreetCoordinates() {
@@ -66,6 +69,18 @@ export const communityCityRenderer = {
     });
     const streets = makeLineSegments(THREE, streetCoordinates, streetMaterial);
     group.add(streets);
+    const scaleBarMaterial = new THREE.LineBasicMaterial({
+      color: 0xeaf5ff,
+      transparent: true,
+      opacity: 0.64,
+      depthWrite: false,
+    });
+    const scaleBar = makeLineSegments(THREE, [
+      -3.46, -1.235, 2.58, -2.46, -1.235, 2.58,
+      -3.46, -1.235, 2.48, -3.46, -1.235, 2.68,
+      -2.46, -1.235, 2.48, -2.46, -1.235, 2.68,
+    ], scaleBarMaterial);
+    group.add(scaleBar);
 
     const riverCoordinates = [];
     for (let index = 0; index < 44; index += 1) {
@@ -89,11 +104,19 @@ export const communityCityRenderer = {
     const buildingMaterial = new THREE.MeshBasicMaterial({
       color: 0x244b7a,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.86,
       depthWrite: true,
     });
     const buildingCount = 126;
     const buildings = new THREE.InstancedMesh(buildingGeometry, buildingMaterial, buildingCount);
+    const buildingEdgeMaterial = new THREE.MeshBasicMaterial({
+      color: cyan,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.18,
+      depthWrite: false,
+    });
+    const buildingEdges = new THREE.InstancedMesh(buildingGeometry, buildingEdgeMaterial, buildingCount);
     const buildingData = [];
     const matrix = new THREE.Matrix4();
     const position = new THREE.Vector3();
@@ -110,15 +133,20 @@ export const communityCityRenderer = {
         scale.set(0.78 + (zi % 3) * 0.12, height, 0.76 + (xi % 2) * 0.16);
         matrix.compose(position, quaternion, scale);
         buildings.setMatrixAt(buildingIndex, matrix);
+        buildingEdges.setMatrixAt(buildingIndex, matrix);
         const color = new THREE.Color(0x16365f).lerp(gold, ((xi * 5 + zi * 3) % 9) / 18);
         buildings.setColorAt(buildingIndex, color);
         buildingData.push({ index: buildingIndex, color, cx, cz, height, phase: xi * 0.9 + zi * 1.7 });
         buildingIndex += 1;
       }
     }
+    buildings.count = buildingIndex;
+    buildingEdges.count = buildingIndex;
     buildings.instanceMatrix.needsUpdate = true;
     buildings.instanceColor.needsUpdate = true;
     group.add(buildings);
+    buildingEdges.instanceMatrix.needsUpdate = true;
+    group.add(buildingEdges);
 
     const parkGeometry = new THREE.CircleGeometry(0.38, 32);
     const parkMaterial = new THREE.MeshBasicMaterial({ color: green, transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending });
@@ -197,8 +225,11 @@ export const communityCityRenderer = {
     let lastFieldUpdate = -Infinity;
     const sourceX = -2.46;
     const sourceZ = -1.52;
+    const tempColor = new THREE.Color();
+    const neutralBuildingBase = new THREE.Color('#10151e');
+    const neutralBuildingLight = new THREE.Color('#d6d7cf');
 
-    function drawField(time, response, active) {
+    function drawField(time, response, active, falsecolourOn) {
       if (!active || time - lastFieldUpdate < 0.065) return;
       lastFieldUpdate = time;
       const image = fieldContext.createImageData(fieldCanvas.width, fieldCanvas.height);
@@ -219,9 +250,16 @@ export const communityCityRenderer = {
           const contours = active && Math.abs(((d - front) * 5.2) % 1) < 0.045 ? 0.55 : 0;
           const value = clamp01(ridge + filled + contours);
           const offset = (py * fieldCanvas.width + px) * 4;
-          data[offset] = Math.round(45 + 210 * clamp01(ridge + contours));
-          data[offset + 1] = Math.round(20 + 190 * clamp01(filled + ridge * 0.28));
-          data[offset + 2] = Math.round(92 + 155 * clamp01(1 - filled + contours));
+          if (falsecolourOn) {
+            data[offset] = Math.round(45 + 210 * clamp01(ridge + contours));
+            data[offset + 1] = Math.round(20 + 190 * clamp01(filled + ridge * 0.28));
+            data[offset + 2] = Math.round(92 + 155 * clamp01(1 - filled + contours));
+          } else {
+            const ink = Math.round(120 + 130 * clamp01(ridge + contours + filled * 0.4));
+            data[offset] = ink;
+            data[offset + 1] = ink;
+            data[offset + 2] = ink;
+          }
           data[offset + 3] = Math.round(210 * value);
         }
       }
@@ -235,19 +273,37 @@ export const communityCityRenderer = {
         const active = state.rendererId === 'community-city';
         group.visible = active;
         if (!active) return;
+        const style = styleFlags(state);
+        const falsecolourOn = style.falsecolour !== false;
+        const glowOn = style.glow !== false;
+        const motionOn = style.motion !== false;
+        const styleTime = motionOn ? time : 0;
         const fieldOn = state.tTheory && state.level >= 8;
-        const day = 0.5 + 0.5 * Math.sin(time * 0.11 - 1.1);
-        streetMaterial.opacity = fieldOn ? 0.42 : 0.42 + (1 - day) * 0.32;
-        buildingMaterial.opacity = 0.5 + (1 - day) * 0.32;
+        const day = 0.5 + 0.5 * Math.sin(styleTime * 0.11 - 1.1);
+        setGlowBlending(THREE, streetMaterial, glowOn);
+        setGlowBlending(THREE, river.material, glowOn);
+        setGlowBlending(THREE, traffic.material, glowOn);
+        setGlowBlending(THREE, fieldPlane.material, glowOn);
+        setGlowBlending(THREE, parkMaterial, glowOn);
+        setGlowBlending(THREE, sourceNode.material, glowOn);
+        setMaterialColor(streetMaterial, falsecolourOn ? cyan : '#d7dee7');
+        setMaterialColor(river.material, falsecolourOn ? '#3d7bff' : '#a7b0bd');
+        setMaterialColor(buildingMaterial, falsecolourOn ? '#244b7a' : '#141922');
+        setMaterialColor(buildingEdgeMaterial, falsecolourOn ? cyan : '#cad2dc');
+        scaleBarMaterial.opacity = glowOn ? 0.64 : 0.9;
+        streetMaterial.opacity = glowOn ? (fieldOn ? 0.5 : 0.56 + (1 - day) * 0.34) : 0.82;
+        buildingMaterial.opacity = falsecolourOn ? 0.58 + (1 - day) * 0.36 : 0.18;
+        buildingEdgeMaterial.opacity = glowOn ? 0.18 + (fieldOn ? 0.08 : 0) : 0.42;
         for (const item of buildingData) {
-          const lit = 0.16 + (1 - day) * 0.62 + 0.16 * Math.sin(time * 0.7 + item.phase);
-          buildings.setColorAt(item.index, item.color.clone().lerp(gold, clamp01(lit * 0.42)));
+          const lit = 0.18 + (1 - day) * 0.66 + (motionOn ? 0.16 * Math.sin(time * 0.7 + item.phase) : 0);
+          tempColor.copy(falsecolourOn ? item.color : neutralBuildingBase).lerp(falsecolourOn ? gold : neutralBuildingLight, clamp01(lit * (falsecolourOn ? 0.52 : 0.24)));
+          buildings.setColorAt(item.index, tempColor);
         }
         buildings.instanceColor.needsUpdate = true;
 
         for (let index = 0; index < particleCount; index += 1) {
           const item = trafficData[index];
-          const t = (item.offset + time * item.speed) % 1;
+          const t = (item.offset + styleTime * item.speed) % 1;
           let x;
           let z;
           if (item.axis === 'x') {
@@ -259,32 +315,37 @@ export const communityCityRenderer = {
           }
           const offset = index * 3;
           particlePositions[offset] = x;
-          particlePositions[offset + 1] = -1.08 + 0.015 * Math.sin(time * 4 + index);
+          particlePositions[offset + 1] = -1.08 + (motionOn ? 0.015 * Math.sin(time * 4 + index) : 0);
           particlePositions[offset + 2] = z;
-          const colour = fieldOn && Math.hypot(x - sourceX, z - sourceZ) < 0.45 + state.responseTime * 5.8 ? pink : item.color;
+          const fieldReach = fieldOn && Math.hypot(x - sourceX, z - sourceZ) < 0.45 + state.responseTime * 5.8;
+          const colour = falsecolourOn
+            ? (fieldReach ? pink : item.color)
+            : (fieldReach ? tempColor.set('#f1f1e6') : tempColor.set('#bfc8c4'));
           particleColors[offset] = colour.r;
           particleColors[offset + 1] = colour.g;
           particleColors[offset + 2] = colour.b;
         }
         particleGeometry.attributes.position.needsUpdate = true;
         particleGeometry.attributes.color.needsUpdate = true;
-        traffic.material.opacity = fieldOn ? 0.95 : 0.62 + (1 - day) * 0.28;
+        traffic.material.opacity = motionOn ? (fieldOn ? 0.95 : 0.68 + (1 - day) * 0.26) : 0.7;
 
-        drawField(time, state.responseTime, fieldOn);
+        drawField(styleTime, state.responseTime, fieldOn, falsecolourOn);
         fieldPlane.visible = fieldOn;
-        fieldPlane.material.opacity = fieldOn ? 0.82 + pulse * 0.18 : 0;
-        sourceNode.material.opacity = fieldOn ? 0.5 + pulse * 0.45 : 0;
+        fieldPlane.material.opacity = fieldOn ? (glowOn ? 0.88 + pulse * 0.12 : 0.34) : 0;
+        sourceNode.material.opacity = fieldOn && glowOn ? 0.5 + pulse * 0.45 : 0;
         sourceNode.scale.setScalar(0.26 + pulse * 0.34);
         for (const [index, ring] of contourRings.entries()) {
           const radius = 0.18 + state.responseTime * (1.1 + index * 0.56) + index * 0.11 + pulse * 0.12;
           ring.scale.set(radius * 1.18, radius * 0.78, 1);
-          ring.material.opacity = fieldOn ? (state.contours ? Math.max(0, 0.34 - index * 0.035) : Math.max(0, 0.16 - index * 0.016)) + pulse * 0.08 : 0;
-          ring.rotation.z = time * 0.045 + index * 0.18;
+          setGlowBlending(THREE, ring.material, glowOn);
+          setMaterialColor(ring.material, falsecolourOn ? (index % 2 ? pink : gold) : '#ece7d8');
+          ring.material.opacity = fieldOn ? (state.contours ? Math.max(0, 0.42 - index * 0.04) : Math.max(0, 0.22 - index * 0.02)) + (glowOn ? pulse * 0.08 : 0) : 0;
+          ring.rotation.z = styleTime * 0.045 + index * 0.18;
         }
         for (const [index, park] of parks.entries()) {
-          park.material.opacity = 0.13 + 0.05 * Math.sin(time * 0.33 + index);
+          park.material.opacity = falsecolourOn ? 0.13 + (motionOn ? 0.05 * Math.sin(time * 0.33 + index) : 0) : 0.08;
         }
-        label.material.opacity = 0.54 + (fieldOn ? 0.2 : 0.06) + 0.06 * Math.sin(time * 0.8);
+        label.material.opacity = 0.58 + (fieldOn ? 0.18 : 0.08) + (motionOn ? 0.04 * Math.sin(time * 0.8) : 0);
       },
       dispose() {
         scene.remove(group);

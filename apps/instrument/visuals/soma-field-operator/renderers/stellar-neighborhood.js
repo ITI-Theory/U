@@ -4,6 +4,9 @@ import {
   makeGlowTexture,
   makeLabelTexture,
   makeLine,
+  setGlowBlending,
+  setMaterialColor,
+  styleFlags,
 } from './lib/society-utils.js';
 
 function seeded(index) {
@@ -118,6 +121,7 @@ export const stellarNeighborhoodRenderer = {
     group.add(sun);
 
     const orbitMaterial = new THREE.LineBasicMaterial({ color: 0x3d7bff, transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.AdditiveBlending });
+    const orbits = [];
     for (let index = 0; index < 4; index += 1) {
       const orbit = new THREE.Mesh(
         new THREE.TorusGeometry(0.56 + index * 0.32, 0.0035, 6, 128),
@@ -126,6 +130,7 @@ export const stellarNeighborhoodRenderer = {
       orbit.rotation.x = Math.PI / 2 + index * 0.1;
       orbit.rotation.z = index * 0.42;
       group.add(orbit);
+      orbits.push(orbit);
     }
 
     const neighborLinks = namedStars.slice(1).map((star, index) => {
@@ -137,6 +142,11 @@ export const stellarNeighborhoodRenderer = {
       group.add(line);
       return line;
     });
+    const divider = makeLine(THREE, [
+      new THREE.Vector3(-1.05, -1.85, 0.18),
+      new THREE.Vector3(-0.66, 1.75, 0.18),
+    ], new THREE.LineBasicMaterial({ color: 0x8f47ff, transparent: true, opacity: 0.28, depthWrite: false, blending: THREE.AdditiveBlending }));
+    group.add(divider);
 
     const treeGroup = new THREE.Group();
     treeGroup.position.set(0.3, 0.03, 0);
@@ -192,6 +202,9 @@ export const stellarNeighborhoodRenderer = {
     label.position.set(0.2, -2.08, 0.4);
     label.scale.set(3.78, 0.94, 1);
     group.add(label);
+    const starColorAttribute = stars.geometry.getAttribute('color');
+    const tempColor = new THREE.Color();
+    const lineInk = new THREE.Color('#d8dbe2');
 
     return {
       group,
@@ -199,30 +212,62 @@ export const stellarNeighborhoodRenderer = {
         const active = state.rendererId === 'stellar-neighborhood';
         group.visible = active;
         if (!active) return;
+        const style = styleFlags(state);
+        const falsecolourOn = style.falsecolour !== false;
+        const glowOn = style.glow !== false;
+        const motionOn = style.motion !== false;
+        const styleTime = motionOn ? time : 0;
         const fieldOn = state.tTheory && state.level >= 8;
-        stars.rotation.y = time * 0.028;
-        stars.rotation.x = 0.12 * Math.sin(time * 0.05);
-        stars.material.opacity = 0.8 + 0.14 * Math.sin(time * 0.16);
-        sun.material.opacity = 0.82 + 0.14 * Math.sin(time * 0.45) + pulse * 0.12;
-        sun.scale.setScalar(0.5 + pulse * 0.18);
-        for (const [index, line] of neighborLinks.entries()) {
-          line.material.opacity = (fieldOn ? 0.18 : 0.09) + 0.04 * Math.sin(time * 0.18 + index);
+        stars.rotation.y = styleTime * 0.028;
+        stars.rotation.x = motionOn ? 0.12 * Math.sin(time * 0.05) : 0;
+        setGlowBlending(THREE, stars.material, glowOn);
+        stars.material.size = glowOn ? 0.16 : 0.075;
+        stars.material.opacity = glowOn ? 0.92 + (motionOn ? 0.08 * Math.sin(time * 0.16) : 0) : 0.86;
+        for (const [index] of namedStars.entries()) {
+          tempColor.copy(falsecolourOn ? (index === 0 ? gold : cyan) : lineInk);
+          if (falsecolourOn && index !== 0) tempColor.lerp(violet, (index % 5) / 5);
+          starColorAttribute.setXYZ(index, tempColor.r, tempColor.g, tempColor.b);
         }
-        treeGroup.rotation.z = 0.05 * Math.sin(time * 0.06);
-        treeSpiral.material.opacity = 0.2 + 0.08 * Math.sin(time * 0.12);
+        starColorAttribute.needsUpdate = true;
+        setGlowBlending(THREE, sun.material, glowOn);
+        sun.material.opacity = glowOn ? 0.86 + (motionOn ? 0.12 * Math.sin(time * 0.45) : 0) + pulse * 0.12 : 0.32;
+        sun.scale.setScalar(0.52 + (glowOn ? pulse * 0.18 : 0));
+        for (const [index, orbit] of orbits.entries()) {
+          setGlowBlending(THREE, orbit.material, glowOn);
+          setMaterialColor(orbit.material, falsecolourOn ? '#3d7bff' : '#cfd6df');
+          orbit.material.opacity = glowOn ? 0.14 + 0.03 * index : 0.26;
+        }
+        for (const [index, line] of neighborLinks.entries()) {
+          setGlowBlending(THREE, line.material, glowOn);
+          setMaterialColor(line.material, falsecolourOn ? '#3d7bff' : '#cfd6df');
+          line.material.opacity = (fieldOn ? 0.26 : (glowOn ? 0.14 : 0.32)) + (motionOn ? 0.04 * Math.sin(time * 0.18 + index) : 0);
+        }
+        setGlowBlending(THREE, divider.material, glowOn);
+        setMaterialColor(divider.material, falsecolourOn ? violet : '#d8dbe2');
+        divider.material.opacity = glowOn ? 0.28 : 0.45;
+        treeGroup.rotation.z = motionOn ? 0.05 * Math.sin(time * 0.06) : 0;
+        setGlowBlending(THREE, treeSpiral.material, glowOn);
+        setMaterialColor(treeSpiral.material, falsecolourOn ? gold : '#e2dccd');
+        treeSpiral.material.opacity = 0.28 + (motionOn ? 0.08 * Math.sin(time * 0.12) : 0);
         for (const line of treeLines) {
-          line.material.opacity = (fieldOn ? 0.28 : 0.16) + 0.08 * Math.sin(time * 0.35 + line.userData.phase);
+          setGlowBlending(THREE, line.material, glowOn);
+          setMaterialColor(line.material, falsecolourOn ? (line.userData.depth % 2 ? green : pink) : '#dcd8ce');
+          line.material.opacity = (fieldOn ? 0.36 : (glowOn ? 0.24 : 0.38)) + (motionOn ? 0.08 * Math.sin(time * 0.35 + line.userData.phase) : 0);
         }
         for (const [index, shell] of waveShells.entries()) {
-          const deepTime = (time * 0.018 + index * 0.13 + state.responseTime * 0.4) % 1;
+          const deepTime = (styleTime * 0.018 + index * 0.13 + state.responseTime * 0.4) % 1;
           shell.scale.setScalar(0.82 + deepTime * 0.62 + pulse * 0.05);
-          shell.rotation.y = time * (0.012 + index * 0.003);
-          shell.material.opacity = fieldOn ? 0.06 + 0.12 * (1 - deepTime) : 0;
+          shell.rotation.y = styleTime * (0.012 + index * 0.003);
+          setGlowBlending(THREE, shell.material, glowOn);
+          setMaterialColor(shell.material, falsecolourOn ? (index % 2 ? pink : cyan) : '#ece8da');
+          shell.material.opacity = fieldOn ? (glowOn ? 0.045 + 0.1 * (1 - deepTime) : 0.028 + 0.05 * (1 - deepTime)) : 0;
         }
         for (const [index, basin] of lineageBasins.entries()) {
           const reach = clamp01(state.responseTime * 1.25 - index * 0.12);
           basin.scale.set(1 + reach * 1.8, 0.64 + reach * 1.1, 1);
-          basin.material.opacity = fieldOn ? reach * (0.16 + 0.1 * Math.sin(time * 0.25 + index) ** 2) : 0;
+          setGlowBlending(THREE, basin.material, glowOn);
+          setMaterialColor(basin.material, falsecolourOn ? green : '#ebe6dc');
+          basin.material.opacity = fieldOn ? reach * (0.2 + (motionOn ? 0.12 * Math.sin(time * 0.25 + index) ** 2 : 0.08)) : 0;
         }
         label.material.opacity = 0.58 + (fieldOn ? 0.2 : 0.05);
       },

@@ -2,7 +2,13 @@ import {
   collectivePalette,
   createDynamicSegments,
   disposeObject,
+  biologicalColor,
+  fieldColor,
+  linePalette,
   makeGlowTexture,
+  makeTextSprite,
+  setGlowBlending,
+  styleFlags,
 } from './lib/collective-primitives.js';
 
 export const humanGroupRenderer = {
@@ -11,6 +17,14 @@ export const humanGroupRenderer = {
     const group = new THREE.Group();
     scene.add(group);
     const glow = makeGlowTexture(THREE, 'rgba(255,255,255,0.95)', 'rgba(246,199,90,0.5)', 'rgba(246,199,90,0)');
+    const room = createDynamicSegments(THREE, 8, collectivePalette.grey, { opacity: 0.26 });
+    room.update([
+      [[-3.05, -1.95, -0.2], [3.05, -1.95, -0.2]],
+      [[-3.05, -1.95, -0.2], [-2.66, 0.62, -0.42]],
+      [[3.05, -1.95, -0.2], [2.66, 0.62, -0.42]],
+      [[-2.66, 0.62, -0.42], [2.66, 0.62, -0.42]],
+    ]);
+    group.add(room.object);
     const peopleCount = 54;
     const people = Array.from({ length: peopleCount }, (_, index) => {
       const row = Math.floor(index / 9);
@@ -90,21 +104,37 @@ export const humanGroupRenderer = {
     const couplingLinks = createDynamicSegments(THREE, 120, collectivePalette.green, { opacity: 0 });
     group.add(couplingLinks.object);
     const phaseColor = new THREE.Color();
+    const scaleBar = createDynamicSegments(THREE, 3, collectivePalette.grey, { opacity: 0.45 });
+    scaleBar.update([
+      [[-2.82, -2.15, 0.05], [-1.62, -2.15, 0.05]],
+      [[-2.82, -2.08, 0.05], [-2.82, -2.22, 0.05]],
+      [[-1.62, -2.08, 0.05], [-1.62, -2.22, 0.05]],
+    ]);
+    const scaleLabel = makeTextSprite(THREE, '10 m hall', { color: '#aeb8b2', scale: [0.8, 0.16, 1], width: 300, height: 72, background: null });
+    scaleLabel.position.set(-2.18, -2.34, 0.08);
+    group.add(scaleBar.object, scaleLabel);
 
     return {
       group,
       update(state, time, pulse) {
         group.visible = state.rendererId === 'human-group';
         if (!group.visible) return;
+        const style = styleFlags(state);
+        const t = style.motion ? time : 0;
         const lens = state.tTheory && state.level >= 8;
+        const humanColor = biologicalColor(style, collectivePalette.cyan);
+        const cueColor = fieldColor(style, collectivePalette.gold, linePalette.ink);
+        for (const material of [skeletonMaterial, phaseDots.material, crowdWave.material, clap.material, ...normField.map(ring => ring.material), couplingLinks.material, room.material, scaleBar.material]) {
+          setGlowBlending(THREE, material, style.glow);
+        }
         let offset = 0;
         const clapRadius = 0.25 + state.responseTime * 4.4;
         const segments = [];
         for (const [index, person] of people.entries()) {
           const distanceFromClap = Math.hypot(person.x + 2.55, person.y + 1.34);
           const wave = Math.exp(-((distanceFromClap - clapRadius) ** 2) / 0.08);
-          const applause = Math.sin(time * 4.8 - person.x * 1.3 + person.basePhase) > 0.45 ? 1 : 0;
-          const lift = (lens ? 0.04 : 0.12) * Math.sin(time * 2.6 - person.x * 2.2) + wave * (0.28 + pulse * 0.28);
+          const applause = style.motion && Math.sin(t * 4.8 - person.x * 1.3 + person.basePhase) > 0.45 ? 1 : 0;
+          const lift = (lens ? 0.04 : 0.12) * Math.sin(t * 2.6 - person.x * 2.2) + wave * (0.28 + pulse * 0.28);
           const head = [person.x, person.y + 0.22 + lift, person.z];
           const neck = [person.x, person.y + 0.11 + lift * 0.35, person.z];
           const body = [person.x, person.y - 0.18, person.z];
@@ -117,9 +147,10 @@ export const humanGroupRenderer = {
             offset += 6;
           }
           const sync = lens ? 0.86 + 0.1 * Math.sin(time * 0.3) : 0.12;
-          const meanPhase = time * 1.2;
-          const phase = meanPhase * sync + (person.basePhase + person.omega * time) * (1 - sync);
-          phaseColor.setHSL((phase / (Math.PI * 2) + 1) % 1, 0.86, 0.58);
+          const meanPhase = t * 1.2;
+          const phase = meanPhase * sync + (person.basePhase + person.omega * t) * (1 - sync);
+          if (style.falsecolour) phaseColor.setHSL((phase / (Math.PI * 2) + 1) % 1, 0.86, 0.58);
+          else phaseColor.setHex(lens ? linePalette.paper : linePalette.dim);
           phasePositions[index * 3] = person.x;
           phasePositions[index * 3 + 1] = person.y + 0.32 + wave * 0.18;
           phasePositions[index * 3 + 2] = person.z + 0.08;
@@ -132,23 +163,26 @@ export const humanGroupRenderer = {
           }
         }
         skeletonGeometry.attributes.position.needsUpdate = true;
-        skeletonMaterial.color.set(lens ? collectivePalette.cyan : collectivePalette.grey);
-        skeletonMaterial.opacity = lens ? 0.32 : 0.58;
+        skeletonMaterial.color.set(lens ? humanColor : biologicalColor(style, collectivePalette.grey, linePalette.ink));
+        skeletonMaterial.opacity = lens ? 0.38 : 0.78;
         phaseGeometry.attributes.position.needsUpdate = true;
         phaseGeometry.attributes.color.needsUpdate = true;
-        phaseDots.material.opacity = lens ? 0.9 : 0.18;
+        phaseDots.material.opacity = lens ? 0.92 : 0.16;
         couplingLinks.update(segments);
         couplingLinks.material.opacity = lens ? 0.16 + pulse * 0.2 : 0;
         crowdWave.visible = pulse > 0.01 || !lens;
         crowdWave.position.x = -2.55 + state.responseTime * 4.8;
         crowdWave.scale.set(0.9 + state.responseTime * 3.2, 0.24 + state.responseTime * 0.75, 1);
-        crowdWave.material.opacity = (lens ? 0.16 : 0.32) + pulse * 0.32;
+        crowdWave.material.color.set(cueColor);
+        crowdWave.material.opacity = (lens ? 0.16 : 0.34) + pulse * 0.32;
         clap.scale.setScalar(0.42 + pulse * 1.3);
-        clap.material.opacity = Math.min(0.9, 0.25 + pulse * 0.65);
+        clap.material.visible = style.glow;
+        clap.material.opacity = style.glow ? Math.min(0.9, 0.25 + pulse * 0.65) : 0;
         for (const [index, ring] of normField.entries()) {
           ring.visible = lens;
-          ring.rotation.z = 0.06 * Math.sin(time * 0.35 + index);
-          ring.scale.set(1.35 + index * 0.18 + Math.sin(time * 0.4 + index) * 0.03, 0.36 + index * 0.05, 1);
+          ring.material.color.set(fieldColor(style, index % 2 ? collectivePalette.violet : collectivePalette.green));
+          ring.rotation.z = 0.06 * Math.sin(t * 0.35 + index);
+          ring.scale.set(1.35 + index * 0.18 + Math.sin(t * 0.4 + index) * 0.03, 0.36 + index * 0.05, 1);
           ring.material.opacity = lens ? 0.18 + index * 0.035 + pulse * 0.06 : 0;
         }
       },

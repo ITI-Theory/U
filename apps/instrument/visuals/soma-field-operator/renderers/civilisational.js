@@ -6,6 +6,9 @@ import {
   makeLabelTexture,
   makeLine,
   pointOnPolyline,
+  setGlowBlending,
+  setMaterialColor,
+  styleFlags,
 } from './lib/society-utils.js';
 
 const cities = [
@@ -179,6 +182,10 @@ export const civilisationalRenderer = {
     );
     earthGroup.add(responseParticles);
     const target = new THREE.Vector3();
+    const tempColor = new THREE.Color();
+    const lineInk = new THREE.Color('#cfd8df');
+    const mutedGold = new THREE.Color('#ded2aa');
+    const cityColorAttribute = cityGeometry.getAttribute('color');
 
     const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: labelTexture, transparent: true, opacity: 0.76, depthWrite: false }));
     label.position.set(0.15, -2.04, 0.45);
@@ -191,44 +198,75 @@ export const civilisationalRenderer = {
         const active = state.rendererId === 'civilisational';
         group.visible = active;
         if (!active) return;
+        const style = styleFlags(state);
+        const falsecolourOn = style.falsecolour !== false;
+        const glowOn = style.glow !== false;
+        const motionOn = style.motion !== false;
+        const styleTime = motionOn ? time : 0;
         const fieldOn = state.tTheory && state.level >= 8;
-        earthGroup.rotation.y = time * 0.045;
-        earthGroup.rotation.x = 0.08 * Math.sin(time * 0.07);
-        const nightPulse = 0.78 + 0.18 * Math.sin(time * 0.16);
-        cityLights.material.opacity = nightPulse + pulse * 0.08;
+        earthGroup.rotation.y = styleTime * 0.045;
+        earthGroup.rotation.x = motionOn ? 0.08 * Math.sin(time * 0.07) : 0;
+        setMaterialColor(earth.material, falsecolourOn ? '#bfdfff' : '#d7d8cf');
+        earth.material.opacity = falsecolourOn ? 0.94 : 0.24;
+        setGlowBlending(THREE, atmosphere.material, glowOn);
+        setGlowBlending(THREE, cityLights.material, glowOn);
+        const nightPulse = 0.88 + (motionOn ? 0.12 * Math.sin(time * 0.16) : 0);
+        cityLights.material.opacity = glowOn ? nightPulse + pulse * 0.08 : 0.62;
+        for (const [index, city] of cities.entries()) {
+          tempColor.copy(falsecolourOn ? gold : mutedGold).lerp(falsecolourOn ? cyan : lineInk, falsecolourOn ? 1 - city[2] : 0.35);
+          cityColorAttribute.setXYZ(index, tempColor.r, tempColor.g, tempColor.b);
+        }
+        cityColorAttribute.needsUpdate = true;
         for (const route of tradeRoutes) {
-          route.line.material.opacity = (fieldOn ? 0.36 : 0.48) + 0.08 * Math.sin(time * 0.18 + route.index);
-          route.line.material.color.copy(fieldOn ? pink.clone().lerp(gold, (Math.sin(time * 0.1 + route.index) + 1) * 0.5) : (route.index % 2 ? cyan : gold));
+          setGlowBlending(THREE, route.line.material, glowOn);
+          route.line.material.opacity = (fieldOn ? 0.46 : (glowOn ? 0.56 : 0.72)) + (motionOn ? 0.08 * Math.sin(time * 0.18 + route.index) : 0);
+          if (falsecolourOn) {
+            tempColor.copy(fieldOn ? pink : (route.index % 2 ? cyan : gold));
+            if (fieldOn) tempColor.lerp(gold, (Math.sin(styleTime * 0.1 + route.index) + 1) * 0.5);
+            route.line.material.color.copy(tempColor);
+          } else {
+            route.line.material.color.copy(lineInk);
+          }
         }
 
         for (const [index, satellite] of satellites.entries()) {
-          const angle = time * satellite.speed + satellite.phase;
+          const angle = styleTime * satellite.speed + satellite.phase;
           satellite.sprite.position.set(
             Math.cos(angle) * satellite.radius,
-            Math.sin(angle * 1.3) * 0.42 + satellite.tilt,
+            (motionOn ? Math.sin(angle * 1.3) * 0.42 : 0) + satellite.tilt,
             Math.sin(angle) * satellite.radius * 0.55,
           );
-          satellite.sprite.material.opacity = 0.48 + 0.22 * Math.sin(time * 0.6 + index);
+          setGlowBlending(THREE, satellite.sprite.material, glowOn);
+          setMaterialColor(satellite.sprite.material, falsecolourOn ? (index % 2 ? cyan : green) : '#d9ded4');
+          satellite.sprite.material.opacity = glowOn ? 0.5 + (motionOn ? 0.22 * Math.sin(time * 0.6 + index) : 0) : 0.18;
         }
-        sun.material.opacity = 0.58 + 0.22 * Math.sin(time * 0.22);
-        sun.scale.setScalar(0.52 + pulse * 0.15);
+        setGlowBlending(THREE, sun.material, glowOn);
+        setMaterialColor(sunLine.material, falsecolourOn ? gold : '#d8c794');
+        setGlowBlending(THREE, sunLine.material, glowOn);
+        sunLine.material.opacity = glowOn ? 0.42 : 0.64;
+        sun.material.opacity = glowOn ? 0.62 + (motionOn ? 0.18 * Math.sin(time * 0.22) : 0) : 0.22;
+        sun.scale.setScalar(0.52 + (glowOn ? pulse * 0.15 : 0));
 
         for (const [index, shell] of waveShells.entries()) {
-          const centuries = (time * 0.025 + index * 0.17 + state.responseTime * 0.55) % 1;
+          const centuries = (styleTime * 0.025 + index * 0.17 + state.responseTime * 0.55) % 1;
           const scale = 0.82 + centuries * 0.55 + pulse * 0.05;
           shell.scale.setScalar(scale);
-          shell.rotation.y = -time * (0.018 + index * 0.004);
-          shell.material.opacity = fieldOn ? (0.08 + 0.13 * (1 - centuries)) : 0;
+          shell.rotation.y = -styleTime * (0.018 + index * 0.004);
+          setGlowBlending(THREE, shell.material, glowOn);
+          setMaterialColor(shell.material, falsecolourOn ? (index % 2 ? pink : green) : '#eee8d8');
+          shell.material.opacity = fieldOn ? (glowOn ? 0.06 + 0.11 * (1 - centuries) : 0.035 + 0.06 * (1 - centuries)) : 0;
         }
         const responsePositions = responseParticles.geometry.attributes.position;
         for (const [index, route] of tradeRoutes.entries()) {
-          const progress = (state.responseTime * 0.8 + time * 0.035 + index * 0.071) % 1;
+          const progress = (state.responseTime * 0.8 + styleTime * 0.035 + index * 0.071) % 1;
           pointOnPolyline(route.points, progress, target);
           responsePositions.setXYZ(index, target.x, target.y, target.z);
         }
         responsePositions.needsUpdate = true;
-        responseParticles.material.opacity = fieldOn ? 0.54 + pulse * 0.22 : 0;
-        atmosphere.material.opacity = fieldOn ? 0.12 + pulse * 0.06 : 0.075;
+        setGlowBlending(THREE, responseParticles.material, glowOn);
+        setMaterialColor(responseParticles.material, falsecolourOn ? pink : '#f0eadf');
+        responseParticles.material.opacity = fieldOn ? (glowOn ? 0.62 + pulse * 0.22 : 0.32) : 0;
+        atmosphere.material.opacity = fieldOn ? (glowOn ? 0.14 + pulse * 0.06 : 0.05) : (glowOn ? 0.08 : 0.025);
         label.material.opacity = 0.58 + (fieldOn ? 0.18 : 0.04);
       },
       dispose() {

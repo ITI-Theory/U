@@ -3,9 +3,16 @@ import {
   createDynamicLine,
   createDynamicSegments,
   disposeObject,
+  biologicalColor,
+  fieldColor,
+  linePalette,
   makeGlowTexture,
   makeLabelTexture,
+  makeTextSprite,
   makeWireHuman,
+  setGlowBlending,
+  setMaterialColor,
+  styleFlags,
 } from './lib/collective-primitives.js';
 
 function voiceArcPoints(side, index, time) {
@@ -124,19 +131,46 @@ export const dyadRenderer = {
       [[-2.42, -1.88, 0], [-2.42, -2.02, 0]],
       [[-0.42, -1.88, 0], [-0.42, -2.02, 0]],
     ]);
+    const scaleLabel = makeTextSprite(THREE, '2 m', { color: '#aeb8b2', scale: [0.48, 0.16, 1], width: 180, height: 72, background: null });
+    scaleLabel.position.set(-1.42, -2.12, 0.04);
+    group.add(scaleLabel);
+
+    const traces = [-1, 1].map((side, index) => {
+      const ecg = createDynamicLine(THREE, 96, index === 0 ? collectivePalette.cyan : collectivePalette.pink, { opacity: 0.36 });
+      const breath = createDynamicLine(THREE, 96, collectivePalette.gold, { opacity: 0.22 });
+      ecg.object.position.set(side * 1.55, -1.72, 0.05);
+      breath.object.position.set(side * 1.55, -1.52, 0.04);
+      group.add(ecg.object, breath.object);
+      return { side, ecg, breath };
+    });
 
     return {
       group,
       update(state, time, pulse) {
         group.visible = state.rendererId === 'dyad';
         if (!group.visible) return;
+        const style = styleFlags(state);
+        const t = style.motion ? time : 0;
         const lens = state.tTheory && state.level >= 8;
-        const breath = Math.sin(time * Math.PI * 2 * 0.25);
-        const beatPhase = time % (60 / 72);
-        const heartbeat = Math.exp(-((beatPhase / 0.05) ** 2)) + 0.58 * Math.exp(-(((beatPhase - 0.28) / 0.055) ** 2));
+        const leftColor = biologicalColor(style, collectivePalette.cyan);
+        const rightColor = biologicalColor(style, collectivePalette.pink);
+        const bridgeColor = fieldColor(style, collectivePalette.green);
+        setMaterialColor(partnerA.material, leftColor);
+        setMaterialColor(partnerA.jointMaterial, leftColor);
+        setMaterialColor(partnerB.material, rightColor);
+        setMaterialColor(partnerB.jointMaterial, rightColor);
+        for (const material of [partnerA.material, partnerA.jointMaterial, partnerB.material, partnerB.jointMaterial, ...heartRings.map(ring => ring.material), ...phaseRings.map(ring => ring.material), gaze.material, bridge.material, bridgeBack.material, scaleBar.material]) {
+          setGlowBlending(THREE, material, style.glow);
+        }
+        bridge.material.color.set(bridgeColor);
+        bridgeBack.material.color.set(fieldColor(style, collectivePalette.violet));
+        gaze.material.color.set(fieldColor(style, collectivePalette.gold, linePalette.ink));
+        const breath = Math.sin(t * Math.PI * 2 * 0.25);
+        const beatPhase = t % (60 / 72);
+        const heartbeat = style.motion ? Math.exp(-((beatPhase / 0.05) ** 2)) + 0.58 * Math.exp(-(((beatPhase - 0.28) / 0.055) ** 2)) : 0.28;
         const delayed = pulse * Math.exp(-((state.responseTime - 0.48) ** 2) / 0.018);
         partnerA.group.scale.set(0.76 * (1 + breath * 0.018 + pulse * 0.04), 0.76 * (1 + breath * 0.012 + pulse * 0.03), 0.76);
-        partnerB.group.scale.set(0.76 * (1 + Math.sin(time * Math.PI * 0.5 + 0.7) * 0.014 + delayed * 0.06), 0.76 * (1 + breath * 0.01 + delayed * 0.04), 0.76);
+        partnerB.group.scale.set(0.76 * (1 + Math.sin(t * Math.PI * 0.5 + 0.7) * 0.014 + delayed * 0.06), 0.76 * (1 + breath * 0.01 + delayed * 0.04), 0.76);
         partnerA.group.position.x = -1.55 - pulse * 0.06;
         partnerB.group.position.x = 1.55 + delayed * 0.08;
         heartRings[0].scale.setScalar(1 + heartbeat * 0.22 + pulse * 0.5);
@@ -144,12 +178,34 @@ export const dyadRenderer = {
         for (const [index, ring] of heartRings.entries()) ring.material.opacity = 0.24 + heartbeat * 0.26 + (index ? delayed : pulse) * 0.24;
         for (const [index, sprite] of chestGlow.entries()) {
           const localPulse = index ? delayed : pulse;
-          sprite.material.opacity = 0.16 + heartbeat * 0.14 + localPulse * 0.32;
+          sprite.material.visible = style.glow;
+          sprite.material.opacity = style.glow ? 0.16 + heartbeat * 0.14 + localPulse * 0.32 : 0;
           sprite.scale.setScalar(0.52 + heartbeat * 0.08 + localPulse * 0.42);
         }
         for (const arc of voiceArcs) {
-          arc.update(voiceArcPoints(arc.side, arc.index, time));
+          arc.update(voiceArcPoints(arc.side, arc.index, t));
+          arc.material.color.set(arc.side < 0 ? leftColor : rightColor);
+          setGlowBlending(THREE, arc.material, style.glow);
           arc.material.opacity = lens ? 0.18 : 0.24 + 0.12 * Math.sin(time * 2 + arc.index);
+        }
+        for (const trace of traces) {
+          const ecg = [];
+          const breathing = [];
+          for (let step = 0; step < 92; step += 1) {
+            const u = step / 91;
+            const beat = ((u * 5.2 + t * 1.15 + (trace.side > 0 ? 0.18 : 0)) % 1) - 0.18;
+            const spike = Math.exp(-(beat ** 2) / 0.002);
+            ecg.push([-0.45 + u * 0.9, spike * 0.18 - 0.04, 0]);
+            breathing.push([-0.45 + u * 0.9, Math.sin(u * Math.PI * 2 + t * 1.5 + trace.side) * 0.055, 0]);
+          }
+          trace.ecg.update(ecg);
+          trace.breath.update(breathing);
+          trace.ecg.material.color.set(trace.side < 0 ? leftColor : rightColor);
+          trace.breath.material.color.set(fieldColor(style, collectivePalette.gold, linePalette.dim));
+          setGlowBlending(THREE, trace.ecg.material, style.glow);
+          setGlowBlending(THREE, trace.breath.material, style.glow);
+          trace.ecg.material.opacity = lens ? 0.18 : 0.42;
+          trace.breath.material.opacity = lens ? 0.12 : 0.28;
         }
         gaze.update([
           [[-1.55, 0.22, 0.06], [1.55, 0.25, 0.06]],
@@ -169,10 +225,11 @@ export const dyadRenderer = {
         bridge.material.opacity = lens ? 0.62 + pulse * 0.24 : 0;
         bridgeBack.material.opacity = lens ? 0.42 + delayed * 0.24 : 0;
         for (const [index, ring] of phaseRings.entries()) {
-          const localPhase = time * 1.55 + (lens ? Math.exp(-time * 0.08) * (index ? 1.1 : 0) : index * 1.2);
+          const localPhase = t * 1.55 + (lens ? Math.exp(-t * 0.08) * (index ? 1.1 : 0) : index * 1.2);
           ring.visible = lens;
           ring.scale.setScalar(0.86 + 0.18 * Math.sin(localPhase) + (index ? delayed : pulse) * 0.2);
-          ring.material.opacity = lens ? 0.42 + 0.18 * Math.sin(localPhase) : 0;
+          ring.material.color.set(index === 0 ? leftColor : rightColor);
+          ring.material.opacity = lens ? (style.glow ? 0.42 : 0.26) + 0.18 * Math.sin(localPhase) : 0;
           ring.rotation.z = localPhase;
         }
         label.material.opacity = lens ? 0.72 : 0;

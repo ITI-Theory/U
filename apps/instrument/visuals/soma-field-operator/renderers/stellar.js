@@ -41,6 +41,44 @@ function makeStarSurface(THREE) {
   return { texture, update };
 }
 
+function makePhotosphereMaterial(THREE, texture) {
+  return new THREE.ShaderMaterial({
+    uniforms: {
+      surfaceMap: { value: texture },
+      time: { value: 0 },
+      ripple: { value: 0 },
+    },
+    vertexShader: `
+      uniform float time;
+      uniform float ripple;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      void main() {
+        vUv = uv;
+        vec3 n = normalize(normal);
+        float longitude = atan(position.y, position.x);
+        float latitude = asin(clamp(n.y, -1.0, 1.0));
+        float mode = sin(longitude * 5.0 + time * 1.3) * cos(latitude * 6.0 - time * 0.7);
+        vec3 displaced = position + n * ripple * mode;
+        vNormal = normalize(normalMatrix * n);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform sampler2D surfaceMap;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      void main() {
+        vec3 texel = texture2D(surfaceMap, vUv).rgb;
+        float mu = clamp(abs(normalize(vNormal).z), 0.0, 1.0);
+        float limb = 0.28 + 0.92 * pow(mu, 0.58);
+        vec3 corona = vec3(1.0, 0.48, 0.18) * pow(1.0 - mu, 3.2) * 0.32;
+        gl_FragColor = vec4(texel * limb + corona, 1.0);
+      }
+    `,
+  });
+}
+
 export const stellarRenderer = {
   id: 'stellar',
   create(scene, THREE) {
@@ -66,9 +104,10 @@ export const stellarRenderer = {
     const halo = makeGlowSprite(THREE, starTexture, { color: PALETTE.gold, opacity: 0.82, scale: 4.55 });
     star.add(halo);
     const photosphere = new THREE.Mesh(
-      new THREE.CircleGeometry(1.55, 160),
-      new THREE.MeshBasicMaterial({ map: starSurface.texture, color: '#ffffff', transparent: true, opacity: 0.95 }),
+      new THREE.SphereGeometry(1.55, 160, 80),
+      makePhotosphereMaterial(THREE, starSurface.texture),
     );
+    photosphere.rotation.set(0.08, -0.34, 0);
     star.add(photosphere);
     const limb = new THREE.Mesh(
       new THREE.RingGeometry(1.48, 1.58, 160),
@@ -77,13 +116,13 @@ export const stellarRenderer = {
     star.add(limb);
 
     const layers = [
-      createSectorMesh(THREE, { innerRadius: 0, outerRadius: 0.38, start: -0.85, end: 0.85, color: '#fff4a8', opacity: 0.95 }),
-      createSectorMesh(THREE, { innerRadius: 0.38, outerRadius: 0.95, start: -0.85, end: 0.85, color: '#f6c75a', opacity: 0.84 }),
-      createSectorMesh(THREE, { innerRadius: 0.95, outerRadius: 1.5, start: -0.85, end: 0.85, color: '#ff5d44', opacity: 0.78 }),
+      createSectorMesh(THREE, { innerRadius: 0, outerRadius: 0.38, start: -0.85, end: 0.85, color: '#fff4a8', opacity: 0.95, depth: 0.32 }),
+      createSectorMesh(THREE, { innerRadius: 0.38, outerRadius: 0.95, start: -0.85, end: 0.85, color: '#f6c75a', opacity: 0.84, depth: 0.27 }),
+      createSectorMesh(THREE, { innerRadius: 0.95, outerRadius: 1.5, start: -0.85, end: 0.85, color: '#ff5d44', opacity: 0.78, depth: 0.22 }),
     ];
     for (const [index, layer] of layers.entries()) {
       layer.rotation.z = -0.2;
-      layer.position.z = 0.05 + index * 0.01;
+      layer.position.z = 1.62 + index * 0.025;
       star.add(layer);
     }
 
@@ -110,6 +149,7 @@ export const stellarRenderer = {
     for (let i = 0; i < 8; i += 1) {
       const mode = createArcLine(THREE, { radiusX: 1.65 + i * 0.045, radiusY: 1.65 - i * 0.055, color: i % 2 ? PALETTE.cyan : PALETTE.green, opacity: 0.28, z: 0.18, segments: 128 });
       mode.rotation.z = i * 0.38;
+      mode.position.z = 1.68;
       star.add(mode);
       pmodes.push(mode);
     }
@@ -129,7 +169,7 @@ export const stellarRenderer = {
 
     const contours = createContourLayer(THREE, { levels: [-0.8, -0.55, -0.28, 0, 0.28, 0.55, 0.8], opacity: 0.82 });
     const contourHost = new THREE.Object3D();
-    contourHost.position.z = 0.24;
+    contourHost.position.z = 1.82;
     star.add(contourHost);
     contourHost.add(contours.object);
     const columns = 83;
@@ -159,7 +199,9 @@ export const stellarRenderer = {
         const naturalLayers = ['#f4d48b', '#d89b52', '#a86a3f'];
         halo.visible = glowOn;
         starSurface.update(falsecolourOn, styleTime);
-        setMaterialColor(photosphere.material, '#ffffff');
+        photosphere.material.uniforms.time.value = styleTime;
+        photosphere.material.uniforms.ripple.value = 0.012 + pulse * 0.055 + (motionOn ? 0.012 * Math.sin(time * 1.05) ** 2 : 0);
+        photosphere.rotation.y = -0.34 + styleTime * 0.025;
         setMaterialColor(limb.material, falsecolourOn ? '#fff0a8' : '#d8c79a');
         setGlowBlending(THREE, limb.material, glowOn);
         for (const [index, layer] of layers.entries()) setMaterialColor(layer.material, falsecolourOn ? vividLayers[index] : naturalLayers[index]);
