@@ -119,7 +119,7 @@ button { width: 100%; margin-top: 12px; padding: 10px; color: var(--ink); border
 .zoom-equation-full .model-equation .katex-display { grid-column: 2; min-width: 0; }
 .scale-stepper { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 7px 0 11px 101px; }
 .scale-stepper button { min-height: 31px; margin: 0; padding: 0; color: var(--text); border: 1px solid rgba(20,229,255,.62); background: rgba(20,229,255,.12); font-size: 18px; }
-.view-mode { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin: 8px 0; }
+.view-mode { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 8px 0; }
 .view-mode button { min-height: 29px; margin: 0; color: var(--text); border: 1px solid rgba(86,240,162,.45); background: rgba(86,240,162,.07); font: 700 11px/1 'Space Mono', monospace; }
 .view-mode button.active { color: #06100d; border-color: var(--emf); background: var(--emf); }
 .zoom-equation code { display: block; padding: 0 8px 8px; color: var(--cyan); font: 7px/1.3 'Space Mono', monospace; overflow-wrap: anywhere; }
@@ -188,3 +188,23 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .field-note { position: fixed; right: 24px; bottom: 20px; margin: 0; color: rgba(234,245,255,.7); font-size: 10px; text-align: right; }
 @media (max-width: 900px) { .equation-wall { display: none; } }
 @media (max-width: 600px) { .abstract-splash { padding: 12px; } .abstract-splash__frame { max-height: calc(100vh - 24px); padding: 20px; } .abstract-splash__copy { font-size: 10px; line-height: 1.55; } .field-readout { top: 12px; left: 12px; padding: 13px; width: min(286px, calc(100vw - 24px)); } .field-note { right: 12px; bottom: 12px; width: 230px; } .math-readout { display: none; } .hierarchy-button span { font-size: 6px; } }
+
+.compare-labels { position: fixed; left: 0; right: 0; bottom: 18px; display: grid; grid-template-columns: 1fr 1fr; pointer-events: none; z-index: 2; }
+.compare-labels[hidden] { display: none; }
+.compare-labels span { justify-self: center; padding: 4px 10px; color: var(--text); border: 1px solid rgba(255,255,255,.25); background: rgba(5,6,13,.7); font: 700 11px/1 'Space Mono', monospace; letter-spacing: .08em; }
+.compare-labels span:last-child { color: var(--ink); background: var(--violet); border-color: var(--violet); }
+.compare-labels::before { content: ''; position: fixed; top: 0; bottom: 0; left: 50%; border-left: 1px solid rgba(255,255,255,.3); }
+
+.compare-cards { position: fixed; top: 18px; left: 0; right: 0; display: grid; grid-template-columns: 1fr 1fr; pointer-events: none; z-index: 2; }
+.compare-cards[hidden] { display: none; }
+.compare-card { justify-self: center; width: min(400px, 40vw); max-height: 46vh; overflow: auto; padding: 12px 14px; pointer-events: auto; color: var(--text); border: 1px solid rgba(255,255,255,.22); background: rgba(5,6,13,.82); font: 12px/1.45 'Space Mono', monospace; }
+.compare-cards .compare-card:first-child { margin-left: 22vw; width: min(400px, 24vw); }
+.compare-card--field { border-color: var(--violet); }
+.compare-card h3 { margin: 4px 0 8px; font-size: 14px; }
+.compare-card p { margin: 0 0 8px; }
+.compare-card__kicker { color: var(--cyan); font-size: 10px; letter-spacing: .06em; }
+.compare-card--field .compare-card__kicker { color: var(--pink); }
+.compare-card__equation { margin: 6px 0; overflow-x: auto; }
+.compare-card__sources { display: flex; flex-wrap: wrap; gap: 8px; font-size: 10px; opacity: .8; }
+.compare-card__sources a { color: var(--cyan); }
+.compare-card__cycle { float: right; margin: -2px 0 4px 8px; padding: 3px 8px; color: var(--ink); border: 0; background: var(--violet); font: 700 10px/1 'Space Mono', monospace; cursor: pointer; }

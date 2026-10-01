@@ -1,0 +1,27 @@
+id: geophysical-glarus-thrust
+label: Geophysical / The Glarus Thrust
+level: geological
+paths: [full-atlas, geological-to-stellar]
+summary: The Glarus thrust is presented as ordinary Alpine geology before being used as a bounded analogy for long-memory stress and structural mapping.
+steps:
+  - axis: 4d-baseline
+    title: The Glarus Thrust
+    body: >-
+      At Glarus in eastern Switzerland, older Verrucano rocks were carried tens of kilometres over younger flysch during Alpine mountain building. The striking contact is not a paradox or a frozen emotion; it is a mapped thrust fault produced by compression, folding, friction, pressure, and time. A standard fault criterion asks whether shear stress exceeds cohesion plus frictional resistance on the effective normal stress. The outcrop is therefore a geological record of deformation under known mechanics.
+    equation: '\tau=C+\mu(\sigma_n-P_f)'
+    badge: SOURCED
+    sources: [dieterich1979modeling, ruina1983slip, P16]
+  - axis: 8d-life
+    title: Stress History as Slow Response
+    body: >-
+      The programme extension treats the fault as a vivid model of memory in matter. Rock can preserve strain, fabric, and weakness long after the originating forces have changed; later ruptures inherit that history. Calling this a somatic memory kernel is interpretive, not a claim that rock feels. The useful technical analogy is retarded response: present motion depends on past loading, relaxation, and boundary conditions, just as other complex systems may carry path-dependent constraints.
+    equation: '\sigma_{ij}(t)=\int_{-\infty}^{t}G_{ijkl}(t-t'')\,\dot\epsilon_{kl}(t'')\,dt'''
+    badge: INTERPRETIVE
+    sources: [campillo2003long, shapiro2005high, P10, P16]
+  - axis: 11d-mind
+    title: Structural Import, Not Identity
+    body: >-
+      At the cognitive layer, Glarus becomes an example of disciplined structural import. A thrust sheet, a social institution, and a personal memory can all be described with constraints, paths, thresholds, and residual structure, but they are not thereby the same object. The registry should keep the comparison modest: a winding or basin diagram may guide thought across domains, provided the source domain, target domain, and losses under translation are made explicit.
+    equation: '\mathcal{M}_{\mathrm{fault}}\xrightarrow{\;F\;}\mathcal{M}_{\mathrm{model}}'
+    badge: INTERPRETIVE
+    sources: [P3, P16, P20]

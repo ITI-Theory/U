@@ -1,0 +1,27 @@
+id: philosophy-public-record
+label: Philosophy / The Public Record
+level: society-city
+paths: [full-atlas, community-to-institution]
+summary: The philosophy prototype is grounded as a public history of texts and arguments, then treated as an interpretive model of cultural propagation and conceptual compression.
+steps:
+  - axis: 4d-baseline
+    title: Texts, Arguments, and Institutions
+    body: >-
+      The grounded baseline for philosophy is not an 11D cosmic mind. It is a public record: texts, lectures, translations, schools, disputes, and institutions that preserve arguments across time. Kant's conditions of experience, Spinoza's substance, and Russell's logical atomism are historically situated claims before they are made into any field metaphor. The correct first move is therefore bibliographic and argumentative: identify the proposition, author, context, and inferential role.
+    equation: '\mathcal{C}=(V_{\mathrm{claims}},E_{\mathrm{citations}})'
+    badge: SOURCED
+    sources: [spinoza1677ethics, kant1781critique, russell1918atomism, russell1945history]
+  - axis: 8d-life
+    title: Ideas as Social Propagation
+    body: >-
+      The 8D extension treats philosophical influence as a propagation problem inside social life. A phrase, proof style, or distinction travels through classrooms, books, friendships, institutions, and media; it can amplify, decay, split, or be reinterpreted. This is not a claim that culture is a literal nervous system. It is a cautious use of diffusion language for the way concepts move through communities while being constrained by language, power, memory, and material access.
+    equation: '\partial_t u=D\nabla^2u+f(u)+J(\mathbf{x},t)'
+    badge: INTERPRETIVE
+    sources: [P16, P19, P23]
+  - axis: 11d-mind
+    title: Compacting a Tradition into a Model
+    body: >-
+      At the 11D layer, the philosophy example becomes a warning as much as a bridge. A tradition can be compressed into operators, thresholds, and maps, but the compression loses nuance and must not be sold as proof of consciousness, self-computing cosmos, or type-level physical identity. The honest claim is methodological: a functor-like translation may preserve selected structure between a textual corpus and a model, while the philosophical argument remains accountable to its sources.
+    equation: 'F:\mathcal{C}_{\mathrm{text}}\to\mathcal{C}_{\mathrm{model}}'
+    badge: INTERPRETIVE
+    sources: [P3, P20, P23]

@@ -1,0 +1,27 @@
+id: acoustic-cathedral
+label: Acoustic / The Cathedral
+level: society-city
+paths: [full-atlas, animal-to-church, community-to-institution]
+summary: A cathedral is treated first as an ordinary acoustic enclosure, then as an interpretive bridge from built resonance to somatic and cognitive response.
+steps:
+  - axis: 4d-baseline
+    title: The Quiet Cathedral
+    body: >-
+      A cathedral is a physical room with stone, timber, air, and boundary conditions. Standard acoustics does not need a mystical field: a clap or bell excites pressure waves that reflect, absorb, and interfere until the room impulse response is spent. The Green's function is the ordinary response of the enclosure to an ideal point source, shaped by geometry, materials, temperature, and air. Beauty may follow, but the baseline claim is only wave propagation in a bounded acoustic domain.
+    equation: '(\nabla^2+k^2)G(\mathbf{x},\mathbf{x}'';\omega)=-\delta(\mathbf{x}-\mathbf{x}'')'
+    badge: SOURCED
+    sources: [johnson2026soma, P9]
+  - axis: 8d-life
+    title: The Struck Bell as Somatic Forcing
+    body: >-
+      The programme extension reads the same impulse-response grammar at organism scale. A clap, bell, or sung note becomes a forcing term that reaches the body through hearing, posture, breathing, expectation, and memory. This is not a claim that the cathedral has a nervous system; it is a controlled analogy in which acoustic input is mapped onto a damped affective response. The useful question is whether timing, reverberation, and spectral density predict measurable changes in bodily state.
+    equation: '\delta e(t)=\int G_{\mathrm{affect}}(t-t'')\,s(t'')\,dt'''
+    badge: INTERPRETIVE
+    sources: [P1, P9, johnson2026soma]
+  - axis: 11d-mind
+    title: Attunement without Merger
+    body: >-
+      At the cognitive layer, the cathedral example becomes a model of selection and compression. Reverberant modes are heard as contours, expectations, and remembered spaces; a listener may feel oriented, lifted, or unsettled without becoming identical with the building. The 11D language is therefore a compactification metaphor: many acoustic and bodily variables are projected into a smaller field of reportable meaning. It is an interpretive map for perception and aesthetics, not a proof that boundary and listener are one system.
+    equation: 'm_i=\langle \psi_i,\,p(\mathbf{x},t)\rangle'
+    badge: INTERPRETIVE
+    sources: [P8, P9, P20]

@@ -1,0 +1,27 @@
+id: dyadic-phase-locking
+label: Dyadic / Phase Locking
+level: dyad
+paths: [full-atlas, animal-to-flock, animal-to-church]
+summary: Two separate bodies are modelled first as ordinary coupled oscillators, then as an interpretive account of interpersonal timing and co-regulation.
+steps:
+  - axis: 4d-baseline
+    title: Two Separate Oscillators
+    body: >-
+      The baseline is deliberately ordinary: two people remain two bodies, with separate nervous systems, histories, boundaries, and agency. Synchronisation theory can represent any pair of rhythmic processes by phases and natural frequencies before asking whether coupling changes their relation. Nothing in the baseline says emotions are shared substances or that one person contains the other. It only gives a clean starting point: independent dynamics may later become correlated when there is a real channel between them.
+    equation: '\dot\theta_A=\omega_A,\qquad \dot\theta_B=\omega_B'
+    badge: SOURCED
+    sources: [kuramoto1984chemical, acebron2005kuramoto, P3]
+  - axis: 8d-life
+    title: Detuning and Missed Lock
+    body: >-
+      The 8D extension reads conversation, breath, gesture, and attention as possible coupling channels between still-separate organisms. If detuning, delay, or noise is too large, the relative phase drifts: turns are missed, cues arrive late, and coordination remains fragile. This is a model of timing, not a diagnosis and not a clinical claim. Its value is that failed lock can be expressed as a measurable relation among coupling strength, frequency mismatch, and noise.
+    equation: '\dot\phi=\Delta\omega-K\sin\phi,\qquad |\Delta\omega|>K'
+    badge: INTERPRETIVE
+    sources: [strogatz2003sync, acebron2005kuramoto, P19]
+  - axis: 11d-mind
+    title: Co-Regulation as Bounded Locking
+    body: >-
+      At the 11D layer, phase locking becomes a compact image for mutual regulation: two agents may settle into a stable timing relation while remaining distinct. The old prototype's language of a single merged manifold is removed. A bounded version says that reports, physiology, or behaviour may show synchrony under specified conditions, and the off-diagonal propagator is a model term for influence across a preserved boundary. Stronger claims require empirical validation.
+    equation: '|\Delta\omega|\le K'
+    badge: INTERPRETIVE
+    sources: [P3, P19, P20]

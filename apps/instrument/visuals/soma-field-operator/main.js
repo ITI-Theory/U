@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { levels as registryLevels, paths as registryPaths, models as registryModels, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver } from './generated/app-data.js';
+import { levels as registryLevels, paths as registryPaths, models as registryModels, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, register } from './renderers/index.js';
@@ -1099,6 +1099,7 @@ function readHashState() {
     lens: params.get('lens'),
     model: params.get('model'),
     reader: params.get('reader'),
+    compare: params.get('compare'),
   };
 }
 
@@ -1125,6 +1126,7 @@ const state = {
   libraryOpen: false,
   viewMode: '3d',
   stereoSbs: false,
+  compare: false,
   tTheory: true,
   brecvema: false,
   selectedMechanism: 'B',
@@ -1261,6 +1263,7 @@ function applyHashState({ render = true } = {}) {
   if (hashState.hasReader && readerRegisters.some(registerEntry => registerEntry.id === hashState.reader)) {
     state.reader = hashState.reader;
   }
+  state.compare = hashState.compare === '1';
   if (hashState.hasPath) {
     const hashedRoute = registryPaths.find(route => route.id === hashState.path);
     if (hashedRoute) {
@@ -1279,6 +1282,22 @@ function applyHashState({ render = true } = {}) {
       state.levelId = levelByLegacySigma(hashedSigma);
       state.scale = levelSigma(state.levelId);
       state.visualScale = state.scale;
+    }
+  }
+  if (hashState.hasLevel && !hashState.hasPath) {
+    // A level-only link must not be overridden by a remembered path or model that lacks the level.
+    const currentRoute = registryPaths.find(route => route.id === state.route);
+    const modelLevels = (modelsById.get(state.implementation)?.levels ?? []).flatMap(entry => entry.levels ?? [entry.level]);
+    if (!currentRoute?.nodes.includes(state.levelId) && !modelLevels.includes(state.levelId)) {
+      const modelPaths = modelsById.get(state.implementation)?.paths ?? [];
+      const fit = registryPaths.find(route => modelPaths.includes(route.id) && route.nodes.includes(state.levelId))
+        ?? registryPaths.find(route => route.id === 'full-atlas' && route.nodes.includes(state.levelId))
+        ?? registryPaths.find(route => route.nodes.includes(state.levelId));
+      if (fit) {
+        state.route = fit.id;
+        const routeModel = registryModels.find(model => model.paths?.includes(fit.id));
+        if (routeModel && !modelPaths.includes(fit.id) && !hashState.hasModel) state.implementation = routeModel.id;
+      }
     }
   }
   state.transport.playing = false;
@@ -1658,6 +1677,7 @@ function hashForState() {
   params.set('lens', state.tTheory ? 'on' : 'off');
   params.set('model', state.implementation);
   params.set('reader', state.reader);
+  if (state.compare) params.set('compare', '1');
   return `#${params.toString()}`;
 }
 
@@ -1984,6 +2004,7 @@ for (const [mode, button] of [['2d', view2dButton], ['3d', view3dButton]]) {
 stereoSbsButton.addEventListener('click', () => {
   state.stereoSbs = !state.stereoSbs;
   if (state.stereoSbs) state.viewMode = '3d';
+  if (state.stereoSbs) setCompare(false);
   view2dButton.classList.toggle('active', state.viewMode === '2d');
   view3dButton.classList.toggle('active', state.viewMode === '3d' && !state.stereoSbs);
   stereoSbsButton.classList.toggle('active', state.stereoSbs);
@@ -1993,6 +2014,86 @@ stereoSbsButton.addEventListener('click', () => {
   resize();
 });
 addEventListener('hashchange', () => applyHashState());
+const compareButton = document.querySelector('#view-compare');
+const compareLabels = document.querySelector('#compare-labels');
+const compareRightLabel = document.querySelector('#compare-right');
+function setCompare(on) {
+  state.compare = on;
+  if (on && state.stereoSbs) {
+    state.stereoSbs = false;
+    stereoSbsButton.classList.remove('active');
+    stereoSbsButton.setAttribute('aria-pressed', 'false');
+    view3dButton.classList.toggle('active', state.viewMode === '3d');
+    view3dButton.setAttribute('aria-pressed', String(state.viewMode === '3d'));
+  }
+  compareButton.classList.toggle('active', on);
+  compareButton.setAttribute('aria-pressed', String(on));
+  compareLabels.hidden = !on;
+  resize();
+  writeHashState();
+}
+compareButton.addEventListener('click', () => setCompare(!state.compare));
+
+// Worked examples (registry/examples): the 4D step under the baseline half,
+// the matching T-Theory step under the field half.
+const compareCards = document.querySelector('#compare-cards');
+const compareCardLeft = document.querySelector('#compare-card-left');
+const compareCardRight = document.querySelector('#compare-card-right');
+const examplesByLevel = new Map();
+for (const example of registryExamples) {
+  if (!examplesByLevel.has(example.level)) examplesByLevel.set(example.level, []);
+  examplesByLevel.get(example.level).push(example);
+}
+let exampleIndex = 0;
+let compareCardsKey = '';
+
+function fillCompareCard(card, example, step, count, withCycle) {
+  card.replaceChildren();
+  const kicker = document.createElement('p');
+  kicker.className = 'compare-card__kicker';
+  kicker.textContent = `WORKED EXAMPLE${count > 1 ? ` ${exampleIndex + 1}/${count}` : ''} / ${example.label} / ${step.badge}`;
+  card.append(kicker);
+  if (withCycle && count > 1) {
+    const cycle = document.createElement('button');
+    cycle.type = 'button';
+    cycle.className = 'compare-card__cycle';
+    cycle.textContent = 'NEXT EXAMPLE';
+    cycle.addEventListener('click', () => { exampleIndex = (exampleIndex + 1) % count; compareCardsKey = ''; });
+    card.append(cycle);
+  }
+  const title = document.createElement('h3');
+  title.textContent = step.title;
+  const body = document.createElement('p');
+  renderTextWithMath(body, step.body);
+  const equation = document.createElement('div');
+  equation.className = 'compare-card__equation';
+  if (globalThis.katex) globalThis.katex.render(step.equation, equation, { displayMode: true, throwOnError: false });
+  else equation.textContent = step.equation;
+  const sources = document.createElement('p');
+  sources.className = 'compare-card__sources';
+  for (const source of step.resolved_sources ?? []) {
+    const item = source.url ? document.createElement('a') : document.createElement('span');
+    if (source.url) { item.href = source.url; item.target = '_blank'; item.rel = 'noopener'; }
+    item.textContent = source.kind === 'paper' ? source.id : source.label ?? source.title ?? source.id;
+    if (source.title) item.title = source.title;
+    sources.append(item);
+  }
+  card.append(title, body, equation, sources);
+}
+
+function updateCompareCards(rightLevel) {
+  const levelExamples = examplesByLevel.get(state.levelId) ?? [];
+  const key = state.compare && levelExamples.length ? `${state.levelId}|${rightLevel}|${exampleIndex}` : 'none';
+  if (key === compareCardsKey) return;
+  compareCardsKey = key;
+  compareCards.hidden = key === 'none';
+  if (key === 'none') return;
+  const example = levelExamples[exampleIndex % levelExamples.length];
+  const stepFor = axis => example.steps.find(step => step.axis === axis);
+  const rightAxis = rightLevel >= 11 ? '11d-mind' : '8d-life';
+  fillCompareCard(compareCardLeft, example, stepFor('4d-baseline'), levelExamples.length, false);
+  fillCompareCard(compareCardRight, example, stepFor(rightAxis) ?? stepFor('8d-life'), levelExamples.length, true);
+}
 syncScaleControl();
 syncTTheoryUI();
 renderZoomEquation();
@@ -2002,9 +2103,9 @@ function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   backgroundMaterial.uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
-  camera.aspect = (state.stereoSbs ? innerWidth / 2 : innerWidth) / innerHeight;
+  camera.aspect = (state.stereoSbs || state.compare ? innerWidth / 2 : innerWidth) / innerHeight;
   camera.updateProjectionMatrix();
-  const aspect = innerWidth / innerHeight;
+  const aspect = (state.compare && !state.stereoSbs ? innerWidth / 2 : innerWidth) / innerHeight;
   overheadCamera.left = -5 * aspect;
   overheadCamera.right = 5 * aspect;
   overheadCamera.top = 5;
@@ -2098,6 +2199,26 @@ function frame() {
     mechanisms: mechanismsActive ? [...state.selectedMechanisms] : [],
     bpm: state.transport.bpm,
   });
+  const compareOn = state.compare && !state.stereoSbs;
+  if (compareLabels.hidden === compareOn) {
+    compareLabels.hidden = !compareOn;
+    compareButton.classList.toggle('active', compareOn);
+    compareButton.setAttribute('aria-pressed', String(compareOn));
+    if (!compareOn) { compareCardsKey = ''; compareCards.hidden = true; }
+    resize();
+  }
+  if (compareOn) renderCompare(time, delta, responsePulse);
+  else {
+    applyScene(time, delta, responsePulse);
+    renderScene();
+  }
+  if (state.impulse) timeReadout.textContent = responseTimeReadout(activeLevel());
+  requestAnimationFrame(frame);
+}
+
+// Scene pass: reads state (including the lens) and sets every object's
+// visibility, opacity, and motion. Compare view runs it twice per frame.
+function applyScene(time, delta, responsePulse) {
   backgroundMaterial.uniforms.uTime.value = time;
   backgroundMaterial.uniforms.uScale.value = state.visualScale;
   const displayLevel = activeDimensionLevel();
@@ -2210,9 +2331,37 @@ function frame() {
     line.material.opacity = (0.25 + state.somatic * 0.5) * physicalWeight;
     line.material.color.copy(displayLevel === 4 ? physicalGrey : cyan);
   }
-  if (state.impulse) timeReadout.textContent = responseTimeReadout(activeLevel());
-  renderScene();
-  requestAnimationFrame(frame);
+}
+
+// Compare view: left half is the 4D physics baseline, right half the T-Theory
+// field view (at the selected dimension, or 11D when 4D is selected).
+function renderCompare(time, delta, responsePulse) {
+  const userLens = state.tTheory;
+  const userLevel = state.level;
+  const width = renderer.domElement.width;
+  const height = renderer.domElement.height;
+  const halfWidth = Math.floor(width / 2);
+  const viewCamera = state.viewMode === '2d' ? overheadCamera : camera;
+  renderer.setScissorTest(true);
+  for (const [x, lensOn] of [[0, false], [halfWidth, true]]) {
+    state.tTheory = lensOn;
+    state.level = lensOn && userLevel === 4 ? 11 : userLevel;
+    applyScene(time, lensOn ? 0 : delta, responsePulse);
+    renderer.setViewport(x, 0, halfWidth, height);
+    renderer.setScissor(x, 0, halfWidth, height);
+    renderer.autoClear = true;
+    renderer.render(backgroundScene, backgroundCamera);
+    renderer.autoClear = false;
+    renderer.clearDepth();
+    renderer.render(scene, viewCamera);
+  }
+  state.tTheory = userLens;
+  state.level = userLevel;
+  renderer.setScissorTest(false);
+  renderer.setViewport(0, 0, width, height);
+  renderer.autoClear = true;
+  compareRightLabel.textContent = `T-THEORY / ${userLevel === 4 ? 11 : userLevel}D`;
+  updateCompareCards(userLevel === 4 ? 11 : userLevel);
 }
 frame();
 

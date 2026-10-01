@@ -10,6 +10,11 @@
   <body>
     <main>
       <canvas id="operator" aria-label="Soma Field Operator visual"></canvas>
+      <div id="compare-labels" class="compare-labels" hidden aria-hidden="true"><span>4D / PHYSICS BASELINE</span><span id="compare-right">T-THEORY / 11D</span></div>
+      <div id="compare-cards" class="compare-cards" hidden aria-live="polite">
+        <article id="compare-card-left" class="compare-card"></article>
+        <article id="compare-card-right" class="compare-card compare-card--field"></article>
+      </div>
       <section id="abstract-splash" class="abstract-splash" role="dialog" aria-modal="true" aria-labelledby="abstract-splash-title">
         <div class="abstract-splash__frame">
           <p class="abstract-splash__kicker">[T]-THEORY / FIELD SCAN / ARCHIVE 01</p>
@@ -70,6 +75,7 @@
           <button id="view-3d" class="active" type="button" aria-pressed="true">3D</button>
           <button id="view-2d" type="button" aria-pressed="false">2D</button>
           <button id="view-sbs" type="button" aria-pressed="false">3D SBS</button>
+          <button id="view-compare" type="button" aria-pressed="false" title="Compare: 4D physics baseline (left) beside the T-Theory view (right)">4D|T</button>
         </section>
         <div class="legacy-control" aria-hidden="true"><select id="route" tabindex="-1"></select><output id="path-readout"></output><output id="path-edge-readout"></output></div>
         <div class="control scale-control"><label for="scale">ZOOM OPERATOR</label><input id="scale" type="range" min="0" max="4" value="0" step="1" /></div>

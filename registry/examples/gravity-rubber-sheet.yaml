@@ -1,0 +1,27 @@
+id: gravity-rubber-sheet
+label: Gravity / The Rubber Sheet
+level: planetary
+paths: [full-atlas, geological-to-stellar]
+summary: The rubber-sheet picture is kept as a limited teaching analogy for gravity, then recast as an interpretive model of response landscapes rather than physical identity.
+steps:
+  - axis: 4d-baseline
+    title: The Rubber Sheet, with Its Limits
+    body: >-
+      The rubber-sheet demonstration is a useful classroom image: a heavy ball deforms a stretched surface, and smaller balls follow curved paths. Standard general relativity is stronger and less pictorial. Mass-energy does not pull objects down into an external gravity well; it changes spacetime geometry, and freely falling bodies follow geodesics in that geometry. The analogy helps with curvature but fails because it uses Earth's gravity, a two-dimensional membrane, and an outside embedding space.
+    equation: 'G_{\mu\nu}+\Lambda g_{\mu\nu}=\frac{8\pi G}{c^4}T_{\mu\nu}'
+    badge: SOURCED
+    sources: [wheeler1957geometrodynamics, abbott2016gw, P20]
+  - axis: 8d-life
+    title: A Tilted Response Landscape
+    body: >-
+      The Soma-Field extension keeps only the response idea. A body is not said to be spacetime, and a feeling is not a gravitational object. Instead, a perturbation changes the effective landscape through which a state moves: a sudden stimulus can bias attention, heart rate, posture, or action before deliberate interpretation catches up. The language of tilt is a dynamical metaphor for forcing in a damped system, useful only if the variables and measurements are stated.
+    equation: '\gamma\dot{\mathbf e}=-\nabla H(\mathbf e)+J(t)'
+    badge: INTERPRETIVE
+    sources: [P1, P5, P10]
+  - axis: 11d-mind
+    title: Geodesic as Programme Metaphor
+    body: >-
+      At the 11D layer, the example becomes a compactification claim inside the research programme: different domains may share a response grammar under declared mappings. That is not an assertion that planets, hearts, and thoughts are the same physical manifold. The safe reading is methodological: compare how trajectories, wells, and perturbations are represented after projection, then mark which equalities are formal definitions, which are model-derived, and which remain open hypotheses.
+    equation: '\Lambda_{\mathrm{USF}}\equiv\langle\operatorname{tr}\Phi\rangle_0'
+    badge: INTERPRETIVE
+    sources: [P20, P21, P24]
