@@ -1,5 +1,5 @@
 ---
-title: "Mind, Market, and Mandate: A Field-Theoretic Synthesis for PPE"
+title: "[T]-Theory: PPE"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-ppe

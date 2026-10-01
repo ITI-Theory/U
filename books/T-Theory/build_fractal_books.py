@@ -473,8 +473,8 @@ DOMAINS = [
     },
     {
         "id": "physics",
-        "title": "Field Equations of Mind: A Physics Perspective on the Universal Somatic Field",
-        "subtitle": "[T]-Theory Volume: Mathematical Physics",
+        "title": "[T]-Theory: Physics",
+        "subtitle": "Field Equations of Mind",
         "audience": "physicists and astrophysicists",
         "field": "mathematical physics, astrophysics, quantum field theory",
         "papers": ["c:soma-field-paper", "c:quantum-soma-penrose", "c:universal-somatic-field",
@@ -486,8 +486,8 @@ DOMAINS = [
     },
     {
         "id": "neuroscience",
-        "title": "The Electromagnetic Nervous System: A Field-Theoretic Account of Neural Dynamics",
-        "subtitle": "[T]-Theory Volume: Neuroscience",
+        "title": "[T]-Theory: Neuroscience",
+        "subtitle": "The Electromagnetic Nervous System",
         "audience": "neuroscientists, cognitive scientists",
         "field": "neuroscience, cognitive neuroscience, computational neuroscience",
         "papers": ["c:soma-physical-substrate", "c:missing-limbic-layer", "c:preverbal-manifold", "c:soma-field-paper"],
@@ -497,8 +497,8 @@ DOMAINS = [
     },
     {
         "id": "clinical-psychology",
-        "title": "Trauma as Topology: A Field-Theoretic Manual for Clinical Practice",
-        "subtitle": "[T]-Theory Volume: Clinical Psychology and Psychotherapy",
+        "title": "[T]-Theory: Trauma",
+        "subtitle": "Trauma as Topology",
         "audience": "clinical psychologists, therapists, psychiatrists",
         "field": "clinical psychology, psychotherapy, trauma studies",
         "papers": ["c:soma-field-patient-pov", "c:SFT-DEMO-CASE", "c:missing-limbic-layer", "c:preverbal-manifold",
@@ -509,8 +509,8 @@ DOMAINS = [
     },
     {
         "id": "computer-science",
-        "title": "Verified Emotional Computing: The Universal Somatic Field as Software Architecture",
-        "subtitle": "[T]-Theory Volume: Computer Science and AI",
+        "title": "[T]-Theory: Computing",
+        "subtitle": "Verified Emotional Computing",
         "audience": "computer scientists, AI researchers, software engineers",
         "field": "computer science, artificial intelligence, formal verification",
         "papers": ["c:swarm-propagator", "c:experimental-validation", "c:soma-field-synthesis",
@@ -521,8 +521,8 @@ DOMAINS = [
     },
     {
         "id": "formal-mathematics",
-        "title": "Dependent Types and the Geometry of Feeling: A Mathematical Account",
-        "subtitle": "[T]-Theory Volume: Formal Logic and Mathematics",
+        "title": "[T]-Theory: Mathematics",
+        "subtitle": "Dependent Types and the Geometry of Feeling",
         "audience": "mathematicians, logicians, type theorists",
         "field": "formal mathematics, type theory, algebraic topology, HoTT",
         "papers": ["c:mathematical-co-identification", "c:soma-field-paper", "c:universal-somatic-field",
@@ -547,8 +547,8 @@ DOMAINS = [
     },
     {
         "id": "complex-systems",
-        "title": "Scale-Free Dynamics: The Universal Somatic Field as a Complex Systems Framework",
-        "subtitle": "[T]-Theory Volume: Complex Systems and Emergence",
+        "title": "[T]-Theory: Complex Systems",
+        "subtitle": "Scale-Free Dynamics",
         "audience": "complex systems researchers, network scientists",
         "field": "complex systems, emergence, self-organisation, network science",
         "papers": ["c:zoomable-somatic-field", "c:geographic-somatic-field", "c:swarm-propagator",
@@ -559,8 +559,8 @@ DOMAINS = [
     },
     {
         "id": "music-arts",
-        "title": "The Physics of Music and Affect: A Field-Theoretic Account of Aesthetic Experience",
-        "subtitle": "[T]-Theory Volume: Music, Arts, and Aesthetics",
+        "title": "[T]-Theory: Music and the Arts",
+        "subtitle": "The Physics of Music and Affect",
         "audience": "musicologists, music psychologists, artists, composers",
         "field": "music psychology, musicology, aesthetics, cognitive science of art",
         "papers": ["c:music-affect-dynamics", "c:the-tensor", "c:soma-field-book", "c:soma-field-synthesis"],
@@ -570,8 +570,8 @@ DOMAINS = [
     },
     {
         "id": "geophysics",
-        "title": "The Geological Soma: Seismic Propagation and Tectonic Criticality",
-        "subtitle": "[T]-Theory Volume: Geophysics and Earth Sciences",
+        "title": "[T]-Theory: Geophysics",
+        "subtitle": "The Geological Soma",
         "audience": "geophysicists, seismologists, Earth scientists",
         "field": "geophysics, seismology, tectonics, Earth sciences",
         "papers": ["c:geographic-somatic-field", "c:zoomable-somatic-field", "f:soma-geophysics",
@@ -582,8 +582,8 @@ DOMAINS = [
     },
     {
         "id": "social-science",
-        "title": "The Physics of Society: Collective Dynamics, Rapport, and Social Field Theory",
-        "subtitle": "[T]-Theory Volume: Social Science and Sociology",
+        "title": "[T]-Theory: Society",
+        "subtitle": "The Physics of Society",
         "audience": "sociologists, social psychologists, anthropologists",
         "field": "sociology, social psychology, anthropology, political science",
         "papers": ["c:geographic-somatic-field", "c:swarm-propagator", "f:soma-social-intelligence",
@@ -594,8 +594,8 @@ DOMAINS = [
     },
     {
         "id": "economics",
-        "title": "Economic Criticality: Game Theory, Market Dynamics, and the Somatic Field",
-        "subtitle": "[T]-Theory Volume: Economics and Game Theory",
+        "title": "[T]-Theory: Economics",
+        "subtitle": "Economic Criticality",
         "audience": "economists, game theorists, financial mathematicians",
         "field": "economics, game theory, financial mathematics, mechanism design",
         "papers": ["c:swarm-propagator", "c:experimental-validation", "f:soma-game-theory",
@@ -606,8 +606,8 @@ DOMAINS = [
     },
     {
         "id": "law",
-        "title": "Topology of Justice: Law, Rights, and the Geometry of Social Constraint",
-        "subtitle": "[T]-Theory Volume: Law and Jurisprudence",
+        "title": "[T]-Theory: Law",
+        "subtitle": "Topology of Justice",
         "audience": "legal scholars, jurisprudents, political scientists, policymakers",
         "field": "law, jurisprudence, political theory, regulatory studies",
         "papers": ["c:soma-field-synthesis", "c:universal-somatic-field", "f:soma-law",
@@ -618,8 +618,8 @@ DOMAINS = [
     },
     {
         "id": "ppe",
-        "title": "Mind, Market, and Mandate: A Field-Theoretic Synthesis for PPE",
-        "subtitle": "[T]-Theory Volume: Philosophy, Politics, and Economics",
+        "title": "[T]-Theory: PPE",
+        "subtitle": "Mind, Market, and Mandate",
         "audience": "PPE students and scholars, political economists, philosophers",
         "field": "philosophy, politics, economics (Oxford PPE tradition)",
         "papers": ["c:soma-field-synthesis", "f:soma-game-theory", "f:soma-law", "c:soma-field-patient-pov",
@@ -630,8 +630,8 @@ DOMAINS = [
     },
     {
         "id": "psychiatry-asd",
-        "title": "Rewiring the Field: A Formal Account of Neurodivergence and Trauma",
-        "subtitle": "[T]-Theory Volume: Psychiatry, ASD, and Trauma",
+        "title": "[T]-Theory: Rewiring",
+        "subtitle": "Neurodivergence and Trauma",
         "audience": "psychiatrists, psychologists, neurodivergent people and their families",
         "field": "psychiatry, clinical psychology, neurodevelopmental conditions",
         "papers": ["c:missing-limbic-layer", "c:preverbal-manifold", "c:soma-field-patient-pov", "f:soma-asd-unified",
@@ -755,13 +755,13 @@ def main():
     if "--vol1" in sys.argv:
         build_volume(VOL1_IDS, "vol1",
                      "[T]-Theory: The Fractal Programme — Volume I: Foundation",
-                     "Gateway · Physics · Formal Mathematics · Neuroscience · Philosophy · Complex Systems · Computer Science")
+                     "Gateway · Physics · Mathematics · Neuroscience · Philosophy · Complex Systems · Computing")
         return
 
     if "--vol2" in sys.argv:
         build_volume(VOL2_IDS, "vol2",
                      "[T]-Theory: The Fractal Programme — Volume II: Application",
-                     "Music & Arts · Geophysics · Social Science · Economics · Law · PPE · Clinical Psychology · Psychiatry / ASD")
+                     "Music and the Arts · Geophysics · Society · Economics · Law · PPE · Trauma · Rewiring")
         return
 
     target_ids = [a for a in sys.argv[1:] if not a.startswith("--")]

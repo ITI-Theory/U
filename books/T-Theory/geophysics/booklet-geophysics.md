@@ -1,5 +1,5 @@
 ---
-title: "The Geological Soma: Seismic Propagation and Tectonic Criticality"
+title: "[T]-Theory: Geophysics"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-geology

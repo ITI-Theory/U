@@ -1,5 +1,5 @@
 ---
-title: "The Physics of Society: Collective Dynamics and the Somatic Field"
+title: "[T]-Theory: Society"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-society

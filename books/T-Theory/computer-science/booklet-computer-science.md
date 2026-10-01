@@ -1,5 +1,5 @@
 ---
-title: "Verified Emotional Computing: The USF as Software Architecture"
+title: "[T]-Theory: Computing"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-computing

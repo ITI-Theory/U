@@ -1,5 +1,5 @@
 ---
-title: "The Electromagnetic Nervous System: A Field-Theoretic Account"
+title: "[T]-Theory: Neuroscience"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-neuroscience

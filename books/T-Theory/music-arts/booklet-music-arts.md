@@ -1,5 +1,5 @@
 ---
-title: "The Physics of Music and Affect: A Field-Theoretic Account"
+title: "[T]-Theory: Music and the Arts"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-music

@@ -1,5 +1,5 @@
 ---
-title: "Dependent Types and the Geometry of Feeling: A Mathematical Account"
+title: "[T]-Theory: Mathematics"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-mathematics

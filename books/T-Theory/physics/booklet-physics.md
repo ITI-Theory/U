@@ -1,5 +1,5 @@
 ---
-title: "Field Equations of Mind: A Physics Perspective on the USF"
+title: "[T]-Theory: Physics"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-physics

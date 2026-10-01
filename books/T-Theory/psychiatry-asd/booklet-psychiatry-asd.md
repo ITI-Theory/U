@@ -1,5 +1,5 @@
 ---
-title: "Rewiring the Field: A Formal Account of Neurodivergence and Trauma"
+title: "[T]-Theory: Rewiring"
 author: "Alistair Johnson"
 lang: en-GB
 book_id: book-rewiring

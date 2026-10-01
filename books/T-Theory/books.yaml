@@ -1,10 +1,10 @@
 books:
   book-gateway:
-    title: "The Gateway: An Introduction to the Fractal Programme"
+    title: "[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos"
     why:
       prose: "The same question links a guitar string, a felt emotion, a social encounter, and the night sky: if something happens here, what is felt there? [T]-Theory treats that question as a field problem and gives a reader one equation from which to enter the whole programme."
-      the_gap: "Traditional AI and psychological models lack a formal mathematical treatment of valuation and limbic dynamics."
-      the_solution: "Establishing the Universal Somatic Field (USF) as an 11-dimensional field theory isomorphic to M-theory compactification."
+      the_gap: "Traditional AI and psychology often model valuation and limbic dynamics separately from field response."
+      the_solution: "Frame the Universal Somatic Field as an 11-dimensional modelling scaffold linked to M-theory by a formal product isomorphism, not by physical identity."
     field_notes:
       g_id: "The Universal Propagator - G(x,x') at the Hubble scale"
       reader: "The Generalist"
@@ -18,20 +18,20 @@ books:
       status: "Lean files across the programme check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
         [
-          "SHO = Green's function (derived impulse response)",
-          "11D manifold = minimum geometry for a conscious vertebrate organism",
-          "Scale invariance across 61 orders of magnitude (10^-35m to 10^26m)",
+          "SHO as Green-function impulse response: derived under assumptions",
+          "11D field scaffold mirrors a 7+3+1 decomposition: derived under assumptions",
+          "Cross-scale response grammar from Planck to cosmological scales: open hypothesis",
         ]
       moriarty_check:
         attack: "Is the 11D structure a mere design choice or analogy?"
-        counter_logic: "Inductive structural necessity; the 11D decomposition is the minimum geometry required to account for the functional degrees of freedom of a conscious organism."
+        counter_logic: "The Lean isomorphism checks a typed decomposition. The biological and physical reading remains a constrained hypothesis, not a necessity proof."
   book-physics:
-    title: "Field Equations of Mind: A Physics Perspective on the USF"
+    title: "[T]-Theory: Physics"
     why:
       {
         prose: "A Green's function is not just a technical solution; it is the most direct account of how a disturbance becomes an effect. [T]-Theory uses that common response law to connect field theory, compactification, and the cosmological questions of dark energy and dark matter.",
-        the_gap: "Standard physics excludes experience as a physical quantity, rendering the hard problem of consciousness insoluble.",
-        the_solution: "Enlarging physics to include the somatic tensor Phi as a field with a Lagrangian, a propagator, and a symmetry group.",
+        the_gap: "Standard physics does not treat first-person experience as an operationally measured field variable.",
+        the_solution: "Use the somatic tensor Phi as a proposed modelling field with Lagrangian, propagator, and symmetry terms whose physical interpretation remains open.",
       }
     field_notes:
       {
@@ -40,26 +40,31 @@ books:
         scale: "Scale 0 (Planck) to Scale 19 (Cosmological)",
         equation: "(nabla^2 + k^2)G = delta",
         operator: "Relativistic Green function",
-        invariant: "Propagator form under changes of physical scale",
-        observable: "Mode spectrum, correlation length, and cosmological density fractions",
+        invariant: "Propagator form under stated scale-map assumptions",
+        observable: "Mode spectrum, correlation length, and model-derived density comparisons",
       }
     sherlock_audit:
       {
         status: "Lean files cited (MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "11D decomposition (7 compact + 3 spatial + 1 temporal)",
-            "Dark Energy (Omega Lambda = 7/11) and Dark Matter (Omega DM = 3/11) derived from geometric counting",
-            "Identification of the SHO as the substrate impulse response",
+            "11D product decomposition as a typed model: kernel-verified (MTheoryIsomorphism.lean, somaField_iso_mtheory)",
+            "Dark-sector fractions from the 7+3+1 dimension budget: derived under assumptions",
+            "SHO as the substrate impulse response: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does a formal 11D product isomorphism prove a new physical compactification?",
+            counter_logic: "No. It verifies the chosen type structure. Physical identification needs independent assumptions and measurement.",
+          },
       }
   book-neuroscience:
-    title: "The Electromagnetic Nervous System: A Field-Theoretic Account"
+    title: "[T]-Theory: Neuroscience"
     why:
       {
         prose: "Neural activity is not only a collection of neurons firing; it is also a field that integrates activity across tissue and time. [T]-Theory treats the cortical electromagnetic field as a testable bridge between local signals, global coordination, and felt state.",
-        the_gap: "Traditional neuro-instruments measure correlates (electrochemical events) rather than experience itself.",
-        the_solution: "Modelling the limbic system as the Field-Modulated Hopfield Network (FM-HN), coupling the CEMI field to attractor dynamics.",
+        the_gap: "Neuro-instruments measure correlates of experience, not experience as a calibrated field variable.",
+        the_solution: "Model limbic dynamics as a Field-Modulated Hopfield Network that couples CEMI-like fields to attractor dynamics as a testable hypothesis.",
       }
     field_notes:
       {
@@ -68,7 +73,7 @@ books:
         scale: "Scale 6: Local Circuit / Scale 7: Whole Brain",
         equation: "ell = 1/k",
         operator: "Cortical electromagnetic field propagator",
-        invariant: "Synchronised local activity produces a shared macroscopic field",
+        invariant: "Synchronized local activity can be modelled as a shared macroscopic field",
         observable: "EEG coherence, phase locking, and correlation length",
       }
     sherlock_audit:
@@ -76,10 +81,15 @@ books:
         status: "Lean files cited (LimbicHopfield.lean, LimbicTunnel.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "CEMI field as the Scale-6 restriction of the universal propagator",
-            "Neurodivergent profiles (ASC, ADHD, C-PTSD) as operator modifications",
-            "Trauma wells as deep isolated minima in the energy landscape",
+            "CEMI field as a local view of the universal propagator: open hypothesis",
+            "Neurodivergent profiles as operator modifications: open hypothesis",
+            "Trauma wells as deep isolated minima in an energy landscape: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does field language directly measure felt experience?",
+            counter_logic: "No. It organizes neural correlates and proposes measurable links; the felt-state calibration remains open.",
+          },
       }
   book-philosophy:
     title: "[T]-Theory: Philosophy"
@@ -117,11 +127,11 @@ books:
           },
       }
   book-complex-systems:
-    title: "Scale-Free Dynamics: The USF as a Complex Systems Framework"
+    title: "[T]-Theory: Complex Systems"
     why:
-      prose: "Complex systems become intelligible when their many local interactions are read as one evolving field. [T]-Theory treats emergence, criticality, and long-range coordination as different expressions of a shared propagator and attractor landscape."
-      the_gap: "Complex systems science typically catalogues coincidences without a single unifying physical law."
-      the_solution: "The Zoom Operator (Lambda) and Renormalisation Group flow derived from M-theory compactification geometry."
+      prose: "Complex systems become more legible when many local interactions are read through response kernels. [T]-Theory treats emergence, criticality, and long-range coordination as a proposed shared grammar, not as a proved universal law."
+      the_gap: "Complex systems science has many recurring patterns but no settled law tying every case to one field."
+      the_solution: "Use the Zoom Operator and renormalisation flow as a scale-map framework derived within the model assumptions."
     field_notes:
       g_id: "Scale-Invariant Propagator - G invariant under RG flow"
       reader: "Network Researcher"
@@ -133,16 +143,19 @@ books:
     sherlock_audit:
       status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
-        - "O(N^2) lower bound for single-step multi-agent coordination"
-        - "ScaleUniverse as an inductive dependent sum type (Sigma-type)"
-        - "Renormalisation of coupling constants via the Zoom Operator"
+        - "Propagator coordination beats K-round classical coordination when K exceeds N: kernel-verified (SwarmPropagator.lean, propagator_beats_classical)"
+        - "ScaleUniverse preserves structure across a scale shift: kernel-verified (ScaleUniverse.lean, scale_shift_preserves_structure)"
+        - "Renormalisation flow exists for positive initial coupling: kernel-verified (RenormalisationGroup.lean, rg_flow_existence)"
+      moriarty_check:
+        attack: "Does a verified scale map prove that all complex systems obey one physical law?"
+        counter_logic: "No. The proofs check model structure and existence claims; cross-domain universality is an empirical and interpretive extension."
   book-computing:
-    title: "Verified Emotional Computing: The USF as Software Architecture"
+    title: "[T]-Theory: Computing"
     why:
       {
         prose: "Software, proof, and coordination all depend on how information moves through a structured system. [T]-Theory treats propagators as computational objects: they can be verified in Lean, tested in networks, and used to reason about collective action.",
-        the_gap: "Artificial intelligence lacks a formal theory of valuation and motivation, leading to the alignment problem.",
-        the_solution: "Implementing the Universal Somatic Field as a machine-verified kernel in Lean 4 to formalise affective computing.",
+        the_gap: "Artificial intelligence lacks a settled formal account of valuation and motivation, which leaves alignment partly under-specified.",
+        the_solution: "Use Lean-checked kernels and simulations to formalise proposed affective-state transitions while keeping motivation claims empirical.",
       }
     field_notes:
       {
@@ -151,7 +164,7 @@ books:
         scale: "Scale 5: Proof kernels, software agents, and multi-agent networks",
         equation: "x(t+1) = G x(t) + J(t)",
         operator: "Verified affective-state transition kernel",
-        invariant: "Typed proofs preserve declared field constraints",
+        invariant: "Typed proofs preserve declared constraints inside the model",
         observable: "Kernel-checked theorems, runtime cost, and coordination accuracy",
         historical_observation: "AI has had a brain since 1943. Now it has a body.",
       }
@@ -160,18 +173,23 @@ books:
         status: "Lean files cited (SomaNetwork.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "O(N^2) lower bound for single-step multi-agent coordination",
-            "Software alignment via geometric matching of energy landscapes",
-            "Single-step coordination as a topological GHZ effect",
+            "Propagator cost is an N by N matrix-vector step: derived under assumptions",
+            "Software alignment via matching energy landscapes: open hypothesis",
+            "Single-step coordination as a topological GHZ analogy: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does Lean verification solve AI alignment?",
+            counter_logic: "No. It checks formal kernels and constraints; alignment claims still require empirical task definitions and safety tests.",
+          },
       }
   book-mathematics:
-    title: "Dependent Types and the Geometry of Feeling: A Mathematical Account"
+    title: "[T]-Theory: Mathematics"
     why:
       {
         prose: "A good formal system does more than describe an idea: it makes invalid moves impossible. [T]-Theory uses dependent types, proofs, and field geometry to ask which claims about propagation survive machine checking.",
-        the_gap: "Standard physics and logic treat experience as a flat, untyped phenomenon.",
-        the_solution: "Establishing that experience is a typed object (ScaleUniverse type) with a topology expressed in Homotopy Type Theory.",
+        the_gap: "Standard formalisms rarely type experience-like claims by scale, substrate, and response rule.",
+        the_solution: "Represent proposed field layers as scale-indexed typed objects, then separate checked structure from interpretive readings of experience.",
       }
     field_notes:
       {
@@ -188,18 +206,23 @@ books:
         status: "Lean files cited (ScaleUniverse.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Consciousness Threshold Theorem (sharp spectral gap dichotomy)",
-            "ScaleUniverse as an inductive dependent sum type (Sigma-type)",
-            "Univalence: equivalent somatic structures are identical",
+            "Scale-shift structure preservation: kernel-verified (ScaleUniverse.lean, scale_shift_preserves_structure)",
+            "Nineteen field layers upgraded from placeholders to real types: kernel-verified (ScaleUniverse.lean, nineteen_scales_have_real_types)",
+            "Univalence-style reading of equivalent somatic structures: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does a typed encoding make experience mathematically identical to the type?",
+            counter_logic: "No. The type disciplines the model; the claim that it captures experience is an interpretation requiring calibration.",
+          },
       }
   book-music:
-    title: "The Physics of Music and Affect: A Field-Theoretic Account"
+    title: "[T]-Theory: Music and the Arts"
     why:
       {
         prose: "Music makes a field audible: rhythm, expectation, memory, and bodily response become one moving pattern. [T]-Theory treats art as an instrument for exploring affective propagation, not as decoration added after the science.",
-        the_gap: "Music psychology relies on static taxonomies like the circumplex, failing to model the dynamics of transition.",
-        the_solution: "Redefining music as a somatic field perturbation where BRECVEMA mechanisms act as forcing functions.",
+        the_gap: "Music psychology often classifies affect more easily than it models transitions through time.",
+        the_solution: "Model music as a somatic field perturbation where BRECVEMA mechanisms serve as candidate forcing functions.",
       }
     field_notes:
       {
@@ -216,18 +239,23 @@ books:
         status: "Lean files cited (SomaField.lean, EmotionOntology.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Rhythmic entrainment as Arnold tongue frequency locking",
-            "Musical catharsis as a hysteretic second-order phase transition",
-            "W matrix eigenspectrum as a taxonomy of aesthetic responses",
+            "Rhythmic entrainment as Arnold tongue frequency locking: interpretive",
+            "Musical catharsis as a hysteretic phase-transition model: open hypothesis",
+            "W matrix eigenspectrum as an aesthetic response taxonomy: open hypothesis",
           ],
+        moriarty_check:
+          {
+            attack: "Does the model reduce music to mechanics?",
+            counter_logic: "No. It proposes measurable response dynamics while leaving meaning, culture, and listener history as necessary inputs.",
+          },
       }
   book-trauma:
-    title: "Trauma as Topology: A Field-Theoretic Manual for Clinical Practice"
+    title: "[T]-Theory: Trauma"
     why:
       {
         prose: "A person is not their trauma; trauma can be modelled as a constrained path through an energy landscape. [T]-Theory asks how field temperature, memory, and safe intervention change the chances of leaving a deep attractor.",
-        the_gap: "Clinical trauma models treat stuckness as a metaphor rather than a mathematical obstruction.",
-        the_solution: "Identifying trauma wells as winding-number-protected attractors resolution through topologically distinct mechanisms.",
+        the_gap: "Clinical trauma models often use stuckness as a metaphor without a shared mathematical account of constrained transition.",
+        the_solution: "Treat trauma wells and winding numbers as candidate models for constrained recovery paths, not as established clinical mechanisms.",
       }
     field_notes:
       {
@@ -236,26 +264,31 @@ books:
         scale: "Scale 8: Person, nervous system, and therapeutic time",
         equation: "P_escape ~ e^(-Delta H/T)",
         operator: "Trauma-well escape propagator",
-        invariant: "The person is distinct from the attractor landscape they traverse",
-        observable: "Recovery trajectory, basin depth, and intervention response",
+        invariant: "The person is not identical with the attractor landscape they traverse",
+        observable: "Recovery trajectory, basin-depth proxies, and intervention response",
       }
     sherlock_audit:
       {
         status: "QUANT-EXP-1 is a simulation (8-qubit statevector, no hardware); THERAPY-2 is an axiom in FieldAxioms.lean, not a theorem. The inductions below are interpretive or open hypotheses.",
         primary_inductions:
           [
-            "Trauma is Topology: barriers are non-contractible loops in G2 holonomy",
-            "Effective therapy as field temperature regulation (God-Knob)",
-            "Somatic injection bypasses cognitive-somatic decoupling (kappa EC)",
+            "Trauma as topology through non-contractible-loop barriers: open hypothesis",
+            "Effective therapy as field-temperature regulation: interpretive",
+            "Somatic injection bypassing cognitive-somatic decoupling: open hypothesis",
           ],
+        moriarty_check:
+          {
+            attack: "Does topology prove a treatment mechanism?",
+            counter_logic: "No. It supplies a candidate geometry for stuckness; clinical use requires measurement, safety, and outcome evidence.",
+          },
       }
   book-geology:
-    title: "The Geological Soma: Seismic Propagation and Tectonic Criticality"
+    title: "[T]-Theory: Geophysics"
     why:
       {
-        prose: "Tectonic memory is not just a record of the past; it is a field configuration that shapes the future. [T]-Theory treats rock strata and seismic zones as somatic substrates where memory is encoded in the geometry of the fault.",
-        the_gap: "Standard geophysics lacks a unifying law connecting rock-strata memory to macroscopic tectonic shocks.",
-        the_solution: "Applying the Scale-Invariant Green's Function to derive the Gutenberg-Richter law from universality classes.",
+        prose: "Tectonic memory can be read as a field configuration that conditions future rupture. [T]-Theory uses rock strata and seismic zones as high-scale analogues of stored patterns, not as proven somatic subjects.",
+        the_gap: "Geophysics models rupture and memory, but the proposed bridge to somatic field language remains untested.",
+        the_solution: "Apply scale-invariant Green-function language to Gutenberg-Richter-like universality as an analogy to be discriminated empirically.",
       }
     field_notes:
       {
@@ -264,26 +297,31 @@ books:
         scale: "Scale 15-17: Geological tectonic soma and rock strata memory",
         equation: "Gutenberg-Richter b approximately 1",
         operator: "Gutenberg-Richter universality class",
-        invariant: "Fault geometry encodes past ruptures as Hopfield patterns",
-        observable: "Seismic shock distributions and rock strata correlation",
+        invariant: "Fault geometry can be modelled as storing past rupture constraints",
+        observable: "Seismic shock distributions and rock-strata correlations",
       }
     sherlock_audit:
       {
         status: "Lean files cited (ScaleUniverse.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Geological memory as a high-scale instantiation of associative memory",
-            "Tectonic criticality as a phase transition in the planetary field",
-            "Universality: parakeet murmurations and dialect spread share the tectonic response grammar",
+            "Geological memory as a high-scale analogy to associative memory: interpretive",
+            "Tectonic criticality as a phase-transition model: open hypothesis",
+            "Shared response grammar across geology, swarms, and dialects: open hypothesis",
           ],
+        moriarty_check:
+          {
+            attack: "Does calling a fault a soma add evidence?",
+            counter_logic: "No. It is a scale analogy unless it yields predictions beyond standard geophysics.",
+          },
       }
   book-society:
-    title: "The Physics of Society: Collective Dynamics and the Somatic Field"
+    title: "[T]-Theory: Society"
     why:
       {
-        prose: "Social dynamics are often treated as a special category of human behavior, but they obey the same propagation laws as any other field. [T]-Theory models collective phenomena-from team coordination to dialect spread-as the coupling of individual somatic fields into a macroscopic societal attractor.",
-        the_gap: "Sociology lacks a formal bridge between individual affect and collective emergence, relying instead on descriptive metaphors like social force.",
-        the_solution: "Applying the Scale-Invariant Green's Function to social interaction kernels (G_ij) to model rapport as frequency locking and trust as a spectral gap.",
+        prose: "Social dynamics can be modelled with propagation language when individual responses couple into group patterns. [T]-Theory treats team coordination and dialect spread as candidate societal attractors, not as settled laws.",
+        the_gap: "Sociology has rich bridges between affect and collective emergence, but no single accepted field formalism for them.",
+        the_solution: "Use scale-invariant Green-function language for social interaction kernels to test rapport, trust, and propagation as measurable analogues.",
       }
     field_notes:
       {
@@ -292,7 +330,7 @@ books:
         scale: "Scale 10: Community Trust Networks / Scale 11: Regional Identity",
         equation: "P(s_i -> 1) = sigma(Sum G_ij * s_j - theta)",
         operator: "Social Hopfield propagator",
-        invariant: "Structure of rapport persists across group sizes",
+        invariant: "Rapport structure may persist across group sizes",
         observable: "Synchronization rates, SQ (Social Intelligence) spectral gap, and cultural propagation speed",
         historical_observation: "The radio reached forty million people. The field reached them all at once.",
       }
@@ -301,27 +339,32 @@ books:
         status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Rapport = Huygens frequency locking (0 < Delta phi < epsilon)",
-            "Social Intelligence (SQ) = First eigenvalue of the interaction matrix",
-            "Cultural propagation speed consistent with geographic Green's functions",
+            "Rapport as Huygens-style frequency locking: interpretive",
+            "Social Intelligence as leading eigenvalue of an interaction matrix: open hypothesis",
+            "Cultural propagation speed fit by geographic Green functions: open hypothesis",
           ],
+        moriarty_check:
+          {
+            attack: "Does field language erase agency and institutions?",
+            counter_logic: "No. It proposes measurable coupling variables; agency, history, and institutions remain parameters, not byproducts.",
+          },
       }
   book-economics:
-    title: "Economic Criticality: Game Theory, Market Dynamics, and the Somatic Field"
+    title: "[T]-Theory: Economics"
     why:
       {
-        prose: "Markets do not just exchange goods; they exchange field states. [T]-Theory treats economic systems as high-scale somatic fields where price signals are wave propagators and market stability is an attractor state. This allows systemic risk to be measured as proximity to a phase transition.",
-        the_gap: "Standard economic models assume rational agents, failing to account for the somatic underpinnings of panic, exuberance, and herd behavior.",
-        the_solution: "Co-identifying Nash equilibria as Hopfield energy minima and market crashes as second-order phase transitions.",
+        prose: "Markets exchange goods, signals, and affective expectations. [T]-Theory models economic systems as high-scale fields where prices propagate valuation and stability can be studied as attractor residence.",
+        the_gap: "Some economic models idealize rational agency and under-model panic, exuberance, and herd behavior.",
+        the_solution: "Compare potential-game Nash equilibria with Hopfield minima and treat crashes as candidate critical transitions under stated assumptions.",
       }
     field_notes:
       {
         g_id: "The Market Propagator - G_price as the transmission of valuation",
         reader: "Quantitative Economist",
         scale: "Scale 13: Civilisational Economic Landscape",
-        equation: "Nash(G) = argmin H(e)",
+        equation: "Nash(G) corresponds to argmin H(e) only for potential games",
         operator: "Economic attractor operator",
-        invariant: "Conservation of field energy across trade transactions",
+        invariant: "Valuation signals may preserve structure across trades",
         observable: "Systemic risk proximity (xi -> infinity), volatility clusters, and attractor dwell times",
       }
     sherlock_audit:
@@ -329,18 +372,23 @@ books:
         status: "Lean files cited (SomaNetwork.lean, RenormalisationGroup.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Nash equilibrium = Hopfield energy minimum (stable attractor)",
-            "Systemic risk = Correlation length divergence near criticality",
-            "Market crash = Somatic phase transition driven by noise amplitude sigma0",
+            "Nash equilibrium as Hopfield energy minimum for potential games: derived under assumptions",
+            "Systemic risk as correlation-length divergence near criticality: open hypothesis",
+            "Market crash as somatic phase transition driven by noise amplitude sigma0: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Is every Nash equilibrium a Hopfield minimum?",
+            counter_logic: "No. The equivalence is exact only under potential-game-like assumptions; otherwise it is an analogy.",
+          },
       }
   book-law:
-    title: "Topology of Justice: Law, Rights, and the Geometry of Social Constraint"
+    title: "[T]-Theory: Law"
     why:
       {
-        prose: "Justice is typically discussed in terms of morals or rules, but it functions as a topological constraint on social behavior. [T]-Theory models the rule of law as ergodicity-the requirement that all agents have access to all states of the legal landscape-and rights as invariants that survive continuous deformation.",
-        the_gap: "Legal theory lacks a formal mathematical framework for describing the unbreakability of rights or the structural failures of power.",
-        the_solution: "Defining legal rights as topological invariants of the social field, protected by the winding number of the landscape.",
+        prose: "Justice is discussed through morals, rules, and institutions; it can also be modelled as constraints on reachable social states. [T]-Theory reads rights as proposed invariants of a legal landscape, not as mathematical facts about law.",
+        the_gap: "Legal theory has many accounts of rights and power, but not a settled topological model of their stability.",
+        the_solution: "Use topological invariants and winding-number language as an interpretive model for legal constraints and institutional failure.",
       }
     field_notes:
       {
@@ -349,26 +397,31 @@ books:
         scale: "Scale 12: National Institutional Field",
         equation: "n = 1/(2 pi) integral d theta",
         operator: "Juridical holonomy operator",
-        invariant: "Rights are stable under smooth deformations of the political landscape",
-        observable: "Rule of law ergodicity and topological obstructions to power",
+        invariant: "Rights are read as intended invariants under institutional deformation",
+        observable: "Rule-of-law access, institutional blockage, and persistence of constraints",
       }
     sherlock_audit:
       {
         status: "Lean files cited (MTheoryIsomorphism.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Rule of Law = Field ergodicity (power protects none from accountability)",
-            "Rights = Topological invariants (winding numbers in G2 holonomy)",
-            "Injustice = Non-contractible loops preventing return to regulated basins",
+            "Rule of law as field ergodicity: interpretive",
+            "Rights as topological invariants: interpretive",
+            "Injustice as non-contractible loops blocking regulated basins: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does topology make rights objectively unbreakable?",
+            counter_logic: "No. It models stability and obstruction; legal force still comes from institutions, norms, and enforcement.",
+          },
       }
   book-ppe:
-    title: "Mind, Market, and Mandate: A Field-Theoretic Synthesis for PPE"
+    title: "[T]-Theory: PPE"
     why:
       {
-        prose: "The silos of philosophy, politics, and economics are unified by the fact that they all describe the same field at different resolutions. [T]-Theory provides a single vocabulary for the PPE student: the Green's function that governs the mind also governs the market and the mandate of the state.",
-        the_gap: "PPE lacks a unified physical law to connect subjective well-being (Philosophy) to market signals (Economics) and institutional rules (Politics).",
-        the_solution: "Using the Zoom Operator (Lambda) to map field configurations across the individual, dyadic, and national scales.",
+        prose: "Philosophy, politics, and economics can be read as different resolutions on coupled valuation and constraint. [T]-Theory offers PPE a shared response vocabulary without claiming the three fields are literally identical.",
+        the_gap: "PPE lacks a single formal bridge connecting subjective well-being, market signals, and institutional rules.",
+        the_solution: "Use the Zoom Operator to compare field configurations across individual, dyadic, and national scales as a modelling scaffold.",
       }
     field_notes:
       {
@@ -377,7 +430,7 @@ books:
         scale: "Scale 7 (Mind) to Scale 13 (Market)",
         equation: "(nabla^2 + k^2)G = delta",
         operator: "Scale-invariant USF operator",
-        invariant: "One response grammar across the three pillars of PPE",
+        invariant: "One proposed response grammar across the three pillars of PPE",
         observable: "Institutional stability, agent alignment, and cross-scale correlation",
       }
     sherlock_audit:
@@ -385,18 +438,23 @@ books:
         status: "Lean files cited (UniversalSomaticField.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Cross-scale alignment as geometric matching of attractor landscapes",
-            "Policy as a geometric wave-guide for social field propagation",
-            "The PPE synthesis is a morphism between scale-indexed field spaces",
+            "Cross-scale alignment as geometric matching of attractor landscapes: open hypothesis",
+            "Policy as a geometric wave-guide for social field propagation: interpretive",
+            "PPE synthesis as a morphism between scale-indexed field spaces: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does one vocabulary collapse PPE into physics?",
+            counter_logic: "No. It offers a shared modelling language; normative and institutional content still has to be argued separately.",
+          },
       }
   book-rewiring:
-    title: "Rewiring the Field: A Formal Account of Neurodivergence and Trauma"
+    title: "[T]-Theory: Rewiring"
     why:
       {
-        prose: "Neurodivergence and trauma are often seen as failures of function, but they are more accurately viewed as structural modifications to the field's response grammar. [T]-Theory provides the first formal model of ASC, ADHD, and C-PTSD as computational regimes derived from 11D field topology.",
-        the_gap: "Clinical psychiatry relies on onset-based diagnostic categories that miss the structural reality of the pre-verbal manifold.",
-        the_solution: "Modelling condition-specific operator modifications (T_k for ASC, T_eff for ADHD, Delta W for C-PTSD) to move from pathology to physics.",
+        prose: "Neurodivergence and trauma need not be read only as failures of function; they can be modelled as changes in response grammar. [T]-Theory proposes operator modifications for ASC, ADHD, and C-PTSD as hypotheses, not diagnoses.",
+        the_gap: "Clinical psychiatry uses categories that can miss early developmental structure and individual response dynamics.",
+        the_solution: "Model condition-specific operator modifications to test a path from pathology language toward measurable dynamics.",
       }
     field_notes:
       {
@@ -405,7 +463,7 @@ books:
         scale: "Scale 6: Pre-verbal sensitive window / Scale 8: Adult phenotype",
         equation: "f(tau d) = tanh(tau d / tau c)",
         operator: "Neurodivergent operator stack",
-        invariant: "Structural modifications are permanent but transformable",
+        invariant: "Structural modifications may be persistent yet transformable",
         observable: "Sensory thresholds (T_k), noise levels (T_eff), and trauma winding numbers",
       }
     sherlock_audit:
@@ -413,8 +471,13 @@ books:
         status: "Lean files cited (LimbicHopfield.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Trauma is Topology: obstructions are non-contractible loops (n != 0)",
-            "ASC/ADHD = Operator modifications, not parameter settings",
-            "Recovery = Forward transformation (W -> W') rather than return to W0",
+            "Trauma as topology with non-contractible-loop obstructions: open hypothesis",
+            "ASC and ADHD as operator modifications rather than parameter settings: open hypothesis",
+            "Recovery as forward transformation rather than return to W0: interpretive",
           ],
+        moriarty_check:
+          {
+            attack: "Does this replace psychiatric diagnosis?",
+            counter_logic: "No. It is a modelling lens for research and design; clinical diagnosis and care remain empirical and professional tasks.",
+          },
       }
