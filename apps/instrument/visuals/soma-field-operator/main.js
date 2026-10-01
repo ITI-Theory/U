@@ -4,6 +4,7 @@ import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
 import { FieldAudio } from './audio/field-audio.js';
+import { createMother } from './mother.js';
 
 // Every renderers/*.js module registers itself through its default export
 // ({ id, create }); adding a renderer never requires editing this file.
@@ -2063,6 +2064,23 @@ function setCompare(on) {
   writeHashState();
 }
 compareButton.addEventListener('click', () => setCompare(!state.compare));
+
+createMother({
+  getContext: () => {
+    const level = activeLevel();
+    return {
+      levelId: level.id,
+      levelLabel: level.label,
+      lengthScale: level.length_scale,
+      responseTime: level.response_time ?? 'not set',
+      pathLabel: registryPaths.find(route => route.id === state.route)?.label ?? state.route,
+      modelLabel: modelsById.get(state.implementation)?.label ?? state.implementation,
+      lensOn: state.tTheory,
+      dimension: activeDimensionLevel(),
+      reader: state.reader,
+    };
+  },
+});
 
 // Worked examples (registry/examples): the 4D step under the baseline half,
 // the matching T-Theory step under the field half.
