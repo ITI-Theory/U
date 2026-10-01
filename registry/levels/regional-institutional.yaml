@@ -4,19 +4,23 @@ sector: systemic
 length_scale: 10^4 to 10^5 m
 substrate: regional geography and institutional constraints
 field: cultural and geographic propagation
-equation: (nabla^2 + k_geo^2)G_geo = delta
+equation: (\nabla^2+k_{\mathrm{geo}}^2)G_{\mathrm{geo}}=\delta
 explain:
   cookie:
-    text: 'Draft: Regional / Institutional is what answers when this kind of thing is poked.'
+    text: Regions and institutions can guide or block how changes travel. This is a map of constraints, not a claim that a
+      place has feelings.
     draft: true
-  general: 'Regional / Institutional: cultural and geographic propagation over regional geography and institutional constraints.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=REGIONAL / INSTITUTIONAL sigma 12; atlas=regional
-    refinement; operator=zoom 12 Regional.'
+  general: Regions and institutions can guide, slow, or block change. The model treats those boundaries as part of the response
+    field.
+  specialist: The substrate is a regional/institutional refinement between city and civilisational scales, grounded in the
+    geographic somatic field material. The Helmholtz-style geographic Green function represents propagation under spatial
+    and institutional boundary conditions. The propagator means that a disturbance follows permitted channels or is reflected
+    by constraints. Geographic and social claims are sourced to P16 where present; institutional mind language is interpretive.
 atlas_rows:
-  physical: regional geography and institutional constraints
-  field: cultural and geographic propagation
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: (nabla^2 + k_geo^2)G_geo = delta
+  physical: Regional geography, infrastructure, institutions, and bounded administrative constraints.
+  field: Cultural/geographic propagation through constraint boundaries and institutional channels.
+  mind: Institutional memory means persistent rules, procedures, and allowed transitions; it is not a feeling institution.
+  equation_setting: (\nabla^2+k_{\mathrm{geo}}^2)G_{\mathrm{geo}}=\delta
 claims:
   physical: SOURCED
   field: SOURCED

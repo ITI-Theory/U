@@ -4,19 +4,23 @@ sector: network
 length_scale: 10^-3 to 10^-1 m
 substrate: axon, local circuit, and cortical column
 field: propagating neural current
-equation: (v_s^-2 d_t^2 - nabla^2 + k^2)Phi = -J
+equation: (v_s^{-2}\partial_t^2-\nabla^2+k^2)\Phi=-J
 explain:
   cookie:
-    text: 'Draft: Local Circuit is what answers when this kind of thing is poked.'
+    text: A local brain circuit is a small neighbourhood of connected nerve cells. A signal can travel through it like a ripple
+      through a tiny network.
     draft: true
-  general: 'Local Circuit: propagating neural current over axon, local circuit, and cortical column.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=LOCAL CIRCUIT sigma 6; atlas=app-only
-    refinement; operator=zoom 6 Local circuit.'
+  general: A local brain circuit is a small neighbourhood of connected neurons. The model follows a pulse as it travels through
+    that neighbourhood and changes local phase.
+  specialist: The substrate is an app-level refinement between the cellular and whole-brain Atlas plates. The displayed damped
+    wave operator represents local conduction, delay, and anisotropic current propagation. The propagator is the circuit response
+    to a source current, before the model promotes it to a whole-brain CEMI field. Claims are sourced by neural-field and
+    substrate papers where applicable; the mind row is interpretive circuit-level information processing.
 atlas_rows:
-  physical: axon, local circuit, and cortical column
-  field: propagating neural current
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: (v_s^-2 d_t^2 - nabla^2 + k^2)Phi = -J
+  physical: Axons, cortical columns, and local neural circuits at millimetre-to-centimetre scale.
+  field: Anisotropic neural-current and phase-propagation field through a local circuit.
+  mind: Local integration and thresholded pattern routing are treated as circuit information processing, not reportable awareness.
+  equation_setting: (v_s^{-2}\partial_t^2-\nabla^2+k^2)\Phi=-J
 claims:
   physical: SOURCED
   field: SOURCED

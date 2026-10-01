@@ -4,19 +4,24 @@ sector: named-solution
 length_scale: 10^0 to 10^1 m
 substrate: avian flock
 field: active-matter flock propagation
-equation: partial_t v_b + lambda_b(v_b dot nabla)v_b = -nabla P_b + D_b nabla^2 v_b + f_aero
+equation: \partial_t\mathbf v_b+\lambda_b(\mathbf v_b\cdot\nabla)\mathbf v_b=-\nabla P_b+D_b\nabla^2\mathbf v_b+\mathbf f_{\mathrm{aero}}
 explain:
   cookie:
-    text: 'Draft: Flock is what answers when this kind of thing is poked.'
+    text: A flock is many birds adjusting to neighbours while flying. The pattern belongs to the group motion, not to one
+      giant bird.
     draft: true
-  general: 'Flock: active-matter flock propagation over avian flock.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=named solution flock; atlas=related to
-    Scale 7 Animal Swarm; operator=bird-flock 08 / FLOCK.'
+  general: A flock is many birds adjusting to neighbours while flying. The model follows the shared motion pattern that emerges
+    from those adjustments.
+  specialist: The substrate is the bird-flock named solution, linked to the Wave Atlas animal-swarm plate. The Toner-Tu-like
+    equation adds bird-specific alignment and aerodynamic forcing to active-matter velocity response. The propagator means
+    one bird or environmental perturbation spreads through neighbour alignment. Swarm coordination is sourced to P19; group-mind
+    wording is interpretive only.
 atlas_rows:
-  physical: avian flock
-  field: active-matter flock propagation
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: partial_t v_b + lambda_b(v_b dot nabla)v_b = -nabla P_b + D_b nabla^2 v_b + f_aero
+  physical: Multiple birds moving as discrete aerodynamic agents in shared airspace.
+  field: Flock-scale active-matter velocity field with aerodynamic forcing.
+  mind: Flock organization is collective alignment and path selection, not a single group subject.
+  equation_setting: \partial_t\mathbf v_b+\lambda_b(\mathbf v_b\cdot\nabla)\mathbf v_b=-\nabla P_b+D_b\nabla^2\mathbf v_b+\mathbf
+    f_{\mathrm{aero}}
 claims:
   physical: SOURCED
   field: SOURCED

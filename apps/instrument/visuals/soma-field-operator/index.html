@@ -58,6 +58,13 @@
           <button class="hierarchy-button active" data-level="11" type="button"><strong>11D</strong><span>M4 + P3 + L1 + C3 / MIND</span></button>
         </section>
         <div class="control select-control"><label for="implementation">USF MODEL</label><select id="implementation" aria-label="USF model"></select></div>
+        <div class="control select-control"><label for="reader-register">READER</label><select id="reader-register" aria-label="Reader explanation register"></select></div>
+        <button id="library-toggle" class="mode-button" type="button" aria-pressed="false">MORE INFORMATION</button>
+        <section id="library-panel" class="library-panel" aria-label="More information" hidden>
+          <p class="inspector-kicker">RESOLVED LIBRARY</p>
+          <h2 id="library-title">Current level</h2>
+          <div id="library-list" class="library-list"></div>
+        </section>
         <button id="t-theory-toggle" class="mode-button t-theory-toggle active" type="button" aria-pressed="true">T-THEORY: ON</button>
         <section class="view-mode" aria-label="Field view mode">
           <button id="view-3d" class="active" type="button" aria-pressed="true">3D</button>
@@ -153,6 +160,7 @@
           <summary>SETTINGS</summary>
           <div class="control transport-control"><label for="background-dim">FRACTAL DEPTH</label><input id="background-dim" type="range" min="0" max="1" value="0" step="0.01" /></div>
           <div class="control transport-control"><label for="fractal-quality">FRACTAL DETAIL</label><input id="fractal-quality" type="range" min="0.35" max="1" value="0.6" step="0.05" /></div>
+          <label class="developer-toggle"><input id="developer-sources" type="checkbox" /> DEVELOPER: SHOW REPOSITORY PATHS</label>
         </details>
         <details id="thought-sparks-panel" class="thought-sparks-panel">
           <summary>THOUGHT SPARKS / INTERPRETIVE</summary>

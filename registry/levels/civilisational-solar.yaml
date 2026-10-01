@@ -4,20 +4,24 @@ sector: systemic
 length_scale: 10^6 to 10^11 m
 substrate: large social systems or orbital systems
 field: attractor landscape or gravitational/orbital response
-equation: nabla^2 Phi = 4 pi G rho
+equation: \nabla^2\Phi=4\pi G\rho
 explain:
   cookie:
-    text: 'Draft: Civilisational / Solar is what answers when this kind of thing is poked.'
+    text: Very large systems change slowly and have big paths they tend to follow. This level compares those paths without
+      pretending every system is the same thing.
     draft: true
-  general: 'Civilisational / Solar: attractor landscape or gravitational/orbital response over large social systems or orbital
-    systems.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=CIVILISATIONAL / SOLAR sigma 13; atlas=overlaps
-    Wave Scale 13-15; operator=app systemic sigma 13.'
+  general: This level groups very large systems whose changes are slow and path-dependent. The app uses it carefully as a
+    transition scale, not as a claim that societies and orbits are the same thing.
+  specialist: The substrate is a reconciled broad level where earlier app tables folded civilisational and solar-scale dynamics
+    together. The Poisson-like gravitational equation is appropriate to the orbital branch; social-system readings require
+    a separate attractor interpretation. The propagator means a large-scale perturbation is filtered by long-lived basin or
+    orbital constraints. Because the registry deliberately preserves a judgement call here, the non-physical mind row is interpretive.
 atlas_rows:
-  physical: large social systems or orbital systems
-  field: attractor landscape or gravitational/orbital response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: nabla^2 Phi = 4 pi G rho
+  physical: Large social systems or orbital-scale systems, depending on the selected path, with long-horizon trajectories.
+  field: Attractor landscape or gravitational/orbital response governing slow systemic motion.
+  mind: System memory is persistence of basin structure, records, and trajectory constraints; it is not a conscious civilisation
+    or solar system.
+  equation_setting: \nabla^2\Phi=4\pi G\rho
 claims:
   physical: SOURCED
   field: SOURCED

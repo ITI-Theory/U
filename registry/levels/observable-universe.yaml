@@ -4,19 +4,24 @@ sector: cosmological
 length_scale: 10^26 m
 substrate: cosmic web, clusters, voids, and metric
 field: retarded gravitational response
-equation: Box h_mn = -16 pi G T_mn
+equation: \Box h_{\mu\nu}=-16\pi G\,T_{\mu\nu}
 explain:
   cookie:
-    text: 'Draft: Observable Universe is what answers when this kind of thing is poked.'
+    text: The observable universe is the biggest region we can receive light from. This view is about cosmic structure, not
+      about a mind in space.
     draft: true
-  general: 'Observable Universe: retarded gravitational response over cosmic web, clusters, voids, and metric.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=OBSERVABLE UNIVERSE sigma 19; atlas=Scale
-    18-20 Cosmic Web to Universal; operator=19 / UNIVERSE.'
+  general: The observable universe is the largest region from which light can reach us. The model follows cosmic structure
+    and metric response, not a proven cosmic mind.
+  specialist: The substrate is the observable-universe/cosmic-web plate at horizon scale. The linearised Einstein equation
+    treats stress-energy as source and metric perturbation as response. The propagator is spacetime impulse response under
+    causal and cosmological boundary conditions. Cosmological ratios in the programme are derived under assumptions; any consciousness
+    reading is explicitly open-hypothesis.
 atlas_rows:
-  physical: cosmic web, clusters, voids, and metric
-  field: retarded gravitational response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: Box h_mn = -16 pi G T_mn
+  physical: Cosmic web, clusters, voids, metric expansion, matter distribution, and causal horizon.
+  field: Linearised gravitational response and stress-energy coupling across the observable universe.
+  mind: Cosmic state is mass-energy and metric information; self-aware-cosmos language is an open hypothesis and should not
+    be stated as fact.
+  equation_setting: \Box h_{\mu\nu}=-16\pi G\,T_{\mu\nu}
 claims:
   physical: SOURCED
   field: SOURCED

@@ -4,19 +4,23 @@ sector: named-solution
 length_scale: 10^3 m
 substrate: avian colony or roost network
 field: continuity and density flow
-equation: rho_dot_b + nabla dot(rho_b v_b)=0
+equation: \dot{\rho}_b+\nabla\cdot(\rho_b\mathbf v_b)=0
 explain:
   cookie:
-    text: 'Draft: Colony / Roost is what answers when this kind of thing is poked.'
+    text: A roost or colony is where many birds gather and organise over time. This level follows density and movement, not
+      thoughts.
     draft: true
-  general: 'Colony / Roost: continuity and density flow over avian colony or roost network.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=named solution colony-roost; atlas=not
-    a Wave Atlas level; operator=bird-flock 09 / COLONY / ROOST.'
+  general: A roost or colony is where many birds gather and organise over time. The model follows density and movement rather
+    than thoughts.
+  specialist: The substrate is the colony endpoint of the bird-flock named path. The continuity equation treats bird density
+    as the field and velocity as the transport. The propagator means local arrivals, departures, or disturbances redistribute
+    population density through the roost. This is a named-solution extrapolation; information-language is interpretive and
+    should stay modest.
 atlas_rows:
-  physical: avian colony or roost network
-  field: continuity and density flow
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: rho_dot_b + nabla dot(rho_b v_b)=0
+  physical: Bird colony or roost population distributed across a habitat or resting site.
+  field: Density and continuity response of birds entering, leaving, and moving through the roost.
+  mind: Colony memory is site fidelity, density pattern, and behavioural routine, not a colony subject.
+  equation_setting: \dot{\rho}_b+\nabla\cdot(\rho_b\mathbf v_b)=0
 claims:
   physical: SOURCED
   field: SOURCED

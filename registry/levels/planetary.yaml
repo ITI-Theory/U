@@ -4,19 +4,22 @@ sector: geological
 length_scale: 10^6 m
 substrate: planetary interior, atmosphere, and magnetic system
 field: convection, heat flux, and planetary modes
-equation: rho(D_t u) = -grad P + eta nabla^2 u + rho g
+equation: \rho(D_t\mathbf u)=-\nabla P+\eta\nabla^2\mathbf u+\rho\mathbf g
 explain:
   cookie:
-    text: 'Draft: Planetary is what answers when this kind of thing is poked.'
+    text: A planet has heat, air or rock flows, gravity, and magnetic patterns. This level watches slow, whole-planet motion.
     draft: true
-  general: 'Planetary: convection, heat flux, and planetary modes over planetary interior, atmosphere, and magnetic system.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=PLANETARY sigma 16; atlas=Scale 11-12
-    Planetary / Mantle; operator=11 / PLANETARY.'
+  general: The planetary level follows slow whole-planet processes such as heat flow, mantle motion, magnetic fields, and
+    surface regulation. These are physical feedbacks, not feelings.
+  specialist: The substrate is the Wave Atlas planetary/mantle plate. The Navier-Stokes-plus-gravity setting describes rotating
+    fluid or viscoelastic response under heat and buoyancy forcing. The propagator means an impulse is filtered through mantle,
+    core, atmosphere, and boundary conditions across long timescales. Physical geoscience claims are sourced; thermostat or
+    memory language is interpretive feedback vocabulary.
 atlas_rows:
-  physical: planetary interior, atmosphere, and magnetic system
-  field: convection, heat flux, and planetary modes
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: rho(D_t u) = -grad P + eta nabla^2 u + rho g
+  physical: Planetary interior, core, mantle, crust, atmosphere/ocean coupling, and magnetic system.
+  field: Thermodynamic convection, heat-flux, geodynamo, atmospheric/oceanic, and normal-mode response.
+  mind: Planetary equilibrium and reversal histories are regulatory memory, not planetary consciousness.
+  equation_setting: \rho(D_t\mathbf u)=-\nabla P+\eta\nabla^2\mathbf u+\rho\mathbf g
 claims:
   physical: SOURCED
   field: SOURCED

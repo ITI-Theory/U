@@ -55,8 +55,18 @@ h1 { margin: 0 0 17px; color: var(--text); font: 800 22px/1 'Syne', sans-serif; 
 .cheat-ledger-section { padding-top: 7px; border-top: 1px solid rgba(234,245,255,.14); }
 .cheat-ledger-section h3 { margin: 0 0 4px; color: var(--pink); font: 700 8px/1.2 'Space Mono', monospace; }
 .cheat-ledger-section p { margin: 0; color: #d7e8f6; font: 7px/1.4 'Space Mono', monospace; overflow-wrap: anywhere; }
+.cheat-ledger-section a, .library-list a, .abstract-splash__source a { color: var(--cyan); text-decoration: none; border-bottom: 1px solid rgba(20,229,255,.45); }
 .cheat-ledger-section p + p { margin-top: 3px; }
 .cheat-ledger-key { color: var(--cyan); }
+.library-panel { margin: -7px 0 14px; padding: 10px; border: 1px solid rgba(246,199,90,.46); background: rgba(246,199,90,.055); }
+.library-panel h2 { margin: 4px 0 8px; color: var(--text); font: 800 13px/1.1 'Syne', sans-serif; }
+.library-list { display: grid; gap: 8px; }
+.library-group h3 { margin: 0 0 4px; color: var(--gold); font: 700 8px/1.2 'Space Mono', monospace; }
+.library-group ul { display: grid; gap: 4px; margin: 0; padding-left: 15px; }
+.library-group li, .developer-toggle { color: #d7e8f6; font: 7px/1.4 'Space Mono', monospace; overflow-wrap: anywhere; }
+.developer-toggle { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px; margin-top: 9px; }
+.developer-toggle input { width: auto; margin: 0; }
+.draft-marker { color: var(--gold); font-weight: 700; }
 .hierarchy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 0 0 15px; }
 .hierarchy-button { display: grid; gap: 3px; margin: 0; min-height: 52px; padding: 7px 4px; color: #aeb8ce; border: 1px solid rgba(174,184,206,.38); background: rgba(255,255,255,.03); font-family: 'Space Mono', monospace; text-align: left; }
 .hierarchy-button strong { color: var(--text); font-size: 16px; }

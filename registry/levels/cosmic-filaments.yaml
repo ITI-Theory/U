@@ -4,19 +4,22 @@ sector: cosmological
 length_scale: 10^24 m
 substrate: cosmic filaments
 field: BAO / web connectivity kernel
-equation: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_18=delta^(4)
+equation: (\partial_\eta^2+2\mathcal H\partial_\eta-c_s^2\nabla^2)G_{18}=\delta^{(4)}
 explain:
   cookie:
-    text: 'Draft: Cosmic Filaments is what answers when this kind of thing is poked.'
+    text: Cosmic filaments are giant threads in the web of galaxies. They show where matter gathers on very large scales.
     draft: true
-  general: 'Cosmic Filaments: BAO / web connectivity kernel over cosmic filaments.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=folded into OBSERVABLE UNIVERSE; atlas=Scale
-    18-20 Cosmic Web; operator=18 / FILAMENTS.'
+  general: Cosmic filaments are giant threads where galaxies and dark matter gather. The model follows how large-scale structure
+    carries earlier density patterns.
+  specialist: The substrate is the filament tick split from the broader cosmic-web plate. The cosmological perturbation operator
+    encodes how density modes propagate and damp in an expanding background. The propagator means an initial perturbation
+    is carried into visible filament structure by gravitational clustering. Claims are sourced to the universal and cosmology-facing
+    papers; information language is interpretive topology.
 atlas_rows:
-  physical: cosmic filaments
-  field: BAO / web connectivity kernel
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_18=delta^(4)
+  physical: Large-scale matter filaments connecting clusters across the cosmic web.
+  field: Cosmological perturbation response along filamentary dark-matter and baryonic structure.
+  mind: Filament memory is the preserved topology of primordial perturbations and later clustering, not cognition.
+  equation_setting: (\partial_\eta^2+2\mathcal H\partial_\eta-c_s^2\nabla^2)G_{18}=\delta^{(4)}
 claims:
   physical: SOURCED
   field: SOURCED

@@ -4,19 +4,23 @@ sector: cosmological
 length_scale: 10^22 m
 substrate: galactic halo mass distribution
 field: Poisson-Vlasov density wave
-equation: nabla^2 Phi_16 = 4 pi G rho_halo
+equation: \nabla^2\Phi_{16}=4\pi G\rho_{\mathrm{halo}}
 explain:
   cookie:
-    text: 'Draft: Galactic Halo is what answers when this kind of thing is poked.'
+    text: A galaxy halo is the wider gravitational region around a galaxy. We infer it from motion and lensing rather than
+      seeing it like a solid shell.
     draft: true
-  general: 'Galactic Halo: Poisson-Vlasov density wave over galactic halo mass distribution.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=folded into GALACTIC; atlas=not separately
-    plated; operator=16 / GALACTIC HALO.'
+  general: A galactic halo is the wide gravitational region around a galaxy. We infer it from motion and lensing rather than
+    seeing it like a solid shell.
+  specialist: The substrate is a catalogue split from the broader galactic level. The Poisson equation uses halo density as
+    source and potential as response. The propagator means that distributed, often unseen mass shapes visible orbital motion
+    and lensing. Physical interpretation is sourced through cosmology/dark-matter papers where cited; information language
+    remains interpretive.
 atlas_rows:
-  physical: galactic halo mass distribution
-  field: Poisson-Vlasov density wave
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: nabla^2 Phi_16 = 4 pi G rho_halo
+  physical: Extended dark-matter and gas halo around a galaxy, inferred from rotation and lensing.
+  field: Halo gravitational potential sourced by extended mass density.
+  mind: Halo memory is inferred mass-distribution structure; it is not a hidden subject.
+  equation_setting: \nabla^2\Phi_{16}=4\pi G\rho_{\mathrm{halo}}
 claims:
   physical: SOURCED
   field: SOURCED

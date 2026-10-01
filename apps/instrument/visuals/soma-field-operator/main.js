@@ -1,11 +1,7 @@
 import * as THREE from 'three';
-import { getPlate, lenses } from './theory-atlas.js';
+import { levels as registryLevels, paths as registryPaths, models as registryModels, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
-import { cheatSheetSections, displayPresets, getPathEdge, getScaleCheatSheet, getScalePath, scalePaths } from './cheat-sheet-registry.js';
 import { getScaleMorphism } from './scale-morphisms.js';
-import { getSceneCoverageSummary, namedSolutionCoverage, sceneCoverage } from './scene-coverage.js';
-import { canonicalBands, expandCanonicalRange, getUSFModel, usfModels, zoomEquation } from './zoom-implementations.js';
-import { zUSFAbstract, zUSFAbstractSource } from './zusf-abstract.js';
 import { get, register } from './renderers/index.js';
 import quantumFoamRenderer from './renderers/quantum-foam.js';
 import thoughtSparksRenderer from './renderers/thought-sparks.js';
@@ -13,17 +9,172 @@ import thoughtSparksRenderer from './renderers/thought-sparks.js';
 register(quantumFoamRenderer.id, quantumFoamRenderer);
 register(thoughtSparksRenderer.id, thoughtSparksRenderer);
 
+const levelsById = new Map(registryLevels.map(level => [level.id, level]));
+const pathsById = new Map(registryPaths.map(path => [path.id, path]));
+const modelsById = new Map(registryModels.map(model => [model.id, model]));
+const universalModel = modelsById.get('universal-21') ?? registryModels[0];
+const legacySigmaToLevelId = new Map((universalModel?.levels ?? [])
+  .filter(entry => Number.isInteger(entry.coordinate) && entry.level)
+  .map(entry => [entry.coordinate, entry.level]));
+const universalCoordinateByLevel = new Map([...legacySigmaToLevelId.entries()].map(([coordinate, levelId]) => [levelId, coordinate]));
+const levelOrder = [...legacySigmaToLevelId.values()];
+const modelRouteById = Object.fromEntries(registryModels.map(model => [model.id, model.paths?.[0] ?? 'full-atlas']));
+const claimOrder = ['FORMAL', 'SOURCED', 'INTERPRETIVE'];
+const organismLevelIds = new Set(['human-vertebrate']);
+const thoughtSparkLevelIds = new Set(['human-vertebrate']);
+const rendererInstances = new Map();
+
+const lenses = [
+  { id: 'physics', label: 'PHYSICS', description: 'Scale-appropriate observables and standard baseline equations.' },
+  { id: 'response', label: 'RESPONSE', description: 'Impulse, propagation, damping, coupling, and memory.' },
+  ...(registryLenses?.observation_layers ?? []),
+  { id: 'mirror', label: 'MIRROR', description: 'Observer-side interpretive contour; never a claim of non-human occurrent emotion.' },
+].filter((lens, index, array) => lens?.id && array.findIndex(candidate => candidate.id === lens.id) === index);
+
+const cheatSheetSections = [
+  { id: 'identity', label: 'IDENTITY' },
+  { id: 'physics', label: 'PHYSICS' },
+  { id: 'response', label: 'RESPONSE' },
+  { id: 'morphism', label: 'MORPHISM' },
+  { id: 'evidence', label: 'EVIDENCE' },
+  { id: 'interpretation', label: 'INTERPRETATION' },
+  { id: 'operate', label: 'OPERATE' },
+  { id: 'renderer', label: 'RENDERER' },
+];
+const displayPresets = [
+  { id: 'essential', label: 'ESSENTIAL', sections: ['identity', 'response', 'operate'] },
+  { id: 'physics', label: 'PHYSICS', sections: ['identity', 'physics', 'response'] },
+  { id: 'dynamics', label: 'DYNAMICS', sections: ['identity', 'response', 'morphism', 'operate'] },
+  { id: 'evidence', label: 'EVIDENCE', sections: ['identity', 'physics', 'evidence', 'interpretation'] },
+  { id: 'full', label: 'FULL LEDGER', sections: cheatSheetSections.map(section => section.id) },
+];
+const readerRegisters = [
+  { id: 'cookie', label: 'COOKIE' },
+  { id: 'general', label: 'GENERAL' },
+  { id: 'specialist', label: 'SPECIALIST' },
+];
+
+function clampIndex(index, length) {
+  return Math.max(0, Math.min(Math.max(0, length - 1), index));
+}
+
+function modelEntries(modelId) {
+  const model = modelsById.get(modelId) ?? universalModel;
+  const entries = [];
+  for (const entry of model?.levels ?? []) {
+    if (Array.isArray(entry.levels)) {
+      for (const levelId of entry.levels) entries.push({ levelId, coordinate: entry.coordinate, coordinateLabel: `${entry.coordinate} / ${entry.label}` });
+    } else if (entry.level) {
+      entries.push({ levelId: entry.level, coordinate: entry.coordinate, coordinateLabel: String(entry.coordinate) });
+    }
+  }
+  const seen = new Set();
+  return entries.filter(entry => levelsById.has(entry.levelId) && !seen.has(entry.levelId) && seen.add(entry.levelId));
+}
+
+function levelSigma(levelId) {
+  return universalCoordinateByLevel.get(levelId) ?? Math.max(0, levelOrder.indexOf(levelId));
+}
+
+function levelByLegacySigma(sigma) {
+  return legacySigmaToLevelId.get(sigma) ?? levelOrder[clampIndex(sigma, levelOrder.length)];
+}
+
+function activeLevel() {
+  return levelsById.get(state.levelId) ?? levelsById.get(levelOrder[0]) ?? registryLevels[0];
+}
+
+function activeModel() {
+  return modelsById.get(state.implementation) ?? universalModel;
+}
+
+function activeModelIndex() {
+  return Math.max(0, modelEntries(state.implementation).findIndex(entry => entry.levelId === state.levelId));
+}
+
+function defaultPathForModel(modelId) {
+  return modelRouteById[modelId] ?? registryPaths[0]?.id ?? 'full-atlas';
+}
+
+function getScalePath(id) {
+  return pathsById.get(id) ?? registryPaths[0];
+}
+
+function getPathEdge(id) {
+  for (const path of registryPaths) {
+    const edge = path.edge_records?.find(candidate => candidate.id === id);
+    if (edge) return edge;
+  }
+  return null;
+}
+
+function pathEdgesFor(path) {
+  return (path?.edge_records ?? []).filter(Boolean);
+}
+
+function badgeForLevel(level) {
+  const values = Object.values(level.claims ?? {}).filter(Boolean);
+  return claimOrder.find(claim => values.includes(claim)) ?? 'INTERPRETIVE';
+}
+
+function levelExplanation(level, register = 'general') {
+  const value = level.explain?.[register] ?? level.explain?.general ?? '';
+  if (typeof value === 'string') return { text: value, draft: false };
+  return { text: value?.text ?? '', draft: Boolean(value?.draft) };
+}
+
+function sourceLabel(source) {
+  if (!source) return 'Source not yet published';
+  const suffix = source.publication_label === 'not yet published' ? ' (not yet published)' : '';
+  return `${source.title}${suffix}`;
+}
+
+function sourceSummary(sources = []) {
+  return sources.length ? sources.map(sourceLabel).join(' | ') : 'No resolved public source yet';
+}
+
+function appendSourceLink(container, source) {
+  const link = document.createElement('a');
+  link.href = source.url;
+  link.target = '_blank';
+  link.rel = 'noreferrer';
+  link.textContent = sourceLabel(source);
+  container.append(link);
+}
+
+function renderTextWithMath(container, text) {
+  container.replaceChildren();
+  for (const paragraphText of text.split('\n\n')) {
+    const paragraph = document.createElement('p');
+    const parts = paragraphText.split(/(\$[^$]+\$|`[^`]+`)/g).filter(Boolean);
+    for (const part of parts) {
+      if (part.startsWith('$') && part.endsWith('$')) {
+        const span = document.createElement('span');
+        const tex = part.slice(1, -1);
+        if (globalThis.katex) globalThis.katex.render(tex, span, { throwOnError: false });
+        else span.textContent = tex;
+        paragraph.append(span);
+      } else if (part.startsWith('`') && part.endsWith('`')) {
+        const code = document.createElement('code');
+        code.textContent = part.slice(1, -1);
+        paragraph.append(code);
+      } else {
+        paragraph.append(document.createTextNode(part));
+      }
+    }
+    container.append(paragraph);
+  }
+}
+
 const abstractSplash = document.querySelector('#abstract-splash');
 const abstractSplashCopy = document.querySelector('#abstract-splash-copy');
 const abstractSplashSource = document.querySelector('#abstract-splash-source');
 const abstractSplashEnter = document.querySelector('#abstract-splash-enter');
 
-abstractSplashCopy.replaceChildren(...zUSFAbstract.split('\n\n').map((paragraph) => {
-  const element = document.createElement('p');
-  element.textContent = paragraph;
-  return element;
-}));
-abstractSplashSource.textContent = `SOURCE / ${zUSFAbstractSource}`;
+renderTextWithMath(abstractSplashCopy, zUSFAbstract);
+abstractSplashSource.replaceChildren();
+abstractSplashSource.append('SOURCE / ');
+appendSourceLink(abstractSplashSource, sourceResolver.abstract_source);
 abstractSplashEnter.addEventListener('click', () => {
   sessionStorage.setItem('zusf-abstract-acknowledged', 'true');
   abstractSplash.hidden = true;
@@ -31,20 +182,21 @@ abstractSplashEnter.addEventListener('click', () => {
 if (sessionStorage.getItem('zusf-abstract-acknowledged') === 'true') abstractSplash.hidden = true;
 
 const atlasCoverageLedger = document.querySelector('#atlas-coverage-ledger');
-const atlasCoverageSummary = getSceneCoverageSummary();
 const atlasCoverageHeading = document.createElement('p');
 atlasCoverageHeading.className = 'atlas-coverage__summary';
-atlasCoverageHeading.textContent = `${atlasCoverageSummary.dedicated} / ${atlasCoverageSummary.total} DEDICATED SCENES | ${atlasCoverageSummary.remaining} REMAINING`;
+atlasCoverageHeading.textContent = `${registryCoverage.available_renderer_ids.length} RENDERERS / ${registryCoverage.level_count} LEVELS | ${registryCoverage.missing_renderer_ids.length} PLACEHOLDER IDS`;
 const atlasCoverageList = document.createElement('ul');
-for (const entry of sceneCoverage) {
+for (const level of registryLevels) {
   const item = document.createElement('li');
-  item.className = `atlas-coverage__item atlas-coverage__item--${entry.status}`;
-  item.textContent = `${String(entry.sigma).padStart(2, '0')} / ${entry.label} / ${entry.status.toUpperCase()}`;
+  const rendererId = level.renderer?.id ?? 'missing';
+  const status = registryCoverage.available_renderer_ids.includes(rendererId) ? 'dedicated' : 'generic';
+  item.className = `atlas-coverage__item atlas-coverage__item--${status}`;
+  item.textContent = `${level.id} / ${level.label} / ${rendererId.toUpperCase()}`;
   atlasCoverageList.append(item);
 }
 const namedCoverage = document.createElement('p');
 namedCoverage.className = 'atlas-coverage__named';
-namedCoverage.textContent = `NAMED SOLUTIONS / ${namedSolutionCoverage.map((entry) => `${entry.id.toUpperCase()}: ${entry.status.toUpperCase()}`).join(' | ')}`;
+namedCoverage.textContent = `MISSING RENDERERS / ${registryCoverage.missing_renderer_ids.join(' | ') || 'NONE'}`;
 atlasCoverageLedger.append(atlasCoverageHeading, atlasCoverageList, namedCoverage);
 
 const canvas = document.querySelector('#operator');
@@ -620,7 +772,7 @@ cosmicField.add(cosmicLinks);
 cosmicField.visible = false;
 scene.add(cosmicField);
 function updateCellularField(time, pulse) {
-  const cellularBand = state.implementation === 'canonical-i-v' && state.scale === 4;
+  const cellularBand = activeLevel().id === 'cellular-synaptic';
   const displayLevel = activeDimensionLevel();
   const visible = cellularBand && state.viewMode === '3d';
   cellularField.visible = visible;
@@ -653,8 +805,8 @@ function updateCellularField(time, pulse) {
 }
 
 function updateAstralFields(time, pulse) {
-  const stellarVisible = state.implementation === 'canonical-i-v' && state.scale === 10;
-  const cosmicVisible = state.implementation === 'canonical-i-v' && state.scale === 14;
+  const stellarVisible = ['stellar', 'species-stellar'].includes(activeLevel().id);
+  const cosmicVisible = ['observable-universe', 'cosmic-web', 'cosmic-filaments'].includes(activeLevel().id);
   stellarField.visible = stellarVisible;
   cosmicField.visible = cosmicVisible;
   if (stellarVisible) {
@@ -728,7 +880,7 @@ function drawCellularDensityMap(time, pulse) {
 
 function updateCellularDensityLayer(time, pulse) {
   const visible = state.viewMode === '2d' && activeDimensionLevel() === 8
-    && state.implementation === 'canonical-i-v' && state.scale === 4 && state.tTheory;
+    && activeLevel().id === 'cellular-synaptic' && state.tTheory;
   cellularDensityMap.visible = visible;
   cellularDensityMap.material.opacity = visible ? 0.96 : 0;
   if (visible && (pulse > 0.01 || time - lastCellularDensityMapUpdate > 1 / 15)) {
@@ -939,13 +1091,58 @@ function readHashState() {
     hasLevel: params.has('level'),
     hasPath: params.has('path'),
     hasLens: params.has('lens'),
+    hasModel: params.has('model'),
+    hasReader: params.has('reader'),
     level: params.get('level'),
     path: params.get('path'),
     lens: params.get('lens'),
+    model: params.get('model'),
+    reader: params.get('reader'),
   };
 }
 
-const state = { somatic: 0.72, limbic: 0.86, cognitive: 0.46, scale: 0, visualScale: 0, level: 11, viewMode: '3d', stereoSbs: false, tTheory: true, brecvema: false, selectedMechanism: 'B', selectedMechanisms: new Set(), appraisal: Object.fromEntries(appraisalDimensions.map(dimension => [dimension.id, 0])), implementation: 'canonical-i-v', canonicalStart: 'I', canonicalEnd: 'V', zoomTicks: canonicalBands.map(band => band.oom[0]), route: 'canonical-i-v', lenses: new Set(['physics', 'response']), responseTime: 0, impulse: 0, displaySections: new Set(loadDisplaySections()), transport: { playing: false, bpm: 92, position: 0, quantization: 4, nextAt: 0 }, backgroundDepth: 0, mathDepth: 0, thoughtNoiseD: 0.16, thoughtThreshold: 0.82 };
+function loadReaderRegister() {
+  try {
+    const saved = localStorage.getItem('usm-reader-register');
+    if (readerRegisters.some(registerEntry => registerEntry.id === saved)) return saved;
+  } catch {
+    // localStorage can be unavailable in strict browser modes.
+  }
+  return 'general';
+}
+
+const state = {
+  somatic: 0.72,
+  limbic: 0.86,
+  cognitive: 0.46,
+  levelId: levelByLegacySigma(0),
+  scale: 0,
+  visualScale: 0,
+  level: 11,
+  reader: loadReaderRegister(),
+  developerSources: false,
+  libraryOpen: false,
+  viewMode: '3d',
+  stereoSbs: false,
+  tTheory: true,
+  brecvema: false,
+  selectedMechanism: 'B',
+  selectedMechanisms: new Set(),
+  appraisal: Object.fromEntries(appraisalDimensions.map(dimension => [dimension.id, 0])),
+  implementation: 'universal-21',
+  canonicalStart: 'I',
+  canonicalEnd: 'V',
+  route: defaultPathForModel('universal-21'),
+  lenses: new Set(['physics', 'response']),
+  responseTime: 0,
+  impulse: 0,
+  displaySections: new Set(loadDisplaySections()),
+  transport: { playing: false, bpm: 92, position: 0, quantization: 4, nextAt: 0 },
+  backgroundDepth: 0,
+  mathDepth: 0,
+  thoughtNoiseD: 0.16,
+  thoughtThreshold: 0.82,
+};
 let suppressHashWrite = false;
 for (const name of ['somatic', 'limbic', 'cognitive', 'response-time']) document.querySelector(`#${name}`).addEventListener('input', event => {
   const stateKey = name === 'response-time' ? 'responseTime' : name;
@@ -965,6 +1162,11 @@ const typeStatus = document.querySelector('#type-status');
 const timeReadout = document.querySelector('#time-readout');
 const routeSelect = document.querySelector('#route');
 const implementationSelect = document.querySelector('#implementation');
+const readerRegisterSelect = document.querySelector('#reader-register');
+const libraryToggle = document.querySelector('#library-toggle');
+const libraryPanel = document.querySelector('#library-panel');
+const libraryTitle = document.querySelector('#library-title');
+const libraryList = document.querySelector('#library-list');
 const canonicalStart = document.querySelector('#canonical-start');
 const canonicalEnd = document.querySelector('#canonical-end');
 const canonicalExpand = document.querySelector('#canonical-expand');
@@ -995,6 +1197,7 @@ const cheatSheetToggles = document.querySelector('#cheat-sheet-toggles');
 const cheatSheetLedger = document.querySelector('#cheat-sheet-ledger');
 const pathEdgeReadout = document.querySelector('#path-edge-readout');
 const scaleInput = document.querySelector('#scale');
+const headerEyebrow = document.querySelector('.field-readout .eyebrow');
 const view2dButton = document.querySelector('#view-2d');
 const view3dButton = document.querySelector('#view-3d');
 const stereoSbsButton = document.querySelector('#view-sbs');
@@ -1011,6 +1214,7 @@ const pathBpm = document.querySelector('#path-bpm');
 const pathTransportReadout = document.querySelector('#path-transport-readout');
 const backgroundDim = document.querySelector('#background-dim');
 const fractalQuality = document.querySelector('#fractal-quality');
+const developerSourcesInput = document.querySelector('#developer-sources');
 const brecvemaInspector = document.querySelector('#brecvema-inspector');
 const mechanismButtons = [...document.querySelectorAll('[data-mechanism]')];
 const mechanismName = document.querySelector('#mechanism-name');
@@ -1029,31 +1233,35 @@ const fieldNote = document.querySelector('.field-note');
 
 function applyHashState({ render = true } = {}) {
   const hashState = readHashState();
+  if (hashState.hasModel && modelsById.has(hashState.model)) {
+    state.implementation = hashState.model;
+    state.route = defaultPathForModel(hashState.model);
+  }
   if (hashState.hasLens) {
     if (hashState.lens === 'off') state.tTheory = false;
     if (hashState.lens === 'on') state.tTheory = true;
   }
+  if (hashState.hasReader && readerRegisters.some(registerEntry => registerEntry.id === hashState.reader)) {
+    state.reader = hashState.reader;
+  }
   if (hashState.hasPath) {
-    const hashedRoute = scalePaths.find(route => route.id === hashState.path);
+    const hashedRoute = registryPaths.find(route => route.id === hashState.path);
     if (hashedRoute) {
       state.route = hashedRoute.id;
-      const routeModel = usfModels.find(model => model.route === hashedRoute.id);
-      if (routeModel) state.implementation = routeModel.id;
+      const routeModel = registryModels.find(model => model.paths?.includes(hashedRoute.id));
+      if (routeModel && !hashState.hasModel) state.implementation = routeModel.id;
     }
   }
-  state.zoomTicks = state.implementation === 'canonical-i-v'
-    ? canonicalBands.map(band => band.oom[0])
-    : Array.from({ length: 20 }, (_, sigma) => sigma);
   if (hashState.hasLevel) {
     const hashedSigma = Number(hashState.level);
-    if (Number.isInteger(hashedSigma) && hashedSigma >= 0 && hashedSigma <= 19) {
-      if (!state.zoomTicks.includes(hashedSigma)) {
-        state.implementation = 'universal-1-20';
-        state.route = 'full-atlas';
-        state.zoomTicks = Array.from({ length: 20 }, (_, sigma) => sigma);
-      }
-      state.scale = hashedSigma;
-      state.visualScale = hashedSigma;
+    if (levelsById.has(hashState.level)) {
+      state.levelId = hashState.level;
+      state.scale = levelSigma(state.levelId);
+      state.visualScale = state.scale;
+    } else if (Number.isInteger(hashedSigma) && hashedSigma >= 0 && hashedSigma <= 20) {
+      state.levelId = levelByLegacySigma(hashedSigma);
+      state.scale = levelSigma(state.levelId);
+      state.visualScale = state.scale;
     }
   }
   state.transport.playing = false;
@@ -1062,26 +1270,32 @@ function applyHashState({ render = true } = {}) {
   suppressHashWrite = true;
   routeSelect.value = state.route;
   implementationSelect.value = state.implementation;
+  readerRegisterSelect.value = state.reader;
   pathPlay.classList.remove('active');
   pathPlay.setAttribute('aria-pressed', 'false');
   pathPlay.textContent = 'PLAY PATH';
   syncScaleControl();
   renderZoomEquation();
-  updateScaleReadout();
   suppressHashWrite = false;
+  updateScaleReadout();
 }
 
 applyHashState({ render: false });
-for (const route of scalePaths) routeSelect.add(new Option(route.label, route.id));
+for (const route of registryPaths) routeSelect.add(new Option(route.label, route.id));
 routeSelect.value = state.route;
-for (const model of usfModels) implementationSelect.add(new Option(model.label, model.id));
+for (const model of registryModels) implementationSelect.add(new Option(model.label, model.id));
 implementationSelect.value = state.implementation;
-for (const band of canonicalBands) {
-  canonicalStart.add(new Option(band.id, band.id));
-  canonicalEnd.add(new Option(band.id, band.id));
+for (const entry of modelEntries('canonical-5')) {
+  const label = `${entry.coordinate} / ${levelsById.get(entry.levelId)?.label ?? entry.levelId}`;
+  canonicalStart.add(new Option(label, entry.levelId));
+  canonicalEnd.add(new Option(label, entry.levelId));
 }
+state.canonicalStart = canonicalStart.options[0]?.value ?? state.levelId;
+state.canonicalEnd = canonicalEnd.options[canonicalEnd.options.length - 1]?.value ?? state.levelId;
 canonicalStart.value = state.canonicalStart;
 canonicalEnd.value = state.canonicalEnd;
+for (const registerEntry of readerRegisters) readerRegisterSelect.add(new Option(registerEntry.label, registerEntry.id));
+readerRegisterSelect.value = state.reader;
 for (const preset of displayPresets) displayPreset.add(new Option(preset.label, preset.id));
 displayPreset.add(new Option('CUSTOM', 'custom'));
 const sectionToggles = new Map();
@@ -1139,53 +1353,56 @@ function persistDisplaySections() {
 
 function renderZoomEquation() {
   zoomEquationFull.replaceChildren();
-  const model = getUSFModel(state.implementation);
+  const model = activeModel();
   const depthLabels = ['INVARIANT', 'SCALE LEDGER', 'OPERATORS + CONTEXT'];
   mathDepthReadout.textContent = depthLabels[state.mathDepth];
   mathDepthDown.disabled = state.mathDepth === 0;
   mathDepthUp.disabled = state.mathDepth === depthLabels.length - 1;
   if (state.mathDepth === 0) {
     const line = document.createElement('div');
-    const invariant = '\\mathcal L_{M,\\sigma}G_{M,\\sigma}=\\delta_\\sigma';
+    const invariant = '(\\nabla^2+k(\\sigma)^2)G_\\sigma(x,x\\prime)=\\delta(x-x\\prime)';
     if (globalThis.katex) globalThis.katex.render(invariant, line, { displayMode: true, throwOnError: false });
     else line.textContent = invariant;
     zoomEquationFull.append(line);
   } else {
-    for (const [label, equation, context] of model.equations) {
+    for (const entry of modelEntries(model.id)) {
+      const level = levelsById.get(entry.levelId);
       const row = document.createElement('section');
       row.className = 'model-equation';
       const rowLabel = document.createElement('span');
       rowLabel.className = 'model-equation-label';
-      rowLabel.textContent = label;
+      rowLabel.textContent = `${entry.coordinateLabel} / ${level.label}`;
       const math = document.createElement('div');
-      if (globalThis.katex) globalThis.katex.render(equation, math, { displayMode: true, throwOnError: false });
-      else math.textContent = equation;
+      if (globalThis.katex) globalThis.katex.render(level.equation, math, { displayMode: true, throwOnError: false });
+      else math.textContent = level.equation;
       row.append(rowLabel, math);
       if (state.mathDepth === 2) {
         const operator = document.createElement('p');
         operator.className = 'model-equation-operator';
-        operator.textContent = `OPERATOR / L_${label.split(' / ')[0]} G = delta`;
+        operator.textContent = `OPERATOR / ${level.field}`;
         const detail = document.createElement('p');
         detail.className = 'model-equation-context';
-        detail.textContent = context;
+        detail.textContent = levelExplanation(level, state.reader).text;
         row.append(operator, detail);
       }
       zoomEquationFull.append(row);
     }
   }
-  zoomEquationSource.textContent = `MODEL / ${model.description} / SOURCE / ${zoomEquation.source}`;
+  zoomEquationSource.textContent = `MODEL / ${model.description} / SOURCE / ${sourceLabel(sourceResolver.abstract_source)}`;
 }
 
 function renderCanonicalExpansion() {
-  const expanded = expandCanonicalRange(state.canonicalStart, state.canonicalEnd);
-  const bandStart = canonicalBands.findIndex(band => band.id === state.canonicalStart);
-  const bandEnd = canonicalBands.findIndex(band => band.id === state.canonicalEnd);
-  const bands = canonicalBands.slice(Math.min(bandStart, bandEnd), Math.max(bandStart, bandEnd) + 1).map(band => band.id).join(' → ');
-  const visualTicks = expanded.filter(sigma => sigma <= 19);
-  state.zoomTicks = state.implementation === 'canonical-i-v'
-    ? canonicalBands.slice(Math.min(bandStart, bandEnd), Math.max(bandStart, bandEnd) + 1).map(band => Math.min(19, band.oom[0]))
-    : visualTicks;
-  canonicalReadout.textContent = `${bands} / OOM ${visualTicks.join(' → ')}${expanded.includes(20) ? ' / FORMAL COSMIC WEB σ20' : ''}`;
+  const entries = modelEntries('canonical-5');
+  const start = entries.findIndex(entry => entry.levelId === state.canonicalStart);
+  const end = entries.findIndex(entry => entry.levelId === state.canonicalEnd);
+  const lower = Math.min(start, end);
+  const upper = Math.max(start, end);
+  const selected = entries.slice(lower, upper + 1);
+  canonicalReadout.textContent = selected.map(entry => levelsById.get(entry.levelId)?.label ?? entry.levelId).join(' → ');
+  if (state.implementation === 'canonical-5' && selected.length) {
+    state.levelId = selected[0].levelId;
+    state.scale = levelSigma(state.levelId);
+  }
 }
 
 function addLedgerLine(container, key, value) {
@@ -1200,6 +1417,58 @@ function addLedgerLine(container, key, value) {
   container.append(line);
 }
 
+function addLedgerSources(container, key, sources) {
+  const line = document.createElement('p');
+  if (key) {
+    const label = document.createElement('span');
+    label.className = 'cheat-ledger-key';
+    label.textContent = `${key}: `;
+    line.append(label);
+  }
+  if (!sources?.length) line.append('No resolved public source yet');
+  else {
+    sources.forEach((source, index) => {
+      if (index) line.append(' | ');
+      appendSourceLink(line, source);
+    });
+  }
+  container.append(line);
+}
+
+function developerRepoPaths(level, edge) {
+  const paths = [
+    ...(level.resolved_sources ?? []).map(source => source.repo_path).filter(Boolean),
+    ...(level.resolved_media ?? []).map(source => source.repo_path).filter(Boolean),
+  ];
+  if (edge?.resolved_source?.repo_path) paths.push(edge.resolved_source.repo_path);
+  return [...new Set(paths)];
+}
+
+function renderLibrary(level) {
+  libraryTitle.textContent = level.label;
+  libraryList.replaceChildren();
+  const groups = [
+    { title: 'Papers', items: level.resolved_sources ?? [] },
+    { title: 'Atlas and media', items: level.resolved_media ?? [] },
+    { title: 'Related books and collections', items: level.related_collections ?? [] },
+  ];
+  for (const group of groups) {
+    const section = document.createElement('section');
+    section.className = 'library-group';
+    const heading = document.createElement('h3');
+    heading.textContent = group.title;
+    const list = document.createElement('ul');
+    const items = group.items.length ? group.items : [{ title: 'No resolved document yet', url: sourceResolver.unpublished_base_url, publication_label: 'not yet published' }];
+    for (const source of items) {
+      const item = document.createElement('li');
+      appendSourceLink(item, source);
+      list.append(item);
+    }
+    section.append(heading, list);
+    libraryList.append(section);
+  }
+}
+
 function renderCheatSheetLedger(sheet, edge) {
   cheatSheetLedger.replaceChildren();
   const selected = cheatSheetSections.filter(section => state.displaySections.has(section.id));
@@ -1210,54 +1479,44 @@ function renderCheatSheetLedger(sheet, edge) {
     heading.textContent = section.label;
     block.append(heading);
     if (section.id === 'identity') {
-      addLedgerLine(block, 'SCALE', `SIGMA ${String(sheet.sigma).padStart(2, '0')} / ${sheet.identity.label}`);
-      addLedgerLine(block, 'SECTOR', sheet.identity.sector);
-      addLedgerLine(block, 'SUBSTRATE', sheet.identity.substrate);
-      addLedgerLine(block, 'LENGTH', sheet.identity.length);
-      addLedgerLine(block, 'SYSTEM', sheet.identity.partonomy.label);
-      addLedgerLine(block, 'PARTS', sheet.identity.partonomy.parts.join('; '));
-      addLedgerLine(block, 'RELATIONS', sheet.identity.partonomy.relations.join('; '));
-      addLedgerLine(block, 'WHOLE', sheet.identity.partonomy.aggregation);
+      addLedgerLine(block, 'LEVEL', `${sheet.id} / ${sheet.label}`);
+      addLedgerLine(block, 'MODEL POSITION', `${activeModel().label} / ${state.scale}`);
+      addLedgerLine(block, 'SECTOR', sheet.sector);
+      addLedgerLine(block, 'SUBSTRATE', sheet.substrate);
+      addLedgerLine(block, 'LENGTH', sheet.length_scale);
     } else if (section.id === 'physics') {
-      addLedgerLine(block, 'IMPORTANT', sheet.physics.important);
-      addLedgerLine(block, 'EQUATION', sheet.physics.equation);
-      addLedgerLine(block, 'FIELD', sheet.physics.field);
-      addLedgerLine(block, 'TIME', sheet.physics.time);
-      addLedgerLine(block, 'OBSERVABLE', sheet.physics.observable);
+      addLedgerLine(block, 'PHYSICAL', sheet.atlas_rows?.physical ?? sheet.substrate);
+      addLedgerLine(block, 'EQUATION', sheet.equation);
+      addLedgerLine(block, 'FIELD', sheet.field);
     } else if (section.id === 'response') {
-      addLedgerLine(block, 'POKE', sheet.response.description);
-      addLedgerLine(block, 'KERNEL', sheet.response.topology);
-      addLedgerLine(block, 'MODE', sheet.response.poke);
-      addLedgerLine(block, 'EXPECT', sheet.response.expected);
+      addLedgerLine(block, 'EXPLANATION', levelExplanation(sheet, state.reader).text);
+      addLedgerLine(block, 'REGISTER', state.reader.toUpperCase());
+      if (levelExplanation(sheet, state.reader).draft) addLedgerLine(block, 'STATUS', 'DRAFT');
     } else if (section.id === 'morphism') {
       if (edge) {
-        addLedgerLine(block, 'EDGE', `${edge.label} / SIGMA ${edge.from} -> ${edge.to}`);
+        addLedgerLine(block, 'EDGE', `${edge.label} / ${edge.from} -> ${edge.to}`);
         addLedgerLine(block, 'PRESERVE', edge.preserves.join('; '));
         addLedgerLine(block, 'ADD', edge.adds.join('; '));
-        addLedgerLine(block, 'INTEGRATE OUT', edge.integratesOut.join('; '));
+        addLedgerLine(block, 'INTEGRATE OUT', edge.integrates_out?.join('; ') ?? '');
         addLedgerLine(block, 'KERNEL', edge.kernel);
-        addLedgerLine(block, 'ACTION', edge.action);
-        addLedgerLine(block, 'PART OPERATION', edge.partonomy.operation);
-        addLedgerLine(block, 'PART PRESERVE', edge.partonomy.preserves.join('; '));
-        addLedgerLine(block, 'PART RETYPE', edge.partonomy.retypes.join('; '));
-        addLedgerLine(block, 'RENDER', edge.partonomy.render);
+        addLedgerLine(block, 'RENDER', edge.render_operation);
+        if (edge.resolved_source) addLedgerSources(block, 'SOURCE', [edge.resolved_source]);
       } else addLedgerLine(block, 'PATH', 'Move the scale dial to a path edge to inspect its typed morphism.');
     } else if (section.id === 'evidence') {
-      addLedgerLine(block, 'CLAIMS', Object.entries(sheet.evidence.claims).map(([level, claim]) => `${level.toUpperCase()} ${claim}`).join(' / '));
-      addLedgerLine(block, 'SOURCE', sheet.evidence.source);
-      addLedgerLine(block, 'PAPERS', `${sheet.evidence.papers.join(', ')} / ${'Dist/PAPERS.yaml'}`);
+      addLedgerLine(block, 'CLAIMS', Object.entries(sheet.claims ?? {}).map(([level, claim]) => `${level.toUpperCase()} ${claim}`).join(' / '));
+      addLedgerSources(block, 'SOURCES', sheet.resolved_sources);
+      if (state.developerSources) {
+        for (const repoPath of developerRepoPaths(sheet, edge)) addLedgerLine(block, 'REPO PATH', repoPath);
+      }
     } else if (section.id === 'interpretation') {
-      addLedgerLine(block, 'STATUS', `${sheet.interpretation.claim} / ${sheet.interpretation.enabled ? 'AVAILABLE' : 'BIOLOGICAL READING'}`);
-      addLedgerLine(block, 'CONTOUR', sheet.interpretation.description);
-      if (sheet.interpretation.enabled) addLedgerLine(block, 'TERMS', sheet.interpretation.terms.join(', '));
+      addLedgerLine(block, 'MIND CLAIM', sheet.claims?.mind ?? 'INTERPRETIVE');
+      addLedgerLine(block, 'CONTOUR', sheet.atlas_rows?.mind ?? 'Interpretive layer unavailable.');
     } else if (section.id === 'operate') {
-      addLedgerLine(block, 'CONTROLS', sheet.operate.controls.join(', ').toUpperCase());
-      addLedgerLine(block, 'SCOPE', sheet.operate.humanOnly ? 'Human-route extensions available.' : 'Typed substrate controls only.');
+      addLedgerLine(block, 'CONTROLS', organismLevelIds.has(sheet.id) ? 'SOMATIC, LIMBIC, COGNITIVE, BRECVEMA, THOUGHT SPARKS' : 'ZOOM, RESPONSE TIME, POKE');
+      addLedgerLine(block, 'SCOPE', organismLevelIds.has(sheet.id) ? 'Organism renderer available.' : 'Typed substrate renderer or placeholder only.');
     } else if (section.id === 'renderer') {
-      addLedgerLine(block, '4D', `${sheet.renderer.physical.topology} / ${sheet.renderer.physical.claim}`);
-      addLedgerLine(block, '8D', `${sheet.renderer.response.topology} / ${sheet.renderer.response.claim}`);
-      addLedgerLine(block, '11D', `${sheet.renderer.integration.topology} / ${sheet.renderer.integration.claim}`);
-      addLedgerLine(block, 'STATUS', `${sheet.renderer.status.status} / ${sheet.renderer.status.next}`);
+      addLedgerLine(block, 'ID', sheet.renderer?.id ?? 'placeholder');
+      addLedgerLine(block, 'STATUS', registryCoverage.available_renderer_ids.includes(sheet.renderer?.id) ? 'IMPLEMENTED' : 'PLACEHOLDER');
     }
     cheatSheetLedger.append(block);
   }
@@ -1329,7 +1588,8 @@ function selectMechanism(id) {
   renderMechanismSelection();
 }
 function activeZoom() {
-  return { scales: state.zoomTicks, label: state.implementation === 'canonical-i-v' ? 'I-V CANONICAL' : '0-20 OOM EXPANDED' };
+  const entries = modelEntries(state.implementation);
+  return { entries, scales: entries.map(entry => entry.levelId), label: activeModel().label.toUpperCase() };
 }
 
 function activeDimensionLevel() {
@@ -1337,14 +1597,14 @@ function activeDimensionLevel() {
 }
 
 function baselineEquation(plate) {
-  if (plate.sigma === 8) return '4D physiology, acoustics, motion, and measured nervous-system observables';
-  if (plate.sigma === 7) return '(nabla^2 + k_brain^2)G = delta';
+  if (plate.id === 'human-vertebrate') return '4D physiology, acoustics, motion, and measured nervous-system observables';
+  if (plate.id === 'whole-brain-cemi') return '(\\nabla^2+k_{\\mathrm{brain}}^2)G=\\delta';
   return plate.equation;
 }
 
 function baselineField(plate) {
-  if (plate.sigma === 8) return 'ordinary physiological observables';
-  if (plate.sigma === 7) return 'neural tissue and measured EM activity';
+  if (plate.id === 'human-vertebrate') return 'ordinary physiological observables';
+  if (plate.id === 'whole-brain-cemi') return 'neural tissue and measured EM activity';
   return plate.field;
 }
 
@@ -1376,9 +1636,11 @@ function equationToLatex(equation) {
 
 function hashForState() {
   const params = new URLSearchParams();
-  params.set('level', String(state.scale));
+  params.set('level', state.levelId);
   params.set('path', state.route);
   params.set('lens', state.tTheory ? 'on' : 'off');
+  params.set('model', state.implementation);
+  params.set('reader', state.reader);
   return `#${params.toString()}`;
 }
 
@@ -1396,6 +1658,7 @@ function syncTTheoryUI() {
   fieldNote.textContent = state.tTheory
     ? 'M4: BODY / P3: PROPAGATOR + EMF / L1: LIMBIC / C3: CORTEX + MIND'
     : 'PHYSICS BASELINE: 4D BODY / BRAIN / NERVES ONLY';
+  headerEyebrow.textContent = state.tTheory ? '[T] / SOMA MACHINE' : 'SOMA MACHINE / PHYSICS BASELINE';
   if (!state.tTheory && state.brecvema) {
     state.brecvema = false;
     brecvemaInspector.hidden = true;
@@ -1407,7 +1670,7 @@ function syncTTheoryUI() {
 
 function syncScaleControl() {
   const zoom = activeZoom();
-  const position = Math.max(0, zoom.scales.indexOf(state.scale));
+  const position = activeModelIndex();
   scaleInput.min = '0';
   scaleInput.max = String(zoom.scales.length - 1);
   scaleInput.value = String(position);
@@ -1419,9 +1682,9 @@ function syncScaleControl() {
 
 function syncTransportPosition() {
   const zoom = activeZoom();
-  const exactIndex = zoom.scales.indexOf(state.scale);
+  const exactIndex = zoom.scales.indexOf(state.levelId);
   if (exactIndex >= 0) state.transport.position = exactIndex;
-  else state.transport.position = zoom.scales.reduce((closest, sigma, index) => Math.abs(sigma - state.scale) < Math.abs(zoom.scales[closest] - state.scale) ? index : closest, 0);
+  else state.transport.position = activeModelIndex();
   pathBack.disabled = state.transport.position === 0;
   pathNext.disabled = state.transport.position === zoom.scales.length - 1;
   pathTransportReadout.textContent = `${state.transport.playing ? 'PLAYING' : 'STOPPED'} / ${state.transport.bpm} BPM / ${zoom.label} STEP ${state.transport.position + 1} OF ${zoom.scales.length}`;
@@ -1432,8 +1695,9 @@ function setPathStep(position) {
   const clamped = Math.max(0, Math.min(zoom.scales.length - 1, position));
   const previousScale = state.scale;
   state.transport.position = clamped;
-  state.scale = zoom.scales[clamped];
-  if (state.implementation === 'canonical-i-v' && state.scale < 7 && state.level === 11) state.level = 4;
+  state.levelId = zoom.scales[clamped];
+  state.scale = levelSigma(state.levelId);
+  if (state.scale < 7 && state.level === 11) state.level = 4;
   if (state.scale !== previousScale) {
     starflight.active = 1;
     starflight.direction = state.scale > previousScale ? 1 : -1;
@@ -1444,7 +1708,7 @@ function setPathStep(position) {
 }
 
 function advancePath(direction) {
-  const currentPosition = Math.max(0, activeZoom().scales.indexOf(state.scale));
+  const currentPosition = activeModelIndex();
   setPathStep(currentPosition + direction);
 }
 
@@ -1457,55 +1721,58 @@ function toggleTransport() {
   syncTransportPosition();
 }
 function updateScaleReadout() {
-  const plate = getPlate(state.scale);
+  const plate = activeLevel();
+  state.scale = levelSigma(plate.id);
   const displayLevel = activeDimensionLevel();
   const isHuman = displayLevel === 11;
   const isFeeling = displayLevel === 8;
   const isPhysical = displayLevel === 4;
-  const humanScale = state.scale === 7 || state.scale === 8;
-  const primaryReading = isPhysical ? plate.physical : isFeeling ? plate.response : plate.integration;
+  const humanScale = organismLevelIds.has(plate.id);
+  const explanation = levelExplanation(plate, state.reader);
+  const physicalReading = plate.atlas_rows?.physical ?? plate.substrate;
+  const responseReading = explanation.text;
+  const integrationReading = explanation.text;
+  const primaryReading = isPhysical ? physicalReading : isFeeling ? responseReading : integrationReading;
   const activeLensLabels = state.tTheory ? lenses.filter(lens => state.lenses.has(lens.id)).map(lens => lens.label) : ['PHYSICS BASELINE'];
-  const mirrorReading = plate.mirror.enabled ? `Mirror contour available: ${plate.mirror.terms.join(', ')}.` : 'Mirror contour is not enabled for this biological reading.';
-  const reading = state.tTheory ? [primaryReading, state.lenses.has('mirror') ? mirrorReading : ''].filter(Boolean).join(' ') : plate.physical;
-  const badge = isPhysical ? plate.claim.physical : isFeeling ? plate.claim.response : plate.claim.integration;
+  const mirrorReading = plate.claims?.mind === 'INTERPRETIVE' ? 'Interpretive contour available with claim boundary.' : '';
+  const reading = state.tTheory ? [primaryReading, state.lenses.has('mirror') ? mirrorReading : '', explanation.draft ? 'DRAFT.' : ''].filter(Boolean).join(' ') : physicalReading;
+  const badge = (isPhysical ? plate.claims?.physical : isFeeling ? plate.claims?.field : plate.claims?.mind) ?? badgeForLevel(plate);
   const route = getScalePath(state.route);
-  const edge = route.edges.map(getPathEdge).find(candidate => candidate?.from === state.scale)
-    ?? route.edges.map(getPathEdge).find(candidate => candidate?.to === state.scale);
-  const sheet = getScaleCheatSheet(state.scale);
-  const canonicalBand = state.implementation === 'canonical-i-v'
-    ? canonicalBands.find(band => band.oom[0] === state.scale)
-    : null;
-  scaleReadout.textContent = canonicalBand
-    ? `${canonicalBand.id} / ${canonicalBand.label.split('/ ')[1]} / σ ${canonicalBand.oom[0]}–${canonicalBand.oom[1]}`
-    : `SIGMA ${String(state.scale).padStart(2, '0')} / ${plate.label}`;
+  const edge = pathEdgesFor(route).find(candidate => candidate?.from === plate.id)
+    ?? pathEdgesFor(route).find(candidate => candidate?.to === plate.id);
+  const modelEntry = modelEntries(state.implementation).find(entry => entry.levelId === plate.id);
+  scaleReadout.textContent = `${modelEntry?.coordinateLabel ?? state.scale} / ${plate.label}`;
   projectionReadout.textContent = state.tTheory
     ? `${displayLevel}D / ${activeLensLabels.join(' + ')} / ${plate.substrate.toUpperCase()}`
     : `PHYSICS BASELINE / 4D / ${plate.substrate.toUpperCase()}`;
   equationTitle.textContent = state.tTheory ? `${activeLensLabels.join(' + ')} / ${plate.label}` : `PHYSICS BASELINE / ${plate.label}`;
-  equationPrimary.textContent = state.tTheory ? plate.equation : baselineEquation(plate);
-  equationSecondary.textContent = isPhysical ? plate.physical : isFeeling ? plate.response : plate.integration;
+  equationPrimary.replaceChildren();
+  const primaryEquation = state.tTheory ? plate.equation : baselineEquation(plate);
+  if (globalThis.katex && primaryEquation.includes('\\')) globalThis.katex.render(primaryEquation, equationPrimary, { throwOnError: false });
+  else equationPrimary.textContent = primaryEquation;
+  equationSecondary.textContent = primaryReading;
   dimensionReadout.textContent = isHuman ? 'M4 + P3 + L1 + C3 = 11D' : isFeeling ? 'M4 + P3 + L1 = 8D' : 'M4 = 4D / PHYSICS BASELINE';
   wavenumberReadout.textContent = state.tTheory ? plate.field : baselineField(plate);
-  lengthReadout.textContent = plate.length;
+  lengthReadout.textContent = plate.length_scale;
   rankReadout.textContent = humanScale ? 'human-scale eligible' : 'typed substrate reading';
-  timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / ${plate.time.toUpperCase()}`;
+  timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / ${plate.length_scale.toUpperCase()}`;
   typeStatus.textContent = state.tTheory
     ? `${badge} / ${humanScale ? 'HUMAN-SCALE VOCABULARY AVAILABLE' : 'RETYPE VARIABLES FOR SELECTED SUBSTRATE'}`
     : `${badge} / PHYSICS BASELINE ACTIVE`;
   typeStatus.classList.toggle('error', state.tTheory && !isHuman && state.brecvema);
   pathReadout.textContent = route.id === 'full-atlas'
-    ? 'DEFAULT PATH / 0 QUANTUM FOAM -> 19 OBSERVABLE UNIVERSE'
+    ? 'DEFAULT PATH / QUANTUM FOAM -> OBSERVABLE UNIVERSE'
     : `PATH / ${route.purpose}`;
   pathEdgeReadout.textContent = edge
-    ? `MORPHISM / ${edge.label} / SIGMA ${edge.from} -> ${edge.to} / ${edge.claim}`
+    ? `MORPHISM / ${edge.label} / ${edge.from} -> ${edge.to} / ${edge.claim}`
     : 'PATH EDGE / MOVE THE SCALE DIAL TO A CONNECTED TRANSITION TO INSPECT ITS MORPHISM';
   syncTransportPosition();
   for (const control of lensControls) {
     if (control.id === 'lens-mirror') {
-      control.disabled = !plate.mirror.enabled;
-      if (!plate.mirror.enabled || !state.tTheory) state.lenses.delete('mirror');
+      control.disabled = plate.claims?.mind !== 'INTERPRETIVE';
+      if (plate.claims?.mind !== 'INTERPRETIVE' || !state.tTheory) state.lenses.delete('mirror');
     }
-    control.disabled = !state.tTheory || (control.id === 'lens-mirror' && !plate.mirror.enabled);
+    control.disabled = !state.tTheory || (control.id === 'lens-mirror' && plate.claims?.mind !== 'INTERPRETIVE');
     control.checked = state.lenses.has(control.id.replace('lens-', ''));
   }
   brecvemaButton.disabled = !humanScale || !state.tTheory;
@@ -1513,7 +1780,7 @@ function updateScaleReadout() {
   bodyMapPanel.hidden = !humanScale || !state.tTheory;
   thoughtSparksPanel.hidden = !humanScale || !state.tTheory;
   brecvemaButton.title = humanScale && state.tTheory ? 'Open the human music-affect mechanism lens' : 'BRECVEMA is available at the human biological scales only when T-Theory is on';
-  const quantumCanonical = state.implementation === 'canonical-i-v' && state.scale < 7;
+  const quantumCanonical = state.scale < 7;
   for (const button of hierarchyButtons) {
     const isElevenDimensional = Number(button.dataset.level) === 11;
     button.disabled = (!state.tTheory && Number(button.dataset.level) !== 4) || (quantumCanonical && isElevenDimensional);
@@ -1521,33 +1788,31 @@ function updateScaleReadout() {
   }
   equationKicker.textContent = state.tTheory ? 'DEPENDENT-TYPE MORPHISM INTERFACE' : 'PHYSICS BASELINE';
   wallTitle.textContent = state.tTheory
-    ? (canonicalBand ? `${canonicalBand.id} / ${canonicalBand.label.split('/ ')[1]}` : `${displayLevel}D / ${plate.label}`)
+    ? `${displayLevel}D / ${plate.label}`
     : `PHYSICS BASELINE / ${plate.label}`;
   wallArchitecture.dataset.tex = isHuman ? '\\mathcal{M}_{11}=M_4\\times P_3\\times L_1\\times C_3' : isFeeling ? '\\mathcal{M}_8=M_4\\times P_3\\times L_1' : '\\mathcal{M}_4';
-  wallState.dataset.tex = canonicalBand
-    ? `\\sigma\\in[${canonicalBand.oom[0]},${canonicalBand.oom[1]}]`
-    : '\\mathrm{Substrate}(\\sigma)=\\text{' + plate.substrate.replace(/ /g, '\\;') + '}';
+  wallState.dataset.tex = '\\mathrm{Substrate}=\\text{' + plate.substrate.replace(/ /g, '\\;') + '}';
   wallDynamics.dataset.tex = !state.tTheory
     ? equationToLatex(baselineEquation(plate))
-    : canonicalBand
-    ? `\\mathcal F_{${canonicalBand.id}}=\\bigoplus_{\\sigma=${canonicalBand.oom[0]}}^{${canonicalBand.oom[1]}}[(\\nabla_\\sigma^2+k_\\sigma^2)G_\\sigma=\\delta_\\sigma]`
-    : equationToLatex(plate.equation);
-  wallLevelLaw.dataset.tex = canonicalBand
-    ? `\\text{${canonicalBand.change.replace(/ /g, '\\;')}}`
-    : isFeeling ? 'G_R\\ast J\\;\\Rightarrow\\;\\text{causal response}' : isHuman ? '\\operatorname{Spec}(X)=\\text{integrated organization}' : '\\text{physics baseline at selected scale}';
-  wallDimensions.textContent = `SOURCE: ${plate.source}`;
+    : plate.equation;
+  wallLevelLaw.dataset.tex = isFeeling ? 'G_R\\ast J\\;\\Rightarrow\\;\\text{causal response}' : isHuman ? '\\operatorname{Spec}(X)=\\text{integrated organization}' : '\\text{physics baseline at selected scale}';
+  wallDimensions.replaceChildren();
+  wallDimensions.append('SOURCE: ');
+  if (plate.resolved_sources?.[0]) appendSourceLink(wallDimensions, plate.resolved_sources[0]);
+  else wallDimensions.append('not yet published');
   wallStatus.textContent = `${badge} / ${reading}`;
   cheatSheetBadge.textContent = badge;
   cheatSheetBadge.classList.toggle('sourced', badge === 'SOURCED');
   cheatSheetTitle.textContent = `${displayLevel}D ${plate.label}`;
   cheatSheetSummary.textContent = reading;
-  cheatSheetSource.textContent = plate.source;
-  visualTodo.textContent = `${plate.visual.status} / ${plate.visual.next}`;
+  cheatSheetSource.textContent = `SOURCES / ${sourceSummary(plate.resolved_sources)}`;
+  visualTodo.textContent = `${plate.renderer?.id ?? 'placeholder'} / ${registryCoverage.available_renderer_ids.includes(plate.renderer?.id) ? 'IMPLEMENTED' : 'PLACEHOLDER RENDERER'}`;
   for (const [id, input] of sectionToggles) input.checked = state.displaySections.has(id);
   const matchingPreset = displayPresets.find(preset => preset.sections.length === state.displaySections.size
     && preset.sections.every(id => state.displaySections.has(id)));
   displayPreset.value = matchingPreset?.id ?? 'custom';
-  renderCheatSheetLedger(sheet, edge);
+  renderCheatSheetLedger(plate, edge);
+  renderLibrary(plate);
   renderWallMath();
   syncTTheoryUI();
   writeHashState();
@@ -1562,12 +1827,13 @@ routeSelect.addEventListener('change', () => {
 });
 implementationSelect.addEventListener('change', () => {
   state.implementation = implementationSelect.value;
-  state.route = getUSFModel(state.implementation).route;
-  state.zoomTicks = state.implementation === 'canonical-i-v'
-    ? canonicalBands.map(band => band.oom[0])
-    : Array.from({ length: 20 }, (_, sigma) => sigma);
-  state.scale = state.zoomTicks[0];
-  if (state.implementation === 'canonical-i-v') state.level = 4;
+  state.route = defaultPathForModel(state.implementation);
+  const firstEntry = modelEntries(state.implementation)[0];
+  if (firstEntry) {
+    state.levelId = firstEntry.levelId;
+    state.scale = levelSigma(state.levelId);
+  }
+  if (state.implementation === 'canonical-5') state.level = 4;
   syncScaleControl();
   renderZoomEquation();
   updateScaleReadout();
@@ -1589,8 +1855,8 @@ canonicalExpand.addEventListener('click', () => {
   state.canonicalStart = canonicalStart.value;
   state.canonicalEnd = canonicalEnd.value;
   renderCanonicalExpansion();
-  state.scale = state.zoomTicks[0];
-  scaleInput.value = String(state.scale);
+  state.scale = levelSigma(state.levelId);
+  scaleInput.value = String(activeModelIndex());
   updateScaleReadout();
 });
 pathBack.addEventListener('click', () => advancePath(-1));
@@ -1612,6 +1878,27 @@ displayPreset.addEventListener('change', () => {
   const preset = displayPresets.find(candidate => candidate.id === displayPreset.value);
   state.displaySections = new Set(preset.sections);
   persistDisplaySections();
+  updateScaleReadout();
+});
+readerRegisterSelect.addEventListener('change', () => {
+  state.reader = readerRegisterSelect.value;
+  try {
+    localStorage.setItem('usm-reader-register', state.reader);
+  } catch {
+    // localStorage can be unavailable in strict browser modes.
+  }
+  updateScaleReadout();
+  renderZoomEquation();
+});
+libraryToggle.addEventListener('click', () => {
+  state.libraryOpen = !state.libraryOpen;
+  libraryPanel.hidden = !state.libraryOpen;
+  libraryToggle.classList.toggle('active', state.libraryOpen);
+  libraryToggle.setAttribute('aria-pressed', String(state.libraryOpen));
+  if (state.libraryOpen) renderLibrary(activeLevel());
+});
+developerSourcesInput.addEventListener('change', () => {
+  state.developerSources = developerSourcesInput.checked;
   updateScaleReadout();
 });
 for (const control of lensControls) control.addEventListener('change', () => {
@@ -1731,11 +2018,25 @@ function renderScene() {
 }
 
 function rendererState() {
+  const level = activeLevel();
+  const rendererId = thoughtSparkLevelIds.has(level.id)
+    ? 'thought-sparks'
+    : level.renderer?.id ?? 'placeholder';
   return {
     ...state,
+    activeLevelId: level.id,
     level: activeDimensionLevel(),
-    rendererId: state.scale === 0 ? 'quantum-foam' : state.scale === 7 || state.scale === 8 ? 'thought-sparks' : null,
+    rendererId,
   };
+}
+
+function updateRegistryRenderer(renderState, time, pulse) {
+  const rendererId = renderState.rendererId;
+  if (!rendererInstances.has(rendererId)) rendererInstances.set(rendererId, get(rendererId).create(scene, THREE));
+  for (const [id, instance] of rendererInstances) {
+    if (id === rendererId) instance.update(renderState, time, pulse);
+    else instance.update({ ...renderState, rendererId: null }, time, pulse);
+  }
 }
 
 function frame() {
@@ -1763,9 +2064,10 @@ function frame() {
   backgroundMaterial.uniforms.uScale.value = state.visualScale;
   const displayLevel = activeDimensionLevel();
   const tTheoryLayerOn = state.tTheory;
-  const quantumMode = state.implementation === 'canonical-i-v' && state.scale === 0 && displayLevel === 4;
+  const currentLevel = activeLevel();
+  const quantumMode = currentLevel.id === 'quantum-foam' && displayLevel === 4;
   backgroundMaterial.uniforms.uLevel.value = displayLevel;
-  backgroundMaterial.uniforms.uPath.value = state.implementation === 'canonical-i-v' ? 1 : state.route === 'animal-to-flock' ? 2 : state.route === 'animal-to-church' ? 3 : 0;
+  backgroundMaterial.uniforms.uPath.value = state.implementation === 'canonical-5' ? 1 : state.route === 'animal-to-flock' ? 2 : state.route === 'animal-to-church' ? 3 : 0;
   const profile = fractalProfiles[Math.min(fractalProfiles.length - 1, Math.floor(state.visualScale / 2))];
   backgroundMaterial.uniforms.uPower.value = profile.power;
   backgroundMaterial.uniforms.uFold.value = profile.fold;
@@ -1780,12 +2082,10 @@ function frame() {
   root.rotation.y = displayLevel === 4 ? 0 : Math.sin(time * 0.18) * 0.24;
   root.rotation.x = displayLevel === 4 ? 0 : Math.sin(time * 0.13) * 0.035;
   const scaleFraction = state.visualScale / 19;
-  const humanSceneWeight = state.implementation === 'canonical-i-v'
-    ? Math.max(0, 1 - Math.abs(state.visualScale - 7) / 2)
-    : state.visualScale <= 8 ? 1 : Math.max(0, 1 - (state.visualScale - 8) * 2);
+  const humanSceneWeight = organismLevelIds.has(currentLevel.id) ? 1 : 0;
   const morphologyWeight = quantumMode ? 0 : 1 - humanSceneWeight;
-  const cellularCanonical = state.implementation === 'canonical-i-v' && state.scale === 4;
-  const astralCanonical = state.implementation === 'canonical-i-v' && (state.scale === 10 || state.scale === 14);
+  const cellularCanonical = currentLevel.id === 'cellular-synaptic';
+  const astralCanonical = currentLevel.id === 'stellar' || currentLevel.id === 'species-stellar';
   const fromSigma = Math.floor(state.visualScale);
   const toSigma = Math.min(19, fromSigma + 1);
   const morphologyMix = state.visualScale - fromSigma;
@@ -1802,8 +2102,10 @@ function frame() {
   scaleField.rotation.y = time * 0.06 + state.visualScale * 0.13;
   scaleField.rotation.z = Math.sin(time * 0.13) * 0.08;
   const renderState = rendererState();
-  quantumFoam.update(renderState, time, responsePulse);
-  thoughtSparks.update(renderState, time, responsePulse);
+  quantumFoam.update({ ...renderState, rendererId: renderState.rendererId === 'quantum-foam' ? 'quantum-foam' : null }, time, responsePulse);
+  thoughtSparks.update({ ...renderState, rendererId: renderState.rendererId === 'thought-sparks' ? 'thought-sparks' : null }, time, responsePulse);
+  if (!['quantum-foam', 'thought-sparks'].includes(renderState.rendererId)) updateRegistryRenderer(renderState, time, responsePulse);
+  else for (const instance of rendererInstances.values()) instance.update({ ...renderState, rendererId: null }, time, responsePulse);
   updateCellularDensityLayer(time, responsePulse);
   updateCellularField(time, responsePulse);
   updateAstralFields(time, responsePulse);
@@ -1817,7 +2119,7 @@ function frame() {
   root.scale.setScalar(0.72);
   root.position.y = -0.1;
   brecvemaLayer.rotation.y = time * 0.16;
-  const humanScale = state.scale === 7 || state.scale === 8;
+  const humanScale = organismLevelIds.has(currentLevel.id);
   brecvemaLayer.visible = tTheoryLayerOn && state.brecvema && humanScale && displayLevel === 11 && humanSceneWeight > 0.01;
   for (const channel of mechanismChannels) {
     const selected = state.selectedMechanisms.has(channel.id);
@@ -1870,7 +2172,7 @@ function frame() {
     line.material.opacity = (0.25 + state.somatic * 0.5) * physicalWeight;
     line.material.color.copy(displayLevel === 4 ? physicalGrey : cyan);
   }
-  if (state.impulse) timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / RESPONSE DECAY ${getPlate(state.scale).time.toUpperCase()}`;
+  if (state.impulse) timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / RESPONSE DECAY ${activeLevel().length_scale.toUpperCase()}`;
   renderScene();
   requestAnimationFrame(frame);
 }

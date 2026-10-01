@@ -4,19 +4,23 @@ sector: micro-physical
 length_scale: 10^-10 m
 substrate: electron cloud and atomic orbital
 field: electromagnetic response
-equation: G_C(r)=1/(4 pi r)
+equation: G_C(r)=\frac{1}{4\pi r}
 explain:
   cookie:
-    text: 'Draft: Atomic is what answers when this kind of thing is poked.'
+    text: An atom is like a tiny centre with an electron cloud around it. The equation describes how an electric poke would
+      spread around that cloud.
     draft: true
-  general: 'Atomic: electromagnetic response over electron cloud and atomic orbital.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=ATOMIC sigma 3; atlas=implicit between
-    Scale 2 and Scale 4; operator=03 / ATOMIC.'
+  general: The atomic level treats the atom as a nucleus with an electron cloud. A poke is an electromagnetic disturbance
+    whose response follows the orbital field.
+  specialist: The substrate is the atomic orbital system between the nuclear and molecular Wave Atlas plates. The operator
+    is a Coulomb Green kernel for electromagnetic response at roughly angstrom length scales. The propagator describes how
+    a charge perturbation is felt across the electron cloud. The physics is sourced by the broader zUSF/field-theory papers;
+    the information row is an interpretive description of orbital-state structure.
 atlas_rows:
-  physical: electron cloud and atomic orbital
-  field: electromagnetic response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: G_C(r)=1/(4 pi r)
+  physical: Electron clouds and atomic orbitals around a nucleus.
+  field: Electromagnetic Coulomb response of an orbital-scale charge distribution.
+  mind: Orbital state information is treated as configuration bookkeeping only; no mental property is implied.
+  equation_setting: G_C(r)=\frac{1}{4\pi r}
 claims:
   physical: SOURCED
   field: SOURCED

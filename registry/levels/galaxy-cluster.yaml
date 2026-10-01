@@ -4,19 +4,22 @@ sector: cosmological
 length_scale: 10^23 m
 substrate: galaxy cluster
 field: BAO / cosmological perturbation kernel
-equation: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_17=delta^(4)
+equation: (\partial_\eta^2+2\mathcal H\partial_\eta-c_s^2\nabla^2)G_{17}=\delta^{(4)}
 explain:
   cookie:
-    text: TODO
+    text: A galaxy cluster is many galaxies held together by gravity. This level follows large shared motions in that cluster.
     draft: true
-  general: 'Galaxy Cluster: BAO / cosmological perturbation kernel over galaxy cluster.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=compare STELLAR / CLUSTER; atlas=not
-    separately plated; operator=17 / CLUSTER.'
+  general: A galaxy cluster is many galaxies held by a shared gravitational field. The model tracks large motions and disturbances
+    in that field.
+  specialist: The substrate is a universal-catalogue cluster tick between galactic halo and cosmic filaments. The displayed
+    cosmological perturbation operator represents large-scale response in conformal time with expansion damping. The propagator
+    means that density or metric disturbances evolve under gravity, pressure, and background expansion. Physical use is sourced
+    in the universal/cosmology papers; memory language is interpretive structure history.
 atlas_rows:
-  physical: galaxy cluster
-  field: BAO / cosmological perturbation kernel
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: (partial_eta^2+2H partial_eta-c_s^2 nabla^2)G_17=delta^(4)
+  physical: Multiple galaxies, intracluster gas, dark matter, and large gravitational potential wells.
+  field: Cluster-scale gravitational and acoustic/metric perturbation response.
+  mind: Cluster memory is mass distribution, merger history, and mode structure, not awareness.
+  equation_setting: (\partial_\eta^2+2\mathcal H\partial_\eta-c_s^2\nabla^2)G_{17}=\delta^{(4)}
 claims:
   physical: SOURCED
   field: SOURCED

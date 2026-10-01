@@ -4,19 +4,23 @@ sector: cosmological
 length_scale: 10^20 m
 substrate: galaxy, gas, stars, and halo
 field: gravitational potential and density wave
-equation: nabla^2 Phi = 4 pi G rho
+equation: \nabla^2\Phi=4\pi G\rho
 explain:
   cookie:
-    text: 'Draft: Galactic Disc is what answers when this kind of thing is poked.'
+    text: A galaxy is a huge turning system of stars, gas, and gravity. This level follows large waves and pulls across that
+      disc.
     draft: true
-  general: 'Galactic Disc: gravitational potential and density wave over galaxy, gas, stars, and halo.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=GALACTIC sigma 18; atlas=Scale 13-15
-    Stellar to Galactic; operator=15 / GALACTIC.'
+  general: A galaxy is a huge system of stars, gas, dust, and gravity. The model follows large gravitational waves and density
+    patterns across the disc.
+  specialist: The substrate is the Wave Atlas stellar-to-galactic plate, represented here by the galactic disc. Poisson gravity
+    describes how mass density sources the gravitational potential. The propagator is the long-range response kernel by which
+    stars, gas, and dark matter constrain motion and spiral structure. Physical claims are sourced; Lyapunov or attractor
+    comparisons are interpretive analogies.
 atlas_rows:
-  physical: galaxy, gas, stars, and halo
-  field: gravitational potential and density wave
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: nabla^2 Phi = 4 pi G rho
+  physical: Stars, gas clouds, dust, dark matter halo components, and spiral-arm density structure.
+  field: Gravitational potential, density waves, stellar winds, and supernova impulse response.
+  mind: Galactic memory is phase-space distribution, rotation curve, and density-wave attractor structure, not consciousness.
+  equation_setting: \nabla^2\Phi=4\pi G\rho
 claims:
   physical: SOURCED
   field: SOURCED

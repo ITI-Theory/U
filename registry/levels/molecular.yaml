@@ -4,19 +4,23 @@ sector: network
 length_scale: 10^-9 m
 substrate: chemical bond and molecular conformation
 field: electron-density response
-equation: H psi = E psi
+equation: H\psi=E\psi
 explain:
   cookie:
-    text: 'Draft: Molecular is what answers when this kind of thing is poked.'
+    text: Molecules are atoms joined into shapes. Changing the shape can change how the molecule stores and moves energy.
     draft: true
-  general: 'Molecular: electron-density response over chemical bond and molecular conformation.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=MOLECULAR sigma 4; atlas=Scale 4 Molecular
-    / Chemical Bond; operator=04 / MOLECULAR.'
+  general: Molecules store function in their shape. The field response tracks how electron density and bonds change when the
+    molecule is disturbed.
+  specialist: The substrate is the molecular geometry described in the Wave Atlas chemical-bond plate. The displayed Schrödinger
+    relation is a compact setting for electron-density and bond-response dynamics. The propagator means that a local excitation
+    changes the molecule through its orbital and conformational boundary conditions. Physical and field claims are sourced;
+    the memory language refers to biochemical conformation and remains interpretive when generalized.
 atlas_rows:
-  physical: chemical bond and molecular conformation
-  field: electron-density response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: H psi = E psi
+  physical: Atomic nuclei and electron clouds arranged into chemical bonds and molecular conformations.
+  field: Electromagnetic, van der Waals, hydrogen-bond, and electron-density response across a molecule.
+  mind: Molecular conformation stores functional information such as folded state or binding geometry; this is biochemical
+    memory, not consciousness.
+  equation_setting: H\psi=E\psi
 claims:
   physical: SOURCED
   field: SOURCED

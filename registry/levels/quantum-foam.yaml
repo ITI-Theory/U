@@ -4,19 +4,26 @@ sector: micro-physical
 length_scale: 10^-35 m
 substrate: pre-geometric quantum fluctuations
 field: quantum amplitude
-equation: G_P(x,x') = <x | G | x'>
+equation: G_P(x,x')=\langle x\mid G\mid x'\rangle
 explain:
   cookie:
-    text: 'Draft: Quantum Foam is what answers when this kind of thing is poked.'
+    text: At the tiniest size we can talk about, space is not a smooth sheet yet. This level is a cautious picture of tiny
+      quantum wiggles, not a claim that we can watch them directly.
     draft: true
-  general: 'Quantum Foam: quantum amplitude over pre-geometric quantum fluctuations.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=QUANTUM FOAM sigma 0; atlas=Scale 0 Planck
-    / Quantum Foam; operator=zoom 0; catalogue boundary.'
+  general: Quantum foam is the Planck-scale boundary where the app treats smooth spacetime as unavailable. The field row describes
+    probability amplitudes for possible geometric configurations, not an observed material foam.
+  specialist: The substrate is the pre-geometric Planck boundary described in the Wave Atlas Scale 0 plate. The displayed
+    operator is a Green-kernel amplitude, written as an impulse-response grammar for possible geometric configurations. Its
+    propagator should be read as a boundary model for probability amplitude, not as a measured causal medium. Physical and
+    field claims are sourced to the zUSF papers; any information-processing or mind language at this level is interpretive
+    and should remain explicitly bounded.
 atlas_rows:
-  physical: pre-geometric quantum fluctuations
-  field: quantum amplitude
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: G_P(x,x') = <x | G | x'>
+  physical: Discrete spacetime nodes and geometric fluctuations at the Planck boundary; no smooth material substrate is assumed.
+  field: Probability amplitude for pre-geometric quantum-field configurations; the Green response is a boundary description
+    of possible geometry.
+  mind: 'No literal mind is attributed here. The information row is an interpretive bookkeeping limit: superposed possible
+    configurations before decoherence.'
+  equation_setting: G_P(x,x')=\langle x\mid G\mid x'\rangle
 claims:
   physical: SOURCED
   field: SOURCED

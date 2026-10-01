@@ -4,19 +4,23 @@ sector: collective
 length_scale: 10^0 to 10^2 m
 substrate: agents, animal flock, or active-matter swarm
 field: alignment and collective velocity field
-equation: partial_t v + lambda(v dot grad)v = -grad P + D_T nabla^2 v
+equation: \partial_t\mathbf v+\lambda(\mathbf v\cdot\nabla)\mathbf v=-\nabla P+D_T\nabla^2\mathbf v
 explain:
   cookie:
-    text: 'Draft: Animal Swarm / Group is what answers when this kind of thing is poked.'
+    text: A flock or swarm can move together even though each animal is separate. This level studies the group pattern, not
+      a group mind.
     draft: true
-  general: 'Animal Swarm / Group: alignment and collective velocity field over agents, animal flock, or active-matter swarm.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=GROUP / SWARM sigma 10; atlas=Scale 7
-    Animal Swarm / Murmuration; operator=08 / ANIMAL SWARM.'
+  general: A flock or swarm can move together without a central leader. The model follows the group velocity pattern that
+    emerges from local alignment.
+  specialist: 'The substrate is the Wave Atlas animal-swarm plate: discrete agents coupled by alignment, cohesion, and separation
+    constraints. The Toner-Tu equation models velocity-field propagation and pressure-like alignment response. The propagator
+    means that a predator or direction change moves through neighbour rules as a collective response. Swarm-coordination claims
+    are sourced to P19; hive-mind language is interpretive and should not imply occurrent animal-group consciousness.'
 atlas_rows:
-  physical: agents, animal flock, or active-matter swarm
-  field: alignment and collective velocity field
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: partial_t v + lambda(v dot grad)v = -grad P + D_T nabla^2 v
+  physical: Individual birds, fish, insects, drones, or agents moving in three-dimensional space.
+  field: Active-matter velocity and alignment field propagated through local neighbour interactions.
+  mind: Swarm intelligence means collective pattern selection and distributed decision structure, not a literal group subject.
+  equation_setting: \partial_t\mathbf v+\lambda(\mathbf v\cdot\nabla)\mathbf v=-\nabla P+D_T\nabla^2\mathbf v
 claims:
   physical: SOURCED
   field: SOURCED

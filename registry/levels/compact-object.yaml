@@ -4,19 +4,23 @@ sector: cosmological
 length_scale: 10^3 to 10^10 m
 substrate: compact object boundary
 field: quasi-normal mode response
-equation: G_14(t) proportional to exp(-t/tau_ring) cos(omega_QNM t)
+equation: G_{14}(t)\propto e^{-t/\tau_{\mathrm{ring}}}\cos(\omega_{\mathrm{QNM}}t)
 explain:
   cookie:
-    text: TODO
+    text: A compact object is an extremely dense star remnant or black-hole-like system. After a disturbance, it can ring
+      down like a struck bell.
     draft: true
-  general: 'Compact Object: quasi-normal mode response over compact object boundary.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=no separate app level; atlas=not separately
-    plated; operator=14 / COMPACT OBJECT.'
+  general: A compact object is an extremely dense system. If disturbed, it can ring down in characteristic modes like a struck
+    bell.
+  specialist: 'The substrate is a compact-object catalogue tick added to avoid folding all strong-gravity objects into stars
+    or galaxies. The equation encodes quasi-normal-mode decay: a damped oscillatory Green response after perturbation. The
+    propagator is the ringdown kernel that carries information about mass, spin, and boundary conditions. This is physics-facing
+    but broad; any mind or memory phrasing is interpretive state reconstruction.'
 atlas_rows:
-  physical: compact object boundary
-  field: quasi-normal mode response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: G_14(t) proportional to exp(-t/tau_ring) cos(omega_QNM t)
+  physical: Dense stellar remnants or black-hole-like compact systems with strong gravity and ringdown behaviour.
+  field: Quasi-normal-mode gravitational response after perturbation.
+  mind: The information row is ringdown and horizon/state bookkeeping only; no mental attribution is made.
+  equation_setting: G_{14}(t)\propto e^{-t/\tau_{\mathrm{ring}}}\cos(\omega_{\mathrm{QNM}}t)
 claims:
   physical: SOURCED
   field: SOURCED

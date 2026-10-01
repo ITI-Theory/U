@@ -4,19 +4,23 @@ sector: systemic
 length_scale: 10^9 m
 substrate: orbital-system graph
 field: gravitational Coulomb response
-equation: G_12(r)=-Gm/r
+equation: G_{12}(r)=-\frac{Gm}{r}
 explain:
   cookie:
-    text: 'Draft: Orbital System is what answers when this kind of thing is poked.'
+    text: An orbital system is made of bodies falling around each other under gravity. The equation is a simple way to describe
+      that pull.
     draft: true
-  general: 'Orbital System: gravitational Coulomb response over orbital-system graph.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=folded into CIVILISATIONAL / SOLAR; atlas=inside
-    Scale 13-15 range; operator=12 / ORBITAL.'
+  general: An orbital system is made of bodies falling around each other under gravity. The model follows how a mass changes
+    the path of other bodies.
+  specialist: The substrate is an explicit universal-catalogue tick separated from broader civilisational/solar app labels.
+    The Green kernel is the Newtonian potential, so the source is mass and the response is gravitational acceleration or orbital
+    deformation. The propagator means that a perturbing mass changes trajectories through a long-range inverse-distance field.
+    This is sourced physics; any information-row language is interpretive orbital-history bookkeeping.
 atlas_rows:
-  physical: orbital-system graph
-  field: gravitational Coulomb response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: G_12(r)=-Gm/r
+  physical: Bodies in orbital relation under gravity at solar-system or satellite-system scale.
+  field: Newtonian gravitational potential and orbital response to mass distribution.
+  mind: Orbital memory is conserved trajectory structure and resonance history, not cognition.
+  equation_setting: G_{12}(r)=-\frac{Gm}{r}
 claims:
   physical: SOURCED
   field: SOURCED

@@ -4,19 +4,23 @@ sector: cosmological
 length_scale: 10^11 m
 substrate: stellar field
 field: helioseismic Green function
-equation: (nabla^2+k_13^2)G_13=delta
+equation: (\nabla^2+k_{13}^2)G_{13}=\delta
 explain:
   cookie:
-    text: 'Draft: Stellar is what answers when this kind of thing is poked.'
+    text: A star is a hot ball whose waves and forces balance inside it. This level uses a response equation as a simplified
+      picture.
     draft: true
-  general: 'Stellar: helioseismic Green function over stellar field.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=folded into species/stellar and cluster;
-    atlas=Scale 13-15 range; operator=13 / STELLAR.'
+  general: A star is a hot plasma system held by gravity and pressure. The model follows how waves or forcing appear in a
+    stellar-scale response.
+  specialist: The substrate is the universal-catalogue stellar tick separated from broader species/stellar and cluster labels.
+    The Helmholtz response stands for stellar oscillation and wave propagation under stellar boundary conditions. The propagator
+    means a local disturbance projects into modes rather than moving through a solid body. Physical claims are sourced to
+    the universal-field papers; the information row is interpretive stellar-state bookkeeping.
 atlas_rows:
-  physical: stellar field
-  field: helioseismic Green function
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: (nabla^2+k_13^2)G_13=delta
+  physical: A star or stellar-scale plasma with internal pressure, gravity, radiation, and oscillation modes.
+  field: Helmholtz-like stellar mode response and radiation/gravity coupling.
+  mind: Stellar state memory is mode spectrum, composition, and evolutionary stage; no stellar subject is implied.
+  equation_setting: (\nabla^2+k_{13}^2)G_{13}=\delta
 claims:
   physical: SOURCED
   field: SOURCED

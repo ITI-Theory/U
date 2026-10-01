@@ -4,19 +4,23 @@ sector: systemic
 length_scale: 10^11 to 10^16 m
 substrate: evolutionary population or stellar neighborhood
 field: selection, radiation, and wave propagation
-equation: omega^2 = k/m
+equation: \omega^2=k/m
 explain:
   cookie:
-    text: 'Draft: Species / Stellar is what answers when this kind of thing is poked.'
+    text: Species and stars both change over long times, but for different reasons. This level only compares pattern shapes
+      where the comparison is useful.
     draft: true
-  general: 'Species / Stellar: selection, radiation, and wave propagation over evolutionary population or stellar neighborhood.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=SPECIES / STELLAR sigma 14; atlas=overlaps
-    Wave Scale 13-15; operator=app systemic sigma 14.'
+  general: Species and stellar systems both change over long periods, but for different reasons. The level is a comparison
+    point for persistent patterns, not an identity claim.
+  specialist: The substrate is a reconciled transition level spanning species-scale and stellar-neighbourhood language from
+    earlier sources. The simple oscillator relation is only a placeholder setting for mode response and should be read with
+    the chosen path context. The propagator means persistence or branching under scale-appropriate constraints, not a universal
+    physical identity. Claims outside the physical stellar reading are interpretive and flagged for author review.
 atlas_rows:
-  physical: evolutionary population or stellar neighborhood
-  field: selection, radiation, and wave propagation
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: omega^2 = k/m
+  physical: Evolutionary populations or stellar-neighbourhood systems at long temporal and spatial scales.
+  field: Selection, radiation, wave propagation, or stellar response depending on path context.
+  mind: Pattern persistence means lineage, population, or mode memory; no literal species or stellar mind is asserted.
+  equation_setting: \omega^2=k/m
 claims:
   physical: SOURCED
   field: SOURCED

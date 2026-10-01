@@ -4,19 +4,23 @@ sector: micro-physical
 length_scale: 10^-32 m
 substrate: worldsheet and compactification boundary
 field: worldsheet propagator
-equation: G_string(s,s')=-(alpha'/2) log |s-s'|^2
+equation: G_{\mathrm{string}}(s,s')=-\frac{\alpha'}{2}\log\lvert s-s'\rvert^2
 explain:
   cookie:
-    text: 'Draft: String / Planck Boundary is what answers when this kind of thing is poked.'
+    text: This level imagines the tiny vibrating rules that some physics models use before ordinary particles appear. It is
+      a model boundary, not a photographed object.
     draft: true
-  general: 'String / Planck Boundary: worldsheet propagator over worldsheet and compactification boundary.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=STRING / PLANCK BOUNDARY sigma 1; atlas=atlas-scale-01.md;
-    operator=01 / STRING.'
+  general: The string boundary level shows the model just above quantum foam, where worldsheet modes replace ordinary objects.
+    It is a theoretical boundary picture, not an image of something directly observed.
+  specialist: The substrate is a worldsheet/compactification boundary inherited from the zUSF string-scale discussion. The
+    Green function is the worldsheet logarithmic propagator, so a local source is read as an oscillator-mode response along
+    the string coordinate. This is a formal physics setting under string/M-theory assumptions rather than an empirical claim
+    about visible matter. The information row is interpretive compactification bookkeeping, not a claim of cognition.
 atlas_rows:
-  physical: worldsheet and compactification boundary
-  field: worldsheet propagator
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: G_string(s,s')=-(alpha'/2) log |s-s'|^2
+  physical: Worldsheet and compactification boundary variables at the string/Planck transition.
+  field: Worldsheet propagator and oscillator-mode response on the compact boundary.
+  mind: No mind is assigned. The matrix row is an interpretive index of mode structure and compactification bookkeeping.
+  equation_setting: G_{\mathrm{string}}(s,s')=-\frac{\alpha'}{2}\log\lvert s-s'\rvert^2
 claims:
   physical: SOURCED
   field: SOURCED

@@ -4,19 +4,21 @@ sector: named-solution
 length_scale: 10^0 m
 substrate: avian body
 field: aerodynamic forcing and muscle/gravity response
-equation: M_b x_ddot = F_aero + F_gravity + F_muscle
+equation: M_b\ddot{\mathbf x}=\mathbf F_{\mathrm{aero}}+\mathbf F_{\mathrm{gravity}}+\mathbf F_{\mathrm{muscle}}
 explain:
   cookie:
-    text: 'Draft: Bird is what answers when this kind of thing is poked.'
+    text: A bird is a living body moving through air. The model follows forces like lift, gravity, and muscle work.
     draft: true
-  general: 'Bird: aerodynamic forcing and muscle/gravity response over avian body.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=named solution bird; atlas=not a Wave
-    Atlas level; operator=bird-flock 07 / BIRD.'
+  general: A bird is a living body moving through air. The model follows lift, gravity, and muscle forces acting on that body.
+  specialist: The substrate is a named-solution organism in the bird-flock path rather than a Wave Atlas scale plate. The
+    equation is a force-balance response for avian motion under aerodynamic, gravitational, and muscular terms. The propagator
+    means an environmental or motor impulse changes flight state through the body-air coupling. Biological control language
+    is sourced only as model structure here; mind language is interpretive.
 atlas_rows:
-  physical: avian body
-  field: aerodynamic forcing and muscle/gravity response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: M_b x_ddot = F_aero + F_gravity + F_muscle
+  physical: An avian body with wings, muscles, gravity load, and aerodynamic surfaces.
+  field: Aerodynamic forcing plus muscle and gravity response on the bird body.
+  mind: Bird-level organization means sensorimotor control and flight state, not a claim about human-like mind.
+  equation_setting: M_b\ddot{\mathbf x}=\mathbf F_{\mathrm{aero}}+\mathbf F_{\mathrm{gravity}}+\mathbf F_{\mathrm{muscle}}
 claims:
   physical: SOURCED
   field: SOURCED

@@ -4,19 +4,25 @@ sector: organismal
 length_scale: 10^0 m
 substrate: biotensegrity body, nervous system, and cortex
 field: somatic CEMI and limbic response
-equation: gamma e_dot = -grad H(e) + sqrt(2D) xi(t) + J(t)
+equation: \gamma\dot{e}=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t)
 explain:
   cookie:
-    text: 'Draft: Human / Vertebrate is what answers when this kind of thing is poked.'
+    text: A body, brain, and senses work together when something happens. This view follows how a safe poke, sound, or feeling
+      might move through the body as a model.
     draft: true
-  general: 'Human / Vertebrate: somatic CEMI and limbic response over biotensegrity body, nervous system, and cortex.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=HUMAN / VERTEBRATE sigma 8; atlas=Scale
-    8 Human Organism; operator=07 / ORGANISM.'
+  general: The human level joins body, brain, senses, and regulation in one organism-scale model. A sound, touch, or other
+    safe input is treated as a forcing term that moves through body and nervous-system dynamics.
+  specialist: 'The substrate is the human/vertebrate organism: biotensegrity tissue, nervous system, limbic regulation, and
+    cortical organization. The Langevin-style equation models affective state as gradient flow with noise and source forcing.
+    The propagator means that a stimulus J(t) is tracked through somatic damping, memory, and attractor structure rather than
+    reduced to one brain-only variable. Body and substrate claims are sourced to P1/P5/P9/P13; claims about subjective experience,
+    trauma geometry, and care remain bounded hypotheses.'
 atlas_rows:
-  physical: biotensegrity body, nervous system, and cortex
-  field: somatic CEMI and limbic response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: gamma e_dot = -grad H(e) + sqrt(2D) xi(t) + J(t)
+  physical: Body, fascia, muscle, viscera, nervous system, and cortex in a biotensegrity configuration.
+  field: Full somatic CEMI/limbic response field with sensory, musical, touch, voice, and interoceptive forcing terms.
+  mind: The organism-level mind matrix is the bounded model for reported self, memory, emotion, and regulation; clinical implications
+    require validation.
+  equation_setting: \gamma\dot{e}=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t)
 claims:
   physical: SOURCED
   field: SOURCED

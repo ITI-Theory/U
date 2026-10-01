@@ -4,19 +4,24 @@ sector: collective
 length_scale: 10^3 m
 substrate: urban infrastructure and social network
 field: social interaction and diffusion kernel
-equation: partial_t u = D nabla^2 u + f(u)
+equation: \partial_t u=D\nabla^2u+f(u)
 explain:
   cookie:
-    text: 'Draft: Society / City is what answers when this kind of thing is poked.'
+    text: A city is many people, roads, rules, and habits connected together. The model follows how a change might spread
+      through those connections.
     draft: true
-  general: 'Society / City: social interaction and diffusion kernel over urban infrastructure and social network.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=COMMUNITY / CITY sigma 11; atlas=Scale
-    9 Society / City; operator=09 / SOCIETY / CITY.'
+  general: The city level follows how habits, information, and behaviours can spread through urban connections. Buildings
+    and networks shape the paths of that spread.
+  specialist: 'The substrate is the Wave Atlas society/city plate: infrastructure and social interaction graph. The diffusion
+    equation treats local change as a source that propagates through social and spatial coupling. The propagator is the cultural
+    or interaction response constrained by boundaries such as class, geography, and media reach. Social-field claims are sourced
+    or interpretive depending on use; agency and history remain necessary parameters.'
 atlas_rows:
-  physical: urban infrastructure and social network
-  field: social interaction and diffusion kernel
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: partial_t u = D nabla^2 u + f(u)
+  physical: Urban infrastructure, roads, buildings, public spaces, and physically situated social networks.
+  field: Social interaction and diffusion kernel over encounters, media coupling, and local constraints.
+  mind: Cultural attractors such as norms, language, fashions, and dialects are collective memory states, not a literal city
+    mind.
+  equation_setting: \partial_t u=D\nabla^2u+f(u)
 claims:
   physical: SOURCED
   field: SOURCED

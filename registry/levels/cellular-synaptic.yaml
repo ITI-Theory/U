@@ -4,19 +4,23 @@ sector: network
 length_scale: 10^-6 m
 substrate: membrane, ion channel, and synapse
 field: bioelectric and synaptic response
-equation: (d^2/dx^2 - lambda^-2)V = I_inject
+equation: (\partial_x^2-\lambda^{-2})V=I_{\mathrm{inject}}
 explain:
   cookie:
-    text: 'Draft: Cellular / Synaptic is what answers when this kind of thing is poked.'
+    text: Cells and synapses pass little electrical and chemical messages. This level watches how a small signal can cross
+      a membrane or connection.
     draft: true
-  general: 'Cellular / Synaptic: bioelectric and synaptic response over membrane, ion channel, and synapse.'
-  specialist: 'Migrated from existing app/operator/Atlas sources. Former labels: app=CELLULAR / SYNAPTIC sigma 5; atlas=Scale
-    5 Cellular / Neural Synapse; operator=05 / CELLULAR.'
+  general: Cells and synapses pass electrical and chemical signals through membranes and connections. The model follows how
+    a local input can become a thresholded biological response.
+  specialist: The substrate is the membrane/synapse system in the Wave Atlas cellular plate. The cable-equation Green response
+    treats injected current as a source and membrane voltage as the propagated field. Here the propagator is a local bioelectric
+    impulse response constrained by membrane length constants and channel dynamics. Hopfield-memory language is sourced for
+    the network model but is not a claim of standalone cellular consciousness.
 atlas_rows:
-  physical: membrane, ion channel, and synapse
-  field: bioelectric and synaptic response
-  mind: Information/organization row from source; interpretive unless specifically sourced.
-  equation_setting: (d^2/dx^2 - lambda^-2)V = I_inject
+  physical: Cell membranes, ion channels, organelles, synapses, and voltage-gated neural compartments.
+  field: Bioelectric membrane-potential response propagated by ion channels and synaptic coupling.
+  mind: Synaptic weight matrices store attractor patterns; this is neural information storage, not whole-person experience.
+  equation_setting: (\partial_x^2-\lambda^{-2})V=I_{\mathrm{inject}}
 claims:
   physical: SOURCED
   field: SOURCED
