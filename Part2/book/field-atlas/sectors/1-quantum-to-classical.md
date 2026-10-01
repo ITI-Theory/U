@@ -1,0 +1,13 @@
+---
+sector: I
+title: Quantum to Classical
+levels: [quantum-foam, string-boundary, nuclear, atomic, molecular]
+---
+
+This sector covers the smallest band in the atlas: from the Planck boundary through string/M-theory model language, nuclear matter, atoms, and molecules. Its ordinary physics is not one continuous settled theory. Quantum foam is a name for the point at which smooth spacetime and ordinary quantum field theory no longer provide a tested background. String and M-theory supply a mathematically rich candidate language of worldsheets, branes, dualities, and compactification, but remain theoretical at this scale. Nuclear physics is experimentally dense: hadrons, nuclei, binding energies, scattering, decay, and short-range strong response. Atomic physics brings in the long-range Coulomb field, orbital structure, spectroscopy, and photons. Molecular physics then turns atomic ingredients into bonds, conformations, reaction coordinates, and functional matter.
+
+The main transition across the sector is the emergence of effective variables. At the lower boundary, the safest ordinary statement is amplitude and propagator bookkeeping. At the string boundary, the variables become worldsheet coordinates and mode spectra. At the nuclear level, they become quark, gluon, hadron, and nucleus variables. At the atomic level, most nuclear detail is compressed into charge, isotope, spin, and mass while electron states take over. At the molecular level, even many electronic details are often compressed into bonds, electron density, torsions, and energy surfaces.
+
+The main open questions also change with scale. Quantum gravity and string/M-theory ask what the correct substrate is, whether spacetime is emergent, and how low-energy physics is selected. Nuclear theory asks how confinement, effective forces, and many-body structure generate observed nuclei. Atomic and molecular science ask how precisely spectra, bonding, and reactions can be predicted in increasingly complex environments.
+
+The [T]-Theory idea carried through the sector is modest: each level can be displayed as an impulse-response grammar--source, kernel, boundary condition, response `interpretive`. Where the kernel and variables are ordinary measured science, the atlas says so `empirical-result`. Where the programme reuses the same grammar across unlike substrates, the claim is a modelling architecture from *The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture* `open-hypothesis` [@johnsonzsf2026]. No level in this sector is assigned feeling, intention, or consciousness. The sector only establishes the ladder on which later, biological levels can be compared without erasing the difference between sourced physics and interpretation.

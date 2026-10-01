@@ -4,7 +4,7 @@ from: molecular
 to: cellular-synaptic
 label: EMBED / EXCITE
 claim: INTERPRETIVE
-source: Part2/book/field-atlas/01b-scale-plates.md
+source: registry/levels/molecular.md
 preserves:
 - response grammar
 - declared source boundary
@@ -15,6 +15,4 @@ integrates_out:
 kernel: membrane potential response
 render_operation: 'EMBED / EXCITE: retype molecular to cellular-synaptic.'
 ---
-EMBED / EXCITE: retype `molecular` to `cellular-synaptic` using membrane potential response.
-
-Migrated from the existing JavaScript registry; no new science added.
+Molecules become cells when chemistry is enclosed, regulated, and made excitable. The molecular level keeps electron density, binding geometry, conformational change, and stochastic collisions in view. The cellular-synaptic level preserves only the consequences that survive closure by a membrane: voltage, ion gradients, receptor state, calcium concentration, and synaptic release probability. Individual orbital details and most thermal fluctuations are averaged away, because many molecular microstates can produce the same membrane potential. New variables are needed because a membrane is an active boundary with thresholds, pumps, and feedback. Ordinary bioelectricity supplies the sourced substrate; reading the cable response as another Green-function grammar is `interpretive`. Penrose--Hameroff microtubules remain an `open-hypothesis`, not the default explanation of cellular excitability.

@@ -4,7 +4,7 @@ from: string-boundary
 to: nuclear
 label: LOCALIZE / SCATTER
 claim: INTERPRETIVE
-source: Part2/book/field-atlas/01b-scale-plates.md
+source: registry/levels/string-boundary.md
 preserves:
 - response grammar
 - declared source boundary
@@ -15,6 +15,4 @@ integrates_out:
 kernel: Yukawa response
 render_operation: 'LOCALIZE / SCATTER: retype string-boundary to nuclear.'
 ---
-LOCALIZE / SCATTER: retype `string-boundary` to `nuclear` using Yukawa response.
-
-Migrated from the existing JavaScript registry; no new science added.
+Zooming from the string boundary to the nuclear level replaces worldsheet and compactification variables with hadrons, nuclei, and scattering observables. The response idea survives: source, kernel, boundary condition, outcome `interpretive`. The oscillator-mode spectrum and high-dimensional compact data are averaged away into effective low-energy fields and particle properties `derived-under-assumptions`. The upper level needs new variables because femtometre experiments measure cross-sections, binding energies, decays, and nuclear spectra, not string coordinates. In ordinary physics this is an effective-theory change of description, not a completed empirical route from M-theory to nuclei. The atlas marks the retyping as a model bridge `open-hypothesis`.

@@ -1,0 +1,20 @@
+---
+id: cellular-synaptic
+---
+
+## In ordinary science
+
+At the cellular and synaptic scale, biological information is carried by membranes, ion channels, cytoskeletal structures, organelles, neurotransmitter release, and local chemical gradients. A typical neuron soma is tens of micrometres across; dendritic spines and synaptic clefts are smaller, while action potentials last milliseconds and synaptic currents can decay over milliseconds to seconds. Excitable membranes maintain voltage differences by separating ions across lipid bilayers. Hodgkin and Huxley's squid-axon model showed how sodium and potassium conductances can generate a travelling spike rather than a passive electrical leak [@hodgkin1952quantitative].
+
+For a thin dendrite or axon segment the app uses the compact cable-equation form $(\partial_x^2-\lambda^{-2})V=I_{\mathrm{inject}}$. In words, the curvature of membrane voltage $V$ along the cable is balanced against passive leakage over a length constant $\lambda$ and an injected current source $I_{\mathrm{inject}}$. Rall's cable theory made this a practical description of dendritic integration [@rall1962theory]. Synapses add chemical gating: presynaptic calcium entry triggers vesicle release, neurotransmitter diffuses across the cleft, and postsynaptic receptors turn that chemical event back into current [@openstax2024neuroscience].
+
+Cells also pattern themselves through slower fields. Reaction--diffusion systems, introduced by Turing, show how local activation and longer-range inhibition can produce spots, stripes, and developmental gradients without a pre-drawn template [@turing1952morphogenesis]. Mechanotransduction couples the cytoskeleton and extracellular matrix to gene regulation and cell shape [@ingber1997]. These processes are observed with voltage dyes, patch clamps, fluorescence calcium indicators, electron microscopy, and molecular perturbation experiments in living preparations and cultures. Microtubules, mitochondrial rhythms, calcium waves, and biophoton emissions are measurable biological phenomena, but their role as quantum-coherent carriers of cognition remains contested. Tegmark argued that warm wet neural tissue should decohere very rapidly [@tegmark2000importance], while Hameroff and Penrose propose the Orch OR microtubule hypothesis as a minority candidate rather than an established mechanism [@hameroff2014consciousness].
+
+## The [T]-Theory reading
+
+This level is read as a local bioelectric response grammar, not as a claim that single cells have subjective states. The substrate is membrane, channel, synapse, cytoskeleton, and nearby chemistry; the field variable is the voltage or biochemical response to a perturbing source. The programme treats the cable Green's-function response as an `interpretive` small-scale instance of the impulse-in, response-out pattern developed in *The Soma-Field: A Wave-Based Model of Emotional Dynamics*. Synaptic weights and repeated cellular states can be discussed with Hopfield-memory language only as neural information storage, an `interpretive` mapping supported by ordinary network theory [@hopfield1982]. Penrose--Hameroff microtubule language is retained only as an `open-hypothesis`, explicitly competing with fast-decoherence objections. What is carried up is thresholded excitability, timing, and coupling strength. Molecular orbital detail, individual vesicle trajectories, and thermal fluctuations are integrated out.
+
+## The pictures
+
+- **Lens off:** Show a neuron membrane segment with ion channels, a synaptic cleft, vesicles releasing neurotransmitter, calcium entry, and a scale bar from nanometres to micrometres. Voltage colour should move along the membrane as a brief pulse, with slower calcium or chemical gradients nearby.
+- **Lens on:** Add a translucent response field around the membrane and synapse. A small injected impulse should produce a decaying cable-response wave, threshold markers at channels, and thin arrows showing which molecular details are averaged into voltage, timing, and synaptic weight for the next zoom.

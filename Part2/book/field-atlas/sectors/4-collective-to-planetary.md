@@ -1,0 +1,13 @@
+---
+sector: IV
+title: Collective to Planetary
+levels: [society-city, regional-institutional, civilisational-solar, species-stellar, geological, planetary]
+---
+
+This sector covers the band where individual bodies have disappeared from the main display and durable collective or planetary constraints take over. The lower entries, society-city and regional-institutional, are ordinary social and geographic systems: streets, buildings, media channels, laws, archives, jurisdictions, watersheds, routes, and service networks. Their physics is not literal mechanics alone, but their modelling vocabulary is still concrete: diffusion, barriers, feedback, bottlenecks, and memory stored in infrastructure and procedure. `interpretive`: In the [T]-Theory reading, these levels keep the impulse-response grammar while replacing named persons with encounter rates, channels, and boundary conditions.
+
+The middle entries, civilisational-solar and species-stellar, are deliberately hybrid. The registry preserves two ladder branches that do not reduce to one ordinary science. Civilisations and species require historical, institutional, demographic, and evolutionary variables. Solar systems, stars, and stellar neighbourhoods require gravity, radiation, plasma, oscillation, and orbital variables. `interpretive`: The Atlas compares persistence under constraint, not substance. `open-hypothesis`: Any stronger cross-branch identification would need explicit variables, predictions, and tests. The sector therefore uses hybrid labels as signposts, not as claims that culture is gravity or that stars have social memory.
+
+The upper entries, geological and planetary, return to physical Earth and planet science. Rocks store stress, faults release it, folds preserve deformation, and seismic waves make the response measurable. Planets add mantle convection, rotation, ocean and atmospheric circulation, radiative balance, magnetic coupling, and climate feedbacks. `empirical-result`: these are standard geophysical and climate-system domains, with measurements from field geology, seismology, satellites, buoys, and models. `interpretive`: The [T]-Theory overlay uses them as clean examples of memory, propagation, delay, and scale-dependent averaging.
+
+The open question across the sector is how far one response grammar can travel without becoming empty metaphor. The answer adopted here is conservative. Ordinary science comes first at each level. `derived-under-assumptions`: The shared Atlas grammar may organise transitions when its variables are stated and its averaging is explicit. `open-hypothesis`: It does not prove consciousness, clinical mechanism, planetary feeling, or a universal social physics.

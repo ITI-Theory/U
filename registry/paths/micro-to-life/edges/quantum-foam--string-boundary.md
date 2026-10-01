@@ -4,7 +4,7 @@ from: quantum-foam
 to: string-boundary
 label: RESOLVE / COMPACTIFY
 claim: INTERPRETIVE
-source: Part2/book/field-atlas/atlas-scale-01.md
+source: registry/levels/quantum-foam.md
 preserves:
 - response grammar
 - declared source boundary
@@ -15,6 +15,4 @@ integrates_out:
 kernel: worldsheet propagator
 render_operation: 'RESOLVE / COMPACTIFY: retype quantum-foam to string-boundary.'
 ---
-RESOLVE / COMPACTIFY: retype `quantum-foam` to `string-boundary` using worldsheet propagator.
-
-Migrated from the existing JavaScript registry; no new science added.
+Zooming from quantum foam to the string boundary changes the display from unstructured Planck-scale amplitude to a worldsheet with modes and boundary conditions. The surviving idea is the propagator grammar: a local source is paired with a response kernel `interpretive`. What is averaged away is any attempted picture of individual pre-geometric fluctuations; the upper level needs coordinates on a string worldsheet, compactification data, and allowed oscillator modes `derived-under-assumptions`. The transition is not a measured physical derivation from foam to strings. It is an atlas operation that resolves an otherwise featureless quantum-gravity boundary into one well-studied theoretical language, with M-theory/string assumptions stated explicitly `open-hypothesis`.
