@@ -2,6 +2,8 @@ id: galactic-disc
 label: Galactic Disc
 sector: cosmological
 length_scale: 10^20 m
+response_time: 10^16 s
+response_time_basis: galactic rotation period (about 230 million years)
 substrate: galaxy, gas, stars, and halo
 field: gravitational potential and density wave
 equation: \nabla^2\Phi=4\pi G\rho

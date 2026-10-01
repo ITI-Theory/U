@@ -2,6 +2,8 @@ id: atomic
 label: Atomic
 sector: micro-physical
 length_scale: 10^-10 m
+response_time: 10^-16 s
+response_time_basis: electron orbital period (attoseconds)
 substrate: electron cloud and atomic orbital
 field: electromagnetic response
 equation: G_C(r)=\frac{1}{4\pi r}

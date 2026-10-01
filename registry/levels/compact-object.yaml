@@ -2,6 +2,8 @@ id: compact-object
 label: Compact Object
 sector: cosmological
 length_scale: 10^3 to 10^10 m
+response_time: 10^-3 s
+response_time_basis: neutron-star spin or black-hole ringdown (milliseconds)
 substrate: compact object boundary
 field: quasi-normal mode response
 equation: G_{14}(t)\propto e^{-t/\tau_{\mathrm{ring}}}\cos(\omega_{\mathrm{QNM}}t)

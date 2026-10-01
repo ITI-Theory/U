@@ -2,6 +2,8 @@ id: quantum-foam
 label: Quantum Foam
 sector: micro-physical
 length_scale: 10^-35 m
+response_time: 10^-44 s
+response_time_basis: Planck time
 substrate: pre-geometric quantum fluctuations
 field: quantum amplitude
 equation: G_P(x,x')=\langle x\mid G\mid x'\rangle

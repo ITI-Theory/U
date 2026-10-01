@@ -2,6 +2,8 @@ id: human-vertebrate
 label: Human / Vertebrate
 sector: organismal
 length_scale: 10^0 m
+response_time: 10^1 s
+response_time_basis: bodily affective response (seconds to minutes)
 substrate: biotensegrity body, nervous system, and cortex
 field: somatic CEMI and limbic response
 equation: \gamma\dot{e}=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t)

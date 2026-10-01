@@ -2,6 +2,8 @@ id: string-boundary
 label: String / Planck Boundary
 sector: micro-physical
 length_scale: 10^-32 m
+response_time: 10^-41 s
+response_time_basis: light-crossing time of the string scale
 substrate: worldsheet and compactification boundary
 field: worldsheet propagator
 equation: G_{\mathrm{string}}(s,s')=-\frac{\alpha'}{2}\log\lvert s-s'\rvert^2

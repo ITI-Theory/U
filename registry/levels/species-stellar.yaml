@@ -2,6 +2,8 @@ id: species-stellar
 label: Species / Stellar
 sector: systemic
 length_scale: 10^11 to 10^16 m
+response_time: 10^13 s
+response_time_basis: speciation (around a million years)
 substrate: evolutionary population or stellar neighborhood
 field: selection, radiation, and wave propagation
 equation: \omega^2=k/m

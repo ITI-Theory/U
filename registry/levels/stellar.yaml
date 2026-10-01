@@ -2,6 +2,8 @@ id: stellar
 label: Stellar
 sector: cosmological
 length_scale: 10^11 m
+response_time: 10^2 s
+response_time_basis: solar p-mode oscillation (about five minutes)
 substrate: stellar field
 field: helioseismic Green function
 equation: (\nabla^2+k_{13}^2)G_{13}=\delta

@@ -2,6 +2,8 @@ id: cellular-synaptic
 label: Cellular / Synaptic
 sector: network
 length_scale: 10^-6 m
+response_time: 10^-3 s
+response_time_basis: action potential and synaptic transmission
 substrate: membrane, ion channel, and synapse
 field: bioelectric and synaptic response
 equation: (\partial_x^2-\lambda^{-2})V=I_{\mathrm{inject}}

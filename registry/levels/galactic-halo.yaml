@@ -2,6 +2,8 @@ id: galactic-halo
 label: Galactic Halo
 sector: cosmological
 length_scale: 10^22 m
+response_time: 10^17 s
+response_time_basis: halo dynamical time (billions of years)
 substrate: galactic halo mass distribution
 field: Poisson-Vlasov density wave
 equation: \nabla^2\Phi_{16}=4\pi G\rho_{\mathrm{halo}}

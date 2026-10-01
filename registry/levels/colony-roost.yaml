@@ -2,6 +2,8 @@ id: colony-roost
 label: Colony / Roost
 sector: named-solution
 length_scale: 10^3 m
+response_time: 10^5 s
+response_time_basis: daily roosting cycle
 substrate: avian colony or roost network
 field: continuity and density flow
 equation: \dot{\rho}_b+\nabla\cdot(\rho_b\mathbf v_b)=0

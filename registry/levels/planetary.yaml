@@ -2,6 +2,8 @@ id: planetary
 label: Planetary
 sector: geological
 length_scale: 10^6 m
+response_time: 10^3 s
+response_time_basis: Earth free-oscillation period (0S2, about 54 minutes)
 substrate: planetary interior, atmosphere, and magnetic system
 field: convection, heat flux, and planetary modes
 equation: \rho(D_t\mathbf u)=-\nabla P+\eta\nabla^2\mathbf u+\rho\mathbf g

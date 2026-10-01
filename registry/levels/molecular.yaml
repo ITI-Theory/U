@@ -2,6 +2,8 @@ id: molecular
 label: Molecular
 sector: network
 length_scale: 10^-9 m
+response_time: 10^-13 s
+response_time_basis: bond vibration period (tens of femtoseconds)
 substrate: chemical bond and molecular conformation
 field: electron-density response
 equation: H\psi=E\psi

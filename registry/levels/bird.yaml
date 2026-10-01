@@ -2,6 +2,8 @@ id: bird
 label: Bird
 sector: named-solution
 length_scale: 10^0 m
+response_time: 10^-1 s
+response_time_basis: avian reaction time
 substrate: avian body
 field: aerodynamic forcing and muscle/gravity response
 equation: M_b\ddot{\mathbf x}=\mathbf F_{\mathrm{aero}}+\mathbf F_{\mathrm{gravity}}+\mathbf F_{\mathrm{muscle}}

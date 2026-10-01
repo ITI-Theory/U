@@ -2,6 +2,8 @@ id: observable-universe
 label: Observable Universe
 sector: cosmological
 length_scale: 10^26 m
+response_time: 10^17 s
+response_time_basis: Hubble time (1/H0, about 14.5 billion years)
 substrate: cosmic web, clusters, voids, and metric
 field: retarded gravitational response
 equation: \Box h_{\mu\nu}=-16\pi G\,T_{\mu\nu}

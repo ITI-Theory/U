@@ -2,6 +2,8 @@ id: local-circuit
 label: Local Circuit
 sector: network
 length_scale: 10^-3 to 10^-1 m
+response_time: 10^-2 s
+response_time_basis: gamma to beta oscillation period
 substrate: axon, local circuit, and cortical column
 field: propagating neural current
 equation: (v_s^{-2}\partial_t^2-\nabla^2+k^2)\Phi=-J

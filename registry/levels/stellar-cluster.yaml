@@ -2,6 +2,8 @@ id: stellar-cluster
 label: Stellar / Cluster
 sector: cosmological
 length_scale: 10^16 to 10^23 m
+response_time: 10^13 s
+response_time_basis: cluster crossing time (around a million years)
 substrate: stars, stellar neighborhood, and cluster
 field: helioseismic and gravitational response
 equation: \Box h_{\mu\nu}=-16\pi G\,T_{\mu\nu}

@@ -2,6 +2,8 @@ id: society-city
 label: Society / City
 sector: collective
 length_scale: 10^3 m
+response_time: 10^6 s
+response_time_basis: spread of behaviour through a city (weeks)
 substrate: urban infrastructure and social network
 field: social interaction and diffusion kernel
 equation: \partial_t u=D\nabla^2u+f(u)

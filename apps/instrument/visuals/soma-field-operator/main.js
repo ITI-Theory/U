@@ -1144,9 +1144,24 @@ const state = {
   thoughtThreshold: 0.82,
 };
 let suppressHashWrite = false;
+// A poke plays over the same wall-clock span at every level; the readout states the level's own time scale.
+const POKE_DISPLAY_SECONDS = 4;
+const responseTimeInput = document.querySelector('#response-time');
+state.pokeRunning = false;
+
+function responseTimeReadout(level) {
+  const tau = level.response_time ? `τ ≈ ${level.response_time}` : 'τ UNSET';
+  timeReadout.title = level.response_time_basis ? `Characteristic response time (order of magnitude): ${level.response_time_basis}` : '';
+  return `T = ${state.responseTime.toFixed(2)} τ / ${tau}`;
+}
 for (const name of ['somatic', 'limbic', 'cognitive', 'response-time']) document.querySelector(`#${name}`).addEventListener('input', event => {
   const stateKey = name === 'response-time' ? 'responseTime' : name;
   state[stateKey] = Number(event.target.value);
+  if (name === 'response-time') {
+    // Scrubbing holds the impulse response at the chosen time instead of animating it.
+    state.pokeRunning = false;
+    state.impulse = state.responseTime > 0 ? 1 : 0;
+  }
   updateScaleReadout();
 });
 const scaleReadout = document.querySelector('#scale-readout');
@@ -1755,7 +1770,7 @@ function updateScaleReadout() {
   wavenumberReadout.textContent = state.tTheory ? plate.field : baselineField(plate);
   lengthReadout.textContent = plate.length_scale;
   rankReadout.textContent = humanScale ? 'human-scale eligible' : 'typed substrate reading';
-  timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / ${plate.length_scale.toUpperCase()}`;
+  timeReadout.textContent = responseTimeReadout(plate);
   typeStatus.textContent = state.tTheory
     ? `${badge} / ${humanScale ? 'HUMAN-SCALE VOCABULARY AVAILABLE' : 'RETYPE VARIABLES FOR SELECTED SUBSTRATE'}`
     : `${badge} / PHYSICS BASELINE ACTIVE`;
@@ -1919,10 +1934,10 @@ thoughtThresholdInput.addEventListener('input', () => {
 });
 document.querySelector('#poke').addEventListener('click', () => {
   state.impulse = 1;
+  state.pokeRunning = true;
   state.responseTime = 0;
   document.querySelector('#response-time').value = '0';
   updateScaleReadout();
-  timeReadout.textContent = 'T = 0.00 / IMPULSE J(t) ACTIVE';
 });
 brecvemaButton.addEventListener('click', () => {
   state.brecvema = !state.brecvema;
@@ -2040,8 +2055,9 @@ function updateRegistryRenderer(renderState, time, pulse) {
 }
 
 function frame() {
-  const time = clock.getElapsedTime();
-  const delta = clock.getDelta();
+  // getDelta() must run first: getElapsedTime() resets the delta clock.
+  const delta = Math.min(clock.getDelta(), 0.1);
+  const time = clock.elapsedTime;
   state.visualScale += (state.scale - state.visualScale) * 0.075;
   if (state.transport.playing && Math.abs(state.visualScale - state.scale) < 0.035) {
     const secondsPerStep = 60 / state.transport.bpm * state.transport.quantization;
@@ -2054,12 +2070,15 @@ function frame() {
       } else toggleTransport();
     }
   }
-  if (state.impulse) {
-    state.responseTime = Math.min(1, state.responseTime + 0.004);
-    if (state.responseTime >= 1) state.impulse = 0;
+  if (state.impulse && state.pokeRunning) {
+    state.responseTime = Math.min(1, state.responseTime + delta / POKE_DISPLAY_SECONDS);
+    responseTimeInput.value = state.responseTime.toFixed(3);
+    if (state.responseTime >= 1) { state.impulse = 0; state.pokeRunning = false; }
   }
   if (state.brecvema || state.impulse) renderBodyGrid(time);
-  const responsePulse = state.impulse * (1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15) * Math.exp(-state.responseTime * 3.4);
+  const mechanismsActive = state.brecvema && state.tTheory && organismLevelIds.has(activeLevel().id);
+  const mechanismGain = mechanismsActive ? 1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15 : 1;
+  const responsePulse = state.impulse * mechanismGain * Math.exp(-state.responseTime * 3.4);
   backgroundMaterial.uniforms.uTime.value = time;
   backgroundMaterial.uniforms.uScale.value = state.visualScale;
   const displayLevel = activeDimensionLevel();
@@ -2172,7 +2191,7 @@ function frame() {
     line.material.opacity = (0.25 + state.somatic * 0.5) * physicalWeight;
     line.material.color.copy(displayLevel === 4 ? physicalGrey : cyan);
   }
-  if (state.impulse) timeReadout.textContent = `T = ${state.responseTime.toFixed(2)} / RESPONSE DECAY ${activeLevel().length_scale.toUpperCase()}`;
+  if (state.impulse) timeReadout.textContent = responseTimeReadout(activeLevel());
   renderScene();
   requestAnimationFrame(frame);
 }

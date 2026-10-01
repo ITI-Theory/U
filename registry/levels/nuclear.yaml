@@ -2,6 +2,8 @@ id: nuclear
 label: Nuclear
 sector: micro-physical
 length_scale: 10^-15 m
+response_time: 10^-23 s
+response_time_basis: strong-interaction time scale
 substrate: quark, gluon, and hadron system
 field: short-range nuclear response
 equation: G_Y(r)=\frac{e^{-mr}}{4\pi r}

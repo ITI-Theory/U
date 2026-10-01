@@ -2,6 +2,8 @@ id: galaxy-cluster
 label: Galaxy Cluster
 sector: cosmological
 length_scale: 10^23 m
+response_time: 10^17 s
+response_time_basis: cluster crossing time (around a billion years)
 substrate: galaxy cluster
 field: BAO / cosmological perturbation kernel
 equation: (\partial_\eta^2+2\mathcal H\partial_\eta-c_s^2\nabla^2)G_{17}=\delta^{(4)}

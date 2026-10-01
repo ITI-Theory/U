@@ -2,6 +2,8 @@ id: geological
 label: Geological
 sector: geological
 length_scale: 10^5 m
+response_time: 10^13 s
+response_time_basis: tectonic deformation (around a million years)
 substrate: tectonic plates and fault systems
 field: elastic and seismic Green function
 equation: \rho\,\partial_{tt}u_i=C_{ijkl}\partial_j\partial_k u_l

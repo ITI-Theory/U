@@ -2,6 +2,8 @@ id: orbital-system
 label: Orbital System
 sector: systemic
 length_scale: 10^9 m
+response_time: 10^7 s
+response_time_basis: orbital period (one year)
 substrate: orbital-system graph
 field: gravitational Coulomb response
 equation: G_{12}(r)=-\frac{Gm}{r}

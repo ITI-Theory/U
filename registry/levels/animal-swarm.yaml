@@ -2,6 +2,8 @@ id: animal-swarm
 label: Animal Swarm / Group
 sector: collective
 length_scale: 10^0 to 10^2 m
+response_time: 10^0 s
+response_time_basis: turning wave crossing a flock or school
 substrate: agents, animal flock, or active-matter swarm
 field: alignment and collective velocity field
 equation: \partial_t\mathbf v+\lambda(\mathbf v\cdot\nabla)\mathbf v=-\nabla P+D_T\nabla^2\mathbf v

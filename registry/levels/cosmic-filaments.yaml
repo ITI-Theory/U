@@ -2,6 +2,8 @@ id: cosmic-filaments
 label: Cosmic Filaments
 sector: cosmological
 length_scale: 10^24 m
+response_time: 10^17 s
+response_time_basis: structure growth time (billions of years)
 substrate: cosmic filaments
 field: BAO / web connectivity kernel
 equation: (\partial_\eta^2+2\mathcal H\partial_\eta-c_s^2\nabla^2)G_{18}=\delta^{(4)}

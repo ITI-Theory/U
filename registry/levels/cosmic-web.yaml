@@ -2,6 +2,8 @@ id: cosmic-web
 label: Cosmic Web
 sector: cosmological
 length_scale: 10^26 m
+response_time: 10^17 s
+response_time_basis: Hubble time
 substrate: full cosmological boundary
 field: retarded light-cone propagator
 equation: G_{20}(x,x')=\frac{\theta(t-t')\delta((x-x')^2)}{2\pi}

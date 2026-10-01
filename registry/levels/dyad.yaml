@@ -2,6 +2,8 @@ id: dyad
 label: Dyad
 sector: collective
 length_scale: 10^1 m
+response_time: 10^2 s
+response_time_basis: interpersonal coupling over a conversation
 substrate: two coupled organisms
 field: interpersonal propagator and entrainment
 equation: \lvert\omega_A-\omega_B\rvert<\Delta\omega_{\mathrm{lock}}(\kappa)

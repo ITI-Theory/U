@@ -2,6 +2,8 @@ id: whole-brain-cemi
 label: Whole Brain / CEMI
 sector: organismal
 length_scale: 10^-1 m
+response_time: 10^-1 s
+response_time_basis: large-scale cortical integration (hundreds of milliseconds)
 substrate: whole-brain neural and electromagnetic field
 field: CEMI propagator
 equation: (\nabla^2+k_{\mathrm{CEMI}}^2)G=\delta
