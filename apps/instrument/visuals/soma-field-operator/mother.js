@@ -4,7 +4,7 @@
 // API (answer inline through the local bridge in apps/instrument/mother/,
 // which uses the author's own login; never exposed publicly).
 
-const STORAGE = { mode: 'mother-mode', notebook: 'mother-notebook-url', bridge: 'mother-bridge-url' };
+const STORAGE = { mode: 'mother-mode', notebook: 'mother-notebook-url', bridge: 'mother-bridge-url', compare: 'mother-compare' };
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
@@ -51,6 +51,16 @@ function renderAnswer(markdown) {
     .replace(/(^|[^*])\*([^*]+?)\*/g, '$1<em>$2</em>')
     .replace(/\[(\d+(?:\s*[,\u2013-]\s*\d+)*)\]/g, '<sup class="mother-cite">[$1]</sup>')
     .replace(/\u0000(\d+)\u0000/g, (_, index) => maths[Number(index)]);
+}
+
+// The baseline (mainstream reference notebook) gets the bare question: no programme framing.
+function composeBaselinePrompt(question, context) {
+  const register = {
+    cookie: 'Explain as if to a curious ten-year-old.',
+    general: 'Explain for an educated general reader.',
+    specialist: 'Explain for a specialist; include the relevant equations.',
+  }[context.reader] ?? '';
+  return `${register} Answer from the sources.\n\nQuestion: ${question}`;
 }
 
 function composePrompt(question, context) {
@@ -103,13 +113,16 @@ export function createMother({ getContext }) {
   terminal.setAttribute('role', 'dialog');
   terminal.setAttribute('aria-label', 'MOTHER interface');
   terminal.innerHTML = `
-    <header><span>MU/TH/UR // [T]-THEORY INTERFACE</span><button type="button" class="mother-close" aria-label="Close">X</button></header>
+    <header><span>MU/TH/UR // [T]-THEORY INTERFACE</span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
     <div class="mother-log" aria-live="polite"></div>
     <form class="mother-form"><span>&gt;</span><input class="mother-input" autocomplete="off" placeholder="ASK ABOUT THIS VIEW" /></form>`;
   document.body.append(terminal);
   const log = terminal.querySelector('.mother-log');
   const form = terminal.querySelector('.mother-form');
   const input = terminal.querySelector('.mother-input');
+  const compareInput = terminal.querySelector('.mother-compare input');
+  compareInput.checked = read(STORAGE.compare, 'on') === 'on';
+  compareInput.addEventListener('change', () => write(STORAGE.compare, compareInput.checked ? 'on' : 'off'));
   let typing = Promise.resolve();
 
   function type(text, speed = 12) {
@@ -195,20 +208,35 @@ export function createMother({ getContext }) {
       const response = await fetch(`${bridge}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, prompt, context }),
+        body: JSON.stringify({ question, prompt, context, compare: compareInput.checked, baseline_prompt: composeBaselinePrompt(question, context) }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? `HTTP ${response.status}`);
       await typing;
-      const answer = document.createElement('div');
-      answer.className = 'mother-answer';
-      answer.innerHTML = renderAnswer(data.answer ?? '(NO ANSWER)');
-      log.append(answer);
-      log.scrollTop = log.scrollHeight;
-      if (data.citations?.length) await type(`SOURCES: ${data.citations.map((title, index) => `[${index + 1}] ${title}`).join('; ')}`);
+      const section = (title, html, className = 'mother-answer') => {
+        const block = document.createElement('div');
+        block.className = className;
+        block.innerHTML = `${title ? `<p class="mother-section">${title}</p>` : ''}${html}`;
+        log.append(block);
+        log.scrollTop = log.scrollHeight;
+        return block;
+      };
+      const sources = list => (list?.length ? `<p class="mother-sources">SOURCES: ${list.map((title, index) => `[${index + 1}] ${escapeHtml(title)}`).join('; ')}</p>` : '');
+      section(data.diff ? 'MOTHER / [T]-THEORY' : '', renderAnswer(data.answer ?? '(NO ANSWER)') + sources(data.citations));
+      if (data.diff) {
+        section('WHAT [T]-THEORY ADDS', renderAnswer(data.diff), 'mother-answer mother-diff');
+        const baseline = document.createElement('details');
+        baseline.className = 'mother-answer mother-baseline';
+        baseline.innerHTML = `<summary>MAINSTREAM ANSWER (REFERENCE SOURCES)</summary>${renderAnswer(data.baseline?.answer ?? '')}${sources(data.baseline?.citations)}`;
+        log.append(baseline);
+      } else if (compareInput.checked) {
+        await type('(NO BASELINE NOTEBOOK CONFIGURED: COMPARE SKIPPED)');
+      }
       await type('[INTERPRETIVE / MAY ERR: CHECK THE CITED SOURCES]');
     } catch (error) {
-      await type(`BRIDGE OFFLINE OR ERROR: ${error.message}\nSTART IT WITH apps/instrument/mother/run_bridge.ps1`);
+      // fetch() rejects with TypeError only when the bridge cannot be reached at all.
+      if (error instanceof TypeError) await type('BRIDGE OFFLINE.\nSTART IT WITH apps/instrument/mother/run_bridge.ps1');
+      else await type(`MOTHER ERROR: ${error.message}`);
     }
   });
 

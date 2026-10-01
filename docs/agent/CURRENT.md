@@ -90,31 +90,48 @@ State on 2026-10-01:
   Windows: `C:\Program Files\Git\usr\bin` on PATH). `make -B` fails on the
   `bld` directory rule; delete targets instead.
 
-## App and Atlas: First Slice (2026-10-01)
+## App, Atlas, MOTHER, UAT automation (2026-10-01)
 
-Design: `APP-ATLAS-DESIGN.md`. Commits `414f48a` (registry, generator,
-renderer registry, lens) and `e03e610` (integration, content, library panel).
+Design and decisions: `APP-ATLAS-DESIGN.md` (canonical set, brainstorm).
 
-- `registry/` is the single source: 30 level files, 8 paths (graphs with
-  edge notes), 3 models, `lenses.yaml`. `RECONCILIATION.md`: the 13
-  conflicting labels stay separate shared levels; each model selects which
-  it shows (author, 2026-10-01).
-- The app generator (`scripts/generate.py`, run by `prestart`/`prebuild`)
-  writes the gitignored `generated/` data, resolves sources through
-  `Dist/PAPERS.yaml` (DOI) or `https://www.t-theory.org/atlas/<slug>`, and
-  fails on placeholder text.
-- Working and checked in the browser: deep links
-  (`#level=<id>&path=&lens=&model=&reader=`; old numeric levels still
-  resolve), T-Theory OFF/ON lens, library panel ("More Information"),
-  cookie/general/specialist reader switch, KaTeX abstract splash, organism
-  only at `human-vertebrate`, no body at Quantum Foam.
-- Not yet checked: thought-sparks visuals; 3D SBS on the Dangbei Atom.
-- Renderers: 2 of 28 exist (`quantum-foam`, `thought-sparks`); the rest show
-  labelled placeholders.
-- Next: more renderers; automated screenshots per level, path
-  and lens into the Field Atlas; Atlas diagrams in the app; deep-link QR;
-  time axis (`eras.yaml`); Penrose index (cite chapters only; the text is
-  private); Sherlock concept registry (`registry/concepts/`).
+- **Registry** (`registry/`) is the single source for app and Atlas: 31
+  levels (`<id>.yaml` data + `<id>.md` Atlas entry text), 10 canonical paths
+  (graphs; one `edges/<from>--<to>.md` per step), models `canonical-5` (I-V
+  bands), `universal-21` (0-20) and `bird-flock`, `lenses.yaml`, worked
+  examples (`examples/`), SpaceEngine object checklist (`catalogues/`).
+  New level `human-group`; `animal-to-church` and `community-to-institution`
+  merged into `human-assembly-to-institution` (old links aliased). Every
+  level has a characteristic response time τ (order of magnitude).
+- **App** (`apps/instrument/visuals/soma-field-operator/`): all 31 levels
+  have dedicated renderers (`renderers/*.js`, auto-registered; guide in
+  `renderers/README.md`); fluorescence-microscopy cells and circuits,
+  false-colour astronomy, QCD-vacuum and 3D foam isosurfaces. Features:
+  deep links (`level`, `path`, `lens`, `model`, `reader`, `compare`,
+  `contours`, `styleoff`), T-Theory lens, 4D|T compare view with worked
+  example cards, CONTOURS, RICE panel (fluorescence / false colour / glow /
+  motion), Poke on wall-clock time with per-level τ, optional Web Audio
+  (poke resonator, drone, BRECVEMA mechanisms), human breathing and
+  heartbeat, library panel, reader registers, SBS 3D.
+- **MOTHER** (Settings): OFF / WEB (copy question with the view as context,
+  open the public notebook `https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944`)
+  / API (local bridge `apps/instrument/mother/`, notebooklm-py, unofficial,
+  author's login, localhost only). Live-tested: grounded, cited answers in
+  about 40 s that separate established science from interpretation.
+- **Field Atlas** (`Part2/book/field-atlas/`): rebuilt as a reference atlas
+  from the registry (`atlas.yaml` + `build_atlas.py`): front matter, five
+  sectors of level spreads (data panel, app plates lens off/on, entry text,
+  worked examples, transitions), Part II models, Part III paths, back
+  matter; about 65,000 words, ~226 pages. Old first-person draft and
+  personal material deleted (author decision). Plates: `npm run capture`.
+- **UAT automation**: `uat/scripts/nlm_uat.py <papers|ttheory>` creates a
+  private notebook, uploads `uat/staging/<track>/`, asks each worksheet item
+  (re-verifying), and writes `uat/results/<track>-<stamp>.md`; a human
+  transfers accepted findings to the worksheet.
+- Not yet checked: 3D SBS on the Dangbei Atom; audio by ear.
+- Next: review UAT results; recapture plates and rebuild the Atlas; then
+  Lulu and Zenodo. Later: MOTHER GO buttons and per-level audio explainers;
+  type guard (dependent types on/off with a generated Lean file); time axis
+  (`eras.yaml`); Penrose chapter index; Sherlock concept registry.
 
 ## Book Architecture
 

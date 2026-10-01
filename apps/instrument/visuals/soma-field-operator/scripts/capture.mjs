@@ -113,7 +113,7 @@ async function main() {
         const level = levelById.get(levelId);
         const modelPart = model ? `&model=${model}` : '';
         await show(`level=${levelId}&path=${route.id}${modelPart}&lens=on&reader=${args.reader}`);
-        const buffer = await page.screenshot({ type: 'png' });
+        const buffer = await page.screenshot({ type: 'png', timeout: 120000 });
         const file = `console/${route.id}/${String(index).padStart(2, '0')}-${levelId}.png`;
         await writeFile(path.join(args.out, file), buffer);
         manifest.console.push(record(level, { path: route.id, path_label: route.label, model, position: index, file, sha256: sha256(buffer) }));
