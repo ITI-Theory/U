@@ -96,8 +96,9 @@ Design: `APP-ATLAS-DESIGN.md`. Commits `414f48a` (registry, generator,
 renderer registry, lens) and `e03e610` (integration, content, library panel).
 
 - `registry/` is the single source: 30 level files, 8 paths (graphs with
-  edge notes), 3 models, `lenses.yaml`. `RECONCILIATION.md` lists 13 label
-  rows marked REVIEW for the author.
+  edge notes), 3 models, `lenses.yaml`. `RECONCILIATION.md`: the 13
+  conflicting labels stay separate shared levels; each model selects which
+  it shows (author, 2026-10-01).
 - The app generator (`scripts/generate.py`, run by `prestart`/`prebuild`)
   writes the gitignored `generated/` data, resolves sources through
   `Dist/PAPERS.yaml` (DOI) or `https://www.t-theory.org/atlas/<slug>`, and
@@ -110,7 +111,7 @@ renderer registry, lens) and `e03e610` (integration, content, library panel).
 - Not yet checked: thought-sparks visuals; 3D SBS on the Dangbei Atom.
 - Renderers: 2 of 28 exist (`quantum-foam`, `thought-sparks`); the rest show
   labelled placeholders.
-- Next: label review; more renderers; automated screenshots per level, path
+- Next: more renderers; automated screenshots per level, path
   and lens into the Wave Atlas; Atlas diagrams in the app; deep-link QR;
   time axis (`eras.yaml`); Penrose index (cite chapters only; the text is
   private); Sherlock concept registry (`registry/concepts/`).
