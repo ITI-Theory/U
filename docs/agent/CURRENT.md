@@ -43,8 +43,15 @@ State on 2026-10-01:
   and booklets. Cheat-sheet text is hardened and labelled.
 - Papers hardened (72 edits across 23 papers; Lean appendix generator and
   one Lean doc comment updated). Published papers need new Zenodo versions.
-- Next: full candidate build, page-cap and visual QA, NotebookLM staging,
-  Lulu preview (author), then the paper omnibus rebuild.
+- P7 (`soma-field-patient-pov`) had lost 25 lines (end of front matter,
+  epigraph, opening of "A Note on Method") in the 2026-05-30 restructure;
+  restored from `60110e2`. Any P7 or paper-omnibus PDF built since 30 May
+  may show the damaged opening: check before Zenodo or Lulu.
+- Full candidate build passes (2026-10-01 03:30): omnibus 1,296 pages,
+  Volume I 680, Volume II 655, all fifteen standalone books, zero citation
+  warnings.
+- Next: visual QA of the PDFs, paper omnibus rebuild, NotebookLM staging
+  (`make uat-stage-ttheory`), Lulu preview (author), then the app and Atlas.
 
 ## Book Architecture
 
