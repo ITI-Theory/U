@@ -124,6 +124,56 @@ product:
    foam, badged INTERPRETIVE. The papers treat the soma field as classical, so
    the app must not call these quantum events.
 
+## Brainstorm (author, 2026-10-01 afternoon)
+
+Captured as directions; not yet scheduled. Sources: the author's message of
+2026-10-01; *The Soma-Field Collected Works* notebook (`main (3).js`, the
+4D/8D/11D case-study table); `Me/chats/Inbox/20260808_232411_Mind_Body.md`
+(the `T_TheoryUniverse (σ : ScaleStep)` Lean sketch).
+
+- **Compare view (4D | T-Theory).** For each path, first show what is
+  interesting in ordinary 4D physics, then switch on 7D/8D/11D and see the
+  two side by side: left viewport lens off, right viewport lens on, same
+  camera. This makes the point plainly: standard physics we agree with on the
+  left, the programme's extensions on the right.
+- **Worked examples** (`registry/examples/<id>.yaml`): the notebook's
+  case-study table already holds five, each in three steps: acoustic
+  (cathedral clap), gravity (Einstein's rubber sheet), geophysical (Glarus
+  thrust), dyadic, philosophy. Each step has title, body, equation, badge.
+  The 11D texts overclaim ("exact same physical manifold",
+  "machine-verified") and must be hardened before import. Each example
+  attaches to a path and level, drives the compare view, and prints as a
+  worked-example spread in the Field Atlas.
+- **Type guard (dependent types on/off).** The registry declares, per level,
+  which layers the level's type admits (affect only at `human-vertebrate`,
+  as `lenses.yaml` already does for `human-clinical`). Guard on (default):
+  ill-typed layers are disabled, as now. Guard off: the user may add anything
+  anywhere (feelings in a rock, BRECVEMA on a galaxy) and the app renders it
+  under a red `ILL-TYPED` banner naming the rule Lean would reject. To make
+  that claim honest, generate a small Lean file from the registry with one
+  inductive per level's admissible layers, so the rejection is a real type
+  error, not a `String` field (the notebook sketch types every
+  `FieldLayerType σ` as `String`, which accepts anything). This links
+  directly to Sherlock.
+- **Time machine and fantastic voyage.** The Soma Machine is both: the
+  time axis (`eras.yaml`, Philosophy Appendix C) changes time at a fixed
+  place, like the machine in George Pal's *The Time Machine* (1960, after
+  H. G. Wells) with rock rising round it; zoom changes level at a fixed time,
+  like *Fantastic Voyage* (1966). Movement through a fractal scene is later.
+- **Visual rhymes across levels.** Zooming into an asteroid belt or ring
+  system can look like plate tectonics (the author recalls this from a
+  Hawkwind "Space Is Deep" video). Renderers may share motion styles across
+  levels (sliding plates for `geological` and ring/belt debris for
+  `orbital-system`), badged as visual analogy (`INTERPRETIVE`): the physics
+  differs.
+- **SpaceEngine.** The author holds a licence; it is a separate product with
+  3D projector support. Possible later use: export level bookmarks as
+  SpaceEngine scripts for the cosmic levels, or use its renders as reference
+  (check the licence before publishing any image). The Soma Machine is the
+  same kind of cockpit: move, set scale, set time.
+- **Audio** is now in (Audio Contract in `SOMA-MACHINE-MVP.md`); the live
+  instrument (controllers, SOmaFX guitar VST, Ableton) stays a later track.
+
 ## Later
 
 - Penrose, *The Road to Reality*: a private chapter-to-equation-to-level index
