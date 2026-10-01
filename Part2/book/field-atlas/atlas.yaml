@@ -1,0 +1,18 @@
+id: field-atlas
+title: "[T]-Theory: Field Atlas"
+subtitle: The Wave That Is Always There
+# Ladder order. Level text lives in registry/levels/<id>.md (shared with the app);
+# sector introductions in sectors/, front and back matter in front/ and back/.
+sectors:
+  - file: sectors/1-quantum-to-classical.md
+    levels: [quantum-foam, string-boundary, nuclear, atomic, molecular]
+  - file: sectors/2-chemistry-to-biology.md
+    levels: [cellular-synaptic, local-circuit, whole-brain-cemi]
+  - file: sectors/3-individual-to-collective.md
+    levels: [human-vertebrate, dyad, animal-swarm, bird, flock, colony-roost]
+  - file: sectors/4-collective-to-planetary.md
+    levels: [society-city, regional-institutional, civilisational-solar, species-stellar, geological, planetary]
+  - file: sectors/5-stellar-to-cosmic.md
+    levels: [orbital-system, stellar, compact-object, stellar-cluster, galactic-disc, galactic-halo, galaxy-cluster, cosmic-filaments, cosmic-web, observable-universe]
+front: [front/1-how-to-read.md, front/2-the-ladder.md]
+back: [back/1-open-questions.md, back/2-glossary.md, back/3-sources-and-credits.md, back/4-colophon.md]

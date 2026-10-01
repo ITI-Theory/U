@@ -19,9 +19,9 @@ complementary products using the same response grammar.
 
 | Source | Role in the Soma Machine |
 | --- | --- |
-| `Part2/book/field-atlas/01b-scale-plates.md` | Twenty-scale plate grammar: physical substrate, interaction field, information layer, governing equation, interaction, and characteristic time. |
-| `Part2/book/field-atlas/12-ch11-soma-field.md` | Human soma-field explanation, eight modes, threshold, memory, Langevin dynamics. |
-| `Part2/book/field-atlas/13a-ch12b-music.md` | Music as a field probe and group-coupling route. |
+| `registry/levels/<id>.yaml` and `<id>.md` | Per-level data (substrate, field, equation, response time) and the Field Atlas entry text, shared by the app and the book. |
+| `registry/levels/human-vertebrate.md` | Human level: soma field, attractor landscape, Langevin dynamics, music as a field probe. |
+| `registry/examples/*.yaml` | Worked examples (4D / 8D / 11D steps) for the compare view and the Atlas. |
 | `paper/soma/music-affect-dynamics/music-affect-dynamics.md` | Formal 16-component state, energy landscape, Langevin dynamics, BRECVEMA forcing, and future audio/visual mappings. |
 | Lennie & Eerola (2022), CODA model | Sourced appraisal/context model: relevance, goals, meaning, and dynamic weighting of an emotional episode. |
 | `Dist/PAPERS.yaml` | Publication identity, status, DOI, and distribution links. |

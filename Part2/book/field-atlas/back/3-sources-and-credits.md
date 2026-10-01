@@ -27,7 +27,7 @@ This atlas belongs to the Soma-Field and Universal Somatic Field research progra
 21. *The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field*
 22. *Dark Matter as the Spatial Vacuum of the Universal Somatic Field: Ω_DM = 3/11*
 23. *The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Cultural Programme*
-24. *G₂ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal*
+24. *G$_2$ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal*
 
 Supporting records include *QUANT-EXP-1: Quantum Annealing Reachability Experiment on an 8-Mode Soma-Field Hamiltonian*, *SFT Applied: A Worked Clinical Example*, *Lean 4 Formal Proofs Appendix*, and the collected programme editions.
 
