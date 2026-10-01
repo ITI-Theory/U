@@ -54,8 +54,7 @@ This is a document about structure.
 Not about feelings — though feelings are what the programme is ultimately for. Not about
 therapy — though therapy is one of the principal applications. Not about physics —
 though physics is where the mathematics comes from. It is about a single recurring
-observation: that the equations governing emotional dynamics are the same equations
-that govern quantum fields, and that this is not a metaphor.
+observation: that emotional dynamics can be modelled with equations structurally related to field theory; identification remains assumption-bound, not literal identity.
 
 When an identification like that is made precisely — when you can say not "this is
 *like* a wave" but "this *is* a wave in the technical sense, with the same propagator,
@@ -194,14 +193,13 @@ structural fact.
 **What the work therefore rests on is not MCI.  It rests on four things:**
 
 1. **Inductive structural necessity.** The 11-dimensional decomposition of a
-   body-field-mind system is not an analogy with M-theory.  It is the minimum
-   geometry required to account for the functional degrees of freedom of a conscious
-   organism.  The isomorphism to M-theory is a *theorem*, not a design choice.
+   body-field-mind system is structurally compared with M-theory. The Lean result
+   is a type/product isomorphism under assumptions, not a proof of physical M-theory,
+   consciousness, or clinical reality.
 
-2. **Structural identity, not analogy.** A co-identification is not "A is like B."
-   It is "A *is* B under relabelling."  Every theorem about B becomes a theorem about
-   A — immediately, without re-derivation.  This is categorically different from
-   saying that emotional dynamics *resemble* a Hopfield network.  They *are* one.
+2. **Matched formal structure.** A co-identification supports theorem transfer only
+   for the matched formal structure and stated assumptions. It does not make every
+   theorem about one domain a theorem about the other wholesale.
 
 3. **Scale invariance.** The same Helmholtz Green's function equation governs 20
    scales of physical reality, from quantum foam to the cosmic web.  This is a
@@ -250,9 +248,7 @@ propagator of the field.
 
 $$G(\omega) = \frac{1}{\omega^2 - m^2 + i\epsilon}$$
 
-This is not a metaphor. The threshold $T$ at which a sub-perceptual field fluctuation
-becomes a conscious emotional percept is the mass parameter $m$ in the propagator.
-Below threshold: virtual. Above threshold: real.
+In the formal analogy, a threshold parameter plays a role comparable to a mass/correlation parameter in the propagator. Conscious perception is an open biological interpretation.
 
 **Co-identification 3: The brane identification.**
 The body and the nervous system are not the same manifold. The body is a 3-brane

@@ -17,9 +17,7 @@ abstract: |
   enabling escape from local minima without stochastic resets. We derive two
   coupling equations — a temperature modulation and a weight modulation — and
   demonstrate their falsifiability via the Reachability Trap protocol. We further
-  show that three neurodivergent conditions (ADHD, Autism Spectrum Condition,
-  and Complex PTSD) correspond to distinct dynamical regimes of the FM-HN,
-  each characterised by a specific β profile and barrier geometry. The
+  propose model operators for ADHD-, ASC-, and C-PTSD-like regimes; these are hypotheses, not diagnostic claims. Each is characterised within the model by a specific β profile and barrier geometry. The
   architecture is Lean 4 type-checked in the companion file `LimbicHopfield.lean`.
 ---
 
@@ -232,8 +230,7 @@ escapes; classical dynamics achieved 0/48.
 
 # Neurodivergent Operator Modifications
 
-The FM-HN framework naturally accounts for three neurodivergent conditions
-as distinct $(\beta, J, W)$ configurations.
+The FM-HN framework offers a toy-operator representation of three clinically named profiles as distinct $(\beta, J, W)$ configurations.
 
 ## ADHD Operator
 
@@ -261,10 +258,7 @@ Formally: `LimbicHopfield.autismOperator` sets $T = 0.4 \cdot T_\text{base}$.
 
 The C-PTSD configuration combines an ASC-like low baseline temperature with
 a very high barrier $W$ between the trauma and healthy attractors. The network
-is cold (difficult to perturb) AND the barrier is tall. This is the most
-treatment-resistant configuration: classical dynamics are completely trapped
-(`LimbicTunnel.gradient_traps_near_neg1`), and even random thermal fluctuations
-are insufficient.
+is cold (difficult to perturb) AND the barrier is tall. This is a model configuration intended to represent a hard-to-escape basin; clinical treatment resistance is not established. In the formal model, classical dynamics are trapped (`LimbicTunnel.gradient_traps_near_neg1`), and random thermal fluctuations are insufficient.
 
 The FM-HN prediction is specific: limbic modulation must raise $\Phi$ to the
 point where $\beta(\Phi)$ drops below the WKB threshold for the given $W$.
@@ -314,11 +308,7 @@ dynamics, the Langevin equation cannot escape a deep attractor — this is
 because quantum tunnelling provides a path through the barrier that is
 inaccessible to gradient flow.
 
-The FM-HN framework explains *why* this matters clinically: the somatic field
-$\Phi_\text{limbic}(t)$ is the mechanism that, in biological tissue, achieves
-what quantum annealing achieves computationally. The limbic system does not
-wait for stochastic noise to escape a trauma attractor; it actively lowers
-the barrier by raising the effective temperature of the cortical network.
+The FM-HN framework hypothesises why this could matter clinically: somatic modulation may alter effective barriers. This is not evidence that biological tissue implements quantum annealing; the model represents limbic modulation as lowering a barrier by raising the effective temperature of the cortical network.
 
 ## Lean 4 Verification
 
@@ -351,10 +341,7 @@ exactly to the standard 2020 Hopfield update. Under high somatic stress, the
 barriers melt, and the network dynamics enter the quantum tunnelling regime
 characterised by QUANT-EXP-1.
 
-The three neurodivergent operator modifications (ADHD, ASC, C-PTSD) are not
-ad hoc additions but emergent properties of the same $(\beta, J, W)$
-parameter space. They are computationally distinct regimes, not clinical
-labels applied post hoc.
+The three neurodivergent operator modifications (ADHD, ASC, C-PTSD) are model-defined regimes in $(\beta, J, W)$. Mapping them to clinical labels remains a hypothesis rather than a diagnostic claim.
 
 The formal apparatus — field decomposition, correspondence proof, operator
 characterisation — is type-checked in Lean 4. The empirical apparatus —

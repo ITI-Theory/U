@@ -96,7 +96,7 @@ $$\Omega_\text{DM}^\text{USF} = \frac{N_\text{spatial}}{N_\text{total}}
 
 All three leading-order predictions from dimensional counting:
 
-| Sector | USF fraction | Prediction | Observed (Planck 2018) | Discrepancy |
+| Sector | USF fraction | Prediction | Observed (rounded current-Lean value) | Discrepancy |
 |---|---|---|---|---|
 | Dark energy ($\Lambda$) | $7/11$ | 0.636 | 0.683 | 6.8\% |
 | **Dark matter** | $3/11$ | **0.273** | **0.265** | **2.9\%** |
@@ -269,9 +269,9 @@ The discrepancy of $\sim 4.3\%$ has two contributions:
 1. **Calabi-Yau moduli corrections** (as proposed in the companion
   cosmological-constant paper): the $\mathcal{O}(\alpha')$
    geometry of $X_7$ adjusts each sector by $\sim 7\%$. For $\Lambda$ this
-   shifts $7/11 \to 0.683$ (+7.4\%). For dark matter the corresponding shift
-   is $3/11 \to 0.265$ (-2.9\% — a different sign because the spatial block
-   couples differently to the CY moduli).
+   shifts $7/11 \to 0.683$ (+7.4\%). For dark matter the corresponding rounded current-Lean convention
+   is $3/11 \to 0.265$ (about -2.9\%; exact Planck 2018 would be about -3.1\%),
+   with a different sign because the spatial block couples differently to the CY moduli.
 
 2. **Redshifted radiation**: the partner of the baryonic matter is the
    annihilated antimatter, which became photons with initial fraction
@@ -292,7 +292,7 @@ The numerical claims are formalised in
 | Statement | Lean name | Status |
 |---|---|---|
 | $\Omega_\text{DM} = 3/11$ at leading order | `omega_dm_fraction` | **proved** (`native_decide`) |
-| 3\% discrepancy bound | `omega_dm_discrepancy_small` | **proved** (`norm_num`) |
+| Rounded-value discrepancy bound; exact Planck update requires changing `CosmologicalConstant.lean` and may break <3\% | `omega_dm_discrepancy_small` | **proved for rounded current-Lean values** (`norm_num`) |
 | Spatial block → gravitational coupling | `spatial_vacuum_gravity_coupling` | axiom |
 | Spatial block → no EM charge | `spatial_vacuum_em_neutral` | axiom |
 | Spatial block → $w = 0$ (clustering) | `spatial_vacuum_pressure_zero` | axiom |
@@ -434,7 +434,7 @@ in the non-relativistic limit). It matches the complete observational profile
 of cold dark matter without introducing a new particle species.
 
 Together with the companion model's proposed $\Omega_\Lambda = 7/11$
-(6.8\% discrepancy), the USF
+(about 7.1\% low against exact Planck 2018, or 6.8\% against the rounded current-Lean value), the USF
 accounts for 95\% of the universe's energy budget — the dark energy and dark
 matter sectors — from the single integer decomposition $11 = 7 + 3 + 1$ of
 the M-theory spacetime dimension.

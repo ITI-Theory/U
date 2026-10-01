@@ -357,9 +357,7 @@ amplitude and timing, that achieves the therapeutic goal most efficiently.
 
 The formal solution is beyond the scope of this paper (it requires specifying the
 energy landscape, the window-of-tolerance constraints, and the admissible set of
-therapeutic currents). However, the framework establishes that such an optimal
-solution *exists*, is *computable in principle*, and provides a *principled
-criterion* for evaluating any proposed therapeutic approach: does it approximate
+therapeutic currents). However, the framework suggests an optimal-control formulation; existence, computability, and clinical usefulness require a specified landscape, constraints, and proof before it can provide a principled criterion for evaluating any proposed therapeutic approach: does it approximate
 the optimal control trajectory, or does it systematically deviate from it?
 
 ## Why Somatic Entry Is Faster: A Formal Account

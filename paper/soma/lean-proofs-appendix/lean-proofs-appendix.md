@@ -39,23 +39,25 @@ The eleven files that follow collectively establish:
 
 | File | Core result | Status |
 |---|---|---|
-| `Hopfield.lean` | Hopfield energy function; Hebbian weight construction | Kernel-verified |
-| `EmotionOntology.lean` | Final-tagless emotion algebra; 5 interpreters; LEAN-1 | Kernel-verified |
-| `FieldProofs.lean` | Promoted axioms; `awe_is_universal` closes with `rfl` | Kernel-verified |
-| `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Kernel-verified |
-| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Kernel-verified |
-| `LimbicTunnel.lean` | WKB amplitude; classical trapping; quantum advantage | Kernel-verified |
-| `MTheoryIsomorphism.lean` | 11D isomorphism; organism hierarchy | Kernel-verified |
-| `LimbicHopfield.lean` | FM-HN Correspondence Principle; clinical operators | Kernel-verified |
-| `SwarmPropagator.lean` | O(N²) < O(NK) coordination; jam resistance | Kernel-verified |
-| `UniversalSomaticField.lean` | Scale invariance; consciousness threshold; universality | Mixed (axioms noted) |
-| `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles |
+| `Hopfield.lean` | Hopfield energy function; Hebbian weight construction | Compiles; theorem-level declarations are cited below |
+| `EmotionOntology.lean` | Final-tagless emotion algebra; 5 interpreters; LEAN-1 | Compiles; theorem-level declarations are cited below |
+| `FieldProofs.lean` | Promoted axioms; `awe_is_universal` closes with `rfl` | Compiles; contains axioms and theorem-level declarations |
+| `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Compiles; contains kernel-verified declarations and open sorries listed below |
+| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Compiles; contains kernel-verified declarations and open sorries listed below |
+| `LimbicTunnel.lean` | WKB amplitude; classical trapping; quantum advantage | Compiles; theorem-level declarations are cited below |
+| `MTheoryIsomorphism.lean` | 11D isomorphism; organism hierarchy | Compiles; theorem-level declarations are cited below |
+| `LimbicHopfield.lean` | FM-HN Correspondence Principle; clinical operators | Compiles; theorem-level declarations are cited below |
+| `SwarmPropagator.lean` | O(N²) < O(NK) coordination; jam resistance | Compiles; theorem-level declarations are cited below |
+| `UniversalSomaticField.lean` | Scale invariance; consciousness threshold; universality | Compiles; contains axioms and theorem-level declarations |
+| `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles; data and renderer declarations |
 
-**On proof status and axioms:** there are no active Lean `sorry` stubs in this
-appendix's proof sources. Two results in `UniversalSomaticField.lean` are
-stated as `axiom` (the consciousness threshold and cosmological limit) pending
-full PDE scaffolding. Open work is represented as named axioms, explicit gap
-markers, or scoped future formalisation, each documented in source.
+**On proof status and axioms:** Lean accepts the files, but a build is not a
+file-level proof certificate. There are seven real Lean `sorry` stubs:
+`BRECVEMAVariational` (2), `DyadicField` (2), `SomaField` (2), and
+`SomaNetwork` (1). Individual declarations may be kernel-verified theorems,
+axioms, definitions, arithmetic facts, imported theorem applications, or
+sorry-backed placeholders. Open work is represented as named axioms, explicit
+gap markers, or scoped future formalisation, each documented in source.
 
 ## How to verify these proofs yourself
 
@@ -72,7 +74,8 @@ lake exe cache get
 lake build
 
 # 4. The proofs are in paper/proofs/
-# Any file that builds without error is kernel-verified.
+# A build means Lean accepted the file; individual declarations may be axioms,
+# definitions, arithmetic, imported theorem applications, or sorry-backed placeholders.
 ```
 
 The source files are reproduced in full below, in dependency order.
@@ -2808,9 +2811,10 @@ synthesises all companion proofs and establishes three new results:
    equation is species-independent.
 
 **Status:** Scale invariance and the organism hierarchy kernel are Lean
-kernel-verified.  The consciousness threshold and cosmological limit are
-stated as axioms pending full PDE / cosmology scaffolding in Mathlib — the
-type signature is settled even if the tactic proof is deferred.
+checked at theorem level. `consciousness_dichotomy` is the definitional split
+`φ < √2 ∨ √2 ≤ φ`; its biological interpretation is open. Cosmology is
+model-derived under assumptions, not an independently verified physical
+result.
 
 ```haskell
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
@@ -2909,8 +2913,9 @@ theorem scale_invariance_inhabited (n : ScaleLevel) :
     the free-field USF = GFF(m=k), whose covariance kernel is the
     fundamental solution of (-Δ + k²). The distributional identity
     itself awaits Mathlib Schwartz-space infrastructure for a
-    fully symbolic proof; the physical claim holds by OS axiom
-    verification (0 sorries, 0 extra axioms). -/
+    fully symbolic proof; OSforGFF supports the free Gaussian-field formal
+    model, while the distributional SHO identity and the USF interpretation
+    remain separate. This declaration is a placeholder proving `True`. -/
 theorem greens_fn_is_SHO (n : ScaleLevel) (eq : FieldEquation n) (x : ℝ) :
     True := trivial
 

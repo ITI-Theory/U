@@ -39,7 +39,7 @@ universe. Scales 7–9 on the USF dial correspond to animal swarms, human
 organisms, and societal-scale dynamics. This paper presents worked examples at
 exactly these scales, drawn from human geography.
 
-The question is not whether the equation applies — that is a theorem
+The question is not the USF theorem supplies a formal scale-indexed equation; applying it to geographic substrates is a modelling hypothesis to be tested
 [@johnsonzsf2026, §2] — but what the physical substrate, propagator, and
 boundary conditions look like at each scale, and whether the predictions match
 observable patterns. Two examples from the same geographic corridor (the
@@ -203,9 +203,7 @@ physical interpretation of "source" and "response."
 The central insight of this paper is that geographic features function as
 boundary conditions on the Green's function equation at Scale 7–10. Mountain
 ranges, valley floors, coastlines, and reservoir complexes select which
-propagation modes survive long-range transmission. This is not a metaphor; it
-is the same mathematical mechanism as the boundary conditions of a microwave
-cavity or an optical fibre.
+propagation modes survive long-range transmission. This is a proposed shared boundary-condition formalism; substrate equivalence remains a modelling assumption.
 
 The implications for cultural geography are direct. The propagation of
 languages, species ranges, technological adoption curves, and disease vectors

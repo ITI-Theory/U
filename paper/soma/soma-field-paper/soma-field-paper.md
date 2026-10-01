@@ -1184,12 +1184,7 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal
-Somatic Field as a Euclidean Quantum Field Theory* proves that the
-free-field USF satisfies all five Osterwalder–Schrader axioms, placing it within the
-rigorous framework of constructive quantum field theory. The proof is machine-verified
-in Lean 4 with zero sorries. Reflection positivity (OS3) guarantees the legitimacy of
-the Minkowski continuation proved in the temporal-dynamics companion paper. The
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal Somatic Field as a Euclidean Quantum Field Theory* applies imported OSforGFF results to a free Gaussian model under $m \leftrightarrow k$. The repository has seven real sorries, and Minkowski continuation remains within model assumptions. The
 interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
 Axioms for the Interacting Universal Somatic Field*.
 
@@ -2450,11 +2445,7 @@ oscillating indefinitely — depends on a single condition: $W$ must be **symmet
 $j$'s influence on mode $i$. Under this condition, $H$ has no saddle-point cycles; the
 system descends to a minimum and stays there.
 
-Appendix B.2 establishes that the C-PTSD modification breaks this symmetry: the
-asymmetric component $W_A = \frac{1}{2}(W - W^\top)$ is non-zero, producing limit cycles
-— persistent oscillations that never reach a fixed minimum. This is not a minor
-qualification. It is the formal statement that the C-PTSD attractor dynamics are
-**categorically different** from the standard Hopfield model: not deeper wells, but loops.
+Appendix B.2 models a C-PTSD-like asymmetric modification: the asymmetric component $W_A = \frac{1}{2}(W - W^\top)$ is non-zero, producing limit cycles in the model. Clinical C-PTSD dynamics and limit-cycle behaviour remain hypotheses unless empirically validated.
 Not stuck, but cycling.
 
 In string diagram terms, the distinction is topological:
@@ -2513,13 +2504,7 @@ identically in classical mechanics, Hamiltonian mechanics, and quantum field the
 simultaneously — when the same object emerges in three independent formalisms with the
 same properties — that convergence is taken as evidence of physical reality. The quantity
 is not an artifact of any one formalism; it appears in all because it tracks something
-real. The claim here is structurally analogous: the emotional field $\mathbf{E}(x,t)$, the
-polyvagal attractor landscape, and the neurodivergent operator modifications appear
-identically in QFT notation, category theory, Lean 4 types, and clinical description. This
-does not prove they are physically real. It establishes that they are structurally stable
-under change of representational language — which is a necessary condition for physical
-reality, and a condition that models stated only in clinical prose cannot satisfy, because
-they have only one language.
+real. The claim here is structurally analogous: the emotional field $\mathbf{E}(x,t)$, the polyvagal attractor landscape, and the neurodivergent operator modifications can be represented across these languages within the model. Cross-representation stability is suggestive but not evidence of physical or clinical reality.
 
 **The gaps are in the same place in all four languages.** The two `sorry` markers in
 Appendix A.5, the asymmetric $W$ gap discussed in Section C.8, and the non-perturbative

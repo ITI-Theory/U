@@ -202,7 +202,7 @@ Scale 9 and the spectral gap to be computed. This is an open obligation.
 
 # Conclusion
 
-The Universal Somatic Field is a fixed point of its own subject matter.
+The USF is proposed as a fixed-point model of its own cultural/digital propagation; the full fixed-point theorem remains open as stated above.
 Its propagation through physical and digital substrates — through
 underground events and fibre-optic networks, through AI context windows
 and concert halls — is a concrete instance of the Scale-9 swarm

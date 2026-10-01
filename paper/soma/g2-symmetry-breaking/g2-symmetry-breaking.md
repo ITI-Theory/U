@@ -131,7 +131,7 @@ processing. Its non-zero entries correspond to:
 
 # Therapeutic Trajectory: Reducing δW
 
-The decomposition suggests a precise model of the therapeutic process:
+The decomposition suggests a speculative model of therapeutic change:
 
 **Healthy processing** corresponds to $\|\delta W\|_F \to 0$ — the emotional coupling
 approaching the $G_2$-symmetric ideal. Each coupling relaxes toward $\tfrac{6}{5}$:
@@ -145,9 +145,7 @@ and the EC–VI anti-correlation (conditioned responses block visual processing)
 **The somatic invariant:** $\mathrm{tr}(\delta W) = 0$ is preserved throughout. This
 is the conservation law: the total energy of the symmetry-breaking modes is zero.
 No therapeutic intervention can add or remove total $\delta W$ energy — it can only
-redistribute it. The goal of therapy is to drive $\delta W$ toward a uniform
-distribution across all modes (which by tracelessness approaches zero entry-by-entry
-as the system approaches the $G_2$ attractor).
+redistribute it. In this model, a possible therapeutic target would be reduction/redistribution of $\delta W$ across all modes (which by tracelessness approaches zero entry-by-entry as the system approaches the $G_2$ attractor); clinical goals and efficacy require evidence.
 
 ---
 
@@ -176,8 +174,7 @@ The $G_2$-symmetric component $\tfrac{6}{5} I_8$ is the mathematical ideal of
 balanced emotional processing. The traceless symmetry-breaking $\delta W$ encodes the
 biological anisotropies: the ME–AJ and VI–EM couplings are the dominant positive
 anisotropies; the BS–AJ anti-correlation (stress suppresses aesthetics) is the
-dominant negative anisotropy. Therapeutic progress corresponds to
-$\|\delta W\|_F \to 0$ while $\mathrm{tr}(\delta W) = 0$ is conserved.
+dominant negative anisotropy. The model represents one possible marker as $\|\delta W\|_F \to 0$ while $\mathrm{tr}(\delta W) = 0$ is conserved; this is not yet a validated therapeutic biomarker.
 
 The $8 \to 7$ algebraic reduction is resolved: the 8D biological field has a
 seven-dimensional traceless symmetry-breaking sector, compatible with the 7D

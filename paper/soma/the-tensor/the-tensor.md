@@ -402,8 +402,7 @@ crossing is attempted again.
 At $\kappa_r = 1.0$: the film is a mirror. The audio and visual content is generated
 entirely from $\mathbf{e}_V(t)$. The abstract score $\mathbf{e}^*(t)$ functions only
 as a *target trajectory* — an attractor for the viewer's field. The rendering
-system continuously generates content designed to guide $\mathbf{e}_V$ toward
-$\mathbf{e}^*$. This is a formal implementation of therapeutic presence.
+system continuously generates content designed to steer the estimated viewer state $\mathbf{e}_V$ toward a target trajectory $\mathbf{e}^*$. Calling this therapeutic presence is an artistic/model-level analogy, not a clinical claim.
 
 ---
 

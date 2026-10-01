@@ -8,8 +8,7 @@ lang: en-GB
 abstract: |
   We prove that the free-field limit of the Universal Somatic Field (USF)
   satisfies all five Osterwalder–Schrader (OS) axioms for a Euclidean quantum
-  field theory. The proof is fully machine-verified in Lean 4 with zero
-  sorries and zero extra axioms. The key identification is that the USF
+  field theory. Named free-GFF theorem applications are Lean-checked; USF=GFF is a model assumption / co-identification, and the wider proof surface has seven real sorries. The key identification is that the USF
   Green's function in momentum space, $G(p) = 1/(p^2 + k^2)$, is
   identical to the massive Gaussian Free Field (GFF) propagator with mass
   parameter $m = k$. Douglas, Hoback, Mei and Nissim (2026) established,
@@ -69,10 +68,10 @@ interpretation. Satisfaction of all five OS axioms guarantees:
 5. **OS4 — Clustering**: exponential decay of connected correlators at large
    separation.
 
-The present paper closes this question for the free-field USF. We prove, in
-Lean 4 with zero sorries and zero extra axioms, that the free-field USF
-satisfies all five OS axioms. The proof rests on a one-line identification:
-the free-field USF is the Gaussian Free Field (GFF) with mass parameter
+The present paper addresses this question for the free-field model. We apply
+OSforGFF Lean results to the free Gaussian model under the stated $m \leftrightarrow k$
+identification. The proof rests on a one-line formal identification: the
+free-field USF is represented as the Gaussian Free Field (GFF) with mass parameter
 $m = k$, where $k$ is the USF wavenumber, and the GFF was proved by
 Douglas, Hoback, Mei and Nissim [-@douglas2026osgff] to satisfy OS0–OS4.
 
@@ -300,11 +299,11 @@ target.
 
 ## 7 Conclusion
 
-We have proved that the free-field Universal Somatic Field satisfies all five
-Osterwalder–Schrader axioms for a Euclidean quantum field theory. The proof
-is:
+Under the free-Gaussian identification, the formal model inherits OS0–OS4 from
+the imported GFF theorem; physical identification remains an assumption. The proof
+surface is:
 
-- **Machine-verified** in Lean 4, zero sorries, zero extra axioms;
+- **Lean-checked for named free-Gaussian theorem applications**; repository-wide surface has seven real sorries and USF=GFF is derived under assumptions;
 - **Tight**: a single application of the Douglas et al. master theorem under
   the identification $m \leftrightarrow k$;
 - **Coherent** with the temporal dynamics proof, with OS3 explaining why the

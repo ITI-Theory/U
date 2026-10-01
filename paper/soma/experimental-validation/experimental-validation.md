@@ -11,8 +11,7 @@ csl: ../../apa-7th.csl
 abstract: |
   The Universal Somatic Field (USF) framework makes formal claims about computational
   efficiency, attractor reachability, and phase-transition dynamics.  This paper
-  presents five experimental benchmarks that move those claims from *proved* to
-  *demonstrated*: (1) a four-model timed comparison of Hopfield 1982, Hopfield 2016,
+  presents five executable benchmarks that provide evidence for selected model behaviours; proof status remains theorem-/axiom-specific and benchmarks do not validate physical or clinical claims: (1) a four-model timed comparison of Hopfield 1982, Hopfield 2016,
   Hopfield 2020, and the FM-HN USF 2026 on a fear-to-awe basin-crossing task;
   (2) the MNIST corrupted character test, showing that classical networks settle into
   false attractors while the FM-HN escapes via the WKB tunnelling gate; (3) macroscopic
@@ -33,7 +32,7 @@ A formal proof establishes that a claim is *necessarily true* given its premises
 An experiment establishes that the claim is *actually observable* in a specific
 physical or computational substrate.  The USF programme has prioritised the
 former — eleven machine-verified theorems, three axioms pending PDE scaffolding,
-one empirical quantum experiment.  This paper addresses the latter.
+one exact 8-qubit statevector simulation (QUANT-EXP-1).  This paper addresses the latter.
 
 The motivation is practical.  When a reviewer or collaborator asks *"but does it
 actually work faster?"*, pointing to `onN2_lt_onNK` is mathematically correct
@@ -124,8 +123,7 @@ is constant — the classical models are literally special cases of FM-HN with
 the tunnelling gate disabled.
 
 **`quant_exp_1_awe_reachable` (QuantumSim.lean, kernel-verified):**
-The Born probability of measuring the awe state after applying the WKB gate
-is strictly positive for any W > 0.  The gate *always* creates awe-basin overlap.
+The theorem establishes positive overlap in the formal WKB-gate model for any W > 0; it does not encode full QUANT-EXP-1 sample counts or clinical reachability.
 
 ---
 
@@ -339,8 +337,7 @@ The five benchmarks collectively establish:
    structurally asymmetric, consistent with a second-order phase transition.
 
 5. **Experimental–formal correspondence**: each benchmark result was predicted
-   by a kernel-verified theorem.  The experiments confirm what the proofs
-   predict; the proofs explain why the experiments must turn out this way.
+   by a kernel-verified theorem.  The benchmarks inspect consequences of the formal model; empirical or hardware tests may fail if assumptions do not hold.
 
 ## What has not been established
 
@@ -383,7 +380,7 @@ the GHZ/Kuramoto/Britain 1939 macroscopic benchmarks, and the God-Knob
 hysteresis test all produce the results that the kernel-verified theorems
 predict.
 
-The experiments are not an afterthought.  They are the proofs made legible.
+The experiments are not an afterthought.  The benchmarks make selected formal predictions inspectable; they remain simulations / executable tests, not proofs of world behaviour.
 When a reviewer asks "does it actually work faster?", the answer is:
 run `#eval runBenchmark` and read the distance column.
 

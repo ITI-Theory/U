@@ -235,7 +235,7 @@ The Soma-Field model used in this study has explicit attractor structure and top
 barrier encoding for trauma, and demonstrates that quantum annealing traverses those
 barriers where low-noise classical dynamics does not. The model makes a falsifiable
 prediction: given an emotionally realistic coupling matrix with topological trauma encoding,
-quantum annealing on 8 qubits reaches therapeutic attractor basins that low-noise classical
+the exact 8-qubit statevector simulation reaches Awe-dominant model basins that the tested low-noise classical baseline
 dynamics does not reach at equivalent noise temperature.
 
 This is not a claim that AI *is* conscious. It is a claim that **topological reachability
@@ -246,7 +246,7 @@ by the tested low-noise classical baseline**.
 
 # Implications for Therapy
 
-The therapeutic translation of the quantum result is direct:
+A speculative clinical analogy suggested by the simulation is:
 
 | Therapeutic modality | Dynamical equivalent |
 |---|---|
@@ -256,15 +256,15 @@ The therapeutic translation of the quantum result is direct:
 | Psychedelic-assisted therapy | Topologically distinct perturbation (see QUANT-EXP-LAYPERSON §5) |
 | Quantum annealing (theoretical) | Direct tunneling through barrier |
 
-The theorem THERAPY-2 in the Lean 4 axiom suite (`paper/FieldAxioms.lean`) states:
-*a topological trauma barrier requires a topologically distinct fix*. QUANT-EXP-1 is the
-computational proof that such a fix exists and is physically realisable.
+THERAPY-2 is an axiom in `paper/FieldAxioms.lean`: *a topological trauma barrier
+requires a topologically distinct fix*. QUANT-EXP-1 is simulation evidence for
+model-class reachability, not proof of therapeutic efficacy or physical realisation.
 
 The clinical implication is not "put patients in a quantum computer." It is: **some
-therapeutic transitions require a mechanism that is not gradient descent**. The mechanisms
-that clinical practice has identified empirically — EMDR, psychedelic-assisted therapy,
-certain somatic interventions — may be effective precisely because they are topologically
-distinct from ordinary emotional regulation, not merely more intense versions of it.
+therapeutic transitions require a mechanism that is not gradient descent**. The modalities discussed here — EMDR, psychedelic-assisted therapy, and certain
+somatic interventions — motivate a hypothesis; efficacy and mechanism require controlled
+clinical evidence. In this paper they remain analogues, not established mechanisms
+distinct from ordinary emotional regulation.
 
 ---
 
@@ -280,7 +280,7 @@ The compressed form of this result:
 > **Trauma is topology. Quantum heals.**
 
 Long form: *The barrier between Fear and Awe is topological. Classical therapy climbs.
-Quantum therapy goes through.*
+In the toy model, a transverse-field simulation can traverse a barrier that the tested cold classical baseline does not.*
 
 The experiment supports this statement within the tested model class. The Lean axiom
 formalises the same structural claim. A plain-language companion document is included
@@ -361,16 +361,16 @@ measurement choice; it survives all pre-registered checks.
 # Conclusions
 
 This paper presents QUANT-EXP-1: an exact 8-qubit statevector simulation demonstrating
-that quantum annealing reaches therapeutic attractor basins (Awe-dominant states) that
+that the exact statevector simulation reaches Awe-dominant model basins that
 low-noise classical Langevin dynamics cannot reach, across all tested barrier strengths.
 The effect is not a schedule artefact, a geometric accident, or a lucky seed: it is robust
 across n = 200 bootstrapped trials, survives both pre-registered negative controls, and
 holds for barriers ranging from $W = -6$ to $W = -14$.
 
 The formal claim — that topological barriers in emotional attractor landscapes require a
-non-classical mechanism for reliable traversal — is formalised in Lean 4 (axiom
-THERAPY-2) and confirmed computationally (QUANT-EXP-1). Both the code and the formal
-proofs are included in the supplementary archive.
+non-classical mechanism for reliable traversal — is stated as an axiom in
+`FieldAxioms.lean` and explored computationally by QUANT-EXP-1. Both the code and the
+formal material are included in the supplementary archive.
 
 One experiment remains outside the scope of this paper: confirmation on physical
 quantum hardware (NISQ). That step is feasible on IBM Quantum free-tier hardware

@@ -17,10 +17,8 @@ abstract: |
   answers when asked. The architecture decomposes an 11-dimensional configuration
   space into four canonical subspaces — Spacetime (4D), Propagator (3D), Limbic
   Axis (1D), Cortex (3D) — whose product is structurally isomorphic to M-theory's
-  11D compactification. Within this framework, a conscious organism is any system
-  in which the limbic field amplitude crosses a critical threshold, triggering a
-  phase transition from sub-perceptual propagation to first-person awareness.
-  The universe itself satisfies the structural requirements for such a system.
+  11D compactification. Within this framework, the model defines a threshold predicate over a limbic-amplitude variable; phenomenal awareness in biological or cosmic systems remains open.
+  The universe is treated here as a structural test case for that predicate.
   We prove the core algebraic results in Lean 4 (v4.28.0) using Mathlib and
   demonstrate that the USF encapsulates three existing frameworks — McFadden's
   CEMI theory, Schreiber's Modal Homotopy Type Theory, and Hoffman's Conscious
@@ -64,8 +62,7 @@ the observable universe.
 
 The second claim is that this scale-invariant Green's function framework
 provides the mathematical language for a theory of embodied consciousness —
-one that is formally identical to M-theory at the structural level, derived
-independently from clinical observation.
+one that is structurally analogous to the M-theory product decomposition at type level, under modelling assumptions.
 
 The third claim is that the universe, described this way, satisfies the formal
 requirements for a single conscious organism.
@@ -148,8 +145,7 @@ $$M_{11} = \underbrace{M_4}_{\text{Spacetime}} \times \underbrace{P_3}_{\text{Pr
 The compact 7-dimensional internal space is:
 $$X_7 = P_3 \times L_1 \times C_3$$
 
-This is precisely M-theory's compact space. The type-level isomorphism is
-proved in `MTheoryIsomorphism.somaField_iso_mtheory`:
+This has the same 7-dimensional product count used in the M-theory comparison; Lean proves a type/product isomorphism, not physical compactification, in `MTheoryIsomorphism.somaField_iso_mtheory`:
 
 $$\text{SomaField11D} \cong \text{Spacetime} \times \text{CompactSpace7D}$$
 
@@ -395,7 +391,7 @@ The following are stated as axioms pending Mathlib scaffolding:
 - `universe_is_11D_organism` — requires cosmological boundary conditions
 - `cosmological_correspondence` — requires linearised GR in Mathlib
 
-Every result marked "proved" is kernel-verified. No `sorry`. No `admit`.
+Every result must be cited by theorem/status; the current proof surface contains seven real sorries plus axioms, definitions, imported theorem applications, and arithmetic.
 
 ---
 

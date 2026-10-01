@@ -214,26 +214,11 @@ This is not guessing. It is a constrained search under a scoring function,
 where the oracle is "type signatures match" rather than "hash matches" or
 "goal is closed." The algorithm is the same in all three cases.
 
-The Lean 4 proof assistant implements this algorithm directly as the
-`aesop` tactic [@leanprover2021]. `Aesop` performs best-first search
-through a registered lemma set, scores each partial proof state, keeps the
-best candidates, and closes the goal when a complete proof is found. The
-correspondence is exact:
-
-| `Aesop` step | Co-identification step |
-|---|---|
-| Registered lemma set | The typeverse |
-| Try a lemma | Propose a type-match candidate |
-| Score the goal state | Measure type-signature fit |
-| Keep best partial proof | Record candidate correspondences |
-| Close the goal | Full identification: import all theorems |
-
-This is not a metaphor for co-identification — it is an implementation of it.
-The practical consequence is that the full loop can be automated in a formal
-system: given a type signature for $Q$, `Aesop` with the typeverse lemma set
-registered will search for the co-identification proof and either close it
-(identification confirmed and machine-verified) or fail (genuine gap, no
-known match).
+The Lean 4 proof assistant offers an analogy and possible automation route for this
+search through the `aesop` tactic [@leanprover2021]. `Aesop` performs best-first search
+through a registered lemma set, scores each partial proof state, keeps the best candidates,
+and closes the goal when a complete proof is found. `AesopImplementsCoIdentification`
+is an axiom/methodological claim, not machine verification of co-identification.
 
 The loop in full:
 

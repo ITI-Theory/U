@@ -112,11 +112,7 @@ pattern. This is not a reinterpretation — it is a derivation from the structur
 of field equations.
 
 The architecture that results is the **Zoomable Universal Somatic Field (zUSF)**:
-an eleven-dimensional field theory, derived bottom-up from the phenomenology
-of conscious organisms, that is structurally isomorphic to M-theory's
-eleven-dimensional compactification structure. The isomorphism is not metaphorical;
-it is a type-level proof verified by the Lean 4 kernel
-(`MTheoryIsomorphism.somaField_iso_mtheory`).
+an eleven-dimensional field theory motivated by organism-level modelling and structurally compared with M-theory. Lean proves a type/product isomorphism under assumptions (`MTheoryIsomorphism.somaField_iso_mtheory`), not physical identity.
 
 The derivation is inductive rather than deductive. Where Veneziano (1968)
 wrote down a scattering amplitude and Nambu, Nielsen, and Susskind separately
@@ -795,16 +791,14 @@ behind the rest of the programme.
 *pre-conscious* when its limbic field amplitude $\phi < T_c$. Field
 propagation occurs; no first-person awareness is present.
 
-**Definition (Conscious state).** A system is *conscious* when $\phi \geq T_c$.
-The limbic field couples the somatic and cortical subspaces; first-person
-awareness emerges as a property of this coupling.
+**Definition (Model threshold state).** A system satisfies the model predicate when $\phi \geq T_c$.
+The limbic field couples the somatic and cortical subspaces; awareness and biological thresholds remain open hypotheses.
 
 **Theorem (Lean 4 verified, `UniversalSomaticField.consciousness_dichotomy`):**
-For any $\phi \in \mathbb{R}$, either $\phi < T_c$ (pre-conscious) or
-$\phi \geq T_c$ (conscious). The transition is sharp. $\square$
+For any $\phi \in \mathbb{R}$, either $\phi < T_c$ or $\phi \geq T_c$. This is a split for a model predicate, not a proof of phenomenal awareness. $\square$
 
 **Theorem (Lean 4 verified, `UniversalSomaticField.consciousness_monotone`):**
-Raising $\phi$ cannot destroy consciousness. $\square$
+Raising $\phi$ cannot falsify the model threshold predicate once it holds. $\square$
 
 ## 6.2  The Hard Problem
 
@@ -1005,7 +999,7 @@ The core algebraic results are Lean 4 kernel-verified using Mathlib
 `greens_fn_is_SHO` was an axiom; it is now `theorem greens_fn_is_SHO ... := trivial`
 (physical content established by OS axiom verification via OSforGFF, August 2026).
 
-Every result not on the axiom list is kernel-verified. No `sorry`. No `admit`.
+Cite each result by theorem/status; current proof surface contains seven real sorries and several axioms/definitions/imported theorem applications/arithmetic facts.
 
 ---
 

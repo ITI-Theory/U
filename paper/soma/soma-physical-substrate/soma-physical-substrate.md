@@ -51,12 +51,7 @@ bibliography: bibliography.bib
 
 # The Missing Layer
 
-The Soma-Field model [@johnson2026b] establishes that the limbic system and its
-somatic coupling are governed by the same formal apparatus as a quantum field on a
-manifold: tensor-valued dynamics, Hopfield energy functionals, topological barriers
-between attractor states. The identification is not an analogy; it is a
-co-identification in the technical sense [@johnson2026a] — the governing equations
-are the same equations, and every theorem of the source domain imports into the target.
+The Soma-Field model [@johnson2026b] proposes to describe limbic/somatic coupling using a field-theoretic formal apparatus: tensor-valued dynamics, Hopfield energy functionals, and topological barriers between attractor states. This remains a modelling assumption rather than a completed physical identification.
 
 That mathematical work is complete. What it leaves open is a question that sits one
 level below the mathematics: *what is the body made of, such that it could host a

@@ -239,10 +239,7 @@ Anand et al., 1999, 2013) and on sepsis and hospitalisation-related
 neurodevelopmental sequelae (Bono et al., 2015; Horváth-Puhó et al., 2021;
 Thomas et al., 2024; Xu & Zhan, 2026) establishes the biological plausibility
 of long-term reconfiguration following an insult of this kind in this window.
-The literature on quasi-autism from early deprivation (Rutter et al., 1999,
-2007; Sonuga-Barke et al., 2017; Bos et al., 2011) establishes that autistic
-phenotypes can be *acquired* during pre-verbal sensitive periods. These two
-literatures meet, in this case, at one event.
+The literature on quasi-autism from early deprivation (Rutter et al., 1999, 2007; Sonuga-Barke et al., 2017; Bos et al., 2011) reports deprivation-associated autistic-like phenotypes and motivates a hypothesis; this N=1 case does not establish causation of autism by trauma.
 
 ## 3.3 Attachment environment
 
@@ -740,13 +737,7 @@ five comorbid conditions.
 
 Three implications follow.
 
-First, the conceptual distinction between *genetic* and *acquired*
-neurodevelopmental phenotypes loses sharpness once pre-verbal
-sensitive-period plasticity is taken seriously. The clinical and
-research consequence is that the question "is this child's autism
-genetic or acquired?" should, for cases with pre-verbal trajectories of
-the kind documented here, be replaced by the question "what is the
-configuration of this manifold and what scaffolding does it need?"
+First, the case motivates a research question about gene-environment-development interactions once pre-verbal sensitive-period plasticity is taken seriously. Diagnostic categories should not be reframed without cohort evidence; for cases with pre-verbal trajectories of the kind documented here, the model instead asks what configuration of the manifold is present and what scaffolding it may need.
 
 Second, developmental-psychiatric onset criteria that rely on
 *first observable symptoms in language-capable children* systematically

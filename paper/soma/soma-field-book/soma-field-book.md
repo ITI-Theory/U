@@ -385,8 +385,7 @@ are the foundation of modern physics, are fields.
 
 The key insight of the Soma-Field Model is this: **emotion is a field phenomenon**.
 
-Not a metaphor. A precise claim about how emotional signals distribute themselves in
-the body, interact with each other, and evolve over time.
+A modelling claim: emotional dynamics are represented as field-like distributions in the body, interacting with each other and evolving over time.
 
 ## Emotions in the Body
 
@@ -976,7 +975,7 @@ episodes: to restore the gap between activations in which recovery occurs.
 >
 > This may seem like a digression, but it is one of the most striking features of the
 > model. The memory kernel for C-PTSD — $K(\tau) = \sum_k A_k e^{-|\tau|/\tau_k}$ —
-> is mathematically identical to the **Euclidean propagator** in quantum field theory.
+> has the same exponential-kernel form as a simple **Euclidean propagator**, under stated assumptions.
 >
 > In QFT, the Euclidean propagator $G_E(\tau)$ describes how a disturbance in a quantum
 > field at time $0$ correlates with the field at time $\tau$:
@@ -2336,9 +2335,7 @@ container (Congo river / Vietnam river) is a surface over which this score is pl
 **Multi-scale structure.** The score has fractal structure: the same emotional pattern
 recurs at the level of the full film, the act, the scene, and the moment. A scene in
 which a character approaches and retreats from a threshold is a micro-version of the
-film's macro-structure. This is not a metaphor — the soma-field dynamics are
-scale-invariant near a critical point, so the same Hamiltonian structure repeats across
-timescales. A good filmmaker composes at all scales simultaneously.
+film's macro-structure. In the model, the same Hamiltonian form is reused across scales near criticality; empirical scale-invariance remains to be tested. A good filmmaker composes at all scales simultaneously.
 
 **The viewer's field.** The viewer has their own emotional field $\mathbf{e}_V(t)$ which
 couples to the screen signal $S(t)$:

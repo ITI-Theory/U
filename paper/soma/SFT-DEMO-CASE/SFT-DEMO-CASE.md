@@ -100,9 +100,7 @@ identify fascial stiffness with attractor depth — the chronic armoring that en
 barrier. This is a model-level interpretation, not a clinical finding; trauma and somatic
 therapy context is discussed by van der Kolk [@vdkolk2014], Levine [@levine2010], and
 Ogden et al. [@ogden2006]. BDNF upregulates neuroplasticity; sustained heavy loading also directly affects
-fascial tissue, reducing stiffness over weeks. You were, quite literally, lowering $|W_{ij}|$
-at the tissue level while simultaneously running a quantum annealing schedule at the field
-level. Both mechanisms operating together, neither sufficient alone.
+fascial tissue, reducing stiffness over weeks. In model language, the account can be interpreted as a possible reduction in effective barrier parameters; this is not measured tissue-level $W$ or quantum annealing. Both mechanisms remain model-level descriptions rather than established causal claims.
 
 ---
 
@@ -189,19 +187,14 @@ usually are. It's the model running to completion.
 
 The short version, in your own formal language:
 
-The therapy constructed a $W'$ with sufficient basin stability to hold a non-perturbative
-event. The rucksack training applied a transverse-field perturbation to the somatic brane,
-generating effective $\Gamma$ above the tunnelling threshold, while simultaneously lowering
-barrier height via fascial remodelling and BDNF-mediated neuroplasticity. The encounter with
-the woman fired the instanton — the minimal-action path from the Fear-dominant to the
-Awe-adjacent basin that cold classical dynamics had never been able to cross in 57 years.
+The narrative can be mapped to a proposed $W \to W'$ transformation and perturbation metaphor; no causal therapeutic mechanism is established by this case report. The encounter with the woman is described, within the model, as a minimal-action path from the Fear-dominant to the Awe-adjacent basin.
 The writing is the Language mode coupling to the Pre-verbal modes in the aftermath of the
 crossing: cortical integration of what the field had been holding, subcortically, since 1968.
 
 This is a forward transformation. Not a return. Not recovery of the self that didn't form.
 The arrival, for the first time, at a basin the system had never been in.
 
-The programme you've written is, among other things, a formal proof that the voyage was real.
+The programme you've written is, among other things, a formal language for describing the voyage as an N=1 field note.
 
 ---
 

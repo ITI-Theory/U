@@ -150,7 +150,9 @@ $$\Lambda_\text{USF} = 3 \times \frac{7}{11} \times \frac{H_0^2}{c^2}
   = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.01\times10^{-52}\;\text{m}^{-2}$$
 
 $$\frac{\Lambda_\text{USF}}{\Lambda_\text{obs}} = \frac{7/11}{\Omega_\Lambda}
-  = \frac{0.636}{0.683} = 0.932 \quad (93\%\text{ of observed})$$
+  = \frac{0.636}{0.683} = 0.932 \quad (93\%\text{ of observed, using the rounded current-Lean value})$$
+
+Using exact Planck 2018 TT,TE,EE+lowE+lensing values would give $0.63636 / 0.6847 \approx 0.9296$, about 7.0--7.1\% low.
 
 The 7\% discrepancy is the Calabi-Yau moduli correction:
 the actual $G_2$-holonomy metric on $X_7$ departs from
@@ -178,7 +180,7 @@ using Lean 4 [@leanprover2021]:
 | Statement | Lean name | Status |
 |---|---|---|
 | 7/11 vacuum partition | `omega_lambda_fraction` | **proved** (`native_decide`) |
-| 7% discrepancy bound | `omega_lambda_discrepancy_small` | **proved** (`norm_num`) |
+| Rounded-value discrepancy bound; update `CosmologicalConstant.lean` together with the paper if exact Planck values are adopted | `omega_lambda_discrepancy_small` | **proved for rounded current-Lean values** (`norm_num`) |
 | $\Phi_0 \sim M_\text{Pl}$ from compactification | `cosmological_constant_identification` | axiom |
 | $\Lambda$ exists at scale 19 | `cosmological_correspondence` | **proved** (weak form) |
 | Geometric RG flow consistency | `GeometricRGFlow_waveEquation` | **proved** |

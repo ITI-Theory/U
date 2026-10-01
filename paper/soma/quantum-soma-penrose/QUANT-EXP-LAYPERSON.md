@@ -93,7 +93,7 @@ A quantum system traverses the landscape differently.
 It does not descend — it **superimposes**.
 It holds all possible paths simultaneously, and the probability wave constructively interferes with the deepest attractor.
 
-This experiment is a small, exact, numerically verified proof that a quantum annealer operating on the soma-field attractor landscape:
+This experiment is a small, exact statevector simulation showing that the modelled transverse-field dynamics operating on the soma-field attractor landscape:
 
 1. **Reaches basins that cold classical dynamics cannot reach at all.**
 2. **Does so without the flooding that hot classical dynamics require.**
@@ -119,7 +119,7 @@ If the soma-field model is even approximately right about how the nervous system
   It can cross — but at the cost of structure and control.
 
 - **What THERAPY-2 says**: there is a class of intervention that is *quantum-like* — that operates non-locally, superimpositionally, holding multiple states at once.
-  The leading candidates in practice: **psychedelic-assisted therapy**, **EMDR**, **deep somatic work**, certain forms of embodied presence.
+  Clinical analogues are hypotheses only; interventions should not be treated as candidates here without ethics approval, controlled evidence, and explicit non-treatment disclaimers.
 
   These are not "better CBT." They are topologically different.
   The math says so. This experiment measures the difference.
