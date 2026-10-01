@@ -6,10 +6,10 @@ Author decision (2026-10-01): rows formerly marked `REVIEW` stay separate shared
 |---|---:|---:|---:|---:|---|---|---|---|
 | `animal-swarm` | Animal Swarm / Group | III | 8 | — | GROUP / SWARM sigma 10 | Scale 7 Animal Swarm / Murmuration | 08 / ANIMAL SWARM | KEEP: separate shared level; each model selects (author, 2026-10-01) |
 | `atomic` | Atomic | I | 3 | — | ATOMIC sigma 3 | implicit between Scale 2 and Scale 4 | 03 / ATOMIC |  |
-| `bird` | Bird | — | — | bird | named solution bird | not a Wave Atlas level | bird-flock 07 / BIRD |  |
+| `bird` | Bird | — | — | bird | named solution bird | not a Field Atlas level | bird-flock 07 / BIRD |  |
 | `cellular-synaptic` | Cellular / Synaptic | II | 5 | — | CELLULAR / SYNAPTIC sigma 5 | Scale 5 Cellular / Neural Synapse | 05 / CELLULAR |  |
 | `civilisational-solar` | Civilisational / Solar | IV | — | — | CIVILISATIONAL / SOLAR sigma 13 | overlaps Wave Scale 13-15 | app systemic sigma 13 | KEEP: separate shared level; each model selects (author, 2026-10-01) |
-| `colony-roost` | Colony / Roost | — | — | colony-roost | named solution colony-roost | not a Wave Atlas level | bird-flock 09 / COLONY / ROOST |  |
+| `colony-roost` | Colony / Roost | — | — | colony-roost | named solution colony-roost | not a Field Atlas level | bird-flock 09 / COLONY / ROOST |  |
 | `compact-object` | Compact Object | — | 14 | — | no separate app level | not separately plated | 14 / COMPACT OBJECT | KEEP: separate shared level; each model selects (author, 2026-10-01) |
 | `cosmic-filaments` | Cosmic Filaments | — | 18 | — | folded into OBSERVABLE UNIVERSE | Scale 18-20 Cosmic Web | 18 / FILAMENTS | KEEP: separate shared level; each model selects (author, 2026-10-01) |
 | `cosmic-web` | Cosmic Web | — | 20 | — | renderer id for OBSERVABLE UNIVERSE | Scale 20 in dial title | 20 / COSMIC WEB | KEEP: separate shared level; each model selects (author, 2026-10-01) |
@@ -37,9 +37,9 @@ Author decision (2026-10-01): rows formerly marked `REVIEW` stay separate shared
 
 ## Judgement calls
 
-- Kept `whole-brain-cemi` and `animal-swarm` as separate levels because Wave Atlas Scale 7 animal swarm conflicts with app sigma 7 whole brain/CEMI.
-- Merged app `GROUP / SWARM` and Wave Atlas `Animal Swarm` into `animal-swarm`; author should confirm label scope.
-- Merged app `COMMUNITY / CITY` and Wave Atlas `Society / City` into `society-city`.
+- Kept `whole-brain-cemi` and `animal-swarm` as separate levels because Field Atlas Scale 7 animal swarm conflicts with app sigma 7 whole brain/CEMI.
+- Merged app `GROUP / SWARM` and Field Atlas `Animal Swarm` into `animal-swarm`; author should confirm label scope.
+- Merged app `COMMUNITY / CITY` and Field Atlas `Society / City` into `society-city`.
 - Split universal catalogue physics ticks (`orbital-system`, `stellar`, `compact-object`, `galactic-halo`, `galaxy-cluster`, `cosmic-filaments`, `cosmic-web`) from broader app scenes where the old app folded them together.
 - Retained route-only app levels (`dyad`, `regional-institutional`, `civilisational-solar`, `species-stellar`, `stellar-cluster`) outside universal-21 when no unique catalogue coordinate exists.
 - Cookie-register prose is draft; `TODO` means the child-level explanation needs author wording.

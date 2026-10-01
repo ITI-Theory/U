@@ -32,5 +32,5 @@ renderer:
 media: []
 former_labels:
   app: REGIONAL / INSTITUTIONAL sigma 12
-  wave_atlas: regional refinement
+  field_atlas: regional refinement
   operator_contract: zoom 12 Regional

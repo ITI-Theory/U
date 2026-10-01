@@ -129,7 +129,7 @@ physics (gauge symmetries, fibre bundles, exceptional Lie groups),
 biology (reaction-diffusion, Hopfield networks, attractor dynamics),
 and contemplative practice (the named modes of consciousness, the
 attractor-like character of meditative states) is the *same
-mathematical structure*. This is the book's wave-atlas claim made
+mathematical structure*. This is the book's Field Atlas claim made
 mathematically precise.
 
 ## §20.4  Level 4 — for the next decade of research

@@ -12,7 +12,7 @@ explain:
     draft: true
   general: At the nuclear level, interactions are very short range. The model uses a confined response kernel to describe
     how a disturbance fades inside nuclear matter.
-  specialist: The substrate is quark, gluon, and hadron structure as in the Wave Atlas nuclear plate. The displayed Yukawa-style
+  specialist: The substrate is quark, gluon, and hadron structure as in the Field Atlas nuclear plate. The displayed Yukawa-style
     propagator is a scale-appropriate approximation to short-range exchange and confinement. It means that an impulse has
     a rapidly decaying response set by the nuclear length scale. The physical row is sourced physics; the S-matrix-as-memory
     language is an interpretive information analogy.
@@ -31,9 +31,9 @@ sources:
 renderer:
   id: nuclear
 media:
-- path: Part2/book/wave-atlas/figures/quark-gluon-placeholder.png
+- path: Part2/book/field-atlas/figures/quark-gluon-placeholder.png
   kind: atlas-figure
 former_labels:
   app: NUCLEAR sigma 2
-  wave_atlas: Scale 2 Nuclear / Quark-Gluon
+  field_atlas: Scale 2 Nuclear / Quark-Gluon
   operator_contract: 02 / NUCLEAR

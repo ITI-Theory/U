@@ -11,7 +11,7 @@ explain:
     draft: true
   general: Rocks and faults can store stress for a long time. The model follows how that stress moves as seismic waves or
     slow deformation.
-  specialist: The substrate is the Wave Atlas geological/seismic plate. The elastic wave equation models rock displacement
+  specialist: The substrate is the Field Atlas geological/seismic plate. The elastic wave equation models rock displacement
     under a stress impulse, with stiffness tensor and density setting the response. The propagator is measurable in seismology
     as the Earth response to earthquakes or controlled sources. Physical claims are sourced; geological memory is an interpretive
     but concrete stress-history analogy.
@@ -30,9 +30,9 @@ sources:
 renderer:
   id: geological
 media:
-- path: Part2/book/wave-atlas/figures/glarus-thrust-placeholder.png
+- path: Part2/book/field-atlas/figures/glarus-thrust-placeholder.png
   kind: atlas-figure
 former_labels:
   app: GEOLOGICAL sigma 15
-  wave_atlas: Scale 10 Geological / Seismic
+  field_atlas: Scale 10 Geological / Seismic
   operator_contract: 10 / GEOLOGICAL

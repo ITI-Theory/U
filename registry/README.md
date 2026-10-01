@@ -1,6 +1,6 @@
 # Operator Registry
 
-This registry is the data source for the Soma Field Operator generator. It reconciles the existing app JavaScript tables, `operator-theory.yaml`, the Wave Atlas scale plates, and `Dist/PAPERS.yaml` paper ids without adding new science.
+This registry is the data source for the Soma Field Operator generator. It reconciles the existing app JavaScript tables, `operator-theory.yaml`, the Field Atlas scale plates, and `Dist/PAPERS.yaml` paper ids without adding new science.
 
 ## Layout
 
@@ -14,7 +14,7 @@ This registry is the data source for the Soma Field Operator generator. It recon
 
 The generator reads `../Dist/PAPERS.yaml` as the publication authority. Paper,
 dataset, and collection ids resolve to their public title and concept DOI link
-(`https://doi.org/<doi>`). Records without a DOI, Wave Atlas chapters, figures,
+(`https://doi.org/<doi>`). Records without a DOI, Field Atlas chapters, figures,
 proof files, and other unpublished material resolve to the placeholder front-door
 pattern `https://www.t-theory.org/atlas/<slug>` and are labelled "not yet
 published". Repository paths remain in generated metadata only for the app's

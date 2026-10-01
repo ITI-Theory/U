@@ -12,7 +12,7 @@ explain:
     draft: true
   general: Cells and synapses pass electrical and chemical signals through membranes and connections. The model follows how
     a local input can become a thresholded biological response.
-  specialist: The substrate is the membrane/synapse system in the Wave Atlas cellular plate. The cable-equation Green response
+  specialist: The substrate is the membrane/synapse system in the Field Atlas cellular plate. The cable-equation Green response
     treats injected current as a source and membrane voltage as the propagated field. Here the propagator is a local bioelectric
     impulse response constrained by membrane length constants and channel dynamics. Hopfield-memory language is sourced for
     the network model but is not a claim of standalone cellular consciousness.
@@ -31,9 +31,9 @@ sources:
 renderer:
   id: cellular
 media:
-- path: Part2/book/wave-atlas/figures/neuron-structure-placeholder.png
+- path: Part2/book/field-atlas/figures/neuron-structure-placeholder.png
   kind: atlas-figure
 former_labels:
   app: CELLULAR / SYNAPTIC sigma 5
-  wave_atlas: Scale 5 Cellular / Neural Synapse
+  field_atlas: Scale 5 Cellular / Neural Synapse
   operator_contract: 05 / CELLULAR

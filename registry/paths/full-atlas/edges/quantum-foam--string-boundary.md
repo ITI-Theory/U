@@ -4,7 +4,7 @@ from: quantum-foam
 to: string-boundary
 label: RESOLVE / COMPACTIFY
 claim: INTERPRETIVE
-source: Part2/book/wave-atlas/atlas-scale-01.md
+source: Part2/book/field-atlas/atlas-scale-01.md
 preserves:
 - response grammar
 - declared source boundary

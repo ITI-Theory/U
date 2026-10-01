@@ -111,8 +111,8 @@ def resolve_source_id(source_id: str, papers: dict[str, dict[str, Any]]) -> dict
     name = Path(pathish).stem if "." in Path(pathish).name else pathish.split("/")[-1]
     slug = slugify(name)
     title = name.replace("-", " ").replace("_", " ").title()
-    if "wave-atlas" in pathish:
-        title = f"Wave Atlas — {title}"
+    if "field-atlas" in pathish:
+        title = f"Field Atlas — {title}"
         kind = "atlas"
     elif pathish.endswith(".lean"):
         title = f"Lean proof surface — {title}"

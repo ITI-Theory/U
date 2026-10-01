@@ -33,5 +33,5 @@ renderer:
 media: []
 former_labels:
   app: LOCAL CIRCUIT sigma 6
-  wave_atlas: app-only refinement
+  field_atlas: app-only refinement
   operator_contract: zoom 6 Local circuit

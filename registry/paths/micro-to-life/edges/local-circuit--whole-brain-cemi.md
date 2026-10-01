@@ -4,7 +4,7 @@ from: local-circuit
 to: whole-brain-cemi
 label: INTEGRATE / RESONATE
 claim: INTERPRETIVE
-source: Part2/book/wave-atlas/12-ch11-soma-field.md
+source: Part2/book/field-atlas/12-ch11-soma-field.md
 preserves:
 - response grammar
 - declared source boundary

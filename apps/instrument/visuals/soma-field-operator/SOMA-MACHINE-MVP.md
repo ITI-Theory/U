@@ -12,16 +12,16 @@ It is a non-medical research and education instrument. It does not diagnose,
 prescribe, or claim that a visual response is a clinical measurement.
 
 The existing `Soma Field Operator` scene is the technical visual component of
-the Soma Machine. The `Wave Atlas` is its long-form physical atlas. They are
+the Soma Machine. The `Field Atlas` is its long-form physical atlas. They are
 complementary products using the same response grammar.
 
 ## Source Alignment
 
 | Source | Role in the Soma Machine |
 | --- | --- |
-| `Part2/book/wave-atlas/01b-scale-plates.md` | Twenty-scale plate grammar: physical substrate, interaction field, information layer, governing equation, interaction, and characteristic time. |
-| `Part2/book/wave-atlas/12-ch11-soma-field.md` | Human soma-field explanation, eight modes, threshold, memory, Langevin dynamics. |
-| `Part2/book/wave-atlas/13a-ch12b-music.md` | Music as a field probe and group-coupling route. |
+| `Part2/book/field-atlas/01b-scale-plates.md` | Twenty-scale plate grammar: physical substrate, interaction field, information layer, governing equation, interaction, and characteristic time. |
+| `Part2/book/field-atlas/12-ch11-soma-field.md` | Human soma-field explanation, eight modes, threshold, memory, Langevin dynamics. |
+| `Part2/book/field-atlas/13a-ch12b-music.md` | Music as a field probe and group-coupling route. |
 | `paper/soma/music-affect-dynamics/music-affect-dynamics.md` | Formal 16-component state, energy landscape, Langevin dynamics, BRECVEMA forcing, and future audio/visual mappings. |
 | Lennie & Eerola (2022), CODA model | Sourced appraisal/context model: relevance, goals, meaning, and dynamic weighting of an emotional episode. |
 | `Dist/PAPERS.yaml` | Publication identity, status, DOI, and distribution links. |
@@ -196,13 +196,13 @@ The first interactive implementation needs response time only: play, pause,
 reset, and a visible decay/progression after a selected forcing event. Historical
 and cosmological timelines belong to later atlas routes.
 
-## Wave Atlas Connection
+## Field Atlas Connection
 
-The Wave Atlas already establishes the shared scale-plate grammar. The Soma
+The Field Atlas already establishes the shared scale-plate grammar. The Soma
 Machine must use that grammar rather than duplicate it:
 
 ```text
-Wave Atlas plate
+Field Atlas plate
   physical substrate
   interaction field
   information/organization layer

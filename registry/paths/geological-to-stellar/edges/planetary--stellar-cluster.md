@@ -4,7 +4,7 @@ from: planetary
 to: stellar-cluster
 label: RESONATE / RADIATE
 claim: INTERPRETIVE
-source: Part2/book/wave-atlas/01b-scale-plates.md
+source: Part2/book/field-atlas/01b-scale-plates.md
 preserves:
 - response grammar
 - declared source boundary

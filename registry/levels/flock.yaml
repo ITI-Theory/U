@@ -12,7 +12,7 @@ explain:
     draft: true
   general: A flock is many birds adjusting to neighbours while flying. The model follows the shared motion pattern that emerges
     from those adjustments.
-  specialist: The substrate is the bird-flock named solution, linked to the Wave Atlas animal-swarm plate. The Toner-Tu-like
+  specialist: The substrate is the bird-flock named solution, linked to the Field Atlas animal-swarm plate. The Toner-Tu-like
     equation adds bird-specific alignment and aerodynamic forcing to active-matter velocity response. The propagator means
     one bird or environmental perturbation spreads through neighbour alignment. Swarm coordination is sourced to P19; group-mind
     wording is interpretive only.
@@ -31,9 +31,9 @@ sources:
 renderer:
   id: flock
 media:
-- path: Part2/book/wave-atlas/figures/murmuration-scale7-placeholder.png
+- path: Part2/book/field-atlas/figures/murmuration-scale7-placeholder.png
   kind: atlas-figure
 former_labels:
   app: named solution flock
-  wave_atlas: related to Scale 7 Animal Swarm
+  field_atlas: related to Scale 7 Animal Swarm
   operator_contract: bird-flock 08 / FLOCK

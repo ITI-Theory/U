@@ -11,7 +11,7 @@ explain:
     draft: true
   general: A stellar cluster is a group of stars whose motions are tied by gravity. The model follows shared gravitational
     and wave responses at that scale.
-  specialist: The substrate is the older app stellar/cluster level, overlapping the Wave Atlas stellar-to-galactic range.
+  specialist: The substrate is the older app stellar/cluster level, overlapping the Field Atlas stellar-to-galactic range.
     The linearised gravitational equation represents metric or gravitational response sourced by stress-energy at large stellar-system
     scales. The propagator means disturbances are carried by gravity and wave modes rather than by contact forces. Physical
     readings are sourced to universal-field/cosmology material; information or memory language is interpretive orbital-history
@@ -32,5 +32,5 @@ renderer:
 media: []
 former_labels:
   app: STELLAR / CLUSTER sigma 17
-  wave_atlas: Wave Scale 13-15 range
+  field_atlas: Wave Scale 13-15 range
   operator_contract: app sigma 17

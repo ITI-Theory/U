@@ -32,9 +32,9 @@ sources:
 renderer:
   id: whole-brain
 media:
-- path: Part2/book/wave-atlas/figures/meg-cemi-placeholder.png
+- path: Part2/book/field-atlas/figures/meg-cemi-placeholder.png
   kind: atlas-figure
 former_labels:
   app: WHOLE BRAIN / CEMI sigma 7
-  wave_atlas: Scale 6 Brain / CEMI Field
+  field_atlas: Scale 6 Brain / CEMI Field
   operator_contract: 06 / BRAIN / CEMI

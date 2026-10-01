@@ -1,12 +1,12 @@
 ---
-title: "The Wave Atlas"
+title: "The Field Atlas"
 subtitle: "Eleven views of the soma field"
 author: "Alistair Johnson"
 date: "Zürich, 2026"
 ---
 
-\halftitle{The Wave Atlas}
-\atlastitlepage{The Wave Atlas}{Eleven views of the soma field}{Alistair Johnson}{Zürich, 2026}
+\halftitle{The Field Atlas}
+\atlastitlepage{The Field Atlas}{Eleven views of the soma field}{Alistair Johnson}{Zürich, 2026}
 
 \part{The Field}
 
@@ -14,7 +14,7 @@ date: "Zürich, 2026"
 
 > *A field, before it is mathematics, is a thing you can feel in a room.*
 
-\lettrine{T}{he} Wave Atlas is not a book of equations. It is a book of fields.
+\lettrine{T}{he} Field Atlas is not a book of equations. It is a book of fields.
 
 A storm coming in across the lake is a field. The mood of a string quartet
 in the third movement is a field. The silence in a hospital corridor at

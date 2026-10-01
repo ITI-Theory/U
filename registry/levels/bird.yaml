@@ -10,7 +10,7 @@ explain:
     text: A bird is a living body moving through air. The model follows forces like lift, gravity, and muscle work.
     draft: true
   general: A bird is a living body moving through air. The model follows lift, gravity, and muscle forces acting on that body.
-  specialist: The substrate is a named-solution organism in the bird-flock path rather than a Wave Atlas scale plate. The
+  specialist: The substrate is a named-solution organism in the bird-flock path rather than a Field Atlas scale plate. The
     equation is a force-balance response for avian motion under aerodynamic, gravitational, and muscular terms. The propagator
     means an environmental or motor impulse changes flight state through the body-air coupling. Biological control language
     is sourced only as model structure here; mind language is interpretive.
@@ -30,5 +30,5 @@ renderer:
 media: []
 former_labels:
   app: named solution bird
-  wave_atlas: not a Wave Atlas level
+  field_atlas: not a Field Atlas level
   operator_contract: bird-flock 07 / BIRD

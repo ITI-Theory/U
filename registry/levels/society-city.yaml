@@ -12,7 +12,7 @@ explain:
     draft: true
   general: The city level follows how habits, information, and behaviours can spread through urban connections. Buildings
     and networks shape the paths of that spread.
-  specialist: 'The substrate is the Wave Atlas society/city plate: infrastructure and social interaction graph. The diffusion
+  specialist: 'The substrate is the Field Atlas society/city plate: infrastructure and social interaction graph. The diffusion
     equation treats local change as a source that propagates through social and spatial coupling. The propagator is the cultural
     or interaction response constrained by boundaries such as class, geography, and media reach. Social-field claims are sourced
     or interpretive depending on use; agency and history remain necessary parameters.'
@@ -32,9 +32,9 @@ sources:
 renderer:
   id: community-city
 media:
-- path: Part2/book/wave-atlas/figures/city-night-placeholder.png
+- path: Part2/book/field-atlas/figures/city-night-placeholder.png
   kind: atlas-figure
 former_labels:
   app: COMMUNITY / CITY sigma 11
-  wave_atlas: Scale 9 Society / City
+  field_atlas: Scale 9 Society / City
   operator_contract: 09 / SOCIETY / CITY

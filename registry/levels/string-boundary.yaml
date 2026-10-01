@@ -33,5 +33,5 @@ renderer:
 media: []
 former_labels:
   app: STRING / PLANCK BOUNDARY sigma 1
-  wave_atlas: atlas-scale-01.md
+  field_atlas: atlas-scale-01.md
   operator_contract: 01 / STRING

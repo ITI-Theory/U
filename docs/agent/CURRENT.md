@@ -112,7 +112,7 @@ renderer registry, lens) and `e03e610` (integration, content, library panel).
 - Renderers: 2 of 28 exist (`quantum-foam`, `thought-sparks`); the rest show
   labelled placeholders.
 - Next: more renderers; automated screenshots per level, path
-  and lens into the Wave Atlas; Atlas diagrams in the app; deep-link QR;
+  and lens into the Field Atlas; Atlas diagrams in the app; deep-link QR;
   time axis (`eras.yaml`); Penrose index (cite chapters only; the text is
   private); Sherlock concept registry (`registry/concepts/`).
 
@@ -143,7 +143,7 @@ before Monday 2026-10-05):
 3. Visual app (Soma Machine / Soma Field Operator): bring it up to date with
    the papers, books, and the philosophy book's time axis (Appendix C).
    First registry-driven slice done; see "App and Atlas: First Slice".
-4. Wave Atlas: use app screenshots at all twenty levels, plus the extra
+4. Field Atlas: use app screenshots at all twenty levels, plus the extra
    systems at each level (for example belief systems).
 
 Not now: completing *Phase Dot* (valuable but not core; the philosophy book
@@ -187,7 +187,7 @@ roadmap item:
   render with the Green-function render; mind rank $N(\sigma)$ beside physical
   scale; the user source term $J_\text{user}(t)$ as a control; a benchmark
   suite for validation. Keep theory data out of browser JS (README freeze).
-- **Wave Atlas:** a twenty-scale G-ID registry; Physical/Field/Mind parallel
+- **Field Atlas:** a twenty-scale G-ID registry; Physical/Field/Mind parallel
   layout; notebook figures 1, 2, 4, 5 are usable only if redrawn and badged
   `INTERPRETIVE`.
 - **Quarantined:** the claim that autism is pre-verbal C-PTSD (at most a

@@ -2,7 +2,7 @@
 
 Status: proposal for author review (2026-10-01). Evidence base: an architecture
 review of `apps/instrument/visuals/soma-field-operator/` and
-`Part2/book/wave-atlas/` on 2026-10-01.
+`Part2/book/field-atlas/` on 2026-10-01.
 
 ## Problem
 
@@ -23,12 +23,12 @@ over levels; a model is a named set of paths that assigns its own coordinates.
 The existing USF models become data:
 
 - `canonical-5`: the five physics-derived bands (I-V);
-- `universal-21`: the twenty-one-tick ladder (the Wave Atlas dial, 0-20);
+- `universal-21`: the twenty-one-tick ladder (the Field Atlas dial, 0-20);
 - `bird-flock`: a named solution (bird, flock, colony roost).
 
 ## Registry layout
 
-One registry, shared by the app, the Wave Atlas, the books, and Sherlock:
+One registry, shared by the app, the Field Atlas, the books, and Sherlock:
 
 ```text
 registry/
@@ -59,11 +59,11 @@ assert literal identity; publication metadata stays in `Dist/PAPERS.yaml`.
 
 - `make operator-generate` validates the registry (schema, dangling ids,
   missing renderers, claim badges) and emits one generated app-data module, a
-  renderer coverage report, and Wave Atlas plate fragments.
+  renderer coverage report, and Field Atlas plate fragments.
 - A renderer registry: one JS module per renderer id (`renderers/quantum-foam.js`
   and so on), registered by id. Missing ids render as labelled placeholders.
   Scenes leave `main.js`.
-- The Wave Atlas plates and app screenshots come from the same level files, so
+- The Field Atlas plates and app screenshots come from the same level files, so
   the Atlas can include a screenshot per level and per extra system (for
   example belief systems) without separate authoring.
 
@@ -72,7 +72,7 @@ assert literal identity; publication metadata stays in `Dist/PAPERS.yaml`.
 The app is the driving console for the whole programme, not a separate
 product:
 
-- **One name per level.** The app and the Wave Atlas use the same labels
+- **One name per level.** The app and the Field Atlas use the same labels
   (one level id, one label); models only order levels.
 - **Links both ways.** In the app, "More information" opens a library panel
   for the current level listing every relevant document: Atlas plate, papers,
@@ -84,7 +84,7 @@ product:
 - **Readers never see repository paths.** Source resolution: a paper or book
   resolves through `Dist/PAPERS.yaml` to its title and concept DOI
   (`https://doi.org/...`, the canonical citable version); material not on
-  Zenodo (Wave Atlas chapters, cheat sheets) resolves to its page on
+  Zenodo (Field Atlas chapters, cheat sheets) resolves to its page on
   `https://www.t-theory.org/`; a missing mapping shows the title with
   "not yet published", never a path. Repository paths stay in the registry
   and appear only in a developer view. Roles: Zenodo is the canonical
@@ -135,6 +135,6 @@ product:
 
 ## Open questions
 
-- Reconcile the label conflicts (Wave Atlas Scale 7 = Animal Swarm, app
+- Reconcile the label conflicts (Field Atlas Scale 7 = Animal Swarm, app
   sigma 7 = Whole Brain, and others) into one label per level during the
   registry migration; the author reviews the reconciled list once.

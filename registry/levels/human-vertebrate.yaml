@@ -35,9 +35,9 @@ sources:
 renderer:
   id: human-vertebrate
 media:
-- path: Part2/book/wave-atlas/figures/biotensegrity-placeholder.png
+- path: Part2/book/field-atlas/figures/biotensegrity-placeholder.png
   kind: atlas-figure
 former_labels:
   app: HUMAN / VERTEBRATE sigma 8
-  wave_atlas: Scale 8 Human Organism
+  field_atlas: Scale 8 Human Organism
   operator_contract: 07 / ORGANISM

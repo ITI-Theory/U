@@ -12,7 +12,7 @@ explain:
     draft: true
   general: The atomic level treats the atom as a nucleus with an electron cloud. A poke is an electromagnetic disturbance
     whose response follows the orbital field.
-  specialist: The substrate is the atomic orbital system between the nuclear and molecular Wave Atlas plates. The operator
+  specialist: The substrate is the atomic orbital system between the nuclear and molecular Field Atlas plates. The operator
     is a Coulomb Green kernel for electromagnetic response at roughly angstrom length scales. The propagator describes how
     a charge perturbation is felt across the electron cloud. The physics is sourced by the broader zUSF/field-theory papers;
     the information row is an interpretive description of orbital-state structure.
@@ -33,5 +33,5 @@ renderer:
 media: []
 former_labels:
   app: ATOMIC sigma 3
-  wave_atlas: implicit between Scale 2 and Scale 4
+  field_atlas: implicit between Scale 2 and Scale 4
   operator_contract: 03 / ATOMIC

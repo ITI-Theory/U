@@ -12,7 +12,7 @@ explain:
     draft: true
   general: A flock or swarm can move together without a central leader. The model follows the group velocity pattern that
     emerges from local alignment.
-  specialist: 'The substrate is the Wave Atlas animal-swarm plate: discrete agents coupled by alignment, cohesion, and separation
+  specialist: 'The substrate is the Field Atlas animal-swarm plate: discrete agents coupled by alignment, cohesion, and separation
     constraints. The Toner-Tu equation models velocity-field propagation and pressure-like alignment response. The propagator
     means that a predator or direction change moves through neighbour rules as a collective response. Swarm-coordination claims
     are sourced to P19; hive-mind language is interpretive and should not imply occurrent animal-group consciousness.'
@@ -30,9 +30,9 @@ sources:
 renderer:
   id: swarm
 media:
-- path: Part2/book/wave-atlas/figures/murmuration-scale7-placeholder.png
+- path: Part2/book/field-atlas/figures/murmuration-scale7-placeholder.png
   kind: atlas-figure
 former_labels:
   app: GROUP / SWARM sigma 10
-  wave_atlas: Scale 7 Animal Swarm / Murmuration
+  field_atlas: Scale 7 Animal Swarm / Murmuration
   operator_contract: 08 / ANIMAL SWARM

@@ -32,5 +32,5 @@ renderer:
 media: []
 former_labels:
   app: named solution colony-roost
-  wave_atlas: not a Wave Atlas level
+  field_atlas: not a Field Atlas level
   operator_contract: bird-flock 09 / COLONY / ROOST

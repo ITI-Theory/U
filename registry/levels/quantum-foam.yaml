@@ -12,7 +12,7 @@ explain:
     draft: true
   general: Quantum foam is the Planck-scale boundary where the app treats smooth spacetime as unavailable. The field row describes
     probability amplitudes for possible geometric configurations, not an observed material foam.
-  specialist: The substrate is the pre-geometric Planck boundary described in the Wave Atlas Scale 0 plate. The displayed
+  specialist: The substrate is the pre-geometric Planck boundary described in the Field Atlas Scale 0 plate. The displayed
     operator is a Green-kernel amplitude, written as an impulse-response grammar for possible geometric configurations. Its
     propagator should be read as a boundary model for probability amplitude, not as a measured causal medium. Physical and
     field claims are sourced to the zUSF papers; any information-processing or mind language at this level is interpretive
@@ -34,9 +34,9 @@ sources:
 renderer:
   id: quantum-foam
 media:
-- path: Part2/book/wave-atlas/figures/quantum-foam-placeholder.png
+- path: Part2/book/field-atlas/figures/quantum-foam-placeholder.png
   kind: atlas-figure
 former_labels:
   app: QUANTUM FOAM sigma 0
-  wave_atlas: Scale 0 Planck / Quantum Foam
+  field_atlas: Scale 0 Planck / Quantum Foam
   operator_contract: zoom 0; catalogue boundary

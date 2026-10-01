@@ -1,4 +1,4 @@
-# Wave Atlas coffee-table sandbox Makefile
+# Field Atlas coffee-table sandbox Makefile
 # Builds three layout variants from the same sample.md, side-by-side.
 
 PANDOC ?= pandoc

@@ -11,7 +11,7 @@ explain:
     draft: true
   general: The planetary level follows slow whole-planet processes such as heat flow, mantle motion, magnetic fields, and
     surface regulation. These are physical feedbacks, not feelings.
-  specialist: The substrate is the Wave Atlas planetary/mantle plate. The Navier-Stokes-plus-gravity setting describes rotating
+  specialist: The substrate is the Field Atlas planetary/mantle plate. The Navier-Stokes-plus-gravity setting describes rotating
     fluid or viscoelastic response under heat and buoyancy forcing. The propagator means an impulse is filtered through mantle,
     core, atmosphere, and boundary conditions across long timescales. Physical geoscience claims are sourced; thermostat or
     memory language is interpretive feedback vocabulary.
@@ -29,9 +29,9 @@ sources:
 renderer:
   id: planetary
 media:
-- path: Part2/book/wave-atlas/figures/earth-cross-section-placeholder.png
+- path: Part2/book/field-atlas/figures/earth-cross-section-placeholder.png
   kind: atlas-figure
 former_labels:
   app: PLANETARY sigma 16
-  wave_atlas: Scale 11-12 Planetary / Mantle
+  field_atlas: Scale 11-12 Planetary / Mantle
   operator_contract: 11 / PLANETARY

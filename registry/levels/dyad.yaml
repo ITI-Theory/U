@@ -33,5 +33,5 @@ renderer:
 media: []
 former_labels:
   app: DYADIC sigma 9
-  wave_atlas: route-only
+  field_atlas: route-only
   operator_contract: organism-couple-dyad

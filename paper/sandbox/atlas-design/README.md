@@ -1,11 +1,11 @@
-# Wave Atlas — Coffee-Table Layout Sandbox
+# Field Atlas — Coffee-Table Layout Sandbox
 
 **Isolated from the main build.** Nothing here is wired into `paper/Makefile`.
 Iterate freely; when a design is locked, promote it into a real template.
 
 ## Goal
 
-Make Wave Atlas read like *Wallpaper\* / Phaidon / Taschen XL* — not a LaTeX
+Make Field Atlas read like *Wallpaper\* / Phaidon / Taschen XL* — not a LaTeX
 thesis. See PRINT-SPEC.md §5 (coffee-table notes). Phase Dot and Collected
 Works keep their current monastic / classical typesetting respectively; only
 the Atlas changes.

@@ -2486,3 +2486,12 @@ Hopfield sorrys blocked by ISS-011 AND are semantically wrong for synchronous up
 
 **Build status:** All 20 `defaultTargets` build clean (⚠ warnings, no errors).
 Release-check: PASS:7 WARN:4 FAIL:3 (same 3 pre-existing: lean-appendix, git dirty, Dist PDFs).
+
+---
+
+## 2026-10-01 — Wave Atlas renamed Field Atlas
+
+Author decision: the Atlas is now **[T]-Theory: Field Atlas**, subtitle *The Wave That Is
+Always There*. Source moved to `Part2/book/field-atlas/`; registry key `field_atlas`. One name
+for app and book (the app already said Field Atlas), and it holds with the T-Theory lens off.
+Earlier entries above keep the old name.

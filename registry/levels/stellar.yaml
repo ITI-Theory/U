@@ -32,5 +32,5 @@ renderer:
 media: []
 former_labels:
   app: folded into species/stellar and cluster
-  wave_atlas: Scale 13-15 range
+  field_atlas: Scale 13-15 range
   operator_contract: 13 / STELLAR

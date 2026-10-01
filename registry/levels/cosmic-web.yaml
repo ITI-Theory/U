@@ -32,9 +32,9 @@ sources:
 renderer:
   id: cosmic-web
 media:
-- path: Part2/book/wave-atlas/figures/cosmic-web-placeholder.png
+- path: Part2/book/field-atlas/figures/cosmic-web-placeholder.png
   kind: atlas-figure
 former_labels:
   app: renderer id for OBSERVABLE UNIVERSE
-  wave_atlas: Scale 20 in dial title
+  field_atlas: Scale 20 in dial title
   operator_contract: 20 / COSMIC WEB

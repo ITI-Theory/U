@@ -12,7 +12,7 @@ explain:
     draft: true
   general: A galaxy is a huge system of stars, gas, dust, and gravity. The model follows large gravitational waves and density
     patterns across the disc.
-  specialist: The substrate is the Wave Atlas stellar-to-galactic plate, represented here by the galactic disc. Poisson gravity
+  specialist: The substrate is the Field Atlas stellar-to-galactic plate, represented here by the galactic disc. Poisson gravity
     describes how mass density sources the gravitational potential. The propagator is the long-range response kernel by which
     stars, gas, and dark matter constrain motion and spiral structure. Physical claims are sourced; Lyapunov or attractor
     comparisons are interpretive analogies.
@@ -31,9 +31,9 @@ sources:
 renderer:
   id: galactic
 media:
-- path: Part2/book/wave-atlas/figures/milky-way-edge-on-placeholder.png
+- path: Part2/book/field-atlas/figures/milky-way-edge-on-placeholder.png
   kind: atlas-figure
 former_labels:
   app: GALACTIC sigma 18
-  wave_atlas: Scale 13-15 Stellar to Galactic
+  field_atlas: Scale 13-15 Stellar to Galactic
   operator_contract: 15 / GALACTIC

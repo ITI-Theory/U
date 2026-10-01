@@ -33,9 +33,9 @@ sources:
 renderer:
   id: cosmic-web
 media:
-- path: Part2/book/wave-atlas/figures/cosmic-web-placeholder.png
+- path: Part2/book/field-atlas/figures/cosmic-web-placeholder.png
   kind: atlas-figure
 former_labels:
   app: OBSERVABLE UNIVERSE sigma 19
-  wave_atlas: Scale 18-20 Cosmic Web to Universal
+  field_atlas: Scale 18-20 Cosmic Web to Universal
   operator_contract: 19 / UNIVERSE
