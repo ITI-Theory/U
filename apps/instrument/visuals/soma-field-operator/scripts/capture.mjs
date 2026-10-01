@@ -39,7 +39,7 @@ function parseArgs(argv) {
     else if (key === 'levels' || key === 'paths') args[key] = new Set(value.split(','));
     else args[key] = key === 'out' ? path.resolve(value) : value;
   }
-  if (!['all', 'plates', 'console'].includes(args.only)) throw new Error('--only must be all, plates, or console');
+  if (!['all', 'plates', 'console', 'print'].includes(args.only)) throw new Error('--only must be all, plates, console, or print');
   return args;
 }
 
@@ -88,7 +88,7 @@ async function main() {
     ...extra,
   });
 
-  if (args.only !== 'console') {
+  if (args.only === 'all' || args.only === 'plates') {
     for (const level of data.levels) {
       if (args.levels && !args.levels.has(level.id)) continue;
       for (const lens of ['off', 'on']) {
@@ -103,7 +103,26 @@ async function main() {
     }
   }
 
-  if (args.only !== 'plates') {
+  if (args.only === 'print') {
+    // Print set: full console, lens on and the 4D|T compare view, one per level, in ladder order.
+    await mkdir(path.join(args.out, 'print'), { recursive: true });
+    const order = data.paths.find(route => route.id === 'full-atlas')?.nodes ?? [];
+    const ladder = [...order, ...data.levels.map(level => level.id).filter(id => !order.includes(id))];
+    for (const [index, levelId] of ladder.entries()) {
+      if (args.levels && !args.levels.has(levelId)) continue;
+      const level = levelById.get(levelId);
+      for (const [view, suffix] of [['lens-on', '&lens=on'], ['compare', '&lens=on&compare=1']]) {
+        await show(`level=${levelId}${suffix}&reader=${args.reader}`);
+        const buffer = await page.screenshot({ type: 'png', timeout: 180000 });
+        const file = `print/${String(index + 1).padStart(2, '0')}-${levelId}--${view}.png`;
+        await writeFile(path.join(args.out, file), buffer);
+        manifest.console.push(record(level, { view, file, position: index, sha256: sha256(buffer) }));
+        process.stdout.write(`print   ${file}\n`);
+      }
+    }
+  }
+
+  if (args.only !== 'plates' && args.only !== 'print') {
     for (const route of data.paths) {
       if (args.paths && !args.paths.has(route.id)) continue;
       await mkdir(path.join(args.out, 'console', route.id), { recursive: true });

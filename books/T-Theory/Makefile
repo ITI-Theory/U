@@ -143,7 +143,7 @@ $(BUILDDIR)/ttheory-vol1-body.md: FORCE | $(BUILDDIR)
 $(BUILDDIR)/ttheory-vol2-body.md: FORCE | $(BUILDDIR)
 	$(PYTHON) build_fractal_books.py --vol2
 
-$(BUILDDIR)/ttheory-vol1.pdf: $(BUILDDIR)/ttheory-vol1-body.md $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
+$(BUILDDIR)/ttheory-vol1.pdf: $(BUILDDIR)/ttheory-vol1-body.md bld/noir-page.pdf $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(VOLUME_FLAGS)
 	@echo "Built: $@"
 
@@ -179,7 +179,7 @@ OMNIBUS_FLAGS := \
 VOLUME_FLAGS := $(subst -V fontsize=11pt,-V fontsize=10pt,$(OMNIBUS_FLAGS))
 VOLUME_10PT_FLAGS := $(VOLUME_FLAGS)
 
-$(BUILDDIR)/ttheory-omnibus.pdf: $(BUILDDIR)/ttheory-omnibus-body.md $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
+$(BUILDDIR)/ttheory-omnibus.pdf: $(BUILDDIR)/ttheory-omnibus-body.md bld/noir-page.pdf $(ALL_BOOKLET_PAGES) | $(BUILDDIR)
 	$(PANDOC) $< -o $@ $(OMNIBUS_FLAGS)
 	@echo "Built: $@"
 

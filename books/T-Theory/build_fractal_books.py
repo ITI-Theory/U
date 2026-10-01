@@ -63,14 +63,36 @@ def _cheatsheet_toc(domain_id: str) -> str:
     )
 
 def _toc_only() -> str:
-    return "\n\n```{=latex}\n\\setcounter{tocdepth}{-1}\n\\tableofcontents\n\\clearpage\n```\n\n"
+    return "\n\n```{=latex}\n\\setcounter{tocdepth}{1}\n\\tableofcontents\n\\clearpage\n```\n\n"
+
+def _local_book_toc() -> str:
+    return (
+        "\n\n```{=latex}\n"
+        "\\clearpage\n"
+        "\\begingroup\n"
+        "\\setcounter{tocdepth}{2}\n"
+        "\\etocsettocstyle{\\section*{Book Contents}}{}\n"
+        "\\localtableofcontents\n"
+        "\\endgroup\n"
+        "\\clearpage\n"
+        "```\n\n"
+    )
 
 def _latex_text(text: str) -> str:
     """Escape registry and domain text inserted into raw LaTeX blocks."""
-    return (text.replace("\\", r"\\textbackslash{}")
-                .replace("&", r"\\&")
-                .replace("%", r"\\%")
-                .replace("_", r"\\_"))
+    replacements = {
+        "\\": r"\textbackslash{}",
+        "&": r"\&",
+        "%": r"\%",
+        "$": r"\$",
+        "#": r"\#",
+        "_": r"\_",
+        "{": r"\{",
+        "}": r"\}",
+        "~": r"\textasciitilde{}",
+        "^": r"\textasciicircum{}",
+    }
+    return "".join(replacements.get(char, char) for char in str(text))
 
 def _book_part_opening(domain_id: str) -> str:
     """Create a navigable opening page before a book inside a composite volume."""
@@ -92,9 +114,32 @@ def _book_part_opening(domain_id: str) -> str:
         f"{{\\sffamily Reader: {audience}\\par}}\n"
         "\\end{center}\n"
         "\\clearpage\n"
-        f"{_booklet_pages(domain_id)}\n"
-        "\\clearpage\n"
         "```\n\n"
+    )
+
+def _composite_book_opening(domain_id: str) -> str:
+    opening = _book_part_opening(domain_id)
+    if domain_id == "gateway":
+        return opening + _noir_block() + _local_book_toc()
+    return (
+        opening
+        + "\n\n```{=latex}\n"
+        + f"{_booklet_pages(domain_id)}\n"
+        + "\\clearpage\n"
+        + "```\n\n"
+        + _local_book_toc()
+    )
+
+def _composite_book_closing(domain_id: str) -> str:
+    if domain_id != "gateway":
+        return ""
+    return (
+        "\n\n\\newpage\n\n# [T]-Theory Cheatsheet\n\n"
+        + _gateway_cheatsheet_note().strip()
+        + "\n\n```{=latex}\n"
+        + f"{_booklet_pages(domain_id)}\n"
+        + "\\clearpage\n"
+        + "```\n"
     )
 
 def _gateway_cheatsheet_note() -> str:
@@ -355,6 +400,10 @@ _PART_BLOCK_RE = re.compile(r"```\{=latex\}\n\\part\{([^}]*)\}\n```")
 _ADDPAPER_RE = re.compile(r"^\{\{AddPaper\s+([^}\s]+)\}\}[ \t]*$", re.MULTILINE)
 _MACRO_LINE_RE = re.compile(r"^\{\{(AddPage|AddBooklet[^}]*|AddPDF[^}]*)\}\}[ \t]*$", re.MULTILINE)
 _TITLE_RE = re.compile(r'^title:\s*"?(.*?)"?\s*$', re.MULTILINE)
+_CHEATSHEET_SECTION_RE = re.compile(
+    r"(?:^|\n)# \[T\]-Theory Cheatsheet\b[\s\S]*?^\{\{AddBooklet[^}]*\}\}[ \t]*\n?",
+    re.MULTILINE,
+)
 
 
 def source_book_path(domain: dict) -> Path | None:
@@ -415,7 +464,7 @@ def get_source_book_body(domain: dict, seen: dict | None = None) -> str:
     path = source_book_path(domain)
     text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
     text = _FM_RE.sub("", text, count=1)
-    text = text.split("\n# [T]-Theory Cheatsheet", 1)[0]
+    text = _CHEATSHEET_SECTION_RE.sub("\n", text)
     text = _PART_BLOCK_RE.sub(lambda m: f"# Part: {m.group(1)} {{.unnumbered}}", text)
     text = _ADDPAPER_RE.sub(
         lambda m: paper_block((FRACTAL_DIR / m.group(1)).resolve(), domain["title"], seen), text)
@@ -811,7 +860,12 @@ csl: ../../paper/apa-7th.csl
         domain = get_domain(domain_id)
         print(f"\n  Assembling: {domain_id}")
         book_body = get_volume_book_body(domain, seen)
-        sections.append(_book_part_opening(domain_id) + book_body + "\n")
+        sections.append(
+            _composite_book_opening(domain_id)
+            + book_body
+            + _composite_book_closing(domain_id)
+            + "\n"
+        )
 
     # P23 closing chapter: Vol I (Foundation) ends with the gateway to Phase 2
     if vol_tag == "vol1":
@@ -819,14 +873,6 @@ csl: ../../paper/apa-7th.csl
         if p23:
             sections.append(f"\n\n\\newpage\n\n\\markboth{{The [T]-Phenomena}}{{}}\n\n# Closing: The Gateway to Phase 2\n\n{p23}\n")
             print(f"  + ttheory-phenomena (Vol I closing chapter)")
-
-    sections.append(
-        "\n\n\\newpage\n\n# [T]-Theory Cheatsheet\n\n"
-        "```{=latex}\n"
-        f"{_booklet_pages('gateway')}\n"
-        "```\n"
-    )
-    print("  + default cheatsheet (volume closing handout)")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / f"ttheory-{vol_tag}-body.md"
@@ -866,21 +912,18 @@ csl: ../../paper/apa-7th.csl
     for domain in DOMAINS:
         print(f"\n  Assembling: {domain['id']}")
         book_body = get_volume_book_body(domain, seen)
-        sections.append(_book_part_opening(domain["id"]) + book_body + "\n")
+        sections.append(
+            _composite_book_opening(domain["id"])
+            + book_body
+            + _composite_book_closing(domain["id"])
+            + "\n"
+        )
 
     # P23 as the closing chapter of the complete omnibus
     p23 = get_canonical_body("ttheory-phenomena")
     if p23:
         sections.append(f"\n\n\\newpage\n\n\\part{{The Gateway to Phase 2}}\n\n\\markboth{{The [T]-Phenomena}}{{}}\n\n# The [T]-Theory Phenomena\n\n{p23}\n")
         print(f"  + ttheory-phenomena (omnibus closing)")
-
-    sections.append(
-        "\n\n\\newpage\n\n# [T]-Theory Cheatsheet\n\n"
-        "```{=latex}\n"
-        f"{_booklet_pages('gateway')}\n"
-        "```\n"
-    )
-    print("  + default cheatsheet (Fractal Thesis closing handout)")
 
     full_text = "\n".join(sections)
     out_path = BLD_DIR / "ttheory-omnibus-body.md"

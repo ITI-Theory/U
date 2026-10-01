@@ -14,12 +14,15 @@ format checks enforce the parts that can be verified automatically.
 - Deliberately inserted blank pages contain no text and occur only on even
   physical pages.
 - The master table of contents begins on physical page 3.
-- Master contents lists only major containers, not every internal heading.
+- Master contents lists member/book titles and their immediate internal
+  chapter titles, not a many-page subsection inventory.
 - Every contained work begins recto (an odd physical page).
 - A contained work begins with a divider page that names the work clearly.
 - Major appendices begin recto and have a prose-to-proof separation page.
 - The omnibus carries one continuous pagination and one master table of
-  contents; it does not reproduce individual-paper front matter or local TOCs.
+  contents. Paper members do not reproduce individual-paper front matter or
+  local TOCs; book members may retain local TOCs when required by the collection
+  model.
 - Mathematical Unicode in prose and code listings is rendered through TeX math;
   the monospaced code font must not be relied on for mathematical glyphs.
 
@@ -28,8 +31,9 @@ format checks enforce the parts that can be verified automatically.
 - `omnibus-a4.pdf` and `omnibus-royal.pdf` are a single merged manuscript.
 - C1v2 in `Dist/PAPERS.yaml` owns its title, front matter, ordered members, and
   part openings; the build script contains no duplicate collection inventory.
-- The master contents lists the merged hierarchy once; included paper-local
-  covers, abstracts, TOCs, pagination, and reference sections are not repeated.
+- The master contents lists the merged two-level hierarchy once; included
+  paper-local covers, abstracts, TOCs, pagination, and reference sections are not
+  repeated.
 - Each canonical paper gets a named recto divider before its merged body.
 - The Lean proof appendix is merged as the final registered appendix.
 
@@ -46,14 +50,15 @@ format checks enforce the parts that can be verified automatically.
 
 ## [T]-Theory Omnibus Profile
 
-- The Fractal Thesis and Volumes I/II use master TOC depth 1.
+- The Fractal Thesis and Volumes I/II use a two-level master TOC: domain-book
+  titles plus immediate internal chapter titles.
 - Each contained domain book gets a named recto part-opening page.
-- Each domain book includes its own four-page cheatsheet immediately after
-  the opening page.
-- The Gateway is the only book with a noir page and may place its cheatsheet
-  at the end as a retrospective map.
-- Domain-book details stay in their individual book TOCs; they do not expand
-  the master volume TOC.
+- The default contained-domain sequence is part opening, registered four-page
+  cheatsheet insert, local book TOC, then book body.
+- The Gateway is the only book with a noir page near the opening and places its
+  cheatsheet at the end as a retrospective map.
+- Lower-level domain-book details stay in their local book TOCs; they do not
+  expand the master volume TOC.
 
 ## Verification
 

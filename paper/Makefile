@@ -109,7 +109,7 @@ _OMNIBUS_CORE := \
   --lua-filter=strip-keywords.lua
 
 OMNIBUS_BASE := $(_OMNIBUS_CORE) \
-	--toc-depth=1 \
+	--toc-depth=2 \
 	-V documentclass=memoir \
 	-V classoption=openany \
 	-V classoption=a4paper \

@@ -26,6 +26,12 @@ abstract: |
   the programme carries an evidence label.
 ---
 
+# [T]-Theory Cheatsheet
+
+The four-page cheat sheet for this volume summarises its claim, field notes, and evidence audit. Read it as a map of the book or return to it afterwards as a record of what the book has argued and what it has left open.
+
+{{AddBooklet ../bld/booklet-philosophy.pdf recto}}
+
 # The Conscious Percept Propagator Pole
 
 **G-ID:** *Conscious Percept Propagator Pole: the threshold $T_c$ (formal
@@ -3188,9 +3194,3 @@ This table is written as structured source material for a future Soma Machine re
 **Validation.** Evidence that a model or tool works for its intended real-world purpose. It differs from verification, which checks formal correctness under specified premises.
 
 **Verification.** Formal checking that a statement follows from definitions and assumptions. In this programme, verification is real but narrow; it does not replace empirical validation.
-
-# [T]-Theory Cheatsheet
-
-The four-page cheat sheet for this volume summarises its claim, field notes, and evidence audit. Read it as a map of the book or return to it afterwards as a record of what the book has argued and what it has left open.
-
-{{AddBooklet ../bld/booklet-philosophy.pdf recto}}
