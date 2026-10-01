@@ -1,0 +1,15 @@
+id: feeling-memory
+question: Does a feeling remember being poked?
+short_answer: >-
+  In a simple 4D baseline, a poke is a pulse that decays. In the human-vertebrate 8D reading, the same poke can cross a basin threshold, leave hysteresis, and make the next poke different through the memory kernel $K(\tau)$. Press POKE FIELD twice and watch the STATE panel; switch to 4D to compare.
+level: human-vertebrate
+path: micro-to-life
+view:
+  compare: false
+  contours: false
+  lens: on
+  dimension: 8
+mother_prompt: "Does a feeling remember being poked in [T]-Theory? Distinguish a decaying pulse from basin hysteresis and the memory kernel K(tau)."
+next: hydrogen-feeling
+badge: derived-under-assumptions
+sources: [P1, P9, P10, P13]

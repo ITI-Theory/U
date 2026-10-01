@@ -1,0 +1,27 @@
+id: gravity-time-bending
+label: Gravity / Time Bending / Lambda
+level: galactic-halo
+paths: [full-atlas, galactic-to-cosmic]
+summary: A weak-field Schwarzschild-de Sitter scene compares standard GR with the USF Lambda replacement while keeping local time dilation and light bending unchanged.
+steps:
+  - axis: 4d-baseline
+    title: GR with the Measured Cosmological Constant
+    body: >-
+      The baseline panel uses the weak-field Schwarzschild-de Sitter effective potential $\Phi(r)=-GM/r-\Lambda c^2 r^2/6$. Near the mass, ordinary GR controls clock rates, orbits, lensing, and local tests. The cosmological constant only becomes visible at very large scales, where the zero-gravity radius balances attraction against de Sitter expansion.
+    equation: '\Phi(r)=-\frac{GM}{r}-\frac{\Lambda c^2 r^2}{6}'
+    badge: SOURCED
+    sources: [planck2018cosmology, P21]
+  - axis: 8d-life
+    title: Same Local Gravity, Different Origin Story
+    body: >-
+      The programme does not add a local correction to tested GR in these papers. The visual change is cosmological: replace the observed Lambda by the USF-derived estimate $\Lambda_{\mathrm{USF}}=(21/11)H_0^2/c^2$ and show the small shift in the turnaround contour. The claim is derived under compactification assumptions, not an independent detection.
+    equation: '\Lambda_{\mathrm{USF}}=\frac{21}{11}\frac{H_0^2}{c^2}'
+    badge: INTERPRETIVE
+    sources: [P20, P21, P24]
+  - axis: 11d-mind
+    title: Where Lambda Comes From
+    body: >-
+      At the 11D layer, the question is not whether clocks bend differently near the Sun. It is whether the cosmological constant can be read as the compact-sector vacuum amplitude of the Universal Somatic Field. That is a model-derived comparison: visually close to measured Lambda, still awaiting the formal linearised-GR and compactification obligations named in the papers.
+    equation: '\Lambda\equiv\langle\operatorname{tr}\Phi\rangle_0'
+    badge: INTERPRETIVE
+    sources: [P21, P22, P24]

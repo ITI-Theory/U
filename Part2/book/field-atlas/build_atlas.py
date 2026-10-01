@@ -91,6 +91,14 @@ def load_models_and_paths() -> tuple[list[dict], list[dict]]:
     return models, paths
 
 
+def load_eras() -> list[dict]:
+    data = yaml.safe_load((REGISTRY / "eras.yaml").read_text(encoding="utf-8")) or {}
+    eras = data.get("eras", [])
+    if not isinstance(eras, list):
+        raise SystemExit("registry/eras.yaml: eras must be a list")
+    return eras
+
+
 def model_levels(model: dict) -> list[tuple[str, str, list[str]]]:
     """(coordinate, label, level ids) rows; canonical-5 groups several levels per coordinate."""
     rows = []
@@ -141,6 +149,65 @@ def paths_part(paths: list[dict], labels: dict[str, str], edges, examples, missi
         if path_examples:
             out += ["Worked examples on this path: " + "; ".join(f"{e['label']} (at {level_link(e['level'], labels)})" for e in path_examples) + ".", ""]
     return "\n".join(out)
+
+
+def time_axis_part(eras: list[dict], labels: dict[str, str]) -> str:
+    band_titles = {
+        "cosmic": "Cosmic",
+        "geological": "Geological",
+        "palaeontology": "Life / palaeontology",
+        "human": "Human",
+        "philosophy": "Philosophy",
+    }
+    out = ["# Time Axis {#part-time-axis}", "",
+           "The time axis is a second way to drive the same registry. It moves through sourced cosmology, Earth history, "
+           "life history, human history, and the Philosophy Appendix C ledger while keeping the level ladder unchanged.", ""]
+    for band, title in band_titles.items():
+        band_eras = [era for era in eras if era.get("band") == band]
+        if not band_eras:
+            continue
+        out += [f"## {title} {{#time-axis-{band}}}", "",
+                "| Time | Era | Level | Badge |",
+                "|:--|:--|:--|:--|"]
+        for era in band_eras:
+            level_id = era.get("level")
+            if level_id not in labels:
+                raise SystemExit(f"era {era.get('id')} references unknown level {level_id!r}")
+            out.append(f"| {cell(era.get('time', {}).get('display', ''))} | {cell(era.get('label', era.get('id', '')))} | {level_link(level_id, labels)} | {cell(era.get('badge', ''))} |")
+        out.append("")
+    return "\n".join(out)
+
+
+def load_questions() -> list[dict]:
+    questions_dir = REGISTRY / "questions"
+    if not questions_dir.exists():
+        return []
+    return [yaml.safe_load(path.read_text(encoding="utf-8")) for path in sorted(questions_dir.glob("*.yaml"))]
+
+
+def questions_part(questions: list[dict], labels: dict[str, str]) -> str:
+    if not questions:
+        return ""
+    out = ["# What's Different? {#part-whats-different}", "",
+           "Curated question tours contrast ordinary science with the programme's added claims. "
+           "Each answer names the evidence label so visual comparison does not become overclaim.", ""]
+    for question in questions:
+        qid = question["id"]
+        level_id = question["level"]
+        image = ATLAS / "figures" / "app" / "questions" / f"{qid}.png"
+        out += [f"## {question['question']} {{#question-{qid}}}", "",
+                f"**Label:** `{question.get('badge', '-')}`  ",
+                f"**Level:** {level_link(level_id, labels)}", "",
+                question.get("short_answer", ""), ""]
+        if image.exists():
+            width = "\\columnwidth" if FORMAT == "a3" else "90%"
+            out += [f"![]({image.relative_to(ATLAS).as_posix()}){{width={width}}}", ""]
+        if question.get("next"):
+            out += [f"**Next:** [question-{question['next']}](#question-{question['next']})", ""]
+        sources = question.get("sources") or []
+        if sources:
+            out += ["Sources: " + ", ".join(f"`{source}`" for source in sources) + ".", ""]
+    return columns("\n".join(out))
 
 
 def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing: list[str], paths: list[dict] | None = None) -> str:
@@ -226,6 +293,7 @@ def assemble() -> tuple[str, list[str]]:
         examples.setdefault(example["level"], []).append(example)
     missing: list[str] = []
     models, paths = load_models_and_paths()
+    eras = load_eras()
     listed = [level for sector in atlas["sectors"] for level in sector["levels"]]
     unlisted = sorted(set(labels) - set(listed))
     if unlisted:
@@ -256,7 +324,10 @@ def assemble() -> tuple[str, list[str]]:
         parts += [f"# Sector {front.get('sector', number)}: {front.get('title', '')}", "", columns(body), ""]
         for level_id in sector["levels"]:
             parts += [level_spread(level_id, labels, edges, examples, missing, paths), ""]
-    parts += [models_part(models, labels), "", paths_part(paths, labels, edges, examples, missing), ""]
+    questions = load_questions()
+    if atlas.get("questions", True):
+        parts += [questions_part(questions, labels), ""]
+    parts += [models_part(models, labels), "", paths_part(paths, labels, edges, examples, missing), "", time_axis_part(eras, labels), ""]
     on_paths = {level for path in paths for level in path["nodes"]}
     for level_id in listed:
         if level_id not in on_paths:

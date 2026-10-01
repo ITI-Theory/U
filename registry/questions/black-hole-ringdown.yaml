@@ -1,0 +1,15 @@
+id: black-hole-ringdown
+question: What happens when black holes merge?
+short_answer: >-
+  In GR, a binary merger leaves a perturbed Kerr black hole whose gravitational-wave ringdown is measured as damped modes. [T]-Theory uses that as response grammar--source, boundary, decay, inferred state--without claiming compact objects are alive or conscious.
+level: compact-object
+path: full-atlas
+view:
+  compare: true
+  contours: true
+  lens: on
+example: black-hole-ringdown-gw150914
+mother_prompt: "What happens when black holes merge in GR, and how does [T]-Theory use ringdown only as response grammar?"
+next: gravity-time-bending
+badge: empirical-result
+sources: [P20, P21, P24, abbott2016gw, shapiro1983black]

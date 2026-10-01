@@ -1,0 +1,15 @@
+id: early-universe-sound
+question: What did the early universe sound like?
+short_answer: >-
+  Baryon acoustic oscillations are real early-universe pressure waves whose frozen scale appears in later galaxy clustering. [T]-Theory uses BAO as a sourced example of response history becoming a present contour, but not as cosmic hearing or cosmic mind.
+level: cosmic-web
+path: galactic-to-cosmic
+view:
+  compare: true
+  contours: true
+  lens: on
+example: baryon-acoustic-oscillations
+mother_prompt: "What did the early universe sound like, and why is BAO a sourced physics result rather than a cosmic-mind claim?"
+next: black-hole-ringdown
+badge: empirical-result
+sources: [P20, P21, eisenstein2005bao, planck2018cosmology]

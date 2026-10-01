@@ -1,10 +1,13 @@
 import * as THREE from 'three';
-import { levels as registryLevels, paths as registryPaths, models as registryModels, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples } from './generated/app-data.js';
+import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
 import { FieldAudio } from './audio/field-audio.js';
 import { createMother } from './mother.js';
+import { createQuestionTours } from './questions.js';
+import { createTimeAxis } from './time-axis.js';
+import { createDimensionDynamics } from './dynamics.js';
 
 // Every renderers/*.js module registers itself through its default export
 // ({ id, create }); adding a renderer never requires editing this file.
@@ -16,6 +19,8 @@ for (const module of Object.values(rendererModules)) {
 const levelsById = new Map(registryLevels.map(level => [level.id, level]));
 const pathsById = new Map(registryPaths.map(path => [path.id, path]));
 const modelsById = new Map(registryModels.map(model => [model.id, model]));
+const erasById = new Map((registryEras ?? []).map(era => [era.id, era]));
+const questionsById = new Map(registryQuestions.map(question => [question.id, question]));
 const universalModel = modelsById.get('universal-21') ?? registryModels[0];
 const legacySigmaToLevelId = new Map((universalModel?.levels ?? [])
   .filter(entry => Number.isInteger(entry.coordinate) && entry.level)
@@ -1097,11 +1102,15 @@ function readHashState() {
     hasLens: params.has('lens'),
     hasModel: params.has('model'),
     hasReader: params.has('reader'),
+    hasEra: params.has('era'),
     level: params.get('level'),
     path: params.get('path'),
     lens: params.get('lens'),
     model: params.get('model'),
     reader: params.get('reader'),
+    era: params.get('era'),
+    hasQuestion: params.has('q'),
+    question: params.get('q'),
     compare: params.get('compare'),
     contours: params.get('contours'),
     styleoff: params.get('styleoff'),
@@ -1141,9 +1150,11 @@ const state = {
   selectedMechanisms: new Set(),
   appraisal: Object.fromEntries(appraisalDimensions.map(dimension => [dimension.id, 0])),
   implementation: 'universal-21',
+  eraId: null,
   canonicalStart: 'I',
   canonicalEnd: 'V',
   route: defaultPathForModel('universal-21'),
+  questionId: null,
   lenses: new Set(['physics', 'response']),
   responseTime: 0,
   impulse: 0,
@@ -1155,6 +1166,7 @@ const state = {
   thoughtThreshold: 0.82,
 };
 let suppressHashWrite = false;
+let timeAxis = null;
 // A poke plays over the same wall-clock span at every level; the readout states the level's own time scale.
 const POKE_DISPLAY_SECONDS = 4;
 const fieldAudio = new FieldAudio({ pokeSeconds: POKE_DISPLAY_SECONDS });
@@ -1268,6 +1280,49 @@ const bodyGridElement = document.querySelector('#body-grid');
 const bodyMapStatus = document.querySelector('#body-map-status');
 const hierarchyButtons = [...document.querySelectorAll('.hierarchy-button')];
 const fieldNote = document.querySelector('.field-note');
+const dimensionDynamics = createDimensionDynamics({ getState: () => state, activeLevel, activeDimensionLevel });
+let questionTours = null;
+
+function syncQuestionTours() {
+  questionTours?.sync(state.questionId, state.levelId);
+}
+
+function applyQuestionView(questionId, { write = true, render = true } = {}) {
+  if (!questionId) {
+    state.questionId = null;
+    syncQuestionTours();
+    if (write) writeHashState();
+    return;
+  }
+  const question = questionsById.get(questionId);
+  if (!question) return;
+  state.questionId = question.id;
+  if (levelsById.has(question.level)) {
+    state.levelId = question.level;
+    state.scale = levelSigma(state.levelId);
+    state.visualScale = state.scale;
+  }
+  if (question.path && pathsById.has(question.path)) {
+    state.route = question.path;
+    const routeModel = registryModels.find(model => model.paths?.includes(question.path));
+    if (routeModel) state.implementation = routeModel.id;
+  }
+  if (question.view?.lens === 'off') state.tTheory = false;
+  if (question.view?.lens === 'on') state.tTheory = true;
+  state.compare = Boolean(question.view?.compare);
+  state.contours = Boolean(question.view?.contours);
+  if ([4, 8, 11].includes(question.view?.dimension)) state.level = question.view.dimension;
+  document.querySelector('#contours').checked = state.contours;
+  routeSelect.value = state.route;
+  implementationSelect.value = state.implementation;
+  syncQuestionTours();
+  if (render) {
+    syncScaleControl();
+    renderZoomEquation();
+    updateScaleReadout();
+  }
+  if (write) writeHashState();
+}
 
 function applyHashState({ render = true } = {}) {
   const hashState = readHashState();
@@ -1312,21 +1367,23 @@ function applyHashState({ render = true } = {}) {
       state.visualScale = state.scale;
     }
   }
-  if (hashState.hasLevel && !hashState.hasPath) {
+  if (hashState.hasEra && erasById.has(hashState.era)) {
+    const era = erasById.get(hashState.era);
+    state.eraId = era.id;
+    state.levelId = era.level;
+    state.scale = levelSigma(state.levelId);
+    state.visualScale = state.scale;
+  } else if (hashState.hasEra) {
+    state.eraId = null;
+  }
+  if ((hashState.hasLevel || state.eraId) && !hashState.hasPath) {
     // A level-only link must not be overridden by a remembered path or model that lacks the level.
-    const currentRoute = registryPaths.find(route => route.id === state.route);
-    const modelLevels = (modelsById.get(state.implementation)?.levels ?? []).flatMap(entry => entry.levels ?? [entry.level]);
-    if (!currentRoute?.nodes.includes(state.levelId) && !modelLevels.includes(state.levelId)) {
-      const modelPaths = modelsById.get(state.implementation)?.paths ?? [];
-      const fit = registryPaths.find(route => modelPaths.includes(route.id) && route.nodes.includes(state.levelId))
-        ?? registryPaths.find(route => route.id === 'full-atlas' && route.nodes.includes(state.levelId))
-        ?? registryPaths.find(route => route.nodes.includes(state.levelId));
-      if (fit) {
-        state.route = fit.id;
-        const routeModel = registryModels.find(model => model.paths?.includes(fit.id));
-        if (routeModel && !modelPaths.includes(fit.id) && !hashState.hasModel) state.implementation = routeModel.id;
-      }
-    }
+    fitLevelRoute(state.levelId);
+  }
+  if (hashState.hasQuestion && questionsById.has(hashState.question)) {
+    applyQuestionView(hashState.question, { write: false, render: false });
+  } else if (hashState.hasQuestion) {
+    state.questionId = null;
   }
   state.transport.playing = false;
   state.transport.nextAt = 0;
@@ -1342,6 +1399,7 @@ function applyHashState({ render = true } = {}) {
   renderZoomEquation();
   suppressHashWrite = false;
   updateScaleReadout();
+  timeAxis?.setSelected(state.eraId);
 }
 
 applyHashState({ render: false });
@@ -1698,6 +1756,49 @@ function equationToLatex(equation) {
   return `\\text{${String(equation).replace(/[{}\\]/g, '').replace(/\s+/g, '\\;')}}`;
 }
 
+function modelContainsLevel(modelId, levelId) {
+  return modelEntries(modelId).some(entry => entry.levelId === levelId);
+}
+
+function fitLevelRoute(levelId) {
+  const currentRoute = registryPaths.find(route => route.id === state.route);
+  if (!currentRoute?.nodes.includes(levelId)) {
+    const modelPaths = modelsById.get(state.implementation)?.paths ?? [];
+    const fit = registryPaths.find(route => modelPaths.includes(route.id) && route.nodes.includes(levelId))
+      ?? registryPaths.find(route => route.id === 'full-atlas' && route.nodes.includes(levelId))
+      ?? registryPaths.find(route => route.nodes.includes(levelId));
+    if (fit) state.route = fit.id;
+  }
+  if (!modelContainsLevel(state.implementation, levelId)) {
+    const fitModel = registryModels.find(model => model.paths?.includes(state.route) && modelContainsLevel(model.id, levelId))
+      ?? registryModels.find(model => modelContainsLevel(model.id, levelId));
+    if (fitModel) state.implementation = fitModel.id;
+  }
+}
+
+function selectEra(era, { write = true } = {}) {
+  state.eraId = era?.id ?? null;
+  if (era) {
+    state.transport.playing = false;
+    state.transport.nextAt = 0;
+    state.levelId = era.level;
+    state.scale = levelSigma(state.levelId);
+    state.visualScale = state.scale;
+    fitLevelRoute(state.levelId);
+    if (state.scale < 7 && state.level === 11) state.level = 4;
+  }
+  routeSelect.value = state.route;
+  implementationSelect.value = state.implementation;
+  pathPlay.classList.remove('active');
+  pathPlay.setAttribute('aria-pressed', 'false');
+  pathPlay.textContent = 'PLAY PATH';
+  syncScaleControl();
+  renderZoomEquation();
+  updateScaleReadout();
+  timeAxis?.setSelected(state.eraId);
+  if (write) writeHashState();
+}
+
 function hashForState() {
   const params = new URLSearchParams();
   params.set('level', state.levelId);
@@ -1705,6 +1806,8 @@ function hashForState() {
   params.set('lens', state.tTheory ? 'on' : 'off');
   params.set('model', state.implementation);
   params.set('reader', state.reader);
+  if (state.eraId) params.set('era', state.eraId);
+  if (state.questionId) params.set('q', state.questionId);
   if (state.compare) params.set('compare', '1');
   if (state.contours) params.set('contours', '1');
   const styleOff = Object.keys(state.style).filter(key => !state.style[key]);
@@ -1883,6 +1986,7 @@ function updateScaleReadout() {
   renderLibrary(plate);
   renderWallMath();
   syncTTheoryUI();
+  syncQuestionTours();
   writeHashState();
 }
 routeSelect.addEventListener('change', () => {
@@ -1990,6 +2094,7 @@ document.querySelector('#poke').addEventListener('click', () => {
   state.pokeRunning = true;
   state.responseTime = 0;
   document.querySelector('#response-time').value = '0';
+  dimensionDynamics.poke({ strength: state.limbic });
   updateScaleReadout();
   fieldAudio.poke({ level: activeLevel() });
 });
@@ -2016,6 +2121,7 @@ for (const button of hierarchyButtons) {
     if (button.disabled) return;
     const level = Number(button.dataset.level);
     state.level = level;
+    dimensionDynamics.reset();
     updateScaleReadout();
   });
 }
@@ -2065,7 +2171,7 @@ function setCompare(on) {
 }
 compareButton.addEventListener('click', () => setCompare(!state.compare));
 
-createMother({
+const mother = createMother({
   getContext: () => {
     const level = activeLevel();
     return {
@@ -2081,6 +2187,18 @@ createMother({
     };
   },
 });
+
+questionTours = createQuestionTours({
+  questions: registryQuestions,
+  levelsById,
+  getActiveQuestionId: () => state.questionId,
+  getLevelId: () => state.levelId,
+  onSelect: questionId => applyQuestionView(questionId),
+  onMother: prompt => mother.open(prompt),
+  scene,
+  THREE,
+});
+syncQuestionTours();
 
 // Worked examples (registry/examples): the 4D step under the baseline half,
 // the matching T-Theory step under the field half.
@@ -2131,7 +2249,7 @@ function fillCompareCard(card, example, step, count, withCycle) {
 
 function updateCompareCards(rightLevel) {
   const levelExamples = examplesByLevel.get(state.levelId) ?? [];
-  const key = state.compare && levelExamples.length ? `${state.levelId}|${rightLevel}|${exampleIndex}` : 'none';
+  const key = state.compare && !state.questionId && levelExamples.length ? `${state.levelId}|${rightLevel}|${exampleIndex}` : 'none';
   if (key === compareCardsKey) return;
   compareCardsKey = key;
   compareCards.hidden = key === 'none';
@@ -2146,6 +2264,13 @@ syncScaleControl();
 syncTTheoryUI();
 renderZoomEquation();
 updateScaleReadout();
+timeAxis = createTimeAxis({
+  eras: registryEras,
+  levelsById,
+  state,
+  onSelect: era => selectEra(era),
+});
+timeAxis?.setSelected(state.eraId);
 
 const viewportSize = new THREE.Vector2();
 function resize() {
@@ -2240,6 +2365,8 @@ function frame() {
   const mechanismsActive = state.brecvema && state.tTheory && organismLevelIds.has(activeLevel().id);
   const mechanismGain = mechanismsActive ? 1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15 : 1;
   const responsePulse = state.impulse * mechanismGain * Math.exp(-state.responseTime * 3.4);
+  const dynamicsState = dimensionDynamics.update({ time, delta, responsePulse });
+  const scenePulse = Math.max(responsePulse, dynamicsState.scenePulse ?? 0);
   fieldAudio.update({
     level: activeLevel(),
     lensOn: state.tTheory,
@@ -2256,9 +2383,9 @@ function frame() {
     if (!compareOn) { compareCardsKey = ''; compareCards.hidden = true; }
     resize();
   }
-  if (compareOn) renderCompare(time, delta, responsePulse);
+  if (compareOn) renderCompare(time, delta, scenePulse);
   else {
-    applyScene(time, delta, responsePulse);
+    applyScene(time, delta, scenePulse);
     renderScene();
   }
   if (state.impulse) timeReadout.textContent = responseTimeReadout(activeLevel());
@@ -2314,6 +2441,7 @@ function applyScene(time, delta, responsePulse) {
   thoughtSparks.update({ ...renderState, rendererId: renderState.rendererId === 'thought-sparks' ? 'thought-sparks' : null }, time, responsePulse);
   if (!['quantum-foam', 'thought-sparks'].includes(renderState.rendererId)) updateRegistryRenderer(renderState, time, responsePulse);
   else for (const instance of rendererInstances.values()) instance.update({ ...renderState, rendererId: null }, time, responsePulse);
+  questionTours?.updateOverlay(renderState, time, responsePulse);
   updateCellularDensityLayer(time, responsePulse);
   updateCellularField(time, responsePulse);
   updateAstralFields(time, responsePulse);
@@ -2364,6 +2492,13 @@ function applyScene(time, delta, responsePulse) {
   limbicWell.scale.setScalar(0.9 + state.limbic * 0.2);
   wellMaterial.opacity = (0.45 + state.limbic * 0.45 + responsePulse * 0.25) * feelingWeight;
   barrier.material.opacity = (0.25 + state.limbic * 0.55 + responsePulse * 0.35) * feelingWeight;
+  const dynamicVisual = dimensionDynamics.visualState();
+  if (dynamicVisual.active && currentLevel.id === 'human-vertebrate' && displayLevel >= 8) {
+    limbicCore.scale.setScalar(1 + Math.max(0, dynamicVisual.basin) * 0.22);
+    limbicRing.scale.multiplyScalar(1 + Math.abs(dynamicVisual.basin) * 0.04);
+    barrier.material.opacity *= 0.62 + dynamicVisual.barrier * 0.55;
+    wellMaterial.opacity *= 0.72 + Math.max(0, dynamicVisual.basin) * 0.48;
+  }
   thresholdRing.position.y = 2.4 + state.cognitive * 0.75; thresholdRing.material.opacity = (0.2 + state.cognitive * 0.8) * humanWeight;
   cortex.material.opacity = (0.18 + state.cognitive * 0.75) * humanWeight;
   mindFractal.visible = tTheoryLayerOn && displayLevel === 11;

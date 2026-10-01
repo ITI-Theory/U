@@ -1,0 +1,15 @@
+id: dark-energy-origin
+question: Where does dark energy come from?
+short_answer: >-
+  In ordinary cosmology, dark energy is represented by a measured cosmological constant in the Einstein equations. [T]-Theory proposes, under compactification assumptions, that it is the compact-sector vacuum amplitude of the Universal Somatic Field, giving $\Omega_\Lambda=7/11$ and $\Lambda_{\mathrm{USF}}$ within about 7% of the Planck-2018 value.
+level: observable-universe
+path: galactic-to-cosmic
+view:
+  compare: true
+  contours: true
+  lens: on
+example: baryon-acoustic-oscillations
+mother_prompt: "Where does dark energy come from in ordinary cosmology and in [T]-Theory? Keep the evidence labels explicit."
+next: dark-matter-spatial-vacuum
+badge: derived-under-assumptions
+sources: [P21, P20, planck2018cosmology]

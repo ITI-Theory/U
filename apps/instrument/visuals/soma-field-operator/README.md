@@ -42,6 +42,10 @@ The scene exposes three normalised fields in `[0, 1]`:
 	active substrate label, field spread, $k$, characteristic length $\ell$, mind
 	matrix rank $N$, and equation ledger. The operator uses
 	$k(\sigma) = k_0 / \Lambda^\sigma$ as its scale-law reference.
+- **TIME / ERA**: selects a record from `registry/eras.yaml`, snaps the
+	log-time slider to the nearest era, opens the era card, and switches to the
+	registry level that best visualises that era. It is off by default; no
+	`#era=<id>` means the existing zoom behaviour is unchanged.
 - **BRECVEMA / P.N.S.**: reveals the eight mechanism channels -- BrainStem,
 	Rhythmic Entrainment, Evaluative Conditioning, Contagion, Visual Imagery,
 	Episodic Memory, Musical Expectancy, and Aesthetic Judgement -- converging
@@ -66,6 +70,25 @@ npm run start
 
 The `EXPORT FRAME` control writes a PNG from the current canvas state for a
 paper or social derivative. Keep the procedural scene as the source of truth.
+
+Deep-link hash keys include `level`, `path`, `lens`, `model`, `reader`,
+`compare`, `contours`, `styleoff`, `q`, and `era`.
+
+## Dimension dynamics demos
+
+On `level=human-vertebrate` with `T-THEORY: ON`, the 4D/8D/11D hierarchy
+buttons now change the POKE behaviour, not only the image.
+
+- 4D: POKE drives a damped baseline response that rings down to rest.
+- 8D: POKE integrates the low-dimensional Langevin double well
+  `gamma e_dot = -grad H(e) + sqrt(2D) xi(t) + J(t)` with the P10 exponential
+  memory kernel; weak limbic settings return to calm, strong settings flip and
+  stay in the high-arousal basin, and a second poke reports the changed
+  response.
+- 11D: POKE/entry replays the P2 QUANT-EXP-1 simulated tunnelling panel:
+  classical cold `0/48` reach vs quantum anneal peak Awe-dominant probability
+  about `0.408`. The panel is labelled `simulated` and carries the
+  `THEORY-STATUS.md` caveat.
 
 ## Data architecture freeze
 

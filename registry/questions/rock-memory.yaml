@@ -1,0 +1,15 @@
+id: rock-memory
+question: Can a rock remember?
+short_answer: >-
+  In geology, rock preserves strain, faults, fabrics, and mineral records through ordinary mechanics and chemistry. [T]-Theory may call that a slow memory kernel only as an interpretive analogy for path dependence; it is not sentience or feeling.
+level: geological
+path: geological-to-stellar
+view:
+  compare: true
+  contours: true
+  lens: on
+example: geophysical-glarus-thrust
+mother_prompt: "Can a rock remember in the Field Atlas sense, or is that only path-dependent geology plus metaphor?"
+next: early-universe-sound
+badge: interpretive
+sources: [P16, P20, dieterich1979modeling, ruina1983slip]

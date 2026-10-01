@@ -1,0 +1,15 @@
+id: gravity-time-bending
+question: "How does T-Theory's view of gravity and time bending compare with Einstein's? Identical, or...?"
+short_answer: >-
+  Locally, the papers keep Einstein gravity where it is tested: time dilation, light bending, and orbits use the same GR limit. What [T]-Theory adds is a derived-under-assumptions account of where the cosmological constant comes from: $\Lambda_{\mathrm{USF}}=(21/11)H_0^2/c^2$, about 7.1% below the Planck-2018 value.
+level: galactic-halo
+path: galactic-to-cosmic
+view:
+  compare: true
+  contours: true
+  lens: on
+example: gravity-time-bending
+mother_prompt: "How does T-Theory's view of gravity and time bending compare with Einstein's? Identical, or...? Please answer in 10 lines max, and distinguish local GR tests from the cosmological Lambda claim."
+next: dark-energy-origin
+badge: derived-under-assumptions
+sources: [P20, P21, P22, P24, planck2018cosmology]

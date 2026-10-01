@@ -1,0 +1,15 @@
+id: dark-matter-spatial-vacuum
+question: What is dark matter?
+short_answer: >-
+  In ordinary science, dark matter is inferred from gravity, lensing, the CMB, and structure formation; its particle identity remains open. [T]-Theory proposes, under localisation and Kaluza-Klein assumptions, that the three non-compact spatial vacuum dimensions give $\Omega_{\mathrm{DM}}=3/11$, about 3.1% high against Planck 2018.
+level: galactic-halo
+path: galactic-to-cosmic
+view:
+  compare: true
+  contours: true
+  lens: on
+example: dark-matter-spatial-vacuum
+mother_prompt: "What is dark matter in standard cosmology, and what does [T]-Theory add with Omega_DM = 3/11? Include what would falsify the claim."
+next: emotion-particle
+badge: derived-under-assumptions
+sources: [P22, P21, P20, planck2018cosmology]

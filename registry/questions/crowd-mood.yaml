@@ -1,0 +1,15 @@
+id: crowd-mood
+question: Does a crowd have a mood?
+short_answer: >-
+  A crowd has measurable synchrony, density, sound, timing, and communication channels; those do not make it a single person. [T]-Theory treats group mood as an interpretive, bounded response field over separate agents, useful only when variables and evidence are stated.
+level: human-group
+path: human-assembly-to-institution
+view:
+  compare: true
+  contours: true
+  lens: on
+example: choir-synchrony
+mother_prompt: "Does a crowd have a mood in [T]-Theory, and how do we avoid claiming a literal group subject?"
+next: rock-memory
+badge: interpretive
+sources: [P16, P19, P20, durkheim1912elementary]

@@ -1,0 +1,15 @@
+id: starling-turn
+question: Why do starlings turn together?
+short_answer: >-
+  Ordinary active-matter science explains a turn as local neighbour updates propagating through positions and velocities, with no central commander. [T]-Theory uses the same measured pattern as an interpretive response-kernel example across bounded agents, not as a claim that the flock is one mind.
+level: animal-swarm
+path: bird-flock
+view:
+  compare: true
+  contours: true
+  lens: on
+example: starling-murmuration-turn
+mother_prompt: "Why do starlings turn together, and what does [T]-Theory add without inventing a flock mind?"
+next: crowd-mood
+badge: interpretive
+sources: [P19, P20, toner1995long, ballerini2008interaction, bialek2012statistical]

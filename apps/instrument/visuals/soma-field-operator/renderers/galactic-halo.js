@@ -142,6 +142,7 @@ export default {
         setGlowBlending(THREE, stream.material, glowOn);
         setMaterialColor(stream.material, falsecolourOn ? '#f6c75a' : '#b8ae92');
         stream.rotation.z = Math.sin(styleTime * 0.05) * 0.06;
+        panel.visible = !state.questionId;
         lens.visible = lensOn;
         for (const [index, ring] of potentialContours.entries()) {
           setGlowBlending(THREE, ring.material, glowOn);

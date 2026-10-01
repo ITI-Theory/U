@@ -4,7 +4,7 @@
 // contact sheet (index.html) for review.
 //
 //   npm run capture                       # full matrix
-//   npm run capture -- --only plates      # plates | console
+//   npm run capture -- --only plates      # plates | console | questions
 //   npm run capture -- --levels quantum-foam,human-vertebrate --settle 3000
 //   npm run capture -- --out <dir> --width 1920 --height 1080 --scale 2
 
@@ -39,7 +39,7 @@ function parseArgs(argv) {
     else if (key === 'levels' || key === 'paths') args[key] = new Set(value.split(','));
     else args[key] = key === 'out' ? path.resolve(value) : value;
   }
-  if (!['all', 'plates', 'console', 'print'].includes(args.only)) throw new Error('--only must be all, plates, console, or print');
+  if (!['all', 'plates', 'console', 'print', 'questions'].includes(args.only)) throw new Error('--only must be all, plates, console, print, or questions');
   return args;
 }
 
@@ -69,7 +69,7 @@ async function main() {
   const pageErrors = [];
   page.on('pageerror', error => pageErrors.push({ hash: page.url().split('#')[1] ?? '', error: String(error) }));
 
-  const manifest = { generated: new Date().toISOString(), viewport: { width: args.width, height: args.height, scale: args.scale }, settle_ms: args.settle, reader: args.reader, plates: [], console: [], errors: pageErrors };
+  const manifest = { generated: new Date().toISOString(), viewport: { width: args.width, height: args.height, scale: args.scale }, settle_ms: args.settle, reader: args.reader, plates: [], console: [], questions: [], errors: pageErrors };
 
   await page.goto(`${base}#level=quantum-foam&reader=${args.reader}`);
   await page.waitForSelector('canvas');
@@ -122,7 +122,20 @@ async function main() {
     }
   }
 
-  if (args.only !== 'plates' && args.only !== 'print') {
+  if (args.only === 'questions') {
+    await mkdir(path.join(args.out, 'questions'), { recursive: true });
+    for (const question of data.questions ?? []) {
+      await show(`q=${question.id}&reader=${args.reader}`);
+      const buffer = await page.screenshot({ type: 'png', timeout: 120000 });
+      const file = `questions/${question.id}.png`;
+      await writeFile(path.join(args.out, file), buffer);
+      const level = levelById.get(question.level) ?? { id: question.level, label: question.level };
+      manifest.questions.push(record(level, { question: question.id, file, sha256: sha256(buffer) }));
+      process.stdout.write(`question ${file}\n`);
+    }
+  }
+
+  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions') {
     for (const route of data.paths) {
       if (args.paths && !args.paths.has(route.id)) continue;
       await mkdir(path.join(args.out, 'console', route.id), { recursive: true });
@@ -148,7 +161,7 @@ async function main() {
   await writeFile(path.join(args.out, 'index.html'), contactSheet(manifest));
 
   const placeholders = new Set(manifest.plates.concat(manifest.console).filter(entry => entry.renderer_status === 'placeholder').map(entry => entry.level));
-  console.log(`\n${manifest.plates.length} plates, ${manifest.console.length} console shots -> ${args.out}`);
+  console.log(`\n${manifest.plates.length} plates, ${manifest.console.length} console shots, ${manifest.questions.length} question shots -> ${args.out}`);
   console.log(`${placeholders.size} levels still use placeholder renderers.`);
   if (pageErrors.length) {
     console.error(`${pageErrors.length} page errors (see manifest.json):`);

@@ -1,0 +1,15 @@
+id: emotion-particle
+question: Is an emotion a particle?
+short_answer: >-
+  No. P1 and P3 use mathematical co-identification language: particle modes and emotional percepts can both be read as poles or attractors of response operators under stated mappings, but that is not literal identity. The safe label is interpretive unless a named formal statement or measurement is being cited.
+level: human-vertebrate
+path: micro-to-life
+view:
+  compare: true
+  contours: true
+  lens: on
+example: hydrogen-atom-response
+mother_prompt: "Is an emotion a particle in [T]-Theory, or only co-identified through a shared response grammar?"
+next: feeling-memory
+badge: interpretive
+sources: [P1, P3, P20]

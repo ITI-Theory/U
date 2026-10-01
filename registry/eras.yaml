@@ -1,0 +1,902 @@
+schema_version: 1
+description: 'Soma Machine time axis: sourced cosmology, Earth history, life history, human history, and the Philosophy
+  Appendix C ledger. Chat history is not evidence.'
+eras:
+- id: planck-epoch
+  label: Planck epoch
+  band: cosmic
+  time:
+    seconds_after_big_bang: 1.0e-43
+    display: 10^-43 s
+  level: quantum-foam
+  summary: Known physics cannot yet give a tested description of spacetime at the Planck epoch. The app treats it
+    as a sourced boundary of extrapolation, with any field reading kept interpretive.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - P11
+  equation: t_P=\sqrt{\hbar G/c^5}
+- id: gut-inflation
+  label: GUT / inflationary era
+  band: cosmic
+  time:
+    seconds_after_big_bang: 1.0e-36
+    display: c. 10^-36-10^-32 s
+  level: string-boundary
+  summary: Inflation names an early accelerated expansion used to explain large-scale smoothness and perturbations.
+    The mechanism is model-dependent, so the app shows stretched geometry without asserting a specific high-energy
+    theory.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peebles1980large
+  equation: a(t)\propto e^{Ht}
+- id: electroweak
+  label: Electroweak epoch
+  band: cosmic
+  time:
+    seconds_after_big_bang: 1.0e-12
+    display: c. 10^-12 s
+  level: string-boundary
+  summary: At electroweak temperatures, electromagnetic and weak interactions are treated as a unified high-energy
+    regime. Cooling and symmetry breaking gave the low-energy particle spectrum its familiar form.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peskin1995qft
+  equation: V(\phi)=\lambda(\phi^2-\eta^2)^2
+- id: quark-epoch
+  label: Quark epoch
+  band: cosmic
+  time:
+    seconds_after_big_bang: 1.0e-06
+    display: c. 10^-6 s
+  level: nuclear
+  summary: Before confinement, quarks and gluons are described as a hot plasma rather than bound protons and neutrons.
+    The app maps the event to the nuclear transition scale.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peskin1995qft
+  equation: \Lambda_{\mathrm{QCD}}\sim 200\,\mathrm{MeV}
+- id: hadron-epoch
+  label: Hadron epoch
+  band: cosmic
+  time:
+    seconds_after_big_bang: 0.01
+    display: c. 10^-2 s
+  level: nuclear
+  summary: During the hadron epoch, quarks became confined into hadrons such as protons and neutrons. The displayed
+    Yukawa form is a schematic short-range propagator, not a full early-universe calculation.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peskin1995qft
+  equation: G_Y(r)=e^{-m_\pi r}/(4\pi r)
+- id: neutrino-decoupling
+  label: Neutrino decoupling
+  band: cosmic
+  time:
+    seconds_after_big_bang: 1.0
+    display: c. 1 s
+  level: nuclear
+  summary: Around one second after the hot Big Bang, neutrinos ceased to interact frequently with the rest of the
+    plasma. Standard cosmology predicts a relic cosmic neutrino background from this decoupling.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peebles1980large
+  equation: T_\nu<T_\gamma
+- id: big-bang-nucleosynthesis
+  label: Big Bang nucleosynthesis
+  band: cosmic
+  time:
+    seconds_after_big_bang: 180.0
+    display: c. 3-20 min
+  level: nuclear
+  summary: Big Bang nucleosynthesis produced most primordial helium and deuterium, with smaller traces of lithium.
+    The selected level is nuclear because the process concerns light nuclei.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peebles1980large
+  equation: p+n\rightarrow{}^2\mathrm{H}+\gamma
+- id: recombination
+  label: Recombination / CMB release
+  band: cosmic
+  time:
+    seconds_after_big_bang: 11991888000000.0
+    display: c. 380 kyr
+  level: atomic
+  summary: At recombination, electrons and nuclei formed neutral atoms often enough for photons to travel freely.
+    Those photons are observed today as the cosmic microwave background, a physical remnant rather than subjective
+    memory.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - P23
+  equation: 1+z_*\approx 1090
+- id: dark-ages
+  label: Cosmic dark ages
+  band: cosmic
+  time:
+    seconds_after_big_bang: 631152000000000.0
+    display: c. 0.38-100 Myr
+  level: cosmic-filaments
+  summary: After recombination and before the first stars, neutral gas and dark matter structure evolved without
+    ordinary starlight. Gravity amplified density perturbations into the seeds of later galaxies.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peebles1980large
+- id: first-stars
+  label: First stars
+  band: cosmic
+  time:
+    seconds_after_big_bang: 4733640000000000.0
+    display: c. 100-200 Myr
+  level: stellar
+  summary: The first stars formed when gas collapsed inside early dark-matter halos. Their light and nucleosynthesis
+    began changing the chemical and radiative state of the universe.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - kippenhahn2012stellar
+- id: reionization
+  label: Reionization
+  band: cosmic
+  time:
+    seconds_after_big_bang: 1.735668e+16
+    display: c. 0.5-1 Gyr
+  level: cosmic-filaments
+  summary: During reionization, radiation from early stars and galaxies ionized much intergalactic hydrogen. The
+    app displays it as a sourced change in the large-scale medium.
+  badge: SOURCED
+  sources:
+  - planck2018cosmology
+  - peebles1980large
+- id: milky-way-assembly
+  label: Milky Way assembly
+  band: cosmic
+  time:
+    seconds_after_big_bang: 2.524608e+16
+    display: from >13 Ga ago
+  level: galactic-disc
+  summary: The Milky Way formed through early collapse, accretion, mergers, and later disc growth rather than in
+    a single instant. Stellar populations preserve evidence of that history.
+  badge: SOURCED
+  sources:
+  - binney2008galactic
+  - gaia2018dr2
+- id: sun-formation
+  label: Sun formation
+  band: geological
+  time:
+    seconds_after_big_bang: 2.9032992e+17
+    display: c. 4.60 Ga
+  level: stellar
+  summary: The Sun formed from a collapsing molecular cloud about 4.6 billion years ago. Its stable main-sequence
+    output became the main energy source for Earth's later climate and biosphere.
+  badge: SOURCED
+  sources:
+  - murray1999solar
+  - kippenhahn2012stellar
+- id: earth-formation
+  label: Earth formation
+  band: geological
+  time:
+    seconds_after_big_bang: 2.92223376e+17
+    display: c. 4.54 Ga
+  level: planetary
+  summary: Earth accreted in the early Solar System and differentiated into a layered planet. Its later surface,
+    atmosphere, and oceans became substrates for geological and biological records.
+  badge: SOURCED
+  sources:
+  - murray1999solar
+  - turcotte2014geodynamics
+- id: moon-formation
+  label: Moon formation
+  band: geological
+  time:
+    seconds_after_big_bang: 2.93170104e+17
+    display: c. 4.51 Ga
+  level: orbital-system
+  summary: The leading model links the Moon to a giant impact during early Earth history. The Earth-Moon system
+    then constrained tides, rotation, and orbital evolution.
+  badge: SOURCED
+  sources:
+  - murray1999solar
+  - turcotte2014geodynamics
+- id: earliest-life
+  label: Earliest life evidence
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 3.2504328e+17
+    display: at least c. 3.5 Ga
+  level: cellular-synaptic
+  summary: Geological evidence indicates cellular life was present by at least about 3.5 billion years ago, with
+    older claims treated cautiously. Life adds metabolism, boundary maintenance, and reproduction; the app does
+    not infer subjective experience.
+  badge: SOURCED
+  sources:
+  - knoll2015life
+  - darwin1859origin
+- id: great-oxidation
+  label: Great Oxidation Event
+  band: geological
+  time:
+    seconds_after_big_bang: 3.5975664e+17
+    display: c. 2.4 Ga
+  level: planetary
+  summary: The Great Oxidation Event marks a major rise of atmospheric oxygen driven by oxygenic photosynthesis
+    and Earth-system feedbacks. It changed surface chemistry and later biological possibilities.
+  badge: SOURCED
+  sources:
+  - knoll2015life
+  - turcotte2014geodynamics
+- id: eukaryotes
+  label: Eukaryotes
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 3.786912e+17
+    display: c. 1.8-1.6 Ga
+  level: cellular-synaptic
+  summary: Eukaryotic cells, with nuclei and internal organelles, appear in the Proterozoic record. Their cellular
+    complexity set conditions for later multicellular life.
+  badge: SOURCED
+  sources:
+  - knoll2015life
+- id: multicellularity
+  label: Multicellularity
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.102488e+17
+    display: c. 800-600 Ma
+  level: cellular-synaptic
+  summary: Multicellularity evolved more than once, with late Proterozoic fossils showing larger and more organised
+    bodies. Coordination among cells became an important biological problem.
+  badge: SOURCED
+  sources:
+  - knoll2015life
+- id: cambrian
+  label: Cambrian diversification
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.1849164512e+17
+    display: 538.8 Ma
+  level: species-stellar
+  summary: The Cambrian Period begins at 538.8 Ma in the current chronostratigraphic chart. Fossils show a rapid
+    diversification of many animal body plans over geological time.
+  badge: SOURCED
+  sources:
+  - ics2024chart
+  - gould1989wonderful
+- id: first-land-plants-animals
+  label: First land plants and animals
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.20662808e+17
+    display: c. 470-430 Ma
+  level: species-stellar
+  summary: Plants and then animals progressively colonised land during the Palaeozoic. Terrestrial ecosystems changed
+    erosion, soils, atmosphere, and later animal evolution.
+  badge: SOURCED
+  sources:
+  - ics2024chart
+  - knoll2015life
+- id: devonian
+  label: Devonian worlds
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.222722456e+17
+    display: 419-359 Ma
+  level: species-stellar
+  summary: The Devonian saw major diversification of fishes, forests, and early tetrapods. The app keeps affect-like
+    language out of the fossil claim and uses a sourced evolutionary label.
+  badge: SOURCED
+  sources:
+  - ics2024chart
+  - benton2015vertebrate
+- id: permian-triassic-extinction
+  label: Permian-Triassic extinction
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.2754552056e+17
+    display: 251.9 Ma
+  level: species-stellar
+  summary: The Permian-Triassic extinction was the largest known mass extinction in the Phanerozoic fossil record.
+    It reorganised marine and terrestrial ecosystems and reset later evolutionary trajectories.
+  badge: SOURCED
+  sources:
+  - ics2024chart
+  - benton2015vertebrate
+- id: dinosaurs
+  label: Dinosaurs
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.28236632e+17
+    display: c. 230 Ma onward
+  level: species-stellar
+  summary: Dinosaurs originated in the Triassic and became dominant terrestrial vertebrates for much of the Mesozoic.
+    Birds are the surviving dinosaur lineage.
+  badge: SOURCED
+  sources:
+  - ics2024chart
+  - benton2015vertebrate
+- id: k-pg-extinction
+  label: K-Pg extinction
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.334120784e+17
+    display: 66 Ma
+  level: species-stellar
+  summary: The Cretaceous-Palaeogene extinction ended non-avian dinosaur lineages and many other groups. Impact
+    evidence and Earth-system consequences make it a key stratigraphic boundary.
+  badge: SOURCED
+  sources:
+  - ics2024chart
+  - benton2015vertebrate
+- id: primates
+  label: Primates
+  band: palaeontology
+  time:
+    seconds_after_big_bang: 4.33759212e+17
+    display: c. 55 Ma
+  level: human-vertebrate
+  summary: Primates diversified in the Cenozoic with grasping hands, forward-facing eyes, and social behaviours
+    in many lineages. Those facts do not by themselves establish human-like experience.
+  badge: SOURCED
+  sources:
+  - benton2015vertebrate
+  - darwin1859origin
+- id: hominins
+  label: Hominins
+  band: human
+  time:
+    seconds_after_big_bang: 4.352739768e+17
+    display: c. 7-5 Ma
+  level: human-vertebrate
+  summary: Hominin lineages diverged from other apes over millions of years, with bipedalism and later tool use
+    appearing in a branching record. The dates are ranges because fossils and phylogenies are revised.
+  badge: SOURCED
+  sources:
+  - benton2015vertebrate
+- id: homo-sapiens
+  label: Homo sapiens
+  band: human
+  time:
+    seconds_after_big_bang: 4.3548541272e+17
+    display: c. 300 ka
+  level: human-vertebrate
+  summary: Fossil and genetic evidence place Homo sapiens in Africa by roughly three hundred thousand years ago.
+    Later dispersals and cultures were not a single linear ladder.
+  badge: SOURCED
+  sources:
+  - benton2015vertebrate
+- id: agriculture
+  label: Agriculture
+  band: human
+  time:
+    seconds_after_big_bang: 4.354945013088e+17
+    display: c. 12 ka
+  level: society-city
+  summary: Agriculture arose independently in multiple regions after the last Ice Age. Farming changed settlement,
+    population, labour, disease ecology, and social organisation.
+  badge: SOURCED
+  sources:
+  - renfrew2018prehistory
+- id: writing
+  label: Writing
+  band: human
+  time:
+    seconds_after_big_bang: 4.3549471590048e+17
+    display: c. 5.2 ka
+  level: regional-institutional
+  summary: Writing systems appeared in early complex societies as durable marks for administration, memory, and
+    communication. They extended social memory beyond bodies and speech.
+  badge: SOURCED
+  sources:
+  - renfrew2018prehistory
+- id: milesians
+  label: Milesians
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354947971297424e+17
+    display: early Greek
+  level: society-city
+  summary: The Milesians are conventionally presented as early Greek natural philosophers seeking physical explanations.
+    Appendix C reads them as an impulse toward substrate thinking, which the app marks as interpretive.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+  - jaspers1953origin
+- id: pythagorean-tradition
+  label: Pythagorean tradition
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354947987076224e+17
+    display: 6th-5th c. BCE
+  level: society-city
+  summary: The Pythagorean tradition made number, ratio, and harmony central to cosmological thought. Appendix C
+    reads it as an oscillator or tuned-response impulse, explicitly as interpretation.
+  badge: INTERPRETIVE
+  sources:
+  - burkert1972lore
+  - russell1945history
+- id: heraclitus
+  label: Heraclitus
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948002855024e+17
+    display: 5th c. BCE
+  level: society-city
+  summary: Heraclitus is associated with flux, conflict, and logos in Greek philosophy. Appendix C uses him for
+    flow and trajectory under constraint; the Soma mapping remains interpretive.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: parmenides
+  label: Parmenides
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948006010784e+17
+    display: 5th c. BCE
+  level: society-city
+  summary: Parmenides made being and permanence unavoidable problems for later metaphysics. Appendix C reads this
+    as an attractor or permanence limit, not as a formal proof.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: socrates
+  label: Socrates
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948024945344e+17
+    display: 5th c. BCE
+  level: society-city
+  summary: Socrates stands for ethical questioning, dialogue, and civic conflict in the classical tradition. Appendix
+    C calls him a sharp source term with delayed response, a field-reading metaphor.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: plato
+  label: Plato
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948040724144e+17
+    display: 4th c. BCE
+  level: society-city
+  summary: Plato organised philosophy around forms, education, and the ordered city. Appendix C reads stable ideals
+    as basins, which the app marks as interpretive.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: aristotle
+  label: Aristotle
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948053347184e+17
+    display: 4th c. BCE
+  level: regional-institutional
+  summary: Aristotle joined form-in-matter, causes, classification, and inquiry across many domains. The Field Atlas
+    reading is organisation in substrate, not a literal identity claim.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: stoics
+  label: Stoics
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948081749024e+17
+    display: 3rd c. BCE onward
+  level: regional-institutional
+  summary: Stoic philosophy used concepts such as pneuma, rational cosmos, and assent. Appendix C records it as
+    ethics of response under empire with field-like tension as interpretation.
+  badge: INTERPRETIVE
+  sources:
+  - sambursky1959stoics
+  - russell1945history
+- id: epicureans-sceptics
+  label: Epicureans and sceptics
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948084904784e+17
+    display: 3rd c. BCE onward
+  level: regional-institutional
+  summary: Epicureans and sceptics offered atomism, tranquillity, suspension, and antidogmatic discipline. Appendix
+    C reads them as noise, boundary-setting, and label discipline.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: church-fathers
+  label: Church Fathers
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948223758224e+17
+    display: 2nd-5th c.
+  level: regional-institutional
+  summary: Late ancient Christian thinkers translated doctrine through antique conceptual forms. Their work coupled
+    belief, liturgy, authority, and philosophical vocabulary.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: augustine
+  label: Augustine
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948286873424e+17
+    display: 4th-5th c.
+  level: regional-institutional
+  summary: Augustine gave enduring form to Christian inwardness, memory, will, and grace. Appendix C reads him as
+    a long-memory interior field.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: boethius
+  label: Boethius
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948324742544e+17
+    display: 6th c.
+  level: regional-institutional
+  summary: Boethius preserved logic and philosophical consolation amid political collapse. His texts became relay
+    points for later Latin learning.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: monastic-university-memory
+  label: Monastic, cathedral, and university memory
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948507776624e+17
+    display: early-high medieval
+  level: regional-institutional
+  summary: Medieval copying, teaching, and disputation maintained long institutional continuities. Appendix C reads
+    this as a social memory kernel.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: aquinas
+  label: Aquinas
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948555113024e+17
+    display: 13th c.
+  level: regional-institutional
+  summary: Aquinas integrated Aristotle with Christian doctrine in a scholastic synthesis. The Soma Machine shows
+    this as stabilising integration within historical response grammar.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: ockham
+  label: Ockham
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948577203344e+17
+    display: 14th c.
+  level: regional-institutional
+  summary: Ockham is associated with parsimony, nominalism, and pressure on universal concepts. Appendix C reads
+    this as a loosening of scholastic authority.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: renaissance-humanism-print
+  label: Humanism and print
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948634007024e+17
+    display: 15th-16th c.
+  level: society-city
+  summary: Renaissance humanism, philology, and print changed how texts moved and authorities were contested. The
+    field vocabulary is interpretive and social, not a physics claim.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: scientific-revolution
+  label: Mathematical experiment and instrument
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948671876144e+17
+    display: 16th-17th c.
+  level: regional-institutional
+  summary: The scientific revolution made measurement, mathematics, and instruments rivals to commentary alone.
+    Appendix C reads evidence as apparatus-disciplined response.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+  - maxwell1865dynamical
+- id: descartes
+  label: Descartes
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.35494867850324e+17
+    display: 17th c.
+  level: society-city
+  summary: Descartes sharpened methodic doubt and the subject-object problem. Appendix C reads the result as two
+    weakly coupled sectors, an interpretive phrase.
+  badge: INTERPRETIVE
+  sources:
+  - descartes1641meditations
+  - russell1945history
+- id: spinoza
+  label: Spinoza
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948689863976e+17
+    display: 17th c.
+  level: society-city
+  summary: Spinoza proposed one substance expressed through attributes, offering a monist alternative to dualism.
+    Appendix C reads this as recoupling thought and extension.
+  badge: INTERPRETIVE
+  sources:
+  - spinoza1677ethics
+  - russell1945history
+- id: locke
+  label: Locke
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948693966464e+17
+    display: 17th c.
+  level: society-city
+  summary: Locke made experience, association, education, and political liberty central in Enlightenment thought.
+    Appendix C reads him through input and formation.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: berkeley
+  label: Berkeley
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948700277984e+17
+    display: 18th c.
+  level: society-city
+  summary: Berkeley challenged matter's independent status through idealism. Appendix C reads this as retaining
+    accessible variables while cutting hidden support.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: leibniz
+  label: Leibniz
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948701540288e+17
+    display: late 17th-early 18th c.
+  level: society-city
+  summary: Leibniz described monads and pre-established harmony as ordered perspectives. Appendix C reads this as
+    many centres under global coordination.
+  badge: INTERPRETIVE
+  sources:
+  - leibniz1714monadology
+  - russell1945history
+- id: hume
+  label: Hume
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948709745264e+17
+    display: 18th c.
+  level: society-city
+  summary: Hume analysed habit, causation, scepticism, and the bundle theory of self. Appendix C reads habit as
+    an expectation kernel.
+  badge: INTERPRETIVE
+  sources:
+  - hume1739treatise
+  - russell1945history
+- id: rousseau
+  label: Rousseau
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948716687936e+17
+    display: 18th c.
+  level: society-city
+  summary: Rousseau made society, authenticity, education, and legitimacy central modern problems. Appendix C reads
+    the entry as rising social feedback gain.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: kant
+  label: Kant
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.35494872268388e+17
+    display: 1781 onward
+  level: society-city
+  summary: Kant asked for the conditions of possible experience and made philosophy transcendental. Appendix C reads
+    receiver boundary conditions as organising response.
+  badge: INTERPRETIVE
+  sources:
+  - kant1781critique
+  - russell1945history
+- id: hegel
+  label: Hegel
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948730888856e+17
+    display: 19th c.
+  level: regional-institutional
+  summary: Hegel made history and contradiction internal to reason in a systematic philosophy. Appendix C reads
+    this as a self-modelling historical field.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: marx-utilitarians-nietzsche
+  label: Marx, utilitarians, Nietzsche
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948744458624e+17
+    display: 19th c.
+  level: society-city
+  summary: Nineteenth-century philosophy and social theory reworked labour, utility, will, reform, and disturbance.
+    Appendix C groups these as production, scalarisation, and perturbation.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: faraday-maxwell
+  label: Faraday and Maxwell
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948749192264e+17
+    display: 19th c.
+  level: regional-institutional
+  summary: Faraday and Maxwell made the physical field a literal scientific concept in electromagnetism. Appendix
+    C includes this because field grammar entered physics before the programme reused field language.
+  badge: SOURCED
+  sources:
+  - faraday1852lines
+  - maxwell1865dynamical
+- id: james-mach
+  label: James and Mach
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948761499728e+17
+    display: late 19th-early 20th c.
+  level: society-city
+  summary: James and Mach softened substance dualisms through experience, relations, and sensations. Appendix C
+    reads them as neutral events and flow.
+  badge: INTERPRETIVE
+  sources:
+  - james1904consciousness
+  - mach1886analysis
+- id: principia-mathematica
+  label: Principia Mathematica
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948763393184e+17
+    display: 1910-1913
+  level: regional-institutional
+  summary: Principia Mathematica made logic, types, and formal analysis central to twentieth-century philosophy.
+    Appendix C reads it as brackets and type discipline.
+  badge: INTERPRETIVE
+  sources:
+  - russell1910
+  - russell1908types
+- id: russell-analysis-mind
+  label: 'Russell: The Analysis of Mind'
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.35494876686452e+17
+    display: '1921'
+  level: society-city
+  summary: Russell's The Analysis of Mind developed neutral-monist psychology and treated mind and matter through
+    arrangements of events. Appendix C reads it as recoupling without total system.
+  badge: INTERPRETIVE
+  sources:
+  - russell1921
+  - russell1945history
+- id: gestalt-field-psychology
+  label: Gestalt / field psychology
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948768126824e+17
+    display: 1920s-1930s
+  level: whole-brain-cemi
+  summary: Kohler and Lewin developed organised-field approaches in psychology and behaviour. The app treats person-in-field
+    formalism as a sourced precedent but the [T]-Theory mapping as interpretive.
+  badge: INTERPRETIVE
+  sources:
+  - kohler1920gestalten
+  - kohler1929gestalt
+  - lewin1936
+- id: russell-analysis-matter
+  label: 'Russell: The Analysis of Matter'
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948768757976e+17
+    display: '1927'
+  level: society-city
+  summary: Russell's The Analysis of Matter sharpened the question of structure and intrinsic nature in physics.
+    Appendix C reads it as a structure/intrinsic boundary.
+  badge: INTERPRETIVE
+  sources:
+  - russell1927matter
+- id: russell-history
+  label: 'Russell: A History of Western Philosophy'
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948774438344e+17
+    display: '1945'
+  level: regional-institutional
+  summary: Russell read philosophers together with their social and political circumstances. Appendix C uses that
+    method to organise a response grammar across intellectual history.
+  badge: INTERPRETIVE
+  sources:
+  - russell1945history
+- id: quine
+  label: Quine
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.3549487763318e+17
+    display: 1948-1951
+  level: regional-institutional
+  summary: Quine weakened the analytic-synthetic boundary and described knowledge as a web of belief. Appendix C
+    reads this as a coupled network.
+  badge: INTERPRETIVE
+  sources:
+  - quine1951dogmas
+  - quine1948there
+- id: cyc
+  label: Cyc
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948787061384e+17
+    display: 1980s-1990s
+  level: society-city
+  summary: Cyc is a long-running attempt to encode commonsense knowledge in an explicit ontology. Appendix C reads
+    it as prose becoming unordered assertions.
+  badge: INTERPRETIVE
+  sources:
+  - lenat1995cyc
+- id: semantic-web
+  label: OWL and description logic
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.354948793057328e+17
+    display: 2000s
+  level: society-city
+  summary: OWL and description logic made parts of ontology engineering machine-readable under open-world assumptions.
+    Appendix C reads this as assertions plus entailment.
+  badge: INTERPRETIVE
+  sources:
+  - w3c2012owl2
+  - baader2003dl
+- id: dependent-type-theory-lean
+  label: Curry-Howard, dependent types, Lean
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.35494879842212e+17
+    display: late 20th-21st c.
+  level: society-city
+  summary: Curry-Howard, dependent type theory, and Lean connect propositions, programs, and small-kernel proof
+    checking. The app must still distinguish a checked theorem from an interpretation of the theorem.
+  badge: SOURCED
+  sources:
+  - howard1980formulae
+  - martinlof1984intuitionistic
+  - moura2021lean4
+  - D2
+- id: ttheory
+  label: '[T]-Theory / Soma Machine'
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.3549488e+17
+    display: '2026'
+  level: human-vertebrate
+  summary: The SFT/USF papers and Soma Machine present a field model of affect, consciousness, and response. Formal,
+    simulated, sourced, interpretive, and open-hypothesis claims must remain separated.
+  badge: INTERPRETIVE
+  sources:
+  - P1
+  - P11
+  - P20
+  - P23
+- id: sherlock
+  label: Sherlock
+  band: philosophy
+  time:
+    seconds_after_big_bang: 4.3549488e+17
+    display: 2026 / proposed
+  level: society-city
+  summary: Sherlock is the proposed audit layer for generated claims, ontology, and proof status. The Philosophy
+    book treats it as future epistemic hygiene, not as a completed system.
+  badge: INTERPRETIVE
+  sources:
+  - P23

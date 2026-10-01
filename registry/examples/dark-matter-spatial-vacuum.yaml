@@ -1,0 +1,27 @@
+id: dark-matter-spatial-vacuum
+label: Dark Matter / Spatial Vacuum
+level: galactic-halo
+paths: [full-atlas, galactic-to-cosmic]
+summary: Galactic dark matter is first presented as sourced gravitational evidence, then as the programme's derived-under-assumptions spatial-vacuum fraction.
+steps:
+  - axis: 4d-baseline
+    title: Inferred Gravity, Unknown Particle
+    body: >-
+      The baseline evidence for dark matter is gravitational: rotation curves, lensing, the CMB, and structure formation require an unseen cold component. Ordinary science does not yet know whether the carrier is a WIMP, axion, sterile neutrino, modified sector, or something else. The halo potential is inferred from motion and lensing, not directly photographed.
+    equation: '\nabla^2\Phi=4\pi G\rho_{\mathrm{halo}}'
+    badge: SOURCED
+    sources: [planck2018cosmology, P22]
+  - axis: 8d-life
+    title: Three Spatial Dimensions Counted as Vacuum
+    body: >-
+      The USF proposal identifies dark matter with vacuum energy in the three non-compact spatial dimensions. Under localisation and Kaluza-Klein assumptions, that block couples gravitationally, carries no Standard Model gauge charge, and behaves as pressureless matter. The leading fraction is fixed by dimensional counting, not by a fitted continuous parameter.
+    equation: '\Omega_{\mathrm{DM}}^{\mathrm{USF}}=\frac{3}{11}'
+    badge: INTERPRETIVE
+    sources: [P22, P21]
+  - axis: 11d-mind
+    title: Falsifiable Cosmological Extension
+    body: >-
+      This is a cosmological extension of the USF programme, not a proof of the whole theory. A confirmed dark-matter particle with the needed properties, or detectable non-gravitational self-interaction, would falsify the spatial-vacuum claim while leaving the lower-scale response grammar untouched.
+    equation: '11=7_{\Lambda}+3_{\mathrm{DM}}+1_t'
+    badge: INTERPRETIVE
+    sources: [P22, P20]

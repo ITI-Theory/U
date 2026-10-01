@@ -1,8 +1,9 @@
 # App and Atlas Design: Registry, Models, Paths
 
-Status: proposal for author review (2026-10-01). Evidence base: an architecture
-review of `apps/instrument/visuals/soma-field-operator/` and
-`Part2/book/field-atlas/` on 2026-10-01.
+Status: first registry-driven slice built; remaining items stay design notes
+for author review (2026-10-01). Evidence base: an architecture review of
+`apps/instrument/visuals/soma-field-operator/` and `Part2/book/field-atlas/`
+on 2026-10-01.
 
 ## Problem
 
@@ -45,8 +46,8 @@ registry/
                                 label for this model
   lenses.yaml                   T-Theory off/on; 4D, 7D, 8D, 11D;
                                 affect OFF / INTERPRETIVE / HUMAN-CLINICAL
-  eras.yaml                     time axis (Big Bang to the present), seeded
-                                from the Philosophy book's Appendix C
+  eras.yaml                     built time axis (Big Bang to the present),
+                                seeded from the Philosophy book's Appendix C
   concepts/<concept-id>.yaml    later (Sherlock): ontology class, Lean type,
                                 status, papers, levels
 ```

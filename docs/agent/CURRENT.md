@@ -129,9 +129,21 @@ Design and decisions: `APP-ATLAS-DESIGN.md` (canonical set, brainstorm).
   transfers accepted findings to the worksheet.
 - Not yet checked: 3D SBS on the Dangbei Atom; audio by ear.
 - Next: review UAT results; recapture plates and rebuild the Atlas; then
-  Lulu and Zenodo. Later: MOTHER GO buttons and per-level audio explainers;
-  type guard (dependent types on/off with a generated Lean file); time axis
-  (`eras.yaml`); Penrose chapter index; Sherlock concept registry.
+  Lulu and Zenodo.
+- 2026-10-01 evening: added `registry/questions/` records for Soma
+  Machine/Field Atlas "What's Different?" tours (`#q=<id>`). Flagship:
+  Einstein gravity/time bending remains locally GR where tested; [T]-Theory
+  adds a derived-under-assumptions cosmological Lambda origin and the
+  dark-matter spatial-vacuum fraction. Later: MOTHER GO buttons and per-level audio explainers;
+  type guard (dependent types on/off with a generated Lean file); Penrose
+  chapter index; Sherlock concept registry.
+- 2026-10-01 evening: built the time axis. `registry/eras.yaml` now drives the
+  app `TIME / ERA` control (`#era=<id>`) and the Field Atlas Time Axis section;
+  era prose keeps sourced science separate from Appendix C interpretations.
+- 2026-10-01 evening: added Soma Machine dimension-dynamics demos for the
+  human/vertebrate level with the T lens on: 4D damped poke return, 8D
+  Langevin double-well hysteresis plus P10 memory, and 11D QUANT-EXP-1
+  simulated tunnelling replay.
 
 ## Book Architecture
 

@@ -1,0 +1,15 @@
+id: hydrogen-feeling
+question: Is a hydrogen atom like a feeling?
+short_answer: >-
+  Ordinary physics treats hydrogen as a Coulomb-bound quantum system with a measured spectrum. [T]-Theory only reuses the response grammar--source, boundary, allowed response--as an interpretive comparison; it does not claim atoms feel.
+level: atomic
+path: full-atlas
+view:
+  compare: true
+  contours: false
+  lens: on
+example: hydrogen-atom-response
+mother_prompt: "Is a hydrogen atom like a feeling, or is the comparison only a response-grammar analogy?"
+next: starling-turn
+badge: interpretive
+sources: [P1, P3, P20, bohr1913, schrodinger1926]

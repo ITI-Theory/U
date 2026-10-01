@@ -254,5 +254,17 @@ export function createMother({ getContext }) {
     }
   });
 
-  return { sync };
+  return {
+    sync,
+    open(prefill = '') {
+      terminal.hidden = false;
+      if (!log.textContent) {
+        const context = getContext();
+        type(`INTERFACE READY FOR INQUIRY.\nMODE: ${modeSelect.value.toUpperCase()}\nVIEW: ${context.levelLabel} / ${context.pathLabel} / LENS ${context.lensOn ? 'ON' : 'OFF'}`);
+      }
+      if (prefill) input.value = prefill;
+      input.focus();
+      input.select();
+    },
+  };
 }

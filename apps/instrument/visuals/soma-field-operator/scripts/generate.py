@@ -21,6 +21,8 @@ DIST_ROOT = REPO_ROOT.parent / "Dist"
 REGISTRY_ROOT = REPO_ROOT / "registry"
 GENERATED_ROOT = APP_ROOT / "generated"
 CLAIM_BADGES = {"FORMAL", "SOURCED", "INTERPRETIVE"}
+EVIDENCE_LABELS = {"kernel-verified", "derived-under-assumptions", "simulated", "empirical-result", "interpretive", "open-hypothesis"}
+ERA_BANDS = {"cosmic", "geological", "palaeontology", "human", "philosophy"}
 UNPUBLISHED_SOURCE_BASE_URL = "https://www.t-theory.org/atlas"
 ZOOMABLE_SOURCE = REPO_ROOT / "paper" / "soma" / "zoomable-somatic-field" / "zoomable-somatic-field.md"
 PLACEHOLDER_MIND_TEXT = "Information/organization row from source; interpretive unless specifically sourced."
@@ -200,6 +202,11 @@ def validate_claims(container: dict[str, Any], location: str, errors: list[str])
         errors.append(f"{location}: missing claim badge")
 
 
+def bibliography_keys() -> set[str]:
+    text = (REPO_ROOT / "paper" / "bibliography.bib").read_text(encoding="utf-8")
+    return set(re.findall(r"@\w+\{([^,\s]+)", text))
+
+
 def discover_renderers() -> set[str]:
     renderers_dir = APP_ROOT / "renderers"
     if not renderers_dir.exists():
@@ -207,7 +214,7 @@ def discover_renderers() -> set[str]:
     return {path.stem for path in renderers_dir.glob("*.js") if path.stem != "index"}
 
 
-def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
+def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, Any], dict[str, Any], str, dict[str, Any]]:
     errors: list[str] = []
     papers, related_collections = load_paper_registry()
 
@@ -243,6 +250,63 @@ def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
         levels.append(level)
 
     level_ids = {level["id"] for level in levels if isinstance(level.get("id"), str)}
+
+    bib_keys = bibliography_keys()
+    era_root = load_yaml(REGISTRY_ROOT / "eras.yaml")
+    eras = era_root.get("eras")
+    if not isinstance(eras, list) or not eras:
+        errors.append("registry/eras.yaml: eras must be a non-empty list")
+        eras = []
+    previous_time = -1.0
+    era_ids: set[str] = set()
+    for index, era in enumerate(eras):
+        location = f"registry/eras.yaml:eras[{index}]"
+        if not isinstance(era, dict):
+            errors.append(f"{location}: expected mapping")
+            continue
+        era_id = era.get("id")
+        if not isinstance(era_id, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", era_id):
+            errors.append(f"{location}: id must be kebab-case")
+        elif era_id in era_ids:
+            errors.append(f"{location}: duplicate era id {era_id!r}")
+        else:
+            era_ids.add(era_id)
+        if era.get("band") not in ERA_BANDS:
+            errors.append(f"{location}: band must be one of {sorted(ERA_BANDS)}")
+        if era.get("badge") not in CLAIM_BADGES:
+            errors.append(f"{location}: badge must be one of {sorted(CLAIM_BADGES)}")
+        if era.get("level") not in level_ids:
+            errors.append(f"{location}: dangling level {era.get('level')!r}")
+        time = era.get("time")
+        seconds = time.get("seconds_after_big_bang") if isinstance(time, dict) else None
+        display = time.get("display") if isinstance(time, dict) else None
+        if not isinstance(seconds, (int, float)) or seconds < 0:
+            errors.append(f"{location}: time.seconds_after_big_bang must be a non-negative number")
+        elif seconds < previous_time:
+            errors.append(f"{location}: eras must be ordered by time.seconds_after_big_bang")
+        else:
+            previous_time = float(seconds)
+        if not isinstance(display, str) or not display.strip():
+            errors.append(f"{location}: time.display must be a non-empty string")
+        if not isinstance(era.get("label"), str) or not era["label"].strip():
+            errors.append(f"{location}: label must be non-empty")
+        summary = era.get("summary")
+        sentence_count = len([part for part in re.split(r"(?<=[.!?])\s+", summary.strip()) if part]) if isinstance(summary, str) else 0
+        if sentence_count < 2:
+            errors.append(f"{location}: summary must contain at least two sentences")
+        if "equation" in era:
+            validate_equation(era.get("equation"), f"{location}: equation", errors)
+        resolved_sources = []
+        for source in era.get("sources", []):
+            if not isinstance(source, str):
+                errors.append(f"{location}: sources must be strings")
+            elif source in papers:
+                resolved_sources.append(resolve_source_id(source, papers))
+            elif source in bib_keys:
+                resolved_sources.append({"id": source, "label": source, "kind": "reference"})
+            else:
+                errors.append(f"{location}: unknown source {source!r}")
+        era["resolved_sources"] = resolved_sources
 
     paths = []
     for path_yaml in sorted((REGISTRY_ROOT / "paths").glob("*\\path.yaml")) + sorted((REGISTRY_ROOT / "paths").glob("*/path.yaml")):
@@ -341,7 +405,7 @@ def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
         "unpublished_base_url": UNPUBLISHED_SOURCE_BASE_URL,
         "abstract_source": resolve_source_id("P11", papers),
     }
-    return levels, paths, models, lenses, coverage, latex_tilde_to_nbsp(zabstract.strip()), source_resolver
+    return levels, paths, models, eras, lenses, coverage, latex_tilde_to_nbsp(zabstract.strip()), source_resolver
 
 
 def latex_tilde_to_nbsp(text: str) -> str:
@@ -354,7 +418,7 @@ def js_export(name: str, value: Any) -> str:
     return f"export const {name} = {json.dumps(value, ensure_ascii=False, indent=2)};\n"
 
 
-def write_outputs(levels: list[dict[str, Any]], paths: list[dict[str, Any]], models: list[dict[str, Any]], lenses: dict[str, Any], coverage: dict[str, Any], zabstract: str, source_resolver: dict[str, Any], examples: list[dict[str, Any]] | None = None) -> None:
+def write_outputs(levels: list[dict[str, Any]], paths: list[dict[str, Any]], models: list[dict[str, Any]], eras: list[dict[str, Any]], lenses: dict[str, Any], coverage: dict[str, Any], zabstract: str, source_resolver: dict[str, Any], examples: list[dict[str, Any]] | None = None, questions: list[dict[str, Any]] | None = None) -> None:
     GENERATED_ROOT.mkdir(parents=True, exist_ok=True)
     comment = """/*
 Generated by scripts/generate.py from U/registry.
@@ -365,12 +429,15 @@ Exported shapes:
 - paths: array of path records. Each path has id, label, nodes, edges, and edge_records
   parsed from registry/paths/<path-id>/edges/*.md.
 - models: array of model records. Each model orders level ids with its own coordinates.
+- eras: ordered time-axis records from registry/eras.yaml.
 - lenses: lens catalogue for baseline/T-Theory/display/affect modes.
 - coverage: validation and renderer coverage report. Missing renderer ids are warnings.
 - zUSFAbstract: hardened front-matter abstract from the zoomable-somatic-field paper.
 - sourceResolver: source-resolution constants and resolved abstract source metadata.
 - examples: worked examples (registry/examples), each a level, paths, and
   4d-baseline / 8d-life / 11d-mind steps with title, body, equation, badge.
+- questions: curated "What's Different?" tours (registry/questions), each with
+  view settings, evidence label, MOTHER prompt, optional example, and next link.
 
 Do not edit this file directly; edit U/registry and rerun npm run generate.
 */
@@ -380,11 +447,13 @@ Do not edit this file directly; edit U/registry and rerun npm run generate.
         + js_export("levels", levels)
         + js_export("paths", paths)
         + js_export("models", models)
+        + js_export("eras", eras)
         + js_export("lenses", lenses)
         + js_export("coverage", coverage)
         + js_export("zUSFAbstract", zabstract)
         + js_export("sourceResolver", source_resolver)
         + js_export("examples", examples or [])
+        + js_export("questions", questions or [])
     )
     (GENERATED_ROOT / "app-data.js").write_text(module, encoding="utf-8", newline="\n")
 
@@ -439,8 +508,62 @@ def load_examples() -> list[dict[str, Any]]:
     return examples
 
 
+def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    papers, _ = load_paper_registry()
+    question_dir = REGISTRY_ROOT / "questions"
+    if not question_dir.exists():
+        return []
+    level_ids = {load_yaml(path).get("id") for path in (REGISTRY_ROOT / "levels").glob("*.yaml")}
+    path_ids = {path.parent.name for path in (REGISTRY_ROOT / "paths").glob("*/path.yaml")}
+    example_ids = {example["id"] for example in examples}
+    errors: list[str] = []
+    questions: list[dict[str, Any]] = []
+    for path in sorted(question_dir.glob("*.yaml")):
+        question = load_yaml(path)
+        qid = question.get("id")
+        if qid != path.stem:
+            errors.append(f"{path}: id {qid!r} must match file name {path.stem!r}")
+        for key in ("question", "short_answer", "mother_prompt"):
+            if not isinstance(question.get(key), str) or not question[key].strip():
+                errors.append(f"{path}: {key} must be a non-empty string")
+        if question.get("level") not in level_ids:
+            errors.append(f"{path}: unknown level {question.get('level')!r}")
+        if question.get("path") and question.get("path") not in path_ids:
+            errors.append(f"{path}: unknown path {question.get('path')!r}")
+        if question.get("example") and question.get("example") not in example_ids:
+            errors.append(f"{path}: unknown example {question.get('example')!r}")
+        if question.get("badge") not in EVIDENCE_LABELS:
+            errors.append(f"{path}: badge must be one of {sorted(EVIDENCE_LABELS)}, got {question.get('badge')!r}")
+        view = question.get("view", {})
+        if not isinstance(view, dict):
+            errors.append(f"{path}: view must be a mapping")
+        elif view.get("lens") not in (None, "on", "off", True, False):
+            errors.append(f"{path}: view.lens must be 'on' or 'off'")
+        elif view.get("dimension") not in (None, 4, 8, 11):
+            errors.append(f"{path}: view.dimension must be 4, 8, or 11")
+        elif view.get("lens") is True:
+            view["lens"] = "on"
+        elif view.get("lens") is False:
+            view["lens"] = "off"
+        question["resolved_sources"] = [
+            resolve_source_id(source, papers) if re.fullmatch(r"[PDC]\d+", str(source)) else {"label": str(source), "kind": "reference"}
+            for source in question.get("sources", [])
+        ]
+        questions.append(question)
+    question_ids = {question["id"] for question in questions if isinstance(question.get("id"), str)}
+    for question in questions:
+        if question.get("next") and question["next"] not in question_ids:
+            errors.append(f"{question_dir / (question['id'] + '.yaml')}: unknown next question {question['next']!r}")
+    if errors:
+        for error in errors:
+            print(f"registry error: {error}", file=sys.stderr)
+        raise SystemExit(1)
+    return questions
+
+
 def main() -> None:
-    write_outputs(*load_registry(), examples=load_examples())
+    examples = load_examples()
+    write_outputs(*load_registry(), examples=examples, questions=load_questions(examples))
 
 
 if __name__ == "__main__":

@@ -8,7 +8,9 @@ This registry is the data source for the Soma Field Operator generator. It recon
 - `paths/<path-id>/path.yaml`: a named graph over level ids.
 - `paths/<path-id>/edges/<from>--<to>.md`: front matter for preserved structure, additions/retypings, kernel, render operation, claim badge, and prose.
 - `models/<model-id>.yaml`: model-specific coordinates over level ids.
+- `eras.yaml`: ordered Big Bang-to-present time-axis records. Each era stores a machine time in seconds after the Big Bang, a display time, band, target registry level, summary, optional equation, app badge, and sources.
 - `lenses.yaml`: baseline/T-Theory/display/affect lens catalogue.
+- `questions/<question-id>.yaml`: curated "What's Different?" tours with a visitor question, short answer, view settings, optional worked example, MOTHER prompt, next question, evidence label, and sources.
 
 ## Source resolution
 
@@ -27,11 +29,22 @@ developer setting; reader mode must not display them.
 - `levels`: array of level records.
 - `paths`: array of path records with parsed `edge_records`.
 - `models`: array of model records; coordinates are model-local.
+- `eras`: ordered time-axis records from `eras.yaml`.
 - `lenses`: lens catalogue.
 - `coverage`: validation counts and renderer coverage warnings.
 - `zUSFAbstract`: hardened front-matter abstract from
   `paper/soma/zoomable-somatic-field/zoomable-somatic-field.md`.
 - `sourceResolver`: source-resolution constants and resolved metadata for the
   abstract source.
+- `examples`: worked examples from `registry/examples/`.
+- `questions`: curated "What's Different?" tours from `registry/questions/`.
 
 Run `npm run generate` in the operator app or `make operator-generate` from `U/`.
+
+## What's Different? tours
+
+Question records drive the app question drawer, deep links (`#q=<id>`), and the Field Atlas "What's Different?" section. The `badge` field uses the six evidence labels from `docs/agent/THEORY-STATUS.md` (`kernel-verified`, `derived-under-assumptions`, `simulated`, `empirical-result`, `interpretive`, `open-hypothesis`). `view` may set `compare`, `contours`, and `lens`; `mother_prompt` pre-fills MOTHER but never auto-sends.
+
+## Time axis
+
+`eras.yaml` drives the app `#era=<id>` deep links and the Field Atlas Time Axis section. Cosmic, geological, palaeontology, human, and philosophy bands use ordinary sourced science first; Appendix C philosophy rows remain `INTERPRETIVE` unless they cite a sourced scientific or formal tool directly.
