@@ -283,6 +283,7 @@ The swarm propagator paper should be read as an algorithmic proposal with formal
 Do not read the paper as a universal proof that every distributed system has an $O(N^2)$ lower bound. Its displayed formal result is narrower and more useful. It gives a clean crossover theorem, break-even condition, speedup ratio, and jam-resistance claim after matrix distribution. Its global minimum-energy assertion is currently axiomatic. The best way to extend the paper is to benchmark realistic systems and to formalise the PDE optimality obligation.
 
 {{AddPaper ../../paper/soma/swarm-propagator/swarm-propagator.md}}
+
 {{AddPage}}
 
 # Reading Experimental Benchmarks for the USF Framework
@@ -292,6 +293,7 @@ The experimental-validation paper is a benchmark map rather than a final benchma
 Read the benchmark claims with two filters. First, treat the small runs as demonstrations of model behaviour, not performance results for production ML. Some timing fields in the paper are placeholders or illustrative rather than stable benchmark numbers. Second, treat the QUANT-EXP-1 material as exact statevector simulation evidence, not quantum hardware. The simulations are important because they make reachability claims precise; they are not clinical evidence, consciousness evidence, or runtime advantage evidence.
 
 {{AddPaper ../../paper/soma/experimental-validation/experimental-validation.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field Research Programme
@@ -301,6 +303,7 @@ The synthesis paper gives the programme's own account of why its pieces belong t
 The useful engineering idea is the "verification threshold": exploratory search ends when a formal statement is encoded, assumptions are named, and consequences are checked. The risky idea is to treat that threshold as if it settled substrate ontology. It does not. The synthesis is best used as an index of modules: Hopfield landscape, Green propagator, quantum reachability simulation, MCI method, instrument, and future validation tasks. Each module then needs its own proof, benchmark, or empirical protocol.
 
 {{AddPaper ../../paper/soma/soma-field-synthesis/soma-field-synthesis.md}}
+
 {{AddPage}}
 
 # Reading Mathematical Co-identification
@@ -310,6 +313,7 @@ Mathematical co-identification is the method paper this volume most needs. It st
 For ML researchers, MCI resembles representation alignment with proof obligations. A latent structure in one domain may share a signature with a known mathematical object, but transfer is licensed only by the matched structure, not by name similarity. The paper's failure modes--type coincidence, non-commuting functors, over-identification, metaphor traps--are exactly the failure modes of ambitious AI science. Its Aesop/typeverse loop is also the most direct precursor to a future Sherlock audit system.
 
 {{AddPaper ../../paper/soma/mathematical-co-identification/mathematical-co-identification.md}}
+
 {{AddPage}}
 
 # Reading the Lean Proofs Appendix
@@ -325,6 +329,7 @@ The Soma-Field paper is the broadest source in this volume. It introduces persis
 The paper's strongest computing material is the insistence that emotion representations should not be flat labels. Affective state is distributed, coupled, persistent, and thresholded. That is a plausible design lesson even for systems that make no claim about phenomenal experience. Its riskiest material is clinical and metaphysical; those claims require empirical protocols outside the scope of software proof. The paper therefore belongs in this volume as the domain model to be architected, not as the final verification of that model.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Operational Falsification and Research Roadmap

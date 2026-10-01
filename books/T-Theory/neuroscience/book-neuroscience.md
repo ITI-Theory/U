@@ -253,6 +253,7 @@ The paper's central move is to connect body-wide mechanical continuity with fiel
 The paper should therefore be read in layers. Its architectural claims about continuous tissue and bodily signalling are plausible starting points. Its clinical and biofield claims should be treated as hypotheses. Its testable predictions are the most important part: they invite measurement rather than belief. The right neuroscientific response is not acceptance or dismissal, but protocol design: what measurements would show that bodily mechanical state contributes to affective attractor dynamics beyond known pain, arousal, and movement variables `open-hypothesis`?
 
 {{AddPaper ../../paper/soma/soma-physical-substrate/soma-physical-substrate.md}}
+
 {{AddPage}}
 
 # Reading The Missing Limbic Layer
@@ -264,6 +265,7 @@ The neuroscientific claim is broader and open. FM-HN proposes that a CEMI-compat
 Its most productive use is experimental. Does stress alter effective attractor temperature? Do entrainment ranges narrow or widen with limbic state? Do body-state variables improve prediction of affective transitions? Can perturbation recovery estimate basin depth? Can source-space EM measures predict transitions beyond firing-rate or connectivity models? If such questions are made precise, the paper becomes a research programme rather than a metaphor `interpretive`.
 
 {{AddPaper ../../paper/soma/missing-limbic-layer/missing-limbic-layer.md}}
+
 {{AddPage}}
 
 # Reading The Pre-Verbal Manifold
@@ -275,6 +277,7 @@ For neuroscientists, the paper is valuable because it names a measurement proble
 The paper also demonstrates why evidence labels matter. Lived experience can reveal variables that standard instruments ignore, especially around pain, interoception, freeze, and developmental timing. But testimony is not generalisation. The correct reading is sympathetic and sceptical at once: the case motivates hypotheses about sensitive periods, interoceptive weighting, autonomic baselines, and diagnostic projection; it does not settle them `interpretive`.
 
 {{AddPaper ../../paper/soma/preverbal-manifold/preverbal-manifold.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field
@@ -286,6 +289,7 @@ The paper's rhetoric is sometimes stronger than its evidence. Claims that emotio
 The best way to read this paper is as the source grammar for the rest of the volume. It supplies terms that can be operationalised: subthreshold field activity, threshold crossing, attractor depth, coupling matrix, field temperature, memory kernel, and perturbation. Each becomes neuroscientifically meaningful only when attached to measurements and failure criteria. Without that attachment, the paper is philosophy and modelling. With it, it may become experimental affective neuroscience `open-hypothesis`.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Conclusion: Toward a Measurable Field Neuroscience

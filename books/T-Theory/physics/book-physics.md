@@ -303,6 +303,7 @@ For physicists, the most productive reading is to ask what would make the model 
 The paper also introduces a useful cross-language discipline. A claim can be written in QFT notation, categorical language, Lean sketches, and clinical prose. Agreement across notations is not proof, but disagreement exposes where the model is under-specified. Read the appendices in that spirit: the `sorry` markers and proof obligations are not embarrassments to hide; they are the map of the remaining physics.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Reading Quantum Topology and Trauma
@@ -314,6 +315,7 @@ The paper's Penrose framing is provocative but should not distract from the narr
 The correct next physics questions are obvious. Does the result persist under alternative schedules, noise models, and larger landscapes? Can hardware reproduce the statevector behaviour? Is there a rigorous probabilistic theorem connecting barrier topology to escape rates in this class? Until then, the result is model-class reachability evidence and an invitation to formal analysis, not proof of a quantum mechanism in brains.
 
 {{AddPaper ../../paper/soma/quantum-soma-penrose/quantum-soma-penrose.md}}
+
 {{AddPage}}
 
 # Reading The Universal Somatic Field
@@ -325,6 +327,7 @@ The paper's most useful contribution for physics is its insistence that the resp
 Lean names should be read precisely. `somaField_iso_mtheory` checks a product isomorphism. `consciousness_dichotomy` checks an order split around $\sqrt2$. Imported OS results apply to a Gaussian free-field object. None of these makes the biological or cosmological interpretation automatic. The paper is best treated as a map of a research programme, not as a completed unification.
 
 {{AddPaper ../../paper/soma/universal-somatic-field/universal-somatic-field.md}}
+
 {{AddPage}}
 
 # Reading The Zoomable Universal Somatic Field
@@ -336,6 +339,7 @@ Its treatment of existing theories is also valuable. McFadden's CEMI field appea
 The paper's proof-status table should be read with the current ledger in mind. It contains strong formal objects and explicit axioms, but project-wide "no sorry" rhetoric is no longer accurate. Its cosmological fractions, consciousness threshold, and $G_2$ language should be brought forward with the evidence labels used here: arithmetic or type facts where checked, model-derived comparisons where assumptions enter, and open hypotheses where physical calibration is absent.
 
 {{AddPaper ../../paper/soma/zoomable-somatic-field/zoomable-somatic-field.md}}
+
 {{AddPage}}
 
 # Reading The Cosmological Constant as Vacuum Amplitude
@@ -347,6 +351,7 @@ Read the derivation as a model-derived comparison. It does not solve the cosmolo
 The paper's most important clarification is that $\Lambda$ is constant. The fraction $7/11$ is used for a present-day density comparison under the model; it is not a claim that $\Omega_\Lambda(z)$ is constant. Any future development must therefore confront expansion history, perturbations, and dark-energy constraints with that distinction explicit.
 
 {{AddPaper ../../paper/soma/cosmological-constant-derivation/cosmological-constant-derivation.md}}
+
 {{AddPage}}
 
 # Reading Dark Matter as the Spatial Vacuum
@@ -358,6 +363,7 @@ The density fraction is the easy part. The physical behaviour is the hard part. 
 The paper is useful because it states the needed properties clearly: clustering, neutrality, and $w\simeq0$. Treat its Lean-backed arithmetic as arithmetic; treat its local-geometry neutrality and pressure claims as assumptions or derived consequences of assumptions. The research path is perturbative cosmology, not further numerological comparison.
 
 {{AddPaper ../../paper/soma/dark-matter-spatial-vacuum/dark-matter-spatial-vacuum.md}}
+
 {{AddPage}}
 
 # Reading G₂ Symmetry Breaking
@@ -369,6 +375,7 @@ Physicists should appreciate both the usefulness and the limit. Traceless decomp
 Read this paper as an algebraic compatibility result. It strengthens the programme by replacing a vague 8-to-7 handwave with a concrete decomposition. It also sharpens the remaining obligation: to derive or reject the geometric $G_2$ compactification, rather than borrowing its prestige from the notation.
 
 {{AddPaper ../../paper/soma/g2-symmetry-breaking/g2-symmetry-breaking.md}}
+
 {{AddPage}}
 
 # Conclusion: What a Physics of Response Would Require

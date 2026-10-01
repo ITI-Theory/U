@@ -42,7 +42,31 @@ keywords:
   - emotional field theory
   - Hopfield energy function
   - polyvagal theory
-  ![The Soma-Field Instrument: MIDI controls report emotional dimensions, the energy function computes the field state, and coordinated audio, MIDI, and visual outputs render it.](figures/fig_midi_controller.pdf){width=95%}
+  - autism
+  - ADHD
+  - complex PTSD
+  - quantum field theory analogy
+  - autoethnographic theory
+---
+
+---
+
+> *"The patient is the one with the disease."*
+> — Medical aphorism, intended to remind physicians to listen.
+> The author intends it differently.
+
+---
+
+# A Note on Method
+
+The standard academic posture — disinterested observer, neutral position, findings
+presented as if they arrived from nowhere in particular — has never seemed entirely
+credible to the author. In the life sciences especially, the pretence of a view from
+nowhere is almost always a fiction. Researchers study what compels them. Compulsion has
+a cause.
+
+This paper dispenses with the fiction. The theoretical framework presented here was
+developed by a person with ASD, ADHD, and Complex PTSD who could not find an adequate
 formal account of his own emotional experience in the existing literature, who had studied
 physics at university, and who eventually concluded that the most efficient solution was
 to build one himself. The result is offered not as a confessional but as a theoretical

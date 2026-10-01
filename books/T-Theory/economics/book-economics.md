@@ -400,6 +400,7 @@ For economic readers, the paper should be read as an architecture claim, not as 
 The paper also warns against overclaiming examples. If a benchmark or historical analogy uses $K<N$, it cannot cite the $K>N$ inequality as raw operation proof. Economists should preserve the theorem's condition and reinterpret broad examples as latency, topology, or broadcast illustrations. That repair makes the result more credible, not less. It shows how a formal theorem can discipline economic metaphor.
 
 {{AddPaper ../../paper/soma/swarm-propagator/swarm-propagator.md}}
+
 {{AddPage}}
 
 # Reading Experimental Benchmarks
@@ -411,6 +412,7 @@ Economists can nevertheless use the benchmark style. A good economic benchmark w
 The paper should also be read with the programme's evidence discipline in mind. Some theorem names refer to arithmetic or definitional facts; some global optimality claims depend on axioms pending PDE scaffolding; and current Lean files still contain explicit `sorry` placeholders. That does not invalidate the benchmarks. It locates them. Economics should inherit the same labels: proof where proof exists, simulation where simulation exists, and open hypothesis where market validation remains undone.
 
 {{AddPaper ../../paper/soma/experimental-validation/experimental-validation.md}}
+
 {{AddPage}}
 
 # Reading Nash Equilibria as Hopfield Energy Minima
@@ -422,6 +424,7 @@ The paper is therefore best read as a research programme with an exact core. Its
 Read charitably but mathematically. The slogan "the landscape is the theory" is the right instinct. The economist's task is to define the landscape, prove when it is a potential, measure the barriers, and test the transition predictions. If this anchor paper is developed further, the first formal deliverable should be a theorem stating exact assumptions for the Nash--Hopfield correspondence, plus negative examples showing where it fails.
 
 {{AddPaper soma-game-theory/soma-game-theory.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field Research Programme
@@ -433,6 +436,7 @@ The paper also shows the source of the programme's attractor vocabulary: Hopfiel
 Readers should watch the evidence labels. QUANT-EXP-1 is simulated reachability. Lean proofs hold under definitions and axioms. Clinical and lived-experience material is testimony and hypothesis. The economics translation should be judged by economic criteria: theorem correctness, model identification, empirical prediction, and comparison with existing economic models.
 
 {{AddPaper ../../paper/soma/soma-field-synthesis/soma-field-synthesis.md}}
+
 {{AddPage}}
 
 # Reading Mathematical Co-identification
@@ -444,6 +448,7 @@ The paper's failure modes are especially relevant. Unit coincidence, over-identi
 For this volume, the paper supplies the rulebook. Exact potential games qualify for strong transfer. General games require decomposition. Financial criticality requires operational order parameters. Behavioural economics requires preservation of known empirical constructs. Regulatory WKB requires a stochastic action model. The paper is therefore not decorative background; it is the standard by which the economics claims should be accepted or rejected.
 
 {{AddPaper ../../paper/soma/mathematical-co-identification/mathematical-co-identification.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field
@@ -455,6 +460,7 @@ The translation to economics must be selective. A market does not have a limbic 
 The most important caution is that Lean and equations do not validate a domain interpretation automatically. The paper's Hopfield and propagator mathematics can inspire economic modelling. The economic model must then stand on its own: specified variables, identified couplings, measured transitions, and falsifiable predictions. Read the Soma-Field paper as a source of formal grammar, not as an already completed economics proof.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Conclusion: Economic Criticality Without Metaphysical Inflation

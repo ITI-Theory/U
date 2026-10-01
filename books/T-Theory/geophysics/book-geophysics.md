@@ -333,6 +333,7 @@ A useful exercise for the reader is to rewrite each example in seismological for
 The paper should not be mined for exact numerical authority unless the underlying geographic and biological data are independently checked. Its role in this book is structural. It teaches that topography is not background. In seismology, topography, basins, interfaces, and fault geometry shape the response. In human geography, corridors, barriers, and hubs shape diffusion. The shared lesson is boundary-conditioned propagation `interpretive`.
 
 {{AddPaper ../../paper/soma/geographic-somatic-field/geographic-somatic-field.md}}
+
 {{AddPage}}
 
 # Reading The Zoomable Universal Somatic Field
@@ -348,6 +349,7 @@ The most important caution is proof status. A Lean theorem that a structure has 
 The paper is also a reminder that scale catalogues are modelling devices. The exact numbering of scales is less important than the demand that every scale name its substrate. Geological work should not depend on whether crustal processes are listed as scale 10, 11, or 12. It should depend on whether the chosen model captures elastic propagation, frictional evolution, memory, and observation at the scale under discussion. That is the practical meaning of zooming for geophysics `derived-under-assumptions`.
 
 {{AddPaper ../../paper/soma/zoomable-somatic-field/zoomable-somatic-field.md}}
+
 {{AddPage}}
 
 # Reading Seismic Propagation and Tectonic Criticality
@@ -363,6 +365,7 @@ The reader should also notice the paper's most vulnerable phrases. "The identifi
 A revised version of the anchor paper could become highly useful by adding four tables: standard seismological object, [T]-Theory object, evidence label, and test. For example, seismic Green's tensor maps cleanly to propagator; locked-patch stability maps provisionally to attractor basin; rate-state variable maps to memory coordinate; b-value maps to critical exponent only as an open target. Such a table would let Earth scientists engage the claims without first accepting the wider metaphysics.
 
 {{AddPaper soma-geophysics/soma-geophysics.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field
@@ -378,6 +381,7 @@ The paper also shows why the language of threshold should be handled carefully. 
 For a geophysics audience, the Soma-Field paper is best read as the origin of the programme's formal habits rather than as a source of geological facts. It teaches how Johnson uses fields, Green's functions, Hopfield energy, and memory kernels. This volume then asks which of those habits survive translation into Earth science. Some do: response kernels, energy landscapes, memory, and barriers. Some do not: clinical efficacy, emotional valence, and conscious threshold claims. Keeping that boundary clear is essential.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field Research Programme
@@ -393,6 +397,7 @@ The paper's greatest value for geophysics is its account of failure modes. A co-
 The synthesis also helps decide what would count as progress. If a programme-derived action law improves laboratory failure forecasts, that does not prove the whole programme. It validates one co-identification under one set of assumptions. If a b-value derivation fails, that does not refute the existence of seismic Green's functions. It refutes or limits one proposed transfer. This modularity is important. It lets geophysicists participate without endorsing every part of [T]-Theory `derived-under-assumptions`.
 
 {{AddPaper ../../paper/soma/soma-field-synthesis/soma-field-synthesis.md}}
+
 {{AddPage}}
 
 # Reading The Universal Somatic Field
@@ -408,6 +413,7 @@ The paper's cosmological and consciousness claims should be left to the physics 
 The Universal Somatic Field paper also clarifies why this book includes both standard seismology and speculative tests. A universal theory should not be judged only where it repeats what is already known, nor only where it speculates beyond evidence. It should be judged by the bridge between the two. Seismic Green's functions are known. WKB fault nucleation is speculative. The question is whether the known object constrains the speculative one tightly enough to generate a meaningful test `open-hypothesis`.
 
 {{AddPaper ../../paper/soma/universal-somatic-field/universal-somatic-field.md}}
+
 {{AddPage}}
 
 # Conclusion: The Earth as Field System

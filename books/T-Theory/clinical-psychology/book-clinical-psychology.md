@@ -460,6 +460,7 @@ This paper should be read as patient-researcher testimony and model construction
 The paper's discussion of ASD, ADHD, and C-PTSD is clinically sensitive when it treats neurodivergent and trauma profiles as structural realities rather than failures of motivation (`interpretive`). It becomes unsafe if read as a diagnostic tool. Use it as a source of hypotheses: how might altered interoception, attention, sensory gating, and trauma memory change access to emotion labels? What measurements would distinguish a high threshold from poor vocabulary, avoidance, dissociation, or social threat? The paper matters because it lets clinicians hear the inside of a modelling problem. It should not be used to infer another person's inside.
 
 {{AddPaper ../../paper/soma/soma-field-patient-pov/soma-field-patient-pov.md}}
+
 {{AddPage}}
 
 # Reading *SFT Applied: A Self-Case Analysis*
@@ -469,6 +470,7 @@ This document is explicitly an AI-generated self-case interpretation. That prove
 Clinicians should treat the vivid phrases in this paper with particular caution. "Quantum annealer in the body" and similar expressions are metaphors inside the model, not claims about literal quantum biological therapy. The paper can help researchers ask whether sustained load, arousal, movement, or relational event can change state-transition probabilities after long preparatory work (`open-hypothesis`). It cannot establish that this occurred, why it occurred, or what should be done with another person. Read it as testimony refracted through a model and through an AI system, with each layer adding distance from clinical fact.
 
 {{AddPaper ../../paper/soma/SFT-DEMO-CASE/SFT-DEMO-CASE.md}}
+
 {{AddPage}}
 
 # Reading *The Missing Limbic Layer*
@@ -478,6 +480,7 @@ This paper is central for researchers because it links Hopfield networks, modern
 The clinical interest lies in the three operator sketches: ADHD, Autism Spectrum Condition, and C-PTSD. For this volume, the C-PTSD operator is the relevant one: high barriers, memory, and altered coupling model why self-organisation disturbances may persist beyond individual fear memories (`open-hypothesis`). The numerical parameters in the paper are model parameters, not biomarkers. The paper should inspire measurement design, not diagnostic classification. Its best use is to ask whether physiological and behavioural data can distinguish temperature-like volatility, low-temperature rigidity, and high-barrier capture in traumatised populations.
 
 {{AddPaper ../../paper/soma/missing-limbic-layer/missing-limbic-layer.md}}
+
 {{AddPage}}
 
 # Reading *The Pre-Verbal Manifold*
@@ -487,6 +490,7 @@ The pre-verbal paper is the most ethically delicate embedded text. It presents J
 Clinicians and trauma researchers should read the paper for its methodological challenge: how can early bodily and relational events be studied when direct memory is absent and later categories are already theory-laden? The paper's strongest contribution is not a claim that autism is acquired; that would be too broad and unsafe. Its contribution is a set of cohort questions about timing, medical trauma, attachment, interoception, speech, later C-PTSD, and diagnostic boundary conditions. Treat the author's testimony respectfully, but do not use it as a template for other lives.
 
 {{AddPaper ../../paper/soma/preverbal-manifold/preverbal-manifold.md}}
+
 {{AddPage}}
 
 # Reading *The Soma-Field Research Programme*
@@ -496,6 +500,7 @@ The synthesis paper gives the broadest map of the programme: mathematical co-ide
 The QUANT-EXP-1 discussion is relevant to trauma topology because it models barrier crossing in a finite state system. The result is an exact 8-qubit statevector simulation, not quantum hardware and not therapy (`simulated`). It shows that within a toy model, a quantum-inspired mechanism reaches an Awe basin where cold classical dynamics do not. For clinicians, its value is conceptual: it demonstrates how a reachability claim can be made testable. Its limitation is equally important: no human clinical inference follows without new evidence.
 
 {{AddPaper ../../paper/soma/soma-field-synthesis/soma-field-synthesis.md}}
+
 {{AddPage}}
 
 # Reading *Experimental Benchmarks for the Universal Somatic Field Framework*
@@ -505,6 +510,7 @@ The benchmark paper should be read as a proposed culture of testing. It compares
 The God-Knob hysteresis test is the most clinically relevant part. If emotional threshold crossings exhibit hysteresis, then the route into a state may differ from the route out. That would fit many clinical observations, but it remains a research claim (`open-hypothesis`). Trauma researchers could design non-treatment tasks to test whether arousal transitions, dissociation transitions, or safety transitions show path dependence. The paper matters because it turns a vivid metaphor into a falsifiability criterion. It should not be read as proof that clinical pacing can be computed.
 
 {{AddPaper ../../paper/soma/experimental-validation/experimental-validation.md}}
+
 {{AddPage}}
 
 # Reading *The Soma-Field*
@@ -514,6 +520,7 @@ The foundational Soma-Field paper gives the finite clinical-facing model: a pers
 Read the paper as a theory of questions. What would count as sub-perceptual affect? How would one estimate $W$? Can threshold, field temperature, and memory kernel be separated statistically? Do body-based and verbal interventions affect different parameters? The paper's limitations section is not optional; it is the ethical frame. The phrase "clinical implications" should mean research implications for clinical science unless and until validated outcome studies exist. In this volume, the paper is a foundation for open hypotheses, not a source of treatment advice (`open-hypothesis`).
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Conclusion: Research Discipline for a Field-Theoretic Trauma Model

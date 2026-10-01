@@ -431,6 +431,7 @@ The paper is strongest as a generator of empirical designs. It asks the reader t
 The parakeet and Klöntalersee examples broaden the scale argument. They show that the same formal question can be asked of flocking and acoustics: what is the substrate, what is the propagator, what are the boundaries, and what observable pattern follows? The methodological value is comparative. The risk is over-extension. Human cultural diffusion contains reflexivity and meaning; parakeet murmurations do not contain linguistic prestige. Read the paper as a field-modelling template with domain-specific safeguards `interpretive`.
 
 {{AddPaper ../../paper/soma/geographic-somatic-field/geographic-somatic-field.md}}
+
 {{AddPage}}
 
 # Reading Single-Step Multi-Agent Coordination
@@ -442,6 +443,7 @@ The immediate applications are closer to engineered systems than to sociology: d
 The reader should also attend to the proof boundary. The global optimality of the Green's-function update depends on assumptions; the paper notes an axiom pending fuller PDE scaffolding. Social scientists should therefore cite the arithmetic theorem narrowly and treat organisational generalisation as a hypothesis. The paper is valuable precisely because it shows how a formal claim can be useful while still carrying its assumptions in public `derived-under-assumptions`.
 
 {{AddPaper ../../paper/soma/swarm-propagator/swarm-propagator.md}}
+
 {{AddPage}}
 
 # Reading Social Intelligence as a Field Phenomenon
@@ -453,6 +455,7 @@ For social psychologists, the paper's value is that it connects several measurab
 The neurodivergence section should be read with particular care. It reframes social differences as coupling geometries rather than deficits. That is ethically and theoretically promising, but it remains a hypothesis. It should not be used to diagnose, rank, or prescribe. Its best use is to design respectful interaction studies that test whether different coupling bandwidths and initiation conditions predict lived reports of ease, strain, resonance, or overload `interpretive`.
 
 {{AddPaper soma-social-intelligence/soma-social-intelligence.md}}
+
 {{AddPage}}
 
 # Reading Gestalt Field Dynamics
@@ -464,6 +467,7 @@ The paper also helps prevent a crude reduction. If experience is treated through
 Its clinical claims should remain bounded. Claims about psychotherapy, trauma loops, and topological resolution are hypotheses or derived model readings, not clinical evidence. For this volume, the durable contribution is the idea that social perception may be modelled as attractor organisation while still requiring phenomenological and interpretive description `interpretive`.
 
 {{AddPaper ../../paper/soma/gestalt-field-dynamics/gestalt-field-dynamics.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field Research Programme
@@ -475,6 +479,7 @@ This matters because social science is full of tempting transfers. A spectral ga
 The paper also reports QUANT-EXP-1 and other programme results, but those are not direct evidence for the social extension. They show that parts of the model have been simulated or formalised elsewhere. They do not prove rapport, trust, or cultural diffusion claims. The social-science task remains empirical: estimate the operators and test the predictions in social data `open-hypothesis`.
 
 {{AddPaper ../../paper/soma/soma-field-synthesis/soma-field-synthesis.md}}
+
 {{AddPage}}
 
 # Reading The Soma-Field
@@ -486,6 +491,7 @@ Read the paper with the evidence boundary in mind. Its clinical and trauma langu
 The paper also helps social scientists avoid a false choice between bodies and meanings. The body is not outside culture; culture is enacted by bodies. A field model of affect can sit underneath symbolic interaction, ritual, institution, and discourse as a layer of constraint and possibility. Whether that layer is measurable in the required way is precisely the open research question `open-hypothesis`.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Conclusion: Field-Theoretic Social Science Without Reduction

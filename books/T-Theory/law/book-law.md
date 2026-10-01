@@ -393,6 +393,7 @@ The synthesis also introduces the programme's central risk: strong language abou
 Read the paper, then, as an invitation to build a legal claim registry. Each legal import should name its state space, assumptions, predicted observable, disconfirmation condition, and evidence label. "Rule of law as ergodicity" becomes a hypothesis about differential legal exposure. "Rights as invariants" becomes a hypothesis about persistence under stress. "Regulation as source term" becomes a hypothesis about policy trajectory and threshold effects.
 
 {{AddPaper ../../paper/soma/soma-field-synthesis/soma-field-synthesis.md}}
+
 {{AddPage}}
 
 # Reading the Universal Somatic Field
@@ -404,6 +405,7 @@ The paper's physical claims must be read under the evidence boundaries used thro
 The legal reader should extract a modest tool: the propagator as a way to ask about institutional impulse response. Which legal signals propagate, which decay, which amplify, and which reflect from institutional boundaries? Those questions can become empirical without requiring lawyers to accept the programme's cosmological claims.
 
 {{AddPaper ../../paper/soma/universal-somatic-field/universal-somatic-field.md}}
+
 {{AddPage}}
 
 # Reading Law as Field Constraint
@@ -415,6 +417,7 @@ Its strongest contribution is vocabulary. Prohibition, permission, mandate, reme
 The paper is most defensible when paired with Hart, Fuller, Dworkin, Raz, Hohfeld, rights theory, and law and economics. Hart prevents the model from ignoring validity and the internal point of view. Fuller prevents it from ignoring legality's guidance conditions. Dworkin prevents it from treating rights as mere costs. Raz prevents it from equating authority with force. Economics prevents it from ignoring incentives and transaction costs. Critical jurisprudence prevents it from calling stable domination justice.
 
 {{AddPaper soma-law/soma-law.md}}
+
 {{AddPage}}
 
 # Reading Mathematical Co-identification
@@ -426,6 +429,7 @@ The paper distinguishes co-identification from analogy and reduction. Most legal
 Lawyers should pay particular attention to the paper's failure modes. Unit coincidence, metaphor traps, over-identification, and hidden boundary mismatches are common in interdisciplinary legal scholarship. The field language should earn its keep by making predictions or clarifying doctrine. If it merely renames familiar ideas, it should be retired.
 
 {{AddPaper ../../paper/soma/mathematical-co-identification/mathematical-co-identification.md}}
+
 {{AddPage}}
 
 # Reading the Soma-Field Model
@@ -437,6 +441,7 @@ The paper should be read with two protections. First, clinical and trauma claims
 For jurisprudence, the most useful idea is below-threshold persistence. Some legal effects persist before they become visible as cases: chilling effects, compliance cultures, enforcement rumours, bureaucratic habits, professional expectations, and private ordering. Law's field often moves before doctrine notices. That is a legal insight worth testing.
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
+
 {{AddPage}}
 
 # Reading the Physical Substrate
@@ -448,6 +453,7 @@ This matters because legal theory often speaks as if rights and rules act once d
 Read the physical paper, then, as a reminder to look for the medium. The legal field is not an abstraction floating above society. It is maintained by people, buildings, files, software, money, language, habit, and courage. Topology without substrate is diagrammatic; legality without institutions is promise without path.
 
 {{AddPaper ../../paper/soma/soma-physical-substrate/soma-physical-substrate.md}}
+
 {{AddPage}}
 
 # Conclusion: The Geometry of Justice, Kept Honest

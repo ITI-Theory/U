@@ -353,6 +353,7 @@ The Lean status must be read carefully. `LimbicHopfield.correspondence_principle
 Read this paper, then, as a bridge from connectionist psychiatry to embodied dynamics. It is strongest where it preserves mathematical discipline and weakest where clinical ontology outruns measurement. Its value for this book is the missing question: what if the body is not a disturbance added to cognition, but the runtime parameter without which cognition's attractor landscape is misdescribed?
 
 {{AddPaper ../../paper/soma/missing-limbic-layer/missing-limbic-layer.md}}
+
 {{AddPage}}
 
 # Reading The Pre-Verbal Manifold
@@ -366,6 +367,7 @@ For psychiatrists, the paper challenges onset-based complacency. If clinical obs
 The paper's strongest contribution is methodological. It refuses the false choice between lived testimony and formal modelling. It shows how a person can use their own history as a source of hypotheses while still deferring general claims to replication `interpretive`. That combination is exactly what this book needs: respect for the inside view, discipline about what follows from it, and a refusal to turn one life into a universal law.
 
 {{AddPaper ../../paper/soma/preverbal-manifold/preverbal-manifold.md}}
+
 {{AddPage}}
 
 # Reading Field Notes from the Inside
@@ -379,6 +381,7 @@ The paper also introduces the Soma-Field Instrument, a proposed interface for re
 The reader should keep the evidence hierarchy clear. The author's testimony is primary source material about one life `interpretive`. The Hopfield and field equations are modelling choices `derived-under-assumptions`. The clinical generalisations remain unvalidated `open-hypothesis`. Read with those labels, the paper is not a confession and not a manual. It is an inside view made mathematically articulate.
 
 {{AddPaper ../../paper/soma/soma-field-patient-pov/soma-field-patient-pov.md}}
+
 {{AddPage}}
 
 # Reading Autism and CPTSD as Operator Modifications
@@ -392,6 +395,7 @@ The paper's clinical language should be softened wherever it implies treatment g
 The paper is most valuable as a falsifiable research scaffold. If Arnold tongue width can be operationalised, if somatic-cognitive decoupling can be measured, if operator stacking predicts support needs better than category count, the framework will have earned attention. Until then, its strongest contribution is conceptual: it lets psychiatry speak of neurodivergent difference as architecture rather than defect, while still naming real suffering and support needs.
 
 {{AddPaper soma-asd-unified/soma-asd-unified.md}}
+
 {{AddPage}}
 
 # Reading Experimental Benchmarks
@@ -405,6 +409,7 @@ The reader should be especially careful with words such as "proved" and "demonst
 Its relevance to ASC, ADHD, and CPTSD is indirect but important. Operator hypotheses should not remain poetic. If a narrow Arnold tongue is claimed, build a synchronisation benchmark. If transition cost is claimed, build a transition-cost task. If EC decoupling is claimed, build a coupling measure. The benchmark paper's lesson is that a theory earns clinical attention by becoming testable.
 
 {{AddPaper ../../paper/soma/experimental-validation/experimental-validation.md}}
+
 {{AddPage}}
 
 # Reading Quantum Topology and Trauma
@@ -418,6 +423,7 @@ For neurodivergent readers, the paper can be useful if translated gently: some b
 Read the paper as a technical demonstration of one formal idea: reachability depends on landscape structure and allowed moves. Its value for this book is the insistence that "stuck" can be a property of topology rather than character. Its risk is overextension. The evidence label must govern the rhetoric.
 
 {{AddPaper ../../paper/soma/quantum-soma-penrose/quantum-soma-penrose.md}}
+
 {{AddPage}}
 
 # Reading The Physical Substrate of the Soma-Field
@@ -431,6 +437,7 @@ The strongest safe research question is measurement. Do changes in tissue stiffn
 The clinical caution is equally important. The paper must not be read as saying that myofascial work treats trauma, or that all trauma is stored in fascia, or that biofield physiology is established. Its value is to widen the model's substrate imagination while keeping evidence boundaries visible. The body matters; the exact medium remains under investigation.
 
 {{AddPaper ../../paper/soma/soma-physical-substrate/soma-physical-substrate.md}}
+
 {{AddPage}}
 
 # Conclusion: Different Geometry, Shared Responsibility
