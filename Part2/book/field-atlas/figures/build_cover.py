@@ -69,16 +69,16 @@ def build():
          rotate=np.pi / 7)
 
     # title block
-    ax.text(0, 1.18, "The Wave",
+    ax.text(0, 1.18, "Field Atlas",
             ha="center", va="center", color="white",
             fontsize=28, fontweight="bold", family="serif")
-    ax.text(0, 1.02, "That Is Always There",
+    ax.text(0, 1.02, "The Wave That Is Always There",
             ha="center", va="center", color="white",
             fontsize=18, family="serif", fontstyle="italic")
 
     # subtitle band
     ax.text(0, -1.18,
-            "A Fractal Atlas from the Universe to the Soma",
+            "From the Universe to the Soma",
             ha="center", va="center", color="#bcd",
             fontsize=12, family="serif", fontstyle="italic")
     ax.text(0, -1.32, "A L I S T A I R   J O H N S O N",
