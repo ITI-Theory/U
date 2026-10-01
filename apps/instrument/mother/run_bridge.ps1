@@ -3,5 +3,6 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not (Test-Path "$here\.venv\Scripts\python.exe")) {
     python -m venv "$here\.venv"
     & "$here\.venv\Scripts\python.exe" -m pip install -q -r "$here\requirements.txt"
+    & "$here\.venv\Scripts\python.exe" -m playwright install chromium
 }
 & "$here\.venv\Scripts\python.exe" "$here\bridge.py"

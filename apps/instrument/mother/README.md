@@ -21,6 +21,7 @@ localhost pages.
 ```powershell
 cd apps/instrument/mother
 python -m venv .venv; .\.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m playwright install chromium   # browser for the login step
 .\.venv\Scripts\notebooklm login        # once; opens a browser to sign in
 .\.venv\Scripts\notebooklm list         # find the notebook id
 '{ "notebook_id": "<id>" }' | Set-Content mother.local.json   # gitignored
