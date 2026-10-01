@@ -67,19 +67,47 @@ assert literal identity; publication metadata stays in `Dist/PAPERS.yaml`.
   the Atlas can include a screenshot per level and per extra system (for
   example belief systems) without separate authoring.
 
+## The console principle (author, 2026-10-01)
+
+The app is the driving console for the whole programme, not a separate
+product:
+
+- **One name per level.** The app and the Wave Atlas use the same labels
+  (one level id, one label); models only order levels.
+- **Links both ways.** In the app, "More information" opens a library panel
+  for the current level listing every relevant document: Atlas plate, papers,
+  book chapters, cheat sheets (resolved through level `sources`,
+  `Dist/PAPERS.yaml`, and book and Atlas anchors). From the documents back to
+  the app: deep links such as
+  `https://www.t-theory.org/app/#level=<id>&path=<id>&lens=<id>`, which can
+  also be printed as QR codes on Atlas plates and book pages.
+- **Screenshots from the app, diagrams into the app.** A capture script drives
+  the app headlessly and saves screenshots per level, path, lens, and extra
+  system into the Atlas figures; the Atlas diagrams are attached to their
+  level as media the app can show.
+- **Cookie Monster register.** Every level carries its explanation at three
+  registers: `cookie` (for a ten-year-old), `general`, and `specialist`. The
+  cookie register is the hardest target and doubles as a test: if a level
+  cannot be explained to a child, its description is not yet understood. It
+  is shown as a reader setting in the app and can feed a children's edition
+  of the Atlas.
+
 ## Lenses
 
 - **T-Theory off**: ordinary 4D physics only; every [T]-Theory layer is hidden.
   Users add layers back one at a time, each with its claim badge.
 - Display axis: `4d-baseline`, `7d-usf-field`, `8d-life`, `11d-mind`,
   independent of zoom.
-- 3D: the scene is already Three.js 3D; stereo output (side-by-side,
-  top-bottom, anaglyph, or WebXR) is a renderer option chosen for the
-  projector.
+- 3D: the scene is already Three.js 3D. The author's projector (Dangbei Atom)
+  accepts side-by-side (SBS) 3D over HDMI, so stereo output is a side-by-side
+  stereo camera render, full screen, with the projector in 3D SBS mode and
+  DLP-Link glasses. Anaglyph and WebXR can follow as further renderer options.
 
 ## First vertical slice
 
-1. Registry skeleton with the existing levels migrated (no new content).
+1. Registry skeleton with the existing levels migrated (no new content),
+   labels reconciled into one list for author review, and the three
+   explanation registers (`cookie`, `general`, `specialist`) stubbed.
 2. Generator plus renderer registry; quantum foam moved out of `main.js`.
 3. T-Theory off/on lens.
 4. Quantum Foam to Thoughts: thoughts and emotions as noise-driven threshold
@@ -98,8 +126,6 @@ assert literal identity; publication metadata stays in `Dist/PAPERS.yaml`.
 
 ## Open questions
 
-- Which stereo input does the 3D projector accept (side-by-side, top-bottom,
-  frame-sequential)?
-- Should `universal-21` keep the Wave Atlas labels (Scale 7 = Animal Swarm)
-  or the app's (sigma 7 = Whole Brain)? A level id per substrate removes the
-  clash; the model then only orders them.
+- Reconcile the label conflicts (Wave Atlas Scale 7 = Animal Swarm, app
+  sigma 7 = Whole Brain, and others) into one label per level during the
+  registry migration; the author reviews the reconciled list once.
