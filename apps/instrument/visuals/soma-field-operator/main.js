@@ -5,6 +5,7 @@ import { getScaleMorphism } from './scale-morphisms.js';
 import { get, register } from './renderers/index.js';
 import quantumFoamRenderer from './renderers/quantum-foam.js';
 import thoughtSparksRenderer from './renderers/thought-sparks.js';
+import { FieldAudio } from './audio/field-audio.js';
 
 register(quantumFoamRenderer.id, quantumFoamRenderer);
 register(thoughtSparksRenderer.id, thoughtSparksRenderer);
@@ -1146,6 +1147,7 @@ const state = {
 let suppressHashWrite = false;
 // A poke plays over the same wall-clock span at every level; the readout states the level's own time scale.
 const POKE_DISPLAY_SECONDS = 4;
+const fieldAudio = new FieldAudio({ pokeSeconds: POKE_DISPLAY_SECONDS });
 const responseTimeInput = document.querySelector('#response-time');
 state.pokeRunning = false;
 
@@ -1938,6 +1940,15 @@ document.querySelector('#poke').addEventListener('click', () => {
   state.responseTime = 0;
   document.querySelector('#response-time').value = '0';
   updateScaleReadout();
+  fieldAudio.poke({ level: activeLevel() });
+});
+const audioToggle = document.querySelector('#audio-toggle');
+audioToggle.addEventListener('click', async () => {
+  if (fieldAudio.enabled) fieldAudio.disable();
+  else await fieldAudio.enable();
+  audioToggle.classList.toggle('active', fieldAudio.enabled);
+  audioToggle.setAttribute('aria-pressed', String(fieldAudio.enabled));
+  audioToggle.textContent = fieldAudio.enabled ? 'AUDIO: ON' : 'AUDIO: OFF';
 });
 brecvemaButton.addEventListener('click', () => {
   state.brecvema = !state.brecvema;
@@ -2079,6 +2090,14 @@ function frame() {
   const mechanismsActive = state.brecvema && state.tTheory && organismLevelIds.has(activeLevel().id);
   const mechanismGain = mechanismsActive ? 1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15 : 1;
   const responsePulse = state.impulse * mechanismGain * Math.exp(-state.responseTime * 3.4);
+  fieldAudio.update({
+    level: activeLevel(),
+    lensOn: state.tTheory,
+    limbic: state.limbic,
+    cognitive: state.cognitive,
+    mechanisms: mechanismsActive ? [...state.selectedMechanisms] : [],
+    bpm: state.transport.bpm,
+  });
   backgroundMaterial.uniforms.uTime.value = time;
   backgroundMaterial.uniforms.uScale.value = state.visualScale;
   const displayLevel = activeDimensionLevel();

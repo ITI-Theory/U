@@ -152,8 +152,9 @@ complete, the current mechanism-to-region grid is visibly labelled `DESIGN MAP`.
 
 ## Initial Visual Contract
 
-The web demo contains no audio or hardware dependency. It renders the field
-response using the existing Three.js scene.
+The web demo has no hardware dependency. It renders the field response using
+the existing Three.js scene. Sound is optional and off by default (see Audio
+Contract).
 
 | Field quantity | Visual response | Future audio response |
 | --- | --- | --- |
@@ -167,6 +168,32 @@ response using the existing Three.js scene.
 Textual contour is the first rendering interpreter. It states what the current
 field condition is doing before the project adds audio, OSC, MIDI, or projection
 hardware.
+
+## Audio Contract
+
+Author decision (2026-10-01): audio is in. The browser MVP plays optional,
+off-by-default sound through Web Audio (`audio/field-audio.js`, `AUDIO: ON/OFF`
+button). It has no hardware, MIDI, or OSC dependency; the live-instrument track
+(controllers, SOmaFX guitar VST, Ableton/TouchDesigner, `apps/instrument/`
+server) remains a later, separate track.
+
+| Source | Sound | Field meaning |
+| --- | --- | --- |
+| Poke | noise click plus decaying partials; pitch from the level's length scale; decay matched to the visual response | $J(t)=\delta$; the medium's impulse response |
+| Lens off | plain sine drone | physics baseline |
+| Lens on | filtered saw drone, brightness from limbic and cognitive | field layers |
+| B brainstem reflex | startle transient; louder pokes | transient source $J(t)$ |
+| R rhythmic entrainment | beat-locked gating and tick at the transport tempo | damping / phase locking $\gamma$ |
+| E1 evaluative conditioning | a consonant fifth joins the drone | attractor bias $\mathbf b$ |
+| C emotional contagion | a voice-like formant field couples in | coupling $\kappa$ |
+| V visual imagery | sparse endogenous sparkles | $J_{\mathrm{internal}}(t)$ |
+| E2 episodic memory | longer echo and reverb tail | memory kernel $K(\tau)$ |
+| M musical expectancy | I-IV-V cadence, sometimes resolving deceptively to vi | transient barrier $\Delta V$ |
+| A aesthetic judgement | brighter, wider overtones | cognitive bias $\mathbf b$ |
+
+BRECVEMA sounds play only at the human level with T-Theory on and the
+inspector open. The mapping is a design map (`INTERPRETIVE`), not a measured
+correspondence.
 
 ## Mirror Profile
 
@@ -274,7 +301,8 @@ and render status remain `INTERPRETIVE` unless separately sourced/formalized.
 
 - No assertion of non-human occurrent emotion or intelligence.
 - No clinical diagnostics, prescriptions, or therapeutic control claims.
-- No live audio, MIDI, OSC, biometric input, or projection dependency.
+- No live audio input, MIDI, OSC, biometric input, or projection dependency
+  (optional browser audio output is allowed; see Audio Contract).
 - No advanced/future-time prediction.
 - No claim that every standard equation is derived from the same model.
 
@@ -287,7 +315,8 @@ and render status remain `INTERPRETIVE` unless separately sourced/formalized.
    decay.
 4. The equation ledger, explanation, and visual state agree.
 5. Every visible claim links to a source and carries a claim status.
-6. The application remains usable with no music, MIDI, OSC, audio, or hardware.
+6. The application remains usable with no music, MIDI, OSC, or hardware, and
+   with audio switched off.
 7. Every displayed scale identifies its selected system, salient parts,
   relations, active field, and aggregation rule.
 8. Every curated path edge declares preserved roles, retyped roles, target
