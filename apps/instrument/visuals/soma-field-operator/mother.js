@@ -4,7 +4,7 @@
 // API (answer inline through the local bridge in apps/instrument/mother/,
 // which uses the author's own login; never exposed publicly).
 
-const STORAGE = { mode: 'mother-mode', notebook: 'mother-notebook-url', bridge: 'mother-bridge-url', compare: 'mother-compare' };
+const STORAGE = { mode: 'mother-mode', notebook: 'mother-notebook-url', bridge: 'mother-bridge-url', compare: 'mother-compare', persona: 'mother-persona' };
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
@@ -113,13 +113,27 @@ export function createMother({ getContext }) {
   terminal.setAttribute('role', 'dialog');
   terminal.setAttribute('aria-label', 'MOTHER interface');
   terminal.innerHTML = `
-    <header><span>MU/TH/UR // [T]-THEORY INTERFACE</span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
+    <header><span class="mother-title">MU/TH/UR // [T]-THEORY INTERFACE</span><span class="mother-persona" role="radiogroup" aria-label="Notebook"><label><input type="radio" name="mother-persona" value="mother" autocomplete="off" /> MOTHER</label><label title="H-AL (Hologram Al): the author's private notebook; API mode only"><input type="radio" name="mother-persona" value="hal" autocomplete="off" /> H-AL</label></span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
     <div class="mother-log" aria-live="polite"></div>
     <form class="mother-form"><span>&gt;</span><input class="mother-input" autocomplete="off" placeholder="ASK ABOUT THIS VIEW" /></form>`;
   document.body.append(terminal);
   const log = terminal.querySelector('.mother-log');
   const form = terminal.querySelector('.mother-form');
   const input = terminal.querySelector('.mother-input');
+  const personaInputs = [...terminal.querySelectorAll('.mother-persona input')];
+  const titleSpan = terminal.querySelector('.mother-title');
+  const persona = () => (modeSelect.value === 'api' ? personaInputs.find(radio => radio.checked)?.value ?? 'mother' : 'mother');
+  const syncPersona = () => {
+    terminal.querySelector('.mother-persona').hidden = modeSelect.value !== 'api';
+    titleSpan.textContent = persona() === 'hal' ? 'H-AL // HOLOGRAM AL' : 'MU/TH/UR // [T]-THEORY INTERFACE';
+    terminal.classList.toggle('persona-hal', persona() === 'hal');
+  };
+  for (const radio of personaInputs) {
+    radio.checked = radio.value === read(STORAGE.persona, 'mother');
+    radio.addEventListener('change', () => { write(STORAGE.persona, persona()); syncPersona(); });
+  }
+  modeSelect.addEventListener('change', syncPersona);
+  syncPersona();
   const compareInput = terminal.querySelector('.mother-compare input');
   compareInput.checked = read(STORAGE.compare, 'on') === 'on';
   compareInput.addEventListener('change', () => write(STORAGE.compare, compareInput.checked ? 'on' : 'off'));
@@ -208,7 +222,7 @@ export function createMother({ getContext }) {
       const response = await fetch(`${bridge}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, prompt, context, compare: compareInput.checked, baseline_prompt: composeBaselinePrompt(question, context) }),
+        body: JSON.stringify({ question, prompt, context, persona: persona(), compare: compareInput.checked, baseline_prompt: composeBaselinePrompt(question, context) }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? `HTTP ${response.status}`);
@@ -222,7 +236,7 @@ export function createMother({ getContext }) {
         return block;
       };
       const sources = list => (list?.length ? `<p class="mother-sources">SOURCES: ${list.map((title, index) => `[${index + 1}] ${escapeHtml(title)}`).join('; ')}</p>` : '');
-      section(data.diff ? 'MOTHER / [T]-THEORY' : '', renderAnswer(data.answer ?? '(NO ANSWER)') + sources(data.citations));
+      section(data.diff ? `${persona() === 'hal' ? 'H-AL' : 'MOTHER'} / [T]-THEORY` : '', renderAnswer(data.answer ?? '(NO ANSWER)') + sources(data.citations));
       if (data.diff) {
         section('WHAT [T]-THEORY ADDS', renderAnswer(data.diff), 'mother-answer mother-diff');
         const baseline = document.createElement('details');

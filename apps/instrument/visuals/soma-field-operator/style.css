@@ -242,3 +242,10 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .mother-diff .mother-section { color: #f6c75a; border-color: #f6c75a; }
 .mother-baseline summary { cursor: pointer; margin-top: 10px; color: #8fd0ff; letter-spacing: .12em; font-size: 11px; }
 .mother-sources { color: #4fbf74; font-size: 11px; }
+
+.mother-terminal header .mother-persona { display: flex; gap: 10px; margin-left: 16px; font-size: 10px; }
+.mother-terminal header .mother-persona[hidden] { display: none; }
+.mother-terminal header .mother-persona label { display: flex; align-items: center; gap: 3px; }
+.mother-terminal header .mother-persona input { width: auto; margin: 0; }
+.mother-terminal.persona-hal { color: #ff9a8a; border-color: #b8402e; box-shadow: 0 0 40px rgba(255,60,40,.2), inset 0 0 60px rgba(255,60,40,.05); text-shadow: 0 0 6px rgba(255,90,70,.5); }
+.mother-terminal.persona-hal header, .mother-terminal.persona-hal .mother-form { border-color: #b8402e; }

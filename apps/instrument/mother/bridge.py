@@ -44,6 +44,11 @@ def notebook_id() -> str:
     return value
 
 
+def hal_id() -> str | None:
+    # H-AL ("Hologram Al"): the author's private notebook (MOTHER's sources plus Phase Dot and chats).
+    return os.environ.get("MOTHER_HAL_ID") or local_config().get("hal_notebook_id")
+
+
 def baseline_id() -> str | None:
     # Optional reference notebook of mainstream sources (the lens-off answer).
     return os.environ.get("MOTHER_BASELINE_ID") or local_config().get("baseline_notebook_id")
@@ -64,10 +69,11 @@ Reply concisely in three short sections: 1. ADDS: what B adds that A does not co
 class Bridge:
     """One event loop and one NotebookLM client shared by all requests."""
 
-    def __init__(self, notebook: str, baseline: str | None = None) -> None:
+    def __init__(self, notebook: str, baseline: str | None = None, hal: str | None = None) -> None:
         self.notebook = notebook
         self.baseline = baseline
-        self.baseline_conversation: str | None = None
+        self.hal = hal
+        self.conversations: dict[str, str] = {}
         self.loop = asyncio.new_event_loop()
         threading.Thread(target=self.loop.run_forever, daemon=True).start()
         self.client = None
@@ -77,7 +83,7 @@ class Bridge:
     async def _ensure(self) -> None:
         if self.client is None:
             self.client = await NotebookLMClient.from_storage().__aenter__()
-            for notebook in filter(None, (self.notebook, self.baseline)):
+            for notebook in filter(None, (self.notebook, self.baseline, self.hal)):
                 for source in await self.client.sources.list(notebook):
                     self.titles[source.id] = getattr(source, "title", None) or source.id
 
@@ -100,19 +106,22 @@ class Bridge:
                 seen.append(title)
         return seen
 
-    async def _ask(self, prompt: str, question: str, compare: bool) -> dict:
+    async def _ask(self, prompt: str, question: str, compare: bool, persona: str = "mother") -> dict:
         await self._ensure()
+        notebook = self.hal if persona == "hal" else self.notebook
+        if not notebook:
+            raise ValueError("no H-AL notebook configured (hal_notebook_id)")
         if not (compare and self.baseline):
-            result = await self._chat(self.notebook, prompt, self.conversation)
-            self.conversation = result.conversation_id
+            result = await self._chat(notebook, prompt, self.conversations.get(notebook))
+            self.conversations[notebook] = result.conversation_id
             return {"answer": result.answer, "citations": self._cited(result)}
-        # Lens off and lens on in parallel, then the difference.
+        # Lens off (mainstream reference notebook) and lens on in parallel, then the difference.
         result, baseline = await asyncio.gather(
-            self._chat(self.notebook, prompt, self.conversation),
-            self._chat(self.baseline, question, self.baseline_conversation),
+            self._chat(notebook, prompt, self.conversations.get(notebook)),
+            self._chat(self.baseline, question, self.conversations.get(self.baseline)),
         )
-        self.conversation = result.conversation_id
-        self.baseline_conversation = baseline.conversation_id
+        self.conversations[notebook] = result.conversation_id
+        self.conversations[self.baseline] = baseline.conversation_id
         diff = await self._chat(
             self.baseline, DIFF_PROMPT.format(question=question, baseline=baseline.answer, answer=result.answer), None
         )
@@ -123,8 +132,8 @@ class Bridge:
             "diff": diff.answer,
         }
 
-    def ask(self, prompt: str, question: str = "", compare: bool = False) -> dict:
-        coroutine = self._ask(prompt, question or prompt, compare)
+    def ask(self, prompt: str, question: str = "", compare: bool = False, persona: str = "mother") -> dict:
+        coroutine = self._ask(prompt, question or prompt, compare, persona)
         return asyncio.run_coroutine_threadsafe(coroutine, self.loop).result(timeout=300)
 
 
@@ -161,7 +170,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         if self.path == "/health":
-            self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline})
+            self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal)})
         else:
             self._json(404, {"error": "not found"})
 
@@ -180,7 +189,8 @@ class Handler(BaseHTTPRequestHandler):
             if not prompt:
                 self._json(400, {"error": "empty question"})
                 return
-            self._json(200, self.bridge.ask(prompt[:8000], question[:4000], bool(data.get("compare"))))
+            persona = "hal" if data.get("persona") == "hal" else "mother"
+            self._json(200, self.bridge.ask(prompt[:8000], question[:4000], bool(data.get("compare")), persona))
         except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
             print("[mother] client went away before the answer arrived")
         except RateLimitError:
@@ -196,7 +206,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    Handler.bridge = Bridge(notebook_id(), baseline_id())
+    Handler.bridge = Bridge(notebook_id(), baseline_id(), hal_id())
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     print(f"MOTHER bridge on http://127.0.0.1:{PORT} (notebook {Handler.bridge.notebook}); Ctrl+C to stop")
     server.serve_forever()

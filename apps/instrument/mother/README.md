@@ -30,6 +30,17 @@ python -m venv .venv; .\.venv\Scripts\python -m pip install -r requirements.txt
 
 Then in the app: Settings → MOTHER → API / LOCAL BRIDGE, and press ASK MOTHER.
 
+## H-AL
+
+H-AL ("Hologram Al") is the author's private notebook: MOTHER's sources plus
+Phase Dot and the chat archive. Pick MOTHER or H-AL with the switch in the
+terminal header (API mode only; WEB mode is always MOTHER). Configure with
+`hal_notebook_id` in `mother.local.json`. H-AL's terminal is red.
+
+Compare mode (API): also set `baseline_notebook_id`, a notebook of mainstream
+reference sources (lens off). The terminal then shows the answer, WHAT
+[T]-THEORY ADDS, and the mainstream answer.
+
 ## Notes
 
 - Every question carries the view (level, scale, response time, path, model,
