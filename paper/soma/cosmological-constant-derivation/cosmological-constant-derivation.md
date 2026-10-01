@@ -7,7 +7,8 @@ lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  We derive the cosmological constant $\Lambda$ as the vacuum expectation value
+  Within the USF compactification model, we derive a candidate expression for
+  the cosmological constant $\Lambda$ as the vacuum expectation value
   of the trace of the Universal Somatic Field tensor: $\Lambda \equiv \langle
   \mathrm{tr}\,\Phi_{\mu\nu}\rangle_0$. The identification avoids the standard
   zero-point-energy approach (which overshoots by $10^{117}$) by treating $\Lambda$
@@ -17,9 +18,9 @@ abstract: |
   is a natural Planck-scale compactification value. The leading-order estimate
   gives $\Lambda_\text{USF} \approx H_0^2/c^2 \approx 0.49\,\Lambda_\text{obs}$;
   including the compact-dimension fraction (7 compact / 11 total) refines this to
-  $\Lambda_\text{USF} = (21/11)H_0^2/c^2 \approx 0.93\,\Lambda_\text{obs}$ — a 7\%
-  discrepancy attributable to Calabi-Yau moduli geometry. The formal proof of the
-  cosmological correspondence axiom requires linearised general relativity in Mathlib.
+  $\Lambda_\text{USF} = (21/11)H_0^2/c^2 \approx 0.93\,\Lambda_\text{obs}$ — a 7.1\%
+  discrepancy attributed here to open Calabi-Yau/$G_2$ moduli geometry. The full
+  physical cosmological correspondence requires linearised general relativity in Mathlib.
 ---
 
 # The Cosmological Constant Problem — USF Reframing
@@ -62,8 +63,8 @@ is the vacuum amplitude of the somatic tensor trace, and $M_\text{Pl}^2 = \hbar 
 
 From the Friedmann equation:
 $$\Lambda_\text{obs} = \frac{3\Omega_\Lambda H_0^2}{c^2}
-  \approx 1.09\times10^{-52}\,\text{m}^{-2} \quad (\Omega_\Lambda = 0.683,\;
-  H_0 = 67.4\;\text{km/s/Mpc})$$
+  \approx 1.09\times10^{-52}\,\text{m}^{-2} \quad (\Omega_\Lambda = 0.6847,\;
+  H_0 = 67.36\;\text{km/s/Mpc})$$
 
 Setting $\Lambda_\text{USF} = \Lambda_\text{obs}$ and solving for $\Phi_0$:
 $$\Phi_0 = \sqrt{\frac{\Lambda_\text{obs}\,M_\text{Pl}^2 c^2}{k_\text{cosm}^2}}
@@ -85,7 +86,8 @@ Zoom Operator are developed in [@johnson2026usf]. At the Planck scale
 $$\Phi_0^{(\sigma=0)} \sim \ell_P^{-1} = M_\text{Pl}/(\hbar c)$$
 
 The Zoom Operator $\Lambda:\sigma\mapsto k(\sigma)$ acts on the field by
-the geometric RG flow (proved: `GeometricRGFlow_waveEquation`):
+the geometric RG flow (kernel-checked in `RenormalisationGroup.lean` as
+`geometricFlow_waveEquation`):
 $$k(\sigma) = k_0\,/\,\Lambda^\sigma$$
 
 where $\Lambda$ is the scale factor of the zoom step. At $\sigma=19$:
@@ -116,7 +118,7 @@ once $\Lambda$ is fixed, not the input.
 
 ## Preliminary first-order estimate
 
-$$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.7\times10^{-53}\,\text{m}^{-2}$$
+$$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.30\times10^{-53}\,\text{m}^{-2}$$
 $$\frac{\Lambda_\text{USF}^\text{(1)}}{\Lambda_\text{obs}} = \frac{1}{3\Omega_\Lambda} \approx 0.49$$
 
 This unrefined calculation captures 49\% of the observed value. The factor
@@ -134,7 +136,7 @@ total dimensions:
   matter, radiation, and curvature.
 
 The leading-order vacuum energy partition fraction is:
-$$\Omega_\text{vac}^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.636$$
+$$\Omega_\text{vac}^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.6364$$
 
 The complementary non-compact spatial-sector accounting is developed in the
 companion dark-matter analysis [@johnson2026darkmatter].
@@ -150,21 +152,22 @@ $$\Lambda_\text{USF} = 3 \times \frac{7}{11} \times \frac{H_0^2}{c^2}
   = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.01\times10^{-52}\;\text{m}^{-2}$$
 
 $$\frac{\Lambda_\text{USF}}{\Lambda_\text{obs}} = \frac{7/11}{\Omega_\Lambda}
-  = \frac{0.636}{0.683} = 0.932 \quad (93\%\text{ of observed, using the rounded current-Lean value})$$
+  = \frac{0.6364}{0.6847} = 0.929 \approx 0.93 \quad (93\%\text{ of observed})$$
 
-Using exact Planck 2018 TT,TE,EE+lowE+lensing values would give $0.63636 / 0.6847 \approx 0.9296$, about 7.0--7.1\% low.
+This uses the exact Planck 2018 TT,TE,EE+lowE+lensing baseline and is 7.1\% low.
 
-The 7\% discrepancy is the Calabi-Yau moduli correction:
-the actual $G_2$-holonomy metric on $X_7$ departs from
-simple dimension-counting by $\sim 7\%$, consistent with
+The 7.1\% discrepancy is assigned here to an open compactification-geometry
+correction: the actual metric data on $X_7$ may depart from simple
+dimension-counting by $\sim 7\%$, consistent with possible
 $\mathcal{O}(\alpha')$ corrections in string compactifications.
-This is the content of axiom `calabi_yau_rg_coefficients`.
+This is the content of the open axiom `calabi_yau_rg_coefficients`, not a
+computed correction.
 
 **Note on $\Omega_\Lambda(t)$.** The parameter
 $\Omega_\Lambda(t) = \rho_\Lambda/\rho_\text{crit}(t)$ is time-dependent.
 The ratio 7/11 is the constant topological partition of vacuum energy,
-not the dynamic density ratio. The 7\% agreement between 7/11 and the
-current $\Omega_\Lambda^\text{obs} = 0.683$ is an empirical consistency
+not the dynamic density ratio. The 7.1\% agreement between 7/11 and the
+current $\Omega_\Lambda^\text{obs} = 0.6847$ is an empirical consistency
 check: $\rho_\Lambda$ is constant while $\rho_\text{crit}(t)$ varies.
 
 ---
@@ -180,13 +183,13 @@ using Lean 4 [@leanprover2021]:
 | Statement | Lean name | Status |
 |---|---|---|
 | 7/11 vacuum partition | `omega_lambda_fraction` | **proved** (`native_decide`) |
-| Rounded-value discrepancy bound; update `CosmologicalConstant.lean` together with the paper if exact Planck values are adopted | `omega_lambda_discrepancy_small` | **proved for rounded current-Lean values** (`norm_num`) |
-| $\Phi_0 \sim M_\text{Pl}$ from compactification | `cosmological_constant_identification` | axiom |
-| $\Lambda$ exists at scale 19 | `cosmological_correspondence` | **proved** (weak form) |
-| Geometric RG flow consistency | `GeometricRGFlow_waveEquation` | **proved** |
-| Calabi-Yau moduli coefficients | `calabi_yau_rg_coefficients` | axiom |
+| Planck 2018 discrepancy bound | `omega_lambda_discrepancy_small` | **proved for exact Planck 2018 values** (`norm_num`) |
+| Positive vacuum amplitude witness | `cosmological_constant_identification` | **proved weak form** (`∃ Phi0 > 0`) |
+| $\Lambda$ exists at scale 19 | `cosmological_correspondence` | **proved weak form** (field-equation inhabitance) |
+| Geometric RG flow consistency | `geometricFlow_waveEquation` | **proved** |
+| Calabi-Yau moduli coefficients | `calabi_yau_rg_coefficients` | axiom in `RenormalisationGroup.lean` |
 | Universe satisfies 11D structure | `universe_is_11D_organism` | axiom |
-| $w = -1$ equation of state | `usf_equation_of_state` | axiom (needs GR) |
+| $w = -1$ equation of state | `usf_equation_of_state` | **proved from LocalGR axioms** |
 
 ## Remaining proof obligations
 
@@ -197,17 +200,19 @@ using Lean 4 [@leanprover2021]:
 
 2. **Moduli geometry coefficients.** The factor $3\Omega_\Lambda \approx 2.05$
    requires computing the projection of the 11D USF onto $M_4$ through the
-   Calabi-Yau fibre. This is the content of axiom `calabi_yau_rg_coefficients`.
+   Calabi-Yau fibre. This is the content of the open axiom
+   `calabi_yau_rg_coefficients`.
 
 3. **Renormalisation and propagator finiteness.** The USF 1-loop effective
    action needs to be shown UV-finite at the compactification cutoff
    $k_c = \ell_s^{-1}$. Because the framework replaces standard SHO mode-sums
    with non-local Green function propagators, UV-finiteness is naturally
    enforced via boundary-condition regulation rather than counter-term
-   subtraction. For the free field (proved via OS axioms), UV-finiteness
-  follows directly from OS3 reflection positivity [@osterwalder1973]. For the interacting field,
-  this is the open programme of *Osterwalder–Schrader Axioms for the
-  Interacting Universal Somatic Field*.
+  subtraction. For the free field, the current repository applies imported
+  OSforGFF/Osterwalder--Schrader structure to the Gaussian free-field model
+  [@osterwalder1973]. Extending this to a USF interaction and deriving
+  UV-finiteness from it is the open programme of *Osterwalder–Schrader Axioms
+  for the Interacting Universal Somatic Field*.
 
 ---
 
@@ -242,7 +247,7 @@ In the USF framework:
   Calabi-Yau projection distributes the 7 compact dimensions' contribution
   equally across $M_4$, giving a multiplier of 3 (Friedmann) plus the
   contribution from the compact fibre.
-- $\Omega_\Lambda \approx 0.683$ is the fraction of critical density in the
+- $\Omega_\Lambda \approx 0.6847$ is the fraction of critical density in the
   cosmological constant. In the USF, this corresponds to the fraction of the
   somatic field vacuum energy that couples to the 4D metric (the rest couples
   to the compact dimensions and is not observable as $\Lambda$).
@@ -268,17 +273,16 @@ $\Lambda$ is a classical USF condensate; it would require either a dynamical
 | DESI + CMB + Union3 | $-0.640\pm0.110$ | $3.3\sigma$ | Tension |
 | DESI + CMB + DES SN5YR | $-0.727\pm0.067$ | $4.1\sigma$ | **NO** (1:4029 odds) |
 
-The tension is entirely driven by the DES SN5YR supernova compilation.
-Pantheon+ — the other leading SNIa dataset — gives $w_0 = -0.990$,
-indistinguishable from $-1$. This pattern is consistent with a
-**systematic offset** in DES SN5YR photometric calibration rather than
-genuine dark energy dynamics. DESI DR2 (late 2025) and Euclid will
-resolve whether the tension persists with independent SNIa samples.
+In this table the strongest tension appears in the DES SN5YR supernova
+combination, while Pantheon+ gives $w_0 = -0.990$, indistinguishable from
+$-1$. This pattern is consistent with, but does not prove, a systematic offset
+or modelling difference in one supernova compilation. Independent future
+supernova and BAO samples can test whether the tension persists.
 
 **Current verdict:** USF is *consistent* with DESI BAO + Pantheon+ (the
-more mature dataset). The DES SN5YR tension, if real, falsifies this
-cosmological-constant model. The
-result is on a knife edge — it is the most important live test in cosmology.
+more mature dataset). The DES SN5YR tension, if confirmed as physical rather
+than systematic, would falsify this cosmological-constant model. This is one
+of the most important live tests of the proposal.
 
 **Null variation of Λ with redshift.** The USF condensate amplitude is fixed
 by the Planck-scale boundary condition at $\sigma = 0$ and does not evolve
@@ -306,12 +310,12 @@ trace, $\Lambda = k_\text{cosm}^2\,\Phi_0^2/M_\text{Pl}^2$, where $\Phi_0 \sim
 0.4\,M_\text{Pl}$ is the natural Planck-scale background amplitude of the 11D
 somatic field. This gives $\Lambda_\text{USF} \approx H_0^2/c^2$, within a factor
 of 2 of $\Lambda_\text{obs}$. The remaining factor $3\Omega_\Lambda \approx 2.05$
-is attributable to the Calabi-Yau moduli geometry.
+is attributed here to an open Calabi-Yau/$G_2$ moduli-geometry correction.
 
 The derivation sidesteps the fine-tuning problem: $\Lambda$ is not
 the sum of vacuum fluctuations but the amplitude of a compactification-scale
 classical condensate. The compact-dimension fraction $7/11$ brings the
-estimate to 93\% of $\Lambda_\text{obs}$ — a 7\% discrepancy from the
+estimate to 93\% of $\Lambda_\text{obs}$ — a 7.1\% discrepancy from the
 Calabi-Yau moduli correction.
 
 The primary remaining formal obligation is linearised GR in Mathlib.
@@ -319,7 +323,7 @@ The primary remaining formal obligation is linearised GR in Mathlib.
 $$\boxed{\Lambda_\text{USF} = \frac{21}{11}\,\frac{H_0^2}{c^2}
   \approx 1.01\times10^{-52}\;\text{m}^{-2}
   \quad\text{vs}\quad
-  \Lambda_\text{obs} \approx 1.09\times10^{-52}\;\text{m}^{-2} \;(7\%\text{ off})}$$
+  \Lambda_\text{obs} \approx 1.09\times10^{-52}\;\text{m}^{-2} \;(7.1\%\text{ low})}$$
 
 ---
 

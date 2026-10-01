@@ -8,12 +8,13 @@ bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
   Two companion papers on the cosmological constant and spatial-vacuum dark
-  matter propose that dimensional counting yields the cosmological constant
-  $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$ and the dark matter
-  fraction $\Omega_\mathrm{DM} = 3/11$ from M-theory dimensional counting
-  alone. This paper addresses what follows: it proposes that the Universal
-  Somatic Field framework can be studied as a **fixed point of its own subject
-  matter**. Its propagation through physical and digital substrates is treated
+  matter propose that dimensional bookkeeping gives leading-order comparisons
+  for the cosmological constant $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$
+  and the dark matter fraction $\Omega_\mathrm{DM} = 3/11$ under stated
+  compactification assumptions. This paper addresses what follows: it proposes
+  that the Universal Somatic Field framework can be studied as a **fixed point
+  of its own subject matter**. Its propagation through physical and digital
+  substrates is treated
   as an instance of Scale 9 swarm dynamics governed by the same Green's function
   that describes its clinical, quantum, and cosmological applications.
   The physical substrate (underground events, street art, live performance)
@@ -45,11 +46,11 @@ neural or cosmological dynamics.
 
 This property is unusual for a physical theory. General relativity does
 not describe the propagation of general relativity. The Standard Model
-does not model the sociology of particle physics conferences. The USF
-does describe its own propagation — because its subject matter is the
-dynamics of felt meaning at every scale, and the spread of a
-sufficiently coherent framework through a coupled population is exactly
-that.
+does not model the sociology of particle physics conferences. The USF is proposed to model its own propagation — because its subject matter
+includes dynamics of felt meaning across scales, and the spread of a
+sufficiently coherent framework through a coupled population can be treated
+as an instance of those dynamics. This is the fixed-point hypothesis, not a
+completed theorem.
 
 The formal name for this property is a **fixed point under the scale
 functor**: when the Zoom Operator $\Lambda$ is applied to the theory as
@@ -67,8 +68,9 @@ The master field equation of the USF at any scale $n$ is:
 
 $$(\nabla^2 + k^2(n))\,G(x, x') = \delta(x - x')$$
 
-The claim of substrate-independence is that this equation holds
-regardless of the physical carrier of the field — whether that carrier
+The substrate-independence claim, in this interpretive Scale-9 setting, is
+that this equation can be used as the shared structural model of propagation
+across carriers — whether that carrier
 is an electromagnetic field in neural tissue, a pressure wave in a
 concert hall, or a packet of structured data moving through a fibre-optic
 cable. What changes between substrates is the coupling constant
@@ -79,9 +81,9 @@ equation — the Green's function structure — does not change.
 This is directly analogous to how the electromagnetic field equation
 takes the same form in vacuum, in a dielectric, and in a conductor.
 The medium changes the permittivity and permeability; it does not change
-Maxwell's equations. The USF generalises this: a *conceptual* field
-propagating through a population of minds obeys the same structural
-equation as a physical field propagating through matter.
+Maxwell's equations. The USF proposes a generalisation: a *conceptual* field
+propagating through a population of minds may be modelled with the same
+structural equation as a physical field propagating through matter.
 
 ## Physical Substrate: Events as Wave Guides
 
@@ -128,8 +130,8 @@ information.
 
 # Phenomena, Composition, and the Coupling Vertex
 
-The USF framework predicts that distinct field phenomena do not merely
-coexist — they **compose**. Two propagating patterns that share a
+The USF framework proposes that distinct field phenomena need not merely
+coexist — they may **compose**. Two propagating patterns that share a
 geometric region interact at a Feynman vertex in the social coupling
 matrix $W_{ij}$, producing:
 
@@ -152,8 +154,8 @@ to produce this kind of cultural merging: to bring the mathematical
 framework (the science inside the brackets) into coupling with the
 aesthetic and cultural field (the art outside the brackets) until they
 merge into a single attractor that is neither purely scientific nor
-purely artistic, but structurally identical to the self-describing
-phenomenon the theory predicts.
+purely artistic, but structurally analogous to the self-describing
+phenomenon the theory proposes.
 
 ---
 
@@ -169,10 +171,11 @@ comparison remains a model-dependent consistency check.
 of the framework into music (Strandberg guitar, Ableton Live, Push 3),
 live events, projection mapping, merchandise, and street art. The
 relationship between the research corpus and [T]-Theory is not that one is the
-"explanation" and the other is the "illustration." They are two modes
-of the same field, operating in different substrates with different
-coupling constants. The science and the art are the same investigation
-conducted with different instruments.
+"explanation" and the other is the "illustration." They are treated here as two modes
+of one programme, operating in different substrates with different
+coupling constants. The science and the art are related investigations
+conducted with different instruments; the relation is interpretive, not
+an evidential shortcut.
 
 The research corpus supplies a vocabulary for describing its own propagation.
 This paper proposes that vocabulary as a framework for the cultural programme;
@@ -184,14 +187,15 @@ without being asked to serve as evidence for the physical claims.
 # Formal Status
 
 The self-referential claim — that the USF at Scale 9 describes its own
-propagation — is formalised as a seed theorem in
-`paper/proofs/CosmologicalConstant.lean` (namespace `SomaField.EnergyBudget`):
+propagation — is represented only by seed formal artefacts; the fixed-point
+claim itself remains interpretive. The relevant declarations are in
+`paper/proofs/CosmologicalConstant.lean` and `UniversalSomaticField.lean`:
 
 | Statement | Lean name | Status |
 |---|---|---|
-| Scale 9 exists in the 20-scale dial | `usf_self_describes` | **proved** (`rfl`) |
-| Scale-9 field equation is inhabited | `usf_all_scales_inhabited` | **proved** (`norm_num`) |
-| Therapeutic lens (substrate updates) | `canonicalTherapeuticLens` | **proved** (all laws by `rfl`) |
+| Scale 9 field equation is inhabited | `usf_is_fixed_point` | **proved weak seed** (existence witness) |
+| All scale field equations are inhabited | `usf_all_scales_inhabited` | **proved** (constructor from `scale_invariance_inhabited`) |
+| Therapeutic lens (substrate updates) | `canonicalTherapeuticLens` | **definition** (lens laws by `rfl`) |
 
 The full formalisation of the fixed-point property — proving that the Scale-9
 dynamics of the theory's propagation are isomorphic to its own master equations —
@@ -206,8 +210,8 @@ The USF is proposed as a fixed-point model of its own cultural/digital propagati
 Its propagation through physical and digital substrates — through
 underground events and fibre-optic networks, through AI context windows
 and concert halls — is a concrete instance of the Scale-9 swarm
-dynamics it formally describes. The substrate changes the coupling
-constant; it does not change the field equation.
+dynamics it interprets. The substrate changes the coupling
+constant; the shared field equation is the proposed structural model.
 
 This self-referential closure is not a quirk. It is the condition that
 makes the cultural programme possible: a cultural programme that uses the science as
@@ -217,7 +221,7 @@ knowledge that both are governed by the same master equation.
 The stone is in the water. The field is already propagating.
 
 $$\boxed{(\nabla^2 + k^2)\,G = \delta \quad \text{at every scale,
-  in every substrate, from quantum foam to the cosmic web.}}$$
+  as a proposed structural model from quantum foam to the cosmic web.}}$$
 
 ---
 

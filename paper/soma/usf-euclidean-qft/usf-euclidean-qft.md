@@ -6,9 +6,11 @@ institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
 lang: en-GB
 abstract: |
-  We prove that the free-field limit of the Universal Somatic Field (USF)
-  satisfies all five Osterwalder–Schrader (OS) axioms for a Euclidean quantum
-  field theory. Named free-GFF theorem applications are Lean-checked; USF=GFF is a model assumption / co-identification, and the wider proof surface has seven real sorries. The key identification is that the USF
+  We show that the free-Gaussian representation of the Universal Somatic Field
+  (USF) inherits all five Osterwalder–Schrader (OS) axioms for a Euclidean
+  quantum field theory. Named free-GFF theorem applications are Lean-checked;
+  USF=GFF is a model assumption / co-identification, and the wider proof
+  surface has seven real sorries. The key identification is that the USF
   Green's function in momentum space, $G(p) = 1/(p^2 + k^2)$, is
   identical to the massive Gaussian Free Field (GFF) propagator with mass
   parameter $m = k$. Douglas, Hoback, Mei and Nissim (2026) established,
@@ -16,14 +18,14 @@ abstract: |
   satisfies OS0 (analyticity), OS1 (regularity), OS2 (Euclidean
   invariance), OS3 (reflection positivity) and OS4 (clustering). Under the
   identification $m \leftrightarrow k$ the USF inherits all five axioms.
-  Reflection positivity (OS3) is the critical result: it guarantees the
-  existence of a physical Hilbert space and the legitimacy of Wick rotation
-  to Minkowski signature. We show that the Minkowski continuation of the
-  free-field USF is precisely the retarded propagator proved causal in the
-  companion paper on temporal dynamics. This places the USF rigorously
-  within the axiomatic framework of constructive quantum field theory and
-  opens the path to proving OS axioms for the interacting (Hopfield-coupled)
-  theory.
+  Reflection positivity (OS3) is the critical result: it is one of the
+  conditions used to reconstruct a physical Hilbert space and justify Wick
+  rotation to Minkowski signature. We compare the Minkowski continuation of the
+  free-field USF with the retarded propagator treated in the companion paper on
+  temporal dynamics. This places the free-Gaussian USF
+  model, under its stated identification, within the axiomatic framework of
+  constructive quantum field theory and opens the path to proving OS axioms
+  for the interacting (Hopfield-coupled) theory.
 keywords:
   - Osterwalder–Schrader axioms
   - Euclidean quantum field theory
@@ -46,19 +48,21 @@ The Universal Somatic Field (USF) was introduced as a scale-invariant
 field-theoretic model of emotional and somatic dynamics, characterised by a
 Helmholtz Green's function governing propagation across twenty orders of
 magnitude from quantum foam to cosmological scales [@johnson2026soma].
-Subsequent papers established the field's attractor structure, its
-M-theory compactification embedding, and its machine-verified Lean 4
-formalisation spanning multiple proof files [@johnson2026proofs]. The
-temporal dynamics paper proved that the retarded propagator of the free-field
-USF is causal and that the Somatic Memory Kernel decays exponentially with
-characteristic relaxation time $\tau$ [@johnson2026temporal].
+Subsequent papers developed the field's attractor structure, its
+M-theory compactification embedding, and its Lean 4 formalisation spanning
+multiple proof files with mixed statuses [@johnson2026proofs]. The
+temporal dynamics paper states Lean theorems for the model retarded
+propagator and Somatic Memory Kernel, including causal support and exponential
+decay with characteristic relaxation time $\tau$ [@johnson2026temporal].
 
-A fundamental question remained open: does the USF constitute a *valid*
-quantum field theory in the rigorous mathematical sense? Quantum field
+A fundamental question remained open: can the free-field USF be represented by
+a mathematically valid quantum field theory in the rigorous Euclidean sense?
+Quantum field
 theories are not generically well-defined; the Osterwalder–Schrader (OS)
 axioms [@osterwalder1973] provide the canonical framework for determining
 whether a Euclidean field theory possesses a consistent Minkowski
-interpretation. Satisfaction of all five OS axioms guarantees:
+interpretation. In the standard Osterwalder--Schrader reconstruction setting, satisfaction of
+the axioms supports:
 
 1. **OS0 — Analyticity**: the generating functional is entire analytic;
 2. **OS1 — Regularity**: polynomial bounds on the generating functional;
@@ -79,7 +83,7 @@ Douglas, Hoback, Mei and Nissim [-@douglas2026osgff] to satisfy OS0–OS4.
 
 Section 2 states the free-field USF and its propagator. Section 3 recalls
 the GFF and the Douglas et al. result. Section 4 establishes the
-identification and derives the OS axioms. Section 5 discusses the physical
+identification and transfers the OS axioms in the formal model. Section 5 discusses the physical
 interpretation, including the Minkowski continuation and the connection to
 the temporal dynamics proof. Section 6 outlines the path to the interacting
 theory.
@@ -124,9 +128,9 @@ $$
 C_{\mathrm{GFF}}(p) = \frac{1}{p^2 + m^2}.
 $$
 
-Douglas, Hoback, Mei and Nissim [-@douglas2026osgff] proved in Lean 4 — with
-zero sorries and zero extra axioms, across approximately 32\,000 lines of
-formalisation — the following master theorem:
+Douglas, Hoback, Mei and Nissim [-@douglas2026osgff] report a Lean 4
+formalisation — with zero sorries and zero extra axioms, across approximately
+32\,000 lines — of the following master theorem:
 
 > **Theorem (Douglas et al. 2026).** For every $m > 0$, the GFF measure
 > $\mu_{\mathrm{GFF}}(m)$ satisfies all five Osterwalder–Schrader axioms
@@ -157,9 +161,10 @@ G_{\mathrm{USF}}(p) = \frac{1}{p^2 + k^2}
 = C_{\mathrm{GFF}}(p)\big|_{m = k}.
 $$
 
-Under the identification $m \leftrightarrow k$, the free-field USF *is* the
-Gaussian Free Field. The two theories are identical as probability measures
-on the space of field configurations.
+Under the identification $m \leftrightarrow k$, the free-field USF is
+represented by the Gaussian Free Field. The formal covariance kernels coincide;
+identifying this representation with the physical USF remains a model
+assumption.
 
 ### 4.2 The Lean 4 proof
 
@@ -194,18 +199,18 @@ theorem USF_OS4_Clustering (k : ℝ) [Fact (0 < k)] :
   (gaussianFreeField_satisfies_all_OS_axioms k).os4_clustering
 ```
 
-The full project builds with `lake build`, yielding zero errors and zero
-sorries across all proof files.
+`USF_OSAxioms.lean` contains no `sorry`; the current repository-wide proof
+surface still contains seven real `sorry`s in other files.
 
 ### 4.3 Axiom inventory
 
-| Axiom | Statement | Proved by |
+| Axiom | Statement | Local Lean surface |
 |---|---|---|
-| OS0 Analyticity | $Z[f]$ is entire analytic | `gaussianFreeField_satisfies_OS0` |
-| OS1 Regularity | Polynomial bounds on $Z[f]$ | `gaussianFreeField_satisfies_OS1_revised` |
-| OS2 Euclidean invariance | $Z$ invariant under $E(4)$ | `gaussian_satisfies_OS2` |
-| OS3 Reflection positivity | Physical Hilbert space exists | `QFT.gaussianFreeField_OS3` |
-| OS4 Clustering | Exponential decay at large separation | `QFT.gaussianFreeField_satisfies_OS4` |
+| OS0 Analyticity | $Z[f]$ is entire analytic | `USF_OS0_Analyticity`, imported from OSforGFF |
+| OS1 Regularity | Polynomial bounds on $Z[f]$ | bundled in `freefield_USF_satisfies_OS_axioms` |
+| OS2 Euclidean invariance | $Z$ invariant under $E(4)$ | bundled in `freefield_USF_satisfies_OS_axioms` |
+| OS3 Reflection positivity | OS reconstruction positivity condition | `USF_OS3_ReflectionPositivity`, imported from OSforGFF |
+| OS4 Clustering | Exponential decay at large separation | `USF_OS4_Clustering`, imported from OSforGFF |
 
 All five are established via `SatisfiesAllOS (μ_GFF k)` with
 `k` playing the role of the GFF mass parameter.
@@ -218,36 +223,37 @@ All five are established via `SatisfiesAllOS (μ_GFF k)` with
 
 OS3 is the most physically significant axiom. It states that the Euclidean
 field theory satisfies a certain positivity condition with respect to
-time-reflection, which is precisely the condition that guarantees a Wick
-rotation to a *unitary* Minkowski quantum field theory. Formally, it ensures
-the existence of a Hilbert space $\mathcal{H}$, a Hamiltonian $H$, and
-field operators $\hat\phi(x)$ satisfying the Wightman axioms after analytic
-continuation $\tau \to it$.
+time-reflection, which is one of the hypotheses used in the OS reconstruction
+of a unitary Minkowski theory. Formally, in the standard setting, it supports
+the construction of a Hilbert space $\mathcal{H}$, a Hamiltonian $H$, and
+field operators $\hat\phi(x)$ after analytic continuation $\tau \to it$.
 
-For the USF, OS3 means that the somatic field has a consistent quantum
-interpretation: the Euclidean field configurations encode a genuine quantum
-state space, with physical observables defined on $\mathcal{H}$.
+For the free-Gaussian USF representation, OS3 means that the formal Euclidean
+model has the reflection-positivity property required for that reconstruction.
+It does not by itself establish the physical interpretation of somatic
+observables.
 
 ### 5.2 Connection to the retarded propagator
 
-The temporal dynamics companion paper [@johnson2026temporal] proved in Lean 4
-that the retarded propagator of the free-field USF is:
+The temporal dynamics companion paper [@johnson2026temporal] contains a Lean
+theorem for the model retarded propagator:
 
 $$
 G_R(t) = \theta(t)\,e^{-\gamma t}\,\sin(\omega t)/\omega,
 $$
 
-causal ($G_R(t) = 0$ for $t < 0$) and bounded. This retarded propagator is
-precisely the Minkowski continuation of the Euclidean GFF propagator under
-$t_E \to it$. The two proofs are thus complementary:
+causal ($G_R(t) = 0$ for $t < 0$) and bounded. This retarded propagator is compared with the Minkowski continuation of the
+Euclidean GFF propagator under $t_E \to it$. The two proof surfaces are thus
+complementary under the free-field identification:
 
 | Proof | File | Statement |
 |---|---|---|
 | Euclidean: OS axioms hold | `USF_OSAxioms.lean` | `SatisfiesAllOS (μ_GFF k)` |
 | Minkowski: retarded propagator is causal | `TemporalDynamics.lean` | `somaticRetardedPropagator_isRetarded` |
 
-Together, they establish that the free-field USF is a fully consistent quantum
-field theory with a well-defined causal Minkowski evolution.
+Together, they support the consistency of the free-field formal model: the
+Euclidean side has imported OS structure, and the temporal model has a causal
+retarded kernel.
 
 ### 5.3 OS4 and the Somatic Memory Kernel
 
@@ -259,18 +265,18 @@ $$
 \quad\text{as }|x|\to\infty.
 $$
 
-In the USF context this is the field-theoretic foundation of the Somatic
-Memory Kernel $K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$ introduced in
-the temporal dynamics paper. The clustering rate is $k = 1/\tau_m$, and the
-exponential decay rate of somatic memory is the same parameter that sets the
-correlation length of the Euclidean field. Trauma persistence corresponds to
-small $k$ (long correlation length); rapid recovery to large $k$.
+In the USF context this motivates the Somatic Memory Kernel
+$K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$ introduced in the temporal
+dynamics paper. The model identifies the clustering rate with $k = 1/\tau_m$,
+so longer model memory corresponds to smaller $k$ (longer correlation length).
+Clinical interpretation remains hypothetical.
 
 ---
 
 ## 6 Path to the Interacting Theory
 
-The present result establishes the OS axioms for the *free*-field USF. The
+The present result transfers the OS axioms for the *free*-field USF
+representation. The
 physically richer theory includes the Hopfield coupling:
 
 $$
@@ -309,10 +315,8 @@ surface is:
 - **Coherent** with the temporal dynamics proof, with OS3 explaining why the
   retarded propagator is a legitimate Minkowski continuation.
 
-The USF is, to our knowledge, the first model of emotional and somatic
-dynamics to be placed within the rigorous framework of axiomatic quantum field
-theory with a machine-verified proof. The interacting extension is the natural
-sequel.
+This gives a precise free-field QFT comparison for the USF programme. The
+interacting extension is the natural sequel.
 
 ---
 

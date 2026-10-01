@@ -15,13 +15,13 @@ abstract: |
   anisotropy. The empirical biological matrix $W_8$ (calibrated from Juslin 2019
   [@juslin2019musical])
   is $48.4\%$ symmetry-broken from this ideal: $\|\delta W\|_F / \|W_8\|_F = 0.484$.
-  The symmetry-breaking modes are traceless (their eigenvalues sum to zero) and
-  correspond to specific emotional dynamics: strong positive anisotropy in the
+  The symmetry-breaking matrix is traceless (its eigenvalues sum to zero) and
+  corresponds to specific emotional dynamics: strong positive anisotropy in the
   VI–EM and ME–AJ couplings; negative anisotropy in the BS–AJ channel (stress
-  suppresses aesthetics). Therapeutic intervention reduces $\|\delta W\|_F$, driving
-  the system toward the $G_2$ attractor. This provides the first quantitative
-  connection between a $G_2$-symmetric compactification interpretation and the
-  biological coupling matrix. It resolves the algebraic $8 \to 7$ reduction in
+  suppresses aesthetics). A therapeutic interpretation would seek reductions
+  in $\|\delta W\|_F$, but clinical efficacy is not established here. This
+  provides a quantitative connection between a $G_2$-symmetric compactification
+  interpretation and the biological coupling matrix. It resolves the algebraic $8 \to 7$ reduction in
   the coupling decomposition; it does not derive a $G_2$-holonomy metric for $X_7$.
 ---
 
@@ -41,10 +41,11 @@ seven-dimensional compact-sector interpretation?
 This paper resolves the question. The 8D BRECVEMA field $W_8$ decomposes
 as the $G_2$-invariant part plus a traceless symmetry-breaking term. The
 $G_2$-invariant part is exactly $\tfrac{6}{5} I_8$ — a diagonal matrix. The
-remaining 7 off-diagonal degrees of freedom constitute the symmetry-breaking
-$\delta W$, which lives in the 7D adjoint representation of $G_2$. The
+symmetry-breaking term $\delta W$ is trace-free; at the eigenvalue level its
+eight modes have one sum-zero constraint, leaving seven independent eigenvalue
+directions. The
 biological emotional system operates on the 8D field, while its traceless
-symmetry-breaking sector is seven-dimensional. This supplies an algebraic
+symmetry-breaking spectrum has seven independent components. This supplies an algebraic
 compatibility result for a 7D compact-sector interpretation; it does not by
 itself prove the metric geometry or holonomy of $X_7$.
 
@@ -58,7 +59,7 @@ mechanisms: BrainStem (BS), Rhythmic Entrainment (RE), Evaluative Conditioning
 (EC), Contagion (CO), Visual Imagery (VI), Episodic Memory (EM), Musical
 Expectancy (ME), Aesthetic Judgement (AJ).
 
-**Definition.** A matrix $W$ acting on $\mathbb{R}^8$ is $G_2$-invariant if it
+**Definition.** In this paper's algebraic model, a matrix $W$ acting on $\mathbb{R}^8$ is $G_2$-invariant if it
 commutes with all $G_2$ transformations. By Schur's lemma, since $\mathbb{R}^8$
 decomposes under $G_2$ as $\mathbb{R}^1 \oplus \mathbb{R}^7$ (real part $\oplus$
 imaginary octonions), a $G_2$-invariant matrix must be block-diagonal:
@@ -131,7 +132,7 @@ processing. Its non-zero entries correspond to:
 
 # Therapeutic Trajectory: Reducing δW
 
-The decomposition suggests a speculative model of therapeutic change:
+The decomposition suggests a speculative, non-clinical model of therapeutic change:
 
 **Healthy processing** corresponds to $\|\delta W\|_F \to 0$ — the emotional coupling
 approaching the $G_2$-symmetric ideal. Each coupling relaxes toward $\tfrac{6}{5}$:
@@ -142,10 +143,12 @@ the strongest couplings weaken, the weakest strengthen, the negative couplings
 deep trauma strengthens the BS–AJ anti-correlation (arousal blocks aesthetic experience)
 and the EC–VI anti-correlation (conditioned responses block visual processing).
 
-**The somatic invariant:** $\mathrm{tr}(\delta W) = 0$ is preserved throughout. This
-is the conservation law: the total energy of the symmetry-breaking modes is zero.
-No therapeutic intervention can add or remove total $\delta W$ energy — it can only
-redistribute it. In this model, a possible therapeutic target would be reduction/redistribution of $\delta W$ across all modes (which by tracelessness approaches zero entry-by-entry as the system approaches the $G_2$ attractor); clinical goals and efficacy require evidence.
+**The somatic invariant:** $\mathrm{tr}(\delta W) = 0$ is preserved by this
+decomposition. It is an algebraic constraint on the model, not an established
+clinical conservation law. In this model, a possible therapeutic marker would
+be reduction/redistribution of $\delta W$ across all modes (which by
+tracelessness approaches zero entry-by-entry as the system approaches the
+$G_2$ attractor); clinical goals and efficacy require evidence.
 
 ---
 
@@ -153,8 +156,8 @@ redistribute it. In this model, a possible therapeutic target would be reduction
 
 | Statement | Lean location | Status |
 |---|---|---|
-| $W_{G_2} = (6/5) I_8$ defined | `BRECVEMAVariational.lean` | proved (`native_decide`) |
-| $\delta W = W_8 - W_{G_2}$ traceless | `BRECVEMAVariational.lean` | proved (`norm_num`) |
+| $W_{G_2} = (6/5) I_8$ defined | `BRECVEMAVariational.lean` | definition used in theorem |
+| $\delta W = W_8 - W_{G_2}$ traceless | `BRECVEMAVariational.lean` | proved (`brecvema_G2_decomposition`, `norm_num`) |
 | $G_2$-invariant matrix = $\lambda I_n$ | Schur's lemma | interpretation requires Lie-theory formalisation |
 | $\text{moduli\_space\_is\_G2\_homotopy}$ | `BRECVEMAVariational.lean` | open formalisation (gauge constraint derivation) |
 
@@ -176,8 +179,9 @@ biological anisotropies: the ME–AJ and VI–EM couplings are the dominant posi
 anisotropies; the BS–AJ anti-correlation (stress suppresses aesthetics) is the
 dominant negative anisotropy. The model represents one possible marker as $\|\delta W\|_F \to 0$ while $\mathrm{tr}(\delta W) = 0$ is conserved; this is not yet a validated therapeutic biomarker.
 
-The $8 \to 7$ algebraic reduction is resolved: the 8D biological field has a
-seven-dimensional traceless symmetry-breaking sector, compatible with the 7D
+The $8 \to 7$ algebraic reduction is resolved at the level of the trace-free
+eigenvalue budget: the 8D biological field has a symmetry-breaking spectrum
+with seven independent components, compatible with the 7D
 compact-sector interpretation used by the companion cosmological-constant and
 spatial-vacuum papers. Deriving a compact $G_2$-holonomy metric remains a
 separate open geometric problem.

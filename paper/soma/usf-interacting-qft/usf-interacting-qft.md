@@ -9,20 +9,20 @@ status: "Research programme — proof obligations identified, not yet closed"
 abstract: |
   The companion paper *The Universal Somatic Field as a Euclidean Quantum
   Field Theory* established that the free-field Universal Somatic
-  Field (USF) satisfies all five Osterwalder–Schrader (OS) axioms, placing
-  it within the rigorous framework of axiomatic Euclidean quantum field
-  theory. The present paper develops the programme for proving OS axioms
+  Field (USF) showed that the free-Gaussian USF representation inherits all
+  five Osterwalder–Schrader (OS) axioms under the stated $m \leftrightarrow k$
+  identification. The present paper develops the programme for proving OS axioms
   for the *interacting* USF — the theory with Hopfield coupling $\kappa > 0$
-  between field modes. The interaction term is quartic in field space and
-  places the interacting USF in the same universality class as $\phi^4$
-  field theory. We identify the key proof obligations: (i) a uniform lower
+  between field modes. Depending on the chosen Hopfield lift, the interaction
+  is quadratic in the single-component reduction and may require quartic or
+  higher multi-component control. We identify the key proof obligations: (i) a uniform lower
   bound on the Euclidean action; (ii) stability of reflection positivity
   (OS3) under $\kappa$-perturbation via the Glimm–Jaffe framework;
   (iii) an ultraviolet regularisation scheme compatible with the Hopfield
   weight matrix; and (iv) the thermodynamic limit. We state precise
-  mathematical conjectures and outline a Lean 4 formalisation strategy
-  that would close all obligations. Provisional constructions for obligations
-  (i) and (ii) are given in the body; (iii) and (iv) remain open.
+  mathematical conjectures and outline a Lean 4 formalisation strategy.
+  Provisional reductions for obligations (i) and (ii) are given in the body;
+  (iii), (iv), and the multi-component interacting theory remain open.
 keywords:
   - interacting quantum field theory
   - Hopfield coupling
@@ -40,8 +40,8 @@ csl: "../../apa-7th.csl"
 
 ## 1 Motivation and Context
 
-The free-field USF was proved in the companion free-field paper to satisfy
-OS0–OS4 via its identification with the massive Gaussian Free Field
+The free-field USF was represented in the companion free-field paper by the
+massive Gaussian Free Field and thereby inherits OS0–OS4 in the formal model
 [@johnson2026usf; @douglas2026osgff; @osterwalder1973]. That result, though fundamental, covers
 only the linearised theory. The physical USF includes a Hopfield coupling
 $\kappa > 0$ that introduces non-linearity, attractor dynamics, and the
@@ -73,9 +73,9 @@ V[\phi] = -\tfrac{W}{2}\int \phi(x)^2\,d^4x = -\tfrac{W}{2}\int \frac{|\tilde\ph
 $$
 
 which is a mass renormalisation: $k^2 \to k^2 - \kappa W$. For the
-multi-component case, $V[\phi]$ contains quartic terms in the field
-components via the Hopfield energy function, placing it in the $\phi^4$
-universality class.
+multi-component case, the Hopfield lift can generate polynomial terms in the
+field components. Whether this lies in the same constructive universality
+class as $\phi^4$ is a proof obligation, not an established result.
 
 ---
 
@@ -97,7 +97,7 @@ for constants $c_\kappa > 0$ and $C_\kappa < \infty$ depending on $\kappa$.
 and the theory is in the Gaussian basin. The lower bound follows from
 completing the square in the action. At $\kappa = \kappa_c$ the theory
 undergoes a phase transition (spontaneous symmetry breaking), corresponding
-in USF terms to commitment to a trauma attractor.
+in USF terms to the model's attractor transition.
 
 ### 2.2 Obligation 2: Stability of OS3 under perturbation
 
@@ -168,8 +168,9 @@ theorem interacting_USF_satisfies_OS_axioms_below_critical
   gaussianFreeField_satisfies_all_OS_axioms (k_eff k κ W).val
 ```
 
-This closes Obligations 1–2 for the single-component case. The multi-component
-case requires new machinery not yet available in Lean 4's Mathlib.
+This would close Obligations 1–2 for the single-component case once added to
+the repository and checked. The multi-component case requires new machinery
+not yet available in Lean 4's Mathlib.
 
 ---
 
@@ -181,8 +182,8 @@ below $\kappa_c$ the field is in the Gaussian (healthy) phase with unique
 vacuum; at $\kappa_c$ the correlation length diverges; above $\kappa_c$ the
 symmetry breaks and the field settles into an attractor (trauma basin).
 
-This phase structure matches the clinical phenomenology and the scale-dependent
-USF architecture [@johnson2026usf]:
+This phase structure is an interpretive analogy for clinical phenomenology
+within the scale-dependent USF architecture [@johnson2026usf]:
 
 | Phase | $\kappa$ | Field state | Clinical analogue |
 |---|---|---|---|
@@ -197,14 +198,16 @@ USF architecture [@johnson2026usf]:
 The interacting USF presents a tractable research programme at the interface
 of constructive QFT and formal verification:
 
-**Established in the companion free-field paper:** Free-field USF satisfies
-OS0–OS4 in its stated Lean 4 formalisation.
+**Established in the companion free-field paper:** the free-Gaussian USF
+representation inherits OS0–OS4 through imported OSforGFF theorems in its
+stated Lean 4 formalisation.
 
-**Closed (this paper):** Single-component Hopfield USF below critical coupling
-satisfies OS0–OS4 via mass renormalisation.
+**Reduced (this paper):** the single-component Hopfield USF below critical
+coupling reduces formally to a positive effective mass. A checked Lean theorem
+for that reduction is proposed, not yet present in the proof surface.
 
 **Open:** Multi-component Hopfield USF OS axioms require the full Glimm–Jaffe
-programme. This is mathematically hard (analogous to $\phi^4_4$ theory) but
+programme. This is mathematically hard (analogous to constructive $\phi^4_4$ control) but
 physically motivated: it would give a rigorous foundation for the FM-HN
 model of emotional dynamics with multiple coupled modes.
 
@@ -212,9 +215,10 @@ model of emotional dynamics with multiple coupled modes.
 non-Abelian gauge theory over the USF target space — connects to the
 Yang–Mills mass gap problem.
 
-The present paper establishes the *proof programme* and closes the easiest
-case (single-component, subcritical). Full closure of the multi-component
-case is designated the central open problem of the SFT programme.
+The present paper establishes the *proof programme* and reduces the easiest
+case (single-component, subcritical) to mass renormalisation. Full closure of
+the multi-component case is designated the central open problem of the SFT
+programme.
 
 ---
 

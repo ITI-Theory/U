@@ -32,7 +32,7 @@ abstract: |
 
   A categorical formalization, Lean 4 type sketches, and mathematical operator
   modifications for Autism Spectrum Condition, ADHD, and Complex PTSD are included, partly
-  because they are necessary for a complete treatment and partly because, once one has
+  because they are necessary for a complete theoretical account and partly because, once one has
   started borrowing from M-Theory, there is very little reason to stop.
 
 keywords:
@@ -194,12 +194,12 @@ observable only when local amplitude exceeds a threshold.* This is an accurate
 description of both the quantum vacuum and, in the author's experience, the emotional
 field.
 
-Since writing that paragraph, the paper has upgraded the claim. The conscious emotional
-percept is now formally identified as the one-dimensional impulse response — the
-Green's function — of the soma-field manifold. This places it in the same mathematical
-category as a particle in quantum field theory: both are poles in the propagator of
-their respective underlying field. The structural similarity is not borrowed; it is
-exact. The mathematics is the same mathematics.
+Since writing that paragraph, the paper has sharpened the claim inside the model. The
+conscious emotional percept is represented as the one-dimensional impulse response — the
+Green's function — of the soma-field manifold. This places it in an analogous
+mathematical role to a particle in quantum field theory: both can be described as poles
+in the propagator of their respective underlying field. The structural similarity is not
+a clinical fact; it is the formal correspondence the paper proposes.
 
 Gabriele Veneziano wrote down the Euler beta function in 1968 while looking for an
 amplitude that matched scattering data, then noticed that the function implied a theory
@@ -212,9 +212,10 @@ implication as an exercise for readers with the relevant background.
 
 ## Hopfield Networks and the Energy Function
 
-In 1982, John Hopfield — awarded the Nobel Prize in Physics in 2024 — proposed a model
-of associative memory whose dynamics were mathematically identical to an Ising spin-glass
-model from statistical physics (Hopfield, 1982). The critical component was an energy
+In 1982, John Hopfield — recognised in the 2024 Nobel Prize in Physics for foundational
+work enabling machine learning — proposed a model of associative memory whose dynamics
+share the energy-function form of an Ising spin-glass model from statistical physics
+(Hopfield, 1982). The critical component was an energy
 function: a scalar that always decreases as the network evolves, guaranteeing convergence
 to stable attractor states.
 
@@ -241,8 +242,8 @@ The foundational claim is this: emotions are not events. They are a *field* —
 a distributed, continuous quantity defined over the entire soma (body-mind system) at all
 times.
 
-This is not a metaphor. It is the most accurate description the author can offer of his
-own experience. The emotional field is always there. It does not begin when a feeling
+This is not intended as a casual metaphor. It is the most accurate model-language the
+author can offer for his own experience. The emotional field is always there. It does not begin when a feeling
 becomes conscious and end when it subsides. It precedes conscious awareness and continues
 after it. What changes is not the field's existence but its local amplitude: whether,
 at a given moment, the field in a given mode exceeds the threshold required to surface
@@ -289,8 +290,8 @@ It is also why this model was necessary.
 
 ### A note on the intelligence quotients
 
-McCulloch and Pitts built the mathematical brain in 1943. What they built — what every
-artificial neural network since has been — is the **IQ machine**: the neocortex, pattern
+McCulloch and Pitts built a mathematical brain in 1943. Much of the artificial neural
+network tradition since can be read as the **IQ machine**: cortical-style pattern
 recognition, sequence prediction, error minimisation. The field of AI has, for eighty
 years, been building increasingly sophisticated versions of this one component.
 
@@ -301,7 +302,7 @@ IQ is to cortical dynamics. Not a score; a formal model of the system that produ
 |---|---|---|---|
 | **IQ** | Neocortex: pattern recognition, prediction | McCulloch & Pitts, 1943 | The entire AI industry |
 | **EQ** | Limbic: valuation, attachment, empathy | Goleman, 1995 | Described; not yet formally modelled |
-| **AQ** | Soma-field: field-theoretic limbic dynamics | This paper, 2026 | The formal model EQ has always needed |
+| **AQ** | Soma-field: field-theoretic limbic dynamics | This paper, 2026 | A proposed formal model of embodied affect |
 | **SQ** | Relational field: dyadic and social resonance | Future work | Requires AQ as prerequisite |
 
 *Table 3. The four intelligence quotients and their formal status.*
@@ -312,14 +313,14 @@ brought him to this desk in the first place.
 
 ### A note on brane thickness
 
-The threshold parameter $T_i$ is not merely a number. The technical paper identifies it
-with the thickness of an extra dimension — the metaphorical ‘brane’ separating the
-limbic system from conscious awareness. Alexithymia is a thick brane: the field can be
-highly active and almost nothing crosses the threshold into named conscious experience.
-Hypervigilance is a thin brane: everything crosses, simultaneously, at high amplitude.
-The author confirms personal experience of both states. He notes that neither is a
-character flaw; both are calibration states of a physical parameter in a system that
-was trying, with the information available, to keep him safe.
+The threshold parameter $T_i$ is not merely a number in the model. The technical paper
+compares it to the thickness of an extra dimension — the metaphorical ‘brane’ separating
+the limbic system from conscious awareness. Alexithymia is a thick brane: the field can
+be highly active and almost nothing crosses the threshold into named conscious
+experience. Hypervigilance is a thin brane: everything crosses, simultaneously, at high
+amplitude. The author confirms personal experience of both states. He notes that neither
+is a character flaw; both are calibration states in a system that was trying, with the
+information available, to keep him safe.
 
 ## The Interaction of Emotional Modes
 
@@ -361,15 +362,13 @@ local minima of $H$ — the attractor basins.
 
 *Table 2. Attractor states and their polyvagal correlates.*
 
-The coupling matrix $W$ is not merely a parameter. It is the *shape* of the emotional
-manifold — a seven-dimensional space with the mathematical structure of a G₂ manifold.
-Trauma does not adjust a dial on this space; it deforms the manifold itself. The
-therapist doing somatic work is, without needing to know this, doing differential
-geometry on the patient’s G₂ manifold: reshaping a seven-dimensional space by modifying
-the structure tensor. This is a precise technical statement. The author considers it
-a more honest account of what a skilled practitioner actually does than any narrative
-framework currently available. The practitioner is a geometer. The patient is a manifold
-that is learning to remember its own natural curvature.
+The coupling matrix $W$ is not merely a parameter in the model. It is the *shape* of the
+emotional manifold — represented here as a seven-dimensional space with G₂-inspired
+structure. Trauma does not merely adjust a dial on this space; it deforms the model
+manifold itself. Somatic work can therefore be pictured as differential geometry:
+reshaping a seven-dimensional space by modifying its structure tensor. This is model
+language, not a clinical measurement. The practitioner is a geometer in the metaphor of
+the formalism. The patient is a manifold learning to remember its own natural curvature.
 
 The therapeutic and personal significance of the freeze attractor's structure cannot
 be overstated. It is not high-energy — it does not feel dramatic or intense. It is
@@ -382,7 +381,7 @@ and well-known from the inside.
 # Dissonance and Resolution
 
 When two emotional modes are in an incompatible phase relationship, the field is far
-from equilibrium. This is felt as tension. The acoustic analogy is precise: just as two
+from equilibrium. This is felt as tension. The acoustic analogy is useful: just as two
 tones in a dissonant interval generate a beating, unstable interference pattern,
 two emotional modes in an incompatible configuration generate a gradient that drives
 toward resolution.
@@ -421,18 +420,20 @@ conditions or from their sum.
 
 ## Complex PTSD: Memory Kernel and Asymmetric Coupling
 
-C-PTSD adds a **memory kernel**: past activations leave exponentially decaying echoes.
+C-PTSD adds a **memory kernel** in the model: past activations leave exponentially
+decaying echoes.
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
   + \int_0^t K_{\text{trauma}}(t - s)\, \mathbf{e}(s)\, ds + \eta(t)$$
 
 $$K_{\text{trauma}}(\tau) = \sum_{k} A_k\, e^{-\tau / \tau_k}$$
 
-This is a damped oscillating kernel. The past does not vanish; it rings. Therapeutic
-processing is the progressive reduction of $A_k$ — the amplitude of the echo — and
-the shortening of $\tau_k$ — the time over which it persists. The author notes that
-this description is a more accurate account of what trauma processing actually feels
-like, from the inside, than most of the narrative accounts available to him.
+This is a decaying kernel. The past does not vanish; it rings in the model's sense of a
+persisting echo. Therapeutic processing can be described as the progressive reduction of
+$A_k$ — the amplitude of the echo — and the shortening of $\tau_k$ — the time over which
+it persists. The author notes that this description is a more accurate account of what
+trauma processing has felt like to him, from the inside, than most of the narrative
+accounts available to him.
 
 C-PTSD also breaks the symmetry of the coupling matrix $W$, admitting **limit cycles**:
 the oscillation between hyperarousal and shutdown that characterises the PTSD symptom
@@ -497,7 +498,8 @@ The interaction effects are non-trivial:
 *Table 3. Interaction effects of composed neurodivergent modifiers.*
 
 The author wishes to note, for the record, that Table 3 is not a complaint. It is a
-description. These are the equations. The field is doing what the equations predict.
+description. These are the equations as the model writes them. The field is doing what
+those equations describe.
 Understanding this has been, in practice, more useful than most of the alternative
 framings on offer.
 
@@ -513,16 +515,17 @@ reflection. The author found this situation suboptimal and designed an instrumen
 address it.
 
 The instrument externalises the emotional field — renders it as sound, image, and signal
-— so that it becomes available as an object of attention. This is a therapeutic
-biofeedback instrument. It is also, unavoidably, a musical instrument. The author
-considers these compatible.
+— so that it becomes available as an object of attention. This is a prototype
+biofeedback instrument with therapeutic intent, not a validated treatment device. It is
+also, unavoidably, a musical instrument. The author considers these compatible.
 
 ## Design
 
 A MIDI controller with 16 rotary knobs. Eight emotional dimensions. Two knobs per
 dimension — one for the somatic component, one for the neural/cognitive component.
-The act of setting a knob is the act of reporting an emotional state: it is the
-quantum measurement, the collapse of the distributed field onto a specific coordinate.
+The act of setting a knob is the act of reporting an emotional state: metaphorically,
+the measurement that collapses the distributed field description onto a specific
+coordinate.
 
 ![The Soma-Field Instrument. Sixteen MIDI controls report emotional dimensions; the energy function produces coordinated audio, MIDI, and visual outputs.](figures/fig_midi_controller.pdf){width=95%}
 
@@ -547,37 +550,37 @@ unsurprising.
 
 ## Assessment
 
-The model suggests asking not "What emotion do you feel?" but "What is present in the
-body right now, even if it cannot be named?" This aligns with Focussing-oriented and
-sensorimotor approaches, and is considerably more productive, in the author's experience,
-for anyone whose $T_i$ values are elevated or whose somatic-to-neural projection is
-modified.
+As a research and psychoeducational prompt, the model suggests asking not "What emotion
+do you feel?" but "What is present in the body right now, even if it cannot be named?"
+This aligns with Focussing-oriented and sensorimotor approaches, and has been
+considerably more productive in the author's experience for elevated $T_i$ values or
+modified somatic-to-neural projection.
 
 ## Intervention
 
-The energy function provides formal grounding for titration, pendulation, somatic
-resourcing, and felt-sense work. In each case, the therapeutic action can be described
-as: adding energy to approach a frozen state, establishing a stable low-energy region,
-or attending to sub-threshold field activity in a supported context.
+The energy function provides a formal vocabulary for titration, pendulation, somatic
+resourcing, and felt-sense work. In each case, a therapeutic action can be described
+within the model as: adding energy to approach a frozen state, establishing a stable
+low-energy region, or attending to sub-threshold field activity in a supported context.
 
 ## Psychoeducation
 
 *"Your emotions are like waves — they are always there, even when you cannot feel them,
 and they are always moving."*
 
-This sentence is both clinically useful and technically accurate. The author has found
+This sentence is clinically useful to the author and accurate within the model. The author has found
 it more useful than most alternative formulations, including several that were provided
 to him by qualified practitioners. He offers it here as a contribution to the field.
 
 ## Neurodivergent Profiles as Structural Realities
 
-The most important clinical implication of Section 6 is this: for people with ASD,
+The most important clinical implication suggested by Section 6 is this: for people with ASD,
 ADHD, and C-PTSD, the challenge of emotional regulation is not a motivational or
 characterological failure. It is a structural consequence of specific operator
 modifications to the dynamics. The composed modifier produces a field that is
-genuinely harder to regulate — not by a small margin, not as a matter of subjective
-experience, but mathematically, as a consequence of higher noise temperature, memory
-echoes, sparse coupling topology, and the possibility of limit cycles.
+genuinely harder to regulate in the model — not simply as a matter of subjective
+experience, but as a consequence of higher noise temperature, memory echoes, sparse
+coupling topology, and the possibility of limit cycles.
 
 Knowing this does not solve the problem. It does, however, locate it correctly. The
 author has found that locating a problem correctly is a necessary precondition for
@@ -608,12 +611,12 @@ the appendices.
 
 # Conclusion
 
-The wave is always there. This is not a metaphor; it is a description of how the
-emotional field actually behaves, as far as the author can determine from the inside.
-Therapy — and the instrument described in this paper — is the practice of learning to
-hear it: to extend awareness downward, below the threshold, into the field's continuous
-activity, and to make that activity available as information rather than overwhelming
-noise.
+The wave is always there. This is not meant as a casual metaphor; it is the model's
+description of how the emotional field behaves, as far as the author can determine from
+the inside. Therapy — and the instrument described in this paper — can be understood as
+the practice of learning to hear it: to extend awareness downward, below the threshold,
+into the field's continuous activity, and to make that activity available as information
+rather than overwhelming noise.
 
 The Soma-Field Model is offered as a tool for this practice. It was built because it
 was needed. It uses the best mathematical tools available for describing distributed,
@@ -678,7 +681,7 @@ of Trauma*. Viking.
 
 *The author notes that all three appendices from the companion paper (categorical
 formalization, M-theory scale hierarchy, Lean 4 type sketches, and neurodivergent
-operator mathematics) apply without modification to this version. The mathematics do
+operator mathematics) are the technical background for this version. The mathematics do
 not change depending on who is presenting them. This is, in the author's view, rather
 the point.*
 

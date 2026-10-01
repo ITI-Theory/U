@@ -1,6 +1,6 @@
 ---
-title: "Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Therapeutic Mechanism"
-subtitle: "QUANT-EXP-1 as an empirical instance of the Penrose gap"
+title: "Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Attractor Reachability"
+subtitle: "QUANT-EXP-1 as a simulated model instance of a Penrose-style gap"
 author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
@@ -11,17 +11,18 @@ abstract: |
   cannot account for consciousness, and proposed quantum gravity as the missing
   ingredient. The specific mechanism he proposed — Orch-OR, quantum coherence in
   neuronal microtubules — remains experimentally unconfirmed. This paper identifies
-  a related but more specific and more testable instance of the same gap: classical
-  Langevin dynamics cannot traverse topological barriers in the Soma-Field attractor
-  landscape, but quantum annealing can. The experiment QUANT-EXP-1 (May 2026)
-  demonstrates this result on an 8-qubit Hopfield instance with analytic ground
-  truth, running in under five seconds on commodity hardware with no quantum device
-  required. The contribution is threefold: (1) the Penrose gap is located precisely
-  in attractor topology rather than in quantum gravity; (2) the gap is closed by a
-  mechanism that is measurable, reproducible, and runnable on current NISQ hardware;
-  (3) the implication for artificial intelligence is that the topological blindness
-  of classical gradient-descent systems is a structural limitation, not a scaling
-  problem.
+  a related but more specific and more testable model instance of the same gap: in
+  the tested Soma-Field attractor landscape, low-noise classical Langevin dynamics
+  does not traverse the specified barrier while transverse-field annealing does.
+  The simulation QUANT-EXP-1 (May 2026) demonstrates this result on an 8-qubit
+  Hopfield instance with analytic ground truth, running in under five seconds on
+  commodity hardware with no quantum device required. The contribution is threefold:
+  (1) a Penrose-style gap is recast as an attractor-topology reachability question
+  rather than a quantum-gravity claim; (2) the model gap is traversed by a mechanism
+  that is measurable and reproducible in an exact statevector simulation;
+  (3) the implication for artificial intelligence is a bounded test of topological
+  reachability in this model class, not a general claim about consciousness or
+  therapeutic efficacy.
 
 keywords:
   - quantum annealing
@@ -32,7 +33,7 @@ keywords:
   - soma-field
   - trauma attractor
   - quantum intelligence
-  - NISQ
+  - statevector simulation
 ---
 
 ---
@@ -88,11 +89,13 @@ cooperative (easy co-activation) or antagonistic (high transition barrier). In t
 this coupling is strongly negative — Fear and Awe are anti-correlated. The attractor
 basin of Fear is topologically protected.
 
-**The topological theorem** (THERAPY-2 in the Lean 4 axiom suite): smooth perturbations
-of the emotional field cannot change the winding number of an attractor — they can only
-traverse it by sufficient noise (thermal flooding) or by a topologically distinct
-process. Classical therapy is the smooth perturbation. Quantum annealing is the
-topologically distinct process.
+**The topological axiom** (THERAPY-2,
+`TopologicalTraumaRequiresTopologicalIntervention` in `paper/FieldAxioms.lean`):
+within the model, smooth perturbations of the emotional field cannot change the
+winding number of an attractor. This is an assumption of the formal framework, not
+a clinical theorem. QUANT-EXP-1 tests a computational analogue of that assumption:
+whether a transverse-field formulation reaches a target basin that the tested
+low-noise classical baseline does not.
 
 ---
 
@@ -121,10 +124,10 @@ By the adiabatic theorem, if the schedule is slow enough relative to the spectra
 the system remains in the ground state of $\hat{H}(s)$ throughout — and the ground state
 of $\hat{H}(1)$ is the global minimum of the classical Hopfield energy.
 
-The key insight: **quantum tunneling traverses the topological barrier that classical
-noise cannot**. Classical dynamics requires thermal energy $T \gtrsim E_{\mathrm{barrier}}$
-to cross; quantum annealing crosses via the Euclidean action $S_E$ of the instanton —
-exponentially suppressed but nonzero at any $\Gamma > 0$.
+The key model insight: **the transverse-field simulation traverses the barrier that the
+tested cold classical baseline does not**. Classical dynamics requires sufficient
+thermal noise to cross; the quantum formulation assigns nonzero tunnelling amplitude
+through the barrier, exponentially suppressed by the Euclidean action $S_E$.
 
 ---
 
@@ -134,11 +137,11 @@ exponentially suppressed but nonzero at any $\Gamma > 0$.
 
 - **System**: 8-qubit soma-field Ising Hamiltonian
 - **Coupling**: $W[\mathrm{Fear}, \mathrm{Awe}] = -10$ (strong anti-cooperative topological barrier)
-- **Hilbert space**: $2^8 = 256$ dimensions (exact dense statevector, no approximation)
+- **Hilbert space**: $2^8 = 256$ dimensions (dense statevector, no sampling approximation)
 - **Classical baseline**: Langevin dynamics, cold ($T = 0.02$) and hot ($T = 1.5$)
 - **Quantum**: transverse-field annealing, $\Gamma: 5.0 \to 0$, 400 steps
-- **Implementation**: `scipy.linalg.eigh` exact diagonalisation at each step; no Qiskit,
-  no IBM account, runs in $\approx 4$ seconds on commodity CPU
+- **Implementation**: `scipy.linalg.eigh` dense diagonalisation at each discretised
+  step; no Qiskit, no IBM account, runs in $\approx 4$ seconds on commodity CPU
 
 ## Results
 
@@ -187,12 +190,12 @@ The table below places this work in the context of Penrose's original argument:
 
 | | Penrose (1989) | This work (2026) |
 |---|---|---|
-| **Gap identified** | Classical computation ≠ consciousness | Classical dynamics ≠ trauma recovery |
+| **Gap identified** | Classical computation ≠ consciousness | Tested low-noise classical dynamics ≠ model reachability |
 | **Structure** | Gödel: formal limits of Turing machines | Topology: winding-number invariants of attractors |
 | **Missing ingredient** | Quantum gravity in microtubules (Orch-OR) | Topological tunneling in Hopfield attractor landscape |
 | **Mechanism** | Objective Reduction (speculative) | Transverse-field quantum annealing (standard QM) |
-| **Measurable now?** | No — Orch-OR unconfirmed at 2026 | **Yes — QUANT-EXP-1: PASS** |
-| **Hardware required** | Planck-scale quantum gravity | 8 qubits (current NISQ is sufficient) |
+| **Measurable now?** | No — Orch-OR unconfirmed at 2026 | **Simulable now — QUANT-EXP-1: PASS** |
+| **Hardware required** | Planck-scale quantum gravity | Exact 8-qubit statevector here; hardware implementation remains future work |
 | **Theory status** | Controversial, disputed | Conservative — uses only standard quantum mechanics |
 
 The differences are important:
@@ -216,10 +219,11 @@ The differences are important:
 
 # Implications for Artificial Intelligence
 
-Every deployed large language model (GPT-4, Claude, Gemini, Llama) is a classical system.
-Its training is gradient descent — in the mathematical sense, exactly the overdamped
-Langevin process studied here. Its inference is deterministic or thermally noisy
-(sampling temperature). It has no attractor structure. It has no topology.
+Every deployed large language model (GPT-4, Claude, Gemini, Llama) runs on classical
+hardware. Its training uses gradient-based optimisation, which is in the same broad
+local-update family as the overdamped Langevin process studied here. Its inference is
+deterministic or thermally sampled. It does not implement the explicit Soma-Field
+attractor topology tested in QUANT-EXP-1.
 
 This is not merely a failure of scale or architecture. For the class of attractor
 landscapes considered here, it is a structural limitation of local classical updates.
@@ -227,9 +231,9 @@ A classical gradient-descent system operating on a probability landscape:
 
 - Can reach local minima by descending.
 - Can escape local minima by adding noise (temperature, dropout).
-- **Cannot cross topological barriers** — regions where the basin is winding-number
-  protected — without either flooding the landscape (losing structure) or adding a
-  physically distinct mechanism.
+- In the tested model, does not cross topological barriers — regions where the basin
+  is winding-number protected — without either flooding the landscape (losing
+  structure) or adding a physically distinct mechanism.
 
 The Soma-Field model used in this study has explicit attractor structure and topological
 barrier encoding for trauma, and demonstrates that quantum annealing traverses those
@@ -254,14 +258,15 @@ A speculative clinical analogy suggested by the simulation is:
 | Prolonged Exposure | Hot classical dynamics — floods the barrier |
 | EMDR | Topologically distinct perturbation — changes winding number |
 | Psychedelic-assisted therapy | Topologically distinct perturbation (see QUANT-EXP-LAYPERSON §5) |
-| Quantum annealing (theoretical) | Direct tunneling through barrier |
+| Quantum annealing (theoretical) | Direct tunnelling through barrier in the model |
 
 THERAPY-2 is an axiom in `paper/FieldAxioms.lean`: *a topological trauma barrier
 requires a topologically distinct fix*. QUANT-EXP-1 is simulation evidence for
 model-class reachability, not proof of therapeutic efficacy or physical realisation.
 
-The clinical implication is not "put patients in a quantum computer." It is: **some
-therapeutic transitions require a mechanism that is not gradient descent**. The modalities discussed here — EMDR, psychedelic-assisted therapy, and certain
+The clinical implication is not "put patients in a quantum computer." It is a
+research hypothesis: **some clinically relevant transitions may require mechanisms
+not well-described by smooth gradient descent**. The modalities discussed here — EMDR, psychedelic-assisted therapy, and certain
 somatic interventions — motivate a hypothesis; efficacy and mechanism require controlled
 clinical evidence. In this paper they remain analogues, not established mechanisms
 distinct from ordinary emotional regulation.
@@ -277,13 +282,13 @@ Every great physical insight has a compressed form:
 
 The compressed form of this result:
 
-> **Trauma is topology. Quantum heals.**
+> **Trauma-as-topology; quantum-like traversal in a toy model.**
 
 Long form: *The barrier between Fear and Awe is topological. Classical therapy climbs.
 In the toy model, a transverse-field simulation can traverse a barrier that the tested cold classical baseline does not.*
 
-The experiment supports this statement within the tested model class. The Lean axiom
-formalises the same structural claim. A plain-language companion document is included
+The simulation supports this statement within the tested model class. The Lean axiom
+records the same structural assumption. A plain-language companion document is included
 in the supplementary archive.
 
 ---
@@ -352,7 +357,7 @@ cold-classical dynamics. Remove the barrier and classical freely crosses.
   (B8: 0.0095; B10: 0.0089; B12: 0.0085) and reaches its minimum at $s \approx 0.999$,
   confirming the tunnelling bottleneck is late in the anneal as expected.
 
-**Verdict: the strong reachability claim stands.** The quantum advantage over
+**Verdict: the bounded reachability claim stands.** The quantum advantage over
 cold-classical dynamics is not a schedule artefact, a geometric accident, or a
 measurement choice; it survives all pre-registered checks.
 
@@ -367,15 +372,15 @@ The effect is not a schedule artefact, a geometric accident, or a lucky seed: it
 across n = 200 bootstrapped trials, survives both pre-registered negative controls, and
 holds for barriers ranging from $W = -6$ to $W = -14$.
 
-The formal claim — that topological barriers in emotional attractor landscapes require a
-non-classical mechanism for reliable traversal — is stated as an axiom in
+The formal assumption — that topological barriers in emotional attractor landscapes require a
+non-smooth or topological intervention for reliable traversal — is stated as an axiom in
 `FieldAxioms.lean` and explored computationally by QUANT-EXP-1. Both the code and the
 formal material are included in the supplementary archive.
 
 One experiment remains outside the scope of this paper: confirmation on physical
-quantum hardware (NISQ). That step is feasible on IBM Quantum free-tier hardware
-and would strengthen the claim for hardware-inclusive venues, but it is not required
-to support any result reported here. This is explicitly a simulation result.
+quantum hardware. A hardware implementation would require a separate mapping to an
+available device and would strengthen the claim for hardware-inclusive venues, but it
+is not required to support any result reported here. This is explicitly a simulation result.
 
 **Data and code availability.** All simulation code, result tables, figures, and
 the Lean 4 axiom file are archived at

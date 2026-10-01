@@ -33,8 +33,8 @@ def N_total : ℕ := 11
 /-- Leading-order dark energy fraction: compact / total dimensions. -/
 def Omega_Lambda_USF : ℚ := N_compact / N_total  -- = 7/11 ≈ 0.636
 
-/-- Observed dark energy fraction (Planck 2018). -/
-noncomputable def Omega_Lambda_obs : ℝ := 0.683
+/-- Observed dark energy fraction (Planck 2018, TT,TE,EE+lowE+lensing). -/
+noncomputable def Omega_Lambda_obs : ℝ := 0.6847
 
 -- ── Key theorems ──────────────────────────────────────────────────────────
 
@@ -50,9 +50,10 @@ theorem omega_lambda_discrepancy_small :
     |((Omega_Lambda_USF : ℝ) - Omega_Lambda_obs)| / Omega_Lambda_obs < 0.08 := by
   norm_num [Omega_Lambda_USF, N_compact, N_total, Omega_Lambda_obs]
 
-/-- **PROVED via LocalGR**: dark energy has equation of state w = −1 because
-    its density is time-invariant (calabi_yau_moduli_static: dΩ_Λ/dz = 0).
-    w = −1 ⇔ p = −ρ ⇔ energy density constant ⇔ dΩ_Λ/dz = 0. -/
+/-- Formal statement via LocalGR: in the model, the vacuum fraction parameter is
+    constant (calabi_yau_moduli_static), encoding w = −1 (p = −ρ, constant ρ_Λ).
+    Note: the observed density parameter Ω_Λ(z) = ρ_Λ/ρ_crit(z) still evolves
+    with redshift because ρ_crit does; the constant quantity is Λ (ρ_Λ). -/
 theorem usf_equation_of_state :
     ∃ (w : ℝ), w = -1 ∧
     ∃ (Ω_Λ : ℝ → ℝ), (∀ z : ℝ, HasDerivAt Ω_Λ 0 z) ∧ Ω_Λ 0 = 7 / 11 :=
@@ -76,20 +77,20 @@ def N_spatial : ℕ := 3
 /-- Leading-order dark matter fraction: spatial / total dimensions. -/
 def Omega_DM_USF : ℚ := N_spatial / 11  -- = 3/11 ≈ 0.273
 
-/-- Observed dark matter fraction (Planck 2018). -/
-noncomputable def Omega_DM_obs : ℝ := 0.265
+/-- Observed cold dark matter fraction (Planck 2018: Ω_c h² = 0.1200, h = 0.6736). -/
+noncomputable def Omega_DM_obs : ℝ := 0.2645
 
 /-- Baryonic fraction from time-block with matter-antimatter asymmetry. -/
 def Omega_b_USF : ℚ := 1 / 22  -- = (1/11)/2 ≈ 0.0455
 
-/-- Observed baryonic fraction (Planck 2018). -/
-noncomputable def Omega_b_obs : ℝ := 0.049
+/-- Observed baryonic fraction (Planck 2018: Ω_b h² = 0.02237, h = 0.6736). -/
+noncomputable def Omega_b_obs : ℝ := 0.0493
 
 /-- USF predicts Ω_DM = 3/11 from spatial dimension counting. -/
 theorem omega_dm_fraction :
     (Omega_DM_USF : ℝ) = 3 / 11 := by norm_num [Omega_DM_USF, N_spatial]
 
-/-- The 3% discrepancy between 3/11 and Omega_DM_obs is within single-digit %.
+/-- The 3.1% discrepancy between 3/11 and Omega_DM_obs is within single-digit %.
     Physical argument: Calabi-Yau moduli correction, same origin as P21's 7%. -/
 theorem omega_dm_discrepancy_small :
     |((Omega_DM_USF : ℝ) - Omega_DM_obs)| / Omega_DM_obs < 0.04 := by
@@ -150,17 +151,17 @@ theorem usf_dark_sector_fraction :
 
 /-- All three Planck 2018 predictions simultaneously within single-digit % bounds.
     This is the machine-verified replacement for the Python numerical check.
-    Observed values: Ω_Λ = 0.683, Ω_DM = 0.265, Ω_b = 0.049 (Planck 2018). -/
+    Observed values: Ω_Λ = 0.6847, Ω_DM = 0.2645, Ω_b = 0.0493 (Planck 2018). -/
 theorem usf_all_predictions_within_bounds :
-    |(( 7 : ℝ) / 11 - 0.683)| / 0.683 < 0.08 ∧   -- Λ: 6.8% off
-    |(( 3 : ℝ) / 11 - 0.265)| / 0.265 < 0.04 ∧   -- DM: 2.9% off
-    |(( 1 : ℝ) / 22 - 0.049)| / 0.049 < 0.08 := by  -- baryons: 7.2% off
+    |(( 7 : ℝ) / 11 - 0.6847)| / 0.6847 < 0.08 ∧   -- Λ: 7.1% off
+    |(( 3 : ℝ) / 11 - 0.2645)| / 0.2645 < 0.04 ∧   -- DM: 3.1% off
+    |(( 1 : ℝ) / 22 - 0.0493)| / 0.0493 < 0.08 := by  -- baryons: 7.8% off
   refine ⟨?_, ?_, ?_⟩ <;> norm_num
 
-/-- The dark matter prediction is the tightest: 3/11 is within 3% of observation.
+/-- The dark matter prediction is the tightest: 3/11 is within 3.5% of observation.
     This is a zero-free-parameter prediction (3 = 11 - 7 - 1 was not fitted). -/
 theorem usf_dark_matter_tightest :
-    |(( 3 : ℝ) / 11 - 0.265)| / 0.265 < 0.03 := by norm_num
+    |(( 3 : ℝ) / 11 - 0.2645)| / 0.2645 < 0.035 := by norm_num
 
 /-- P23 / GAP-5: there EXISTS a USF instance at Scale 9.
     Formal seed of the fixed-point claim: the theory's propagation

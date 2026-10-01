@@ -1,6 +1,6 @@
 ---
 title: "The Pre-Verbal Manifold"
-subtitle: "A Soma-Field Case Study of Acquired Neurodevelopmental Phenotypes and the Limits of Onset-Based Diagnosis"
+subtitle: "A Soma-Field Case Study of Early-Life Neurodevelopmental Phenotypes and the Limits of Onset-Based Diagnosis"
 author: "Alistair Johnson, BSc Physics (Royal Holloway, University of London, 1995)"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
@@ -40,7 +40,8 @@ abstract: |
   2001; Gaensbauer, 2002); the pain-imprint hypothesis (Anand & Scalzo, 2000);
   inflammation–neurodevelopment pathways (Estes & McAllister, 2016); and
   ICD-11 Complex PTSD (Maercker et al., 2022). None of these literatures, taken
-  individually, accounts for the full trajectory. The combination does.
+  individually, accounts for the full trajectory. The combination motivates the
+  formal object proposed here.
 
   The paper proposes the *pre-verbal manifold* as a formal object: a
   developmental coupling structure whose attractor landscape is shaped during
@@ -48,15 +49,15 @@ abstract: |
   through downstream projections — speech profile, social orientation,
   perceptual style, autonomic baseline, attachment behaviour. Standard
   onset-based diagnostic categories (autism, ADHD, attachment disorder, cPTSD)
-  are reinterpreted as five projections of one reconfigured manifold rather
-  than five comorbid conditions. The framework is formalised within the
+  are explored as possible projections of one reconfigured manifold rather
+  than treated here as causally reducible to trauma or to one another. The framework is formalised within the
   Soma-Field model (Johnson, 2026a–k).
 
   Three implications follow. First, the conceptual distinction between
-  *genetic* and *acquired* neurodevelopmental phenotypes loses sharpness once
+  *genetic* and *acquired* contributions becomes a research question once
   pre-verbal critical-period plasticity is taken seriously. Second,
   developmental-psychiatric onset criteria that rely on *first observable
-  symptoms in language-capable children* systematically misclassify cases of
+  symptoms in language-capable children* may misclassify cases of
   this kind. Third, secondary educational policies that filter for "mild"
   presentations, charge additional fees for accommodation, and subordinate
   external clinical diagnoses to in-house gatekeeping (a public exhibit is
@@ -68,7 +69,7 @@ abstract: |
 keywords:
   - pre-verbal trauma
   - quasi-autism
-  - acquired autism
+  - early-life neurodevelopment
   - septic arthritis
   - developmental manifold
   - soma-field theory
@@ -105,7 +106,7 @@ attachment-figure behaviour rated by adults. C-PTSD requires a referent
 trauma and a self-reportable symptom set.
 
 This apparatus works tolerably well for cases in which the relevant
-developmental events occur within its observational window. It fails — quietly,
+developmental events occur within its observational window. It can fail — quietly,
 and with the failure absorbed into "comorbidity" — for cases in which the
 critical events occur *before* it begins to observe.
 
@@ -115,11 +116,11 @@ three months in hospital and three months immobilised in plaster, retained
 a permanent 1.3 cm leg-length discrepancy, and did not speak until age 3.5.
 He was diagnosed with Autism Spectrum Condition, ADHD, and Complex PTSD
 fifty-four years later, in 2020. The diagnostic narrative offered at that
-time — that the autism was congenital and the C-PTSD was acquired — does
-not survive close inspection of the developmental record. The two were not
-sequentially layered. They co-developed, in a pre-verbal window, around a
-specific physical insult, against a substrate of probable familial loading
-and demonstrably low maternal attunement.
+time — that the autism was congenital and the C-PTSD was acquired — is too
+simple for the developmental record considered here. The paper does not claim
+that trauma causes autism. It asks whether autistic traits, ADHD traits, and
+cPTSD symptoms can co-develop around a pre-verbal insult against a substrate
+of probable familial loading and demonstrably low maternal attunement.
 
 The paper proceeds as follows. §2 fixes terminology and introduces the
 *pre-verbal manifold*. §3 presents the case in five strata: substrate,
@@ -179,18 +180,18 @@ Standard diagnostic categories — autism, ADHD, attachment disorder, cPTSD —
 are scoring instruments for those projections. They are not the manifold.
 Multiple categorical scores can be downstream of one underlying configuration.
 
-**Claim 2. Onset-based dating is, for events within the window, undefined.**
-Asking *when did the autism start?* is, for cases of this kind, a malformed
-question. The relevant configuration was laid down before the diagnostic
-category had a foothold.
+**Claim 2. Onset-based dating is, for events within the window, underdetermined.**
+Asking *when did the autism start?* may be the wrong level of question for cases
+of this kind. The relevant configuration may have been laid down before the
+diagnostic category had a foothold.
 
-**Claim 3. The genetic / acquired distinction is, within the window, weaker than
-the language suggests.** Sensitive-period plasticity means that constitutional
-loading and environmental perturbation co-determine the same structures
+**Claim 3. The genetic / acquired distinction is, within the window, a research
+question rather than a clean dichotomy.** Sensitive-period plasticity means that constitutional
+loading and environmental perturbation may co-determine overlapping structures
 (Belsky & Pluess, 2009; Ellis et al., 2011). The case that follows illustrates
-this directly: there is plausible familial loading *and* a clean physical
-insult of the right kind at the right time, and the question *which produced
-the autism?* is, on the model presented here, the wrong question.
+why the question is hard: there is plausible familial loading *and* a clean physical
+insult of the right kind at the right time. The model treats *which factor produced
+the autism?* as unresolved by this N = 1 case.
 
 ---
 
@@ -344,12 +345,12 @@ from severely depriving institutions in infancy. The Bucharest Early
 Intervention Project (Bos et al., 2011) replicated and extended this. The
 phenotype is termed *quasi-autism* to flag its acquired character and its
 similarity to constitutional autism on every behavioural metric tested.
-This literature establishes, definitively, that an autistic phenotype can
-be acquired during a pre-verbal sensitive window. It does not require an
-*absent* attachment figure — the original cases had no consistent
-caregiver — but the mechanism (failure of contingent reciprocity during the
-sensitive window) is equally available in cases with a present-but-
-dysregulating caregiver, as Schore (2001, 2009) argues directly.
+This literature establishes that deprivation-associated autistic-like phenotypes
+can appear after severe early adversity. It does not establish that trauma causes
+autism generally, nor that the present case has the same mechanism. It motivates
+a bounded research question about contingent reciprocity during sensitive windows,
+including cases with a present-but-dysregulating caregiver, as Schore (2001, 2009)
+argues directly.
 
 **(L2) Pre-verbal trauma encoding.** Schore's right-brain primacy account
 (2001, 2009), Gaensbauer's work on pre-verbal traumatic memory (2002, 2016),
@@ -417,15 +418,16 @@ The case is then read as follows.
 
 The familial loading (§3.1) raised the prior probability of certain *K*
 configurations. The septic-arthritis episode (§3.2), occurring during the
-sensitive window for *K*-formation, *fixed* a particular configuration:
+sensitive window for *K*-formation, is hypothesised to have contributed to a
+particular configuration:
 high somatic-pain weighting, low contingent-touch weighting, dampened
 parasympathetic engagement, dampened social-orienting bias, dampened
 language-circuit recruitment. The post-hospital home environment (§3.3),
 far from supplying repair, supplied additional perturbations of the same
-type, locking the configuration further. The institutional environment
+type, possibly stabilising the configuration further. The institutional environment
 (§3.4) supplied a daily structure that *fit* the configuration —
 single-sex, militarised, low-affect, achievement-oriented — and therefore
-provided the *substrate match* that selects for deepening rather than
+provided the *substrate match* that may select for deepening rather than
 loosening of the configuration. Maternal departure at 12 supplied an
 additional perturbation at adolescence, a second sensitive period for
 attachment-related structures (Sebastian et al., 2010).
@@ -433,14 +435,15 @@ attachment-related structures (Sebastian et al., 2010).
 The downstream projections of the manifold so configured are:
 
 - **Autism Level 2.** Diminished social-orienting weighting and altered
-  perceptual recruitment yield the autistic phenotype on adult behavioural
-  scoring. Mottron et al.'s (2006) enhanced perceptual functioning is the
-  *positive* face of the same configuration.
+  perceptual recruitment are proposed as one route by which the adult autistic
+  profile is expressed. This is not a claim that trauma caused the autism.
+  Mottron et al.'s (2006) enhanced perceptual functioning is the *positive* face
+  of the autistic cognitive profile.
 - **ADHD.** The same substrate produces, on attention-pattern scoring,
-  the ADHD profile. The framework predicts the comorbidity rate observed
+  the ADHD profile. The framework is consistent with the comorbidity rate observed
   in the epidemiological literature (Rommelse et al., 2010) because the
-  two are not separate conditions but two scoring instruments applied to
-  one substrate.
+  two profiles may share substrate features without ceasing to be clinically
+  distinct diagnostic categories.
 - **Complex PTSD.** The DSO symptom cluster reads as a direct description
   of basin properties: affect dysregulation = unstable basin residence;
   negative self-concept = a deep basin in self-referential space;
@@ -456,8 +459,8 @@ The downstream projections of the manifold so configured are:
   are the two principal eigenvectors of the configuration.
 
 The Soma-Field reading does not eliminate the standard diagnostic
-categories. It interprets them. They are five scoring instruments
-applied to one reconfigured manifold.
+categories. It interprets them as possibly correlated projections of one
+reconfigured manifold while preserving their clinical distinctness.
 
 ---
 
@@ -679,7 +682,7 @@ right track, return positive*. The predictions are deliberately specific.
 10. **Diagnostic age.** Within the cohort, age at first ASD diagnosis
     will be substantially higher than the population mean for autistic
     adults of equivalent severity, because onset-based diagnostic
-   criteria systematically miss them (testing the Section 2 second claim).
+   criteria may miss them (testing the Section 2 second claim).
 
 These are designed as a coherent test suite, not as ten independent
 tests. They jointly probe the *pre-verbal manifold* construct.
@@ -732,19 +735,19 @@ framework, suitably specified, supplies a formal object — the
 *pre-verbal manifold* — that ties them together and accounts for the
 trajectory at a single level of description. Standard onset-based
 diagnostic categories (ASD, ADHD, attachment disorder, cPTSD) are
-re-interpreted as five projections of one manifold rather than as
-five comorbid conditions.
+read as possibly correlated projections of one manifold, not as conditions
+that should be clinically conflated.
 
 Three implications follow.
 
 First, the case motivates a research question about gene-environment-development interactions once pre-verbal sensitive-period plasticity is taken seriously. Diagnostic categories should not be reframed without cohort evidence; for cases with pre-verbal trajectories of the kind documented here, the model instead asks what configuration of the manifold is present and what scaffolding it may need.
 
 Second, developmental-psychiatric onset criteria that rely on
-*first observable symptoms in language-capable children* systematically
-misclassify cases of this kind. The diagnostic age in such cases is
+*first observable symptoms in language-capable children* may misclassify
+cases of this kind. The diagnostic age in such cases is
 late and the eventual diagnostic load is heavy because the categories
 were not designed to see the relevant events. Revising the criteria is
-non-trivial; flagging the systematic miss is not.
+non-trivial; flagging the possible miss is not.
 
 Third, institutional and policy environments that filter for *mild*
 presentations, charge additional fees for accommodation, and subordinate

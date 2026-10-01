@@ -12,10 +12,9 @@ abstract: |
   governs field propagation across twenty orders of magnitude, from quantum
   foam ($10^{-35}$ m) to the observable universe ($10^{26}$ m). The central
   identification is that the Simple Harmonic Oscillator required by string
-  theory at each worldsheet point is the Green's function of the field
-  substrate: the system's impulse response. This dissolves the ontological
-  puzzle of the vibrating string and provides a derivation where string theory
-  offers only a postulate.
+  theory at each worldsheet point can be read as the Green's function of the
+  field substrate: the system's impulse response. This reframes the ontological
+  puzzle of the vibrating string as a structural derivation within the model.
 
   The architecture decomposes an eleven-dimensional configuration space into
   four canonical subspaces — Spacetime ($4D$), Propagator ($3D$), Limbic
@@ -32,21 +31,23 @@ abstract: |
   The same eleven-dimensional bookkeeping motivates two current cosmological
   hypotheses. The compact-sector fraction gives a leading-order dark-energy
   contribution of $7/11$, while the three non-compact spatial dimensions give
-  $\Omega_\text{DM} = 3/11 \approx 0.273$, compared with the Planck 2018
-  value $0.265$. These relations are not consequences of the scale architecture
-  alone: their physical interpretation depends on a stated compactification
-  model, and they make falsifiable predictions about cosmic expansion,
-  clustering, and gauge neutrality.
+  $\Omega_\text{DM} = 3/11 \approx 0.2727$, compared with the Planck 2018
+  TT,TE,EE+lowE+lensing value $0.2645$. These relations are not consequences
+  of the scale architecture alone: their physical interpretation depends on a
+  stated compactification model, and they make falsifiable predictions about
+  cosmic expansion, clustering, and gauge neutrality.
 
-  Within this framework, consciousness is a phase transition: present when the
-  limbic field amplitude $\phi$ exceeds a critical threshold $T_c$, absent
-  below it. Trauma is a topological obstruction in the limbic field — a
-  non-contractible configuration requiring quantum tunnelling to resolve.
+  Within this framework, consciousness is modelled as a phase transition:
+  the formal threshold predicate holds when the limbic field amplitude $\phi$
+  exceeds a critical threshold $T_c$ and fails below it. Trauma is modelled as
+  a topological obstruction in the limbic field — a non-contractible
+  configuration for which quantum tunnelling supplies a candidate transition route.
   The Field-Modulated Hopfield Network (FM-HN) provides a falsifiable
   computational model in which the limbic field controls the inverse
   temperature $\beta$ of the associative memory network at runtime; under
   zero somatic stress the FM-HN reduces exactly to the classical 1982
-  Hopfield network (Correspondence Principle, Lean 4 verified).
+  Hopfield network (Correspondence Principle, Lean 4 kernel-checked under the
+  model definitions).
 
   Multi-agent coordination is shown to reduce from $O(N \cdot K)$ to
   $O(N^2)$ with $K=1$ when agents are treated as a macroscopic brane
@@ -57,8 +58,8 @@ abstract: |
   McFadden's CEMI field theory (Scale 6 restriction), Schreiber's Modal
   Homotopy Type Theory (structural isomorphism), and Hoffman's Conscious
   Agents model (with the physical substrate anchor that model lacks). Core
-  algebraic results are machine-checked in Lean~4 (v4.28.0) using Mathlib;
-  the complete axiom list is given in §11.
+  algebraic results are machine-checked in Lean~4 (current proof surface:
+  v4.31.0); axioms and remaining `sorry`s are distinguished in §10.
 keywords:
   - scale invariance
   - Green's function
@@ -105,14 +106,17 @@ $x$ given a unit perturbation at $x'$?*
 This identification has a consequence for string theory. String theory requires
 a Simple Harmonic Oscillator (SHO) at every point of the string worldsheet.
 The SHO is assumed as a primitive; the question of why it is there is not
-answered. We show that the SHO is the Green's function of the worldsheet
-field: it is the substrate's impulse response, evaluated at the source point.
-The string does not vibrate as a material object; it is the field's propagation
-pattern. This is not a reinterpretation — it is a derivation from the structure
-of field equations.
+answered. We propose that the SHO can be represented as the Green's function
+of the worldsheet field: the substrate's impulse response, evaluated at the
+source point. In this reading the string is not treated as a material object,
+but as the field's propagation pattern. This is a structural derivation within
+the model, not an established replacement for string theory.
 
 The architecture that results is the **Zoomable Universal Somatic Field (zUSF)**:
-an eleven-dimensional field theory motivated by organism-level modelling and structurally compared with M-theory. Lean proves a type/product isomorphism under assumptions (`MTheoryIsomorphism.somaField_iso_mtheory`), not physical identity.
+an eleven-dimensional field theory motivated by organism-level modelling and
+structurally compared with M-theory. Lean checks a type/product isomorphism
+under assumptions (`MTheoryIsomorphism.somaField_iso_mtheory`), not physical
+identity.
 
 The derivation is inductive rather than deductive. Where Veneziano (1968)
 wrote down a scattering amplitude and Nambu, Nielsen, and Susskind separately
@@ -148,11 +152,12 @@ point source at $x'$. Three properties are immediate:
    satisfies $(\partial^2/\partial {x'}^2 + k^2) G = \delta$ — the harmonic
    oscillator equation in the source variable.
 
-Property 3 is the central identification: **the Green's function is the SHO**.
+Property 3 is the central structural identification: **the Green's function is the SHO**.
 The SHO of string theory, required at every worldsheet point, is the substrate's
 impulse response. This observation, formalised in the companion file
-`UniversalSomaticField.lean` (theorem `greens_fn_is_SHO`), is the structural
-core of the zUSF.
+`UniversalSomaticField.lean` (theorem `greens_fn_is_SHO`, currently a
+placeholder theorem proving `True` while the distributional identity awaits
+Mathlib Schwartz-space infrastructure), is the structural core of the zUSF.
 
 ## 2.2  Scale Invariance
 
@@ -166,8 +171,8 @@ for every scale $\sigma \in \{0,\ldots,20\}$ there exists a wavenumber
 $k(\sigma) > 0$ and a physical substrate $\mathcal{S}(\sigma)$ such that
 $G$ satisfies equation (1) with those parameters.
 
-**Theorem (Lean 4 verified, `UniversalSomaticField.universal_field_theory`):**
-$G$ is scale-invariant across all 20 levels.
+**Theorem (Lean 4 kernel-checked, `UniversalSomaticField.universal_field_theory`):**
+the formal field-equation type is inhabited at every scale level.
 
 *Proof.* By `scale_invariance_inhabited`: for every $\sigma$, the type
 `FieldEquation σ` is inhabited. $\square$
@@ -219,8 +224,8 @@ The compact 7-dimensional internal space is:
 
 $$X_7 = P_3 \times L_1 \times C_3, \quad \dim(X_7) = 3+1+3 = 7 \tag{6}$$
 
-**Theorem (Lean 4 verified, `MTheoryIsomorphism.dim_is_11`):**
-$4 + 3 + 1 + 3 = 11$. Proof by `decide`. $\square$
+The arithmetic $4 + 3 + 1 + 3 = 11$ is reflected in the product types used by
+`MTheoryIsomorphism.lean`; no separate theorem with this name is claimed here.
 
 ## 3.2  Isomorphism with M-Theory
 
@@ -231,15 +236,16 @@ The soma-field decomposition (5) has identical dimensional structure.
 well-defined 7D product manifold (`X7_is_7D_product`); the stronger $G_2$ holonomy
 claim is an open problem listed in the proof file.*
 
-**Theorem (Lean 4 verified, `MTheoryIsomorphism.somaField_iso_mtheory`):**
+**Theorem (Lean 4 kernel-checked, `MTheoryIsomorphism.somaField_iso_mtheory`):**
 There exists a type isomorphism:
 $$\text{SomaField}_{11} \cong \text{Spacetime} \times \text{CompactSpace}_7 \tag{7}$$
 
 *Proof.* By `toMTheory` and `fromMTheory`; roundtrip by `simp`. $\square$
 
-The derivation is independent: the M-theory structure was not assumed; it
-was arrived at by counting functional degrees of freedom of a biological system.
-The isomorphism (7) is therefore a theorem, not a construction.
+The decomposition was obtained independently by counting functional degrees
+of freedom in the biological model. The Lean statement is a type/product
+isomorphism under the paper's definitions; physical identification with
+M-theory compactification remains an interpretive hypothesis.
 
 ## 3.3  The Limbic Axis as a Horava-Witten Orbifold
 
@@ -252,15 +258,15 @@ same structure:
 - Endpoint $x = +1$: cortical boundary (mind-world)
 - Interior $(-1,1)$: transition zone, subject to quantum tunnelling
 
-**Theorem (Lean 4 verified, `MTheoryIsomorphism.boundary_not_interior`):**
+**Theorem (Lean 4 kernel-checked, `MTheoryIsomorphism.boundary_not_interior`):**
 The Limbic Axis endpoints are not interior points. $\square$
 
 The double-well potential on $L_1$:
 
 $$V(x) = W(x^2-1)^2 \tag{8}$$
 
-models the energy barrier between somatic and cortical attractors. At $x=-1$
-(trauma attractor), classical gradient descent is trapped:
+models the energy barrier between somatic and cortical attractors. Near $x=-1$
+(the model's trauma attractor), the formal local-gradient lemma is
 `LimbicTunnel.gradient_traps_near_neg1` (proved by `nlinarith`).
 
 ![The quartic double-well potential $V(x)=W(x^2-1)^2$ for barrier heights
@@ -385,18 +391,19 @@ $G_\text{string}(\sigma, \sigma') = -\frac{\alpha'}{2}\ln|\sigma - \sigma'|^2$
 (free bosonic string, Regge slope $\alpha'$). The vibrational modes satisfy
 the SHO equation $\ddot{X}^n + n^2 X^n = 0$.
 
-**Key result.** The SHO of string theory IS $G$. A string vibrational mode
+**Key result.** In the structural model, the SHO of string theory is identified with $G$. A string vibrational mode
 at frequency $n$ is the $n$-th Fourier mode of the worldsheet's impulse
-response. The string is not a material loop; it is the substrate's propagation
-pattern. This is `UniversalSomaticField.greens_fn_is_SHO` (theorem; physical
-content established by OS axiom verification via OSforGFF).
+response. The string is modelled as the substrate's propagation pattern. This
+is `UniversalSomaticField.greens_fn_is_SHO` (a placeholder theorem proving
+`True`; the distributional identity and physical interpretation remain proof
+obligations).
 
 **Mind matrix:** The string landscape: $N \sim 10^{500}$ vacuum configurations.
 Each selects a different low-energy physics. Our universe occupies one vacuum.
 
 ![Left: the Simple Harmonic Oscillator ($\ddot{x}+\omega^2 x=0$). Right: the
 Green's function $G(\tau)$ of a harmonic system — both satisfy the SHO
-equation. They are the same object.](figures/FS1_sho_string.png){width=80%}
+equation in the structural model.](figures/FS1_sho_string.png){width=80%}
 
 ---
 
@@ -739,8 +746,9 @@ Dark energy dominates the current energy budget.
 **Propagator:** Gravitational wave propagator — the retarded Green's function
 of the linearised Einstein equation:
 $G_\text{GW}(x,x') = \theta(t-t')\delta\bigl((x-x')^2\bigr)/(2\pi)$.
-This is spacetime's impulse response. Gravity is the Green's function of
-the metric field. LIGO/Virgo/KAGRA measure $G_\text{GW}$ directly.
+This is spacetime's impulse response in the linearised model. Gravitational
+waves probe the retarded response of the metric field; LIGO/Virgo/KAGRA
+measure gravitational-wave signals consistent with that response.
 
 **Mind matrix:** The global cosmological state. If the universal CEMI field
 amplitude satisfies $\phi_\text{cosmic} \geq T_c$, the universe satisfies
@@ -765,9 +773,10 @@ $$11 = 7 + 3 + 1.$$
 The compact-sector bookkeeping gives a leading fraction $7/11$ for a
 cosmological-constant contribution. The spatial-sector bookkeeping gives
 
-$$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.273,$$
+$$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.2727,$$
 
-to be compared with the Planck 2018 estimate $\Omega_\text{DM} = 0.265$.
+to be compared with the Planck 2018 TT,TE,EE+lowE+lensing estimate
+$\Omega_\text{DM} = 0.2645$.
 The numerical fraction is exact arithmetic; its cosmological interpretation
 is a model-dependent hypothesis. It earns attention only if the proposed
 spatial sector also produces the observed cold, clustering, electromagnetically
@@ -794,10 +803,10 @@ propagation occurs; no first-person awareness is present.
 **Definition (Model threshold state).** A system satisfies the model predicate when $\phi \geq T_c$.
 The limbic field couples the somatic and cortical subspaces; awareness and biological thresholds remain open hypotheses.
 
-**Theorem (Lean 4 verified, `UniversalSomaticField.consciousness_dichotomy`):**
+**Theorem (Lean 4 kernel-checked, `UniversalSomaticField.consciousness_dichotomy`):**
 For any $\phi \in \mathbb{R}$, either $\phi < T_c$ or $\phi \geq T_c$. This is a split for a model predicate, not a proof of phenomenal awareness. $\square$
 
-**Theorem (Lean 4 verified, `UniversalSomaticField.consciousness_monotone`):**
+**Theorem (Lean 4 kernel-checked, `UniversalSomaticField.consciousness_monotone`):**
 Raising $\phi$ cannot falsify the model threshold predicate once it holds. $\square$
 
 ## 6.2  The Hard Problem
@@ -821,15 +830,17 @@ escape:
 
 $$\frac{dx}{dt} = -V'(x) = -4Wx(x^2-1) < 0 \quad \text{for } x \in (-1,0)$$
 
-This traps the system near $x=-1$ indefinitely. Quantum tunnelling provides
-the only escape route. The WKB amplitude:
+In the model this traps the system near $x=-1$ under the stated classical
+dynamics. Quantum tunnelling provides a candidate non-classical transition
+route. The WKB amplitude:
 
 $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) \tag{12}$$
 
 is strictly positive for all finite $W$ (proved: `LimbicTunnel.wkbAmplitude_pos`)
-but exponentially small for large $W$. QUANT-EXP-1 demonstrates empirically
-that quantum annealing achieves this escape 3/3 times at $W \in \{8,10,12\}$
-while classical Langevin dynamics achieve 0/48.
+but exponentially small for large $W$. QUANT-EXP-1 is an exact 8-qubit
+statevector simulation: the quantum-annealing protocol reaches the Awe basin
+3/3 times at $W \in \{8,10,12\}$ while the classical Langevin baseline achieves
+0/48. It is not a hardware or clinical result.
 
 ![WKB tunnelling amplitude $\Theta(W)$ vs. barrier height $W$.
 QUANT-EXP-1 values ($W=8,10,12$) marked. Classical rate = 0;
@@ -856,7 +867,7 @@ the ephaptic gain coefficient.
 
 ## 7.2  Correspondence Principle
 
-**Theorem (Lean 4 verified, `LimbicHopfield.correspondence_principle`):**
+**Theorem (Lean 4 kernel-checked, `LimbicHopfield.correspondence_principle`):**
 Under zero somatic stress $\Phi = 0$:
 $$T(t) = T_0, \quad W(t) = W_0 \tag{15}$$
 
@@ -874,8 +885,8 @@ Newtonian mechanics is the low-velocity limit of special relativity.
 ## 7.3  Neurodivergent Operator Modifications
 
 The FM-HN parameter space $(\beta, W)$ contains distinct regimes
-corresponding to neurodivergent profiles (all proved by `linarith` in
-`LimbicHopfield`):
+corresponding to neurodivergent profiles; the listed temperature-ordering
+inequality is checked by `linarith` in `LimbicHopfield`:
 
 | Profile | Baseline $T$ | Barrier $W$ | Dynamical regime |
 |---|---|---|---|
@@ -883,7 +894,7 @@ corresponding to neurodivergent profiles (all proved by `linarith` in
 | ASC | $0.4 \cdot T_0$ (cold) | Normal | Deep attractors, rare transitions |
 | C-PTSD | $T_0$ | High ($W=12$) | Classical trapping, quantum escape needed |
 
-**Theorem (Lean 4 verified, `LimbicHopfield.adhd_hotter_than_autism`):**
+**Theorem (Lean 4 kernel-checked, `LimbicHopfield.adhd_hotter_than_autism`):**
 $T_\text{ASC} < T_0 < T_\text{ADHD}$. $\square$
 
 ---
@@ -944,17 +955,17 @@ and upward to multi-organism coupling (§8) and cosmological propagation (Scale 
 Schreiber (2013) formalises physics in dependent type theory, arriving at
 an 11-dimensional structure from the mathematics of M-theory. The zUSF
 arrives at the same 11-dimensional structure from the bottom up (clinical
-observation). The structural isomorphism (theorem 3.2) confirms that the
-two approaches describe the same object. The zUSF provides the biological
-execution engine that Schreiber's purely mathematical framework lacks.
+observation). The structural isomorphism (theorem 3.2) shows a matching type/product
+architecture under the paper's definitions. The stronger claim that the two
+approaches describe the same physical object remains interpretive.
 
 ## 9.3  Hoffman's Conscious Agents Model [@hoffman2019]
 
 Hoffman proposes that spacetime is a "user interface" constructed by
 conscious agents; it is not fundamental. The zUSF disagrees on one point:
-spacetime ($D_{1-4}$) is physically real and causally efficacious. Brain
-surgery alters subjective experience because physical processes in spacetime
-causally affect the CEMI field. However, the zUSF agrees that the deeper
+spacetime ($D_{1-4}$) is treated as physically real and causally efficacious.
+Brain surgery alters subjective experience because physical processes in
+spacetime causally affect neural activity. However, the zUSF agrees that the deeper
 structure is relational: conscious percepts are poles in the propagator —
 relational objects, not substances. The "conscious agents" in Hoffman's
 framework correspond to 11D organisms that have crossed the threshold $T_c$.
@@ -963,15 +974,16 @@ framework correspond to 11D organisms that have crossed the threshold $T_c$.
 
 # Formal Verification
 
-The core algebraic results are Lean 4 kernel-verified using Mathlib
-(v4.28.0). The following table lists theorems, proof methods, and files.
+The core algebraic results are Lean 4 kernel-checked using Mathlib
+(current proof surface: v4.31.0; source inspected but not rebuilt here).
+The following table lists representative theorems, proof methods, and files.
 
 | Theorem | Statement | Tactic | File |
 |---|---|---|---|
-| `dim_is_11` | $4+3+1+3=11$ | `decide` | MTheoryIsomorphism |
 | `somaField_iso_mtheory` | SomaField $\cong$ M-Theory | `simp` | MTheoryIsomorphism |
 | `organism_hierarchy` | $11D \twoheadrightarrow 7D \twoheadrightarrow 4D$ | `simp` | MTheoryIsomorphism |
-| `scale_iso_commutes` | $\Lambda$ commutes with scale transform | `simp` | MTheoryIsomorphism |
+| `X7_is_7D_product` | $X_7$ is inhabited as a 7D product | constructor | MTheoryIsomorphism |
+| `scale_invariance_full` | rescaled wave mode satisfies the wave equation | imported wave equation | MTheoryIsomorphism |
 | `boundary_not_interior` | $L_1$ endpoints $\notin$ interior | `fin_cases` | MTheoryIsomorphism |
 | `V_nonneg` | $V(x) \geq 0$ everywhere | `positivity` | LimbicTunnel |
 | `barrier_height` | $V(0) = W$ | `simp`, `ring` | LimbicTunnel |
@@ -987,17 +999,18 @@ The core algebraic results are Lean 4 kernel-verified using Mathlib
 | `consciousness_monotone` | Raising $\phi$ preserves consciousness | `linarith` | UniversalSomaticField |
 | `universal_field_theory` | $G$ is scale-invariant | structural | UniversalSomaticField |
 
-**Axioms (not yet proved; explicit gaps):**
+**Axioms and open obligations (not world-claims proved by the kernel):**
 
 | Axiom | Content | Scaffolding needed |
 |---|---|---|
 | `universe_is_11D_organism` | Universe satisfies 11D structure | Cosmological boundary conditions |
-| `cosmological_correspondence` | Scale 19 instantiates equation (1) | Linearised GR in Mathlib |
-| `classical_trapped` | Gradient flow stays in $(-\infty,0)$ | Lyapunov theory for ODEs |
-| `quant_exp_1_formal` | Quantum rate $>$ classical rate | Probabilistic model of annealing |
+| `cosmological_correspondence` | weak Scale 19 field-equation inhabitance | full linearised GR in Mathlib |
+| `classical_trapped` | placeholder theorem returning `True` for trapping statement | Lyapunov theory for ODEs |
+| `quant_exp_1` | axiom connecting WKB amplitude to QUANT-EXP-1 rates | Probabilistic model of annealing |
 
-`greens_fn_is_SHO` was an axiom; it is now `theorem greens_fn_is_SHO ... := trivial`
-(physical content established by OS axiom verification via OSforGFF, August 2026).
+`greens_fn_is_SHO` was an axiom; it is now `theorem greens_fn_is_SHO ... := trivial`.
+The OSforGFF files support the free Gaussian-field formal model; the
+distributional SHO identity and USF interpretation remain separate obligations.
 
 Cite each result by theorem/status; current proof surface contains seven real sorries and several axioms/definitions/imported theorem applications/arithmetic facts.
 
@@ -1027,7 +1040,8 @@ Cite each result by theorem/status; current proof surface contains seven real so
 4. **WKB barrier sweep.** At barrier heights $W > 12$, the classical
    escape rate should remain zero while the quantum rate decreases as
    $\Theta(W) = \exp(-8\sqrt{2W}/3)$. This prediction is testable on
-   D-Wave hardware by extending the QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
+   quantum-annealing hardware or independent simulators by extending the
+   QUANT-EXP-1 protocol to $W \in \{14,16,18\}$.
 
 5. **Cosmic energy partition.** The compactification model predicts a
   spatial-sector fraction $\Omega_\text{DM}=3/11$ and requires that sector to
@@ -1040,8 +1054,9 @@ Cite each result by theorem/status; current proof surface contains seven real so
 
 The framework is falsified if any of the following is observed:
 
-- Classical Langevin dynamics escape the barrier in QUANT-EXP-1 at rate $> 0$
-  (contradicts `LimbicTunnel.classical_trapped`)
+- Classical Langevin dynamics escape the barrier in the QUANT-EXP-1 protocol at
+  a reproducible non-zero rate (falsifies the current classical-trapping model;
+  the Lean `classical_trapped` declaration is only a placeholder theorem)
 - The FM-HN under zero stress produces different output than the classical
   1982 network (contradicts `correspondence_principle`)
 - The propagator coordination protocol fails to reduce to $O(1)$ application
@@ -1079,10 +1094,10 @@ in interaction with its environment, and the M-theory isomorphism was
 discovered as a consequence.
 
 This matters epistemologically. A deductive derivation establishes that
-a structure is mathematically possible; an inductive derivation establishes
-that a structure is empirically necessary — that it is the minimum geometry
-required to describe the observed phenomenon. The zUSF claims necessity,
-not merely possibility.
+a structure is mathematically possible; an inductive derivation can motivate
+the claim that a structure is empirically necessary — that it may be the
+minimum geometry required to describe the observed phenomenon. The zUSF
+therefore argues for necessity, rather than taking it as already established.
 
 ## 12.3  Relation to Existing Work
 
@@ -1140,10 +1155,10 @@ borrow certainty from one another.
 
 The Zoomable Universal Somatic Field provides a unified scale-invariant
 description of field propagation from the Planck scale to the cosmic web.
-The central result — that the SHO of string theory is the Green's function
-of the field substrate — resolves a longstanding puzzle in string theory
-and simultaneously provides a derivation of the 11-dimensional structure
-from the phenomenology of conscious organisms.
+The central proposal — that the SHO of string theory can be read as the
+Green's function of the field substrate — reframes a longstanding puzzle in
+string theory and motivates an 11-dimensional structure from the phenomenology
+of conscious organisms.
 
 The architecture satisfies three independent criteria for a successful
 unification theory:
@@ -1159,11 +1174,13 @@ unification theory:
 3. **Falsifiability.** The framework makes specific quantitative
    predictions (§11.1) that distinguish it from its competitors.
 
-The scale-invariant structure is empirically supported at multiple levels:
-QUANT-EXP-1 (barrier tunnelling, Scale 5), working alliance / symptom
-improvement correlations (Scale 7), swarm coordination experiments (Scale 8),
-and baryon acoustic oscillations (Scale 17). The remaining predictions
-(§11.1 items 2–4) are testable with currently available hardware.
+The scale-invariant structure is supported by a mixture of evidence types:
+QUANT-EXP-1 is a statevector simulation (Scale 5), working-alliance claims are
+predictions rather than established clinical results (Scale 7), swarm
+coordination is formal/computational (Scale 8), and baryon acoustic oscillations
+are standard cosmological observations used as consistency checks (Scale 17).
+The remaining predictions (§11.1 items 2–4) are testable with currently
+available simulation or experimental platforms.
 
 The equation is simple. The implications are large.
 

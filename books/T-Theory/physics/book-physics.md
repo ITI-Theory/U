@@ -9,7 +9,7 @@ lang: en-GB
 bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 abstract: |
-  This volume reads the Universal Somatic Field from the standpoint of mathematical physics. Its central object is a propagator: a Green function for a tensor-valued field whose lower-scale restrictions are proposed to resemble known response kernels, Hopfield energy dynamics, and cosmological vacuum sectors. The book is deliberately cautious about status. Lean files check type decompositions, algebraic identities, imported free-field Osterwalder--Schrader theorem applications, and arithmetic fractions under their definitions. They do not establish a physical M-theory compactification, a measured somatic tensor, or a clinical mechanism. The cosmological claims are model-derived comparisons: with $H_0=67.4\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, the current P21 estimate is $\Lambda_{\mathrm{USF}}\approx 1.01\times10^{-52}\,\mathrm{m}^{-2}$ against $\Lambda_{\mathrm{obs}}\approx 1.09\times10^{-52}\,\mathrm{m}^{-2}$, ratio $0.93$, and $\Lambda$ is constant rather than an evolving $\Omega_\Lambda(z)$. QUANT-EXP-1 is an exact statevector simulation, not hardware evidence. The aim is to make the claims precise enough for physicists to test, reject, or improve.
+  This volume reads the Universal Somatic Field from the standpoint of mathematical physics. Its central object is a propagator: a Green function for a tensor-valued field whose lower-scale restrictions are proposed to resemble known response kernels, Hopfield energy dynamics, and cosmological vacuum sectors. The book is deliberately cautious about status. Lean files check type decompositions, algebraic identities, imported free-field Osterwalder--Schrader theorem applications, and arithmetic fractions under their definitions. They do not establish a physical M-theory compactification, a measured somatic tensor, or a clinical mechanism. The cosmological claims are model-derived comparisons: with $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, the current P21 estimate is $\Lambda_{\mathrm{USF}}\approx 1.01\times10^{-52}\,\mathrm{m}^{-2}$ against $\Lambda_{\mathrm{obs}}\approx 1.09\times10^{-52}\,\mathrm{m}^{-2}$, ratio $0.93$, and $\Lambda$ is constant rather than an evolving $\Omega_\Lambda(z)$. QUANT-EXP-1 is an exact statevector simulation, not hardware evidence. The aim is to make the claims precise enough for physicists to test, reject, or improve.
 ---
 
 # The Green Propagator
@@ -60,7 +60,7 @@ The compactification language requires particular care. The Lean theorem `MTheor
 
 The same distinction applies to the Simple Harmonic Oscillator claim. The papers' attractive idea is that the oscillator need not be postulated as a little material string; it can appear as the impulse response of a field operator. Away from a source singularity, Helmholtz slices solve oscillator equations, and the Lean surface now imports physlib harmonic-oscillator and wave-equation facts. Within that framework, the SHO structure is derived from field-response form rather than added as a primitive `derived-under-assumptions`. But the leap from that mathematical observation to a physical string-theory derivation remains conditional on the field identification and compactification programme. In this book "derived" always means "derived inside the stated model", not "settled as fundamental physics".
 
-The cosmological material is similar. P21 no longer asks the reader to treat $\Omega_\Lambda(z)$ as a constant fraction at every redshift. It identifies $\Lambda$ with a vacuum amplitude; $\Lambda$ is constant. The fraction $7/11$ is a leading-order dimensional partition used to compare the model's present-day dark-energy density with Planck-era values. With $H_0=67.4\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, the text now gives
+The cosmological material is similar. P21 no longer asks the reader to treat $\Omega_\Lambda(z)$ as a constant fraction at every redshift. It identifies $\Lambda$ with a vacuum amplitude; $\Lambda$ is constant. The fraction $7/11$ is a leading-order dimensional partition used to compare the model's present-day dark-energy density with Planck 2018 TT,TE,EE+lowE+lensing values. With $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, the text now gives
 $$\Lambda_{\mathrm{USF}}=\frac{21}{11}\frac{H_0^2}{c^2}\approx 1.01\times10^{-52}\,\mathrm{m}^{-2},$$
 where $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$ and the ratio is $0.93$ `derived-under-assumptions`. The numerical proximity is not independent confirmation. It is a model-derived comparison that lives or dies with the compactification, GR, vacuum-amplitude, and correction assumptions.
 
@@ -174,11 +174,11 @@ P21 reframes the cosmological constant problem by refusing the usual zero-point-
 $$\Lambda\equiv \frac{k_{\mathrm{cosm}}^2\langle\mathrm{tr}\,\Phi\rangle_0^2}{M_{\mathrm{Pl}}^2c^2},\qquad k_{\mathrm{cosm}}=\frac{H_0}{c}.$$
 This is not a derivation from established quantum gravity. It is a model choice designed to make the vacuum amplitude, rather than a divergent mode sum, the relevant object `derived-under-assumptions`.
 
-The current numerical statement is precise. With $H_0=67.4\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ and $\Omega_\Lambda=0.683$ from the Planck 2018 baseline, the observed value is
+The current numerical statement is precise. With $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ and $\Omega_\Lambda=0.6847$ from the Planck 2018 TT,TE,EE+lowE+lensing baseline, the observed value is
 $$\Lambda_{\mathrm{obs}}=\frac{3\Omega_\Lambda H_0^2}{c^2}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}.$$
 The model's compact-sector estimate is
 $$\Lambda_{\mathrm{USF}}=\frac{21}{11}\frac{H_0^2}{c^2}\approx1.01\times10^{-52}\,\mathrm{m}^{-2},$$
-so $\Lambda_{\mathrm{USF}}/\Lambda_{\mathrm{obs}}=(7/11)/0.683\approx0.93$ [@planck2018cosmology] `derived-under-assumptions`. The agreement is at the seven per cent level. It is a comparison, not a precision cosmological fit.
+so $\Lambda_{\mathrm{USF}}/\Lambda_{\mathrm{obs}}=(7/11)/0.6847\approx0.93$ [@planck2018cosmology] `derived-under-assumptions`. The agreement is at the 7.1 per cent level. It is a comparison, not a precision cosmological fit.
 
 The distinction between $\Lambda$ and $\Omega_\Lambda(z)$ is essential. $\Lambda$ is constant in the model. The density parameter $\Omega_\Lambda(z)$ is a ratio to the critical density and therefore changes as the background cosmology changes. Saying that $7/11$ is the compact-sector partition is not the same as saying the observed dark-energy density parameter is $7/11$ at all epochs. The model predicts a constant dark-energy equation of state, $w=-1$, only under the LocalGR/static-moduli assumptions used in the proof surface `derived-under-assumptions`.
 
@@ -186,7 +186,7 @@ The Lean file `CosmologicalConstant.lean` is useful because it separates arithme
 
 P22 extends the same bookkeeping to dark matter. The spatial block $\langle\Phi_{ij}\rangle_0$ is assigned
 $$\Omega_{\mathrm{DM}}^{\mathrm{USF}}=\frac{3}{11}\approx0.2727,$$
-compared with the Planck 2018 value near $0.265$ [@planck2018cosmology]. In prose this is a 2.9 per cent discrepancy. The model then has to explain why this spatial vacuum gravitates, clusters, has no Standard Model gauge charge, and behaves as cold pressureless matter with $w\simeq0$. The file supplies formal claims such as `spatial_vacuum_em_neutral` and `spatial_vacuum_pressure_zero`, but those depend on the programme's local-geometry assumptions `derived-under-assumptions`.
+compared with the Planck 2018 TT,TE,EE+lowE+lensing value $0.2645$ [@planck2018cosmology]. In prose this is a 3.1 per cent high discrepancy. The model then has to explain why this spatial vacuum gravitates, clusters, has no Standard Model gauge charge, and behaves as cold pressureless matter with $w\simeq0$. The file supplies formal claims such as `spatial_vacuum_em_neutral` and `spatial_vacuum_pressure_zero`, but those depend on the programme's local-geometry assumptions `derived-under-assumptions`.
 
 The dark-matter paper's best feature is that it lists falsifiers. If the component has pressure inconsistent with cold dark matter, couples electromagnetically, fails to cluster, or produces no distinguishable structure from standard CDM, the spatial-vacuum reading loses force. A further challenge is degeneracy: a model that reproduces only the background density fraction can be observationally indistinguishable from many dark-sector parametrisations. To become physics rather than numerology, the USF dark-sector proposal needs perturbation theory, lensing predictions, structure-growth signatures, and a clear treatment of baryons and radiation `open-hypothesis`.
 
@@ -227,7 +227,7 @@ The volume's strongest claim, then, is not that [T]-Theory is already a new phys
 | Claim | Label | Source |
 |---|---|---|
 | P21 identifies $\Lambda$ with a vacuum amplitude, not a ZPE cutoff sum. | `derived-under-assumptions` | Cosmological-constant paper |
-| Current P21 uses $H_0=67.4$ and gives $\Lambda_{\mathrm{USF}}\approx1.01\times10^{-52}\,\mathrm{m}^{-2}$. | `derived-under-assumptions` | Cosmological-constant paper |
+| Current P21 uses $H_0=67.36$ and gives $\Lambda_{\mathrm{USF}}\approx1.01\times10^{-52}\,\mathrm{m}^{-2}$. | `derived-under-assumptions` | Cosmological-constant paper |
 | $\Lambda$ is constant; $\Omega_\Lambda(z)$ is not. | `derived-under-assumptions` | P21 model reading |
 | $\Omega_{\mathrm{DM}}=3/11$ is arithmetic from sector counting. | `kernel-verified` | `CosmologicalConstant.lean` |
 | Spatial-vacuum pressurelessness and neutrality depend on local-geometry assumptions. | `derived-under-assumptions` | Dark Matter paper; `LocalGeometry.lean` |
@@ -277,7 +277,7 @@ Scale invariance is one of the programme's most attractive and most dangerous wo
 
 For the organism model, the relevant coarse-graining might run from cellular electrophysiology to neural populations, from neural populations to autonomic variables, and from those to affective state coordinates. Couplings in $W$ would then be renormalised summaries of many lower-level interactions. This is plausible, but it raises familiar questions. Which variables are relevant, irrelevant, or marginal? Does the threshold $T_c$ survive coarse-graining, or is it a normalisation convention? Are there universality classes of affective dynamics, or only individual fits? Without answers, "scale invariant" means only "reusing a form" `open-hypothesis`.
 
-For cosmology, the issue is sharper. The model moves from Planck-scale compactification language to Hubble-scale vacuum amplitude. If a background field amplitude remains pinned across scales, one needs a reason why it does not run like an ordinary quantum fluctuation. P21 states such a reason in terms of a regulated attractor and boundary condition. A physicist will want the RG equation, fixed point, stability analysis, and correction terms. The stated $\mathcal{O}(\alpha')$ correction cannot remain an explanatory bucket for a seven per cent discrepancy; it must become a calculation `derived-under-assumptions`.
+For cosmology, the issue is sharper. The model moves from Planck-scale compactification language to Hubble-scale vacuum amplitude. If a background field amplitude remains pinned across scales, one needs a reason why it does not run like an ordinary quantum fluctuation. P21 states such a reason in terms of a regulated attractor and boundary condition. A physicist will want the RG equation, fixed point, stability analysis, and correction terms. The stated $\mathcal{O}(\alpha')$ correction cannot remain an explanatory bucket for a 7.1 per cent discrepancy; it must become a calculation `derived-under-assumptions`.
 
 For QUANT-EXP-1, finite-size scaling is the analogous demand. Eight qubits are transparent and exact. They are not enough to establish how barrier traversal behaves as the number of modes grows. Does the spectral gap close exponentially? Does the target occupancy persist? Do classical nonlocal methods erase the contrast? Does decoherence in hardware destroy the effect? A scale claim about quantum reachability needs a sequence of instances, not only one clean toy landscape `simulated`.
 
@@ -344,7 +344,7 @@ The paper's proof-status table should be read with the current ledger in mind. I
 
 # Reading The Cosmological Constant as Vacuum Amplitude
 
-This paper is the volume's most direct challenge to standard cosmological intuition. It proposes that the cosmological constant is not the naive zero-point-energy sum but a vacuum amplitude of the USF tensor trace. The current numerical result is specific: $\Lambda_{\mathrm{USF}}=(21/11)H_0^2/c^2\approx1.01\times10^{-52}\,\mathrm{m}^{-2}$ for $H_0=67.4$, compared with $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$, ratio $0.93$ `derived-under-assumptions`.
+This paper is the volume's most direct challenge to standard cosmological intuition. It proposes that the cosmological constant is not the naive zero-point-energy sum but a vacuum amplitude of the USF tensor trace. The current numerical result is specific: $\Lambda_{\mathrm{USF}}=(21/11)H_0^2/c^2\approx1.01\times10^{-52}\,\mathrm{m}^{-2}$ for $H_0=67.36$, compared with $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$, ratio $0.93$ `derived-under-assumptions`.
 
 Read the derivation as a model-derived comparison. It does not solve the cosmological constant problem in the sense of deriving the observed value from accepted quantum gravity. It changes the object being calculated. That may be a legitimate research move, but it transfers the burden to compactification geometry, vacuum-amplitude dynamics, GR coupling, and observational predictions.
 
@@ -356,7 +356,7 @@ The paper's most important clarification is that $\Lambda$ is constant. The frac
 
 # Reading Dark Matter as the Spatial Vacuum
 
-The dark-matter paper extends dimensional bookkeeping from the compact sector to the three non-compact spatial directions. Its headline value, $\Omega_{\mathrm{DM}}=3/11\approx0.273$, lies close to the Planck 2018 dark-matter fraction near $0.265$ [@planck2018cosmology]. The paper then argues that the spatial block should cluster gravitationally, carry no electromagnetic charge, and behave as pressureless matter `derived-under-assumptions`.
+The dark-matter paper extends dimensional bookkeeping from the compact sector to the three non-compact spatial directions. Its headline value, $\Omega_{\mathrm{DM}}=3/11\approx0.2727$, lies close to the Planck 2018 TT,TE,EE+lowE+lensing dark-matter fraction $0.2645$ [@planck2018cosmology]. The paper then argues that the spatial block should cluster gravitationally, carry no electromagnetic charge, and behave as pressureless matter `derived-under-assumptions`.
 
 The density fraction is the easy part. The physical behaviour is the hard part. Cold dark matter is constrained not only by an integrated energy budget but by lensing, CMB peaks, matter power spectra, halo formation, Bullet-Cluster-like systems, and direct limits on non-gravitational coupling. A spatial-vacuum model must reproduce these phenomena while making at least one distinctive prediction.
 
@@ -447,7 +447,7 @@ The third decisive document would be a measured perturbation experiment at organ
 | QUANT-EXP-1 is an exact 8-qubit statevector simulation. | `simulated` | Quantum Soma paper |
 | QUANT-EXP-1 does not provide hardware evidence, therapy evidence, or runtime advantage. | `simulated` | Quantum Soma limitations |
 | P21 identifies $\Lambda$ with a vacuum amplitude, not a naive ZPE sum. | `derived-under-assumptions` | Cosmological-constant paper |
-| With $H_0=67.4$, P21 gives $\Lambda_{\mathrm{USF}}\approx1.01\times10^{-52}\,\mathrm{m}^{-2}$ versus $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$. | `derived-under-assumptions` | Cosmological-constant paper |
+| With $H_0=67.36$, P21 gives $\Lambda_{\mathrm{USF}}\approx1.01\times10^{-52}\,\mathrm{m}^{-2}$ versus $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$. | `derived-under-assumptions` | Cosmological-constant paper |
 | $\Lambda$ is constant in the model; $\Omega_\Lambda(z)$ is a changing density ratio. | `derived-under-assumptions` | P21 model reading |
 | $\Omega_{\mathrm{DM}}=3/11$ is an arithmetic sector-counting result. | `kernel-verified` | `CosmologicalConstant.lean` |
 | Dark-matter clustering, neutrality, and pressurelessness depend on local-geometry and KK assumptions. | `derived-under-assumptions` | Dark Matter paper |

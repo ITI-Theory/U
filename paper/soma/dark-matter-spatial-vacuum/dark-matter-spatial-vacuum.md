@@ -7,19 +7,20 @@ lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  We identify dark matter with the vacuum expectation value of the Universal
-  Somatic Field (USF) restricted to the three non-compact spatial dimensions
+  We propose identifying dark matter with the vacuum expectation value of the
+  Universal Somatic Field (USF) restricted to the three non-compact spatial dimensions
   of the M-theory compactification $M_{11} = \mathbb{R}_t \times M_3 \times X_7$.
   The leading-order prediction from dimensional counting is:
   $$\Omega_\text{DM}^\text{USF} = \frac{N_\text{spatial}}{N_\text{total}}
-    = \frac{3}{11} \approx 0.273$$
-  compared with the Planck 2018 value $\Omega_\text{DM}^\text{obs} = 0.265$ —
-  a **2.9\% discrepancy**. The physical mechanism is distinct from particle dark
+    = \frac{3}{11} \approx 0.2727$$
+  compared with the Planck 2018 TT,TE,EE+lowE+lensing value
+  $\Omega_\text{DM}^\text{obs} = 0.2645$ — a **3.1\% high discrepancy**.
+  The physical mechanism is distinct from particle dark
   matter models: the spatial vacuum block of $\Phi_{ij}$ couples to the 4D
   Einstein equations but carries no Standard Model gauge charges (EM, weak, or
   strong), because gauge fields are localised on the compact sector $X_7$. It
-  clusters gravitationally (w = 0) while the compact-sector vacuum gives the
-  cosmological constant (w = -1). Together with the companion
+  is modelled as clustering gravitationally (w = 0) while the compact-sector
+  vacuum gives the cosmological constant (w = -1). Together with the companion
   cosmological-constant model's result
   $\Omega_\Lambda = 7/11$, dimensional counting from the 11D USF accounts
   for 95\% of the universe's total energy budget.
@@ -61,7 +62,8 @@ The Universal Somatic Field is a symmetric tensor field
 $\Phi_{MN}$ on the 11-dimensional spacetime
 $M_{11} = \mathbb{R}_t \times M_3 \times X_7$,
 where $M_3$ is the three non-compact spatial dimensions and $X_7$ is a
-compact seven-manifold with $G_2$ holonomy. This is the same compactification
+compact seven-manifold whose $G_2$-holonomy interpretation remains an open
+physical/geometric hypothesis. This is the same dimensional compact-sector
 structure used throughout the USF programme
 [@johnson2026usf; @johnson2026cosconst].
 
@@ -96,11 +98,11 @@ $$\Omega_\text{DM}^\text{USF} = \frac{N_\text{spatial}}{N_\text{total}}
 
 All three leading-order predictions from dimensional counting:
 
-| Sector | USF fraction | Prediction | Observed (rounded current-Lean value) | Discrepancy |
+| Sector | USF fraction | Prediction | Observed (Planck 2018 TT,TE,EE+lowE+lensing) | Discrepancy |
 |---|---|---|---|---|
-| Dark energy ($\Lambda$) | $7/11$ | 0.636 | 0.683 | 6.8\% |
-| **Dark matter** | $3/11$ | **0.273** | **0.265** | **2.9\%** |
-| Baryons | $(1/11)/2$ | 0.046 | 0.049 | 7.2\% |
+| Dark energy ($\Lambda$) | $7/11$ | 0.6364 | 0.6847 | 7.1\% low |
+| **Dark matter** | $3/11$ | **0.2727** | **0.2645** | **3.1\% high** |
+| Baryons | $(1/11)/2$ | 0.0455 | 0.0493 | 7.8\% low |
 
 The three largest components of the cosmic energy budget are each predicted
 to within a single-digit percentage from a single integer decomposition
@@ -156,7 +158,7 @@ In the USF framework this distinction has a geometric origin:
   collapse, the spatial vacuum condenses into high-density regions, developing
   perturbations $\delta\rho_\text{DM}/\rho_\text{DM} > 0$ on sub-Hubble scales.
   In the non-relativistic limit, its pressure is negligible: $w \approx 0$.
-  This is exactly cold dark matter. ✓
+  This is the intended cold-dark-matter limit of the model. ✓
 
 ## Electromagnetic neutrality from gauge-field localisation
 
@@ -164,7 +166,7 @@ In M-theory on $M_{11} = M_4 \times X_7$, gauge symmetries arise from the
 topology of $X_7$: the Standard Model gauge group
 $SU(3) \times SU(2) \times U(1)$ emerges from the geometric and topological
 structure of the compact manifold (intersecting cycles, wrapped M2/M5-branes,
-or the $G_2$-holonomy analogue of D-brane stacks).
+or a candidate $G_2$-holonomy analogue of D-brane stacks).
 
 The critical consequence is **gauge-field localisation**: SM gauge bosons
 (photon, W, Z, gluons) are localised in the compact sector $X_7$. Any
@@ -180,10 +182,11 @@ and has no $X_7$ component. Therefore:
   stress-energy of $\langle\Phi_{ij}\rangle_0$ on their right-hand side,
   since the graviton propagates in all of $M_4$. ✓
 
-Consequently, $\langle\Phi_{ij}\rangle_0$ interacts exclusively via the 4D
-metric $g_{\mu\nu}$ — the graviton — and satisfies **all observational
-properties of Cold Dark Matter** simultaneously: gravitationally active,
-electromagnetically dark, cold, pressureless, and without SM self-interaction.
+Consequently, if the localisation assumptions hold, $\langle\Phi_{ij}\rangle_0$
+interacts exclusively via the 4D metric $g_{\mu\nu}$ — the graviton — and is
+designed to match the observational profile of Cold Dark Matter:
+gravitationally active, electromagnetically dark, cold, pressureless, and
+without SM self-interaction.
 
 ## Kaluza-Klein Reduction: Why $w = 0$ and not $w = -1$
 
@@ -222,12 +225,11 @@ The distinction between the two blocks is summarised:
 | Compact ($X_7$, 7 dims) | Zero mode | $m = 0$ | $w = -1$ (Λ) |
 | Spatial ($M_3$, 3 dims) | First KK excitation | $m \sim M_\text{Pl}$ | $w \approx 0$ (CDM) |
 
-This is not an assumption of the framework. It is a direct consequence of KK
-reduction applied to the block structure of $\Phi_{MN}$. The USF spatial
-vacuum is therefore the heaviest possible cold dark matter candidate —
-a Planck-mass scalar — which is naturally cold ($v \ll c$) at all epochs.
-The rigorous derivation requires the KK formalism in Mathlib (§5.2,
-obligation 1), but the structural argument is complete.
+This is the structural mechanism proposed by the framework. A rigorous
+derivation requires KK reduction applied to the block structure of
+$\Phi_{MN}$, including the missing Mathlib formalism (§5.2, obligation 1).
+If that derivation closes, the USF spatial vacuum would be a Planck-mass
+cold-dark-matter candidate that is naturally cold ($v \ll c$) at all epochs.
 
 ---
 
@@ -238,7 +240,7 @@ obligation 1), but the structural argument is complete.
 The remaining dimension is the time direction $\mathbb{R}_t$. Its vacuum
 block $\langle\Phi_{00}\rangle_0$ contributes a fraction $1/11 \approx 0.091$
 of the total vacuum energy. However, the observed baryonic fraction is
-$\Omega_b = 0.049 \approx (1/11)/2$. The factor of $\sim 2$ has a standard
+$\Omega_b = 0.0493 \approx (1/11)/2$. The factor of $\sim 2$ has a standard
 cosmological interpretation:
 
 By CPT symmetry, the vacuum in the time direction creates equal amounts of
@@ -248,7 +250,7 @@ matter and antimatter. Baryogenesis — through the Sakharov conditions
 After matter-antimatter annihilation, the integrated energy that ended up
 in surviving baryons is approximately half the time-block contribution:
 $$\Omega_b^\text{USF} = \frac{1}{2}\cdot\frac{1}{11} = \frac{1}{22}
-  \approx 0.0455 \quad\text{vs}\quad \Omega_b^\text{obs} = 0.049 \quad(7.2\%\text{ off})$$
+  \approx 0.0455 \quad\text{vs}\quad \Omega_b^\text{obs} = 0.0493 \quad(7.8\%\text{ low})$$
 
 This is an **auxiliary claim**, not an independent prediction: the factor
 $1/2$ is taken as the baryogenesis efficiency parameter from standard
@@ -262,15 +264,15 @@ $$\frac{7}{11} + \frac{3}{11} + \frac{1}{22} = \frac{14 + 6 + 1}{22} = \frac{21}
 
 The observed sum (including Planck 2018 neutrino contribution):
 $$\Omega_\Lambda + \Omega_\text{DM} + \Omega_b + \Omega_\nu + \Omega_r
-  \approx 0.683 + 0.265 + 0.049 + 0.001 + 0.0001 \approx 0.998$$
+  \approx 0.6847 + 0.2645 + 0.0493 + 0.001 + 0.0001 \approx 0.9996$$
 
-The discrepancy of $\sim 4.3\%$ has two contributions:
+The discrepancy of $\sim 4.5\%$ has two contributions:
 
 1. **Calabi-Yau moduli corrections** (as proposed in the companion
   cosmological-constant paper): the $\mathcal{O}(\alpha')$
    geometry of $X_7$ adjusts each sector by $\sim 7\%$. For $\Lambda$ this
-   shifts $7/11 \to 0.683$ (+7.4\%). For dark matter the corresponding rounded current-Lean convention
-   is $3/11 \to 0.265$ (about -2.9\%; exact Planck 2018 would be about -3.1\%),
+   shifts $7/11 \to 0.6847$ (a 7.1\% low leading-order discrepancy). For dark
+   matter the exact Planck 2018 baseline is $3/11 \to 0.2645$ (3.1\% high),
    with a different sign because the spatial block couples differently to the CY moduli.
 
 2. **Redshifted radiation**: the partner of the baryonic matter is the
@@ -292,12 +294,13 @@ The numerical claims are formalised in
 | Statement | Lean name | Status |
 |---|---|---|
 | $\Omega_\text{DM} = 3/11$ at leading order | `omega_dm_fraction` | **proved** (`native_decide`) |
-| Rounded-value discrepancy bound; exact Planck update requires changing `CosmologicalConstant.lean` and may break <3\% | `omega_dm_discrepancy_small` | **proved for rounded current-Lean values** (`norm_num`) |
-| Spatial block → gravitational coupling | `spatial_vacuum_gravity_coupling` | axiom |
-| Spatial block → no EM charge | `spatial_vacuum_em_neutral` | axiom |
-| Spatial block → $w = 0$ (clustering) | `spatial_vacuum_pressure_zero` | axiom |
+| Planck 2018 dark-matter discrepancy bound | `omega_dm_discrepancy_small` | **proved** (<4\%, `norm_num`) |
+| Tight dark-matter agreement bound | `usf_dark_matter_tightest` | **proved** (<3.5\%, `norm_num`) |
+| Spatial block → positive gravitational source fraction | `spatial_vacuum_gravity_coupling` | **proved weak form** (`∃ Ω_DM = 3/11 > 0`) |
+| Spatial block → no EM charge | `spatial_vacuum_em_neutral` | **proved in LocalGeometry model** |
+| Spatial block → $w = 0$ (clustering) | `spatial_vacuum_pressure_zero` | **proved in LocalGeometry model** |
 | Baryonic fraction $= 1/22$ | `omega_baryon_fraction` | **proved** (`native_decide`) |
-| 8\% baryon discrepancy bound | `omega_baryon_discrepancy_small` | **proved** (`norm_num`) |
+| Baryon discrepancy bound | `omega_baryon_discrepancy_small` | **proved** (<8\%, `norm_num`) |
 
 ## Remaining proof obligations
 
@@ -310,7 +313,7 @@ The numerical claims are formalised in
 2. **Gauge localisation in $X_7$.** Formalising the claim that SM gauge
    fields are localised in $X_7$ requires either M-theory geometry in
    Mathlib or an axiomatic import from the BFSS/M-theory correspondence
-   proved in `BFSSIsomorphism.lean`.
+   scaffolding in `BFSSIsomorphism.lean`.
 
 3. **Baryogenesis factor.** Deriving the factor $1/2$ for the time-block
    from USF CP-violation structure requires: (a) identification of the
@@ -339,10 +342,11 @@ $w_\text{DM} \neq 0$ (e.g., warm dark matter with residual velocity
 dispersion contributing measurably to $w$) would require modifying the
 spatial vacuum picture.
 
-**No self-interaction beyond gravity.** The spatial block $\langle\Phi_{ij}\rangle_0$
-does not carry $X_7$ gauge charges, so it cannot self-interact via SM forces.
-Bullet Cluster constraints on dark matter self-interaction ($\sigma/m < 1$
-cm$^2$/g) are automatically satisfied.
+**No self-interaction beyond gravity.** In the model, the spatial block
+$\langle\Phi_{ij}\rangle_0$ does not carry $X_7$ gauge charges, so it cannot
+self-interact via SM forces. If the localisation claim is correct, Bullet
+Cluster constraints on dark matter self-interaction ($\sigma/m < 1$ cm$^2$/g)
+would be satisfied.
 
 **Density perturbation spectrum.** The USF spatial vacuum has the same
 initial conditions as the 4D metric perturbations (both arise from the
@@ -359,7 +363,7 @@ strongly favour adiabatic initial conditions [@planck2018cosmology].
 | Direct detection | Predicted | Predicted | **None** (gravity only) |
 | EM coupling | Yes (loops) | Yes (Primakoff) | **No** |
 | Self-interaction | Possible | Negligible | **None** (no gauge charge) |
-| Density prediction | Free parameter | Free parameter | **3/11 (2.9% off)** |
+| Density prediction | Free parameter | Free parameter | **3/11 (3.1% high)** |
 | Equation of state | $w\approx 0$ | $w\approx 0$ | $w = 0$ (exact) |
 
 The USF spatial vacuum matches all observational constraints while making
@@ -368,13 +372,13 @@ a strong, falsifiable claim.
 
 ## Is this coincidence?
 
-The 2.9\% agreement between $3/11$ and $\Omega_\text{DM}$ warrants scrutiny.
+The 3.1\% agreement between $3/11$ and $\Omega_\text{DM}$ warrants scrutiny.
 The possible fractions $k/11$ for $k \in \{1,\ldots,10\}$ are uniformly
 spaced at intervals of $1/11 \approx 0.091$. The nearest fraction to
-$\Omega_\text{DM} = 0.265$ is $3/11 = 0.273$; the next-nearest is
+$\Omega_\text{DM} = 0.2645$ is $3/11 = 0.2727$; the next-nearest is
 $2/11 = 0.182$ (31\% off). The probability of the nearest fraction lying
-within 3\% of a target by chance (given uniform spacing) is $\sim 30\%$ —
-not astronomically small in isolation.
+within 3.5\% of a target by chance (given uniform spacing) is not
+astronomically small in isolation.
 
 What elevates this from coincidence to a physical argument is the
 **structural reason** for the integer 3: these are precisely the three
@@ -384,23 +388,21 @@ The integer 3 is not a fit parameter;
 it is the number of non-compact spatial dimensions in the same M-theory
 framework used to derive $\Lambda$ in that companion model. The model predicts
 $\Lambda$
-correctly at the 7\% level before this paper existed; the $\Omega_\text{DM}$
-prediction at 2.9\% is a **zero-free-parameter prediction** from an already-fixed
-framework.
+correctly at the 7.1\% level before this paper existed; the $\Omega_\text{DM}$
+prediction at 3.1\% is a no-new-continuous-parameter comparison from that
+already-fixed dimensional bookkeeping.
 
 In fact, $N_\text{spatial} = 3$ is not even a choice within the framework.
 Given the M-theory total $N_\text{total} = 11$ and the compact count
-$N_\text{compact} = 7$ fixed by the $G_2$-holonomy compactification
-(as specified by the companion model), the spatial count is fully determined
+$N_\text{compact} = 7$ used by the companion compact-sector model, the spatial count is fully determined
 by subtraction:
 $$N_\text{spatial} = N_\text{total} - N_\text{compact} - N_\text{time}
   = 11 - 7 - 1 = 3$$
-The prediction $\Omega_\text{DM} = 3/11$ has **exactly zero free parameters**:
-not even the integer 3 was chosen for this purpose. The framework was committed
-to $3/11$ before this prediction was attempted. The coincidence framing is
-therefore inappropriate — the question is whether the dimensional structure of
-M-theory, fixed independently by the compactification, agrees with observation.
-It does, to 2.9\%.
+The leading fraction $\Omega_\text{DM} = 3/11$ has no fitted continuous
+parameters once the 11D partition is adopted: the integer 3 is fixed by the
+same bookkeeping. The remaining question is whether this dimensional structure,
+together with the open compactification and KK-reduction assumptions, agrees
+with observation. At leading order it does, to 3.1\%.
 
 ## Scope of falsification
 
@@ -423,18 +425,19 @@ dark matter, not the core somatic field theory.
 
 Dimensional counting in the 11D USF compactification predicts the dark matter
 energy fraction:
-$$\boxed{\Omega_\text{DM}^\text{USF} = \frac{3}{11} \approx 0.273
-  \quad\text{vs}\quad \Omega_\text{DM}^\text{obs} = 0.265 \quad (2.9\%\text{ off})}$$
+$$\boxed{\Omega_\text{DM}^\text{USF} = \frac{3}{11} \approx 0.2727
+  \quad\text{vs}\quad \Omega_\text{DM}^\text{obs} = 0.2645 \quad (3.1\%\text{ high})}$$
 
-The physical mechanism is the vacuum energy of the three non-compact spatial
-dimensions of M-theory. This vacuum energy clusters gravitationally (it lives
-in non-compact space, not the pinned compact manifold), is electromagnetically
+The proposed physical mechanism is the vacuum energy of the three non-compact
+spatial dimensions of M-theory. Under the stated localisation and KK-reduction
+assumptions, this vacuum energy clusters gravitationally (it lives in
+non-compact space, not the pinned compact manifold), is electromagnetically
 neutral (SM gauge fields are localised in $X_7$), and is pressureless ($w=0$
-in the non-relativistic limit). It matches the complete observational profile
-of cold dark matter without introducing a new particle species.
+in the non-relativistic limit). It is intended to match the observational
+profile of cold dark matter without introducing a new particle species.
 
 Together with the companion model's proposed $\Omega_\Lambda = 7/11$
-(about 7.1\% low against exact Planck 2018, or 6.8\% against the rounded current-Lean value), the USF
+(about 7.1\% low against exact Planck 2018), the USF
 accounts for 95\% of the universe's energy budget — the dark energy and dark
 matter sectors — from the single integer decomposition $11 = 7 + 3 + 1$ of
 the M-theory spacetime dimension.

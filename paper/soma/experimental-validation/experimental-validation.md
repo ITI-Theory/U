@@ -1,6 +1,6 @@
 ---
 title: "Experimental Benchmarks for the Universal Somatic Field Framework"
-subtitle: "Four-Model Comparison, MNIST Validation, Macroscopic Synchronisation, and the God-Knob Hysteresis Test"
+subtitle: "Four-Model Comparison, MNIST Prototype, Macroscopic Synchronisation Analogies, and the God-Knob Hysteresis Test"
 author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
@@ -11,18 +11,19 @@ csl: ../../apa-7th.csl
 abstract: |
   The Universal Somatic Field (USF) framework makes formal claims about computational
   efficiency, attractor reachability, and phase-transition dynamics.  This paper
-  presents five executable benchmarks that provide evidence for selected model behaviours; proof status remains theorem-/axiom-specific and benchmarks do not validate physical or clinical claims: (1) a four-model timed comparison of Hopfield 1982, Hopfield 2016,
+  presents five benchmark designs and scaffolds that provide evidence for selected model behaviours; proof status remains theorem-/axiom-specific and benchmarks do not validate physical or clinical claims: (1) a four-model comparison of Hopfield 1982, Hopfield 2016,
   Hopfield 2020, and the FM-HN USF 2026 on a fear-to-awe basin-crossing task;
   (2) the MNIST corrupted character test, showing that classical networks settle into
   false attractors while the FM-HN escapes via the WKB tunnelling gate; (3) macroscopic
-  synchronisation benchmarks (GHZ entanglement, Kuramoto order parameter, the
-  Britain 1939 radio broadcast scenario) that ground the O(N²) complexity theorem
+  synchronisation analogies (GHZ entanglement, Kuramoto order parameter, the
+  Britain 1939 radio broadcast scenario) that illustrate the O(N²) cost comparison
   in empirically familiar phenomena; (4) the God-Knob hysteresis test, which checks
   whether emotional threshold crossings exhibit second-order phase-transition
-  asymmetry; and (5) a direct replication of QUANT-EXP-1 under the four-model
-  framework.  All benchmarks are implemented as executable Lean 4 `#eval` blocks
-  in `Benchmark.lean`, cross-referenced against three kernel-verified theorems.
-  The experiments confirm what the proofs predict.
+  asymmetry; and (5) a software analogue of QUANT-EXP-1 under the four-model
+  framework.  The benchmark code and proof cross-references live in
+  `Benchmark.lean`; some entries are executable scaffolds or noncomputable sketches
+  rather than completed runtime tests. The benchmarks inspect selected consequences
+  of formal model assumptions; they do not confirm physical or clinical claims.
 keywords: [Soma-Field, Hopfield network, quantum tunnelling, MNIST, Kuramoto, GHZ, hysteresis, phase transition, formal verification, Lean 4]
 ---
 
@@ -31,34 +32,32 @@ keywords: [Soma-Field, Hopfield network, quantum tunnelling, MNIST, Kuramoto, GH
 A formal proof establishes that a claim is *necessarily true* given its premises.
 An experiment establishes that the claim is *actually observable* in a specific
 physical or computational substrate.  The USF programme has prioritised the
-former — eleven machine-verified theorems, three axioms pending PDE scaffolding,
-one exact 8-qubit statevector simulation (QUANT-EXP-1).  This paper addresses the latter.
+former — theorem-specific Lean results, an axiom registry, seven remaining real
+`sorry`s project-wide, and one exact 8-qubit statevector simulation (QUANT-EXP-1).
+This paper addresses the latter.
 
-The motivation is practical.  When a reviewer or collaborator asks *"but does it
-actually work faster?"*, pointing to `onN2_lt_onNK` is mathematically correct
-but communicatively insufficient.  What is needed is a *clocked, repeatable
-runtime advantage* — a number, produced by running code, that any reader can
-verify independently.  This paper provides five such numbers.
+The motivation is practical.  When a reviewer or collaborator asks *"but does it actually work faster?"*, pointing
+to `propagator_beats_classical` is mathematically meaningful only under its premise
+`N < K` and is communicatively insufficient. What is needed is executable, repeatable
+benchmark evidence under stated assumptions. This paper provides benchmark scaffolds
+and expected outputs toward that goal.
 
-The experiments are not independent of the proofs.  They are designed so that
-each experiment corresponds exactly to a previously proved theorem, and the
-experimental result is the theorem made computational:
+The benchmarks are not independent validations of the proofs.  They are designed so
+that each benchmark is cross-referenced to a nearby formal statement, with the proof
+status and assumptions kept explicit:
 
-| Experiment | Theorem (Lean file) |
+| Benchmark | Formal reference and status |
 |---|---|
-| Four-model benchmark | `onN2_lt_onNK` (SwarmPropagator.lean) |
-| MNIST basin escape | `wkbGate_creates_awe` (QuantumSim.lean) |
-| GHZ / Kuramoto | `jellyfish_single_step` (SwarmPropagator.lean) |
-| Britain 1939 | `propagator_beats_classical` (SwarmPropagator.lean) |
-| God-Knob hysteresis | `quant_exp_1_awe_reachable` (QuantumSim.lean) |
+| Four-model benchmark | `propagator_beats_classical` (SwarmPropagator.lean): arithmetic cost comparison, valid only under its premise `N < K` |
+| MNIST basin escape | `wkbGate_creates_awe` (QuantumSim.lean): non-zero WKB-gate overlap, not convergence |
+| GHZ / Kuramoto | `jellyfish_single_step` (SwarmPropagator.lean): `rfl` statement that one update equals one matrix-vector product |
+| Britain 1939 | `volitional_update` / `volitional_superposition` (UniversalSomaticField.lean): update definitions and additive source term |
+| God-Knob hysteresis | `gradient_traps_near_neg1` (LimbicTunnel.lean): local quartic-well gradient sign |
 
-The code is in `paper/proofs/Benchmark.lean`.  The entry point is:
-
-```lean
-#eval runBenchmark
-```
-
-which prints the comparison table and the proof cross-references in one call.
+The code is in `paper/proofs/Benchmark.lean`. Its `runBenchmark` function documents
+the comparison table; in the current Lean surface it is noncomputable and the `#eval`
+line is commented out, so this paper treats the table as benchmark scaffolding unless
+an executable artifact is supplied.
 
 ---
 
@@ -83,9 +82,9 @@ reaches the awe basin in one gate application.
 
 ## Results
 
-The four-model comparison is executed at compile time via `#eval runBenchmark`.
-The expected output structure (actual numbers depend on host hardware for the
-timing column, but the distance column is deterministic):
+The four-model comparison is documented by `runBenchmark`; in the current Lean
+surface the `#eval` line is commented out because the benchmark remains
+noncomputable. The intended output structure is:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -93,12 +92,12 @@ BENCHMARK: Fear→Awe transition.  Starting: startlePattern.
 Target: musicalAwePattern.  Max iterations: 2000.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Model                          Steps     Dist→Awe   Time(ms)
+Model                          Steps     Dist→Awe
 --------------------------------------------------------------
-Hopfield 1982 (sign)            ~15       large         Xms
-Hopfield 2016 (cubic)           ~20       large         Xms
-Hopfield 2020 (softmax, β=8)    ~5        large         Xms
-FM-HN USF 2026 (WKB gate)       ~5        ~0            Xms
+Hopfield 1982 (sign)            ~15       large
+Hopfield 2016 (cubic)           ~20       large
+Hopfield 2020 (softmax, β=8)    ~5        large
+FM-HN USF 2026 (WKB gate)       ~5        ~0
 ```
 
 The critical column is `Dist→Awe`.  The classical models converge (step count
@@ -112,10 +111,10 @@ Langevin dynamics converged to the awe attractor.
 The result is not a surprise.  Three theorems predicted it before the experiment
 was run:
 
-**`onN2_lt_onNK` (SwarmPropagator.lean, kernel-verified):**
-The propagator application costs O(N²) with K=1 always; classical iteration
-costs O(N·K) with K ≫ 1 for barrier-crossing tasks.  The FM-HN uses the
-propagator; the classical models use iteration.
+**`propagator_beats_classical` (SwarmPropagator.lean, kernel-verified arithmetic):**
+The propagator application costs O(N²); classical iteration costs O(N·K). The
+formal theorem proves the propagator cost is lower only when `N < K`. It is a cost
+comparison under that premise, not a universal runtime advantage.
 
 **`correspondence_principle` (LimbicHopfield.lean, kernel-verified):**
 The FM-HN reduces to the classical 1982/2020 network when limbic modulation
@@ -154,20 +153,22 @@ barrier to the correct attractor.
 `wkbGate_creates_awe` theorem restated: the WKB gate creates non-zero overlap
 with any target attractor from any initial state, for any barrier height W.
 The "0" digit is the awe pattern; the "corruption noise" is the energy barrier.
-The theorem guarantees convergence; the experiment shows convergence speed.
+The theorem guarantees non-zero overlap in the formal WKB-gate model; any
+convergence-speed claim requires the separate benchmark assumptions.
 
 **Implementation note.** A 5×4 MNIST prototype (20-dimensional, matching `D = 20`
-in `Hopfield.lean`) is directly runnable via `#eval` in the existing
-`HopfieldDemo` namespace.  The energy function, Hebbian learning, and synchronous
-update are all defined there.
+in `Hopfield.lean`) is intended to be runnable via `#eval` in the existing
+`HopfieldDemo` namespace once the surrounding benchmark scaffold is made executable.
+The energy function, Hebbian learning, and synchronous update are all defined there.
 
 ---
 
 # Macroscopic Synchronisation Benchmarks
 
-The O(N²) complexity theorem (`onN2_lt_onNK`) is an algebraic result.  This
-section connects it to three benchmark scenarios from statistical physics and
-cognitive science that make the claim intuitively legible.
+The O(N²) cost comparison (`propagator_beats_classical`) is an algebraic result
+with the premise `N < K`.  This section connects it to three benchmark scenarios
+from statistical physics and cognitive science that make the claim intuitively
+legible.
 
 ## 3.1  The Kuramoto Order Parameter
 
@@ -182,11 +183,11 @@ The soma-field Green's function $G$ achieves r → 1 in one matrix-vector
 product $G \cdot \mathbf{s}$.  Classical gossip-based synchronisation requires
 O(N·K) rounds.
 
-**The theorem.** `jellyfish_single_step` (SwarmPropagator.lean) proves that
-the single-step update of the swarm propagator produces a coordinated state
-from any initial configuration.  The Kuramoto interpretation: one propagator
-application = one "radio broadcast" that phase-locks all N oscillators
-simultaneously.
+**The theorem.** `jellyfish_single_step` (SwarmPropagator.lean) proves by `rfl`
+that the single-step jellyfish update is exactly `swarm.G.mulVec s`; it does not
+prove that an arbitrary propagator produces a physically coordinated state.  The
+Kuramoto interpretation remains a modelling analogy: one propagator application =
+one global update.
 
 ## 3.2  The GHZ (Greenberger–Horne–Zeilinger) Test
 
@@ -208,8 +209,9 @@ the "collapse" is the swarm adopting the dominant eigenvector of $W$.
 | Quantum GHZ | O(1) — one measurement collapses all N |
 | USF propagator | O(N²) — one matrix-vector product, K = 1 |
 
-The USF protocol is classical (no quantum hardware required) but achieves
-the same *topological structure* as GHZ: one operation, all N agents updated.
+The USF protocol is classical (no quantum hardware required) and is modelled as
+sharing the relevant *coordination structure* of GHZ: one operation, all N agents
+updated.
 
 ## 3.3  The Britain 1939 Scenario
 
@@ -218,23 +220,20 @@ approximately 45 million listeners simultaneously.  Every listener transitioned
 from an uncertain emotional state to a war-footing state — a macroscopic
 phase-lock driven by a single pulse.
 
-**USF mapping.** This is the Green's function propagator at the geographic
-scale (Scale 11, `GeologicalSeismic`, in `ScaleUniverse.lean`).  The
-"radio broadcast" is a source term $J_{\text{user}}(t)$ (the volitional
-injection formalised in `UniversalSomaticField.lean`).  The propagator
-$G$ distributes the impulse to all N = 45 × 10⁶ agents in O(N²) operations
-with K = 1.
+**USF mapping.** This is a geographic-scale analogy, not a Lean theorem about the
+1939 broadcast. The "radio broadcast" is modelled as a source term
+$J_{\text{user}}(t)$, analogous to the volitional injection defined in
+`UniversalSomaticField.lean`. A dense exact propagator would distribute the impulse
+to all N = 45 × 10⁶ agents in O(N²) operations with K = 1; this illustrates
+single-step global coupling, not lower computational cost.
 
-**Comparison.** Classical gossip-based propagation across 45 million nodes
-with average degree K = 5 contacts per person would require
-O(45M × K) ≈ 225 million operations per synchronisation round, and O(K) = 5
-rounds to reach consensus — total ≈ 1.1 billion operations.  The USF propagator:
-O(N²) = O(2 × 10¹⁵) operations for exact computation, but the single-step
-property means K = 1 regardless of N.  The Chamberlain broadcast was the
-propagator; the BBC transmitter was $G$.
-
-This is not hyperbole — it is `propagator_beats_classical(45_000_000, 5)` from
-`SwarmPropagator.lean` instantiated with empirical parameters.
+**Comparison.** Classical gossip-based propagation across 45 million nodes with
+average degree 5 would require many sparse local updates, while a dense exact USF
+propagator would require O(N²) = O(2 × 10¹⁵) operations for one matrix-vector
+application. The formal theorem `propagator_beats_classical` cannot be instantiated
+with N = 45,000,000 and K = 5 because its premise is `N < K`. The Chamberlain
+broadcast is therefore used only as an intuitive example of one-to-many source
+coupling.
 
 ---
 
@@ -260,8 +259,8 @@ were smooth and reversible — the USF claim would be falsified.
 3. Record the barrier amplitude at which the system first crosses to `musicalAwePattern`.
 4. Then *reduce* $J_{\text{user}}(t)$ and record the amplitude at which the
    system returns to the fear basin.
-5. If the crossing amplitude ≠ return amplitude: **hysteresis confirmed** →
-   second-order phase transition claim supported.
+5. If the crossing amplitude ≠ return amplitude: **hysteresis observed in the
+   model/test apparatus** → the second-order phase-transition analogy is supported.
 6. If crossing = return: **no hysteresis** → claim falsified.
 
 ## Connection to the volitional source term
@@ -275,40 +274,36 @@ effect.  The `volitional_update` function in `UniversalSomaticField.lean`
 implements one step; the Lean theorem `volitional_superposition` proves that
 multiple simultaneous injections superpose linearly.
 
-**Predicted outcome.** The double-well potential $V(x) = W(x^2-1)^2$ has
-asymmetric approach to the barrier: starting near $x = -1$ (fear), the
-gradient traps the system (V'(-1+ε) > 0); tunnelling through requires a
-larger injection than tunnelling back from $x = +1$ (awe) toward $x = -1$,
-because the awe basin is energetically lower in the chosen coupling matrix
-$W_8$.  Hysteresis is structural, not accidental.
-
-**Lean connection.** The `gradient_traps_near_neg1` theorem in `LimbicTunnel.lean`
-establishes the trapping mechanism formally.  The hysteresis asymmetry follows
-directly from the asymmetry of the W8 coupling matrix.
+**Predicted outcome.** The double-well potential $V(x) = W(x^2-1)^2$ has a
+local trapping property near $x = -1$: `gradient_traps_near_neg1` proves the sign of
+$V'(-1+\varepsilon)$ for $0<\varepsilon<1$ under its barrier assumptions. A full
+hysteresis theorem for the W8 coupling matrix is not yet present; the hysteresis
+test is therefore an empirical/model benchmark, not a completed Lean consequence.
 
 ---
 
 # QUANT-EXP-1 Under the Four-Model Framework
 
-QUANT-EXP-1 (the quantum annealing experiment, published in `quantum-soma-penrose`)
-showed that quantum annealing reaches the Awe basin in 3/3 barrier cases
-(W ∈ {8, 10, 12}) where classical simulated annealing fails (0/48).
+QUANT-EXP-1 (published in `quantum-soma-penrose`) is an exact 8-qubit statevector
+simulation. It reports Awe-basin reachability in 3/3 barrier cases
+(W ∈ {8, 10, 12}) for the quantum-adjacent pathway where the cold classical baseline
+failed in 0/48 runs.
 
 Under the four-model framework, QUANT-EXP-1 is a comparison between:
 
 - **Hopfield 1982 + Simulated Annealing** (the 0/48 baseline)
-- **FM-HN USF 2026 + WKB Gate** (approximated by quantum annealing)
+- **FM-HN USF 2026 + WKB Gate** (quantum-adjacent simulation branch)
 
-The quantum annealer implements the WKB gate physically: it samples from a
-distribution over trajectories that includes tunnelling paths through the
-barrier.  The USF tunnelling gate $T = \exp(-W)$ is the WKB approximation
-of this quantum amplitude.
+The simulation represents a WKB-like gate that samples amplitude through the
+barrier in the model. The USF tunnelling gate $T = \exp(-W)$ is a WKB-motivated
+approximation inside the computational model, not evidence that hardware or
+biological tissue implements the gate.
 
 This reframing connects QUANT-EXP-1 to the four-model benchmark:
-the "quantum annealer" in the physical experiment IS the FM-HN WKB gate,
-and the "simulated annealing" baseline IS the Hopfield 1982 classical path.
-The four-model benchmark is therefore a *software replication* of QUANT-EXP-1
-on standard hardware, without quantum annealing hardware.
+the quantum-adjacent branch is modelled by the FM-HN WKB gate, and the cold
+classical baseline is modelled by the Hopfield 1982 path. The four-model benchmark
+is therefore a *software analogue* of QUANT-EXP-1, not an independent physical
+replication.
 
 The `quant_exp_1_awe_reachable` theorem in `QuantumSim.lean` formalises the
 connection: the Born probability of |awe⟩ is strictly positive after the WKB
@@ -319,25 +314,30 @@ covers all W.
 
 # Discussion
 
-## What has been established
+## Model-Level Takeaways
 
-The five benchmarks collectively establish:
+The five benchmarks collectively support these model-level claims:
 
-1. **Attractor escape**: the FM-HN WKB gate crosses energy barriers that
-   classical gradient descent cannot cross.
+1. **Attractor escape**: the FM-HN WKB gate creates non-zero target overlap and,
+   under the benchmark assumptions, reaches target basins that cold classical
+   gradient descent does not reach.
 
-2. **Single-step coordination**: one propagator application achieves the same
-   topological effect as GHZ entanglement — all-agent synchronisation in K = 1.
+2. **Single-step coordination**: one propagator application represents all-agent
+   update in K = 1. The GHZ comparison is a structural analogy, not a claim of
+   quantum entanglement.
 
-3. **Macroscopic validity**: the O(N²) theorem holds at scales ranging from
-   8-dimensional BRECVEMA (individual), to 8-agent swarms, to 45 million
-   listeners — the same equation at every scale.
+3. **Macroscopic analogy**: the same source-and-propagator notation can be scaled
+   from small swarms to population scenarios, but the cost theorem applies only
+   under its formal premises.
 
-4. **Hysteretic phase transition**: emotional threshold crossings are
-   structurally asymmetric, consistent with a second-order phase transition.
+4. **Hysteresis testability**: the God-Knob protocol would test whether modelled
+   emotional threshold crossings are asymmetric in a way consistent with the
+   second-order phase-transition analogy.
 
-5. **Experimental–formal correspondence**: each benchmark result was predicted
-   by a kernel-verified theorem.  The benchmarks inspect consequences of the formal model; empirical or hardware tests may fail if assumptions do not hold.
+5. **Experimental–formal correspondence**: each benchmark is linked to a named
+   formal statement with explicit proof status. The benchmarks inspect consequences
+   of the formal model; empirical or hardware tests may fail if assumptions do not
+   hold.
 
 ## What has not been established
 
@@ -362,13 +362,14 @@ The Rosetta Stone chat logs (2026-06-09) describe the Sherlock/Moriarty
 dual-agent audit: Sherlock synthesises the theory's claim; Moriarty looks
 for the single point of failure.  Applied to this paper's benchmarks:
 
-- **Sherlock:** "The FM-HN WKB gate provably reaches the awe attractor in
-  one step; the benchmark confirms this."
+- **Sherlock:** "The FM-HN WKB gate provably creates non-zero target overlap;
+  the benchmark illustrates target reachability under its assumptions."
 - **Moriarty:** "The benchmark uses a specific W8 matrix with specific
   pattern vectors.  The claim might not generalise to arbitrary matrices."
 - **Response:** The `wkbGate_creates_awe` theorem in `QuantumSim.lean`
-  proves the result for *any* W > 0.  The specific matrix is illustrative;
-  the theorem covers all cases.  Moriarty's attack fails.
+  proves non-zero target overlap for *any* W > 0. The specific matrix is
+  illustrative; convergence and matrix-generalisation claims require the benchmark
+  assumptions. Moriarty's attack is narrowed but not fully eliminated.
 
 ---
 
@@ -376,15 +377,17 @@ for the single point of failure.  Applied to this paper's benchmarks:
 
 The Universal Somatic Field makes formal claims.  This paper makes them
 experimental.  The four-model benchmark, the MNIST corrupted character test,
-the GHZ/Kuramoto/Britain 1939 macroscopic benchmarks, and the God-Knob
-hysteresis test all produce the results that the kernel-verified theorems
-predict.
+the GHZ/Kuramoto/Britain 1939 macroscopic analogies, and the God-Knob
+hysteresis test make selected theorem-adjacent claims inspectable under stated
+assumptions.
 
 The experiments are not an afterthought.  The benchmarks make selected formal predictions inspectable; they remain simulations / executable tests, not proofs of world behaviour.
-When a reviewer asks "does it actually work faster?", the answer is:
-run `#eval runBenchmark` and read the distance column.
+When a reviewer asks "does it actually work faster?", the answer is: inspect or make
+executable the benchmark scaffold, then read the distance column under the stated
+assumptions.
 
-The proofs show why it must.  The experiments show that it does.
+The proofs show what follows inside the formal model. The benchmarks show how those
+claims behave in the accompanying computational scaffolds.
 
 ---
 
@@ -401,7 +404,7 @@ nocite: |
   @kuramoto1984chemical
   @greenberger1989going
   @johnson2026b
-  @john2026c
+  @johnson2026c
   @johnsonzsf2026
   @johnsonswarm2026
   @johnsonlimbic2026

@@ -174,7 +174,7 @@ theorem kaluza_klein_reduction
     → compact vacuum energy = topological invariant (Betti numbers of X₇)
     → no time-dependence → dΩ_Λ/dz = 0
 
-    The discrepancy 7/11 ≈ 0.636 vs Ω_Λ^obs = 0.683 (7% off) is then
+    The discrepancy 7/11 ≈ 0.636 vs Ω_Λ^obs = 0.6847 (7% off) is then
     attributed to the static O(α') moduli correction — a fixed constant,
     not a dynamical field.
 

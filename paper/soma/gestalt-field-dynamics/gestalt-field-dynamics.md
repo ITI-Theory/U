@@ -5,7 +5,7 @@ orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
 lang: en-GB
-abstract: "This paper proposes an interpretive, model-level bridge between the clinical dynamics of Gestalt Psychotherapy and the mathematical architecture of Quantum Field Theory (QFT), utilising Bertrand Russell's Neutral Monism and Type Theory as an epistemological lattice. While Gestalt therapy historically relies on qualitative field descriptions to treat trauma, the Soma-Field model offers a proposed quantitative formalisation and a typed vocabulary for comparing clinical field concepts with field-theoretic structures. We model Gestalt stuckness as non-contractible topological loops with discrete winding numbers within a G2 holonomy manifold. By formalising clinical somatic tracking as a trajectory through an un-obstructed phase space, we frame mind-body dualism as an assumption-bound comparison rather than a closed proof."
+abstract: "This paper proposes an interpretive, model-level bridge between the clinical dynamics of Gestalt Psychotherapy and the mathematical architecture of Quantum Field Theory (QFT), utilising Bertrand Russell's Neutral Monism and Type Theory as an epistemological lattice. While Gestalt therapy historically relies on qualitative field descriptions to treat trauma, the Soma-Field model offers a proposed quantitative formalisation and a typed vocabulary for comparing clinical field concepts with field-theoretic structures. We model Gestalt stuckness as non-contractible topological loops with discrete winding numbers within a candidate G2-type manifold. By formalising clinical somatic tracking as a trajectory through an un-obstructed phase space, we frame mind-body dualism as an assumption-bound comparison rather than a closed proof."
 ---
 
 
@@ -17,7 +17,9 @@ Historically, this "field" has been treated as an illuminating qualitative metap
 
 To bridge this epistemic gap without falling into category errors, we deploy the philosophy of **Bertrand Russell**. Russell’s **Neutral Monism** (1921) posits that both mind and matter are logical constructions built out of a singular, underlying substrate of neutral *events*. Concurrently, his **Theory of Types** provides the strict syntactic hierarchy needed to prevent logical paradoxes when mapping psychological phenomena to physical mathematical structures.
 
-This paper formally documents how the **Soma-Field Model** (Johnson, 2026b) serves as the exact quantitative architecture for the qualitative execution of Gestalt therapy.
+This paper documents how the **Soma-Field Model** (Johnson, 2026b) can serve
+as a candidate quantitative architecture for comparing selected qualitative
+features of Gestalt therapy.
 
 ---
 
@@ -25,8 +27,8 @@ This paper formally documents how the **Soma-Field Model** (Johnson, 2026b) serv
 
 The three intellectual traditions that converge in this paper — Gestalt psychology,
 Russellian analytic philosophy, and quantum field theory — were each established
-within the same compressed historical window (1910–1951), yet developed in almost
-complete mutual isolation.
+within the same compressed historical window (1910–1951), yet developed largely
+as separate conversations.
 
 **Gestalt psychology** emerged in Berlin and Frankfurt in the early twentieth
 century as a direct rejection of Wundt's elementalist programme. Max Wertheimer's
@@ -46,8 +48,10 @@ New York. Together with Laura Perls — who had studied with Wertheimer and Mart
 Buber — and the social philosopher Paul Goodman, Fritz Perls published *Gestalt
 Therapy: Excitement and Growth in the Human Personality* [-@perls1951]. This work
 displaced the Freudian focus on historical narrative with present-moment somatic
-awareness: the "field" is not a metaphor but the literal organism-environment
-configuration at this instant.
+awareness: the clinical "field" is the organism-environment configuration at
+this instant, not merely a decorative metaphor inside Gestalt theory. The
+present paper treats the Russell--Gestalt--QFT relation as a structural bridge,
+not as a claim of historical influence.
 
 Gestalt therapy sat within the broader **Humanistic psychology** movement — Abraham
 Maslow's *third force* (named against behaviourism and Freudianism), formalised
@@ -70,8 +74,9 @@ describing fields, excitations, and topological constraints. By the 1960s, cogni
 psychology was consolidating around the information-processing metaphor — the brain
 as symbol-manipulating computer — while field-theoretic physics was consolidating
 around the language of manifolds, holonomy, and gauge invariance. The two traditions
-diverged at the very moment each was maturing, and the shared language that Russell
-had glimpsed in 1921 was never developed.
+diverged at the very moment each was maturing, and the structural resonance
+with Russell's 1921 neutral-monist vocabulary was never developed as a shared
+technical language.
 
 This paper proposes a shared formal vocabulary for that gap. Russell's neutral
 events, Lewin's topological field barriers, and the holonomy groups of M-theory
@@ -82,13 +87,23 @@ remains interpretive and assumption-dependent.
 
 # Epistemological Grounding: Russellian Neutral Monism and Type Theory
 
-To understand how quantum field mathematics can govern psychological affect, one must reject both materialist reductionism and mentalist dualism. In *The Analysis of Mind* [-@russell1921], Bertrand Russell observed a fundamental convergence in the sciences:
+To understand how quantum field mathematics can model psychological affect in
+this paper, one must reject both simple materialist reductionism and simple
+mentalist dualism. In *The Analysis of Mind* [-@russell1921], Bertrand Russell
+observed a fundamental convergence in the sciences:
 
 > *"Physics has been making matter less material, and psychology has been making mind less mental."*
 
-Russell argued that the universe is composed of neutral, transient **events**. When these events are organised via external, relational tracking, they manifest as the laws of physics; when organised via internal, perspective-driven causal paths, they manifest as psychology.
+Russell argued for neutral monism: the data out of which both "mind" and
+"matter" are constructed are not intrinsically mental or material. The present
+paper uses the term **events** for those neutral particulars. Physics and
+psychology are then treated as different organisations or descriptions of a
+common neutral substrate, not as two substances.
 
-The *Soma-Field* model operationalises Russell's neutral monism by treating the conscious emotional percept as an explicit physical-mathematical event—specifically, the one-dimensional impulse response (the Green's function) of an eleven-dimensional coupling manifold:
+The *Soma-Field* model uses Russell's neutral monism as a philosophical
+scaffold by treating the conscious emotional percept as a proposed
+physical-mathematical event—specifically, the one-dimensional impulse response
+(the Green's function) of an eleven-dimensional coupling manifold:
 
 $$G(\omega) = \frac{1}{\omega^2 - m^2 + i\epsilon}$$
 
@@ -99,13 +114,18 @@ To prevent this co-identification from collapsing into pseudo-scientific abstrac
   $$H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^{\top} W \mathbf{e} - \mathbf{b}^{\top}\mathbf{e}$$
 * **Type 2 (Topological Spaces):** The global boundary conditions and holonomy groups ($G_2$) constraining the trajectories of Type 1 fields.
 
-By adhering to this type-theoretic hierarchy, the Soma-Field model ensures that emotional trauma is never misclassified as a vague "ghost in the machine." Instead, it is classified as a verifiable structural property of a high-dimensional physical topology.
+By adhering to this type-theoretic hierarchy, the Soma-Field model avoids
+classifying emotional trauma as a vague "ghost in the machine." Instead, it
+represents traumatic stuckness as a structural property of a high-dimensional
+model topology, whose clinical validity remains empirical.
 
 ---
 
 # The Comparative Framework: Soma-Field Mathematics vs. Gestalt Clinical Reality
 
-The clinical execution of Gestalt therapy matches the mathematical transitions of the Soma-Field model step-for-step. The table below outlines the definitive structural co-identifications bridging the two domains:
+The table below proposes structural correspondences between Gestalt clinical
+language and the Soma-Field model. These are model-level co-identifications
+under stated assumptions, not historical or clinical equivalence claims:
 
 
 | Soma-Field Mathematical Construct | Russellian Philosophical Substrate | Gestalt Clinical Phenomenon |
@@ -120,7 +140,9 @@ The clinical execution of Gestalt therapy matches the mathematical transitions o
 
 # Mathematical Derivations and Structural Proofs
 
-To validate these co-identifications, we provide three explicit mathematical proofs that formalise the core mechanics of Gestalt interventions. The attractor-basin formalism follows [@hopfield1982].
+To make these co-identifications precise, we provide three mathematical
+derivations that formalise candidate mechanics of Gestalt interventions. The
+attractor-basin formalism follows [@hopfield1982].
 
 ## Proof 1: The Bio-Somatic Interface via Brane Embedding
 
@@ -130,7 +152,10 @@ The induced metric $g_{\mu\nu}$ on the somatic brane is determined by the pull-b
 
 $$g_{\mu\nu}(x) = G_{MN}(X) \frac{\partial X^M}{\partial x^\mu} \frac{\partial X^N}{\partial x^\nu}$$
 
-Let an emotional state change manifest as a bulk field fluctuation $\Phi(X)$. The restriction of this field to the somatic brane gives the localized visceral state $\phi(x) = \Phi(X(x))$. The action $S_{\text{soma}}$ governing the physical bodily sensations is given by:
+Let an emotional state change be represented by a bulk field fluctuation
+$\Phi(X)$. The restriction of this field to the somatic brane gives the
+modelled visceral state $\phi(x) = \Phi(X(x))$. The action $S_{\text{soma}}$
+for the modelled bodily variables is given by:
 
 $$S_{\text{soma}} = \int_{\Sigma_4} d^4x \sqrt{-g} \left[ -\frac{1}{2} g^{\mu\nu} \partial_\mu \phi \partial_\nu \phi - V(\phi) \right]$$
 
@@ -138,13 +163,19 @@ Within the model, this suggests coupling between field state and somatic variabl
 
 ## Proof 2: Lyapunov Stability of the Fixed Gestalt
 
-In Gestalt theory, a "fixed Gestalt" is a chronic, repetitive pattern of affect that resists alteration. We prove this mathematically by treating the emotional state vector $\mathbf{e} \in \mathbb{R}^N$ as a continuous dynamical system governed by the gradient descent of the Hopfield energy function (**Co-identification 1**):
+In Gestalt theory, a "fixed Gestalt" is a chronic, repetitive pattern of
+affect that resists alteration. We model this mathematically by treating the
+emotional state vector $\mathbf{e} \in \mathbb{R}^N$ as a continuous dynamical
+system governed by the gradient descent of the Hopfield energy function
+(**Co-identification 1**):
 
 $$\frac{d\mathbf{e}}{dt} = -\nabla H(\mathbf{e}) = W\mathbf{e} + \mathbf{b}$$
 
 Here $W$ is required to be symmetric ($W = W^\top$), which ensures the gradient $\nabla H$ is well-defined; when $W$ is additionally negative semi-definite, $H(\mathbf{e})$ is bounded from below, a necessary precondition for stable attractor dynamics.
 
-To demonstrate that a fixed Gestalt is an asymptotically stable attractor basin, we select $H(\mathbf{e})$ as a candidate Lyapunov function. For $H(\mathbf{e})$ to be a valid Lyapunov function, it must satisfy two conditions:
+To show why a fixed Gestalt can be represented as a stable attractor basin, we
+select $H(\mathbf{e})$ as a candidate Lyapunov function. For
+$H(\mathbf{e})$ to be a valid Lyapunov function, it must satisfy two conditions:
 1. $H(\mathbf{e})$ is bounded from below.
 2. The time derivative $\frac{dH}{dt}$ is strictly non-positive along the trajectories of the system.
 
@@ -156,15 +187,27 @@ Substituting the dynamical equation $\frac{de_i}{dt} = -\frac{\partial H}{\parti
 
 $$\frac{dH}{dt} = \sum_{i=1}^N \frac{\partial H}{\partial e_i} \left( -\frac{\partial H}{\partial e_i} \right) = -\sum_{i=1}^N \left( \frac{\partial H}{\partial e_i} \right)^2 \leq 0$$
 
-Because $\frac{dH}{dt} \leq 0$, the system must naturally evolve toward a local minimum where $\frac{dH}{dt} = 0$. This minimum represents an asymptotically stable fixed Gestalt.
+Because $\frac{dH}{dt} \leq 0$, the model energy is non-increasing along the
+gradient trajectory, and local minima are candidate stable fixed Gestalts.
 
-This proof demonstrates that chronic psychological defenses (such as dissociation or hyper-arousal) are not random dysfunctions. They represent mathematically stable states of minimum energy within the organism's current coupling matrix ($W$).
+This derivation shows how the model can represent chronic psychological
+defences (such as dissociation or hyper-arousal) as stable or metastable
+states of low energy within the organism's current coupling matrix ($W$). It
+does not diagnose any individual or prove clinical mechanism.
 
 ## Proof 3: Topological Resolution of the Impasse via Present-Moment Tracking
 
-The most radical synthesis occurs in the conceptualisation of trauma. In classical psychodynamics, trauma is often viewed as a historical narrative error or a chemical imbalance. In Gestalt therapy, trauma is viewed as an impasse—a frozen, non-adaptive structural configuration of the environmental-somatic field that resists the client's conscious desire for change.
+The most speculative synthesis occurs in the conceptualisation of trauma. In
+Gestalt therapy, trauma can be approached as an impasse—a frozen,
+non-adaptive structural configuration of the environmental-somatic field that
+resists the client's conscious desire for change.
 
-The Soma-Field model provides the exact mathematical language for this impasse via Co-identification 4 ($G_2$ Holonomy). The seven compactified dimensions of the emotional coupling manifold form a $G_2$ manifold. This specific holonomy group permits the existence of topological obstructions—loops through the phase space that possess a non-zero winding number, meaning they cannot be continuously or smoothly contracted to a single point of calm resolution.
+The Soma-Field model provides a candidate mathematical language for this
+impasse via Co-identification 4 ($G_2$ holonomy). If the seven compactified
+dimensions of the emotional coupling manifold are modelled as a $G_2$-type
+space, then topological obstructions can be represented as loops through phase
+space with non-zero winding number. The $G_2$ link is a proposed structural
+bridge, not a completed compactification proof.
 
 The impasse occurs when a closed path $\gamma$ encircles a topological defect in the moduli space of the $G_2$ manifold. The winding number $n$ is invariant under smooth deformations:
 
@@ -172,21 +215,33 @@ $$n = \frac{1}{2\pi} \oint_{\gamma} d\theta \quad (n \neq 0)$$
 
 The model represents chronic stuckness as a possible topological obstruction with non-zero winding number ($n$). Intervention response is empirical; the formal loop does not establish that cognitive restructuring cannot help a given client.
 
-To clear this obstruction without changing the global manifold topology, the boundary conditions must be modulated by an external, time-dependent driving force—the relational presence of the therapist. The client-therapist co-regulation injects a localized driving current $\mathbf{J}(t)$ directly into the field equations, updating the system trajectory:
+Within the model, changing the trajectory without changing the global manifold
+topology is represented by modulating boundary conditions through an external,
+time-dependent driving term—the relational presence of the therapist. The
+client-therapist co-regulation is modelled as a localized driving current
+$\mathbf{J}(t)$ in the field equations:
 
 $$\frac{d\mathbf{e}}{dt} = W\mathbf{e} + \mathbf{b} + \mathbf{J}(t)$$
 
-This external current warps the local energy landscape, smoothly shifting the position of the topological defect relative to the trajectory $\gamma$. By forcing the client to engage in immediate, present-moment somatic tracking, the therapist guides the system along a path where the effective radius of the loop approaches zero ($r \to 0$).
+This external current changes the local energy landscape, shifting the
+position of the topological defect relative to the trajectory $\gamma$ in the
+model. Present-moment somatic tracking is represented as guiding the system
+along a path where the effective radius of the loop approaches zero
+($r \to 0$).
 
 $$\lim_{\mathbf{J}(t) \to \mathbf{J}_{\text{resource}}} \oint_{\gamma} d\theta = 0$$
 
-As the driven field forces the trajectory to cross the vanished defect, the winding number collapses cleanly from $n \neq 0$ to $n = 0$. The topological obstruction is cleared, and the client experiences a spontaneous, fluid resolution of the chronic impasse.
+If such a driven path exists, the model represents resolution as a transition
+from a non-zero to a zero winding number. Whether a given client experiences
+clinical resolution is an empirical matter outside this derivation.
 
 # Conclusion
 
 By mapping selected clinical methodologies of Gestalt therapy onto the Soma-Field model, we offer a formal model for analysing some psychotherapy dynamics rather than a proof that radical psychology and modern quantum field mathematics describe the same neutral events.
 
-The Soma-Field architecture [@johnson2026b] is a model-level physics exercise applied to clinical language; it does not prove clinical validity or close the objective/subjective gap. When a Gestalt therapist alters a client's awareness in the present moment, the model describes that process as operations on the boundary conditions of a high-dimensional emotional field.
+The Soma-Field architecture [@johnson2026b] is a model-level physics exercise applied to clinical language; it does not prove clinical validity or close the objective/subjective gap. When a Gestalt therapist supports a change in present-moment awareness, the
+model describes that process as operations on the boundary conditions of a
+high-dimensional emotional field.
 
 # References
 
@@ -196,4 +251,3 @@ nocite: |
   @russell1910, @russell1921, @dirac1928, @feynman1948, @yangmills1954,
   @hopfield1982, @johnson2026a, @johnson2026b
 ---
-

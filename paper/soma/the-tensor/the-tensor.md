@@ -66,7 +66,8 @@ the somatic marker of HRV coherence may all appear as named axes.
 
 At specified story-times $t_k$, the score may declare a **threshold crossing** —
 a non-perturbative event in which the emotional field transitions between attractor
-basins. These are not smooth changes of $\mathbf{e}^*(t)$; they are instantons.
+basins. These are not smooth changes of $\mathbf{e}^*(t)$; in the score notation
+they are labelled instanton-like events.
 
 A threshold event is declared as:
 
@@ -83,7 +84,7 @@ dynamics or by the viewer's biofeedback signalling readiness.
 ## Control Knobs
 
 The score is rendered through a set of **control parameters** $\kappa$ that the
-viewer, clinician, or runtime system can adjust. These are continuous dials, not
+viewer, facilitator, or runtime system can adjust. These are continuous dials, not
 binary switches.
 
 | Knob | Symbol | Effect |
@@ -130,14 +131,15 @@ rate ($\dot{H} < 0$) signals return and may allow the score velocity to increase
 The rendering system should treat $\dot{H}$ as the primary cardiac control signal
 and instantaneous BPM as a secondary state indicator.
 
-The system
+The model equation is
 
 $$\dot{\mathbf{e}}_V = -\nabla H_V(\mathbf{e}_V) + \kappa_r \cdot \lambda \cdot S(t) + \eta_V$$
 
-The screen signal $S(t)$ drives the viewer's field; the viewer's field modifies
-$S(t)$ via the resonance knob $\kappa_r$ and the rendering function $\mathcal{R}$.
-At high resonance, the film and the viewer co-regulate. The distinction between
-"watching a film" and "being in a therapy" begins to dissolve.
+The screen signal $S(t)$ drives the viewer's estimated field; the viewer's field
+modifies $S(t)$ via the resonance knob $\kappa_r$ and the rendering function
+$\mathcal{R}$. At high resonance, the film and the viewer are modelled as
+co-regulating. This is an artistic and systems-design claim, not a clinical
+intervention claim.
 
 Two operating modes:
 
@@ -148,9 +150,9 @@ Two operating modes:
 | **Mirror** | $\approx 1$ | The viewer's field drives the rendering. The score becomes a target trajectory; the system generates audio/visual content that guides the viewer toward $\mathbf{e}^*(t)$ from wherever they actually are. |
 
 In Mirror mode, the system is a **real-time emotional score calibrator**: it
-continuously measures $\mathbf{e}_V(t)$, computes the gap to $\mathbf{e}^*(t)$,
-and renders audio/visual content calculated to reduce that gap. This is a formal
-definition of what a therapist does.
+continuously estimates $\mathbf{e}_V(t)$, computes the gap to $\mathbf{e}^*(t)$,
+and renders audio/visual content designed to reduce that gap within the model. This
+is an artistic analogy to therapeutic attunement, not a definition of therapy.
 
 ---
 
@@ -233,7 +235,7 @@ something that is navigating you.
 
 **Threshold 1** $t \approx 0.52$
 
-The first instanton. Safety $< 2$, Fear $> 7$. The field tips. This is the
+The first instanton-like score event. Safety $< 2$, Fear $> 7$. The field tips. This is the
 moment when fear passes its threshold into something larger: the beginning of
 awe. The two are close — they activate the same somatic substrate. The difference
 is the interpretation. The rendering system holds here until the crossing completes.
@@ -259,7 +261,7 @@ of darkness is. It does not speak in sentences. It does not need to.
 
 **Threshold 2** $t \approx 0.74$
 
-The second instanton. Language $= 0$, Pre-verbal $= 9$. The encounter.
+The second instanton-like score event. Language $= 0$, Pre-verbal $= 9$. The encounter.
 This threshold does not go to a higher activation — it goes to a deeper
 quality. Grief opens fully: not sadness, but the affect of having arrived at
 the oldest loss, the one that precedes memory. The field is in a state that
@@ -327,7 +329,7 @@ maximum coherence. The complete score trajectory is an automation lane for each 
 1. $\kappa_m$ may exclude modes they do not have active attractors for
 2. $\kappa_r > 0$ allows their own $\mathbf{e}_V(t)$ to modulate the rendering in real time
 3. $\kappa_d$ scales the depth of the instanton traversal — some users may not be
-   ready for $\kappa_d = 1.0$ and the system (or clinician) sets it lower
+   ready for $\kappa_d = 1.0$ and the system operator sets it lower
 4. The rendering function $\mathcal{R}$ may be calibrated to the individual's own
    mode vocabulary — their specific fear-to-shame coupling, their specific grief
    timescale
@@ -394,10 +396,10 @@ SOMATIC LOOP ARCHITECTURE
 
 At $\kappa_r = 0$: the viewer's field does not affect the output. Standard cinema.
 
-At $\kappa_r = 0.5$: the film breathes with the viewer. If the viewer enters
-a freeze state at the threshold approach, the score velocity slows, the texture
-softens, the system waits. When the viewer's HRV coherence returns, the threshold
-crossing is attempted again.
+At $\kappa_r = 0.5$: the film breathes with the viewer. If the viewer's estimated
+state approaches a freeze-like region at the threshold approach, the score velocity
+slows, the texture softens, and the system waits. When the measured signals return
+to the chosen safety criteria, the threshold crossing is attempted again.
 
 At $\kappa_r = 1.0$: the film is a mirror. The audio and visual content is generated
 entirely from $\mathbf{e}_V(t)$. The abstract score $\mathbf{e}^*(t)$ functions only
@@ -438,11 +440,11 @@ The compositional decisions are:
    or is the return basin different from the departure basin?
 
 A film with the same departure and return basins (safety at $t=0$ ≈ safety at $t=1$)
-is a round trip. Most therapy sessions are not round trips. The return basin is
-reorganised: higher HRV coherence, lower default coupling between fear and shame,
-wider threshold distance from the freeze attractor. The score should reflect this —
-the return is not a reversal of the departure, but a different path to a different
-version of home.
+is a round trip. In the therapy-session container, the desired return is not a round
+trip. The score may represent a reorganised return basin — for example, higher HRV
+coherence, lower modelled coupling between fear and shame, or wider threshold
+distance from the freeze attractor. These are design targets and hypotheses, not
+promised outcomes.
 
 ## String Diagrams as Score Notation
 
@@ -452,7 +454,7 @@ soma-field. Each box is an interaction. Composition (two boxes in sequence) is a
 temporal sequence of interactions. Tensor product (two wires in parallel) is
 simultaneous independent activation.
 
-A therapy dyad is two wires through time, with coupling boxes at the points of
+A therapy-dyad model is two wires through time, with coupling boxes at the points of
 co-regulation. A film audience is $N$ parallel wires, each with their own $H_V$,
 all coupling to the same screen signal $S(t)$. The emotional score is the abstract
 specification of what $S(t)$ does. The audience's collective response is

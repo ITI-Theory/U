@@ -6,28 +6,23 @@ institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
 lang: en-GB
 abstract: |
-  The Universal Somatic Field (USF) has been established as a scale-invariant
-  field-theoretic architecture governing dynamics from quantum foam to the
-  cosmic web. Previous papers have characterised the field's attractor structure,
-  its Green's function identification, and its Lean 4 formal verification. The
-  present paper completes the kinematic picture by developing the full
-  time-dependent formulation. We derive the retarded Green's function
-  $G_R(x,t;\,x',t')$ of the somatic field, characterise the relaxation
-  time $\tau$ of attractor dynamics as a function of the spectral gap, and
-  give a Wentzel--Kramers--Brillouin (WKB) estimate for the temporal barrier
-  in emotional state transitions. We introduce the Somatic Memory Kernel
-  $K(t - t')$ — the exponentially decaying influence of past field
-  configurations on present dynamics — and show that it accounts for
-  autobiographical memory, trauma re-experiencing, and the decay of conditioned
-  responses within a single analytic framework. The Field-Modulated Hopfield
-  Network (FM-HN) is extended to include an explicit time-dependent forcing
-  current $J(x,t)$, enabling a treatment of therapeutic intervention as an
-  optimal control problem on the field trajectory. Clinical implications
-  include a field-theoretic derivation of why trauma processing is slower than
-  trauma formation, and a quantitative account of the window of tolerance as
-  a temporal bandwidth constraint on the retarded propagator. Core results
-  are consistent with the Lean 4 formalisations in the companion
-  lean-proofs-appendix paper.
+  The Universal Somatic Field (USF) has been proposed as a scale-indexed
+  field-theoretic architecture. Previous papers have characterised the field's
+  attractor structure and Green's-function analogy under stated modelling
+  assumptions; Lean 4 support remains theorem-specific rather than a verification of
+  the whole physical theory. The present paper develops a time-dependent formulation.
+  We derive a model retarded Green's function $G_R(x,t;\,x',t')$, characterise the
+  relaxation time $\tau$ of attractor dynamics as a function of the spectral gap,
+  and give a Wentzel--Kramers--Brillouin (WKB) estimate for temporal barriers in
+  emotional state transitions. We introduce the Somatic Memory Kernel $K(t - t')$ —
+  the exponentially decaying influence of past field configurations on present
+  dynamics — and propose it as a unified modelling language for autobiographical
+  memory, trauma re-experiencing, and conditioned response decay. The
+  Field-Modulated Hopfield Network (FM-HN) is extended to include an explicit
+  time-dependent forcing current $J(x,t)$, suggesting an optimal-control framing of
+  therapeutic intervention. Clinical implications are hypotheses: the paper models
+  why trauma processing may be slower than trauma formation, and it interprets the
+  window of tolerance as a temporal bandwidth constraint on the retarded propagator.
 keywords:
   - temporal dynamics
   - retarded Green's function
@@ -47,9 +42,10 @@ csl: ../../apa-7th.csl
 The Universal Somatic Field has been introduced and developed across a series of
 papers that have, with one exception, characterised it in the *stationary* regime:
 attractor basins, energy landscapes, phase transitions at critical thresholds. The
-exception is the quantum annealing experiment [@johnson2026quantum], which probed the
-*rate* at which the field crosses energy barriers — and found that the quantum
-pathway crosses them in fewer computational steps than any classical alternative.
+exception is the exact 8-qubit statevector simulation QUANT-EXP-1
+[@johnson2026quantum], which probed model-class reachability across energy barriers
+and found successful reachability for the quantum-adjacent pathway where the cold
+classical baseline failed in the tested cases.
 
 But the stationary picture is incomplete. Real emotional life is not stationary. A
 person moves through emotional states; those states influence each other across time;
@@ -57,7 +53,7 @@ past experiences leave traces that modulate present dynamics. The somatic field 
 just a landscape — it is a trajectory through a landscape, and the trajectory has a
 velocity, an inertia, and a memory.
 
-This paper develops the time-dependent formulation of the USF. The central object is
+This paper develops a time-dependent formulation of the USF. The central object is
 the **retarded Green's function** $G_R(x,t;\,x',t')$: the response of the somatic
 field at position $x$ and time $t$ to a perturbation applied at position $x'$ at
 the earlier time $t' < t$. The retarded Green's function is the causal propagator — it
@@ -68,7 +64,7 @@ emotional states.
 The retarded propagator is not a new concept in physics; it is a standard tool in
 quantum field theory, classical electrodynamics, and the theory of open quantum
 systems. Its application to emotional dynamics is, however, new. The consequences
-are clinically significant: they give quantitative meaning to concepts such as
+are potentially clinically relevant: they give model-level quantitative meaning to concepts such as
 the window of tolerance, the rate of trauma formation, the speed of therapeutic
 change, and the timescale of emotional memory consolidation.
 
@@ -87,7 +83,7 @@ broader USF programme.
 
 ## The Field Equation
 
-The stationary somatic field equation (established in the companion papers) is:
+The stationary somatic field equation (introduced in the companion papers) is:
 
 $$(\nabla^2 + k^2)\,\Phi_{\mu\nu}(x) = -J_{\mu\nu}(x)$$
 
@@ -227,11 +223,12 @@ exponential decay of the memory kernel in the absence of reinforcement. The
 field's response to the conditioned stimulus decays as $e^{-\tau/\tau_m}$;
 after a time of order several $\tau_m$, the response has substantially attenuated.
 
-This gives a field-theoretic account of exposure therapy: repeated presentation
-of the conditioned stimulus without the unconditioned stimulus (the trauma) allows
-the memory kernel contribution to decay. The therapy does not erase the memory —
-it reduces $K_0$, the initial amplitude of the kernel, through the accumulation
-of unreinforced presentations that progressively lower the well depth.
+This gives a field-theoretic model of exposure-like learning: repeated presentation
+of the conditioned stimulus without the unconditioned stimulus allows the memory
+kernel contribution to decay. The model does not prescribe therapy or claim that
+memory is erased; it represents attenuation as a reduction of $K_0$, the initial
+amplitude of the kernel, through unreinforced presentations that progressively lower
+the effective well depth.
 
 # WKB Estimate of the Temporal Barrier
 
@@ -260,7 +257,7 @@ emotional transition from state A to state B without external perturbation.
 
 ## Asymmetry of Formation and Dissolution
 
-The Kramers formula immediately explains a clinically well-established asymmetry:
+The Kramers formula offers a model for a clinically observed asymmetry:
 **trauma formation is much faster than trauma dissolution**. The reason is the
 asymmetry of the barrier structure:
 
@@ -276,13 +273,13 @@ asymmetry of the barrier structure:
   barrier height. For a deep trauma well ($\Delta V \gg D$), this time can be
   astronomically large without therapeutic intervention.
 
-This is not a failure of the person trapped in the trauma well. It is the
-physics: a ball dropped into a deep pit takes far less energy to drop than to
-climb back out. The somatic field is following its equations.
+This is not framed as a failure of the person trapped in the trauma well. Within
+the model, a ball dropped into a deep pit takes far less energy to drop than to
+climb back out; the somatic field is following the assumed equations.
 
 ## The Window of Tolerance as Temporal Bandwidth
 
-The clinical concept of the "window of tolerance" — the range of field temperatures
+The clinical concept of the "window of tolerance" — here translated into model field temperatures —
 within which therapeutic processing of traumatic material is possible — receives
 a temporal reformulation in the retarded propagator framework.
 
@@ -305,9 +302,9 @@ such that:
 The window of tolerance is therefore a temporal bandwidth: a range of field
 temperatures within which the retarded propagator ensures that the field can
 approach and retreat from the trauma-adjacent region on therapeutic timescales.
-This gives a quantitative grounding for the standard clinical instruction to "titrate"
-trauma processing — to regulate the field temperature so that processing occurs
-within the window.
+This offers a quantitative model for the standard clinical instruction to "titrate"
+trauma processing — to regulate arousal so that processing remains within a workable
+window. It is not a treatment protocol.
 
 # Therapeutic Intervention as Optimal Control
 
@@ -323,7 +320,7 @@ forcing current — the physical effect of the therapist's interventions on the
 somatic field.
 
 The therapeutic current $J_\text{therapy}(x,t)$ is non-zero during therapy
-sessions and zero between sessions. Different therapeutic modalities correspond
+sessions and zero between sessions. Different therapeutic modalities are modelled as corresponding
 to different spatial and temporal profiles of $J_\text{therapy}$:
 
 - **Somatic therapies** (SE, SP, EMDR): $J_\text{therapy}$ has large amplitude
@@ -351,9 +348,9 @@ $\Phi^\star(x)$ in minimum time, subject to the constraint that the field
 remains within the window of tolerance throughout.
 
 This is a standard variational problem with state constraints, and it can be
-solved by the Pontryagin minimum principle. The solution gives the optimal
-therapeutic trajectory: the sequence of interventions, each with its appropriate
-amplitude and timing, that achieves the therapeutic goal most efficiently.
+solved by the Pontryagin minimum principle. In a fully specified model, the solution would give an optimal therapeutic trajectory:
+the sequence of interventions, each with its model amplitude and timing, that achieves
+the formal target most efficiently.
 
 The formal solution is beyond the scope of this paper (it requires specifying the
 energy landscape, the window-of-tolerance constraints, and the admissible set of
@@ -363,28 +360,28 @@ the optimal control trajectory, or does it systematically deviate from it?
 ## Why Somatic Entry Is Faster: A Formal Account
 
 The claim made in the clinical companion papers [@johnson2026clinical] — that
-somatic entry to traumatic material is more efficient than cognitive entry — now
-has a formal account. The efficiency difference arises from the spatial structure
+somatic entry to traumatic material can sometimes be more efficient than cognitive
+entry — is given a formal hypothesis here. The efficiency difference arises from the spatial structure
 of $J_\text{therapy}$:
 
-Somatic interventions apply $J_\text{therapy}$ directly to the somatic-limbic
+In this model, somatic interventions apply $J_\text{therapy}$ directly to the somatic-limbic
 subspace of the field, which is the subspace containing the trauma well. The
 forcing current reaches the trauma-well basin directly, without passing through
 the EC (Emotional Core) junction.
 
-Cognitive interventions apply $J_\text{therapy}$ to the cortical subspace.
+In this model, cognitive interventions apply $J_\text{therapy}$ to the cortical subspace.
 Reaching the somatic-limbic basin from the cortical subspace requires traversing
 the EC junction, which is the point of maximum decoupling in CPTSD presentations.
 The effective coupling between the cortical forcing and the trauma well is
 proportional to the EC coupling constant $\kappa_\text{EC}$ — which is anomalously
 small in CPTSD by definition.
 
-The efficiency ratio is therefore approximately $\kappa_\text{EC}^{-1}$: somatic
-therapy is $\kappa_\text{EC}^{-1}$ times more efficient at perturbing the trauma
-well per unit of therapeutic effort, compared to cognitive therapy. For severely
-decoupled CPTSD presentations (small $\kappa_\text{EC}$), this ratio can be
-large — consistent with the clinical observation that complex trauma often requires
-body-based approaches to access what decades of talking cannot reach.
+The model efficiency ratio is therefore approximately $\kappa_\text{EC}^{-1}$:
+a somatic forcing channel would perturb the trauma well more directly per unit of
+model effort than a cognitive forcing channel. For severely decoupled model
+presentations (small $\kappa_\text{EC}$), this ratio can be large. Whether this
+maps to clinical outcome requires empirical testing and cannot be inferred from the
+formal model alone.
 
 # The Temporal Somatic Field Across Scales
 
@@ -411,21 +408,22 @@ but in a form that does not project onto the language channel.
 
 ## Geological and Astrophysical Timescales
 
-The same retarded propagator applies at geological and astrophysical scales,
-with the scale-appropriate velocity $v_s$ and wavenumber $k$. At geological
+The same retarded-propagator form can be written at geological and astrophysical
+scales, with scale-appropriate velocity $v_s$ and wavenumber $k$, if the USF scale
+analogy is adopted. At geological
 scale ($\sigma = 10$ in the Zoom Operator notation), the somatic field describes
 seismic wave propagation and tectonic dynamics. The memory kernel at this scale
 has timescale $\tau_m \sim 10^3$ to $10^6$ years — the timescale over which
 geological stress distributions encode the history of past tectonic events.
-This is the field-theoretic account of geological memory: rock strata remember
-[@johnson2026geophysics].
+This is a field-theoretic analogy for geological memory: rock strata encode traces
+of past stress distributions [@johnson2026geophysics].
 
 At cosmological scale ($\sigma = 19$--$20$), the retarded propagator is the
 cosmological Green's function — the propagator for perturbations in the
 early universe, whose memory kernel timescale is the Hubble time $\sim 10^{10}$
-years. The cosmic microwave background is the long-memory trace of quantum
-fluctuations in the very early universe: an exponentially decayed but still
-detectable somatic memory of the universe's infancy.
+years. In the cosmological analogy, the cosmic microwave background is a long-memory trace
+of quantum fluctuations in the very early universe: an exponentially evolved but still
+detectable record of the universe's infancy.
 
 # Implications and Open Questions
 
@@ -460,29 +458,31 @@ the Kramers formula for the given barrier height.
 
 ## The Time Variable in the Lean 4 Formalisation
 
-The spatial (stationary) aspects of the USF have been formally verified in
-Lean 4 [@johnson2026lean]. The time-dependent formulation introduces new proof
-obligations. The retarded boundary condition (causality) should be stated as a
+Some spatial and stationary components of the USF proof surface have Lean 4
+formalisations [@johnson2026lean], while other files still contain open `sorry`s.
+The time-dependent formulation introduced here is not yet formalised and creates
+new proof obligations. The retarded boundary condition (causality) should be stated as a
 Lean 4 theorem; the exponential decay of the memory kernel should follow as a
 corollary; the Kramers mean first-passage time formula should be derived from
 the field equation in the overdamped limit.
 
-The formal statement of causality — that $G_R = 0$ for $t < t'$ — is precisely
-a **dependent type constraint** in the Lean 4 type system. In the type-theoretic
-reading, the retarded propagator has the type:
+The formal statement of causality — that $G_R = 0$ for $t < t'$ — can be represented
+as a **dependent type constraint** in the Lean 4 type system. In the proposed
+type-theoretic reading, the retarded propagator has the type:
 
 $$G_R : (t\,t' : \mathrm{Time}) \to (t' < t) \to \mathrm{Space} \to \mathrm{Space} \to \mathrm{Field}$$
 
 The inequality $t' < t$ is a proof argument — a term of type `Prop` that must
-be supplied at every call site. The Lean 4 kernel enforces causality at compile
-time: any use of the propagator that does not supply a proof of $t' < t$ is a
-type error. The temporal arrow of time is not a convention but a structural
-constraint woven into the type signature of the propagator.
+be supplied at every call site. If formalised this way, the Lean 4 kernel would
+enforce the causality premise at compile time: any use of the propagator that does
+not supply a proof of $t' < t$ would be a type error. The temporal arrow of time
+would then be represented as a structural constraint in the type signature of the
+propagator.
 
-This is the type-theoretic completion of the USF's kinematic picture. The spatial
-Σ-type (the soma-field as a dependent sum over scale levels, established in
-`ScaleUniverse.lean`) is joined by the temporal dependent type (the retarded
-propagator as a function that takes a causality proof). Together they give the
+This would be the type-theoretic completion of the USF's kinematic picture. The
+spatial Σ-type (the soma-field as a dependent sum over scale levels, modelled in
+`ScaleUniverse.lean`) would be joined by the temporal dependent type (the retarded
+propagator as a function that takes a causality proof). Together they suggest the
 full USF type:
 
 $$\text{USF} \;\equiv\; \sum_{\sigma : \mathrm{Scale}_{20}} \left( \mathrm{Substrate}(\sigma) \;\times\; G_R(\sigma) \right)$$
@@ -492,8 +492,8 @@ causality constraint as a proof argument.
 
 ## The Unified Kinematic Picture
 
-The temporal dynamics paper completes the kinematic picture of the Universal
-Somatic Field. The full specification of the field now includes:
+The temporal dynamics paper proposes a kinematic picture of the Universal
+Somatic Field. The model specification now includes:
 
 | Property | Object | Key formula |
 |---|---|---|
@@ -511,15 +511,15 @@ there, how long it stays, and what traces it leaves behind.
 
 # Conclusion
 
-The temporal dynamics of the Universal Somatic Field are governed by the retarded
-Green's function, the Somatic Memory Kernel, and the Kramers transition rate
-formula. Together, these three objects provide a complete kinematic description
-of emotional dynamics: where the field can go (the attractor landscape), how long
-it takes to get there (the Kramers rate), how long it remembers where it has been
-(the memory kernel), and how an external therapist can guide it most efficiently
-(the optimal control formulation).
+In this proposed temporal model, the Universal Somatic Field is described with the
+retarded Green's function, the Somatic Memory Kernel, and the Kramers transition
+rate formula. Together, these three objects provide a kinematic language for
+emotional dynamics: where the field can go (the attractor landscape), how long it
+takes to get there (the Kramers rate), how long it remembers where it has been (the
+memory kernel), and how external support can be represented as an optimal-control
+forcing term.
 
-The framework resolves several clinical puzzles:
+The framework reframes several clinical puzzles as hypotheses:
 - Why trauma forms faster than it dissolves (asymmetric barrier crossing)
 - Why somatic therapies are more efficient than cognitive ones for complex PTSD
   (somatic forcing bypasses the decoupled EC junction)

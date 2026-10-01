@@ -20,12 +20,12 @@ abstract: |
   a Python field server computes energy, gradient, and threshold crossings
   at 50 Hz; audio output (Ableton Live) and 3D fractal visual output
   (Mandelbulb, projected onto HoloGauze) are driven by the field state via
-  OSC.  We demonstrate the instrument in a recorded session and analyse the
+  OSC.    We report an exploratory recorded-session fill and analyse the
   resulting state trajectory against circumplex predictions.  The model
   makes predictions that the circumplex cannot: phase transitions into and
   out of attractor states, the adaptive function of high effective temperature
    (ADHD modifier), and the depth asymmetry of freeze versus regulated calm.
-   We specify preregistered hypotheses, baseline models, and disconfirmation
+   We specify preregistration-ready hypotheses, baseline models, and disconfirmation
    criteria to make the framework publication-testable rather than descriptive.
 ---
 
@@ -98,7 +98,7 @@ of emotional mode $i$.  The eight modes are: *calm*, *anger/fight*,
 
 ## Energy Function and Attractors
 
-$$H(\mathbf{e}) = \tfrac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \mathbf{b}^\top\mathbf{e}$$
+$$H(\mathbf{e}) = -\tfrac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \mathbf{b}^\top\mathbf{e}$$
 
 The coupling matrix $W$ (symmetric, negative semi-definite on the basin of each
 attractor) encodes which emotional modes co-activate and which compete.
@@ -192,7 +192,7 @@ pilot publication and later extension to cohort studies.
    MIDI control streams, OSC output channels
 - Clock synchronisation: all outputs written with UTC timestamp + monotonic tick
 
-**Pre-registered hypotheses (pilot level):**
+**Preregistration-ready hypotheses (pilot level):**
 
 - **H1 (Attractor residence):** directed transition blocks show significantly
    higher residence probability in target attractors than baseline block.
@@ -245,7 +245,7 @@ Comparison metrics:
 
 Expected result: circumplex baseline captures coarse valence/arousal trend but
 misses barrier effects and hysteresis; AR baseline captures short-term dynamics
-but misses attractor geometry. The soma-field model should outperform both on
+but misses attractor geometry. The soma-field model is predicted to outperform both on
 transition-timing and hysteresis-sensitive metrics.
 
 ## Results Template (for Manuscript Fill-In)
@@ -292,7 +292,7 @@ Primary analysis is block-level, with sensitivity analysis at event-level.
 - Report effect sizes with confidence intervals, not only p-values.
 - Bootstrap confidence intervals use at least 2000 resamples.
 
-**Data exclusion policy (pre-registered):**
+**Data exclusion policy (for preregistration):**
 
 - Exclude intervals with missing clock synchronisation,
 - Exclude control-dropout segments > 2 s,

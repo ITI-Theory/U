@@ -13,21 +13,22 @@ lang: en-GB
 # Abstract
 
 This monograph presents a formal mathematical theory of affective dynamics —
-the **Universal Somatic Field (USF)** framework — developed across nineteen
-papers and formally verified in Lean 4.
+the **Universal Somatic Field (USF)** framework — developed across the current
+paper corpus, with selected algebraic and type-level claims checked in Lean 4.
 
-The central thesis is that emotional experience is not an epiphenomenon of
-neural computation but a real physical field with measurable dynamics — and that
-the governing equations of that field are, structurally and precisely, the
-equations of quantum field theory, M-theory, and statistical mechanics.  Not as
-analogy.  As identity.
+The central thesis is that emotional experience can be modelled as a physical
+field with measurable dynamics — and that the governing equations of that field
+share structural forms with equations from quantum field theory, M-theory, and
+statistical mechanics. The identity claim is a research hypothesis under stated
+definitions, not a settled fact about the world.
 
 This was not assumed by importing physics into psychology.  It was derived
 inductively: by counting the minimum functional degrees of freedom required to
 describe a system with a body, an affective field, and a mind, and discovering
 that the result is isomorphic to M-theory's eleven-dimensional architecture.  The
-isomorphism is not a design choice.  It is a theorem — verified by the Lean 4
-proof kernel, which has no stake in the outcome.
+isomorphism is not a design choice. It is represented by a Lean 4
+type/product isomorphism under the model definitions; its physical
+interpretation remains an open hypothesis.
 
 The theory makes its claims precise enough to be falsified.  It provides the
 formal verification infrastructure necessary to evaluate them rigorously.  The
@@ -39,42 +40,43 @@ history.  The results stand without it.
 an 8-dimensional BRECVEMA mechanism space (Juslin & Västfjäll 2008) and
 defines its dynamics by the Hopfield Hamiltonian `H(e) = −½ eᵀWe`.  The
 weight matrix `W` encodes clinically grounded excitatory and inhibitory
-couplings between emotional mechanisms.  Attractors of this system are stable
-emotional states; trajectories between them are therapeutic processes.  The
-limbic system acts as a quantum tunnelling gate, modelled by WKB barrier
-penetration, which explains why certain emotional transitions require external
-perturbation (therapy, pharmacology, or transformative experience) rather than
-gradient descent.
+couplings between emotional mechanisms. Attractors of this system model stable
+emotional states; trajectories between them model possible change processes. The
+limbic system is modelled as a quantum tunnelling gate, using WKB barrier
+penetration as a candidate mechanism for why some emotional transitions may
+require external perturbation (for example therapy, pharmacology, or
+transformative experience) rather than gradient descent.
 
-**The geometric extension** embeds the 8-dimensional field in 11 dimensions
-via M-theory compactification: 4 spacetime dimensions plus 7 compact
-dimensions encoding the BRECVEMA mechanisms.  This embedding is not metaphor
-— it is a precise isomorphism verified in `MTheoryIsomorphism.lean`.  The
-compact dimensions have radius of order the Planck length; the classical field
-limit recovers the 8D dynamics as the low-energy effective theory.
+**The geometric extension** embeds the 8-dimensional field in an 11-dimensional
+bookkeeping structure: 4 spacetime dimensions plus 7 compact-sector dimensions
+related to the BRECVEMA mechanisms. This embedding is not merely rhetorical,
+but the Lean file `MTheoryIsomorphism.lean` checks a type/product isomorphism,
+not a physical M-theory derivation. Planck-scale compactification and the
+classical 8D low-energy limit remain model assumptions.
 
 **The scale-invariant architecture** (the Zoomable Universal Somatic Field,
-zUSF) establishes that the same Green's function governs dynamics at 20 scales
+zUSF) proposes that the same Green's-function form governs dynamics at 20 scales
 spanning 61 orders of magnitude, from quantum foam (10⁻³⁵ m) to the cosmic
 web (10²⁶ m).  A zoom operator `Z(s)` leaves the field equation form-invariant
-under scale transformations.  Consciousness arises as a phase transition when
-the limbic wave amplitude crosses a critical threshold `T_c` — not as a
-special substance or property, but as the same threshold phenomenon that
-governs every other phase transition in the theory.
+under scale transformations. Consciousness is modelled as a threshold predicate
+when the limbic wave amplitude crosses a critical threshold `T_c`; the
+phenomenological interpretation of that predicate remains an open empirical
+question.
 
-**The Lean 4 formal verification** converts the most important claims from
-informal theorems to machine-verified proofs.  Key results include: the
+**The Lean 4 formal verification** converts selected formal claims from
+informal theorems to machine-checked statements. Key results include: the
 Hopfield energy function and its attractor structure; the final-tagless
 emotion algebra (simultaneously valid in five semantic domains); the FM-HN
 Correspondence Principle (unifying 1982 and 2020 Hopfield networks); the
-O(N²) swarm coordination complexity theorem; the M-theory isomorphism; and
-scale invariance.  The proofs are included in full in the Appendix.
+O(N²) swarm coordination complexity theorem; the M-theory type/product isomorphism; and
+scale-invariance inhabitance. The proof sources are included in the Appendix,
+alongside explicit axioms and remaining `sorry`s.
 
-**Clinical and experimental grounding** is provided by: a quantum annealing
-experiment that reaches the Awe attractor basin in 3/3 cases where classical
-annealing fails (0/48); clinical case studies formalised as field trajectories;
-and a patient-perspective analysis that grounds the mathematical formalism in
-lived somatic experience.
+**Clinical and experimental grounding** is provided by: QUANT-EXP-1, an exact
+8-qubit statevector simulation that reaches the Awe attractor basin in 3/3
+cases where the classical baseline fails (0/48); clinical and patient-perspective
+materials formalised as field trajectories; and lived somatic testimony. These
+materials motivate hypotheses rather than establishing treatment efficacy.
 
 The theory is falsifiable.  Specific predictions are listed in the zUSF paper
 (Part V): the limbic tunnelling amplitude should be measurable via
@@ -97,14 +99,14 @@ The mathematical framework, the clinical interpretations, the Lean 4
 formalisations, the quantum experiment design and results, and the writing are
 all my own work, except where explicit citation is given.
 
-The Lean 4 proofs in the Appendix have been verified by the Lean kernel
-(version 4.28.0 with Mathlib).  They are available in the repository
+The Lean 4 proof sources in the Appendix distinguish kernel-checked theorems
+from axioms and remaining `sorry`s (current proof surface: v4.31.0). They are
+available in the repository
 `ITI-Theory/U` on GitHub and can be independently verified by any party
 with access to Lean 4 and Mathlib.
 
-All seventeen papers in this collection have been published on Zenodo with
-concept DOIs.  The DOI registry is maintained in `paper/ZENODO_RELEASE_SHEETS.md`
-in the repository.
+Published records in this collection have Zenodo concept DOIs; current status
+and pending records are tracked in the project DOI registry.
 
 *Alistair Johnson, Zurich, 2026*
 
@@ -147,11 +149,12 @@ Zenodo, which provides persistent identifiers and citability.  The formal
 verification provides the rigour that the institutional apparatus would
 normally guarantee.
 
-Whether the theory is correct is an empirical question.  The Lean proofs
-show that the deductions are valid.  The quantum experiment shows that the
-field dynamics are physically realisable.  The clinical material shows that
-the framework generates useful predictions about therapeutic processes.
-That is enough to warrant the label *theory* rather than *speculation*.
+Whether the theory is correct is an empirical question. The Lean proofs show
+that named formal statements follow from their definitions and axioms. The
+quantum experiment shows model-class reachability in simulation. The clinical
+material shows that the framework generates hypotheses about therapeutic
+processes. That is enough to warrant a falsifiable research programme rather
+than a finished empirical theory.
 
 *A.J., Zurich, July 2026*
 
@@ -185,7 +188,8 @@ clinical vignette.
 **The Tensor** — a bridge between the scientific programme and the
 artistic project.  The abstract film *The Tensor* is specified here as a
 type-level document: the emotional score, the rendering architecture, the
-threshold events.  The film is the proof.
+threshold events. The film is an artistic translation, not evidence for the
+formal or physical claims.
 
 ## Part II: The Formal Apparatus
 
@@ -223,7 +227,8 @@ The six foundational papers that establish the theory in its original form:
 
 ## Appendix: Formal Lean 4 Verifications
 
-All eleven Lean 4 source files, reproduced in full, in dependency order.
-The proofs are here not as supplementary material but as primary evidence:
-they are what makes the formal claims formal.  An AI or human reader who
-has read only the preceding 300 pages and then turns to the Appendix and
+Lean 4 source files, reproduced in dependency order.
+The proofs are here not as supplementary material but as primary evidence for
+the formal claims they actually state. An AI or human reader who has read only
+the preceding papers and then turns to the Appendix can inspect the named
+declarations, axioms, and remaining proof obligations directly.

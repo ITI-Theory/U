@@ -6,43 +6,44 @@ institute: "Independent Researcher, Zurich, Switzerland"
 date: "2026"
 lang: en-GB
 abstract: |
-  We demonstrate that the same Green's function equation governing neural field
-  propagation at the biological scale ($10^{-1}$ m) also governs the propagation
+  We model how the same Green's function equation used for neural field
+  propagation at the biological scale ($10^{-1}$ m) can also represent the propagation
   of cultural and biological patterns through geographic substrates at the societal
   scale ($10^3$–$10^5$ m). Two worked examples from the Thames Valley, United
   Kingdom, are presented: the spread of Estuary English as a structural contagion
   wave through a coupled population, and the formation and migration of ring-necked
   parakeet murmurations as an active-matter velocity field. Both phenomena occupy
-  Scales 7–9 on the Universal Somatic Field scale dial and are governed by the
-  same $(\nabla^2 + k^2)G = \delta$ propagator equation with substrate-appropriate
+  Scales 7–9 on the Universal Somatic Field scale dial and are represented by the
+  same $(\nabla^2 + k^2)G = \delta$ propagator form with substrate-appropriate
   boundary conditions. The Thames Valley acts as a geographic wave-guide: its
   north-south topographic boundaries (Chilterns, North Downs) channel propagation
   along the east-west axis, selecting which patterns can survive long-range
   transmission and which decay. A third example — the Klöntalersee basin in Glarus,
-  Switzerland — demonstrates the parabolic resonator structure of a glacially
+    Switzerland — models the parabolic resonator structure of a glacially
   carved valley as an acoustic Green's function evaluator at the geological scale
-  ($10^5$ m). The framework extends the Universal Somatic Field to geography and
-  demonstrates that the theory is not confined to biological or cosmological substrates:
-  the same equation governs wherever fields propagate through bounded media.
+  ($10^5$ m). The framework extends the Universal Somatic Field to geography as a
+  modelling exercise: the same formal operator can be evaluated wherever fields
+  propagate through bounded media, but substrate equivalence remains a hypothesis.
 ---
 
 
 # Introduction
 
-The Universal Somatic Field [@johnsonzsf2026] establishes that the Helmholtz
+The Universal Somatic Field [@johnsonzsf2026] formalises a scale-indexed Helmholtz
 Green's function equation:
 
 $$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x') \tag{1}$$
 
-governs field propagation at twenty scales from quantum foam to the observable
+for field propagation at twenty scales from quantum foam to the observable
 universe. Scales 7–9 on the USF dial correspond to animal swarms, human
 organisms, and societal-scale dynamics. This paper presents worked examples at
 exactly these scales, drawn from human geography.
 
-The question is not the USF theorem supplies a formal scale-indexed equation; applying it to geographic substrates is a modelling hypothesis to be tested
-[@johnsonzsf2026, §2] — but what the physical substrate, propagator, and
-boundary conditions look like at each scale, and whether the predictions match
-observable patterns. Two examples from the same geographic corridor (the
+The USF theorem supplies a formal scale-indexed equation; applying it to
+geographic substrates is a modelling hypothesis to be tested
+[@johnsonzsf2026, §2]. The question is what the physical substrate,
+propagator, and boundary conditions look like at each scale, and whether the
+model predictions match observable patterns. Two examples from the same geographic corridor (the
 Thames Valley, England) and one from the Swiss Alps are examined.
 
 ---
@@ -93,10 +94,9 @@ This is a **social Hopfield network** with the Thames Valley Green's function
 as its propagator. The corridor's geometry selects which phonological modes
 propagate: variants associated with high-interaction-rate relay nodes
 (Heathrow, Staines, Richmond, central London) propagate with low loss; variants
-without these relay stations decay. The documented propagation speed —
-approximately 30 km per decade along the rail and motorway corridors — is
-consistent with a diffusion constant set by the interaction frequency at
-those nodes.
+without these relay stations decay. Reported outward diffusion along rail and motorway corridors is modelled here
+as a diffusion constant set by the interaction frequency at those nodes; the
+numerical value is an empirical parameter, not derived by the present paper.
 
 **Equation parameters:** $k \approx 10^{-3}$ m$^{-1}$ (social interaction
 radius $\sim 1$ km); boundary conditions: Chilterns (north), North Downs
@@ -106,9 +106,10 @@ attractor count.
 
 ## 2.3  Ring-Necked Parakeets: An Active-Matter Velocity Field
 
-The ring-necked parakeet (*Psittacula krameri*) is now the most numerous
-parrot species in Britain, with a population exceeding 50,000 concentrated
-in the Thames Valley west of London. Their pre-roost murmurations above the
+The ring-necked parakeet (*Psittacula krameri*) is now one of the most visible
+introduced parrot species in Britain, with a population commonly estimated in
+the tens of thousands and concentrated in the Thames Valley west of London.
+Their pre-roost murmurations above the
 Staines and King George VI reservoirs are large-scale collective phenomena
 exhibiting the same global coherence as starling murmurations: fluid,
 topologically connected shapes with no central controller.
@@ -139,7 +140,7 @@ vegetation; $N$ = flock size ($\sim 10^4$ at peak roost).
 ## 2.4  The Same Equation: Two Scales, One Corridor
 
 Both Estuary English (Scale 9, $10^3$ m) and the parakeet murmuration
-(Scale 7, $10^0$–$10^1$ m) are governed by equation (1) with different
+(Scale 7, $10^0$–$10^1$ m) are modelled by equation (1) with different
 wavenumbers and boundary conditions:
 
 | Feature | Estuary English | Parakeet murmuration |
@@ -153,11 +154,11 @@ wavenumbers and boundary conditions:
 | Boundary conditions | Chilterns/North Downs + prestige gradient | Reservoir perimeter + thermal gradient |
 | Mind matrix | Cultural attractors | Swarm intelligence (distributed) |
 
-The Thames Valley selects and amplifies both patterns by the same mechanism:
+The Thames Valley is treated as selecting and amplifying both patterns by the same mechanism:
 its topographic boundary conditions channel propagation along the east-west
-axis and suppress transverse modes. Whether the agents are speakers or birds
-is irrelevant to the propagator equation. Only $k$ and the physical
-interpretation of $G$ change.
+axis and suppress transverse modes. The substrate-specific details remain
+different; the comparison is at the level of the propagator form, $k$, and the
+physical interpretation of $G$.
 
 *The equation has not changed. Only the substrate has.*
 
@@ -179,11 +180,11 @@ open terrain — the boundary conditions confine the acoustic field and sustain
 resonant modes that would otherwise decay.
 
 The Glarus Hauptüberschiebung (Glarus Overthrust), the UNESCO World Heritage
-geological formation immediately adjacent to the lake, provides the seismic
-counterpart: 250 Ma Verrucano sandstone resting on 35 Ma Eocene flysch, with
-35 km of northward transport recorded. This is a seismic wave with a
-ten-million-year period — the same Green's function at Scale 10 ($10^5$ m)
-with a period of geological time rather than acoustic time.
+geological formation immediately adjacent to the lake, provides the tectonic
+counterpart: older Verrucano units rest above younger flysch, with tens of
+kilometres of northward transport recorded. This is not a literal seismic wave;
+it is a long-timescale deformation record that can be compared with the same
+Green's-function language at Scale 10 ($10^5$ m).
 
 **Equation parameters:** acoustic: $k = \omega/c_\text{air} \approx 2\pi f/340$
 m$^{-1}$ (e.g., $f=100$ Hz: $k \approx 1.8$ m$^{-1}$); seismic: $k = \omega/v_P$
@@ -207,9 +208,9 @@ propagation modes survive long-range transmission. This is a proposed shared bou
 
 The implications for cultural geography are direct. The propagation of
 languages, species ranges, technological adoption curves, and disease vectors
-all follow patterns consistent with equation (1) evaluated under the boundary
-conditions of the underlying geographic substrate. The rate and direction of
-propagation are determined by the Green's function of the landscape, not by
+can be tested against equation (1) evaluated under the boundary conditions of
+the underlying geographic substrate. The model predicts that the rate and
+direction of propagation depend jointly on the landscape Green's function and
 the intrinsic properties of the propagating pattern.
 
 ## 4.2  Relation to the Universal Somatic Field
@@ -221,8 +222,8 @@ cosmological). The geographic scale (7–10) was the missing middle — the regi
 where biological agents aggregate into collective phenomena and where physical
 geography provides the boundary conditions.
 
-The conclusion of the USF framework — that the same equation governs all
-twenty scales — gains additional support from the examples presented here.
+The USF framework's proposal — that the same equation can be evaluated across
+twenty scales — receives illustrative geographic cases here.
 The Thames Valley corridor is not a special case; it is a particularly
 legible one. The same physics operates in every geographic feature. The
 parabolic bowl of the Klöntalersee, the Thames Valley wave-guide, and the
@@ -231,9 +232,9 @@ with different $k$ values and different physical substrates.
 
 ## 4.3  Neurodivergent Pattern Recognition
 
-The identification of structural similarity across wildly different scales —
+The proposed identification of structural similarity across widely different scales —
 parakeet murmurations and dialect spread in the same geographic corridor,
-governed by the same equation — is an example of the cross-domain pattern
+modelled by the same equation — is an example of the cross-domain pattern
 recognition that characterises atypical cognitive profiles (ASC Level 2, ADHD)
 as described in the companion paper on the pre-verbal manifold [@johnsonpreverbal2026].
 
@@ -242,27 +243,27 @@ into a low-dimensional narrative, discarding cross-domain structural parallels
 as noise. Less-compressing processing retains these parallels as signal.
 The connection between a dialect wave and a bird swarm is not obvious to
 sequential, narrative-linear processing; it is immediate to field-theoretic,
-parallel processing. This is not a character trait; it is a parameter setting
-in the FM-HN architecture [@johnsonlimbic2026].
+parallel processing. In the companion model this is represented as a parameter setting in the FM-HN
+architecture [@johnsonlimbic2026]; it remains an interpretive hypothesis.
 
 ---
 
 # Conclusion
 
-The Thames Valley supports two simultaneous examples of scale-invariant field
-propagation: Estuary English as a structural contagion wave at Scale 9, and
-ring-necked parakeet murmurations as an active-matter velocity field at Scale 7.
-Both are governed by the Green's function of the valley's geographic
+The Thames Valley supports two simultaneous examples that can be modelled as
+scale-invariant field propagation: Estuary English as a structural contagion
+wave at Scale 9, and ring-necked parakeet murmurations as an active-matter
+velocity field at Scale 7. Both are represented by the Green's function of the valley's geographic
 wave-guide, evaluated at their respective wavenumbers. The Klöntalersee basin
 provides a third example at Scale 10: a parabolic acoustic resonator whose
 seismic counterpart records a ten-million-year wave.
 
-In all three cases, the equation is the same. Only the substrate, the
+In all three cases, the formal operator is the same. The substrate, the
 wavenumber, and the physical interpretation of source and response differ.
 
 The geographic somatic field is not a new theory. It is the Universal Somatic
-Field evaluated at geographic boundary conditions. The field is always there.
-The geography makes it visible.
+Field evaluated at geographic boundary conditions. The field model is always
+available; the geography makes the boundary conditions visible.
 
 ---
 

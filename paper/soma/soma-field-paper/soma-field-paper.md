@@ -12,13 +12,14 @@ abstract: |
   pattern recognition, sequence prediction, and error minimisation. The complementary
   component — the limbic system, responsible for valuation, threat detection, arousal
   modulation, and the somatic state reinstatement that underlies trauma — has received no
-  formal mathematical treatment. This paper proposes the **Soma-Field Model**: the first
-  formal field-theoretic architecture for the limbic system and its coupling to the body
-  and autonomic nervous system.
+  formal mathematical treatment. This paper proposes the **Soma-Field Model**: a
+  formal field-theoretic architecture for modelling limbic dynamics and their coupling to
+  the body and autonomic nervous system.
 
-  Drawing on the energy-function formalism of Hopfield neural networks and a formal
-  identification with Quantum Field Theory — not as metaphor but as shared mathematical
-  structure — the model provides a mathematically grounded account of four clinically
+  Drawing on the energy-function formalism of Hopfield neural networks and an
+  assumption-bound correspondence with Quantum Field Theory — not as loose metaphor, but
+  as a mapping of shared mathematical structure — the model provides a mathematically
+  grounded account of four clinically
   fundamental phenomena: the sub-perceptual persistence of emotional states; the threshold
   at which emotion enters conscious awareness; the attractor structure corresponding to
   fight, flight, freeze, and regulated calm; and the formal mechanism of complex PTSD as a
@@ -28,19 +29,20 @@ abstract: |
   particles in the same mathematical category: both are poles in the propagator of their
   respective field.
 
-  The soma-field adds the component that has been absent from every artificial neural
-  network since McCulloch and Pitts (1943): a formal model of the limbic system. Together,
-  the Hopfield framework and the Soma-Field Model constitute the first complete formal
-  description of the two principal computational substrates of the vertebrate brain. The
+  The soma-field is proposed as a missing component in the artificial-neural-network
+  lineage since McCulloch and Pitts (1943): a formal model of limbic valuation and
+  somatic state dynamics. Together, the Hopfield framework and the Soma-Field Model are
+  presented as a candidate two-layer formal description of cortical-pattern and
+  limbic-somatic computation. The
   body schema and somatic pain states are incorporated as field modes, grounding the model
   in interoceptive neuroscience and phantom limb research. A companion instrument for
   therapeutic use and a formal abstract film specification are described as practical
   applications. Clinical implications for assessment, psychoeducation, and the treatment
-  of complex trauma are discussed. A companion experiment (QUANT-EXP-1, May 2026) demonstrates that the
-  quantum extension of this model — transverse-field quantum annealing on the same Hopfield
-  landscape — traverses topological barriers that the tested low-noise classical dynamics
-  does not cross, providing bounded empirical support for the therapeutic mechanism theorem
-  in this model class.
+  of complex trauma are discussed. A companion exact 8-qubit statevector simulation
+  (QUANT-EXP-1, May 2026) shows that the quantum extension of this model —
+  transverse-field quantum annealing on the same Hopfield landscape — reaches attractor
+  basins that the registered low-noise classical baseline does not reach, providing bounded
+  simulation support for the reachability claim in this model class.
 
 keywords:
   - somatic psychotherapy
@@ -92,14 +94,15 @@ concentration that has crossed a perceptual threshold and entered awareness. The
 continues below the threshold whether or not we attend to it, and its sub-perceptual activity
 shapes our behaviour, physiology, and cognition continuously.
 
-The Soma-Field Model contributes the first formal field-theoretic architecture for the limbic
-system. Every artificial neural network since McCulloch and Pitts (1943) [@mcculloch1943]
-is a formal model of the neocortex — the pattern-recognition and prediction layer. The
+The Soma-Field Model contributes a formal field-theoretic architecture for modelling the
+limbic system. The artificial-neural-network lineage since McCulloch and Pitts (1943)
+[@mcculloch1943] is read here primarily as a formal model of cortical pattern recognition
+and prediction. The
 limbic system — responsible for emotional valuation, threat detection, and the somatic
-state reinstatement that underlies trauma — has never received a comparable formal
-treatment. The Soma-Field Model is that treatment. Together with the Hopfield framework,
-it constitutes the first complete formal description of the two principal computational
-substrates of the vertebrate brain.
+state reinstatement that underlies trauma — is treated here as requiring a comparable
+formal layer. The Soma-Field Model is proposed as that layer. Together with the Hopfield
+framework, it is presented as a two-layer formal description of cortical-pattern and
+limbic-somatic computation.
 
 The paper proceeds as follows. Section 2 reviews the relevant background in somatic clinical
 models, and introduces the two theoretical tools borrowed from physics and computer science:
@@ -138,7 +141,7 @@ Gendlin's concept of the *felt sense* (1978) is of particular relevance. He desc
 "a special kind of internal bodily awareness... a body sense of meaning." It is not an
 emotion in the ordinary sense — not a named feeling — but something more diffuse: a
 pre-articulate sense that *something is there*, present in the body, before it has been
-identified or named. Focussing, the therapeutic method Gendlin developed, works precisely
+identified or named. Focusing, the therapeutic method Gendlin developed, works precisely
 by attending to this pre-threshold signal and allowing it to surface into conscious
 articulation.
 
@@ -188,9 +191,10 @@ soma-field is a classical field, not a quantised one. The claim is stronger and 
 specific than analogy: the mathematical object being constructed — the Green’s function
 of a coupled field manifold — is formally of the same *type* as the objects that arise in
 QFT, differing only in the dimensionality of the manifold and the nature of the probe.
-What was previously described as a structural analogy is here identified as a formal
-correspondence: a particle is a pole in the propagator of its field; a conscious emotional
-percept is a pole in the propagator of the soma-field. Different physics. Same mathematics.
+What was previously described as a structural analogy is here treated as an
+assumption-bound formal correspondence: a particle is a pole in the propagator of its field;
+a conscious emotional percept is modelled as a pole in the propagator of the soma-field.
+Different physics; shared mathematical form within the stated model.
 
 That correspondence gives the model precise vocabulary for the following set of ideas,
 which are central to the clinical observation of emotion:
@@ -201,12 +205,13 @@ which are central to the clinical observation of emotion:
   excitation of that background
 - The possibility of multiple simultaneous excitations that interact with one another
 
-*Note (May 2026):* A subsequent experiment (QUANT-EXP-1) demonstrates that the quantum
-extension of the Hopfield landscape used in this model — replacing the classical Langevin
-process with a transverse-field quantum annealer — produces a measurable *topological
-reachability advantage*: quantum annealing reaches attractor basins that cold classical
-dynamics cannot reach at any finite noise level. This upgrades the formal correspondence
-from a structural claim to a testable empirical prediction. See the companion paper
+*Note (May 2026):* A subsequent exact 8-qubit statevector simulation (QUANT-EXP-1) shows
+that the quantum extension of the Hopfield landscape used in this model — replacing the
+classical Langevin process with a transverse-field annealing term — produces a measurable
+*topological reachability difference*: quantum annealing reaches attractor basins that the
+registered low-noise classical dynamics did not reach. This upgrades the formal
+correspondence from a structural claim to a testable computational prediction. See the
+companion paper
 *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) for the full results
 and theoretical implications.
 
@@ -221,10 +226,12 @@ open problems in particle physics — the **hierarchy problem** — which asks w
 is so much weaker than the other forces. The standard answer is that gravity propagates
 in the full higher-dimensional bulk while other forces are confined to a lower-dimensional
 brane; the coupling across the brane boundary determines the apparent weakness. The
-soma-field correspondence is exact: the threshold $T_i$ *is* the brane. Perception is
-confined to the one-dimensional boundary of an eleven-dimensional dynamics. The hierarchy
-of emotional experience — why conscious feeling is so much weaker and more transient than
-the underlying field activity — has the same formal structure as the hierarchy of forces.
+soma-field correspondence proposed here is formal and model-internal: the threshold $T_i$
+plays the role of the brane boundary. Perception is modelled as confined to the
+one-dimensional boundary of an eleven-dimensional dynamics. The hierarchy of emotional
+experience — why conscious feeling is so much weaker and more transient than the underlying
+field activity — is therefore cast in a formal pattern comparable to the hierarchy of
+forces.
 
 ## Neural Network Energy Functions and Hopfield Networks
 
@@ -251,14 +258,15 @@ The Soma-Field Model applies this energy function directly to emotional dynamics
 emotions amplify one another, which suppress one another — and the energy function
 determines the direction in which the emotional field naturally evolves.
 
-Hopfield's network is a formal model of the *neocortex*: a system for storing cognitive
-patterns and retrieving them from partial cues by minimising an energy function. Every
-artificial neural network constructed since McCulloch and Pitts (1943) [@mcculloch1943] — from perceptrons
-to backpropagation networks to transformers — sits in this neocortical lineage. These
-systems recognise patterns, predict sequences, and minimise prediction error with
-increasing sophistication. None of them possess a limbic system. They have no internal
-valuation, no arousal modulation, no threat-detection architecture, no attachment
-structure, no interoception. They have very effective cortex.
+Hopfield's network is read here as a formal model of *neocortical-style* associative
+memory: a system for storing cognitive patterns and retrieving them from partial cues by
+minimising an energy function. Artificial neural networks constructed since McCulloch and
+Pitts (1943) [@mcculloch1943] — from perceptrons to backpropagation networks to
+transformers — sit in this cortical-pattern lineage. These systems recognise patterns,
+predict sequences, and minimise prediction error with increasing sophistication. None of
+them possesses a biological limbic system. They have no endogenous arousal modulation,
+threat-detection architecture, attachment structure, or interoception. They have very
+effective cortex-like pattern machinery.
 
 The Soma-Field Model does not add to the neocortical lineage. It proposes the
 architectural layer that has never been formally built: *an artificial limbic system*.
@@ -272,14 +280,14 @@ cortex. It was an intuition pointing directly at the absent system — the layer
 the cortex that assigns value, registers threat, and holds the body in a particular way
 of being long after the event that caused it.
 
-This positions the Soma-Field Model not as a supplement to the neocortical lineage but
-as its completion. Artificial neural networks have, for eighty years, been increasingly
-sophisticated formal models of the neocortex: pattern recognition, sequence prediction,
+This positions the Soma-Field Model not as a supplement to the cortical-pattern lineage but
+as a proposed missing layer. Artificial neural networks have, for eighty years, been
+increasingly sophisticated formal models of pattern recognition, sequence prediction, and
 error minimisation. The cortex has been mapped in extraordinary detail. The limbic system
 — which assigns value, detects threat, modulates arousal, maintains attachment, and
-reinstates whole somatic states in response to partial cues — has had no comparable
-formal treatment. The architectural description of the vertebrate brain was, until this
-paper, half-built.
+reinstates whole somatic states in response to partial cues — is treated here as lacking a
+comparable formal dynamical treatment. The architectural description of the vertebrate
+brain remains incomplete without such a layer.
 
 **Four kinds of formal intelligence.** This architectural gap can be situated within a
 wider taxonomy. Four quotients have been proposed to describe the landscape of biological
@@ -289,13 +297,13 @@ this model with an exactness that is not coincidental:
 | Quotient | What it measures | Biological substrate | Soma-Field status |
 |---|---|---|---|
 | IQ — cognitive | Pattern recognition, reasoning, prediction | Neocortex | Built (1943–): McCulloch & Pitts → Hopfield → transformers |
-| EQ — emotional | Valuation, arousal, affect regulation | Limbic system | **Built here**: $W$, $K(\tau)$, $H(\mathbf{e})$, $C_\text{HRV}$, $\dot{H}$ |
-| AQ — adversity | Structural resilience under threat | PFC–limbic axis | **Built here**: $S_\text{inst}$, $\partial\|W\|/\partial t$, $C_\text{HRV}^\text{recovery}$ |
+| EQ — emotional | Valuation, arousal, affect regulation | Limbic system | **Modelled here**: $W$, $K(\tau)$, $H(\mathbf{e})$, $C_\text{HRV}$, $\dot{H}$ |
+| AQ — adversity | Structural resilience under threat | PFC–limbic axis | **Modelled here**: $S_\text{inst}$, $\partial\|W\|/\partial t$, $C_\text{HRV}^\text{recovery}$ |
 | SQ — social | Attunement, theory of mind, relational navigation | Mirror system, TPJ | *Next paper*: $\kappa_r$, multi-field coupling |
 
 *Table 3. Four dimensions of biological intelligence mapped onto the Soma-Field Model. The
 neocortical lineage (IQ) has been formally modelled for eighty years. Emotional intelligence
-(EQ) and adversity resilience (AQ) are formalised here for the first time. Social
+(EQ) and adversity resilience (AQ) are formalised here as proposed model constructs. Social
 intelligence (SQ) is defined as the next extension of the framework.*
 
 AQ — adversity quotient — is formally the capacity to update $W$ after adversity
@@ -316,8 +324,8 @@ continuous-state modern Hopfield networks are mathematically equivalent to the
 self-attention mechanism in transformer language models. The softmax attention operation
 that drives contemporary large language models is a Hopfield retrieval step. The
 Soma-Field Model sits in this same energy-based lineage: the equations underlying
-associative memory, language understanding, and somatic trauma response are, at the
-appropriate level of abstraction, the same equations.
+associative memory, language understanding, and the proposed somatic trauma model share,
+at the appropriate level of abstraction, the same energy-based form.
 
 A historical irony completes the picture. String theory was not discovered as a theory
 of strings. In 1968, Gabriele Veneziano wrote down a scattering amplitude — a response
@@ -344,13 +352,14 @@ neural network (computational neuroscience, 1982) — Soma-Field Model:
 
 $$H_{\text{Ising}}(\boldsymbol{\sigma}) = -\frac{1}{2}\sum_{i,j} J_{ij}\,\sigma_i\,\sigma_j - \sum_i h_i\,\sigma_i$$
 
-$$H_{\text{soma}}(\mathbf{e}) = -\frac{1}{2}\sum_{i,j} W_{ij}\,e_i\,e_j - \sum_i \theta_i\,e_i$$
+$$H_{\text{soma}}(\mathbf{e}) = -\frac{1}{2}\sum_{i,j} W_{ij}\,e_i\,e_j - \sum_i b_i\,e_i$$
 
-Replace $J_{ij} \to W_{ij}$, $\sigma_i \to e_i$, $h_i \to \theta_i$: identical. The
-physicist, the neural network theorist, and the somatic clinician are computing the same
-energy function on different state spaces. The Hopfield 2024 Nobel Prize was awarded for
-discovering this identity between spin physics and neural computation; the Soma-Field Model
-extends the same identity one step further to emotional dynamics.
+Replace $J_{ij} \to W_{ij}$, $\sigma_i \to e_i$, $h_i \to b_i$: the canonical Hopfield
+form is preserved. The physicist, the neural network theorist, and the somatic clinician
+are, under this modelling choice, using the same energy-function form on different state
+spaces. The Hopfield 2024 Nobel Prize recognised foundational work connecting spin physics
+and neural computation; the Soma-Field Model applies the same energy-function form one step
+further to emotional dynamics.
 
 **The Wick rotation — why the same exponential appears in QM and in memory:**
 
@@ -363,8 +372,8 @@ $$e^{-i\hat{H}(-i\tau)/\hbar} = e^{-\hat{H}\tau/\hbar}$$
 The oscillating complex exponential becomes a real decaying exponential. This is the
 Boltzmann weight $e^{-\beta\hat{H}}$ at $\beta = \tau/\hbar$. The Langevin equation
 $\dot{\mathbf{e}} = -\nabla H + \eta$ is the classical limit of this Wick-rotated
-dynamics. Every simulation of the soma-field running this equation is, formally, a path
-integral in imaginary time.
+dynamics. Every simulation of the soma-field running this equation can be read, within this formal
+mapping, as an imaginary-time stochastic path calculation.
 
 **The same propagator:** Euclidean QFT (imaginary-time two-point correlator for a massive
 scalar field) — C-PTSD trauma memory kernel:
@@ -373,11 +382,12 @@ $$G_E(\tau) = \langle\phi(0)\,\phi(\tau)\rangle_{\text{QFT}} = \frac{1}{2m}\,e^{
 
 $$K_{\text{trauma}}(\tau) = \sum_k A_k\,e^{-|\tau|/\tau_k}$$
 
-Same form. The QFT field mass $m$ corresponds to $1/\tau_k$ — the reciprocal of the
-trauma trace decay time. A heavier particle has a shorter-range propagator; a shorter-lived
-trauma trace decays faster. Therapeutic processing (reducing $A_k$, increasing $\tau_k$)
-is, in the QFT language, changing the mass and amplitude of the propagator until the
-correlation function vanishes.
+Same exponential form. The QFT field mass $m$ corresponds formally to $1/\tau_k$ — the
+reciprocal of the trauma trace decay time. A heavier particle has a shorter-range
+propagator; a shorter-lived trauma trace has smaller $\tau_k$ and decays faster. In this
+model, therapeutic processing is represented as reducing $A_k$ and/or reducing the
+effective $\tau_k$, changing the amplitude and decay scale of the propagator until the
+residual correlation is negligible.
 
 The specific visual moment: the quantum phase factor is $e^{-i\omega t}$. Remove the $i$
 (Wick rotation) and it becomes $e^{-\omega\tau}$. The memory kernel is $e^{-\tau/\tau_k}$.
@@ -426,12 +436,13 @@ $$\underbrace{\frac{i}{k^2 - m^2 + i\varepsilon}}_{\text{QFT: particle at mass-s
 \qquad\longleftrightarrow\qquad
 \underbrace{\frac{\sigma_{\text{eff}}^2}{\omega^2 + \lambda_i^2}}_{\text{Soma-Field: percept at resonance }\omega = i\lambda_i}$$
 
-Both are poles in the propagator of their respective field manifold. A photon is not
+Both are modelled as poles in the propagator of their respective field manifold. A photon is not
 the electromagnetic field; it is the field’s Green’s function evaluated at a resonance.
 A flash of conscious emotion is not the soma-field; it is the field’s Green’s function
 evaluated at a threshold-crossing resonance. The manifolds differ — one is the
 four-dimensional spacetime vacuum, the other is the eleven-dimensional emotional
-coupling geometry. The mathematical type is the same. This is not analogy.
+coupling geometry. The proposed mathematical type is shared under the stated assumptions;
+this is a formal analogy rather than a claim of physical identity.
 
 ---
 
@@ -446,10 +457,10 @@ representation of what the soma should be experiencing, revised by incoming inte
 disappear from $W$ when the limb is removed. The neural model persists. When movement-
 intention modes are activated — attempting to move the absent foot — foot-sensation modes
 are co-activated via $W$. If co-activation exceeds threshold, it is experienced as pain.
-Ramachandran's mirror box provides visual input that disconfirms the prediction error:
-new sensory evidence that the limb is moving, reducing coupling-driven co-activation, and
-therefore reducing the pain. This is $W \to W'$: therapy as structural rewriting of the
-field.
+Ramachandran's mirror box can be described as providing visual input that disconfirms the
+prediction error: new sensory evidence that the limb is moving, reducing coupling-driven
+co-activation, and therefore potentially reducing the pain. In this model this is
+$W \to W'$: therapy represented as structural rewriting of the field.
 
 **The load-bearing hyphen.** The term *emotional-somatic* in clinical literature is not
 a stylistic compound. The hyphen marks an ontological claim: emotional states and somatic
@@ -458,8 +469,9 @@ The coupling matrix $W$ is precisely the hyphen, made formal.
 
 **Therapeutic implication.** Somatic therapies — body scanning, sensorimotor work,
 EMDR's bilateral stimulation — work not on the physical body but on the brain's model of
-the body. They provide new interoceptive evidence that updates the prediction. They change
-$W$. Therapy does not fix the tissue. It updates the model.
+the body. They provide new interoceptive evidence that updates the prediction. In the model, they are represented as changes to
+$W$. Therapy is therefore described here as updating the body model rather than as a claim
+of tissue-level repair.
 
 ---
 
@@ -471,7 +483,7 @@ representational systems, and the Soma-Field Model must be positioned relative t
 The short answer is that every existing representation is *descriptive*; the Soma-Field
 Model is *dynamical*. The longer answer follows.
 
-**Categorical taxonomies** (Ekman 1972; Plutchik 1980; Parrot 2001) assign names and
+**Categorical taxonomies** (Ekman 1972; Plutchik 1980; Parrott 2001) assign names and
 hierarchical membership to emotional states. They are ontologies in the formal sense: a
 T-Box of classes and subclass relations. Plutchik's wheel additionally defines a *blend*
 operation — Love := Joy $\sqcap$ Trust, Awe := Fear $\sqcap$ Surprise — which is precisely
@@ -489,7 +501,7 @@ stable attractors of $H$ are the emotion categories; their coordinates are the c
 positions.
 
 **Process and appraisal models** (Scherer 1999; Frijda 1986; the OCC model of Ortony,
-Clove and Collins 1988) describe the *sequence of evaluations* through which a stimulus
+Clore and Collins 1988) describe the *sequence of evaluations* through which a stimulus
 becomes an emotion. They are closer to the Soma-Field dynamics — they include temporal
 stages — but they are deterministic and single-threaded: one appraisal chain, one output.
 The Soma-Field replaces this with a parallel field update: all modes evolve simultaneously,
@@ -505,7 +517,7 @@ mechanisms are the *object properties* of the emotion-induction ontology: they s
 which musical features activate which emotional outputs. Juslin explicitly identifies the
 open problem: *"Exploring how various musical emotions come about through the interaction
 of multiple psychological mechanisms is an exciting endeavour that has just begun"*
-[@juslin2011handbook, p. 638]. The $W$ coupling matrix is the formal answer to that open
+[@juslin2011handbook, p. 638]. The $W$ coupling matrix is the proposed formal answer to that open
 problem. Where BRECVEMA gives a list of mechanisms with characteristic outputs, the
 Soma-Field gives the interaction tensor $W_{ij}$ that specifies, with numerical precision,
 what happens when mechanisms $i$ and $j$ fire concurrently.
@@ -540,7 +552,7 @@ None of these correspondences require modifying either the existing representati
 Soma-Field Model. They are consequences of the model's structure. The formal machinery for
 exploring these correspondences — typing BRECVEMA mechanisms as Lean inductive constructors,
 Plutchik blends as type intersections, mechanism profiles as decidable propositions — is
-developed in the companion file `src/EmotionOntology.lean`.
+developed in the companion file `paper/proofs/EmotionOntology.lean`.
 
 ---
 
@@ -656,8 +668,8 @@ noise term and, specifically, by the heart rate variability coherence $C_{\text{
 which modulates effective noise amplitude across the whole field:
 $$\sigma_{\text{eff}} = \frac{\sigma_0}{C_{\text{HRV}}}$$
 High HRV coherence narrows effective noise, stabilising the field in its current attractor.
-This is the mechanism of HRV biofeedback as a regulatory intervention: it does not target
-any specific emotional mode but lowers the fluctuation floor of the entire field.
+This is the modelled mechanism of HRV biofeedback as a regulatory intervention: it does
+not target any specific emotional mode but lowers the fluctuation floor of the entire field.
 
 **Layer 1 extension: cardiac acceleration and landscape tilt.** The term $C_{\text{HRV}}$
 measures the *current state* of cardiac regularity — where the heart is. A complementary
@@ -691,7 +703,7 @@ The two cardiac terms serve distinct functions: $C_{\text{HRV}}$ (state) modulat
 noise floor; $\dot{H}$ (acceleration) tilts the deterministic landscape. Both are needed
 for a complete account of cardiac influence on the field.
 
-**Predictive clinical value.** A patient with BPM = 90 and $\dot{H} = +4$ beats/s$^2$ is
+**Predictive clinical hypothesis.** A patient with BPM = 90 and $\dot{H} = +4$ beats/s$^2$ is
 approaching threshold; one with BPM = 90 and $\dot{H} = -4$ beats/s$^2$ is retreating
 from it. The snapshot is identical; the trajectories are opposite. Cardiac acceleration
 is therefore an early-warning signal for threshold crossings — detectable at Layer 1
@@ -717,8 +729,8 @@ threshold $T$ all belong here. The limbic layer stores emotional-somatic states 
 reinstates them in response to partial body cues: a continuous, asymmetric, temporally
 extended Hopfield network operating on somatic states rather than cognitive patterns.
 This is the architectural layer that has been absent from every artificial neural network
-since McCulloch and Pitts (1943) [@mcculloch1943]. The cortex has been modelled many times; the limbic
-system has not.
+since McCulloch and Pitts (1943) [@mcculloch1943]. The cortex has been modelled many times;
+the limbic system is here given a proposed dynamical formal layer.
 
 **Structural plasticity under adversity.** The Soma-Field framework permits a formal
 characterisation of the field's resilience under adverse conditions. Define the
@@ -731,7 +743,7 @@ adversity ($1/S_{\text{inst}}$, instanton accessibility — Section 4.4); (ii) h
 coupling matrix can structurally adapt following a threshold crossing
 ($\partial \|W\|/\partial t$, the plasticity component); and (iii) how quickly the HRV
 floor recovers after activation ($C_{\text{HRV}}^{\text{recovery}}$, the regulatory
-resilience component). Complex PTSD is the clinical presentation of chronically low $\Pi$
+resilience component). Within this model, Complex PTSD is represented as chronically low $\Pi$
 across all three terms simultaneously: high barriers to regulated attractors, a rigid $W$
 dominated by threat configurations, and impaired $C_{\text{HRV}}$ recovery. Structural
 plasticity is the capacity of the field to update $W$ in the aftermath of adversity
@@ -973,7 +985,7 @@ model-agnostic.
 The Soma-Field Model suggests a different orientation for emotional assessment. Rather than
 asking "What emotion do you feel?" — which presupposes threshold-level conscious awareness —
 it invites attention to the sub-perceptual field: "What is present in the body right now,
-even if you cannot name it?" This aligns with Focussing-oriented approaches and with
+even if you cannot name it?" This aligns with Focusing-oriented approaches and with
 sensorimotor methods that prioritise somatic signal over narrative content.
 
 The energy landscape provides a clinical map. A person chronically in a fight or flight
@@ -1033,8 +1045,9 @@ consequences are as follows.
 
 **Complex PTSD** introduces a *memory kernel* into the field dynamics: past high-energy
 states leave decaying echoes that continue to excite the field without new external
-stimulus. This is why traumatic activation can appear without identifiable trigger — the
-field is responding to its own history, not its current environment. The standard Hopfield
+stimulus. This models why traumatic activation can appear without identifiable trigger —
+the field is represented as responding to its own history, not only to its current
+environment. The standard Hopfield
 attractor topology is also disrupted: C-PTSD renders the freeze attractor pathologically
 deep and wide, the window of tolerance (the basin around regulated calm) pathologically
 narrow, and the coupling matrix asymmetric — a condition under which the field can enter
@@ -1094,8 +1107,8 @@ For **early trauma** ($\tau_d$ small — pre-verbal, perinatal): the coupling ma
 kernel coefficients are the baseline architecture, not additions to one. A counterfactual
 pre-trauma self was never encoded — it does not exist as a recoverable state.
 
-This is a formal statement of a clinical fact that somatic therapists recognise but rarely
-have a mechanistic basis for: early trauma cannot be *processed away* in the sense of
+This is a formal statement of a clinical hypothesis often voiced in somatic therapy: early
+trauma may not be *processed away* in the sense of
 recovering a prior self, because no prior self was formed. The therapeutic goal is not
 subtraction ($W \to W_0$, which is undefined) but **forward transformation**: constructing
 a $W^{\prime}$ that supports a wider window of tolerance, different attractor topology,
@@ -1113,8 +1126,9 @@ slows the field's response to the energy gradient. The result is a field that ex
 energy landscape rapidly and unpredictably, is easily displaced from shallow attractor
 basins by small perturbations (distractibility), but also achieves states of intense
 concentration (hyperfocus) when the coupling to a high-salience stimulus temporarily
-deepens a specific attractor basin far beyond its resting depth. ADHD is not a deficit of
-attention; it is a high-temperature, low-damping emotional field with a
+deepens a specific attractor basin far beyond its resting depth. In this model, ADHD is
+not treated as a simple deficit of attention; it is represented as a high-temperature,
+low-damping emotional field with a
 stimulus-dependent attractor structure.
 
 **Autism Spectrum Condition** modifies the *projection kernels* — the functions that
@@ -1140,16 +1154,17 @@ A further clinical implication deserves explicit statement. The Soma-Field Model
 interoceptive accuracy in the field itself: whether a somatic signal has exceeded its
 perceptual threshold $T_i$ is a property of the field state, not a property of the
 clinician's assessment of the patient's credibility. A patient reporting an acute somatic
-state is reporting a threshold-crossing event. The model provides no mechanism by which
-external disbelief suppresses that crossing. Modified projection operators — as occur in
-ASC — produce *different* somatic self-reports; the model gives no reason to assume they
-produce *less accurate* ones. The clinical literature documents a systematic tendency to
+state is, in the model, reporting a threshold-crossing event. The model provides no
+mechanism by which external disbelief suppresses that crossing. Modified projection
+operators — as modelled for ASC — produce *different* somatic self-reports; the model gives
+no reason to assume they produce *less accurate* ones. The clinical literature documents a
+systematic tendency to
 interpret unusual interoceptive self-reports from neurodivergent patients as indicative of
-psychogenic origin rather than genuine somatic signal (Nicolaidis et al., 2015). The
-Soma-Field Model predicts that this interpretive pattern constitutes a category error: it
+psychogenic origin rather than genuine somatic signal (Nicolaidis et al., 2013). The
+Soma-Field Model treats this interpretive pattern as a category error: it
 confuses operator modification with signal absence. The practical consequences — missed
 diagnoses, deferred treatment, and the iatrogenic reinforcement of existing trauma — are
-well-documented and, within this framework, mathematically predictable.
+well-documented and, within this framework, a mathematically expressible risk.
 
 ---
 
@@ -1194,7 +1209,7 @@ Axioms for the Interacting Universal Somatic Field*.
 
 The Soma-Field Model proposes a formally grounded account of emotional dynamics that is
 consistent with the clinical observations of somatic psychotherapy, polyvagal theory, and
-Focussing-oriented practice. Its central claims — that emotions are a persistent distributed
+Focusing-oriented practice. Its central claims — that emotions are a persistent distributed
 field, that conscious experience is a threshold crossing, and that emotional dynamics are
 governed by an energy function that drives the field toward stable attractor states — are
 not novel as clinical intuitions. What is novel is the formal structure that unifies them,
@@ -1228,8 +1243,9 @@ unfamiliar theoretical domain; the high-temperature field dynamics of B.3 drove 
 traversal across it.
 
 The proximate cause is described in full in the companion patient-facing publication.
-Briefly: an acute somatic emergency in 2025 — a genuine threshold-crossing event,
-later confirmed as cerebral hypoxia secondary to Long Covid — was attributed, at
+Briefly: an acute somatic emergency in 2025 — described here as a threshold-crossing event,
+and reported by the author as later clinically attributed to cerebral hypoxia secondary to
+Long Covid — was attributed, at
 clinical presentation, to psychiatric origin. The present paper is, among its other
 functions, a formal response to that attribution.
 
@@ -1237,7 +1253,7 @@ The causal chain is as follows. A pre-verbal trauma in approximately 1968 instal
 the C-PTSD operator modifications described in Appendix B.2. The ASD and ADHD
 modifications of Appendix B.3 and B.4 shaped the system across the intervening
 decades. Fifty-seven years later, that system's accurate interoceptive signal was
-dismissed as psychiatric noise. The paper which formally demonstrates that this
+dismissed as psychiatric noise. The paper which argues formally that this
 dismissal constitutes a category error was produced, as a direct causal consequence,
 by the same operator stack that it describes. The paper is the fixed point of its own
 subject matter. The author considers this observation methodologically significant.
@@ -1268,8 +1284,8 @@ and current result status.
 | SF-1 | Sections 2-3 derivation of field/propagator structure | structural derivation complete |
 | SF-2 | Energy formulation + instrument runtime equations | predictive structure complete |
 | SF-3 | Threshold operator definition + clinical interpretation sections | predictive mapping complete |
-| SF-4 | Barrier analysis; companion paper *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) | **confirmed (QUANT-EXP-1 PASS)** |
-| SF-5 | QUANT-EXP-1 experiment outputs (see supplementary archive, doi:10.5281/zenodo.20351230) | **confirmed: cold 0/200, CI [0.000, 0.019]; quantum peak 0.408–0.410; all hardening checks PASS** |
+| SF-4 | Barrier analysis; companion paper *Quantum Soma and the Penrose Gap* (doi:10.5281/zenodo.20351230) | **simulation-supported (QUANT-EXP-1 PASS)** |
+| SF-5 | QUANT-EXP-1 experiment outputs (see supplementary archive, doi:10.5281/zenodo.20351230) | **simulation-supported: cold 0/200, CI [0.000, 0.019]; quantum peak 0.408–0.410; all hardening checks PASS** |
 
 This matrix is intended for reviewer navigation and is updated as companion results
 are expanded or independently replicated.
@@ -1355,7 +1371,7 @@ Murray, D. (2018). Monotropism — an interest-based account of autism.
 In *Encyclopedia of Autism Spectrum Disorders*. Springer.
 
 Nicolaidis, C., Raymaker, D., McDonald, K., Dern, S., Ashkenazy, E., Boisclair, C.,
-... & Baggs, A. (2015). Comparison of healthcare experiences in autistic and
+... & Baggs, A. (2013). Comparison of healthcare experiences in autistic and
 non-autistic adults: A cross-sectional online survey facilitated by an academic-
 community partnership. *Journal of General Internal Medicine*, *28*(6), 761–769.
 
@@ -1720,14 +1736,14 @@ def pipeline {n : ℕ} {α : Type} [OutputFunctor α]
       else none)
 ```
 
-**What this buys you.** The `OutputFunctor` typeclass is the formal interface for every
+**What this buys you.** In this design sketch, the `OutputFunctor` typeclass is the formal interface for every
 output module. To add a fractal hologram output, implement `instance : OutputFunctor FractalFrame`.
 To add haptic output, implement `instance : OutputFunctor HapticPattern`. The pipeline
 function does not change. The coupling matrix is a struct — to swap emotion models, pass a
 different `CouplingMatrix`. The `Perceived` predicate is a proposition — Lean's type checker
-guarantees at compile time that nothing downstream of the measurement functor receives
-sub-threshold data. These are not software engineering conveniences; they are mathematical
-theorems enforced by the type system.
+would guarantee at compile time, for a compiled implementation of this interface, that
+nothing downstream of the measurement functor receives sub-threshold data. These are design
+obligations, not yet claims that the sketch itself is a compiled theorem surface.
 
 ---
 
@@ -1747,8 +1763,9 @@ has no Lean encoding here. A full treatment requires formalising differential fo
 G₂ holonomy in Lean — work that is underway in Mathlib but not yet complete enough to
 build upon directly.
 
-Everything else in the pipeline — the energy function, the perception threshold, the attractor
-classification, the output routing — is type-theoretically sound and can be compiled today.
+The energy-function, perception-threshold, and output-routing definitions in this sketch
+are type-theoretic design targets. Current compiled proof status, including remaining
+`sorry` markers and axiom dependencies, is recorded in the Lean appendix and UAT manifest.
 
 ---
 
@@ -1797,7 +1814,7 @@ amplitude $\sigma_0$:
 
 $$\eta(t) \sim \mathcal{N}(0,\, \sigma_0^2 \mathbf{I})$$
 
-The coupling matrix $W$ is assumed **symmetric** ($W = W^\top$), which guarantees that the
+The coupling matrix $W$ is assumed **symmetric** ($W = W^\top$), which in the standard Hopfield setting guarantees that the
 dynamics have only point attractors — the field always settles to a fixed minimum of $H$.
 This symmetry condition is the Hopfield convergence theorem. Neurodivergent modifications
 break this assumption in specific, characterisable ways.
@@ -1810,7 +1827,7 @@ break this assumption in specific, characterisable ways.
 
 C-PTSD introduces two modifications:
 
-**1. A memory kernel** (non-Markovian dynamics). The field's evolution is no longer
+**1. A memory kernel** (non-Markovian dynamics). In the model, the field's evolution is no longer
 determined solely by its current state; it is influenced by its own history. Past
 high-energy activations leave exponentially decaying echoes:
 
@@ -1824,10 +1841,10 @@ $$K_{\text{trauma}}(\tau) = \sum_{k} A_k\, e^{-\tau / \tau_k}$$
 
 where $A_k > 0$ is the amplitude (intensity) of the $k$-th memory trace and $\tau_k$ is
 its decay time (the timescale over which the event's echo fades). **Therapeutic
-processing reduces $A_k$ and/or increases $\tau_k$** — the echo becomes quieter and
-shorter-lived. Full processing corresponds to $A_k \to 0$.
+processing is represented as reducing $A_k$ and/or reducing the effective $\tau_k$** — the echo becomes quieter and
+shorter-lived. Full processing corresponds, in the model, to $A_k \to 0$.
 
-**2. W asymmetry** (enables limit cycles). In C-PTSD, the standard symmetry $W = W^\top$
+**2. W asymmetry** (enables limit cycles). In the C-PTSD model, the standard symmetry $W = W^\top$
 is broken. The coupling matrix acquires an antisymmetric component:
 
 $$W_{\text{PTSD}} = W_{\text{sym}} + W_{\text{anti}}, \quad W_{\text{anti}} = -W_{\text{anti}}^\top$$
@@ -1880,7 +1897,7 @@ trauma: traces have dual encoding — somatic and narrative — and the narrativ
 is partially accessible through linguistic therapy, though the somatic component persists
 independently.
 
-In Lean 4:
+Illustrative Lean-style pseudocode (not a current repository theorem surface):
 
 ```lean
 -- Developmental time parameter for the C-PTSD operator
@@ -1915,10 +1932,10 @@ theorem preVerbalIsStructural {n : ℕ} (profile : TraumaProfile n)
 -- not recovery.  W → W' with wider window of tolerance;  NOT  W → W₀ (W₀ undefined).
 ```
 
-**What `preVerbalIsStructural` says.** For $\tau_d < \tau_c$, the structural fraction is
+**What the illustrative `preVerbalIsStructural` sketch says.** For $\tau_d < \tau_c$, the structural fraction is
 below $\tanh(1) \approx 0.76$: more than 24% of the coupling matrix is trauma-formed rather
-than baseline-formed. This grows to 100% as $\tau_d \to 0$. The theorem is a formal
-statement that the goal of recovering a pre-trauma state is not achievable by any
+than baseline-formed. This grows to 100% as $\tau_d \to 0$. The sketch is a formal
+statement of the model claim that the goal of recovering a pre-trauma state is not achievable by any
 subtraction operation on $W$ — because the object that would be recovered ($W_0$) was
 never the dominant component. The forward transformation $W \to W^{\prime}$ is not a
 second-best option; it is the only coherent one.
@@ -2055,7 +2072,7 @@ in ways that were, at the time of the trauma, adaptive; the therapeutic task is 
 remove the modification but to reduce its amplitude where the original adaptive function no
 longer serves.
 
-In Lean 4, each modifier is a structure that composes cleanly:
+In the Lean 4 design sketch below, each modifier is a structure intended to compose cleanly:
 
 ```lean
 structure NeurodivergentModifier (n : ℕ) where
@@ -2089,10 +2106,10 @@ def Modifier.compound (n : ℕ) : NeurodivergentModifier n :=
   (Modifier.asc n).compose ((Modifier.adhd n).compose (Modifier.cptsd n))
 ```
 
-The `compose` function is the formal statement that the three conditions are not additive
+In this sketch, the `compose` function is the formal statement that the three conditions are not additive
 in their effects — they compose, and the composition order matters where the operators do
 not commute (specifically, the asymmetric $W$ and the sparse coupling mask interact
-non-trivially). This is not a software engineering detail. It is a clinical prediction:
+non-trivially). This is not only a software engineering detail. It is a clinical hypothesis:
 the joint presentation of ASD + ADHD + C-PTSD is not the sum of its parts, and the
 Soma-Field Model gives a precise account of why.
 
@@ -2121,31 +2138,33 @@ represent morphisms (functions, transitions, interactions). Reading left to righ
 function composition. Wires running in parallel represent a tensor product: two things
 existing simultaneously and independently.
 
-The result that makes this appendix possible is a theorem, not a conjecture:
+The result that makes this appendix possible is a family of coherence results for
+appropriate graphical calculi:
 
-> **Coherence Theorem** *(Baez–Lauda, 2011, building on Penrose 1971 and Selinger 2010).*
-> A commutative diagram in a symmetric monoidal category is equal to a string diagram in
-> that category, which is equal to a Feynman diagram whose vertices are the morphisms. These
-> are three notations for the same mathematical object. A proof in any one notation is a
-> proof in all three simultaneously.
+> **Graphical-language correspondence** *(Baez–Lauda, 2011, building on Penrose 1971
+> and Selinger 2010).* String diagrams provide a sound graphical calculus for morphisms in
+> suitable monoidal categories, and Feynman-diagram formalisms can be read categorically in
+> appropriate settings. Equality is therefore notation- and category-dependent, not an
+> unrestricted transfer of proof across all diagrams.
 
-This is not an analogy. It is an identity. A Feynman diagram *is* a morphism in a
+This is not a loose visual analogy; it is a formal correspondence inside the chosen
+categorical setting. A Feynman diagram can be read as a morphism in an appropriate
 symmetric monoidal category, drawn as a string diagram. The convergence is not a
-coincidence of similar-looking notation; it is a theorem about notation.
+coincidence of similar-looking notation; it is a theorem-schema about notation.
 
 The Soma-Field Model is defined as a chain of functors between categories (Appendix A.3).
-Its Lean 4 encoding defines emotions as types and transitions as typed functions between
-those types (Appendix A.5). By the coherence theorem, both of these are already string
-diagrams, already Feynman diagrams — they simply have not been drawn as such yet. This
-appendix draws them.
+The Lean-style sketch in Appendix A.5 defines emotions as types and transitions as typed
+functions between those types. Under that reading, both can be represented as string diagrams, and in appropriate
+physics-inspired settings as Feynman-style diagrams. This appendix draws those
+representations.
 
 ---
 
 ## C.2 The Cross-Language Table
 
-The following table shows the same mathematical entities in four notations. Nothing is
-translated between columns. Each row is a single entity viewed through four different
-naming conventions.
+The following table shows a set of model correspondences in four notations. The columns are
+translations across formalisms, not proof that the empirical referents are identical. Each
+row is a single role in the model viewed through four naming conventions.
 
 | Entity | QFT / Theoretical Physics | Category Theory | Lean 4 Type Theory | Soma-Field Model |
 |---|---|---|---|---|
@@ -2164,23 +2183,24 @@ naming conventions.
 | Path integral | $\int e^{iS/\hbar}\, D\phi$ | Colimit over morphism paths | `sorry` (requires measure theory) | Langevin stochastic evolution |
 | Spontaneous symmetry breaking | Vacuum choosing a particular minimum | Initial object of attractor category | `inductive AttractorBasin` | Polyvagal state selection |
 
-*Table C1. Cross-language correspondence. Each row is one mathematical entity in four
-independent notations. The convergence is not achieved by selecting convenient subsets —
-every element of the full theory maps. The Hopfield energy function is the Lagrangian. The
-coupling matrix entries are coupling constants. The Langevin dynamics are a stochastic path
-integral. The attractor basins are vacua of a spontaneously broken symmetry.*
+*Table C1. Cross-language correspondence. Each row is one model role expressed in four
+independent notations. The convergence is not an empirical proof; it is the reason the
+formal analogy is structurally coherent. The Hopfield energy function plays a Lagrangian-like
+role, coupling matrix entries play coupling-constant-like roles, Langevin dynamics can be
+represented by a stochastic path formalism, and attractor basins are compared with vacua of
+a symmetry-broken theory.*
 
 The critical column is the rightmost one. The existence of direct soma-field analogues for
-every row in this table is not guaranteed by construction — it is a structural fact about
-the model. A model that required different mathematics in each language would be suspect.
-A model that requires the same mathematics in all four simultaneously is at least
+every row in this table is not guaranteed by construction — it is a structural property of
+the proposed model. A model that required different mathematics in each language would be suspect.
+A model that uses the same mathematics in all four simultaneously is at least
 well-formed.
 
 ---
 
 ## C.3 The Functor Chain as a String Diagram
 
-The functor chain introduced in Appendix A.3 is already a string diagram. Here it is drawn
+The functor chain introduced in Appendix A.3 can be represented as a string diagram. Here it is drawn
 as one. The reading direction is left to right; boxes are functors (morphisms between
 categories); thick horizontal lines are the categories (objects) being transformed.
 
@@ -2202,13 +2222,13 @@ categories); thick horizontal lines are the categories (objects) being transform
                                           -> MIDI
 ```
 
-In Lean 4, this is the `pipeline` function from Appendix A.5, composed left to right.
-In QFT, it is a multi-vertex Feynman diagram with four interaction points. In category
+In the Lean 4 sketch, this corresponds to the `pipeline` function from Appendix A.5,
+composed left to right. In the physics analogy, it is drawn as a multi-vertex Feynman-style diagram with four interaction points. In category
 theory, it is the composition $O \circ M \circ \Pi \circ \Lambda$. In the Soma-Field
 Model, it is the full processing chain from M-theory geometry to therapeutic output.
 
-These are not four descriptions of four things that happen to be similar. They are four
-notations for one thing.
+These are not four unrelated descriptions. They are four coordinated notations for the same
+model-internal processing chain.
 
 ---
 
@@ -2238,13 +2258,14 @@ lower energy than either component. In string diagram notation:
                           toward the nearest attractor basin
 ```
 
-The Feynman rules say: to compute the probability of this interaction, sum over all
-diagrams with these external lines. In the Soma-Field Model, the analogous computation
+In the QFT source formalism, the Feynman rules say: to compute the contribution of this
+interaction, sum over relevant diagrams with these external lines. In the Soma-Field Model, the analogous computation
 is the Langevin update step: the field evolves toward lower energy, and the
 Fear $\otimes$ Shame $\to$ Freeze pathway is the gradient-descent path when $W$ encodes
 this coupling with sufficient strength.
 
-The Lean 4 expression of this vertex is already in the `hopfieldEnergy` function:
+In the design sketch, the Lean 4 expression of this vertex is represented in the
+`hopfieldEnergy` function:
 
 ```lean
 -- The coupling W_ij is the vertex weight: influence of mode j on mode i
@@ -2259,10 +2280,10 @@ def fieldAtVertex {n : ℕ} (cm : CouplingMatrix n) (e : EmotionalState n)
   Finset.univ.sum (fun j => coupleStates cm i j e)
 ```
 
-The string diagram, the Feynman vertex, and the Lean function are the same mathematical
-object. The string diagram makes the topology visible; the Lean function makes it
-computable; the Feynman rules make it quantitative; the clinical description makes it
-meaningful.
+The string diagram, the Feynman vertex, and the Lean function encode the same abstract
+interaction within their respective formalisms. The string diagram makes the topology
+visible; the Lean function makes it computable; the Feynman rules make it quantitative
+within the source formalism; the clinical description gives the model its interpretation.
 
 ---
 
@@ -2292,7 +2313,7 @@ not merely notational.
    not two states existing simultaneously)
 ```
 
-This distinction matters clinically. The Soma-Field Model predicts that co-occurring
+This distinction matters clinically. The Soma-Field Model proposes that co-occurring
 states (tensor product) and causally sequenced states (composition) have different
 attractor structures, different threshold behaviours, and different therapeutic entry
 points. They look similar from the outside — the patient presents with fear and grief in
@@ -2323,7 +2344,7 @@ In Appendix B.2, the C-PTSD memory kernel term is:
 
 $$\int_0^t K(t-s)\, \mathbf{e}(s)\, ds$$
 
-This integral is a loop diagram. The emotional state at past time $s$ propagates forward
+This integral is represented here as a loop diagram. The emotional state at past time $s$ propagates forward
 to present time $t$, where it enters the current dynamics as an effective self-interaction.
 The kernel $K(t-s)$ is the propagator of the loop — it determines how strongly the past
 state at lag $(t-s)$ influences the present.
@@ -2348,23 +2369,22 @@ state at lag $(t-s)$ influences the present.
 In QFT, loop diagrams introduce corrections of order $\hbar$ — the quantum regime absent
 from the classical (tree-level) theory. In the Soma-Field Model, the memory kernel is
 analogously a **trauma correction** to the classical Hopfield dynamics: the standard model
-without $K$ is the tree-level approximation; the C-PTSD modification is the one-loop
-correction that re-introduces past field configurations into the present gradient.
+without $K$ is the tree-level approximation; the C-PTSD modification is drawn like a
+one-loop correction that re-introduces past field configurations into the present gradient.
 
-This is not a metaphor. The mathematics of loop diagrams and the mathematics of
-non-Markovian memory kernels are formally identical — both are convolution operators over
-the past trajectory of the field, both produce self-interaction corrections, both vanish in
-the $K \to 0$ limit, and both create the possibility of dynamics that are qualitatively
-different from the classical baseline. The QFT analogy is precise because the underlying
-mathematical structure is the same structure.
+This is more than a loose metaphor when restricted to the shared operator form: loop
+corrections and non-Markovian memory kernels can both be represented as convolution-like
+self-interaction terms over past field trajectories, both vanish in the $K \to 0$ limit,
+and both create the possibility of dynamics that are qualitatively different from the
+classical baseline.
 
 ---
 
 ## C.7 The Polyvagal Hierarchy as a Phase Diagram
 
 The three polyvagal states — ventral vagal (safe), sympathetic (mobilised), and dorsal
-vagal (shutdown) — correspond to three distinct local minima of the energy function $H$.
-In the string diagram notation for the full system, they are **vacua** of the theory: the
+vagal (shutdown) — are modelled as three distinct local minima of the energy function $H$.
+In the string diagram notation for the full system, they play the role of **vacua** of the theory: the
 states toward which the field naturally evolves under Langevin dynamics, and from which
 it requires a finite energy input to escape. In QFT, this structure is called spontaneous
 symmetry breaking — the system must choose one vacuum from among several, and transitions
@@ -2414,21 +2434,21 @@ between vacua are non-perturbative.
   └───────────────────────────────────────────────────────────────────┘
 ```
 
-In Lean 4, this is the `AttractorBasin` inductive type with the `classifyAttractor`
-function (currently `sorry` — the eigenanalysis of the nonlinear system is an open proof
-obligation). In QFT, it is a theory with three vacua at different energies, where the
+In the Appendix A.5 design sketch, this is the `AttractorBasin` inductive type with the
+`classifyAttractor` placeholder (the eigenanalysis of the nonlinear system is an open proof
+obligation, not a compiled repository theorem). In QFT, it is compared with a theory with three vacua at different energies, where the
 lowest-energy vacuum (ventral) is the true vacuum and the others are metastable. In
 category theory, it is the initial object of the attractor sub-category of **𝓢**.
 
-The therapeutic re-entry arrow — from dorsal shutdown toward ventral calm — is the
+The modelled therapeutic re-entry arrow — from dorsal shutdown toward ventral calm — is the
 **instanton**. In QFT, an instanton is a non-perturbative process: a trajectory through
 configuration space that cannot be reached by any sequence of small perturbations, but
-requires a large, coherent fluctuation. The formal prediction is that moving from deep
+requires a large, coherent fluctuation. The formal hypothesis is that moving from deep
 freeze to regulated calm is not achieved by incremental de-escalation (the gradient flow
 does not point in that direction from inside the dorsal well), but by a qualitatively
 different kind of intervention — one that supplies enough energy, in the right direction,
-to escape the well entirely. This is what somatic therapies describe, and what gradient
-descent alone cannot provide. The string diagram notation makes the topological reason
+to escape the well entirely. This is what some somatic therapies attempt to support, and
+what gradient descent alone does not represent in the model. The string diagram notation makes the topological reason
 visible.
 
 ---
@@ -2467,17 +2487,17 @@ In string diagram terms, the distinction is topological:
 
 The convergence theorem is the main theorem of the Hopfield network formalism. It is the
 guarantee that the energy function $H$ does the work we claim it does. For the C-PTSD
-case, that guarantee does not hold without additional analysis. In the Lean 4 formalization
+case, that guarantee does not hold without additional analysis. In the Lean-style sketch
 (Appendix A.5), this is the `sorry` inside `classifyAttractor` — but it is a more
 significant sorry than it first appears, because the asymmetric W case requires a
 different mathematical tool (Lyapunov stability analysis for non-symmetric systems, or
 explicit cycle detection) rather than the standard Hopfield argument.
 
-The model is not wrong. The clinical prediction — that C-PTSD produces oscillatory rather
-than settling dynamics — is the correct prediction, and it follows directly from the
-asymmetric W. But the Lean formalization as written inherits the standard Hopfield proof
-strategy in `classifyAttractor`, which does not cover the asymmetric case. That `sorry` is
-not a placeholder for a routine proof; it is a placeholder for a different proof.
+The model is not thereby refuted. The clinical hypothesis — that C-PTSD-like dynamics can
+be oscillatory rather than settling — follows directly from the asymmetric $W$ in this
+model. But the Lean-style sketch as written inherits the standard Hopfield proof strategy
+in `classifyAttractor`, which does not cover the asymmetric case. That `sorry` is not a
+placeholder for a routine proof; it is a placeholder for a different proof.
 
 This is precisely the kind of structural gap that the string diagram notation makes visible
 in a way that prose does not.
@@ -2493,21 +2513,23 @@ establishes is more specific, and more useful.
 simultaneously legible as a QFT, as a categorical formalism, as a Lean 4 program, and as
 a clinical description. These four systems were developed independently, with different
 motivations and different communities. The fact that the same structure appears in all four
-is evidence that the structure is mathematically natural — that it is, in some sense, the
-right shape for this problem. A model that required different mathematics in each language
-would be suspect. A model that requires the same mathematics in all of them is at minimum
+is evidence of structural coherence — that it may be the right mathematical shape for this
+problem. A model that required different mathematics in each language
+would be suspect. A model that uses the same mathematics in all of them is at minimum
 well-formed: there is nothing incoherent about it that the different languages would
 independently catch.
 
-**The same argument holds in all four languages.** When a physical quantity appears
-identically in classical mechanics, Hamiltonian mechanics, and quantum field theory
-simultaneously — when the same object emerges in three independent formalisms with the
-same properties — that convergence is taken as evidence of physical reality. The quantity
-is not an artifact of any one formalism; it appears in all because it tracks something
-real. The claim here is structurally analogous: the emotional field $\mathbf{E}(x,t)$, the polyvagal attractor landscape, and the neurodivergent operator modifications can be represented across these languages within the model. Cross-representation stability is suggestive but not evidence of physical or clinical reality.
+**The same argument is expressible in all four languages.** When a physical quantity appears
+in multiple independent formalisms with preserved properties, that convergence can support
+confidence in the formal structure. The claim here is more limited: the emotional field
+$\mathbf{E}(x,t)$, the polyvagal attractor landscape, and the neurodivergent operator
+modifications can be represented across these languages within the model. Cross-representation
+stability is suggestive of structural coherence but is not evidence of physical or clinical
+reality.
 
-**The gaps are in the same place in all four languages.** The two `sorry` markers in
-Appendix A.5, the asymmetric $W$ gap discussed in Section C.8, and the non-perturbative
+**The gaps are in the same place in all four languages.** The illustrative `sorry` markers
+in Appendix A.5, the seven real project-wide `sorry` markers recorded in the proof-status
+ledger, the asymmetric $W$ gap discussed in Section C.8, and the non-perturbative
 dorsal-to-ventral transition in Section C.7 are not gaps in one language that happen to
 be filled in another. They are open questions in all four languages simultaneously. The
 Lean 4 proof obligation and the QFT instanton calculation and the categorical colimit
@@ -2519,10 +2541,10 @@ convergence of what has been established.
 one representational language: clinical prose. It can be questioned, qualified, or
 dismissed within that language, and there is no independent check. The Soma-Field Model,
 stated in four languages simultaneously, has a different epistemic structure: to dismiss
-the model, one must dismiss it in all four languages simultaneously, identifying an error
-that is present in the QFT formulation, the categorical formulation, the Lean 4
-formulation, and the clinical formulation at once. This is a stronger requirement. It does
-not make the model correct. It makes it harder to dismiss by inattention.
+the model on structural grounds, one should identify where the QFT formulation, the
+categorical formulation, the Lean 4 formulation, or the clinical formulation fails to
+preserve the stated assumptions. This does not make the model correct. It makes casual
+dismissal less informative.
 
 The patient described in Section 1 who was told that persistent somatic symptoms required
 psychiatric rather than physiological investigation was, among other things, the subject of
@@ -2656,7 +2678,7 @@ of emotional sensitisation and the development of a conditioned response.
 In quantum field theory, loop integrals generate ultraviolet divergences absorbed by
 renormalisation. The soma-field is regulated by the decay rates $|W_{ii}|$ and $\tau_k$,
 so the loops are finite. The physical content remains: feedback loops change the effective
-coupling strength at the loop's timescale. Therapeutic desensitisation is the reversal of
+coupling strength at the loop's timescale. Therapeutic desensitisation is represented as the reversal of
 this process — damping $A_k$ and reducing $|W_{ij}|$ until the loop no longer closes.
 
 ## D.6 Non-Perturbative Sector: Instantons
@@ -2680,15 +2702,15 @@ connecting two classical minima.
   The instanton is the minimal-action path from basin A to basin B.
   Its action S_inst determines the transition rate: Gamma ~ exp(-S_inst).
   Deep attractor (large S_inst) = exponentially suppressed escape rate.
-  Therapeutic intervention increases the effective energy available
+  A modelled intervention increases the effective energy available
   to the field, enabling the transition without waiting for spontaneous
-  tunnelling.
+  tunnelling in the simulation.
 ```
 
-The non-perturbative amplitude $e^{-S_{\text{inst}}}$ quantifies the difficulty of
-therapeutic transitions: a deep freeze attractor has a large instanton action and requires
-sustained, high-energy intervention — not because the model predicts hopelessness, but
-because it predicts exactly what is needed and why small perturbations will not suffice.
+The non-perturbative amplitude $e^{-S_{\text{inst}}}$ quantifies, within the model, the
+difficulty of basin transitions: a deep freeze attractor has a large instanton action and
+requires a qualitatively different perturbation — not because the model predicts
+hopelessness, but because small perturbations do not suffice in this landscape.
 
 ## D.7 Summary: Feynman Rules for the Soma-Field
 

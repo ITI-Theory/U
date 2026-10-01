@@ -10,15 +10,17 @@ abstract: |
   distributed data-centre scheduling — achieve global consensus through
   iterative neighbour-to-neighbour message passing requiring O(N·K) operations
   for N agents and K convergence rounds. We present a field-theoretic
-  reformulation in which the swarm is treated as a Macroscopic Brane Projection
-  of a continuous electromagnetic field. Under this formulation, the Green's
-  function of the field serves as a propagator matrix G ∈ ℝ^{N×N}, and a
-  single matrix-vector product G·s replaces the K-round iteration entirely.
-  The resulting protocol achieves O(N²) coordination cost with K=1 always,
+  idealised reformulation in which the swarm is treated as a Macroscopic Brane
+  Projection of a continuous electromagnetic field. Under this formulation, the
+  Green's function of the field serves as a propagator matrix G ∈ ℝ^{N×N}, and a
+  single matrix-vector product G·s can replace the K-round iteration when the
+  propagator and source state are already available.
+  The resulting idealised protocol has O(N²) update cost with one propagator evaluation,
   yielding a K/N speedup factor over classical protocols — a 50× reduction at
-  typical operating parameters (N=100, K=5000). We prove the complexity
-  advantage formally in Lean 4, derive the break-even condition K=N, and
-  demonstrate jam resistance as a corollary of K=1. The framework is grounded
+  typical operating parameters (N=100, K=5000). We prove this arithmetic
+  complexity comparison formally in Lean 4, derive the break-even condition
+  K=N, and state the limited communication-round claim as a corollary of the
+  one-step update. The framework is grounded
   in the Soma-Field Model's 11-dimensional configuration space decomposition,
   where the propagator occupies dimensions D₅–D₇. The jellyfish drone formation
   is presented as the primary engineering proof-of-concept.
@@ -49,8 +51,10 @@ the swarm is a section of the field at agent positions. The dynamics of the
 field are governed by a Green's function $G : \mathbb{R}^N \to \mathbb{R}^N$
 that propagates excitations instantaneously across the entire field.
 
-The key result: evaluating $G \cdot s$ once replaces K rounds of message
-passing. The coordination cost becomes O(N²) with K = 1 always.
+The key idealised result: evaluating $G \cdot s$ once replaces K rounds of
+message passing when $G$ encodes the relevant field solution and $s$ is
+available to the evaluator. The update cost becomes O(N²) with one propagator
+application.
 
 This approach is grounded in the **Soma-Field Model** [@johnson2026b], in
 which an 11-dimensional configuration space is decomposed into a 3-dimensional
@@ -133,16 +137,19 @@ Under this identification:
 
 ## The Single-Step Protocol
 
-**Protocol.** Distribute $G$ to all agents (one-time setup cost $O(N^2)$).
+**Protocol.** Distribute $G$ to all agents (one-time setup cost $O(N^2)$), and
+ensure the required source state is available.
 For each coordination step:
 
 $$s' = G \cdot s$$
 
 This is a single matrix-vector multiply: O(N²) cost, K = 1.
 
-For the protocol to replace K-round message passing, $G$ must satisfy the
-consensus property: $G \cdot s$ maps any initial state $s$ to the field's
-stationary distribution conditioned on the boundary excitation.
+For the protocol to replace K-round message passing as a *correct* consensus
+algorithm, $G$ must satisfy the consensus property: $G \cdot s$ maps any
+initial state $s$ to the field's stationary distribution conditioned on the
+boundary excitation. This correctness property is separate from the arithmetic
+cost theorem below.
 
 **Theorem (Lean-verified, `SwarmPropagator.propagator_beats_classical`).**
 For any $N, K \in \mathbb{N}$ with $K > N$:
@@ -171,8 +178,8 @@ The speedup ratio is $K/N$:
 | 1,000 | 1,000 | 1,000,000 | 1,000,000 | 1× |
 | 1,000 | 5,000 | 5,000,000 | 1,000,000 | **5×** |
 
-The 50× figure at N=100, K=5000 corresponds to the "95% energy cost reduction"
-claim: 90% fewer operations at equal throughput. In practice, data-centre
+The 50× figure at N=100, K=5000 is an operation-count comparison for the
+idealised update. In practice, data-centre
 load balancing and large-scale drone coordination operate in regimes where
 $K \gg N$ is the norm, not the exception.
 
@@ -180,11 +187,11 @@ $K \gg N$ is the norm, not the exception.
 
 The complexity results are type-checked in `SwarmPropagator.lean`:
 
-- `propagator_beats_classical` — proved by `Nat.mul_lt_mul_left`
+- `propagator_beats_classical` — arithmetic cost inequality proved by `nlinarith`
 - `breakeven_at_N` — proved by `simp`
 - `classical_wins_single_round` — proved (for K=1, classical is faster)
 - `speedup_monotone_in_K` — proved by `Rat.div_lt_div_right`
-- `jam_resistant` — proved by `rfl` (K=1 requires no communication round)
+- `jam_resistant` — one-step update identity proved by `rfl`
 
 ---
 
@@ -194,20 +201,21 @@ Classical coordination depends on K sequential communication rounds. A
 hostile jammer that disrupts round $r$ corrupts all subsequent rounds:
 $s^{(r)}, s^{(r+1)}, \ldots, s^{(K)}$ are all affected.
 
-Under the propagator protocol, there is no round $r > 1$. The single
-evaluation $s' = G \cdot s$ is local to each agent — it requires only
-that each agent know $G$ (distributed once at initialisation) and its
-own current state $s$.
+Under the propagator protocol, there is no round $r > 1$ in the update model.
+The single evaluation $s' = G \cdot s$ requires that $G$ and the relevant
+source state be available; the Lean theorem below proves the one-step identity,
+not adversarial security against every radio-frequency attack.
 
 **Theorem (Lean-verified, `SwarmPropagator.jam_resistant`).**
-The propagator protocol completes in a single evaluation. No communication
-channel is required after $G$ is distributed.
+The propagator protocol completes in a single evaluation, assuming $G$ and the
+state vector are already available.
 
 *Proof.* `jellyfishUpdate swarm s = swarm.G.mulVec s = rfl`. $\square$
 
-The distribution of $G$ itself is a one-time setup that can be done over
-a secured channel before deployment. Subsequent coordination is fully
-local and unjammable.
+The distribution of $G$ itself is a one-time setup that can be done over a
+secured channel before deployment. Subsequent coordination reduces the number
+of sequential communication rounds in the model; practical jam resistance
+requires an engineering threat model.
 
 ---
 
@@ -230,7 +238,7 @@ sets of $G$. Changing the lead's excitation frequency $k$ changes the
 formation shape continuously, enabling real-time morphing between
 formations without any reconfiguration protocol.
 
-This is formalised in `SwarmPropagator.JellyfishSwarm` and proved
+This one-step update is formalised in `SwarmPropagator.JellyfishSwarm` and proved
 by `jellyfish_single_step`.
 
 ---
@@ -254,12 +262,12 @@ The 20-level scale dial from `MTheoryIsomorphism.lean` (namespace
 | Scale level | Physical substrate | Field propagator role |
 |---|---|---|
 | 5 (biological) | Neural EMF (CEMI) | Cortical coordination |
-| 8 (organismal) | Drone swarm | Formation coordination |
-| 9 (geological) | Sensor networks | Infrastructure routing |
-| 11 (planetary) | Satellite constellation | Global coverage |
+| 9 (swarm / crowd) | Drone swarm | Formation coordination |
+| 10 (city / infrastructure) | Sensor networks | Infrastructure routing |
+| 12–13 (planetary / solar-system) | Satellite constellation | Global coverage |
 
-The same $G \cdot s$ operation governs all levels. The boundary
-conditions change; the equation does not.
+The same $G \cdot s$ operation is proposed across these levels. The boundary
+conditions and engineering constraints change; the algebraic form does not.
 
 ---
 
@@ -281,9 +289,9 @@ precomputed once and reused.
 ## Limitations
 
 The propagator protocol assumes that $G$ can be computed and distributed
-before coordination begins. This is feasible when agent positions are
-known in advance (pre-planned drone missions, static sensor networks)
-but requires adaptation for dynamic agent sets.
+before coordination begins and that the relevant source state can be evaluated.
+This is feasible when agent positions are known in advance (pre-planned drone
+missions, static sensor networks) but requires adaptation for dynamic agent sets.
 
 Additionally, the single-step result is exact only when the field is
 linear and the agents are the only sources. Nonlinear field interactions
@@ -293,30 +301,33 @@ reduces the number of classical rounds required.
 
 ## Formal Proof Status
 
-The core complexity theorems are fully Lean 4 verified. The global
-optimality result (`greens_achieves_minimum_energy` in
+The core arithmetic complexity theorems are Lean 4 verified. The global optimality result (`greens_achieves_minimum_energy` in
 `SwarmPropagator.lean`) is stated as an axiom pending PDE scaffolding
-in Mathlib; the analytical proof is given in §3 of this paper.
+in Mathlib; this paper gives the analytical motivation rather than a
+kernel-checked proof.
 
 ---
 
 # Conclusion
 
 Classical multi-agent coordination pays a cost of O(N·K) for K rounds of
-message passing. By treating the swarm as a Macroscopic Brane Projection
-of a continuous field, a single evaluation of the Green's function
-propagator $G$ reduces this to O(N²) with K = 1. The speedup factor is K/N,
+message passing. In the idealised model where the propagator and source state
+are available, treating the swarm as a Macroscopic Brane Projection of a
+continuous field reduces the update to a single O(N²) Green's-function
+evaluation. The speedup factor is K/N,
 reaching 50× at representative parameters (N=100, K=5000).
 
-The framework is formally type-checked in Lean 4, providing machine-verified
-proofs of the complexity advantage and jam resistance. The jellyfish drone
-formation demonstrates the result in a physically concrete setting where
+The framework is formally type-checked in Lean 4, providing kernel-checked
+arithmetic proofs for the complexity comparison and one-step update identity.
+The jellyfish drone
+formation illustrates the result in a physically concrete setting where
 the emergent formation geometry is the Green's function visualised as a
 drone cloud.
 
-The approach is scale-invariant by construction: the same equation governs
-cortical coordination (millimetre scale), drone swarms (metre scale), and
-satellite constellations (megametre scale). The scale parameter enters
+The approach is scale-invariant as a modelling construction: the same
+propagator form is proposed for cortical coordination (millimetre scale),
+drone swarms (metre scale), and satellite constellations (megametre scale).
+The scale parameter enters
 through the boundary conditions of $G$, not through the update equation
 itself.
 

@@ -9,30 +9,31 @@ lang: en-GB
 abstract: |
   The Soma-Field model describes emotional dynamics as a tensor-valued field over an
   attractor landscape, formally equivalent to a Hopfield network with topological
-  structure [@johnson2026b]. The model is mathematically complete: it derives its
-  dynamics from first principles, generates falsifiable predictions, and has passed
-  pre-registered computational validation (QUANT-EXP-1) [@johnson2026c]. What it
-  does not address is the physical substrate in which such a field is instantiated
-  in living tissue.
+  structure [@johnson2026b]. The model remains a theoretical and computational
+  framework: QUANT-EXP-1 is an exact 8-qubit statevector simulation that tests
+  model-class reachability, not a hardware, therapeutic, or biological validation
+  [@johnson2026c]. What it does not address is the possible physical substrate in
+  which such a field could be instantiated in living tissue.
 
-  This paper identifies three bodies of empirical research that jointly constitute
-  that substrate. Biotensegrity [@ingber1997; @ingber2003; @levin2002] establishes
-  that the body is a pre-tensioned continuous mechanical network at all scales: this
-  is the architecture through which the somatic wave propagates globally rather than
-  locally. Fascial-interstitial continuity research [@langevin2009; @schleip2003;
-  @oschman2016] identifies fascia as an active innervated signalling tissue — the
-  physical pathway of interoception — and documents that chronic trauma produces
-  measurable increases in fascial stiffness that correspond quantitatively to deep
-  Hopfield attractor basins. Biofield physiology [@popp2003; @ho1998;
-  @mccratychildre2010; @rubik2015] documents coherent electromagnetic and biophotonic
-  emissions from living tissue that are the most plausible physical candidates for
-  the field correlate itself.
+  This paper identifies three bodies of empirical research that may constrain such
+  a substrate. Biotensegrity [@ingber1997; @ingber2003; @levin2002] motivates the
+  body as a pre-tensioned continuous mechanical network at multiple scales: a
+  candidate architecture through which somatic perturbations could propagate beyond
+  local lever chains. Fascial-interstitial continuity research [@langevin2009;
+  @schleip2003; @oschman2016] identifies fascia as an active innervated signalling
+  tissue and a contributor to interoception; it motivates, but does not yet establish,
+  a quantitative mapping between fascial stiffness and Hopfield attractor depth.
+  Biofield physiology [@popp2003; @ho1998; @mccratychildre2010; @rubik2015] reports
+  electromagnetic and biophotonic observables from living tissue in a contested
+  literature; these are treated here as candidate field correlates, not as an
+  established identification.
 
-  Three explicit bridges are developed. Fascial armoring corresponds to high energy
-  barriers in the attractor landscape; myofascial release is barrier lowering rather
-  than barrier crossing; therapist-client physiological entrainment is the physical
-  mechanism of mathematical co-identification [@johnson2026a]. Each bridge generates
-  testable predictions outside the computational domain.
+  Three explicit bridges are proposed. Fascial armoring is modelled as high energy
+  barriers in the attractor landscape; myofascial release is hypothesised as barrier
+  lowering rather than barrier crossing; therapist-client physiological entrainment
+  is proposed as a possible physical analogue of mathematical co-identification
+  [@johnson2026a]. Each bridge generates testable predictions outside the
+  computational domain.
 keywords:
   - soma-field
   - biotensegrity
@@ -53,9 +54,9 @@ bibliography: bibliography.bib
 
 The Soma-Field model [@johnson2026b] proposes to describe limbic/somatic coupling using a field-theoretic formal apparatus: tensor-valued dynamics, Hopfield energy functionals, and topological barriers between attractor states. This remains a modelling assumption rather than a completed physical identification.
 
-That mathematical work is complete. What it leaves open is a question that sits one
-level below the mathematics: *what is the body made of, such that it could host a
-field like this?*
+That mathematical work defines the model's formal and computational scaffold. What
+it leaves open is a question that sits one level below the mathematics: *what is the
+body made of, such that it could host a field like this?*
 
 The Hopfield attractor landscape is an abstract object. For it to describe a physical
 organism, there must be a physical substrate — tissue, architecture, medium — that
@@ -70,14 +71,15 @@ formulated with the soma-field model in mind. This paper argues they are describ
 the same system at three different scales of resolution:
 
 1. **Architecture** (§2): Biotensegrity theory establishes the mechanical network
-   structure through which somatic signals propagate globally. This is the physical
-   basis for the spatial extent of $\mathbf{E}_\text{body}(x, t)$.
+   structure through which somatic signals could propagate beyond local joints. This
+   is a candidate physical basis for the spatial extent of
+   $\mathbf{E}_\text{body}(x, t)$.
 
 2. **Substrate** (§3): Fascial-interstitial continuity research identifies the specific
-   tissue — fascia — that constitutes the body-wide signalling medium, and documents
+   tissue — fascia — that may contribute to a body-wide signalling medium, and documents
    the interoceptive pathway from peripheral tissue to cortical representation. The
-   quantitative correspondence between fascial stiffness and attractor depth is
-   developed here.
+   proposed correspondence between fascial stiffness and attractor depth is
+   developed as a testable hypothesis here.
 
 3. **Field correlate** (§4): Biofield physiology documents coherent electromagnetic
    and biophotonic emissions from living tissue that are the most plausible physical
@@ -115,24 +117,24 @@ architecture is fractal.
 
 ## Global Propagation
 
-The clinical consequence of this architecture is direct: mechanical information
-does not travel locally through joint-to-joint lever chains. It propagates through
+The modelling consequence of this architecture is that mechanical information need
+not be restricted to joint-to-joint lever chains. It can propagate through
 the prestressed fascial network to the whole organism simultaneously, with the
 spatial distribution governed by the topology and stiffness of the network rather
 than anatomical lever arms.
 
-This is experimentally documented. Langevin's group showed that needle insertion
-at acupuncture points produces tissue displacement patterns propagating along
-fascial planes far from the insertion point, following biotensegrity-predicted
-paths rather than nerve or muscle routes [@langevin2009]. The body responds as a
-continuous tensioned whole, not as a collection of local structures.
+This is supported by experimental work on connective tissue displacement.
+Langevin's group showed that needle manipulation can produce tissue displacement
+patterns along connective-tissue planes beyond the insertion point [@langevin2009].
+For the present model, this supports treating the body as a continuous tensioned
+whole as well as a collection of local structures.
 
-The speed of this propagation is also relevant. Neural conduction (axonal) operates
-in milliseconds. Mechanical wave propagation through a prestressed medium operates
-in microseconds. For fast somatic responses — the startle reflex, the breath-hold,
-the full-body freeze — the biotensegrity medium is faster than the nervous system
-and spatially global in a way that the nervous system, with its point-to-point
-wiring, is not.
+The speed of this propagation is also relevant. Axonal conduction operates over
+millisecond timescales, while mechanical and electromagnetic perturbations in
+prestressed media may propagate on faster local timescales depending on tissue and
+measurement conditions. The model therefore treats the biotensegrity medium as a
+candidate contributor to rapid whole-body somatic coordination, not as a replacement
+for neural signalling.
 
 ## Correspondence to the Somatic Wave
 
@@ -144,21 +146,21 @@ system: proprioception, interoception, vagal signalling. These are real and
 important, but they are axonal (slow, discrete) and do not account for the observed
 speed and spatial coherence of whole-body somatic responses.
 
-Biotensegrity provides the continuous mechanical medium the model requires. The
-formal correspondence is:
+Biotensegrity provides a plausible continuous mechanical medium for the model. The
+proposed correspondence is:
 
-> The body's biotensegrity network is the **physical implementation** of
+> The body's biotensegrity network is a **candidate physical implementation** of
 > $\mathbf{E}_\text{body}(x, t)$. The tensor field over the body in the
-> mathematical model corresponds to the mechanical stress tensor distributed
-> across the fascial network in the physical organism.
+> mathematical model is hypothesised to correspond to the mechanical stress tensor
+> distributed across the fascial network in the physical organism.
 
 Both are spatially extended. Both propagate continuously. Both couple to the neural
 wave at every point: every mechanoreceptor in the fascia is a coupling node between
 $\mathbf{E}_\text{body}$ and $\mathbf{E}_\text{neural}$.
 
-The somatic wave is not *like* a wave in a continuous medium. In the fascial network,
-it *is* a wave in a continuous medium. The co-identification [@johnson2026a] is
-architectural.
+On this reading, the somatic wave is not merely an analogy to a continuous-medium
+wave; it is modelled as such a wave in the fascial network. The co-identification
+[@johnson2026a] is architectural under this substrate hypothesis.
 
 ---
 
@@ -177,7 +179,7 @@ rapid changes), and type IV free nerve endings (polymodal: mechanical deformatio
 temperature, chemical changes). The type IV endings are especially significant:
 they project primarily to the insular cortex via lamina I of the spinal cord —
 the Craig interoceptive pathway [@craig2003] — and constitute the neurological
-substrate of body-felt emotional experience, not merely visceral sensation.
+candidate substrate of body-felt emotional experience, not merely visceral sensation.
 
 Langevin's work established that fascia actively participates in signalling:
 mechanical deformation produces fibroblast shape changes, cytoskeletal
@@ -193,9 +195,10 @@ chemical, and electrical.
 
 ## The Interoceptive Pathway
 
-Interoception — the body's sensing of its own internal state — is the somatic input
-channel of the Soma-Field model. It is the mechanism by which the body schema is
-updated and by which the energy functional of the attractor landscape is computed.
+Interoception — the body's sensing of its own internal state — is treated as the
+somatic input channel of the Soma-Field model. In the model, it contributes to
+updates of the body schema and to the effective energy functional of the attractor
+landscape.
 
 The fascial pathway of interoception is now well characterised [@schleip2003;
 @craig2003; @garfinkel2016]: type IV free nerve endings in deep fascia, visceral
@@ -204,13 +207,12 @@ anterior insular cortex. This is the Craig pathway, increasingly recognised as t
 neurological substrate of emotional experience proper, distinct from and
 complementary to the classical somatosensory pathway.
 
-The clinical implication is direct: interoceptive dysfunction (well documented in
-ASC, CPTSD, and related conditions) [@garfinkel2016] is dysfunction of the
-fascial-to-insular projection. It is not merely a processing deficit in higher
-cortical areas; it originates in the tissue. Restoring interoceptive accuracy
-therefore requires working at the fascial level — which is precisely what somatic
-therapies (Somatic Experiencing, Sensorimotor Psychotherapy, EMDR somatic protocols,
-myofascial release) do, whether or not they are theorised in those terms.
+A cautious clinical hypothesis follows: interoceptive differences reported in ASC,
+CPTSD, and related conditions [@garfinkel2016] may involve both tissue-level
+signalling and central processing. The present model does not diagnose the cause of
+any individual's symptoms and does not prescribe treatment; it motivates empirical
+work on whether fascia-focused and somatic interventions measurably alter
+interoceptive signals.
 
 ## Fascial Armoring as Attractor Depth
 
@@ -221,53 +223,53 @@ emotional states (fear, shame, traumatic holding) produce corresponding patterns
 chronic muscular and somatic tension. The observation was clinically compelling but
 had no formal model. It was a phenomenology without a mechanism.
 
-Schleip and subsequent workers (Stecco, Bordoni, Bhatt) documented the fascial
-component: chronic trauma produces not merely chronic muscular contraction but
-*measurable changes in fascial stiffness*, quantifiable by ultrasound elastography
-[@schleip2003]. High-trauma individuals show significantly elevated fascial stiffness
-in characteristic body regions, with the spatial pattern reflecting the specific
-trauma history. The psoas, diaphragm, and posterior cervical chain are typically
-implicated in chronic fear responses; the pericardium and thoracic fascia in grief
-and heartbreak; the pelvic floor in sexual trauma. These are not metaphors. They
-are measured tissue properties.
+Schleip and subsequent fascia researchers motivate a tissue-level component:
+chronic muscular holding can be accompanied by changes in fascial tone and stiffness,
+which are in principle quantifiable by ultrasound elastography [@schleip2003]. This
+paper treats the proposed mapping from trauma history to region-specific fascial
+stiffness as a research hypothesis. Regions such as the psoas, diaphragm, posterior
+cervical chain, thoracic fascia, and pelvic floor are candidate sites for measurement,
+not diagnostic signatures.
 
 In the Hopfield model, the attractor landscape is characterised by energy barriers
 $W_{ij}$ between attractor states. The Fear basin has a high energy barrier. The
-computational experiment QUANT-EXP-1 [@johnson2026c] shows that cold classical
-dynamics cannot cross a barrier of $W = -8$ to $W = -14$.
+computational experiment QUANT-EXP-1 [@johnson2026c] is an exact 8-qubit statevector
+simulation showing model-class reachability in the barrier cases tested; it does not
+establish biological barrier crossing or therapeutic efficacy.
 
 The bridge:
 
 $$\text{fascial stiffness at region } r \;\leftrightarrow\; |W_{ij}| \text{ for state transition involving } r$$
 
-High fascial stiffness = high energy barrier. The organism is mechanically locked
-into the Fear attractor not only neurologically but anatomically — the tissue itself
-has been remodelled to implement the barrier. This is why van der Kolk's title
-[@vdkolk2014] is accurate in a way he could not have fully formalised: the body
-does not merely *express* the trauma; it *encodes* the attractor depth in its
-mechanical structure.
+High fascial stiffness is therefore hypothesised to track a high effective energy
+barrier. On this model, the organism may be constrained by tissue-level as well as
+neural dynamics. This offers a formal reading of van der Kolk's title [@vdkolk2014]:
+the body may carry measurable correlates of trauma history, while the precise mapping
+to attractor depth remains to be established.
 
-The quantitative claim is: the QUANT-EXP-1 barriers $W = -8, -10, -12, -14$ have
-physical correlates in fascial stiffness values measurable in kPa (shear wave
-elastography units). The mapping is not known yet — establishing it is part of the
-empirical programme in §6 — but the existence of the correspondence is now
-claimed by this paper.
+The quantitative hypothesis is that barrier magnitudes of the kind used in
+QUANT-EXP-1 may have physical correlates in fascial stiffness values measurable in
+kPa (shear-wave elastography units). The mapping is not known yet; establishing
+whether such a correspondence exists is part of the empirical programme in §6.
 
 ## Myofascial Release as Barrier Lowering
 
-QUANT-EXP-1 demonstrates that quantum annealing can cross barriers that classical
-cold dynamics cannot. This was framed computationally. The fascial literature
+QUANT-EXP-1 simulates a quantum-adjacent pathway that reaches barriers that the
+cold classical baseline did not reach in the tested model. This was framed
+computationally. The fascial literature
 provides a physical translation that clarifies an important distinction.
 
 **Classical barrier crossing** (hot classical or quantum):
 The system transitions from one attractor to another while the barrier remains intact.
-This corresponds to either high-arousal state transitions (classical thermal, i.e.
-highly activated emotional states) or the quantum mechanism identified in QUANT-EXP-1.
+This corresponds, within the model, either to high-arousal state transitions
+(classical thermal dynamics) or to the quantum-adjacent mechanism simulated in
+QUANT-EXP-1.
 
 **Myofascial release** (barrier reduction):
-Manual intervention directly reduces fascial stiffness — measured pre/post by
-elastography. This does not push the system over the barrier. It *lowers* the
-barrier so that transitions become accessible by classical means.
+Manual intervention is hypothesised to reduce fascial stiffness, a quantity that
+can be measured pre/post by elastography. In the model, such reduction would not
+push the system over the barrier; it would *lower* the barrier so that transitions
+become more accessible by classical means.
 
 This distinction — barrier lowering versus barrier crossing — may explain the
 phenomenology of different therapeutic modalities and why they are experienced
@@ -312,9 +314,8 @@ crystalline ordering of collagen, water, and proteoglycans — constitutes a qua
 coherent medium. Proton conduction and electronic charge delocalisation through this
 medium produce a macroscopic coherent quantum state distributed across the organism.
 This is not the Penrose-Hameroff proposal (which is neuron-centred and operates via
-microtubules); Ho's coherent organism is body-centred, connective tissue-centred,
-and is precisely the medium in which the Soma-Field would propagate as a physical
-entity.
+microtubules); Ho's coherent organism is body-centred and connective tissue-centred,
+and is a candidate medium in which the Soma-Field could be represented physically.
 
 **Heart-brain coherence** [@mccratychildre2010]:
 The heart generates a toroidal electromagnetic field measurable at distances from
@@ -322,11 +323,11 @@ the body, with spectral content reflecting the organism's emotional state.
 Heart rate variability (HRV) in the low-frequency band (approximately 0.1 Hz)
 indexes the balance between sympathetic and parasympathetic regulation — the
 physiological correlate of transitions between Fear-dominant and Awe-dominant states
-in the soma-field model. McCraty's group demonstrates that this field entrains
+in the soma-field model. McCraty's group reports that physiological rhythms entrain
 between proximate individuals: measurable cardiac coherence synchronisation occurs
 between therapist and client, between individuals in rapport, and between individuals
-and coherent social environments. This entrainment is not inferred; it is measured
-by simultaneous ECG recording.
+and coherent social environments. This entrainment claim is based on simultaneous
+physiological recording, though its interpretation remains debated.
 
 ## The Rubik Synthesis
 
@@ -338,11 +339,11 @@ and respond to coherent electromagnetic and biophotonic fields beyond what is
 explained by classical biochemistry — is supported by a substantial and growing body
 of evidence, but mechanism and theoretical framework remain contested.
 
-From the Soma-Field perspective, the contest is tractable: the theoretical framework
-is the quantum field on a Hopfield attractor landscape, and the biofield is the
-physical manifestation of that field. The soma-field model does not prove the biofield;
-it provides the theoretical frame within which the biofield evidence becomes
-interpretable rather than anomalous.
+From the Soma-Field perspective, the contested terrain becomes a set of testable
+coupling hypotheses: the theoretical framework is a field on a Hopfield attractor
+landscape, and biofield observables are possible physical manifestations of that
+field. The soma-field model does not prove the biofield; it provides one theoretical
+frame within which biofield evidence can be interpreted.
 
 What the soma-field predicts is that the biofield — whatever its physical implementation
 — will show attractor-like behaviour: it will tend to occupy characteristic states,
@@ -377,9 +378,9 @@ explicit.
 
 ## Bridge 1: Fascial Armoring = Attractor Depth
 
-**Physical claim** [@schleip2003]: Chronic trauma produces chronically elevated
-fascial stiffness, measurable by ultrasound shear-wave elastography, with
-characteristic spatial patterns reflecting trauma type and history.
+**Physical hypothesis** [@schleip2003]: Chronic stress or trauma-related holding
+may be associated with elevated fascial stiffness, measurable by ultrasound
+shear-wave elastography, with spatial patterns that require empirical mapping.
 
 **Formal correspondence**: Fascial stiffness at region $r$ maps to $|W_{ij}|$, the
 energy barrier between attractor states $i$ and $j$ in the Hopfield network, where
@@ -402,8 +403,9 @@ corresponding changes in interoceptive sensitivity and emotional availability.
 **Formal correspondence**: These interventions reduce $|W_{ij}|$. They do not
 necessarily produce a state transition; they reshape the energy landscape to make
 transitions more accessible. If initial barrier is $W = -12$ and intervention reduces
-it to $W = -6$, QUANT-EXP-1 results [@johnson2026c] suggest that classical thermal
-dynamics can now cross what previously required quantum assistance.
+it to $W = -6$, QUANT-EXP-1 motivates the hypothesis that classical thermal
+dynamics may cross a barrier previously accessible only through the simulated
+quantum-adjacent pathway.
 
 **Testable prediction 2**: The probability of emotional state transition following
 myofascial release should increase monotonically with the degree of reduction in
@@ -419,19 +421,19 @@ The model predicts this without any additional assumptions.
 
 ## Bridge 3: Therapist-Client Entrainment = Co-Identification
 
-**Physical claim** [@mccratychildre2010]: In effective therapeutic contact,
-measurable physiological entrainment occurs between therapist and client — cardiac
-coherence synchronisation, mutual modulation of HRV spectra, and (in contact work)
-fascial tension synchronisation. This is not inferred; it is measured by simultaneous
-ECG and, in some studies, by direct force measurement.
+**Physical hypothesis** [@mccratychildre2010]: In some therapeutic or rapport-rich
+contacts, measurable physiological entrainment may occur between participants —
+including cardiac coherence synchronisation and mutual modulation of HRV spectra.
+The strength, specificity, and outcome relevance of this entrainment remain empirical
+questions.
 
-**Formal correspondence**: This is the physical mechanism of **co-identification**
-[@johnson2026a] — the process by which the observer's soma-field is modified by
-contact with another's soma-field. The mathematical treatment describes this as a
-tensor product coupling; the physical implementation is fascial and
-electromagnetic entrainment. The therapist does not merely witness the client's
-state; the therapist's attractor landscape is temporarily modified by coupling to
-the client's, and this modification is the mechanism of therapeutic resonance.
+**Formal correspondence**: This is proposed as a physical analogue of
+**co-identification** [@johnson2026a] — the process by which the observer's
+soma-field is modelled as modified by contact with another's soma-field. The
+mathematical treatment describes tensor product coupling; the candidate physical
+implementation is fascial and electromagnetic entrainment. Therapeutic resonance is
+therefore a hypothesis about coupled attractor landscapes, not an established
+mechanism of clinical outcome.
 
 **Testable prediction 4**: The degree of measurable physiological entrainment
 (HRV coherence synchronisation) between therapist and client should predict
@@ -450,7 +452,7 @@ least accessible with current instrumentation:
 | # | Prediction | Method | Population |
 |---|---|---|---|
 | Prediction 1 | CPTSD/complex-trauma populations show elevated fascial stiffness in diaphragm, psoas, posterior cervical chain vs matched controls | Shear-wave ultrasound elastography | CPTSD vs. controls (n $\geq$ 40 per group) |
-| Prediction 2 | Somatic intervention reduces fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
+| Prediction 2 | Somatic intervention is associated with reduced fascial stiffness; degree of reduction predicts probability of self-reported emotional state shift | Elastography pre/post + validated affect measures | Somatic therapy clients (within-subjects) |
 | Prediction 3 | Barrier-lowering sessions (gradual stiffness reduction) produce qualitatively different transition phenomenology from barrier-crossing sessions (acute large shifts) | Mixed methods: elastography + structured interview | Rolfing or myofascial release series |
 | Prediction 4 | Therapist-client HRV coherence predicts session outcome independently of technique | Simultaneous ECG coherence + validated outcomes | Therapist-client dyads, multiple modalities |
 | Prediction 5 | Biophotonic emission from CPTSD populations differs from controls at characteristic emission bands (500–800 nm) | Ultra-weak photon measurement (photomultiplier) | CPTSD vs. controls |
@@ -467,9 +469,9 @@ programme.
 
 # Conclusion
 
-The Soma-Field model describes a field of emotional dynamics that is formally
-equivalent to a quantum field on an attractor manifold. This paper has argued that
-the physical substrate of that field consists of three interlocking systems:
+The Soma-Field model describes a field of emotional dynamics on an attractor
+manifold. This paper has argued that a possible physical substrate of that field
+could involve three interlocking systems:
 
 1. The **biotensegrity network** (fascia, connective tissue, interstitium under
    prestress) that provides the continuous mechanical medium through which the somatic
@@ -477,34 +479,34 @@ the physical substrate of that field consists of three interlocking systems:
    @ingber2003; @levin2002].
 
 2. The **fascial interoceptive pathway** (type IV free nerve endings → lamina I →
-   thalamus → insula) that constitutes the body-to-brain projection of somatic state
+   thalamus → insula) that contributes to the body-to-brain projection of somatic state
    [@schleip2003; @craig2003], and whose chronic remodelling under trauma — fascial
-   armoring — is the physical implementation of the deep attractor basin.
+   armoring — is hypothesised to correlate with deep attractor basins.
 
 3. The **bioelectric and biophotonic field** generated by the liquid crystalline
    living matrix and the cardiac electromagnetic environment [@ho1998; @popp2003;
-   @mccratychildre2010], which constitutes the best current physical candidate for
+   @mccratychildre2010], which is treated here as the best current physical candidate for
    the soma-field correlate itself.
 
-The most clinically significant result of this identification is Bridge 1: the
-quantitative correspondence between fascial stiffness and attractor depth. This makes
-concrete a claim that somatic therapists have held for decades — that trauma is held
-in the body, not only in the mind — and extends it: the depth at which trauma is
-held is measurable by elastography, and the degree to which physical intervention
-changes that depth is also measurable. The soma-field model predicts that large
-barriers require quantum-assist crossing; the fascial model predicts that those same
-barriers are associated with measurable tissue-level changes. The two predictions
-are about the same phenomenon at two levels of description.
+The most empirically important bridge is Bridge 1: the proposed correspondence
+between fascial stiffness and attractor depth. This makes testable a claim that
+somatic therapists have long voiced — that trauma is held in the body, not only in
+the mind — by asking whether elastography can measure tissue-level correlates of
+modelled basin depth, and whether physical intervention changes those correlates.
+The soma-field model predicts that large model barriers require quantum-adjacent
+or high-temperature pathways; the fascial model predicts that analogous barriers may
+be associated with measurable tissue-level changes. Whether these are the same
+phenomenon at two levels of description remains an open empirical question.
 
-Bridge 3 — therapist-client entrainment as co-identification — connects this to
-the broader programme [@johnson2026a]. The therapist's role is not neutral
-observation but active field coupling. The mathematics of co-identification
-[@johnson2026a] now has a proposed physical mechanism: fascial and electromagnetic
-entrainment, measurable, manipulable, and predictive of outcome.
+Bridge 3 — therapist-client entrainment as a possible physical analogue of
+co-identification — connects this to the broader programme [@johnson2026a]. The
+mathematics of co-identification now has a proposed physical correlate: fascial and
+electromagnetic entrainment, to be tested for measurability, manipulability, and
+outcome relevance.
 
 This paper opens a research programme. The six predictions in §6 define the empirical
 agenda. The formal soma-field model provides the theoretical frame. The three bodies
-of literature reviewed here provide the biological grounding. Together they constitute
+of literature reviewed here provide candidate biological grounding. Together they suggest
 a foundation for a genuinely interdisciplinary field — one that does not require the
 reader to choose between the body and the mathematics, because the mathematics is
 about the body.

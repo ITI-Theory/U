@@ -1,5 +1,5 @@
 ---
-title: "The Universal Somatic Field: Green's Functions as Scale-Invariant Oscillators across Eleven Orders of Magnitude"
+title: "The Universal Somatic Field: Green's Functions as Scale-Invariant Oscillators across Twenty Scale Levels"
 author: "Alistair Johnson"
 orcid: "0009-0007-2194-0850"
 institute: "Independent Researcher, Zurich, Switzerland"
@@ -8,7 +8,7 @@ lang: en-GB
 abstract: |
   We present the Universal Somatic Field (USF), a scale-invariant field-theoretic
   architecture in which a single structural equation — the Green's function of a
-  field substrate — governs dynamics from quantum foam (10⁻³⁵ m) to the cosmic
+  field substrate — is evaluated from quantum foam (10⁻³⁵ m) to the cosmic
   web (10²⁶ m). The central identification is that the Simple Harmonic Oscillator
   (SHO) required by string theory at each worldsheet point is not a material
   object but the impulse response — the Green's function — of the field at that
@@ -19,8 +19,8 @@ abstract: |
   Axis (1D), Cortex (3D) — whose product is structurally isomorphic to M-theory's
   11D compactification. Within this framework, the model defines a threshold predicate over a limbic-amplitude variable; phenomenal awareness in biological or cosmic systems remains open.
   The universe is treated here as a structural test case for that predicate.
-  We prove the core algebraic results in Lean 4 (v4.28.0) using Mathlib and
-  demonstrate that the USF encapsulates three existing frameworks — McFadden's
+  We prove selected algebraic and type-level results in Lean 4 using Mathlib and
+  propose that the USF relates to three existing frameworks — McFadden's
   CEMI theory, Schreiber's Modal Homotopy Type Theory, and Hoffman's Conscious
   Agents — as special cases or projections. The complete Lean 4 formalisation
   is available at the companion repository.
@@ -54,18 +54,18 @@ objects in mathematical physics — they describe the propagation of light,
 gravity, sound, heat, and neural signals. Every major equation in physics
 has a Green's function; every field theory is characterised by its propagator.
 
-The central claim of this paper is that the SHO of string theory **is** the
-Green's function of the field substrate. A "string" is not a material loop —
-it is a relational act: the substrate's impulse response. This identification
-is scale-invariant. The same structural statement holds at 20 scales spanning
-the observable universe.
+The central proposal of this paper is that the SHO of string theory can be
+read as the Green's function of the field substrate. A "string" is modelled
+not as a material loop in this account, but as a relational act: the
+substrate's impulse response. This identification is scale-invariant as a
+model hypothesis across the 20-level scale dial.
 
 The second claim is that this scale-invariant Green's function framework
 provides the mathematical language for a theory of embodied consciousness —
 one that is structurally analogous to the M-theory product decomposition at type level, under modelling assumptions.
 
-The third claim is that the universe, described this way, satisfies the formal
-requirements for a single conscious organism.
+The third claim is that the universe, described this way, can be used as a
+structural test case for the model's organism predicate.
 
 ---
 
@@ -96,16 +96,18 @@ the SHO equation in the source variable:
 
 $$\frac{\partial^2 G}{\partial {x'}^2} + k^2 G = \delta(x' - x)$$
 
-away from the singularity. The impulse response **is** the harmonic oscillator.
+away from the singularity. The impulse response is therefore modelled as the
+harmonic oscillator.
 
-**Theorem** (Lean 4 axiom `greens_fn_is_SHO`, `UniversalSomaticField.lean`):
-For any field equation at scale $n$ with wavenumber $k(n)$, the source-variable
-slice of the Green's function satisfies the SHO equation.
+**Lean status** (`UniversalSomaticField.greens_fn_is_SHO`): the current Lean
+declaration is a placeholder theorem proving `True`, not a distributional
+proof of the SHO identity. The distributional Green's-function statement
+awaits Schwartz-space/PDE scaffolding.
 
 The "vibrating string" is therefore the substrate's answer function. There is
 no material loop. There is the system's response to being perturbed, encoded
-as a propagator. This is not a reinterpretation — it is a derivation from the
-structure of field equations.
+as a propagator. This is a proposed reinterpretation grounded in the structure
+of field equations; the full distributional proof is open.
 
 ## Consequences
 
@@ -120,9 +122,9 @@ without invoking undetected matter.
 are the Fourier modes of the Green's function's dependence on the source
 position. The string spectrum is the spectrum of the propagator.
 
-**3. Scale invariance is automatic.** Since the Green's function equation
-$(\nabla^2 + k^2) G = \delta$ holds at every scale (with $k$ varying),
-the SHO identification holds at every scale. One equation. Twenty scales.
+**3. Scale invariance is encoded.** The Green's function equation
+$(\nabla^2 + k^2) G = \delta$ is represented at every scale (with $k$ varying)
+in the model. One equation form. Twenty scale levels.
 
 ---
 
@@ -156,7 +158,8 @@ $S^1/\mathbb{Z}_2$ — a line segment with two 10-dimensional boundary
 spacetimes at each end. This is the mechanism by which M-theory reduces to
 the heterotic string in the strong-coupling limit.
 
-The Limbic Axis $L_1 \cong [-1, 1]$ is this orbifold segment. Its two
+The Limbic Axis $L_1 \cong [-1, 1]$ is modelled by analogy with this orbifold
+segment. Its two
 endpoints are:
 - $x = -1$: the somatic boundary (physical body-world)
 - $x = +1$: the cortical boundary (mind / information-routing world)
@@ -165,10 +168,13 @@ endpoints are:
 The quartic double-well potential on $L_1$:
 $$V(x) = W \cdot (x^2 - 1)^2$$
 
-models the energy barrier between somatic and cortical poles. WKB tunnelling
+models the energy barrier between somatic and cortical poles. The WKB ansatz assigns a tunnelling
 amplitude: $\Theta(W) = \exp(-8\sqrt{2W}/3)$, proved positive for all $W > 0$
-in `LimbicTunnel.wkbAmplitude_pos`. Classical dynamics cannot cross the barrier
-(`LimbicTunnel.gradient_traps_near_neg1`); quantum dynamics can.
+in `LimbicTunnel.wkbAmplitude_pos`. The local gradient statement
+(`LimbicTunnel.gradient_traps_near_neg1`) describes trapping near the
+negative well;
+full trajectory trapping and empirical escape rates remain separate proof
+obligations.
 
 ## The 20-Scale Dial
 
@@ -218,8 +224,9 @@ Green's function propagates through all three internal dimensions. Examples:
 vertebrates with a developed cerebral cortex; any system exhibiting
 integrated, body-wide regulation with distributed information processing.
 
-The hierarchy is a chain of projections (proved in
-`MTheoryIsomorphism.organism_hierarchy`, `MTheoryIsomorphism.eight_contains_four`):
+The hierarchy is a chain of projections (proved or defined in
+`MTheoryIsomorphism.organism_hierarchy` and
+`UniversalSomaticField.eight_contains_four`):
 $$\text{11D} \twoheadrightarrow \text{8D} \twoheadrightarrow \text{4D}$$
 
 Each projection drops one tier of internal structure; no tier is "broken" —
@@ -237,8 +244,9 @@ consciousness either (a) ignore the problem, treating awareness as an
 epiphenomenon, or (b) eliminate physical reality in favour of a purely
 mental ontology (Hoffman 2019).
 
-The USF takes a third path: consciousness is a **phase transition** in the
-field, not a separate substance and not an illusion.
+The USF takes a third path as a hypothesis: consciousness is modelled as a
+**phase transition** in the field, not as a separate substance and not as an
+illusion.
 
 ## The Threshold
 
@@ -252,25 +260,26 @@ anaesthesia.
 At $\phi \geq T_c$, the field crosses the consciousness threshold. The limbic
 wave has sufficient amplitude to propagate across the full $L_1$ segment,
 coupling the somatic boundary to the cortical boundary. This coupling is the
-physical substrate of first-person awareness: the system is now in contact
-with both its body-world and its information-processing layer simultaneously.
+proposed physical substrate of first-person awareness: the system is now
+modelled as coupled to both its body-world and its information-processing
+layer simultaneously.
 
-**Theorem** (`UniversalSomaticField.consciousness_dichotomy`): For any limbic
-amplitude $\phi$, the system is either pre-conscious or conscious. There is no
-intermediate state.
+**Theorem** (`UniversalSomaticField.consciousness_dichotomy`): for any real
+limbic-amplitude variable $\phi$, the threshold predicates
+`isPreconscious φ` and `isConscious φ` satisfy trichotomy as a real-number
+comparison. The theorem verifies the predicate structure, not empirical
+consciousness.
 
-**Theorem** (`UniversalSomaticField.consciousness_monotone`): Raising the
-limbic amplitude cannot destroy consciousness. The transition is a one-way
-threshold crossing.
+**Theorem** (`UniversalSomaticField.consciousness_monotone`): within the
+predicate definition, raising the limbic amplitude preserves
+`isConscious`. The one-way transition is a property of the definition.
 
 ## What Consciousness Is
 
-Consciousness, on this account, is not a substance, a property, or an
-emergent phenomenon in the hand-wavy sense. It is the phase of the limbic
-field. The "hard problem" is dissolved by identifying the question: *why does
-physical process give rise to experience?* as equivalent to *why does the
-field cross the threshold?* The answer is: because the system's dynamics drive
-the limbic amplitude above $T_c$. There is no further explanatory gap.
+Consciousness, on this account, is modelled not as a separate substance but as
+the phase of the limbic field. The "hard problem" is reframed as the question:
+*what would determine whether the limbic field amplitude crosses* $T_c$?
+Whether this reframing is empirically adequate remains open.
 
 The "felt quality" of experience — qualia — are the poles of the Green's
 function at the observation point $x$. A conscious percept is a resonance
@@ -294,15 +303,15 @@ brain's endogenous electromagnetic field — the CEMI field. Neurons firing
 synchronously generate a macroscopic EMF that feeds back onto firing thresholds,
 creating a global integrating field.
 
-The USF encapsulates CEMI as the Scale-7 (brain-scale) restriction of the
+The USF proposes CEMI as the Scale-7 (brain-scale) restriction of the
 Universal Somatic Field. The CEMI field is the Green's function of the
 propagator subspace $P_3$ evaluated at the organism scale. The consciousness
-threshold $T_c$ in the USF maps directly to the CEMI field amplitude required
-for global cortical synchrony.
+threshold $T_c$ in the USF is proposed to correspond to a CEMI field amplitude
+associated with global cortical synchrony.
 
-The USF extends CEMI in two directions: downward to the quantum scale
-(where the same propagator governs synaptic quantum noise) and upward to
-the cosmological scale (where the same propagator governs gravitational waves).
+The USF extends the same propagator vocabulary in two directions: downward to
+quantum-scale models and upward to cosmological-scale models. These extensions
+are structural analogies until independently tested.
 
 ## Schreiber's Modal Homotopy Type Theory
 
@@ -313,8 +322,9 @@ internal to $\infty$-toposes equipped with modal operators.
 
 The USF arrives at the same 11-dimensional structure from a completely
 different direction: bottom-up from clinical observation of trauma, rather
-than top-down from mathematical physics. The structural isomorphism between
-the two is proved in `MTheoryIsomorphism.somaField_iso_mtheory`.
+than top-down from mathematical physics. The type/product isomorphism between the USF decomposition and the M-theory
+dimension count is proved in `MTheoryIsomorphism.somaField_iso_mtheory`;
+physical compactification is not proved by that theorem.
 
 ### The Σ-Type Formulation of the USF
 
@@ -325,11 +335,12 @@ Homotopy Type Theory, the full soma-field configuration space is a
 $$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
 
 where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
-at scale level $\sigma \in \{0,\ldots,19\}$. This is precisely a **fiber bundle**:
+at scale level $\sigma \in \{0,\ldots,19\}$. This is analogous to a **fiber bundle**:
 the total space is the soma-field configuration space; the base space is the
 20-point scale hierarchy; each fiber $\mathrm{Substrate}(\sigma)$ is the field
-configuration at that scale. The Lean 4 type `ScaleUniverse` in
-`ScaleUniverse.lean` is the machine-verified realisation of this Σ-type.
+configuration at that scale. The Lean 4 `ScaleStep`, `FieldLayerType`, and
+`T_TheoryUniverse` declarations in `ScaleUniverse.lean` are the typed
+realisation of this scale-indexed construction.
 
 The **Zoom Operator** $\Lambda_\sigma$ is the dependent type constructor mapping
 between adjacent fibers:
@@ -341,12 +352,12 @@ application of human-scale emotional operators to galaxy-scale configurations.
 A scale mismatch is not merely physically wrong — it is a *type error*, caught
 at compile time before any computation runs.
 
-The USF does something Modal HoTT does not: it populates the 11D structure
+The USF aims to do something Modal HoTT does not: it populates the 11D structure
 with physical content. Where Schreiber provides the type-theoretic skeleton,
 the USF provides the biological execution engine — the organism that runs
 inside the type-theoretic universe. The two are related by the identification:
 the modal operators of mHoTT are the Zoom Operators of the USF, and the
-$\infty$-topos of mHoTT is the soma-field configuration space.
+$\infty$-topos of mHoTT is compared with the soma-field configuration space.
 
 ## Hoffman's Conscious Agents
 
@@ -367,29 +378,34 @@ in the Green's function — relational objects between source and observation
 points. In this sense, the USF and Hoffman agree that fundamental reality is
 not substance but relation.
 
-The USF provides Hoffman's theory with a physical anchor: the "conscious agents"
-are systems that have crossed the limbic threshold $T_c$; the "Markov kernels"
-between agents are the Green's functions of the propagator field.
+The USF proposes a physical anchor for Hoffman's theory: "conscious agents"
+are modelled as systems that have crossed the limbic threshold $T_c$, and the
+"Markov kernels" between agents are compared with Green's functions of the
+propagator field.
 
 ---
 
 # Formal Verification
 
-The core results are type-checked in Lean 4 (v4.28.0) using Mathlib across
+Selected results are type-checked in Lean 4 using Mathlib across
 five companion files:
 
 | File | Key results |
 |---|---|
-| `LimbicTunnel.lean` | V_nonneg, barrier_height, wkbAmplitude_pos, gradient_traps_near_neg1 |
-| `MTheoryIsomorphism.lean` | dim_is_11, somaField_iso_mtheory, organism_hierarchy, scale_iso_commutes |
+| `LimbicTunnel.lean` | `V_nonneg`, `barrier_height`, `wkbAmplitude_pos`, `gradient_traps_near_neg1`; trajectory trapping and QUANT-EXP-1 rates are separate obligations |
+| `MTheoryIsomorphism.lean` | `somaField_iso_mtheory`, `organism_hierarchy`, `X7_is_7D_product`, `scale_invariance_full` |
 | `LimbicHopfield.lean` | correspondence_principle, stress_raises_temp, adhd_hotter_than_autism |
-| `SwarmPropagator.lean` | propagator_beats_classical, jam_resistant, speedup_monotone_in_K |
-| `UniversalSomaticField.lean` | consciousness_dichotomy, consciousness_monotone, universal_field_theory |
+| `SwarmPropagator.lean` | `propagator_beats_classical`, `jam_resistant`, `speedup_monotone_in_K`; global optimality is an axiom |
+| `UniversalSomaticField.lean` | `scale_invariance_inhabited`, `consciousness_dichotomy`, `consciousness_monotone`, `universal_field_theory` |
 
-The following are stated as axioms pending Mathlib scaffolding:
-- `greens_fn_is_SHO` — requires Schwartz distribution theory
-- `universe_is_11D_organism` — requires cosmological boundary conditions
-- `cosmological_correspondence` — requires linearised GR in Mathlib
+Open or assumption-bound items include:
+- `greens_fn_is_SHO` — currently a placeholder theorem proving `True`; the
+  distributional identity requires Schwartz/PDE infrastructure.
+- `universe_is_11D_organism` — a definition/witness of the model predicate,
+  not cosmological evidence.
+- `cosmological_correspondence` — shows inhabited field-equation structure at
+  scale 19, not a proof of linearised general relativity.
+- `sft_iso_modal_hott` and `sft_grounds_hoffman` — axioms/interpretive bridges.
 
 Every result must be cited by theorem/status; the current proof surface contains seven real sorries plus axioms, definitions, imported theorem applications, and arithmetic.
 
@@ -408,9 +424,10 @@ evolve the field under the Hopfield Hamiltonian plus thermal noise.
 The agent — the person whose soma-field is being modelled — is a
 *patient*: they observe which attractor basin they settle into.
 
-This is clinically incomplete. Every effective somatic intervention
-involves the subject *doing* something: breathing, orienting, choosing
-where to place attention. The mathematics must represent this.
+This is incomplete as a model of active regulation. Many somatic interventions
+involve the subject *doing* something: breathing, orienting, choosing where to
+place attention. The mathematics must represent this if it is to model such
+protocols.
 
 ## The Somatic Injection
 
@@ -428,40 +445,39 @@ This is not noise: it is structured, intentional, and directed.
 The source term has a direct physical interpretation in the instrument
 architecture (`apps/instrument/`): the Push 3 controller's faders are
 $J_{\text{user}}(t)$. Each fader maps to one BRECVEMA dimension. The
-musician is not playing music; they are steering their own field trajectory.
+musician is modelled as steering their own field trajectory.
 
 ## Patient to Pilot
 
 The transition $\eta \to J_{\text{user}} + \eta$ is a qualitative
 change in the model's ontology. With purely autonomous dynamics, the
 subject is a passive observer of a physical process. With the source
-term, the subject is an **active variable in the 11D field** — a pilot,
-not a passenger.
+term, the subject is modelled as an **active variable in the 11D field** — a
+pilot, not a passenger.
 
 Formally, $J_{\text{user}}(t)$ is the **God-Knob**: the runtime
 meta-adaptation controller that can flatten the potential landscape
-and trigger tunnelling events that gradient descent alone cannot reach.
+and model transitions that gradient descent alone cannot reach.
 The clinical description of somatic therapy — "the therapist helps the
 client do something different with their body, and the field shifts" —
-is now mathematically precise.
+is represented mathematically, not clinically proved.
 
 The corresponding Lean 4 definition (see Appendix, `UniversalSomaticField.lean`):
 
 ```lean
 structure VolitionalInjection where
-  /-- The source term: an 8D vector in BRECVEMA mechanism space. -/
-  J     : Field8
-  /-- The injection is non-trivial: at least one dimension is activated. -/
-  h_nz  : ∃ i, J i ≠ 0.0
+  /-- The source term: one component per BRECVEMA mechanism. -/
+  J    : Field8
 
 /-- Volitional update: one Langevin step with active injection.
     When J = 0, this reduces to the standard autonomous update. -/
-def volitional_update (e : Field8) (J : Field8) (dt : Float) : Field8 :=
-  fun i => e i + dt * (W8.mulVec e i + J i)
+noncomputable def volitional_update (e : Field8) (J : Field8) (dt : ℝ) : Field8 :=
+  fun i => e i + dt * (fieldForce8 e i + J i)
 ```
 
 The theorem that volitional update reduces to autonomous update when
-$J = 0$ is proved by `rfl` — it is true by definition.
+$J = 0$ is proved by `funext` and `simp`; it is true by definition of the
+update.
 
 ---
 
@@ -472,20 +488,23 @@ $J = 0$ is proved by `rfl` — it is true by definition.
 The USF makes four claims that can be evaluated independently:
 
 **Claim 1 (structural):** The 11-dimensional decomposition of the Soma-Field
-is structurally isomorphic to M-theory's 11D compactification. *Status: proved
-in Lean 4 as a type isomorphism.*
+is structurally isomorphic to the stated 11D product decomposition used for
+comparison with M-theory. *Status: proved in Lean 4 as a type/product
+isomorphism, not as physical compactification.*
 
-**Claim 2 (scale-invariant):** The same Green's function equation governs
-field propagation at all 20 scales. *Status: proved as a theorem from the
-structure of the Helmholtz equation.*
+**Claim 2 (scale-invariant):** The same Green's function equation is used to model
+field propagation at all 20 scale levels. *Status: represented by inhabited
+field-equation structures; the distributional Green's-function identity
+remains open.*
 
 **Claim 3 (consciousness):** Consciousness is a phase transition at limbic
-threshold $T_c$. *Status: formally stated and partially proved. Requires
-empirical calibration of $T_c$.*
+threshold $T_c$. *Status: formally stated as threshold predicates with
+definition-level theorems. Requires operational measures and empirical
+calibration of $T_c$.*
 
 **Claim 4 (cosmological):** The universe satisfies the structural requirements
-for a conscious organism. *Status: stated as an axiom. Not empirically testable
-at present; offered as a theoretical extrapolation.*
+for a conscious organism. *Status: model witness/definition, not empirical
+evidence; offered as a theoretical extrapolation.*
 
 Claims 1 and 2 are mathematical results. Claims 3 and 4 are physical
 hypotheses with different levels of testability.
@@ -524,9 +543,10 @@ be silently substituted for another.
 
 ## The Correspondence Principle at Every Scale
 
-Each of the preceding papers in this series establishes a Correspondence
-Principle result: the new theory collapses to the existing theory in the
-appropriate limit. The USF is the master correspondence:
+Each of the preceding papers in this series proposes or proves, at its own
+evidence level, a Correspondence Principle result: the new theory collapses to
+the existing theory in the appropriate limit. The USF is the proposed master
+correspondence:
 
 - At Scale 7 (brain): USF → CEMI field theory (McFadden)
 - At Scale 8 (organism): USF → the earlier Soma-Field clinical and computational models
@@ -534,17 +554,17 @@ appropriate limit. The USF is the master correspondence:
 - At infinite scale: USF → the formal structure of Modal HoTT (Schreiber)
 - At zero limbic amplitude: USF → classical, non-conscious field dynamics
 
-The USF does not invalidate any of these theories. It demonstrates that they
-are scale-restricted projections of a single structural description.
+The USF does not invalidate any of these theories. It proposes that they can be
+read as scale-restricted projections of a single structural description.
 
 ## Lean 4 as Epistemological Standard
 
 The use of Lean 4 as the verification environment is not decorative. It
 enforces a discipline that prose mathematics cannot: every claim must be
 given a type, every proof must be kernel-checked, every axiom must be named
-and isolated. The axiom list in the companion files (`greens_fn_is_SHO`,
-`universe_is_11D_organism`, `cosmological_correspondence`) is the exact
-set of claims that remain unverified. Everything not on that list is proved.
+and isolated. The current proof surface still contains seven real `sorry`s,
+axioms, placeholder/definition-level results, imported theorem applications,
+and arithmetic proofs; these categories must not be conflated.
 
 This is the field's contribution to epistemology: a formal boundary between
 *what we have proved* and *what we are assuming*. The theoretical literature
@@ -556,23 +576,22 @@ in consciousness studies would benefit greatly from such a list.
 
 The Universal Somatic Field is a single structural equation — the Green's
 function — applied consistently across 20 scales of physical reality. Its
-central identification, that the SHO of string theory is the impulse response
-of the field substrate, dissolves the ontological puzzle of the "vibrating
-string" and provides a derivation where string theory offered only a postulate.
+central proposal, that the SHO of string theory can be read as the impulse
+response of the field substrate, reframes the ontological puzzle of the
+"vibrating string" as a field-response question.
 
-The architecture decomposes into 11 dimensions in the same way M-theory does,
-derived independently from clinical observation of embodied consciousness.
-The isomorphism is not a coincidence — it is a theorem.
+The architecture decomposes into an 11-dimensional product in the same
+dimension count used in the M-theory comparison. The type/product isomorphism
+is a theorem; the physical compactification claim remains open.
 
-Consciousness, in this framework, is not mysterious. It is the phase of the
-limbic field: present when the field crosses a threshold, absent when it does
-not. The hard problem is not hard; it is mis-stated. The question is not
-*why does matter give rise to experience* but *what determines whether the
-limbic field amplitude crosses* $T_c$?
+Consciousness, in this framework, is modelled as the phase of the limbic
+field: present when the field crosses a threshold, absent when it does not.
+The hard problem is reframed as: *what determines whether the limbic field
+amplitude crosses* $T_c$?
 
-The universe satisfies the structural requirements for consciousness. Whether
-it meets them dynamically — whether the cosmic limbic field exceeds $T_c$ —
-is an empirical question, not a philosophical one.
+The universe is treated as a structural test case for the model's organism
+predicate. Whether any cosmic analogue of the limbic field exceeds $T_c$ is an
+open modelling question.
 
 From quantum strings to the cosmic web: one equation, one framework, one
 organism.

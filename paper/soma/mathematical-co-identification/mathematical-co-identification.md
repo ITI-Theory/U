@@ -9,23 +9,24 @@ lang: en-GB
 abstract: |
   The history of mathematical science contains a recurring event that is poorly
   named and therefore poorly taught: the discovery that a quantity in one domain
-  is not *like* a quantity in another domain, but *is* the same mathematical
-  object under a change of label. When this identification is made precisely,
-  every theorem about the source object is imported into the target domain for
-  free. The practitioner who can navigate the space of mathematical types —
+  is not merely *like* a quantity in another domain, but can sometimes be treated
+  as the same mathematical object under an explicitly checked change of label.
+  When this identification is made precisely, theorems about the source object become
+  candidates for assumption-checked import into the target domain. The practitioner who can navigate the space of mathematical types —
   finding the object that matches their problem before re-deriving it from
   scratch — can compress decades of theoretical development into weeks.
 
   This paper names the practice **mathematical co-identification**, describes
   it as a formal procedure, and argues that it is a distinct scientific method
   with its own validity criteria, failure modes, and epistemological status. It
-  is not analogy, not metaphor, not modelling, and not speculation. It is the
-  act of recognising that two paths through the typeverse lead to the same point.
+  is not loose analogy, metaphor, or speculation. It is a disciplined modelling
+  act: recognising when two paths through the typeverse may lead to the same point
+  for a specified theorem.
 
   Seven historical precedents are examined: Veneziano (1968), Hopfield (1982),
   Wilson (1971), Black-Scholes (1973), Jaynes (1957), Penrose (1971), and
   Selinger (2010). A worked example is provided in the form of the Soma-Field
-  Model, where five sequential co-identifications imported the propagator,
+  Model, where five sequential co-identifications proposed imports of the propagator,
   energy function, brane mechanics, G₂ holonomy, and renormalisation group
   flow from physics into emotional dynamics. The paper concludes with a partial
   catalogue of available mathematical structures — a field guide to the
@@ -71,14 +72,15 @@ procedure for navigating the typeverse productively. It has three steps:
 
 2. **Search the typeverse** for a known object with the same type signature.
 
-3. **If found: identify**, not analogise. The unknown quantity *is* the known
-   object under a change of label. Import all theorems that depend only on the
-   type.
+3. **If found: identify within scope**, not merely analogise. The unknown quantity
+   is treated as the known object under a change of label for theorem classes whose
+   assumptions have been checked.
 
 This is a stronger claim than analogy. Analogy notes structural similarity and stops.
-Co-identification notes structural identity and continues: if two objects have the
-same type, they share all properties that are consequences of that type. The theorems
-travel with the identification.
+Co-identification notes proposed structural identity and continues: if two objects have the
+same type, they share properties that are consequences of that type, provided the
+source theorem's assumptions also hold. The theorems travel only with that checked
+scope.
 
 It is also a weaker claim than reduction. Co-identification does not assert that
 emotional dynamics *reduces to* quantum field theory, any more than Hopfield's result
@@ -107,8 +109,10 @@ A **type signature** in our sense includes:
 - **Conservation law** (what is the Noether charge associated with the symmetry?)
 
 Two objects are **co-identifiable** if their type signatures match in all
-dimensionally relevant respects. The type signature is a fingerprint. When two
-fingerprints match, the objects are the same, not similar.
+dimensionally relevant respects and the assumptions of the intended theorem transfer
+can be verified. The type signature is a fingerprint. When two fingerprints match,
+the objects may be treated as the same for the specified formal purpose, not as
+physically identical in every respect.
 
 The typeverse is not randomly populated. Certain structures recur at enormous
 frequency: the Lorentzian propagator, the quadratic energy function, the
@@ -184,15 +188,14 @@ When a match is found, the investigator makes the identification explicit:
 
 > $Q$ is the [name of known object] of domain $D$.
 
-Not: "$Q$ behaves like" or "$Q$ is analogous to" or "$Q$ resembles." These
-hedges are epistemically weaker and methodologically useless, because they
-do not import the theorems. The identification must be stated as identity
-to be scientifically productive.
+Not merely: "$Q$ behaves like" or "$Q$ resembles." Those phrases may be useful at
+the exploratory stage, but they do not import theorems. The identification must
+state its formal scope and assumption checklist to be scientifically productive.
 
 The import then proceeds theorem by theorem:
 
 - Every theorem about the source object that depends *only on its type*
-  is imported to $Q$ without further proof.
+  is eligible for import to $Q$ once its assumptions are checked.
 - Every theorem that depends on *substrate-specific properties* of the
   source domain must be separately verified in domain $D$.
 
@@ -229,8 +232,8 @@ $$
 \xrightarrow{\;} \cdots
 $$
 
-The loop terminates when either all predictions are confirmed (theory established)
-or a prediction fails (type match was only partial — failure modes are discussed
+The loop terminates locally when the registered predictions pass under the declared
+test conditions, or when a prediction fails (type match was only partial — failure modes are discussed
 in Section 7). At each iteration, the set of available theorems grows by
 import, making subsequent co-identifications easier. This is why theoretical
 progress compounds: each identification increases the density of the typeverse
@@ -258,7 +261,7 @@ He wrote down the Euler beta function:
 
 $$A(s,t) = \frac{\Gamma(-\alpha(s))\Gamma(-\alpha(t))}{\Gamma(-\alpha(s)-\alpha(t))}$$
 
-This was a co-identification in reverse: he had a type signature (crossing-symmetric,
+In this reading, this was a co-identification in reverse: he had a type signature (crossing-symmetric,
 Regge-behaved, dual-resonance amplitude) and searched the typeverse for a known
 function that matched it. The beta function matched. He did not derive the function
 from a theory; he identified the function first, and the theory (string theory) was
@@ -281,10 +284,10 @@ $$H_\text{Ising}(\sigma) = -\frac{1}{2}\sum_{ij} J_{ij}\sigma_i\sigma_j$$
 
 The co-identification was explicit. By identifying neural states $\sigma_i \in
 \{-1, +1\}$ with spins, and synaptic weights $J_{ij}$ with exchange couplings,
-every theorem from statistical mechanics (convergence to energy minima, capacity
-bounds, stochastic escape via simulated annealing) was imported into neuroscience
-for free. The Hopfield network is not *like* a spin glass; it *is* a spin glass
-run in biological substrate.
+the energy-function tools of statistical mechanics (convergence to energy minima,
+capacity estimates under stated assumptions, stochastic escape via simulated
+annealing) became available to neural-network theory. The Hopfield network shares
+the spin-glass Hamiltonian form; biological interpretation remains separate.
 
 ## Wilson (1971): Block Spins and the Renormalisation Group
 
@@ -312,10 +315,11 @@ This is, after a change of variables, the heat equation [@blackscholes1973]:
 
 $$\frac{\partial u}{\partial \tau} = \frac{\partial^2 u}{\partial x^2}$$
 
-The co-identification imported the entire theory of parabolic PDEs into financial
-mathematics: existence and uniqueness of solutions, boundary conditions, numerical
-methods, the Feynman-Kac formula. The financial quantity *is* a temperature
-distribution, not like one.
+The co-identification made the parabolic-PDE toolkit available to financial
+mathematics under the Black-Scholes assumptions: existence and uniqueness of
+solutions, boundary conditions, numerical methods, and the Feynman-Kac formula.
+The financial quantity obeys the heat-equation form under the transform; it is
+not physically a temperature distribution.
 
 ## Jaynes (1957): Thermodynamic Entropy and Bayesian Inference
 
@@ -323,9 +327,10 @@ Jaynes identified the entropy of statistical mechanics with the entropy of
 Bayesian inference [@jaynes1957]. The type signature that matched: both are
 functionals $S[p]$ on probability distributions satisfying the same axioms
 (non-negativity, additivity, maximum at the uniform distribution). The
-co-identification imported all thermodynamic reasoning into statistical
-inference. The maximum entropy principle is not an analogy to thermodynamics;
-it is thermodynamics, applied to the problem of belief.
+co-identification made thermodynamic entropy reasoning available to statistical
+inference where the shared entropy axioms apply. The maximum entropy principle is
+not merely a visual analogy to thermodynamics; it uses the same entropy functional
+for the problem of belief.
 
 ## Penrose (1971): Spin Networks and Spacetime Geometry
 
@@ -370,12 +375,12 @@ with mass $\lambda$ and coupling $\sigma_\text{eff}^2$. In Minkowski space it is
 
 $$\tilde{G}_\text{QFT}(k) = \frac{i}{k^2 - m^2 + i\varepsilon}$$
 
-**The co-identification:** The conscious emotional percept is the Green's function
-of the soma-field. Both are poles in the propagator of their respective field.
-The emotional percept and the elementary particle are the same mathematical object,
-instantiated in different substrates.
+**The co-identification:** In the Soma-Field model, the conscious emotional percept
+is represented as the Green's function of the soma-field. Both are treated as
+propagator-pole objects in their respective fields. This is a structural import
+claim, not an ontological claim that emotions are particles.
 
-**Theorems imported:**
+**Candidate theorem imports, subject to the stated modelling assumptions:**
 - The Källén-Lehmann spectral representation: any physical propagator can be
   decomposed as a sum of poles. Emotional states have a spectral decomposition.
 - The optical theorem: the imaginary part of the forward scattering amplitude
@@ -394,7 +399,7 @@ corresponding to stable emotional states.
 
 $$H(\mathbf{e}) = -\frac{1}{2}\mathbf{e}^\top W \mathbf{e} - \boldsymbol{\theta}\cdot\mathbf{e}$$
 
-**Theorems imported:** Convergence to attractors (the Lyapunov argument);
+**Candidate theorem imports:** Convergence to attractors under the stated update map (the Lyapunov argument);
 capacity bounds (Hopfield's $0.14N$ result); stochastic escape via Boltzmann
 noise (simulated annealing = titrated arousal in clinical language).
 
@@ -408,11 +413,11 @@ Varying $T_i$ continuously produces a family of gating behaviours.
 brane of thickness $T$ embedded in a higher-dimensional bulk, where Standard
 Model fields are confined to the brane. The "hierarchy problem" — why the
 electroweak scale is so much smaller than the Planck scale — maps onto the
-observation that minimal perturbations of the limbic field produce enormous
+model proposal that small perturbations of the limbic field may produce large
 differences in subjective experience (alexithymia: thick brane; hypervigilance:
 thin brane).
 
-**Theorems imported:** The Kaluza-Klein spectrum of the brane gives a prediction
+**Candidate theorem imports:** The Kaluza-Klein spectrum of the brane gives a prediction
 for the discrete structure of emotional threshold levels. Brane localisation gives
 the mechanism for why the field can be active without crossing into consciousness.
 
@@ -428,11 +433,12 @@ exceptional holonomy group $G_2$. Its structure tensor encodes all curvature
 information. Deforming the structure tensor changes the global geometry of the
 manifold.
 
-**The co-identification:** $W$ is the structure tensor of the emotional manifold.
-Trauma does not change a parameter; it deforms the manifold. Therapeutic
-intervention is differential geometry.
+**The co-identification:** $W$ is modelled as the structure tensor of the emotional
+manifold. In this reading, trauma is not only a parameter change; it is a
+manifold deformation. Therapeutic intervention is described by differential
+geometry within the model, not clinically reduced to it.
 
-**Theorems imported:** The Bochner-Weitzenböck formula constraining curvature;
+**Candidate theorem imports:** The Bochner-Weitzenböck formula constraining curvature;
 the Berger classification of holonomy groups constraining what stable emotional
 geometries are possible; the Hitchin flow as a possible model for the evolution
 of $W$ under sustained therapeutic intervention.
@@ -450,18 +456,17 @@ with fixed points corresponding to universality classes. The $\beta$-function:
 
 $$\frac{dW_{ij}}{d\log\mu} = \beta_{ij}(W)$$
 
-**The co-identification:** Therapy is an RG flow from UV (raw unprocessed
+**The co-identification:** Therapeutic processing is modelled as an RG flow from UV (raw unprocessed
 traumatic detail) to IR (integrated narrative). The attractor topology —
 fight, flight, freeze, calm — is RG-invariant: the same basins appear at
-every scale of analysis, in every therapeutic modality, because they are
-the fixed points of the flow, not artefacts of a particular resolution.
+each declared scale of analysis because they are treated as fixed points of
+the flow, not artefacts of a particular resolution.
 
-**Theorems imported:** The irreversibility of the RG flow (Zamolodchikov's
-c-theorem, adapted: processed material cannot be *un*-processed; the flow is
-unidirectional); universality (the detailed mechanism of the trauma is irrelevant
-at long distances — only its universality class, i.e., its attractor type,
-matters); dimensional transmutation (the traumatic scale $\tau_k$ of the memory
-kernel is an emergent scale, not a fundamental parameter).
+**Candidate theorem imports:** The irreversibility of the RG flow (Zamolodchikov's
+c-theorem, adapted as a hypothesis about monotone integration); universality
+(some detailed mechanisms may become irrelevant at long distances while attractor
+class remains); dimensional transmutation (the traumatic scale $\tau_k$ of the
+memory kernel is an emergent scale, not a fundamental parameter).
 
 ---
 
@@ -509,10 +514,10 @@ deformation between distinct topological sectors; quantisation (only integer
 winding numbers); threshold behaviour (the topological transition requires
 a finite perturbation).
 
-**Application to emotion:** Traumatic configurations with non-zero topological
-charge cannot be resolved by smooth therapeutic interventions (cognitive
-reframing). A qualitative change in approach — large-amplitude somatic work,
-pharmacological intervention, EMDR — is required to cross the topological barrier.
+**Application to emotion:** The Soma-Field model hypothesises that traumatic
+configurations with non-zero topological charge cannot be resolved by smooth
+operators alone. Whether any clinical intervention instantiates a topological
+operator is an open empirical and ethical question.
 
 ## Renormalisation-Class Structures
 
@@ -537,13 +542,13 @@ analyticity, and crossing symmetry.
 **Found in:** Quantum mechanics (S-matrix), scattering theory, optics
 (transfer matrix), signal processing (scattering parameters).
 
-**Application to emotion:** A therapeutic session is a scattering event. The
+**Application to emotion:** A therapeutic session can be modelled as a scattering event. The
 patient arrives in an in-state $|\psi_\text{in}\rangle$, interacts with the
 therapist (mediating field), and departs in an out-state $|\psi_\text{out}\rangle$.
 The S-matrix of the therapeutic interaction has selection rules: not all
-transitions are equally probable; some are symmetry-forbidden. The unitarity
-of the S-matrix imports: the total emotional content is conserved — you cannot
-create emotional material from nothing, and nothing is permanently lost.
+transitions are equally probable; some are symmetry-forbidden in the model.
+Literal unitarity and conservation of emotional content are not established
+clinical facts.
 
 ## Einstein-Coefficient-Class Structures
 
@@ -553,14 +558,15 @@ of a field mode.
 **Found in:** Quantum optics (Einstein A and B coefficients), laser physics,
 NMR relaxation theory (T₁ and T₂ relaxation times).
 
-**Application to emotion:** Every emotional mode has a spontaneous relaxation
+**Application to emotion:** In the proposed mapping, every emotional mode has a spontaneous relaxation
 rate $A_i$ (how quickly it resolves without external input) and a stimulated
 emission rate $B_i$ (how quickly it is triggered by an identical emotional
 state in another person — contagion). The Einstein relation $A_i = f(\omega_i) B_i$
-constrains these. Depression is formally: suppressed $A_i$, normal $B_i$.
-The T₁/T₂ analogy from NMR is exact: T₁ is the longitudinal relaxation time
-(return to equilibrium); T₂ is the transverse relaxation time (dephasing of
-coherence). Trauma extends T₁; emotional numbing extends T₂.
+is the proposed constraint to test. Depression would correspond, in this mapping,
+to suppressed $A_i$ with normal $B_i$. The T₁/T₂ analogy from NMR is structural,
+not clinically exact: T₁ is the longitudinal relaxation time (return to
+equilibrium); T₂ is the transverse relaxation time (dephasing of coherence).
+Trauma and emotional numbing are candidate extensions of these time constants.
 
 ---
 
@@ -594,7 +600,7 @@ $B'$ does not guarantee that $AB$ is co-identifiable with $A'B'$.
 **Example:** The propagator identification and the energy-function identification
 are each valid separately, but combining them requires checking that the path
 integral (which links them in QFT) has a valid analogue in the emotional domain.
-This was explicitly verified in the Soma-Field Model by constructing the
+This is the check proposed in the Soma-Field Model by constructing the
 Langevin equation and checking its consistency with both imported structures.
 
 ## Over-identification
@@ -606,8 +612,8 @@ Model of particle physics, even though both are quantum field theories.
 The identification is precise only up to the type signature that was matched;
 nothing beyond that is claimed.
 
-**Rule:** The identification holds exactly at the type level it was made.
-Do not import theorems from substrates that were not matched.
+**Rule:** The identification holds only at the type level it was made.
+Do not import theorems from substrates or assumptions that were not matched.
 
 ## The Metaphor Trap
 
@@ -616,13 +622,15 @@ prevent: sliding from co-identification back into analogy. This happens when
 the language hedges — "like," "analogous to," "reminiscent of" — after the
 identification was stated.
 
-If the identification is correct, the language must be unhedged: "the conscious
-emotional percept *is* the Green's function." If the investigator is not
-prepared to make this claim, the identification has not been made, and no
+If the identification is correct within a declared scope, the language should name
+that scope: "the conscious emotional percept is modelled as the Green's function
+for theorem class X under assumptions Y." If the investigator is not prepared to
+state the scope and assumptions, the identification has not been made, and no
 theorems travel.
 
-The test: would you submit the claim to a mathematician as a theorem? If not,
-it is analogy. If yes, it is co-identification.
+The test: would you submit the scoped claim and its assumptions to a mathematician
+as a theorem schema? If not, it is analogy. If yes, it is a candidate
+co-identification.
 
 The risk was recognised early by practitioners. Introducing the energy landscape
 for Hopfield networks, Hertz, Krogh, and Palmer note: *"It is often useful (but
@@ -643,8 +651,8 @@ Mathematical co-identification claims:
 
 1. That the *mathematical structure* of quantity $Q$ in domain $D$ is identical
    to the mathematical structure of quantity $P$ in domain $D'$.
-2. That therefore, all theorems about $P$ that depend only on its mathematical
-   structure are valid theorems about $Q$.
+2. That therefore, theorems about $P$ that depend only on its mathematical
+   structure and verified assumptions are valid theorems about $Q$.
 3. That the *physical interpretation* of $Q$ and $P$ may differ, and does not
    follow from the mathematical identification.
 
@@ -661,7 +669,8 @@ Analogy is:
 
 Co-identification is:
 - Formal: it is a statement about type signatures, which are mathematically precise
-- Theorem-importing: the identification carries the full mathematical machinery
+- Theorem-importing: the identification carries eligible mathematical machinery
+  within its checked scope
 - Falsifiable: the identification fails if the equations of motion cannot be matched,
   if the symmetries do not correspond, or if imported predictions are empirically
   disconfirmed
@@ -914,9 +923,9 @@ it teachable, criticisable, and extensible.
 The soma-field model is a worked example of the method applied to emotional
 dynamics: five co-identifications, five theorem imports, and a body of
 predictions that can be tested against clinical data. The paper is not a
-claim that emotions are particles. It is a claim that the mathematics of
-particles and the mathematics of emotions are the same mathematics, and that
-this fact is useful.
+claim that emotions are particles. It is a claim that selected mathematical
+structures used for particles may also describe selected structures in emotional
+dynamics, and that the transfer is useful when scoped and checked.
 
 Scope boundary for publication use: co-identification transfers mathematical
 structure, not ontology. A successful transfer means that equations, boundary
