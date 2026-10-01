@@ -30,6 +30,22 @@ State on 2026-10-01:
   LF); `russell1910` now lists Whitehead first.
 - Awaiting author review of voice, label density, and the subtitle.
 
+## Fractal Thesis Status (2026-10-01, overnight)
+
+- All fifteen books are source-owned (`books/T-Theory/<id>/book-<id>.md`):
+  original prose in each field's voice (Volume I books about 12,000 words,
+  Volume II about 16,000; Philosophy about 88,000), a reading guide per
+  embedded paper, an evidence ledger, fact-checked and hardened, with every
+  reference resolved in `paper/bibliography.bib`.
+- Print volumes print each canonical paper once; later books show a
+  cross-reference. Last build: Volume I 681 pages, Volume II 649 (cap 800).
+- Titles follow "[T]-Theory: <Name>" across parts, volumes, `books.yaml`,
+  and booklets. Cheat-sheet text is hardened and labelled.
+- Papers hardened (72 edits across 23 papers; Lean appendix generator and
+  one Lean doc comment updated). Published papers need new Zenodo versions.
+- Next: full candidate build, page-cap and visual QA, NotebookLM staging,
+  Lulu preview (author), then the paper omnibus rebuild.
+
 ## Book Architecture
 
 - Reader-facing book content is source-owned Markdown under
