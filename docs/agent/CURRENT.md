@@ -5,6 +5,30 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
+## Resume Here (updated 2026-10-02, 23:20)
+
+Session 2026-10-02 (evening). Pushed: Penrose index 7e46b57, baseline
+sources 2f6a1be, app work 83dc48f (window manager + clean mode `ui=clean`,
+era themes incl. art movements, MOTHER CHAT|SHELL, dyad/cellular demos).
+
+In progress when paused or interrupted (uncommitted; check `git status`):
+- Atlas Part I theory REWRITE (`Part2/book/field-atlas/theory/`): first
+  attempt failed review (85% templated filler, broken M-theory figures,
+  figures lost in A3 multicols). Rewrite brief: no padding, checker
+  `scripts/check_prose.py` must pass, 12-18k real words, >= 25 figures,
+  figures must appear in both PDFs.
+- Atlas plates: `capture.mjs --only atlas-plates` (clean 4D/8D/11D captures,
+  renderer anchors) -> `scripts/plates.py` -> triptych + callout plates in
+  `figures/plates/`, replacing console screenshots in the level spreads.
+- Then: OpenStax-style edition in a separate folder with its own build (CC BY
+  figures from BASELINE-SOURCES.md, licence-checked); then PAUSE (author's
+  instruction).
+- Later: final A3 print check; Piper HAL voice; offline MOTHER/H-AL (Ollama);
+  Zenodo (needs author tokens).
+
+Note: Copilot can stop without warning when prepaid budget runs out; agents
+then die mid-task. Commit each verified piece promptly.
+
 ## Resume Here (paused 2026-10-02, 00:20)
 
 Done on 2026-10-01 evening (all pushed; last commit 76c498e):
@@ -20,6 +44,7 @@ Done on 2026-10-01 evening (all pushed; last commit 76c498e):
 
 Active 2026-10-02: adding era themes to the Soma Machine time axis with sourced historical maths and art-movement idea cards; coordinator commits.
 - Panel window manager / Clean Mode now lives in `apps/instrument/visuals/soma-field-operator/panels.js` (`H`, `Esc`, `ui=clean`, `labels=off`).
+- Field Atlas plate refresh in progress: clean `atlas-plates` capture, anchor JSON, triptych/callout compositor, and atlas integration replace app-manual screenshots as primary figures.
 
 Next, in the author's order of interest:
 1. Rebuild the A3 Atlas (`python build_atlas.py --a3`; it now has the Time
