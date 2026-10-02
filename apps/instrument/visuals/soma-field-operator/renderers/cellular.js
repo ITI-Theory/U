@@ -605,7 +605,8 @@ export const cellularRenderer = {
         const responseTime = clamp01(state.responseTime ?? 0);
         const fieldOn = Boolean(state.tTheory && state.level >= 8);
         const level11 = Boolean(state.tTheory && state.level >= 11);
-        const softenedPulse = clamp01(pulse);
+        const dynamic = state.dimensionDynamics?.kind === 'cellular-synaptic' ? state.dimensionDynamics : null;
+        const softenedPulse = clamp01(Math.max(pulse, dynamic?.spikePulse ?? 0, dynamic?.transitionPulse ?? 0));
         const style = {
           fluorescence: true,
           falsecolour: true,
@@ -672,7 +673,7 @@ export const cellularRenderer = {
           ring.scale.setScalar(1 + (motionOn ? Math.sin(time * 1.7 + index) * 0.025 : 0) + softenedPulse * 0.04);
         }
 
-        const activePulse = fieldOn && softenedPulse > 0.01;
+        const activePulse = fieldOn && (softenedPulse > 0.01 || (dynamic?.voltage ?? 0) > (dynamic?.threshold ?? 1));
         actionBand.visible = activePulse;
         actionCore.visible = activePulse;
         if (activePulse) {

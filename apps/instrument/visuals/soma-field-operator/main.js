@@ -8,6 +8,7 @@ import { createMother } from './mother.js';
 import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
+import { createPanelManager } from './panels.js';
 
 // Every renderers/*.js module registers itself through its default export
 // ({ id, create }); adding a renderer never requires editing this file.
@@ -31,6 +32,7 @@ const modelRouteById = Object.fromEntries(registryModels.map(model => [model.id,
 const claimOrder = ['FORMAL', 'SOURCED', 'INTERPRETIVE'];
 const organismLevelIds = new Set(['human-vertebrate']);
 const thoughtSparkLevelIds = new Set(['human-vertebrate']);
+const dimensionDemoLevelIds = new Set(['human-vertebrate', 'dyad', 'cellular-synaptic']);
 const rendererInstances = new Map();
 
 const lenses = [
@@ -638,6 +640,7 @@ for (const [label, detail, color, position, level] of fieldLabels) {
   context.font = 'bold 20px monospace'; context.fillStyle = '#eaf5ff'; context.fillText(detail, 24, 112);
   const texture = new THREE.CanvasTexture(sprite);
   const marker = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.96 }));
+  marker.userData.worldLabel = true;
   marker.position.fromArray(position); marker.scale.set(2.16, 0.5, 1); scene.add(marker); fieldLabelMarkers.push({ marker, level });
 }
 
@@ -1103,17 +1106,21 @@ function readHashState() {
     hasModel: params.has('model'),
     hasReader: params.has('reader'),
     hasEra: params.has('era'),
+    hasDemo: params.has('demo'),
     level: params.get('level'),
     path: params.get('path'),
     lens: params.get('lens'),
     model: params.get('model'),
     reader: params.get('reader'),
     era: params.get('era'),
+    demo: params.get('demo'),
     hasQuestion: params.has('q'),
     question: params.get('q'),
     compare: params.get('compare'),
     contours: params.get('contours'),
     styleoff: params.get('styleoff'),
+    ui: params.get('ui'),
+    labels: params.get('labels'),
   };
 }
 
@@ -1164,9 +1171,12 @@ const state = {
   mathDepth: 0,
   thoughtNoiseD: 0.16,
   thoughtThreshold: 0.82,
+  uiClean: false,
+  labelsOff: false,
 };
 let suppressHashWrite = false;
 let timeAxis = null;
+let panelManager = null;
 // A poke plays over the same wall-clock span at every level; the readout states the level's own time scale.
 const POKE_DISPLAY_SECONDS = 4;
 const fieldAudio = new FieldAudio({ pokeSeconds: POKE_DISPLAY_SECONDS });
@@ -1283,8 +1293,48 @@ const fieldNote = document.querySelector('.field-note');
 const dimensionDynamics = createDimensionDynamics({ getState: () => state, activeLevel, activeDimensionLevel });
 let questionTours = null;
 
+const demoViews = {
+  dyad: { level: 'dyad', path: 'dyadic-care', dimension: 11 },
+  'dyad-4d': { level: 'dyad', path: 'dyadic-care', dimension: 4 },
+  'dyad-8d': { level: 'dyad', path: 'dyadic-care', dimension: 8 },
+  'dyad-11d': { level: 'dyad', path: 'dyadic-care', dimension: 11 },
+  'dyadic-phase-locking': { level: 'dyad', path: 'dyadic-care', dimension: 11 },
+  cellular: { level: 'cellular-synaptic', path: 'micro-to-life', dimension: 8 },
+  'cellular-4d': { level: 'cellular-synaptic', path: 'micro-to-life', dimension: 4 },
+  'cellular-8d': { level: 'cellular-synaptic', path: 'micro-to-life', dimension: 8 },
+  'cellular-11d': { level: 'cellular-synaptic', path: 'micro-to-life', dimension: 11 },
+  'cellular-synaptic': { level: 'cellular-synaptic', path: 'micro-to-life', dimension: 8 },
+  'action-potential': { level: 'cellular-synaptic', path: 'micro-to-life', dimension: 8 },
+  'human-vertebrate': { level: 'human-vertebrate', path: 'micro-to-life', dimension: 8 },
+  'human-8d': { level: 'human-vertebrate', path: 'micro-to-life', dimension: 8 },
+};
+
 function syncQuestionTours() {
   questionTours?.sync(state.questionId, state.levelId);
+}
+
+function applyDemoView(demoId) {
+  const demo = demoViews[demoId];
+  if (!demo || !levelsById.has(demo.level)) return false;
+  state.questionId = null;
+  state.eraId = null;
+  state.levelId = demo.level;
+  state.scale = levelSigma(state.levelId);
+  state.visualScale = state.scale;
+  state.tTheory = true;
+  state.compare = false;
+  state.contours = false;
+  state.level = demo.dimension;
+  if (demo.path && pathsById.has(demo.path)) {
+    state.route = demo.path;
+    const routeModel = registryModels.find(model => model.paths?.includes(demo.path));
+    if (routeModel) state.implementation = routeModel.id;
+  } else {
+    fitLevelRoute(state.levelId);
+  }
+  document.querySelector('#contours').checked = state.contours;
+  syncQuestionTours();
+  return true;
 }
 
 function applyQuestionView(questionId, { write = true, render = true } = {}) {
@@ -1326,6 +1376,9 @@ function applyQuestionView(questionId, { write = true, render = true } = {}) {
 
 function applyHashState({ render = true } = {}) {
   const hashState = readHashState();
+  state.uiClean = hashState.ui === 'clean';
+  state.labelsOff = hashState.labels === 'off' || (state.uiClean && hashState.labels !== 'on');
+  panelManager?.setCleanMode(state.uiClean, { writeHash: false });
   if (hashState.hasModel && modelsById.has(hashState.model)) {
     state.implementation = hashState.model;
     state.route = defaultPathForModel(hashState.model);
@@ -1380,9 +1433,12 @@ function applyHashState({ render = true } = {}) {
     // A level-only link must not be overridden by a remembered path or model that lacks the level.
     fitLevelRoute(state.levelId);
   }
+  if (hashState.hasDemo) applyDemoView(hashState.demo);
   if (hashState.hasQuestion && questionsById.has(hashState.question)) {
     applyQuestionView(hashState.question, { write: false, render: false });
   } else if (hashState.hasQuestion) {
+    state.questionId = null;
+  } else {
     state.questionId = null;
   }
   state.transport.playing = false;
@@ -1810,6 +1866,9 @@ function hashForState() {
   if (state.questionId) params.set('q', state.questionId);
   if (state.compare) params.set('compare', '1');
   if (state.contours) params.set('contours', '1');
+  if (state.uiClean) params.set('ui', 'clean');
+  if (state.labelsOff) params.set('labels', 'off');
+  else if (state.uiClean) params.set('labels', 'on');
   const styleOff = Object.keys(state.style).filter(key => !state.style[key]);
   if (styleOff.length) params.set('styleoff', styleOff.join('.'));
   return `#${params.toString()}`;
@@ -1954,7 +2013,8 @@ function updateScaleReadout() {
   const quantumCanonical = state.scale < 7;
   for (const button of hierarchyButtons) {
     const isElevenDimensional = Number(button.dataset.level) === 11;
-    button.disabled = (!state.tTheory && Number(button.dataset.level) !== 4) || (quantumCanonical && isElevenDimensional);
+    button.disabled = (!state.tTheory && Number(button.dataset.level) !== 4)
+      || (quantumCanonical && isElevenDimensional && !dimensionDemoLevelIds.has(plate.id));
     button.classList.toggle('active', Number(button.dataset.level) === displayLevel);
   }
   equationKicker.textContent = state.tTheory ? 'DEPENDENT-TYPE MORPHISM INTERFACE' : 'PHYSICS BASELINE';
@@ -2205,6 +2265,27 @@ syncQuestionTours();
 const compareCards = document.querySelector('#compare-cards');
 const compareCardLeft = document.querySelector('#compare-card-left');
 const compareCardRight = document.querySelector('#compare-card-right');
+panelManager = createPanelManager({
+  clean: state.uiClean,
+  onCleanChange: clean => {
+    state.uiClean = clean;
+    if (clean && !readHashState().labels) state.labelsOff = true;
+    writeHashState();
+  },
+});
+document.addEventListener('keydown', event => {
+  if (event.defaultPrevented || event.key.toLowerCase() !== 'l' || !state.uiClean) return;
+  if (event.target?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
+  event.preventDefault();
+  state.labelsOff = !state.labelsOff;
+  writeHashState();
+});
+panelManager.registerPanel(document.querySelector('.field-readout'), { id: 'controls', title: 'FIELD CONTROLS', dockLabel: 'CONTROLS', minWidth: 260, minHeight: 260 });
+panelManager.registerPanel(document.querySelector('.equation-wall'), { id: 'morphism', title: 'DEPENDENT-TYPE MORPHISM', dockLabel: 'MORPHISM', minWidth: 320, minHeight: 220 });
+panelManager.registerPanel(document.querySelector('.mother-terminal'), { id: 'mother', title: 'MOTHER / H-AL TERMINAL', dockLabel: 'MOTHER', minWidth: 380, minHeight: 250 });
+panelManager.registerPanel(document.querySelector('.question-card'), { id: 'whats-different', title: "WHAT'S DIFFERENT?", dockLabel: 'DIFFERENCE', minWidth: 310, minHeight: 180 });
+panelManager.registerPanel(document.querySelector('#dimension-dynamics-panel'), { id: 'state-dynamics', title: 'STATE DYNAMICS', dockLabel: 'STATE', minWidth: 300, minHeight: 220 });
+panelManager.registerPanel(compareCards, { id: 'compare-examples', title: 'COMPARE EXAMPLES', dockLabel: 'COMPARE', minWidth: 340, minHeight: 230 });
 const examplesByLevel = new Map();
 for (const example of registryExamples) {
   if (!examplesByLevel.has(example.level)) examplesByLevel.set(example.level, []);
@@ -2273,6 +2354,55 @@ timeAxis = createTimeAxis({
 timeAxis?.setSelected(state.eraId);
 
 const viewportSize = new THREE.Vector2();
+const labelWorldPosition = new THREE.Vector3();
+const labelWorldScale = new THREE.Vector3();
+
+function rectsIntersect(a, b, padding = 4) {
+  return a.left < b.right + padding && a.right > b.left - padding && a.top < b.bottom + padding && a.bottom > b.top - padding;
+}
+
+function labelScreenRect(sprite, viewCamera, viewport) {
+  sprite.getWorldPosition(labelWorldPosition);
+  labelWorldPosition.project(viewCamera);
+  if (labelWorldPosition.z < -1 || labelWorldPosition.z > 1) return null;
+  sprite.getWorldScale(labelWorldScale);
+  const x = viewport.left + (labelWorldPosition.x + 1) * 0.5 * viewport.width;
+  const y = viewport.top + (1 - (labelWorldPosition.y + 1) * 0.5) * viewport.height;
+  let pixelsPerWorld;
+  if (viewCamera.isOrthographicCamera) {
+    pixelsPerWorld = viewport.height / Math.max(0.001, viewCamera.top - viewCamera.bottom);
+  } else {
+    const distance = viewCamera.position.distanceTo(sprite.getWorldPosition(new THREE.Vector3()));
+    pixelsPerWorld = viewport.height / Math.max(0.001, 2 * distance * Math.tan(THREE.MathUtils.degToRad(viewCamera.fov) * 0.5));
+  }
+  const width = Math.max(24, Math.abs(labelWorldScale.x) * pixelsPerWorld);
+  const height = Math.max(14, Math.abs(labelWorldScale.y) * pixelsPerWorld);
+  return { left: x - width / 2, right: x + width / 2, top: y - height / 2, bottom: y + height / 2 };
+}
+
+function updateWorldLabelVisibility(viewCamera, viewport = { left: 0, top: 0, width: innerWidth, height: innerHeight }) {
+  const panels = panelManager?.visiblePanelRects() ?? [];
+  const viewportRect = { left: viewport.left, top: viewport.top, right: viewport.left + viewport.width, bottom: viewport.top + viewport.height };
+  scene.traverse(object => {
+    if (!object.isSprite || !object.userData.worldLabel) return;
+    if (object.userData.wmHidden) {
+      object.visible = object.userData.wmDesiredVisible ?? true;
+      object.userData.wmHidden = false;
+    }
+    const desiredVisible = object.visible;
+    object.userData.wmDesiredVisible = desiredVisible;
+    if (!desiredVisible) return;
+    let hidden = state.labelsOff;
+    const rect = hidden ? null : labelScreenRect(object, viewCamera, viewport);
+    if (!hidden && (!rect || !rectsIntersect(rect, viewportRect, 0))) hidden = true;
+    if (!hidden && panels.some(panel => rectsIntersect(rect, panel, 8))) hidden = true;
+    if (hidden) {
+      object.visible = false;
+      object.userData.wmHidden = true;
+    }
+  });
+}
+
 function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -2303,6 +2433,7 @@ function renderScene() {
       renderer.render(backgroundScene, backgroundCamera);
       renderer.autoClear = false;
       renderer.clearDepth();
+      updateWorldLabelVisibility(eyeCamera, { left: x, top: 0, width: halfWidth, height });
       renderer.render(scene, eyeCamera);
     }
     renderer.setScissorTest(false);
@@ -2314,7 +2445,9 @@ function renderScene() {
   renderer.render(backgroundScene, backgroundCamera);
   renderer.autoClear = false;
   renderer.clearDepth();
-  renderer.render(scene, state.viewMode === '2d' ? overheadCamera : camera);
+  const viewCamera = state.viewMode === '2d' ? overheadCamera : camera;
+  updateWorldLabelVisibility(viewCamera);
+  renderer.render(scene, viewCamera);
   renderer.autoClear = true;
 }
 
@@ -2327,6 +2460,7 @@ function rendererState() {
     ...state,
     activeLevelId: level.id,
     level: activeDimensionLevel(),
+    dimensionDynamics: dimensionDynamics.visualState(),
     rendererId,
   };
 }
@@ -2427,7 +2561,7 @@ function applyScene(time, delta, responsePulse) {
   const fromMorphism = getScaleMorphism(fromSigma);
   const toMorphism = getScaleMorphism(toSigma);
   root.visible = !astralCanonical && humanSceneWeight > 0.01;
-  for (const { marker, level } of fieldLabelMarkers) marker.visible = !astralCanonical && humanSceneWeight > 0.01 && displayLevel >= level;
+  for (const { marker, level } of fieldLabelMarkers) marker.visible = !state.labelsOff && !astralCanonical && humanSceneWeight > 0.01 && displayLevel >= level;
   for (const layer of morphologyLayers) {
     updateMorphologyLayer(layer, fromMorphism, toMorphism, morphologyMix, time, responsePulse);
     const levelWeight = displayLevel >= layer.level && (tTheoryLayerOn || layer.level === 4) ? 1 : 0;
@@ -2476,7 +2610,7 @@ function applyScene(time, delta, responsePulse) {
     channel.line.material.color.copy(selected ? pink : violet);
     channel.line.material.opacity = selected ? 0.98 : 0.12;
     channel.node.scale.setScalar(selected ? 1.75 : 0.78);
-    channel.label.material.opacity = selected ? 1 : 0.3;
+    channel.label.material.opacity = state.labelsOff ? 0 : selected ? 1 : 0.3;
   }
   const somaticPulse = 1 + state.somatic * (0.08 + Math.sin(time * 2.2) * 0.05) + responsePulse * 0.24;
   updateJointField(time, responsePulse, physicalWeight);
@@ -2550,6 +2684,7 @@ function renderCompare(time, delta, responsePulse) {
     renderer.render(backgroundScene, backgroundCamera);
     renderer.autoClear = false;
     renderer.clearDepth();
+    updateWorldLabelVisibility(viewCamera, { left: x, top: 0, width: halfWidth, height });
     renderer.render(scene, viewCamera);
   }
   state.tTheory = userLens;

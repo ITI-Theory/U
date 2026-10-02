@@ -71,6 +71,7 @@ function makeTextSprite(THREE, lines, { width = 820, height = 210, color = '#eaf
   texture.colorSpace = THREE.SRGBColorSpace;
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
   const sprite = new THREE.Sprite(material);
+  sprite.userData.worldLabel = true;
   sprite.userData.dispose = () => { texture.dispose(); material.dispose(); };
   return sprite;
 }
@@ -115,8 +116,8 @@ function makeClock(THREE, radius, label, color) {
     new THREE.LineBasicMaterial({ color: 0xeaf5ff, transparent: true, opacity: 0.8, depthWrite: false }),
   );
   const text = makeTextSprite(THREE, [label], { width: 320, height: 74, color: '#eaf5ff', border: color === 0xf6c75a ? '#f6c75a' : '#14e5ff', background: 'rgba(5,7,14,0.58)' });
-  text.scale.set(0.75, 0.17, 1);
-  text.position.set(0.03, -0.23, 0.04);
+  text.scale.set(0.52, 0.14, 1);
+  text.position.set(radius < 0 ? 0.3 : -0.3, -0.23, 0.04);
   group.add(ring, hand, text);
   group.position.set(radius, -1.92 + Math.abs(radius) * 0.12, 0.14);
   return group;

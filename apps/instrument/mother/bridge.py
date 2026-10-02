@@ -17,24 +17,63 @@ GET  /health -> {"ok": true, "notebook": "<id>"}
 from __future__ import annotations
 
 import asyncio
+import base64
+import hashlib
 import json
 import os
 import re
+import secrets
+import shutil
+import socket
+import struct
+import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 from notebooklm import NotebookLMClient
 from notebooklm.exceptions import RateLimitError
 
+try:
+    from winpty import PtyProcess
+except ImportError:  # installed only when the local shell is wanted
+    PtyProcess = None
+
 HERE = Path(__file__).resolve().parent
+DEFAULT_SHELL_CWD = HERE.parents[2]
 PORT = int(os.environ.get("MOTHER_PORT", "8765"))
 LOCAL_ORIGIN = re.compile(r"^http://(127\.0\.0\.1|localhost)(:\d+)?$")
+SHELL_TOKEN = secrets.token_urlsafe(32)
+SHELL_LOCK = threading.Lock()
+ACTIVE_SHELLS = 0
 
 
 def local_config() -> dict:
     config = HERE / "mother.local.json"
     return json.loads(config.read_text(encoding="utf-8-sig")) if config.exists() else {}
+
+
+def shell_enabled() -> bool:
+    # Deliberately config-only: the shell must be explicitly opted in locally.
+    return local_config().get("shell") is True
+
+
+def shell_limit() -> int:
+    try:
+        return max(1, min(8, int(local_config().get("shell_limit", 2))))
+    except (TypeError, ValueError):
+        return 2
+
+
+def shell_cwd() -> Path:
+    configured = local_config().get("shell_cwd")
+    if configured:
+        path = Path(configured).expanduser()
+        if path.is_dir():
+            return path
+        print(f"[mother] shell_cwd does not exist; using {DEFAULT_SHELL_CWD}: {path}", flush=True)
+    return DEFAULT_SHELL_CWD
 
 
 def notebook_id() -> str:
@@ -137,6 +176,123 @@ class Bridge:
         return asyncio.run_coroutine_threadsafe(coroutine, self.loop).result(timeout=300)
 
 
+def _which(command: str) -> str | None:
+    path = shutil.which(command)
+    if path:
+        return path
+    try:
+        result = subprocess.run(["where.exe", command], capture_output=True, text=True, timeout=2, check=False)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return result.stdout.splitlines()[0].strip() if result.returncode == 0 and result.stdout.strip() else None
+
+
+def git_bash_path() -> str | None:
+    configured = local_config().get("bash_path")
+    candidates = [
+        configured,
+        Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Git" / "bin" / "bash.exe",
+        Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Git" / "usr" / "bin" / "bash.exe",
+        _which("bash.exe"),
+    ]
+    for candidate in filter(None, candidates):
+        path = Path(candidate)
+        if path.exists():
+            return str(path)
+    return None
+
+
+def shell_profiles() -> dict[str, dict]:
+    bash = git_bash_path()
+    nvim = _which("nvim.exe") or _which("nvim")
+    python = HERE / ".venv" / "Scripts" / "python.exe"
+    return {
+        "bash": {
+            "label": "Git Bash",
+            "enabled": bool(bash),
+            "hint": "" if bash else r"Install Git for Windows so C:\Program Files\Git\bin\bash.exe exists.",
+            "argv": [bash, "--login", "-i"] if bash else None,
+        },
+        "nvim": {
+            "label": "Neovim",
+            "enabled": bool(nvim),
+            "hint": "" if nvim else "install Neovim, e.g. scoop install neovim",
+            "argv": [nvim] if nvim else None,
+        },
+        "python": {
+            "label": "Python (mother venv)",
+            "enabled": python.exists(),
+            "hint": "" if python.exists() else r"Create apps\instrument\mother\.venv first.",
+            "argv": [str(python), "-i"] if python.exists() else None,
+        },
+    }
+
+
+def shell_status(include_token: bool = False) -> dict:
+    profiles = shell_profiles()
+    return {
+        "enabled": shell_enabled(),
+        "available": PtyProcess is not None,
+        "token": SHELL_TOKEN if shell_enabled() and include_token else None,
+        "active": ACTIVE_SHELLS,
+        "limit": shell_limit(),
+        "profiles": {name: {k: v for k, v in profile.items() if k != "argv"} for name, profile in profiles.items()},
+    }
+
+
+def _recv_exact(sock: socket.socket, length: int) -> bytes:
+    chunks = []
+    remaining = length
+    while remaining:
+        chunk = sock.recv(remaining)
+        if not chunk:
+            raise ConnectionAbortedError("socket closed")
+        chunks.append(chunk)
+        remaining -= len(chunk)
+    return b"".join(chunks)
+
+
+def _ws_accept(key: str) -> str:
+    value = (key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11").encode("ascii")
+    return base64.b64encode(hashlib.sha1(value).digest()).decode("ascii")
+
+
+def _ws_send(sock: socket.socket, data: str, lock: threading.Lock) -> None:
+    payload = data.encode("utf-8", errors="replace")
+    if len(payload) < 126:
+        header = struct.pack("!BB", 0x81, len(payload))
+    elif len(payload) < 65536:
+        header = struct.pack("!BBH", 0x81, 126, len(payload))
+    else:
+        header = struct.pack("!BBQ", 0x81, 127, len(payload))
+    with lock:
+        sock.sendall(header + payload)
+
+
+def _ws_close(sock: socket.socket, lock: threading.Lock) -> None:
+    with lock:
+        try:
+            sock.sendall(b"\x88\x00")
+        except OSError:
+            pass
+
+
+def _ws_recv(sock: socket.socket) -> tuple[int, bytes]:
+    first, second = _recv_exact(sock, 2)
+    opcode = first & 0x0F
+    masked = bool(second & 0x80)
+    length = second & 0x7F
+    if length == 126:
+        length = struct.unpack("!H", _recv_exact(sock, 2))[0]
+    elif length == 127:
+        length = struct.unpack("!Q", _recv_exact(sock, 8))[0]
+    mask = _recv_exact(sock, 4) if masked else b""
+    payload = _recv_exact(sock, length) if length else b""
+    if masked:
+        payload = bytes(byte ^ mask[index % 4] for index, byte in enumerate(payload))
+    return opcode, payload
+
+
 class Handler(BaseHTTPRequestHandler):
     bridge: Bridge
 
@@ -169,10 +325,120 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
+        if urlparse(self.path).path == "/shell":
+            self._shell_ws()
+            return
         if self.path == "/health":
-            self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal)})
+            origin = self.headers.get("Origin", "")
+            self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal), "shell": shell_status(bool(origin and LOCAL_ORIGIN.match(origin)))})
         else:
             self._json(404, {"error": "not found"})
+
+    def _shell_error(self, status: int, message: str) -> None:
+        body = json.dumps({"error": message}).encode("utf-8")
+        self.send_response(status)
+        self._cors()
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _shell_ws(self) -> None:
+        global ACTIVE_SHELLS
+        if not self._origin_ok():
+            self._shell_error(403, "local origins only")
+            return
+        if not shell_enabled():
+            self._shell_error(403, "shell disabled in mother.local.json")
+            return
+        if PtyProcess is None:
+            self._shell_error(503, "pywinpty is not installed in the bridge venv")
+            return
+        parsed = urlparse(self.path)
+        query = parse_qs(parsed.query)
+        if query.get("token", [""])[0] != SHELL_TOKEN:
+            self._shell_error(403, "bad shell token")
+            return
+        key = self.headers.get("Sec-WebSocket-Key")
+        if self.headers.get("Upgrade", "").lower() != "websocket" or not key:
+            self._shell_error(400, "websocket upgrade required")
+            return
+        profiles = shell_profiles()
+        profile_name = query.get("profile", ["bash"])[0]
+        profile = profiles.get(profile_name)
+        if not profile or not profile.get("enabled") or not profile.get("argv"):
+            self._shell_error(400, f"profile unavailable: {profile_name}")
+            return
+        try:
+            cols = max(20, min(240, int(query.get("cols", ["100"])[0] or "100")))
+            rows = max(6, min(80, int(query.get("rows", ["28"])[0] or "28")))
+        except ValueError:
+            self._shell_error(400, "bad terminal size")
+            return
+        with SHELL_LOCK:
+            if ACTIVE_SHELLS >= shell_limit():
+                self._shell_error(429, "too many open shells")
+                return
+            ACTIVE_SHELLS += 1
+
+        send_lock = threading.Lock()
+        pty = None
+        try:
+            self.send_response(101)
+            self.send_header("Upgrade", "websocket")
+            self.send_header("Connection", "Upgrade")
+            self.send_header("Sec-WebSocket-Accept", _ws_accept(key))
+            self.end_headers()
+
+            pty = PtyProcess.spawn(profile["argv"], cwd=str(shell_cwd()), dimensions=(rows, cols))
+            stop = threading.Event()
+
+            def pump_output() -> None:
+                while not stop.is_set():
+                    try:
+                        chunk = pty.read(1024)
+                    except Exception:
+                        break
+                    if chunk:
+                        try:
+                            _ws_send(self.connection, chunk, send_lock)
+                        except OSError:
+                            break
+                stop.set()
+
+            threading.Thread(target=pump_output, daemon=True).start()
+            while not stop.is_set():
+                opcode, payload = _ws_recv(self.connection)
+                if opcode == 0x8:
+                    break
+                if opcode == 0x9:
+                    continue
+                if opcode != 0x1:
+                    continue
+                try:
+                    message = json.loads(payload.decode("utf-8"))
+                except (UnicodeDecodeError, json.JSONDecodeError):
+                    continue
+                if message.get("type") == "input":
+                    pty.write(str(message.get("data", "")))
+                elif message.get("type") == "resize":
+                    pty.setwinsize(max(6, min(80, int(message.get("rows", rows)))), max(20, min(240, int(message.get("cols", cols)))))
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError, OSError):
+            pass
+        finally:
+            if pty is not None:
+                try:
+                    pty.close(force=True)
+                except TypeError:
+                    pty.close()
+                except Exception:
+                    pass
+            try:
+                _ws_close(self.connection, send_lock)
+            except OSError:
+                pass
+            with SHELL_LOCK:
+                ACTIVE_SHELLS = max(0, ACTIVE_SHELLS - 1)
 
     def do_POST(self) -> None:  # noqa: N802
         if self.path != "/ask":

@@ -34,6 +34,7 @@ export function makeLabelSprite(THREE, lines, {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }));
+  sprite.userData.worldLabel = true;
   sprite.scale.set(...scale);
   return sprite;
 }

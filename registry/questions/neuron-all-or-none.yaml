@@ -1,0 +1,16 @@
+id: neuron-all-or-none
+question: Why does a neuron fire all-or-nothing?
+short_answer: >-
+  In ordinary electrophysiology, passive cable voltage can stay subthreshold and decay, while voltage-gated membrane dynamics cross a spike threshold and enter a refractory period. The [T]-Theory demo labels that standard science as SOURCED; the added claim is only the shared source-kernel-threshold-response grammar already used at the human level.
+level: cellular-synaptic
+path: micro-to-life
+view:
+  compare: false
+  contours: false
+  lens: on
+  dimension: 8
+example: action-potential-cable-response
+mother_prompt: "Why does a neuron fire all-or-nothing? Explain passive cable decay, spike threshold, refractory memory, and why [T]-Theory treats this only as shared response grammar, not cellular consciousness."
+next: dyad-fall-into-step
+badge: derived-under-assumptions
+sources: [P5, P13, hodgkin1952quantitative, rall1962theory]

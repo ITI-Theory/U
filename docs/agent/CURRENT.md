@@ -15,6 +15,11 @@ Done on 2026-10-01 evening (all pushed; last commit 76c498e):
   Different? tours (`registry/questions/`, `q=`, flagship gravity + time
   bending), 8D hysteresis / 11D QUANT-EXP-1 demos (`dynamics.js`), and the
   differences ledger `DIFFERENCES.md` — 76c498e.
+- Field Atlas Part I theory restoration is in progress in `Part2/book/field-atlas/theory/` with original theory figures in `figures/theory/`.
+- MOTHER/H-AL terminal now has CHAT history/completion plus opt-in local SHELL (Git Bash / venv Python / Neovim when installed).
+
+Active 2026-10-02: adding era themes to the Soma Machine time axis with sourced historical maths and art-movement idea cards; coordinator commits.
+- Panel window manager / Clean Mode now lives in `apps/instrument/visuals/soma-field-operator/panels.js` (`H`, `Esc`, `ui=clean`, `labels=off`).
 
 Next, in the author's order of interest:
 1. Rebuild the A3 Atlas (`python build_atlas.py --a3`; it now has the Time
@@ -174,6 +179,9 @@ Design and decisions: `APP-ATLAS-DESIGN.md` (canonical set, brainstorm).
   human/vertebrate level with the T lens on: 4D damped poke return, 8D
   Langevin double-well hysteresis plus P10 memory, and 11D QUANT-EXP-1
   simulated tunnelling replay.
+- 2026-10-02 evening: extended the same STATE panel to DYAD (Adler/Kuramoto
+  drift/slip/lock with re-lock time) and CELLULAR-SYNAPTIC (cable decay,
+  spike threshold, refractory memory, and 11D transition grammar).
 
 ## Book Architecture
 

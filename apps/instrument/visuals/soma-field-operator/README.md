@@ -45,7 +45,15 @@ The scene exposes three normalised fields in `[0, 1]`:
 - **TIME / ERA**: selects a record from `registry/eras.yaml`, snaps the
 	log-time slider to the nearest era, opens the era card, and switches to the
 	registry level that best visualises that era. It is off by default; no
-	`#era=<id>` means the existing zoom behaviour is unchanged.
+	`#era=<id>` means the existing zoom behaviour is unchanged. Era records may
+	set `theme` to change the app surface with procedural CSS only: cosmic/current
+	neon, earth strata, Egyptian sandstone, Babylonian clay, Greek marble,
+	Islamic geometric tiling, medieval illumination, Renaissance notebook,
+	Enlightenment copperplate, modern blueprint, present neon, and original
+	20th-century art-movement treatments (Expressionism, Constructivism, Bauhaus,
+	colour field, Pop Art, and street art). Human-history theme cards include
+	sourced "MATHS OF THE ERA" KaTeX worked examples; art-movement cards use
+	"IDEA OF THE ERA" notes and generated CSS/SVG geometry only.
 - **BRECVEMA / P.N.S.**: reveals the eight mechanism channels -- BrainStem,
 	Rhythmic Entrainment, Evaluative Conditioning, Contagion, Visual Imagery,
 	Episodic Memory, Musical Expectancy, and Aesthetic Judgement -- converging
@@ -72,12 +80,45 @@ The `EXPORT FRAME` control writes a PNG from the current canvas state for a
 paper or social derivative. Keep the procedural scene as the source of truth.
 
 Deep-link hash keys include `level`, `path`, `lens`, `model`, `reader`,
-`compare`, `contours`, `styleoff`, `q`, and `era`.
+`compare`, `contours`, `styleoff`, `q`, `demo`, `era`, `ui`, and `labels`.
+
+## MOTHER / H-AL terminal
+
+The MOTHER panel has `CHAT` and `SHELL` tabs. `CHAT` keeps the MOTHER/H-AL
+persona switch and COMPARE mode, adds per-persona local prompt history
+(`Up`/`Down`), and tab-completes slash commands plus generated level, question,
+and era ids. Use `/help`, `/persona mother|hal`, `/compare on|off`, `/clear`,
+and `/shell`.
+
+The `SHELL` tab connects to the local bridge only when
+`apps/instrument/mother/mother.local.json` contains `"shell": true`. It opens
+Git Bash by default, offers the mother venv Python profile, and shows Neovim
+only when `nvim` is already installed. MOTHER answer code blocks get a
+`RUN IN SHELL` button that switches tabs and pastes the command without
+pressing Enter.
+
+## Panel window manager
+
+Every major overlay has a neon title bar: drag it to move, use the corner grip
+to resize, and dock/minimise it to the lower-left activity strip. Dock buttons
+restore panels; `RESET LAYOUT` clears saved positions from local storage.
+
+- `H`: toggle Clean Mode (hide panels, dock, DOM labels, HUD strips; world
+  labels are off by default).
+- `L`: while in Clean Mode, toggle world labels back on/off for diagnostics.
+- `Esc`: exit Clean Mode.
+- `#ui=clean`: open directly in Clean Mode for captures/presentation; implies
+  `labels=off` unless `labels=on` is explicitly present.
+- `#labels=off`: also hide the core built-in world-space label sprites.
+
+`npm run capture -- --clean` appends `ui=clean&labels=off` to captured URLs
+without changing normal capture defaults.
 
 ## Dimension dynamics demos
 
-On `level=human-vertebrate` with `T-THEORY: ON`, the 4D/8D/11D hierarchy
-buttons now change the POKE behaviour, not only the image.
+On `level=human-vertebrate`, `level=dyad`, or `level=cellular-synaptic` with
+`T-THEORY: ON`, the 4D/8D/11D hierarchy buttons now change the POKE behaviour,
+not only the image.
 
 - 4D: POKE drives a damped baseline response that rings down to rest.
 - 8D: POKE integrates the low-dimensional Langevin double well
@@ -89,6 +130,18 @@ buttons now change the POKE behaviour, not only the image.
   classical cold `0/48` reach vs quantum anneal peak Awe-dominant probability
   about `0.408`. The panel is labelled `simulated` and carries the
   `THEORY-STATUS.md` caveat.
+- DYAD: the STATE panel uses the two-oscillator Adler/Kuramoto form
+  `phi_dot = Delta_omega - 2 kappa sin(phi)`. 4D has `kappa=0` drift, 8D is
+  below `kappa_min=Delta_omega/2` and counts phase slips, and 11D exceeds the
+  threshold so a poke knocks the pair out and the display reports re-lock time.
+- CELLULAR-SYNAPTIC: the STATE panel uses a passive cable/leaky membrane
+  baseline plus leaky integrate-and-fire spike threshold. 4D decays
+  subthreshold, 8D spikes then suppresses an identical second poke during the
+  refractory period, and 11D draws the spike as a next-level transition.
+
+Dyad and cellular thresholds are standard sourced science; the [T]-Theory note
+is only that they share the same source-kernel-threshold-response grammar as
+the human-level demo.
 
 ## Data architecture freeze
 

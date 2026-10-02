@@ -5,6 +5,7 @@
 //
 //   npm run capture                       # full matrix
 //   npm run capture -- --only plates      # plates | console | questions
+//   npm run capture -- --clean            # add ui=clean&labels=off to every URL
 //   npm run capture -- --levels quantum-foam,human-vertebrate --settle 3000
 //   npm run capture -- --out <dir> --width 1920 --height 1080 --scale 2
 
@@ -29,9 +30,14 @@ function parseArgs(argv) {
     height: 1080,
     scale: 1,
     reader: 'general',
+    clean: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i].replace(/^--/, '');
+    if (key === 'clean') {
+      args.clean = true;
+      continue;
+    }
     const value = argv[i + 1];
     if (!(key in args)) throw new Error(`Unknown option --${key}`);
     i += 1;
@@ -45,6 +51,14 @@ function parseArgs(argv) {
 
 const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');
 const escapeHtml = text => String(text).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function captureHash(hash, clean) {
+  if (!clean) return hash;
+  const params = new URLSearchParams(hash.replace(/^#/, ''));
+  params.set('ui', 'clean');
+  params.set('labels', 'off');
+  return params.toString();
+}
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
@@ -71,12 +85,12 @@ async function main() {
 
   const manifest = { generated: new Date().toISOString(), viewport: { width: args.width, height: args.height, scale: args.scale }, settle_ms: args.settle, reader: args.reader, plates: [], console: [], questions: [], errors: pageErrors };
 
-  await page.goto(`${base}#level=quantum-foam&reader=${args.reader}`);
+  await page.goto(`${base}#${captureHash(`level=quantum-foam&reader=${args.reader}`, args.clean)}`, { waitUntil: 'domcontentloaded', timeout: 120000 });
   await page.waitForSelector('canvas');
   await page.waitForTimeout(args.settle);
 
   async function show(hash) {
-    await page.evaluate(next => { location.hash = next; }, hash);
+    await page.evaluate(next => { location.hash = next; }, captureHash(hash, args.clean));
     await page.waitForTimeout(args.settle);
   }
 

@@ -152,6 +152,7 @@ export const dyadRenderer = {
         const style = styleFlags(state);
         const t = style.motion ? time : 0;
         const lens = state.tTheory && state.level >= 8;
+        const dynamic = state.dimensionDynamics?.kind === 'dyad' ? state.dimensionDynamics : null;
         const leftColor = biologicalColor(style, collectivePalette.cyan);
         const rightColor = biologicalColor(style, collectivePalette.pink);
         const bridgeColor = fieldColor(style, collectivePalette.green);
@@ -225,9 +226,12 @@ export const dyadRenderer = {
         bridge.material.opacity = lens ? 0.62 + pulse * 0.24 : 0;
         bridgeBack.material.opacity = lens ? 0.42 + delayed * 0.24 : 0;
         for (const [index, ring] of phaseRings.entries()) {
-          const localPhase = t * 1.55 + (lens ? Math.exp(-t * 0.08) * (index ? 1.1 : 0) : index * 1.2);
+          const localPhase = dynamic
+            ? (index === 0 ? dynamic.phaseA : dynamic.phaseB)
+            : t * 1.55 + (lens ? Math.exp(-t * 0.08) * (index ? 1.1 : 0) : index * 1.2);
           ring.visible = lens;
-          ring.scale.setScalar(0.86 + 0.18 * Math.sin(localPhase) + (index ? delayed : pulse) * 0.2);
+          const lockGlow = dynamic?.mode === 11 ? Math.max(0, 1 - Math.abs(dynamic.phi ?? 0) / Math.PI) : 0;
+          ring.scale.setScalar(0.86 + 0.18 * Math.sin(localPhase) + (index ? delayed : pulse) * 0.2 + lockGlow * 0.08);
           ring.material.color.set(index === 0 ? leftColor : rightColor);
           ring.material.opacity = lens ? (style.glow ? 0.42 : 0.26) + 0.18 * Math.sin(localPhase) : 0;
           ring.rotation.z = localPhase;

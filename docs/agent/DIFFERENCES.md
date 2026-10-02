@@ -93,11 +93,14 @@ Top five "wow" demos, ranked by honesty x surprise x effort:
 4. Cellular threshold: subthreshold poke decays; slightly stronger poke spikes and enters refractory memory.
 5. Compare cosmology: 4D Planck baseline vs 11D dimensional-counting overlay for `Lambda` and `Omega_DM`, with "model-derived, not confirmation" stamped on screen.
 
-Implemented in the app on 2026-10-01: demos 1 and 2 are active only for
-`human-vertebrate` with the T lens on. `dynamics.js` adds the 4D damped
-baseline, the 8D Langevin double-well plus P10 memory-kernel readout, and the
-11D QUANT-EXP-1 replay using P2 sweep/schedule numbers, with the
-`THEORY-STATUS.md` simulated caveat on screen.
+Implemented in the app on 2026-10-01/02: demos 1-4 are active only for their
+own levels with the T lens on. `dynamics.js` adds the human 4D damped baseline,
+8D Langevin double well plus P10 memory-kernel readout, and 11D QUANT-EXP-1
+replay; DYAD now shows the standard Adler/Kuramoto phase-lock threshold
+`kappa_min = Delta omega/2`; CELLULAR-SYNAPTIC now shows standard passive cable
+decay, spike threshold, and refractory memory. The dyad/cellular panels are
+labelled SOURCED; the [T]-Theory contribution is only the shared response
+grammar across levels, not new phase-locking or membrane physics.
 
 ## 4. Where we are not different
 

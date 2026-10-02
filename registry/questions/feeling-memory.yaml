@@ -10,6 +10,6 @@ view:
   lens: on
   dimension: 8
 mother_prompt: "Does a feeling remember being poked in [T]-Theory? Distinguish a decaying pulse from basin hysteresis and the memory kernel K(tau)."
-next: hydrogen-feeling
+next: neuron-all-or-none
 badge: derived-under-assumptions
 sources: [P1, P9, P10, P13]

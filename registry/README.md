@@ -8,7 +8,7 @@ This registry is the data source for the Soma Field Operator generator. It recon
 - `paths/<path-id>/path.yaml`: a named graph over level ids.
 - `paths/<path-id>/edges/<from>--<to>.md`: front matter for preserved structure, additions/retypings, kernel, render operation, claim badge, and prose.
 - `models/<model-id>.yaml`: model-specific coordinates over level ids.
-- `eras.yaml`: ordered Big Bang-to-present time-axis records. Each era stores a machine time in seconds after the Big Bang, a display time, band, target registry level, summary, optional equation, app badge, and sources.
+- `eras.yaml`: ordered Big Bang-to-present time-axis records. Each era stores a machine time in seconds after the Big Bang, a display time, band, target registry level, summary, optional equation, optional app `theme`, app badge, and sources.
 - `lenses.yaml`: baseline/T-Theory/display/affect lens catalogue.
 - `questions/<question-id>.yaml`: curated "What's Different?" tours with a visitor question, short answer, view settings, optional worked example, MOTHER prompt, next question, evidence label, and sources.
 
@@ -48,3 +48,5 @@ Question records drive the app question drawer, deep links (`#q=<id>`), and the 
 ## Time axis
 
 `eras.yaml` drives the app `#era=<id>` deep links and the Field Atlas Time Axis section. Cosmic, geological, palaeontology, human, and philosophy bands use ordinary sourced science first; Appendix C philosophy rows remain `INTERPRETIVE` unless they cite a sourced scientific or formal tool directly.
+
+The optional `theme` field is validated by the operator generator. Allowed values are `cosmic`, `earth`, `egypt`, `babylon`, `greece`, `islamic-golden-age`, `medieval`, `renaissance`, `enlightenment`, `modern`, `present`, `expressionism`, `constructivism`, `bauhaus`, `color-field`, `pop-art`, and `street-art`. Themes are visual styling hints only; historical mathematics and art-history facts still need sourced records in `paper/bibliography.bib`.

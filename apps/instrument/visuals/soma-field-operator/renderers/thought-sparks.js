@@ -68,6 +68,7 @@ export const thoughtSparksRenderer = {
       return { sprite, bornAt: -Infinity, mode: 0, amplitude: 0 };
     });
     const badge = new THREE.Sprite(new THREE.SpriteMaterial({ map: badgeTexture, transparent: true, opacity: 0.92, depthWrite: false }));
+    badge.userData.worldLabel = true;
     badge.position.set(0, -2.45, 0.2);
     badge.scale.set(3.8, 0.88, 1);
     group.add(badge);

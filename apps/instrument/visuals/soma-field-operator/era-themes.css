@@ -1,0 +1,742 @@
+:root {
+  --era-accent: var(--cyan);
+  --era-accent-2: var(--pink);
+  --era-panel: rgba(5, 7, 14, .72);
+  --era-panel-strong: rgba(5, 7, 14, .94);
+  --era-text: var(--text);
+  --era-muted: #d7e8f6;
+  --era-border: rgba(20, 229, 255, .55);
+  --era-shadow: rgba(20, 229, 255, .16);
+}
+
+html[data-era-theme] body,
+html[data-era-theme] main,
+html[data-era-theme] .field-readout,
+html[data-era-theme] .time-axis,
+html[data-era-theme] .cheat-sheet,
+html[data-era-theme] .library-panel,
+html[data-era-theme] .operator-manual,
+html[data-era-theme] .atlas-coverage,
+html[data-era-theme] select,
+html[data-era-theme] button {
+  transition: background-color .55s ease, background-image .55s ease, border-color .55s ease, box-shadow .55s ease, color .55s ease, text-shadow .55s ease;
+}
+
+html[data-era-theme] body::before {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  opacity: .36;
+  background-image: var(--era-surface, none);
+  background-size: var(--era-surface-size, auto);
+  mix-blend-mode: screen;
+}
+
+html[data-era-theme] .field-readout {
+  color: var(--era-text);
+  border-color: var(--era-border);
+  background-color: var(--era-panel);
+  background-image: var(--era-panel-texture, none);
+  box-shadow: 0 0 34px var(--era-shadow), inset 0 0 0 1px rgba(255, 255, 255, .045);
+}
+
+html[data-era-theme] .field-readout::before {
+  display: block;
+  margin: -4px 0 10px;
+  color: var(--era-accent);
+  content: attr(data-era-ornament);
+  font: 700 8px/1.2 'Space Mono', monospace;
+  letter-spacing: .04em;
+  white-space: pre-wrap;
+}
+
+html[data-era-theme] h1,
+html[data-era-theme] .time-axis__label,
+html[data-era-theme] .cheat-sheet h2,
+html[data-era-theme] .library-panel h2,
+html[data-era-theme] .era-math h3 {
+  color: var(--era-text);
+  text-shadow: var(--era-title-shadow, none);
+}
+
+html[data-era-theme] .eyebrow,
+html[data-era-theme] .scale-readout,
+html[data-era-theme] .time-axis__title,
+html[data-era-theme] .time-axis__meta,
+html[data-era-theme] .time-axis__hover,
+html[data-era-theme] .cheat-ledger-key,
+html[data-era-theme] .cheat-ledger-section a,
+html[data-era-theme] .library-list a {
+  color: var(--era-accent);
+}
+
+html[data-era-theme] .time-axis,
+html[data-era-theme] .operator-manual,
+html[data-era-theme] .cheat-sheet,
+html[data-era-theme] .library-panel,
+html[data-era-theme] .atlas-coverage,
+html[data-era-theme] .appraisal-panel,
+html[data-era-theme] .body-map-panel {
+  border-color: color-mix(in srgb, var(--era-accent) 54%, transparent);
+  background-color: color-mix(in srgb, var(--era-panel-strong) 88%, transparent);
+  background-image: var(--era-panel-texture, none);
+}
+
+html[data-era-theme] select,
+html[data-era-theme] .hierarchy-button,
+html[data-era-theme] .view-mode button,
+html[data-era-theme] .scale-stepper button,
+html[data-era-theme] .transport-button,
+html[data-era-theme] .mode-button,
+html[data-era-theme] .mechanism-grid button {
+  color: var(--era-muted);
+  border-color: color-mix(in srgb, var(--era-accent) 45%, transparent);
+  background-color: color-mix(in srgb, var(--era-panel-strong) 82%, transparent);
+}
+
+html[data-era-theme] button,
+html[data-era-theme] .hierarchy-button.active,
+html[data-era-theme] .view-mode button.active,
+html[data-era-theme] .mode-button.active {
+  color: var(--ink);
+  background: var(--era-accent);
+}
+
+html[data-era-theme] .time-axis__play.active,
+html[data-era-theme] .poke-button,
+html[data-era-theme] .mechanism-grid button.active {
+  color: var(--ink);
+  background: var(--era-accent-2);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--era-accent-2) 40%, transparent);
+}
+
+.era-math {
+  margin-top: 10px;
+  padding: 9px;
+  border: 1px solid color-mix(in srgb, var(--era-accent) 48%, transparent);
+  background: color-mix(in srgb, var(--era-panel-strong) 82%, transparent);
+}
+
+.era-math__kicker,
+.era-math__note {
+  margin: 0;
+  color: var(--era-accent);
+  font: 700 7px/1.35 'Space Mono', monospace;
+}
+
+.era-math h3 {
+  margin: 4px 0 5px;
+  font: 800 12px/1.1 'Syne', sans-serif;
+}
+
+.era-math__body,
+.era-math__equation {
+  margin: 0;
+  color: var(--era-muted);
+  font: 7px/1.45 'Space Mono', monospace;
+}
+
+.era-math__equations {
+  display: grid;
+  gap: 4px;
+  margin: 7px 0;
+  padding: 7px;
+  overflow-x: auto;
+  border-left: 2px solid var(--era-accent);
+  background: rgba(0, 0, 0, .16);
+}
+
+html[data-era-theme="earth"] {
+  --ink: #080907;
+  --cyan: #8fc6b2;
+  --pink: #c78048;
+  --gold: #f0c56c;
+  --era-accent: #d99655;
+  --era-accent-2: #6db092;
+  --era-panel: rgba(18, 16, 12, .82);
+  --era-panel-strong: #18140f;
+  --era-border: rgba(217, 150, 85, .62);
+  --era-shadow: rgba(217, 150, 85, .18);
+  --era-surface: repeating-linear-gradient(0deg, rgba(194, 116, 52, .28) 0 8px, rgba(72, 70, 63, .22) 8px 17px, rgba(18, 16, 12, .2) 17px 30px), radial-gradient(circle at 70% 10%, rgba(143, 198, 178, .18), transparent 34%);
+  --era-panel-texture: repeating-linear-gradient(0deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 9px);
+  --era-title-shadow: 0 1px 0 #000;
+}
+
+html[data-era-theme="egypt"] {
+  --ink: #201207;
+  --cyan: #1b6f9f;
+  --violet: #214b8d;
+  --pink: #b65020;
+  --gold: #d9a441;
+  --text: #fff1c5;
+  --era-accent: #d9a441;
+  --era-accent-2: #1c63a0;
+  --era-panel: rgba(80, 49, 20, .86);
+  --era-panel-strong: #6c451f;
+  --era-muted: #ffe7b5;
+  --era-border: rgba(217, 164, 65, .74);
+  --era-shadow: rgba(217, 164, 65, .22);
+  --era-surface: radial-gradient(circle at 18% 18%, rgba(28, 99, 160, .23), transparent 21%), repeating-linear-gradient(11deg, rgba(255, 215, 128, .11) 0 3px, transparent 3px 13px), linear-gradient(180deg, rgba(72, 43, 16, .72), rgba(25, 14, 6, .88));
+  --era-panel-texture: linear-gradient(135deg, rgba(255, 238, 184, .11), rgba(90, 47, 16, .16)), repeating-linear-gradient(90deg, rgba(255, 255, 255, .045) 0 1px, transparent 1px 18px);
+  --era-title-shadow: 0 2px 0 rgba(76, 40, 14, .9);
+}
+
+html[data-era-theme="egypt"] .field-readout::before { content: 'LOTUS  •  ROSETTA  •  SEKED  •  UNIT FRACTIONS'; }
+html[data-era-theme="egypt"] .field-readout { border-width: 2px; box-shadow: 0 0 0 4px rgba(28, 99, 160, .16), 0 0 34px var(--era-shadow), inset 0 0 0 7px rgba(255, 226, 141, .06); }
+html[data-era-theme="egypt"] .time-axis__card { border-top-color: rgba(217, 164, 65, .45); }
+
+html[data-era-theme="babylon"] {
+  --ink: #21130d;
+  --cyan: #4c8f92;
+  --pink: #b66a3a;
+  --gold: #d8a162;
+  --text: #ffe6c8;
+  --era-accent: #c77f45;
+  --era-accent-2: #68a3a0;
+  --era-link: #ffd7a6;
+  --era-panel: rgba(75, 42, 26, .86);
+  --era-panel-strong: #5c3726;
+  --era-muted: #f3cfad;
+  --era-border: rgba(199, 127, 69, .7);
+  --era-shadow: rgba(199, 127, 69, .2);
+  --era-surface: repeating-linear-gradient(100deg, rgba(255, 201, 137, .11) 0 5px, transparent 5px 19px), radial-gradient(circle at 35% 22%, rgba(104, 163, 160, .2), transparent 24%);
+  --era-panel-texture: repeating-linear-gradient(135deg, rgba(255, 222, 178, .09) 0 1px, transparent 1px 10px), linear-gradient(180deg, rgba(112, 67, 43, .65), rgba(65, 37, 25, .75));
+}
+
+html[data-era-theme="babylon"] .field-readout::before { content: 'WEDGE MOTIFS  ▾ ▸ ◂ ▴  SEXAGESIMAL TABLET'; }
+html[data-era-theme="babylon"] .time-axis__card::before { display: block; margin-bottom: 6px; color: var(--era-accent); content: '▾ ▸ ▾ ▸ ▴ ◂ ▾ ▸'; letter-spacing: .25em; }
+
+html[data-era-theme="greece"] {
+  --ink: #111722;
+  --cyan: #4b83bf;
+  --pink: #b36b73;
+  --gold: #d4b16a;
+  --text: #f8fbff;
+  --era-accent: #86b6e3;
+  --era-accent-2: #d4b16a;
+  --era-panel: rgba(30, 37, 48, .78);
+  --era-panel-strong: #232b37;
+  --era-muted: #dde8f5;
+  --era-border: rgba(134, 182, 227, .64);
+  --era-shadow: rgba(134, 182, 227, .18);
+  --era-surface: radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .18), transparent 28%), repeating-linear-gradient(120deg, rgba(255, 255, 255, .06) 0 2px, transparent 2px 16px);
+  --era-panel-texture: linear-gradient(105deg, rgba(255, 255, 255, .10), transparent 30%, rgba(255, 255, 255, .06) 65%, transparent), repeating-linear-gradient(0deg, rgba(134, 182, 227, .08) 0 1px, transparent 1px 22px);
+}
+
+html[data-era-theme="greece"] .field-readout::before { content: 'COMPASS  ○  STRAIGHTEDGE  △  PROOF'; }
+
+html[data-era-theme="islamic-golden-age"] {
+  --ink: #071510;
+  --cyan: #42c8bd;
+  --pink: #c9972f;
+  --gold: #f1c760;
+  --text: #effff9;
+  --era-accent: #42c8bd;
+  --era-accent-2: #f1c760;
+  --era-panel: rgba(9, 37, 32, .84);
+  --era-panel-strong: #0d332d;
+  --era-muted: #d7fff4;
+  --era-border: rgba(66, 200, 189, .68);
+  --era-shadow: rgba(66, 200, 189, .2);
+  --era-surface: conic-gradient(from 45deg at 50% 50%, rgba(66, 200, 189, .14) 0 25%, transparent 0 50%, rgba(241, 199, 96, .12) 0 75%, transparent 0);
+  --era-surface-size: 82px 82px;
+  --era-panel-texture: linear-gradient(45deg, rgba(241, 199, 96, .07) 25%, transparent 25% 75%, rgba(66, 200, 189, .07) 75%), linear-gradient(-45deg, rgba(241, 199, 96, .07) 25%, transparent 25% 75%, rgba(66, 200, 189, .07) 75%);
+}
+
+html[data-era-theme="islamic-golden-age"] .field-readout::before { content: 'GEOMETRIC TILE  ◆  ALGEBRA  ◆  HOUSE OF WISDOM'; }
+
+html[data-era-theme="medieval"] {
+  --ink: #1e120d;
+  --cyan: #2d6f86;
+  --pink: #a3262d;
+  --gold: #cf9f39;
+  --text: #fff5d8;
+  --era-accent: #cf9f39;
+  --era-accent-2: #a3262d;
+  --era-link: #ffe08a;
+  --era-panel: rgba(69, 42, 24, .86);
+  --era-panel-strong: #60401f;
+  --era-muted: #f4dfb7;
+  --era-border: rgba(207, 159, 57, .7);
+  --era-shadow: rgba(207, 159, 57, .22);
+  --era-surface: radial-gradient(circle at 15% 15%, rgba(163, 38, 45, .18), transparent 22%), repeating-linear-gradient(90deg, rgba(255, 236, 180, .10) 0 1px, transparent 1px 18px);
+  --era-panel-texture: linear-gradient(90deg, rgba(163, 38, 45, .18) 0 7px, transparent 7px), repeating-linear-gradient(0deg, rgba(255, 245, 216, .04) 0 1px, transparent 1px 12px);
+}
+
+html[data-era-theme="medieval"] .field-readout::before { content: 'ILLUMINATED MARGIN  ✦  RECURRENCE  ✦  ABACUS'; }
+
+html[data-era-theme="renaissance"] {
+  --ink: #19100b;
+  --cyan: #47788a;
+  --pink: #8f3d2c;
+  --gold: #c08a43;
+  --text: #fae7c8;
+  --era-accent: #b87832;
+  --era-accent-2: #47788a;
+  --era-panel: rgba(53, 34, 20, .84);
+  --era-panel-strong: #4b311f;
+  --era-muted: #ead2ad;
+  --era-border: rgba(184, 120, 50, .68);
+  --era-shadow: rgba(184, 120, 50, .2);
+  --era-surface: linear-gradient(110deg, rgba(192, 138, 67, .11), transparent 45%), repeating-linear-gradient(0deg, rgba(255, 245, 220, .05) 0 1px, transparent 1px 26px), repeating-linear-gradient(90deg, rgba(255, 245, 220, .04) 0 1px, transparent 1px 26px);
+  --era-panel-texture: repeating-linear-gradient(8deg, rgba(255, 245, 220, .05) 0 1px, transparent 1px 8px);
+}
+
+html[data-era-theme="renaissance"] .field-readout::before { content: 'SEPIA NOTEBOOK  /  PERSPECTIVE GRID  /  WORKSHOP'; }
+
+html[data-era-theme="enlightenment"] {
+  --ink: #100d0a;
+  --cyan: #75b8c7;
+  --pink: #b56b3a;
+  --gold: #d8a44b;
+  --text: #fff0d0;
+  --era-accent: #d18443;
+  --era-accent-2: #75b8c7;
+  --era-panel: rgba(42, 29, 18, .86);
+  --era-panel-strong: #392616;
+  --era-muted: #f0d9b7;
+  --era-border: rgba(209, 132, 67, .66);
+  --era-shadow: rgba(209, 132, 67, .18);
+  --era-surface: radial-gradient(circle at 70% 18%, rgba(117, 184, 199, .15), transparent 28%), repeating-linear-gradient(105deg, rgba(209, 132, 67, .11) 0 2px, transparent 2px 18px);
+  --era-panel-texture: repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 14px);
+}
+
+html[data-era-theme="enlightenment"] .field-readout::before { content: 'COPPERPLATE  ∫  INSTRUMENT  ∫  INVERSE SQUARE'; }
+
+html[data-era-theme="modern"] {
+  --ink: #07101a;
+  --cyan: #59c7ff;
+  --pink: #d5d5cf;
+  --gold: #ffcf6a;
+  --text: #e8f4ff;
+  --era-accent: #59c7ff;
+  --era-accent-2: #ffcf6a;
+  --era-panel: rgba(4, 18, 33, .86);
+  --era-panel-strong: #06192d;
+  --era-muted: #cfe7ff;
+  --era-border: rgba(89, 199, 255, .64);
+  --era-shadow: rgba(89, 199, 255, .2);
+  --era-surface: linear-gradient(rgba(89, 199, 255, .10) 1px, transparent 1px), linear-gradient(90deg, rgba(89, 199, 255, .08) 1px, transparent 1px);
+  --era-surface-size: 36px 36px;
+  --era-panel-texture: repeating-linear-gradient(0deg, rgba(89, 199, 255, .07) 0 1px, transparent 1px 12px);
+}
+
+html[data-era-theme="modern"] .field-readout::before { content: 'BLUEPRINT  |  TYPEWRITER  |  FIELD EQUATIONS'; }
+
+html[data-era-theme="present"],
+html[data-era-theme="cosmic"] {
+  --era-accent: var(--cyan);
+  --era-accent-2: var(--pink);
+  --era-panel: rgba(5, 7, 14, .72);
+  --era-panel-strong: #05070e;
+  --era-muted: #d7e8f6;
+  --era-border: rgba(20, 229, 255, .55);
+  --era-shadow: rgba(20, 229, 255, .16);
+  --era-surface: radial-gradient(circle at 18% 12%, rgba(255, 59, 206, .20), transparent 24%), radial-gradient(circle at 80% 18%, rgba(20, 229, 255, .18), transparent 28%);
+  --era-panel-texture: linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px), linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px);
+  --era-surface-size: auto;
+}
+
+html[data-era-theme="present"] .field-readout::before { content: 'LIVE SOMA MACHINE  /  RESPONSE GRAMMAR  /  CLAIM LEDGER'; }
+html[data-era-theme="cosmic"] .field-readout::before { content: 'DEEP TIME  /  CURRENT NEON  /  EXTRAPOLATION BOUNDARY'; }
+
+html[data-era-theme] {
+  --era-link: var(--era-accent);
+  --era-button-text: var(--ink);
+  --era-titlebar-text: var(--era-text);
+  --era-photocopy-opacity: .045;
+  --era-photocopy-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 .38'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3Ccircle cx='28' cy='44' r='1.1' fill='black' opacity='.38'/%3E%3Ccircle cx='117' cy='21' r='.8' fill='black' opacity='.32'/%3E%3Ccircle cx='86' cy='126' r='1.4' fill='black' opacity='.26'/%3E%3C/svg%3E");
+}
+
+html[data-era-theme] body::after {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  opacity: var(--era-photocopy-opacity);
+  background-image: var(--era-photocopy-grain), radial-gradient(circle, rgba(0, 0, 0, .32) 0 1px, transparent 1.4px);
+  background-size: 160px 160px, 9px 9px;
+  mix-blend-mode: soft-light;
+}
+
+html[data-era-theme] .wm-panel,
+html[data-era-theme] .equation-wall,
+html[data-era-theme] .question-card,
+html[data-era-theme] .gravity-question-readout,
+html[data-era-theme] .compare-card,
+html[data-era-theme] .compare-cards.wm-panel,
+html[data-era-theme] .dimension-dynamics-panel,
+html[data-era-theme] .mother-terminal,
+html[data-era-theme] .settings-panel,
+html[data-era-theme] .thought-sparks-panel,
+html[data-era-theme] .math-readout,
+html[data-era-theme] .lens-layers,
+html[data-era-theme] .style-layers,
+html[data-era-theme] .zoom-equation,
+html[data-era-theme] .questions-panel {
+  color: var(--era-text) !important;
+  border-color: var(--era-border) !important;
+  background-color: var(--era-panel) !important;
+  background-image: var(--era-panel-texture, none) !important;
+  box-shadow: 0 0 34px var(--era-shadow), inset 0 0 0 1px rgba(255, 255, 255, .045) !important;
+}
+
+html[data-era-theme] .wm-panel > .wm-titlebar,
+html[data-era-theme] .mother-terminal.wm-panel > .wm-titlebar,
+html[data-era-theme] .mother-terminal header,
+html[data-era-theme] .mother-form,
+html[data-era-theme] .mother-shell-toolbar,
+html[data-era-theme] .wm-dock__button,
+html[data-era-theme] .wm-dock__reset,
+html[data-era-theme] .wm-clean-hint {
+  color: var(--era-titlebar-text) !important;
+  border-color: var(--era-border) !important;
+  background: var(--era-titlebar-bg, linear-gradient(90deg, color-mix(in srgb, var(--era-accent) 24%, transparent), color-mix(in srgb, var(--era-accent-2) 16%, transparent))) !important;
+  text-shadow: var(--era-title-shadow, none) !important;
+}
+
+html[data-era-theme] .wm-titlebar__button,
+html[data-era-theme] .mother-terminal header button,
+html[data-era-theme] .mother-shell-toolbar button,
+html[data-era-theme] .question-card__actions button,
+html[data-era-theme] .time-axis__clear {
+  color: var(--era-link) !important;
+  border-color: var(--era-border) !important;
+  background: color-mix(in srgb, var(--era-panel-strong) 78%, transparent) !important;
+}
+
+html[data-era-theme] .wm-titlebar__button:hover,
+html[data-era-theme] .wm-titlebar__button:focus-visible,
+html[data-era-theme] .wm-dock__button:hover,
+html[data-era-theme] .wm-dock__button:focus-visible,
+html[data-era-theme] .wm-dock__reset:hover,
+html[data-era-theme] .wm-dock__reset:focus-visible {
+  color: var(--era-button-text) !important;
+  background: var(--era-accent) !important;
+}
+
+html[data-era-theme] .operator-manual summary,
+html[data-era-theme] .cheat-sheet summary,
+html[data-era-theme] .atlas-coverage summary,
+html[data-era-theme] .settings-panel summary,
+html[data-era-theme] .thought-sparks-panel summary,
+html[data-era-theme] .style-layers legend,
+html[data-era-theme] .lens-layers legend,
+html[data-era-theme] .equation-kicker,
+html[data-era-theme] .question-card__badge,
+html[data-era-theme] .question-card__actions button,
+html[data-era-theme] .compare-card__kicker,
+html[data-era-theme] .physics-ledger dt,
+html[data-era-theme] .type-status,
+html[data-era-theme] .mother-section,
+html[data-era-theme] .mother-sources,
+html[data-era-theme] .mother-cite,
+html[data-era-theme] .gravity-question-readout__kicker,
+html[data-era-theme] a {
+  color: var(--era-link) !important;
+}
+
+html[data-era-theme] .equation-block,
+html[data-era-theme] .equation-notes,
+html[data-era-theme] .physics-ledger dd,
+html[data-era-theme] .question-card p,
+html[data-era-theme] .question-card h2,
+html[data-era-theme] .compare-card,
+html[data-era-theme] .mother-answer,
+html[data-era-theme] .mother-question,
+html[data-era-theme] .mother-input,
+html[data-era-theme] .mother-shell-toolbar label,
+html[data-era-theme] .gravity-question-readout dd,
+html[data-era-theme] .style-layers label,
+html[data-era-theme] .field-note {
+  color: var(--era-muted) !important;
+}
+
+html[data-era-theme] .equation-block.primary,
+html[data-era-theme] .compare-card__equation,
+html[data-era-theme] .mother-answer strong,
+html[data-era-theme] .mother-answer .katex,
+html[data-era-theme] .mother-code-block code {
+  color: var(--era-text) !important;
+  border-color: var(--era-link) !important;
+}
+
+html[data-era-theme] button,
+html[data-era-theme] .hierarchy-button.active,
+html[data-era-theme] .view-mode button.active,
+html[data-era-theme] .mode-button.active,
+html[data-era-theme] .question-list-item.active {
+  color: var(--era-button-text) !important;
+  background: var(--era-accent) !important;
+}
+
+html[data-era-theme] .questions-open {
+  color: var(--era-button-text) !important;
+  border-color: var(--era-accent-2) !important;
+  background: linear-gradient(90deg, var(--era-accent), var(--era-accent-2)) !important;
+}
+
+html[data-era-theme="egypt"] {
+  --cyan: #9bdcff;
+  --pink: #ffd0b2;
+  --era-accent: #f3c45d;
+  --era-accent-2: #92d8ff;
+  --era-link: #a8e1ff;
+  --era-button-text: #201207;
+  --era-panel: rgba(55, 34, 14, .92);
+  --era-panel-strong: #2b1a0b;
+  --era-muted: #ffeac2;
+  --era-border: rgba(243, 196, 93, .82);
+  --era-titlebar-bg: linear-gradient(90deg, rgba(32, 18, 7, .92), rgba(104, 67, 26, .9));
+}
+
+html[data-era-theme="greece"] {
+  --ink: #0b1119;
+  --cyan: #d9ecff;
+  --pink: #9b2f4f;
+  --gold: #a97922;
+  --text: #102033;
+  --era-accent: #1e5e9b;
+  --era-accent-2: #a97922;
+  --era-link: #0f5c9a;
+  --era-button-text: #f8fbff;
+  --era-titlebar-text: #f8fbff;
+  --era-panel: rgba(238, 241, 235, .93);
+  --era-panel-strong: #eef1eb;
+  --era-muted: #17283a;
+  --era-border: rgba(30, 94, 155, .72);
+  --era-shadow: rgba(30, 94, 155, .18);
+  --era-surface: radial-gradient(circle at 25% 15%, rgba(255, 255, 255, .38), transparent 22%), repeating-linear-gradient(128deg, rgba(255, 255, 255, .22) 0 3px, transparent 3px 19px), repeating-linear-gradient(38deg, rgba(30, 94, 155, .08) 0 1px, transparent 1px 46px);
+  --era-panel-texture: linear-gradient(105deg, rgba(255, 255, 255, .42), transparent 28%, rgba(30, 94, 155, .08) 62%, transparent), repeating-linear-gradient(0deg, rgba(30, 94, 155, .10) 0 1px, transparent 1px 22px);
+  --era-titlebar-bg: linear-gradient(90deg, #123d66, #f0f3ed 55%, #a97922);
+}
+
+html[data-era-theme="greece"] .field-readout,
+html[data-era-theme="greece"] .wm-panel,
+html[data-era-theme="greece"] .equation-wall,
+html[data-era-theme="greece"] .question-card {
+  border-width: 2px;
+}
+
+html[data-era-theme="greece"] h1,
+html[data-era-theme="greece"] .time-axis__label,
+html[data-era-theme="greece"] .equation-wall h2,
+html[data-era-theme="greece"] .question-card h2 {
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+
+html[data-era-theme="renaissance"] {
+  --ink: #120b07;
+  --cyan: #133f4a;
+  --pink: #7b2c22;
+  --gold: #9a671f;
+  --text: #2a180f;
+  --era-accent: #6d341f;
+  --era-accent-2: #0d4b5a;
+  --era-link: #0d4b5a;
+  --era-button-text: #fff0d0;
+  --era-titlebar-text: #fff0d0;
+  --era-panel: rgba(241, 214, 166, .92);
+  --era-panel-strong: #f0d3a3;
+  --era-muted: #2f1e14;
+  --era-border: rgba(109, 52, 31, .74);
+  --era-shadow: rgba(109, 52, 31, .2);
+  --era-surface: linear-gradient(110deg, rgba(192, 138, 67, .18), transparent 45%), repeating-linear-gradient(0deg, rgba(88, 50, 24, .12) 0 1px, transparent 1px 28px), repeating-linear-gradient(90deg, rgba(88, 50, 24, .10) 0 1px, transparent 1px 28px);
+  --era-panel-texture: repeating-linear-gradient(8deg, rgba(88, 50, 24, .08) 0 1px, transparent 1px 8px), radial-gradient(circle at 85% 12%, rgba(13, 75, 90, .10), transparent 30%);
+  --era-titlebar-bg: linear-gradient(90deg, #502817, #8b5830);
+}
+
+html[data-era-theme="renaissance"] h1,
+html[data-era-theme="renaissance"] .time-axis__label,
+html[data-era-theme="renaissance"] .equation-wall h2,
+html[data-era-theme="renaissance"] .question-card h2 {
+  font-style: italic;
+}
+
+html[data-era-theme="modern"] {
+  --ink: #020712;
+  --cyan: #d6f1ff;
+  --pink: #ffcf6a;
+  --gold: #ffcf6a;
+  --text: #e8f4ff;
+  --era-accent: #00a7ff;
+  --era-accent-2: #ffcf6a;
+  --era-link: #8ee0ff;
+  --era-button-text: #020712;
+  --era-panel: rgba(2, 17, 35, .93);
+  --era-panel-strong: #06192d;
+  --era-muted: #d8ecff;
+  --era-border: rgba(0, 167, 255, .82);
+  --era-titlebar-bg: linear-gradient(90deg, rgba(0, 167, 255, .25), rgba(2, 17, 35, .95));
+  --era-panel-texture: linear-gradient(rgba(0, 167, 255, .16) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 167, 255, .14) 1px, transparent 1px), repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 12px);
+  --era-surface: linear-gradient(rgba(0, 167, 255, .11) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 167, 255, .09) 1px, transparent 1px);
+}
+
+html[data-era-theme="modern"] h1,
+html[data-era-theme="modern"] .time-axis__label,
+html[data-era-theme="modern"] .equation-wall h2 {
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+html[data-era-theme="expressionism"] {
+  --ink: #16070a;
+  --cyan: #ffe066;
+  --pink: #ff4b38;
+  --gold: #ffcf33;
+  --text: #fff5d0;
+  --era-accent: #ffcf33;
+  --era-accent-2: #e5372f;
+  --era-link: #ffe066;
+  --era-button-text: #16070a;
+  --era-panel: rgba(42, 10, 20, .93);
+  --era-panel-strong: #250916;
+  --era-muted: #ffe7c2;
+  --era-border: rgba(255, 207, 51, .82);
+  --era-shadow: rgba(229, 55, 47, .28);
+  --era-photocopy-opacity: .13;
+  --era-surface: radial-gradient(circle at 22% 20%, rgba(255, 207, 51, .34), transparent 18%), linear-gradient(128deg, rgba(229, 55, 47, .32) 0 18%, transparent 18% 62%, rgba(30, 80, 150, .28) 62% 78%, transparent 78%), repeating-linear-gradient(18deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 16px);
+  --era-panel-texture: linear-gradient(120deg, rgba(229, 55, 47, .22), transparent 48%), radial-gradient(circle at 88% 15%, rgba(255, 207, 51, .16), transparent 32%);
+  --era-titlebar-bg: linear-gradient(90deg, #e5372f, #1d4f96 58%, #ffcf33);
+}
+
+html[data-era-theme="constructivism"] {
+  --ink: #090908;
+  --cyan: #f8f1df;
+  --pink: #e02020;
+  --gold: #f0c23a;
+  --text: #fff7df;
+  --era-accent: #e02020;
+  --era-accent-2: #f8f1df;
+  --era-link: #fff7df;
+  --era-button-text: #ffffff;
+  --era-panel: rgba(20, 18, 16, .94);
+  --era-panel-strong: #151311;
+  --era-muted: #f8f1df;
+  --era-border: rgba(224, 32, 32, .86);
+  --era-shadow: rgba(224, 32, 32, .24);
+  --era-photocopy-opacity: .14;
+  --era-surface: linear-gradient(135deg, transparent 0 36%, rgba(224, 32, 32, .42) 36% 46%, transparent 46%), linear-gradient(24deg, transparent 0 58%, rgba(248, 241, 223, .16) 58% 62%, transparent 62%), repeating-linear-gradient(90deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 24px);
+  --era-panel-texture: linear-gradient(135deg, rgba(224, 32, 32, .26) 0 16%, transparent 16%), repeating-linear-gradient(0deg, rgba(255, 255, 255, .045) 0 1px, transparent 1px 11px);
+  --era-titlebar-bg: linear-gradient(90deg, #e02020, #151311 52%, #f8f1df);
+}
+
+html[data-era-theme="bauhaus"] {
+  --ink: #101010;
+  --cyan: #f7f3df;
+  --pink: #e3342f;
+  --gold: #f2c230;
+  --text: #111111;
+  --era-accent: #f2c230;
+  --era-accent-2: #2764b8;
+  --era-link: #174f9d;
+  --era-button-text: #101010;
+  --era-titlebar-text: #101010;
+  --era-panel: rgba(246, 240, 215, .94);
+  --era-panel-strong: #f6f0d7;
+  --era-muted: #171717;
+  --era-border: rgba(16, 16, 16, .78);
+  --era-shadow: rgba(16, 16, 16, .18);
+  --era-photocopy-opacity: .12;
+  --era-surface: radial-gradient(circle at 18% 20%, rgba(39, 100, 184, .42) 0 38px, transparent 39px), linear-gradient(45deg, transparent 0 62%, rgba(227, 52, 47, .34) 62% 72%, transparent 72%), linear-gradient(90deg, rgba(242, 194, 48, .25) 0 22%, transparent 22%);
+  --era-panel-texture: radial-gradient(circle at 90% 18%, rgba(39, 100, 184, .18) 0 26px, transparent 27px), linear-gradient(90deg, rgba(227, 52, 47, .10) 0 8px, transparent 8px), repeating-linear-gradient(0deg, rgba(16, 16, 16, .07) 0 1px, transparent 1px 18px);
+  --era-titlebar-bg: linear-gradient(90deg, #f2c230 0 35%, #e3342f 35% 58%, #2764b8 58%);
+}
+
+html[data-era-theme="color-field"] {
+  --ink: #130709;
+  --cyan: #ffd6a3;
+  --pink: #c83d2d;
+  --gold: #d88436;
+  --text: #fff1d4;
+  --era-accent: #d88436;
+  --era-accent-2: #7a1e2a;
+  --era-link: #ffd6a3;
+  --era-button-text: #130709;
+  --era-panel: rgba(44, 12, 18, .94);
+  --era-panel-strong: #2d0d13;
+  --era-muted: #ffe4c0;
+  --era-border: rgba(216, 132, 54, .78);
+  --era-shadow: rgba(122, 30, 42, .28);
+  --era-photocopy-opacity: .10;
+  --era-surface: linear-gradient(180deg, rgba(122, 30, 42, .52) 0 34%, rgba(216, 132, 54, .34) 34% 68%, rgba(34, 45, 86, .36) 68%), radial-gradient(circle at 60% 20%, rgba(255, 214, 163, .12), transparent 28%);
+  --era-panel-texture: linear-gradient(180deg, rgba(122, 30, 42, .42) 0 42%, rgba(216, 132, 54, .22) 42% 74%, rgba(34, 45, 86, .24) 74%), repeating-linear-gradient(90deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 13px);
+  --era-titlebar-bg: linear-gradient(90deg, #7a1e2a, #d88436);
+}
+
+html[data-era-theme="pop-art"] {
+  --ink: #080812;
+  --cyan: #00b7ff;
+  --pink: #ff2d73;
+  --gold: #ffe300;
+  --text: #ffffff;
+  --era-accent: #ffe300;
+  --era-accent-2: #ff2d73;
+  --era-link: #00d5ff;
+  --era-button-text: #080812;
+  --era-panel: rgba(9, 11, 27, .94);
+  --era-panel-strong: #090b1b;
+  --era-muted: #ffffff;
+  --era-border: rgba(255, 227, 0, .86);
+  --era-shadow: rgba(255, 45, 115, .26);
+  --era-photocopy-opacity: .15;
+  --era-surface: radial-gradient(circle, rgba(255, 227, 0, .28) 0 3px, transparent 3.5px), linear-gradient(135deg, rgba(0, 183, 255, .24) 0 35%, transparent 35% 65%, rgba(255, 45, 115, .26) 65%);
+  --era-surface-size: 18px 18px, auto;
+  --era-panel-texture: radial-gradient(circle, rgba(255, 227, 0, .20) 0 2px, transparent 2.4px), linear-gradient(90deg, rgba(255, 45, 115, .18), transparent 42%);
+  --era-titlebar-bg: linear-gradient(90deg, #ffe300 0 33%, #00b7ff 33% 66%, #ff2d73 66%);
+}
+
+html[data-era-theme="street-art"] {
+  --ink: #070706;
+  --cyan: #d8ff4f;
+  --pink: #ff4b2f;
+  --gold: #f0e6c8;
+  --text: #f7f1df;
+  --era-accent: #d8ff4f;
+  --era-accent-2: #ff4b2f;
+  --era-link: #d8ff4f;
+  --era-button-text: #070706;
+  --era-panel: rgba(18, 18, 15, .94);
+  --era-panel-strong: #11110f;
+  --era-muted: #f0e6c8;
+  --era-border: rgba(216, 255, 79, .76);
+  --era-shadow: rgba(255, 75, 47, .22);
+  --era-photocopy-opacity: .16;
+  --era-surface: linear-gradient(12deg, transparent 0 46%, rgba(255, 75, 47, .34) 46% 51%, transparent 51%), radial-gradient(circle at 20% 80%, rgba(216, 255, 79, .18), transparent 28%), repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 2px, transparent 2px 7px);
+  --era-panel-texture: repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 2px, transparent 2px 7px), linear-gradient(90deg, rgba(216, 255, 79, .09), transparent 60%);
+  --era-titlebar-bg: linear-gradient(90deg, #d8ff4f, #11110f 44%, #ff4b2f);
+}
+
+html[data-era-theme="expressionism"] h1,
+html[data-era-theme="constructivism"] h1,
+html[data-era-theme="bauhaus"] h1,
+html[data-era-theme="color-field"] h1,
+html[data-era-theme="pop-art"] h1,
+html[data-era-theme="street-art"] h1,
+html[data-era-theme="expressionism"] .time-axis__label,
+html[data-era-theme="constructivism"] .time-axis__label,
+html[data-era-theme="bauhaus"] .time-axis__label,
+html[data-era-theme="color-field"] .time-axis__label,
+html[data-era-theme="pop-art"] .time-axis__label,
+html[data-era-theme="street-art"] .time-axis__label {
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+html[data-era-theme="bauhaus"] .field-readout::before { content: 'POINT  /  LINE  /  PLANE  /  PRIMARY FORMS'; }
+html[data-era-theme="constructivism"] .field-readout::before { content: 'RED DIAGONAL  /  GRID  /  CONSTRUCTION'; }
+html[data-era-theme="expressionism"] .field-readout::before { content: 'COLOUR CHARGE  /  INNER NECESSITY  /  ARCHIVE COPY'; }
+html[data-era-theme="color-field"] .field-readout::before { content: 'COLOUR FIELD  /  EDGE  /  ATMOSPHERE'; }
+html[data-era-theme="pop-art"] .field-readout::before { content: 'HALFTONE  /  SERIAL IMAGE  /  MASS PRINT'; }
+html[data-era-theme="street-art"] .field-readout::before { content: 'STENCIL  /  WALL  /  PUBLIC SURFACE'; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-era-theme] body::after,
+  html[data-era-theme] body::before {
+    animation: none !important;
+  }
+}

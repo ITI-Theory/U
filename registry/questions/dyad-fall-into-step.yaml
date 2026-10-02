@@ -1,0 +1,16 @@
+id: dyad-fall-into-step
+question: When do two people fall into step?
+short_answer: >-
+  Standard synchronisation theory says two oscillators can phase-lock when coupling beats detuning, e.g. $\kappa>\Delta\omega/2$ in the two-oscillator Adler form used by the STATE panel. The [T]-Theory contribution is not new physics; it is the same bounded response grammar as the human level, applied to two still-separate bodies.
+level: dyad
+path: dyadic-care
+view:
+  compare: false
+  contours: false
+  lens: on
+  dimension: 11
+example: dyadic-phase-locking
+mother_prompt: "When do two people fall into step? Explain the Adler/Kuramoto locking threshold, phase slips below threshold, and the claim boundary that [T]-Theory adds shared response grammar, not a merged subject."
+next: hydrogen-feeling
+badge: derived-under-assumptions
+sources: [P3, P19, kuramoto1984chemical, strogatz2003sync]

@@ -397,6 +397,36 @@ eras:
   badge: SOURCED
   sources:
   - renfrew2018prehistory
+- id: old-kingdom-egypt
+  label: Old Kingdom Egypt / Great Pyramid
+  band: human
+  theme: egypt
+  time:
+    seconds_after_big_bang: 4.354947352768464e+17
+    display: c. 2560 BCE
+  level: regional-institutional
+  summary: The Great Pyramid belongs to Egypt's Old Kingdom monumental statecraft and scribal mathematics. The
+    themed view uses sandstone, carved-stone panels, lapis and gold accents, and real Egyptian arithmetic rather
+    than invented hieroglyphic text.
+  badge: SOURCED
+  sources:
+  - renfrew2018prehistory
+  - gillings1972mathematics
+  - clagett1999egyptian
+- id: old-babylonian-mathematics
+  label: Old Babylonian mathematics
+  band: human
+  theme: babylon
+  time:
+    seconds_after_big_bang: 4.354947592606224e+17
+    display: c. 1800 BCE
+  level: regional-institutional
+  summary: Old Babylonian tablet mathematics used sexagesimal place value, tables, and worked problems in algebraic
+    and geometric form. The app shows clay-tablet colour and wedge motifs only, not fake cuneiform text.
+  badge: SOURCED
+  sources:
+  - robson2008mathematics
+  - neugebauer1957exact
 - id: milesians
   label: Milesians
   band: philosophy
@@ -483,6 +513,21 @@ eras:
   badge: INTERPRETIVE
   sources:
   - russell1945history
+- id: classical-greek-mathematics
+  label: Classical Greek mathematics
+  band: philosophy
+  theme: greece
+  time:
+    seconds_after_big_bang: 4.354948065970224e+17
+    display: c. 300 BCE
+  level: society-city
+  summary: Classical Greek mathematics foregrounded proof, construction, and measured astronomy, including Euclid's
+    geometry and Eratosthenes' Earth measurement. The themed view uses marble and compass-straightedge line art
+    for that mathematical style.
+  badge: SOURCED
+  sources:
+  - heath1956euclid
+  - neugebauer1957exact
 - id: stoics
   label: Stoics
   band: philosophy
@@ -544,9 +589,25 @@ eras:
   badge: INTERPRETIVE
   sources:
   - russell1945history
+- id: islamic-golden-age-al-khwarizmi
+  label: al-Khwarizmi and algebra
+  band: philosophy
+  theme: islamic-golden-age
+  time:
+    seconds_after_big_bang: 4.354948419415344e+17
+    display: c. 820
+  level: regional-institutional
+  summary: The early Abbasid mathematical tradition transmitted, transformed, and systematised algebra, arithmetic,
+    astronomy, and geometry. The themed view uses geometric tiling and a worked completing-the-square example
+    from al-Khwarizmi.
+  badge: SOURCED
+  sources:
+  - rosen1831algebra
+  - berggren1986islam
 - id: monastic-university-memory
   label: Monastic, cathedral, and university memory
   band: philosophy
+  theme: medieval
   time:
     seconds_after_big_bang: 4.354948507776624e+17
     display: early-high medieval
@@ -555,6 +616,21 @@ eras:
     this as a social memory kernel.
   badge: INTERPRETIVE
   sources:
+  - russell1945history
+- id: fibonacci-liber-abaci
+  label: Fibonacci / Liber Abaci
+  band: philosophy
+  theme: medieval
+  time:
+    seconds_after_big_bang: 4.354948539965376e+17
+    display: '1202'
+  level: regional-institutional
+  summary: Fibonacci's Liber Abaci helped transmit Hindu-Arabic numerals and practical arithmetic into Latin Europe.
+    The themed view uses illuminated-manuscript colour and the real rabbit recurrence rather than decorative fake
+    script.
+  badge: SOURCED
+  sources:
+  - sigler2002fibonacci
   - russell1945history
 - id: aquinas
   label: Aquinas
@@ -583,6 +659,7 @@ eras:
 - id: renaissance-humanism-print
   label: Humanism and print
   band: philosophy
+  theme: renaissance
   time:
     seconds_after_big_bang: 4.354948634007024e+17
     display: 15th-16th c.
@@ -592,9 +669,11 @@ eras:
   badge: INTERPRETIVE
   sources:
   - russell1945history
+  - alberti1435painting
 - id: scientific-revolution
   label: Mathematical experiment and instrument
   band: philosophy
+  theme: enlightenment
   time:
     seconds_after_big_bang: 4.354948671876144e+17
     display: 16th-17th c.
@@ -630,6 +709,20 @@ eras:
   badge: INTERPRETIVE
   sources:
   - spinoza1677ethics
+  - russell1945history
+- id: newton-principia
+  label: Newton / Principia
+  band: philosophy
+  theme: enlightenment
+  time:
+    seconds_after_big_bang: 4.354948693019736e+17
+    display: '1687'
+  level: regional-institutional
+  summary: Newton's Principia joined mathematical laws of motion to universal gravitation. The themed view uses
+    copperplate instrument styling and the real inverse-square dynamics of the period.
+  badge: SOURCED
+  sources:
+  - newton1687principia
   - russell1945history
 - id: locke
   label: Locke
@@ -733,6 +826,7 @@ eras:
 - id: faraday-maxwell
   label: Faraday and Maxwell
   band: philosophy
+  theme: modern
   time:
     seconds_after_big_bang: 4.354948749192264e+17
     display: 19th c.
@@ -759,6 +853,7 @@ eras:
 - id: principia-mathematica
   label: Principia Mathematica
   band: philosophy
+  theme: modern
   time:
     seconds_after_big_bang: 4.354948763393184e+17
     display: 1910-1913
@@ -769,6 +864,66 @@ eras:
   sources:
   - russell1910
   - russell1908types
+- id: der-blaue-reiter-expressionism
+  label: Der Blaue Reiter / Expressionism
+  band: philosophy
+  theme: expressionism
+  time:
+    seconds_after_big_bang: 4.35494876370876e+17
+    display: '1911'
+  level: society-city
+  summary: Der Blaue Reiter formed in Munich in 1911 within a wider Expressionist moment that privileged charged
+    colour, simplified form, and inner necessity over optical description. The app treats this as an art-historical
+    idea of response and abstraction, not as evidence for Soma-field physics.
+  badge: SOURCED
+  sources:
+  - kandinsky1912spiritual
+  - whitford1984kandinsky
+- id: russian-avant-garde-suprematism-constructivism
+  label: Russian avant-garde / Suprematism and Constructivism
+  band: philosophy
+  theme: constructivism
+  time:
+    seconds_after_big_bang: 4.354948764971064e+17
+    display: 1915-1932
+  level: regional-institutional
+  summary: Suprematism and Constructivism used pure geometric form, diagonals, construction, and production as
+    artistic and social languages in the Russian and Soviet avant-garde. The interface uses original red-black
+    geometric grammar rather than reproducing posters or paintings.
+  badge: SOURCED
+  sources:
+  - greatutopia1992
+  - bowlt1988russian
+- id: einstein-general-relativity
+  label: Einstein field equations
+  band: philosophy
+  theme: modern
+  time:
+    seconds_after_big_bang: 4.354948764971064e+17
+    display: '1915'
+  level: regional-institutional
+  summary: Einstein's 1915 field equations made gravitation a tensor relation between curvature and stress-energy.
+    The app shows the historical equation as modern mathematics, separate from any Soma-field interpretation.
+  badge: SOURCED
+  sources:
+  - einstein1915field
+  - russell1945history
+- id: bauhaus-point-line-plane
+  label: Bauhaus / point, line, plane
+  band: philosophy
+  theme: bauhaus
+  time:
+    seconds_after_big_bang: 4.354948766233368e+17
+    display: 1919-1933
+  level: regional-institutional
+  summary: The Bauhaus made workshop practice, elementary form, colour, and teaching systems into a modern design
+    programme. Kandinsky's Point and Line to Plane and Klee's Pedagogical Sketchbook are treated as historical
+    teaching sources for point, line, plane, and trajectory.
+  badge: SOURCED
+  sources:
+  - droste2002bauhaus
+  - kandinsky1926point
+  - klee1925sketchbook
 - id: russell-analysis-mind
   label: 'Russell: The Analysis of Mind'
   band: philosophy
@@ -785,6 +940,7 @@ eras:
 - id: gestalt-field-psychology
   label: Gestalt / field psychology
   band: philosophy
+  theme: modern
   time:
     seconds_after_big_bang: 4.354948768126824e+17
     display: 1920s-1930s
@@ -796,6 +952,20 @@ eras:
   - kohler1920gestalten
   - kohler1929gestalt
   - lewin1936
+- id: quantum-matrix-wave-mechanics
+  label: Quantum matrix and wave mechanics
+  band: philosophy
+  theme: modern
+  time:
+    seconds_after_big_bang: 4.3549487684424e+17
+    display: 1925-1926
+  level: atomic
+  summary: Matrix mechanics and wave mechanics replaced classical trajectories with operator and wave equations.
+    The themed view uses blueprint and typewriter styling for twentieth-century formal physics.
+  badge: SOURCED
+  sources:
+  - heisenberg1925quantum
+  - schrodinger1926
 - id: russell-analysis-matter
   label: 'Russell: The Analysis of Matter'
   band: philosophy
@@ -820,6 +990,21 @@ eras:
   badge: INTERPRETIVE
   sources:
   - russell1945history
+- id: abstract-expressionism-color-field
+  label: Abstract Expressionism / colour field
+  band: philosophy
+  theme: color-field
+  time:
+    seconds_after_big_bang: 4.354948776016224e+17
+    display: c. 1950
+  level: society-city
+  summary: Abstract Expressionism and colour-field painting made scale, surface, gesture, colour relation, and
+    atmospheric encounter central to post-war painting. The app uses original colour-field UI geometry without
+    copying Rothko or other artworks.
+  badge: SOURCED
+  sources:
+  - anfam1990abstract
+  - rothko1970artist
 - id: quine
   label: Quine
   band: philosophy
@@ -833,6 +1018,20 @@ eras:
   sources:
   - quine1951dogmas
   - quine1948there
+- id: pop-art-warhol
+  label: Pop Art / Warhol
+  band: philosophy
+  theme: pop-art
+  time:
+    seconds_after_big_bang: 4.354948779803136e+17
+    display: c. 1962
+  level: society-city
+  summary: Pop Art brought mass media, packaging, celebrity, repetition, and print reproduction into the gallery
+    frame. The app uses generated halftone dots and block colour, not copied Warhol imagery.
+  badge: SOURCED
+  sources:
+  - osterwold2003pop
+  - warhol1962campbell
 - id: cyc
   label: Cyc
   band: philosophy
@@ -858,9 +1057,25 @@ eras:
   sources:
   - w3c2012owl2
   - baader2003dl
+- id: street-art-global
+  label: Street art / stencil and public wall
+  band: philosophy
+  theme: street-art
+  time:
+    seconds_after_big_bang: 4.354948793372904e+17
+    display: 2000s
+  level: society-city
+  summary: Street art and stencil practice use public walls, quick reproduction, site, interruption, and recognisable
+    graphic edges as part of the work. The app uses original stencil-like geometry and concrete texture without
+    reproducing Banksy or other artists' images.
+  badge: SOURCED
+  sources:
+  - lewisohn2008street
+  - schacter2013worldatlas
 - id: dependent-type-theory-lean
   label: Curry-Howard, dependent types, Lean
   band: philosophy
+  theme: present
   time:
     seconds_after_big_bang: 4.35494879842212e+17
     display: late 20th-21st c.
@@ -876,6 +1091,7 @@ eras:
 - id: ttheory
   label: '[T]-Theory / Soma Machine'
   band: philosophy
+  theme: present
   time:
     seconds_after_big_bang: 4.3549488e+17
     display: '2026'
@@ -891,6 +1107,7 @@ eras:
 - id: sherlock
   label: Sherlock
   band: philosophy
+  theme: present
   time:
     seconds_after_big_bang: 4.3549488e+17
     display: 2026 / proposed

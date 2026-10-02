@@ -23,6 +23,11 @@ GENERATED_ROOT = APP_ROOT / "generated"
 CLAIM_BADGES = {"FORMAL", "SOURCED", "INTERPRETIVE"}
 EVIDENCE_LABELS = {"kernel-verified", "derived-under-assumptions", "simulated", "empirical-result", "interpretive", "open-hypothesis"}
 ERA_BANDS = {"cosmic", "geological", "palaeontology", "human", "philosophy"}
+ERA_THEMES = {
+    "cosmic", "earth", "egypt", "babylon", "greece", "islamic-golden-age", "medieval",
+    "renaissance", "enlightenment", "modern", "present", "expressionism", "constructivism",
+    "bauhaus", "color-field", "pop-art", "street-art",
+}
 UNPUBLISHED_SOURCE_BASE_URL = "https://www.t-theory.org/atlas"
 ZOOMABLE_SOURCE = REPO_ROOT / "paper" / "soma" / "zoomable-somatic-field" / "zoomable-somatic-field.md"
 PLACEHOLDER_MIND_TEXT = "Information/organization row from source; interpretive unless specifically sourced."
@@ -275,6 +280,8 @@ def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
             errors.append(f"{location}: band must be one of {sorted(ERA_BANDS)}")
         if era.get("badge") not in CLAIM_BADGES:
             errors.append(f"{location}: badge must be one of {sorted(CLAIM_BADGES)}")
+        if "theme" in era and era.get("theme") not in ERA_THEMES:
+            errors.append(f"{location}: theme must be one of {sorted(ERA_THEMES)}")
         if era.get("level") not in level_ids:
             errors.append(f"{location}: dangling level {era.get('level')!r}")
         time = era.get("time")

@@ -101,6 +101,7 @@ export function makeTextSprite(THREE, text, {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.78, depthWrite: false }));
+  sprite.userData.worldLabel = true;
   sprite.scale.set(...scale);
   return sprite;
 }

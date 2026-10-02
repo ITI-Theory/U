@@ -1,3 +1,5 @@
+import { applyEraTheme, renderEraMath } from './era-themes.js';
+
 const BAND_DEFS = [
   { id: 'cosmic', label: 'COSMIC', share: 0.25 },
   { id: 'geological', label: 'EARTH', share: 0.15 },
@@ -153,6 +155,7 @@ export function createTimeAxis({ eras, levelsById, state, onSelect }) {
   }
 
   function render(era) {
+    applyEraTheme(era ?? null);
     if (!era) {
       slider.value = '100';
       card.innerHTML = '<p class="time-axis__empty">NO ERA SELECTED / CURRENT VIEW UNCHANGED</p>';
@@ -189,6 +192,7 @@ export function createTimeAxis({ eras, levelsById, state, onSelect }) {
       else equation.textContent = era.equation;
       card.append(equation);
     }
+    renderEraMath(card, era);
   }
 
   function select(era, options = {}) {

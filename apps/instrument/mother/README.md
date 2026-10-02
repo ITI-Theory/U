@@ -24,11 +24,56 @@ python -m venv .venv; .\.venv\Scripts\python -m pip install -r requirements.txt
 .\.venv\Scripts\python -m playwright install chromium   # browser for the login step
 .\.venv\Scripts\notebooklm login        # once; opens a browser to sign in
 .\.venv\Scripts\notebooklm list         # find the notebook id
-'{ "notebook_id": "<id>" }' | Set-Content mother.local.json   # gitignored
+'{ "notebook_id": "<id>", "shell": true }' | Set-Content mother.local.json   # gitignored
 .\run_bridge.ps1                        # http://127.0.0.1:8765
 ```
 
 Then in the app: Settings → MOTHER → API / LOCAL BRIDGE, and press ASK MOTHER.
+
+## Local SHELL tab
+
+The Soma Machine MOTHER panel can open a local terminal tab backed by this
+bridge. It is **off by default**. Enable it only on your own machine:
+
+```json
+{
+  "notebook_id": "<id>",
+  "hal_notebook_id": "<optional>",
+  "baseline_notebook_id": "<optional>",
+  "shell": true,
+  "shell_limit": 2,
+  "shell_cwd": "C:\\Users\\alist\\prj\\git\\ITI-Theory\\U"
+}
+```
+
+Install the bridge dependencies in the local venv:
+
+```powershell
+cd apps/instrument/mother
+.\.venv\Scripts\python -m pip install -r requirements.txt
+.\run_bridge.ps1
+```
+
+Shell profiles:
+
+- `bash`: Git Bash, detected at `C:\Program Files\Git\bin\bash.exe`
+  (or `bash.exe` on `PATH`).
+- `python`: the bridge venv's interactive Python.
+- `nvim`: enabled only when `nvim` is already on `PATH`; otherwise the app
+  shows the disabled profile with the hint `install Neovim, e.g. scoop install neovim`.
+
+Security model:
+
+- The server binds only to `127.0.0.1`.
+- HTTP and WebSocket requests reject foreign `Origin` headers with `403`.
+- `/health` returns a random per-run shell token only to allowed local origins;
+  `/shell` requires that token on the WebSocket URL.
+- Each socket owns one PTY and the bridge kills it when the socket closes.
+- Concurrent shells are capped (`shell_limit`, default `2`).
+
+Risk: enabling `"shell": true` gives the browser page a local command prompt
+under your user account. Keep the bridge local, never expose the port, never
+put secrets in MOTHER chat or code blocks, and turn the bridge off when done.
 
 ## H-AL
 
