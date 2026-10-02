@@ -1,0 +1,1094 @@
+id: penrose-road-to-reality
+label: Penrose Road to Reality baseline index
+purpose: 4D mathematics and physics baseline for Field Atlas and compare view.
+source:
+  title: The Road to Reality
+  author: Roger Penrose
+  local_file_used: C:\Users\alist\OneDrive\tmp\books\road to reality-roger penrose.pdf
+  extraction_tools:
+  - pdfinfo
+  - pdftotext -layout
+copyright_guard: Only chapter/section numbers, short titles, page numbers, and independently written standard equations are
+  indexed.
+honesty_guard: Penrose is a baseline source only; this catalogue never claims Penrose endorses [T]-Theory.
+difference_classes:
+  A: new number
+  B: new behaviour
+  C: cross-scale unification
+  D: reinterpretation
+  E: identical in limit
+topic_links:
+- topic: Penrose-Hameroff Orch-OR and gravity-related reduction
+  penrose_chapters_sections:
+  - '29'
+  - '30.9'
+  - '30.12'
+  - '30.13'
+  programme_mapping: P2 quantum-soma-penrose and QUANT-EXP-1
+  status_label: simulated for QUANT-EXP-1; open-hypothesis for biological extension
+  note: P2 uses Penrose-linked questions as motivation, then reports an exact statevector reachability simulation.
+- topic: Weyl curvature hypothesis and conformal cosmology baseline
+  penrose_chapters_sections:
+  - '27.12'
+  - '28.8'
+  - '28.10'
+  programme_mapping: P21 cosmological-constant derivation and P22 dark-matter spatial vacuum
+  status_label: derived-under-assumptions
+  note: The app may compare conformal and Weyl baselines with P21/P22 numbers, without implying confirmation.
+- topic: Twistor theory
+  penrose_chapters_sections:
+  - 33.2-33.14
+  programme_mapping: No current P1-P24 counterpart
+  status_label: gap
+  note: Keep twistors as a Penrose baseline or future research gap.
+chapters:
+- chapter: 1
+  title: The roots of science
+  page_range: 7-24
+  key_sections:
+  - section: '1.2'
+    title: Mathematical truth
+  - section: '1.4'
+    title: Three worlds and three deep mysteries
+  key_equations:
+  - name: model satisfaction
+    latex: \mathcal M\models\varphi
+    section: '1.2'
+  levels: []
+  tt_counterpart: []
+  note: Philosophy baseline only; it is not evidence for [T].
+- chapter: 2
+  title: An ancient theorem and a modern question
+  page_range: 25-50
+  key_sections:
+  - section: '2.1'
+    title: The Pythagorean theorem
+  - section: '2.4'
+    title: 'Hyperbolic geometry: conformal picture'
+  - section: '2.7'
+    title: Relation to physical space
+  key_equations:
+  - name: Pythagorean metric
+    latex: a^2+b^2=c^2
+    section: '2.1'
+  - name: constant-curvature line element
+    latex: ds^2=\frac{4\,|dz|^2}{(1-|z|^2)^2}
+    section: '2.4'
+  levels:
+  - id: orbital-system
+    difference_class: E
+    class_label: identical in limit
+  - id: bird
+    difference_class: C
+    class_label: cross-scale unification
+  - id: planetary
+    difference_class: B
+    class_label: new behaviour
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  tt_counterpart:
+  - P11 zoomable field geometry
+  note: Geometry supplies the display grammar before any added programme layer.
+- chapter: 3
+  title: Kinds of number in the physical world
+  page_range: 51-70
+  key_sections:
+  - section: '3.2'
+    title: The real-number system
+  - section: '3.5'
+    title: Discrete numbers in the physical world
+  key_equations:
+  - name: number tower
+    latex: \mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\subset\mathbb C
+    section: '3.2'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: molecular
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P11 scale registry uses typed numerical parameters
+  note: Use as notation hygiene for discrete versus continuum displays.
+- chapter: 4
+  title: Magical complex numbers
+  page_range: 71-85
+  key_sections:
+  - section: '4.1'
+    title: The magic number i
+  - section: '4.4'
+    title: Caspar Wessel's complex plane
+  key_equations:
+  - name: imaginary unit
+    latex: i^2=-1
+    section: '4.1'
+  - name: complex coordinate
+    latex: z=x+iy
+    section: '4.4'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: molecular
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P14 Gaussian field formalism
+  note: Complex amplitudes are the ordinary 4D quantum baseline.
+- chapter: 5
+  title: Geometry of logarithms, powers, and roots
+  page_range: 86-102
+  key_sections:
+  - section: '5.1'
+    title: Geometry of complex algebra
+  - section: '5.2'
+    title: The idea of the complex logarithm
+  - section: '5.5'
+    title: Relations to modern particle physics
+  key_equations:
+  - name: Euler formula
+    latex: e^{i\theta}=\cos\theta+i\sin\theta
+    section: '5.1'
+  - name: complex logarithm
+    latex: \log z=\ln|z|+i\arg z
+    section: '5.2'
+  levels:
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  tt_counterpart:
+  - P14/P15 field-theory notation
+  note: Phase and branch structure prepare the later quantum sections.
+- chapter: 6
+  title: Real-number calculus
+  page_range: 103-121
+  key_sections:
+  - section: '6.2'
+    title: Slopes of functions
+  - section: '6.6'
+    title: Integration
+  key_equations:
+  - name: derivative
+    latex: f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}
+    section: '6.2'
+  - name: fundamental theorem
+    latex: \int_a^b f'(x)\,dx=f(b)-f(a)
+    section: '6.6'
+  levels:
+  - id: cellular-synaptic
+    difference_class: B
+    class_label: new behaviour
+  - id: human-group
+    difference_class: B
+    class_label: new behaviour
+  - id: flock
+    difference_class: B
+    class_label: new behaviour
+  - id: animal-swarm
+    difference_class: B
+    class_label: new behaviour
+  - id: colony-roost
+    difference_class: B
+    class_label: new behaviour
+  - id: society-city
+    difference_class: D
+    class_label: reinterpretation
+  tt_counterpart:
+  - P1/P9/P10 dynamical field equations
+  note: Calculus is the shared baseline for rates, flows, and accumulation.
+- chapter: 7
+  title: Complex-number calculus
+  page_range: 122-134
+  key_sections:
+  - section: '7.1'
+    title: Holomorphic functions
+  - section: '7.2'
+    title: Contour integration
+  - section: '7.4'
+    title: Analytic continuation
+  key_equations:
+  - name: Cauchy integral formula
+    latex: f(a)=\frac{1}{2\pi i}\oint_\Gamma\frac{f(z)}{z-a}\,dz
+    section: '7.2'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P14 OS/GFF analytic structure
+  note: Analytic continuation is baseline mathematics, not a [T] result.
+- chapter: 8
+  title: Riemann surfaces and complex mappings
+  page_range: 135-152
+  key_sections:
+  - section: '8.1'
+    title: The idea of a Riemann surface
+  - section: '8.2'
+    title: Conformal mappings
+  - section: '8.3'
+    title: The Riemann sphere
+  key_equations:
+  - name: Riemann sphere
+    latex: \widehat{\mathbb C}=\mathbb C\cup\{\infty\}
+    section: '8.3'
+  - name: conformal metric
+    latex: ds'^2=|f'(z)|^2ds^2
+    section: '8.2'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  tt_counterpart:
+  - P21/P22 use cosmology overlays, not Penrose endorsement
+  note: Conformal tools support display baselines for horizons and twistors.
+- chapter: 9
+  title: Fourier decomposition and hyperfunctions
+  page_range: 153-178
+  key_sections:
+  - section: '9.1'
+    title: Fourier series
+  - section: '9.4'
+    title: The Fourier transform
+  - section: '9.7'
+    title: Hyperfunctions
+  key_equations:
+  - name: Fourier transform
+    latex: \hat f(k)=\int_{-\infty}^{\infty}f(x)e^{-ikx}\,dx
+    section: '9.4'
+  - name: inverse transform
+    latex: f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat f(k)e^{ikx}\,dk
+    section: '9.4'
+  levels:
+  - id: local-circuit
+    difference_class: B
+    class_label: new behaviour
+  - id: whole-brain-cemi
+    difference_class: B
+    class_label: new behaviour
+  - id: stellar
+    difference_class: E
+    class_label: identical in limit
+  - id: cosmic-filaments
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P10 retarded propagators; P11 zoom operator
+  note: Spectral display modes belong here before [T] adds memory.
+- chapter: 10
+  title: Surfaces
+  page_range: 179-192
+  key_sections:
+  - section: '10.1'
+    title: Complex dimensions and real dimensions
+  - section: '10.3'
+    title: Vector fields and 1-forms
+  - section: '10.5'
+    title: The Cauchy-Riemann equations
+  key_equations:
+  - name: Cauchy-Riemann equations
+    latex: \partial_xu=\partial_yv,\quad \partial_yu=-\partial_xv
+    section: '10.5'
+  levels:
+  - id: planetary
+    difference_class: B
+    class_label: new behaviour
+  - id: geological
+    difference_class: B
+    class_label: new behaviour
+  - id: regional-institutional
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P16 geographic field
+  note: Surface fields give ordinary 4D map and boundary mathematics.
+- chapter: 11
+  title: Hypercomplex numbers
+  page_range: 193-210
+  key_sections:
+  - section: '11.1'
+    title: The algebra of quaternions
+  - section: '11.5'
+    title: Clifford algebras
+  - section: '11.6'
+    title: Grassmann algebras
+  key_equations:
+  - name: quaternion units
+    latex: i^2=j^2=k^2=ijk=-1
+    section: '11.1'
+  - name: Clifford relation
+    latex: \gamma^\mu\gamma^\nu+\gamma^\nu\gamma^\mu=2\eta^{\mu\nu}I
+    section: '11.5'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P24 G2 symmetry-breaking uses algebraic comparison
+  note: Spin and rotation algebras are standard baselines.
+- chapter: 12
+  title: Manifolds of n dimensions
+  page_range: 211-242
+  key_sections:
+  - section: '12.2'
+    title: Manifolds and coordinate patches
+  - section: '12.6'
+    title: Exterior derivative
+  - section: '12.8'
+    title: Tensors
+  key_equations:
+  - name: nilpotent exterior derivative
+    latex: d^2=0
+    section: '12.6'
+  - name: tensor transformation
+    latex: T'^{a}{}_{b}=\frac{\partial x'^a}{\partial x^c}\frac{\partial x^d}{\partial x'^b}T^{c}{}_{d}
+    section: '12.8'
+  levels:
+  - id: geological
+    difference_class: B
+    class_label: new behaviour
+  - id: planetary
+    difference_class: B
+    class_label: new behaviour
+  - id: stellar
+    difference_class: E
+    class_label: identical in limit
+  - id: galactic-disc
+    difference_class: C
+    class_label: cross-scale unification
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  tt_counterpart:
+  - P8 tensor; P11 zoomable field
+  note: The Atlas can cite this as general manifold baseline.
+- chapter: 13
+  title: Symmetry groups
+  page_range: 243-285
+  key_sections:
+  - section: '13.1'
+    title: Groups of transformations
+  - section: '13.6'
+    title: Representation theory and Lie algebras
+  - section: '13.9'
+    title: Unitary groups
+  key_equations:
+  - name: Lie bracket
+    latex: '[X,Y]=XY-YX'
+    section: '13.6'
+  - name: unitarity
+    latex: U^\dagger U=I
+    section: '13.9'
+  levels:
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: string-boundary
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P24 G2; P13 Hopfield correspondence
+  note: Symmetry is standard; [T] adds selected reinterpretations only.
+- chapter: 14
+  title: Calculus on manifolds
+  page_range: 286-324
+  key_sections:
+  - section: '14.3'
+    title: Covariant derivative
+  - section: '14.4'
+    title: Curvature and torsion
+  - section: '14.8'
+    title: Symplectic manifolds
+  key_equations:
+  - name: geodesic equation
+    latex: \frac{d^2x^\mu}{d\tau^2}+\Gamma^\mu_{\alpha\beta}\frac{dx^\alpha}{d\tau}\frac{dx^\beta}{d\tau}=0
+    section: '14.5'
+  - name: curvature commutator
+    latex: '[\nabla_\mu,\nabla_\nu]V^\rho=R^\rho{}_{\sigma\mu\nu}V^\sigma'
+    section: '14.4'
+  levels:
+  - id: planetary
+    difference_class: B
+    class_label: new behaviour
+  - id: geological
+    difference_class: B
+    class_label: new behaviour
+  - id: regional-institutional
+    difference_class: C
+    class_label: cross-scale unification
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P11/P16 use Green grammar across curved domains
+  note: Curvature and transport are ordinary geometry baselines.
+- chapter: 15
+  title: Fibre bundles and gauge connections
+  page_range: 325-356
+  key_sections:
+  - section: '15.1'
+    title: Physical motivations for fibre bundles
+  - section: '15.7'
+    title: Non-triviality in a bundle connection
+  - section: '15.8'
+    title: Bundle curvature
+  key_equations:
+  - name: gauge curvature
+    latex: F=dA+A\wedge A
+    section: '15.8'
+  - name: covariant derivative
+    latex: D_\mu=\partial_\mu+A_\mu
+    section: '15.7'
+  levels:
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: string-boundary
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P14/P15 field-theory surfaces
+  note: Gauge language remains baseline unless a programme paper changes the model.
+- chapter: 16
+  title: The ladder of infinity
+  page_range: 357-382
+  key_sections:
+  - section: '16.1'
+    title: Finite fields
+  - section: '16.6'
+    title: Turing machines and Goedel's theorem
+  - section: '16.7'
+    title: Sizes of infinity in physics
+  key_equations:
+  - name: Cantor theorem
+    latex: '|\mathcal P(S)|>|S|'
+    section: '16.4'
+  levels: []
+  tt_counterpart:
+  - D2 Lean proof appendix uses formal status labels
+  note: This is a logic baseline, not a scale-level map.
+- chapter: 17
+  title: Spacetime
+  page_range: 383-411
+  key_sections:
+  - section: '17.3'
+    title: Newtonian dynamics in spacetime terms
+  - section: '17.7'
+    title: Light cones
+  - section: '17.9'
+    title: Spacetime for general relativity
+  key_equations:
+  - name: Newton equation
+    latex: m\ddot{\mathbf x}=\mathbf F
+    section: '17.3'
+  - name: null cone
+    latex: ds^2=0
+    section: '17.7'
+  levels:
+  - id: orbital-system
+    difference_class: E
+    class_label: identical in limit
+  - id: planetary
+    difference_class: B
+    class_label: new behaviour
+  - id: stellar-cluster
+    difference_class: E
+    class_label: identical in limit
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P11/P20 local GR limit remains standard
+  note: Use it for the 4D spacetime layer before overlays.
+- chapter: 18
+  title: Minkowskian geometry
+  page_range: 412-439
+  key_sections:
+  - section: '18.1'
+    title: Euclidean and Minkowskian 4-space
+  - section: '18.2'
+    title: Symmetry groups of Minkowski space
+  - section: '18.7'
+    title: Relativistic energy and momentum
+  key_equations:
+  - name: Minkowski interval
+    latex: ds^2=c^2dt^2-dx^2-dy^2-dz^2
+    section: '18.1'
+  - name: relativistic energy
+    latex: E^2=p^2c^2+m^2c^4
+    section: '18.7'
+  levels:
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  - id: stellar-cluster
+    difference_class: E
+    class_label: identical in limit
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P11/P20 keep standard relativistic limit
+  note: This is the clean 4D relativity baseline.
+- chapter: 19
+  title: The classical fields of Maxwell and Einstein
+  page_range: 440-463
+  key_sections:
+  - section: '19.2'
+    title: Maxwell's electromagnetic theory
+  - section: '19.6'
+    title: Einstein's field equation
+  - section: '19.7'
+    title: Cosmological constant; Weyl tensor
+  key_equations:
+  - name: Maxwell equations
+    latex: \nabla_\mu F^{\mu\nu}=\mu_0J^\nu
+    section: '19.2'
+  - name: Einstein equation
+    latex: G_{\mu\nu}+\Lambda g_{\mu\nu}=\frac{8\pi G}{c^4}T_{\mu\nu}
+    section: '19.6'
+  - name: Weyl tensor split
+    latex: R_{\mu\nu\rho\sigma}=C_{\mu\nu\rho\sigma}+\text{Ricci terms}
+    section: '19.7'
+  levels:
+  - id: whole-brain-cemi
+    difference_class: B
+    class_label: new behaviour
+  - id: stellar
+    difference_class: E
+    class_label: identical in limit
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  - id: galactic-disc
+    difference_class: C
+    class_label: cross-scale unification
+  - id: galactic-halo
+    difference_class: A
+    class_label: new number
+  - id: civilisational-solar
+    difference_class: D
+    class_label: reinterpretation
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  tt_counterpart:
+  - P21 Lambda_USF; P22 Omega_DM; both derived-under-assumptions
+  note: Classical field equations are the app's 4D baseline.
+- chapter: 20
+  title: Lagrangians and Hamiltonians
+  page_range: 464-488
+  key_sections:
+  - section: '20.1'
+    title: Lagrangian formalism
+  - section: '20.2'
+    title: Hamiltonian picture
+  - section: '20.5'
+    title: Lagrangian treatment of fields
+  key_equations:
+  - name: Euler-Lagrange equation
+    latex: \frac{d}{dt}\frac{\partial L}{\partial \dot q_i}-\frac{\partial L}{\partial q_i}=0
+    section: '20.1'
+  - name: Hamilton equations
+    latex: \dot q_i=\frac{\partial H}{\partial p_i},\quad \dot p_i=-\frac{\partial H}{\partial q_i}
+    section: '20.2'
+  levels:
+  - id: molecular
+    difference_class: E
+    class_label: identical in limit
+  - id: human-vertebrate
+    difference_class: B
+    class_label: new behaviour
+  - id: dyad
+    difference_class: B
+    class_label: new behaviour
+  - id: flock
+    difference_class: B
+    class_label: new behaviour
+  - id: animal-swarm
+    difference_class: B
+    class_label: new behaviour
+  - id: geological
+    difference_class: B
+    class_label: new behaviour
+  - id: species-stellar
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P1/P9/P10/P13/P19 use dynamics and energy landscapes
+  note: This chapter anchors compare-view energy and action panels.
+- chapter: 21
+  title: The quantum particle
+  page_range: 489-520
+  key_sections:
+  - section: '21.2'
+    title: Quantum Hamiltonians
+  - section: '21.3'
+    title: Schroedinger's equation
+  - section: '21.9'
+    title: Probability distribution in a wavefunction
+  key_equations:
+  - name: Schroedinger equation
+    latex: i\hbar\frac{\partial}{\partial t}\psi=\hat H\psi
+    section: '21.3'
+  - name: Born density
+    latex: \rho(x)=|\psi(x)|^2
+    section: '21.9'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: molecular
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P2 exact statevector simulation; P14 free-field formalism
+  note: Quantum mechanics is baseline; reachability claims belong to P2.
+- chapter: 22
+  title: Quantum algebra, geometry, and spin
+  page_range: 521-577
+  key_sections:
+  - section: '22.3'
+    title: Hilbert space and Dirac notation
+  - section: '22.8'
+    title: Spin and spinors
+  - section: '22.9'
+    title: Riemann sphere of two-state systems
+  key_equations:
+  - name: unitary evolution
+    latex: '|\psi(t)\rangle=U(t)|\psi(0)\rangle'
+    section: '22.4'
+  - name: Pauli algebra
+    latex: \sigma_i\sigma_j=\delta_{ij}I+i\epsilon_{ijk}\sigma_k
+    section: '22.8'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: whole-brain-cemi
+    difference_class: B
+    class_label: new behaviour
+  tt_counterpart:
+  - P2/P13 use quantum or Hopfield analogies with labels
+  note: Spin geometry is baseline, not evidence for organism claims.
+- chapter: 23
+  title: The entangled quantum world
+  page_range: 578-608
+  key_sections:
+  - section: '23.3'
+    title: Quantum entanglement; Bell inequalities
+  - section: '23.9'
+    title: Quantum teleportation
+  key_equations:
+  - name: Bell state
+    latex: '|\Phi^+\rangle=\frac{|00\rangle+|11\rangle}{\sqrt2}'
+    section: '23.3'
+  - name: CHSH bound
+    latex: '|E(a,b)+E(a,b'')+E(a'',b)-E(a'',b'')|\le 2'
+    section: '23.3'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: molecular
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P2 uses simulation, not hardware entanglement evidence
+  note: Entanglement is a quantum baseline with no broad endorsement implied.
+- chapter: 24
+  title: Dirac's electron and antiparticles
+  page_range: 609-626
+  key_sections:
+  - section: '24.6'
+    title: Clifford-Dirac square root
+  - section: '24.7'
+    title: The Dirac equation
+  key_equations:
+  - name: Klein-Gordon equation
+    latex: (\Box+m^2c^2/\hbar^2)\psi=0
+    section: '24.4'
+  - name: Dirac equation
+    latex: (i\hbar\gamma^\mu\partial_\mu-mc)\psi=0
+    section: '24.7'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P14/P15 QFT programme
+  note: Relativistic quantum fields are standard physics baseline.
+- chapter: 25
+  title: The standard model of particle physics
+  page_range: 627-654
+  key_sections:
+  - section: '25.3'
+    title: Electroweak interactions
+  - section: '25.5'
+    title: Electroweak symmetry group
+  - section: '25.7'
+    title: Coloured quarks
+  key_equations:
+  - name: Standard Model gauge group
+    latex: SU(3)_C\times SU(2)_L\times U(1)_Y
+    section: '25.5'
+  - name: Yang-Mills action
+    latex: S_{YM}=-\frac14\int F^a_{\mu\nu}F^{a\mu\nu}\,d^4x
+    section: '25.6'
+  levels:
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  tt_counterpart:
+  - P14/P15 as mathematical field comparisons
+  note: Particle content remains the standard baseline.
+- chapter: 26
+  title: Quantum field theory
+  page_range: 655-680
+  key_sections:
+  - section: '26.2'
+    title: Creation and annihilation operators
+  - section: '26.6'
+    title: Lagrangians and path integrals
+  - section: '26.9'
+    title: Renormalization
+  key_equations:
+  - name: path integral
+    latex: Z=\int\mathcal D\phi\,e^{iS[\phi]/\hbar}
+    section: '26.6'
+  - name: canonical commutator
+    latex: '[a_{\mathbf p},a^\dagger_{\mathbf q}]=\delta^{(3)}(\mathbf p-\mathbf q)'
+    section: '26.2'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: nuclear
+    difference_class: E
+    class_label: identical in limit
+  - id: string-boundary
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P14 Gaussian OS model; P15 interacting programme
+  note: QFT is baseline; USF identification is interpretive or assumption-bound.
+- chapter: 27
+  title: The Big Bang and its thermodynamic legacy
+  page_range: 681-725
+  key_sections:
+  - section: '27.3'
+    title: Entropy
+  - section: '27.8'
+    title: Black holes
+  - section: '27.10'
+    title: Black-hole entropy
+  - section: '27.11'
+    title: Cosmology
+  - section: '27.12'
+    title: Conformal diagrams
+  key_equations:
+  - name: Boltzmann entropy
+    latex: S=k_B\log\Omega
+    section: '27.3'
+  - name: black-hole entropy
+    latex: S_{BH}=\frac{k_Bc^3A}{4G\hbar}
+    section: '27.10'
+  - name: Friedmann equation
+    latex: H^2=\frac{8\pi G}{3}\rho-\frac{kc^2}{a^2}+\frac{\Lambda c^2}{3}
+    section: '27.11'
+  levels:
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  - id: galaxy-cluster
+    difference_class: C
+    class_label: cross-scale unification
+  - id: cosmic-filaments
+    difference_class: C
+    class_label: cross-scale unification
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P21/P22 cosmology comparisons
+  note: Thermodynamics and standard cosmology are the 4D baseline.
+- chapter: 28
+  title: Speculative theories of the early universe
+  page_range: 726-771
+  key_sections:
+  - section: '28.4'
+    title: Inflationary cosmology
+  - section: '28.8'
+    title: The Weyl curvature hypothesis
+  - section: '28.10'
+    title: Cosmological parameters
+  key_equations:
+  - name: slow-roll Friedmann
+    latex: H^2\simeq\frac{8\pi G}{3}V(\phi)
+    section: '28.4'
+  - name: Weyl low-entropy condition
+    latex: C_{\mu\nu\rho\sigma}\approx0\quad\text{near the initial boundary}
+    section: '28.8'
+  levels:
+  - id: galaxy-cluster
+    difference_class: C
+    class_label: cross-scale unification
+  - id: cosmic-filaments
+    difference_class: C
+    class_label: cross-scale unification
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart:
+  - P21 Lambda_USF; P22 spatial-vacuum dark matter
+  note: Compare overlays must say model-derived, not confirmed.
+- chapter: 29
+  title: The measurement paradox
+  page_range: 772-809
+  key_sections:
+  - section: '29.3'
+    title: The density matrix
+  - section: '29.6'
+    title: Environmental decoherence
+  - section: '29.9'
+    title: Unconventional ontologies
+  key_equations:
+  - name: density matrix
+    latex: \rho=\sum_i p_i|\psi_i\rangle\langle\psi_i|
+    section: '29.3'
+  - name: unit trace
+    latex: \operatorname{tr}\rho=1
+    section: '29.3'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: atomic
+    difference_class: E
+    class_label: identical in limit
+  - id: human-vertebrate
+    difference_class: B
+    class_label: new behaviour
+  tt_counterpart:
+  - P2 quantum-soma-penrose uses simulation; no endorsement by Penrose
+  note: Use for measurement-baseline panels before P2 comparisons.
+- chapter: 30
+  title: Gravity's role in quantum state reduction
+  page_range: 810-868
+  key_sections:
+  - section: '30.9'
+    title: A more radical perspective
+  - section: '30.12'
+    title: Preferred Schroedinger-Newton states
+  - section: '30.13'
+    title: FELIX and related proposals
+  key_equations:
+  - name: objective-reduction timescale
+    latex: \tau\sim\frac{\hbar}{E_G}
+    section: '30.9'
+  - name: Schroedinger-Newton system
+    latex: i\hbar\partial_t\psi=\left(-\frac{\hbar^2}{2m}\nabla^2+m\Phi\right)\psi,\quad \nabla^2\Phi=4\pi Gm|\psi|^2
+    section: '30.12'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: whole-brain-cemi
+    difference_class: B
+    class_label: new behaviour
+  - id: human-vertebrate
+    difference_class: B
+    class_label: new behaviour
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P2 quantum-soma-penrose; QUANT-EXP-1 simulated reachability
+  note: Penrose-Hameroff Orch-OR is a source topic, not an endorsement of [T].
+- chapter: 31
+  title: Supersymmetry, supra-dimensionality, and strings
+  page_range: 869-933
+  key_sections:
+  - section: '31.2'
+    title: Supersymmetry
+  - section: '31.5'
+    title: Hadronic string theory
+  - section: '31.14'
+    title: Calabi-Yau spaces; M-theory
+  - section: '31.17'
+    title: D-brane perspective
+  key_equations:
+  - name: supersymmetry algebra
+    latex: \{Q_\alpha,\bar Q_{\dot\beta}\}=2\sigma^\mu_{\alpha\dot\beta}P_\mu
+    section: '31.3'
+  - name: compactification ansatz
+    latex: M^{10}\cong M^4\times K^6
+    section: '31.14'
+  levels:
+  - id: string-boundary
+    difference_class: C
+    class_label: cross-scale unification
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart:
+  - P11/P20 use M-theory compactification as assumption-bound framing
+  note: Extra dimensions are baseline topic; programme claims need separate labels.
+- chapter: 32
+  title: Einstein's narrower path; loop variables
+  page_range: 934-957
+  key_sections:
+  - section: '32.1'
+    title: Canonical quantum gravity
+  - section: '32.4'
+    title: Loop variables
+  - section: '32.6'
+    title: Spin networks
+  key_equations:
+  - name: Ashtekar bracket
+    latex: \{A^i_a(x),E^b_j(y)\}=8\pi G\gamma\,\delta^b_a\delta^i_j\delta^{(3)}(x-y)
+    section: '32.3'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: string-boundary
+    difference_class: C
+    class_label: cross-scale unification
+  - id: compact-object
+    difference_class: E
+    class_label: identical in limit
+  tt_counterpart: []
+  note: Loop quantum gravity is a baseline alternative without a current [T] counterpart.
+- chapter: 33
+  title: More radical perspectives; twistor theory
+  page_range: 958-1002
+  key_sections:
+  - section: '33.2'
+    title: Twistors as light rays
+  - section: '33.5'
+    title: Basic twistor geometry and coordinates
+  - section: '33.11'
+    title: The non-linear graviton
+  key_equations:
+  - name: twistor incidence
+    latex: \omega^A=i x^{AA'}\pi_{A'}
+    section: '33.5'
+  - name: twistor norm
+    latex: Z^\alpha\bar Z_\alpha=\omega^A\bar\pi_A+\pi_{A'}\bar\omega^{A'}
+    section: '33.5'
+  levels:
+  - id: quantum-foam
+    difference_class: B
+    class_label: new behaviour
+  - id: string-boundary
+    difference_class: C
+    class_label: cross-scale unification
+  - id: observable-universe
+    difference_class: A
+    class_label: new number
+  - id: cosmic-web
+    difference_class: C
+    class_label: cross-scale unification
+  tt_counterpart: []
+  note: Twistors have no programme counterpart yet; mark as an open gap.
+- chapter: 34
+  title: Where lies the road to reality?
+  page_range: 1003-1042
+  key_sections:
+  - section: '34.1'
+    title: Great theories of twentieth-century physics and beyond
+  - section: '34.5'
+    title: Next physical revolution
+  - section: '34.10'
+    title: Deep questions answered, deeper questions posed
+  key_equations: []
+  levels: []
+  tt_counterpart:
+  - P4 programme overview; docs/agent/THEORY-STATUS.md
+  note: Conclusion and methodology only; do not turn it into support.
