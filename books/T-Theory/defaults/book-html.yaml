@@ -10,7 +10,7 @@ resource-path:
   - ../../paper
 filters:
   - filters/ttheory-direct.lua
-  - ../../paper/strip-keywords.lua
+  - ../../paper/filters/strip-keywords.lua
   - ../../lib/format/macros.lua
 citeproc: true
 bibliography: ../../paper/bibliography.bib

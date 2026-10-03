@@ -23,7 +23,7 @@ include-in-header:
   - ttheory-packages.tex
 filters:
   - filters/ttheory-assemble.lua
-  - ../../paper/strip-keywords.lua
+  - ../../paper/filters/strip-keywords.lua
   - ../../lib/format/macros.lua
 citeproc: true
 bibliography: ../../paper/bibliography.bib

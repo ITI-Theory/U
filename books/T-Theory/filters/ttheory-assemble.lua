@@ -107,9 +107,7 @@ end
 local function read_markdown_file(file)
   local source = project_file(file)
   local text = read_text(source)
-  local doc = system.with_working_directory(path.directory(source), function()
-    return pandoc.read(text, "markdown", PANDOC_READER_OPTIONS)
-  end)
+  local doc = pandoc.read(text, "markdown", PANDOC_READER_OPTIONS)
   doc.blocks = rewrite_relative_assets(doc.blocks, path.directory(source))
   return doc, source
 end
@@ -206,6 +204,8 @@ local function book_opening(domain)
   local title = meta_text(domain.title)
   local subtitle = meta_text(domain.subtitle)
   local id = meta_text(domain.id)
+  local green_id = meta_text(domain.green_id)
+  local audience = meta_text(domain.audience)
   local blocks = pandoc.List:new()
   if FORMAT:match("latex") then
     blocks:insert(pandoc.RawBlock("latex", string.format([[\part{%s}
@@ -213,8 +213,11 @@ local function book_opening(domain)
 \begin{center}
 {\large\itshape %s\par}
 \vspace{10mm}
+{\sffamily\bfseries G-ID: %s\par}
+\vspace{4mm}
+{\sffamily Reader: %s\par}
 \end{center}
-\clearpage]], latex_text(title), latex_text(title), latex_text(title), latex_text(subtitle))))
+\clearpage]], latex_text(title), latex_text(title), latex_text(title), latex_text(subtitle), latex_text(green_id), latex_text(audience))))
   else
     blocks:insert(pandoc.Header(1, title))
     if subtitle ~= "" then blocks:insert(pandoc.Para({ pandoc.Emph({ pandoc.Str(subtitle) }) })) end
@@ -304,6 +307,10 @@ local function volume_blocks(target)
     end
     local closing = read_markdown_file(paper_path(ref))
     blocks:extend(strip_references(closing.blocks))
+  end
+  if FORMAT:match("latex") then
+    blocks:insert(pandoc.RawBlock("latex", [[\clearpage
+\null\thispagestyle{empty}\clearpage]]))
   end
   return blocks, volume
 end

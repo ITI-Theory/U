@@ -60,6 +60,7 @@ fractal_manifest:
     - c:soma-field-paper
     source_book: gateway/book-gateway.md
     noir_page: true
+    green_id: The Universal Propagator — G(x,x’) at the Hubble scale
   - id: physics
     title: '[T]-Theory: Physics'
     subtitle: Field Equations of Mind
@@ -74,6 +75,7 @@ fractal_manifest:
     - c:dark-matter-spatial-vacuum
     - c:g2-symmetry-breaking
     source_book: physics/book-physics.md
+    green_id: The Master Green’s Function — (∇²+k²)G=δ in relativistic field theory
   - id: neuroscience
     title: '[T]-Theory: Neuroscience'
     subtitle: The Electromagnetic Nervous System
@@ -85,6 +87,7 @@ fractal_manifest:
     - c:preverbal-manifold
     - c:soma-field-paper
     source_book: neuroscience/book-neuroscience.md
+    green_id: The Cortical EMF Propagator — macroscopic field from synchronised neural firing
   - id: clinical-psychology
     title: '[T]-Theory: Trauma'
     subtitle: Trauma as Topology
@@ -99,6 +102,7 @@ fractal_manifest:
     - c:experimental-validation
     - c:soma-field-paper
     source_book: clinical-psychology/book-clinical-psychology.md
+    green_id: Trauma-Well Resolution — escape probability from a somatic attractor basin
   - id: computer-science
     title: '[T]-Theory: Computing'
     subtitle: Verified Emotional Computing
@@ -112,6 +116,7 @@ fractal_manifest:
     - c:lean-proofs-appendix
     - c:soma-field-paper
     source_book: computer-science/book-computer-science.md
+    green_id: Affective State Propagator — computational kernel for agent field dynamics
   - id: formal-mathematics
     title: '[T]-Theory: Mathematics'
     subtitle: Dependent Types and the Geometry of Feeling
@@ -124,6 +129,7 @@ fractal_manifest:
     - c:zoomable-somatic-field
     - c:lean-proofs-appendix
     source_book: formal-mathematics/book-formal-mathematics.md
+    green_id: Functorial Green’s Function — category-theoretic propagator between field spaces
   - id: consciousness
     title: '[T]-Theory: Philosophy'
     subtitle: Consciousness, Effect, and Proof in the Fractal Programme
@@ -139,6 +145,7 @@ fractal_manifest:
     - c:missing-limbic-layer
     source_book: philosophy/book-philosophy.md
     booklet_id: philosophy
+    green_id: Conscious Percept Propagator Pole — singularity at phase transition threshold Tᴄ
   - id: complex-systems
     title: '[T]-Theory: Complex Systems'
     subtitle: Scale-Free Dynamics
@@ -152,6 +159,7 @@ fractal_manifest:
     - c:soma-field-paper
     - c:soma-field-synthesis
     source_book: complex-systems/book-complex-systems.md
+    green_id: Scale-Invariant Propagator — G invariant under renormalisation group flow
   - id: music-arts
     title: '[T]-Theory: Music and the Arts'
     subtitle: The Physics of Music and Affect
@@ -163,6 +171,7 @@ fractal_manifest:
     - c:soma-field-book
     - c:soma-field-synthesis
     source_book: music-arts/book-music-arts.md
+    green_id: Aesthetic Field Perturbation — BRECVEMA impulse response to musical stimulus
   - id: geophysics
     title: '[T]-Theory: Geophysics'
     subtitle: The Geological Soma
@@ -176,6 +185,7 @@ fractal_manifest:
     - c:soma-field-synthesis
     - c:universal-somatic-field
     source_book: geophysics/book-geophysics.md
+    green_id: Seismic Memory Propagator — elastic Green’s function for crustal wave propagation
   - id: social-science
     title: '[T]-Theory: Society'
     subtitle: The Physics of Society
@@ -189,6 +199,7 @@ fractal_manifest:
     - c:soma-field-synthesis
     - c:soma-field-paper
     source_book: social-science/book-social-science.md
+    green_id: The Rapport Propagator — social interaction kernel for coordination and contagion waves
   - id: economics
     title: '[T]-Theory: Economics'
     subtitle: Economic Criticality
@@ -202,6 +213,7 @@ fractal_manifest:
     - c:mathematical-co-identification
     - c:soma-field-paper
     source_book: economics/book-economics.md
+    green_id: The Nash Attractor Resolvent — (H-λ)⁻¹ determining market equilibrium
   - id: law
     title: '[T]-Theory: Law'
     subtitle: Topology of Justice
@@ -215,6 +227,7 @@ fractal_manifest:
     - c:soma-field-paper
     - c:soma-physical-substrate
     source_book: law/book-law.md
+    green_id: The Rights Invariant — topological propagator for legal precedent and norm diffusion
   - id: ppe
     title: '[T]-Theory: PPE'
     subtitle: Mind, Market, and Mandate
@@ -229,6 +242,7 @@ fractal_manifest:
     - c:mathematical-co-identification
     - c:soma-field-paper
     source_book: ppe/book-ppe.md
+    green_id: The Mandate Consensus Propagator — collective decision kernel in democratic field theory
   - id: psychiatry-asd
     title: '[T]-Theory: Rewiring'
     subtitle: Neurodivergence and Trauma
@@ -243,3 +257,4 @@ fractal_manifest:
     - c:quantum-soma-penrose
     - c:soma-physical-substrate
     source_book: psychiatry-asd/book-psychiatry-asd.md
+    green_id: Clinical Operator Propagator — resolvent of the Hopfield Hamiltonian in the clinical regime
