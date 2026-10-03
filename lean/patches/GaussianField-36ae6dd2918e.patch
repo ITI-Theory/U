@@ -1,0 +1,175 @@
+diff --git a/GaussianField/NuclearFactorization.lean b/GaussianField/NuclearFactorization.lean
+index 42c6701..2c5bd9e 100644
+--- a/GaussianField/NuclearFactorization.lean
++++ b/GaussianField/NuclearFactorization.lean
+@@ -49,7 +49,7 @@ lemma summable_one_add_rpow_neg_two :
+   have h := (summable_nat_add_iff (f := fun n => (↑n : ℝ) ^ ((-2) : ℝ)) 1).mpr
+     (Real.summable_nat_rpow.mpr (by norm_num : ((-2) : ℝ) < -1))
+   simp only [Nat.cast_add, Nat.cast_one] at h
+-  convert h using 1; ext m; simp [add_comm]
++  exact h.congr fun m => by rw [add_comm]
+ 
+ /-! ## Finset sup of polynomial bounds -/
+ 
+diff --git a/Nuclear/NuclearSpace.lean b/Nuclear/NuclearSpace.lean
+index 6777071..0c6560a 100644
+--- a/Nuclear/NuclearSpace.lean
++++ b/Nuclear/NuclearSpace.lean
+@@ -79,7 +79,8 @@ lemma exists_CLF_le_seminorm
+   by_cases hf : f = 0
+   · exact ⟨0, by simp [hf, map_zero], fun x => by simp⟩
+   · -- Define linear functional on span {f} with value q(f) at f
+-    let f₀ := LinearPMap.mkSpanSingleton (K := ℝ) f (q f) hf
++    let f₀ := LinearPMap.mkSpanSingleton' (R := ℝ) (σ := RingHom.id ℝ) f (q f)
++        (fun c hc => by rw [(smul_eq_zero.mp hc).resolve_right hf, RingHom.map_zero, zero_smul])
+     -- Apply Hahn-Banach extension with N = q (sublinear)
+     obtain ⟨g, hg_ext, hg_le⟩ := exists_extension_of_le_sublinear f₀ q
+       (fun c hc x => by -- positive homogeneity: q(c • x) = c * q(x) for c > 0
+@@ -192,7 +193,7 @@ lemma seminorm_le_nuclear_expansion
+           ≤ |hN.coeff m f| * ((C₁ : ℝ) * (s₁.sup hN.p) (hN.basis m)) := by
+             apply mul_le_mul_of_nonneg_left _ (abs_nonneg _)
+             have h := hqbound (hN.basis m)
+-            simp [NNReal.smul_def] at h; exact h
++            simp [NNReal.smul_def, smul_eq_mul] at h; exact h
+         _ ≤ |hN.coeff m f| * ((C₁ : ℝ) * (D * (1 + (m : ℝ)) ^ S)) := by
+             apply mul_le_mul_of_nonneg_left _ (abs_nonneg _)
+             exact mul_le_mul_of_nonneg_left (hDbound m) (le_of_lt hC₁_pos)
+@@ -404,7 +405,7 @@ theorem DyninMityaginSpace.toNuclearSpace (E : Type*)
+       show Continuous (fun x => q x)
+       have : (fun x => q x) = fun x =>
+           (C₁nn : ℝ) * (s₁.sup hN.p) x + (C₂nn : ℝ) * (s₂.sup hN.p) x := by
+-        ext x; simp [hq_def, NNReal.smul_def]
++        ext x; simp [hq_def, NNReal.smul_def, smul_eq_mul]
+       rw [this]
+       exact (continuous_const.mul hsup₁_cont).add (continuous_const.mul hsup₂_cont)
+     -- q ≥ p
+@@ -460,8 +461,9 @@ theorem DyninMityaginSpace.toNuclearSpace (E : Type*)
+       rw [mul_comm]
+       calc |hN.coeff m x| * (1 + (m : ℝ)) ^ (S + 2) ≤ C₂ * (s₂.sup hN.p) x :=
+               hcoeff_decay x m
+-        _ = (C₂nn : ℝ) * (s₂.sup hN.p) x := by simp [hC₂nn_def]
+-        _ = (C₂nn • s₂.sup hN.p) x := by simp [NNReal.smul_def]
++        _ = (C₂nn : ℝ) * (s₂.sup hN.p) x := by norm_cast
++        _ = (C₂nn • s₂.sup hN.p) x := by
++          simp only [← Seminorm.smul_apply, ← NNReal.smul_def, ← smul_eq_mul]
+         _ ≤ (C₁nn • s₁.sup hN.p) x + (C₂nn • s₂.sup hN.p) x :=
+             le_add_of_nonneg_left (apply_nonneg _ x)
+         _ = q x := (Seminorm.add_apply _ _ x).symm
+diff --git a/SchwartzNuclear/HermiteFunctions.lean b/SchwartzNuclear/HermiteFunctions.lean
+index bba474d..ce9daba 100644
+--- a/SchwartzNuclear/HermiteFunctions.lean
++++ b/SchwartzNuclear/HermiteFunctions.lean
+@@ -297,7 +297,7 @@ private theorem deriv_hermiteEval_mul_gaussian (m : ℕ) (x : ℝ) :
+   have hexp : deriv (fun u : ℝ => Real.exp (-(u ^ 2 / 2))) x = -x * gaussian x := by
+     have h1 : HasDerivAt (fun u : ℝ => -(u ^ 2 / 2)) (-x) x := by
+       have := ((hasDerivAt_pow 2 x).div_const 2).neg
+-      convert this using 1; ring
++      convert this using 1 <;> first | rfl | ring
+     exact h1.exp.deriv.trans (mul_comm _ _)
+   rw [hexp]
+   -- Hermite recurrence: H_{m+1}(x) = x · Hₘ(x) - Hₘ'(x)
+@@ -586,7 +586,7 @@ noncomputable def gaussianSchwartz : SchwartzMap ℝ ℝ where
+         |(X ^ k * P).eval x * Real.exp (-(1 / 2) * x ^ 2)| := by
+       rw [Polynomial.eval_mul, Polynomial.eval_pow, Polynomial.eval_X,
+           abs_mul, abs_mul, abs_pow, abs_of_pos (Real.exp_pos _)]
+-      ring_nf
++      ring
+     rw [hrw]
+     exact hbound x
+ 
+@@ -840,17 +840,17 @@ theorem deriv_hermiteFunction (n : ℕ) (x : ℝ) :
+   have hexp_hasderiv : HasDerivAt (fun u : ℝ => Real.exp (-(u ^ 2) / 2)) (-x * e) x := by
+     have h1 : HasDerivAt (fun u : ℝ => -(u ^ 2) / 2) (-x) x := by
+       have := ((hasDerivAt_pow 2 x).neg.div_const 2)
+-      convert this using 1; ring
++      convert this using 1 <;> first | rfl | ring
+     have h2 := h1.exp
+     rw [he_def]
+-    convert h2 using 1; ring
++    convert h2 using 1 <;> first | rfl | ring
+   -- Compute HasDerivAt for the product poly * exp (pointwise, not Pi.mul)
+   have hprod : HasDerivAt (fun u => (hermiteR n).eval (u * Real.sqrt 2) * Real.exp (-(u ^ 2) / 2))
+       (Real.sqrt 2 * (Polynomial.derivative (hermiteR n)).eval (x * Real.sqrt 2) * e +
+        (hermiteR n).eval (x * Real.sqrt 2) * (-x * e)) x := by
+     have := hpoly_hasderiv.mul hexp_hasderiv
+     rw [he_def] at this
+-    convert this using 2
++    convert this using 2 <;> first | rfl | ring
+   -- Compute HasDerivAt for the full hermiteFunction = c_n * (poly * exp)
+   have hfn_eq : hermiteFunction n = fun u =>
+       hermiteFunctionNormConst n * ((hermiteR n).eval (u * Real.sqrt 2) * Real.exp (-(u ^ 2) / 2)) := by
+@@ -994,7 +994,7 @@ private lemma hasDerivAt_hermiteFunction_sq (n : ℕ) (x : ℝ) :
+   have hd : HasDerivAt (hermiteFunction n) (deriv (hermiteFunction n) x) x :=
+     ((hermiteFunction_contDiff n 1).differentiable one_ne_zero x).hasDerivAt
+   have := hd.mul hd
+-  convert this using 1; ring
++  convert this using 1 <;> first | rfl | ring
+ 
+ /-- The derivative of hermiteFunction n is in L² (as a MemLp function). -/
+ private lemma deriv_hermiteFunction_memLp (n : ℕ) :
+@@ -1358,7 +1358,7 @@ theorem sobolevHermite_hs_sum_bound (s : ℝ) (hs : 1/2 < s) :
+     have h := (summable_nat_add_iff (f := fun n => (↑n : ℝ) ^ (-2 * s)) 1).mpr
+       (Real.summable_nat_rpow.mpr hexp)
+     simp only [Nat.cast_add, Nat.cast_one] at h
+-    convert h using 1; ext m; simp [add_comm]
++    convert h using 1; congr 1; ext m; simp [add_comm]
+   exact ⟨∑' (i : ℕ), (1 + (i : ℝ)) ^ (-2 * s), fun N =>
+     hsumm.sum_le_tsum (Finset.range N) (fun i _ =>
+       Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ 1 + ↑i) _)⟩
+diff --git a/SchwartzNuclear/HermiteTensorProduct.lean b/SchwartzNuclear/HermiteTensorProduct.lean
+index 692105c..08e8d0f 100644
+--- a/SchwartzNuclear/HermiteTensorProduct.lean
++++ b/SchwartzNuclear/HermiteTensorProduct.lean
+@@ -935,8 +935,9 @@ private lemma hermiteFunctionNd_decay (d : ℕ) (α : MultiIndex d) (k n : ℕ)
+     -- ‖x‖² = ∑ |x j|² ≤ (∑ |x j|)² by sum_sq_le_sq_sum_of_nonneg
+     have hsq : ∑ j : Fin (d + 1), ‖x j‖ ^ 2 ≤
+         (∑ j : Fin (d + 1), |x j|) ^ 2 := by
+-      convert Finset.sum_sq_le_sq_sum_of_nonneg (s := Finset.univ)
+-        (fun j _ => abs_nonneg (x j)) using 2
++      simpa only [Real.norm_eq_abs] using
++        Finset.sum_sq_le_sq_sum_of_nonneg (s := Finset.univ)
++        (fun j _ => abs_nonneg (x j))
+     calc √(∑ j, ‖x j‖ ^ 2) ≤ √((∑ j, |x j|) ^ 2) :=
+           Real.sqrt_le_sqrt hsq
+       _ = ∑ j, |x j| := by
+@@ -1410,9 +1411,9 @@ private lemma hermiteCoeffNd_injective_succ (d' : ℕ)
+     exact congr_fun (congrArg SchwartzMap.toFun (h_slice y)) t
+   have h_val := h_zero (euclideanInit (d' + 1) x) (x (Fin.last (d' + 1)))
+   rw [schwartz_slice_eq] at h_val
+-  convert h_val using 1
+-  congr 1
+-  exact (euclideanSnoc_init_last (d' + 1) x).symm
++  change f x = 0
++  rw [← euclideanSnoc_init_last (d' + 1) x]
++  exact h_val
+ 
+ /-- If all multi-dimensional Hermite coefficients are zero, the Schwartz function is zero.
+ For `d = d' + 1 ≥ 1`, proved by induction on `d'`:
+@@ -1766,8 +1767,9 @@ private lemma schwartzHermiteBasisNd_growth (d : ℕ) (k l : ℕ) :
+     rw [EuclideanSpace.norm_eq]
+     have hsq : ∑ j : Fin (d + 1), ‖x j‖ ^ 2 ≤
+         (∑ j : Fin (d + 1), |x j|) ^ 2 := by
+-      convert Finset.sum_sq_le_sq_sum_of_nonneg (s := Finset.univ)
+-        (fun j _ => abs_nonneg (x j)) using 2
++      simpa only [Real.norm_eq_abs] using
++        Finset.sum_sq_le_sq_sum_of_nonneg (s := Finset.univ)
++        (fun j _ => abs_nonneg (x j))
+     calc √(∑ j, ‖x j‖ ^ 2) ≤ √((∑ j, |x j|) ^ 2) :=
+           Real.sqrt_le_sqrt hsq
+       _ = ∑ j, |x j| := by
+diff --git a/SchwartzNuclear/SchwartzSlicing.lean b/SchwartzNuclear/SchwartzSlicing.lean
+index 71e3e5b..93df3b1 100644
+--- a/SchwartzNuclear/SchwartzSlicing.lean
++++ b/SchwartzNuclear/SchwartzSlicing.lean
+@@ -499,7 +499,10 @@ private lemma contDiff_parametric_hermiteCoeff (d : ℕ)
+     (fun m => by -- hι_bound: ‖D^m_y[f(ι(·,t))](y)‖ ≤ C uniformly in y,t
+       exact ⟨f.seminorm ℝ 0 m, fun y t => by
+         have := schwartz_slice_y_le_seminorm d f t 0 m y
+-        simpa using this⟩)
++        have h_slice : (fun y' : EuclideanSpace ℝ (Fin (d + 1)) => f (euclideanSnoc (d + 1) y' t)) = ↑(schwartz_slice_y d f t) := by
++          ext y'; simp [schwartz_slice_y]
++        rw [h_slice]
++        simpa only [pow_zero, one_mul] using this⟩)
+ 
+ /-- Smoothness of the partial Hermite coefficient: the function
+ `y ↦ ∫ f(y,t) ψ_n(t) dt` is `C^∞` in `y`. -/
