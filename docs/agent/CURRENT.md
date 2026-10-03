@@ -5,7 +5,7 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
-## Resume Here (updated 2026-10-03, 22:15)
+## Resume Here (updated 2026-10-03, 23:00)
 
 Done 2026-10-03 (all pushed): build standard (`docs/BUILD.md`; Make + pandoc +
 Lua, POSIX recipes, one root `bld/`); papers, Fractal Thesis and Field Atlas on
@@ -24,19 +24,24 @@ picks this up at its next rebuild.
 
 Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
 `make -C Part2/book/field-atlas-textbook check a3 html`):
-- Chapters 1, 2 and 3 rewritten to the model standard: learning objectives,
+- Chapters 1-5 rewritten to the model standard: learning objectives,
   worked examples (Strategy / Solution / Significance), Worked Homework with
   full solutions, "Try it" app links, Penrose chapter baselines, every number
   checked in `scripts/verify_answers.py`, shared prose checker passes.
-  Chapter 3 ends with "Lines as poles": spectrum = pole set; particle = pole
-  of a propagator; programme percept-as-pole claim (P1, P3 COID-PROP-1) with
-  a label table and the Lean theorem `perceptIsPropagatorPole_nostalgia`.
-- Header now uses `\raggedcolumns` and `\needspace` before sections. Known
-  cosmetic quirk: on the chapter 3 end page the "Review Questions" heading
-  sits alone at the top of column 2 (box in column 3). Check at final print.
-- NEXT: chapter 4 (molecules and cells: cable equation, length constant,
-  action potential; `#q=neuron-all-or-none`). Then chapters 5-10; then the
-  tour language (`#tour=`) and MOTHER/H-AL observatory mode (agreed order).
+  Ch3 "Lines as poles" (percept-as-pole, P1/P3 COID-PROP-1, Lean theorem);
+  ch4 Hodgkin-Huxley simulated banner, cable Green's function, Hopfield,
+  FM-HN (P13) with labels; ch5 double well, Kramers (checked against a
+  simulation), fast-in/slow-out (P10), memory kernel, critical slowing,
+  QUANT-EXP-1 (P2) labelled `simulated`, "brains tunnel" marked not claimed.
+- Layout: boxes are unbreakable (breakable tcolorbox inside multicols left
+  headings alone at column tops); `\raggedcolumns`; `\needspace` before
+  sections and before full-width tables (textbook-layout.lua).
+- Promised forward links to keep: critical slowing for the climate in
+  Chapter 8; two people falling into step in Chapter 6; stellar
+  classification by hydrogen lines and 21 cm mapping in Chapter 9.
+- NEXT: chapter 6 (two people and groups: coupled oscillators, Kuramoto,
+  `#q=dyad-fall-into-step`, `#q=crowd-mood`). Then 7-10; then the tour
+  language (`#tour=`) and MOTHER/H-AL observatory mode (agreed order).
 
 Agents: write content and review myself; agents only for mechanical jobs.
 

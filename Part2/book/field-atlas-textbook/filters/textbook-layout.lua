@@ -49,6 +49,12 @@ function Pandoc(doc)
   for _, block in ipairs(doc.blocks) do
     if (block.t == "Header" and block.level == 1) or is_opener(block) or is_wide(block) then
       close()
+      if block.t == "Table" then
+        -- keep a short full-width table on one page with its header row
+        local rows = 0
+        for _, body in ipairs(block.bodies) do rows = rows + #body.body end
+        out:insert(raw(string.format("\\needspace{%d\\baselineskip}", rows + 4)))
+      end
       out:insert(block)
     else
       begin()

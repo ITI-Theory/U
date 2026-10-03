@@ -136,14 +136,64 @@ for ax in (tr, pk):
         ax.spines[s].set_visible(False)
 save("ch04-banner.png")
 
-e = np.linspace(-2.2, 2.2, 500)
-H = (e*e - 1)**2 + 0.15*e
-plt.figure(figsize=(6, 3.4))
-plt.plot(e, H)
-plt.xlabel("affect coordinate e")
-plt.ylabel("energy H(e)")
-plt.title("A double-well model has basins and a barrier")
-save("ch05-double-well.png")
+# Chapter 5 opener: an overdamped ball in a double well, U = (x^2 - 1)^2, at two noise levels.
+def langevin(D: float, t_end: float = 400.0, dt: float = 0.01, seed: int = 3):
+    rng = np.random.default_rng(seed)
+    n = int(t_end / dt)
+    xs = np.empty(n)
+    x = -1.0
+    kick = np.sqrt(2 * D * dt) * rng.standard_normal(n)
+    for i in range(n):
+        x += -4 * x * (x * x - 1) * dt + kick[i]
+        xs[i] = x
+    return np.arange(n) * dt, xs
+
+
+fig, (wl, tr) = plt.subplots(1, 2, figsize=(16, 4.4), gridspec_kw={"width_ratios": [1, 2.4]})
+xw = np.linspace(-1.8, 1.8, 400)
+wl.plot(xw, (xw**2 - 1)**2, color="#104a73", lw=2)
+wl.plot([-1], [0.05], "o", color="#c0504d", ms=12)
+wl.annotate("", xy=(-0.1, 0.95), xytext=(-0.85, 0.2),
+            arrowprops=dict(arrowstyle="->", color="#7f8c99", lw=1.5, connectionstyle="arc3,rad=-0.3"))
+wl.text(0, 1.08, "barrier $\\Delta U$", ha="center", fontsize=10)
+wl.text(-1, -0.25, "state A", ha="center", fontsize=10)
+wl.text(1, -0.25, "state B", ha="center", fontsize=10)
+wl.set_ylim(-0.4, 1.6)
+wl.set_xlabel("state x")
+wl.set_ylabel("landscape U(x)")
+wl.set_title("two valleys and a ridge", fontsize=11)
+for D, col, lab in [(0.25, "#c0504d", "noise D = 0.25: hops every 80 time units or so"),
+                    (0.10, "#104a73", "noise D = 0.10: stays put")]:
+    ts, xs = langevin(D)
+    tr.plot(ts, xs, color=col, lw=0.6, label=lab)
+tr.axhline(1, color="#7f8c99", ls=":", lw=1)
+tr.axhline(-1, color="#7f8c99", ls=":", lw=1)
+tr.set_xlabel("time")
+tr.set_ylabel("state x")
+tr.set_title("the same landscape at two noise levels: escape is exponentially sensitive to $\\Delta U/D$", fontsize=11)
+tr.legend(fontsize=9, loc="upper left")
+for ax in (wl, tr):
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+save("ch05-banner.png")
+
+# Chapter 5, Section 5.5: critical slowing down as the valley flattens.
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.4))
+xs = np.linspace(-1.2, 1.2, 300)
+tt = np.linspace(0, 6, 300)
+for k, col in [(4.0, "#104a73"), (2.0, "#4f81bd"), (1.0, "#c0504d"), (0.5, "#7a1f1f")]:
+    ax1.plot(xs, 0.5 * k * xs**2, color=col, label=f"curvature {k:g}")
+    ax2.plot(tt, np.exp(-k * tt), color=col, label=f"recovery time {1 / k:g}")
+ax1.set_ylim(0, 1.5)
+ax1.set_xlabel("distance from the valley floor")
+ax1.set_ylabel("landscape U")
+ax1.set_title("the valley flattens near a tipping point", fontsize=10)
+ax1.legend(fontsize=8)
+ax2.set_xlabel("time after the same small kick")
+ax2.set_ylabel("displacement (relative)")
+ax2.set_title("so the same kick takes longer to die away", fontsize=10)
+ax2.legend(fontsize=8)
+save("ch05-slowing.png")
 
 t = np.linspace(0, 30, 500)
 for K in [0.2, 0.7, 1.2]:

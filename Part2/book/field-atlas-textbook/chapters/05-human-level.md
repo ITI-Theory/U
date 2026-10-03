@@ -1,63 +1,328 @@
-# The Human Level
+# The Human Level: Landscapes, Noise and Memory {#ch-human}
 
-Human-scale models must be humble because subjective life, physiology, memory, language, and social context all interact. A textbook treatment can still teach useful mathematics. This chapter introduces a Langevin equation for a noisy state variable, a double-well energy landscape, and a memory kernel. It then states exactly what QUANT-EXP-1 does and does not establish.
+![A ball in a landscape with two valleys, pushed about by random noise. Right: the same landscape simulated at two noise levels. With more noise (red) the ball hops between the valleys every eighty time units or so; with a little less (blue) it stays in its first valley for the whole run. Escape depends exponentially on the ratio of the barrier to the noise.](figures/generated/ch05-banner.png){.opener}
+
+A person is not a ball rolling in a landscape. A person has a body of thirty trillion cells, a history, a language and other people. Yet some of the most useful models in physiology and psychology reduce a state to a few numbers and ask how those numbers move: how fast a racing heart settles after a fright, why some moods are hard to leave, why a small upset sometimes tips a person into a state that takes weeks to lift. This chapter builds the mathematics of such reductions from physics already in the book: damping from Chapter 2, thermal energy from Chapter 4, thresholds and landscapes from Chapter 4's Hopfield network. Then it states, claim by claim, what the programme behind this Atlas proposes at the human level and how each claim is labelled.
+
+**Chapter outline.** 5.1 A state in a landscape · 5.2 Noise and escape · 5.3 Fast in, slow out · 5.4 Memory kernels · 5.5 Tipping points and critical slowing down · 5.6 The programme's human model and QUANT-EXP-1
+
+## A state in a landscape {#sec-5-1}
 
 ::: {.learning-objectives}
-After studying this chapter, readers should be able to write a simple Langevin equation, explain wells and barriers, compute a Kramers-style escape ratio, describe a memory kernel, and identify QUANT-EXP-1 as a simulated model-class result rather than a clinical or hardware claim.
+- write the equation of an overdamped state moving in a landscape;
+- relate the curvature of a valley to its relaxation time;
+- describe what is gained and lost by such a reduction.
 :::
 
-![A generated double-well energy landscape. Two basins are separated by a barrier; noise, forcing, or changed dynamics can alter transition rates.](figures/generated/ch05-double-well.png){width="72%"}
+Chapter 2's oscillator had inertia: given a kick, it overshoots and rings. Many biological variables do not. A heart rate pushed up by a fright does not swing below its resting value and back several times; it settles smoothly. Such a system is **overdamped**, and its motion is governed by friction and force alone:
 
-## 5.1 Langevin dynamics and basins
+$$\gamma\dot{x} = -U'(x) + F(t),$$
 
-A Langevin equation describes a variable pushed by deterministic forces and random fluctuations. A schematic affect coordinate $e(t)$ might be written as $\gamma\dot e=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t)$. Here $H$ is an energy-like landscape, $D$ sets noise strength, $\xi$ is idealized white noise, and $J(t)$ is an external or internal drive. The equation is a model, not a diagnosis.
+where $x$ is the state, $U(x)$ is a **landscape** whose downhill slope is the restoring force, $\gamma$ is a friction coefficient, and $F(t)$ is any outside push. The state slides downhill and stops at the bottom of a valley. Near a valley floor the landscape is a parabola, $U \approx \tfrac12kx^2$, where $k = U''$ is the **curvature**. The equation becomes $\gamma\dot{x} = -kx$, so a displacement dies away as $e^{-t/\tau}$ with **relaxation time**
 
-A double well has two locally stable regions. If the state starts near one minimum, small noise tends to keep it there. Larger perturbations can cross the barrier. Basins make path dependence visible: a present state may persist not because it is globally best, but because nearby changes are pulled back into the same well. This language is common in physics and dynamical systems; using it for affect requires operational variables and data.
+$$\tau = \frac{\gamma}{k}.$$
 
-::: {.example title="Example 5.1 Barrier sensitivity"}
-Suppose a transition rate is proportional to $\exp(-\Delta H/D)$. Compare barriers $\Delta H=6$ and $\Delta H=3$ with the same noise level $D=0.75$. The high-barrier rate divided by the low-barrier rate is $\exp[-(6-3)/0.75]=\exp(-4)=0.0183$. In this simple model, doubling the barrier from 3 to 6 reduces transitions to about 1.8 percent of the lower-barrier rate.
+A steep valley returns the state quickly; a shallow one slowly. A landscape with two valleys, the simplest being $U(x) = \Delta U\,(x^2 - 1)^2$, has two resting states, $x = \pm1$, separated by a ridge of height $\Delta U$ at $x = 0$. The opening figure shows it. A system described this way is **bistable**: the same rules support two different stable states, and history decides which one it is in.
+
+What the reduction gains is calculation: a handful of measurable numbers (curvature, barrier, noise) predicts how a state responds and how long it stays. What it loses is everything else, and that loss must be stated whenever the model is applied to a person. A coordinate $x$ might be a measured heart rate, a self-rated mood score or a combination of several signals; the model is only as good as the measurement behind $x$.
+
+::: {.example title="Example 5.1 — How fast does a valley return?"}
+For the landscape $U = \Delta U\,(x^2 - 1)^2$ with $\Delta U = 1$ and $\gamma = 1$ (in model units), find the curvature at the valley floors and the relaxation time. How does the relaxation time change if the barrier is halved?
+
+**Strategy.** Differentiate twice and evaluate at $x = \pm1$; then $\tau = \gamma/k$.
+
+**Solution.** $U' = 4\Delta U\,x(x^2 - 1)$ and $U'' = 4\Delta U\,(3x^2 - 1)$, so at $x = \pm1$, $k = 8\Delta U = 8$ and $\tau = 1/8 = 0.125$. Halving the barrier halves the curvature, so $\tau$ doubles to $0.25$.
+
+**Significance.** In this family of landscapes, a lower ridge also means shallower valleys. The same change that makes a state easier to leave makes it slower to recover from a small push, a link that Section 5.5 turns into a warning signal.
 :::
 
 ::: {.check-your-learning}
-If the barrier difference is $2$ and $D=1$, the rate ratio is $e^{-2}=0.135$. The exponential form makes barrier estimates highly consequential.
+What is the curvature at the top of the ridge, $x = 0$, and what does its sign mean? (Answer: $U''(0) = -4\Delta U$; negative curvature means a balanced state there is unstable, and the smallest push sends it into one of the valleys.)
 :::
 
-## 5.2 Memory kernels
+## Noise and escape {#sec-5-2}
 
-A Markov model uses only the current state. Human response often depends on history, so a memory kernel can be added. A simple kernel is $K(\tau)=K_0e^{-\tau/\tau_m}\theta(\tau)$, where $\tau_m$ is a memory time and $\theta$ prevents future influence. The current force can then include an integral over past states. Such a model can express after-effects, priming, extinction, and delayed recovery.
-
-Memory kernels are not automatically psychological truth. They are a way to test whether history improves prediction beyond a current-state model. If physiology, report, or behavior show no improvement when lagged terms are added, the kernel should be rejected or simplified. The [T]-Theory temporal paper treats retarded response as `derived-under-assumptions`; empirical validation remains separate.
-
-::: {.making-connections}
-Physics uses memory kernels in viscoelasticity and open systems. Neuroscience and psychology use related ideas when past stimulation changes present thresholds. The shared mathematics is useful, but each domain needs its own measurements.
+::: {.learning-objectives}
+- add random noise to an overdamped equation;
+- state the Boltzmann distribution and the Kramers escape time;
+- compute how escape times change with barrier height and noise.
 :::
 
-## 5.3 QUANT-EXP-1 as simulation
+No real system is perfectly quiet. Molecules jostle, cells fire at random, a day brings a hundred small events. The simplest model adds a random force to the equation of motion,
 
-QUANT-EXP-1 is an exact 8-qubit statevector simulation over 256 states. The repository ledger states that quantum annealing reached the Awe basin in three of three tested barrier cases, while a cold classical baseline reached it in zero of 48 attempts. Those numbers are `simulated`. They are not evidence that quantum hardware was run, that therapy works by quantum computation, or that consciousness has been measured.
+$$\gamma\dot{x} = -U'(x) + \sqrt{2\gamma D}\,\eta(t),$$
 
-The useful teaching point is model comparison. A cold classical process can be trapped by a barrier in the chosen landscape, while a simulated annealing schedule using quantum amplitudes can have different reachability. The next scientific steps are fixed-seed tables, negative controls, noise-equivalence curves, and hardware or classical alternative baselines. Open claims must survive those comparisons.
+where $\eta(t)$ is **white noise**, a random push uncorrelated from one instant to the next, and $D$ measures its strength in units of energy. This is a **Langevin equation**, the same one that describes a pollen grain jiggled by water molecules, for which $D = k_BT$. After a long time the state is found at $x$ with probability proportional to
+
+$$p(x) \propto e^{-U(x)/D},$$
+
+the **Boltzmann distribution** of Chapter 4 with $D$ in place of $k_BT$. Deep valleys are occupied, ridges are rarely visited. But rarely is not never: sooner or later a run of pushes in the same direction carries the state over the ridge. In 1940 Kramers worked out how long that takes. For an overdamped system the mean time to escape from valley A over a ridge of height $\Delta U$ is
+
+$$\langle t\rangle = \frac{2\pi\gamma}{\sqrt{k_A\,|k_\text{top}|}}\;e^{\Delta U/D},$$
+
+where $k_A$ and $k_\text{top}$ are the curvatures at the valley floor and at the top of the ridge. The prefactor sets the time scale; the exponential does nearly all the work. The same law, with $D = k_BT$, governs the rates of chemical reactions, where it is known as the Arrhenius law and has been tested on millions of reactions.
+
+::: {.example title="Example 5.2 — A small change in noise"}
+For the landscape of Example 5.1 ($\Delta U = 1$, $\gamma = 1$), compute the Kramers escape time at noise $D = 0.25$ and at $D = 0.10$, the two runs in the opening figure.
+
+**Strategy.** $k_A = 8$ and $|k_\text{top}| = 4$, so the prefactor is $2\pi/\sqrt{32} = 1.11$. Multiply by $e^{\Delta U/D}$.
+
+**Solution.** At $D = 0.25$: $1.11\times e^{4} = 1.11\times54.6 = 61$. At $D = 0.10$: $1.11\times e^{10} = 1.11\times22\,000 = 24\,000$.
+
+**Significance.** Reducing the noise by a factor of $2.5$ lengthens the wait four hundred times ($e^6 = 403$). That is why the blue run in the opening figure never escapes during 400 time units: the expected wait is sixty times longer than the whole run.
+:::
+
+::: {.check-your-learning}
+If the barrier doubles while the noise stays the same, what happens to the exponential factor? (Answer: $e^{2\Delta U/D} = \big(e^{\Delta U/D}\big)^2$; it is squared, so a factor of 55 becomes 3000.)
+:::
+
+## Fast in, slow out {#sec-5-3}
+
+::: {.learning-objectives}
+- compute escape rates in both directions for an asymmetric landscape;
+- distinguish forced transitions from noise-driven escapes;
+- state the programme's formation–dissolution reading and its label.
+:::
+
+Real landscapes are rarely symmetric. Suppose valley A is shallow, with a ridge $\Delta U_A$ above it, and valley B is deep, so that the same ridge stands $\Delta U_B$ above B's floor, with $\Delta U_B > \Delta U_A$. Noise then carries the state from A to B far more often than from B to A. If the curvatures are similar, the ratio of the two escape times is
+
+$$\frac{\langle t_{B\to A}\rangle}{\langle t_{A\to B}\rangle} \approx e^{(\Delta U_B - \Delta U_A)/D}.$$
+
+There is a second way to change valleys. A large outside push, a force $F(t)$ much bigger than the noise, can carry the state over the ridge in the time the push lasts, without waiting for luck. Forced transitions are fast; noise-driven escapes from a deep valley are exponentially slow. Put the two together and the asymmetry is stark: a strong push can put a system into a deep valley in moments, and noise alone may take longer than any observation to get it out.
+
+::: {.example title="Example 5.3 — An asymmetric pair of valleys"}
+A landscape has $\Delta U_A = 1$ and $\Delta U_B = 3$, with noise $D = 0.25$ and similar curvatures. How much longer, on average, does the state stay in B than in A?
+
+**Strategy.** Use the ratio formula above.
+
+**Solution.** $e^{(3 - 1)/0.25} = e^{8} = 2980$.
+
+**Significance.** A barrier only twice as high above B's floor as above A's makes B about three thousand times stickier. Exponential laws turn modest differences in landscape into enormous differences in time.
+:::
+
+The temporal dynamics paper of the programme [@P10] applies this mathematics to a clinical observation: distressing states often form in minutes and dissolve over months. In its reading, an overwhelming event is a large forced push into a deep valley, and recovery is a noise-driven escape from below. The mathematics is standard and the asymmetry follows from it, so the conditional statement *if a state is a deep valley in such a landscape, then it forms faster than it dissolves* is `derived-under-assumptions`. Whether distressing states are such valleys, with measurable barriers, is `open-hypothesis`. The paper also stresses what the model does not say: a ball in a deep pit is following the equations, not failing.
+
+::: {.making-connections title="Making Connections — The window of tolerance"}
+Clinicians speak of a **window of tolerance**, a range of arousal within which a person can process difficult material [@siegel2012developing]. Too little arousal and nothing moves; too much and the person is flooded. Section 5.2 has the same shape: with too little noise the state cannot leave its valley, and with too much it visits everywhere and no valley holds. Section 5.6 meets both failures in a simulation. The correspondence is `interpretive`: it organises the clinical idea in the model's terms, and it becomes testable only when arousal is measured and treated as $D$.
+:::
+
+## Memory kernels {#sec-5-4}
+
+::: {.learning-objectives}
+- write a state as a convolution of past inputs with a memory kernel;
+- compute how much of an earlier input remains;
+- explain how memory lets a repeated input cross a threshold.
+:::
+
+Chapter 2 showed that a linear system's response to any input is a sum of kicks, each weighted by the impulse response: the convolution. For the overdamped valley of Section 5.1 the impulse response is a decaying exponential, so the state carries a fading record of everything that has pushed it:
+
+$$x(t) = \int_{-\infty}^{t}K(t - t')\,F(t')\,dt', \qquad K(\tau) = K_0\,e^{-\tau/\tau_m}.$$
+
+The function $K$ is called a **memory kernel** and $\tau_m$ the **memory time**. The programme's temporal dynamics paper uses exactly this form for what it calls somatic memory, with $\tau_m$ ranging from seconds to years in different parts of the model [@P10]. The kernel is the simplest that remembers; measured physiological responses often need two or more exponentials, or a slowly decaying power law, and the right form for a given signal is an empirical question.
+
+Memory changes what a threshold does. A single push may fall short of a threshold; the same push repeated before the first has faded can cross it, because the state still carries part of the first. The response to the second push depends on the first, so the system behaves as if it remembers.
+
+::: {.example title="Example 5.4 — Two pushes"}
+A state with memory kernel $K(\tau) = e^{-\tau/\tau_m}$, $\tau_m = 5\,\mathrm{s}$, receives two identical brief pushes of unit size, at $t = 0$ and $t = 5\,\mathrm{s}$. A threshold sits at $1.2$. Does either push cross it?
+
+**Strategy.** Just after each push, add the push to whatever remains of earlier ones.
+
+**Solution.** Just after the first push the state is $1.0$, below threshold. By $t = 5\,\mathrm{s}$ it has decayed to $e^{-1} = 0.37$, so just after the second push it is $1.37$, above threshold.
+
+**Significance.** Neither push alone is enough; the pair is. Had the second push come $10\,\mathrm{s}$ later instead of five, only $e^{-2} = 0.14$ would remain and the total, $1.14$, would fall short. Timing, as in Chapter 2's swing, decides the outcome.
+:::
+
+::: {.check-your-learning}
+With $\tau_m = 5\,\mathrm{s}$, what fraction of a push remains after $1\,\mathrm{s}$? After $10\,\mathrm{s}$? (Answer: $e^{-0.2} = 0.82$; $e^{-2} = 0.14$.)
+:::
+
+## Tipping points and critical slowing down {#sec-5-5}
+
+::: {.learning-objectives}
+- explain why recovery slows as a valley flattens;
+- compute the lag autocorrelation of a noisy state from its relaxation time;
+- describe early-warning signals and their limits.
+:::
+
+Chapter 4 met **critical slowing down** at the threshold of a nerve cell. It appears whenever a valley is about to disappear. As conditions change, a valley can grow shallower, and Section 5.1 showed that a shallower valley returns more slowly ($\tau = \gamma/k$). Near the point where the valley vanishes, a **tipping point**, the curvature approaches zero and the relaxation time grows without limit. The figure below shows the effect.
+
+![Left: a valley flattening as a tipping point approaches, drawn at four curvatures. Right: the response to the same small kick in each. The recovery time is $\gamma/k$, so halving the curvature doubles it.](figures/generated/ch05-slowing.png){width="100%"}
+
+A noisy state in a slow valley wanders further and stays away longer, which shows up in a simple statistic. Sampled every $\Delta t$, successive values are correlated by $e^{-\Delta t/\tau}$, the **lag autocorrelation**. As a tipping point approaches, $\tau$ grows and the autocorrelation creeps towards one; the variance grows too. These **early-warning signals** have been found before abrupt changes in lakes, fisheries and past climates [@scheffer2009early]. They have limits: they need long, regular records, they can be masked by noise or by changes in the noise itself, and some transitions happen without them, for example when a single large push throws a system over a ridge that was not flattening at all. Researchers have looked for the same signals in daily mood records; that work is young, and any single-person forecast from it would be premature.
+
+::: {.example title="Example 5.5 — A rising autocorrelation"}
+A mood score is recorded once a day. Its relaxation time is $1$ day, and then over some months it rises to $2$ days and to $4$. Find the lag-one-day autocorrelation at each stage.
+
+**Strategy.** Use $e^{-\Delta t/\tau}$ with $\Delta t = 1$ day.
+
+**Solution.** $\tau = 1$: $e^{-1} = 0.37$. $\tau = 2$: $e^{-0.5} = 0.61$. $\tau = 4$: $e^{-0.25} = 0.78$.
+
+**Significance.** The rise from $0.37$ to $0.78$ is large and measurable with enough data, and it signals that the valley is flattening. It does not say which way the state will go once the valley is gone, or when exactly.
+:::
+
+## The programme's human model and QUANT-EXP-1 {#sec-5-6}
+
+::: {.learning-objectives}
+- state the programme's eight-mode landscape and its energy function;
+- describe QUANT-EXP-1 and its results accurately;
+- label each claim of the human-level reading correctly.
+:::
+
+The programme's human model is the landscape of this chapter in eight dimensions. A state is a vector $\mathbf{e}$ of eight emotional modes, named Safety, Fear, Curiosity, Awe, Grief, Language, Preverbal and Shame, and the landscape is a Hopfield energy (Chapter 4) with a coupling matrix $W$ and a bias $\mathbf{b}$:
+
+$$H(\mathbf{e}) = -\tfrac12\,\mathbf{e}^{\mathsf T}W\mathbf{e} - \mathbf{b}^{\mathsf T}\mathbf{e}.$$
+
+Valleys of $H$ are proposed as emotional states; a strongly negative coupling between two modes builds a high ridge between their valleys [@P1; @P10]. The quantum paper [@P2] then asks a computational question. With a Fear–Awe coupling of $-10$, the ridge between the Fear valley and the Awe valley is $2.025$ high. Can a state that starts in the Fear valley reach the Awe valley?
+
+The experiment, QUANT-EXP-1, compares two kinds of dynamics on the same landscape. The classical runs use the Langevin equation of Section 5.2. The quantum run replaces the landscape with the corresponding eight-qubit energy and slowly switches off a "transverse field" that lets the state tunnel through ridges rather than climb over them, a standard technique called **quantum annealing**. All $2^8 = 256$ quantum amplitudes are computed exactly. The results:
+
+| Dynamics | Fear occupancy | Awe occupancy | Verdict |
+|:--|:--|:--|:--|
+| Classical, cold ($D = 0.02$) | 0.976 | 0.000 | stuck: $e^{-2.025/0.02} = e^{-101}$ |
+| Classical, hot ($D = 1.5$) | 0.228 | 0.036 | flooded: valleys no longer hold |
+| Quantum annealing | 0.005 | 0.408 (peak) | reaches the Awe valley |
+
+The cold run is stuck for exactly the reason of Example 5.2; the hot run escapes but loses the landscape's structure, the two failures of the window of tolerance. The annealed run reaches the target valley without flooding. Follow-up sweeps over ridge heights from $-6$ to $-14$ gave the same pattern, and found that any classical noise level matching the quantum result also floods the landscape.
+
+| Claim | Label |
+|:--|:--|
+| Overdamped relaxation, Kramers escape, critical slowing before tipping points | `empirical-result` |
+| In an asymmetric landscape, forced entry is fast and noise-driven exit is slow | `derived-under-assumptions` |
+| Emotional states are valleys of an eight-mode landscape with measurable ridges | `open-hypothesis` |
+| QUANT-EXP-1: annealing reaches the Awe valley; the cold classical run does not | `simulated` |
+| Human brains perform quantum annealing between emotional states | not claimed |
+
+The last row matters most. QUANT-EXP-1 is a statement about two algorithms on one model landscape. It shows that the landscape has a ridge that a cold classical search cannot cross and an annealer can. The paper is explicit that it does not show that brains are quantum devices, or that any therapy works by tunnelling. Its value is as a bounded, reproducible test of a model's reachability, runnable in seconds by anyone with the code.
 
 ::: {.soma-machine}
-The human-level demo can be opened with `#level=human-vertebrate&lens=on&dim=11`. Read the basins as a visual explanation of a model; do not read them as clinical advice.
+The human level shows the chapter's two models side by side. In `#level=human-vertebrate&lens=on&dim=4` a **Poke field** gives a single damped response that returns to rest. With `dim=8`, poke twice in quick succession: the second response differs from the first, because the 8D model carries the memory kernel of Section 5.4, and a large enough pair crosses into another valley. The question tour `#q=feeling-memory`, *Does a feeling remember being poked?*, walks through the same steps with their labels.
 :::
+
+## Key Terms {.unnumbered}
 
 ::: {.key-terms}
-**Langevin equation:** stochastic differential equation with deterministic and noise terms. **Basin:** region attracted toward a stable state. **Barrier:** energy difference that limits transitions. **Memory kernel:** weighted influence of past states. **Statevector simulation:** exact numerical representation of quantum amplitudes for a small system.
+bistable
+: having two stable states under the same rules
+
+critical slowing down
+: the lengthening of recovery times as a valley flattens towards a tipping point
+
+Kramers escape time
+: the mean time for noise to carry a state over a ridge, proportional to $e^{\Delta U/D}$
+
+landscape
+: a function $U(x)$ whose downhill slope is the force on a state
+
+Langevin equation
+: an equation of motion with a random force added
+
+memory kernel
+: the weighting $K(\tau)$ with which past inputs contribute to the present state
+
+quantum annealing
+: finding low valleys of an energy by slowly removing a field that lets the state tunnel
+
+relaxation time
+: $\tau = \gamma/k$, the time for a small displacement to fall by a factor $e$
 :::
+
+## Key Equations {.unnumbered}
 
 ::: {.key-equations}
-$\gamma\dot e=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t)$ is the schematic human-scale field equation. $K(\tau)=K_0e^{-\tau/\tau_m}\theta(\tau)$ is a causal exponential memory kernel.
+Overdamped motion
+: $\gamma\dot{x} = -U'(x) + F(t)$, $\quad \tau = \gamma/U''$
+
+Double-well landscape
+: $U = \Delta U\,(x^2 - 1)^2$, $\quad U''(\pm1) = 8\Delta U$, $\ U''(0) = -4\Delta U$
+
+Langevin equation and Boltzmann distribution
+: $\gamma\dot{x} = -U' + \sqrt{2\gamma D}\,\eta(t)$, $\quad p(x) \propto e^{-U/D}$
+
+Kramers escape time
+: $\langle t\rangle = \dfrac{2\pi\gamma}{\sqrt{k_A|k_\text{top}|}}\,e^{\Delta U/D}$
+
+Memory kernel
+: $x(t) = \int K(t-t')F(t')\,dt'$, $\quad K(\tau) = K_0e^{-\tau/\tau_m}$
+
+Lag autocorrelation
+: $\rho(\Delta t) = e^{-\Delta t/\tau}$
 :::
+
+## Summary {.unnumbered}
 
 ::: {.summary}
-Human-level dynamics can be modelled with noisy basins and memory, but the variables must be operationalized. QUANT-EXP-1 is a simulated reachability result inside a small attractor model and carries the `simulated` evidence label.
+**5.1** An overdamped state slides down a landscape; a valley of curvature $k$ returns it in time $\gamma/k$. Two valleys make a system bistable.
+
+**5.2** Noise lets a state escape over a ridge in a time proportional to $e^{\Delta U/D}$: small changes in barrier or noise change waiting times enormously.
+
+**5.3** In an asymmetric landscape a strong push enters a deep valley quickly while noise leaves it slowly. The programme's reading of distress as such a valley is an open hypothesis.
+
+**5.4** A memory kernel makes the present state a weighted record of past inputs, so repeated inputs can cross a threshold that one cannot.
+
+**5.5** As a valley flattens, recovery slows and autocorrelation rises: an early-warning signal with real but limited use.
+
+**5.6** QUANT-EXP-1 shows, in simulation, that annealing reaches a valley a cold classical search cannot. It makes no claim that brains tunnel.
 :::
+
+## Review Questions {.unnumbered}
 
 ::: {.review-questions}
-1. What does the noise strength $D$ control in a Langevin model? 2. Why does a memory kernel need causality? 3. Which claims does QUANT-EXP-1 explicitly not establish?
+1. Why does a heart rate settle smoothly rather than ringing like a bell?
+2. Why does the exponential in the Kramers formula matter more than the prefactor?
+3. Explain why a state can be entered quickly but left slowly. What two mechanisms are involved?
+4. How can two pushes cross a threshold that neither crosses alone?
+5. What does a rising lag autocorrelation tell you, and what does it not tell you?
+6. Which row of the table in Section 5.6 is a simulation result, and what would be needed to turn the open hypothesis into an empirical result?
 :::
 
-::: {.problems}
-1. Evaluate $e^{-3}$ to two significant figures. 2. A memory kernel has $\tau_m=5\,\mathrm{s}$. What fraction remains after $10\,\mathrm{s}$? 3. Describe one measurement that could test a human-scale basin model.
+## Worked Homework {.unnumbered}
+
+::: {.problems title="Problem 5.1 — Formula against simulation"}
+Simulations of the landscape of Example 5.1 give mean escape times of $78$ at $D = 0.25$ and $194$ at $D = 0.20$. Compare with the Kramers formula and explain the trend.
+:::
+
+::: {.example title="Solution 5.1"}
+**Solution.** Kramers: $1.11\,e^{4} = 61$ and $1.11\,e^{5} = 165$. The simulations are longer by $29\,\%$ and $17\,\%$.
+
+**Significance.** The Kramers formula is exact only when the barrier is much larger than the noise. At $\Delta U/D = 4$ and $5$ it is a good estimate, and it improves as the ratio grows; the simulated times also include the slide down into the second valley. The exponential, which accounts for the factor of $2.7$ between the two cases, is captured exactly. *Baseline:* Penrose, chapter 27 (the second law and the Boltzmann factor) [@penrose2004road].
+:::
+
+::: {.problems title="Problem 5.2 — Halving the noise"}
+In the landscape of Example 5.1, how much longer is the escape time at $D = 0.125$ than at $D = 0.25$?
+:::
+
+::: {.example title="Solution 5.2"}
+**Solution.** The ratio is $e^{1/0.125 - 1/0.25} = e^{8 - 4} = e^{4} = 55$.
+
+**Significance.** Halving the noise multiplies the wait by fifty-five. Systems near the edge of mobility are extremely sensitive to their noise level, a fact used in annealing furnaces and simulated-annealing algorithms, which lower the noise slowly so that the state settles in the deepest valley.
+:::
+
+::: {.problems title="Problem 5.3 — The cold run"}
+In QUANT-EXP-1 the ridge is $2.025$ high and the cold classical run has $D = 0.02$. Compute the Boltzmann factor for reaching the top of the ridge. Repeat for the hot run, $D = 1.5$.
+:::
+
+::: {.example title="Solution 5.3"}
+**Solution.** Cold: $e^{-2.025/0.02} = e^{-101} = 1\times10^{-44}$. Hot: $e^{-2.025/1.5} = e^{-1.35} = 0.26$.
+
+**Significance.** At the cold setting the ridge is effectively a wall; at the hot setting a quarter of all attempts reach the top, so the state wanders over every ridge and no valley holds it. Neither is what the experiment wants, which is the reason for comparing with annealing. **Try it:** `#q=feeling-memory`. *Baseline:* Penrose, chapter 21 (tunnelling and the quantum particle) [@penrose2004road].
+:::
+
+::: {.problems title="Problem 5.4 — Three pushes"}
+With the kernel of Example 5.4 ($\tau_m = 5\,\mathrm{s}$, threshold $1.2$), unit pushes arrive at $t = 0$, $10$ and $20\,\mathrm{s}$. Does the third cross the threshold?
+:::
+
+::: {.example title="Solution 5.4"}
+**Solution.** Just after the second push: $1 + e^{-2} = 1.135$. At $t = 20\,\mathrm{s}$ this has decayed by $e^{-2}$ to $0.154$, so just after the third push the state is $1.154$: below threshold.
+
+**Significance.** With pushes spaced by two memory times the state settles at $1/(1 - e^{-2}) = 1.157$ after each push, never reaching $1.2$. Closer spacing would cross it. The memory time sets the tempo at which repeated small events add up.
+:::
+
+::: {.problems title="Problem 5.5 — Recovery as a warning"}
+In the landscape of Example 5.1, the barrier slowly falls from $\Delta U = 1$ to $\Delta U = 0.25$. By what factor does the relaxation time grow, and by what factor does the noise-driven escape time at $D = 0.25$ shrink?
+:::
+
+::: {.example title="Solution 5.5"}
+**Solution.** $\tau = \gamma/8\Delta U$ grows from $0.125$ to $0.5$, a factor of $4$. The escape time $\frac{2\pi}{\sqrt{32}\,\Delta U}e^{\Delta U/D}$ goes from $1.11\,e^{4} = 61$ to $4.44\,e^{1} = 12$, a factor of $5$ shorter (at $\Delta U/D = 1$ the formula is only a rough guide).
+
+**Significance.** The two changes go together: recovery from small pushes slows while escape becomes more likely. Watching the first is a way to anticipate the second, which is the logic of early-warning signals.
 :::
