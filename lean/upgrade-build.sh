@@ -16,6 +16,20 @@ say "toolchain: $(cat lean-toolchain)"
 say "1/3 lake update (resolves physlib, mathlib, OSforGFF and their dependencies)"
 lake update 2>&1 | tee -a "$LOG" || { say "lake update FAILED"; exit 1; }
 
+say "1b  apply compatibility patches from lean/patches/v4.33/ (skipped if already applied)"
+for patch in lean/patches/v4.33/*.patch; do
+  [ -e "$patch" ] || continue
+  pkg=$(basename "$patch" .patch)
+  dir=".lake/packages/$pkg"
+  if git -C "$dir" apply --reverse --check "$(pwd)/$patch" 2>/dev/null; then
+    say "   $pkg: already applied"
+  elif git -C "$dir" apply "$(pwd)/$patch"; then
+    say "   $pkg: applied"
+  else
+    say "   $pkg: patch does not apply (upstream changed?) - see $patch"; exit 1
+  fi
+done
+
 say "2/3 lake exe cache get (prebuilt Mathlib, saves hours)"
 lake exe cache get 2>&1 | tee -a "$LOG" || say "cache get failed; the build will compile Mathlib from source (slow)"
 
