@@ -103,6 +103,7 @@ fractal_manifest:
     - c:soma-field-paper
     source_book: clinical-psychology/book-clinical-psychology.md
     green_id: Trauma-Well Resolution — escape probability from a somatic attractor basin
+    recto_open: true
   - id: computer-science
     title: '[T]-Theory: Computing'
     subtitle: Verified Emotional Computing
@@ -160,6 +161,7 @@ fractal_manifest:
     - c:soma-field-synthesis
     source_book: complex-systems/book-complex-systems.md
     green_id: Scale-Invariant Propagator — G invariant under renormalisation group flow
+    recto_open: true
   - id: music-arts
     title: '[T]-Theory: Music and the Arts'
     subtitle: The Physics of Music and Affect

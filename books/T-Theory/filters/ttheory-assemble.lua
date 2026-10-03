@@ -208,7 +208,8 @@ local function book_opening(domain)
   local audience = meta_text(domain.audience)
   local blocks = pandoc.List:new()
   if FORMAT:match("latex") then
-    blocks:insert(pandoc.RawBlock("latex", string.format([[\part{%s}
+    local prefix = meta_text(domain.recto_open) == "true" and "\\cleardoublepage\n" or ""
+    blocks:insert(pandoc.RawBlock("latex", prefix .. string.format([[\part{%s}
 \markboth{%s}{%s}
 \begin{center}
 {\large\itshape %s\par}
