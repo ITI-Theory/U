@@ -5,7 +5,7 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
-## Resume Here (updated 2026-10-03, 20:20)
+## Resume Here (updated 2026-10-03, 22:15)
 
 Done 2026-10-03 (all pushed): build standard (`docs/BUILD.md`; Make + pandoc +
 Lua, POSIX recipes, one root `bld/`); papers, Fractal Thesis and Field Atlas on
@@ -14,23 +14,29 @@ release-check section 14); Lean upgraded to v4.33.0 on main (25 libraries, 0
 errors; `make lean-update`; upstream PR mrdouglasny/OSforGFF#22); Lean
 appendix (D2) now has all 25 proof files; two SomaField sorries closed (five
 remain); ISS-011 HopfieldNet2 assessment (fork plan, port probe in
-`../probe-nn`).
+`../probe-nn`). Dist PROMPTS.md gained an "Observatory walk-throughs" section
+(the blue rubber ball; Dist 4e5a42c).
+
+Fixed 2026-10-03 22:00: `programme-refs.lua` walked into explicit citations,
+so `[@P1; @P10]` rendered as one narrative cite and dropped P1. It now skips
+Cite elements. Every book, paper and Atlas build that uses the filter
+picks this up at its next rebuild.
 
 Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
 `make -C Part2/book/field-atlas-textbook check a3 html`):
-- Chapters 1 and 2 rewritten to the model standard: learning objectives,
+- Chapters 1, 2 and 3 rewritten to the model standard: learning objectives,
   worked examples (Strategy / Solution / Significance), Worked Homework with
   full solutions, "Try it" app links, Penrose chapter baselines, every number
   checked in `scripts/verify_answers.py`, shared prose checker passes.
-- NEXT: chapter 3 (atoms and the quantum scale). Banner figure done
-  (`ch03-banner.png`: hydrogen levels + Balmer lines). Numbers computed:
-  hc = 1239.84 eV nm; Balmer 656.1 / 486.0 / 433.9 / 410.1 nm (Bohr, infinite
-  nuclear mass; measured H-alpha 656.3 nm in air); Lyman-alpha 121.5 nm;
-  de Broglie 1 eV electron 1.23 nm, 54 eV (Davisson-Germer) 0.167 nm;
-  r_n = n^2 a0; confinement to 0.1 nm gives ~1-4 eV; 21 cm line 1420.4 MHz.
-  Use `#q=hydrogen-feeling` and the atomic renderer's Balmer lines.
-- Then chapters 4-10 the same way; then the tour language (`#tour=`) and
-  MOTHER/H-AL observatory mode (agreed order).
+  Chapter 3 ends with "Lines as poles": spectrum = pole set; particle = pole
+  of a propagator; programme percept-as-pole claim (P1, P3 COID-PROP-1) with
+  a label table and the Lean theorem `perceptIsPropagatorPole_nostalgia`.
+- Header now uses `\raggedcolumns` and `\needspace` before sections. Known
+  cosmetic quirk: on the chapter 3 end page the "Review Questions" heading
+  sits alone at the top of column 2 (box in column 3). Check at final print.
+- NEXT: chapter 4 (molecules and cells: cable equation, length constant,
+  action potential; `#q=neuron-all-or-none`). Then chapters 5-10; then the
+  tour language (`#tour=`) and MOTHER/H-AL observatory mode (agreed order).
 
 Agents: write content and review myself; agents only for mechanical jobs.
 
