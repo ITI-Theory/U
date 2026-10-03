@@ -37,6 +37,16 @@ fi
 # ── 3. Open research problems ──────────────────────────────────────────────
 hdr "3. Open research problems"
 
+# Portable Python: honour $PYTHON, else python3, python, or the Windows py launcher.
+PY="${PYTHON:-}"
+if [ -z "$PY" ]; then
+  # Skip the Windows Store alias, which exists on PATH but does not run.
+  for c in python python3 py; do
+    if command -v "$c" >/dev/null 2>&1 && "$c" -c "import sys" >/dev/null 2>&1; then PY="$c"; break; fi
+  done
+fi
+py() { "$PY" "$@"; }
+
 STALE_PROBLEMS=$(py paper/scripts/check_stale_problem_labels.py \
   --pdf bld/papers/zoomable-somatic-field.pdf \
   --pdf bld/papers/lean-proofs-appendix.pdf 2>&1)
