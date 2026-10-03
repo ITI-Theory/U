@@ -6,7 +6,7 @@ import Physlib.Electromagnetism.Basic
 import Physlib.ClassicalMechanics.WaveEquation.HarmonicWave
 import Physlib.ClassicalMechanics.OrbitalMechanics.VisViva
 import Physlib.CondensedMatter.TightBindingChain.Basic
-import Physlib.FluidDynamics.FluidState
+import Physlib.FluidDynamics.FluidFlow.Basic
 import Physlib.Particles.StandardModel.Basic
 import Physlib.Cosmology.FLRW.Basic
 
@@ -98,14 +98,14 @@ inductive ScaleStep : Type
       Scale 7  (brain):       CemiField     ← McFadden CEMI field
       Scale 8  (organism):    Field8        ← soma-field
       Scale 9  (swarm):       SwarmState 8  ← agent swarm
-      Scale 10 (city):        FluidDynamics.FluidState 2  ← 2D traffic/flow
+      Scale 10 (city):        FluidDynamics.FluidFlow 2  ← 2D traffic/flow
       Scale 11 (geological):  FluidDynamics.StressTensor 3  ← seismic stress tensor
-      Scale 12 (planetary):   FluidDynamics.FluidState 3  ← mantle convection
+      Scale 12 (planetary):   FluidDynamics.FluidFlow 3  ← mantle convection
       Scale 13 (solar):       ClassicalMechanics.VisViva  ← orbital mechanics
       Scale 14 (stellar):     ClassicalMechanics.WaveVector 3  ← wave propagation
       Scale 15 (galactic):    ClassicalMechanics.WaveVector 3  ← density wave
       Scale 16 (halo):        FluidDynamics.MassDensity 3  ← dark matter density
-      Scale 17 (cluster):     FluidDynamics.FluidState 3  ← intracluster medium
+      Scale 17 (cluster):     FluidDynamics.FluidFlow 3  ← intracluster medium
       Scale 18 (large-scale): Cosmology.FLRW  ← Friedmann metric
       Scale 19 (universe):    Cosmology.FLRW
       Scale 20 (cosmic web):  Cosmology.FLRW
@@ -134,14 +134,14 @@ def FieldLayerType : ScaleStep → Type
   | .AtomicOrbital      => Electromagnetism.ElectricField 3    -- Coulomb field
   | .MolecularBond      => CondensedMatter.TightBindingChain   -- tight-binding electron model
   | .AxonFibre          => FluidDynamics.VelocityField 1       -- 1D signal along nerve fibre
-  | .CityInfrastructure => FluidDynamics.FluidState 2          -- 2D fluid / traffic flow
+  | .CityInfrastructure => FluidDynamics.FluidFlow 2          -- 2D fluid / traffic flow
   | .GeologicalSeismic  => FluidDynamics.StressTensor 3        -- seismic stress tensor
-  | .PlanetaryMantle    => FluidDynamics.FluidState 3          -- viscous mantle convection
+  | .PlanetaryMantle    => FluidDynamics.FluidFlow 3          -- viscous mantle convection
   | .SolarSystem        => ClassicalMechanics.VisViva          -- vis-viva orbital mechanics
   | .StellarNeighbour   => ClassicalMechanics.WaveVector 3     -- gravitational wave proxy
   | .GalacticDisc       => ClassicalMechanics.WaveVector 3     -- spiral arm density wave
   | .GalacticHalo       => FluidDynamics.MassDensity 3         -- dark matter density profile
-  | .GalaxyCluster      => FluidDynamics.FluidState 3          -- intracluster hot gas
+  | .GalaxyCluster      => FluidDynamics.FluidFlow 3          -- intracluster hot gas
   | .LargeScaleStruct   => Cosmology.FLRW                     -- baryon acoustic oscillation
   | .ObservableUniverse => Cosmology.FLRW                     -- Friedmann metric
   | .CosmicWeb          => Cosmology.FLRW                     -- cosmic web (FLRW regime)
