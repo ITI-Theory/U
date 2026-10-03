@@ -241,3 +241,48 @@ for ax in axes:
     for s in ("top", "right", "left"):
         ax.spines[s].set_visible(False)
 save("ch02-banner.png")
+
+# Chapter 3 opener: hydrogen energy levels and the visible Balmer lines.
+def wl_rgb(nm: float) -> tuple[float, float, float]:
+    if nm < 440: r, g, b = (440 - nm) / 60, 0.0, 1.0
+    elif nm < 490: r, g, b = 0.0, (nm - 440) / 50, 1.0
+    elif nm < 510: r, g, b = 0.0, 1.0, (510 - nm) / 20
+    elif nm < 580: r, g, b = (nm - 510) / 70, 1.0, 0.0
+    elif nm < 645: r, g, b = 1.0, (645 - nm) / 65, 0.0
+    else: r, g, b = 1.0, 0.0, 0.0
+    return (max(0, min(1, r)), max(0, min(1, g)), max(0, min(1, b)))
+
+
+RYD = 13.6057
+HC = 1239.84
+fig, (lev, spec) = plt.subplots(1, 2, figsize=(16, 4.4), gridspec_kw={"width_ratios": [1, 2.3]})
+for n in range(1, 7):
+    e = -RYD / n**2
+    lev.hlines(e, 0, 1, color="#104a73", lw=1.4)
+    lev.text(1.03, e, f"n = {n}   {e:.2f} eV", va="center", fontsize=9)
+lev.hlines(0, 0, 1, color="#7f8c99", lw=1, ls="--")
+lev.text(1.03, 0.2, "ionised, 0 eV", va="bottom", fontsize=9, color="#7f8c99")
+for i, n in enumerate(range(3, 7)):
+    lam = HC / (RYD / 4 - RYD / n**2)
+    x = 0.18 + 0.15 * i
+    lev.annotate("", xy=(x, -RYD / 4), xytext=(x, -RYD / n**2),
+                 arrowprops=dict(arrowstyle="->", color=wl_rgb(lam), lw=2))
+lev.set_xlim(0, 1.7)
+lev.set_ylim(-14.5, 1.2)
+lev.set_xticks([])
+lev.set_ylabel("energy (eV)")
+lev.set_title("hydrogen levels; Balmer jumps end on n = 2", fontsize=11)
+for s in ("top", "right", "bottom"):
+    lev.spines[s].set_visible(False)
+xs = np.linspace(380, 700, 700)
+spec.imshow([[wl_rgb(x) for x in xs]], extent=(380, 700, 0, 1), aspect="auto", alpha=0.25)
+for n in range(3, 7):
+    lam = HC / (RYD / 4 - RYD / n**2)
+    spec.axvline(lam, color=wl_rgb(lam), lw=4)
+    spec.text(lam, 1.04, f"{lam:.0f} nm", ha="center", fontsize=9)
+spec.set_xlim(380, 700)
+spec.set_ylim(0, 1.15)
+spec.set_yticks([])
+spec.set_xlabel("wavelength (nm)")
+spec.set_title("the visible lines of hydrogen: one formula, four colours", fontsize=11)
+save("ch03-banner.png")
