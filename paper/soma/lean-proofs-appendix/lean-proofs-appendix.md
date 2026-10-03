@@ -52,8 +52,8 @@ The eleven files that follow collectively establish:
 | `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles; data and renderer declarations |
 
 **On proof status and axioms:** Lean accepts the files, but a build is not a
-file-level proof certificate. There are seven real Lean `sorry` stubs:
-`BRECVEMAVariational` (2), `DyadicField` (2), `SomaField` (2), and
+file-level proof certificate. There are five real Lean `sorry` stubs:
+`BRECVEMAVariational` (2), `DyadicField` (2), and
 `SomaNetwork` (1). Individual declarations may be kernel-verified theorems,
 axioms, definitions, arithmetic facts, imported theorem applications, or
 sorry-backed placeholders. Open work is represented as named axioms, explicit

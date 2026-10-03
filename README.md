@@ -33,7 +33,7 @@ music entrainment, tectonic criticality — follows from this single propagator.
 ## Formal verification
 
 All five Osterwalder–Schrader axioms proved in `paper/proofs/USF_OSAxioms.lean` via the
-[OSforGFF](https://github.com/tydeu/OSforGFF) library. **0 sorries · 0 extra axioms.**
+[OSforGFF](https://github.com/mrdouglasny/OSforGFF) library. **0 sorries · 0 extra axioms.**
 
 ```bash
 lake build USF_OSAxioms   # ~10 min cold, cached thereafter

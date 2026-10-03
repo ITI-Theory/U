@@ -786,9 +786,12 @@ reader-facing Markdown in Python.
    and current release/build role.
 - [ ] Identify obsolete, duplicated, or unowned scripts and decide whether to
    retire, consolidate, or document them.
-- [ ] Extract the Lean appendix's reader-facing Markdown into an appropriate
+- [x] Extract the Lean appendix's reader-facing Markdown into an appropriate
    maintained source/template while preserving the ordered Lean-file catalogue
-   and existing build contract.
+   and existing build contract. (2026-10-03: `paper/filters/lean-include.lua`
+   reads the `.lean` files; `build_lean_appendix.py`, `build_thesis.py`,
+   `build_omnibus.py`, `build_atlas.py` and `build_fractal_books.py` are
+   retired; see `docs/BUILD.md`.)
 - [ ] Keep Makefiles as the canonical build graph; any replacement must avoid
    hard-coded duplicate source inventories and retain a focused regeneration
    check for the checked-in appendix source.
@@ -815,3 +818,40 @@ not be presented as an established clinical mechanism without evidence.
 - [ ] Introduce the extension in the philosophy book as a clearly labelled open
    hypothesis, then decide whether it warrants a dedicated paper and formal
    development.
+
+---
+
+## ISS-036: Lean toolchain upgrade and remaining proof debts — OPEN
+{{Tags area.proofs, area.ops}}
+{{Fields date.created=2026-10-03, date.start=, date.end=, epic=}}
+
+Status on 2026-10-03: the proofs build on Lean, Mathlib and physlib v4.31.0
+(latest: v4.34.1). OSforGFF, GaussianField and BochnerMinlos are pinned to
+commits written for v4.29.0 and need small local compatibility patches, now
+recorded in `lean/patches/` (they previously lived only in `.lake/packages`,
+so a fresh clone could not build). Upstream has since moved to v4.33.0-rc1
+and rewritten the patched lines, so the patches are not upstreamable.
+`perceptIsPropagatorPole_nostalgia` and `brainStemActivatesContagion` were
+closed on 2026-10-03 (exact arithmetic: residual 673/2500 < 1; 23/25 > 0);
+five real `sorry`s remain in three files.
+
+**Actions:**
+- [ ] Upgrade Lean, Mathlib and physlib to v4.34.x and OSforGFF,
+   GaussianField and BochnerMinlos to upstream commits for the same release;
+   drop `lean/patches/` once upstream builds unpatched; full `lake build`.
+   Low priority: a separate task, not before a release.
+- [ ] Until then, make the build reproducible from a clean clone: either
+   apply `lean/patches/` automatically after `lake update` (a `make lean`
+   step) or fork the three libraries with the patches and pin the forks.
+- [ ] Restate `euler_lagrange_BRECVEMA` (`BRECVEMAVariational.lean`): the
+   current witness `0` does not satisfy `M ψ̈ = W ψ(t)` in general. Either
+   assume the mass matrix is invertible and take `ψ̈ = M⁻¹ W ψ(t)`, or state
+   it as a labelled axiom.
+- [ ] Remaining `sorry`s: `BRECVEMAVariational.lean` (2: the above and
+   `moduli_space_is_G2_homotopy`), `DyadicField.lean` (2: block-sum lemma and
+   the `Field8` transfer of `dyadic_energy_coupling_lowers`), `SomaNetwork.lean`
+   (1: `sft_ne_classical`, waiting on the `Field8` migration).
+- [ ] Field8 Float→ℝ migration (see the ISS-009 follow-ups) unblocks the
+   `DyadicField` and `SomaNetwork` debts.
+- [ ] Optional good-citizen step: an issue or note to the OSforGFF author
+   saying where the library is used (no code change needed).

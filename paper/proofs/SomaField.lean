@@ -18,7 +18,8 @@
   1. H bounded below for W8 — PARTIAL: nostalgia_convergence proves ∥W8ℝ·e∥² ≥ 0;
      spectral bound needs W8ℝ.IsHermitian eigenvalue lower bound (Mathlib available)
   2. Gradient descent contraction near stored patterns — OPEN (ISS-005)
-  3. Stored patterns are stable minima — OPEN: perceptIsPropagatorPole_nostalgia (sorry, ISS-005)
+  3. Stored patterns are stable minima — perceptIsPropagatorPole_nostalgia: CLOSED 2026-10-03
+     (residual8ℝ nostalgiaPatternℝ 2 = 673/2500 < 1)
   4. brainStemThenMemory trajectory — OPEN: brainStemActivatesContagion (sorry, ISS-005)
   5. Therapeutic W modification — OPEN (Phase 2 / ISS-005)
 -/
@@ -284,7 +285,19 @@ noncomputable def residual8ℝ (e : Fin 8 → ℝ) (ev : ℝ) : ℝ :=
 /-- CO-ID-1: nostalgia attractor lies near a propagator pole of W8ℝ. -/
 theorem perceptIsPropagatorPole_nostalgia :
     ∃ ev : ℝ, residual8ℝ nostalgiaPatternℝ ev < 1 :=
-  ⟨2, by sorry⟩  -- residual ≈ 0.27; close when W8ℝ eigenvalues are computed (ISS-005)
+  -- exact value: residual8ℝ nostalgiaPatternℝ 2 = 673/2500 ≈ 0.27
+  ⟨2, by
+    have h0 : nostalgiaPatternℝ 0 = 0 := rfl
+    have h1 : nostalgiaPatternℝ 1 = 0 := rfl
+    have h2 : nostalgiaPatternℝ 2 = 0 := rfl
+    have h3 : nostalgiaPatternℝ 3 = 0 := rfl
+    have h4 : nostalgiaPatternℝ 4 = 3/5 := rfl
+    have h5 : nostalgiaPatternℝ 5 = 1 := rfl
+    have h6 : nostalgiaPatternℝ 6 = -2/5 := rfl
+    have h7 : nostalgiaPatternℝ 7 = -2/5 := rfl
+    simp only [residual8ℝ, Matrix.mulVec, dotProduct, Fin.sum_univ_eight, W8ℝ, wOffℝ, Fin.isValue,
+      h0, h1, h2, h3, h4, h5, h6, h7]
+    norm_num [Fin.ext_iff]⟩
 
 /-- Energy descent: ‖W8ℝ·e‖² ≥ 0, so d/dt H(e) = -‖W8ℝ·e‖² ≤ 0. -/
 theorem nostalgia_convergence (e : Fin 8 → ℝ) :
@@ -295,9 +308,17 @@ theorem nostalgia_convergence (e : Fin 8 → ℝ) :
 theorem brainStemActivatesContagion :
     0 < W8ℝ.mulVec startlePatternℝ ⟨3, by decide⟩ := by
   -- value = W8ℝ[3,0]*1 + W8ℝ[3,2]*2/5 + W8ℝ[3,3]*3/10 = 23/25 > 0
-  show 0 < ∑ j : Fin 8, W8ℝ ⟨3, by decide⟩ j * startlePatternℝ j
-  -- value = 2/5·1 + 1/2·0 + 2/5·(2/5) + 6/5·(3/10) = 23/25; noncomputable W8ℝ blocks decide
-  sorry  -- ISS-005: needs computable W8ℚ transfer (W8ℝ noncomputable prevents norm_num)
+  have h0 : startlePatternℝ 0 = 1 := rfl
+  have h1 : startlePatternℝ 1 = 0 := rfl
+  have h2 : startlePatternℝ 2 = 2/5 := rfl
+  have h3 : startlePatternℝ 3 = 3/10 := rfl
+  have h4 : startlePatternℝ 4 = 0 := rfl
+  have h5 : startlePatternℝ 5 = 0 := rfl
+  have h6 : startlePatternℝ 6 = 0 := rfl
+  have h7 : startlePatternℝ 7 = -3/5 := rfl
+  simp only [Matrix.mulVec, dotProduct, Fin.sum_univ_eight, W8ℝ, wOffℝ, Fin.isValue,
+    h0, h1, h2, h3, h4, h5, h6, h7]
+  norm_num [Fin.ext_iff]
 
 -- W matrix non-zero off-diagonal entries
 /-

@@ -32,7 +32,7 @@ keywords: [Soma-Field, Hopfield network, quantum tunnelling, MNIST, Kuramoto, GH
 A formal proof establishes that a claim is *necessarily true* given its premises.
 An experiment establishes that the claim is *actually observable* in a specific
 physical or computational substrate.  The USF programme has prioritised the
-former — theorem-specific Lean results, an axiom registry, seven remaining real
+former — theorem-specific Lean results, an axiom registry, five remaining real
 `sorry`s project-wide, and one exact 8-qubit statevector simulation (QUANT-EXP-1).
 This paper addresses the latter.
 

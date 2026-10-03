@@ -1012,7 +1012,7 @@ The following table lists representative theorems, proof methods, and files.
 The OSforGFF files support the free Gaussian-field formal model; the
 distributional SHO identity and USF interpretation remain separate obligations.
 
-Cite each result by theorem/status; current proof surface contains seven real sorries and several axioms/definitions/imported theorem applications/arithmetic facts.
+Cite each result by theorem/status; current proof surface contains five real sorries and several axioms/definitions/imported theorem applications/arithmetic facts.
 
 ---
 

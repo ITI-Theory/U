@@ -290,7 +290,7 @@ roadmap item:
 ## Known Issues
 
 - `paper/soma/lean-proofs-appendix` and several generated book passages say
-  "no sorries"; seven real `sorry`s remain (see `THEORY-STATUS.md`).
+  "no sorries"; five real `sorry`s remain (see `THEORY-STATUS.md`).
 - Published papers change only through new Zenodo versions. Flag problems;
   do not edit published papers in place.
 

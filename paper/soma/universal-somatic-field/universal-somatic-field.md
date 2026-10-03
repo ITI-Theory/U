@@ -407,7 +407,7 @@ Open or assumption-bound items include:
   scale 19, not a proof of linearised general relativity.
 - `sft_iso_modal_hott` and `sft_grounds_hoffman` — axioms/interpretive bridges.
 
-Every result must be cited by theorem/status; the current proof surface contains seven real sorries plus axioms, definitions, imported theorem applications, and arithmetic.
+Every result must be cited by theorem/status; the current proof surface contains five real sorries plus axioms, definitions, imported theorem applications, and arithmetic.
 
 ---
 
@@ -562,7 +562,7 @@ read as scale-restricted projections of a single structural description.
 The use of Lean 4 as the verification environment is not decorative. It
 enforces a discipline that prose mathematics cannot: every claim must be
 given a type, every proof must be kernel-checked, every axiom must be named
-and isolated. The current proof surface still contains seven real `sorry`s,
+and isolated. The current proof surface still contains five real `sorry`s,
 axioms, placeholder/definition-level results, imported theorem applications,
 and arithmetic proofs; these categories must not be conflated.
 

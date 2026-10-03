@@ -2495,3 +2495,15 @@ Author decision: the Atlas is now **[T]-Theory: Field Atlas**, subtitle *The Wav
 Always There*. Source moved to `Part2/book/field-atlas/`; registry key `field_atlas`. One name
 for app and book (the app already said Field Atlas), and it holds with the T-Theory lens off.
 Earlier entries above keep the old name.
+
+## 2026-10-03 — two SomaField sorries closed; Lean dependency audit
+
+- Closed `perceptIsPropagatorPole_nostalgia` (residual8ℝ nostalgiaPatternℝ 2 =
+  673/2500 < 1) and `brainStemActivatesContagion` (row 3 of W8ℝ·startle =
+  23/25 > 0) by exact arithmetic: each pattern is evaluated pointwise with
+  `rfl` facts, then `simp` + `norm_num`. `lake build` passes (2589 jobs).
+  Five real `sorry`s remain, in three files; books and papers updated.
+- Dependencies: Lean/Mathlib/physlib v4.31.0 (latest v4.34.1). OSforGFF,
+  GaussianField and BochnerMinlos carry small local compatibility patches,
+  now saved in `lean/patches/`. Upstream has moved to v4.33.0-rc1; the
+  patches are not upstreamable. Upgrade tracked in ISS-036.

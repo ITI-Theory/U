@@ -50,7 +50,7 @@ and a Langevin evolution
 $$\gamma\dot e=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t),\qquad T_{\mathrm{eff}}=D/\gamma.$$
 This is a model class, not an observation. It inherits the strength of Hopfield networks as a theory of attractors [@hopfield1982] and the weakness of any coarse-grained reduction: the chosen variables, coupling matrix, noise model, and measurement map must be justified empirically `derived-under-assumptions`.
 
-The physics volume therefore begins from an austere rule. A claim may be formal, numerical, simulated, empirical, interpretive, or open. The Lean kernel can check that a theorem follows from definitions and axioms; it cannot check that a human field variable is the right variable or that a clinical word names the same state as a mathematical attractor. The current proof surface contains valuable checked objects, but it also contains seven real `sorry`s across `BRECVEMAVariational.lean`, `DyadicField.lean`, `SomaField.lean`, and `SomaNetwork.lean`. `FieldAxioms.lean` is an axiom registry. Results depending on it are not theorems about nature; they are consequences of stated premises `derived-under-assumptions`.
+The physics volume therefore begins from an austere rule. A claim may be formal, numerical, simulated, empirical, interpretive, or open. The Lean kernel can check that a theorem follows from definitions and axioms; it cannot check that a human field variable is the right variable or that a clinical word names the same state as a mathematical attractor. The current proof surface contains valuable checked objects, but it also contains five real `sorry`s across `BRECVEMAVariational.lean`, `DyadicField.lean`, and `SomaNetwork.lean`. `FieldAxioms.lean` is an axiom registry. Results depending on it are not theorems about nature; they are consequences of stated premises `derived-under-assumptions`.
 
 For physicists, the most interesting object is the proposed somatic tensor $\Phi$ and its two-point function
 $$G_{\mu\nu}(x,x')=\langle \Phi_\mu(x)\Phi_\nu(x')\rangle_0.$$
@@ -453,7 +453,7 @@ The third decisive document would be a measured perturbation experiment at organ
 | Dark-matter clustering, neutrality, and pressurelessness depend on local-geometry and KK assumptions. | `derived-under-assumptions` | Dark Matter paper |
 | $W_8=(6/5)I_8+\delta W$ with traceless $\delta W$ is an algebraic decomposition. | `derived-under-assumptions` | G2 paper; `BRECVEMAVariational.lean` |
 | The 48.4 per cent symmetry-breaking number is model-specific to the chosen BRECVEMA matrix. | `derived-under-assumptions` | G2 paper |
-| Seven real `sorry`s remain project-wide. | `interpretive` | Lean proof-file audit |
+| Five real `sorry`s remain project-wide. | `interpretive` | Lean proof-file audit |
 | `FieldAxioms.lean` is an axiom registry, not a theorem file about the world. | `derived-under-assumptions` | `FieldAxioms.lean` |
 | Direct detection of a somatic tensor remains an undeveloped experimental problem. | `open-hypothesis` | Conclusion and paper limitations |
 | Perturbative cosmology for P21/P22 remains to be done. | `open-hypothesis` | P21/P22 falsification sections |
