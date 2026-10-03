@@ -253,6 +253,31 @@ Lean 4 source: https://github.com/or4nge19/NeuralNetworks
 - Energy descent: `energy w (updateAsync w s i) ≤ energy w s` (per Cipollina Energy.lean)
 - Convergence: well-founded induction on energy over the finite state space
 
+**Assessment (2026-10-03):** the README of the repository above points to a newer
+development, https://github.com/or4nge19/HopfieldNet2 (MIT; authors Cipollina,
+Karatarakis, Wiedijk; arXiv:2512.07766; Lean v4.28.0-rc1, last pushed 2026-03).
+Its Hopfield core (`HopfieldNet/HN`: 9 files, 143 theorems, 0 sorries) proves
+what this issue needs: `energy_diff_leq_zero`, `HopfieldNet_convergence_fair`,
+`HopfieldNet_convergence_cyclic`, `Hebbian_stable_orthogonal`. The import
+closure we need is 5 files, about 1,950 lines, Mathlib only: `HN/Core`,
+`HN/Hebbian`, `HN/aux`, `NN`, `SpinState/Basic`.
+
+Plan: fork it (not official code) and depend on the fork from our lakefile.
+- [ ] Windows: four files are named `aux.lean` (a reserved device name on
+   Windows), so the repository cannot be checked out on Windows. Rename them
+   to `Auxiliary.lean` in the fork and update the imports.
+- [ ] Port the 5-file slice from v4.28.0-rc1 to our v4.33.0 (estimate 2-4 h).
+   Probe in `../probe-nn` (scratch, outside the repo) already fixes: imports
+   (`Mathlib.Data.Fintype.Pi`, `Mathlib.Data.ZMod.Defs`,
+   `Mathlib.Topology.MetricSpace.Basic`), `zero_le` now implicit,
+   `CanonicallyOrderedAddCommMonoid.single_le_sum` -> `Finset.single_le_sum`,
+   a hand-written `Fintype SpinState` (the deriving handler fails),
+   `ZMod 2` cases by `decide`. Remaining: 12 errors in `SpinState/Basic`
+   (decidability instances, `Finset.not_mem_empty` renamed) and
+   `HN/Auxiliary` line 177; `NN`, `HN/Core`, `HN/Hebbian` not yet compiled.
+- [ ] Require the fork in `lakefile.toml` at a pinned commit; then implement
+   the SpinState and asynchronous-update upgrade of `Hopfield.lean` below.
+
 **Status of current proofs (2026-08-16):**
 - `step_range`, `fixed_point_iff`, `energy_at_fixed_point`, `energy_nondec_at_fixed` — PROVED
 - `zero_weight_attractor_exists`, `zero_weight_converges_in_one_step` — PROVED
