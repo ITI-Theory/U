@@ -126,7 +126,7 @@ The sound speed of a photon fluid is $c/\sqrt3$. What fraction of the speed of l
 
 The standard model of cosmology describes dark matter and dark energy precisely but does not explain them. The most direct attempt to explain $\Lambda$, as the zero-point energy of quantum fields, gives a value larger than measured by a factor of about $10^{117}$ to $10^{120}$ depending on the cutoff, the worst prediction in physics. The programme's two cosmology papers propose a different origin [@P21; @P22].
 
-They start from the eleven-dimensional spacetime of M-theory, split as one time dimension, three large space dimensions and seven compact ones, $11 = 1 + 3 + 7$. The proposal is that the vacuum of the programme's universal field divides the cosmic energy budget in proportion to these blocks: the seven compact dimensions give dark energy, the three spatial ones give dark matter, and the time dimension gives ordinary matter, halved by the matter–antimatter asymmetry of the early universe. The predictions are
+They start from the eleven-dimensional spacetime of M-theory, split as one time dimension, three large space dimensions and seven compact ones, $11 = 1 + 3 + 7$. (Penrose surveys this framework in his chapter 31 and criticises the vast freedom its extra dimensions allow [@penrose2004road].) The proposal is that the vacuum of the programme's universal field divides the cosmic energy budget in proportion to these blocks: the seven compact dimensions give dark energy, the three spatial ones give dark matter, and the time dimension gives ordinary matter, halved by the matter–antimatter asymmetry of the early universe. The predictions are
 
 $$\Omega_\Lambda = \frac{7}{11}, \qquad \Omega_\mathrm{DM} = \frac{3}{11}, \qquad \Omega_b = \frac{1}{22}.$$
 

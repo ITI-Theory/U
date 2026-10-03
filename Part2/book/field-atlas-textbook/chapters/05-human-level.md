@@ -172,7 +172,7 @@ The programme's human model is the landscape of this chapter in eight dimensions
 
 $$H(\mathbf{e}) = -\tfrac12\,\mathbf{e}^{\mathsf T}W\mathbf{e} - \mathbf{b}^{\mathsf T}\mathbf{e}.$$
 
-Valleys of $H$ are proposed as emotional states; a strongly negative coupling between two modes builds a high ridge between their valleys [@P1; @P10]. The quantum paper [@P2] then asks a computational question. With a Fear–Awe coupling of $-10$, the ridge between the Fear valley and the Awe valley is $2.025$ high. Can a state that starts in the Fear valley reach the Awe valley?
+Valleys of $H$ are proposed as emotional states; a strongly negative coupling between two modes builds a high ridge between their valleys [@P1; @P10]. The quantum paper [@P2] then asks a computational question. Its starting point is Penrose's argument, surveyed in his chapters 29 and 30, that the reduction of the quantum state may involve gravity and that this may matter for consciousness [@penrose2004road]. The paper does not test that proposal; it borrows its shape, a gap that one kind of dynamics cannot cross and another can, and asks it of a model landscape. With a Fear–Awe coupling of $-10$, the ridge between the Fear valley and the Awe valley is $2.025$ high. Can a state that starts in the Fear valley reach the Awe valley?
 
 The experiment, QUANT-EXP-1, compares two kinds of dynamics on the same landscape. The classical runs use the Langevin equation of Section 5.2. The quantum run replaces the landscape with the corresponding eight-qubit energy and slowly switches off a "transverse field" that lets the state tunnel through ridges rather than climb over them, a standard technique called **quantum annealing**. All $2^8 = 256$ quantum amplitudes are computed exactly. The results:
 
