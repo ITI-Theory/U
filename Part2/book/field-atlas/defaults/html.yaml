@@ -13,5 +13,6 @@ css:
   - field-atlas.css
 filters:
   - ../../../lib/format/registry.lua
+  - ../../../lib/format/unicode-glyphs.lua
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua

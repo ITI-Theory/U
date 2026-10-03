@@ -6,7 +6,7 @@ XELATEX ?= xelatex
 
 SOURCES := atlas.md atlas.yaml README.md $(wildcard front/*.md) $(wildcard theory/*.md) $(wildcard sectors/*.md) $(wildcard back/*.md)
 REGISTRY := $(wildcard $(ROOT)/registry/levels/*.yaml) $(wildcard $(ROOT)/registry/levels/*.md) $(wildcard $(ROOT)/registry/models/*.yaml) $(wildcard $(ROOT)/registry/examples/*.yaml) $(wildcard $(ROOT)/registry/questions/*.yaml) $(wildcard $(ROOT)/registry/paths/*/path.yaml) $(wildcard $(ROOT)/registry/paths/*/edges/*.md) $(ROOT)/registry/eras.yaml
-FILTERS := $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua
+FILTERS := $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua $(ROOT)/lib/format/unicode-glyphs.lua
 DEFAULTS := defaults/a3.yaml defaults/html.yaml $(ROOT)/lib/defaults/base-pdf.yaml $(ROOT)/lib/defaults/base-html.yaml
 TEMPLATES := templates/a3-header.tex templates/field-atlas.css
 FIGURES := $(wildcard figures/plates/*.png) $(wildcard figures/theory/*.png) $(wildcard figures/app/questions/*.png)
@@ -43,9 +43,8 @@ $(HTML_INDEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGU
 
 check: a3
 	$(PYTHON) scripts/check_prose.py
-	test -f "$(LOG)"
-	! grep -q -e 'Float(s) lost' -e 'Floats and marginpars not allowed' "$(LOG)"
-	! grep -q -i -e 'not found' -e 'missing character' -e 'cannot find file' "$(LOG)"
+	@test -f "$(LOG)" || { echo "missing $(LOG)"; exit 1; }
+	@if grep -n -e 'Float(s) lost' -e 'Floats and marginpars not allowed' -e 'Missing character' -e 'LaTeX Warning: File .* not found' -e '^! ' "$(LOG)"; then echo "field-atlas check: FAIL (see $(LOG))"; exit 1; fi
 	@echo "field-atlas check: PASS"
 
 clean:

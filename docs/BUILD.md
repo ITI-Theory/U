@@ -22,7 +22,10 @@ textbook edition) is built the same way:
    filter emits format-specific markup only behind a format check
    (`FORMAT:match 'latex'`, `FORMAT:match 'html'`), so every source builds
    to PDF **and** HTML. Shared filters live in `lib/format/`; project-only
-   filters live in `<project>/filters/`.
+   filters live in `<project>/filters/`. A filter never flattens document
+   text into a raw string (`pandoc.utils.stringify` + hand escaping): text
+   such as captions stays pandoc inlines between raw opening and closing
+   markup, so pandoc's writers do the escaping, sub/superscripts and maths.
 4. **Sources are plain Pandoc Markdown.** Structure is expressed with fenced
    divs and attributes (`::: {.example}`, `![...](...){.plate}`), never with
    raw LaTeX or HTML in the source. Raw LaTeX belongs in templates and in
@@ -40,10 +43,16 @@ textbook edition) is built the same way:
    committed. `make clean` removes a project's subtree.
 7. **Line endings are LF** everywhere (`.gitattributes`: `* text=auto
    eol=lf`); pandoc is run with `--eol=lf`.
-8. **No machine-specific paths** in tracked files: no user names, drive
-   letters or personal tool locations. Tools are found on `PATH`;
-   overrides go in an ignored `local.mk` (`-include local.mk`).
-9. **Secrets never enter the repository** (ignored `*.local*` files and
+8. **No machine-specific paths or fonts** in tracked files: no user names,
+   drive letters, personal tool locations or OS-only fonts (use fonts that
+   ship with TeX Live/MiKTeX). Tools are found on `PATH`; overrides go in an
+   ignored `local.mk` (`-include local.mk`).
+9. **Recipes are POSIX sh.** `lib/mk/paths.mk` makes `make` use Git for
+   Windows' `sh` on Windows, so a recipe behaves the same from PowerShell,
+   cmd, Git Bash, Linux and macOS. No `cmd.exe` built-ins (`if exist`,
+   `xcopy`, `findstr`). Checks that test for absence use
+   `if grep ...; then exit 1; fi`, not `! grep`.
+10. **Secrets never enter the repository** (ignored `*.local*` files and
    environment variables only).
 
 ## Standard targets (every project Makefile)

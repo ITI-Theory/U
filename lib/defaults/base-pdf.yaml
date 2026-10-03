@@ -9,7 +9,7 @@ variables:
   classoption:
     - openany
   mainfont: TeX Gyre Pagella
-  monofont: Consolas
+  monofont: Latin Modern Mono
   colorlinks: true
   linkcolor: NavyBlue
   urlcolor: NavyBlue
