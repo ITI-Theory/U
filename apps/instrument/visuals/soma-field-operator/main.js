@@ -9,6 +9,7 @@ import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
+import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
 // ({ id, create }); adding a renderer never requires editing this file.
@@ -1107,6 +1108,8 @@ function readHashState() {
     hasReader: params.has('reader'),
     hasEra: params.has('era'),
     hasDemo: params.has('demo'),
+    hasDim: params.has('dim'),
+    hasAtlas: params.has('atlas'),
     level: params.get('level'),
     path: params.get('path'),
     lens: params.get('lens'),
@@ -1114,6 +1117,8 @@ function readHashState() {
     reader: params.get('reader'),
     era: params.get('era'),
     demo: params.get('demo'),
+    dim: params.get('dim'),
+    atlas: params.get('atlas'),
     hasQuestion: params.has('q'),
     question: params.get('q'),
     compare: params.get('compare'),
@@ -1173,6 +1178,7 @@ const state = {
   thoughtThreshold: 0.82,
   uiClean: false,
   labelsOff: false,
+  atlasCapture: false,
 };
 let suppressHashWrite = false;
 let timeAxis = null;
@@ -1390,6 +1396,10 @@ function applyHashState({ render = true } = {}) {
   if (hashState.hasReader && readerRegisters.some(registerEntry => registerEntry.id === hashState.reader)) {
     state.reader = hashState.reader;
   }
+  if (hashState.hasDim && ['4', '8', '11'].includes(hashState.dim)) {
+    state.level = Number(hashState.dim);
+  }
+  state.atlasCapture = hashState.atlas === '1';
   state.compare = hashState.compare === '1';
   state.contours = hashState.contours === '1';
   document.querySelector('#contours').checked = state.contours;
@@ -1860,6 +1870,7 @@ function hashForState() {
   params.set('level', state.levelId);
   params.set('path', state.route);
   params.set('lens', state.tTheory ? 'on' : 'off');
+  params.set('dim', String(activeDimensionLevel()));
   params.set('model', state.implementation);
   params.set('reader', state.reader);
   if (state.eraId) params.set('era', state.eraId);
@@ -1867,6 +1878,7 @@ function hashForState() {
   if (state.compare) params.set('compare', '1');
   if (state.contours) params.set('contours', '1');
   if (state.uiClean) params.set('ui', 'clean');
+  if (state.atlasCapture) params.set('atlas', '1');
   if (state.labelsOff) params.set('labels', 'off');
   else if (state.uiClean) params.set('labels', 'on');
   const styleOff = Object.keys(state.style).filter(key => !state.style[key]);
@@ -2380,6 +2392,51 @@ function labelScreenRect(sprite, viewCamera, viewport) {
   return { left: x - width / 2, right: x + width / 2, top: y - height / 2, bottom: y + height / 2 };
 }
 
+const anchorWorldPosition = new THREE.Vector3();
+function projectAnchor(anchor, viewCamera, viewport, panels) {
+  anchorWorldPosition.fromArray(anchor.position);
+  anchorWorldPosition.project(viewCamera);
+  const inFrustum = anchorWorldPosition.x >= -1 && anchorWorldPosition.x <= 1
+    && anchorWorldPosition.y >= -1 && anchorWorldPosition.y <= 1
+    && anchorWorldPosition.z >= -1 && anchorWorldPosition.z <= 1;
+  const x = viewport.left + (anchorWorldPosition.x + 1) * 0.5 * viewport.width;
+  const y = viewport.top + (1 - (anchorWorldPosition.y + 1) * 0.5) * viewport.height;
+  const panelRect = { left: x - 10, right: x + 10, top: y - 10, bottom: y + 10, width: 20, height: 20 };
+  const blockedByPanel = panels.some(panel => rectsIntersect(panelRect, panel, 8));
+  return { x, y, ndc: { x: anchorWorldPosition.x, y: anchorWorldPosition.y, z: anchorWorldPosition.z }, inFrustum, blockedByPanel, visible: inFrustum && !blockedByPanel };
+}
+
+window.__somaAnchors = () => {
+  const level = activeLevel();
+  const { x: width, y: height } = renderer.getSize(viewportSize);
+  const viewCamera = state.viewMode === '2d' ? overheadCamera : camera;
+  const panels = panelManager?.visiblePanelRects() ?? [];
+  const base = {
+    level: level.id,
+    label: level.label,
+    lens: state.tTheory ? 'on' : 'off',
+    dimension: activeDimensionLevel(),
+    compare: state.compare && !state.stereoSbs,
+    viewport: { width, height, devicePixelRatio: renderer.getPixelRatio() },
+  };
+  const anchors = anchorsForLevel(level.id);
+  if (!base.compare) {
+    const viewport = { left: 0, top: 0, width, height };
+    return { ...base, anchors: anchors.map(anchor => ({ ...anchor, screen: projectAnchor(anchor, viewCamera, viewport, panels) })) };
+  }
+  const halfWidth = Math.floor(width / 2);
+  return {
+    ...base,
+    anchors: anchors.map(anchor => ({
+      ...anchor,
+      halves: {
+        left: projectAnchor(anchor, viewCamera, { left: 0, top: 0, width: halfWidth, height }, panels),
+        right: projectAnchor(anchor, viewCamera, { left: halfWidth, top: 0, width: halfWidth, height }, panels),
+      },
+    })),
+  };
+};
+
 function updateWorldLabelVisibility(viewCamera, viewport = { left: 0, top: 0, width: innerWidth, height: innerHeight }) {
   const panels = panelManager?.visiblePanelRects() ?? [];
   const viewportRect = { left: viewport.left, top: viewport.top, right: viewport.left + viewport.width, bottom: viewport.top + viewport.height };
@@ -2451,11 +2508,20 @@ function renderScene() {
   renderer.autoClear = true;
 }
 
+function markRenderedState() {
+  window.__somaLastRender = {
+    level: activeLevel().id,
+    lens: state.tTheory ? 'on' : 'off',
+    dimension: activeDimensionLevel(),
+    atlas: state.atlasCapture,
+  };
+}
+
 function rendererState() {
   const level = activeLevel();
-  const rendererId = thoughtSparkLevelIds.has(level.id)
+  const rendererId = thoughtSparkLevelIds.has(level.id) && !state.atlasCapture && state.tTheory && activeDimensionLevel() === 11
     ? 'thought-sparks'
-    : level.renderer?.id ?? 'placeholder';
+    : organismLevelIds.has(level.id) ? null : level.renderer?.id ?? 'placeholder';
   return {
     ...state,
     activeLevelId: level.id,
@@ -2467,6 +2533,10 @@ function rendererState() {
 
 function updateRegistryRenderer(renderState, time, pulse) {
   const rendererId = renderState.rendererId;
+  if (!rendererId) {
+    for (const instance of rendererInstances.values()) instance.update({ ...renderState, rendererId: null }, time, pulse);
+    return;
+  }
   if (!rendererInstances.has(rendererId)) rendererInstances.set(rendererId, get(rendererId).create(scene, THREE));
   for (const [id, instance] of rendererInstances) {
     if (id === rendererId) instance.update(renderState, time, pulse);
@@ -2522,6 +2592,7 @@ function frame() {
     applyScene(time, delta, scenePulse);
     renderScene();
   }
+  markRenderedState();
   if (state.impulse) timeReadout.textContent = responseTimeReadout(activeLevel());
   requestAnimationFrame(frame);
 }

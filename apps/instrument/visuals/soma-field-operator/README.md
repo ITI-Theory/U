@@ -79,7 +79,7 @@ npm run start
 The `EXPORT FRAME` control writes a PNG from the current canvas state for a
 paper or social derivative. Keep the procedural scene as the source of truth.
 
-Deep-link hash keys include `level`, `path`, `lens`, `model`, `reader`,
+Deep-link hash keys include `level`, `path`, `lens`, `dim`, `model`, `reader`,
 `compare`, `contours`, `styleoff`, `q`, `demo`, `era`, `ui`, and `labels`.
 
 ## MOTHER / H-AL terminal
@@ -113,6 +113,16 @@ restore panels; `RESET LAYOUT` clears saved positions from local storage.
 
 `npm run capture -- --clean` appends `ui=clean&labels=off` to captured URLs
 without changing normal capture defaults.
+
+## Atlas anchor API
+
+Atlas callouts use `renderers/lib/anchors.js`, a level-keyed registry of named
+world-space parts with a short label and one-line caption. In development and
+capture runs, `window.__somaAnchors()` returns the active level, lens,
+dimension, viewport, and projected screen positions for those anchors, with a
+`visible` flag that is false when the anchor falls outside the camera or under
+a visible panel. `scripts/capture.mjs --only atlas-plates` records that JSON
+beside the clean 4D, 8D, and 11D images for `Part2/book/field-atlas/scripts/plates.py`.
 
 ## Dimension dynamics demos
 
