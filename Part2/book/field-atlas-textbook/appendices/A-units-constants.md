@@ -24,5 +24,7 @@ The constants are rounded for transparent arithmetic, not for precision metrolog
 A useful checking habit is to estimate before calculating. A photon near $500\,\mathrm{nm}$ should have energy of a few electron volts because $1240/500$ is near 2.5. A parsec is about $3\times10^{16}\,\mathrm{m}$, so ten parsecs is about $3\times10^{17}\,\mathrm{m}$. If a calculator answer differs by many powers of ten from the estimate, the most likely cause is a unit conversion error.
 
 The answer-verification script in this folder uses these rounded values. It is not a substitute for a specialist reference; it is a guard against textbook arithmetic drifting away from the numbers printed in examples and problem solutions.
-`nFor open review, keep any future constant changes in this appendix and in `scripts/verify_answers.py` together. A changed value that is not propagated to examples can silently alter conclusions, especially in cosmology where squared factors of the Hubble constant appear.`n
-`nWhere a chapter uses rounded constants, the printed answer should be judged against the same rounded constants. More precise constants may shift final digits without changing the concept being taught.`n Every release should rebuild the PDF and HTML after such changes so examples, answers, captions, and tables remain synchronized across formats.
+
+For open review, keep any future constant changes in this appendix and in `scripts/verify_answers.py` together. A changed value that is not propagated to examples can silently alter conclusions, especially in cosmology where squared factors of the Hubble constant appear.
+
+Where a chapter uses rounded constants, the printed answer should be judged against the same rounded constants. More precise constants may shift final digits without changing the concept being taught. Every release should rebuild the PDF and HTML after such changes so examples, answers, captions, and tables remain synchronized across formats.

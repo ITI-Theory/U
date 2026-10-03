@@ -23,7 +23,7 @@ table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
 th, td { border-bottom: 1px solid var(--line); padding: .45rem; vertical-align: top; }
 .field-atlas-columns { column-count: 3; column-gap: 2rem; }
 .textbook-box { border-left: .45rem solid var(--blue); background: var(--panel); margin: 1rem 0; padding: .9rem 1rem; }
-.textbook-box > .box-title { display: block; font-family: Arial, sans-serif; font-weight: 700; color: var(--blue); margin-bottom: .35rem; }
+.textbook-box .box-title { display: block; font-family: Arial, sans-serif; font-weight: 700; color: var(--blue); margin-bottom: .35rem; }
 .learning-objectives { border-color: var(--teal); }
 .example { border-color: var(--gold); }
 .check-your-learning { border-color: var(--green); }

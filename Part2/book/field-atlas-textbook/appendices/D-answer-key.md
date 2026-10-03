@@ -1,7 +1,8 @@
 # Appendix D: Answer Key {-}
 
 ::: {.answer-key}
-Chapter 1: water-wave frequency is $3.0\,\mathrm{Hz}$; problem answers are $0.50\,\mathrm{m}$ and 11 intervals with $2.0\,\mathrm{cm}$ spacing. Chapter 2: $Q=10$ for $\zeta=0.05$; $e^{-2}=0.135$ remains after eight seconds for a four-second decay time. Chapter 3: a $2.0\,\mathrm{eV}$ photon has wavelength $620\,\mathrm{nm}$; $E_4=-0.85\,\mathrm{eV}$.
+**Chapter 1.** (1) $\lambda = 0.343\,\mathrm{m}$. (2) $v = 427\,\mathrm{m\,s^{-1}}$. (3) Six orders of magnitude from cell to person; about seven from person to Earth. (4) $2.5\times10^{4}$ molecules; relative fluctuation $0.63\,\%$. (5) $\tau = 10\,\mathrm{ms}$. (6) $t_c = 4.6\,\mathrm{s}$; the five-minute oscillations are about 65 times longer.
+Chapter 2: $Q=10$ for $\zeta=0.05$; $e^{-2}=0.135$ remains after eight seconds for a four-second decay time. Chapter 3: a $2.0\,\mathrm{eV}$ photon has wavelength $620\,\mathrm{nm}$; $E_4=-0.85\,\mathrm{eV}$.
 
 Chapter 4: doubling radius multiplies $\lambda$ by $\sqrt2$; one length constant leaves $e^{-1}=0.368$ of the voltage; sodium and potassium gates are two Hodgkin-Huxley channel variables. Chapter 5: $e^{-3}=0.050$; a ten-second delay with $\tau_m=5\,\mathrm{s}$ leaves $0.135$. Chapter 6: $\sin^{-1}(0.4)=23.6^\circ$; uniformly spread phases give $r\approx0$.
 

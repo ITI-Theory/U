@@ -33,6 +33,8 @@ variables:
   linestretch: 1.08
 filters:
   - ../../../lib/format/registry.lua
+  - ../../../lib/format/unicode-glyphs.lua
+  - filters/textbook-layout.lua
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua
   - filters/textbook-boxes.lua

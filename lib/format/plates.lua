@@ -49,9 +49,17 @@ local function latex_figure(img, caption)
       pandoc.RawBlock("latex", "\\mbox{}\\clearpage"),
     }
   end
-  local width = has_class(img, "plate") and "\\textwidth" or width_for(img, "\\columnwidth")
+  local options
+  if has_class(img, "opener") then
+    -- chapter banner: full width, at most a third of the page tall
+    options = "width=\\textwidth,height=0.33\\textheight,keepaspectratio"
+  elseif has_class(img, "plate") or has_class(img, "wide") then
+    options = "width=" .. width_for(img, "\\textwidth"):gsub("columnwidth", "textwidth")
+  else
+    options = "width=" .. width_for(img, "\\columnwidth")
+  end
   local blocks = {
-    pandoc.RawBlock("latex", "\\begin{center}\n\\includegraphics[width=" .. width .. "]{" .. img.src .. "}"),
+    pandoc.RawBlock("latex", "\\begin{center}\n\\includegraphics[" .. options .. "]{" .. img.src .. "}"),
   }
   if #caption > 0 then
     table.insert(blocks, wrap("\\captionof*{figure}{", caption, "}"))

@@ -120,3 +120,95 @@ plt.bar(labels, vals, color=["#6baed6", "#756bb1", "#31a354"])
 plt.ylabel("fraction")
 plt.title("USF dark-sector ratios are model-derived")
 save("ch10-dark-sectors.png")
+
+# Chapter 1: response time against size for the 31 registry levels.
+import re
+import yaml
+
+REGISTRY = Path(__file__).resolve().parents[4] / "registry" / "levels"
+LADDER = ["quantum-foam", "string-boundary", "nuclear", "atomic", "molecular",
+          "cellular-synaptic", "local-circuit", "whole-brain-cemi", "human-vertebrate",
+          "dyad", "human-group", "animal-swarm", "bird", "flock", "colony-roost",
+          "society-city", "regional-institutional", "civilisational-solar",
+          "species-stellar", "geological", "planetary", "orbital-system", "stellar",
+          "compact-object", "stellar-cluster", "galactic-disc", "galactic-halo",
+          "galaxy-cluster", "cosmic-filaments", "observable-universe", "cosmic-web"]
+
+
+def log10_of(text: str) -> float:
+    """'10^-3 to 10^-1 m' -> -2.0 (geometric middle of a range)."""
+    exps = [float(e) for e in re.findall(r"10\^(-?\d+(?:\.\d+)?)", str(text))]
+    return sum(exps) / len(exps)
+
+
+pts = []
+for lid in LADDER:
+    data = yaml.safe_load((REGISTRY / f"{lid}.yaml").read_text(encoding="utf-8"))
+    pts.append((lid, log10_of(data["length_scale"]), log10_of(data["response_time"])))
+
+fig, ax = plt.subplots(figsize=(7.2, 4.6))
+xs = np.array([p[1] for p in pts])
+ys = np.array([p[2] for p in pts])
+ax.scatter(xs, ys, s=22, color="#104a73", zorder=3)
+line = np.linspace(-36, 27, 2)
+ax.plot(line, line - math.log10(2.998e8), color="#c0392b", lw=1.2,
+        label="light-crossing time $L/c$")
+for lid, x0, y0 in pts:
+    if lid in {"quantum-foam", "atomic", "cellular-synaptic", "human-vertebrate",
+               "society-city", "geological", "stellar", "compact-object",
+               "galactic-disc", "observable-universe"}:
+        ax.annotate(lid.replace("-", " "), (x0, y0), xytext=(4, 3),
+                    textcoords="offset points", fontsize=7.5)
+ax.set_xlabel("size, $\\log_{10}(L/\\mathrm{m})$")
+ax.set_ylabel("response time, $\\log_{10}(\\tau/\\mathrm{s})$")
+ax.set_title("Thirty-one levels: size against response time")
+ax.grid(color="0.9")
+ax.legend(loc="upper left")
+save("ch01-scale-time.png")
+
+# Chapter 1 opener: the 31 levels as a powers-of-ten strip (landscape banner).
+BANDS = [("smaller than a cell", -36, -5, "#e8f1f8"), ("cell to city", -5, 4, "#eaf5ec"),
+         ("city to planet", 4, 8, "#fbf3e0"), ("planet to star cluster", 8, 18, "#f3edf8"),
+         ("galaxies and beyond", 18, 27, "#eceef6")]
+fig, ax = plt.subplots(figsize=(16, 4.8))
+for name, lo, hi, colour in BANDS:
+    ax.axvspan(lo, hi, color=colour, zorder=0)
+    ax.text((lo + hi) / 2, -2.75, name, ha="center", va="center", fontsize=11,
+            color="#104a73", fontweight="bold")
+ax.axhline(0, color="#104a73", lw=1.4, zorder=1)
+order = sorted(pts, key=lambda p: p[1])
+
+
+def spread(xs: list[float], gap: float) -> list[float]:
+    """Push label positions apart (keeping order) so neighbours are >= gap."""
+    out = list(xs)
+    for _ in range(200):
+        moved = False
+        for j in range(1, len(out)):
+            if out[j] - out[j - 1] < gap:
+                shift = (gap - (out[j] - out[j - 1])) / 2
+                out[j - 1] -= shift
+                out[j] += shift
+                moved = True
+        if not moved:
+            break
+    return out
+
+
+for side, sign in ((0, 1), (1, -1)):
+    group = [p for i, p in enumerate(order) if i % 2 == side]
+    label_x = spread([p[1] for p in group], 1.55)
+    for (lid, x0, _), xl in zip(group, label_x):
+        y_text = 0.95 * sign
+        ax.plot([x0, x0, xl], [0, 0.45 * sign, y_text * 0.97], color="#7f8c99", lw=0.6, zorder=1)
+        ax.scatter([x0], [0], s=28, color="#c0392b", zorder=3)
+        ax.text(xl, y_text, lid.replace("-", " "), rotation=60 * sign,
+                ha="left", va="bottom" if sign > 0 else "top", fontsize=7.5)
+ax.set_xlim(-36, 27)
+ax.set_ylim(-3.0, 2.6)
+ax.set_yticks([])
+ax.set_xticks(range(-35, 27, 5))
+ax.set_xlabel("size, $\\log_{10}(L/\\mathrm{m})$  (each step is a factor of ten)")
+for spine in ("left", "right", "top"):
+    ax.spines[spine].set_visible(False)
+save("ch01-banner.png")

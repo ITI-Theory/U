@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check Part I prose for repeated padding.
+"""Check prose for repeated padding (Part I by default, or the Markdown files given).
 
 Fails when:
 - any two paragraphs longer than 25 words share their first 12 words;
@@ -39,9 +39,9 @@ def strip_markdown_noise(text: str) -> str:
     return text
 
 
-def load_paragraphs() -> list[Paragraph]:
+def load_paragraphs(files: list[Path]) -> list[Paragraph]:
     paras: list[Paragraph] = []
-    for path in sorted(THEORY.glob("*.md")):
+    for path in files:
         raw = strip_markdown_noise(path.read_text(encoding="utf-8"))
         chunks = re.split(r"\n\s*\n", raw)
         for idx, chunk in enumerate(chunks, start=1):
@@ -61,7 +61,8 @@ def ngrams(seq: tuple[str, ...], n: int) -> set[tuple[str, ...]]:
 
 
 def main() -> int:
-    paragraphs = load_paragraphs()
+    files = [Path(a) for a in sys.argv[1:]] or sorted(THEORY.glob("*.md"))
+    paragraphs = load_paragraphs(files)
     failures: list[str] = []
 
     by_prefix: dict[tuple[str, ...], list[Paragraph]] = defaultdict(list)
