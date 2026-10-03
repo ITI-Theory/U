@@ -42,7 +42,7 @@ bridge. It is **off by default**. Enable it only on your own machine:
   "baseline_notebook_id": "<optional>",
   "shell": true,
   "shell_limit": 2,
-  "shell_cwd": "C:\\Users\\alist\\prj\\git\\ITI-Theory\\U"
+  "shell_cwd": "<path-to-your-clone>"
 }
 ```
 
