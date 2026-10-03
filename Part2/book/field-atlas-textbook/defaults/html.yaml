@@ -10,6 +10,14 @@ input-files:
   - chapters/05-human-level.md
   - chapters/06-two-people-groups.md
   - chapters/07-flocks-swarms.md
+  - chapters/08-earth-deep-time-geology.md
+  - chapters/09-stars-galaxies.md
+  - chapters/10-cosmology-dark-sectors.md
+  - appendices/A-units-constants.md
+  - appendices/B-31-level-table.md
+  - appendices/C-glossary.md
+  - appendices/D-answer-key.md
+  - appendices/E-figure-credits.md
 output-file: ../../../bld/textbook/html/index.html
 resource-path:
   - .

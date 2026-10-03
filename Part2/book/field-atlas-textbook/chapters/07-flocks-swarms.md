@@ -3,7 +3,7 @@
 Flocks and swarms show order without a central conductor. Birds turn, fish school, bacteria swarm, and robots can coordinate with local rules. The scientific baseline is active matter: agents consume energy, move, and align with neighbors. This chapter introduces Vicsek-style alignment and Toner-Tu continuum fields before interpreting the Atlas swarm levels.
 
 ::: {.learning-objectives}
-By the end of this chapter, readers should be able to describe local alignment, compute a Vicsek time step and neighbor count, explain why noise can disorder a flock, distinguish agent and continuum models, and label [T]-Theory swarm propagator claims accurately.
+This chapter prepares readers to describe local alignment, compute a Vicsek time step and neighbor count, explain why noise can disorder a flock, distinguish agent and continuum models, and label [T]-Theory swarm propagator claims accurately.
 :::
 
 ![Figure 7.1. Generated Vicsek-style local alignment field. Arrows represent moving agents whose directions are influenced by neighbors and noise.](figures/generated/ch07-vicsek.png){width="66%"}
