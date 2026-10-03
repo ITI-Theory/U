@@ -19,6 +19,14 @@ local function only_image(block)
   return nil
 end
 
+local function first_image(blocks)
+  for _, block in ipairs(blocks or {}) do
+    local img = only_image(block)
+    if img then return img end
+  end
+  return nil
+end
+
 local function width_for(img)
   if img.attributes and img.attributes.width then
     local w = img.attributes.width
@@ -54,3 +62,37 @@ function Para(block)
 end
 
 Plain = Para
+
+function Figure(figure)
+  local img = first_image(figure.content)
+  if not img then
+    for _, block in ipairs(figure.content or {}) do
+      if block.t == "RawBlock" then
+        if FORMAT:match("latex") and block.format == "latex" and block.text:match("\\includegraphics") then
+          local text = block.text:gsub("\\textwidth", "\\columnwidth")
+          return pandoc.RawBlock("latex", text)
+        elseif FORMAT:match("html") and block.format == "html" then
+          return block
+        end
+      end
+    end
+    return nil
+  end
+  local src = img.src
+  local caption = pandoc.utils.stringify(figure.caption or img.caption or {})
+  local class = has_class(img, "plate") and "plate-figure" or "atlas-figure"
+  if FORMAT:match("latex") then
+    local cap = latex_escape(caption)
+    if has_class(img, "full-page") then
+      return pandoc.RawBlock("latex", "\\clearpage\\thispagestyle{empty}\n\\AddToShipoutPictureBG*{\\AtPageLowerLeft{\\color[RGB]{5,7,14}\\rule{\\paperwidth}{\\paperheight}}}\n\\AddToShipoutPictureBG*{\\AtPageUpperLeft{\\raisebox{-\\height}{\\includegraphics[width=\\paperwidth]{" .. src .. "}}}}\n\\AddToShipoutPictureBG*{\\AtPageLowerLeft{\\hspace*{14mm}\\raisebox{13mm}{\\color[RGB]{120,220,240}\\ttfamily\\large " .. cap .. "}}}\n\\mbox{}\\clearpage")
+    end
+    local width = has_class(img, "plate") and "\\textwidth" or "\\columnwidth"
+    if img.attributes and img.attributes.width and not has_class(img, "plate") then
+      width = width_for(img):gsub("\\textwidth", "\\columnwidth")
+    end
+    return pandoc.RawBlock("latex", "\\begin{center}\n\\includegraphics[width=" .. width .. "]{" .. src .. "}\n" .. (caption ~= "" and "\\captionof{figure}{" .. cap .. "}\n" or "") .. "\\end{center}")
+  elseif FORMAT:match("html") then
+    return pandoc.RawBlock("html", "<figure class=\"" .. class .. "\"><img src=\"" .. src .. "\" alt=\"" .. caption:gsub('"', '&quot;') .. "\"><figcaption>" .. caption .. "</figcaption></figure>")
+  end
+  return nil
+end

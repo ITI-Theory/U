@@ -46,7 +46,7 @@ $(HTML_INDEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGU
 check: a3
 	$(PYTHON) scripts/check_prose.py
 	@if not exist "$(WIN_LOG)" exit /b 1
-	@findstr /C:"Float(s) lost" "$(WIN_LOG)" >nul && exit /b 1 || exit /b 0
+	@findstr /C:"Float(s) lost" /C:"Floats and marginpars not allowed" "$(WIN_LOG)" >nul && exit /b 1 || exit /b 0
 	@findstr /I /C:"not found" /C:"missing character" /C:"cannot find file" "$(WIN_LOG)" >nul && exit /b 1 || exit /b 0
 	@echo "field-atlas check: PASS"
 
