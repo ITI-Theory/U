@@ -7,6 +7,9 @@ input-files:
   - chapters/02-response-greens-resonance.md
   - chapters/03-atoms-quantum-scale.md
   - chapters/04-molecules-cells.md
+  - chapters/05-human-level.md
+  - chapters/06-two-people-groups.md
+  - chapters/07-flocks-swarms.md
 output-file: ../../../bld/textbook/html/index.html
 resource-path:
   - .
