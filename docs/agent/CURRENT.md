@@ -5,7 +5,7 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
-## Resume Here (updated 2026-10-04, 00:30)
+## Resume Here (updated 2026-10-03, 23:45)
 
 Done 2026-10-03 (all pushed): build standard (`docs/BUILD.md`; Make + pandoc +
 Lua, POSIX recipes, one root `bld/`); papers, Fractal Thesis and Field Atlas on
@@ -24,7 +24,7 @@ picks this up at its next rebuild.
 
 Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
 `make -C Part2/book/field-atlas-textbook check a3 html`):
-- Chapters 1-8 rewritten to the model standard: learning objectives,
+- ALL TEN chapters rewritten to the model standard (textbook A3 52 pp): learning objectives,
   worked examples (Strategy / Solution / Significance), Worked Homework with
   full solutions, "Try it" app links, Penrose chapter baselines, every number
   checked in `scripts/verify_answers.py`, shared prose checker passes.
@@ -46,11 +46,19 @@ Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
   added to bibliography), swarm propagator arithmetic plus set-up cost.
   Ch8 radioactive clocks, plates, Coulomb + fluid pressure (Glarus),
   rate-and-state memory, Gutenberg-Richter, ice-albedo bistability, P16.
-- NEXT: chapter 9 (stars and galaxies: Balmer lines as thermometer,
-  21 cm rotation curves, Doppler; promised in ch3), then chapter 10
-  (cosmology and dark sectors; P21/P22 labelled), then appendices
-  (answer key note, glossary), then the tour language (`#tour=`) and
-  MOTHER/H-AL observatory mode (agreed order).
+- Ch9 Wien/Stefan-Boltzmann, Cannon/Payne + Saha-Boltzmann Balmer peak,
+  parallax, lifetimes, GPS relativity, rotation curves. Ch10 Hubble,
+  Friedmann, CMB, acoustic peaks, P21/P22 7/11 3/11 1/22 (Lambda ratio is
+  H0-independent), coincidence problem and falsifiers.
+- Appendices A (constants), C (glossary as key-terms), D (answer key
+  describes inline solutions), E (credits), F (References heading) done.
+- Fixed 2026-10-03 23:40: `citeproc: true` in lib/defaults/base-*.yaml ran
+  citeproc twice (duplicate reference lists in the textbook). Removed;
+  BUILD.md rule 4a updated. Atlas still 200 pp, 156 unique references.
+- STOP POINT (author, 2026-10-03 23:26): do NOT start the "stax"/tour work
+  (`#tour=` language, observatory mode) until the author says so.
+- Release reminder: books and papers pick up the programme-refs and
+  citeproc fixes at their next rebuild; rebuild before release.
 
 Agents: write content and review myself; agents only for mechanical jobs.
 

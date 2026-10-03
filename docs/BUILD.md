@@ -36,7 +36,9 @@ textbook edition) is built the same way:
    record of `registry/papers.yaml` (a mirror of `Dist/PAPERS.yaml`,
    refreshed by `make generate`) into a reference-list entry and converts
    legacy bare ids; citeproc runs after it (`- type: citeproc` at the end of
-   the filters list). `bin/release-check` fails on bare ids in built
+   the filters list, with `citeproc: false`; the shared `lib/defaults/` files
+   must not set `citeproc`, or the reference list is printed twice).
+   `bin/release-check` fails on bare ids in built
    documents, on a stale mirror, and on project instructions that disagree
    with the registry.
 5. **No build scripts that write markup.** Python (or any other language)
@@ -78,7 +80,7 @@ textbook edition) is built the same way:
 ## Layout
 
 ```
-lib/defaults/      shared pandoc defaults (fonts, engine, citeproc)
+lib/defaults/      shared pandoc defaults (fonts, engine; no citeproc)
 lib/format/        shared Lua filters and LaTeX/HTML templates
 lib/mk/            shared Make fragments (paths, tools, registry rules)
 <project>/defaults/  project defaults files per output

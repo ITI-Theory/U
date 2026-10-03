@@ -20,6 +20,7 @@ input-files:
   - appendices/C-glossary.md
   - appendices/D-answer-key.md
   - appendices/E-figure-credits.md
+  - appendices/F-references.md
 output-file: ../../../bld/textbook/field-atlas-textbook-a3.tex
 to: latex
 resource-path:

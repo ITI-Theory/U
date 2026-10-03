@@ -2,7 +2,9 @@ from: markdown+yaml_metadata_block+tex_math_dollars+citations+smart
 standalone: true
 toc: true
 toc-depth: 1
-citeproc: true
+# citeproc is not set here: a boolean in an included defaults file adds a
+# citeproc pass that the including file cannot remove. Each consumer lists
+# `- type: citeproc` at the end of its filters instead (docs/BUILD.md).
 eol: lf
 variables:
   documentclass: book
