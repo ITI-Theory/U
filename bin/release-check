@@ -183,8 +183,9 @@ fi
 BOOKLET_DIR="bld/books"
 BOOKLET_MISSING=""
 BOOKLET_WRONG=""
+# books/T-Theory/Makefile builds the consciousness book's booklet as booklet-philosophy.
 for domain in gateway physics complex-systems formal-mathematics neuroscience \
-              consciousness computer-science music-arts clinical-psychology \
+              philosophy computer-science music-arts clinical-psychology \
               psychiatry-asd social-science geophysics law ppe economics; do
   booklet="$BOOKLET_DIR/booklet-$domain.pdf"
   if [[ ! -f "$booklet" ]]; then
