@@ -1,0 +1,31 @@
+\usepackage{amsmath,amssymb,booktabs,longtable,array,graphicx,xcolor,multicol,caption,hyperref,fancyhdr,titlesec,tcolorbox,enumitem,tabularx}
+\definecolor{textbookblue}{HTML}{1F5E8C}
+\definecolor{textbookteal}{HTML}{007C89}
+\definecolor{textbookgreen}{HTML}{2E7D32}
+\definecolor{textbookorange}{HTML}{C66500}
+\definecolor{textbookpurple}{HTML}{6A3DA3}
+\definecolor{textbookgray}{HTML}{F4F6F8}
+\definecolor{textbookline}{HTML}{D9E2EC}
+\setlength{\columnsep}{9mm}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\raggedcolumns
+\newcommand{\colsbegin}{\begin{multicols}{3}}
+\newcommand{\colsend}{\end{multicols}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{[T]-Theory Field Atlas: A Textbook Edition}
+\fancyhead[R]{\thepage}
+\titleformat{\chapter}[display]{\sffamily\bfseries\color{textbookblue}\Huge}{Chapter \thechapter}{0.4em}{}
+\titleformat{\section}{\sffamily\bfseries\color{textbookteal}\Large}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\color{textbookpurple}\large}{\thesubsection}{0.6em}{}
+\newtcolorbox{learningbox}{colback=textbookgray,colframe=textbookblue,title=LEARNING OBJECTIVES,fonttitle=\sffamily\bfseries,arc=1mm,boxrule=0.7pt,left=1mm,right=1mm,top=1mm,bottom=1mm}
+\newtcolorbox{examplebox}[1]{colback=white,colframe=textbookgreen,title=#1,fonttitle=\sffamily\bfseries,arc=1mm,boxrule=0.7pt,left=1mm,right=1mm,top=1mm,bottom=1mm}
+\newtcolorbox{checkbox}[1]{colback=white,colframe=textbookorange,title=#1,fonttitle=\sffamily\bfseries,arc=1mm,boxrule=0.7pt,left=1mm,right=1mm,top=1mm,bottom=1mm}
+\newtcolorbox{linkbox}[1]{colback=white,colframe=textbookteal,title=#1,fonttitle=\sffamily\bfseries,arc=1mm,boxrule=0.7pt,left=1mm,right=1mm,top=1mm,bottom=1mm}
+\newtcolorbox{connectionbox}[1]{colback=white,colframe=textbookpurple,title=#1,fonttitle=\sffamily\bfseries,arc=1mm,boxrule=0.7pt,left=1mm,right=1mm,top=1mm,bottom=1mm}
+\newcommand{\chapteropener}[3]{\begin{center}\includegraphics[width=0.92\textwidth,height=0.30\textheight,keepaspectratio]{#1}\captionof{figure}{#2\,\textit{Credit: #3.}}\end{center}\vspace{1em}}
+\newcommand{\textfig}[3]{\begin{center}\includegraphics[width=0.96\columnwidth]{#1}\captionof{figure}{#2\,\textit{Credit: #3.}}\end{center}}
+\newcommand{\evidencelabel}[1]{\textsf{\color{textbookorange}{#1}}}
+
+
