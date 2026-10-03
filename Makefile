@@ -24,22 +24,24 @@ include lib/mk/dist.mk
 	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
 
 help:
-	@echo "U build targets"
-	@echo "  papers          build all papers and the A4 omnibus"
-	@echo "  papers-html     build paper HTML files"
-	@echo "  omnibus         build the papers omnibus"
-	@echo "  atlas           build the Field Atlas A3 edition"
-	@echo "  atlas-html      build the Field Atlas HTML edition"
-	@echo "  books           build all T-Theory books"
-	@echo "  vol1            build T-Theory volume 1"
-	@echo "  vol2            build T-Theory volume 2"
-	@echo "  lean            build Lean proofs"
-	@echo "  app             build the Soma Machine app"
-	@echo "  check           verify the papers toolchain"
-	@echo "  clean           remove repo-root bld/"
-	@echo "  generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml"
+	$(info U build targets (outputs in bld/, see docs/BUILD.md))
+	$(info   all             papers, books and the Field Atlas)
+	$(info   papers          build all papers and the A4 omnibus)
+	$(info   papers-html     build paper HTML files)
+	$(info   omnibus         build the papers omnibus)
+	$(info   atlas           build the Field Atlas A3 edition)
+	$(info   atlas-html      build the Field Atlas HTML edition)
+	$(info   books           build all T-Theory books)
+	$(info   vol1            build T-Theory volume 1)
+	$(info   vol2            build T-Theory volume 2)
+	$(info   lean            build Lean proofs)
+	$(info   app             build the Soma Machine app)
+	$(info   check           run the papers, books and Atlas validators)
+	$(info   clean           remove repo-root bld/)
+	$(info   generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml)
+	@:
 
-all: papers
+all: papers books atlas
 
 papers:
 	$(MAKE) -C paper all
@@ -73,6 +75,8 @@ app:
 
 check:
 	$(MAKE) -C paper check
+	$(MAKE) -C $(BOOKS_DIR) check
+	$(MAKE) -C $(ATLAS_DIR) check
 
 clean:
 	rm -rf $(BLD)
