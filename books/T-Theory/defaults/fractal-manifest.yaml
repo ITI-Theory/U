@@ -1,0 +1,245 @@
+fractal_manifest:
+  volumes:
+    vol1:
+      title: '[T]-Theory: The Fractal Programme — Volume I: Foundation'
+      subtitle: Gateway · Physics · Mathematics · Neuroscience · Philosophy · Complex Systems · Computing
+      domains:
+      - gateway
+      - physics
+      - formal-mathematics
+      - neuroscience
+      - consciousness
+      - complex-systems
+      - computer-science
+      closing_paper: c:ttheory-phenomena
+      closing_title: 'Closing: The Gateway to Phase 2'
+    vol2:
+      title: '[T]-Theory: The Fractal Programme — Volume II: Application'
+      subtitle: Music and the Arts · Geophysics · Society · Economics · Law · PPE · Trauma · Rewiring
+      domains:
+      - music-arts
+      - geophysics
+      - social-science
+      - economics
+      - law
+      - ppe
+      - clinical-psychology
+      - psychiatry-asd
+    omnibus:
+      title: '[T]-Theory: The Complete Fractal Programme'
+      subtitle: Fifteen Domain Books on the Universal Somatic Field
+      domains:
+      - gateway
+      - physics
+      - neuroscience
+      - clinical-psychology
+      - computer-science
+      - formal-mathematics
+      - consciousness
+      - complex-systems
+      - music-arts
+      - geophysics
+      - social-science
+      - economics
+      - law
+      - ppe
+      - psychiatry-asd
+      opening: ttheory-opening.md
+      closing_paper: c:ttheory-phenomena
+      closing_part: The Gateway to Phase 2
+      closing_title: The [T]-Theory Phenomena
+  domains:
+  - id: gateway
+    title: '[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos'
+    subtitle: An Introduction to the Fractal Programme
+    audience: curious educated reader with no specialist background
+    field: general public / science communication
+    papers:
+    - c:soma-field-synthesis
+    - c:soma-field-book
+    - c:soma-field-paper
+    source_book: gateway/book-gateway.md
+    noir_page: true
+  - id: physics
+    title: '[T]-Theory: Physics'
+    subtitle: Field Equations of Mind
+    audience: physicists and astrophysicists
+    field: mathematical physics, astrophysics, quantum field theory
+    papers:
+    - c:soma-field-paper
+    - c:quantum-soma-penrose
+    - c:universal-somatic-field
+    - c:zoomable-somatic-field
+    - c:cosmological-constant-derivation
+    - c:dark-matter-spatial-vacuum
+    - c:g2-symmetry-breaking
+    source_book: physics/book-physics.md
+  - id: neuroscience
+    title: '[T]-Theory: Neuroscience'
+    subtitle: The Electromagnetic Nervous System
+    audience: neuroscientists, cognitive scientists
+    field: neuroscience, cognitive neuroscience, computational neuroscience
+    papers:
+    - c:soma-physical-substrate
+    - c:missing-limbic-layer
+    - c:preverbal-manifold
+    - c:soma-field-paper
+    source_book: neuroscience/book-neuroscience.md
+  - id: clinical-psychology
+    title: '[T]-Theory: Trauma'
+    subtitle: Trauma as Topology
+    audience: clinical psychologists, therapists, psychiatrists
+    field: clinical psychology, psychotherapy, trauma studies
+    papers:
+    - c:soma-field-patient-pov
+    - c:SFT-DEMO-CASE
+    - c:missing-limbic-layer
+    - c:preverbal-manifold
+    - c:soma-field-synthesis
+    - c:experimental-validation
+    - c:soma-field-paper
+    source_book: clinical-psychology/book-clinical-psychology.md
+  - id: computer-science
+    title: '[T]-Theory: Computing'
+    subtitle: Verified Emotional Computing
+    audience: computer scientists, AI researchers, software engineers
+    field: computer science, artificial intelligence, formal verification
+    papers:
+    - c:swarm-propagator
+    - c:experimental-validation
+    - c:soma-field-synthesis
+    - c:mathematical-co-identification
+    - c:lean-proofs-appendix
+    - c:soma-field-paper
+    source_book: computer-science/book-computer-science.md
+  - id: formal-mathematics
+    title: '[T]-Theory: Mathematics'
+    subtitle: Dependent Types and the Geometry of Feeling
+    audience: mathematicians, logicians, type theorists
+    field: formal mathematics, type theory, algebraic topology, HoTT
+    papers:
+    - c:mathematical-co-identification
+    - c:soma-field-paper
+    - c:universal-somatic-field
+    - c:zoomable-somatic-field
+    - c:lean-proofs-appendix
+    source_book: formal-mathematics/book-formal-mathematics.md
+  - id: consciousness
+    title: '[T]-Theory: Philosophy'
+    subtitle: Consciousness, Effect, and Proof in the Fractal Programme
+    audience: philosophers of mind, consciousness researchers
+    field: philosophy of mind, consciousness studies, phenomenology
+    papers:
+    - c:universal-somatic-field
+    - c:quantum-soma-penrose
+    - c:soma-physical-substrate
+    - c:preverbal-manifold
+    - c:soma-field-synthesis
+    - c:soma-field-paper
+    - c:missing-limbic-layer
+    source_book: philosophy/book-philosophy.md
+    booklet_id: philosophy
+  - id: complex-systems
+    title: '[T]-Theory: Complex Systems'
+    subtitle: Scale-Free Dynamics
+    audience: complex systems researchers, network scientists
+    field: complex systems, emergence, self-organisation, network science
+    papers:
+    - c:zoomable-somatic-field
+    - c:geographic-somatic-field
+    - c:swarm-propagator
+    - c:gestalt-field-dynamics
+    - c:soma-field-paper
+    - c:soma-field-synthesis
+    source_book: complex-systems/book-complex-systems.md
+  - id: music-arts
+    title: '[T]-Theory: Music and the Arts'
+    subtitle: The Physics of Music and Affect
+    audience: musicologists, music psychologists, artists, composers
+    field: music psychology, musicology, aesthetics, cognitive science of art
+    papers:
+    - c:music-affect-dynamics
+    - c:the-tensor
+    - c:soma-field-book
+    - c:soma-field-synthesis
+    source_book: music-arts/book-music-arts.md
+  - id: geophysics
+    title: '[T]-Theory: Geophysics'
+    subtitle: The Geological Soma
+    audience: geophysicists, seismologists, Earth scientists
+    field: geophysics, seismology, tectonics, Earth sciences
+    papers:
+    - c:geographic-somatic-field
+    - c:zoomable-somatic-field
+    - f:soma-geophysics
+    - c:soma-field-paper
+    - c:soma-field-synthesis
+    - c:universal-somatic-field
+    source_book: geophysics/book-geophysics.md
+  - id: social-science
+    title: '[T]-Theory: Society'
+    subtitle: The Physics of Society
+    audience: sociologists, social psychologists, anthropologists
+    field: sociology, social psychology, anthropology, political science
+    papers:
+    - c:geographic-somatic-field
+    - c:swarm-propagator
+    - f:soma-social-intelligence
+    - c:gestalt-field-dynamics
+    - c:soma-field-synthesis
+    - c:soma-field-paper
+    source_book: social-science/book-social-science.md
+  - id: economics
+    title: '[T]-Theory: Economics'
+    subtitle: Economic Criticality
+    audience: economists, game theorists, financial mathematicians
+    field: economics, game theory, financial mathematics, mechanism design
+    papers:
+    - c:swarm-propagator
+    - c:experimental-validation
+    - f:soma-game-theory
+    - c:soma-field-synthesis
+    - c:mathematical-co-identification
+    - c:soma-field-paper
+    source_book: economics/book-economics.md
+  - id: law
+    title: '[T]-Theory: Law'
+    subtitle: Topology of Justice
+    audience: legal scholars, jurisprudents, political scientists, policymakers
+    field: law, jurisprudence, political theory, regulatory studies
+    papers:
+    - c:soma-field-synthesis
+    - c:universal-somatic-field
+    - f:soma-law
+    - c:mathematical-co-identification
+    - c:soma-field-paper
+    - c:soma-physical-substrate
+    source_book: law/book-law.md
+  - id: ppe
+    title: '[T]-Theory: PPE'
+    subtitle: Mind, Market, and Mandate
+    audience: PPE students and scholars, political economists, philosophers
+    field: philosophy, politics, economics (Oxford PPE tradition)
+    papers:
+    - c:soma-field-synthesis
+    - f:soma-game-theory
+    - f:soma-law
+    - c:soma-field-patient-pov
+    - c:universal-somatic-field
+    - c:mathematical-co-identification
+    - c:soma-field-paper
+    source_book: ppe/book-ppe.md
+  - id: psychiatry-asd
+    title: '[T]-Theory: Rewiring'
+    subtitle: Neurodivergence and Trauma
+    audience: psychiatrists, psychologists, neurodivergent people and their families
+    field: psychiatry, clinical psychology, neurodevelopmental conditions
+    papers:
+    - c:missing-limbic-layer
+    - c:preverbal-manifold
+    - c:soma-field-patient-pov
+    - f:soma-asd-unified
+    - c:experimental-validation
+    - c:quantum-soma-penrose
+    - c:soma-physical-substrate
+    source_book: psychiatry-asd/book-psychiatry-asd.md

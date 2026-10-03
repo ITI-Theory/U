@@ -1,0 +1,10 @@
+from: markdown+raw_tex+yaml_metadata_block
+to: pdf
+standalone: true
+pdf-engine: xelatex
+eol: lf
+include-in-header:
+  - noir-header.tex
+variables:
+  geometry: a4paper,margin=0.5in
+  mainfont: TeX Gyre Pagella

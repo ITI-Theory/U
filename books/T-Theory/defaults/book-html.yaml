@@ -1,0 +1,17 @@
+from: markdown+raw_tex+tex_math_dollars+yaml_metadata_block+pipe_tables+table_captions+implicit_figures
+to: html5
+standalone: true
+embed-resources: true
+html-math-method: mathjax
+eol: lf
+css: ../../lib/format/site.css
+resource-path:
+  - .
+  - ../../paper
+filters:
+  - filters/ttheory-direct.lua
+  - ../../paper/strip-keywords.lua
+  - ../../lib/format/macros.lua
+citeproc: true
+bibliography: ../../paper/bibliography.bib
+csl: ../../paper/apa-7th.csl

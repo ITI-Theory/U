@@ -1,0 +1,17 @@
+from: markdown+raw_tex+tex_math_dollars+yaml_metadata_block+pipe_tables
+to: pdf
+standalone: true
+pdf-engine: xelatex
+eol: lf
+variables:
+  geometry: a4paper,margin=16mm
+  fontsize: 10pt
+  linestretch: 1.2
+  mainfont: TeX Gyre Pagella
+include-in-header:
+  - format/cheatsheet-header.tex
+  - ../../paper/unicode-math-text.tex
+metadata-files:
+  - books.yaml
+filters:
+  - ../../lib/format/macros.lua

@@ -1,0 +1,32 @@
+from: markdown+raw_tex+tex_math_dollars+yaml_metadata_block+pipe_tables+table_captions+implicit_figures
+standalone: true
+pdf-engine: xelatex
+eol: lf
+toc-depth: 2
+resource-path:
+  - .
+  - ../../paper
+variables:
+  colorlinks: true
+  linkcolor: NavyBlue
+  urlcolor: NavyBlue
+  monofont: Consolas
+  geometry: a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm
+  fontsize: 11pt
+  linestretch: 1.39
+  header-includes: |
+    \usepackage{amsmath}\usepackage{amssymb}\usepackage{placeins}
+highlight-style: tango
+include-in-header:
+  - ../../paper/journal.tex
+  - ttheory-titlepage.tex
+  - ttheory-packages.tex
+filters:
+  - filters/ttheory-assemble.lua
+  - ../../paper/strip-keywords.lua
+  - ../../lib/format/macros.lua
+citeproc: true
+bibliography: ../../paper/bibliography.bib
+csl: ../../paper/apa-7th.csl
+metadata:
+  fractal-manifest: defaults/fractal-manifest.yaml
