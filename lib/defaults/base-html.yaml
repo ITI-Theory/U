@@ -4,5 +4,6 @@ standalone: true
 toc: true
 toc-depth: 2
 citeproc: true
-mathml: true
+html-math-method:
+  method: mathml
 eol: lf

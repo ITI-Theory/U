@@ -12,7 +12,7 @@ callout insets.
 
 | Part | Where |
 | --- | --- |
-| Order (sectors, levels, front and back matter) | `atlas.yaml` |
+| Order and metadata (sectors, levels, front and back matter) | `atlas.yaml` |
 | Level data panel (scale, response time, substrate, field, equation, badges) | `registry/levels/<id>.yaml` |
 | Level text (ordinary science, [T]-Theory reading, picture briefs) | `registry/levels/<id>.md` |
 | Transitions between levels | `registry/paths/*/edges/*.md` |
@@ -31,18 +31,20 @@ callout insets.
 #    (from apps/instrument/visuals/soma-field-operator)
 npm run capture -- --only atlas-plates --width 1920 --height 1200 --scale 2
 
-# 2. compose the biology-atlas plates (from this folder)
+# 2. compose the biology-atlas plates (from this folder; image generation only)
 python scripts/plates.py
 
-# 3. assemble and build (from this folder)
-python build_atlas.py            # bld/field-atlas.md and bld/field-atlas.pdf
-python build_atlas.py --md-only
-python build_atlas.py --a3       # bld/field-atlas-a3.pdf (A3 landscape)
+# 3. build from this folder or repo root
+make -C Part2/book/field-atlas a3
+make -C Part2/book/field-atlas html
+make -C Part2/book/field-atlas check
 ```
 
-Royal format (156 x 234 mm), xelatex, citations from `paper/bibliography.bib`.
-A3 is landscape and uses the same triptych/callout plates, with text in three
-columns where tables permit.
+The Field Atlas is now A3 landscape only for printfactory.ch; the former royal
+edition has been dropped. Make is the entry point, pandoc defaults hold output
+options, and Lua filters assemble registry content without Python writing
+Markdown, LaTeX, or HTML. Outputs are written under the repository root:
+`bld/atlas/field-atlas-a3.pdf` and `bld/atlas/html/index.html`.
 
 ## Part I: Theory
 

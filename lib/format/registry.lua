@@ -219,9 +219,10 @@ local function join_inlines(parts, sep)
   local out = {}
   for i, p in ipairs(parts) do
     if i > 1 and sep then append(out, parse_inlines(sep)) end
-    if type(p) == "table" and p.t == "Link" then
+    local pt = type(p) == "table" and pandoc.utils.type(p) or nil
+    if pt == "Inline" then
       out[#out + 1] = p
-    elseif type(p) == "table" and p[1] then
+    elseif pt == "Inlines" or (type(p) == "table" and p[1]) then
       append(out, p)
     else
       append(out, parse_inlines(tostring(p or "")))
@@ -246,7 +247,13 @@ end
 
 local function simple_table(headers, rows)
   local colspecs = {}
-  for _ = 1, #headers do colspecs[#colspecs + 1] = {pandoc.AlignDefault, 0} end
+  for i = 1, #headers do
+    local width = 1 / math.max(#headers, 1)
+    if #headers == 2 and headers[1] == "" and headers[2] == "" then
+      width = (i == 1) and 0.20 or 0.80
+    end
+    colspecs[#colspecs + 1] = {pandoc.AlignLeft, width}
+  end
   local head = pandoc.TableHead({table_row(headers)})
   local body_rows = {}
   for _, r in ipairs(rows) do body_rows[#body_rows + 1] = table_row(r) end

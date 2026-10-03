@@ -1,6 +1,5 @@
 # App captures: regenerate with `npm run capture` in apps/instrument/visuals/soma-field-operator
 figures/app/
-bld/
 # Plates: regenerate with scripts/plates.py from figures/app/atlas-plates
 figures/plates/*.png
 .rewrite-scratch/
