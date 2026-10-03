@@ -350,32 +350,55 @@ def main() -> int:
     close("P8.5 energy", 10 ** 4.5, 32000, 400)
     close("P8.5 fraction", 1000 / 10 ** 4.5, 1 / 30, 0.002)
 
-    # Chapter 9 examples and problems
-    L = 3.828e26
-    d = 10.0 * 3.085677581e16
-    close("ch9 solar flux 10 pc", L / (4 * math.pi * d * d), 3.199e-10, 1e-13)
-    close("ch9 mag 2 ratio", 2.512**2, 6.31, 0.01)
-    z = (660.0 - 656.3) / 656.3
-    close("ch9 redshift", z, 0.00564, 1e-5)
-    close("ch9 redshift velocity", z * 3e5, 1691, 2)
-    r = 8 * 3.085677581e19
-    v = 2.20e5
-    G = 6.674e-11
-    Msun = 1.98847e30
-    close("ch9 orbital mass kg", r * v*v / G, 1.79e41, 2e39)
-    close("ch9 orbital mass solar", (r * v*v / G) / Msun, 9.0e10, 2e9)
-    close("ch9 lifetime factor", 2 ** (-2.5), 0.1768, 1e-4)
-    close("ch9 lifetime Gyr", 10 * 2 ** (-2.5), 1.768, 0.001)
-    close("ch9 orbital period yr", (2 * math.pi * r / v) / 3.156e7, 2.23e8, 1e6)
-    close("ch9 flux compare", 2 / (2**2), 0.5)
-    close("ch9 mass luminosity", 3 ** 3.5, 46.765, 0.001)
-    close("ch9 one mag ratio", 100 ** (1/5), 2.5119, 1e-4)
-    close("ch9 501 redshift", (501-500)/500, 0.002)
-    close("ch9 501 velocity", 0.002 * 3e5, 600)
-    close("ch9 4L twice distance", 4 / 2**2, 1)
-    close("ch9 mass speed factor", 2**2, 4)
-    close("ch9 distance modulus 100", 5 * math.log10(100/10), 5)
-    close("ch9 distance modulus 1000", 5 * math.log10(1000/10), 10)
+    # Chapter 9 (worked examples, check-your-learning, worked homework)
+    s9 = 5.670e-8
+    close("9.1 Wien Sun nm", 2.898e-3 / 5772 * 1e9, 502, 0.5)
+    close("9.1 Sirius peak nm", 2.898e-3 / 9940 * 1e9, 292, 0.5)
+    close("9.1 Sirius R^2", 1.71**2, 2.92, 0.005)
+    close("9.1 Sirius T^4", (9940 / 5772) ** 4, 8.8, 0.05)
+    close("9.1 Sirius L", 1.71**2 * (9940 / 5772) ** 4, 26, 0.3)
+    kev9 = 8.617333e-5
+    def saha9(T):
+        return (1.380649e-23 * T / 20.0) * (2 * math.pi * 9.109e-31 * 1.380649e-23 * T / 6.626e-34**2) ** 1.5 * math.exp(-13.6 / (kev9 * T))
+    close("9.1 ionised at 9940 K", saha9(9940) / (1 + saha9(9940)), 0.67, 0.02)
+    peakT = max(range(4000, 25001, 10), key=lambda T: 4 * math.exp(-10.2 / (kev9 * T)) / (1 + saha9(T)))
+    close("9.1 Balmer peak K", peakT, 9900, 50)
+    close("9.2 Proxima pc", 1 / 0.768, 1.30, 0.005)
+    close("9.2 Proxima ly", 1 / 0.768 * 3.2616, 4.25, 0.01)
+    close("9.2 CYL flux ratio", 2 / 2**2, 0.5)
+    close("9.3 mass rate", 3.83e26 / (3.00e8) ** 2, 4.3e9, 0.05e9)
+    close("9.3 lifetime fraction", 4.26e9 * 10e9 * 3.156e7 / 1.989e30, 0.0007, 0.0001)
+    close("9.3 2 Msun L", 2**3.5, 11.3, 0.05)
+    close("9.3 CYL 10 Msun Myr", 10 * 10**-2.5 * 1000, 32, 0.5)
+    close("9.3 Rs km", 2 * 6.674e-11 * 1.989e30 / (2.998e8) ** 2 / 1000, 2.95, 0.01)
+    close("9.4 surface", 3.986e14 / (6.371e6 * (2.998e8) ** 2), 7e-10, 0.05e-10)
+    gm_c2 = 3.986e14 / (2.998e8) ** 2
+    close("9.4 GM/c2 m", gm_c2, 4.43e-3, 0.01e-3)
+    grav = gm_c2 * (1 / 6.371e6 - 1 / 2.656e7)
+    close("9.4 grav frac", grav, 5.29e-10, 0.01e-10)
+    close("9.4 grav us", grav * 86400 * 1e6, 45.7, 0.1)
+    vel = 3874**2 / (2 * (2.998e8) ** 2)
+    close("9.4 vel frac", vel, 8.35e-11, 0.02e-11)
+    close("9.4 vel us", vel * 86400 * 1e6, 7.2, 0.05)
+    close("9.4 net us", (grav - vel) * 86400 * 1e6, 38.5, 0.1)
+    close("9.4 light km", 2.998e8 * 38.5e-6 / 1000, 11.5, 0.05)
+    mgal = (2.3e5) ** 2 * 8.2 * 3.09e19 / 6.67e-11
+    close("9.5 mass kg", mgal, 2.0e41, 0.05e41)
+    close("9.5 mass Msun", mgal / 1.99e30, 1.0e11, 0.03e11)
+    close("9.5 CYL 21cm MHz", 1420.4 * 200 / 300000, 0.95, 0.005)
+    close("P9.1 peak nm", 2.898e-3 / 3500 * 1e9, 828, 0.5)
+    close("P9.1 L", 760**2 * (3500 / 5772) ** 4, 78000, 500)
+    close("P9.1 R AU", 760 * 6.957e8 / 1.496e11, 3.5, 0.05)
+    close("P9.2 L sun", 4 * math.pi * (6.957e8) ** 2 * s9 * 5772**4, 3.83e26, 0.01e26)
+    close("P9.3 L", 3**3.5, 47, 0.3)
+    close("P9.3 life Gyr", 10 * 3**-2.5, 0.64, 0.005)
+    close("P9.3 shortening", 3**2.5, 15.6, 0.05)
+    close("P9.4 Rs km", 36 * 2.95, 106, 0.5)
+    m10 = (2e5) ** 2 * 10 * 3.09e19 / 6.67e-11
+    close("P9.5 M10 kg", m10, 1.85e41, 0.01e41)
+    close("P9.5 M10 Msun", m10 / 1.989e30, 9.3e10, 0.05e10)
+    close("P9.5 M30 Msun", 3 * m10 / 1.989e30, 2.8e11, 0.05e11)
+    close("P9.5 shell", 2 * m10 / 1.989e30, 1.9e11, 0.05e11)
 
     # Chapter 10 examples and problems
     H0 = 67.4 * 1000 / 3.085677581e22

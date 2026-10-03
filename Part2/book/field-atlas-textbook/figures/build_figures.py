@@ -383,16 +383,57 @@ plt.title("Two stable climates and an unstable one between")
 plt.legend(fontsize=8, loc="upper left")
 save("ch08-climate.png")
 
-mass = np.linspace(.1, 30, 300)
-lum = mass**3.5
+# Chapter 9 opener: blackbody spectra of three stars, and a model galaxy's rotation curve.
+fig, (bb, rc) = plt.subplots(1, 2, figsize=(16, 4.4))
+lam = np.linspace(100e-9, 2000e-9, 800)
+h_, c_, k_ = 6.626e-34, 2.998e8, 1.381e-23
+bb.axvspan(380, 700, color="#f2e9c9", alpha=0.6)
+bb.text(540, 1.03, "visible", ha="center", fontsize=9)
+for T, col, name in [(3500, "#c0504d", "red giant, 3500 K"), (5772, "#d4a017", "Sun, 5772 K"),
+                     (9940, "#4f81bd", "Sirius, 9940 K")]:
+    B = 1 / (lam**5 * (np.exp(h_ * c_ / (lam * k_ * T)) - 1))
+    bb.plot(lam * 1e9, B / B.max(), color=col, lw=2, label=name)
+    bb.axvline(2.898e-3 / T * 1e9, color=col, ls=":", lw=1)
+bb.set_xlabel("wavelength (nm)")
+bb.set_ylabel("brightness (each scaled to its peak)")
+bb.set_title("hotter stars peak at shorter wavelengths: Wien's law", fontsize=11)
+bb.legend(fontsize=9)
+r = np.linspace(0.1, 30, 400)
+rd = 3.0
+G_ = 4.30e-6
+m_disc = 6e10 * (1 - (1 + r / rd) * np.exp(-r / rd))
+rc0 = 5.0
+rho_h = 4.0e7
+m_halo = 4 * np.pi * rho_h * rc0**2 * (r - rc0 * np.arctan(r / rc0))
+v_disc = np.sqrt(G_ * m_disc / r)
+v_tot = np.sqrt(G_ * (m_disc + m_halo) / r)
+rc.plot(r, v_disc, color="#7f8c99", ls="--", lw=2, label="expected from the visible stars and gas")
+rc.plot(r, v_tot, color="#104a73", lw=2, label="the flat shape measured in real spirals")
+rc.set_xlabel("distance from the centre (kpc)")
+rc.set_ylabel("orbital speed (km s$^{-1}$)")
+rc.set_title("a model spiral galaxy: the outer stars move too fast", fontsize=11)
+rc.legend(fontsize=9, loc="lower right")
+for ax in (bb, rc):
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+save("ch09-banner.png")
+
+# Chapter 9, Section 9.1: strength of the Balmer lines against temperature (Boltzmann and Saha).
+Tg = np.linspace(4000, 25000, 800)
+kev = 8.617333e-5
+saha = (1.380649e-23 * Tg / 20.0) * (2 * np.pi * 9.109e-31 * 1.380649e-23 * Tg / 6.626e-34**2)**1.5 * np.exp(-13.6 / (kev * Tg))
+frac = 4 * np.exp(-10.2 / (kev * Tg)) / (1 + saha)
 plt.figure(figsize=(6, 3.4))
-plt.loglog(mass, lum)
-plt.scatter([1], [1], color="orange", label="Sun")
-plt.xlabel("mass / solar mass")
-plt.ylabel("luminosity / solar luminosity")
-plt.title("Main-sequence scaling is steep")
-plt.legend()
-save("ch09-stars.png")
+plt.plot(Tg, frac / frac.max(), color="#104a73", lw=2)
+plt.axvline(Tg[frac.argmax()], color="#7f8c99", ls="--", lw=1)
+for T, name in [(5772, "Sun"), (9940, "Sirius")]:
+    j = np.argmin(abs(Tg - T))
+    plt.plot(T, frac[j] / frac.max(), "o", color="#c0504d")
+    plt.text(T + 300, frac[j] / frac.max() + 0.04, name, fontsize=9)
+plt.xlabel("surface temperature (K)")
+plt.ylabel("atoms able to absorb Balmer lines\n(relative)")
+plt.title("Hydrogen lines peak near 10 000 K")
+save("ch09-balmer.png")
 
 labels = ["baryon", "dark matter", "dark energy"]
 vals = [1/11, 3/11, 7/11]
