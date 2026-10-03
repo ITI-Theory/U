@@ -6,7 +6,7 @@ Cosmology studies the universe as a dynamical spacetime filled with matter, radi
 By the end of this chapter, readers should be able to write the first Friedmann equation, convert the Hubble constant into SI units, compute the model value $\Lambda_{USF}$, compare $\Omega_{DM}=3/11$ with a Planck baseline, and distinguish derived-under-assumptions numbers from independent confirmation.
 :::
 
-![Figure 10.1. Generated dark-sector bar chart. The ratios shown are [T]-Theory model-derived fractions, not direct observations.](figures/generated/ch10-dark-sectors.png){width="70%"}
+![Generated dark-sector bar chart. The ratios shown are [T]-Theory model-derived fractions, not direct observations.](figures/generated/ch10-dark-sectors.png){width="70%"}
 
 ## 10.1 Friedmann baseline
 

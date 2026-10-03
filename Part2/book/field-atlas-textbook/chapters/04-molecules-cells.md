@@ -6,7 +6,7 @@ Molecules introduce shape, charge distribution, binding energy, and thermal moti
 Readers should be able to describe membrane potential, compute a passive cable length constant, distinguish passive spread from an action potential, connect molecular channels to cellular excitability, and identify the cellular demo as a visual model rather than empirical proof.
 :::
 
-![Figure 4.1. Passive cable attenuation generated for four times. Voltage decays across distance and time unless active channels regenerate the signal.](figures/generated/ch04-cable.png){width="78%"}
+![Passive cable attenuation generated for four times. Voltage decays across distance and time unless active channels regenerate the signal.](figures/generated/ch04-cable.png){width="78%"}
 
 ## 4.1 From molecules to membranes
 

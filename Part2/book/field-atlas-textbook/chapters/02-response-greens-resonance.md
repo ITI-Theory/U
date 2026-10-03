@@ -6,7 +6,7 @@ A response model asks what a system does after a source acts on it. Pushing a sw
 After working through this chapter, students should be able to define an impulse response, read a damped oscillator equation, compute natural frequency and damping ratio, interpret resonance curves, and state why [T]-Theory response grammar is a modelling language rather than a universal proof.
 :::
 
-![Figure 2.1. Resonance curves generated for three damping ratios. A lightly damped oscillator responds sharply near its natural frequency; heavy damping spreads and lowers the peak.](figures/generated/ch02-resonance.png){width="78%"}
+![Resonance curves generated for three damping ratios. A lightly damped oscillator responds sharply near its natural frequency; heavy damping spreads and lowers the peak.](figures/generated/ch02-resonance.png){width="78%"}
 
 ## 2.1 Impulses and Green functions
 

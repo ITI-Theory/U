@@ -6,7 +6,7 @@ A field assigns a value to every place where the model says a value can be asked
 By the end of this chapter, students should be able to distinguish fields from particles, describe wavelength and frequency with units, explain why scale changes the useful variables, compute the spacing of a 31-level atlas, and identify which [T]-Theory claims are sourced, interpretive, or derived under assumptions.
 :::
 
-![Figure 1.1. A generated zoom-response diagram. Changing the viewing scale changes which features are resolved, while the questions about source, propagation, boundary, and response remain recognizable.](figures/generated/ch01-zoom-response.png){width="80%"}
+![A generated zoom-response diagram. Changing the viewing scale changes which features are resolved, while the questions about source, propagation, boundary, and response remain recognizable.](figures/generated/ch01-zoom-response.png){width="80%"}
 
 ## 1.1 What a field says
 

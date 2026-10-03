@@ -6,7 +6,7 @@ Flocks and swarms show order without a central conductor. Birds turn, fish schoo
 This chapter prepares readers to describe local alignment, compute a Vicsek time step and neighbor count, explain why noise can disorder a flock, distinguish agent and continuum models, and label [T]-Theory swarm propagator claims accurately.
 :::
 
-![Figure 7.1. Generated Vicsek-style local alignment field. Arrows represent moving agents whose directions are influenced by neighbors and noise.](figures/generated/ch07-vicsek.png){width="66%"}
+![Generated Vicsek-style local alignment field. Arrows represent moving agents whose directions are influenced by neighbors and noise.](figures/generated/ch07-vicsek.png){width="66%"}
 
 ## 7.1 Local rules, global order
 

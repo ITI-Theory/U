@@ -6,7 +6,7 @@ Astronomy turns weak light into physical history. Stars reveal temperature, comp
 Students should be able to connect luminosity, distance, and flux; describe hydrostatic balance in stars; explain why main-sequence scaling is steep; summarize rotation-curve evidence for unseen mass; and separate standard astronomy from [T]-Theory reinterpretation.
 :::
 
-![Figure 9.1. Generated main-sequence scaling. A small increase in stellar mass produces a large increase in luminosity for many main-sequence stars.](figures/generated/ch09-stars.png){width="72%"}
+![Generated main-sequence scaling. A small increase in stellar mass produces a large increase in luminosity for many main-sequence stars.](figures/generated/ch09-stars.png){width="72%"}
 
 ## 9.1 Stars as balanced fields
 

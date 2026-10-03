@@ -6,7 +6,7 @@ Coordination can be visible before anyone explains it. Two walkers fall into ste
 Students should be able to define phase, write a two-oscillator locking condition, compute a fixed phase difference, describe the Kuramoto order parameter, and separate measured synchrony from interpretive claims about attunement.
 :::
 
-![Figure 6.1. Generated dyadic phase curves. Stronger coupling reduces phase difference more quickly in this illustrative model.](figures/generated/ch06-kuramoto.png){width="72%"}
+![Generated dyadic phase curves. Stronger coupling reduces phase difference more quickly in this illustrative model.](figures/generated/ch06-kuramoto.png){width="72%"}
 
 ## 6.1 Phase and locking
 

@@ -6,7 +6,7 @@ Human-scale models must be humble because subjective life, physiology, memory, l
 After studying this chapter, readers should be able to write a simple Langevin equation, explain wells and barriers, compute a Kramers-style escape ratio, describe a memory kernel, and identify QUANT-EXP-1 as a simulated model-class result rather than a clinical or hardware claim.
 :::
 
-![Figure 5.1. A generated double-well energy landscape. Two basins are separated by a barrier; noise, forcing, or changed dynamics can alter transition rates.](figures/generated/ch05-double-well.png){width="72%"}
+![A generated double-well energy landscape. Two basins are separated by a barrier; noise, forcing, or changed dynamics can alter transition rates.](figures/generated/ch05-double-well.png){width="72%"}
 
 ## 5.1 Langevin dynamics and basins
 

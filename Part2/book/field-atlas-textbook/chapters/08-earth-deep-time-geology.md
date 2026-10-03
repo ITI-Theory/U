@@ -6,7 +6,7 @@ Earth history is a scale lesson. Human lives are short, recorded history is thin
 Readers should be able to place major Earth events on a deep-time axis, compute simple radioactive remaining fractions, describe stress and seismic waves as fields, explain why eras.yaml is a sourced registry input, and classify geological [T]-Theory overlays as interpretive unless tested.
 :::
 
-![Figure 8.1. Generated deep-time timeline. Almost all human history lies too close to the present to be visible at planetary scale.](figures/generated/ch08-deep-time.png){width="82%"}
+![Generated deep-time timeline. Almost all human history lies too close to the present to be visible at planetary scale.](figures/generated/ch08-deep-time.png){width="82%"}
 
 ## 8.1 Time written in rock
 

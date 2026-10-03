@@ -6,7 +6,7 @@ Atomic physics is the first place in this book where everyday pictures fail quic
 Students completing this chapter should be able to state the time-independent Schrödinger equation, compute hydrogen energy levels with the Bohr formula, convert an energy difference into wavelength, interpret a probability density, and classify the [T]-Theory atomic overlay as identical-in-limit or interpretive where appropriate.
 :::
 
-![Figure 3.1. A generated hydrogen diagram. The radial envelope and radial probability peak at different radii because volume grows with distance from the nucleus.](figures/generated/ch03-hydrogen.png){width="72%"}
+![A generated hydrogen diagram. The radial envelope and radial probability peak at different radii because volume grows with distance from the nucleus.](figures/generated/ch03-hydrogen.png){width="72%"}
 
 ## 3.1 Quantization from boundary conditions
 
