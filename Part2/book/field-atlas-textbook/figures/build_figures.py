@@ -195,14 +195,66 @@ ax2.set_title("so the same kick takes longer to die away", fontsize=10)
 ax2.legend(fontsize=8)
 save("ch05-slowing.png")
 
-t = np.linspace(0, 30, 500)
-for K in [0.2, 0.7, 1.2]:
-    dphi = 2*np.arctan(np.exp(-K*t/8))
-    plt.plot(t, dphi, label=f"K={K}")
-plt.xlabel("time")
-plt.ylabel("phase difference")
-plt.title("Coupling reduces dyadic phase difference")
-plt.legend()
+# Chapter 6 opener: two coupled oscillators (Adler equation) and a Kuramoto crowd.
+def adler(ratio: float, dw: float = 1.0, t_end: float = 40.0, dt: float = 0.01):
+    kap2 = ratio * dw
+    phi = 0.0
+    ts = np.arange(0, t_end, dt)
+    out = np.empty_like(ts)
+    for i in range(len(ts)):
+        phi += dt * (dw - kap2 * math.sin(phi))
+        out[i] = phi
+    return ts, out
+
+
+def kuramoto(K: float, n: int = 2000, g: float = 0.5, t_end: float = 60.0, dt: float = 0.02, seed: int = 2):
+    rng = np.random.default_rng(seed)
+    w = np.clip(g * np.tan(np.pi * (rng.random(n) - 0.5)), -50, 50)
+    th = rng.random(n) * 2 * np.pi
+    steps = int(t_end / dt)
+    rs = np.empty(steps)
+    for i in range(steps):
+        z = np.mean(np.exp(1j * th))
+        rs[i] = abs(z)
+        th += dt * (w + K * abs(z) * np.sin(np.angle(z) - th))
+    return np.arange(steps) * dt, rs
+
+
+fig, (ad, ku) = plt.subplots(1, 2, figsize=(16, 4.4))
+for ratio, col, lab in [(0.8, "#c0504d", "coupling 0.8 of the threshold: slips"),
+                        (1.25, "#104a73", "coupling 1.25 of the threshold: locks")]:
+    ts, ph = adler(ratio)
+    ad.plot(ts, ph / (2 * np.pi), color=col, lw=2, label=lab)
+ad.set_xlabel("time (units of $1/\\Delta\\omega$)")
+ad.set_ylabel("phase difference (cycles)")
+ad.set_title("two oscillators: below threshold the gap keeps slipping; above it, it holds", fontsize=11)
+ad.legend(fontsize=9)
+for K, col in [(0.5, "#9fb3c8"), (1.5, "#4f81bd"), (3.0, "#104a73")]:
+    ts, rs = kuramoto(K)
+    ku.plot(ts, rs, color=col, lw=1.5, label=f"K = {K:g} (critical 1.0)")
+ku.set_ylim(0, 1)
+ku.set_xlabel("time")
+ku.set_ylabel("order parameter r")
+ku.set_title("2000 oscillators: below critical coupling no rhythm emerges; above it one does", fontsize=11)
+ku.legend(fontsize=9)
+for ax in (ad, ku):
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+save("ch06-banner.png")
+
+# Chapter 6, Section 6.3: Kuramoto order parameter against coupling, simulation and theory.
+Ks = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]
+r_sim = [kuramoto(K)[1][-500:].mean() for K in Ks]
+Kt = np.linspace(0.2, 5, 400)
+r_th = np.sqrt(np.clip(1 - 1 / Kt, 0, None))
+plt.figure(figsize=(6, 3.4))
+plt.plot(Kt, r_th, color="#104a73", lw=2, label="theory $r = \\sqrt{1 - K_c/K}$")
+plt.plot(Ks, r_sim, "o", color="#c0504d", label="simulation, 2000 oscillators")
+plt.axvline(1, color="#7f8c99", ls="--", lw=1)
+plt.xlabel("coupling K (critical $K_c$ = 1)")
+plt.ylabel("order parameter r")
+plt.title("The onset of collective rhythm")
+plt.legend(fontsize=8)
 save("ch06-kuramoto.png")
 
 np.random.seed(4)
