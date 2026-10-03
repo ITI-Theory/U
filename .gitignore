@@ -30,14 +30,8 @@ local.mk
 *.fls
 *.fdb_latexmk
 
-# All build output goes to /bld/ (docs/BUILD.md); legacy per-project bld/ below.
+# All build output goes to /bld/ (docs/BUILD.md).
 /bld/
-
-# Candidate PDFs and assembled manuscript bodies stay local to U. Accepted
-# release artifacts are promoted deliberately to the Dist repository.
-/paper/bld/
-/Part2/fractal-programme/bld/
-/books/T-Theory/bld/
 
 # Instrument session logs
 instrument/logs/
@@ -51,10 +45,6 @@ nul
 # Generated UAT candidate copies and hashes
 uat/staging/
 uat/zenodo-community.json
-
-# Local-only visual QA and retired experimental output
-Part2/fractal-programme/bld/qa/
-paper/bld/universal-somatic-field-rosetta.pdf
 
 # Generated paper status outputs
 paper/PAPER_STATUS.md
@@ -72,8 +62,3 @@ instrument/*_summary.png
 instrument/*_briefing.png
 instrument/quantum_*.png
 instrument/quantum_*.csv
-
-# Translation chunk cache (resume state, intermediate only)
-paper/bld/.chunk_cache/
-paper/prototypes/modular-omnibus/bld/
-paper/bld/translate.log

@@ -38,8 +38,8 @@ fi
 hdr "3. Open research problems"
 
 STALE_PROBLEMS=$(py paper/scripts/check_stale_problem_labels.py \
-  --pdf paper/bld/zoomable-somatic-field.pdf \
-  --pdf paper/bld/lean-proofs-appendix.pdf 2>&1)
+  --pdf bld/papers/zoomable-somatic-field.pdf \
+  --pdf bld/papers/lean-proofs-appendix.pdf 2>&1)
 if [[ $? -eq 0 ]]; then
   ok "No stale resolved-problem labels in P11 or proof appendix"
 else
@@ -76,7 +76,7 @@ else
   echo "$APPENDIX_STALE" | sed 's/^/    /'
 fi
 # omnibus freshness vs lean-appendix
-[[ "paper/bld/omnibus-a4.pdf" -nt "$APPENDIX" ]] \
+[[ "bld/papers/omnibus-a4.pdf" -nt "$APPENDIX" ]] \
   && ok "omnibus-a4.pdf is newer than lean-appendix" \
   || warn "omnibus may be stale vs lean-appendix — run: make uat-build"
 
@@ -166,7 +166,7 @@ fi
 
 # ── 12. Cheatsheet booklet page counts ─────────────────────────────────────
 hdr "12. Cheatsheet booklets"
-CANONICAL_CHEATSHEET="paper/bld/ttheory-cheatsheet.pdf"
+CANONICAL_CHEATSHEET="bld/books/booklet-gateway.pdf"
 if [[ ! -f "$CANONICAL_CHEATSHEET" ]]; then
   fail "Canonical cheatsheet missing — run: make cheatsheet"
 else
@@ -178,7 +178,7 @@ else
   fi
 fi
 
-BOOKLET_DIR="books/T-Theory/bld"
+BOOKLET_DIR="bld/books"
 BOOKLET_MISSING=""
 BOOKLET_WRONG=""
 for domain in gateway physics complex-systems formal-mathematics neuroscience \

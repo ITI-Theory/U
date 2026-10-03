@@ -78,12 +78,12 @@ lines = [
     f"REGISTRY_FRACTAL_PREREQUISITES := {' '.join(fractal_prerequisites)}",
     f"REGISTRY_FRACTAL_TARGETS := {' '.join(fractal_targets)}",
     "",
-    ".PHONY: papers papers-royal ttheory zenodo zenodo-papers zenodo-ttheory nlm nlm-papers nlm-ttheory lulu stuff dist",
+    ".PHONY: dist-papers papers-royal ttheory zenodo zenodo-papers zenodo-ttheory nlm nlm-papers nlm-ttheory lulu stuff dist",
     "",
 ]
 
 # Papers and [T]-Theory distribution: ------------------------------------
-lines += ["papers: registry-papers"]
+lines += ["dist-papers: registry-papers"]
 for e in entries:
     if not is_distributable(e) or e.get("build") == "fractal":
         continue
@@ -129,7 +129,7 @@ lines += ["zenodo: zenodo-papers zenodo-ttheory"]
 lines.append("")
 
 # nlm: -------------------------------------------------------------------
-lines += ["nlm-papers: papers"]
+lines += ["nlm-papers: dist-papers"]
 for e in entries:
     if e.get("build") != "fractal" and e.get("nlm_min"):
         src = f"{DIST}/{e['file']}"
@@ -169,12 +169,12 @@ for e in entries:
         lines.append(cp(src_of(e), f"{DIST}/stuff/{e['stuff']}"))
 lines.append("")
 
-lines += ["dist: papers ttheory zenodo nlm lulu stuff nlm-uat", ""]
+lines += ["dist: dist-papers ttheory zenodo nlm lulu stuff nlm-uat", ""]
 
 # nlm-uat: four files for NotebookLM QA comparison -----------------------
 # Each entry generates two rules: copy current PDF as AFTER target.
 # The BEFORE snapshot must be taken manually before a rebuild.
-lines += ["nlm-uat: papers ttheory"]
+lines += ["nlm-uat: dist-papers ttheory"]
 for e in entries:
     if e.get("nlm_uat"):
         slug = e["nlm_uat"]

@@ -6,69 +6,69 @@ papers:
   worksheet: uat/papers-omnibus-nlm-uat.md
   readme: uat/staging-readme-papers.md
   context_files:
-    - paper/bld/uat-context/PAPERS.md
-    - paper/bld/uat-context/BUILD_CONTEXT.md
+    - bld/papers/uat-context/PAPERS.md
+    - bld/papers/uat-context/BUILD_CONTEXT.md
     - uat/papers-build-review.md
     - uat/dev-handover.md
   files:
-    - paper/bld/omnibus-a4.pdf
-    - paper/bld/usf-euclidean-qft.pdf
-    - paper/bld/usf-interacting-qft.pdf
-    - paper/bld/soma-field-paper.pdf
-    - paper/bld/quantum-soma-penrose.pdf
-    - paper/bld/mathematical-co-identification.pdf
-    - paper/bld/soma-field-synthesis.pdf
-    - paper/bld/soma-physical-substrate.pdf
-    - paper/bld/soma-field-book.pdf
-    - paper/bld/soma-field-patient-pov.pdf
-    - paper/bld/the-tensor.pdf
-    - paper/bld/music-affect-dynamics.pdf
-    - paper/bld/soma-temporal-dynamics.pdf
-    - paper/bld/zoomable-somatic-field.pdf
-    - paper/bld/experimental-validation.pdf
-    - paper/bld/missing-limbic-layer.pdf
-    - paper/bld/geographic-somatic-field.pdf
-    - paper/bld/gestalt-field-dynamics.pdf
-    - paper/bld/preverbal-manifold.pdf
-    - paper/bld/swarm-propagator.pdf
-    - paper/bld/universal-somatic-field.pdf
-    - paper/bld/cosmological-constant-derivation.pdf
-    - paper/bld/dark-matter-spatial-vacuum.pdf
-    - paper/bld/ttheory-phenomena.pdf
-    - paper/bld/g2-symmetry-breaking.pdf
-    - paper/bld/SFT-DEMO-CASE.pdf
-    - paper/bld/lean-proofs-appendix.pdf
+    - bld/papers/omnibus-a4.pdf
+    - bld/papers/usf-euclidean-qft.pdf
+    - bld/papers/usf-interacting-qft.pdf
+    - bld/papers/soma-field-paper.pdf
+    - bld/papers/quantum-soma-penrose.pdf
+    - bld/papers/mathematical-co-identification.pdf
+    - bld/papers/soma-field-synthesis.pdf
+    - bld/papers/soma-physical-substrate.pdf
+    - bld/papers/soma-field-book.pdf
+    - bld/papers/soma-field-patient-pov.pdf
+    - bld/papers/the-tensor.pdf
+    - bld/papers/music-affect-dynamics.pdf
+    - bld/papers/soma-temporal-dynamics.pdf
+    - bld/papers/zoomable-somatic-field.pdf
+    - bld/papers/experimental-validation.pdf
+    - bld/papers/missing-limbic-layer.pdf
+    - bld/papers/geographic-somatic-field.pdf
+    - bld/papers/gestalt-field-dynamics.pdf
+    - bld/papers/preverbal-manifold.pdf
+    - bld/papers/swarm-propagator.pdf
+    - bld/papers/universal-somatic-field.pdf
+    - bld/papers/cosmological-constant-derivation.pdf
+    - bld/papers/dark-matter-spatial-vacuum.pdf
+    - bld/papers/ttheory-phenomena.pdf
+    - bld/papers/g2-symmetry-breaking.pdf
+    - bld/papers/SFT-DEMO-CASE.pdf
+    - bld/papers/lean-proofs-appendix.pdf
 
 ttheory:
   purpose: "Fractal Thesis, print volumes, and cheatsheet acceptance"
   worksheet: uat/ttheory-nlm-uat.md
   readme: uat/staging-readme-ttheory.md
   context_files:
-    - paper/bld/uat-context/PAPERS.md
-    - paper/bld/uat-context/BUILD_CONTEXT.md
+    - bld/papers/uat-context/PAPERS.md
+    - bld/papers/uat-context/BUILD_CONTEXT.md
     - paper/OMNIBUS_DOCUMENT_MODEL.md
     - uat/papers-build-review.md
     - uat/ttheory-build-review.md
     - uat/dev-handover.md
   files:
-    - books/T-Theory/bld/ttheory-omnibus.pdf
-    - books/T-Theory/bld/ttheory-vol1.pdf
-    - books/T-Theory/bld/ttheory-vol2.pdf
-    - books/T-Theory/bld/book-philosophy.pdf
-    - books/T-Theory/bld/booklet-gateway.pdf
+    - bld/books/ttheory-omnibus.pdf
+    - bld/books/ttheory-vol1.pdf
+    - bld/books/ttheory-vol2.pdf
+    - bld/books/book-philosophy.pdf
+    - bld/books/booklet-gateway.pdf
 
 lulu-proofs:
   purpose: "Lulu A4 Hardcover Linen Wrap with Dust Jacket comparison proofs"
   worksheet: uat/ttheory-nlm-uat.md
   readme: uat/staging-readme-ttheory.md
   files:
-    - paper/bld/omnibus-a4.pdf
-    - books/T-Theory/bld/ttheory-vol1.pdf
-    - books/T-Theory/bld/ttheory-vol1-10pt.pdf
-    - books/T-Theory/bld/book-gateway.pdf
-    - paper/bld/lulu-covers/01-omnibus-v2-linen-wrap-proof.pdf
-    - paper/bld/lulu-covers/01-omnibus-v2-dust-jacket.pdf
-    - paper/bld/lulu-covers/03-ttheory-vol1-foundation-linen-wrap-proof.pdf
-    - paper/bld/lulu-covers/03-ttheory-vol1-foundation-dust-jacket.pdf
-    - paper/bld/lulu-covers/ttheory-book-gateway-linen-wrap-proof.pdf
-    - paper/bld/lulu-covers/ttheory-book-gateway-dust-jacket.pdf
+    - bld/papers/omnibus-a4.pdf
+    - bld/books/ttheory-vol1.pdf
+    - bld/books/ttheory-vol1-10pt.pdf
+    - bld/books/book-gateway.pdf
+    - bld/papers/lulu-covers/01-omnibus-v2-linen-wrap-proof.pdf
+    - bld/papers/lulu-covers/01-omnibus-v2-dust-jacket.pdf
+    - bld/papers/lulu-covers/03-ttheory-vol1-foundation-linen-wrap-proof.pdf
+    - bld/papers/lulu-covers/03-ttheory-vol1-foundation-dust-jacket.pdf
+    - bld/papers/lulu-covers/ttheory-book-gateway-linen-wrap-proof.pdf
+    - bld/papers/lulu-covers/ttheory-book-gateway-dust-jacket.pdf

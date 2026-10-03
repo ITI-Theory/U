@@ -17,7 +17,7 @@ Author: Alistair Johnson | ORCID: 0009-0007-2194-0850 | Independent Researcher, 
 | `paper/` | All paper source (.md) and built PDFs |
 | `paper/soma/<name>/` | One dir per paper — source .md + translations + paper-specific data |
 | `paper/proofs/` | Lean 4 formal proofs (cross-cutting — not paper-specific) |
-| `paper/scripts/` | paper_status.py, package_papers.py, translate_papers.py, build_omnibus.py |
+| `paper/scripts/` | paper_status.py, package_papers.py, translate_papers.py, validators, UAT tooling |
 | `apps/instrument/` | Python live instrument server (OSC, MIDI, field renderer) |
 | `apps/facilities/` | Gym + studio floor plans, equipment data |
 | `.venv/` | Python venv — activate: `source .venv/Scripts/activate` |

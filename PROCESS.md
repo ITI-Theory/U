@@ -7,9 +7,9 @@ This repository must maintain a predictable checkout state.
 Required rules:
 
 1. Generated artifacts are not committed in U unless explicitly release-critical.
-   `paper/bld/` and `books/T-Theory/bld/` are ignored local candidate
-   trees; accepted PDFs are promoted deliberately to Dist, the distribution
-   repository.
+   `bld/` is the ignored repo-root build tree (`bld/papers/`, `bld/books/`,
+   `bld/atlas/`, `bld/app/`); accepted PDFs are promoted deliberately to Dist,
+   the distribution repository.
 2. Work in two phases:
    - content/source edits,
    - optional artifact regeneration for release.
@@ -43,7 +43,7 @@ Use this when a paper has been updated (e.g. acknowledgements added, corrections
 
 1. Go to the existing record URL (e.g. `zenodo.org/records/XXXXXXX`)
 2. Click **New version** — file list starts empty
-3. **Upload** the new PDF from `paper/bld/<paper-name>.pdf`
+3. **Upload** the new PDF from `bld/papers/<paper-name>.pdf`
 4. Click **Get a DOI** → generate the new version DOI
 5. **Publication date** — Zenodo forces you to set this. Use the date of the **first publication** of this record, not today. Check the original record for that date.
 6. Click **Add description** → set the **Type** dropdown to **Other** → type the version note (e.g. `Added Acknowledgements section`)

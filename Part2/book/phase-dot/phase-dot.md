@@ -652,7 +652,7 @@ The standard way to achieve this is by appending a Metadata Block or a Front-Mat
 The Unified Document Blueprint (system_spec.md)
 markdown
 ***
-verification_token: "sha256:7a8b9c0d1e2f..."
+verification_token_example: "sha256:<example-digest>"
 kernel_status: "VERIFIED_WITHOUT_SORRY"
 timestamp: "[phone]T17:18:00Z"
 ***
@@ -11364,7 +11364,7 @@ You're right—Windows uses the truncated alist for your user folder name (commo
 To ensure your symlinks work perfectly across the "bridge," use this exact command in your Ubuntu terminal:
 bash
 # This creates the link using the 'alist' folder Windows created
-ln -s /mnt/c/Users/alist/prj/git/U.Ops ~/ops
+ln -s <path-to-your-clone-parent>/U.Ops ~/ops
 Use code with caution.
 Quick Architecture Check
 Now that the path is locked in, your "Empire" looks like this:
@@ -12295,8 +12295,8 @@ Use code with caution.
 This command tells Docker: "Take my Windows folders and map them directly into my Arch home."
 bash
 docker run -it --name arch-test \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-arch-base
 Use code with caution.
 4. Verify the Link
@@ -12327,11 +12327,11 @@ cd ~/ops/provisioning/docker
 docker build -t u-arch-base .
 Use code with caution.
 2. Launch with the "Bridges" (The Mounts)
-Once that finishes, run this command. I've used the exact Windows path you confirmed earlier (/mnt/c/Users/alist/):
+Once that finishes, run this command. I've used the exact Windows path you confirmed earlier (<path-to-your-home>/):
 bash
 docker run -it --name arch-test \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-arch-base
 Use code with caution.
 3. The "Proof"
@@ -12368,7 +12368,7 @@ Let's do a quick "sanity check" to see where the data is disappearing.
 1. Check the Ubuntu (WSL) side first
 In your Ubuntu terminal (not the Arch container), run:
 bash
-ls -la /mnt/c/Users/alist/prj/git/U.Ops
+ls -la <path-to-your-clone-parent>/U.Ops
 Use code with caution.
 If this is empty: The issue is the link between Windows and Ubuntu. Check your spelling of the path.
 If this has files: The issue is the "Mount" between Ubuntu and Docker.
@@ -12384,8 +12384,8 @@ The "Fix": Go to Docker Desktop Settings -> Resources -> WSL Integration. Toggle
 Sometimes SELinux or permission flags block the view. We will try the run command again with the :cached flag, which helps with performance and visibility on WSL:
 bash
 docker run -it --name arch-test \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops:cached \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot:cached \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops:cached \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot:cached \
   u-arch-base
 Use code with caution.
 4. If all else fails: The "Direct Path"
@@ -12434,7 +12434,7 @@ Why ops and dot are still empty?
 If you did the docker run -v ... command and those folders are still empty after a ls ~/ops, it means the Windows path we used in the command isn't matching where your files actually live.
 Quick Sanity Check:
 In your Ubuntu terminal (outside the container), type:
-ls /mnt/c/Users/alist/prj/git/U.Ops
+ls <path-to-your-clone-parent>/U.Ops
 If that returns "No such file or directory," we need to find exactly where those files are sitting on your C: drive.
 Are the files showing up in Ubuntu but not the container, or are they missing from both?
 Follow-up: Once you have xcompmgr running, try opening an xterm. If the connection is live, you should finally see some "Candy" (shadows and transparency)!
@@ -12475,7 +12475,7 @@ The "Empire" Check: Where are your files?
 We still need to solve why ~/ops and ~/dot are empty. If those folders are empty, you can't edit your rc.lua or picom.conf to make the "Candy" permanent.
 Try this one command in your Ubuntu terminal (outside the container) to find the "Real" path:
 bash
-find /mnt/c/Users/alist -maxdepth 4 -name "U.Ops"
+find <path-to-your-home> -maxdepth 4 -name "U.Ops"
 Use code with caution.
 Once we have that exact path, we can re-run the container and your xterm will suddenly have all your config files ready to go.
 Did the transset-df command make the window transparent when you clicked it?
@@ -12681,13 +12681,13 @@ Mate, we need to fix those empty folders. If ~/ops and ~/dot are empty, your nan
 Since you are in a container with empty mounts, let's fix it from the Ubuntu side:
 Exit the Arch container (exit).
 Stop it: docker rm -f arch-test
-Check the path in Ubuntu: ls /mnt/c/Users/alist/prj/git/U.Ops
+Check the path in Ubuntu: ls <path-to-your-clone-parent>/U.Ops
 If this is empty, we have the wrong Windows path.
 Re-run with the "Z" flag (this forces Docker to re-evaluate permissions):
 bash
 docker run -it --name arch-test \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops:z \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot:z \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops:z \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot:z \
   u-arch-base
 Use code with caution.
 Why "z"?
@@ -12712,8 +12712,8 @@ If you want to swap to Debian, here is your new 30-second "0 to 100" command:
 bash
 # In Ubuntu/WSL
 docker run -it --name debian-empire \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   debian:stable
 Use code with caution.
 Inside the Debian container:
@@ -12843,8 +12843,8 @@ Exit the current Debian container.
 Re-run it with the "Mounts" correctly pointing to your Windows user:
 bash
 docker run -it --name debian-empire \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   debian:stable
 Use code with caution.
 Did the new apt install command give you the libraries you needed?
@@ -12880,8 +12880,8 @@ docker rm -f debian-empire
 
 docker run -it --name debian-empire \
   -u $(id -u):$(id -g) \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   debian:stable /bin/bash
 Use code with caution.
 2. If you want to stay as Root for now
@@ -12936,8 +12936,8 @@ Use code with caution.
 If you see your files: Your shortcuts survived the reboot.
 If you get an error: Run this to rebuild the links to your Windows C: drive [1]:
 bash
-ln -sf /mnt/c/Users/alist/prj/git/U.Ops ~/ops
-ln -sf /mnt/c/Users/alist/prj/git/U.Dot ~/dot
+ln -sf <path-to-your-clone-parent>/U.Ops ~/ops
+ln -sf <path-to-your-clone-parent>/U.Dot ~/dot
 Use code with caution.
 3. Start the Windows X-Server (VcXsrv)
 Before we spin up Docker, launch XLaunch on Windows with your verified settings:
@@ -12965,8 +12965,8 @@ Run this in your Ubuntu terminal:
 bash
 docker run -it --name debian-empire \
   -e DISPLAY=${IP_DEFAULT}:0.0 \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   debian:stable /bin/bash
 Use code with caution.
 Step 3: Install the "Candy" Framework
@@ -13073,8 +13073,8 @@ docker run -it --name hypr-matrix \
   -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
   -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:ro \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-hypr-core
 Use code with caution.
 The Visual Check
@@ -13142,8 +13142,8 @@ docker run -it --name hypr-matrix \
   -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
   -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:ro \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-hypr-arch
 Use code with caution.
 The Expectation
@@ -13169,7 +13169,7 @@ Hyprland on Ubuntu 24.04 - GitHub Gist
 
 Gist
 Show all
-almost but... docker run -it --name hypr-matrix \ -e DISPLAY=$DISPLAY \ -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \ -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \ -v /tmp/.X11-unix:/tmp/.X11-unix:ro \ -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:ro \ -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \ -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \ u-hypr-arch Welcome to Hyprland! YY UJ YYY UUJ XXXY UUUU zXXXX UUUUU zzzzX UUUUJ cczzz UUUUJ vccccz UUUUUJ vvcccc UUUUUJ vvvvv UUUUJ uuuvv UUUUJ uuuuu UUUUU nnnuu UUUUU nnnnn YUUUU xxnn YUUU xxxn YYUU xxxx YYUU rxxx YYYY rrrx YYYY rrrx XXXY rrrr XXXX rrrr zzXX rrrr zzzz rrrrr ccczz rrrrrx vccccc rrrrxxxx uuvvvvvc rrxxxxxxnnnnuuuuuv xxxxxnnnnu Bailing out, couldn't create /run/user/1000//hypr/af923e30d1d24f1f4a4f5cb[phone]c1d9539_[phone]_[phone] Hyprland threw in ctor: CCompositor() failed Cannot continue. alistair@Laptop-P14s:~/ops/provisioning/hyprland-lab$
+almost but... docker run -it --name hypr-matrix \ -e DISPLAY=$DISPLAY \ -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \ -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \ -v /tmp/.X11-unix:/tmp/.X11-unix:ro \ -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:ro \ -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \ -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \ u-hypr-arch Welcome to Hyprland! YY UJ YYY UUJ XXXY UUUU zXXXX UUUUU zzzzX UUUUJ cczzz UUUUJ vccccz UUUUUJ vvcccc UUUUUJ vvvvv UUUUJ uuuvv UUUUJ uuuuu UUUUU nnnuu UUUUU nnnnn YUUUU xxnn YUUU xxxn YYUU xxxx YYUU rxxx YYYY rrrx YYYY rrrx XXXY rrrr XXXX rrrr zzXX rrrr zzzz rrrrr ccczz rrrrrx vccccc rrrrxxxx uuvvvvvc rrxxxxxxnnnnuuuuuv xxxxxnnnnu Bailing out, couldn't create /run/user/1000//hypr/af923e30d1d24f1f4a4f5cb[phone]c1d9539_[phone]_[phone] Hyprland threw in ctor: CCompositor() failed Cannot continue. alistair@Laptop-P14s:~/ops/provisioning/hyprland-lab$
 Mate, you are so incredibly close! The ANSI text art for the Hyprland logo printed perfectly, which means your code compiled and the container launched.
 The crash (Bailing out, couldn't create /run/user/1000/...) is happening because inside the container, you are running as the user alistair, who has a User ID of 1000. However, the $XDG_RUNTIME_DIR environment variable we passed from your Ubuntu host is pointing to a directory that belongs strictly to your host user. The containerized user doesn't have write permissions to create its socket file in that folder [1].
 We can easily bypass this permissions block by telling Hyprland to use its own temporary runtime folder inside the container's RAM.
@@ -13182,8 +13182,8 @@ docker run -it --name hypr-matrix --rm \
   -e XDG_RUNTIME_DIR=/tmp \
   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-hypr-arch
 Use code with caution.
 What Changed?
@@ -13214,8 +13214,8 @@ docker run -it --name hypr-matrix --rm \
   -e XDG_RUNTIME_DIR=/tmp \
   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-hypr-arch
 Use code with caution.
 What to expect next
@@ -13240,8 +13240,8 @@ docker run -it --name hypr-matrix --rm \
   -e XDG_RUNTIME_DIR=/tmp \
   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-hypr-arch
 Use code with caution.
 What Changed?
@@ -13256,7 +13256,7 @@ Can you see the default yellow warning bar at the top of the interface?
 Does pressing Super + Q open up your hardware-accelerated Kitty shell window?
 
 
-tair@Laptop-P14s:~/ops/provisioning/hyprland-lab$ docker run -it --name hypr-matrix --rm \ --privileged \ --device /dev/dri:/dev/dri \ -e DISPLAY=$DISPLAY \ -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \ -e XDG_RUNTIME_DIR=/tmp \ -v /tmp/.X11-unix:/tmp/.X11-unix:ro \ -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro \ -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \ -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \ u-hypr-arch Welcome to Hyprland! YY UJ YYY UUJ XXXY UUUU zXXXX UUUUU zzzzX UUUUJ cczzz UUUUJ vccccz UUUUUJ vvcccc UUUUUJ vvvvv UUUUJ uuuvv UUUUJ uuuuu UUUUU nnnuu UUUUU nnnnn YUUUU xxnn YUUU xxxn YYUU xxxx YYUU rxxx YYYY rrrx YYYY rrrx XXXY rrrr XXXX rrrr zzXX rrrr zzzz rrrrr ccczz rrrrrx vccccc rrrrxxxx uuvvvvvc rrxxxxxxnnnnuuuuuv xxxxxnnnnu [!!WARNING!!] XDG_RUNTIME_DIR looks non-standard. Proceeding anyways... DEBUG ]: Old rlimit: soft -> 1048576, hard -> 1048576 DEBUG ]: New rlimit: soft -> 1048576, hard -> 1048576 WARN ]: WARNING: Hyprland is being launched without start-hyprland. This is highly advised against. DEBUG ]: Creating the EventLoopManager! DEBUG ]: Creating the KeybindManager! DEBUG ]: Creating the AnimationManager! DEBUG ]: Creating the DynamicPermissionManager! DEBUG ]: Creating the ConfigManager! DEBUG ]: [cfg] Regular config at /home/alistair/.config/hypr/hyprland.conf DEBUG ]: [cfg] Lua config not found, using legacy config at /home/alistair/.config/hypr/hyprland.conf WARN ]: Creating config home directory WARN ]: No config file found; attempting to generate. DEBUG ]: Using config: /home/alistair/.config/hypr/hyprland.conf DEBUG ]: !!!!HEY YOU, YES YOU!!!!: further logs to stdout / logfile are disabled by default. BEFORE SENDING THIS LOG, ENABLE THEM. Use debug:disable_logs = false to do so: https://wiki.hypr.land/Configuring/Basics/Variables/#debug DEBUG ]: Creating the Error Overlay! DEBUG ]: Creating the LayoutManager! DEBUG ]: Creating the TokenManager! DEBUG ]: Using config: /home/alistair/.config/hypr/hyprland.conf DEBUG ]: Disabling stdout logs! Check the log for further logs. DEBUG ]: Creating the PointerManager! DEBUG ]: Creating the EventManager! DEBUG ]: Creating the AsyncResourceGatherer! terminate called after throwing an instance of 'std::runtime_error' what(): CBackend::create() failed! failed to mkdir() crash report directory No such file or directory al
+tair@Laptop-P14s:~/ops/provisioning/hyprland-lab$ docker run -it --name hypr-matrix --rm \ --privileged \ --device /dev/dri:/dev/dri \ -e DISPLAY=$DISPLAY \ -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \ -e XDG_RUNTIME_DIR=/tmp \ -v /tmp/.X11-unix:/tmp/.X11-unix:ro \ -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro \ -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \ -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \ u-hypr-arch Welcome to Hyprland! YY UJ YYY UUJ XXXY UUUU zXXXX UUUUU zzzzX UUUUJ cczzz UUUUJ vccccz UUUUUJ vvcccc UUUUUJ vvvvv UUUUJ uuuvv UUUUJ uuuuu UUUUU nnnuu UUUUU nnnnn YUUUU xxnn YUUU xxxn YYUU xxxx YYUU rxxx YYYY rrrx YYYY rrrx XXXY rrrr XXXX rrrr zzXX rrrr zzzz rrrrr ccczz rrrrrx vccccc rrrrxxxx uuvvvvvc rrxxxxxxnnnnuuuuuv xxxxxnnnnu [!!WARNING!!] XDG_RUNTIME_DIR looks non-standard. Proceeding anyways... DEBUG ]: Old rlimit: soft -> 1048576, hard -> 1048576 DEBUG ]: New rlimit: soft -> 1048576, hard -> 1048576 WARN ]: WARNING: Hyprland is being launched without start-hyprland. This is highly advised against. DEBUG ]: Creating the EventLoopManager! DEBUG ]: Creating the KeybindManager! DEBUG ]: Creating the AnimationManager! DEBUG ]: Creating the DynamicPermissionManager! DEBUG ]: Creating the ConfigManager! DEBUG ]: [cfg] Regular config at /home/alistair/.config/hypr/hyprland.conf DEBUG ]: [cfg] Lua config not found, using legacy config at /home/alistair/.config/hypr/hyprland.conf WARN ]: Creating config home directory WARN ]: No config file found; attempting to generate. DEBUG ]: Using config: /home/alistair/.config/hypr/hyprland.conf DEBUG ]: !!!!HEY YOU, YES YOU!!!!: further logs to stdout / logfile are disabled by default. BEFORE SENDING THIS LOG, ENABLE THEM. Use debug:disable_logs = false to do so: https://wiki.hypr.land/Configuring/Basics/Variables/#debug DEBUG ]: Creating the Error Overlay! DEBUG ]: Creating the LayoutManager! DEBUG ]: Creating the TokenManager! DEBUG ]: Using config: /home/alistair/.config/hypr/hyprland.conf DEBUG ]: Disabling stdout logs! Check the log for further logs. DEBUG ]: Creating the PointerManager! DEBUG ]: Creating the EventManager! DEBUG ]: Creating the AsyncResourceGatherer! terminate called after throwing an instance of 'std::runtime_error' what(): CBackend::create() failed! failed to mkdir() crash report directory No such file or directory al
 The CBackend::create() failed! crash is a well-known architectural brick wall for Hyprland inside virtualised systems. 
 
 ·r/archlinux
@@ -13312,8 +13312,8 @@ We will use the environment variable script ($IP_DEFAULT) you mapped earlier to 
 bash
 docker run -it --name awesome-matrix --rm \
   -e DISPLAY=${IP_DEFAULT}:0.0 \
-  -v /mnt/c/Users/alist/prj/git/U.Ops:/home/alistair/ops \
-  -v /mnt/c/Users/alist/prj/git/U.Dot:/home/alistair/dot \
+  -v <path-to-your-clone-parent>/U.Ops:/home/alistair/ops \
+  -v <path-to-your-clone-parent>/U.Dot:/home/alistair/dot \
   u-awesome-core
 Use code with caution.
 The Setup Checklist
@@ -13499,7 +13499,7 @@ bash
 mkdir -p ~/.config/picom
 
 # Link it to your Windows C: drive Git repo
-ln -sf /mnt/c/Users/alist/prj/git/U.Dot/picom/picom.conf ~/.config/picom/picom.conf
+ln -sf <path-to-your-clone-parent>/U.Dot/picom/picom.conf ~/.config/picom/picom.conf
 Use code with caution.
 Now, any time you change your transparency settings in your Windows U.Dot repository, the floating WSLg apps will instantly update their looks.
 Did running xterm & open up a clean, native window on your Windows desktop?
@@ -13633,10 +13633,10 @@ Let's fix this directly from your original Windows Ubuntu terminal prompt (not i
 Switch back to your normal Windows desktop where your standard Ubuntu terminal is running. Paste this command to copy the working config file that i3 automatically generated into your U.Dot repository folder:
 bash
 # Create the target directory on your Windows C drive
-mkdir -p /mnt/c/Users/alist/prj/git/U.Dot/i3/
+mkdir -p <path-to-your-clone-parent>/U.Dot/i3/
 
 # Copy the file i3 generated into your Windows repository folder
-cp ~/.config/i3/config /mnt/c/Users/alist/prj/git/U.Dot/i3/config
+cp ~/.config/i3/config <path-to-your-clone-parent>/U.Dot/i3/config
 Use code with caution.
 2. Lock the Symlink Bridge
 Now delete the local copy and create the physical link so that Ubuntu always reads straight from your Windows Git project:
@@ -13645,12 +13645,12 @@ bash
 rm ~/.config/i3/config
 
 # Create the link pointing directly to your Windows C drive file
-ln -sf /mnt/c/Users/alist/prj/git/U.Dot/i3/config ~/.config/i3/config
+ln -sf <path-to-your-clone-parent>/U.Dot/i3/config ~/.config/i3/config
 Use code with caution.
 3. Verify it works
 To prove the file isn't empty anymore, read the top few lines directly from Ubuntu:
 bash
-head -n 5 /mnt/c/Users/alist/prj/git/U.Dot/i3/config
+head -n 5 <path-to-your-clone-parent>/U.Dot/i3/config
 Use code with caution.
 You should see text like # i3 config file (v4).
 Now your Windows file at C:\Users\alist\prj\git\U.Dot\i3\config will have all the text inside it!
@@ -13747,7 +13747,7 @@ Step 2: Ensure the Link is Solid
 Switch back to your normal Windows desktop where your standard Ubuntu terminal is running. Run this command once to guarantee your Linux system is reading from that exact Windows file [1]:
 bash
 mkdir -p ~/.config/picom
-ln -sf /mnt/c/Users/alist/prj/git/U.Dot/picom/picom.conf ~/.config/picom/picom.conf
+ln -sf <path-to-your-clone-parent>/U.Dot/picom/picom.conf ~/.config/picom/picom.conf
 Use code with caution.
 Step 3: Run Picom with Zero Arguments
 Now go back to your full-screen xterm window. Because the configuration is saved inside the folder, you don't need to pass any complicated flags [1]. Just type this short command and press Enter:
@@ -13913,11 +13913,11 @@ Step 3: Link the Settings to Your U.Dot Git Repo
 Let's make sure your configuration files stay safe inside your Windows Git project directory:
 bash
 # Create the config target inside your Windows C drive repository
-mkdir -p /mnt/c/Users/alist/prj/git/U.Dot/kitty/
+mkdir -p <path-to-your-clone-parent>/U.Dot/kitty/
 
 # Force the local configuration link to map back to your Windows repo
 mkdir -p ~/.config/kitty
-ln -sf /mnt/c/Users/alist/prj/git/U.Dot/kitty/kitty.conf ~/.config/kitty/kitty.conf
+ln -sf <path-to-your-clone-parent>/U.Dot/kitty/kitty.conf ~/.config/kitty/kitty.conf
 Use code with caution.
 Step 4: Write the "Glass Transparency" Code
 Open that file on your Windows side using Notepad at C:\Users\alist\prj\git\U.Dot\kitty\kitty.conf, or use your Ubuntu terminal:
@@ -25259,7 +25259,7 @@ Terminal output:
 make: *** No targets specified and no makefile found.  Stop.
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe instrument/package_release.py --version v0.1.1
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe instrument/package_release.py --version v0.1.1
 Traceback (most recent call last):
   File "C:\Users\alist\prj\git\U\instrument\package_release.py", line 270, in <module>
     main()
@@ -25275,11 +25275,11 @@ Traceback (most recent call last):
 UnicodeEncodeError: 'ascii' codec can't encode character '\u2014' in position 452: ordinal not in range(128)
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe instrument/package_release.py --version v0.1.1
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe instrument/package_release.py --version v0.1.1
 Release package created: C:\Users\alist\prj\git\U\dist\U-quantum-test-v0.1.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python.exe -c "from zipfile import ZipFile; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); files = sorted(z.namelist()); print(f'Total files: {len(files)}\n'); [print(f) for f in files[:10]]; print('...'); [print(f) for f in files[-5:]]"
+$  cd <path-to-your-clone> && python.exe -c "from zipfile import ZipFile; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); files = sorted(z.namelist()); print(f'Total files: {len(files)}\n'); [print(f) for f in files[:10]]; print('...'); [print(f) for f in files[-5:]]"
 Total files: 24
 
 MANIFEST.json
@@ -25300,14 +25300,14 @@ instrument/requirements.txt
 run_package.bat
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python.exe -c "from zipfile import ZipFile; import json; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); manifest = json.loads(z.read('MANIFEST.json')); print(json.dumps(manifest, indent=2)[:600])..."
+$  cd <path-to-your-clone> && python.exe -c "from zipfile import ZipFile; import json; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); manifest = json.loads(z.read('MANIFEST.json')); print(json.dumps(manifest, indent=2)[:600])..."
   File "<string>", line 1
     from zipfile import ZipFile; import json; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); manifest = json.loads(z.read('MANIFEST.json')); print(json.dumps(manifest, indent=2)[:600])...
                                                                                                                                                                                                  ^^^
 SyntaxError: invalid syntax
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python.exe -c "from zipfile import ZipFile; import json; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); manifest = json.loads(z.read('MANIFEST.json')); print(json.dumps(manifest, indent=2)[:800])"
+$  cd <path-to-your-clone> && python.exe -c "from zipfile import ZipFile; import json; z = ZipFile('dist/U-quantum-test-v0.1.[phone].zip'); manifest = json.loads(z.read('MANIFEST.json')); print(json.dumps(manifest, indent=2)[:800])"
 {
   "instrument/ascii_experiment.py": "3981b3fc5bfb719243d46cfa4a8411dec53e7e35855ae24184447ee2f48e5b64",
   "instrument/hopfield_lean.lean": "4aa58788e85d76fd88e370a38db5436e8bb640761da5dc913b1523e86b3c4631",
@@ -25319,7 +25319,7 @@ $  cd /c/Users/alist/prj/git/U && python.exe -c "from zipfile import ZipFile; im
   "instrument/quantum_experiment_result.png"
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.1 && cd paper && make check
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.1 && cd paper && make check
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 Paper freeze package created: C:\Users\alist\prj\git\U\dist\U-papers-freeze-v1.0.[phone].zip
@@ -25329,7 +25329,7 @@ OK: bibliography.bib
 OK: apa-7th.csl
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U/paper (main)
-$  cd /c/Users/alist/prj/git/U && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-papers-freeze-v1.0.[phone].zip'); names=sorted(z.namelist()); print('files',len(names)); print('\n'.join(names[:12])); print('...'); print('\n'.join(names[-8:]))"
+$  cd <path-to-your-clone> && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-papers-freeze-v1.0.[phone].zip'); names=sorted(z.namelist()); print('files',len(names)); print('\n'.join(names[:12])); print('...'); print('\n'.join(names[-8:]))"
 files 83
 FREEZE-README.md
 MANIFEST.json
@@ -25354,10 +25354,10 @@ paper/the-tensor.md
 paper/the-tensor.pdf
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe -m py_compile scripts/paper_status.py scripts/package_papers.py instrument/package_release.py
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe -m py_compile scripts/paper_status.py scripts/package_papers.py instrument/package_release.py
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && git status --short
+$  cd <path-to-your-clone> && git status --short
  M .gitignore
  M DIARY.md
  M README.md
@@ -25387,18 +25387,18 @@ $  cd /c/Users/alist/prj/git/U && git status --short
 ?? scripts/paper_status.py
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U/paper && make all && cd .. && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.2
+$  cd <path-to-your-clone>/paper && make all && cd .. && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.2
 make: Nothing to be done for 'all'.
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 Paper freeze package created: C:\Users\alist\prj\git\U\dist\U-papers-freeze-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-papers-freeze-v1.0.[phone].zip'); print(len(z.namelist()))"
+$  cd <path-to-your-clone> && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-papers-freeze-v1.0.[phone].zip'); print(len(z.namelist()))"
 83
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.0
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.0
 [WARNING] Could not fetch resource figures/fig1_architecture.pdf: replacing image with description
 [WARNING] Could not fetch resource figures/fig2_threshold.pdf: replacing image with description
 [WARNING] Could not fetch resource figures/fig0_field_mode.pdf: replacing image with description
@@ -25409,12 +25409,12 @@ Frontiers bundle created: C:\Users\alist\prj\git\U\dist\U-submission-frontiers-v
 arXiv bundle created: C:\Users\alist\prj\git\U\dist\U-submission-arxiv-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.1
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.1
 Frontiers bundle created: C:\Users\alist\prj\git\U\dist\U-submission-frontiers-v1.0.[phone].zip
 arXiv bundle created: C:\Users\alist\prj\git\U\dist\U-submission-arxiv-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python -c "from zipfile import ZipFile; zs=['dist/U-submission-frontiers-v1.0.[phone].zip','dist/U-submission-arxiv-v1.0.[phone].zip'];
+$  cd <path-to-your-clone> && python -c "from zipfile import ZipFile; zs=['dist/U-submission-frontiers-v1.0.[phone].zip','dist/U-submission-arxiv-v1.0.[phone].zip'];
 for z in zs:
   zf=ZipFile(z); names=sorted(zf.namelist()); print(z, len(names)); print('\n'.join(names[:8])); print('...'); print('\n'.join(names[-5:])); print('-----')"
 dist/U-submission-frontiers-v1.0.[phone].zip 24
@@ -25450,10 +25450,10 @@ paper/mathematical-co-identification.pdf
 -----
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe -m py_compile scripts/package_submissions.py scripts/package_papers.py scripts/paper_status.py
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe -m py_compile scripts/package_submissions.py scripts/package_papers.py scripts/paper_status.py
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && git status --short
+$  cd <path-to-your-clone> && git status --short
  M .gitignore
  M DIARY.md
  M README.md
@@ -25487,7 +25487,7 @@ $  cd /c/Users/alist/prj/git/U && git status --short
 ?? scripts/paper_status.py
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.0
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.0
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 Paper freeze package created: C:\Users\alist\prj\git\U\dist\U-papers-freeze-v1.0.[phone].zip
@@ -25497,7 +25497,7 @@ Release package created: C:\Users\alist\prj\git\U\dist\U-quantum-test-v0.1.[phon
 Master bundle created: C:\Users\alist\prj\git\U\dist\U-everything-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); names=sorted(z.namelist()); print('files',len(names)); print('\n'.join(names[:12])); print('...'); print('\n'.join([n for n in names if n.startswith('dist/')][:12]));"
+$  cd <path-to-your-clone> && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); names=sorted(z.namelist()); print('files',len(names)); print('\n'.join(names[:12])); print('...'); print('\n'.join([n for n in names if n.startswith('dist/')][:12]));"
 files 229
 .github/workflows/lean_action_ci.yml
 .gitignore
@@ -25523,10 +25523,10 @@ dist/U-submission-frontiers-v1.0.[phone].zip
 dist/U-submission-frontiers-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe -m py_compile scripts/package_everything.py
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe -m py_compile scripts/package_everything.py
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U/paper && make method
+$  cd <path-to-your-clone>/paper && make method
 pandoc mathematical-co-identification.md -o mathematical-co-identification.pdf --pdf-engine=xelatex --standalone --toc --number-sections -V geometry:margin=1.2in -V fontsize=12pt -V linestretch=1.6 -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue -V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" --lua-filter=strip-keywords.lua --citeproc --bibliography=bibliography.bib --csl=apa-7th.csl
 [WARNING] Missing character: There is no Γéé (U+2082) in font [lmroman10-regular]:mapping=tex-text;!
 [WARNING] Missing character: There is no Γéé (U+2082) in font [lmroman12-regular]:mapping=tex-text;!
@@ -25543,7 +25543,7 @@ pandoc mathematical-co-identification.md -o mathematical-co-identification.pdf -
 Built: mathematical-co-identification.pdf
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U/paper (main)
-$  cd /c/Users/alist/prj/git/U/paper && make method && make music
+$  cd <path-to-your-clone>/paper && make method && make music
 pandoc mathematical-co-identification.md -o mathematical-co-identification.pdf --pdf-engine=xelatex --standalone --toc --number-sections -V geometry:margin=1.2in -V fontsize=12pt -V linestretch=1.6 -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue -V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" --lua-filter=strip-keywords.lua --citeproc --bibliography=bibliography.bib --csl=apa-7th.csl
 [WARNING] Missing character: There is no Γéé (U+2082) in font [lmroman10-regular]:mapping=tex-text;!
 [WARNING] Missing character: There is no Γéé (U+2082) in font [lmroman12-regular]:mapping=tex-text;!
@@ -25562,23 +25562,23 @@ pandoc music-affect-dynamics.md -o music-affect-dynamics.pdf --pdf-engine=xelate
 Built: music-affect-dynamics.pdf
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U/paper (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/paper_status.py
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/paper_status.py
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U/paper && make music && make all
+$  cd <path-to-your-clone>/paper && make music && make all
 pandoc music-affect-dynamics.md -o music-affect-dynamics.pdf --pdf-engine=xelatex --standalone --toc --number-sections -V geometry:margin=1.2in -V fontsize=12pt -V linestretch=1.6 -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue -V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" --lua-filter=strip-keywords.lua --citeproc --bibliography=bibliography.bib --csl=apa-7th.csl
 Built: music-affect-dynamics.pdf
 make: Nothing to be done for 'all'.
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U/paper (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/paper_status.py
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/paper_status.py
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U/paper && make all
+$  cd <path-to-your-clone>/paper && make all
 pandoc soma-field-paper.md -o soma-field-paper.pdf --pdf-engine=xelatex --standalone --toc --number-sections -V geometry:margin=1.2in -V fontsize=12pt -V linestretch=1.6 -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue -V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" --lua-filter=strip-keywords.lua # 
 [WARNING] Missing character: There is no Γëï (U+224B) in font [lmroman12-italic]:mapping=tex-text;!
 [WARNING] Missing character: There is no ╬╕ (U+03B8) in font [lmroman12-italic]:mapping=tex-text;!
@@ -25708,7 +25708,7 @@ pandoc music-affect-dynamics.md -o music-affect-dynamics.pdf --pdf-engine=xelate
 Built: music-affect-dynamics.pdf
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U/paper (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.3 && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.2
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.3 && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.2
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 Paper freeze package created: C:\Users\alist\prj\git\U\dist\U-papers-freeze-v1.0.[phone].zip
@@ -25716,7 +25716,7 @@ Frontiers bundle created: C:\Users\alist\prj\git\U\dist\U-submission-frontiers-v
 arXiv bundle created: C:\Users\alist\prj\git\U\dist\U-submission-arxiv-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.1 --quantum-version v0.1.1
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.1 --quantum-version v0.1.1
 Wrote C:\Users\alist\prj\git\U\paper\PAPER_STATUS.md
 Wrote C:\Users\alist\prj\git\U\paper\paper_status.json
 Paper freeze package created: C:\Users\alist\prj\git\U\dist\U-papers-freeze-v1.0.[phone].zip
@@ -25809,7 +25809,7 @@ Terminal output:
 make: *** No targets specified and no makefile found.  Stop.
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && git status --short
+$  cd <path-to-your-clone> && git status --short
  M .gitignore
  M DIARY.md
  M README.md
@@ -25853,7 +25853,7 @@ $  cd /c/Users/alist/prj/git/U && git status --short
 ?? scripts/paper_status.py
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ls -lh instrument/logs | cat && head -n 5 instrument/logs/session_20260519_051716.jsonl | cat
+$  cd <path-to-your-clone> && ls -lh instrument/logs | cat && head -n 5 instrument/logs/session_20260519_051716.jsonl | cat
 total 1.4G
 -rw-r--r-- 1 alist [phone]M May 19 03:46 session_20260519_032826.jsonl
 -rw-r--r-- 1 alist [phone] May 19 03:46 session_20260519_034626.jsonl
@@ -25871,7 +25871,7 @@ total 1.4G
 -rw-r--r-- 1 alist 197609 1.2G May 19 22:22 session_20260519_051716.jsonl
 [JSON log sample — 5 lines of raw field output]
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe - <<'PY'
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe - <<'PY'
 import json,statistics
 from collections import Counter
 from pathlib import Path
@@ -25914,7 +25914,7 @@ block 2 n 3531 top [('regulated_calm', 3531)] trans_per_min 0.0
 block 3 n 3529 top [('regulated_calm', 3529)] trans_per_min 0.0
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe - <<'PY'
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe - <<'PY'
 import json,statistics
 from collections import Counter
 from pathlib import Path
@@ -25955,7 +25955,7 @@ PY
  top [('regulated_calm', 8138)]
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe - <<'PY'
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe - <<'PY'
 import json,statistics
 from collections import Counter
 from pathlib import Path
@@ -25992,7 +25992,7 @@ block 3 n 1879 dur 38.29 top [('regulated_calm', 1879)] trans/min 0.0 Hmean -0.0
 first_grief_t 36.678 return_calm_t 36.718 latency_back 0.04
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe - <<'PY'
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe - <<'PY'
 import math
 # Active blocks1+2: grief 45/3760; baseline block3: 0/1879
 x1,n1=45,3760
@@ -26016,7 +26016,7 @@ PY
 p1 0.[phone] p0 0.0 d 0.[phone] CI 0.[phone].[phone]
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U/paper && make all && cd .. && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.4 && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.3 && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.2 --quantum-version v0.1.1
+$  cd <path-to-your-clone>/paper && make all && cd .. && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.4 && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.3 && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.2 --quantum-version v0.1.1
 pandoc soma-field-paper.md -o soma-field-paper.pdf --pdf-engine=xelatex --standalone --toc --number-sections -V geometry:margin=1.2in -V fontsize=12pt -V linestretch=1.6 -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue -V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" --lua-filter=strip-keywords.lua # 
 [WARNING] Missing character: There is no Γëï (U+224B) in font [lmroman12-italic]:mapping=tex-text;!
 [WARNING] Missing character: There is no ╬╕ (U+03B8) in font [lmroman12-italic]:mapping=tex-text;!
@@ -26287,15 +26287,15 @@ Terminal output:
 make: *** No targets specified and no makefile found.  Stop.
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ls -lh dist/U-everything-v1.0.[phone].zip 2>/dev/null || echo MISSING
+$  cd <path-to-your-clone> && ls -lh dist/U-everything-v1.0.[phone].zip 2>/dev/null || echo MISSING
 -rw-r--r-- 1 alist [phone]M May 20 18:17 dist/U-everything-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && stat -c "%s %y" dist/U-everything-v1.0.[phone].zip
+$  cd <path-to-your-clone> && stat -c "%s %y" dist/U-everything-v1.0.[phone].zip
 [phone]:17:23.[phone] +0200
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))"
+$  cd <path-to-your-clone> && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))"
 Traceback (most recent call last):
   File "<string>", line 1, in <module>
     from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))
@@ -26308,12 +26308,12 @@ Traceback (most recent call last):
 zipfile.BadZipFile: File is not a zip file
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && df -h .
+$  cd <path-to-your-clone> && df -h .
 Filesystem      Size  Used Avail Use% Mounted on
 C:              1.9T  1.2T  686G  65% /c
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && rm -f dist/U-everything-v1.0.[phone].zip dist/U-everything-v1.0.[phone].zip && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.7 --quantum-version v0.1.1 --skip-refresh && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))"
+$  cd <path-to-your-clone> && rm -f dist/U-everything-v1.0.[phone].zip dist/U-everything-v1.0.[phone].zip && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.7 --quantum-version v0.1.1 --skip-refresh && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))"
 Master bundle created: C:\Users\alist\prj\git\U\dist\U-everything-v1.0.[phone].zip
 files 241
 
@@ -26411,11 +26411,11 @@ Terminal output:
 make: *** No targets specified and no makefile found.  Stop.
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ls -lh dist/U-everything-v1.0.[phone].zip 2>/dev/null || echo MISSING
+$  cd <path-to-your-clone> && ls -lh dist/U-everything-v1.0.[phone].zip 2>/dev/null || echo MISSING
 -rw-r--r-- 1 alist [phone]M May 20 18:18 dist/U-everything-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U/paper && make all && cd .. && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.6 && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.5
+$  cd <path-to-your-clone>/paper && make all && cd .. && ./.venv/Scripts/python.exe scripts/paper_status.py && ./.venv/Scripts/python.exe scripts/package_papers.py --version v1.0.6 && ./.venv/Scripts/python.exe scripts/package_submissions.py --version v1.0.5
 pandoc soma-field-paper.md -o soma-field-paper.pdf --pdf-engine=xelatex --standalone --toc --number-sections -V geometry:margin=1.2in -V fontsize=12pt -V linestretch=1.6 -V colorlinks=true -V linkcolor=NavyBlue -V urlcolor=NavyBlue -V toccolor=NavyBlue -V hyperxmp=false -V monofont="Consolas" -V header-includes="\usepackage{amsmath}\usepackage{amssymb}" --lua-filter=strip-keywords.lua # 
 [WARNING] Missing character: There is no Γëï (U+224B) in font [lmroman12-italic]:mapping=tex-text;!
 [WARNING] Missing character: There is no ╬╕ (U+03B8) in font [lmroman12-italic]:mapping=tex-text;!
@@ -26550,7 +26550,7 @@ Frontiers bundle created: C:\Users\alist\prj\git\U\dist\U-submission-frontiers-v
 arXiv bundle created: C:\Users\alist\prj\git\U\dist\U-submission-arxiv-v1.0.[phone].zip
 
 alist@Laptop-P14s MINGW64 ~/prj/git/U (main)
-$  cd /c/Users/alist/prj/git/U && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.8 --quantum-version v0.1.1 --skip-refresh && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))"
+$  cd <path-to-your-clone> && ./.venv/Scripts/python.exe scripts/package_everything.py --version v1.0.8 --quantum-version v0.1.1 --skip-refresh && python -c "from zipfile import ZipFile; z=ZipFile('dist/U-everything-v1.0.[phone].zip'); print('files',len(z.namelist()))"
 Master bundle created: C:\Users\alist\prj\git\U\dist\U-everything-v1.0.[phone].zip
 files 245
 

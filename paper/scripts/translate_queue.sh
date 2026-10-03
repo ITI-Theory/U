@@ -4,11 +4,11 @@
 # Each job calls translate_papers.py with a comma-separated model fallback list.
 # translate_papers rotates models on 429 and sleeps until UTC midnight when all
 # daily buckets are exhausted, then resumes.  Chunk cache means restarts are
-# free.  Completion is recorded in bld/.queue_state so this script is idempotent
+# free.  Completion is recorded in bld/papers/.queue_state so this script is idempotent
 # and can be re-run after reboot.
 #
 # Usage:
-#   nohup bash scripts/translate_queue.sh > bld/queue.log 2>&1 &
+#   nohup bash scripts/translate_queue.sh > ../bld/papers/queue.log 2>&1 &
 #
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -18,9 +18,9 @@ export PYTHONUTF8=1
 export OPENAI_API_KEY="$(gh auth token)"
 export OPENAI_BASE_URL="https://models.inference.ai.azure.com"
 
-PY=/c/Users/alist/.env/Scripts/python.exe
-STATE=bld/.queue_state
-mkdir -p bld
+PY=${PYTHON:-python}
+STATE=../bld/papers/.queue_state
+mkdir -p ../bld/papers
 touch "$STATE"
 
 # Model rotation pool — real GitHub Models chat models (verified via
@@ -28,7 +28,7 @@ touch "$STATE"
 # has its own daily request bucket on the free tier.
 MODELS="gpt-4o-mini,gpt-4o,Meta-Llama-3.1-405B-Instruct,Meta-Llama-3.1-8B-Instruct"
 
-# Queue: paper-stem (translate_papers.py figures out langs by checking bld/)
+# Queue: paper-stem (translate_papers.py figures out langs by checking bld/papers/)
 # But translate_papers translates ALL three langs per invocation by default.
 # So one entry per paper is enough.
 QUEUE=(

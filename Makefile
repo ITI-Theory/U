@@ -1,9 +1,11 @@
-# Top-level U/ build orchestrator
-# lib/mk/dist.mk -- distribution cp rules -- GENERATED, run: make generate
+# Top-level U build orchestrator.
 
-PAPER := paper/bld
+include lib/mk/paths.mk
+
+PYTHON ?= python
 BOOKS_DIR := books/T-Theory
-FRAC := $(BOOKS_DIR)/bld
+ATLAS_DIR := Part2/book/field-atlas
+APP_DIR := apps/instrument/visuals/soma-field-operator
 DIST := ../Dist
 ADM := prj/.adm
 ADM_SITE := $(ADM)/site
@@ -11,21 +13,73 @@ ADM_ISSUE_MD := $(wildcard $(ADM)/issues/*.md)
 ADM_CHAT_MD := $(wildcard $(ADM)/chats/*.md)
 ISSUES_HTML := $(ADM_SITE)/Issues.html
 
+-include local.mk
 include lib/mk/dist.mk
 
-.PHONY: all build registry-papers registry-papers-royal registry-fractal lean lean-appendix omnibus \
+.DEFAULT_GOAL := help
+
+.PHONY: help all build papers papers-html omnibus atlas atlas-html books vol1 vol2 lean app check clean \
+	registry-papers registry-papers-royal registry-fractal lean-appendix \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
 	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
+
+help:
+	@echo "U build targets"
+	@echo "  papers          build all papers and the A4 omnibus"
+	@echo "  papers-html     build paper HTML files"
+	@echo "  omnibus         build the papers omnibus"
+	@echo "  atlas           build the Field Atlas A3 edition"
+	@echo "  atlas-html      build the Field Atlas HTML edition"
+	@echo "  books           build all T-Theory books"
+	@echo "  vol1            build T-Theory volume 1"
+	@echo "  vol2            build T-Theory volume 2"
+	@echo "  lean            build Lean proofs"
+	@echo "  app             build the Soma Machine app"
+	@echo "  check           verify the papers toolchain"
+	@echo "  clean           remove repo-root bld/"
+	@echo "  generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml"
+
+all: papers
+
+papers:
+	$(MAKE) -C paper all
+
+papers-html:
+	$(MAKE) -C paper html
+
+omnibus:
+	$(MAKE) -C paper omnibus
+
+atlas:
+	$(MAKE) -C $(ATLAS_DIR) a3
+
+atlas-html:
+	$(MAKE) -C $(ATLAS_DIR) html
+
+books:
+	$(MAKE) -C $(BOOKS_DIR) all
+
+vol1:
+	$(MAKE) -C $(BOOKS_DIR) vol1
+
+vol2:
+	$(MAKE) -C $(BOOKS_DIR) vol2
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
 
-lean-appendix:
-	python paper/scripts/build_lean_appendix.py
-	$(MAKE) -C paper lean-appendix
+app:
+	npm --prefix $(APP_DIR) run build
 
-omnibus:
-	$(MAKE) -C paper omnibus
+check:
+	$(MAKE) -C paper check
+
+clean:
+	rm -rf $(BLD)
+
+lean-appendix:
+	$(PYTHON) paper/scripts/build_lean_appendix.py
+	$(MAKE) -C paper lean-appendix
 
 cheatsheet:
 	$(MAKE) -C $(BOOKS_DIR) bld/booklet-gateway.pdf
@@ -42,52 +96,43 @@ registry-papers-royal:
 registry-fractal:
 	$(MAKE) -C $(BOOKS_DIR) $(REGISTRY_FRACTAL_PREREQUISITES) $(REGISTRY_FRACTAL_TARGETS)
 
-# PAPERS.yaml is adopted explicitly through `make generate`; these targets
-# build the resulting U candidate snapshot without promoting anything to Dist.
 build: registry-papers registry-fractal
 
-all: build
-
-# Release candidates are built and checked in U. Dist is only the destination
-# for an explicitly approved release.
 uat-build:
 	$(MAKE) build
 
 uat-check:
 	bin/release-check
 
-# Copy the selected candidate PDFs into ignored UAT staging directories and
-# record their SHA-256 hashes. The manifest is U/uat/manifest.yaml.
 uat-stage-papers: registry-papers
 	$(MAKE) -C paper uat-context-papers
-	py paper/scripts/stage_uat.py papers
+	$(PYTHON) paper/scripts/stage_uat.py papers
 
 uat-stage-ttheory: registry-fractal
 	$(MAKE) -C paper uat-context-papers
-	py paper/scripts/stage_uat.py ttheory
+	$(PYTHON) paper/scripts/stage_uat.py ttheory
 
 uat-stage-lulu-proofs: registry-papers registry-fractal
 	$(MAKE) -C $(BOOKS_DIR) vol1-10pt
 	$(MAKE) -C paper/lulu-cover proof-set
-	py paper/scripts/stage_uat.py lulu-proofs
+	$(PYTHON) paper/scripts/stage_uat.py lulu-proofs
 
 uat-stage-mirror:
-	py paper/scripts/stage_uat_mirror.py
+	$(PYTHON) paper/scripts/stage_uat_mirror.py
 
 uat-stage-full: uat-stage-papers uat-stage-ttheory
 	@echo Full UAT packages staged: papers + ttheory
 
-# Familiar release names remain aliases for the UAT gate.
 release-build: uat-build
 
 release-check: uat-check
 
 generate:
-	py paper/scripts/generate_mk.py
+	$(PYTHON) paper/scripts/generate_mk.py
 	@echo Regenerated lib/mk/dist.mk
 
 operator-generate:
-	.venv/Scripts/python.exe apps/instrument/visuals/soma-field-operator/scripts/generate.py
+	$(PYTHON) $(APP_DIR)/scripts/generate.py
 
 list:
 	@grep "^[a-z][a-z-]*:" lib/mk/dist.mk
