@@ -12,6 +12,7 @@ and the transition text to the next level (registry/paths/*/edges).
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -29,6 +30,7 @@ CSL = REPO / "paper" / "apa-7th.csl"
 # "royal" (156 x 234 mm book) or "a3" (A3 landscape picture atlas, printfactory.ch).
 FORMAT = "royal"
 PRINT_IMAGES = ATLAS / "figures" / "app" / "print"
+PLATES = ATLAS / "figures" / "plates"
 
 
 def full_bleed(image: Path, caption: str) -> list[str]:
@@ -47,10 +49,44 @@ def full_bleed(image: Path, caption: str) -> list[str]:
 
 def columns(markdown: str) -> str:
     # Three columns on A3 pages; tables (longtable) cannot sit inside multicols.
+    if FORMAT == "a3":
+        markdown = a3_inline_figures(markdown)
     if FORMAT != "a3" or re.search(r"^\|[:\- |]+\|\s*$", markdown, re.M):
         return markdown
     # Macros: pandoc would pass a whole \begin...\end environment through unconverted.
     return f"\\colsbegin\n\n{markdown}\n\n\\colsend"
+
+
+def latex_escape(text: str) -> str:
+    return (
+        text.replace("\\", "\\textbackslash{}")
+        .replace("&", "\\&")
+        .replace("%", "\\%")
+        .replace("#", "\\#")
+        .replace("_", "\\_")
+        .replace("{", "\\{")
+        .replace("}", "\\}")
+    )
+
+
+def a3_inline_figures(markdown: str) -> str:
+    """Use non-floating column-width figures inside A3 multicolumn text."""
+
+    def repl(match: re.Match[str]) -> str:
+        caption = latex_escape(match.group("caption").strip())
+        image = match.group("image").strip()
+        return (
+            "\\begin{center}\n"
+            f"\\includegraphics[width=\\columnwidth]{{{image}}}\n"
+            f"\\captionof{{figure}}{{{caption}}}\n"
+            "\\end{center}"
+        )
+
+    return re.sub(
+        r"!\[(?P<caption>[^\]]+)\]\((?P<image>[^)]+)\)\{width=[^}]+\}",
+        repl,
+        markdown,
+    )
 
 
 AXIS_TITLES = {"4d-baseline": "4D / physics baseline", "8d-life": "8D / life and regulation", "11d-mind": "11D / mind"}
@@ -185,6 +221,38 @@ def load_questions() -> list[dict]:
     return [yaml.safe_load(path.read_text(encoding="utf-8")) for path in sorted(questions_dir.glob("*.yaml"))]
 
 
+def load_plate_captions() -> dict:
+    path = PLATES / "plates.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8")).get("levels", {})
+
+
+def figure_caption(captions: dict, level_id: str, kind: str, fallback: str) -> str:
+    return captions.get(level_id, {}).get(kind, {}).get("caption") or fallback
+
+
+def atlas_plate_block(level_id: str, label: str, ordinal: int, captions: dict, missing: list[str]) -> list[str]:
+    triptych = PLATES / f"{level_id}-triptych.png"
+    callouts = PLATES / f"{level_id}-callouts.png"
+    out: list[str] = []
+    if triptych.exists():
+        out += [
+            f"![Figure L{ordinal}.1 — {figure_caption(captions, level_id, 'triptych', f'{label}: aligned 4D, 8D, and 11D atlas views.').replace('[', '(').replace(']', ')')}]({triptych.relative_to(ATLAS).as_posix()}){{width=100%}}",
+            "",
+        ]
+    else:
+        missing.append(f"triptych plate for {level_id} (run capture --only atlas-plates, then scripts/plates.py)")
+    if callouts.exists():
+        out += [
+            f"![Figure L{ordinal}.2 — {figure_caption(captions, level_id, 'callouts', f'{label}: magnified atlas callouts.').replace('[', '(').replace(']', ')')}]({callouts.relative_to(ATLAS).as_posix()}){{width=100%}}",
+            "",
+        ]
+    else:
+        missing.append(f"callout plate for {level_id} (run scripts/plates.py)")
+    return out
+
+
 def questions_part(questions: list[dict], labels: dict[str, str]) -> str:
     if not questions:
         return ""
@@ -210,7 +278,7 @@ def questions_part(questions: list[dict], labels: dict[str, str]) -> str:
     return columns("\n".join(out))
 
 
-def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing: list[str], paths: list[dict] | None = None) -> str:
+def level_spread(level_id: str, ordinal: int, labels: dict[str, str], edges, examples, missing: list[str], paths: list[dict] | None = None, plate_captions: dict | None = None) -> str:
     data = yaml.safe_load((REGISTRY / "levels" / f"{level_id}.yaml").read_text(encoding="utf-8"))
     entry_path = REGISTRY / "levels" / f"{level_id}.md"
     if not entry_path.exists():
@@ -221,11 +289,6 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
     claims = data.get("claims", {})
     pictures = {view: next(PRINT_IMAGES.glob(f"*-{level_id}--{view}.jpg"), None) or next(PRINT_IMAGES.glob(f"*-{level_id}--{view}.png"), None) for view in ("lens-on", "compare")}
     out = []
-    if FORMAT == "a3":
-        if pictures["lens-on"]:
-            out += full_bleed(pictures["lens-on"], f"{data['label'].upper()}  /  SOMA MACHINE  /  T-THEORY LENS ON")
-        else:
-            missing.append(f"print image for {level_id} (run capture --only print)")
     out += ["\\newpage", "", f"## {data['label']} {{#level-{level_id}}}", ""]
     out += [
         "| | |",
@@ -239,18 +302,12 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
         f"| Paths | {', '.join(f'[{p['label']}](#path-{p['id']})' for p in (paths or []) if level_id in p['nodes']) or 'none yet'} |",
         "",
     ]
-    plates = [ATLAS / "figures" / "app" / "plates" / f"{level_id}--lens-{lens}.png" for lens in ("off", "on")]
-    if FORMAT == "a3":
-        pass  # the full-bleed pages carry the pictures
-    elif all(plate.exists() for plate in plates):
+    out += atlas_plate_block(level_id, data["label"], ordinal, plate_captions or {}, missing)
+    if FORMAT != "a3" and pictures["lens-on"]:
         out += [
-            " ".join(f"![]({plate.relative_to(ATLAS).as_posix()}){{width=49%}}" for plate in plates),
-            "",
-            "\\begin{center}\\footnotesize\\textit{Left: T-Theory lens off (4D physics baseline). Right: lens on (field layers). Rendered by the Soma Machine.}\\end{center}",
+            f"![Small Soma Machine source thumbnail for {data['label']}.]({pictures['lens-on'].relative_to(ATLAS).as_posix()}){{width=45%}}",
             "",
         ]
-    else:
-        missing.append(f"plates for {level_id} (run npm run capture)")
     text = [demote(body, 1), ""]
     for figure in front.get("figures") or []:
         width = "\\columnwidth" if FORMAT == "a3" else "80%"
@@ -270,12 +327,16 @@ def level_spread(level_id: str, labels: dict[str, str], edges, examples, missing
         if source == level_id:
             text += [f"### Transition: {data['label']} to {labels.get(target, target)}", "", edge_body, ""]
     out += [columns("\n".join(text)), ""]
-    if FORMAT == "a3" and pictures["compare"]:
-        out += full_bleed(pictures["compare"], f"{data['label'].upper()}  /  SOMA MACHINE  /  4D PHYSICS BASELINE | T-THEORY")
     return "\n".join(out)
 
 
 def front_or_back(path: Path) -> str:
+    heading, _, rest = path.read_text(encoding="utf-8").strip().partition("\n")
+    return f"{heading}\n\n{columns(rest.strip())}"
+
+
+def theory_chapter(path: Path) -> str:
+    """A Part I theory chapter, column-wrapped on A3 when possible."""
     heading, _, rest = path.read_text(encoding="utf-8").strip().partition("\n")
     return f"{heading}\n\n{columns(rest.strip())}"
 
@@ -294,6 +355,7 @@ def assemble() -> tuple[str, list[str]]:
     missing: list[str] = []
     models, paths = load_models_and_paths()
     eras = load_eras()
+    plate_captions = load_plate_captions()
     listed = [level for sector in atlas["sectors"] for level in sector["levels"]]
     unlisted = sorted(set(labels) - set(listed))
     if unlisted:
@@ -319,11 +381,29 @@ def assemble() -> tuple[str, list[str]]:
     for name in atlas["front"]:
         parts += [front_or_back(ATLAS / name), ""]
     parts += ["\\mainmatter", ""]
+    if atlas.get("theory"):
+        parts += [
+            "# Part I: Theory {#part-i-theory}",
+            "",
+            columns(
+                "A field theory starts by naming a domain, a value space, an "
+                "operator, boundary data, sources, and the observable projection. "
+                "Waves, Green functions, scale changes, compact dimensions, and "
+                "cosmological density fractions are then different uses of the "
+                "same response grammar, with each physical claim carrying its "
+                "own evidence label."
+            ),
+            "",
+        ]
+        for name in atlas["theory"]:
+            parts += [theory_chapter(ATLAS / name), ""]
+        parts += ["# Part II: Field Atlas {#part-ii-field-atlas}", ""]
+    ordinal_by_level = {level_id: index for index, level_id in enumerate(listed, start=1)}
     for number, sector in enumerate(atlas["sectors"], start=1):
         front, body = split_front_matter((ATLAS / sector["file"]).read_text(encoding="utf-8"))
         parts += [f"# Sector {front.get('sector', number)}: {front.get('title', '')}", "", columns(body), ""]
         for level_id in sector["levels"]:
-            parts += [level_spread(level_id, labels, edges, examples, missing, paths), ""]
+            parts += [level_spread(level_id, ordinal_by_level[level_id], labels, edges, examples, missing, paths, plate_captions), ""]
     questions = load_questions()
     if atlas.get("questions", True):
         parts += [questions_part(questions, labels), ""]
@@ -366,11 +446,38 @@ def main() -> None:
     command = [
         "pandoc", str(md_path), "-o", str(pdf_path),
         "--pdf-engine=xelatex", "--standalone", f"--resource-path={ATLAS}",
+        "--pdf-engine-opt=-interaction=nonstopmode", "--pdf-engine-opt=-halt-on-error",
         "--citeproc", f"--bibliography={BIB}", f"--csl={CSL}",
         *page, "-V", "mainfont=TeX Gyre Pagella", "-V", "monofont=Consolas",
         "-V", "colorlinks=true", "-V", "linkcolor=NavyBlue", "-V", "urlcolor=NavyBlue",
-        "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}\\usepackage{graphicx}\\usepackage{xcolor}\\usepackage{multicol}\\usepackage{eso-pic}\\setlength{\\columnsep}{9mm}\\newcommand{\\colsbegin}{\\begin{multicols}{3}}\\newcommand{\\colsend}{\\end{multicols}}",
+        "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}\\usepackage{graphicx}\\usepackage{xcolor}\\usepackage{multicol}\\usepackage{caption}\\usepackage{eso-pic}\\setlength{\\columnsep}{9mm}\\newcommand{\\colsbegin}{\\begin{multicols}{3}}\\newcommand{\\colsend}{\\end{multicols}}",
     ]
+    if FORMAT == "a3":
+        tex_path = BLD / f"{stem}.tex"
+        tex_command = [
+            "pandoc", str(md_path), "-o", str(tex_path),
+            "--standalone", f"--resource-path={ATLAS}",
+            "--citeproc", f"--bibliography={BIB}", f"--csl={CSL}",
+            *page, "-V", "mainfont=TeX Gyre Pagella", "-V", "monofont=Consolas",
+            "-V", "colorlinks=true", "-V", "linkcolor=NavyBlue", "-V", "urlcolor=NavyBlue",
+            "-V", "header-includes=\\usepackage{amsmath}\\usepackage{amssymb}\\usepackage{graphicx}\\usepackage{xcolor}\\usepackage{multicol}\\usepackage{caption}\\usepackage{eso-pic}\\setlength{\\columnsep}{9mm}\\newcommand{\\colsbegin}{\\begin{multicols}{3}}\\newcommand{\\colsend}{\\end{multicols}}",
+        ]
+        result = subprocess.run(tex_command, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if result.returncode != 0:
+            print(result.stderr[-4000:], file=sys.stderr)
+            raise SystemExit(result.returncode)
+        latex = subprocess.run(
+            ["xelatex", "-interaction=nonstopmode", "-halt-on-error", f"-output-directory={BLD}", str(tex_path)],
+            capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=ATLAS,
+        )
+        if latex.returncode != 0:
+            print(latex.stdout[-2000:], file=sys.stderr)
+            print(latex.stderr[-4000:], file=sys.stderr)
+            raise SystemExit(latex.returncode)
+        for suffix in (".tex", ".aux", ".log", ".out", ".toc"):
+            (BLD / f"{stem}{suffix}").unlink(missing_ok=True)
+        print(f"wrote {pdf_path}")
+        return
     result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if result.returncode != 0:
         print(result.stderr[-4000:], file=sys.stderr)
