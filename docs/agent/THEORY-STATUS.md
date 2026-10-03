@@ -36,8 +36,10 @@ operational measure and empirical calibration of the threshold.
 
 ## Proof Surface Facts (checked in source, 2026-10-01; not rebuilt)
 
-- Toolchain `leanprover/lean4:v4.31.0`; direct dependencies are Mathlib,
-  Physlib, and OSforGFF (Aesop arrives transitively through Mathlib).
+- Toolchain `leanprover/lean4:v4.33.0`; direct dependencies are Mathlib and
+  Physlib (v4.33.0) and OSforGFF (upstream commit plus the one-line patch in
+  `lean/patches/v4.33/`, upstream PR mrdouglasny/OSforGFF#22). Aesop arrives
+  transitively through Mathlib. `lake build` builds all 25 proof libraries.
 - `paper/FieldAxioms.lean` is an axiom registry (20 axioms), for example
   percept-as-propagator-pole and attractor-as-Hopfield-minimum. Results that
   depend on it are `derived-under-assumptions`, not `kernel-verified` facts

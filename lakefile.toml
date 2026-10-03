@@ -11,8 +11,8 @@ defaultTargets = [
 # ---------------------------------------------------------------------------
 # Dependencies — mathlib LAST so our pin wins over transitive pins.
 # Lean, Mathlib and physlib at v4.33.0. OSforGFF (with GaussianField and
-# BochnerMinlos) at an upstream commit written for Mathlib v4.33.0-rc1, so no
-# local patches are needed (lean/patches/ is for the old v4.31.0 build).
+# BochnerMinlos) at an upstream commit written for Mathlib v4.33.0-rc1; the
+# one-line compatibility fix is in lean/patches/v4.33/ (upstream PR #22).
 # ---------------------------------------------------------------------------
 
 [[require]]

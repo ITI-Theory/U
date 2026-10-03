@@ -38,6 +38,7 @@ help:
 	$(info   vol1            build T-Theory volume 1)
 	$(info   vol2            build T-Theory volume 2)
 	$(info   lean            build Lean proofs)
+	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
 	$(info   app             build the Soma Machine app)
 	$(info   check           run the papers, books and Atlas validators)
 	$(info   clean           remove repo-root bld/)
@@ -78,6 +79,10 @@ vol2:
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
+
+# After a dependency change: lake update, re-apply lean/patches/v4.33, cache get, build
+lean-update:
+	bash lean/upgrade-build.sh
 
 app:
 	npm --prefix $(APP_DIR) run build

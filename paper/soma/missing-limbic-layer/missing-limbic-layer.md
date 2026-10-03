@@ -316,7 +316,7 @@ The FM-HN framework hypothesises why this could matter clinically: somatic modul
 
 ## Lean 4 Verification
 
-The core algebraic results in this paper are type-checked in Lean 4 (v4.31.0
+The core algebraic results in this paper are type-checked in Lean 4 (v4.33.0
 proof surface, per the current status ledger) using Mathlib. The companion file
 `LimbicHopfield.lean` contains:
 

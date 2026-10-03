@@ -100,7 +100,7 @@ formalisations, the quantum experiment design and results, and the writing are
 all my own work, except where explicit citation is given.
 
 The Lean 4 proof sources in the Appendix distinguish kernel-checked theorems
-from axioms and remaining `sorry`s (current proof surface: v4.31.0). They are
+from axioms and remaining `sorry`s (current proof surface: v4.33.0). They are
 available in the repository
 `ITI-Theory/U` on GitHub and can be independently verified by any party
 with access to Lean 4 and Mathlib.

@@ -59,7 +59,7 @@ abstract: |
   Homotopy Type Theory (structural isomorphism), and Hoffman's Conscious
   Agents model (with the physical substrate anchor that model lacks). Core
   algebraic results are machine-checked in Lean~4 (current proof surface:
-  v4.31.0); axioms and remaining `sorry`s are distinguished in §10.
+  v4.33.0); axioms and remaining `sorry`s are distinguished in §10.
 keywords:
   - scale invariance
   - Green's function
@@ -975,7 +975,7 @@ framework correspond to 11D organisms that have crossed the threshold $T_c$.
 # Formal Verification
 
 The core algebraic results are Lean 4 kernel-checked using Mathlib
-(current proof surface: v4.31.0; source inspected but not rebuilt here).
+(current proof surface: v4.33.0; built with `lake build`).
 The following table lists representative theorems, proof methods, and files.
 
 | Theorem | Statement | Tactic | File |

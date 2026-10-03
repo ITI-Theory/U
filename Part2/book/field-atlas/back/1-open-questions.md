@@ -14,7 +14,7 @@ This atlas is a map of a research programme, not a record of settled doctrine. T
 
 **`open-hypothesis` The eightfold mode structure.** The eight named modes are a useful model grammar, not a proven taxonomy of affective state. A consensus-elicitation study with trained clinicians, followed by blinded coding of state descriptions, could test whether eight clusters outperform six-, seven-, or continuous-dimensional alternatives.
 
-**`kernel-verified`/`derived-under-assumptions` Proof-surface closure.** Lean 4 checks formal statements under definitions and axioms. The current surface uses Lean v4.31.0 and includes 20 axioms and five real `sorry`s. The test is technical: close the remaining gaps, minimise axiom dependence, and state theorem provenance precisely. Even a fully closed proof surface would verify mathematics, not automatically verify empirical interpretation.
+**`kernel-verified`/`derived-under-assumptions` Proof-surface closure.** Lean 4 checks formal statements under definitions and axioms. The current surface uses Lean and Mathlib v4.33.0 and includes 20 axioms and five real `sorry`s. The test is technical: close the remaining gaps, minimise axiom dependence, and state theorem provenance precisely. Even a fully closed proof surface would verify mathematics, not automatically verify empirical interpretation.
 
 **`open-hypothesis` Compact $G_2$ geometry and the origin of eight.** The proposed relation between M-theory compactification, $G_2$ geometry, and soma-field modes depends on mathematical and interpretive assumptions. A decisive advance would be a constructive compact $G_2$ example with the required singularity and moduli structure, or a proof that the required structure cannot exist.
 

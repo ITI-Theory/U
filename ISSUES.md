@@ -836,13 +836,18 @@ closed on 2026-10-03 (exact arithmetic: residual 673/2500 < 1; 23/25 > 0);
 five real `sorry`s remain in three files.
 
 **Actions:**
-- [ ] Upgrade Lean, Mathlib and physlib to v4.34.x and OSforGFF,
+- [x] 2026-10-03: upgraded to Lean, Mathlib and physlib v4.33.0 (the newest set
+   matching upstream OSforGFF, which targets v4.33.0-rc1); OSforGFF at upstream
+   HEAD with a one-line patch submitted as mrdouglasny/OSforGFF#22; all 25
+   libraries build with 0 errors and 0 lint warnings in our files;
+   `lean/upgrade-build.sh` applies the patch after `lake update`.
+- [ ] Move to v4.34.x when upstream OSforGFF does; drop `lean/patches/v4.33/`
+   once #22 is merged. Original plan: upgrade Lean, Mathlib and physlib to v4.34.x and OSforGFF,
    GaussianField and BochnerMinlos to upstream commits for the same release;
    drop `lean/patches/` once upstream builds unpatched; full `lake build`.
    Low priority: a separate task, not before a release.
-- [ ] Until then, make the build reproducible from a clean clone: either
-   apply `lean/patches/` automatically after `lake update` (a `make lean`
-   step) or fork the three libraries with the patches and pin the forks.
+- [x] Reproducible from a clean clone: `bash lean/upgrade-build.sh` runs
+   `lake update`, applies `lean/patches/v4.33/`, fetches the Mathlib cache and builds.
 - [ ] Restate `euler_lagrange_BRECVEMA` (`BRECVEMAVariational.lean`): the
    current witness `0` does not satisfy `M ψ̈ = W ψ(t)` in general. Either
    assume the mass matrix is invertible and take `ψ̈ = M⁻¹ W ψ(t)`, or state
