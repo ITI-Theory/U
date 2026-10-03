@@ -9,6 +9,7 @@ import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
 import { eras, levels, questions } from './generated/app-data.js';
 import { createVoice } from './voice.js';
+import { EVIDENCE_LABELS, createTourPlayer, extractTourBlock, parseTourBlock, presetIds, presetTour, resolveTour } from './tour.js';
 
 const STORAGE = {
   mode: 'mother-mode',
@@ -19,12 +20,32 @@ const STORAGE = {
   shellProfile: 'mother-shell-profile',
   history: 'mother-history',
   speak: 'mother-speak',
+  observatory: 'mother-observatory',
 };
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/stop', '/clear', '/shell'];
-const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id)].sort();
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell'];
+const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
+
+// NotebookLM has no system prompt, so observatory mode appends this to the question.
+// The full format, with examples, is in the Observatory Guide source (docs/TOUR-LANGUAGE.md).
+function observatoryInstruction() {
+  return `
+
+OBSERVATORY MODE: after your answer, add one soma-tour block that walks the Soma Machine through 2 to 5 views illustrating it, in the format of the Observatory Guide source:
+\`\`\`soma-tour
+title: <short title>
+- view: level=<level-id>&lens=on
+  say: "<one sentence>"
+  label: <evidence label>
+\`\`\`
+Or reuse a preset with the single line "tour: <preset-id>". View keys: level, path, lens (on|off), dim (4|8|11), compare (0|1), contours (0|1), q, era, model, reader, labels. Use only these ids.
+Levels: ${levels.map(level => level.id).join(', ')}.
+Questions (q): ${questions.map(question => question.id).join(', ')}.
+Presets: ${presetIds().join(', ')}.
+Evidence labels: ${EVIDENCE_LABELS.join(', ')}.`;
+}
 
 function read(key, fallback) {
   try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; }
@@ -139,7 +160,7 @@ export function createMother({ getContext }) {
   terminal.setAttribute('role', 'dialog');
   terminal.setAttribute('aria-label', 'MOTHER interface');
   terminal.innerHTML = `
-    <header><span class="mother-title">MU/TH/UR // [T]-THEORY INTERFACE</span><nav class="mother-tabs" aria-label="MOTHER panel tabs"><button type="button" class="active" data-tab="chat">CHAT</button><button type="button" data-tab="shell">SHELL</button></nav><span class="mother-persona" role="radiogroup" aria-label="Notebook"><label><input type="radio" name="mother-persona" value="mother" autocomplete="off" /> MOTHER</label><label title="H-AL (Hologram Al): the author's private notebook; API mode only"><input type="radio" name="mother-persona" value="hal" autocomplete="off" /> H-AL</label></span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><label class="mother-speak" title="Read answers aloud. H-AL uses the HAL 9000 Piper voice when the local bridge has it; otherwise the browser voice. /stop or Esc to silence."><input type="checkbox" autocomplete="off" /> SPEAK</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
+    <header><span class="mother-title">MU/TH/UR // [T]-THEORY INTERFACE</span><nav class="mother-tabs" aria-label="MOTHER panel tabs"><button type="button" class="active" data-tab="chat">CHAT</button><button type="button" data-tab="shell">SHELL</button></nav><span class="mother-persona" role="radiogroup" aria-label="Notebook"><label><input type="radio" name="mother-persona" value="mother" autocomplete="off" /> MOTHER</label><label title="H-AL (Hologram Al): the author's private notebook; API mode only"><input type="radio" name="mother-persona" value="hal" autocomplete="off" /> H-AL</label></span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><label class="mother-observatory" title="Observatory mode: answers end with a soma-tour that moves the Soma Machine through the views it describes"><input type="checkbox" autocomplete="off" /> OBSERVATORY</label><label class="mother-speak" title="Read answers aloud. H-AL uses the HAL 9000 Piper voice when the local bridge has it; otherwise the browser voice. /stop or Esc to silence."><input type="checkbox" autocomplete="off" /> SPEAK</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
     <div class="mother-pane mother-pane-chat" data-pane="chat">
       <div class="mother-log" aria-live="polite"></div>
       <form class="mother-form"><span>&gt;</span><input class="mother-input" autocomplete="off" placeholder="ASK ABOUT THIS VIEW — /help FOR COMMANDS" /></form>
@@ -176,6 +197,7 @@ export function createMother({ getContext }) {
     terminal.querySelector('.mother-persona').hidden = modeSelect.value !== 'api' || activeTab !== 'chat';
     terminal.querySelector('.mother-compare').hidden = activeTab !== 'chat';
     terminal.querySelector('.mother-speak').hidden = activeTab !== 'chat';
+    terminal.querySelector('.mother-observatory').hidden = activeTab !== 'chat';
     titleSpan.textContent = persona() === 'hal' ? 'H-AL // HOLOGRAM AL' : 'MU/TH/UR // [T]-THEORY INTERFACE';
     terminal.classList.toggle('persona-hal', persona() === 'hal');
     if (xterm) xterm.options.theme = shellTheme();
@@ -197,6 +219,15 @@ export function createMother({ getContext }) {
     if (!speakInput.checked) voice.stop();
   });
   const bridgeUrl = () => (bridgeInput.value.trim() || DEFAULT_BRIDGE).replace(/\/$/, '');
+  const observatoryInput = terminal.querySelector('.mother-observatory input');
+  observatoryInput.checked = read(STORAGE.observatory, 'off') === 'on';
+  observatoryInput.addEventListener('change', () => write(STORAGE.observatory, observatoryInput.checked ? 'on' : 'off'));
+  const tourPlayer = createTourPlayer({
+    voice,
+    narration: () => ({ speak: speakInput.checked, persona: persona(), bridge: modeSelect.value === 'api' ? bridgeUrl() : '' }),
+  });
+  // Deferred so the 3D view and its hash handling are ready before the first stop.
+  setTimeout(() => tourPlayer.fromHash(), 0);
 
   function historyKey() {
     return `${STORAGE.history}-${persona()}`;
@@ -405,6 +436,36 @@ export function createMother({ getContext }) {
     }
     if (verb === '/stop') {
       voice.stop();
+      tourPlayer.end();
+      return true;
+    }
+    if (verb === '/observatory') {
+      observatoryInput.checked = rest[0] !== 'off';
+      write(STORAGE.observatory, observatoryInput.checked ? 'on' : 'off');
+      type(`OBSERVATORY ${observatoryInput.checked ? 'ON' : 'OFF'}`);
+      return true;
+    }
+    if (verb === '/tours') {
+      type(`PRESET TOURS: ${presetIds().join(', ')}\nPLAY ONE WITH /tour <id>`);
+      return true;
+    }
+    if (verb === '/play') {
+      // WEB mode: answers arrive in NotebookLM's tab, so copy one back and run its soma-tour.
+      (async () => {
+        let text = '';
+        try { text = await navigator.clipboard.readText(); } catch { /* clipboard blocked */ }
+        const { block } = extractTourBlock(text);
+        if (!block) { await type('NO SOMA-TOUR BLOCK ON THE CLIPBOARD. COPY THE WHOLE ANSWER, THEN /play'); return; }
+        const resolved = resolveTour(parseTourBlock(block));
+        await type(`TOUR: ${resolved.title} (${resolved.steps.length} STOPS${resolved.dropped.length ? `, ${resolved.dropped.length} SKIPPED` : ''})`);
+        tourPlayer.play(resolved);
+      })();
+      return true;
+    }
+    if (verb === '/tour') {
+      const resolved = presetTour(rest[0] ?? '');
+      if (!resolved.steps.length) type(`UNKNOWN TOUR ${rest[0] ?? ''}. TRY /tours`);
+      else tourPlayer.play(resolved);
       return true;
     }
     if (verb === '/clear') {
@@ -518,7 +579,7 @@ export function createMother({ getContext }) {
     remember(question);
     voice.stop();
     const context = getContext();
-    const prompt = composePrompt(question, context);
+    const prompt = composePrompt(question, context) + (observatoryInput.checked ? observatoryInstruction() : '');
     const asked = document.createElement('div');
     asked.className = 'mother-line mother-question';
     asked.textContent = `> ${question}`;
@@ -532,7 +593,7 @@ export function createMother({ getContext }) {
       }
       try { await navigator.clipboard.writeText(prompt); } catch { /* clipboard blocked */ }
       window.open(url, '_blank', 'noopener');
-      await type('QUESTION COPIED WITH YOUR VIEW.\nNOTEBOOK OPENED IN A NEW TAB: PASTE TO ASK.');
+      await type(observatoryInput.checked ? 'QUESTION COPIED WITH YOUR VIEW AND THE TOUR REQUEST.\nNOTEBOOK OPENED IN A NEW TAB: PASTE TO ASK.\nCOPY THE ANSWER BACK AND TYPE /play TO RUN ITS TOUR.' : 'QUESTION COPIED WITH YOUR VIEW.\nNOTEBOOK OPENED IN A NEW TAB: PASTE TO ASK.');
       return;
     }
 
@@ -556,7 +617,14 @@ export function createMother({ getContext }) {
         return block;
       };
       const sources = list => (list?.length ? `<p class="mother-sources">SOURCES: ${list.map((title, index) => `[${index + 1}] ${escapeHtml(title)}`).join('; ')}</p>` : '');
-      section(data.diff ? `${persona() === 'hal' ? 'H-AL' : 'MOTHER'} / [T]-THEORY` : '', renderAnswer(data.answer ?? '(NO ANSWER)') + sources(data.citations));
+      // Observatory: the soma-tour block is taken out of the prose and run, never rendered as code.
+      const { prose, block } = extractTourBlock(data.answer ?? '');
+      const answerTour = block ? resolveTour(parseTourBlock(block)) : null;
+      section(data.diff ? `${persona() === 'hal' ? 'H-AL' : 'MOTHER'} / [T]-THEORY` : '', renderAnswer(prose || '(NO ANSWER)') + sources(data.citations));
+      if (answerTour) {
+        const row = section('', `<p class="mother-tour-line">TOUR: ${escapeHtml(answerTour.title)} (${answerTour.steps.length} STOP${answerTour.steps.length === 1 ? '' : 'S'}${answerTour.dropped.length ? `, ${answerTour.dropped.length} SKIPPED` : ''}) <button type="button" class="mother-tour-play">PLAY TOUR</button></p>`, 'mother-answer mother-tour');
+        row.querySelector('.mother-tour-play').addEventListener('click', () => tourPlayer.play(answerTour));
+      }
       if (data.diff) {
         section('WHAT [T]-THEORY ADDS', renderAnswer(data.diff), 'mother-answer mother-diff');
         const baseline = document.createElement('details');
@@ -567,7 +635,8 @@ export function createMother({ getContext }) {
         await type('(NO BASELINE NOTEBOOK CONFIGURED: COMPARE SKIPPED)');
       }
       await type('[INTERPRETIVE / MAY ERR: CHECK THE CITED SOURCES]');
-      if (speakInput.checked) voice.speak(data.answer ?? '', persona(), bridge);
+      const spoken = speakInput.checked ? voice.speak(prose, persona(), bridge) : Promise.resolve();
+      if (answerTour && observatoryInput.checked) spoken.then(() => tourPlayer.play(answerTour));
     } catch (error) {
       // fetch() rejects with TypeError only when the bridge cannot be reached at all.
       if (error instanceof TypeError) await type('BRIDGE OFFLINE.\nSTART IT WITH apps/instrument/mother/run_bridge.ps1');

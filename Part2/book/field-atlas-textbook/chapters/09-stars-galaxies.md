@@ -181,7 +181,7 @@ The programme does not alter that astrophysics. Its papers keep Einstein's gravi
 | Stars or black holes are alive or aware | not claimed |
 
 ::: {.soma-machine}
-Take the question tour `#q=black-hole-ringdown`, *What happens when black holes merge?*, which opens the compact-object level and steps from the measured ringdown to its labelled reading. Then try `#q=gravity-time-bending`, *How does the programme's view of gravity compare with Einstein's?*, which opens the galactic halo with compare and contours on and shows where the two agree.
+Take the question tour `#q=black-hole-ringdown`, *What happens when black holes merge?*, which opens the compact-object level and steps from the measured ringdown to its labelled reading. Then try `#q=gravity-time-bending`, *How does the programme's view of gravity compare with Einstein's?*, which opens the galactic halo with compare and contours on and shows where the two agree. Tour stop 9: `#tour=textbook&stop=9`.
 :::
 
 ## Key Terms {.unnumbered}

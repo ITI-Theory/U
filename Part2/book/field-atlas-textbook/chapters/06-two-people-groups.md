@@ -175,7 +175,7 @@ The Lean file `DyadicField.lean` states that, for non-negative states and non-ne
 The open hypothesis predicts measurable things: physiological signals of two people in a supportive conversation should show phase relations and coupled modes that are absent between strangers, and their strength should vary with the quality of the interaction. Some studies report such interpersonal synchrony; the effects vary widely between settings and measures, and none yet measures $J$. The last row marks the boundary of the whole chapter. Sociologists since Durkheim have described the collective excitement of crowds [@durkheim1912elementary], and the Kuramoto order parameter gives a crowd a measurable rhythm. Neither makes a crowd a subject. A group can have a common rhythm and correlated states while every member remains a separate person.
 
 ::: {.soma-machine}
-Open `#level=dyad&lens=on&dim=11`. The STATE panel reports the pair's detuning and coupling in the Adler form of Section 6.2, and whether the locking condition $\kappa > \Delta\omega/2$ holds. The question tour `#q=dyad-fall-into-step`, *When do two people fall into step?*, steps through the same physics and marks where the programme's reading begins.
+Open `#level=dyad&lens=on&dim=11`. The STATE panel reports the pair's detuning and coupling in the Adler form of Section 6.2, and whether the locking condition $\kappa > \Delta\omega/2$ holds. The question tour `#q=dyad-fall-into-step`, *When do two people fall into step?*, steps through the same physics and marks where the programme's reading begins. Tour stop 6: `#tour=textbook&stop=6`.
 :::
 
 ## Key Terms {.unnumbered}

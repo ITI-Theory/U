@@ -211,7 +211,7 @@ The Balmer lines start on $n = 2$, which lies $10.2\,\mathrm{eV}$ above the grou
 :::
 
 ::: {.soma-machine}
-Open `#level=atomic&lens=on&compare=1`. The atomic view draws the four Balmer lines at $410$, $434$, $486$ and $656\,\mathrm{nm}$, the numbers of Section 3.2, under a cloud of points sampled from the electron's probability pattern rather than an orbit. Then open the question tour `#q=hydrogen-feeling`, *Is a hydrogen atom like a feeling?*, which steps through the three readings of this section and labels each one.
+Open `#level=atomic&lens=on&compare=1`. The atomic view draws the four Balmer lines at $410$, $434$, $486$ and $656\,\mathrm{nm}$, the numbers of Section 3.2, under a cloud of points sampled from the electron's probability pattern rather than an orbit. Then open the question tour `#q=hydrogen-feeling`, *Is a hydrogen atom like a feeling?*, which steps through the three readings of this section and labels each one. Tour stop 3: `#tour=textbook&stop=3`.
 :::
 
 ## Key Terms {.unnumbered}

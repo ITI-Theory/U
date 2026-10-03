@@ -161,7 +161,7 @@ The [T]-Theory research programme proposes that the four-question grammar is not
 Labels describe the claim, not its importance. An `interpretive` reading can be illuminating, and a `derived-under-assumptions` number can still be wrong if an assumption fails. Where the programme agrees with standard physics, for example in reproducing ordinary gravity locally, the book says so plainly; where it adds something, it says what would count against it.
 
 ::: {.soma-machine}
-Open the app at `#level=atomic&lens=off` and then `#level=atomic&lens=on`. The first view shows the ordinary physics of an atom; the second adds the programme's reading of the same level, with its label shown on screen. Switching the lens never changes the physics underneath, only what is drawn on top.
+Open the app at `#level=atomic&lens=off` and then `#level=atomic&lens=on`. The first view shows the ordinary physics of an atom; the second adds the programme's reading of the same level, with its label shown on screen. Switching the lens never changes the physics underneath, only what is drawn on top. Every chapter's box also names its stop in the book's guided tour, written in the app's tour language: `#tour=textbook` plays all ten stops in order, and `#tour=textbook&stop=1` opens this one. Other tours start the same way, for example `#tour=cell-to-cosmos` or `#tour=gravity`.
 :::
 
 ::: {.check-your-learning}

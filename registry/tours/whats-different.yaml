@@ -1,0 +1,43 @@
+id: whats-different
+title: What's different? Thirteen questions
+summary: The app's thirteen question tours in their chain order, each with its evidence label.
+steps:
+- view: q=emotion-particle
+  say: Is an emotion a particle?
+  label: interpretive
+- view: q=feeling-memory
+  say: Does a feeling remember being poked?
+  label: derived-under-assumptions
+- view: q=neuron-all-or-none
+  say: Why does a neuron fire all-or-nothing?
+  label: derived-under-assumptions
+- view: q=dyad-fall-into-step
+  say: When do two people fall into step?
+  label: derived-under-assumptions
+- view: q=hydrogen-feeling
+  say: Is a hydrogen atom like a feeling?
+  label: interpretive
+- view: q=starling-turn
+  say: Why do starlings turn together?
+  label: interpretive
+- view: q=crowd-mood
+  say: Does a crowd have a mood?
+  label: interpretive
+- view: q=rock-memory
+  say: Can a rock remember?
+  label: interpretive
+- view: q=early-universe-sound
+  say: What did the early universe sound like?
+  label: empirical-result
+- view: q=black-hole-ringdown
+  say: What happens when black holes merge?
+  label: empirical-result
+- view: q=gravity-time-bending
+  say: How does [T]-Theory's view of gravity and time bending compare with Einstein's? Identical, or...?
+  label: derived-under-assumptions
+- view: q=dark-energy-origin
+  say: Where does dark energy come from?
+  label: derived-under-assumptions
+- view: q=dark-matter-spatial-vacuum
+  say: What is dark matter?
+  label: derived-under-assumptions

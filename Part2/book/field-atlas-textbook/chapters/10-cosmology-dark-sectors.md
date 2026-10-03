@@ -178,7 +178,7 @@ The honest difficulty is coincidence. Simple fractions are dense: for almost any
 The programme's universal-field paper reads all the levels of the Atlas, from quantum foam to this chapter, as one response grammar [@P20]. That reading is `interpretive`. What this book has tried to show, chapter by chapter, is which parts of the climb are measured, which are calculated, which are proposed, and how each proposal could be tested.
 
 ::: {.soma-machine}
-Three question tours end the book. `#q=early-universe-sound`, *What did the early universe sound like?*, opens the cosmic web and steps through the acoustic peaks of Section 10.4. `#q=dark-energy-origin`, *Where does dark energy come from?*, opens the observable universe with the $7/11$ proposal and its label. `#q=dark-matter-spatial-vacuum`, *What is dark matter?*, opens the galactic halo with the $3/11$ proposal and what would falsify it.
+Three question tours end the book. `#q=early-universe-sound`, *What did the early universe sound like?*, opens the cosmic web and steps through the acoustic peaks of Section 10.4. `#q=dark-energy-origin`, *Where does dark energy come from?*, opens the observable universe with the $7/11$ proposal and its label. `#q=dark-matter-spatial-vacuum`, *What is dark matter?*, opens the galactic halo with the $3/11$ proposal and what would falsify it. Tour stop 10: `#tour=textbook&stop=10`.
 :::
 
 ## Key Terms {.unnumbered}

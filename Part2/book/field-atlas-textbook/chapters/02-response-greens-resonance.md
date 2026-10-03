@@ -176,7 +176,7 @@ Example 2.3 showed that two identical kicks can add up or cancel depending on ti
 :::
 
 ::: {.soma-machine}
-Open `#level=human-vertebrate&lens=on&dim=4` and press **Poke field** once: at 4D the body model rings and returns to rest, like Example 2.2. Switch to `dim=8` and poke twice: the second response is different, because the model now carries a memory kernel, the convolution of Section 2.3 with a long tail. Chapter 5 explains that model and what it does and does not establish.
+Open `#level=human-vertebrate&lens=on&dim=4` and press **Poke field** once: at 4D the body model rings and returns to rest, like Example 2.2. Switch to `dim=8` and poke twice: the second response is different, because the model now carries a memory kernel, the convolution of Section 2.3 with a long tail. Chapter 5 explains that model and what it does and does not establish. Tour stop 2: `#tour=textbook&stop=2`.
 :::
 
 ## Key Terms {.unnumbered}

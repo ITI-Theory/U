@@ -885,6 +885,34 @@ private use only, model outside the repo) through the local bridge's
 - [ ] Speak the WHAT [T]-THEORY ADDS section on request (`/speak diff`).
 - [ ] A licence-clean neural voice for public MOTHER (a stock Piper voice such
    as en_GB) if browser voices prove too uneven across platforms.
-- [ ] Narrated tours: speak tour steps once the tour language exists (after
-   the observatory work, which is on hold until the author starts it).
+- [x] 2026-10-04: narrated tours: tour stops are spoken (ISS-038).
+
+---
+
+## ISS-038: soma-tour language and MOTHER/H-AL observatory mode — OPEN
+{{Tags area.app, area.books}}
+{{Fields date.created=2026-10-04, date.start=2026-10-04, date.end=, epic=}}
+
+The design agreed on 2026-10-03 (see the session archive in `Me/archive/sessions/`):
+answers carry a fenced `soma-tour` block of `- view:` / `say:` / `label:` /
+`dwell:` steps or a one-line `tour: <preset>`; the app validates every step
+against registry ids, drops unknown steps, and never executes anything.
+
+**Done 2026-10-04:**
+- [x] Spec and NotebookLM source: `docs/TOUR-LANGUAGE.md`, built with registry
+   id tables by `make observatory-guide` (pandoc + `lib/format/observatory-ids.lua`).
+- [x] Presets in `registry/tours/` (cell-to-cosmos, gravity, blue-rubber-ball,
+   whats-different, textbook), validated by `scripts/generate.py`, which also
+   validates the guide's example blocks.
+- [x] App: `tour.js` parser, validator and player card; `#tour=<id>[&stop=n]`.
+- [x] MOTHER/H-AL: OBSERVATORY toggle, prompt instruction, interception of
+   the block, `/tour`, `/tours`, `/play` (WEB mode), narration with SPEAK.
+- [x] Textbook: each chapter's Soma Machine box names its stop in `#tour=textbook`.
+
+**Actions:**
+- [ ] Author: upload `bld/app/observatory-guide.md` to the MOTHER and H-AL
+   notebooks, then ask one question with OBSERVATORY on and judge the tour.
+- [ ] Per worked example "Show me" tours in the textbook HTML (one block per
+   example) if the chapter-level stops prove useful.
+- [ ] More presets from Dist PROMPTS.md (one per audience section).
 

@@ -195,7 +195,7 @@ The cold run is stuck for exactly the reason of Example 5.2; the hot run escapes
 The last row matters most. QUANT-EXP-1 is a statement about two algorithms on one model landscape. It shows that the landscape has a ridge that a cold classical search cannot cross and an annealer can. The paper is explicit that it does not show that brains are quantum devices, or that any therapy works by tunnelling. Its value is as a bounded, reproducible test of a model's reachability, runnable in seconds by anyone with the code.
 
 ::: {.soma-machine}
-The human level shows the chapter's two models side by side. In `#level=human-vertebrate&lens=on&dim=4` a **Poke field** gives a single damped response that returns to rest. With `dim=8`, poke twice in quick succession: the second response differs from the first, because the 8D model carries the memory kernel of Section 5.4, and a large enough pair crosses into another valley. The question tour `#q=feeling-memory`, *Does a feeling remember being poked?*, walks through the same steps with their labels.
+The human level shows the chapter's two models side by side. In `#level=human-vertebrate&lens=on&dim=4` a **Poke field** gives a single damped response that returns to rest. With `dim=8`, poke twice in quick succession: the second response differs from the first, because the 8D model carries the memory kernel of Section 5.4, and a large enough pair crosses into another valley. The question tour `#q=feeling-memory`, *Does a feeling remember being poked?*, walks through the same steps with their labels. Tour stop 5: `#tour=textbook&stop=5`.
 :::
 
 ## Key Terms {.unnumbered}

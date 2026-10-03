@@ -1,0 +1,24 @@
+id: gravity
+title: 'Gravity: Einstein and the programme'
+summary: Where the programme keeps general relativity unchanged, and where it adds a proposal about the
+  dark sectors.
+steps:
+- view: q=gravity-time-bending
+  say: 'Locally the programme keeps Einstein''s gravity exactly: clocks slow, light bends and orbits follow
+    general relativity.'
+  label: derived-under-assumptions
+- view: level=planetary&lens=off
+  say: The rubber sheet is a two-dimensional teaching picture. Real gravity is the geometry of space and
+    time in three dimensions plus one.
+  label: empirical-result
+- view: q=black-hole-ringdown
+  say: When two black holes merge, the new one rings once and falls silent, measured by LIGO in 2015.
+  label: empirical-result
+- view: level=galactic-halo&lens=on&compare=1&contours=1
+  say: Rotation curves need unseen mass. The programme's proposal is three elevenths, about three per
+    cent above Planck's value.
+  label: open-hypothesis
+- view: q=dark-energy-origin
+  say: 'Dark energy as seven elevenths of the budget: seven per cent below measurement, and independent
+    of the Hubble constant.'
+  label: derived-under-assumptions

@@ -1,0 +1,24 @@
+id: blue-rubber-ball
+title: The blue rubber ball
+summary: 'The field-first picture from the prompts: the universe as a solid ball of field, with matter
+  as knots of the same rubber.'
+steps:
+- view: level=quantum-foam&lens=on&dim=11
+  say: 'Imagine the universe as a solid blue rubber ball. Cut it anywhere and it is still blue: the field
+    is defined at every point.'
+  label: interpretive
+- view: level=atomic&lens=on&compare=1
+  say: The crystals in the rubber are made of the rubber itself. In quantum field theory a particle is
+    an excitation of its field.
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=8
+  say: The programme proposes that the same rubber carries feeling in a body. That is its boldest claim,
+    and it is an open hypothesis.
+  label: open-hypothesis
+- view: level=planetary&lens=on
+  say: Strike the ball and it rings. So does the Earth after a great earthquake.
+  label: empirical-result
+- view: level=observable-universe&lens=on
+  say: 'Where the picture breaks: a ball has an edge and an outside, and rubber suggests a rest frame.
+    The universe has neither; we are always inside the rubber.'
+  label: interpretive

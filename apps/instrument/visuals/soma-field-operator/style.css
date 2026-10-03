@@ -327,6 +327,24 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .mother-terminal header .mother-compare input { width: auto; margin: 0; }
 .mother-terminal header .mother-speak { display: flex; align-items: center; gap: 4px; margin-right: 10px; font-size: 10px; }
 .mother-terminal header .mother-speak input { width: auto; margin: 0; }
+.mother-terminal header .mother-observatory { display: flex; align-items: center; gap: 4px; margin-right: 10px; font-size: 10px; }
+.mother-terminal header .mother-observatory input { width: auto; margin: 0; }
+.mother-tour-line { margin: 6px 0; color: #9ff3c4; }
+.mother-tour-play { margin-left: 8px; padding: 2px 8px; border: 1px solid currentColor; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.tour-card { position: fixed; z-index: 6; left: 24px; bottom: 24px; width: min(440px, 34vw); padding: 12px 14px; color: var(--text); border: 1px solid rgba(20,229,255,.72); background: rgba(5,7,14,.9); box-shadow: 0 0 36px rgba(20,229,255,.16); backdrop-filter: blur(8px); font: 12px/1.45 'Space Mono', monospace; }
+.tour-card[hidden] { display: none; }
+.tour-card header { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.tour-card__title { color: #eaf5ff; font: 800 15px/1.1 'Syne', sans-serif; }
+.tour-card__count { color: #14e5ff; white-space: nowrap; }
+.tour-card__label { margin: 0 0 6px; font-size: 10px; letter-spacing: .08em; color: #f6c75a; }
+.tour-card__label:empty { display: none; }
+.tour-card__label[data-label="empirical-result"], .tour-card__label[data-label="kernel-verified"] { color: #56f0a2; }
+.tour-card__label[data-label="interpretive"], .tour-card__label[data-label="open-hypothesis"] { color: #ff8fd8; }
+.tour-card__say { margin: 0 0 10px; }
+.tour-card__note { margin: 0 0 8px; font-size: 10px; color: #ff9f7a; }
+.tour-card__controls { display: flex; gap: 6px; }
+.tour-card__controls button { flex: 1; padding: 4px 6px; border: 1px solid rgba(20,229,255,.6); background: transparent; color: #eaf5ff; font: 11px 'Space Mono', monospace; cursor: pointer; }
+.tour-card__controls button:hover { background: rgba(20,229,255,.14); }
 .mother-section { margin: 12px 0 4px; color: #e8ffef; font-size: 11px; letter-spacing: .14em; border-bottom: 1px solid #2f8f4f; }
 .mother-diff { padding: 6px 10px; border: 1px solid #f6c75a; color: #ffe9a8; background: rgba(60,45,5,.25); }
 .mother-diff .mother-section { color: #f6c75a; border-color: #f6c75a; }

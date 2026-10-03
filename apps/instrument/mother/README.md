@@ -104,6 +104,26 @@ Another model path can be set with `voice_model` in `mother.local.json` or
 `MOTHER_VOICE_MODEL`. `GET /health` reports `"voice": true` when it is ready;
 `POST /speak {"text": "..."}` returns `audio/wav` (localhost origins only).
 
+## Observatory mode and tours
+
+Tick OBSERVATORY (or `/observatory on`). Each question then asks the notebook
+to end its answer with a `soma-tour` block: two to five Soma Machine views,
+each with one sentence and an evidence label. The panel removes the block from
+the answer, checks every step against the registry ids, drops any invalid step
+(and says so), and runs the tour in a card at the bottom left. With SPEAK on,
+each stop is read aloud (H-AL in the HAL voice) and the tour moves on when the
+line ends; otherwise it waits long enough to read.
+
+- In API mode this happens automatically. In WEB mode, copy the answer back
+  from NotebookLM and type `/play`.
+- `/tours` lists the presets in `registry/tours/`; `/tour <id>` plays one.
+- In the app, `#tour=<id>` plays a preset and `#tour=<id>&stop=<n>` opens one
+  stop; the Field Atlas textbook names its stops this way.
+- The language is specified in `docs/TOUR-LANGUAGE.md`. Upload
+  `bld/app/observatory-guide.md` (`make observatory-guide`) to the MOTHER and
+  H-AL notebooks as a source: NotebookLM has no system prompt, so the guide
+  is how the notebook learns the format and the allowed ids.
+
 ## Notes
 
 - Every question carries the view (level, scale, response time, path, model,

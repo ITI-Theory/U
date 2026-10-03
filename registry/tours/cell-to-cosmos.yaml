@@ -1,0 +1,40 @@
+id: cell-to-cosmos
+title: From the cell to the cosmos
+summary: Ten stops up the Atlas, from the smallest scale to the observable universe, with the same response
+  grammar at every level.
+steps:
+- view: level=quantum-foam&lens=off&dim=4
+  say: Begin at the smallest scale the Atlas draws, quantum foam, where spacetime itself is expected to
+    fluctuate.
+  label: open-hypothesis
+- view: level=atomic&lens=on&compare=1
+  say: 'One step up, hydrogen. Its four visible lines are the poles of the atom''s response: measured
+    physics.'
+  label: empirical-result
+- view: level=cellular-synaptic&lens=on&dim=8
+  say: A nerve cell adds a threshold. Below it a kick fades; above it the cell fires a full spike.
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=8
+  say: 'At the human level the programme proposes the same grammar with memory: a landscape of emotional
+    states.'
+  label: open-hypothesis
+- view: level=dyad&lens=on&dim=11
+  say: Two people can fall into step when coupling beats the difference in their rhythms.
+  label: derived-under-assumptions
+- view: path=bird-flock&level=flock&lens=on
+  say: 'A flock turns as one: a wave of heading crosses the birds faster than imitation could carry it.'
+  label: empirical-result
+- view: level=planetary&lens=on
+  say: The whole Earth rings for days after a great earthquake, a resonator of quality factor about five
+    hundred.
+  label: empirical-result
+- view: level=stellar&lens=on
+  say: 'Stars ring too: helioseismology maps the Sun''s interior from its five-minute oscillations.'
+  label: empirical-result
+- view: level=galactic-halo&lens=on&compare=1&contours=1
+  say: Galaxies spin too fast for their visible mass. The programme reads the missing mass as the spatial
+    vacuum, three elevenths of the budget.
+  label: open-hypothesis
+- view: level=observable-universe&lens=on
+  say: 'The universe as a whole: expanding, once hot, and still ringing in the cosmic microwave background.'
+  label: empirical-result

@@ -1,0 +1,38 @@
+id: textbook
+title: The textbook in the Soma Machine
+summary: One stop for each chapter of the Field Atlas textbook, at the view its Soma Machine box describes.
+steps:
+- view: level=atomic&lens=off
+  say: Chapter 1, fields and scale. Toggle the lens to compare the plain physics with the programme's
+    reading.
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=4
+  say: 'Chapter 2, response. Poke the field once: the model rings and returns to rest, a Green''s function
+    you can watch.'
+  label: empirical-result
+- view: level=atomic&lens=on&compare=1
+  say: Chapter 3, atoms. The four Balmer lines are drawn here at the wavelengths the chapter calculates.
+  label: empirical-result
+- view: level=cellular-synaptic&lens=on&dim=4
+  say: Chapter 4, cells. In four dimensions the poke spreads along a passive cable and fades.
+  label: empirical-result
+- view: q=feeling-memory
+  say: 'Chapter 5, the human level: a memory kernel means a second poke lands differently from the first.'
+  label: derived-under-assumptions
+- view: level=dyad&lens=on&dim=11
+  say: 'Chapter 6, two people: the Adler locking condition, coupling against detuning.'
+  label: derived-under-assumptions
+- view: q=starling-turn
+  say: 'Chapter 7, flocks: a turn crosses a flock as a wave.'
+  label: empirical-result
+- view: q=rock-memory
+  say: 'Chapter 8, the Earth: rocks remember in a literal sense, through friction that records how long
+    a fault has rested.'
+  label: empirical-result
+- view: q=black-hole-ringdown
+  say: 'Chapter 9, stars and galaxies: a black hole rings once and falls silent.'
+  label: empirical-result
+- view: q=dark-matter-spatial-vacuum
+  say: 'Chapter 10, cosmology: the programme''s three elevenths, and the measurements that could refute
+    it.'
+  label: open-hypothesis

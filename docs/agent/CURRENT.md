@@ -28,12 +28,18 @@ Not in the UAT tracks but built and current: textbook
 `bld/textbook/html/`), Field Atlas (`bld/atlas/field-atlas-a3.pdf`, 200 pp).
 Decide whether they ship in this release.
 
-New tonight: HAL speech (ISS-037). Tick SPEAK in the MOTHER terminal; H-AL
+New tonight: tours and observatory mode (ISS-038). `#tour=cell-to-cosmos`,
+`#tour=gravity`, `#tour=blue-rubber-ball`, `#tour=whats-different`,
+`#tour=textbook` in the app; OBSERVATORY toggle and `/tour`, `/tours`, `/play`
+in the MOTHER terminal. Upload `bld/app/observatory-guide.md`
+(`make observatory-guide`) to the MOTHER and H-AL notebooks before trying
+observatory answers. Spec: `docs/TOUR-LANGUAGE.md`.
+
+Also new tonight: HAL speech (ISS-037). Tick SPEAK in the MOTHER terminal; H-AL
 speaks in the HAL 9000 Piper voice via the bridge (installed in the bridge
 venv; model in `~/.voice-admin/models/hal9000/`, private).
 
-Outstanding, not for this release: tour language and observatory mode (on hold
-by your decision); ISS-011 HopfieldNet2 port (probe in `../probe-nn`);
+Outstanding, not for this release: ISS-011 HopfieldNet2 port (probe in `../probe-nn`);
 ISS-036 five Lean sorries and the `euler_lagrange_BRECVEMA` restatement;
 OSforGFF PR mrdouglasny/OSforGFF#22 awaiting review; ISS-037 voice follow-ups;
 optional cleanup `git worktree remove ../U-lean-v433`.

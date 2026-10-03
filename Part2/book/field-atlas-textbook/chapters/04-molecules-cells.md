@@ -198,7 +198,7 @@ The paper also checks that the extension does not discard the science it extends
 The open hypothesis is testable in principle: if measured arousal plays the role of $\Phi$, recall under arousal should shift in the direction and by the amount the coupling equations predict, and the shift should vanish as arousal returns to baseline. The reading makes no claim that a single cell feels anything. The membrane supplies a threshold and a memory; whatever experience is, the programme places it several levels higher (Chapter 5).
 
 ::: {.soma-machine}
-Open `#level=cellular-synaptic&lens=on&dim=4` and press **Poke field**: the 4D view runs the passive cable equation of Section 4.3, and the poke spreads and fades. Switch to `dim=8`: the model becomes a leaky neuron with a threshold. Poke once and it spikes; poke again at once and the refractory bar is still red, so the identical poke does nothing. The question tour `#q=neuron-all-or-none` walks through the same steps with their labels.
+Open `#level=cellular-synaptic&lens=on&dim=4` and press **Poke field**: the 4D view runs the passive cable equation of Section 4.3, and the poke spreads and fades. Switch to `dim=8`: the model becomes a leaky neuron with a threshold. Poke once and it spikes; poke again at once and the refractory bar is still red, so the identical poke does nothing. The question tour `#q=neuron-all-or-none` walks through the same steps with their labels. Tour stop 4: `#tour=textbook&stop=4`.
 :::
 
 ## Key Terms {.unnumbered}

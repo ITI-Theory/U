@@ -53,11 +53,18 @@ export function createVoice() {
 
   let audio = null;
   let request = 0;
+  let finish = null;
+
+  // Resolves when the current speech ends or is stopped, so tours can wait for it.
+  function waitForEnd() {
+    return new Promise(resolve => { finish = resolve; });
+  }
 
   function stopAll() {
     request += 1;
     if (supported) synth.cancel();
     if (audio) { audio.pause(); URL.revokeObjectURL(audio.src); audio = null; }
+    const done = finish; finish = null; done?.();
   }
 
   async function speakWithBridge(text, bridge) {
@@ -71,13 +78,17 @@ export function createVoice() {
     const blob = await response.blob();
     if (mine !== request) return;
     audio = new Audio(URL.createObjectURL(blob));
+    const ended = waitForEnd();
+    audio.addEventListener('ended', () => { const done = finish; finish = null; done?.(); }, { once: true });
     await audio.play();
+    await ended;
   }
 
   return {
     supported,
     stop: stopAll,
     // bridge: base URL of the local bridge when H-AL's Piper voice should be used.
+    // Resolves with 'piper', 'browser' or 'silent' once the speech has finished or been stopped.
     async speak(markdown, persona = 'mother', bridge = '') {
       const text = speakableText(markdown);
       if (!text) return 'silent';
@@ -93,13 +104,21 @@ export function createVoice() {
       if (!supported) return 'silent';
       const settings = PERSONA_VOICE[persona] ?? PERSONA_VOICE.mother;
       const voice = pickVoice(persona in PERSONA_VOICE ? persona : 'mother');
-      for (const chunk of chunks(text)) {
+      const ended = waitForEnd();
+      const parts = chunks(text);
+      parts.forEach((chunk, index) => {
         const utterance = new SpeechSynthesisUtterance(chunk);
         utterance.rate = settings.rate;
         utterance.pitch = settings.pitch;
         if (voice) { utterance.voice = voice; utterance.lang = voice.lang; }
+        if (index === parts.length - 1) {
+          const done = () => { const resolve = finish; finish = null; resolve?.(); };
+          utterance.onend = done;
+          utterance.onerror = done;
+        }
         synth.speak(utterance);
-      }
+      });
+      await ended;
       return 'browser';
     },
   };

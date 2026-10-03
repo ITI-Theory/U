@@ -144,7 +144,7 @@ The flock is the programme's clearest example of its central picture: a disturba
 The third row is true and modest: it compares two operation counts. The fourth is the engineering claim, and it depends on the set-up cost of Example 7.4, on how often $G$ must be recomputed as a swarm moves, and on how linear the real interactions are. No flight test is reported in the paper, so it remains open. The last row is the same boundary as Chapter 6's crowd: the starlings behave as one medium, and every one of them is still a separate bird.
 
 ::: {.soma-machine}
-The question tour `#q=starling-turn`, *Why do starlings turn together?*, opens the swarm level with compare and contours on and walks through the measured turn, the response-kernel reading and its label. The bird and flock levels are on their own path: open `#path=bird-flock&level=flock&lens=on` and compare the single bird's view with the flock's.
+The question tour `#q=starling-turn`, *Why do starlings turn together?*, opens the swarm level with compare and contours on and walks through the measured turn, the response-kernel reading and its label. The bird and flock levels are on their own path: open `#path=bird-flock&level=flock&lens=on` and compare the single bird's view with the flock's. Tour stop 7: `#tour=textbook&stop=7`.
 :::
 
 ## Key Terms {.unnumbered}

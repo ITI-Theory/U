@@ -40,6 +40,7 @@ help:
 	$(info   lean            build Lean proofs)
 	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
 	$(info   app             build the Soma Machine app)
+	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
 	$(info   check           run the papers, books and Atlas validators)
 	$(info   clean           remove repo-root bld/)
 	$(info   generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml)
@@ -86,6 +87,15 @@ lean-update:
 
 app:
 	npm --prefix $(APP_DIR) run build
+
+# Observatory Guide: the soma-tour spec with registry ids, a source for the
+# MOTHER and H-AL notebooks (upload bld/app/observatory-guide.md).
+OBSERVATORY_GUIDE := $(BLD)/app/observatory-guide.md
+observatory-guide: $(OBSERVATORY_GUIDE)
+$(OBSERVATORY_GUIDE): docs/TOUR-LANGUAGE.md lib/format/observatory-ids.lua $(wildcard registry/levels/*.yaml registry/questions/*.yaml registry/tours/*.yaml registry/models/*.yaml) registry/eras.yaml
+	$(PYTHON) $(APP_DIR)/scripts/generate.py
+	mkdir -p $(dir $@)
+	pandoc docs/TOUR-LANGUAGE.md --lua-filter=lib/format/observatory-ids.lua --standalone -t gfm --eol=lf -o $@
 
 check:
 	$(MAKE) -C paper check

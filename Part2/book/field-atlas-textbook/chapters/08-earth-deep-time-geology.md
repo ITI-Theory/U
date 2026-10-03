@@ -174,7 +174,7 @@ Every kind of memory in this chapter is physical and measurable: isotopes that r
 The phrase "a rock remembers" is used in two senses in this chapter, and the difference matters. In Section 8.3 it is literal: rate-and-state friction has a state variable that records history and decays over a measured slip distance. In the programme's reading it is a metaphor that places geological records alongside neural and emotional ones in a common grammar. The first can be measured in a laboratory; the second is a way of organising comparisons, and is useful only when it predicts something.
 
 ::: {.soma-machine}
-Take the question tour `#q=rock-memory`, *Can a rock remember?*: it opens the geological level with compare and contours on, starting from the Glarus thrust, and labels each step. The geological view draws a seismogram beside its block of folded rock. Then move one level up to `#level=planetary&lens=on`, the whole planet whose free oscillations Section 8.4 describes.
+Take the question tour `#q=rock-memory`, *Can a rock remember?*: it opens the geological level with compare and contours on, starting from the Glarus thrust, and labels each step. The geological view draws a seismogram beside its block of folded rock. Then move one level up to `#level=planetary&lens=on`, the whole planet whose free oscillations Section 8.4 describes. Tour stop 8: `#tour=textbook&stop=8`.
 :::
 
 ## Key Terms {.unnumbered}
