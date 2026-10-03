@@ -9,26 +9,27 @@ defaultTargets = [
 ]
 
 # ---------------------------------------------------------------------------
-# Dependencies — mathlib LAST so our v4.31.0 pin wins over transitive pins
+# Dependencies — mathlib LAST so our pin wins over transitive pins.
+# Lean, Mathlib and physlib at v4.33.0. OSforGFF (with GaussianField and
+# BochnerMinlos) at an upstream commit written for Mathlib v4.33.0-rc1, so no
+# local patches are needed (lean/patches/ is for the old v4.31.0 build).
 # ---------------------------------------------------------------------------
 
 [[require]]
-# physlib v4.31.0
 name = "physlib"
 git = "https://github.com/leanprover-community/physlib.git"
-rev = "v4.31.0"
+rev = "v4.33.0"
 
 [[require]]
-# OSforGFF at pre-PR6 commit — written for v4.29.0, patching transitive deps for v4.31.0
 name = "OSforGFF"
 git = "https://github.com/mrdouglasny/OSforGFF.git"
-rev = "60ab679e09b764de6dfe01767ae361ac1bea30b8"
+rev = "fef84a82937dfd2bb7f672108a72da329d3ef0fd"
 
 [[require]]
 # Mathlib LAST — overrides any transitive pins from OSforGFF
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"
-rev = "v4.31.0"
+rev = "v4.33.0"
 
 # ---------------------------------------------------------------------------
 # Library targets — one per proof file (flat directory, no module hierarchy)
