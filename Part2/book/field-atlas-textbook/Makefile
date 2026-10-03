@@ -1,9 +1,8 @@
-ROOT := $(abspath ../../..)
-BLD := $(ROOT)/bld/textbook
+include ../../../lib/mk/paths.mk
+BLD := $(TEXTBOOK_BLD)
 HTML := $(BLD)/html
 PANDOC ?= pandoc
 XELATEX ?= xelatex
-PYTHON ?= $(ROOT)/.venv/Scripts/python.exe
 
 CHAPTERS := $(wildcard chapters/*.md)
 APPENDICES := $(wildcard appendices/*.md)
@@ -17,7 +16,6 @@ PDF := $(BLD)/field-atlas-textbook-a3.pdf
 TEX := $(BLD)/field-atlas-textbook-a3.tex
 LOG := $(BLD)/field-atlas-textbook-a3.log
 HTML_INDEX := $(HTML)/index.html
-WIN_LOG := $(subst /,\,$(LOG))
 
 .PHONY: all a3 pdf html check clean help figures
 
@@ -25,7 +23,7 @@ all: a3
 pdf: a3
 
 $(BLD):
-	@if not exist "$@" mkdir "$@"
+	mkdir -p "$@"
 
 figures: figures/generated/ch01-zoom-response.png
 
@@ -44,23 +42,21 @@ a3: $(PDF)
 html: $(HTML_INDEX)
 
 $(HTML_INDEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) figures
-	@if not exist "$(HTML)" mkdir "$(HTML)"
-	@if not exist "$(HTML)\figures" mkdir "$(HTML)\figures"
-	@xcopy /E /I /Y figures "$(HTML)\figures" >nul
-	@if not exist "$(HTML)\..\field-atlas" mkdir "$(HTML)\..\field-atlas"
-	@copy /Y templates\textbook.css "$(HTML)\textbook.css" >nul
+	mkdir -p "$(HTML)"
+	cp -R figures "$(HTML)/"
+	cp templates/textbook.css "$(HTML)/textbook.css"
 	$(PANDOC) --defaults=defaults/html.yaml --eol=lf
 
 check: a3
 	$(PYTHON) scripts/check_prose.py
 	$(PYTHON) scripts/verify_answers.py
-	@if not exist "$(WIN_LOG)" exit /b 1
-	@findstr /C:"Float(s) lost" /C:"Floats and marginpars not allowed" "$(WIN_LOG)" >nul && exit /b 1 || exit /b 0
-	@findstr /I /C:"not found" /C:"missing character" /C:"cannot find file" "$(WIN_LOG)" >nul && exit /b 1 || exit /b 0
+	test -f "$(LOG)"
+	! grep -q -e 'Float(s) lost' -e 'Floats and marginpars not allowed' "$(LOG)"
+	! grep -q -i -e 'not found' -e 'missing character' -e 'cannot find file' "$(LOG)"
 	@echo "field-atlas-textbook check: PASS"
 
 clean:
-	@if exist "$(BLD)" rmdir /S /Q "$(BLD)"
+	rm -rf "$(BLD)"
 
 help:
 	@echo "Field Atlas Textbook targets:"
