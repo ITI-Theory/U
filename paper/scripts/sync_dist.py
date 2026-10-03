@@ -22,8 +22,8 @@ from pathlib import Path
 SCRIPTS = Path(__file__).parent          # U/paper/scripts/
 U_ROOT  = SCRIPTS.parent.parent          # U/
 DIST    = U_ROOT.parent / "Dist"         # ITI-Theory/Dist/
-PAPER   = U_ROOT / "paper" / "bld"
-FRAC    = U_ROOT / "Part2" / "fractal-programme" / "bld"
+PAPER   = U_ROOT / "bld" / "papers"
+FRAC    = U_ROOT / "bld" / "books"
 
 def cp(src: Path, dst: Path):
     if not src.exists():

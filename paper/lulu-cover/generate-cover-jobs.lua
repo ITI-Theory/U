@@ -30,9 +30,9 @@ for _, record in ipairs(records) do
     if record.build == "fractal" then
       local filename = record.bld_file
       if not filename then filename = "book-" .. record.slug:gsub("^ttheory%-book%-", "") .. ".pdf" end
-      interior = "../../books/T-Theory/bld/" .. filename
+      interior = "../../bld/books/" .. filename
     else
-      interior = "../bld/" .. (record.bld_file or (record.slug .. ".pdf"))
+      interior = "../../bld/papers/" .. (record.bld_file or (record.slug .. ".pdf"))
     end
     local target = "cover-" .. record.lulu
     table.insert(targets, target)

@@ -105,7 +105,7 @@ def build_inventory() -> Dict[str, Dict[str, Dict[str, str]]]:
         for lang in LANGS:
             suffix = "" if lang == "en" else f".{lang}"
             md_path = PAPER_DIR / "soma" / base / f"{base}{suffix}.md"
-            pdf_path = PAPER_DIR / "bld" / f"{base}{suffix}.pdf"
+            pdf_path = ROOT / "bld" / "papers" / f"{base}{suffix}.pdf"
             md_state = state_for(md_path)
             pdf_state = state_for(pdf_path)
             inventory[base][lang] = {

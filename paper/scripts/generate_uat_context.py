@@ -10,16 +10,19 @@ import yaml
 U_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR = U_ROOT / "paper"
 REGISTRY_PATH = U_ROOT.parent / "Dist" / "PAPERS.yaml"
-OUTPUT_DIR = PAPER_DIR / "bld" / "uat-context"
+OUTPUT_DIR = U_ROOT / "bld" / "papers" / "uat-context"
 
 TECHNICAL_SOURCES = [
     ("paper/FORMAT.md", "markdown"),
     ("paper/OMNIBUS_DOCUMENT_MODEL.md", "markdown"),
     ("paper/Makefile", "makefile"),
     ("paper/mk/common.mk", "makefile"),
+    ("paper/defaults/pdf-a4.yaml", "yaml"),
+    ("paper/defaults/omnibus.yaml", "yaml"),
+    ("paper/defaults/html.yaml", "yaml"),
+    ("paper/filters/omnibus.lua", "lua"),
     ("paper/journal.tex", "tex"),
     ("paper/omnibus.tex", "tex"),
-    ("paper/scripts/build_omnibus.py", "python"),
     ("paper/scripts/check_omnibus_format.py", "python"),
     ("paper/scripts/check_individual_format.py", "python"),
     ("paper/scripts/check_paper_references.py", "python"),
@@ -87,8 +90,8 @@ def build_context() -> str:
         "## Build Map",
         "",
         "1. `Dist/PAPERS.yaml` owns release identity, reference policy, C1v2 metadata, member order, and part openings.",
-        "2. `paper/scripts/build_omnibus.py` reads C1v2 and writes merged `bld/omnibus-body.md`.",
-        "3. `paper/Makefile` renders `omnibus-body.md` and invokes quality gates.",
+        "2. `paper/filters/omnibus.lua` reads C1v2 and assembles the omnibus in Pandoc AST.",
+        "3. `paper/Makefile` renders PDFs/HTML to `bld/papers/` via pandoc defaults and quality gates.",
         "4. `paper/scripts/stage_uat.py` copies PDFs and context into the hash manifest.",
         "",
     ]

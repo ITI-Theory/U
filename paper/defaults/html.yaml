@@ -1,0 +1,14 @@
+from: markdown+raw_tex+raw_html+fenced_divs+bracketed_spans+tex_math_dollars+pipe_tables+implicit_figures
+to: html5
+standalone: true
+toc: true
+number-sections: true
+eol: lf
+citeproc: true
+bibliography: bibliography.bib
+csl: apa-7th.csl
+filters:
+  - filters/strip-keywords.lua
+  - filters/boxes.lua
+metadata:
+  lang: en-GB

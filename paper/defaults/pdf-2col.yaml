@@ -1,0 +1,31 @@
+from: markdown+raw_tex+raw_html+fenced_divs+bracketed_spans+tex_math_dollars+pipe_tables+implicit_figures
+to: pdf
+pdf-engine: xelatex
+standalone: true
+toc: true
+number-sections: true
+eol: lf
+citeproc: true
+bibliography: bibliography.bib
+csl: apa-7th.csl
+syntax-highlighting: tango
+include-in-header:
+  - journal.tex
+filters:
+  - filters/strip-keywords.lua
+  - filters/boxes.lua
+  - filters/twocolumn-tables.lua
+variables:
+  colorlinks: true
+  linkcolor: NavyBlue
+  urlcolor: NavyBlue
+  toccolor: NavyBlue
+  hyperxmp: false
+  monofont: JetBrains Mono
+  fontsize: 10pt
+  linestretch: 1.2
+  classoption: twocolumn
+  geometry: a4paper,twoside,inner=18mm,outer=14mm,top=18mm,bottom=20mm
+  header-includes: |
+    \usepackage{amsmath}
+    \usepackage{amssymb}

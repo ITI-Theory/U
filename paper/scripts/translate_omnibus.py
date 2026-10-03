@@ -2,8 +2,8 @@
 """
 translate_omnibus.py — Translate omnibus-body-plus.md into DE, IT, FR.
 
-Build step: run after build_omnibus.py generates omnibus-body-plus.md.
-Output: paper/bld/omnibus-body-plus.{de,it,fr}.md
+Build step: run after an omnibus Markdown export is available.
+Output: bld/papers/omnibus-body-plus.{de,it,fr}.md
 
 Usage:
     python paper/scripts/translate_omnibus.py
@@ -12,7 +12,7 @@ Requires:
     pip install anthropic
     ANTHROPIC_API_KEY set in environment
 
-Chunk cache: paper/bld/.chunk_cache/  (safe to delete; allows resume after interruption)
+Chunk cache: bld/papers/.chunk_cache/  (safe to delete; allows resume after interruption)
 """
 import os, re, sys
 from pathlib import Path
@@ -20,7 +20,7 @@ from pathlib import Path
 # ── config ───────────────────────────────────────────────────────────────────
 SCRIPTS = Path(__file__).parent
 U_ROOT  = SCRIPTS.parent.parent
-SOURCE  = U_ROOT / "paper" / "bld" / "omnibus-body-plus.md"
+SOURCE  = U_ROOT / "bld" / "papers" / "omnibus-body-plus.md"
 
 MODEL  = "claude-opus-4-7"
 LANGS  = [
@@ -121,7 +121,7 @@ def main():
 
     if not SOURCE.exists():
         print(f"Error: source not found: {SOURCE}", file=sys.stderr)
-        print("Run build_omnibus.py first to generate omnibus-body-plus.md")
+        print("Generate bld/papers/omnibus-body-plus.md first")
         sys.exit(1)
 
     client   = anthropic.Anthropic(api_key=api_key)

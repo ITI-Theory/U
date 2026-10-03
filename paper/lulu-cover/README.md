@@ -31,7 +31,7 @@ From `U/paper`:
 make -C lulu-cover cover COVER=01-omnibus-v2
 ```
 
-The output is `paper/bld/lulu-covers/01-omnibus-v2-cover-wrap.pdf`.
+The output is written under `bld/lulu-covers/` at the repository root.
 
 The same identifier covers the complete Lulu set:
 

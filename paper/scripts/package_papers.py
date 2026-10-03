@@ -13,6 +13,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 ROOT = Path(__file__).resolve().parents[2]
 PAPER_DIR = ROOT / "paper"
+PAPERS_BLD = ROOT / "bld" / "papers"
 DIST_DIR = ROOT / "dist"
 
 INCLUDE_SUFFIXES = {".md", ".pdf", ".bib", ".csl", ".lua", ".lean"}
@@ -52,12 +53,16 @@ def build(version: str) -> Path:
     for src in sorted(PAPER_DIR.rglob("*")):
         if not src.is_file():
             continue
-        if src.is_relative_to(PAPER_DIR / "bld"):
-            continue
         if not should_include(src):
             continue
         rel = src.relative_to(PAPER_DIR)
         dst = staging / "paper" / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        manifest[str(dst.relative_to(staging)).replace(chr(92), "/")] = compute_sha256(dst)
+
+    for src in sorted(PAPERS_BLD.glob("*.pdf")):
+        dst = staging / "bld" / "papers" / src.name
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
         manifest[str(dst.relative_to(staging)).replace(chr(92), "/")] = compute_sha256(dst)

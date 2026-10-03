@@ -27,7 +27,7 @@ Makefile targets (in paper/)
 
 Output
 ------
-    paper/bld/<name>.de.md  (and .fr.md, .it.md)
+    bld/papers/<name>.de.md  (and .fr.md, .it.md)
     Picked up directly by 'make translations'.
 """
 
@@ -49,7 +49,7 @@ except ImportError:
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PAPER_DIR = REPO_ROOT / "paper"
-BLD_DIR   = PAPER_DIR / "bld"
+BLD_DIR   = REPO_ROOT / "bld" / "papers"
 
 # All papers that can be translated.
 # Mirrors TRANS_PAPERS in paper/Makefile (keep in sync).

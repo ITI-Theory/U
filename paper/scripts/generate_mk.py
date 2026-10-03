@@ -12,7 +12,7 @@ YAML   = U_ROOT.parent / "Dist" / "PAPERS.yaml"
 OUT    = U_ROOT / "lib" / "mk"
 OUT.mkdir(parents=True, exist_ok=True)
 
-SRCS = {"paper": "$(PAPER)", "fractal": "$(FRAC)"}
+SRCS = {"paper": "$(PAPERS_BLD)", "fractal": "$(BOOKS_BLD)"}
 DIST = "$(DIST)"
 
 data    = yaml.safe_load(YAML.read_text(encoding="utf-8"))

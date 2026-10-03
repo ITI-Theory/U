@@ -1,6 +1,7 @@
 ENGINE ?= xelatex
 LUA ?= texlua
-BUILD ?= ../bld/lulu-covers
+include ../../lib/mk/paths.mk
+BUILD ?= $(BLD)/lulu-covers
 COVER ?=
 INTERIOR ?=
 TITLE ?=
@@ -19,9 +20,9 @@ linen-wrap: check-inputs | $(BUILD)
 	@mv $(BUILD)/linen-wrap-proof.pdf $(BUILD)/$(COVER)-linen-wrap-proof.pdf
 
 proof-set:
-	$(MAKE) jacket linen-wrap COVER=01-omnibus-v2 INTERIOR=../bld/omnibus-a4.pdf TITLE="The Soma-Field: Collected Works" SUBTITLE="Second Edition"
-	$(MAKE) jacket linen-wrap COVER=03-ttheory-vol1-foundation INTERIOR=../../books/T-Theory/bld/ttheory-vol1.pdf TITLE="[T]-Theory Vol I: Foundation" SUBTITLE="Universal Somatic Field"
-	$(MAKE) jacket linen-wrap COVER=ttheory-book-gateway INTERIOR=../../books/T-Theory/bld/book-gateway.pdf TITLE="[T]-Theory: Gateway" SUBTITLE="Universal Somatic Field"
+	$(MAKE) jacket linen-wrap COVER=01-omnibus-v2 INTERIOR=$(PAPERS_BLD)/omnibus-a4.pdf TITLE="The Soma-Field: Collected Works" SUBTITLE="Second Edition"
+	$(MAKE) jacket linen-wrap COVER=03-ttheory-vol1-foundation INTERIOR=$(BOOKS_BLD)/ttheory-vol1.pdf TITLE="[T]-Theory Vol I: Foundation" SUBTITLE="Universal Somatic Field"
+	$(MAKE) jacket linen-wrap COVER=ttheory-book-gateway INTERIOR=$(BOOKS_BLD)/book-gateway.pdf TITLE="[T]-Theory: Gateway" SUBTITLE="Universal Somatic Field"
 
 all-covers:
 	$(LUA) generate-cover-jobs.lua ../../../Dist/PAPERS.yaml cover-jobs.mk

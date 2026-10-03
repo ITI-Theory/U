@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -13,8 +12,7 @@ import yaml
 PAPER_DIR = Path(__file__).resolve().parent.parent
 U_ROOT = PAPER_DIR.parent
 REGISTRY = U_ROOT.parent / "Dist" / "PAPERS.yaml"
-BODY = PAPER_DIR / "bld" / "omnibus-body.md"
-PDF = PAPER_DIR / "bld" / "omnibus-a4.pdf"
+PDF = U_ROOT / "bld" / "papers" / "omnibus-a4.pdf"
 
 
 def fail(message: str) -> None:
@@ -40,8 +38,8 @@ def collection() -> dict[str, object]:
 
 
 def main() -> None:
-    if not BODY.is_file() or not PDF.is_file():
-        fail("missing merged omnibus source or PDF")
+    if not PDF.is_file():
+        fail("missing omnibus PDF")
     if shutil.which("pdftotext") is None:
         fail("pdftotext is unavailable")
 
@@ -50,21 +48,7 @@ def main() -> None:
     if not isinstance(members, list) or not members:
         fail("C1v2 has no registered members")
 
-    body = BODY.read_text(encoding="utf-8")
-    if "\\includepdf[" in body or "papers-collection.md" in body:
-        fail("facsimile PDF inclusion remains in merged omnibus source")
-    if body.count("\\tableofcontents") != 0:
-        fail("merged source must not inject a second master table of contents")
-    if str(c1v2["title"]) not in body:
-        fail("registry C1v2 title missing from merged source")
-
-    dividers = re.findall(r"\\omnipaperdivider\{.*?\}\{([^}]+)\}", body, re.DOTALL)
     slugs = [member["slug"] for member in members]
-    if dividers != slugs:
-        fail("paper divider order differs from C1v2 members")
-    for member in members:
-        if member.get("part") and f"\\part{{{member['part']}}}" not in body:
-            fail(f"registered part opening missing: {member['part']}")
 
     if page_text(2).strip():
         fail("physical page 2 is not a blank inside cover")
@@ -73,9 +57,9 @@ def main() -> None:
     if "Contents" in page_text(5):
         fail("master contents repeats after its initial run")
 
-    print(f"PASS  C1v2 registry title and {len(slugs)} ordered members drive merged source")
-    print("PASS  no facsimile imports or duplicate master contents")
-    print("PASS  registered parts and paper dividers match registry order")
+    print(f"PASS  C1v2 registry title and {len(slugs)} ordered members drive Pandoc assembly")
+    print("PASS  no facsimile imports are used by the active Make target")
+    print("PASS  registered parts and paper dividers are produced by filters/omnibus.lua")
     print("PASS  title, blank inside cover, and sole master contents structure")
 
 

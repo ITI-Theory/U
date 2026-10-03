@@ -13,8 +13,8 @@ U_ROOT = Path(__file__).resolve().parent.parent.parent
 DIST_ROOT = U_ROOT.parent / "Dist"
 REGISTRY = DIST_ROOT / "PAPERS.yaml"
 STAGING = U_ROOT / "uat" / "staging" / "full"
-PAPER_BLD = U_ROOT / "paper" / "bld"
-FRAC_BLD = U_ROOT / "Part2" / "fractal-programme" / "bld"
+PAPER_BLD = U_ROOT / "bld" / "papers"
+FRAC_BLD = U_ROOT / "bld" / "books"
 
 
 def digest(path: Path) -> str:
@@ -76,7 +76,7 @@ def main() -> None:
             lulu_name = str(entry["lulu"])
             status = "READY"
             copy(records, f"lulu/{lulu_name}.pdf", candidate, status, status)
-            cover_root = PAPER_BLD / "lulu-covers"
+            cover_root = U_ROOT / "bld" / "lulu-covers"
             for suffix in ("linen-wrap-proof", "dust-jacket"):
                 copy(
                     records,
@@ -91,7 +91,7 @@ def main() -> None:
             domain = str(entry["slug"]).removeprefix("ttheory-book-")
             copy(records, f"stuff/ttheory-cheatsheet-{domain}.pdf", FRAC_BLD / f"booklet-{domain}.pdf")
 
-    for relative in ("paper/bld/uat-context/PAPERS.md", "paper/bld/uat-context/BUILD_CONTEXT.md", "uat/DISTRIBUTION_MIRROR.md", "uat/dev-handover.md"):
+    for relative in ("bld/papers/uat-context/PAPERS.md", "bld/papers/uat-context/BUILD_CONTEXT.md", "uat/DISTRIBUTION_MIRROR.md", "uat/dev-handover.md"):
         copy(records, f"_context/{Path(relative).name}", U_ROOT / relative)
 
     lines = ["# Full UAT Distribution Mirror", "", "| Status | U source | UAT destination | SHA-256 |", "|---|---|---|---|"]
