@@ -30,7 +30,9 @@ TECHNICAL_SOURCES = [
     ("paper/scripts/check_stale_problem_labels.py", "python"),
     ("paper/scripts/stage_uat.py", "python"),
     ("books/T-Theory/Makefile", "makefile"),
-    ("books/T-Theory/build_fractal_books.py", "python"),
+    ("books/T-Theory/filters/ttheory-assemble.lua", "lua"),
+    ("books/T-Theory/defaults/book-pdf.yaml", "yaml"),
+    ("books/T-Theory/defaults/omnibus-pdf.yaml", "yaml"),
     ("books/T-Theory/ttheory-packages.tex", "tex"),
     ("books/T-Theory/format/gateway-template.tex", "tex"),
 ]
