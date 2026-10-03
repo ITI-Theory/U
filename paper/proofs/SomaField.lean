@@ -302,7 +302,7 @@ theorem perceptIsPropagatorPole_nostalgia :
 /-- Energy descent: ‖W8ℝ·e‖² ≥ 0, so d/dt H(e) = -‖W8ℝ·e‖² ≤ 0. -/
 theorem nostalgia_convergence (e : Fin 8 → ℝ) :
     0 ≤ ∑ i : Fin 8, (W8ℝ.mulVec e i)^2 :=
-  Finset.sum_nonneg fun i _ => sq_nonneg _
+  Finset.sum_nonneg fun _i _ => sq_nonneg _
 
 /-- BS→CO coupling: one W8ℝ step from startlePatternℝ activates Contagion. -/
 theorem brainStemActivatesContagion :

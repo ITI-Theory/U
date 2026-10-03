@@ -232,11 +232,11 @@ theorem dyadic_energy_coupling_lowers_ℝ
 private lemma W_AB_symm (i j : Fin N16) : W_AB i j = W_AB j i := by
   simp only [W_AB]
   by_cases h1 : i.val < N8 <;> by_cases h2 : j.val < N8
-  · simp only [dif_pos h1, dif_pos h2, dif_pos h2, dif_pos h1]
+  · simp only [dif_pos h2, dif_pos h1]
     exact W8_symm ⟨i.val, h1⟩ ⟨j.val, h2⟩
-  · simp only [dif_pos h1, dif_neg h2, dif_neg h2, dif_pos h1, J, jOff_symm]
-  · simp only [dif_neg h1, dif_pos h2, dif_pos h2, dif_neg h1, J, jOff_symm]
-  · simp only [dif_neg h1, dif_neg h2, dif_neg h2, dif_neg h1]
+  · simp only [dif_neg h2, dif_pos h1, J, jOff_symm]
+  · simp only [dif_pos h2, dif_neg h1, J, jOff_symm]
+  · simp only [dif_neg h2, dif_neg h1]
     exact W8_symm ⟨i.val - N8, by have : N8 = 8 := rfl; have : N16 = 16 := rfl; omega⟩
              ⟨j.val - N8, by have : N8 = 8 := rfl; have : N16 = 16 := rfl; omega⟩
 
@@ -246,7 +246,7 @@ theorem dyadicPropagatorExists :
   refine ⟨0, fun i j => ?_⟩
   simp only [dyadicPropagatorMatrix, W_AB_symm i j]
   congr 1
-  simp [BEq.beq, beq_iff_eq, eq_comm]
+  simp [BEq.beq, eq_comm]
 
 /-- **Core inequality over ℝ (proved):**
     When coupling J and both field activations are non-negative,

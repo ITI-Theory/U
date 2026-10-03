@@ -72,7 +72,7 @@ theorem somaticRetardedPropagator_isRetarded (k vs : ℝ) :
 
 /-- Corollary: causality is preserved under scaling of coupling constants.
     If the decay factor is causal at (k, vs), it is causal at (sc·k, vs/sc). -/
-theorem retardedDecayFactor_isCausal_under_rescaling (k vs sc : ℝ) (hsc : 0 < sc) :
+theorem retardedDecayFactor_isCausal_under_rescaling (k vs sc : ℝ) (_hsc : 0 < sc) :
     IsCausal (retardedDecayFactor (sc * k) (vs / sc)) := fun τ hτ => by
   simp [retardedDecayFactor, show ¬ 0 < τ from not_lt.mpr hτ]
 

@@ -174,7 +174,7 @@ end SomaField.Variational
 theorem brecvema_G2_decomposition :
     Matrix.trace (W8ℝ - (6/5 : ℝ) • (1 : Matrix (Fin 8) (Fin 8) ℝ)) = 0 := by
   simp only [Matrix.trace, Matrix.diag, Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply,
-             W8ℝ, eq_self_iff_true, if_true, Finset.sum_const_zero]
+             W8ℝ, if_true]
   norm_num
 
 /-- Corollary: The symmetry-breaking δW has 7 independent degrees of freedom

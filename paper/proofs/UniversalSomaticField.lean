@@ -97,7 +97,7 @@ theorem scale_invariance_inhabited (n : ScaleLevel) :
     fully symbolic proof; OSforGFF supports the free Gaussian-field formal
     model, while the distributional SHO identity and the USF interpretation
     remain separate. This declaration is a placeholder proving `True`. -/
-theorem greens_fn_is_SHO (n : ScaleLevel) (eq : FieldEquation n) (x : ℝ) :
+theorem greens_fn_is_SHO (n : ScaleLevel) (_eq : FieldEquation n) (_x : ℝ) :
     True := trivial
 
 /-! ## 2. The 20-Scale Zoom Dial -/
@@ -223,7 +223,7 @@ theorem threshold_positive : 0 < consciousnessThreshold := by
     at every scale.  Scale 7 is the brain / CEMI scale. -/
 theorem sft_encapsulates_cemi :
     -- The CEMI field is the Scale-7 restriction of the universal somatic field
-    ∃ (eq7 : FieldEquation ⟨7, by norm_num⟩), True :=
+    ∃ (_eq7 : FieldEquation ⟨7, by norm_num⟩), True :=
   ⟨(scale_invariance_inhabited ⟨7, by norm_num⟩).some, trivial⟩
 
 /-- Schreiber Modal HoTT: physics is formalised in dependent type theory.
@@ -358,7 +358,7 @@ theorem usf_is_mtheory_retract :
 /-- The M-theory/EMF connection: the somatic sector at Scale 7 is the CEMI field.
     The cosmological sector (Scale 19–20) is the P21/P22 dark sector.
     Same lens, different scale parameter. -/
-theorem cemi_is_scale7_view (L : SomaticLens) :
+theorem cemi_is_scale7_view (_L : SomaticLens) :
     ∃ (m : SomaField.Universal.ScaleLevel), m.val = 7 :=
   ⟨⟨7, by norm_num⟩, rfl⟩
 
@@ -386,7 +386,7 @@ def canonicalTherapeuticLens : TherapeuticLens where
   view    := fun m => m.2
   set     := fun m c => (m.1, c)
   viewSet := fun _ _ => rfl
-  setView := fun m => Prod.ext rfl rfl
+  setView := fun _m => Prod.ext rfl rfl
   setSet  := fun _ _ _ => rfl
 
 

@@ -5,8 +5,9 @@ import OSforGFF.OS.Master
 
 ## Status
 
-Fully proved — 0 sorries. OSforGFF is pinned at pre-PR6 commit (Lean v4.29.0 era),
-compatible with our v4.31.0 toolchain.
+Fully proved — 0 sorries. Built against OSforGFF at upstream HEAD with Lean and
+Mathlib v4.33.0. Upstream is now dimension-generic (`μ_GFF d m`); this file uses the
+four-dimensional instance `gaussianFreeField_satisfies_all_OS_axioms_dim4`.
 
 ## The Connection
 
@@ -14,10 +15,9 @@ Douglas, Hoback, Mei, Nissim (2026) proved in Lean 4 — fully, 0 sorries, 0 axi
 ~32,000 lines — that the massive Gaussian Free Field satisfies all 5 Osterwalder-
 Schrader axioms:
 
-  gaussianFreeField_satisfies_all_OS_axioms (m : ℝ) [Fact (0 < m)] :
-    OS0_Analyticity (μ_GFF m) ∧ OS1_Regularity (μ_GFF m) ∧
-    OS2_EuclideanInvariance (μ_GFF m) ∧ OS3_ReflectionPositivity (μ_GFF m) ∧
-    OS4_Clustering (μ_GFF m) ∧ OS4_Ergodicity (μ_GFF m)
+  gaussianFreeField_satisfies_all_OS_axioms_dim4 (m : ℝ) [Fact (0 < m)] :
+    SatisfiesAllOS (μ_GFF 4 m)
+  -- SatisfiesAllOS bundles OS0, OS1, OS2, OS3, OS4 clustering and OS4 ergodicity
 
   Repository: https://github.com/mrdouglasny/OSforGFF
 
@@ -59,7 +59,7 @@ The interacting theory (with Hopfield coupling κ) is the next step.
 
 ## Proof
 
-The proof is a single application of `gaussianFreeField_satisfies_all_OS_axioms`
+The proof is a single application of `gaussianFreeField_satisfies_all_OS_axioms_dim4`
 from OSforGFF (Douglas, Hoback, Mei, Nissim 2026) under the identification m_GFF ↔ k_USF.
 -/
 
@@ -75,28 +75,28 @@ def USF_mass_identification (k : ℝ) : ℝ := k
 
 /-- OS0: The USF generating functional Z[f] = exp(-½ C(f,f)) is analytic. -/
 theorem USF_OS0_Analyticity (k : ℝ) [Fact (0 < k)] :
-    OS0_Analyticity (μ_GFF k) :=
-  (gaussianFreeField_satisfies_all_OS_axioms k).os0
+    OS0_Analyticity (μ_GFF 4 k) :=
+  (gaussianFreeField_satisfies_all_OS_axioms_dim4 k).os0
 
 /-- OS3: The free-field USF satisfies Reflection Positivity.
     Guarantees a physical Hilbert space via Wick rotation. -/
 theorem USF_OS3_ReflectionPositivity (k : ℝ) [Fact (0 < k)] :
-    OS3_ReflectionPositivity (μ_GFF k) :=
-  (gaussianFreeField_satisfies_all_OS_axioms k).os3
+    OS3_ReflectionPositivity (μ_GFF 4 k) :=
+  (gaussianFreeField_satisfies_all_OS_axioms_dim4 k).os3
 
 /-- OS4: The free-field USF satisfies Clustering — the exponential decay
     K(τ) = K₀·exp(-τ/τ_m)·θ(τ) proved in TemporalDynamics.lean. -/
 theorem USF_OS4_Clustering (k : ℝ) [Fact (0 < k)] :
-    OS4_Clustering (μ_GFF k) :=
-  (gaussianFreeField_satisfies_all_OS_axioms k).os4_clustering
+    OS4_Clustering (μ_GFF 4 k) :=
+  (gaussianFreeField_satisfies_all_OS_axioms_dim4 k).os4_clustering
 
 /-- **MASTER THEOREM**: The free-field USF satisfies all 5 Osterwalder-Schrader
     axioms for a Euclidean quantum field theory.
 
-    Proved via `gaussianFreeField_satisfies_all_OS_axioms` (Douglas, Hoback,
+    Proved via `gaussianFreeField_satisfies_all_OS_axioms_dim4` (Douglas, Hoback,
     Mei, Nissim 2026) under the identification m_GFF ↔ k_USF. -/
 theorem freefield_USF_satisfies_OS_axioms (k : ℝ) [Fact (0 < k)] :
-    SatisfiesAllOS (μ_GFF k) :=
-  gaussianFreeField_satisfies_all_OS_axioms k
+    SatisfiesAllOS (μ_GFF 4 k) :=
+  gaussianFreeField_satisfies_all_OS_axioms_dim4 k
 
 end SomaField.OSAxioms

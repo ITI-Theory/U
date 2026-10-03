@@ -125,7 +125,7 @@ def limbicBoundary : Fin 2 → LimbicAxis1D
 def limbicInterior (x : LimbicAxis1D) : Prop := -1 < x ∧ x < 1
 
 theorem boundary_not_interior (i : Fin 2) : ¬ limbicInterior (limbicBoundary i) := by
-  fin_cases i <;> simp [limbicBoundary, limbicInterior] <;> norm_num
+  fin_cases i <;> simp [limbicBoundary, limbicInterior]
 
 /-! ## 7. Proof Obligations -/
 

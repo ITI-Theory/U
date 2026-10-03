@@ -66,7 +66,7 @@ noncomputable def geometricVelocity (v₀ sc : ℝ) (σ : Fin 20) : ℝ :=
     on which the field equation is scale-invariant. Proved directly from
     physlib's `planeWave_waveEquation`. -/
 theorem geometricFlow_waveEquation
-    (k₀ v₀ sc : ℝ) (hk₀ : 0 < k₀) (hsc : 1 < sc)
+    (k₀ v₀ sc : ℝ) (_hk₀ : 0 < k₀) (_hsc : 1 < sc)
     (f₀ : ℝ → EuclideanSpace ℝ (Fin 3)) (hf₀ : ContDiff ℝ 2 f₀)
     (s : Direction 3) (σ : Fin 20) :
     let v_σ := geometricVelocity v₀ sc σ

@@ -114,7 +114,7 @@ theorem sft_ne_classical (W : ℝ) (hW : 0 < W) :
 
 /-- The SFT tunnel gate moves the state TOWARD the awe pattern.
     (Stated as a direction theorem, not magnitude.) -/
-theorem sft_gate_toward_awe (W : ℝ) (hW : 0 < W) (i : Fin N8) :
+theorem sft_gate_toward_awe (W : ℝ) (_hW : 0 < W) (_i : Fin N8) :
     True := by  -- placeholder; full statement pending ISS-009
   trivial
 

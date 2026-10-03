@@ -106,7 +106,7 @@ theorem dm_gauge_coupling_vanishes :
 theorem brane_localisation_from_g2 :
     ∃ (R_c : ℝ) (g4 : ℝ), R_c > 0 ∧ g4 > 0 :=
   let ⟨hw, _⟩ := g2_implies_hw_compactification
-  let ⟨g11, hg11, hcoupling⟩ := hw_zero_mode_4d_coupling hw
+  let ⟨g11, _hg11, hcoupling⟩ := hw_zero_mode_4d_coupling hw
   ⟨hw.R_c, hw_4d_coupling hw g11, hw.R_pos, hcoupling⟩
 
 /-- **PROVED**: the HW zero mode exists and is non-trivial. -/

@@ -69,7 +69,7 @@ noncomputable def BFSSCortex.emergentCoords (M : BFSSCortex) : Fin 3 → ℝ :=
   M.hX.eigenvalues
 
 /-- The BFSS cortex has exactly 3 real eigenvalues — consistent with 3D cortex (D₉–D₁₁). -/
-theorem BFSSCortex.dim_is_3 (M : BFSSCortex) :
+theorem BFSSCortex.dim_is_3 (_M : BFSSCortex) :
     Fintype.card (Fin 3) = 3 := by decide
 
 /-- Cortex coordinates are real — a consequence of the Hermitian spectral theorem.
@@ -199,11 +199,11 @@ theorem ttheory_bfss_identification :
 /-- PROOF OBLIGATION: The D3-brane gauge field satisfies the Yang-Mills equations
     on the brane worldvolume. This would require Physlib's classical field theory
     and the definition of curvature on the brane. -/
-axiom d3brane_yang_mills : ∀ (F : D3BraneField), True  -- placeholder
+axiom d3brane_yang_mills : ∀ (_F : D3BraneField), True  -- placeholder
 
 /-- PROOF OBLIGATION: The BFSS matrix commutator [Xᵢ, Xⱼ] vanishes in the classical limit,
     recovering commutative spacetime geometry. Requires matrix commutator machinery. -/
-axiom bfss_classical_limit : ∀ (M₁ M₂ : BFSSCortex),
+axiom bfss_classical_limit : ∀ (_M₁ _M₂ : BFSSCortex),
     ∃ (comm_vanishes : Prop), comm_vanishes
 
 end SomaField.BFSS

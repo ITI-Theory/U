@@ -4,8 +4,8 @@ defaultTargets = [
   "DyadicField", "LimbicTunnel", "MTheoryIsomorphism", "LimbicHopfield",
   "SwarmPropagator", "UniversalSomaticField", "Movie",
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
-  "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms",
-  "LocalGR", "G2Compactification", "BRECVEMAField", "LocalGeometry"
+  "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms", "CosmologicalConstant",
+  "LocalGR", "G2Compactification", "BRECVEMAField", "BRECVEMAVariational", "LocalGeometry"
 ]
 
 # ---------------------------------------------------------------------------

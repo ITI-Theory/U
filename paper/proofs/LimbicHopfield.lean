@@ -98,7 +98,7 @@ theorem softmax_sum_one {n : ℕ} (hn : 0 < n) (β : ℝ) (z : Fin n → ℝ) :
   rw [← Finset.sum_mul, mul_inv_cancel₀ (ne_of_gt hden)]
 
 /-- Log-sum-exp at inverse temperature β. -/
-noncomputable def lse {n : ℕ} (β : ℝ) (hβ : 0 < β) (z : Fin n → ℝ) : ℝ :=
+noncomputable def lse {n : ℕ} (β : ℝ) (_hβ : 0 < β) (z : Fin n → ℝ) : ℝ :=
   (1 / β) * Real.log (∑ i, Real.exp (β * z i))
 
 /-- LSE upper bounds the max: lse(β, z) ≥ max(z). -/
@@ -176,7 +176,7 @@ structure LimbicState where
 def modulatedTemp (T₀ σ : ℝ) (ls : LimbicState) : ℝ := T₀ + σ * ls.φ
 
 /-- The FM-HN inverse temperature: β(φ) = 1 / T(φ). -/
-noncomputable def modulatedBeta (T₀ σ : ℝ) (hT₀ : 0 < T₀) (ls : LimbicState) : ℝ :=
+noncomputable def modulatedBeta (T₀ σ : ℝ) (_hT₀ : 0 < T₀) (ls : LimbicState) : ℝ :=
   1 / modulatedTemp T₀ σ ls
 
 /-- The FM-HN weight modulation: W(J, γ, φ) = W₀ + γ·φ·J.

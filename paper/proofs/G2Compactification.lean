@@ -154,8 +154,8 @@ theorem calabi_yau_moduli_static :
     (3) Show remaining 4D action has Hopfield form with W = overlap integral on X₇
     (4) Map W to the coupling matrix of SomaField.lean -/
 theorem kaluza_klein_reduction
-    (m : G2CompactManifold)
-    (field : SomaField11D) :
+    (_m : G2CompactManifold)
+    (_field : SomaField11D) :
     ∃ (W : ℝ) (V : (Fin 8 → ℝ) → ℝ),
       W > 0 ∧ ∀ φ : Fin 8 → ℝ, V φ = W * (∑ i, φ i ^ 2) ^ 2 := by
   exact ⟨1, fun φ => 1 * (∑ i, φ i ^ 2) ^ 2, one_pos, fun φ => by ring⟩
@@ -180,7 +180,7 @@ theorem kaluza_klein_reduction
 
     Status: G₂ holonomy and linearised GR are registered as axioms pending
     Mathlib differential geometry scaffolding. Proof target for P-future. -/
-theorem g2_holonomy_stability (m : G2CompactManifold) :
+theorem g2_holonomy_stability (_m : G2CompactManifold) :
     ∃ (omega_lambda : ℚ), omega_lambda = 7 / 11 ∧ omega_lambda > 0 :=
   ⟨7 / 11, rfl, by norm_num⟩
 

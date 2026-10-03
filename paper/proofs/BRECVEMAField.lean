@@ -106,7 +106,7 @@ theorem brecvema_compact_iso (c : CompactX7) :
     somatic_to_compact (compact_to_somatic c) = c := by
   apply Prod.ext
   · funext ⟨i, hi⟩
-    simp [somatic_to_compact, compact_to_somatic, dif_pos hi]
+    simp [somatic_to_compact, compact_to_somatic]
   · apply Prod.ext
     · simp [somatic_to_compact, compact_to_somatic]
     · funext ⟨i, hi⟩

@@ -87,7 +87,7 @@ def V (p : BarrierParam) (x : ℝ) : ℝ := p.W * (x ^ 2 - 1) ^ 2
 
 /-- The two wells are at x = ±1 (V = 0). -/
 theorem wells_at_pm1 (p : BarrierParam) : V p 1 = 0 ∧ V p (-1) = 0 := by
-  constructor <;> simp [V] <;> ring
+  constructor <;> simp [V]
 
 /-- The barrier peak is at x = 0 with height W. -/
 theorem barrier_height (p : BarrierParam) : V p 0 = p.W := by
@@ -176,7 +176,7 @@ def barrierValues : List ℕ := [8, 10, 12]
     PROOF OBLIGATION: Lyapunov argument using `gradient_traps_near_neg1`.
     The proof requires showing that the flow x'(t) = −V'(x(t)) satisfies
     x(t) < 0 for all t whenever x(0) ∈ (−1, 0). -/
-theorem classical_trapped (p : BarrierParam) :
+theorem classical_trapped (_p : BarrierParam) :
     ∀ x₀ : ℝ, x₀ < 0 →
     ∀ t : ℝ, 0 ≤ t →
     -- x(t) stays negative under gradient flow (classical dynamics)
