@@ -1,8 +1,12 @@
 # [T]-Theory books Makefile: Make + pandoc defaults + Lua filters
-ROOT := $(abspath ../..)
-BLD := $(ROOT)/bld/books
+include ../../lib/mk/paths.mk
+BLD := $(BOOKS_BLD)
 PANDOC ?= pandoc
+ifeq ($(OS),Windows_NT)
 GS ?= gswin64c
+else
+GS ?= gs
+endif
 
 DOMAINS := gateway physics complex-systems formal-mathematics \
            neuroscience consciousness computer-science \
@@ -51,7 +55,7 @@ $(DOMAINS:%=book-%): book-%: $(BLD)/book-%.pdf
 	@echo "Built: $<"
 
 $(BLD):
-	if not exist "$(subst /,\,$@)" mkdir "$(subst /,\,$@)"
+	mkdir -p "$@"
 
 $(BLD)/noir-page.pdf: noir-page.md defaults/noir-pdf.yaml noir-header.tex | $(BLD)
 	$(PANDOC) $< --defaults=defaults/noir-pdf.yaml --output=$@
@@ -117,7 +121,7 @@ check:
 	@echo "T-Theory build toolchain available."
 
 clean:
-	if exist "$(subst /,\,$(BLD))" rmdir /S /Q "$(subst /,\,$(BLD))"
+	rm -rf "$(BLD)"
 
 help:
 	@echo "Targets: all pdf html booklets vol1 vol1-10pt vol2 omnibus fractal-thesis book-<domain> check clean"
