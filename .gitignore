@@ -29,6 +29,9 @@ node_modules/
 *.fls
 *.fdb_latexmk
 
+# All build output goes to /bld/ (docs/BUILD.md); legacy per-project bld/ below.
+/bld/
+
 # Candidate PDFs and assembled manuscript bodies stay local to U. Accepted
 # release artifacts are promoted deliberately to the Dist repository.
 /paper/bld/
