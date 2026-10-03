@@ -1,0 +1,17 @@
+defaults:
+  - ../../../lib/defaults/base-html.yaml
+metadata-file: atlas.yaml
+input-files:
+  - atlas.md
+output-file: ../../../bld/atlas/html/index.html
+resource-path:
+  - .
+  - ../../..
+bibliography: ../../../paper/bibliography.bib
+csl: ../../../paper/apa-7th.csl
+css:
+  - field-atlas.css
+filters:
+  - ../../../lib/format/registry.lua
+  - ../../../lib/format/plates.lua
+  - ../../../lib/format/columns.lua

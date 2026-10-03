@@ -1,0 +1,22 @@
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: atlas.yaml
+input-files:
+  - atlas.md
+output-file: ../../../bld/atlas/field-atlas-a3.tex
+to: latex
+resource-path:
+  - .
+  - ../../..
+bibliography: ../../../paper/bibliography.bib
+csl: ../../../paper/apa-7th.csl
+include-in-header:
+  - templates/a3-header.tex
+variables:
+  geometry: paperwidth=420mm,paperheight=297mm,margin=18mm,top=20mm,bottom=20mm
+  fontsize: 11pt
+  linestretch: 1.12
+filters:
+  - ../../../lib/format/registry.lua
+  - ../../../lib/format/plates.lua
+  - ../../../lib/format/columns.lua

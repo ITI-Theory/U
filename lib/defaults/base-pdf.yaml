@@ -1,0 +1,15 @@
+from: markdown+yaml_metadata_block+tex_math_dollars+citations+smart
+standalone: true
+toc: true
+toc-depth: 1
+citeproc: true
+eol: lf
+variables:
+  documentclass: book
+  classoption:
+    - openany
+  mainfont: TeX Gyre Pagella
+  monofont: Consolas
+  colorlinks: true
+  linkcolor: NavyBlue
+  urlcolor: NavyBlue

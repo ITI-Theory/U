@@ -1,0 +1,8 @@
+from: markdown+yaml_metadata_block+tex_math_dollars+citations+smart
+to: html5
+standalone: true
+toc: true
+toc-depth: 2
+citeproc: true
+mathml: true
+eol: lf
