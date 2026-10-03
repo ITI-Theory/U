@@ -161,8 +161,13 @@ function Pandoc(doc)
   read_registry(path)
   if next(papers) == nil then return nil end
 
-  -- Convert bare ids in running text (not in code, maths or link targets).
-  doc = doc:walk({ Inlines = walk_inlines })
+  -- Convert bare ids in running text (not in code, maths, link targets or
+  -- existing citations, whose content holds the literal "[@P1; @P10]").
+  doc = doc:walk({
+    traverse = "topdown",
+    Cite = function(c) return c, false end,
+    Inlines = walk_inlines,
+  })
 
   -- Add every cited programme paper to the reference list.
   local used = {}

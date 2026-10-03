@@ -1,9 +1,7 @@
 # Appendix D: Answer Key {-}
 
 ::: {.answer-key}
-Chapters 1 and 2 give a full worked solution after every problem; the answers to later chapters are collected here until those chapters are rewritten in the same form.
-
-Chapter 3: a $2.0\,\mathrm{eV}$ photon has wavelength $620\,\mathrm{nm}$; $E_4=-0.85\,\mathrm{eV}$.
+Chapters 1 to 3 give a full worked solution after every problem; the answers to later chapters are collected here until those chapters are rewritten in the same form.
 
 Chapter 4: doubling radius multiplies $\lambda$ by $\sqrt2$; one length constant leaves $e^{-1}=0.368$ of the voltage; sodium and potassium gates are two Hodgkin-Huxley channel variables. Chapter 5: $e^{-3}=0.050$; a ten-second delay with $\tau_m=5\,\mathrm{s}$ leaves $0.135$. Chapter 6: $\sin^{-1}(0.4)=23.6^\circ$; uniformly spread phases give $r\approx0$.
 
