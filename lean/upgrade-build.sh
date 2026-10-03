@@ -5,7 +5,7 @@
 #
 # Steps: install the toolchain (elan does this automatically), resolve the new
 # dependency versions, download Mathlib's prebuilt files, build every proof.
-set -u
+set -u -o pipefail
 cd "$(dirname "$0")/.."
 mkdir -p bld
 LOG=bld/lean-upgrade.log
@@ -13,8 +13,19 @@ LOG=bld/lean-upgrade.log
 say() { echo "== $*" | tee -a "$LOG"; }
 
 say "toolchain: $(cat lean-toolchain)"
+say "0/3 reset dependency checkouts with local edits (they are re-downloadable;"
+say "    our compatibility patches are re-applied in step 1b)"
+for dir in .lake/packages/*/; do
+  [ -d "$dir/.git" ] || continue
+  if [ -n "$(git -C "$dir" status --porcelain 2>/dev/null)" ]; then
+    git -C "$dir" reset --hard -q && git -C "$dir" clean -fdq
+    say "   reset $(basename "$dir")"
+  fi
+done
+
 say "1/3 lake update (resolves physlib, mathlib, OSforGFF and their dependencies)"
-lake update 2>&1 | tee -a "$LOG" || { say "lake update FAILED"; exit 1; }
+lake update 2>&1 | tee -a "$LOG"
+[ "${PIPESTATUS[0]}" -eq 0 ] || { say "lake update FAILED - see $LOG"; exit 1; }
 
 say "1b  apply compatibility patches from lean/patches/v4.33/ (skipped if already applied)"
 for patch in lean/patches/v4.33/*.patch; do
