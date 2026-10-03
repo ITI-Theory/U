@@ -249,13 +249,66 @@ Relative fluctuation of $N$ particles
 6. A claim is `derived-under-assumptions`. What would you need to check before relying on it?
 :::
 
-## Problems {.unnumbered}
+## Worked Homework {.unnumbered}
 
-::: {.problems}
-1. A $1000\,\mathrm{Hz}$ tone travels in air at $343\,\mathrm{m\,s^{-1}}$. Find its wavelength.
-2. The high E string of a guitar is $0.648\,\mathrm{m}$ long and has a fundamental of $329.6\,\mathrm{Hz}$. Find the wave speed on the string.
-3. How many orders of magnitude separate a cell ($10^{-6}\,\mathrm{m}$) from a person ($10^{0}\,\mathrm{m}$), and a person from the Earth ($1.27\times10^{7}\,\mathrm{m}$)?
-4. How many air molecules does a cube $100\,\mathrm{nm}$ on a side contain at room conditions ($n = 2.5\times10^{25}\,\mathrm{m^{-3}}$), and what is the relative fluctuation?
-5. A neuron membrane has $R_m = 10\,\mathrm{k}\Omega\,\mathrm{cm^2}$ and $C_m = 1\,\mu\mathrm{F\,cm^{-2}}$. Find its time constant.
-6. The Sun is $1.39\times10^{9}\,\mathrm{m}$ across. Find its light-crossing time and compare it with the five-minute oscillations seen at its surface.
+::: {.problems title="Problem 1.1 — A higher note"}
+A $1000\,\mathrm{Hz}$ tone travels in air at $343\,\mathrm{m\,s^{-1}}$. Find its wavelength.
+:::
+
+::: {.example title="Solution 1.1"}
+**Solution.** $\lambda = v/f = 343/1000 = 0.343\,\mathrm{m}$.
+
+**Significance.** Higher pitch means shorter wavelength in the same medium. *Baseline:* the wave equation and its solutions are in Penrose, chapter 19 [@penrose2004road].
+:::
+
+::: {.problems title="Problem 1.2 — The high E string"}
+The high E string of a guitar is $0.648\,\mathrm{m}$ long with a fundamental of $329.6\,\mathrm{Hz}$. Find the wave speed on the string.
+:::
+
+::: {.example title="Solution 1.2"}
+**Strategy.** Use $f_1 = v/2L$, as in Example 1.3.
+
+**Solution.** $v = 2Lf_1 = 2\times0.648\times329.6 = 427\,\mathrm{m\,s^{-1}}$.
+
+**Significance.** The same length as the A string but three times the frequency: the thinner, tighter E string carries waves three times faster.
+:::
+
+::: {.problems title="Problem 1.3 — Counting powers of ten"}
+How many orders of magnitude separate a cell ($10^{-6}\,\mathrm{m}$) from a person ($10^{0}\,\mathrm{m}$), and a person from the Earth ($1.27\times10^{7}\,\mathrm{m}$)?
+:::
+
+::: {.example title="Solution 1.3"}
+**Solution.** Cell to person: $0 - (-6) = 6$ orders. Person to Earth: $\log_{10}(1.27\times10^{7}) = 7.1$, about seven orders.
+
+**Significance.** The person sits roughly halfway, in powers of ten, between a cell and a planet. **Try it:** `#level=cellular-synaptic` then `#level=human-vertebrate` then `#level=planetary`.
+:::
+
+::: {.problems title="Problem 1.4 — Where does the continuum end?"}
+How many air molecules are in a cube $100\,\mathrm{nm}$ on a side at room conditions ($n = 2.5\times10^{25}\,\mathrm{m^{-3}}$), and what is the relative fluctuation?
+:::
+
+::: {.example title="Solution 1.4"}
+**Solution.** $V = (10^{-7}\,\mathrm{m})^3 = 10^{-21}\,\mathrm{m^3}$, so $N = 2.5\times10^{4}$ and $1/\sqrt{N} = 0.0063$, a fluctuation of $0.63\,\%$.
+
+**Significance.** Between Example 1.5's $1\,\mu\mathrm{m}$ ($0.02\,\%$) and $10\,\mathrm{nm}$ ($20\,\%$) lies the scale where "pressure at a point" stops being a sharp number.
+:::
+
+::: {.problems title="Problem 1.5 — A faster membrane"}
+A neuron membrane has $R_m = 10\,\mathrm{k}\Omega\,\mathrm{cm^2}$ and $C_m = 1\,\mu\mathrm{F\,cm^{-2}}$. Find its time constant.
+:::
+
+::: {.example title="Solution 1.5"}
+**Solution.** $\tau = R_mC_m = (10^{4}\,\Omega\,\mathrm{cm^2})(10^{-6}\,\mathrm{F\,cm^{-2}}) = 10^{-2}\,\mathrm{s} = 10\,\mathrm{ms}$.
+
+**Significance.** The area units cancel: the time constant is a property of the membrane material, not of the cell's size. Chapter 4 builds the cable equation on it. **Try it:** `#level=cellular-synaptic&lens=on`.
+:::
+
+::: {.problems title="Problem 1.6 — How slow is the Sun?"}
+The Sun is $1.39\times10^{9}\,\mathrm{m}$ across. Find its light-crossing time and compare it with the five-minute oscillations seen at its surface.
+:::
+
+::: {.example title="Solution 1.6"}
+**Solution.** $t_c = 1.39\times10^{9}/3.00\times10^{8} = 4.6\,\mathrm{s}$. Five minutes is $300\,\mathrm{s}$, about $65$ times longer.
+
+**Significance.** Like the atom and the galaxy in Example 1.4, the Sun responds within two orders of magnitude of its light-crossing time: its oscillations are sound waves crossing hot plasma. **Try it:** `#level=stellar`.
 :::
