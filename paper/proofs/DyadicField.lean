@@ -194,7 +194,8 @@ private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) := by
   sorry  -- ISS-005: Fin.sum_univ_add proof; simp_rw rewrites incomplete
 
-/-- **PROVED:** Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0. -/
+/-- Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0.
+    Proof complete except `dyadic_block_decomp` above (still `sorry`, ISS-005). -/
 theorem dyadic_energy_coupling_lowers_ℝ
     (a b : Fin 8 → ℝ)
     (ha : ∀ i, 0 ≤ a i) (hb : ∀ i, 0 ≤ b i) :
@@ -267,7 +268,7 @@ theorem dyadic_energy_coupling_lowers
     (ha : ∀ i, 0 ≤ a i) (hb : ∀ i, 0 ≤ b i)
     (h : ∀ i j, 0 ≤ J i j) :
     dyadicEnergy (mkDyadic a b) ≤ energy8 a + energy8 b :=
-  sorry  -- ℝ transfer; mathematical claim proved in dyadic_energy_coupling_lowers_ℝ
+  sorry  -- ℝ transfer; see dyadic_energy_coupling_lowers_ℝ (itself pending dyadic_block_decomp)
 
 
 -- ════════════════════════════════════════════════════════════════════════════
