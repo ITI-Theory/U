@@ -202,6 +202,15 @@ else
   echo "$LULU_CHECK" | sed 's/^/    /'
 fi
 
+hdr "14. Programme references stand on their own"
+REFS_CHECK=$(py paper/scripts/check_programme_refs.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "No bare paper ids in built documents; registry mirror and instructions agree"
+else
+  fail "Programme reference check"
+fi
+echo "$REFS_CHECK" | sed 's/^/    /'
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

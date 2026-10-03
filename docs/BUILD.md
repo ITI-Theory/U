@@ -30,6 +30,15 @@ textbook edition) is built the same way:
    divs and attributes (`::: {.example}`, `![...](...){.plate}`), never with
    raw LaTeX or HTML in the source. Raw LaTeX belongs in templates and in
    format-guarded filter output only.
+4a. **Programme papers are cited, never named by bare id.** Write `[@P21]`
+   (or `[@P10; @P11]`), not "P21": a reader of any single document must be
+   able to find the paper. `lib/format/programme-refs.lua` turns every
+   record of `registry/papers.yaml` (a mirror of `Dist/PAPERS.yaml`,
+   refreshed by `make generate`) into a reference-list entry and converts
+   legacy bare ids; citeproc runs after it (`- type: citeproc` at the end of
+   the filters list). `bin/release-check` fails on bare ids in built
+   documents, on a stale mirror, and on project instructions that disagree
+   with the registry.
 5. **No build scripts that write markup.** Python (or any other language)
    must not generate Markdown, LaTeX or HTML for a document build. Allowed
    uses of Python: validators (`check_*.py`), figure generation (matplotlib

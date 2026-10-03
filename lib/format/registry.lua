@@ -516,7 +516,12 @@ local function questions_part(questions, labels)
     local image = "figures/app/questions/" .. q.id .. ".png"
     if exists(ATLAS .. "/" .. image) then out[#out + 1] = image_block("", image, {"question-image"}, {width="90%"}) end
     if q.next then out[#out + 1] = para("**Next:** [question-" .. q.next .. "](#question-" .. q.next .. ")") end
-    if q.sources and #q.sources > 0 then out[#out + 1] = para("Sources: `" .. table.concat(q.sources, "`, `") .. "`.") end
+    if q.sources and #q.sources > 0 then
+        -- programme ids (P21) and bibliography keys both become citations
+        local keys = {}
+        for _, s in ipairs(q.sources) do keys[#keys + 1] = "@" .. s end
+        out[#out + 1] = para("Sources: [" .. table.concat(keys, "; ") .. "].")
+      end
   end
   return split_columns(out)
 end

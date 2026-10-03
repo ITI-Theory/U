@@ -1,3 +1,5 @@
+# citeproc runs explicitly after the filters (see filters list)
+citeproc: false
 defaults:
   - ../../../lib/defaults/base-html.yaml
 metadata-file: atlas.yaml
@@ -14,5 +16,9 @@ css:
 filters:
   - ../../../lib/format/registry.lua
   - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/programme-refs.lua
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua
+  - type: citeproc
+metadata:
+  programme-papers: ../../../registry/papers.yaml

@@ -1,0 +1,1072 @@
+# MIRROR of Dist/PAPERS.yaml - do not edit here. Refresh with: make generate
+# PAPERS.yaml — Master paper registry for the Universal Somatic Field research programme
+# Single source of truth for: paper IDs, slugs, titles, DOIs, status, and file paths.
+#
+# STATUS values:
+#   published         — live on Zenodo, current version is latest
+#   needs-new-version — published but content changed; upload new version via Zenodo "New version"
+#   pending-review    — PDF ready but content needs review before upload
+#   pending-upload    — PDF ready; upload to Zenodo as new record
+#
+# FILE paths are relative to Dist/.
+# DOI is the concept DOI (resolves to latest version).
+# TITLE is the public Zenodo record title; SOURCE_TITLE (where present) is the
+#   title used inside the paper itself.
+# DISCIPLINE names the subject/register used for indexing.
+# LEVEL values describe scholarly register/depth, not validation status.
+# LEVEL vocabulary: popular, undergraduate, masters, phd, phd-proposal,
+#   phd-programme, or ranges such as undergraduate-masters and masters-phd.
+# All records: CC BY 4.0 · Alistair Johnson · ORCID 0009-0007-2194-0850 · Zurich, Switzerland.
+#
+# Mirrors (copy-on-release from this file):
+#   U/.github/copilot-instructions.md  — AI context table
+#   .github-private/profile/README.md  — org member profile
+#   .github/profile/README.md          — public org profile
+#
+# Process runbook: Dist/zenodo/README.md
+# Release log:     Dist/README.md
+
+---
+
+canonical_papers:
+
+  - id: P1
+    slug: soma-field-paper
+    title: "The Soma-Field: A Wave-Based Model of Emotional Dynamics"
+    source_title: "The Soma-Field: A Wave-Based Model of Emotional Dynamics and Its Clinical Implications"
+    discipline: "Computational / theoretical psychology"
+    level: "masters"
+    doi: "10.5281/zenodo.20350515"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/soma-field-paper.pdf
+    make_class: paper
+    make_langs: multi
+    make_alias: main
+    nlm: P01-soma-field
+
+  - id: P2
+    slug: quantum-soma-penrose
+    title: "Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Attractor Reachability"
+    discipline: "Computational physics; quantum annealing simulation"
+    level: "masters"
+    doi: "10.5281/zenodo.20351230"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/quantum-soma-penrose.pdf
+    make_class: paper
+    make_langs: multi
+    make_alias: quantum
+    nlm: P02-quantum-penrose
+
+  - id: P3
+    slug: mathematical-co-identification
+    title: "Mathematical Co-identification: A Formal Model of Therapeutic Attunement"
+    source_title: "Mathematical Co-identification: A Method for Structural Import Across Scientific Domains"
+    discipline: "Philosophy of science; methodology"
+    level: "masters"
+    doi: "10.5281/zenodo.20287981"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/mathematical-co-identification.pdf
+    make_class: citeproc
+    make_langs: multi
+    make_alias: method
+    nlm: P03-mathematical-co-identification
+
+  - id: P4
+    slug: soma-field-synthesis
+    title: "The Soma-Field Research Programme: Method, Model, and Computational Test"
+    discipline: "Programme overview"
+    level: "masters"
+    doi: "10.5281/zenodo.20460118"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/soma-field-synthesis.pdf
+    make_class: citeproc
+    make_langs: multi
+    make_alias: synthesis
+    nlm: P04-synthesis
+
+  - id: P5
+    slug: soma-physical-substrate
+    title: "The Physical Substrate of the Soma-Field"
+    discipline: "Psychophysiology; interoception"
+    level: "masters"
+    doi: "10.5281/zenodo.20460357"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/soma-physical-substrate.pdf
+    make_class: citeproc
+    make_langs: multi
+    make_alias: substrate
+    nlm: P05-physical-substrate
+
+  - id: P6
+    slug: soma-field-book
+    title: "A Voyage into Trauma: The Soma-Field as Lived Experience"
+    source_title: "A Voyage into Trauma"
+    discipline: "Autoethnography; trauma studies"
+    level: "undergraduate"
+    doi: "10.5281/zenodo.20460455"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/soma-field-book.pdf
+    make_class: book
+    make_langs: multi
+    make_alias: book
+    nlm: P06-field-book
+
+  - id: P7
+    slug: soma-field-patient-pov
+    title: "Field Notes from the Inside: A Patient Perspective on the Soma-Field"
+    source_title: "Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics"
+    discipline: "Lived-experience research; autoethnography"
+    level: "masters"
+    doi: "10.5281/zenodo.20460523"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/soma-field-patient-pov.pdf
+    make_class: paper
+    make_langs: multi
+    make_alias: pov
+    nlm: P07-patient-pov
+
+  - id: P8
+    slug: the-tensor
+    title: "The Tensor: Formal Structure of the Universal Somatic Field"
+    source_title: "The Tensor"
+    discipline: "Art theory; mathematical aesthetics"
+    level: "undergraduate-masters"
+    doi: "10.5281/zenodo.20460613"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/the-tensor.pdf
+    make_class: book
+    make_langs: multi
+    make_alias: tensor
+    nlm: P08-the-tensor
+
+  - id: P9
+    slug: music-affect-dynamics
+    title: "Music-Induced Affect Dynamics: A Soma-Field Model of the BRECVEMA Mechanisms"
+    source_title: "A Dynamical Field Model of Music-Induced Affect: Beyond the Valence–Arousal Circumplex"
+    discipline: "Music psychology; affective modelling"
+    level: "masters"
+    doi: "10.5281/zenodo.20460685"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/music-affect-dynamics.pdf
+    make_class: citeproc
+    make_langs: multi
+    make_alias: music
+    nlm: P09-music-affect
+
+  - id: P10
+    slug: soma-temporal-dynamics
+    title: "Temporal Dynamics of the Universal Somatic Field: Retarded Propagators, Transition Rates, and the Memory of Feeling"
+    discipline: "Dynamical systems; mathematical psychology"
+    level: "masters"
+    doi: "10.5281/zenodo.21872784"
+    zenodo_version_doi: "10.5281/zenodo.21872785"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/soma-temporal-dynamics.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: temporal
+    nlm: P10-temporal-dynamics
+
+  - id: P11
+    slug: zoomable-somatic-field
+    title: "The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture"
+    source_title: "The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture Unifying Quantum, Biological, and Cosmological Dynamics"
+    discipline: "Theoretical physics; complex systems"
+    level: "masters-phd-proposal"
+    doi: "10.5281/zenodo.21873390"
+    zenodo_version_doi: "10.5281/zenodo.21873391"
+    status: needs-new-version
+    notes: "Hardened claims and aligned Planck 2018 values on 2026-10-01; upload new version."
+    file: papers/zoomable-somatic-field.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: zsf
+    references_minimum: 5
+    nlm: P11-zoomable-field
+
+  - id: P12
+    slug: experimental-validation
+    title: "Experimental Benchmarks for the Universal Somatic Field Framework"
+    discipline: "Experimental design; computational benchmarking"
+    level: "masters"
+    doi: "10.5281/zenodo.21873455"
+    zenodo_version_doi: "10.5281/zenodo.21873456"
+    status: needs-new-version
+    notes: "Hardened benchmark framing and proof/simulation language on 2026-10-01; upload new version."
+    file: papers/experimental-validation.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: exp
+    references_minimum: 5
+    nlm: P12-experimental-validation
+
+  - id: P13
+    slug: missing-limbic-layer
+    title: "The Missing Limbic Layer: A Somatic Field Extension of Hopfield Networks via the Correspondence Principle"
+    discipline: "Machine learning; neural networks"
+    level: "masters"
+    doi: "10.5281/zenodo.21873645"
+    zenodo_version_doi: "10.5281/zenodo.21873646"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/missing-limbic-layer.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: limbic
+    nlm: P13-missing-limbic-layer
+
+  - id: P14
+    slug: usf-euclidean-qft
+    title: "The Universal Somatic Field as a Euclidean Quantum Field Theory: Osterwalder–Schrader Axiom Verification via Lean 4"
+    discipline: "Mathematical physics"
+    level: "masters"
+    doi: "10.5281/zenodo.21874214"
+    zenodo_version_doi: "10.5281/zenodo.21874215"
+    status: needs-new-version
+    notes: "Hardened OS-axiom/GFF framing and proof status on 2026-10-01; upload new version."
+    file: papers/P14-usf-euclidean-qft.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: osqft
+    references_minimum: 5
+    nlm: P14-euclidean-qft
+
+  - id: P15
+    slug: usf-interacting-qft
+    title: "Osterwalder–Schrader Axioms for the Interacting Universal Somatic Field: Reflection Positivity under Hopfield Coupling"
+    discipline: "Mathematical physics"
+    level: "phd-programme"
+    doi: "10.5281/zenodo.21874331"
+    zenodo_version_doi: "10.5281/zenodo.21874332"
+    status: needs-new-version
+    notes: "Hardened interacting-QFT programme framing and proof status on 2026-10-01; upload new version."
+    file: papers/P15-usf-interacting-qft.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: intqft
+    references_minimum: 5
+    nlm: P15-interacting-qft
+
+  - id: P16
+    slug: geographic-somatic-field
+    title: "The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes"
+    discipline: "Human geography; social physics"
+    level: "undergraduate-masters"
+    doi: "10.5281/zenodo.21874415"
+    zenodo_version_doi: "10.5281/zenodo.21874416"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/geographic-somatic-field.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: geo
+    nlm: P16-geographic-field
+
+  - id: P17
+    slug: gestalt-field-dynamics
+    title: "The Mathematical Foundations of Gestalt Field Dynamics: Formalising the Soma-Field via Russellian Neutral Monism"
+    discipline: "Psychotherapy theory; philosophy"
+    level: "masters"
+    doi: "10.5281/zenodo.21874503"
+    zenodo_version_doi: "10.5281/zenodo.21874504"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/gestalt-field-dynamics.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: gestalt
+    nlm: P17-gestalt-dynamics
+
+  - id: P18
+    slug: preverbal-manifold
+    title: "The Pre-Verbal Manifold: A Soma-Field Case Study of Acquired Neurodevelopmental Phenotypes"
+    source_title: "The Pre-Verbal Manifold"
+    discipline: "Developmental psychology; N=1 case study"
+    level: "masters"
+    doi: "10.5281/zenodo.21874564"
+    zenodo_version_doi: "10.5281/zenodo.21874565"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/preverbal-manifold.pdf
+    make_class: paper
+    make_langs: en
+    make_alias: preverbal
+    nlm: P18-preverbal-manifold
+
+  - id: P19
+    slug: swarm-propagator
+    title: "Single-Step Multi-Agent Coordination via Green's Function Propagators: A Macroscopic Brane Projection Framework"
+    discipline: "Distributed systems; swarm robotics"
+    level: "undergraduate-masters"
+    doi: "10.5281/zenodo.21874622"
+    zenodo_version_doi: "10.5281/zenodo.21874623"
+    status: needs-new-version
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    file: papers/swarm-propagator.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: swarm
+    nlm: P19-swarm-propagator
+
+  - id: P20
+    slug: universal-somatic-field
+    title: "The Universal Somatic Field: Green's Functions as Scale-Invariant Oscillators across Twenty Scale Levels"
+    discipline: "Theoretical physics; consciousness studies"
+    level: "masters-phd-proposal"
+    doi: "10.5281/zenodo.21874683"
+    zenodo_version_doi: "10.5281/zenodo.21874684"
+    status: needs-new-version
+    notes: "Hardened universal-field and consciousness framing on 2026-10-01; upload new version."
+    file: papers/universal-somatic-field.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: usf
+    nlm: P20-universal-somatic-field
+
+  - id: P21
+    slug: cosmological-constant-derivation
+    title: "The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field"
+    discipline: "Cosmology (speculative)"
+    level: "masters"
+    doi: null
+    status: pending-review
+    notes: "Hardened and aligned to Planck 2018 on 2026-10-01; ready for author review before upload."
+    file: papers/cosmological-constant-derivation.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: cosconst
+    references_minimum: 5
+    nlm: P21-cosmological-constant
+
+  - id: P22
+    slug: dark-matter-spatial-vacuum
+    title: "Dark Matter as the Spatial Vacuum of the Universal Somatic Field: Ω_DM = 3/11"
+    discipline: "Cosmology (speculative)"
+    level: "masters"
+    doi: null
+    status: pending-upload
+    notes: "Hardened and aligned Ω_DM comparison to Planck 2018 on 2026-10-01; ready for upload."
+    file: papers/dark-matter-spatial-vacuum.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: darkmatter
+    references_minimum: 5
+    nlm: P22-dark-matter-spatial-vacuum
+
+  - id: P23
+    slug: ttheory-phenomena
+    title: "The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Cultural Programme"
+    discipline: "Philosophy; cultural theory"
+    level: "masters"
+    doi: null
+    status: pending-upload
+    notes: "Hardened fixed-point and cultural-programme framing on 2026-10-01; ready for upload."
+    file: papers/ttheory-phenomena.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: phenomena
+    references_minimum: 5
+    nlm: P23-ttheory-phenomena
+
+  - id: P24
+    slug: g2-symmetry-breaking
+    title: "G₂ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal"
+    discipline: "Algebra; mathematical physics"
+    level: "masters"
+    doi: null
+    status: pending-upload
+    notes: "Hardened G₂ symmetry-breaking and biological-attractor framing on 2026-10-01; ready for upload."
+    file: papers/g2-symmetry-breaking.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: g2break
+    references_minimum: 5
+    nlm: P24-g2-symmetry-breaking
+
+datasets:
+
+  - id: E1
+    slug: quant-exp-1
+    title: "QUANT-EXP-1: Quantum Annealing Reachability Experiment on an 8-Mode Soma-Field Hamiltonian"
+    discipline: "Computational physics; simulation dataset"
+    level: "masters"
+    doi: "10.5281/zenodo.20438007"
+    zenodo_version_doi: "10.5281/zenodo.20438008"
+    status: published
+    kind: experiment
+    build: manual
+    notes: "Published experiment artifact bundle; no single Dist PDF is managed for this record."
+
+  - id: D1
+    slug: SFT-DEMO-CASE
+    title: "SFT Applied: A Worked Clinical Example"
+    source_title: "SFT Applied: A Self-Case Analysis"
+    discipline: "Clinical psychology; case illustration"
+    level: "undergraduate-masters"
+    doi: "10.5281/zenodo.20459825"
+    status: needs-new-version
+    notes: "Hardened clinical-case language and claim scope on 2026-10-01; upload new version."
+    build: paper
+    file: papers/SFT-DEMO-CASE.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: demo-case
+
+  - id: D2
+    slug: lean-proofs-appendix
+    title: "Lean 4 Formal Proofs Appendix"
+    source_title: "Appendix: Formal Lean 4 Verifications"
+    discipline: "Formal methods; interactive theorem proving"
+    level: "masters"
+    doi: "10.5281/zenodo.20437858"
+    status: needs-new-version
+    notes: "Hardened Lean proof-status language on 2026-10-01; upload new version."
+    file: papers/lean-proofs-appendix.pdf
+    make_class: ~
+    make_targets: [lean-appendix]
+    references: none
+    nlm: 05-lean-proofs-appendix
+
+collections:
+
+  - id: C1
+    slug: omnibus
+    title: "The Soma-Field: Collected Works — 1st Edition (P1–P9)"
+    discipline: "Paper omnibus"
+    level: "masters"
+    doi: "10.5281/zenodo.20460771"
+    status: published
+    distribution: false
+    file: papers/omnibus-a4.pdf
+    file_royal: papers/omnibus-royal.pdf
+    build: paper
+    make_targets: [omnibus-a4]
+    lulu_spine_title: "Soma-Field Collected Works"
+    lulu_spine_author: "Alistair Johnson"
+
+  - id: C1v2
+    slug: omnibus-v2
+    title: "The Soma-Field: Collected Works — Second Edition"
+    discipline: "Paper omnibus"
+    level: "masters"
+    author: "Alistair Johnson"
+    orcid: "0009-0007-2194-0850"
+    institute: "Independent Researcher, Zurich, Switzerland"
+    date: "2026"
+    description: "Complete collected works of the Soma-Field and Universal Somatic Field research programme: from lay introduction to formal proofs, quantum experiment, clinical applications, AI extensions, the universal scale-invariant theory, and the [T]-Theory gateway."
+    doi: "10.5281/zenodo.20460771"
+    zenodo_version_doi: "10.5281/zenodo.21873942"
+    status: needs-new-version
+    notes: "Rebuilt with the hardened 2026-10-01 corpus; upload new version."
+    file: papers/omnibus-a4.pdf
+    file_royal: papers/omnibus-royal.pdf
+    build: paper
+    bld_file: omnibus-a4.pdf
+    bld_file_royal: omnibus-royal.pdf
+    make_targets: [omnibus-a4]
+    make_targets_royal: [omnibus-royal]
+    nlm_min: 01-omnibus-v2
+    nlm: 01-omnibus-v2
+    lulu: 01-omnibus-v2
+    lulu_page_limit: 800
+    zenodo_file: zenodo/C1v2-omnibus.pdf
+    nlm_uat: C1v2-omnibus-v2
+    lulu_spine_title: "Soma-Field Collected Works v2"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "The Soma-Field: Collected Works — Second Edition"
+    lulu_category: "Science & Medicine"
+    members:
+      - slug: soma-field-synthesis
+      - slug: soma-field-book
+        part: "Part I: The Body Knows"
+      - slug: the-tensor
+        part: "Interlude: The Tensor --- A Film in Fields"
+      - slug: soma-field-paper
+        part: "Part II: The Formal Apparatus"
+      - slug: mathematical-co-identification
+      - slug: quantum-soma-penrose
+      - slug: soma-physical-substrate
+      - slug: music-affect-dynamics
+      - slug: gestalt-field-dynamics
+      - slug: soma-field-patient-pov
+        part: "Part III: Clinical Demonstrations"
+      - slug: SFT-DEMO-CASE
+      - slug: preverbal-manifold
+      - slug: missing-limbic-layer
+        part: "Part IV: Extensions and Applications"
+      - slug: swarm-propagator
+      - slug: geographic-somatic-field
+      - slug: universal-somatic-field
+        part: "Part V: The Universal Theory"
+      - slug: zoomable-somatic-field
+      - slug: experimental-validation
+      - slug: cosmological-constant-derivation
+      - slug: dark-matter-spatial-vacuum
+      - slug: g2-symmetry-breaking
+      - slug: ttheory-phenomena
+        part: "Part VI: The Gateway"
+      - slug: soma-temporal-dynamics
+        part: "Appendix A: Temporal Dynamics"
+        appendix: true
+      - slug: lean-proofs-appendix
+        part: "Appendix B: Formal Lean 4 Verifications"
+
+  - id: C2
+    slug: ttheory-fractal-programme
+    title: "[T]-Theory: The Complete Fractal Programme — Fifteen Domain Books on the Universal Somatic Field"
+    discipline: "Fractal Programme collection"
+    level: "masters-phd"
+    doi: "10.5281/zenodo.21873721"
+    zenodo_version_doi: "10.5281/zenodo.21873722"
+    status: needs-new-version
+    notes: "Rebuilt with source-owned books and hardened claims on 2026-10-01; upload new version."
+    file: papers/ttheory-omnibus.pdf
+    zenodo_file: zenodo/C2-ttheory-fractal-programme.pdf
+    nlm_uat: C2-fractal-thesis
+    build: fractal
+    bld_file: ttheory-omnibus.pdf
+    make_targets: [fractal-thesis]
+    nlm_min: 02-ttheory-fractal-programme
+    nlm: 02-fractal-programme
+    lulu_spine_title: "[T]-Theory Fractal"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: The Complete Fractal Programme"
+    lulu_category: "Science & Medicine"
+
+  - id: C2-vol1
+    slug: ttheory-vol1
+    title: "[T]-Theory: The Fractal Programme — Volume I: Foundation"
+    discipline: "Fractal Programme collection"
+    level: "masters-phd"
+    doi: ~
+    status: pending-upload
+    notes: "Volume title aligned with builder and source-owned books on 2026-10-01."
+    file: papers/ttheory-vol1.pdf
+    build: fractal
+    bld_file: ttheory-vol1.pdf
+    make_targets: [vol1]
+    nlm: 03-fractal-vol1-foundation
+    lulu: 03-ttheory-vol1-foundation
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] Vol 1 Foundation"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: The Fractal Programme — Volume I: Foundation"
+    lulu_category: "Science & Medicine"
+
+  - id: C2-vol2
+    slug: ttheory-vol2
+    title: "[T]-Theory: The Fractal Programme — Volume II: Application"
+    discipline: "Fractal Programme collection"
+    level: "masters-phd"
+    doi: ~
+    status: pending-upload
+    notes: "Volume title aligned with builder and source-owned books on 2026-10-01."
+    file: papers/ttheory-vol2.pdf
+    build: fractal
+    bld_file: ttheory-vol2.pdf
+    make_targets: [vol2]
+    nlm: 04-fractal-vol2-application
+    lulu: 04-ttheory-vol2-application
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] Vol 2 Application"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: The Fractal Programme — Volume II: Application"
+    lulu_category: "Science & Medicine"
+
+  - id: CS1
+    slug: ttheory-cheatsheet
+    title: "[T]-Theory Cheatsheet"
+    discipline: "Public cheatsheet"
+    level: "popular"
+    doi: ~
+    status: published
+    file: papers/ttheory-cheatsheet.pdf
+    build: fractal
+    bld_file: booklet-gateway.pdf
+    nlm: cheatsheet
+    stuff: ttheory-cheatsheet.pdf
+
+# ── Fractal Programme: 15 domain books ──────────────────────────────────────
+
+  - id: C2-book-01
+    slug: ttheory-book-gateway
+    title: "[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos"
+    discipline: "Science communication; programme gateway"
+    level: "popular"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-gateway.pdf
+    build: fractal
+    lulu: ttheory-book-gateway
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 1 Gateway"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Red
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos"
+    lulu_category: "Science & Medicine"
+    green_id: "The Universal Propagator - G(x,x') at the Hubble scale"
+    block_identity: "Formal Gateway"
+    block_colour: Red
+    spine_code: GATEWAY
+    book_number: 1
+    audience: "The Generalist"
+    hud_scale: "Scale 20: Cosmological Horizon"
+    hud_equation: "(nabla^2 + k^2)G(x, x') = -delta^3(x - x')"
+    hud_operator: "Universal Green Propagator"
+    hud_invariant: "One response grammar across physical, somatic, and collective scales"
+    hud_observable: "Cross-scale response and correlation structure"
+    hud_status: "Programme map; cross-domain identifications remain hypotheses."
+
+  - id: C2-book-02
+    slug: ttheory-book-physics
+    title: "[T]-Theory: Physics"
+    discipline: "Theoretical physics"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-physics.pdf
+    build: fractal
+    lulu: ttheory-book-physics
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 2 Physics"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Physics"
+    lulu_category: "Science & Medicine"
+    green_id: "The Master Green's Function - (nabla^2+k^2)G=delta in relativistic field theory"
+    block_identity: "Formal Foundation"
+    block_colour: Black
+    spine_code: PHYSICS
+    book_number: 2
+    audience: "Astrophysicist"
+    hud_scale: "Scale 0 (Planck) to Scale 19 (Cosmological)"
+    hud_equation: "(nabla^2 + k^2)G = delta"
+    hud_operator: "Relativistic Green function"
+    hud_invariant: "Propagator form under stated scale-map assumptions"
+    hud_observable: "Mode spectrum, correlation length, and model-derived density comparisons"
+    hud_status: "Formal model structure checks; physical identification needs measurement."
+
+  - id: C2-book-05
+    slug: ttheory-book-neuroscience
+    title: "[T]-Theory: Neuroscience"
+    discipline: "Neuroscience"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-neuroscience.pdf
+    build: fractal
+    lulu: ttheory-book-neuroscience
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 5 Neuroscience"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Neuroscience"
+    lulu_category: "Science & Medicine"
+    green_id: "The Cortical EMF Propagator - macroscopic field from synchronised neural firing"
+    block_identity: "Conscious Hardware"
+    block_colour: Green
+    spine_code: NEURO
+    book_number: 5
+    audience: "Neuroscientist"
+    hud_scale: "Scale 6: Local Circuit / Scale 7: Whole Brain"
+    hud_equation: "ell = 1/k"
+    hud_operator: "Cortical electromagnetic field propagator"
+    hud_invariant: "Synchronized local activity can be modelled as a shared macroscopic field"
+    hud_observable: "EEG coherence, phase locking, and correlation length"
+    hud_status: "CEMI/Hopfield bridge is a testable neurophysiology hypothesis."
+
+  - id: C2-book-09
+    slug: ttheory-book-clinical-psychology
+    title: "[T]-Theory: Trauma"
+    discipline: "Clinical psychology; trauma studies"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-clinical-psychology.pdf
+    build: fractal
+    lulu: ttheory-book-clinical-psychology
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 9 Trauma"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Trauma"
+    lulu_category: "Science & Medicine"
+    green_id: "Trauma-Well Resolution - escape probability from a somatic attractor basin"
+    block_identity: "Clinical Soma"
+    block_colour: Tan
+    spine_code: TRAUMA
+    book_number: 9
+    audience: "Clinical Therapist"
+    hud_scale: "Scale 8: Person, nervous system, and therapeutic time"
+    hud_equation: "P_escape ~ e^(-Delta H/T)"
+    hud_operator: "Trauma-well escape propagator"
+    hud_invariant: "The person is not identical with the attractor landscape they traverse"
+    hud_observable: "Recovery trajectory, basin-depth proxies, and intervention response"
+    hud_status: "Clinical geometry is interpretive; care claims require validation."
+
+  - id: C2-book-07
+    slug: ttheory-book-computer-science
+    title: "[T]-Theory: Computing"
+    discipline: "Computer science; formal verification"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-computer-science.pdf
+    build: fractal
+    lulu: ttheory-book-computer-science
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 7 Computing"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Computing"
+    lulu_category: "Science & Medicine"
+    green_id: "Affective State Propagator - computational kernel for agent field dynamics"
+    block_identity: "Conscious Hardware"
+    block_colour: Green
+    spine_code: CS
+    book_number: 7
+    audience: "Lean 4 Engineer"
+    hud_scale: "Scale 5: Proof kernels, software agents, and multi-agent networks"
+    hud_equation: "x(t+1) = G x(t) + J(t)"
+    hud_operator: "Verified affective-state transition kernel"
+    hud_invariant: "Typed proofs preserve declared constraints inside the model"
+    hud_observable: "Kernel-checked theorems, runtime cost, and coordination accuracy"
+    hud_status: "Lean checks formal kernels; agent-alignment claims remain empirical."
+
+  - id: C2-book-04
+    slug: ttheory-book-formal-mathematics
+    title: "[T]-Theory: Mathematics"
+    discipline: "Formal mathematics; type theory"
+    level: "masters-phd"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-formal-mathematics.pdf
+    build: fractal
+    lulu: ttheory-book-formal-mathematics
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 4 Mathematics"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Mathematics"
+    lulu_category: "Science & Medicine"
+    green_id: "Functorial Green's Function - category-theoretic propagator between field spaces"
+    block_identity: "Formal Foundation"
+    block_colour: Black
+    spine_code: MATH
+    book_number: 4
+    audience: "Type Theorist"
+    hud_scale: "Scale 20: Field configurations and the 20-scale type hierarchy"
+    hud_equation: "F : Cs -> Cs+1"
+    hud_operator: "Functorial Green transformation"
+    hud_invariant: "Structure-preserving maps between scale-indexed field spaces"
+    hud_observable: "Lean proof dependencies and transition-map coherence"
+    hud_status: "Typed structures check under stated axioms; readings remain interpretive."
+
+  - id: C2-book-06
+    slug: ttheory-book-consciousness
+    title: "[T]-Theory: Philosophy"
+    discipline: "Philosophy; consciousness studies"
+    level: "phd"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-consciousness.pdf
+    build: fractal
+    lulu: ttheory-book-consciousness
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 6 Philosophy"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Philosophy"
+    lulu_category: "Science & Medicine"
+    green_id: "Conscious Percept Propagator Pole - threshold Tc (formal predicate; physical threshold open)"
+    block_identity: "Conscious Hardware"
+    block_colour: Green
+    spine_code: MIND
+    book_number: 6
+    audience: "Philosopher"
+    hud_scale: "Scale 7: Whole Brain; the time axis from the Big Bang to the history of philosophy"
+    hud_equation: "phi(t) = integral of K(t - t') J(t') dt'"
+    hud_operator: "Time-invariant response kernel K(t - t')"
+    hud_invariant: "One response grammar across eras: the parameters drift, the form of the kernel does not"
+    hud_observable: "Threshold crossing, reportable integration, and the social reception of ideas"
+    hud_status: "Formal threshold is arithmetic; consciousness reading remains open."
+
+  - id: C2-book-03
+    slug: ttheory-book-complex-systems
+    title: "[T]-Theory: Complex Systems"
+    discipline: "Complex systems"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-complex-systems.pdf
+    build: fractal
+    lulu: ttheory-book-complex-systems
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 3 Complex Systems"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Complex Systems"
+    lulu_category: "Science & Medicine"
+    green_id: "Scale-Invariant Propagator - G invariant under RG flow"
+    block_identity: "Formal Foundation"
+    block_colour: Black
+    spine_code: COMPLEX
+    book_number: 3
+    audience: "Network Researcher"
+    hud_scale: "Scale 8 (Organism) to Scale 12 (National Institution)"
+    hud_equation: "Gs approximately Gs+1 near a renormalisation fixed point"
+    hud_operator: "Functorial Green transformation"
+    hud_invariant: "Typed proofs preserve declared field constraints"
+    hud_observable: "Kernel-checked theorems, coordination accuracy, and collective criticality"
+    hud_status: "Kernel checks model structure; universality remains empirical."
+
+  - id: C2-book-08
+    slug: ttheory-book-music-arts
+    title: "[T]-Theory: Music and the Arts"
+    discipline: "Music and arts; affective modelling"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-music-arts.pdf
+    build: fractal
+    lulu: ttheory-book-music-arts
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 8 Music Arts"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Music and the Arts"
+    lulu_category: "Science & Medicine"
+    green_id: "Aesthetic Field Perturbation - BRECVEMA impulse response to musical stimulus"
+    block_identity: "Clinical Soma"
+    block_colour: Tan
+    spine_code: MUSIC
+    book_number: 8
+    audience: "The Musicologist"
+    hud_scale: "Scale 8: Auditory stimulus, bodily response, memory, and affect"
+    hud_equation: "delta e(t) = Gaffect * s(t)"
+    hud_operator: "BRECVEMA impulse-response propagator"
+    hud_invariant: "A stimulus couples through multiple affective pathways"
+    hud_observable: "Timing, bodily entrainment, and physiological response"
+    hud_status: "Affect dynamics model; replication and calibration remain pending."
+
+  - id: C2-book-12
+    slug: ttheory-book-geophysics
+    title: "[T]-Theory: Geophysics"
+    discipline: "Geophysics"
+    level: "undergraduate-masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-geophysics.pdf
+    build: fractal
+    lulu: ttheory-book-geophysics
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 12 Geophysics"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Geophysics"
+    lulu_category: "Science & Medicine"
+    green_id: "Tectonic Memory Propagator - fault zone memory as field pattern"
+    block_identity: "Collective Field"
+    block_colour: Navy
+    spine_code: GEO
+    book_number: 12
+    audience: "Geophysicist"
+    hud_scale: "Scale 15-17: Geological tectonic soma and rock strata memory"
+    hud_equation: "Gutenberg-Richter b approximately 1"
+    hud_operator: "Gutenberg-Richter universality class"
+    hud_invariant: "Fault geometry can be modelled as storing past rupture constraints"
+    hud_observable: "Seismic shock distributions and rock-strata correlations"
+    hud_status: "Geological soma is an analogy unless predictions discriminate."
+
+  - id: C2-book-11
+    slug: ttheory-book-social-science
+    title: "[T]-Theory: Society"
+    discipline: "Social science"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-social-science.pdf
+    build: fractal
+    lulu: ttheory-book-social-science
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 11 Society"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Society"
+    lulu_category: "Science & Medicine"
+    green_id: "The Social Propagator - G_ij as the interaction kernel between agents"
+    block_identity: "Collective Field"
+    block_colour: Navy
+    spine_code: SOC
+    book_number: 11
+    audience: "The Sociologist"
+    hud_scale: "Scale 10: Community Trust Networks / Scale 11: Regional Identity"
+    hud_equation: "P(s_i -> 1) = sigma(Sum G_ij * s_j - theta)"
+    hud_operator: "Social Hopfield propagator"
+    hud_invariant: "Rapport structure may persist across group sizes"
+    hud_observable: "Synchronization rates, SQ (Social Intelligence) spectral gap, and cultural propagation speed"
+    hud_status: "Social field model; agency/history remain necessary parameters."
+
+  - id: C2-book-15
+    slug: ttheory-book-economics
+    title: "[T]-Theory: Economics"
+    discipline: "Economics"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-economics.pdf
+    build: fractal
+    lulu: ttheory-book-economics
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 15 Economics"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Economics"
+    lulu_category: "Science & Medicine"
+    green_id: "The Market Propagator - G_price as the transmission of valuation"
+    block_identity: "Capstone"
+    block_colour: Red
+    spine_code: ECON
+    book_number: 15
+    audience: "Quantitative Economist"
+    hud_scale: "Scale 13: Civilisational Economic Landscape"
+    hud_equation: "Nash(G) corresponds to argmin H(e) only for potential games"
+    hud_operator: "Economic attractor operator"
+    hud_invariant: "Valuation signals may preserve structure across trades"
+    hud_observable: "Systemic risk proximity (xi -> infinity), volatility clusters, and attractor dwell times"
+    hud_status: "Potential-game link is assumption-bound; market claims remain testable."
+
+  - id: C2-book-13
+    slug: ttheory-book-law
+    title: "[T]-Theory: Law"
+    discipline: "Law; legal theory"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-law.pdf
+    build: fractal
+    lulu: ttheory-book-law
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 13 Law"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Law"
+    lulu_category: "Science & Medicine"
+    green_id: "The Rights Invariant - topological stability of the legal landscape"
+    block_identity: "Capstone"
+    block_colour: Red
+    spine_code: LAW
+    book_number: 13
+    audience: "Legal Scholar"
+    hud_scale: "Scale 12: National Institutional Field"
+    hud_equation: "n = 1/(2 pi) integral d theta"
+    hud_operator: "Juridical holonomy operator"
+    hud_invariant: "Rights are read as intended invariants under institutional deformation"
+    hud_observable: "Rule-of-law access, institutional blockage, and persistence of constraints"
+    hud_status: "Topological rights model is interpretive; legal force is institutional."
+
+  - id: C2-book-14
+    slug: ttheory-book-ppe
+    title: "[T]-Theory: PPE"
+    discipline: "Philosophy, politics, and economics"
+    level: "undergraduate-masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-ppe.pdf
+    build: fractal
+    lulu: ttheory-book-ppe
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 14 PPE"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: PPE"
+    lulu_category: "Science & Medicine"
+    green_id: "The Unified Mandate Propagator - cross-scale institutional coupling"
+    block_identity: "Capstone"
+    block_colour: Red
+    spine_code: PPE
+    book_number: 14
+    audience: "PPE Researcher"
+    hud_scale: "Scale 7 (Mind) to Scale 13 (Market)"
+    hud_equation: "(nabla^2 + k^2)G = delta"
+    hud_operator: "Scale-invariant USF operator"
+    hud_invariant: "One proposed response grammar across the three pillars of PPE"
+    hud_observable: "Institutional stability, agent alignment, and cross-scale correlation"
+    hud_status: "Shared vocabulary only; normative and institutional claims need argument."
+
+  - id: C2-book-10
+    slug: ttheory-book-psychiatry-asd
+    title: "[T]-Theory: Rewiring"
+    discipline: "Psychiatry; neurodivergence and trauma"
+    level: "masters"
+    doi: ~
+    status: pending-upload
+    notes: "Source-owned book rewritten and claims hardened on 2026-10-01; ready for upload."
+    file: papers/book-psychiatry-asd.pdf
+    build: fractal
+    lulu: ttheory-book-psychiatry-asd
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] 10 Rewiring"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: Rewiring"
+    lulu_category: "Science & Medicine"
+    green_id: "The Pre-Verbal Manifold - structural encoding of early life experience"
+    block_identity: "Clinical Soma"
+    block_colour: Tan
+    spine_code: PSYCH
+    book_number: 10
+    audience: "Psychiatrist"
+    hud_scale: "Scale 6: Pre-verbal sensitive window / Scale 8: Adult phenotype"
+    hud_equation: "f(tau d) = tanh(tau d / tau c)"
+    hud_operator: "Neurodivergent operator stack"
+    hud_invariant: "Structural modifications may be persistent yet transformable"
+    hud_observable: "Sensory thresholds (T_k), noise levels (T_eff), and trauma winding numbers"
+    hud_status: "Research lens, not diagnosis; clinical claims require validation."

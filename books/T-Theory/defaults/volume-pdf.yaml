@@ -10,7 +10,7 @@ variables:
   colorlinks: true
   linkcolor: NavyBlue
   urlcolor: NavyBlue
-  monofont: Consolas
+  monofont: Latin Modern Mono
   geometry: a4paper,twoside,inner=22mm,outer=20mm,top=20mm,bottom=22mm
   fontsize: 10pt
   linestretch: 1.39
@@ -25,8 +25,13 @@ filters:
   - filters/ttheory-assemble.lua
   - ../../paper/filters/strip-keywords.lua
   - ../../lib/format/macros.lua
-citeproc: true
+  - ../../lib/format/unicode-glyphs.lua
+  - ../../lib/format/programme-refs.lua
+  - type: citeproc
+# citeproc runs explicitly after the filters (see filters list)
+citeproc: false
 bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 metadata:
+  programme-papers: ../../registry/papers.yaml
   fractal-manifest: defaults/fractal-manifest.yaml

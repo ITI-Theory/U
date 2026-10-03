@@ -1,3 +1,5 @@
+# citeproc runs explicitly after the filters (see filters list)
+citeproc: false
 defaults:
   - ../../../lib/defaults/base-pdf.yaml
 metadata-file: textbook.yaml
@@ -34,7 +36,11 @@ variables:
 filters:
   - ../../../lib/format/registry.lua
   - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/programme-refs.lua
   - filters/textbook-layout.lua
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua
   - filters/textbook-boxes.lua
+  - type: citeproc
+metadata:
+  programme-papers: ../../../registry/papers.yaml

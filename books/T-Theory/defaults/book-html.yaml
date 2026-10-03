@@ -12,6 +12,12 @@ filters:
   - filters/ttheory-direct.lua
   - ../../paper/filters/strip-keywords.lua
   - ../../lib/format/macros.lua
-citeproc: true
+  - ../../lib/format/unicode-glyphs.lua
+  - ../../lib/format/programme-refs.lua
+  - type: citeproc
+# citeproc runs explicitly after the filters (see filters list)
+citeproc: false
 bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
+metadata:
+  programme-papers: ../../registry/papers.yaml

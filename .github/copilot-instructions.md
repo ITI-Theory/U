@@ -33,7 +33,7 @@ cd paper && make check        # verify toolchain (pandoc + xelatex)
 ```
 
 ## Papers — Publication Status (as of May 30, 2026)
-All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 written/queued 2026-08-10. **Master registry: [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml)** — DOIs, status, file paths.
+All 11 original records plus P10–P13 and C2 are published on Zenodo. P14–P20 published (several need new versions); P21–P24 pending review or upload. **Master registry: [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml)** — DOIs, status, file paths.
 
 | ID | Paper | Concept DOI |
 |---|---|---|
@@ -49,18 +49,18 @@ All 11 records published on Zenodo. P10–P13 and C2 pending upload. P14–P20 w
 | P9 | music-affect-dynamics | https://doi.org/10.5281/zenodo.20460685 |
 | D2 | lean-proofs-appendix | https://doi.org/10.5281/zenodo.20437858 |
 | C1 | omnibus | https://doi.org/10.5281/zenodo.20460771 |
-| P10 | soma-temporal-dynamics | pending Zenodo upload |
-| P11 | zoomable-somatic-field | pending Zenodo upload |
-| P12 | experimental-validation | pending Zenodo upload |
-| P13 | missing-limbic-layer | pending Zenodo upload |
-| C2 | ttheory-fractal-omnibus | pending Zenodo upload |
-| P14 | usf-euclidean-qft | not yet submitted |
-| P15 | usf-interacting-qft | research programme paper, not yet submitted |
-| P16 | geographic-somatic-field | not yet submitted |
-| P17 | gestalt-field-dynamics | not yet submitted |
-| P18 | preverbal-manifold | not yet submitted |
-| P19 | swarm-propagator | not yet submitted |
-| P20 | universal-somatic-field | not yet submitted |
+| P10 | soma-temporal-dynamics | https://doi.org/10.5281/zenodo.21872784 |
+| P11 | zoomable-somatic-field | https://doi.org/10.5281/zenodo.21873390 |
+| P12 | experimental-validation | https://doi.org/10.5281/zenodo.21873455 |
+| P13 | missing-limbic-layer | https://doi.org/10.5281/zenodo.21873645 |
+| C2 | ttheory-fractal-omnibus | https://doi.org/10.5281/zenodo.21873721 |
+| P14 | usf-euclidean-qft | https://doi.org/10.5281/zenodo.21874214 |
+| P15 | usf-interacting-qft | https://doi.org/10.5281/zenodo.21874331 |
+| P16 | geographic-somatic-field | https://doi.org/10.5281/zenodo.21874415 |
+| P17 | gestalt-field-dynamics | https://doi.org/10.5281/zenodo.21874503 |
+| P18 | preverbal-manifold | https://doi.org/10.5281/zenodo.21874564 |
+| P19 | swarm-propagator | https://doi.org/10.5281/zenodo.21874622 |
+| P20 | universal-somatic-field | https://doi.org/10.5281/zenodo.21874683 |
 | P21 | cosmological-constant-derivation | pending Zenodo upload — Λ ≡ ⟨tr Φ⟩₀; Λ_USF = (21/11)H₀²/c² within 7% of Λ_obs |
 | P22 | dark-matter-spatial-vacuum | not yet submitted — Ω_DM = 3/11 from spatial block vacuum; 2.9% off Planck 2018 |
 | P23 | ttheory-phenomena | not yet submitted — fixed-point paper; USF describes its own propagation; Phase 2 gateway |

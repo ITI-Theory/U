@@ -142,6 +142,8 @@ release-check: uat-check
 generate:
 	$(PYTHON) paper/scripts/generate_mk.py
 	@echo Regenerated lib/mk/dist.mk
+	{ echo '# MIRROR of Dist/PAPERS.yaml - do not edit here. Refresh with: make generate'; cat $(DIST)/PAPERS.yaml; } > registry/papers.yaml
+	@echo Refreshed registry/papers.yaml from $(DIST)/PAPERS.yaml
 
 operator-generate:
 	$(PYTHON) $(APP_DIR)/scripts/generate.py
