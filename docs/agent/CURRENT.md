@@ -5,7 +5,7 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
-## Resume Here (updated 2026-10-03, 23:00)
+## Resume Here (updated 2026-10-04, 00:30)
 
 Done 2026-10-03 (all pushed): build standard (`docs/BUILD.md`; Make + pandoc +
 Lua, POSIX recipes, one root `bld/`); papers, Fractal Thesis and Field Atlas on
@@ -24,7 +24,7 @@ picks this up at its next rebuild.
 
 Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
 `make -C Part2/book/field-atlas-textbook check a3 html`):
-- Chapters 1-5 rewritten to the model standard: learning objectives,
+- Chapters 1-8 rewritten to the model standard: learning objectives,
   worked examples (Strategy / Solution / Significance), Worked Homework with
   full solutions, "Try it" app links, Penrose chapter baselines, every number
   checked in `scripts/verify_answers.py`, shared prose checker passes.
@@ -39,9 +39,18 @@ Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
 - Promised forward links to keep: critical slowing for the climate in
   Chapter 8; two people falling into step in Chapter 6; stellar
   classification by hydrogen lines and 21 cm mapping in Chapter 9.
-- NEXT: chapter 6 (two people and groups: coupled oscillators, Kuramoto,
-  `#q=dyad-fall-into-step`, `#q=crowd-mood`). Then 7-10; then the tour
-  language (`#tour=`) and MOTHER/H-AL observatory mode (agreed order).
+- Ch6 Adler/Kuramoto (simulated, matches theory), applause, coupled landscapes;
+  DyadicField coupling theorem labelled "Lean proof incomplete" (depends on
+  `dyadic_block_decomp` sorry; Lean comments corrected). Ch7 Vicsek banner,
+  topological neighbours, turn wave vs diffusion (attanasi2014information
+  added to bibliography), swarm propagator arithmetic plus set-up cost.
+  Ch8 radioactive clocks, plates, Coulomb + fluid pressure (Glarus),
+  rate-and-state memory, Gutenberg-Richter, ice-albedo bistability, P16.
+- NEXT: chapter 9 (stars and galaxies: Balmer lines as thermometer,
+  21 cm rotation curves, Doppler; promised in ch3), then chapter 10
+  (cosmology and dark sectors; P21/P22 labelled), then appendices
+  (answer key note, glossary), then the tour language (`#tour=`) and
+  MOTHER/H-AL observatory mode (agreed order).
 
 Agents: write content and review myself; agents only for mechanical jobs.
 

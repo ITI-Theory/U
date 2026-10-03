@@ -330,17 +330,58 @@ plt.title("A diffusive turn slows with distance; a wave does not")
 plt.legend(fontsize=8)
 save("ch07-turn-wave.png")
 
-ages = [4.54, 4.0, 2.5, 0.541, 0.066, 0]
-labels = ["Earth", "Archean", "Oxygen", "Cambrian", "K-Pg", "now"]
-plt.figure(figsize=(7, 2.6))
-plt.hlines(1, 0, 4.54, color="0.3")
-plt.scatter(ages, [1]*len(ages), s=70)
-for a,l in zip(ages,labels):
-    plt.text(a, 1.05, l, rotation=35, ha="right")
-plt.gca().invert_xaxis(); plt.yticks([])
-plt.xlabel("billions of years before present")
-plt.title("Deep time compresses human history into the final pixel")
-save("ch08-deep-time.png")
+# Chapter 8 opener: deep time on a logarithmic scale, and three radioactive clocks.
+fig, (tl, dc) = plt.subplots(1, 2, figsize=(16, 4.4), gridspec_kw={"width_ratios": [1.5, 1]})
+events = [(80, "a human life"), (2.0e4, "last glacial maximum"), (3.0e5, "Homo sapiens"),
+          (3.0e7, "Alps rise"), (6.6e7, "end of the dinosaurs"), (5.39e8, "Cambrian animals"),
+          (2.4e9, "oxygen in the air"), (4.54e9, "Earth forms")]
+tl.set_xscale("log")
+tl.set_xlim(10, 1e10)
+tl.set_ylim(0, 1)
+tl.hlines(0.3, 10, 1e10, color="#7f8c99", lw=1)
+for i, (age, name) in enumerate(events):
+    y = 0.42 + 0.07 * (i % 4)
+    tl.plot([age, age], [0.3, y], color="#104a73", lw=1)
+    tl.plot(age, 0.3, "o", color="#104a73", ms=6)
+    tl.text(age, y + 0.02, name, ha="center", fontsize=9)
+tl.set_yticks([])
+tl.set_xlabel("years before present (logarithmic)")
+tl.set_title("deep time: each step right is ten times further back", fontsize=11)
+for s in ("top", "right", "left"):
+    tl.spines[s].set_visible(False)
+tt = np.logspace(2, 10.3, 400)
+for name, half, col in [("carbon-14 (5730 yr)", 5730, "#c0504d"),
+                        ("potassium-40 (1.25 Gyr)", 1.25e9, "#4f81bd"),
+                        ("uranium-238 (4.47 Gyr)", 4.468e9, "#104a73")]:
+    dc.plot(tt, 0.5 ** (tt / half), color=col, lw=2, label=name)
+dc.axvline(4.54e9, color="#7f8c99", ls="--", lw=1)
+dc.text(4.0e9, 0.9, "age of\nthe Earth", ha="right", fontsize=9)
+dc.set_xscale("log")
+dc.set_xlabel("time (years, logarithmic)")
+dc.set_ylabel("fraction remaining")
+dc.set_title("each clock ticks over its own range of ages", fontsize=11)
+dc.legend(fontsize=9, loc="lower left")
+for s in ("top", "right"):
+    dc.spines[s].set_visible(False)
+save("ch08-banner.png")
+
+# Chapter 8, Section 8.5: ice-albedo feedback gives two stable climates.
+TT = np.linspace(200, 310, 600)
+alb = 0.62 - 0.32 / (1 + np.exp(-(TT - 265) / 5))
+absorbed = 1361 * (1 - alb) / 4
+emitted = 0.61 * 5.670e-8 * TT**4
+plt.figure(figsize=(6, 3.4))
+plt.plot(TT, absorbed, color="#c0504d", lw=2, label="sunlight absorbed")
+plt.plot(TT, emitted, color="#104a73", lw=2, label="heat radiated")
+cross = np.where(np.diff(np.sign(absorbed - emitted)))[0]
+for k, i in enumerate(cross):
+    stable = k != 1
+    plt.plot(TT[i], absorbed[i], "o", ms=8, color="black" if stable else "white", markeredgecolor="black")
+plt.xlabel("global mean surface temperature (K)")
+plt.ylabel("power (W m$^{-2}$)")
+plt.title("Two stable climates and an unstable one between")
+plt.legend(fontsize=8, loc="upper left")
+save("ch08-climate.png")
 
 mass = np.linspace(.1, 30, 300)
 lum = mass**3.5
