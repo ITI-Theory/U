@@ -1,0 +1,362 @@
+# Catalogue of Lean proof files for the Lean proofs appendix.
+# Read by paper/filters/lean-include.lua. One entry per file in paper/proofs/:
+# title (plain text) and description (Markdown).
+
+Hopfield.lean:
+  title: |
+    The Foundation: Hopfield Associative Memory
+  description: |
+    The simplest starting point: what is a neural network?  This file implements
+    a classical Hopfield associative memory over `ℝ^20` (a 5×4 pixel grid) in
+    Lean 4, with Hebbian learning, synchronous recall, and the Hopfield energy
+    function `E(s) = −½ sᵀWs`.
+
+    This is the direct ancestor of the Soma-Field.  The soma-field replaces the
+    pixel dimensions with the eight BRECVEMA emotional mechanisms, replaces the
+    sign threshold with the limbic gate, and replaces the fixed W matrix with the
+    learnable coupling that encodes clinical history.  Every theorem about Hopfield
+    energy descent applies, mutatis mutandis, to the soma-field.
+
+    **What is formally established here:** energy function definition, Hebbian
+    weight construction, synchronous update step, and the zero-weight baseline:
+    the all-active state is an attractor and every state reaches it in one step.
+    General convergence requires finite spin states with asynchronous updates, or
+    stronger assumptions on the synchronous matrix.
+EmotionOntology.lean:
+  title: |
+    Emotion as an Algebra: The Final-Tagless DSL
+  description: |
+    The emotional vocabulary formalised as a typeclass algebra using the
+    *final-tagless* (Church / State separation) pattern.  A single abstract
+    vocabulary — `EmotionLang` — is given five different semantics by five
+    different typeclass instances, with no changes to the term definitions:
+
+    | Interpreter | What it computes |
+    |---|---|
+    | `String` | Diesel / banana-rdf display notation |
+    | `List EmotionLabel` | Reachable label set (ABox instance query) |
+    | `Valence` | Russell circumplex valence projection |
+    | `CycRef` | OpenCyc common-sense KB grounding |
+    | `FeynmanDiagram` | Perturbation-theory vertex diagram |
+
+    **What is formally established here:** `emotionLang_is_universal` (LEAN-1) —
+    the vocabulary is simultaneously valid in all three core semantic domains.
+    Ten further `by decide` theorems close structural membership claims (nostalgia
+    produces longing, awe involves fear, etc.).  The Feynman diagram interpreter
+    maps each emotional expression to its perturbation-theory diagram, making the
+    connection to quantum field theory concrete and type-checked.
+FieldProofs.lean:
+  title: |
+    Promoted Axioms: First Theorems from the DSL
+  description: |
+    Former axioms — claims that were assumed in an earlier draft — are here
+    promoted to theorems with Lean kernel proofs.  Every proof closes with
+    either `rfl` (definitional equality) or `decide` (kernel evaluation).
+    There is no `sorry` and no `admit`.
+
+    **Key results:** `awe_is_universal` closes with `rfl` because universality
+    is structural — it is built into the typeclass definition and costs zero proof
+    work.  `awe_structural_universality` bundles String, label-set, and membership
+    results into a single conjunction, demonstrating that three different proof
+    strategies are unified by a single term.
+SomaField.lean:
+  title: |
+    The 8-Dimensional Soma-Field
+  description: |
+    The core model: the Soma-Field extended from the original 2-dimensional
+    fear/calm prototype to the full 8-dimensional BRECVEMA mechanism space
+    (Juslin & Västfjäll 2008; Juslin 2019).
+
+    The eight dimensions correspond to: BrainStem reflex, Rhythmic Entrainment,
+    Evaluative Conditioning, Contagion, Visual Imagery, Episodic Memory, Musical
+    Expectancy, and Aesthetic Judgement.  The weight matrix `W8` encodes
+    theoretically grounded pairwise couplings between mechanisms.
+
+    **What is formally established here:** the Hopfield Hamiltonian `H(e) = −½ eᵀWe`,
+    the discrete Langevin dynamics `e_{t+1} = e_t + dt·We`, four stored attractor
+    patterns (startlePattern, calmPattern, nostalgiaPattern, awePattern),
+    the `perceptible` threshold predicate, and the `brainStemThenMemory`
+    trajectory that models the indirect BS→CO→EM coupling.  The propagator
+    resolvent matrix `G(λ) = (λI − W8)⁻¹` is defined; its poles are the
+    eigenvalues of W8 — the resonant emotional modes of the field.
+DyadicField.lean:
+  title: |
+    The Dyadic Propagator: Co-Regulation
+  description: |
+    The soma-field extended to a two-person (dyadic) system — the therapist–client
+    dyad, or any two persons in relational contact.  The dyadic coupling matrix
+    `W_AB` is a 16×16 block matrix with the individual `W8` fields on the diagonal
+    and the inter-field coupling `J` as the off-diagonal blocks.
+
+    `J` is sparse: only four channels have non-zero coupling (BrainStem resonance,
+    Rhythmic Entrainment, Contagion, and Episodic Memory) — consistent with
+    empirical interpersonal synchrony data (Feldman 2007; Koole & Tschacher 2016).
+
+    **What is formally established here:** `dyadicPropagatorExists` — the
+    resolvent `(λI₁₆ − W_AB)` is symmetric for all λ, confirmed with `simp`.
+    The poles of the dyadic propagator are the *shared modes* of the coupled
+    system — emotional states co-accessible to both persons.  This gives
+    Porges' polyvagal co-regulation a precise spectral interpretation.
+LimbicTunnel.lean:
+  title: |
+    Quantum Tunnelling in the Limbic Gate
+  description: |
+    The limbic system formalised as a quantum tunnelling barrier.  The emotional
+    state must tunnel through a D₈-orbifold potential barrier to transition
+    between attractor basins — the formal model of how regulated and dysregulated
+    states are separated by more than classical gradient descent can bridge.
+
+    The WKB (Wentzel–Kramers–Brillouin) approximation gives the tunnelling
+    amplitude as a function of the barrier height W and the action integral.
+    The classical trapping theorem establishes that without quantum fluctuations
+    (or therapeutic intervention modelled as an external field), the system
+    remains trapped in the dysregulated basin.
+
+    **What is formally established here:** `wkbAmplitude` definition,
+    `classical_trapping` (the system is stuck without tunnelling),
+    `quantum_advantage` (tunnelling reaches the regulated basin with non-zero
+    amplitude even when classical paths are blocked), and the D₈ orbifold
+    barrier potential `V_barrier`.
+MTheoryIsomorphism.lean:
+  title: |
+    M-Theory Isomorphism: 11-Dimensional Architecture
+  description: |
+    The 11-dimensional geometry of the Soma-Field formalised as an isomorphism
+    between the Universal Somatic Field (USF) and an M-theory compactification.
+    The 11 dimensions decompose as: 4 spacetime + 7 compact (the BRECVEMA
+    mechanisms).
+
+    The organism hierarchy is encoded in the scale transform: a zoom operator
+    `Z(s)` that acts on the field equation and leaves the Green's function
+    form-invariant.  This is the mathematical statement of scale invariance:
+    the same equation governs dynamics at every scale from quantum foam to
+    cosmological structure.
+
+    **What is formally established here:** `mTheoryIsomorphism` (the 4+7 split),
+    `organism_hierarchy_kernel` (the kernel of the scale transform is the identity
+    at the organism's own scale), and `somatic_universality` (every system with
+    the 11D decomposition admits a somatic interpretation).
+LimbicHopfield.lean:
+  title: |
+    The FM-HN Correspondence Principle
+  description: |
+    The Frequency-Modulated Hopfield Network (FM-HN): the limbic field modulates
+    the Hopfield inverse-temperature β at runtime, unifying the 1982 Hopfield
+    network (fixed β) and the 2020 Modern Hopfield Network (high β).  The
+    Correspondence Principle states that the FM-HN reduces to the classical
+    Hopfield network when limbic modulation is constant.
+
+    Clinical operators are formalised as modifications to the W matrix:
+
+    | Operator | W modification | Clinical meaning |
+    |---|---|---|
+    | `adhdOp` | increased β variance | reduced pattern stability |
+    | `ascOp` | increased W diagonal | heightened pattern specificity |
+    | `cptsdOp` | suppressed EC channel | episodic–somatic decoupling |
+
+    **What is formally established here:** `correspondence_principle` (FM-HN → HN
+    when limbic field is constant), `adhd_increased_variance`, `asc_specificity`,
+    `cptsd_decoupling`.  All theorems are Lean kernel-verified.
+SwarmPropagator.lean:
+  title: |
+    Swarm Coordination via Green's Function Propagators
+  description: |
+    The soma-field Green's function extended to multi-agent coordination.
+    Drone swarms and bird murmurations are governed by the same propagator as
+    the individual soma-field: each agent's state is a pole in the swarm
+    propagator `G_swarm(λ)`, and synchronisation is the emergence of a shared
+    dominant pole.
+
+    **The key theorem:** single-step O(N²) coordination via the Green's function
+    propagator is strictly cheaper than the standard O(NK) algorithm (K nearest
+    neighbours, K>N) when N agents synchronise in one propagator application.
+    This is not an approximation — it is a consequence of the spectral structure
+    of the propagator.
+
+    **What is formally established here:** `onN2_lt_onNK` (complexity theorem,
+    `by omega`), `jam_resistance` (the swarm re-synchronises after partial
+    occlusion because the propagator has full spectral coverage), and
+    `murmuration_emergence` (large-N limit produces a single dominant pole =
+    coherent murmuration).
+UniversalSomaticField.lean:
+  title: |
+    The Capstone: Universal Somatic Field
+  description: |
+    The type-level capstone of the entire Soma-Field programme.  This file
+    synthesises all companion proofs and establishes three new results:
+
+    1. **Scale invariance** (`scale_invariance_theorem`): the USF field equation
+       has the same Green's function form at every zoom level, from quantum foam
+       (10⁻³⁵ m) to the cosmic web (10²⁶ m) — 61 orders of magnitude.
+
+    2. **Consciousness threshold** (`consciousness_threshold`): awareness emerges
+       as a phase transition when the limbic wave amplitude exceeds the critical
+       value `T_c`.  Below T_c: sub-conscious processing.  At T_c: the threshold
+       event (instanton).  Above T_c: phenomenal consciousness.
+
+    3. **Universal organism** (`universal_organism_theorem`): any system with the
+       11D M-theory decomposition admits a somatic interpretation — the field
+       equation is species-independent.
+
+    **Status:** Scale invariance and the organism hierarchy kernel are Lean
+    checked at theorem level. `consciousness_dichotomy` is the definitional split
+    `φ < √2 ∨ √2 ≤ φ`; its biological interpretation is open. Cosmology is
+    model-derived under assumptions, not an independently verified physical
+    result.
+Movie.lean:
+  title: |
+    The Abstract Film: Type-Level Specification
+  description: |
+    *The movie is the proof.*
+
+    This file IS the specification of The Tensor — the abstract film that is
+    the artistic output of the Soma-Field programme.  It does not describe what
+    to build; it IS the top level of what to build, encoded as Lean types.
+
+    The architecture:
+
+    ```
+    Lean Server (this file)
+    ├── MovieMode         — the 8 primary emotional modes
+    ├── CouplingMatrix    — W* for the score
+    ├── ThresholdEvent    — instanton declaration
+    ├── EmotionScore      — complete abstract film definition
+    ├── ControlKnobs      — κ: depth, velocity, resonance, texture…
+    ├── RenderFrame       — per-tick data package sent to renderers
+    ├── Renderer (class)  — typeclass; any backend can implement it
+    ├── serverLoop        — 50 Hz IO loop
+    └── theRiverFilm      — The River Film encoded as Lean data
+
+           │ stdout (JSON lines)
+           ▼
+    Python Bridge (instrument/field_render.py)
+    ├── AudioRenderer   — Ableton Live via OSC / MIDI
+    └── VisualRenderer  — Mandelbulb renderer via OSC
+    ```
+
+    The eight emotional modes of the film (Safety, Fear, Curiosity, Awe, Grief,
+    Language, Preverbal, Shame) are a subset of the BRECVEMA space — the attractor
+    labels visible to the rendering layer.  Each keyframe is a typed transition
+    between named emotional attractors; the soma-field dynamics govern the
+    interpolation between them.
+
+    When the Lean server type-checks and the film runs, the proof passes.
+    The film is the compiled test.
+QuantumSim.lean:
+  title: |
+    Minimal Quantum Simulator: Formal QUANT-EXP-1 Validation
+  description: |
+    The minimal quantum simulator designed to formally validate QUANT-EXP-1
+    inside Lean 4.  Scoped to exactly three things: `QuantumState` (complex
+    vector in $\mathbb{C}^n$), `QuantumOperator` (unitary/Hermitian matrix),
+    and the WKB tunnelling gate connecting directly to `LimbicTunnel.lean`.
+
+    **What is formally established:** `fear_awe_orthogonal` (orthonormal basis);
+    `wkbGate_creates_awe` (after the WKB gate, awe component is non-zero for W>0);
+    `quant_exp_1_awe_reachable` (Born probability of |awe⟩ strictly positive —
+    the formal statement of the quantum experiment result).
+SomaNetwork.lean:
+  title: |
+    The Common Interface: SomaNetwork Typeclass (Lean ↔ Python)
+  description: |
+    The `SomaNetwork` typeclass: the single interface governing both formal
+    Lean proofs and Python/GPU simulation.  Implements the design from the
+    2026-06-28 session.  Three instances: `somaFieldNetwork` (USF 2026, WKB
+    gate), `hopfield1982` (classical, no tunnelling), and the Python mirror
+    specification (`apps/instrument/soma_network.py`) as documentation.
+    The Python `Protocol` has the same four methods (`dim`, `energy`,
+    `propagate`, `tunnel_gate`) — this is the FFI contract.
+ScaleUniverse.lean:
+  title: |
+    T_TheoryUniverse: The 20-Scale Dependent Type
+  description: |
+    The `T_TheoryUniverse` dependent structure: [T]-Theory encoded as a
+    Lean type where the *type* of the field layer changes with scale.
+    Nineteen of twenty-one scales use real Physlib or SFT types; only
+    `PlanckFoam` and `StringScale` retain boundary `String` tags while suitable
+    quantum-gravity modules remain unavailable.
+    `human_swarm_same_rank` proves both governed by rank-2 tensors.
+Benchmark.lean:
+  title: |
+    The Timed Race: 1982 vs 2016 vs 2020 vs FM-HN USF 2026
+  description: |
+    The experiment that confirms what the proofs predict.  Four models start
+    from `startlePattern` (fear/startle attractor) and attempt to reach
+    `musicalAwePattern` (awe attractor).  The first three cannot escape the
+    fear basin; FM-HN USF 2026 reaches awe in one WKB gate application.
+
+    Runs as `#eval runBenchmark` and prints a comparison table: steps to
+    convergence, final distance from awe target, and wall-clock time via
+    `IO.monoMsTime`.  Ends with the three Lean-verified theorems that
+    predicted the result: `onN2_lt_onNK`, `correspondence_principle`,
+    `quant_exp_1_awe_reachable`.
+BFSSIsomorphism.lean:
+  title: |
+    A Matrix-Model Correspondence: BFSS
+  description: |
+    A correspondence between the field's coupling-matrix description and a simplified BFSS matrix model (the matrix quantum mechanics proposed as a non-perturbative definition of M-theory). The file builds the matrix-model objects on Mathlib's spectral theory and proves nine theorems about their structure.
+
+    **Status:** compiles; two named axioms state the parts of the correspondence that are assumed rather than derived.
+BRECVEMAField.lean:
+  title: |
+    The Eight Mechanisms as a Typed Field: 8D to 7D
+  description: |
+    The eight BRECVEMA music-emotion mechanisms as a typed field, with a map to the seven-dimensional compact space `CompactX7` of `MTheoryIsomorphism.lean`. The two theorems check that the map is well typed and consistent with the soma-field definitions.
+
+    **Status:** compiles; no axioms, no `sorry`.
+BRECVEMAVariational.lean:
+  title: |
+    A Lagrangian for the Emotional Field and the G₂ Target
+  description: |
+    A neurodynamical Lagrangian for the eight-mechanism field, with mass matrix $M$ and coupling $W$, and the target statement that the gauge-fixed moduli space maps into the G₂-holonomy compact space. The numerical row sums of the coupling matrix falsified the original zero-sum gauge criterion; the revised picture writes $W = \tfrac{6}{5}I_8 + \delta W$ with traceless $\delta W$.
+
+    **Status:** compiles; four theorems; two open `sorry`s (`euler_lagrange_BRECVEMA` and `moduli_space_is_G2_homotopy`), tracked in the issue log.
+LocalGR.lean:
+  title: |
+    Local Gate: Linearised General Relativity
+  description: |
+    The programme's agreement with Einstein gravity where gravity is tested. Linearised general relativity is stated with its standard premises, and the cosmological files build on this gate, so that any departure from local GR would have to be visible here.
+
+    **Status:** compiles; two theorems; three axioms state the standard GR premises. Results that depend on them are derived under those assumptions.
+LocalGeometry.lean:
+  title: |
+    Local Gate: Compact Geometry
+  description: |
+    The geometric premises used by the cosmological derivations: the compact dimensions and the dimensional bookkeeping that later files count. Kept separate so that every cosmological number can be traced to an explicit geometric assumption.
+
+    **Status:** compiles; five theorems, two axioms.
+CosmologicalConstant.lean:
+  title: |
+    The Cosmological Constant as a Vacuum Amplitude
+  description: |
+    The definition $\Lambda \equiv \langle \operatorname{tr}\Phi\rangle_0$ (the vacuum expectation of the field's trace) and its dimensional bookkeeping, which gives $\Lambda = \tfrac{21}{11}H_0^2/c^2$, within about 7% of the measured value. Seventeen theorems check the algebra and the counting.
+
+    **Status:** compiles; no axioms of its own, but it imports the local gates above, so its results are derived under their assumptions. The comparison with observation is model-derived, not independent confirmation.
+G2Compactification.lean:
+  title: |
+    Geometric Architecture of the Compactification
+  description: |
+    The compact seven-dimensional space and its intended G₂-holonomy structure, the tensor-product decomposition of the eleven dimensions, and the statements later files rely on.
+
+    **Status:** compiles; six theorems; one axiom marks the deep-geometry target (special holonomy) that is assumed, not proved.
+RenormalisationGroup.lean:
+  title: |
+    Renormalisation-Group Structure Across Scales
+  description: |
+    Structural renormalisation-group equations for the field: how couplings change as the description zooms between scales, built on Physlib's wave-equation module.
+
+    **Status:** compiles; two theorems; one axiom states the flow equation's form.
+TemporalDynamics.lean:
+  title: |
+    Causality of the Retarded Propagator
+  description: |
+    The retarded propagator vanishes before its source acts, and the memory kernel $K(\tau) = K_0 e^{-\tau/\tau_m}\theta(\tau)$ decays. These are the causal facts behind the temporal-dynamics paper's response model.
+
+    **Status:** compiles; four theorems; no axioms.
+USF_OSAxioms.lean:
+  title: |
+    The Free Field as a Euclidean Quantum Field Theory
+  description: |
+    Identifies the free field with wavenumber $k$ with the four-dimensional Gaussian free field of mass $m = k$ (same momentum-space propagator $1/(p^2 + k^2)$), and so inherits all Osterwalder-Schrader axioms from the OSforGFF library (Douglas, Hoback, Mei and Nissim), via its theorem `gaussianFreeField_satisfies_all_OS_axioms_dim4`.
+
+    **Status:** compiles; four theorems, each a direct application of the imported result; no axioms of its own.

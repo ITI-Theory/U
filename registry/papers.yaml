@@ -430,7 +430,7 @@ datasets:
     level: "masters"
     doi: "10.5281/zenodo.20437858"
     status: needs-new-version
-    notes: "Hardened Lean proof-status language on 2026-10-01; upload new version."
+    notes: "2026-10-03: Lean, Mathlib and physlib v4.33.0; all 25 proof files reproduced (was 15), two SomaField sorries closed (five remain), build instructions use lean/upgrade-build.sh. Hardened proof-status language 2026-10-01. Upload new version."
     file: papers/lean-proofs-appendix.pdf
     make_class: ~
     make_targets: [lean-appendix]

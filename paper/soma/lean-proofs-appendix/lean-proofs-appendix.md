@@ -35,7 +35,7 @@ built on this verified foundation.
 
 ## What is established in this appendix
 
-The eleven files that follow collectively establish:
+The twenty-five files that follow collectively establish:
 
 | File | Core result | Status |
 |---|---|---|
@@ -50,6 +50,20 @@ The eleven files that follow collectively establish:
 | `SwarmPropagator.lean` | O(N²) < O(NK) coordination; jam resistance | Compiles; theorem-level declarations are cited below |
 | `UniversalSomaticField.lean` | Scale invariance; consciousness threshold; universality | Compiles; contains axioms and theorem-level declarations |
 | `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles; data and renderer declarations |
+| `QuantumSim.lean` | Minimal quantum simulator; two-state WKB-gate reachability | Compiles; 5 theorems, no axioms |
+| `SomaNetwork.lean` | Common typeclass interface for Hopfield-style networks | Compiles; 2 theorems, 1 open sorry (`sft_ne_classical`) |
+| `ScaleUniverse.lean` | `T_TheoryUniverse`: the scale-indexed dependent type, with Physlib field types per scale | Compiles; 3 theorems |
+| `Benchmark.lean` | Timed comparison of network update rules (1982, 2016, 2020, FM-HN) | Compiles; executable benchmark, no theorems |
+| `BFSSIsomorphism.lean` | Correspondence with a simplified BFSS matrix model | Compiles; 9 theorems, 2 axioms |
+| `BRECVEMAField.lean` | Typed 8D to 7D map from the BRECVEMA field to `CompactX7` | Compiles; 2 theorems |
+| `BRECVEMAVariational.lean` | Neurodynamical Lagrangian; G₂ holonomy target | Compiles; 4 theorems, 2 open sorries listed below |
+| `LocalGR.lean` | Local gate: linearised general relativity | Compiles; 2 theorems, 3 axioms (standard GR premises) |
+| `LocalGeometry.lean` | Local gate: compact geometry | Compiles; 5 theorems, 2 axioms |
+| `CosmologicalConstant.lean` | Vacuum amplitude $\Lambda \equiv \langle \operatorname{tr}\Phi\rangle_0$ and its dimensional bookkeeping | Compiles; 17 theorems, no new axioms; inherits the gate axioms above, so results are derived under assumptions |
+| `G2Compactification.lean` | Geometric architecture of the 11D compactification | Compiles; 6 theorems, 1 axiom |
+| `RenormalisationGroup.lean` | Structural renormalisation-group equations for the field | Compiles; 2 theorems, 1 axiom |
+| `TemporalDynamics.lean` | Causality of the retarded propagator | Compiles; 4 theorems, no axioms |
+| `USF_OSAxioms.lean` | The free field in four dimensions satisfies all Osterwalder–Schrader axioms, by identification with the Gaussian free field proved in the OSforGFF library | Compiles; 4 theorems, no axioms of its own |
 
 **On proof status and axioms:** Lean accepts the files, but a build is not a
 file-level proof certificate. There are five real Lean `sorry` stubs:
@@ -69,9 +83,10 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh
 git clone https://github.com/ITI-Theory/U.git
 cd U
 
-# 3. Build the Lean project (downloads Mathlib cache — ~2 GB first run)
-lake exe cache get
-lake build
+# 3. Fetch dependencies, apply the one-line compatibility patch in
+#    lean/patches/v4.33/, download the Mathlib cache (~2 GB first run) and
+#    build all 25 libraries (Lean, Mathlib and physlib v4.33.0)
+bash lean/upgrade-build.sh        # or: make lean-update
 
 # 4. The proofs are in paper/proofs/
 # A build means Lean accepted the file; individual declarations may be axioms,
@@ -84,5 +99,5 @@ The source files are reproduced in full below, in dependency order.
 \leanappendixstart
 ```
 
-::: {.lean-include dir="proofs" order="Hopfield.lean,EmotionOntology.lean,FieldProofs.lean,SomaField.lean,DyadicField.lean,LimbicTunnel.lean,MTheoryIsomorphism.lean,LimbicHopfield.lean,SwarmPropagator.lean,UniversalSomaticField.lean,Movie.lean,QuantumSim.lean,SomaNetwork.lean,ScaleUniverse.lean,Benchmark.lean"}
+::: {.lean-include dir="proofs" order="Hopfield.lean,EmotionOntology.lean,FieldProofs.lean,SomaField.lean,DyadicField.lean,LimbicTunnel.lean,MTheoryIsomorphism.lean,LimbicHopfield.lean,SwarmPropagator.lean,UniversalSomaticField.lean,Movie.lean,QuantumSim.lean,SomaNetwork.lean,ScaleUniverse.lean,Benchmark.lean,BFSSIsomorphism.lean,BRECVEMAField.lean,BRECVEMAVariational.lean,LocalGR.lean,LocalGeometry.lean,CosmologicalConstant.lean,G2Compactification.lean,RenormalisationGroup.lean,TemporalDynamics.lean,USF_OSAxioms.lean"}
 :::

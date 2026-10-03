@@ -127,7 +127,7 @@ check-glyph-warnings:
 
 LEAN_PROOFS := $(wildcard proofs/*.lean)
 
-lean-appendix: soma/lean-proofs-appendix/lean-proofs-appendix.md filters/lean-include.lua $(DEFAULTS)/lean-appendix.yaml $(LEAN_PROOFS) | $(BUILDDIR)
+lean-appendix: soma/lean-proofs-appendix/lean-proofs-appendix.md soma/lean-proofs-appendix/catalogue.yaml filters/lean-include.lua $(DEFAULTS)/lean-appendix.yaml $(LEAN_PROOFS) | $(BUILDDIR)
 	$(PANDOC) soma/lean-proofs-appendix/lean-proofs-appendix.md -o $(BUILDDIR)/lean-proofs-appendix.pdf --defaults=$(DEFAULTS)/lean-appendix.yaml
 	@echo "Built: $(BUILDDIR)/lean-proofs-appendix.pdf"
 
