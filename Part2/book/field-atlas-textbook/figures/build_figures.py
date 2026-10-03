@@ -212,3 +212,32 @@ ax.set_xlabel("size, $\\log_{10}(L/\\mathrm{m})$  (each step is a factor of ten)
 for spine in ("left", "right", "top"):
     ax.spines[spine].set_visible(False)
 save("ch01-banner.png")
+
+# Chapter 2 opener: a kick, the ringing it leaves, and the resonance it implies.
+fig, axes = plt.subplots(1, 3, figsize=(16, 3.6), gridspec_kw={"width_ratios": [1, 2.2, 1.6]})
+t = np.linspace(-0.1, 1.6, 1200)
+w0, g = 20.0, 2.0
+wd = math.sqrt(w0**2 - g**2)
+axes[0].plot([-0.1, 0, 0, 0.0, 0.3], [0, 0, 1, 0, 0], color="#c0392b", lw=2)
+axes[0].set_title("1. a short kick $J\\,\\delta(t)$", fontsize=11)
+axes[0].set_xlabel("time (s)")
+resp = np.where(t >= 0, np.exp(-g * t) * np.sin(wd * t), 0.0)
+axes[1].plot(t, resp, color="#104a73", lw=1.6)
+axes[1].plot(t, np.where(t >= 0, np.exp(-g * t), np.nan), color="#7f8c99", ls="--", lw=1)
+axes[1].plot(t, np.where(t >= 0, -np.exp(-g * t), np.nan), color="#7f8c99", ls="--", lw=1)
+axes[1].axvline(0, color="#c0392b", lw=0.8)
+axes[1].set_title("2. the response $G(t)$: ringing inside a decaying envelope", fontsize=11)
+axes[1].set_xlabel("time (s)")
+w = np.linspace(1, 40, 800)
+for q, col in ((5, "#104a73"), (2, "#007c8c"), (1, "#946400")):
+    gam = w0 / (2 * q)
+    amp = 1 / np.sqrt((w0**2 - w**2) ** 2 + (2 * gam * w) ** 2)
+    axes[2].plot(w, amp * w0**2, color=col, label=f"Q = {q}")
+axes[2].set_title("3. driven steadily: resonance", fontsize=11)
+axes[2].set_xlabel("drive frequency $\\omega$ (rad/s)")
+axes[2].legend(fontsize=8)
+for ax in axes:
+    ax.set_yticks([])
+    for s in ("top", "right", "left"):
+        ax.spines[s].set_visible(False)
+save("ch02-banner.png")
