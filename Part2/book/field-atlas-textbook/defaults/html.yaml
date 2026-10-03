@@ -4,6 +4,9 @@ metadata-file: textbook.yaml
 input-files:
   - textbook.md
   - chapters/01-fields-waves-scale.md
+  - chapters/02-response-greens-resonance.md
+  - chapters/03-atoms-quantum-scale.md
+  - chapters/04-molecules-cells.md
 output-file: ../../../bld/textbook/html/index.html
 resource-path:
   - .
