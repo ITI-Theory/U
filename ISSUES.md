@@ -32,43 +32,26 @@ Use Shift + Click on the folding icon to fold or unfold the region and all regio
 
 ## ISS-001: Phase 1 wrap — Zenodo uploads + NLM UAT — OPEN
 
-**Context:** Phase 1 is the MVP theory release. All 20 papers (P1–P20) are on Zenodo.
-Four records need new versions (content changed). Four new records (P21–P24) need uploading.
-NLM UAT validates the content before release is declared complete.
+**Status 2026-10-04 00:30:** release candidate built and staged. `bin/release-check`
+15 PASS, 0 FAIL, 2 WARN (pending uploads; one tracked research gap).
+`uat/staging/papers/` (34 files) and `uat/staging/ttheory/` (14 files) carry
+SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7).
+`bin/zenodo-publish plan`: 44 records, 24 new versions, 20 new records, 0 errors.
 
-**Actions:**
-UAT - See `UAT Testing` in `.../U/PROCESS.md`
-- [ ] Setup NLM
-
-UAT: U
-- [ ] Verification (Sherlock)
-- [ ] Validation (Harry P)
-- [ ] The CM (CheatSheet)
-
-UAT: Dist
-
-Zenodo — version patches (go to record → New version → upload → Publish):
-- [ ] P11 zoomable-somatic-field — Problems 1+2 closed; axiom table updated
-- [ ] P12 experimental-validation — "Open Problem 5" → "GAP-1 in USF test suite"
-- [ ] D2 lean-proofs-appendix — regenerated 2026-08-14 (Float→ℝ); upload new version
-- [ ] C1v2 omnibus-v2 — rebuilt with updated P11
-- [ ] C2 fractal-programme — rebuilt with TOC + updated P12
-
-Zenodo — new records (form fields in `Dist/zenodo/README.md`):
-- [ ] P21 cosmological-constant — review PDF first (see ISS-003), then upload
-- [ ] P22 dark-matter-spatial-vacuum — upload
-- [ ] P23 ttheory-phenomena — upload
-- [ ] P24 g2-symmetry-breaking — upload
-
-After upload:
-- [ ] Fill DOIs in `Dist/PAPERS.yaml` and `Dist/zenodo/README.md`
-- [ ] Update `U/.github/copilot-instructions.md` paper table
-- [ ] Update both org README DOI tables
-
-NLM UAT (see UAT section in this file's PROCESS.md):
-- [ ] Sherlock: did we build it right? — query nlm-uat with new Omnibus + Fractal Thesis
-- [ ] Harry Potter: did we build the right thing? — completeness check
-- [ ] Cookie Monster: can anyone understand it? — cheat-sheet validation
+**Actions (in order, Dist/README.md release cycle):**
+- [x] Build candidates (`make uat-stage-full`) and pass `make uat-check`.
+- [ ] Author: review P21 (cosmological constant) and set it to pending-upload
+   in `Dist/PAPERS.yaml` (`make generate` afterwards).
+- [ ] NotebookLM UAT from `uat/staging/<track>/`, fresh private `nlm-uat`:
+   Sherlock (built right), Harry Potter (built the right thing), Cookie Monster
+   (understandable). Record in `paper/UAT.md`.
+- [ ] Lulu print preview of the [T]-Theory volumes.
+- [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
+   manifests, commit Dist.
+- [ ] Zenodo: `ZENODO_SANDBOX_TOKEN` then `bin/zenodo-publish --sandbox plan`,
+   sandbox drafts, then live with `ZENODO_TOKEN` (`--publish --yes`).
+- [ ] Fill new DOIs in `Dist/PAPERS.yaml`, `make generate`, update the org
+   README DOI tables; commit and tag U and Dist together.
 
 **Closes:** `Dist/ISSUES.md` ISS-001 (migrated here 2026-08-14)
 
@@ -97,9 +80,8 @@ Pending: rebuild PDF (`make cosmological`) and sync to Dist.
 
 **Actions:**
 - [x] Fix source .md
-- [ ] Rebuild PDF
-- [ ] sync_dist.py --papers
-- [ ] Commit Dist
+- [x] Rebuild PDF (cover verified 2026-10-03: renders correctly)
+- [x] Sync is now `make dist` after UAT (ISS-001)
 
 ---
 

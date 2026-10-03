@@ -5,6 +5,39 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
+## Morning: UAT release candidate (prepared 2026-10-04, 00:30)
+
+Everything below is built, checked and pushed. Start with step 1.
+
+1. P21 sign-off (you): read `bld/papers/cosmological-constant-derivation.pdf`
+   (cover now renders correctly). If happy, set P21 `status: pending-upload`
+   in `Dist/PAPERS.yaml`, then `make generate` in U.
+2. NotebookLM UAT (you): new private `nlm-uat` notebook, upload from
+   `uat/staging/papers/` and `uat/staging/ttheory/` (hashes in each
+   `MANIFEST.md`); run Sherlock, Harry Potter, Cookie Monster (PROCESS.md);
+   log in `paper/UAT.md`.
+3. Lulu preview of the volumes (you).
+4. Promote: `make dist` (copies candidates into Dist), compare against the
+   manifests, commit Dist. Do not run it before UAT passes: I ran it early
+   tonight and reverted Dist to 4e5a42c.
+5. Zenodo (needs your tokens in the environment): sandbox plan and drafts,
+   then live. Plan already passes: 44 records, 0 errors.
+
+Not in the UAT tracks but built and current: textbook
+(`bld/textbook/field-atlas-textbook-a3.pdf`, 52 pp; HTML in
+`bld/textbook/html/`), Field Atlas (`bld/atlas/field-atlas-a3.pdf`, 200 pp).
+Decide whether they ship in this release.
+
+New tonight: HAL speech (ISS-037). Tick SPEAK in the MOTHER terminal; H-AL
+speaks in the HAL 9000 Piper voice via the bridge (installed in the bridge
+venv; model in `~/.voice-admin/models/hal9000/`, private).
+
+Outstanding, not for this release: tour language and observatory mode (on hold
+by your decision); ISS-011 HopfieldNet2 port (probe in `../probe-nn`);
+ISS-036 five Lean sorries and the `euler_lagrange_BRECVEMA` restatement;
+OSforGFF PR mrdouglasny/OSforGFF#22 awaiting review; ISS-037 voice follow-ups;
+optional cleanup `git worktree remove ../U-lean-v433`.
+
 ## Resume Here (updated 2026-10-03, 23:45)
 
 Done 2026-10-03 (all pushed): build standard (`docs/BUILD.md`; Make + pandoc +
