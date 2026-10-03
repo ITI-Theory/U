@@ -125,9 +125,10 @@ check-glyph-warnings:
 # The omnibus target depends on this appendix so it is current before rendering.
 # ---------------------------------------------------------------------------
 
-lean-appendix: | $(BUILDDIR)
-	$(PYTHON) $(SCRIPTS)/build_lean_appendix.py
-	$(PANDOC) soma/lean-proofs-appendix/lean-proofs-appendix.md -o $(BUILDDIR)/lean-proofs-appendix.pdf $(PDF_A4_DEFAULTS)
+LEAN_PROOFS := $(wildcard proofs/*.lean)
+
+lean-appendix: soma/lean-proofs-appendix/lean-proofs-appendix.md filters/lean-include.lua $(DEFAULTS)/lean-appendix.yaml $(LEAN_PROOFS) | $(BUILDDIR)
+	$(PANDOC) soma/lean-proofs-appendix/lean-proofs-appendix.md -o $(BUILDDIR)/lean-proofs-appendix.pdf --defaults=$(DEFAULTS)/lean-appendix.yaml
 	@echo "Built: $(BUILDDIR)/lean-proofs-appendix.pdf"
 
 translate-omnibus: | $(BUILDDIR)

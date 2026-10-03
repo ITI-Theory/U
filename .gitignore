@@ -12,6 +12,7 @@ __pycache__/
 *.pyo
 .venv/
 node_modules/
+test-results/
 
 # macOS
 .DS_Store

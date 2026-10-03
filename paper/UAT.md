@@ -43,7 +43,7 @@ Before final promotion, this UAT must decide the action for every formal record:
 |---|---|---|
 | Canonical papers | P1–P24 | `paper/soma/<slug>/<slug>.md` (registry: `../Dist/PAPERS.yaml`) |
 | D1 clinical case | `SFT-DEMO-CASE.pdf` | `paper/soma/SFT-DEMO-CASE/SFT-DEMO-CASE.md` |
-| D2 proofs appendix | `lean-proofs-appendix.pdf` | `paper/proofs/*.lean` → `paper/scripts/build_lean_appendix.py` → `paper/soma/lean-proofs-appendix/lean-proofs-appendix.md` |
+| D2 proofs appendix | `lean-proofs-appendix.pdf` | `paper/proofs/*.lean` → `paper/filters/lean-include.lua` + `paper/soma/lean-proofs-appendix/lean-proofs-appendix.md` |
 | Paper omnibus | `omnibus-a4.pdf` / print variant | `paper/filters/omnibus.lua` plus its canonical-paper inputs from `Dist/PAPERS.yaml`; registry order is intentional, and later corrections must be signposted. |
 | Fractal thesis, volumes, and 15 books | `ttheory-omnibus.pdf`, `ttheory-vol1.pdf`, `ttheory-vol2.pdf`, `book-*.pdf` | `books/T-Theory/Makefile`, its defaults/filters, and the canonical-paper inputs. The fractal thesis is the current canonical synthesis, not a historical record. |
 | Default cheatsheet | `ttheory-cheatsheet.pdf` | `books/T-Theory` booklet build (`bld/books/booklet-gateway.pdf`) |

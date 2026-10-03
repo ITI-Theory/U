@@ -1,35 +1,30 @@
 from: markdown+raw_tex+raw_html+fenced_divs+bracketed_spans+tex_math_dollars+pipe_tables+implicit_figures
 to: pdf
-pdf-engine: latexmk
-pdf-engine-opts:
-  - -xelatex
-  - -silent
+pdf-engine: xelatex
 standalone: true
 toc: true
-toc-depth: 2
+number-sections: true
 eol: lf
 citeproc: true
 bibliography: bibliography.bib
 csl: apa-7th.csl
 syntax-highlighting: tango
 include-in-header:
-  - omnibus.tex
+  - journal.tex
 filters:
-  - filters/omnibus.lua
   - filters/lean-include.lua
   - filters/strip-keywords.lua
+  - filters/boxes.lua
 variables:
-  documentclass: memoir
-  classoption:
-    - openany
   colorlinks: true
   linkcolor: NavyBlue
   urlcolor: NavyBlue
   toccolor: NavyBlue
   hyperxmp: false
   monofont: JetBrains Mono
-  fontsize: 10pt
-  geometry: paperwidth=156mm,paperheight=234mm,twoside,inner=22mm,outer=18mm,top=22mm,bottom=25mm,bindingoffset=6mm
+  fontsize: 11pt
+  linestretch: 1.6
+  geometry: a4paper,margin=25mm
   header-includes: |
     \usepackage{amsmath}
     \usepackage{amssymb}

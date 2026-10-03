@@ -78,7 +78,6 @@ clean:
 	rm -rf $(BLD)
 
 lean-appendix:
-	$(PYTHON) paper/scripts/build_lean_appendix.py
 	$(MAKE) -C paper lean-appendix
 
 cheatsheet:

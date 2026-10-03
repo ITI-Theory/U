@@ -16,6 +16,7 @@ include-in-header:
   - omnibus.tex
 filters:
   - filters/omnibus.lua
+  - filters/lean-include.lua
   - filters/strip-keywords.lua
 variables:
   documentclass: memoir

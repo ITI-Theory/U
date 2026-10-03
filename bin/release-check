@@ -58,26 +58,18 @@ fi
 # ── 4. lean-proofs-appendix freshness ─────────────────────────────────────
 hdr "4. lean-proofs-appendix + omnibus freshness"
 APPENDIX="paper/soma/lean-proofs-appendix/lean-proofs-appendix.md"
-APPENDIX_STALE=$(py -c "
-from pathlib import Path
-from paper.scripts.build_lean_appendix import LEAN_FILES
-appendix = Path('$APPENDIX').read_text(encoding='utf-8')
-missing = []
-for filename, *_ in LEAN_FILES:
-    source = (Path('paper/proofs') / filename).read_text(encoding='utf-8')
-    if source not in appendix:
-        missing.append(filename)
-print('\\n'.join(missing))
-" 2>/dev/null)
-if [[ -z "$APPENDIX_STALE" ]]; then
-  ok "lean-proofs-appendix.md embeds current Lean sources"
+LEAN_FILTER="paper/filters/lean-include.lua"
+PDF_APPENDIX="bld/papers/lean-proofs-appendix.pdf"
+if [[ ! -f "$PDF_APPENDIX" ]]; then
+  fail "lean-appendix PDF missing — run: make lean-appendix"
+elif find paper/proofs -name '*.lean' -newer "$PDF_APPENDIX" | grep -q . || [[ "$APPENDIX" -nt "$PDF_APPENDIX" ]] || [[ "$LEAN_FILTER" -nt "$PDF_APPENDIX" ]]; then
+  fail "lean-appendix PDF stale — run: make lean-appendix"
 else
-  fail "lean-appendix stale — run: make lean-appendix"
-  echo "$APPENDIX_STALE" | sed 's/^/    /'
+  ok "lean-appendix PDF is current with filter-driven Lean sources"
 fi
 # omnibus freshness vs lean-appendix
-[[ "bld/papers/omnibus-a4.pdf" -nt "$APPENDIX" ]] \
-  && ok "omnibus-a4.pdf is newer than lean-appendix" \
+[[ "bld/papers/omnibus-a4.pdf" -nt "$PDF_APPENDIX" ]] \
+  && ok "omnibus-a4.pdf is newer than lean-appendix PDF" \
   || warn "omnibus may be stale vs lean-appendix — run: make uat-build"
 
 # ── 5. PAPERS.yaml pending uploads ────────────────────────────────────────
