@@ -15,7 +15,7 @@ A Langevin equation describes a variable pushed by deterministic forces and rand
 A double well has two locally stable regions. If the state starts near one minimum, small noise tends to keep it there. Larger perturbations can cross the barrier. Basins make path dependence visible: a present state may persist not because it is globally best, but because nearby changes are pulled back into the same well. This language is common in physics and dynamical systems; using it for affect requires operational variables and data.
 
 ::: {.example title="Example 5.1 Barrier sensitivity"}
-Suppose a transition rate is proportional to $\exp(-\Delta H/D)$. Compare barriers $\Delta H=6$ and $\Delta H=3$ with the same noise level $D=0.75$. The high-barrier rate divided by the low-barrier rate is $\exp[-(6-3)/0.75]=\exp(-4)=0.0183$. In this simple model, tripling the excess barrier reduces transitions to about 1.8 percent of the lower-barrier rate.
+Suppose a transition rate is proportional to $\exp(-\Delta H/D)$. Compare barriers $\Delta H=6$ and $\Delta H=3$ with the same noise level $D=0.75$. The high-barrier rate divided by the low-barrier rate is $\exp[-(6-3)/0.75]=\exp(-4)=0.0183$. In this simple model, doubling the barrier from 3 to 6 reduces transitions to about 1.8 percent of the lower-barrier rate.
 :::
 
 ::: {.check-your-learning}
