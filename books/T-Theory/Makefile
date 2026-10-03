@@ -84,9 +84,9 @@ $(BLD)/book-philosophy.pdf: philosophy/book-philosophy.md $(BLD)/booklet-philoso
 	$(PANDOC) $< --defaults=defaults/book-pdf.yaml --toc --output=$@
 	@echo "Built domain book: $@"
 
-$(BLD)/book-consciousness.pdf: $(BLD)/book-philosophy.pdf | $(BLD)
-	cp -f $< $@
-	@echo "Built: $@ (from $<)"
+$(BLD)/book-consciousness.pdf: philosophy/book-philosophy.md $(BLD)/booklet-philosophy.pdf defaults/book-pdf.yaml filters/ttheory-direct.lua ../../lib/format/macros.lua | $(BLD)
+	$(PANDOC) $< --defaults=defaults/book-pdf.yaml --toc --output=$@
+	@echo "Built domain book: $@ (from philosophy source)"
 
 $(BLD)/book-%.html: $$(wildcard */book-$$*.md) defaults/book-html.yaml filters/ttheory-direct.lua ../../lib/format/macros.lua ../../lib/format/site.css | $(BLD)
 	$(PANDOC) $< --defaults=defaults/book-html.yaml --output=$@
