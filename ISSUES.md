@@ -885,3 +885,24 @@ five real `sorry`s remain in three files.
    `DyadicField` and `SomaNetwork` debts.
 - [ ] Optional good-citizen step: an issue or note to the OSforGFF author
    saying where the library is used (no code change needed).
+
+---
+
+## ISS-037: MOTHER/H-AL voice — OPEN
+{{Tags area.app}}
+{{Fields date.created=2026-10-03, date.start=2026-10-03, date.end=, epic=}}
+
+Answers in the MOTHER terminal can be read aloud (SPEAK toggle, `/speak`,
+`/stop`, Esc). H-AL uses the HAL 9000 Piper voice (campwill/HAL-9000-Piper-TTS,
+private use only, model outside the repo) through the local bridge's
+`POST /speak`; MOTHER and the fallback use the browser's Web Speech API.
+
+**Actions:**
+- [x] 2026-10-03: bridge `/speak` (optional Piper; `/health` reports `voice`),
+   `voice.js` in the app, SPEAK toggle and slash commands, README setup.
+- [ ] Speak the WHAT [T]-THEORY ADDS section on request (`/speak diff`).
+- [ ] A licence-clean neural voice for public MOTHER (a stock Piper voice such
+   as en_GB) if browser voices prove too uneven across platforms.
+- [ ] Narrated tours: speak tour steps once the tour language exists (after
+   the observatory work, which is on hold until the author starts it).
+

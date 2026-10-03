@@ -12,7 +12,8 @@ localhost origins. Never deploy it publicly: it acts with your Google account.
 POST /ask {"prompt": "...", "question": "...", "compare": false} -> {"answer": "...", "citations": ["..."]}
      with "compare": true and a baseline notebook (mainstream reference sources):
      also {"baseline": {"answer", "citations"}, "diff": "what [T]-Theory adds"}
-GET  /health -> {"ok": true, "notebook": "<id>"}
+GET  /health -> {"ok": true, "notebook": "<id>", "voice": true|false}
+POST /speak {"text": "..."} -> audio/wav in the H-AL voice (Piper; optional, private use)
 """
 from __future__ import annotations
 
@@ -39,6 +40,11 @@ try:
     from winpty import PtyProcess
 except ImportError:  # installed only when the local shell is wanted
     PtyProcess = None
+
+try:
+    from piper import PiperVoice
+except ImportError:  # installed only when the H-AL voice is wanted
+    PiperVoice = None
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_SHELL_CWD = HERE.parents[2]
@@ -86,6 +92,34 @@ def notebook_id() -> str:
 def hal_id() -> str | None:
     # H-AL ("Hologram Al"): the author's private notebook (MOTHER's sources plus Phase Dot and chats).
     return os.environ.get("MOTHER_HAL_ID") or local_config().get("hal_notebook_id")
+
+
+DEFAULT_VOICE_MODEL = Path.home() / ".voice-admin" / "models" / "hal9000" / "hal.onnx"
+VOICE_LOCK = threading.Lock()
+_VOICE = None
+
+
+def voice_model() -> Path:
+    # The HAL 9000 Piper model is private use only; it lives outside the repo.
+    configured = os.environ.get("MOTHER_VOICE_MODEL") or local_config().get("voice_model")
+    return Path(configured).expanduser() if configured else DEFAULT_VOICE_MODEL
+
+
+def voice_available() -> bool:
+    return PiperVoice is not None and voice_model().exists()
+
+
+def synthesize(text: str) -> bytes:
+    global _VOICE
+    import io
+    import wave
+    with VOICE_LOCK:
+        if _VOICE is None:
+            _VOICE = PiperVoice.load(str(voice_model()))
+        buffer = io.BytesIO()
+        with wave.open(buffer, "wb") as wav:
+            _VOICE.synthesize_wav(text, wav)
+    return buffer.getvalue()
 
 
 def baseline_id() -> str | None:
@@ -330,7 +364,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         if self.path == "/health":
             origin = self.headers.get("Origin", "")
-            self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal), "shell": shell_status(bool(origin and LOCAL_ORIGIN.match(origin)))})
+            self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal), "voice": voice_available(), "shell": shell_status(bool(origin and LOCAL_ORIGIN.match(origin)))})
         else:
             self._json(404, {"error": "not found"})
 
@@ -440,7 +474,36 @@ class Handler(BaseHTTPRequestHandler):
             with SHELL_LOCK:
                 ACTIVE_SHELLS = max(0, ACTIVE_SHELLS - 1)
 
+    def _speak(self) -> None:
+        if not voice_available():
+            self._json(404, {"error": "H-AL voice not installed (pip install piper-tts; see README)"})
+            return
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+            data = json.loads(self.rfile.read(min(length, 64_000)) or b"{}")
+            text = str(data.get("text") or "").strip()[:4000]
+            if not text:
+                self._json(400, {"error": "empty text"})
+                return
+            audio = synthesize(text)
+            self.send_response(200)
+            self._cors()
+            self.send_header("Content-Type", "audio/wav")
+            self.send_header("Content-Length", str(len(audio)))
+            self.end_headers()
+            self.wfile.write(audio)
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+            pass
+        except Exception as error:
+            self._json(500, {"error": f"{type(error).__name__}: {error}"})
+
     def do_POST(self) -> None:  # noqa: N802
+        if self.path == "/speak":
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            self._speak()
+            return
         if self.path != "/ask":
             self._json(404, {"error": "not found"})
             return
@@ -474,7 +537,7 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     Handler.bridge = Bridge(notebook_id(), baseline_id(), hal_id())
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
-    print(f"MOTHER bridge on http://127.0.0.1:{PORT} (notebook {Handler.bridge.notebook}); Ctrl+C to stop")
+    print(f"MOTHER bridge on http://127.0.0.1:{PORT} (notebook {Handler.bridge.notebook}; H-AL voice {'on' if voice_available() else 'off'}); Ctrl+C to stop")
     server.serve_forever()
 
 

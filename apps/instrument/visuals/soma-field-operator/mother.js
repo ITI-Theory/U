@@ -8,6 +8,7 @@ import { FitAddon } from '@xterm/addon-fit';
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
 import { eras, levels, questions } from './generated/app-data.js';
+import { createVoice } from './voice.js';
 
 const STORAGE = {
   mode: 'mother-mode',
@@ -17,11 +18,12 @@ const STORAGE = {
   persona: 'mother-persona',
   shellProfile: 'mother-shell-profile',
   history: 'mother-history',
+  speak: 'mother-speak',
 };
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/clear', '/shell'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/stop', '/clear', '/shell'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id)].sort();
 
 function read(key, fallback) {
@@ -137,7 +139,7 @@ export function createMother({ getContext }) {
   terminal.setAttribute('role', 'dialog');
   terminal.setAttribute('aria-label', 'MOTHER interface');
   terminal.innerHTML = `
-    <header><span class="mother-title">MU/TH/UR // [T]-THEORY INTERFACE</span><nav class="mother-tabs" aria-label="MOTHER panel tabs"><button type="button" class="active" data-tab="chat">CHAT</button><button type="button" data-tab="shell">SHELL</button></nav><span class="mother-persona" role="radiogroup" aria-label="Notebook"><label><input type="radio" name="mother-persona" value="mother" autocomplete="off" /> MOTHER</label><label title="H-AL (Hologram Al): the author's private notebook; API mode only"><input type="radio" name="mother-persona" value="hal" autocomplete="off" /> H-AL</label></span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
+    <header><span class="mother-title">MU/TH/UR // [T]-THEORY INTERFACE</span><nav class="mother-tabs" aria-label="MOTHER panel tabs"><button type="button" class="active" data-tab="chat">CHAT</button><button type="button" data-tab="shell">SHELL</button></nav><span class="mother-persona" role="radiogroup" aria-label="Notebook"><label><input type="radio" name="mother-persona" value="mother" autocomplete="off" /> MOTHER</label><label title="H-AL (Hologram Al): the author's private notebook; API mode only"><input type="radio" name="mother-persona" value="hal" autocomplete="off" /> H-AL</label></span><label class="mother-compare" title="Also ask the mainstream reference notebook and show what [T]-Theory adds (API mode)"><input type="checkbox" autocomplete="off" /> COMPARE</label><label class="mother-speak" title="Read answers aloud. H-AL uses the HAL 9000 Piper voice when the local bridge has it; otherwise the browser voice. /stop or Esc to silence."><input type="checkbox" autocomplete="off" /> SPEAK</label><button type="button" class="mother-close" aria-label="Close">X</button></header>
     <div class="mother-pane mother-pane-chat" data-pane="chat">
       <div class="mother-log" aria-live="polite"></div>
       <form class="mother-form"><span>&gt;</span><input class="mother-input" autocomplete="off" placeholder="ASK ABOUT THIS VIEW — /help FOR COMMANDS" /></form>
@@ -173,6 +175,7 @@ export function createMother({ getContext }) {
   const syncPersona = () => {
     terminal.querySelector('.mother-persona').hidden = modeSelect.value !== 'api' || activeTab !== 'chat';
     terminal.querySelector('.mother-compare').hidden = activeTab !== 'chat';
+    terminal.querySelector('.mother-speak').hidden = activeTab !== 'chat';
     titleSpan.textContent = persona() === 'hal' ? 'H-AL // HOLOGRAM AL' : 'MU/TH/UR // [T]-THEORY INTERFACE';
     terminal.classList.toggle('persona-hal', persona() === 'hal');
     if (xterm) xterm.options.theme = shellTheme();
@@ -186,6 +189,14 @@ export function createMother({ getContext }) {
   const compareInput = terminal.querySelector('.mother-compare input');
   compareInput.checked = read(STORAGE.compare, 'on') === 'on';
   compareInput.addEventListener('change', () => write(STORAGE.compare, compareInput.checked ? 'on' : 'off'));
+  const voice = createVoice();
+  const speakInput = terminal.querySelector('.mother-speak input');
+  speakInput.checked = read(STORAGE.speak, 'off') === 'on';
+  speakInput.addEventListener('change', () => {
+    write(STORAGE.speak, speakInput.checked ? 'on' : 'off');
+    if (!speakInput.checked) voice.stop();
+  });
+  const bridgeUrl = () => (bridgeInput.value.trim() || DEFAULT_BRIDGE).replace(/\/$/, '');
 
   function historyKey() {
     return `${STORAGE.history}-${persona()}`;
@@ -385,7 +396,19 @@ export function createMother({ getContext }) {
       log.scrollTop = log.scrollHeight;
       return true;
     }
+    if (verb === '/speak') {
+      speakInput.checked = rest[0] !== 'off';
+      write(STORAGE.speak, speakInput.checked ? 'on' : 'off');
+      if (!speakInput.checked) voice.stop();
+      type(`SPEAK ${speakInput.checked ? 'ON' : 'OFF'}`);
+      return true;
+    }
+    if (verb === '/stop') {
+      voice.stop();
+      return true;
+    }
     if (verb === '/clear') {
+      voice.stop();
       log.innerHTML = '';
       return true;
     }
@@ -457,7 +480,8 @@ export function createMother({ getContext }) {
       else input.focus();
     }
   });
-  terminal.querySelector('.mother-close').addEventListener('click', () => { terminal.hidden = true; });
+  terminal.querySelector('.mother-close').addEventListener('click', () => { voice.stop(); terminal.hidden = true; });
+  terminal.addEventListener('keydown', event => { if (event.key === 'Escape') voice.stop(); });
   for (const tab of tabButtons) tab.addEventListener('click', () => showTab(tab.dataset.tab));
   shellConnect.addEventListener('click', () => connectShell());
   shellDisconnect.addEventListener('click', disconnectShell);
@@ -492,6 +516,7 @@ export function createMother({ getContext }) {
     input.value = '';
     if (question.startsWith('/') && handleCommand(question)) return;
     remember(question);
+    voice.stop();
     const context = getContext();
     const prompt = composePrompt(question, context);
     const asked = document.createElement('div');
@@ -511,7 +536,7 @@ export function createMother({ getContext }) {
       return;
     }
 
-    const bridge = (bridgeInput.value.trim() || DEFAULT_BRIDGE).replace(/\/$/, '');
+    const bridge = bridgeUrl();
     await type('QUERYING...', 30);
     try {
       const response = await fetch(`${bridge}/ask`, {
@@ -542,6 +567,7 @@ export function createMother({ getContext }) {
         await type('(NO BASELINE NOTEBOOK CONFIGURED: COMPARE SKIPPED)');
       }
       await type('[INTERPRETIVE / MAY ERR: CHECK THE CITED SOURCES]');
+      if (speakInput.checked) voice.speak(data.answer ?? '', persona(), bridge);
     } catch (error) {
       // fetch() rejects with TypeError only when the bridge cannot be reached at all.
       if (error instanceof TypeError) await type('BRIDGE OFFLINE.\nSTART IT WITH apps/instrument/mother/run_bridge.ps1');

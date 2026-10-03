@@ -86,6 +86,24 @@ Compare mode (API): also set `baseline_notebook_id`, a notebook of mainstream
 reference sources (lens off). The terminal then shows the answer, WHAT
 [T]-THEORY ADDS, and the mainstream answer.
 
+## Voice (SPEAK)
+
+Tick SPEAK in the terminal header (or `/speak on`; `/stop` or Esc to silence).
+MOTHER reads answers with the browser's built-in voice. H-AL uses the HAL 9000
+Piper voice when the bridge has it, and falls back to a lower browser voice
+otherwise. The HAL 9000 model is private use only and stays outside the repo:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install piper-tts
+$d = "$HOME\.voice-admin\models\hal9000"; New-Item -ItemType Directory -Force $d
+foreach ($f in 'hal.onnx', 'hal.onnx.json') {
+  curl.exe -sSL -o "$d\$f" "https://huggingface.co/campwill/HAL-9000-Piper-TTS/resolve/main/$f" }
+```
+
+Another model path can be set with `voice_model` in `mother.local.json` or
+`MOTHER_VOICE_MODEL`. `GET /health` reports `"voice": true` when it is ready;
+`POST /speak {"text": "..."}` returns `audio/wav` (localhost origins only).
+
 ## Notes
 
 - Every question carries the view (level, scale, response time, path, model,

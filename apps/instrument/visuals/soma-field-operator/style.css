@@ -325,6 +325,8 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 
 .mother-terminal header .mother-compare { display: flex; align-items: center; gap: 4px; margin-left: auto; margin-right: 10px; font-size: 10px; }
 .mother-terminal header .mother-compare input { width: auto; margin: 0; }
+.mother-terminal header .mother-speak { display: flex; align-items: center; gap: 4px; margin-right: 10px; font-size: 10px; }
+.mother-terminal header .mother-speak input { width: auto; margin: 0; }
 .mother-section { margin: 12px 0 4px; color: #e8ffef; font-size: 11px; letter-spacing: .14em; border-bottom: 1px solid #2f8f4f; }
 .mother-diff { padding: 6px 10px; border: 1px solid #f6c75a; color: #ffe9a8; background: rgba(60,45,5,.25); }
 .mother-diff .mother-section { color: #f6c75a; border-color: #f6c75a; }
