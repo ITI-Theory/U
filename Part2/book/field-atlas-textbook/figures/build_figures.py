@@ -257,15 +257,78 @@ plt.title("The onset of collective rhythm")
 plt.legend(fontsize=8)
 save("ch06-kuramoto.png")
 
-np.random.seed(4)
-pts = np.random.rand(200, 2)*50
-ang = np.arctan2(25-pts[:,1], 25-pts[:,0]) + np.random.normal(0, .35, 200)
-plt.figure(figsize=(5, 5))
-plt.quiver(pts[:,0], pts[:,1], np.cos(ang), np.sin(ang), angles="xy", scale_units="xy", scale=0.45, width=.003)
-plt.xlim(0, 50); plt.ylim(0, 50)
-plt.xlabel("m"); plt.ylabel("m")
-plt.title("Vicsek-style local alignment field")
-save("ch07-vicsek.png")
+# Chapter 7 opener: the Vicsek model at low and high noise, and order against noise.
+def vicsek(eta: float, n: int = 400, box: float = 10.0, radius: float = 1.0, v0: float = 0.03,
+           steps: int = 500, seed: int = 4):
+    rng = np.random.default_rng(seed)
+    pos = rng.random((n, 2)) * box
+    th = rng.uniform(-np.pi, np.pi, n)
+    pol = np.empty(steps)
+    for k in range(steps):
+        d = pos[:, None, :] - pos[None, :, :]
+        d -= box * np.round(d / box)
+        near = (d**2).sum(-1) < radius**2
+        mean = np.arctan2(near @ np.sin(th), near @ np.cos(th))
+        th = mean + eta * (rng.random(n) - 0.5)
+        pos = (pos + v0 * np.c_[np.cos(th), np.sin(th)]) % box
+        pol[k] = abs(np.mean(np.exp(1j * th)))
+    return pos, th, pol
+
+
+fig, axes = plt.subplots(1, 3, figsize=(16, 4.6), gridspec_kw={"width_ratios": [1, 1, 1.4]})
+for ax, eta, title in [(axes[0], 0.5, "low noise: one direction"), (axes[1], 4.0, "high noise: no direction")]:
+    pos, th, pol = vicsek(eta)
+    ax.quiver(pos[:, 0], pos[:, 1], np.cos(th), np.sin(th), color="#104a73",
+              angles="xy", scale_units="xy", scale=2.2, width=0.004)
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 10)
+    ax.set_aspect("equal")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_title(f"{title}  (order {pol[-100:].mean():.2f})", fontsize=11)
+etas = np.linspace(0.25, 5.5, 12)
+order = [vicsek(e, steps=400)[2][-150:].mean() for e in etas]
+axes[2].plot(etas, order, "o-", color="#c0504d")
+axes[2].set_xlabel("noise $\\eta$ (radians)")
+axes[2].set_ylabel("order (polarisation)")
+axes[2].set_ylim(0, 1)
+axes[2].set_title("400 agents, each copying its neighbours' heading", fontsize=11)
+for s in ("top", "right"):
+    axes[2].spines[s].set_visible(False)
+save("ch07-banner.png")
+
+# Chapter 7, Section 7.4: a turn crossing a line of birds, diffusive against inertial alignment.
+def chain_arrival(inertial: bool, n: int = 160, coupling: float = 50.0, damping: float = 0.2,
+                  dt: float = 0.002, t_end: float = 150.0):
+    th = np.zeros(n)
+    om = np.zeros(n)
+    arrival = np.full(n, np.nan)
+    t = 0.0
+    while t < t_end and np.isnan(arrival[59]):
+        th[0] = 1.0
+        lap = np.zeros(n)
+        lap[1:-1] = th[:-2] + th[2:] - 2 * th[1:-1]
+        lap[-1] = th[-2] - th[-1]
+        if inertial:
+            om += dt * (coupling * lap - damping * om)
+            th += dt * om
+        else:
+            th += dt * coupling * lap
+        t += dt
+        hit = np.isnan(arrival) & (th >= 0.5)
+        arrival[hit] = t
+    return arrival
+
+
+idx = np.arange(60)
+plt.figure(figsize=(6, 3.4))
+plt.plot(idx, chain_arrival(False)[:60], color="#c0504d", lw=2, label="copy the neighbours' heading (diffusive)")
+plt.plot(idx, chain_arrival(True)[:60], color="#104a73", lw=2, label="turn with inertia (wave)")
+plt.xlabel("bird number along the line")
+plt.ylabel("time for the turn to arrive")
+plt.title("A diffusive turn slows with distance; a wave does not")
+plt.legend(fontsize=8)
+save("ch07-turn-wave.png")
 
 ages = [4.54, 4.0, 2.5, 0.541, 0.066, 0]
 labels = ["Earth", "Archean", "Oxygen", "Cambrian", "K-Pg", "now"]
