@@ -66,15 +66,75 @@ ax2.set_ylabel("relative probability per unit radius")
 ax2.set_title("1s ground state: most likely radius is $a_0$", fontsize=10)
 save("ch03-hydrogen.png")
 
-x = np.linspace(0, 5, 400)
-for t in [0, 5, 10, 20]:
-    v = np.exp(-x/1.581) * np.exp(-t/10)
-    plt.plot(x, v, label=f"t={t} ms")
-plt.xlabel("distance along membrane (mm)")
-plt.ylabel("scaled voltage")
-plt.title("Passive cable attenuation")
-plt.legend()
+# Chapter 4, Section 4.3: impulse response of the passive cable, tau dV/dt = lambda^2 V'' - V.
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.4))
+X = np.linspace(-4, 4, 600)
+for T, col in [(0.1, "#1f6f8b"), (0.5, "#4f81bd"), (1.0, "#c0504d"), (2.0, "#7f8c99")]:
+    G = np.exp(-X**2 / (4 * T)) * np.exp(-T) / np.sqrt(4 * np.pi * T)
+    ax1.plot(X, G, color=col, label=f"t = {T:g} $\\tau$")
+ax1.set_xlabel("distance from the kick, $x/\\lambda$")
+ax1.set_ylabel("voltage (relative)")
+ax1.set_title("one kick: the voltage spreads and leaks away", fontsize=10)
+ax1.legend(fontsize=8)
+Xs = np.linspace(0, 4, 400)
+ax2.plot(Xs, np.exp(-Xs), color="black", lw=2)
+ax2.axvline(1, color="#7f8c99", ls="--", lw=1)
+ax2.axhline(np.exp(-1), color="#7f8c99", ls="--", lw=1)
+ax2.text(1.05, 0.42, "$x = \\lambda$: 37 % remains", fontsize=9)
+ax2.set_xlabel("distance from a steady injection, $x/\\lambda$")
+ax2.set_ylabel("voltage (relative)")
+ax2.set_title("steady input: $V = V_0\\,e^{-x/\\lambda}$", fontsize=10)
 save("ch04-cable.png")
+
+
+# Chapter 4 opener: Hodgkin-Huxley responses to 1 ms kicks of increasing size.
+def hh_trace(amp: float, dur: float = 1.0, t_end: float = 25.0, dt: float = 0.005):
+    gna, gk, gl, ena, ek, el = 120.0, 36.0, 0.3, 50.0, -77.0, -54.387
+    v = -65.0
+
+    def rates(v):
+        am = 0.1 * (v + 40) / (1 - math.exp(-(v + 40) / 10))
+        bm = 4 * math.exp(-(v + 65) / 18)
+        ah = 0.07 * math.exp(-(v + 65) / 20)
+        bh = 1 / (1 + math.exp(-(v + 35) / 10))
+        an = 0.01 * (v + 55) / (1 - math.exp(-(v + 55) / 10))
+        bn = 0.125 * math.exp(-(v + 65) / 80)
+        return am, bm, ah, bh, an, bn
+
+    am, bm, ah, bh, an, bn = rates(v)
+    m, h, n = am / (am + bm), ah / (ah + bh), an / (an + bn)
+    ts = np.arange(0, t_end, dt)
+    vs = np.empty_like(ts)
+    for i, t in enumerate(ts):
+        current = amp if 1.0 <= t < 1.0 + dur else 0.0
+        dv = current - gna * m**3 * h * (v - ena) - gk * n**4 * (v - ek) - gl * (v - el)
+        v += dt * dv
+        am, bm, ah, bh, an, bn = rates(v)
+        m += dt * (am * (1 - m) - bm * m)
+        h += dt * (ah * (1 - h) - bh * h)
+        n += dt * (an * (1 - n) - bn * n)
+        vs[i] = v
+    return ts, vs
+
+
+fig, (tr, pk) = plt.subplots(1, 2, figsize=(16, 4.4), gridspec_kw={"width_ratios": [2.2, 1]})
+for amp, col in [(3, "#9fb3c8"), (6.5, "#4f81bd"), (7, "#c0504d"), (20, "#7a1f1f")]:
+    ts, vs = hh_trace(amp)
+    tr.plot(ts, vs, color=col, lw=1.8, label=f"kick {amp:g} $\\mu$A cm$^{{-2}}$ for 1 ms")
+tr.set_xlabel("time (ms)")
+tr.set_ylabel("membrane voltage (mV)")
+tr.set_title("below threshold the kick dies away; above it the cell fires a full spike", fontsize=11)
+tr.legend(fontsize=9, loc="upper right")
+amps = np.linspace(1, 30, 59)
+peaks = [hh_trace(a, t_end=12.0, dt=0.01)[1].max() for a in amps]
+pk.plot(amps, peaks, "o-", color="#104a73", ms=3)
+pk.set_xlabel("kick size ($\\mu$A cm$^{-2}$, 1 ms)")
+pk.set_ylabel("peak voltage (mV)")
+pk.set_title("all or none: the peak jumps at 6.9", fontsize=11)
+for ax in (tr, pk):
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+save("ch04-banner.png")
 
 e = np.linspace(-2.2, 2.2, 500)
 H = (e*e - 1)**2 + 0.15*e
