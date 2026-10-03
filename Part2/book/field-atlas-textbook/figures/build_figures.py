@@ -435,12 +435,48 @@ plt.ylabel("atoms able to absorb Balmer lines\n(relative)")
 plt.title("Hydrogen lines peak near 10 000 K")
 save("ch09-balmer.png")
 
-labels = ["baryon", "dark matter", "dark energy"]
-vals = [1/11, 3/11, 7/11]
-plt.figure(figsize=(5.8, 3.4))
-plt.bar(labels, vals, color=["#6baed6", "#756bb1", "#31a354"])
-plt.ylabel("fraction")
-plt.title("USF dark-sector ratios are model-derived")
+# Chapter 10 opener: Hubble's law and the cosmic microwave background spectrum.
+fig, (hd, cmb) = plt.subplots(1, 2, figsize=(16, 4.4))
+rng10 = np.random.default_rng(10)
+dist = rng10.uniform(10, 400, 60)
+vel = 67.4 * dist + rng10.normal(0, 400, dist.size)
+hd.plot(dist, vel / 1000, "o", color="#4f81bd", ms=4, label="galaxies (simulated, with peculiar motions)")
+dd = np.linspace(0, 420, 10)
+hd.plot(dd, 67.4 * dd / 1000, color="#104a73", lw=2, label="$v = H_0d$, $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$")
+hd.set_xlabel("distance (Mpc)")
+hd.set_ylabel("recession speed (thousand km s$^{-1}$)")
+hd.set_title("the farther the galaxy, the faster it recedes", fontsize=11)
+hd.legend(fontsize=9, loc="upper left")
+nu = np.linspace(1, 1000, 600) * 1e9
+T0 = 2.7255
+Bnu = 2 * 6.626e-34 * nu**3 / 2.998e8**2 / (np.exp(6.626e-34 * nu / (1.381e-23 * T0)) - 1)
+cmb.plot(nu / 1e9, Bnu * 1e20, color="#c0504d", lw=2)
+cmb.axvline(160.2, color="#7f8c99", ls="--", lw=1)
+cmb.text(170, Bnu.max() * 1e20 * 0.95, "peak 160 GHz\n(wavelength 1.9 mm)", fontsize=9)
+cmb.set_xlabel("frequency (GHz)")
+cmb.set_ylabel("brightness ($10^{-20}$ W m$^{-2}$ Hz$^{-1}$ sr$^{-1}$)")
+cmb.set_title("the afterglow: a blackbody at 2.7255 K filling the sky", fontsize=11)
+for ax in (hd, cmb):
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+save("ch10-banner.png")
+
+# Chapter 10, Section 10.5: measured energy budget against the programme's dimensional counting.
+parts = ["dark energy", "dark matter", "ordinary matter"]
+obs = [0.6847, 0.2645, 0.0493]
+usf = [7 / 11, 3 / 11, 1 / 22]
+x = np.arange(3)
+plt.figure(figsize=(6, 3.4))
+plt.bar(x - 0.18, obs, 0.36, color="#104a73", label="measured (Planck 2018)")
+plt.bar(x + 0.18, usf, 0.36, color="#c0504d", label="programme: 7/11, 3/11, 1/22")
+for i in range(3):
+    plt.text(x[i] - 0.18, obs[i] + 0.015, f"{obs[i]:.3f}", ha="center", fontsize=8)
+    plt.text(x[i] + 0.18, usf[i] + 0.015, f"{usf[i]:.3f}", ha="center", fontsize=8)
+plt.xticks(x, parts)
+plt.ylabel("fraction of the cosmic energy budget")
+plt.ylim(0, 0.8)
+plt.title("Measured budget and the programme's counting")
+plt.legend(fontsize=8)
 save("ch10-dark-sectors.png")
 
 # Chapter 1: response time against size for the 31 registry levels.
