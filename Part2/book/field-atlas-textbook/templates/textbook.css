@@ -1,0 +1,34 @@
+:root {
+  --ink: #18212a;
+  --muted: #526678;
+  --paper: #ffffff;
+  --blue: #164a73;
+  --teal: #007c8c;
+  --gold: #946400;
+  --green: #2e6f40;
+  --purple: #604691;
+  --panel: #f4f7f9;
+  --line: #d7e1e8;
+}
+* { box-sizing: border-box; }
+body { max-width: 1200px; margin: 0 auto; padding: 2rem; color: var(--ink); background: var(--paper); font-family: Georgia, "TeX Gyre Pagella", serif; line-height: 1.62; }
+a { color: var(--teal); }
+h1, h2, h3, h4 { font-family: "TeX Gyre Heros", Arial, sans-serif; color: var(--blue); }
+h1 { border-bottom: 4px solid var(--line); padding-bottom: .25rem; }
+h2 { color: var(--teal); margin-top: 2rem; }
+figure { margin: 1.2rem auto; padding: .5rem; background: #fbfcfd; border: 1px solid var(--line); }
+figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+figcaption { color: var(--muted); font-size: .94rem; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+th, td { border-bottom: 1px solid var(--line); padding: .45rem; vertical-align: top; }
+.field-atlas-columns { column-count: 3; column-gap: 2rem; }
+.textbook-box { border-left: .45rem solid var(--blue); background: var(--panel); margin: 1rem 0; padding: .9rem 1rem; }
+.textbook-box > .box-title { display: block; font-family: Arial, sans-serif; font-weight: 700; color: var(--blue); margin-bottom: .35rem; }
+.learning-objectives { border-color: var(--teal); }
+.example { border-color: var(--gold); }
+.check-your-learning { border-color: var(--green); }
+.link-to-learning, .soma-machine { border-color: var(--purple); }
+.making-connections { border-color: var(--blue); }
+.key-terms, .key-equations, .summary, .review-questions, .problems { border-color: var(--muted); }
+.page-break { break-before: page; }
+@media (max-width: 900px) { .field-atlas-columns { column-count: 1; } body { padding: 1rem; } table { display:block; overflow-x:auto; } }

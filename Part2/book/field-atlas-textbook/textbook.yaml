@@ -1,0 +1,15 @@
+id: field-atlas-textbook
+title: "[T]-Theory Field Atlas: Textbook Edition"
+subtitle: Fields, Response, Scale, and Evidence Labels
+author: "ITI-Theory"
+date: "2026-10-03"
+lang: en-US
+documentclass: book
+classoption:
+  - openany
+numbersections: true
+secnumdepth: 2
+toc-title: Contents
+link-citations: true
+figureTitle: Figure
+tableTitle: Table

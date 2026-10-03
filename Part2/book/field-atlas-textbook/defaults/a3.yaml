@@ -1,0 +1,24 @@
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: textbook.yaml
+input-files:
+  - textbook.md
+  - chapters/01-fields-waves-scale.md
+output-file: ../../../bld/textbook/field-atlas-textbook-a3.tex
+to: latex
+resource-path:
+  - .
+  - ../../..
+bibliography: ../../../paper/bibliography.bib
+csl: ../../../paper/apa-7th.csl
+include-in-header:
+  - templates/textbook-a3-header.tex
+variables:
+  geometry: paperwidth=420mm,paperheight=297mm,margin=16mm,top=18mm,bottom=18mm
+  fontsize: 10.5pt
+  linestretch: 1.08
+filters:
+  - ../../../lib/format/registry.lua
+  - ../../../lib/format/plates.lua
+  - ../../../lib/format/columns.lua
+  - filters/textbook-boxes.lua

@@ -1,0 +1,25 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\definecolor{textbookblue}{RGB}{16,74,115}
+\definecolor{textbookteal}{RGB}{0,124,140}
+\definecolor{textbookgold}{RGB}{148,100,0}
+\definecolor{textbookgreen}{RGB}{46,111,64}
+\definecolor{textbookpurple}{RGB}{96,70,145}
+\definecolor{textbookgray}{RGB}{244,247,249}
+\setlength{\columnsep}{8mm}
+\newcommand{\colsbegin}{\begin{multicols}{3}}
+\newcommand{\colsend}{\end{multicols}}
+\captionsetup{labelfont=bf,font=small}
+\titleformat{\chapter}[display]{\sffamily\bfseries\color{textbookblue}\Huge}{\chaptertitlename\ \thechapter}{0.2em}{\Huge}
+\titleformat{\section}{\sffamily\bfseries\color{textbookteal}\Large}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\color{textbookblue}\large}{\thesubsection}{0.6em}{}
+\newtcolorbox{textbookbox}[2][]{enhanced,breakable,colback=textbookgray,colframe=#2,arc=1.5mm,left=1.5mm,right=1.5mm,top=1mm,bottom=1mm,fonttitle=\sffamily\bfseries,title=#1}

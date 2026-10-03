@@ -1,0 +1,19 @@
+defaults:
+  - ../../../lib/defaults/base-html.yaml
+metadata-file: textbook.yaml
+input-files:
+  - textbook.md
+  - chapters/01-fields-waves-scale.md
+output-file: ../../../bld/textbook/html/index.html
+resource-path:
+  - .
+  - ../../..
+bibliography: ../../../paper/bibliography.bib
+csl: ../../../paper/apa-7th.csl
+css:
+  - textbook.css
+filters:
+  - ../../../lib/format/registry.lua
+  - ../../../lib/format/plates.lua
+  - ../../../lib/format/columns.lua
+  - filters/textbook-boxes.lua

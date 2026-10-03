@@ -5,6 +5,7 @@ include lib/mk/paths.mk
 PYTHON ?= python
 BOOKS_DIR := books/T-Theory
 ATLAS_DIR := Part2/book/field-atlas
+TEXTBOOK_DIR := Part2/book/field-atlas-textbook
 APP_DIR := apps/instrument/visuals/soma-field-operator
 DIST := ../Dist
 ADM := prj/.adm
@@ -18,7 +19,7 @@ include lib/mk/dist.mk
 
 .DEFAULT_GOAL := help
 
-.PHONY: help all build papers papers-html omnibus atlas atlas-html books vol1 vol2 lean app check clean \
+.PHONY: help all build papers papers-html omnibus atlas atlas-html textbook textbook-html books vol1 vol2 lean app check clean \
 	registry-papers registry-papers-royal registry-fractal lean-appendix \
 	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
 	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
@@ -31,6 +32,8 @@ help:
 	$(info   omnibus         build the papers omnibus)
 	$(info   atlas           build the Field Atlas A3 edition)
 	$(info   atlas-html      build the Field Atlas HTML edition)
+	$(info   textbook        build the Field Atlas textbook A3 edition)
+	$(info   textbook-html   build the Field Atlas textbook HTML edition)
 	$(info   books           build all T-Theory books)
 	$(info   vol1            build T-Theory volume 1)
 	$(info   vol2            build T-Theory volume 2)
@@ -57,6 +60,12 @@ atlas:
 
 atlas-html:
 	$(MAKE) -C $(ATLAS_DIR) html
+
+textbook:
+	$(MAKE) -C $(TEXTBOOK_DIR) a3
+
+textbook-html:
+	$(MAKE) -C $(TEXTBOOK_DIR) html
 
 books:
 	$(MAKE) -C $(BOOKS_DIR) all
