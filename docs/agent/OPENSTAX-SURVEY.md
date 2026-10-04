@@ -39,10 +39,12 @@ Purpose: a coverage map, not text. For each concept the course needs, find the
 best OpenStax treatment, its figures and its prerequisites, with citations. The
 exact work (licences, text, figure code) is then done in the repo.
 
-**Notebook:** a new private notebook, `openstax-maths`. Upload the PDFs from
-`openstax/`. NotebookLM's free tier has a per-source size limit (about 200 MB
-at the time of writing): College Physics (251 MB as downloaded) may be refused; use
-Physics (high school) instead, or leave it out.
+**Notebook:** a new private notebook, `openstax-maths`. Upload all twelve PDFs
+from `openstax/`; every file is under NotebookLM's 200 MB per-source limit.
+College Physics was 251 MB as published, so its images were reduced to
+150 dpi with Ghostscript (`-dPDFSETTINGS=/ebook`, now 55 MB, all 1,568 pages
+and the licence page intact). Use the original download, not this copy, if
+figures are ever adapted for print.
 
 Ask each question separately. Ask for page citations every time.
 
