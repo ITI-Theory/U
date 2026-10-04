@@ -1049,7 +1049,8 @@ AI-drawn physics figures.
 **Actions:**
 - [ ] Draft the chapter plan for author review.
 - [ ] Licence check of each OpenStax maths source.
-- [ ] Then build: A4 defaults, restructure, toolkit, Visualize macro.
+- [x] A4 defaults, parts (3b58411); generated numbering with pandoc-crossref (7ce084a).
+- [ ] Toolkit M1-M6, chapter 3 (frequencies), Part III ports, Visualize macro.
 
 ---
 
@@ -1109,4 +1110,27 @@ bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
 - [ ] `ttheory-cheatsheets-vault.md` (11 book assets, equations, field notes):
    check against the current cheat-sheet sources (ISS-031) for anything not
    carried over.
+
+---
+
+## ISS-043: Upgrade pandoc and pandoc-crossref together (after the release) — OPEN
+{{Tags area.build}}
+{{Fields date.created=2026-10-05, date.start=, date.end=, epic=}}
+
+The course book now uses pandoc-crossref (BUILD.md rule 4b). Installed:
+pandoc 3.10.2 (Chocolatey) with pandoc-crossref 0.3.25 (built on 3.10.1;
+`%LOCALAPPDATA%\Pandoc\pandoc-crossref.exe`). It warns about the patch-level
+mismatch; output was verified word for word against the pre-crossref build.
+
+Chocolatey offers pandoc 3.12.0, but the newest pandoc-crossref (0.3.25a,
+6 Sep 2026) is built on pandoc 3.11. Do not upgrade before the release:
+UAT candidates were built with 3.10.2.
+
+**Actions (after release):**
+- [ ] Pick the pandoc version the newest pandoc-crossref is built on; install both.
+- [ ] We keep no custom pandoc templates (only header includes), so pandoc's
+      built-in LaTeX and HTML templates change with it: rebuild every book,
+      paper and the Atlas and diff the PDF text (pdftotext word diff) before
+      and after.
+- [ ] Update the version line in BUILD.md rule 4b.
 
