@@ -36,6 +36,8 @@ def strip_markdown_noise(text: str) -> str:
     text = re.sub(r"^\s*\|.*\|\s*$", " ", text, flags=re.M)
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)(?:\{[^}]*\})?", " ", text)
     text = re.sub(r"\$\$.*?\$\$", " ", text, flags=re.S)
+    # {{Visualize ...}} parameters are not prose (the caption after }} is)
+    text = re.sub(r"\{\{\s*Visualize.*?\}\}", " ", text, flags=re.S)
     return text
 
 
