@@ -1,12 +1,12 @@
-# Atoms: Light in Packets, Energy in Steps {#ch-atoms}
+# Atoms: Light in Packets, Energy in Steps {#ch:atoms}
 
 ![The hydrogen atom in two panels. Left: its allowed energies, crowding together towards zero, with the four jumps that end on the second level. Right: the four visible lines those jumps produce, the same four lines the Soma Machine draws at its atomic level.](figures/generated/ch03-banner.png){.opener}
 
-Heat a thin tube of hydrogen until it glows and pass the light through a prism. Instead of a rainbow you see four sharp coloured lines on a dark background: red, blue-green, blue and violet. Every hydrogen atom in the universe produces exactly these four, which is how astronomers know what distant stars are made of. Classical physics cannot explain them. This chapter shows how two quantum ideas, light arriving in packets and electrons behaving as waves, turn the four lines into a calculation that, with two small corrections, matches measurement to one part in sixty thousand. Chapter 2's response grammar then reads a spectrum as a list of a system's natural frequencies.
+Heat a thin tube of hydrogen until it glows and pass the light through a prism. Instead of a rainbow you see four sharp coloured lines on a dark background: red, blue-green, blue and violet. Every hydrogen atom in the universe produces exactly these four, which is how astronomers know what distant stars are made of. Classical physics cannot explain them. This chapter shows how two quantum ideas, light arriving in packets and electrons behaving as waves, turn the four lines into a calculation that, with two small corrections, matches measurement to one part in sixty thousand. @ch:response's response grammar then reads a spectrum as a list of a system's natural frequencies.
 
 **Chapter outline.** 3.1 Light arrives in packets · 3.2 The hydrogen spectrum · 3.3 Electrons are waves too · 3.4 Why atoms have a size · 3.5 Reading a spectral line · 3.6 Lines as poles
 
-## Light arrives in packets {#sec-3-1}
+## Light arrives in packets {#sec:atoms-light-arrives-packets}
 
 ::: {.learning-objectives}
 - relate a photon's energy to its frequency and wavelength;
@@ -14,7 +14,7 @@ Heat a thin tube of hydrogen until it glows and pass the light through a prism. 
 - count the photons in a beam of known power.
 :::
 
-Light is an electromagnetic wave, as Chapter 1 described, but it delivers its energy in indivisible packets called **photons**. Planck introduced the idea in 1900 to explain the colour of hot objects [@planck1900quantum]; Einstein used it in 1905 to explain why light below a certain frequency cannot eject electrons from a metal however bright it is. A photon of frequency $f$ carries energy
+Light is an electromagnetic wave, as @ch:fields described, but it delivers its energy in indivisible packets called **photons**. Planck introduced the idea in 1900 to explain the colour of hot objects [@planck1900quantum]; Einstein used it in 1905 to explain why light below a certain frequency cannot eject electrons from a metal however bright it is. A photon of frequency $f$ carries energy
 
 $$E = hf = \frac{hc}{\lambda},$$
 
@@ -24,7 +24,7 @@ $$hc = 1240\,\mathrm{eV\,nm}.$$
 
 A photon's energy in electronvolts is therefore $1240$ divided by its wavelength in nanometres. Visible light, from $700\,\mathrm{nm}$ (red) to $380\,\mathrm{nm}$ (violet), spans $1.8$ to $3.3\,\mathrm{eV}$. That is a hundred times the thermal energy $k_BT \approx 0.026\,\mathrm{eV}$ of a molecule at room temperature, which is why a room-temperature object does not glow but can be bleached, tanned or photographed by light that carries only a few electronvolts per packet.
 
-::: {.example title="Example 3.1 — Photons from a laser pointer"}
+::: {.example #ex:atoms-photons-laser-pointer title="Photons from a laser pointer"}
 A red laser pointer emits $1.0\,\mathrm{mW}$ at $633\,\mathrm{nm}$. Find the energy of one photon in eV and in joules, and the number of photons leaving the pointer each second.
 
 **Strategy.** Use $E = 1240/\lambda$ for the photon energy, convert to joules, and divide the power by the energy per photon.
@@ -38,7 +38,7 @@ A red laser pointer emits $1.0\,\mathrm{mW}$ at $633\,\mathrm{nm}$. Find the ene
 What wavelength carries photons of exactly $2.0\,\mathrm{eV}$, and what colour is it? (Answer: $1240/2.0 = 620\,\mathrm{nm}$, orange-red.)
 :::
 
-## The hydrogen spectrum {#sec-3-2}
+## The hydrogen spectrum {#sec:atoms-hydrogen-spectrum}
 
 ::: {.learning-objectives}
 - state the energy levels of hydrogen;
@@ -56,7 +56,7 @@ $$hf = E_{n_i} - E_{n_f} = 13.6\,\mathrm{eV}\left(\frac{1}{n_f^2} - \frac{1}{n_i
 
 The same photon, absorbed, lifts the electron back up. The visible lines are the **Balmer series**, the jumps that end on $n_f = 2$. Jumps ending on $n_f = 1$ release more energy and form the **Lyman series** in the ultraviolet. Each element has its own set of levels and therefore its own pattern of lines, a fingerprint that can be read from a lamp in a laboratory or from a star a thousand light-years away.
 
-::: {.example title="Example 3.2 — The red line of hydrogen"}
+::: {.example #ex:atoms-red-line-hydrogen title="The red line of hydrogen"}
 Find the energy and wavelength of the photon emitted in the jump from $n = 3$ to $n = 2$, and compare with the measured wavelength, $656.28\,\mathrm{nm}$ in air.
 
 **Strategy.** Compute the energy difference, then $\lambda = 1240/E$ with more figures than usual, since the comparison is precise.
@@ -70,7 +70,7 @@ Find the energy and wavelength of the photon emitted in the jump from $n = 3$ to
 Find the wavelength of the strongest Lyman line, the jump from $n = 2$ to $n = 1$. Can you see it? (Answer: $E = 13.6\times3/4 = 10.2\,\mathrm{eV}$, $\lambda = 121.5\,\mathrm{nm}$; no, it lies in the far ultraviolet and is absorbed by air.)
 :::
 
-## Electrons are waves too {#sec-3-3}
+## Electrons are waves too {#sec:atoms-electrons-are-waves}
 
 ::: {.learning-objectives}
 - compute the de Broglie wavelength of an electron of given energy;
@@ -88,7 +88,7 @@ $$\lambda = \frac{1.226\,\mathrm{nm}}{\sqrt{E/\mathrm{eV}}}.$$
 
 An electron of a few electronvolts therefore has a wavelength of about a nanometre, comparable with the size of atoms, and that is exactly where wave effects should show. In 1927 Davisson and Germer fired electrons at a nickel crystal and found that they bounced off strongly only at particular angles, the signature of diffraction from the regular rows of atoms.
 
-::: {.example title="Example 3.3 — Electrons diffracting from nickel"}
+::: {.example #ex:atoms-electrons-diffracting-nickel title="Electrons diffracting from nickel"}
 Davisson and Germer used $54\,\mathrm{eV}$ electrons. The surface rows of their nickel crystal are $d = 0.215\,\mathrm{nm}$ apart. Find the electron wavelength and the angle at which the first diffraction peak should appear, using $d\sin\theta = \lambda$.
 
 **Strategy.** Compute $\lambda$ from the energy, then solve the grating condition for $\theta$.
@@ -98,7 +98,7 @@ Davisson and Germer used $54\,\mathrm{eV}$ electrons. The surface rows of their 
 **Significance.** The measured peak was at $50^\circ$. A particle with no wavelength would scatter smoothly in all directions; the sharp peak at the predicted angle is direct evidence that electrons diffract. Electron microscopes exploit the same fact: their short wavelengths resolve detail far finer than light can.
 :::
 
-A wave confined to a region can only take shapes that fit it. Chapter 1 showed this for a string fixed at both ends, where only whole numbers of half-wavelengths fit (the figure below recalls it). An electron bound to a nucleus is a wave confined in three dimensions, so it too has a discrete set of allowed patterns, each with its own energy. In Bohr's simplified picture a circular orbit of radius $r_n$ must hold a whole number of wavelengths, $2\pi r_n = n\lambda$; this gives orbits of radius $r_n = n^2 a_0$, with $a_0 = 0.0529\,\mathrm{nm}$, and exactly the energies of Section 3.2. The picture of definite orbits is wrong in detail, since Schrödinger's equation of 1926 replaces them with **orbitals**, standing-wave patterns of probability that have no path [@schrodinger1926]. But the energies it predicts for hydrogen are the same, and the reason for discreteness is the same: only waves that fit are allowed.
+A wave confined to a region can only take shapes that fit it. @ch:fields showed this for a string fixed at both ends, where only whole numbers of half-wavelengths fit (the figure below recalls it). An electron bound to a nucleus is a wave confined in three dimensions, so it too has a discrete set of allowed patterns, each with its own energy. In Bohr's simplified picture a circular orbit of radius $r_n$ must hold a whole number of wavelengths, $2\pi r_n = n\lambda$; this gives orbits of radius $r_n = n^2 a_0$, with $a_0 = 0.0529\,\mathrm{nm}$, and exactly the energies of @sec:atoms-hydrogen-spectrum. The picture of definite orbits is wrong in detail, since Schrödinger's equation of 1926 replaces them with **orbitals**, standing-wave patterns of probability that have no path [@schrodinger1926]. But the energies it predicts for hydrogen are the same, and the reason for discreteness is the same: only waves that fit are allowed.
 
 ![Standing-wave modes on a string fixed at both ends. The atom is the same idea in three dimensions: the boundary conditions select a discrete set of patterns and energies.](../field-atlas/figures/theory/T1_3_string_modes.png){width="100%"}
 
@@ -106,7 +106,7 @@ A wave confined to a region can only take shapes that fit it. Chapter 1 showed t
 In the $n = 2$ level the electron's kinetic energy is $3.40\,\mathrm{eV}$. Show that its wavelength fits exactly twice around a circle of radius $r_2 = 4a_0$. (Answer: $\lambda = 1.226/\sqrt{3.40} = 0.665\,\mathrm{nm}$; $2\pi\times0.212 = 1.33\,\mathrm{nm} = 2\lambda$.)
 :::
 
-## Why atoms have a size {#sec-3-4}
+## Why atoms have a size {#sec:atoms-atoms-have-size}
 
 ::: {.learning-objectives}
 - state the uncertainty principle and estimate a confinement energy;
@@ -120,7 +120,7 @@ $$\Delta x\,\Delta p \ge \frac{\hbar}{2}, \qquad \hbar = \frac{h}{2\pi}.$$
 
 This is Heisenberg's **uncertainty principle** of 1927 [@griffiths2018qm]. It is not a limit on measuring instruments; it describes what a wave is. Squeezing a particle costs kinetic energy of order $\hbar^2/2mr^2$, the **confinement energy**, which grows rapidly as the region shrinks.
 
-The hydrogen atom settles where this cost balances the Coulomb attraction of Chapter 2. Writing the electrical energy as $-ke^2/r$, with $ke^2 = 1.440\,\mathrm{eV\,nm}$, the total energy at radius $r$ is roughly
+The hydrogen atom settles where this cost balances the Coulomb attraction of @ch:response. Writing the electrical energy as $-ke^2/r$, with $ke^2 = 1.440\,\mathrm{eV\,nm}$, the total energy at radius $r$ is roughly
 
 $$E(r) \approx \frac{\hbar^2}{2m_er^2} - \frac{ke^2}{r}.$$
 
@@ -132,7 +132,7 @@ where the energy is $E(a_0) = -ke^2/2a_0 = -13.6\,\mathrm{eV}$. The estimate lan
 
 ![Left: the confinement cost and the Coulomb gain, and their sum, which has its minimum at $a_0$ with energy $-13.6\,\mathrm{eV}$. Right: the probability of finding the ground-state electron at each radius, which peaks at the same $a_0$.](figures/generated/ch03-hydrogen.png){width="100%"}
 
-::: {.example title="Example 3.4 — The price of squeezing"}
+::: {.example #ex:atoms-price-squeezing title="The price of squeezing"}
 Estimate the confinement energy $\hbar^2/2mL^2$ of an electron held within $L = 0.1\,\mathrm{nm}$, a typical atomic size. Repeat for a proton held within a nucleus, $L = 5\,\mathrm{fm}$, using $m_pc^2 = 938.3\,\mathrm{MeV}$ and $\hbar c = 197.3\,\mathrm{MeV\,fm}$.
 
 **Strategy.** Write the energy as $(\hbar c)^2/2mc^2L^2$ so that the units are energies and lengths.
@@ -142,7 +142,7 @@ Estimate the confinement energy $\hbar^2/2mL^2$ of an electron held within $L = 
 **Significance.** The electron's answer is a few electronvolts, the scale of chemistry, of visible light and of every reaction in a living cell. The nuclear answer is about a million electronvolts, which is why nuclear reactions release roughly a million times more energy per atom than chemical ones. The two scales are set by the same rule applied to different masses and sizes.
 :::
 
-## Reading a spectral line {#sec-3-5}
+## Reading a spectral line {#sec:atoms-reading-spectral-line}
 
 ::: {.learning-objectives}
 - compute the Doppler shift of a line from a moving source;
@@ -152,9 +152,9 @@ Estimate the confinement energy $\hbar^2/2mL^2$ of an electron held within $L = 
 
 A spectral line carries more than an element's name. Its position, width and strength each report a physical quantity.
 
-**Position: motion.** A source moving away at speed $v$ stretches the wavelength it emits by the **Doppler shift** $\Delta\lambda = \lambda v/c$ (for $v \ll c$); a source approaching compresses it. Measuring the shift of a known line gives the speed along the line of sight. Chapter 9 uses this to weigh galaxies and Chapter 10 to measure the expansion of the universe [@hubble1929relation].
+**Position: motion.** A source moving away at speed $v$ stretches the wavelength it emits by the **Doppler shift** $\Delta\lambda = \lambda v/c$ (for $v \ll c$); a source approaching compresses it. Measuring the shift of a known line gives the speed along the line of sight. @ch:stars uses this to weigh galaxies and @ch:cosmology to measure the expansion of the universe [@hubble1929relation].
 
-**Width: lifetime.** An excited level does not last for ever; the electron drops within a typical **lifetime** $\tau$, a few to a hundred nanoseconds for the levels of hydrogen that make visible lines. In the language of Chapter 2, the atom is an oscillator that rings for a time $\tau$ after being kicked, so its resonance has a width of about $1/\tau$ in angular frequency. Using $Q = \omega_0\tau$ for the energy decay time, a visible line ringing for $10\,\mathrm{ns}$ has
+**Width: lifetime.** An excited level does not last for ever; the electron drops within a typical **lifetime** $\tau$, a few to a hundred nanoseconds for the levels of hydrogen that make visible lines. In the language of @ch:response, the atom is an oscillator that rings for a time $\tau$ after being kicked, so its resonance has a width of about $1/\tau$ in angular frequency. Using $Q = \omega_0\tau$ for the energy decay time, a visible line ringing for $10\,\mathrm{ns}$ has
 
 $$Q = 2\pi f\tau = 2\pi\times(4.57\times10^{14}\,\mathrm{Hz})\times(10^{-8}\,\mathrm{s}) \approx 3\times10^{7}.$$
 
@@ -162,7 +162,7 @@ A tuning fork has $Q \approx 1000$, the ringing Earth about 500. Atoms are the s
 
 **Strength: population.** A line is strong only if many atoms sit in the level it starts from. In thermal equilibrium the fraction in a higher level falls as $e^{-\Delta E/k_BT}$, so the strength of a line is a thermometer.
 
-::: {.example title="Example 3.5 — The line from a moving planet"}
+::: {.example #ex:atoms-line-moving-planet title="The line from a moving planet"}
 The Earth orbits the Sun at $30\,\mathrm{km\,s^{-1}}$. Find the largest Doppler shift of the red hydrogen line, $656.3\,\mathrm{nm}$, in light from a source fixed in the sky in the plane of the Earth's orbit, as the Earth moves towards it and away from it during the year.
 
 **Strategy.** Apply $\Delta\lambda = \lambda v/c$.
@@ -176,7 +176,7 @@ The Earth orbits the Sun at $30\,\mathrm{km\,s^{-1}}$. Find the largest Doppler 
 Why do two lines from the same atom, at almost the same wavelength, sometimes have very different widths? (Answer: their upper levels have different lifetimes; the shorter-lived level gives the wider line.)
 :::
 
-## Lines as poles {#sec-3-6}
+## Lines as poles {#sec:atoms-lines-poles}
 
 ::: {.learning-objectives}
 - describe a spectrum as the set of poles of a response function;
@@ -184,7 +184,7 @@ Why do two lines from the same atom, at almost the same wavelength, sometimes ha
 - label each part of the programme's percept-as-pole reading correctly.
 :::
 
-Chapter 2 wrote the response of a damped oscillator to a steady drive of angular frequency $\omega$ as
+@ch:response wrote the response of a damped oscillator to a steady drive of angular frequency $\omega$ as
 
 $$G(\omega) \propto \frac{1}{\omega_0^2 - \omega^2 - 2i\gamma\omega}.$$
 
@@ -207,11 +207,11 @@ The programme behind this Atlas proposes the same structure one level up. Its fi
 The middle row deserves a careful reading, because it is the kind of claim a proof checker can and cannot support. The theorem verifies arithmetic: for one specified $8\times8$ matrix and one specified pattern, the squared residual $\lVert W_8\mathbf{e} - 2\mathbf{e}\rVert^2$ is $0.27$, against a squared length $\lVert\mathbf{e}\rVert^2 = 1.68$, so the pattern is an approximate eigenvector, off by about 16 %. The proof is complete and checked by machine. It says nothing about whether the matrix describes anyone; that is the job of the measurements proposed for the open hypothesis. Nor does it claim that atoms feel, or that a feeling is a hydrogen line. The claim is narrower and testable: if the somatic response has this form, then its strongest, most persistent states should behave like sharp lines, with frequencies, widths and strengths that can be measured.
 
 ::: {.making-connections title="Making Connections — The Sun's weak hydrogen lines"}
-The Balmer lines start on $n = 2$, which lies $10.2\,\mathrm{eV}$ above the ground state. At the Sun's surface temperature, $5800\,\mathrm{K}$, only about five atoms in a thousand million are in that level ($4e^{-10.2/0.50} \approx 5\times10^{-9}$, the factor 4 counting the states in level 2). At $10\,000\,\mathrm{K}$ the fraction rises to $3\times10^{-5}$, five thousand times more. That is why hydrogen lines are strongest not in the Sun but in hotter white stars such as Sirius and Vega, and it is the key to the stellar classification of Chapter 9: the same line used as a thermometer.
+The Balmer lines start on $n = 2$, which lies $10.2\,\mathrm{eV}$ above the ground state. At the Sun's surface temperature, $5800\,\mathrm{K}$, only about five atoms in a thousand million are in that level ($4e^{-10.2/0.50} \approx 5\times10^{-9}$, the factor 4 counting the states in level 2). At $10\,000\,\mathrm{K}$ the fraction rises to $3\times10^{-5}$, five thousand times more. That is why hydrogen lines are strongest not in the Sun but in hotter white stars such as Sirius and Vega, and it is the key to the stellar classification of @ch:stars: the same line used as a thermometer.
 :::
 
 ::: {.soma-machine}
-Open `#level=atomic&lens=on&compare=1`. The atomic view draws the four Balmer lines at $410$, $434$, $486$ and $656\,\mathrm{nm}$, the numbers of Section 3.2, under a cloud of points sampled from the electron's probability pattern rather than an orbit. Then open the question tour `#q=hydrogen-feeling`, *Is a hydrogen atom like a feeling?*, which steps through the three readings of this section and labels each one. Tour stop 3: `#tour=textbook&stop=3`.
+Open `#level=atomic&lens=on&compare=1`. The atomic view draws the four Balmer lines at $410$, $434$, $486$ and $656\,\mathrm{nm}$, the numbers of @sec:atoms-hydrogen-spectrum, under a cloud of points sampled from the electron's probability pattern rather than an orbit. Then open the question tour `#q=hydrogen-feeling`, *Is a hydrogen atom like a feeling?*, which steps through the three readings of this section and labels each one. Tour stop 3: `#tour=textbook&stop=3`.
 :::
 
 ## Key Terms {.unnumbered}
@@ -294,58 +294,58 @@ Line quality factor
 3. What experiment showed that electrons are waves, and what did it measure?
 4. Explain in words why an electron does not fall into the nucleus.
 5. A spectral line is unusually wide. Give two possible physical reasons.
-6. In the table of Section 3.6, which claims has a machine checked, which have experiments confirmed, and which still need evidence? What measurement would move the open hypothesis?
+6. In the table of @sec:atoms-lines-poles, which claims has a machine checked, which have experiments confirmed, and which still need evidence? What measurement would move the open hypothesis?
 :::
 
 ## Worked Homework {.unnumbered}
 
-::: {.problems title="Problem 3.1 — The four visible lines"}
+::: {.problems #pr:atoms-four-visible-lines title="The four visible lines"}
 Compute the wavelengths of the jumps from $n = 4$, $5$ and $6$ to $n = 2$, and compare them with the lines in the Soma Machine's atomic view.
 :::
 
-::: {.example title="Solution 3.1"}
+::: {.solution}
 **Strategy.** $E = 13.606\,(1/4 - 1/n^2)$, then $\lambda = 1239.84/E$.
 
 **Solution.** $n = 4$: $E = 2.551\,\mathrm{eV}$, $\lambda = 486.0\,\mathrm{nm}$. $n = 5$: $E = 2.857\,\mathrm{eV}$, $\lambda = 433.9\,\mathrm{nm}$. $n = 6$: $E = 3.024\,\mathrm{eV}$, $\lambda = 410.1\,\mathrm{nm}$.
 
-**Significance.** With $656.1\,\mathrm{nm}$ from Example 3.2 these are the four lines the app draws, rounded to $410$, $434$, $486$ and $656\,\mathrm{nm}$. **Try it:** `#level=atomic&lens=on&compare=1`. *Baseline:* Penrose, chapter 21 (the quantum particle) [@penrose2004road].
+**Significance.** With $656.1\,\mathrm{nm}$ from @ex:atoms-red-line-hydrogen these are the four lines the app draws, rounded to $410$, $434$, $486$ and $656\,\mathrm{nm}$. **Try it:** `#level=atomic&lens=on&compare=1`. *Baseline:* Penrose, chapter 21 (the quantum particle) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 3.2 — Ionising from an excited level"}
+::: {.problems #pr:atoms-ionising-excited-level title="Ionising from an excited level"}
 What is the longest wavelength that can ionise a hydrogen atom already in the $n = 2$ level? And from the ground state?
 :::
 
-::: {.example title="Solution 3.2"}
+::: {.solution}
 **Solution.** From $n = 2$ the binding energy is $13.6/4 = 3.40\,\mathrm{eV}$, so $\lambda = 1240/3.40 = 365\,\mathrm{nm}$, just beyond violet. From $n = 1$: $\lambda = 1240/13.6 = 91.2\,\mathrm{nm}$.
 
 **Significance.** Ordinary near-ultraviolet light can ionise excited hydrogen, but only hard ultraviolet can ionise it from the ground state. The $91.2\,\mathrm{nm}$ limit marks a sharp edge in the spectra of hot stars and young galaxies.
 :::
 
-::: {.problems title="Problem 3.3 — A slower electron"}
+::: {.problems #pr:atoms-slower-electron title="A slower electron"}
 Find the de Broglie wavelength of electrons of $1\,\mathrm{eV}$, $100\,\mathrm{eV}$ and $1000\,\mathrm{eV}$. Which would diffract from a crystal with atomic spacing $0.2\,\mathrm{nm}$?
 :::
 
-::: {.example title="Solution 3.3"}
+::: {.solution}
 **Solution.** $1.226/\sqrt{1} = 1.23\,\mathrm{nm}$; $1.226/\sqrt{100} = 0.123\,\mathrm{nm}$; $1.226/\sqrt{1000} = 0.0388\,\mathrm{nm}$.
 
 **Significance.** Diffraction needs $\lambda \le d$ to give a peak ($\sin\theta = \lambda/d \le 1$) and is clearest when $\lambda$ is not much smaller than $d$: the $100\,\mathrm{eV}$ electrons are best. The $1\,\mathrm{eV}$ electrons are too long to diffract from this spacing at all. *Baseline:* Penrose, chapter 21 [@penrose2004road].
 :::
 
-::: {.problems title="Problem 3.4 — The radio line of hydrogen"}
+::: {.problems #pr:atoms-radio-line-hydrogen title="The radio line of hydrogen"}
 The spin of hydrogen's electron can flip relative to the proton's, emitting a photon at $1420.4\,\mathrm{MHz}$. Find its wavelength and its energy in eV. The upper state lasts on average about eleven million years; find $Q$.
 :::
 
-::: {.example title="Solution 3.4"}
+::: {.solution}
 **Solution.** $\lambda = c/f = 3.00\times10^8/1.4204\times10^9 = 0.211\,\mathrm{m}$, the famous **21 cm line**. $E = hf = 4.136\times10^{-15}\,\mathrm{eV\,s}\times1.4204\times10^9\,\mathrm{Hz} = 5.87\times10^{-6}\,\mathrm{eV}$. $Q = 2\pi f\tau = 2\pi\times1.42\times10^9\times(1.1\times10^7\times3.16\times10^7\,\mathrm{s}) \approx 3\times10^{24}$.
 
-**Significance.** The energy is far too small to need a hot gas, so cold hydrogen between the stars glows faintly at 21 cm, and radio telescopes use it to map the spiral arms of the Milky Way (Chapter 9). Each atom is the sharpest oscillator in this book, but it emits so rarely that the line is visible only because galaxies hold so many atoms. *Baseline:* Penrose, chapter 22 (spin) [@penrose2004road].
+**Significance.** The energy is far too small to need a hot gas, so cold hydrogen between the stars glows faintly at 21 cm, and radio telescopes use it to map the spiral arms of the Milky Way (@ch:stars). Each atom is the sharpest oscillator in this book, but it emits so rarely that the line is visible only because galaxies hold so many atoms. *Baseline:* Penrose, chapter 22 (spin) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 3.5 — The second orbit"}
+::: {.problems #pr:atoms-second-orbit title="The second orbit"}
 Find the Bohr radii $r_2$ and $r_3$, and the wavelength of the photon emitted in the jump from $n = 3$ to $n = 1$.
 :::
 
-::: {.example title="Solution 3.5"}
+::: {.solution}
 **Solution.** $r_2 = 4\times0.0529 = 0.212\,\mathrm{nm}$; $r_3 = 9\times0.0529 = 0.476\,\mathrm{nm}$. $E = 13.6\,(1 - 1/9) = 12.09\,\mathrm{eV}$, so $\lambda = 1240/12.09 = 102.5\,\mathrm{nm}$.
 
 **Significance.** The atom's size grows as $n^2$, so highly excited atoms are enormous: at $n = 100$ the radius is half a micrometre, ten thousand times the ground state. Such **Rydberg atoms** are now used as sensitive detectors of radio-frequency fields. *Baseline:* Penrose, chapter 21 [@penrose2004road].

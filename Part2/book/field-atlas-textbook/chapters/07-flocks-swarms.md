@@ -1,4 +1,4 @@
-# Flocks and Swarms: Order Without a Leader {#ch-flocks}
+# Flocks and Swarms: Order Without a Leader {#ch:flocks}
 
 ![The Vicsek model: 400 simulated agents, each moving at constant speed and steering towards the average heading of its neighbours, with some random error. Left: with little noise the crowd moves as one, although no agent knows where the others are going. Centre: with much noise the order is lost. Right: the degree of order against the noise; the crowd changes from ordered to disordered over a narrow range.](figures/generated/ch07-banner.png){.opener}
 
@@ -6,7 +6,7 @@ On a winter evening over Rome, a flock of several thousand starlings wheels, fol
 
 **Chapter outline.** 7.1 Rules without a leader · 7.2 Order from noise · 7.3 Who listens to whom · 7.4 How a turn crosses a flock · 7.5 Swarms by design · 7.6 What the programme claims for flocks and swarms
 
-## Rules without a leader {#sec-7-1}
+## Rules without a leader {#sec:flocks-rules-without-leader}
 
 ::: {.learning-objectives}
 - state the three classic flocking rules;
@@ -22,23 +22,23 @@ How well the crowd moves together is measured by the **polarisation**, the lengt
 
 $$\phi = \frac{1}{Nv_0}\left|\sum_{i=1}^{N}\mathbf v_i\right|,$$
 
-which is $1$ when all agents move in the same direction and close to $0$ when their headings are random. It is the order parameter of Chapter 6's Kuramoto model, with headings in place of phases.
+which is $1$ when all agents move in the same direction and close to $0$ when their headings are random. It is the order parameter of @ch:groups's Kuramoto model, with headings in place of phases.
 
-::: {.example title="Example 7.1 — How many neighbours?"}
+::: {.example #ex:flocks-many-neighbours title="How many neighbours?"}
 Agents are spread over a plane at an average density of $0.05$ per square metre, and each aligns with all agents within $R = 4\,\mathrm{m}$. How many neighbours does a typical agent have? What if the density doubles?
 
 **Strategy.** The expected count is density times the area of the interaction circle, $\rho\pi R^2$.
 
 **Solution.** $0.05\times\pi\times4^2 = 2.5$ neighbours. At double the density, $5.0$.
 
-**Significance.** With a fixed radius, every change in density changes how many voices each agent hears. At the sparse edges of a real flock a bird would hear almost nobody, and the flock would fray. Section 7.3 shows that real starlings avoid this problem.
+**Significance.** With a fixed radius, every change in density changes how many voices each agent hears. At the sparse edges of a real flock a bird would hear almost nobody, and the flock would fray. @sec:flocks-who-listens-whom shows that real starlings avoid this problem.
 :::
 
-## Order from noise {#sec-7-2}
+## Order from noise {#sec:flocks-order-noise}
 
 ::: {.learning-objectives}
 - describe the order–disorder transition in the Vicsek model;
-- relate it to the synchronisation transition of Chapter 6;
+- relate it to the synchronisation transition of @ch:groups;
 - explain why moving agents can order where static ones cannot.
 :::
 
@@ -50,7 +50,7 @@ There is a surprise in this result. For a large two-dimensional system of *stati
 In the opening figure the polarisation is about $0.99$ at noise $0.5$ and $0.17$ at noise $4.0$. If the agents' headings were completely random, roughly what polarisation would 400 agents show? (Answer: about $1/\sqrt{400} = 0.05$, close to the value at the highest noise in the figure.)
 :::
 
-## Who listens to whom {#sec-7-3}
+## Who listens to whom {#sec:flocks-who-listens-whom}
 
 ::: {.learning-objectives}
 - distinguish metric from topological interaction;
@@ -62,8 +62,8 @@ Do real birds align with everything within a fixed distance, as in Vicsek's mode
 
 The advantage is robustness. A flock that thins out, at its edges or after a predator's attack, keeps the same number of interaction partners per bird and so keeps its cohesion. A metric flock would break into pieces as soon as its density fell, which is exactly what simulations of metric models show and what real flocks do not do.
 
-::: {.example title="Example 7.2 — Seven neighbours at any density"}
-For the density of Example 7.1, $0.05\,\mathrm{m^{-2}}$, what interaction radius would give each agent seven neighbours? What happens to that radius if the density doubles?
+::: {.example #ex:flocks-seven-neighbours-any title="Seven neighbours at any density"}
+For the density of @ex:flocks-many-neighbours, $0.05\,\mathrm{m^{-2}}$, what interaction radius would give each agent seven neighbours? What happens to that radius if the density doubles?
 
 **Strategy.** Solve $\rho\pi R^2 = 7$ for $R$.
 
@@ -72,21 +72,21 @@ For the density of Example 7.1, $0.05\,\mathrm{m^{-2}}$, what interaction radius
 **Significance.** A topological bird effectively adjusts its interaction range to the local density, widening it when the flock spreads. Nothing in the rule needs a sense of distance at all, only the ability to pick out the nearest few.
 :::
 
-## How a turn crosses a flock {#sec-7-4}
+## How a turn crosses a flock {#sec:flocks-turn-crosses-flock}
 
 ::: {.learning-objectives}
 - compare the spread of a turn by imitation with its spread as a wave;
 - estimate crossing times for both mechanisms;
-- relate the measured turn waves to the response grammar of Chapter 2.
+- relate the measured turn waves to the response grammar of @ch:response.
 :::
 
 When a starling flock turns, the turn starts with a few birds and sweeps across the flock. Attanasi and colleagues tracked these turns bird by bird and measured how the start of the turn travelled [@attanasi2014information]. It crossed the flock at a constant speed of $20$ to $40\,\mathrm{m\,s^{-1}}$, losing almost no strength on the way, and the speed was higher in more strongly ordered flocks.
 
-That observation rules out the simplest explanation. If each bird merely copied the average heading of its neighbours, as in Vicsek's rule, the turn would spread by **diffusion**: Chapter 4's cable without the leak. A diffusive signal spreads a distance $x$ in a time proportional to $x^2$ and weakens as it spreads, so a turn would crawl across a large flock and arrive faint. A constant speed and an undiminished amplitude are the signature of a **wave**, which needs inertia: each bird's turning must have momentum, so that it keeps turning after it starts, rather than relaxing straight to the local average. The difference is the same as between Chapter 2's underdamped and overdamped oscillators, and between Chapter 4's passive spread and active spike. The figure below shows both mechanisms in a simulated line of birds.
+That observation rules out the simplest explanation. If each bird merely copied the average heading of its neighbours, as in Vicsek's rule, the turn would spread by **diffusion**: @ch:cells's cable without the leak. A diffusive signal spreads a distance $x$ in a time proportional to $x^2$ and weakens as it spreads, so a turn would crawl across a large flock and arrive faint. A constant speed and an undiminished amplitude are the signature of a **wave**, which needs inertia: each bird's turning must have momentum, so that it keeps turning after it starts, rather than relaxing straight to the local average. The difference is the same as between @ch:response's underdamped and overdamped oscillators, and between @ch:cells's passive spread and active spike. The figure below shows both mechanisms in a simulated line of birds.
 
 ![A turn started by the first bird in a line, spreading by imitation (diffusion, red) and with turning inertia (wave, blue). The diffusive arrival time grows with the square of distance; the wave arrives at constant speed.](figures/generated/ch07-turn-wave.png){width="100%"}
 
-::: {.example title="Example 7.3 — Diffusion or wave?"}
+::: {.example #ex:flocks-diffusion-or-wave title="Diffusion or wave?"}
 A flock is $40\,\mathrm{m}$ across. Neighbouring birds are about $a = 1\,\mathrm{m}$ apart and react in about $\tau = 0.1\,\mathrm{s}$, so imitation alone would spread a turn with a diffusion constant of order $D \approx a^2/\tau = 10\,\mathrm{m^2\,s^{-1}}$. Estimate the crossing time by diffusion, $L^2/2D$, and by a wave at $30\,\mathrm{m\,s^{-1}}$.
 
 **Strategy.** Substitute into each expression.
@@ -98,7 +98,7 @@ A flock is $40\,\mathrm{m}$ across. Neighbouring birds are about $a = 1\,\mathrm
 
 The same research group found a second sign of a coherent medium. The fluctuations of each bird's velocity about the flock's mean are correlated with those of birds far away, over a distance that grows in proportion to the flock's size, however large the flock [@cavagna2010scale]. Such **scale-free correlations** mean that a disturbance anywhere can be felt everywhere: a flock behaves as a system poised near a critical point, maximally responsive to its surroundings [@bialek2012statistical].
 
-## Swarms by design {#sec-7-5}
+## Swarms by design {#sec:flocks-swarms-design}
 
 ::: {.learning-objectives}
 - compare the cost of iterative consensus with a single propagator step;
@@ -108,11 +108,11 @@ The same research group found a second sign of a coherent medium. The fluctuatio
 
 Engineers who coordinate drones, robots or computers face the starlings' problem without the starlings' millions of years of evolution. The usual approach is iterative: each agent repeatedly averages its state with its neighbours' until all agree. With $N$ agents and $K$ rounds the work is of order $NK$, and $K$ can be large when information must cross a large network.
 
-The programme's swarm paper proposes a shortcut [@P19]. If the swarm's interactions are linear and fixed, the final agreed state is a fixed linear function of the starting state: a matrix $G$, the system's Green's function in the sense of Chapter 2. Given $G$, the whole $K$-round process can be replaced by a single multiplication, $\mathbf s_\text{final} = G\,\mathbf s$, costing $N^2$ operations. The propagator wins when $N^2 < NK$, that is when $K > N$; at $N = 100$ agents and $K = 5000$ rounds it is fifty times cheaper. The Lean file `SwarmPropagator.lean` proves this arithmetic, including the break-even point $K = N$ [@D2].
+The programme's swarm paper proposes a shortcut [@P19]. If the swarm's interactions are linear and fixed, the final agreed state is a fixed linear function of the starting state: a matrix $G$, the system's Green's function in the sense of @ch:response. Given $G$, the whole $K$-round process can be replaced by a single multiplication, $\mathbf s_\text{final} = G\,\mathbf s$, costing $N^2$ operations. The propagator wins when $N^2 < NK$, that is when $K > N$; at $N = 100$ agents and $K = 5000$ rounds it is fifty times cheaper. The Lean file `SwarmPropagator.lean` proves this arithmetic, including the break-even point $K = N$ [@D2].
 
 The paper is explicit about the conditions. The protocol assumes that $G$ has been computed and distributed before coordination begins, which is feasible when agents' positions and links are known in advance, as in a pre-planned drone display, and needs adaptation when agents join, leave or move unpredictably. It is exact only for linear interactions. And computing $G$ is itself a cost: for a general network it means inverting an $N\times N$ matrix, of order $N^3$ operations. The question for any application is how many times the same $G$ will be reused.
 
-::: {.example title="Example 7.4 — Paying for the propagator"}
+::: {.example #ex:flocks-paying-propagator title="Paying for the propagator"}
 For $N = 100$ agents, computing $G$ costs about $N^3 = 10^6$ operations. How many coordinations does it take to repay that cost when each would otherwise need $K = 5000$ rounds? When it would need only $K = 200$?
 
 **Strategy.** Each use saves $NK - N^2$ operations; divide the set-up cost by the saving.
@@ -122,7 +122,7 @@ For $N = 100$ agents, computing $G$ costs about $N^3 = 10^6$ operations. How man
 **Significance.** The single-step protocol is a large win for slow-converging networks reused many times, and a poor one for fast-converging networks used once. The Lean theorem compares the per-use costs; the full accounting, including set-up, depends on the application.
 :::
 
-## What the programme claims for flocks and swarms {#sec-7-6}
+## What the programme claims for flocks and swarms {#sec:flocks-programme-claims-flocks}
 
 ::: {.learning-objectives}
 - separate the measured science of flocks from its programme reading;
@@ -141,7 +141,7 @@ The flock is the programme's clearest example of its central picture: a disturba
 | A flock's turn and a person's emotional response share one response grammar | `interpretive` |
 | A flock is one mind | not claimed |
 
-The third row is true and modest: it compares two operation counts. The fourth is the engineering claim, and it depends on the set-up cost of Example 7.4, on how often $G$ must be recomputed as a swarm moves, and on how linear the real interactions are. No flight test is reported in the paper, so it remains open. The last row is the same boundary as Chapter 6's crowd: the starlings behave as one medium, and every one of them is still a separate bird.
+The third row is true and modest: it compares two operation counts. The fourth is the engineering claim, and it depends on the set-up cost of @ex:flocks-paying-propagator, on how often $G$ must be recomputed as a swarm moves, and on how linear the real interactions are. No flight test is reported in the paper, so it remains open. The last row is the same boundary as @ch:groups's crowd: the starlings behave as one medium, and every one of them is still a separate bird.
 
 ::: {.soma-machine}
 The question tour `#q=starling-turn`, *Why do starlings turn together?*, opens the swarm level with compare and contours on and walks through the measured turn, the response-kernel reading and its label. The bird and flock levels are on their own path: open `#path=bird-flock&level=flock&lens=on` and compare the single bird's view with the flock's. Tour stop 7: `#tour=textbook&stop=7`.
@@ -215,56 +215,56 @@ Coordination cost
 3. Why does topological interaction keep a thinning flock together?
 4. What feature of measured starling turns shows that they are waves rather than diffusion?
 5. What does the swarm protocol assume, and which of its costs does the Lean theorem leave out?
-6. Which claims in Section 7.6 are measured, which are proved, and which are open?
+6. Which claims in @sec:flocks-programme-claims-flocks are measured, which are proved, and which are open?
 :::
 
 ## Worked Homework {.unnumbered}
 
-::: {.problems title="Problem 7.1 — A sparser flock"}
+::: {.problems #pr:flocks-sparser-flock title="A sparser flock"}
 At the edge of a flock the density falls to a quarter of its value in the core, where agents have seven neighbours. How many neighbours does an edge agent have under metric interaction with the core's radius, and under topological interaction?
 :::
 
-::: {.example title="Solution 7.1"}
+::: {.solution}
 **Solution.** Metric: the count scales with density, so $7/4 = 1.75$ neighbours. Topological: still $7$.
 
 **Significance.** With fewer than two neighbours an edge agent under metric rules would barely align with anyone, and the edge would peel away; under topological rules it is as well connected as an agent in the core. **Try it:** `#q=starling-turn`.
 :::
 
-::: {.problems title="Problem 7.2 — How far does a turn diffuse?"}
-With $D = 10\,\mathrm{m^2\,s^{-1}}$ as in Example 7.3, how far does a diffusive turn spread in $1\,\mathrm{s}$, using $x \approx \sqrt{2Dt}$? How far does a $30\,\mathrm{m\,s^{-1}}$ wave travel in the same time?
+::: {.problems #pr:flocks-far-does-turn title="How far does a turn diffuse?"}
+With $D = 10\,\mathrm{m^2\,s^{-1}}$ as in @ex:flocks-diffusion-or-wave, how far does a diffusive turn spread in $1\,\mathrm{s}$, using $x \approx \sqrt{2Dt}$? How far does a $30\,\mathrm{m\,s^{-1}}$ wave travel in the same time?
 :::
 
-::: {.example title="Solution 7.2"}
+::: {.solution}
 **Solution.** Diffusion: $\sqrt{2\times10\times1} = 4.5\,\mathrm{m}$, four or five birds. Wave: $30\,\mathrm{m}$.
 
 **Significance.** In the second it takes a flock to turn, imitation alone would reach only the nearest few birds. *Baseline:* Penrose, chapter 19 (the wave equation of a field) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 7.3 — Random headings"}
+::: {.problems #pr:flocks-random-headings title="Random headings"}
 A crowd of $N$ agents has random headings. Its polarisation is then roughly $1/\sqrt N$. How large must the crowd be for a random polarisation below $0.01$?
 :::
 
-::: {.example title="Solution 7.3"}
+::: {.solution}
 **Solution.** $1/\sqrt N < 0.01$ requires $N > 10\,000$.
 
 **Significance.** In small simulations random alignment produces noticeable apparent order. Before concluding that a small group is ordered, compare its polarisation with $1/\sqrt N$. *Baseline:* Penrose, chapter 27 (statistical fluctuations and the second law) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 7.4 — The break-even swarm"}
+::: {.problems #pr:flocks-breakeven-swarm title="The break-even swarm"}
 A network of $N = 400$ agents converges by iteration in $K = 300$ rounds. Is the single-step protocol cheaper per use? What if a larger network of the same type needs $K = 1200$ rounds for $N = 800$ agents?
 :::
 
-::: {.example title="Solution 7.4"}
+::: {.solution}
 **Solution.** $N = 400$, $K = 300$: $K < N$, so iteration is cheaper ($120\,000$ against $160\,000$). $N = 800$, $K = 1200$: $K > N$, so the propagator is cheaper ($640\,000$ against $960\,000$), a factor of $1.5$.
 
 **Significance.** Whether the propagator helps depends on how $K$ grows with $N$ for a given network; this is what the Lean break-even theorem states in general. Set-up costs come on top.
 :::
 
-::: {.problems title="Problem 7.5 — The wave speed in the line of birds"}
-In the simulated line of birds of Section 7.4 the wave reaches bird $40$ at time $5.9$ (model units). What is its speed, and how does it compare with the value $\sqrt{50} = 7.1$ expected from the simulation's coupling?
+::: {.problems #pr:flocks-wave-speed-line title="The wave speed in the line of birds"}
+In the simulated line of birds of @sec:flocks-turn-crosses-flock the wave reaches bird $40$ at time $5.9$ (model units). What is its speed, and how does it compare with the value $\sqrt{50} = 7.1$ expected from the simulation's coupling?
 :::
 
-::: {.example title="Solution 7.5"}
+::: {.solution}
 **Solution.** $40/5.9 = 6.8$ birds per unit time, about $4\,\%$ below $7.1$.
 
 **Significance.** The arrival time is measured at half the final turn, which lags the leading edge slightly, and a discrete line of birds disperses short wavelengths; both make the measured speed a little lower than the ideal wave speed. The linear growth of arrival time with distance is the robust result.

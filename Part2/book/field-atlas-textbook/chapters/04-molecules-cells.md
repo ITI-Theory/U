@@ -1,12 +1,12 @@
-# Molecules and Cells: From Bonds to Spikes {#ch-cells}
+# Molecules and Cells: From Bonds to Spikes {#ch:cells}
 
 ![A model nerve membrane kicked four times, each kick lasting one millisecond. The two smaller kicks die away. The two larger ones fire a full spike to about $+40\,\mathrm{mV}$, however large the kick. Right: the peak voltage against kick size jumps at one value, the threshold. The curves are a simulation of the Hodgkin–Huxley equations.](figures/generated/ch04-banner.png){.opener}
 
-A living cell is a small bag of salt water wrapped in an oily film five nanometres thick. Across that film it holds a voltage of about seventy millivolts, and by opening and closing molecular pores it can send a pulse of voltage along a fibre a metre long in a few hundredths of a second. Every thought, heartbeat and movement depends on this. This chapter climbs from the chemical bond to the nerve impulse using only ideas already in the book: the energy scales of Chapter 3, the response kernels of Chapter 2, and one new ingredient, a threshold. It ends with networks of threshold cells that store memories, which is where the programme behind this Atlas makes its proposal.
+A living cell is a small bag of salt water wrapped in an oily film five nanometres thick. Across that film it holds a voltage of about seventy millivolts, and by opening and closing molecular pores it can send a pulse of voltage along a fibre a metre long in a few hundredths of a second. Every thought, heartbeat and movement depends on this. This chapter climbs from the chemical bond to the nerve impulse using only ideas already in the book: the energy scales of @ch:atoms, the response kernels of @ch:response, and one new ingredient, a threshold. It ends with networks of threshold cells that store memories, which is where the programme behind this Atlas makes its proposal.
 
 **Chapter outline.** 4.1 Strong bonds, weak bonds and the thermal bath · 4.2 The membrane: a charged capacitor · 4.3 Passive spread: the cable · 4.4 The action potential: all or none · 4.5 From cells to networks: memory as a landscape · 4.6 A field that tunes the landscape
 
-## Strong bonds, weak bonds and the thermal bath {#sec-4-1}
+## Strong bonds, weak bonds and the thermal bath {#sec:cells-strong-bonds-weak}
 
 ::: {.learning-objectives}
 - compare bond energies with the thermal energy $k_BT$;
@@ -14,11 +14,11 @@ A living cell is a small bag of salt water wrapped in an oily film five nanometr
 - explain why living matter depends on weak bonds.
 :::
 
-Chapter 3 showed that squeezing an electron into an atom costs a few electronvolts. When two atoms share electrons in a **covalent bond**, the energy gained is of the same order: $4.5\,\mathrm{eV}$ for the hydrogen molecule, $3$ to $4\,\mathrm{eV}$ for the carbon–carbon and carbon–hydrogen bonds of organic matter. Chemists quote the same energies per mole of bonds; since $1\,\mathrm{eV}$ per molecule is $96.5\,\mathrm{kJ\,mol^{-1}}$, a $4.5\,\mathrm{eV}$ bond is $430\,\mathrm{kJ\,mol^{-1}}$.
+@ch:atoms showed that squeezing an electron into an atom costs a few electronvolts. When two atoms share electrons in a **covalent bond**, the energy gained is of the same order: $4.5\,\mathrm{eV}$ for the hydrogen molecule, $3$ to $4\,\mathrm{eV}$ for the carbon–carbon and carbon–hydrogen bonds of organic matter. Chemists quote the same energies per mole of bonds; since $1\,\mathrm{eV}$ per molecule is $96.5\,\mathrm{kJ\,mol^{-1}}$, a $4.5\,\mathrm{eV}$ bond is $430\,\mathrm{kJ\,mol^{-1}}$.
 
 What matters for life is how these energies compare with the random jostling of molecules at body temperature, $k_BT = 0.0267\,\mathrm{eV}$ at $310\,\mathrm{K}$. A covalent bond is about 170 times larger, and the chance that a thermal collision supplies that much energy is of order $e^{-170}$: effectively zero. Covalent bonds hold the molecule's shape. Much weaker interactions hold molecules to each other. A **hydrogen bond**, the attraction between a hydrogen atom on one molecule and an oxygen or nitrogen atom on another, is about $0.2\,\mathrm{eV}$, only seven or eight times $k_BT$. In water such bonds break and re-form within a few trillionths of a second. They zip the two strands of DNA together, fold proteins into working shapes and let enzymes grip and release their targets. Life operates in the narrow band where bonds are strong enough to hold a structure for a while and weak enough to let it change.
 
-::: {.example title="Example 4.1 — The cell's energy currency"}
+::: {.example #ex:cells-cells-energy-currency title="The cell's energy currency"}
 Inside a cell, splitting one molecule of ATP releases about $50\,\mathrm{kJ\,mol^{-1}}$. Express this per molecule in electronvolts and in units of $k_BT$ at body temperature.
 
 **Strategy.** Divide by $96.5\,\mathrm{kJ\,mol^{-1}}$ per eV, then by $0.0267\,\mathrm{eV}$.
@@ -32,7 +32,7 @@ Inside a cell, splitting one molecule of ATP releases about $50\,\mathrm{kJ\,mol
 Carbon dioxide absorbs infrared radiation at a wavelength of $15\,\mu\mathrm{m}$ by vibrating. What is the photon energy, and how does it compare with $k_BT$? (Answer: $1240/15\,000 = 0.083\,\mathrm{eV}$, about $3\,k_BT$; molecular vibrations sit just above the thermal scale, which is why warm objects radiate in the infrared.)
 :::
 
-## The membrane: a charged capacitor {#sec-4-2}
+## The membrane: a charged capacitor {#sec:cells-membrane-charged-capacitor}
 
 ::: {.learning-objectives}
 - model a cell membrane as a capacitor;
@@ -48,17 +48,17 @@ $$E_\text{ion} = \frac{k_BT}{ze}\ln\frac{c_\text{out}}{c_\text{in}},$$
 
 where $z$ is the ion's charge number. At body temperature $k_BT/e = 26.7\,\mathrm{mV}$. A real resting cell has some sodium and chloride channels open too, and settles between the individual Nernst potentials, usually near $-70\,\mathrm{mV}$, closest to potassium's.
 
-::: {.example title="Example 4.2 — Two Nernst potentials"}
+::: {.example #ex:cells-nernst-potentials title="Two Nernst potentials"}
 Compute the Nernst potentials for potassium ($5$ outside, $140$ inside) and sodium ($145$ outside, $12$ inside) at $310\,\mathrm{K}$.
 
 **Strategy.** Both ions have $z = +1$; apply the formula with $k_BT/e = 26.7\,\mathrm{mV}$.
 
 **Solution.** $E_\mathrm{K} = 26.7\ln(5/140) = 26.7\times(-3.33) = -89\,\mathrm{mV}$. $E_\mathrm{Na} = 26.7\ln(145/12) = 26.7\times2.49 = +67\,\mathrm{mV}$.
 
-**Significance.** The two ions pull the membrane towards opposite voltages $156\,\mathrm{mV}$ apart. Whichever set of channels is more open wins. At rest potassium wins and the cell sits near $-70\,\mathrm{mV}$; Section 4.4 shows what happens when sodium briefly wins.
+**Significance.** The two ions pull the membrane towards opposite voltages $156\,\mathrm{mV}$ apart. Whichever set of channels is more open wins. At rest potassium wins and the cell sits near $-70\,\mathrm{mV}$; @sec:cells-action-potential-all shows what happens when sodium briefly wins.
 :::
 
-::: {.example title="Example 4.3 — How few ions?"}
+::: {.example #ex:cells-few-ions title="How few ions?"}
 A spherical cell of radius $10\,\mu\mathrm{m}$ rests at $-70\,\mathrm{mV}$. How many ions must cross its membrane to set up this voltage, and what fraction is that of the potassium ions inside?
 
 **Strategy.** The charge is $Q = C_mAV$; divide by $e$. Count potassium from the concentration and volume.
@@ -69,15 +69,15 @@ A spherical cell of radius $10\,\mu\mathrm{m}$ rests at $-70\,\mathrm{mV}$. How 
 :::
 
 ::: {.check-your-learning}
-What is the electric field inside a $5\,\mathrm{nm}$ membrane at $-70\,\mathrm{mV}$? (Answer: $0.070/5\times10^{-9} = 1.4\times10^{7}\,\mathrm{V\,m^{-1}}$, the value met in Chapter 1, about five times the field at which air breaks down into sparks.)
+What is the electric field inside a $5\,\mathrm{nm}$ membrane at $-70\,\mathrm{mV}$? (Answer: $0.070/5\times10^{-9} = 1.4\times10^{7}\,\mathrm{V\,m^{-1}}$, the value met in @ch:fields, about five times the field at which air breaks down into sparks.)
 :::
 
-## Passive spread: the cable {#sec-4-3}
+## Passive spread: the cable {#sec:cells-passive-spread-cable}
 
 ::: {.learning-objectives}
 - write the cable equation and identify its length and time constants;
 - compute how far a steady voltage spreads along a fibre;
-- recognise the cable's response as a Chapter 2 Green's function.
+- recognise the cable's response as a @ch:response Green's function.
 :::
 
 A nerve fibre is a long thin tube of salt water inside a leaky insulating membrane, like an undersea telegraph cable with poor insulation; the mathematics is the same, and is called **cable theory** [@rall1962theory]. Current injected at one point flows along the inside, but some leaks out through the membrane at every step. The voltage obeys
@@ -88,11 +88,11 @@ with a **time constant** $\tau = R_mC_m$ and a **length constant**
 
 $$\lambda = \sqrt{\frac{aR_m}{2R_i}},$$
 
-where $a$ is the fibre's radius, $R_m$ the membrane's resistance times area, and $R_i$ the resistivity of the fluid inside. A steady injection gives $V(x) = V_0e^{-|x|/\lambda}$: the voltage falls by a factor $e$ in every length constant. This is the short-range response of Section 2.5, with $\lambda$ playing the part of the range. A single brief kick spreads out and leaks away at the same time, as the figure below shows: the cable's Green's function.
+where $a$ is the fibre's radius, $R_m$ the membrane's resistance times area, and $R_i$ the resistivity of the fluid inside. A steady injection gives $V(x) = V_0e^{-|x|/\lambda}$: the voltage falls by a factor $e$ in every length constant. This is the short-range response of @sec:response-response-space-far, with $\lambda$ playing the part of the range. A single brief kick spreads out and leaks away at the same time, as the figure below shows: the cable's Green's function.
 
 ![Left: the cable's response to one brief kick of current at $x = 0$, at four times. The voltage spreads like heat and leaks through the membrane. Right: a steady injection gives an exponential fall with distance; one length constant leaves 37 %.](figures/generated/ch04-cable.png){width="100%"}
 
-::: {.example title="Example 4.4 — A length constant"}
+::: {.example #ex:cells-length-constant title="A length constant"}
 A dendrite of radius $a = 5\,\mu\mathrm{m}$ has $R_m = 1\,\Omega\,\mathrm{m^2}$ and $R_i = 1\,\Omega\,\mathrm{m}$, typical values. Find $\lambda$ and $\tau$, and the fraction of a steady voltage that survives $1\,\mathrm{mm}$ along the fibre.
 
 **Strategy.** Substitute into the two formulas, then use $e^{-x/\lambda}$.
@@ -106,7 +106,7 @@ A dendrite of radius $a = 5\,\mu\mathrm{m}$ has $R_m = 1\,\Omega\,\mathrm{m^2}$ 
 How much of a steady voltage survives three length constants along a cable? (Answer: $e^{-3} = 0.050$, five per cent.)
 :::
 
-## The action potential: all or none {#sec-4-4}
+## The action potential: all or none {#sec:cells-action-potential-all}
 
 ::: {.learning-objectives}
 - describe the sequence of channel events in an action potential;
@@ -121,13 +121,13 @@ The cell's answer is the **action potential**, a pulse of about $100\,\mathrm{mV
 3. Within a millisecond the sodium channels shut themselves (**inactivation**) and slower potassium channels open, pulling the voltage back down past rest.
 4. For a millisecond or two the sodium channels cannot reopen. This is the **refractory period**.
 
-The positive feedback in step 2 is what makes the response all-or-none. The opening figure shows the Hodgkin–Huxley equations kicked by one-millisecond pulses. A kick of $6.5\,\mu\mathrm{A\,cm^{-2}}$ raises the voltage by about $6\,\mathrm{mV}$ and dies away like any damped response of Chapter 2. A kick of $7\,\mu\mathrm{A\,cm^{-2}}$, eight per cent larger, fires a full spike to $+36\,\mathrm{mV}$; a kick three times larger fires a spike barely taller. Below **threshold** the leak wins; above it the sodium feedback wins and the rest of the response is set by the channels, not by the kick.
+The positive feedback in step 2 is what makes the response all-or-none. The opening figure shows the Hodgkin–Huxley equations kicked by one-millisecond pulses. A kick of $6.5\,\mu\mathrm{A\,cm^{-2}}$ raises the voltage by about $6\,\mathrm{mV}$ and dies away like any damped response of @ch:response. A kick of $7\,\mu\mathrm{A\,cm^{-2}}$, eight per cent larger, fires a full spike to $+36\,\mathrm{mV}$; a kick three times larger fires a spike barely taller. Below **threshold** the leak wins; above it the sodium feedback wins and the rest of the response is set by the channels, not by the kick.
 
-The threshold has a signature worth noticing in the figure. The spike from the $7\,\mu\mathrm{A\,cm^{-2}}$ kick arrives about $5\,\mathrm{ms}$ after the kick, the one from $20\,\mu\mathrm{A\,cm^{-2}}$ after one and a half. Near the threshold, feedback and leak almost cancel, so the voltage hesitates before deciding which way to go. In the language of Chapter 3, a small disturbance about rest decays because the poles of its response lie below the real axis; the feedback moves the dominant pole towards the axis, and the closer it comes, the slower the decay or growth. This **critical slowing down** appears wherever a system approaches a tipping point. It will reappear in Chapter 5 for switches between emotional states and in Chapter 8 for the climate.
+The threshold has a signature worth noticing in the figure. The spike from the $7\,\mu\mathrm{A\,cm^{-2}}$ kick arrives about $5\,\mathrm{ms}$ after the kick, the one from $20\,\mu\mathrm{A\,cm^{-2}}$ after one and a half. Near the threshold, feedback and leak almost cancel, so the voltage hesitates before deciding which way to go. In the language of @ch:atoms, a small disturbance about rest decays because the poles of its response lie below the real axis; the feedback moves the dominant pole towards the axis, and the closer it comes, the slower the decay or growth. This **critical slowing down** appears wherever a system approaches a tipping point. It will reappear in @ch:human for switches between emotional states and in @ch:earth for the climate.
 
-The impulse travels because the inrushing sodium current spreads passively a short way ahead, as in Section 4.3, and lifts the next patch of membrane over threshold. The refractory patch behind stops it turning back. The squid fibre, $0.5\,\mathrm{mm}$ thick, conducts at about $21\,\mathrm{m\,s^{-1}}$; Hodgkin and Huxley's equations predicted $18.8$. Vertebrates do better by wrapping fibres in **myelin**, an insulating sheath interrupted every millimetre or so. The impulse jumps from gap to gap at up to $120\,\mathrm{m\,s^{-1}}$ in a fibre twenty-five times thinner than the squid's.
+The impulse travels because the inrushing sodium current spreads passively a short way ahead, as in @sec:cells-passive-spread-cable, and lifts the next patch of membrane over threshold. The refractory patch behind stops it turning back. The squid fibre, $0.5\,\mathrm{mm}$ thick, conducts at about $21\,\mathrm{m\,s^{-1}}$; Hodgkin and Huxley's equations predicted $18.8$. Vertebrates do better by wrapping fibres in **myelin**, an insulating sheath interrupted every millimetre or so. The impulse jumps from gap to gap at up to $120\,\mathrm{m\,s^{-1}}$ in a fibre twenty-five times thinner than the squid's.
 
-::: {.example title="Example 4.5 — A reflex"}
+::: {.example #ex:cells-reflex title="A reflex"}
 A tap below the knee sends an impulse along a sensory fibre $1.0\,\mathrm{m}$ long to the spinal cord at $60\,\mathrm{m\,s^{-1}}$. A motor command returns along a similar fibre. Ignoring the time spent at the synapses and in the muscle, how long does the round trip take?
 
 **Strategy.** Time is distance over speed, for each leg.
@@ -141,7 +141,7 @@ A tap below the knee sends an impulse along a sensory fibre $1.0\,\mathrm{m}$ lo
 If the refractory period is $2\,\mathrm{ms}$, what is the highest rate at which a fibre can fire? (Answer: $1/0.002 = 500$ impulses per second.)
 :::
 
-## From cells to networks: memory as a landscape {#sec-4-5}
+## From cells to networks: memory as a landscape {#sec:cells-cells-networks-memory}
 
 ::: {.learning-objectives}
 - describe a Hopfield network and its energy function;
@@ -157,7 +157,7 @@ $$E = -\frac12\sum_{i \ne j}w_{ij}s_is_j,$$
 
 so the network rolls downhill until it reaches a minimum and stops. To store a pattern $\xi$ (a list of $\pm1$ values), set the weights by Hebb's rule, $w_{ij} = \xi_i\xi_j/N$. The pattern then sits at the bottom of a valley of the energy landscape, and any nearby state, a corrupted or partial version of the pattern, rolls back into it. Memory becomes geography: remembering is falling into the right valley. Several patterns can be stored by adding their weights; the valleys stay distinct until about $0.14N$ patterns are stored, after which they merge and recall fails.
 
-::: {.example title="Example 4.6 — A three-neuron memory"}
+::: {.example #ex:cells-threeneuron-memory title="A three-neuron memory"}
 Store the pattern $\xi = (+1, -1, +1)$ in a three-neuron network. Start the network in the corrupted state $(+1, +1, +1)$, update neuron 2, and compare the energies before and after.
 
 **Strategy.** Build the weights with Hebb's rule, compute the input to neuron 2, then evaluate $E$, which for three neurons is $-(w_{12}s_1s_2 + w_{13}s_1s_3 + w_{23}s_2s_3)$.
@@ -168,10 +168,10 @@ Store the pattern $\xi = (+1, -1, +1)$ in a three-neuron network. Start the netw
 :::
 
 ::: {.making-connections title="Making Connections — Two neurons firing together"}
-Chapter 2 showed that two kicks reinforce or cancel depending on their timing. At a synapse the timing is everything: an input arriving while the receiving cell is already near threshold can tip it over, and the same input during its refractory period does nothing. Hebb's rule turns this into memory, because repeated coincidences strengthen the connection. Chapter 6 takes the same arithmetic up two levels, to people who fall into step.
+@ch:response showed that two kicks reinforce or cancel depending on their timing. At a synapse the timing is everything: an input arriving while the receiving cell is already near threshold can tip it over, and the same input during its refractory period does nothing. Hebb's rule turns this into memory, because repeated coincidences strengthen the connection. @ch:groups takes the same arithmetic up two levels, to people who fall into step.
 :::
 
-## A field that tunes the landscape {#sec-4-6}
+## A field that tunes the landscape {#sec:cells-field-that-tunes}
 
 ::: {.learning-objectives}
 - state the programme's field-modulated network and its two coupling equations;
@@ -179,7 +179,7 @@ Chapter 2 showed that two kicks reinforce or cancel depending on their timing. A
 - label each part of the cellular reading correctly.
 :::
 
-Everything up to Section 4.5 is standard science. The Missing Limbic Layer paper [@P13] adds one assumption to the Hopfield network. The landscape is not fixed: a slowly varying somatic field $\Phi(t)$, representing the state of the body, changes both the shape of the valleys and how sharply the network falls into them. In its notation the weights and a temperature become
+Everything up to @sec:cells-cells-networks-memory is standard science. The Missing Limbic Layer paper [@P13] adds one assumption to the Hopfield network. The landscape is not fixed: a slowly varying somatic field $\Phi(t)$, representing the state of the body, changes both the shape of the valleys and how sharply the network falls into them. In its notation the weights and a temperature become
 
 $$W(t) = W_0 + \gamma\,\Phi(t)\,J, \qquad T(t) = T_0 + \sigma\,\Phi(t),$$
 
@@ -195,10 +195,10 @@ The paper also checks that the extension does not discard the science it extends
 | The smooth update tends to Hopfield's sign rule as $\beta \to \infty$ | `derived-under-assumptions` (Lean proof open) |
 | A body-wide somatic field modulates the weights and temperature of limbic memory | `open-hypothesis` |
 
-The open hypothesis is testable in principle: if measured arousal plays the role of $\Phi$, recall under arousal should shift in the direction and by the amount the coupling equations predict, and the shift should vanish as arousal returns to baseline. The reading makes no claim that a single cell feels anything. The membrane supplies a threshold and a memory; whatever experience is, the programme places it several levels higher (Chapter 5).
+The open hypothesis is testable in principle: if measured arousal plays the role of $\Phi$, recall under arousal should shift in the direction and by the amount the coupling equations predict, and the shift should vanish as arousal returns to baseline. The reading makes no claim that a single cell feels anything. The membrane supplies a threshold and a memory; whatever experience is, the programme places it several levels higher (@ch:human).
 
 ::: {.soma-machine}
-Open `#level=cellular-synaptic&lens=on&dim=4` and press **Poke field**: the 4D view runs the passive cable equation of Section 4.3, and the poke spreads and fades. Switch to `dim=8`: the model becomes a leaky neuron with a threshold. Poke once and it spikes; poke again at once and the refractory bar is still red, so the identical poke does nothing. The question tour `#q=neuron-all-or-none` walks through the same steps with their labels. Tour stop 4: `#tour=textbook&stop=4`.
+Open `#level=cellular-synaptic&lens=on&dim=4` and press **Poke field**: the 4D view runs the passive cable equation of @sec:cells-passive-spread-cable, and the poke spreads and fades. Switch to `dim=8`: the model becomes a leaky neuron with a threshold. Poke once and it spikes; poke again at once and the refractory bar is still red, so the identical poke does nothing. The question tour `#q=neuron-all-or-none` walks through the same steps with their labels. Tour stop 4: `#tour=textbook&stop=4`.
 :::
 
 ## Key Terms {.unnumbered}
@@ -275,57 +275,57 @@ Field-modulated network
 3. Why can a cell fire many impulses without changing its ion concentrations?
 4. What limits passive signalling to about a millimetre, and how does the action potential overcome the limit?
 5. A kick slightly above threshold produces a delayed spike. Explain the delay.
-6. In the table of Section 4.6, which row did a machine check, and why does that check not test the open hypothesis?
+6. In the table of @sec:cells-field-that-tunes, which row did a machine check, and why does that check not test the open hypothesis?
 :::
 
 ## Worked Homework {.unnumbered}
 
-::: {.problems title="Problem 4.1 — Chloride"}
+::: {.problems #pr:cells-chloride title="Chloride"}
 Chloride ions ($z = -1$) are $110\,\mathrm{mmol\,L^{-1}}$ outside a neuron and $10$ inside. Find the chloride Nernst potential at $310\,\mathrm{K}$.
 :::
 
-::: {.example title="Solution 4.1"}
+::: {.solution}
 **Solution.** $E_\mathrm{Cl} = \dfrac{26.7}{-1}\ln(110/10) = -26.7\times2.40 = -64\,\mathrm{mV}$.
 
 **Significance.** The chloride potential lies close to rest, so opening chloride channels holds the cell near rest and makes it harder to excite. Many inhibitory synapses work this way: they do not push the voltage far but clamp it, shunting excitatory input. *Baseline:* Penrose, chapter 27 (entropy and the second law) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 4.2 — Thin and thick fibres"}
-Using the values of Example 4.4, find $\lambda$ for a fine dendrite of radius $0.5\,\mu\mathrm{m}$, and the fraction of a steady voltage that survives $1\,\mathrm{mm}$ along it.
+::: {.problems #pr:cells-thin-thick-fibres title="Thin and thick fibres"}
+Using the values of @ex:cells-length-constant, find $\lambda$ for a fine dendrite of radius $0.5\,\mu\mathrm{m}$, and the fraction of a steady voltage that survives $1\,\mathrm{mm}$ along it.
 :::
 
-::: {.example title="Solution 4.2"}
+::: {.solution}
 **Solution.** $\lambda = \sqrt{0.5\times10^{-6}/2} = 5.0\times10^{-4}\,\mathrm{m} = 0.50\,\mathrm{mm}$. At $1\,\mathrm{mm}$, two length constants: $e^{-2} = 0.14$.
 
 **Significance.** $\lambda$ grows only as $\sqrt{a}$: ten times thinner gives a length constant $\sqrt{10} = 3.2$ times shorter. Inputs at the far tips of fine dendrites arrive at the cell body much weakened, which is part of how a neuron weighs its inputs by where they land. **Try it:** `#level=cellular-synaptic&lens=on&dim=4`.
 :::
 
-::: {.problems title="Problem 4.3 — The charge in one spike"}
+::: {.problems #pr:cells-charge-spike title="The charge in one spike"}
 During a spike the membrane voltage swings by about $100\,\mathrm{mV}$. How many sodium ions per square centimetre must enter to produce this swing, with $C_m = 1\,\mu\mathrm{F\,cm^{-2}}$?
 :::
 
-::: {.example title="Solution 4.3"}
+::: {.solution}
 **Solution.** $Q = C_mV = 10^{-6}\times0.1 = 10^{-7}\,\mathrm{C\,cm^{-2}}$, which is $10^{-7}/1.602\times10^{-19} = 6.2\times10^{11}$ ions per square centimetre.
 
 **Significance.** That is about $6000$ ions per square micrometre (a square micrometre is $10^{-8}\,\mathrm{cm^2}$), while one cubic micrometre of the fluid outside holds about ninety million sodium ions: a negligible change to the concentrations. *Baseline:* Penrose, chapter 19 (Maxwell's equations and the electric field) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 4.4 — The threshold as a charge"}
+::: {.problems #pr:cells-threshold-charge title="The threshold as a charge"}
 In the opening figure the threshold for a one-millisecond kick is $6.9\,\mu\mathrm{A\,cm^{-2}}$. What charge per square centimetre does that kick deliver, and roughly how much would it raise the voltage if none leaked away?
 :::
 
-::: {.example title="Solution 4.4"}
+::: {.solution}
 **Solution.** $Q = 6.9\,\mu\mathrm{A\,cm^{-2}}\times1\,\mathrm{ms} = 6.9\,\mathrm{nC\,cm^{-2}}$. The voltage rise is $Q/C_m = 6.9\times10^{-9}/10^{-6} = 6.9\,\mathrm{mV}$.
 
 **Significance.** In this model a nerve membrane fires when it is lifted about $7\,\mathrm{mV}$ above rest in a millisecond. The figure's $6.5\,\mu\mathrm{A\,cm^{-2}}$ kick reached about $6\,\mathrm{mV}$, a little less than the no-leak estimate, because some charge leaked during the kick. The threshold is a property of the cell, which is why the same kick fires one neuron and not another.
 :::
 
-::: {.problems title="Problem 4.5 — How many memories?"}
+::: {.problems #pr:cells-many-memories title="How many memories?"}
 Using the capacity $0.14N$, how many patterns can a Hopfield network of $100$ neurons store? Of $1000$? What does this suggest about storing memories in small networks?
 :::
 
-::: {.example title="Solution 4.5"}
+::: {.solution}
 **Solution.** $0.14\times100 = 14$ patterns; $0.14\times1000 = 140$.
 
-**Significance.** Capacity grows only in proportion to $N$, while the number of synapses grows as $N^2$; most of the wiring holds each memory redundantly, which is why such networks tolerate damage. A network small enough to draw, like Example 4.6, holds one pattern at most. The programme's eight-component somatic model of Chapter 3 is small on purpose: it describes a few body-wide modes, not a store of memories.
+**Significance.** Capacity grows only in proportion to $N$, while the number of synapses grows as $N^2$; most of the wiring holds each memory redundantly, which is why such networks tolerate damage. A network small enough to draw, like @ex:cells-threeneuron-memory, holds one pattern at most. The programme's eight-component somatic model of @ch:atoms is small on purpose: it describes a few body-wide modes, not a store of memories.
 :::

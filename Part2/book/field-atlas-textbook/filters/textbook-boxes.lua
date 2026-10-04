@@ -79,6 +79,9 @@ local function box(div, class, spec)
     local open = pandoc.Inlines({ pandoc.RawInline("latex", "\\begin{textbookbox}[") })
     open:extend(title)
     open:insert(pandoc.RawInline("latex", "]{" .. spec[2] .. "}"))
+    if div.identifier ~= "" then
+      open:insert(pandoc.RawInline("latex", "\\phantomsection\\label{" .. div.identifier .. "}"))
+    end
     local out = pandoc.Blocks({ pandoc.Plain(open) })
     out:extend(content)
     out:insert(pandoc.RawBlock("latex", "\\end{textbookbox}"))
@@ -86,7 +89,7 @@ local function box(div, class, spec)
   end
   local heading = pandoc.Para({ pandoc.Span(title, pandoc.Attr("", { "box-title" })) })
   content:insert(1, heading)
-  return pandoc.Div(content, pandoc.Attr("", { "textbook-box", class }))
+  return pandoc.Div(content, pandoc.Attr(div.identifier, { "textbook-box", class }))
 end
 
 function Div(div)

@@ -1,4 +1,4 @@
-# Response: Kicks, Ringing and Resonance {#ch-response}
+# Response: Kicks, Ringing and Resonance {#ch:response}
 
 ![A system's whole character in three panels: a short kick, the ringing it leaves behind, and the resonance curve that follows when the same system is driven steadily.](figures/generated/ch02-banner.png){.opener}
 
@@ -6,7 +6,7 @@ Strike a bell, tap a wine glass, kick a swing, inject a pulse of current into a 
 
 **Chapter outline.** 2.1 The damped oscillator · 2.2 The impulse response · 2.3 Adding up kicks: convolution · 2.4 Resonance and the quality factor · 2.5 Response in space: how far a disturbance reaches · 2.6 One grammar across the levels
 
-## The damped oscillator {#sec-2-1}
+## The damped oscillator {#sec:response-damped-oscillator}
 
 ::: {.learning-objectives}
 - write the equation of motion of a mass on a spring with friction;
@@ -26,7 +26,7 @@ with **natural angular frequency** $\omega_0 = \sqrt{k/m}$ and **damping rate** 
 
 A single number summarises how long a system rings: the **quality factor** $Q = 1/2\zeta = \omega_0/2\gamma$. Roughly, $Q$ counts how many radians of oscillation pass while the energy falls by a factor $e$; a bell or a tuning fork has $Q$ in the thousands, a car on its springs less than one.
 
-::: {.example title="Example 2.1 — A mass on a spring"}
+::: {.example #ex:response-mass-spring title="A mass on a spring"}
 A $0.50\,\mathrm{kg}$ mass hangs on a spring with $k = 200\,\mathrm{N\,m^{-1}}$ and friction coefficient $b = 2.0\,\mathrm{kg\,s^{-1}}$. Find $\omega_0$, $f_0$, $\gamma$, $\zeta$, $Q$ and the time for the amplitude to fall by a factor $e$.
 
 **Strategy.** Substitute into the definitions above.
@@ -37,10 +37,10 @@ A $0.50\,\mathrm{kg}$ mass hangs on a spring with $k = 200\,\mathrm{N\,m^{-1}}$ 
 :::
 
 ::: {.check-your-learning}
-The friction in Example 2.1 is increased until $\zeta = 1$. What is the new value of $b$? (Answer: $b = 2m\omega_0 = 20\,\mathrm{kg\,s^{-1}}$, ten times the original.)
+The friction in @ex:response-mass-spring is increased until $\zeta = 1$. What is the new value of $b$? (Answer: $b = 2m\omega_0 = 20\,\mathrm{kg\,s^{-1}}$, ten times the original.)
 :::
 
-## The impulse response {#sec-2-2}
+## The impulse response {#sec:response-impulse-response}
 
 ::: {.learning-objectives}
 - define an impulse and the impulse response $G(t)$;
@@ -56,8 +56,8 @@ $$G(t) = \frac{1}{m\omega_d}\,e^{-\gamma t}\sin(\omega_d t)\quad (t \ge 0), \qqu
 
 Two features are worth stating carefully. First, $G(t) = 0$ before the kick: the system cannot respond to a cause that has not happened yet. A response function with this property is called **retarded** or **causal**, and every physical response in this book is of this kind. Second, $G$ contains everything about the system: its natural frequency, its damping, and its mass all appear in it. Measuring the response to one sharp kick is how engineers test bridges, how seismologists probe the Earth and how neuroscientists characterise a synapse.
 
-::: {.example title="Example 2.2 — Kicking the spring"}
-The resting mass of Example 2.1 is struck with an impulse $J = 0.10\,\mathrm{N\,s}$. Find its initial speed, the amplitude of the ringing, and the largest displacement it reaches.
+::: {.example #ex:response-kicking-spring title="Kicking the spring"}
+The resting mass of @ex:response-mass-spring is struck with an impulse $J = 0.10\,\mathrm{N\,s}$. Find its initial speed, the amplitude of the ringing, and the largest displacement it reaches.
 
 **Strategy.** The impulse sets the initial velocity $v_0 = J/m$. The motion is then $x(t) = J\,G(t)$.
 
@@ -67,10 +67,10 @@ The resting mass of Example 2.1 is struck with an impulse $J = 0.10\,\mathrm{N\,
 :::
 
 ::: {.check-your-learning}
-If the kick in Example 2.2 is doubled, what happens to $G(t)$ and to the motion? (Answer: $G(t)$ is unchanged, as it belongs to the system; the motion doubles, because $x = J\,G(t)$ for a linear system.)
+If the kick in @ex:response-kicking-spring is doubled, what happens to $G(t)$ and to the motion? (Answer: $G(t)$ is unchanged, as it belongs to the system; the motion doubles, because $x = J\,G(t)$ for a linear system.)
 :::
 
-## Adding up kicks: convolution {#sec-2-3}
+## Adding up kicks: convolution {#sec:response-adding-up-kicks}
 
 ::: {.learning-objectives}
 - build the response to any input from the impulse response;
@@ -82,21 +82,21 @@ The real power of $G$ comes from **linearity**. For a linear system, the respons
 
 $$x(t) = \int_{-\infty}^{t} G(t - t')\,F(t')\,dt'.$$
 
-The upper limit $t$ is causality again: only kicks that have already happened contribute. Read aloud, the formula says: *the present state is the sum of all past inputs, each weighted by how much of its effect survives after the time that has elapsed since.* That sentence is the heart of the book. It describes a bell, a cell membrane, the Earth after an earthquake and, in the [T]-Theory reading, the lingering of an emotional state (Chapter 5).
+The upper limit $t$ is causality again: only kicks that have already happened contribute. Read aloud, the formula says: *the present state is the sum of all past inputs, each weighted by how much of its effect survives after the time that has elapsed since.* That sentence is the heart of the book. It describes a bell, a cell membrane, the Earth after an earthquake and, in the [T]-Theory reading, the lingering of an emotional state (@ch:human).
 
 ![The convolution idea: an input history is cut into kicks, each produces a delayed copy of the impulse response, and the copies add up to the total response.](../field-atlas/figures/theory/T2_8_convolution.png){width="100%"}
 
-::: {.example title="Example 2.3 — Pushing a swing at the wrong moment"}
-The oscillator of Example 2.1 receives a kick of $0.10\,\mathrm{N\,s}$, then an identical kick, in the same direction, exactly half a ringing period later. Then repeat with the second kick one full period later. By what factor does the ringing amplitude change in each case?
+::: {.example #ex:response-pushing-swing-wrong title="Pushing a swing at the wrong moment"}
+The oscillator of @ex:response-mass-spring receives a kick of $0.10\,\mathrm{N\,s}$, then an identical kick, in the same direction, exactly half a ringing period later. Then repeat with the second kick one full period later. By what factor does the ringing amplitude change in each case?
 
 **Strategy.** The ringing period is $T_d = 2\pi/\omega_d = 0.316\,\mathrm{s}$. Half a period later the mass is moving the other way, so a same-direction kick opposes it; one period later it is moving the same way. Use superposition, remembering that the first ringing has decayed by $e^{-\gamma\Delta t}$.
 
 **Solution.** At $\Delta t = T_d/2 = 0.158\,\mathrm{s}$, the first ringing has amplitude factor $e^{-2.0\times0.158} = 0.73$ and the second kick's ringing is exactly out of phase with it, so the net amplitude factor is $1 - 0.73 = 0.27$: the second push removes most of the motion. At $\Delta t = T_d$, the first ringing has factor $e^{-2.0\times0.316} = 0.53$ and is in phase, so the total is $1 + 0.53 = 1.53$.
 
-**Significance.** Every child on a swing knows this: push in time with the motion and it grows; push against it and it stops. The same two kicks give a large or small effect depending only on *timing*. Timing effects of exactly this kind appear in the synchronisation of neurons and people (Chapter 6).
+**Significance.** Every child on a swing knows this: push in time with the motion and it grows; push against it and it stops. The same two kicks give a large or small effect depending only on *timing*. Timing effects of exactly this kind appear in the synchronisation of neurons and people (@ch:groups).
 :::
 
-## Resonance and the quality factor {#sec-2-4}
+## Resonance and the quality factor {#sec:response-resonance-quality-factor}
 
 ::: {.learning-objectives}
 - describe the steady response to a sinusoidal drive;
@@ -110,7 +110,7 @@ $$A(\omega) = \frac{F_0/m}{\sqrt{(\omega_0^2 - \omega^2)^2 + (2\gamma\omega)^2}}
 
 Far below $\omega_0$ the mass simply follows the force through the spring; far above, it barely moves. Near $\omega_0$ the response is largest: **resonance**. At $\omega = \omega_0$ the amplitude is $Q$ times the static displacement $F_0/k$, and the peak has a width of about $\Delta\omega \approx \omega_0/Q$. A high-$Q$ system rings for a long time after a kick *and* responds strongly only in a narrow band of frequencies. These are the same fact seen two ways, because the resonance curve is the Fourier transform of the impulse response.
 
-::: {.example title="Example 2.4 — How long does the Earth ring?"}
+::: {.example #ex:response-long-does-earth title="How long does the Earth ring?"}
 After the magnitude 9.1 Sumatra–Andaman earthquake of 2004, seismometers worldwide recorded the Earth's slowest free oscillation, the mode called ${}_0S_2$, with a period of $53.9$ minutes and a quality factor of about $Q \approx 500$ [@park2005earth; @dahlen1998theoretical]. How long does the amplitude take to fall by a factor $e$, and what fraction remains after three weeks?
 
 **Strategy.** From $Q = \omega_0/2\gamma$, the decay time is $1/\gamma = 2Q/\omega_0$.
@@ -124,7 +124,7 @@ After the magnitude 9.1 Sumatra–Andaman earthquake of 2004, seismometers world
 The gravitational waves from the black-hole merger GW150914 ended with a "ringdown" at about $250\,\mathrm{Hz}$ with decay time $\tau \approx 4\,\mathrm{ms}$ [@abbott2016gw]. Estimate its $Q = \pi f \tau$. (Answer: $Q \approx 3$: a black hole is a very poor bell, ringing for only about one cycle.)
 :::
 
-## Response in space: how far a disturbance reaches {#sec-2-5}
+## Response in space: how far a disturbance reaches {#sec:response-response-space-far}
 
 ::: {.learning-objectives}
 - write the static response of a field to a point source;
@@ -140,7 +140,7 @@ $$G_Y(r) = \frac{e^{-r/\lambda}}{4\pi r}, \qquad \lambda = \frac{\hbar}{mc},$$
 
 where $\lambda$ is the **range**. Within a distance $\lambda$ the force behaves like $1/r$; beyond it, it vanishes exponentially. The heavier the carrier, the shorter the range.
 
-::: {.example title="Example 2.5 — The range of the nuclear force"}
+::: {.example #ex:response-range-nuclear-force title="The range of the nuclear force"}
 The carrier of the long-range part of the nuclear force is the pion, with $mc^2 = 139.6\,\mathrm{MeV}$. Using $\hbar c = 197.3\,\mathrm{MeV\,fm}$, find the range and how strongly the Yukawa response is suppressed relative to Coulomb at $0.5$, $1.4$ and $3.0\,\mathrm{fm}$.
 
 **Solution.** $\lambda = \hbar c/mc^2 = 197.3/139.6 = 1.41\,\mathrm{fm}$. The suppression factor is $e^{-r/\lambda}$: $0.70$ at $0.5\,\mathrm{fm}$, $0.37$ at $1.41\,\mathrm{fm}$ and $0.12$ at $3.0\,\mathrm{fm}$.
@@ -150,7 +150,7 @@ The carrier of the long-range part of the nuclear force is the pion, with $mc^2 
 
 ![The Yukawa response (finite range) and the Coulomb response (infinite range) on the same axes. The ratio of the two is $e^{-r/\lambda}$.](../field-atlas/figures/theory/T2_7_yukawa_coulomb.png){width="100%"}
 
-## One grammar across the levels {#sec-2-6}
+## One grammar across the levels {#sec:response-grammar-across-levels}
 
 ::: {.learning-objectives}
 - state the source–kernel–boundary–observable grammar;
@@ -169,14 +169,14 @@ Everything in this chapter is standard physics, found in any textbook of mechani
 | Planetary | earthquake | normal modes, $Q \approx 500$ | seismograms |
 | Compact object | black-hole merger | ringdown, $Q \approx 3$ | gravitational waves |
 
-The first two rows and the last two are `empirical-result`: measured and textbook-standard. The cellular row is standard neuroscience (Chapter 4). The human row is where the programme makes its proposal: that an emotional response can be modelled with the same convolution structure, so that a present state carries a weighted memory of past events [@P1; @P10]. That reading is `derived-under-assumptions` as mathematics and `open-hypothesis` as a claim about people: the assumptions are explicit, and the test is whether a memory-weighted kernel predicts measured physiology and behaviour better than a model without memory. The reading does not claim that a feeling *is* a nucleus or a black hole; it claims that the same response grammar is a productive way to model all of them.
+The first two rows and the last two are `empirical-result`: measured and textbook-standard. The cellular row is standard neuroscience (@ch:cells). The human row is where the programme makes its proposal: that an emotional response can be modelled with the same convolution structure, so that a present state carries a weighted memory of past events [@P1; @P10]. That reading is `derived-under-assumptions` as mathematics and `open-hypothesis` as a claim about people: the assumptions are explicit, and the test is whether a memory-weighted kernel predicts measured physiology and behaviour better than a model without memory. The reading does not claim that a feeling *is* a nucleus or a black hole; it claims that the same response grammar is a productive way to model all of them.
 
 ::: {.making-connections title="Making Connections — The same push, different systems"}
-Example 2.3 showed that two identical kicks can add up or cancel depending on timing. The same arithmetic governs whether two neurons fire together (Chapter 4), whether two people fall into step (Chapter 6), and whether a population of fireflies flashes in unison. In each case the useful question is the one asked here: what does one kick do, how long does its effect last, and when does the next one arrive?
+@ex:response-pushing-swing-wrong showed that two identical kicks can add up or cancel depending on timing. The same arithmetic governs whether two neurons fire together (@ch:cells), whether two people fall into step (@ch:groups), and whether a population of fireflies flashes in unison. In each case the useful question is the one asked here: what does one kick do, how long does its effect last, and when does the next one arrive?
 :::
 
 ::: {.soma-machine}
-Open `#level=human-vertebrate&lens=on&dim=4` and press **Poke field** once: at 4D the body model rings and returns to rest, like Example 2.2. Switch to `dim=8` and poke twice: the second response is different, because the model now carries a memory kernel, the convolution of Section 2.3 with a long tail. Chapter 5 explains that model and what it does and does not establish. Tour stop 2: `#tour=textbook&stop=2`.
+Open `#level=human-vertebrate&lens=on&dim=4` and press **Poke field** once: at 4D the body model rings and returns to rest, like @ex:response-kicking-spring. Switch to `dim=8` and poke twice: the second response is different, because the model now carries a memory kernel, the convolution of @sec:response-adding-up-kicks with a long tail. @ch:human explains that model and what it does and does not establish. Tour stop 2: `#tour=textbook&stop=2`.
 :::
 
 ## Key Terms {.unnumbered}
@@ -250,16 +250,16 @@ Yukawa response and range
 3. Explain in words what the convolution integral adds up.
 4. A system rings for a long time after a kick. What does that imply about the width of its resonance?
 5. Why does a massive force carrier give a force with a finite range?
-6. In the table of Section 2.6, which rows are measured physics and which is a proposal? What evidence would turn the proposal into a result?
+6. In the table of @sec:response-grammar-across-levels, which rows are measured physics and which is a proposal? What evidence would turn the proposal into a result?
 :::
 
 ## Worked Homework {.unnumbered}
 
-::: {.problems title="Problem 2.1 — A heavier mass"}
-The mass in Example 2.1 is doubled to $1.0\,\mathrm{kg}$, with the same spring and friction. Find $\omega_0$, $\zeta$ and $Q$.
+::: {.problems #pr:response-heavier-mass title="A heavier mass"}
+The mass in @ex:response-mass-spring is doubled to $1.0\,\mathrm{kg}$, with the same spring and friction. Find $\omega_0$, $\zeta$ and $Q$.
 :::
 
-::: {.example title="Solution 2.1"}
+::: {.solution}
 **Strategy.** $\omega_0 = \sqrt{k/m}$ and $\gamma = b/2m$ both change with $m$.
 
 **Solution.** $\omega_0 = \sqrt{200/1.0} = 14.1\,\mathrm{rad\,s^{-1}}$; $\gamma = 2.0/2.0 = 1.0\,\mathrm{s^{-1}}$; $\zeta = 1.0/14.1 = 0.071$; $Q = 7.1$.
@@ -267,41 +267,41 @@ The mass in Example 2.1 is doubled to $1.0\,\mathrm{kg}$, with the same spring a
 **Significance.** The heavier mass rings at a lower pitch but for more cycles. *Baseline:* the Lagrangian derivation of the oscillator is in Penrose, chapter 20 [@penrose2004road].
 :::
 
-::: {.problems title="Problem 2.2 — The tuning fork"}
+::: {.problems #pr:response-tuning-fork title="The tuning fork"}
 A $440\,\mathrm{Hz}$ tuning fork has $Q = 1000$. How long does its amplitude take to fall by a factor $e$, and how many cycles is that?
 :::
 
-::: {.example title="Solution 2.2"}
+::: {.solution}
 **Solution.** $\omega_0 = 2\pi\times440 = 2765\,\mathrm{rad\,s^{-1}}$; $1/\gamma = 2Q/\omega_0 = 2000/2765 = 0.72\,\mathrm{s}$, which is $440\times0.72 = 318$ cycles.
 
 **Significance.** $Q$ counts cycles of ringing (divided by $\pi$): $318\pi \approx 1000$.
 :::
 
-::: {.problems title="Problem 2.3 — Black-hole ringdown"}
+::: {.problems #pr:response-blackhole-ringdown title="Black-hole ringdown"}
 For GW150914 the ringdown had $f \approx 250\,\mathrm{Hz}$ and $\tau \approx 4\,\mathrm{ms}$. Find $Q$ and the number of cycles in one decay time.
 :::
 
-::: {.example title="Solution 2.3"}
+::: {.solution}
 **Solution.** $Q = \pi f\tau = \pi\times250\times0.004 = 3.1$; cycles in $\tau$: $f\tau = 1.0$.
 
 **Significance.** The event is in the app's question tour *What happens when black holes merge?* **Try it:** `#q=black-hole-ringdown`. *Baseline:* Penrose, chapter 19 (Einstein's field equation) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 2.4 — The range of a heavier carrier"}
+::: {.problems #pr:response-range-heavier-carrier title="The range of a heavier carrier"}
 The weak force is carried by the W boson, $mc^2 = 80.4\,\mathrm{GeV}$. Find its range, using $\hbar c = 197.3\,\mathrm{MeV\,fm}$.
 :::
 
-::: {.example title="Solution 2.4"}
+::: {.solution}
 **Solution.** $\lambda = 197.3\,\mathrm{MeV\,fm}/80\,400\,\mathrm{MeV} = 2.45\times10^{-3}\,\mathrm{fm} = 2.5\times10^{-18}\,\mathrm{m}$.
 
 **Significance.** The weak force reaches about a thousandth of the size of a proton, which is why it is "weak" at everyday distances even though its intrinsic coupling is not small. *Baseline:* Penrose, chapter 25 [@penrose2004road].
 :::
 
-::: {.problems title="Problem 2.5 — Two kicks, a quarter period apart"}
-For the oscillator of Example 2.1, a second identical kick follows the first after a quarter period, $T_d/4 = 0.079\,\mathrm{s}$. By what factor does the ringing amplitude change?
+::: {.problems #pr:response-kicks-quarter-period title="Two kicks, a quarter period apart"}
+For the oscillator of @ex:response-mass-spring, a second identical kick follows the first after a quarter period, $T_d/4 = 0.079\,\mathrm{s}$. By what factor does the ringing amplitude change?
 :::
 
-::: {.example title="Solution 2.5"}
+::: {.solution}
 **Strategy.** A quarter period later the two ringings are $90^\circ$ apart in phase, so their amplitudes add like perpendicular vectors.
 
 **Solution.** The first ringing has decayed to $e^{-\gamma\Delta t} = e^{-2.0\times0.079} = 0.85$. The combined amplitude is $\sqrt{1^2 + 0.85^2} = 1.32$ times that of one kick.

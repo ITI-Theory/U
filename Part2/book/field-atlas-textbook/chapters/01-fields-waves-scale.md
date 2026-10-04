@@ -1,4 +1,4 @@
-# Fields, Waves, and Scale {#ch-fields}
+# Fields, Waves, and Scale {#ch:fields}
 
 ![The thirty-one levels of the Field Atlas placed by size, from quantum foam at $10^{-35}\,\mathrm{m}$ to the cosmic web at $10^{26}\,\mathrm{m}$. Each step along the axis is a factor of ten.](figures/generated/ch01-banner.png){.opener}
 
@@ -6,7 +6,7 @@ A field assigns a value to every point of a region: a temperature to every point
 
 **Chapter outline.** 1.1 Fields · 1.2 Waves · 1.3 Scale: size and response time · 1.4 Zooming out: when a field description works · 1.5 Reading the Atlas: claims and evidence labels
 
-## Fields {#sec-1-1}
+## Fields {#sec:fields-fields}
 
 ::: {.learning-objectives}
 - distinguish scalar, vector and tensor fields and give a physical example of each;
@@ -20,7 +20,7 @@ Fields come in three common kinds. A **scalar field** assigns one number to each
 
 The most useful single operation on a field is the **gradient**, the rate at which the value changes with position. For a scalar field it points uphill, and its size is the slope. Many physical laws say that something flows *down* a gradient: heat flows from hot to cold (Fourier's law, $\mathbf{q} = -k\nabla T$), particles diffuse from high concentration to low (Fick's law), and charge moves down the electric potential (Ohm's law).
 
-::: {.example title="Example 1.1 — Heat flow across a still room"}
+::: {.example #ex:fields-heat-flow-across title="Heat flow across a still room"}
 In a room without draughts, a thermometer reads $18\,^\circ\mathrm{C}$ near the floor and $24\,^\circ\mathrm{C}$ at the ceiling, $2.5\,\mathrm{m}$ higher. Estimate the vertical temperature gradient and the conductive heat flux through the air. The thermal conductivity of air is $k = 0.026\,\mathrm{W\,m^{-1}\,K^{-1}}$.
 
 **Strategy.** Treat the temperature as varying linearly with height, so the gradient is the difference divided by the distance. Then apply Fourier's law.
@@ -36,7 +36,7 @@ A $1.0\,\mathrm{mm}$ thick cell membrane model has a potential of $-70\,\mathrm{
 
 A field is never defined "everywhere" in the abstract. It lives on a **domain** (the room, the membrane, the rock layer) and is constrained at the edges of that domain by **boundary conditions**: a wall held at a fixed temperature, a string clamped at both ends, a free surface that can move. Two systems obeying the same equation behave completely differently if their boundaries differ. This is the first of four questions the book asks at every level: *what is the domain, and what holds its edges?*
 
-## Waves {#sec-1-2}
+## Waves {#sec:fields-waves}
 
 ::: {.learning-objectives}
 - relate wave speed, frequency and wavelength;
@@ -54,12 +54,12 @@ $$v = f\lambda.$$
 
 This small relation hides an important division of labour. The **source** sets the frequency: a tuning fork vibrates at $440\,\mathrm{Hz}$ whatever it is immersed in. The **medium** sets the speed. The wavelength follows from both.
 
-::: {.example title="Example 1.2 — The same note in air and in water"}
+::: {.example #ex:fields-same-note-air title="The same note in air and in water"}
 A source emits a $440\,\mathrm{Hz}$ tone (concert A). Find its wavelength in air, where sound travels at $343\,\mathrm{m\,s^{-1}}$, and in water, where it travels at $1480\,\mathrm{m\,s^{-1}}$.
 
 **Solution.** In air, $\lambda = v/f = 343/440 = 0.780\,\mathrm{m}$. In water, $\lambda = 1480/440 = 3.36\,\mathrm{m}$.
 
-**Significance.** The frequency, and therefore the pitch, is the same in both media; the wavelength is more than four times longer in water. The source decides *what* is sent, and the medium decides *how it spreads*. Chapter 2 turns this division into the general idea of a source and a response kernel.
+**Significance.** The frequency, and therefore the pitch, is the same in both media; the wavelength is more than four times longer in water. The source decides *what* is sent, and the medium decides *how it spreads*. @ch:response turns this division into the general idea of a source and a response kernel.
 :::
 
 When a wave is confined between boundaries, only certain wavelengths fit. A string of length $L$ clamped at both ends must have a node at each end, so a whole number of half-wavelengths must fit: $L = n\lambda_n/2$. The allowed **standing-wave** frequencies, the string's **normal modes**, are therefore
@@ -68,12 +68,12 @@ $$f_n = \frac{n v}{2L}, \qquad n = 1, 2, 3, \dots$$
 
 The lowest, $f_1$, is the **fundamental**; the others are **harmonics** at whole-number multiples of it.
 
-::: {.example title="Example 1.3 — A guitar string"}
+::: {.example #ex:fields-guitar-string title="A guitar string"}
 The open A string of a guitar has a vibrating length of $0.648\,\mathrm{m}$ and a fundamental of $110\,\mathrm{Hz}$. Find the wave speed on the string and the frequency of its third harmonic.
 
 **Solution.** From $f_1 = v/2L$, $v = 2Lf_1 = 2 \times 0.648 \times 110 = 143\,\mathrm{m\,s^{-1}}$. The third harmonic is $f_3 = 3f_1 = 330\,\mathrm{Hz}$.
 
-**Significance.** The boundary (the nut and the bridge) selects which frequencies the string can sustain. Pluck it anywhere and the sound is built only from $110$, $220$, $330\,\mathrm{Hz}$ and so on. The same logic gives the energy levels of an atom (Chapter 3) and the free oscillations of the whole Earth (Chapter 8).
+**Significance.** The boundary (the nut and the bridge) selects which frequencies the string can sustain. Pluck it anywhere and the sound is built only from $110$, $220$, $330\,\mathrm{Hz}$ and so on. The same logic gives the energy levels of an atom (@ch:atoms) and the free oscillations of the whole Earth (@ch:earth).
 :::
 
 ::: {.check-your-learning}
@@ -82,7 +82,7 @@ A $1000\,\mathrm{Hz}$ whistle is sounded in helium, where sound travels at $1007
 
 ![Standing-wave modes on a string fixed at both ends. Only whole numbers of half-wavelengths fit between the boundaries.](../field-atlas/figures/theory/T1_3_string_modes.png){width="90%"}
 
-## Scale: size and response time {#sec-1-3}
+## Scale: size and response time {#sec:fields-scale-size-response}
 
 ::: {.learning-objectives}
 - work with powers of ten across the 61 orders of magnitude of the Atlas;
@@ -96,7 +96,7 @@ The logarithmic middle of the Atlas is a surprising place. The midpoint of $-35$
 
 Every level also has a characteristic **response time** $\tau$, the time it takes to react noticeably to a disturbance: about $10^{-16}\,\mathrm{s}$ for an atom's electron cloud, milliseconds for a synapse, seconds to minutes for a human body, millions of years for a mountain belt. A useful yardstick is the **light-crossing time** $L/c$, the time a signal moving at the speed of light ($c = 3.00\times10^{8}\,\mathrm{m\,s^{-1}}$) needs to cross a system of size $L$. No system can respond as a whole faster than that.
 
-::: {.example title="Example 1.4 — How slow is a person?"}
+::: {.example #ex:fields-slow-person title="How slow is a person?"}
 Compare the response time with the light-crossing time for an atom ($L = 10^{-10}\,\mathrm{m}$, $\tau \approx 10^{-16}\,\mathrm{s}$), a human body ($L \approx 1\,\mathrm{m}$, $\tau \approx 10\,\mathrm{s}$) and a galactic disc ($L \approx 10^{20}\,\mathrm{m}$, $\tau \approx 10^{16}\,\mathrm{s}$).
 
 **Solution.** For the atom, $L/c = 10^{-10}/3.00\times10^{8} = 3.3\times10^{-19}\,\mathrm{s}$, so $\tau$ is about 300 times the light-crossing time. For the body, $L/c = 3.3\times10^{-9}\,\mathrm{s}$, so $\tau$ is about $3\times10^{9}$ times longer. For the galactic disc, $L/c = 3.3\times10^{11}\,\mathrm{s}$ (about $10\,000$ years), and $\tau$ is about $3\times10^{4}$ times longer.
@@ -112,7 +112,7 @@ The figure shows the pattern across the whole Atlas. Physics at the extremes is 
 How long does light take to cross the Earth, diameter $1.27\times10^{7}\,\mathrm{m}$? (Answer: $0.042\,\mathrm{s}$. The Earth's slowest free oscillation has a period of about $54$ minutes, roughly $8\times10^{4}$ times longer.)
 :::
 
-## Zooming out: when a field description works {#sec-1-4}
+## Zooming out: when a field description works {#sec:fields-zooming-out-when}
 
 ::: {.learning-objectives}
 - explain coarse-graining and estimate when a continuum field description is valid;
@@ -121,7 +121,7 @@ How long does light take to cross the Earth, diameter $1.27\times10^{7}\,\mathrm
 
 Air is made of molecules, yet engineers describe it with smooth fields of pressure, density and velocity. The step from many particles to a smooth field is called **coarse-graining**: average over a small cell that still contains so many particles that the average barely fluctuates. If a cell holds $N$ independent particles, the relative fluctuation of its contents is about $1/\sqrt{N}$.
 
-::: {.example title="Example 1.5 — How small can a 'point' of air be?"}
+::: {.example #ex:fields-small-can-point title="How small can a 'point' of air be?"}
 Air at atmospheric pressure ($p = 1.013\times10^{5}\,\mathrm{Pa}$) and room temperature ($T = 293\,\mathrm{K}$) has number density $n = p/k_B T$, with $k_B = 1.38\times10^{-23}\,\mathrm{J\,K^{-1}}$. How many molecules are in a cube $1\,\mu\mathrm{m}$ on a side, and in a cube $10\,\mathrm{nm}$ on a side? How large are the relative fluctuations?
 
 **Solution.** $n = 1.013\times10^{5}/(1.38\times10^{-23}\times293) = 2.5\times10^{25}\,\mathrm{m^{-3}}$. A $1\,\mu\mathrm{m}$ cube has volume $10^{-18}\,\mathrm{m^3}$ and holds $2.5\times10^{7}$ molecules; $1/\sqrt{N} = 2\times10^{-4}$, a fluctuation of $0.02\,\%$. A $10\,\mathrm{nm}$ cube has volume $10^{-24}\,\mathrm{m^3}$ and holds about $25$ molecules; $1/\sqrt{N} = 0.2$, a fluctuation of $20\,\%$.
@@ -140,7 +140,7 @@ Coarse-graining is what this book means by **zooming out**. When the view moves 
 The four questions apply unchanged to very different systems. A *guitar string*: the source is a pluck, the medium a tensioned string with $v = 143\,\mathrm{m\,s^{-1}}$, the boundaries the nut and bridge, the observable a $110\,\mathrm{Hz}$ fundamental. A *nerve-cell membrane*: the source is injected current, the medium a leaky capacitor with time constant $\tau = R_m C_m = (20\,\mathrm{k}\Omega\,\mathrm{cm^2})(1\,\mu\mathrm{F\,cm^{-2}}) = 20\,\mathrm{ms}$, the boundary the ends of the dendrite, the observable the voltage. The *whole Earth*: the source is a great earthquake, the medium elastic rock, the boundary the free surface, the observable a free oscillation with a period of about $54$ minutes. Sharing the questions does not make these systems the same; it makes them comparable.
 :::
 
-## Reading the Atlas: claims and evidence labels {#sec-1-5}
+## Reading the Atlas: claims and evidence labels {#sec:fields-reading-atlas-claims}
 
 ::: {.learning-objectives}
 - name the six evidence labels used in this book;
@@ -152,9 +152,9 @@ The [T]-Theory research programme proposes that the four-question grammar is not
 | Label | Meaning | Example |
 |:--|:--|:--|
 | `kernel-verified` | a named theorem checked by the Lean proof assistant without gaps | typed proofs in the programme's Lean appendix |
-| `derived-under-assumptions` | follows mathematically from stated assumptions | $\Omega_{\mathrm{DM}} = 3/11$ from the dimensional bookkeeping (Chapter 10) |
-| `simulated` | produced by a computation | QUANT-EXP-1: quantum annealing reaches a target basin in 3 of 3 barrier cases (Chapter 5) |
-| `empirical-result` | measured | normal-mode periods of the Earth (Chapter 8) |
+| `derived-under-assumptions` | follows mathematically from stated assumptions | $\Omega_{\mathrm{DM}} = 3/11$ from the dimensional bookkeeping (@ch:cosmology) |
+| `simulated` | produced by a computation | QUANT-EXP-1: quantum annealing reaches a target basin in 3 of 3 barrier cases (@ch:human) |
+| `empirical-result` | measured | normal-mode periods of the Earth (@ch:earth) |
 | `interpretive` | a reading or mapping of ideas | treating an emotional state as a response field |
 | `open-hypothesis` | proposed, with a stated route to a test | path-sensitive transition dynamics |
 
@@ -251,64 +251,64 @@ Relative fluctuation of $N$ particles
 
 ## Worked Homework {.unnumbered}
 
-::: {.problems title="Problem 1.1 — A higher note"}
+::: {.problems #pr:fields-higher-note title="A higher note"}
 A $1000\,\mathrm{Hz}$ tone travels in air at $343\,\mathrm{m\,s^{-1}}$. Find its wavelength.
 :::
 
-::: {.example title="Solution 1.1"}
+::: {.solution}
 **Solution.** $\lambda = v/f = 343/1000 = 0.343\,\mathrm{m}$.
 
 **Significance.** Higher pitch means shorter wavelength in the same medium. *Baseline:* the wave equation and its solutions are in Penrose, chapter 19 [@penrose2004road].
 :::
 
-::: {.problems title="Problem 1.2 — The high E string"}
+::: {.problems #pr:fields-high-e-string title="The high E string"}
 The high E string of a guitar is $0.648\,\mathrm{m}$ long with a fundamental of $329.6\,\mathrm{Hz}$. Find the wave speed on the string.
 :::
 
-::: {.example title="Solution 1.2"}
-**Strategy.** Use $f_1 = v/2L$, as in Example 1.3.
+::: {.solution}
+**Strategy.** Use $f_1 = v/2L$, as in @ex:fields-guitar-string.
 
 **Solution.** $v = 2Lf_1 = 2\times0.648\times329.6 = 427\,\mathrm{m\,s^{-1}}$.
 
 **Significance.** The same length as the A string but three times the frequency: the thinner, tighter E string carries waves three times faster.
 :::
 
-::: {.problems title="Problem 1.3 — Counting powers of ten"}
+::: {.problems #pr:fields-counting-powers-ten title="Counting powers of ten"}
 How many orders of magnitude separate a cell ($10^{-6}\,\mathrm{m}$) from a person ($10^{0}\,\mathrm{m}$), and a person from the Earth ($1.27\times10^{7}\,\mathrm{m}$)?
 :::
 
-::: {.example title="Solution 1.3"}
+::: {.solution}
 **Solution.** Cell to person: $0 - (-6) = 6$ orders. Person to Earth: $\log_{10}(1.27\times10^{7}) = 7.1$, about seven orders.
 
 **Significance.** The person sits roughly halfway, in powers of ten, between a cell and a planet. **Try it:** `#level=cellular-synaptic` then `#level=human-vertebrate` then `#level=planetary`.
 :::
 
-::: {.problems title="Problem 1.4 — Where does the continuum end?"}
+::: {.problems #pr:fields-where-does-continuum title="Where does the continuum end?"}
 How many air molecules are in a cube $100\,\mathrm{nm}$ on a side at room conditions ($n = 2.5\times10^{25}\,\mathrm{m^{-3}}$), and what is the relative fluctuation?
 :::
 
-::: {.example title="Solution 1.4"}
+::: {.solution}
 **Solution.** $V = (10^{-7}\,\mathrm{m})^3 = 10^{-21}\,\mathrm{m^3}$, so $N = 2.5\times10^{4}$ and $1/\sqrt{N} = 0.0063$, a fluctuation of $0.63\,\%$.
 
-**Significance.** Between Example 1.5's $1\,\mu\mathrm{m}$ ($0.02\,\%$) and $10\,\mathrm{nm}$ ($20\,\%$) lies the scale where "pressure at a point" stops being a sharp number.
+**Significance.** Between @ex:fields-small-can-point's $1\,\mu\mathrm{m}$ ($0.02\,\%$) and $10\,\mathrm{nm}$ ($20\,\%$) lies the scale where "pressure at a point" stops being a sharp number.
 :::
 
-::: {.problems title="Problem 1.5 — A faster membrane"}
+::: {.problems #pr:fields-faster-membrane title="A faster membrane"}
 A neuron membrane has $R_m = 10\,\mathrm{k}\Omega\,\mathrm{cm^2}$ and $C_m = 1\,\mu\mathrm{F\,cm^{-2}}$. Find its time constant.
 :::
 
-::: {.example title="Solution 1.5"}
+::: {.solution}
 **Solution.** $\tau = R_mC_m = (10^{4}\,\Omega\,\mathrm{cm^2})(10^{-6}\,\mathrm{F\,cm^{-2}}) = 10^{-2}\,\mathrm{s} = 10\,\mathrm{ms}$.
 
-**Significance.** The area units cancel: the time constant is a property of the membrane material, not of the cell's size. Chapter 4 builds the cable equation on it. **Try it:** `#level=cellular-synaptic&lens=on`.
+**Significance.** The area units cancel: the time constant is a property of the membrane material, not of the cell's size. @ch:cells builds the cable equation on it. **Try it:** `#level=cellular-synaptic&lens=on`.
 :::
 
-::: {.problems title="Problem 1.6 — How slow is the Sun?"}
+::: {.problems #pr:fields-slow-sun title="How slow is the Sun?"}
 The Sun is $1.39\times10^{9}\,\mathrm{m}$ across. Find its light-crossing time and compare it with the five-minute oscillations seen at its surface.
 :::
 
-::: {.example title="Solution 1.6"}
+::: {.solution}
 **Solution.** $t_c = 1.39\times10^{9}/3.00\times10^{8} = 4.6\,\mathrm{s}$. Five minutes is $300\,\mathrm{s}$, about $65$ times longer.
 
-**Significance.** Like the atom and the galaxy in Example 1.4, the Sun responds within two orders of magnitude of its light-crossing time: its oscillations are sound waves crossing hot plasma. **Try it:** `#level=stellar`.
+**Significance.** Like the atom and the galaxy in @ex:fields-slow-person, the Sun responds within two orders of magnitude of its light-crossing time: its oscillations are sound waves crossing hot plasma. **Try it:** `#level=stellar`.
 :::

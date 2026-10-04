@@ -41,6 +41,19 @@ textbook edition) is built the same way:
    `bin/release-check` fails on bare ids in built
    documents, on a stale mirror, and on project instructions that disagree
    with the registry.
+4b. **Numbers are generated, never typed.** Chapters, sections, figures,
+   tables, equations, examples and problems carry labels (`{#ch:atoms}`,
+   `{#sec:atoms-hydrogen-spectrum}`, `::: {.example #ex:...}`); the text
+   refers to them as `@ch:atoms`, `@sec:...`, `@ex:...`, `@pr:...`
+   (`[-@ch:atoms]` for the bare number). In the course book,
+   `filters/course-numbering.lua` numbers chapters (1, 2, ... or M1, M2, ...
+   in the toolkit part), examples, problems and solutions, then
+   **pandoc-crossref** numbers sections, figures, tables and equations
+   (`- type: json` / `path: pandoc-crossref` in the filter list). An unknown
+   label fails the build; `make check` fails on undefined LaTeX references.
+   pandoc-crossref must be on `PATH` and built for the same pandoc minor
+   version (`pandoc-crossref --version`); currently pandoc 3.10.2 with
+   pandoc-crossref 0.3.25 (built on 3.10.1).
 5. **No build scripts that write markup.** Python (or any other language)
    must not generate Markdown, LaTeX or HTML for a document build. Allowed
    uses of Python: validators (`check_*.py`), figure generation (matplotlib

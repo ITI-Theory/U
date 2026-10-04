@@ -35,9 +35,13 @@ filters:
   - ../../../lib/format/registry.lua
   - ../../../lib/format/unicode-glyphs.lua
   - ../../../lib/format/programme-refs.lua
+  - filters/course-numbering.lua
+  - type: json
+    path: pandoc-crossref
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua
   - filters/textbook-boxes.lua
   - type: citeproc
 metadata:
+  numberSections: true
   programme-papers: ../../../registry/papers.yaml

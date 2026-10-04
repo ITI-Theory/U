@@ -1,4 +1,4 @@
-# Two People and Groups: Falling into Step {#ch-groups}
+# Two People and Groups: Falling into Step {#ch:groups}
 
 ![Synchronisation in two panels. Left: the phase gap between two coupled oscillators with slightly different natural rates. Below the locking threshold the gap keeps slipping by whole cycles; above it the gap settles and holds. Right: a simulated crowd of 2000 oscillators. Below a critical coupling no common rhythm forms; above it a rhythm emerges and grows stronger with coupling.](figures/generated/ch06-banner.png){.opener}
 
@@ -6,7 +6,7 @@ In 1665 Christiaan Huygens, ill in bed, noticed that two pendulum clocks hanging
 
 **Chapter outline.** 6.1 Describing a rhythm by its phase · 6.2 Two oscillators: locking and slipping · 6.3 Many oscillators: the onset of collective rhythm · 6.4 Crowds in step · 6.5 Coupled landscapes · 6.6 What the programme claims for dyads and groups
 
-## Describing a rhythm by its phase {#sec-6-1}
+## Describing a rhythm by its phase {#sec:groups-describing-rhythm-phase}
 
 ::: {.learning-objectives}
 - describe a steady rhythm by a phase and a natural frequency;
@@ -18,13 +18,13 @@ A steady rhythm, whether a heartbeat, a footstep or a pendulum swing, repeats th
 
 $$\dot\theta = \omega, \qquad \omega = 2\pi f = \frac{2\pi}{T}.$$
 
-A resting heart at $1.2\,\mathrm{Hz}$, for example, has $\omega = 2\pi\times1.2 = 7.5\,\mathrm{rad\,s^{-1}}$. The description throws away the size and shape of each cycle and keeps only its timing. This is a good approximation for a **self-sustained oscillator**, one that has its own energy supply and returns to its preferred cycle after a disturbance, unlike the damped oscillators of Chapter 2. When such oscillators are coupled weakly, the coupling cannot change the shape of their cycles much; it can only nudge their timing. The whole story of synchronisation is then a story about phases.
+A resting heart at $1.2\,\mathrm{Hz}$, for example, has $\omega = 2\pi\times1.2 = 7.5\,\mathrm{rad\,s^{-1}}$. The description throws away the size and shape of each cycle and keeps only its timing. This is a good approximation for a **self-sustained oscillator**, one that has its own energy supply and returns to its preferred cycle after a disturbance, unlike the damped oscillators of @ch:response. When such oscillators are coupled weakly, the coupling cannot change the shape of their cycles much; it can only nudge their timing. The whole story of synchronisation is then a story about phases.
 
 ::: {.check-your-learning}
 A person walks at two steps per second. What are the period and angular frequency of the stepping rhythm? (Answer: $T = 0.5\,\mathrm{s}$, $\omega = 4\pi = 12.6\,\mathrm{rad\,s^{-1}}$.)
 :::
 
-## Two oscillators: locking and slipping {#sec-6-2}
+## Two oscillators: locking and slipping {#sec:groups-oscillators-locking-slipping}
 
 ::: {.learning-objectives}
 - write the equation for the phase gap between two coupled oscillators;
@@ -44,9 +44,9 @@ The detuning $\Delta\omega$ tries to open the gap; the coupling tries to close i
 
 $$T_\text{slip} = \frac{2\pi}{\sqrt{\Delta\omega^2 - 4\kappa^2}},$$
 
-which is longer than the uncoupled beat period $2\pi/\Delta\omega$ and grows without limit as the threshold is approached: critical slowing down again (Chapters 4 and 5).
+which is longer than the uncoupled beat period $2\pi/\Delta\omega$ and grows without limit as the threshold is approached: critical slowing down again (Chapters [-@ch:cells] and [-@ch:human]).
 
-::: {.example title="Example 6.1 — Two walkers"}
+::: {.example #ex:groups-walkers title="Two walkers"}
 Two people walking side by side have natural step rates of $1.9$ and $2.0$ steps per second. Each adjusts towards the other's timing with $\kappa = 0.40\,\mathrm{rad\,s^{-1}}$. Do they fall into step, and if so with what lag?
 
 **Strategy.** Compute $\Delta\omega$, compare with $2\kappa$, then find $\varphi^\ast$.
@@ -56,8 +56,8 @@ Two people walking side by side have natural step rates of $1.9$ and $2.0$ steps
 **Significance.** Locking does not require identical rhythms, only coupling strong enough to bridge the difference. The price of the difference is a lag: the closer the pair is to the threshold, the larger the lag, reaching a quarter cycle ($90^\circ$) exactly at threshold.
 :::
 
-::: {.example title="Example 6.2 — Just too weak"}
-For the walkers of Example 6.1, the coupling drops to $\kappa = 0.20\,\mathrm{rad\,s^{-1}}$. How often do they slip out of step, and how does that compare with no coupling at all?
+::: {.example #ex:groups-just-too-weak title="Just too weak"}
+For the walkers of @ex:groups-walkers, the coupling drops to $\kappa = 0.20\,\mathrm{rad\,s^{-1}}$. How often do they slip out of step, and how does that compare with no coupling at all?
 
 **Strategy.** Apply the slip-period formula.
 
@@ -70,7 +70,7 @@ For the walkers of Example 6.1, the coupling drops to $\kappa = 0.20\,\mathrm{ra
 Two locked oscillators have $\Delta\omega/2\kappa = 0.4$. What is the locked phase lag? (Answer: $\sin^{-1}0.4 = 23.6^\circ$.)
 :::
 
-## Many oscillators: the onset of collective rhythm {#sec-6-3}
+## Many oscillators: the onset of collective rhythm {#sec:groups-many-oscillators-onset}
 
 ::: {.learning-objectives}
 - write the Kuramoto model and define its order parameter;
@@ -94,7 +94,7 @@ Synchrony appears through the crowd as a whole, not pair by pair. Each oscillato
 
 ![The order parameter $r$ against coupling $K$ for a crowd with critical coupling $K_c = 1$. The curve is Kuramoto's exact result; the dots are a simulation of 2000 oscillators, which follows it closely above $K_c$ and stays near zero below it.](figures/generated/ch06-kuramoto.png){width="100%"}
 
-::: {.example title="Example 6.3 — How much order?"}
+::: {.example #ex:groups-much-order title="How much order?"}
 A population has natural frequencies spread with half-width $\gamma = 0.5\,\mathrm{rad\,s^{-1}}$. Find $K_c$, and the order parameter at $K = 1.5$ and $K = 2.0\,\mathrm{rad\,s^{-1}}$.
 
 **Strategy.** $K_c = 2\gamma$; then $r = \sqrt{1 - K_c/K}$.
@@ -108,7 +108,7 @@ A population has natural frequencies spread with half-width $\gamma = 0.5\,\math
 Phases scattered at random among $N$ oscillators still give a small $r$, of order $1/\sqrt{N}$. How large is that for $100$ and for $1000$ oscillators? (Answer: about $0.1$ and $0.03$, which is why the simulation's $r$ hovers just above zero below threshold.)
 :::
 
-## Crowds in step {#sec-6-4}
+## Crowds in step {#sec:groups-crowds-step}
 
 ::: {.learning-objectives}
 - describe measured examples of crowd synchronisation;
@@ -128,7 +128,7 @@ In both cases there is a physical channel, sound in the hall and motion of the d
 Singers in a choir breathe at the phrase ends the music dictates, so their breathing, and with it their heart rates, which rise and fall with each breath, can become partly aligned. Here the channel is the score and the conductor, a shared drive rather than mutual coupling. Distinguishing a common drive from mutual coupling is the first question to ask of any group rhythm, because a common drive synchronises people who are not influencing each other at all. **Try it:** `#q=crowd-mood`.
 :::
 
-## Coupled landscapes {#sec-6-5}
+## Coupled landscapes {#sec:groups-coupled-landscapes}
 
 ::: {.learning-objectives}
 - write the energy of two coupled landscapes;
@@ -136,23 +136,23 @@ Singers in a choir breathe at the phrase ends the music dictates, so their breat
 - distinguish coupling of states from merging of systems.
 :::
 
-Phases describe rhythms. Chapters 4 and 5 described states by valleys in a landscape, and those can be coupled too. Give person A the state vector $\mathbf a$ and person B the state vector $\mathbf b$, each with the Hopfield energy of Chapter 5, and add a coupling matrix $J$ between them. The combined energy is
+Phases describe rhythms. Chapters [-@ch:cells] and [-@ch:human] described states by valleys in a landscape, and those can be coupled too. Give person A the state vector $\mathbf a$ and person B the state vector $\mathbf b$, each with the Hopfield energy of @ch:human, and add a coupling matrix $J$ between them. The combined energy is
 
 $$H(\mathbf a, \mathbf b) = H(\mathbf a) + H(\mathbf b) - \mathbf a^{\mathsf T}J\,\mathbf b,$$
 
 for symmetric $J$. If $J$ couples each mode of A to the same mode of B with positive strength, the last term is negative whenever the two people are active in the same modes and positive when they are active in opposite ones. Coupling deepens the valleys in which the two states match and raises the ridges between mismatched ones. The two landscapes become one landscape in twice as many dimensions, but the two state vectors stay distinct: coupling correlates two systems, it does not merge them.
 
-::: {.example title="Example 6.4 — Shared calm"}
+::: {.example #ex:groups-shared-calm title="Shared calm"}
 In the programme's dyadic model, the coupling links Safety to Safety with $J = 0.30$ and Awe to Awe with $0.35$ (in model units). Two people both have Safety $0.8$ and Awe $0.5$, and zero in the other modes. How much does the coupling lower their combined energy? What if one of them has Safety $-0.8$ instead?
 
 **Strategy.** The coupling term is $-\sum_i J_{ii}a_ib_i$ for this diagonal $J$.
 
 **Solution.** $-(0.30\times0.8\times0.8 + 0.35\times0.5\times0.5) = -(0.192 + 0.088) = -0.28$. With Safety $-0.8$ for one person: $-(0.30\times(-0.64) + 0.088) = +0.10$.
 
-**Significance.** Matching states sit lower and mismatched ones higher, so a coupled pair is drawn towards shared states. The arithmetic is the same as Example 4.6's Hopfield memory, with one person's state acting as the cue for the other's.
+**Significance.** Matching states sit lower and mismatched ones higher, so a coupled pair is drawn towards shared states. The arithmetic is the same as @ex:cells-threeneuron-memory's Hopfield memory, with one person's state acting as the cue for the other's.
 :::
 
-## What the programme claims for dyads and groups {#sec-6-6}
+## What the programme claims for dyads and groups {#sec:groups-programme-claims-dyads}
 
 ::: {.learning-objectives}
 - state the programme's dyadic model and the status of its Lean proof;
@@ -160,9 +160,9 @@ In the programme's dyadic model, the coupling links Safety to Safety with $J = 0
 - label each claim of the chapter correctly.
 :::
 
-The co-identification paper models therapeutic attunement as coupling of this kind [@P3]: two eight-mode landscapes joined by $J$ into a sixteen-dimensional one, whose response has poles both at each person's own modes and at new coupled modes that belong to the pair. In the language of Chapter 3, the coupled poles are the pair's shared resonances; the paper reads them as co-regulated states, available to both people only through the coupling. The swarm paper extends the same propagator to many agents [@P19], and Chapter 7 follows it to flocks.
+The co-identification paper models therapeutic attunement as coupling of this kind [@P3]: two eight-mode landscapes joined by $J$ into a sixteen-dimensional one, whose response has poles both at each person's own modes and at new coupled modes that belong to the pair. In the language of @ch:atoms, the coupled poles are the pair's shared resonances; the paper reads them as co-regulated states, available to both people only through the coupling. The swarm paper extends the same propagator to many agents [@P19], and @ch:flocks follows it to flocks.
 
-The Lean file `DyadicField.lean` states that, for non-negative states and non-negative $J$, coupling never raises the combined energy, the conclusion of Example 6.4. The main theorem's proof is complete except for one supporting lemma, which splits the sixteen-dimensional sum into its four blocks and is still marked `sorry`. So the result is not yet `kernel-verified`; it is ordinary algebra, true by inspection, waiting for its last formal step [@D2].
+The Lean file `DyadicField.lean` states that, for non-negative states and non-negative $J$, coupling never raises the combined energy, the conclusion of @ex:groups-shared-calm. The main theorem's proof is complete except for one supporting lemma, which splits the sixteen-dimensional sum into its four blocks and is still marked `sorry`. So the result is not yet `kernel-verified`; it is ordinary algebra, true by inspection, waiting for its last formal step [@D2].
 
 | Claim | Label |
 |:--|:--|
@@ -175,7 +175,7 @@ The Lean file `DyadicField.lean` states that, for non-negative states and non-ne
 The open hypothesis predicts measurable things: physiological signals of two people in a supportive conversation should show phase relations and coupled modes that are absent between strangers, and their strength should vary with the quality of the interaction. Some studies report such interpersonal synchrony; the effects vary widely between settings and measures, and none yet measures $J$. The last row marks the boundary of the whole chapter. Sociologists since Durkheim have described the collective excitement of crowds [@durkheim1912elementary], and the Kuramoto order parameter gives a crowd a measurable rhythm. Neither makes a crowd a subject. A group can have a common rhythm and correlated states while every member remains a separate person.
 
 ::: {.soma-machine}
-Open `#level=dyad&lens=on&dim=11`. The STATE panel reports the pair's detuning and coupling in the Adler form of Section 6.2, and whether the locking condition $\kappa > \Delta\omega/2$ holds. The question tour `#q=dyad-fall-into-step`, *When do two people fall into step?*, steps through the same physics and marks where the programme's reading begins. Tour stop 6: `#tour=textbook&stop=6`.
+Open `#level=dyad&lens=on&dim=11`. The STATE panel reports the pair's detuning and coupling in the Adler form of @sec:groups-oscillators-locking-slipping, and whether the locking condition $\kappa > \Delta\omega/2$ holds. The question tour `#q=dyad-fall-into-step`, *When do two people fall into step?*, steps through the same physics and marks where the programme's reading begins. Tour stop 6: `#tour=textbook&stop=6`.
 :::
 
 ## Key Terms {.unnumbered}
@@ -252,56 +252,56 @@ Coupled landscapes
 3. Why does a crowd synchronise all at once rather than gradually?
 4. Explain why synchronised clapping tends to break up and re-form.
 5. What is the difference between a common drive and mutual coupling, and how could you tell them apart?
-6. Which claim in Section 6.6 depends on an unfinished proof, and what is missing?
+6. Which claim in @sec:groups-programme-claims-dyads depends on an unfinished proof, and what is missing?
 :::
 
 ## Worked Homework {.unnumbered}
 
-::: {.problems title="Problem 6.1 — The locking threshold"}
+::: {.problems #pr:groups-locking-threshold title="The locking threshold"}
 Two pendulum clocks differ in natural frequency by $\Delta\omega = 0.010\,\mathrm{rad\,s^{-1}}$. What is the smallest coupling $\kappa$ that locks them, and what is their lag when $\kappa$ is twice that?
 :::
 
-::: {.example title="Solution 6.1"}
+::: {.solution}
 **Solution.** Locking needs $2\kappa \ge 0.010$, so $\kappa \ge 0.0050\,\mathrm{rad\,s^{-1}}$. At $\kappa = 0.010$: $\sin\varphi^\ast = 0.010/0.020 = 0.5$, so $\varphi^\ast = 30^\circ$.
 
 **Significance.** Good clocks differ very little, so even the faint vibrations of a shared beam are enough to lock them, as Huygens found. (His clocks locked in opposition rather than with a small lag, because the beam's coupling has the opposite sign; the threshold logic is the same.) *Baseline:* Penrose, chapter 20 (small oscillations about equilibrium) [@penrose2004road].
 :::
 
-::: {.problems title="Problem 6.2 — Slips near threshold"}
+::: {.problems #pr:groups-slips-near-threshold title="Slips near threshold"}
 For $\Delta\omega = 1.0\,\mathrm{rad\,s^{-1}}$, compute the slip period for $2\kappa = 0.6$ and $2\kappa = 0.9$, and compare with the uncoupled beat period.
 :::
 
-::: {.example title="Solution 6.2"}
+::: {.solution}
 **Solution.** $2\kappa = 0.6$: $T = 2\pi/\sqrt{1 - 0.36} = 2\pi/0.8 = 7.9\,\mathrm{s}$. $2\kappa = 0.9$: $T = 2\pi/\sqrt{1 - 0.81} = 2\pi/0.44 = 14\,\mathrm{s}$. Uncoupled: $2\pi/1.0 = 6.3\,\mathrm{s}$.
 
 **Significance.** As the coupling approaches threshold the slips become rarer and the time spent nearly locked grows; at threshold the period is infinite. **Try it:** `#q=dyad-fall-into-step`.
 :::
 
-::: {.problems title="Problem 6.3 — Strong order"}
+::: {.problems #pr:groups-strong-order title="Strong order"}
 For a Lorentzian population, what coupling, as a multiple of $K_c$, gives an order parameter of $0.9$?
 :::
 
-::: {.example title="Solution 6.3"}
+::: {.solution}
 **Solution.** $0.9^2 = 1 - K_c/K$, so $K_c/K = 0.19$ and $K = 5.3\,K_c$.
 
 **Significance.** Near-complete synchrony needs coupling several times the threshold, because the oscillators at the edges of the frequency spread are the last to be pulled in. A crowd that is just above threshold has a rhythm, but many members are still out of step. *Baseline:* Penrose, chapter 28 (spontaneous symmetry breaking), for the general idea of order appearing at a critical point [@penrose2004road].
 :::
 
-::: {.problems title="Problem 6.4 — Slower clapping"}
+::: {.problems #pr:groups-slower-clapping title="Slower clapping"}
 An audience's clapping rates have a Lorentzian spread of half-width $\gamma = 0.6\,\mathrm{rad\,s^{-1}}$ at the fast rate. Slowing down halves the spread. If the hall supplies coupling $K = 1.0\,\mathrm{rad\,s^{-1}}$, find $K_c$ and $r$ at each rate.
 :::
 
-::: {.example title="Solution 6.4"}
+::: {.solution}
 **Solution.** Fast: $K_c = 1.2 > K$, so $r \approx 0$. Slow: $\gamma = 0.3$, $K_c = 0.6$, so $r = \sqrt{1 - 0.6} = 0.63$.
 
 **Significance.** The same hall and the same people can be disordered or rhythmic depending only on the spread of their rates, which is the mechanism Néda and colleagues proposed for the applause cycle.
 :::
 
-::: {.problems title="Problem 6.5 — Opposite states"}
-In Example 6.4, by how much does the combined energy rise when one person's Safety is reversed, compared with the matching case?
+::: {.problems #pr:groups-opposite-states title="Opposite states"}
+In @ex:groups-shared-calm, by how much does the combined energy rise when one person's Safety is reversed, compared with the matching case?
 :::
 
-::: {.example title="Solution 6.5"}
+::: {.solution}
 **Solution.** Matching: $-0.28$. Reversed: $+0.10$. The difference is $0.38$, which is $2\times0.30\times0.8\times0.8 = 0.384$, twice the Safety coupling term.
 
 **Significance.** Reversing one mode flips the sign of its coupling term and leaves the others unchanged, so the energy cost of disagreement in one mode is twice that mode's coupling energy. In a coupled pair, disagreement in a strongly coupled mode is the hardest state to hold.

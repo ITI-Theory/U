@@ -13,3 +13,13 @@ toc-title: Contents
 link-citations: true
 figureTitle: Figure
 tableTitle: Table
+# pandoc-crossref (docs/BUILD.md): sections, figures, tables, equations.
+# Chapter labels (1, 2, ... or M1, M2, ...) come from filters/course-numbering.lua.
+chapters: true
+chaptersDepth: 1
+sectionsDepth: 2
+linkReferences: true
+secPrefix: [Section, Sections]
+figPrefix: [Figure, Figures]
+tblPrefix: [Table, Tables]
+eqnPrefix: [Equation, Equations]
