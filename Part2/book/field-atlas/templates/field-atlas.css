@@ -26,10 +26,14 @@ table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; background: v
 th, td { border-bottom: 1px solid var(--line); padding: .5rem; text-align: left; vertical-align: top; }
 figcaption { color: var(--muted); font-size: .95rem; margin-top: .45rem; }
 figure { margin: 1.4rem auto; }
-figure img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-.field-atlas-columns { column-count: 3; column-gap: 2rem; }
+figure img { max-width: min(100%, 720px); height: auto; display: block; margin: 0 auto; }
+.plate-figure img, .full-page-plate img { max-width: 100%; }
+/* Print columns do not suit a scrolling page: pandoc's default turns div.columns into a
+   row of flex columns, so reset it and read the text as one column. */
+div.columns.field-atlas-columns { display: block; column-count: 1; }
+div.columns.field-atlas-columns > * { width: auto; }
 .page-break { break-before: page; margin-top: 3rem; }
 .plate-figure { background: #03070e; padding: .75rem; border: 1px solid var(--line); }
 .full-page-plate { min-height: 80vh; display: grid; place-items: center; }
 .full-page-plate figcaption { width: 100%; padding: .6rem 1rem; background: rgba(0,0,0,.68); color: var(--accent); font-family: Consolas, monospace; }
-@media (max-width: 900px) { .field-atlas-columns { column-count: 1; } body { padding: 1rem; } table { display: block; overflow-x: auto; } }
+@media (max-width: 900px) { body { padding: 1rem; } table { display: block; overflow-x: auto; } }

@@ -219,10 +219,11 @@ local function join_inlines(parts, sep)
   local out = {}
   for i, p in ipairs(parts) do
     if i > 1 and sep then append(out, parse_inlines(sep)) end
-    local pt = type(p) == "table" and pandoc.utils.type(p) or nil
+    -- pandoc elements are userdata, not tables: test both before asking pandoc's type.
+    local pt = (type(p) == "table" or type(p) == "userdata") and pandoc.utils.type(p) or nil
     if pt == "Inline" then
       out[#out + 1] = p
-    elseif pt == "Inlines" or (type(p) == "table" and p[1]) then
+    elseif pt == "Inlines" or pt == "List" or (type(p) == "table" and p[1]) then
       append(out, p)
     else
       append(out, parse_inlines(tostring(p or "")))
