@@ -360,3 +360,28 @@ USF_OSAxioms.lean:
     Identifies the free field with wavenumber $k$ with the four-dimensional Gaussian free field of mass $m = k$ (same momentum-space propagator $1/(p^2 + k^2)$), and so inherits all Osterwalder-Schrader axioms from the OSforGFF library (Douglas, Hoback, Mei and Nissim), via its theorem `gaussianFreeField_satisfies_all_OS_axioms_dim4`.
 
     **Status:** compiles; four theorems, each a direct application of the imported result; no axioms of its own.
+SomaPhilosophy.lean:
+  title: |
+    The Philosophy Band: Russell, Gabriel, Spinoza and Kant
+  description: |
+    The Soma Machine's time axis carries a philosophy band, from Heraclitus to
+    Hegel, read through Russell's *History of Western Philosophy*.  This file
+    states four small, true facts about that band and its readings, in core Lean
+    with no Mathlib.
+
+    **What is formally established here:** the thinkers on the band fall into
+    Russell's three books (ancient, Catholic, modern) in time order
+    (`book_monotone`, checked over all 225 pairs), and their time positions are
+    distinct; a field of sense keeps its rules, epoch and rationality when
+    zoomed to another scale, and zooming twice equals zooming once; Spinoza's
+    dual aspect gives parallelism (`parallelism`) but not reduction: the body
+    description need not fix the mind description (`body_does_not_fix_mind`);
+    Kant's appearances agree for observers with the same categories, and the
+    thing in itself cannot in general be recovered from its appearance
+    (`noumenon_not_recoverable`).
+
+    **What is not established:** anything about minds, history or the world.
+    These theorems concern the definitions in the file; their philosophical
+    reading is `interpretive`.  The file replaces two earlier drafts that claimed
+    verification while relying on `sorry` (ISSUES.md ISS-042).
+

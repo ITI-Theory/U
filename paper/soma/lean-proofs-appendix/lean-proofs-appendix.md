@@ -35,7 +35,7 @@ built on this verified foundation.
 
 ## What is established in this appendix
 
-The twenty-five files that follow collectively establish:
+The twenty-six files that follow collectively establish:
 
 | File | Core result | Status |
 |---|---|---|
@@ -64,6 +64,7 @@ The twenty-five files that follow collectively establish:
 | `RenormalisationGroup.lean` | Structural renormalisation-group equations for the field | Compiles; 2 theorems, 1 axiom |
 | `TemporalDynamics.lean` | Causality of the retarded propagator | Compiles; 4 theorems, no axioms |
 | `USF_OSAxioms.lean` | The free field in four dimensions satisfies all Osterwalder–Schrader axioms, by identification with the Gaussian free field proved in the OSforGFF library | Compiles; 4 theorems, no axioms of its own |
+| `SomaPhilosophy.lean` | The philosophy band: Russell's timeline, fields of sense, Spinoza's dual aspect, Kant's appearance | Compiles; 10 theorems, no axioms, no sorries; core Lean only |
 
 **On proof status and axioms:** Lean accepts the files, but a build is not a
 file-level proof certificate. There are five real Lean `sorry` stubs:
@@ -85,7 +86,7 @@ cd U
 
 # 3. Fetch dependencies, apply the one-line compatibility patch in
 #    lean/patches/v4.33/, download the Mathlib cache (~2 GB first run) and
-#    build all 25 libraries (Lean, Mathlib and physlib v4.33.0)
+#    build all 26 libraries (Lean, Mathlib and physlib v4.33.0)
 bash lean/upgrade-build.sh        # or: make lean-update
 
 # 4. The proofs are in paper/proofs/
@@ -99,5 +100,5 @@ The source files are reproduced in full below, in dependency order.
 \leanappendixstart
 ```
 
-::: {.lean-include dir="proofs" order="Hopfield.lean,EmotionOntology.lean,FieldProofs.lean,SomaField.lean,DyadicField.lean,LimbicTunnel.lean,MTheoryIsomorphism.lean,LimbicHopfield.lean,SwarmPropagator.lean,UniversalSomaticField.lean,Movie.lean,QuantumSim.lean,SomaNetwork.lean,ScaleUniverse.lean,Benchmark.lean,BFSSIsomorphism.lean,BRECVEMAField.lean,BRECVEMAVariational.lean,LocalGR.lean,LocalGeometry.lean,CosmologicalConstant.lean,G2Compactification.lean,RenormalisationGroup.lean,TemporalDynamics.lean,USF_OSAxioms.lean"}
+::: {.lean-include dir="proofs" order="Hopfield.lean,EmotionOntology.lean,FieldProofs.lean,SomaField.lean,DyadicField.lean,LimbicTunnel.lean,MTheoryIsomorphism.lean,LimbicHopfield.lean,SwarmPropagator.lean,UniversalSomaticField.lean,Movie.lean,QuantumSim.lean,SomaNetwork.lean,ScaleUniverse.lean,Benchmark.lean,BFSSIsomorphism.lean,BRECVEMAField.lean,BRECVEMAVariational.lean,LocalGR.lean,LocalGeometry.lean,CosmologicalConstant.lean,G2Compactification.lean,RenormalisationGroup.lean,TemporalDynamics.lean,USF_OSAxioms.lean,SomaPhilosophy.lean"}
 :::

@@ -1065,7 +1065,12 @@ bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
   (two Sinnfelder can share the rationality flag yet differ in rules).
 
 **Actions:**
-- [ ] Optional small, honest Lean file for the philosophy band: Russell's
+- [x] 2026-10-05: `paper/proofs/SomaPhilosophy.lean` (core Lean, 10 theorems,
+   no axioms, no sorries): Russell's three books in time order over the band's
+   thinkers; field-of-sense zoom keeps rules, epoch and rationality; Spinoza
+   parallelism without reduction; Kant's appearance and the unrecoverable
+   noumenon. In the default build and the Lean appendix (now 26 files).
+- [ ] (done above) Optional small, honest Lean file for the philosophy band: Russell's
    epochs as an ordered type matching `registry/eras.yaml`'s philosophy band,
    and the true statement that `philosophyZoom` preserves rationality
    (`rfl`). Label `kernel-verified` only for what it proves.

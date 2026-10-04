@@ -5,7 +5,8 @@ defaultTargets = [
   "SwarmPropagator", "UniversalSomaticField", "Movie",
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
   "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms", "CosmologicalConstant",
-  "LocalGR", "G2Compactification", "BRECVEMAField", "BRECVEMAVariational", "LocalGeometry"
+  "LocalGR", "G2Compactification", "BRECVEMAField", "BRECVEMAVariational", "LocalGeometry",
+  "SomaPhilosophy"
 ]
 
 # ---------------------------------------------------------------------------
@@ -126,4 +127,7 @@ name = "BRECVEMAField"
 srcDir = "paper/proofs"
 [[lean_lib]]
 name = "BRECVEMAVariational"
+srcDir = "paper/proofs"
+[[lean_lib]]
+name = "SomaPhilosophy"
 srcDir = "paper/proofs"
