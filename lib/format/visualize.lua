@@ -2,6 +2,9 @@
 --
 --   {{Visualize | context | primitive:concept | key=value; key=value }} Caption text.
 --
+-- Needs the reader lib/format/visualize-reader.lua, which keeps the macro text
+-- out of pandoc's inline parser.
+--
 -- A figure is declared in the text and drawn by code from the equation it
 -- illustrates; no figure is drawn by hand or by an image generator.
 --   * context   what the figure visualises, and it must already exist earlier
@@ -37,39 +40,7 @@ local specs = {}
 
 local function fail(msg) error("visualize: " .. msg, 0) end
 
--- Inverse of pandoc's inline parsing, good enough for a parameter string:
--- an expression like 2*x*y must survive being read as emphasis.
-local function restring(inlines)
-  local out = {}
-  local function go(list)
-    for _, el in ipairs(list) do
-      local t = el.t
-      if t == "Str" then out[#out + 1] = el.text
-      elseif t == "Space" or t == "SoftBreak" or t == "LineBreak" then out[#out + 1] = " "
-      elseif t == "Emph" then out[#out + 1] = "*"; go(el.content); out[#out + 1] = "*"
-      elseif t == "Strong" then out[#out + 1] = "**"; go(el.content); out[#out + 1] = "**"
-      elseif t == "Superscript" then out[#out + 1] = "^"; go(el.content); out[#out + 1] = "^"
-      elseif t == "Subscript" then out[#out + 1] = "~"; go(el.content); out[#out + 1] = "~"
-      elseif t == "Strikeout" then out[#out + 1] = "~~"; go(el.content); out[#out + 1] = "~~"
-      elseif t == "Quoted" then
-        local q = el.quotetype == "SingleQuote" and "'" or '"'
-        out[#out + 1] = q; go(el.content); out[#out + 1] = q
-      elseif t == "Code" then out[#out + 1] = el.text
-      elseif t == "Math" then out[#out + 1] = "$" .. el.text .. "$"
-      elseif t == "Span" or t == "Link" then go(el.content)
-      else out[#out + 1] = pandoc.utils.stringify(el) end
-    end
-  end
-  go(inlines)
-  return table.concat(out)
-end
-
 local function trim(s) return (s:gsub("^%s+", ""):gsub("%s+$", "")) end
--- undo pandoc's smart typography inside the macro (quotes, dashes, ellipsis)
-local function plain(s)
-  return (s:gsub("[\u{201C}\u{201D}]", '"'):gsub("[\u{2018}\u{2019}]", "'")
-    :gsub("\u{2013}", "--"):gsub("\u{2014}", "---"):gsub("\u{2026}", "..."))
-end
 local function unquote(s)
   s = trim(s)
   while true do
@@ -116,26 +87,18 @@ local function lean_theorem_exists(module, name)
   return false
 end
 
--- Split a paragraph into the macro text and the caption inlines after "}}".
+-- The reader (visualize-reader.lua) wraps each macro as a raw inline of
+-- format "visualize"; the caption is everything after it in the paragraph.
 local function split_macro(inlines)
   local first = inlines[1]
-  if not first or first.t ~= "Str" or not first.text:match("^{{") then return nil end
-  local acc = {}
-  for i, el in ipairs(inlines) do
-    local s = restring({ el })
-    local stop = s:find("}}", 1, true)
-    if stop then
-      acc[#acc + 1] = s:sub(1, stop + 1)
-      local caption = pandoc.Inlines({})
-      local rest = s:sub(stop + 2)
-      if rest ~= "" then caption:insert(pandoc.Str(rest)) end
-      for j = i + 1, #inlines do caption:insert(inlines[j]) end
-      while #caption > 0 and (caption[1].t == "Space" or caption[1].t == "SoftBreak") do caption:remove(1) end
-      return table.concat(acc), caption
-    end
-    acc[#acc + 1] = s
+  if first and first.t == "Str" and first.text:match("^{{%s*Visualize") then
+    fail("{{Visualize}} read as prose: use the visualize reader (from: lib/format/visualize-reader.lua)")
   end
-  fail("unterminated {{Visualize ...: " .. table.concat(acc):sub(1, 80))
+  if not first or first.t ~= "RawInline" or first.format ~= "visualize" then return nil end
+  local caption = pandoc.Inlines({})
+  for j = 2, #inlines do caption:insert(inlines[j]) end
+  while #caption > 0 and (caption[1].t == "Space" or caption[1].t == "SoftBreak") do caption:remove(1) end
+  return first.text, caption
 end
 
 local function parse_macro(text)
@@ -154,8 +117,7 @@ end
 local function visualize(para, seen)
   local text, caption = split_macro(para.content)
   if not text then return nil end
-  if not text:match("^{{%s*Visualize") then return nil end
-  local context, kind, ptext = parse_macro(plain(text))
+  local context, kind, ptext = parse_macro(trim(text))
   local primitive, concept = kind:match("^([%w-]+):([%w-]+)$")
   if not primitive then primitive, concept = kind:match("^([%w-]+)$"), "generic" end
   if not primitive or not PRIMITIVES[primitive] then fail("unknown primitive '" .. kind .. "'") end

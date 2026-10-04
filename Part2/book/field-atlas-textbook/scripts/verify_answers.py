@@ -17,7 +17,47 @@ def relclose(name: str, actual: float, expected: float, rel: float = 5e-3) -> No
     print(f"{name}: {actual:.6g} OK")
 
 
+def toolkit() -> None:
+    """Part 0: the toolkit chapters (M1-M6)."""
+    c, year, g = 2.998e8, 3.156e7, 9.81
+    # M1 Numbers, units and scale
+    relclose("M1 atoms across cell", 8e-6 / 1.06e-10, 7.5e4, 0.01)
+    relclose("M1 light-year m", c * year, 9.46e15)
+    close("M1 100 km/h", 100 * 1000 / 3600, 27.8, 0.05)
+    close("M1 sqrt(L/g)", math.sqrt(1 / g), 0.319, 0.001)
+    close("M1 pendulum T", 2 * math.pi * math.sqrt(1 / g), 2.01, 0.005)
+    close("M1 deep-water wave", math.sqrt(g * 100 / (2 * math.pi)), 12.5, 0.05)
+    close("M1 log10 2", math.log10(2), 0.301, 0.0005)
+    close("M1 ln/log10", math.log(10), 2.303, 0.0005)
+    close("M1 60 dB", 10 * math.log10(1e-6 / 1e-12), 60)
+    close("M1 doubling dB", 10 * math.log10(2), 3.01, 0.005)
+    relclose("M1 quake ratio", (10 ** 1.5) ** 3, 3.2e4, 0.02)
+    close("M1 atom-universe orders", math.log10(8.8e26 / 1.06e-10), 36.9, 0.05)
+    relclose("M1 mass per atom", 6 * 1.66e-27, 1.0e-26, 0.01)
+    relclose("M1 atoms in person", 70 / (6 * 1.66e-27), 7e27, 0.02)
+    relclose("M1 heartbeats", 70 * 60 * 24 * 365.25 * 80, 2.9e9, 0.02)
+    close("M1 human 70^0.75", 70 ** 0.75, 24.2, 0.05)
+    close("M1 human W", 3.4 * 70 ** 0.75, 82, 0.5)
+    close("M1 human W/kg", 3.4 * 70 ** 0.75 / 70, 1.2, 0.03)
+    close("M1 mouse 0.025^0.75", 0.025 ** 0.75, 0.063, 0.0005)
+    close("M1 mouse W", 3.4 * 0.025 ** 0.75, 0.21, 0.005)
+    close("M1 mouse W/kg", 3.4 * 0.025 ** 0.75 / 0.025, 8.6, 0.05)
+    close("M1 mouse/human per kg", (0.025 ** 0.75 / 0.025) / (70 ** 0.75 / 70), 7.2, 0.1)
+    relclose("M1 S/V 5 um", 3 / 5e-6, 6e5)
+    relclose("M1 S/V 50 um", 3 / 50e-6, 6e4)
+    relclose("PM1.1 Proxima m", 4.24 * 9.46e15, 4.01e16, 0.005)
+    relclose("PM1.1 Proxima s", 4.24 * year, 1.34e8, 0.005)
+    close("PM1.2 string v", math.sqrt(70 / 0.0034), 143, 0.6)
+    relclose("PM1.3 85 dB", 1e-12 * 10 ** 8.5, 3.2e-4, 0.02)
+    close("PM1.3 ratio", 10 ** 2.5, 316, 0.5)
+    relclose("PM1.4 cells", 70 / ((1e-5) ** 3 * 1000), 7e13)
+    close("PM1.5 5000^0.75", 5000 ** 0.75, 595, 0.5)
+    relclose("PM1.5 elephant W", 3.4 * 5000 ** 0.75, 2.0e3, 0.02)
+    close("PM1.5 elephant W/kg", 3.4 * 5000 ** 0.75 / 5000, 0.40, 0.005)
+
+
 def main() -> int:
+    toolkit()
     # Chapter 1 (worked examples, check-your-learning, problems)
     c = 2.998e8
     kB = 1.380649e-23

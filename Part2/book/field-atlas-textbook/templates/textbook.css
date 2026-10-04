@@ -29,7 +29,10 @@ th, td { border-bottom: 1px solid var(--line); padding: .45rem; vertical-align: 
 .check-your-learning { border-color: var(--green); }
 .link-to-learning, .soma-machine { border-color: var(--purple); }
 .making-connections { border-color: var(--blue); }
+.going-further { border-color: #46505f; }
+.maths-you-need { border-color: var(--teal); }
 .key-terms, .key-equations, .summary, .review-questions, .problems { border-color: var(--muted); }
 .page-break { break-before: page; }
-@media (max-width: 900px) { .field-atlas-columns { column-count: 1; } body { padding: 1rem; } table { display:block; overflow-x:auto; } }h1.part-title { margin-top: 3em; text-align: center; color: #104a73; font-size: 2.2em; }
+@media (max-width: 900px) { .field-atlas-columns { column-count: 1; } body { padding: 1rem; } table { display:block; overflow-x:auto; } }
+h1.part-title { margin-top: 3em; text-align: center; color: #104a73; font-size: 2.2em; }
 p.part-intro { max-width: 36em; margin: 1em auto 3em; font-style: italic; }

@@ -67,8 +67,9 @@ local function number_blocks(blocks)
       if mode == "M" or mode == "arabic" then
         scheme = (mode == "M") and "M" or ""
         chapter = 0
+        -- \theHchapter keeps hyperref anchors unique (M1 and 1 both count from 1)
         local raw = latex("\\setcounter{chapter}{0}\\renewcommand{\\thechapter}{"
-          .. scheme .. "\\arabic{chapter}}")
+          .. scheme .. "\\arabic{chapter}}\\renewcommand{\\theHchapter}{" .. scheme .. "\\arabic{chapter}}")
         if raw then out:insert(raw) end
       end
       out:extend(block.content)

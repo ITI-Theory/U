@@ -18,6 +18,7 @@
 \definecolor{textbookgreen}{RGB}{46,111,64}
 \definecolor{textbookpurple}{RGB}{96,70,145}
 \definecolor{textbookgray}{RGB}{244,247,249}
+\definecolor{textbookslate}{RGB}{70,80,95}
 % A4 course book: one column. The layout filter still marks column runs; here they are no-ops.
 \newcommand{\colsbegin}{}
 \newcommand{\colsend}{}
@@ -31,3 +32,5 @@
 % \coursepartintro is set just before each \part and printed on the part page
 \newcommand{\coursepartintro}{}
 \titleformat{\part}[display]{\centering\sffamily\bfseries\color{textbookblue}\Huge}{\partname\ \thepart}{0.6em}{\Huge}[\vspace{2.5em}\begin{minipage}{0.72\textwidth}\normalsize\normalfont\color{black}\raggedright\coursepartintro\end{minipage}]
+% contents: room for chapter numbers such as M1 and 12
+\makeatletter\patchcmd{\l@chapter}{1.5em}{2.4em}{}{}\patchcmd{\l@section}{2.3em}{3.0em}{}{}\makeatother

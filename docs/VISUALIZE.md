@@ -91,6 +91,10 @@ and one entry in the `PRIMITIVES` table of `lib/format/visualize.lua`.
 
 ## How it is built
 
+- `lib/format/visualize-reader.lua` (the Markdown reader: `from:` in the
+  defaults file) wraps each macro as raw text before pandoc parses inlines,
+  so quotes, `*` and `^` in parameters reach the filter unchanged. A macro
+  read without it fails the build with a clear message.
 - `lib/format/visualize.lua` (pandoc filter, before pandoc-crossref) parses
   the macro, enforces the rules above, replaces the paragraph with a figure
   `viz-<hash>.png` (the hash is of the drawing parameters, so editing a

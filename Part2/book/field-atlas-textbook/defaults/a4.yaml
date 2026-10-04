@@ -2,9 +2,17 @@
 citeproc: false
 defaults:
   - ../../../lib/defaults/base-pdf.yaml
+from: ../../../lib/format/visualize-reader.lua
 metadata-file: textbook.yaml
 input-files:
   - textbook.md
+  - parts/0-toolkit.md
+  - chapters/m1-numbers-units-scale.md
+  - chapters/m2-change.md
+  - chapters/m3-accumulation.md
+  - chapters/m4-oscillation.md
+  - chapters/m5-vectors-matrices.md
+  - chapters/m6-chance.md
   - parts/1-response-grammar.md
   - chapters/01-fields-waves-scale.md
   - chapters/02-response-greens-resonance.md
