@@ -6,6 +6,12 @@ Paths are local; the books themselves are never committed. Index facts
 (chapter numbers, titles, standard equations) are fine; quotations and
 copied figures are not, except where the licence column says CC BY.
 
+**Licence check 2026-10-04:** the licences below were read from the copyright
+pages of these local copies. OpenStax now lists the current online editions of
+Biology 2e, Astronomy 2e, Psychology 2e and Introduction to Philosophy as
+CC BY-NC-SA 4.0; only these older local copies are CC BY. Maths and physics
+sources for the course book are in `OPENSTAX-SURVEY.md`.
+
 Libraries:
 
 - Calibre: `C:\Users\alist\OneDrive\Apps\Calibre Portable\Calibre Library`
