@@ -152,7 +152,8 @@ local function page_break()
 end
 
 local function powers(text)
-  return tostring(text or ""):gsub("10%^(-?%d+)", "$10^{%1}$")
+  -- parentheses keep only the string (gsub also returns a count)
+  return (tostring(text or ""):gsub("10%^(-?%d+)", "$10^{%1}$"))
 end
 
 local function demote_blocks(blocks, levels)
@@ -366,8 +367,30 @@ local function level_link(level_id, labels)
   return link(labels[level_id] or level_id, "#level-" .. level_id)
 end
 
+-- Print: one plate per page (\atlasplatepage from the A3 header); the caption is written by
+-- pandoc so maths and escaping stay correct.
+local function plate_page(src, caption)
+  local inl = pandoc.Inlines({pandoc.RawInline("latex", "\\atlasplatepage{" .. src .. "}{")})
+  inl:extend(parse_inlines(caption))
+  inl:insert(pandoc.RawInline("latex", "}"))
+  return pandoc.Plain(inl)
+end
+
 local function atlas_plate_blocks(level_id, label, ordinal, captions, missing)
   local out = {}
+  if FORMAT:match("latex") then
+    -- After the opener (a right-hand page): triptych on the left page, callouts facing it.
+    for _, plate in ipairs({{"triptych", ".1", "aligned 4D, 8D, and 11D atlas views."}, {"callouts", ".2", "magnified atlas callouts."}}) do
+      local file = PLATES .. "/" .. level_id .. "-" .. plate[1] .. ".png"
+      if exists(file) then
+        out[#out + 1] = plate_page("figures/plates/" .. level_id .. "-" .. plate[1] .. ".png",
+          "Figure L" .. ordinal .. plate[2] .. " — " .. figure_caption(captions, level_id, plate[1], label .. ": " .. plate[3]))
+      else
+        missing[#missing + 1] = plate[1] .. " plate for " .. level_id
+      end
+    end
+    return out
+  end
   local triptych = PLATES .. "/" .. level_id .. "-triptych.png"
   local callouts = PLATES .. "/" .. level_id .. "-callouts.png"
   if exists(triptych) then
@@ -531,6 +554,42 @@ local function questions_part(questions, labels)
   return split_columns(out)
 end
 
+-- The printed level opener: scale and response time as a pair, the field equation large,
+-- then the remaining facts on hairlines. LaTeX layout around pandoc-written content.
+local function opener_facts(data, claims, path_cell)
+  local out = {}
+  local function raw(s) out[#out + 1] = pandoc.RawBlock("latex", s) end
+  local function inl(s) return type(s) == "string" and parse_inlines(s) or s end
+  -- parts: {raw = "latex"} pieces are passed through; anything else is parsed as Markdown.
+  local function plain(parts)
+    local content = pandoc.Inlines({})
+    for _, part in ipairs(parts) do
+      if type(part) == "table" and part.raw then content:insert(pandoc.RawInline("latex", part.raw)) else content:extend(inl(part)) end
+    end
+    out[#out + 1] = pandoc.Plain(content)
+  end
+  raw("\\vspace{10mm}\\noindent\\begin{minipage}[t]{0.48\\linewidth}\\centering{\\sffamily\\footnotesize\\color[RGB]{96,97,88}SCALE}\\par\\vspace{2mm}{\\Huge")
+  plain({powers(data.length_scale or "")})
+  raw("}\\end{minipage}\\hfill\\begin{minipage}[t]{0.48\\linewidth}\\centering{\\sffamily\\footnotesize\\color[RGB]{96,97,88}RESPONSE TIME}\\par\\vspace{1mm}{\\Huge")
+  plain({powers(data.response_time or "not set")})
+  raw("}\\par\\vspace{1mm}{\\small\\itshape")
+  plain({data.response_time_basis or ""})
+  raw("}\\end{minipage}\\par\\vspace{9mm}\\begin{center}\\Large")
+  plain({"$" .. (data.equation or "") .. "$"})
+  raw("\\end{center}\\vspace{7mm}\\renewcommand{\\arraystretch}{1.5}\\noindent\\begin{tabular}{@{}>{\\raggedright\\arraybackslash}p{0.18\\linewidth}>{\\raggedright\\arraybackslash}p{0.78\\linewidth}@{}}\\hline")
+  local rows = {
+    {"SUBSTRATE", data.substrate or ""},
+    {"FIELD", data.field or ""},
+    {"EVIDENCE", "physical " .. (claims.physical or "-") .. " · field " .. (claims.field or "-") .. " · mind " .. (claims.mind or "-")},
+    {"PATHS", path_cell},
+  }
+  for _, row in ipairs(rows) do
+    plain({{raw = "\\strut{\\sffamily\\footnotesize\\color[RGB]{96,97,88}" .. row[1] .. "} & \\strut "}, row[2], {raw = " \\tabularnewline \\hline"}})
+  end
+  raw("\\end{tabular}")
+  return out
+end
+
 local function level_spread(level_id, ordinal, labels, edges, examples, missing, paths, captions)
   local data = load_levels()[level_id]
   if not data then error("unknown level " .. level_id) end
@@ -538,7 +597,20 @@ local function level_spread(level_id, ordinal, labels, edges, examples, missing,
   local entry_doc = exists(entry_path) and read_markdown_doc(entry_path) or pandoc.Pandoc({para("Entry text not yet written.")}, {})
   local front = meta_to_lua(entry_doc.meta)
   local claims = data.claims or {}
-  local out = {page_break(), header(2, data.label or level_id, "level-" .. level_id)}
+  local out = {}
+  local opener_open = raw_latex("\\begin{atlasopener}")
+  if opener_open then
+    -- Print: the level opens alone on a right-hand page, a centred title over its table.
+    out[#out + 1] = opener_open
+    out[#out + 1] = raw_latex("\\begin{center}{\\sffamily\\small\\color[RGB]{96,97,88}LEVEL " .. ordinal .. " OF 31}\\end{center}")
+    -- The section heading stays (for the TOC and links) but prints as a large centred title.
+    out[#out + 1] = raw_latex("\\begingroup\\atlasopenertitle")
+    out[#out + 1] = header(2, data.label or level_id, "level-" .. level_id, {"unnumbered"})
+    out[#out + 1] = raw_latex("\\endgroup")
+  else
+    out[#out + 1] = page_break()
+    out[#out + 1] = header(2, data.label or level_id, "level-" .. level_id)
+  end
   local path_links = {}
   for _, p in ipairs(paths or {}) do
     for _, node in ipairs(p.nodes or {}) do
@@ -546,15 +618,20 @@ local function level_spread(level_id, ordinal, labels, edges, examples, missing,
     end
   end
   local path_cell = #path_links > 0 and join_inlines(path_links, ", ") or parse_inlines("none yet")
-  out[#out + 1] = simple_table({"", ""}, {
-    {"Scale", powers(data.length_scale or "")},
-    {"Response time", powers(data.response_time or "not set") .. ": " .. (data.response_time_basis or "")},
-    {"Substrate", data.substrate or ""},
-    {"Field", data.field or ""},
-    {"Equation", "$" .. (data.equation or "") .. "$"},
-    {"Badges", "physical " .. (claims.physical or "-") .. ", field " .. (claims.field or "-") .. ", mind " .. (claims.mind or "-")},
-    {"Paths", path_cell},
-  })
+  if opener_open then
+    append(out, opener_facts(data, claims, path_cell))
+    out[#out + 1] = raw_latex("\\end{atlasopener}")
+  else
+    out[#out + 1] = simple_table({"", ""}, {
+      {"Scale", powers(data.length_scale or "")},
+      {"Response time", powers(data.response_time or "not set") .. ": " .. (data.response_time_basis or "")},
+      {"Substrate", data.substrate or ""},
+      {"Field", data.field or ""},
+      {"Equation", "$" .. (data.equation or "") .. "$"},
+      {"Badges", "physical " .. (claims.physical or "-") .. ", field " .. (claims.field or "-") .. ", mind " .. (claims.mind or "-")},
+      {"Paths", path_cell},
+    })
+  end
   append(out, atlas_plate_blocks(level_id, data.label or level_id, ordinal, captions, missing))
   local body_plus = demote_blocks(entry_doc.blocks, 1)
   for _, fig in ipairs(front.figures or {}) do

@@ -7,10 +7,10 @@
         "file": "figures/plates/quantum-foam-triptych.png",
         "caption": "Figure for Quantum Foam: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          884,
-          399,
-          2900,
-          2273
+          1198,
+          0,
+          2584,
+          2400
         ]
       },
       "callouts": {
@@ -64,10 +64,10 @@
         "file": "figures/plates/string-boundary-triptych.png",
         "caption": "Figure for String / Planck Boundary: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          871,
-          302,
-          2985,
-          2267
+          1234,
+          0,
+          2620,
+          2400
         ]
       },
       "callouts": {
@@ -121,10 +121,10 @@
         "file": "figures/plates/nuclear-triptych.png",
         "caption": "Figure for Nuclear: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          854,
-          247,
-          3041,
-          2280
+          1254,
+          0,
+          2640,
+          2400
         ]
       },
       "callouts": {
@@ -165,9 +165,9 @@
           }
         ],
         "main_crop": [
-          617,
+          616,
           442,
-          3278,
+          3277,
           2085
         ]
       }
@@ -178,9 +178,9 @@
         "file": "figures/plates/atomic-triptych.png",
         "caption": "Figure for Atomic: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1023,
-          582,
-          2978,
+          1307,
+          0,
+          2693,
           2400
         ]
       },
@@ -235,10 +235,10 @@
         "file": "figures/plates/molecular-triptych.png",
         "caption": "Figure for Molecular: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1054,
-          561,
-          2832,
-          2214
+          1249,
+          0,
+          2635,
+          2400
         ]
       },
       "callouts": {
@@ -292,9 +292,9 @@
         "file": "figures/plates/cellular-synaptic-triptych.png",
         "caption": "Figure for Cellular / Synaptic: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          512,
+          1211,
           0,
-          3297,
+          2597,
           2400
         ]
       },
@@ -365,10 +365,10 @@
         "file": "figures/plates/local-circuit-triptych.png",
         "caption": "Figure for Local Circuit: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          913,
-          351,
-          2968,
-          2261
+          1247,
+          0,
+          2633,
+          2400
         ]
       },
       "callouts": {
@@ -409,9 +409,9 @@
           }
         ],
         "main_crop": [
-          499,
+          498,
           416,
-          3382,
+          3381,
           2196
         ]
       }
@@ -422,10 +422,10 @@
         "file": "figures/plates/whole-brain-cemi-triptych.png",
         "caption": "Figure for Whole Brain / CEMI: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1153,
-          385,
-          3271,
-          2355
+          1518,
+          0,
+          2904,
+          2400
         ]
       },
       "callouts": {
@@ -466,9 +466,9 @@
           }
         ],
         "main_crop": [
-          447,
+          446,
           305,
-          3840,
+          3839,
           2400
         ]
       }
@@ -479,10 +479,10 @@
         "file": "figures/plates/human-vertebrate-triptych.png",
         "caption": "Figure for Human / Vertebrate: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          600,
-          142,
-          2939,
-          2317
+          1076,
+          0,
+          2462,
+          2400
         ]
       },
       "callouts": {
@@ -552,10 +552,10 @@
         "file": "figures/plates/dyad-triptych.png",
         "caption": "Figure for Dyad: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          884,
-          467,
-          2955,
-          2392
+          1226,
+          0,
+          2612,
+          2400
         ]
       },
       "callouts": {
@@ -609,10 +609,10 @@
         "file": "figures/plates/human-group-triptych.png",
         "caption": "Figure for Small Group / Crowd / Assembly: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          926,
-          553,
-          2785,
-          2281
+          1162,
+          0,
+          2548,
+          2400
         ]
       },
       "callouts": {
@@ -666,10 +666,10 @@
         "file": "figures/plates/animal-swarm-triptych.png",
         "caption": "Figure for Animal Swarm: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          939,
-          419,
-          2985,
-          2321
+          1268,
+          0,
+          2654,
+          2400
         ]
       },
       "callouts": {
@@ -710,9 +710,9 @@
           }
         ],
         "main_crop": [
-          459,
+          458,
           442,
-          3465,
+          3464,
           2298
         ]
       }
@@ -723,10 +723,10 @@
         "file": "figures/plates/society-city-triptych.png",
         "caption": "Figure for Society / City: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1012,
-          484,
-          2955,
-          2290
+          1290,
+          0,
+          2676,
+          2400
         ]
       },
       "callouts": {
@@ -780,10 +780,10 @@
         "file": "figures/plates/regional-institutional-triptych.png",
         "caption": "Figure for Regional / Institutional: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          884,
-          443,
-          2985,
-          2396
+          1241,
+          0,
+          2627,
+          2400
         ]
       },
       "callouts": {
@@ -837,10 +837,10 @@
         "file": "figures/plates/civilisational-solar-triptych.png",
         "caption": "Figure for Civilisational / Solar: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1050,
-          496,
-          2943,
-          2257
+          1303,
+          0,
+          2689,
+          2400
         ]
       },
       "callouts": {
@@ -894,10 +894,10 @@
         "file": "figures/plates/geological-triptych.png",
         "caption": "Figure for Geological: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          969,
-          355,
-          2827,
-          2082
+          1204,
+          0,
+          2590,
+          2400
         ]
       },
       "callouts": {
@@ -951,10 +951,10 @@
         "file": "figures/plates/planetary-triptych.png",
         "caption": "Figure for Planetary: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1067,
-          412,
-          3037,
-          2243
+          1358,
+          0,
+          2744,
+          2400
         ]
       },
       "callouts": {
@@ -1008,10 +1008,10 @@
         "file": "figures/plates/orbital-system-triptych.png",
         "caption": "Figure for Orbital System: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          939,
-          470,
-          2985,
-          2372
+          1268,
+          0,
+          2654,
+          2400
         ]
       },
       "callouts": {
@@ -1052,9 +1052,9 @@
           }
         ],
         "main_crop": [
-          569,
+          568,
           561,
-          3355,
+          3354,
           2281
         ]
       }
@@ -1065,10 +1065,10 @@
         "file": "figures/plates/stellar-triptych.png",
         "caption": "Figure for Stellar: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          930,
-          441,
-          2883,
-          2257
+          1213,
+          0,
+          2599,
+          2400
         ]
       },
       "callouts": {
@@ -1109,9 +1109,9 @@
           }
         ],
         "main_crop": [
-          306,
+          305,
           361,
-          3507,
+          3506,
           2337
         ]
       }
@@ -1122,10 +1122,10 @@
         "file": "figures/plates/compact-object-triptych.png",
         "caption": "Figure for Compact Object: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          956,
-          305,
-          2870,
-          2084
+          1219,
+          0,
+          2605,
+          2400
         ]
       },
       "callouts": {
@@ -1179,10 +1179,10 @@
         "file": "figures/plates/stellar-cluster-triptych.png",
         "caption": "Figure for Stellar / Cluster: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          982,
-          473,
-          2985,
-          2335
+          1290,
+          0,
+          2676,
+          2400
         ]
       },
       "callouts": {
@@ -1236,10 +1236,10 @@
         "file": "figures/plates/galactic-disc-triptych.png",
         "caption": "Figure for Galactic Disc: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          990,
-          538,
-          2900,
-          2313
+          1251,
+          0,
+          2637,
+          2400
         ]
       },
       "callouts": {
@@ -1293,10 +1293,10 @@
         "file": "figures/plates/galactic-halo-triptych.png",
         "caption": "Figure for Galactic Halo: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          871,
-          429,
-          2955,
-          2366
+          1219,
+          0,
+          2605,
+          2400
         ]
       },
       "callouts": {
@@ -1337,9 +1337,9 @@
           }
         ],
         "main_crop": [
-          392,
+          391,
           459,
-          3434,
+          3433,
           2337
         ]
       }
@@ -1350,10 +1350,10 @@
         "file": "figures/plates/galaxy-cluster-triptych.png",
         "caption": "Figure for Galaxy Cluster: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          969,
-          506,
-          2891,
-          2293
+          1236,
+          0,
+          2622,
+          2400
         ]
       },
       "callouts": {
@@ -1407,10 +1407,10 @@
         "file": "figures/plates/cosmic-filaments-triptych.png",
         "caption": "Figure for Cosmic Filaments: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          884,
-          423,
-          2857,
-          2257
+          1177,
+          0,
+          2563,
+          2400
         ]
       },
       "callouts": {
@@ -1464,10 +1464,10 @@
         "file": "figures/plates/observable-universe-triptych.png",
         "caption": "Figure for Observable Universe: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1054,
-          497,
-          2955,
-          2264
+          1311,
+          0,
+          2697,
+          2400
         ]
       },
       "callouts": {
@@ -1508,9 +1508,9 @@
           }
         ],
         "main_crop": [
-          456,
+          455,
           425,
-          3553,
+          3552,
           2337
         ]
       }
@@ -1521,10 +1521,10 @@
         "file": "figures/plates/cosmic-web-triptych.png",
         "caption": "Figure for Cosmic Web: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          884,
-          512,
-          2785,
-          2279
+          1141,
+          0,
+          2527,
+          2400
         ]
       },
       "callouts": {
@@ -1565,9 +1565,9 @@
           }
         ],
         "main_crop": [
-          345,
+          344,
           476,
-          3324,
+          3323,
           2315
         ]
       }
@@ -1578,10 +1578,10 @@
         "file": "figures/plates/bird-triptych.png",
         "caption": "Figure for Bird: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          913,
-          309,
-          3041,
-          2287
+          1283,
+          0,
+          2669,
+          2400
         ]
       },
       "callouts": {
@@ -1622,9 +1622,9 @@
           }
         ],
         "main_crop": [
-          660,
+          659,
           485,
-          3294,
+          3293,
           2111
         ]
       }
@@ -1635,10 +1635,10 @@
         "file": "figures/plates/colony-roost-triptych.png",
         "caption": "Figure for Colony / Roost: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          884,
-          462,
-          2943,
-          2376
+          1220,
+          0,
+          2606,
+          2400
         ]
       },
       "callouts": {
@@ -1692,10 +1692,10 @@
         "file": "figures/plates/flock-triptych.png",
         "caption": "Figure for Flock: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          999,
-          525,
-          2955,
-          2343
+          1283,
+          0,
+          2669,
+          2400
         ]
       },
       "callouts": {
@@ -1749,10 +1749,10 @@
         "file": "figures/plates/species-stellar-triptych.png",
         "caption": "Figure for Species / Stellar: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
         "crop": [
-          1054,
-          526,
-          2943,
-          2282
+          1305,
+          0,
+          2691,
+          2400
         ]
       },
       "callouts": {
@@ -1793,9 +1793,9 @@
           }
         ],
         "main_crop": [
-          467,
+          466,
           459,
-          3530,
+          3529,
           2350
         ]
       }

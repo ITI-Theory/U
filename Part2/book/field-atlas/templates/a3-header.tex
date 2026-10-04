@@ -8,3 +8,15 @@
 \setlength{\columnsep}{9mm}
 \newcommand{\colsbegin}{\begin{multicols}{3}}
 \newcommand{\colsend}{\end{multicols}}
+% Level spreads (lib/format/registry.lua): the level opener sits alone on a right-hand
+% (odd) page, the triptych on the facing left-hand page, the callout plate on the next
+% right-hand page. \atlasopenright starts a right-hand page, leaving a blank left page
+% when needed, even with openany for the rest of the book.
+\newcommand{\atlasopenright}{\clearpage\ifodd\value{page}\else\thispagestyle{empty}\mbox{}\clearpage\fi}
+\newenvironment{atlasopener}{\atlasopenright\thispagestyle{empty}\vspace*{\fill}\begin{center}\begin{minipage}{0.62\textwidth}}{\end{minipage}\end{center}\vspace*{\fill}\clearpage}
+\newcommand{\atlasplatepage}[2]{\begin{center}\vspace*{\fill}\includegraphics[width=\textwidth,height=0.86\textheight,keepaspectratio]{#1}\par\vspace{4mm}{\small #2}\vspace*{\fill}\end{center}\clearpage}
+% Large centred level title on the opener page (only inside the opener group).
+% Level headings are written as \section* (unnumbered).
+\makeatletter
+\newcommand{\atlasopenertitle}{\renewcommand{\section}{\@startsection{section}{1}{0pt}{2mm}{8mm}{\centering\sffamily\bfseries\fontsize{34}{40}\selectfont}}}
+\makeatother

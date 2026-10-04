@@ -1,0 +1,2 @@
+% Printers want an even number of pages: add a blank page when the shipped total is odd.
+\clearpage\ifodd\ReadonlyShipoutCounter\thispagestyle{empty}\mbox{}\clearpage\fi

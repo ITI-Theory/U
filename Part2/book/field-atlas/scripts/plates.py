@@ -26,6 +26,7 @@ ATLAS = Path(__file__).resolve().parents[1]
 DEFAULT_IN = ATLAS / "figures" / "app" / "atlas-plates"
 DEFAULT_OUT = ATLAS / "figures" / "plates"
 TRIPTYCH_WIDTH = 4724  # 400 mm at 300 dpi, rounded for safe image handling.
+TRIPTYCH_ASPECT = 1.6  # fills an A3 landscape text block with room for the caption
 CALLOUT_WIDTH = 4724
 BG = (244, 239, 226)
 INK = (28, 33, 36)
@@ -140,22 +141,23 @@ def union_crop(points: list[tuple[float, float]], size: tuple[int, int], margin:
 
 
 def fit_crop_to_aspect(crop: tuple[int, int, int, int], size: tuple[int, int], aspect: float) -> tuple[int, int, int, int]:
+    """Grow the crop to the requested aspect around its centre, shrinking it to fit the image if
+    needed, so the panel shows the whole crop instead of a centre cut of it."""
     left, top, right, bottom = crop
     width, height = size
-    current = (right - left) / max(1, bottom - top)
-    if current < aspect:
-        new_w = int((bottom - top) * aspect)
-        mid = (left + right) / 2
-        left = max(0, int(mid - new_w / 2))
-        right = min(width, left + new_w)
-        left = max(0, right - new_w)
+    w, h = right - left, max(1, bottom - top)
+    if w / h < aspect:
+        w = h * aspect
     else:
-        new_h = int((right - left) / aspect)
-        mid = (top + bottom) / 2
-        top = max(0, int(mid - new_h / 2))
-        bottom = min(height, top + new_h)
-        top = max(0, bottom - new_h)
-    return (left, top, right, bottom)
+        h = w / aspect
+    if w > width:
+        w, h = width, width / aspect
+    if h > height:
+        h, w = height, height * aspect
+    cx, cy = (left + right) / 2, (top + bottom) / 2
+    left = int(min(max(0, cx - w / 2), width - w))
+    top = int(min(max(0, cy - h / 2), height - h))
+    return (left, top, left + int(w), top + int(h))
 
 
 def cover_resize(image: Image.Image, box: tuple[int, int]) -> Image.Image:
@@ -180,7 +182,9 @@ def compose_triptych(level: str, label: str, images: dict[str, Image.Image], anc
     band_h = 172
     gutter = 18
     panel_w = col_w - gutter * 2
-    panel_h = 1430
+    # A full-page plate: the whole image is TRIPTYCH_ASPECT wide to tall, so tall subjects
+    # (a standing body) keep their height instead of being cut to a strip.
+    panel_h = round(TRIPTYCH_WIDTH / TRIPTYCH_ASPECT) - band_h - 118
     crop = fit_crop_to_aspect(union_crop(all_points, images["11d"].size), images["11d"].size, panel_w / panel_h)
     canvas = Image.new("RGB", (TRIPTYCH_WIDTH, band_h + panel_h + 118), BG)
     draw = ImageDraw.Draw(canvas)
