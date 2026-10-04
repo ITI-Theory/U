@@ -1,4 +1,4 @@
--- textbook-layout.lua: A3 landscape page design for the textbook (LaTeX only;
+-- textbook-layout.lua: page design for the course book (LaTeX only;
 -- the HTML edition keeps a single readable column).
 --   * A chapter (level-1 heading) opens with its title and an optional
 --     full-width banner image marked {.opener}; everything else runs in
@@ -40,6 +40,19 @@ local function is_opener(block)
   return found
 end
 
+-- A4 single column: a figure sized as a fraction of the column would fill
+-- most of the page, so in-flow figures are capped in height (aspect kept).
+local function cap_height(block)
+  return pandoc.walk_block(block, {
+    Image = function(img)
+      if not img.classes:includes("opener") and not img.attributes.height then
+        img.attributes.height = "32%"
+        return img
+      end
+    end,
+  })
+end
+
 function Pandoc(doc)
   local out = pandoc.Blocks({})
   local open = false
@@ -58,7 +71,7 @@ function Pandoc(doc)
       out:insert(block)
     else
       begin()
-      out:insert(block)
+      out:insert(cap_height(block))
     end
   end
   close()

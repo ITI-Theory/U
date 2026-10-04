@@ -1,7 +1,7 @@
 -- textbook-boxes.lua: coloured boxes in the style of open science textbooks
 -- (docs/BUILD.md). A box is a fenced div, e.g. ::: {.example title="..."}.
 -- Titles are parsed as Markdown and written by pandoc (no hand escaping).
--- LaTeX: a tcolorbox defined in templates/textbook-a3-header.tex.
+-- LaTeX: a tcolorbox defined in templates/textbook-a4-header.tex.
 -- HTML: a div.textbook-box with a span.box-title (styled in textbook.css).
 
 local BOXES = {

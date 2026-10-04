@@ -18,13 +18,16 @@
 \definecolor{textbookgreen}{RGB}{46,111,64}
 \definecolor{textbookpurple}{RGB}{96,70,145}
 \definecolor{textbookgray}{RGB}{244,247,249}
-\setlength{\columnsep}{8mm}
-\newcommand{\colsbegin}{\begin{multicols}{3}}
-\newcommand{\colsend}{\end{multicols}}
+% A4 course book: one column. The layout filter still marks column runs; here they are no-ops.
+\newcommand{\colsbegin}{}
+\newcommand{\colsend}{}
 \captionsetup{labelfont=bf,font=small}
 \titleformat{\chapter}[display]{\sffamily\bfseries\color{textbookblue}\Huge}{\chaptertitlename\ \thechapter}{0.2em}{\Huge}
 \titleformat{\section}{\sffamily\bfseries\color{textbookteal}\Large}{\thesection}{0.6em}{}
 \titleformat{\subsection}{\sffamily\bfseries\color{textbookblue}\large}{\thesubsection}{0.6em}{}
 % keep a section heading with the box or paragraph that follows it
 \pretocmd{\section}{\needspace{8\baselineskip}}{}{}
-\newtcolorbox{textbookbox}[2][]{enhanced,colback=textbookgray,colframe=#2,arc=1.5mm,left=1.5mm,right=1.5mm,top=1mm,bottom=1mm,fonttitle=\sffamily\bfseries,title={#1}}
+\newtcolorbox{textbookbox}[2][]{enhanced,colback=textbookgray,colframe=#2,arc=1.5mm,left=1.5mm,right=1.5mm,top=1mm,bottom=1mm,fonttitle=\sffamily\bfseries,title={#1}}% Parts of the course book
+% \coursepartintro is set just before each \part and printed on the part page
+\newcommand{\coursepartintro}{}
+\titleformat{\part}[display]{\centering\sffamily\bfseries\color{textbookblue}\Huge}{\partname\ \thepart}{0.6em}{\Huge}[\vspace{2.5em}\begin{minipage}{0.72\textwidth}\normalsize\normalfont\color{black}\raggedright\coursepartintro\end{minipage}]

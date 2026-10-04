@@ -58,6 +58,11 @@ local function latex_figure(img, caption)
   else
     options = "width=" .. width_for(img, "\\columnwidth")
   end
+  -- optional height cap as a percentage of the text height (aspect kept)
+  local hpct = img.attributes and img.attributes.height and tonumber(img.attributes.height:match("^(%d+)%%$"))
+  if hpct and not has_class(img, "opener") then
+    options = options .. string.format(",height=%.2f\\textheight,keepaspectratio", hpct / 100)
+  end
   local blocks = {
     pandoc.RawBlock("latex", "\\begin{center}\n\\includegraphics[" .. options .. "]{" .. img.src .. "}"),
   }

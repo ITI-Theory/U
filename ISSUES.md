@@ -1005,7 +1005,22 @@ in black linen; Lulu has no A3.)
 - Audience: **both** - a gentle main text for the motivated non-specialist,
   with "going further" boxes for the first-year university reader.
 
-**Proposed shape (to confirm as a chapter plan before building):**
+**Chapter plan (approved by the author 2026-10-05, working title "[T]-Theory: A Course"):**
+- Part 0, Toolkit: M1 numbers, units and scale; M2 change (exponentials,
+  derivatives); M3 accumulation (integrals, flux); M4 oscillation (oscillator
+  equation, complex numbers, Euler); M5 vectors, fields, matrices and
+  eigenvalues; M6 chance (distributions, normal curve, Boltzmann factor).
+- Part I, The response grammar: 1 fields, waves, scale; 2 response and Green's
+  functions; 3 (new) frequencies: Fourier, convolution, poles; 4 zooming.
+- Part II, The ladder: 5-12 = the current chapters 3-10.
+- Part III, Frontier and method: 13 eleven dimensions and M-theory (Atlas T4);
+  14 the dark sectors (T5); 15 evidence and proof, QUANT-EXP-1 lab (T6).
+- Every chapter: "maths you need" and "going further" boxes, Atlas
+  cross-references, Soma Machine labs, worked homework with checked answers.
+- Appendices: constants, glossary, Atlas cross-reference, credits (OpenStax
+  attributions). About 330 A4 pages.
+
+**Earlier proposed shape (superseded by the plan above):**
 - Part 0, maths toolkit (just in time, visual): functions, exponentials and
   logs; derivatives and integrals as area and flux; the oscillator equation;
   complex numbers; vectors and fields; eigenvalues; probability and the

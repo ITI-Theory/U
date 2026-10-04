@@ -1,9 +1,9 @@
 id: field-atlas-textbook
-title: "[T]-Theory Field Atlas: Textbook Edition"
-subtitle: Fields, Response, Scale, and Evidence Labels
-author: "ITI-Theory"
-date: "2026-10-03"
-lang: en-US
+title: "[T]-Theory: A Course"
+subtitle: Fields, response and scale, from the atom to the cosmos
+author: "Alistair Johnson"
+date: "2026-10-05"
+lang: en-GB
 documentclass: book
 classoption:
   - openany

@@ -5,8 +5,10 @@ defaults:
 metadata-file: textbook.yaml
 input-files:
   - textbook.md
+  - parts/1-response-grammar.md
   - chapters/01-fields-waves-scale.md
   - chapters/02-response-greens-resonance.md
+  - parts/2-ladder.md
   - chapters/03-atoms-quantum-scale.md
   - chapters/04-molecules-cells.md
   - chapters/05-human-level.md

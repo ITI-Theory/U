@@ -24,7 +24,7 @@ Everything below is built, checked and pushed. Start with step 1.
    then live. Plan already passes: 44 records, 0 errors.
 
 Not in the UAT tracks but built and current: textbook
-(`bld/textbook/field-atlas-textbook-a3.pdf`, 52 pp; HTML in
+(`bld/textbook/ttheory-course.pdf`, A4 course book; HTML in
 `bld/textbook/html/`), Field Atlas (`bld/atlas/field-atlas-a3.pdf`, 200 pp).
 Decide whether they ship in this release.
 
@@ -61,8 +61,8 @@ so `[@P1; @P10]` rendered as one narrative cite and dropped P1. It now skips
 Cite elements. Every book, paper and Atlas build that uses the filter
 picks this up at its next rebuild.
 
-Textbook edition (`Part2/book/field-atlas-textbook/`, A3 landscape + HTML,
-`make -C Part2/book/field-atlas-textbook check a3 html`):
+Course book ([T]-Theory: A Course, `Part2/book/field-atlas-textbook/`, A4 portrait + HTML,
+`make -C Part2/book/field-atlas-textbook check a4 html`; was the A3 textbook edition until 5 Oct):
 - ALL TEN chapters rewritten to the model standard (textbook A3 52 pp): learning objectives,
   worked examples (Strategy / Solution / Significance), Worked Homework with
   full solutions, "Try it" app links, Penrose chapter baselines, every number

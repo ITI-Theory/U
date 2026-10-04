@@ -25,7 +25,7 @@ INSTRUCTIONS = ROOT / ".github" / "copilot-instructions.md"
 # Outputs built with programme-refs.lua: bare ids are failures.
 STRICT = [
     "bld/atlas/field-atlas-a3.pdf",
-    "bld/textbook/field-atlas-textbook-a3.pdf",
+    "bld/textbook/ttheory-course.pdf",
     "bld/books/book-gateway.pdf",
     "bld/books/ttheory-vol1.pdf",
     "bld/books/ttheory-vol2.pdf",

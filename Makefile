@@ -32,8 +32,8 @@ help:
 	$(info   omnibus         build the papers omnibus)
 	$(info   atlas           build the Field Atlas A3 edition)
 	$(info   atlas-html      build the Field Atlas HTML edition)
-	$(info   textbook        build the Field Atlas textbook A3 edition)
-	$(info   textbook-html   build the Field Atlas textbook HTML edition)
+	$(info   textbook        build [T]-Theory: A Course (A4 course book))
+	$(info   textbook-html   build the course book HTML edition)
 	$(info   books           build all T-Theory books)
 	$(info   vol1            build T-Theory volume 1)
 	$(info   vol2            build T-Theory volume 2)
@@ -64,7 +64,7 @@ atlas-html:
 	$(MAKE) -C $(ATLAS_DIR) html
 
 textbook:
-	$(MAKE) -C $(TEXTBOOK_DIR) a3
+	$(MAKE) -C $(TEXTBOOK_DIR) a4
 
 textbook-html:
 	$(MAKE) -C $(TEXTBOOK_DIR) html
