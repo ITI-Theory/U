@@ -4,7 +4,7 @@ Status: 2026-10-04. Books are kept outside the repo in
 `C:\Users\alist\OneDrive\tmp\books\openstax\` (maths and physics) and the
 existing book folders listed in `BASELINE-SOURCES.md`.
 
-## Licences (checked 2026-10-04)
+## Licences (checked 2026-10-04 on each downloaded copy's copyright page)
 
 The licence travels with the copy. A Creative Commons licence cannot be
 withdrawn from a copy already released, so what matters is the licence printed
@@ -12,7 +12,7 @@ on the copyright page of the PDF actually used.
 
 | Book | Copy | Licence | Use in the course book |
 |:--|:--|:--|:--|
-| Precalculus (1st edition, retired) | `openstax/Precalculus-1e-retired.pdf` | CC BY 4.0 | adapt text and figures, with credit |
+| Precalculus (1st edition, retired, 2017) | `openstax/Precalculus-1e-retired.pdf` | CC BY 4.0 | adapt text and figures, with credit |
 | Algebra and Trigonometry (1st edition, retired) | `openstax/Algebra-and-Trigonometry-1e-retired.pdf` | CC BY 4.0 | adapt, with credit |
 | Introductory Statistics (1st edition, retired) | `openstax/Introductory-Statistics-1e-retired.pdf` | CC BY 4.0 | adapt, with credit |
 | College Physics (1st edition, retired) | `openstax/College-Physics-1e-retired.pdf` | CC BY 4.0 | adapt, with credit |
@@ -41,7 +41,7 @@ exact work (licences, text, figure code) is then done in the repo.
 
 **Notebook:** a new private notebook, `openstax-maths`. Upload the PDFs from
 `openstax/`. NotebookLM's free tier has a per-source size limit (about 200 MB
-at the time of writing): College Physics (251 MB) may be refused; use
+at the time of writing): College Physics (251 MB as downloaded) may be refused; use
 Physics (high school) instead, or leave it out.
 
 Ask each question separately. Ask for page citations every time.
