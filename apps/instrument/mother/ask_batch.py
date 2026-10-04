@@ -69,7 +69,7 @@ async def run(path: Path, title: str, heading: str, results: str, pause: float) 
                 name = titles.get(reference.source_id, reference.source_id)
                 if name not in cited:
                     cited.append(name)
-            out.append(f"\n### {number}. {label}\n\n{result.answer.strip()}\n\nSources cited: {', '.join(cited) or 'none'}.\n")
+            out.append(f"\n### {number}. {label}\n\n{result.answer.strip()}\n\nSources cited: {', '.join(cited) or 'none returned as links; the answer cites book, section and page inline'}.\n")
             print(f"{number:2d}/{len(asked)} {label}: {len(result.answer)} chars, {len(cited)} sources")
             if number < len(asked):
                 await asyncio.sleep(pause)
