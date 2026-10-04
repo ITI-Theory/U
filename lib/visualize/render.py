@@ -209,6 +209,13 @@ def curve_keys(spec: Spec) -> list[str]:
 
 # ----------------------------------------------------------------- primitives
 
+def reference_lines(spec: Spec, ax):
+    """Dotted guide lines: hline="0.5, 1" and vline="2"."""
+    for key in ("hline", "vline"):
+        for v in numbers(spec.get(key, "")):
+            (ax.axhline if key == "hline" else ax.axvline)(v, color="0.5", lw=0.8, ls=":")
+
+
 def draw_function_plot(spec: Spec):
     var = spec.get("var", "x")
     xs = spec.range("x")
@@ -236,9 +243,7 @@ def draw_function_plot(spec: Spec):
         ax.plot(tx, y0 + slope * (tx - x0), color=RED, lw=1.6, ls="--", label=f"tangent, slope {slope:.3g}")
         ax.plot([x0], [y0], "o", color=RED)
         spec.expect("expect_slope", slope)
-    for key in ("hline", "vline"):
-        for v in numbers(spec.get(key, "")):
-            (ax.axhline if key == "hline" else ax.axvline)(v, color="0.5", lw=0.8, ls=":")
+    reference_lines(spec, ax)
     if spec.get("y"):
         ax.set_ylim(*numbers(spec.get("y")))
     if flag(spec.p, "logy"):
@@ -266,6 +271,9 @@ def draw_area_under(spec: Spec):
     fine = np.linspace(a, b, 200001)
     fy = as_array(fn({**env, "x": fine}), fine)
     exact = float(np.trapezoid(fy, fine))
+    ys_all = as_array(fn({**env, "x": xs}), xs)
+    # label in the emptier upper corner: left if the curve ends higher than it starts
+    corner = (0.03, 0.95, "left") if ys_all[-1] > ys_all[0] else (0.97, 0.95, "right")
     ax.fill_between(fine[::200], fy[::200], color=spec.colors[1], alpha=0.25 if n else 0.35, lw=0)
     if n:
         w = (b - a) / n
@@ -275,12 +283,13 @@ def draw_area_under(spec: Spec):
         ax.bar(lefts, heights, width=w, align="edge", color=spec.colors[2], alpha=0.35,
                edgecolor=spec.colors[2], lw=1)
         total = float(np.sum(heights) * w)
-        ax.text(0.98, 0.95, f"{n} strips ({rule} points): {total:.4g}\nexact area: {exact:.4g}",
-                transform=ax.transAxes, ha="right", va="top")
+        ax.text(corner[0], corner[1], f"{n} strips ({rule} points): {total:.4g}\nexact area: {exact:.4g}",
+                transform=ax.transAxes, ha=corner[2], va="top")
         spec.expect("expect_sum", total)
     else:
-        ax.text(0.98, 0.95, f"area: {exact:.4g}", transform=ax.transAxes, ha="right", va="top")
+        ax.text(corner[0], corner[1], f"area: {exact:.4g}", transform=ax.transAxes, ha=corner[2], va="top")
     spec.expect("expect_area", exact)
+    reference_lines(spec, ax)
     ax.axhline(0, color="0.6", lw=0.6)
     spec.labels(ax, "$x$", "")
     return fig
@@ -372,7 +381,11 @@ def draw_vector_field(spec: Spec):
         ax.contourf(X, Y, P, levels=24, cmap=spec.cmap, alpha=0.55)
     X, Y = mesh(spec, int(number(spec.get("n", "17"))))
     U, V = as_array(u({**env, "x": X, "y": Y}), X), as_array(v({**env, "x": X, "y": Y}), X)
-    ax.quiver(X, Y, U, V, color=spec.colors[0], angles="xy", pivot="mid")
+    # display only: clip the longest arrows so a singular source does not dwarf the rest
+    mag = np.hypot(U, V)
+    cap = np.percentile(mag, 85) if mag.size else 1.0
+    scale = np.where(mag > cap, cap / np.maximum(mag, 1e-300), 1.0)
+    ax.quiver(X, Y, U * scale, V * scale, color=spec.colors[0], angles="xy", pivot="mid")
     if spec.get("circle"):
         r = number(spec.get("circle"))
         th = np.linspace(0, 2 * np.pi, 20001)
@@ -382,8 +395,10 @@ def draw_vector_field(spec: Spec):
         flux = float(np.sum((Uc * np.cos(th) + Vc * np.sin(th))[:-1]) * ds)
         circ = float(np.sum((-Uc * np.sin(th) + Vc * np.cos(th))[:-1]) * ds)
         ax.plot(cx, cy, color=RED, lw=2)
-        ax.text(0.02, 0.98, f"flux out: {flux:.4g}\ncirculation: {circ:.4g}", transform=ax.transAxes,
-                va="top", fontsize=9, bbox=dict(fc="white", ec="none", alpha=0.85))
+        def tidy(v: float) -> str:
+            return "0" if abs(v) < 1e-9 else f"{v:.4g}"
+        ax.text(0.02, 0.98, f"flux out: {tidy(flux)}\ncirculation: {tidy(circ)}", transform=ax.transAxes,
+                va="top", fontsize=10, bbox=dict(fc="white", ec="none", alpha=0.85))
         spec.expect("expect_flux", flux)
         spec.expect("expect_circulation", circ)
     ax.set_aspect("equal")
@@ -579,10 +594,11 @@ def main(argv: list[str]) -> int:
             drawn += 1
             note = "; ".join(spec.checks)
             print(f"visualize {spec.id} {spec.primitive} [{spec.context}]" + (f": {note}" if note else ""))
-        except SpecError as exc:
+        except Exception as exc:  # any failure is reported against its spec and fails the build
             plt.close("all")
             errors += 1
-            print(f"visualize ERROR [{spec.context}] {spec.primitive}: {exc}", file=sys.stderr)
+            kind = "" if isinstance(exc, SpecError) else f"{type(exc).__name__}: "
+            print(f"visualize ERROR [{spec.context}] {spec.primitive}: {kind}{exc}", file=sys.stderr)
     print(f"visualize: {len(specs)} figures, {drawn} drawn, {errors} errors")
     return 1 if errors else 0
 
