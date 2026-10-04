@@ -916,3 +916,39 @@ against registry ids, drops unknown steps, and never executes anything.
    example) if the chapter-level stops prove useful.
 - [ ] More presets from Dist PROMPTS.md (one per audience section).
 
+---
+
+## ISS-039: Local MOTHER/H-AL fallback (retrieval + local model) — PARKED
+{{Tags area.app, area.ops}}
+{{Fields date.created=2026-10-04, date.start=, date.end=, epic=}}
+
+NotebookLM (free) stays the main MOTHER and H-AL. A local fallback would answer
+when the daily quota is used up or offline, and keep H-AL's private chats on
+the machine. Advice recorded 2026-10-04 (see the session archive):
+
+- **Approach:** retrieval, not training. Index the papers, books and chats;
+  pass the best passages to a local model through Ollama (native Windows, not
+  Microsoft software); answers cite file and page and are labelled LOCAL.
+  The bridge already detects the NotebookLM quota error, so it can fall back
+  automatically. Fine-tuning teaches style, not facts, and is not recommended.
+- **Quality:** below NotebookLM on synthesis across papers, subtle physics and
+  contradiction-finding (the UAT-style questions); close on everyday
+  "what does the programme say about X" questions with a 32B model; fine for
+  observatory tours at any size (invalid steps are dropped anyway).
+- **Hardware** (prices early October 2026, Toppreise/swisshw.ch):
+  - Current laptop (T550, 4 GB): 3B on the GPU or 8B on the CPU at
+    1-2 minutes per answer; enough to prove the idea.
+  - New PC around CHF 2,000: one RX 7900 XTX (24 GB, ~CHF 800-1,050) runs
+    32B models; about 80-90% as useful as NotebookLM day to day.
+  - 48 GB for 70B models: two new RX 7900 XTX, ~CHF 2,700-3,200 for the PC
+    (1,200 W supply, two-slot board); or two used RTX 3090, ~CHF 2,000-2,300.
+    New NVIDIA 48 GB is out of range (RTX 5090 32 GB alone ~CHF 4,100).
+  - Middle option: the Gemini API free tier with the same retrieval
+    (needs the internet; check current terms).
+
+**Actions (when unparked):**
+- [ ] Build the software on the laptop first: Ollama, embedding index of the
+   corpus, bridge fallback with LOCAL labels; try it in real use.
+- [ ] Decide on hardware from that experience (24 GB is the sensible step;
+   48 GB only if the local model becomes the main MOTHER).
+
