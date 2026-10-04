@@ -38,7 +38,7 @@ local function wrap(before, inlines, after)
   return pandoc.Plain(content)
 end
 
-local function latex_figure(img, caption)
+local function latex_figure(img, caption, ident)
   if has_class(img, "full-page") then
     return {
       pandoc.RawBlock("latex", "\\clearpage\\thispagestyle{empty}\n"
@@ -66,24 +66,27 @@ local function latex_figure(img, caption)
   local blocks = {
     pandoc.RawBlock("latex", "\\begin{center}\n\\includegraphics[" .. options .. "]{" .. img.src .. "}"),
   }
-  if #caption > 0 then
+  if ident and ident ~= "" then
+    -- labelled (pandoc-crossref @fig:...): numbered caption and a \label
+    table.insert(blocks, wrap("\\captionof{figure}{", caption, "}\\label{" .. ident .. "}"))
+  elseif #caption > 0 then
     table.insert(blocks, wrap("\\captionof*{figure}{", caption, "}"))
   end
   table.insert(blocks, pandoc.RawBlock("latex", "\\end{center}"))
   return blocks
 end
 
-local function html_figure(img, caption)
+local function html_figure(img, caption, ident)
   local classes = { has_class(img, "plate") and "plate-figure" or "atlas-figure" }
   if has_class(img, "full-page") then table.insert(classes, 1, "full-page-plate") end
   local image = pandoc.Image(caption, img.src, img.title, img.attr)
   return pandoc.Figure({ pandoc.Plain({ image }) }, { long = { pandoc.Plain(caption) } },
-    pandoc.Attr("", classes, {}))
+    pandoc.Attr(ident or "", classes, {}))
 end
 
-local function render(img, caption)
-  if FORMAT:match("latex") then return latex_figure(img, caption) end
-  if FORMAT:match("html") then return html_figure(img, caption) end
+local function render(img, caption, ident)
+  if FORMAT:match("latex") then return latex_figure(img, caption, ident) end
+  if FORMAT:match("html") then return html_figure(img, caption, ident) end
   return nil
 end
 
@@ -98,7 +101,7 @@ local function figure(fig)
   if not img then return nil end
   local caption = pandoc.utils.blocks_to_inlines(fig.caption.long or {})
   if #caption == 0 then caption = img.caption or pandoc.Inlines({}) end
-  return render(img, caption)
+  return render(img, caption, fig.identifier)
 end
 
 -- Two passes: Figures first (so their inner image paragraph is still intact),

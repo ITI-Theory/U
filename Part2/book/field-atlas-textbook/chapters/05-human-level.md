@@ -4,7 +4,7 @@
 
 A person is not a ball rolling in a landscape. A person has a body of thirty trillion cells, a history, a language and other people. Yet some of the most useful models in physiology and psychology reduce a state to a few numbers and ask how those numbers move: how fast a racing heart settles after a fright, why some moods are hard to leave, why a small upset sometimes tips a person into a state that takes weeks to lift. This chapter builds the mathematics of such reductions from physics already in the book: damping from @ch:response, thermal energy from @ch:cells, thresholds and landscapes from @ch:cells's Hopfield network. Then it states, claim by claim, what the programme behind this Atlas proposes at the human level and how each claim is labelled.
 
-**Chapter outline.** 5.1 A state in a landscape · 5.2 Noise and escape · 5.3 Fast in, slow out · 5.4 Memory kernels · 5.5 Tipping points and critical slowing down · 5.6 The programme's human model and QUANT-EXP-1
+**Chapter outline.** [-@sec:human-state-landscape] A state in a landscape · [-@sec:human-noise-escape] Noise and escape · [-@sec:human-fast-slow-out] Fast in, slow out · [-@sec:human-memory-kernels] Memory kernels · [-@sec:human-tipping-points-critical] Tipping points and critical slowing down · [-@sec:human-programmes-human-model] The programme's human model and QUANT-EXP-1
 
 ## A state in a landscape {#sec:human-state-landscape}
 
@@ -251,17 +251,17 @@ Lag autocorrelation
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**5.1** An overdamped state slides down a landscape; a valley of curvature $k$ returns it in time $\gamma/k$. Two valleys make a system bistable.
+**[-@sec:human-state-landscape]** An overdamped state slides down a landscape; a valley of curvature $k$ returns it in time $\gamma/k$. Two valleys make a system bistable.
 
-**5.2** Noise lets a state escape over a ridge in a time proportional to $e^{\Delta U/D}$: small changes in barrier or noise change waiting times enormously.
+**[-@sec:human-noise-escape]** Noise lets a state escape over a ridge in a time proportional to $e^{\Delta U/D}$: small changes in barrier or noise change waiting times enormously.
 
-**5.3** In an asymmetric landscape a strong push enters a deep valley quickly while noise leaves it slowly. The programme's reading of distress as such a valley is an open hypothesis.
+**[-@sec:human-fast-slow-out]** In an asymmetric landscape a strong push enters a deep valley quickly while noise leaves it slowly. The programme's reading of distress as such a valley is an open hypothesis.
 
-**5.4** A memory kernel makes the present state a weighted record of past inputs, so repeated inputs can cross a threshold that one cannot.
+**[-@sec:human-memory-kernels]** A memory kernel makes the present state a weighted record of past inputs, so repeated inputs can cross a threshold that one cannot.
 
-**5.5** As a valley flattens, recovery slows and autocorrelation rises: an early-warning signal with real but limited use.
+**[-@sec:human-tipping-points-critical]** As a valley flattens, recovery slows and autocorrelation rises: an early-warning signal with real but limited use.
 
-**5.6** QUANT-EXP-1 shows, in simulation, that annealing reaches a valley a cold classical search cannot. It makes no claim that brains tunnel.
+**[-@sec:human-programmes-human-model]** QUANT-EXP-1 shows, in simulation, that annealing reaches a valley a cold classical search cannot. It makes no claim that brains tunnel.
 :::
 
 ## Review Questions {.unnumbered}

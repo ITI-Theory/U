@@ -36,6 +36,7 @@ filters:
   - ../../../lib/format/unicode-glyphs.lua
   - ../../../lib/format/programme-refs.lua
   - filters/course-numbering.lua
+  - ../../../lib/format/visualize.lua
   - type: json
     path: pandoc-crossref
   - ../../../lib/format/plates.lua
@@ -43,5 +44,8 @@ filters:
   - filters/textbook-boxes.lua
   - type: citeproc
 metadata:
+  visualize-manifest: ../../../bld/textbook/visualize/manifest.json
+  visualize-src: ../visualize
+  lean-root: ../../../paper/proofs
   numberSections: true
   programme-papers: ../../../registry/papers.yaml

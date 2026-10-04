@@ -4,7 +4,7 @@
 
 A field assigns a value to every point of a region: a temperature to every point of a room, a velocity to every point of a river, a stress to every point inside a rock. Most of physics, and a good deal of biology, is written in this language because it handles two things at once: what is happening *here*, and how it affects what happens *next door*. This chapter builds the vocabulary used throughout the book (fields, waves, sources, media, boundaries and scale) with ordinary physics and real numbers. Only at the end does it introduce the way the [T]-Theory programme uses the same vocabulary, and the labels that say how far each of its claims has been established.
 
-**Chapter outline.** 1.1 Fields · 1.2 Waves · 1.3 Scale: size and response time · 1.4 Zooming out: when a field description works · 1.5 Reading the Atlas: claims and evidence labels
+**Chapter outline.** [-@sec:fields-fields] Fields · [-@sec:fields-waves] Waves · [-@sec:fields-scale-size-response] Scale: size and response time · [-@sec:fields-zooming-out-when] Zooming out: when a field description works · [-@sec:fields-reading-atlas-claims] Reading the Atlas: claims and evidence labels
 
 ## Fields {#sec:fields-fields}
 
@@ -227,15 +227,15 @@ Relative fluctuation of $N$ particles
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**1.1 Fields.** A field gives a value at every point of a domain. Gradients drive flows: heat, particles and charge move down them. Boundaries shape the solution as much as the equation does.
+**[-@sec:fields-fields] Fields.** A field gives a value at every point of a domain. Gradients drive flows: heat, particles and charge move down them. Boundaries shape the solution as much as the equation does.
 
-**1.2 Waves.** Waves are travelling or standing field patterns. The source sets the frequency, the medium sets the speed, and boundaries select the normal modes.
+**[-@sec:fields-waves] Waves.** Waves are travelling or standing field patterns. The source sets the frequency, the medium sets the speed, and boundaries select the normal modes.
 
-**1.3 Scale.** The Atlas spans 61 orders of magnitude in size. Levels at the extremes respond within a few orders of magnitude of their light-crossing time; living and social levels are billions of times slower, governed by internal processes.
+**[-@sec:fields-scale-size-response] Scale.** The Atlas spans 61 orders of magnitude in size. Levels at the extremes respond within a few orders of magnitude of their light-crossing time; living and social levels are billions of times slower, governed by internal processes.
 
-**1.4 Zooming out.** Coarse-graining turns many particles into smooth fields when cells hold enough particles. At every level the book asks four questions: source, medium or kernel, boundary, observable.
+**[-@sec:fields-zooming-out-when] Zooming out.** Coarse-graining turns many particles into smooth fields when cells hold enough particles. At every level the book asks four questions: source, medium or kernel, boundary, observable.
 
-**1.5 Evidence labels.** Each programme claim carries one of six labels, from `kernel-verified` to `open-hypothesis`.
+**[-@sec:fields-reading-atlas-claims] Evidence labels.** Each programme claim carries one of six labels, from `kernel-verified` to `open-hypothesis`.
 :::
 
 ## Review Questions {.unnumbered}

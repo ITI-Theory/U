@@ -5,6 +5,9 @@ ATLAS := ../field-atlas
 PANDOC ?= pandoc
 # pandoc-crossref must be on PATH and built for the same pandoc minor version (docs/BUILD.md)
 CROSSREF ?= pandoc-crossref
+# {{Visualize}} figures: the filter writes the manifest, render.py draws (docs/VISUALIZE.md)
+VISUALIZE := $(ROOT)/lib/visualize/render.py
+VIZ_MANIFEST := $(BLD)/visualize/manifest.json
 XELATEX ?= xelatex
 
 CHAPTERS := $(wildcard chapters/*.md)
@@ -12,7 +15,7 @@ APPENDICES := $(wildcard appendices/*.md)
 PARTS := $(wildcard parts/*.md)
 SOURCES := textbook.md textbook.yaml $(PARTS) $(CHAPTERS) $(APPENDICES)
 REGISTRY := $(wildcard $(ROOT)/registry/levels/*.yaml) $(wildcard $(ROOT)/registry/levels/*.md) $(wildcard $(ROOT)/registry/examples/*.yaml) $(wildcard $(ROOT)/registry/questions/*.yaml) $(ROOT)/registry/eras.yaml
-FILTERS := $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/unicode-glyphs.lua $(ROOT)/lib/format/programme-refs.lua $(ROOT)/registry/papers.yaml $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua filters/course-numbering.lua filters/textbook-layout.lua filters/textbook-boxes.lua
+FILTERS := $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/unicode-glyphs.lua $(ROOT)/lib/format/programme-refs.lua $(ROOT)/registry/papers.yaml $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua filters/course-numbering.lua $(ROOT)/lib/format/visualize.lua $(VISUALIZE) filters/textbook-layout.lua filters/textbook-boxes.lua
 DEFAULTS := defaults/a4.yaml defaults/html.yaml $(ROOT)/lib/defaults/base-pdf.yaml $(ROOT)/lib/defaults/base-html.yaml
 TEMPLATES := templates/textbook-a4-header.tex templates/textbook.css
 # Generated figures: one stamp for everything figures/build_figures.py writes.
@@ -42,6 +45,7 @@ $(TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURE_STAM
 	$(PANDOC) --defaults=defaults/a4.yaml --eol=lf
 
 $(PDF): $(TEX)
+	$(PYTHON) $(VISUALIZE) $(VIZ_MANIFEST)
 	$(XELATEX) -interaction=nonstopmode -halt-on-error -output-directory=$(BLD) $(TEX)
 	$(XELATEX) -interaction=nonstopmode -halt-on-error -output-directory=$(BLD) $(TEX)
 
@@ -57,6 +61,7 @@ $(HTML_INDEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGU
 	cp templates/textbook.css "$(HTML)/textbook.css"
 	@command -v $(CROSSREF) >/dev/null || { echo "$(CROSSREF) not found on PATH (docs/BUILD.md)"; exit 1; }
 	$(PANDOC) --defaults=defaults/html.yaml --eol=lf
+	$(PYTHON) $(VISUALIZE) $(VIZ_MANIFEST)
 
 check: a4
 	$(PYTHON) $(ATLAS)/scripts/check_prose.py $(CHAPTERS)

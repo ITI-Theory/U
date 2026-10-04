@@ -4,7 +4,7 @@
 
 Heat a thin tube of hydrogen until it glows and pass the light through a prism. Instead of a rainbow you see four sharp coloured lines on a dark background: red, blue-green, blue and violet. Every hydrogen atom in the universe produces exactly these four, which is how astronomers know what distant stars are made of. Classical physics cannot explain them. This chapter shows how two quantum ideas, light arriving in packets and electrons behaving as waves, turn the four lines into a calculation that, with two small corrections, matches measurement to one part in sixty thousand. @ch:response's response grammar then reads a spectrum as a list of a system's natural frequencies.
 
-**Chapter outline.** 3.1 Light arrives in packets · 3.2 The hydrogen spectrum · 3.3 Electrons are waves too · 3.4 Why atoms have a size · 3.5 Reading a spectral line · 3.6 Lines as poles
+**Chapter outline.** [-@sec:atoms-light-arrives-packets] Light arrives in packets · [-@sec:atoms-hydrogen-spectrum] The hydrogen spectrum · [-@sec:atoms-electrons-are-waves] Electrons are waves too · [-@sec:atoms-atoms-have-size] Why atoms have a size · [-@sec:atoms-reading-spectral-line] Reading a spectral line · [-@sec:atoms-lines-poles] Lines as poles
 
 ## Light arrives in packets {#sec:atoms-light-arrives-packets}
 
@@ -273,17 +273,17 @@ Line quality factor
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**3.1** Light delivers energy in photons of $E = hf$; with $hc = 1240\,\mathrm{eV\,nm}$, visible photons carry $1.8$ to $3.3\,\mathrm{eV}$.
+**[-@sec:atoms-light-arrives-packets]** Light delivers energy in photons of $E = hf$; with $hc = 1240\,\mathrm{eV\,nm}$, visible photons carry $1.8$ to $3.3\,\mathrm{eV}$.
 
-**3.2** Hydrogen's levels are $E_n = -13.6\,\mathrm{eV}/n^2$. Jumps between them produce its lines; with small known corrections the red line is predicted to one part in sixty thousand.
+**[-@sec:atoms-hydrogen-spectrum]** Hydrogen's levels are $E_n = -13.6\,\mathrm{eV}/n^2$. Jumps between them produce its lines; with small known corrections the red line is predicted to one part in sixty thousand.
 
-**3.3** Electrons have wavelength $h/p$, confirmed by diffraction. Confined waves have discrete patterns, which is why levels are discrete.
+**[-@sec:atoms-electrons-are-waves]** Electrons have wavelength $h/p$, confirmed by diffraction. Confined waves have discrete patterns, which is why levels are discrete.
 
-**3.4** Confinement costs energy. Balancing that cost against Coulomb attraction gives the size of hydrogen, $0.0529\,\mathrm{nm}$, and its binding energy, $13.6\,\mathrm{eV}$.
+**[-@sec:atoms-atoms-have-size]** Confinement costs energy. Balancing that cost against Coulomb attraction gives the size of hydrogen, $0.0529\,\mathrm{nm}$, and its binding energy, $13.6\,\mathrm{eV}$.
 
-**3.5** A line's position measures motion, its width the lifetime of a level, its strength the temperature. Atoms ring with $Q$ near $10^{7}$.
+**[-@sec:atoms-reading-spectral-line]** A line's position measures motion, its width the lifetime of a level, its strength the temperature. Atoms ring with $Q$ near $10^{7}$.
 
-**3.6** A spectrum is the pole set of an atom's response, and a particle is a pole of a field's propagator. The programme's percept-as-pole proposal reuses this structure; its arithmetic is machine-checked, its application to people is open.
+**[-@sec:atoms-lines-poles]** A spectrum is the pole set of an atom's response, and a particle is a pole of a field's propagator. The programme's percept-as-pole proposal reuses this structure; its arithmetic is machine-checked, its application to people is open.
 :::
 
 ## Review Questions {.unnumbered}

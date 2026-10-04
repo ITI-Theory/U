@@ -4,7 +4,7 @@
 
 The last level of the Atlas is the universe itself. Cosmology asks how big it is, how old, what it is made of and how it has changed, and over the last century those questions have moved from speculation to measurement. The universe is expanding; it was once hot and dense; it rang with sound waves whose imprint can still be measured; and about $95\,\%$ of its energy is in two forms, dark matter and dark energy, whose nature is unknown. That last fact is where the programme behind this Atlas makes its boldest proposals. This chapter builds the standard picture first, then states those proposals in full, with the arithmetic, the assumptions and the tests that could refute them.
 
-**Chapter outline.** 10.1 An expanding universe · 10.2 The budget of the universe · 10.3 The afterglow of the hot beginning · 10.4 The universe rang · 10.5 What the programme proposes for the dark sectors · 10.6 Testing the proposal
+**Chapter outline.** [-@sec:cosmology-expanding-universe] An expanding universe · [-@sec:cosmology-budget-universe] The budget of the universe · [-@sec:cosmology-afterglow-hot-beginning] The afterglow of the hot beginning · [-@sec:cosmology-universe-rang] The universe rang · [-@sec:cosmology-programme-proposes-dark] What the programme proposes for the dark sectors · [-@sec:cosmology-testing-proposal] Testing the proposal
 
 ## An expanding universe {#sec:cosmology-expanding-universe}
 
@@ -231,17 +231,17 @@ Programme's counting rule
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**10.1** Galaxies recede at $v = H_0d$; expansion has no centre; the Hubble time is $14.5$ billion years.
+**[-@sec:cosmology-expanding-universe]** Galaxies recede at $v = H_0d$; expansion has no centre; the Hubble time is $14.5$ billion years.
 
-**10.2** A flat universe has the critical density, $8.5\times10^{-27}\,\mathrm{kg\,m^{-3}}$; it is $68.5\,\%$ dark energy, $26.5\,\%$ dark matter and $4.9\,\%$ ordinary matter.
+**[-@sec:cosmology-budget-universe]** A flat universe has the critical density, $8.5\times10^{-27}\,\mathrm{kg\,m^{-3}}$; it is $68.5\,\%$ dark energy, $26.5\,\%$ dark matter and $4.9\,\%$ ordinary matter.
 
-**10.3** The CMB is light released at $3000\,\mathrm{K}$, when hydrogen became neutral, redshifted to $2.7\,\mathrm{K}$.
+**[-@sec:cosmology-afterglow-hot-beginning]** The CMB is light released at $3000\,\mathrm{K}$, when hydrogen became neutral, redshifted to $2.7\,\mathrm{K}$.
 
-**10.4** Sound waves in the early plasma left peaks in the CMB and a $150\,\mathrm{Mpc}$ ruler in the galaxy distribution.
+**[-@sec:cosmology-universe-rang]** Sound waves in the early plasma left peaks in the CMB and a $150\,\mathrm{Mpc}$ ruler in the galaxy distribution.
 
-**10.5** The programme proposes $\Omega_\Lambda = 7/11$, $\Omega_\mathrm{DM} = 3/11$ and $\Omega_b = 1/22$ from counting dimensions; these lie $7.1\,\%$, $3.1\,\%$ and $7.8\,\%$ from measurement.
+**[-@sec:cosmology-programme-proposes-dark]** The programme proposes $\Omega_\Lambda = 7/11$, $\Omega_\mathrm{DM} = 3/11$ and $\Omega_b = 1/22$ from counting dimensions; these lie $7.1\,\%$, $3.1\,\%$ and $7.8\,\%$ from measurement.
 
-**10.6** The arithmetic is machine-checked, the identification is an open hypothesis, and the proposal makes predictions that could refute it.
+**[-@sec:cosmology-testing-proposal]** The arithmetic is machine-checked, the identification is an open hypothesis, and the proposal makes predictions that could refute it.
 :::
 
 ## Review Questions {.unnumbered}

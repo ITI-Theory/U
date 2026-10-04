@@ -4,7 +4,7 @@
 
 On a winter evening over Rome, a flock of several thousand starlings wheels, folds and splits like a single liquid body, and then turns all at once. No bird leads. Each one sees only a handful of others, reacts in about a tenth of a second, and knows nothing of the flock's overall shape. How a crowd of individuals, each following simple local rules, produces a coherent whole is one of the central questions of modern physics, and flocks are its most beautiful example. This chapter gives the measured answers: what rules a starling follows, when local alignment produces global order, and how a turn crosses a flock faster than any bird could pass it on by imitation alone. It then looks at engineered swarms, where the programme behind this Atlas makes a specific claim about coordinating many agents, and labels that claim carefully.
 
-**Chapter outline.** 7.1 Rules without a leader · 7.2 Order from noise · 7.3 Who listens to whom · 7.4 How a turn crosses a flock · 7.5 Swarms by design · 7.6 What the programme claims for flocks and swarms
+**Chapter outline.** [-@sec:flocks-rules-without-leader] Rules without a leader · [-@sec:flocks-order-noise] Order from noise · [-@sec:flocks-who-listens-whom] Who listens to whom · [-@sec:flocks-turn-crosses-flock] How a turn crosses a flock · [-@sec:flocks-swarms-design] Swarms by design · [-@sec:flocks-programme-claims-flocks] What the programme claims for flocks and swarms
 
 ## Rules without a leader {#sec:flocks-rules-without-leader}
 
@@ -194,17 +194,17 @@ Coordination cost
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**7.1** Flocking can be produced by local rules; Vicsek's model keeps only alignment with noise, measured by the polarisation.
+**[-@sec:flocks-rules-without-leader]** Flocking can be produced by local rules; Vicsek's model keeps only alignment with noise, measured by the polarisation.
 
-**7.2** Alignment produces an order–disorder transition; because the agents move, true long-range order is possible even in two dimensions.
+**[-@sec:flocks-order-noise]** Alignment produces an order–disorder transition; because the agents move, true long-range order is possible even in two dimensions.
 
-**7.3** Starlings align with about seven nearest neighbours regardless of distance, which keeps thinning flocks cohesive.
+**[-@sec:flocks-who-listens-whom]** Starlings align with about seven nearest neighbours regardless of distance, which keeps thinning flocks cohesive.
 
-**7.4** Turns cross flocks as waves at $20$–$40\,\mathrm{m\,s^{-1}}$, which requires turning inertia; correlations span the whole flock.
+**[-@sec:flocks-turn-crosses-flock]** Turns cross flocks as waves at $20$–$40\,\mathrm{m\,s^{-1}}$, which requires turning inertia; correlations span the whole flock.
 
-**7.5** A precomputed propagator replaces $K$ rounds of consensus with one step when $K > N$; computing $G$ costs about $N^3$.
+**[-@sec:flocks-swarms-design]** A precomputed propagator replaces $K$ rounds of consensus with one step when $K > N$; computing $G$ costs about $N^3$.
 
-**7.6** The propagator arithmetic is machine-checked; its engineering advantage and the cross-level grammar are open or interpretive; a flock mind is not claimed.
+**[-@sec:flocks-programme-claims-flocks]** The propagator arithmetic is machine-checked; its engineering advantage and the cross-level grammar are open or interpretive; a flock mind is not claimed.
 :::
 
 ## Review Questions {.unnumbered}

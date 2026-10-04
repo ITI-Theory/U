@@ -54,6 +54,12 @@ textbook edition) is built the same way:
    pandoc-crossref must be on `PATH` and built for the same pandoc minor
    version (`pandoc-crossref --version`); currently pandoc 3.10.2 with
    pandoc-crossref 0.3.25 (built on 3.10.1).
+4c. **Figures are drawn from equations.** A course-book figure that
+   illustrates maths is a `{{Visualize | context | primitive:concept |
+   params}}` macro (docs/VISUALIZE.md): the context must label something
+   earlier, the drawing is computed from the expression in the text, and
+   `expect_*` parameters check quoted numbers. No hand-drawn or
+   AI-generated physics figures.
 5. **No build scripts that write markup.** Python (or any other language)
    must not generate Markdown, LaTeX or HTML for a document build. Allowed
    uses of Python: validators (`check_*.py`), figure generation (matplotlib

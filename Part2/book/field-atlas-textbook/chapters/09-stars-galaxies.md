@@ -4,7 +4,7 @@
 
 Every fact we know about the stars has arrived as light. No probe has visited another star, yet we know their temperatures, sizes, masses, ages, compositions and speeds, and we know that the galaxies they belong to are dominated by something that gives no light at all. This chapter shows how. It uses the tools of the earlier chapters directly: the photons and spectral lines of @ch:atoms, the Doppler shift and line widths of @sec:atoms-reading-spectral-line, the Boltzmann factor of @ch:cells and the ringing of @ch:response. The stars are the most distant laboratory in this book and, in some ways, the best understood.
 
-**Chapter outline.** 9.1 Starlight as a thermometer · 9.2 How far, how bright · 9.3 How stars live and die · 9.4 Gravity bends time · 9.5 Weighing galaxies · 9.6 What the programme claims for stars and galaxies
+**Chapter outline.** [-@sec:stars-starlight-thermometer] Starlight as a thermometer · [-@sec:stars-far-bright] How far, how bright · [-@sec:stars-stars-live-die] How stars live and die · [-@sec:stars-gravity-bends-time] Gravity bends time · [-@sec:stars-weighing-galaxies] Weighing galaxies · [-@sec:stars-programme-claims-stars] What the programme claims for stars and galaxies
 
 ## Starlight as a thermometer {#sec:stars-starlight-thermometer}
 
@@ -237,17 +237,17 @@ Enclosed mass from orbits
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**9.1** A star's colour gives its temperature; its hydrogen-line strength peaks near $10\,000\,\mathrm{K}$ because of excitation and ionisation, which showed that stars are mostly hydrogen.
+**[-@sec:stars-starlight-thermometer]** A star's colour gives its temperature; its hydrogen-line strength peaks near $10\,000\,\mathrm{K}$ because of excitation and ionisation, which showed that stars are mostly hydrogen.
 
-**9.2** Parallax gives distance without assumptions; with distance, flux gives luminosity.
+**[-@sec:stars-far-bright]** Parallax gives distance without assumptions; with distance, flux gives luminosity.
 
-**9.3** Fusion converts mass to energy; lifetimes fall steeply with mass; stars end as white dwarfs, neutron stars or black holes.
+**[-@sec:stars-stars-live-die]** Fusion converts mass to energy; lifetimes fall steeply with mass; stars end as white dwarfs, neutron stars or black holes.
 
-**9.4** Clocks deeper in gravity run slow; GPS corrects $38.5\,\mu\mathrm{s}$ a day.
+**[-@sec:stars-gravity-bends-time]** Clocks deeper in gravity run slow; GPS corrects $38.5\,\mu\mathrm{s}$ a day.
 
-**9.5** Flat rotation curves, measured with the 21 cm line, show that galaxies are dominated by dark matter.
+**[-@sec:stars-weighing-galaxies]** Flat rotation curves, measured with the 21 cm line, show that galaxies are dominated by dark matter.
 
-**9.6** The programme keeps tested gravity unchanged; its dark-sector proposals are cosmological and are labelled in @ch:cosmology.
+**[-@sec:stars-programme-claims-stars]** The programme keeps tested gravity unchanged; its dark-sector proposals are cosmological and are labelled in @ch:cosmology.
 :::
 
 ## Review Questions {.unnumbered}

@@ -4,7 +4,7 @@
 
 Above the village of Elm in the canton of Glarus, a sharp line runs across the face of the mountains. Above it lies reddish rock some 250 to 300 million years old; below it lies grey rock about 40 million years old. The older rock sits on top of the younger because it was pushed there, sliding tens of kilometres over it as Africa pressed into Europe and the Alps were built. The line, the Glarus thrust, is a record. Rocks keep records of the forces they have felt, the temperatures they have reached and the time that has passed, and geologists read them as a historian reads documents. This chapter introduces the clocks that measure geological time, the slow motions of the plates, the friction that makes rocks stick and slip, and the climate's own landscape of stable states. It ends with the programme's reading of geological memory and its limits.
 
-**Chapter outline.** 8.1 Radioactive clocks · 8.2 Moving plates · 8.3 Rock that remembers · 8.4 A ringing, shaking planet · 8.5 Climate states and tipping points · 8.6 What the programme claims for the Earth
+**Chapter outline.** [-@sec:earth-radioactive-clocks] Radioactive clocks · [-@sec:earth-moving-plates] Moving plates · [-@sec:earth-rock-that-remembers] Rock that remembers · [-@sec:earth-ringing-shaking-planet] A ringing, shaking planet · [-@sec:earth-climate-states-tipping] Climate states and tipping points · [-@sec:earth-programme-claims-earth] What the programme claims for the Earth
 
 ## Radioactive clocks {#sec:earth-radioactive-clocks}
 
@@ -224,17 +224,17 @@ Effective radiating temperature
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**8.1** Radioactive decay is an unchangeable exponential, so isotopes are clocks; the Earth is $4.54$ billion years old.
+**[-@sec:earth-radioactive-clocks]** Radioactive decay is an unchangeable exponential, so isotopes are clocks; the Earth is $4.54$ billion years old.
 
-**8.2** Plates move a few centimetres a year, enough to open oceans and raise mountains over millions of years.
+**[-@sec:earth-moving-plates]** Plates move a few centimetres a year, enough to open oceans and raise mountains over millions of years.
 
-**8.3** Faults slip by the Coulomb criterion, weakened by fluid pressure. Rate-and-state friction remembers its history, and velocity weakening produces earthquakes.
+**[-@sec:earth-rock-that-remembers]** Faults slip by the Coulomb criterion, weakened by fluid pressure. Rate-and-state friction remembers its history, and velocity weakening produces earthquakes.
 
-**8.4** Earthquake sizes follow a scale-free law; great earthquakes set the planet ringing.
+**[-@sec:earth-ringing-shaking-planet]** Earthquake sizes follow a scale-free law; great earthquakes set the planet ringing.
 
-**8.5** Ice–albedo feedback can give the climate two stable states; tipping elements may show critical slowing before abrupt change.
+**[-@sec:earth-climate-states-tipping]** Ice–albedo feedback can give the climate two stable states; tipping elements may show critical slowing before abrupt change.
 
-**8.6** Physical memory in rocks is measured; the programme's reading of it as a slow memory kernel is interpretive, and rocks are not said to feel.
+**[-@sec:earth-programme-claims-earth]** Physical memory in rocks is measured; the programme's reading of it as a slow memory kernel is interpretive, and rocks are not said to feel.
 :::
 
 ## Review Questions {.unnumbered}

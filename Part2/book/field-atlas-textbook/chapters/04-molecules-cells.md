@@ -4,7 +4,7 @@
 
 A living cell is a small bag of salt water wrapped in an oily film five nanometres thick. Across that film it holds a voltage of about seventy millivolts, and by opening and closing molecular pores it can send a pulse of voltage along a fibre a metre long in a few hundredths of a second. Every thought, heartbeat and movement depends on this. This chapter climbs from the chemical bond to the nerve impulse using only ideas already in the book: the energy scales of @ch:atoms, the response kernels of @ch:response, and one new ingredient, a threshold. It ends with networks of threshold cells that store memories, which is where the programme behind this Atlas makes its proposal.
 
-**Chapter outline.** 4.1 Strong bonds, weak bonds and the thermal bath · 4.2 The membrane: a charged capacitor · 4.3 Passive spread: the cable · 4.4 The action potential: all or none · 4.5 From cells to networks: memory as a landscape · 4.6 A field that tunes the landscape
+**Chapter outline.** [-@sec:cells-strong-bonds-weak] Strong bonds, weak bonds and the thermal bath · [-@sec:cells-membrane-charged-capacitor] The membrane: a charged capacitor · [-@sec:cells-passive-spread-cable] Passive spread: the cable · [-@sec:cells-action-potential-all] The action potential: all or none · [-@sec:cells-cells-networks-memory] From cells to networks: memory as a landscape · [-@sec:cells-field-that-tunes] A field that tunes the landscape
 
 ## Strong bonds, weak bonds and the thermal bath {#sec:cells-strong-bonds-weak}
 
@@ -254,17 +254,17 @@ Field-modulated network
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**4.1** Covalent bonds (a few eV) are far above $k_BT$ and hold shapes; hydrogen bonds (about $8\,k_BT$) constantly break and re-form, and life runs on them.
+**[-@sec:cells-strong-bonds-weak]** Covalent bonds (a few eV) are far above $k_BT$ and hold shapes; hydrogen bonds (about $8\,k_BT$) constantly break and re-form, and life runs on them.
 
-**4.2** A membrane is a capacitor charged by ion gradients. Nernst potentials set the limits; one ion in sixty thousand sets the resting voltage.
+**[-@sec:cells-membrane-charged-capacitor]** A membrane is a capacitor charged by ion gradients. Nernst potentials set the limits; one ion in sixty thousand sets the resting voltage.
 
-**4.3** Passive voltage spreads with length constant $\lambda \approx 1\,\mathrm{mm}$ and time constant $\tau \approx 10\,\mathrm{ms}$: the cable's Green's function.
+**[-@sec:cells-passive-spread-cable]** Passive voltage spreads with length constant $\lambda \approx 1\,\mathrm{mm}$ and time constant $\tau \approx 10\,\mathrm{ms}$: the cable's Green's function.
 
-**4.4** Sodium feedback makes the spike all-or-none above a threshold; near threshold the response slows. Myelin speeds conduction to $120\,\mathrm{m\,s^{-1}}$.
+**[-@sec:cells-action-potential-all]** Sodium feedback makes the spike all-or-none above a threshold; near threshold the response slows. Myelin speeds conduction to $120\,\mathrm{m\,s^{-1}}$.
 
-**4.5** A Hopfield network stores patterns as valleys of an energy landscape and recalls by rolling downhill.
+**[-@sec:cells-cells-networks-memory]** A Hopfield network stores patterns as valleys of an energy landscape and recalls by rolling downhill.
 
-**4.6** The programme's FM-HN lets a somatic field reshape the landscape. Its reduction to the standard network is machine-checked; its application to bodies is an open hypothesis.
+**[-@sec:cells-field-that-tunes]** The programme's FM-HN lets a somatic field reshape the landscape. Its reduction to the standard network is machine-checked; its application to bodies is an open hypothesis.
 :::
 
 ## Review Questions {.unnumbered}

@@ -4,7 +4,7 @@
 
 In 1665 Christiaan Huygens, ill in bed, noticed that two pendulum clocks hanging from the same beam always ended up swinging in exact opposition, however he started them. The beam carried tiny vibrations from one clock to the other, and those were enough. Since then the same effect has been found in fireflies flashing in unison, pacemaker cells in the heart, applauding audiences, walkers on a swaying bridge and two people in conversation who drift into the same rhythm of speech and movement. This chapter develops the physics of **synchronisation**: when coupled rhythms lock, when they slip, and how a common rhythm can appear in a crowd of individuals who each keep their own time. It then states what the programme behind this Atlas adds for two people and for groups, and what it does not claim.
 
-**Chapter outline.** 6.1 Describing a rhythm by its phase · 6.2 Two oscillators: locking and slipping · 6.3 Many oscillators: the onset of collective rhythm · 6.4 Crowds in step · 6.5 Coupled landscapes · 6.6 What the programme claims for dyads and groups
+**Chapter outline.** [-@sec:groups-describing-rhythm-phase] Describing a rhythm by its phase · [-@sec:groups-oscillators-locking-slipping] Two oscillators: locking and slipping · [-@sec:groups-many-oscillators-onset] Many oscillators: the onset of collective rhythm · [-@sec:groups-crowds-step] Crowds in step · [-@sec:groups-coupled-landscapes] Coupled landscapes · [-@sec:groups-programme-claims-dyads] What the programme claims for dyads and groups
 
 ## Describing a rhythm by its phase {#sec:groups-describing-rhythm-phase}
 
@@ -231,17 +231,17 @@ Coupled landscapes
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**6.1** A self-sustained rhythm is described by its phase, which advances at its natural frequency; weak coupling only nudges phases.
+**[-@sec:groups-describing-rhythm-phase]** A self-sustained rhythm is described by its phase, which advances at its natural frequency; weak coupling only nudges phases.
 
-**6.2** Two oscillators lock when $2\kappa \ge |\Delta\omega|$, with a lag that grows towards a quarter cycle at threshold; below it the gap slips.
+**[-@sec:groups-oscillators-locking-slipping]** Two oscillators lock when $2\kappa \ge |\Delta\omega|$, with a lag that grows towards a quarter cycle at threshold; below it the gap slips.
 
-**6.3** A crowd of oscillators synchronises all at once above a critical coupling $K_c = 2\gamma$, with order $r = \sqrt{1 - K_c/K}$.
+**[-@sec:groups-many-oscillators-onset]** A crowd of oscillators synchronises all at once above a critical coupling $K_c = 2\gamma$, with order $r = \sqrt{1 - K_c/K}$.
 
-**6.4** Applause and a swaying bridge show measured thresholds. Each needs a physical channel carrying the coupling.
+**[-@sec:groups-crowds-step]** Applause and a swaying bridge show measured thresholds. Each needs a physical channel carrying the coupling.
 
-**6.5** Coupling two landscapes lowers the energy of matching states without merging the systems.
+**[-@sec:groups-coupled-landscapes]** Coupling two landscapes lowers the energy of matching states without merging the systems.
 
-**6.6** The programme reads attunement as coupled landscapes and shared poles. The algebra is nearly machine-checked; the application to people is an open hypothesis; a crowd mind is not claimed.
+**[-@sec:groups-programme-claims-dyads]** The programme reads attunement as coupled landscapes and shared poles. The algebra is nearly machine-checked; the application to people is an open hypothesis; a crowd mind is not claimed.
 :::
 
 ## Review Questions {.unnumbered}

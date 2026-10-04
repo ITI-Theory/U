@@ -4,7 +4,7 @@
 
 Strike a bell, tap a wine glass, kick a swing, inject a pulse of current into a nerve cell: each system answers in its own way, and the answer is the most informative thing it can tell you about itself. This chapter introduces the single most useful idea in the book, the **response function** or **Green's function**. It is the system's reply to one sharp kick, and once it is known the reply to *any* input follows by adding up kicks. The idea is pure physics and mathematics. At the end of the chapter it becomes the backbone of the [T]-Theory reading of every level.
 
-**Chapter outline.** 2.1 The damped oscillator · 2.2 The impulse response · 2.3 Adding up kicks: convolution · 2.4 Resonance and the quality factor · 2.5 Response in space: how far a disturbance reaches · 2.6 One grammar across the levels
+**Chapter outline.** [-@sec:response-damped-oscillator] The damped oscillator · [-@sec:response-impulse-response] The impulse response · [-@sec:response-adding-up-kicks] Adding up kicks: convolution · [-@sec:response-resonance-quality-factor] Resonance and the quality factor · [-@sec:response-response-space-far] Response in space: how far a disturbance reaches · [-@sec:response-grammar-across-levels] One grammar across the levels
 
 ## The damped oscillator {#sec:response-damped-oscillator}
 
@@ -229,17 +229,17 @@ Yukawa response and range
 ## Summary {.unnumbered}
 
 ::: {.summary}
-**2.1** A damped oscillator is characterised by $\omega_0$, $\gamma$ and the ratio $\zeta$; $Q = 1/2\zeta$ measures how long it rings.
+**[-@sec:response-damped-oscillator]** A damped oscillator is characterised by $\omega_0$, $\gamma$ and the ratio $\zeta$; $Q = 1/2\zeta$ measures how long it rings.
 
-**2.2** The impulse response $G(t)$ is the reply to one unit kick. It is zero before the kick and contains everything about a linear system.
+**[-@sec:response-impulse-response]** The impulse response $G(t)$ is the reply to one unit kick. It is zero before the kick and contains everything about a linear system.
 
-**2.3** Any input is a sum of kicks, so any response is a convolution of the input with $G$. Timing decides whether kicks reinforce or cancel.
+**[-@sec:response-adding-up-kicks]** Any input is a sum of kicks, so any response is a convolution of the input with $G$. Timing decides whether kicks reinforce or cancel.
 
-**2.4** Driven steadily, an oscillator resonates near $\omega_0$ with a peak $Q$ times the static response and width $\omega_0/Q$. The Earth's ${}_0S_2$ mode rings for days; a black hole for one cycle.
+**[-@sec:response-resonance-quality-factor]** Driven steadily, an oscillator resonates near $\omega_0$ with a peak $Q$ times the static response and width $\omega_0/Q$. The Earth's ${}_0S_2$ mode rings for days; a black hole for one cycle.
 
-**2.5** Spatial responses can be long-range (Coulomb, $1/r$) or short-range (Yukawa, $e^{-r/\lambda}/r$); a massive carrier sets a finite range.
+**[-@sec:response-response-space-far]** Spatial responses can be long-range (Coulomb, $1/r$) or short-range (Yukawa, $e^{-r/\lambda}/r$); a massive carrier sets a finite range.
 
-**2.6** The same causal-kernel grammar appears at every level. Its use for emotional response is the programme's labelled proposal.
+**[-@sec:response-grammar-across-levels]** The same causal-kernel grammar appears at every level. Its use for emotional response is the programme's labelled proposal.
 :::
 
 ## Review Questions {.unnumbered}
