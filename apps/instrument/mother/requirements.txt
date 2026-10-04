@@ -1,2 +1,2 @@
-notebooklm-py[browser]==0.8.3
+notebooklm-py[browser]==0.8.4
 pywinpty==3.0.5
