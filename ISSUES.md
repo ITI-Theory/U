@@ -952,3 +952,37 @@ the machine. Advice recorded 2026-10-04 (see the session archive):
 - [ ] Decide on hardware from that experience (24 GB is the sensible step;
    48 GB only if the local model becomes the main MOTHER).
 
+---
+
+## ISS-040: Field Atlas print edition for bookfactory.ch, and plate-led layout — OPEN
+{{Tags area.books}}
+{{Fields date.created=2026-10-04, date.start=2026-10-04, date.end=, epic=}}
+
+**Printer (author, 2026-10-04):** bookfactory.ch Premium Plus, Jumbo landscape
+40 x 29.4 cm, Magno Satin 170 g, **black** Japanese silk cover, gold
+embossing; 16-400 pages. (Earlier plan, 1-2 Oct: Lulu for every other book,
+in black linen; Lulu has no A3.)
+
+**Done 2026-10-04:**
+- [x] `make -C Part2/book/field-atlas bookfactory`: same content as the A3
+   edition at 406 x 300 mm (400 x 294 trim + 3 mm bleed; margins = A3 + bleed;
+   full-page plates already reach the bleed). The target fails on an odd page
+   count or more than 400 pages. First build: 200 pages.
+
+**Actions:**
+- [ ] Author: confirm bleed and safe zone in bookfactory's PDF-to-Book
+   configurator (3 mm assumed); check whether they want single pages or spreads.
+- [ ] Cover file (spine width from bookfactory for the final page count), or
+   embossing text only if Premium Plus covers are unprinted.
+- [ ] Plate-led level spreads (brainstorm, author to confirm): each level
+   opens on a right-hand page with the level table alone, designed as an
+   artistic page; the image plates follow full page, starting on a left-hand
+   page so plates face each other; the 4D / 8D / 11D triptych becomes three
+   full pages (currently squeezed under the table, which clips the figures,
+   e.g. Human / Vertebrate p. 59). Roughly 31 x 4-5 pages: about 300-330
+   pages in all, within the 400 maximum.
+- [ ] Companion volume (brainstorm, author to confirm): the theory book as a
+   second A3 landscape volume read alongside the Atlas, with each Atlas level
+   pointing to the theory pages to read with it, so leafing through the Atlas
+   iterates through the theory chapters.
+

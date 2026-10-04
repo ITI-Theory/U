@@ -1,0 +1,33 @@
+# Print edition for bookfactory.ch (see ISSUES.md ISS-040). Same content as a3.yaml.
+# citeproc runs explicitly after the filters (see filters list)
+citeproc: false
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: atlas.yaml
+input-files:
+  - atlas.md
+output-file: ../../../bld/atlas/field-atlas-bookfactory.tex
+to: latex
+resource-path:
+  - .
+  - ../../..
+bibliography: ../../../paper/bibliography.bib
+csl: ../../../paper/apa-7th.csl
+include-in-header:
+  - templates/a3-header.tex
+variables:
+  # bookfactory.ch Premium Plus Jumbo: trim 400 x 294 mm plus 3 mm bleed a side
+  # (confirm the bleed in their PDF-to-Book configurator). Margins are the A3
+  # margins plus the bleed, so text sits in the same place after trimming.
+  geometry: paperwidth=406mm,paperheight=300mm,margin=21mm,top=23mm,bottom=23mm
+  fontsize: 11pt
+  linestretch: 1.12
+filters:
+  - ../../../lib/format/registry.lua
+  - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/programme-refs.lua
+  - ../../../lib/format/plates.lua
+  - ../../../lib/format/columns.lua
+  - type: citeproc
+metadata:
+  programme-papers: ../../../registry/papers.yaml
