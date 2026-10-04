@@ -1036,3 +1036,57 @@ AI-drawn physics figures.
 - [ ] Licence check of each OpenStax maths source.
 - [ ] Then build: A4 defaults, restructure, toolkit, Visualize macro.
 
+---
+
+## ISS-042: Collected Works side files (Me/chats/notebooks/The_Soma-Field_Collected_Works) — OPEN
+{{Tags area.app, area.proofs, area.books}}
+{{Fields date.created=2026-10-05, date.start=, date.end=, epic=}}
+
+Audit 2026-10-05 of the 50 files exported with the Collected Works chat
+(2026-09-30). Most are earlier versions of work U now does differently or
+better: the operator specs v1-v6, `main*.js`, `setup-soma-app*.sh`,
+`style*.css`, the visual engines and test harnesses (the app in
+`apps/instrument/visuals/soma-field-operator/`, ISS-026); `soma-server.js`
+and `soma-midi-bridge.js` (`apps/instrument/server.py`, `midi_input.py`,
+`osc_output.py`); `soma-machine-fmhn.py` (`field_render.py`); the AI loop,
+bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
+
+**Lean files (none in the proof build):**
+- `SomaUniverse.lean`: already handled. A copy is in `uat/RC1.1/inbox/`; its
+  11D isomorphism is the proved `somaField_iso_mtheory`
+  (`MTheoryIsomorphism.lean`); its `SomaticIO ≃ ImpulseResponse` claim is
+  recorded above as too strong.
+- `SomaPhilosophy.lean` (Spinoza, Kant) and `SinnfeldOntology (1).lean`
+  (Gabriel's fields of sense, Russell's epochs): not usable as written. They
+  are headed "verified" but carry four `sorry`s, and three theorems are false
+  or unprovable as stated: `raw_noumenon_latent` (its hypothesis is unused;
+  an 11D observer yields Thought, not Extension), `spinozist_parallelism`
+  (asks for an equality of two distinct types), `philosophy_time_invariance`
+  (two Sinnfelder can share the rationality flag yet differ in rules).
+
+**Actions:**
+- [ ] Optional small, honest Lean file for the philosophy band: Russell's
+   epochs as an ordered type matching `registry/eras.yaml`'s philosophy band,
+   and the true statement that `philosophyZoom` preserves rationality
+   (`rfl`). Label `kernel-verified` only for what it proves.
+- [ ] Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent
+   emotion only at biological scales, structural contours elsewhere
+   (Davies, Barrett). The claim boundary is already in
+   `SOMA-MACHINE-MVP.md`; decide whether the typed version (Lean types, HUD
+   retyping) is wanted.
+- [ ] UI completeness claim (`ttheory-ui-completeness-proof.md`, prose only):
+   either state and prove a precise control-to-state surjectivity, or drop the
+   word "proof".
+- [ ] Instrument extras not in U, author to decide: ERAE touch controller over
+   MIDI 2.0 via Bome (`soma-erae-bome-routing (1).js`); foot-pedal zoom
+   (`soma-pedal-zoom (1).sh`); Conky desktop status panel
+   (`soma-machine-conky.conf`); TouchDesigner Mandelbulb render
+   (`soma-touchdesigner-mandelbulb (1).py`).
+- [ ] Workflow extras: Neovim config (`soma-neovim-init.lua`; the MOTHER shell
+   already offers Neovim when installed); a Markdown task engine
+   (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover
+   it); `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
+- [ ] `ttheory-cheatsheets-vault.md` (11 book assets, equations, field notes):
+   check against the current cheat-sheet sources (ISS-031) for anything not
+   carried over.
+
