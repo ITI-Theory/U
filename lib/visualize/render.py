@@ -579,6 +579,7 @@ def draw_distribution(spec: Spec):
             ax.fill_between(xs[m], p[m], color=spec.colors[2], alpha=0.4, label=f"P = {prob:.3f}")
             spec.expect("expect_prob", prob)
         spec.labels(ax, "$x$", "probability density")
+    reference_lines(spec, ax)
     if ax.get_legend_handles_labels()[0]:
         ax.legend(frameon=False)
     return fig

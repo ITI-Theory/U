@@ -342,6 +342,49 @@ def frontier() -> None:
     B = np.diag([1.0, 3.0])
     close("P13.5 ratio", float(np.linalg.norm(B - 2 * np.eye(2)) / np.linalg.norm(B)), 0.45, 0.005)
 
+    # 14 Dark sectors
+    from fractions import Fraction
+    G_gal = 4.30e-6
+    relclose("14 MW mass", 230 ** 2 * 8.2 / G_gal, 1.0e11, 0.02)
+    relclose("14 MW 50 kpc", 230 ** 2 * 50 / G_gal, 6.2e11, 0.01)
+    relclose("14 CYL 30 kpc", 200 ** 2 * 30 / G_gal, 2.8e11, 0.01)
+    kpc = 3.086e19
+    alpha = 4 * 1.327e35 / (8.99e16 * 500 * kpc)
+    relclose("14 cluster alpha rad", alpha, 3.8e-4, 0.01)
+    close("14 cluster arcsec", math.degrees(alpha) * 3600, 79, 0.5)
+    H0 = 67.4 / 3.0857e19
+    close("14 1/H0 Gyr", 1 / H0 / 3.156e16, 14.5, 0.05)
+    OL, Om = 0.685, 0.315
+    t0 = 2 / (3 * math.sqrt(OL)) * math.asinh(math.sqrt(OL / Om))
+    close("14 H0 t0", t0, 0.951, 0.0005)
+    close("14 age", t0 / H0 / 3.156e16, 13.8, 0.05)
+    close("14 matter-only age", (2 / 3) / H0 / 3.156e16, 9.7, 0.05)
+    close("14 a(t0)=1", (Om / OL) ** (1 / 3) * math.sinh(1.5 * math.sqrt(OL) * t0) ** (2 / 3), 1.0, 1e-6)
+    close("14 q0", Om / 2 - OL, -0.53, 0.005)
+    close("14 q0 usf", 2 / 11 - 7 / 11, -0.45, 0.005)
+    close("14 sigma lambda", (0.6847 - 7 / 11) / 0.0073, 6.6, 0.05)
+    close("14 dm gap", 3 / 11 - 0.2645, 0.0082, 0.00005)
+    close("14 sigma dm", (3 / 11 - 0.2645) / 0.0073, 1.1, 0.05)
+    close("14 sigma Om", (4 / 11 - 0.3153) / 0.0073, 6.6, 0.05)
+    fr = sorted({Fraction(p_, q) for q in range(1, 13) for p_ in range(0, q + 1)})
+    close("14 fractions q<=12", len(fr), 47)
+    vals = [float(f) for f in fr]
+    grid = [0.2 + 0.1 * i / 20000 for i in range(20001)]
+    p12 = sum(min(abs(v - x) / x for v in vals) <= 0.031 for x in grid) / len(grid)
+    close("14 odds q<=12", p12, 0.71, 0.005)
+    p11 = sum(min(abs(k / 11 - x) / x for k in range(12)) <= 0.031 for x in grid) / len(grid)
+    close("14 odds elevenths", p11, 0.17, 0.005)
+    grid2 = [0.6 + 0.15 * i / 20000 for i in range(20001)]
+    close("14 odds lambda range", sum(min(abs(v - x) / x for v in vals) <= 0.071 for x in grid2) / len(grid2), 1.0)
+    relclose("P14.1 Andromeda", 250 ** 2 * 35 / G_gal, 5.1e11, 0.01)
+    aS = 4 * 1.327e20 / (8.99e16 * 6.96e8)
+    relclose("P14.2 sun rad", aS, 8.49e-6, 0.002)
+    close("P14.2 arcsec", aS * 206265, 1.75, 0.005)
+    close("P14.3 1/H0", 14.5 * 67.4 / 73, 13.4, 0.05)
+    close("P14.3 age", 0.951 * 14.5 * 67.4 / 73, 12.7, 0.05)
+    close("P14.4 3 sigma", (3 / 11 - 0.2645) / 3, 0.0027, 0.00005)
+    close("P14.5 baryon sigma", (1 / 11 - 0.0493) / 0.0008, 52, 0.5)
+
 
 def main() -> int:
     toolkit()
