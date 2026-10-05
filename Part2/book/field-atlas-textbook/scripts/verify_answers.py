@@ -123,6 +123,46 @@ def toolkit() -> None:
     close("PM3.5 ratio", 5.20 ** 2, 27.0, 0.05)
     close("PM3.5 percent", 100 / 5.20 ** 2, 3.7, 0.005)
 
+    # M4 Oscillation
+    w0 = math.sqrt(200 / 0.50)
+    close("M4 omega0", w0, 20)
+    close("M4 f", w0 / (2 * math.pi), 3.2, 0.05)
+    close("M4 T", 2 * math.pi / w0, 0.31, 0.005)
+    close("M4 vmax", 0.030 * w0, 0.60)
+    close("M4 seconds pendulum", g * (2.0 / (2 * math.pi)) ** 2, 0.99, 0.005)
+    close("M4 rpm", (100 / 3) * 2 * math.pi / 60, 3.49, 0.005)
+    z = 3 + 4j
+    close("M4 |z|", abs(z), 5)
+    close("M4 arg z", math.degrees(math.atan2(4, 3)), 53.1, 0.05)
+    close("M4 iz real", (1j * z).real, -4)
+    close("M4 arg iz", math.degrees(math.atan2((1j * z).imag, (1j * z).real)), 143.1, 0.05)
+    prod = (1 + 2j) * (3 - 1j)
+    close("M4 product re", prod.real, 5)
+    close("M4 product im", prod.imag, 5)
+    close("M4 |product|", abs(prod), 7.07, 0.005)
+    close("M4 sqrt5 sqrt10", math.sqrt(5) * math.sqrt(10), 7.07, 0.005)
+    e3 = complex(math.cos(math.pi / 3), math.sin(math.pi / 3))
+    close("M4 e^(i pi/3) re", e3.real, 0.5)
+    close("M4 e^(i pi/3) im", e3.imag, 0.866, 0.0005)
+    gam = 1 / 3
+    wg = 2 * math.pi * 110
+    close("M4 guitar gamma", gam, 0.33, 0.005)
+    close("M4 guitar omega0", wg, 691, 0.5)
+    relclose("M4 guitar zeta", gam / wg, 4.8e-4, 0.01)
+    relclose("M4 guitar Q", wg / (2 * gam), 1.0e3, 0.05)
+    close("M4 CYL omega_d", math.sqrt(16 - 0.25), 3.97, 0.005)
+    close("M4 CYL Q", 4 / (2 * 0.5), 4)
+    close("PM4.1 omega0", math.sqrt(3.0e4 / 300), 10)
+    close("PM4.1 f", 10 / (2 * math.pi), 1.6, 0.05)
+    close("PM4.1 T", 2 * math.pi / 10, 0.63, 0.005)
+    close("PM4.2 w^2 imag", ((1 + 1j) ** 2).imag, 2)
+    close("PM4.2 w^4", ((1 + 1j) ** 4).real, -4)
+    close("PM4.4 e^-2.5", math.exp(-2.5), 0.082, 0.0005)
+    close("PM4.4 cycles", math.sqrt(16 - 0.25) * 5 / (2 * math.pi), 3.2, 0.05)
+    close("PM4.5 f Hz", 15 / (2 * math.pi), 2.4, 0.05)
+    close("PM4.5 omega0", math.sqrt(15 ** 2 + 2 ** 2), 15.1, 0.05)
+    close("PM4.5 Q", math.sqrt(229) / 4, 3.8, 0.05)
+
 
 def main() -> int:
     toolkit()

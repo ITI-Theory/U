@@ -113,6 +113,12 @@ def tex_name(name: str) -> str:
 def fmt(v: float) -> str:
     if v == 0:
         return "0"
+    from fractions import Fraction
+    frac = Fraction(v / math.pi).limit_denominator(12)
+    if frac != 0 and abs(float(frac) * math.pi - v) < 1e-9:
+        num, den = frac.numerator, frac.denominator
+        top = {1: "", -1: "-"}.get(num, str(num))
+        return f"{top}\\pi" if den == 1 else f"{top}\\pi/{den}"
     if abs(v) >= 1e4 or abs(v) < 1e-3:
         m, ex = f"{v:.2e}".split("e")
         return f"{float(m):g}\\times10^{{{int(ex)}}}"
@@ -334,9 +340,12 @@ def draw_complex_plane(spec: Spec):
     spec.used.update({"conjugate", "arrows", "poles", "unit_circle"})
     color = iter(spec.colors * 6)
     pts_all = []
-    for label, env in spec.family():
+    family = spec.family()
+    for label, env in family:
         c = next(color)
         for i, text in enumerate(exprs):
+            if len(family) == 1 and len(exprs) > 1:
+                c = spec.colors[i % len(spec.colors)]  # one colour per point when nothing varies
             z = complex(compile_expr(text, allowed)(env))
             zs = [z, z.conjugate()] if flag(spec.p, "conjugate") and abs(z.imag) > 1e-12 else [z]
             for zz in zs:
@@ -351,7 +360,9 @@ def draw_complex_plane(spec: Spec):
             nm = names[i] if i < len(names) else ""
             tag = ", ".join(s for s in (nm, label) if s)
             if tag:
-                ax.annotate(tag, (z.real, z.imag), textcoords="offset points", xytext=(6, 6), color=c, fontsize=9)
+                left = z.real < -1e-9
+                ax.annotate(tag, (z.real, z.imag), textcoords="offset points", xytext=(-8 if left else 8, 6),
+                            ha="right" if left else "left", color=c, fontsize=10)
     if flag(spec.p, "unit_circle"):
         th = np.linspace(0, 2 * np.pi, 400)
         ax.plot(np.cos(th), np.sin(th), color="0.6", lw=1, ls="--")
