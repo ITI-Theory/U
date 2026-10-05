@@ -31,12 +31,14 @@ input-files:
   - chapters/13-eleven-dimensions.md
   - chapters/14-dark-sectors.md
   - chapters/15-evidence-proof.md
+  - appendices/0-appendices.md
   - appendices/A-units-constants.md
   - appendices/B-31-level-table.md
   - appendices/C-glossary.md
   - appendices/D-answer-key.md
   - appendices/E-figure-credits.md
-  - appendices/F-references.md
+  - appendices/F-atlas-crossref.md
+  - appendices/Z-references.md
 output-file: ../../../bld/textbook/ttheory-course.tex
 to: latex
 resource-path:
@@ -54,6 +56,7 @@ filters:
   - ../../../lib/format/registry.lua
   - ../../../lib/format/unicode-glyphs.lua
   - ../../../lib/format/programme-refs.lua
+  - filters/atlas-crossref.lua
   - filters/course-numbering.lua
   - ../../../lib/format/visualize.lua
   - type: json

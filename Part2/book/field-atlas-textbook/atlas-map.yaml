@@ -1,0 +1,34 @@
+# Which course chapters teach each Field Atlas level, in Atlas order (levels 1-31).
+# Read by filters/atlas-crossref.lua; chapter ids are course-numbering labels.
+levels:
+  - {id: quantum-foam, chapters: [ch:eleven-dimensions, ch:zooming]}
+  - {id: string-boundary, chapters: [ch:eleven-dimensions]}
+  - {id: nuclear, chapters: [ch:response, ch:atoms]}
+  - {id: atomic, chapters: [ch:atoms, ch:frequencies]}
+  - {id: molecular, chapters: [ch:cells, ch:m-chance]}
+  - {id: cellular-synaptic, chapters: [ch:cells, ch:m-change]}
+  - {id: local-circuit, chapters: [ch:cells, ch:zooming]}
+  - {id: whole-brain-cemi, chapters: [ch:cells, ch:frequencies]}
+  - {id: human-vertebrate, chapters: [ch:human, ch:evidence-proof]}
+  - {id: dyad, chapters: [ch:groups]}
+  - {id: human-group, chapters: [ch:groups]}
+  - {id: animal-swarm, chapters: [ch:flocks]}
+  - {id: bird, chapters: [ch:flocks]}
+  - {id: flock, chapters: [ch:flocks]}
+  - {id: colony-roost, chapters: [ch:flocks, ch:zooming]}
+  - {id: society-city, chapters: [ch:groups, ch:zooming]}
+  - {id: regional-institutional, chapters: [ch:groups, ch:zooming]}
+  - {id: civilisational-solar, chapters: [ch:earth, ch:zooming]}
+  - {id: species-stellar, chapters: [ch:earth, ch:stars]}
+  - {id: geological, chapters: [ch:earth]}
+  - {id: planetary, chapters: [ch:earth, ch:frequencies]}
+  - {id: orbital-system, chapters: [ch:stars, ch:dark-sectors]}
+  - {id: stellar, chapters: [ch:stars, ch:m-chance]}
+  - {id: compact-object, chapters: [ch:stars, ch:response]}
+  - {id: stellar-cluster, chapters: [ch:stars]}
+  - {id: galactic-disc, chapters: [ch:stars, ch:dark-sectors]}
+  - {id: galactic-halo, chapters: [ch:dark-sectors]}
+  - {id: galaxy-cluster, chapters: [ch:dark-sectors, ch:cosmology]}
+  - {id: cosmic-filaments, chapters: [ch:cosmology]}
+  - {id: observable-universe, chapters: [ch:cosmology, ch:dark-sectors]}
+  - {id: cosmic-web, chapters: [ch:cosmology, ch:dark-sectors]}

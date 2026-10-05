@@ -1,4 +1,4 @@
-# Appendix A: Units and Constants {-}
+# Units and Constants {#app:units}
 
 The worked examples use the values below. They are rounded to the figures the arithmetic needs; `scripts/verify_answers.py` uses the same values, so a printed answer can be checked against them exactly.
 

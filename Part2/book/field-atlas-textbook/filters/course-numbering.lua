@@ -9,11 +9,12 @@
 --   ::: {.solution}                           "Solution 3.1" (of the problem before it)
 --   ::: {.course-part chapters="M"}           Part 0: chapters M1, M2, ...
 --   ::: {.course-part chapters="arabic"}      restart at 1 (Part I)
+--   ::: {.course-part chapters="Alph"}        appendices A, B, C ...
 --
 -- References: @ch:x -> "Chapter 3", @ex:x -> "Example 3.1", @pr:x ->
 -- "Problem 3.1"; [-@ch:x] gives the bare number. An unknown label fails the build.
 
-local PREFIX = { ch = "Chapter", ex = "Example", pr = "Problem" }
+local PREFIX = { ch = "Chapter", ex = "Example", pr = "Problem", app = "Appendix" }
 
 local labels = {}  -- id -> number text, e.g. "3" or "3.1"
 
@@ -71,11 +72,21 @@ local function number_blocks(blocks)
         local raw = latex("\\setcounter{chapter}{0}\\renewcommand{\\thechapter}{"
           .. scheme .. "\\arabic{chapter}}\\renewcommand{\\theHchapter}{" .. scheme .. "\\arabic{chapter}}")
         if raw then out:insert(raw) end
+      elseif mode == "Alph" then
+        -- appendices: A, B, C ... (\appendix resets the counter and says "Appendix")
+        scheme, chapter = "Alph", 0
+        local raw = latex("\\appendix\\renewcommand{\\theHchapter}{app.\\Alph{chapter}}")
+        if raw then out:insert(raw) end
       end
       out:extend(block.content)
+    elseif block.t == "Header" and block.level == 1 and block.classes:includes("unnumbered") then
+      out:insert(block)
+      local title = pandoc.utils.stringify(block.content):gsub("[%%&#_{}\\$^~]", "")
+      local raw = latex("\\markboth{\\MakeUppercase{" .. title .. "}}{\\MakeUppercase{" .. title .. "}}")
+      if raw then out:insert(raw) end
     elseif block.t == "Header" and block.level == 1 and not block.classes:includes("unnumbered") then
       chapter = chapter + 1
-      chapter_label = scheme .. chapter
+      chapter_label = (scheme == "Alph") and string.char(64 + chapter) or (scheme .. chapter)
       example, problem = 0, 0
       block.attributes.label = chapter_label
       if block.identifier ~= "" then labels[block.identifier] = chapter_label end

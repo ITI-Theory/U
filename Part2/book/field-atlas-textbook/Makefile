@@ -15,7 +15,7 @@ APPENDICES := $(wildcard appendices/*.md)
 PARTS := $(wildcard parts/*.md)
 SOURCES := textbook.md textbook.yaml $(PARTS) $(CHAPTERS) $(APPENDICES)
 REGISTRY := $(wildcard $(ROOT)/registry/levels/*.yaml) $(wildcard $(ROOT)/registry/levels/*.md) $(wildcard $(ROOT)/registry/examples/*.yaml) $(wildcard $(ROOT)/registry/questions/*.yaml) $(ROOT)/registry/eras.yaml
-FILTERS := $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/unicode-glyphs.lua $(ROOT)/lib/format/programme-refs.lua $(ROOT)/registry/papers.yaml $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua filters/course-numbering.lua $(ROOT)/lib/format/visualize.lua $(ROOT)/lib/format/visualize-reader.lua $(VISUALIZE) filters/textbook-layout.lua filters/textbook-boxes.lua
+FILTERS := $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/unicode-glyphs.lua $(ROOT)/lib/format/programme-refs.lua $(ROOT)/registry/papers.yaml $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua filters/atlas-crossref.lua atlas-map.yaml filters/course-numbering.lua $(ROOT)/lib/format/visualize.lua $(ROOT)/lib/format/visualize-reader.lua $(VISUALIZE) filters/textbook-layout.lua filters/textbook-boxes.lua
 DEFAULTS := defaults/a4.yaml defaults/html.yaml $(ROOT)/lib/defaults/base-pdf.yaml $(ROOT)/lib/defaults/base-html.yaml
 TEMPLATES := templates/textbook-a4-header.tex templates/textbook.css
 # Generated figures: one stamp for everything figures/build_figures.py writes.
