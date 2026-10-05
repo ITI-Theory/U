@@ -5,6 +5,22 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
+## Course book night (5 Oct 2026, 01:00-) - state for the next session
+
+[T]-Theory: A Course (ISS-041), `make -C Part2/book/field-atlas-textbook check`
+-> `bld/textbook/ttheory-course.pdf` (A4 portrait). Done and pushed:
+- A4 layout, Parts 0/I/II; numbering generated (Lua + pandoc-crossref,
+  BUILD.md 4b; labels only, no typed numbers).
+- `{{Visualize}}` (docs/VISUALIZE.md, BUILD.md 4c): reader + filter + renderer,
+  11 primitives, `expect_*` checks fail the build. Every new figure uses it.
+- Part 0 toolkit M1-M6 written (scale, change, accumulation, oscillation,
+  vectors/matrices, chance) and new chapter 3 (Frequencies); all numbers in
+  `scripts/verify_answers.py`. Ladder chapter files renamed 05-12.
+Next: chapter 4 (zooming, from Atlas T3), Part III (13 M-theory/T4,
+14 dark sectors/T5, 15 evidence and proof/T6), Atlas cross-reference
+appendix, retrofit Visualize into chapters 1-2 and the ladder.
+pandoc-crossref 0.3.25 lives in `%LOCALAPPDATA%\Pandoc` (ISS-043).
+
 ## Morning: UAT release candidate (prepared 2026-10-04, 00:30)
 
 Everything below is built, checked and pushed. Start with step 1.

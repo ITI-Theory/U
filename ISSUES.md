@@ -1050,7 +1050,8 @@ AI-drawn physics figures.
 - [ ] Draft the chapter plan for author review.
 - [ ] Licence check of each OpenStax maths source.
 - [x] A4 defaults, parts (3b58411); generated numbering with pandoc-crossref (7ce084a).
-- [ ] Toolkit M1-M6, chapter 3 (frequencies), Part III ports, Visualize macro.
+- [x] Visualize macro (docs/VISUALIZE.md), toolkit M1-M6, chapter 3 Frequencies (5 Oct, c9228e5).
+- [ ] Chapter 4 zooming (T3), Part III ports (T4-T6), Atlas cross-reference appendix, Visualize retrofit of chapters 1-2 and 5-12.
 
 ---
 
