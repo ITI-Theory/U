@@ -28,7 +28,9 @@
 \titleformat{\subsection}{\sffamily\bfseries\color{textbookblue}\large}{\thesubsection}{0.6em}{}
 % keep a section heading with the box or paragraph that follows it
 \pretocmd{\section}{\needspace{8\baselineskip}}{}{}
-\newtcolorbox{textbookbox}[2][]{enhanced,colback=textbookgray,colframe=#2,arc=1.5mm,left=1.5mm,right=1.5mm,top=1mm,bottom=1mm,fonttitle=\sffamily\bfseries,title={#1}}% Parts of the course book
+% A4 single column: long boxes continue on the next page rather than leaving a gap
+\newtcolorbox{textbookbox}[2][]{enhanced,breakable,colback=textbookgray,colframe=#2,arc=1.5mm,left=1.5mm,right=1.5mm,top=1mm,bottom=1mm,fonttitle=\sffamily\bfseries,title={#1}}
+% Parts of the course book
 % \coursepartintro is set just before each \part and printed on the part page
 \newcommand{\coursepartintro}{}
 \titleformat{\part}[display]{\centering\sffamily\bfseries\color{textbookblue}\Huge}{\partname\ \thepart}{0.6em}{\Huge}[\vspace{2.5em}\begin{minipage}{0.72\textwidth}\normalsize\normalfont\color{black}\raggedright\coursepartintro\end{minipage}]
