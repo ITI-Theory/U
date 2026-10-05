@@ -6,6 +6,10 @@ In 1665 Christiaan Huygens, ill in bed, noticed that two pendulum clocks hanging
 
 **Chapter outline.** [-@sec:groups-describing-rhythm-phase] Describing a rhythm by its phase · [-@sec:groups-oscillators-locking-slipping] Two oscillators: locking and slipping · [-@sec:groups-many-oscillators-onset] Many oscillators: the onset of collective rhythm · [-@sec:groups-crowds-step] Crowds in step · [-@sec:groups-coupled-landscapes] Coupled landscapes · [-@sec:groups-programme-claims-dyads] What the programme claims for dyads and groups
 
+::: {.maths-you-need}
+Phase and circles (@sec:m-osc-circle); complex numbers and $e^{i\theta}$ (@sec:m-osc-euler); derivatives (@sec:m-change-derivative).
+:::
+
 ## Describing a rhythm by its phase {#sec:groups-describing-rhythm-phase}
 
 ::: {.learning-objectives}

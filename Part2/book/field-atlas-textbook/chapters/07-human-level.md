@@ -6,6 +6,10 @@ A person is not a ball rolling in a landscape. A person has a body of thirty tri
 
 **Chapter outline.** [-@sec:human-state-landscape] A state in a landscape · [-@sec:human-noise-escape] Noise and escape · [-@sec:human-fast-slow-out] Fast in, slow out · [-@sec:human-memory-kernels] Memory kernels · [-@sec:human-tipping-points-critical] Tipping points and critical slowing down · [-@sec:human-programmes-human-model] The programme's human model and QUANT-EXP-1
 
+::: {.maths-you-need}
+Landscapes and stability (@sec:m-vec-stability); exponentials (@sec:m-change-exponential); convolution integrals (@sec:m-acc-integral); the Boltzmann factor and escape (@sec:m-chance-boltzmann).
+:::
+
 ## A state in a landscape {#sec:human-state-landscape}
 
 ::: {.learning-objectives}

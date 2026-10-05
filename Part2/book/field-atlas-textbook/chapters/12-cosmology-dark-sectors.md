@@ -6,6 +6,10 @@ The last level of the Atlas is the universe itself. Cosmology asks how big it is
 
 **Chapter outline.** [-@sec:cosmology-expanding-universe] An expanding universe · [-@sec:cosmology-budget-universe] The budget of the universe · [-@sec:cosmology-afterglow-hot-beginning] The afterglow of the hot beginning · [-@sec:cosmology-universe-rang] The universe rang · [-@sec:cosmology-programme-proposes-dark] What the programme proposes for the dark sectors · [-@sec:cosmology-testing-proposal] Testing the proposal
 
+::: {.maths-you-need}
+Powers of ten and units (@sec:m-scale-powers, @sec:m-scale-units); exponentials (@sec:m-change-exponential); standard deviations (@sec:m-chance-normal).
+:::
+
 ## An expanding universe {#sec:cosmology-expanding-universe}
 
 ::: {.learning-objectives}

@@ -6,6 +6,10 @@ A field assigns a value to every point of a region: a temperature to every point
 
 **Chapter outline.** [-@sec:fields-fields] Fields · [-@sec:fields-waves] Waves · [-@sec:fields-scale-size-response] Scale: size and response time · [-@sec:fields-zooming-out-when] Zooming out: when a field description works · [-@sec:fields-reading-atlas-claims] Reading the Atlas: claims and evidence labels
 
+::: {.maths-you-need}
+Powers of ten and units (@sec:m-scale-powers, @sec:m-scale-units); logarithmic scales (@sec:m-scale-logs); gradients (@sec:m-vec-fields).
+:::
+
 ## Fields {#sec:fields-fields}
 
 ::: {.learning-objectives}

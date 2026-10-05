@@ -6,6 +6,10 @@ Above the village of Elm in the canton of Glarus, a sharp line runs across the f
 
 **Chapter outline.** [-@sec:earth-radioactive-clocks] Radioactive clocks · [-@sec:earth-moving-plates] Moving plates · [-@sec:earth-rock-that-remembers] Rock that remembers · [-@sec:earth-ringing-shaking-planet] A ringing, shaking planet · [-@sec:earth-climate-states-tipping] Climate states and tipping points · [-@sec:earth-programme-claims-earth] What the programme claims for the Earth
 
+::: {.maths-you-need}
+Exponential decay (@sec:m-change-exponential); logarithms and power laws (@sec:m-scale-logs, @sec:m-scale-laws); the inverse-square law (@sec:m-acc-flux).
+:::
+
 ## Radioactive clocks {#sec:earth-radioactive-clocks}
 
 ::: {.learning-objectives}

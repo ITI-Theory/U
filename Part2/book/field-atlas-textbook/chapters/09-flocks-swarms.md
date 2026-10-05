@@ -6,6 +6,10 @@ On a winter evening over Rome, a flock of several thousand starlings wheels, fol
 
 **Chapter outline.** [-@sec:flocks-rules-without-leader] Rules without a leader · [-@sec:flocks-order-noise] Order from noise · [-@sec:flocks-who-listens-whom] Who listens to whom · [-@sec:flocks-turn-crosses-flock] How a turn crosses a flock · [-@sec:flocks-swarms-design] Swarms by design · [-@sec:flocks-programme-claims-flocks] What the programme claims for flocks and swarms
 
+::: {.maths-you-need}
+Vectors and the dot product (@sec:m-vec-vectors); averages and spread (@sec:m-chance-averages); random walks (@sec:m-chance-random-walk).
+:::
+
 ## Rules without a leader {#sec:flocks-rules-without-leader}
 
 ::: {.learning-objectives}

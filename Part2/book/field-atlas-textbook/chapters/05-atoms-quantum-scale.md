@@ -6,6 +6,10 @@ Heat a thin tube of hydrogen until it glows and pass the light through a prism. 
 
 **Chapter outline.** [-@sec:atoms-light-arrives-packets] Light arrives in packets · [-@sec:atoms-hydrogen-spectrum] The hydrogen spectrum · [-@sec:atoms-electrons-are-waves] Electrons are waves too · [-@sec:atoms-atoms-have-size] Why atoms have a size · [-@sec:atoms-reading-spectral-line] Reading a spectral line · [-@sec:atoms-lines-poles] Lines as poles
 
+::: {.maths-you-need}
+Powers of ten (@sec:m-scale-powers); standing waves and poles (@sec:m-osc-damping); the Boltzmann factor (@sec:m-chance-boltzmann).
+:::
+
 ## Light arrives in packets {#sec:atoms-light-arrives-packets}
 
 ::: {.learning-objectives}

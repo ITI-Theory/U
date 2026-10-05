@@ -6,6 +6,10 @@ Strike a bell, tap a wine glass, kick a swing, inject a pulse of current into a 
 
 **Chapter outline.** [-@sec:response-damped-oscillator] The damped oscillator · [-@sec:response-impulse-response] The impulse response · [-@sec:response-adding-up-kicks] Adding up kicks: convolution · [-@sec:response-resonance-quality-factor] Resonance and the quality factor · [-@sec:response-response-space-far] Response in space: how far a disturbance reaches · [-@sec:response-grammar-across-levels] One grammar across the levels
 
+::: {.maths-you-need}
+Derivatives and relaxation (@sec:m-change-derivative, @sec:m-change-relaxation); oscillation and damping (@sec:m-osc-spring, @sec:m-osc-damping); integrals as sums (@sec:m-acc-integral).
+:::
+
 ## The damped oscillator {#sec:response-damped-oscillator}
 
 ::: {.learning-objectives}

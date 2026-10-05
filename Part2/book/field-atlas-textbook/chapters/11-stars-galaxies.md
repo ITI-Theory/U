@@ -6,6 +6,10 @@ Every fact we know about the stars has arrived as light. No probe has visited an
 
 **Chapter outline.** [-@sec:stars-starlight-thermometer] Starlight as a thermometer · [-@sec:stars-far-bright] How far, how bright · [-@sec:stars-stars-live-die] How stars live and die · [-@sec:stars-gravity-bends-time] Gravity bends time · [-@sec:stars-weighing-galaxies] Weighing galaxies · [-@sec:stars-programme-claims-stars] What the programme claims for stars and galaxies
 
+::: {.maths-you-need}
+Powers of ten and logarithms (@sec:m-scale-powers, @sec:m-scale-logs); the inverse-square law (@sec:m-acc-flux); the Boltzmann factor (@sec:m-chance-boltzmann).
+:::
+
 ## Starlight as a thermometer {#sec:stars-starlight-thermometer}
 
 ::: {.learning-objectives}

@@ -6,6 +6,10 @@ A living cell is a small bag of salt water wrapped in an oily film five nanometr
 
 **Chapter outline.** [-@sec:cells-strong-bonds-weak] Strong bonds, weak bonds and the thermal bath · [-@sec:cells-membrane-charged-capacitor] The membrane: a charged capacitor · [-@sec:cells-passive-spread-cable] Passive spread: the cable · [-@sec:cells-action-potential-all] The action potential: all or none · [-@sec:cells-cells-networks-memory] From cells to networks: memory as a landscape · [-@sec:cells-field-that-tunes] A field that tunes the landscape
 
+::: {.maths-you-need}
+Logarithms (@sec:m-scale-logs); relaxation (@sec:m-change-relaxation); diffusion (@sec:m-chance-random-walk); landscapes and stability (@sec:m-vec-stability).
+:::
+
 ## Strong bonds, weak bonds and the thermal bath {#sec:cells-strong-bonds-weak}
 
 ::: {.learning-objectives}
