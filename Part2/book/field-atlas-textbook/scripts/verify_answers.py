@@ -284,9 +284,40 @@ def frequencies() -> None:
     close("P3.4 cycles", 10 / (math.pi * 0.5), 6.4, 0.05)
 
 
+def zooming() -> None:
+    """Chapter 4 (Zooming), new in the course edition."""
+    sinc = lambda z: math.sin(z) / z  # noqa: E731
+    close("4 fig k=1", sinc(0.5), 0.96, 0.005)
+    close("4 fig k=6", abs(sinc(3.0)), 0.047, 0.0005)
+    close("4 fig k=17", abs(sinc(8.5)), 0.094, 0.0005)
+    close("4 half wavelength", sinc(math.pi / 2), 0.64, 0.005)
+    close("4 whole wavelength", math.sin(math.pi), 0, 1e-12)
+    close("4 KE mean speed", 0.5 * 10 ** 2, 50)
+    close("4 KE true", 0.5 * (10 ** 2 + 2 ** 2), 52)
+    close("4 hidden %", 100 * 2 / 52, 4, 0.2)
+    relclose("4 Re bacterium", 30e-6 * 2e-6 / 1e-6, 6e-5)
+    relclose("4 Re person", 1 * 2 / 1e-6, 2e6)
+    close("4 Re ratio log", math.log10(2e6 / 6e-5), 10.5, 0.05)
+    relclose("4 Re ratio", 2e6 / 6e-5, 3.3e10, 0.02)
+    close("4 Re span", math.log10(2.5e8 / 6e-5), 12.6, 0.05)
+    relclose("4 Re sperm", 100e-6 * 50e-6 / 1e-6, 5e-3)
+    relclose("4 Re fish", 0.1 * 0.05 / 1e-6, 5e3)
+    relclose("4 Re whale", 10 * 25 / 1e-6, 2.5e8)
+    close("4 ship model", 10 / math.sqrt(25), 2.0)
+    close("4 Peclet", 1e-3 * 10e-6 / 2e-9, 5)
+    close("4 CD Nyquist", 44.1 / 2, 22.05)
+    close("4 CD alias", 44.1 - 30, 14.1, 0.001)
+    close("4 alias 9 Hz", math.sin(2 * math.pi * 9 * 0.3) + math.sin(2 * math.pi * 1 * 0.3), 0, 1e-9)
+    close("P4.1 quarter", sinc(math.pi / 4), 0.90, 0.005)
+    relclose("P4.2 aorta", 0.3 * 0.025 / 3.3e-6, 2.3e3, 0.02)
+    close("P4.3 ferry", 8 / math.sqrt(64 / 4), 2.0)
+    close("P4.4 alias", 4 - 3, 1)
+
+
 def main() -> int:
     toolkit()
     frequencies()
+    zooming()
     # Chapter 1 (worked examples, check-your-learning, problems)
     c = 2.998e8
     kB = 1.380649e-23

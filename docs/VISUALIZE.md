@@ -65,6 +65,7 @@ $$N(t) = N_0\,e^{-t/\tau}$$ {#eq:decay}
 | `height=40%` | height cap (percent of text height; default 32 % in the A4 book) |
 | `aspect=1.6` | drawing width / height |
 | `xlabel=`, `ylabel=`, `zlabel=` | axis labels |
+| `legend=best\|below\|none` | legend placement (function plots) |
 | `vary=name:v1,v2,...` | draw a family, one curve (or bar set, or point set) per value |
 
 ## Concepts (palettes)
@@ -76,7 +77,7 @@ concept styles the figure; it never changes what is drawn.
 
 | primitive | draws | parameters | checks |
 |---|---|---|---|
-| `function-plot` | curves $y = f(x)$ | `f` (and `f2`, `f3`, ...; names `name`, `name2`), `x=[a,b]`, `var`, `y=[a,b]`, `logx`, `logy`, `tangent_at`, `hline`, `vline` | `expect_slope` (at `tangent_at`) |
+| `function-plot` | curves $y = f(x)$ | `f` (and `f2`, `f3`, ...; names `name`, `name2`), `x=[a,b]`, `var`, `y=[a,b]`, `logx`, `logy`, `tangent_at`, `sample_every`, `hline`, `vline` | `expect_slope` (at `tangent_at`) |
 | `area-under` | the area under $f$, optionally as strips | `f`, `x`, `from`, `to`, `n`, `rule=left\|mid\|right`, `hline`, `vline` | `expect_area`, `expect_sum` |
 | `log-scale` | named quantities on a powers-of-ten line | `items="atom=1e-10, cell=1e-5"`, `range=[lo,hi]` (exponents), `unit` | |
 | `complex-plane` | points or poles $z$ | `points` (comma list of expressions), `names`, `conjugate`, `poles`, `arrows`, `unit_circle`, `radius` | |

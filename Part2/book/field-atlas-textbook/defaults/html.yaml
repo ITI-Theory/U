@@ -17,6 +17,7 @@ input-files:
   - chapters/01-fields-waves-scale.md
   - chapters/02-response-greens-resonance.md
   - chapters/03-frequencies.md
+  - chapters/04-zooming.md
   - parts/2-ladder.md
   - chapters/05-atoms-quantum-scale.md
   - chapters/06-molecules-cells.md

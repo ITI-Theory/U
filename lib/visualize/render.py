@@ -215,6 +215,17 @@ def curve_keys(spec: Spec) -> list[str]:
 
 # ----------------------------------------------------------------- primitives
 
+def place_legend(spec: Spec, ax):
+    """legend=best (default), below (under the axes, for busy plots) or none."""
+    where = spec.get("legend", "best")
+    if where == "none" or not ax.get_legend_handles_labels()[0]:
+        return
+    if where == "below":
+        ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=3)
+    else:
+        ax.legend(frameon=False)
+
+
 def reference_lines(spec: Spec, ax):
     """Dotted guide lines: hline="0.5, 1" and vline="2"."""
     for key in ("hline", "vline"):
@@ -238,6 +249,13 @@ def draw_function_plot(spec: Spec):
                 first = (fn, env)
             parts = [s for s in (name, label) if s]
             ax.plot(xs, ys, color=next(color), lw=2, label=", ".join(parts) or None)
+    if spec.get("sample_every"):
+        # dots where the first curve is sampled every dt (aliasing, digitising)
+        dt = number(spec.get("sample_every"))
+        fn, env = first
+        st = np.arange(xs[0], xs[-1] + 1e-12, dt)
+        ax.plot(st, as_array(fn({**env, var: st}), st), "o", color=RED, ms=6, zorder=5,
+                label=f"samples every {dt:g}")
     if spec.get("tangent_at"):
         x0 = number(spec.get("tangent_at"))
         fn, env = first
@@ -260,8 +278,7 @@ def draw_function_plot(spec: Spec):
     if flag(spec.p, "logx"):
         ax.set_xscale("log")
     spec.labels(ax, f"${var}$", "")
-    if ax.get_legend_handles_labels()[0]:
-        ax.legend(frameon=False)
+    place_legend(spec, ax)
     return fig
 
 
