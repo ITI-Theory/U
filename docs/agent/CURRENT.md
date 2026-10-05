@@ -5,21 +5,22 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
-## Course book night (5 Oct 2026, 01:00-) - state for the next session
+## Course book night (5 Oct 2026, 01:00-03:30) - state for the next session
 
 [T]-Theory: A Course (ISS-041), `make -C Part2/book/field-atlas-textbook check`
--> `bld/textbook/ttheory-course.pdf` (A4 portrait). Done and pushed:
-- A4 layout, Parts 0/I/II; numbering generated (Lua + pandoc-crossref,
-  BUILD.md 4b; labels only, no typed numbers).
-- `{{Visualize}}` (docs/VISUALIZE.md, BUILD.md 4c): reader + filter + renderer,
-  11 primitives, `expect_*` checks fail the build. Every new figure uses it.
-- Part 0 toolkit M1-M6 written (scale, change, accumulation, oscillation,
-  vectors/matrices, chance) and new chapter 3 (Frequencies); all numbers in
-  `scripts/verify_answers.py`. Ladder chapter files renamed 05-12.
-Next: chapter 4 (zooming, from Atlas T3), Part III (13 M-theory/T4,
-14 dark sectors/T5, 15 evidence and proof/T6), Atlas cross-reference
-appendix, retrofit Visualize into chapters 1-2 and the ladder.
-pandoc-crossref 0.3.25 lives in `%LOCALAPPDATA%\Pandoc` (ISS-043).
+-> `bld/textbook/ttheory-course.pdf` (A4 portrait, about 265 pages; HTML too).
+Complete draft, all pushed:
+- Part 0 toolkit M1-M6; Part I chapters 1-4 (new 3 Frequencies, new 4 Zooming
+  from Atlas T3); Part II ladder 5-12; Part III 13 Eleven Dimensions (T4),
+  14 Dark Sectors (T5), 15 Evidence and Proof (T6 + QUANT-EXP-1 lab);
+  appendices A-F lettered, F = Reading with the Field Atlas (atlas-map.yaml).
+- Numbering generated (Lua + pandoc-crossref, BUILD.md 4b).
+- `{{Visualize}}` (docs/VISUALIZE.md, BUILD.md 4c): 52 figures drawn from
+  equations, many with `expect_*` checks; retrofitted into chapters 5-8, 10-12.
+- Every quoted number in `scripts/verify_answers.py` (several hundred checks).
+Next: read-through by the author; openers (banner figures) for the new
+chapters; Visualize for chapters 1, 2, 9; decide whether the course ships in
+this release. pandoc-crossref 0.3.25 lives in `%LOCALAPPDATA%\Pandoc` (ISS-043).
 
 ## Morning: UAT release candidate (prepared 2026-10-04, 00:30)
 
