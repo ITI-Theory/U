@@ -124,6 +124,8 @@ After the magnitude 9.1 Sumatra–Andaman earthquake of 2004, seismometers world
 **Significance.** The planet rings audibly to instruments for weeks after a great earthquake, and the slowly fading tones measure the elasticity and density of the mantle and core. A seismometer is a stethoscope for the Earth.
 :::
 
+{{Visualize | ex:response-long-does-earth | function-plot:earth | f1="exp(-t/6.0)"; name1="amplitude envelope"; f2="-exp(-t/6.0)"; name2=""; var=t; x=[0,30]; value_at=21; expect_value=0.03; legend=none; hline=0; xlabel="days after the earthquake"; ylabel="amplitude of ${}_0S_2$ (relative)"; label=fig:response-earth-ring; height=26% }} The envelope of the Earth's slowest ringing after the 2004 earthquake, falling by $e$ every $6.0$ days. The oscillation inside it, one cycle every $53.9$ minutes, is far too fast to draw at this scale: about $560$ cycles fit in the first three weeks, by the end of which $3\,\%$ of the amplitude remains (red point).
+
 ::: {.check-your-learning}
 The gravitational waves from the black-hole merger GW150914 ended with a "ringdown" at about $250\,\mathrm{Hz}$ with decay time $\tau \approx 4\,\mathrm{ms}$ [@abbott2016gw]. Estimate its $Q = \pi f \tau$. (Answer: $Q \approx 3$: a black hole is a very poor bell, ringing for only about one cycle.)
 :::

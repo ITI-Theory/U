@@ -54,7 +54,7 @@ $$\frac{\partial^2 u}{\partial t^2} = v^2\,\frac{\partial^2 u}{\partial x^2},$$
 
 where $u(x,t)$ is the displacement or pressure and $v$ is the speed at which disturbances travel. A sinusoidal solution has a **frequency** $f$ (oscillations per second, in hertz), a **period** $T = 1/f$, and a **wavelength** $\lambda$ (the distance between crests). One wavelength passes a fixed point in one period, so
 
-$$v = f\lambda.$$
+$$v = f\lambda.$$ {#eq:fields-wave-speed}
 
 This small relation hides an important division of labour. The **source** sets the frequency: a tuning fork vibrates at $440\,\mathrm{Hz}$ whatever it is immersed in. The **medium** sets the speed. The wavelength follows from both.
 
@@ -65,6 +65,8 @@ A source emits a $440\,\mathrm{Hz}$ tone (concert A). Find its wavelength in air
 
 **Significance.** The frequency, and therefore the pitch, is the same in both media; the wavelength is more than four times longer in water. The source decides *what* is sent, and the medium decides *how it spreads*. @ch:response turns this division into the general idea of a source and a response kernel.
 :::
+
+{{Visualize | ex:fields-same-note-air | function-plot:wave | f1="343/x"; name1="in air, 343 m/s"; f2="1480/x"; name2="in water, 1480 m/s"; x=[20,20000]; logx=true; logy=true; value_at=440; expect_value=0.780; vline=440; legend=below; xlabel="frequency (Hz)"; ylabel="wavelength (m)"; label=fig:fields-wavelength; height=26% }} Wavelength against frequency for sound in air and in water, $\lambda = v/f$: two parallel lines on log–log axes, the water line higher by the ratio of speeds. Concert A (dotted) is $0.780\,\mathrm{m}$ long in air (red point) and $3.36\,\mathrm{m}$ in water. Across the range of hearing, wavelengths in air run from $17\,\mathrm{m}$ to $17\,\mathrm{mm}$.
 
 When a wave is confined between boundaries, only certain wavelengths fit. A string of length $L$ clamped at both ends must have a node at each end, so a whole number of half-wavelengths must fit: $L = n\lambda_n/2$. The allowed **standing-wave** frequencies, the string's **normal modes**, are therefore
 

@@ -410,11 +410,22 @@ def frontier() -> None:
     close("P15.5 upper", p_ + 1.96 * se2, 0.925, 0.001)
 
 
+def captions() -> None:
+    """Numbers quoted in figure captions of the ladder chapters."""
+    close("cap1 hearing 20 Hz", 343 / 20, 17, 0.2)
+    close("cap1 hearing 20 kHz mm", 343 / 20000 * 1000, 17, 0.2)
+    close("cap2 cycles in 21 days", 21 * 24 * 60 / 53.9, 560, 2)
+    close("cap6 61.5 mV per decade", 26.7 * math.log(10), 61.5, 0.05)
+    close("cap10 snowball", (1361 * (1 - 0.6) / (4 * 5.670e-8)) ** 0.25, 220, 1.5)
+    close("cap12 tension %", 100 * (73 / 67.4 - 1), 8, 0.4)
+
+
 def main() -> int:
     toolkit()
     frequencies()
     zooming()
     frontier()
+    captions()
     # Chapter 1 (worked examples, check-your-learning, problems)
     c = 2.998e8
     kB = 1.380649e-23
