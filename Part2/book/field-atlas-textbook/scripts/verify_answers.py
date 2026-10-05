@@ -201,6 +201,49 @@ def toolkit() -> None:
     close("PM5.5 eig", ev5[1], 2)
     close("PM5.5 eig-", ev5[0], -2)
 
+    # M6 Chance
+    faces = range(1, 7)
+    mean_die = sum(faces) / 6
+    ex2 = sum(f * f for f in faces) / 6
+    close("M6 die mean", mean_die, 3.5)
+    close("M6 die <x^2>", ex2, 15.17, 0.005)
+    close("M6 die var", ex2 - mean_die ** 2, 2.92, 0.005)
+    close("M6 die sd", math.sqrt(ex2 - mean_die ** 2), 1.71, 0.005)
+    close("M6 coin var", 0.5 - 0.25, 0.25)
+    close("M6 1 sigma prob", math.erf(1 / math.sqrt(2)), 0.6827, 0.0001)
+    close("M6 2 sigma prob", math.erf(2 / math.sqrt(2)), 0.95, 0.005)
+    close("M6 heights lo", 170 - 2 * 8, 154)
+    close("M6 coins sd", math.sqrt(100) * 0.5, 5)
+    close("M6 2 sigma tail %", 100 * 0.5 * math.erfc(2 / math.sqrt(2)), 2.3, 0.05)
+    close("M6 class of 40", 40 * 0.5 * math.erfc(2 / math.sqrt(2)), 0.9, 0.05)
+    relclose("M6 5 sigma odds", 1 / (0.5 * math.erfc(5 / math.sqrt(2))), 3.5e6, 0.01)
+    close("M6 sd of mean", 2.0 / math.sqrt(25), 0.4)
+    relclose("M6 sugar 1 s", math.sqrt(2 * 5e-10 * 1), 3.2e-5, 0.02)
+    close("M6 sugar 1 h mm", math.sqrt(2 * 5e-10 * 3600) * 1e3, 1.9, 0.005)
+    close("M6 protein t", (10e-6) ** 2 / (2 * 1e-11), 5)
+    close("M6 kT 293 eV", 8.617e-5 * 293, 0.0252, 0.00005)
+    p0 = 1 / sum(math.exp(-e / 0.5) for e in range(5))
+    close("M6 p0 kT=0.5", p0, 0.8647, 0.0001)
+    close("M6 scale height km", 1.381e-23 * 288 / (4.81e-26 * 9.81) / 1e3, 8.4, 0.05)
+    close("M6 Everest density", math.exp(-8.8 / 8.43), 0.35, 0.01)
+    close("M6 e^2", math.exp(2), 7.4, 0.05)
+    close("M6 kT 300 eV", 8.617e-5 * 300, 0.0259, 0.00005)
+    close("M6 0.1 eV ratio", math.exp(-0.10 / (8.617e-5 * 300)), 0.021, 0.0005)
+    close("PM6.1 P(7)", 6 / 36, 1 / 6)
+    close("PM6.1 sd", math.sqrt(2 * (ex2 - mean_die ** 2)), 2.42, 0.005)
+    close("PM6.2 sigma", math.sqrt(10000) * 0.5, 50)
+    close("PM6.3 50 um", (5e-5) ** 2 / (2 * 2e-9), 0.63, 0.006)
+    relclose("PM6.3 5 mm", (5e-3) ** 2 / (2 * 2e-9), 6.3e3, 0.01)
+    kT_sun = 8.617e-5 * 5800
+    close("PM6.4 kT", kT_sun, 0.500, 0.0005)
+    close("PM6.4 E/kT", 10.2 / kT_sun, 20.4, 0.05)
+    relclose("PM6.4 ratio", 4 * math.exp(-10.2 / kT_sun), 5.5e-9, 0.01)
+    dinv = 1 / 293.15 - 1 / 303.15
+    relclose("PM6.5 1/T1-1/T2", dinv, 1.125e-4, 0.002)
+    relclose("PM6.5 dU J", 1.381e-23 * math.log(2) / dinv, 8.5e-20, 0.01)
+    close("PM6.5 dU eV", 1.381e-23 * math.log(2) / dinv / 1.602e-19, 0.53, 0.005)
+    close("PM6.5 in kT", (1.381e-23 * math.log(2) / dinv / 1.602e-19) / 0.0252, 21, 0.5)
+
 
 def main() -> int:
     toolkit()
