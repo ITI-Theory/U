@@ -61,6 +61,7 @@ $$N(t) = N_0\,e^{-t/\tau}$$ {#eq:decay}
 | key | meaning |
 |---|---|
 | `label=fig:name` | numbered figure, referable as `@fig:name` |
+| `opener=true` | chapter banner: full text width, at most a third of the page (use a wide `aspect`) |
 | `width=70%` | width on the page |
 | `height=40%` | height cap (percent of text height; default 32 % in the A4 book) |
 | `aspect=1.6` | drawing width / height |
@@ -78,7 +79,7 @@ concept styles the figure; it never changes what is drawn.
 | primitive | draws | parameters | checks |
 |---|---|---|---|
 | `function-plot` | curves $y = f(x)$ | `f` (and `f2`, `f3`, ...; names `name`, `name2`), `x=[a,b]`, `var`, `y=[a,b]`, `logx`, `logy`, `tangent_at`, `value_at`, `sample_every`, `hline`, `vline` | `expect_slope` (at `tangent_at`), `expect_value` (at `value_at`), `expect_peak_x` (where the first curve peaks) |
-| `area-under` | the area under $f$, optionally as strips | `f`, `x`, `from`, `to`, `n`, `rule=left\|mid\|right`, `hline`, `vline` | `expect_area`, `expect_sum` |
+| `area-under` | the area under $f$, optionally as strips | `f`, `x`, `from`, `to`, `n`, `rule=left\|mid\|right`, `hline`, `vline`, `note=false` (hide the area label) | `expect_area`, `expect_sum` |
 | `log-scale` | named quantities on a powers-of-ten line | `items="atom=1e-10, cell=1e-5"`, `range=[lo,hi]` (exponents), `unit` | |
 | `complex-plane` | points or poles $z$ | `points` (comma list of expressions), `names`, `conjugate`, `poles`, `arrows`, `unit_circle`, `radius` | |
 | `vector-field` | arrows $(u, v)$ | `u`, `v`, `x`, `y`, `n`, `potential` (shaded), `circle=r` | `expect_flux`, `expect_circulation` (through the circle) |

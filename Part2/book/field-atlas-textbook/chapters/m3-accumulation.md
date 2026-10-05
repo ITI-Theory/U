@@ -1,5 +1,7 @@
 # Accumulation: Areas, Sums and Flux {#ch:m-accumulation}
 
+{{Visualize | ch:m-accumulation | area-under:generic | f="1 + sin(x)"; x=[0,12.6]; from=0; to=12.566; n=24; rule=mid; aspect=3; note=false; opener=true }} A curve cut into twenty-four strips. Adding the strips gives the area under the curve, and thinner strips give it more exactly.
+
 The derivative of @ch:m-change takes something apart: from a journey it extracts the speed at each instant. This chapter runs the other way. From the speed at each instant it rebuilds the journey; from a flow it finds a total; from a field it finds how much passes through a surface. The tool is the **integral**, and the idea behind it is simple: cut the whole into thin pieces, work out each piece, add them up. It is the mathematics behind the course's central idea, that a response to a long input is the sum of responses to many short kicks (@ch:response).
 
 **Chapter outline.** [-@sec:m-acc-pieces] Adding up small pieces · [-@sec:m-acc-integral] The integral · [-@sec:m-acc-fundamental] Undoing the derivative · [-@sec:m-acc-averages] Averages and totals · [-@sec:m-acc-flux] Flux: what passes through a surface

@@ -325,11 +325,13 @@ def draw_area_under(spec: Spec):
         ax.bar(lefts, heights, width=w, align="edge", color=spec.colors[2], alpha=0.35,
                edgecolor=spec.colors[2], lw=1)
         total = float(np.sum(heights) * w)
-        ax.text(corner[0], corner[1], f"{n} strips ({rule} points): {total:.4g}\nexact area: {exact:.4g}",
-                transform=ax.transAxes, ha=corner[2], va="top")
+        if flag({"note": spec.get("note", "true")}, "note"):
+            ax.text(corner[0], corner[1], f"{n} strips ({rule} points): {total:.4g}\nexact area: {exact:.4g}",
+                    transform=ax.transAxes, ha=corner[2], va="top")
         spec.expect("expect_sum", total)
     else:
-        ax.text(corner[0], corner[1], f"area: {exact:.4g}", transform=ax.transAxes, ha=corner[2], va="top")
+        if flag({"note": spec.get("note", "true")}, "note"):
+            ax.text(corner[0], corner[1], f"area: {exact:.4g}", transform=ax.transAxes, ha=corner[2], va="top")
     spec.expect("expect_area", exact)
     reference_lines(spec, ax)
     ax.axhline(0, color="0.6", lw=0.6)

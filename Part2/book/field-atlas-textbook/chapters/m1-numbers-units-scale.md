@@ -1,5 +1,7 @@
 # Numbers, Units and Scale {#ch:m-scale}
 
+{{Visualize | ch:m-scale | function-plot:generic | f="x^k"; vary=k:0.5,1,2,3; x=[0.1,10]; logx=true; logy=true; aspect=3; xlabel="size $x$"; ylabel="$x^k$"; opener=true }} Four power laws on logarithmic axes. Each is a straight line whose slope is its exponent: how area, volume and much of nature scale.
+
 Physics is written in numbers that carry units, and the numbers in this course run from the size of a proton to the size of the observable universe. No ruler covers that range and no ordinary graph can show it. This chapter collects the tools that make such numbers manageable: powers of ten, units and dimensions, logarithms, estimation, and the scaling laws that tell how one quantity changes when another is multiplied. All of it is standard mathematics, and every later chapter uses it.
 
 **Chapter outline.** [-@sec:m-scale-powers] Powers of ten · [-@sec:m-scale-units] Units and dimensions · [-@sec:m-scale-logs] Logarithms · [-@sec:m-scale-estimating] Estimating · [-@sec:m-scale-laws] Scaling laws

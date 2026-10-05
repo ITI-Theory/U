@@ -1,5 +1,7 @@
 # Evidence and Proof {#ch:evidence-proof}
 
+{{Visualize | ch:evidence-proof | energy-landscape:soma | U="(x^2 - 1)^2 - 0.3*x + 0.04*sin(14*x)"; x=[-1.6,1.6]; ball=-0.96; aspect=3; opener=true }} A rugged landscape with a state caught in a shallow valley: the problem QUANT-EXP-1 simulates, and a picture that is a model, not a measurement.
+
 Every chapter of this course has labelled its claims: `kernel-verified`, `derived-under-assumptions`, `simulated`, `empirical-result`, `interpretive`, `open-hypothesis`. This last chapter is about the labels themselves. It explains what each kind of evidence checks and what it cannot check, shows a computer proof and what it proves, and works through the programme's quantum experiment as a laboratory exercise in reading a simulation: how much three successes in three runs really show. It ends with the review protocol that any new claim, from the programme or anyone else, should pass.
 
 **Chapter outline.** [-@sec:ev-relations] Four kinds of relation · [-@sec:ev-proof] What a proof checks · [-@sec:ev-simulation] What a simulation shows · [-@sec:ev-lab] Laboratory: QUANT-EXP-1 · [-@sec:ev-review] Review and replication

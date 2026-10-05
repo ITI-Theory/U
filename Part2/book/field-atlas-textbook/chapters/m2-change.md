@@ -1,5 +1,7 @@
 # Change: Rates and Exponentials {#ch:m-change}
 
+{{Visualize | ch:m-change | function-plot:generic | f="exp(r*t)"; var=t; vary=r:-1,-0.3,0.3,0.6; x=[0,3]; y=[0,6]; aspect=3; xlabel="time $t$"; ylabel="$e^{rt}$"; opener=true }} Exponential decay and growth: four rates, one shape. Whatever changes in proportion to itself follows one of these curves.
+
 Most of physics is about how things change: how fast a ball falls, how quickly a cup of tea cools, how a voltage across a nerve membrane relaxes after a kick. The mathematics of change is the **derivative**, the rate at which one quantity changes as another moves on. This chapter builds it from the slope of a graph, finds the derivatives this course uses, and meets the most important function in the subject: the exponential, the shape of anything whose rate of change is proportional to itself.
 
 **Chapter outline.** [-@sec:m-change-rates] Rates of change · [-@sec:m-change-derivative] The derivative · [-@sec:m-change-exponential] Exponential growth and decay · [-@sec:m-change-semilog] Reading exponentials: semilog plots · [-@sec:m-change-relaxation] Relaxation towards a target

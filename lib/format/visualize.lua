@@ -34,7 +34,7 @@ local CONCEPTS = {
   generic = true, wave = true, quantum = true, neural = true, soma = true,
   earth = true, cosmic = true,
 }
-local LAYOUT = { label = true, width = true, height = true }
+local LAYOUT = { label = true, width = true, height = true, opener = true }
 
 local manifest_path, src_prefix, lean_root = nil, "visualize", nil
 local specs = {}
@@ -146,7 +146,9 @@ local function visualize(para, seen)
   local attrs = {}
   if params.width then attrs.width = params.width end
   if params.height then attrs.height = params.height end
-  local img = pandoc.Image(caption, src_prefix .. "/" .. id .. ".png", "", pandoc.Attr("", { "visualize" }, attrs))
+  local classes = { "visualize" }
+  if params.opener == "true" then classes[#classes + 1] = "opener" end  -- chapter banner, full width
+  local img = pandoc.Image(caption, src_prefix .. "/" .. id .. ".png", "", pandoc.Attr("", classes, attrs))
   return pandoc.Figure({ pandoc.Plain({ img }) }, { long = { pandoc.Plain(caption) } },
     pandoc.Attr(params.label or "", { "visualize" }))
 end

@@ -1,5 +1,7 @@
 # The Dark Sectors {#ch:dark-sectors}
 
+{{Visualize | ch:dark-sectors | function-plot:cosmic | f="sqrt(259200/r + v^2*(1 - (5/r)*arctan(r/5)))"; var=r; vary=v:0,120,170,220; x=[2,40]; y=[0,400]; aspect=3; xlabel="distance from the centre (kpc)"; ylabel="orbital speed (km/s)"; opener=true }} Rotation curves of a model galaxy with dark haloes of four strengths. Without a halo ($v = 0$) speeds fall; the flat curves astronomers measure need one.
+
 About ninety-five per cent of the universe's energy is in two forms no one has seen directly: dark matter, which pulls, and dark energy, which pushes. @ch:cosmology set out the budget and the programme's proposed fractions, $7/11$ for dark energy and $3/11$ for dark matter. This chapter goes underneath both. It shows how invisible mass is weighed, how acceleration was discovered, and then how a scientist should judge a proposal that comes close to the measured numbers but not exactly: in standard deviations, against the odds of coincidence, and against everything else the proposal must also get right.
 
 **Chapter outline.** [-@sec:dark-weighing] Weighing the invisible · [-@sec:dark-lensing] Bending light · [-@sec:dark-acceleration] An accelerating universe · [-@sec:dark-near-miss] Judging a near miss · [-@sec:dark-tests] What a real test of the fractions needs

@@ -1,5 +1,7 @@
 # Chance: Distributions and the Boltzmann Factor {#ch:m-chance}
 
+{{Visualize | ch:m-chance | distribution:generic | pdf="exp(-(x+1.5)^2) + 0.6*exp(-(x-1.5)^2/0.5)"; x=[-4,4]; samples=6000; seed=11; bins=60; aspect=3; xlabel="state $x$"; opener=true }} Six thousand random draws from a two-humped distribution, the kind a noisy system with two valleys produces.
+
 A single molecule of air moves unpredictably; a litre of air has a pressure you can quote to four figures. A single radioactive nucleus decays whenever it likes; a gram of them follows the exponential of @ch:m-change exactly. The bridge between the unpredictable small and the predictable large is probability. This chapter collects the parts of it the course uses: averages and spreads, distributions and the normal curve, why errors shrink as $1/\sqrt{N}$, how random steps become diffusion, and the single most useful formula in statistical physics, the Boltzmann factor, which says how likely a state is at a given temperature.
 
 **Chapter outline.** [-@sec:m-chance-averages] Probability, averages and spread · [-@sec:m-chance-distributions] Distributions and densities · [-@sec:m-chance-normal] The normal curve and the square-root law · [-@sec:m-chance-random-walk] Random walks and diffusion · [-@sec:m-chance-boltzmann] The Boltzmann factor

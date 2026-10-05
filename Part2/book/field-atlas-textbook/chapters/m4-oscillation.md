@@ -1,5 +1,7 @@
 # Oscillation: Springs, Circles and Complex Numbers {#ch:m-oscillation}
 
+{{Visualize | ch:m-oscillation | function-plot:wave | f1="exp(-0.08*t)*cos(2*t)"; f2="exp(-0.08*t)"; f3="-exp(-0.08*t)"; var=t; x=[0,40]; aspect=3; legend=none; xlabel="time $t$"; opener=true }} A damped oscillation inside its decaying envelope: a rotation and a decay at once, which is a complex exponential.
+
 Pull a mass on a spring and let go, and it swings back and forth. Pluck a string, tap a glass, kick a nerve membrane hard enough, push a child on a swing: the world is full of things that oscillate. This chapter finds the one equation behind all of them and the one function that solves it. Along the way it introduces complex numbers. They are not exotic: they are the natural way to describe anything that goes round, and with them a damped oscillation becomes a single point on a plane. That point, called a **pole**, is how the rest of the course reads a spectral line, a resonance and a ringing system.
 
 **Chapter outline.** [-@sec:m-osc-spring] The spring and simple harmonic motion · [-@sec:m-osc-circle] Oscillation as a shadow of a circle · [-@sec:m-osc-complex] Complex numbers · [-@sec:m-osc-euler] Euler's formula and phasors · [-@sec:m-osc-damping] Damping and poles

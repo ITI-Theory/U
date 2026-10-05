@@ -1,5 +1,7 @@
 # Vectors, Fields and Matrices {#ch:m-vectors}
 
+{{Visualize | ch:m-vectors | vector-field:generic | u="y"; v="-sin(x)"; x=[-6.3,6.3]; y=[-2.6,2.6]; n=21; opener=true }} The flow of a swinging pendulum in its state space of angle (across) and angular speed (up): stable centres where it hangs, saddles where it balances upside down.
+
 A temperature is one number; a wind has a speed *and* a direction. Quantities with direction are **vectors**, and a vector at every point of space is a **vector field**, the language of flows, forces and gradients in every chapter of this course. Vectors are moved, stretched and turned by **matrices**, and each matrix has a few special directions it only stretches: its **eigenvectors**. Eigenvectors are the normal modes of a vibrating system, the principal stresses in a rock, and the directions in which a disturbed system returns to rest or runs away. This chapter builds these ideas in two dimensions, where every one of them can be drawn.
 
 **Chapter outline.** [-@sec:m-vec-vectors] Vectors · [-@sec:m-vec-fields] Vector fields, gradients and circulation · [-@sec:m-vec-matrices] Matrices as transformations · [-@sec:m-vec-eigen] Eigenvalues and eigenvectors · [-@sec:m-vec-stability] Stability from eigenvalues

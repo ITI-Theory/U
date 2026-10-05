@@ -1,5 +1,7 @@
 # Zooming: Coarse-Graining, Similarity and Sampling {#ch:zooming}
 
+{{Visualize | ch:zooming | function-plot:generic | f="sin(x)*sin(l/2)/(l/2) + 0.5*sin(6*x)*sin(3*l)/(3*l) + 0.3*sin(17*x)*sin(8.5*l)/(8.5*l)"; vary=l:0.01,0.5,2; x=[0,12.6]; aspect=3; xlabel="position $x$"; opener=true }} One field seen through three cell sizes $\ell$. Each zoom out removes the detail smaller than the cell and keeps the rest.
+
 The Field Atlas walks through thirty-one levels, from the atom to the cosmic web, and at every step it changes what it describes: molecules become a concentration, cells become a tissue, stars become a density of mass. @sec:fields-zooming-out-when introduced this move, **zooming out**, with one example. This chapter makes it precise. It shows what averaging does to a field and why it is a filter, why averaging a nonlinear law creates new terms, how dimensionless numbers decide when two systems behave alike, and how sampling limits what any record can show. It ends with the programme's **zoom operator**, the rule it uses to step between levels, and the labels that keep such steps honest.
 
 **Chapter outline.** [-@sec:zoom-block-averages] Block averages are filters · [-@sec:zoom-closure] Averaging creates new terms · [-@sec:zoom-dimensionless] Dimensionless numbers and similarity · [-@sec:zoom-sampling] Sampling and aliasing · [-@sec:zoom-operator] The zoom operator and its labels

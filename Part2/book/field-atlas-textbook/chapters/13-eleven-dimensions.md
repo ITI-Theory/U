@@ -1,5 +1,7 @@
 # Eleven Dimensions and M-Theory {#ch:eleven-dimensions}
 
+{{Visualize | ch:eleven-dimensions | contour-map:quantum | f="cos(2*x)*cos(3*y)"; x=[0,12.566]; y=[0,6.283]; levels=16; aspect=2.4; opener=true }} A standing wave on a torus, two numbers of waves round two hidden circles: geometry heard as a spectrum.
+
 String theory and M-theory propose that space has more dimensions than the three we move in, curled up too small to see. The [T]-Theory programme borrows the language of these theories, including the number eleven. This chapter explains, with the tools of the course, what an extra dimension would mean and how a hidden one would show itself: as a tower of particles, a pattern of symmetries, a web of dictionaries between theories. Then it sets out, side by side and separately labelled, the three different ways the programme uses the words, and what would test each one.
 
 **Chapter outline.** [-@sec:mth-dimension] What a dimension is · [-@sec:mth-kk] A hidden circle: the Kaluza–Klein tower · [-@sec:mth-holonomy] Curled-up shapes and holonomy · [-@sec:mth-duality] The duality web · [-@sec:mth-programme] Three readings kept separate

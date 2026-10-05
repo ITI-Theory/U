@@ -1,5 +1,7 @@
 # Frequencies: Fourier, Convolution and Poles {#ch:frequencies}
 
+{{Visualize | ch:frequencies | function-plot:wave | f1="sin(t) + sin(3*t)/3 + sin(5*t)/5 + sin(7*t)/7"; f2="sin(t)"; f3="sin(3*t)/3"; f4="sin(5*t)/5"; f5="sin(7*t)/7"; var=t; x=[0,12.6]; aspect=3; legend=none; xlabel="time $t$"; opener=true }} A sum of four sines and the four sines that make it. Fourier analysis runs this in reverse: from the sum, find the parts.
+
 A chord on a piano, the light from a star, the trembling of the whole Earth after an earthquake: each is a mixture of many oscillations at once, and each is best understood by taking the mixture apart into its frequencies. @ch:response described a system by what it does to a single kick. This chapter describes the same system by what it does to each frequency, and shows that the two descriptions are one. The tool is Fourier analysis. The prize is a single picture, the system's poles on the complex plane, that holds its ringing, its resonance and its spectral lines together.
 
 **Chapter outline.** [-@sec:freq-sums-sines] Signals as sums of sines · [-@sec:freq-spectrum] The spectrum · [-@sec:freq-convolution-theorem] Convolution becomes multiplication · [-@sec:freq-transfer] The transfer function and resonance · [-@sec:freq-poles] Poles: where a spectrum comes from · [-@sec:freq-short-sharp] Short or sharp, not both · [-@sec:freq-programme] Spectra across the ladder
