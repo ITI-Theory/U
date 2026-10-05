@@ -84,7 +84,7 @@ $$\lambda = \frac{h}{p}.$$
 
 For an electron with kinetic energy $E$, $p = \sqrt{2m_eE}$, and the numbers combine into a convenient form:
 
-$$\lambda = \frac{1.226\,\mathrm{nm}}{\sqrt{E/\mathrm{eV}}}.$$
+$$\lambda = \frac{1.226\,\mathrm{nm}}{\sqrt{E/\mathrm{eV}}}.$$ {#eq:atoms-electron-wavelength}
 
 An electron of a few electronvolts therefore has a wavelength of about a nanometre, comparable with the size of atoms, and that is exactly where wave effects should show. In 1927 Davisson and Germer fired electrons at a nickel crystal and found that they bounced off strongly only at particular angles, the signature of diffraction from the regular rows of atoms.
 
@@ -97,6 +97,8 @@ Davisson and Germer used $54\,\mathrm{eV}$ electrons. The surface rows of their 
 
 **Significance.** The measured peak was at $50^\circ$. A particle with no wavelength would scatter smoothly in all directions; the sharp peak at the predicted angle is direct evidence that electrons diffract. Electron microscopes exploit the same fact: their short wavelengths resolve detail far finer than light can.
 :::
+
+{{Visualize | ex:atoms-electrons-diffracting-nickel | function-plot:quantum | f="1.226/sqrt(x)"; x=[1,100000]; logx=true; logy=true; value_at=54; expect_value=0.167; hline="0.215, 0.1"; xlabel="electron energy (eV)"; ylabel="wavelength (nm)"; label=fig:atoms-electron-wavelength; height=26% }} An electron's wavelength against its energy, from @eq:atoms-electron-wavelength: a straight line of slope $-1/2$ on log–log axes. Davisson and Germer's $54\,\mathrm{eV}$ electrons (red point) have $0.167\,\mathrm{nm}$, comparable with the nickel row spacing ($0.215\,\mathrm{nm}$, upper dotted line), which is why they diffract; the lower dotted line is the size of an atom.
 
 A wave confined to a region can only take shapes that fit it. @ch:fields showed this for a string fixed at both ends, where only whole numbers of half-wavelengths fit (the figure below recalls it). An electron bound to a nucleus is a wave confined in three dimensions, so it too has a discrete set of allowed patterns, each with its own energy. In Bohr's simplified picture a circular orbit of radius $r_n$ must hold a whole number of wavelengths, $2\pi r_n = n\lambda$; this gives orbits of radius $r_n = n^2 a_0$, with $a_0 = 0.0529\,\mathrm{nm}$, and exactly the energies of @sec:atoms-hydrogen-spectrum. The picture of definite orbits is wrong in detail, since Schrödinger's equation of 1926 replaces them with **orbitals**, standing-wave patterns of probability that have no path [@schrodinger1926]. But the energies it predicts for hydrogen are the same, and the reason for discreteness is the same: only waves that fit are allowed.
 

@@ -16,7 +16,7 @@ The last level of the Atlas is the universe itself. Cosmology asks how big it is
 
 In 1929 Edwin Hubble combined distances to nearby galaxies with their Doppler shifts and found that, on average, galaxies recede from us at speeds proportional to their distance [@hubble1929relation]:
 
-$$v = H_0\,d.$$
+$$v = H_0\,d.$$ {#eq:cosmology-hubble}
 
 The **Hubble constant** $H_0$ is measured today as about $67$ to $73\,\mathrm{km\,s^{-1}}$ per megaparsec, depending on the method; this chapter uses the Planck satellite's $67.4$ [@planck2018cosmology]. The disagreement between methods, called the **Hubble tension**, is one of the open problems of the subject.
 
@@ -33,6 +33,8 @@ A galaxy lies $100\,\mathrm{Mpc}$ away. How fast does it recede, and what is its
 
 **Significance.** Its hydrogen line at $656.3\,\mathrm{nm}$ arrives at $656.3\times1.022 = 671\,\mathrm{nm}$, a shift of $15\,\mathrm{nm}$, two hundred times the annual swing of @ex:atoms-line-moving-planet. Every galaxy's spectrum carries its distance.
 :::
+
+{{Visualize | ex:cosmology-galaxy-100-megaparsecs | function-plot:cosmic | f="67.4*x"; name="$H_0 = 67.4$"; f2="73*x"; name2="$H_0 = 73$"; x=[0,400]; value_at=100; expect_value=6740; legend=below; xlabel="distance (Mpc)"; ylabel="recession speed (km/s)"; label=fig:cosmology-hubble; height=26% }} Hubble's law for the two disputed values of the expansion rate. The galaxy of @ex:cosmology-galaxy-100-megaparsecs recedes at $6740\,\mathrm{km\,s^{-1}}$ (red point) on the microwave-background value; local distance ladders give a line about $8\,\%$ steeper, the Hubble tension of @ch:dark-sectors.
 
 ::: {.check-your-learning}
 Convert $H_0 = 67.4\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ to SI units, using $1\,\mathrm{Mpc} = 3.086\times10^{22}\,\mathrm{m}$, and find the Hubble time in years. (Answer: $H_0 = 2.18\times10^{-18}\,\mathrm{s^{-1}}$; $1/H_0 = 4.58\times10^{17}\,\mathrm{s} = 14.5$ billion years.)
