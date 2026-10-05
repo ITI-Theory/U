@@ -27,6 +27,10 @@ input-files:
   - chapters/10-earth-deep-time-geology.md
   - chapters/11-stars-galaxies.md
   - chapters/12-cosmology-dark-sectors.md
+  - parts/3-frontier.md
+  - chapters/13-eleven-dimensions.md
+  - chapters/14-dark-sectors.md
+  - chapters/15-evidence-proof.md
   - appendices/A-units-constants.md
   - appendices/B-31-level-table.md
   - appendices/C-glossary.md

@@ -314,10 +314,40 @@ def zooming() -> None:
     close("P4.4 alias", 4 - 3, 1)
 
 
+def frontier() -> None:
+    """Part III chapters (13-15), new in the course edition."""
+    import numpy as np
+    hbarc = 1.97e-7  # eV m
+    relclose("13 LHC R", hbarc / 1e13, 2e-20, 0.02)
+    close("13 R vs proton", 1.7e-15 / 2e-20, 85000, 1000)
+    relclose("13 1 mm rung eV", hbarc / 1e-3, 2e-4, 0.02)
+    close("13 octant", (4 * math.pi / 8), math.pi / 2)
+    close("13 octant excess deg", 270 - 180, 90)
+    close("13 CYL pi/3", math.pi / 3, 1.047, 0.0005)
+    A = np.array([[1.5, 0.4], [0.4, 0.9]])
+    close("13 trace/2", float(np.trace(A)) / 2, 1.2)
+    d = A - 1.2 * np.eye(2)
+    close("13 |delta|F", float(np.linalg.norm(d)), 0.707, 0.0005)
+    close("13 |A|F", float(np.linalg.norm(A)), 1.84, 0.005)
+    close("13 ratio", float(np.linalg.norm(d) / np.linalg.norm(A)), 0.38, 0.005)
+    ev = sorted(np.linalg.eigvals(A).real)
+    close("13 eig lo", ev[0], 0.7)
+    close("13 eig hi", ev[1], 1.7)
+    relclose("P13.1 rung", hbarc / 1e-19, 2.0e12, 0.02)
+    close("P13.2 sqrt2", math.sqrt(2), 1.414, 0.0005)
+    close("P13.3 excess", math.radians(90 + 90 + 60 - 180), 1.05, 0.005)
+    close("P13.3 fraction", (math.pi / 3) / (4 * math.pi), 1 / 12)
+    close("P13.4 momentum", 1 / 2, 0.5)
+    close("P13.4 winding", 1 * 0.5, 0.5)
+    B = np.diag([1.0, 3.0])
+    close("P13.5 ratio", float(np.linalg.norm(B - 2 * np.eye(2)) / np.linalg.norm(B)), 0.45, 0.005)
+
+
 def main() -> int:
     toolkit()
     frequencies()
     zooming()
+    frontier()
     # Chapter 1 (worked examples, check-your-learning, problems)
     c = 2.998e8
     kB = 1.380649e-23
