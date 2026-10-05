@@ -395,6 +395,8 @@ def draw_vector_field(spec: Spec):
     # display only: clip the longest arrows so a singular source does not dwarf the rest
     mag = np.hypot(U, V)
     cap = np.percentile(mag, 85) if mag.size else 1.0
+    if mag.max() <= 4 * cap:  # no singularity: keep true lengths
+        cap = mag.max()
     scale = np.where(mag > cap, cap / np.maximum(mag, 1e-300), 1.0)
     ax.quiver(X, Y, U * scale, V * scale, color=spec.colors[0], angles="xy", pivot="mid")
     if spec.get("circle"):
@@ -405,7 +407,7 @@ def draw_vector_field(spec: Spec):
         ds = r * (th[1] - th[0])
         flux = float(np.sum((Uc * np.cos(th) + Vc * np.sin(th))[:-1]) * ds)
         circ = float(np.sum((-Uc * np.sin(th) + Vc * np.cos(th))[:-1]) * ds)
-        ax.plot(cx, cy, color=RED, lw=2)
+        ax.plot(cx, cy, color=RED if spec.colors[0] != RED else BLUE, lw=2)
         def tidy(v: float) -> str:
             return "0" if abs(v) < 1e-9 else f"{v:.4g}"
         ax.text(0.02, 0.98, f"flux out: {tidy(flux)}\ncirculation: {tidy(circ)}", transform=ax.transAxes,
