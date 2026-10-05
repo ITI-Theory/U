@@ -385,6 +385,30 @@ def frontier() -> None:
     close("P14.4 3 sigma", (3 / 11 - 0.2645) / 3, 0.0027, 0.00005)
     close("P14.5 baryon sigma", (1 / 11 - 0.0493) / 0.0008, 52, 0.5)
 
+    # 15 Evidence and proof
+    close("15 3 of 3 bound", 0.05 ** 0.25, 0.47, 0.005)
+    close("15 3 of 3 check", 1 - 0.4729 ** 4, 0.95, 0.0005)
+    close("15 0 of 48 bound", 1 - 0.05 ** (1 / 49), 0.0593, 0.0001)
+    close("15 rule of three 48", 3 / 48, 0.0625)
+    close("15 0/48 approx 6%", 1 - 0.05 ** (1 / 49), 0.06, 0.002)
+    se = math.sqrt(0.95 * 0.05 / 200)
+    close("15 se", se, 0.015, 0.0005)
+    close("15 interval", 1.96 * se, 0.03, 0.001)
+    close("15 rule 20", 3 / 20, 0.15)
+    close("15 exact 20", 1 - 0.05 ** (1 / 20), 0.14, 0.002)
+    relclose("15 arrhenius figure", math.exp(1 / 0.02 - 1 / 1.5), 2.7e21, 0.02)
+    close("15 toy valley", 4 * -0.96 * (0.96 ** 2 - 1) - 0.3, 0, 0.01)
+    close("P15.2 5 of 5", 0.05 ** (1 / 6), 0.61, 0.005)
+    close("P15.2 0.9 bound", 0.05 ** (1 / 29), 0.90, 0.005)
+    close("P15.3 exponent", 50 - 1 / 1.5, 49.3, 0.05)
+    p_ = 176 / 200
+    se2 = math.sqrt(p_ * (1 - p_) / 200)
+    close("P15.5 p", p_, 0.88)
+    close("P15.5 se", se2, 0.023, 0.0005)
+    close("P15.5 half width", 1.96 * se2, 0.045, 0.0005)
+    close("P15.5 lower", p_ - 1.96 * se2, 0.835, 0.001)
+    close("P15.5 upper", p_ + 1.96 * se2, 0.925, 0.001)
+
 
 def main() -> int:
     toolkit()

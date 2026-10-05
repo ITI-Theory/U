@@ -481,7 +481,8 @@ def draw_energy_landscape(spec: Spec):
                 ax.annotate("", xy=(xs[i_min], ys[i_top]), xytext=(xs[i_min], ys[i_min]),
                             arrowprops=dict(arrowstyle="<->", color=RED))
                 ax.plot([xs[i_min], xs[i_top]], [ys[i_top]] * 2, color=RED, lw=0.8, ls=":")
-                ax.text(xs[i_min], (ys[i_min] + ys[i_top]) / 2, "  barrier", color=RED, va="center")
+                ax.text(xs[i_min] + 0.06 * (xs[-1] - xs[0]), (ys[i_min] + ys[i_top]) / 2, "barrier",
+                        color=RED, va="center")
                 spec.expect("expect_barrier", float(ys[i_top] - ys[i_min]))
         if spec.get("ball"):
             b = number(spec.get("ball"))
