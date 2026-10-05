@@ -16,15 +16,16 @@ input-files:
   - parts/1-response-grammar.md
   - chapters/01-fields-waves-scale.md
   - chapters/02-response-greens-resonance.md
+  - chapters/03-frequencies.md
   - parts/2-ladder.md
-  - chapters/03-atoms-quantum-scale.md
-  - chapters/04-molecules-cells.md
-  - chapters/05-human-level.md
-  - chapters/06-two-people-groups.md
-  - chapters/07-flocks-swarms.md
-  - chapters/08-earth-deep-time-geology.md
-  - chapters/09-stars-galaxies.md
-  - chapters/10-cosmology-dark-sectors.md
+  - chapters/05-atoms-quantum-scale.md
+  - chapters/06-molecules-cells.md
+  - chapters/07-human-level.md
+  - chapters/08-two-people-groups.md
+  - chapters/09-flocks-swarms.md
+  - chapters/10-earth-deep-time-geology.md
+  - chapters/11-stars-galaxies.md
+  - chapters/12-cosmology-dark-sectors.md
   - appendices/A-units-constants.md
   - appendices/B-31-level-table.md
   - appendices/C-glossary.md

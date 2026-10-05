@@ -81,10 +81,12 @@ concept styles the figure; it never changes what is drawn.
 | `log-scale` | named quantities on a powers-of-ten line | `items="atom=1e-10, cell=1e-5"`, `range=[lo,hi]` (exponents), `unit` | |
 | `complex-plane` | points or poles $z$ | `points` (comma list of expressions), `names`, `conjugate`, `poles`, `arrows`, `unit_circle`, `radius` | |
 | `vector-field` | arrows $(u, v)$ | `u`, `v`, `x`, `y`, `n`, `potential` (shaded), `circle=r` | `expect_flux`, `expect_circulation` (through the circle) |
-| `contour-map` | a scalar field $f(x, y)$ | `f`, `x`, `y`, `levels`, `gradient` or `downhill` (arrows) | |
+| `contour-map` | a scalar field $f(x, y)$ | `f`, `x`, `y`, `levels`, `gradient` or `downhill` (arrows), `hline`, `vline` | |
 | `energy-landscape` | a potential $U(x)$ with its valleys | `U`, `x`, `ball`, `barrier`, `y` | `expect_minima="x1,x2"`, `expect_barrier` |
 | `eigen-transform` | a 2 x 2 matrix acting on the unit circle | `matrix="[[a,b],[c,d]]"` | `expect_eigen="l1,l2"` (ascending) |
 | `distribution` | a density (with random draws) or discrete levels | `pdf`, `x`, `samples`, `seed`, `bins`, `shade=[a,b]`; or `levels`, `weight` (in `E`) | `expect_mean`, `expect_sd`, `expect_prob`, `expect_p0` |
+| `spectrum` | a signal over time and its amplitude spectrum (FFT, Hann window) | `f` (in `t`), `x=[t0,t1]`, `n`, `show` (time drawn: a length from the start, or a window `[t0,t1]`), `fmax`, `peaks` (how many to label), `flabel` | `expect_peak` (frequency of the largest peak) |
+| `convolution` | input, kernel $G$ (from $t = 0$) and output $G * u$, stacked | `input`, `kernel`, `x`, `n`, `input_label`, `kernel_label`, `output_label` | `expect_max`, `expect_area` (of the output) |
 
 New primitives are added as one `draw_*` function in `lib/visualize/render.py`
 and one entry in the `PRIMITIVES` table of `lib/format/visualize.lua`.

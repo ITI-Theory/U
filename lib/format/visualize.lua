@@ -28,6 +28,7 @@ local PRIMITIVES = {
   ["function-plot"] = true, ["area-under"] = true, ["log-scale"] = true,
   ["complex-plane"] = true, ["vector-field"] = true, ["contour-map"] = true,
   ["energy-landscape"] = true, ["eigen-transform"] = true, ["distribution"] = true,
+  ["spectrum"] = true, ["convolution"] = true,
 }
 local CONCEPTS = {
   generic = true, wave = true, quantum = true, neural = true, soma = true,

@@ -429,6 +429,7 @@ def draw_contour_map(spec: Spec):
     cs = ax.contourf(X, Y, Z, levels=int(number(spec.get("levels", "20"))), cmap=spec.cmap)
     ax.contour(X, Y, Z, levels=cs.levels[::2], colors="k", linewidths=0.4, alpha=0.5)
     fig.colorbar(cs, ax=ax, shrink=0.85, label=spec.get("zlabel", ""))
+    reference_lines(spec, ax)
     spec.used.update({"gradient", "downhill"})
     if flag(spec.p, "gradient") or flag(spec.p, "downhill"):
         Xs, Ys = mesh(spec, 15)
@@ -566,12 +567,80 @@ def draw_distribution(spec: Spec):
     return fig
 
 
+def draw_spectrum(spec: Spec):
+    """A signal over time (top) and its amplitude spectrum (bottom), by FFT."""
+    var = spec.get("var", "t")
+    lo, hi = numbers(spec.need("x"))
+    n = int(number(spec.get("n", "16384")))
+    ts = np.linspace(lo, hi, n, endpoint=False)
+    sig = as_array(compile_expr(spec.need("f"), spec.names(var))({**spec.scalars(), var: ts}), ts)
+    window = np.hanning(n)
+    amp = np.abs(np.fft.rfft(sig * window)) * 2 / window.sum()
+    freqs = np.fft.rfftfreq(n, d=(hi - lo) / n)
+    fmax = number(spec.get("fmax", str(freqs[-1])))
+    keep = freqs <= fmax
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6.4, 6.4 / float(spec.get("aspect", "1.15"))),
+                                   gridspec_kw={"height_ratios": [1, 1.25]})
+    show = spec.get("show", str(hi - lo))
+    if "," in show:  # show=[t0,t1]: a window
+        s0, s1 = numbers(show)
+        m = (ts >= s0) & (ts <= s1)
+    else:            # show=d: the first d time units
+        m = ts <= lo + number(show)
+    ax1.plot(ts[m], sig[m], color=spec.colors[0], lw=1.4)
+    ax1.set_xlabel(spec.get("xlabel", f"time ${var}$"))
+    ax1.set_ylabel("signal")
+    ax2.plot(freqs[keep], amp[keep], color=spec.colors[1], lw=1.6)
+    ax2.fill_between(freqs[keep], amp[keep], color=spec.colors[1], alpha=0.2)
+    ax2.set_xlabel(spec.get("flabel", "frequency"))
+    ax2.set_ylabel("amplitude")
+    peak = float(freqs[keep][np.argmax(amp[keep])])
+    k = int(number(spec.get("peaks", "1")))
+    # label the k largest local maxima
+    a = amp[keep]
+    idx = [i for i in range(1, len(a) - 1) if a[i] >= a[i - 1] and a[i] > a[i + 1]]
+    for i in sorted(idx, key=lambda i: -a[i])[:k]:
+        ax2.annotate(f"{freqs[keep][i]:.4g}", (freqs[keep][i], a[i]), textcoords="offset points",
+                     xytext=(0, 4), ha="center", fontsize=9, color=spec.colors[0])
+    spec.expect("expect_peak", peak)
+    fig.tight_layout()
+    return fig
+
+
+def draw_convolution(spec: Spec):
+    """Input u(t), kernel G(t) (zero before t = 0) and output (G * u)(t), stacked."""
+    var = spec.get("var", "t")
+    lo, hi = numbers(spec.need("x"))
+    n = int(number(spec.get("n", "8000")))
+    ts = np.linspace(lo, hi, n)
+    dt = ts[1] - ts[0]
+    env = spec.scalars()
+    u = as_array(compile_expr(spec.need("input"), spec.names(var))({**env, var: ts}), ts)
+    tk = np.arange(n) * dt
+    G = as_array(compile_expr(spec.need("kernel"), spec.names(var))({**env, var: tk}), tk)
+    y = np.convolve(u, G)[:n] * dt
+    fig, axes = plt.subplots(3, 1, figsize=(6.4, 6.4 / float(spec.get("aspect", "1.0"))), sharex=False)
+    for ax, data, xs, label, c in ((axes[0], u, ts, spec.get("input_label", "input (kicks)"), spec.colors[2]),
+                                   (axes[1], G, lo + tk, spec.get("kernel_label", "response to one kick, $G$"), spec.colors[1]),
+                                   (axes[2], y, ts, spec.get("output_label", "output $= G * $ input"), spec.colors[0])):
+        ax.plot(xs, data, color=c, lw=1.6)
+        ax.fill_between(xs, data, color=c, alpha=0.15)
+        ax.set_ylabel(label, fontsize=9)
+        ax.set_xlim(lo, hi)
+        ax.axhline(0, color="0.75", lw=0.6)
+    axes[2].set_xlabel(spec.get("xlabel", f"time ${var}$"))
+    spec.expect("expect_max", float(y.max()))
+    spec.expect("expect_area", float(np.sum(y) * dt))
+    fig.tight_layout()
+    return fig
+
+
 DRAW = {
     "function-plot": draw_function_plot, "area-under": draw_area_under,
     "log-scale": draw_log_scale, "complex-plane": draw_complex_plane,
     "vector-field": draw_vector_field, "contour-map": draw_contour_map,
     "energy-landscape": draw_energy_landscape, "eigen-transform": draw_eigen_transform,
-    "distribution": draw_distribution,
+    "distribution": draw_distribution, "spectrum": draw_spectrum, "convolution": draw_convolution,
 }
 
 

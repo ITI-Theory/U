@@ -245,8 +245,48 @@ def toolkit() -> None:
     close("PM6.5 in kT", (1.381e-23 * math.log(2) / dinv / 1.602e-19) / 0.0252, 21, 0.5)
 
 
+def frequencies() -> None:
+    """Chapter 3 (Frequencies), new in the course edition."""
+    close("3 harmonics 5 ms", 1 / 0.005, 200)
+    close("3 3rd power %", 100 / 9, 11, 0.2)
+    close("3 5th power %", 100 / 25, 4)
+    close("3 chord E/C", 329.6 / 261.6, 1.260, 0.0005)
+    close("3 chord G/C", 392.0 / 261.6, 1.498, 0.0005)
+    close("3 power ratio", (1.0 / 0.25) ** 2, 16)
+    tau = 1e4 * 1e-7
+    close("3 RC tau ms", tau * 1e3, 1.0)
+    close("3 RC fc", 1 / (2 * math.pi * tau), 159, 0.5)
+    close("3 RC gain 1k", 1 / math.sqrt(1 + (2 * math.pi * 1e3 * tau) ** 2), 0.157, 0.0005)
+    close("3 RC 39.5", (2 * math.pi * 1e3 * tau) ** 2, 39.5, 0.05)
+    close("3 RC gain 10k", 1 / math.sqrt(1 + (2 * math.pi * 1e4 * tau) ** 2), 0.016, 0.0005)
+    f0 = 1 / (53.9 * 60)
+    relclose("3 Earth f0", f0, 3.09e-4, 0.002)
+    relclose("3 Earth width", f0 / 500, 6.2e-7, 0.01)
+    relclose("3 Earth record s", 500 / f0, 1.6e6, 0.02)
+    close("3 Earth record days", 500 / f0 / 86400, 19, 0.5)
+    close("3 bell df", 1 / (2 * math.pi), 0.16, 0.005)
+    relclose("3 bell Q", 2 * math.pi * 500 / 1, 3.1e3, 0.02)
+    close("3 bridge gamma", math.pi * 0.10, 0.31, 0.005)
+    close("3 bridge omega0", 2 * math.pi * 2.0, 12.6, 0.05)
+    close("3 bridge decay", 1 / (math.pi * 0.10), 3.2, 0.05)
+    close("3 bridge Q", 2.0 / 0.10, 20)
+    relclose("3 Lyman df", 1 / (2 * math.pi * 1.6e-9), 9.9e7, 0.01)
+    relclose("3 Lyman f", 3.00e8 / 121.6e-9, 2.47e15, 0.002)
+    relclose("3 Lyman Q", (3.00e8 / 121.6e-9) / (1 / (2 * math.pi * 1.6e-9)), 2.5e7, 0.02)
+    close("P3.1 fundamental share", 8 / math.pi ** 2, 0.81, 0.005)
+    close("P3.1 series check", sum(1 / (2 * k + 1) ** 2 for k in range(200000)), math.pi ** 2 / 8, 1e-5)
+    close("P3.2 fc", 1 / (2 * math.pi * 0.002), 80, 0.5)
+    close("P3.2 omega tau", 2 * math.pi * 50 * 0.002, 0.628, 0.0005)
+    close("P3.2 gain", 1 / math.sqrt(1 + (2 * math.pi * 50 * 0.002) ** 2), 0.85, 0.005)
+    close("P3.4 gamma", math.pi * 0.5, 1.57, 0.005)
+    close("P3.4 omega0", 2 * math.pi * 10, 62.8, 0.05)
+    close("P3.4 decay", 1 / (math.pi * 0.5), 0.64, 0.005)
+    close("P3.4 cycles", 10 / (math.pi * 0.5), 6.4, 0.05)
+
+
 def main() -> int:
     toolkit()
+    frequencies()
     # Chapter 1 (worked examples, check-your-learning, problems)
     c = 2.998e8
     kB = 1.380649e-23
