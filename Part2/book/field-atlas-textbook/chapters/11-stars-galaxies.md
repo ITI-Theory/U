@@ -16,7 +16,9 @@ Every fact we know about the stars has arrived as light. No probe has visited an
 
 A star's surface glows like any hot dense body, with a spectrum close to that of an ideal **blackbody**. Two laws describe it. The wavelength of peak brightness falls as the temperature rises, **Wien's law**:
 
-$$\lambda_\text{max}T = 2.898\times10^{-3}\,\mathrm{m\,K}.$$
+$$\lambda_\text{max}T = 2.898\times10^{-3}\,\mathrm{m\,K}.$$ {#eq:stars-wien}
+
+{{Visualize | eq:stars-wien | function-plot:cosmic | f="1e17/(x^5*(exp(14388000/(x*T)) - 1))"; vary=T:5800,3500,9000; x=[100,2000]; expect_peak_x=499.7; vline="380, 750"; xlabel="wavelength (nm)"; ylabel="brightness per nm (relative)"; label=fig:stars-planck; height=28% }} Blackbody spectra at three temperatures; the dotted lines bound visible light. The $5800\,\mathrm{K}$ curve, the Sun's, peaks at $500\,\mathrm{nm}$ as Wien's law requires (the program checked the peak); the cooler star peaks in the infrared and the hotter one in the ultraviolet, and the hotter star is far brighter at every wavelength.
 
 The total power radiated from each square metre rises as the fourth power of temperature, the **Stefan–Boltzmann law** met for the Earth in @ch:earth, so a star of radius $R$ and surface temperature $T$ has **luminosity**
 

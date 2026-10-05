@@ -44,7 +44,7 @@ Every cell is enclosed by a **lipid bilayer**, two layers of oily molecules abou
 
 Suppose only potassium channels are open. Potassium leaks out down its concentration gradient, carrying positive charge, and the inside becomes negative. The growing voltage pulls potassium back in. The flows balance when the electrical energy $eV$ matches the thermal tendency to spread out, at the **Nernst potential**
 
-$$E_\text{ion} = \frac{k_BT}{ze}\ln\frac{c_\text{out}}{c_\text{in}},$$
+$$E_\text{ion} = \frac{k_BT}{ze}\ln\frac{c_\text{out}}{c_\text{in}},$$ {#eq:cells-nernst}
 
 where $z$ is the ion's charge number. At body temperature $k_BT/e = 26.7\,\mathrm{mV}$. A real resting cell has some sodium and chloride channels open too, and settles between the individual Nernst potentials, usually near $-70\,\mathrm{mV}$, closest to potassium's.
 
@@ -57,6 +57,8 @@ Compute the Nernst potentials for potassium ($5$ outside, $140$ inside) and sodi
 
 **Significance.** The two ions pull the membrane towards opposite voltages $156\,\mathrm{mV}$ apart. Whichever set of channels is more open wins. At rest potassium wins and the cell sits near $-70\,\mathrm{mV}$; @sec:cells-action-potential-all shows what happens when sodium briefly wins.
 :::
+
+{{Visualize | ex:cells-nernst-potentials | function-plot:neural | f="26.7*log(x)"; x=[0.01,100]; logx=true; value_at=5/140; expect_value=-89; hline="-70, 67"; vline="12.08"; xlabel="concentration ratio, outside / inside"; ylabel="equilibrium potential (mV)"; label=fig:cells-nernst; height=28% }} The Nernst potential of @eq:cells-nernst against the concentration ratio: a straight line on a logarithmic axis, $61.5\,\mathrm{mV}$ for every factor of ten. Potassium (ratio $1/28$, red point) sits at $-89\,\mathrm{mV}$; sodium (ratio $12$, dotted) at $+67\,\mathrm{mV}$. The resting cell, at $-70\,\mathrm{mV}$ (lower dotted line), lies between them, nearer potassium.
 
 ::: {.example #ex:cells-few-ions title="How few ions?"}
 A spherical cell of radius $10\,\mu\mathrm{m}$ rests at $-70\,\mathrm{mV}$. How many ions must cross its membrane to set up this voltage, and what fraction is that of the potassium ions inside?

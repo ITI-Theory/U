@@ -132,9 +132,11 @@ Compare a magnitude 9 earthquake with a magnitude 7 in energy released and in ho
 
 The Earth absorbs sunlight and radiates heat to space. At the Earth's distance the Sun delivers $S = 1361\,\mathrm{W\,m^{-2}}$; averaged over the rotating sphere that is $S/4$, of which a fraction $\alpha$, the **albedo**, is reflected straight back. Balancing the rest against the Stefan–Boltzmann law for the heat radiated, $\sigma T^4$, gives the temperature at which the planet radiates:
 
-$$T_\text{eff} = \left[\frac{S(1 - \alpha)}{4\sigma}\right]^{1/4}.$$
+$$T_\text{eff} = \left[\frac{S(1 - \alpha)}{4\sigma}\right]^{1/4}.$$ {#eq:earth-teff}
 
 With today's albedo of $0.30$ this is $255\,\mathrm{K}$, about $-18\,^\circ\mathrm{C}$. The measured average surface temperature is $288\,\mathrm{K}$; the $33\,\mathrm{K}$ difference is the greenhouse effect of water vapour, carbon dioxide and other gases.
+
+{{Visualize | eq:earth-teff | function-plot:earth | f="(1361*(1 - x)/(4*5.670e-8))^0.25"; x=[0,0.9]; value_at=0.30; expect_value=255; expect_tol=0.005; hline=288; xlabel="albedo $\alpha$ (fraction of sunlight reflected)"; ylabel="effective temperature (K)"; label=fig:earth-teff; height=26% }} The Earth's effective temperature against its albedo, from @eq:earth-teff. Today's albedo, $0.30$, gives $255\,\mathrm{K}$ (red point); the measured surface average, $288\,\mathrm{K}$ (dotted), is higher by the greenhouse effect. A snow-covered Earth reflecting $60\,\%$ would sit near $220\,\mathrm{K}$.
 
 Albedo is not fixed. Ice and snow reflect far more sunlight than ocean and land, so a colder Earth with more ice absorbs less sunlight and cools further, a positive feedback. The figure below draws the absorbed and radiated power against temperature for a simple model with this feedback. They cross three times: a warm stable state near today's $288\,\mathrm{K}$, a cold stable state with ice to low latitudes near $249\,\mathrm{K}$, and an unstable state between them at about $260\,\mathrm{K}$. This is @ch:human's double well, with temperature as the coordinate. Geological evidence indicates that the Earth fell into the cold state at least twice, about $700$ and $650$ million years ago, the episodes known as Snowball Earth, and escaped as volcanic carbon dioxide slowly built up.
 

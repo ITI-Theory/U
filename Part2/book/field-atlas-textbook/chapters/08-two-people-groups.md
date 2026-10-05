@@ -42,7 +42,7 @@ $$\dot\varphi = \Delta\omega - 2\kappa\sin\varphi, \qquad \Delta\omega = \omega_
 
 The detuning $\Delta\omega$ tries to open the gap; the coupling tries to close it. If $2\kappa \ge |\Delta\omega|$, the gap stops changing where $\sin\varphi^\ast = \Delta\omega/2\kappa$: the oscillators are **phase-locked**, running at a common frequency with a fixed lag, the faster one slightly ahead. If $2\kappa < |\Delta\omega|$, the gap never settles. It creeps slowly while the coupling holds it back and then jumps through a full cycle, a **phase slip**, as in the red curve of the opening figure. The slips recur with period
 
-$$T_\text{slip} = \frac{2\pi}{\sqrt{\Delta\omega^2 - 4\kappa^2}},$$
+$$T_\text{slip} = \frac{2\pi}{\sqrt{\Delta\omega^2 - 4\kappa^2}},$$ {#eq:groups-slip}
 
 which is longer than the uncoupled beat period $2\pi/\Delta\omega$ and grows without limit as the threshold is approached: critical slowing down again (Chapters [-@ch:cells] and [-@ch:human]).
 
@@ -66,6 +66,8 @@ For the walkers of @ex:groups-walkers, the coupling drops to $\kappa = 0.20\,\ma
 **Significance.** Even coupling below threshold leaves a mark: the walkers spend most of each slip cycle nearly in step, then fall out quickly. An observer would see long stretches of near-synchrony punctuated by stumbles.
 :::
 
+{{Visualize | eq:groups-slip | function-plot:neural | f="2*pi/sqrt(x^2 - 4*k^2)"; k=0.2; x=[0.405,1.5]; y=[0,60]; value_at=0.63; expect_value=13; expect_tol=0.01; vline=0.4; xlabel="difference in natural rates $\Delta\omega$ (rad/s)"; ylabel="time between slips (s)"; label=fig:groups-slip; height=26% }} Time between phase slips for two coupled walkers with $2\kappa = 0.40\,\mathrm{rad\,s^{-1}}$. Far from locking the slips come quickly; as the difference in natural rates approaches $2\kappa$ (dotted) they come ever more rarely, and below it the pair locks. The red point is the $13\,\mathrm{s}$ of the example.
+
 ::: {.check-your-learning}
 Two locked oscillators have $\Delta\omega/2\kappa = 0.4$. What is the locked phase lag? (Answer: $\sin^{-1}0.4 = 23.6^\circ$.)
 :::
@@ -88,7 +90,9 @@ $$r = \left|\frac1N\sum_{j=1}^{N}e^{i\theta_j}\right|,$$
 
 which is $0$ when phases are scattered evenly and $1$ when all coincide. Kuramoto's discovery was that the crowd behaves like a physical substance changing state. Below a **critical coupling** $K_c$, $r$ stays near zero: every oscillator keeps its own time. Above $K_c$ a cluster of oscillators with similar frequencies locks together, its common rhythm pulls in more members, and $r$ rises steeply. When the natural frequencies follow a bell-shaped (Lorentzian) spread of half-width $\gamma$, the result is exact:
 
-$$K_c = 2\gamma, \qquad r = \sqrt{1 - K_c/K}\quad (K > K_c).$$
+$$K_c = 2\gamma, \qquad r = \sqrt{1 - K_c/K}\quad (K > K_c).$$ {#eq:groups-kuramoto}
+
+{{Visualize | eq:groups-kuramoto | function-plot:neural | f="where(x > Kc, sqrt(abs(1 - Kc/x)), 0)"; Kc=1; x=[0,5]; value_at=2; expect_value=0.707; vline=1; xlabel="coupling $K/K_c$"; ylabel="synchrony $r$"; label=fig:groups-kuramoto; height=26% }} Kuramoto's transition. Below the critical coupling (dotted) the crowd stays incoherent, $r = 0$; above it synchrony grows steeply at first, reaching $r = 0.71$ at twice the critical coupling (red point), and approaches one only slowly.
 
 Synchrony appears through the crowd as a whole, not pair by pair. Each oscillator responds to the mean rhythm, which is itself created by the oscillators that respond to it, a feedback loop that switches on at $K_c$ [@strogatz2003sync; @acebron2005kuramoto]. The figure below compares the formula with a simulation of 2000 oscillators.
 

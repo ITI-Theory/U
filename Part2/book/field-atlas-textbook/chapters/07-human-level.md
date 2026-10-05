@@ -132,6 +132,8 @@ A state with memory kernel $K(\tau) = e^{-\tau/\tau_m}$, $\tau_m = 5\,\mathrm{s}
 **Significance.** Neither push alone is enough; the pair is. Had the second push come $10\,\mathrm{s}$ later instead of five, only $e^{-2} = 0.14$ would remain and the total, $1.14$, would fall short. Timing, as in @ch:response's swing, decides the outcome.
 :::
 
+{{Visualize | ex:human-pushes | convolution:soma | input="exp(-((t-1)/0.01)^2)/(0.01*sqrt(pi)) + exp(-((t-6)/0.01)^2)/(0.01*sqrt(pi))"; kernel="exp(-t/5)"; x=[0,20]; n=40000; hline=1.2; expect_max=1+exp(-1); expect_tol=0.02; input_label="two pushes, 5 s apart"; kernel_label="memory kernel, $\tau_m = 5$ s"; output_label="state"; xlabel="time (s)"; label=fig:human-pushes; height=44% }} The two pushes of @ex:human-pushes as a convolution. Each push starts a copy of the memory kernel; the second arrives while $37\,\%$ of the first remains, and together they cross the threshold (dotted line) that neither crosses alone.
+
 ::: {.check-your-learning}
 With $\tau_m = 5\,\mathrm{s}$, what fraction of a push remains after $1\,\mathrm{s}$? After $10\,\mathrm{s}$? (Answer: $e^{-0.2} = 0.82$; $e^{-2} = 0.14$.)
 :::

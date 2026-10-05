@@ -65,7 +65,13 @@ def compile_expr(text: str, allowed: set[str]):
         if isinstance(node, ast.Name) and node.id not in SAFE and node.id not in allowed:
             raise SpecError(f"expression {text!r}: unknown name {node.id!r}")
     code = compile(tree, "<visualize>", "eval")
-    return lambda env: eval(code, {"__builtins__": {}}, {**SAFE, **env})  # noqa: S307
+
+    def run(env):
+        # silence numpy floating-point warnings: the warnings machinery needs
+        # builtins, which the sandboxed evaluation deliberately lacks
+        with np.errstate(all="ignore"):
+            return eval(code, {"__builtins__": {}}, {**SAFE, **env})  # noqa: S307
+    return run
 
 
 def number(text: str) -> float:
@@ -249,6 +255,19 @@ def draw_function_plot(spec: Spec):
                 first = (fn, env)
             parts = [s for s in (name, label) if s]
             ax.plot(xs, ys, color=next(color), lw=2, label=", ".join(parts) or None)
+    if spec.get("value_at"):
+        # mark f(x0) on the first curve and check it against the text
+        x0 = number(spec.get("value_at"))
+        fn, env = first
+        y0 = float(np.real(fn({**env, var: x0})))
+        ax.plot([x0], [y0], "o", color=RED, ms=7, zorder=6)
+        ax.annotate(f"{y0:.3g}", (x0, y0), textcoords="offset points", xytext=(8, -12), color=RED, fontsize=9)
+        spec.expect("expect_value", y0)
+    if spec.get("expect_peak_x"):
+        # position of the maximum of the first curve (e.g. Wien's law)
+        fn, env = first
+        ys0 = as_array(fn({**env, var: xs}), xs)
+        spec.expect("expect_peak_x", float(xs[int(np.nanargmax(ys0))]))
     if spec.get("sample_every"):
         # dots where the first curve is sampled every dt (aliasing, digitising)
         dt = number(spec.get("sample_every"))
@@ -648,6 +667,7 @@ def draw_convolution(spec: Spec):
         ax.set_xlim(lo, hi)
         ax.axhline(0, color="0.75", lw=0.6)
     axes[2].set_xlabel(spec.get("xlabel", f"time ${var}$"))
+    reference_lines(spec, axes[2])
     spec.expect("expect_max", float(y.max()))
     spec.expect("expect_area", float(np.sum(y) * dt))
     fig.tight_layout()
