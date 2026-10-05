@@ -18,9 +18,13 @@ Complete draft, all pushed:
 - `{{Visualize}}` (docs/VISUALIZE.md, BUILD.md 4c): 52 figures drawn from
   equations, many with `expect_*` checks; retrofitted into chapters 5-8, 10-12.
 - Every quoted number in `scripts/verify_answers.py` (several hundred checks).
-Next: read-through by the author; openers (banner figures) for the new
-chapters; Visualize for chapters 1, 2, 9; decide whether the course ships in
-this release. pandoc-crossref 0.3.25 lives in `%LOCALAPPDATA%\Pandoc` (ISS-043).
+Also done by 03:45: chapter-opening banners for the new chapters (Visualize
+`opener=true`), Visualize in chapters 1, 2, 5-8, 10-12 (65 figures in all),
+Maths You Need boxes in every chapter, breakable boxes (254 pp), glossary
++26 terms, HTML double-caption fix in shared plates.lua (Atlas too).
+release-check: 15 PASS, 0 FAIL after all of it.
+Next: the author's read-through; Visualize for chapter 9 (needs a flock
+primitive); decide whether the course ships in this release. pandoc-crossref 0.3.25 lives in `%LOCALAPPDATA%\Pandoc` (ISS-043).
 
 ## Morning: UAT release candidate (prepared 2026-10-04, 00:30)
 
