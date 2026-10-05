@@ -36,3 +36,4 @@ th, td { border-bottom: 1px solid var(--line); padding: .45rem; vertical-align: 
 @media (max-width: 900px) { .field-atlas-columns { column-count: 1; } body { padding: 1rem; } table { display:block; overflow-x:auto; } }
 h1.part-title { margin-top: 3em; text-align: center; color: #104a73; font-size: 2.2em; }
 p.part-intro { max-width: 36em; margin: 1em auto 3em; font-style: italic; }
+figure img { max-height: 30rem; width: auto; }

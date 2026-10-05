@@ -80,6 +80,8 @@ local function html_figure(img, caption, ident)
   local classes = { has_class(img, "plate") and "plate-figure" or "atlas-figure" }
   if has_class(img, "full-page") then table.insert(classes, 1, "full-page-plate") end
   local image = pandoc.Image(caption, img.src, img.title, img.attr)
+  -- mark it, so the second (image-paragraph) pass does not wrap it again
+  image.attributes.plated = "1"
   return pandoc.Figure({ pandoc.Plain({ image }) }, { long = { pandoc.Plain(caption) } },
     pandoc.Attr(ident or "", classes, {}))
 end
@@ -92,7 +94,7 @@ end
 
 local function image_para(block)
   local img = only_image(block)
-  if not img then return nil end
+  if not img or img.attributes.plated then return nil end
   return render(img, img.caption or pandoc.Inlines({}))
 end
 
