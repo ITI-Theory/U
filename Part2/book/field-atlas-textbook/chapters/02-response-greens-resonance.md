@@ -156,6 +156,12 @@ The carrier of the long-range part of the nuclear force is the pion, with $mc^2 
 
 ![The Yukawa response (finite range) and the Coulomb response (infinite range) on the same axes. The ratio of the two is $e^{-r/\lambda}$.](../field-atlas/figures/theory/T2_7_yukawa_coulomb.png){width="100%"}
 
+::: {.making-connections title="Making Connections — Helmholtz: from the nerve to the equation"}
+The equation behind both spatial responses carries the name of Hermann von Helmholtz (1821–1894), who began as a physician. He trained as an army surgeon, measured the speed of the nerve impulse in 1850, about $30\,\mathrm{m\,s^{-1}}$ in a frog's nerve [@helmholtz1850nerve], invented the ophthalmoscope in 1851, and wrote founding works on vision and hearing, among them *On the Sensations of Tone* [@helmholtz1863tone]. The equation now named after him, $(\nabla^2 + k^2)\,G = -\delta$, came from his study of sound in organ pipes [@helmholtz1860luft]. Coulomb's response is its $k = 0$ case and Yukawa's its $k^2 = -1/\lambda^2$ case; for real $k$ the response oscillates, $G = \cos(kr)/4\pi r$, a standing wave around the source.
+
+The programme writes its master equation in exactly this form [@P1]. Using it for the body's internal field brings the mathematics back, in a sense, to the physiology where Helmholtz began. That is a historical observation and an `interpretive` reading, not evidence for the model.
+:::
+
 ## One grammar across the levels {#sec:response-grammar-across-levels}
 
 ::: {.learning-objectives}
