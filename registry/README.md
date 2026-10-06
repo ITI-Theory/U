@@ -10,6 +10,9 @@ This registry is the data source for the Soma Field Operator generator. It recon
 - `models/<model-id>.yaml`: model-specific coordinates over level ids.
 - `eras.yaml`: ordered Big Bang-to-present time-axis records. Each era stores a machine time in seconds after the Big Bang, a display time, band, target registry level, summary, optional equation, optional app `theme`, app badge, and sources.
 - `lenses.yaml`: baseline/T-Theory/display/affect lens catalogue.
+- `catalogues/<id>.yaml`: external reference catalogues used as 4D baseline
+  (`penrose-road-to-reality.yaml`, see `docs/agent/PENROSE-INDEX.md`;
+  `spaceengine-objects.yaml`, a coverage checklist).
 - `questions/<question-id>.yaml`: curated "What's Different?" tours with a visitor question, short answer, view settings, optional worked example, MOTHER prompt, next question, evidence label, and sources.
 
 ## Source resolution

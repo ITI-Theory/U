@@ -3,7 +3,8 @@
 Where the work is now and what comes next: one screen, rewritten (never
 appended) at the end of each session (`HAL copilot wrapup`). Older states are
 in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
-in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md).
+in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
+the other working documents are listed in [docs/agent/README.md](README.md).
 
 ## Now (6 Oct 2026, evening)
 
