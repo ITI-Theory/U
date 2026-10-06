@@ -9,7 +9,11 @@ Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 
 Agreed plan in ISSUES.md ISS-044: README front door, Makefile command
 handlers, HAL vocabulary (T.Dot/DESIGN.md), `.OBSOLETE`, one chat process.
-Do that first, then the scope check and UAT below. Chat: `write_a_book`.
+Do that first, then the scope check and UAT below. Chat: `write_a_book`
+(Me/chats/Inbox). Done 6 Oct evening: HAL runs on Git Bash (platform checks,
+dry run `-n`, HAL.cmd, `copilot start|save|wrapup`, `chat new|list`), one bash
+standard in U.Dot. Next: the author runs `U.Dot/bin/HAL1 -n init` then
+`HAL1 init` on the laptop; then `mother ask` / `hal ask` / `uat scope`.
 
 ## Course book night (5 Oct 2026, 01:00-03:30) - state for the next session
 

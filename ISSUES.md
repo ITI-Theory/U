@@ -1179,17 +1179,17 @@ sources, and the chat-ingest process exists in three competing forms.
 - [x] U and T copilot-instructions.md and T/AGENTS.md now point to the READMEs (dcbd286, T dc9d910); Autopilot default off.
 - [ ] **HAL on Git Bash** (analysed 6 Oct; HAL was written for Linux; WSL rejected,
       VirtualBox later for the Linux parts). One implementation, bash, everywhere:
-  - [ ] HAL0 detects the platform once (`HAL_OS` = linux, wsl, termux, gitbash);
+  - [x] HAL0 detects the platform once (`HAL_OS` = linux, wsl, termux, gitbash);
         each command declares where it works; `help` shows only what works here,
         others answer "needs Linux (VirtualBox)".
-  - [ ] HAL.bat keeps its concept, not its code: a three-line `HAL.cmd` launcher
+  - [x] HAL.bat keeps its concept, not its code: a three-line `HAL.cmd` launcher
         that runs the bash HAL through Git Bash, so `HAL` works from cmd and
         PowerShell; old HAL.bat becomes `HAL.bat.OBSOLETE` (its `setx PATH`
         is a known truncation trap).
-  - [ ] HAL1 gated by platform: on Git Bash `init` never overwrites a file
+  - [x] HAL1 gated by platform: on Git Bash `init` never overwrites a file
         (today it would replace ~/.bashrc with the Ubuntu one, silently, since
         `ln -s` copies on Git Bash); `boot` and `dim` need Linux.
-  - [ ] One bash standard on every system: `bash/common.sh` (aliases, `prj`,
+  - [x] One bash standard on every system: `bash/common.sh` (aliases, `prj`,
         `gitdirs`, `timestamp`, `~/.local/bin` on PATH) sourced by a small
         `bash/<platform>/bashrc`; `~/.bashrc` is one `source` line. First merge
         the live ~/.bashrc (24 lines ahead of U.Dot) into U.Dot; tidy U.Dot's
@@ -1197,10 +1197,13 @@ sources, and the chat-ingest process exists in three competing forms.
   - [ ] `prj <dir> [vscode|neovim] [dark|light]` and the `.prj` files are the
         seed of `HAL context`.
   - [ ] Then `HAL0 init` / `HAL1 init` here, with the author, step by step.
-- [ ] HAL: `copilot start|save|wrapup`, `chat new`, `mother ask`, `hal ask`,
-      `uat scope`, `context`; `todo` and `voice` from Me/Ops/tools.
-- [ ] Me/chats/Makefile: `copilot` target, unified header, `check` target;
-      move the two exports from `chats/copilot/` to `Inbox/`; md2chat `.OBSOLETE`.
+- [x] HAL: dry run (`-n`), HAL0-lib, `copilot start|save|wrapup`, `chat new|list`;
+      `prime` = `copilot start` (T.Dot 42e539e..86cf484).
+- [ ] HAL: `mother ask`, `hal ask`, `uat scope`, `context` (from `prj`/.prj); `todo` and
+      `voice` from Me/Ops/tools.
+- [x] Me/chats/Makefile: `copilot`, `check`, `help`, Windows sh; exports in `Inbox/`;
+      md2chat `.OBSOLETE` (Me 55b7817, dd0b7cc). `make check` lists 5 old Inbox
+      files without a header (limbic-hop, limbic-hop2, notebooklm, opencyc1, self-aware).
 - [ ] Stale-file review with the author, item by item (keep / .OBSOLETE / delete);
       `.ignore` and `search.exclude` for `*.OBSOLETE`; release-check rule.
       Done: Me/Ops/sessions/ToSonnet4.6.md.
