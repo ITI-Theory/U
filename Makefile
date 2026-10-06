@@ -42,6 +42,8 @@ help:
 	$(info   app             build the Soma Machine app)
 	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
+	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
+	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
 	$(info   check           run the papers, books and Atlas validators)
 	$(info   clean           remove repo-root bld/)
 	$(info   generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml)
@@ -161,6 +163,13 @@ uat-stage-mirror:
 
 uat-stage-full: uat-stage-papers uat-stage-ttheory
 	@echo Full UAT packages staged: papers + ttheory
+
+# NotebookLM UAT in the track's standing notebook: swap its sources for
+# uat/staging/<TRACK>/, ask the worksheet, report to uat/results/.
+.PHONY: uat-nlm
+uat-nlm:
+	@test -n "$(TRACK)" || { echo "usage: make uat-nlm TRACK=papers|ttheory [DRY=1] [KEEP=1] [ITEMS=S-1,H-2]"; exit 1; }
+	apps/instrument/mother/$(MOTHER_PY) uat/scripts/nlm_uat.py $(TRACK) $(if $(KEEP),,--replace) $(if $(DRY),--dry-run,) $(if $(ITEMS),--items $(ITEMS),)
 
 release-build: uat-build
 

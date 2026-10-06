@@ -82,14 +82,25 @@ The canonical release sequence and the Papers/[T]-Theory split live in
 `Dist/README.md`. This section defines the local U candidate and NotebookLM
 work only; it does not authorize promotion or Zenodo release.
 
-Run before declaring any release complete. Uses a private NotebookLM notebook (`nlm-uat`).
+Run before declaring any release complete. Uses the private standing UAT notebooks.
 
 ### Setup
 
-1. Create a new private NotebookLM notebook at https://notebooklm.google.com
-2. Name it `nlm-uat`
-3. Upload the files relevant to the test (see tiers below)
-4. **Delete the notebook when done** — always start fresh
+Each track has a standing private notebook (`NOTEBOOKS` in
+`uat/scripts/nlm_uat.py`; titles start `UAT `). A run replaces its sources, so
+no notebook is created or deleted per run:
+
+1. Log in once per session expiry: `apps\instrument\mother\.venv\Scripts\notebooklm login`.
+2. Stage the track: `make uat-stage-papers` or `make uat-stage-ttheory`.
+3. Dry run: `make uat-nlm TRACK=papers DRY=1` lists what would be deleted,
+   uploaded and asked.
+4. Run: `make uat-nlm TRACK=papers` (old sources deleted, staging uploaded,
+   worksheet asked 45 s apart, report in `uat/results/`). `KEEP=1` asks without
+   swapping sources; `ITEMS=S-1,H-2` asks only those items.
+5. Review the report with the author before anything goes into `paper/UAT.md`.
+
+By hand in the web UI the same rule holds: reuse the notebook, delete its old
+sources first.
 
 ### Tier 1 — Sherlock: “Did we build it right?”
 

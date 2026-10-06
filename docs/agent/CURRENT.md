@@ -26,10 +26,10 @@ CURRENT.md (ISS-046).
 2. UAT, release runbook `Dist/README.md`:
    - P21 sign-off (author): read `bld/papers/cosmological-constant-derivation.pdf`;
      if happy, P21 `status: pending-upload` in `Dist/PAPERS.yaml`, then `make generate`.
-   - NotebookLM UAT (author): fresh private `nlm-uat` notebook, upload
-     `uat/staging/papers/` and `uat/staging/ttheory/` (hashes in each
-     `MANIFEST.md`); Sherlock, Harry Potter, Cookie Monster (PROCESS.md); log in
-     `paper/UAT.md`.
+   - NotebookLM UAT: restage both tracks, then `make uat-nlm TRACK=papers|ttheory`
+     (DRY=1 first) swaps the standing notebooks' sources and asks the worksheets
+     (PROCESS.md, UAT Setup); review with the author; log in `paper/UAT.md`.
+     Needs `notebooklm login` (expired since 1 Oct).
    - Lulu preview of the volumes (author).
    - `make dist` only after UAT passes; compare with the manifests; commit Dist.
    - Zenodo with the author's tokens: sandbox, then live (plan: 44 records, 0 errors).
