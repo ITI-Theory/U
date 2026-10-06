@@ -12,8 +12,9 @@ handlers, HAL vocabulary (T.Dot/DESIGN.md), `.OBSOLETE`, one chat process.
 Do that first, then the scope check and UAT below. Chat: `write_a_book`
 (Me/chats/Inbox). Done 6 Oct evening: HAL runs on Git Bash (platform checks,
 dry run `-n`, HAL.cmd, `copilot start|save|wrapup`, `chat new|list`), one bash
-standard in U.Dot. Next: the author runs `U.Dot/bin/HAL1 -n init` then
-`HAL1 init` on the laptop; then `mother ask` / `hal ask` / `uat scope`.
+standard in U.Dot; `mother ask`, `hal ask`; Me/chats `make copilot|check`.
+HAL work parked in ISS-045 (install on the laptop is the author's step).
+Next in ISS-044: the stale-file review, then the scope check and UAT.
 
 ## Course book night (5 Oct 2026, 01:00-03:30) - state for the next session
 

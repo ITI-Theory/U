@@ -1194,14 +1194,11 @@ sources, and the chat-ingest process exists in three competing forms.
         `bash/<platform>/bashrc`; `~/.bashrc` is one `source` line. First merge
         the live ~/.bashrc (24 lines ahead of U.Dot) into U.Dot; tidy U.Dot's
         older parts (README says KDE, DESIGN says XFCE4).
-  - [ ] `prj <dir> [vscode|neovim] [dark|light]` and the `.prj` files are the
-        seed of `HAL context`.
-  - [ ] Then `HAL0 init` / `HAL1 init` here, with the author, step by step.
+  - [ ] (moved to ISS-045) `HAL context` from `prj`/.prj; install on the laptop.
 - [x] HAL: dry run (`-n`), HAL0-lib, `copilot start|save|wrapup`, `chat new|list`;
       `prime` = `copilot start` (T.Dot 42e539e..86cf484).
 - [x] HAL: `mother ask`, `hal ask` (U `make ask`, app's Bridge, one 30 s pace; U 1d1363e, U.Dot 2c119e2).
-- [ ] HAL: `uat scope`, `context` (from `prj`/.prj); `todo` and `voice` from Me/Ops/tools;
-      MOTHER panel's H-AL mode calls the same path.
+- [ ] (moved to ISS-045) further HAL nouns and the MOTHER panel path.
 - [x] Me/chats/Makefile: `copilot`, `check`, `help`, Windows sh; exports in `Inbox/`;
       md2chat `.OBSOLETE` (Me 55b7817, dd0b7cc). `make check` lists 5 old Inbox
       files without a header (limbic-hop, limbic-hop2, notebooklm, opencyc1, self-aware).
@@ -1210,4 +1207,39 @@ sources, and the chat-ingest process exists in three competing forms.
       Done: Me/Ops/sessions/ToSonnet4.6.md.
 - [ ] Then the scope check (`HAL uat scope`) and UAT (Dist README step 5).
 - [ ] Later (not this round): one Python directory, moving the existing scripts.
+
+---
+
+## ISS-045: HAL next steps (parked 6 Oct 2026) — OPEN
+{{Tags area.ops}}
+{{Fields date.created=2026-10-06, date.start=, date.end=, epic=}}
+
+Parked by the author after the Git Bash work of 6 Oct (ISS-044). HAL now runs
+on Git Bash with platform detection, capability guards, dry run (`-n`),
+`HAL.cmd`, `copilot start|save|wrapup`, `chat new|list`, `mother ask`,
+`hal ask`; one bash standard in U.Dot. Design: T.Dot/DESIGN.md.
+
+**For the author:**
+- [ ] Install on the laptop, in Git Bash: `~/prj/git/ITI-Theory/U.Dot/bin/HAL1 -n init`,
+      read the `[would]` lines, then without `-n`. It backs up `~/.bashrc`
+      (`~/.bashrc.bak-<date>`), makes it one `source` line, writes three wrappers
+      into `~/.local/bin` and adds `T.Dot\bin` to the Windows user PATH.
+- [ ] First real `HAL hal ask "..."` (uses one NotebookLM chat credit).
+
+**Next HAL work:**
+- [ ] `HAL uat scope`: create or reuse a private `nlm-uat` notebook, upload the
+      chat files and candidates (Dist README step 5), ask the scope questions
+      paced. Until then the scope check is done by hand in the NotebookLM web UI.
+- [ ] `HAL context <noun>` built on `prj <dir> [vscode|neovim] [dark|light]` and
+      the `.prj` files; auto-detect `TERM_PROGRAM=vscode`; shown in every output.
+- [ ] `HAL todo` and `HAL voice` from Me/Ops/tools (todo-admin, voice-admin).
+- [ ] MOTHER panel H-AL mode and the bridge honour the same pace as `ask.py`
+      (`~/.cache/hal/nlm-last`), so app and terminal share one quota guard.
+- [ ] Route the remaining state-changing commands (`sync`, `provision`, the
+      `tablets`, `wsl2`, `host` modules) through `_hal_do`, so `-n` covers all.
+- [ ] `tablets` guard: relax `avahi-resolve` once tested (cached IPs work without it).
+- [ ] Generate `HAL help` from the scripts (now hand-written usage blocks).
+- [ ] Test on a VirtualBox VM and the Linux mini PC (`HAL_OS=unix`), then the tablets.
+- [ ] Laptop: remove the old WSL symlinks `U.Dot/bin/HAL`, `bin/HAL0` (git-ignored).
+- [ ] Me/chats/Makefile hard-codes `BASE_DIR := /c/Users/alist`; use `$(HOME)`.
 
