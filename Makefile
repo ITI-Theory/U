@@ -40,6 +40,7 @@ help:
 	$(info   lean            build Lean proofs)
 	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
 	$(info   app             build the Soma Machine app)
+	$(info   app-start       run the app locally (http://127.0.0.1:5173); mother-bridge for the MOTHER panel)
 	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
 	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
@@ -90,6 +91,15 @@ lean-update:
 
 app:
 	npm --prefix $(APP_DIR) run build
+
+# Run the app locally (vite, http://127.0.0.1:5173). The MOTHER panel needs the
+# bridge too: `make mother-bridge` in a second terminal (http://127.0.0.1:8765).
+.PHONY: app-start mother-bridge
+app-start:
+	npm --prefix $(APP_DIR) run start
+
+mother-bridge:
+	cd apps/instrument/mother && $(MOTHER_PY) bridge.py
 
 # Observatory Guide: the soma-tour spec with registry ids, a source for the
 # MOTHER and H-AL notebooks (upload bld/app/observatory-guide.md).
