@@ -3,6 +3,35 @@
 The canonical visual template for the Soma Field Instrument, Hologram World,
 projection work, and non-medical field figures.
 
+## Design principles (author, 2026-10-01)
+
+The app is the driving console for the whole programme, not a separate
+product. Data comes from `registry/` (see `registry/README.md`).
+
+- **No global level numbering.** Levels are nodes with stable ids; paths are
+  graphs over levels; a model (`canonical-5`, `universal-21`, `bird-flock`)
+  orders levels and gives them its own coordinates.
+- **One name per level.** The app and the Field Atlas use the same label for a
+  level; models only order levels.
+- **Links both ways.** "More information" lists every document for the
+  current level (Atlas plate, papers, book chapters, cheat sheets); documents
+  link back through deep links such as
+  `https://www.t-theory.org/app/#level=<id>&path=<id>&lens=<id>`, which can be
+  printed as QR codes.
+- **Readers never see repository paths.** Papers resolve through
+  `Dist/PAPERS.yaml` to title and concept DOI; unpublished material resolves to
+  its t-theory.org page or "not yet published". Paths appear only in the
+  developer view.
+- **Screenshots from the app, diagrams into the app.** Atlas figures are
+  captured from the app; Atlas diagrams are attached to their level as media.
+- **Cookie Monster register.** Every level is explained at three registers:
+  `cookie` (for a ten-year-old), `general`, `specialist`. If a level cannot be
+  explained to a child, it is not yet understood.
+- **Every displayed claim carries a badge** (FORMAL, SOURCED, INTERPRETIVE,
+  mapped to the six labels in `docs/agent/THEORY-STATUS.md`). Cross-substrate
+  edges never assert literal identity. The T-Theory-off lens shows ordinary 4D
+  physics only.
+
 ## Visual language
 
 - Cyan and hot pink: D1-4 somatic field layers through the whole body

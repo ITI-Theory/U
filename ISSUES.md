@@ -1266,13 +1266,26 @@ all 31 levels; no "no sorries" claims left in the appendix or books.
 - [ ] OSforGFF pull request mrdouglasny/OSforGFF#22 awaiting review.
 - [ ] Optional: `git worktree remove ../U-lean-v433`.
 
-**App (ideas from the 1 Oct notebook review):**
+**App (ideas from the 1 Oct notebook review and `APP-ATLAS-DESIGN.md`, now
+`.OBSOLETE`; its design principles are in the app README):**
 - [ ] A display-mode axis `4d-baseline | 7d-usf-field | 8d-life | 11d-mind` in
       `operator-theory.yaml` (the app has `dim=4|8` today).
 - [ ] A gravity view pairing a baseline GR render with the Green-function render.
 - [ ] Mind rank N(σ) beside physical scale; the user source term J_user(t) as
       a control; a benchmark suite for validation. Theory data stays out of
       browser JS.
+- [ ] Type guard (on by default): each level declares which layers its type
+      admits. With the guard off the user may add any layer anywhere (feelings
+      in a rock) and the app shows a red `ILL-TYPED` banner naming the rule.
+      To make that honest, generate a small Lean file from the registry (one
+      inductive per level's admissible layers) so the rejection is a real type
+      error. Links to Sherlock.
+- [ ] Sherlock concept registry `registry/concepts/<id>.yaml`: concept,
+      ontology class (OpenCyc/OWL), Lean type (Mathlib, PhysLib or programme),
+      proof status, papers, levels, so that gaps become visible.
+- [ ] Visual rhymes: renderers may share motion styles across levels (sliding
+      plates for `geological`, ring/belt debris for `orbital-system`), badged
+      as visual analogy (`INTERPRETIVE`); the physics differs.
 
 **Books and Atlas:**
 - [ ] Each Fractal Thesis book: a domain introduction spread (specialist label,
