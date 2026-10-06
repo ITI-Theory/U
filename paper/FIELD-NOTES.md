@@ -2507,3 +2507,13 @@ Earlier entries above keep the old name.
   GaussianField and BochnerMinlos carry small local compatibility patches,
   now saved in `lean/patches/`. Upstream has moved to v4.33.0-rc1; the
   patches are not upstreamable. Upgrade tracked in ISS-036.
+## 2026-10-06 — Soma Machine public preview; first outside reaction
+
+- The app went up as a public UAT preview at https://www.t-theory.org/app/
+  (ITI-Theory/t-theory.org, built from U 728ac85). Two fixes on the way: 11D
+  falls back to 8D at the quantum scales, and maths renders on first load.
+- Informal field note (anecdotal, not evidence): in hospital, the author told
+  a nurse he had written 15 or 16 books and walked her through the app level
+  by level. Her reaction: "I see why you wrote 16 books." A non-specialist
+  saw the scope of the programme from the app alone, which is what the app
+  is for (the Cookie Monster tier). One viewer, no protocol.
