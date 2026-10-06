@@ -41,6 +41,7 @@ help:
 	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
 	$(info   app             build the Soma Machine app)
 	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
+	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
 	$(info   check           run the papers, books and Atlas validators)
 	$(info   clean           remove repo-root bld/)
 	$(info   generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml)
@@ -91,6 +92,17 @@ app:
 # Observatory Guide: the soma-tour spec with registry ids, a source for the
 # MOTHER and H-AL notebooks (upload bld/app/observatory-guide.md).
 OBSERVATORY_GUIDE := $(BLD)/app/observatory-guide.md
+# MOTHER / H-AL from the command line: same Bridge and pace as the app (HAL mother ask)
+ifeq ($(OS),Windows_NT)
+MOTHER_PY := .venv/Scripts/python.exe
+else
+MOTHER_PY := .venv/bin/python
+endif
+.PHONY: ask
+ask:
+	@test -n "$(NB)" || { echo "usage: make ask NB=mother|hal Q=\"question\" [COMPARE=1] [DRY=1]"; exit 1; }
+	cd apps/instrument/mother && $(MOTHER_PY) ask.py $(NB) "$$Q" $(if $(COMPARE),--compare,) $(if $(DRY),--dry-run,)
+
 observatory-guide: $(OBSERVATORY_GUIDE)
 $(OBSERVATORY_GUIDE): docs/TOUR-LANGUAGE.md lib/format/observatory-ids.lua $(wildcard registry/levels/*.yaml registry/questions/*.yaml registry/tours/*.yaml registry/models/*.yaml) registry/eras.yaml
 	$(PYTHON) $(APP_DIR)/scripts/generate.py
