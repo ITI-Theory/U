@@ -222,6 +222,15 @@ else
 fi
 echo "$REFS_CHECK" | sed 's/^/    /'
 
+hdr "15. Nothing live depends on .OBSOLETE files"
+OBSOLETE_CHECK=$(py paper/scripts/check_obsolete_refs.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "No code uses a .OBSOLETE path; no dangling references to renamed files"
+else
+  fail ".OBSOLETE reference check"
+fi
+echo "$OBSOLETE_CHECK" | sed 's/^/    /'
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

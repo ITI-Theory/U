@@ -44,7 +44,9 @@ Details in `T/AGENTS.md`.
 
 - point to a fact, don't copy it (paper status lives in `Dist/PAPERS.yaml`);
 - `*.OBSOLETE` files and directories are kept for history only: do not read,
-  build, cite or link them;
+  build, cite or link them (naming one as where the history went is fine);
+  when renaming something to `.OBSOLETE`, fix what referred to it
+  (`bin/release-check` section 15 checks);
 - an idea from a discussion that is not done on the spot becomes an issue in
   `ISSUES.md`;
 - documents are built by Make, pandoc and Lua filters, never by scripts that

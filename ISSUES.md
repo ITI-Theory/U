@@ -1168,8 +1168,8 @@ sources, and the chat-ingest process exists in three competing forms.
   `copilot`), one front-matter header, landing in `chats/Inbox` with
   `status: raw`; md2chat's checker becomes a Make target.
 - **Tangents** in chat: always suggest doing it now or issuing it.
-- U.Dot's zero-byte `bin/HAL` and `bin/HAL0` are intentional placeholders for a
-  U.Dot-only machine; track and document them.
+- U.Dot's laptop `bin/HAL` and `bin/HAL0` are WSL symlinks (git-ignored,
+  unreadable from Windows), not placeholders; documented in U.Dot README.
 
 **Actions:**
 - [x] T.Dot/DESIGN.md: HAL vocabulary (T.Dot 7268798).
@@ -1202,9 +1202,18 @@ sources, and the chat-ingest process exists in three competing forms.
 - [x] Me/chats/Makefile: `copilot`, `check`, `help`, Windows sh; exports in `Inbox/`;
       md2chat `.OBSOLETE` (Me 55b7817, dd0b7cc). `make check` lists 5 old Inbox
       files without a header (limbic-hop, limbic-hop2, notebooklm, opencyc1, self-aware).
-- [ ] Stale-file review with the author, item by item (keep / .OBSOLETE / delete);
-      `.ignore` and `search.exclude` for `*.OBSOLETE`; release-check rule.
-      Done: Me/Ops/sessions/ToSonnet4.6.md.
+- [x] Stale-file review with the author, item by item (6 Oct): kept U
+      paper/FIELD-NOTES.md; PROCESS session primer → pointer (cc65823);
+      CURRENT.md → one screen, old file `.OBSOLETE`, open items → ISS-046,
+      guardrails → README (b80ef39); philosophy brief and outline `.OBSOLETE`,
+      decisions → books/T-Theory/philosophy/README.md (dd244b1);
+      APP-ATLAS-DESIGN `.OBSOLETE`, principles → operator app README (cf91cc3);
+      docs/agent/README.md index (192884b); Me/Dot removed (Me 59607e2);
+      Me/Ops/tools tidied, LeanScribe `.env` untracked (Me 5853416); duplicate
+      AI-NOTES removed (Me 377cb66); June-August chat export and
+      chats/notebooks tracked, chats/tmp ignored (Me 666d256, f44ce72);
+      T.Dot FIELD-NOTES `.OBSOLETE` (T.Dot 0a1f5e7); release-check section 15
+      (`paper/scripts/check_obsolete_refs.py`). Earlier: Me/Ops/sessions/ToSonnet4.6.md.
 - [ ] Then the scope check (`HAL uat scope`) and UAT (Dist README step 5).
 - [ ] Later (not this round): one Python directory, moving the existing scripts.
 
@@ -1266,8 +1275,9 @@ all 31 levels; no "no sorries" claims left in the appendix or books.
 - [ ] OSforGFF pull request mrdouglasny/OSforGFF#22 awaiting review.
 - [ ] Optional: `git worktree remove ../U-lean-v433`.
 
-**App (ideas from the 1 Oct notebook review and `APP-ATLAS-DESIGN.md`, now
-`.OBSOLETE`; its design principles are in the app README):**
+**App (ideas from the 1 Oct notebook review and the design note
+`docs/agent/APP-ATLAS-DESIGN.md.OBSOLETE`; its design principles are in the
+app README):**
 - [ ] A display-mode axis `4d-baseline | 7d-usf-field | 8d-life | 11d-mind` in
       `operator-theory.yaml` (the app has `dim=4|8` today).
 - [ ] A gravity view pairing a baseline GR render with the Green-function render.

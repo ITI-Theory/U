@@ -12,7 +12,7 @@ Admin before release, ISS-044. Done: README front doors (T, U, U.Dot), working
 rules (T.Ops naming standard), instruction files point to README, HAL on Git
 Bash (dry run `-n`, `copilot start|save|wrapup`, `chat new|list`,
 `mother|hal ask`), one bash standard, one chat process (Me/chats `make copilot`).
-In progress: the stale-file review with the author, item by item.
+In progress: nothing; the stale-file review finished on 6 Oct (ISS-044).
 
 Active chat: `write_a_book` (Me/chats/Inbox). Parked: HAL next steps (ISS-045,
 including installing HAL on the laptop), items carried over from the old
@@ -20,11 +20,10 @@ CURRENT.md (ISS-046).
 
 ## Next
 
-1. Finish the stale-file review (ISS-044).
-2. Scope check: upload the chat files and the release candidates to a private
+1. Scope check: upload the chat files and the release candidates to a private
    NotebookLM notebook and ask what was asked for and is missing (by hand in
    the web UI until `HAL uat scope` exists, ISS-045).
-3. UAT, release runbook `Dist/README.md`:
+2. UAT, release runbook `Dist/README.md`:
    - P21 sign-off (author): read `bld/papers/cosmological-constant-derivation.pdf`;
      if happy, P21 `status: pending-upload` in `Dist/PAPERS.yaml`, then `make generate`.
    - NotebookLM UAT (author): fresh private `nlm-uat` notebook, upload
@@ -34,7 +33,7 @@ CURRENT.md (ISS-046).
    - Lulu preview of the volumes (author).
    - `make dist` only after UAT passes; compare with the manifests; commit Dist.
    - Zenodo with the author's tokens: sandbox, then live (plan: 44 records, 0 errors).
-4. Decide whether the course book (`make textbook`, ISS-041) and the Field
+3. Decide whether the course book (`make textbook`, ISS-041) and the Field
    Atlas (`make atlas`; bookfactory print, ISS-040) ship in this release.
 
 ## Built and current
