@@ -1177,7 +1177,26 @@ sources, and the chat-ingest process exists in three competing forms.
       `.ignore` and `search.exclude` for `*.OBSOLETE` in U (7f7e476).
 - [x] U/README.md front door (4e877b4); T/README.md front door for all repos (T dc9d910).
 - [x] U and T copilot-instructions.md and T/AGENTS.md now point to the READMEs (dcbd286, T dc9d910); Autopilot default off.
-- [ ] `HAL init` in Git Bash on this machine.
+- [ ] **HAL on Git Bash** (analysed 6 Oct; HAL was written for Linux; WSL rejected,
+      VirtualBox later for the Linux parts). One implementation, bash, everywhere:
+  - [ ] HAL0 detects the platform once (`HAL_OS` = linux, wsl, termux, gitbash);
+        each command declares where it works; `help` shows only what works here,
+        others answer "needs Linux (VirtualBox)".
+  - [ ] HAL.bat keeps its concept, not its code: a three-line `HAL.cmd` launcher
+        that runs the bash HAL through Git Bash, so `HAL` works from cmd and
+        PowerShell; old HAL.bat becomes `HAL.bat.OBSOLETE` (its `setx PATH`
+        is a known truncation trap).
+  - [ ] HAL1 gated by platform: on Git Bash `init` never overwrites a file
+        (today it would replace ~/.bashrc with the Ubuntu one, silently, since
+        `ln -s` copies on Git Bash); `boot` and `dim` need Linux.
+  - [ ] One bash standard on every system: `bash/common.sh` (aliases, `prj`,
+        `gitdirs`, `timestamp`, `~/.local/bin` on PATH) sourced by a small
+        `bash/<platform>/bashrc`; `~/.bashrc` is one `source` line. First merge
+        the live ~/.bashrc (24 lines ahead of U.Dot) into U.Dot; tidy U.Dot's
+        older parts (README says KDE, DESIGN says XFCE4).
+  - [ ] `prj <dir> [vscode|neovim] [dark|light]` and the `.prj` files are the
+        seed of `HAL context`.
+  - [ ] Then `HAL0 init` / `HAL1 init` here, with the author, step by step.
 - [ ] HAL: `copilot start|save|wrapup`, `chat new`, `mother ask`, `hal ask`,
       `uat scope`, `context`; `todo` and `voice` from Me/Ops/tools.
 - [ ] Me/chats/Makefile: `copilot` target, unified header, `check` target;
