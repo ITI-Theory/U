@@ -48,3 +48,17 @@ Outputs are written to `bld/books/` at the repository root.
 - `filters/ttheory-assemble.lua` assembles Vol I, Vol II, and the omnibus directly inside pandoc, including local book TOCs, print inserts, the gateway noir page, and per-volume paper de-duplication.
 
 No Python script is used to generate Markdown, LaTeX, or HTML for these books.
+
+## Book architecture
+
+- Reader-facing book content is source-owned Markdown under
+  `books/T-Theory/<domain>/`.
+- Makefiles own the build graph; `lib/format/macros.lua` owns reusable Pandoc
+  directives. Lua transforms source into presentation and is not a content
+  store.
+- A booklet is front matter with `book_id` plus the `{{Booklet...}}` macros.
+  Its text comes from the matching record in `books/T-Theory/books.yaml` and
+  the shared `books/T-Theory/booklet/booklet_body.md`.
+- The Gateway is exceptional: its noir page precedes the local TOC
+  (`books/T-Theory/format/gateway-template.tex`).
+- PDF-only inserts use `{{AddPDF ...}}` or `{{AddBooklet ...}}`.

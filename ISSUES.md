@@ -1243,3 +1243,50 @@ on Git Bash with platform detection, capability guards, dry run (`-n`),
 - [ ] Laptop: remove the old WSL symlinks `U.Dot/bin/HAL`, `bin/HAL0` (git-ignored).
 - [ ] Me/chats/Makefile hard-codes `BASE_DIR := /c/Users/alist`; use `$(HOME)`.
 
+---
+
+## ISS-046: Open items carried over from the old CURRENT.md (1-6 Oct 2026) — OPEN
+{{Tags area.papers, area.books, area.app, area.proofs}}
+{{Fields date.created=2026-10-06, date.start=, date.end=, epic=}}
+
+CURRENT.md was rewritten to one screen on 6 Oct (stale-file review, ISS-044);
+the full old file is `docs/agent/CURRENT-2026-10-01-to-06.md.OBSOLETE`. Each
+open item was checked against the repo and ISSUES.md; these were not tracked
+anywhere else.
+
+**Checked and done (for the record):** exact Planck 2018 values in P21/P22
+(0.6847, 0.2645) and matching Lean bounds; P22's direct-detection null
+prediction; Fractal Thesis and paper omnibus hardening (1 Oct); Atlas plates for
+all 31 levels; no "no sorries" claims left in the appendix or books.
+
+**Papers and proofs:**
+- [ ] Lean doc comments in `G2Compactification.lean` and `LocalGR.lean` say
+      `dΩ_Λ/dz = 0`; the correct statement is that Λ (ρ_Λ) is constant
+      (Ω_Λ itself changes with z). Comments only; the proofs are unaffected.
+- [ ] OSforGFF pull request mrdouglasny/OSforGFF#22 awaiting review.
+- [ ] Optional: `git worktree remove ../U-lean-v433`.
+
+**App (ideas from the 1 Oct notebook review):**
+- [ ] A display-mode axis `4d-baseline | 7d-usf-field | 8d-life | 11d-mind` in
+      `operator-theory.yaml` (the app has `dim=4|8` today).
+- [ ] A gravity view pairing a baseline GR render with the Green-function render.
+- [ ] Mind rank N(σ) beside physical scale; the user source term J_user(t) as
+      a control; a benchmark suite for validation. Theory data stays out of
+      browser JS.
+
+**Books and Atlas:**
+- [ ] Each Fractal Thesis book: a domain introduction spread (specialist label,
+      G-ID, zoom note); a per-book G-ID registry; "61 decades of magnitude" as
+      the headline with the scales as tick marks.
+- [ ] Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1,
+      2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
+- [ ] Course book: Visualize for chapter 9 (needs a flock primitive).
+
+**Quarantined** (never presented as results; now also in README's rules): the
+claim that autism is pre-verbal C-PTSD (at most a research question); the
+C-PTSD pilot protocol (needs ethics, consent and safeguarding first); the
+post-operative case (N = 1 field note); NotebookLM's "verified", "zero
+sorries" and "proves" statements.
+
+Not now (author, 1 Oct): completing *Phase Dot*.
+

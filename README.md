@@ -49,6 +49,13 @@ Details in `T/AGENTS.md`.
   `ISSUES.md`;
 - documents are built by Make, pandoc and Lua filters, never by scripts that
   write markup (BUILD.md).
+- never present an interpretation, simulation or planned experiment as a
+  proved or empirical result; label every claim (`docs/agent/THEORY-STATUS.md`);
+  the quarantined claims in ISS-046 are never presented as results;
+- published papers change only through new Zenodo versions: flag problems,
+  do not edit a published paper in place;
+- run `git status -sb` before every commit; never commit generated PDFs from
+  the ignored build directories.
 
 ---
 
