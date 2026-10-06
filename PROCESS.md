@@ -148,23 +148,12 @@ Test questions:
 All three tiers pass when no new contradictions, gaps, or incomprehensible sections are found.
 Log results in `FIELD-NOTES.md` with date and notebook name.
 
-## Session Start — Standard Primer Prompt
+## Session Start
 
-Use this at the start of any new AI chat session (GitHub Copilot in VS Code, or Claude Sonnet/Opus native or via Copilot). Paste verbatim:
-
-```
-Session start. Read: FIELD-NOTES.md (last 40 lines) and PROCESS.md.
-Then run: git status -sb in repos U, Me, T.Ops.
-Summarise: what was last worked on, current git state, and what's next. Then wait.
-```
-
-**For VS Code Copilot:** `copilot-instructions.md` loads automatically — no extra priming needed for project facts. Just paste the above to catch up on recent session work.
-
-**For Claude native (claude.ai Sonnet/Opus):**
-1. Create a **Project** called `[T]-Theory/U`
-2. Set system prompt = contents of `U/.github/copilot-instructions.md`
-3. Add `U/PROCESS.md` as project knowledge
-4. Then paste the session starter above in each new conversation
+How to start a session is in [README.md](README.md), *Working on this repo*:
+run `HAL copilot start` (an AI runs it itself; for a web chat such as
+claude.ai, paste its output). It shows the front doors, the current state
+(`docs/agent/CURRENT.md`), the end of the active chat and git status.
 
 **Open workspace command:**
 ```
