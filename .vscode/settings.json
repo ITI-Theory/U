@@ -14,6 +14,11 @@
     "files.trimTrailingWhitespace": true,
     // Show invisible characters (optional but helps debugging)
     "editor.renderWhitespace": "all",
+    // Kept for history only (T.Ops naming standard): hide from search
+    "search.exclude": {
+        "**/*.OBSOLETE": true,
+        "**/*.OBSOLETE/**": true
+    },
     "cSpell.words": [
         "Lonsdale",
         "MS-ATX-DICO-SQS"

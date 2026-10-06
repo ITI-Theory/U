@@ -9,7 +9,10 @@ textbook edition) is built the same way:
 
 1. **Make is the only entry point.** Each project has a `Makefile` with the
    standard targets below; the root `Makefile` delegates to them. A build is
-   reproducible from a clean clone with `make <target>`.
+   reproducible from a clean clone with `make <target>`. This is one case of
+   the general rule that the Makefile is the command handler for every
+   repeatable action, not only builds (T.Ops `docs/standards/naming.md`,
+   "Working rules"); `.OBSOLETE` files and directories are never build inputs.
 2. **Pandoc options live in defaults files**, not on the command line:
    `<project>/defaults/<output>.yaml` (for example `a3.yaml`, `html.yaml`).
    Shared settings live in `lib/defaults/` and are pulled in with
