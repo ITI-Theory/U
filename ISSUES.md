@@ -1172,11 +1172,11 @@ sources, and the chat-ingest process exists in three competing forms.
   U.Dot-only machine; track and document them.
 
 **Actions:**
-- [ ] T.Dot/DESIGN.md: HAL vocabulary (drafted 6 Oct).
-- [ ] Standards: `.OBSOLETE` and "point, don't copy" (T.Ops naming.md); Makefile
-      command-handler rule (BUILD.md); README front-door rule.
-- [ ] U/README.md: "Working on this repo" section; stale facts replaced by pointers.
-- [ ] Shrink U and T copilot-instructions.md and T/AGENTS.md to pointers.
+- [x] T.Dot/DESIGN.md: HAL vocabulary (T.Dot 7268798).
+- [x] Standards: working rules in T.Ops naming.md (70bd529); BUILD.md rule 1;
+      `.ignore` and `search.exclude` for `*.OBSOLETE` in U (7f7e476).
+- [x] U/README.md front door (4e877b4); T/README.md front door for all repos (T dc9d910).
+- [x] U and T copilot-instructions.md and T/AGENTS.md now point to the READMEs (dcbd286, T dc9d910); Autopilot default off.
 - [ ] `HAL init` in Git Bash on this machine.
 - [ ] HAL: `copilot start|save|wrapup`, `chat new`, `mother ask`, `hal ask`,
       `uat scope`, `context`; `todo` and `voice` from Me/Ops/tools.
