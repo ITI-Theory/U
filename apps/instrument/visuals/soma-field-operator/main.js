@@ -2364,6 +2364,15 @@ syncScaleControl();
 syncTTheoryUI();
 renderZoomEquation();
 updateScaleReadout();
+// The production build runs this module before the deferred KaTeX script, so the
+// first render falls back to raw TeX; render again once KaTeX has loaded.
+if (!globalThis.katex) {
+  document.querySelector('script[src*="katex"]')?.addEventListener('load', () => {
+    renderTextWithMath(abstractSplashCopy, zUSFAbstract);
+    renderZoomEquation();
+    updateScaleReadout();
+  }, { once: true });
+}
 timeAxis = createTimeAxis({
   eras: registryEras,
   levelsById,
