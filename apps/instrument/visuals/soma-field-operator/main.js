@@ -1781,7 +1781,14 @@ function activeZoom() {
 }
 
 function activeDimensionLevel() {
-  return state.tTheory ? state.level : 4;
+  if (!state.tTheory) return 4;
+  // 11D is not available at the quantum scales (sigma < 7) except for the demo levels,
+  // matching the disabled 11D button; fall back to 8D there instead of rendering 11D.
+  if (state.level === 11) {
+    const id = activeLevel().id;
+    if (levelSigma(id) < 7 && !dimensionDemoLevelIds.has(id)) return 8;
+  }
+  return state.level;
 }
 
 function baselineEquation(plate) {
