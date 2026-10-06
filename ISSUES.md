@@ -1199,8 +1199,9 @@ sources, and the chat-ingest process exists in three competing forms.
   - [ ] Then `HAL0 init` / `HAL1 init` here, with the author, step by step.
 - [x] HAL: dry run (`-n`), HAL0-lib, `copilot start|save|wrapup`, `chat new|list`;
       `prime` = `copilot start` (T.Dot 42e539e..86cf484).
-- [ ] HAL: `mother ask`, `hal ask`, `uat scope`, `context` (from `prj`/.prj); `todo` and
-      `voice` from Me/Ops/tools.
+- [x] HAL: `mother ask`, `hal ask` (U `make ask`, app's Bridge, one 30 s pace; U 1d1363e, U.Dot 2c119e2).
+- [ ] HAL: `uat scope`, `context` (from `prj`/.prj); `todo` and `voice` from Me/Ops/tools;
+      MOTHER panel's H-AL mode calls the same path.
 - [x] Me/chats/Makefile: `copilot`, `check`, `help`, Windows sh; exports in `Inbox/`;
       md2chat `.OBSOLETE` (Me 55b7817, dd0b7cc). `make check` lists 5 old Inbox
       files without a header (limbic-hop, limbic-hop2, notebooklm, opencyc1, self-aware).
