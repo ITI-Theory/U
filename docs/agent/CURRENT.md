@@ -5,6 +5,12 @@
 Resume [T]-Theory work quickly. Read this file, then `SOURCES.md`,
 `THEORY-STATUS.md`, and the brief for the active task.
 
+## Now (6 Oct 2026): admin before release - ISS-044
+
+Agreed plan in ISSUES.md ISS-044: README front door, Makefile command
+handlers, HAL vocabulary (T.Dot/DESIGN.md), `.OBSOLETE`, one chat process.
+Do that first, then the scope check and UAT below. Chat: `write_a_book`.
+
 ## Course book night (5 Oct 2026, 01:00-03:30) - state for the next session
 
 [T]-Theory: A Course (ISS-041), `make -C Part2/book/field-atlas-textbook check`

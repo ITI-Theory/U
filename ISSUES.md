@@ -1,5 +1,5 @@
 ---
-tags: area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, project.soma-field-operator, projection.3d, release, uat
+tags: area.app, area.build, area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, project.soma-field-operator, projection.3d, release, uat
 fields: date.created, date.start, date.end, epic
 ---
 
@@ -1135,4 +1135,56 @@ UAT candidates were built with 3.10.2.
       paper and the Atlas and diff the PDF text (pdftotext word diff) before
       and after.
 - [ ] Update the version line in BUILD.md rule 4b.
+
+---
+
+## ISS-044: Admin before release: front door, command handlers, HAL vocabulary, .OBSOLETE, chat process — OPEN
+{{Tags area.ops, release}}
+{{Fields date.created=2026-10-06, date.start=2026-10-06, date.end=, epic=}}
+
+Agreed with the author on 6 Oct 2026 (chat `write_a_book`), before UAT. A new AI
+session started blind: the auto-loaded instruction files are stale (30 May),
+HAL is not installed in this machine's Git Bash, `HAL prime` reads stale
+sources, and the chat-ingest process exists in three competing forms.
+
+**Decisions:**
+- **Front door = README.md**, for people and AI alike (no separate files where
+  avoidable). It documents how we work, including the Autopilot rules from
+  T/AGENTS.md. `.github/copilot-instructions.md` and AGENTS.md shrink to
+  "read README.md and follow it" plus AI-only rules.
+- **Makefile = command handler.** Every repeatable action is a Make target,
+  even if it only runs a script; `make help` lists them. Widens BUILD.md rule 1
+  from builds to commands.
+- **HAL = dispatcher across repos and devices.** Noun then verb, two levels
+  max, few shared verbs, `HAL help` is the one command list, `HAL context`
+  sets a default noun (auto-detected, always shown), AI always types the full
+  form. HAL calls Make targets. Design note: T.Dot/DESIGN.md.
+- **Autopilot** (propose, wait, go) stays available, **default off**.
+- **HAL uses Me/Ops/tools** (todo-admin, voice-admin) when available.
+- **`.OBSOLETE` suffix** (end of name, file or directory) = kept for history,
+  do not read, build or cite; search tools and builds skip it. Fast-changing
+  facts are pointed to, never copied.
+- **Chats**: one process in Me/chats/Makefile (`ingest`, `stage`, new
+  `copilot`), one front-matter header, landing in `chats/Inbox` with
+  `status: raw`; md2chat's checker becomes a Make target.
+- **Tangents** in chat: always suggest doing it now or issuing it.
+- U.Dot's zero-byte `bin/HAL` and `bin/HAL0` are intentional placeholders for a
+  U.Dot-only machine; track and document them.
+
+**Actions:**
+- [ ] T.Dot/DESIGN.md: HAL vocabulary (drafted 6 Oct).
+- [ ] Standards: `.OBSOLETE` and "point, don't copy" (T.Ops naming.md); Makefile
+      command-handler rule (BUILD.md); README front-door rule.
+- [ ] U/README.md: "Working on this repo" section; stale facts replaced by pointers.
+- [ ] Shrink U and T copilot-instructions.md and T/AGENTS.md to pointers.
+- [ ] `HAL init` in Git Bash on this machine.
+- [ ] HAL: `copilot start|save|wrapup`, `chat new`, `mother ask`, `hal ask`,
+      `uat scope`, `context`; `todo` and `voice` from Me/Ops/tools.
+- [ ] Me/chats/Makefile: `copilot` target, unified header, `check` target;
+      move the two exports from `chats/copilot/` to `Inbox/`; md2chat `.OBSOLETE`.
+- [ ] Stale-file review with the author, item by item (keep / .OBSOLETE / delete);
+      `.ignore` and `search.exclude` for `*.OBSOLETE`; release-check rule.
+      Done: Me/Ops/sessions/ToSonnet4.6.md.
+- [ ] Then the scope check (`HAL uat scope`) and UAT (Dist README step 5).
+- [ ] Later (not this round): one Python directory, moving the existing scripts.
 
