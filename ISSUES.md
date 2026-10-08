@@ -1374,11 +1374,23 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
 - Not "our own model": data goes to GitHub and the model provider, as it goes
   to Google with NotebookLM. The GPU route below stays the private option.
 
+**Own machine: Infomaniak GPU cloud (8 Oct; author's preference; Swiss, Geneva/Winterthur):**
+- Linux instances with a dedicated GPU, Swiss jurisdiction (nFADP/GDPR),
+  renewable power. CHF per hour excl. VAT: A2 0.16, T4 16 GB 0.24, L4 24 GB 0.29,
+  **L40S 48 GB 0.76**, A100 40 GB 1.57; H100 80 GB and B300 288 GB on request.
+- L40S is the sweet spot: Qwen3.8-27B with long context. About CHF 100/month
+  at 4 h/day, about CHF 600/month 24/7 (incl. VAT). Cheaper than RunPod's median.
+- Linux natively, so it can also be HAL's Linux machine (HAL0 linux mode, SSH
+  from Git Bash) instead of VirtualBox (ISS-045).
+- To check: billing for stopped instances; what "Get started for free" gives;
+  H100/B300 quote only if a frontier model is ever needed.
+
 **Test plan (about $10-20):**
-- [ ] First: author creates a private Copilot Space on ITI-Theory/U (papers and
-      book sources); run the UAT worksheet questions there and compare with NotebookLM.
-- [ ] MOTHER bridge: add a Copilot SDK backend beside NotebookLM (HAL persona).
-- [ ] Then, if privacy or cost needs it: rent one H100 for an afternoon; serve Qwen3.8-27B (vLLM, OpenAI-compatible API).
+- [ ] Open an Infomaniak Public Cloud account (author); start one L40S instance
+      (Ubuntu); serve Qwen3.8-27B with vLLM (OpenAI-compatible API) behind SSH.
+- [ ] Alternative without a machine: a private Copilot Space on ITI-Theory/U;
+      run the UAT worksheet questions there and compare with NotebookLM.
+- [ ] MOTHER bridge: add a backend switch (NotebookLM, local model, Copilot SDK).
 - [ ] Give the MOTHER bridge a backend switch (NotebookLM or local model) with
       retrieval over the papers omnibus and the books; answers cite file and page.
 - [ ] Run the RC3 UAT worksheets (`uat/scripts/nlm_uat.py`) against both and
