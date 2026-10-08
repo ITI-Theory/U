@@ -23,7 +23,9 @@ abstract: |
   vacuum gives the cosmological constant (w = -1). Together with the companion
   cosmological-constant model's result
   $\Omega_\Lambda = 7/11$, dimensional counting from the 11D USF accounts
-  for 95\% of the universe's total energy budget.
+  for 91\% of today's energy budget (dark energy and dark matter), 95\% with
+  the auxiliary baryon fraction. The partition is compared with today's values;
+  why it should hold at the present epoch is an open question.
 ---
 
 # The Dark Matter Problem — USF Perspective
@@ -243,18 +245,16 @@ of the total vacuum energy. However, the observed baryonic fraction is
 $\Omega_b = 0.0493 \approx (1/11)/2$. The factor of $\sim 2$ has a standard
 cosmological interpretation:
 
-By CPT symmetry, the vacuum in the time direction creates equal amounts of
-matter and antimatter. Baryogenesis — through the Sakharov conditions
-(CP violation, baryon-number violation, departure from thermal equilibrium)
-— produces a small excess $\eta = (n_b - n_{\bar{b}})/n_\gamma \approx 6\times10^{-10}$.
-After matter-antimatter annihilation, the integrated energy that ended up
-in surviving baryons is approximately half the time-block contribution:
+The factor of $\sim 2$ is not explained by baryogenesis: with an asymmetry
+$\eta = (n_b - n_{\bar{b}})/n_\gamma \approx 6\times10^{-10}$, only about $10^{-9}$ of
+the initial matter survives annihilation, not half. Here the factor $1/2$ is an
+unexplained fit factor:
 $$\Omega_b^\text{USF} = \frac{1}{2}\cdot\frac{1}{11} = \frac{1}{22}
   \approx 0.0455 \quad\text{vs}\quad \Omega_b^\text{obs} = 0.0493 \quad(7.8\%\text{ low})$$
 
 This is an **auxiliary claim**, not an independent prediction: the factor
-$1/2$ is taken as the baryogenesis efficiency parameter from standard
-cosmology, not derived from USF first principles. The derivation of this
+$1/2$ is chosen to fit, not derived from USF first principles or taken from
+standard cosmology. The derivation of this
 factor from the USF CP-violation structure is an open problem (see §5).
 
 ## The radiation sector and dilution resolution
@@ -275,12 +275,12 @@ The discrepancy of $\sim 4.5\%$ has two contributions:
    matter the exact Planck 2018 baseline is $3/11 \to 0.2645$ (3.1\% high),
    with a different sign because the spatial block couples differently to the CY moduli.
 
-2. **Redshifted radiation**: the partner of the baryonic matter is the
-   annihilated antimatter, which became photons with initial fraction
-   $\sim 1/22$ in the early universe. Radiation energy density redshifts
-   as $a^{-4}$ and is entirely negligible today
-   ($\Omega_r \approx 9\times10^{-5}$). The $\sim 4.5\%$ USF shortfall is
-   consistent with this early-universe radiation having diluted away.
+2. **Epoch.** The partition is compared with today's density parameters, but
+   these change with time: $\Omega_\Lambda/\Omega_\text{DM}$ grows as $a^3$ because
+   matter dilutes and $\Lambda$ does not. A fixed $7 : 3$ split can therefore
+   match only one epoch, and the missing $1/22$ cannot be assigned to
+   early-universe radiation without applying the partition at a different
+   epoch. Why the partition should hold today is an open problem of the model.
 
 ---
 
@@ -293,13 +293,13 @@ The numerical claims are formalised in
 
 | Statement | Lean name | Status |
 |---|---|---|
-| $\Omega_\text{DM} = 3/11$ at leading order | `omega_dm_fraction` | **proved** (`native_decide`) |
+| $\Omega_\text{DM} = 3/11$ at leading order | `omega_dm_fraction` | **proved** (`norm_num`) |
 | Planck 2018 dark-matter discrepancy bound | `omega_dm_discrepancy_small` | **proved** (<4\%, `norm_num`) |
 | Tight dark-matter agreement bound | `usf_dark_matter_tightest` | **proved** (<3.5\%, `norm_num`) |
 | Spatial block → positive gravitational source fraction | `spatial_vacuum_gravity_coupling` | **proved weak form** (`∃ Ω_DM = 3/11 > 0`) |
-| Spatial block → no EM charge | `spatial_vacuum_em_neutral` | **proved in LocalGeometry model** |
-| Spatial block → $w = 0$ (clustering) | `spatial_vacuum_pressure_zero` | **proved in LocalGeometry model** |
-| Baryonic fraction $= 1/22$ | `omega_baryon_fraction` | **proved** (`native_decide`) |
+| Spatial block → no EM charge | `spatial_vacuum_em_neutral` | holds by definition in the LocalGeometry model (the coupling is defined as zero) |
+| Spatial block → $w = 0$ (clustering) | `spatial_vacuum_pressure_zero` | type-level placeholder: states only that some $w = 0$ exists, with the gauge lemma; pressure is not formalised |
+| Baryonic fraction $= 1/22$ | `omega_baryon_fraction` | **proved** (`norm_num`, fit factor $1/2$ assumed) |
 | Baryon discrepancy bound | `omega_baryon_discrepancy_small` | **proved** (<8\%, `norm_num`) |
 
 ## Remaining proof obligations
@@ -336,7 +336,7 @@ annihilation to photons/leptons, etc.). The only observable signature is
 gravitational. This is consistent with the null results of all direct and
 indirect detection experiments to date.
 
-**Equation of state $w_\text{DM} = 0$ exactly.** The spatial vacuum
+**Equation of state $w_\text{DM} \approx 0$ (to about $10^{-60}$).** The spatial vacuum
 condensate has no pressure in the non-relativistic limit. Any detection of
 $w_\text{DM} \neq 0$ (e.g., warm dark matter with residual velocity
 dispersion contributing measurably to $w$) would require modifying the
@@ -364,11 +364,12 @@ strongly favour adiabatic initial conditions [@planck2018cosmology].
 | EM coupling | Yes (loops) | Yes (Primakoff) | **No** |
 | Self-interaction | Possible | Negligible | **None** (no gauge charge) |
 | Density prediction | Free parameter | Free parameter | **3/11 (3.1% high)** |
-| Equation of state | $w\approx 0$ | $w\approx 0$ | $w = 0$ (exact) |
+| Equation of state | $w\approx 0$ | $w\approx 0$ | $w \approx 0$ (non-relativistic) |
 
-The USF spatial vacuum matches all observational constraints while making
-the additional prediction that **no direct detection will ever succeed** —
-a strong, falsifiable claim.
+If its localisation and KK-reduction assumptions hold, the USF spatial vacuum is
+consistent with the constraints listed above, and it makes the additional
+prediction that **no direct detection will ever succeed**: a strong, falsifiable
+claim.
 
 ## Is this coincidence?
 
@@ -386,11 +387,12 @@ non-compact spatial dimensions of 11D spacetime, already fixed by the
 companion cosmological-constant model's Calabi-Yau compactification structure.
 The integer 3 is not a fit parameter;
 it is the number of non-compact spatial dimensions in the same M-theory
-framework used to derive $\Lambda$ in that companion model. The model predicts
-$\Lambda$
-correctly at the 7.1\% level before this paper existed; the $\Omega_\text{DM}$
-prediction at 3.1\% is a no-new-continuous-parameter comparison from that
-already-fixed dimensional bookkeeping.
+framework used to derive $\Lambda$ in that companion model. The model matches
+$\Omega_\Lambda$ at the 7.1\% level (the comparison is $7/11$ against the measured
+value, given $H_0$); the $\Omega_\text{DM}$ comparison at 3.1\% adds no new
+continuous parameter to that dimensional bookkeeping. It does use discrete
+choices: which sector each integer is assigned to, the epoch of comparison, and
+the baryon factor $1/2$; a full look-elsewhere estimate would count them.
 
 In fact, $N_\text{spatial} = 3$ is not even a choice within the framework.
 Given the M-theory total $N_\text{total} = 11$ and the compact count
@@ -437,14 +439,15 @@ in the non-relativistic limit). It is intended to match the observational
 profile of cold dark matter without introducing a new particle species.
 
 Together with the companion model's proposed $\Omega_\Lambda = 7/11$
-(about 7.1\% low against exact Planck 2018), the USF
-accounts for 95\% of the universe's energy budget — the dark energy and dark
-matter sectors — from the single integer decomposition $11 = 7 + 3 + 1$ of
-the M-theory spacetime dimension.
+(about 7.1\% low against exact Planck 2018), the USF accounts for 91\% of
+today's energy budget (the dark energy and dark matter sectors) from the single
+integer decomposition $11 = 7 + 3 + 1$ of the M-theory spacetime dimension,
+95\% with the auxiliary baryon fraction.
 
 The primary open obligation is the Kaluza-Klein reduction of the 11D USF
 spatial block to a 4D pressureless fluid, and the derivation of the
-baryogenesis factor $1/2$ from USF first principles.
+baryon factor $1/2$ from USF first principles, and the reason the partition
+applies at the present epoch.
 
 ---
 

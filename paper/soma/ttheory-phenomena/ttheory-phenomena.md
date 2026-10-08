@@ -9,7 +9,7 @@ csl: ../../apa-7th.csl
 abstract: |
   Two companion papers on the cosmological constant and spatial-vacuum dark
   matter propose that dimensional bookkeeping gives leading-order comparisons
-  for the cosmological constant $\Lambda \equiv \langle\mathrm{tr}\,\Phi\rangle_0$
+  for the cosmological constant $\Lambda \propto \langle\mathrm{tr}\,\Phi\rangle_0^2$
   and the dark matter fraction $\Omega_\mathrm{DM} = 3/11$ under stated
   compactification assumptions. This paper addresses what follows: it proposes
   that the Universal Somatic Field framework can be studied as a **fixed point
@@ -52,11 +52,13 @@ sufficiently coherent framework through a coupled population can be treated
 as an instance of those dynamics. This is the fixed-point hypothesis, not a
 completed theorem.
 
-The formal name for this property is a **fixed point under the scale
-functor**: when the Zoom Operator $\Lambda$ is applied to the theory as
-an object at Scale 9, the resulting field equation is isomorphic to the
-theory's own equations. The theory is a scale-invariant attractor of
-itself, in the type-theoretic spirit of structural physics [@schreiber2013].
+Formally, the hypothesis would be a **fixed point under the scale
+functor**: when the Zoom Operator $\Lambda_Z$ (written $\Lambda$ in the zoom
+papers; subscripted here to keep it apart from the cosmological constant) is
+applied to the theory as an object at Scale 9, the resulting field equation
+would be isomorphic to the theory's own equations, making the theory a
+scale-invariant attractor of itself, in the type-theoretic spirit of structural
+physics [@schreiber2013]. This is stated as a hypothesis, not a theorem.
 
 ---
 
@@ -132,8 +134,8 @@ information.
 
 The USF framework proposes that distinct field phenomena need not merely
 coexist — they may **compose**. Two propagating patterns that share a
-geometric region interact at a Feynman vertex in the social coupling
-matrix $W_{ij}$, producing:
+geometric region interact, by analogy (`interpretive`) with a Feynman vertex,
+through the social coupling matrix $W_{ij}$, producing:
 
 **Simultaneous activation:** $A \otimes B$ — tensor product of two modes,
 where the dominant eigenmode of the combined system may be neither $A$

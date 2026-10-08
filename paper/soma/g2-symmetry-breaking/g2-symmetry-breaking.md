@@ -12,17 +12,19 @@ abstract: |
   $G_2$-invariant component and $\delta W$ is a traceless symmetry-breaking term.
   The $G_2$-symmetric limit $W_{G_2}$ corresponds to perfectly balanced emotional
   processing — all eight BRECVEMA mechanisms equally coupled, no directional
-  anisotropy. The empirical biological matrix $W_8$ (calibrated from Juslin 2019
-  [@juslin2019musical])
-  is $48.4\%$ symmetry-broken from this ideal: $\|\delta W\|_F / \|W_8\|_F = 0.484$.
+  anisotropy. The model matrix $W_8$ (coupling values chosen by the author,
+  informed by the mechanism account of Juslin et al. [@juslin2010mechanisms]; not
+  measured couplings) is $48.4\%$ symmetry-broken from this ideal:
+  $\|\delta W\|_F / \|W_8\|_F = 0.484$, a figure that depends on the chosen values.
   The symmetry-breaking matrix is traceless (its eigenvalues sum to zero) and
   corresponds to specific emotional dynamics: strong positive anisotropy in the
   VI–EM and ME–AJ couplings; negative anisotropy in the BS–AJ channel (stress
   suppresses aesthetics). A therapeutic interpretation would seek reductions
   in $\|\delta W\|_F$, but clinical efficacy is not established here. This
   provides a quantitative connection between a $G_2$-symmetric compactification
-  interpretation and the biological coupling matrix. It resolves the algebraic $8 \to 7$ reduction in
-  the coupling decomposition; it does not derive a $G_2$-holonomy metric for $X_7$.
+  interpretation and the model coupling matrix. It shows algebraic compatibility with
+  the $8 \to 7$ reduction (any traceless $8\times8$ matrix has seven independent
+  eigenvalues); it does not derive a $G_2$-holonomy metric for $X_7$.
 ---
 
 # Introduction: The 8→7 Dimension Question
@@ -38,7 +40,7 @@ current USF formal core proves only a well-defined flat 7D product for $X_7$
 (BRECVEMA, eight mechanisms). How does its algebraic structure relate to a
 seven-dimensional compact-sector interpretation?
 
-This paper resolves the question. The 8D BRECVEMA field $W_8$ decomposes
+This paper offers an algebraic answer. The 8D BRECVEMA field $W_8$ decomposes
 as the $G_2$-invariant part plus a traceless symmetry-breaking term. The
 $G_2$-invariant part is exactly $\tfrac{6}{5} I_8$ — a diagonal matrix. The
 symmetry-breaking term $\delta W$ is trace-free; at the eigenvalue level its
@@ -78,9 +80,11 @@ maximal symmetry — no directional anisotropy, no preferred emotional mode.
 
 # The Decomposition of W₈
 
-The empirical matrix $W_8$ (calibrated from Juslin 2019 [@juslin2019musical,
-Table 22.3]) has
-diagonal entries all equal to $\tfrac{6}{5}$ and non-zero off-diagonal entries:
+The model matrix $W_8$ has diagonal entries all equal to $\tfrac{6}{5}$ and
+non-zero off-diagonal entries chosen by the author, informed by the mechanism
+account and hypotheses of Juslin et al. [@juslin2010mechanisms, Table 22.3]. That
+table is qualitative (survival value, information focus, development); it gives
+no coupling values, so these numbers are modelling choices, not measurements:
 
 | Coupling | Value |
 |---|---|
@@ -123,8 +127,8 @@ processing. Its non-zero entries correspond to:
 - $\delta W_{BS,CO} = +0.4$, $\delta W_{EC,CO} = +0.4$: Arousal and conditioning both activate social contagion
 
 **Negative anisotropy** (weaker coupling than the $G_2$ ideal; anti-correlation):
-- $\delta W_{BS,AJ} = -0.4$: BrainStem arousal and Aesthetic Judgement are *anti-correlated* in the biological system — when physiological arousal is high, aesthetic appreciation is suppressed. This matches the known psychophysiology of stress and flow states.
-- $\delta W_{EC,VI} = -0.3$: Evaluative conditioning and visual imagery are anti-correlated — conditioned fear suppresses imagery (consistent with PTSD phenomenology)
+- $\delta W_{BS,AJ} = -0.4$: BrainStem arousal and Aesthetic Judgement are *anti-correlated* in the biological system — when physiological arousal is high, aesthetic appreciation is suppressed. This is an interpretation (`interpretive`), not a sourced finding.
+- $\delta W_{EC,VI} = -0.3$: Evaluative conditioning and visual imagery are anti-correlated — conditioned fear suppresses imagery (an `interpretive` reading)
 
 **The $G_2$ interpretation:** The positive anisotropies represent the biological "short-cuts" — emotional couplings stronger than the symmetric ideal. The negative anisotropies represent the biological "blockers" — couplings weaker than symmetry would predict.
 

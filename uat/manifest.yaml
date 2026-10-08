@@ -3,7 +3,7 @@
 # version: the candidate being staged, rcN.M (N = release candidate, M = staging
 # build). Bump M before restaging changed sources; staged files carry it in
 # their names and MANIFEST.md records the git ref.
-version: rc3.1
+version: rc3.2
 
 papers:
   purpose: "Scientific papers and C1v2 omnibus acceptance"

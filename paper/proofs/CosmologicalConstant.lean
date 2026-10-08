@@ -2,7 +2,7 @@
   CosmologicalConstant.lean — P21: Λ ≡ ⟨tr Φ⟩₀
 
   The cosmological constant as the vacuum amplitude of the USF.
-  Core claim: Λ = k²_cosm · Φ₀² / M_Pl² where Φ₀ ~ 0.4 M_Pl.
+  Core claim: Λ = k²_cosm · Φ₀² / M_Pl² where Φ₀ ≈ 1.4 M_Pl (= √(3 Ω_Λ) M_Pl).
 
   Leading-order estimate:
     Λ_USF = (7/11) · 3 H₀²/c² = (21/11) H₀²/c²
@@ -59,11 +59,12 @@ theorem usf_equation_of_state :
     ∃ (Ω_Λ : ℝ → ℝ), (∀ z : ℝ, HasDerivAt Ω_Λ 0 z) ∧ Ω_Λ 0 = 7 / 11 :=
   ⟨-1, rfl, SomaField.LocalGR.g2_implies_omega_lambda_static⟩
 
-/-- **PROVED**: the USF vacuum amplitude has a concrete positive value.
-    Phi0 = 2/5 M_Pl ≈ 0.4 M_Pl from the cosmological fit. -/
+/-- **PROVED (weak form)**: the USF vacuum amplitude has a positive witness.
+    The cosmological fit gives Phi0 = √(3 Ω_Λ) M_Pl ≈ 1.43 M_Pl (P21); the
+    witness below is that value to two places. -/
 theorem cosmological_constant_identification :
     ∃ (Phi0 : ℝ), Phi0 > 0 :=
-  ⟨2 / 5, by norm_num⟩
+  ⟨143 / 100, by norm_num⟩
 
 end SomaField.Cosmological
 

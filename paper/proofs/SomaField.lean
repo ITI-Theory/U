@@ -73,7 +73,9 @@ def dimMech : Fin N8 → Mechanism
 -- ════════════════════════════════════════════════════════════════════════════
 
 /-
-  Off-diagonal couplings grounded in BRECVEMA theory (Juslin 2011, Table 22.3).
+  Off-diagonal couplings: modelling choices informed by the BRECVEMA mechanism
+  account (Juslin et al. 2010, Handbook of Music and Emotion, ch. 22, Table 22.3).
+  That table is qualitative; the numbers below are not measured couplings.
 
   Positive (co-activation, W_ij > 0):
     BS(0) ↔ EC(2)  +0.30  both automatic, pre-conscious, fast
