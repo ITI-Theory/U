@@ -1360,10 +1360,9 @@ The author ran a UAT session on 7 Oct; the notes are in
   - [ ] HAL's private knowledge (AJ wiki, links, books) with a switch per
         source; bulk sorting (notes 12-13; ISS-048 and ISS-049).
   - [ ] Test book: a topic suggested by someone else (waiting for the viewer).
-- [ ] D1 (`SFT-DEMO-CASE`, self-case paper): the chats record a 16 Aug decision
-      to mark it private (`visibility: private`, `release: excluded` in
-      PAPERS.yaml), but PAPERS.yaml has `status: needs-new-version` and its PDF
-      is in the RC3 papers staging. Author decides before any upload.
+- [x] D1 (`SFT-DEMO-CASE`, self-case paper): public, as decided 16 Aug (the
+      author considered private, then kept it public because it was already on
+      Zenodo: record 20459826, open access). PAPERS.yaml matches; no change.
 - [ ] NotebookLM UAT for RC3 (`make uat-nlm`, after `notebooklm login`).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
@@ -1485,8 +1484,8 @@ fun from the technical", the author's own rule). HAL-UAT recalls history well;
 check its current-state facts against the repo (it named a wrong script path).
 
 **Earlier ideas (from HAL-UAT), none built:** `make lift` (Me to U, 10 Jun),
-segment tags (28 Jun), `visibility: private` (16 Aug, for D1; see ISS-047),
-disclaimer headers (21 May / 10 Jun; in 7 files).
+segment tags (28 Jun), `visibility: private` (16 Aug, considered for D1, then
+dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
 
 **Proposal (to decide):**
 - [ ] Whole files: `visibility: private` in the header (default public).
