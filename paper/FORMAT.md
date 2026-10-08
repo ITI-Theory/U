@@ -72,9 +72,21 @@ make check-glyph-warnings
 ```
 
 The checker verifies source-level break and divider contracts plus the first
-three physical pages and recto paper-divider parity. The [T]-Theory profile is
-specified here and will receive its checker when that build is revised. Visual
-review remains required for typography, images, and binding quality.
+three physical pages and recto paper-divider parity. Visual review remains
+required for typography, images, and binding quality.
+
+Two checks run over every built PDF (papers, books, booklets, volumes, both
+omnibuses, the course book) and are part of `bin/release-check` (sections 16
+and 17):
+
+- `paper/scripts/check_front_matter.py`: the opening pages follow the shared
+  rules above (title, blank verso, abstract and contents recto; master
+  contents on page 3).
+- `paper/scripts/check_text_overflow.py`: no word sticks out past the text
+  block and no text overlaps other text (long code names, paths, DOIs, table
+  cells, code lines). The general fix is `lib/format/breakable-tokens.lua`
+  (break opportunities in long tokens; table cells hyphenate their first
+  word) plus line wrapping of code listings in `journal.tex`.
 
 `check-glyph-warnings` also rejects unresolved-reference diagnostics. Pandoc
 may echo latexmk's intermediate "Label(s) may have changed" line even after

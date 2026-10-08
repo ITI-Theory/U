@@ -231,6 +231,24 @@ else
 fi
 echo "$OBSOLETE_CHECK" | sed 's/^/    /'
 
+hdr "16. PDF front matter (paper/FORMAT.md)"
+FRONT_CHECK=$(py paper/scripts/check_front_matter.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Title, blank verso, abstract and contents on the right pages in every built PDF"
+else
+  fail "Front matter on the wrong pages"
+fi
+echo "$FRONT_CHECK" | tail -12 | sed 's/^/    /'
+
+hdr "17. Text fits the page"
+OVERFLOW_CHECK=$(py paper/scripts/check_text_overflow.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "No text past the text block and no overlapping text in any built PDF"
+else
+  fail "Text does not fit (long tokens, table cells, code lines)"
+fi
+echo "$OVERFLOW_CHECK" | grep -E '^FAIL|checked' | head -15 | sed 's/^/    /'
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

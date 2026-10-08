@@ -1352,7 +1352,11 @@ app README):**
 - [ ] Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1,
       2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
 - [ ] Course book: Visualize for chapter 9 (needs a flock primitive).
-- [ ] Visualize beyond the course book (8 Oct): 66 `{{Visualize}}` figures in 20
+- [x] (8 Oct: wired into the domain books, volumes and omnibus; the filter draws
+      figures itself for one-step builds; first figures: physics (retarded response,
+      `lean:TemporalDynamics.retardedDecayFactor_isCausal`) and neuroscience (Hopfield
+      landscape, `lean:Hopfield.energy_at_fixed_point`). More figures: open.)
+      Visualize beyond the course book (8 Oct): 66 `{{Visualize}}` figures in 20
       course chapters, none in the Fractal Thesis books, papers or Field Atlas
       (the filter is only in the course build). Wire `lib/format/visualize.lua`
       into the book defaults and reuse course figures (convolution, Kuramoto,

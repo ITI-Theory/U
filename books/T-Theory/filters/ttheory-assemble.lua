@@ -104,9 +104,12 @@ local function rewrite_relative_assets(blocks, base_dir)
   return pandoc.walk_block(pandoc.Div(blocks), filter).content
 end
 
+-- {{Visualize}} macros are protected exactly as the book reader does.
+local visualize_reader = dofile(path.join({ project_dir, "..", "..", "lib", "format", "visualize-reader.lua" }))
+
 local function read_markdown_file(file)
   local source = project_file(file)
-  local text = read_text(source)
+  local text = visualize_reader.protect(read_text(source))
   local doc = pandoc.read(text, "markdown", PANDOC_READER_OPTIONS)
   doc.blocks = rewrite_relative_assets(doc.blocks, path.directory(source))
   return doc, source

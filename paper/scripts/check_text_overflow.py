@@ -79,7 +79,7 @@ def check(pdf: Path) -> list[str]:
 
 def default_pdfs() -> list[Path]:
     bld = ROOT / "bld"
-    skip = re.compile(r"(cover|-royal|-10pt|booklet-.*-\d)$")
+    skip = re.compile(r"(cover|-royal|-10pt|booklet-.*-\d|noir-page)$")  # noir page: one decorative box, not text pages
     return [p for folder in ("papers", "books", "textbook", "atlas") for p in sorted((bld / folder).glob("*.pdf"))
             if not skip.search(p.stem)]
 

@@ -4,7 +4,7 @@ include ../../lib/mk/paths.mk
 PROGRAMME_REFS := ../../lib/format/programme-refs.lua ../../lib/format/unicode-glyphs.lua ../../registry/papers.yaml
 BLD := $(BOOKS_BLD)
 # TeX and filters shared by the book, volume and omnibus builds: a change must rebuild them.
-BOOK_TEX := ttheory-titlepage.tex ttheory-packages.tex ../../paper/journal.tex ../../lib/format/breakable-tokens.lua
+BOOK_TEX := ttheory-titlepage.tex ttheory-packages.tex ../../paper/journal.tex ../../lib/format/breakable-tokens.lua ../../lib/format/visualize.lua ../../lib/format/visualize-reader.lua ../../lib/visualize/render.py
 PANDOC ?= pandoc
 ifeq ($(OS),Windows_NT)
 GS ?= gswin64c

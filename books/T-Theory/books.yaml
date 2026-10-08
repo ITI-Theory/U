@@ -112,7 +112,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Formal: consciousness_dichotomy (UniversalSomaticField.lean) proves only that an amplitude lies below, or at or above, sqrt 2. Everything else here is interpretive or open.",
+        status: "Formal: consciousness_dichotomy proves only that an amplitude lies below, or at or above, sqrt 2. Everything else here is interpretive or open.",
         primary_inductions:
           [
             "Threshold dichotomy: kernel-verified as arithmetic on the reals",

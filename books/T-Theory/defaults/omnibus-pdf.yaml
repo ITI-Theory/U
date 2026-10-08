@@ -23,6 +23,7 @@ include-in-header:
   - ttheory-packages.tex
 filters:
   - filters/ttheory-assemble.lua
+  - ../../lib/format/visualize.lua
   - ../../paper/filters/strip-keywords.lua
   - ../../lib/format/macros.lua
   - ../../lib/format/unicode-glyphs.lua
@@ -36,3 +37,7 @@ csl: ../../paper/apa-7th.csl
 metadata:
   programme-papers: ../../registry/papers.yaml
   fractal-manifest: defaults/fractal-manifest.yaml
+  visualize-manifest: ../../bld/books/visualize/manifest.json
+  visualize-src: ../../bld/books/visualize
+  visualize-render: python
+  lean-root: ../../paper/proofs

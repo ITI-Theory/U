@@ -39,29 +39,29 @@ geometry: "a4paper, margin=0.5in"
 
 \vspace{2.5em}
 
-{\large \textit{``This is your last chance. After this, there is no turning back.}}
+{\large \textit{Two pills were offered once.}}
 
 \vspace{1em}
 
-{\large \textit{If this book is blue -- the story ends, you wake up in your bed and believe whatever you want to believe.}}
+{\large \textit{One, and the story ends: you wake in your own bed and believe what you like.}}
 
 \vspace{1em}
 
-{\large \textit{If the book is red -- you stay in Wonderland, and I show you how deep the rabbit hole goes.}}
-
-\vspace{1em}
-
-{\large \textit{Remember, all I'm offering is the truth.''}}
+{\large \textit{The other, and you stay in Wonderland, to see how deep the rabbit hole goes.}}
 
 \vspace{2em}
 
-{\small \textbf{--- ADAPTED FROM THE MATRIX ---}}
+{\small \textbf{--- AFTER \textit{THE MATRIX} (1999) ---}}
 
 \vspace{1.5em}
 \centerline{\color{artdecogold}\vrule width 3in height 0.5pt}
 \vspace{1.5em}
 
-{\Large \textbf{WHAT COLOR IS THE BOOK?}}
+{\Large \textbf{YOU ARE HOLDING THE RED ONE.}}
+
+\vspace{0.8em}
+
+{\Large \textbf{STILL READING?}}
 
 \vspace{2.5em}
 

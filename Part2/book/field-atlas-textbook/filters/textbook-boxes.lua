@@ -117,7 +117,7 @@ end
 local function drop_duplicate_headings(blocks)
   local out = pandoc.Blocks({})
   for i, block in ipairs(blocks) do
-    local next_title = box_title(blocks[i + 1] or pandoc.Null())
+    local next_title = blocks[i + 1] and box_title(blocks[i + 1])
     if block.t == "Header" and next_title
       and pandoc.utils.stringify(block.content) == pandoc.utils.stringify(markdown_inlines(next_title)) then
       if blocks[i + 1].identifier == "" then blocks[i + 1].identifier = block.identifier end

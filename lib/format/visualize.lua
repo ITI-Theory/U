@@ -21,7 +21,8 @@
 -- and writes every spec to <visualize-manifest> (JSON); render.py draws the
 -- missing images from that manifest before LaTeX runs. Any error fails the build.
 --
--- Metadata: visualize-manifest (path), visualize-src (image path prefix as
+-- Metadata: visualize-render (Python interpreter: draw the figures now, for
+--           one-step PDF builds), visualize-manifest (path), visualize-src (image path prefix as
 -- the output document sees it), lean-root (folder of the .lean files).
 
 local PRIMITIVES = {
@@ -191,5 +192,13 @@ function Pandoc(doc)
   end
   doc.blocks = walk(doc.blocks)
   write_manifest()
+  -- One-step builds (pandoc straight to PDF, e.g. the Fractal Thesis books) draw
+  -- the figures here, before pandoc runs LaTeX: metadata visualize-render names
+  -- the Python interpreter, render.py sits beside this filter's library.
+  if m["visualize-render"] and manifest_path and #specs > 0 then
+    local python = pandoc.utils.stringify(m["visualize-render"])
+    local here = PANDOC_SCRIPT_FILE:match("^(.*)[/\\]") or "."
+    pandoc.pipe(python, { here .. "/../visualize/render.py", manifest_path }, "")
+  end
   return doc
 end

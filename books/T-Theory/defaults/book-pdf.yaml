@@ -1,4 +1,5 @@
-from: markdown+raw_tex+tex_math_dollars+yaml_metadata_block+pipe_tables+table_captions+implicit_figures
+# Markdown with {{Visualize}} macros protected (docs/VISUALIZE.md); same dialect as before.
+from: ../../lib/format/visualize-reader.lua
 standalone: true
 pdf-engine: xelatex
 eol: lf
@@ -23,6 +24,7 @@ include-in-header:
   - ttheory-titlepage.tex
   - ttheory-packages.tex
 filters:
+  - ../../lib/format/visualize.lua
   - filters/ttheory-direct.lua
   - ../../paper/filters/strip-keywords.lua
   - ../../lib/format/macros.lua
@@ -36,3 +38,7 @@ bibliography: ../../paper/bibliography.bib
 csl: ../../paper/apa-7th.csl
 metadata:
   programme-papers: ../../registry/papers.yaml
+  visualize-manifest: ../../bld/books/visualize/manifest.json
+  visualize-src: ../../bld/books/visualize
+  visualize-render: python
+  lean-root: ../../paper/proofs

@@ -21,3 +21,7 @@ function Reader(input, opts)
   for _, source in ipairs(input) do parts[#parts + 1] = protect(source.text) end
   return pandoc.read(table.concat(parts, "\n\n"), FORMAT, opts)
 end
+
+-- Also usable as a module (dofile) by filters that read Markdown themselves,
+-- e.g. books/T-Theory/filters/ttheory-assemble.lua.
+return { protect = protect }
