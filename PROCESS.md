@@ -87,20 +87,25 @@ Run before declaring any release complete. Uses the private standing UAT noteboo
 ### Setup
 
 Each track has a standing private notebook (`NOTEBOOKS` in
-`uat/scripts/nlm_uat.py`; titles start `UAT `). A run replaces its sources, so
-no notebook is created or deleted per run:
+`uat/scripts/nlm_uat.py`; titles start `UAT `). It holds two versions of the
+candidate, so UAT can ask whether the new one is better:
 
-1. Log in once per session expiry: `apps\instrument\mother\.venv\Scripts\notebooklm login`.
-2. Stage the track: `make uat-stage-papers` or `make uat-stage-ttheory`.
-3. Dry run: `make uat-nlm TRACK=papers DRY=1` lists what would be deleted,
-   uploaded and asked.
-4. Run: `make uat-nlm TRACK=papers` (old sources deleted, staging uploaded,
-   worksheet asked 45 s apart, report in `uat/results/`). `KEEP=1` asks without
-   swapping sources; `ITEMS=S-1,H-2` asks only those items.
+1. Log in once per session expiry: `apps/instrument/mother/.venv/Scripts/notebooklm login`.
+2. Set the candidate version in `uat/manifest.yaml` (`version: rcN.M`; bump M
+   before restaging changed sources), commit, then stage the track:
+   `make uat-stage-papers` or `make uat-stage-ttheory`. Staged files carry the
+   version in their names (`omnibus-a4.rc3.1.pdf`); `MANIFEST.md` records the
+   git ref.
+3. Dry run: `make uat-nlm TRACK=papers DRY=1` lists what would be relabelled,
+   kept (the previous version), deleted (older versions), uploaded and asked.
+4. Run: `make uat-nlm TRACK=papers`. The worksheet is asked of the new version
+   only; a final CMP item compares new with previous (BETTER, SAME or WORSE).
+   Report in `uat/results/<track>-<version>-<time>.md`. `KEEP=1` asks without
+   uploading; `ITEMS=S-1,H-2` asks only those items.
 5. Review the report with the author before anything goes into `paper/UAT.md`.
 
-By hand in the web UI the same rule holds: reuse the notebook, delete its old
-sources first.
+By hand in the web UI the same rule holds: reuse the notebook, keep the
+previous version, delete older ones.
 
 ### Tier 1 — Sherlock: “Did we build it right?”
 

@@ -1,5 +1,9 @@
 # UAT staging manifest
 # Candidate sources are relative to U/. Generated staging output is ignored.
+# version: the candidate being staged, rcN.M (N = release candidate, M = staging
+# build). Bump M before restaging changed sources; staged files carry it in
+# their names and MANIFEST.md records the git ref.
+version: rc3.1
 
 papers:
   purpose: "Scientific papers and C1v2 omnibus acceptance"
