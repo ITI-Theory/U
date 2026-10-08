@@ -1372,23 +1372,28 @@ The author ran a UAT session on 7 Oct; the notes are in
 - [ ] NotebookLM UAT for RC3. Versions now in file names (rc3.1 = U aa28403);
       notebooks keep the previous version for a CMP item. Papers: S-1..S-4, H-1
       PASS; H-2, H-3, C-1..C-3 and CMP not run (daily chat quota): resume with
-      `make uat-nlm TRACK=papers KEEP=1 ITEMS=H-2,H-3,C-1,C-2,C-3`. Then
+      `make uat-nlm TRACK=papers KEEP=1 ITEMS=H-2,H-3,C-1,C-2,C-3` (superseded:
+      rc3.2 is staged, so run the full papers track again, CMP against rc3.1). Then
       `make uat-nlm TRACK=ttheory` (DRY=1 first).
 - [ ] Runbook step 3, visual acceptance of each staged PDF (author).
-- [ ] P21 Sherlock review (8 Oct, `uat/RC3/p21-sherlock-2026-10-08.md`): numbers
+- [x] P21 Sherlock review (8 Oct, `uat/RC3/p21-sherlock-2026-10-08.md`): numbers
       right; Φ₀ wrong (1.43, not 0.39 M_Pl); the formal-status table overclaims
       (`usf_equation_of_state` and the LocalGR chain are empty existence
       statements); circularity (the result is Ω_Λ = 7/11 given H₀); two origins
       for the factor 3; a stale sentence; Λ used for two things; "thermal noise".
       Lean comments fixed (8fca2c2). Author decides items 1-8, then a NotebookLM
       second pass, then sign-off.
-- [ ] P22-P24 Sherlock reviews (8 Oct, `uat/RC3/p2{2,3,4}-sherlock-2026-10-08.md`):
+- [x] P22-P24 Sherlock reviews (8 Oct, `uat/RC3/p2{2,3,4}-sherlock-2026-10-08.md`):
       all numbers reproduce. P22: the baryon ½ is wrong physics, the fixed 7 : 3
       partition fits one epoch only, the formal table overclaims w = 0. P23: well
       hedged; Λ ≡ ⟨tr Φ⟩₀ clashes with P21's formula. P24: the matrix's cited
       source (Juslin 2019, Table 22.3) has no coupling values (the table is in
       the 2010 Handbook and is qualitative), so "empirical" must go. Author
       decides; then fixes, restage as rc3.2.
+- [x] Fixes applied (author: "you choose"; U 548a3c7), Lean docstrings aligned
+      (build passes), Lean appendix rebuilt, both tracks staged as rc3.2;
+      `make uat-check` 15 PASS, 3 WARN, 0 FAIL. Remaining for P21: NotebookLM
+      second opinion on rc3.2, then the author's sign-off (status pending-upload).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
