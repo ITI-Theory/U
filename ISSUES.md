@@ -1522,6 +1522,12 @@ papers UAT notebook); one source can be large, so books can be merged.
 - [ ] `make` target: copy the listed sources into `upload/` (merging where the
       limit needs it) and upload with the bridge (`--dry-run` first).
 - [ ] Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
+- [ ] Soma Machine Engine Room panel "Fuel" (knowledge banks, as in Star Trek's
+      "load the medical database"; author 8 Oct): which groups are loaded in
+      each notebook with a switch per group, a gauge (sources used of 50, chat
+      quota left), "load gestalt" through the MOTHER bridge calling the same
+      loader (`make -C Me/notebooklm load`); later by voice. Links to the Engine
+      Room idea in ISS-047.
 - Candidates noted 8 Oct (rule: one original per level, no remixes; CC BY can
   also go to MOTHER, NC/SA and copyrighted only to HAL/HAL-UAT): already owned:
   Earle *Physical Geology* 2e (CC BY 4.0), OpenStax *Astronomy* 2e older CC BY
