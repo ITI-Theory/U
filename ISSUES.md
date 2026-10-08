@@ -1363,7 +1363,17 @@ The author ran a UAT session on 7 Oct; the notes are in
 - [x] D1 (`SFT-DEMO-CASE`, self-case paper): public, as decided 16 Aug (the
       author considered private, then kept it public because it was already on
       Zenodo: record 20459826, open access). PAPERS.yaml matches; no change.
-- [ ] NotebookLM UAT for RC3 (`make uat-nlm`, after `notebooklm login`).
+- [x] Runbook step 1, Zenodo audit (8 Oct): 25 community records, all match
+      PAPERS.yaml (none missing, no version DOIs, no extras).
+- [x] Runbook step 4, `make uat-check` (8 Oct): 15 PASS, 3 WARN (5 sorries, research
+      gaps, 44 pending uploads), 0 FAIL. Check 2 had reported zero sorries; its
+      pattern missed `sorry -- ...` and `by sorry`. Fixed (count_sorries.py).
+- [ ] NotebookLM UAT for RC3. Versions now in file names (rc3.1 = U aa28403);
+      notebooks keep the previous version for a CMP item. Papers: S-1..S-4, H-1
+      PASS; H-2, H-3, C-1..C-3 and CMP not run (daily chat quota): resume with
+      `make uat-nlm TRACK=papers KEEP=1 ITEMS=H-2,H-3,C-1,C-2,C-3`. Then
+      `make uat-nlm TRACK=ttheory` (DRY=1 first).
+- [ ] Runbook step 3, visual acceptance of each staged PDF (author).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
