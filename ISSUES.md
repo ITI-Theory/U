@@ -1382,6 +1382,13 @@ The author ran a UAT session on 7 Oct; the notes are in
       for the factor 3; a stale sentence; Λ used for two things; "thermal noise".
       Lean comments fixed (8fca2c2). Author decides items 1-8, then a NotebookLM
       second pass, then sign-off.
+- [ ] P22-P24 Sherlock reviews (8 Oct, `uat/RC3/p2{2,3,4}-sherlock-2026-10-08.md`):
+      all numbers reproduce. P22: the baryon ½ is wrong physics, the fixed 7 : 3
+      partition fits one epoch only, the formal table overclaims w = 0. P23: well
+      hedged; Λ ≡ ⟨tr Φ⟩₀ clashes with P21's formula. P24: the matrix's cited
+      source (Juslin 2019, Table 22.3) has no coupling values (the table is in
+      the 2010 Handbook and is qualitative), so "empirical" must go. Author
+      decides; then fixes, restage as rc3.2.
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
