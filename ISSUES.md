@@ -1337,3 +1337,36 @@ The author ran a UAT session on 7 Oct; the notes are in
 - [ ] Turn each finding into a sub-issue (fix now, or defer with a reason).
 - [ ] NotebookLM UAT for RC3 (`make uat-nlm`, after `notebooklm login`).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
+
+---
+
+## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — OPEN
+{{Tags area.app, area.ops}}
+{{Fields date.created=2026-10-08, date.start=, date.end=, epic=}}
+
+Idea (author, 8 Oct): run our own LLM HAL on a cloud GPU, with a Sonnet-class
+model and a NotebookLM-style chat (the chat only, not notebook management).
+
+**Findings (8 Oct, web research; prices are a snapshot):**
+- Training a model from scratch: not sensible (millions). Fine-tuning (LoRA):
+  GPU time $200-1,500 for 7-13B, $1,500-6,000 for 70B, but data preparation
+  dominates and a fine-tuned model cannot cite sources. Grounded chat over
+  retrieved passages (RAG) gives the NotebookLM behaviour with citations.
+- Open models near Claude Sonnet 5 (63.2% SWE-bench Pro, Sep 2026, vendor
+  figures): Qwen3.8-27B 61.7% (Apache 2.0, one 24 GB GPU); GLM-5.2 62.1% and
+  GLM-5.3, DeepSeek V4-Pro (MIT, 8-GPU cluster). Benchmarks do not measure
+  long agentic sessions; keep a frontier model for those.
+- GPU per hour (Oct 2026): H100 $1.49-3.99 at RunPod/Lambda/Vast, $6.88 AWS,
+  $12.29 Azure; H200 $3.59 RunPod; L40S $0.60-1.50. Personal HAL on one
+  L40S/H100 at 4 h/day: about $120-360/month. An 8 x H100/H200 node (AWS
+  p5.48xlarge, Azure ND96isr_H100_v5, GCP a3-highgpu-8g): about $29/h, bursts only.
+
+**Test plan (about $10-20):**
+- [ ] Rent one H100 for an afternoon; serve Qwen3.8-27B (vLLM, OpenAI-compatible API).
+- [ ] Give the MOTHER bridge a backend switch (NotebookLM or local model) with
+      retrieval over the papers omnibus and the books; answers cite file and page.
+- [ ] Run the RC3 UAT worksheets (`uat/scripts/nlm_uat.py`) against both and
+      compare the answers side by side.
+- [ ] Decide: rent on demand, buy hardware (24 GB GPU or 128 GB machine), or stay
+      with NotebookLM. Ask about Azure credits through the Microsoft contact.
+
