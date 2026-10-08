@@ -3,6 +3,8 @@ include ../../lib/mk/paths.mk
 # Shared filters for programme citations (every book that runs citeproc).
 PROGRAMME_REFS := ../../lib/format/programme-refs.lua ../../lib/format/unicode-glyphs.lua ../../registry/papers.yaml
 BLD := $(BOOKS_BLD)
+# TeX and filters shared by the book, volume and omnibus builds: a change must rebuild them.
+BOOK_TEX := ttheory-titlepage.tex ttheory-packages.tex ../../paper/journal.tex ../../lib/format/breakable-tokens.lua
 PANDOC ?= pandoc
 ifeq ($(OS),Windows_NT)
 GS ?= gswin64c
@@ -78,19 +80,19 @@ $(filter %-$(1).pdf,$(ALL_BOOKLET_PAGES)): $(BLD)/booklet-%-$(1).pdf: $(BLD)/boo
 endef
 $(foreach page,1 2 3 4,$(eval $(call BOOKLET_PAGE_RULE,$(page))))
 
-$(BLD)/book-gateway.pdf: gateway/book-gateway.md $(BLD)/noir-page.pdf $(BLD)/booklet-gateway.pdf defaults/gateway-pdf.yaml filters/ttheory-direct.lua ../../lib/format/macros.lua format/gateway-template.tex $(PROGRAMME_REFS) | $(BLD)
+$(BLD)/book-gateway.pdf: gateway/book-gateway.md $(BLD)/noir-page.pdf $(BLD)/booklet-gateway.pdf defaults/gateway-pdf.yaml $(BOOK_TEX) filters/ttheory-direct.lua ../../lib/format/macros.lua format/gateway-template.tex $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) $< --defaults=defaults/gateway-pdf.yaml --variable=gateway-noir="$(abspath $(BLD)/noir-page.pdf)" --output=$@
 	@echo "Built Gateway book: $@"
 
-$(filter-out $(BLD)/book-gateway.pdf $(BLD)/book-philosophy.pdf,$(SOURCE_BOOK_PDFS)): $(BLD)/book-%.pdf: $$(wildcard */book-$$*.md) $(BLD)/booklet-%.pdf defaults/book-pdf.yaml filters/ttheory-direct.lua ../../lib/format/macros.lua $(PROGRAMME_REFS) | $(BLD)
+$(filter-out $(BLD)/book-gateway.pdf $(BLD)/book-philosophy.pdf,$(SOURCE_BOOK_PDFS)): $(BLD)/book-%.pdf: $$(wildcard */book-$$*.md) $(BLD)/booklet-%.pdf defaults/book-pdf.yaml $(BOOK_TEX) filters/ttheory-direct.lua ../../lib/format/macros.lua $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) $< --defaults=defaults/book-pdf.yaml --toc --output=$@
 	@echo "Built domain book: $@"
 
-$(BLD)/book-philosophy.pdf: philosophy/book-philosophy.md $(BLD)/booklet-philosophy.pdf defaults/book-pdf.yaml filters/ttheory-direct.lua ../../lib/format/macros.lua $(PROGRAMME_REFS) | $(BLD)
+$(BLD)/book-philosophy.pdf: philosophy/book-philosophy.md $(BLD)/booklet-philosophy.pdf defaults/book-pdf.yaml $(BOOK_TEX) filters/ttheory-direct.lua ../../lib/format/macros.lua $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) $< --defaults=defaults/book-pdf.yaml --toc --output=$@
 	@echo "Built domain book: $@"
 
-$(BLD)/book-consciousness.pdf: philosophy/book-philosophy.md $(BLD)/booklet-philosophy.pdf defaults/book-pdf.yaml filters/ttheory-direct.lua ../../lib/format/macros.lua | $(BLD)
+$(BLD)/book-consciousness.pdf: philosophy/book-philosophy.md $(BLD)/booklet-philosophy.pdf defaults/book-pdf.yaml $(BOOK_TEX) filters/ttheory-direct.lua ../../lib/format/macros.lua | $(BLD)
 	$(PANDOC) $< --defaults=defaults/book-pdf.yaml --toc --output=$@
 	@echo "Built domain book: $@ (from philosophy source)"
 
@@ -98,19 +100,19 @@ $(BLD)/book-%.html: $$(wildcard */book-$$*.md) defaults/book-html.yaml filters/t
 	$(PANDOC) $< --defaults=defaults/book-html.yaml --output=$@
 	@echo "Built domain book HTML: $@"
 
-$(BLD)/ttheory-vol1.pdf: defaults/assembly.md defaults/vol1.yaml defaults/volume-pdf.yaml defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
+$(BLD)/ttheory-vol1.pdf: defaults/assembly.md defaults/vol1.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) defaults/assembly.md --defaults=defaults/vol1.yaml --output=$@
 	@echo "Built: $@"
 
-$(BLD)/ttheory-vol1-10pt.pdf: defaults/assembly.md defaults/vol1.yaml defaults/volume-pdf.yaml defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
+$(BLD)/ttheory-vol1-10pt.pdf: defaults/assembly.md defaults/vol1.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) defaults/assembly.md --defaults=defaults/vol1.yaml --output=$@
 	@echo "Built: $@"
 
-$(BLD)/ttheory-vol2.pdf: defaults/assembly.md defaults/vol2.yaml defaults/volume-pdf.yaml defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
+$(BLD)/ttheory-vol2.pdf: defaults/assembly.md defaults/vol2.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) defaults/assembly.md --defaults=defaults/vol2.yaml --output=$@
 	@echo "Built: $@"
 
-$(BLD)/ttheory-omnibus.pdf: defaults/assembly.md defaults/omnibus.yaml defaults/omnibus-pdf.yaml defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
+$(BLD)/ttheory-omnibus.pdf: defaults/assembly.md defaults/omnibus.yaml defaults/omnibus-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) defaults/assembly.md --defaults=defaults/omnibus.yaml --output=$@
 	@echo "Built: $@"
 

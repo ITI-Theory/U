@@ -101,3 +101,34 @@ function Div(div)
   end
   return nil
 end
+
+local function box_title(block)
+  if block.t ~= "Div" then return nil end
+  for class, spec in pairs(BOXES) do
+    if block.classes:includes(class) then
+      return block.attributes.title or spec[1]
+    end
+  end
+  return nil
+end
+
+-- A heading directly followed by a box with the same title is shown once:
+-- the heading is dropped (its id moves to the box) and the box keeps its title.
+local function drop_duplicate_headings(blocks)
+  local out = pandoc.Blocks({})
+  for i, block in ipairs(blocks) do
+    local next_title = box_title(blocks[i + 1] or pandoc.Null())
+    if block.t == "Header" and next_title
+      and pandoc.utils.stringify(block.content) == pandoc.utils.stringify(markdown_inlines(next_title)) then
+      if blocks[i + 1].identifier == "" then blocks[i + 1].identifier = block.identifier end
+    else
+      out:insert(block)
+    end
+  end
+  return out
+end
+
+return {
+  { Blocks = drop_duplicate_headings },
+  { Div = Div },
+}

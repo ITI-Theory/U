@@ -193,3 +193,11 @@
   innertopmargin=6pt,
   innerbottommargin=6pt
 ]{quote}
+
+% ---------------------------------------------------------------------------
+% Code listings wrap long lines instead of running past the text block
+% (checked by paper/scripts/check_text_overflow.py).
+% ---------------------------------------------------------------------------
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines,breakanywhere}

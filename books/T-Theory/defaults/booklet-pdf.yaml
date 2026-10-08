@@ -15,3 +15,4 @@ metadata-files:
   - books.yaml
 filters:
   - ../../lib/format/macros.lua
+  - ../../lib/format/breakable-tokens.lua

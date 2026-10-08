@@ -183,7 +183,7 @@ omnibus-translations: omnibus-royal-de omnibus-royal-fr omnibus-royal-it omnibus
 # --- Rule generation from registry ---
 # EN rule: source via vpath; flags + citeproc derived from doc class
 define BUILD_EN_RULE
-$(BUILDDIR)/$(1).pdf: $(1).md journal.tex unicode-math-text.tex filters/strip-keywords.lua filters/boxes.lua $(BIB) $(CSL) $(DEFAULTS)/pdf-a4.yaml $(DEFAULTS)/book.yaml | $(BUILDDIR)
+$(BUILDDIR)/$(1).pdf: $(1).md journal.tex unicode-math-text.tex filters/strip-keywords.lua filters/boxes.lua ../lib/format/breakable-tokens.lua $(BIB) $(CSL) $(DEFAULTS)/pdf-a4.yaml $(DEFAULTS)/book.yaml | $(BUILDDIR)
 	$(PANDOC) $$< -o $$@ $(if $(filter book,$($(1).class)),$(BOOK_FLAGS),$(FLAGS))
 	@echo "Built: $$@"
 endef

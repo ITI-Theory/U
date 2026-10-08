@@ -38,5 +38,8 @@
     {\small\sffamily\@date\par}
   \end{titlepage}
   \clearpage
+  % Blank inside cover, as journal.tex does for papers (paper/FORMAT.md):
+  % title recto, blank verso, abstract recto, blank verso, contents recto.
+  \thispagestyle{empty}\null\clearpage
 }
 \makeatother

@@ -5,7 +5,7 @@ standalone: true
 toc: true
 number-sections: true
 eol: lf
-citeproc: true
+citeproc: false  # run as an explicit step in filters (before breakable-tokens)
 bibliography: bibliography.bib
 csl: apa-7th.csl
 syntax-highlighting: tango
@@ -14,6 +14,8 @@ include-in-header:
 filters:
   - filters/strip-keywords.lua
   - filters/boxes.lua
+  - type: citeproc
+  - ../lib/format/breakable-tokens.lua
 variables:
   colorlinks: true
   linkcolor: NavyBlue
