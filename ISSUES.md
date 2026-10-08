@@ -267,7 +267,7 @@ Plan: fork it (not official code) and depend on the fork from our lakefile.
 
 ---
 
-## ISS-012: Add lean-appendix to lake - OPEN
+## ISS-012: Add lean-appendix to lake — CLOSED
 
 **Progress 2026-08-16:** `bin/release-check` verifies that the appendix embeds
 the current sources declared by `build_lean_appendix.py`, avoiding unreliable
@@ -318,7 +318,7 @@ other checks I am sure exist.
 
 ---
 
-## ISS-014: Phase 2 research — Path-Dependence in Moduli Space — OPEN
+## ISS-014: Phase 2 research — Path-Dependence in Moduli Space — CLOSED
 
 From paper section "Open Research Problems" (P11 zoomable-somatic-field).
 
@@ -332,7 +332,7 @@ recording path-history. Requires `GeographicSomatic.lean` (P16, not yet written)
 
 ---
 
-## ISS-016: Write GeographicSomatic.lean — OPEN
+## ISS-016: Write GeographicSomatic.lean — CLOSED
 
 Blocker for ISS-014 (path-dependence in moduli space) and P16 (geographic-somatic-field paper).
 
@@ -353,7 +353,7 @@ Needs P16 paper drafted first to ground the Lean definitions. Phase 2.
 
 ---
 
-## ISS-017: lean-appendix auto-regeneration in release-check — OPEN
+## ISS-017: lean-appendix auto-regeneration in release-check — CLOSED
 
 `bin/release-check` now verifies that the appendix embeds the current declared Lean
 sources. Automatic regeneration remains desirable but is intentionally not performed
@@ -426,7 +426,7 @@ win; unrestricted macro substitution would recreate the drift it is meant to pre
 
 ---
 
-## ISS-021: Shared Omnibus Document Model — OPEN
+## ISS-021: Shared Omnibus Document Model — CLOSED
 
 **Problem:** C1v2 is a collected-work manuscript containing papers, a book,
 and appendices. C2 is likewise a book of domain books, additionally placing
@@ -463,7 +463,7 @@ turning it into a many-page inventory.
 
 ---
 
-## ISS-022: Omnibus Build Modularity Evaluation — OPEN
+## ISS-022: Omnibus Build Modularity Evaluation — CLOSED
 
 **Problem:** The current merge-then-render approach can create hidden coupling:
 a formatting or hierarchy change in one source can alter unrelated omnibus
@@ -509,7 +509,7 @@ fewer unrelated regressions, not a faster build.
 
 ---
 
-## ISS-023: C2 Vol II exceeds Lulu 800-page cap — OPEN
+## ISS-023: C2 Vol II exceeds Lulu 800-page cap — CLOSED
 
 **Measured state (2026-08-19):** Registry-driven `check_lulu_pages.py`
 enforces `lulu_page_limit: 800` for every Lulu-designated artifact.
@@ -661,7 +661,21 @@ fact without a source-specific audit.
 
 ## ISS-027: Soma Field Operator stereoscopic projection — OPEN
 {{Tags area.instrument, project.soma-field-operator, projection.3d}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=ISS-027-soma-field-operator-projection}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-08, epic=ISS-027-soma-field-operator-projection}}
+
+**Closed 2026-10-08:** Done: `paper/OMNIBUS_DOCUMENT_MODEL.md`, `paper/FORMAT.md`, `books/T-Theory/defaults/fractal-manifest.yaml` and the two-level master TOC implement the model. The generated synthesis-table item moved to ISS-034.
+
+**Closed 2026-10-08:** Merged into ISS-035 (path-sensitive transition dynamics), together with ISS-014.
+
+**Closed 2026-10-08:** Merged into ISS-035 (path-sensitive transition dynamics), together with ISS-016.
+
+**Closed 2026-10-08:** Done: Vol I 726 pages, Vol II 693 pages, both under the 800-page Lulu cap; release-check section 13 passes.
+
+**Closed 2026-10-08:** Done: `build_fractal_books.py` is gone; the Fractal Thesis builds with Make + pandoc + `filters/ttheory-assemble.lua` (1 Oct).
+
+**Closed 2026-10-08:** Duplicate of ISS-012; same resolution (release-check section 4 verifies freshness; `make lean-appendix` regenerates).
+
+**Closed 2026-10-08:** Duplicate of ISS-017. `bin/release-check` section 4 verifies that the appendix embeds the current Lean sources; `make lean-appendix` regenerates it. Auto-regeneration inside a check was ruled out.
 
 **Epic:** [ISS-027-soma-field-operator-projection.md](prj/.adm/issues/ISS-027-soma-field-operator-projection.md)
 
@@ -687,9 +701,11 @@ context, decisions, or sub-issues exceed the main register entry.
 
 ---
 
-## ISS-029: Administration chat browser — OPEN
+## ISS-029: Administration chat browser — CLOSED
 {{Tags area.ops}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-08, epic=}}
+
+**Closed 2026-10-08:** Superseded by ISS-049 (chats out of Me) and the Me/chats process; the example chat in `prj/.adm/chats/` was removed.
 
 Defer chat ingestion and browser design until the issue index is stable. The
 issue browser remains focused on the canonical `ISSUES.md` register.
@@ -702,9 +718,11 @@ issue browser remains focused on the canonical `ISSUES.md` register.
 
 ---
 
-## ISS-030: Zoomable hierarchy transition tables — OPEN
+## ISS-030: Zoomable hierarchy transition tables — CLOSED
 {{Tags area.instrument}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-08, epic=}}
+
+**Closed 2026-10-08:** Done: `registry/paths/` holds 58 transition files in 10 paths with the preserves/adds/claim schema.
 
 Replace one-off zoomable organism hierarchy level morphs with a table-driven
 transition model that defines the mapping, interpolation, and controls for each
@@ -718,9 +736,11 @@ adjacent scale transition.
 
 ---
 
-## ISS-031: Cheat-sheet coverage and build contract — OPEN
+## ISS-031: Cheat-sheet coverage and build contract — CLOSED
 {{Tags area.papers, area.books}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-08, epic=}}
+
+**Closed 2026-10-08:** Superseded: cheat sheets became the 15 registered four-page booklets (release-check section 12); the old cheatsheets are `.OBSOLETE`.
 
 Use the completed cheat-sheet slice to define and apply a shared source, build,
 registration, and insertion contract for all required paper and book cheat
@@ -734,9 +754,11 @@ sheets.
 
 ---
 
-## ISS-032: t-theory.org landing page and sticker QR destination — OPEN
+## ISS-032: t-theory.org landing page and sticker QR destination — CLOSED
 {{Tags release}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-08, epic=}}
+
+**Closed 2026-10-08:** Done: www.t-theory.org is live on GitHub Pages with the custom domain (6 Oct); QR assets `tt-qr-t-theory-org.{svg,png}` and the print version are in `lib/images/sticker/`.
 
 Make `https://www.t-theory.org/` the canonical public destination for sticker
 QR codes, rather than a GitHub repository URL. The existing
@@ -803,11 +825,22 @@ reader-facing Markdown in Python.
    hard-coded duplicate source inventories and retain a focused regeneration
    check for the checked-in appendix source.
 
+- [ ] (from ISS-044) One Python directory: move the existing scripts there.
+- [ ] (from ISS-021) Move generated registry views such as the synthesis table
+      out of handwritten sources.
 ---
 
 ## ISS-035: Path-sensitive transition dynamics — OPEN
 {{Tags area.theory, area.proofs, area.clinical}}
 {{Fields date.created=2026-09-30, date.start=, date.end=, epic=}}
+
+**Merged 2026-10-08 from ISS-014 and ISS-016:** dissonance is path-dependent
+(a Neapolitan sixth resolving upward is not the same pitch approached
+differently), but `manifold_coords.py` treats it as a point; the fix is a path
+γ: [0,1] → M through the G₂ moduli space with monodromy recording the history.
+`GeographicSomatic.lean` (not yet written; P16 is now built) should define
+`GeoField`, path-integral machinery for path-dependent coordinates, and the
+monodromy of the holonomy connection.
 
 Extend the current attractor-and-barrier account of state transition with a
 path-sensitive model. A transition may be limited not only by one high local
@@ -918,9 +951,11 @@ against registry ids, drops unknown steps, and never executes anything.
 
 ---
 
-## ISS-039: Local MOTHER/H-AL fallback (retrieval + local model) — PARKED
+## ISS-039: Local MOTHER/H-AL fallback (retrieval + local model) — CLOSED
 {{Tags area.app, area.ops}}
-{{Fields date.created=2026-10-04, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-04, date.start=, date.end=2026-10-08, epic=}}
+
+**Closed 2026-10-08:** Superseded by ISS-048 (self-hosted HAL: open model plus grounded chat).
 
 NotebookLM (free) stays the main MOTHER and H-AL. A local fallback would answer
 when the daily quota is used up or offline, and keep H-AL's private chats on
@@ -1138,9 +1173,11 @@ UAT candidates were built with 3.10.2.
 
 ---
 
-## ISS-044: Admin before release: front door, command handlers, HAL vocabulary, .OBSOLETE, chat process — OPEN
+## ISS-044: Admin before release: front door, command handlers, HAL vocabulary, .OBSOLETE, chat process — CLOSED
 {{Tags area.ops, release}}
-{{Fields date.created=2026-10-06, date.start=2026-10-06, date.end=, epic=}}
+{{Fields date.created=2026-10-06, date.start=2026-10-06, date.end=2026-10-08, epic=}}
+
+**Closed 2026-10-08:** Done. Remaining items live elsewhere: HAL next steps in ISS-045, scope check and UAT in ISS-047, one Python directory in ISS-034.
 
 Agreed with the author on 6 Oct 2026 (chat `write_a_book`), before UAT. A new AI
 session started blind: the auto-loaded instruction files are stale (30 May),
@@ -1315,6 +1352,11 @@ app README):**
 - [ ] Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1,
       2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
 - [ ] Course book: Visualize for chapter 9 (needs a flock primitive).
+- [ ] Visualize beyond the course book (8 Oct): 66 `{{Visualize}}` figures in 20
+      course chapters, none in the Fractal Thesis books, papers or Field Atlas
+      (the filter is only in the course build). Wire `lib/format/visualize.lua`
+      into the book defaults and reuse course figures (convolution, Kuramoto,
+      Fourier, energy landscape) in the physics and neuroscience books.
 
 **Quarantined** (never presented as results; now also in README's rules): the
 claim that autism is pre-verbal C-PTSD (at most a research question); the
