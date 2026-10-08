@@ -1375,6 +1375,13 @@ The author ran a UAT session on 7 Oct; the notes are in
       `make uat-nlm TRACK=papers KEEP=1 ITEMS=H-2,H-3,C-1,C-2,C-3`. Then
       `make uat-nlm TRACK=ttheory` (DRY=1 first).
 - [ ] Runbook step 3, visual acceptance of each staged PDF (author).
+- [ ] P21 Sherlock review (8 Oct, `uat/RC3/p21-sherlock-2026-10-08.md`): numbers
+      right; Φ₀ wrong (1.43, not 0.39 M_Pl); the formal-status table overclaims
+      (`usf_equation_of_state` and the LocalGR chain are empty existence
+      statements); circularity (the result is Ω_Λ = 7/11 given H₀); two origins
+      for the factor 3; a stale sentence; Λ used for two things; "thermal noise".
+      Lean comments fixed (8fca2c2). Author decides items 1-8, then a NotebookLM
+      second pass, then sign-off.
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
