@@ -1361,8 +1361,24 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
   L40S/H100 at 4 h/day: about $120-360/month. An 8 x H100/H200 node (AWS
   p5.48xlarge, Azure ND96isr_H100_v5, GCP a3-highgpu-8g): about $29/h, bursts only.
 
+**GitHub route (8 Oct, checked; easiest, no GPU):**
+- Copilot Spaces: chat grounded in chosen repos and uploaded files (PDF
+  included), with citations; syncs with the repo's main branch, so no upload
+  step per release. In every Copilot plan; uses the Copilot chat quota. Can be
+  private, shared or public. Size limits are not published: test with the corpus.
+- Copilot SDK (GA June 2026; Python `github-copilot-sdk`): build HAL as our own
+  agent on Copilot's models (Claude Sonnet and others), with custom tools and
+  MCP; billed to the Copilot plan's premium requests. This session runs on it.
+- Gone: GitHub Models (retired 30 Jul 2026; GitHub points to Azure AI Foundry)
+  and GPU Codespaces (ended Aug 2025).
+- Not "our own model": data goes to GitHub and the model provider, as it goes
+  to Google with NotebookLM. The GPU route below stays the private option.
+
 **Test plan (about $10-20):**
-- [ ] Rent one H100 for an afternoon; serve Qwen3.8-27B (vLLM, OpenAI-compatible API).
+- [ ] First: author creates a private Copilot Space on ITI-Theory/U (papers and
+      book sources); run the UAT worksheet questions there and compare with NotebookLM.
+- [ ] MOTHER bridge: add a Copilot SDK backend beside NotebookLM (HAL persona).
+- [ ] Then, if privacy or cost needs it: rent one H100 for an afternoon; serve Qwen3.8-27B (vLLM, OpenAI-compatible API).
 - [ ] Give the MOTHER bridge a backend switch (NotebookLM or local model) with
       retrieval over the papers omnibus and the books; answers cite file and page.
 - [ ] Run the RC3 UAT worksheets (`uat/scripts/nlm_uat.py`) against both and
