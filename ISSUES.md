@@ -1499,3 +1499,27 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       matter (area, visibility, sources, evidence label); quarantined claims
       stay out. *Phase Dot* is built from the notes, filtered by visibility.
 
+---
+
+## ISS-050: NotebookLM sources: folders and book selection — OPEN
+{{Tags area.ops, area.books}}
+{{Fields date.created=2026-10-08, date.start=2026-10-08, date.end=, epic=}}
+
+Which books and files go into which NotebookLM notebook. Layout (created 8 Oct,
+private repo Me): `Me/notebooklm/<notebook>/sources.yaml` lists each source
+(title, path, licence, kind); the copies to upload go to the ignored `upload/`
+folder and are uploaded with the MOTHER bridge, dry run first. Book files are
+never committed (Calibre library 313 books, 6.9 GB; copyright).
+
+**Rules:** MOTHER is public, so only released papers and books plus CC BY
+material; third-party copyrighted books (Penrose, Calibre) only in the private
+notebooks HAL and HAL-UAT. Limit 50 sources per notebook (seen 8 Oct in the
+papers UAT notebook); one source can be large, so books can be merged.
+
+- [ ] Choose the books (author): HAL-UAT for checking (Penrose, OpenStax physics
+      and maths, own papers and books, the 7 chat volumes already loaded); HAL
+      private (favourites, AJ wiki, links); MOTHER released work only.
+- [ ] `make` target: copy the listed sources into `upload/` (merging where the
+      limit needs it) and upload with the bridge (`--dry-run` first).
+- [ ] Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
+
