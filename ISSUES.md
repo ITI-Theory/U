@@ -1228,6 +1228,10 @@ on Git Bash with platform detection, capability guards, dry run (`-n`),
 `HAL.cmd`, `copilot start|save|wrapup`, `chat new|list`, `mother ask`,
 `hal ask`; one bash standard in U.Dot. Design: T.Dot/DESIGN.md.
 
+**8 Oct (RC3 UAT notes, ISS-047):** HAL installation on the tablets is on hold;
+the Soma Machine in a full-screen browser may replace the tablet setup. HAL
+stays useful for the laptop and for cloud machines.
+
 **For the author:**
 - [ ] Install on the laptop, in Git Bash: `~/prj/git/ITI-Theory/U.Dot/bin/HAL1 -n init`,
       read the `[would]` lines, then without `-n`. It backs up `~/.bashrc`
@@ -1333,16 +1337,57 @@ v1.0.0-rc1/rc2 (15-16 Aug), Papers RC2 (papers-omnibus v2.0.0-rc2, 18 Aug).
 The author ran a UAT session on 7 Oct; the notes are in
 `uat/RC3/uat-session-2026-10-07.md` and the findings become sub-issues here.
 
-- [ ] Author types up the 7 Oct session notes.
-- [ ] Turn each finding into a sub-issue (fix now, or defer with a reason).
+- [x] Author types up the 7 Oct session notes (cleaned 8 Oct; raw notes private in
+      Me/chats/Inbox/20261008_202500_RC3_UAT_session_raw.md).
+- [x] Turn each finding into a sub-issue (8 Oct). The session passed: levels 1-20
+      work; nothing blocks the release. The ideas are for after RC3:
+  - [ ] MOTHER only works with the author's NotebookLM login: give MOTHER a
+        backend others can use (ISS-048, parked).
+  - [ ] Soma Machine as the workstation: shell to local/remote machines, file
+        browser, full screen on tablets; local app server for several screens
+        (notes 3-4). HAL tablet install on hold (ISS-045).
+  - [ ] Cockpit/HUD with a fractal journey per level, Sherlock as the HUD, FX
+        slider, era views; must stay abstract; pokes must show their effect
+        (notes 5, 7; pokes in ISS-046).
+  - [ ] Sherlock: OWL classes mapped to Lean types (note 8; concept registry
+        and type guard in ISS-046).
+  - [ ] Autopilot correction (note 9): it is for speech-to-text; the AI repeats
+        back before acting, and a planned task is armed before it is confirmed.
+        Update the Autopilot rule in T README/AGENTS with the author.
+  - [ ] Engine room view for all settings (note 10).
+  - [ ] MOTHER follows a wandering chat: log and tag each departure, show the
+        chat as a branching path, revisit and continue; sound effects (note 11).
+  - [ ] HAL's private knowledge (AJ wiki, links, books) with a switch per
+        source; bulk sorting (notes 12-13; ISS-048 and ISS-049).
+  - [ ] Test book: a topic suggested by someone else (waiting for the viewer).
+- [ ] D1 (`SFT-DEMO-CASE`, self-case paper): the chats record a 16 Aug decision
+      to mark it private (`visibility: private`, `release: excluded` in
+      PAPERS.yaml), but PAPERS.yaml has `status: needs-new-version` and its PDF
+      is in the RC3 papers staging. Author decides before any upload.
 - [ ] NotebookLM UAT for RC3 (`make uat-nlm`, after `notebooklm login`).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
 
-## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — OPEN
+## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — OPEN (parked 8 Oct)
 {{Tags area.app, area.ops}}
 {{Fields date.created=2026-10-08, date.start=, date.end=, epic=}}
+
+**Parked 8 Oct (author): no GPU for now.** NotebookLM with the collated chats
+(HAL-UAT, ISS-049) already gives the memory this issue was after. Later notes,
+same evening:
+- Training the papers, books and cleaned chats (~4M tokens) into a 27B model
+  with LoRA: ~1-2 h on one H100 or ~4-6 h on an L40S (estimate), a few CHF.
+  It teaches vocabulary and style, not reliable facts (no citations), and
+  private material would be in the weights for good. Best: train for the
+  voice, look up facts from an index.
+- Laptop: NVIDIA T550 4 GB, 48 GB RAM, no local LLM installed. Voice in
+  (Whisper) and out (Piper) run locally; the LLM is where a cloud GPU matters.
+- H-AL voice: the current Piper model (campwill/HAL-9000-Piper-TTS) is trained
+  on the film actor and stays private. Public-safe plan: a Piper voice trained
+  on the author's own recordings plus an H-AL effects chain (pitch down, slower,
+  dry, compressed, warm EQ) in Ableton, Web Audio or sox. No AI conversion to
+  the film voice; no "HAL 9000" branding.
 
 Idea (author, 8 Oct): run our own LLM HAL on a cloud GPU, with a Sonnet-class
 model and a NotebookLM-style chat (the chat only, not notebook management).
@@ -1419,4 +1464,39 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
       compare the answers side by side.
 - [ ] Decide: rent on demand, buy hardware (24 GB GPU or 128 GB machine), or stay
       with NotebookLM. Ask about Azure credits through the Microsoft contact.
+
+---
+
+## ISS-049: Chats out of Me: private marking, lift, knowledge base — OPEN
+{{Tags area.ops, area.books}}
+{{Fields date.created=2026-10-08, date.start=2026-10-08, date.end=, epic=}}
+
+Goal (author, 8 Oct): get the chats out of the private Me repo into a cleaned,
+text-based knowledge base, and from there into *Phase Dot* book(s), with
+private material marked and kept back.
+
+**Done 8 Oct:** all chats (Inbox, archive/sessions, notebooks; 95 files,
+~4.6M tokens, exact duplicates skipped) collated by date into 7 volumes in
+`Me/chats/tmp/collated/` (ignored) and loaded into the private NotebookLM
+notebook HAL-UAT. Its answers (same folder): the chat-workflow history, and
+four areas: [T]-Theory science (~35-40%), tooling (~25-30%), creative/fun
+(~15-20%), personal (~15-20%), often mixed within one chat ("do not split the
+fun from the technical", the author's own rule). HAL-UAT recalls history well;
+check its current-state facts against the repo (it named a wrong script path).
+
+**Earlier ideas (from HAL-UAT), none built:** `make lift` (Me to U, 10 Jun),
+segment tags (28 Jun), `visibility: private` (16 Aug, for D1; see ISS-047),
+disclaimer headers (21 May / 10 Jun; in 7 files).
+
+**Proposal (to decide):**
+- [ ] Whole files: `visibility: private` in the header (default public).
+- [ ] Parts of files: `<!-- PRIVATE -->` ... `<!-- /PRIVATE -->`.
+- [ ] `make -C Me/chats lift`: copy non-private files with private blocks
+      stripped; refuse contact details and keys.
+- [ ] `make -C Me/chats collate`: rebuild the volumes (today a one-off script);
+      refresh HAL-UAT after big sessions.
+- [ ] Knowledge base: HAL-UAT writes a master index, then one dossier per
+      topic; the coding agent turns each into a note in `Me/kb/` with front
+      matter (area, visibility, sources, evidence label); quarantined claims
+      stay out. *Phase Dot* is built from the notes, filtered by visibility.
 
