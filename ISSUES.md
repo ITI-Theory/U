@@ -1385,9 +1385,31 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
 - To check: billing for stopped instances; what "Get started for free" gives;
   H100/B300 quote only if a frontier model is ever needed.
 
+**Flexible, pay-per-use (8 Oct, author's criteria: pay only when used, flexible model choice):**
+- Infomaniak AI Services: open models hosted in Switzerland, OpenAI-compatible
+  API, queries not stored or used for training, billed per token, nothing when
+  idle, model chosen per request; 1M free credits. CHF per 1M tokens in/out:
+  Kimi-K2.6 0.60/3.00, Qwen3.5-397B 0.80/3.60, Qwen3.5-122B 0.40/3.20,
+  Gemma-4-31B 0.20/0.40, Mistral-Small-4 0.20/0.75, Apertus-v1.5-70B (Swiss)
+  0.70/2.50; Qwen3-Embedding-8B 0.07, Qwen3-Reranker 0.009; Whisper CHF 0.006/min.
+  A grounded question (20k in, 1k out, Kimi) is about CHF 0.015; a 16-question
+  UAT run about CHF 0.25.
+- GPU instances: a switched-off instance on a public network is still billed
+  for the GPU (Infomaniak FAQ), so pay-per-use means delete after use and keep
+  the model weights on a volume (a few CHF/month at most; exact rate to check
+  in the calculator). Billing per minute in practice; CHF 300 trial credit
+  for 3 months. 2x/4x GPU flavours reported, not confirmed on Infomaniak's pages.
+- Plan: HAL's model backend is one switch: Infomaniak API (default), own GPU
+  (`HAL gpu up|down`, create/delete with the volume kept, dry run first),
+  NotebookLM, Copilot SDK. One machine is enough; the API covers capacity.
+
 **Test plan (about $10-20):**
-- [ ] Open an Infomaniak Public Cloud account (author); start one L40S instance
-      (Ubuntu); serve Qwen3.8-27B with vLLM (OpenAI-compatible API) behind SSH.
+- [ ] Open an Infomaniak account (author): AI Services (1M free tokens) and
+      Public Cloud (CHF 300 trial credit).
+- [ ] RAG over the corpus with Qwen3-Embedding-8B; ask the RC3 UAT worksheets
+      through Kimi-K2.6 and compare with NotebookLM.
+- [ ] One L40S instance (Ubuntu) on the trial credit; serve Qwen3.8-27B with vLLM;
+      `HAL gpu up|down` with the model volume kept.
 - [ ] Alternative without a machine: a private Copilot Space on ITI-Theory/U;
       run the UAT worksheet questions there and compare with NotebookLM.
 - [ ] MOTHER bridge: add a backend switch (NotebookLM, local model, Copilot SDK).
