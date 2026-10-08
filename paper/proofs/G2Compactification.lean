@@ -4,7 +4,7 @@
   Implements the Hořava–Witten orbifold structure, G₂ compactification geometry,
   Randall–Sundrum gauge localisation, and the two open proof obligations:
     • kaluza_klein_reduction  (KK reduction → 4D Nonlinear Sigma Model + Hopfield V)
-    • g2_holonomy_stability   (G₂ holonomy → time-invariant compact vacuum, dΩ_Λ/dz = 0)
+    • g2_holonomy_stability   (G₂ holonomy → time-invariant compact vacuum, Λ constant)
 
   Status: structures and axioms fully specified; deep geometry targets marked sorry.
   Imports from existing modules — no redefinitions.
@@ -121,9 +121,9 @@ theorem rs_gauge_brane_localisation :
 
 -- ── §6. Static Moduli — The Calabi-Yau Attractor ─────────────────────────────
 
-/-- **PROVED via LocalGR**: the O(α') Calabi-Yau moduli corrections are STATIC: dΩ_Λ/dz = 0.
+/-- **PROVED via LocalGR**: the O(α') Calabi-Yau moduli corrections are STATIC: Λ (ρ_Λ) is constant.
     Chain: G₂ holonomy → rigid CY attractor (LocalGR.g2_holonomy_implies_rigid_attractor)
-    → Ω_Λ frozen (LocalGR.rigidAttractor_freezes_omega_lambda).
+    → vacuum partition frozen (LocalGR.rigidAttractor_freezes_omega_lambda).
     Remaining obligation: the two LocalGR axioms (Berger + GR perturbation theory). -/
 theorem calabi_yau_moduli_static :
     ∃ (Ω_Λ : ℝ → ℝ),
@@ -164,7 +164,8 @@ theorem kaluza_klein_reduction
 /-- TARGET 2 — G₂ Holonomy Stability.
 
     G₂ holonomy on X₇ implies the compact vacuum energy density is CONSTANT
-    under metric expansion: dΩ_Λ/dz = 0. This resolves the cosmological constant
+    under metric expansion: ρ_Λ, and so Λ, is constant (Ω_Λ(z) = ρ_Λ/ρ_crit(z)
+    still evolves because ρ_crit does). This resolves the cosmological constant
     problem within the USF framework — Λ is fixed by topology, not by fine-tuning.
 
     Proof chain:
@@ -172,7 +173,7 @@ theorem kaluza_klein_reduction
     → existence of a covariantly constant spinor ∇ψ = 0 (Berger classification)
     → special holonomy → Ricci-flat compact metric on X₇
     → compact vacuum energy = topological invariant (Betti numbers of X₇)
-    → no time-dependence → dΩ_Λ/dz = 0
+    → no time-dependence → ρ_Λ constant (Λ constant)
 
     The discrepancy 7/11 ≈ 0.636 vs Ω_Λ^obs = 0.6847 (7% off) is then
     attributed to the static O(α') moduli correction — a fixed constant,

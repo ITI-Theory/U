@@ -1273,7 +1273,8 @@ prediction; Fractal Thesis and paper omnibus hardening (1 Oct); Atlas plates for
 all 31 levels; no "no sorries" claims left in the appendix or books.
 
 **Papers and proofs:**
-- [ ] Lean doc comments in `G2Compactification.lean` and `LocalGR.lean` say
+- [x] (8 Oct, comments only; formal statements unchanged; see ISS-047 P21 Sherlock)
+      Lean doc comments in `G2Compactification.lean` and `LocalGR.lean` said
       `dΩ_Λ/dz = 0`; the correct statement is that Λ (ρ_Λ) is constant
       (Ω_Λ itself changes with z). Comments only; the proofs are unaffected.
 - [ ] OSforGFF pull request mrdouglasny/OSforGFF#22 awaiting review.

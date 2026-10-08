@@ -10,7 +10,7 @@
 
   Axiom chain:
     g2_holonomy_implies_rigid_attractor  (G₂ holonomy → strict CY minimum)
-    rigidAttractor_freezes_omega_lambda   (strict minimum → dΩ_Λ/dz = 0)
+    rigidAttractor_freezes_omega_lambda   (strict minimum → constant vacuum partition, Λ constant)
 
   Gate theorem (proved):
     g2_implies_omega_lambda_static        (used by G2Compactification.lean to
@@ -19,7 +19,7 @@
   What remains as honest obligation:
     The full proofs of both axioms require:
       (1) Mathlib Riemannian geometry: Berger classification for G₂ holonomy → Ricci-flat
-      (2) Mathlib GR perturbation theory: compact volume modulus → Ω_Λ frozen
+      (2) Mathlib GR perturbation theory: compact volume modulus → Λ (ρ_Λ) frozen
     Both are on the Mathlib roadmap; the local gate makes the claim type-correct.
 -/
 import Mathlib.Analysis.Calculus.Deriv.Basic
@@ -69,14 +69,16 @@ axiom linearised_einstein
 axiom g2_holonomy_implies_rigid_attractor :
     ∃ (V : ℝ → ℝ) (φ₀ : ℝ), RigidAttractor V φ₀
 
-/-- At a rigid moduli attractor, the vacuum energy fraction Ω_Λ is time-invariant.
+/-- At a rigid moduli attractor, the vacuum energy partition is time-invariant.
     Proof chain: V'(φ₀) = 0 → no moduli evolution → compact volume = const
-    → Ω_Λ(z) = const; anchored at the G₂ integer fraction 7/11.
+    → Λ (ρ_Λ) constant, with the partition fixed at the G₂ integer fraction 7/11.
+    The function named Ω_Λ here is that constant partition, not the observed
+    density parameter Ω_Λ(z) = ρ_Λ/ρ_crit(z), which falls with redshift.
     Local axiom; connecting step needs GR perturbation theory in Mathlib. -/
 axiom rigidAttractor_freezes_omega_lambda
     {V : ℝ → ℝ} {φ₀ : ℝ} (_ : RigidAttractor V φ₀) :
     ∃ (Ω_Λ : ℝ → ℝ),
-      (∀ z : ℝ, HasDerivAt Ω_Λ 0 z) ∧  -- dΩ_Λ/dz = 0 at all redshifts
+      (∀ z : ℝ, HasDerivAt Ω_Λ 0 z) ∧  -- the partition is constant at all redshifts
       Ω_Λ 0 = 7 / 11                    -- anchored to the G₂ partition fraction
 
 -- ── §4. Gate Theorems ──────────────────────────────────────────────────────
@@ -86,7 +88,7 @@ theorem rigidAttractor_critical {V : ℝ → ℝ} {φ₀ : ℝ} (h : RigidAttrac
     HasDerivAt V 0 φ₀ :=
   h.1
 
-/-- **PROVED**: G₂ holonomy implies static Ω_Λ.
+/-- **PROVED**: G₂ holonomy implies a static vacuum partition (Λ constant).
     Chains g2_holonomy_implies_rigid_attractor and rigidAttractor_freezes_omega_lambda.
     Used by G2Compactification.lean to discharge calabi_yau_moduli_static. -/
 theorem g2_implies_omega_lambda_static :
