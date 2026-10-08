@@ -2,7 +2,8 @@
 """Check the opening pages of every built PDF against paper/FORMAT.md.
 
 Title recto (p1), blank verso (p2); then, by kind:
-  paper, domain book   abstract recto (p3), blank verso (p4), contents recto (p5)
+  paper, domain book   abstract recto (p3), blank verso (p4), contents recto (p5);
+                       without an abstract, contents recto (p3)
   Gateway              noir page recto (p3), blank verso (p4), contents recto (p5)
   omnibus, volume,     master contents recto (p3)
   course book
@@ -70,6 +71,8 @@ def main() -> int:
             continue
         checked += 1
         errors = expect(pdf, rules)
+        if errors and any(r == (3, r"\bAbstract\b") for r in rules) and re.search(r"\bContents\b", page(pdf, 3)[:400]):
+            errors = expect(pdf, [(1, "text"), (2, "blank"), (3, r"\bContents\b")])  # no abstract: contents on p3
         if errors:
             failed += 1
             print(f"FAIL {pdf.relative_to(ROOT).as_posix()}")
