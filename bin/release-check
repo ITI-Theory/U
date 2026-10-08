@@ -13,6 +13,16 @@ hdr()  { echo ""; echo "=== $1 ==="; }
 
 cd "$REPO"
 
+# Portable Python: honour $PYTHON, else python3, python, or the Windows py launcher.
+PY="${PYTHON:-}"
+if [ -z "$PY" ]; then
+  # Skip the Windows Store alias, which exists on PATH but does not run.
+  for c in python python3 py; do
+    if command -v "$c" >/dev/null 2>&1 && "$c" -c "import sys" >/dev/null 2>&1; then PY="$c"; break; fi
+  done
+fi
+py() { "$PY" "$@"; }
+
 # ── 1. Float in proof files ────────────────────────────────────────────────
 hdr "1. Float in proof files"
 FLOATS=$(grep -ril Float paper/proofs/*.lean 2>/dev/null | grep -v Movie.lean || true)
@@ -25,27 +35,17 @@ fi
 
 # ── 2. Sorry stubs ─────────────────────────────────────────────────────────
 hdr "2. Sorry stubs"
-SORRY_FILES=$(grep -rl "^\s*sorry$\|:= sorry" paper/proofs/*.lean 2>/dev/null || true)
-if [[ -z "$SORRY_FILES" ]]; then
-  ok "Zero active sorry stubs"
+SORRIES=$(py paper/scripts/count_sorries.py paper/proofs/*.lean 2>&1)
+COUNT=$(echo "$SORRIES" | sed -n 's/^total: //p')
+if [[ "$COUNT" == "0" ]]; then
+  ok "Zero active sorry stubs (comments ignored)"
 else
-  COUNT=$(grep -rch "^\s*sorry$\|:= sorry" paper/proofs/*.lean 2>/dev/null | awk -F: '{sum+=$1} END{print sum}' || echo 0)
-  warn "$COUNT sorry stub(s) remain — see ISS-005"
-  grep -rn "^\s*sorry$\|:= sorry" paper/proofs/*.lean 2>/dev/null | sed 's/^/    /'
+  warn "${COUNT:-?} sorry stub(s) remain — see ISS-005/ISS-036"
+  echo "$SORRIES" | grep -v '^total:' | sed 's/^/    /'
 fi
 
 # ── 3. Open research problems ──────────────────────────────────────────────
 hdr "3. Open research problems"
-
-# Portable Python: honour $PYTHON, else python3, python, or the Windows py launcher.
-PY="${PYTHON:-}"
-if [ -z "$PY" ]; then
-  # Skip the Windows Store alias, which exists on PATH but does not run.
-  for c in python python3 py; do
-    if command -v "$c" >/dev/null 2>&1 && "$c" -c "import sys" >/dev/null 2>&1; then PY="$c"; break; fi
-  done
-fi
-py() { "$PY" "$@"; }
 
 STALE_PROBLEMS=$(py paper/scripts/check_stale_problem_labels.py \
   --pdf bld/papers/zoomable-somatic-field.pdf \

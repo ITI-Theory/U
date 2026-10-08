@@ -1,0 +1,375 @@
+# NotebookLM UAT: papers rc3.1 (20261008-2048)
+
+Version rc3.1 (U aa28403); compared with rc3.0. Notebook `f6189d45-2a9f-4dbc-8214-e09cfbdcf246` (private). Worksheet `papers-omnibus-nlm-uat.rc3.1.md`.
+Automated run (`uat/scripts/nlm_uat.py`); review before transferring findings to the worksheet.
+
+| Item | Title | Status | Cited sources |
+|---|---|---|---|
+| S-1 | Formal claim alignment | PASS | BUILD_CONTEXT.rc3.1.md |
+| S-2 | P11/P12 release-status alignment | PASS | - |
+| S-3 | G2 scope boundary | PASS | - |
+| S-4 | Claim-status ledger | PASS | - |
+| H-1 | Established versus open | PASS | BUILD_CONTEXT.rc3.1.md |
+| H-2 | Cosmology limitations | ERROR | - |
+| H-3 | D1 boundary | ERROR | - |
+| C-1 | Central claim | ERROR | - |
+| C-2 | Falsification | ERROR | - |
+| C-3 | Non-specialist friction | ERROR | - |
+| CMP | rc3.1 against rc3.0 | ERROR | - |
+
+Totals: PASS 5, ERROR 6
+
+## S-1 Formal claim alignment (PASS)
+
+**Question:** List the formal claims in `omnibus-a4.pdf` that are supported by the Lean appendix. Flag any mismatch between the stated claim and the theorem, axiom, or explicit open problem.
+
+**ITEM:** S-1 (Formal claim alignment)
+**STATUS:** PASS
+
+**FINDING:**
+A comprehensive re-verification of the C1v2 omnibus (`omnibus-a4.rc3.1.pdf`) against the formal proof appendix (`lean-proofs-appendix.rc3.1.pdf`) and individual candidate papers confirms that formal claims stated in the manuscript are strictly aligned with the Lean 4 proof surface. The claims cleanly separate kernel-verified theorems from explicit axioms, type-level definitions, and open proof obligations without ungrounded substitution:
+
+---
+
+### 1. Formal Claims Supported by Kernel-Verified Theorems (Proved in Lean 4)
+
+* **11D Type & Product Isomorphism (`somaField_iso_mtheory`, `organism_hierarchy`, `X7_is_7D_product`):**
+  * **Stated Claim:** The 11-dimensional Soma-Field configuration space decomposes into a 4D spacetime base and a 7D compact product space (\\(11\text{D} \cong 4\text{D} \times 7\text{D}\\), where \\(X_7 = P_3 \times L_1 \times C_3\\)), with a consistent organism projection hierarchy (\\(11\text{D} \twoheadrightarrow 7\text{D} \twoheadrightarrow 4\text{D}\\)).
+  * **Lean Status:** Kernel-verified theorem in `MTheoryIsomorphism.lean` (`simp` and constructor proofs).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 240, 241, 250, 257, 268, 369–371; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 62–66; `zoomable-somatic-field.rc3.1.pdf`, pp. 9–10, 34.
+
+* **Field-Modulated Hopfield Network (FM-HN) Correspondence Principle (`correspondence_principle`):**
+  * **Stated Claim:** Under zero somatic stress (\\(\Phi_{\text{limbic}} = 0\\)), both runtime coupling equations vanish (\\(T(t) = T_0, W(t) = W_0\\)), reducing the FM-HN identically to the classical Hopfield network baseline.
+  * **Lean Status:** Kernel-verified theorem in `LimbicHopfield.lean` (closed by `simp`/`constructor`).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 220, 222, 250, 268, 372–373; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 67, 72–73; `missing-limbic-layer.rc3.1.pdf`, pp. 8, 13.
+
+* **Scale-Invariance Inhabitance (`scale_invariance_inhabited`, `universal_field_theory`):**
+  * **Stated Claim:** The Green's function field equation structure \\((\nabla^2 + k^2(n))G = \delta\\) is structurally inhabited across all 21 scale levels (\\(\text{Fin } 21\\)), from quantum foam (\\(10^{-35}\text{ m}\\)) to the cosmic web (\\(10^{26}\text{ m}\\)).
+  * **Lean Status:** Kernel-verified theorem in `UniversalSomaticField.lean`.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 241, 250, 256, 268, 383–387; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 83–87; `zoomable-somatic-field.rc3.1.pdf`, pp. 6, 34–35.
+
+* **Swarm Propagator Algorithmic Complexity (`propagator_beats_classical`, `jam_resistant`):**
+  * **Stated Claim:** Single-step Green's function coordination carries an arithmetic evaluation cost of \\(O(N^2)\\), which is strictly cheaper than \\(K\\)-round classical iterative message passing (\\(O(NK)\\)) whenever \\(N < K\\). Single-step update identity enables jam resistance in the formal update model.
+  * **Lean Status:** Kernel-verified theorems in `SwarmPropagator.lean` (proved by `nlinarith` and `rfl`).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 228, 250, 268, 378–380; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 76, 79–81; `swarm-propagator.rc3.1.pdf`, pp. 6–8.
+
+* **Quantum WKB Target Reachability (`wkbGate_creates_awe`, `quant_exp_1_awe_reachable`):**
+  * **Stated Claim:** Applying the transverse-field WKB tunnelling gate produces non-zero overlap with the target state (\\(|awe\rangle\\)) for any barrier height \\(W > 0\\), establishing a strictly positive Born transition probability.
+  * **Lean Status:** Kernel-verified theorem in `QuantumSim.lean`.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 276, 278, 406; `lean-proofs-appendix.rc3.1.pdf`, pp. 5, 115; `experimental-validation.rc3.1.pdf`, pp. 4, 6.
+
+* **Free-Field Osterwalder–Schrader Axioms (`freefield_USF_satisfies_OS_axioms`):**
+  * **Stated Claim:** The free-Gaussian USF representation inherits all five Euclidean Osterwalder–Schrader axioms (OS0–OS4: Analyticity, Regularity, Euclidean Invariance, Reflection Positivity, Clustering) via mass-parameter identification \\(m \leftrightarrow k\\) with the Gaussian Free Field.
+  * **Lean Status:** Kernel-verified master theorem application in `USF_OSAxioms.lean` importing the 32,000-line `OSforGFF` formal library (Douglas et al., 2026).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 242, 449–450; `lean-proofs-appendix.rc3.1.pdf`, pp. 6, 179–181; `usf-euclidean-qft.rc3.1.pdf`, pp. 5–6.
+
+* **Final-Tagless Emotion DSL & Promoted Axioms (`emotionLang_is_universal`, `awe_is_universal`):**
+  * **Stated Claim:** The `EmotionLang` abstract vocabulary is simultaneously valid across multiple semantic interpreters (Diesel String, List EmotionLabel, Valence), with core expressions such as `awe` closing definitionally (`blend fear surprise`).
+  * **Lean Status:** Kernel-verified theorems in `EmotionOntology.lean` and `FieldProofs.lean` (closed by `rfl` and `decide`).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 334–349; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 13, 32–35.
+
+* **Exact Dimension-Partition Arithmetic (`omega_lambda_fraction`, `omega_dm_fraction`, `omega_baryon_fraction`):**
+  * **Stated Claim:** Exact rational fractions from 11D dimension counting: \\(\Omega_{\Lambda} = 7/11\\), \\(\Omega_{\text{DM}} = 3/11\\), and \\(\Omega_b = 1/22\\), with single-digit discrepancy bounds against Planck 2018 observational baselines.
+  * **Lean Status:** Kernel-verified arithmetic proofs in `CosmologicalConstant.lean` (closed by `native_decide` and `norm_num`).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 286, 294, 437–440; `lean-proofs-appendix.rc3.1.pdf`, pp. 5, 161–165; `cosmological-constant-derivation.rc3.1.pdf`, pp. 7–8; `dark-matter-spatial-vacuum.rc3.1.pdf`, pp. 11–12.
+
+* **Retarded Propagator Causality (`somaticRetardedPropagator_isRetarded`):**
+  * **Stated Claim:** The somatic retarded propagator satisfies the strict causal boundary condition \\(G_R(t, t') = 0\\) for all \\(t \le t'\\).
+  * **Lean Status:** Kernel-verified theorem in `TemporalDynamics.lean` (proved by `linarith`).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 447–448; `lean-proofs-appendix.rc3.1.pdf`, pp. 6, 176–178; `soma-temporal-dynamics.rc3.1.pdf`, pp. 16–17.
+
+---
+
+### 2. Flagged Mismatches, Axioms, and Explicit Open Problems
+
+* **Cosmological Constant Physical Derivation (\\(\Lambda \equiv \langle \text{tr }\Phi \rangle_0\\)):**
+  * **Mismatch/Boundary:** While the fraction \\(7/11\\) is proved by `native_decide`, the physical claim that \\(\Lambda\\) is a classical vacuum condensate relies on open moduli geometry axioms (`calabi_yau_rg_coefficients`) to account for the 7.1% discrepancy. Full linearized General Relativity in Mathlib (\\(\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}\\)) remains an open proof obligation (`cosmological_correspondence` is only a weak scale-19 inhabitance witness).
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 286–288, 433, 437–438; `lean-proofs-appendix.rc3.1.pdf`, pp. 5, 154, 161–162; `cosmological-constant-derivation.rc3.1.pdf`, pp. 7–8, 11.
+
+* **Dark Matter Physical Mechanism (\\(\Omega_{\text{DM}} = 3/11\\)):**
+  * **Mismatch/Boundary:** The arithmetic fraction \\(3/11\\) is verified, but deriving a 4D pressureless fluid (\\(w = 0\\)) from the 11D spatial vacuum block \\(\langle \Phi_{ij} \rangle_0\\) via Kaluza-Klein reduction, as well as formalising Standard Model gauge localisation in \\(X_7\\), are explicit open proof obligations requiring absent Mathlib differential geometry infrastructure.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 294–296, 439–441; `lean-proofs-appendix.rc3.1.pdf`, pp. 5, 157–160, 163–165; `dark-matter-spatial-vacuum.rc3.1.pdf`, pp. 11–12.
+
+* **Compact \\(G_2\\)-Holonomy Metric on \\(X_7\\):**
+  * **Mismatch/Boundary:** Lean theorem `X7_is_7D_product` proves only that \\(X_7 = \mathbb{R}^3 \times \mathbb{R} \times \mathbb{R}^3\\) is an inhabited flat 7D product space. The manuscript explicitly acknowledges that \\(X_7\\) is NOT a compact \\(G_2\\) Riemannian manifold; constructing a true compact Riemannian 7-manifold with \\(G_2\\) holonomy remains an open problem. The \\(W_8 = \frac{6}{5}I_8 + \delta W\\) decomposition in P24 provides algebraic eigenvalue compatibility (traceless \\(\delta W\\) leaves 7 independent directions), not a metric holonomy proof.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 257, 272, 301, 303, 371; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 66; `g2-symmetry-breaking.rc3.1.pdf`, pp. 1, 7; `zoomable-somatic-field.rc3.1.pdf`, p. 10.
+
+* **Consciousness Phase Transition / Threshold (\\(T_c\\)):**
+  * **Mismatch/Boundary:** Theorem `consciousness_dichotomy` is a definitional split (\\(\phi < \sqrt{2} \lor \sqrt{2} \le \phi\\)) over a real amplitude variable. The mapping from this threshold predicate to phenomenal awareness is an uncalibrated theoretical interpretation, not an empirical proof of consciousness.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 243, 250, 269, 388; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 88; `universal-somatic-field.rc3.1.pdf`, p. 13; `zoomable-somatic-field.rc3.1.pdf`, p. 30.
+
+* **Universe as an 11D Organism (`universe_is_11D_organism`):**
+  * **Mismatch/Boundary:** Formally declared as an inhabited type witness `⟨11, rfl⟩`. It satisfies the internal model definition of an 11D organism by definition, but does not constitute an empirical proof that the cosmos is a conscious living entity.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 241, 250, 388; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 88; `universal-somatic-field.rc3.1.pdf`, p. 13.
+
+* **Simple Harmonic Oscillator Identity (`greens_fn_is_SHO`):**
+  * **Mismatch/Boundary:** `greens_fn_is_SHO` is a placeholder theorem proving `True` via `trivial`. A fully symbolic distributional proof that the Green's function satisfies \\((\nabla^2 + k^2)G = \delta\\) awaits Schwartz-space and PDE infrastructure in Mathlib.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 250, 256, 386; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 86; `zoomable-somatic-field.rc3.1.pdf`, p. 6.
+
+* **Swarm Global Optimality (`greens_achieves_minimum_energy`):**
+  * **Mismatch/Boundary:** While the arithmetic complexity inequality \\(O(N^2) < O(NK)\\) is kernel-verified, global energy minimization of the swarm propagator step is an explicit axiom pending variational calculus and Sobolev space scaffolding in Mathlib.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 228, 230, 382; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 82; `swarm-propagator.rc3.1.pdf`, p. 11.
+
+* **Interacting Osterwalder–Schrader Axioms:**
+  * **Mismatch/Boundary:** While the free-field OS axioms are verified, proving OS axioms for the interacting Hopfield-coupled theory (multi-component non-linear interaction) remains an open research programme.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, p. 242; `usf-interacting-qft.rc3.1.pdf`, pp. 4–5, 7.
+
+* **Unproved Sorry Stubs in Proof Surface:**
+  * **Mismatch/Boundary:** The Lean 4 proof surface contains five real `sorry` markers (`BRECVEMAVariational.lean` [1], `DyadicField.lean` [1], and `SomaNetwork.lean` [2]), which are explicitly logged in the Lean appendix inventory.
+  * **Evidence:** `omnibus-a4.rc3.1.pdf`, pp. 253, 330; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 7.
+
+---
+
+**EVIDENCE:**
+* `omnibus-a4.rc3.1.pdf`, pp. 220, 222, 228, 230, 240–243, 250, 253, 256–257, 268–269, 272, 276, 278, 286–288, 294–296, 301, 303, 330, 334–349, 369–373, 378–380, 382–388, 406, 433, 437–441, 447–450
+* `lean-proofs-appendix.rc3.1.pdf`, pp. 4–7, 13, 32–35, 62–67, 72–73, 76, 79–88, 115, 154, 157–165, 176–181
+* `zoomable-somatic-field.rc3.1.pdf`, pp. 6, 9–10, 30, 34–35
+* `cosmological-constant-derivation.rc3.1.pdf`, pp. 7–8, 11
+* `dark-matter-spatial-vacuum.rc3.1.pdf`, pp. 11–12
+* `g2-symmetry-breaking.rc3.1.pdf`, pp. 1, 7
+* `swarm-propagator.rc3.1.pdf`, pp. 6–8, 11
+* `missing-limbic-layer.rc3.1.pdf`, pp. 8, 13
+* `experimental-validation.rc3.1.pdf`, pp. 4, 6
+* `universal-somatic-field.rc3.1.pdf`, pp. 6, 13
+* `usf-euclidean-qft.rc3.1.pdf`, pp. 5–6
+* `usf-interacting-qft.rc3.1.pdf`, pp. 4–5, 7
+* `soma-temporal-dynamics.rc3.1.pdf`, pp. 16–17
+
+## S-2 P11/P12 release-status alignment (PASS)
+
+**Question:** Using only `omnibus-a4.pdf`, `zoomable-somatic-field.pdf`, and `experimental-validation.pdf`, list the status of P11 Problems 1-2 and P12 GAP-1. Flag any mismatch. Do not use D1 or P23 as evidence for this item.
+
+**ITEM:** S-2 (P11/P12 release-status alignment)
+**STATUS:** PASS
+
+**FINDING:**
+A re-verification using exclusively `omnibus-a4.rc3.1.pdf`, `zoomable-somatic-field.rc3.1.pdf` (P11), and `experimental-validation.rc3.1.pdf` (P12) confirms that release statuses for P11 Problems 1–2 and P12 GAP-1 are consistent across the individual candidate papers and the omnibus edition, with no mismatches:
+
+1. **P11 Problems 1–2 (Implementation Work):**
+   * **Status:** Resolved / Closed.
+   * **Details:** Completed implementation work (historically tracked as numbered Problems 1–2) is consistently marked resolved and explicitly excluded from outstanding research problems or unproved results in both `zoomable-somatic-field.rc3.1.pdf` (§13, p. 39) and `omnibus-a4.rc3.1.pdf` (§17.13, p. 272), which affirm: *"Completed implementation work is not listed here as a research result or an outstanding problem."*
+
+2. **P12 GAP-1 (Dyadic Propagator Poles):**
+   * **Status:** Open / Unmeasured / Not Established.
+   * **Details:** GAP-1 is identically classified under "What has not been established" in both `experimental-validation.rc3.1.pdf` (§7.2, p. 12) and `omnibus-a4.rc3.1.pdf` (§18.7, p. 282), explicitly recording: *"Dyadic propagator poles (GAP-1 in the USF test suite): the spectral correspondence between the dyadic propagator poles and interpersonal synchrony metrics has not been measured."*
+
+3. **Mismatches / Contradictions:**
+   * None found. The omnibus reproduces the individual paper release statuses and scope classifications without divergence.
+
+---
+
+**EVIDENCE:**
+* `zoomable-somatic-field.rc3.1.pdf`, p. 39
+* `experimental-validation.rc3.1.pdf`, p. 12
+* `omnibus-a4.rc3.1.pdf`, pp. 272, 282
+
+## S-3 G2 scope boundary (PASS)
+
+**Question:** Using only `omnibus-a4.pdf`, `zoomable-somatic-field.pdf`, and `g2-symmetry-breaking.pdf`, state exactly: 1. what Lean proves about the flat 7D product $X_7$; 2. what P24 proves about the $W_8 = \frac{6}{5}I_8 + \delta W$ decomposition; 3. what remains open about a compact $G_2$-holonomy metric. Flag any remaining contradiction with page citations.
+
+**ITEM:** S-3 (G2 scope boundary)
+**STATUS:** PASS
+
+**FINDING:**
+A re-verification using exclusively `omnibus-a4.rc3.1.pdf`, `zoomable-somatic-field.rc3.1.pdf` (P11), and `g2-symmetry-breaking.rc3.1.pdf` (P24) establishes the exact scope boundary between kernel-verified Lean proofs, algebraic matrix compatibility results, and open geometric hypotheses:
+
+1. **What Lean Proves about the Flat 7D Product \\(X_7\\):**
+   Lean 4 (kernel-verified theorem `X7_is_7D_product` in `MTheoryIsomorphism.lean`) proves that \\(X_7 = P_3 \times L_1 \times C_3 = \mathbb{R}^3 \times \mathbb{R} \times \mathbb{R}^3\\) is an inhabited, well-defined flat 7D product space of field-theoretic spaces. Along with theorem `somaField_iso_mtheory`, it formally establishes the 11D dimension count (\\(11\text{D} \cong 4\text{D} \times 7\text{D}\\)) and structural type decomposition. The proof files and manuscript text explicitly state that \\(X_7\\) in Lean is *not* a compact \\(G_2\\) Riemannian manifold, but a flat product of vector spaces.
+
+2. **What P24 Proves about the \\(W_8 = \frac{6}{5}I_8 + \delta W\\) Decomposition:**
+   P24 proves that the empirical 8D BRECVEMA coupling matrix \\(W_8\\) (with diagonal entries equal to \\(6/5\\)) uniquely decomposes into a \\(G_2\\)-invariant scalar component \\(W_{G_2} = \frac{6}{5}I_8\\) and an exactly traceless symmetry-breaking matrix \\(\delta W\\) (\\(\text{tr}(\delta W) = 0\\)), with Frobenius norm ratio \\(\|\delta W\|_F / \|W_8\|_F = 0.484\\) (48.4% symmetry breaking). Because \\(\delta W\\) is traceless, its eight eigenvalues satisfy one sum-zero constraint, leaving seven independent eigenvalue directions. This proves an exact rational algebraic compatibility result reconciling the 8D biological emotional field with a 7D compact-sector interpretation; it is kernel-verified in `BRECVEMAVariational.lean` via theorems `brecvema_G2_decomposition` and `delta_W_dof`.
+
+3. **What Remains Open about a Compact \\(G_2\\)-Holonomy Metric:**
+   Constructing or deriving a true Riemannian compact 7-manifold metric with \\(G_2\\) holonomy for \\(X_7\\) remains an explicit open physical and geometric problem and proof obligation. Neither Lean nor P24 derives metric holonomy or differential geometry for \\(X_7\\); the theorem `moduli_space_is_G2_homotopy` in `BRECVEMAVariational.lean` remains an open proof obligation with a `sorry` stub requiring unavailable Mathlib Riemannian holonomy and Lie-theory infrastructure.
+
+4. **Contradictions / Mismatches:**
+   None. All three source PDFs consistently affirm that \\(X_7\\) is established as a flat 7D product, the \\(W_8\\) decomposition is an algebraic compatibility result, and a compact \\(G_2\\)-holonomy metric is an open geometric problem.
+
+---
+
+**EVIDENCE:**
+* `zoomable-somatic-field.rc3.1.pdf`, pp. 10, 34, 40
+* `g2-symmetry-breaking.rc3.1.pdf`, pp. 1, 3, 4–5, 7, 8
+* `omnibus-a4.rc3.1.pdf`, pp. 250, 257, 270, 300, 302, 370–371, 430–432
+
+## S-4 Claim-status ledger (PASS)
+
+**Question:** Using the Lean appendix and P11, classify the following as proved, partial, open, or interpretive: Hopfield baseline, 11D architecture, G2 compact geometry, consciousness threshold, cosmological constant, dark matter, and the universe-as-organism interpretation.
+
+**ITEM:** S-4 (Claim-status ledger)
+**STATUS:** PASS
+
+**FINDING:**
+A re-verification of the Lean 4 formal proofs appendix (`lean-proofs-appendix.rc3.1.pdf`) and Paper 11 (`zoomable-somatic-field.rc3.1.pdf`) rigorously classifies the seven core claims into the four designated categories (**proved**, **partial**, **open**, **interpretive**):
+
+1. **Hopfield baseline (Proved):**
+   * **Classification:** Proved.
+   * **Details:** Under zero somatic stress (\\(\Phi_{\text{limbic}} = 0\\)), both runtime coupling equations vanish (\\(T = T_0, W = W_0\\)), reducing the Field-Modulated Hopfield Network (FM-HN) to the classical 1982 Hopfield baseline. This is a kernel-verified theorem (`correspondence_principle` in `LimbicHopfield.lean`) proved by `simp` and `constructor`.
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 8, 30, 34; `lean-proofs-appendix.rc3.1.pdf`, pp. 5, 67, 72–73.
+
+2. **11D architecture (Proved):**
+   * **Classification:** Proved (as a formal type and product space isomorphism).
+   * **Details:** The 11-dimensional configuration space decomposes into spacetime and internal compact components (\\(11\text{D} \cong 4\text{D} \times 7\text{D}\\), where \\(X_7 = P_3 \times L_1 \times C_3 = \mathbb{R}^3 \times \mathbb{R} \times \mathbb{R}^3\\)). The type equivalence, product inhabitance, and projection hierarchy (\\(11\text{D} \twoheadrightarrow 7\text{D} \twoheadrightarrow 4\text{D}\\)) are kernel-verified theorems (`somaField_iso_mtheory`, `organism_hierarchy`, and `X7_is_7D_product` in `MTheoryIsomorphism.lean`).
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 9–10, 34; `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 62–66.
+
+3. **\\(G_2\\) compact geometry (Open):**
+   * **Classification:** Open.
+   * **Details:** Lean proves only that \\(X_7\\) is an inhabited flat 7D product space (\\(\mathbb{R}^3 \times \mathbb{R} \times \mathbb{R}^3\\)). Constructing a true compact Riemannian 7-manifold metric with \\(G_2\\) holonomy for \\(X_7\\) is explicitly acknowledged as an unproved geometric hypothesis and open proof obligation. In `BRECVEMAVariational.lean`, the target theorem `moduli_space_is_G2_homotopy` carries an open `sorry` stub requiring unavailable Mathlib Riemannian holonomy infrastructure.
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 10, 40; `lean-proofs-appendix.rc3.1.pdf`, pp. 66, 148, 151–152, 166–171.
+
+4. **Consciousness threshold (Partial):**
+   * **Classification:** Partial.
+   * **Details:** The real-number split across the threshold parameter (\\(\phi < \sqrt{2} \lor \sqrt{2} \le \phi\\)) and monotonicity under increasing amplitude are kernel-verified theorems (`consciousness_dichotomy` and `consciousness_monotone` in `UniversalSomaticField.lean`). However, the claim that this mathematical predicate corresponds to phenomenal conscious awareness is an uncalibrated theoretical model interpretation that has not been empirically measured or clinically validated.
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 28–29, 35, 37; `lean-proofs-appendix.rc3.1.pdf`, pp. 83, 88–89.
+
+5. **Cosmological constant (Partial):**
+   * **Classification:** Partial.
+   * **Details:** The rational leading-order fraction \\(\Omega_{\Lambda} = 7/11\\) is kernel-verified by `native_decide` in `CosmologicalConstant.lean`. However, the physical identification \\(\Lambda \equiv \langle \text{tr }\Phi \rangle_0\\) is model-derived under assumptions: it relies on open moduli geometry axioms (`calabi_yau_rg_coefficients`) to explain the 7.1% discrepancy against observation, while full linearized General Relativity in Mathlib remains an open proof obligation.
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 27, 35; `lean-proofs-appendix.rc3.1.pdf`, pp. 5, 83, 90, 154–156, 161–163.
+
+6. **Dark matter (Partial):**
+   * **Classification:** Partial.
+   * **Details:** The spatial-sector fraction \\(\Omega_{\text{DM}} = 3/11\\) is kernel-verified by `norm_num`, and Standard Model electromagnetic neutrality is proved as a structural zero coupling (`dm_gauge_neutral` by `rfl` in `LocalGeometry.lean`). However, deriving a 4D pressureless fluid (\\(w = 0\\)) via Kaluza-Klein reduction of the spatial vacuum block \\(\langle \Phi_{ij} \rangle_0\\) remains an open proof obligation (`kaluza_klein_reduction` in `G2Compactification.lean` is a trivial witness).
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 27, 36; `lean-proofs-appendix.rc3.1.pdf`, pp. 157–160, 163–165, 168–170.
+
+7. **Universe-as-organism interpretation (Interpretive):**
+   * **Classification:** Interpretive.
+   * **Details:** In `UniversalSomaticField.lean`, `universe_is_11D_organism` is constructed as a type witness (`⟨11, rfl⟩`) satisfying the internal structure definition `Is11DOrganism` (having dimension 11). This serves as a formal model definition/witness, not an empirical discovery or physical proof of cosmic consciousness.
+   * **Evidence:** `zoomable-somatic-field.rc3.1.pdf`, pp. 27, 35; `lean-proofs-appendix.rc3.1.pdf`, pp. 83, 88.
+
+---
+
+**EVIDENCE:**
+* `zoomable-somatic-field.rc3.1.pdf`, pp. 8, 9–10, 27, 28–29, 30, 34, 35, 36, 37, 40
+* `lean-proofs-appendix.rc3.1.pdf`, pp. 4, 5, 62–67, 72–73, 83, 88–90, 148, 151–152, 154–165, 166–171
+
+## H-1 Established versus open (PASS)
+
+**Question:** What does the Papers collection establish, and what does it explicitly leave open? Separate Lean formal claims, empirical results, cosmological extrapolations, and interpretive claims.
+
+**ITEM:** H-1 (Established versus open)
+**STATUS:** PASS
+
+**FINDING:**
+A comprehensive re-verification across the rc3.1 candidate collection (`omnibus-a4.rc3.1.pdf`, `lean-proofs-appendix.rc3.1.pdf`, and member papers) establishes a strict, transparent boundary between established results and open problems across all four required dimensions:
+
+---
+
+### 1. Lean Formal Claims
+
+* **Established (Kernel-Verified in Lean 4):**
+  * **11D Type & Product Isomorphism (`somaField_iso_mtheory`, `organism_hierarchy`, `X7_is_7D_product`):** Formally proves the \\(11\text{D} \cong 4\text{D} \times 7\text{D}\\) type decomposition and that \\(X_7 = \mathbb{R}^3 \times \mathbb{R} \times \mathbb{R}^3\\) is an inhabited flat product space.
+  * **FM-HN Correspondence Principle (`correspondence_principle`):** Proves that under zero somatic stress (\\(\Phi_{\text{limbic}} = 0\\)), the Field-Modulated Hopfield Network reduces identically to the classical 1982 Hopfield baseline.
+  * **Scale-Invariance Inhabitance (`scale_invariance_inhabited`, `universal_field_theory`):** Proves that the Green's function field equation \\((\nabla^2 + k^2(n))G = \delta\\) is structurally inhabited across all 21 scale levels (\\(\text{Fin } 21\\)).
+  * **Swarm Propagator Algorithmic Complexity (`propagator_beats_classical`, `jam_resistant`):** Proves that single-step propagator evaluation (\\(O(N^2)\\)) is strictly cheaper than \\(K\\)-round iterative message passing (\\(O(NK)\\)) whenever \\(N < K\\).
+  * **Quantum WKB Target Reachability (`wkbGate_creates_awe`, `quant_exp_1_awe_reachable`):** Proves non-zero Born transition probability / target overlap for transverse-field tunnelling across barriers with \\(W > 0\\).
+  * **Free-Field Osterwalder–Schrader Axioms (`freefield_USF_satisfies_OS_axioms`):** Kernel-checked application of the imported 32,000-line `OSforGFF` master theorem verifying OS0–OS4 for the free USF under \\(m \leftrightarrow k\\) mass identification.
+  * **Exact Dimension-Partition Arithmetic (`omega_lambda_fraction`, `omega_dm_fraction`, `omega_baryon_fraction`):** Proves the exact rational fractions \\(\Omega_{\Lambda} = 7/11\\), \\(\Omega_{\text{DM}} = 3/11\\), and \\(\Omega_b = 1/22\\), and machine-checks discrepancy bounds against Planck 2018 baselines.
+  * **Emotion DSL Universality & Promoted Axioms (`emotionLang_is_universal`, `awe_is_universal`):** Proves multi-interpreter validity across String, label-set, and valence domains, closing expressions like `awe` definitionally via `rfl`.
+  * **Retarded Propagator Causality (`somaticRetardedPropagator_isRetarded`):** Proves strict causal support (\\(G_R(t, t') = 0\\) for \\(t \le t'\\)).
+
+* **Explicitly Left Open:**
+  * Distributional Simple Harmonic Oscillator identity for Green's functions (`greens_fn_is_SHO` is a placeholder `trivial` theorem pending distribution/PDE infrastructure in Mathlib).
+  * Five real `sorry` markers in the repository proof surface (`BRECVEMAVariational.lean` [1], `DyadicField.lean` [1], and `SomaNetwork.lean` [2]).
+  * Linearised General Relativity in Mathlib (`cosmological_correspondence` is a weak scale-19 inhabitance witness; \\(\Box h_{\mu\nu} = -16\pi G T_{\mu\nu}\\) remains unformalised).
+  * Moduli space Calabi-Yau metric and RG flow coefficients (`calabi_yau_rg_coefficients` axiom).
+  * Full Kaluza-Klein reduction of the 11D spatial vacuum block to a 4D pressureless fluid (\\(w = 0\\)).
+  * Interacting Osterwalder–Schrader axioms under Hopfield non-linear coupling (requires full constructive Glimm–Jaffe programme).
+  * Variational derivation of a compact \\(G_2\\)-holonomy metric on \\(X_7\\) (`moduli_space_is_G2_homotopy` carries an open `sorry`).
+
+---
+
+### 2. Empirical & Computational Results
+
+* **Established (Simulated & Benchmarked):**
+  * **QUANT-EXP-1:** Exact 8-qubit statevector simulation demonstrating that transverse-field quantum annealing reaches the target emotional attractor (Awe) across high topological barriers where low-noise classical Langevin dynamics remain trapped.
+  * **Exploratory Pilot Benchmarks:** Single-operator exploratory runs documenting the four-model benchmark and music-affect trajectory metrics.
+
+* **Explicitly Left Open:**
+  * Execution of QUANT-EXP-1 on physical quantum annealing hardware (e.g., D-Wave, Google Sycamore).
+  * Empirical measurement of dyadic propagator poles and interpersonal synchrony metrics (GAP-1).
+  * Operational calibration and empirical measurement of the limbic consciousness threshold \\(T_c\\) in biological tissue.
+  * Prospective clinical cohort testing of the ten pre-verbal manifold predictions.
+  * Multi-operator independent replication and physiological sensor integration (HRV/EDA).
+
+---
+
+### 3. Cosmological Extrapolations
+
+* **Established (Model Derivations & Bookkeeping):**
+  * Topological dimension-partition derivations yielding leading-order cosmological budget fractions: \\(\Omega_{\Lambda} = 7/11 \approx 0.6364\\) (7.1% low vs. Planck 2018) and \\(\Omega_{\text{DM}} = 3/11 \approx 0.2727\\) (3.1% high vs. Planck 2018).
+
+* **Explicitly Left Open:**
+  * First-principles derivation of the baryogenesis factor of \\(1/2\\) for the time block (\\(\Omega_b = 1/22\\)) from USF CP-violation.
+  * Observational resolution of the dark energy equation of state (\\(w = -1\\)) against DES SN5YR supernova combination tension (\\(w_0 = -0.727 \pm 0.067\\)), which would falsify the static vacuum condensate model if confirmed physical.
+  * Gravitational clustering and perturbation spectrum derivation for the spatial vacuum block via Kaluza-Klein reduction.
+  * Observational constraints on dark matter non-gravitational self-interactions and gauge neutrality.
+
+---
+
+### 4. Interpretive & Model Claims
+
+* **Established (Formal Model Definitions & Lived-Case Grounding):**
+  * **Structural Type Witnesses:** `universe_is_11D_organism` is constructed as a type witness `⟨11, rfl⟩` satisfying the internal model predicate `Is11DOrganism`.
+  * **Seed Fixed-Point Witnesses:** `usf_is_fixed_point` provides a formal existence witness for a Scale-9 field equation.
+  * **Lived-Case Phenomenological Grounding:** Autoethnographic single-case (\\(N=1\\)) narrative formalising diagnostic operator modifications (ADHD, ASC, C-PTSD) and pre-verbal trauma topography.
+
+* **Explicitly Left Open:**
+  * Any physical or biological claim that the universe is literally a conscious living organism.
+  * Clinical efficacy or diagnostic validity of operator modifications prior to independent clinical trials.
+  * Completed fixed-point theorem establishing that the cultural propagation of [T]-Theory is mathematically isomorphic to its master equations.
+  * Physical compactification or geometric equivalence: mathematical co-identification transfers formal mathematical structure under stated hypotheses, not physical ontology.
+
+---
+
+**EVIDENCE:**
+* `omnibus-a4.rc3.1.pdf`, pp. 240–243, 250, 256–257, 268–270, 272, 276–278, 282, 286–288, 294–296, 300–303, 328–330, 406, 437–440, 449–450
+* `lean-proofs-appendix.rc3.1.pdf`, pp. 4–7, 62–66, 72–73, 79–81, 83–90, 115, 154–165, 166–171, 179–181
+* `zoomable-somatic-field.rc3.1.pdf`, pp. 9–10, 14, 27–28, 34–36, 37–39
+* `cosmological-constant-derivation.rc3.1.pdf`, pp. 6–8, 10–11
+* `dark-matter-spatial-vacuum.rc3.1.pdf`, pp. 1, 5, 11–12, 14
+* `experimental-validation.rc3.1.pdf`, pp. 4, 12–13
+* `quantum-soma-penrose.rc3.1.pdf`, pp. 6–7, 11–12
+* `g2-symmetry-breaking.rc3.1.pdf`, pp. 1, 3, 7–8
+* `usf-euclidean-qft.rc3.1.pdf`, pp. 5–6, 7–8
+* `usf-interacting-qft.rc3.1.pdf`, pp. 4–7
+* `ttheory-phenomena.rc3.1.pdf`, pp. 3, 7
+* `soma-field-synthesis.rc3.1.pdf`, pp. 7–8
+* `preverbal-manifold.rc3.1.pdf`, pp. 20–22
+* `SFT-DEMO-CASE.rc3.1.pdf`, pp. 1, 4–7
+
+## H-2 Cosmology limitations (ERROR)
+
+**Question:** Are cosmological constant, dark matter, and G2 symmetry breaking presented with consistent limitations? Cite every limitation.
+
+RateLimitError: Chat rate limit reached: the request ended before the server returned an RPC payload (terminal stream sequence 3). Inspect the conversation history before trying again.
+
+## H-3 D1 boundary (ERROR)
+
+**Question:** Does `SFT-DEMO-CASE.pdf` remain explicitly distinct from general scientific claims? Identify its stated limits on generalisation.
+
+RateLimitError: Chat rate limit reached: the request ended before the server returned an RPC payload (terminal stream sequence 3). Inspect the conversation history before trying again.
+
+## C-1 Central claim (ERROR)
+
+**Question:** In plain language, what is the central claim of the collected works? Cite the omnibus pages used.
+
+RateLimitError: Chat rate limit reached: the request ended before the server returned an RPC payload (terminal stream sequence 3). Inspect the conversation history before trying again.
+
+## C-2 Falsification (ERROR)
+
+**Question:** What observations would falsify or seriously challenge the framework? Separate explicit falsification criteria from open research goals.
+
+RateLimitError: Chat rate limit reached: the request ended before the server returned an RPC payload (terminal stream sequence 3). Inspect the conversation history before trying again.
+
+## C-3 Non-specialist friction (ERROR)
+
+**Question:** Which terms or sections would confuse an educated non-specialist? For each, identify whether the omnibus already defines it and suggest a concise reader bridge without changing the scientific claim.
+
+RateLimitError: Chat rate limit reached: the request ended before the server returned an RPC payload (terminal stream sequence 3). Inspect the conversation history before trying again.
+
+## CMP rc3.1 against rc3.0 (ERROR)
+
+**Question:** Two versions of this release candidate are loaded; every source title ends with its version: rc3.0 (previous) and rc3.1 (new). Using the questions in papers-omnibus-nlm-uat.rc3.1.md, is rc3.1 BETTER, the SAME or WORSE than rc3.0? For each worksheet area, give the concrete differences, citing the exact filename (with version) and page on both sides. End with one line: VERDICT: BETTER, SAME or WORSE. Of rc3.0 only these are loaded: MANIFEST.rc3.0.md, lean-proofs-appendix.rc3.0.pdf, omnibus-a4.rc3.0.pdf; compare like with like.
+
+RateLimitError: Chat rate limit reached: the request ended before the server returned an RPC payload (terminal stream sequence 3). Inspect the conversation history before trying again.
