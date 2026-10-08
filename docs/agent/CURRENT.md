@@ -18,7 +18,7 @@ others; built from U 728ac85 with `vite build --base=./`, copied by hand; home
 page has a preview label and contact details). Fixes on the way: 11D falls back
 to 8D at the quantum scales; maths re-renders once KaTeX loads. First outside
 reaction logged in paper/FIELD-NOTES.md (informal). `make app-start` runs it
-locally; `make app-publish` is still to do (ISS-046).
+locally; `make app-publish` (DRY=1 first) publishes it (8 Oct).
 
 NotebookLM UAT is ready but blocked on the author's `notebooklm login`
 (saved login dates from 5 Oct). Both tracks are restaged (6 Oct); `make uat-nlm

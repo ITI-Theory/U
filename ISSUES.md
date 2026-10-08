@@ -1296,11 +1296,12 @@ app README):**
 - [ ] Visual rhymes: renderers may share motion styles across levels (sliding
       plates for `geological`, ring/belt debris for `orbital-system`), badged
       as visual analogy (`INTERPRETIVE`); the physics differs.
-- [ ] Public app at https://www.t-theory.org/app/ (first published 6 Oct from
-      U 424c0a9 into ITI-Theory/t-theory.org, `vite build --base=./`, by hand).
-      Make it `make app-publish` (build, scan, copy, commit, push), and leave
-      the private MOTHER notebook link (`notebook.google.com/notebook/16368cb3…`)
-      out of public builds; MOTHER is local-only, so the panel stays offline there.
+- [x] Public app at https://www.t-theory.org/app/ (first published 6 Oct from
+      U 424c0a9 into ITI-Theory/t-theory.org, by hand). `make app-publish`
+      (DRY=1 first) now builds, checks for private material, copies, commits
+      and pushes (8 Oct). The MOTHER notebook link in the build is the
+      programme's public notebook (WEB mode, mother/README.md), not a leak;
+      the check rejects the private notebook ids from mother.local.json.
 
 **Books and Atlas:**
 - [ ] Each Fractal Thesis book: a domain introduction spread (specialist label,
