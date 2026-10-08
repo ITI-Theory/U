@@ -1318,3 +1318,21 @@ sorries" and "proves" statements.
 
 Not now (author, 1 Oct): completing *Phase Dot*.
 
+---
+
+## ISS-047: RC3 UAT: author session of 7 Oct 2026 and follow-up — OPEN
+{{Tags release, uat}}
+{{Fields date.created=2026-10-08, date.start=2026-10-07, date.end=, epic=ISS-047-rc3-uat}}
+
+**Epic:** [ISS-047-rc3-uat.md](prj/.adm/issues/ISS-047-rc3-uat.md)
+
+RC3 is the October release candidate (staged 4 Oct, restaged 6 Oct; the public
+app preview at www.t-theory.org/app/ belongs to it). Earlier candidates: books
+v1.0.0-rc1/rc2 (15-16 Aug), Papers RC2 (papers-omnibus v2.0.0-rc2, 18 Aug).
+The author ran a UAT session on 7 Oct; the notes are in
+`uat/RC3/uat-session-2026-10-07.md` and the findings become sub-issues here.
+
+- [ ] Author types up the 7 Oct session notes.
+- [ ] Turn each finding into a sub-issue (fix now, or defer with a reason).
+- [ ] NotebookLM UAT for RC3 (`make uat-nlm`, after `notebooklm login`).
+- [ ] RC3 decision recorded in `paper/UAT.md`.
