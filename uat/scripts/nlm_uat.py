@@ -47,6 +47,10 @@ NOTEBOOKS = {
     "ttheory": "f9c01519-a563-4644-be82-f02d5fe891f8",
 }
 UAT_TITLE = "UAT "
+SOURCE_LIMIT = 50  # NotebookLM sources per notebook
+# Previous-version sources kept for the comparison when a full second copy would
+# not fit (by name without version); the papers omnibus contains every paper.
+COMPARE_KEEP = {"papers": {"omnibus-a4.pdf", "lean-proofs-appendix.pdf", "MANIFEST.md"}}
 TAG = re.compile(r"\.(rc\d+\.\d+)(?=\.[A-Za-z0-9]+$)")  # omnibus-a4.rc3.1.pdf
 STAGED = re.compile(r"^Version: (rc\d+\.\d+) \(U ([0-9a-f]+(?:-dirty)?)", re.M)
 VERDICT = re.compile(r"\b(BETTER|SAME|WORSE)\b")
@@ -118,7 +122,12 @@ def legacy_label(version: str) -> str:
     return f"rc{major}.{minor - 1}" if minor else f"rc{major - 1}.0"
 
 
-def plan(sources: list, version: str) -> dict:
+def base_name(title: str) -> str:
+    version = source_version(title)
+    return title.replace(f".{version}.", ".") if version else title
+
+
+def plan(sources: list, version: str, keep_only: set[str] | None = None) -> dict:
     """Which sources to relabel, keep (the previous version) and delete."""
     legacy = legacy_label(version)
     current = parse_version(version)
@@ -132,8 +141,9 @@ def plan(sources: list, version: str) -> dict:
         tagged.append((source, tag))
     older = sorted({tag for _, tag in tagged if parse_version(tag) < current}, key=parse_version)
     previous = older[-1] if older else None
-    keep = [s for s, tag in tagged if tag == previous]
-    delete = [s for s, tag in tagged if tag != previous]  # same version (re-upload) and anything older
+    keep = [s for s, tag in tagged if tag == previous
+            and (not keep_only or base_name(title_of(s)) in keep_only)]
+    delete = [s for s, _ in tagged if s not in keep]  # same version (re-upload), anything older, trimmed
     relabel = [(s, title) for s, title in relabel if s in keep]
     return {"previous": previous, "relabel": relabel, "keep": keep, "delete": delete}
 
@@ -153,8 +163,10 @@ async def dry_run(track: str, notebook_id: str, folder: Path, items: list[dict],
         print(f"  title: {notebook.title!r}")
         if replace and not (notebook.title or "").startswith(UAT_TITLE):
             print(f"  WOULD REFUSE: title does not start with {UAT_TITLE!r}")
-        steps = plan(sources, version)
+        steps = plan(sources, version, COMPARE_KEEP.get(track))
         previous = steps["previous"]
+        total = len(steps["keep"]) + len(files)
+        print(f"  sources after the run: {total} of {SOURCE_LIMIT}" + ("  WOULD REFUSE: over the limit" if total > SOURCE_LIMIT else ""))
         if replace:
             for source, new_title in steps["relabel"]:
                 print(f"    ~ {title_of(source)} -> {new_title}")
@@ -180,7 +192,10 @@ async def replace_sources(client, notebook_id: str, folder: Path, track: str, ve
     notebook = await client.notebooks.get(notebook_id)
     if not (notebook.title or "").startswith(UAT_TITLE):
         raise SystemExit(f"refusing to replace sources in {notebook.title!r}: not a UAT notebook")
-    steps = plan(await client.sources.list(notebook_id), version)
+    steps = plan(await client.sources.list(notebook_id), version, COMPARE_KEEP.get(track))
+    total = len(steps["keep"]) + len(staged(folder))
+    if total > SOURCE_LIMIT:
+        raise SystemExit(f"would need {total} sources (limit {SOURCE_LIMIT}): extend COMPARE_KEEP trimming")
     for source, new_title in steps["relabel"]:
         await client.sources.rename(notebook_id, source.id, new_title)
     print(f"notebook {notebook_id} {notebook.title!r}: keeping {len(steps['keep'])} source(s) of "
@@ -245,13 +260,14 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None, pause:
         elif replace:
             previous = await replace_sources(client, notebook_id, folder, track, version, ref)
         else:
-            previous = plan(await client.sources.list(notebook_id), version)["previous"]
+            previous = plan(await client.sources.list(notebook_id), version, COMPARE_KEEP.get(track))["previous"]
         sources = await client.sources.list(notebook_id)
         titles = {s.id: title_of(s) for s in sources}
         current_ids = [s.id for s in sources if source_version(title_of(s)) == version]
         if not current_ids:
             raise SystemExit(f"no {version} sources in the notebook: run with --replace")
         both_ids = [s.id for s in sources if source_version(title_of(s)) in {version, previous}]
+        kept = sorted(title_of(s) for s in sources if source_version(title_of(s)) == previous)
         scope = (f"Use only the {version} sources (every source title ends with its version, "
                  f"e.g. omnibus-a4.{version}.pdf).")
         for index, item in enumerate(items):
@@ -267,7 +283,8 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None, pause:
         if previous:
             await asyncio.sleep(pause)
             print("ask CMP", flush=True)
-            question = COMPARE.format(new=version, old=previous, worksheet=worksheet.name)
+            question = COMPARE.format(new=version, old=previous, worksheet=worksheet.name) + (
+                f" Of {previous} only these are loaded: {', '.join(kept)}; compare like with like.")
             reply = await ask(client, notebook_id, question, both_ids, titles)
             found = VERDICT.search(reply["answer"])
             status = "ERROR" if reply.get("error") else (found.group(1) if found else "UNCLEAR")
