@@ -1026,6 +1026,17 @@ in black linen; Lulu has no A3.)
    pointing to the theory pages to read with it, so leafing through the Atlas
    iterates through the theory chapters.
 
+- [ ] Triptych panels (L*.1) fixed at the source (author review 8 Oct, printed
+      pages 70-83): today each panel is a narrow centre slice of one landscape
+      app capture, so wide subjects are cut (dyad: two people at the edges;
+      human: off-centre, halo cut; brain: wider than the slice, the red HEAD
+      panel cut). Plan: (1) capture each dimension (4D, 8D, 11D) separately in
+      an upright viewport; (2) the app frames the subject for any aspect ratio
+      (also needed for tablets in portrait, ISS-047); (3) captures without UI
+      panels or labels (`ui`/`labels` off): graphics only, labels stay in the
+      Atlas captions and keys. Keep triptych plus detail page per level; one
+      full page per dimension only for a few showcase levels, if wanted. The A3
+      PDF is behind its sources; recapture and rebuild before print.
 ---
 
 ## ISS-041: [T]-Theory course book (textbook edition becomes the course) — OPEN
