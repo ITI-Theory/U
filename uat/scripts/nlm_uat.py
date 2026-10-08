@@ -38,6 +38,7 @@ import sys
 from pathlib import Path
 
 from notebooklm import NotebookLMClient
+from notebooklm.exceptions import RateLimitError
 
 UAT = Path(__file__).resolve().parents[1]
 WORKSHEETS = {"papers": "papers-omnibus-nlm-uat.md", "ttheory": "ttheory-nlm-uat.md"}
@@ -225,6 +226,8 @@ async def ask(client, notebook_id: str, prompt: str, source_ids: list[str], titl
         answer = await client.chat.ask(notebook_id, prompt, source_ids=source_ids)
         cited = sorted({titles.get(ref.source_id, ref.source_id) for ref in answer.references})
         return {"answer": answer.answer, "cited": cited}
+    except RateLimitError as error:  # the daily chat quota: stop asking
+        return {"answer": f"RateLimitError: {error}", "cited": [], "error": True, "quota": True}
     except Exception as error:  # keep going; record the failure
         return {"answer": f"{type(error).__name__}: {error}", "cited": [], "error": True}
 
@@ -270,17 +273,25 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None, pause:
         kept = sorted(title_of(s) for s in sources if source_version(title_of(s)) == previous)
         scope = (f"Use only the {version} sources (every source title ends with its version, "
                  f"e.g. omnibus-a4.{version}.pdf).")
+        quota = False
         for index, item in enumerate(items):
+            if quota:
+                results.append({**item, "status": "NOT RUN", "answer": "Not asked: daily chat quota reached.", "cited": []})
+                continue
             if index:
                 await asyncio.sleep(pause)  # pace like a person: the chat quota is per account
             prompt = (f"Execute worksheet item {item['id']} ({item['title']}) from {worksheet.name}.\n"
                       f"{scope}\nQuestion: {item['question']}\n{FORMAT}")
             print(f"ask {item['id']}", flush=True)
             reply = await ask(client, notebook_id, prompt, current_ids, titles)
+            quota = bool(reply.get("quota"))
             found = STATUS.search(reply["answer"])
             status = "ERROR" if reply.get("error") else (found.group(1) if found else "UNCLEAR")
             results.append({**item, "status": status, **{k: reply[k] for k in ("answer", "cited")}})
-        if previous:
+        if previous and quota:
+            results.append({"id": "CMP", "title": f"{version} against {previous}", "question": "",
+                            "status": "NOT RUN", "answer": "Not asked: daily chat quota reached.", "cited": []})
+        elif previous:
             await asyncio.sleep(pause)
             print("ask CMP", flush=True)
             question = COMPARE.format(new=version, old=previous, worksheet=worksheet.name) + (
@@ -294,7 +305,7 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None, pause:
     out = UAT / "results"
     out.mkdir(exist_ok=True)
     report = out / f"{track}-{version}-{stamp}.md"
-    counts = {s: sum(r["status"] == s for r in results) for s in ("PASS", "FIX", "OPEN", "BETTER", "SAME", "WORSE", "UNCLEAR", "ERROR")}
+    counts = {s: sum(r["status"] == s for r in results) for s in ("PASS", "FIX", "OPEN", "BETTER", "SAME", "WORSE", "UNCLEAR", "ERROR", "NOT RUN")}
     summary = ", ".join(f"{k} {v}" for k, v in counts.items() if v)
     lines = [
         f"# NotebookLM UAT: {track} {version} ({stamp})",
@@ -319,6 +330,10 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None, pause:
                                                        "previous": previous, "results": results},
                                                       indent=2, ensure_ascii=False), encoding="utf-8", newline="\n")
     print(f"report {report}  ({summary})")
+    left = [r["id"] for r in results if r["status"] == "NOT RUN" or "RateLimitError" in r["answer"]]
+    if left:
+        items_left = ",".join(i for i in left if i != "CMP")
+        print(f"quota reached; when it resets: make uat-nlm TRACK={track} KEEP=1" + (f" ITEMS={items_left}" if items_left else ""))
     return report
 
 
