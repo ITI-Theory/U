@@ -1522,4 +1522,13 @@ papers UAT notebook); one source can be large, so books can be merged.
 - [ ] `make` target: copy the listed sources into `upload/` (merging where the
       limit needs it) and upload with the bridge (`--dry-run` first).
 - [ ] Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
+- Candidates noted 8 Oct (rule: one original per level, no remixes; CC BY can
+  also go to MOTHER, NC/SA and copyrighted only to HAL/HAL-UAT): already owned:
+  Earle *Physical Geology* 2e (CC BY 4.0), OpenStax *Astronomy* 2e older CC BY
+  copy (current edition is CC BY-NC-SA); skip the remixes *Introduction to
+  Earth Science* and *Introduction to Planetary Geology*. MIT OCW (CC BY-NC-SA,
+  merge each course's PDFs into one source): 8.821 String Theory 2008
+  (McGreevy; holography, wave equation and correlators in AdS), 8.251 String
+  Theory for Undergraduates, 8.323/8.324 QFT, 8.962 General Relativity.
+  Check overlap with Penrose ch. 31 first.
 
