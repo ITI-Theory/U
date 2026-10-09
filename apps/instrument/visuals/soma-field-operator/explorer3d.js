@@ -1,7 +1,14 @@
 // explorer3d.js: the landscape of states in 3D for the mind-body explorer (ISS-052).
-// A terrain mesh of the same energy the 2D drawing and the checked simulation use
-// (explorer.js energy), the state as a glowing ball with its trail, and the camera
-// circling slowly over the valleys. The explorer's 2D canvas draws the labels on top.
+// One world in three layers, as the 4D/8D/11D switch:
+//   4D  the mountains: a terrain of the same energy the 2D drawing and the checked
+//       simulation use (explorer.js energy), the state as a glowing ball with its trail;
+//   8D  + the country: rolling plains around them that swell and move with Phi (limbic);
+//   11D + the city: towers of glowing code on the horizon (as in Hackers, 1995), made of
+//       the programme's own formal layer: Sherlock's concepts with their Lean names
+//       (taller for stronger evidence) and the levels' equations, with circuit streets
+//       running down to the mountains.
+// The camera swings over the mountains with the city behind. The explorer's 2D canvas
+// draws the labels on top.
 
 import * as THREE from 'three';
 
@@ -11,7 +18,8 @@ const TRAIL = 160;
 
 // energy(px, py, beta, J) and the well positions come from explorer.js, so the terrain
 // is exactly what the simulation rolls on.
-export function createLandscape3D({ energy, wells }) {
+// city: [{ title, lines: [...], status }] (main.js: the concept registry and level equations)
+export function createLandscape3D({ energy, wells, city = [] }) {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -22,7 +30,7 @@ export function createLandscape3D({ energy, wells }) {
   const canvas = renderer.domElement;
   canvas.className = 'explorer__gl';
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog('#0b1226', 4.5, 9);
+  scene.fog = new THREE.Fog('#0b1226', 5, 17);
   const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 50);
 
   scene.add(new THREE.HemisphereLight('#9fd8ff', '#140a1c', 0.9));
@@ -59,6 +67,11 @@ export function createLandscape3D({ energy, wells }) {
   trailGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(TRAIL * 3), 3));
   const trail = new THREE.Line(trailGeometry, new THREE.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.55 }));
   scene.add(trail);
+
+  const country = makeCountry();
+  scene.add(country.mesh);
+  const cityGroup = makeCity(city);
+  scene.add(cityGroup);
 
   const wellLights = wells.map(() => {
     const light = new THREE.PointLight('#ffffff', 0, 0.9);
@@ -134,9 +147,14 @@ export function createLandscape3D({ energy, wells }) {
         key = next;
         rebuild(state.phi, state.T, state.J);
       }
-      const r = 3.9;
-      camera.position.set(Math.cos(state.theta) * r, 2.3 + 0.2 * Math.sin(state.theta * 1.7), Math.sin(state.theta) * r);
-      camera.lookAt(0, -0.25, 0);
+      // swing over the mountains on the near side, the city on the horizon behind them
+      const swing = Math.PI / 2 + 0.75 * Math.sin(state.theta * 0.9);
+      const r = 4.6;
+      camera.position.set(Math.cos(swing) * r, 1.45 + 0.2 * Math.sin(state.theta * 1.7), Math.sin(swing) * r);
+      camera.lookAt(0, 0.3, -2.4);
+      country.mesh.visible = state.dim >= 8;
+      if (country.mesh.visible) country.update(state.phi, state.time);
+      cityGroup.visible = state.dim >= 11;
       ball.position.copy(toWorld(state.ball.x, state.ball.y, 0.06));
       const tp = trailGeometry.attributes.position;
       state.trail.forEach(([x, y], i) => {
@@ -152,10 +170,120 @@ export function createLandscape3D({ energy, wells }) {
       });
       renderer.render(scene, camera);
     },
-    // screen position (pixels from the centre) of a state-space point, for labels
+    // screen position (fractions of the canvas from the centre) of a state-space point
     project(px, py, lift = 0) {
       const v = toWorld(px, py, lift).project(camera);
       return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 };
     },
+    // the same for a world point (zone labels: city, country)
+    projectWorld(x, y, z) {
+      const v = new THREE.Vector3(x, y, z).project(camera);
+      return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.1 };
+    },
   };
 }
+
+// 8D: the country, rolling plains around the mountains (hidden under the terrain square)
+function makeCountry() {
+  const geometry = new THREE.PlaneGeometry(22, 22, 72, 72);
+  geometry.rotateX(-Math.PI / 2);
+  const mesh = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), new THREE.LineBasicMaterial({ color: '#56f0a2', transparent: true, opacity: 0.22 }));
+  const wire = mesh.geometry.attributes.position;
+  return {
+    mesh,
+    update(phi, time) {
+      const amp = 0.06 + 0.22 * phi;
+      for (let i = 0; i < wire.count; i++) {
+        const x = wire.getX(i);
+        const z = wire.getZ(i);
+        const inside = Math.abs(x) < 1.5 && Math.abs(z) < 1.5;
+        const y = inside ? -0.9 : 0.25 + amp * (Math.sin(x * 0.9 + time * 0.4) * Math.cos(z * 0.7 - time * 0.3) + 0.5 * Math.sin((x + z) * 1.7 + time * 0.8));
+        wire.setY(i, y);
+      }
+      wire.needsUpdate = true;
+      mesh.material.color.setHSL(0.4 - 0.32 * phi, 0.8, 0.6);
+    },
+  };
+}
+
+// 11D: the city of code. Towers of glowing text along an avenue towards the mountains,
+// circuit traces for streets. Tower height follows the evidence of its concept.
+const HEIGHT = { 'kernel-verified': 3.4, definition: 2.2, sorry: 1.3, axiom: 0.9 };
+
+function towerTexture(item, hue) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 512;
+  const g = canvas.getContext('2d');
+  g.fillStyle = 'rgba(4,10,24,0.55)';
+  g.fillRect(0, 0, 256, 512);
+  g.font = '15px "Space Mono", monospace';
+  const lines = [item.title, ...item.lines].filter(Boolean);
+  let y = 18;
+  let k = 0;
+  while (y < 512) {
+    const text = String(lines[k % lines.length]);
+    g.fillStyle = k % lines.length === 0 ? '#ffffff' : `hsla(${hue}, 90%, ${55 + (k * 7) % 25}%, 0.95)`;
+    for (let start = 0; start < text.length && y < 512; start += 24) {
+      g.fillText(text.slice(start, start + 24), 8, y);
+      y += 18;
+    }
+    if (k % 3 === 2) {
+      g.fillStyle = `hsla(${hue}, 90%, 60%, 0.5)`;
+      g.fillRect(8, y - 10, 40 + ((k * 37) % 150), 6);
+      y += 12;
+    }
+    k += 1;
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+const mod = (n, m) => ((n % m) + m) % m;
+
+function makeCity(items) {
+  const group = new THREE.Group();
+  if (!items.length) return group;
+  const box = new THREE.BoxGeometry(1, 1, 1);
+  const edges = new THREE.EdgesGeometry(box);
+  items.forEach((item, i) => {
+    const side = i % 2 ? 1 : -1;
+    const row = Math.floor(i / 2);
+    const x = side * (1.0 + (row % 3) * 0.9 + ((i * 13) % 5) * 0.05);
+    const z = -3.6 - row * 0.62;
+    const height = HEIGHT[item.status] ?? 1.4 + ((i * 7) % 10) / 10;
+    const hue = item.status === 'kernel-verified' ? 150 : item.status === 'sorry' || item.status === 'axiom' ? 320 : 190;
+    const texture = towerTexture(item, hue);
+    const tower = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0.92, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    tower.scale.set(0.55, height, 0.55);
+    tower.position.set(x, height / 2 - 0.1, z);
+    group.add(tower);
+    const outline = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: new THREE.Color(`hsl(${hue}, 90%, 65%)`), transparent: true, opacity: 0.7 }));
+    outline.scale.copy(tower.scale);
+    outline.position.copy(tower.position);
+    group.add(outline);
+  });
+  // circuit traces: right-angled streets from the avenue down towards the mountains
+  const points = [];
+  const depth = -3.6 - Math.ceil(items.length / 2) * 0.62;
+  for (let k = -6; k <= 6; k++) {
+    let x = k * 0.16;
+    let z = depth;
+    while (z < -1.6) {
+      const nz = Math.min(-1.6, z + 0.5 + mod(k * 31 + Math.round(z * 10), 7) * 0.1);
+      points.push(x, -0.08, z, x, -0.08, nz);
+      z = nz;
+      if (z < -1.6) {
+        const nx = x + (mod(k * 17 + Math.round(z * 10), 3) - 1) * 0.16;
+        points.push(x, -0.08, z, nx, -0.08, z);
+        x = nx;
+      }
+    }
+  }
+  const traces = new THREE.BufferGeometry();
+  traces.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+  group.add(new THREE.LineSegments(traces, new THREE.LineBasicMaterial({ color: '#b46cff', transparent: true, opacity: 0.85 })));
+  return group;
+}
+

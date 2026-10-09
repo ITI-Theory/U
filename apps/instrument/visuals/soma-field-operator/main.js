@@ -1265,6 +1265,11 @@ const explorer = createExplorer({
     location.hash = params.toString();
   },
   levelLabel: levelId => levelsById.get(levelId)?.label ?? levelId,
+  // the 3D landscape's city of code: Sherlock's concepts (height by evidence) and the levels' equations
+  cityItems: () => [
+    ...registryConcepts.map(c => ({ title: c.concept, status: c.status, lines: [c.lean ?? '', c.status ?? '', c.where ?? '', ...(c.papers ?? []).map(p => `paper ${p}`), c.notes ?? ''] })),
+    ...registryLevels.filter(l => l.equation).map(l => ({ title: l.label, status: 'equation', lines: [l.equation, l.field ?? '', l.length_scale ?? '', l.substrate ?? ''] })),
+  ],
 });
 const elevator = createElevator({
   onFloor: index => setPathStep(index),

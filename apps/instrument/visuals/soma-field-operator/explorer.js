@@ -96,6 +96,8 @@ const CAPTIONS = {
   landscape: {
     title: 'THE LANDSCAPE OF STATES', label: 'simulated',
     4: 'The same three memories as valleys of the energy E (missing limbic layer paper); the ball is the person\'s state. Calm: deep valleys, and the ball stays where it is, even in FREEZE. Raise Φ past the middle and the valleys melt into one. RESOURCE (the therapist\'s J(t), Gestalt paper) tilts the ground towards SAFE; lower Φ again and the ball settles somewhere new.',
+    8: 'In 3D, the country (8D): plains around the mountains that swell and move with Φ, the limbic field.',
+    11: 'And the city of code (11D) on the horizon, the formal mind, as in the film Hackers: each tower is a concept of the programme with its Lean theorem, taller for stronger evidence (kernel-verified tallest; Sherlock), or a level\'s equation; circuit streets run down to the mountains. Interpretive.',
   },
 };
 
@@ -1055,8 +1057,15 @@ function makeLandscape() {
       const beta = 1 / T;
       const J = env.resource ? RESOURCE_J : 0;
       if (env.gl) {
-        env.gl.render({ phi, T, J, dim, theta, ball, trail, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]) });
+        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]) });
         if (env.labels) {
+          const zones = [[[0, 0.75, 1.75], 'MOUNTAINS · the body’s memories (4D)', COLORS.ice, 4],
+            [[-3.4, 0.9, -0.6], 'COUNTRY · the limbic plains (8D)', '#56f0a2', 8],
+            [[0, 3.8, -9], 'CITY OF CODE · the formal mind (11D)', '#b46cff', 11]];
+          for (const [[x, y, z], text, color, layer] of zones) {
+            const s = layer <= dim ? env.gl.projectWorld(x, y, z) : null;
+            if (s?.visible) label(ctx, u, text, (s.x * env.w) / u, (s.y * env.h) / u, color, 'center', 0.028);
+          }
           for (const [k, [wx, wy]] of WELLS.entries()) {
             const s = env.gl.project(wx, wy, 0.32);
             if (s.visible) label(ctx, u, MEMORY_NAMES[k].toUpperCase(), (s.x * env.w) / u, (s.y * env.h) / u, MEMORY_COLORS[MEMORY_NAMES[k]], 'center', 0.034);
@@ -1206,7 +1215,7 @@ export function createExplorer(hooks = {}) {
   function landscapeGl() {
     if (!glTried) {
       glTried = true;
-      gl = createLandscape3D({ energy, wells: WELLS });
+      gl = createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [] });
       if (gl) {
         root.prepend(gl.canvas);
         gl.resize(w, h, dpr);

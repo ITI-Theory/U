@@ -1959,6 +1959,18 @@ Steps:
       k ×10^-d) and the floor's carrier field, and (∇² + k²) G = δ stays on
       top. STEP OUT at Human, Whole Brain and Cellular opens the explorer at
       its stop; the explorer's STEP BACK IN returns to the floor.
+- [x] City, country, mountains (author, 10 Oct 00:40, with the *Hackers* (1995)
+      still of towers of code: "towers of code + buildings, plus the
+      attractors: a landscape from city to country to mountains"). The 3D
+      landscape is now one world in the three layers: 4D the mountains (the
+      attractor valleys), 8D + the country (plains that swell and move with
+      Φ), 11D + the city of code on the horizon: towers of glowing text made
+      of the programme's own formal layer (Sherlock's concepts with their Lean
+      names, taller for stronger evidence; the levels' equations), violet
+      circuit streets down to the mountains. Labelled interpretive.
+- [ ] City, next: towers clickable (open the concept, its Lean file and paper);
+      a fly-through from the city down the avenue to the mountains as a tour
+      move; the city grows as Sherlock's registry grows.
 - [ ] Elevator, from H-AL: show the tensor rank N(σ) beside ℓ(σ), the response
       time τ, and the carrier field retyping as the car moves; more STEP OUT
       floors as stops appear (dyad, swarm, geological memory, cosmic web);
