@@ -29,9 +29,18 @@ Built 8-9 Oct (all pushed; details in ISSUES):
 Engine room FUEL (ISS-050) done and tested: H-AL answers from HAL-UAT (30
 sources); the old HAL notebook is empty; MOTHER has only 1 source.
 
+Evening of 9 Oct (all pushed): NotebookLM usage gauges and checks (`make
+nlm-usage`); MOTHER loaded with the released work; chats from VS Code (28) and a
+Google Takeout (158 AI Mode, 4 NotebookLM histories) in Me/chats; Visualize display
+switch, flock primitive and figure library (`make visualize-library`); five audience
+tours; Sherlock concept registry (`make concepts`, SHERLOCK panel, OpenCyc check:
+the Lean CycRef constants are not OpenCyc constants, ISS-046); release gate 19
+sections, 0 failures.
+
 ## Next
 
-1. Check MOTHER's notebook (1 source only; it should hold the released work).
+1. Author: the gmail Takeout (`make -C Me/chats takeout Z=... A=gmail DRY=1`);
+   the P21 zoom-step question; the OpenCyc decision for EmotionOntology (ISS-046).
 2. Author: run `#tour=hal-consulting-room` once with the HAL voice; check the
    Atlas pages 70-83; P21 sign-off.
 3. Then the release path in ISS-047 / ISS-001: restage rc3.3, NotebookLM UAT,
