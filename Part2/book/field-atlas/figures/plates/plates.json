@@ -5,13 +5,8 @@
       "label": "Quantum Foam",
       "triptych": {
         "file": "figures/plates/quantum-foam-triptych.png",
-        "caption": "Figure for Quantum Foam: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1198,
-          0,
-          2584,
-          2400
-        ]
+        "caption": "Figure for Quantum Foam: 4D and 8D views with the same framing; there is no 11D view at the quantum scales.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/quantum-foam-callouts.png",
@@ -22,24 +17,24 @@
             "id": "vacuum-grain",
             "label": "Vacuum grain",
             "caption": "The plate treats the substrate as local fluctuations rather than a finished object.",
-            "source_dim": "11d",
-            "score": 44.66
+            "source_dim": "4d",
+            "score": 43.79
           },
           {
             "letter": "B",
             "id": "virtual-loop",
             "label": "Virtual loop",
             "caption": "Loop-like traces mark transient correlations in the quantum field.",
-            "source_dim": "11d",
-            "score": 53.62
+            "source_dim": "8d",
+            "score": 51.11
           },
           {
             "letter": "C",
             "id": "response-ripple",
             "label": "Response ripple",
             "caption": "Concentric structure shows how a disturbance is read as a propagator response.",
-            "source_dim": "11d",
-            "score": 59.98
+            "source_dim": "8d",
+            "score": 57.05
           },
           {
             "letter": "D",
@@ -47,7 +42,7 @@
             "label": "Foam boundary",
             "caption": "The edge is a scale boundary, not a material wall.",
             "source_dim": "4d",
-            "score": 61.89
+            "score": 61.77
           }
         ],
         "main_crop": [
@@ -62,13 +57,8 @@
       "label": "String / Planck Boundary",
       "triptych": {
         "file": "figures/plates/string-boundary-triptych.png",
-        "caption": "Figure for String / Planck Boundary: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1234,
-          0,
-          2620,
-          2400
-        ]
+        "caption": "Figure for String / Planck Boundary: 4D and 8D views with the same framing; there is no 11D view at the quantum scales.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/string-boundary-callouts.png",
@@ -79,8 +69,8 @@
             "id": "worldsheet",
             "label": "Worldsheet",
             "caption": "The drawn sheet stands for a two-dimensional string boundary surface.",
-            "source_dim": "11d",
-            "score": 42.04
+            "source_dim": "8d",
+            "score": 42.03
           },
           {
             "letter": "B",
@@ -88,7 +78,7 @@
             "label": "Mode node",
             "caption": "Bright nodes mark standing-wave modes along the boundary.",
             "source_dim": "11d",
-            "score": 33.48
+            "score": 33.5
           },
           {
             "letter": "C",
@@ -96,7 +86,7 @@
             "label": "Open end",
             "caption": "Endpoint structure identifies the boundary condition being visualised.",
             "source_dim": "8d",
-            "score": 58.45
+            "score": 58.48
           },
           {
             "letter": "D",
@@ -104,7 +94,7 @@
             "label": "Coupling thread",
             "caption": "Thread lines show how local modes are coupled across the sheet.",
             "source_dim": "11d",
-            "score": 59.34
+            "score": 59.42
           }
         ],
         "main_crop": [
@@ -119,13 +109,8 @@
       "label": "Nuclear",
       "triptych": {
         "file": "figures/plates/nuclear-triptych.png",
-        "caption": "Figure for Nuclear: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1254,
-          0,
-          2640,
-          2400
-        ]
+        "caption": "Figure for Nuclear: 4D and 8D views with the same framing; there is no 11D view at the quantum scales.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/nuclear-callouts.png",
@@ -137,7 +122,7 @@
             "label": "Nucleon core",
             "caption": "The compact core marks bound nuclear matter.",
             "source_dim": "11d",
-            "score": 124.01
+            "score": 124.08
           },
           {
             "letter": "B",
@@ -145,7 +130,7 @@
             "label": "Strong well",
             "caption": "The well represents the short-range binding field.",
             "source_dim": "11d",
-            "score": 71.28
+            "score": 71.33
           },
           {
             "letter": "C",
@@ -153,15 +138,15 @@
             "label": "Decay track",
             "caption": "Outgoing tracks show response channels rather than a continuous orbit.",
             "source_dim": "4d",
-            "score": 52.18
+            "score": 52.24
           },
           {
             "letter": "D",
             "id": "shell-band",
             "label": "Shell band",
             "caption": "Shell structure records allowed nuclear configurations.",
-            "source_dim": "8d",
-            "score": 90.51
+            "source_dim": "11d",
+            "score": 90.54
           }
         ],
         "main_crop": [
@@ -176,13 +161,8 @@
       "label": "Atomic",
       "triptych": {
         "file": "figures/plates/atomic-triptych.png",
-        "caption": "Figure for Atomic: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1307,
-          0,
-          2693,
-          2400
-        ]
+        "caption": "Figure for Atomic: 4D and 8D views with the same framing; there is no 11D view at the quantum scales.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/atomic-callouts.png",
@@ -193,16 +173,16 @@
             "id": "nucleus",
             "label": "Nucleus",
             "caption": "The nucleus anchors the Coulomb field at atomic scale.",
-            "source_dim": "11d",
-            "score": 74.78
+            "source_dim": "8d",
+            "score": 74.71
           },
           {
             "letter": "B",
             "id": "1s-orbital",
             "label": "1s orbital",
             "caption": "The inner cloud is the spherically symmetric ground-state density.",
-            "source_dim": "11d",
-            "score": 51.03
+            "source_dim": "8d",
+            "score": 50.94
           },
           {
             "letter": "C",
@@ -210,7 +190,7 @@
             "label": "Excited orbital",
             "caption": "Outer lobes show higher orbital structure as a probability field.",
             "source_dim": "8d",
-            "score": 34.35
+            "score": 34.32
           },
           {
             "letter": "D",
@@ -218,7 +198,7 @@
             "label": "Balmer lines",
             "caption": "The spectrum band marks hydrogen emission wavelengths in the visible series.",
             "source_dim": "4d",
-            "score": 43.01
+            "score": 43.06
           }
         ],
         "main_crop": [
@@ -233,13 +213,8 @@
       "label": "Molecular",
       "triptych": {
         "file": "figures/plates/molecular-triptych.png",
-        "caption": "Figure for Molecular: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1249,
-          0,
-          2635,
-          2400
-        ]
+        "caption": "Figure for Molecular: 4D and 8D views with the same framing; there is no 11D view at the quantum scales.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/molecular-callouts.png",
@@ -250,16 +225,16 @@
             "id": "atom-centre",
             "label": "Atomic centre",
             "caption": "Spheres mark nuclei within the molecular substrate.",
-            "source_dim": "11d",
-            "score": 77.53
+            "source_dim": "8d",
+            "score": 77.58
           },
           {
             "letter": "B",
             "id": "bond",
             "label": "Bond",
             "caption": "Bond tubes show shared electronic structure rather than rigid rods.",
-            "source_dim": "11d",
-            "score": 82.65
+            "source_dim": "8d",
+            "score": 82.63
           },
           {
             "letter": "C",
@@ -267,7 +242,7 @@
             "label": "Electron density",
             "caption": "The surrounding haze reads the molecular field as charge density.",
             "source_dim": "11d",
-            "score": 66.65
+            "score": 66.63
           },
           {
             "letter": "D",
@@ -275,7 +250,7 @@
             "label": "Vibrational mode",
             "caption": "Wave traces indicate normal-mode response of the molecule.",
             "source_dim": "11d",
-            "score": 73.05
+            "score": 73.09
           }
         ],
         "main_crop": [
@@ -290,13 +265,8 @@
       "label": "Cellular / Synaptic",
       "triptych": {
         "file": "figures/plates/cellular-synaptic-triptych.png",
-        "caption": "Figure for Cellular / Synaptic: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1211,
-          0,
-          2597,
-          2400
-        ]
+        "caption": "Figure for Cellular / Synaptic: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/cellular-synaptic-callouts.png",
@@ -308,7 +278,7 @@
             "label": "Soma",
             "caption": "The soma is the central cellular body and metabolic substrate.",
             "source_dim": "4d",
-            "score": 93.32
+            "score": 93.69
           },
           {
             "letter": "B",
@@ -316,7 +286,7 @@
             "label": "Nucleus",
             "caption": "The nucleus anchors genomic regulation inside the cell body.",
             "source_dim": "11d",
-            "score": 84.03
+            "score": 84.21
           },
           {
             "letter": "C",
@@ -324,7 +294,7 @@
             "label": "Dendrite",
             "caption": "Branching dendrites receive local input into the cell field.",
             "source_dim": "11d",
-            "score": 56.55
+            "score": 56.57
           },
           {
             "letter": "D",
@@ -340,7 +310,7 @@
             "label": "Myelin",
             "caption": "Myelin segments insulate the axon and shape conduction speed.",
             "source_dim": "11d",
-            "score": 25.03
+            "score": 25.02
           },
           {
             "letter": "F",
@@ -348,7 +318,7 @@
             "label": "Synapse",
             "caption": "The terminal synapse is the contact zone for chemical or electrical transfer.",
             "source_dim": "11d",
-            "score": 26.14
+            "score": 26.17
           }
         ],
         "main_crop": [
@@ -363,13 +333,8 @@
       "label": "Local Circuit",
       "triptych": {
         "file": "figures/plates/local-circuit-triptych.png",
-        "caption": "Figure for Local Circuit: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1247,
-          0,
-          2633,
-          2400
-        ]
+        "caption": "Figure for Local Circuit: 4D and 8D views with the same framing; there is no 11D view at the quantum scales.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/local-circuit-callouts.png",
@@ -381,7 +346,7 @@
             "label": "Pyramidal cell",
             "caption": "Principal cells provide the excitatory scaffold of the local circuit.",
             "source_dim": "11d",
-            "score": 37.9
+            "score": 37.97
           },
           {
             "letter": "B",
@@ -389,23 +354,23 @@
             "label": "Interneuron",
             "caption": "Inhibitory nodes regulate timing and gain within the circuit.",
             "source_dim": "11d",
-            "score": 48.79
+            "score": 48.87
           },
           {
             "letter": "C",
             "id": "synaptic-lane",
             "label": "Synaptic lane",
             "caption": "Lines mark directed synaptic paths across the microcircuit.",
-            "source_dim": "8d",
-            "score": 42.77
+            "source_dim": "11d",
+            "score": 42.95
           },
           {
             "letter": "D",
             "id": "field-envelope",
             "label": "Field envelope",
             "caption": "The envelope visualises local population response rather than a single neuron.",
-            "source_dim": "8d",
-            "score": 36.47
+            "source_dim": "11d",
+            "score": 36.53
           }
         ],
         "main_crop": [
@@ -420,13 +385,8 @@
       "label": "Whole Brain / CEMI",
       "triptych": {
         "file": "figures/plates/whole-brain-cemi-triptych.png",
-        "caption": "Figure for Whole Brain / CEMI: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1518,
-          0,
-          2904,
-          2400
-        ]
+        "caption": "Figure for Whole Brain / CEMI: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/whole-brain-cemi-callouts.png",
@@ -438,7 +398,7 @@
             "label": "Cortical sheet",
             "caption": "The outer sheet represents cortex as an extended excitable surface.",
             "source_dim": "8d",
-            "score": 91.71
+            "score": 91.99
           },
           {
             "letter": "B",
@@ -446,7 +406,7 @@
             "label": "White matter",
             "caption": "Interior tracts carry long-range coupling through the brain.",
             "source_dim": "11d",
-            "score": 90.34
+            "score": 90.56
           },
           {
             "letter": "C",
@@ -454,7 +414,7 @@
             "label": "Brain EM field",
             "caption": "The halo marks measured electromagnetic activity around neural tissue.",
             "source_dim": "8d",
-            "score": 75.51
+            "score": 75.32
           },
           {
             "letter": "D",
@@ -462,7 +422,7 @@
             "label": "Brainstem",
             "caption": "The lower stem connects cortical dynamics to body regulation.",
             "source_dim": "11d",
-            "score": 85.91
+            "score": 85.63
           }
         ],
         "main_crop": [
@@ -477,13 +437,8 @@
       "label": "Human / Vertebrate",
       "triptych": {
         "file": "figures/plates/human-vertebrate-triptych.png",
-        "caption": "Figure for Human / Vertebrate: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1076,
-          0,
-          2462,
-          2400
-        ]
+        "caption": "Figure for Human / Vertebrate: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/human-vertebrate-callouts.png",
@@ -495,7 +450,7 @@
             "label": "Brain / cortex",
             "caption": "Cortical tissue is the high-integration neural layer of the body.",
             "source_dim": "11d",
-            "score": 123.1
+            "score": 123.63
           },
           {
             "letter": "B",
@@ -503,7 +458,7 @@
             "label": "Limbic well",
             "caption": "The limbic well marks homeostatic and affect-regulatory coupling.",
             "source_dim": "11d",
-            "score": 121.37
+            "score": 121.05
           },
           {
             "letter": "C",
@@ -511,7 +466,7 @@
             "label": "Spinal cord",
             "caption": "The cord carries bidirectional body-brain traffic.",
             "source_dim": "11d",
-            "score": 125.03
+            "score": 125.59
           },
           {
             "letter": "D",
@@ -519,7 +474,7 @@
             "label": "Peripheral nerves",
             "caption": "Peripheral branches distribute response through limbs and organs.",
             "source_dim": "11d",
-            "score": 72.3
+            "score": 72.82
           },
           {
             "letter": "E",
@@ -527,7 +482,7 @@
             "label": "Heart / vagal",
             "caption": "Cardiovagal coupling links visceral state to nervous-system dynamics.",
             "source_dim": "11d",
-            "score": 129.19
+            "score": 129.77
           },
           {
             "letter": "F",
@@ -535,7 +490,7 @@
             "label": "Skeleton / biotensegrity",
             "caption": "The body frame supplies the mechanical substrate of somatic response.",
             "source_dim": "11d",
-            "score": 92.21
+            "score": 93.38
           }
         ],
         "main_crop": [
@@ -550,13 +505,8 @@
       "label": "Dyad",
       "triptych": {
         "file": "figures/plates/dyad-triptych.png",
-        "caption": "Figure for Dyad: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1226,
-          0,
-          2612,
-          2400
-        ]
+        "caption": "Figure for Dyad: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/dyad-callouts.png",
@@ -568,7 +518,7 @@
             "label": "Person A",
             "caption": "One body supplies a coupled physiological oscillator.",
             "source_dim": "11d",
-            "score": 55.58
+            "score": 54.02
           },
           {
             "letter": "B",
@@ -576,15 +526,15 @@
             "label": "Person B",
             "caption": "The second body closes the dyadic response loop.",
             "source_dim": "8d",
-            "score": 48.36
+            "score": 47.44
           },
           {
             "letter": "C",
             "id": "gaze-line",
             "label": "Gaze line",
             "caption": "The central line marks perceptual coupling between the two bodies.",
-            "source_dim": "8d",
-            "score": 21.85
+            "source_dim": "11d",
+            "score": 17.88
           },
           {
             "letter": "D",
@@ -592,7 +542,7 @@
             "label": "Shared rhythm",
             "caption": "The lower waveform shows coordinated physiological timing.",
             "source_dim": "8d",
-            "score": 39.62
+            "score": 39.71
           }
         ],
         "main_crop": [
@@ -607,13 +557,8 @@
       "label": "Small Group / Crowd / Assembly",
       "triptych": {
         "file": "figures/plates/human-group-triptych.png",
-        "caption": "Figure for Small Group / Crowd / Assembly: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1162,
-          0,
-          2548,
-          2400
-        ]
+        "caption": "Figure for Small Group / Crowd / Assembly: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/human-group-callouts.png",
@@ -624,8 +569,8 @@
             "id": "speaker",
             "label": "Speaker",
             "caption": "A focal participant emits information into the group field.",
-            "source_dim": "8d",
-            "score": 23.94
+            "source_dim": "11d",
+            "score": 23.86
           },
           {
             "letter": "B",
@@ -633,7 +578,7 @@
             "label": "Listener cluster",
             "caption": "The cluster shows local reception and alignment.",
             "source_dim": "8d",
-            "score": 28.09
+            "score": 27.92
           },
           {
             "letter": "C",
@@ -641,7 +586,7 @@
             "label": "Attention links",
             "caption": "Links mark shared attention rather than physical force.",
             "source_dim": "8d",
-            "score": 36.94
+            "score": 36.74
           },
           {
             "letter": "D",
@@ -649,7 +594,7 @@
             "label": "Group boundary",
             "caption": "The outer contour separates the temporary group from its environment.",
             "source_dim": "11d",
-            "score": 44.38
+            "score": 44.32
           }
         ],
         "main_crop": [
@@ -664,13 +609,8 @@
       "label": "Animal Swarm",
       "triptych": {
         "file": "figures/plates/animal-swarm-triptych.png",
-        "caption": "Figure for Animal Swarm: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1268,
-          0,
-          2654,
-          2400
-        ]
+        "caption": "Figure for Animal Swarm: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/animal-swarm-callouts.png",
@@ -682,15 +622,15 @@
             "label": "Agent",
             "caption": "Each point is an individual with local sensing and motion.",
             "source_dim": "4d",
-            "score": 36.54
+            "score": 36.65
           },
           {
             "letter": "B",
             "id": "alignment-vector",
             "label": "Alignment vector",
             "caption": "Short vectors indicate neighbour-based directional coupling.",
-            "source_dim": "11d",
-            "score": 28.92
+            "source_dim": "8d",
+            "score": 28.9
           },
           {
             "letter": "C",
@@ -698,7 +638,7 @@
             "label": "Density front",
             "caption": "The front is an emergent swarm boundary.",
             "source_dim": "4d",
-            "score": 44.64
+            "score": 44.74
           },
           {
             "letter": "D",
@@ -706,7 +646,7 @@
             "label": "Wake",
             "caption": "Trailing structure shows memory in the collective flow.",
             "source_dim": "11d",
-            "score": 23.66
+            "score": 23.69
           }
         ],
         "main_crop": [
@@ -721,13 +661,8 @@
       "label": "Society / City",
       "triptych": {
         "file": "figures/plates/society-city-triptych.png",
-        "caption": "Figure for Society / City: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1290,
-          0,
-          2676,
-          2400
-        ]
+        "caption": "Figure for Society / City: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/society-city-callouts.png",
@@ -738,16 +673,16 @@
             "id": "street-grid",
             "label": "Street grid",
             "caption": "The grid is the built substrate for urban flow.",
-            "source_dim": "8d",
-            "score": 41.88
+            "source_dim": "4d",
+            "score": 52.99
           },
           {
             "letter": "B",
             "id": "transit-artery",
             "label": "Transit artery",
             "caption": "Bright corridors mark high-throughput movement channels.",
-            "source_dim": "8d",
-            "score": 43.83
+            "source_dim": "4d",
+            "score": 55.86
           },
           {
             "letter": "C",
@@ -755,15 +690,15 @@
             "label": "District node",
             "caption": "Nodes identify dense social and infrastructural centres.",
             "source_dim": "4d",
-            "score": 38.27
+            "score": 52.43
           },
           {
             "letter": "D",
             "id": "civic-field",
             "label": "Civic field",
             "caption": "The field overlay represents aggregate coordination across the city.",
-            "source_dim": "8d",
-            "score": 57.24
+            "source_dim": "4d",
+            "score": 47.17
           }
         ],
         "main_crop": [
@@ -778,13 +713,8 @@
       "label": "Regional / Institutional",
       "triptych": {
         "file": "figures/plates/regional-institutional-triptych.png",
-        "caption": "Figure for Regional / Institutional: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1241,
-          0,
-          2627,
-          2400
-        ]
+        "caption": "Figure for Regional / Institutional: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/regional-institutional-callouts.png",
@@ -796,31 +726,31 @@
             "label": "Town node",
             "caption": "Local settlements provide the regional substrate.",
             "source_dim": "11d",
-            "score": 38.52
+            "score": 38.57
           },
           {
             "letter": "B",
             "id": "corridor",
             "label": "Corridor",
             "caption": "Corridors join institutions, towns, and resource flows.",
-            "source_dim": "11d",
-            "score": 46.34
+            "source_dim": "8d",
+            "score": 46.38
           },
           {
             "letter": "C",
             "id": "institution",
             "label": "Institution",
             "caption": "Institutional nodes stabilise coordination over longer times.",
-            "source_dim": "8d",
-            "score": 20.31
+            "source_dim": "11d",
+            "score": 20.39
           },
           {
             "letter": "D",
             "id": "catchment",
             "label": "Catchment",
             "caption": "The catchment contour is the effective field of regional dependence.",
-            "source_dim": "11d",
-            "score": 52.08
+            "source_dim": "8d",
+            "score": 46.45
           }
         ],
         "main_crop": [
@@ -835,13 +765,8 @@
       "label": "Civilisational / Solar",
       "triptych": {
         "file": "figures/plates/civilisational-solar-triptych.png",
-        "caption": "Figure for Civilisational / Solar: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1303,
-          0,
-          2689,
-          2400
-        ]
+        "caption": "Figure for Civilisational / Solar: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/civilisational-solar-callouts.png",
@@ -852,32 +777,32 @@
             "id": "earth-node",
             "label": "Earth node",
             "caption": "The planet remains the material base of the civilisation-scale system.",
-            "source_dim": "8d",
-            "score": 80.91
+            "source_dim": "11d",
+            "score": 88.83
           },
           {
             "letter": "B",
             "id": "solar-input",
             "label": "Solar input",
             "caption": "Solar flux supplies the dominant external energy source.",
-            "source_dim": "8d",
-            "score": 99.01
+            "source_dim": "11d",
+            "score": 108.6
           },
           {
             "letter": "C",
             "id": "orbital-infrastructure",
             "label": "Orbital infrastructure",
             "caption": "Orbital traces mark technological extension beyond the surface.",
-            "source_dim": "11d",
-            "score": 80.84
+            "source_dim": "8d",
+            "score": 88.62
           },
           {
             "letter": "D",
             "id": "civilisational-loop",
             "label": "Civilisational loop",
             "caption": "The loop represents feedback between energy, institutions, and technology.",
-            "source_dim": "11d",
-            "score": 96.01
+            "source_dim": "8d",
+            "score": 104.26
           }
         ],
         "main_crop": [
@@ -892,13 +817,8 @@
       "label": "Geological",
       "triptych": {
         "file": "figures/plates/geological-triptych.png",
-        "caption": "Figure for Geological: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1204,
-          0,
-          2590,
-          2400
-        ]
+        "caption": "Figure for Geological: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/geological-callouts.png",
@@ -910,7 +830,7 @@
             "label": "Crust",
             "caption": "The crust is the rigid outer substrate of geological response.",
             "source_dim": "11d",
-            "score": 50.24
+            "score": 50.26
           },
           {
             "letter": "B",
@@ -918,7 +838,7 @@
             "label": "Fault",
             "caption": "Fault lines concentrate strain and release.",
             "source_dim": "11d",
-            "score": 62.3
+            "score": 62.33
           },
           {
             "letter": "C",
@@ -926,7 +846,7 @@
             "label": "Mantle plume",
             "caption": "Plumes mark vertical transport through the mantle field.",
             "source_dim": "11d",
-            "score": 48.2
+            "score": 48.08
           },
           {
             "letter": "D",
@@ -934,7 +854,7 @@
             "label": "Surface wave",
             "caption": "The surface trace records wave propagation through rock.",
             "source_dim": "8d",
-            "score": 42.84
+            "score": 42.85
           }
         ],
         "main_crop": [
@@ -949,13 +869,8 @@
       "label": "Planetary",
       "triptych": {
         "file": "figures/plates/planetary-triptych.png",
-        "caption": "Figure for Planetary: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1358,
-          0,
-          2744,
-          2400
-        ]
+        "caption": "Figure for Planetary: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/planetary-callouts.png",
@@ -967,7 +882,7 @@
             "label": "Planet disc",
             "caption": "The globe is the coupled atmosphere-ocean-land substrate.",
             "source_dim": "11d",
-            "score": 30.37
+            "score": 30.36
           },
           {
             "letter": "B",
@@ -975,7 +890,7 @@
             "label": "Atmosphere",
             "caption": "The outer shell marks atmospheric circulation and radiative exchange.",
             "source_dim": "8d",
-            "score": 54.35
+            "score": 54.33
           },
           {
             "letter": "C",
@@ -983,7 +898,7 @@
             "label": "Magnetosphere",
             "caption": "The wide envelope shows interaction with the solar wind.",
             "source_dim": "11d",
-            "score": 58.65
+            "score": 58.64
           },
           {
             "letter": "D",
@@ -991,7 +906,7 @@
             "label": "Climate band",
             "caption": "Bands show large-scale climatic structure.",
             "source_dim": "11d",
-            "score": 56.68
+            "score": 56.66
           }
         ],
         "main_crop": [
@@ -1006,13 +921,8 @@
       "label": "Orbital System",
       "triptych": {
         "file": "figures/plates/orbital-system-triptych.png",
-        "caption": "Figure for Orbital System: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1268,
-          0,
-          2654,
-          2400
-        ]
+        "caption": "Figure for Orbital System: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/orbital-system-callouts.png",
@@ -1023,16 +933,16 @@
             "id": "central-star",
             "label": "Central star",
             "caption": "The central mass structures the orbital field.",
-            "source_dim": "11d",
-            "score": 50.37
+            "source_dim": "8d",
+            "score": 50.35
           },
           {
             "letter": "B",
             "id": "planet-orbit",
             "label": "Planet orbit",
             "caption": "Orbits show gravitationally bound trajectories.",
-            "source_dim": "11d",
-            "score": 22.94
+            "source_dim": "8d",
+            "score": 22.91
           },
           {
             "letter": "C",
@@ -1040,7 +950,7 @@
             "label": "Resonance ring",
             "caption": "Ring spacing marks orbital resonance and timing.",
             "source_dim": "8d",
-            "score": 59.02
+            "score": 59.06
           },
           {
             "letter": "D",
@@ -1048,7 +958,7 @@
             "label": "Outer body",
             "caption": "Outer bodies sample the long-range gravitational response.",
             "source_dim": "11d",
-            "score": 13.89
+            "score": 13.88
           }
         ],
         "main_crop": [
@@ -1063,13 +973,8 @@
       "label": "Stellar",
       "triptych": {
         "file": "figures/plates/stellar-triptych.png",
-        "caption": "Figure for Stellar: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1213,
-          0,
-          2599,
-          2400
-        ]
+        "caption": "Figure for Stellar: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/stellar-callouts.png",
@@ -1088,16 +993,16 @@
             "id": "photosphere",
             "label": "Photosphere",
             "caption": "The photosphere is the visible radiating surface.",
-            "source_dim": "8d",
-            "score": 72.56
+            "source_dim": "11d",
+            "score": 72.55
           },
           {
             "letter": "C",
             "id": "magnetic-loop",
             "label": "Magnetic loop",
             "caption": "Loops show magnetised plasma structure above the surface.",
-            "source_dim": "8d",
-            "score": 76.44
+            "source_dim": "11d",
+            "score": 76.45
           },
           {
             "letter": "D",
@@ -1105,7 +1010,7 @@
             "label": "Stellar wave",
             "caption": "The wave trace marks oscillatory response within the star.",
             "source_dim": "11d",
-            "score": 65.91
+            "score": 65.92
           }
         ],
         "main_crop": [
@@ -1120,13 +1025,8 @@
       "label": "Compact Object",
       "triptych": {
         "file": "figures/plates/compact-object-triptych.png",
-        "caption": "Figure for Compact Object: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1219,
-          0,
-          2605,
-          2400
-        ]
+        "caption": "Figure for Compact Object: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/compact-object-callouts.png",
@@ -1137,32 +1037,32 @@
             "id": "event-horizon",
             "label": "Event horizon",
             "caption": "The dark centre marks the compact-object boundary.",
-            "source_dim": "11d",
-            "score": 71.04
+            "source_dim": "8d",
+            "score": 71.14
           },
           {
             "letter": "B",
             "id": "accretion-flow",
             "label": "Accretion flow",
             "caption": "The disc traces matter falling through curved spacetime.",
-            "source_dim": "11d",
-            "score": 44.17
+            "source_dim": "8d",
+            "score": 44.25
           },
           {
             "letter": "C",
             "id": "jet",
             "label": "Jet",
             "caption": "Jets mark collimated outflow from the compact system.",
-            "source_dim": "11d",
-            "score": 47.47
+            "source_dim": "8d",
+            "score": 47.61
           },
           {
             "letter": "D",
             "id": "ringdown",
             "label": "Ringdown",
             "caption": "Outer rings represent damped gravitational response.",
-            "source_dim": "11d",
-            "score": 75.76
+            "source_dim": "8d",
+            "score": 75.97
           }
         ],
         "main_crop": [
@@ -1177,13 +1077,8 @@
       "label": "Stellar / Cluster",
       "triptych": {
         "file": "figures/plates/stellar-cluster-triptych.png",
-        "caption": "Figure for Stellar / Cluster: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1290,
-          0,
-          2676,
-          2400
-        ]
+        "caption": "Figure for Stellar / Cluster: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/stellar-cluster-callouts.png",
@@ -1195,15 +1090,15 @@
             "label": "Cluster core",
             "caption": "The dense centre contains the highest stellar number density.",
             "source_dim": "8d",
-            "score": 33.47
+            "score": 33.74
           },
           {
             "letter": "B",
             "id": "member-star",
             "label": "Member star",
             "caption": "Individual points remain separate stars within the cluster field.",
-            "source_dim": "8d",
-            "score": 38.05
+            "source_dim": "11d",
+            "score": 38.17
           },
           {
             "letter": "C",
@@ -1211,15 +1106,15 @@
             "label": "Tidal tail",
             "caption": "The tail shows stars being stripped by external gravity.",
             "source_dim": "11d",
-            "score": 55.02
+            "score": 55.24
           },
           {
             "letter": "D",
             "id": "nebular-haze",
             "label": "Nebular haze",
             "caption": "The haze marks gas, dust, and unresolved light.",
-            "source_dim": "11d",
-            "score": 29.16
+            "source_dim": "8d",
+            "score": 29.33
           }
         ],
         "main_crop": [
@@ -1234,13 +1129,8 @@
       "label": "Galactic Disc",
       "triptych": {
         "file": "figures/plates/galactic-disc-triptych.png",
-        "caption": "Figure for Galactic Disc: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1251,
-          0,
-          2637,
-          2400
-        ]
+        "caption": "Figure for Galactic Disc: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/galactic-disc-callouts.png",
@@ -1252,31 +1142,31 @@
             "label": "Bulge",
             "caption": "The bulge is the dense central stellar component.",
             "source_dim": "4d",
-            "score": 72.33
+            "score": 71.77
           },
           {
             "letter": "B",
             "id": "spiral-arm",
             "label": "Spiral arm",
             "caption": "Arms show density-wave structure in the stellar disc.",
-            "source_dim": "8d",
-            "score": 36.86
+            "source_dim": "11d",
+            "score": 36.83
           },
           {
             "letter": "C",
             "id": "dust-lane",
             "label": "Dust lane",
             "caption": "Dark lanes mark gas and dust within the disc.",
-            "source_dim": "8d",
-            "score": 48.19
+            "source_dim": "11d",
+            "score": 48.03
           },
           {
             "letter": "D",
             "id": "outer-disc",
             "label": "Outer disc",
             "caption": "The outer disc records extended rotation and stellar distribution.",
-            "source_dim": "8d",
-            "score": 45.1
+            "source_dim": "11d",
+            "score": 45.11
           }
         ],
         "main_crop": [
@@ -1291,13 +1181,8 @@
       "label": "Galactic Halo",
       "triptych": {
         "file": "figures/plates/galactic-halo-triptych.png",
-        "caption": "Figure for Galactic Halo: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1219,
-          0,
-          2605,
-          2400
-        ]
+        "caption": "Figure for Galactic Halo: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/galactic-halo-callouts.png",
@@ -1308,32 +1193,32 @@
             "id": "disc",
             "label": "Disc",
             "caption": "The luminous disc is embedded inside the larger halo.",
-            "source_dim": "11d",
-            "score": 66.9
+            "source_dim": "8d",
+            "score": 66.38
           },
           {
             "letter": "B",
             "id": "halo",
             "label": "Halo",
             "caption": "The halo marks the extended gravitational environment around the galaxy.",
-            "source_dim": "11d",
-            "score": 38.9
+            "source_dim": "8d",
+            "score": 38.57
           },
           {
             "letter": "C",
             "id": "satellite",
             "label": "Satellite",
             "caption": "Satellite systems sample the halo potential at large radius.",
-            "source_dim": "11d",
-            "score": 36.61
+            "source_dim": "8d",
+            "score": 36.22
           },
           {
             "letter": "D",
             "id": "stream",
             "label": "Tidal stream",
             "caption": "Streams show stripped material tracing the halo field.",
-            "source_dim": "11d",
-            "score": 37.34
+            "source_dim": "8d",
+            "score": 37.01
           }
         ],
         "main_crop": [
@@ -1348,13 +1233,8 @@
       "label": "Galaxy Cluster",
       "triptych": {
         "file": "figures/plates/galaxy-cluster-triptych.png",
-        "caption": "Figure for Galaxy Cluster: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1236,
-          0,
-          2622,
-          2400
-        ]
+        "caption": "Figure for Galaxy Cluster: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/galaxy-cluster-callouts.png",
@@ -1366,7 +1246,7 @@
             "label": "Brightest galaxy",
             "caption": "The central galaxy anchors the cluster core.",
             "source_dim": "8d",
-            "score": 60.43
+            "score": 60.42
           },
           {
             "letter": "B",
@@ -1374,7 +1254,7 @@
             "label": "Member galaxy",
             "caption": "Members orbit within a common cluster potential.",
             "source_dim": "8d",
-            "score": 56.22
+            "score": 56.27
           },
           {
             "letter": "C",
@@ -1390,7 +1270,7 @@
             "label": "Lensing arc",
             "caption": "Arcs show gravitational lensing by cluster-scale mass.",
             "source_dim": "8d",
-            "score": 45.3
+            "score": 45.31
           }
         ],
         "main_crop": [
@@ -1405,13 +1285,8 @@
       "label": "Cosmic Filaments",
       "triptych": {
         "file": "figures/plates/cosmic-filaments-triptych.png",
-        "caption": "Figure for Cosmic Filaments: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1177,
-          0,
-          2563,
-          2400
-        ]
+        "caption": "Figure for Cosmic Filaments: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/cosmic-filaments-callouts.png",
@@ -1422,8 +1297,8 @@
             "id": "filament-spine",
             "label": "Filament spine",
             "caption": "The spine is the dense thread joining galaxy concentrations.",
-            "source_dim": "11d",
-            "score": 35.53
+            "source_dim": "8d",
+            "score": 35.5
           },
           {
             "letter": "B",
@@ -1431,15 +1306,15 @@
             "label": "Node",
             "caption": "Nodes mark intersections where matter and galaxies collect.",
             "source_dim": "11d",
-            "score": 43.96
+            "score": 43.79
           },
           {
             "letter": "C",
             "id": "void-edge",
             "label": "Void edge",
             "caption": "The empty side of a filament borders a cosmic void.",
-            "source_dim": "11d",
-            "score": 34.88
+            "source_dim": "8d",
+            "score": 35.01
           },
           {
             "letter": "D",
@@ -1447,7 +1322,7 @@
             "label": "Flow line",
             "caption": "Lines indicate large-scale flow into the filament.",
             "source_dim": "11d",
-            "score": 33.94
+            "score": 33.95
           }
         ],
         "main_crop": [
@@ -1462,13 +1337,8 @@
       "label": "Observable Universe",
       "triptych": {
         "file": "figures/plates/observable-universe-triptych.png",
-        "caption": "Figure for Observable Universe: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1311,
-          0,
-          2697,
-          2400
-        ]
+        "caption": "Figure for Observable Universe: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/observable-universe-callouts.png",
@@ -1480,7 +1350,7 @@
             "label": "Observer",
             "caption": "The centre is the observational origin of the horizon volume.",
             "source_dim": "8d",
-            "score": 33.16
+            "score": 32.62
           },
           {
             "letter": "B",
@@ -1488,7 +1358,7 @@
             "label": "Light cone",
             "caption": "The cone marks the causal structure of observation.",
             "source_dim": "8d",
-            "score": 43.42
+            "score": 43.32
           },
           {
             "letter": "C",
@@ -1496,7 +1366,7 @@
             "label": "CMB shell",
             "caption": "The outer shell represents the microwave background surface.",
             "source_dim": "8d",
-            "score": 51.75
+            "score": 51.65
           },
           {
             "letter": "D",
@@ -1504,7 +1374,7 @@
             "label": "Survey slice",
             "caption": "Slices show mapped structure inside the observable volume.",
             "source_dim": "8d",
-            "score": 31.12
+            "score": 31.11
           }
         ],
         "main_crop": [
@@ -1519,13 +1389,8 @@
       "label": "Cosmic Web",
       "triptych": {
         "file": "figures/plates/cosmic-web-triptych.png",
-        "caption": "Figure for Cosmic Web: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1141,
-          0,
-          2527,
-          2400
-        ]
+        "caption": "Figure for Cosmic Web: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/cosmic-web-callouts.png",
@@ -1537,7 +1402,7 @@
             "label": "Web node",
             "caption": "Nodes are high-density intersections of the cosmic web.",
             "source_dim": "8d",
-            "score": 51.17
+            "score": 50.97
           },
           {
             "letter": "B",
@@ -1545,7 +1410,7 @@
             "label": "Web filament",
             "caption": "Filaments connect nodes across cosmological distances.",
             "source_dim": "8d",
-            "score": 50.39
+            "score": 50.36
           },
           {
             "letter": "C",
@@ -1553,15 +1418,15 @@
             "label": "Void",
             "caption": "Voids are underdense regions between web structures.",
             "source_dim": "8d",
-            "score": 69.74
+            "score": 69.87
           },
           {
             "letter": "D",
             "id": "large-scale-flow",
             "label": "Large-scale flow",
             "caption": "Flow traces the response of matter to the web potential.",
-            "source_dim": "11d",
-            "score": 49.31
+            "source_dim": "8d",
+            "score": 49.35
           }
         ],
         "main_crop": [
@@ -1576,13 +1441,8 @@
       "label": "Bird",
       "triptych": {
         "file": "figures/plates/bird-triptych.png",
-        "caption": "Figure for Bird: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1283,
-          0,
-          2669,
-          2400
-        ]
+        "caption": "Figure for Bird: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/bird-callouts.png",
@@ -1593,16 +1453,16 @@
             "id": "head",
             "label": "Head",
             "caption": "The head anchors sensory orientation for flight.",
-            "source_dim": "8d",
-            "score": 82.19
+            "source_dim": "11d",
+            "score": 82.22
           },
           {
             "letter": "B",
             "id": "wing",
             "label": "Wing",
             "caption": "Wings provide the mechanical surface for lift and steering.",
-            "source_dim": "8d",
-            "score": 74.08
+            "source_dim": "11d",
+            "score": 74.02
           },
           {
             "letter": "C",
@@ -1618,7 +1478,7 @@
             "label": "Flight vector",
             "caption": "The vector records direction of motion through the air.",
             "source_dim": "11d",
-            "score": 74.27
+            "score": 74.25
           }
         ],
         "main_crop": [
@@ -1633,13 +1493,8 @@
       "label": "Colony / Roost",
       "triptych": {
         "file": "figures/plates/colony-roost-triptych.png",
-        "caption": "Figure for Colony / Roost: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1220,
-          0,
-          2606,
-          2400
-        ]
+        "caption": "Figure for Colony / Roost: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/colony-roost-callouts.png",
@@ -1650,8 +1505,8 @@
             "id": "roost-core",
             "label": "Roost core",
             "caption": "The core marks the shared resting substrate of the colony.",
-            "source_dim": "8d",
-            "score": 59.51
+            "source_dim": "11d",
+            "score": 59.31
           },
           {
             "letter": "B",
@@ -1659,7 +1514,7 @@
             "label": "Return path",
             "caption": "Curved traces indicate repeated routes into the roost.",
             "source_dim": "11d",
-            "score": 50.08
+            "score": 50.1
           },
           {
             "letter": "C",
@@ -1667,15 +1522,15 @@
             "label": "Perch layer",
             "caption": "Layered perches show spatial organisation in the colony.",
             "source_dim": "8d",
-            "score": 40.66
+            "score": 40.71
           },
           {
             "letter": "D",
             "id": "dusk-field",
             "label": "Dusk field",
             "caption": "The outer haze marks the environmental field of gathering.",
-            "source_dim": "8d",
-            "score": 29.68
+            "source_dim": "11d",
+            "score": 29.74
           }
         ],
         "main_crop": [
@@ -1690,13 +1545,8 @@
       "label": "Flock",
       "triptych": {
         "file": "figures/plates/flock-triptych.png",
-        "caption": "Figure for Flock: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1283,
-          0,
-          2669,
-          2400
-        ]
+        "caption": "Figure for Flock: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/flock-callouts.png",
@@ -1708,7 +1558,7 @@
             "label": "Lead bird",
             "caption": "The leading body sets one local direction cue.",
             "source_dim": "11d",
-            "score": 18.41
+            "score": 18.3
           },
           {
             "letter": "B",
@@ -1716,15 +1566,15 @@
             "label": "Neighbour rule",
             "caption": "Spacing and alignment arise from local neighbour rules.",
             "source_dim": "11d",
-            "score": 48.51
+            "score": 46.76
           },
           {
             "letter": "C",
             "id": "vortex-lane",
             "label": "Vortex lane",
             "caption": "Wake lanes show aerodynamic structure behind the flock.",
-            "source_dim": "8d",
-            "score": 38.62
+            "source_dim": "11d",
+            "score": 36.8
           },
           {
             "letter": "D",
@@ -1732,7 +1582,7 @@
             "label": "Flock envelope",
             "caption": "The envelope is the collective shape of the moving flock.",
             "source_dim": "11d",
-            "score": 24.77
+            "score": 22.91
           }
         ],
         "main_crop": [
@@ -1747,13 +1597,8 @@
       "label": "Species / Stellar",
       "triptych": {
         "file": "figures/plates/species-stellar-triptych.png",
-        "caption": "Figure for Species / Stellar: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
-        "crop": [
-          1305,
-          0,
-          2691,
-          2400
-        ]
+        "caption": "Figure for Species / Stellar: 4D, 8D, and 11D views with the same framing.",
+        "crop": null
       },
       "callouts": {
         "file": "figures/plates/species-stellar-callouts.png",
@@ -1764,32 +1609,32 @@
             "id": "home-star",
             "label": "Home star",
             "caption": "The star is the energetic centre of a species-scale neighbourhood.",
-            "source_dim": "8d",
-            "score": 115.08
+            "source_dim": "11d",
+            "score": 127.03
           },
           {
             "letter": "B",
             "id": "habitat-band",
             "label": "Habitat band",
             "caption": "The band marks possible ecological and technological habitats.",
-            "source_dim": "11d",
-            "score": 129.89
+            "source_dim": "8d",
+            "score": 143.15
           },
           {
             "letter": "C",
             "id": "migration-arc",
             "label": "Migration arc",
             "caption": "Arcs indicate long-range dispersal or signal pathways.",
-            "source_dim": "8d",
-            "score": 105.26
+            "source_dim": "11d",
+            "score": 116.75
           },
           {
             "letter": "D",
             "id": "stellar-neighbourhood",
             "label": "Stellar neighbourhood",
             "caption": "Neighbouring stars define the larger response environment.",
-            "source_dim": "8d",
-            "score": 105.14
+            "source_dim": "11d",
+            "score": 119.08
           }
         ],
         "main_crop": [

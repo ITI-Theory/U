@@ -4,6 +4,10 @@
 Input comes from:
 
     npm run capture -- --only atlas-plates --width 1920 --height 1200 --scale 2
+    npm run capture -- --only atlas-plates --portrait --width 1000 --height 1730 --scale 2
+
+The landscape captures feed the callout pages; the upright (portrait) ones, when
+present, feed the triptych panels whole (panel aspect 1538 x 2662).
 
 Outputs:
     figures/plates/<level>-triptych.png

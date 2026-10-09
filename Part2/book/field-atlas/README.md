@@ -20,7 +20,7 @@ callout insets.
 | Sector introductions | `sectors/` |
 | Front and back matter | `front/`, `back/` |
 | Formal Part I theory chapters | `theory/` |
-| Clean atlas captures | `figures/app/atlas-plates/` (generated, gitignored) |
+| Clean atlas captures | `figures/app/atlas-plates/` (landscape, for the callout pages) and `figures/app/atlas-plates-portrait/` (upright, for the triptych panels); generated, gitignored |
 | Triptych and callout plates | `figures/plates/` (generated, gitignored) |
 | Other figures | `figures/` (`build_figures.py`, `build_theory_figures.py`; `*placeholder*` files are not real figures) |
 
@@ -28,8 +28,10 @@ callout insets.
 
 ```bash
 # 1. capture clean 4D|8D|11D source plates and anchor JSON
-#    (from apps/instrument/visuals/soma-field-operator)
+#    (from apps/instrument/visuals/soma-field-operator); the portrait run frames
+#    each level on its subject, one frame for all three dimensions
 npm run capture -- --only atlas-plates --width 1920 --height 1200 --scale 2
+npm run capture -- --only atlas-plates --portrait --width 1000 --height 1730 --scale 2
 
 # 2. compose the biology-atlas plates (from this folder; image generation only)
 python scripts/plates.py
