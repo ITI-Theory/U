@@ -472,7 +472,7 @@ def main() -> None:
         print(f"plate {level}: {triptych.name}, {callouts.name}")
         for image in images.values():
             image.close()
-    (args.out / "plates.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (args.out / "plates.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"wrote {args.out / 'plates.json'}")
 
 
