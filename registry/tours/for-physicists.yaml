@@ -1,0 +1,33 @@
+id: for-physicists
+title: 'For physicists: what is physics and what is proposal'
+summary: 'Seven stops for physicists and mathematicians (Dist PROMPTS.md): the baseline, gravity, the
+  response grammar, the 4+3+1+3 bookkeeping, the dark sectors and what Lean checks.'
+steps:
+- view: level=quantum-foam&lens=off&dim=4
+  say: At every level the baseline is ordinary physics; the theory lens adds a proposal on top of it,
+    never in place of it.
+  label: interpretive
+- view: q=gravity-time-bending
+  say: 'Gravity first: the model is compared with Einstein term by term, under its stated assumptions.'
+  label: derived-under-assumptions
+- view: level=atomic&lens=on&dim=8
+  say: The response grammar is a source, a Green's function and its poles; for hydrogen the poles are
+    the measured spectral lines.
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=11
+  overlay: dimensions
+  say: The eleven dimensions are a bookkeeping split, four plus three plus one plus three, motivated by
+    M-theory's count; the correspondence is structural, not a derivation of M-theory.
+  label: interpretive
+- view: q=dark-matter-spatial-vacuum
+  say: Three elevenths for dark matter lands within a few percent of Planck 2018, but it rests on a stated
+    compactification model.
+  label: open-hypothesis
+- view: q=dark-energy-origin
+  say: Seven elevenths for dark energy is, today, a prediction of the dark-energy fraction given the measured
+    Hubble constant, not an independent value of Lambda.
+  label: open-hypothesis
+- view: level=observable-universe&lens=on&dim=8
+  say: Lean checks the algebra; each physical step carries its label, and the proofs still open are listed
+    in the Lean appendix.
+  label: kernel-verified

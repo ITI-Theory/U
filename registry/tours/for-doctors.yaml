@@ -1,0 +1,29 @@
+id: for-doctors
+title: 'For medical doctors: states that stay'
+summary: 'Five stops for clinicians in medicine (Dist PROMPTS.md): the physiological baseline, chronic
+  states as valleys, why the same input lands differently, co-regulation, and what this is not.'
+steps:
+- view: level=human-vertebrate&lens=off&dim=4
+  say: 'For a doctor the baseline is physiology: a body that responds and returns to rest.'
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: strong
+  pause: 5
+  say: The model's picture of a chronic state, pain or freeze, is a valley the system has settled into
+    and stays in after the original cause is gone.
+  label: interpretive
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: twice
+  pause: 5
+  say: 'It is also a picture of why the same examination or remark lands differently on different days:
+    the response depends on the state it meets.'
+  label: interpretive
+- view: level=dyad&lens=on&dim=11
+  poke: strong
+  pause: 5
+  say: 'Co-regulation between patient and clinician is drawn as coupling that re-locks after a disruption:
+    standard synchronisation physics, read clinically as a proposal.'
+  label: interpretive
+- view: level=human-vertebrate&lens=on&dim=11&ui=clean
+  say: None of this is a diagnosis or a treatment. The labels show which lines are measured, which derived,
+    and which proposed.

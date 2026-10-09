@@ -1,0 +1,28 @@
+id: for-engineers
+title: 'For computer scientists and engineers: coordination and memory'
+summary: 'Five stops for computer scientists and engineers (Dist PROMPTS.md): leaderless flocks, field-based
+  coordination, its cost claim, the memory model and the quantum simulation.'
+steps:
+- view: level=flock&lens=on&dim=8&ui=clean
+  say: Starlings coordinate with a handful of neighbours each, and no leader.
+  label: empirical-result
+- view: level=animal-swarm&lens=on&dim=8
+  say: 'The swarm paper''s proposal: treat agents as sources in one shared field, so coordination takes
+    one propagation step instead of rounds of messages.'
+  label: derived-under-assumptions
+- view: level=human-group&lens=on&dim=8
+  say: Its O(N squared) result is a statement about the cost of that model; the paper lists what Lean
+    checks and what is assumed.
+  label: derived-under-assumptions
+- view: level=whole-brain-cemi&lens=on&dim=8
+  poke: strong
+  pause: 4
+  say: Memory is a Hopfield network whose temperature is set by a somatic field; with no stress it is
+    exactly the classic network.
+  label: kernel-verified
+- view: level=human-vertebrate&lens=on&dim=11
+  poke: strong
+  pause: 5
+  say: QUANT-EXP-1 is an exact eight-qubit statevector simulation of crossing a barrier between attractors;
+    it shows reachability, not a speed-up.
+  label: simulated

@@ -1,0 +1,36 @@
+id: for-neuroscientists
+title: 'For neuroscientists: from a spike to a field'
+summary: 'Six stops for neuroscientists (Dist PROMPTS.md): the neuron, the circuit, the whole brain, the
+  CEMI layer, the limbic-temperature Hopfield model and its testable consequence.'
+steps:
+- view: level=cellular-synaptic&lens=on&dim=8
+  poke: twice
+  pause: 3
+  say: 'Start with a neuron: an all-or-none spike, then a refractory period in which the same input is
+    suppressed. Standard biophysics.'
+  label: empirical-result
+- view: level=local-circuit&lens=on&dim=8
+  say: 'A local circuit: recurrent connections give attractors, the Hopfield picture of memory as valleys.'
+  label: derived-under-assumptions
+- view: level=whole-brain-cemi&lens=on&dim=8
+  poke: strong
+  pause: 5
+  say: 'The whole brain: a strong input switches the cortex into a persistent active state that adaptation
+    brings down again, a display model in the Wilson-Cowan style.'
+  label: derived-under-assumptions
+- view: level=whole-brain-cemi&lens=on&dim=11
+  poke: strong
+  pause: 4
+  say: 'McFadden''s CEMI field theory is used as motivation: the brain''s own field as a binding layer,
+    drawn here as a hypothesis.'
+  label: open-hypothesis
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: strong
+  pause: 4
+  say: The Missing Limbic Layer paper lets a somatic field set the temperature of a Hopfield network;
+    with no somatic stress it reduces exactly to the classic network, a step checked in Lean.
+  label: kernel-verified
+- view: q=feeling-memory
+  say: 'Its testable consequence: the same input lands differently after a recent strong one, a measurable
+    sensitisation or habituation.'
+  label: open-hypothesis

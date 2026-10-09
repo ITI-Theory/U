@@ -1,0 +1,28 @@
+id: for-musicians
+title: 'For musicians and artists: tap, ring, entrain'
+summary: 'Five stops for musicians and artists (Dist PROMPTS.md): mechanisms of musical feeling, entrainment,
+  the ensemble, a spectrum in an atom, and music as a sequence of pokes.'
+steps:
+- view: level=human-vertebrate&lens=on&dim=8
+  say: Music moves feeling through several mechanisms at once; the machine's music panel follows Juslin's
+    eight, known as BRECVEMA.
+  label: interpretive
+- view: level=dyad&lens=on&dim=11
+  poke: strong
+  pause: 5
+  say: 'Two players falling into time: coupled rhythms lock when the coupling beats the difference in
+    tempo, the region physicists call an Arnold tongue.'
+  label: empirical-result
+- view: level=human-group&lens=on&dim=8&ui=clean
+  say: An ensemble or an audience shows measurable synchrony; the model does not call it one mind.
+  label: interpretive
+- view: level=atomic&lens=on&dim=8
+  say: 'Even a hydrogen atom has a spectrum, a set of notes it rings at: the same grammar of tap and ring
+    as a plucked string.'
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: twice
+  pause: 5
+  say: In the model, a piece of music is a sequence of pokes to the feeling landscape, which is why the
+    same chord lands differently after the build-up.
+  label: interpretive

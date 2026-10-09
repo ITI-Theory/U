@@ -947,7 +947,10 @@ against registry ids, drops unknown steps, and never executes anything.
    notebooks, then ask one question with OBSERVATORY on and judge the tour.
 - [ ] Per worked example "Show me" tours in the textbook HTML (one block per
    example) if the chapter-level stops prove useful.
-- [ ] More presets from Dist PROMPTS.md (one per audience section).
+- [x] More presets from Dist PROMPTS.md (one per audience section). Done 9 Oct:
+      `for-physicists`, `for-neuroscientists`, `for-doctors`, `for-musicians`,
+      `for-engineers` (5-7 stops each, pokes where they help; therapists have
+      `hal-therapist`, `hal-consulting-room`, `hal-gestalt`). All stops render.
 
 ---
 
