@@ -1726,9 +1726,13 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       `notebooks/<notebook>/takeout-artifacts/`. Sources skipped (own papers).
       Some AI Mode chats are personal (recipes, immigration, sport): mark them
       private (item above) before anything is lifted or collated.
-- [ ] Google Takeout, gmail account (author): same export (My Activity: Gemini
-      Apps, Search/AI Mode; NotebookLM), then `make -C Me/chats takeout Z=<zip>
-      A=gmail DRY=1`, then without DRY.
+- [x] Google Takeout, gmail account (9 Oct, Me 84a7381): 20 Gemini and AI Mode
+      conversations (Gemini grouped by its conversation link), 11 NotebookLM chat
+      histories (Collected Works 261 turns, Complete Research Programme 304, MOTHER,
+      HAL-UAT, the UAT notebooks), 22 artifacts (comparison figures, the
+      post-operative case study, SinnfeldOntology.lean, early app prototypes).
+      Inbox now 270 chat files. Next: private marking, then collate and refresh
+      HAL-UAT's chat volumes.
 - [x] Agent sessions (`~/.copilot/session-state`): only 2 of the 8 folders have
       a session log (this one, 0eee7915, and c06281b7 of 15 Feb); both are in the
       Inbox. Nothing else to export.
