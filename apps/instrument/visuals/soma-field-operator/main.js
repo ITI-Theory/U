@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading } from './generated/app-data.js';
+import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
@@ -1675,6 +1675,7 @@ function developerRepoPaths(level, edge) {
 
 function renderLibrary(level) {
   libraryTitle.textContent = level.label;
+  renderSherlock(level);
   libraryList.replaceChildren();
   const groups = [
     { title: 'Papers', items: level.resolved_sources ?? [] },
@@ -2360,6 +2361,36 @@ panelManager.registerPanel(document.querySelector('.equation-wall'), { id: 'morp
 panelManager.registerPanel(document.querySelector('.mother-terminal'), { id: 'mother', title: 'MOTHER / H-AL TERMINAL', dockLabel: 'MOTHER', minWidth: 380, minHeight: 250 });
 panelManager.registerPanel(document.querySelector('.question-card'), { id: 'whats-different', title: "WHAT'S DIFFERENT?", dockLabel: 'DIFFERENCE', minWidth: 310, minHeight: 180 });
 panelManager.registerPanel(document.querySelector('#dimension-dynamics-panel'), { id: 'state-dynamics', title: 'STATE DYNAMICS', dockLabel: 'STATE', minWidth: 300, minHeight: 220 });
+
+// Sherlock (registry/concepts): the concepts of the current level, each with its
+// ontology class and the real status of its Lean declaration (make concepts).
+const sherlockPanel = document.createElement('section');
+sherlockPanel.id = 'sherlock-panel';
+sherlockPanel.className = 'sherlock-panel';
+sherlockPanel.innerHTML = '<p class="sherlock-panel__tally"></p><details class="sherlock-panel__more"><summary>CONCEPTS</summary><ul class="sherlock-panel__list"></ul></details>';
+document.body.append(sherlockPanel);
+panelManager.registerPanel(sherlockPanel, { id: 'sherlock', title: 'SHERLOCK', dockLabel: 'SHERLOCK', minWidth: 260, minHeight: 70 });
+const SHERLOCK_STATUS = { 'kernel-verified': 'PROVED', sorry: 'SORRY', axiom: 'AXIOM', definition: 'DEFINED' };
+function renderSherlock(level) {
+  const here = (registryConcepts ?? []).filter(concept => concept.levels.includes(level.id));
+  const counts = {};
+  for (const concept of here) counts[concept.status ?? 'none'] = (counts[concept.status ?? 'none'] ?? 0) + 1;
+  const gaps = here.filter(concept => !concept.ontology || !concept.lean).length;
+  sherlockPanel.querySelector('.sherlock-panel__tally').textContent = here.length
+    ? `${level.label}: ${here.length} concept${here.length === 1 ? '' : 's'}; ${Object.entries(counts).map(([status, n]) => `${n} ${(SHERLOCK_STATUS[status] ?? 'NO LEAN').toLowerCase()}`).join(', ')}${gaps ? `; ${gaps} gap${gaps === 1 ? '' : 's'}` : ''}`
+    : `${level.label}: no concepts registered yet (registry/concepts).`;
+  const list = sherlockPanel.querySelector('.sherlock-panel__list');
+  list.replaceChildren(...here.map(concept => {
+    const item = document.createElement('li');
+    item.dataset.status = concept.status ?? 'none';
+    item.innerHTML = '<strong></strong> <span class="sherlock-panel__status"></span><br><small></small>';
+    item.querySelector('strong').textContent = concept.concept;
+    item.querySelector('.sherlock-panel__status').textContent = SHERLOCK_STATUS[concept.status] ?? 'NO LEAN';
+    item.querySelector('small').textContent = `${concept.ontology ?? 'no ontology class'} | ${concept.lean ?? 'no Lean declaration'}${concept.papers.length ? ` | ${concept.papers.join(', ')}` : ''}`;
+    item.title = concept.notes || '';
+    return item;
+  }));
+}
 panelManager.registerPanel(compareCards, { id: 'compare-examples', title: 'COMPARE EXAMPLES', dockLabel: 'COMPARE', minWidth: 340, minHeight: 230 });
 
 // Several windows on one machine (screens.js): level, cockpit and engine room.

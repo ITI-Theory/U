@@ -1377,6 +1377,8 @@ app README):**
       concepts (author: OpenCyc or the programme's own OWL), more concepts
       (level by level), the Lean types side of the map (Mathlib/PhysLib), and the
       type guard below generated from the same registry.
+      App (9 Oct): SHERLOCK panel per level (tally and list: ontology class, Lean name,
+      PROVED / SORRY / AXIOM / DEFINED, papers), from the same status code.
 - [ ] Visual rhymes: renderers may share motion styles across levels (sliding
       plates for `geological`, ring/belt debris for `orbital-system`), badged
       as visual analogy (`INTERPRETIVE`); the physics differs.
