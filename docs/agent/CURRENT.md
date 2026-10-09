@@ -26,13 +26,12 @@ Built 8-9 Oct (all pushed; details in ISSUES):
   printed pages 70-83); P1 text restored; P11 abstract fixed.
 - New: ISS-051 (Visualize everything, equation-first tabs, one-file library).
 
-In progress when the session paused: engine room FUEL (ISS-050), compiles, not
-yet tested end to end.
+Engine room FUEL (ISS-050) done and tested: H-AL answers from HAL-UAT (30
+sources); the old HAL notebook is empty; MOTHER has only 1 source.
 
 ## Next
 
-1. Test FUEL: `make mother-bridge`, open `/?screen=engine`, CHECK BRIDGE, switch
-   H-AL between HAL-UAT and HAL (ISS-050).
+1. Check MOTHER's notebook (1 source only; it should hold the released work).
 2. Author: run `#tour=hal-consulting-room` once with the HAL voice; check the
    Atlas pages 70-83; P21 sign-off.
 3. Then the release path in ISS-047 / ISS-001: restage rc3.3, NotebookLM UAT,

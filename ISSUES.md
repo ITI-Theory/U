@@ -1685,13 +1685,13 @@ papers UAT notebook); one source can be large, so books can be merged.
       The app's H-AL now answers from HAL-UAT (`hal_notebook_id` in the private
       `mother.local.json`; the old HAL id kept as `hal_notebook_id_previous`).
       HAL private (favourites, AJ wiki, links) and MOTHER (released work) later.
-- [ ] Choose the H-AL notebook in the app (HAL, HAL-UAT) and switch sources per
-      group (ISS-047 notes 12-13), instead of editing `mother.local.json`.
-      9 Oct, in progress: bridge `GET /fuel` (each notebook, its sources) and
-      `POST /hal-notebook {name}` (names from `hal_notebooks` in the private
-      config); engine room FUEL section lists the banks with USE FOR H-AL.
-      Compiles; end-to-end test was running when the session paused. Next: test
-      with `make mother-bridge` + `?screen=engine` (CHECK BRIDGE).
+- [x] Choose the H-AL notebook in the app (HAL, HAL-UAT), instead of editing
+      `mother.local.json`. Done 9 Oct: bridge `GET /fuel` (each notebook and its
+      sources) and `POST /hal-notebook {name}` (names from `hal_notebooks` in the
+      private config); engine room FUEL lists the banks, USE FOR H-AL switches.
+      Tested: MOTHER 1 source, HAL-UAT 30 (H-AL), HAL 0 (the old notebook is
+      empty), BASELINE 45. MOTHER's single source is worth a look.
+- [ ] Switch sources per group within a notebook (ISS-047 notes 12-13).
 - [x] `make` target: copy the listed sources into `upload/` (merging where the
       limit needs it) and upload with the bridge (`--dry-run` first).
       Done: `make -C Me/notebooklm load NB= GROUPS= [DRY=1]` (`load.py`, 8 Oct), used 9 Oct for HAL-UAT; it renews the session itself.
