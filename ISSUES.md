@@ -1661,6 +1661,20 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       matter (area, visibility, sources, evidence label); quarantined claims
       stay out. *Phase Dot* is built from the notes, filtered by visibility.
 
+- [x] VS Code chats (9 Oct, Me 0f8b327): `make -C Me/chats vscode [DRY=1]` replays
+      each VS Code Copilot Chat session log (all workspaces) into `Inbox/`
+      (`type: ai_chat_vscode`): 28 conversations from February to September;
+      copies of one chat reopened in another workspace are merged; thinking and
+      tool calls left out; tokens and passwords masked. Re-running updates changed
+      sessions.
+- [ ] Gemini chats (author): Google Takeout, My Activity, only Gemini Apps, JSON
+      format; then `make -C Me/chats gemini Z=<takeout.zip> DRY=1`, then without
+      DRY. Takeout has one entry per prompt; the importer rebuilds conversations
+      (prompts under 30 minutes apart), masks secrets, skips what is already in.
+- [ ] Agent sessions (`~/.copilot/session-state`, 8): only 2 exported with
+      `make copilot`; export the rest that have content.
+- [ ] Then `collate` (item above) and refresh HAL-UAT's chat volumes (NotebookLM
+      usage: `make nlm-usage`; uploads cost little, questions about 1.6% each).
 ---
 
 ## ISS-050: NotebookLM sources: folders and book selection — OPEN
