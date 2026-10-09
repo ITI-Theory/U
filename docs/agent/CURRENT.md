@@ -6,45 +6,43 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (9 Oct 2026, afternoon; author in hospital, post-op)
+## Now (10 Oct 2026, 01:15; author in hospital, post-op)
 
-The therapist demo happened by phone on her older copy of the app (no tour).
-Her feedback, "why a presentation for a Gestalt therapist? how does it help my
-daily work?", led to the poke-centred consulting-room Presentation. Demo log and
-findings: ISS-047 ("Demo of 9 Oct").
+**The SOMA Machine is a mind-body explorer** (author, 9-10 Oct; ISS-052): one
+app, different views of the same thing. The level view stays the map (the
+dependent-type explorer); the new **mind-body explorer** (`explorer.js`) is a
+voyage inside a person, opened from the MIND-BODY EXPLORER button, the
+elevator or a tour:
+- Stops: HUMAN (the jellyfish human, live 3D; going on dives into the chest),
+  BODY (feelings on the body), BRAIN (low and high road), LIMBIC (the D8
+  hinge), THOUGHT (sub-threshold sea, emotion at 8D, thought at 11D, the loop
+  back to the body), NEURON, MEMORY (Hopfield 1982/2020), LANDSCAPE (3D: the
+  attractor mountains, the country at 8D, the *Hackers* city of code at 11D
+  built from Sherlock's concepts), DYAD (two rhythms, rupture and repair).
+- One Φ = the FX bar (limbic field), RESOURCE = the therapist's J(t), the
+  4D/8D/11D switch adds anatomy, electrical activity and the field.
+- `scripts/explorer-check.mjs` (release gate section 20): 14 checks that the
+  simulations tell the tour's story (calm keeps FREEZE; resource alone does not
+  free it; heat with the resource ends in SAFE; the dyad drifts when hot and
+  re-attunes with the resource).
+- The **elevator** (`elevator.js`, panel LIFT): the zoom as floors, STEP OUT
+  into the explorer, STEP BACK IN to the floor.
+- Tour `mind-explorer` (30 stops). H-AL's reviews in `uat/RC3/hal-*-2026-10-10.md`.
 
-Built 8-9 Oct (all pushed; details in ISSUES):
-- Spoken H-AL tours (`registry/tours/`): `hal-therapist` (Demo, 3 min),
-  `hal-presentation` (10 min), `hal-gestalt` (11.5 min, HAL-UAT tailored),
-  `hal-consulting-room` (9 min, built on the poke). Tour fields `abstract`,
-  `overlay`, `pause`, `poke`, view key `ui=clean` (docs/TOUR-LANGUAGE.md).
-- Several windows on one PC (`?screen=cockpit`, `?screen=engine`; tablets via
-  spacedesk); whole-brain state panel; Further reading per level.
-- HAL-UAT loaded (30 sources); the app's H-AL answers from it; the bridge renews
-  the NotebookLM session itself (no login windows).
-- Layout checks pass on all 46 PDFs; Atlas triptychs fixed (author to check
-  printed pages 70-83); P1 text restored; P11 abstract fixed.
-- New: ISS-051 (Visualize everything, equation-first tabs, one-file library).
-
-Engine room FUEL (ISS-050) done and tested: H-AL answers from HAL-UAT (30
-sources); the old HAL notebook is empty; MOTHER has only 1 source.
-
-Evening of 9 Oct (all pushed): NotebookLM usage gauges and checks (`make
-nlm-usage`); MOTHER loaded with the released work; chats from VS Code (28) and a
-Google Takeout (158 AI Mode, 4 NotebookLM histories) in Me/chats; Visualize display
-switch, flock primitive and figure library (`make visualize-library`); five audience
-tours; Sherlock concept registry (`make concepts`, SHERLOCK panel, OpenCyc check:
-the Lean CycRef constants are not OpenCyc constants, ISS-046); release gate 19
-sections, 0 failures.
+Also 9 Oct (all pushed): Visualize markup of P1, Gestalt, music and limbic
+papers (24 of 233 paper equations, library 90 figures); NotebookLM usage
+gauges; chats from VS Code and two Google Takeouts in Me/chats; Sherlock
+registry (25 concepts, 7 kernel-verified); release gate 20 sections.
+Before that (8-9 Oct): the H-AL tours for the therapist demo (ISS-047).
 
 ## Next
 
-1. Author: the gmail Takeout (`make -C Me/chats takeout Z=... A=gmail DRY=1`);
-   the P21 zoom-step question; the OpenCyc decision for EmotionOntology (ISS-046).
-2. Author: run `#tour=hal-consulting-room` once with the HAL voice; check the
-   Atlas pages 70-83; P21 sign-off.
-3. Then the release path in ISS-047 / ISS-001: restage rc3.3, NotebookLM UAT,
-   Lulu proofs, Zenodo new versions (P1, P11 and the rest marked
-   needs-new-version).
-4. ISS-051 Visualize everything; more slip-ins from ISSUES (rapid development:
-   every pass picks up what fits).
+1. Author: try `#tour=mind-explorer` (and the MIND-BODY EXPLORER button);
+   polish notes into ISS-052. Decide on the P21 zoom-step question and the
+   OpenCyc question (ISS-046).
+2. ISS-052 next: towers clickable, fly-through city → mountains, the Lean type
+   for "same field, different type", tunnelling on the landscape, 3D stops in
+   the level view's scene, music forcing, memory kernel K(τ).
+3. Release path (ISS-047 / ISS-001): restage rc3.3, NotebookLM UAT, Lulu
+   proofs, Zenodo new versions (P1, P11 and the rest marked needs-new-version).
+4. ISS-051 Visualize everything (next: soma-field-book, zoomable-somatic-field).
