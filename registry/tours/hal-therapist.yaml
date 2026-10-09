@@ -1,0 +1,65 @@
+id: hal-therapist
+title: 'H-AL: a guided tour for the consulting room'
+summary: Fifteen stops for a psychotherapist, spoken by H-AL. The body, the feeling landscape, memory,
+  two people falling into step, the group, and the same grammar from the neuron to the cosmos, each
+  line with its evidence label.
+steps:
+- view: level=human-vertebrate&lens=off&dim=4
+  say: Good afternoon. I am H-AL, and I will show you the Soma Machine, starting with something you
+    know well, a human body, drawn as plain physics.
+  label: empirical-result
+- view: level=human-vertebrate&lens=on&dim=8
+  say: Now the theory lens is on, and the body gains a feeling layer, a landscape of emotional states
+    with valleys the person tends to settle into.
+  label: open-hypothesis
+- view: level=human-vertebrate&lens=on&dim=8&contours=1
+  say: The contour lines are that landscape; a deep valley is a state that is easy to fall into and
+    hard to leave.
+  label: interpretive
+- view: q=feeling-memory
+  say: Here is the first question, does a feeling remember being poked; in plain physics a poke simply
+    fades away.
+  label: derived-under-assumptions
+- view: level=human-vertebrate&lens=on&dim=8
+  say: In the state panel on the right, a small poke rolls back into its valley, but a strong one
+    crosses the hill into the other valley, so the next poke lands differently.
+  label: derived-under-assumptions
+- view: level=human-vertebrate&lens=on&dim=11
+  say: The eleventh dimension adds the mind, appraisal and the thoughts that rise from the landscape,
+    shown in the panels beside the body.
+  label: open-hypothesis
+- view: level=whole-brain-cemi&lens=on&dim=11
+  say: Inside the head, the brain's own electromagnetic field is drawn as a shell, a hypothesis layer
+    and not a claim that the shell is the mind.
+  label: open-hypothesis
+- view: level=dyad&lens=on&dim=4
+  say: Now two people, the scale of your work, each with a body, a breath and a heartbeat of their own.
+  label: empirical-result
+- view: q=dyad-fall-into-step
+  say: When do two people fall into step? When their coupling is stronger than the difference in their
+    rhythms, which is standard synchronisation physics.
+  label: empirical-result
+- view: path=dyadic-care&level=dyad&lens=on&dim=11
+  say: The model reads attunement in the room as that kind of coupling between two feeling landscapes,
+    a reading for you to test against your own experience.
+  label: interpretive
+- view: q=crowd-mood
+  say: A group has measurable rhythm and synchrony, but the model does not claim that a crowd is a
+    single person with one mood.
+  label: interpretive
+- view: q=neuron-all-or-none
+  say: Zoom down to a single nerve cell, where a threshold decides between fading away and firing,
+    which is measured biology.
+  label: empirical-result
+- view: level=atomic&lens=on&dim=8
+  say: Further down, a hydrogen atom answers a kick with its own sharp lines, the same response grammar
+    at a scale where it is plain physics.
+  label: empirical-result
+- view: level=observable-universe&lens=on&dim=8
+  say: And all the way out to the universe, where the programme proposes the same grammar again, a
+    proposal that is still waiting for evidence.
+  label: open-hypothesis
+- view: level=human-vertebrate&lens=on&dim=8
+  say: Back to the person in the room; every line I spoke carried a label saying what kind of claim it
+    is, so you can see where the physics ends and the proposal begins.
+  label: interpretive

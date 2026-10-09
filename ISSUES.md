@@ -1468,6 +1468,16 @@ The author ran a UAT session on 7 Oct; the notes are in
       replaced the end of the body-schema paragraph and the phantom-limb,
       body-schema and somatic-modes paragraphs. Restored 9 Oct; P1 already
       needs a new Zenodo version (Dist/PAPERS.yaml), which must carry them.
+- [ ] Demo of 9 Oct (psychotherapist, UAT build): spoken H-AL tour
+      `registry/tours/hal-therapist.yaml` (15 stops, about 3 minutes; open
+      `#tour=hal-therapist`, H-AL voice via `make mother-bridge`). Small
+      findings from the demo go in the log below, one line each, and are fixed
+      or moved to their own issue afterwards.
+  - 9 Oct: stray edit in `books/T-Theory/noir-page.md` (typing slip, CRLF);
+    reverted, never committed.
+  - 9 Oct: at 1600 px wide the right-hand panels hide part of the scene (tour
+    stop 10: the second person of the dyad); use full screen or minimise the
+    panel. Panels could step aside during tours (later).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
