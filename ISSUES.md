@@ -817,9 +817,17 @@ invoke it and `build_thesis.py` imports it, but it embeds hundreds of lines of
 reader-facing Markdown in Python.
 
 **Actions:**
-- [ ] Inventory each script's caller, inputs, outputs, generated-file policy,
+- [x] Inventory each script's caller, inputs, outputs, generated-file policy,
    and current release/build role.
-- [ ] Identify obsolete, duplicated, or unowned scripts and decide whether to
+      9 Oct inventory of paper/scripts (33): 26 run by make or release-check.
+      No caller: `load_opencyc.py`, `query_cyc.py`, `validate_cycrefs.py` (OpenCyc
+      in TypeDB via docker compose; owner Sherlock, ISS-046: next, validate the
+      registry's ontology classes with them); `plot_field.py` + `soma_midi.py`
+      (BRECVEMA field plots; candidates for Visualize primitives, ISS-051);
+      `translate_queue.sh` (resumable translation runner for translate_papers.py;
+      run by hand). Retired: `sync_dist.py.OBSOLETE` (= `make dist`),
+      `translate_omnibus.py.OBSOLETE` (= `make translate-omnibus`).
+- [x] Identify obsolete, duplicated, or unowned scripts and decide whether to
    retire, consolidate, or document them.
 - [x] Extract the Lean appendix's reader-facing Markdown into an appropriate
    maintained source/template while preserving the ordered Lean-file catalogue
