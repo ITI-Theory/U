@@ -1314,6 +1314,8 @@ stays useful for the laptop and for cloud machines.
 - [x] Me/chats/Makefile hard-codes `BASE_DIR := /c/Users/alist`; use `$(HOME)`.
       Done 9 Oct (Me d61bd47): `BASE_DIR` from `$(HOME)`, forward slashes.
 
+- [ ] `HAL` is not on the PATH in a plain (non-login) Git Bash: sessions call
+      `U.Dot/bin/HAL1` directly (9 Oct). Part of the install step above.
 ---
 
 ## ISS-046: Open items carried over from the old CURRENT.md (1-6 Oct 2026) — OPEN
@@ -1528,6 +1530,12 @@ The author ran a UAT session on 7 Oct; the notes are in
         could not do in daily work.
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
+- [ ] P21 sign-off blocker (author, physics): is the zoom step (10^3.207 per
+      level; 19 steps span log10(k_P c/H0) = 60.93 decades exactly) fixed
+      independently of H0? If not, H0 is an input and P21 predicts
+      Omega_Lambda = 7/11 given H0 (what the paper now says, review item 4); if
+      yes, P21 predicts H0 and the paper should say so. Then sign-off and
+      status pending-upload (all nine review items are fixed in the text).
 ---
 
 ## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — OPEN (parked 8 Oct)
@@ -1667,10 +1675,14 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       copies of one chat reopened in another workspace are merged; thinking and
       tool calls left out; tokens and passwords masked. Re-running updates changed
       sessions.
-- [ ] Gemini chats (author): Google Takeout, My Activity, only Gemini Apps, JSON
-      format; then `make -C Me/chats gemini Z=<takeout.zip> DRY=1`, then without
-      DRY. Takeout has one entry per prompt; the importer rebuilds conversations
-      (prompts under 30 minutes apart), masks secrets, skips what is already in.
+- [ ] Gemini and AI Mode chats (author, both Google accounts): Google Takeout, My
+      Activity -> only Gemini Apps and Search, JSON format; then
+      `make -C Me/chats gemini Z=<takeout.zip> A=<account> DRY=1`, then without
+      DRY. Takeout has one entry per prompt; the importer (Me fbbf830) rebuilds
+      conversations (prompts under 30 minutes apart, products kept apart), keeps
+      Search entries only with an AI answer, masks secrets, skips what is in.
+      Unknown until the first real export: whether Takeout includes AI Mode
+      answers; adapt the importer to what the dry run shows.
 - [x] Agent sessions (`~/.copilot/session-state`): only 2 of the 8 folders have
       a session log (this one, 0eee7915, and c06281b7 of 15 Feb); both are in the
       Inbox. Nothing else to export.
@@ -1727,6 +1739,14 @@ papers UAT notebook); one source can be large, so books can be merged.
   Theory for Undergraduates, 8.323/8.324 QFT, 8.962 General Relativity.
   Check overlap with Penrose ch. 31 first.
 
+- [ ] MOTHER's notebook (16368cb3) has only 1 source (seen in FUEL, 9 Oct): it
+      should hold the released papers and books (the rules above). Reload it with
+      a `MOTHER/sources.yaml` group and `make load`. The old HAL notebook
+      (d6cfc42e) is empty: delete it or fill it with the private group.
+- [x] NotebookLM usage (9 Oct): `make nlm-usage`, bridge `GET /usage`, two gauges
+      in the engine room FUEL (five-hour, weekly; reset times from the server),
+      UAT runs check the window first. A question costs about 1.6% of the
+      five-hour window; audio/video overviews about 44%; uploads are not counted.
 ---
 
 ## ISS-051: Visualize everything: mark up all equations, generate every figure, show the equation by default — OPEN
