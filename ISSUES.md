@@ -943,7 +943,7 @@ against registry ids, drops unknown steps, and never executes anything.
 - [x] Textbook: each chapter's Soma Machine box names its stop in `#tour=textbook`.
 
 **Actions:**
-- [ ] Author: upload `bld/app/observatory-guide.md` to the MOTHER and H-AL
+- [x] (9 Oct: loaded into MOTHER and HAL-UAT with `make -C Me/notebooklm load ... GROUPS=guides`) Author: upload `bld/app/observatory-guide.md` to the MOTHER and H-AL
    notebooks, then ask one question with OBSERVATORY on and judge the tour.
 - [ ] Per worked example "Show me" tours in the textbook HTML (one block per
    example) if the chapter-level stops prove useful.
@@ -1739,10 +1739,12 @@ papers UAT notebook); one source can be large, so books can be merged.
   Theory for Undergraduates, 8.323/8.324 QFT, 8.962 General Relativity.
   Check overlap with Penrose ch. 31 first.
 
-- [ ] MOTHER's notebook (16368cb3) has only 1 source (seen in FUEL, 9 Oct): it
-      should hold the released papers and books (the rules above). Reload it with
-      a `MOTHER/sources.yaml` group and `make load`. The old HAL notebook
-      (d6cfc42e) is empty: delete it or fill it with the private group.
+- [x] MOTHER's notebook had only 1 source (seen in FUEL, 9 Oct). Loaded 9 Oct
+      (Me `MOTHER/sources.yaml`): the released work with a DOI (C1v2 papers
+      omnibus, C2 Fractal Thesis omnibus, D1, D2) and the Observatory Guide: 6
+      sources. Pending-upload work joins when released.
+- [ ] The old HAL notebook (d6cfc42e) is empty: delete it, or fill it with the
+      private group (favourites, AJ wiki, links) when that exists.
 - [x] NotebookLM usage (9 Oct): `make nlm-usage`, bridge `GET /usage`, two gauges
       in the engine room FUEL (five-hour, weekly; reset times from the server),
       UAT runs check the window first. A question costs about 1.6% of the
