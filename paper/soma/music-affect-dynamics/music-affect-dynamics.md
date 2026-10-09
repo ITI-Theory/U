@@ -108,12 +108,16 @@ Named attractors match the polyvagal hierarchy and trauma literature:
 *regulated calm* (global minimum), *fight*, *flight* (shallow saddle),
 *freeze* (deep isolated minimum), *flow*, *dissociation*.
 
+{{Visualize | energy-function-and-attractors | energy-landscape:soma | U="-exp(-x^2/0.4) - 0.45*exp(-(x - 1.6)^2/0.15) - 0.8*exp(-(x - 3.4)^2/0.05) + 0.04*(x - 1.5)^2"; x=[-1.5,4.5]; ball=1.6; expect_minima="0.024,1.596,3.396"; expect_tol=0.01; xlabel="one direction through the 16 modes"; ylabel="energy $H$" }} A one-dimensional slice through an illustrative landscape: a wide, deepest valley (regulated calm), a shallow one (flight, where the ball sits) and a narrow, deep, isolated one (freeze). The program checked the three minima.
+
 ## Dynamics
 
 $$\gamma\,\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t)) + \sqrt{2D}\;\xi(t)$$
 
 where $\gamma$ is damping, $D$ is diffusion (noise temperature), and
 $\xi(t)$ is white noise.  The effective temperature is $T_\text{eff} = D/\gamma$.
+
+{{Visualize | dynamics | distribution:soma | pdf="exp(-(x^4/4 - x^2/2 + 0.1*x)/0.15)"; x=[-2.2,2.2]; shade=[0,2.2]; expect_prob=0.2431; xlabel="state $e$" }} Where the noisy dynamics spend their time: in the long run the state is spread as $p(e) \propto e^{-H(e)/T_\text{eff}}$. Here a tilted double well $H = e^4/4 - e^2/2 + 0.1e$ at $T_\text{eff} = 0.15$: the shaded, higher valley holds the state about a quarter of the time. Illustrative; the program checked the share, $0.243$.
 
 ## Threshold and Conscious Experience
 
@@ -123,6 +127,8 @@ Mode $i$ crosses into conscious experience when its amplitude exceeds
 threshold $\theta$.  Sub-threshold activity is real and causally active
 but not consciously perceived — matching phenomenological accounts of
 interoception and pre-verbal affect.
+
+{{Visualize | threshold-and-conscious-experience | function-plot:soma | f1="0.45 + 0.3*exp(-(x - 6)^2/2) + 0.08*sin(3*x)"; name1="somatic $e_i^s$"; f2="0.3 + 0.5*exp(-(x - 9)^2/3) + 0.05*sin(2*x)"; name2="cognitive $e_i^c$"; x=[0,15]; hline=0.7; y=[0,1]; xlabel="time $t$"; ylabel="intensity" }} One mode, two channels and the threshold $\theta = 0.7$ (the line): the somatic channel crosses first, then the cognitive one, and the mode is perceived while either is above the line. Illustrative.
 
 ---
 
@@ -228,6 +234,8 @@ $$C_{ij}(f) = \frac{|S_{ij}(f)|^2}{S_i(f)S_j(f)}.$$
 
 This permits direct testing of whether observed musical-affective dynamics are
 consistent with coupled oscillatory mode structure rather than static coordinates.
+
+{{Visualize | state-trajectory-analysis | spectrum:soma | f="0.3*sin(2*pi*0.25*t) + 0.15*sin(2*pi*t) + 0.05*sin(2*pi*1.7*t)"; x=[0,64]; show=16; fmax=2.5; peaks=3; expect_peak=0.25 }} A mode channel that oscillates at three rates (top) and its amplitude spectrum $\sqrt{S_i(f)}$ (bottom): one peak per rate. Illustrative; the program checked the largest peak, $0.25$.
 
 ## Comparison with Circumplex Predictions
 
