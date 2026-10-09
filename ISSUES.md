@@ -269,6 +269,8 @@ Plan: fork it (not official code) and depend on the fork from our lakefile.
 
 ## ISS-012: Add lean-appendix to lake — CLOSED
 
+**Closed 2026-10-08:** Duplicate of ISS-017. `bin/release-check` section 4 verifies that the appendix embeds the current Lean sources; `make lean-appendix` regenerates it. Auto-regeneration inside a check was ruled out.
+
 **Progress 2026-08-16:** `bin/release-check` verifies that the appendix embeds
 the current sources declared by `build_lean_appendix.py`, avoiding unreliable
 filesystem timestamp comparisons. Automatic regeneration remains undecided.
@@ -320,6 +322,8 @@ other checks I am sure exist.
 
 ## ISS-014: Phase 2 research — Path-Dependence in Moduli Space — CLOSED
 
+**Closed 2026-10-08:** Merged into ISS-035 (path-sensitive transition dynamics), together with ISS-014.
+
 From paper section "Open Research Problems" (P11 zoomable-somatic-field).
 
 Dissonance is path-dependent (a Neapolitan 6th resolving upward ≠ same pitch approached
@@ -333,6 +337,8 @@ recording path-history. Requires `GeographicSomatic.lean` (P16, not yet written)
 ---
 
 ## ISS-016: Write GeographicSomatic.lean — CLOSED
+
+**Closed 2026-10-08:** Merged into ISS-035 (path-sensitive transition dynamics), together with ISS-016.
 
 Blocker for ISS-014 (path-dependence in moduli space) and P16 (geographic-somatic-field paper).
 
@@ -354,6 +360,8 @@ Needs P16 paper drafted first to ground the Lean definitions. Phase 2.
 ---
 
 ## ISS-017: lean-appendix auto-regeneration in release-check — CLOSED
+
+**Closed 2026-10-08:** Duplicate of ISS-012; same resolution (release-check section 4 verifies freshness; `make lean-appendix` regenerates).
 
 `bin/release-check` now verifies that the appendix embeds the current declared Lean
 sources. Automatic regeneration remains desirable but is intentionally not performed
@@ -428,6 +436,8 @@ win; unrestricted macro substitution would recreate the drift it is meant to pre
 
 ## ISS-021: Shared Omnibus Document Model — CLOSED
 
+**Closed 2026-10-08:** Done: `paper/OMNIBUS_DOCUMENT_MODEL.md`, `paper/FORMAT.md`, `books/T-Theory/defaults/fractal-manifest.yaml` and the two-level master TOC implement the model. The generated synthesis-table item moved to ISS-034.
+
 **Problem:** C1v2 is a collected-work manuscript containing papers, a book,
 and appendices. C2 is likewise a book of domain books, additionally placing
 cheatsheets within its constituent books. The correct hierarchy for books,
@@ -464,6 +474,8 @@ turning it into a many-page inventory.
 ---
 
 ## ISS-022: Omnibus Build Modularity Evaluation — CLOSED
+
+**Closed 2026-10-08:** Done: `build_fractal_books.py` is gone; the Fractal Thesis builds with Make + pandoc + `filters/ttheory-assemble.lua` (1 Oct).
 
 **Problem:** The current merge-then-render approach can create hidden coupling:
 a formatting or hierarchy change in one source can alter unrelated omnibus
@@ -510,6 +522,8 @@ fewer unrelated regressions, not a faster build.
 ---
 
 ## ISS-023: C2 Vol II exceeds Lulu 800-page cap — CLOSED
+
+**Closed 2026-10-08:** Done: Vol I 726 pages, Vol II 693 pages, both under the 800-page Lulu cap; release-check section 13 passes.
 
 **Measured state (2026-08-19):** Registry-driven `check_lulu_pages.py`
 enforces `lulu_page_limit: 800` for every Lulu-designated artifact.
@@ -661,21 +675,7 @@ fact without a source-specific audit.
 
 ## ISS-027: Soma Field Operator stereoscopic projection — OPEN
 {{Tags area.instrument, project.soma-field-operator, projection.3d}}
-{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-08, epic=ISS-027-soma-field-operator-projection}}
-
-**Closed 2026-10-08:** Done: `paper/OMNIBUS_DOCUMENT_MODEL.md`, `paper/FORMAT.md`, `books/T-Theory/defaults/fractal-manifest.yaml` and the two-level master TOC implement the model. The generated synthesis-table item moved to ISS-034.
-
-**Closed 2026-10-08:** Merged into ISS-035 (path-sensitive transition dynamics), together with ISS-014.
-
-**Closed 2026-10-08:** Merged into ISS-035 (path-sensitive transition dynamics), together with ISS-016.
-
-**Closed 2026-10-08:** Done: Vol I 726 pages, Vol II 693 pages, both under the 800-page Lulu cap; release-check section 13 passes.
-
-**Closed 2026-10-08:** Done: `build_fractal_books.py` is gone; the Fractal Thesis builds with Make + pandoc + `filters/ttheory-assemble.lua` (1 Oct).
-
-**Closed 2026-10-08:** Duplicate of ISS-012; same resolution (release-check section 4 verifies freshness; `make lean-appendix` regenerates).
-
-**Closed 2026-10-08:** Duplicate of ISS-017. `bin/release-check` section 4 verifies that the appendix embeds the current Lean sources; `make lean-appendix` regenerates it. Auto-regeneration inside a check was ruled out.
+{{Fields date.created=2026-08-25, date.start=, date.end=, epic=ISS-027-soma-field-operator-projection}}
 
 **Epic:** [ISS-027-soma-field-operator-projection.md](prj/.adm/issues/ISS-027-soma-field-operator-projection.md)
 
@@ -1658,9 +1658,15 @@ material; third-party copyrighted books (Penrose, Calibre) only in the private
 notebooks HAL and HAL-UAT. Limit 50 sources per notebook (seen 8 Oct in the
 papers UAT notebook); one source can be large, so books can be merged.
 
-- [ ] Choose the books (author): HAL-UAT for checking (Penrose, OpenStax physics
-      and maths, own papers and books, the 7 chat volumes already loaded); HAL
-      private (favourites, AJ wiki, links); MOTHER released work only.
+- [x] Choose the books (author, 8 Oct): HAL-UAT groups chats, own, core (10),
+      gestalt (8), physics, maths in `Me/notebooklm/HAL-UAT/sources.yaml`.
+      Loaded 9 Oct: chats + own + core + gestalt = 30 sources (the login had
+      expired; `notebooklm login` renewed it from the saved browser profile).
+      The app's H-AL now answers from HAL-UAT (`hal_notebook_id` in the private
+      `mother.local.json`; the old HAL id kept as `hal_notebook_id_previous`).
+      HAL private (favourites, AJ wiki, links) and MOTHER (released work) later.
+- [ ] Choose the H-AL notebook in the app (HAL, HAL-UAT) and switch sources per
+      group (ISS-047 notes 12-13), instead of editing `mother.local.json`.
 - [ ] `make` target: copy the listed sources into `upload/` (merging where the
       limit needs it) and upload with the bridge (`--dry-run` first).
 - [ ] Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
