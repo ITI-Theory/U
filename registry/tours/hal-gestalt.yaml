@@ -1,0 +1,274 @@
+id: hal-gestalt
+title: 'H-AL presents: the Soma Machine for a Gestalt therapist'
+summary: 'The Presentation tailored with HAL-UAT and the Gestalt books (Mann, Frank, Beisser via Mann):
+  body and feeling as one whole, figure and ground as a living process, contact rather than pokes, three
+  invitations to experiment in the here and now, and the evidence labels as phenomenological bracketing.'
+steps:
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 0
+  say: Good afternoon. I am H-AL, your guide for the next ten minutes. I did not invent any of this; the
+    author did. My job is to translate it into plain words, and today into words a Gestalt therapist might
+    recognise.
+  pause: 1
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 0
+  say: 'Behind me is the abstract, the one-page summary every research paper opens with. It is dense and
+    full of mathematics, so let us agree on one rule: whenever a symbol floats past, forget the maths,
+    and I will tell you what it is really saying.'
+  pause: 1
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 1
+  overlay: ripple
+  say: 'The first big equation is called a Green''s function. Forget the symbols. It answers one question:
+    if you tap something once, how does it ring?'
+  label: derived-under-assumptions
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 1
+  overlay: ripple
+  say: Tap a bell, a pond or a drum, and each answers in its own way. That answer, the ripple spreading
+    out from the tap, is the thing's fingerprint, and physicists use it everywhere.
+  label: empirical-result
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 1
+  overlay: ripple
+  say: 'The bold step is to use that one idea, tap and ring, at every scale: from the foam of space itself,
+    through atoms, cells and people, up to the whole universe.'
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 2
+  overlay: dimensions
+  say: 'Next it counts dimensions: four for space and time, three for how things respond, one for feeling,
+    and three for thinking. Eleven in all.'
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 2
+  overlay: dimensions
+  say: Mathematicians write that with a big multiplication sign, but it only means you need all four columns,
+    like columns in a spreadsheet, to describe one moment. Mathematicians are lazy typists; they love
+    shorthand.
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 2
+  overlay: zoom
+  say: Then comes a dial, the zoom operator, with twenty-one settings, from the smallest scale physics
+    talks about up to the size of the visible universe. Turn it, and the same equation is re-set for whatever
+    lives at that scale.
+  label: derived-under-assumptions
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 2
+  overlay: zoom
+  say: 'The thinking part grows with the dial: small at the scale of atoms, larger at the scale of people.
+    And body and mind cannot be zoomed separately; they move together, like a dog on a short lead.'
+  label: derived-under-assumptions
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 3
+  overlay: split
+  say: 'Counting dimensions also gives a guess about the universe''s energy budget: seven elevenths and
+    three elevenths. That is just a cake cut into eleven pieces.'
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 3
+  overlay: split
+  say: The second number, about twenty-seven percent, lands within a few percent of what telescopes measure
+    for dark matter. But it rests on a stated model, and it can be proved wrong.
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 4
+  overlay: threshold
+  say: 'Now the part closest to your work. Consciousness is modelled like water coming to the boil: below
+    the line, activity is real and busy but not felt; above the line, it is felt.'
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 4
+  overlay: landscape
+  say: Trauma is drawn as a deep valley in a landscape, easy to fall into and hard to climb out of, with
+    a possible way out that is not a slow climb but a sudden change.
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 4
+  overlay: landscape
+  say: 'You may hear an echo of Beisser''s paradoxical theory of change here: change comes from fully
+    being where one is, not from forcing. The model''s sudden change is only an analogy for that, not
+    a claim about it.'
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 4
+  overlay: landscape
+  say: 'And memory: the classic Hopfield network from 1982, a model of memories settling like balls in
+    valleys, gets a temperature knob turned by the body. With no stress it becomes exactly the classic
+    network, and a proof computer has checked that step.'
+  label: kernel-verified
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 5
+  overlay: network
+  say: For groups, instead of everyone messaging everyone, each member listens to one shared field, rather
+    like a choir that listens to the room, not to each singer one by one.
+  label: derived-under-assumptions
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 6
+  say: Last, the abstract says that three existing theories of mind sit inside this one as special cases,
+    and that its core algebra is checked by Lean, a proof computer that does not accept hand-waving. Where
+    a proof is still missing, it says so openly.
+  label: kernel-verified
+  pause: 1
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 6
+  say: Those three are McFadden's electromagnetic field theory of consciousness, a branch of modern logic
+    called modal homotopy type theory, and Hoffman's conscious agents, which here gets the physical body
+    it was missing.
+  label: interpretive
+  pause: 1
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  abstract: 6
+  say: A proof computer, by the way, is just a very strict spell-checker for mathematics. It either accepts
+    every step, or it points at the line that does not follow.
+  pause: 1
+- view: level=quantum-foam&lens=off&dim=4&ui=clean
+  say: 'That was the map. Gestalt therapy has called itself a field theory since Kurt Lewin: behaviour
+    is a function of the person and their whole situation. Keep that in mind as we look out of the window,
+    starting at the smallest scale the machine draws: the foam of space itself.'
+  label: interpretive
+  pause: 3
+- view: level=atomic&lens=on&dim=8&ui=clean
+  say: A hydrogen atom. Tap it with light and it rings at a handful of sharp colours, measured for more
+    than a century. This is tap and ring where it is plain physics.
+  label: empirical-result
+  pause: 3
+- view: level=molecular&lens=on&dim=8&ui=clean
+  say: 'Molecules: atoms holding hands. Tap a molecule with light and it rings at its own notes, which
+    is how chemists recognise a substance from across a room.'
+  label: empirical-result
+  pause: 3
+- view: level=cellular-synaptic&lens=on&dim=8&ui=clean
+  say: A nerve cell adds a threshold. A small kick fades; a big enough one fires a full spike, all or
+    nothing.
+  label: empirical-result
+  pause: 3
+- view: level=whole-brain-cemi&lens=on&dim=11&ui=clean
+  say: The whole brain. The glowing shell is its own electric field, drawn here as a hypothesis layer,
+    not as a claim that the shell is the mind.
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=off&dim=4&ui=clean
+  say: 'And a person, first drawn as plain physics: bones, organs, a heartbeat, held up by the ground.'
+  label: empirical-result
+  pause: 3
+- view: level=human-vertebrate&lens=off&dim=4&ui=clean
+  say: 'Before we look further, a small experiment, if you like: notice where the chair supports you right
+    now, and how your breath is moving. Ruella Frank would call this yielding, the ground every reaching
+    and pushing comes from.'
+  label: interpretive
+  pause: 8
+- view: level=human-vertebrate&lens=on&dim=8&contours=1&ui=clean
+  say: Now the theory lens. The machine looks at the person as an embodied whole, and these contours map
+    the familiar states they tend to settle into.
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&contours=1&ui=clean
+  say: In Gestalt terms, the figure is whatever need or sensation sharpens into awareness now, against
+    the wider bodily and relational ground. The landscape is only a picture of the ground it can emerge
+    from.
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8
+  say: In the state panel, a small impact is absorbed back into the familiar state, but a stronger one
+    reorganises the system across the hill, so the next contact lands differently. The field remembers.
+  label: derived-under-assumptions
+  pause: 2
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  overlay: landscape
+  say: 'You might call that unfinished business, a fixed gestalt: the system does not simply return to
+    where it was, and what happened shapes how the next moment is met.'
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  overlay: landscape
+  say: If you bring a familiar impasse to mind, from your work or your own life, you might notice what
+    small holding or movement appears in your body as you stay with it.
+  label: interpretive
+  pause: 8
+- view: level=human-vertebrate&lens=on&dim=11&ui=clean
+  say: 'The eleventh dimension adds the mind: appraisal, and thoughts that rise out of the landscape rather
+    than sitting above it.'
+  label: open-hypothesis
+  pause: 3
+- view: level=dyad&lens=on&dim=4&ui=clean
+  say: Now two people, the scale of your consulting room, each with a body, a breath and a heartbeat of
+    their own.
+  label: empirical-result
+  pause: 3
+- view: level=dyad&lens=on&dim=11&ui=clean
+  say: Two rhythms fall into step when the coupling between them is stronger than the difference between
+    them. That is standard physics, from pendulum clocks to fireflies.
+  label: empirical-result
+  pause: 3
+- view: path=dyadic-care&level=dyad&lens=on&dim=11&ui=clean
+  say: The model reads attunement as that kind of coupling between two feeling landscapes, meeting at
+    a contact boundary. Ruella Frank speaks of kinesthetic resonance; this is a picture of it to test
+    against your experience, not a finding.
+  label: interpretive
+  pause: 3
+- view: path=dyadic-care&level=dyad&lens=on&dim=11&ui=clean
+  say: 'And right here, between you and the author in this room: what rhythm or feeling tone do you sense
+    between you as you watch?'
+  label: interpretive
+  pause: 8
+- view: level=human-group&lens=on&dim=8&ui=clean
+  say: A group has measurable rhythm and synchrony, but the model is careful not to claim that a crowd
+    is one person with one mood.
+  label: interpretive
+  pause: 3
+- view: level=flock&lens=on&dim=8&ui=clean
+  say: Starlings turn together because each bird tracks only a few neighbours, and the turn sweeps through
+    the flock like a wave.
+  label: empirical-result
+  pause: 3
+- view: level=geological&lens=on&dim=8&ui=clean
+  say: 'Rocks remember too, in a plain sense: their layers record what pressed on them. Memory, without
+    anyone feeling it.'
+  label: interpretive
+  pause: 3
+- view: level=cosmic-web&lens=on&dim=8&ui=clean
+  say: Zoom out further, and the galaxies hang on a web of filaments, the largest structure anyone has
+    mapped.
+  label: empirical-result
+  pause: 3
+- view: level=observable-universe&lens=on&dim=8&ui=clean
+  overlay: split
+  say: And the whole universe, where the cake cut into eleven returns as a proposal about dark matter
+    and dark energy, still waiting for its evidence.
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  say: 'Back to the person in the room. Every line I spoke carried a label, a kind of phenomenological
+    bracketing: green for what is observed or proved, gold for structured assumptions, pink for readings
+    and metaphors, offered for you to test against your own lived experience.'
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  say: You asked last time how sixteen books could get written. The honest answer is partly in this machine.
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  say: The author thinks in bursts, and the tools hold the thread. AI assistants draft and remember, a
+    proof computer checks the mathematics, and a build line turns notes into books. The ideas are his;
+    the scaffolding lets them get finished.
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8
+  say: That is the end of the tour. I am only the guide, so the questions now belong to the author, or
+    to MOTHER, who answers from the papers themselves.
+  pause: 2

@@ -9,7 +9,7 @@ abstract: |
   We present the Zoomable Universal Somatic Field (zUSF), a scale-invariant
   field-theoretic architecture in which a single structural equation —
   the Helmholtz Green's function $(\nabla^2 + k^2)G(x,x') = \delta(x-x')$ —
-  governs field propagation across twenty orders of magnitude, from quantum
+  governs field propagation across twenty-one scale levels, from quantum
   foam ($10^{-35}$ m) to the observable universe ($10^{26}$ m). The central
   identification is that the Simple Harmonic Oscillator required by string
   theory at each worldsheet point can be read as the Green's function of the

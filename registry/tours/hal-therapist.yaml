@@ -32,14 +32,14 @@ steps:
   say: Inside the head, the brain's own electromagnetic field is drawn as a shell, a hypothesis layer
     and not a claim that the shell is the mind.
   label: open-hypothesis
-- view: level=dyad&lens=on&dim=4
+- view: level=dyad&lens=on&dim=4&ui=clean
   say: Now two people, the scale of your work, each with a body, a breath and a heartbeat of their own.
   label: empirical-result
 - view: q=dyad-fall-into-step
   say: When do two people fall into step? When their coupling is stronger than the difference in their
     rhythms, which is standard synchronisation physics.
   label: empirical-result
-- view: path=dyadic-care&level=dyad&lens=on&dim=11
+- view: path=dyadic-care&level=dyad&lens=on&dim=11&ui=clean
   say: The model reads attunement in the room as that kind of coupling between two feeling landscapes,
     a reading for you to test against your own experience.
   label: interpretive

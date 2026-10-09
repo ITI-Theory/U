@@ -1487,12 +1487,25 @@ The author ran a UAT session on 7 Oct; the notes are in
       bridges at the human scale; part 3 answers her question of 7 Oct (how the
       books get written). New tour fields `abstract`, `overlay`, `pause` and the
       view key `ui=clean` (`presentation.js`, docs/TOUR-LANGUAGE.md).
-  - 9 Oct: P11's abstract (the app splash) says "across twenty orders of
+  - 9 Oct: P11's abstract (the app splash) said "across twenty orders of
     magnitude", but 10^-35 m to 10^26 m is 61; twenty is the number of zoom
-    steps. Fix in the paper (the app reads it from there).
-- [ ] After the demo: a Presentation-Gestalt tailored by HAL from the gestalt
-      books (needs the HAL-UAT book upload, ISS-050); the cockpit FX slider
-      (note 7); panels that step aside during tours.
+    steps. Fixed: "across twenty-one scale levels". P11 needs a new Zenodo
+    version for it.
+- [x] Presentation-Gestalt (9 Oct): HAL-UAT loaded (30 sources: chats, own,
+      core, gestalt; ISS-050), asked twice (concept map with chapters; a
+      therapist's reading of the script, in Me/chats/tmp/collated/hal-gestalt-*.md).
+      `registry/tours/hal-gestalt.yaml`, 45 stops, about 11.5 minutes: body and
+      feeling as one whole, figure and ground as a process, contact instead of
+      pokes, Beisser's paradoxical theory of change, Frank's yielding and
+      kinesthetic resonance, three invitations to experiment (8 s pauses), the
+      labels as phenomenological bracketing.
+- [x] Several windows on one machine (note 7 and 10; tablets via spacedesk):
+      `?screen=cockpit` (the view out of the window, follows the other windows,
+      HAL's line as a HUD; camera external or follow/drone), `?screen=engine`
+      (engine room: every setting, FX slider, cockpit camera, open windows);
+      F or the corner button for full screen. `screens.js`, BroadcastChannel.
+      Combined cockpit view (all views, zooming) later.
+- [x] Demo stops 8 and 10 use the cockpit view (the panels hid the dyad).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---

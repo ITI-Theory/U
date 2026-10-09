@@ -197,6 +197,8 @@ export function createTourPlayer({ voice, narration }) {
     sayEl.textContent = step.say;
     showView(step.view);
     stage.setOverlay(step.overlay ?? null);
+    // Other windows (screens.js) show the line as a HUD.
+    dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: tour.title, count: countEl.textContent, label: step.label ?? '', labelText: step.label ? LABEL_TEXT[step.label] : '', say: step.say } }));
     stage.setAbstract(Number.isInteger(step.abstract) ? step.abstract : null);
     const settings = narration();
     if (settings.speak) await voice.speak(step.say, settings.persona, settings.bridge);
@@ -219,6 +221,7 @@ export function createTourPlayer({ voice, narration }) {
     tour = null;
     card.hidden = true;
     document.body.classList.remove('tour-active');
+    dispatchEvent(new CustomEvent('soma-tour-end'));
   }
 
   card.addEventListener('click', event => {

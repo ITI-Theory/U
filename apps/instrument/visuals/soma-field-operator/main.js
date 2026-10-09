@@ -9,6 +9,7 @@ import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
+import { createScreens, createEngineRoom, screenRole } from './screens.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
@@ -1217,6 +1218,11 @@ const state = {
 let suppressHashWrite = false;
 let timeAxis = null;
 let panelManager = null;
+let screens = null;
+// Cockpit windows (screens.js): external keeps the usual camera; follow orbits the
+// subject slowly, like a drone.
+let cockpitCamera = 'external';
+const EXTERNAL_CAMERA = new THREE.Vector3(0, 0.35, 9.2);
 // A poke plays over the same wall-clock span at every level; the readout states the level's own time scale.
 const POKE_DISPLAY_SECONDS = 4;
 const fieldAudio = new FieldAudio({ pokeSeconds: POKE_DISPLAY_SECONDS });
@@ -1416,7 +1422,8 @@ function applyQuestionView(questionId, { write = true, render = true } = {}) {
 
 function applyHashState({ render = true } = {}) {
   const hashState = readHashState();
-  state.uiClean = hashState.ui === 'clean';
+  // A cockpit window (screens.js) is always clean.
+  state.uiClean = hashState.ui === 'clean' || screenRole === 'cockpit';
   state.labelsOff = hashState.labels === 'off' || (state.uiClean && hashState.labels !== 'on');
   panelManager?.setCleanMode(state.uiClean, { writeHash: false });
   if (hashState.hasModel && modelsById.has(hashState.model)) {
@@ -1927,6 +1934,7 @@ function writeHashState() {
   if (suppressHashWrite) return;
   const nextHash = hashForState();
   if (location.hash !== nextHash) history.replaceState(null, '', nextHash);
+  screens?.publish(location.hash);
 }
 
 function syncTTheoryUI() {
@@ -2258,7 +2266,10 @@ stereoSbsButton.addEventListener('click', () => {
   stereoSbsButton.setAttribute('aria-pressed', String(state.stereoSbs));
   resize();
 });
-addEventListener('hashchange', () => applyHashState());
+addEventListener('hashchange', () => {
+  applyHashState();
+  screens?.publish(location.hash);
+});
 const compareButton = document.querySelector('#view-compare');
 const compareLabels = document.querySelector('#compare-labels');
 const compareRightLabel = document.querySelector('#compare-right');
@@ -2334,6 +2345,52 @@ panelManager.registerPanel(document.querySelector('.mother-terminal'), { id: 'mo
 panelManager.registerPanel(document.querySelector('.question-card'), { id: 'whats-different', title: "WHAT'S DIFFERENT?", dockLabel: 'DIFFERENCE', minWidth: 310, minHeight: 180 });
 panelManager.registerPanel(document.querySelector('#dimension-dynamics-panel'), { id: 'state-dynamics', title: 'STATE DYNAMICS', dockLabel: 'STATE', minWidth: 300, minHeight: 220 });
 panelManager.registerPanel(compareCards, { id: 'compare-examples', title: 'COMPARE EXAMPLES', dockLabel: 'COMPARE', minWidth: 340, minHeight: 230 });
+
+// Several windows on one machine (screens.js): level, cockpit and engine room.
+screens = createScreens({
+  applyShared: shared => {
+    const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+    for (const key of ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff']) params.delete(key);
+    for (const [key, value] of new URLSearchParams(shared)) params.set(key, value);
+    if (screenRole === 'cockpit') params.set('ui', 'clean');
+    location.hash = params.toString();
+  },
+  setCameraMode: mode => {
+    cockpitCamera = mode === 'follow' ? 'follow' : 'external';
+    if (cockpitCamera === 'external') {
+      camera.position.copy(EXTERNAL_CAMERA);
+      camera.rotation.set(0, 0, 0);
+    }
+  },
+  setFx: fx => {
+    // 0.5 is the normal look; lower is calmer, higher is more vivid.
+    renderer.domElement.style.filter = `saturate(${(0.4 + 1.2 * fx).toFixed(2)}) brightness(${(0.8 + 0.4 * fx).toFixed(2)}) contrast(${(0.9 + 0.2 * fx).toFixed(2)})`;
+  },
+});
+addEventListener('soma-tour-step', event => screens.step(event.detail));
+addEventListener('soma-tour-end', () => screens.tourEnd());
+if (screenRole === 'cockpit') {
+  abstractSplash.hidden = true;
+  const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+  if (params.get('ui') !== 'clean') {
+    params.set('ui', 'clean');
+    location.hash = params.toString();
+  }
+}
+if (screenRole === 'engine') {
+  abstractSplash.hidden = true;
+  createEngineRoom({
+    screens,
+    styleKeys: Object.keys(state.style),
+    readParams: () => new URLSearchParams(location.hash.replace(/^#/, '')),
+    setParam: (key, value) => {
+      const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+      if (value === '' || value === undefined) params.delete(key);
+      else params.set(key, value);
+      location.hash = params.toString();
+    },
+  });
+}
 const examplesByLevel = new Map();
 for (const example of registryExamples) {
   if (!examplesByLevel.has(example.level)) examplesByLevel.set(example.level, []);
@@ -2543,7 +2600,15 @@ function resize() {
 addEventListener('resize', resize); resize();
 const clock = new THREE.Clock();
 
+function updateCockpitCamera(time) {
+  if (cockpitCamera === 'follow') {
+    camera.position.set(Math.sin(time * 0.09) * 9.2, 0.35 + Math.sin(time * 0.13) * 0.8, Math.cos(time * 0.09) * 9.2);
+    camera.lookAt(0, 0, 0);
+  }
+}
+
 function renderScene() {
+  updateCockpitCamera(clock.elapsedTime);
   if (state.stereoSbs && state.viewMode === '3d') {
     stereoCamera.update(camera);
     // setViewport/setScissor take CSS pixels; three.js applies the pixel ratio.
