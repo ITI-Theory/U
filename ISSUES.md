@@ -1861,7 +1861,10 @@ bar) all sound cheesy. What is really going on:
    the map of the whole programme.
 2. Missing: **where the project started** (P1, the limbic layer paper): the
    brain, the 1D Hopfield net, then 3D, and so on, and the emotions. This needs
-   to be visualised.
+   to be visualised. **The limbic system** belongs here too (author, 9 Oct,
+   23:19): that is where the trauma therapy helped. It is the hinge of the
+   story: the limbic field $\Phi$ (the missing limbic layer paper, FM-HN) is
+   what lets a stuck state move.
 3. One of the plates looks like a meshy spider web, cave-like; the film
    *Fantastic Voyage* has a similar landscape. Idea: an **ultra-simple explorer
    of the human body and brain**, like what we already have but inside the
@@ -1904,6 +1907,13 @@ Steps:
       stops are existing levels (human, whole-brain, cellular-synaptic); a layer
       switch 4D anatomy / 8D electrical / 11D field; poke a region and watch it
       spread in each layer.
+- [ ] Limbic system stop (inside view and origin tour): amygdala, hippocampus,
+      hypothalamus, cingulate as one schematic region between body and cortex
+      (the $D_8$ segment between body field $D_{1-7}$ and mind field $D_{9-11}$);
+      the FX bar as $\Phi_\text{limbic}$: calm keeps memories deep and fixed,
+      arousal melts the valleys, and safe, resourced arousal (the therapy) lets
+      the state settle somewhere new. Uses the FM-HN figures of the limbic layer
+      paper and the whole-brain panel; evidence labels on the clinical claims.
 - [ ] Emotions on the body: the eight modes as regions or colours on the body
       map (cf. bodily maps of emotions), linked to the concept registry
       (registry/concepts, ISS-046).
