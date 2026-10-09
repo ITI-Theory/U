@@ -1,0 +1,16 @@
+id: emotion-sadness
+concept: Sadness
+kind: emotion
+ontology:
+  system: OpenCyc
+  class: '#$Sadness-Emotion'
+lean:
+  module: EmotionOntology
+  name: EmotionLang.sadness
+papers:
+- P1
+- P9
+levels:
+- human-vertebrate
+notes: Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
+  constant.

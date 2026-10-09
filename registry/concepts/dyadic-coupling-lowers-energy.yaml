@@ -1,0 +1,15 @@
+id: dyadic-coupling-lowers-energy
+concept: Dyadic coupling lowers energy
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: DyadicField
+  name: dyadic_energy_coupling_lowers
+papers:
+- P3
+levels:
+- dyad
+label: open-hypothesis
+notes: Attunement as coupling; the theorem still depends on a sorry (ISS-036).

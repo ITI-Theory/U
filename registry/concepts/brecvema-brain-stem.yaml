@@ -1,0 +1,14 @@
+id: brecvema-brain-stem
+concept: Brain stem reflex
+kind: mechanism
+ontology:
+  system: OpenCyc
+  class: '#$AcousticStartleResponse'
+lean:
+  module: EmotionOntology
+  name: Mechanism.BrainStem
+papers:
+- P9
+levels:
+- human-vertebrate
+notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.

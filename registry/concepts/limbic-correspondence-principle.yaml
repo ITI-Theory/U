@@ -1,0 +1,16 @@
+id: limbic-correspondence-principle
+concept: Limbic Hopfield correspondence principle
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: LimbicHopfield
+  name: correspondence_principle
+papers:
+- P13
+levels:
+- whole-brain-cemi
+- human-vertebrate
+label: kernel-verified
+notes: With no somatic stress the field-modulated network reduces to the classic Hopfield network.

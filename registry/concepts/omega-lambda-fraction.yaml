@@ -1,0 +1,15 @@
+id: omega-lambda-fraction
+concept: Dark-energy fraction 7/11
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: CosmologicalConstant
+  name: omega_lambda_fraction
+papers:
+- P21
+levels:
+- observable-universe
+label: kernel-verified
+notes: Arithmetic of the 7/11 partition; its physical reading is open (P21 review item 4).

@@ -1,0 +1,14 @@
+id: brecvema-aesthetic-judgement
+concept: Aesthetic judgement
+kind: mechanism
+ontology:
+  system: OpenCyc
+  class: '#$AestheticAppraisal'
+lean:
+  module: EmotionOntology
+  name: Mechanism.AestheticJudgement
+papers:
+- P9
+levels:
+- human-vertebrate
+notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.

@@ -1,0 +1,16 @@
+id: emotion-fear
+concept: Fear
+kind: emotion
+ontology:
+  system: OpenCyc
+  class: '#$Fear-Emotion'
+lean:
+  module: EmotionOntology
+  name: EmotionLang.fear
+papers:
+- P1
+- P9
+levels:
+- human-vertebrate
+notes: Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
+  constant.

@@ -1,0 +1,14 @@
+id: brecvema-rhythmic-entrainment
+concept: Rhythmic entrainment
+kind: mechanism
+ontology:
+  system: OpenCyc
+  class: '#$RhythmicEntrainmentPsychological'
+lean:
+  module: EmotionOntology
+  name: Mechanism.RhythmicEntrainment
+papers:
+- P9
+levels:
+- human-vertebrate
+notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.

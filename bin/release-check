@@ -258,6 +258,17 @@ else
 fi
 echo "$ISSUES_CHECK" | grep -E '^(FAIL|PASS)' | head -8 | sed 's/^/    /'
 
+hdr "19. Sherlock concept registry (registry/concepts)"
+CONCEPT_CHECK=$(py paper/scripts/check_concepts.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Concepts resolve to Lean, papers and levels; no label claims more than its proof"
+else
+  fail "Concept registry: broken reference or a label the proof does not support"
+fi
+echo "$CONCEPT_CHECK" | grep -E '^(FAIL|[0-9]+ concepts)' | head -8 | sed 's/^/    /'
+GAPS=$(echo "$CONCEPT_CHECK" | grep -c '^GAP' || true)
+[[ "$GAPS" -gt 0 ]] && echo "    $GAPS gap(s): make concepts"
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

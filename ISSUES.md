@@ -1368,6 +1368,15 @@ app README):**
 - [ ] Sherlock concept registry `registry/concepts/<id>.yaml`: concept,
       ontology class (OpenCyc/OWL), Lean type (Mathlib, PhysLib or programme),
       proof status, papers, levels, so that gaps become visible.
+      9 Oct, v0: `registry/concepts/` (23 concepts: the 8 emotions and 8 BRECVEMA
+      mechanisms with their OpenCyc classes from EmotionOntology's CycRef
+      interpreter, and 7 central theorems), `make concepts`
+      (paper/scripts/check_concepts.py: real proof status from the source, gap
+      table), release-check section 19 (fails on broken references or a label
+      the proof does not support). Next: ontology classes for the 7 programme
+      concepts (author: OpenCyc or the programme's own OWL), more concepts
+      (level by level), the Lean types side of the map (Mathlib/PhysLib), and the
+      type guard below generated from the same registry.
 - [ ] Visual rhymes: renderers may share motion styles across levels (sliding
       plates for `geological`, ring/belt debris for `orbital-system`), badged
       as visual analogy (`INTERPRETIVE`); the physics differs.

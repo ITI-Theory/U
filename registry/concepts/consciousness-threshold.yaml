@@ -1,0 +1,15 @@
+id: consciousness-threshold
+concept: Consciousness threshold
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: UniversalSomaticField
+  name: consciousness_dichotomy
+papers:
+- P20
+levels:
+- human-vertebrate
+label: kernel-verified
+notes: Proves only the order split around sqrt 2; that consciousness is such a crossing is an open hypothesis.

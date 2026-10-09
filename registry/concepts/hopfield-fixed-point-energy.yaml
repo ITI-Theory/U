@@ -1,0 +1,16 @@
+id: hopfield-fixed-point-energy
+concept: Hopfield energy at a fixed point
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: Hopfield
+  name: energy_at_fixed_point
+papers:
+- P13
+levels:
+- local-circuit
+- whole-brain-cemi
+label: kernel-verified
+notes: Memories as fixed points of the classic network.

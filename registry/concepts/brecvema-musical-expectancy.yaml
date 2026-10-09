@@ -1,0 +1,14 @@
+id: brecvema-musical-expectancy
+concept: Musical expectancy
+kind: mechanism
+ontology:
+  system: OpenCyc
+  class: '#$ExpectancyViolation'
+lean:
+  module: EmotionOntology
+  name: Mechanism.MusicalExpectancy
+papers:
+- P9
+levels:
+- human-vertebrate
+notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.

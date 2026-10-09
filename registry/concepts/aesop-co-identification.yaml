@@ -1,0 +1,14 @@
+id: aesop-co-identification
+concept: Aesop implements co-identification
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: FieldAxioms
+  name: AesopImplementsCoIdentification
+papers:
+- P3
+levels: []
+label: derived-under-assumptions
+notes: 'An axiom: a signpost for the co-identification method, not a proof about Aesop.'

@@ -106,6 +106,11 @@ app-publish:
 mother-bridge:
 	cd apps/instrument/mother && $(MOTHER_PY) bridge.py
 
+# Sherlock concept registry (registry/concepts): references, real proof status, gaps.
+.PHONY: concepts
+concepts:
+	$(PYTHON) paper/scripts/check_concepts.py
+
 # Every {{Visualize}} figure in one file for custom chats (ISS-051): bld/visualize/library.pdf.
 .PHONY: visualize-library
 visualize-library:

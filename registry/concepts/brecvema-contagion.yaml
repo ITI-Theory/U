@@ -1,0 +1,14 @@
+id: brecvema-contagion
+concept: Emotional contagion
+kind: mechanism
+ontology:
+  system: OpenCyc
+  class: '#$EmotionalContagion'
+lean:
+  module: EmotionOntology
+  name: Mechanism.Contagion
+papers:
+- P9
+levels:
+- human-vertebrate
+notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.

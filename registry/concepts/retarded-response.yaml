@@ -1,0 +1,15 @@
+id: retarded-response
+concept: Retarded (causal) response
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: TemporalDynamics
+  name: retardedDecayFactor_isCausal
+papers:
+- P10
+levels:
+- human-vertebrate
+label: kernel-verified
+notes: 'The response follows its cause: the Green''s function vanishes before the kick.'

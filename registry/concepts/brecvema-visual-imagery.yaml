@@ -1,0 +1,14 @@
+id: brecvema-visual-imagery
+concept: Visual imagery
+kind: mechanism
+ontology:
+  system: OpenCyc
+  class: '#$MentalImagery'
+lean:
+  module: EmotionOntology
+  name: Mechanism.VisualImagery
+papers:
+- P9
+levels:
+- human-vertebrate
+notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
