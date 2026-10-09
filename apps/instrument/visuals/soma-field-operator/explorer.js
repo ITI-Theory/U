@@ -7,7 +7,7 @@
 // voyage=<stop>&phi=<0..1>&feel=<mode>&resource=0|1. Drawings are schematic, and each
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
-import { createLandscape3D } from './explorer3d.js';
+import { createDyad3D, createLandscape3D } from './explorer3d.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -943,6 +943,17 @@ function makeDyad() {
     },
     draw(ctx, env) {
       const { u, dim, phi, t } = env;
+      if (env.gl) {
+        env.gl.render({ a: s.a, b: s.b, r, coupling: DYAD.coupling(env.resource), dim, time: t, stereo: env.stereo });
+        if (env.labels) {
+          const state = rupture > 0.3 ? 'rupture: repairing' : smooth > 0.9 ? 'in step' : smooth > 0.8 ? 'slipping' : 'drifting apart';
+          label(ctx, u, `sync r = ${smooth.toFixed(2)} · ${state}`, 0, -0.72, smooth > 0.9 && rupture <= 0.3 ? COLORS.teal : COLORS.orange, 'center', 0.034);
+          const b = env.gl.projectWorld(0, -1.0, 0);
+          if (b.visible) label(ctx, u, 'CONTACT BOUNDARY', (b.x * env.w) / u, (b.y * env.h) / u, COLORS.dim, 'center', 0.024);
+          if (dim >= 8) label(ctx, u, env.resource ? 'coupling K = 0.8 (with the resource)' : 'coupling K = 0.3', 0, -0.64, env.resource ? COLORS.teal : COLORS.cyan, 'center', 0.026);
+        }
+        return;
+      }
       const people = [{ x: -0.45, phase: s.a, color: COLORS.teal }, { x: 0.45, phase: s.b, color: COLORS.violet }];
       const f = env.fieldCtx ?? ctx; // near layer in 3D SBS
       if (dim >= 11) {
@@ -1569,19 +1580,26 @@ export function createExplorer(hooks = {}) {
     clearTimeout(chromeTimer);
     chromeTimer = setTimeout(() => document.body.classList.remove('explorer-chrome'), 3000);
   });
-  // The 3D landscape (explorer3d.js), made on first use; null where WebGL is missing.
-  let gl = null;
-  let glTried = false;
-  function landscapeGl() {
-    if (!glTried) {
-      glTried = true;
-      gl = createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [] });
-      if (gl) {
-        root.prepend(gl.canvas);
-        gl.resize(w, h, dpr);
+  // The 3D stops (explorer3d.js), each made on first use; null where WebGL is missing.
+  const GL_MAKERS = {
+    landscape: () => createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [] }),
+    dyad: () => createDyad3D(),
+  };
+  const gls = {};
+  function stageGl(stop) {
+    if (!GL_MAKERS[stop]) return null;
+    if (!(stop in gls)) {
+      gls[stop] = GL_MAKERS[stop]();
+      if (gls[stop]) {
+        root.prepend(gls[stop].canvas);
+        gls[stop].resize(w, h, dpr);
       }
     }
-    return gl;
+    return gls[stop];
+  }
+  function showGl(active) {
+    for (const g of Object.values(gls)) g?.canvas.classList.toggle('is-active', g === active);
+    root.classList.toggle('explorer--gl', Boolean(active));
   }
   let raf = 0;
   let last = 0;
@@ -1595,7 +1613,7 @@ export function createExplorer(hooks = {}) {
     canvas.height = Math.round(h * dpr);
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
-    gl?.resize(w, h, dpr);
+    for (const g of Object.values(gls)) g?.resize(w, h, dpr);
   }
   addEventListener('resize', () => { if (st.open) resize(); });
 
@@ -1613,7 +1631,7 @@ export function createExplorer(hooks = {}) {
     resourceButton.hidden = !['network', 'landscape', 'dyad'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
-    view3dButton.hidden = st.stop !== 'landscape' || (glTried && !gl);
+    view3dButton.hidden = !GL_MAKERS[st.stop] || (st.stop in gls && !gls[st.stop]);
     const link = STOP_LEVELS[st.stop];
     root.querySelector('[data-act="level"]').title = `Back into the elevator: the same thing in the level view, ${hooks.levelLabel?.(link.level) ?? link.level}${link.dim ? ` at ${link.dim}D` : ''}`;
     view3dButton.classList.toggle('active', st.view3d);
@@ -1785,8 +1803,8 @@ export function createExplorer(hooks = {}) {
     }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (st.stop === 'human') {
-      // the level view shows through: no 3D landscape canvas on top of it
-      root.classList.remove('explorer--gl');
+      // the level view shows through: no 3D stop canvas on top of it
+      showGl(null);
       if (stereo) {
         mainCtx.setTransform(1, 0, 0, 1, 0, 0);
         mainCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1795,8 +1813,8 @@ export function createExplorer(hooks = {}) {
       return;
     }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    env.gl = st.stop === 'landscape' && st.view3d ? landscapeGl() : null;
-    root.classList.toggle('explorer--gl', Boolean(env.gl));
+    env.gl = st.view3d ? stageGl(st.stop) : null;
+    showGl(env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
       ctx.clearRect(0, 0, lw, h);

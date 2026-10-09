@@ -2003,7 +2003,10 @@ Steps:
       kernel-verified).
 - [ ] All stops in true 3D (author, 10 Oct 01:16: "all rendered in 3D and 3D SBS
       on my 3D projector, 100-inch screen"). Done: 3D SBS for every stop
-      (ISS-027), true 3D for HUMAN and LANDSCAPE. Next, by H-AL's ranking
+      (ISS-027), true 3D for HUMAN, LANDSCAPE and DYAD (two jellyfish figures,
+      hearts pulsing with the simulated rhythms, ripple rings across the
+      contact boundary on each beat, coupling lines that tangle when out of
+      step, the shared field at 11D; 3D button, 2D drawing kept). Next, by H-AL's ranking
       (uat/RC3/hal-stereo-explorer-2026-10-10.md): the dyad (two bodies across
       real space, ripples meeting at the boundary), the limbic hinge (7D
       narrowing to the D8 line and opening into 3D), the body inside the
