@@ -139,6 +139,22 @@ steps:
   say: Poke it, and it fires.
   label: simulated
   pause: 3
+- view: voyage=dyad&dim=8&phi=0.7
+  say: No one heals alone. Two people, two rhythms. When both are aroused, the gap between their rhythms
+    widens, and they drift apart. A rupture.
+  label: simulated
+  pause: 6
+- view: voyage=dyad&dim=11&phi=0.7&resource=1
+  say: Add a resource, a steady, present other. The coupling grows, and the two fall into step again, even
+    though the arousal has not changed.
+  label: interpretive
+  pause: 6
+- view: voyage=dyad&dim=11&phi=0.3&resource=1
+  poke: strong
+  say: And when something jolts one of them, the rupture is repaired, faster with the resource than
+    without. In the model, that is co-regulation.
+  label: interpretive
+  pause: 6
 - view: voyage=human&dim=11&phi=0.4
   say: And back out to the whole person. So this is not a flight simulator. It is a mind-body explorer, a
     SOMA Machine, where a feeling lives in the body, and how it moves. Everything you saw is a model, and

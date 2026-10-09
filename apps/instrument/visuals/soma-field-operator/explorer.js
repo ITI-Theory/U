@@ -29,7 +29,7 @@ const temperature = phi => T0 + SIGMA * phi;
 
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
-export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape'];
+export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
@@ -38,11 +38,11 @@ export const STOP_LEVELS = {
   brain: { level: 'whole-brain-cemi' }, limbic: { level: 'human-vertebrate', dim: 8 },
   thought: { level: 'whole-brain-cemi', dim: 11 },
   neuron: { level: 'cellular-synaptic' }, network: { level: 'whole-brain-cemi' },
-  landscape: { level: 'human-vertebrate' },
+  landscape: { level: 'human-vertebrate' }, dyad: { level: 'dyad' },
 };
-export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron' };
+export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -87,6 +87,12 @@ const CAPTIONS = {
     4: 'Below the line is the sub-threshold sea: field activity that is real and acts on the body but is not felt, the model\'s subconscious. Triggers from the body (the poke, a racing heart) raise a swell.',
     8: 'When a swell crosses the threshold (T_c, √2 in the model; consciousness_dichotomy, kernel-verified but only an order fact) it condenses into an emotion in the limbic band (D8).',
     11: 'If it keeps rising it becomes a thought in the cortex band (D9–11): the same field, a different type (Russell\'s types, Gestalt paper). The thought sends a pulse back down to the body; hot (high Φ), the loop can spiral into rumination. The faint flicker in the sea is quantum-scale information, small but there: the quantum-foam picture of the subconscious is an open hypothesis (QUANT-EXP-1, LimbicTunnel.lean).',
+  },
+  dyad: {
+    title: 'THE DYAD', label: 'simulated',
+    4: 'Two people, two rhythms (heart and breath, drawn as one phase each). Calm, they fall into step; Φ, the limbic field, widens the gap between their rhythms and they drift apart: a rupture. POKE jolts one out of step; watch the repair.',
+    8: 'The coupling across the contact boundary, attunement (Kuramoto model, as the dyad level): strong enough, and the two lock; RESOURCE strengthens it (the therapist\'s presence), so they stay attuned even when hot and repair faster.',
+    11: 'The shared field around both: bright when they are in step (the sync r near 1). The clinical reading (rupture and repair, co-regulation) is interpretive.',
   },
   neuron: {
     title: 'ONE NEURON', label: 'simulated',
@@ -891,6 +897,127 @@ function makeThought() {
   };
 }
 
+// ---------------------------------------------------------------- stop: the dyad
+
+// Two phase oscillators (Kuramoto): base rate 1 Hz, the second faster by 0.03 + 0.12 Φ Hz,
+// coupling K = 0.3, + 0.5 with the resource, noise rising with Φ. Locked when the gap is
+// below 2K: calm locks, hot drifts, hot with the resource locks (scripts/explorer-check.mjs).
+const DYAD = { rate: 1, gap: phi => 0.03 + 0.12 * phi, coupling: resource => 0.3 + (resource ? 0.5 : 0), noise: phi => 0.02 + 0.1 * phi };
+
+export function dyadStep(s, phi, resource, dt) {
+  const w = TAU * DYAD.rate;
+  const dw = TAU * DYAD.gap(phi);
+  const K = DYAD.coupling(resource);
+  const D = DYAD.noise(phi);
+  const da = w + K * Math.sin(s.b - s.a);
+  const db = w + dw + K * Math.sin(s.a - s.b);
+  s.a += da * dt + Math.sqrt(2 * D * dt) * gauss();
+  s.b += db * dt + Math.sqrt(2 * D * dt) * gauss();
+  return Math.abs(Math.cos((s.b - s.a) / 2));
+}
+
+function makeDyad() {
+  const s = { a: 0, b: 0.3 };
+  const history = [];
+  let r = 1;
+  let smooth = 1;
+  let clock = 0;
+  let rupture = 0;
+  return {
+    focus: [0, -0.1],
+    tick(env) {
+      clock += env.dt;
+      const sub = 3;
+      for (let k = 0; k < sub; k++) r = dyadStep(s, env.phi, env.resource, env.dt / sub);
+      rupture = Math.max(0, rupture - env.dt * 0.5);
+      smooth += (r - smooth) * Math.min(1, env.dt / 2);
+      history.push([clock, r]);
+      while (history.length && clock - history[0][0] > 10) history.shift();
+    },
+    poke(strength) {
+      s.b += Math.PI * (0.6 + 0.4 * strength);
+      rupture = 1;
+    },
+    draw(ctx, env) {
+      const { u, dim, phi, t } = env;
+      const people = [{ x: -0.45, phase: s.a, color: COLORS.teal }, { x: 0.45, phase: s.b, color: COLORS.violet }];
+      if (dim >= 11) {
+        ctx.save();
+        const g = ctx.createRadialGradient(0, -0.15 * u, 0.1 * u, 0, -0.15 * u, 0.85 * u);
+        g.addColorStop(0, `rgba(255,209,102,${0.28 * r * r})`);
+        g.addColorStop(1, 'rgba(255,209,102,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.ellipse(0, -0.15 * u, 0.9 * u, 0.6 * u, 0, 0, TAU);
+        ctx.fill();
+        ctx.restore();
+      }
+      // the contact boundary
+      ctx.save();
+      ctx.strokeStyle = 'rgba(232,238,252,0.35)';
+      ctx.setLineDash([6, 8]);
+      ctx.beginPath();
+      ctx.moveTo(0, -0.62 * u);
+      ctx.lineTo(0, 0.25 * u);
+      ctx.stroke();
+      ctx.restore();
+      if (dim >= 8) {
+        const strength = DYAD.coupling(env.resource);
+        ctx.save();
+        for (let k = 0; k < 7; k++) {
+          const y = -0.42 + k * 0.035;
+          ctx.strokeStyle = env.resource ? COLORS.teal : COLORS.cyan;
+          ctx.globalAlpha = env.alpha * (0.15 + 0.5 * strength) * (0.4 + 0.6 * r);
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          for (let i = 0; i <= 60; i++) {
+            const x = lerp(-0.33, 0.33, i / 60);
+            const wob = 0.02 * Math.sin(10 * x - t * 3 + k) * (1 + 2 * (1 - r));
+            if (i) ctx.lineTo(x * u, (y + wob) * u);
+            else ctx.moveTo(x * u, (y + wob) * u);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+      for (const [i, person] of people.entries()) {
+        ctx.save();
+        ctx.translate(person.x * u, 0.02 * u);
+        ctx.scale(i ? -0.48 : 0.48, 0.48);
+        ctx.fillStyle = ctx.strokeStyle = 'rgba(16,49,58,0.9)';
+        bodyShape(ctx, u);
+        ctx.restore();
+        const breath = 0.5 + 0.5 * Math.sin(person.phase);
+        glow(ctx, u, person.x, -0.2, 0.08 + 0.06 * breath, person.color, 0.4 + 0.5 * breath);
+        dot(ctx, u, person.x, -0.2, 0.018, '#ffffff', 0.6 + 0.4 * breath);
+      }
+      // phase difference over the last 10 s
+      const x0 = -0.4, x1 = 0.85, yMid = 0.5, amp = 0.09;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(232,238,252,0.18)';
+      ctx.strokeRect(x0 * u, (yMid - amp - 0.02) * u, (x1 - x0) * u, (2 * amp + 0.04) * u);
+      ctx.strokeStyle = COLORS.gold;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for (const [i, [when, sync]] of history.entries()) {
+        const x = lerp(x0, x1, 1 - (clock - when) / 10);
+        const y = yMid + amp - 2 * amp * sync;
+        if (i) ctx.lineTo(x * u, y * u);
+        else ctx.moveTo(x * u, y * u);
+      }
+      ctx.stroke();
+      ctx.restore();
+      if (env.labels) {
+        const state = rupture > 0.3 ? 'rupture: repairing' : smooth > 0.9 ? 'in step' : smooth > 0.8 ? 'slipping' : 'drifting apart';
+        label(ctx, u, `sync r = ${smooth.toFixed(2)} · ${state}`, 0, -0.72, smooth > 0.9 && rupture <= 0.3 ? COLORS.teal : COLORS.orange, 'center', 0.034);
+        label(ctx, u, 'CONTACT BOUNDARY', 0, 0.3, COLORS.dim, 'center', 0.024);
+        label(ctx, u, 'SYNC r, LAST 10 S (top = in step, dips = slips)', (x0 + x1) / 2, yMid + amp + 0.06, COLORS.dim, 'center', 0.024);
+        if (dim >= 8) label(ctx, u, env.resource ? 'coupling K = 0.8 (with the resource)' : 'coupling K = 0.3', 0, -0.5, env.resource ? COLORS.teal : COLORS.cyan, 'center', 0.026);
+      }
+    },
+  };
+}
+
 // ---------------------------------------------------------------- stop: one neuron
 
 function makeNeuron() {
@@ -1369,10 +1496,10 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
-export const simulation = { memoryStep, landscapeStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
+export const simulation = { memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
 
 // ---------------------------------------------------------------- the explorer
 
@@ -1456,7 +1583,7 @@ export function createExplorer(hooks = {}) {
     for (const b of root.querySelectorAll('[data-dim]')) b.classList.toggle('active', Number(b.dataset.dim) === dim());
     for (const b of root.querySelectorAll('[data-feel]')) b.classList.toggle('active', b.dataset.feel === st.feel);
     feelRow.hidden = st.stop !== 'body';
-    resourceButton.hidden = !['network', 'landscape'].includes(st.stop);
+    resourceButton.hidden = !['network', 'landscape', 'dyad'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
     view3dButton.hidden = st.stop !== 'landscape' || (glTried && !gl);

@@ -1995,9 +1995,14 @@ Steps:
       time τ, and the carrier field retyping as the car moves; more STEP OUT
       floors as stops appear (dyad, swarm, geological memory, cosmic web);
       other buildings next door for other paths (the 7 Oct chat).
-- [ ] From H-AL: a DYAD stop after the landscape (Level 10, two fields coupled
-      at the contact boundary; rupture and repair), the heart of the
-      therapy story; the existing dyad level and the consulting-room tour help.
+- [x] DYAD stop (10 Oct): two people, two rhythms (Kuramoto, as the dyad level),
+      coupling across the contact boundary; Φ widens the gap (drift, rupture),
+      RESOURCE strengthens the coupling (attuned even when hot), POKE is a
+      rupture and the repair is visible; sync r over the last 10 s. Linked
+      both ways with the Dyad level (elevator STEP OUT). Checked
+      (explorer-check, 14 checks): calm r 0.96, hot 0.70, hot with the
+      resource 0.95, repair 1.4 times faster with the resource. Tour: three
+      stops before the return to the jellyfish human.
 - [ ] From H-AL: music as forcing (BRECVEMA mechanisms, rhythm) on the body and
       landscape stops: the Somatron roots of the machine.
 - [ ] From H-AL: the memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji) on
