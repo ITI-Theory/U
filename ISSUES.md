@@ -1687,14 +1687,17 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       copies of one chat reopened in another workspace are merged; thinking and
       tool calls left out; tokens and passwords masked. Re-running updates changed
       sessions.
-- [ ] Gemini and AI Mode chats (author, both Google accounts): Google Takeout, My
-      Activity -> only Gemini Apps and Search, JSON format; then
-      `make -C Me/chats gemini Z=<takeout.zip> A=<account> DRY=1`, then without
-      DRY. Takeout has one entry per prompt; the importer (Me fbbf830) rebuilds
-      conversations (prompts under 30 minutes apart, products kept apart), keeps
-      Search entries only with an AI answer, masks secrets, skips what is in.
-      Unknown until the first real export: whether Takeout includes AI Mode
-      answers; adapt the importer to what the dry run shows.
+- [x] Google Takeout, second account (9 Oct, Me 2e85cfc): `make -C Me/chats takeout
+      Z=<zip> A=<account> [DRY=1]`. It held AI Mode (HTML, prompts with full
+      answers) and NotebookLM (4 notebooks: chat histories, artifacts, sources),
+      no Gemini Apps. Imported: 158 AI Mode conversations (234 prompts), 4
+      NotebookLM chat histories (Rosetta Stone 647 turns), 3 new artifacts into
+      `notebooks/<notebook>/takeout-artifacts/`. Sources skipped (own papers).
+      Some AI Mode chats are personal (recipes, immigration, sport): mark them
+      private (item above) before anything is lifted or collated.
+- [ ] Google Takeout, gmail account (author): same export (My Activity: Gemini
+      Apps, Search/AI Mode; NotebookLM), then `make -C Me/chats takeout Z=<zip>
+      A=gmail DRY=1`, then without DRY.
 - [x] Agent sessions (`~/.copilot/session-state`): only 2 of the 8 folders have
       a session log (this one, 0eee7915, and c06281b7 of 15 Feb); both are in the
       Inbox. Nothing else to export.
