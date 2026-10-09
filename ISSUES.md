@@ -1921,16 +1921,32 @@ Steps:
       (3) the body inside the jellyfish human, reusing its mesh; (4) neuron and
       network. The limbic hinge stays a diagram (clearer in 2D). Keep the 2D
       drawings as the map and print mode (labels, Atlas plates, phones).
-- [ ] Ask H-AL (HAL-UAT notebook), once NotebookLM is logged in again (10 Oct
-      00:15: the saved login has expired, `notebooklm auth refresh` lands on
-      notebook.google.com without a token; the author runs
-      `apps/instrument/mother/.venv/Scripts/notebooklm login` once). Question:
+- [x] Asked H-AL (HAL-UAT, 10 Oct 00:30, after the author logged in again; answer
+      in uat/RC3/hal-mind-body-explorer-2026-10-10.md). It fits (4D/8D/11D,
+      Level 9 humanoid, FM-HN, J(t)); overreach to avoid: clinical or
+      diagnostic claims (the instrument is educational, non-medical), Hopfield
+      and 11D as model classes not anatomy, consciousness as open hypothesis.
+      Missing from the voyage, now steps below. Question was:
       "The Soma Machine is being repositioned as a mind-body explorer rather
       than a flight simulator: a dive from the whole person into the body,
       brain, limbic system, one neuron, a memory network and the landscape of
       states, where the limbic field heats the memories and a resource lets a
       stuck state move. From the sources, what fits the programme best, what is
       missing, and what would a Gestalt or trauma therapist find most useful?"
+- [x] 3D landscape (10 Oct): `explorer3d.js`, a three.js terrain of the same
+      energy as the checked simulation, the ball and its trail, glowing
+      valleys at 11D, the camera circling; 3D button (on by default, 2D map
+      kept).
+- [ ] From H-AL: a DYAD stop after the landscape (Level 10, two fields coupled
+      at the contact boundary; rupture and repair), the heart of the
+      therapy story; the existing dyad level and the consulting-room tour help.
+- [ ] From H-AL: music as forcing (BRECVEMA mechanisms, rhythm) on the body and
+      landscape stops: the Somatron roots of the machine.
+- [ ] From H-AL: the memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji) on
+      the memory stop: the past keeps shaping the ground.
+- [ ] From H-AL: link back out to the zoom dial (the levels), not only inward.
+- [ ] From H-AL: Beisser's paradoxical theory of change as a landscape tour
+      line (staying with the sensation raises Φ, rather than pushing).
 - [x] (9 Oct, Friday night: `explorer.js`, the **mind explorer**; tour
       `mind-explorer`, 23 stops, about seven minutes) Origin tour ("where it
       started"): the 1982 memory network, 2020 attention, the limbic field

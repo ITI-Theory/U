@@ -466,6 +466,8 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer--diving .explorer__bar { opacity: .35; pointer-events: none; }
 .explorer-open .wm-panel, .explorer-open .wm-dock, .explorer-open .wm-clean-hint, .explorer-open .field-note, .explorer-open .compare-labels,
 .explorer-open .question-nudge, .explorer-open .gravity-question-readouts { visibility: hidden !important; pointer-events: none !important; }
+.explorer__gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .9s ease; }
+.explorer--gl .explorer__gl { opacity: 1; }
 /* During a tour H-AL's card carries the line: it sits above the explorer, whose own caption steps aside. */
 .explorer-open .tour-card, .explorer-open .screen-hud { z-index: 210; }
 .explorer-open.tour-active .explorer__card { display: none; }

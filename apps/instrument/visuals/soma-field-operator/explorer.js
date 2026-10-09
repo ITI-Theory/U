@@ -7,6 +7,8 @@
 // voyage=<stop>&phi=<0..1>&feel=<mode>&resource=0|1. Drawings are schematic, and each
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
+import { createLandscape3D } from './explorer3d.js';
+
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -49,7 +51,7 @@ export const FEELINGS = {
 const CAPTIONS = {
   human: {
     title: 'THE JELLYFISH HUMAN', label: 'interpretive',
-    4: 'The whole person as the SOMA Machine draws them, the humanoid of the Field Atlas: body, fields and the brain on top. Raise Φ (the FX bar) and it glows; go on (→ or BODY) to dive inside.',
+    4: 'The whole person as the SOMA Machine draws them, the humanoid of the Field Atlas: body, fields and the brain on top. Raise Φ (the FX bar) and it glows; go on (→ or BODY) to dive inside. An educational model, not a medical or diagnostic tool.',
   },
   body: {
     title: 'THE BODY', label: 'interpretive',
@@ -1042,6 +1044,17 @@ function makeLandscape() {
       const T = temperature(phi);
       const beta = 1 / T;
       const J = env.resource ? RESOURCE_J : 0;
+      if (env.gl) {
+        env.gl.render({ phi, T, J, dim, theta, ball, trail, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]) });
+        if (env.labels) {
+          for (const [k, [wx, wy]] of WELLS.entries()) {
+            const s = env.gl.project(wx, wy, 0.32);
+            if (s.visible) label(ctx, u, MEMORY_NAMES[k].toUpperCase(), (s.x * env.w) / u, (s.y * env.h) / u, MEMORY_COLORS[MEMORY_NAMES[k]], 'center', 0.034);
+          }
+          landscapeHud(ctx, u, phi, T, beta, env.resource);
+        }
+        return;
+      }
       const eRef = energy(0, 0, beta, J);
       const c = Math.cos(theta), s = Math.sin(theta);
       const toView = (px, py) => [px * c - py * s, px * s + py * c];
@@ -1120,13 +1133,15 @@ function makeLandscape() {
         }
         if (env.labels) label(ctx, u, name.toUpperCase(), sx, sy - 0.12, MEMORY_COLORS[name], 'center', 0.034);
       }
-      if (env.labels) {
-        const state = T < 0.45 ? 'deep valleys: the state stays put' : T < 0.55 ? 'valleys melting' : 'one shallow bowl: the state can move';
-        label(ctx, u, `Φ ${phi.toFixed(2)}   T ${T.toFixed(2)}   β ${beta.toFixed(2)}   ${state}`, 0, -0.62, COLORS.ink, 'center', 0.032);
-        if (env.resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
-      }
+      if (env.labels) landscapeHud(ctx, u, phi, T, beta, env.resource);
     },
   };
+}
+
+function landscapeHud(ctx, u, phi, T, beta, resource) {
+  const state = T < 0.45 ? 'deep valleys: the state stays put' : T < 0.55 ? 'valleys melting' : 'one shallow bowl: the state can move';
+  label(ctx, u, `Φ ${phi.toFixed(2)}   T ${T.toFixed(2)}   β ${beta.toFixed(2)}   ${state}`, 0, -0.62, COLORS.ink, 'center', 0.032);
+  if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
 const FACTORIES = { body: makeBody, brain: makeBrain, limbic: makeLimbic, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
@@ -1152,6 +1167,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
+      <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
@@ -1164,13 +1180,28 @@ export function createExplorer(hooks = {}) {
   const card = root.querySelector('.explorer__card');
   const feelRow = root.querySelector('.explorer__feel');
   const resourceButton = root.querySelector('[data-act="resource"]');
+  const view3dButton = root.querySelector('[data-act="view3d"]');
 
   const scenes = {};
   const scene = id => (scenes[id] ??= FACTORIES[id]());
   const rand = seeded(3);
   const particles = Array.from({ length: 70 }, () => ({ x: rand(), y: rand(), z: 0.3 + rand() * 0.7, r: rand() }));
   const st = { open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
-    diving: false, enterStart: 0 };
+    diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0' };
+  // The 3D landscape (explorer3d.js), made on first use; null where WebGL is missing.
+  let gl = null;
+  let glTried = false;
+  function landscapeGl() {
+    if (!glTried) {
+      glTried = true;
+      gl = createLandscape3D({ energy, wells: WELLS });
+      if (gl) {
+        root.prepend(gl.canvas);
+        gl.resize(w, h, dpr);
+      }
+    }
+    return gl;
+  }
   let raf = 0;
   let last = 0;
   let w = 0, h = 0, dpr = 1;
@@ -1183,6 +1214,7 @@ export function createExplorer(hooks = {}) {
     canvas.height = Math.round(h * dpr);
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
+    gl?.resize(w, h, dpr);
   }
   addEventListener('resize', () => { if (st.open) resize(); });
 
@@ -1200,6 +1232,9 @@ export function createExplorer(hooks = {}) {
     resourceButton.hidden = !['network', 'landscape'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
+    view3dButton.hidden = st.stop !== 'landscape' || (glTried && !gl);
+    view3dButton.classList.toggle('active', st.view3d);
+    view3dButton.setAttribute('aria-pressed', String(st.view3d));
     phiInput.value = String(st.phi);
     phiOut.textContent = st.phi.toFixed(2);
     const cap = CAPTIONS[st.stop];
@@ -1266,9 +1301,21 @@ export function createExplorer(hooks = {}) {
       raf = requestAnimationFrame(frame);
       return;
     }
-    background(t);
-    scene(st.stop).tick(env);
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
+    env.gl = st.stop === 'landscape' && st.view3d ? landscapeGl() : null;
+    root.classList.toggle('explorer--gl', Boolean(env.gl));
+    if (env.gl) {
+      // the terrain is on the WebGL canvas below; fade the old stop's background out over it
+      ctx.clearRect(0, 0, w, h);
+      if (st.from && p < 1) {
+        ctx.globalAlpha = 1 - ease(p);
+        background(t);
+        ctx.globalAlpha = 1;
+      }
+    } else {
+      background(t);
+    }
+    scene(st.stop).tick(env);
     const entering = st.enterStart ? clamp((t - st.enterStart) / 1.6, 0, 1) : 1;
     if (entering < 1) {
       // just through the skin: start at the heart and pull back to the whole body
@@ -1339,7 +1386,11 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
-    else if (b.dataset.act === 'resource') {
+    else if (b.dataset.act === 'view3d') {
+      st.view3d = !st.view3d;
+      localStorage.setItem('soma-explorer-3d', st.view3d ? '1' : '0');
+      syncUi();
+    } else if (b.dataset.act === 'resource') {
       st.resource = !st.resource;
       syncUi();
       hooks.onChange?.();
