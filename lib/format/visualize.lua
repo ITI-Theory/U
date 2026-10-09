@@ -23,7 +23,11 @@
 --
 -- Metadata: visualize-render (Python interpreter: draw the figures now, for
 --           one-step PDF builds), visualize-manifest (path), visualize-src (image path prefix as
--- the output document sees it), lean-root (folder of the .lean files).
+-- the output document sees it), lean-root (folder of the .lean files),
+-- visualize-show (all | selected | none; default all): which figures appear. Hidden
+-- figures are still drawn and checked (manifest); in HTML they become a collapsed
+-- "Show figure" under the equation, elsewhere they are left out. `show=true` on a
+-- macro marks it as selected.
 
 local PRIMITIVES = {
   ["function-plot"] = true, ["area-under"] = true, ["log-scale"] = true,
@@ -35,7 +39,7 @@ local CONCEPTS = {
   generic = true, wave = true, quantum = true, neural = true, soma = true,
   earth = true, cosmic = true,
 }
-local LAYOUT = { label = true, width = true, height = true, opener = true }
+local LAYOUT = { label = true, width = true, height = true, opener = true, show = true }
 
 local manifest_path, src_prefix, lean_root = nil, "visualize", nil
 local specs = {}
@@ -151,7 +155,23 @@ local function visualize(para, seen)
   if params.opener == "true" then classes[#classes + 1] = "opener" end  -- chapter banner, full width
   local img = pandoc.Image(caption, src_prefix .. "/" .. id .. ".png", "", pandoc.Attr("", classes, attrs))
   return pandoc.Figure({ pandoc.Plain({ img }) }, { long = { pandoc.Plain(caption) } },
-    pandoc.Attr(params.label or "", { "visualize" }))
+    pandoc.Attr(params.label or "", { "visualize" })), params.show == "true"
+end
+
+-- visualize-show: all (default), selected (only show=true), none.
+local show_mode = "all"
+local function shown(selected)
+  return show_mode == "all" or (show_mode == "selected" and selected)
+end
+
+-- A hidden figure: collapsed in HTML (one click away), left out elsewhere.
+local function hidden(fig)
+  if not FORMAT:match("html") then return nil end
+  return pandoc.Div({
+    pandoc.RawBlock("html", '<details class="visualize-more"><summary>Show figure</summary>'),
+    fig,
+    pandoc.RawBlock("html", "</details>"),
+  }, pandoc.Attr("", { "visualize-hidden" }))
 end
 
 local function write_manifest()
@@ -167,6 +187,12 @@ function Pandoc(doc)
   if m["visualize-manifest"] then manifest_path = pandoc.utils.stringify(m["visualize-manifest"]) end
   if m["visualize-src"] then src_prefix = pandoc.utils.stringify(m["visualize-src"]) end
   if m["lean-root"] then lean_root = pandoc.utils.stringify(m["lean-root"]) end
+  if m["visualize-show"] then
+    show_mode = pandoc.utils.stringify(m["visualize-show"])
+    if show_mode ~= "all" and show_mode ~= "selected" and show_mode ~= "none" then
+      fail("visualize-show must be all, selected or none, not '" .. show_mode .. "'")
+    end
+  end
 
   -- One pass in document order: a context must be defined before it is used.
   local seen = {}
@@ -177,8 +203,11 @@ function Pandoc(doc)
       if b.t == "Header" then note(b.identifier); out:insert(b)
       elseif b.t == "Div" then note(b.identifier); b.content = walk(b.content); out:insert(b)
       elseif b.t == "Para" then
-        local fig = visualize(b, seen)
-        if fig then out:insert(fig)
+        local fig, selected = visualize(b, seen)
+        if fig and shown(selected) then out:insert(fig)
+        elseif fig then
+          local kept = hidden(fig)
+          if kept then out:insert(kept) end
         else
           for _, el in ipairs(b.content) do
             if el.t == "Str" then note(el.text:match("^{#([%w:_.-]+)}$")) end

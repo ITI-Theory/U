@@ -1743,9 +1743,11 @@ there, the figures one click away "if" the reader wants them, plus links for
 further reading. Today: about 67 figures from 11 primitives, in the course
 book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
 
-- [ ] Display switch per output: `visualize-show: none|selected|all`
-      (default `none` in PDFs of papers and books; the course book keeps its
-      chosen figures); `none` still renders and checks every figure.
+- [x] Display switch per output: `visualize-show: none|selected|all` and
+      `show=true` per macro (9 Oct, lib/format/visualize.lua, docs/VISUALIZE.md).
+      Hidden figures are still drawn and checked; in HTML they collapse under
+      the equation ("Show figure"). Default stays `all`; set `none` per output
+      when the papers are marked up.
 - [ ] HTML: a tab panel per marked equation: EQUATION (first, default),
       FIGURES (each output), LEAN (the theorem, when the context is
       `lean:`), READ MORE (the paper section, the level in the Soma Machine, the

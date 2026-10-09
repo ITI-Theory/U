@@ -58,6 +58,8 @@ $$N(t) = N_0\,e^{-t/\tau}$$ {#eq:decay}
 
 ## Layout parameters (all primitives)
 
+`show=true` marks a figure as selected (see Which figures appear).
+
 | key | meaning |
 |---|---|
 | `label=fig:name` | numbered figure, referable as `@fig:name` |
@@ -68,6 +70,21 @@ $$N(t) = N_0\,e^{-t/\tau}$$ {#eq:decay}
 | `xlabel=`, `ylabel=`, `zlabel=` | axis labels |
 | `legend=best\|below\|none` | legend placement (function plots) |
 | `vary=name:v1,v2,...` | draw a family, one curve (or bar set, or point set) per value |
+
+## Which figures appear
+
+Every macro is drawn and checked, whether or not its figure is shown (ISS-051):
+the manifest lists them all, so the figure library grows with the text. Document
+metadata `visualize-show` decides what the reader sees:
+
+| value | PDF | HTML |
+|:--|:--|:--|
+| `all` (default) | every figure | every figure |
+| `selected` | only macros with `show=true` | `show=true` figures; the others collapsed under the equation ("Show figure") |
+| `none` | the equation only | every figure collapsed under its equation |
+
+A figure referred to in the text (`@fig:x`) should carry `show=true`, so the
+reference resolves in `none` and `selected` outputs.
 
 ## Concepts (palettes)
 
