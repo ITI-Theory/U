@@ -113,6 +113,22 @@ steps:
     back. One number, phi, sets the temperature for the whole hinge.
   label: open-hypothesis
   pause: 5
+- view: voyage=thought&dim=8&phi=0.3
+  say: Now the oldest question, emotion and thought. Below the line is a sea of activity the body makes all
+    the time, real, but not felt. When a swell crosses the threshold, it becomes an emotion.
+  label: interpretive
+  pause: 5
+- view: voyage=thought&dim=11&phi=0.75
+  say: Rising further, it becomes a thought, the same field, a different type. And the thought acts back
+    on the body. Hot, the loop can spiral, a frightening thought races the heart, which raises the next swell.
+  label: interpretive
+  pause: 7
+- view: voyage=thought&dim=11&phi=0.1
+  poke: strong
+  say: Calm, the same trigger becomes a different thought. The faint flicker in the sea is quantum-scale
+    information, small but real. Whether the subconscious is anything like the quantum foam is an open hypothesis.
+  label: open-hypothesis
+  pause: 5
 - view: voyage=neuron&dim=11&phi=0.4
   say: One level deeper, a single neuron. Each spike is all or nothing, and each adds a little to the field
     around it, enough, in living tissue, to nudge a neighbour.

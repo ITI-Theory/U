@@ -1,0 +1,16 @@
+id: limbic-tunnelling
+concept: Tunnelling through a trauma barrier
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: LimbicTunnel
+  name: wkbAmplitude_pos
+papers:
+- P2
+levels:
+- human-vertebrate
+- whole-brain-cemi
+label: kernel-verified
+notes: The WKB tunnelling amplitude through the double-well barrier is positive (and below one); that brains tunnel in this sense is an open hypothesis (QUANT-EXP-1 is a simulation).

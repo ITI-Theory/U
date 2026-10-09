@@ -1968,6 +1968,26 @@ Steps:
       of the programme's own formal layer (Sherlock's concepts with their Lean
       names, taller for stronger evidence; the levels' equations), violet
       circuit streets down to the mountains. Labelled interpretive.
+- [x] Emotion and thought (author, 10 Oct 00:55: "an emotion and a thought are
+      different types of the same thing, triggered by the body, and thoughts
+      trigger the body; the subconscious like the quantum foam; do we have
+      this?"). Answer (H-AL, checked in the repo; uat/RC3/hal-emotion-thought-
+      quantum-2026-10-10.md): mostly yes. Types: Russell's types in the
+      Gestalt paper; emotion and thought as poles of one propagator at D8 and
+      D9–11; the loop in the dynamics (R_PFC). Threshold: sub-threshold field
+      activity is "virtual"; consciousness_dichotomy (kernel-verified, an order
+      fact only). Quantum: QUANT-EXP-1 and LimbicTunnel.lean (tunnelling
+      escapes where classical descent is trapped, 0/48); literal quantum foam
+      in warm tissue is an open hypothesis. Built: the THOUGHT stop (sea,
+      threshold, emotions at 8D, thoughts with words at 11D, the loop back to
+      the body, the quantum flicker), three tour stops, and two Sherlock
+      concepts (limbic-tunnelling, classical-trapping; 25 concepts, 7
+      kernel-verified).
+- [ ] Emotion and thought, next: a Lean type for "same field, different type"
+      (an inductive FieldEvent with emotion at D8 and thought at D9–11 and a
+      projection between them), so the claim becomes a definition the
+      registry can point to; a tunnelling move on the landscape (the ball
+      through a barrier, QUANT-EXP-1) at 11D.
 - [ ] City, next: towers clickable (open the concept, its Lean file and paper);
       a fly-through from the city down the avenue to the mountains as a tour
       move; the city grows as Sherlock's registry grows.

@@ -29,19 +29,20 @@ const temperature = phi => T0 + SIGMA * phi;
 
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
-export const STOPS = ['human', 'body', 'brain', 'limbic', 'neuron', 'network', 'landscape'];
+export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
 export const STOP_LEVELS = {
   human: { level: 'human-vertebrate' }, body: { level: 'human-vertebrate' },
   brain: { level: 'whole-brain-cemi' }, limbic: { level: 'human-vertebrate', dim: 8 },
+  thought: { level: 'whole-brain-cemi', dim: 11 },
   neuron: { level: 'cellular-synaptic' }, network: { level: 'whole-brain-cemi' },
   landscape: { level: 'human-vertebrate' },
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron' };
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -80,6 +81,12 @@ const CAPTIONS = {
     4: 'In the Soma-Field model the limbic system is dimension 8, the hinge between the body field (D1–7) and the mind field (D9–11). Trauma therapies that work with the body aim here: at the alarm, not only at the thoughts.',
     8: 'Signals flow body → limbic → mind, and calming signals come back from the cortex. The limbic field Φ sets the temperature T = T₀ + σΦ: hot, and the mind\'s picture blurs while the calming signals thin out.',
     11: 'The field: Φ is one number for the whole hinge, the runtime parameter of the missing limbic layer paper (FM-HN).',
+  },
+  thought: {
+    title: 'EMOTION AND THOUGHT', label: 'interpretive',
+    4: 'Below the line is the sub-threshold sea: field activity that is real and acts on the body but is not felt, the model\'s subconscious. Triggers from the body (the poke, a racing heart) raise a swell.',
+    8: 'When a swell crosses the threshold (T_c, √2 in the model; consciousness_dichotomy, kernel-verified but only an order fact) it condenses into an emotion in the limbic band (D8).',
+    11: 'If it keeps rising it becomes a thought in the cortex band (D9–11): the same field, a different type (Russell\'s types, Gestalt paper). The thought sends a pulse back down to the body; hot (high Φ), the loop can spiral into rumination. The faint flicker in the sea is quantum-scale information, small but there: the quantum-foam picture of the subconscious is an open hypothesis (QUANT-EXP-1, LimbicTunnel.lean).',
   },
   neuron: {
     title: 'ONE NEURON', label: 'simulated',
@@ -685,6 +692,205 @@ function makeLimbic() {
   };
 }
 
+// ---------------------------------------------------------------- stop: emotion and thought
+
+// Bands, bottom to top: body, the sub-threshold sea, the threshold line, limbic (emotion),
+// cortex (thought). Swells in the sea come from body triggers; one that crosses T_c becomes
+// an emotion, one that keeps rising becomes a thought, which pulses back to the body.
+const THOUGHT_WORDS = {
+  hot: ['I am not safe', 'it is my fault', 'get out', 'they will leave', 'not again', 'I can not cope'],
+  calm: ['I can feel my feet', 'this will pass', 'I am here', 'breathe out', 'I can ask for help', 'that was then'],
+};
+const EMOTION_WORDS = { hot: ['fear', 'anger', 'shame', 'alarm'], calm: ['ease', 'curiosity', 'warmth', 'joy'] };
+
+function makeThought() {
+  const Y = { body: 0.55, sea: 0.28, line: 0.08, emotion: -0.18, thought: -0.46 };
+  const X0 = -0.85, X1 = 0.85;
+  const swells = [];
+  const emotions = [];
+  const thoughts = [];
+  const pulses = [];
+  const foam = Array.from({ length: 90 }, () => ({ x: lerp(X0, X1, Math.random()), y: Y.sea + (Math.random() - 0.5) * 0.18, p: Math.random() * TAU }));
+  let clock = 0;
+  let feedback = 0;
+  let beat = 0;
+  const arousal = phi => clamp(phi + feedback, 0, 1.4);
+  function trigger(strength = 0.6, x = lerp(X0 + 0.1, X1 - 0.1, Math.random())) {
+    swells.push({ x, a: 0, target: 0.06 + 0.42 * strength, born: clock, crossed: false, rose: false });
+  }
+  const sea = (x, t, a) => 0.035 * (1 + a) * (Math.sin(9 * x + 2.1 * t) + 0.6 * Math.sin(17 * x - 3.3 * t + 1) + 0.4 * Math.sin(31 * x + 5 * t));
+  const swellAt = x => swells.reduce((acc, s) => acc + s.a * Math.exp(-((x - s.x) ** 2) / 0.006), 0);
+  return {
+    focus: [0, Y.line],
+    tick(env) {
+      clock += env.dt;
+      const a = arousal(env.phi);
+      beat += env.dt * (60 + 60 * a) / 60;
+      feedback = Math.max(0, feedback - env.dt * 0.05);
+      // the body triggers swells more often when aroused
+      if (Math.random() < (0.2 + 1.5 * a * a) * env.dt) trigger(0.15 + 0.85 * Math.random() * (0.25 + a));
+      for (const s of swells) {
+        s.a += (s.target - s.a) * Math.min(1, env.dt * 1.6);
+        const peak = Y.sea - s.a - 0.04;
+        if (!s.crossed && env.dim >= 8 && peak < Y.line) {
+          s.crossed = true;
+          const words = a > 0.5 ? EMOTION_WORDS.hot : EMOTION_WORDS.calm;
+          emotions.push({ x: s.x, y: Y.line, life: 0, word: words[Math.floor(Math.random() * words.length)], hot: a > 0.5 });
+        }
+        if (!s.rose && env.dim >= 11 && s.target > 0.38 && s.a > 0.36) {
+          s.rose = true;
+          const hot = a > 0.5;
+          const words = hot ? THOUGHT_WORDS.hot : THOUGHT_WORDS.calm;
+          thoughts.push({ x: s.x, y: Y.emotion, life: 0, word: words[Math.floor(Math.random() * words.length)], hot });
+        }
+      }
+      for (let i = swells.length - 1; i >= 0; i--) {
+        if (clock - swells[i].born > 3) swells[i].target = 0;
+        if (clock - swells[i].born > 6) swells.splice(i, 1);
+      }
+      for (const e of emotions) {
+        e.life += env.dt;
+        e.y = lerp(e.y, Y.emotion + 0.03, Math.min(1, env.dt * 1.5));
+      }
+      for (const th of thoughts) {
+        th.life += env.dt;
+        th.y = lerp(th.y, Y.thought, Math.min(1, env.dt * 1.2));
+        // the thought acts back on the body: a hot thought heats it, a calm one cools it
+        if (!th.sent && th.life > 1.6) {
+          th.sent = true;
+          pulses.push({ x: th.x, s: 0, hot: th.hot });
+        }
+      }
+      for (const pl of pulses) {
+        pl.s += env.dt / 1.4;
+        if (pl.s >= 1 && !pl.done) {
+          pl.done = true;
+          feedback = clamp(feedback + (pl.hot ? 0.06 : -0.05), 0, 0.5);
+          if (pl.hot) trigger(0.5, pl.x);
+        }
+      }
+      for (const list of [emotions, thoughts]) for (let i = list.length - 1; i >= 0; i--) if (list[i].life > 4.5) list.splice(i, 1);
+      for (let i = pulses.length - 1; i >= 0; i--) if (pulses[i].s > 1.05) pulses.splice(i, 1);
+    },
+    poke(strength) { trigger(0.6 + 0.4 * strength, 0); },
+    draw(ctx, env) {
+      const { u, dim, phi, t } = env;
+      const a = arousal(phi);
+      const band = (y0, y1, color, text) => {
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.globalAlpha *= 0.12;
+        ctx.fillRect(X0 * u, y0 * u, (X1 - X0) * u, (y1 - y0) * u);
+        ctx.restore();
+        if (env.labels) label(ctx, u, text, X1 + 0.02, (y0 + y1) / 2, color, 'left', 0.026);
+      };
+      band(Y.body - 0.08, Y.body + 0.12, COLORS.teal, 'BODY (D1–7)');
+      band(Y.line, Y.sea + 0.14, '#3d6bff', 'SUB-THRESHOLD SEA');
+      if (dim >= 8) band(Y.emotion - 0.1, Y.line, COLORS.red, 'EMOTION · limbic (D8)');
+      if (dim >= 11) band(Y.thought - 0.12, Y.emotion - 0.1, COLORS.violet, 'THOUGHT · cortex (D9–11)');
+      // the body: a heartbeat trace
+      ctx.save();
+      ctx.strokeStyle = COLORS.red;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      for (let i = 0; i <= 200; i++) {
+        const x = lerp(X0, X1, i / 200);
+        const ph = (beat - (X1 - x) * 1.5) % 1;
+        const q = (ph + 1) % 1;
+        const spike = Math.exp(-((q - 0.1) ** 2) / 0.0009) * 0.07 - Math.exp(-((q - 0.14) ** 2) / 0.0006) * 0.025;
+        const y = Y.body + 0.03 - spike;
+        if (i) ctx.lineTo(x * u, y * u);
+        else ctx.moveTo(x * u, y * u);
+      }
+      ctx.stroke();
+      ctx.restore();
+      if (env.labels) label(ctx, u, `${Math.round(60 + 60 * a)} BPM`, X0, Y.body + 0.1, COLORS.red, 'left', 0.024);
+      // 11D: quantum-scale flicker in the sea
+      if (dim >= 11) {
+        for (const f of foam) {
+          const twinkle = 0.5 + 0.5 * Math.sin(t * 7 + f.p * 3);
+          dot(ctx, u, f.x, f.y + 0.01 * Math.sin(t * 3 + f.p), 0.004 + 0.003 * twinkle, '#cfe8ff', 0.25 + 0.5 * twinkle);
+        }
+      }
+      // the sea and its swells
+      ctx.save();
+      ctx.beginPath();
+      for (let i = 0; i <= 260; i++) {
+        const x = lerp(X0, X1, i / 260);
+        const y = Y.sea - sea(x, t, a) - swellAt(x);
+        if (i) ctx.lineTo(x * u, y * u);
+        else ctx.moveTo(x * u, y * u);
+      }
+      ctx.lineTo(X1 * u, (Y.sea + 0.14) * u);
+      ctx.lineTo(X0 * u, (Y.sea + 0.14) * u);
+      ctx.closePath();
+      const g = ctx.createLinearGradient(0, (Y.line) * u, 0, (Y.sea + 0.14) * u);
+      g.addColorStop(0, 'rgba(94,231,255,0.55)');
+      g.addColorStop(1, 'rgba(30,60,160,0.15)');
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.strokeStyle = COLORS.cyan;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+      // the threshold
+      if (dim >= 8) {
+        ctx.save();
+        ctx.strokeStyle = COLORS.gold;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([10, 6]);
+        ctx.beginPath();
+        ctx.moveTo(X0 * u, Y.line * u);
+        ctx.lineTo(X1 * u, Y.line * u);
+        ctx.stroke();
+        ctx.restore();
+        if (env.labels) label(ctx, u, 'THRESHOLD T_c', X0 - 0.02, Y.line, COLORS.gold, 'right', 0.024);
+      }
+      for (const e of emotions) {
+        const fade = clamp(1 - (e.life - 3) / 1.5, 0, 1);
+        const c = e.hot ? COLORS.red : COLORS.teal;
+        glow(ctx, u, e.x, e.y, 0.08, c, 0.7 * fade);
+        dot(ctx, u, e.x, e.y, 0.012, '#ffffff', fade);
+        ctx.save();
+        ctx.globalAlpha *= fade;
+        label(ctx, u, e.word, e.x, e.y - 0.05, c, 'center', 0.028);
+        ctx.restore();
+      }
+      for (const th of thoughts) {
+        const fade = clamp(1 - (th.life - 3) / 1.5, 0, 1);
+        const c = th.hot ? COLORS.orange : COLORS.violet;
+        ctx.save();
+        ctx.globalAlpha *= fade;
+        ctx.strokeStyle = c;
+        ctx.lineWidth = 1.5;
+        ctx.fillStyle = 'rgba(10,14,28,0.85)';
+        const w = 0.012 * th.word.length + 0.06;
+        ctx.beginPath();
+        ctx.roundRect((th.x - w / 2) * u, (th.y - 0.04) * u, w * u, 0.08 * u, 0.03 * u);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+        ctx.save();
+        ctx.globalAlpha *= fade;
+        label(ctx, u, th.word, th.x, th.y, '#ffffff', 'center', 0.026);
+        ctx.restore();
+      }
+      if (dim >= 11) {
+        for (const pl of pulses) {
+          const y = lerp(Y.thought, Y.body, pl.s);
+          const x = pl.x + 0.05 * Math.sin(pl.s * 6);
+          glow(ctx, u, x, y, 0.05, pl.hot ? COLORS.orange : COLORS.teal, 0.7);
+          dot(ctx, u, x, y, 0.008, '#ffffff');
+        }
+      }
+      if (env.labels) {
+        label(ctx, u, 'emotion : type at D8   ·   thought : type at D9–11   ·   one field', 0, Y.thought - 0.17, COLORS.dim, 'center', 0.026);
+        if (dim >= 11 && feedback > 0.08) label(ctx, u, 'the loop: hot thoughts heat the body', 0, Y.body + 0.18, COLORS.orange, 'center', 0.024);
+      }
+    },
+  };
+}
+
 // ---------------------------------------------------------------- stop: one neuron
 
 function makeNeuron() {
@@ -1163,7 +1369,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { body: makeBody, brain: makeBrain, limbic: makeLimbic, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
 export const simulation = { memoryStep, landscapeStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };

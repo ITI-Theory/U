@@ -1,0 +1,15 @@
+id: classical-trapping
+concept: Gradient descent stays trapped in a trauma well
+kind: programme
+ontology:
+  system: none
+  class: null
+lean:
+  module: LimbicTunnel
+  name: gradient_traps_near_neg1
+papers:
+- P2
+levels:
+- human-vertebrate
+label: kernel-verified
+notes: Near the left well the gradient points back into it, so cold classical descent cannot leave; the Penrose gap relocated to attractor topology (P2).
