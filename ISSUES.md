@@ -1,5 +1,5 @@
 ---
-tags: area.app, area.build, area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, project.soma-field-operator, projection.3d, release, uat
+tags: area.app, area.build, area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, area.visualize, project.soma-field-operator, projection.3d, release, uat
 fields: date.created, date.start, date.end, epic
 ---
 
@@ -685,9 +685,15 @@ mode.
 
 ---
 
-## ISS-028: Large issue-body convention — OPEN
+## ISS-028: Large issue-body convention — CLOSED
 {{Tags area.ops}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-09, epic=}}
+
+**Closed 2026-10-09:** Done: the convention is in README.md (Issue register) and the
+front matter of ISSUES.md; `bin/issues-check` (lib/format/issues-check.lua) validates tags,
+fields and that each `epic=` names `prj/.adm/issues/<epic>.md` which links back
+(ISS-027 and ISS-047 follow it). It now also runs as release-check section 18; it had
+not been run, and an unregistered tag (`area.visualize`, ISS-051) had slipped in.
 
 Define and validate the register-to-detail-file convention for issues whose
 context, decisions, or sub-issues exceed the main register entry.

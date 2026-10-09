@@ -249,6 +249,15 @@ else
 fi
 echo "$OVERFLOW_CHECK" | grep -E '^FAIL|checked' | head -15 | sed 's/^/    /'
 
+hdr "18. Issue register (ISSUES.md)"
+ISSUES_CHECK=$(bin/issues-check 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "ISSUES.md tags, fields and epic detail files are valid (bin/issues-check)"
+else
+  fail "ISSUES.md metadata is invalid: run bin/issues-check"
+fi
+echo "$ISSUES_CHECK" | grep -E '^(FAIL|PASS)' | head -8 | sed 's/^/    /'
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"
