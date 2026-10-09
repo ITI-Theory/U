@@ -380,7 +380,13 @@ scalar field) — C-PTSD trauma memory kernel:
 
 $$G_E(\tau) = \langle\phi(0)\,\phi(\tau)\rangle_{\text{QFT}} = \frac{1}{2m}\,e^{-m|\tau|}$$
 
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | function-plot:quantum | f="exp(-m*abs(x))/(2*m)"; vary=m:0.5,1,2; x=[-6,6]; xlabel="Euclidean time $\tau$"; ylabel="$G_E(\tau)$" }} The Euclidean propagator of a free field of mass $m$ at three masses: a symmetric exponential, narrower and taller for smaller $1/m$.
+
+
 $$K_{\text{trauma}}(\tau) = \sum_k A_k\,e^{-|\tau|/\tau_k}$$
+
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | function-plot:soma | f1="0.6*exp(-x/2) + 0.4*exp(-x/20)"; name1="kernel"; f2="0.6*exp(-x/2)"; name2="fast part"; f3="0.4*exp(-x/20)"; name3="slow part"; x=[0,60]; xlabel="time since the event $\tau$"; ylabel="$K(\tau)$" }} A two-term memory kernel: a fast part that fades in days and a slow part that lingers. Illustrative amplitudes and time constants.
+
 
 Same exponential form. The QFT field mass $m$ corresponds formally to $1/\tau_k$ — the
 reciprocal of the trauma trace decay time. A heavier particle has a shorter-range
@@ -425,6 +431,9 @@ emotional modes). The soma-field propagator — the two-point correlator
 $\langle e_i(t)\,e_i(t')\rangle$ in the frequency domain — is:
 
 $$\tilde{G}_{ii}(\omega) = \frac{\sigma_{\text{eff}}^2}{\omega^2 + \lambda_i^2}$$
+
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | function-plot:soma | f="1/(x^2 + lambda_i^2)"; vary=lambda_i:0.5,1,2; x=[-6,6]; xlabel="frequency $\omega$"; ylabel="$\tilde G(\omega)$ (with $\sigma = 1$)" }} The Lorentzian spectrum of a damped emotional mode at three relaxation rates $\lambda$: a fast-relaxing mode spreads its power over many frequencies.
+
 
 A conscious emotional percept in mode $i$ exists precisely when the excitation
 frequency $\omega$ approaches $i\lambda_i$ — the mode’s natural resonance. The percept
@@ -630,6 +639,9 @@ a named conscious feeling.
 
 $$\text{Emotion } i \text{ is consciously perceived} \iff |\mathbf{E}_i(t)| > T_i$$
 
+{{Visualize | the-perception-threshold | function-plot:soma | f="abs(sin(x)*(0.6 + 0.5*exp(-(x-9)^2/4)))"; x=[0,18]; hline=0.8; xlabel="time $t$"; ylabel="$|E_i(t)|$" }} A field mode that is always active and crosses the threshold $T_i$ (the line) only during a burst: only then is the emotion perceived. Illustrative.
+
+
 This threshold crossing corresponds precisely to the QFT excitation analogy: the emotional
 mode behaves like a virtual particle that has accumulated enough energy to become real — to
 emerge from the sub-threshold background and enter awareness.
@@ -670,6 +682,9 @@ emotional mode $i$.
 The field evolves according to the energy gradient:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \eta(t)$$
+
+{{Visualize | the-interaction-of-emotional-modes | energy-landscape:soma | U="x^4/4 - x^2/2 + 0.035*x"; x=[-1.8,1.8]; ball=-1; expect_minima="-1.017,0.982" }} A one-mode slice of the energy landscape $H$: two valleys separated by a barrier. The state rolls downhill (the $-\nabla H$ term) and noise $\eta$ can carry it over the barrier.
+
 
 where $\eta(t)$ represents the continuous low-level fluctuations of the sub-perceptual field
 — the emotional equivalent of quantum vacuum noise. The field is always moving, always
@@ -1902,6 +1917,9 @@ asymmetric modification matrix, and $f$ is a smooth interpolation:
 
 $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right), \qquad \tau_c \approx 36 \text{ months}$$
 
+{{Visualize | b.2.1-developmental-time-parameterisation | function-plot:soma | f="tanh(x/36)"; x=[0,120]; value_at=36; expect_value=0.7616; xlabel="age at the adverse experience $\tau_d$ (months)"; ylabel="$f(\tau_d)$" }} The structural fraction $f(\tau_d) = \tanh(\tau_d/36\,\text{months})$: adversity before about three years of age reshapes more of the coupling matrix. The program checked $f(36) = \tanh 1 = 0.7616$.
+
+
 The critical age $\tau_c$ is the approximate onset of verbal encoding capacity — the
 developmental threshold below which episodic memory is not yet available and traumatic
 encoding is entirely somatic and procedural.
@@ -2003,6 +2021,9 @@ low-frequency components carry disproportionate power, consistent with the slow 
 attentional state observed in ADHD time-series data (Gilden, 2001):
 
 $$S_\xi(f) \propto f^{-\alpha}, \quad \alpha \approx 1$$
+
+{{Visualize | b.3-adhd-high-temperature-low-damping-dynamics | function-plot:soma | f="x^(-alpha)"; vary=alpha:0,1,2; x=[0.01,10]; logx=true; logy=true; xlabel="frequency $f$"; ylabel="$S_\xi(f)$" }} White ($\alpha = 0$), pink ($\alpha = 1$) and red ($\alpha = 2$) noise on logarithmic axes; the ADHD hypothesis places the field noise near pink.
+
 
 This $1/f$ (pink noise) structure means that long-range temporal correlations exist in the
 noise — the field's fluctuations are not memoryless, but have a slow, drift-like component
@@ -2617,6 +2638,9 @@ and threshold nonlinearity) give the interaction vertices.
 For a single decoupled mode $e_i$, the retarded Green's function is:
 
 $$G^R_i(t - t') = \Theta(t - t')\, e^{W_{ii}(t - t')}$$
+
+{{Visualize | d.2-the-free-propagator | function-plot:soma | f="where(x < 0, 0, exp(W_ii*x))"; vary=W_ii:-0.25,-0.5,-1; x=[-2,8]; xlabel="time since the kick $t - t'$"; ylabel="$G^R(t - t')$" }} The free retarded propagator at three self-couplings $W_{ii} < 0$: zero before the kick (causality), then an exponential decay.
+
 
 $\Theta$ is the Heaviside step function (causality). For a stable mode, $W_{ii} < 0$ and
 the propagator decays exponentially at rate $|W_{ii}|$. In Fourier space:

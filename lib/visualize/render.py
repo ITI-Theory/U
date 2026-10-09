@@ -759,7 +759,8 @@ def main(argv: list[str]) -> int:
     manifest = Path(argv[0])
     force = "--force" in argv
     specs = json.loads(manifest.read_text(encoding="utf-8")) if manifest.exists() else []
-    out_dir = manifest.parent
+    # Per-document lists (visualize/docs/<document>.json) share the images of their folder.
+    out_dir = manifest.parent.parent if manifest.parent.name == "docs" else manifest.parent
     errors = drawn = 0
     for raw in specs:
         spec = Spec(raw)

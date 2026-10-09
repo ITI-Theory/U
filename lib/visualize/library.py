@@ -19,6 +19,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -87,6 +88,10 @@ def main() -> int:
     parser.add_argument("--bld", type=Path, default=ROOT / "bld")
     parser.add_argument("--out", type=Path, default=ROOT / "bld" / "visualize")
     args = parser.parse_args()
+    # Draw what is missing first: shared manifests are overwritten by later builds, the
+    # per-document lists are complete (render.py writes their images to the folder).
+    for listing in sorted(args.bld.rglob("visualize/docs/*.json")):
+        subprocess.run([sys.executable, str(ROOT / "lib" / "visualize" / "render.py"), str(listing)], capture_output=True)
     figures = collect(args.bld)
     args.out.mkdir(parents=True, exist_ok=True)
     md = args.out / "library.md"
