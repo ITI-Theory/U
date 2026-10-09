@@ -1704,3 +1704,42 @@ papers UAT notebook); one source can be large, so books can be merged.
   Theory for Undergraduates, 8.323/8.324 QFT, 8.962 General Relativity.
   Check overlap with Penrose ch. 31 first.
 
+---
+
+## ISS-051: Visualize everything: mark up all equations, generate every figure, show the equation by default — OPEN
+{{Tags area.books, area.instrument, area.visualize}}
+{{Fields date.created=2026-10-09, date.start=, date.end=, epic=}}
+
+Author, 9 Oct: mark up as much as possible with `{{Visualize}}`, papers
+included (literally everything), and generate the figures, with as many outputs
+as are reasonable for each. But by default show nothing except the equation.
+Reasons: (1) the figures become a large library, useful for custom chats
+(Gemini, NotebookLM) if uploaded, ideally as one file; (2) in HTML nothing has
+to be chosen: a tab panel per equation, the equation tab first and always
+there, the figures one click away "if" the reader wants them, plus links for
+further reading. Today: about 67 figures from 11 primitives, in the course
+book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
+
+- [ ] Display switch per output: `visualize-show: none|selected|all`
+      (default `none` in PDFs of papers and books; the course book keeps its
+      chosen figures); `none` still renders and checks every figure.
+- [ ] HTML: a tab panel per marked equation: EQUATION (first, default),
+      FIGURES (each output), LEAN (the theorem, when the context is
+      `lean:`), READ MORE (the paper section, the level in the Soma Machine, the
+      reading list). Works without JavaScript (first tab visible).
+- [ ] Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      primitive fits; a report lists equations with no fitting primitive (new
+      primitives come from that list).
+- [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
+      sweep strip; an animated SVG or GIF for time-dependent ones; the data
+      table (CSV) the figure was drawn from.
+- [ ] One-file library for chats: `make visualize-library` builds
+      `bld/visualize/library.pdf` (each figure with its equation, caption,
+      context, source paper and evidence label) and a Markdown index. Gemini
+      Gems and NotebookLM read PDFs with images; one file stays inside the
+      source limits.
+- [ ] Soma Machine: the same tab panel for the level equation (EQUATION, FIGURES,
+      READ MORE), using the generated figures.
+- [ ] Rules unchanged: context first, caption required, expressions are maths
+      only, `expect_*` checks (docs/VISUALIZE.md).
+

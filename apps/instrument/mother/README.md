@@ -30,6 +30,14 @@ python -m venv .venv; .\.venv\Scripts\python -m pip install -r requirements.txt
 
 Then in the app: Settings → MOTHER → API / LOCAL BRIDGE, and press ASK MOTHER.
 
+The Google session expires now and then. The bridge renews it itself, with no
+login window: on a failed call it runs `notebooklm auth refresh` (which rotates
+the stored cookies), falling back to `--browser-cookies chrome` (the cookies of
+the signed-in Chrome), and it refreshes every 20 minutes while it runs.
+`notebooklm login` is needed only when both fail. Tablets need no login: the
+bridge runs on the PC, and tablet screens (spacedesk, or a browser on the local
+network) only talk to the app.
+
 ## Local SHELL tab
 
 The Soma Machine MOTHER panel can open a local terminal tab backed by this

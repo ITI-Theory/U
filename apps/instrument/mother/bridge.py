@@ -139,6 +139,35 @@ Answer B ([T]-Theory):
 Reply concisely in three short sections: 1. ADDS: what B adds that A does not contain. 2. CHANGES OR CONTRADICTS: where B reframes or departs from mainstream science. 3. STATUS: for each addition, whether it is established science, a mathematical result within the programme, or the programme's interpretation or open hypothesis. Do not repeat the answers and do not offer follow-up questions."""
 
 
+KEEPALIVE_SECONDS = 20 * 60
+
+
+def notebooklm_cli() -> str:
+    folder = Path(os.sys.executable).parent
+    for name in ("notebooklm.exe", "notebooklm"):
+        if (folder / name).exists():
+            return str(folder / name)
+    return "notebooklm"
+
+
+def refresh_auth(quiet: bool = False) -> bool:
+    """Renew the NotebookLM session without a login window: rotate the stored cookies;
+    if that fails, read them again from the signed-in Chrome."""
+    for extra in ([], ["--browser-cookies", "chrome"]):
+        result = subprocess.run([notebooklm_cli(), "auth", "refresh", "--verify", *extra], capture_output=True, text=True, timeout=120)
+        if result.returncode == 0:
+            if not quiet:
+                print(f"[mother] NotebookLM session renewed{' from Chrome' if extra else ''}", flush=True)
+            return True
+    print("[mother] could not renew the NotebookLM session: run `notebooklm login`", flush=True)
+    return False
+
+
+def auth_expired(error: Exception) -> bool:
+    text = f"{type(error).__name__} {error}"
+    return any(mark in text for mark in ("CSRF", "Authentication", "auth", "login", "401", "403"))
+
+
 class Bridge:
     """One event loop and one NotebookLM client shared by all requests."""
 
@@ -155,7 +184,12 @@ class Bridge:
 
     async def _ensure(self) -> None:
         if self.client is None:
-            self.client = await NotebookLMClient.from_storage().__aenter__()
+            try:
+                self.client = await NotebookLMClient.from_storage().__aenter__()
+            except Exception as error:
+                if not auth_expired(error) or not await asyncio.to_thread(refresh_auth):
+                    raise
+                self.client = await NotebookLMClient.from_storage().__aenter__()
             for notebook in filter(None, (self.notebook, self.baseline, self.hal)):
                 for source in await self.client.sources.list(notebook):
                     self.titles[source.id] = getattr(source, "title", None) or source.id
@@ -168,6 +202,9 @@ class Bridge:
             raise
         except Exception as error:
             print(f"[mother] retrying after {type(error).__name__}", flush=True)
+            if auth_expired(error) and await asyncio.to_thread(refresh_auth):
+                self.client = None
+                await self._ensure()
             await asyncio.sleep(3)
             return await self.client.chat.ask(notebook, prompt)
 
@@ -537,6 +574,14 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     Handler.bridge = Bridge(notebook_id(), baseline_id(), hal_id())
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
+
+    # Keep the NotebookLM session alive while the bridge runs (no login windows).
+    def keepalive() -> None:
+        while True:
+            threading.Event().wait(KEEPALIVE_SECONDS)
+            refresh_auth(quiet=True)
+
+    threading.Thread(target=keepalive, daemon=True).start()
     print(f"MOTHER bridge on http://127.0.0.1:{PORT} (notebook {Handler.bridge.notebook}; H-AL voice {'on' if voice_available() else 'off'}); Ctrl+C to stop")
     server.serve_forever()
 
