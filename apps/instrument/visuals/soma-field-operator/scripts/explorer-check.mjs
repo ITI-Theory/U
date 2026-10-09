@@ -48,6 +48,8 @@ function dyad(steps, kick = false) {
   return { r: sum / n, repaired: repaired ?? Infinity };
 }
 const mean = (fn, key) => { let s = 0; for (let i = 0; i < runs; i++) s += fn()[key]; return s / runs; };
+// median: a repair time can be Infinity when a run never re-syncs in the window
+const median = (fn, key) => { const v = Array.from({ length: runs }, () => fn()[key]).sort((x, y) => x - y); return v[Math.floor(v.length / 2)]; };
 
 function rate(fn, want) {
   let hits = 0;
@@ -71,7 +73,7 @@ const checks = [
   ['dyad: calm, the two stay in step (mean sync r)', mean(() => dyad([[0.1, false, 20]]), 'r'), 0.9],
   ['dyad: hot, they drift apart (mean sync r)', mean(() => dyad([[0.7, false, 20]]), 'r'), 0, 0.8],
   ['dyad: hot with the resource, attuned again (mean sync r)', mean(() => dyad([[0.7, true, 20]]), 'r'), 0.9],
-  ['dyad: after a rupture the resource repairs faster (calm s / resource s >= 1.3)', mean(() => dyad([[0.1, false, 12]], true), 'repaired') / mean(() => dyad([[0.1, true, 12]], true), 'repaired') / 1.3, 1, 99],
+  ['dyad: after a rupture the resource repairs faster (median calm s / resource s >= 1.3)', median(() => dyad([[0.1, false, 12]], true), 'repaired') / median(() => dyad([[0.1, true, 12]], true), 'repaired') / 1.3, 1, Infinity],
 ];
 let failed = 0;
 for (const [name, value, min, max = 1] of checks) {

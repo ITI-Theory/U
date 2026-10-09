@@ -29,6 +29,7 @@ const temperature = phi => T0 + SIGMA * phi;
 
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
+export const STEREO_MODES = ['off', 'half', 'full'];
 export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
@@ -356,14 +357,15 @@ function makeBody() {
 
   function drawBody(ctx, env) {
       const { u, w, h, dpr, cx, cy, dim, phi } = env;
+      const f = env.fieldCtx ?? ctx; // near layer in 3D SBS
       if (dim >= 11) {
         const lines = 6;
-        ctx.save();
-        ctx.strokeStyle = COLORS.violet;
-        ctx.lineWidth = 1.2;
+        f.save();
+        f.strokeStyle = COLORS.violet;
+        f.lineWidth = 1.2;
         for (let k = 0; k < lines; k++) {
-          ctx.globalAlpha = env.alpha * (0.22 - k * 0.025);
-          ctx.beginPath();
+          f.globalAlpha = env.alpha * (0.22 - k * 0.025);
+          f.beginPath();
           for (let i = 0; i <= 96; i++) {
             const a = (i / 96) * TAU;
             const wob = 1 + 0.03 * (1 + phi) * Math.sin(5 * a + env.t * (1.2 + k * 0.2) + k);
@@ -371,14 +373,14 @@ function makeBody() {
             const ry = (0.98 + k * 0.05) * wob;
             const x = Math.cos(a) * rx * u;
             const y = (Math.sin(a) * ry - 0.0) * u;
-            if (i) ctx.lineTo(x, y);
-            else ctx.moveTo(x, y);
+            if (i) f.lineTo(x, y);
+            else f.moveTo(x, y);
           }
-          ctx.stroke();
+          f.stroke();
         }
-        ctx.restore();
-        ripples(ctx, u, 0.06, -0.45, env.t, 1.6 - 0.6 * phi, 1.0, COLORS.cyan, 0.35);
-        ripples(ctx, u, 0, -0.8, env.t + 0.4, 2.2, 0.7, COLORS.violet, 0.3);
+        f.restore();
+        ripples(f, u, 0.06, -0.45, env.t, 1.6 - 0.6 * phi, 1.0, COLORS.cyan, 0.35);
+        ripples(f, u, 0, -0.8, env.t + 0.4, 2.2, 0.7, COLORS.violet, 0.3);
       }
       // outline glow, then the body filled on an offscreen canvas (heat clipped to it)
       ctx.save();
@@ -633,7 +635,7 @@ function makeLimbic() {
       }
       ctx.restore();
       if (dim >= 11) {
-        ripples(ctx, u, 0, 0, t, 1.4 - 0.6 * phi, 0.9, phi > 0.5 ? COLORS.orange : COLORS.cyan, 0.35);
+        ripples(env.fieldCtx ?? ctx, u, 0, 0, t, 1.4 - 0.6 * phi, 0.9, phi > 0.5 ? COLORS.orange : COLORS.cyan, 0.35);
         const x0 = -0.36;
         const step = 0.11;
         for (let d = 1; d <= 11; d++) {
@@ -852,41 +854,42 @@ function makeThought() {
         ctx.restore();
         if (env.labels) label(ctx, u, 'THRESHOLD T_c', X0 - 0.02, Y.line, COLORS.gold, 'right', 0.024);
       }
+      const f = env.fieldCtx ?? ctx; // near layer in 3D SBS
       for (const e of emotions) {
         const fade = clamp(1 - (e.life - 3) / 1.5, 0, 1);
         const c = e.hot ? COLORS.red : COLORS.teal;
-        glow(ctx, u, e.x, e.y, 0.08, c, 0.7 * fade);
-        dot(ctx, u, e.x, e.y, 0.012, '#ffffff', fade);
-        ctx.save();
-        ctx.globalAlpha *= fade;
-        label(ctx, u, e.word, e.x, e.y - 0.05, c, 'center', 0.028);
-        ctx.restore();
+        glow(f, u, e.x, e.y, 0.08, c, 0.7 * fade);
+        dot(f, u, e.x, e.y, 0.012, '#ffffff', fade);
+        f.save();
+        f.globalAlpha *= fade;
+        label(f, u, e.word, e.x, e.y - 0.05, c, 'center', 0.028);
+        f.restore();
       }
       for (const th of thoughts) {
         const fade = clamp(1 - (th.life - 3) / 1.5, 0, 1);
         const c = th.hot ? COLORS.orange : COLORS.violet;
-        ctx.save();
-        ctx.globalAlpha *= fade;
-        ctx.strokeStyle = c;
-        ctx.lineWidth = 1.5;
-        ctx.fillStyle = 'rgba(10,14,28,0.85)';
+        f.save();
+        f.globalAlpha *= fade;
+        f.strokeStyle = c;
+        f.lineWidth = 1.5;
+        f.fillStyle = 'rgba(10,14,28,0.85)';
         const w = 0.012 * th.word.length + 0.06;
-        ctx.beginPath();
-        ctx.roundRect((th.x - w / 2) * u, (th.y - 0.04) * u, w * u, 0.08 * u, 0.03 * u);
-        ctx.fill();
-        ctx.stroke();
-        ctx.restore();
-        ctx.save();
-        ctx.globalAlpha *= fade;
-        label(ctx, u, th.word, th.x, th.y, '#ffffff', 'center', 0.026);
-        ctx.restore();
+        f.beginPath();
+        f.roundRect((th.x - w / 2) * u, (th.y - 0.04) * u, w * u, 0.08 * u, 0.03 * u);
+        f.fill();
+        f.stroke();
+        f.restore();
+        f.save();
+        f.globalAlpha *= fade;
+        label(f, u, th.word, th.x, th.y, '#ffffff', 'center', 0.026);
+        f.restore();
       }
       if (dim >= 11) {
         for (const pl of pulses) {
           const y = lerp(Y.thought, Y.body, pl.s);
           const x = pl.x + 0.05 * Math.sin(pl.s * 6);
-          glow(ctx, u, x, y, 0.05, pl.hot ? COLORS.orange : COLORS.teal, 0.7);
-          dot(ctx, u, x, y, 0.008, '#ffffff');
+          glow(f, u, x, y, 0.05, pl.hot ? COLORS.orange : COLORS.teal, 0.7);
+          dot(f, u, x, y, 0.008, '#ffffff');
         }
       }
       if (env.labels) {
@@ -941,16 +944,17 @@ function makeDyad() {
     draw(ctx, env) {
       const { u, dim, phi, t } = env;
       const people = [{ x: -0.45, phase: s.a, color: COLORS.teal }, { x: 0.45, phase: s.b, color: COLORS.violet }];
+      const f = env.fieldCtx ?? ctx; // near layer in 3D SBS
       if (dim >= 11) {
-        ctx.save();
-        const g = ctx.createRadialGradient(0, -0.15 * u, 0.1 * u, 0, -0.15 * u, 0.85 * u);
+        f.save();
+        const g = f.createRadialGradient(0, -0.15 * u, 0.1 * u, 0, -0.15 * u, 0.85 * u);
         g.addColorStop(0, `rgba(255,209,102,${0.28 * r * r})`);
         g.addColorStop(1, 'rgba(255,209,102,0)');
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.ellipse(0, -0.15 * u, 0.9 * u, 0.6 * u, 0, 0, TAU);
-        ctx.fill();
-        ctx.restore();
+        f.fillStyle = g;
+        f.beginPath();
+        f.ellipse(0, -0.15 * u, 0.9 * u, 0.6 * u, 0, 0, TAU);
+        f.fill();
+        f.restore();
       }
       // the contact boundary
       ctx.save();
@@ -961,24 +965,25 @@ function makeDyad() {
       ctx.lineTo(0, 0.25 * u);
       ctx.stroke();
       ctx.restore();
+      const fc = env.fieldCtx ?? ctx; // near layer in 3D SBS
       if (dim >= 8) {
         const strength = DYAD.coupling(env.resource);
-        ctx.save();
+        fc.save();
         for (let k = 0; k < 7; k++) {
           const y = -0.42 + k * 0.035;
-          ctx.strokeStyle = env.resource ? COLORS.teal : COLORS.cyan;
-          ctx.globalAlpha = env.alpha * (0.15 + 0.5 * strength) * (0.4 + 0.6 * r);
-          ctx.lineWidth = 1.2;
-          ctx.beginPath();
+          fc.strokeStyle = env.resource ? COLORS.teal : COLORS.cyan;
+          fc.globalAlpha = env.alpha * (0.15 + 0.5 * strength) * (0.4 + 0.6 * r);
+          fc.lineWidth = 1.2;
+          fc.beginPath();
           for (let i = 0; i <= 60; i++) {
             const x = lerp(-0.33, 0.33, i / 60);
             const wob = 0.02 * Math.sin(10 * x - t * 3 + k) * (1 + 2 * (1 - r));
-            if (i) ctx.lineTo(x * u, (y + wob) * u);
-            else ctx.moveTo(x * u, (y + wob) * u);
+            if (i) fc.lineTo(x * u, (y + wob) * u);
+            else fc.moveTo(x * u, (y + wob) * u);
           }
-          ctx.stroke();
+          fc.stroke();
         }
-        ctx.restore();
+        fc.restore();
       }
       for (const [i, person] of people.entries()) {
         ctx.save();
@@ -1131,7 +1136,7 @@ function makeNeuron() {
             const [x, y] = along(axonPl, saltatory(clamp(sp.s, 0, 1)));
             glow(ctx, u, x, y, 0.06, COLORS.gold, 0.8 * alpha);
             dot(ctx, u, x, y, 0.012, '#fff', alpha);
-            if (dim >= 11) ripples(ctx, u, x, y, t, 0.6, 0.16, COLORS.cyan, 0.4 * alpha, 0.7);
+            if (dim >= 11) ripples(env.fieldCtx ?? ctx, u, x, y, t, 0.6, 0.16, COLORS.cyan, 0.4 * alpha, 0.7);
           }
           ctx.restore();
         }
@@ -1390,7 +1395,7 @@ function makeLandscape() {
       const beta = 1 / T;
       const J = env.resource ? RESOURCE_J : 0;
       if (env.gl) {
-        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]) });
+        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, stereo: env.stereo, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]) });
         if (env.labels) {
           const zones = [[[0, 0.75, 1.75], 'MOUNTAINS · the body’s memories (4D)', COLORS.ice, 4],
             [[-3.4, 0.9, -0.6], 'COUNTRY · the limbic plains (8D)', '#56f0a2', 8],
@@ -1521,6 +1526,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
+      <button type="button" data-act="stereo" title="Stereo for a 3D projector or TV: SBS½ (half side-by-side, squeezed: the usual HDMI 3D input) or SBS (full); move the mouse to show the controls">3D: OFF</button>
       <button type="button" data-act="level">STEP BACK IN ↩</button>
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
@@ -1528,7 +1534,8 @@ export function createExplorer(hooks = {}) {
     <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span></aside>`;
   document.body.append(root);
   const canvas = root.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
+  const mainCtx = canvas.getContext('2d');
+  let ctx = mainCtx;
   const phiInput = root.querySelector('.explorer__phi input');
   const phiOut = root.querySelector('.explorer__phi output');
   const card = root.querySelector('.explorer__card');
@@ -1541,7 +1548,27 @@ export function createExplorer(hooks = {}) {
   const rand = seeded(3);
   const particles = Array.from({ length: 70 }, () => ({ x: rand(), y: rand(), z: 0.3 + rand() * 0.7, r: rand() }));
   const st = { open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
-    diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0' };
+    diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0',
+    stereo: STEREO_MODES.includes(new URLSearchParams(location.search).get('stereo')) ? new URLSearchParams(location.search).get('stereo')
+      : STEREO_MODES.includes(localStorage.getItem('soma-stereo')) ? localStorage.getItem('soma-stereo') : 'off',
+    depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1 };
+  // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
+  // per eye with opposite shifts; the 3D landscape renders its own two eyes.
+  const layer = name => {
+    const c = document.createElement('canvas');
+    return { canvas: c, ctx: c.getContext('2d'), name };
+  };
+  const layers = { far: layer('far'), screen: layer('screen'), near: layer('near') };
+  let tourLine = null;
+  addEventListener('soma-tour-step', event => { tourLine = event.detail; });
+  addEventListener('soma-tour-end', () => { tourLine = null; });
+  let chromeTimer = 0;
+  addEventListener('pointermove', () => {
+    if (st.stereo === 'off' || !st.open) return;
+    document.body.classList.add('explorer-chrome');
+    clearTimeout(chromeTimer);
+    chromeTimer = setTimeout(() => document.body.classList.remove('explorer-chrome'), 3000);
+  });
   // The 3D landscape (explorer3d.js), made on first use; null where WebGL is missing.
   let gl = null;
   let glTried = false;
@@ -1590,6 +1617,11 @@ export function createExplorer(hooks = {}) {
     const link = STOP_LEVELS[st.stop];
     root.querySelector('[data-act="level"]').title = `Back into the elevator: the same thing in the level view, ${hooks.levelLabel?.(link.level) ?? link.level}${link.dim ? ` at ${link.dim}D` : ''}`;
     view3dButton.classList.toggle('active', st.view3d);
+    const stereoButton = root.querySelector('[data-act="stereo"]');
+    stereoButton.textContent = `3D: ${{ off: 'OFF', half: 'SBS½', full: 'SBS' }[st.stereo]}`;
+    stereoButton.classList.toggle('active', st.stereo !== 'off');
+    root.classList.toggle('explorer--stereo', st.stereo !== 'off');
+    document.body.classList.toggle('explorer-stereo', st.open && st.stereo !== 'off');
     view3dButton.setAttribute('aria-pressed', String(st.view3d));
     phiInput.value = String(st.phi);
     phiOut.textContent = st.phi.toFixed(2);
@@ -1603,8 +1635,8 @@ export function createExplorer(hooks = {}) {
     tag.dataset.label = cap.label;
   }
 
-  function background(t) {
-    const inside = ['body', 'brain', 'limbic', 'neuron'].includes(st.stop);
+  function background(t, w = viewW()) {
+    const inside = ['body', 'brain', 'limbic', 'neuron', 'thought'].includes(st.stop);
     const g = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
     g.addColorStop(0, inside ? '#1a0d22' : OUTSIDE_BG);
     g.addColorStop(1, COLORS.bg0);
@@ -1634,15 +1666,105 @@ export function createExplorer(hooks = {}) {
   function drawScene(id, env, alpha, zoom, focus) {
     if (alpha <= 0.001) return;
     const sc = scene(id);
-    ctx.save();
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.globalAlpha = alpha;
-    ctx.translate(env.cx, env.cy);
-    ctx.translate(focus[0] * env.u, focus[1] * env.u);
-    ctx.scale(zoom, zoom);
-    ctx.translate(-focus[0] * env.u, -focus[1] * env.u);
+    const targets = env.fieldCtx ? [ctx, env.fieldCtx] : [ctx];
+    for (const c of targets) {
+      c.save();
+      c.setTransform(dpr, 0, 0, dpr, 0, 0);
+      c.globalAlpha = alpha;
+      c.translate(env.cx, env.cy);
+      c.translate(focus[0] * env.u, focus[1] * env.u);
+      c.scale(zoom, zoom);
+      c.translate(-focus[0] * env.u, -focus[1] * env.u);
+    }
     sc.draw(ctx, { ...env, alpha });
-    ctx.restore();
+    for (const c of targets) c.restore();
+  }
+
+  // the width each eye sees: half the window in full SBS, else the whole window
+  // (half SBS squeezes the whole frame into each half)
+  const viewW = () => (st.stereo === 'full' ? w / 2 : w);
+
+  function prepareLayers(lw) {
+    for (const l of Object.values(layers)) {
+      const cw = Math.round(lw * dpr);
+      const ch = Math.round(h * dpr);
+      if (l.canvas.width !== cw || l.canvas.height !== ch) {
+        l.canvas.width = cw;
+        l.canvas.height = ch;
+      }
+      l.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      l.ctx.clearRect(0, 0, cw, ch);
+      l.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+  }
+
+  // The caption (or H-AL's tour line) flat at the screen plane, in each eye (H-AL: evidence
+  // labels stay on a flat HUD, never floating in depth).
+  function hud(lw) {
+    const c = layers.screen.ctx;
+    const cap = CAPTIONS[st.stop];
+    const title = tourLine ? tourLine.title : `${cap.title} · ${dim()}D`;
+    const label = tourLine ? tourLine.label : cap.label;
+    const text = tourLine ? tourLine.say : [4, 8, 11].filter(k => k <= dim() && cap[k]).map(k => cap[k]).join(' ');
+    const size = Math.max(12, Math.min(lw, h) * 0.022);
+    c.save();
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.font = `${size}px 'Space Mono', ui-monospace, monospace`;
+    const maxW = lw * 0.62;
+    const words = String(text).split(/\s+/);
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+      const next = line ? `${line} ${word}` : word;
+      if (c.measureText(next).width > maxW && line) {
+        lines.push(line);
+        line = word;
+      } else line = next;
+    }
+    if (line) lines.push(line);
+    const shown = lines.slice(0, tourLine ? 5 : 4);
+    if (lines.length > shown.length) shown[shown.length - 1] += ' …';
+    const lh = size * 1.35;
+    const boxH = lh * (shown.length + 1.6);
+    const x = lw * 0.04;
+    const y = h - boxH - h * 0.04;
+    c.fillStyle = 'rgba(7,10,22,0.78)';
+    c.strokeStyle = 'rgba(94,231,255,0.45)';
+    c.fillRect(x, y, maxW + size * 1.5, boxH);
+    c.strokeRect(x, y, maxW + size * 1.5, boxH);
+    c.fillStyle = COLORS.cyan;
+    c.fillText(`${title}${label ? `   [${label}]` : ''}`, x + size * 0.75, y + lh);
+    c.fillStyle = COLORS.ink;
+    shown.forEach((s, i) => c.fillText(s, x + size * 0.75, y + lh * (i + 2.1)));
+    c.restore();
+  }
+
+  function composite() {
+    const W = canvas.width;
+    const H = canvas.height;
+    const L = layers.screen.canvas.width;
+    const scale = W / 2 / L;
+    const far = 0.011 * L * st.depth;
+    const near = 0.007 * L * st.depth;
+    mainCtx.setTransform(1, 0, 0, 1, 0, 0);
+    mainCtx.clearRect(0, 0, W, H);
+    for (const sign of [-1, 1]) {
+      const x0 = sign < 0 ? 0 : W / 2;
+      mainCtx.save();
+      mainCtx.beginPath();
+      mainCtx.rect(x0, 0, W / 2, H);
+      mainCtx.clip();
+      // behind the screen: the left eye's image moves left, the right eye's right; in front, the reverse
+      const put = (img, shift, grow = 1) => {
+        const ww = L * scale * grow;
+        const hh = H * grow;
+        mainCtx.drawImage(img, x0 + (W / 2 - ww) / 2 + shift * scale, (H - hh) / 2, ww, hh);
+      };
+      put(layers.far.canvas, sign * far, 1.03);
+      put(layers.screen.canvas, 0);
+      put(layers.near.canvas, -sign * near);
+      mainCtx.restore();
+    }
   }
 
   function frame(now) {
@@ -1650,10 +1772,25 @@ export function createExplorer(hooks = {}) {
     const t = now / 1000;
     const dt = Math.min(0.05, last ? t - last : 0.016);
     last = t;
-    const u = Math.min(w, h * 1.05) * 0.48;
-    const env = { t, dt, u, w, h, dpr, cx: w / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1 };
+    const stereo = st.stereo !== 'off';
+    const lw = viewW();
+    const u = Math.min(lw, h * 1.05) * 0.48;
+    const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo };
+    if (stereo) {
+      prepareLayers(lw);
+      ctx = layers.far.ctx;
+      env.fieldCtx = layers.near.ctx;
+    } else {
+      ctx = mainCtx;
+    }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (st.stop === 'human') {
+      // the level view shows through: no 3D landscape canvas on top of it
+      root.classList.remove('explorer--gl');
+      if (stereo) {
+        mainCtx.setTransform(1, 0, 0, 1, 0, 0);
+        mainCtx.clearRect(0, 0, canvas.width, canvas.height);
+      }
       raf = requestAnimationFrame(frame);
       return;
     }
@@ -1662,15 +1799,16 @@ export function createExplorer(hooks = {}) {
     root.classList.toggle('explorer--gl', Boolean(env.gl));
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
-      ctx.clearRect(0, 0, w, h);
+      ctx.clearRect(0, 0, lw, h);
       if (st.from && p < 1) {
         ctx.globalAlpha = 1 - ease(p);
-        background(t);
+        background(t, lw);
         ctx.globalAlpha = 1;
       }
     } else {
-      background(t);
+      background(t, lw);
     }
+    if (stereo) ctx = layers.screen.ctx;
     scene(st.stop).tick(env);
     const entering = st.enterStart ? clamp((t - st.enterStart) / 1.6, 0, 1) : 1;
     if (entering < 1) {
@@ -1689,6 +1827,11 @@ export function createExplorer(hooks = {}) {
       st.from = null;
       st.enterStart = 0;
       drawScene(st.stop, env, 1, 1, [0, 0]);
+    }
+    if (stereo) {
+      hud(lw);
+      composite();
+      ctx = mainCtx;
     }
     raf = requestAnimationFrame(frame);
   }
@@ -1742,7 +1885,9 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
-    else if (b.dataset.act === 'view3d') {
+    else if (b.dataset.act === 'stereo') {
+      api.setStereo(STEREO_MODES[(STEREO_MODES.indexOf(st.stereo) + 1) % STEREO_MODES.length]);
+    } else if (b.dataset.act === 'view3d') {
       st.view3d = !st.view3d;
       localStorage.setItem('soma-explorer-3d', st.view3d ? '1' : '0');
       syncUi();
@@ -1780,6 +1925,14 @@ export function createExplorer(hooks = {}) {
 
   const api = {
     get open() { return st.open; },
+    get stereo() { return st.stereo; },
+    setStereo(mode) {
+      if (!STEREO_MODES.includes(mode)) return;
+      st.stereo = mode;
+      localStorage.setItem('soma-stereo', mode);
+      syncUi();
+      hooks.onStereo?.(mode);
+    },
     // true when the explorer hides the level view (not at the human stop, not while diving)
     get covers() { return st.open && st.stop !== 'human' && !st.diving; },
     get stop() { return st.stop; },

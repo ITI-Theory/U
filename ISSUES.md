@@ -683,6 +683,24 @@ Add a projector-facing stereoscopic output mode to the Soma Field Operator for
 the Dangbei Atom, while retaining its existing browser UI and normal display
 mode.
 
+- [x] (10 Oct) The mind-body explorer in 3D SBS: button 3D: OFF / SBS½ / SBS,
+      or `?stereo=half|full` for a projector window. SBS½ squeezes each eye into
+      half the width (the usual HDMI 3D input); SBS gives each eye a native
+      half-width picture. The 2D stops are composited from three layers (far:
+      background; screen: scene, labels, caption; near: the field, sparks,
+      ripples, the dyad's shared field), the 3D landscape renders two eye
+      cameras, the jellyfish human uses the app's SBS with the same layout.
+      Controls hide on the projector until the mouse moves; the caption or
+      H-AL's tour line is drawn flat at the screen plane in each eye. Fixed an
+      older bug: in SBS the eye cameras copied a stale camera matrix (the view
+      sat inside the figure when SBS was the first render).
+- [ ] Calibrate on the Atom with the glasses (which layout the projector
+      takes; depth comfort): depth multiplier `localStorage soma-stereo-depth`
+      (default 1); make it a slider in the engine room.
+- [ ] H-AL's cautions (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth
+      transitions only, moderate depth for clients (looming 3D can trigger
+      C-PTSD), labels never in depth.
+
 ---
 
 ## ISS-028: Large issue-body convention — CLOSED
@@ -1983,6 +2001,14 @@ Steps:
       the body, the quantum flicker), three tour stops, and two Sherlock
       concepts (limbic-tunnelling, classical-trapping; 25 concepts, 7
       kernel-verified).
+- [ ] All stops in true 3D (author, 10 Oct 01:16: "all rendered in 3D and 3D SBS
+      on my 3D projector, 100-inch screen"). Done: 3D SBS for every stop
+      (ISS-027), true 3D for HUMAN and LANDSCAPE. Next, by H-AL's ranking
+      (uat/RC3/hal-stereo-explorer-2026-10-10.md): the dyad (two bodies across
+      real space, ripples meeting at the boundary), the limbic hinge (7D
+      narrowing to the D8 line and opening into 3D), the body inside the
+      jellyfish, then thought and neuron. Staging: body at the screen plane,
+      deep structures and valleys behind, field and sparks in front.
 - [ ] Emotion and thought, next: a Lean type for "same field, different type"
       (an inductive FieldEvent with emotion at D8 and thought at D9–11 and a
       projection between them), so the claim becomes a definition the

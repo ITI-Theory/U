@@ -496,3 +496,12 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .elevator button.elevator__step { width: auto; margin: 0; padding: 2px 6px; font-size: 9px; color: #070a16; background: #f6c75a; border: 0; cursor: pointer; flex: none; }
 .ui-clean .elevator { visibility: hidden; }
 
+/* 3D SBS on a projector: the canvas carries both eyes and the caption; the controls
+   (explorer bar, tour card, buttons) hide until the mouse moves (explorer-chrome). */
+.explorer-stereo:not(.explorer-chrome) .explorer__bar,
+.explorer-stereo:not(.explorer-chrome) .explorer__feel,
+.explorer-stereo .explorer__card,
+.explorer-stereo:not(.explorer-chrome) .tour-card,
+.explorer-stereo:not(.explorer-chrome) .screen-fullscreen { opacity: 0; pointer-events: none; transition: opacity .4s ease; }
+.explorer-stereo.explorer-chrome .explorer__bar, .explorer-stereo.explorer-chrome .tour-card { opacity: 1; transition: opacity .2s ease; }
+

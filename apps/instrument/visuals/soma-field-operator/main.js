@@ -1195,6 +1195,8 @@ const state = {
   libraryOpen: false,
   viewMode: '3d',
   stereoSbs: false,
+  // 3D SBS layout: 'full' (each eye a native half-width picture) or 'half' (squeezed, the usual HDMI 3D input)
+  sbsLayout: localStorage.getItem('soma-stereo-layout') === 'half' ? 'half' : 'full',
   compare: false,
   contours: false,
   // Imaging styles (renderers read these); all off gives a plain line drawing.
@@ -1253,6 +1255,19 @@ const explorer = createExplorer({
     writeHashState();
   },
   dive: direction => startDive(direction),
+  // 3D SBS in the explorer: the jellyfish human (the level view) uses the same layout
+  onStereo: mode => {
+    if (mode !== 'off') state.sbsLayout = mode;
+    localStorage.setItem('soma-stereo-layout', state.sbsLayout);
+    state.stereoSbs = mode !== 'off';
+    if (state.stereoSbs) {
+      state.viewMode = '3d';
+      setCompare(false);
+    }
+    stereoSbsButton.classList.toggle('active', state.stereoSbs);
+    stereoSbsButton.setAttribute('aria-pressed', String(state.stereoSbs));
+    resize();
+  },
   // LEVEL VIEW: close the explorer and show the stop's level (one app, views of one thing)
   onLevel: (levelId, dim) => {
     resetDiveCamera();
@@ -2594,6 +2609,8 @@ addEventListener('soma-tour-step', event => screens.step(event.detail));
 addEventListener('soma-tour-end', () => screens.tourEnd());
 // The screens set the stored FX value on start-up; a phi in the link wins.
 applyVoyage(readHashState());
+// A projector window (?stereo=half|full) or a remembered 3D SBS setting: the level view follows.
+if (explorer.stereo !== 'off') explorer.setStereo(explorer.stereo);
 if (screenRole === 'cockpit') {
   abstractSplash.hidden = true;
   const params = new URLSearchParams(location.hash.replace(/^#/, ''));
@@ -2811,7 +2828,8 @@ function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   backgroundMaterial.uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
-  camera.aspect = (state.stereoSbs || state.compare ? innerWidth / 2 : innerWidth) / innerHeight;
+  const halfWidthEye = (state.stereoSbs && state.sbsLayout !== 'half') || (state.compare && !state.stereoSbs);
+  camera.aspect = (halfWidthEye ? innerWidth / 2 : innerWidth) / innerHeight;
   camera.fov = camera.aspect >= CAMERA_REFERENCE_ASPECT ? CAMERA_FOV
     : THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV / 2)) * CAMERA_REFERENCE_ASPECT / camera.aspect));
   camera.updateProjectionMatrix();
@@ -2836,6 +2854,8 @@ function renderScene() {
   updateCockpitCamera(clock.elapsedTime);
   applyDive();
   if (state.stereoSbs && state.viewMode === '3d') {
+    // the eye cameras copy camera.matrixWorld, which only a mono render would otherwise refresh
+    camera.updateMatrixWorld();
     stereoCamera.update(camera);
     // setViewport/setScissor take CSS pixels; three.js applies the pixel ratio.
     const { x: width, y: height } = renderer.getSize(viewportSize);

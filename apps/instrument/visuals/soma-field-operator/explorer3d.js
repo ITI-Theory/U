@@ -32,6 +32,10 @@ export function createLandscape3D({ energy, wells, city = [] }) {
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog('#0b1226', 5, 17);
   const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 50);
+  // two eyes for 3D SBS; a separation that reads well on a large screen at this scale
+  const stereoCamera = new THREE.StereoCamera();
+  stereoCamera.eyeSep = 0.09;
+  const size = new THREE.Vector2();
 
   scene.add(new THREE.HemisphereLight('#9fd8ff', '#140a1c', 0.9));
   const sun = new THREE.DirectionalLight('#ffffff', 1.1);
@@ -168,6 +172,26 @@ export function createLandscape3D({ energy, wells, city = [] }) {
         wellLights[k].color.set(state.memoryColors[k]);
         wellLights[k].intensity = state.dim >= 11 ? 0.7 : 0;
       });
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        // half: each eye gets the whole frame's aspect squeezed into half the width (the
+        // usual HDMI 3D input); full: each eye is a native half-width picture
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        stereoCamera.update(camera);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderer.render(scene, eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
       renderer.render(scene, camera);
     },
     // screen position (fractions of the canvas from the centre) of a state-space point
