@@ -94,7 +94,11 @@ $$E_{20}(\xi) = -\frac{1}{\beta}\log \sum_{\mu=1}^{N} \exp\!\left(\beta\, \xi^{\
   + \frac{1}{2}\|\xi\|^2 + C$$
 
 where $\beta > 0$ is the inverse temperature and $X \in \mathbb{R}^{N \times D}$
-stores patterns as rows. The update rule:
+stores patterns as rows.
+
+{{Visualize | modern-hopfield-networks-2020-exponential | contour-map:soma | f="-0.25*log(exp(4*x) + exp(4*(-0.5*x + 0.866*y)) + exp(4*(-0.5*x - 0.866*y))) + 0.5*(x^2 + y^2)"; x=[-1.6,1.6]; y=[-1.6,1.6]; downhill=true; xlabel="$\xi_1$"; ylabel="$\xi_2$"; zlabel="$E_{20}$" }} The 2020 energy at $\beta = 4$ for three stored patterns in the plane, $(1, 0)$ and $(-\tfrac12, \pm\tfrac{\sqrt3}{2})$: one basin around each pattern, and the arrows point downhill into them.
+
+The update rule:
 
 $$\xi \leftarrow X^T \cdot \text{softmax}(\beta \cdot X \xi)$$
 
@@ -102,6 +106,8 @@ converges in a **single step** for well-separated patterns — an $\mathcal{O}(1
 retrieval, down from $\mathcal{O}(D)$ iterations in the 1982 model.
 Exponential storage capacity ($e^{D/2}$ patterns) replaces the linear $0.14D$ bound.
 Each update costs $\mathcal{O}(N \cdot D)$ where $N$ is the number of stored patterns.
+
+{{Visualize | modern-hopfield-networks-2020-exponential | function-plot:soma | f1="tanh(beta*x)"; name1="one update"; f2="x"; name2="no change"; vary=beta:4,1,0.5; x=[-1.5,1.5]; value_at=0.5; expect_value=0.9640; xlabel="state before $\xi$"; ylabel="state after one update" }} The update for two stored patterns $\pm 1$ in one dimension is $\xi \leftarrow \tanh(\beta\xi)$. At $\beta = 4$ one step from $0.5$ lands at $0.964$, almost on the pattern; where a curve meets the diagonal the state no longer changes. At $\beta = 0.5$ the only such point is 0: both memories are lost. The program checked $\tanh 2 = 0.964$.
 
 The key parameter is $\beta$. Its role is inherited from statistical mechanics:
 high $\beta$ (low temperature) means sharp, deterministic updates; low $\beta$
@@ -149,6 +155,8 @@ where $T_0 > 0$ is the baseline temperature and $\sigma > 0$ is the limbic
 coupling strength. As $\Phi \uparrow$, temperature rises, $\beta$ drops,
 and the softmax distribution flattens — energy barriers become traversable.
 
+{{Visualize | the-two-coupling-equations | function-plot:soma | f="1/(0.25 + sigma*x)"; vary=sigma:0.5,1,2; x=[0,1]; value_at=0; expect_value=4; xlabel="limbic field $\Phi_\text{limbic}$"; ylabel="inverse temperature $\beta$" }} Equation 1 with $T_0 = 0.25$ at three coupling strengths $\sigma$: calm ($\Phi = 0$) gives $\beta = 4$, sharp recall; rising threat lowers $\beta$, faster for a strongly coupled limbic system. Illustrative values; the program checked $\beta(0) = 4$.
+
 **Equation 2 — Weight Modulation (Ephaptic Gain):**
 
 $$W(t) = W_0 + \gamma \cdot \Phi_\text{limbic}(t) \cdot J$$
@@ -166,6 +174,8 @@ $$\xi(t+1) = X^T \cdot \text{softmax}\!\left(\beta(t) \cdot (W_0 + \gamma\Phi(t)
 
 This is the Field-Modulated Hopfield Network (FM-HN). The Lean 4 types for
 all quantities are defined in `LimbicHopfield.lean` (namespace `LimbicHopfield`).
+
+{{Visualize | the-fm-hn-update-rule | energy-landscape:soma | U="-(0.25 + 2*Phi)*log(exp(x/(0.25 + 2*Phi)) + exp(-x/(0.25 + 2*Phi))) + x^2/2"; vary=Phi:0,0.2,0.5; x=[-1.8,1.8]; ball=-1; expect_minima="-0.9993,0.9993"; xlabel="state $\xi$"; ylabel="energy" }} The FM-HN energy for two stored patterns $\pm 1$ with $T_0 = 0.25$ and $\sigma = 2$ as the limbic field rises. Calm ($\Phi = 0$, $\beta = 4$): two deep valleys and the state stays in its memory. At $\Phi = 0.5$ ($\beta = 0.8$) the barrier is gone and the state can move. Illustrative values; the program checked the calm minima, $\pm 0.9993$.
 
 ---
 
@@ -200,6 +210,8 @@ For binary patterns with $z \in \{-1, +1\}$, $\arg\max z = \text{sign}(z)$.
 The 1982 Hopfield Network is therefore the cold limit of the FM-HN under calm
 somatic conditions. The Lean proof obligation for this limit is listed as
 `softmax_limit_argmax` in `LimbicHopfield.lean` (requiring real analysis scaffolding).
+
+{{Visualize | the-correspondence-principle | function-plot:soma | f="1/(1 + exp(-beta*x))"; vary=beta:1,4,32; x=[-3,3]; value_at=0.5; expect_value=0.6225; xlabel="score difference $z_1 - z_2$"; ylabel="$\mathrm{softmax}(\beta z)_1$" }} With two candidates the softmax weight on the first is a smooth step. As $\beta$ grows (colder, calmer) the step sharpens towards the 1982 rule: all weight on the larger score. The program checked $0.6225$ at $\beta = 1$, $z_1 - z_2 = 0.5$.
 
 ---
 

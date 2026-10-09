@@ -1828,7 +1828,8 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       figure, books 1 of 38, course 52 of 142; the paper builds now carry the
       reader and filter with `visualize-show: none`; P1 marked up: 8 figures, 2
       checks; Gestalt field dynamics: 7 figures, 6 checks;
-      music affect dynamics: 4 figures, 3 checks) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      music affect dynamics: 4 figures, 3 checks;
+      missing limbic layer: 5 figures, 4 checks; papers 24 of 233, library 90) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter

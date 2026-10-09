@@ -46,7 +46,8 @@ SAFE = {name: getattr(np, name) for name in (
 SAFE.update(pi=np.pi, e=np.e, j=1j, inf=np.inf)
 COMMON = {"aspect", "xlabel", "ylabel", "zlabel", "expect_tol"}
 GREEK = {"alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "kappa", "lambda",
-         "mu", "nu", "xi", "pi", "rho", "sigma", "tau", "phi", "chi", "psi", "omega", "Omega", "Delta"}
+         "mu", "nu", "xi", "pi", "rho", "sigma", "tau", "phi", "chi", "psi", "omega", "Omega", "Delta",
+         "Gamma", "Theta", "Lambda", "Sigma", "Phi", "Psi"}
 
 
 class SpecError(Exception):
@@ -246,10 +247,14 @@ def draw_function_plot(spec: Spec):
     fig, ax = spec.axes()
     color = iter(spec.colors * 4)
     first = None
+    varied = spec.get("vary", "").partition(":")[0].strip()
     for key in curve_keys(spec):
         fn = compile_expr(spec.get(key), allowed)
         name = spec.get("name" + key[1:])
-        for label, env in spec.family():
+        family = spec.family()
+        if varied and not re.search(rf"\b{re.escape(varied)}\b", spec.get(key)):
+            family = [("", family[0][1])]  # the curve does not depend on the varied name: draw it once
+        for label, env in family:
             ys = as_array(fn({**env, var: xs}), xs)
             if first is None:
                 first = (fn, env)
