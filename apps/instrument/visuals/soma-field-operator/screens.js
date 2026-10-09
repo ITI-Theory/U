@@ -181,9 +181,49 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <button type="button" data-open="engine">OPEN ENGINE ROOM</button>
         <p class="engine-room__hint">Drag a window to a tablet, then press F for full screen.</p>
       </fieldset>
+      <fieldset class="engine-room__fuel"><legend>FUEL: KNOWLEDGE BANKS</legend>
+        <p class="engine-room__hint">The notebooks MOTHER and H-AL answer from (local bridge).</p>
+        <div class="engine-room__banks">Bridge not checked.</div>
+        <button type="button" data-fuel="refresh">CHECK BRIDGE</button>
+      </fieldset>
     </div>`;
   document.body.append(room);
   const fxInput = room.querySelector('.engine-room__fx');
+  const banks = room.querySelector('.engine-room__banks');
+  const bridge = () => (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, '');
+
+  async function loadFuel() {
+    banks.textContent = 'Checking the bridge...';
+    try {
+      const response = await fetch(`${bridge()}/fuel`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || response.status);
+      banks.replaceChildren(...data.banks.map(bank => {
+        const row = document.createElement('details');
+        row.className = `engine-room__bank${bank.active ? ' active' : ''}`;
+        const summary = document.createElement('summary');
+        summary.textContent = `${bank.name}  ${bank.count} sources${bank.role === 'hal' && bank.active ? '  (H-AL NOW)' : ''}`;
+        row.append(summary);
+        if (bank.role === 'hal' && !bank.active) {
+          const use = document.createElement('button');
+          use.type = 'button';
+          use.dataset.useHal = bank.name.replace(/ \(unreadable.*$/, '');
+          use.textContent = 'USE FOR H-AL';
+          row.append(use);
+        }
+        const list = document.createElement('ul');
+        for (const title of bank.titles) {
+          const item = document.createElement('li');
+          item.textContent = title;
+          list.append(item);
+        }
+        row.append(list);
+        return row;
+      }));
+    } catch (error) {
+      banks.textContent = `Bridge not reachable (${error.message}). Start it with: make mother-bridge`;
+    }
+  }
   const fxValue = room.querySelector('.engine-room__fx-value');
 
   function sync() {
@@ -212,6 +252,11 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
       setParam('styleoff', [...off].join('.'));
     }
     if (button.dataset.camera) screens.setCamera(button.dataset.camera);
+    if (button.dataset.fuel === 'refresh') loadFuel();
+    if (button.dataset.useHal) {
+      fetch(`${bridge()}/hal-notebook`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: button.dataset.useHal }) })
+        .then(() => loadFuel());
+    }
     if (button.dataset.open) {
       const url = new URL(location.href);
       url.searchParams.set('screen', button.dataset.open);

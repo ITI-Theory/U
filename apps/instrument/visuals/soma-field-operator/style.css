@@ -411,3 +411,10 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .engine-room__fx { width: 75%; vertical-align: middle; }
 .engine-room__fx-value { margin-left: 8px; color: var(--cyan); }
 .library-group .library-note { display: block; margin: 1px 0 4px; color: rgba(215,232,246,.6); font: 6.5px/1.4 'Space Mono', monospace; }
+.engine-room__fuel { grid-column: 1 / -1; }
+.engine-room__banks { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; margin: 8px 0; }
+.engine-room__bank { padding: 6px 8px; border: 1px solid rgba(234,245,255,.2); }
+.engine-room__bank.active { border-color: var(--cyan); }
+.engine-room__bank summary { cursor: pointer; color: #f3ead0; font-weight: 700; }
+.engine-room__bank ul { margin: 6px 0 0; padding-left: 16px; max-height: 180px; overflow: auto; color: rgba(234,245,255,.7); font-size: 10px; }
+

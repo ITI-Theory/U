@@ -1026,7 +1026,7 @@ in black linen; Lulu has no A3.)
    pointing to the theory pages to read with it, so leafing through the Atlas
    iterates through the theory chapters.
 
-- [ ] Triptych panels (L*.1) fixed at the source (author review 8 Oct, printed
+- [x] Triptych panels (L*.1) fixed at the source (author review 8 Oct, printed
       pages 70-83): today each panel is a narrow centre slice of one landscape
       app capture, so wide subjects are cut (dyad: two people at the edges;
       human: off-centre, halo cut; brain: wider than the slice, the red HEAD
@@ -1045,6 +1045,7 @@ in black linen; Lulu has no A3.)
       levels off the universal ladder take the nearest ladder coordinate by
       length scale (they had sigma 0, which disabled their 11D). At the
       quantum scales the third panel says there is no 11D view.
+      Done 9 Oct (fb17cd4, 34b04cc): upright per-dimension captures framed on the subject; author to check printed pages 70-83.
 ---
 
 ## ISS-041: [T]-Theory course book (textbook edition becomes the course) — OPEN
@@ -1310,7 +1311,8 @@ stays useful for the laptop and for cloud machines.
 - [ ] Generate `HAL help` from the scripts (now hand-written usage blocks).
 - [ ] Test on a VirtualBox VM and the Linux mini PC (`HAL_OS=unix`), then the tablets.
 - [ ] Laptop: remove the old WSL symlinks `U.Dot/bin/HAL`, `bin/HAL0` (git-ignored).
-- [ ] Me/chats/Makefile hard-codes `BASE_DIR := /c/Users/alist`; use `$(HOME)`.
+- [x] Me/chats/Makefile hard-codes `BASE_DIR := /c/Users/alist`; use `$(HOME)`.
+      Done 9 Oct (Me d61bd47): `BASE_DIR` from `$(HOME)`, forward slashes.
 
 ---
 
@@ -1685,8 +1687,14 @@ papers UAT notebook); one source can be large, so books can be merged.
       HAL private (favourites, AJ wiki, links) and MOTHER (released work) later.
 - [ ] Choose the H-AL notebook in the app (HAL, HAL-UAT) and switch sources per
       group (ISS-047 notes 12-13), instead of editing `mother.local.json`.
-- [ ] `make` target: copy the listed sources into `upload/` (merging where the
+      9 Oct, in progress: bridge `GET /fuel` (each notebook, its sources) and
+      `POST /hal-notebook {name}` (names from `hal_notebooks` in the private
+      config); engine room FUEL section lists the banks with USE FOR H-AL.
+      Compiles; end-to-end test was running when the session paused. Next: test
+      with `make mother-bridge` + `?screen=engine` (CHECK BRIDGE).
+- [x] `make` target: copy the listed sources into `upload/` (merging where the
       limit needs it) and upload with the bridge (`--dry-run` first).
+      Done: `make -C Me/notebooklm load NB= GROUPS= [DRY=1]` (`load.py`, 8 Oct), used 9 Oct for HAL-UAT; it renews the session itself.
 - [ ] Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
 - [ ] Soma Machine Engine Room panel "Fuel" (knowledge banks, as in Star Trek's
       "load the medical database"; author 8 Oct): which groups are loaded in

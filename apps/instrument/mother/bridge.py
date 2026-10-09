@@ -246,6 +246,48 @@ class Bridge:
         coroutine = self._ask(prompt, question or prompt, compare, persona)
         return asyncio.run_coroutine_threadsafe(coroutine, self.loop).result(timeout=300)
 
+    # Fuel: the knowledge banks (notebooks) H-AL can answer from, named in the private
+    # config as "hal_notebooks": {"HAL": "<id>", "HAL-UAT": "<id>"}.
+    def hal_notebooks(self) -> dict[str, str]:
+        named = dict(local_config().get("hal_notebooks") or {})
+        if self.hal and self.hal not in named.values():
+            named["H-AL"] = self.hal
+        return named
+
+    async def _fuel(self) -> dict:
+        await self._ensure()
+        banks = []
+        rows = [("MOTHER", self.notebook, "mother")] + [(name, notebook, "hal") for name, notebook in self.hal_notebooks().items()]
+        if self.baseline:
+            rows.append(("BASELINE", self.baseline, "baseline"))
+        for name, notebook, role in rows:
+            try:
+                sources = await self.client.sources.list(notebook)
+                titles = [getattr(source, "title", None) or source.id for source in sources]
+            except Exception as error:  # one unreadable notebook must not hide the others
+                titles, name = [], f"{name} (unreadable: {type(error).__name__})"
+            banks.append({"name": name, "role": role, "active": role != "hal" or notebook == self.hal, "count": len(titles), "titles": sorted(titles)})
+        return {"banks": banks}
+
+    def fuel(self) -> dict:
+        return asyncio.run_coroutine_threadsafe(self._fuel(), self.loop).result(timeout=120)
+
+    def set_hal(self, name: str) -> dict:
+        notebook = self.hal_notebooks().get(name)
+        if not notebook:
+            raise ValueError(f"unknown H-AL notebook {name!r}")
+        self.hal = notebook
+        self.conversations.pop(notebook, None)
+
+        async def titles() -> None:
+            await self._ensure()
+            for source in await self.client.sources.list(notebook):
+                self.titles[source.id] = getattr(source, "title", None) or source.id
+
+        asyncio.run_coroutine_threadsafe(titles(), self.loop).result(timeout=120)
+        print(f"[mother] H-AL now answers from {name}", flush=True)
+        return {"ok": True, "hal": name}
+
 
 def _which(command: str) -> str | None:
     path = shutil.which(command)
@@ -399,6 +441,12 @@ class Handler(BaseHTTPRequestHandler):
         if urlparse(self.path).path == "/shell":
             self._shell_ws()
             return
+        if self.path == "/fuel":
+            try:
+                self._json(200, self.bridge.fuel())
+            except Exception as error:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
+            return
         if self.path == "/health":
             origin = self.headers.get("Origin", "")
             self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal), "voice": voice_available(), "shell": shell_status(bool(origin and LOCAL_ORIGIN.match(origin)))})
@@ -540,6 +588,14 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(403, {"error": "local origins only"})
                 return
             self._speak()
+            return
+        if self.path == "/hal-notebook":
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                data = json.loads(self.rfile.read(min(length, 4000)) or b"{}")
+                self._json(200 if self._origin_ok() else 403, self.bridge.set_hal(str(data.get("name", ""))) if self._origin_ok() else {"error": "local origins only"})
+            except Exception as error:
+                self._json(400, {"error": f"{type(error).__name__}: {error}"})
             return
         if self.path != "/ask":
             self._json(404, {"error": "not found"})
