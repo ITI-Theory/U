@@ -1506,6 +1506,15 @@ The author ran a UAT session on 7 Oct; the notes are in
       F or the corner button for full screen. `screens.js`, BroadcastChannel.
       Combined cockpit view (all views, zooming) later.
 - [x] Demo stops 8 and 10 use the cockpit view (the panels hid the dyad).
+- [ ] Demo held 9 Oct by phone, on her older copy of the app (no tour). Her
+      feedback: "why a presentation for a Gestalt therapist?" The levels view
+      gives a good overview; what she needs is "how does it help my daily work".
+      Next version for therapists: the poke as the core (4D memoryless
+      stimulus-response vs 8D history and context vs 11D unforced change;
+      dyad rupture and repair; neuron-only vs whole-person poke), then the
+      limbic system (the L1 axis of the 11D split), the Penrose gap and current
+      AI, individuals to groups. Needs a tour field that fires a poke, and a
+      poke panel for the whole brain (only human, dyad and neuron have one).
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---
