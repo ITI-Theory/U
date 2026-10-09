@@ -1827,7 +1827,7 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
 - [ ] (9 Oct: `make visualize-coverage`: papers 0 of 233 display equations have a
       figure, books 1 of 38, course 52 of 142; the paper builds now carry the
       reader and filter with `visualize-show: none`; P1 marked up: 8 figures, 2
-      checks) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      checks; Gestalt field dynamics: 7 figures, 6 checks) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter

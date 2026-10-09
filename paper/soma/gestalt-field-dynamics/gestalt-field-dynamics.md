@@ -107,12 +107,16 @@ physical-mathematical event—specifically, the one-dimensional impulse response
 
 $$G(\omega) = \frac{1}{\omega^2 - m^2 + i\epsilon}$$
 
+{{Visualize | epistemological-grounding-russellian-neutral-monism-and-type-theory | function-plot:quantum | f="1/sqrt((x^2 - m^2)^2 + 0.01)"; vary=m:1,2; x=[0,3]; expect_peak_x=1; expect_tol=0.01; xlabel="frequency $\omega$"; ylabel="$|G(\omega)|$ (with $\epsilon = 0.1$)" }} The size of the propagator: a sharp peak (the pole) where the frequency $\omega$ meets the mass $m$. The program checked that the peak for $m = 1$ lies at $\omega = 1$. Illustrative $\epsilon$.
+
 To prevent this co-identification from collapsing into pseudo-scientific abstraction, we enforce Russell's **Theory of Types**. This mathematical syntax creates a strict structural hierarchy where operations at Level $n$ cannot operate reflexively upon themselves without generating syntactic nonsense. In the context of computational verification, we define our system states across explicit, non-overlapping types:
 
 * **Type 0 (Individual Somatic Data):** Discrete physiological metrics (heart-rate variability, cortisol levels, muscular contraction vectors).
 * **Type 1 (Somatic Fields / Attractor Nets):** The global coupling matrix ($W$) and bias vectors ($\mathbf{b}$) defining the Hopfield energy function of the organism:
   $$H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^{\top} W \mathbf{e} - \mathbf{b}^{\top}\mathbf{e}$$
 * **Type 2 (Topological Spaces):** The global boundary conditions and holonomy groups ($G_2$) constraining the trajectories of Type 1 fields.
+
+{{Visualize | epistemological-grounding-russellian-neutral-monism-and-type-theory | contour-map:soma | f="0.5*(x^2 + y^2) - 0.6*x*y - 0.2*x - 0.1*y"; x=[-1.5,2]; y=[-1.5,2]; downhill=true; xlabel="$e_1$"; ylabel="$e_2$"; zlabel="$H$" }} The Hopfield energy $H$ of two coupled modes with $W_{11} = W_{22} = -1$, $W_{12} = W_{21} = 0.6$ and $\mathbf{b} = (0.2, 0.1)$: one basin, and the arrows point downhill. Illustrative values.
 
 By adhering to this type-theoretic hierarchy, the Soma-Field model avoids
 classifying emotional trauma as a vague "ghost in the machine." Instead, it
@@ -171,6 +175,8 @@ system governed by the gradient descent of the Hopfield energy function
 
 $$\frac{d\mathbf{e}}{dt} = -\nabla H(\mathbf{e}) = W\mathbf{e} + \mathbf{b}$$
 
+{{Visualize | proof-2-lyapunov-stability-of-the-fixed-gestalt | vector-field:soma | u="-x + 0.6*y + 0.2"; v="0.6*x - y + 0.1"; potential="0.5*(x^2 + y^2) - 0.6*x*y - 0.2*x - 0.1*y"; x=[-1.5,2]; y=[-1.5,2]; xlabel="$e_1$"; ylabel="$e_2$" }} The flow $d\mathbf{e}/dt = W\mathbf{e} + \mathbf{b}$ for the same two modes over the shaded energy: every arrow runs downhill into the one basin at $\mathbf{e}^* = -W^{-1}\mathbf{b} = (0.406, 0.344)$, the model's fixed Gestalt.
+
 Here $W$ is required to be symmetric ($W = W^\top$), which ensures the gradient $\nabla H$ is well-defined; when $W$ is additionally negative semi-definite, $H(\mathbf{e})$ is bounded from below, a necessary precondition for stable attractor dynamics.
 
 To show why a fixed Gestalt can be represented as a stable attractor basin, we
@@ -186,6 +192,8 @@ $$\frac{dH}{dt} = \sum_{i=1}^N \frac{\partial H}{\partial e_i} \frac{de_i}{dt}$$
 Substituting the dynamical equation $\frac{de_i}{dt} = -\frac{\partial H}{\partial e_i}$ into the expression yields:
 
 $$\frac{dH}{dt} = \sum_{i=1}^N \frac{\partial H}{\partial e_i} \left( -\frac{\partial H}{\partial e_i} \right) = -\sum_{i=1}^N \left( \frac{\partial H}{\partial e_i} \right)^2 \leq 0$$
+
+{{Visualize | proof-2-lyapunov-stability-of-the-fixed-gestalt | function-plot:soma | f1="0.2*exp(-0.8*x) + 0.8*exp(-3.2*x)"; name1="$H - H^*$"; f2="-(0.16*exp(-0.8*x) + 2.56*exp(-3.2*x))"; name2="$dH/dt$"; x=[0,6]; tangent_at=0.5; expect_slope=-0.6241; xlabel="time $t$"; ylabel="" }} Along the flow from $\mathbf{e}^* + (\sqrt{2}, 0)$ the energy above the minimum, $H - H^*$, only falls, and its slope (the dashed tangent at $t = 0.5$) equals the lower curve, $dH/dt = -|\nabla H|^2$, at that time. The program checked the slope, $-0.624$.
 
 Because $\frac{dH}{dt} \leq 0$, the model energy is non-increasing along the
 gradient trajectory, and local minima are candidate stable fixed Gestalts.
@@ -213,6 +221,8 @@ The impasse occurs when a closed path $\gamma$ encircles a topological defect in
 
 $$n = \frac{1}{2\pi} \oint_{\gamma} d\theta \quad (n \neq 0)$$
 
+{{Visualize | proof-3-topological-resolution-of-the-impasse-via-present-moment-tracking | vector-field:soma | u="-y/(x^2 + y^2)"; v="x/(x^2 + y^2)"; x=[-2,2]; y=[-2,2]; n=16; circle=1; expect_circulation=6.2832; expect_flux=0 }} The angle field around a defect at the origin. The loop $\gamma$ (red) circles it once: the circulation is $2\pi$, so $n = 1$, and no smooth deformation of the loop that keeps away from the defect changes it. The program checked the circulation.
+
 The model represents chronic stuckness as a possible topological obstruction with non-zero winding number ($n$). Intervention response is empirical; the formal loop does not establish that cognitive restructuring cannot help a given client.
 
 Within the model, changing the trajectory without changing the global manifold
@@ -223,6 +233,8 @@ $\mathbf{J}(t)$ in the field equations:
 
 $$\frac{d\mathbf{e}}{dt} = W\mathbf{e} + \mathbf{b} + \mathbf{J}(t)$$
 
+{{Visualize | proof-3-topological-resolution-of-the-impasse-via-present-moment-tracking | energy-landscape:soma | U="x^4/4 - x^2/2 - J*x"; vary=J:0,0.25,0.5; x=[-1.8,1.8]; ball=-1; expect_minima="-1,1" }} One mode with a constant driving term $J$ that tilts the landscape (illustrative; a double well rather than the linear model above). At $J = 0$ the state sits in the left valley; as $J$ grows the valley gets shallower, and above $J = 2/(3\sqrt{3}) \approx 0.385$ it vanishes and the state can move. The program checked the two minima at $J = 0$, $\pm 1$.
+
 This external current changes the local energy landscape, shifting the
 position of the topological defect relative to the trajectory $\gamma$ in the
 model. Present-moment somatic tracking is represented as guiding the system
@@ -230,6 +242,8 @@ along a path where the effective radius of the loop approaches zero
 ($r \to 0$).
 
 $$\lim_{\mathbf{J}(t) \to \mathbf{J}_{\text{resource}}} \oint_{\gamma} d\theta = 0$$
+
+{{Visualize | proof-3-topological-resolution-of-the-impasse-via-present-moment-tracking | vector-field:soma | u="-y/((x - 2)^2 + y^2)"; v="(x - 2)/((x - 2)^2 + y^2)"; x=[-1.5,3]; y=[-2,2]; n=16; circle=1; expect_circulation=0 }} The same field with the defect moved to $(2, 0)$, outside the loop: the circulation is 0, so $n = 0$ and the loop can shrink to a point. The program checked the circulation.
 
 If such a driven path exists, the model represents resolution as a transition
 from a non-zero to a zero winding number. Whether a given client experiences
