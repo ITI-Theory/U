@@ -349,6 +349,7 @@ def main() -> None:
     parser.add_argument("--items", help="comma-separated item ids, e.g. S-1,H-2")
     parser.add_argument("--list", action="store_true", help="list the worksheet items and exit")
     parser.add_argument("--pause", type=float, default=45.0, help="seconds between questions (default 45)")
+    parser.add_argument("--force", action="store_true", help="run even if the usage window looks too small")
     args = parser.parse_args()
     if args.list:
         folder = UAT / "staging" / args.track
@@ -356,6 +357,16 @@ def main() -> None:
             print(f"{item['id']:6} {item['title']}: {item['question'][:90]}")
         return
     only = set(args.items.split(",")) if args.items else None
+    if not args.dry_run and not args.force:
+        # Do not start a run that the NotebookLM usage window cannot finish.
+        sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "apps" / "instrument" / "mother"))
+        import nlm_usage
+        folder = UAT / "staging" / args.track
+        count = len([i for i in worksheet_items(folder / versioned(WORKSHEETS[args.track], staging_version(folder)[0])) if not only or i["id"] in only]) + 1
+        ok, line = nlm_usage.enough_for(count)
+        print(f"{line}; this run asks up to {count}", flush=True)
+        if not ok:
+            raise SystemExit("not enough NotebookLM usage left for this run: wait for the reset, or --force")
     asyncio.run(run(args.track, args.notebook, only, args.pause, args.replace, args.new, args.dry_run))
 
 

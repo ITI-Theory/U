@@ -95,7 +95,7 @@ app:
 
 # Run the app locally (vite, http://127.0.0.1:5173). The MOTHER panel needs the
 # bridge too: `make mother-bridge` in a second terminal (http://127.0.0.1:8765).
-.PHONY: app-start mother-bridge app-publish
+.PHONY: app-start mother-bridge app-publish nlm-usage
 app-start:
 	npm --prefix $(APP_DIR) run start
 
@@ -105,6 +105,10 @@ app-publish:
 
 mother-bridge:
 	cd apps/instrument/mother && $(MOTHER_PY) bridge.py
+
+# NotebookLM compute left (five-hour and weekly windows, about how many questions).
+nlm-usage:
+	cd apps/instrument/mother && $(MOTHER_PY) nlm_usage.py
 
 # Observatory Guide: the soma-tour spec with registry ids, a source for the
 # MOTHER and H-AL notebooks (upload bld/app/observatory-guide.md).

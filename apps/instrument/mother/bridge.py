@@ -36,6 +36,8 @@ from urllib.parse import parse_qs, urlparse
 from notebooklm import NotebookLMClient
 from notebooklm.exceptions import RateLimitError
 
+import nlm_usage
+
 try:
     from winpty import PtyProcess
 except ImportError:  # installed only when the local shell is wanted
@@ -440,6 +442,12 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         if urlparse(self.path).path == "/shell":
             self._shell_ws()
+            return
+        if self.path == "/usage":
+            try:
+                self._json(200, nlm_usage.usage())
+            except Exception as error:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
             return
         if self.path == "/fuel":
             try:

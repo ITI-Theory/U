@@ -182,7 +182,8 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <p class="engine-room__hint">Drag a window to a tablet, then press F for full screen.</p>
       </fieldset>
       <fieldset class="engine-room__fuel"><legend>FUEL: KNOWLEDGE BANKS</legend>
-        <p class="engine-room__hint">The notebooks MOTHER and H-AL answer from (local bridge).</p>
+        <p class="engine-room__hint">The notebooks MOTHER and H-AL answer from (local bridge), and the NotebookLM compute left.</p>
+        <div class="engine-room__gauges"></div>
         <div class="engine-room__banks">Bridge not checked.</div>
         <button type="button" data-fuel="refresh">CHECK BRIDGE</button>
       </fieldset>
@@ -192,7 +193,45 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   const banks = room.querySelector('.engine-room__banks');
   const bridge = () => (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, '');
 
+  const gauges = room.querySelector('.engine-room__gauges');
+
+  // A dial per usage window: the arc is the fuel left (green, amber below 35 %, red below 15 %).
+  function gauge(title, remaining, resets, note) {
+    const left = Math.max(0, Math.min(100, remaining));
+    const colour = left < 15 ? '#ff5470' : left < 35 ? '#f6c75a' : '#56f0a2';
+    const radius = 46;
+    const half = Math.PI * radius;
+    const element = document.createElement('figure');
+    element.className = 'engine-room__gauge';
+    element.innerHTML = `
+      <svg viewBox="0 0 120 70" aria-hidden="true">
+        <path d="M 14 62 A 46 46 0 0 1 106 62" fill="none" stroke="rgba(234,245,255,.14)" stroke-width="10" stroke-linecap="round"/>
+        <path d="M 14 62 A 46 46 0 0 1 106 62" fill="none" stroke="${colour}" stroke-width="10" stroke-linecap="round"
+          stroke-dasharray="${(half * left / 100).toFixed(1)} ${half.toFixed(1)}"/>
+        <text x="60" y="58" text-anchor="middle" fill="#f3ead0" font-size="17" font-weight="700">${Math.round(left)}%</text>
+      </svg>
+      <figcaption><strong>${title}</strong><span>${note}</span><span>resets ${resets}</span></figcaption>`;
+    return element;
+  }
+
+  async function loadUsage() {
+    try {
+      const response = await fetch(`${bridge()}/usage`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || response.status);
+      gauges.replaceChildren(...data.windows.map(window => gauge(
+        window.kind === 'five_hour' ? 'FIVE-HOUR' : 'WEEKLY',
+        window.remaining_percent,
+        window.resets_local,
+        window.kind === 'five_hour' ? `about ${data.questions_left} questions left` : `${window.used_percent.toFixed(1)}% used this week`,
+      )));
+    } catch (error) {
+      gauges.textContent = `Usage not available (${error.message}).`;
+    }
+  }
+
   async function loadFuel() {
+    loadUsage();
     banks.textContent = 'Checking the bridge...';
     try {
       const response = await fetch(`${bridge()}/fuel`);
@@ -270,5 +309,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   });
   addEventListener('hashchange', sync);
   setInterval(sync, 1500);
+  setInterval(loadUsage, 120000);
+  loadUsage();
   sync();
 }
