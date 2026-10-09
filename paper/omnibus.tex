@@ -159,10 +159,18 @@
 \displaywidowpenalty=9999
 
 % ── 12. Code blocks ───────────────────────────────────────────────────────────
+% Long code lines wrap inside the text block, as in journal.tex (checked by
+% paper/scripts/check_text_overflow.py). breaknonspaceingroup: highlighted
+% tokens sit inside macros (\CommentTok{...}). The plain verbatim is replaced at
+% begin document, after every package that may define it.
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,breaknonspaceingroup,commandchars=\\\{\}}
 \makeatletter
 \AtBeginDocument{%
   \@ifpackageloaded{fancyvrb}{\fvset{fontsize=\small}}{}%
   \@ifpackageloaded{framed}{\renewenvironment{Shaded}{}{}}{}%
+  \let\verbatim\relax\let\endverbatim\relax
+  \DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines,breakanywhere}%
 }
 \makeatother
 
