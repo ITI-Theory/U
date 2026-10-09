@@ -3,7 +3,8 @@ concept: Aesthetic judgement
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$AestheticAppraisal'
+  class: '#$AestheticDiscrimination'
+  lean_cycref: '#$AestheticAppraisal'
 lean:
   module: EmotionOntology
   name: Mechanism.AestheticJudgement
@@ -11,4 +12,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
+notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
+  no constant #$AestheticAppraisal; nearest real class used.'

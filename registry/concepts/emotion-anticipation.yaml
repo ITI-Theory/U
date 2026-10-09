@@ -3,7 +3,8 @@ concept: Anticipation
 kind: emotion
 ontology:
   system: OpenCyc
-  class: '#$Anticipation-Emotion'
+  class: '#$Anticipation-Feeling'
+  lean_cycref: '#$Anticipation-Emotion'
 lean:
   module: EmotionOntology
   name: EmotionLang.anticipation
@@ -12,5 +13,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
-  constant.
+notes: 'Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
+  constant. OpenCyc has no constant #$Anticipation-Emotion; nearest real class used.'

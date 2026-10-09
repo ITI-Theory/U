@@ -3,7 +3,8 @@ concept: Evaluative conditioning
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$ClassicalConditioning'
+  class: null
+  lean_cycref: '#$ClassicalConditioning'
 lean:
   module: EmotionOntology
   name: Mechanism.EvaluativeConditioning
@@ -11,4 +12,6 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
+notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
+  no constant #$ClassicalConditioning and no clear match: a gap (candidate for the programme''s own OWL
+  class).'

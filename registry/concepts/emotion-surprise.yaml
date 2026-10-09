@@ -3,7 +3,8 @@ concept: Surprise
 kind: emotion
 ontology:
   system: OpenCyc
-  class: '#$Surprise-Emotion'
+  class: '#$Surprise'
+  lean_cycref: '#$Surprise-Emotion'
 lean:
   module: EmotionOntology
   name: EmotionLang.surprise
@@ -12,5 +13,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
-  constant.
+notes: 'Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
+  constant. OpenCyc has no constant #$Surprise-Emotion; nearest real class used.'

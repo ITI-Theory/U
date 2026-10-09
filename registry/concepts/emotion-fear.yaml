@@ -3,7 +3,8 @@ concept: Fear
 kind: emotion
 ontology:
   system: OpenCyc
-  class: '#$Fear-Emotion'
+  class: '#$Fear'
+  lean_cycref: '#$Fear-Emotion'
 lean:
   module: EmotionOntology
   name: EmotionLang.fear
@@ -12,5 +13,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
-  constant.
+notes: 'Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
+  constant. OpenCyc has no constant #$Fear-Emotion; nearest real class used.'

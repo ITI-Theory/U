@@ -3,7 +3,8 @@ concept: Rhythmic entrainment
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$RhythmicEntrainmentPsychological'
+  class: null
+  lean_cycref: '#$RhythmicEntrainmentPsychological'
 lean:
   module: EmotionOntology
   name: Mechanism.RhythmicEntrainment
@@ -11,4 +12,6 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
+notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
+  no constant #$RhythmicEntrainmentPsychological and no clear match: a gap (candidate for the programme''s
+  own OWL class).'

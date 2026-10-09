@@ -3,7 +3,8 @@ concept: Emotional contagion
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$EmotionalContagion'
+  class: null
+  lean_cycref: '#$EmotionalContagion'
 lean:
   module: EmotionOntology
   name: Mechanism.Contagion
@@ -11,4 +12,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
+notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
+  no constant #$EmotionalContagion and no clear match: a gap (candidate for the programme''s own OWL class).'

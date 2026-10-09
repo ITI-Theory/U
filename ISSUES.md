@@ -1387,6 +1387,18 @@ app README):**
       type guard below generated from the same registry.
       App (9 Oct): SHERLOCK panel per level (tally and list: ontology class, Lean name,
       PROVED / SORRY / AXIOM / DEFINED, papers), from the same status code.
+- [ ] Sherlock finding, 9 Oct: none of the 16 OpenCyc constants in
+      EmotionOntology.lean's CycRef interpreter exist in OpenCyc (checked against
+      the OpenCyc OWL, 239,119 constants): `#$Joy-Emotion` etc., and the predicates
+      `#$emotionalBlend`, `#$emotionalInhibition`; `#$causes` exists only typed
+      (`causes-SitSit` ...). Real classes: Happiness, Sadness, Fear, Anger, Disgust,
+      Surprise, Anticipation-Feeling, ReflexiveAction, Expectation,
+      AestheticDiscrimination; no match for trust, entrainment, conditioning,
+      contagion, imagery, episodic memory. The registry now uses the real classes
+      (the Lean string kept as `lean_cycref`); `make concepts` fails on any class
+      that is not an OpenCyc constant. Author decides: change the Lean strings
+      (and the CycRef examples quoted in the papers and the omnibus) to real
+      constants, or define the missing ones as the programme's own OWL classes.
 - [ ] Visual rhymes: renderers may share motion styles across levels (sliding
       plates for `geological`, ring/belt debris for `orbital-system`), badged
       as visual analogy (`INTERPRETIVE`); the physics differs.

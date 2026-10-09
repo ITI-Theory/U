@@ -3,7 +3,8 @@ concept: Trust
 kind: emotion
 ontology:
   system: OpenCyc
-  class: '#$Trust-Emotion'
+  class: null
+  lean_cycref: '#$Trust-Emotion'
 lean:
   module: EmotionOntology
   name: EmotionLang.trust
@@ -12,5 +13,6 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
-  constant.
+notes: 'Primary emotion in the final-tagless emotion language; the CycRef interpreter maps it to the OpenCyc
+  constant. OpenCyc has no constant #$Trust-Emotion and no clear match: a gap (candidate for the programme''s
+  own OWL class).'

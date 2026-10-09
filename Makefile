@@ -109,7 +109,7 @@ mother-bridge:
 # Sherlock concept registry (registry/concepts): references, real proof status, gaps.
 .PHONY: concepts
 concepts:
-	$(PYTHON) paper/scripts/check_concepts.py
+	$(PYTHON) paper/scripts/check_concepts.py $(if $(FETCH),--fetch-cyc,)
 
 # Every {{Visualize}} figure in one file for custom chats (ISS-051): bld/visualize/library.pdf.
 .PHONY: visualize-library

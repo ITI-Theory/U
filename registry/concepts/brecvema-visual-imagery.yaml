@@ -3,7 +3,8 @@ concept: Visual imagery
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$MentalImagery'
+  class: null
+  lean_cycref: '#$MentalImagery'
 lean:
   module: EmotionOntology
   name: Mechanism.VisualImagery
@@ -11,4 +12,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
+notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
+  no constant #$MentalImagery and no clear match: a gap (candidate for the programme''s own OWL class).'

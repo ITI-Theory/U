@@ -3,7 +3,8 @@ concept: Musical expectancy
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$ExpectancyViolation'
+  class: '#$Expectation'
+  lean_cycref: '#$ExpectancyViolation'
 lean:
   module: EmotionOntology
   name: Mechanism.MusicalExpectancy
@@ -11,4 +12,5 @@ papers:
 - P9
 levels:
 - human-vertebrate
-notes: BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant.
+notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
+  no constant #$ExpectancyViolation; nearest real class used.'

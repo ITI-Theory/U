@@ -12,12 +12,19 @@ definition (def, structure, inductive, class field or constructor). It fails on
 broken references (unknown Lean name, paper or level); it reports gaps (no
 ontology class, no Lean declaration) and mismatches (a concept labelled
 kernel-verified whose theorem has a `sorry` or is an axiom). With --strict, gaps
-fail too.
+fail too. OpenCyc classes are checked against the OpenCyc OWL file (239,119
+constants) cached in ~/.cache/ttheory/ (download once with --fetch-cyc; without
+the cache this check is skipped and said so): a class that is not an OpenCyc
+constant fails. `lean_cycref` records the string the Lean CycRef interpreter uses,
+when that differs from the real constant.
 """
 from __future__ import annotations
 
 import argparse
+import gzip
+import os
 import re
+import urllib.request
 import sys
 from pathlib import Path
 
@@ -29,6 +36,8 @@ LEAN_DIRS = [U / "paper" / "proofs", U / "paper"]
 PAPERS = U.parent / "Dist" / "PAPERS.yaml"
 LEVELS = U / "registry" / "levels"
 LABELS = {"kernel-verified", "derived-under-assumptions", "simulated", "empirical-result", "interpretive", "open-hypothesis"}
+OPENCYC_URL = "https://github.com/asanchez75/opencyc/raw/master/opencyc-latest.owl.gz"
+OPENCYC = Path(os.environ.get("OPENCYC_OWL", Path.home() / ".cache" / "ttheory" / "opencyc-latest.owl.gz"))
 DECL = re.compile(r"^(?:@\[[^\]]*\]\s*)?(?:noncomputable\s+|private\s+|protected\s+)*(theorem|lemma|def|abbrev|axiom|structure|inductive|class|instance)\s+([^\s(:{\[]+)", re.M)
 
 
@@ -47,6 +56,18 @@ def paper_ids() -> set[str]:
 
     walk(yaml.safe_load(PAPERS.read_text(encoding="utf-8")))
     return found
+
+
+def opencyc_constants(fetch: bool) -> set[str] | None:
+    """Every constant name (cycAnnot:label) in OpenCyc, or None when it is not cached."""
+    if not OPENCYC.exists():
+        if not fetch:
+            return None
+        OPENCYC.parent.mkdir(parents=True, exist_ok=True)
+        print(f"downloading OpenCyc (26 MB) to {OPENCYC}")
+        urllib.request.urlretrieve(OPENCYC_URL, OPENCYC)
+    with gzip.open(OPENCYC, "rt", encoding="utf-8", errors="replace") as handle:
+        return set(re.findall(r'<cycAnnot:label xml:lang="en">([^<]+)</cycAnnot:label>', handle.read()))
 
 
 def lean_status(module: str, name: str) -> tuple[str | None, str]:
@@ -84,7 +105,9 @@ def lean_status(module: str, name: str) -> tuple[str | None, str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--strict", action="store_true")
+    parser.add_argument("--fetch-cyc", action="store_true", help="download OpenCyc to the cache if missing")
     args = parser.parse_args()
+    cyc = opencyc_constants(args.fetch_cyc)
     papers = paper_ids()
     levels = {p.stem for p in LEVELS.glob("*.yaml")}
     errors, gaps, rows = [], [], []
@@ -105,6 +128,8 @@ def main() -> int:
         onto = concept.get("ontology") or {}
         if not onto.get("class"):
             gaps.append(f"{cid}: no ontology class")
+        elif onto.get("system") == "OpenCyc" and cyc is not None and onto["class"].removeprefix("#$") not in cyc:
+            errors.append(f"{cid}: {onto['class']} is not an OpenCyc constant")
         lean = concept.get("lean") or {}
         status, where = (None, "")
         if lean.get("module") and lean.get("name"):
@@ -122,6 +147,10 @@ def main() -> int:
         print(f"{cid:{width}}  {onto[:28]:28}  {lean[:58]:58}  {status:16}  {label}")
     counts = {s: sum(1 for r in rows if r[3] == s) for s in ("kernel-verified", "sorry", "axiom", "definition", "-")}
     print(f"\n{len(rows)} concepts: " + ", ".join(f"{v} {k if k != '-' else 'without Lean'}" for k, v in counts.items()))
+    if cyc is None:
+        print("NOTE  OpenCyc not cached: ontology classes not verified (make concepts FETCH=1)")
+    else:
+        print(f"OpenCyc: {len(cyc)} constants; every OpenCyc class in the registry checked")
     for gap in gaps:
         print(f"GAP   {gap}")
     for error in errors:
