@@ -1,0 +1,80 @@
+# Further reading for the Soma Machine (shown under each level's library, "Further
+# reading"). Books and papers to follow up, outside the programme's own papers.
+# levels: level ids, or [all]. Links: DOIs, open textbooks, or a WorldCat search for
+# books (no publisher links guessed). Checked by apps/.../scripts/generate.py.
+items:
+  - title: "A History of Western Philosophy"
+    author: Bertrand Russell
+    why: "The time-invariant questions the programme keeps asking: what is real, what can be known."
+    url: "https://search.worldcat.org/search?q=Russell+A+History+of+Western+Philosophy"
+    levels: [all]
+  - title: "The Road to Reality"
+    author: Roger Penrose
+    why: "The mathematics of physics in one book, and the argument that understanding is not computation alone."
+    url: "https://search.worldcat.org/search?q=Penrose+The+Road+to+Reality"
+    levels: [all]
+  - title: "Fields of Sense: A New Realist Ontology"
+    author: Markus Gabriel
+    why: "A philosophy of many fields of sense, close to the programme's many-level view."
+    url: "https://search.worldcat.org/search?q=Gabriel+Fields+of+Sense"
+    levels: [all]
+  - title: "Gestalt Therapy: 100 Key Points and Techniques"
+    author: Dave Mann
+    why: "Field theory, figure and ground, contact styles and the cycle of experience, in short chapters."
+    url: "https://search.worldcat.org/search?q=Mann+Gestalt+Therapy+100+Key+Points"
+    levels: [human-vertebrate, dyad, human-group]
+  - title: "Body of Awareness: A Somatic and Developmental Approach to Psychotherapy"
+    author: Ruella Frank
+    why: "The fundamental movements (yielding, pushing, reaching, grasping, pulling) as the body's ground of contact."
+    url: "https://search.worldcat.org/search?q=Ruella+Frank+Body+of+Awareness"
+    levels: [human-vertebrate, dyad]
+  - title: "The Bodily Roots of Experience in Psychotherapy"
+    author: Ruella Frank
+    why: "Kinesthetic resonance: how two bodies attune, the felt side of the dyad's coupling."
+    url: "https://search.worldcat.org/search?q=Ruella+Frank+The+Bodily+Roots+of+Experience+in+Psychotherapy"
+    levels: [dyad]
+  - title: "Handbook of Emotion Regulation"
+    author: James J. Gross (ed.)
+    why: "The research behind regulation, the 8D landscape's everyday meaning."
+    url: "https://search.worldcat.org/search?q=Gross+Handbook+of+Emotion+Regulation"
+    levels: [human-vertebrate]
+  - title: "Handbook of Music and Emotion"
+    author: Patrik N. Juslin, John Sloboda (eds.)
+    why: "How music moves feeling, the source of the BRECVEMA mechanisms."
+    url: "https://search.worldcat.org/search?q=Juslin+Sloboda+Handbook+of+Music+and+Emotion"
+    levels: [human-vertebrate]
+  - title: "Introduction to the Theory of Neural Computation"
+    author: John Hertz, Anders Krogh, Richard G. Palmer
+    why: "Hopfield networks and attractors, the mathematics of memory as valleys."
+    url: "https://search.worldcat.org/search?q=Hertz+Krogh+Palmer+Introduction+to+the+Theory+of+Neural+Computation"
+    levels: [whole-brain-cemi, local-circuit, cellular-synaptic]
+  - title: "Neural networks and physical systems with emergent collective computational abilities"
+    author: J. J. Hopfield (1982), PNAS
+    why: "The original Hopfield network, which the programme's memory model reduces to without stress."
+    url: "https://doi.org/10.1073/pnas.79.8.2554"
+    levels: [whole-brain-cemi, local-circuit]
+  - title: "Integrating information in the brain's EM field: the cemi field theory of consciousness"
+    author: Johnjoe McFadden (2020), Neuroscience of Consciousness
+    why: "The brain's electromagnetic field as a candidate for binding, drawn as the CEMI layer."
+    url: "https://doi.org/10.1093/nc/niaa016"
+    levels: [whole-brain-cemi]
+  - title: "Interaction ruling animal collective behavior depends on topological rather than metric distance"
+    author: M. Ballerini et al. (2008), PNAS
+    why: "Starlings track about seven neighbours, not everyone within a distance."
+    url: "https://doi.org/10.1073/pnas.0711437105"
+    levels: [flock, bird, animal-swarm, colony-roost]
+  - title: "Astronomy 2e"
+    author: OpenStax (free, CC BY)
+    why: "An open textbook for the stellar, galactic and cosmic levels."
+    url: "https://openstax.org/details/books/astronomy-2e"
+    levels: [planetary, orbital-system, stellar, compact-object, stellar-cluster, galactic-disc, galactic-halo, galaxy-cluster, cosmic-filaments, observable-universe, cosmic-web]
+  - title: "Physical Geology, 2nd edition"
+    author: Steven Earle (free, CC BY)
+    why: "An open textbook for the geological level: how rocks record what pressed on them."
+    url: "https://opentextbc.ca/physicalgeology2ed/"
+    levels: [geological, planetary]
+  - title: "University Physics"
+    author: OpenStax (free, CC BY)
+    why: "An open textbook for waves, oscillators and fields, the 4D baseline everywhere."
+    url: "https://openstax.org/details/books/university-physics-volume-1"
+    levels: [quantum-foam, string-boundary, nuclear, atomic, molecular]

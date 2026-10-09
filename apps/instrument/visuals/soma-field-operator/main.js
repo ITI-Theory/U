@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions } from './generated/app-data.js';
+import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
@@ -1680,6 +1680,13 @@ function renderLibrary(level) {
     { title: 'Papers', items: level.resolved_sources ?? [] },
     { title: 'Atlas and media', items: level.resolved_media ?? [] },
     { title: 'Related books and collections', items: level.related_collections ?? [] },
+    // registry/reading.yaml: books and papers to follow up, for this level or for all.
+    {
+      title: 'Further reading',
+      items: (registryReading ?? [])
+        .filter(item => item.levels.includes('all') || item.levels.includes(level.id))
+        .map(item => ({ title: `${item.title} (${item.author})`, url: item.url, note: item.why })),
+    },
   ];
   for (const group of groups) {
     const section = document.createElement('section');
@@ -1691,6 +1698,12 @@ function renderLibrary(level) {
     for (const source of items) {
       const item = document.createElement('li');
       appendSourceLink(item, source);
+      if (source.note) {
+        const note = document.createElement('small');
+        note.className = 'library-note';
+        note.textContent = source.note;
+        item.append(note);
+      }
       list.append(item);
     }
     section.append(heading, list);
