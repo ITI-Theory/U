@@ -62,8 +62,14 @@
 \renewcommand{\partnamefont}{\Large\bfseries\sffamily\color{heading}}
 \renewcommand{\partnumfont}{\Large\bfseries\sffamily\color{heading}}
 \renewcommand{\parttitlefont}{\Huge\bfseries\sffamily\color{heading}}
+% Part titles name themselves ("Part VI: ...", "Appendix A: ...", "Interlude ..."):
+% no extra LaTeX number on the part page or in the contents.
+\renewcommand{\printpartname}{}
+\renewcommand{\printpartnum}{}
+\renewcommand{\partnumberline}[1]{}
 
 % ── 7. Running headers (memoir page style engine) ─────────────────────────────
+\usepackage[fit]{truncate}
 % Even pages: page# left, PAPER TITLE right
 % Odd  pages: SECTION TITLE left, page# right
 \setlength{\headheight}{14pt}
@@ -71,8 +77,9 @@
 \makerunningwidth{usf}{\textwidth}
 \makeheadrule{usf}{\textwidth}{0.4pt}
 \makeheadfootruleprefix{usf}{\color{rulecolor}}{}
-\makeevenhead{usf}{\footnotesize\thepage}{}{\footnotesize\sffamily\textcolor{heading}{\leftmark}}
-\makeoddhead{usf}{\footnotesize\sffamily\textcolor{heading}{\rightmark}}{}{\footnotesize\thepage}
+% Long titles are cut with an ellipsis so they never run into the page number.
+\makeevenhead{usf}{\footnotesize\thepage}{}{\footnotesize\sffamily\textcolor{heading}{\truncate{0.85\textwidth}{\leftmark}}}
+\makeoddhead{usf}{\footnotesize\sffamily\textcolor{heading}{\truncate{0.85\textwidth}{\rightmark}}}{}{\footnotesize\thepage}
 % chapter → leftmark (paper title on even pages — "which paper am I in?")
 % section → rightmark (section title on odd pages — "where in the paper?")
 \createmark{chapter}{left}{nonumber}{}{}

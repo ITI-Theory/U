@@ -5,5 +5,4 @@
 \node[box=blue] (quantum) {\textbf{QUANTUM MECHANICS}\\\small real time $t$\\[4mm]$e^{-i\hat Ht/\hbar}$\\[4mm]\small oscillatory phase};
 \node[box=orange,right=3.2cm of quantum] (thermal) {\textbf{THERMAL / SOMATIC PHYSICS}\\\small imaginary time $\tau$\\[4mm]$e^{-\hat H\tau/\hbar}$\\[4mm]\small exponential decay};
 \draw[-{Stealth[length=5pt]},line width=1.2pt] (quantum) -- (thermal) node[midway,above,font=\small] {$t\to-i\tau$};
-\node[below=8mm of $(quantum)!0.5!(thermal)$,text width=9cm,align=center,font=\small] {The Wick rotation changes an oscillatory quantum phase into a decaying thermal weight. The trauma memory kernel has this decaying form.};
 \end{tikzpicture}\end{document}

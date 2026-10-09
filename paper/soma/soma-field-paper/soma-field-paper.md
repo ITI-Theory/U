@@ -452,7 +452,30 @@ A complete model of the emotional field must address a phenomenon that standard 
 accounts of emotion consistently underspecify: the field is not a model of the physical body.
 It is the nervous system's *predictive model* of the body — a continuously updated internal
 representation of what the soma should be experiencing, revised by incoming interoceptive
-![A single field mode in quantum field theory. The field oscillates continuously. Below the detection threshold, excitations are sub-threshold: real and causally active but not locally detectable. When amplitude crosses the threshold, a locally observable excitation appears.](figures/fig0_field_mode.pdf){width=95%}
+signals.
+
+The clinical proof of this distinction is phantom limb pain [@ramachandran1998].
+Patients who have undergone amputation routinely experience pain in the absent limb. The pain
+is real: it activates the same neural circuits, produces the same suffering, and responds to
+the same analgesics as pain from an intact limb. The limb is gone. The neural model of the
+limb persists. What hurts is the *brain's representation* of the foot, not the foot.
+
+This is not an anomaly. It is the normal condition of all somatic experience. The brain does
+not receive raw signals from the body — it maintains a continuous predictive model of the
+body (the *body schema*) and generates somatic experience from that model. Interoception —
+the sense of the internal body state — is a prediction, not a direct readout [@seth2021].
+The brain predicts what the heart should be doing, what the gut should feel like, where
+tension should be. The felt body is the predicted body.
+
+The formal consequence is direct: the soma-field's state vector $\mathbf{e}(t)$ must
+include **somatic modes** — pain states, regional tension, visceral sensation,
+proprioceptive activation — alongside emotional modes. These are modes of the same field,
+governed by the same coupling matrix $W$. The $W_{ij}$ between fear modes and somatic pain
+modes is the formal account of why fear amplifies pain, why safety reduces it, and why
+chronic pain and C-PTSD are highly comorbid. They are not separate conditions sharing a
+correlation. They are the same attractor architecture operating across emotional and somatic
+modes simultaneously.
+
 **Phantom limb as attractor persistence.** An amputated limb's somatic modes do not
 disappear from $W$ when the limb is removed. The neural model persists. When movement-
 intention modes are activated — attempting to move the absent foot — foot-sensation modes

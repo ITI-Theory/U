@@ -108,7 +108,7 @@ $$\|\delta W\|_F = 1.876, \quad \|W_8\|_F = 3.877$$
 $$\frac{\|\delta W\|_F}{\|W_8\|_F} = 0.484 \quad (48.4\%\text{ symmetry broken})$$
 
 The eigenvalues of $\delta W$ (sorted):
-$+0.984,\; +0.718,\; +0.591,\; +0.113,\; -0.226,\; -0.585,\; -0.742,\; -0.855$
+$+0.984$, $+0.718$, $+0.591$, $+0.113$, $-0.226$, $-0.585$, $-0.742$, $-0.855$
 
 Their sum is exactly zero (tracelessness). The spectrum is non-degenerate:
 biological emotional processing is not $G_2$-symmetric at any sub-eigenspace level.

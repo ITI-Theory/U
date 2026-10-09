@@ -57,10 +57,12 @@
 % 5. Running headers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\usepackage[fit]{truncate}
 \fancyhf{}
 \fancyhead[LE,RO]{\footnotesize\thepage}
-\fancyhead[RE]{\footnotesize\sffamily\color{heading}\nouppercase{\leftmark}}
-\fancyhead[LO]{\footnotesize\sffamily\color{heading}\nouppercase{\rightmark}}
+% Long titles are cut with an ellipsis so they never run into the page number.
+\fancyhead[RE]{\footnotesize\sffamily\color{heading}\truncate{0.85\headwidth}{\nouppercase{\leftmark}}}
+\fancyhead[LO]{\footnotesize\sffamily\color{heading}\truncate{0.85\headwidth}{\nouppercase{\rightmark}}}
 \renewcommand{\headrulewidth}{0.4pt}
 \makeatletter\renewcommand{\headrule}{{\color{rulecolor}\hrule width\headwidth height\headrulewidth}}\makeatother
 \setlength{\headheight}{14pt}
@@ -199,5 +201,15 @@
 % (checked by paper/scripts/check_text_overflow.py).
 % ---------------------------------------------------------------------------
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
-\RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines,breakanywhere}
+% Prose with long inline code (Lean names, paths) has little stretchable space:
+% accept a looser line rather than one past the margin.
+\tolerance=1000
+% breaknonspaceingroup: highlighted tokens sit inside macros (\CommentTok{...}).
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,breaknonspaceingroup,commandchars=\\\{\}}
+% Plain code blocks are LaTeX's own verbatim, not fancyvrb: replace it with a
+% wrapping Verbatim. Done at \begin{document} because packages loaded later
+% (tcolorbox loads verbatim.sty in the book builds) redefine verbatim again.
+\AtBeginDocument{%
+  \let\verbatim\relax\let\endverbatim\relax
+  \DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines,breakanywhere}%
+}

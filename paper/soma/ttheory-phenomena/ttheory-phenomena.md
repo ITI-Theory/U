@@ -222,8 +222,9 @@ knowledge that both are governed by the same master equation.
 
 The stone is in the water. The field is already propagating.
 
-$$\boxed{(\nabla^2 + k^2)\,G = \delta \quad \text{at every scale,
-  as a proposed structural model from quantum foam to the cosmic web.}}$$
+$$\boxed{(\nabla^2 + k^2)\,G = \delta}$$
+
+at every scale, as a proposed structural model from quantum foam to the cosmic web.
 
 ---
 

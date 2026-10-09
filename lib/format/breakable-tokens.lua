@@ -1,6 +1,7 @@
 -- breakable-tokens.lua: long unbreakable tokens get line-break opportunities
 -- (LaTeX only). Code (Lean names, file paths) and long plain words (DOIs,
 -- URLs written as text) may break after / _ . - : and at camelCase joins,
+-- including acronym-word joins,
 -- so they wrap inside the text block and inside table cells instead of
 -- sticking out. Pieces stay ordinary Code/Str elements, so pandoc still does
 -- all escaping. Table cells start with a zero-width space, because TeX never
@@ -13,12 +14,14 @@ if not FORMAT:match("latex") then return {} end
 local MIN = 10  -- tokens shorter than this never need breaking
 local BREAK = pandoc.RawInline("latex", "\\allowbreak{}")
 
--- Split after a break character, or between a lowercase letter and a capital.
+-- Split after a break character, between a lowercase letter and a capital, or
+-- where an acronym meets a word (BRECVEMA|Variational).
 local function pieces(text)
   local out, start = {}, 1
   for i = 1, #text do
-    local c, n = text:sub(i, i), text:sub(i + 1, i + 1)
-    if i < #text and (c:match("[/_%.%-:]") or (c:match("%l") and n:match("%u"))) then
+    local c, n, nn = text:sub(i, i), text:sub(i + 1, i + 1), text:sub(i + 2, i + 2)
+    if i < #text and (c:match("[/_%.%-:]") or (c:match("%l") and n:match("%u"))
+        or (c:match("%u") and n:match("%u") and nn:match("%l"))) then
       out[#out + 1] = text:sub(start, i)
       start = i + 1
     end

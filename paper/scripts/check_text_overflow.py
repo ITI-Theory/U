@@ -59,10 +59,16 @@ def check(pdf: Path) -> list[str]:
     edge = {side: (counter.most_common(1)[0][0] if counter else None) for side, counter in ends.items()}
     findings = []
     for number, width, lines in data:
+        if number == 1:
+            continue  # title pages have their own layout
+        # The page's own edge (inserted PDF pages, e.g. booklets, have their own
+        # text block, often in two columns).
         local = collections.Counter(round(words[-1][2]) for words in lines
-                                    if sum(len(w[4].split()) for w in words) >= 8)
+                                    if sum(len(w[4].split()) for w in words) >= 4)
         side = edge[number % 2]
-        right = max(local.most_common(1)[0][0], side or 0) if sum(local.values()) >= 5 else side
+        # rightmost line end used by at least 3 lines (two-column pages: the right column)
+        common = [x for x, n in local.items() if n >= 3]
+        right = max(common + [side or 0]) if common else side
         for words in lines:
             if right is not None:
                 for x0, _, x1, _, text in words:

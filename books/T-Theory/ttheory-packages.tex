@@ -4,3 +4,8 @@
 \tcbuselibrary{skins}
 \usepackage{pdfpages}
 \usepackage{etoc}
+% Contents: room for four-digit page numbers (the omnibus runs past p1000).
+\makeatletter
+\renewcommand{\@pnumwidth}{2.4em}
+\renewcommand{\@tocrmarg}{3.4em}
+\makeatother
