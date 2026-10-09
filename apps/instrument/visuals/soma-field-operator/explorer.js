@@ -1,4 +1,4 @@
-// explorer.js: the Mind Explorer (ISS-052). A simple 2D voyage inside a person, in the
+// explorer.js: the mind-body explorer of the SOMA Machine (ISS-052). A simple 2D voyage inside a person, in the
 // spirit of Fantastic Voyage: body -> brain -> limbic hinge -> one neuron -> memory
 // network -> landscape of states. The 4D / 8D / 11D switch adds layers: anatomy, then
 // electrical activity, then the field (the model's "second nervous system").
@@ -25,9 +25,11 @@ export const T0 = 0.25;
 export const SIGMA = 0.6;
 const temperature = phi => T0 + SIGMA * phi;
 
-export const STOPS = ['body', 'brain', 'limbic', 'neuron', 'network', 'landscape'];
+// human is the level view itself (the jellyfish human of the Field Atlas), seen through
+// the explorer; going on from it dives into the body.
+export const STOPS = ['human', 'body', 'brain', 'limbic', 'neuron', 'network', 'landscape'];
 const STOP_TITLES = {
-  body: 'BODY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -45,6 +47,10 @@ export const FEELINGS = {
 };
 
 const CAPTIONS = {
+  human: {
+    title: 'THE JELLYFISH HUMAN', label: 'interpretive',
+    4: 'The whole person as the SOMA Machine draws them, the humanoid of the Field Atlas: body, fields and the brain on top. Raise Φ (the FX bar) and it glows; go on (→ or BODY) to dive inside.',
+  },
   body: {
     title: 'THE BODY', label: 'interpretive',
     4: 'The body as anatomy. Colour shows where the chosen feeling is usually felt: warm for more, blue for less (a design map after Nummenmaa et al. 2014, not yet audited). Raising Φ makes it stronger.',
@@ -296,6 +302,7 @@ function makeBody() {
   let beatPhase = 0;
   return {
     focus: [0, -0.8 * BODY_SCALE + BODY_SHIFT],
+    enter: [0.06 * BODY_SCALE, -0.45 * BODY_SCALE + BODY_SHIFT],
     tick(env) {
       beatPhase += env.dt * (60 + 60 * env.phi) / 60;
       if (env.dim < 8) return;
@@ -1129,22 +1136,23 @@ export const simulation = { memoryStep, landscapeStep, PATTERNS, MEMORY_NAMES, e
 
 // ---------------------------------------------------------------- the explorer
 
-// hooks: { getDim(): 4|8|11, onDim(d), onPhi(v), onChange() }
+// hooks: { getDim(): 4|8|11, onDim(d), onPhi(v), onChange(), dive('in'|'out'): Promise }
+// (dive flies the level view's camera into or out of the jellyfish human)
 export function createExplorer(hooks = {}) {
   const root = document.createElement('section');
   root.className = 'explorer';
   root.hidden = true;
-  root.setAttribute('aria-label', 'Mind explorer');
+  root.setAttribute('aria-label', 'Mind-body explorer');
   root.innerHTML = `
     <canvas class="explorer__canvas"></canvas>
     <header class="explorer__bar">
-      <span class="explorer__title">MIND EXPLORER</span>
+      <span class="explorer__title">MIND-BODY EXPLORER</span>
       <nav class="explorer__stops" aria-label="Stops">${STOPS.map(id => `<button type="button" data-stop="${id}">${STOP_TITLES[id]}</button>`).join('<span aria-hidden="true">›</span>')}</nav>
       <div class="explorer__layers" role="group" aria-label="Layers">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</div>
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
-      <button type="button" data-act="close" aria-label="Close the mind explorer">✕</button>
+      <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
     <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span></aside>`;
@@ -1161,7 +1169,8 @@ export function createExplorer(hooks = {}) {
   const scene = id => (scenes[id] ??= FACTORIES[id]());
   const rand = seeded(3);
   const particles = Array.from({ length: 70 }, () => ({ x: rand(), y: rand(), z: 0.3 + rand() * 0.7, r: rand() }));
-  const st = { open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true };
+  const st = { open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
+    diving: false, enterStart: 0 };
   let raf = 0;
   let last = 0;
   let w = 0, h = 0, dpr = 1;
@@ -1184,6 +1193,7 @@ export function createExplorer(hooks = {}) {
 
   function syncUi() {
     for (const b of root.querySelectorAll('[data-stop]')) b.classList.toggle('active', b.dataset.stop === st.stop);
+    root.classList.toggle('explorer--diving', st.diving);
     for (const b of root.querySelectorAll('[data-dim]')) b.classList.toggle('active', Number(b.dataset.dim) === dim());
     for (const b of root.querySelectorAll('[data-feel]')) b.classList.toggle('active', b.dataset.feel === st.feel);
     feelRow.hidden = st.stop !== 'body';
@@ -1252,10 +1262,18 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(w, h * 1.05) * 0.48;
     const env = { t, dt, u, w, h, dpr, cx: w / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1 };
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (st.stop === 'human') {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
     background(t);
     scene(st.stop).tick(env);
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    if (st.from && p < 1) {
+    const entering = st.enterStart ? clamp((t - st.enterStart) / 1.6, 0, 1) : 1;
+    if (entering < 1) {
+      // just through the skin: start at the heart and pull back to the whole body
+      drawScene(st.stop, env, 1, lerp(6, 1, ease(entering)), scene(st.stop).enter ?? scene(st.stop).focus);
+    } else if (st.from && p < 1) {
       const e = ease(p);
       if (st.forward) {
         drawScene(st.from, env, 1 - e, 1 + 7 * e, scene(st.from).focus);
@@ -1266,13 +1284,41 @@ export function createExplorer(hooks = {}) {
       }
     } else {
       st.from = null;
+      st.enterStart = 0;
       drawScene(st.stop, env, 1, 1, [0, 0]);
     }
     raf = requestAnimationFrame(frame);
   }
 
+  function seeThrough(on) {
+    root.classList.toggle('explorer--see-through', on);
+  }
+
   function go(stop, { notify = true } = {}) {
-    if (!STOPS.includes(stop)) return;
+    if (!STOPS.includes(stop) || st.diving) return;
+    if (st.open && stop !== st.stop && st.stop === 'human') {
+      // dive: the level view's camera flies into the jellyfish human, then the stop fades in
+      st.diving = true;
+      syncUi();
+      Promise.resolve(hooks.dive?.('in')).then(() => {
+        st.diving = false;
+        st.stop = stop;
+        st.from = null;
+        st.enterStart = performance.now() / 1000;
+        seeThrough(false);
+        syncUi();
+        if (notify) hooks.onChange?.();
+      });
+      return;
+    }
+    if (st.open && stop === 'human' && st.stop !== 'human') {
+      st.stop = 'human';
+      seeThrough(true);
+      hooks.dive?.('out');
+      syncUi();
+      if (notify) hooks.onChange?.();
+      return;
+    }
     if (stop !== st.stop && st.open) {
       st.from = st.stop;
       st.forward = STOPS.indexOf(stop) > STOPS.indexOf(st.stop);
@@ -1323,6 +1369,8 @@ export function createExplorer(hooks = {}) {
 
   const api = {
     get open() { return st.open; },
+    // true when the explorer hides the level view (not at the human stop, not while diving)
+    get covers() { return st.open && st.stop !== 'human' && !st.diving; },
     get stop() { return st.stop; },
     get phi() { return st.phi; },
     get feel() { return st.feel; },
@@ -1336,6 +1384,8 @@ export function createExplorer(hooks = {}) {
         last = 0;
         st.stop = STOPS.includes(stop) ? stop : st.stop;
         st.from = null;
+        st.enterStart = 0;
+        seeThrough(st.stop === 'human');
         syncUi();
         raf = requestAnimationFrame(frame);
       } else if (stop !== st.stop) {
@@ -1359,7 +1409,7 @@ export function createExplorer(hooks = {}) {
     setResource(on) { st.resource = Boolean(on); syncUi(); },
     setLabels(on) { st.labels = Boolean(on); },
     refresh() { syncUi(); },
-    poke(strength = 1) { if (st.open) scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1)); },
+    poke(strength = 1) { if (st.open && st.stop !== 'human') scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1)); },
   };
   return api;
 }

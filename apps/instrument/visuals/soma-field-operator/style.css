@@ -458,6 +458,14 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__label[data-label="simulated"] { color: #5ee7ff; }
 .explorer__label[data-label="open-hypothesis"] { color: #ff9a3c; }
 .explorer__label[data-label="interpretive"] { color: #a78bfa; }
+/* The human stop: the level view (the jellyfish human) shows through; the canvas fades in after the dive. */
+.explorer__canvas { transition: opacity .9s ease; }
+.explorer--see-through { background: transparent; pointer-events: none; }
+.explorer--see-through .explorer__bar > *, .explorer--see-through .explorer__card { pointer-events: auto; }
+.explorer--see-through .explorer__canvas { opacity: 0; }
+.explorer--diving .explorer__bar { opacity: .35; pointer-events: none; }
+.explorer-open .wm-panel, .explorer-open .wm-dock, .explorer-open .wm-clean-hint, .explorer-open .field-note, .explorer-open .compare-labels,
+.explorer-open .question-nudge, .explorer-open .gravity-question-readouts { visibility: hidden !important; pointer-events: none !important; }
 /* During a tour H-AL's card carries the line: it sits above the explorer, whose own caption steps aside. */
 .explorer-open .tour-card, .explorer-open .screen-hud { z-index: 210; }
 .explorer-open.tour-active .explorer__card { display: none; }

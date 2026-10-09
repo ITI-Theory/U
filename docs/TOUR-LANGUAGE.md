@@ -82,12 +82,12 @@ With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
 | `reader` | `cookie`, `general` or `specialist` |
 | `labels` | `on` or `off` |
 | `ui` | `clean`: hide the panels (the cockpit view); omit to show them |
-| `voyage` | opens the mind explorer at a stop: `body`, `brain`, `limbic`, `neuron`, `network` or `landscape`; omit to close it |
+| `voyage` | opens the mind-body explorer at a stop: `human` (the level view of the jellyfish human, seen through), `body`, `brain`, `limbic`, `neuron`, `network` or `landscape`; omit to close it. From `human` to any other stop the camera dives into the body |
 | `phi` | the limbic field Φ, a number from 0 to 1 (the FX bar): heats the explorer's body, brain, memories and landscape |
 | `feel` | the feeling on the body map: `calm`, `fight`, `flight`, `grief`, `freeze`, `vigilance`, `flow` or `joy` |
 | `resource` | `1`: a resource (the therapist's driving term J(t)) pulls the memories and tilts the landscape towards SAFE; `0` removes it |
 
-The mind explorer is a simple 2D voyage inside a person, over the level view; `dim`
+The mind-body explorer is a simple 2D voyage inside a person, over the level view; `dim`
 adds its layers (4: anatomy, 8: electrical activity, 11: the field). The preset tour
 `mind-explorer` uses it, for example:
 

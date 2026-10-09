@@ -1240,9 +1240,63 @@ const explorer = createExplorer({
   onPhi: value => screens?.setFx(value),
   onChange: () => {
     state.voyage = explorer.open ? explorer.stop : null;
+    if (!explorer.open) resetDiveCamera();
+    if (state.voyage === 'human' && state.levelId !== 'human-vertebrate') {
+      // the human stop is the level view of the human: switch the level through the hash
+      const params = new URLSearchParams(hashForState().slice(1));
+      params.set('level', 'human-vertebrate');
+      params.delete('path');
+      location.hash = params.toString();
+      return;
+    }
     writeHashState();
   },
+  dive: direction => startDive(direction),
 });
+// The dive (explorer human stop -> body): the camera flies into the jellyfish human's
+// chest while FX rises to full and the view blurs as it passes the skin.
+const DIVE_TARGET = new THREE.Vector3(0, 0.45, 0);
+const DIVE_NEAR = new THREE.Vector3(0, 0.45, 0.6);
+let dive = null;
+function startDive(direction) {
+  return new Promise(resolve => {
+    const inward = direction === 'in';
+    dive = {
+      inward, resolve, start: performance.now(), duration: inward ? 2600 : 1800,
+      from: inward ? camera.position.clone() : DIVE_NEAR.clone(),
+      to: inward ? DIVE_NEAR.clone() : EXTERNAL_CAMERA.clone(),
+    };
+  });
+}
+function applyDive() {
+  if (!dive) return;
+  const p = Math.min(1, (performance.now() - dive.start) / dive.duration);
+  const e = dive.inward ? p * p * p : 1 - (1 - p) ** 3;
+  camera.position.lerpVectors(dive.from, dive.to, e);
+  camera.lookAt(DIVE_TARGET);
+  const fx = screens?.fx ?? 0.5;
+  const level = dive.inward ? fx + (1 - fx) * p : 1 - (1 - fx) * p;
+  const blur = dive.inward ? Math.max(0, (p - 0.65) / 0.35) * 8 : Math.max(0, 1 - p / 0.3) * 8;
+  renderer.domElement.style.filter = `${fxFilter(level)} blur(${blur.toFixed(1)}px)`;
+  if (p >= 1) {
+    const done = dive.resolve;
+    if (!dive.inward) renderer.domElement.style.filter = fxFilter(fx);
+    dive = null;
+    done();
+  }
+}
+function resetDiveCamera() {
+  dive = null;
+  if (cockpitCamera === 'external') {
+    camera.position.copy(EXTERNAL_CAMERA);
+    camera.rotation.set(0, 0, 0);
+  }
+  renderer.domElement.style.filter = fxFilter(screens?.fx ?? 0.5);
+}
+// 0.5 is the normal look; lower is calmer, higher is more vivid.
+function fxFilter(fx) {
+  return `saturate(${(0.4 + 1.2 * fx).toFixed(2)}) brightness(${(0.8 + 0.4 * fx).toFixed(2)}) contrast(${(0.9 + 0.2 * fx).toFixed(2)})`;
+}
 // Cockpit windows (screens.js): external keeps the usual camera; follow orbits the
 // subject slowly, like a drone.
 let cockpitCamera = 'external';
@@ -1547,8 +1601,17 @@ function applyVoyage(hashState) {
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
   state.voyage = VOYAGE_STOPS.includes(hashState.voyage) ? hashState.voyage : null;
+  if (state.voyage === 'human' && !hashState.hasLevel) {
+    state.levelId = 'human-vertebrate';
+    state.scale = levelSigma(state.levelId);
+    state.visualScale = state.scale;
+    fitLevelRoute(state.levelId);
+  }
   if (state.voyage) explorer.show(state.voyage);
-  else explorer.hide();
+  else if (explorer.open) {
+    explorer.hide();
+    resetDiveCamera();
+  }
   explorer.refresh();
 }
 
@@ -2280,10 +2343,15 @@ function firePoke(strength = state.limbic) {
   fieldAudio.poke({ level: activeLevel() });
 }
 document.querySelector('#poke').addEventListener('click', () => firePoke());
+// The button opens the explorer at the jellyfish human, ready to dive.
 document.querySelector('#explorer-open').addEventListener('click', () => {
-  explorer.show(explorer.stop);
-  state.voyage = explorer.stop;
-  writeHashState();
+  explorer.show('human');
+  state.voyage = 'human';
+  explorer.refresh();
+  const params = new URLSearchParams(hashForState().slice(1));
+  params.set('level', 'human-vertebrate');
+  params.delete('path');
+  location.hash = params.toString();
 });
 // Tours (tour.js `poke:` steps) fire the same poke with a fixed strength.
 addEventListener('soma-tour-poke', event => firePoke(Number(event.detail?.strength) || state.limbic));
@@ -2466,8 +2534,7 @@ screens = createScreens({
     }
   },
   setFx: fx => {
-    // 0.5 is the normal look; lower is calmer, higher is more vivid.
-    renderer.domElement.style.filter = `saturate(${(0.4 + 1.2 * fx).toFixed(2)}) brightness(${(0.8 + 0.4 * fx).toFixed(2)}) contrast(${(0.9 + 0.2 * fx).toFixed(2)})`;
+    if (!dive) renderer.domElement.style.filter = fxFilter(fx);
     // In the mind explorer the FX bar is the limbic field Phi.
     explorer.setPhi(fx);
   },
@@ -2716,6 +2783,7 @@ function updateCockpitCamera(time) {
 
 function renderScene() {
   updateCockpitCamera(clock.elapsedTime);
+  applyDive();
   if (state.stereoSbs && state.viewMode === '3d') {
     stereoCamera.update(camera);
     // setViewport/setScissor take CSS pixels; three.js applies the pixel ratio.
@@ -2784,8 +2852,8 @@ function updateRegistryRenderer(renderState, time, pulse) {
 }
 
 function frame() {
-  // The mind explorer covers the window: keep the clock, skip the 3D work.
-  if (explorer.open) {
+  // The mind-body explorer covers the window: keep the clock, skip the 3D work.
+  if (explorer.covers) {
     clock.getDelta();
     requestAnimationFrame(frame);
     return;

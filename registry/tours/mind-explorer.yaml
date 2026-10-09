@@ -1,9 +1,10 @@
 id: mind-explorer
-title: 'H-AL: the mind explorer'
+title: 'H-AL: the mind-body explorer'
 summary: 'About seven minutes inside a person (ISS-052): where the project started (a 1982 memory network,
   then 2020 attention), the limbic field that heats it, the same memories as a landscape where calm keeps
-  the state stuck and resourced arousal lets it move, then the voyage back through the body, the brain,
-  the limbic hinge and one neuron. Not a flight simulator: a mind and thought explorer.'
+  the state stuck and resourced arousal lets it move, then out to the jellyfish human, a dive into the
+  body, and the voyage through the brain, the limbic hinge and one neuron. Not a flight simulator: a
+  mind-body explorer, the SOMA Machine.'
 steps:
 - view: voyage=network&dim=4&phi=0.1
   say: Good evening. I am H-AL. This is where the project started. Not with the universe, but with a
@@ -67,9 +68,14 @@ steps:
     resourced arousal does in this model.
   label: interpretive
   pause: 9
+- view: voyage=human&dim=11&phi=0.8
+  say: Now the voyage the other way. Here is the whole person, as the SOMA Machine draws them, the jellyfish
+    human of the Field Atlas. Turn up the field, and dive in.
+  label: interpretive
+  pause: 1
 - view: voyage=body&dim=4&phi=0.3&feel=freeze
-  say: Now the voyage the other way, back into the body. Freeze, as people often describe it, a held chest
-    and cold, numb limbs. The map is a design sketch after published body maps of emotion.
+  say: Inside. Freeze, as people often describe it, a held chest and cold, numb limbs. The map is a design
+    sketch after published body maps of emotion.
   label: interpretive
   pause: 3
 - view: voyage=body&dim=4&phi=0.3&feel=joy
@@ -117,8 +123,9 @@ steps:
   say: Poke it, and it fires.
   label: simulated
   pause: 3
-- view: voyage=landscape&dim=11&phi=0.2
-  say: So this is not a flight simulator. It is a mind and thought explorer, where a feeling lives, and how
-    it moves. Everything you saw is a model, and each step carries its evidence label. Thank you.
+- view: voyage=human&dim=11&phi=0.4
+  say: And back out to the whole person. So this is not a flight simulator. It is a mind-body explorer, a
+    SOMA Machine, where a feeling lives in the body, and how it moves. Everything you saw is a model, and
+    each step carries its evidence label. Thank you.
   label: interpretive
   pause: 3

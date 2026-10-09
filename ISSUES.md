@@ -1848,7 +1848,7 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       only, `expect_*` checks (docs/VISUALIZE.md).
 ---
 
-## ISS-052: The Soma Machine is a mind and thought explorer, not a flight simulator — OPEN
+## ISS-052: The Soma Machine is a mind-body explorer, not a flight simulator — OPEN
 {{Tags area.instrument}}
 {{Fields date.created=2026-10-09, date.start=, date.end=, epic=}}
 
@@ -1899,8 +1899,38 @@ Opinion (Copilot, 9 Oct):
 
 Steps:
 
-- [ ] Author: confirm the positioning line ("a mind and thought explorer") for
-      the README, the app splash, the tours and the Observatory Guide.
+- [x] Positioning line (author, 10 Oct 00:10): **"a mind-body explorer: it is a
+      SOMA Machine"**. In the explorer title, the button, the tour and
+      docs/TOUR-LANGUAGE.md; still to carry into the README, the app README and
+      the Observatory Guide.
+- [x] The dive (author, 10 Oct: "the final flying view should have the
+      jellyfish human, the humanoid of the Field Atlas; increase the FX and
+      zoom, so we can go inside"): a first stop HUMAN shows the level view of
+      the human through the explorer (Φ/FX makes it glow); going on, the 3D
+      camera flies into the chest while FX rises to full and the view blurs
+      through the skin, then the body stop opens at the heart and pulls back.
+      Going back to HUMAN flies out again. The MIND-BODY EXPLORER button opens
+      at HUMAN; the tour pulls out to it before the voyage into the body and
+      ends on it.
+- [ ] 3D explorer (author, 10 Oct: "the mind explorer needs to be 3D like the DT
+      explorer, nice to have"). Opinion (Copilot): yes, and in the same three.js
+      scene as the level view, so the dive never leaves 3D. Order by value:
+      (1) the landscape as a real terrain mesh to fly over (the "mountains",
+      ball and valleys; the checked simulation stays as it is); (2) the brain
+      with the limbic structures inside a translucent cortex, orbiting;
+      (3) the body inside the jellyfish human, reusing its mesh; (4) neuron and
+      network. The limbic hinge stays a diagram (clearer in 2D). Keep the 2D
+      drawings as the map and print mode (labels, Atlas plates, phones).
+- [ ] Ask H-AL (HAL-UAT notebook), once NotebookLM is logged in again (10 Oct
+      00:15: the saved login has expired, `notebooklm auth refresh` lands on
+      notebook.google.com without a token; the author runs
+      `apps/instrument/mother/.venv/Scripts/notebooklm login` once). Question:
+      "The Soma Machine is being repositioned as a mind-body explorer rather
+      than a flight simulator: a dive from the whole person into the body,
+      brain, limbic system, one neuron, a memory network and the landscape of
+      states, where the limbic field heats the memories and a resource lets a
+      stuck state move. From the sources, what fits the programme best, what is
+      missing, and what would a Gestalt or trauma therapist find most useful?"
 - [x] (9 Oct, Friday night: `explorer.js`, the **mind explorer**; tour
       `mind-explorer`, 23 stops, about seven minutes) Origin tour ("where it
       started"): the 1982 memory network, 2020 attention, the limbic field
