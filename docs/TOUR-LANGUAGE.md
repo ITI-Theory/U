@@ -59,6 +59,10 @@ Preset tours in `registry/tours/` may be longer spoken presentations (for exampl
   above a line), `landscape` (a ball poked from one valley into another) or
   `network` (one shared field instead of messages).
 - `pause:` seconds to hold the view after the line is spoken (0 to 30).
+- `poke:` fires the app's poke at the stop, about two seconds after the view
+  opens: `weak`, `strong`, or `twice` (two strong pokes two seconds apart, to
+  show that the second one lands differently). The state panel shows the
+  response at the human, dyad, whole-brain and neuron levels (theory lens on).
 
 With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
 

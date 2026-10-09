@@ -1,0 +1,190 @@
+id: hal-consulting-room
+title: 'H-AL: the consulting room'
+summary: 'For a psychotherapist, about ten minutes, built on the poke: the same poke read without history
+  (4D), with history and context (8D) and as unforced change (11D); rupture and repair in the dyad; a
+  neuron, the brain alone and the whole person; the limbic axis, current AI and Penrose; groups; and honestly
+  what it could and could not do in daily work.'
+steps:
+- view: level=human-vertebrate&lens=off&dim=4&ui=clean
+  say: 'Good afternoon. I am H-AL. Last time you asked a fair question: why show all this to a Gestalt
+    therapist? So today there is no tour of the universe, only one question: what happens when something
+    touches a person?'
+  pause: 2
+- view: level=human-vertebrate&lens=off&dim=4&ui=clean
+  say: The machine calls that touch a poke. It can be a word, a sound, a memory, a hand on the shoulder.
+    What matters is not the poke itself, but how the person's field answers it.
+  label: interpretive
+  pause: 2
+- view: level=human-vertebrate&lens=off&dim=4&ui=clean
+  say: You have seen the levels of the machine before, so today we stay with the person and the room,
+    and zoom out only once.
+  pause: 1
+- view: level=human-vertebrate&lens=on&dim=4
+  poke: strong
+  say: 'First, a model without history. Watch the state panel: poke it, and it rings, then returns exactly
+    to where it was.'
+  label: derived-under-assumptions
+  pause: 6
+- view: level=human-vertebrate&lens=on&dim=4
+  poke: twice
+  say: Poke it twice, and both answers are the same. Simple stimulus and response is often drawn like
+    this, although modern behaviourism, to be fair, does include learning history.
+  label: interpretive
+  pause: 7
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: weak
+  say: Now the same person with history and context. A small poke rolls back into the familiar valley.
+  label: derived-under-assumptions
+  pause: 6
+- view: level=human-vertebrate&lens=on&dim=8
+  say: 'Gestalt therapists may see a loose picture of retroflection here: the impulse does not reach the
+    world, it turns back into the person''s own system.'
+  label: interpretive
+  pause: 2
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: strong
+  say: A stronger one tips the person over the hill into another state, and they stay there. The field
+    does not go back to where it was.
+  label: derived-under-assumptions
+  pause: 7
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: twice
+  say: Poke again, and the second answer differs from the first, because the first changed the ground
+    it lands on. In your language, the history is present in the field, here and now.
+  label: interpretive
+  pause: 8
+- view: level=human-vertebrate&lens=on&dim=11
+  poke: strong
+  say: 'At eleven dimensions the model reaches the other state by a route that no harder push could take.
+    At most, that is a picture of Beisser''s paradoxical theory of change: change through being where
+    one is, not through force.'
+  label: interpretive
+  pause: 6
+- view: level=dyad&lens=on&dim=4
+  poke: strong
+  say: Now two people. With no coupling, a poke to one changes only that one, and the two rhythms drift
+    on independently.
+  label: derived-under-assumptions
+  pause: 6
+- view: level=dyad&lens=on&dim=8
+  poke: strong
+  say: 'With weak coupling they keep slipping: they almost meet, then lose each other again. You might
+    call each slip a small rupture.'
+  label: interpretive
+  pause: 7
+- view: level=dyad&lens=on&dim=8
+  say: 'In the language of contact styles, this is close to deflection: two people glancing off each other,
+    never quite landing.'
+  label: interpretive
+  pause: 3
+- view: level=dyad&lens=on&dim=11
+  poke: strong
+  say: With strong coupling, a disruption knocks them out of rhythm, and we can watch the two systems
+    adjust and come back into contact. Rupture, and repair.
+  label: interpretive
+  pause: 8
+- view: level=dyad&lens=on&dim=11&ui=clean
+  say: 'But coupling can also be too strong. When two rhythms lock so tightly that neither can differ,
+    the model shows what Gestalt calls confluence: the boundary between them dissolves.'
+  label: interpretive
+  pause: 3
+- view: level=dyad&lens=on&dim=11&ui=clean
+  say: 'Ruella Frank calls the felt side of this kinesthetic resonance: the small movements of one body,
+    yielding, reaching or pulling back, change the breathing and feeling tone of the other.'
+  label: interpretive
+  pause: 3
+- view: level=dyad&lens=on&dim=11&ui=clean
+  say: The physics of locking rhythms is old and well tested, from pendulum clocks to fireflies. Reading
+    it as attunement in your room is the model's proposal, for you to test against your own experience.
+  label: interpretive
+  pause: 2
+- view: level=cellular-synaptic&lens=on&dim=8
+  poke: twice
+  say: Zoom into one nerve cell. A poke fires it fully or not at all, and right after firing it cannot
+    fire again. That refractory moment is the simplest memory there is.
+  label: empirical-result
+  pause: 7
+- view: level=whole-brain-cemi&lens=on&dim=4
+  poke: strong
+  say: 'The whole brain, drawn as plain physics: a poke evokes a ripple that fades back into the background
+    rhythm. Nothing is kept.'
+  label: empirical-result
+  pause: 6
+- view: level=whole-brain-cemi&lens=on&dim=8
+  poke: strong
+  say: With the feeling layer, a strong poke switches the cortex into a lasting active state, the kind
+    of activity that holds a working memory, and then fatigue in the circuit brings it back down. The
+    brain on its own, in this picture, forgets within seconds.
+  label: derived-under-assumptions
+  pause: 9
+- view: level=human-vertebrate&lens=on&dim=8
+  poke: strong
+  say: 'Compare the whole person: the same strong poke left them in the new state, and it stayed. In the
+    model, what holds the history is not the brain alone, but brain, body and situation together: the
+    field.'
+  label: interpretive
+  pause: 7
+- view: level=whole-brain-cemi&lens=on&dim=11
+  poke: strong
+  say: 'And the brain''s own electric field, drawn as a hypothesis layer: a poke scatters the rhythms
+    of many regions, and the shared field pulls them back into one. Whether that has anything to do with
+    experience is an open question.'
+  label: open-hypothesis
+  pause: 7
+- view: level=human-vertebrate&lens=on&dim=11&ui=clean
+  overlay: dimensions
+  say: 'Where is feeling in all this? Of the model''s eleven dimensions, one is set aside for it: the
+    limbic axis, between the body''s four and the mind''s three.'
+  label: open-hypothesis
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  overlay: landscape
+  say: That single axis is what turns a ring-down into a landscape, with depth, valleys and history.
+  label: interpretive
+  pause: 3
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  say: It also says something about today's artificial intelligence. A language model has no body, no
+    limbic axis, and no landscape that can be bruised; it carries no history from one conversation to
+    the next unless someone hands it back.
+  label: interpretive
+  pause: 2
+- view: level=human-vertebrate&lens=on&dim=11&ui=clean
+  overlay: threshold
+  say: 'Roger Penrose argued that understanding is not computation alone. The programme takes a narrower
+    line: whatever a mind is, it is a field with a body and a history, and that is exactly what current
+    AI lacks.'
+  label: open-hypothesis
+  pause: 3
+- view: level=human-group&lens=on&dim=8&ui=clean
+  say: The same grammar scales up. Families and groups have rhythms that lock, slip and repair too, though
+    the model is careful not to call a group one person.
+  label: interpretive
+  pause: 3
+- view: level=flock&lens=on&dim=8&ui=clean
+  say: 'Starlings show how far simple coupling can go: each bird follows a few neighbours, and the whole
+    flock turns as one.'
+  label: empirical-result
+  pause: 3
+- view: level=dyad&lens=on&dim=11&ui=clean
+  say: So how could this help in daily work? Not as a diagnostic tool. It is not one, and it should not
+    be used as one.
+  pause: 2
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  say: 'Perhaps as psychoeducation: showing a client why the same remark lands softly one day and hard
+    the next, because they are standing somewhere else in their landscape.'
+  label: interpretive
+  pause: 2
+- view: level=dyad&lens=on&dim=11&ui=clean
+  say: Perhaps in supervision, as a picture of rupture and repair. And as a shared language with clients
+    who think in systems, as many autistic clients do.
+  label: interpretive
+  pause: 2
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  say: 'Every line I spoke carried a label: green for observed or proved, gold for derived under assumptions,
+    pink for readings and proposals. A kind of bracketing, so that you can test each one against your
+    own experience.'
+  label: interpretive
+  pause: 2
+- view: level=human-vertebrate&lens=on&dim=8
+  say: That is all from me. The questions are yours; the author is here, and MOTHER can answer from the
+    papers themselves.

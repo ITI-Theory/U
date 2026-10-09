@@ -10,7 +10,8 @@ const QUANT_EXP = {
 };
 
 const TRACE_LIMIT = 150;
-const SUPPORTED_LEVELS = new Set(['human-vertebrate', 'dyad', 'cellular-synaptic']);
+const SUPPORTED_LEVELS = new Set(['human-vertebrate', 'dyad', 'cellular-synaptic', 'whole-brain-cemi']);
+const BRAIN_OSCILLATORS = 24;
 const DYAD_DELTA_OMEGA = 1.2;
 const DYAD_KAPPA_MIN = DYAD_DELTA_OMEGA / 2;
 const CELL_THRESHOLD = 1.0;
@@ -97,6 +98,17 @@ export function createDimensionDynamics({ getState, activeLevel, activeDimension
     transitionPulse: 0,
     message: '4D: subthreshold cable response decays.',
   };
+  // Whole brain: 4D evoked potential; 8D cortical up/down states with adaptation
+  // (Wilson-Cowan style); 11D global field synchrony of coupled oscillators (CEMI layer).
+  const brain = {
+    x: 0, v: 0, lastPoke: -Infinity, age: Infinity, upFor: 0,
+    r: 0.1, adaptation: 0, drive: 0, driveTime: 99, upSince: null,
+    phases: Array.from({ length: BRAIN_OSCILLATORS }, (_, index) => index * 2.399),
+    freqs: Array.from({ length: BRAIN_OSCILLATORS }, (_, index) => 1.6 + 0.35 * Math.sin(index * 1.7)),
+    order: 0, scattered: false,
+    trace: [],
+    message: '4D: background rhythm; poke to evoke a response.',
+  };
   let lastMode = null;
   let lastLevel = null;
   let lastActive = false;
@@ -159,7 +171,18 @@ export function createDimensionDynamics({ getState, activeLevel, activeDimension
     cell.message = '4D: subthreshold cable response decays.';
   }
 
+  function resetBrainMode(mode) {
+    brain.x = 0; brain.v = 0; brain.lastPoke = -Infinity; brain.age = Infinity; brain.upFor = 0;
+    brain.r = 0.1; brain.adaptation = 0; brain.drive = 0; brain.driveTime = 99; brain.upSince = null;
+    brain.phases = brain.phases.map((_, index) => (mode === 11 ? 0.35 * Math.sin(index) : index * 2.399));
+    brain.scattered = false;
+    brain.trace.length = 0;
+    brain.message = mode === 4 ? '4D: background rhythm; poke to evoke a response.'
+      : mode === 8 ? '8D: cortex in its quiet (down) state.' : '11D: phases bound by the shared field.';
+  }
+
   function resetMode(levelId, mode, time) {
+    if (levelId === 'whole-brain-cemi') resetBrainMode(mode);
     if (levelId === 'human-vertebrate') resetHumanMode(mode, time);
     if (levelId === 'dyad') resetDyadMode(mode);
     if (levelId === 'cellular-synaptic') resetCellMode(mode);
@@ -234,6 +257,23 @@ export function createDimensionDynamics({ getState, activeLevel, activeDimension
       : '8D: spike; refractory memory now changes the next poke.';
   }
 
+  function pokeBrain(mode, gain) {
+    brain.lastPoke = lastTime;
+    brain.age = 0;
+    if (mode === 4) {
+      brain.v += 4.2 * gain;
+      brain.message = '4D: evoked potential; rings down to the background rhythm.';
+    } else if (mode === 8) {
+      brain.drive = 2.4 * gain;
+      brain.driveTime = 0;
+      brain.message = gain < 0.25 ? '8D: weak poke; the cortex stays quiet.' : '8D: poke drives the population...';
+    } else {
+      brain.phases = brain.phases.map((phase, index) => phase + gain * 2.6 * Math.sin(index * 2.1 + lastTime));
+      brain.scattered = true;
+      brain.message = '11D: poke scatters the phases; the field pulls them back.';
+    }
+  }
+
   function poke({ strength = 1 } = {}) {
     if (!active()) return;
     const levelId = activeLevel().id;
@@ -248,6 +288,7 @@ export function createDimensionDynamics({ getState, activeLevel, activeDimension
     if (levelId === 'human-vertebrate') pokeHuman(mode, gain);
     if (levelId === 'dyad') pokeDyad(mode, gain);
     if (levelId === 'cellular-synaptic') pokeCell(mode, gain);
+    if (levelId === 'whole-brain-cemi') pokeBrain(mode, gain);
   }
 
   function updateBaseline(delta) {
@@ -395,6 +436,138 @@ export function createDimensionDynamics({ getState, activeLevel, activeDimension
       cell.message = mode === 11 ? '11D: ready - spike will be drawn as level transition.' : '8D: ready - same poke crosses spike threshold.';
     }
     return cell.message;
+  }
+
+  function updateBrain(mode, delta) {
+    // Timers use simulated time (dt), like the dynamics, so messages match the model.
+    const dt = Math.min(delta, 0.045);
+    brain.age += dt;
+    if (mode === 4) {
+      const omega = 2 * Math.PI * 1.1;
+      brain.v += (-omega * omega * brain.x - 2 * 0.35 * omega * brain.v) * dt;
+      brain.x += brain.v * dt;
+      const background = 0.06 * Math.sin(lastTime * 2 * Math.PI * 1.1);
+      pushTrace(brain.trace, brain.x * 0.35 + background);
+      if (brain.age > 3 && brain.age < Infinity) brain.message = '4D: back to the background rhythm; nothing kept.';
+      return brain.message;
+    }
+    if (mode === 8) {
+      // r: population rate. Bistable: quiet (down) near 0.1, active (up) near 0.85.
+      brain.driveTime += dt;
+      const drive = brain.drive * Math.exp(-brain.driveTime * 3);
+      const gain = 1 / (1 + Math.exp(-(9 * brain.r - 4.2 - 3 * brain.adaptation)));
+      brain.r += (-brain.r + gain + drive) * dt * 2.2;
+      brain.r = clamp(brain.r, 0, 1.3);
+      // Adaptation builds while the population is up and brings it back down within seconds.
+      brain.adaptation += ((brain.r > 0.5 ? 1 : 0) - brain.adaptation) * dt / 4.5;
+      pushTrace(brain.trace, brain.r);
+      if (brain.r > 0.5) {
+        brain.upFor += dt;
+        brain.upSince = brain.upSince ?? lastTime;
+        brain.message = `8D: persistent up state (working memory) for ${brain.upFor.toFixed(1)} s; adaptation ${brain.adaptation.toFixed(2)}.`;
+      } else {
+        if (brain.upSince !== null) brain.message = '8D: adaptation brought the cortex back down; the brain alone forgets.';
+        else if (brain.driveTime > 1 && brain.age < Infinity) brain.message = '8D: weak poke faded; the cortex stays quiet.';
+        brain.upSince = null;
+        brain.upFor = 0;
+      }
+      return brain.message;
+    }
+    // 11D: Kuramoto oscillators coupled through one shared field (mean field).
+    const coupling = 0.35;
+    let sx = 0;
+    let sy = 0;
+    for (const phase of brain.phases) { sx += Math.cos(phase); sy += Math.sin(phase); }
+    const order = Math.hypot(sx, sy) / brain.phases.length;
+    const mean = Math.atan2(sy, sx);
+    brain.phases = brain.phases.map((phase, index) => phase + (brain.freqs[index] * 0.15 + coupling * order * Math.sin(mean - phase)) * dt * 3);
+    brain.order = order;
+    pushTrace(brain.trace, order);
+    if (brain.scattered && order > 0.9) {
+      brain.scattered = false;
+      brain.message = `11D: re-bound by the shared field (r=${order.toFixed(2)}).`;
+    } else if (!brain.scattered && brain.age < Infinity && order > 0.9) {
+      brain.message = `11D: bound (r=${order.toFixed(2)}); the field holds the phases together.`;
+    }
+    return brain.message;
+  }
+
+  function drawBrain(mode, message) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    const color = mode === 4 ? '#14e5ff' : mode === 8 ? '#ff3bce' : '#f6c75a';
+    drawLabel(context, mode === 4 ? '4D EVOKED POTENTIAL' : mode === 8 ? '8D CORTICAL UP/DOWN STATES + ADAPTATION' : '11D FIELD SYNCHRONY (CEMI LAYER)', 16, 24, color, 12);
+    drawLabel(context, mode === 4 ? 'ẍ + 2ζωẋ + ω²x = J(t)  (ERP ring-down)' : mode === 8 ? 'τṙ = -r + S(w·r - θ - a) + J(t);  τₐȧ = [r>½] - a' : 'θ̇ᵢ = ωᵢ + K·r·sin(ψ - θᵢ);  r e^{iψ} = ⟨e^{iθ}⟩', 16, 42, '#aeb8ce', 8, '400');
+    const x = 34; const y = 62; const width = 230; const height = 110;
+    context.strokeStyle = 'rgba(234,245,255,.16)';
+    context.strokeRect(x, y, width, height);
+    const [min, max] = mode === 4 ? [-1, 1] : mode === 8 ? [0, 1.2] : [0, 1.05];
+    if (mode !== 4) {
+      const markY = y + height - ((mode === 8 ? 0.5 : 0.9) - min) / (max - min) * height;
+      context.strokeStyle = 'rgba(246,199,90,.55)';
+      context.setLineDash([5, 5]);
+      context.beginPath();
+      context.moveTo(x, markY);
+      context.lineTo(x + width, markY);
+      context.stroke();
+      context.setLineDash([]);
+      drawLabel(context, mode === 8 ? 'up / down' : 'bound', x + width - 62, markY - 6, '#f6c75a', 8, '400');
+    }
+    drawTrace(brain.trace, x, y, width, height, min, max, color);
+    drawLabel(context, mode === 4 ? 'evoked response' : mode === 8 ? 'population rate r' : 'synchrony r', x + 4, y + height + 14, '#aeb8ce', 8, '400');
+    const cx = 334; const cy = 116; const radius = 50;
+    context.strokeStyle = 'rgba(234,245,255,.22)';
+    context.beginPath();
+    context.arc(cx, cy, radius, 0, Math.PI * 2);
+    context.stroke();
+    if (mode === 11) {
+      for (const phase of brain.phases) {
+        context.fillStyle = 'rgba(246,199,90,.85)';
+        context.beginPath();
+        context.arc(cx + Math.cos(phase) * radius, cy + Math.sin(phase) * radius, 3.5, 0, Math.PI * 2);
+        context.fill();
+      }
+      context.strokeStyle = '#f6c75a';
+      context.lineWidth = 2;
+      let sx = 0; let sy = 0;
+      for (const phase of brain.phases) { sx += Math.cos(phase); sy += Math.sin(phase); }
+      context.beginPath();
+      context.moveTo(cx, cy);
+      context.lineTo(cx + sx / brain.phases.length * radius, cy + sy / brain.phases.length * radius);
+      context.stroke();
+      context.lineWidth = 1.5;
+    } else {
+      const level = mode === 4 ? 0.5 + brain.x * 0.4 : clamp(brain.r / 1.2, 0, 1);
+      context.fillStyle = mode === 4 ? 'rgba(20,229,255,.55)' : 'rgba(255,59,206,.55)';
+      context.beginPath();
+      context.arc(cx, cy, 8 + level * (radius - 8), 0, Math.PI * 2);
+      context.fill();
+      if (mode === 8) drawLabel(context, `adaptation ${brain.adaptation.toFixed(2)}`, cx - 44, cy + radius + 18, '#aeb8ce', 8, '400');
+    }
+    drawLabel(context, message, 16, 222, '#eaf5ff', 9);
+  }
+
+  function updateBrainPanel(mode, delta, responsePulse) {
+    if (mode === 4) {
+      setBadge('SOURCED', 'sourced');
+      source.textContent = 'Standard evoked-response (ERP) ring-down; used here as the 4D whole-brain control.';
+    } else if (mode === 8) {
+      setBadge('MODEL-DERIVED', 'model-derived');
+      source.textContent = 'Wilson-Cowan style population with adaptation (persistent activity / working memory); display model, parameters illustrative.';
+    } else {
+      setBadge('SIMULATED');
+      source.textContent = 'Kuramoto synchrony through a shared field, drawn for the CEMI hypothesis layer (McFadden); no claim that the field is mind.';
+    }
+    const message = updateBrain(mode, delta);
+    drawBrain(mode, message);
+    snapshot = {
+      active: true,
+      kind: 'whole-brain-cemi',
+      mode,
+      scenePulse: responsePulse + (mode === 4 ? Math.abs(brain.x) * 0.3 : mode === 8 ? brain.r * 0.3 : brain.order * 0.25),
+      basin: mode === 8 ? brain.r : brain.order,
+      barrier: brain.adaptation,
+      readout: message,
+    };
   }
 
   function drawTrace(trace, x, y, width, height, min, max, color) {
@@ -734,6 +907,7 @@ export function createDimensionDynamics({ getState, activeLevel, activeDimension
     if (levelId === 'human-vertebrate') updateHuman(mode, dt, responsePulse, state);
     if (levelId === 'dyad') updateDyadPanel(mode, dt, responsePulse);
     if (levelId === 'cellular-synaptic') updateCellPanel(mode, dt, responsePulse);
+    if (levelId === 'whole-brain-cemi') updateBrainPanel(mode, dt, responsePulse);
     readout.textContent = snapshot.readout;
     return snapshot;
   }

@@ -16,12 +16,16 @@ const FIXED = {
 // Presentation steps: `abstract: <n>` shows the opening abstract (0: no highlight,
 // n: paragraph n highlighted); `overlay: <name>` draws one idea faintly over the view;
 // `pause: <s>` holds the view for s more seconds after the line.
+// `poke: weak|strong|twice` fires the app's poke at the stop (twice: two strong pokes 2 s
+// apart, inside a neuron's refractory period and after the human state has flipped).
+const POKES = { weak: [0.2], strong: [1.0], twice: [1.0, 1.0] };
 const ABSTRACT_PARAGRAPHS = String(zUSFAbstract ?? '').split('\n\n').length;
 
 // Same rules as scripts/generate.py tour_stage_errors.
 export function stageProblems(step) {
   const problems = [];
   if (step.overlay !== undefined && !OVERLAYS.includes(step.overlay)) problems.push(`unknown overlay ${step.overlay}`);
+  if (step.poke !== undefined && !POKES[step.poke]) problems.push(`poke ${step.poke} not one of ${Object.keys(POKES).join(', ')}`);
   if (step.pause !== undefined && !(Number.isFinite(step.pause) && step.pause >= 0 && step.pause <= 30)) problems.push(`pause ${step.pause} not in 0..30 seconds`);
   if (step.abstract !== undefined && !(Number.isInteger(step.abstract) && step.abstract >= 0 && step.abstract <= ABSTRACT_PARAGRAPHS)) problems.push(`abstract ${step.abstract} not in 0..${ABSTRACT_PARAGRAPHS}`);
   return problems;
@@ -58,7 +62,7 @@ function unquote(value) {
 }
 
 // Parse the restricted block: `tour: <preset>`, `title: ...`, then steps starting with
-// `- view: ...` followed by `say:`, `dwell:`, `label:`, `overlay:`, `abstract:` and `pause:` lines.
+// `- view: ...` followed by `say:`, `dwell:`, `label:`, `overlay:`, `abstract:`, `pause:` and `poke:` lines.
 // Anything else is ignored.
 export function parseTourBlock(text) {
   const parsed = { tour: null, title: null, steps: [] };
@@ -78,7 +82,7 @@ export function parseTourBlock(text) {
     }
     if (!step && key === 'tour') parsed.tour = value;
     else if (!step && key === 'title') parsed.title = value;
-    else if (step && ['view', 'say', 'label', 'overlay'].includes(key)) step[key] = value;
+    else if (step && ['view', 'say', 'label', 'overlay', 'poke'].includes(key)) step[key] = value;
     else if (step && key === 'dwell') step.dwell = Number(value);
     else if (step && key === 'abstract') step.abstract = Number(value);
     else if (step && key === 'pause') step.pause = Number(value);
@@ -200,6 +204,11 @@ export function createTourPlayer({ voice, narration }) {
     // Other windows (screens.js) show the line as a HUD.
     dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: tour.title, count: countEl.textContent, label: step.label ?? '', labelText: step.label ? LABEL_TEXT[step.label] : '', say: step.say } }));
     stage.setAbstract(Number.isInteger(step.abstract) ? step.abstract : null);
+    (POKES[step.poke] ?? []).forEach((strength, number) => {
+      setTimeout(() => {
+        if (mine === token) dispatchEvent(new CustomEvent('soma-tour-poke', { detail: { strength } }));
+      }, 1800 + number * 2000);
+    });
     const settings = narration();
     if (settings.speak) await voice.speak(step.say, settings.persona, settings.bridge);
     if (mine !== token || !auto) return;

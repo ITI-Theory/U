@@ -575,6 +575,8 @@ TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare"
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"}}
 # Presentation overlays drawn by presentation.js (same list as OVERLAYS there).
+# Tour pokes fired by tour.js (same names as POKES there).
+TOUR_POKES = {"weak", "strong", "twice"}
 TOUR_OVERLAYS = {"ripple", "dimensions", "zoom", "split", "threshold", "landscape", "network"}
 
 
@@ -583,6 +585,8 @@ def tour_stage_errors(step: dict[str, Any], abstract_paragraphs: int) -> list[st
     problems = []
     if step.get("overlay") is not None and step["overlay"] not in TOUR_OVERLAYS:
         problems.append(f"overlay {step['overlay']!r} not in {sorted(TOUR_OVERLAYS)}")
+    if step.get("poke") is not None and step["poke"] not in TOUR_POKES:
+        problems.append(f"poke {step['poke']!r} not in {sorted(TOUR_POKES)}")
     pause = step.get("pause")
     if pause is not None and not (isinstance(pause, (int, float)) and not isinstance(pause, bool) and 0 <= pause <= 30):
         problems.append(f"pause {pause!r} must be 0 to 30 seconds")

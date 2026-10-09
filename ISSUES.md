@@ -1515,6 +1515,15 @@ The author ran a UAT session on 7 Oct; the notes are in
       limbic system (the L1 axis of the 11D split), the Penrose gap and current
       AI, individuals to groups. Needs a tour field that fires a poke, and a
       poke panel for the whole brain (only human, dyad and neuron have one).
+  - [x] Done 9 Oct: tour field `poke: weak|strong|twice`; whole-brain state
+        panel (4D evoked potential, 8D cortical up/down states with adaptation:
+        the brain alone forgets within seconds, 11D field synchrony as the CEMI
+        layer); `registry/tours/hal-consulting-room.yaml`, 33 stops, 8.9 minutes
+        measured: the poke without history / with history / unforced change,
+        dyad deflection, rupture and repair, confluence, kinesthetic
+        resonance (HAL-UAT, Mann ch. 7, 17-19, Frank ch. 2-3), neuron vs brain vs
+        person, the limbic axis, AI and Penrose, groups, and what it could and
+        could not do in daily work.
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---

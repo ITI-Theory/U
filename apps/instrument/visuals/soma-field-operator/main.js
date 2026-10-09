@@ -2205,15 +2205,18 @@ thoughtNoiseInput.addEventListener('input', () => {
 thoughtThresholdInput.addEventListener('input', () => {
   state.thoughtThreshold = Number(thoughtThresholdInput.value);
 });
-document.querySelector('#poke').addEventListener('click', () => {
+function firePoke(strength = state.limbic) {
   state.impulse = 1;
   state.pokeRunning = true;
   state.responseTime = 0;
   document.querySelector('#response-time').value = '0';
-  dimensionDynamics.poke({ strength: state.limbic });
+  dimensionDynamics.poke({ strength });
   updateScaleReadout();
   fieldAudio.poke({ level: activeLevel() });
-});
+}
+document.querySelector('#poke').addEventListener('click', () => firePoke());
+// Tours (tour.js `poke:` steps) fire the same poke with a fixed strength.
+addEventListener('soma-tour-poke', event => firePoke(Number(event.detail?.strength) || state.limbic));
 const audioToggle = document.querySelector('#audio-toggle');
 audioToggle.addEventListener('click', async () => {
   if (fieldAudio.enabled) fieldAudio.disable();
