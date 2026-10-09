@@ -1107,7 +1107,7 @@ AI-drawn physics figures.
 - [x] A4 defaults, parts (3b58411); generated numbering with pandoc-crossref (7ce084a).
 - [x] Visualize macro (docs/VISUALIZE.md), toolkit M1-M6, chapter 3 Frequencies (5 Oct, c9228e5).
 - [x] Chapter 4 zooming (T3), Part III 13-15 (T4-T6), Appendix F Atlas cross-reference, Visualize retrofit of 5-8 and 10-12, glossary (5 Oct, to 03:30).
-- [ ] Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; Visualize for chapters 1, 2, 9; release decision.
+- [ ] Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; release decision. (Visualize for chapters 1, 2 and 9 done: 1 and 2 earlier, 9 on 9 Oct.)
 
 ---
 
@@ -1374,7 +1374,9 @@ app README):**
       the headline with the scales as tick marks.
 - [ ] Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1,
       2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
-- [ ] Course book: Visualize for chapter 9 (needs a flock primitive).
+- [x] Course book: Visualize for chapter 9 (needs a flock primitive). Done 9 Oct:
+      primitive `flock` (Vicsek); the chapter opener is now declared in the text and
+      checks the quoted orders (0.99 at noise 0.5, 0.17 at 4.0) on every build.
 - [x] (8 Oct: wired into the domain books, volumes and omnibus; the filter draws
       figures itself for one-step builds; first figures: physics (retarded response,
       `lean:TemporalDynamics.retardedDecayFactor_isCausal`) and neuroscience (Hopfield
@@ -1766,7 +1768,7 @@ further reading. Today: about 67 figures from 11 primitives, in the course
 book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
 
 - [x] Display switch per output: `visualize-show: none|selected|all` and
-      `show=true` per macro (9 Oct, lib/format/visualize.lua, docs/VISUALIZE.md).
+      `display=true` per macro (9 Oct, lib/format/visualize.lua, docs/VISUALIZE.md).
       Hidden figures are still drawn and checked; in HTML they collapse under
       the equation ("Show figure"). Default stays `all`; set `none` per output
       when the papers are marked up.

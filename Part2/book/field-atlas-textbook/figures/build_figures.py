@@ -257,45 +257,7 @@ plt.title("The onset of collective rhythm")
 plt.legend(fontsize=8)
 save("ch06-kuramoto.png")
 
-# Chapter 7 opener: the Vicsek model at low and high noise, and order against noise.
-def vicsek(eta: float, n: int = 400, box: float = 10.0, radius: float = 1.0, v0: float = 0.03,
-           steps: int = 500, seed: int = 4):
-    rng = np.random.default_rng(seed)
-    pos = rng.random((n, 2)) * box
-    th = rng.uniform(-np.pi, np.pi, n)
-    pol = np.empty(steps)
-    for k in range(steps):
-        d = pos[:, None, :] - pos[None, :, :]
-        d -= box * np.round(d / box)
-        near = (d**2).sum(-1) < radius**2
-        mean = np.arctan2(near @ np.sin(th), near @ np.cos(th))
-        th = mean + eta * (rng.random(n) - 0.5)
-        pos = (pos + v0 * np.c_[np.cos(th), np.sin(th)]) % box
-        pol[k] = abs(np.mean(np.exp(1j * th)))
-    return pos, th, pol
-
-
-fig, axes = plt.subplots(1, 3, figsize=(16, 4.6), gridspec_kw={"width_ratios": [1, 1, 1.4]})
-for ax, eta, title in [(axes[0], 0.5, "low noise: one direction"), (axes[1], 4.0, "high noise: no direction")]:
-    pos, th, pol = vicsek(eta)
-    ax.quiver(pos[:, 0], pos[:, 1], np.cos(th), np.sin(th), color="#104a73",
-              angles="xy", scale_units="xy", scale=2.2, width=0.004)
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 10)
-    ax.set_aspect("equal")
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.set_title(f"{title}  (order {pol[-100:].mean():.2f})", fontsize=11)
-etas = np.linspace(0.25, 5.5, 12)
-order = [vicsek(e, steps=400)[2][-150:].mean() for e in etas]
-axes[2].plot(etas, order, "o-", color="#c0504d")
-axes[2].set_xlabel("noise $\\eta$ (radians)")
-axes[2].set_ylabel("order (polarisation)")
-axes[2].set_ylim(0, 1)
-axes[2].set_title("400 agents, each copying its neighbours' heading", fontsize=11)
-for s in ("top", "right"):
-    axes[2].spines[s].set_visible(False)
-save("ch07-banner.png")
+# Chapter 9 opener (the Vicsek flock): now a {{Visualize}} figure (primitive `flock`).
 
 # Chapter 7, Section 7.4: a turn crossing a line of birds, diffusive against inertial alignment.
 def chain_arrival(inertial: bool, n: int = 160, coupling: float = 50.0, damping: float = 0.2,

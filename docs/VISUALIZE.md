@@ -58,7 +58,7 @@ $$N(t) = N_0\,e^{-t/\tau}$$ {#eq:decay}
 
 ## Layout parameters (all primitives)
 
-`show=true` marks a figure as selected (see Which figures appear).
+`display=true` marks a figure as selected (see Which figures appear).
 
 | key | meaning |
 |---|---|
@@ -80,10 +80,10 @@ metadata `visualize-show` decides what the reader sees:
 | value | PDF | HTML |
 |:--|:--|:--|
 | `all` (default) | every figure | every figure |
-| `selected` | only macros with `show=true` | `show=true` figures; the others collapsed under the equation ("Show figure") |
+| `selected` | only macros with `display=true` | `display=true` figures; the others collapsed under the equation ("Show figure") |
 | `none` | the equation only | every figure collapsed under its equation |
 
-A figure referred to in the text (`@fig:x`) should carry `show=true`, so the
+A figure referred to in the text (`@fig:x`) should carry `display=true`, so the
 reference resolves in `none` and `selected` outputs.
 
 ## Concepts (palettes)
@@ -106,6 +106,7 @@ concept styles the figure; it never changes what is drawn.
 | `distribution` | a density (with random draws) or discrete levels | `pdf`, `x`, `samples`, `seed`, `bins`, `shade=[a,b]`, `hline`, `vline`; or `levels`, `weight` (in `E`) | `expect_mean`, `expect_sd`, `expect_prob`, `expect_p0` |
 | `spectrum` | a signal over time and its amplitude spectrum (FFT, Hann window) | `f` (in `t`), `x=[t0,t1]`, `n`, `show` (time drawn: a length from the start, or a window `[t0,t1]`), `fmax`, `peaks` (how many to label), `flabel` | `expect_peak` (frequency of the largest peak) |
 | `convolution` | input, kernel $G$ (from $t = 0$) and output $G * u$, stacked | `input`, `kernel`, `x`, `n`, `input_label`, `kernel_label`, `output_label`, `hline`, `vline` (on the output) | `expect_max`, `expect_area` (of the output) |
+| `flock` | a Vicsek flock: snapshots at low and high noise, and order (polarisation) against noise | `n`, `box`, `radius`, `v0`, `steps`, `seed`, `low`, `high`, `eta=[a,b]`, `points`, `curve_steps` | `expect_order_low`, `expect_order_high` (mean of the last fifth of the run) |
 
 New primitives are added as one `draw_*` function in `lib/visualize/render.py`
 and one entry in the `PRIMITIVES` table of `lib/format/visualize.lua`.

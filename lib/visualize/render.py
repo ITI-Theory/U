@@ -676,12 +676,72 @@ def draw_convolution(spec: Spec):
     return fig
 
 
+def vicsek(eta: float, n: int, box: float, radius: float, v0: float, steps: int, seed: int):
+    """Vicsek model: each agent takes the mean heading of agents within `radius`, plus
+    uniform noise of width `eta`; periodic box. Returns positions, headings, polarisation."""
+    rng = np.random.default_rng(seed)
+    pos = rng.random((n, 2)) * box
+    th = rng.uniform(-np.pi, np.pi, n)
+    pol = np.empty(steps)
+    for k in range(steps):
+        d = pos[:, None, :] - pos[None, :, :]
+        d -= box * np.round(d / box)
+        near = (d ** 2).sum(-1) < radius ** 2
+        th = np.arctan2(near @ np.sin(th), near @ np.cos(th)) + eta * (rng.random(n) - 0.5)
+        pos = (pos + v0 * np.c_[np.cos(th), np.sin(th)]) % box
+        pol[k] = abs(np.mean(np.exp(1j * th)))
+    return pos, th, pol
+
+
+def draw_flock(spec: Spec):
+    """Vicsek flock: snapshots at low and high noise, and the order (polarisation)
+    against noise. Checks: expect_order_low, expect_order_high (mean of the last
+    fifth of the run)."""
+    n = int(number(spec.get("n", "400")))
+    box = number(spec.get("box", "10"))
+    radius = number(spec.get("radius", "1"))
+    v0 = number(spec.get("v0", "0.03"))
+    steps = int(number(spec.get("steps", "500")))
+    seed = int(number(spec.get("seed", "4")))
+    low, high = number(spec.get("low", "0.5")), number(spec.get("high", "4.0"))
+    eta_lo, eta_hi = numbers(spec.get("eta", "[0.25,5.5]"))
+    points = int(number(spec.get("points", "10")))
+    curve_steps = int(number(spec.get("curve_steps", "300")))
+    tail = max(1, steps // 5)
+    fig, axes = plt.subplots(1, 3, figsize=(16, 4.6), gridspec_kw={"width_ratios": [1, 1, 1.4]})
+    orders = {}
+    for ax, eta, title, key in [(axes[0], low, "low noise: one direction", "expect_order_low"),
+                                (axes[1], high, "high noise: no direction", "expect_order_high")]:
+        pos, th, pol = vicsek(eta, n, box, radius, v0, steps, seed)
+        orders[key] = float(pol[-tail:].mean())
+        ax.quiver(pos[:, 0], pos[:, 1], np.cos(th), np.sin(th), color=spec.colors[0],
+                  angles="xy", scale_units="xy", scale=2.2 * 10 / box, width=0.004)
+        ax.set_xlim(0, box)
+        ax.set_ylim(0, box)
+        ax.set_aspect("equal")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_title(f"{title}  (order {orders[key]:.2f})", fontsize=11)
+    etas = np.linspace(eta_lo, eta_hi, points)
+    curve = [vicsek(e, n, box, radius, v0, curve_steps, seed)[2][-max(1, curve_steps // 3):].mean() for e in etas]
+    axes[2].plot(etas, curve, "o-", color=spec.colors[1 % len(spec.colors)])
+    axes[2].set_ylim(0, 1)
+    axes[2].set_title(f"{n} agents, each copying its neighbours' heading", fontsize=11)
+    for side in ("top", "right"):
+        axes[2].spines[side].set_visible(False)
+    spec.labels(axes[2], "noise $\\eta$ (radians)", "order (polarisation)")
+    for key, value in orders.items():
+        spec.expect(key, value)
+    return fig
+
+
 DRAW = {
     "function-plot": draw_function_plot, "area-under": draw_area_under,
     "log-scale": draw_log_scale, "complex-plane": draw_complex_plane,
     "vector-field": draw_vector_field, "contour-map": draw_contour_map,
     "energy-landscape": draw_energy_landscape, "eigen-transform": draw_eigen_transform,
     "distribution": draw_distribution, "spectrum": draw_spectrum, "convolution": draw_convolution,
+    "flock": draw_flock,
 }
 
 

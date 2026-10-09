@@ -26,20 +26,20 @@
 -- the output document sees it), lean-root (folder of the .lean files),
 -- visualize-show (all | selected | none; default all): which figures appear. Hidden
 -- figures are still drawn and checked (manifest); in HTML they become a collapsed
--- "Show figure" under the equation, elsewhere they are left out. `show=true` on a
--- macro marks it as selected.
+-- "Show figure" under the equation, elsewhere they are left out. `display=true` on
+-- a macro marks it as selected (not `show`: the spectrum primitive uses that).
 
 local PRIMITIVES = {
   ["function-plot"] = true, ["area-under"] = true, ["log-scale"] = true,
   ["complex-plane"] = true, ["vector-field"] = true, ["contour-map"] = true,
   ["energy-landscape"] = true, ["eigen-transform"] = true, ["distribution"] = true,
-  ["spectrum"] = true, ["convolution"] = true,
+  ["spectrum"] = true, ["convolution"] = true, ["flock"] = true,
 }
 local CONCEPTS = {
   generic = true, wave = true, quantum = true, neural = true, soma = true,
   earth = true, cosmic = true,
 }
-local LAYOUT = { label = true, width = true, height = true, opener = true, show = true }
+local LAYOUT = { label = true, width = true, height = true, opener = true, display = true }
 
 local manifest_path, src_prefix, lean_root = nil, "visualize", nil
 local specs = {}
@@ -161,10 +161,10 @@ local function visualize(para, seen)
   if params.opener == "true" then classes[#classes + 1] = "opener" end  -- chapter banner, full width
   local img = pandoc.Image(caption, src_prefix .. "/" .. id .. ".png", "", pandoc.Attr("", classes, attrs))
   return pandoc.Figure({ pandoc.Plain({ img }) }, { long = { pandoc.Plain(caption) } },
-    pandoc.Attr(params.label or "", { "visualize" })), params.show == "true"
+    pandoc.Attr(params.label or "", { "visualize" })), params.display == "true"
 end
 
--- visualize-show: all (default), selected (only show=true), none.
+-- visualize-show: all (default), selected (only display=true), none.
 local show_mode = "all"
 local function shown(selected)
   return show_mode == "all" or (show_mode == "selected" and selected)
