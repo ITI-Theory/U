@@ -16,6 +16,7 @@ include-in-header:
   - omnibus.tex
 filters:
   - filters/omnibus.lua
+  - ../lib/format/visualize.lua
   - filters/lean-include.lua
   - filters/strip-keywords.lua
   - type: citeproc
@@ -36,3 +37,11 @@ variables:
   header-includes: |
     \usepackage{amsmath}
     \usepackage{amssymb}
+metadata:
+  # {{Visualize}} (ISS-051): every figure is drawn and checked, none is shown in the
+  # papers (the figure library and HTML hold them).
+  visualize-show: none
+  visualize-manifest: ../bld/papers/visualize/manifest.json
+  visualize-src: ../bld/papers/visualize
+  visualize-render: python
+  lean-root: proofs

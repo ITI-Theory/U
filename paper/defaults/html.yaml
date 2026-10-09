@@ -1,4 +1,5 @@
-from: markdown+raw_tex+raw_html+fenced_divs+bracketed_spans+tex_math_dollars+pipe_tables+implicit_figures
+# Markdown with {{Visualize}} macros protected (lib/format/visualize-reader.lua).
+from: ../lib/format/visualize-reader.lua
 to: html5
 standalone: true
 toc: true
@@ -8,7 +9,15 @@ citeproc: true
 bibliography: bibliography.bib
 csl: apa-7th.csl
 filters:
+  - ../lib/format/visualize.lua
   - filters/strip-keywords.lua
   - filters/boxes.lua
 metadata:
+  # {{Visualize}} (ISS-051): every figure is drawn and checked, none is shown in the
+  # papers (the figure library and HTML hold them).
+  visualize-show: none
+  visualize-manifest: ../bld/papers/visualize/manifest.json
+  visualize-src: ../bld/papers/visualize
+  visualize-render: python
+  lean-root: proofs
   lang: en-GB

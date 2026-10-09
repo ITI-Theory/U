@@ -58,13 +58,16 @@ local function load_registry()
   return collections[collection_id], entries
 end
 
+local visualize_reader = dofile((PANDOC_SCRIPT_FILE:match("^(.*)[/\\]") or ".") .. "/../../lib/format/visualize-reader.lua")
+
 local function read_member(slug)
   local path = paper_dir .. "/" .. slug .. "/" .. slug .. ".md"
   local file = io.open(path, "r")
   if not file then error("missing omnibus member source: " .. path) end
   local text = file:read("*a")
   file:close()
-  return pandoc.read(text, "markdown")
+  -- {{Visualize}} macros are protected exactly as the paper reader does (ISS-051).
+  return pandoc.read(visualize_reader.protect(text), "markdown")
 end
 
 local function stringify(inlines)

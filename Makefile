@@ -116,6 +116,11 @@ concepts:
 visualize-library:
 	$(PYTHON) lib/visualize/library.py
 
+# Which display equations have a figure (bld/visualize/coverage.md; ISS-051).
+.PHONY: visualize-coverage
+visualize-coverage:
+	$(PYTHON) lib/visualize/coverage.py
+
 # NotebookLM compute left (five-hour and weekly windows, about how many questions).
 nlm-usage:
 	cd apps/instrument/mother && $(MOTHER_PY) nlm_usage.py
