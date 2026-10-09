@@ -1478,6 +1478,21 @@ The author ran a UAT session on 7 Oct; the notes are in
   - 9 Oct: at 1600 px wide the right-hand panels hide part of the scene (tour
     stop 10: the second person of the dyad); use full screen or minimise the
     panel. Panels could step aside during tours (later).
+- [x] Presentation (author, 9 Oct: the 3-minute tour is the Demo; a Presentation
+      runs 10 +/- 2 minutes): `registry/tours/hal-presentation.yaml`, 43 stops,
+      10.4 minutes measured with the Piper voice. Part 1 talks through the
+      abstract in plain words ("forget the maths, what this really says is"),
+      with faint moving overlays per idea; part 2 is the journey out of the
+      cockpit window (note 7: panels hidden, the tour card as HUD), Gestalt
+      bridges at the human scale; part 3 answers her question of 7 Oct (how the
+      books get written). New tour fields `abstract`, `overlay`, `pause` and the
+      view key `ui=clean` (`presentation.js`, docs/TOUR-LANGUAGE.md).
+  - 9 Oct: P11's abstract (the app splash) says "across twenty orders of
+    magnitude", but 10^-35 m to 10^26 m is 61; twenty is the number of zoom
+    steps. Fix in the paper (the app reads it from there).
+- [ ] After the demo: a Presentation-Gestalt tailored by HAL from the gestalt
+      books (needs the HAL-UAT book upload, ISS-050); the cockpit FX slider
+      (note 7); panels that step aside during tours.
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---

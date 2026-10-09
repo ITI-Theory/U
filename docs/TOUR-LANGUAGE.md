@@ -45,6 +45,23 @@ Steps written after it are added to the end of the preset.
 Use two to five steps. Each `say` line is one sentence in plain language;
 mathematics belongs in the answer, not in the tour.
 
+## Presentations
+
+Preset tours in `registry/tours/` may be longer spoken presentations (for example
+`hal-presentation`, about ten minutes). Three optional step fields serve them:
+
+- `abstract:` shows the opening abstract over the view: `0` with nothing
+  highlighted, `n` with paragraph `n` highlighted.
+- `overlay:` draws one idea faintly over the view, beside the abstract text or
+  above the tour card: `ripple` (the Green's function: tap once, the field
+  rings), `dimensions` (4 + 3 + 1 + 3 = 11), `zoom` (the zoom dial from
+  10^-35 m to 10^26 m), `split` (7/11 and 3/11), `threshold` (a crossing
+  above a line), `landscape` (a ball poked from one valley into another) or
+  `network` (one shared field instead of messages).
+- `pause:` seconds to hold the view after the line is spoken (0 to 30).
+
+With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
+
 # Views
 
 | Key | Values |
@@ -60,6 +77,7 @@ mathematics belongs in the answer, not in the tour.
 | `model` | a model id |
 | `reader` | `cookie`, `general` or `specialist` |
 | `labels` | `on` or `off` |
+| `ui` | `clean`: hide the panels (the cockpit view); omit to show them |
 
 No other keys are accepted. A step with an unknown key or id is skipped and
 reported; the rest of the tour still runs. Nothing in a tour is ever executed.

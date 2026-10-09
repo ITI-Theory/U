@@ -571,9 +571,25 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return questions
 
 
-TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels"}
+TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
-              "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}}
+              "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"}}
+# Presentation overlays drawn by presentation.js (same list as OVERLAYS there).
+TOUR_OVERLAYS = {"ripple", "dimensions", "zoom", "split", "threshold", "landscape", "network"}
+
+
+def tour_stage_errors(step: dict[str, Any], abstract_paragraphs: int) -> list[str]:
+    """Same rules as tour.js stageProblems: a known overlay, an abstract paragraph and a pause in range."""
+    problems = []
+    if step.get("overlay") is not None and step["overlay"] not in TOUR_OVERLAYS:
+        problems.append(f"overlay {step['overlay']!r} not in {sorted(TOUR_OVERLAYS)}")
+    pause = step.get("pause")
+    if pause is not None and not (isinstance(pause, (int, float)) and not isinstance(pause, bool) and 0 <= pause <= 30):
+        problems.append(f"pause {pause!r} must be 0 to 30 seconds")
+    abstract = step.get("abstract")
+    if abstract is not None and not (isinstance(abstract, int) and not isinstance(abstract, bool) and 0 <= abstract <= abstract_paragraphs):
+        problems.append(f"abstract {abstract!r} must be a paragraph number from 0 to {abstract_paragraphs}")
+    return problems
 
 
 def tour_view_errors(view: str, ids: dict[str, set[str]]) -> list[str]:
@@ -606,6 +622,8 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
     }
     errors: list[str] = []
     tours: list[dict[str, Any]] = []
+    zabstract = extract_front_matter_field(ZOOMABLE_SOURCE, "abstract")
+    abstract_paragraphs = len(str(zabstract or "").strip().split("\n\n"))
     for path in sorted(tour_dir.glob("*.yaml")):
         tour = load_yaml(path)
         if tour.get("id") != path.stem:
@@ -622,7 +640,7 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
             if not isinstance(step, dict):
                 errors.append(f"{where}: expected mapping")
                 continue
-            for problem in tour_view_errors(str(step.get("view", "")), ids):
+            for problem in tour_view_errors(str(step.get("view", "")), ids) + tour_stage_errors(step, abstract_paragraphs):
                 errors.append(f"{where}: {problem}")
             if not isinstance(step.get("say"), str) or not step["say"].strip():
                 errors.append(f"{where}: say must be a non-empty string")

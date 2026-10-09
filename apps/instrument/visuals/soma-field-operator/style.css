@@ -343,6 +343,24 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .tour-card__say { margin: 0 0 10px; }
 .tour-card__note { margin: 0 0 8px; font-size: 10px; color: #ff9f7a; }
 .tour-card__controls { display: flex; gap: 6px; }
+/* Presentations (presentation.js): faint overlays, the abstract stage, and the tour
+   card as a cockpit HUD when the panels are hidden (ui=clean). */
+.presentation-overlay { position: fixed; z-index: 5; inset: 0; width: 100vw; height: 100vh; pointer-events: none; opacity: 0; transition: opacity 1.6s ease; mix-blend-mode: screen; }
+.presentation-overlay.is-visible { opacity: .8; }
+.presentation-overlay[hidden] { display: none; }
+.presentation-abstract { position: fixed; z-index: 4; inset: 0; padding: 7vh max(6vw, 24px) 30vh; overflow: hidden; background: rgba(5,7,14,.62); pointer-events: none; }
+.presentation-abstract[hidden] { display: none; }
+.presentation-abstract__kicker { margin: 0; color: var(--cyan); font: 700 11px/1.4 'Space Mono', monospace; letter-spacing: .12em; }
+.presentation-abstract__title { margin: 10px 0 22px; color: #f3ead0; font: 800 clamp(24px, 3.6vw, 46px)/1.05 Syne, sans-serif; }
+.presentation-abstract__copy { max-width: min(900px, 56vw); max-height: 52vh; overflow: hidden; color: rgba(243,234,208,.82); font: 13px/1.7 'Space Mono', monospace; }
+.presentation-abstract__copy p { margin: 0 0 14px; transition: opacity .8s ease, color .8s ease; }
+.presentation-abstract.has-current .presentation-abstract__copy p { opacity: .22; }
+.presentation-abstract.has-current .presentation-abstract__copy p.is-current { opacity: 1; color: #fff7dc; }
+.tour-active .wm-clean-hint { display: none; }
+.ui-clean.tour-active .tour-card { left: 50%; bottom: 28px; width: min(860px, calc(100vw - 48px)); transform: translateX(-50%); padding: 14px 20px; border-color: rgba(20,229,255,.5); background: rgba(5,7,14,.72); font-size: 15px; }
+.ui-clean.tour-active .tour-card__title { font-size: 13px; letter-spacing: .08em; opacity: .75; }
+.ui-clean.tour-active .tour-card__label { font-size: 11px; }
+.ui-clean.tour-active .tour-card__say { font-size: 17px; line-height: 1.5; }
 .tour-card__controls button { flex: 1; padding: 4px 6px; border: 1px solid rgba(20,229,255,.6); background: transparent; color: #eaf5ff; font: 11px 'Space Mono', monospace; cursor: pointer; }
 .tour-card__controls button:hover { background: rgba(20,229,255,.14); }
 .mother-section { margin: 12px 0 4px; color: #e8ffef; font-size: 11px; letter-spacing: .14em; border-bottom: 1px solid #2f8f4f; }

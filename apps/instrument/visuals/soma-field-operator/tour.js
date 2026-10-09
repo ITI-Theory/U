@@ -4,14 +4,28 @@
 // app's real ids before it runs; unknown steps are dropped, and nothing in a tour
 // is ever executed as code.
 
-import { eras, levels, models, paths, questions, tours } from './generated/app-data.js';
+import { eras, levels, models, paths, questions, tours, zUSFAbstract } from './generated/app-data.js';
+import { OVERLAYS, createPresentationStage } from './presentation.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
-const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels']);
+const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
-  compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'],
+  compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
 };
+// Presentation steps: `abstract: <n>` shows the opening abstract (0: no highlight,
+// n: paragraph n highlighted); `overlay: <name>` draws one idea faintly over the view;
+// `pause: <s>` holds the view for s more seconds after the line.
+const ABSTRACT_PARAGRAPHS = String(zUSFAbstract ?? '').split('\n\n').length;
+
+// Same rules as scripts/generate.py tour_stage_errors.
+export function stageProblems(step) {
+  const problems = [];
+  if (step.overlay !== undefined && !OVERLAYS.includes(step.overlay)) problems.push(`unknown overlay ${step.overlay}`);
+  if (step.pause !== undefined && !(Number.isFinite(step.pause) && step.pause >= 0 && step.pause <= 30)) problems.push(`pause ${step.pause} not in 0..30 seconds`);
+  if (step.abstract !== undefined && !(Number.isInteger(step.abstract) && step.abstract >= 0 && step.abstract <= ABSTRACT_PARAGRAPHS)) problems.push(`abstract ${step.abstract} not in 0..${ABSTRACT_PARAGRAPHS}`);
+  return problems;
+}
 const IDS = {
   level: new Set(levels.map(item => item.id)),
   path: new Set(paths.map(item => item.id)),
@@ -44,7 +58,8 @@ function unquote(value) {
 }
 
 // Parse the restricted block: `tour: <preset>`, `title: ...`, then steps starting with
-// `- view: ...` followed by `say:`, `dwell:` and `label:` lines. Anything else is ignored.
+// `- view: ...` followed by `say:`, `dwell:`, `label:`, `overlay:`, `abstract:` and `pause:` lines.
+// Anything else is ignored.
 export function parseTourBlock(text) {
   const parsed = { tour: null, title: null, steps: [] };
   let step = null;
@@ -63,8 +78,10 @@ export function parseTourBlock(text) {
     }
     if (!step && key === 'tour') parsed.tour = value;
     else if (!step && key === 'title') parsed.title = value;
-    else if (step && ['view', 'say', 'label'].includes(key)) step[key] = value;
+    else if (step && ['view', 'say', 'label', 'overlay'].includes(key)) step[key] = value;
     else if (step && key === 'dwell') step.dwell = Number(value);
+    else if (step && key === 'abstract') step.abstract = Number(value);
+    else if (step && key === 'pause') step.pause = Number(value);
   }
   return parsed;
 }
@@ -100,7 +117,7 @@ export function resolveTour(parsed) {
     }
   }
   for (const step of parsed.steps ?? []) {
-    const problems = viewProblems(step.view);
+    const problems = [...viewProblems(step.view), ...stageProblems(step)];
     if (!step.say?.trim()) problems.push('no say line');
     if (problems.length) {
       dropped.push(`${step.view ?? '(no view)'}: ${problems.join(', ')}`);
@@ -141,6 +158,7 @@ export function createTourPlayer({ voice, narration }) {
       <button type="button" data-act="end" aria-label="End tour">END</button>
     </nav>`;
   document.body.append(card);
+  const stage = createPresentationStage();
   const titleEl = card.querySelector('.tour-card__title');
   const countEl = card.querySelector('.tour-card__count');
   const labelEl = card.querySelector('.tour-card__label');
@@ -178,6 +196,8 @@ export function createTourPlayer({ voice, narration }) {
     labelEl.dataset.label = step.label ?? '';
     sayEl.textContent = step.say;
     showView(step.view);
+    stage.setOverlay(step.overlay ?? null);
+    stage.setAbstract(Number.isInteger(step.abstract) ? step.abstract : null);
     const settings = narration();
     if (settings.speak) await voice.speak(step.say, settings.persona, settings.bridge);
     if (mine !== token || !auto) return;
@@ -186,7 +206,8 @@ export function createTourPlayer({ voice, narration }) {
       syncAuto();
       return;
     }
-    const wait = settings.speak ? 1200 : step.dwell * 1000;
+    // pause: extra seconds to hold the view after the line (presentations).
+    const wait = (settings.speak ? 1200 : step.dwell * 1000) + (step.pause ?? 0) * 1000;
     timer = setTimeout(() => { if (mine === token && auto) go(index + 1); }, wait);
   }
 
@@ -194,8 +215,10 @@ export function createTourPlayer({ voice, narration }) {
     token += 1;
     clearTimeout(timer);
     voice.stop();
+    stage.clear();
     tour = null;
     card.hidden = true;
+    document.body.classList.remove('tour-active');
   }
 
   card.addEventListener('click', event => {
@@ -230,6 +253,7 @@ export function createTourPlayer({ voice, narration }) {
       return false;
     }
     tour = resolved;
+    document.body.classList.add('tour-active');
     auto = autoplay;
     syncAuto();
     card.hidden = false;
