@@ -1758,7 +1758,9 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
-- [ ] One-file library for chats: `make visualize-library` builds
+- [x] (9 Oct: `lib/visualize/library.py`, 65 figures, 39 pages, 4.8 MB; each
+      document also writes its own list in `visualize/docs/`, since the books
+      share one manifest) One-file library for chats: `make visualize-library` builds
       `bld/visualize/library.pdf` (each figure with its equation, caption,
       context, source paper and evidence label) and a Markdown index. Gemini
       Gems and NotebookLM read PDFs with images; one file stays inside the

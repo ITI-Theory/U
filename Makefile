@@ -106,6 +106,11 @@ app-publish:
 mother-bridge:
 	cd apps/instrument/mother && $(MOTHER_PY) bridge.py
 
+# Every {{Visualize}} figure in one file for custom chats (ISS-051): bld/visualize/library.pdf.
+.PHONY: visualize-library
+visualize-library:
+	$(PYTHON) lib/visualize/library.py
+
 # NotebookLM compute left (five-hour and weekly windows, about how many questions).
 nlm-usage:
 	cd apps/instrument/mother && $(MOTHER_PY) nlm_usage.py

@@ -120,6 +120,12 @@ local function parse_macro(text)
   return fields[1], fields[2], fields[3]
 end
 
+-- The source document's name (input file stem), recorded with each figure.
+local function document_name()
+  local input = PANDOC_STATE.input_files and PANDOC_STATE.input_files[1] or "stdin"
+  return (input:match("([^/\\]+)$") or input):gsub("%.%w+$", "")
+end
+
 local function visualize(para, seen)
   local text, caption = split_macro(para.content)
   if not text then return nil end
@@ -146,7 +152,7 @@ local function visualize(para, seen)
   for _, k in ipairs(keys) do canon[#canon + 1] = k .. "=" .. render[k] end
   local id = "viz-" .. pandoc.utils.sha1(table.concat(canon, "\n")):sub(1, 12)
   specs[#specs + 1] = { id = id, context = context, primitive = primitive, concept = concept,
-    params = render, caption = pandoc.utils.stringify(caption) }
+    params = render, caption = pandoc.utils.stringify(caption), document = document_name() }
 
   local attrs = {}
   if params.width then attrs.width = params.width end
@@ -180,6 +186,13 @@ local function write_manifest()
   if dir then pandoc.system.make_directory(dir, true) end
   local f = assert(io.open(manifest_path, "wb"))
   f:write(pandoc.json.encode(specs)); f:close()
+  -- Builds that share one manifest overwrite it; each document also keeps its own
+  -- list in <dir>/docs/, which the figure library (lib/visualize/library.py) reads.
+  if dir and #specs > 0 then
+    pandoc.system.make_directory(dir .. "/docs", true)
+    local g = assert(io.open(dir .. "/docs/" .. document_name() .. ".json", "wb"))
+    g:write(pandoc.json.encode(specs)); g:close()
+  end
 end
 
 function Pandoc(doc)
