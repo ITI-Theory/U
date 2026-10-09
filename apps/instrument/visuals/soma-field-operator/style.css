@@ -474,3 +474,25 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-open .screen-fullscreen { z-index: 210; top: auto; bottom: 10px; }
 @media (max-width: 760px) { .explorer__card { max-width: none; right: 14px; } .explorer__phi input { width: 100px; } }
 
+/* Elevator (elevator.js, ISS-052): the zoom as floors, the car rides the zoom. */
+.elevator { position: fixed; z-index: 30; right: 16px; top: 96px; width: 400px; max-height: calc(100vh - 180px); overflow: auto; padding: 10px 12px; color: var(--text); background: rgba(5,7,14,.82); border: 1px solid rgba(20,229,255,.4); font-family: 'Space Mono', monospace; }
+.elevator__hud { margin-bottom: 8px; }
+.elevator__law { color: #f6c75a; font-size: 14px; letter-spacing: .08em; text-align: center; padding: 4px 0; border-bottom: 1px solid rgba(246,199,90,.25); }
+.elevator__readout { margin-top: 6px; font-size: 11px; color: #eaf5ff; min-height: 2.6em; }
+.elevator__field { font-size: 10px; color: rgba(234,245,255,.6); }
+.elevator__shaft { position: relative; border-left: 2px solid rgba(20,229,255,.35); border-right: 2px solid rgba(20,229,255,.35); }
+.elevator__car { position: absolute; left: 0; right: 0; top: 0; height: 28px; background: rgba(20,229,255,.16); border: 1px solid rgba(20,229,255,.85); box-shadow: 0 0 18px rgba(20,229,255,.35); pointer-events: none; will-change: transform; }
+.elevator__floors { position: relative; margin: 0; padding: 0; list-style: none; }
+.elevator__floor { position: absolute; left: 0; right: 0; height: 28px; display: flex; align-items: center; gap: 6px; padding: 0 6px; font-size: 10px; cursor: pointer; border-bottom: 1px dashed rgba(234,245,255,.08); }
+.elevator__floor:hover { background: rgba(255,255,255,.05); }
+.elevator__floor.is-current .elevator__name { color: #14e5ff; font-weight: 700; }
+.elevator__scale { width: 62px; color: rgba(234,245,255,.55); flex: none; }
+.elevator__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.elevator__lamps b { display: inline-block; min-width: 14px; margin-left: 1px; text-align: center; font-weight: 400; color: rgba(234,245,255,.25); }
+.elevator__lamps b.on { color: #56f0a2; }
+.elevator__claims i { display: inline-block; width: 12px; text-align: center; font-style: normal; color: rgba(234,245,255,.3); }
+.elevator__claims i[data-claim="SOURCED"], .elevator__claims i[data-claim="FORMAL"] { color: #56f0a2; }
+.elevator__claims i[data-claim="INTERPRETIVE"] { color: #ff8fd8; }
+.elevator button.elevator__step { width: auto; margin: 0; padding: 2px 6px; font-size: 9px; color: #070a16; background: #f6c75a; border: 0; cursor: pointer; flex: none; }
+.ui-clean .elevator { visibility: hidden; }
+

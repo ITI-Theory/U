@@ -1948,6 +1948,21 @@ Steps:
       energy as the checked simulation, the ball and its trail, glowing
       valleys at 11D, the camera circling; 3D button (on by default, 2D map
       kept).
+- [x] The elevator (author, 10 Oct 00:32: "an elevator for the zoom, and where
+      there is something interesting at a floor, step out"; first raised in
+      the AI Mode chat of 7 Oct; H-AL's answer in
+      uat/RC3/hal-elevator-2026-10-10.md, its "Scale Ladder"): `elevator.js`,
+      a panel LIFT in the level view. Floors are the current model's levels
+      (21 in the universal catalogue), each with its length scale, the 4/8/11
+      lamps and the P/F/M claim badges (SOURCED green, INTERPRETIVE pink); the
+      car rides the app's own zoom, the readout shows the ride (scale ×10^d,
+      k ×10^-d) and the floor's carrier field, and (∇² + k²) G = δ stays on
+      top. STEP OUT at Human, Whole Brain and Cellular opens the explorer at
+      its stop; the explorer's STEP BACK IN returns to the floor.
+- [ ] Elevator, from H-AL: show the tensor rank N(σ) beside ℓ(σ), the response
+      time τ, and the carrier field retyping as the car moves; more STEP OUT
+      floors as stops appear (dyad, swarm, geological memory, cosmic web);
+      other buildings next door for other paths (the 7 Oct chat).
 - [ ] From H-AL: a DYAD stop after the landscape (Level 10, two fields coupled
       at the contact boundary; rupture and repair), the heart of the
       therapy story; the existing dyad level and the consulting-room tour help.

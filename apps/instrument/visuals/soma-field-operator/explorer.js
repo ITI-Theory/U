@@ -1179,7 +1179,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
-      <button type="button" data-act="level">LEVEL VIEW ↗</button>
+      <button type="button" data-act="level">STEP BACK IN ↩</button>
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
@@ -1246,7 +1246,7 @@ export function createExplorer(hooks = {}) {
     resourceButton.setAttribute('aria-pressed', String(st.resource));
     view3dButton.hidden = st.stop !== 'landscape' || (glTried && !gl);
     const link = STOP_LEVELS[st.stop];
-    root.querySelector('[data-act="level"]').title = `The same thing in the level view: ${hooks.levelLabel?.(link.level) ?? link.level}${link.dim ? ` at ${link.dim}D` : ''}`;
+    root.querySelector('[data-act="level"]').title = `Back into the elevator: the same thing in the level view, ${hooks.levelLabel?.(link.level) ?? link.level}${link.dim ? ` at ${link.dim}D` : ''}`;
     view3dButton.classList.toggle('active', st.view3d);
     view3dButton.setAttribute('aria-pressed', String(st.view3d));
     phiInput.value = String(st.phi);

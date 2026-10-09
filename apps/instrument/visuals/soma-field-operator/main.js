@@ -11,6 +11,7 @@ import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
 import { createScreens, createEngineRoom, screenRole, SHARED_KEYS } from './screens.js';
 import { createExplorer, LEVEL_STOPS, STOPS as VOYAGE_STOPS } from './explorer.js';
+import { createElevator } from './elevator.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
@@ -1265,6 +1266,32 @@ const explorer = createExplorer({
   },
   levelLabel: levelId => levelsById.get(levelId)?.label ?? levelId,
 });
+const elevator = createElevator({
+  onFloor: index => setPathStep(index),
+  onStepOut: stop => openExplorerAt(stop),
+});
+// Floors are the current model's levels; the car rides state.visualScale between them.
+function updateElevator() {
+  const zoom = activeZoom();
+  elevator.setFloors(zoom.scales.map(id => {
+    const level = levelsById.get(id);
+    return {
+      id, label: level?.label ?? id, exponent: lengthScaleExponent(id), field: level?.field ?? '',
+      claims: level?.claims ?? {}, stop: LEVEL_STOPS[id] ?? null,
+      dims: { 8: state.tTheory, 11: state.tTheory && elevenDimensionalAvailable(id) },
+    };
+  }));
+  const sigmas = zoom.scales.map(levelSigma);
+  let carIndex = activeModelIndex();
+  for (let i = 0; i + 1 < sigmas.length; i++) {
+    const [a, b] = [sigmas[i], sigmas[i + 1]];
+    if (b !== a && state.visualScale >= Math.min(a, b) && state.visualScale <= Math.max(a, b)) {
+      carIndex = i + (state.visualScale - a) / (b - a);
+      break;
+    }
+  }
+  elevator.update({ carIndex, currentId: state.levelId, moving: Math.abs(state.visualScale - state.scale) > 0.02 });
+}
 // The dive (explorer human stop -> body): the camera flies into the jellyfish human's
 // chest while FX rises to full and the view blurs as it passes the skin.
 const DIVE_TARGET = new THREE.Vector3(0, 0.45, 0);
@@ -2356,9 +2383,9 @@ function firePoke(strength = state.limbic) {
 }
 document.querySelector('#poke').addEventListener('click', () => firePoke());
 // The button opens the explorer at the close-up of the level being shown (brain,
-// neuron), else at the jellyfish human, ready to dive.
-document.querySelector('#explorer-open').addEventListener('click', () => {
-  const stop = LEVEL_STOPS[state.levelId] ?? 'human';
+// neuron), else at the jellyfish human, ready to dive; the elevator's STEP OUT too.
+document.querySelector('#explorer-open').addEventListener('click', () => openExplorerAt(LEVEL_STOPS[state.levelId] ?? 'human'));
+function openExplorerAt(stop) {
   explorer.show(stop);
   state.voyage = stop;
   explorer.refresh();
@@ -2368,7 +2395,7 @@ document.querySelector('#explorer-open').addEventListener('click', () => {
     params.delete('path');
   }
   location.hash = params.toString();
-});
+}
 // Tours (tour.js `poke:` steps) fire the same poke with a fixed strength.
 addEventListener('soma-tour-poke', event => firePoke(Number(event.detail?.strength) || state.limbic));
 const audioToggle = document.querySelector('#audio-toggle');
@@ -2510,6 +2537,9 @@ sherlockPanel.className = 'sherlock-panel';
 sherlockPanel.innerHTML = '<p class="sherlock-panel__tally"></p><details class="sherlock-panel__more"><summary>CONCEPTS</summary><ul class="sherlock-panel__list"></ul></details>';
 document.body.append(sherlockPanel);
 panelManager.registerPanel(sherlockPanel, { id: 'sherlock', title: 'SHERLOCK', dockLabel: 'SHERLOCK', minWidth: 260, minHeight: 70 });
+// The elevator (elevator.js, ISS-052): the zoom as floors; STEP OUT into the explorer.
+document.body.append(elevator.element);
+panelManager.registerPanel(elevator.element, { id: 'elevator', title: 'ELEVATOR', dockLabel: 'LIFT', minWidth: 300, minHeight: 160 });
 const SHERLOCK_STATUS = { 'kernel-verified': 'PROVED', sorry: 'SORRY', axiom: 'AXIOM', definition: 'DEFINED' };
 function renderSherlock(level) {
   const here = (registryConcepts ?? []).filter(concept => concept.levels.includes(level.id));
@@ -2878,6 +2908,7 @@ function frame() {
   const delta = Math.min(clock.getDelta(), 0.1);
   const time = clock.elapsedTime;
   state.visualScale += (state.scale - state.visualScale) * 0.075;
+  updateElevator();
   if (state.transport.playing && Math.abs(state.visualScale - state.scale) < 0.035) {
     const secondsPerStep = 60 / state.transport.bpm * state.transport.quantization;
     if (!state.transport.nextAt) state.transport.nextAt = time + secondsPerStep;
