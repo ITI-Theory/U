@@ -1671,8 +1671,9 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       format; then `make -C Me/chats gemini Z=<takeout.zip> DRY=1`, then without
       DRY. Takeout has one entry per prompt; the importer rebuilds conversations
       (prompts under 30 minutes apart), masks secrets, skips what is already in.
-- [ ] Agent sessions (`~/.copilot/session-state`, 8): only 2 exported with
-      `make copilot`; export the rest that have content.
+- [x] Agent sessions (`~/.copilot/session-state`): only 2 of the 8 folders have
+      a session log (this one, 0eee7915, and c06281b7 of 15 Feb); both are in the
+      Inbox. Nothing else to export.
 - [ ] Then `collate` (item above) and refresh HAL-UAT's chat volumes (NotebookLM
       usage: `make nlm-usage`; uploads cost little, questions about 1.6% each).
 ---
