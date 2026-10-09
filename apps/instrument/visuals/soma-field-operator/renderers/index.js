@@ -16,7 +16,9 @@ function makeLabelTexture(THREE, label) {
   context.fillStyle = '#eaf5ff';
   context.font = '24px monospace';
   context.fillText(label, 28, 124);
-  return new THREE.CanvasTexture(canvas);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.userData.worldLabel = true;
+  return texture;
 }
 
 function placeholderFactory(id) {

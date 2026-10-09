@@ -6,6 +6,9 @@
 //   npm run capture                       # full matrix
 //   npm run capture -- --only plates      # plates | console | print | questions | atlas-plates
 //   npm run capture -- --clean            # add ui=clean&labels=off to every URL
+//   npm run capture -- --only atlas-plates --portrait --width 1200 --height 2160
+//                                         # upright captures for the triptych panels
+//                                         # (written to atlas-plates-portrait/)
 //   npm run capture -- --levels quantum-foam,human-vertebrate --settle 3000
 //   npm run capture -- --out <dir> --width 1920 --height 1080 --scale 2
 
@@ -31,11 +34,16 @@ function parseArgs(argv) {
     scale: 1,
     reader: 'general',
     clean: false,
+    portrait: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i].replace(/^--/, '');
     if (key === 'clean') {
       args.clean = true;
+      continue;
+    }
+    if (key === 'portrait') {
+      args.portrait = true;
       continue;
     }
     const value = argv[i + 1];
@@ -58,6 +66,83 @@ function captureHash(hash, clean) {
   params.set('ui', 'clean');
   params.set('labels', 'off');
   return params.toString();
+}
+
+// Box of the rendered subject in CSS px: cells of the canvas that hold several pixels
+// brighter than the background (median + 8). Isolated stars do not count; thin, faint
+// rings (the human halo) do, which needs a fine probe: coarse downscaling averages
+// one-pixel lines away.
+async function contentBox(page) {
+  return page.evaluate(() => {
+    const source = document.querySelector('canvas');
+    const probe = document.createElement('canvas');
+    probe.width = 960;
+    probe.height = Math.round(source.height * 960 / source.width);
+    const context = probe.getContext('2d', { willReadFrequently: true });
+    context.drawImage(source, 0, 0, probe.width, probe.height);
+    const { data } = context.getImageData(0, 0, probe.width, probe.height);
+    const cell = 24;
+    const histogram = new Array(256).fill(0);
+    for (let offset = 0; offset < data.length; offset += 4) histogram[Math.max(data[offset], data[offset + 1], data[offset + 2])] += 1;
+    let median = 0;
+    for (let seen = 0; seen < data.length / 8; median += 1) seen += histogram[median];
+    const threshold = median + 8;
+    const cols = Math.ceil(probe.width / cell);
+    const rows = Math.ceil(probe.height / cell);
+    const counts = new Array(cols * rows).fill(0);
+    for (let y = 0; y < probe.height; y += 1) {
+      for (let x = 0; x < probe.width; x += 1) {
+        const offset = (y * probe.width + x) * 4;
+        if (Math.max(data[offset], data[offset + 1], data[offset + 2]) > threshold) counts[Math.floor(y / cell) * cols + Math.floor(x / cell)] += 1;
+      }
+    }
+    let left = Infinity;
+    let right = -Infinity;
+    let top = Infinity;
+    let bottom = -Infinity;
+    let mass = 0;
+    let weightedY = 0;
+    counts.forEach((count, index) => {
+      if (count < 12) return;
+      const cx = index % cols;
+      const cy = Math.floor(index / cols);
+      left = Math.min(left, cx);
+      right = Math.max(right, cx + 1);
+      top = Math.min(top, cy);
+      bottom = Math.max(bottom, cy + 1);
+      mass += count;
+      weightedY += count * (cy + 0.5);
+    });
+    if (!mass) return null;
+    const css = source.clientWidth / probe.width * cell;
+    return { left: left * css, top: top * css, right: right * css, bottom: bottom * css, centreY: weightedY / mass * css, width: source.clientWidth, height: source.clientHeight };
+  });
+}
+
+// One frame for all dimensions of a level: the union of their subject boxes, padded,
+// grown to the viewport aspect, centred vertically on the bright mass (faint rings and
+// grid lines otherwise pull a small subject off centre).
+function subjectFrame(boxes) {
+  const found = boxes.filter(Boolean);
+  if (!found.length) return null;
+  const { width, height } = found[0];
+  const left = Math.min(...found.map(box => box.left));
+  const right = Math.max(...found.map(box => box.right));
+  const top = Math.min(...found.map(box => box.top));
+  const bottom = Math.max(...found.map(box => box.bottom));
+  const pad = 0.08 * Math.max(right - left, bottom - top);
+  const aspect = width / height;
+  const centreY = found.reduce((sum, box) => sum + box.centreY, 0) / found.length;
+  const halfHeight = Math.max(centreY - top, bottom - centreY) + pad;
+  // Zoom in at most 3x; zoom out at most to 1.15x the view (background glow can fill it).
+  const w = Math.min(Math.max(right - left + 2 * pad, 2 * halfHeight * aspect, width / 3), width * 1.15);
+  const h = w / aspect;
+  return { left: (left + right) / 2 - w / 2, top: centreY - h / 2, width: w, height: h };
+}
+
+async function setFrame(page, rect) {
+  await page.evaluate(value => window.__somaFrame?.(value), rect);
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 }
 
 async function main() {
@@ -97,9 +182,11 @@ async function main() {
     const expectedLevel = params.get('level');
     const expectedDim = Number(params.get('dim') ?? (params.get('lens') === 'off' ? 4 : 11));
     if (expectedLevel) {
+      // Where 11D is not available (quantum scales), the app shows 8D instead.
       await page.waitForFunction(({ level, dim }) => {
         const rendered = window.__somaLastRender;
-        return rendered?.level === level && (!dim || rendered.dimension === dim);
+        const shown = dim === 11 && window.__somaElevenAvailable && !window.__somaElevenAvailable(level) ? 8 : dim;
+        return rendered?.level === level && (!dim || rendered.dimension === shown);
       }, { level: expectedLevel, dim: expectedDim }, { timeout: 120000 });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     }
@@ -133,7 +220,8 @@ async function main() {
   }
 
   if (args.only === 'atlas-plates') {
-    await mkdir(path.join(args.out, 'atlas-plates'), { recursive: true });
+    const plateDir = args.portrait ? 'atlas-plates-portrait' : 'atlas-plates';
+    await mkdir(path.join(args.out, plateDir), { recursive: true });
     const order = data.paths.find(route => route.id === 'full-atlas')?.nodes ?? [];
     const ladder = [...order, ...data.levels.map(level => level.id).filter(id => !order.includes(id))];
     const dimensions = [
@@ -144,12 +232,27 @@ async function main() {
     for (const [index, levelId] of ladder.entries()) {
       if (args.levels && !args.levels.has(levelId)) continue;
       const level = levelById.get(levelId);
+      const plateHash = dimension => `level=${levelId}&lens=${dimension.lens}&dim=${dimension.dim}&reader=${args.reader}&styleoff=motion&atlas=1`;
+      let frame = null;
+      if (args.portrait) {
+        const boxes = [];
+        await setFrame(page, null);
+        for (const dimension of dimensions) {
+          await show(plateHash(dimension));
+          await page.evaluate(() => window.__somaBackdrop?.(false));
+          await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+          boxes.push(await contentBox(page));
+          await page.evaluate(() => window.__somaBackdrop?.(true));
+        }
+        frame = subjectFrame(boxes);
+      }
       for (const dimension of dimensions) {
-        await show(`level=${levelId}&lens=${dimension.lens}&dim=${dimension.dim}&reader=${args.reader}&styleoff=motion&atlas=1`);
+        await show(plateHash(dimension));
+        if (frame) await setFrame(page, frame);
         const anchors = await page.evaluate(() => window.__somaAnchors?.() ?? null);
         const dataUrl = await page.evaluate(() => document.querySelector('canvas').toDataURL('image/png'));
         const buffer = Buffer.from(dataUrl.split(',')[1], 'base64');
-        const stem = `atlas-plates/${String(index + 1).padStart(2, '0')}-${levelId}--${dimension.id}`;
+        const stem = `${plateDir}/${String(index + 1).padStart(2, '0')}-${levelId}--${dimension.id}`;
         const file = `${stem}.png`;
         const anchorsFile = `${stem}.anchors.json`;
         await writeFile(path.join(args.out, file), buffer);

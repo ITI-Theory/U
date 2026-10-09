@@ -45,6 +45,7 @@ export function makeLabelTexture(THREE, { title, subtitle = '', footer = '', acc
   if (footer) context.fillText(footer, 34, 168);
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
+  texture.userData.worldLabel = true;
   return texture;
 }
 

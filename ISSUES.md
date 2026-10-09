@@ -1037,6 +1037,14 @@ in black linen; Lulu has no A3.)
       Atlas captions and keys. Keep triptych plus detail page per level; one
       full page per dimension only for a few showcase levels, if wanted. The A3
       PDF is behind its sources; recapture and rebuild before print.
+      Done 9 Oct (code): `capture.mjs --portrait` writes upright captures to
+      `atlas-plates-portrait/`, framed on the rendered subject (one frame per
+      level for all three dimensions); `plates.py` uses them whole; label
+      sprites drawn by renderers now obey `labels=off` (the CEMI panel).
+      App: 11D availability in one rule; the brain is exempt (author, 9 Oct);
+      levels off the universal ladder take the nearest ladder coordinate by
+      length scale (they had sigma 0, which disabled their 11D). At the
+      quantum scales the third panel says there is no 11D view.
 ---
 
 ## ISS-041: [T]-Theory course book (textbook edition becomes the course) — OPEN
@@ -1451,6 +1459,15 @@ The author ran a UAT session on 7 Oct; the notes are in
       (build passes), Lean appendix rebuilt, both tracks staged as rc3.2;
       `make uat-check` 15 PASS, 3 WARN, 0 FAIL. Remaining for P21: NotebookLM
       second opinion on rc3.2, then the author's sign-off (status pending-upload).
+- [x] Layout fixes, 8-9 Oct: the wrapping code blocks never applied in the books
+      (tcolorbox reloads verbatim.sty after journal.tex; now set at begin
+      document); `\tolerance=1000` for prose dense with inline code; contents
+      page numbers wide enough for the omnibus (p1000+); the Wick figure's note
+      overlapped its boxes (removed, the caption says the same).
+- [ ] P1 (soma-field-paper) lost 23 lines of text in 7f794dd (23 Aug): an image
+      replaced the end of the body-schema paragraph and the phantom-limb,
+      body-schema and somatic-modes paragraphs. Restored 9 Oct; P1 already
+      needs a new Zenodo version (Dist/PAPERS.yaml), which must carry them.
 - [ ] RC3 decision recorded in `paper/UAT.md`.
 
 ---

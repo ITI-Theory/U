@@ -24,6 +24,9 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 ATLAS = Path(__file__).resolve().parents[1]
 DEFAULT_IN = ATLAS / "figures" / "app" / "atlas-plates"
+# Upright captures, one per dimension (capture.mjs --portrait): when present, a
+# triptych panel shows the whole capture instead of a slice of the landscape one.
+PORTRAIT_IN = ATLAS / "figures" / "app" / "atlas-plates-portrait"
 DEFAULT_OUT = ATLAS / "figures" / "plates"
 TRIPTYCH_WIDTH = 4724  # 400 mm at 300 dpi, rounded for safe image handling.
 TRIPTYCH_ASPECT = 1.6  # fills an A3 landscape text block with room for the caption
@@ -173,6 +176,12 @@ def draw_label(draw: ImageDraw.ImageDraw, xy: tuple[int, int], text: str, fill=I
     draw.text(xy, text, fill=fill, font=FONT_LABEL)
 
 
+def level_stem(level: str) -> str:
+    """The numbered capture stem for a level id (e.g. 10-dyad), from the portrait folder."""
+    found = sorted(PORTRAIT_IN.glob(f"*-{level}--4d.png"))
+    return found[0].name.removesuffix("--4d.png") if found else level
+
+
 def compose_triptych(level: str, label: str, images: dict[str, Image.Image], anchors: dict[str, dict], out: Path) -> dict:
     dims = [("4d", "4D / BODY"), ("8d", "8D / FEELING"), ("11d", "11D / MIND")]
     all_points: list[tuple[float, float]] = []
@@ -185,7 +194,11 @@ def compose_triptych(level: str, label: str, images: dict[str, Image.Image], anc
     # A full-page plate: the whole image is TRIPTYCH_ASPECT wide to tall, so tall subjects
     # (a standing body) keep their height instead of being cut to a strip.
     panel_h = round(TRIPTYCH_WIDTH / TRIPTYCH_ASPECT) - band_h - 118
-    crop = fit_crop_to_aspect(union_crop(all_points, images["11d"].size), images["11d"].size, panel_w / panel_h)
+    portrait = {dim: PORTRAIT_IN / f"{level_stem(level)}--{dim}.png" for dim, _ in dims}
+    whole = all(path.exists() for path in portrait.values())
+    # The app has no 11D view at the quantum scales: it shows 8D there, recorded in the anchors.
+    no_11d = whole and load_anchor(portrait["11d"].with_suffix(".anchors.json")).get("dimension") != 11
+    crop = None if whole else fit_crop_to_aspect(union_crop(all_points, images["11d"].size), images["11d"].size, panel_w / panel_h)
     canvas = Image.new("RGB", (TRIPTYCH_WIDTH, band_h + panel_h + 118), BG)
     draw = ImageDraw.Draw(canvas)
     draw.rectangle((0, 0, TRIPTYCH_WIDTH, band_h), fill=BAND)
@@ -193,15 +206,29 @@ def compose_triptych(level: str, label: str, images: dict[str, Image.Image], anc
     for index, (dim, title) in enumerate(dims):
         x = index * col_w + gutter
         y = band_h
-        panel = cover_resize(images[dim].crop(crop), (panel_w, panel_h))
+        if whole and dim == "11d" and no_11d:
+            panel = Image.new("RGB", (panel_w, panel_h), BAND)
+            note = ImageDraw.Draw(panel)
+            for offset, (text, face) in enumerate([("No 11D view", FONT_LABEL), ("at the quantum scales", FONT_SMALL)]):
+                box = note.textbbox((0, 0), text, font=face)
+                note.text(((panel_w - (box[2] - box[0])) // 2, panel_h // 2 - 40 + offset * 70), text, fill=MUTED, font=face)
+        elif whole:
+            with Image.open(portrait[dim]) as upright:
+                panel = cover_resize(print_tone(upright), (panel_w, panel_h))
+        else:
+            panel = cover_resize(images[dim].crop(crop), (panel_w, panel_h))
         canvas.paste(panel, (x, y))
         draw.rectangle((x, y, x + panel_w, y + panel_h), outline=HAIRLINE, width=3)
         draw.text((x + 24, 105), title, fill=INK, font=FONT_SMALL_BOLD)
-    draw.text((54, band_h + panel_h + 38), "Same subject crop across 4D baseline, 8D response, and 11D integration views.", fill=MUTED, font=FONT_SMALL)
+    footer = ("Same framing across 4D baseline, 8D response, and 11D integration views." if whole
+              else "Same subject crop across 4D baseline, 8D response, and 11D integration views.")
+    draw.text((54, band_h + panel_h + 38), footer, fill=MUTED, font=FONT_SMALL)
     canvas.save(out)
     return {
         "file": out.relative_to(ATLAS).as_posix(),
-        "caption": f"Figure for {label}: aligned 4D, 8D, and 11D views cropped to the same atlas subject field.",
+        "caption": (f"Figure for {label}: 4D and 8D views with the same framing; there is no 11D view at the quantum scales." if no_11d
+                    else f"Figure for {label}: 4D, 8D, and 11D views with the same framing." if whole
+                    else f"Figure for {label}: aligned 4D, 8D, and 11D views cropped to the same atlas subject field."),
         "crop": crop,
     }
 

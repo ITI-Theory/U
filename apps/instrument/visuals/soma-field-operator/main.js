@@ -33,7 +33,7 @@ const modelRouteById = Object.fromEntries(registryModels.map(model => [model.id,
 const claimOrder = ['FORMAL', 'SOURCED', 'INTERPRETIVE'];
 const organismLevelIds = new Set(['human-vertebrate']);
 const thoughtSparkLevelIds = new Set(['human-vertebrate']);
-const dimensionDemoLevelIds = new Set(['human-vertebrate', 'dyad', 'cellular-synaptic']);
+const dimensionDemoLevelIds = new Set(['human-vertebrate', 'dyad', 'cellular-synaptic', 'whole-brain-cemi']);
 const rendererInstances = new Map();
 
 const lenses = [
@@ -84,8 +84,38 @@ function modelEntries(modelId) {
   return entries.filter(entry => levelsById.has(entry.levelId) && !seen.has(entry.levelId) && seen.add(entry.levelId));
 }
 
+// 11D is not available at the quantum scales (sigma < 7) except for the demo levels.
+function elevenDimensionalAvailable(levelId) {
+  return levelSigma(levelId) >= 7 || dimensionDemoLevelIds.has(levelId);
+}
+
+// Mid-point of a registry length scale such as "10^-3 to 10^-1 m", in log10 metres.
+function lengthScaleExponent(levelId) {
+  const exponents = [...String(registryLevels.find(level => level.id === levelId)?.length_scale ?? '').matchAll(/10\^(-?\d+(?:\.\d+)?)/g)].map(match => Number(match[1]));
+  return exponents.length ? (Math.min(...exponents) + Math.max(...exponents)) / 2 : null;
+}
+
+// Levels off the universal ladder (dyad, flock, stellar cluster, ...) take the coordinate of
+// the ladder level nearest in length scale, rather than 0 (which disabled their 11D view).
+const offLadderSigma = new Map();
 function levelSigma(levelId) {
-  return universalCoordinateByLevel.get(levelId) ?? Math.max(0, levelOrder.indexOf(levelId));
+  const onLadder = universalCoordinateByLevel.get(levelId);
+  if (onLadder !== undefined) return onLadder;
+  if (!offLadderSigma.has(levelId)) {
+    const exponent = lengthScaleExponent(levelId);
+    let best = Math.max(0, levelOrder.indexOf(levelId));
+    if (exponent !== null) {
+      let bestDistance = Infinity;
+      for (const [coordinate, ladderId] of legacySigmaToLevelId) {
+        const ladderExponent = lengthScaleExponent(ladderId);
+        if (ladderExponent === null) continue;
+        const distance = Math.abs(ladderExponent - exponent);
+        if (distance < bestDistance) [best, bestDistance] = [coordinate, distance];
+      }
+    }
+    offLadderSigma.set(levelId, best);
+  }
+  return offLadderSigma.get(levelId);
 }
 
 function levelByLegacySigma(sigma) {
@@ -222,7 +252,11 @@ scene.add(new THREE.AmbientLight(0x87dfff, 1.3));
 const cellKeyLight = new THREE.PointLight(0x56f0a2, 14, 18);
 cellKeyLight.position.set(-3, 4, 6);
 scene.add(cellKeyLight);
-const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+const CAMERA_FOV = 34;
+// Views narrower than 16:10 (tablets in portrait, Atlas triptych panels) keep the
+// horizontal coverage of a 16:10 view, so wide subjects stay in frame.
+const CAMERA_REFERENCE_ASPECT = 16 / 10;
+const camera = new THREE.PerspectiveCamera(CAMERA_FOV, 1, 0.1, 100);
 camera.position.set(0, 0.35, 9.2);
 const stereoCamera = new THREE.StereoCamera();
 stereoCamera.eyeSep = 0.064;
@@ -1782,12 +1816,8 @@ function activeZoom() {
 
 function activeDimensionLevel() {
   if (!state.tTheory) return 4;
-  // 11D is not available at the quantum scales (sigma < 7) except for the demo levels,
-  // matching the disabled 11D button; fall back to 8D there instead of rendering 11D.
-  if (state.level === 11) {
-    const id = activeLevel().id;
-    if (levelSigma(id) < 7 && !dimensionDemoLevelIds.has(id)) return 8;
-  }
+  // Where the 11D button is disabled, fall back to 8D instead of rendering 11D.
+  if (state.level === 11 && !elevenDimensionalAvailable(activeLevel().id)) return 8;
   return state.level;
 }
 
@@ -1858,7 +1888,7 @@ function selectEra(era, { write = true } = {}) {
     state.scale = levelSigma(state.levelId);
     state.visualScale = state.scale;
     fitLevelRoute(state.levelId);
-    if (state.scale < 7 && state.level === 11) state.level = 4;
+    if (!elevenDimensionalAvailable(state.levelId) && state.level === 11) state.level = 4;
   }
   routeSelect.value = state.route;
   implementationSelect.value = state.implementation;
@@ -1946,7 +1976,7 @@ function setPathStep(position) {
   state.transport.position = clamped;
   state.levelId = zoom.scales[clamped];
   state.scale = levelSigma(state.levelId);
-  if (state.scale < 7 && state.level === 11) state.level = 4;
+  if (!elevenDimensionalAvailable(state.levelId) && state.level === 11) state.level = 4;
   if (state.scale !== previousScale) {
     starflight.active = 1;
     starflight.direction = state.scale > previousScale ? 1 : -1;
@@ -2029,11 +2059,10 @@ function updateScaleReadout() {
   bodyMapPanel.hidden = !humanScale || !state.tTheory;
   thoughtSparksPanel.hidden = !humanScale || !state.tTheory;
   brecvemaButton.title = humanScale && state.tTheory ? 'Open the human music-affect mechanism lens' : 'BRECVEMA is available at the human biological scales only when T-Theory is on';
-  const quantumCanonical = state.scale < 7;
   for (const button of hierarchyButtons) {
     const isElevenDimensional = Number(button.dataset.level) === 11;
     button.disabled = (!state.tTheory && Number(button.dataset.level) !== 4)
-      || (quantumCanonical && isElevenDimensional && !dimensionDemoLevelIds.has(plate.id));
+      || (isElevenDimensional && !elevenDimensionalAvailable(plate.id));
     button.classList.toggle('active', Number(button.dataset.level) === displayLevel);
   }
   equationKicker.textContent = state.tTheory ? 'DEPENDENT-TYPE MORPHISM INTERFACE' : 'PHYSICS BASELINE';
@@ -2453,11 +2482,31 @@ window.__somaAnchors = () => {
   };
 };
 
+// Atlas captures: show only the sub-rectangle (CSS px of the full view) that frames
+// the subject, rendered at full canvas resolution; null restores the full view.
+window.__somaElevenAvailable = levelId => elevenDimensionalAvailable(levelId);
+
+// Atlas captures measure the subject with the floor grid and stars hidden.
+let backdropHidden = false;
+window.__somaBackdrop = visible => {
+  backdropHidden = !visible;
+};
+
+window.__somaFrame = rect => {
+  if (!rect) {
+    camera.clearViewOffset();
+    return;
+  }
+  const { x: width, y: height } = renderer.getSize(viewportSize);
+  camera.setViewOffset(width, height, rect.left, rect.top, rect.width, rect.height);
+};
+
 function updateWorldLabelVisibility(viewCamera, viewport = { left: 0, top: 0, width: innerWidth, height: innerHeight }) {
   const panels = panelManager?.visiblePanelRects() ?? [];
   const viewportRect = { left: viewport.left, top: viewport.top, right: viewport.left + viewport.width, bottom: viewport.top + viewport.height };
   scene.traverse(object => {
-    if (!object.isSprite || !object.userData.worldLabel) return;
+    // Sprites drawn with a label texture count as world labels too (labels=off hides them).
+    if (!object.isSprite || !(object.userData.worldLabel || object.material?.map?.userData?.worldLabel)) return;
     if (object.userData.wmHidden) {
       object.visible = object.userData.wmDesiredVisible ?? true;
       object.userData.wmHidden = false;
@@ -2481,6 +2530,8 @@ function resize() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   backgroundMaterial.uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
   camera.aspect = (state.stereoSbs || state.compare ? innerWidth / 2 : innerWidth) / innerHeight;
+  camera.fov = camera.aspect >= CAMERA_REFERENCE_ASPECT ? CAMERA_FOV
+    : THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV / 2)) * CAMERA_REFERENCE_ASPECT / camera.aspect));
   camera.updateProjectionMatrix();
   const aspect = (state.compare && !state.stereoSbs ? innerWidth / 2 : innerWidth) / innerHeight;
   overheadCamera.left = -5 * aspect;
@@ -2667,7 +2718,9 @@ function applyScene(time, delta, responsePulse) {
   updateCellularField(time, responsePulse);
   updateAstralFields(time, responsePulse);
   stars.material.opacity = quantumMode ? 0.08 : 0.28 + scaleFraction * 0.52;
-  grid.visible = !quantumMode;
+  grid.visible = !quantumMode && !backdropHidden;
+  stars.visible = !backdropHidden;
+  starfield.visible = !backdropHidden;
   updatePartSeeds(time, responsePulse);
   updateCollectiveForeground(time, responsePulse);
   // A dedicated renderer for the active level replaces the legacy shared visuals.

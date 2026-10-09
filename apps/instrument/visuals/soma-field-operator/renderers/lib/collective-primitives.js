@@ -74,6 +74,7 @@ export function makeLabelTexture(THREE, lines, { color = '#14e5ff', width = 640,
   for (const [index, line] of lines.entries()) context.fillText(line, 30, 66 + index * 52);
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
+  texture.userData.worldLabel = true;
   return texture;
 }
 
