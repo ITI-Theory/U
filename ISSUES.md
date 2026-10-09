@@ -1845,4 +1845,71 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       READ MORE), using the generated figures.
 - [ ] Rules unchanged: context first, caption required, expressions are maths
       only, `expect_*` checks (docs/VISUALIZE.md).
+---
+
+## ISS-052: The Soma Machine is a mind and thought explorer, not a flight simulator — OPEN
+{{Tags area.instrument}}
+{{Fields date.created=2026-10-09, date.start=, date.end=, epic=}}
+
+Author, 9 Oct (evening), after the Gestalt therapist's question "why a
+presentation?" (ISS-047): the notes about a cockpit, a front window and flying
+(mountains as in *2001: A Space Odyssey*, towers of code as in *Hackers*, the FX
+bar) all sound cheesy. What is really going on:
+
+1. The level view is the **dependent-type explorer**: each level is a type, and
+   what it holds (fields, layers 4D/8D/11D) depends on the level. Keep it; it is
+   the map of the whole programme.
+2. Missing: **where the project started** (P1, the limbic layer paper): the
+   brain, the 1D Hopfield net, then 3D, and so on, and the emotions. This needs
+   to be visualised.
+3. One of the plates looks like a meshy spider web, cave-like; the film
+   *Fantastic Voyage* has a similar landscape. Idea: an **ultra-simple explorer
+   of the human body and brain**, like what we already have but inside the
+   body; then electricity and the quantum field on top, almost like a second
+   nervous system.
+4. So the Soma Machine is not a flight simulator, space engine, planetarium or
+   virtual microscope: it is a **mind and thought explorer**.
+
+Opinion (Copilot, 9 Oct):
+
+- Agreed. "Mind and thought explorer" has one purpose that a therapist can use
+  ("where does this feeling live, and how does it move?"). The flight-sim
+  metaphors invite "toy"; the levels stay, but they are not the identity.
+- The idea already exists in the theory. The zoom into the body is the
+  zoomable somatic field (P21's zoom step), and the three layers are the 4D/8D/11D
+  layers the app already draws: anatomy (4D), electrical activity (8D), the
+  field (11D, the "second nervous system"). The inside view is therefore a
+  layer switch on a body/brain map, not a new 3D world.
+- The "mountains" are not cheesy if they are the energy landscape $H(\mathbf{e})$:
+  valleys are attractors (fixed Gestalts), the ball is the person's state. The
+  cave-like plates and the new Visualize figures (the music, Gestalt and
+  limbic papers) are exactly this terrain. Flying through it is moving through
+  states. **The FX bar keeps its place**: as the limbic field $\Phi$ (or the
+  temperature $T$), raising it melts the valleys and the state can move (the
+  FM-HN figure in the limbic layer paper). That is the therapy story in one
+  control.
+- Keep it ultra-simple: schematic, flat drawings (body outline, brain regions,
+  a few nets), no realistic anatomy, no game engine. Reuse the level canvas,
+  the poke tool, the whole-brain panel (`dynamics.js`) and the Visualize
+  figures. Evidence labels on every clinical claim (THEORY-STATUS.md).
+
+Steps:
+
+- [ ] Author: confirm the positioning line ("a mind and thought explorer") for
+      the README, the app splash, the tours and the Observatory Guide.
+- [ ] Origin tour ("where it started"): 1D Hopfield net (1982), the modern
+      network (2020), the limbic field (FM-HN), 3D, then the levels; one stop
+      per step, using the Visualize figures of P1 and the limbic layer paper.
+- [ ] Inside view ("voyage"): a schematic body → brain → network → neuron map;
+      stops are existing levels (human, whole-brain, cellular-synaptic); a layer
+      switch 4D anatomy / 8D electrical / 11D field; poke a region and watch it
+      spread in each layer.
+- [ ] Emotions on the body: the eight modes as regions or colours on the body
+      map (cf. bodily maps of emotions), linked to the concept registry
+      (registry/concepts, ISS-046).
+- [ ] Landscape view: the state as a ball on $H(\mathbf{e})$ (energy-landscape
+      and contour figures as the terrain); the FX bar drives $\Phi$ or $T$.
+- [ ] Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
+      this framing; keep the cockpit only as "the view out of the window" onto
+      the landscape.
 
