@@ -6,13 +6,19 @@
 
 import { eras, levels, models, paths, questions, tours, zUSFAbstract } from './generated/app-data.js';
 import { OVERLAYS, createPresentationStage } from './presentation.js';
+import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
-const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui']);
+const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
+  'voyage', 'phi', 'feel', 'resource']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
+  // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
+  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'],
 };
+// phi (the limbic field, the FX bar) is a number from 0 to 1.
+const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;
 // Presentation steps: `abstract: <n>` shows the opening abstract (0: no highlight,
 // n: paragraph n highlighted); `overlay: <name>` draws one idea faintly over the view;
 // `pause: <s>` holds the view for s more seconds after the line.
@@ -51,6 +57,7 @@ export function viewProblems(view) {
   for (const [key, value] of params) {
     if (!TOUR_KEYS.has(key)) problems.push(`unknown key ${key}`);
     else if (FIXED[key] && !FIXED[key].includes(value)) problems.push(`${key}=${value} not allowed`);
+    else if (key === 'phi' && !PHI.test(value)) problems.push(`phi=${value} not a number from 0 to 1`);
     else if (IDS[key] && !IDS[key].has(value)) problems.push(`unknown ${key} ${value}`);
   }
   return problems;

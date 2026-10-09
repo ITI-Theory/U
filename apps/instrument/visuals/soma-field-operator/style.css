@@ -432,3 +432,35 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .sherlock-panel__list li[data-status="kernel-verified"] .sherlock-panel__status { color: #56f0a2; }
 .sherlock-panel__list li[data-status="sorry"] .sherlock-panel__status, .sherlock-panel__list li[data-status="none"] .sherlock-panel__status { color: #ff8fd8; }
 
+/* Mind explorer (explorer.js, ISS-052): a full-window voyage over the level view. */
+.explorer { position: fixed; inset: 0; z-index: 200; background: #070a16; color: #e8eefc; font-family: 'Space Mono', monospace; }
+.explorer[hidden] { display: none; }
+.explorer__canvas { position: absolute; inset: 0; display: block; }
+.explorer__bar { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; pointer-events: none; }
+.explorer__bar > * { pointer-events: auto; }
+.explorer__title { font-weight: 700; letter-spacing: .12em; color: #5ee7ff; text-shadow: 0 0 12px rgba(94,231,255,.5); }
+.explorer__stops { display: flex; align-items: center; gap: 4px; color: rgba(232,238,252,.4); }
+.explorer button { width: auto; margin: 0; font: inherit; font-size: 12px; font-weight: 400; color: #e8eefc; background: rgba(10,14,28,.7); border: 1px solid rgba(167,139,250,.55); padding: 4px 9px; cursor: pointer; }
+.explorer button:hover { border-color: #5ee7ff; }
+.explorer button.active { background: #a78bfa; color: #070a16; box-shadow: 0 0 16px rgba(167,139,250,.55); }
+.explorer__layers { display: flex; gap: 2px; }
+.explorer__phi { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #ffb36b; }
+.explorer__phi input { width: 150px; accent-color: #ff9a3c; }
+.explorer__phi output { min-width: 3.2em; }
+.explorer [data-act="close"] { margin-left: auto; border-color: rgba(232,238,252,.4); }
+.explorer [data-act="resource"].active { background: #3fd0c9; box-shadow: 0 0 16px rgba(63,208,201,.6); }
+.explorer [hidden] { display: none !important; }
+.explorer__feel { position: absolute; top: 52px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; gap: 4px; }
+.explorer__card { position: absolute; left: 14px; bottom: 14px; max-width: min(460px, 44vw); padding: 12px 14px; background: rgba(7,10,22,.82); border: 1px solid rgba(94,231,255,.35); box-shadow: 0 0 24px rgba(94,231,255,.12); }
+.explorer__card h2 { margin: 0 0 6px; font-size: 13px; letter-spacing: .1em; color: #5ee7ff; }
+.explorer__card p { margin: 0 0 8px; font-size: 12px; line-height: 1.5; }
+.explorer__label { display: inline-block; font-size: 11px; padding: 1px 7px; border: 1px solid currentColor; color: #ffd166; }
+.explorer__label[data-label="simulated"] { color: #5ee7ff; }
+.explorer__label[data-label="open-hypothesis"] { color: #ff9a3c; }
+.explorer__label[data-label="interpretive"] { color: #a78bfa; }
+/* During a tour H-AL's card carries the line: it sits above the explorer, whose own caption steps aside. */
+.explorer-open .tour-card, .explorer-open .screen-hud { z-index: 210; }
+.explorer-open.tour-active .explorer__card { display: none; }
+.explorer-open .screen-fullscreen { z-index: 210; top: auto; bottom: 10px; }
+@media (max-width: 760px) { .explorer__card { max-width: none; right: 14px; } .explorer__phi input { width: 100px; } }
+

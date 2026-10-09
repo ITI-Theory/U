@@ -82,6 +82,21 @@ With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
 | `reader` | `cookie`, `general` or `specialist` |
 | `labels` | `on` or `off` |
 | `ui` | `clean`: hide the panels (the cockpit view); omit to show them |
+| `voyage` | opens the mind explorer at a stop: `body`, `brain`, `limbic`, `neuron`, `network` or `landscape`; omit to close it |
+| `phi` | the limbic field Φ, a number from 0 to 1 (the FX bar): heats the explorer's body, brain, memories and landscape |
+| `feel` | the feeling on the body map: `calm`, `fight`, `flight`, `grief`, `freeze`, `vigilance`, `flow` or `joy` |
+| `resource` | `1`: a resource (the therapist's driving term J(t)) pulls the memories and tilts the landscape towards SAFE; `0` removes it |
+
+The mind explorer is a simple 2D voyage inside a person, over the level view; `dim`
+adds its layers (4: anatomy, 8: electrical activity, 11: the field). The preset tour
+`mind-explorer` uses it, for example:
+
+```soma-tour
+tour: mind-explorer
+- view: voyage=landscape&dim=11&phi=0.65&resource=1
+  say: Raise the limbic field and add a resource, and the stuck state can move towards safe.
+  label: interpretive
+```
 
 No other keys are accepted. A step with an unknown key or id is skipped and
 reported; the rest of the tour still runs. Nothing in a tour is ever executed.

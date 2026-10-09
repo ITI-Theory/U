@@ -1901,25 +1901,41 @@ Steps:
 
 - [ ] Author: confirm the positioning line ("a mind and thought explorer") for
       the README, the app splash, the tours and the Observatory Guide.
-- [ ] Origin tour ("where it started"): 1D Hopfield net (1982), the modern
-      network (2020), the limbic field (FM-HN), 3D, then the levels; one stop
-      per step, using the Visualize figures of P1 and the limbic layer paper.
-- [ ] Inside view ("voyage"): a schematic body → brain → network → neuron map;
-      stops are existing levels (human, whole-brain, cellular-synaptic); a layer
-      switch 4D anatomy / 8D electrical / 11D field; poke a region and watch it
-      spread in each layer.
-- [ ] Limbic system stop (inside view and origin tour): amygdala, hippocampus,
+- [x] (9 Oct, Friday night: `explorer.js`, the **mind explorer**; tour
+      `mind-explorer`, 23 stops, about seven minutes) Origin tour ("where it
+      started"): the 1982 memory network, 2020 attention, the limbic field
+      (FM-HN), then the landscape and the voyage back into the body. Still to
+      add: the levels at the end, and the Visualize figures of P1 and the limbic
+      layer paper as stills.
+- [x] Inside view ("voyage", 9 Oct): six stops, body → brain → limbic hinge →
+      neuron → memory network → landscape, with zoom transitions (Fantastic
+      Voyage); the 4D / 8D / 11D switch adds anatomy, electrical activity
+      (nerve traffic, low and high road, spikes) and the field (rings, ephaptic
+      coupling); POKE works at every stop. Opened from the hash
+      (`voyage=`, `phi=`, `feel=`, `resource=`; docs/TOUR-LANGUAGE.md), the
+      MIND EXPLORER button, arrow keys and Esc; shared with the other windows.
+      Later: link the stops to the existing levels (human, whole-brain,
+      cellular-synaptic) and back.
+- [x] (9 Oct: the LIMBIC stop and the brain stop; T = T0 + σΦ live) Limbic system stop (inside view and origin tour): amygdala, hippocampus,
       hypothalamus, cingulate as one schematic region between body and cortex
       (the $D_8$ segment between body field $D_{1-7}$ and mind field $D_{9-11}$);
       the FX bar as $\Phi_\text{limbic}$: calm keeps memories deep and fixed,
       arousal melts the valleys, and safe, resourced arousal (the therapy) lets
       the state settle somewhere new. Uses the FM-HN figures of the limbic layer
       paper and the whole-brain panel; evidence labels on the clinical claims.
-- [ ] Emotions on the body: the eight modes as regions or colours on the body
+- [x] (9 Oct: the body stop, eight feelings, a design map after Nummenmaa
+      et al. 2014, labelled as not yet audited; still to do: the audit and
+      the link to registry/concepts) Emotions on the body: the eight modes as regions or colours on the body
       map (cf. bodily maps of emotions), linked to the concept registry
       (registry/concepts, ISS-046).
-- [ ] Landscape view: the state as a ball on $H(\mathbf{e})$ (energy-landscape
-      and contour figures as the terrain); the FX bar drives $\Phi$ or $T$.
+- [x] Landscape view (9 Oct): the three memories (SAFE, FIGHT, FREEZE) as
+      valleys of the 2020 energy, the state as a ball (Langevin dynamics), the
+      FX bar is $\Phi$ (T = 0.25 + 0.6 Φ; the valleys melt just past Φ = 0.5),
+      RESOURCE is the driving term J(t). `scripts/explorer-check.mjs` (release
+      gate section 20) checks the story many times with fresh noise: calm keeps
+      FREEZE (100%), the resource alone does not free it (100%), heat with the
+      resource then cooling ends in SAFE (100%), heat without it moves the state
+      but not reliably to SAFE (about a third; in the network SAFE or FIGHT).
 - [ ] Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
       this framing; keep the cockpit only as "the view out of the window" onto
       the landscape.

@@ -1,0 +1,124 @@
+id: mind-explorer
+title: 'H-AL: the mind explorer'
+summary: 'About seven minutes inside a person (ISS-052): where the project started (a 1982 memory network,
+  then 2020 attention), the limbic field that heats it, the same memories as a landscape where calm keeps
+  the state stuck and resourced arousal lets it move, then the voyage back through the body, the brain,
+  the limbic hinge and one neuron. Not a flight simulator: a mind and thought explorer.'
+steps:
+- view: voyage=network&dim=4&phi=0.1
+  say: Good evening. I am H-AL. This is where the project started. Not with the universe, but with a
+    memory. In 1982 John Hopfield showed that a network of simple cells can store memories as stable patterns.
+    Here, forty-nine cells hold three of them, safe, fight and freeze.
+  label: simulated
+  pause: 2
+- view: voyage=network&dim=4&phi=0.1
+  poke: strong
+  say: Scramble the state, and it finds its way back to the nearest memory. Recall is a place the network
+    falls into.
+  label: simulated
+  pause: 5
+- view: voyage=network&dim=8&phi=0.1
+  say: In 2020 the same idea came back in modern AI. The state is compared with every memory at once and
+    pulled towards the best match. The lines are that comparison, the attention that also sits inside today's
+    language models.
+  label: derived-under-assumptions
+  pause: 3
+- view: voyage=network&dim=11&phi=0.1
+  say: Both networks have a fixed temperature. A person does not. The missing layer is the limbic system,
+    and its field, phi, heats the network. Cold, recall is sharp, and the state stays where it is, even in
+    freeze.
+  label: open-hypothesis
+  pause: 3
+- view: voyage=network&dim=11&phi=0.8
+  say: Raise phi, and the memories blur. The state is no longer held.
+  label: simulated
+  pause: 6
+- view: voyage=network&dim=11&phi=0.8&resource=1
+  say: Now add a resource, a steady voice, a safe person. In the model it is a small pull towards safe.
+  label: interpretive
+  pause: 5
+- view: voyage=network&dim=11&phi=0.1&resource=1
+  say: Let the field cool again, and the state settles. Not back into freeze, but into safe.
+  label: simulated
+  pause: 8
+- view: voyage=landscape&dim=11&phi=0.1
+  say: Here are the same three memories as a landscape. The valleys are memories, and the ball is the person's
+    state. It sits in freeze, and calm does not get it out. The valleys are deep.
+  label: simulated
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.1
+  poke: weak
+  say: A small push, and it rolls back. Many therapists know this. An insight in the session, and the next
+    morning the old pattern is back.
+  label: interpretive
+  pause: 5
+- view: voyage=landscape&dim=11&phi=0.65
+  say: Raise the limbic field past the middle. The valleys melt into one shallow bowl, and the state can
+    move. In the model, arousal is not only the problem. It is also the door.
+  label: interpretive
+  pause: 7
+- view: voyage=landscape&dim=11&phi=0.65&resource=1
+  say: With a resource, the ground tilts towards safe. In the Gestalt paper this is the therapist's presence,
+    a driving term called J of t.
+  label: interpretive
+  pause: 6
+- view: voyage=landscape&dim=11&phi=0.1&resource=1
+  say: As the field cools, the valleys come back, and the state settles somewhere new. That is what safe,
+    resourced arousal does in this model.
+  label: interpretive
+  pause: 9
+- view: voyage=body&dim=4&phi=0.3&feel=freeze
+  say: Now the voyage the other way, back into the body. Freeze, as people often describe it, a held chest
+    and cold, numb limbs. The map is a design sketch after published body maps of emotion.
+  label: interpretive
+  pause: 3
+- view: voyage=body&dim=4&phi=0.3&feel=joy
+  say: Joy, by contrast, is felt almost everywhere.
+  label: interpretive
+  pause: 3
+- view: voyage=body&dim=8&phi=0.6&feel=flight
+  say: Switch on the electrical layer. Nerves carry impulses, and the vagus nerve links heart and gut to the
+    brain. With anxiety the heart speeds up, and the traffic grows.
+  label: interpretive
+  pause: 4
+- view: voyage=body&dim=11&phi=0.6&feel=flight
+  say: And the field layer. In this model it is a second nervous system, one field that couples the whole
+    body at once. That is an open hypothesis.
+  label: open-hypothesis
+  pause: 4
+- view: voyage=brain&dim=8&phi=0.4
+  say: Inside the skull. Deep in the middle sits the limbic system. A threat takes two roads, a fast, rough
+    one straight to the amygdala, and a slow, careful one through the cortex. The fast one arrives first.
+    The body reacts before we know why.
+  label: interpretive
+  pause: 4
+- view: voyage=brain&dim=8&phi=0.9
+  say: As the alarm rises, the amygdala glows, and the prefrontal cortex, the part that reflects and plans,
+    goes quiet.
+  label: interpretive
+  pause: 4
+- view: voyage=limbic&dim=11&phi=0.9
+  say: The model puts the limbic system at dimension eight, the hinge between the body field and the mind
+    field. Body-based trauma therapy aims here, at the hinge, not only at the thoughts.
+  label: interpretive
+  pause: 4
+- view: voyage=limbic&dim=11&phi=0.2
+  say: Hot, the mind's picture blurs, and the calming signals from the cortex thin out. Cool, and they come
+    back. One number, phi, sets the temperature for the whole hinge.
+  label: open-hypothesis
+  pause: 5
+- view: voyage=neuron&dim=11&phi=0.4
+  say: One level deeper, a single neuron. Each spike is all or nothing, and each adds a little to the field
+    around it, enough, in living tissue, to nudge a neighbour.
+  label: simulated
+  pause: 3
+- view: voyage=neuron&dim=11&phi=0.4
+  poke: strong
+  say: Poke it, and it fires.
+  label: simulated
+  pause: 3
+- view: voyage=landscape&dim=11&phi=0.2
+  say: So this is not a flight simulator. It is a mind and thought explorer, where a feeling lives, and how
+    it moves. Everything you saw is a model, and each step carries its evidence label. Thank you.
+  label: interpretive
+  pause: 3

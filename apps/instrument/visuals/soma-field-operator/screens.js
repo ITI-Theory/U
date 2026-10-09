@@ -10,7 +10,8 @@
 // only follows, it never answers back, so there is no echo.
 
 const CHANNEL = 'soma-screens';
-const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff'];
+export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
+  'voyage', 'phi', 'feel', 'resource'];
 export const ROLES = ['level', 'cockpit', 'engine'];
 
 export const screenRole = (() => {

@@ -269,6 +269,19 @@ echo "$CONCEPT_CHECK" | grep -E '^(FAIL|[0-9]+ concepts)' | head -8 | sed 's/^/ 
 GAPS=$(echo "$CONCEPT_CHECK" | grep -c '^GAP' || true)
 [[ "$GAPS" -gt 0 ]] && echo "    $GAPS gap(s): make concepts"
 
+hdr "20. Mind explorer: the simulations tell the tour's story (ISS-052)"
+if command -v node >/dev/null 2>&1; then
+  EXPLORER_CHECK=$(node apps/instrument/visuals/soma-field-operator/scripts/explorer-check.mjs 100 2>&1)
+  if [[ $? -eq 0 ]]; then
+    ok "Calm keeps FREEZE, the resource alone does not free it, heat with the resource ends in SAFE"
+  else
+    fail "Mind explorer simulations no longer match the tour: node .../scripts/explorer-check.mjs"
+  fi
+  echo "$EXPLORER_CHECK" | grep -E '^FAIL' | head -8 | sed 's/^/    /'
+else
+  warn "node not found: mind explorer check skipped"
+fi
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

@@ -9,7 +9,8 @@ import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
-import { createScreens, createEngineRoom, screenRole } from './screens.js';
+import { createScreens, createEngineRoom, screenRole, SHARED_KEYS } from './screens.js';
+import { createExplorer, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
@@ -223,6 +224,8 @@ abstractSplashEnter.addEventListener('click', () => {
   abstractSplash.hidden = true;
 });
 if (sessionStorage.getItem('zusf-abstract-acknowledged') === 'true') abstractSplash.hidden = true;
+// A link straight into the mind explorer skips the opening abstract.
+if (new URLSearchParams(location.hash.slice(1)).has('voyage')) abstractSplash.hidden = true;
 
 const atlasCoverageLedger = document.querySelector('#atlas-coverage-ledger');
 const atlasCoverageHeading = document.createElement('p');
@@ -1161,6 +1164,10 @@ function readHashState() {
     styleoff: params.get('styleoff'),
     ui: params.get('ui'),
     labels: params.get('labels'),
+    voyage: params.get('voyage'),
+    phi: params.get('phi'),
+    feel: params.get('feel'),
+    resource: params.get('resource'),
   };
 }
 
@@ -1214,11 +1221,28 @@ const state = {
   uiClean: false,
   labelsOff: false,
   atlasCapture: false,
+  // The mind explorer (explorer.js, ISS-052): the open stop, or null when closed.
+  voyage: null,
 };
 let suppressHashWrite = false;
 let timeAxis = null;
 let panelManager = null;
 let screens = null;
+const explorer = createExplorer({
+  getDim: () => state.level,
+  onDim: level => {
+    state.level = level;
+    dimensionDynamics.reset();
+    updateScaleReadout();
+    explorer.refresh();
+    writeHashState();
+  },
+  onPhi: value => screens?.setFx(value),
+  onChange: () => {
+    state.voyage = explorer.open ? explorer.stop : null;
+    writeHashState();
+  },
+});
 // Cockpit windows (screens.js): external keeps the usual camera; follow orbits the
 // subject slowly, like a drone.
 let cockpitCamera = 'external';
@@ -1494,6 +1518,7 @@ function applyHashState({ render = true } = {}) {
   }
   state.transport.playing = false;
   state.transport.nextAt = 0;
+  applyVoyage(hashState);
   if (!render) return;
   suppressHashWrite = true;
   routeSelect.value = state.route;
@@ -1507,6 +1532,24 @@ function applyHashState({ render = true } = {}) {
   suppressHashWrite = false;
   updateScaleReadout();
   timeAxis?.setSelected(state.eraId);
+}
+
+// The mind explorer follows the hash: voyage=<stop> opens it at that stop (no voyage
+// closes it); phi, feel and resource set its controls. Phi is the FX bar, so a new
+// value is passed on to the other windows as well.
+function applyVoyage(hashState) {
+  const phi = Number(hashState.phi);
+  if (hashState.phi !== null && hashState.phi !== '' && Number.isFinite(phi) && Math.abs(phi - explorer.phi) > 1e-3) {
+    explorer.setPhi(phi);
+    screens?.setFx(phi);
+  }
+  if (hashState.feel) explorer.setFeel(hashState.feel);
+  if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
+  explorer.setLabels(hashState.labels !== 'off');
+  state.voyage = VOYAGE_STOPS.includes(hashState.voyage) ? hashState.voyage : null;
+  if (state.voyage) explorer.show(state.voyage);
+  else explorer.hide();
+  explorer.refresh();
 }
 
 applyHashState({ render: false });
@@ -1928,7 +1971,8 @@ function hashForState() {
   params.set('level', state.levelId);
   params.set('path', state.route);
   params.set('lens', state.tTheory ? 'on' : 'off');
-  params.set('dim', String(activeDimensionLevel()));
+  // The mind explorer has all three layers at every level.
+  params.set('dim', String(state.voyage ? state.level : activeDimensionLevel()));
   params.set('model', state.implementation);
   params.set('reader', state.reader);
   if (state.eraId) params.set('era', state.eraId);
@@ -1941,6 +1985,12 @@ function hashForState() {
   else if (state.uiClean) params.set('labels', 'on');
   const styleOff = Object.keys(state.style).filter(key => !state.style[key]);
   if (styleOff.length) params.set('styleoff', styleOff.join('.'));
+  if (state.voyage) {
+    params.set('voyage', state.voyage);
+    params.set('phi', explorer.phi.toFixed(2));
+    if (explorer.feel !== 'calm') params.set('feel', explorer.feel);
+    if (explorer.resource) params.set('resource', '1');
+  }
   return `#${params.toString()}`;
 }
 
@@ -2220,6 +2270,7 @@ thoughtThresholdInput.addEventListener('input', () => {
   state.thoughtThreshold = Number(thoughtThresholdInput.value);
 });
 function firePoke(strength = state.limbic) {
+  if (explorer.open) explorer.poke(strength);
   state.impulse = 1;
   state.pokeRunning = true;
   state.responseTime = 0;
@@ -2229,6 +2280,11 @@ function firePoke(strength = state.limbic) {
   fieldAudio.poke({ level: activeLevel() });
 }
 document.querySelector('#poke').addEventListener('click', () => firePoke());
+document.querySelector('#explorer-open').addEventListener('click', () => {
+  explorer.show(explorer.stop);
+  state.voyage = explorer.stop;
+  writeHashState();
+});
 // Tours (tour.js `poke:` steps) fire the same poke with a fixed strength.
 addEventListener('soma-tour-poke', event => firePoke(Number(event.detail?.strength) || state.limbic));
 const audioToggle = document.querySelector('#audio-toggle');
@@ -2397,7 +2453,7 @@ panelManager.registerPanel(compareCards, { id: 'compare-examples', title: 'COMPA
 screens = createScreens({
   applyShared: shared => {
     const params = new URLSearchParams(location.hash.replace(/^#/, ''));
-    for (const key of ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff']) params.delete(key);
+    for (const key of SHARED_KEYS) params.delete(key);
     for (const [key, value] of new URLSearchParams(shared)) params.set(key, value);
     if (screenRole === 'cockpit') params.set('ui', 'clean');
     location.hash = params.toString();
@@ -2412,10 +2468,14 @@ screens = createScreens({
   setFx: fx => {
     // 0.5 is the normal look; lower is calmer, higher is more vivid.
     renderer.domElement.style.filter = `saturate(${(0.4 + 1.2 * fx).toFixed(2)}) brightness(${(0.8 + 0.4 * fx).toFixed(2)}) contrast(${(0.9 + 0.2 * fx).toFixed(2)})`;
+    // In the mind explorer the FX bar is the limbic field Phi.
+    explorer.setPhi(fx);
   },
 });
 addEventListener('soma-tour-step', event => screens.step(event.detail));
 addEventListener('soma-tour-end', () => screens.tourEnd());
+// The screens set the stored FX value on start-up; a phi in the link wins.
+applyVoyage(readHashState());
 if (screenRole === 'cockpit') {
   abstractSplash.hidden = true;
   const params = new URLSearchParams(location.hash.replace(/^#/, ''));
@@ -2724,6 +2784,12 @@ function updateRegistryRenderer(renderState, time, pulse) {
 }
 
 function frame() {
+  // The mind explorer covers the window: keep the clock, skip the 3D work.
+  if (explorer.open) {
+    clock.getDelta();
+    requestAnimationFrame(frame);
+    return;
+  }
   // getDelta() must run first: getElapsedTime() resets the delta clock.
   const delta = Math.min(clock.getDelta(), 0.1);
   const time = clock.elapsedTime;

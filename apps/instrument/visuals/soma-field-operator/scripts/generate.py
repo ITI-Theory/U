@@ -578,9 +578,16 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return questions
 
 
-TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui"}
+TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
+             "voyage", "phi", "feel", "resource"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
-              "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"}}
+              "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
+              # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
+              "voyage": {"body", "brain", "limbic", "neuron", "network", "landscape"},
+              "feel": {"calm", "fight", "flight", "grief", "freeze", "vigilance", "flow", "joy"},
+              "resource": {"0", "1"}}
+# phi (the limbic field, the FX bar): a number from 0 to 1, as tour.js PHI.
+TOUR_PHI = r"^(0(\.\d{1,3})?|1(\.0{1,3})?)$"
 # Presentation overlays drawn by presentation.js (same list as OVERLAYS there).
 # Tour pokes fired by tour.js (same names as POKES there).
 TOUR_POKES = {"weak", "strong", "twice"}
@@ -615,6 +622,8 @@ def tour_view_errors(view: str, ids: dict[str, set[str]]) -> list[str]:
             problems.append(f"unknown key {key!r}")
         elif key in TOUR_FIXED and value not in TOUR_FIXED[key]:
             problems.append(f"{key}={value!r} not in {sorted(TOUR_FIXED[key])}")
+        elif key == "phi" and not re.match(TOUR_PHI, value):
+            problems.append(f"phi={value!r} not a number from 0 to 1")
         elif key in ids and value not in ids[key]:
             problems.append(f"unknown {key} {value!r}")
     return problems
@@ -684,6 +693,12 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
         "q": {question.get("id") for question in questions},
     }
     errors: list[str] = []
+    # The explorer vocabularies above are copies of explorer.js STOPS and FEELINGS.
+    explorer_js = (Path(__file__).resolve().parents[1] / "explorer.js").read_text(encoding="utf-8")
+    stops = set(re.findall(r"'(\w+)'", re.search(r"export const STOPS = \[(.*?)\]", explorer_js).group(1)))
+    feelings = set(re.findall(r"^  (\w+): \{ label:", explorer_js, re.M))
+    if stops != TOUR_FIXED["voyage"] or feelings != TOUR_FIXED["feel"]:
+        errors.append(f"generate.py TOUR_FIXED voyage/feel differ from explorer.js STOPS {sorted(stops)} / FEELINGS {sorted(feelings)}")
     tours: list[dict[str, Any]] = []
     zabstract = extract_front_matter_field(ZOOMABLE_SOURCE, "abstract")
     abstract_paragraphs = len(str(zabstract or "").strip().split("\n\n"))

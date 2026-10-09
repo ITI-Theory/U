@@ -9,7 +9,8 @@
     "prebuild": "npm run generate",
     "build": "vite build",
     "precapture": "npm run generate",
-    "capture": "node scripts/capture.mjs"
+    "capture": "node scripts/capture.mjs",
+    "check:explorer": "node scripts/explorer-check.mjs"
   },
   "dependencies": {
     "@xterm/addon-fit": "^0.11.0",
