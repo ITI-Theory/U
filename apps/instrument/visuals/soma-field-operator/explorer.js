@@ -30,6 +30,16 @@ const temperature = phi => T0 + SIGMA * phi;
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
 export const STOPS = ['human', 'body', 'brain', 'limbic', 'neuron', 'network', 'landscape'];
+// One app, different views of the same thing: each stop is a close-up of a level of the
+// level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
+// explorer opens at the stop of the level being shown.
+export const STOP_LEVELS = {
+  human: { level: 'human-vertebrate' }, body: { level: 'human-vertebrate' },
+  brain: { level: 'whole-brain-cemi' }, limbic: { level: 'human-vertebrate', dim: 8 },
+  neuron: { level: 'cellular-synaptic' }, network: { level: 'whole-brain-cemi' },
+  landscape: { level: 'human-vertebrate' },
+};
+export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron' };
 const STOP_TITLES = {
   human: 'HUMAN', body: 'BODY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
@@ -1151,7 +1161,8 @@ export const simulation = { memoryStep, landscapeStep, PATTERNS, MEMORY_NAMES, e
 
 // ---------------------------------------------------------------- the explorer
 
-// hooks: { getDim(): 4|8|11, onDim(d), onPhi(v), onChange(), dive('in'|'out'): Promise }
+// hooks: { getDim(): 4|8|11, onDim(d), onPhi(v), onChange(), dive('in'|'out'): Promise,
+//          onLevel(levelId, dim), levelLabel(levelId) }
 // (dive flies the level view's camera into or out of the jellyfish human)
 export function createExplorer(hooks = {}) {
   const root = document.createElement('section');
@@ -1168,6 +1179,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
+      <button type="button" data-act="level">LEVEL VIEW ↗</button>
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
@@ -1233,6 +1245,8 @@ export function createExplorer(hooks = {}) {
     resourceButton.classList.toggle('active', st.resource);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
     view3dButton.hidden = st.stop !== 'landscape' || (glTried && !gl);
+    const link = STOP_LEVELS[st.stop];
+    root.querySelector('[data-act="level"]').title = `The same thing in the level view: ${hooks.levelLabel?.(link.level) ?? link.level}${link.dim ? ` at ${link.dim}D` : ''}`;
     view3dButton.classList.toggle('active', st.view3d);
     view3dButton.setAttribute('aria-pressed', String(st.view3d));
     phiInput.value = String(st.phi);
@@ -1394,6 +1408,10 @@ export function createExplorer(hooks = {}) {
       st.resource = !st.resource;
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'level') {
+      const link = STOP_LEVELS[st.stop];
+      api.hide();
+      hooks.onLevel?.(link.level, link.dim);
     } else if (b.dataset.act === 'close') {
       api.hide();
       hooks.onChange?.();

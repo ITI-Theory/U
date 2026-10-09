@@ -697,6 +697,9 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
     explorer_js = (Path(__file__).resolve().parents[1] / "explorer.js").read_text(encoding="utf-8")
     stops = set(re.findall(r"'(\w+)'", re.search(r"export const STOPS = \[(.*?)\]", explorer_js).group(1)))
     feelings = set(re.findall(r"^  (\w+): \{ label:", explorer_js, re.M))
+    for level in set(re.findall(r"level: '([\w-]+)'", explorer_js.split("export const STOP_LEVELS", 1)[1].split("};", 1)[0])):
+        if level not in ids["level"]:
+            errors.append(f"explorer.js STOP_LEVELS: unknown level {level!r}")
     if stops != TOUR_FIXED["voyage"] or feelings != TOUR_FIXED["feel"]:
         errors.append(f"generate.py TOUR_FIXED voyage/feel differ from explorer.js STOPS {sorted(stops)} / FEELINGS {sorted(feelings)}")
     tours: list[dict[str, Any]] = []

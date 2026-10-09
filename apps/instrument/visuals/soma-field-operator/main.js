@@ -10,7 +10,7 @@ import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
 import { createScreens, createEngineRoom, screenRole, SHARED_KEYS } from './screens.js';
-import { createExplorer, STOPS as VOYAGE_STOPS } from './explorer.js';
+import { createExplorer, LEVEL_STOPS, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
@@ -1252,6 +1252,18 @@ const explorer = createExplorer({
     writeHashState();
   },
   dive: direction => startDive(direction),
+  // LEVEL VIEW: close the explorer and show the stop's level (one app, views of one thing)
+  onLevel: (levelId, dim) => {
+    resetDiveCamera();
+    state.voyage = null;
+    const params = new URLSearchParams(hashForState().slice(1));
+    for (const key of ['voyage', 'phi', 'feel', 'resource', 'path']) params.delete(key);
+    params.set('level', levelId);
+    params.set('lens', 'on');
+    if (dim) params.set('dim', String(dim));
+    location.hash = params.toString();
+  },
+  levelLabel: levelId => levelsById.get(levelId)?.label ?? levelId,
 });
 // The dive (explorer human stop -> body): the camera flies into the jellyfish human's
 // chest while FX rises to full and the view blurs as it passes the skin.
@@ -2343,14 +2355,18 @@ function firePoke(strength = state.limbic) {
   fieldAudio.poke({ level: activeLevel() });
 }
 document.querySelector('#poke').addEventListener('click', () => firePoke());
-// The button opens the explorer at the jellyfish human, ready to dive.
+// The button opens the explorer at the close-up of the level being shown (brain,
+// neuron), else at the jellyfish human, ready to dive.
 document.querySelector('#explorer-open').addEventListener('click', () => {
-  explorer.show('human');
-  state.voyage = 'human';
+  const stop = LEVEL_STOPS[state.levelId] ?? 'human';
+  explorer.show(stop);
+  state.voyage = stop;
   explorer.refresh();
   const params = new URLSearchParams(hashForState().slice(1));
-  params.set('level', 'human-vertebrate');
-  params.delete('path');
+  if (stop === 'human') {
+    params.set('level', 'human-vertebrate');
+    params.delete('path');
+  }
   location.hash = params.toString();
 });
 // Tours (tour.js `poke:` steps) fire the same poke with a fixed strength.

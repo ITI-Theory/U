@@ -1933,6 +1933,17 @@ Steps:
       states, where the limbic field heats the memories and a resource lets a
       stuck state move. From the sources, what fits the programme best, what is
       missing, and what would a Gestalt or trauma therapist find most useful?"
+- [x] **One app, different views of the same thing** (author, 10 Oct 00:30). The
+      explorer is a view inside the SOMA Machine, not a second app: one URL
+      hash, one Φ/FX bar, one 4D/8D/11D switch, one poke, one tour language,
+      one set of windows (screens.js). Each stop names its level
+      (`STOP_LEVELS` in explorer.js; generate.py checks the ids): HUMAN, BODY,
+      LANDSCAPE → Human / Vertebrate; LIMBIC → Human at 8D; BRAIN, MEMORY →
+      Whole Brain / CEMI; NEURON → Cellular / Synaptic (a DYAD stop → Dyad).
+      LEVEL VIEW ↗ goes from a stop to its level; the MIND-BODY EXPLORER button
+      opens at the stop of the level being shown. Rule for new work: every new
+      view links both ways, and the 3D stops go into the level view's own
+      three.js scene, not a separate one.
 - [x] 3D landscape (10 Oct): `explorer3d.js`, a three.js terrain of the same
       energy as the checked simulation, the ball and its trail, glowing
       valleys at 11D, the camera circling; 3D button (on by default, 2D map
