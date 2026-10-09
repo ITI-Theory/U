@@ -25,7 +25,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -212,6 +212,7 @@ export function createMother({ getContext }) {
   compareInput.checked = read(STORAGE.compare, 'on') === 'on';
   compareInput.addEventListener('change', () => write(STORAGE.compare, compareInput.checked ? 'on' : 'off'));
   const voice = createVoice();
+  let lastDiff = '';
   const speakInput = terminal.querySelector('.mother-speak input');
   speakInput.checked = read(STORAGE.speak, 'off') === 'on';
   speakInput.addEventListener('change', () => {
@@ -427,6 +428,12 @@ export function createMother({ getContext }) {
       log.scrollTop = log.scrollHeight;
       return true;
     }
+    if (verb === '/speak' && rest[0] === 'diff') {
+      // Read the last WHAT [T]-THEORY ADDS section aloud (compare mode).
+      if (!lastDiff) type('NO "WHAT [T]-THEORY ADDS" YET: ASK WITH /compare on FIRST');
+      else voice.speak(lastDiff, persona(), modeSelect.value === 'api' ? bridgeUrl() : '');
+      return true;
+    }
     if (verb === '/speak') {
       speakInput.checked = rest[0] !== 'off';
       write(STORAGE.speak, speakInput.checked ? 'on' : 'off');
@@ -626,6 +633,7 @@ export function createMother({ getContext }) {
         row.querySelector('.mother-tour-play').addEventListener('click', () => tourPlayer.play(answerTour));
       }
       if (data.diff) {
+        lastDiff = data.diff;
         section('WHAT [T]-THEORY ADDS', renderAnswer(data.diff), 'mother-answer mother-diff');
         const baseline = document.createElement('details');
         baseline.className = 'mother-answer mother-baseline';

@@ -915,7 +915,8 @@ private use only, model outside the repo) through the local bridge's
 **Actions:**
 - [x] 2026-10-03: bridge `/speak` (optional Piper; `/health` reports `voice`),
    `voice.js` in the app, SPEAK toggle and slash commands, README setup.
-- [ ] Speak the WHAT [T]-THEORY ADDS section on request (`/speak diff`).
+- [x] Speak the WHAT [T]-THEORY ADDS section on request (`/speak diff`). Done 9 Oct
+      (mother.js: the last compare answer's section, in the current persona's voice).
 - [ ] A licence-clean neural voice for public MOTHER (a stock Piper voice such
    as en_GB) if browser voices prove too uneven across platforms.
 - [x] 2026-10-04: narrated tours: tour stops are spoken (ISS-038).
