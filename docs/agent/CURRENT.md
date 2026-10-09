@@ -6,51 +6,37 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (6 Oct 2026, 22:30; author in hospital, post-op)
+## Now (9 Oct 2026, afternoon; author in hospital, post-op)
 
-Admin before release (ISS-044) is done except the scope check and UAT: README
-front doors, working rules, HAL on Git Bash, one chat process, stale-file review
-(release-check section 15 guards `.OBSOLETE`).
+The therapist demo happened by phone on her older copy of the app (no tour).
+Her feedback, "why a presentation for a Gestalt therapist? how does it help my
+daily work?", led to the poke-centred consulting-room Presentation. Demo log and
+findings: ISS-047 ("Demo of 9 Oct").
 
-Tonight: the Soma Machine went up as a **public UAT preview** at
-https://www.t-theory.org/app/ (repo ITI-Theory/t-theory.org, cloned beside the
-others; built from U 728ac85 with `vite build --base=./`, copied by hand; home
-page has a preview label and contact details). Fixes on the way: 11D falls back
-to 8D at the quantum scales; maths re-renders once KaTeX loads. First outside
-reaction logged in paper/FIELD-NOTES.md (informal). `make app-start` runs it
-locally; `make app-publish` (DRY=1 first) publishes it (8 Oct).
+Built 8-9 Oct (all pushed; details in ISSUES):
+- Spoken H-AL tours (`registry/tours/`): `hal-therapist` (Demo, 3 min),
+  `hal-presentation` (10 min), `hal-gestalt` (11.5 min, HAL-UAT tailored),
+  `hal-consulting-room` (9 min, built on the poke). Tour fields `abstract`,
+  `overlay`, `pause`, `poke`, view key `ui=clean` (docs/TOUR-LANGUAGE.md).
+- Several windows on one PC (`?screen=cockpit`, `?screen=engine`; tablets via
+  spacedesk); whole-brain state panel; Further reading per level.
+- HAL-UAT loaded (30 sources); the app's H-AL answers from it; the bridge renews
+  the NotebookLM session itself (no login windows).
+- Layout checks pass on all 46 PDFs; Atlas triptychs fixed (author to check
+  printed pages 70-83); P1 text restored; P11 abstract fixed.
+- New: ISS-051 (Visualize everything, equation-first tabs, one-file library).
 
-NotebookLM UAT is ready but blocked on the author's `notebooklm login`
-(saved login dates from 5 Oct). Both tracks are restaged (6 Oct); `make uat-nlm
-TRACK=... DRY=1` works and reuses the standing notebooks (f6189d45 papers,
-f9c01519 ttheory), replacing their sources.
-
-Active chat: `write_a_book` (Me/chats/Inbox). Parked: HAL next steps (ISS-045),
-carried-over items and app follow-ups (ISS-046).
+In progress when the session paused: engine room FUEL (ISS-050), compiles, not
+yet tested end to end.
 
 ## Next
 
-1. Scope check: upload the chat files and the release candidates to a private
-   NotebookLM notebook and ask what was asked for and is missing (by hand in
-   the web UI until `HAL uat scope` exists, ISS-045).
-2. UAT, release runbook `Dist/README.md`:
-   - P21 sign-off (author): read `bld/papers/cosmological-constant-derivation.pdf`;
-     if happy, P21 `status: pending-upload` in `Dist/PAPERS.yaml`, then `make generate`.
-   - NotebookLM UAT: author runs `notebooklm login` (mother venv; press Enter
-     in the terminal after signing in); then `make uat-nlm TRACK=papers|ttheory`
-     (DRY=1 first; tracks already staged 6 Oct, restage if sources change);
-     review with the author; log in `paper/UAT.md`.
-   - Lulu preview of the volumes (author).
-   - `make dist` only after UAT passes; compare with the manifests; commit Dist.
-   - Zenodo with the author's tokens: sandbox, then live (plan: 44 records, 0 errors).
-3. Decide whether the course book (`make textbook`, ISS-041) and the Field
-   Atlas (`make atlas`; bookfactory print, ISS-040) ship in this release.
-
-## Built and current
-
-- Course book *[T]-Theory: A Course*: A4, about 258 pages, `make -C
-  Part2/book/field-atlas-textbook check` passes; awaiting the author's read-through.
-- Field Atlas: A3 and HTML; bookfactory edition (ISS-040).
-- Soma Machine: tours and observatory mode (ISS-038), H-AL voice (ISS-037);
-  public preview at www.t-theory.org/app/ (6 Oct).
-- `bin/release-check`: 15 PASS, 0 FAIL (5 Oct).
+1. Test FUEL: `make mother-bridge`, open `/?screen=engine`, CHECK BRIDGE, switch
+   H-AL between HAL-UAT and HAL (ISS-050).
+2. Author: run `#tour=hal-consulting-room` once with the HAL voice; check the
+   Atlas pages 70-83; P21 sign-off.
+3. Then the release path in ISS-047 / ISS-001: restage rc3.3, NotebookLM UAT,
+   Lulu proofs, Zenodo new versions (P1, P11 and the rest marked
+   needs-new-version).
+4. ISS-051 Visualize everything; more slip-ins from ISSUES (rapid development:
+   every pass picks up what fits).
