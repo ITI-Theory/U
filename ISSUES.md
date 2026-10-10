@@ -1714,6 +1714,12 @@ four areas: [T]-Theory science (~35-40%), tooling (~25-30%), creative/fun
 fun from the technical", the author's own rule). HAL-UAT recalls history well;
 check its current-state facts against the repo (it named a wrong script path).
 
+**Done 10 Oct:** volumes 8-14 (224 files: the Google Takeout import of 9 Oct
+and chats since 8 Oct) collated the same way and loaded as group `chats-new`;
+HAL-UAT has 38 of 50 sources. Volumes 1-7 had been collated before the
+Takeout, so H-AL had not seen the April 2026 chat on an OpenCyc knowledge base
+in Lean with Aesop.
+
 **Earlier ideas (from HAL-UAT), none built:** `make lift` (Me to U, 10 Jun),
 segment tags (28 Jun), `visibility: private` (16 Aug, considered for D1, then
 dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
