@@ -2229,8 +2229,19 @@ Opinion (Copilot, 10 Oct):
 
 Steps:
 
-- [ ] Ask H-AL (when NotebookLM is logged in again; it expired 02:50 and again
-      at 04:26, so `make nlm-usage` also failed). Question: "The Cowen and
+- [x] Asked H-AL (10 Oct 17:30; uat/RC3/hal-externalising-2026-10-10.md). The
+      research is Cowen and Keltner (PNAS): at least 13 dimensions in music,
+      27 in short videos. In the programme those are attractor states, the
+      eight BRECVEMA mechanisms are the forcing inputs, and The Tensor's seven
+      modes are the compressed axes the categories blend onto. Knob layout:
+      16 knobs = 13 music emotions + 3 masters, or 8 modes × (somatic,
+      cognitive); 32 = those plus the four masters (scale, time, threshold,
+      volition). The interview = The Tensor's five composer questions; the
+      AI is a compiler of the person's own answers into keyframes, with
+      authorship and provenance in the score's front matter, the person's
+      veto through the κ knobs (depth, velocity, mode mask); cautions:
+      non-medical, never presume the inner state, establish safety before
+      deep thresholds. Usage at 17:25: five-hour 0%, week 9.2%. Question was: "The Cowen and
       Keltner findings (13 emotions in music, about 27 in video): what do the
       sources say, and how do they map onto The Tensor's seven modes, the
       eight BRECVEMA mechanisms and the 32 on-screen knobs? How should an
@@ -2244,4 +2255,44 @@ Steps:
       (registry/scores format; private scores in Me).
 - [ ] Pages in: photograph ten A5 pages, read them in, keep them private.
 - [ ] MIDI: a 16-knob controller (Web MIDI) for the macros, live.
+---
+
+## ISS-054: H-AL's name, its own voice and its markup — OPEN
+{{Tags area.instrument}}
+{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=, epic=}}
+
+Author, 10 Oct 17:25: the official name is **H-AL**, short for Hologram
+Alistair; `HAL` only in file and command names. The real reason: the voice.
+The private Piper voice (a HAL 9000 imitation) is for testing only; the
+released H-AL must speak in a voice the author owns, his own: record known
+scripts, or his dictation, and train a voice from it, then "halify" it with
+rules (vocabulary for the AI that writes the lines, delivery for the speech).
+Is there phonetic markup? And there is a W3C emotion markup language, good for
+The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-10.md.
+
+- [x] Name rule (10 Oct): README "Name"; H-AL in prose, tours, papers and the
+      app ("H-AL // HOLOGRAM ALISTAIR" in the MOTHER panel); HAL only in
+      commands, files and code; "HAL 9000" only for the film. Audit: tours,
+      app text and docs already used H-AL; two code comments fixed.
+- [ ] Record the voice: about one hour of clean, single-speaker audio, 22 kHz
+      mono WAV with transcripts (known scripts: the tours themselves are the
+      best script, they are what H-AL will say; plus dictation); a quiet
+      room, one microphone, one session setup.
+- [ ] Train: fine-tune a Piper checkpoint on the recordings (piper-train);
+      check the base checkpoint's licence so the result is the author's to
+      release; keep the HAL 9000 imitation private (ISS-048).
+- [ ] Halify, delivery: slower rate, lower pitch, even pitch contour, longer
+      pauses at sentence ends (post-processing, or Piper length/noise scales);
+      a per-line `pause` already exists in the tour language.
+- [ ] Halify, vocabulary: a rule sheet for the AI writing H-AL's lines (calm,
+      measured, no drama, plain sensory words, mathematics on screen not in
+      speech, name the evidence label plainly). H-AL quotes a rule "one
+      sentence per stop"; the night's film tours use several: author to
+      decide.
+- [ ] Markup: SSML is the W3C standard for speech (prosody, break, emphasis,
+      IPA phonemes) but Piper supports little of it yet; use a small
+      pronunciation lexicon (H-AL, Hopfield, Kuramoto, Mandelbulb, Φ) instead.
+      EmotionML (W3C, 2014) can carry a score's mode trajectories as
+      `<trace>` samples: add an EmotionML export of registry/scores (coupling
+      and thresholds stay in the native YAML).
 

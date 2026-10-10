@@ -198,7 +198,7 @@ export function createMother({ getContext }) {
     terminal.querySelector('.mother-compare').hidden = activeTab !== 'chat';
     terminal.querySelector('.mother-speak').hidden = activeTab !== 'chat';
     terminal.querySelector('.mother-observatory').hidden = activeTab !== 'chat';
-    titleSpan.textContent = persona() === 'hal' ? 'H-AL // HOLOGRAM AL' : 'MU/TH/UR // [T]-THEORY INTERFACE';
+    titleSpan.textContent = persona() === 'hal' ? 'H-AL // HOLOGRAM ALISTAIR' : 'MU/TH/UR // [T]-THEORY INTERFACE';
     terminal.classList.toggle('persona-hal', persona() === 'hal');
     if (xterm) xterm.options.theme = shellTheme();
   };

@@ -3,7 +3,7 @@
 //
 // Open a window with ?screen=<role>:
 //   level   (default) the Soma Machine as it is; runs tours and speaks.
-//   cockpit the view out of the window: panels hidden, HAL's line as a HUD; follows
+//   cockpit the view out of the window: panels hidden, H-AL's line as a HUD; follows
 //           the level shown in any other window. Camera: external or follow (drone).
 //   engine  the engine room: every setting in one place, FX, camera, open windows.
 // Any window that changes the view (a click, a tour step) tells the others; a window
@@ -117,7 +117,7 @@ export function createScreens(hooks) {
 
   return {
     publish,
-    // The tour player reports each stop, so cockpit windows can show HAL's line.
+    // The tour player reports each stop, so cockpit windows can show H-AL's line.
     step: data => post({ type: 'step', ...data }),
     tourEnd: () => post({ type: 'tour-end' }),
     setFx: value => {

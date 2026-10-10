@@ -29,6 +29,10 @@ single address (`HAL help`; design in `T.Dot/DESIGN.md`): commands are noun then
 verb, for example `HAL copilot start`, `HAL copilot save`, `HAL chat new <name>`.
 AI sessions use the full form of every command.
 
+**Name.** The persona is **H-AL** (Hologram Alistair) in all prose, tours, papers
+and the app; `HAL` (no hyphen) only in command, file and code names, and
+"HAL 9000" only for the film's computer.
+
 **AI sessions.** Begin with `HAL copilot start`, which reads this README,
 CURRENT.md and the end of the active chat. Until it is installed (ISS-044), read
 them directly. Save often (`HAL copilot save`); end with `HAL copilot wrapup`,
