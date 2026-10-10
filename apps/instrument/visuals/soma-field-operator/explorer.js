@@ -120,7 +120,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A).',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers).',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1119,6 +1119,9 @@ function makeUreter() {
 
 // ---------------------------------------------------------------- stop: the score (The Tensor)
 
+// The Tensor's containers (SETTING on the SCORE stop; hash kc)
+export const SETTING_IDS = ['mind', 'river', 'body', 'session'];
+
 const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G: '#8ecbff', L: '#e8eefc', PV: '#ff7aa8' };
 
 let scoreModes = null;
@@ -1130,6 +1133,11 @@ function makeScore() {
   let bpmS = 68;
   let hdot = 0;
   let viewer = null;
+  // The Trilogy of Containers (paper Part IV): the same score in the river, the body or the
+  // session; one player, so the thresholds fall at the same story-times in all three.
+  const pair = { a: 0, b: 0.3 }; // the session: client and therapist (the dyad's oscillators)
+  let pairR = 1;
+  let burst = false;
   return {
     focus: [0, 0],
     tick(env) {
@@ -1145,6 +1153,11 @@ function makeScore() {
       viewer = viewerField(bpmS, hdot);
       player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
       scoreModes = player.modes(viewer, env.kr);
+      if (player.justCrossed >= 0) burst = true;
+      if (env.kc === 'session') {
+        const m = scoreModes;
+        for (let k = 0; k < 3; k++) pairR = dyadStep(pair, m.F, m.S > 0.5, env.dt / 3);
+      }
     },
     poke(strength) {
       if (player?.holding) player.ready();
@@ -1157,9 +1170,21 @@ function makeScore() {
       const target = player.modes();
       if (env.gl) {
         gl = env.gl;
-        gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m, texture: env.kt });
+        // a threshold crossing is a burst in every container (a rupture in the session)
+        if (burst) {
+          burst = false;
+          if (env.kc === 'session') pair.b += Math.PI * 0.9;
+          else gl.poke?.(1);
+        }
+        if (env.kc === 'river') gl.render({ sector: 'organismal', phi: m.F, time: t, stereo: env.stereo });
+        else if (env.kc === 'body') gl.render({ world: 'organismal', phi: m.F, resource: m.S > 0.5, dim: 11, time: t, stereo: env.stereo });
+        else if (env.kc === 'session') gl.render({ a: pair.a, b: pair.b, r: pairR, coupling: DYAD.coupling(m.S > 0.5), dim: 11, time: t, stereo: env.stereo });
+        else gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m, texture: env.kt });
       }
       if (!env.labels) return;
+      const SETTINGS = { mind: 'THE MIND · the Mandelbulb', river: 'THE RIVER · the boat on the water', body: 'THE BODY · the submarine in the bloodstream', session: 'THE SESSION · client and therapist' };
+      label(ctx, u, `SETTING: ${SETTINGS[env.kc] ?? SETTINGS.mind} · the same score`, 0, -0.64, COLORS.ink, 'center', 0.028);
+      if (env.kc === 'session') label(ctx, u, `in step r = ${pairR.toFixed(2)}`, 0, -0.6, pairR > 0.9 ? COLORS.teal : COLORS.orange, 'center', 0.024);
       // the score: seven bars, story-time, the phase
       const names = player.names();
       // the score panel on the right, clear of the caption card on the left
@@ -1740,6 +1765,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
       <label class="explorer__hr" title="The viewer's heart rate (the slider, or a chest strap: ♥ STRAP). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
+      <button type="button" data-act="kc" title="One score, four settings (The Tensor, the Trilogy of Containers): the mind (the Mandelbulb), the river, the body, the session. The same thresholds at the same story-times">SETTING: MIND</button>
       <button type="button" data-act="strap" title="Connect a Bluetooth heart-rate chest strap (any standard strap; Chrome or Edge). While it is connected it drives the heart; click again to let go">♥ STRAP</button>
       <button type="button" data-act="kr" title="The somatic loop: PROJECTION (the score drives), RESONANCE (score and viewer together), MIRROR (the viewer drives, the score is the target)">LOOP: PROJECTION</button>
       <button type="button" data-act="music" aria-pressed="false" title="Calm generative music (off by default)">MUSIC</button>
@@ -1763,6 +1789,7 @@ export function createExplorer(hooks = {}) {
   const hrOut = hrLabel.querySelector('output');
   const krButton = root.querySelector('[data-act="kr"]');
   const strapButton = root.querySelector('[data-act="strap"]');
+  const kcButton = root.querySelector('[data-act="kc"]');
   let strapStatus = '';
   const rrIntervals = []; // beat-to-beat intervals (s) from the strap, for HRV later
   const strap = createHeartStrap({
@@ -1790,7 +1817,7 @@ export function createExplorer(hooks = {}) {
     depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1,
     // ?film=1: the film pace (0.6) and the controls hidden until the mouse moves; ?pace= sets it
     film: new URLSearchParams(location.search).get('film') === '1',
-    kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '',
+    kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
   // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
   // per eye with opposite shifts; the 3D landscape renders its own two eyes.
@@ -1817,6 +1844,10 @@ export function createExplorer(hooks = {}) {
     tunnel: () => createTunnel3D(),
     ureter: () => createTunnel3D({ ureter: true }),
     score: () => createFlight3D(),
+    // the same score in the other containers (SETTING on the SCORE stop)
+    'score-river': () => createFlight3D(),
+    'score-body': () => createTunnel3D(),
+    'score-session': () => createDyad3D(),
   };
   const gls = {};
   function stageGl(stop) {
@@ -1867,6 +1898,8 @@ export function createExplorer(hooks = {}) {
     hrLabel.hidden = st.stop !== 'score';
     krButton.hidden = st.stop !== 'score';
     strapButton.hidden = st.stop !== 'score';
+    kcButton.hidden = st.stop !== 'score';
+    kcButton.textContent = `SETTING: ${st.kc.toUpperCase()}`;
     strapButton.textContent = strap.connected ? '♥ STRAP ON' : '♥ STRAP';
     strapButton.classList.toggle('active', strap.connected);
     if (strapStatus) strapButton.title = `Heart-rate strap: ${strapStatus}. Click to ${strap.connected ? 'let go' : 'connect'}`;
@@ -2048,7 +2081,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, strap: strap.connected, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, strap: strap.connected, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);
@@ -2069,7 +2102,7 @@ export function createExplorer(hooks = {}) {
       return;
     }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    env.gl = st.view3d ? stageGl(st.stop) : null;
+    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop) : null;
     showGl(env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
@@ -2159,7 +2192,11 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
-    else if (b.dataset.act === 'strap') {
+    else if (b.dataset.act === 'kc') {
+      st.kc = SETTING_IDS[(SETTING_IDS.indexOf(st.kc) + 1) % SETTING_IDS.length];
+      syncUi();
+      hooks.onChange?.();
+    } else if (b.dataset.act === 'strap') {
       if (strap.connected) strap.disconnect();
       else strap.connect();
     }
@@ -2260,13 +2297,14 @@ export function createExplorer(hooks = {}) {
     },
     get loop() { return { bpm: st.bpm, kr: st.kr }; },
     get heart() { return { strap: strap.connected, status: strapStatus, rr: rrIntervals.slice() }; },
-    get scoreParams() { return { kv: st.kv, st: st.st, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km }; },
+    get scoreParams() { return { kv: st.kv, st: st.st, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc }; },
     setLoop({ bpm, kr } = {}) {
       if (bpm !== null && bpm !== undefined && bpm !== '' && Number.isFinite(Number(bpm))) st.bpm = Math.max(50, Math.min(140, Number(bpm)));
       if (kr !== null && kr !== undefined && ['0', '0.5', '1'].includes(String(kr))) st.kr = Number(kr);
       syncUi();
     },
-    setScore({ kv, st: start, kd, kt, kw, km } = {}) {
+    setScore({ kv, st: start, kd, kt, kw, km, kc } = {}) {
+      if (SETTING_IDS.includes(kc)) { st.kc = kc; syncUi(); }
       const num = x => x !== null && x !== undefined && x !== '' && Number.isFinite(Number(x));
       if (num(kd)) st.kd = clamp(Number(kd), 0, 1);
       if (num(kt)) st.kt = clamp(Number(kt), 0, 1);

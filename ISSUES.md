@@ -2116,6 +2116,14 @@ Steps:
       hash, tours and screens, validated in tour.js and generate.py; explorer-check:
       masked modes are 0, more coupling more awe, depth deeper PV and a longer hold.
       Next: on-screen knobs (MIDI-style, ISS-053), texture in the music.
+- [x] (10 Oct 23:58) One score in four settings (the paper's Trilogy of Containers):
+      SETTING on the SCORE stop (hash `kc=mind|river|body|session`): the mind (the
+      Mandelbulb), the river (the inner sea at the speed fear sets), the body (the
+      Fantastic Voyage tunnel; safety is the resource) and the session (the dyad's two
+      oscillators, client and therapist; a threshold crossing is a rupture to repair).
+      One player drives all four, so the thresholds fall at the same story-times; a
+      crossing is a burst in each. Next: Sherlock's analogy test of "all three are the
+      same film" (ISS-055), and a real river.
 - [ ] (10 Oct 23:50, coded, to test in UAT with a real strap) A Bluetooth heart-rate
       chest strap: heart.js (Web Bluetooth, the standard Heart Rate service 0x180D and
       measurement 0x2A37: 8- or 16-bit rate, RR intervals kept for HRV), ♥ STRAP on the

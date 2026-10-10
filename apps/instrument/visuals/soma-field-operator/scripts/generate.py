@@ -580,13 +580,14 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
-             "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr", "kd", "kt", "kw", "km"}
+             "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr", "kd", "kt", "kw", "km", "kc"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
               "voyage": {"human", "body", "brain", "limbic", "thought", "neuron", "network", "landscape", "dyad", "tunnel", "ureter", "flight", "score"},
               "feel": {"calm", "fight", "flight", "grief", "freeze", "vigilance", "flow", "joy"},
-              "resource": {"0", "1"}, "kr": {"0", "0.5", "1"}}
+              "resource": {"0", "1"}, "kr": {"0", "0.5", "1"},
+              "kc": {"mind", "river", "body", "session"}}
 # phi (the limbic field, the FX bar): a number from 0 to 1, as tour.js PHI.
 TOUR_PHI = r"^(0(\.\d{1,3})?|1(\.0{1,3})?)$"
 # Presentation overlays drawn by presentation.js (same list as OVERLAYS there).

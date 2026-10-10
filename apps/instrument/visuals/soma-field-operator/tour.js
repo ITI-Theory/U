@@ -10,12 +10,12 @@ import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
-  'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km']);
+  'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
-  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'],
+  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
 const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;

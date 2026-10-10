@@ -1177,6 +1177,7 @@ function readHashState() {
     kt: params.get('kt'),
     kw: params.get('kw'),
     km: params.get('km'),
+    kc: params.get('kc'),
   };
 }
 
@@ -1672,7 +1673,7 @@ function applyVoyage(hashState) {
     screens?.setFx(phi);
   }
   if (hashState.feel) explorer.setFeel(hashState.feel);
-  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km });
+  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc });
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2139,6 +2140,7 @@ function hashForState() {
       if (sp.kt) params.set('kt', String(sp.kt));
       if (sp.kw !== 1) params.set('kw', String(sp.kw));
       if (sp.km) params.set('km', sp.km);
+      if (sp.kc && sp.kc !== 'mind') params.set('kc', sp.kc);
     }
   }
   return `#${params.toString()}`;
