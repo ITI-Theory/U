@@ -123,7 +123,7 @@ const CAPTIONS = {
   },
   flight: {
     title: 'FLY', label: 'interpretive',
-    4: 'A slow flight through the world of the level you are on, one natural form per scale: the cosmic web, the quantum foam, an inner sea of coral and flowers, a murmuration, folded rock, a network. Everything drifts in one current, the fluid. Φ is the speed; POKE is a surge. Pick another floor in the elevator (FLY ▸) to fly somewhere else; MUSIC adds calm sound (off by default).',
+    4: 'A slow flight through the world of the level you are on, one natural form per scale: the cosmic web, the quantum foam, an inner sea of coral and flowers, a murmuration, folded rock, a network. Everything drifts in one current, the fluid. Φ is the speed; POKE is a surge. At Whole Brain the world is the Mandelbulb, the mind, and you dive into it: the surface keeps unfolding as you fall (zoom ×40,000), Φ is how fast you fall, POKE pushes you deeper, and each dive ends in a burst and starts again somewhere new. Pick another floor in the elevator (FLY ▸) to fly somewhere else; MUSIC adds calm sound (off by default).',
     11: 'The forms are pictures of each scale, not data: an invitation to look inward the way the programme looks outward.',
   },
   neuron: {
@@ -1226,7 +1226,8 @@ function makeFlight() {
       }
       if (env.labels) {
         label(ctx, u, worldName(env.world), 0, -0.7, COLORS.ink, 'center', 0.04);
-        label(ctx, u, `${env.levelLabel} · speed Φ ${phi.toFixed(2)}`, 0, -0.62, COLORS.dim, 'center', 0.026);
+        const zoom = env.world === 'mind' && gl?.depth ? ` · diving: zoom ×${gl.depth < 1000 ? gl.depth.toFixed(0) : Math.round(gl.depth).toLocaleString('en')}` : '';
+        label(ctx, u, `${env.levelLabel} · speed Φ ${phi.toFixed(2)}${zoom}`, 0, -0.62, COLORS.dim, 'center', 0.026);
       }
     },
   };

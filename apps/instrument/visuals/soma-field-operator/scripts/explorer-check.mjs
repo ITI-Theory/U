@@ -5,11 +5,14 @@
 //      with the resource still on: the state ends in SAFE;
 //   3. the resource alone, while calm, does not free the state;
 //   4. without the resource, heat and cooling move the state, but not reliably to SAFE;
-//   5. the dyad: calm in step, hot drifting, hot with the resource attuned, faster repair.
+//   5. the dyad: calm in step, hot drifting, hot with the resource attuned, faster repair;
+//   6. FLY into the Mandelbulb: every dive finds the surface, and the camera stays outside
+//      it (as the shader sees it, detail growing with depth) all the way to zoom x40,000.
 // Usage: node scripts/explorer-check.mjs [runs]. Exit 1 if a rate is below its bound.
 
 import { simulation as sim } from '../explorer.js';
 import { createScorePlayer } from '../score.js';
+import { diveMath } from '../flight3d.js';
 import { readFileSync } from 'node:fs';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
@@ -71,6 +74,25 @@ function rate(fn, want) {
   return hits / runs;
 }
 
+// FLY: follow dives as flight3d.js does (back along the line of sight, at the dive's
+// detail); the smallest clearance DE(camera) / distance on the way must stay positive
+function dives(n) {
+  const rand = diveMath.seeded(23);
+  let found = 0, worst = Infinity;
+  for (let i = 0; i < n; i++) {
+    const d0 = diveMath.newDive(rand, (i % 5) / 4, i * 7.3);
+    if (!d0) continue;
+    found++;
+    const { p, v, power, morph } = d0;
+    for (let d = d0.d; d > diveMath.DIVE_END; d *= 0.85) {
+      const c = [0, 1, 2].map(k => p[k] - d * v[k]);
+      worst = Math.min(worst, diveMath.bulbDE(...c, power, morph, diveMath.iters()) / d);
+    }
+  }
+  return { found: found / n, worst };
+}
+const diveRun = dives(24);
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -94,6 +116,9 @@ const checks = [
   ['score: resonance with a racing, rising heart is still holding at T1 after 400 s', Number(scoreRun({ start: 0.515, until: 0.53, kr: 0.5, bpm: 120, hdot: 1 }).held), 1, 1],
   ['score: resonance with a settled heart crosses T1 (s)', scoreRun({ start: 0.515, until: 0.53, kr: 0.5, bpm: 72, hdot: -0.1 }).s, 2, 40],
   ['score: a rising heart slows the film (s for 0.02 of story, rising / steady >= 2)', scoreRun({ start: 0.2, until: 0.22, kr: 1, bpm: 90, hdot: 1 }).s / scoreRun({ start: 0.2, until: 0.22, kr: 1, bpm: 90, hdot: 0 }).s / 2, 1, Infinity],
+  // FLY into the Mandelbulb (flight3d.js)
+  ['fly: every dive finds the surface', diveRun.found, 1],
+  ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];
 let failed = 0;
 for (const [name, value, min, max = 1] of checks) {

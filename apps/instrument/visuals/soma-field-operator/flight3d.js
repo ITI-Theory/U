@@ -250,8 +250,11 @@ const BUILDERS = { cosmological: cosmicWeb, 'micro-physical': quantumFoam, organ
 
 // A full-screen quad whose shader marches a ray per pixel into a power-p Mandelbulb
 // (distance estimate). The ray comes from the eye camera being rendered, so stereo works.
-// The power breathes with Phi (8 calm, up to 10 hot), the colour warms with Phi, and the
-// camera glides slowly inward along a spiral and back out.
+// FLY dives into it: the camera falls towards a point on the surface, its distance
+// shrinking exponentially (faster with Phi, POKE pushes deeper), at a fixed high detail;
+// at the limit of float precision a burst, and a new dive. The shape holds still during
+// a dive (power, morph and detail are fixed when it starts).
+// With an emotional score (The Tensor) the camera orbits instead, as the score sets.
 const BULB_FRAG = `
 precision highp float;
 uniform vec2 uRes;
@@ -263,15 +266,18 @@ uniform float uTime;
 uniform float uPhi;
 uniform float uSurge;
 uniform float uScore;   // 1 when an emotional score drives the picture (The Tensor)
+uniform float uIters;   // iterations (detail) during a dive
+uniform float uMorph;   // the slow twist of the shape (fixed during a dive)
+uniform float uFade;    // 0 clear, 1 the burst between dives
 uniform float uS, uF, uA, uG, uPV;
 float de(vec3 p, out float trap) {
   vec3 z = p; float dr = 1.0; float r = 0.0; trap = 1e9;
-  float iters = uScore > 0.5 ? 3.0 + 6.0 * uPV : 9.0;
-  for (int i = 0; i < 9; i++) {
+  float iters = uScore > 0.5 ? 3.0 + 6.0 * uPV : uIters;
+  for (int i = 0; i < 18; i++) {
     if (float(i) >= iters) break;
     r = length(z);
     if (r > 2.0) break;
-    float th = acos(clamp(z.z / r, -1.0, 1.0)) * uPower + uTime * 0.05;
+    float th = acos(clamp(z.z / r, -1.0, 1.0)) * uPower + uMorph;
     float ph = atan(z.y, z.x) * uPower;
     dr = pow(r, uPower - 1.0) * uPower * dr + 1.0;
     float zr = pow(r, uPower);
@@ -295,7 +301,8 @@ void main() {
     if (t > 8.0) break;
   }
   vec3 bg = vec3(0.02, 0.012, 0.05) + 0.05 * vec3(0.6, 0.2, 0.9) * (1.0 - abs(dir.y));
-  if (!hit) { gl_FragColor = vec4(bg + vec3(0.9, 0.3, 0.7) * 0.004 * steps * (0.6 + uSurge), 1.0); return; }
+  vec3 flash = vec3(1.0, 0.86, 0.96);
+  if (!hit) { gl_FragColor = vec4(mix(bg + vec3(0.9, 0.3, 0.7) * 0.004 * steps * (0.6 + uSurge), flash, uFade), 1.0); return; }
   vec3 p = ro + dir * t;
   float tt;
   vec2 e = vec2(0.0006 * t, 0.0);
@@ -318,7 +325,7 @@ void main() {
   float ao = 1.0 - steps / 110.0;
   vec3 col = light * base * (0.25 + 0.75 * diff) * ao + rim * pow(1.0 - abs(dot(n, -dir)), 3.0) * vec3(1.0, 0.8, 1.0);
   col = mix(col, bg, clamp(t / 8.0, 0.0, 1.0));
-  gl_FragColor = vec4(col, 1.0);
+  gl_FragColor = vec4(mix(col, flash, uFade), 1.0);
 }`;
 
 function createBulb() {
@@ -330,6 +337,7 @@ function createBulb() {
       uCamWorld: { value: new THREE.Matrix4() }, uProjInv: { value: new THREE.Matrix4() },
       uPower: { value: 8 }, uTime: { value: 0 }, uPhi: { value: 0 }, uSurge: { value: 0 },
       uScore: { value: 0 }, uS: { value: 0 }, uF: { value: 0 }, uA: { value: 0 }, uG: { value: 0 }, uPV: { value: 0 },
+      uIters: { value: 9 }, uMorph: { value: 0 }, uFade: { value: 0 },
     },
     depthTest: false, depthWrite: false,
   });
@@ -348,7 +356,10 @@ function createBulb() {
       const sc = state.score;
       u.uScore.value = sc ? 1 : 0;
       if (sc) for (const k of ['S', 'F', 'A', 'G', 'PV']) u[`u${k}`].value = sc[k];
-      u.uPower.value = sc ? 2 + 6 * sc.A : 8 + 2 * state.phi + Math.sin(state.time * 0.1) * 0.3;
+      u.uPower.value = sc ? 2 + 6 * sc.A : state.power;
+      u.uIters.value = state.iters ?? 9;
+      u.uMorph.value = state.morph ?? state.time * 0.05;
+      u.uFade.value = state.fade ?? 0;
       u.uTime.value = state.time;
       u.uPhi.value = state.phi;
       u.uSurge.value = state.surge;
@@ -356,6 +367,66 @@ function createBulb() {
     },
   };
 }
+
+// The same distance estimate on the CPU (double precision), to find where a dive lands.
+function bulbDE(px, py, pz, power, morph, iters) {
+  let x = px, y = py, z = pz, dr = 1, r = 0;
+  for (let i = 0; i < iters; i++) {
+    r = Math.hypot(x, y, z);
+    if (r > 2) break;
+    const th = Math.acos(Math.max(-1, Math.min(1, z / r))) * power + morph;
+    const ph = Math.atan2(y, x) * power;
+    dr = r ** (power - 1) * power * dr + 1;
+    const zr = r ** power;
+    x = zr * Math.sin(th) * Math.cos(ph) + px;
+    y = zr * Math.sin(th) * Math.sin(ph) + py;
+    z = zr * Math.cos(th) + pz;
+  }
+  return 0.5 * Math.log(r) * r / dr;
+}
+
+const DIVE_START = 1.2;    // camera distance from the surface when a dive begins
+const DIVE_END = 3e-5;     // about the limit of float precision in the shader (zoom x40,000)
+// One detail for the whole dive: a coarser surface early on would bulge past the camera
+// (explorer-check: the camera stays outside the fractal on every dive).
+const DIVE_ITERS = 16;
+
+// A dive: a surface point P, marched from a random direction v; the camera then sits
+// at P - D v, looking at P and rolling slowly about the line of sight.
+function newDive(rand, phi, time) {
+  const power = 8 + 2 * phi;
+  const morph = time * 0.05;
+  const iters = DIVE_ITERS;
+  for (let attempt = 0; attempt < 8; attempt++) {
+    const u = rand() * 2 - 1, a = rand() * Math.PI * 2, s = Math.sqrt(1 - u * u);
+    const dir = [-s * Math.cos(a), -u * 0.6, -s * Math.sin(a)];
+    const len = Math.hypot(...dir);
+    for (let k = 0; k < 3; k++) dir[k] /= len;
+    let t = 0, hit = false, p = null;
+    for (let i = 0; i < 400; i++) {
+      p = [-dir[0] * 2.6 + dir[0] * t, -dir[1] * 2.6 + dir[1] * t, -dir[2] * 2.6 + dir[2] * t];
+      const d = bulbDE(p[0], p[1], p[2], power, morph, iters);
+      if (d < 2e-6) { hit = true; break; }
+      t += d * 0.9;
+      if (t > 5) break;
+    }
+    if (!hit) continue;
+    // the line of sight that found the point marched through empty space: the camera
+    // falls back along it, so it is always outside (the local normal is not: the
+    // fractal's other bulges cross it further out)
+    const v = dir;
+    const helper = Math.abs(v[1]) < 0.9 ? [0, 1, 0] : [1, 0, 0];
+    const t1 = [v[1] * helper[2] - v[2] * helper[1], v[2] * helper[0] - v[0] * helper[2], v[0] * helper[1] - v[1] * helper[0]];
+    const l1 = Math.hypot(...t1);
+    for (let k = 0; k < 3; k++) t1[k] /= l1;
+    const t2 = [v[1] * t1[2] - v[2] * t1[1], v[2] * t1[0] - v[0] * t1[2], v[0] * t1[1] - v[1] * t1[0]];
+    return { p, v, t1, t2, power, morph, d: Math.min(DIVE_START, t * 0.95), s: 0 };
+  }
+  return null;
+}
+
+// for scripts/explorer-check.mjs
+export const diveMath = { bulbDE, newDive, seeded, DIVE_START, DIVE_END, iters: () => DIVE_ITERS };
 
 export function createFlight3D() {
   let renderer;
@@ -379,6 +450,10 @@ export function createFlight3D() {
   let travelled = 0;
   let surge = 0;
   let last = 0;
+  let dive = null;      // the current dive into the Mandelbulb (FLY at the mind)
+  let fade = 0;         // the burst between dives (1 = full flash)
+  let fading = 0;       // +1 fading out to the burst, -1 fading back in
+  const diveRand = seeded(23);
 
   // motes: the fluid, drifting in one flow field around the camera
   const MOTES = 1600;
@@ -426,7 +501,11 @@ export function createFlight3D() {
     },
     // state: { sector, phi, time, stereo }
     render(state) {
-      if (state.sector !== sector) build(state.sector);
+      if (state.sector !== sector) {
+        build(state.sector);
+        dive = null; fade = 0; fading = 0;
+        camera.near = 0.05; camera.up.set(0, 1, 0); stereoCamera.eyeSep = 0.12;
+      }
       const dt = Math.min(0.05, last ? state.time - last : 0.016);
       last = state.time;
       surge = Math.max(0, surge - dt * 0.6);
@@ -434,19 +513,53 @@ export function createFlight3D() {
       travelled += speed * dt;
       if (state.sector === 'mind') {
         bulb ??= createBulb();
-        // a slow spiral in towards the surface and back out; a surge pushes in
         const tt = state.time;
         const sc = state.score;
-        // curiosity: how far in the camera explores; grief: a slower orbit
-        const reach = sc ? 0.25 + 0.6 * sc.C : 0.55;
-        const radius = 2.15 - reach * (0.5 + 0.5 * Math.sin(tt * 0.045)) - 0.3 * surge;
-        orbit += (sc ? 0.06 * (1 - 0.7 * sc.G) : 0.06) * dt;
-        camera.position.set(Math.sin(orbit) * radius, 0.35 * Math.sin(tt * 0.04), Math.cos(orbit) * radius);
-        camera.lookAt(0, 0, 0);
+        let bulbState;
+        if (sc) {
+          // The Tensor: a slow spiral in towards the surface and back out; a surge pushes in.
+          // Curiosity: how far in the camera explores; grief: a slower orbit.
+          const reach = 0.25 + 0.6 * sc.C;
+          const radius = 2.15 - reach * (0.5 + 0.5 * Math.sin(tt * 0.045)) - 0.3 * surge;
+          orbit += 0.06 * (1 - 0.7 * sc.G) * dt;
+          camera.up.set(0, 1, 0);
+          camera.position.set(Math.sin(orbit) * radius, 0.35 * Math.sin(tt * 0.04), Math.cos(orbit) * radius);
+          camera.lookAt(0, 0, 0);
+          bulbState = { phi: state.phi, time: tt, surge, score: sc, power: 8, iters: 9, morph: tt * 0.05, fade: 0 };
+        } else {
+          // FLY: dive into the Mandelbulb
+          dive ??= newDive(diveRand, state.phi, tt);
+          if (dive && !fading) {
+            const k = 0.12 + 0.35 * state.phi + 1.4 * surge;
+            dive.d *= Math.exp(-k * dt);
+            dive.s += dt;
+            if (dive.d < DIVE_END) { fading = 1; surge = Math.max(surge, 0.8); }
+          }
+          if (fading === 1) {
+            fade = Math.min(1, fade + dt / 1.2);
+            if (fade >= 1) { dive = newDive(diveRand, state.phi, tt); fading = -1; }
+          } else if (fading === -1) {
+            fade = Math.max(0, fade - dt / 1.5);
+            if (fade <= 0) fading = 0;
+          }
+          if (dive) {
+            const { p, v, t1, t2 } = dive;
+            camera.position.set(p[0] - v[0] * dive.d, p[1] - v[1] * dive.d, p[2] - v[2] * dive.d);
+            const roll = 0.12 * dive.s;
+            camera.up.set(...[0, 1, 2].map(i => Math.cos(roll) * t2[i] - Math.sin(roll) * t1[i]));
+            camera.lookAt(p[0], p[1], p[2]);
+          }
+          const depth = dive ? DIVE_START / dive.d : 1;
+          this.depth = depth;
+          bulbState = { phi: state.phi, time: tt, surge, score: null, power: dive?.power ?? 8,
+            iters: diveMath.iters(depth), morph: dive?.morph ?? tt * 0.05, fade };
+        }
+        // the eye separation and the near plane follow the dive (stereo stays fusable deep in)
+        stereoCamera.eyeSep = !sc && dive ? Math.min(0.12, 0.04 * dive.d) : 0.12;
+        camera.near = Math.max(1e-6, Math.min(0.05, (dive?.d ?? 1) * 0.1));
         renderer.getSize(size);
         const pr = renderer.getPixelRatio();
         const full = new THREE.Vector4(0, 0, size.x * pr, size.y * pr);
-        const bulbState = { phi: state.phi, time: tt, surge, score: state.score };
         if (state.stereo === 'half' || state.stereo === 'full') {
           camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
           camera.updateProjectionMatrix();

@@ -2116,7 +2116,12 @@ Steps:
       and brain stops.
 - [ ] Urologist, next: the author reviews the tour wording; a stent mode (persistent signal after the stone);
       calculi sizes and laser settings stay out (no clinical claims).
-- [ ] FLY and PATH, next: fly INTO the Mandelbulb (Fractal Flight
+- [ ] (10 Oct 23:40: FLY at Whole Brain dives INTO the Mandelbulb: down the line of
+      sight to a surface point, zoom to x40,000 at fixed detail (16 iterations), Φ the
+      speed, POKE deeper, a burst and a new dive; stereo eye separation follows the
+      depth; explorer-check: every dive finds the surface and the camera stays
+      outside the fractal. Still open: power from H, rotation from |∇H|, colour
+      from T_eff, bursts at threshold crossings.) FLY and PATH, next: fly INTO the Mandelbulb (Fractal Flight
       proper: fly into it; power from H, rotation from |∇H|, colour from
       T_eff, bursts at threshold crossings, after the chats); branching paths
       (several tunnels; which one a thought takes depends on the gates); the
