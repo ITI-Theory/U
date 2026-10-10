@@ -1391,7 +1391,7 @@ app README):**
       To make that honest, generate a small Lean file from the registry (one
       inductive per level's admissible layers) so the rejection is a real type
       error. Links to Sherlock.
-- [ ] Sherlock concept registry `registry/concepts/<id>.yaml`: concept,
+- [ ] (Sherlock's reasoning plan, 10 Oct: ISS-055.) Sherlock concept registry `registry/concepts/<id>.yaml`: concept,
       ontology class (OpenCyc/OWL), Lean type (Mathlib, PhysLib or programme),
       proof status, papers, levels, so that gaps become visible.
       9 Oct, v0: `registry/concepts/` (23 concepts: the 8 emotions and 8 BRECVEMA
@@ -2302,3 +2302,98 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
       `<trace>` samples: add an EmotionML export of registry/scores (coupling
       and thresholds stay in the native YAML).
 
+## ISS-055: Sherlock: three ways of reasoning over OpenCyc (consistency, proof, analogy) — OPEN
+{{Tags area.proofs, area.theory, area.books}}
+{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=, epic=}}
+
+Author, 10 Oct: model what a document is trying to say or prove as a short
+set of checkable facts (an affidavit), typed against OpenCyc, and reason over
+it. "Earlier I thought Sherlock was doomed before arrival; now not so sure."
+Test case first: The Tensor. Outcome feeds the books (Philosophy may get
+shorter if it fails; Law longer if it works: affidavits, precedent).
+
+**Sources (U.Ops repo, `opencyc/`; bibliography: opencyc2012owl, nextkb2019,
+forbus2017analogy, chaudhri2025knowledge):**
+- [x] OpenCyc 2012-05-10 OWL, version 2.0.0, 242,380 subjects. The readable
+      release on most mirrors and archive.org is truncated; the intact copy is
+      github.com/therohk/opencyc-kb. `make -C opencyc fetch` checks SHA-256.
+      The Cyc server release (binary CFASL world) is not used: OpenCyc here is
+      triples only (author).
+- [x] NextKB (Northwestern QRG, CC BY 4.0), downloaded only: OpenCyc as CycL
+      with ~690 microtheories (one file each), 2,545 `genlMt` links, 681 rules,
+      1.3M facts, the NuLex lexicon and FrameNet/VerbNet/WordNet links, the QP
+      ontology, the analogy ontology. Fills what the OWL export dropped
+      (microtheory of each statement, rules, words to concepts).
+- [ ] H-AL found the earlier design: the April 2026 chat "lean 4 implementing
+      a axiom based knowledge base from opencyc" (collections as types,
+      genls as `extends`, properties as typeclasses, microtheories as
+      namespaces and parameters, generated Lean, Aesop rule sets per domain,
+      the LLM last). It was in the Takeout import, not in H-AL's volumes
+      until 10 Oct (ISS-049).
+
+**1. Consistency: OWL 2 DL (OpenCyc as one knowledge base, nothing removed).**
+- [x] `make -C opencyc ttl repair profile STAGE=repaired`: ten SPARQL Update
+      fixes (`opencyc/fixes/NN-*.ru`) take the export from ~1.02M OWL 2 DL
+      profile violations to 0 (ROBOT 1.9.10, 10 Oct). Lexical predicates become
+      annotation properties, one kind per property, CFASL integers decoded
+      ("M4I" = 2), OWL built-ins the export wrote for Cyc constants mapped
+      back (`owl:Thing` to `#$Thing`, `rdfs:subClassOf` to `#$genls`, `rdfs:range` to
+      `#$arg2Isa`), statements OWL 2 DL cannot state kept as `fix:` annotations.
+- [ ] HermiT consistency and classification of the repaired KB (3.1M triples;
+      running 10 Oct). If the full KB is too large for HermiT: Konclude, or
+      locality-based modules (provably complete for every entailment over the
+      chosen terms; not a slice of the KB).
+- [ ] The Tensor in OWL (`the-tensor.ttl`, 30-50 triples importing OpenCyc):
+      the affidavit (score is a proposal, not what the viewer feels; output
+      R(e*, kappa, e_V); container independence; thresholds; somatic loop and
+      the three kappa_r modes; the Pensieve claim; "artistic and systems-design,
+      not clinical"). Expected findings: "Two operating modes" with three in
+      the table (cardinality: certain); the mode Safety has no OpenCyc class;
+      the mode Language is a FirstOrderCollection disjoint with VisualWork
+      (a film), not an emotion type; the Pensieve file "stores" an experience
+      (InformationBearingThing vs mental event: to be checked). Worth it if the
+      reasoner finds more than a text linter would.
+
+**2. Proof: Lean 4 and Aesop, microtheories as scopes.**
+- [ ] Generate Lean from NextKB (KRF is Lisp syntax): collections, `genls`,
+      `isa`, disjointness, the 681 rules as Aesop rules in one rule set per
+      microtheory; each microtheory a scope (assumptions as parameters, not
+      global axioms), so a contradiction stays inside its microtheory.
+- [ ] The paper's own disclaimers become microtheories (ArtisticDesignMt vs
+      ClinicalMt): Sherlock checks that no clinical-context claim is made
+      without evidence. The affidavit, and the legal use.
+- [ ] Physics through Mathlib and physlib (already in the lakefile).
+
+**3. Analogy: structure mapping and qualitative processes (NextKB/QRG ideas;
+the tools themselves not needed).**
+- [ ] SME-style structure mapping (Gentner; Falkenhainer, Forbus & Gentner
+      1989): compares two descriptions by relational structure; gives a score,
+      the correspondences and the candidate inferences. Tests the programme's
+      cross-domain claims, graded (Lean functors are the strict end). First
+      test: The Tensor's three containers (River, Body, Session: "all three are
+      the same film") against the score.
+- [ ] MAC/FAC retrieval over a case library of the programme's claims: "where
+      else have I claimed this structure?" Cross-paper consistency, and case
+      law's precedent search (Law book).
+- [ ] QP theory (Forbus): The Tensor's somatic loop as a qualitative model
+      (H-dot pushes toward a threshold; kappa_r sets coupling; a threshold
+      crossing is a limit point); a qualitative simulation tests whether the
+      river film's phases are reachable.
+- [ ] Text to facts without guessing: NextKB's semantic translations (FrameNet
+      frames mapped to OpenCyc; QP frames with narrative functions) as the
+      target vocabulary and validator for the later LLM front end.
+- [ ] Sketch understanding (CogSketch's idea): the author's handwritten A5
+      film pages (ISS-053) to a qualitative structure. Speculative; last.
+
+**Doable?** (assessment, 10 Oct)
+- OWL consistency and The Tensor test: yes, days; the open risk is HermiT's
+  speed and memory on the whole KB (fallbacks above).
+- SME core and MAC/FAC: yes, days to a week; the algorithm is published and
+  small; Case Mapper can give reference results.
+- QP for one model (The Tensor's few quantities): yes, days; a general QP
+  simulator: no.
+- Lean from NextKB: yes for the taxonomy and simple rules, weeks; CycL's
+  higher-order and default reasoning do not map one-to-one and need choices.
+- Text to facts from NuLex/FrameNet: medium; QRG's parser is not the part we
+  get, so the LLM does the parsing and the semantic translations check it.
+- Sketch understanding: hard; not before the rest works.
