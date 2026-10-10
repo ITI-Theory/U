@@ -2180,4 +2180,68 @@ Steps:
 - [ ] Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
       this framing; keep the cockpit only as "the view out of the window" onto
       the landscape.
+---
+
+## ISS-053: The externalising machine: you compose your own film, the AI only asks — OPEN
+{{Tags area.instrument}}
+{{Fields date.created=2026-10-10, date.start=, date.end=, epic=}}
+
+Author, 10 Oct 04:26 (last thought before sleep): we have 32 knobs on screen
+(and MIDI Fighter Twister-style controllers, 16 per bank), each with sub-knobs.
+The Tensor is a film made of knobs over time. And it dawned on him: the whole
+programme is a **Sensory and Emotion eXternalising machine**. Problem: nobody
+knows how to set all those knobs. The common solution, "let the AI do it",
+breaks the path: if the AI sets them, *I* am not expressing my emotions. His
+solution: **I set the knobs.** I write the story of the film by hand, at most
+ten A5 pages in note style; that is the film. The AI (or a therapist, in exactly
+the same role, or both together) **questions me**: how I feel, why the film
+starts where it does, a few emotions it thinks relevant, and so on; my answers
+set the knobs.
+
+Research to check (author's memory; from Copilot's memory, to be verified with
+H-AL and the papers): US work found about 13 distinct emotions evoked by music
+and about 27 to 30 in visual material (short videos), probably Cowen and
+Keltner, PNAS 2017 (27 categories, videos) and Cowen et al., PNAS 2020 (13,
+music). That gives the knob vocabulary: 13 for sound, ~27 for picture.
+
+Opinion (Copilot, 10 Oct):
+
+- Right, and it is already in The Tensor: "Composing with the Score" lists five
+  questions a composer answers (which modes, the arc, where the thresholds
+  are, how deep, the return topology). The AI interview is those questions
+  asked of a person about their own story. The person is the composer; the
+  AI is the interviewer, never the author.
+- Keep the path unbroken with provenance: every knob value carries the
+  sentence of the person's own answer it came from, and the person can see
+  and override every value. The AI may propose ("you said 'the river
+  narrowed'; is that fear, or curiosity?"); only the person decides.
+- Knobs in layers, so nobody sets 32 by hand: the seven Tensor modes (or 13
+  for music) are the macros the person sets by answering; each macro drives
+  its sub-knobs through the rendering maps already in the paper; a 16-knob
+  controller can play the macros live.
+- Handwriting first is good: slow, embodied, owned. The pages are
+  photographed and read in; the interview starts from them.
+- A therapist in the same role is the same protocol, which is why it fits
+  Gestalt work ("what are you feeling now, as you say that?"). Cautions: it
+  is not therapy by itself; stop rules for distress; the AI asks and
+  reflects, never interprets or diagnoses; pages and answers stay private
+  (Me, not U).
+
+Steps:
+
+- [ ] Ask H-AL (when NotebookLM is logged in again; it expired 02:50 and again
+      at 04:26, so `make nlm-usage` also failed). Question: "The Cowen and
+      Keltner findings (13 emotions in music, about 27 in video): what do the
+      sources say, and how do they map onto The Tensor's seven modes, the
+      eight BRECVEMA mechanisms and the 32 on-screen knobs? How should an
+      AI interview turn ten handwritten pages into a score without the AI
+      becoming the author?" Then print `make nlm-usage`.
+- [ ] The interview protocol (a document first): the five composer questions,
+      emotion probes, provenance per answer, stop rules; same script for an
+      AI or a therapist.
+- [ ] The score editor: knobs per mode over story-time, each value linked to
+      the answer it came from; the person overrides; saves a score file
+      (registry/scores format; private scores in Me).
+- [ ] Pages in: photograph ten A5 pages, read them in, keep them private.
+- [ ] MIDI: a 16-knob controller (Web MIDI) for the macros, live.
 
