@@ -6,7 +6,12 @@
 --
 -- Use in a defaults file:  from: <path>/lib/format/visualize-reader.lua
 
-local FORMAT = "markdown+yaml_metadata_block+tex_math_dollars+citations+smart"
+-- Superset of the extensions used by every defaults file that names this reader
+-- (pdf-a4.yaml, html.yaml, book.yaml): raw_tex/raw_html/fenced_divs/bracketed_spans/
+-- pipe_tables/implicit_figures are needed by the book-class sources (\newpage,
+-- fenced boxes); adding them is a no-op for sources that do not use that syntax.
+local FORMAT = "markdown+yaml_metadata_block+tex_math_dollars+citations+smart" ..
+  "+raw_tex+raw_html+fenced_divs+bracketed_spans+pipe_tables+implicit_figures"
 
 local function protect(text)
   return (text:gsub("{{%s*Visualize.-}}", function(macro)

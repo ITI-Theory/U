@@ -602,6 +602,8 @@ For the soma-field, the Hamiltonian takes the form:
 
 $$H(\mathbf{e}) = -\frac{1}{2}\sum_{i,j} W_{ij}\, e_i\, e_j - \sum_i \theta_i\, e_i$$
 
+{{Visualize | the-hamiltonian | energy-landscape:soma | U="-1.0*exp(-x^2/0.6) - 0.5*exp(-(x+2.2)^2/0.3) - 0.5*exp(-(x-2.2)^2/0.3) - 0.9*exp(-(x-4.4)^2/0.08)"; x=[-4,6]; ball=0 }} An illustrative one-dimensional slice through the energy landscape above: Calm (centre) is the widest and deepest regulated basin; Fight and Flight (either side) are moderate secondary basins; Freeze (far right), though occupying little of the state space, is the deepest and narrowest funnel — matching Figure 3.2's basin map. No concrete $W_{ij}$ or $\theta_i$ are given in this general form, so the depths and positions are illustrative.
+
 Let us read this in plain English.
 
 The first term, $-\frac{1}{2}\sum_{i,j} W_{ij}\, e_i\, e_j$, captures the *interactions
@@ -930,6 +932,8 @@ For C-PTSD, the memory kernel takes the form:
 
 $$K_{\text{trauma}}(\tau) = \sum_k A_k\, e^{-|\tau|/\tau_k}$$
 
+{{Visualize | the-memory-kernel | function-plot:soma | f="A1*exp(-abs(x)/tau1) + A2*exp(-abs(x)/tau2)"; A1=1; tau1=3; A2=0.4; tau2=30; x=[-60,60]; xlabel="time since trace activation $\tau$ (illustrative units)"; ylabel="$K_\text{trauma}(\tau)$ (illustrative $A_k$)" }} The memory kernel above as a sum of two illustrative traces: a fast-fading one ($\tau_1$) and a slow-fading one ($\tau_2$) — the structural reason an early, long-lived trace can still shape the field long after a later, shorter one has faded.
+
 This is a sum of decaying exponentials. Each term represents a distinct trauma trace:
 $A_k$ is the amplitude (how strongly the trace affects the current field) and $\tau_k$
 is the decay time (how long the trace persists before fading).
@@ -1097,6 +1101,8 @@ where $f$ is a smooth interpolation function:
 
 $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right)$$
 
+{{Visualize | the-interpolation | function-plot:soma | f="tanh(x/36)"; x=[0,120]; value_at=36; expect_value=0.76; expect_tol=0.003; xlabel="developmental age at trauma $\tau_d$ (months)"; ylabel="$f(\tau_d)$ = baseline fraction" }} The interpolation function above, at the stated $\tau_c\approx36$ months: the program checked that $f(\tau_c)=\tanh(1)\approx0.76$, the three-quarters baseline fraction the figure below describes.
+
 ![The structural fraction $f(\tau_d)=\tanh(\tau_d/\tau_c)$. The curve describes what proportion of the coupling matrix is neurotypical baseline $W_0$ versus trauma-formed $W_{\text{trauma}}$ as a function of developmental age at trauma. At $\tau_d=\tau_c\approx36$ months, the baseline accounts for about three-quarters of the coupling.](figures/fig_structural_fraction.pdf){width=95%}
 
 At $\tau_d = 0$: $f = 0$ and $W = W_{\text{trauma}}$. There is no baseline component.
@@ -1257,6 +1263,8 @@ occasionally crossing a phase boundary into a new basin.
 One equation governs all three:
 
 $$\ddot{x} = -\nabla V(x) + F_{\text{ext}}$$
+
+{{Visualize | everything-floats | energy-landscape:earth | U="(x^2-1)^2"; x=[-2,2]; ball=-1 }} An illustrative double-well slice of the single equation above: a ball rolling toward the nearest valley under gradient descent, with an external push $F_\text{ext}$ able to tip it over the ridge — the same picture the text applies to a galaxy, a tectonic plate and a nervous system, 25 orders of magnitude apart.
 
 A galaxy, a tectonic plate, a nervous system: all governed by gradient descent on a
 potential with external forcing. The scales span 25 orders of magnitude. The structure
@@ -1475,6 +1483,8 @@ In quantum mechanics, the state of a system evolves in time via the time evoluti
 operator:
 $$U(t) = e^{-i\hat{H}t/\hbar}$$
 
+{{Visualize | the-wick-rotation-one-substitution | function-plot:quantum | f="cos(omega*x)"; vary=omega:1,2,4; x=[0,10]; xlabel="time $t$ (illustrative, $\hat H/\hbar\to\omega$)"; ylabel="$\mathrm{Re}\,U(t)$" }} The real part of the time-evolution operator above, at three illustrative frequencies $\omega$ standing in for $\hat H/\hbar$: a quantum state oscillates in time rather than decaying — the behaviour the Wick rotation below removes.
+
 The key feature is the $i$ — the imaginary unit. This makes the exponential oscillatory:
 $e^{-i\omega t} = \cos(\omega t) - i\sin(\omega t)$. A quantum state oscillates in time
 rather than decaying.
@@ -1483,6 +1493,8 @@ Now make the substitution $t \to -i\tau$ — replacing real time with imaginary 
 is the **Wick rotation**, named after Gian-Carlo Wick (1954):
 
 $$e^{-i\hat{H}(-i\tau)/\hbar} = e^{-\hat{H}\tau/\hbar}$$
+
+{{Visualize | the-wick-rotation-one-substitution | function-plot:quantum | f="exp(-k*x)"; vary=k:0.5,1,2; x=[0,5]; xlabel="imaginary time $\tau$ (illustrative, $\hat H/\hbar\to k$)"; ylabel="$e^{-\hat H\tau/\hbar}$" }} The substitution above turns the oscillation of the previous figure into this real decaying exponential — the Boltzmann weight of statistical mechanics, and the shape of the trauma memory kernel two sections on.
 
 The oscillatory phase has become a real decaying exponential. This is the Boltzmann
 weight $e^{-\beta\hat{H}}$ from statistical mechanics (at inverse temperature
@@ -2323,6 +2335,8 @@ novel, or therapy session is:
 
 $$\text{Realisation} = \bigl(\mathbf{e}^*(t),\; \text{Container}\bigr)$$
 
+{{Visualize | the-emotional-score | type-decomposition:generic | whole="Realisation"; parts="emotional score $\mathbf{e}^*(t)$, narrative container" }} The equation above as a picture: a realisation is the pairing of an emotional score with whatever container tells its story — the same score can run through a river journey, a war, a marriage or a therapy session.
+
 The container provides the narrative surface: characters, setting, imagery, plot. The
 emotional score provides the dynamics: which modes activate, in what sequence, at what
 coupling strength.
@@ -2597,6 +2611,8 @@ cycles in the landscape.
 ### A.4 The Memory Kernel
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \int_0^t K(t-s)\,\mathbf{e}(s)\,ds + \sigma_0\,\eta(t)$$
+
+{{Visualize | a.4-the-memory-kernel | convolution:soma | input="exp(-((t-3)/0.4)^2) + exp(-((t-15)/0.4)^2)"; kernel="exp(-t/5)"; x=[0,25]; input_label="two activation episodes"; kernel_label="memory kernel, illustrative $\tau_k=5$"; output_label="field response $\mathbf{e}(t)$"; xlabel="time" }} The full dynamics above as a convolution: two illustrative activation episodes (top) each start a copy of the decaying memory kernel (middle); the field's present state (bottom) is their sum — a second episode arriving before the first has faded adds to, rather than replaces, its trace.
 
 $$K(\tau) = \sum_k A_k\, e^{-\tau/\tau_k}$$
 
