@@ -1,0 +1,45 @@
+# The River Film: the emotional score of The Tensor (paper/soma/the-tensor, Appendix),
+# as a machine-readable file. The score is what the film proposes, not what a viewer
+# feels; the renderer (score.js, the SCORE stop of the mind-body explorer) plays it.
+# Keyframes: story-time t in [0, 1] -> the seven modes, each in [0, 1].
+id: river-film
+title: The River Film
+version: '0.1'
+source: paper/soma/the-tensor/the-tensor.md
+minutes: 90   # at kappa_v = 1
+modes:
+- {id: S, name: Safety}
+- {id: F, name: Fear}
+- {id: C, name: Curiosity}
+- {id: A, name: Awe}
+- {id: G, name: Grief}
+- {id: L, name: Language}
+- {id: PV, name: Pre-verbal}
+coupling:   # W_ij: mode `from` drives mode `to` (not yet used by the renderer)
+- {from: F, to: A, weight: 0.4}
+- {from: A, to: G, weight: 0.3}
+- {from: L, to: PV, weight: -0.6}
+- {from: PV, to: L, weight: -0.6}
+keyframes:  # t: [S, F, C, A, G, L, PV]
+- [0.0, [0.90, 0.10, 0.30, 0.10, 0.10, 0.90, 0.10]]
+- [0.1, [0.80, 0.10, 0.50, 0.10, 0.10, 0.90, 0.10]]
+- [0.2, [0.70, 0.20, 0.70, 0.10, 0.10, 0.80, 0.10]]
+- [0.3, [0.50, 0.30, 0.80, 0.20, 0.10, 0.70, 0.20]]
+- [0.4, [0.30, 0.50, 0.70, 0.30, 0.20, 0.50, 0.30]]
+- [0.5, [0.20, 0.70, 0.50, 0.40, 0.30, 0.30, 0.50]]
+- [0.6, [0.10, 0.40, 0.30, 0.60, 0.40, 0.10, 0.70]]
+- [0.7, [0.10, 0.20, 0.20, 0.90, 0.50, 0.05, 0.90]]
+- [0.8, [0.20, 0.10, 0.30, 0.70, 0.60, 0.20, 0.60]]
+- [0.9, [0.50, 0.10, 0.50, 0.40, 0.40, 0.60, 0.20]]
+- [1.0, [0.90, 0.10, 0.50, 0.20, 0.20, 0.90, 0.10]]
+thresholds:
+- {id: T1, t: 0.52, from: approach / hypervigilance, to: awe-onset, condition: 'F > 0.7 AND A rising', hold: true}
+- {id: T2, t: 0.74, from: awe-onset, to: encounter, condition: 'L < 0.1 AND PV > 0.85', hold: true}
+phases:
+- {t: 0.0, name: 'Departure', line: 'The boat leaves the last town. The journey has begun.'}
+- {t: 0.25, name: 'Descent', line: 'The river narrows. Something navigable is becoming something that navigates you.'}
+- {t: 0.52, name: 'Threshold 1', line: 'The moment you cannot go back. Not a decision. A discovery.'}
+- {t: 0.53, name: 'The Deep River', line: 'It does not speak in sentences. It does not need to.'}
+- {t: 0.74, name: 'Threshold 2', line: 'The oldest loss, the one that precedes memory.'}
+- {t: 0.75, name: 'Return', line: 'The world has not changed. You have.'}
+defaults: {kappa_d: 0.70, kappa_v: 1.00, kappa_r: 0.00, kappa_t: 0.40, kappa_W: 1.00}

@@ -1169,6 +1169,8 @@ function readHashState() {
     phi: params.get('phi'),
     feel: params.get('feel'),
     resource: params.get('resource'),
+    kv: params.get('kv'),
+    st: params.get('st'),
   };
 }
 
@@ -1664,6 +1666,7 @@ function applyVoyage(hashState) {
     screens?.setFx(phi);
   }
   if (hashState.feel) explorer.setFeel(hashState.feel);
+  explorer.setScore({ kv: hashState.kv ?? 1, st: hashState.st ?? 0 });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
   state.voyage = VOYAGE_STOPS.includes(hashState.voyage) ? hashState.voyage : null;

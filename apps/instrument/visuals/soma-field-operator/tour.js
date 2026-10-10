@@ -10,7 +10,7 @@ import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
-  'voyage', 'phi', 'feel', 'resource']);
+  'voyage', 'phi', 'feel', 'resource', 'kv', 'st']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
@@ -57,7 +57,8 @@ export function viewProblems(view) {
   for (const [key, value] of params) {
     if (!TOUR_KEYS.has(key)) problems.push(`unknown key ${key}`);
     else if (FIXED[key] && !FIXED[key].includes(value)) problems.push(`${key}=${value} not allowed`);
-    else if (key === 'phi' && !PHI.test(value)) problems.push(`phi=${value} not a number from 0 to 1`);
+    else if ((key === 'phi' || key === 'st') && !PHI.test(value)) problems.push(`${key}=${value} not a number from 0 to 1`);
+    else if (key === 'kv' && !(Number(value) >= 0.1 && Number(value) <= 3)) problems.push(`kv=${value} not from 0.1 to 3`);
     else if (IDS[key] && !IDS[key].has(value)) problems.push(`unknown ${key} ${value}`);
   }
   return problems;

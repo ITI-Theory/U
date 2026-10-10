@@ -10,6 +10,8 @@
 import { createDyad3D, createLandscape3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
+import { createScorePlayer, MODE_IDS } from './score.js';
+import { scores } from './generated/app-data.js';
 import { createExplorerMusic } from './explorer-music.js';
 
 const TAU = Math.PI * 2;
@@ -33,7 +35,7 @@ const temperature = phi => T0 + SIGMA * phi;
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
 export const STEREO_MODES = ['off', 'half', 'full'];
-export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight'];
+export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight', 'score'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
@@ -46,10 +48,11 @@ export const STOP_LEVELS = {
   flight: { level: null }, // the level being shown
   tunnel: { level: 'whole-brain-cemi', dim: 11 },
   ureter: { level: 'human-vertebrate', dim: 4 },
+  score: { level: 'whole-brain-cemi', dim: 11 },
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -112,6 +115,11 @@ const CAPTIONS = {
     4: 'The view down a ureteroscope: smooth-muscle walls with waves of peristalsis, urine flowing. A stone blocks the path; the flow dams behind it and the colic rises (the red pulse). Unlike the gates of PATH, a stone is mechanical: Φ, calm or alarm, does not open it. POKE is the laser: three shots break it to dust, the flow returns and the colic eases.',
     8: 'Electrical layer: visceral pain travels as C-fibre signals to the spinal cord and on to the insula, and the body answers (heart rate, guarding). Raise Φ and the same stone hurts more: the alarm amplifies the signal.',
     11: 'A teaching picture, not medical advice or a model of any patient.',
+  },
+  score: {
+    title: 'THE RIVER FILM · SCORE', label: 'interpretive',
+    4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
+    8: 'At each threshold the film holds until the viewer is ready: POKE stands in for the biofeedback the paper describes (Projection mode, kappa_r = 0). Velocity kappa_v: ?kv= in the link (0.1 to 3; 90 minutes at 1).',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1108,6 +1116,71 @@ function makeUreter() {
   };
 }
 
+// ---------------------------------------------------------------- stop: the score (The Tensor)
+
+const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G: '#8ecbff', L: '#e8eefc', PV: '#ff7aa8' };
+
+function makeScore() {
+  let gl = null;
+  let player = null;
+  let params = '';
+  return {
+    focus: [0, 0],
+    tick(env) {
+      const key = `${env.kv}|${env.st}`;
+      if (!player || key !== params) {
+        params = key;
+        player = createScorePlayer(scores?.[0], { kappaV: env.kv, start: env.st });
+      }
+      player.step(env.dt);
+    },
+    poke(strength) {
+      if (player?.holding) player.ready();
+      else gl?.poke(strength);
+    },
+    draw(ctx, env) {
+      const { u, t } = env;
+      if (!player) return;
+      const m = player.modes();
+      if (env.gl) {
+        gl = env.gl;
+        gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m });
+      }
+      if (!env.labels) return;
+      // the score: seven bars, story-time, the phase
+      const names = player.names();
+      const x0 = -0.95 * (env.w / 2) / u + 0.05;
+      MODE_IDS.forEach((id, k) => {
+        const y = -0.55 + k * 0.06;
+        label(ctx, u, names[k] ?? id, x0, y, MODE_COLORS[id], 'left', 0.024);
+        ctx.save();
+        ctx.fillStyle = 'rgba(232,238,252,0.12)';
+        ctx.fillRect((x0 + 0.24) * u, (y - 0.012) * u, 0.3 * u, 0.024 * u);
+        ctx.fillStyle = MODE_COLORS[id];
+        ctx.fillRect((x0 + 0.24) * u, (y - 0.012) * u, 0.3 * m[id] * u, 0.024 * u);
+        ctx.restore();
+      });
+      const bar = { x: -0.6, w: 1.2, y: 0.78 };
+      ctx.save();
+      ctx.fillStyle = 'rgba(232,238,252,0.15)';
+      ctx.fillRect(bar.x * u, bar.y * u, bar.w * u, 0.01 * u);
+      ctx.fillStyle = COLORS.gold;
+      ctx.fillRect(bar.x * u, bar.y * u, bar.w * player.t * u, 0.01 * u);
+      for (const th of scores?.[0]?.thresholds ?? []) ctx.fillRect((bar.x + bar.w * th.t) * u - 1, (bar.y - 0.02) * u, 2, 0.05 * u);
+      ctx.restore();
+      const phase = player.phase();
+      const mins = (player.t * player.seconds) / 60;
+      label(ctx, u, `${scores?.[0]?.title ?? ''} · ${phase.name} · t = ${player.t.toFixed(3)} · ${mins.toFixed(1)} min · κv ${player.velocity}`, 0, bar.y - 0.04, COLORS.dim, 'center', 0.024);
+      // words fade with the Language mode: at the bottom of the river there are none
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, Math.min(1, (m.L - 0.1) / 0.6));
+      label(ctx, u, phase.line, 0, 0.66, COLORS.ink, 'center', 0.034);
+      ctx.restore();
+      if (player.holding) label(ctx, u, `THRESHOLD ${player.holding.id} · ${player.holding.from} → ${player.holding.to} · holding until ready (POKE)`, 0, -0.7, COLORS.gold, 'center', 0.03);
+    },
+  };
+}
+
 // ---------------------------------------------------------------- stop: fly
 
 function makeFlight() {
@@ -1616,7 +1689,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
 export const simulation = { memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
@@ -1671,6 +1744,7 @@ export function createExplorer(hooks = {}) {
     depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1,
     // ?film=1: the film pace (0.6) and the controls hidden until the mouse moves; ?pace= sets it
     film: new URLSearchParams(location.search).get('film') === '1',
+    kv: 1, st: 0,
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
   // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
   // per eye with opposite shifts; the 3D landscape renders its own two eyes.
@@ -1696,6 +1770,7 @@ export function createExplorer(hooks = {}) {
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
     ureter: () => createTunnel3D({ ureter: true }),
+    score: () => createFlight3D(),
   };
   const gls = {};
   function stageGl(stop) {
@@ -1916,7 +1991,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource });
     if (stereo) {
       prepareLayers(lw);
@@ -2112,6 +2187,10 @@ export function createExplorer(hooks = {}) {
       if (!Number.isFinite(value)) return;
       st.phi = value;
       syncUi();
+    },
+    setScore({ kv, st: start } = {}) {
+      if (Number.isFinite(Number(kv)) && kv !== null && kv !== '') st.kv = Number(kv);
+      if (Number.isFinite(Number(start)) && start !== null && start !== '') st.st = Number(start);
     },
     setFeel(f) { if (FEELINGS[f]) { st.feel = f; syncUi(); } },
     setResource(on) { st.resource = Boolean(on); syncUi(); },

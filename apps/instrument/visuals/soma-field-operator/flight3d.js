@@ -262,9 +262,13 @@ uniform float uPower;
 uniform float uTime;
 uniform float uPhi;
 uniform float uSurge;
+uniform float uScore;   // 1 when an emotional score drives the picture (The Tensor)
+uniform float uS, uF, uA, uG, uPV;
 float de(vec3 p, out float trap) {
   vec3 z = p; float dr = 1.0; float r = 0.0; trap = 1e9;
+  float iters = uScore > 0.5 ? 3.0 + 6.0 * uPV : 9.0;
   for (int i = 0; i < 9; i++) {
+    if (float(i) >= iters) break;
     r = length(z);
     if (r > 2.0) break;
     float th = acos(clamp(z.z / r, -1.0, 1.0)) * uPower + uTime * 0.05;
@@ -299,9 +303,20 @@ void main() {
   vec3 cool = mix(vec3(0.25, 0.35, 1.0), vec3(1.0, 0.3, 0.75), clamp(trap, 0.0, 1.0));
   vec3 warm = mix(vec3(1.0, 0.55, 0.2), vec3(1.0, 0.2, 0.45), clamp(trap, 0.0, 1.0));
   vec3 base = mix(cool, warm, uPhi);
+  float light = 1.0;
+  float rim = 0.25;
+  if (uScore > 0.5) {
+    // The Tensor's visual map: safety warm and light, fear cold with hard edges,
+    // grief desaturated, awe the power (set on the CPU)
+    base = mix(cool, warm, uS);
+    base = mix(base, vec3(0.35, 0.55, 1.0), 0.55 * uF);
+    base = mix(base, vec3(dot(base, vec3(0.3, 0.59, 0.11))), 0.8 * uG);
+    light = 0.45 + 0.75 * uS + 0.3 * uA;
+    rim = 0.15 + 0.7 * uF;
+  }
   float diff = clamp(dot(n, normalize(vec3(0.6, 0.8, 0.4))), 0.0, 1.0);
   float ao = 1.0 - steps / 110.0;
-  vec3 col = base * (0.25 + 0.75 * diff) * ao + 0.25 * pow(1.0 - abs(dot(n, -dir)), 3.0) * vec3(1.0, 0.8, 1.0);
+  vec3 col = light * base * (0.25 + 0.75 * diff) * ao + rim * pow(1.0 - abs(dot(n, -dir)), 3.0) * vec3(1.0, 0.8, 1.0);
   col = mix(col, bg, clamp(t / 8.0, 0.0, 1.0));
   gl_FragColor = vec4(col, 1.0);
 }`;
@@ -314,6 +329,7 @@ function createBulb() {
       uRes: { value: new THREE.Vector2() }, uView: { value: new THREE.Vector4() },
       uCamWorld: { value: new THREE.Matrix4() }, uProjInv: { value: new THREE.Matrix4() },
       uPower: { value: 8 }, uTime: { value: 0 }, uPhi: { value: 0 }, uSurge: { value: 0 },
+      uScore: { value: 0 }, uS: { value: 0 }, uF: { value: 0 }, uA: { value: 0 }, uG: { value: 0 }, uPV: { value: 0 },
     },
     depthTest: false, depthWrite: false,
   });
@@ -329,7 +345,10 @@ function createBulb() {
       eye.updateMatrixWorld();
       u.uCamWorld.value.copy(eye.matrixWorld);
       u.uProjInv.value.copy(eye.projectionMatrixInverse);
-      u.uPower.value = 8 + 2 * state.phi + Math.sin(state.time * 0.1) * 0.3;
+      const sc = state.score;
+      u.uScore.value = sc ? 1 : 0;
+      if (sc) for (const k of ['S', 'F', 'A', 'G', 'PV']) u[`u${k}`].value = sc[k];
+      u.uPower.value = sc ? 2 + 6 * sc.A : 8 + 2 * state.phi + Math.sin(state.time * 0.1) * 0.3;
       u.uTime.value = state.time;
       u.uPhi.value = state.phi;
       u.uSurge.value = state.surge;
@@ -356,6 +375,7 @@ export function createFlight3D() {
   let tiles = [];
   let sector = '';
   let bulb = null;
+  let orbit = 0;
   let travelled = 0;
   let surge = 0;
   let last = 0;
@@ -416,13 +436,17 @@ export function createFlight3D() {
         bulb ??= createBulb();
         // a slow spiral in towards the surface and back out; a surge pushes in
         const tt = state.time;
-        const radius = 2.15 - 0.55 * (0.5 + 0.5 * Math.sin(tt * 0.045)) - 0.3 * surge;
-        camera.position.set(Math.sin(tt * 0.06) * radius, 0.35 * Math.sin(tt * 0.04), Math.cos(tt * 0.06) * radius);
+        const sc = state.score;
+        // curiosity: how far in the camera explores; grief: a slower orbit
+        const reach = sc ? 0.25 + 0.6 * sc.C : 0.55;
+        const radius = 2.15 - reach * (0.5 + 0.5 * Math.sin(tt * 0.045)) - 0.3 * surge;
+        orbit += (sc ? 0.06 * (1 - 0.7 * sc.G) : 0.06) * dt;
+        camera.position.set(Math.sin(orbit) * radius, 0.35 * Math.sin(tt * 0.04), Math.cos(orbit) * radius);
         camera.lookAt(0, 0, 0);
         renderer.getSize(size);
         const pr = renderer.getPixelRatio();
         const full = new THREE.Vector4(0, 0, size.x * pr, size.y * pr);
-        const bulbState = { phi: state.phi, time: tt, surge };
+        const bulbState = { phi: state.phi, time: tt, surge, score: state.score };
         if (state.stereo === 'half' || state.stereo === 'full') {
           camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
           camera.updateProjectionMatrix();

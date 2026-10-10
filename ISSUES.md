@@ -2063,6 +2063,27 @@ Steps:
       (generate.py). `?film=1` plays at film pace (0.6; `?pace=` to set) with
       the controls hidden and H-AL's line as a subtitle; add `&stereo=half` for
       the projector.
+- [x] **The Tensor's skeleton** (author, 10 Oct 02:48: "look at The Tensor, the
+      film paper, do we have the skeleton for it?"). Mapping (paper Part I to
+      the app): emotional score e*(t) → `registry/scores/river-film.yaml` (the
+      paper's appendix as valid YAML, checked by generate.py) and `score.js`
+      (interpolation, story-time); threshold events with hold_until_ready →
+      the player holds at T1/T2 until POKE (standing in for biofeedback) or a
+      κ_d timer; κ_v → `kv=` (0.1-3); rendering function R, visual map → the
+      raymarched Mandelbulb (awe → power 2-8, safety → warmth and light, fear
+      → cold hue and rim, grief → desaturation and slow orbit, pre-verbal →
+      iteration depth, curiosity → camera reach), Language → subtitles fade
+      out; container → the explorer stops and tours (the paper's "Body"
+      container is the mind-body explorer itself); the trilogy and string
+      diagrams → the dyad. New stop SCORE (`#voyage=score&kv=1&st=0`).
+      H-AL could not be asked (NotebookLM login expired again at 02:50).
+- [ ] The Tensor, next: (1) audio map (explorer-music from the score: safety →
+      reverb, fear → tritones, pre-verbal → grain); (2) the somatic loop: a
+      heart-rate input (Web Bluetooth HRV strap, or a manual slider) as
+      e_V(t), Ḣ as the hold signal, κ_r Projection/Resonance/Mirror; (3) the
+      remaining knobs κ_d, κ_t, κ_m, κ_W and the coupling W*; (4) containers:
+      river, body (the explorer), session (the consulting room) under one
+      score; (5) the full 90-minute River Film as a tour of the score.
 - [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
       and credits; the author's review of every line; OpenStax Anatomy &
       Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not
