@@ -2141,6 +2141,11 @@ Steps:
       estimates. explorer-check: breathing 15/min recovered, a slow 6/min rhythm coherent,
       irregular beats not, a calm coherent heart raises Safety. Estimates for the film, not
       clinical measures; to test with a strap in UAT.
+- [ ] (11 Oct 00:15, to check in UAT: the page must be visible and touched once) The full
+      River Film, 90 minutes: `?film=1#voyage=score&st=0&kv=1&kc=river` (any SETTING), MUSIC
+      on; in film mode H-AL speaks each phase line of the score as story-time reaches it
+      (after the viewer has touched the page, as browsers require); thresholds hold as the
+      loop says. Next: phase lines in the author's words, and a recording.
 - [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
       and credits; the author's review of every line; OpenStax Anatomy &
       Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not

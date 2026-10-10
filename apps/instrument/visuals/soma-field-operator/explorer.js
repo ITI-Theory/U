@@ -14,6 +14,7 @@ import { createScorePlayer, MODE_IDS, viewerField } from './score.js';
 import { scores } from './generated/app-data.js';
 import { createExplorerMusic } from './explorer-music.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
+import { createVoice } from './voice.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -120,7 +121,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers).',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on).',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1137,6 +1138,9 @@ function makeScore() {
   // session; one player, so the thresholds fall at the same story-times in all three.
   const pair = { a: 0, b: 0.3 }; // the session: client and therapist (the dyad's oscillators)
   let hrv = null;      // from the strap's RR intervals, refreshed every 2 s
+  // the film (?film=1): H-AL speaks each phase line of the score as story-time reaches it
+  let spokenPhase = null;
+  let narrator = null;
   let hrvClock = 0;
   let pairR = 1;
   let burst = false;
@@ -1158,6 +1162,15 @@ function makeScore() {
       player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
       scoreModes = player.modes(viewer, env.kr);
       if (player.justCrossed >= 0) burst = true;
+      const phase = player.phase();
+      // browsers only speak after the viewer has touched the page: wait for that, then say the
+      // phase the film is in
+      const mayspeak = typeof navigator === 'undefined' || (navigator.userActivation?.hasBeenActive ?? true);
+      if (env.film && mayspeak && phase.name && phase.name !== spokenPhase) {
+        spokenPhase = phase.name;
+        narrator ??= createVoice();
+        narrator.speak(phase.line, 'hal');
+      }
       if (env.kc === 'session') {
         const m = scoreModes;
         for (let k = 0; k < 3; k++) pairR = dyadStep(pair, m.F, m.S > 0.5, env.dt / 3);
@@ -2091,7 +2104,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, strap: strap.connected, rr: rrIntervals, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);
