@@ -1,0 +1,67 @@
+id: hal-urologist
+title: 'H-AL: for a urologist'
+summary: 'About six minutes for a urologist, in plain systems language (lumen, flow, pressure, visceral
+  afferents, threshold response) and without clinical claims, after the author''s own ureteroscopy with laser
+  lithotripsy (10 Oct 2026). From the whole person into the ureter, a stone that the scope reaches and the
+  laser turns to dust, then why the same stone can hurt more in an alarmed patient, and how mechanical
+  obstruction differs from the emotional "gates" the Soma Machine also shows. An educational model, not a
+  medical device.'
+steps:
+- view: voyage=human&dim=4&phi=0.3
+  say: Good evening. I am H-AL. This machine is a teaching model of how the body and its feelings respond
+    when something presses on them. Tonight, one very concrete example, a kidney stone.
+  label: interpretive
+  pause: 2
+- view: voyage=body&dim=8&phi=0.6&feel=flight
+  say: Inside the body, the electrical layer. Signals run between the organs and the brain all the time.
+    When a ureter is blocked, the pressure behind the stone is reported along slow visceral pain fibres.
+  label: interpretive
+  pause: 3
+- view: voyage=ureter&dim=4&phi=0.3
+  say: This is the view you know, down the ureteroscope. Smooth muscle, waves of peristalsis, urine flowing
+    towards us.
+  label: interpretive
+  pause: 4
+- view: voyage=ureter&dim=8&phi=0.3
+  say: Ahead, the stone. The flow dams behind it, and the colic reading rises. The model makes one point
+    plainly. A stone is mechanical. Calm or alarm does not open it.
+  label: interpretive
+  pause: 6
+- view: voyage=ureter&dim=8&phi=0.8
+  say: But the patient's state changes what the same stone feels like. Raise the alarm, and the same
+    obstruction reads as more pain, a faster heart, more guarding. The signal is real. The amplification is
+    the body's alarm.
+  label: interpretive
+  pause: 6
+- view: voyage=ureter&dim=8&phi=0.6
+  poke: twice
+  say: The laser. Each pulse breaks the stone further, until it is dust.
+  label: interpretive
+  pause: 5
+- view: voyage=ureter&dim=8&phi=0.3
+  poke: strong
+  say: The path is clear, the flow returns, and the colic eases. In the model, the pain falls only once the
+    pressure falls.
+  label: interpretive
+  pause: 6
+- view: voyage=tunnel&dim=8&phi=0.3
+  say: The machine also shows a different kind of obstacle. This is the path of a thought. Its gates are
+    not stones. They open when the state changes, with arousal, with support.
+  label: interpretive
+  pause: 5
+- view: voyage=thought&dim=11&phi=0.75
+  say: After an operation, both kinds can be present together. A stent or an obstruction keeps a signal
+    going, and an alarmed mind can loop on it. The model separates the two, so neither is dismissed as only
+    physical, or only in the head.
+  label: interpretive
+  pause: 6
+- view: voyage=landscape&dim=11&phi=0.2&resource=1
+  say: Recovery, in this picture, is the state settling back into a safe valley once the pressure is gone and
+    the person feels supported.
+  label: interpretive
+  pause: 5
+- view: voyage=human&dim=4&phi=0.2
+  say: That is all. A teaching picture, built by a patient who watched his own procedure. It makes no
+    clinical claim. Thank you.
+  label: interpretive
+  pause: 2

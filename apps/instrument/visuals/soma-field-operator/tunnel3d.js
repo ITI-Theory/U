@@ -57,7 +57,26 @@ for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <
   if ((x === 0) + (y === 0) + (z === 0) < 2) MENGER.push([x, y, z]);
 }
 
-export function createTunnel3D() {
+// URETER mode (a ureteroscope's view, for the urology Presentation): pink smooth-muscle
+// walls with peristaltic rings, urine flowing as particles, and one stone. The stone is a
+// mechanical obstruction, not a field barrier: Phi does not open it (unlike PATH's gates);
+// flow dams behind it and a colic reading rises. POKE is the laser: each shot breaks
+// pieces off and sprays dust; after three it is dust, flow returns, the colic eases. A new
+// stone forms after a while so the demonstration can repeat. Plain physiology plus a
+// picture; no clinical claim.
+function stoneGeometry(rand) {
+  const g = new THREE.IcosahedronGeometry(0.55, 2);
+  const p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const v = new THREE.Vector3(p.getX(i), p.getY(i), p.getZ(i));
+    v.multiplyScalar(0.75 + 0.45 * rand() * rand());
+    p.setXYZ(i, v.x, v.y, v.z);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
+export function createTunnel3D({ ureter = false } = {}) {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -67,8 +86,8 @@ export function createTunnel3D() {
   const canvas = renderer.domElement;
   canvas.className = 'explorer__gl';
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#060818');
-  scene.fog = new THREE.Fog('#060818', 3, 22);
+  scene.background = new THREE.Color(ureter ? '#1a0508' : '#060818');
+  scene.fog = new THREE.Fog(ureter ? '#1a0508' : '#060818', ureter ? 1 : 3, ureter ? 7 : 22);
   const camera = new THREE.PerspectiveCamera(70, 1, 0.02, 80);
   camera.focus = 2.2;
   const stereoCamera = new THREE.StereoCamera();
@@ -85,9 +104,17 @@ export function createTunnel3D() {
   const curve = new THREE.CatmullRomCurve3(control, true, 'catmullrom', 0.5);
   const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 360, 1.15, 14, true), new THREE.MeshBasicMaterial({ color: '#5ee7ff', wireframe: true, transparent: true, opacity: 0.16, depthWrite: false }));
   scene.add(tube);
+  if (ureter) {
+    tube.material = new THREE.MeshStandardMaterial({ color: '#8a2a3a', roughness: 0.35, metalness: 0.0, side: THREE.BackSide, emissive: '#3a0a12' });
+    // mucosa: fine vessels on the wall
+    const vessels = new THREE.Mesh(new THREE.TubeGeometry(curve, 360, 1.12, 10, true), new THREE.MeshBasicMaterial({ color: '#ff8a9a', wireframe: true, transparent: true, opacity: 0.18, depthWrite: false }));
+    scene.add(vessels);
+    scene.add(new THREE.PointLight('#fff0e0', 2.2, 6, 1.6));
+    scene.add(new THREE.AmbientLight('#ff9aa8', 0.15));
+  }
 
-  // gates: the boundaries on the path
-  const gates = Array.from({ length: GATES }, (_, k) => {
+  // gates: the boundaries on the path (none in URETER mode: the stone is the obstruction)
+  const gates = Array.from({ length: ureter ? 0 : GATES }, (_, k) => {
     const u = (k + 0.5) / GATES;
     const p = curve.getPointAt(u);
     const tangent = curve.getTangentAt(u);
@@ -109,9 +136,38 @@ export function createTunnel3D() {
   scene.add(ball);
 
   // the mind at the centre
-  const bulb = mandelbulb();
+  const bulb = ureter ? new THREE.Group() : mandelbulb();
   bulb.scale.setScalar(2.4);
   scene.add(bulb);
+
+  // URETER: the scope's light, peristaltic rings, urine flow, the stone
+  const light = ureter ? scene.children.find(o => o.isPointLight) : null;
+  const STONE_U = 0.5;
+  const rings = ureter ? Array.from({ length: 6 }, (_, k) => {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.05, 0.12, 8, 32), new THREE.MeshStandardMaterial({ color: '#e07a8c', roughness: 0.6 }));
+    scene.add(ring);
+    return { ring, u: k / 6 };
+  }) : [];
+  const FLOW = ureter ? 500 : 0;
+  const flowU = Float32Array.from({ length: FLOW }, () => Math.random());
+  const flowOff = Array.from({ length: FLOW }, () => new THREE.Vector3((Math.random() - 0.5) * 1.4, (Math.random() - 0.5) * 1.4, (Math.random() - 0.5) * 1.4));
+  const flowPos = new Float32Array(FLOW * 3);
+  const flowGeo = new THREE.BufferGeometry();
+  flowGeo.setAttribute('position', new THREE.BufferAttribute(flowPos, 3));
+  const flow = new THREE.Points(flowGeo, new THREE.PointsMaterial({ color: '#fff3b0', size: 0.025, transparent: true, opacity: 0.45, depthWrite: false }));
+  if (ureter) scene.add(flow);
+  const stone = { mesh: null, size: 0, pieces: [], dust: [], clearedAt: -1 };
+  function newStone() {
+    if (stone.mesh) scene.remove(stone.mesh);
+    stone.mesh = new THREE.Mesh(stoneGeometry(rand), new THREE.MeshStandardMaterial({ color: '#e0b860', roughness: 0.7, metalness: 0.1, flatShading: true, emissive: '#3a2a08' }));
+    stone.mesh.position.copy(curve.getPointAt(STONE_U));
+    stone.size = 3;
+    stone.mesh.scale.setScalar(1);
+    scene.add(stone.mesh);
+  }
+  if (ureter) newStone();
+  let colic = 0;
+  let stoneAhead = false;
 
   let walls = null;
   let world = '';
@@ -185,7 +241,7 @@ export function createTunnel3D() {
     scene.add(walls);
   }
 
-  let u = 0.02;
+  let u = ureter ? 0.44 : 0.02;
   let speed = 0;
   let last = 0;
   let blockedAt = -1;
@@ -196,6 +252,8 @@ export function createTunnel3D() {
     canvas,
     get event() { return event; },
     get blocked() { return blockedAt >= 0; },
+    get colic() { return colic; },
+    get stoneAhead() { return stoneAhead; },
     resize(w, h, dpr) {
       renderer.setPixelRatio(dpr);
       renderer.setSize(w, h, false);
@@ -203,9 +261,80 @@ export function createTunnel3D() {
     poke(strength = 1) { pokeWanted = strength; },
     // state: { world, phi, resource, dim, time, stereo }
     render(state) {
-      if (state.world !== world) buildWalls(state.world);
+      if (!ureter && state.world !== world) buildWalls(state.world);
       const dt = Math.min(0.05, last ? state.time - last : 0.016);
       last = state.time;
+      if (ureter) {
+        const there = stone.size > 0;
+        const d = (STONE_U - u + 1) % 1;
+        const blocked = there && d < 0.03;
+        if (pokeWanted && there && d < 0.12) {
+          // the laser: a flash, pieces off, dust
+          stone.size -= 1;
+          light.intensity = 14;
+          for (let k = 0; k < 40; k++) {
+            const m = new THREE.Mesh(new THREE.TetrahedronGeometry(0.012 + 0.02 * Math.random()), new THREE.MeshStandardMaterial({ color: '#d9b878', flatShading: true }));
+            m.position.copy(stone.mesh.position);
+            stone.dust.push({ m, v: new THREE.Vector3((Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 0.8), age: 0 });
+            scene.add(m);
+          }
+          if (stone.size > 0) {
+            stone.mesh.scale.setScalar(0.45 + 0.55 * (stone.size / 3));
+            event = { text: `LASER: the stone breaks (${stone.size} of 3 left)`, until: state.time + 3 };
+          } else {
+            scene.remove(stone.mesh);
+            stone.clearedAt = state.time;
+            event = { text: 'LASER: dust. The path is clear, the flow returns', until: state.time + 4 };
+          }
+        }
+        pokeWanted = 0;
+        light.intensity += (3 - light.intensity) * Math.min(1, dt * 4);
+        if (!there && stone.clearedAt >= 0 && state.time - stone.clearedAt > 25 && d > 0.3) newStone();
+        // colic: rises while the flow is dammed, eases when it is clear
+        colic = Math.max(0, Math.min(1, colic + (there ? 0.06 : -0.12) * dt));
+        tube.material.emissive.setRGB(0.23 + 0.5 * colic * (0.6 + 0.4 * Math.sin(state.time * 5)), 0.04, 0.07);
+        if (stone.mesh && there) stone.mesh.rotation.y += dt * 0.2;
+        for (const r of rings) {
+          r.u = (r.u + dt * 0.04) % 1;
+          const pp = curve.getPointAt(r.u);
+          r.ring.position.copy(pp);
+          r.ring.lookAt(pp.clone().add(curve.getTangentAt(r.u)));
+          const squeeze = 0.75 + 0.25 * Math.sin(r.u * 40 + state.time * 2);
+          r.ring.scale.set(squeeze, squeeze, 1);
+        }
+        for (let i = 0; i < FLOW; i++) {
+          const before = false;
+          flowU[i] = (flowU[i] + (before ? 0.0004 : 0.05 + 0.04 * Math.random()) * dt) % 1;
+          // dammed urine collects upstream of the stone (behind it, as the scope sees it)
+          if (there && ((flowU[i] - STONE_U + 1) % 1) < 0.002) flowU[i] = (STONE_U + 0.004) % 1;
+          const pp = curve.getPointAt(flowU[i]).add(flowOff[i]);
+          flowPos[i * 3] = pp.x;
+          flowPos[i * 3 + 1] = pp.y;
+          flowPos[i * 3 + 2] = pp.z;
+        }
+        flowGeo.attributes.position.needsUpdate = true;
+        for (let i = stone.dust.length - 1; i >= 0; i--) {
+          const s = stone.dust[i];
+          s.age += dt;
+          s.m.position.addScaledVector(s.v, dt);
+          s.v.multiplyScalar(0.96);
+          s.m.rotation.x += dt * 3;
+          if (s.age > 6) {
+            scene.remove(s.m);
+            stone.dust.splice(i, 1);
+          }
+        }
+        stoneAhead = there && d < 0.12;
+        if (blocked) {
+          speed = 0;
+          blockedAt = 0;
+        } else {
+          blockedAt = -1;
+          speed += ((0.012 + 0.01 * state.phi) - speed) * Math.min(1, dt * 1.5);
+          u = (u + speed * dt) % 1;
+        }
+        state.colic = colic;
+      } else {
       const lowered = state.resource ? 0.15 : 0;
       // gates open when Phi is above their height
       for (const g of gates) {
@@ -238,11 +367,14 @@ export function createTunnel3D() {
         u = (u + speed * dt) % 1;
       }
       pokeWanted = 0;
+      }
       const p = curve.getPointAt(u);
       ball.position.copy(p);
+      ball.visible = !ureter;
       halo.scale.setScalar(1 + 0.25 * Math.sin(state.time * 6));
       const behind = curve.getPointAt((u - 0.03 + 1) % 1);
-      camera.position.copy(behind).add(new THREE.Vector3(0, 0.45, 0));
+      camera.position.copy(behind).add(new THREE.Vector3(0, ureter ? 0 : 0.45, 0));
+      if (light) light.position.copy(camera.position);
       camera.lookAt(curve.getPointAt((u + 0.01) % 1));
       bulb.visible = state.dim >= 11;
       bulb.rotation.y = state.time * 0.05;

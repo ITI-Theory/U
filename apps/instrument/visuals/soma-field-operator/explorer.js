@@ -33,7 +33,7 @@ const temperature = phi => T0 + SIGMA * phi;
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
 export const STEREO_MODES = ['off', 'half', 'full'];
-export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'flight'];
+export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
@@ -45,10 +45,11 @@ export const STOP_LEVELS = {
   landscape: { level: 'human-vertebrate' }, dyad: { level: 'dyad' },
   flight: { level: null }, // the level being shown
   tunnel: { level: 'whole-brain-cemi', dim: 11 },
+  ureter: { level: 'human-vertebrate', dim: 4 },
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', flight: 'FLY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -105,6 +106,12 @@ const CAPTIONS = {
     4: 'Boundaries are paths: a thought, the ball, races along a tunnel through the brain, and each boundary is a gate on its path. A gate opens when Φ, the limbic field, is above its height (gold: closed, teal: open); a closed gate stops the thought.',
     8: 'POKE at a closed gate and the thought tries to tunnel through, with chance exp(−3 × the gap), never zero (LimbicTunnel.lean, wkbAmplitude_pos); RESOURCE lowers every gate a little (J(t)). Which path a thought takes is set by which gates are open.',
     11: 'The walls are the fractal of the level: dendrites, or Menger cubes for networks (the city of code\'s towers); at the centre of the loop floats a Mandelbulb, the mind. Interpretive pictures around a simulated rule.',
+  },
+  ureter: {
+    title: 'THE URETER', label: 'interpretive',
+    4: 'The view down a ureteroscope: smooth-muscle walls with waves of peristalsis, urine flowing. A stone blocks the path; the flow dams behind it and the colic rises (the red pulse). Unlike the gates of PATH, a stone is mechanical: Φ, calm or alarm, does not open it. POKE is the laser: three shots break it to dust, the flow returns and the colic eases.',
+    8: 'Electrical layer: visceral pain travels as C-fibre signals to the spinal cord and on to the insula, and the body answers (heart rate, guarding). Raise Φ and the same stone hurts more: the alarm amplifies the signal.',
+    11: 'A teaching picture, not medical advice or a model of any patient.',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1074,6 +1081,33 @@ function makeTunnel() {
   };
 }
 
+// ---------------------------------------------------------------- stop: the ureter
+
+function makeUreter() {
+  let gl = null;
+  return {
+    focus: [0, 0],
+    tick() {},
+    poke(strength) { gl?.poke(strength); },
+    draw(ctx, env) {
+      const { u, t, phi } = env;
+      if (!env.gl) {
+        if (env.labels) label(ctx, u, 'URETER needs WebGL (3D)', 0, 0, COLORS.dim, 'center', 0.03);
+        return;
+      }
+      gl = env.gl;
+      gl.render({ phi, resource: env.resource, dim: env.dim, time: t, stereo: env.stereo });
+      if (env.labels) {
+        const pain = Math.min(1, gl.colic * (0.6 + 0.8 * phi));
+        const msg = gl.blocked ? 'AT THE STONE · the flow is dammed · POKE = laser' : gl.stoneAhead ? 'STONE AHEAD · POKE = laser' : gl.colic > 0.05 ? 'moving up the ureter · a stone is somewhere ahead' : 'the path is clear';
+        label(ctx, u, msg, 0, -0.7, gl.blocked || gl.stoneAhead ? COLORS.orange : COLORS.teal, 'center', 0.03);
+        label(ctx, u, `colic ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.03);
+        if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.62, COLORS.gold, 'center', 0.032);
+      }
+    },
+  };
+}
+
 // ---------------------------------------------------------------- stop: fly
 
 function makeFlight() {
@@ -1582,7 +1616,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
 export const simulation = { memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
@@ -1658,6 +1692,7 @@ export function createExplorer(hooks = {}) {
     dyad: () => createDyad3D(),
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
+    ureter: () => createTunnel3D({ ureter: true }),
   };
   const gls = {};
   function stageGl(stop) {

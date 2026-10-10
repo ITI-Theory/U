@@ -2035,7 +2035,23 @@ Steps:
       dendrites (organismal), Menger cubes (network, systemic, collective: the
       city of code), stars (cosmic); a Mandelbulb (power 8, point cloud) at the
       centre at 11D, the mind.
-- [ ] FLY and PATH, next: the Mandelbulb as a raymarched shader (Fractal Flight
+- [x] FLY at Whole Brain: a raymarched Mandelbulb (shader; power breathes with
+      Φ, colour warms with Φ, slow spiral in and out; stereo).
+- [x] URETER stop and a Presentation for a urologist (author, 10 Oct 02:05,
+      watching PATH: "reminds me of my operation to have my kidney stone
+      lasered; a Presentation-urologist"). H-AL's answer is kept private
+      (Me/chats/notebooks/HAL-UAT/hal-urologist-2026-10-10.md: the programme's
+      earlier urology outlines and the post-operative case study; plain
+      language, no 11D jargon, no clinical claims). The stop: a ureteroscope
+      view (mucosa, peristaltic rings, urine flow), a stone the scope reaches,
+      flow damming and a colic reading; Φ does not open a stone (mechanical,
+      unlike PATH's gates) but makes the same stone hurt more; POKE is the
+      laser (three shots, dust, flow returns, colic eases). Tour
+      `hal-urologist` (11 stops, about 6 minutes).
+- [ ] Urologist, next: author reviews the tour wording; whether to name his own
+      procedure in it; a stent mode (persistent signal after the stone);
+      calculi sizes and laser settings stay out (no clinical claims).
+- [ ] FLY and PATH, next: fly INTO the Mandelbulb (Fractal Flight
       proper: fly into it; power from H, rotation from |∇H|, colour from
       T_eff, bursts at threshold crossings, after the chats); branching paths
       (several tunnels; which one a thought takes depends on the gates); the
