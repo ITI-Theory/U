@@ -13,6 +13,7 @@ import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField } from './score.js';
 import { scores } from './generated/app-data.js';
 import { createExplorerMusic } from './explorer-music.js';
+import { createHeartStrap } from './heart.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -119,7 +120,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥, a slider for now): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A).',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A).',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1179,7 +1180,7 @@ function makeScore() {
         ctx.restore();
       });
       const loopName = { 0: 'PROJECTION', 0.5: 'RESONANCE', 1: 'MIRROR' }[env.kr];
-      label(ctx, u, `♥ ${Math.round(bpmS)} · Ḣ ${hdot >= 0 ? '+' : ''}${hdot.toFixed(2)}/s · ${loopName}`, x0, -0.12, COLORS.red, 'left', 0.024);
+      label(ctx, u, `♥ ${Math.round(bpmS)}${env.strap ? ' (strap)' : ''} · Ḣ ${hdot >= 0 ? '+' : ''}${hdot.toFixed(2)}/s · ${loopName}`, x0, -0.12, COLORS.red, 'left', 0.024);
       if (env.kr > 0 && player.slowed < 0.95) label(ctx, u, `heart rising: film ×${player.slowed.toFixed(2)}`, x0, -0.07, COLORS.orange, 'left', 0.024);
       const bar = { x: -0.6, w: 1.2, y: 0.78 };
       ctx.save();
@@ -1738,7 +1739,8 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
-      <label class="explorer__hr" title="The viewer's heart rate (a slider for now; later a chest strap). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
+      <label class="explorer__hr" title="The viewer's heart rate (the slider, or a chest strap: ♥ STRAP). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
+      <button type="button" data-act="strap" title="Connect a Bluetooth heart-rate chest strap (any standard strap; Chrome or Edge). While it is connected it drives the heart; click again to let go">♥ STRAP</button>
       <button type="button" data-act="kr" title="The somatic loop: PROJECTION (the score drives), RESONANCE (score and viewer together), MIRROR (the viewer drives, the score is the target)">LOOP: PROJECTION</button>
       <button type="button" data-act="music" aria-pressed="false" title="Calm generative music (off by default)">MUSIC</button>
       <button type="button" data-act="stereo" title="Stereo for a 3D projector or TV: SBS½ (half side-by-side, squeezed: the usual HDMI 3D input) or SBS (full); move the mouse to show the controls">3D: OFF</button>
@@ -1760,6 +1762,20 @@ export function createExplorer(hooks = {}) {
   const hrInput = hrLabel.querySelector('input');
   const hrOut = hrLabel.querySelector('output');
   const krButton = root.querySelector('[data-act="kr"]');
+  const strapButton = root.querySelector('[data-act="strap"]');
+  let strapStatus = '';
+  const rrIntervals = []; // beat-to-beat intervals (s) from the strap, for HRV later
+  const strap = createHeartStrap({
+    onBeat({ bpm, rr }) {
+      if (!(bpm > 0)) return;
+      st.bpm = Math.round(bpm);
+      rrIntervals.push(...rr);
+      if (rrIntervals.length > 300) rrIntervals.splice(0, rrIntervals.length - 300);
+      hrInput.value = String(Math.max(50, Math.min(140, st.bpm)));
+      hrOut.textContent = String(st.bpm);
+    },
+    onStatus(text) { strapStatus = text; syncUi(); },
+  });
   const view3dButton = root.querySelector('[data-act="view3d"]');
 
   const music = createExplorerMusic();
@@ -1850,6 +1866,11 @@ export function createExplorer(hooks = {}) {
     resourceButton.classList.toggle('active', st.resource);
     hrLabel.hidden = st.stop !== 'score';
     krButton.hidden = st.stop !== 'score';
+    strapButton.hidden = st.stop !== 'score';
+    strapButton.textContent = strap.connected ? '♥ STRAP ON' : '♥ STRAP';
+    strapButton.classList.toggle('active', strap.connected);
+    if (strapStatus) strapButton.title = `Heart-rate strap: ${strapStatus}. Click to ${strap.connected ? 'let go' : 'connect'}`;
+    hrInput.disabled = strap.connected;
     hrInput.value = String(st.bpm);
     hrOut.textContent = `${st.bpm}`;
     krButton.textContent = `LOOP: ${{ 0: 'PROJECTION', 0.5: 'RESONANCE', 1: 'MIRROR' }[st.kr]}`;
@@ -2027,7 +2048,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, strap: strap.connected, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);
@@ -2138,6 +2159,10 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
+    else if (b.dataset.act === 'strap') {
+      if (strap.connected) strap.disconnect();
+      else strap.connect();
+    }
     else if (b.dataset.act === 'kr') {
       st.kr = st.kr === 0 ? 0.5 : st.kr === 0.5 ? 1 : 0;
       syncUi();
@@ -2234,6 +2259,7 @@ export function createExplorer(hooks = {}) {
       syncUi();
     },
     get loop() { return { bpm: st.bpm, kr: st.kr }; },
+    get heart() { return { strap: strap.connected, status: strapStatus, rr: rrIntervals.slice() }; },
     get scoreParams() { return { kv: st.kv, st: st.st, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km }; },
     setLoop({ bpm, kr } = {}) {
       if (bpm !== null && bpm !== undefined && bpm !== '' && Number.isFinite(Number(bpm))) st.bpm = Math.max(50, Math.min(140, Number(bpm)));

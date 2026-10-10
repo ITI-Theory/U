@@ -14,6 +14,7 @@
 import { simulation as sim } from '../explorer.js';
 import { createScorePlayer } from '../score.js';
 import { diveMath } from '../flight3d.js';
+import { parseHeartRate } from '../heart.js';
 import { readFileSync } from 'node:fs';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
@@ -93,6 +94,10 @@ function dives(n) {
   return { found: found / n, worst };
 }
 const diveRun = dives(24);
+// The strap's Heart Rate Measurement (GATT 0x2A37): an 8-bit rate; a 16-bit rate with
+// energy expended and two RR intervals (1/1024 s)
+const hr8 = parseHeartRate(new DataView(new Uint8Array([0x00, 72]).buffer));
+const hr16 = parseHeartRate(new DataView(new Uint8Array([0x19, 0x2c, 0x01, 0x10, 0x00, 0x00, 0x04, 0x00, 0x02]).buffer));
 
 // The Tensor's knobs at the fear peak (t = 0.5): the modes as the player renders them
 const river2 = { ...river, coupling: [{ from: 'F', to: 'A', weight: 0.4 }, { from: 'A', to: 'G', weight: 0.3 }, { from: 'L', to: 'PV', weight: -0.6 }, { from: 'PV', to: 'L', weight: -0.6 }] };
@@ -132,6 +137,9 @@ const checks = [
   ['knobs: more coupling, more awe from fear (A at kw 2 minus kw 0.5)', knob({ kappaW: 2 }).A - knob({ kappaW: 0.5 }).A, 0.2, 1],
   ['knobs: depth 0 is shallower than depth 1 (PV)', knob({ kappaD: 1 }).PV - knob({ kappaD: 0 }).PV, 0.1, 1],
   ['knobs: depth sets the hold at a threshold without the loop (s at kd 1 / kd 0 >= 2)', holdTime(1) / holdTime(0) / 2, 1, Infinity],
+  // the chest strap's packets (heart.js)
+  ['strap: 8-bit rate decoded (72 bpm)', Number(hr8.bpm === 72 && hr8.rr.length === 0), 1, 1],
+  ['strap: 16-bit rate, energy skipped, RR intervals decoded (300 bpm; 1.0 s, 0.5 s)', Number(hr16.bpm === 300 && hr16.rr.length === 2 && hr16.rr[0] === 1 && hr16.rr[1] === 0.5), 1, 1],
   // FLY into the Mandelbulb (flight3d.js)
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],

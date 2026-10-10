@@ -2116,6 +2116,13 @@ Steps:
       hash, tours and screens, validated in tour.js and generate.py; explorer-check:
       masked modes are 0, more coupling more awe, depth deeper PV and a longer hold.
       Next: on-screen knobs (MIDI-style, ISS-053), texture in the music.
+- [ ] (10 Oct 23:50, coded, to test in UAT with a real strap) A Bluetooth heart-rate
+      chest strap: heart.js (Web Bluetooth, the standard Heart Rate service 0x180D and
+      measurement 0x2A37: 8- or 16-bit rate, RR intervals kept for HRV), ♥ STRAP on the
+      SCORE stop (Chrome or Edge, https or localhost); while connected it drives the
+      heart and the slider is off; explorer-check decodes sample packets. UAT: connect a
+      strap (Polar, Garmin, Wahoo ...), watch ♥ follow it, LOOP on, a rising heart
+      slows the film; then HRV from the RR intervals (next item).
 - [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
       and credits; the author's review of every line; OpenStax Anatomy &
       Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not
