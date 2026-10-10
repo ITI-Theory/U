@@ -76,6 +76,9 @@ $$\Phi_{MN} = \begin{pmatrix}
   \Phi_{i0} & \Phi_{ij} & \Phi_{ia} \\
   \Phi_{a0} & \Phi_{ai} & \Phi_{ab}
 \end{pmatrix}$$
+
+{{Visualize | review-usf-on-m_11-mathbbr_t-times-m_3-times-x_7 | type-decomposition:cosmic | whole="$\Phi_{MN}$ (the 11x11 vacuum block)"; parts="time $\Phi_{00}$=1, spatial $\Phi_{ij}$=3, compact $\Phi_{ab}$=7"; expect_total=11 }} The diagonal blocks of the matrix above, the ones that dominate the vacuum energy: one time direction, three non-compact spatial directions, seven compact directions. The program checked that they add to the full 11 dimensions of $M_{11}$.
+
 where $\mu=0$ is the time index, $i,j \in \{1,2,3\}$ are spatial indices, and
 $a,b \in \{4,\ldots,10\}$ are compact indices.
 
@@ -89,6 +92,8 @@ the net baryonic contribution inherits only the forward-propagating half
 $$\Omega_\Lambda : \Omega_\text{DM} : \Omega_b \;\approx\;
   N_\text{compact} : N_\text{spatial} : N_\text{time}/2
   \;=\; 7 : 3 : 1/2$$
+
+{{Visualize | review-usf-on-m_11-mathbbr_t-times-m_3-times-x_7 | type-decomposition:cosmic | whole="predicted energy-budget ratio"; parts="dark energy $\Omega_\Lambda$=7, dark matter $\Omega_\text{DM}$=3, baryons $\Omega_b$=0.5" }} The leading-order ratio above as a picture: the same 7:3:1/2 split of dimensional counting, now read as the relative sizes of the three energy-budget sectors it predicts.
 
 ## The spatial block identifies as dark matter
 
@@ -213,10 +218,15 @@ yields the **lowest non-zero KK excitation** with mass:
 $$m_\phi \sim \frac{\hbar}{R_7\,c} \sim \frac{M_\text{Pl}}{\sqrt{8\pi}}
   \sim 10^{18}\;\text{GeV}/c^2$$
 
+{{Visualize | kaluza-klein-reduction-why-w-0-and-not-w--1 | log-scale:cosmic | items="KK mode mass $m_\phi c^2$=1e18, Planck mass $M_\text{Pl}c^2$=1.22e19"; unit="GeV" }} The mass scale above on a single log line: the lowest non-zero Kaluza-Klein excitation sits within an order of magnitude of the Planck mass, as $m_\phi \sim M_\text{Pl}/\sqrt{8\pi}$ requires.
+
 This is a super-Planck-mass scalar. At cosmological energies
 ($E_\text{cosm} \sim H_0\hbar \sim 10^{-33}$ eV), it is non-relativistic
 by 60 orders of magnitude:
 $$\frac{E_\text{cosm}}{m_\phi c^2} \sim 10^{-60}$$
+
+{{Visualize | kaluza-klein-reduction-why-w-0-and-not-w--1 | log-scale:cosmic | items="cosmological energy $E_\text{cosm}$=1e-33, KK mode rest energy $m_\phi c^2$=1e27"; unit="eV" }} The ratio above on a single log line (both in eV): sixty orders of magnitude separate today's cosmological energy from the rest energy of the KK mode, so the spatial block is non-relativistic to extraordinary precision — the structural reason $w\approx0$.
+
 For any non-relativistic field, $w = p/\rho \approx \langle v^2\rangle/3c^2
 \approx 0$. The spatial vacuum block is cold, pressureless dark matter.
 
@@ -252,6 +262,8 @@ unexplained fit factor:
 $$\Omega_b^\text{USF} = \frac{1}{2}\cdot\frac{1}{11} = \frac{1}{22}
   \approx 0.0455 \quad\text{vs}\quad \Omega_b^\text{obs} = 0.0493 \quad(7.8\%\text{ low})$$
 
+{{Visualize | time-block-prediction-111-rightarrow-baryonic-matter | function-plot:cosmic | f="x/11"; x=[0,1]; value_at=0.5; expect_value=0.0455; hline="0.0493"; xlabel="baryon fit factor (chosen, not derived)"; ylabel="$\Omega_b^\text{USF}$" }} The formula above as a function of the fit factor: the program checked that the chosen value 1/2 gives the stated $1/22\approx0.0455$; the line marks the observed $\Omega_b^\text{obs}=0.0493$, the 7.8\% gap this auxiliary factor does not explain from first principles.
+
 This is an **auxiliary claim**, not an independent prediction: the factor
 $1/2$ is chosen to fit, not derived from USF first principles or taken from
 standard cosmology. The derivation of this
@@ -265,6 +277,8 @@ $$\frac{7}{11} + \frac{3}{11} + \frac{1}{22} = \frac{14 + 6 + 1}{22} = \frac{21}
 The observed sum (including Planck 2018 neutrino contribution):
 $$\Omega_\Lambda + \Omega_\text{DM} + \Omega_b + \Omega_\nu + \Omega_r
   \approx 0.6847 + 0.2645 + 0.0493 + 0.001 + 0.0001 \approx 0.9996$$
+
+{{Visualize | the-radiation-sector-and-dilution-resolution | type-decomposition:cosmic | whole="today's observed energy budget"; parts="$\Omega_\Lambda$=0.6847, $\Omega_\text{DM}$=0.2645, $\Omega_b$=0.0493, $\Omega_\nu$=0.001, $\Omega_r$=0.0001"; expect_total=0.9996 }} The observed sum above as a picture: the five sectors side by side, each as wide as its measured fraction. The program checked that they add to the stated 0.9996 — short of unity by the small remainder the text assigns to rounding and sub-percent sectors.
 
 The discrepancy of $\sim 4.5\%$ has two contributions:
 
