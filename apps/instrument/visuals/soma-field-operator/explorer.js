@@ -1176,13 +1176,17 @@ function makeScore() {
           if (env.kc === 'session') pair.b += Math.PI * 0.9;
           else gl.poke?.(1);
         }
-        if (env.kc === 'river') gl.render({ sector: 'organismal', phi: m.F, time: t, stereo: env.stereo });
+        if (env.kc === 'river') {
+          // upriver: narrowest at the encounter (story-time ~0.7), open again on the return
+          const narrow = Math.exp(-(((player.t - 0.68) / 0.22) ** 2));
+          gl.render({ sector: 'river', phi: 0.15 + 0.6 * m.F, time: t, stereo: env.stereo, river: { narrow, light: m.S, fear: m.F, mist: Math.max(0, 1 - m.L) } });
+        }
         else if (env.kc === 'body') gl.render({ world: 'organismal', phi: m.F, resource: m.S > 0.5, dim: 11, time: t, stereo: env.stereo });
         else if (env.kc === 'session') gl.render({ a: pair.a, b: pair.b, r: pairR, coupling: DYAD.coupling(m.S > 0.5), dim: 11, time: t, stereo: env.stereo });
         else gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m, texture: env.kt });
       }
       if (!env.labels) return;
-      const SETTINGS = { mind: 'THE MIND · the Mandelbulb', river: 'THE RIVER · the boat on the water', body: 'THE BODY · the submarine in the bloodstream', session: 'THE SESSION · client and therapist' };
+      const SETTINGS = { mind: 'THE MIND · the Mandelbulb', river: 'THE RIVER · upriver by boat', body: 'THE BODY · the submarine in the bloodstream', session: 'THE SESSION · client and therapist' };
       label(ctx, u, `SETTING: ${SETTINGS[env.kc] ?? SETTINGS.mind} · the same score`, 0, -0.64, COLORS.ink, 'center', 0.028);
       if (env.kc === 'session') label(ctx, u, `in step r = ${pairR.toFixed(2)}`, 0, -0.6, pairR > 0.9 ? COLORS.teal : COLORS.orange, 'center', 0.024);
       // the score: seven bars, story-time, the phase

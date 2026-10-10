@@ -7,6 +7,10 @@
 //   collective    a murmuration: a flock flowing like a fluid over a plain
 //   geological    folded strata of rock, dust in the wind
 //   network / systemic  a lattice of nodes with gold channels
+//   river         the River Film's container: a jungle river going upriver at dusk (The
+//                 Tensor, SETTING: RIVER); it narrows towards the encounter and widens on
+//                 the way back, fear darkens the water, safety warms the light, the mist
+//                 closes in as language falls away
 // Everything drifts with one flow field (the fluid), speed rises with Phi, POKE is a surge.
 // The world is two copies of one tile that leapfrog past the camera. Mono or stereo (SBS).
 
@@ -28,6 +32,7 @@ const WORLDS = {
   geological: { fog: '#140c08', name: 'THE FOLDED STRATA', motes: '#ffd9b0' },
   network: { fog: '#0a0a14', name: 'THE NETWORK', motes: '#ffe6a0' },
   mind: { fog: '#05030c', name: 'THE MANDELBULB · THE MIND', motes: '#ffb6e8' },
+  river: { fog: '#1b1f16', name: 'THE RIVER · UPRIVER', motes: '#ffe9a8' },
 };
 WORLDS.systemic = WORLDS.network;
 WORLDS['named-solution'] = WORLDS.organismal;
@@ -244,7 +249,112 @@ function networkWorld(rand) {
   return group;
 }
 
-const BUILDERS = { cosmological: cosmicWeb, 'micro-physical': quantumFoam, organismal: innerSea, collective: murmuration, geological: foldedStrata, network: networkWorld, systemic: networkWorld, 'named-solution': innerSea };
+// a soft round sprite (mist), drawn once
+let softDotTexture = null;
+function softDot() {
+  if (softDotTexture) return softDotTexture;
+  const c = document.createElement('canvas');
+  c.width = c.height = 64;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, 'rgba(255,255,255,1)');
+  grad.addColorStop(0.4, 'rgba(255,255,255,0.35)');
+  grad.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 64, 64);
+  softDotTexture = new THREE.CanvasTexture(c);
+  return softDotTexture;
+}
+
+// The river: water (waves shaded by their slope), two jungle banks of hills and trees, mist.
+// The banks are named so the renderer can move them (the river narrows with story-time).
+function river(rand) {
+  const group = new THREE.Group();
+  const W = 70;
+  const water = new THREE.PlaneGeometry(W, TILE, 70, 90);
+  water.rotateX(-Math.PI / 2);
+  const wp = water.attributes.position;
+  const wc = new Float32Array(wp.count * 3);
+  water.setAttribute('color', new THREE.BufferAttribute(wc, 3));
+  const waterMesh = new THREE.Mesh(water, new THREE.MeshBasicMaterial({ vertexColors: true, color: '#ffffff' }));
+  waterMesh.position.set(0, -2, -TILE / 2);
+  waterMesh.name = 'water';
+  group.add(waterMesh);
+  const trunk = new THREE.ConeGeometry(0.9, 4.5, 6);
+  trunk.translate(0, 2.25, 0);
+  for (const side of [-1, 1]) {
+    const bank = new THREE.Group();
+    bank.name = side < 0 ? 'bankL' : 'bankR';
+    const hill = new THREE.PlaneGeometry(26, TILE, 26, 60);
+    hill.rotateX(-Math.PI / 2);
+    const hp = hill.attributes.position;
+    const hc = new Float32Array(hp.count * 3);
+    const c = new THREE.Color();
+    for (let i = 0; i < hp.count; i++) {
+      const x = hp.getX(i) * side + 13;          // 0 at the water's edge, 26 inland
+      const z = hp.getZ(i);
+      const h = Math.min(6, x * 0.35) + 1.2 * Math.sin(z * 0.21 + x * 0.3) + 0.6 * Math.sin(z * 0.63);
+      hp.setY(i, -2.2 + Math.max(0, h));
+      const v = 0.006 + 0.012 * Math.min(1, x / 10) + 0.004 * Math.sin(z * 0.1);
+      hc.set([v * 0.8, v * 1.4, v * 0.7], i * 3);
+    }
+    hill.setAttribute('color', new THREE.BufferAttribute(hc, 3));
+    const hillMesh = new THREE.Mesh(hill, new THREE.MeshBasicMaterial({ vertexColors: true }));
+    hillMesh.position.set(side * 13, 0, -TILE / 2);
+    bank.add(hillMesh);
+    // the jungle: dark cones, denser and taller towards the water's edge
+    const n = 320;
+    const trees = new THREE.InstancedMesh(trunk, new THREE.MeshBasicMaterial({ color: '#16261a' }), n);
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const s = new THREE.Vector3();
+    for (let i = 0; i < n; i++) {
+      const x = Math.pow(rand(), 1.6) * 24 + 0.4;
+      const z = -rand() * TILE;
+      const h = Math.min(6, x * 0.35) + 1.2 * Math.sin(z * 0.21 + x * 0.3) + 0.6 * Math.sin(z * 0.63);
+      const k = 0.6 + rand() * 1.4 + (x < 5 ? 0.6 : 0);
+      s.set(k * (0.7 + rand() * 0.6), k * (0.8 + rand() * 1.2), k * (0.7 + rand() * 0.6));
+      m.compose(new THREE.Vector3(side * x, -2.3 + Math.max(0, h), z + TILE / 2), q, s);
+      trees.setMatrixAt(i, m);
+      const f = 0.45 + rand() * 0.55;
+      c.setRGB(f * (0.8 + rand() * 0.2), f, f * (0.75 + rand() * 0.2), THREE.LinearSRGBColorSpace);
+      trees.setColorAt(i, c);
+    }
+    trees.position.set(0, 0, -TILE / 2);
+    bank.add(trees);
+    group.add(bank);
+  }
+  // mist over the water
+  const mist = [];
+  for (let i = 0; i < 700; i++) mist.push((rand() - 0.5) * 30, -1.95 + rand() * 1.0, -rand() * TILE);
+  const mg = new THREE.BufferGeometry();
+  mg.setAttribute('position', new THREE.Float32BufferAttribute(mist, 3));
+  const mistPoints = new THREE.Points(mg, new THREE.PointsMaterial({
+    size: 1.6, map: softDot(), color: '#dfe6d0', transparent: true, opacity: 0.05, depthWrite: false, sizeAttenuation: true,
+  }));
+  mistPoints.name = 'mist';
+  group.add(mistPoints);
+  group.userData.animate = t => {
+    const tint = group.userData.tint ?? { r: 0.2, g: 0.25, b: 0.22 };
+    for (let i = 0; i < wp.count; i++) {
+      const x = wp.getX(i);
+      const z = wp.getZ(i);
+      const y = 0.09 * Math.sin(x * 0.7 + t * 1.1 + z * 0.35) + 0.06 * Math.sin(z * 1.3 - t * 1.7 + x * 0.2);
+      wp.setY(i, y);
+      const slope = 0.7 * Math.cos(x * 0.7 + t * 1.1 + z * 0.35) + 0.5 * Math.cos(z * 1.3 - t * 1.7 + x * 0.2);
+      const glint = Math.max(0, slope) ** 8 * 0.25;
+      const b = 0.75 + 0.25 * slope;
+      wc[i * 3] = tint.r * b + glint;
+      wc[i * 3 + 1] = tint.g * b + glint * 0.9;
+      wc[i * 3 + 2] = tint.b * b + glint * 0.7;
+    }
+    wp.needsUpdate = true;
+    water.attributes.color.needsUpdate = true;
+  };
+  return group;
+}
+
+const BUILDERS = { river, cosmological: cosmicWeb, 'micro-physical': quantumFoam, organismal: innerSea, collective: murmuration, geological: foldedStrata, network: networkWorld, systemic: networkWorld, 'named-solution': innerSea };
 
 // ---------------------------------------------------------------- the Mandelbulb, raymarched
 
@@ -608,10 +718,34 @@ export function createFlight3D() {
         }
       }
       motes.geometry.attributes.position.needsUpdate = true;
-      // a gentle banking glide, never a jolt (H-AL: smooth motion only)
-      camera.position.set(Math.sin(t * 0.11) * 2.2, Math.sin(t * 0.07) * 1.2, 0);
-      camera.lookAt(Math.sin(t * 0.11 + 0.6) * 2.2, Math.sin(t * 0.07 + 0.4) * 1.2, -10);
-      camera.rotateZ(Math.sin(t * 0.09) * 0.06);
+      if (sector === 'river') {
+        // The Tensor drives the river: narrow (0 open .. 1 the narrowest, at the encounter),
+        // light (safety), fear (darker water), mist (as language falls away)
+        const rv = state.river ?? { narrow: 0.3, light: 0.6, fear: 0.2, mist: 0.3 };
+        const half = 10 - 7 * rv.narrow;
+        for (const tile of tiles) {
+          const l = tile.getObjectByName('bankL');
+          const r = tile.getObjectByName('bankR');
+          if (l) l.position.x = -(half - 0.4);
+          if (r) r.position.x = half - 0.4;
+        }
+        const warm = new THREE.Color('#e8a860');
+        const cold = new THREE.Color('#2a3a48');
+        const sky = cold.clone().lerp(warm, rv.light * 0.8).multiplyScalar(0.35 + 0.45 * rv.light);
+        scene.background = sky;
+        scene.fog = new THREE.Fog(sky, 2 + 6 * (1 - rv.mist), 18 + 40 * (1 - rv.mist));
+        // the water reflects the sky, darker with fear (linear colour values)
+        tiles[0].userData.tint = { r: 0.01 + 0.35 * sky.r * (1 - 0.7 * rv.fear), g: 0.012 + 0.35 * sky.g * (1 - 0.7 * rv.fear), b: 0.012 + 0.32 * sky.b * (1 - 0.4 * rv.fear) };
+        // the boat: low on the water, swaying a little, keeping to the middle as the banks close in
+        camera.position.set(Math.sin(t * 0.07) * 0.08 * half, -1.15 + 0.05 * Math.sin(t * 1.3), 0);
+        camera.lookAt(Math.sin(t * 0.07 + 0.5) * 0.08 * half, -1.3, -12);
+        camera.rotateZ(Math.sin(t * 0.6) * 0.012);
+      } else {
+        // a gentle banking glide, never a jolt (H-AL: smooth motion only)
+        camera.position.set(Math.sin(t * 0.11) * 2.2, Math.sin(t * 0.07) * 1.2, 0);
+        camera.lookAt(Math.sin(t * 0.11 + 0.6) * 2.2, Math.sin(t * 0.07 + 0.4) * 1.2, -10);
+        camera.rotateZ(Math.sin(t * 0.09) * 0.06);
+      }
       renderer.getSize(size);
       if (state.stereo === 'half' || state.stereo === 'full') {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;

@@ -2123,7 +2123,10 @@ Steps:
       oscillators, client and therapist; a threshold crossing is a rupture to repair).
       One player drives all four, so the thresholds fall at the same story-times; a
       crossing is a burst in each. Next: Sherlock's analogy test of "all three are the
-      same film" (ISS-055), and a real river.
+      same film" (ISS-055). (Done 11 Oct 00:05: a real river, flight3d.js `river`: water
+      shaded by its waves, jungle banks of hills and trees, mist; it narrows towards the
+      encounter, t ~ 0.7, and opens on the way back; safety warms the light, fear darkens
+      the water, the mist closes in as language falls away; the camera low like a boat.)
 - [ ] (10 Oct 23:50, coded, to test in UAT with a real strap) A Bluetooth heart-rate
       chest strap: heart.js (Web Bluetooth, the standard Heart Rate service 0x180D and
       measurement 0x2A37: 8- or 16-bit rate, RR intervals kept for HRV), ♥ STRAP on the
