@@ -600,6 +600,8 @@ def tour_stage_errors(step: dict[str, Any], abstract_paragraphs: int) -> list[st
     problems = []
     if step.get("overlay") is not None and step["overlay"] not in TOUR_OVERLAYS:
         problems.append(f"overlay {step['overlay']!r} not in {sorted(TOUR_OVERLAYS)}")
+    if step.get("voice") is not None and step["voice"] not in {"hal", "mother", "munch"}:
+        problems.append(f"voice {step['voice']!r} not in ['hal', 'mother', 'munch']")
     if step.get("poke") is not None and step["poke"] not in TOUR_POKES:
         problems.append(f"poke {step['poke']!r} not in {sorted(TOUR_POKES)}")
     pause = step.get("pause")

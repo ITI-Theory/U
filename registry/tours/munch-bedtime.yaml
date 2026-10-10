@@ -1,0 +1,67 @@
+id: munch-bedtime
+title: 'Bedtime with MUNCH'
+summary: 'Three minutes before sleep: H-AL and MUNCH, the SOMA Machine''s own hungry little monster, fly through
+  the scales. MUNCH wants to eat everything (stars, foam, flowers), H-AL explains what each one is, and in the
+  end MUNCH finds the only thing worth tasting is a calm heartbeat, and falls asleep. Turn on the voice
+  (MOTHER panel, speak) and MUSIC; MUNCH speaks in the browser''s voice, gruff and quick.'
+steps:
+- view: voyage=flight&level=cosmic-web&dim=11&phi=0.2
+  say: Good evening. I am H-AL. Tonight we have a visitor.
+  label: interpretive
+  pause: 1
+- view: voyage=flight&level=cosmic-web&dim=11&phi=0.2
+  voice: munch
+  say: Hello! Me MUNCH! Ooh, look! Sparkly crumbs everywhere! Me eat them? Om nom nom nom!
+  label: interpretive
+  pause: 1
+- view: voyage=flight&level=cosmic-web&dim=11&phi=0.2
+  say: Those are galaxies, MUNCH. Each crumb is a hundred billion stars. Far too big for one small monster.
+  label: interpretive
+  pause: 2
+- view: voyage=flight&level=quantum-foam&dim=11&phi=0.3
+  voice: munch
+  say: Then me go small! Tiny bubbles! Bubbly, wobbly, fizzy bubbles! Om nom! Hmm. Me mouth empty.
+  label: interpretive
+  pause: 1
+- view: voyage=flight&level=quantum-foam&dim=11&phi=0.3
+  say: That is the quantum foam. The bubbles pop in and out faster than you can blink. Nobody can catch them.
+    Not even you.
+  label: open-hypothesis
+  pause: 2
+- view: voyage=flight&level=cellular-synaptic&dim=11&phi=0.3
+  voice: munch
+  say: Flowers! Coral! A whole sea of snacks! Me try just one tiny petal. Om nom nom.
+  label: interpretive
+  pause: 1
+- view: voyage=flight&level=cellular-synaptic&dim=11&phi=0.3
+  say: Careful, MUNCH. Those are cells, the little houses we are all made of. Yours too.
+  label: interpretive
+  pause: 2
+- view: voyage=flight&level=whole-brain-cemi&dim=11&phi=0.25
+  voice: munch
+  say: Ooooh. What is the big swirly purple cake?
+  label: interpretive
+  pause: 2
+- view: voyage=flight&level=whole-brain-cemi&dim=11&phi=0.25
+  say: That is the mind. It folds into itself again and again. You can look at it all night, but it is not for
+    eating.
+  label: interpretive
+  pause: 3
+- view: voyage=body&dim=8&phi=0.1&feel=calm
+  voice: munch
+  say: Me getting sleepy. What is that soft thump thump thump?
+  label: interpretive
+  pause: 2
+- view: voyage=body&dim=8&phi=0.05&feel=calm
+  say: That is a heart, beating slowly, because everything is safe. Listen. Thump. Thump. Thump.
+  label: interpretive
+  pause: 4
+- view: voyage=landscape&dim=4&phi=0.05&resource=1
+  voice: munch
+  say: Me not hungry any more. Me just cosy. Me roll down into the soft valley. Om. Nom. Zzzz.
+  label: interpretive
+  pause: 4
+- view: voyage=landscape&dim=4&phi=0.02&resource=1
+  say: Good night, MUNCH. Good night, Alistair. The machine will keep watch.
+  label: interpretive
+  pause: 4

@@ -2095,6 +2095,14 @@ Steps:
       remaining knobs κ_d, κ_t, κ_m, κ_W and the coupling W*; (4) containers:
       river, body (the explorer), session (the consulting room) under one
       score; (5) the full 90-minute River Film as a tour of the score.
+- [x] MUNCH (author, 10 Oct 03:12, bedtime: "voice files for the Cookie Monster?"):
+      not possible (Sesame Workshop's character; no voice files or clones of
+      it). Instead an original persona: MUNCH, a gruff, happy little monster
+      (voice.js, browser speech, low pitch, quick), selectable per tour step
+      with `voice: munch` (also `hal`, `mother`; validated in tour.js and
+      generate.py). Tour `munch-bedtime` (13 steps, about 3 minutes): MUNCH
+      tries to eat galaxies, foam, cells and the mind; H-AL explains each; a
+      calm heartbeat; MUNCH falls asleep in a soft valley.
 - [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
       and credits; the author's review of every line; OpenStax Anatomy &
       Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not

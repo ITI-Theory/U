@@ -6,6 +6,8 @@
 const PERSONA_VOICE = {
   mother: { rate: 1.0, pitch: 1.0, prefer: /(female|zira|hazel|susan|libby|sonia|samantha|serena|karen|moira)/i },
   hal: { rate: 0.88, pitch: 0.55, prefer: /(male|david|george|daniel|ryan|guy|alex|fred|thomas|oliver)/i },
+  // MUNCH: the project's own playful monster (bedtime tours); gruff, quick and happy.
+  munch: { rate: 1.12, pitch: 0.05, prefer: /(male|david|george|guy|mark|fred|ryan|thomas)/i },
 };
 
 // Turn Markdown-with-LaTeX into something a speech engine can read.

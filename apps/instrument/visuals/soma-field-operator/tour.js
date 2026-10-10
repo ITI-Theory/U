@@ -25,6 +25,8 @@ const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;
 // `poke: weak|strong|twice` fires the app's poke at the stop (twice: two strong pokes 2 s
 // apart, inside a neuron's refractory period and after the human state has flipped).
 const POKES = { weak: [0.2], strong: [1.0], twice: [1.0, 1.0] };
+// voices a step may ask for (voice.js personas)
+const VOICES = ['hal', 'mother', 'munch'];
 const ABSTRACT_PARAGRAPHS = String(zUSFAbstract ?? '').split('\n\n').length;
 
 // Same rules as scripts/generate.py tour_stage_errors.
@@ -32,6 +34,7 @@ export function stageProblems(step) {
   const problems = [];
   if (step.overlay !== undefined && !OVERLAYS.includes(step.overlay)) problems.push(`unknown overlay ${step.overlay}`);
   if (step.poke !== undefined && !POKES[step.poke]) problems.push(`poke ${step.poke} not one of ${Object.keys(POKES).join(', ')}`);
+  if (step.voice !== undefined && !VOICES.includes(step.voice)) problems.push(`voice ${step.voice} not one of ${VOICES.join(', ')}`);
   if (step.pause !== undefined && !(Number.isFinite(step.pause) && step.pause >= 0 && step.pause <= 30)) problems.push(`pause ${step.pause} not in 0..30 seconds`);
   if (step.abstract !== undefined && !(Number.isInteger(step.abstract) && step.abstract >= 0 && step.abstract <= ABSTRACT_PARAGRAPHS)) problems.push(`abstract ${step.abstract} not in 0..${ABSTRACT_PARAGRAPHS}`);
   return problems;
@@ -219,7 +222,8 @@ export function createTourPlayer({ voice, narration }) {
       }, 1800 + number * 2000);
     });
     const settings = narration();
-    if (settings.speak) await voice.speak(step.say, settings.persona, settings.bridge);
+    // a step may name its own voice (voice: munch); otherwise the narrator's
+    if (settings.speak) await voice.speak(step.say, step.voice ?? settings.persona, step.voice ? '' : settings.bridge);
     if (mine !== token || !auto) return;
     if (index >= tour.steps.length - 1) {
       auto = false;
