@@ -1668,7 +1668,10 @@ export function createExplorer(hooks = {}) {
     diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0',
     stereo: STEREO_MODES.includes(new URLSearchParams(location.search).get('stereo')) ? new URLSearchParams(location.search).get('stereo')
       : STEREO_MODES.includes(localStorage.getItem('soma-stereo')) ? localStorage.getItem('soma-stereo') : 'off',
-    depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1 };
+    depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1,
+    // ?film=1: the film pace (0.6) and the controls hidden until the mouse moves; ?pace= sets it
+    film: new URLSearchParams(location.search).get('film') === '1',
+    pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
   // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
   // per eye with opposite shifts; the 3D landscape renders its own two eyes.
   const layer = name => {
@@ -1681,7 +1684,7 @@ export function createExplorer(hooks = {}) {
   addEventListener('soma-tour-end', () => { tourLine = null; });
   let chromeTimer = 0;
   addEventListener('pointermove', () => {
-    if (st.stereo === 'off' || !st.open) return;
+    if ((st.stereo === 'off' && !st.film) || !st.open) return;
     document.body.classList.add('explorer-chrome');
     clearTimeout(chromeTimer);
     chromeTimer = setTimeout(() => document.body.classList.remove('explorer-chrome'), 3000);
@@ -1712,6 +1715,7 @@ export function createExplorer(hooks = {}) {
   }
   let raf = 0;
   let last = 0;
+  let vt = 0;
   let w = 0, h = 0, dpr = 1;
 
   function resize() {
@@ -1753,6 +1757,7 @@ export function createExplorer(hooks = {}) {
     stereoButton.classList.toggle('active', st.stereo !== 'off');
     root.classList.toggle('explorer--stereo', st.stereo !== 'off');
     document.body.classList.toggle('explorer-stereo', st.open && st.stereo !== 'off');
+    document.body.classList.toggle('explorer-film', st.open && st.film);
     view3dButton.setAttribute('aria-pressed', String(st.view3d));
     phiInput.value = String(st.phi);
     phiOut.textContent = st.phi.toFixed(2);
@@ -1900,9 +1905,12 @@ export function createExplorer(hooks = {}) {
 
   function frame(now) {
     if (!st.open) return;
-    const t = now / 1000;
-    const dt = Math.min(0.05, last ? t - last : 0.016);
-    last = t;
+    // a virtual clock: film pace slows everything (motion, simulations, transitions)
+    const real = now / 1000;
+    const dt = Math.min(0.05, last ? real - last : 0.016) * st.pace;
+    last = real;
+    vt += dt;
+    const t = vt;
     const stereo = st.stereo !== 'off';
     const lw = viewW();
     const u = Math.min(lw, h * 1.05) * 0.48;
@@ -1984,7 +1992,7 @@ export function createExplorer(hooks = {}) {
         st.diving = false;
         st.stop = stop;
         st.from = null;
-        st.enterStart = performance.now() / 1000;
+        st.enterStart = vt;
         seeThrough(false);
         syncUi();
         if (notify) hooks.onChange?.();
@@ -2002,7 +2010,7 @@ export function createExplorer(hooks = {}) {
     if (stop !== st.stop && st.open) {
       st.from = st.stop;
       st.forward = STOPS.indexOf(stop) > STOPS.indexOf(st.stop);
-      st.transStart = performance.now() / 1000;
+      st.transStart = vt;
     }
     st.stop = stop;
     syncUi();

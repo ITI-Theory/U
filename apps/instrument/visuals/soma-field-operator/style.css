@@ -506,3 +506,11 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-stereo.explorer-chrome .explorer__bar, .explorer-stereo.explorer-chrome .tour-card { opacity: 1; transition: opacity .2s ease; }
 .elevator button.elevator__fly { background: #5ee7ff; margin-left: 3px; }
 .explorer [data-act="music"].active { background: #ffd166; color: #070a16; }
+
+/* ?film=1: the film. Controls and the explorer's own caption hide; H-AL's tour line stays
+   as a subtitle at the bottom; moving the mouse brings the controls back. */
+.explorer-film:not(.explorer-chrome) .explorer__bar, .explorer-film:not(.explorer-chrome) .explorer__feel,
+.explorer-film .explorer__card, .explorer-film:not(.explorer-chrome) .screen-fullscreen,
+.explorer-film:not(.explorer-chrome) .tour-card header, .explorer-film:not(.explorer-chrome) .tour-card nav { opacity: 0; pointer-events: none; transition: opacity .6s ease; }
+.explorer-film .tour-card { left: 50%; bottom: 3vh; width: min(1000px, calc(100vw - 48px)); transform: translateX(-50%); background: rgba(5,7,14,.55); border-color: transparent; }
+

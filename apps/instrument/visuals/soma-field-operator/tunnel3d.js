@@ -17,6 +17,65 @@ function seeded(seed) {
 
 const GATES = 9;
 
+// Fantastic Voyage walls: a tileable cell texture (Voronoi cells with glowing membranes
+// and dark nuclei), painted once per colour scheme and repeated along the tube.
+function cellTexture({ membrane = [255, 120, 150], interior = [70, 10, 30], nucleus = [120, 40, 140], seed = 9 } = {}) {
+  const N = 256;
+  const rand = seeded(seed);
+  const pts = Array.from({ length: 46 }, () => [rand() * N, rand() * N, 0.7 + 0.6 * rand()]);
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = N;
+  const g = canvas.getContext('2d');
+  const img = g.createImageData(N, N);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    let d1 = 1e9, d2 = 1e9, best = null;
+    for (const p of pts) {
+      let dx = Math.abs(x - p[0]); dx = Math.min(dx, N - dx);
+      let dy = Math.abs(y - p[1]); dy = Math.min(dy, N - dy);
+      const d = Math.hypot(dx, dy);
+      if (d < d1) { d2 = d1; d1 = d; best = p; } else if (d < d2) d2 = d;
+    }
+    const edge = Math.exp(-((d2 - d1) ** 2) / 6);
+    const core = Math.exp(-(d1 * d1) / (40 * best[2]));
+    const shade = 0.55 + 0.45 * (1 - d1 / 28);
+    const k = (y * N + x) * 4;
+    for (let c = 0; c < 3; c++) {
+      img.data[k + c] = Math.min(255, interior[c] * shade + membrane[c] * edge + nucleus[c] * core);
+    }
+    img.data[k + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+// red blood cells: flattened tori drifting along the path (PATH, organismal worlds)
+function bloodCells(curve, count = 160) {
+  const geo = new THREE.TorusGeometry(0.09, 0.055, 8, 18);
+  geo.scale(1, 1, 0.55);
+  const mesh = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ color: '#c8102e', roughness: 0.4, emissive: '#3a0008' }), count);
+  const cells = Array.from({ length: count }, () => ({ u: Math.random(), off: new THREE.Vector3((Math.random() - 0.5) * 1.6, (Math.random() - 0.5) * 1.6, (Math.random() - 0.5) * 1.6), spin: new THREE.Euler(Math.random() * 6, Math.random() * 6, 0), v: 0.004 + 0.006 * Math.random() }));
+  const m = new THREE.Matrix4();
+  const q = new THREE.Quaternion();
+  const one = new THREE.Vector3(1, 1, 1);
+  return {
+    mesh,
+    update(dt, speed) {
+      for (const [i, c] of cells.entries()) {
+        c.u = (c.u + (c.v + speed * 0.3) * dt) % 1;
+        c.spin.x += dt * 0.6;
+        c.spin.y += dt * 0.4;
+        q.setFromEuler(c.spin);
+        m.compose(curve.getPointAt(c.u).add(c.off), q, one);
+        mesh.setMatrixAt(i, m);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    },
+  };
+}
+
 // Mandelbulb (power 8) as a point cloud: grid points whose escape time is near the
 // boundary, coloured by depth; computed once.
 function mandelbulb(n = 64, power = 8) {
@@ -105,7 +164,9 @@ export function createTunnel3D({ ureter = false } = {}) {
   const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 360, 1.15, 14, true), new THREE.MeshBasicMaterial({ color: '#5ee7ff', wireframe: true, transparent: true, opacity: 0.16, depthWrite: false }));
   scene.add(tube);
   if (ureter) {
-    tube.material = new THREE.MeshStandardMaterial({ color: '#8a2a3a', roughness: 0.35, metalness: 0.0, side: THREE.BackSide, emissive: '#3a0a12' });
+    const cells = cellTexture({ membrane: [255, 150, 160], interior: [120, 30, 45], nucleus: [90, 20, 60] });
+    cells.repeat.set(70, 3);
+    tube.material = new THREE.MeshStandardMaterial({ color: '#ffffff', map: cells, roughness: 0.35, metalness: 0.0, side: THREE.BackSide, emissive: '#3a0a12' });
     // mucosa: fine vessels on the wall
     const vessels = new THREE.Mesh(new THREE.TubeGeometry(curve, 360, 1.12, 10, true), new THREE.MeshBasicMaterial({ color: '#ff8a9a', wireframe: true, transparent: true, opacity: 0.18, depthWrite: false }));
     scene.add(vessels);
@@ -171,11 +232,28 @@ export function createTunnel3D({ ureter = false } = {}) {
 
   let walls = null;
   let world = '';
+  const blood = bloodCells(curve);
+  if (!ureter) {
+    scene.add(blood.mesh);
+    scene.add(new THREE.AmbientLight('#ffb0c0', 0.6));
+    const lamp = new THREE.PointLight('#ffffff', 2, 8, 1.5);
+    ball.add(lamp);
+  }
   function buildWalls(next) {
     world = next;
     if (walls) scene.remove(walls);
     walls = new THREE.Group();
     const r = seeded(world.length * 31 + 7);
+    // the tube itself: cells for living worlds (Fantastic Voyage), wire for the rest
+    const living = !['network', 'systemic', 'collective', 'cosmological', 'micro-physical'].includes(world);
+    if (living) {
+      const cells = cellTexture({ membrane: [255, 120, 190], interior: [40, 10, 50], nucleus: [180, 60, 255], seed: 4 });
+      cells.repeat.set(70, 3);
+      tube.material = new THREE.MeshBasicMaterial({ map: cells, transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending });
+    } else {
+      tube.material = new THREE.MeshBasicMaterial({ color: '#5ee7ff', wireframe: true, transparent: true, opacity: 0.16, depthWrite: false });
+    }
+    blood.mesh.visible = living;
     if (world === 'network' || world === 'systemic' || world === 'collective') {
       // Menger blocks stacked into towers beside the tunnel: the city of code's cubes
       const box = new THREE.BoxGeometry(1, 1, 1);
@@ -371,6 +449,7 @@ export function createTunnel3D({ ureter = false } = {}) {
       const p = curve.getPointAt(u);
       ball.position.copy(p);
       ball.visible = !ureter;
+      if (!ureter && blood.mesh.visible) blood.update(dt, speed);
       halo.scale.setScalar(1 + 0.25 * Math.sin(state.time * 6));
       const behind = curve.getPointAt((u - 0.03 + 1) % 1);
       camera.position.copy(behind).add(new THREE.Vector3(0, ureter ? 0 : 0.45, 0));

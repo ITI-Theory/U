@@ -705,8 +705,30 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
     tours: list[dict[str, Any]] = []
     zabstract = extract_front_matter_field(ZOOMABLE_SOURCE, "abstract")
     abstract_paragraphs = len(str(zabstract or "").strip().split("\n\n"))
+    raw = {path.stem: load_yaml(path) for path in sorted(tour_dir.glob("*.yaml"))}
+
+    # A film (or any long tour) may be built from others: `include:` lists tour ids (their
+    # steps, in order) and literal steps (title cards, bridges). Includes do not nest.
+    def expand(tour: dict[str, Any], where: Path) -> None:
+        if "include" not in tour:
+            return
+        steps: list[Any] = []
+        for item in tour.get("include") or []:
+            if isinstance(item, str):
+                other = raw.get(item)
+                if other is None:
+                    errors.append(f"{where}: include of unknown tour {item!r}")
+                elif "include" in other:
+                    errors.append(f"{where}: included tour {item!r} has includes of its own")
+                else:
+                    steps.extend(other.get("steps") or [])
+            else:
+                steps.append(item)
+        tour["steps"] = steps
+
     for path in sorted(tour_dir.glob("*.yaml")):
-        tour = load_yaml(path)
+        tour = raw[path.stem]
+        expand(tour, path)
         if tour.get("id") != path.stem:
             errors.append(f"{path}: id {tour.get('id')!r} must match file name {path.stem!r}")
         for key in ("title", "summary"):

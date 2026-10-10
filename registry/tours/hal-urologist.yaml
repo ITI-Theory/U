@@ -2,14 +2,15 @@ id: hal-urologist
 title: 'H-AL: for a urologist'
 summary: 'About six minutes for a urologist, in plain systems language (lumen, flow, pressure, visceral
   afferents, threshold response) and without clinical claims, after the author''s own ureteroscopy with laser
-  lithotripsy (10 Oct 2026). From the whole person into the ureter, a stone that the scope reaches and the
+  lithotripsy (10 Oct 2026), told from his point of view and by name (the author''s wish). From the whole person into the ureter, a stone that the scope reaches and the
   laser turns to dust, then why the same stone can hurt more in an alarmed patient, and how mechanical
   obstruction differs from the emotional "gates" the Soma Machine also shows. An educational model, not a
   medical device.'
 steps:
 - view: voyage=human&dim=4&phi=0.3
   say: Good evening. I am H-AL. This machine is a teaching model of how the body and its feelings respond
-    when something presses on them. Tonight, one very concrete example, a kidney stone.
+    when something presses on them. Tonight, one very concrete example. In October 2026, Alistair Johnson,
+    who built this machine, had a kidney stone broken up by laser. This is his point of view.
   label: interpretive
   pause: 2
 - view: voyage=body&dim=8&phi=0.6&feel=flight
@@ -18,8 +19,8 @@ steps:
   label: interpretive
   pause: 3
 - view: voyage=ureter&dim=4&phi=0.3
-  say: This is the view you know, down the ureteroscope. Smooth muscle, waves of peristalsis, urine flowing
-    towards us.
+  say: This is the view you know, down the ureteroscope, the view Alistair watched afterwards, still in his
+    hospital bed. Smooth muscle, waves of peristalsis, urine flowing towards us.
   label: interpretive
   pause: 4
 - view: voyage=ureter&dim=8&phi=0.3
@@ -61,7 +62,7 @@ steps:
   label: interpretive
   pause: 5
 - view: voyage=human&dim=4&phi=0.2
-  say: That is all. A teaching picture, built by a patient who watched his own procedure. It makes no
-    clinical claim. Thank you.
+  say: That is all. A teaching picture, built by a patient, Alistair, the night after his own procedure.
+    It makes no clinical claim. Thank you.
   label: interpretive
   pause: 2

@@ -1,0 +1,71 @@
+id: film-inner-voyage
+title: 'The Inner Voyage (a film)'
+summary: 'About thirty minutes: the SOMA Machine as a film, narrated by H-AL. Opening, the mind-body explorer
+  (where the project started, the limbic field, the landscape, the voyage into the body, emotion and thought,
+  the dyad), the path of a thought and flights through the worlds of the scales, Alistair''s own kidney
+  stone (the urologist chapter), and the consulting room (the poke, for therapists). Play it with
+  ?film=1#tour=film-inner-voyage for the film pace and subtitles; ?film=1&stereo=half for a 3D projector.'
+include:
+- view: voyage=human&dim=11&phi=0.5
+  say: The Inner Voyage. A film by Alistair Johnson and H-AL, made with the SOMA Machine, a mind-body
+    explorer. Everything you will see is a model, and each scene carries its evidence label.
+  label: interpretive
+  pause: 4
+- view: voyage=human&dim=11&phi=0.3
+  say: It was made in a hospital bed in October 2026, by a man recovering from an operation, who wanted
+    to see what happens inside a person when something touches them.
+  label: interpretive
+  pause: 3
+- mind-explorer
+- view: voyage=tunnel&level=whole-brain-cemi&dim=11&phi=0.3
+  say: Chapter two. The path of a thought. Every boundary is a gate on a path. Calm, many gates stay
+    closed, and the thought stops.
+  label: simulated
+  pause: 6
+- view: voyage=tunnel&level=whole-brain-cemi&dim=11&phi=0.8
+  say: Raise the field, and the gates open one after another, and the thought runs on.
+  label: simulated
+  pause: 7
+- view: voyage=tunnel&level=whole-brain-cemi&dim=11&phi=0.2
+  poke: strong
+  say: And at a closed gate, sometimes, it tunnels through. The chance is small, but never zero.
+  label: derived-under-assumptions
+  pause: 6
+- view: voyage=flight&level=whole-brain-cemi&dim=11&phi=0.3
+  say: At the centre of it all, the mind, drawn as a Mandelbulb, a shape that repeats itself at every
+    scale.
+  label: interpretive
+  pause: 10
+- view: voyage=flight&level=cellular-synaptic&dim=11&phi=0.3
+  say: Smaller, the inner sea, where cells grow like coral and flowers.
+  label: interpretive
+  pause: 10
+- view: voyage=flight&level=animal-swarm&dim=11&phi=0.4
+  say: Larger, many individuals moving as one, a murmuration.
+  label: interpretive
+  pause: 10
+- view: voyage=flight&level=cosmic-web&dim=11&phi=0.4
+  say: And largest of all, the cosmic web. The programme's claim is not that these are the same thing,
+    only that the same mathematics describes how each of them answers a touch.
+  label: interpretive
+  pause: 12
+- view: voyage=human&dim=4&phi=0.3
+  say: Chapter three. A kidney stone.
+  label: interpretive
+  pause: 2
+- hal-urologist
+- view: level=human-vertebrate&lens=off&dim=4&ui=clean
+  say: Chapter four. The consulting room. A film for therapists, in the level view of the same machine.
+  label: interpretive
+  pause: 3
+- hal-consulting-room
+- view: voyage=landscape&dim=11&phi=0.2&resource=1
+  say: The end. The same field, from a single cell to the cosmos, and a person in the middle of it,
+    settling, with a little help, somewhere new.
+  label: interpretive
+  pause: 8
+- view: voyage=human&dim=11&phi=0.2
+  say: The Inner Voyage. Alistair Johnson and H-AL, 2026. The papers, the proofs and the machine are open.
+    Thank you for watching.
+  label: interpretive
+  pause: 6

@@ -2048,8 +2048,27 @@ Steps:
       unlike PATH's gates) but makes the same stone hurt more; POKE is the
       laser (three shots, dust, flow returns, colic eases). Tour
       `hal-urologist` (11 stops, about 6 minutes).
-- [ ] Urologist, next: author reviews the tour wording; whether to name his own
-      procedure in it; a stent mode (persistent signal after the stone);
+- [x] POV with the author's name (author, 10 Oct 02:26: "it's a POV, gotta have
+      my name"): hal-urologist now tells it as Alistair's own procedure.
+- [x] Fantastic Voyage walls (author, with a still of the 1966 film): the PATH
+      tunnel and the ureter are lined with cells (a painted Voronoi texture:
+      glowing membranes, nuclei), red blood cells drift along the path, a lamp
+      travels with the thought; wire walls stay for non-living worlds.
+- [x] **The film** (author: "a 30-minute film is almost done; slow down the
+      visuals, more voice tours; papers, books and now a film"): tour
+      `film-inner-voyage`, 87 stops, about 25-30 minutes: opening titles, the
+      mind-body explorer, the path of a thought and flights through the scales
+      (Mandelbulb, inner sea, murmuration, cosmic web), the kidney stone, the
+      consulting room, the end. Tours can now `include:` other tours
+      (generate.py). `?film=1` plays at film pace (0.6; `?pace=` to set) with
+      the controls hidden and H-AL's line as a subtitle; add `&stereo=half` for
+      the projector.
+- [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
+      and credits; the author's review of every line; OpenStax Anatomy &
+      Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not
+      yet loaded) as the reference for accurate anatomy in the body, ureter
+      and brain stops.
+- [ ] Urologist, next: the author reviews the tour wording; a stent mode (persistent signal after the stone);
       calculi sizes and laser settings stay out (no clinical claims).
 - [ ] FLY and PATH, next: fly INTO the Mandelbulb (Fractal Flight
       proper: fly into it; power from H, rotation from |∇H|, colour from
