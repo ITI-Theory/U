@@ -1877,7 +1877,28 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       $\cong$; checks the total and that both decompositions agree), used for
       the M11 = M4 x P3 x L1 x C3, X7 and M-theory isomorphism equations in
       zoomable-somatic-field (3), universal-somatic-field (3) and
-      swarm-propagator (1), each total checked; papers 50 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      swarm-propagator (1), each total checked; papers 50 of 233;
+      11 Oct: cosmological-constant-derivation: 10 figures, 9 checks (the
+      new type-decomposition primitive for the 7/11 compact-dimension split;
+      7 of its 17 equations are near-exact restatements of equations already
+      drawn or trivial identities with no free quantity, left unmarked);
+      mathematical-co-identification: 5 figures, 0 checks (Veneziano's
+      amplitude drawn as the known pole structure of $\Gamma(-\alpha(s))$
+      with no Gamma evaluation needed; 7 of its 12 equations are a process
+      diagram, abstract Hamiltonians and a PDE with no stated parameters or
+      closed form, left unmarked); dark-matter-spatial-vacuum: 6 figures, 3
+      checks (the $\Phi_{MN}$ block matrix and the observed five-sector
+      budget each get a type-decomposition; 5 of its 11 equations, including
+      the abstract's own copy (YAML front matter, outside the document body),
+      are near-exact restatements already drawn, left unmarked);
+      soma-field-book: 8 figures, 1 check (defaults/book.yaml had no
+      `{{Visualize}}` reader, filter or metadata at all, so its macros were
+      leaking into the PDF as literal text — fixed, and visualize-reader.lua's
+      Markdown extension set widened to the union both defaults files need;
+      17 of its 25 equations are abstract gradient-flow/coupling-matrix
+      restatements needing a matrix primitive, or near-exact restatements
+      already drawn, including Appendix A's six-equation condensation of the
+      main text, left unmarked); papers 79 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
