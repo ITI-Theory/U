@@ -1853,7 +1853,16 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       reader and filter with `visualize-show: none`; P1 marked up: 8 figures, 2
       checks; Gestalt field dynamics: 7 figures, 6 checks;
       music affect dynamics: 4 figures, 3 checks;
-      missing limbic layer: 5 figures, 4 checks; papers 24 of 233, library 90) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      missing limbic layer: 5 figures, 4 checks;
+      11 Oct: soma-temporal-dynamics: 4 figures, 0 checks (7 of its 11 display
+      equations are PDE/operator statements, boundary conditions or Lean
+      type signatures with no numeric form to draw and are left unmarked);
+      swarm-propagator: 2 figures, 1 check (6 of its 8 equations are abstract
+      matrix/operator identities with no concrete numbers, left unmarked);
+      the-tensor: 0 figures, 0 checks (its 3 equations are a vector score with
+      no closed form, a deliberately unspecified rendering function, and a
+      gradient-flow equation whose potential is never given — none can be
+      drawn without inventing data); papers 30 of 233, library 96) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
