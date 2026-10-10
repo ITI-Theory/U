@@ -1862,7 +1862,17 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       the-tensor: 0 figures, 0 checks (its 3 equations are a vector score with
       no closed form, a deliberately unspecified rendering function, and a
       gradient-flow equation whose potential is never given — none can be
-      drawn without inventing data); papers 30 of 233, library 96) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      drawn without inventing data);
+      zoomable-somatic-field: 10 figures, 1 check (13 of its 23 equations are
+      product/type decompositions, PDE/operator statements, Lean type
+      signatures, a trivial arithmetic identity, a matrix-valued coupling
+      equation and a near-exact restatement of an already-drawn equation,
+      left unmarked);
+      universal-somatic-field: 3 figures, 1 check (10 of its 13 equations are
+      the same product/type-decomposition and Lean-signature forms, an
+      abstract Fock-space operator sum, and two gradient-flow equations whose
+      Hamiltonian $H$ is never given a concrete form in this paper, left
+      unmarked); papers 43 of 233, library 107) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
