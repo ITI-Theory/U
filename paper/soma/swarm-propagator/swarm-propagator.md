@@ -101,6 +101,8 @@ dimensions is:
 
 $$G(x, x') = \frac{e^{ik|x-x'|}}{4\pi|x-x'|}$$
 
+{{Visualize | greens-functions-and-field-propagation | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="separation $|x-x''|$"; ylabel="$\mathrm{Re}\,G$" }} The real part of the free-space Green's function at three wavenumbers $k$: an oscillation whose envelope decays as $1/|x-x'|$ — a single evaluation propagates the field from source to observation point, without the iterative rounds of classical consensus.
+
 This propagates a field excitation from source $x'$ to observation point $x$
 in a single evaluation — not iteratively.
 
@@ -155,6 +157,8 @@ cost theorem below.
 For any $N, K \in \mathbb{N}$ with $K > N$:
 
 $$\text{cost}(G \text{ protocol}) = N^2 < N \cdot K = \text{cost}(\text{classical})$$
+
+{{Visualize | the-single-step-protocol | function-plot:generic | f1="K*x"; name1="classical, $N\cdot K$"; vary=K:100,500,1000,5000; f2="x^2"; name2="propagator, $N^2$"; x=[0,200]; value_at=100; expect_value=10000; xlabel="swarm size $N$"; ylabel="operation count" }} Operation count against swarm size $N$: classical $K$-round consensus costs $N\cdot K$ (one curve per $K$), the propagator protocol costs $N^2$ regardless of $K$. At $N=K=100$ the two are equal — 10,000 operations, the break-even row of the complexity table; for $K=5000$ the classical cost is 50 times larger, matching the table's 50x row.
 
 *Proof.* $N^2 < N \cdot K \iff N < K$, which holds by hypothesis. $\square$
 
