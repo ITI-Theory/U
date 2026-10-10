@@ -261,6 +261,8 @@ He wrote down the Euler beta function:
 
 $$A(s,t) = \frac{\Gamma(-\alpha(s))\Gamma(-\alpha(t))}{\Gamma(-\alpha(s)-\alpha(t))}$$
 
+{{Visualize | veneziano-1968-the-bootstrap-amplitude-and-string-theory | complex-plane:quantum | points="0,1,2,3,4"; names="n=0,n=1,n=2,n=3,n=4"; poles=true; xlabel="Regge trajectory $\alpha(s)$ (real part)" }} The poles of $\Gamma(-\alpha(s))$ in the amplitude above, at the non-negative integers $\alpha(s)=n$: the Regge trajectory of resonances the bootstrap programme required — the structural fact Veneziano matched to a known special function rather than derived from a dynamical theory.
+
 In this reading, this was a co-identification in reverse: he had a type signature (crossing-symmetric,
 Regge-behaved, dual-resonance amplitude) and searched the typeverse for a known
 function that matched it. The beta function matched. He did not derive the function
@@ -314,6 +316,8 @@ $$\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\p
 This is, after a change of variables, the heat equation [@blackscholes1973]:
 
 $$\frac{\partial u}{\partial \tau} = \frac{\partial^2 u}{\partial x^2}$$
+
+{{Visualize | black-and-scholes-1973-the-heat-equation-and-options-pricing | function-plot:generic | f="1/sqrt(4*pi*tau) * exp(-x^2/(4*tau))"; vary=tau:0.1,0.5,2; x=[-4,4]; xlabel="position $x$"; ylabel="$u(x,\tau)$" }} The fundamental solution of the heat equation above, spreading from a point source at three illustrative times $\tau$: the same diffusive flattening that, after the change of variables, is the mechanism the Black-Scholes identification above imports into options pricing.
 
 The co-identification made the parabolic-PDE toolkit available to financial
 mathematics under the Black-Scholes assumptions: existence and uniqueness of
@@ -370,10 +374,14 @@ with poles in the lower half-plane. For a simple damped oscillator:
 
 $$\tilde{G}(\omega) = \frac{\sigma_\text{eff}^2}{\omega^2 + \lambda^2}$$
 
+{{Visualize | co-identification-i-the-conscious-percept-as-greens-function | function-plot:quantum | f="sigma_eff^2/(x^2+lam^2)"; sigma_eff=1; vary=lam:0.5,1,2; x=[-5,5]; xlabel="frequency $\omega$"; ylabel="$\tilde G(\omega)$ (illustrative $\sigma_\text{eff}=1$)" }} The Lorentzian propagator above at three illustrative damping rates $\lambda$: a single peak at $\omega=0$ whose height is set by the coupling $\sigma_\text{eff}^2$ and whose width is set by $\lambda$ — the impulse-response shape the Green's-function identification in this section relies on.
+
 **Typeverse search result:** This is the Euclidean propagator of a scalar field
 with mass $\lambda$ and coupling $\sigma_\text{eff}^2$. In Minkowski space it is:
 
 $$\tilde{G}_\text{QFT}(k) = \frac{i}{k^2 - m^2 + i\varepsilon}$$
+
+{{Visualize | co-identification-i-the-conscious-percept-as-greens-function | complex-plane:quantum | points="m - j*eps/(2*m), -m + j*eps/(2*m)"; m=1; eps=0.3; poles=true; names="pole near $+m$,pole near $-m$"; xlabel="real part (momentum $k$)" }} The Feynman $i\varepsilon$ prescription in the propagator above: the two poles of $k^2-m^2+i\varepsilon=0$ sit just off the real axis, one in each half-plane (illustrative $m=1$, $\varepsilon=0.3$, exaggerated for visibility) — the prescription that fixes this as the Feynman propagator, the QFT analogue of the damped-oscillator Green's function above.
 
 **The co-identification:** In the Soma-Field model, the conscious emotional percept
 is represented as the Green's function of the soma-field. Both are treated as
@@ -398,6 +406,8 @@ corresponding to stable emotional states.
 **Typeverse search result:** The Hopfield energy / Ising Hamiltonian:
 
 $$H(\mathbf{e}) = -\frac{1}{2}\mathbf{e}^\top W \mathbf{e} - \boldsymbol{\theta}\cdot\mathbf{e}$$
+
+{{Visualize | co-identification-ii-the-attractor-landscape-as-ising-hamiltonian | energy-landscape:neural | U="-exp(-(x+1.6)^2/0.3) - 0.6*exp(-x^2/0.3) - 0.9*exp(-(x-1.6)^2/0.15)"; x=[-3,3] }} An illustrative one-dimensional slice through the energy function above: several valleys, each a stable emotional state under the Hopfield/Ising identification; the actual number, depth and position of the valleys are set by the weight matrix $W$ and bias $\boldsymbol\theta$, which this general form leaves unspecified.
 
 **Candidate theorem imports:** Convergence to attractors under the stated update map (the Lyapunov argument);
 capacity bounds (Hopfield's $0.14N$ result); stochastic escape via Boltzmann
