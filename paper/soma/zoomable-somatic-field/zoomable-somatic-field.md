@@ -143,6 +143,8 @@ solution:
 
 $$G(x, x') = \frac{e^{ik|x-x'|}}{4\pi|x-x'|} \tag{2}$$
 
+{{Visualize | the-master-equation | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="separation $|x-x'|$"; ylabel="$\mathrm{Re}\,G$" }} The real part of the free-space Green's function, equation (2), at three wavenumbers $k$: an oscillation whose envelope decays as $1/|x-x'|$ — the same propagator, with a different $k(\sigma)$, reappears at every scale of the catalogue below.
+
 This is the retarded propagator: the field amplitude at $x$ due to a unit
 point source at $x'$. Three properties are immediate:
 
@@ -188,10 +190,14 @@ The FM-HN architecture (§7) uses the log-sum-exp energy:
 
 $$E_{20}(\xi) = -\frac{1}{\beta}\log\sum_\mu e^{\beta \xi^{\mu T}\xi} + \frac{1}{2}\|\xi\|^2 \tag{3}$$
 
+{{Visualize | log-sum-exp-and-the-correspondence-limit | contour-map:soma | f="-0.25*log(exp(4*x) + exp(4*(-0.5*x + 0.866*y)) + exp(4*(-0.5*x - 0.866*y))) + 0.5*(x^2 + y^2)"; x=[-1.6,1.6]; y=[-1.6,1.6]; downhill=true; xlabel="$\xi_1$"; ylabel="$\xi_2$"; zlabel="$E_{20}$" }} The log-sum-exp energy at an illustrative $\beta=4$ for three illustrative stored patterns in the plane: one basin around each, and the arrows point downhill — the Scale 6 mind matrix that the FM-HN architecture (§7) runs at runtime.
+
 whose update rule $\xi \leftarrow X^T \cdot \text{softmax}(\beta \cdot X\xi)$
 converges to the classical sign update as $\beta \to \infty$:
 
 $$\lim_{\beta\to\infty} \text{softmax}(\beta \cdot z)_i = \mathbf{1}[i = \arg\max z] \tag{4}$$
+
+{{Visualize | log-sum-exp-and-the-correspondence-limit | function-plot:soma | f="1/(1 + exp(-beta*x))"; vary=beta:1,4,32; x=[-3,3]; xlabel="score difference $z_1 - z_2$ (two candidates)"; ylabel="$\mathrm{softmax}(\beta z)_1$" }} softmax$(\beta z)_1$ for two candidates as $\beta$ grows: the smooth step sharpens towards the $\arg\max$ rule of equation (4) — the correspondence limit the FM-HN architecture (§7) relies on.
 
 This limit — the Correspondence Principle — is verified in
 `LimbicHopfield.correspondence_principle` and illustrated in figure 2.
@@ -265,6 +271,8 @@ The double-well potential on $L_1$:
 
 $$V(x) = W(x^2-1)^2 \tag{8}$$
 
+{{Visualize | the-limbic-axis-as-a-horava-witten-orbifold | energy-landscape:soma | U="W*(x^2-1)^2"; vary=W:8,10,12; x=[-1.8,1.8]; ball=-1; expect_minima="-1,1" }} The double-well potential $V(x)=W(x^2-1)^2$ on the Limbic Axis at the QUANT-EXP-1 barrier heights $W\in\{8,10,12\}$: a valley at each stated endpoint, the somatic attractor $x=-1$ and the cortical attractor $x=+1$. The program checked both minima.
+
 models the energy barrier between somatic and cortical attractors. Near $x=-1$
 (the model's trauma attractor), the formal local-gradient lemma is
 `LimbicTunnel.gradient_traps_near_neg1` (proved by `nlinarith`).
@@ -332,6 +340,8 @@ $$N(\sigma) \approx \begin{cases}
 10^{11} & \sigma = 15 \text{ (galactic)} \\
 \infty & \sigma = 20 \text{ (universal)}
 \end{cases} \tag{10}$$
+
+{{Visualize | physical-and-mind-scaling | log-scale:cosmic | items="nuclear (σ=2)=1e2, brain (σ=6)=1e14, galactic (σ=15)=1e11"; unit="mind rank N" }} Equation (10)'s three finite values of the mind rank $N(\sigma)$ on a single log line, spanning twelve orders of magnitude; the fourth case, $\sigma=20$ (universal), is $N\to\infty$ and has no position on a finite line.
 
 **Theorem (architectural constraint):** Physical scale $\ell(\sigma)$ and
 mind rank $N(\sigma)$ zoom together. They cannot zoom independently.
@@ -505,6 +515,8 @@ success rate; classical Langevin dynamics achieve 0/48. WKB tunnelling
 amplitude:
 $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) > 0 \quad \forall W > 0 \tag{11}$$
 (proved: `LimbicTunnel.wkbAmplitude_pos`).
+
+{{Visualize | scale-5-cellular-neural-10-6-m | function-plot:quantum | f="exp(-8*sqrt(2*x)/3)"; x=[0,20]; vline="8,10,12"; xlabel="barrier height $W$"; ylabel="$\Theta(W)$" }} The WKB tunnelling amplitude $\Theta(W)$, equation (11): strictly positive for every finite $W$ but exponentially small for a high barrier. The three vertical lines mark the QUANT-EXP-1 barrier heights, $W\in\{8,10,12\}$, where the quantum-annealing protocol reached the Awe basin 3/3 times against 0/48 for the classical baseline.
 
 ---
 
@@ -830,6 +842,8 @@ escape:
 
 $$\frac{dx}{dt} = -V'(x) = -4Wx(x^2-1) < 0 \quad \text{for } x \in (-1,0)$$
 
+{{Visualize | the-trauma-attractor | function-plot:soma | f="-4*W*x*(x^2-1)"; vary=W:8,10,12; x=[-1,0]; hline="0"; xlabel="state $x$"; ylabel="$dx/dt$" }} The classical gradient flow $dx/dt=-4Wx(x^2-1)$ on $(-1,0)$ at the QUANT-EXP-1 barrier heights: strictly negative throughout, so the state moves further from the centre and never escapes towards the cortical attractor under classical dynamics alone — the trapping the text describes.
+
 In the model this traps the system near $x=-1$ under the stated classical
 dynamics. Quantum tunnelling provides a candidate non-classical transition
 route. The WKB amplitude:
@@ -860,6 +874,8 @@ Two runtime coupling equations:
 
 $$T(t) = T_0 + \sigma \cdot \Phi_\text{limbic}(t) \tag{13}$$
 $$W(t) = W_0 + \gamma \cdot \Phi_\text{limbic}(t) \cdot J \tag{14}$$
+
+{{Visualize | architecture | function-plot:soma | f="T0 + sigma*x"; T0=0.25; vary=sigma:0.5,1,2; x=[0,1]; xlabel="limbic field amplitude $\Phi_\text{limbic}$ (illustrative)"; ylabel="temperature $T(t)$" }} Equation (13) with an illustrative baseline $T_0=0.25$ at three illustrative limbic coupling strengths $\sigma$: as the limbic field rises, the temperature increases and the effective inverse temperature $\beta=1/T$ drops, flattening the softmax distribution. Equation (14), the weight modulation, is a matrix identity ($W_0$, $J$ matrix-valued) and is not plotted here.
 
 where $T_0 > 0$ is the baseline temperature, $\sigma > 0$ the limbic coupling
 strength, $J \in \mathbb{R}^{D\times D}$ the coupling matrix, and $\gamma > 0$
@@ -916,6 +932,8 @@ frequency when:
 
 $$|\omega_A - \omega_B| < \kappa \tag{17}$$
 
+{{Visualize | the-relational-field | contour-map:soma | f="y - abs(x)"; x=[-3,3]; y=[0,3]; levels=2; xlabel="frequency detuning $\omega_A-\omega_B$"; ylabel="coupling $\kappa=|G_{AB}|$"; zlabel="$\kappa-|\omega_A-\omega_B|$" }} Equation (17)'s lock/no-lock boundary: the two shaded regions meet exactly where $\kappa=|\omega_A-\omega_B|$ — above the line (inside the Arnold tongue) the two oscillators frequency-lock, below it they do not.
+
 (Arnold tongue condition). Rapport is the phenomenological signature of
 frequency locking. The Arnold tongue width grows with friendship depth
 (persistent $G_{AB}$), explaining why close relationships synchronise
@@ -925,6 +943,8 @@ across longer frequency separations.
 stable attractor) modifies the client's effective barrier via:
 
 $$W_\text{eff} = W \cdot \left(1 - \alpha|G_{TC}|^2\right) \tag{18}$$
+
+{{Visualize | the-relational-field | function-plot:soma | f="12*(1 - alpha*x)"; vary=alpha:0.3,0.6,0.9; x=[0,1]; xlabel="therapeutic alliance $|G_{TC}|^2$"; ylabel="effective barrier $W_\text{eff}$" }} Equation (18) at the stated C-PTSD baseline barrier $W=12$ (§7.3) and three illustrative alliance-coupling strengths $\alpha$: as the alliance deepens, $W_\text{eff}$ falls, and by equation (11) the tunnelling amplitude $\Theta(W_\text{eff})$ rises.
 
 As therapeutic alliance deepens ($|G_{TC}|^2$ grows), $W_\text{eff}$ decreases
 and the WKB tunnelling amplitude $\Theta(W_\text{eff})$ increases. This provides
