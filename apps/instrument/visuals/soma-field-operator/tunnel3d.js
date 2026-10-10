@@ -1,0 +1,270 @@
+// tunnel3d.js: the PATH stop of the mind-body explorer (ISS-052). Boundaries are paths
+// (author, 10 Oct): a thought, the ball, races along a tunnel through the brain, and the
+// boundaries are gates on that path. A gate is a barrier: it opens when the limbic field
+// Phi is above its height (FM-HN: heat softens barriers; the RESOURCE lowers them a
+// little, J(t)); a closed gate stops the thought, and POKE tries to tunnel through with
+// probability exp(-3 * gap), after LimbicTunnel.lean (wkbAmplitude_pos: never zero).
+// The walls are the fractal of the level: branching dendrites (organismal), Menger blocks
+// (network, systemic: the city of code's cubic towers), stars (cosmic); at 11D a
+// Mandelbulb, the mind, floats at the centre of the loop. Mono or stereo (SBS).
+
+import * as THREE from 'three';
+
+function seeded(seed) {
+  let s = seed >>> 0;
+  return () => (s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296;
+}
+
+const GATES = 9;
+
+// Mandelbulb (power 8) as a point cloud: grid points whose escape time is near the
+// boundary, coloured by depth; computed once.
+function mandelbulb(n = 64, power = 8) {
+  const pos = [];
+  const col = [];
+  const c = new THREE.Color();
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) for (let k = 0; k < n; k++) {
+    const cx = -1.2 + (2.4 * i) / n;
+    const cy = -1.2 + (2.4 * j) / n;
+    const cz = -1.2 + (2.4 * k) / n;
+    let x = cx, y = cy, z = cz;
+    let it = 0;
+    for (; it < 10; it++) {
+      const r = Math.hypot(x, y, z);
+      if (r > 2) break;
+      const th = Math.acos(z / (r || 1e-9)) * power;
+      const ph = Math.atan2(y, x) * power;
+      const rp = r ** power;
+      x = rp * Math.sin(th) * Math.cos(ph) + cx;
+      y = rp * Math.sin(th) * Math.sin(ph) + cy;
+      z = rp * Math.cos(th) + cz;
+    }
+    if (it >= 5 && it < 10) {
+      pos.push(cx, cy, cz);
+      c.setHSL(0.83 + 0.05 * (it - 5), 0.85, 0.45 + 0.06 * (it - 5));
+      col.push(c.r, c.g, c.b);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  return new THREE.Points(g, new THREE.PointsMaterial({ size: 0.035, vertexColors: true, transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending }));
+}
+
+// Menger sponge, level 1: the 20 cubes left after removing the centre and face centres
+const MENGER = [];
+for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
+  if ((x === 0) + (y === 0) + (z === 0) < 2) MENGER.push([x, y, z]);
+}
+
+export function createTunnel3D() {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  } catch {
+    return null;
+  }
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color('#060818');
+  scene.fog = new THREE.Fog('#060818', 3, 22);
+  const camera = new THREE.PerspectiveCamera(70, 1, 0.02, 80);
+  camera.focus = 2.2;
+  const stereoCamera = new THREE.StereoCamera();
+  stereoCamera.eyeSep = 0.05;
+  const size = new THREE.Vector2();
+  const rand = seeded(23);
+
+  // the path: a closed, wandering loop around the centre (where the mind sits)
+  const control = Array.from({ length: 10 }, (_, i) => {
+    const a = (i / 10) * Math.PI * 2;
+    const r = 9 + 2.5 * Math.sin(3 * a) + rand() * 1.5;
+    return new THREE.Vector3(Math.cos(a) * r, 2.2 * Math.sin(2 * a + 1) + (rand() - 0.5), Math.sin(a) * r);
+  });
+  const curve = new THREE.CatmullRomCurve3(control, true, 'catmullrom', 0.5);
+  const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 360, 1.15, 14, true), new THREE.MeshBasicMaterial({ color: '#5ee7ff', wireframe: true, transparent: true, opacity: 0.16, depthWrite: false }));
+  scene.add(tube);
+
+  // gates: the boundaries on the path
+  const gates = Array.from({ length: GATES }, (_, k) => {
+    const u = (k + 0.5) / GATES;
+    const p = curve.getPointAt(u);
+    const tangent = curve.getTangentAt(u);
+    const height = 0.25 + 0.65 * rand();
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.1, 0.05, 8, 40), new THREE.MeshBasicMaterial({ color: '#ffd166' }));
+    const iris = new THREE.Mesh(new THREE.CircleGeometry(1.05, 40), new THREE.MeshBasicMaterial({ color: '#ff4d5e', transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
+    for (const m of [ring, iris]) {
+      m.position.copy(p);
+      m.lookAt(p.clone().add(tangent));
+      scene.add(m);
+    }
+    return { u, height, ring, iris, open: 0 };
+  });
+
+  // the thought
+  const ball = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 14), new THREE.MeshBasicMaterial({ color: '#fff4c2' }));
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 12), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.25, depthWrite: false, blending: THREE.AdditiveBlending }));
+  ball.add(halo);
+  scene.add(ball);
+
+  // the mind at the centre
+  const bulb = mandelbulb();
+  bulb.scale.setScalar(2.4);
+  scene.add(bulb);
+
+  let walls = null;
+  let world = '';
+  function buildWalls(next) {
+    world = next;
+    if (walls) scene.remove(walls);
+    walls = new THREE.Group();
+    const r = seeded(world.length * 31 + 7);
+    if (world === 'network' || world === 'systemic' || world === 'collective') {
+      // Menger blocks stacked into towers beside the tunnel: the city of code's cubes
+      const box = new THREE.BoxGeometry(1, 1, 1);
+      const count = 46 * MENGER.length;
+      const mesh = new THREE.InstancedMesh(box, new THREE.MeshBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.AdditiveBlending }), count);
+      const edges = [];
+      const m = new THREE.Matrix4();
+      let n = 0;
+      for (let k = 0; k < 46; k++) {
+        const u = k / 46;
+        const p = curve.getPointAt(u);
+        const side = new THREE.Vector3().crossVectors(curve.getTangentAt(u), new THREE.Vector3(0, 1, 0)).normalize().multiplyScalar((k % 2 ? 1 : -1) * (2.2 + r() * 1.5));
+        const s = 0.25 + r() * 0.2;
+        const floors = 1 + Math.floor(r() * 3);
+        for (let f = 0; f < floors && n < count; f++) {
+          const base = p.clone().add(side).add(new THREE.Vector3(0, -1 + f * 3 * s, 0));
+          for (const [x, y, z] of MENGER) {
+            if (n >= count) break;
+            m.makeScale(s * 0.92, s * 0.92, s * 0.92).setPosition(base.x + x * s, base.y + y * s, base.z + z * s);
+            mesh.setMatrixAt(n++, m);
+          }
+          const h = 1.5 * s;
+          const b = base;
+          for (const [a1, a2] of [[[-1, -1], [1, -1]], [[1, -1], [1, 1]], [[1, 1], [-1, 1]], [[-1, 1], [-1, -1]]]) {
+            for (const yy of [-h, h]) edges.push(b.x + a1[0] * h, b.y + yy, b.z + a1[1] * h, b.x + a2[0] * h, b.y + yy, b.z + a2[1] * h);
+            edges.push(b.x + a1[0] * h, b.y - h, b.z + a1[1] * h, b.x + a1[0] * h, b.y + h, b.z + a1[1] * h);
+          }
+        }
+      }
+      mesh.count = n;
+      walls.add(mesh);
+      const eg = new THREE.BufferGeometry();
+      eg.setAttribute('position', new THREE.Float32BufferAttribute(edges, 3));
+      walls.add(new THREE.LineSegments(eg, new THREE.LineBasicMaterial({ color: '#b46cff', transparent: true, opacity: 0.6 })));
+    } else if (world === 'cosmological') {
+      const pos = [];
+      for (let i = 0; i < 4000; i++) pos.push((r() - 0.5) * 50, (r() - 0.5) * 30, (r() - 0.5) * 50);
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+      walls.add(new THREE.Points(g, new THREE.PointsMaterial({ size: 0.08, color: '#cfe8ff', transparent: true, opacity: 0.8, depthWrite: false })));
+    } else {
+      // branching dendrites growing out of the tunnel wall
+      const seg = [];
+      const grow = (p, d, len, depth) => {
+        const q = p.clone().addScaledVector(d, len);
+        seg.push(p.x, p.y, p.z, q.x, q.y, q.z);
+        if (!depth) return;
+        for (let i = 0; i < 2; i++) {
+          const nd = d.clone().add(new THREE.Vector3(r() - 0.5, r() - 0.5, r() - 0.5).multiplyScalar(1.1)).normalize();
+          grow(q, nd, len * 0.68, depth - 1);
+        }
+      };
+      for (let k = 0; k < 70; k++) {
+        const u = r();
+        const p = curve.getPointAt(u);
+        const out = new THREE.Vector3(r() - 0.5, r() - 0.5, r() - 0.5).normalize();
+        grow(p.clone().addScaledVector(out, 1.2), out, 1.0 + r(), 4);
+      }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(seg, 3));
+      walls.add(new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: '#ff7aa8', transparent: true, opacity: 0.45 })));
+    }
+    scene.add(walls);
+  }
+
+  let u = 0.02;
+  let speed = 0;
+  let last = 0;
+  let blockedAt = -1;
+  let event = { text: '', until: 0 };
+  let pokeWanted = 0;
+
+  return {
+    canvas,
+    get event() { return event; },
+    get blocked() { return blockedAt >= 0; },
+    resize(w, h, dpr) {
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+    },
+    poke(strength = 1) { pokeWanted = strength; },
+    // state: { world, phi, resource, dim, time, stereo }
+    render(state) {
+      if (state.world !== world) buildWalls(state.world);
+      const dt = Math.min(0.05, last ? state.time - last : 0.016);
+      last = state.time;
+      const lowered = state.resource ? 0.15 : 0;
+      // gates open when Phi is above their height
+      for (const g of gates) {
+        const target = state.phi >= g.height - lowered ? 1 : 0;
+        g.open += (target - g.open) * Math.min(1, dt * 2.5);
+        g.iris.scale.setScalar(Math.max(0.001, 1 - g.open));
+        g.iris.material.opacity = 0.35 * (1 - g.open);
+        g.ring.material.color.set(g.open > 0.5 ? '#3fd0c9' : '#ffd166');
+      }
+      // the next gate ahead
+      const ahead = gates.map(g => ({ g, d: (g.u - u + 1) % 1 })).sort((a, b) => a.d - b.d)[0];
+      const closed = ahead.g.open < 0.5 && ahead.d < 0.022;
+      if (closed) {
+        speed = 0;
+        blockedAt = gates.indexOf(ahead.g);
+        if (pokeWanted) {
+          const gap = Math.max(0, ahead.g.height - lowered - state.phi);
+          const p = Math.exp(-3 * gap);
+          if (Math.random() < p) {
+            u = (ahead.g.u + 0.012) % 1;
+            event = { text: `TUNNELLED through the boundary (chance ${(p * 100).toFixed(0)}%)`, until: state.time + 3 };
+          } else {
+            event = { text: `BOUNCED back: the barrier held (chance was ${(p * 100).toFixed(0)}%)`, until: state.time + 3 };
+            u = (u - 0.006 + 1) % 1;
+          }
+        }
+      } else {
+        blockedAt = -1;
+        speed += ((0.012 + 0.03 * state.phi) - speed) * Math.min(1, dt * 1.5);
+        u = (u + speed * dt) % 1;
+      }
+      pokeWanted = 0;
+      const p = curve.getPointAt(u);
+      ball.position.copy(p);
+      halo.scale.setScalar(1 + 0.25 * Math.sin(state.time * 6));
+      const behind = curve.getPointAt((u - 0.03 + 1) % 1);
+      camera.position.copy(behind).add(new THREE.Vector3(0, 0.45, 0));
+      camera.lookAt(curve.getPointAt((u + 0.01) % 1));
+      bulb.visible = state.dim >= 11;
+      bulb.rotation.y = state.time * 0.05;
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        stereoCamera.update(camera);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderer.render(scene, eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    },
+  };
+}

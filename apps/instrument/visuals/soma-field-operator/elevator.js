@@ -16,7 +16,7 @@ function escapeHtml(text) {
 const fmt = v => (Number.isInteger(v) ? String(v) : v.toFixed(1));
 const scaleText = exponent => (exponent === null || exponent === undefined ? '' : `10^${fmt(exponent)} m`);
 
-// hooks: { onFloor(index), onStepOut(stop) }
+// hooks: { onFloor(index), onStepOut(stop), onFly(index) }
 export function createElevator(hooks = {}) {
   const element = document.createElement('section');
   element.className = 'elevator';
@@ -55,11 +55,18 @@ export function createElevator(hooks = {}) {
         <span class="elevator__name">${escapeHtml(f.label)}</span>
         <span class="elevator__lamps"><b class="on">4</b><b class="${f.dims[8] ? 'on' : ''}">8</b><b class="${f.dims[11] ? 'on' : ''}">11</b></span>
         <span class="elevator__claims">${CLAIM_KEYS.map(([k, letter]) => `<i data-claim="${escapeHtml(f.claims?.[k] ?? '')}" title="${k}: ${escapeHtml(f.claims?.[k] ?? 'n/a')}">${letter}</i>`).join('')}</span>
-        ${f.stop ? `<button type="button" class="elevator__step" data-step="${escapeHtml(f.stop)}" title="Step out into the mind-body explorer here">STEP OUT ▸</button>` : ''}
+        ${f.stop ? `<button type="button" class="elevator__step" data-step="${escapeHtml(f.stop)}" title="Step out into the mind-body explorer here">OUT ▸</button>` : ''}
+        <button type="button" class="elevator__step elevator__fly" data-fly="${i}" title="Fly through this level's world">FLY ▸</button>
       </li>`).join('');
   }
 
   element.addEventListener('click', event => {
+    const fly = event.target.closest('[data-fly]');
+    if (fly) {
+      event.stopPropagation();
+      hooks.onFly?.(Number(fly.dataset.fly));
+      return;
+    }
     const step = event.target.closest('[data-step]');
     if (step) {
       event.stopPropagation();

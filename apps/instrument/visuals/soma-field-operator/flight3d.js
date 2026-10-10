@@ -1,0 +1,363 @@
+// flight3d.js: the FLY stop of the mind-body explorer (ISS-052). A slow flight forward
+// through a fractal world that matches the sector of the current level (H-AL's "Fractal
+// Flight": one natural form per sector, uat/RC3/hal-flight-2026-10-10.md):
+//   cosmological  the cosmic web: galaxies on filaments around voids
+//   micro-physical the quantum foam: flickering bubbles on an interference lattice
+//   organismal    an inner sea: fractal coral and flowers, plankton in a current
+//   collective    a murmuration: a flock flowing like a fluid over a plain
+//   geological    folded strata of rock, dust in the wind
+//   network / systemic  a lattice of nodes with gold channels
+// Everything drifts with one flow field (the fluid), speed rises with Phi, POKE is a surge.
+// The world is two copies of one tile that leapfrog past the camera. Mono or stereo (SBS).
+
+import * as THREE from 'three';
+
+const TILE = 60;
+const mod = (n, m) => ((n % m) + m) % m;
+
+function seeded(seed) {
+  let s = seed >>> 0;
+  return () => (s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296;
+}
+
+const WORLDS = {
+  cosmological: { fog: '#03040c', name: 'THE COSMIC WEB', motes: '#9fd8ff' },
+  'micro-physical': { fog: '#070414', name: 'THE QUANTUM FOAM', motes: '#cfe8ff' },
+  organismal: { fog: '#031a22', name: 'THE INNER SEA', motes: '#bff6e8' },
+  collective: { fog: '#141225', name: 'THE MURMURATION', motes: '#e8e0ff' },
+  geological: { fog: '#140c08', name: 'THE FOLDED STRATA', motes: '#ffd9b0' },
+  network: { fog: '#0a0a14', name: 'THE NETWORK', motes: '#ffe6a0' },
+};
+WORLDS.systemic = WORLDS.network;
+WORLDS['named-solution'] = WORLDS.organismal;
+export const worldName = sector => (WORLDS[sector] ?? WORLDS.organismal).name;
+// the world of a level: its sector, except where a level reads better as another world
+const LEVEL_WORLDS = { 'cellular-synaptic': 'organismal', molecular: 'organismal', 'whole-brain-cemi': 'organismal', 'human-vertebrate': 'organismal', dyad: 'organismal', 'animal-swarm': 'collective', 'human-group': 'collective' };
+export const worldFor = (levelId, sector) => LEVEL_WORLDS[levelId] ?? (WORLDS[sector] ? sector : 'organismal');
+
+function points(positions, colors, size, opacity = 0.9) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  if (colors) g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  return new THREE.Points(g, new THREE.PointsMaterial({ size, vertexColors: Boolean(colors), color: colors ? '#ffffff' : '#ffffff', transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true }));
+}
+
+function lines(positions, color, opacity) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  return new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending }));
+}
+
+// ---------------------------------------------------------------- tiles per sector
+
+function cosmicWeb(rand) {
+  const group = new THREE.Group();
+  const nodes = Array.from({ length: 70 }, () => [(rand() - 0.5) * 40, (rand() - 0.5) * 22, -rand() * TILE]);
+  const pos = [];
+  const col = [];
+  const c = new THREE.Color();
+  for (const [i, a] of nodes.entries()) {
+    const near = nodes.map((b, j) => [j, Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])]).filter(([j]) => j !== i).sort((x, y) => x[1] - y[1]).slice(0, 3);
+    for (const [j, d] of near) {
+      if (j < i || d > 16) continue;
+      const b = nodes[j];
+      const n = Math.round(d * 9);
+      for (let k = 0; k < n; k++) {
+        const s = k / n;
+        const jitter = 0.35 * Math.sin(Math.PI * s);
+        pos.push(a[0] + (b[0] - a[0]) * s + (rand() - 0.5) * jitter, a[1] + (b[1] - a[1]) * s + (rand() - 0.5) * jitter, a[2] + (b[2] - a[2]) * s + (rand() - 0.5) * jitter);
+        c.setHSL(0.58 + 0.08 * rand(), 0.8, 0.45 + 0.3 * rand());
+        col.push(c.r, c.g, c.b);
+      }
+    }
+  }
+  group.add(points(pos, col, 0.16, 0.9));
+  const gpos = [];
+  const gcol = [];
+  for (const [x, y, z] of nodes) {
+    for (let k = 0; k < 40; k++) {
+      const r = 0.9 * Math.pow(rand(), 2);
+      const a = rand() * Math.PI * 2;
+      gpos.push(x + Math.cos(a) * r, y + (rand() - 0.5) * r * 0.5, z + Math.sin(a) * r);
+      c.setHSL(0.08 + 0.1 * rand(), 0.9, 0.7);
+      gcol.push(c.r, c.g, c.b);
+    }
+  }
+  group.add(points(gpos, gcol, 0.22, 1));
+  return group;
+}
+
+function quantumFoam(rand) {
+  const group = new THREE.Group();
+  const geometry = new THREE.SphereGeometry(1, 12, 8);
+  const material = new THREE.MeshBasicMaterial({ color: '#8fb6ff', wireframe: true, transparent: true, opacity: 0.18, depthWrite: false, blending: THREE.AdditiveBlending });
+  const count = 260;
+  const foam = new THREE.InstancedMesh(geometry, material, count);
+  const m = new THREE.Matrix4();
+  const seeds = [];
+  for (let i = 0; i < count; i++) {
+    const p = [(rand() - 0.5) * 30, (rand() - 0.5) * 18, -rand() * TILE];
+    seeds.push({ p, r: 0.2 + 1.4 * rand() ** 2, f: 0.5 + 2 * rand(), ph: rand() * 6.28 });
+    m.makeTranslation(...p);
+    foam.setMatrixAt(i, m);
+  }
+  group.add(foam);
+  const lat = [];
+  for (let z = 0; z > -TILE; z -= 3) {
+    for (let x = -15; x <= 15; x += 3) lat.push(x, -9, z, x, 9, z);
+    for (let y = -9; y <= 9; y += 3) lat.push(-15, y, z, 15, y, z);
+  }
+  group.add(lines(lat, '#6a4cff', 0.07));
+  group.userData.animate = t => {
+    const s = new THREE.Vector3();
+    const q = new THREE.Quaternion();
+    for (const [i, b] of seeds.entries()) {
+      const k = b.r * (0.4 + 0.6 * Math.abs(Math.sin(t * b.f + b.ph)));
+      m.compose(new THREE.Vector3(...b.p), q, s.set(k, k, k));
+      foam.setMatrixAt(i, m);
+    }
+    foam.instanceMatrix.needsUpdate = true;
+  };
+  return group;
+}
+
+// a fractal branch (L-system-like), as line segments; flowers at the tips
+function branch(out, tips, rand, x, y, z, dir, len, depth) {
+  const end = [x + dir[0] * len, y + dir[1] * len, z + dir[2] * len];
+  out.push(x, y, z, ...end);
+  if (depth === 0) {
+    tips.push(end);
+    return;
+  }
+  const n = 2 + (rand() < 0.4 ? 1 : 0);
+  for (let i = 0; i < n; i++) {
+    const a = rand() * Math.PI * 2;
+    const spread = 0.55;
+    const d = new THREE.Vector3(dir[0] + Math.cos(a) * spread, dir[1] + 0.25, dir[2] + Math.sin(a) * spread).normalize();
+    branch(out, tips, rand, ...end, [d.x, d.y, d.z], len * (0.62 + 0.15 * rand()), depth - 1);
+  }
+}
+
+function innerSea(rand) {
+  const group = new THREE.Group();
+  const seg = [];
+  const tips = [];
+  for (let i = 0; i < 46; i++) {
+    const floor = rand() < 0.75;
+    const x = (rand() - 0.5) * 34;
+    const z = -rand() * TILE;
+    const y = floor ? -7 : 7;
+    const dir = floor ? [0, 1, 0] : [0, -1, 0];
+    const startTips = tips.length;
+    branch(seg, tips, rand, x, y, z, dir, 1.4 + rand() * 1.4, 4);
+    if (!floor) for (let k = startTips; k < tips.length; k++) tips[k][1] = Math.min(tips[k][1], 7);
+  }
+  group.add(lines(seg, '#ff7aa8', 0.5));
+  const fpos = [];
+  const fcol = [];
+  const c = new THREE.Color();
+  for (const [x, y, z] of tips) {
+    const hue = rand();
+    for (let p = 0; p < 7; p++) {
+      const a = (p / 7) * Math.PI * 2;
+      for (let k = 1; k <= 3; k++) {
+        fpos.push(x + Math.cos(a) * 0.09 * k, y + 0.04 * k, z + Math.sin(a) * 0.09 * k);
+        c.setHSL(hue, 0.85, 0.55 + 0.1 * k);
+        fcol.push(c.r, c.g, c.b);
+      }
+    }
+  }
+  group.add(points(fpos, fcol, 0.14, 1));
+  const sand = new THREE.Mesh(new THREE.PlaneGeometry(40, TILE, 40, 60), new THREE.MeshBasicMaterial({ color: '#1c6f78', wireframe: true, transparent: true, opacity: 0.12 }));
+  sand.rotation.x = -Math.PI / 2;
+  sand.position.set(0, -7.2, -TILE / 2);
+  group.add(sand);
+  return group;
+}
+
+function murmuration(rand) {
+  const group = new THREE.Group();
+  const plain = new THREE.Mesh(new THREE.PlaneGeometry(60, TILE, 30, 40), new THREE.MeshBasicMaterial({ color: '#5a4a9a', wireframe: true, transparent: true, opacity: 0.14 }));
+  plain.rotation.x = -Math.PI / 2;
+  plain.position.set(0, -8, -TILE / 2);
+  group.add(plain);
+  const n = 2400;
+  const pos = new Float32Array(n * 3);
+  const home = [];
+  for (let i = 0; i < n; i++) {
+    const cluster = Math.floor(rand() * 3);
+    home.push({ cx: (cluster - 1) * 9, cz: -10 - cluster * 18, u: rand() * 6.28, v: rand() * 6.28, r: 2 + 3 * rand() });
+  }
+  const flock = points(pos, null, 0.22, 1);
+  flock.material.color.set('#e8e0ff');
+  group.add(flock);
+  group.userData.animate = t => {
+    for (const [i, h] of home.entries()) {
+      const u = h.u + t * 0.3;
+      const v = h.v + t * 0.21;
+      const wob = 1 + 0.35 * Math.sin(t * 0.4 + h.cx);
+      pos[i * 3] = h.cx + Math.sin(u) * Math.cos(v) * h.r * 2.2 * wob + 3 * Math.sin(t * 0.25 + h.cz);
+      pos[i * 3 + 1] = 2 + Math.sin(v * 2) * h.r * 0.5 + 1.5 * Math.cos(t * 0.3 + h.cx);
+      pos[i * 3 + 2] = h.cz + Math.cos(u) * h.r * 1.3;
+    }
+    flock.geometry.attributes.position.needsUpdate = true;
+  };
+  return group;
+}
+
+function foldedStrata(rand) {
+  const group = new THREE.Group();
+  const c = new THREE.Color();
+  for (let k = 0; k < 9; k++) {
+    const g = new THREE.PlaneGeometry(50, TILE, 50, 60);
+    g.rotateX(-Math.PI / 2);
+    const p = g.attributes.position;
+    const amp = 1.5 + rand() * 2;
+    const ph = rand() * 6;
+    for (let i = 0; i < p.count; i++) {
+      const x = p.getX(i);
+      const z = p.getZ(i);
+      p.setY(i, -9 + k * 1.1 + amp * Math.sin(z * 0.12 + ph + 0.3 * Math.sin(x * 0.1)) * Math.exp(-((x / 22) ** 2)));
+    }
+    c.setHSL(0.05 + 0.03 * k, 0.6, 0.35 + 0.03 * k);
+    const mesh = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: c.clone(), wireframe: true, transparent: true, opacity: 0.22 }));
+    mesh.position.z = -TILE / 2;
+    group.add(mesh);
+  }
+  return group;
+}
+
+function networkWorld(rand) {
+  const group = new THREE.Group();
+  const nodes = Array.from({ length: 90 }, () => [(rand() - 0.5) * 30, (rand() - 0.5) * 18, -rand() * TILE]);
+  const seg = [];
+  for (const [i, a] of nodes.entries()) {
+    for (const [j, b] of nodes.entries()) {
+      if (j <= i) continue;
+      const d = Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+      if (d < 7.5) seg.push(...a, a[0], b[1], a[2], a[0], b[1], a[2], ...b);
+    }
+  }
+  group.add(lines(seg, '#ffd166', 0.35));
+  group.add(points(nodes.flat(), null, 0.4, 1));
+  return group;
+}
+
+const BUILDERS = { cosmological: cosmicWeb, 'micro-physical': quantumFoam, organismal: innerSea, collective: murmuration, geological: foldedStrata, network: networkWorld, systemic: networkWorld, 'named-solution': innerSea };
+
+export function createFlight3D() {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  } catch {
+    return null;
+  }
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.05, 80);
+  camera.focus = 6;
+  const stereoCamera = new THREE.StereoCamera();
+  stereoCamera.eyeSep = 0.12;
+  const size = new THREE.Vector2();
+  let tiles = [];
+  let sector = '';
+  let travelled = 0;
+  let surge = 0;
+  let last = 0;
+
+  // motes: the fluid, drifting in one flow field around the camera
+  const MOTES = 1600;
+  const motePos = new Float32Array(MOTES * 3);
+  const rand = seeded(5);
+  for (let i = 0; i < MOTES; i++) {
+    motePos[i * 3] = (rand() - 0.5) * 24;
+    motePos[i * 3 + 1] = (rand() - 0.5) * 14;
+    motePos[i * 3 + 2] = -rand() * 40;
+  }
+  const motes = points(motePos, null, 0.05, 0.6);
+  scene.add(motes);
+
+  function build(next) {
+    sector = next;
+    for (const t of tiles) scene.remove(t);
+    const world = WORLDS[sector] ?? WORLDS.organismal;
+    const make = BUILDERS[sector] ?? innerSea;
+    const rnd = seeded(sector.length * 97 + 11);
+    const tile = make(rnd);
+    tiles = [tile, tile.clone()];
+    if (tile.userData.animate) tiles[1].userData.animate = null;
+    for (const t of tiles) scene.add(t);
+    scene.background = new THREE.Color(world.fog);
+    scene.fog = new THREE.Fog(world.fog, 8, 52);
+    motes.material.color.set(world.motes);
+  }
+
+  function renderEye(eye) {
+    renderer.render(scene, eye);
+  }
+
+  return {
+    canvas,
+    resize(w, h, dpr) {
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+    },
+    poke(strength = 1) {
+      surge = Math.max(surge, 0.6 + 0.6 * strength);
+    },
+    // state: { sector, phi, time, stereo }
+    render(state) {
+      if (state.sector !== sector) build(state.sector);
+      const dt = Math.min(0.05, last ? state.time - last : 0.016);
+      last = state.time;
+      surge = Math.max(0, surge - dt * 0.6);
+      const speed = 1.2 + 3.5 * state.phi + 8 * surge;
+      travelled += speed * dt;
+      const offset = mod(travelled, TILE);
+      tiles[0].position.z = offset;
+      tiles[1].position.z = offset - TILE;
+      // the copy whose tile has the animation drives both (they share geometry through clone)
+      tiles[0].userData.animate?.(state.time);
+      // the fluid: a divergence-free swirl, and the forward drift
+      const t = state.time;
+      for (let i = 0; i < MOTES; i++) {
+        const k = i * 3;
+        const x = motePos[k];
+        const y = motePos[k + 1];
+        motePos[k] += (Math.sin(y * 0.4 + t * 0.3) * 0.6) * dt;
+        motePos[k + 1] += (Math.cos(x * 0.35 + t * 0.25) * 0.4) * dt;
+        motePos[k + 2] += speed * dt;
+        if (motePos[k + 2] > 2) {
+          motePos[k + 2] -= 42;
+          motePos[k] = (Math.random() - 0.5) * 24;
+          motePos[k + 1] = (Math.random() - 0.5) * 14;
+        }
+      }
+      motes.geometry.attributes.position.needsUpdate = true;
+      // a gentle banking glide, never a jolt (H-AL: smooth motion only)
+      camera.position.set(Math.sin(t * 0.11) * 2.2, Math.sin(t * 0.07) * 1.2, 0);
+      camera.lookAt(Math.sin(t * 0.11 + 0.6) * 2.2, Math.sin(t * 0.07 + 0.4) * 1.2, -10);
+      camera.rotateZ(Math.sin(t * 0.09) * 0.06);
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        stereoCamera.update(camera);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderEye(eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
+      renderEye(camera);
+    },
+  };
+}

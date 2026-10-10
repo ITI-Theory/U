@@ -2012,6 +2012,34 @@ Steps:
       narrowing to the D8 line and opening into 3D), the body inside the
       jellyfish, then thought and neuron. Staging: body at the screen plane,
       deep structures and valleys behind, field and sparks in front.
+- [x] FLY (author, 10 Oct 01:49: "a flying view through a fractal landscape that
+      matches the level, music would help"; H-AL: uat/RC3/hal-flight-2026-10-10.md,
+      its "Fractal Flight"): `flight3d.js`, a slow flight forward through the
+      world of the current level, one form per sector: the cosmic web
+      (galaxies on filaments), the quantum foam (pulsing bubbles on a
+      lattice), the inner sea (fractal coral with flowers, plankton), the
+      murmuration (a flock flowing like a fluid), folded strata, a network.
+      Motes drift in one flow field (the fluid); Φ is the speed, POKE a surge;
+      gentle banking only. FLY ▸ on every elevator floor. Mono and SBS.
+- [x] Music: `explorer-music.js`, calm generative ambient (a pentatonic pad per
+      world, slow bells, a long echo, low-pass), off by default (H-AL:
+      opt-in, no beat, no sharp transients for clients); Φ brightens it, the
+      RESOURCE settles the chord on its root, POKE rings a bell.
+- [x] PATH (author, 10 Oct 01:55: "boundaries are paths, a path of obstacles,
+      but which path? a thought racing through the brain in a tunnel, with the
+      fractal; cubic fractals match the towers of code; Mandelbulbs are in the
+      chats"): `tunnel3d.js`, a thought (the ball) runs a looping tunnel; each
+      boundary is a gate that opens when Φ is above its height (FM-HN), the
+      RESOURCE lowers all gates (J(t)), POKE at a closed gate tunnels with
+      chance exp(−3 × gap), never zero (LimbicTunnel.wkbAmplitude_pos). Walls:
+      dendrites (organismal), Menger cubes (network, systemic, collective: the
+      city of code), stars (cosmic); a Mandelbulb (power 8, point cloud) at the
+      centre at 11D, the mind.
+- [ ] FLY and PATH, next: the Mandelbulb as a raymarched shader (Fractal Flight
+      proper: fly into it; power from H, rotation from |∇H|, colour from
+      T_eff, bursts at threshold crossings, after the chats); branching paths
+      (several tunnels; which one a thought takes depends on the gates); the
+      granular sound of motion; fluid as a real flow solver.
 - [ ] Emotion and thought, next: a Lean type for "same field, different type"
       (an inductive FieldEvent with emotion at D8 and thought at D9–11 and a
       projection between them), so the claim becomes a definition the

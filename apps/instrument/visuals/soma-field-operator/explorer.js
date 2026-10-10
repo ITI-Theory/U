@@ -8,6 +8,9 @@
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
 import { createDyad3D, createLandscape3D } from './explorer3d.js';
+import { createFlight3D, worldFor, worldName } from './flight3d.js';
+import { createTunnel3D } from './tunnel3d.js';
+import { createExplorerMusic } from './explorer-music.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -30,7 +33,7 @@ const temperature = phi => T0 + SIGMA * phi;
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
 export const STEREO_MODES = ['off', 'half', 'full'];
-export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad'];
+export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'flight'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
@@ -40,10 +43,12 @@ export const STOP_LEVELS = {
   thought: { level: 'whole-brain-cemi', dim: 11 },
   neuron: { level: 'cellular-synaptic' }, network: { level: 'whole-brain-cemi' },
   landscape: { level: 'human-vertebrate' }, dyad: { level: 'dyad' },
+  flight: { level: null }, // the level being shown
+  tunnel: { level: 'whole-brain-cemi', dim: 11 },
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', flight: 'FLY', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -94,6 +99,17 @@ const CAPTIONS = {
     4: 'Two people, two rhythms (heart and breath, drawn as one phase each). Calm, they fall into step; Φ, the limbic field, widens the gap between their rhythms and they drift apart: a rupture. POKE jolts one out of step; watch the repair.',
     8: 'The coupling across the contact boundary, attunement (Kuramoto model, as the dyad level): strong enough, and the two lock; RESOURCE strengthens it (the therapist\'s presence), so they stay attuned even when hot and repair faster.',
     11: 'The shared field around both: bright when they are in step (the sync r near 1). The clinical reading (rupture and repair, co-regulation) is interpretive.',
+  },
+  tunnel: {
+    title: 'THE PATH OF A THOUGHT', label: 'simulated',
+    4: 'Boundaries are paths: a thought, the ball, races along a tunnel through the brain, and each boundary is a gate on its path. A gate opens when Φ, the limbic field, is above its height (gold: closed, teal: open); a closed gate stops the thought.',
+    8: 'POKE at a closed gate and the thought tries to tunnel through, with chance exp(−3 × the gap), never zero (LimbicTunnel.lean, wkbAmplitude_pos); RESOURCE lowers every gate a little (J(t)). Which path a thought takes is set by which gates are open.',
+    11: 'The walls are the fractal of the level: dendrites, or Menger cubes for networks (the city of code\'s towers); at the centre of the loop floats a Mandelbulb, the mind. Interpretive pictures around a simulated rule.',
+  },
+  flight: {
+    title: 'FLY', label: 'interpretive',
+    4: 'A slow flight through the world of the level you are on, one natural form per scale: the cosmic web, the quantum foam, an inner sea of coral and flowers, a murmuration, folded rock, a network. Everything drifts in one current, the fluid. Φ is the speed; POKE is a surge. Pick another floor in the elevator (FLY ▸) to fly somewhere else; MUSIC adds calm sound (off by default).',
+    11: 'The forms are pictures of each scale, not data: an invitation to look inward the way the programme looks outward.',
   },
   neuron: {
     title: 'ONE NEURON', label: 'simulated',
@@ -1034,6 +1050,60 @@ function makeDyad() {
   };
 }
 
+// ---------------------------------------------------------------- stop: the path of a thought
+
+function makeTunnel() {
+  let gl = null;
+  return {
+    focus: [0, 0],
+    tick() {},
+    poke(strength) { gl?.poke(strength); },
+    draw(ctx, env) {
+      const { u, t } = env;
+      if (!env.gl) {
+        if (env.labels) label(ctx, u, 'PATH needs WebGL (3D)', 0, 0, COLORS.dim, 'center', 0.03);
+        return;
+      }
+      gl = env.gl;
+      gl.render({ world: env.world, phi: env.phi, resource: env.resource, dim: env.dim, time: t, stereo: env.stereo });
+      if (env.labels) {
+        label(ctx, u, gl.blocked ? 'STOPPED AT A BOUNDARY · raise Φ, add the RESOURCE, or POKE to tunnel' : 'the thought moves on', 0, -0.7, gl.blocked ? COLORS.orange : COLORS.teal, 'center', 0.03);
+        if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.62, COLORS.gold, 'center', 0.032);
+      }
+    },
+  };
+}
+
+// ---------------------------------------------------------------- stop: fly
+
+function makeFlight() {
+  let gl = null;
+  const stars = Array.from({ length: 220 }, () => ({ x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random() }));
+  return {
+    focus: [0, 0],
+    tick() {},
+    poke(strength) { gl?.poke(strength); },
+    draw(ctx, env) {
+      const { u, phi, t } = env;
+      if (env.gl) {
+        gl = env.gl;
+        gl.render({ sector: env.world, phi, time: t, stereo: env.stereo });
+      } else {
+        // 2D fallback: a warp of stars
+        for (const s of stars) {
+          s.z -= env.dt * (0.15 + 0.4 * phi);
+          if (s.z <= 0.02) Object.assign(s, { x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: 1 });
+          dot(ctx, u, (s.x / s.z) * 0.4, (s.y / s.z) * 0.4, 0.004 / s.z, '#cfe8ff', 1 - s.z);
+        }
+      }
+      if (env.labels) {
+        label(ctx, u, worldName(env.world), 0, -0.7, COLORS.ink, 'center', 0.04);
+        label(ctx, u, `${env.levelLabel} · speed Φ ${phi.toFixed(2)}`, 0, -0.62, COLORS.dim, 'center', 0.026);
+      }
+    },
+  };
+}
+
 // ---------------------------------------------------------------- stop: one neuron
 
 function makeNeuron() {
@@ -1512,7 +1582,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
 export const simulation = { memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
@@ -1537,6 +1607,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
+      <button type="button" data-act="music" aria-pressed="false" title="Calm generative music (off by default)">MUSIC</button>
       <button type="button" data-act="stereo" title="Stereo for a 3D projector or TV: SBS½ (half side-by-side, squeezed: the usual HDMI 3D input) or SBS (full); move the mouse to show the controls">3D: OFF</button>
       <button type="button" data-act="level">STEP BACK IN ↩</button>
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
@@ -1554,6 +1625,7 @@ export function createExplorer(hooks = {}) {
   const resourceButton = root.querySelector('[data-act="resource"]');
   const view3dButton = root.querySelector('[data-act="view3d"]');
 
+  const music = createExplorerMusic();
   const scenes = {};
   const scene = id => (scenes[id] ??= FACTORIES[id]());
   const rand = seeded(3);
@@ -1584,6 +1656,8 @@ export function createExplorer(hooks = {}) {
   const GL_MAKERS = {
     landscape: () => createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [] }),
     dyad: () => createDyad3D(),
+    flight: () => createFlight3D(),
+    tunnel: () => createTunnel3D(),
   };
   const gls = {};
   function stageGl(stop) {
@@ -1628,13 +1702,17 @@ export function createExplorer(hooks = {}) {
     for (const b of root.querySelectorAll('[data-dim]')) b.classList.toggle('active', Number(b.dataset.dim) === dim());
     for (const b of root.querySelectorAll('[data-feel]')) b.classList.toggle('active', b.dataset.feel === st.feel);
     feelRow.hidden = st.stop !== 'body';
-    resourceButton.hidden = !['network', 'landscape', 'dyad'].includes(st.stop);
+    resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
     view3dButton.hidden = !GL_MAKERS[st.stop] || (st.stop in gls && !gls[st.stop]);
     const link = STOP_LEVELS[st.stop];
-    root.querySelector('[data-act="level"]').title = `Back into the elevator: the same thing in the level view, ${hooks.levelLabel?.(link.level) ?? link.level}${link.dim ? ` at ${link.dim}D` : ''}`;
+    const linkLevel = link.level ?? hooks.levelId?.();
+    root.querySelector('[data-act="level"]').title = `Back into the elevator: the same thing in the level view, ${hooks.levelLabel?.(linkLevel) ?? linkLevel}${link.dim ? ` at ${link.dim}D` : ''}`;
     view3dButton.classList.toggle('active', st.view3d);
+    const musicButton = root.querySelector('[data-act="music"]');
+    musicButton.classList.toggle('active', music.enabled);
+    musicButton.setAttribute('aria-pressed', String(music.enabled));
     const stereoButton = root.querySelector('[data-act="stereo"]');
     stereoButton.textContent = `3D: ${{ off: 'OFF', half: 'SBS½', full: 'SBS' }[st.stereo]}`;
     stereoButton.classList.toggle('active', st.stereo !== 'off');
@@ -1793,7 +1871,10 @@ export function createExplorer(hooks = {}) {
     const stereo = st.stereo !== 'off';
     const lw = viewW();
     const u = Math.min(lw, h * 1.05) * 0.48;
-    const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo };
+    const sector = hooks.levelSector?.() ?? 'organismal';
+    const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
+      sector, world: worldFor(hooks.levelId?.(), sector), levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource });
     if (stereo) {
       prepareLayers(lw);
       ctx = layers.far.ctx;
@@ -1903,7 +1984,9 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
-    else if (b.dataset.act === 'stereo') {
+    else if (b.dataset.act === 'music') {
+      Promise.resolve(music.enabled ? music.disable() : music.enable()).then(syncUi);
+    } else if (b.dataset.act === 'stereo') {
       api.setStereo(STEREO_MODES[(STEREO_MODES.indexOf(st.stereo) + 1) % STEREO_MODES.length]);
     } else if (b.dataset.act === 'view3d') {
       st.view3d = !st.view3d;
@@ -1991,7 +2074,10 @@ export function createExplorer(hooks = {}) {
     setResource(on) { st.resource = Boolean(on); syncUi(); },
     setLabels(on) { st.labels = Boolean(on); },
     refresh() { syncUi(); },
-    poke(strength = 1) { if (st.open && st.stop !== 'human') scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1)); },
+    poke(strength = 1) {
+      if (st.open && st.stop !== 'human') scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1));
+      music.poke();
+    },
   };
   return api;
 }

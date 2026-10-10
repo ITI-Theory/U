@@ -583,7 +583,7 @@ TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare"
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
-              "voyage": {"human", "body", "brain", "limbic", "thought", "neuron", "network", "landscape", "dyad"},
+              "voyage": {"human", "body", "brain", "limbic", "thought", "neuron", "network", "landscape", "dyad", "tunnel", "flight"},
               "feel": {"calm", "fight", "flight", "grief", "freeze", "vigilance", "flow", "joy"},
               "resource": {"0", "1"}}
 # phi (the limbic field, the FX bar): a number from 0 to 1, as tour.js PHI.

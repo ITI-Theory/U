@@ -82,7 +82,7 @@ With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
 | `reader` | `cookie`, `general` or `specialist` |
 | `labels` | `on` or `off` |
 | `ui` | `clean`: hide the panels (the cockpit view); omit to show them |
-| `voyage` | opens the mind-body explorer at a stop: `human` (the level view of the jellyfish human, seen through), `body`, `brain`, `limbic`, `thought`, `neuron`, `network`, `landscape` or `dyad`; omit to close it. From `human` to any other stop the camera dives into the body |
+| `voyage` | opens the mind-body explorer at a stop: `human` (the level view of the jellyfish human, seen through), `body`, `brain`, `limbic`, `thought`, `neuron`, `network`, `landscape`, `dyad`, `tunnel` (the path of a thought) or `flight` (FLY: the world of the current level); omit to close it. From `human` to any other stop the camera dives into the body |
 | `phi` | the limbic field Φ, a number from 0 to 1 (the FX bar): heats the explorer's body, brain, memories and landscape |
 | `feel` | the feeling on the body map: `calm`, `fight`, `flight`, `grief`, `freeze`, `vigilance`, `flow` or `joy` |
 | `resource` | `1`: a resource (the therapist's driving term J(t)) pulls the memories and tilts the landscape towards SAFE; `0` removes it |

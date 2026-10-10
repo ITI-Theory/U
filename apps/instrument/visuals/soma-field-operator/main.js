@@ -1274,12 +1274,14 @@ const explorer = createExplorer({
     state.voyage = null;
     const params = new URLSearchParams(hashForState().slice(1));
     for (const key of ['voyage', 'phi', 'feel', 'resource', 'path']) params.delete(key);
-    params.set('level', levelId);
+    params.set('level', levelId ?? state.levelId);
     params.set('lens', 'on');
     if (dim) params.set('dim', String(dim));
     location.hash = params.toString();
   },
   levelLabel: levelId => levelsById.get(levelId)?.label ?? levelId,
+  levelId: () => state.levelId,
+  levelSector: () => levelsById.get(state.levelId)?.sector ?? 'organismal',
   // the 3D landscape's city of code: Sherlock's concepts (height by evidence) and the levels' equations
   cityItems: () => [
     ...registryConcepts.map(c => ({ title: c.concept, status: c.status, lines: [c.lean ?? '', c.status ?? '', c.where ?? '', ...(c.papers ?? []).map(p => `paper ${p}`), c.notes ?? ''] })),
@@ -1289,6 +1291,11 @@ const explorer = createExplorer({
 const elevator = createElevator({
   onFloor: index => setPathStep(index),
   onStepOut: stop => openExplorerAt(stop),
+  // FLY ▸ on any floor: ride there, then fly through that level's world
+  onFly: index => {
+    setPathStep(index);
+    openExplorerAt('flight');
+  },
 });
 // Floors are the current model's levels; the car rides state.visualScale between them.
 function updateElevator() {

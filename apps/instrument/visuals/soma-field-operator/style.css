@@ -504,4 +504,5 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-stereo:not(.explorer-chrome) .tour-card,
 .explorer-stereo:not(.explorer-chrome) .screen-fullscreen { opacity: 0; pointer-events: none; transition: opacity .4s ease; }
 .explorer-stereo.explorer-chrome .explorer__bar, .explorer-stereo.explorer-chrome .tour-card { opacity: 1; transition: opacity .2s ease; }
-
+.elevator button.elevator__fly { background: #5ee7ff; margin-left: 3px; }
+.explorer [data-act="music"].active { background: #ffd166; color: #070a16; }
