@@ -2134,6 +2134,13 @@ Steps:
       heart and the slider is off; explorer-check decodes sample packets. UAT: connect a
       strap (Polar, Garmin, Wahoo ...), watch ♥ follow it, LOOP on, a rising heart
       slows the film; then HRV from the RR intervals (next item).
+- [x] (11 Oct 00:10) HRV and breathing from the strap's RR intervals (heart.js
+      `hrvFromRR`, the last 60 s): RMSSD (vagal tone), breaths a minute (the respiratory
+      rhythm in the heart rate, 0.12-0.4 Hz) and coherence (one slow regular peak); they
+      refine the viewer's Safety (score.js `viewerField`); shown on the SCORE stop as
+      estimates. explorer-check: breathing 15/min recovered, a slow 6/min rhythm coherent,
+      irregular beats not, a calm coherent heart raises Safety. Estimates for the film, not
+      clinical measures; to test with a strap in UAT.
 - [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
       and credits; the author's review of every line; OpenStax Anatomy &
       Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not

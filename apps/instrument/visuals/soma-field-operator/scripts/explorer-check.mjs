@@ -12,9 +12,9 @@
 // Usage: node scripts/explorer-check.mjs [runs]. Exit 1 if a rate is below its bound.
 
 import { simulation as sim } from '../explorer.js';
-import { createScorePlayer } from '../score.js';
+import { createScorePlayer, viewerField } from '../score.js';
 import { diveMath } from '../flight3d.js';
-import { parseHeartRate } from '../heart.js';
+import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
@@ -94,6 +94,21 @@ function dives(n) {
   return { found: found / n, worst };
 }
 const diveRun = dives(24);
+// HRV from synthetic beats: 70 bpm with a breathing rhythm (respiratory sinus arrhythmia)
+// at 15 a minute, then a calm slow rhythm at 6 a minute, then irregular beats
+function beats(seconds, f, amp, jitter = 0, seed = 1) {
+  const rnd = diveMath.seeded(seed);
+  const out = [];
+  for (let t = 0; t < seconds;) {
+    const rr = 60 / 70 + amp * Math.sin(2 * Math.PI * f * t) + jitter * (rnd() - 0.5);
+    out.push(rr);
+    t += rr;
+  }
+  return out;
+}
+const hrvBreath = hrvFromRR(beats(90, 0.25, 0.05));
+const hrvCalm = hrvFromRR(beats(90, 0.1, 0.08));
+const hrvNoise = hrvFromRR(beats(90, 0.25, 0, 0.12, 7));
 // The strap's Heart Rate Measurement (GATT 0x2A37): an 8-bit rate; a 16-bit rate with
 // energy expended and two RR intervals (1/1024 s)
 const hr8 = parseHeartRate(new DataView(new Uint8Array([0x00, 72]).buffer));
@@ -140,6 +155,11 @@ const checks = [
   // the chest strap's packets (heart.js)
   ['strap: 8-bit rate decoded (72 bpm)', Number(hr8.bpm === 72 && hr8.rr.length === 0), 1, 1],
   ['strap: 16-bit rate, energy skipped, RR intervals decoded (300 bpm; 1.0 s, 0.5 s)', Number(hr16.bpm === 300 && hr16.rr.length === 2 && hr16.rr[0] === 1 && hr16.rr[1] === 0.5), 1, 1],
+  // heart-rate variability (heart.js hrvFromRR) and the viewer's safety (score.js)
+  ['hrv: breathing at 15/min found from the heart rhythm (breaths/min)', hrvBreath.breath, 14, 16],
+  ['hrv: a slow calm rhythm (6/min) is coherent (> 0.5)', hrvCalm.coherence, 0.5, 1],
+  ['hrv: irregular beats are not coherent (< 0.3)', hrvNoise.coherence, 0, 0.3],
+  ['hrv: calm coherent heart raises safety at the same rate (S with HRV - S without)', viewerField(75, 0, hrvCalm).S - viewerField(75, 0, { rmssd: 5, breath: 18, coherence: 0.05 }).S, 0.2, 1],
   // FLY into the Mandelbulb (flight3d.js)
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],

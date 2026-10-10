@@ -120,11 +120,19 @@ export function shape(m, { kd = 0.7, kw = 1, active = null, coupling = [] } = {}
   return out;
 }
 
-// The viewer's field estimated from the heart alone: arousal a from 60 to 120 bpm raises
-// fear and lowers safety; a rising heart (Hdot > 0) also lowers language a little.
-// A crude estimator for a slider; a real one would use HRV, skin conductance, breath.
-export function viewerField(bpm, hdot) {
+// The viewer's field estimated from the heart: arousal a from 60 to 120 bpm raises fear
+// and lowers safety; a rising heart (Hdot > 0) also lowers language a little. With a strap,
+// heart-rate variability (heart.js hrvFromRR) refines safety: vagal tone (RMSSD, 60 ms and
+// above counts as high) and coherence (a slow regular rhythm) raise it, and slow breathing
+// (under 10 a minute) a little more. An estimate for the film, not a clinical measure.
+export function viewerField(bpm, hdot, hrv = null) {
   const a = Math.max(0, Math.min(1, (bpm - 60) / 60));
-  return { S: 1 - a, F: a, L: Math.max(0, 0.8 - 0.5 * a - 0.2 * Math.max(0, hdot)) };
+  let S = 1 - a;
+  if (hrv) {
+    const vagal = Math.max(0, Math.min(1, hrv.rmssd / 60));
+    const slow = hrv.breath > 0 && hrv.breath < 10 ? 0.1 : 0;
+    S = Math.max(0, Math.min(1, 0.5 * S + 0.3 * vagal + 0.2 * hrv.coherence + slow));
+  }
+  return { S, F: a, L: Math.max(0, 0.8 - 0.5 * a - 0.2 * Math.max(0, hdot)) };
 }
 

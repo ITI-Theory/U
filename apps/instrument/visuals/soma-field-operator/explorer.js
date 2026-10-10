@@ -13,7 +13,7 @@ import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField } from './score.js';
 import { scores } from './generated/app-data.js';
 import { createExplorerMusic } from './explorer-music.js';
-import { createHeartStrap } from './heart.js';
+import { createHeartStrap, hrvFromRR } from './heart.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -1136,6 +1136,8 @@ function makeScore() {
   // The Trilogy of Containers (paper Part IV): the same score in the river, the body or the
   // session; one player, so the thresholds fall at the same story-times in all three.
   const pair = { a: 0, b: 0.3 }; // the session: client and therapist (the dyad's oscillators)
+  let hrv = null;      // from the strap's RR intervals, refreshed every 2 s
+  let hrvClock = 0;
   let pairR = 1;
   let burst = false;
   return {
@@ -1150,7 +1152,9 @@ function makeScore() {
       const before = bpmS;
       bpmS += (env.bpm - bpmS) * Math.min(1, env.dt / 3);
       hdot += ((bpmS - before) / Math.max(env.dt, 1e-3) - hdot) * Math.min(1, env.dt / 1.5);
-      viewer = viewerField(bpmS, hdot);
+      hrvClock += env.dt;
+      if (hrvClock > 2) { hrvClock = 0; hrv = env.strap && env.rr ? hrvFromRR(env.rr) : null; }
+      viewer = viewerField(bpmS, hdot, hrv);
       player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
       scoreModes = player.modes(viewer, env.kr);
       if (player.justCrossed >= 0) burst = true;
@@ -1211,6 +1215,8 @@ function makeScore() {
       const loopName = { 0: 'PROJECTION', 0.5: 'RESONANCE', 1: 'MIRROR' }[env.kr];
       label(ctx, u, `♥ ${Math.round(bpmS)}${env.strap ? ' (strap)' : ''} · Ḣ ${hdot >= 0 ? '+' : ''}${hdot.toFixed(2)}/s · ${loopName}`, x0, -0.12, COLORS.red, 'left', 0.024);
       if (env.kr > 0 && player.slowed < 0.95) label(ctx, u, `heart rising: film ×${player.slowed.toFixed(2)}`, x0, -0.07, COLORS.orange, 'left', 0.024);
+      if (hrv) label(ctx, u, `HRV ${Math.round(hrv.rmssd)} ms · breath ${hrv.breath.toFixed(0)}/min · coherence ${hrv.coherence.toFixed(2)} (estimates)`, x0, -0.02, COLORS.teal, 'left', 0.022);
+      else if (env.strap) label(ctx, u, 'HRV: collecting beats (20 s)', x0, -0.02, COLORS.dim, 'left', 0.022);
       const bar = { x: -0.6, w: 1.2, y: 0.78 };
       ctx.save();
       ctx.fillStyle = 'rgba(232,238,252,0.15)';
@@ -2085,7 +2091,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, strap: strap.connected, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, strap: strap.connected, rr: rrIntervals, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);

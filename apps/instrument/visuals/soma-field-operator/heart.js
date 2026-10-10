@@ -57,3 +57,51 @@ export function createHeartStrap({ onBeat = () => {}, onStatus = () => {} } = {}
     },
   };
 }
+
+// Heart-rate variability from the strap's RR intervals (seconds), the last `window` s:
+//   rmssd       root mean square of successive differences (ms): short-term, vagal
+//   breath      breaths per minute, from the respiratory rhythm in the heart rate (the
+//               peak of the spectrum between 0.12 and 0.4 Hz: 7 to 24 breaths a minute)
+//   coherence   0..1, the share of the 0.04-0.4 Hz power in one narrow peak (0.04-0.26 Hz),
+//               the slow, regular rhythm of calm breathing
+// Estimates for the film's somatic loop, not clinical measures. null with too few beats.
+export function hrvFromRR(rr, window = 60) {
+  const beats = [];
+  let time = 0;
+  for (const x of rr) if (x > 0.25 && x < 2.5) { time += x; beats.push([time, x]); }
+  if (beats.length < 20 || time < 20) return null;
+  const start = Math.max(0, time - window);
+  const recent = beats.filter(([at]) => at >= start);
+  let sq = 0;
+  for (let i = 1; i < recent.length; i++) sq += ((recent[i][1] - recent[i - 1][1]) * 1000) ** 2;
+  const rmssd = Math.sqrt(sq / Math.max(1, recent.length - 1));
+  // the RR series resampled at 4 Hz, mean removed, Hann window
+  const fs = 4;
+  const t0 = recent[0][0], t1 = recent[recent.length - 1][0];
+  const n = Math.floor((t1 - t0) * fs);
+  const x = new Float64Array(n);
+  let j = 0;
+  for (let i = 0; i < n; i++) {
+    const at = t0 + i / fs;
+    while (j + 1 < recent.length - 1 && recent[j + 1][0] < at) j++;
+    const [ta, a] = recent[j];
+    const [tb, b] = recent[Math.min(j + 1, recent.length - 1)];
+    x[i] = tb > ta ? a + ((b - a) * (at - ta)) / (tb - ta) : a;
+  }
+  const mean = x.reduce((s, v) => s + v, 0) / n;
+  for (let i = 0; i < n; i++) x[i] = (x[i] - mean) * (0.5 - 0.5 * Math.cos((2 * Math.PI * i) / (n - 1)));
+  const power = f => {
+    let re = 0, im = 0;
+    for (let i = 0; i < n; i++) { const w = (2 * Math.PI * f * i) / fs; re += x[i] * Math.cos(w); im -= x[i] * Math.sin(w); }
+    return re * re + im * im;
+  };
+  const df = 0.005;
+  const spec = [];
+  for (let f = 0.04; f <= 0.4 + 1e-9; f += df) spec.push([f, power(f)]);
+  const total = spec.reduce((s, [, p]) => s + p, 0) || 1;
+  const peakIn = (lo, hi) => spec.filter(([f]) => f >= lo && f <= hi).reduce((best, s) => (s[1] > best[1] ? s : best), [0, -1]);
+  const [fb] = peakIn(0.12, 0.4);
+  const [fc] = peakIn(0.04, 0.26);
+  const near = spec.filter(([f]) => Math.abs(f - fc) <= 0.015).reduce((s, [, p]) => s + p, 0);
+  return { rmssd, breath: fb * 60, coherence: near / total };
+}
