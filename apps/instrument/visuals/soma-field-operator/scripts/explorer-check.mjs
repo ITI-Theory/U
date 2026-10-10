@@ -6,7 +6,8 @@
 //   3. the resource alone, while calm, does not free the state;
 //   4. without the resource, heat and cooling move the state, but not reliably to SAFE;
 //   5. the dyad: calm in step, hot drifting, hot with the resource attuned, faster repair;
-//   6. FLY into the Mandelbulb: every dive finds the surface, and the camera stays outside
+//   6. The Tensor's knobs: mask, coupling and depth act as the paper says;
+//   7. FLY into the Mandelbulb: every dive finds the surface, and the camera stays outside
 //      it (as the shader sees it, detail growing with depth) all the way to zoom x40,000.
 // Usage: node scripts/explorer-check.mjs [runs]. Exit 1 if a rate is below its bound.
 
@@ -93,6 +94,16 @@ function dives(n) {
 }
 const diveRun = dives(24);
 
+// The Tensor's knobs at the fear peak (t = 0.5): the modes as the player renders them
+const river2 = { ...river, coupling: [{ from: 'F', to: 'A', weight: 0.4 }, { from: 'A', to: 'G', weight: 0.3 }, { from: 'L', to: 'PV', weight: -0.6 }, { from: 'PV', to: 'L', weight: -0.6 }] };
+const knob = opts => createScorePlayer(river2, { start: 0.5, ...opts }).modes();
+const holdTime = kappaD => {
+  const p = createScorePlayer(river, { kappaV: 3, start: 0.515, kappaD });
+  let s = 0, wasHeld = 0;
+  while (p.t < 0.53 && s < 400) { p.step(0.1, { kr: 0 }); s += 0.1; if (p.holding) wasHeld += 0.1; }
+  return wasHeld;
+};
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -116,6 +127,11 @@ const checks = [
   ['score: resonance with a racing, rising heart is still holding at T1 after 400 s', Number(scoreRun({ start: 0.515, until: 0.53, kr: 0.5, bpm: 120, hdot: 1 }).held), 1, 1],
   ['score: resonance with a settled heart crosses T1 (s)', scoreRun({ start: 0.515, until: 0.53, kr: 0.5, bpm: 72, hdot: -0.1 }).s, 2, 40],
   ['score: a rising heart slows the film (s for 0.02 of story, rising / steady >= 2)', scoreRun({ start: 0.2, until: 0.22, kr: 1, bpm: 90, hdot: 1 }).s / scoreRun({ start: 0.2, until: 0.22, kr: 1, bpm: 90, hdot: 0 }).s / 2, 1, Infinity],
+  // The Tensor's knobs (score.js shape)
+  ['knobs: masked modes are 0 (km=S,F)', Number(['C', 'A', 'G', 'L', 'PV'].every(id => knob({ mask: ['S', 'F'] })[id] === 0) && knob({ mask: ['S', 'F'] }).F > 0), 1, 1],
+  ['knobs: more coupling, more awe from fear (A at kw 2 minus kw 0.5)', knob({ kappaW: 2 }).A - knob({ kappaW: 0.5 }).A, 0.2, 1],
+  ['knobs: depth 0 is shallower than depth 1 (PV)', knob({ kappaD: 1 }).PV - knob({ kappaD: 0 }).PV, 0.1, 1],
+  ['knobs: depth sets the hold at a threshold without the loop (s at kd 1 / kd 0 >= 2)', holdTime(1) / holdTime(0) / 2, 1, Infinity],
   // FLY into the Mandelbulb (flight3d.js)
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],

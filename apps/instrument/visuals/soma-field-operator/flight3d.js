@@ -269,6 +269,8 @@ uniform float uScore;   // 1 when an emotional score drives the picture (The Ten
 uniform float uIters;   // iterations (detail) during a dive
 uniform float uMorph;   // the slow twist of the shape (fixed during a dive)
 uniform float uFade;    // 0 clear, 1 the burst between dives
+uniform float uTexture; // kappa_t: 0 smooth and tonal, 1 granular (grain and hard edges)
+float grain() { return fract(sin(dot(gl_FragCoord.xy + floor(uTime * 24.0) * 7.31, vec2(12.9898, 78.233))) * 43758.5453) - 0.5; }
 uniform float uS, uF, uA, uG, uPV;
 float de(vec3 p, out float trap) {
   vec3 z = p; float dr = 1.0; float r = 0.0; trap = 1e9;
@@ -302,7 +304,7 @@ void main() {
   }
   vec3 bg = vec3(0.02, 0.012, 0.05) + 0.05 * vec3(0.6, 0.2, 0.9) * (1.0 - abs(dir.y));
   vec3 flash = vec3(1.0, 0.86, 0.96);
-  if (!hit) { gl_FragColor = vec4(mix(bg + vec3(0.9, 0.3, 0.7) * 0.004 * steps * (0.6 + uSurge), flash, uFade), 1.0); return; }
+  if (!hit) { gl_FragColor = vec4(mix(bg + vec3(0.9, 0.3, 0.7) * 0.004 * steps * (0.6 + uSurge) + 0.12 * uTexture * grain(), flash, uFade), 1.0); return; }
   vec3 p = ro + dir * t;
   float tt;
   vec2 e = vec2(0.0006 * t, 0.0);
@@ -321,10 +323,13 @@ void main() {
     light = 0.45 + 0.75 * uS + 0.3 * uA;
     rim = 0.15 + 0.7 * uF;
   }
+  rim *= 1.0 + 1.5 * uTexture;
   float diff = clamp(dot(n, normalize(vec3(0.6, 0.8, 0.4))), 0.0, 1.0);
+  diff = mix(diff, step(0.5, diff) * 0.8 + 0.2 * diff, 0.6 * uTexture);
   float ao = 1.0 - steps / 110.0;
   vec3 col = light * base * (0.25 + 0.75 * diff) * ao + rim * pow(1.0 - abs(dot(n, -dir)), 3.0) * vec3(1.0, 0.8, 1.0);
   col = mix(col, bg, clamp(t / 8.0, 0.0, 1.0));
+  col += 0.3 * uTexture * grain() * (0.4 + col);
   gl_FragColor = vec4(mix(col, flash, uFade), 1.0);
 }`;
 
@@ -337,7 +342,7 @@ function createBulb() {
       uCamWorld: { value: new THREE.Matrix4() }, uProjInv: { value: new THREE.Matrix4() },
       uPower: { value: 8 }, uTime: { value: 0 }, uPhi: { value: 0 }, uSurge: { value: 0 },
       uScore: { value: 0 }, uS: { value: 0 }, uF: { value: 0 }, uA: { value: 0 }, uG: { value: 0 }, uPV: { value: 0 },
-      uIters: { value: 9 }, uMorph: { value: 0 }, uFade: { value: 0 },
+      uIters: { value: 9 }, uMorph: { value: 0 }, uFade: { value: 0 }, uTexture: { value: 0 },
     },
     depthTest: false, depthWrite: false,
   });
@@ -360,6 +365,7 @@ function createBulb() {
       u.uIters.value = state.iters ?? 9;
       u.uMorph.value = state.morph ?? state.time * 0.05;
       u.uFade.value = state.fade ?? 0;
+      u.uTexture.value = state.texture ?? 0;
       u.uTime.value = state.time;
       u.uPhi.value = state.phi;
       u.uSurge.value = state.surge;
@@ -525,7 +531,7 @@ export function createFlight3D() {
           camera.up.set(0, 1, 0);
           camera.position.set(Math.sin(orbit) * radius, 0.35 * Math.sin(tt * 0.04), Math.cos(orbit) * radius);
           camera.lookAt(0, 0, 0);
-          bulbState = { phi: state.phi, time: tt, surge, score: sc, power: 8, iters: 9, morph: tt * 0.05, fade: 0 };
+          bulbState = { phi: state.phi, time: tt, surge, score: sc, power: 8, iters: 9, morph: tt * 0.05, fade: 0, texture: state.texture ?? 0 };
         } else {
           // FLY: dive into the Mandelbulb
           dive ??= newDive(diveRand, state.phi, tt);

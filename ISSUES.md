@@ -2109,6 +2109,13 @@ Steps:
       generate.py). Tour `munch-bedtime` (13 steps, about 3 minutes): MUNCH
       tries to eat galaxies, foam, cells and the mind; H-AL explains each; a
       calm heartbeat; MUNCH falls asleep in a soft valley.
+- [x] The Tensor's other knobs (10 Oct 23:45; score.js `shape`, flight3d.js texture):
+      depth `kd` (0 to 1: the pre-verbal descent and the threshold hold, default the
+      score's 0.7), texture `kt` (grain and hard edges), coupling `kw` (0.5 to 2, a
+      scale on the score's W*, now applied), mode mask `km` (e.g. `S,F,A`); in the
+      hash, tours and screens, validated in tour.js and generate.py; explorer-check:
+      masked modes are 0, more coupling more awe, depth deeper PV and a longer hold.
+      Next: on-screen knobs (MIDI-style, ISS-053), texture in the music.
 - [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
       and credits; the author's review of every line; OpenStax Anatomy &
       Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not

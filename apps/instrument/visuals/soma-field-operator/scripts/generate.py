@@ -580,7 +580,7 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
-             "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr"}
+             "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr", "kd", "kt", "kw", "km"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
@@ -625,10 +625,14 @@ def tour_view_errors(view: str, ids: dict[str, set[str]]) -> list[str]:
             problems.append(f"unknown key {key!r}")
         elif key in TOUR_FIXED and value not in TOUR_FIXED[key]:
             problems.append(f"{key}={value!r} not in {sorted(TOUR_FIXED[key])}")
-        elif key in ("phi", "st") and not re.match(TOUR_PHI, value):
+        elif key in ("phi", "st", "kd", "kt") and not re.match(TOUR_PHI, value):
             problems.append(f"{key}={value!r} not a number from 0 to 1")
         elif key == "kv" and not (re.match(r"^\d+(\.\d+)?$", value) and 0.1 <= float(value) <= 3):
             problems.append(f"kv={value!r} not from 0.1 to 3")
+        elif key == "kw" and not (re.match(r"^\d+(\.\d+)?$", value) and 0.5 <= float(value) <= 2):
+            problems.append(f"kw={value!r} not from 0.5 to 2")
+        elif key == "km" and not set(value.split(",")) <= {"S", "F", "C", "A", "G", "L", "PV"}:
+            problems.append(f"km={value!r} not a list of S,F,C,A,G,L,PV")
         elif key == "bpm" and not (value.isdigit() and 50 <= int(value) <= 140):
             problems.append(f"bpm={value!r} not from 50 to 140")
         elif key in ids and value not in ids[key]:

@@ -1173,6 +1173,10 @@ function readHashState() {
     st: params.get('st'),
     bpm: params.get('bpm'),
     kr: params.get('kr'),
+    kd: params.get('kd'),
+    kt: params.get('kt'),
+    kw: params.get('kw'),
+    km: params.get('km'),
   };
 }
 
@@ -1668,7 +1672,7 @@ function applyVoyage(hashState) {
     screens?.setFx(phi);
   }
   if (hashState.feel) explorer.setFeel(hashState.feel);
-  if (hashState.kv !== null || hashState.st !== null) explorer.setScore({ kv: hashState.kv, st: hashState.st });
+  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km });
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2130,6 +2134,11 @@ function hashForState() {
       if (explorer.scoreParams.st) params.set('st', String(explorer.scoreParams.st));
       params.set('bpm', String(explorer.loop.bpm));
       if (explorer.loop.kr) params.set('kr', String(explorer.loop.kr));
+      const sp = explorer.scoreParams;
+      if (sp.kd !== null) params.set('kd', String(sp.kd));
+      if (sp.kt) params.set('kt', String(sp.kt));
+      if (sp.kw !== 1) params.set('kw', String(sp.kw));
+      if (sp.km) params.set('km', sp.km);
     }
   }
   return `#${params.toString()}`;

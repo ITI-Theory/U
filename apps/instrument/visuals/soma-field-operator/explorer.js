@@ -119,7 +119,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥, a slider for now): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: ?kv= (0.1 to 3; 90 minutes at 1).',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥, a slider for now): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A).',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1132,10 +1132,10 @@ function makeScore() {
   return {
     focus: [0, 0],
     tick(env) {
-      const key = `${env.kv}|${env.st}`;
+      const key = `${env.kv}|${env.st}|${env.kd}|${env.kw}|${env.km}`;
       if (!player || key !== params) {
         params = key;
-        player = createScorePlayer(scores?.[0], { kappaV: env.kv, start: env.st });
+        player = createScorePlayer(scores?.[0], { kappaV: env.kv, start: env.st, kappaD: env.kd, kappaW: env.kw, mask: env.km ? env.km.split(',') : null });
       }
       // the heart, smoothed (the slider jumps; a heart does not), and its trend Hdot in bpm/s
       const before = bpmS;
@@ -1156,7 +1156,7 @@ function makeScore() {
       const target = player.modes();
       if (env.gl) {
         gl = env.gl;
-        gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m });
+        gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m, texture: env.kt });
       }
       if (!env.labels) return;
       // the score: seven bars, story-time, the phase
@@ -1192,6 +1192,8 @@ function makeScore() {
       const phase = player.phase();
       const mins = (player.t * player.seconds) / 60;
       label(ctx, u, `${scores?.[0]?.title ?? ''} · ${phase.name} · t = ${player.t.toFixed(3)} · ${mins.toFixed(1)} min · κv ${player.velocity}`, 0, bar.y - 0.04, COLORS.dim, 'center', 0.024);
+      const kn = player.knobs;
+      label(ctx, u, `κd ${kn.kd.toFixed(2)} · κt ${(env.kt ?? 0).toFixed(2)} · κW ${kn.kw.toFixed(2)} · modes ${kn.mask.join(' ')}`, 0, bar.y - 0.09, COLORS.dim, 'center', 0.022);
       // words fade with the Language mode: at the bottom of the river there are none
       ctx.save();
       ctx.globalAlpha = Math.max(0, Math.min(1, (m.L - 0.1) / 0.6));
@@ -1772,7 +1774,7 @@ export function createExplorer(hooks = {}) {
     depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1,
     // ?film=1: the film pace (0.6) and the controls hidden until the mouse moves; ?pace= sets it
     film: new URLSearchParams(location.search).get('film') === '1',
-    kv: 1, st: 0, bpm: 68, kr: 0,
+    kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '',
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
   // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
   // per eye with opposite shifts; the 3D landscape renders its own two eyes.
@@ -2025,7 +2027,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);
@@ -2232,13 +2234,18 @@ export function createExplorer(hooks = {}) {
       syncUi();
     },
     get loop() { return { bpm: st.bpm, kr: st.kr }; },
-    get scoreParams() { return { kv: st.kv, st: st.st }; },
+    get scoreParams() { return { kv: st.kv, st: st.st, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km }; },
     setLoop({ bpm, kr } = {}) {
       if (bpm !== null && bpm !== undefined && bpm !== '' && Number.isFinite(Number(bpm))) st.bpm = Math.max(50, Math.min(140, Number(bpm)));
       if (kr !== null && kr !== undefined && ['0', '0.5', '1'].includes(String(kr))) st.kr = Number(kr);
       syncUi();
     },
-    setScore({ kv, st: start } = {}) {
+    setScore({ kv, st: start, kd, kt, kw, km } = {}) {
+      const num = x => x !== null && x !== undefined && x !== '' && Number.isFinite(Number(x));
+      if (num(kd)) st.kd = clamp(Number(kd), 0, 1);
+      if (num(kt)) st.kt = clamp(Number(kt), 0, 1);
+      if (num(kw)) st.kw = clamp(Number(kw), 0.5, 2);
+      if (typeof km === 'string') st.km = km.split(',').filter(id => MODE_IDS.includes(id)).join(',');
       if (Number.isFinite(Number(kv)) && kv !== null && kv !== '') st.kv = Number(kv);
       if (Number.isFinite(Number(start)) && start !== null && start !== '') st.st = Number(start);
     },
