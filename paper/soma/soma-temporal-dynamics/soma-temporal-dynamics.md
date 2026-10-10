@@ -129,6 +129,8 @@ the retarded Green's function takes the form:
 
 $$G_R(r,\tau) = \frac{v_s}{4\pi r}\,e^{-k v_s \tau}\,\delta(\tau - r/v_s)\,\theta(\tau)$$
 
+{{Visualize | the-retarded-greens-function | function-plot:soma | f="where(x<0, 0, exp(-k*x))"; vary=k:0.2,0.5,1.2; x=[-2,10]; xlabel="elapsed time $\tau$ (units where $v_s=1$)"; ylabel="envelope of $G_R(r,\tau)$" }} The causal envelope of the retarded Green's function, $e^{-k v_s \tau}\,\theta(\tau)$ (illustrated with $v_s=1$): zero before the source event — causality — then an exponential decay whose rate is the effective mass $k$; a small $k$ gives the long memory of a near-critical system, a large $k$ the fast forgetting of a sub-threshold one.
+
 where $r = |x - x'|$ is the spatial separation, $\tau = t - t' > 0$ is the
 elapsed time, and $\theta(\tau)$ is the Heaviside step function enforcing causality.
 
@@ -147,6 +149,8 @@ at time $t$ is:
 
 $$\Phi_{\mu\nu}(x,t) = \Phi_{\mu\nu}^{(0)}(x,t) + \int_{-\infty}^{t} dt'\int d^3x'\; G_R(x,t;\,x',t')\,J_{\mu\nu}(x',t')$$
 
+{{Visualize | the-general-solution | convolution:soma | input="exp(-((t-1)/0.2)^2) + exp(-((t-9)/0.2)^2)"; kernel="exp(-t/5)"; x=[0,20]; input_label="two sensory events"; kernel_label="memory kernel, $\tau_m = 5$"; output_label="field response $\Phi$"; xlabel="time" }} The general solution as a convolution: two sensory events (top) each start a copy of the decaying memory kernel $K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$ (middle); the field's present state (bottom) is their sum — the integral of past influences. A second event arriving before the first has decayed adds to, rather than replaces, the trace of the first. Illustrative pulses and $\tau_m$.
+
 where $\Phi_{\mu\nu}^{(0)}$ is the homogeneous solution (the field in the absence
 of external sources, evolving freely from initial conditions). The integral
 accumulates the influence of all past sources $J_{\mu\nu}(x',t')$ at earlier
@@ -161,6 +165,8 @@ The **Somatic Memory Kernel** $K(t - t')$ is the temporal part of the retarded
 Green's function, integrated over the spatial variables:
 
 $$K(\tau) = \int d^3x\; G_R(x,\tau;\,0,0) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$$
+
+{{Visualize | definition | function-plot:soma | f="where(x<0,0,exp(-x/tau_m))"; vary=tau_m:1,10,100; x=[0,300]; xlabel="elapsed time $\tau$ (illustrative units)"; ylabel="$K(\tau)/K_0$" }} The memory kernel $K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$ at three illustrative timescales $\tau_m$ spanning two orders of magnitude, corresponding qualitatively to the short-, medium- and long-term memory regimes described in the text.
 
 where $\tau_m = 1/(k v_s)$ is the **somatic memory timescale** — the characteristic
 time over which the field retains the influence of past events.
@@ -244,6 +250,8 @@ the mean first-passage time $\langle T \rangle$ from attractor basin A to
 attractor basin B is:
 
 $$\langle T \rangle = \frac{2\pi}{\omega_A \omega_B}\,e^{\Delta V / D}$$
+
+{{Visualize | transition-rate-in-the-time-domain | function-plot:soma | f="2*pi*exp(x)"; x=[0,6]; logy=true; xlabel="barrier height over diffusion, $\Delta V/D$"; ylabel="$\langle T \rangle$ (model units, $\omega_A\omega_B=1$)" }} The Kramers mean first-passage time, illustrated with $\omega_A\omega_B = 1$: the escape time grows exponentially with the barrier-to-diffusion ratio — the formal basis for the asymmetry between fast trauma formation (a small effective barrier, driven from above) and slow dissolution (the full barrier, from below).
 
 where $\omega_A$ is the frequency of oscillation at the bottom of basin A
 (the curvature of the well), $\omega_B$ is the magnitude of the imaginary
