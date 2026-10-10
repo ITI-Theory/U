@@ -10,12 +10,12 @@ import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
-  'voyage', 'phi', 'feel', 'resource', 'kv', 'st']);
+  'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
-  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'],
+  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
 const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;
@@ -59,6 +59,7 @@ export function viewProblems(view) {
     else if (FIXED[key] && !FIXED[key].includes(value)) problems.push(`${key}=${value} not allowed`);
     else if ((key === 'phi' || key === 'st') && !PHI.test(value)) problems.push(`${key}=${value} not a number from 0 to 1`);
     else if (key === 'kv' && !(Number(value) >= 0.1 && Number(value) <= 3)) problems.push(`kv=${value} not from 0.1 to 3`);
+    else if (key === 'bpm' && !(/^\d+$/.test(value) && Number(value) >= 50 && Number(value) <= 140)) problems.push(`bpm=${value} not from 50 to 140`);
     else if (IDS[key] && !IDS[key].has(value)) problems.push(`unknown ${key} ${value}`);
   }
   return problems;

@@ -513,4 +513,7 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-film .explorer__card, .explorer-film:not(.explorer-chrome) .screen-fullscreen,
 .explorer-film:not(.explorer-chrome) .tour-card header, .explorer-film:not(.explorer-chrome) .tour-card nav { opacity: 0; pointer-events: none; transition: opacity .6s ease; }
 .explorer-film .tour-card { left: 50%; bottom: 3vh; width: min(1000px, calc(100vw - 48px)); transform: translateX(-50%); background: rgba(5,7,14,.55); border-color: transparent; }
-
+.explorer__hr { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #ff4d5e; }
+.explorer__hr input { width: 110px; accent-color: #ff4d5e; }
+.explorer__hr output { min-width: 2.2em; }
+.explorer__hr[hidden] { display: none; }

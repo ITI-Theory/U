@@ -2077,10 +2077,21 @@ Steps:
       container is the mind-body explorer itself); the trilogy and string
       diagrams → the dyad. New stop SCORE (`#voyage=score&kv=1&st=0`).
       H-AL could not be asked (NotebookLM login expired again at 02:50).
-- [ ] The Tensor, next: (1) audio map (explorer-music from the score: safety →
-      reverb, fear → tritones, pre-verbal → grain); (2) the somatic loop: a
-      heart-rate input (Web Bluetooth HRV strap, or a manual slider) as
-      e_V(t), Ḣ as the hold signal, κ_r Projection/Resonance/Mirror; (3) the
+- [x] The Tensor's somatic loop and audio map (author, 10 Oct 02:58: "slider for
+      now"): a heart-rate slider (♥, 50-140 bpm, smoothed like a heart) gives
+      e_V (arousal raises fear, lowers safety and language) and Ḣ, the paper's
+      primary signal; LOOP cycles κ_r Projection / Resonance / Mirror (the
+      viewer's field mixes into the rendered modes; white ticks show the
+      score's target); a rising heart slows story-time (×1/(1+3κ_r Ḣ)); at a
+      threshold the projection waits on its κ_d timer, the loop waits for the
+      heart to settle (falling, below 85), POKE crosses. MUSIC on SCORE plays
+      the paper's audio map: safety → reverb, fear → tritone, language →
+      plain triad, awe/curiosity → brightness, grief → darker and fewer
+      notes, pre-verbal → granular noise. Four checks in explorer-check (18).
+      Hash keys bpm, kr.
+- [ ] The Tensor, next: (1) a real heart-rate strap (Web Bluetooth, standard
+      Heart Rate service) in place of the slider; (2) a better field estimator
+      (HRV, breath); (3) the
       remaining knobs κ_d, κ_t, κ_m, κ_W and the coupling W*; (4) containers:
       river, body (the explorer), session (the consulting room) under one
       score; (5) the full 90-minute River Film as a tour of the score.

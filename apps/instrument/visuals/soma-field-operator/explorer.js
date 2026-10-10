@@ -10,7 +10,7 @@
 import { createDyad3D, createLandscape3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
-import { createScorePlayer, MODE_IDS } from './score.js';
+import { createScorePlayer, MODE_IDS, viewerField } from './score.js';
 import { scores } from './generated/app-data.js';
 import { createExplorerMusic } from './explorer-music.js';
 
@@ -119,7 +119,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready: POKE stands in for the biofeedback the paper describes (Projection mode, kappa_r = 0). Velocity kappa_v: ?kv= in the link (0.1 to 3; 90 minutes at 1).',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥, a slider for now): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: ?kv= (0.1 to 3; 90 minutes at 1).',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1120,10 +1120,15 @@ function makeUreter() {
 
 const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G: '#8ecbff', L: '#e8eefc', PV: '#ff7aa8' };
 
+let scoreModes = null;
+
 function makeScore() {
   let gl = null;
   let player = null;
   let params = '';
+  let bpmS = 68;
+  let hdot = 0;
+  let viewer = null;
   return {
     focus: [0, 0],
     tick(env) {
@@ -1132,7 +1137,13 @@ function makeScore() {
         params = key;
         player = createScorePlayer(scores?.[0], { kappaV: env.kv, start: env.st });
       }
-      player.step(env.dt);
+      // the heart, smoothed (the slider jumps; a heart does not), and its trend Hdot in bpm/s
+      const before = bpmS;
+      bpmS += (env.bpm - bpmS) * Math.min(1, env.dt / 3);
+      hdot += ((bpmS - before) / Math.max(env.dt, 1e-3) - hdot) * Math.min(1, env.dt / 1.5);
+      viewer = viewerField(bpmS, hdot);
+      player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
+      scoreModes = player.modes(viewer, env.kr);
     },
     poke(strength) {
       if (player?.holding) player.ready();
@@ -1141,7 +1152,8 @@ function makeScore() {
     draw(ctx, env) {
       const { u, t } = env;
       if (!player) return;
-      const m = player.modes();
+      const m = player.modes(viewer, env.kr);
+      const target = player.modes();
       if (env.gl) {
         gl = env.gl;
         gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m });
@@ -1149,7 +1161,8 @@ function makeScore() {
       if (!env.labels) return;
       // the score: seven bars, story-time, the phase
       const names = player.names();
-      const x0 = -0.95 * (env.w / 2) / u + 0.05;
+      // the score panel on the right, clear of the caption card on the left
+      const x0 = 0.95 * (env.w / 2) / u - 0.72;
       MODE_IDS.forEach((id, k) => {
         const y = -0.55 + k * 0.06;
         label(ctx, u, names[k] ?? id, x0, y, MODE_COLORS[id], 'left', 0.024);
@@ -1158,8 +1171,16 @@ function makeScore() {
         ctx.fillRect((x0 + 0.24) * u, (y - 0.012) * u, 0.3 * u, 0.024 * u);
         ctx.fillStyle = MODE_COLORS[id];
         ctx.fillRect((x0 + 0.24) * u, (y - 0.012) * u, 0.3 * m[id] * u, 0.024 * u);
+        // the score's own value (the target) as a white tick, when the viewer changes it
+        if (env.kr > 0) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect((x0 + 0.24 + 0.3 * target[id]) * u - 1, (y - 0.02) * u, 2, 0.04 * u);
+        }
         ctx.restore();
       });
+      const loopName = { 0: 'PROJECTION', 0.5: 'RESONANCE', 1: 'MIRROR' }[env.kr];
+      label(ctx, u, `♥ ${Math.round(bpmS)} · Ḣ ${hdot >= 0 ? '+' : ''}${hdot.toFixed(2)}/s · ${loopName}`, x0, -0.12, COLORS.red, 'left', 0.024);
+      if (env.kr > 0 && player.slowed < 0.95) label(ctx, u, `heart rising: film ×${player.slowed.toFixed(2)}`, x0, -0.07, COLORS.orange, 'left', 0.024);
       const bar = { x: -0.6, w: 1.2, y: 0.78 };
       ctx.save();
       ctx.fillStyle = 'rgba(232,238,252,0.15)';
@@ -1176,7 +1197,7 @@ function makeScore() {
       ctx.globalAlpha = Math.max(0, Math.min(1, (m.L - 0.1) / 0.6));
       label(ctx, u, phase.line, 0, 0.66, COLORS.ink, 'center', 0.034);
       ctx.restore();
-      if (player.holding) label(ctx, u, `THRESHOLD ${player.holding.id} · ${player.holding.from} → ${player.holding.to} · holding until ready (POKE)`, 0, -0.7, COLORS.gold, 'center', 0.03);
+      if (player.holding) label(ctx, u, `THRESHOLD ${player.holding.id} · ${player.holding.from} → ${player.holding.to} · ${env.kr > 0 ? 'waiting for the heart to settle (falling, below 85) or POKE' : 'holding until ready (POKE)'}`, 0, -0.7, COLORS.gold, 'center', 0.03);
     },
   };
 }
@@ -1714,6 +1735,8 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
+      <label class="explorer__hr" title="The viewer's heart rate (a slider for now; later a chest strap). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
+      <button type="button" data-act="kr" title="The somatic loop: PROJECTION (the score drives), RESONANCE (score and viewer together), MIRROR (the viewer drives, the score is the target)">LOOP: PROJECTION</button>
       <button type="button" data-act="music" aria-pressed="false" title="Calm generative music (off by default)">MUSIC</button>
       <button type="button" data-act="stereo" title="Stereo for a 3D projector or TV: SBS½ (half side-by-side, squeezed: the usual HDMI 3D input) or SBS (full); move the mouse to show the controls">3D: OFF</button>
       <button type="button" data-act="level">STEP BACK IN ↩</button>
@@ -1730,6 +1753,10 @@ export function createExplorer(hooks = {}) {
   const card = root.querySelector('.explorer__card');
   const feelRow = root.querySelector('.explorer__feel');
   const resourceButton = root.querySelector('[data-act="resource"]');
+  const hrLabel = root.querySelector('.explorer__hr');
+  const hrInput = hrLabel.querySelector('input');
+  const hrOut = hrLabel.querySelector('output');
+  const krButton = root.querySelector('[data-act="kr"]');
   const view3dButton = root.querySelector('[data-act="view3d"]');
 
   const music = createExplorerMusic();
@@ -1744,7 +1771,7 @@ export function createExplorer(hooks = {}) {
     depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1,
     // ?film=1: the film pace (0.6) and the controls hidden until the mouse moves; ?pace= sets it
     film: new URLSearchParams(location.search).get('film') === '1',
-    kv: 1, st: 0,
+    kv: 1, st: 0, bpm: 68, kr: 0,
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
   // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
   // per eye with opposite shifts; the 3D landscape renders its own two eyes.
@@ -1818,6 +1845,12 @@ export function createExplorer(hooks = {}) {
     feelRow.hidden = st.stop !== 'body';
     resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
+    hrLabel.hidden = st.stop !== 'score';
+    krButton.hidden = st.stop !== 'score';
+    hrInput.value = String(st.bpm);
+    hrOut.textContent = `${st.bpm}`;
+    krButton.textContent = `LOOP: ${{ 0: 'PROJECTION', 0.5: 'RESONANCE', 1: 'MIRROR' }[st.kr]}`;
+    krButton.classList.toggle('active', st.kr > 0);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
     view3dButton.hidden = !GL_MAKERS[st.stop] || (st.stop in gls && !gls[st.stop]);
     const link = STOP_LEVELS[st.stop];
@@ -1991,8 +2024,8 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
-    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource });
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);
       ctx = layers.far.ctx;
@@ -2102,7 +2135,11 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
-    else if (b.dataset.act === 'music') {
+    else if (b.dataset.act === 'kr') {
+      st.kr = st.kr === 0 ? 0.5 : st.kr === 0.5 ? 1 : 0;
+      syncUi();
+      hooks.onChange?.();
+    } else if (b.dataset.act === 'music') {
       Promise.resolve(music.enabled ? music.disable() : music.enable()).then(syncUi);
     } else if (b.dataset.act === 'stereo') {
       api.setStereo(STEREO_MODES[(STEREO_MODES.indexOf(st.stereo) + 1) % STEREO_MODES.length]);
@@ -2129,6 +2166,11 @@ export function createExplorer(hooks = {}) {
     hooks.onPhi?.(st.phi);
   });
   phiInput.addEventListener('change', () => hooks.onChange?.());
+  hrInput.addEventListener('input', () => {
+    st.bpm = Number(hrInput.value);
+    hrOut.textContent = String(st.bpm);
+  });
+  hrInput.addEventListener('change', () => hooks.onChange?.());
   document.addEventListener('keydown', event => {
     if (!st.open || event.defaultPrevented) return;
     if (event.target?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
@@ -2186,6 +2228,13 @@ export function createExplorer(hooks = {}) {
       const value = clamp(Number(v), 0, 1);
       if (!Number.isFinite(value)) return;
       st.phi = value;
+      syncUi();
+    },
+    get loop() { return { bpm: st.bpm, kr: st.kr }; },
+    get scoreParams() { return { kv: st.kv, st: st.st }; },
+    setLoop({ bpm, kr } = {}) {
+      if (bpm !== null && bpm !== undefined && bpm !== '' && Number.isFinite(Number(bpm))) st.bpm = Math.max(50, Math.min(140, Number(bpm)));
+      if (kr !== null && kr !== undefined && ['0', '0.5', '1'].includes(String(kr))) st.kr = Number(kr);
       syncUi();
     },
     setScore({ kv, st: start } = {}) {

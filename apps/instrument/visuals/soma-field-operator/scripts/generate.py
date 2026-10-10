@@ -580,13 +580,13 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
-             "voyage", "phi", "feel", "resource", "kv", "st"}
+             "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
               "voyage": {"human", "body", "brain", "limbic", "thought", "neuron", "network", "landscape", "dyad", "tunnel", "ureter", "flight", "score"},
               "feel": {"calm", "fight", "flight", "grief", "freeze", "vigilance", "flow", "joy"},
-              "resource": {"0", "1"}}
+              "resource": {"0", "1"}, "kr": {"0", "0.5", "1"}}
 # phi (the limbic field, the FX bar): a number from 0 to 1, as tour.js PHI.
 TOUR_PHI = r"^(0(\.\d{1,3})?|1(\.0{1,3})?)$"
 # Presentation overlays drawn by presentation.js (same list as OVERLAYS there).
@@ -627,6 +627,8 @@ def tour_view_errors(view: str, ids: dict[str, set[str]]) -> list[str]:
             problems.append(f"{key}={value!r} not a number from 0 to 1")
         elif key == "kv" and not (re.match(r"^\d+(\.\d+)?$", value) and 0.1 <= float(value) <= 3):
             problems.append(f"kv={value!r} not from 0.1 to 3")
+        elif key == "bpm" and not (value.isdigit() and 50 <= int(value) <= 140):
+            problems.append(f"bpm={value!r} not from 50 to 140")
         elif key in ids and value not in ids[key]:
             problems.append(f"unknown {key} {value!r}")
     return problems

@@ -9,6 +9,20 @@
 // Usage: node scripts/explorer-check.mjs [runs]. Exit 1 if a rate is below its bound.
 
 import { simulation as sim } from '../explorer.js';
+import { createScorePlayer } from '../score.js';
+import { readFileSync } from 'node:fs';
+
+// the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
+const scoreText = readFileSync(new URL('../../../../../registry/scores/river-film.yaml', import.meta.url), 'utf8');
+const keyframes = [...scoreText.matchAll(/^- \[([\d.]+), \[([^\]]+)\]\]/gm)].map(m => [Number(m[1]), m[2].split(',').map(Number)]);
+const river = { minutes: 90, keyframes, thresholds: [{ id: 'T1', t: 0.52 }, { id: 'T2', t: 0.74 }], defaults: { kappa_d: 0.7 } };
+// seconds from story-time start until the player passes `until`, under a heart signal
+function scoreRun({ start, until, kr, bpm, hdot }) {
+  const p = createScorePlayer(river, { kappaV: 3, start });
+  let s = 0;
+  while (p.t < until && s < 4000) { p.step(0.1, { kr, bpm, hdot }); s += 0.1; }
+  return { s, held: p.holding !== null };
+}
 
 const runs = Number(process.argv[2] ?? 100);
 const DT = 1 / 60;
@@ -74,6 +88,12 @@ const checks = [
   ['dyad: hot, they drift apart (mean sync r)', mean(() => dyad([[0.7, false, 20]]), 'r'), 0, 0.8],
   ['dyad: hot with the resource, attuned again (mean sync r)', mean(() => dyad([[0.7, true, 20]]), 'r'), 0.9],
   ['dyad: after a rupture the resource repairs faster (median calm s / resource s >= 1.3)', median(() => dyad([[0.1, false, 12]], true), 'repaired') / median(() => dyad([[0.1, true, 12]], true), 'repaired') / 1.3, 1, Infinity],
+  // The Tensor's somatic loop (score.js): a rising heart slows the film; at a threshold the
+  // projection waits on a timer, the loop waits for the heart; a settled heart crosses
+  ['score: projection crosses T1 on its timer, whatever the heart (s: 9 to reach, 11 held, 18 after)', scoreRun({ start: 0.515, until: 0.53, kr: 0, bpm: 110, hdot: 1 }).s, 35, 42],
+  ['score: resonance with a racing, rising heart is still holding at T1 after 400 s', Number(scoreRun({ start: 0.515, until: 0.53, kr: 0.5, bpm: 120, hdot: 1 }).held), 1, 1],
+  ['score: resonance with a settled heart crosses T1 (s)', scoreRun({ start: 0.515, until: 0.53, kr: 0.5, bpm: 72, hdot: -0.1 }).s, 2, 40],
+  ['score: a rising heart slows the film (s for 0.02 of story, rising / steady >= 2)', scoreRun({ start: 0.2, until: 0.22, kr: 1, bpm: 90, hdot: 1 }).s / scoreRun({ start: 0.2, until: 0.22, kr: 1, bpm: 90, hdot: 0 }).s / 2, 1, Infinity],
 ];
 let failed = 0;
 for (const [name, value, min, max = 1] of checks) {
