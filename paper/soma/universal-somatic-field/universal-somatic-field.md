@@ -91,6 +91,8 @@ satisfies:
 
 $$G(x, x') = \frac{e^{ik|x-x'|}}{4\pi|x-x'|}$$
 
+{{Visualize | the-identification | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="separation $|x-x'|$"; ylabel="$\mathrm{Re}\,G$" }} The real part of the free-space Green's function at three wavenumbers $k$: an oscillation whose envelope decays as $1/|x-x'|$ — the propagator form the paper proposes as the SHO of string theory at every scale.
+
 For fixed observation point $x$, the function $x' \mapsto G(x, x')$ satisfies
 the SHO equation in the source variable:
 
@@ -167,6 +169,8 @@ endpoints are:
 
 The quartic double-well potential on $L_1$:
 $$V(x) = W \cdot (x^2 - 1)^2$$
+
+{{Visualize | the-limbic-axis-as-the-horava-witten-orbifold | energy-landscape:soma | U="W*(x^2-1)^2"; vary=W:1,2,4; x=[-1.8,1.8]; ball=-1; expect_minima="-1,1" }} The double-well potential $V(x)=W(x^2-1)^2$ on the Limbic Axis at three illustrative barrier heights $W$: a valley at each stated endpoint, the somatic pole $x=-1$ and the cortical pole $x=+1$. The program checked both minima.
 
 models the energy barrier between somatic and cortical poles. The WKB ansatz assigns a tunnelling
 amplitude: $\Theta(W) = \exp(-8\sqrt{2W}/3)$, proved positive for all $W > 0$
@@ -287,6 +291,8 @@ of the propagator, occurring when the excitation frequency matches the
 manifold's natural mode. This is type-encoded in the propagator mass parameter:
 
 $$m = 1/\tau_\text{decay}$$
+
+{{Visualize | what-consciousness-is | function-plot:soma | f="1/x"; x=[0.2,5]; xlabel="decay time $\tau$ (illustrative units)"; ylabel="mass $m=1/\tau$" }} The propagator mass $m=1/\tau_\text{decay}$: a long-lived percept (large $\tau$ — a persistent emotion or traumatic memory) has small mass, a near-zero pole that is hard to damp; a brief percept has large mass and decays quickly.
 
 A percept with long decay time $\tau$ (a persistent emotion, a traumatic
 memory) corresponds to a small mass (a near-zero pole in the propagator) —
