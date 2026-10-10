@@ -1901,6 +1901,14 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       main text, left unmarked); papers 79 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
+- [x] (11 Oct 01:55) New primitives from the skip lists: `matrix-heatmap` (a
+      matrix as a coloured grid, rows and columns named; optionally a second matrix on
+      the same scale, e.g. before and after, and their difference; checks
+      `expect_eigen`, `expect_sum`), `process-diagram` (named steps in a cycle or a
+      line, arrows between the boxes, labels on the arrows), and `erf`, `erfc`,
+      `normcdf` in the allowed maths (Black-Scholes: the at-the-money call at
+      sigma 0.1, r 5 %, T 1 checks 6.80). docs/VISUALIZE.md updated. Next: apply them
+      to the skipped equations (coupling matrices, the abduction loop, Black-Scholes).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.

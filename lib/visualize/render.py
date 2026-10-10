@@ -44,6 +44,9 @@ SAFE = {name: getattr(np, name) for name in (
     "exp", "log", "log10", "log2", "sqrt", "abs", "sign", "floor", "ceil", "where",
     "maximum", "minimum", "heaviside", "real", "imag", "conj", "angle", "hypot")}
 SAFE.update(pi=np.pi, e=np.e, j=1j, inf=np.inf)
+# error function and the standard normal CDF (Black-Scholes, Gaussian probabilities)
+_erf = np.vectorize(math.erf, otypes=[float])
+SAFE.update(erf=_erf, erfc=lambda x: 1.0 - _erf(x), normcdf=lambda x: 0.5 * (1.0 + _erf(np.asarray(x) / math.sqrt(2.0))))
 COMMON = {"aspect", "xlabel", "ylabel", "zlabel", "expect_tol"}
 GREEK = {"alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "kappa", "lambda",
          "mu", "nu", "xi", "pi", "rho", "sigma", "tau", "phi", "chi", "psi", "omega", "Omega", "Delta",
@@ -846,6 +849,134 @@ def draw_type_decomposition(spec: Spec):
     return fig
 
 
+def _matrix(spec: Spec, key: str) -> np.ndarray:
+    """'[[a,b],[c,d]]' -> array; entries are expressions in the macro's parameters."""
+    text = str(spec.need(key) if key == "matrix" else spec.get(key)).strip()
+    if not (text.startswith("[") and text.endswith("]")):
+        raise SpecError(f"{key} must look like [[1,0.5],[0.5,1]]")
+    env = spec.scalars()
+    rows = []
+    for row in split_top(text[1:-1]):
+        row = row.strip()
+        if not (row.startswith("[") and row.endswith("]")):
+            raise SpecError(f"{key}: each row must be a bracketed list, got {row!r}")
+        rows.append([float(np.real(compile_expr(x, set(env))(env))) for x in split_top(row[1:-1])])
+    if len({len(r) for r in rows}) != 1:
+        raise SpecError(f"{key}: rows of different lengths")
+    return np.array(rows, dtype=float)
+
+
+def draw_matrix_heatmap(spec: Spec):
+    """A matrix as a coloured grid (rows/cols named); optionally a second matrix on the
+    same colour scale (matrix2, e.g. before and after) and their difference (diff=true)."""
+    mats = [_matrix(spec, "matrix")]
+    if spec.get("matrix2"):
+        mats.append(_matrix(spec, "matrix2"))
+        if mats[1].shape != mats[0].shape:
+            raise SpecError("matrix and matrix2 must have the same shape")
+    titles = [s.strip() for s in split_top(spec.get("titles", "")) if s.strip()]
+    show_diff = flag(spec.p, "diff") and len(mats) == 2
+    spec.used.add("diff")
+    panels = mats + ([mats[1] - mats[0]] if show_diff else [])
+    if show_diff:
+        titles = (titles + ["", ""])[:2] + [spec.get("diff_title", "difference")]
+    rows = [s.strip() for s in split_top(spec.get("rows", ""))]
+    cols = [s.strip() for s in split_top(spec.get("cols", spec.p.get("rows", "")))]
+    n, m = mats[0].shape
+    if rows and len(rows) != n:
+        raise SpecError(f"rows: {len(rows)} names for {n} rows")
+    if cols and len(cols) != m:
+        raise SpecError(f"cols: {len(cols)} names for {m} columns")
+    A = mats[0]
+    if spec.get("expect_eigen"):
+        if n != m:
+            raise SpecError("expect_eigen needs a square matrix")
+        got = sorted(float(np.real(x)) for x in np.linalg.eigvals(A))
+        for k, want in enumerate(numbers(spec.get("expect_eigen"))):
+            spec.check(f"eigenvalue {k + 1}", got[k], want)
+    spec.expect("expect_sum", float(A.sum()))
+    if spec.get("expect_sum2") and len(mats) == 2:
+        spec.expect("expect_sum2", float(mats[1].sum()))
+    vmax = max(float(np.abs(M).max()) for M in mats) or 1.0
+    diverging = any((M < 0).any() for M in panels) or show_diff
+    cmap = "RdBu_r" if diverging else spec.cmap
+    vmin = -vmax if diverging else min(0.0, float(min(M.min() for M in mats)))
+    fig, axes = plt.subplots(1, len(panels), figsize=(3.2 * len(panels) + 0.6, 3.2), squeeze=False)
+    values = str(spec.get("values", "true" if n * m <= 64 else "false")).lower() in ("true", "yes", "1", "on")
+    for k, (ax, M) in enumerate(zip(axes[0], panels)):
+        lim = (max(float(np.abs(M).max()), 1e-12) if (show_diff and k == 2) else vmax)
+        im = ax.imshow(M, cmap=cmap, vmin=-lim if diverging else vmin, vmax=lim, aspect="equal")
+        ax.set_xticks(range(m), cols if cols else [str(i + 1) for i in range(m)], fontsize=8)
+        ax.set_yticks(range(n), rows if rows else [str(i + 1) for i in range(n)], fontsize=8)
+        ax.tick_params(length=0)
+        for s in ax.spines.values():
+            s.set_visible(False)
+        if values:
+            for i in range(n):
+                for jx in range(m):
+                    v = M[i, jx]
+                    ax.text(jx, i, f"{v:.2g}", ha="center", va="center", fontsize=7.5,
+                            color="white" if abs(v) > 0.6 * lim else "0.15")
+        if k < len(titles) and titles[k]:
+            ax.set_title(titles[k], fontsize=10)
+    fig.colorbar(im, ax=list(axes[0]), shrink=0.8, pad=0.03)
+    return fig
+
+
+def draw_process_diagram(spec: Spec):
+    """Named steps with arrows: a cycle (layout=cycle, the default) or a line; optional
+    labels on the arrows (edges=), an arrow back from the last step (loop=true on a line)."""
+    steps = [s.strip() for s in split_top(spec.need("steps")) if s.strip()]
+    if len(steps) < 2:
+        raise SpecError("process-diagram needs at least two steps")
+    edges = [s.strip() for s in split_top(spec.get("edges", ""))]
+    layout = spec.get("layout", "cycle")
+    if layout not in ("cycle", "line"):
+        raise SpecError("layout must be cycle or line")
+    loop = layout == "cycle" or flag(spec.p, "loop")
+    spec.used.add("loop")
+    k = len(steps)
+    if layout == "cycle":
+        fig, ax = spec.axes(1.25)
+        angles = [math.pi / 2 - 2 * math.pi * i / k for i in range(k)]
+        pos = [(math.cos(a), math.sin(a)) for a in angles]
+        ax.set_xlim(-1.75, 1.75)
+        ax.set_ylim(-1.45, 1.45)
+    else:
+        fig, ax = spec.axes(max(2.4, 1.25 * k))
+        pos = [(i * 2.2, 0.0) for i in range(k)]
+        ax.set_xlim(-1.2, (k - 1) * 2.2 + 1.2)
+        ax.set_ylim(-1.15 if loop else -0.6, 0.6)
+    boxes = []
+    for i, (name, (x, y)) in enumerate(zip(steps, pos)):
+        c = spec.colors[i % len(spec.colors)]
+        boxes.append(ax.text(x, y, name, ha="center", va="center", fontsize=10 if layout == "cycle" else 9, color=c,
+                             bbox=dict(boxstyle="round,pad=0.45", facecolor="white", edgecolor=c, lw=1.4)))
+    pairs = [(i, i + 1) for i in range(k - 1)] + ([(k - 1, 0)] if loop else [])
+    for e, (a, b) in enumerate(pairs):
+        # arrows run between the boxes' edges (clipped by the box outlines)
+        style = dict(arrowstyle="-|>", color="0.35", lw=1.2, shrinkA=4, shrinkB=4,
+                     patchA=boxes[a].get_bbox_patch(), patchB=boxes[b].get_bbox_patch())
+        if layout == "line" and (a, b) == (k - 1, 0):
+            style["connectionstyle"] = "arc3,rad=-0.3"
+        elif layout == "cycle":
+            style["connectionstyle"] = "arc3,rad=-0.18"
+        ax.annotate("", xy=pos[b], xytext=pos[a], arrowprops=style)
+        if e < len(edges) and edges[e]:
+            mx, my = (pos[a][0] + pos[b][0]) / 2, (pos[a][1] + pos[b][1]) / 2
+            if layout == "cycle":
+                r = math.hypot(mx, my) or 1.0
+                mx, my = mx / r * (r + 0.32), my / r * (r + 0.32)
+            elif (a, b) == (k - 1, 0):
+                my = -0.95
+            else:
+                my += 0.18
+            ax.text(mx, my, edges[e], ha="center", va="center", fontsize=8, color="0.3", style="italic")
+    spec.expect("expect_steps", float(k))
+    ax.axis("off")
+    return fig
+
+
 DRAW = {
     "function-plot": draw_function_plot, "area-under": draw_area_under,
     "log-scale": draw_log_scale, "complex-plane": draw_complex_plane,
@@ -853,6 +984,7 @@ DRAW = {
     "energy-landscape": draw_energy_landscape, "eigen-transform": draw_eigen_transform,
     "distribution": draw_distribution, "spectrum": draw_spectrum, "convolution": draw_convolution,
     "flock": draw_flock, "type-decomposition": draw_type_decomposition,
+    "matrix-heatmap": draw_matrix_heatmap, "process-diagram": draw_process_diagram,
 }
 
 

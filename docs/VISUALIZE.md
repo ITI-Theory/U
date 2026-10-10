@@ -47,7 +47,7 @@ $$N(t) = N_0\,e^{-t/\tau}$$ {#eq:decay}
    always visualises something the reader has already met.
 2. **Every figure has a caption.**
 3. **Expressions are maths only.** Numpy functions (`sin`, `exp`, `sqrt`,
-   `log10`, `where`, ...), constants `pi`, `e`, `j` (the imaginary unit), the
+   `log10`, `where`, ...), `erf`, `erfc` and `normcdf` (the standard normal CDF), constants `pi`, `e`, `j` (the imaginary unit), the
    variables of the primitive (`x`, `y`, `E`), and parameters of the same
    macro. `^` means power. No attribute access, no builtins.
 4. **No unknown parameters.** A misspelt key is an error, not a silent default.
@@ -108,6 +108,8 @@ concept styles the figure; it never changes what is drawn.
 | `convolution` | input, kernel $G$ (from $t = 0$) and output $G * u$, stacked | `input`, `kernel`, `x`, `n`, `input_label`, `kernel_label`, `output_label`, `hline`, `vline` (on the output) | `expect_max`, `expect_area` (of the output) |
 | `flock` | a Vicsek flock: snapshots at low and high noise, and order (polarisation) against noise | `n`, `box`, `radius`, `v0`, `steps`, `seed`, `low`, `high`, `eta=[a,b]`, `points`, `curve_steps` | `expect_order_low`, `expect_order_high` (mean of the last fifth of the run) |
 | `type-decomposition` | a whole split into typed parts (a product or sum of spaces), widths by dimension; optionally a second decomposition of the same whole, drawn with $\cong$ | `whole`, `parts="$M_4$=4, $P_3$=3"` (or names without dimensions: equal widths), `op=times\|plus\|oplus`, `unit`, `row_label`, `iso` (a second decomposition), `iso_label` | `expect_total` (the sum of the dimensions); with `iso`, the two totals must agree |
+| `matrix-heatmap` | a matrix as a coloured grid; optionally a second matrix on the same colour scale (before and after) and their difference | `matrix="[[1,0.5],[0.5,1]]"` (entries may use the macro's parameters), `matrix2`, `titles="before, after"`, `diff=true`, `diff_title`, `rows`, `cols` (names), `values` (print the numbers; default for up to 8 x 8) | `expect_eigen` (ascending, first matrix), `expect_sum`, `expect_sum2` |
+| `process-diagram` | named steps with arrows, in a cycle or a line | `steps="Observe, Hypothesise, Test"`, `layout=cycle\|line`, `loop=true` (a line that returns), `edges` (labels on the arrows, in order) | `expect_steps` |
 
 New primitives are added as one `draw_*` function in `lib/visualize/render.py`
 and one entry in the `PRIMITIVES` table of `lib/format/visualize.lua`.
