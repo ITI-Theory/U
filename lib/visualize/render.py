@@ -740,13 +740,119 @@ def draw_flock(spec: Spec):
     return fig
 
 
+def _decomposition(text: str) -> list[tuple[str, float | None]]:
+    """'$M_4$=4, $P_3$=3' -> [(name, dim)]; parts without '=' have no dimension."""
+    parts = []
+    pieces, buf, depth, maths = [], [], 0, False
+    for ch in text:   # commas inside $...$, {...}, (...) or [...] do not split
+        if ch == "$":
+            maths = not maths
+        elif ch in "{([":
+            depth += 1
+        elif ch in "})]":
+            depth -= 1
+        if ch == "," and depth == 0 and not maths:
+            pieces.append("".join(buf).strip())
+            buf = []
+        else:
+            buf.append(ch)
+    if "".join(buf).strip():
+        pieces.append("".join(buf).strip())
+    for part in pieces:
+        name, eq, value = part.rpartition("=")
+        if not eq:
+            parts.append((part.strip(), None))
+        else:
+            if not name.strip():
+                raise SpecError(f"type-decomposition part {part!r} has no name")
+            parts.append((name.strip(), number(value)))
+    if not parts:
+        raise SpecError("type-decomposition needs at least one part")
+    dims = [d for _, d in parts]
+    if any(d is None for d in dims) and not all(d is None for d in dims):
+        raise SpecError("give every part a dimension (name=dim) or none of them")
+    return parts
+
+
+def draw_type_decomposition(spec: Spec):
+    """A whole split into typed parts (a product or sum of spaces), widths by dimension;
+    optionally a second decomposition of the same whole (iso=, drawn with a congruence)."""
+    whole = spec.need("whole")
+    ops = {"times": r"\times", "plus": "+", "oplus": r"\oplus", "sum": r"\oplus"}
+    op_key = spec.get("op", "times")
+    if op_key not in ops:
+        raise SpecError(f"op={op_key!r} not one of {sorted(ops)}")
+    op = ops[op_key]
+    unit = spec.get("unit", "dim")
+    rows = [(spec.get("row_label", ""), _decomposition(spec.need("parts")))]
+    if spec.get("iso"):
+        rows.append((spec.get("iso_label", ""), _decomposition(spec.get("iso"))))
+    measured = rows[0][1][0][1] is not None
+    total = sum(d for _, d in rows[0][1]) if measured else float(len(rows[0][1]))
+    if measured:
+        spec.expect("expect_total", total)
+        spec.checks.append(f"total={total:g}")
+    for label, parts in rows[1:]:
+        if (parts[0][1] is not None) != measured:
+            raise SpecError("parts and iso must both have dimensions, or neither")
+        if measured:
+            other = sum(d for _, d in parts)
+            if abs(other - total) > 1e-9:
+                raise SpecError(f"iso: the two decompositions differ in dimension ({total:g} and {other:g})")
+            spec.checks.append(f"iso total={other:g} OK")
+    fig, ax = spec.axes(2.8 if len(rows) == 1 else 2.0)
+    height, gap = 0.55, 0.45
+    tops = []
+    labels = []  # (text, segment width): fitted to their segments once the axes are set
+    for r, (label, parts) in enumerate(rows):
+        y = -r * (height + gap)
+        tops.append(y)
+        widths = [d if measured else total / len(parts) for _, d in parts]
+        x = 0.0
+        for i, ((name, d), w) in enumerate(zip(parts, widths)):
+            c = spec.colors[i % len(spec.colors)]
+            ax.add_patch(plt.Rectangle((x, y), w, height, facecolor=c, alpha=0.22, edgecolor=c, lw=1.4))
+            labels.append((ax.text(x + w / 2, y + height * (0.62 if measured else 0.5), name, ha="center", va="center", fontsize=11, color=c), w))
+            if measured:
+                ax.text(x + w / 2, y + height * 0.24, f"{d:g}", ha="center", va="center", fontsize=8.5, color="0.25")
+            if i:
+                ax.text(x, y + height + 0.06, f"${op}$", ha="center", va="bottom", fontsize=10, color="0.35")
+            x += w
+        if label:
+            ax.text(-0.02 * total, y + height / 2, label, ha="right", va="center", fontsize=9, color="0.3")
+    # the whole: a brace over the first row
+    yb = height + 0.32
+    ax.plot([0, 0, total, total], [yb - 0.08, yb, yb, yb - 0.08], color="0.2", lw=1)
+    head = f"{whole}" + (f"   ({unit} {total:g})" if measured else "")
+    ax.text(total / 2, yb + 0.06, head, ha="center", va="bottom", fontsize=12)
+    if len(rows) > 1:
+        ax.text(total / 2, (tops[0] + tops[1] + height) / 2, r"$\cong$", ha="center", va="center", fontsize=16, color="0.3")
+    ax.set_xlim(-0.12 * total, 1.04 * total)
+    ax.set_ylim(tops[-1] - 0.15, yb + 0.55)
+    ax.axis("off")
+    # a label wider than its segment: smaller type, then the words on a second line
+    renderer = fig.canvas.get_renderer()
+    for text, w in labels:
+        limit = (ax.transData.transform((w, 0))[0] - ax.transData.transform((0, 0))[0]) * 0.92
+        size = 11.0
+        while text.get_window_extent(renderer).width > limit and size > 7.5:
+            size -= 0.5
+            text.set_fontsize(size)
+        if text.get_window_extent(renderer).width > limit and " " in text.get_text():
+            head, _, rest = text.get_text().partition(" ")
+            if head.count("$") % 2 == 0:
+                text.set_text(head + "\n" + rest)
+                text.set_fontsize(min(size + 1, 10))
+    return fig
+
+
 DRAW = {
     "function-plot": draw_function_plot, "area-under": draw_area_under,
     "log-scale": draw_log_scale, "complex-plane": draw_complex_plane,
     "vector-field": draw_vector_field, "contour-map": draw_contour_map,
     "energy-landscape": draw_energy_landscape, "eigen-transform": draw_eigen_transform,
     "distribution": draw_distribution, "spectrum": draw_spectrum, "convolution": draw_convolution,
-    "flock": draw_flock,
+    "flock": draw_flock, "type-decomposition": draw_type_decomposition,
 }
 
 

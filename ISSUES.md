@@ -1872,7 +1872,12 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       the same product/type-decomposition and Lean-signature forms, an
       abstract Fock-space operator sum, and two gradient-flow equations whose
       Hamiltonian $H$ is never given a concrete form in this paper, left
-      unmarked); papers 43 of 233, library 107) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      unmarked); 11 Oct: new primitive `type-decomposition` (a whole split into
+      typed parts, widths by dimension, an optional second decomposition with
+      $\cong$; checks the total and that both decompositions agree), used for
+      the M11 = M4 x P3 x L1 x C3, X7 and M-theory isomorphism equations in
+      zoomable-somatic-field (3), universal-somatic-field (3) and
+      swarm-propagator (1), each total checked; papers 50 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter

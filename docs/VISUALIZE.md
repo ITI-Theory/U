@@ -107,6 +107,7 @@ concept styles the figure; it never changes what is drawn.
 | `spectrum` | a signal over time and its amplitude spectrum (FFT, Hann window) | `f` (in `t`), `x=[t0,t1]`, `n`, `show` (time drawn: a length from the start, or a window `[t0,t1]`), `fmax`, `peaks` (how many to label), `flabel` | `expect_peak` (frequency of the largest peak) |
 | `convolution` | input, kernel $G$ (from $t = 0$) and output $G * u$, stacked | `input`, `kernel`, `x`, `n`, `input_label`, `kernel_label`, `output_label`, `hline`, `vline` (on the output) | `expect_max`, `expect_area` (of the output) |
 | `flock` | a Vicsek flock: snapshots at low and high noise, and order (polarisation) against noise | `n`, `box`, `radius`, `v0`, `steps`, `seed`, `low`, `high`, `eta=[a,b]`, `points`, `curve_steps` | `expect_order_low`, `expect_order_high` (mean of the last fifth of the run) |
+| `type-decomposition` | a whole split into typed parts (a product or sum of spaces), widths by dimension; optionally a second decomposition of the same whole, drawn with $\cong$ | `whole`, `parts="$M_4$=4, $P_3$=3"` (or names without dimensions: equal widths), `op=times\|plus\|oplus`, `unit`, `row_label`, `iso` (a second decomposition), `iso_label` | `expect_total` (the sum of the dimensions); with `iso`, the two totals must agree |
 
 New primitives are added as one `draw_*` function in `lib/visualize/render.py`
 and one entry in the `PRIMITIVES` table of `lib/format/visualize.lua`.

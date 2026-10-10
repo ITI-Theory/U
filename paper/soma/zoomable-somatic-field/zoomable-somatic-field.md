@@ -217,6 +217,8 @@ in interaction with its environment. We decompose $\mathcal{M}_{11}$ as:
 
 $$\mathcal{M}_{11} = \underbrace{M_4}_{\text{Spacetime}} \times \underbrace{P_3}_{\text{Propagator}} \times \underbrace{L_1}_{\text{Limbic}} \times \underbrace{C_3}_{\text{Cortex}} \tag{5}$$
 
+{{Visualize | decomposition | type-decomposition:soma | whole="$\mathcal{M}_{11}$"; parts="$M_4$ spacetime=4, $P_3$ propagator=3, $L_1$ limbic=1, $C_3$ cortex=3"; expect_total=11 }} The eleven dimensions of equation (5) by their parts, each as wide as its dimension: spacetime $M_4$, the propagator $P_3$, the limbic axis $L_1$ and the cortex $C_3$. The program checks that they add up to 11.
+
 The four subspaces are:
 
 | Symbol | Dim | Physical substrate | Mathematical role |
@@ -229,6 +231,8 @@ The four subspaces are:
 The compact 7-dimensional internal space is:
 
 $$X_7 = P_3 \times L_1 \times C_3, \quad \dim(X_7) = 3+1+3 = 7 \tag{6}$$
+
+{{Visualize | decomposition | type-decomposition:soma | whole="$X_7$ (the internal space)"; parts="$P_3$=3, $L_1$=1, $C_3$=3"; expect_total=7 }} The internal space of equation (6): propagator, limbic axis and cortex, $3+1+3=7$ (checked).
 
 The arithmetic $4 + 3 + 1 + 3 = 11$ is reflected in the product types used by
 `MTheoryIsomorphism.lean`; no separate theorem with this name is claimed here.
@@ -245,6 +249,8 @@ claim is an open problem listed in the proof file.*
 **Theorem (Lean 4 kernel-checked, `MTheoryIsomorphism.somaField_iso_mtheory`):**
 There exists a type isomorphism:
 $$\text{SomaField}_{11} \cong \text{Spacetime} \times \text{CompactSpace}_7 \tag{7}$$
+
+{{Visualize | isomorphism-with-m-theory | type-decomposition:soma | whole="$\mathcal{M}_{11}$"; parts="$M_4$ spacetime=4, $X_7$ = $P_3 \times L_1 \times C_3$=7"; row_label="soma field"; iso="$\mathbb{R}^{1,3}$=4, $X_7$ compact=7"; iso_label="M-theory"; expect_total=11 }} The isomorphism of equation (7) as a picture: the soma-field decomposition and M-theory's $M_4 \times X_7$ have the same dimensional structure, 4 + 7 = 11 (both totals checked). This is a match of dimensions and product structure only; the $G_2$ holonomy of $X_7$ is an open problem.
 
 *Proof.* By `toMTheory` and `fromMTheory`; roundtrip by `simp`. $\square$
 

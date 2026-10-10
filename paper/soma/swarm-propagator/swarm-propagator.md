@@ -126,6 +126,8 @@ higher-dimensional spacetime. In the Soma-Field Model [@johnson2026b], the
 
 $$M_{11} = M_4 \times X_7 = \text{Spacetime} \times (\text{Propagator} \times \text{Limbic} \times \text{Cortex})$$
 
+{{Visualize | the-swarm-as-a-brane | type-decomposition:soma | whole="$\mathcal{M}_{11}$"; parts="$M_4$ spacetime=4, $X_7$ = $P_3 \times L_1 \times C_3$=7"; row_label="soma field"; iso="$\mathbb{R}^{1,3}$=4, $X_7$ compact=7"; iso_label="M-theory"; expect_total=11 }} The isomorphism of the equation above as a picture: the soma-field decomposition and M-theory's $M_4 \times X_7$ have the same dimensional structure, 4 + 7 = 11 (both totals checked). This is a match of dimensions and product structure only; the $G_2$ holonomy of $X_7$ is an open problem.
+
 The Propagator Space $D_{5-7} \cong \mathbb{R}^3$ is the 3-dimensional
 subspace carrying electromagnetic field propagation. A swarm of N agents
 embedded in physical 3D space is a **brane projection**: the agents sample

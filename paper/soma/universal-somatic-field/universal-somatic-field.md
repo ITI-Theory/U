@@ -139,6 +139,8 @@ system into four canonical subspaces, totalling 11 dimensions:
 
 $$M_{11} = \underbrace{M_4}_{\text{Spacetime}} \times \underbrace{P_3}_{\text{Propagator}} \times \underbrace{L_1}_{\text{Limbic}} \times \underbrace{C_3}_{\text{Cortex}}$$
 
+{{Visualize | the-decomposition | type-decomposition:soma | whole="$\mathcal{M}_{11}$"; parts="$M_4$ spacetime=4, $P_3$ propagator=3, $L_1$ limbic=1, $C_3$ cortex=3"; expect_total=11 }} The eleven dimensions of the equation above by their parts, each as wide as its dimension: spacetime $M_4$, the propagator $P_3$, the limbic axis $L_1$ and the cortex $C_3$. The program checks that they add up to 11.
+
 | Subspace | Dim | Physical role | Mathematical role |
 |---|---|---|---|
 | Spacetime $M_4$ | 4 | Body embedded in 3+1D | Lorentzian metric, causal structure |
@@ -149,9 +151,13 @@ $$M_{11} = \underbrace{M_4}_{\text{Spacetime}} \times \underbrace{P_3}_{\text{Pr
 The compact 7-dimensional internal space is:
 $$X_7 = P_3 \times L_1 \times C_3$$
 
+{{Visualize | the-decomposition | type-decomposition:soma | whole="$X_7$ (the internal space)"; parts="$P_3$=3, $L_1$=1, $C_3$=3"; expect_total=7 }} The internal space of the equation above: propagator, limbic axis and cortex, $3+1+3=7$ (checked).
+
 This has the same 7-dimensional product count used in the M-theory comparison; Lean proves a type/product isomorphism, not physical compactification, in `MTheoryIsomorphism.somaField_iso_mtheory`:
 
 $$\text{SomaField11D} \cong \text{Spacetime} \times \text{CompactSpace7D}$$
+
+{{Visualize | the-decomposition | type-decomposition:soma | whole="$\mathcal{M}_{11}$"; parts="$M_4$ spacetime=4, $X_7$ = $P_3 \times L_1 \times C_3$=7"; row_label="soma field"; iso="$\mathbb{R}^{1,3}$=4, $X_7$ compact=7"; iso_label="M-theory"; expect_total=11 }} The isomorphism of the equation above as a picture: the soma-field decomposition and M-theory's $M_4 \times X_7$ have the same dimensional structure, 4 + 7 = 11 (both totals checked). This is a match of dimensions and product structure only; the $G_2$ holonomy of $X_7$ is an open problem.
 
 ## The Limbic Axis as the Horava-Witten Orbifold
 
