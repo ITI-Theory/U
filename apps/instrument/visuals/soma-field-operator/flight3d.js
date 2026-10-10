@@ -27,12 +27,13 @@ const WORLDS = {
   collective: { fog: '#141225', name: 'THE MURMURATION', motes: '#e8e0ff' },
   geological: { fog: '#140c08', name: 'THE FOLDED STRATA', motes: '#ffd9b0' },
   network: { fog: '#0a0a14', name: 'THE NETWORK', motes: '#ffe6a0' },
+  mind: { fog: '#05030c', name: 'THE MANDELBULB · THE MIND', motes: '#ffb6e8' },
 };
 WORLDS.systemic = WORLDS.network;
 WORLDS['named-solution'] = WORLDS.organismal;
 export const worldName = sector => (WORLDS[sector] ?? WORLDS.organismal).name;
 // the world of a level: its sector, except where a level reads better as another world
-const LEVEL_WORLDS = { 'cellular-synaptic': 'organismal', molecular: 'organismal', 'whole-brain-cemi': 'organismal', 'human-vertebrate': 'organismal', dyad: 'organismal', 'animal-swarm': 'collective', 'human-group': 'collective' };
+const LEVEL_WORLDS = { 'cellular-synaptic': 'organismal', molecular: 'organismal', 'whole-brain-cemi': 'mind', 'human-vertebrate': 'organismal', dyad: 'organismal', 'animal-swarm': 'collective', 'human-group': 'collective' };
 export const worldFor = (levelId, sector) => LEVEL_WORLDS[levelId] ?? (WORLDS[sector] ? sector : 'organismal');
 
 function points(positions, colors, size, opacity = 0.9) {
@@ -245,6 +246,98 @@ function networkWorld(rand) {
 
 const BUILDERS = { cosmological: cosmicWeb, 'micro-physical': quantumFoam, organismal: innerSea, collective: murmuration, geological: foldedStrata, network: networkWorld, systemic: networkWorld, 'named-solution': innerSea };
 
+// ---------------------------------------------------------------- the Mandelbulb, raymarched
+
+// A full-screen quad whose shader marches a ray per pixel into a power-p Mandelbulb
+// (distance estimate). The ray comes from the eye camera being rendered, so stereo works.
+// The power breathes with Phi (8 calm, up to 10 hot), the colour warms with Phi, and the
+// camera glides slowly inward along a spiral and back out.
+const BULB_FRAG = `
+precision highp float;
+uniform vec2 uRes;
+uniform vec4 uView;          // viewport x, y, w, h in pixels
+uniform mat4 uCamWorld;
+uniform mat4 uProjInv;
+uniform float uPower;
+uniform float uTime;
+uniform float uPhi;
+uniform float uSurge;
+float de(vec3 p, out float trap) {
+  vec3 z = p; float dr = 1.0; float r = 0.0; trap = 1e9;
+  for (int i = 0; i < 9; i++) {
+    r = length(z);
+    if (r > 2.0) break;
+    float th = acos(clamp(z.z / r, -1.0, 1.0)) * uPower + uTime * 0.05;
+    float ph = atan(z.y, z.x) * uPower;
+    dr = pow(r, uPower - 1.0) * uPower * dr + 1.0;
+    float zr = pow(r, uPower);
+    z = zr * vec3(sin(th) * cos(ph), sin(th) * sin(ph), cos(th)) + p;
+    trap = min(trap, length(z.xy));
+  }
+  return 0.5 * log(r) * r / dr;
+}
+void main() {
+  vec2 ndc = ((gl_FragCoord.xy - uView.xy) / uView.zw) * 2.0 - 1.0;
+  vec4 target = uProjInv * vec4(ndc, 1.0, 1.0);
+  vec3 dir = normalize((uCamWorld * vec4(normalize(target.xyz / target.w), 0.0)).xyz);
+  vec3 ro = (uCamWorld * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+  float t = 0.0; float trap = 0.0; float steps = 0.0; bool hit = false;
+  for (int i = 0; i < 110; i++) {
+    vec3 p = ro + dir * t;
+    float d = de(p, trap);
+    if (d < 0.0008 * t) { hit = true; break; }
+    t += d * 0.9;
+    steps += 1.0;
+    if (t > 8.0) break;
+  }
+  vec3 bg = vec3(0.02, 0.012, 0.05) + 0.05 * vec3(0.6, 0.2, 0.9) * (1.0 - abs(dir.y));
+  if (!hit) { gl_FragColor = vec4(bg + vec3(0.9, 0.3, 0.7) * 0.004 * steps * (0.6 + uSurge), 1.0); return; }
+  vec3 p = ro + dir * t;
+  float tt;
+  vec2 e = vec2(0.0006 * t, 0.0);
+  vec3 n = normalize(vec3(de(p + e.xyy, tt) - de(p - e.xyy, tt), de(p + e.yxy, tt) - de(p - e.yxy, tt), de(p + e.yyx, tt) - de(p - e.yyx, tt)));
+  vec3 cool = mix(vec3(0.25, 0.35, 1.0), vec3(1.0, 0.3, 0.75), clamp(trap, 0.0, 1.0));
+  vec3 warm = mix(vec3(1.0, 0.55, 0.2), vec3(1.0, 0.2, 0.45), clamp(trap, 0.0, 1.0));
+  vec3 base = mix(cool, warm, uPhi);
+  float diff = clamp(dot(n, normalize(vec3(0.6, 0.8, 0.4))), 0.0, 1.0);
+  float ao = 1.0 - steps / 110.0;
+  vec3 col = base * (0.25 + 0.75 * diff) * ao + 0.25 * pow(1.0 - abs(dot(n, -dir)), 3.0) * vec3(1.0, 0.8, 1.0);
+  col = mix(col, bg, clamp(t / 8.0, 0.0, 1.0));
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+function createBulb() {
+  const material = new THREE.ShaderMaterial({
+    vertexShader: 'void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }',
+    fragmentShader: BULB_FRAG,
+    uniforms: {
+      uRes: { value: new THREE.Vector2() }, uView: { value: new THREE.Vector4() },
+      uCamWorld: { value: new THREE.Matrix4() }, uProjInv: { value: new THREE.Matrix4() },
+      uPower: { value: 8 }, uTime: { value: 0 }, uPhi: { value: 0 }, uSurge: { value: 0 },
+    },
+    depthTest: false, depthWrite: false,
+  });
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+  quad.frustumCulled = false;
+  const scene = new THREE.Scene();
+  scene.add(quad);
+  const ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  return {
+    render(renderer, eye, view, state) {
+      const u = material.uniforms;
+      u.uView.value.copy(view);
+      eye.updateMatrixWorld();
+      u.uCamWorld.value.copy(eye.matrixWorld);
+      u.uProjInv.value.copy(eye.projectionMatrixInverse);
+      u.uPower.value = 8 + 2 * state.phi + Math.sin(state.time * 0.1) * 0.3;
+      u.uTime.value = state.time;
+      u.uPhi.value = state.phi;
+      u.uSurge.value = state.surge;
+      renderer.render(scene, ortho);
+    },
+  };
+}
+
 export function createFlight3D() {
   let renderer;
   try {
@@ -262,6 +355,7 @@ export function createFlight3D() {
   const size = new THREE.Vector2();
   let tiles = [];
   let sector = '';
+  let bulb = null;
   let travelled = 0;
   let surge = 0;
   let last = 0;
@@ -282,6 +376,10 @@ export function createFlight3D() {
     sector = next;
     for (const t of tiles) scene.remove(t);
     const world = WORLDS[sector] ?? WORLDS.organismal;
+    if (sector === 'mind') {
+      tiles = [];
+      return;
+    }
     const make = BUILDERS[sector] ?? innerSea;
     const rnd = seeded(sector.length * 97 + 11);
     const tile = make(rnd);
@@ -314,6 +412,38 @@ export function createFlight3D() {
       surge = Math.max(0, surge - dt * 0.6);
       const speed = 1.2 + 3.5 * state.phi + 8 * surge;
       travelled += speed * dt;
+      if (state.sector === 'mind') {
+        bulb ??= createBulb();
+        // a slow spiral in towards the surface and back out; a surge pushes in
+        const tt = state.time;
+        const radius = 2.15 - 0.55 * (0.5 + 0.5 * Math.sin(tt * 0.045)) - 0.3 * surge;
+        camera.position.set(Math.sin(tt * 0.06) * radius, 0.35 * Math.sin(tt * 0.04), Math.cos(tt * 0.06) * radius);
+        camera.lookAt(0, 0, 0);
+        renderer.getSize(size);
+        const pr = renderer.getPixelRatio();
+        const full = new THREE.Vector4(0, 0, size.x * pr, size.y * pr);
+        const bulbState = { phi: state.phi, time: tt, surge };
+        if (state.stereo === 'half' || state.stereo === 'full') {
+          camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+          camera.updateProjectionMatrix();
+          camera.updateMatrixWorld();
+          stereoCamera.update(camera);
+          renderer.setScissorTest(true);
+          for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+            renderer.setViewport(x, 0, size.x / 2, size.y);
+            renderer.setScissor(x, 0, size.x / 2, size.y);
+            bulb.render(renderer, eye, new THREE.Vector4(x * pr, 0, (size.x / 2) * pr, size.y * pr), bulbState);
+          }
+          renderer.setScissorTest(false);
+          renderer.setViewport(0, 0, size.x, size.y);
+        } else {
+          camera.aspect = size.x / size.y;
+          camera.updateProjectionMatrix();
+          bulb.render(renderer, camera, full, bulbState);
+        }
+        return;
+      }
+      if (!tiles.length) return;
       const offset = mod(travelled, TILE);
       tiles[0].position.z = offset;
       tiles[1].position.z = offset - TILE;
