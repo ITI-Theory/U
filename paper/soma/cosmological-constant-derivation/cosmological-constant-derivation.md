@@ -32,6 +32,8 @@ energy of all quantum fields up to a UV cutoff $k_c$:
 $$\rho_\Lambda^\text{ZPE} = \frac{1}{2}\int_0^{k_c}\frac{d^3k}{(2\pi)^3}
   \sqrt{k^2+m^2} \approx \frac{k_c^4}{16\pi^2}$$
 
+{{Visualize | the-cosmological-constant-problem-usf-reframing | function-plot:cosmic | f="x^4/(16*pi^2)"; x=[0,12]; vline="10"; xlabel="UV cutoff $\ell_P k_c$ (Planck units, illustrative)"; ylabel="$\rho_\Lambda^\text{ZPE}$ (Planck units, illustrative)" }} The zero-point-energy integral above grows as the fourth power of the cutoff; the line marks the string-scale cutoff $k_c\approx10/\ell_P$ the text uses, where $\rho_\Lambda^\text{ZPE}$ already overshoots $\Lambda_\text{obs}$ by $10^{117}$. Illustrative Planck units: the real cutoff and vacuum energy span far more orders of magnitude than one axis can show.
+
 For a string-scale cutoff $k_c = \ell_s^{-1} \approx 10/\ell_P$, this gives
 $\Lambda_\text{ZPE} \approx 6 \times 10^{64}$ m$^{-2}$, overshooting the observed
 value $\Lambda_\text{obs} \approx 1.09 \times 10^{-52}$ m$^{-2}$ by $10^{117}$
@@ -54,6 +56,9 @@ attractor of the 11-dimensional field under cosmological boundary conditions.
 The cosmological constant is:
 $$\boxed{\Lambda \equiv \frac{k_\text{cosm}^2\,\langle\mathrm{tr}\,\Phi\rangle_0^2}
 {M_\text{Pl}^2 c^2}}$$
+
+{{Visualize | the-cosmological-constant-problem-usf-reframing | function-plot:cosmic | f="k^2*x^2"; vary=k:0.5,1,2; x=[0,3]; vline="1.43"; xlabel="vacuum amplitude $\langle\mathrm{tr}\,\Phi\rangle_0/M_\text{Pl}$ (illustrative)"; ylabel="$\Lambda$ (units $M_\text{Pl}=c=1$, illustrative)" }} The defining equation above as a family of curves: $\Lambda$ grows as the square of the vacuum amplitude, at three illustrative values of the cosmic wavenumber $k_\text{cosm}$ (units where $M_\text{Pl}=c=1$); the line marks the paper's own working amplitude, $\Phi_0\approx1.4\,M_\text{Pl}$, derived below.
+
 where $k_\text{cosm} = H_0/c$ is the cosmic wavenumber, $\langle\mathrm{tr}\,\Phi\rangle_0$
 is the vacuum amplitude of the somatic tensor trace, and $M_\text{Pl}^2 = \hbar c/G$.
 
@@ -68,6 +73,8 @@ $$\Lambda_\text{obs} = \frac{3\Omega_\Lambda H_0^2}{c^2}
   \approx 1.09\times10^{-52}\,\text{m}^{-2} \quad (\Omega_\Lambda = 0.6847,\;
   H_0 = 67.36\;\text{km/s/Mpc})$$
 
+{{Visualize | required-vacuum-amplitude | function-plot:cosmic | f="3*5.30e-53*x"; x=[0.55,0.85]; value_at=0.6847; expect_value=1.09e-52; xlabel="dark-energy density parameter $\Omega_\Lambda$"; ylabel="$\Lambda_\text{obs}$ (m$^{-2}$)" }} The Friedmann relation above, linear in $\Omega_\Lambda$ at the stated $H_0=67.36$ km/s/Mpc; the program checked that the measured $\Omega_\Lambda=0.6847$ gives $\Lambda_\text{obs}\approx1.09\times10^{-52}$ m$^{-2}$.
+
 Setting $\Lambda_\text{USF} = \Lambda_\text{obs}$ and solving for $\Phi_0$:
 $$\Phi_0 = \sqrt{\frac{\Lambda_\text{obs}\,M_\text{Pl}^2 c^2}{k_\text{cosm}^2}}
   \approx 8.9\times10^{34}\;\text{m}^{-1}$$
@@ -75,6 +82,8 @@ $$\Phi_0 = \sqrt{\frac{\Lambda_\text{obs}\,M_\text{Pl}^2 c^2}{k_\text{cosm}^2}}
 In Planck units:
 $$\ell_P\,\Phi_0 \approx 8.9\times10^{34}\times 1.616\times10^{-35} \approx 1.43
   = \sqrt{3\,\Omega_\Lambda}$$
+
+{{Visualize | required-vacuum-amplitude | function-plot:cosmic | f="sqrt(3*x)"; x=[0,1]; value_at=0.6847; expect_value=1.43; expect_tol=0.003; xlabel="dark-energy density parameter $\Omega_\Lambda$"; ylabel="$\ell_P\,\Phi_0$ (Planck units)" }} The dimensionless amplitude $\ell_P\Phi_0=\sqrt{3\Omega_\Lambda}$ above: at the measured $\Omega_\Lambda=0.6847$ (checked) it is order-of-magnitude unity, $\approx1.43$ — the natural Planck-scale value the paper's compactification argument predicts.
 
 **This is order-of-magnitude unity.** The required vacuum amplitude is approximately
 $1.4\,M_\text{Pl}$ — a natural Planck-scale value at the compactification boundary.
@@ -94,6 +103,8 @@ acts on the field by
 the geometric RG flow (kernel-checked in `RenormalisationGroup.lean` as
 `geometricFlow_waveEquation`):
 $$k(\sigma) = k_0\,/\,\Lambda_Z^\sigma$$
+
+{{Visualize | derivation-of-phi_0-sim-m_textpl-from-compactification | function-plot:cosmic | f="10^(-3.207*x)"; x=[0,19]; logy=true; value_at=19; expect_value=10^(-60.93); expect_tol=0.01; xlabel="zoom step $\sigma$"; ylabel="$k(\sigma)/k_0$" }} The zoom relation above over the nineteen steps from the Planck scale to Scale 19: each step of $\Lambda_Z=10^{3.207}$ (stated below) divides the wavenumber by the same factor, and the program checked that after 19 steps it has fallen by the stated 60.93 decades.
 
 where $\Lambda_Z$ is the scale factor of the zoom step. At $\sigma=19$:
 $$k_{19} = k_P / \Lambda_Z^{19} = H_0/c$$
@@ -125,7 +136,12 @@ use $H_0$ would turn this consistency check into a prediction of $H_0$.
 ## Preliminary first-order estimate
 
 $$\Lambda_\text{USF}^\text{(1)} = H_0^2/c^2 \approx 5.30\times10^{-53}\,\text{m}^{-2}$$
+
+{{Visualize | preliminary-first-order-estimate | function-plot:cosmic | f="5.30e-53*x^2"; x=[0.8,1.2]; value_at=1; expect_value=5.30e-53; xlabel="$H_0/H_0^\text{obs}$"; ylabel="$\Lambda_\text{USF}^{(1)}$ (m$^{-2}$)" }} The first-order estimate above, $\Lambda_\text{USF}^{(1)}=H_0^2/c^2$, as a function of the Hubble constant relative to its measured value; the program checked the stated $5.30\times10^{-53}$ m$^{-2}$ at $H_0=H_0^\text{obs}$. The quadratic rise is the same sensitivity to $H_0$ at issue in the Hubble-tension literature.
+
 $$\frac{\Lambda_\text{USF}^\text{(1)}}{\Lambda_\text{obs}} = \frac{1}{3\Omega_\Lambda} \approx 0.49$$
+
+{{Visualize | preliminary-first-order-estimate | function-plot:cosmic | f="1/(3*x)"; x=[0.55,0.85]; value_at=0.6847; expect_value=0.49; expect_tol=0.01; xlabel="dark-energy density parameter $\Omega_\Lambda$"; ylabel="$\Lambda_\text{USF}^{(1)}/\Lambda_\text{obs}$" }} The ratio above: the unrefined first-order estimate captures only $1/(3\Omega_\Lambda)$ of the observed value; the program checked that at the measured $\Omega_\Lambda$ this is the stated 49%, the shortfall the compact-dimension fraction resolves next.
 
 This unrefined calculation captures 49\% of the observed value. The factor
 $3\Omega_\Lambda \approx 2.05$ is resolved in \S2.4 by compact-dimension
@@ -144,6 +160,8 @@ total dimensions:
 The leading-order vacuum energy partition fraction is:
 $$\Omega_\text{vac}^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.6364$$
 
+{{Visualize | dark-energy-fraction-from-compact-dimension-counting | type-decomposition:cosmic | whole="$\mathcal{M}_{11}$"; parts="compact $X_7$=7, non-compact $M_4$=4"; row_label="vacuum energy"; expect_total=11 }} The dimension count behind $\Omega_\text{vac}^\text{USF}=N_\text{compact}/N_\text{total}$: of the eleven total dimensions, seven are compact and four are not; the program checked that they add to 11. The compact fraction, 7/11, is the dark-energy fraction the next two equations use.
+
 The complementary non-compact spatial-sector accounting is developed in the
 companion dark-matter analysis [@johnson2026darkmatter].
 
@@ -158,8 +176,12 @@ Friedmann normalisation appears directly:
 $$\Lambda_\text{USF} = 3 \times \frac{7}{11} \times \frac{H_0^2}{c^2}
   = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.01\times10^{-52}\;\text{m}^{-2}$$
 
+{{Visualize | dark-energy-fraction-from-compact-dimension-counting | function-plot:cosmic | f="3*(x/11)*5.30e-53"; x=[0,11]; value_at=7; expect_value=1.01e-52; expect_tol=0.003; xlabel="compact dimensions $N_\text{compact}$ (out of 11)"; ylabel="$\Lambda_\text{USF}$ (m$^{-2}$)" }} The refined estimate above as a function of the assumed compact-dimension count: the program checked that the paper's own count, 7 of 11, gives the stated $1.01\times10^{-52}$ m$^{-2}$ — the Friedmann factor of 3, times the compact fraction, times $H_0^2/c^2$.
+
 $$\frac{\Lambda_\text{USF}}{\Lambda_\text{obs}} = \frac{7/11}{\Omega_\Lambda}
   = \frac{0.6364}{0.6847} = 0.929 \approx 0.93 \quad (93\%\text{ of observed})$$
+
+{{Visualize | dark-energy-fraction-from-compact-dimension-counting | function-plot:cosmic | f="(7/11)/x"; x=[0.55,0.85]; value_at=0.6847; expect_value=0.929; xlabel="dark-energy density parameter $\Omega_\Lambda$"; ylabel="$\Lambda_\text{USF}/\Lambda_\text{obs}$" }} The refined ratio above, $(7/11)/\Omega_\Lambda$: the program checked that at the measured $\Omega_\Lambda=0.6847$ it is the stated 0.929, 93\% of the observed value — up from 49\% before the compact-dimension correction.
 
 This uses the exact Planck 2018 TT,TE,EE+lowE+lensing baseline and is 7.1\% low.
 
