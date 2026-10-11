@@ -1,0 +1,294 @@
+# Sherlock affidavit (DRAFT): The Soma-Field Research Programme: Method, Model, and
+# Computational Test (P4, "A Synthesis of Six Papers on Emotional Field Dynamics").
+# Schema: sherlock/registry.py. All numeric checks were recomputed with Python (exact
+# Fraction arithmetic) before being written as `check:` templates below. This paper
+# synthesises the programme, so every quoted value was compared against
+# bld/sherlock/values.md and the existing registry/affidavits/*.yaml, in particular
+# quantum-soma-penrose (QUANT-EXP-1's own numbers) and soma-field-paper, swarm-propagator,
+# universal-somatic-field, cosmological-constant-derivation (the 11 = 7 + 4 dimension
+# split, USF-SorryCount).
+id: soma-field-synthesis
+document: P4
+title: "The Soma-Field Research Programme: Method, Model, and Computational Test"
+source:
+  file: paper/soma/soma-field-synthesis/soma-field-synthesis.md
+  commit: 6775240
+  sha256: 96adba5ba50a8c4178d781b596d0c0ef2c79b710b89301472b120be80ddb42a0
+lean: []
+microtheories: {}
+claims:
+  - id: Y1
+    quote: 'Three categories of work remain'
+    lines: [556, 558, 563, 570, 576]
+    kind: internal-count
+    finding: >-
+      the "What Remains" section announces "Three categories of work remain outside
+      the scope of these papers" but then gives four parallel bold-headed categories,
+      not three — Physical hardware test, Peer review, Empirical clinical application,
+      and Physical substrate (the last citing the companion paper Johnson 2026g) — one
+      more than the stated count
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: sum, args: [1, 1, 1, 1, 4]}
+      - {template: ne, args: [4, 3]}
+    values:
+      - {quantity: Synth-RemainingWorkCategoriesStated, value: 3}
+      - {quantity: Synth-RemainingWorkCategoriesActual, value: 4}
+    disposition: open
+  - id: Y2
+    quote: 'the current repository still contains seven real'
+    lines: [196, 211, 213, 214]
+    kind: cross-paper
+    finding: >-
+      the verification-threshold section states that "the current repository still
+      contains seven real `sorry` markers", but five other programme affidavits agree
+      the count is five (USF-SorryCount, quoted by soma-field-paper F4,
+      experimental-validation X12, universal-somatic-field U10, and usf-euclidean-qft
+      E5/E6) — this synthesis document gives a different sorry count from every other
+      paper in the programme that states one
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [7, 5]}]
+    values:
+      - {quantity: Synth-SorryCountStated, value: 7}
+      - {quantity: USF-SorryCount, value: 5}
+    disposition: open
+  - id: Y3
+    quote: 'spans six papers'
+    lines: [10, 99, 104, 563, 601, 605]
+    kind: internal-count
+    finding: >-
+      the subtitle's and abstract's "spans six papers" is exactly accounted for by the
+      Data and Code Availability section: three papers published on Zenodo (Soma-Field,
+      Co-identification, Quantum Soma) plus the three unreviewed programme papers it
+      names (Field Notes from the Inside, Music-Induced Affect, The Tensor) — excluding
+      this synthesis document itself, which the same sentence lists as a separate,
+      fourth, unreviewed item
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [3, 3, 6]}]
+    values:
+      - {quantity: Synth-ProgrammePaperCount, value: 6}
+      - {quantity: Synth-PublishedPaperCount, value: 3}
+      - {quantity: Synth-UnreviewedProgrammePaperCount, value: 3}
+    disposition: none
+  - id: Y4
+    quote: 'rests on four things'
+    lines: [196, 198, 203, 207, 211]
+    kind: internal-count
+    finding: >-
+      "It rests on four things" is followed by exactly four numbered items — 1 Inductive
+      structural necessity, 2 Matched formal structure, 3 Scale invariance, 4 Kernel
+      verification — matching the stated count
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: Synth-ThesisFoundationCount, value: 4}
+    disposition: none
+  - id: Y5
+    quote: 'Five Co-identifications'
+    lines: [229, 231, 235, 246, 259, 266, 274]
+    kind: internal-count
+    finding: >-
+      the "Five Co-identifications" heading and "built from five sequential proposed
+      correspondences" are matched by exactly five numbered "Co-identification N:"
+      paragraphs (1 Hopfield, 2 QFT, 3 brane, 4 $G_2$ holonomy, 5 renormalisation group)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 5]}]
+    values:
+      - {quantity: Synth-CoIdentificationCount, value: 5}
+    disposition: none
+  - id: Y6
+    quote: 'seven compactified extra dimensions'
+    lines: [249, 261, 267]
+    kind: cross-paper
+    finding: >-
+      the body is "a 3-brane embedded in the 11-dimensional coupling manifold" whose
+      "seven compactified extra dimensions" are modelled with a $G_2$ structure: 7
+      (compact) + 4 (non-compact, the brane's effective spacetime) = 11, the same
+      7 + 4 = 11 split already quoted by soma-field-paper, swarm-propagator and
+      universal-somatic-field (USF-TotalDimensionCount, USF-CompactDimensionCount,
+      USF-NonCompactDimensionCount)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [7, 4, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+      - {quantity: USF-CompactDimensionCount, value: 7}
+      - {quantity: USF-NonCompactDimensionCount, value: 4}
+    disposition: none
+  - id: Y7
+    quote: 'three movements and several extensions'
+    lines: [13, 95, 99, 104]
+    kind: internal-count
+    finding: >-
+      "the argument has three movements and several extensions" is exactly the
+      Movement column of the paper's own six-row table: Method, Model and Computational
+      test (3 rows) are the movements; Lived case and the two Extension rows (the other
+      3 rows) are the "several extensions"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: Synth-MovementCount, value: 3}
+    disposition: none
+  - id: Y8
+    quote: 'Bootstrap confidence intervals (n = 200 seeds)'
+    lines: [368, 369, 375]
+    kind: cross-paper
+    finding: >-
+      this paper's "Bootstrap confidence intervals (n = 200 seeds)" for QUANT-EXP-1
+      correctly cites the hardened rerun's own sample size (quantum-soma-penrose's
+      0/200-per-barrier figure, 3 barriers x 200 = 600 trials total,
+      QSoma-ClassicalTrialsTotal) rather than the superseded 20 May sweep's 16-seed,
+      48-trial, "3/3" figure that other citing papers give for the same experiment
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: sum, args: [200, 200, 200, 600]}
+      - {template: ne, args: [48, 600]}
+    values:
+      - {quantity: Synth-BootstrapSeedsPerBarrier, value: 200}
+      - {quantity: QSoma-ClassicalTrialsTotal, value: 600}
+    disposition: none
+  - id: Y9
+    quote: 'narrows monotonically with barrier strength (B8: 0.0095, B10:'
+    lines: [383, 384]
+    kind: cross-paper
+    finding: >-
+      the quoted spectral-gap figures (B8: 0.0095, B10: 0.0089, B12: 0.0085) reproduce
+      quantum-soma-penrose's own values exactly (QSoma-SpectralGapB8/B10/B12) and are
+      indeed monotonically decreasing, matching the claim that the gap "narrows
+      monotonically with barrier strength"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0.0085, 0.0089, 0.0095]}]
+    values:
+      - {quantity: QSoma-SpectralGapB8, value: 0.0095}
+      - {quantity: QSoma-SpectralGapB10, value: 0.0089}
+      - {quantity: QSoma-SpectralGapB12, value: 0.0085}
+    disposition: none
+  - id: Y10
+    quote: 'is stable at 0.389'
+    lines: [360, 366, 370, 371]
+    kind: internal-arithmetic
+    finding: >-
+      the claim that quantum peak occupancy "is stable at 0.389-0.416 across the full
+      range" is exactly the span of the five Results-table values in the order given
+      (0.389, 0.408, 0.408, 0.409, 0.416), which are themselves nondecreasing, so the
+      quoted bounds are the sequence's own minimum and maximum
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0.389, 0.408, 0.408, 0.409, 0.416]}]
+    values:
+      - {quantity: Synth-QuantumPeakRangeMin, value: 0.389}
+      - {quantity: Synth-QuantumPeakRangeMax, value: 0.416}
+    disposition: none
+  - id: Y11
+    quote: 'quantum peak 0.408'
+    lines: [368, 375]
+    kind: internal-arithmetic
+    finding: >-
+      the hardening-protocol bullet's narrower "quantum peak 0.408-0.410" does not
+      contradict the wider Results-table range (Y10): restricted to the three
+      pre-registered barrier strengths B8, B10, B12, the table's own values (0.408,
+      0.408, 0.409) are nondecreasing and bounded by exactly the quoted [0.408, 0.410]
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0.408, 0.408, 0.409, 0.410]}]
+    values:
+      - {quantity: QSoma-QuantumPeakOccupancyW10, value: 0.408}
+      - {quantity: Synth-QuantumPeakBootstrapRangeMax, value: 0.410}
+    disposition: none
+  - id: Y12
+    quote: 'classical 16/16 stay in Awe'
+    lines: [377, 380]
+    kind: cross-paper
+    finding: >-
+      both negative controls — "classical 16/16 stay in Awe" for Control A (barrier
+      intact, starting from Awe), "classical 16/16 reach Awe" for Control B (barrier
+      removed) — match the 100% success rates already quoted for the same two controls
+      in quantum-soma-penrose (QSoma-ControlASuccessRate, QSoma-ControlBSuccessRate)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [16/16, 1]}]
+    values:
+      - {quantity: QSoma-ControlASuccessRate, value: "16/16"}
+      - {quantity: QSoma-ControlBSuccessRate, value: "16/16"}
+    disposition: none
+  - id: Y13
+    quote: '256-dimensional Hilbert space'
+    lines: [338, 340, 341]
+    kind: cross-paper
+    finding: >-
+      the stated "exact 8-qubit statevector simulation on a 256-dimensional Hilbert
+      space" is arithmetically exact ($2^8 = 256$) and matches the Hilbert-space
+      dimension already quoted in quantum-soma-penrose (QSoma-HilbertSpaceDimension)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [256, 256]}]
+    values:
+      - {quantity: QSoma-HilbertSpaceDimension, value: 256}
+    disposition: none
+
+# TYPING: "a holographic avatar whose body is a live Mandelbulb rendering of the
+#   emotional field state" / "the geometry of the fractal changes as the field
+#   changes" (lines ~538-543, H-AL) — the same pattern already flagged in the
+#   soma-field-paper affidavit's TYPING note: a fractal hologram described as having
+#   a "body" (BodyPart-bearing, Organism-adjacent concept) rather than being typed as
+#   an Artifact/Device; candidate opencyc-slip for the OpenCyc mapping of "body" here.
+# TYPING: "the body is treated analogically as a 3-brane embedded in the
+#   11-dimensional coupling manifold" (line 261) — identifying an Organism's body
+#   (BodyPart-bearing PhysicalThing) with a brane (a purely mathematical/topological
+#   SpatialThing from M-theory); candidate category question for the OpenCyc mapping
+#   of "body" in this sentence versus its ordinary biological sense used two
+#   paragraphs later ("somatic pain states and the body schema").
+# TYPING: "sampling the energy landscape at higher temperature" for the ADHD
+#   Langevin noise term $T_{\text{eff}}$ (lines ~436-439) — the same noise-to-damping
+#   "temperature" homonym already flagged as a candidate opencyc-slip in the
+#   quantum-soma-penrose affidavit (distinct from literal ThermodynamicTemperature),
+#   recurring here in the synthesis's own restatement of the ADHD mechanism.
+# TYPING: "a synthesised voice narrating the field in real time" (line ~540, H-AL) —
+#   an audio Artifact output described as performing a narration-type
+#   InformationTransferEvent about a MathematicalObject (the field state); candidate
+#   opencyc-typing check for whether "narrating" licenses the same mapping as a human
+#   SpeechAct.
+# TYPING: "the barrier was installed before language, before narrative memory, before
+#   the self that can explain the barrier was formed. ... It is the structure." (lines
+#   ~447-450) — identifying a clinical condition (ComplexPosttraumaticStressDisorder,
+#   a PsychologicalCondition) directly with "the structure" (a purely mathematical
+#   topological invariant, the coupling matrix's winding number); candidate category
+#   question for the OpenCyc mapping, in the same pattern as the "load-bearing hyphen"
+#   note already flagged for soma-field-paper.
+# TYPING: Penrose's "gap" between classical computation and consciousness (an
+#   epistemic/computability notion) versus the soma-field's "topological gap" in the
+#   emotional landscape (a modelled energy-barrier quantity) (lines ~392-399) — the
+#   same word used in two senses the paper itself distinguishes ("The contribution is
+#   not to resolve Penrose's claim... It is to *instantiate* the gap"); candidate
+#   homonym slip for the OpenCyc mapping of "gap".
+
+# LEAN: lines 213-214, "the current repository still contains seven real `sorry`
+#   markers and an explicit axiom registry" — disagrees with this paper's own peers
+#   (five, per USF-SorryCount quoted identically by five other affidavits; see Y2); a
+#   ledger candidate (`make -C sherlock ledger`) to get the current authoritative
+#   sorry count and settle which figure (five or seven) the repository actually has.
+# LEAN: line 191, "The strongest verification threshold available in this project is
+#   a Lean 4 theorem with a named file and theorem statement, compiled without `sorry`
+#   and with its axioms explicit" — a general claim about the project's Lean
+#   verification standard, not a specific theorem name; not checked here.

@@ -1,0 +1,267 @@
+# Sherlock affidavit (DRAFT): Field Notes from the Inside: A Patient-Constructed
+# Model of Emotional Dynamics (P7, the patient-POV companion to the technical
+# paper P1, soma-field-paper). Schema: sherlock/registry.py. All numeric checks
+# were recomputed with Python (exact Fraction arithmetic for counts/integers;
+# numpy.roots for the one polynomial check, where only the stated rounded value
+# is confirmed to within 0.1%, mirroring soma-field-paper F11 since this paper
+# reuses the same energy-landscape figure) before being written as `check:`
+# templates below. Quantities already quoted by the companion paper
+# (soma-field-paper, bld/sherlock/values.md) are reused under the same name so
+# that agreement or disagreement across documents is reported automatically.
+id: soma-field-patient-pov
+document: P7
+title: "Field Notes from the Inside: A Patient-Constructed Model of Emotional Dynamics"
+source:
+  file: paper/soma/soma-field-patient-pov/soma-field-patient-pov.md
+  commit: 299724e
+  sha256: 0962567b4cc7587afaf50c07c03eb59316bb35b1f021e73cb4f7daaef3ee6538
+lean: []
+microtheories: {}
+claims:
+  - id: V1
+    quote: 'The instrument designed in Section 6'
+    lines: [60, 164, 405, 518, 587]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      both "the instrument designed in Section 6" (Background) and "the most
+      important clinical implication suggested by Section 6" (Clinical
+      Implications) refer to "The Soma-Field Instrument", but counting this
+      paper's own top-level headings in order (A Note on Method = 1 through
+      References = 12) that section is the 8th, not the 6th — the companion
+      technical paper's correct "Section 6" citation for the same instrument
+      (where it genuinely is the 6th section) was carried over unchanged even
+      though this paper inserts two extra top-level sections ahead of it (A
+      Note on Method; The Neurodivergent Field), shifting the instrument two
+      sections later
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [8, 6, 2]}]
+    values:
+      - {quantity: SomaField-InstrumentSectionStated, value: 6}
+      - {quantity: SomaField-InstrumentSectionActual, value: 8}
+    disposition: open
+  - id: V2
+    quote: 'all three appendices from the companion paper'
+    lines: [692, 693, 694, 695, 696]
+    kind: internal-count
+    finding: >-
+      the closing note's "all three appendices from the companion paper" is
+      immediately followed by a parenthetical list of four items
+      (categorical formalization, M-theory scale hierarchy, Lean 4 type
+      sketches, and neurodivergent operator mathematics), one more than the
+      stated count of three
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [4, 3, 1]}]
+    values:
+      - {quantity: POV-AppendixTopicsListedCount, value: 4}
+      - {quantity: POV-AppendixCountStated, value: 3}
+    disposition: open
+  - id: V3
+    quote: 'Table 3. Interaction effects of composed neurodivergent modifiers.'
+    lines: [289, 312, 369, 508]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      in reading order the paper's own table captions run "Table 1"
+      (clinical observations mapped onto the perception threshold), "Table
+      3" (the four intelligence quotients), "Table 2" (attractor states),
+      then "Table 3" again (interaction effects of composed neurodivergent
+      modifiers) — the sequence 1, 3, 2, 3 is not increasing, and the number
+      3 is reused for two unrelated tables
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: not-monotone, args: [1, 3, 2, 3]}]
+    values:
+      - {quantity: POV-TableCaptionCount, value: 4}
+      - {quantity: POV-DistinctTableNumbersUsed, value: 3}
+    disposition: open
+  - id: V4
+    quote: 'A MIDI controller with 16 rotary knobs'
+    lines: [534]
+    kind: internal-arithmetic
+    finding: >-
+      the instrument's own design spec, "A MIDI controller with 16 rotary
+      knobs. Eight emotional dimensions. Two knobs per dimension", is
+      arithmetically consistent: eight dimensions at two knobs each account
+      for all sixteen knobs
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [8, 8, 16]}]
+    values:
+      - {quantity: POV-InstrumentKnobCount, value: 16}
+      - {quantity: POV-EmotionalDimensionCount, value: 8}
+      - {quantity: POV-KnobsPerDimension, value: 2}
+    disposition: none
+  - id: V5
+    quote: 'The four intelligence quotients and their formal status'
+    lines: [307, 308, 309, 310, 312]
+    kind: cross-paper
+    finding: >-
+      Table 3's caption "The four intelligence quotients and their formal
+      status" matches both its own table's four rows (IQ, EQ, AQ, SQ) and
+      the four-quotient count already quoted by the companion technical
+      paper (SomaField-FormalIntelligenceQuotientCount)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: SomaField-FormalIntelligenceQuotientCount, value: 4}
+    disposition: none
+  - id: V6
+    quote: 'expect_minima="-1.017,0.982"'
+    lines: [342]
+    kind: cross-paper
+    finding: >-
+      the energy-landscape figure's own annotated minima "-1.017,0.982"
+      match, to within 0.01%, the roots of $U'(x) = x^3 - x + 0.035 = 0$
+      computed from the same potential $U(x) = x^4/4 - x^2/2 + 0.035x$ used
+      in the companion technical paper's identical figure, reproducing its
+      already-verified values exactly
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: rel-between, args: [1.017, 1.017060905269918, 0, 0.001]}
+      - {template: rel-between, args: [0.982, 0.9820178719278599, 0, 0.001]}
+    values:
+      - {quantity: SomaField-EnergyLandscapeLeftMinimumStated, value: -1.017}
+      - {quantity: SomaField-EnergyLandscapeRightMinimumStated, value: 0.982}
+    disposition: none
+  - id: V7
+    quote: 'all five rows in Table 1'
+    lines: [283, 284, 285, 286, 287, 289, 291]
+    kind: internal-count
+    finding: >-
+      the perception-threshold section's "all five rows in Table 1" matches
+      the table's own five listed clinical observations (field active
+      without a named feeling, sudden unexplained flooding, somatic-only
+      signal, alexithymia, hypervigilance)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 5]}]
+    values:
+      - {quantity: POV-PerceptionThresholdTableRowCount, value: 5}
+    disposition: none
+  - id: V8
+    quote: 'In 1982, John Hopfield'
+    lines: [215, 665]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Hopfield-networks subsection's "In 1982, John Hopfield" matches
+      the reference list's own "Hopfield, J. J. (1982)" entry for the same
+      work
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [1982, 1982]}]
+    values:
+      - {quantity: POV-HopfieldYear, value: 1982}
+    disposition: none
+  - id: V9
+    quote: 'McCulloch and Pitts built a mathematical brain in 1943'
+    lines: [297, 307, 315]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      "McCulloch and Pitts built a mathematical brain in 1943" is restated
+      consistently by Table 3's "McCulloch & Pitts, 1943" row and the
+      following paragraph's "the column labelled 1943" callback, the same
+      year given in all three places
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [1943, 1943]}
+      - {template: eq, args: [1943, 1943]}
+    values:
+      - {quantity: POV-McCullochPittsYear, value: 1943}
+    disposition: none
+  - id: V10
+    quote: 'three structural modifications to the'
+    lines: [408, 427, 452, 474, 492]
+    kind: internal-count
+    finding: >-
+      the neurodivergent-field section's own claim of "three structural
+      modifications" is matched by exactly three condition subsections
+      (Complex PTSD, ADHD, Autism Spectrum Condition) ahead of the fourth
+      subsection, explicitly named "The Composed Condition", which the text
+      itself describes as their composition rather than a fourth
+      modification
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: POV-NeurodivergentModifierCount, value: 3}
+    disposition: none
+  - id: V11
+    quote: 'Attractor States: Fight, Flight, Freeze, and Regulated Calm'
+    lines: [358, 364, 365, 366, 367, 369]
+    kind: internal-count
+    finding: >-
+      the "Attractor States: Fight, Flight, Freeze, and Regulated Calm"
+      heading names four states and Table 2 lists exactly those same four
+      as its rows
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: POV-AttractorStateCount, value: 4}
+    disposition: none
+
+# TYPING: "The practitioner is a geometer in the metaphor of the formalism.
+#   The patient is a manifold learning to remember its own natural curvature"
+#   (lines 376-377) — a Person (the patient) identified with a
+#   MathematicalObject (a manifold, a differential-geometric structure);
+#   candidate category-error check for the OpenCyc mapping, in the same
+#   family as the soma-field-paper affidavit's "hyphen, made formal" note.
+# TYPING: "Each condition is a functor that wraps the standard dynamics. The
+#   composed condition — ASD + ADHD + C-PTSD — is their composition" (lines
+#   422-424) — three DiseaseOrSyndrome/mental-health-condition types (ASD,
+#   ADHD, C-PTSD) identified with Functor (a category-theoretic
+#   MathematicalObject) and their joint presentation with categorical
+#   composition; candidate category question for whether OpenCyc's typing of
+#   a clinical condition licenses this mathematical role.
+# TYPING: "ADHD modifies the effective temperature of the field" (line 454,
+#   heading "ADHD: High Temperature, Low Damping, Pink Noise") — the same
+#   noise-to-damping "effective temperature" already flagged as a candidate
+#   homonym slip (distinct from ThermodynamicTemperature) in the
+#   soma-field-paper affidavit's TYPING note, here attributed directly to a
+#   named clinical condition rather than to the generic field model.
+# TYPING: "the field settles deeply into one attractor at a time ... This is
+#   monotropism" (line 485) — Murray's (2018) autism-theoretic construct
+#   (a PsychologicalAttribute/InterestPattern) identified with a specific
+#   dynamical-systems property (attractor-basin depth and count); candidate
+#   mapping question for whether OpenCyc's nearest type for "monotropism"
+#   is compatible with the DynamicalSystem concepts used elsewhere in this
+#   programme's affidavits.
+# TYPING: "the conscious emotional percept is represented as ... the Green's
+#   function ... an analogous mathematical role to a particle in quantum
+#   field theory" (lines 197-199) — a PerceptualExperience/MentalState
+#   identified as mathematically analogous to a FundamentalParticle; the
+#   same structural move already flagged for this programme's memory-kernel
+#   papers generally in the soma-field-paper affidavit's TYPING notes.
+
+# LEAN: line 33 (abstract), "A categorical formalization, Lean 4 type
+#   sketches, and mathematical operator modifications ... are included" —
+#   this document itself contains no Lean source; the categorical
+#   formalization and type sketches are the companion technical paper's
+#   Appendices A-B, not a Lean module of this paper. A ledger candidate to
+#   confirm no `sherlock/Affidavits/<Doc>` module is claimed for this
+#   document specifically.
+# LEAN: lines 692-696, "all three appendices from the companion paper
+#   (categorical formalization, M-theory scale hierarchy, Lean 4 type
+#   sketches, and neurodivergent operator mathematics) are the technical
+#   background for this version" — points at the companion paper's Appendix
+#   A (categorical formalization and M-theory scale hierarchy) and Appendix
+#   B (neurodivergent operator mathematics, including the illustrative
+#   `preVerbalIsStructural` sketch already flagged as not the current Lean
+#   source inventory by the soma-field-paper affidavit); a ledger candidate
+#   to confirm this paper claims no Lean declarations of its own beyond
+#   those already attributed to the companion paper.

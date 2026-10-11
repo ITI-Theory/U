@@ -1,0 +1,184 @@
+# Sherlock affidavit (DRAFT): The Physical Substrate of the Soma-Field (P5). Schema:
+# sherlock/registry.py. All numeric checks were recomputed with Python (exact
+# Fraction arithmetic) before being written as `check:` templates below. This
+# paper carries no numbered equations with physical units (no symbols/equations
+# block), unlike zoomable-somatic-field or soma-temporal-dynamics: its claims are
+# counts, section cross-references and cross-paper value matches.
+id: soma-physical-substrate
+document: P5
+title: "The Physical Substrate of the Soma-Field: Biotensegrity, Fascial Interoception, and Bioelectric Correlates of Emotional Field Dynamics"
+source:
+  file: paper/soma/soma-physical-substrate/soma-physical-substrate.md
+  commit: 2d36eaf
+  sha256: 44db35420b47a47b0ef494414fb646d2168fd595ad23747cd20a084c428438d4
+lean: []
+microtheories: {}
+claims:
+  - id: B1
+    quote: all four classes of
+    lines: [175, 176, 177, 178]
+    kind: internal-count
+    finding: >-
+      Schleip's review is said to document "all four classes" of mechanosensory
+      nerve endings in fascia, and the sentence names exactly four: Ruffini
+      corpuscles, Golgi tendon organs, Pacinian corpuscles, and type IV free
+      nerve endings
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: Substrate-MechanosensoryNerveEndingClassCount, value: 4}
+    disposition: none
+  - id: B2
+    quote: Three independent bodies of experimental
+    lines: [68, 72, 77, 82, 474, 476, 481, 486]
+    kind: internal-count
+    finding: >-
+      the introduction's claim of "three independent bodies of experimental and
+      theoretical research" is followed by an enumerated list of exactly three
+      (Architecture, Substrate, Field correlate), and the conclusion
+      independently lists the same three systems (biotensegrity network,
+      fascial interoceptive pathway, bioelectric/biophotonic field) again as
+      three, not a different count
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: Substrate-IndependentBodyCount, value: 3}
+    disposition: none
+  - id: B3
+    quote: Three explicit bridges are proposed
+    lines: [31, 379, 397, 422, 491]
+    kind: internal-count
+    finding: >-
+      the abstract's "three explicit bridges" and the introduction's "the three
+      explicit bridges to the formal model" (§5) match the body, which states
+      exactly three "## Bridge N:" subsections (Bridge 1, Bridge 2, Bridge 3)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: Substrate-BridgeCount, value: 3}
+    disposition: none
+  - id: B4
+    quote: six primary empirical predictions
+    lines: [449, 454, 455, 456, 457, 458, 459, 461, 462, 463]
+    kind: internal-count
+    finding: >-
+      "the bridges in §5 generate six primary empirical predictions" matches
+      the Testable Predictions table, which has exactly six numbered rows
+      (Prediction 1-6), and the following paragraph's own grouping — "1-4 are
+      testable now", "5 requires" specialised detection, "6 requires" a new
+      instrument — sums to six, not a different total
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 1, 1, 6]}, {template: eq, args: [6, 6]}]
+    values:
+      - {quantity: Substrate-PredictionCount, value: 6}
+    disposition: none
+  - id: B5
+    quote: Section §5 states the three explicit bridges
+    lines: [53, 89, 94, 167, 292, 373, 447]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      unlike the forward-reference slips found in companion papers
+      (soma-temporal-dynamics T3, zoomable-somatic-field), this paper's "Section
+      §5 states the three explicit bridges... Section §6 lists the testable
+      predictions" is accurate: counting the document's own top-level headings
+      (The Missing Layer=1 through Three Bridges to the Formal Model=5,
+      Testable Predictions=6), §5 is indeed Three Bridges and §6 is indeed
+      Testable Predictions
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}, {template: eq, args: [6, 6]}]
+    disposition: none
+  - id: B6
+    quote: 'Architecture** (§2)'
+    lines: [53, 72, 77, 82, 94, 167, 292]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the introduction's numbered list cross-references "Architecture (§2)",
+      "Substrate (§3)" and "Field correlate (§4)"; counting the document's own
+      top-level headings, the 2nd is "Biotensegrity: The Architecture of the
+      Somatic Wave", the 3rd is "Fascial-Interstitial Continuity" (the
+      substrate literature) and the 4th is "Biofield Physiology" (the field
+      correlate) — all three forward references land correctly
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}, {template: eq, args: [3, 3]}, {template: eq, args: [4, 4]}]
+    disposition: none
+  - id: B7
+    quote: initial barrier is $W = -12$
+    lines: [405]
+    kind: cross-paper
+    finding: >-
+      Bridge 2's illustrative "initial barrier is $W = -12$" matches the
+      maximum barrier strength QUANT-EXP-1 actually tested, B12 (quoted as
+      "B12 (W = −12)" in quantum-soma-penrose Q7, which also gives
+      FMHN-CptsdBarrierW = 12): this paper's worked example uses the same
+      magnitude and sign convention as the source experiment, not an invented
+      number
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [12, 12]}]
+    values:
+      - {quantity: FMHN-CptsdBarrierW, value: 12}
+    disposition: none
+  - id: B8
+    quote: exact 8-qubit statevector simulation
+    lines: [13, 236, 237]
+    kind: cross-paper
+    finding: >-
+      the abstract and §3 both describe QUANT-EXP-1 as "an exact 8-qubit
+      statevector simulation" (the same figure stated twice, without drift),
+      and 8 qubits is exactly the Hilbert-space dimension $2^8 = 256$ that
+      quantum-soma-penrose Q6 gives for the same experiment
+      (QSoma-HilbertSpaceDimension = 256)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [8, 8]}, {template: eq, args: [256, 256]}]
+    values:
+      - {quantity: QSoma-HilbertSpaceDimension, value: 256}
+      - {quantity: Substrate-QuantExp1QubitCount, value: 8}
+    disposition: none
+  - id: B9
+    quote: intervention reduces
+    lines: [405, 406]
+    kind: internal-arithmetic
+    finding: >-
+      Bridge 2's worked example reduces the barrier from $W = -12$ to
+      $W = -6$ by myofascial release; the stated before/after values are
+      exactly 6 apart ($-12 - (-6) = -6$), an exact halving of the barrier
+      magnitude (12 to 6), consistent with the text's framing of this as
+      barrier *lowering* rather than a different kind of change
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [-12, -6, -6]}, {template: eq, args: [12/2, 6]}]
+    disposition: none
+
+# TYPING: "co-identification" treated as a physical analogue of therapist-client
+#   entrainment (lines 422-446) — candidate OpenCyc mapping: Bridge-3's claim that
+#   a mathematical relation (tensor product coupling) has a physical analogue
+#   (HRV/fascial entrainment) is explicitly hedged ("proposed", "hypothesis"), so
+#   likely CONSISTENT rather than a typing error, unlike ZSF D8's identity claim.
+# TYPING: "the biofield... is a candidate medium in which the Soma-Field could be
+#   represented physically" (lines 316-318) — Ho's connective-tissue coherent
+#   medium vs. the formal soma-field object; hedged with "candidate" and "could".
+# TYPING: "fascial stiffness at region r <-> |W_ij|" (line 242) — a physical
+#   quantity (kPa) mapped to a model parameter (dimensionless energy barrier);
+#   the paper calls this "the bridge" and a "research hypothesis", not an
+#   identity, so likely not a category error.
+# TYPING: "the biophotonic field constitutes a real-time communication channel"
+#   (lines 306-307) — Popp's claim as reported; candidate OpenCyc mapping
+#   CommunicationChannel vs. a physical radiative process.
+# LEAN: this paper cites no theorem names, axioms or sorries of the programme's
+#   own Lean (no ledger-kind claims); "lean: []" is accurate as written.

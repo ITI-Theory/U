@@ -1,0 +1,248 @@
+# Sherlock affidavit (DRAFT): Mathematical Co-identification: A Method for
+# Structural Import Across Scientific Domains (P3). Schema: sherlock/registry.py.
+# All counts were recomputed by counting the paper's own headings and numbered
+# lists; the Black-Scholes worked example was recomputed with Python (math.erf
+# for the normal CDF) before being written as a `check:` template below. This
+# paper does not mention QUANT-EXP-1 or ScaleLevel/Fin 21, so the two known
+# cross-paper issues (docs/agent/CURRENT.md) do not apply here. No contradictions
+# were found: every count, section cross-reference and worked number checked
+# against the paper's own text.
+id: mathematical-co-identification
+document: P3
+title: "Mathematical Co-identification: A Method for Structural Import Across Scientific Domains"
+source:
+  file: paper/soma/mathematical-co-identification/mathematical-co-identification.md
+  commit: 3973fb1
+  sha256: 8832d558de6590ada4e3fa0f374d8431508c2c26ac34039b0c18d09f9f1d8896
+lean: []
+microtheories: {}
+claims:
+  - id: C1
+    quote: 'Seven historical precedents are examined'
+    lines: [26, 258, 278, 298, 311, 332, 343, 353]
+    kind: internal-count
+    finding: >-
+      the abstract's claim of "seven historical precedents" matches exactly
+      the seven precedent subsections given under Historical Precedents, in
+      the same order named: Veneziano (1968), Hopfield (1982), Wilson (1971),
+      Black and Scholes (1973), Jaynes (1957), Penrose (1971), Selinger (2010)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [7, 7]}]
+    values:
+      - {quantity: CoId-PrecedentCount, value: 7}
+    disposition: none
+  - id: C2
+    quote: 'five sequential co-identifications'
+    lines: [29, 369, 404, 420, 438, 460]
+    kind: internal-count
+    finding: >-
+      the abstract's claim of "five sequential co-identifications" (propagator,
+      energy function, brane mechanics, G2 holonomy, renormalisation group flow)
+      matches exactly the five "Co-identification I-V" subsections under The
+      Soma-Field as a Worked Example, in that same order
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: CoId-SomaFieldCoIdentificationCount, value: 5}
+    disposition: none
+  - id: C3
+    quote: 'It has three steps'
+    lines: [67, 69, 73, 75, 135, 164, 185]
+    kind: internal-count
+    finding: >-
+      the Introduction's claim that the procedure "has three steps" is matched
+      by exactly three numbered items immediately following it, and the same
+      three steps are expanded in order as the headed subsections Step One,
+      Step Two and Step Three under The Procedure in Detail
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    values:
+      - {quantity: CoId-ProcedureStepCount, value: 3}
+    disposition: none
+  - id: C4
+    quote: 'discussed in Section 7'
+    lines: [203, 239, 589]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      both forward references to "Section 7" for the type-level-vs-substrate
+      failure discussion (the second repeats it as "failure modes are
+      discussed in Section 7") correctly land on Failure Modes, which is the
+      paper's own seventh top-level ("#") section counting Introduction=1
+      through References=13
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [7, 7]}]
+    values:
+      - {quantity: CoId-FailureModesSectionNumber, value: 7}
+    disposition: none
+  - id: C5
+    quote: 'Section 10.6 demonstrates a non-Soma transfer'
+    lines: [757, 778, 801, 832, 911, 912, 913, 914]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      all four in-text subsection citations in the Reviewer-Risk Objections
+      table — "10.1" (Minimal Registration Template), "10.2" (Disconfirmation
+      Rules), "10.4" (Reviewer-Facing Scope Labels) and "10.6" (Worked External
+      Example) — correctly match each subsection's own position (1st, 2nd,
+      4th, 6th) among the nine "##" subsections under Falsifiability Protocol
+      for Publication Use
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [1, 1]}
+      - {template: eq, args: [2, 2]}
+      - {template: eq, args: [4, 4]}
+      - {template: eq, args: [6, 6]}
+    disposition: none
+  - id: C6
+    quote: 'symmetric ($J_{ij}=J_{ji}$) and zero on the diagonal'
+    lines: [289]
+    kind: internal-arithmetic
+    finding: >-
+      the illustrative 4x4 exchange-coupling matrix given for the Hopfield/Ising
+      identification is in fact symmetric (all six off-diagonal pairs equal,
+      J_12=J_21=0.6, J_13=J_31=-0.3, J_14=J_41=0.4, J_23=J_32=0.5, J_24=J_42=-0.2,
+      J_34=J_43=0.3) and zero on its diagonal, exactly as its own caption claims
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [0.6, 0.6]}
+      - {template: eq, args: [-0.3, -0.3]}
+      - {template: eq, args: [0.4, 0.4]}
+      - {template: eq, args: [0.5, 0.5]}
+      - {template: eq, args: [-0.2, -0.2]}
+      - {template: eq, args: [0.3, 0.3]}
+      - {template: sum, args: [0, 0, 0, 0, 0]}
+    values:
+      - {quantity: CoId-HopfieldIllustrativeMatrixSize, value: 4}
+    disposition: none
+  - id: C7
+    quote: 'prices at $6.80$ (checked)'
+    lines: [860]
+    kind: internal-arithmetic
+    finding: >-
+      recomputing the standard Black-Scholes closed-form call price at the
+      Visualize block's own stated parameters (S=K=100, r=5%, sigma=0.1, T=1)
+      gives 6.804957708822158, matching the text's rounded "$6.80$ (checked)"
+      to within 0.1%
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [6.80, 6.804957708822158, 0, 0.001]}]
+    values:
+      - {quantity: CoId-BlackScholesATMCallPrice, value: 6.80}
+    disposition: none
+  - id: C8
+    quote: 'is an $11 \times 11$ real symmetric'
+    lines: [438, 440, 441]
+    kind: cross-paper
+    finding: >-
+      Co-identification IV's coupling matrix $W$, an $11\times11$ real
+      symmetric matrix encoding "an eleven-dimensional emotional space",
+      agrees with the eleven total dimensions used elsewhere in the programme
+      (USF-TotalDimensionCount, also quoted by soma-field-paper and
+      universal-somatic-field)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [11, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+      - {quantity: CoId-CouplingMatrixDimension, value: 11}
+    disposition: none
+  - id: C9
+    quote: 'a seven-dimensional Riemannian manifold with the'
+    lines: [438, 445]
+    kind: cross-paper
+    finding: >-
+      the $G_2$ holonomy manifold identified with the coupling matrix's
+      structure in Co-identification IV is described as "a seven-dimensional
+      Riemannian manifold", agreeing with the seven compact dimensions used
+      elsewhere in the programme (USF-CompactDimensionCount, also quoted by
+      soma-field-paper, swarm-propagator and cosmological-constant-derivation)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [7, 7]}]
+    values:
+      - {quantity: USF-CompactDimensionCount, value: 7}
+      - {quantity: CoId-G2ManifoldDimension, value: 7}
+    disposition: none
+  - id: C10
+    quote: 'Tracked claim IDs in ledger scope'
+    lines: [794, 795, 796, 864, 921, 922]
+    kind: internal-count
+    finding: >-
+      the four claim IDs listed as "Tracked claim IDs in ledger scope"
+      (COID-PROP-1, COID-ENG-2, COID-RG-5, COID-BS-HEAT-1) are exactly the
+      four COID- identifiers introduced earlier in the paper — three rows of
+      the Worked Registration Sketch (Soma-Field) table plus the one import
+      claim named in the Worked External Example — with none added or dropped
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [4, 4]}]
+    values:
+      - {quantity: CoId-TrackedLedgerClaimIdCount, value: 4}
+    disposition: none
+  - id: C11
+    quote: 'Consider two quantities with superficially compatible units'
+    lines: [816, 819, 820, 824, 825, 826]
+    kind: internal-count
+    finding: >-
+      the Negative Control section's lead-in, "Consider two quantities with
+      superficially compatible units", is matched by exactly two listed
+      candidates (Candidate A, Candidate B) and exactly two numbered
+      follow-up statements about them, with none left undiscussed
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    values:
+      - {quantity: CoId-NegativeControlCandidateCount, value: 2}
+    disposition: none
+
+# TYPING candidates (OpenCyc, not checked here):
+# - "typeverse" (throughout, e.g. lines 94-99): borrowed informally from Homotopy
+#   Type Theory's universe U; mapped here to a MathematicalObject-indexed
+#   ConceptualWork, not a physical space — the paper is explicit that this is a
+#   metaphorical extension of HoTT's technical term, not a claim about HoTT itself.
+# - "mathematical co-identification" vs "analogy" (lines 678-692): the paper
+#   draws a firm OpenCyc-style type boundary between a TheoremImportRelation
+#   (formal, falsifiable) and an InformalComparisonRelation (analogy);
+#   the Epistemological Status section is itself an explicit typing argument.
+# - "the typeverse does not belong to physics" (line 958): PhysicalTheory vs
+#   MathematicalStructure category distinction, stated as the paper's thesis
+#   rather than asserted carelessly — no opencyc-slip observed.
+# - "AesopImplementsCoIdentification" (line 224): explicitly labelled "an
+#   axiom/methodological claim, not machine verification" — the paper itself
+#   flags the typing risk (Lean tactic search vs a scientific-method claim)
+#   rather than conflating them.
+# - "trauma" as "manifold deformation" (Co-identification IV, lines 448-451):
+#   the paper is careful to call this a model description ("within the model"),
+#   not a clinical reduction — avoids an opencyc-slip between
+#   PsychologicalState and MathematicalObject.
+# - "emotional dynamics ... does not reduce to quantum field theory" (lines
+#   85-89): an explicit anti-reduction typing statement, distinguishing
+#   co-identification (TypeSignatureMatch) from ontological reduction.
+# - "winding number"/"topological charge" applied to trauma (lines 528-536):
+#   Integer-valued TopologicalInvariant vs PsychologicalState — the paper
+#   flags this as "an open empirical and ethical question" rather than
+#   asserting the mapping, avoiding a category slip.
+
+# LEAN candidates (programme ledger, not checked here):
+# - "AesopImplementsCoIdentification" (line 224): named as an axiom/methodological
+#   claim about the Lean 4 `aesop` tactic; a ledger check should confirm whether
+#   any such declaration exists in the programme's Lean and, if so, whether it
+#   is declared `axiom` (as the text implies) rather than a proved theorem.
+# - no other named Lean theorems, axioms or sorries are cited in this paper
+#   (lean: [] above is accurate as drafted).
