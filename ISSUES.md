@@ -2495,6 +2495,14 @@ Steps:
 - [ ] Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
       this framing; keep the cockpit only as "the view out of the window" onto
       the landscape.
+- [x] (12 Oct, author: "Fantastic Voyage's oval things, mesh curtains, hair"; a 3D lining,
+      not a wallpaper) The body container's blood vessel built from the wall's anatomy
+      (`vessel.js`): endothelial cells as a cobblestone of plates elongated along the
+      flow, each with an oval nucleus bulging into the lumen; the glycocalyx as hairs
+      swaying in the flow; smooth-muscle rings; red cells. The score drives it: fear
+      constricts (vasoconstriction), the heartbeat pulses wall and flow, safety warms,
+      grief drains the colour. Later: white cells, platelets, a fibrin mesh, capillary
+      pores; move the per-frame pulse into a shader if frame rates suffer.
 - [x] (6b9ebd0) The twin view, at the SCORE stop: one film, two viewers
       ($S = R(e^*, \kappa, e_V)$). TWIN (`tw=1`) plays the film twice on the
       river: left the viewer of now (neutral), right a VIEWER preset

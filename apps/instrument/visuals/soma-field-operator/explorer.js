@@ -1319,7 +1319,7 @@ function makeScore() {
           const side = w ? { narrow, light: w.S, fear: w.F, mist: Math.max(0, 1 - w.L) } : null;
           gl.render({ sector: 'river', phi: 0.15 + 0.6 * m.F, time: t, stereo: side ? 'off' : env.stereo, river, twin: side });
         }
-        else if (env.kc === 'body') gl.render({ world: 'organismal', phi: m.F, resource: m.S > 0.5, dim: 11, time: t, stereo: env.stereo });
+        else if (env.kc === 'body') gl.render({ world: 'organismal', phi: m.F, resource: m.S > 0.5, dim: 11, time: t, stereo: env.stereo, score: m, bpm: bpmS });
         else if (env.kc === 'session') gl.render({ a: pair.a, b: pair.b, r: pairR, coupling: DYAD.coupling(m.S > 0.5), dim: 11, time: t, stereo: env.stereo });
         else gl.render({ sector: 'mind', phi: m.F, time: t, stereo: env.stereo, score: m, texture: env.kt });
       }
@@ -2082,7 +2082,7 @@ export function createExplorer(hooks = {}) {
     score: () => createFlight3D(),
     // the same score in the other containers (SETTING on the SCORE stop)
     'score-river': () => createFlight3D(),
-    'score-body': () => createTunnel3D(),
+    'score-body': () => createTunnel3D({ vessel: true }),
     'score-session': () => createDyad3D(),
   };
   const gls = {};

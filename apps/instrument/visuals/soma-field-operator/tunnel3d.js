@@ -9,6 +9,7 @@
 // Mandelbulb, the mind, floats at the centre of the loop. Mono or stereo (SBS).
 
 import * as THREE from 'three';
+import { createVessel } from './vessel.js';
 
 function seeded(seed) {
   let s = seed >>> 0;
@@ -135,7 +136,9 @@ function stoneGeometry(rand) {
   return g;
 }
 
-export function createTunnel3D({ ureter = false } = {}) {
+// vessel: the body container (the submarine in the bloodstream): the wall built from its
+// anatomy (vessel.js), driven by the score and the heart; no gates.
+export function createTunnel3D({ ureter = false, vessel = false } = {}) {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -145,8 +148,8 @@ export function createTunnel3D({ ureter = false } = {}) {
   const canvas = renderer.domElement;
   canvas.className = 'explorer__gl';
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(ureter ? '#1a0508' : '#060818');
-  scene.fog = new THREE.Fog(ureter ? '#1a0508' : '#060818', ureter ? 1 : 3, ureter ? 7 : 22);
+  scene.background = new THREE.Color(ureter ? '#1a0508' : vessel ? '#120204' : '#060818');
+  scene.fog = new THREE.Fog(ureter ? '#1a0508' : vessel ? '#120204' : '#060818', ureter || vessel ? 1 : 3, ureter ? 7 : vessel ? 9 : 22);
   const camera = new THREE.PerspectiveCamera(70, 1, 0.02, 80);
   camera.focus = 2.2;
   const stereoCamera = new THREE.StereoCamera();
@@ -163,6 +166,11 @@ export function createTunnel3D({ ureter = false } = {}) {
   const curve = new THREE.CatmullRomCurve3(control, true, 'catmullrom', 0.5);
   const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 360, 1.15, 14, true), new THREE.MeshBasicMaterial({ color: '#5ee7ff', wireframe: true, transparent: true, opacity: 0.16, depthWrite: false }));
   scene.add(tube);
+  const wall = vessel ? createVessel(curve) : null;
+  if (wall) {
+    tube.visible = false;
+    scene.add(wall.group);
+  }
   if (ureter) {
     const cells = cellTexture({ membrane: [255, 150, 160], interior: [120, 30, 45], nucleus: [90, 20, 60] });
     cells.repeat.set(70, 3);
@@ -175,7 +183,7 @@ export function createTunnel3D({ ureter = false } = {}) {
   }
 
   // gates: the boundaries on the path (none in URETER mode: the stone is the obstruction)
-  const gates = Array.from({ length: ureter ? 0 : GATES }, (_, k) => {
+  const gates = Array.from({ length: ureter || vessel ? 0 : GATES }, (_, k) => {
     const u = (k + 0.5) / GATES;
     const p = curve.getPointAt(u);
     const tangent = curve.getTangentAt(u);
@@ -197,7 +205,7 @@ export function createTunnel3D({ ureter = false } = {}) {
   scene.add(ball);
 
   // the mind at the centre
-  const bulb = ureter ? new THREE.Group() : mandelbulb();
+  const bulb = ureter || vessel ? new THREE.Group() : mandelbulb();
   bulb.scale.setScalar(2.4);
   scene.add(bulb);
 
@@ -235,7 +243,7 @@ export function createTunnel3D({ ureter = false } = {}) {
   const blood = bloodCells(curve);
   if (!ureter) {
     scene.add(blood.mesh);
-    scene.add(new THREE.AmbientLight('#ffb0c0', 0.6));
+    scene.add(new THREE.AmbientLight('#ffb0c0', vessel ? 0.45 : 0.6));
     const lamp = new THREE.PointLight('#ffffff', 2, 8, 1.5);
     ball.add(lamp);
   }
@@ -339,7 +347,7 @@ export function createTunnel3D({ ureter = false } = {}) {
     poke(strength = 1) { pokeWanted = strength; },
     // state: { world, phi, resource, dim, time, stereo }
     render(state) {
-      if (!ureter && state.world !== world) buildWalls(state.world);
+      if (!ureter && !vessel && state.world !== world) buildWalls(state.world);
       const dt = Math.min(0.05, last ? state.time - last : 0.016);
       last = state.time;
       if (ureter) {
@@ -412,6 +420,13 @@ export function createTunnel3D({ ureter = false } = {}) {
           u = (u + speed * dt) % 1;
         }
         state.colic = colic;
+      } else if (vessel) {
+        // the submarine drifts with the flow: faster as the heart quickens
+        const flow = 0.012 + 0.012 * Math.max(0, Math.min(1, ((state.bpm ?? 68) - 50) / 70));
+        speed += (flow - speed) * Math.min(1, dt * 1.5);
+        u = (u + speed * dt) % 1;
+        wall.update({ score: state.score, bpm: state.bpm ?? 68, time: state.time });
+        pokeWanted = 0;
       } else {
       const lowered = state.resource ? 0.15 : 0;
       // gates open when Phi is above their height
