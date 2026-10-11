@@ -143,11 +143,17 @@ through the barrier, exponentially suppressed by the Euclidean action $S_E$.
 - **Implementation**: `scipy.linalg.eigh` dense diagonalisation at each discretised
   step; no Qiskit, no IBM account, runs in $\approx 4$ seconds on commodity CPU
 
+{{Visualize | setup | matrix-heatmap:quantum | matrix="[[0,-10],[-10,0]]"; rows="Fear,Awe"; cols="Fear,Awe" }} The stated coupling $W[\mathrm{Fear},\mathrm{Awe}]=-10$ above, as a $2\times2$ grid (self-couplings not stated, shown as 0): the strong negative off-diagonal is the topological barrier QUANT-EXP-1 tests.
+
+{{Visualize | setup | function-plot:quantum | f="5.0*(1-x/400)"; x=[0,400]; xlabel="anneal step"; ylabel="transverse field $\Gamma$"; value_at=0; expect_value=5.0 }} The linear anneal schedule $\Gamma:5.0\to0$ over 400 steps stated above (checked at step 0): the transverse field is switched off gradually as the classical landscape (the Fear-Awe barrier) is switched on.
+
 ## Results
 
 The barrier height is confirmed analytically: the continuous interpolation
 $H(\lambda) = -10\lambda^2 + 9\lambda - 1$ reaches a maximum of $+1.025$ at
 $\lambda = 0.45$, giving barrier height $= 2.025$ above the Fear basin.
+
+{{Visualize | results | function-plot:quantum | f="-10*x^2+9*x-1"; x=[0,1]; value_at=0.45; expect_value=1.025; hline="-1" }} The interpolation $H(\lambda)=-10\lambda^2+9\lambda-1$ above: it peaks at $\lambda=0.45$ (checked, $+1.025$), a barrier of $2.025$ above the Fear basin at $\lambda=0$ (horizontal line).
 
 | Dynamics | Final Fear occupancy | Final Awe occupancy | Verdict |
 |---|---|---|---|
