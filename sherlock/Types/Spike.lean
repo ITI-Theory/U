@@ -1,4 +1,5 @@
 import Affidavits.ZSF.Typing
+import Cyc.Types
 
 /-!
 # Spike: OpenCyc classes as Lean types (ISS-063, the design step)
@@ -26,25 +27,10 @@ Run: `lake env lean Types/Spike.lean` (imports all of UniversalVocabularyMt:
 one Lean process, a few minutes).
 -/
 
-namespace Cyc.Ty
-open Cyc Sentence
-
-/-- An OpenCyc collection as a Lean type in microtheory `m`. -/
-def Inst (m : Mt) (c : String) : Type := {x : Term // Holds m (isa x (.c c))}
-
-/-- `genls c d`: every instance of `c` is an instance of `d` (a coercion). -/
-def Inst.up {m : Mt} {c d : String} (h : Holds m (genls (.c c) (.c d))) (x : Inst m c) : Inst m d :=
-  ⟨x.val, isa_genls x.property h⟩
-
-/-- `disjointWith c d`: one term with both types is a contradiction in `m`. -/
-theorem Inst.apart {m : Mt} {c d : String} (h : Holds m (disjointWith (.c c) (.c d)))
-    (x : Inst m c) (y : Inst m d) (e : x.val = y.val) : Holds m .falsum :=
-  disjoint h x.property (e ▸ y.property)
-
-end Cyc.Ty
+-- `Inst`, `Inst.up` and `Inst.apart` now live in `Cyc.Types` (the core library).
 
 namespace Cyc.Ty.Spike
-open Cyc Sentence Affidavit.ZSF.Typing
+open Cyc Cyc.Ty Sentence Affidavit.ZSF.Typing
 
 set_option maxHeartbeats 1000000
 

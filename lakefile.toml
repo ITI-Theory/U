@@ -47,6 +47,12 @@ rev = "v4.33.0"
 name = "EmotionOntology"
 srcDir = "paper/proofs"
 
+# The emotions anchored to OpenCyc as types (ISS-063, D12). Not a default target:
+# it imports all of UniversalVocabularyMt from Sherlock's package.
+[[lean_lib]]
+name = "EmotionCyc"
+srcDir = "paper/proofs"
+
 [[lean_lib]]
 name = "Hopfield"
 srcDir = "paper/proofs"

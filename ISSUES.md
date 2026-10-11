@@ -2917,6 +2917,17 @@ different scales (ZSF's "same as always").
       decides; (3) SH1 v2 with both; (4) the books; (5) the containers test once the
       Body and Session phases exist (Copilot drafts them from The Tensor for the
       author to correct; ISS-053).
+- [x] OWL classes as Lean types, first real use (11 Oct, 22:30): `Cyc.Types` (Inst,
+      up, apart); the root package requires Sherlock's OpenCyc package (no rebuild);
+      `paper/proofs/EmotionCyc.lean` anchors the programme's emotions with proofs
+      from UniversalVocabularyMt (not a default target). Finding: 25 of the 28 OpenCyc
+      names in `EmotionOntology.lean` (`#$Fear-Emotion`, `#$emotionalBlend`, the
+      "axioms we inherit for free") were not in OpenCyc; fixed (OpenCyc's own
+      constants; blend, dampen, evoke and the mechanisms marked `T:`, programme
+      vocabulary; trust has no OpenCyc emotion type). The TypeDB bridge that should
+      have caught it only ran with a database and printed "skipped" otherwise:
+      retired (`*.OBSOLETE`). The philosophy book's account of the "built substrate"
+      (TypeDB) is now out of date (ISS-064 rewrite).
 - [ ] OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
       programme's own collections (TTheoryVocabularyMt and what it inherits, a few
       hundred) as Lean types; genls as coercions, disjointness as no common member;

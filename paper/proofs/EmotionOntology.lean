@@ -452,25 +452,25 @@ theorem emotionLang_is_universal :
 
 /-
   OpenCyc is the open-source release of the Cyc KB — a large manually
-  curated common-sense ontology with ~200k concepts and ~2M axioms.
-  It gives us "free" first-order axioms about emotions, causality, and
-  mental states that are independently grounded and peer-reviewed.
+  curated common-sense ontology. Sherlock (sherlock/, ISS-055) has all of it
+  in Lean (NextKB: 1,366,193 facts in 678 microtheories).
 
-  By providing `instance : EmotionLang CycRef`, every term in `Emotion.*`
-  automatically inherits its Cyc grounding.  The interpreter renders each
-  expression as a Cyc KB expression (CycL predicate application).
+  This interpreter renders each expression as a display string. The base
+  emotions are OpenCyc's own constants, each an `EmotionalQuantityType` in
+  UniversalVocabularyMt: Happiness, Sadness, Fear, Anger, Disgust, Surprise,
+  Anticipation-Feeling. OpenCyc has no emotion type for trust. Checked by
+  Sherlock, 11 Oct 2026: the earlier names (`#$Fear-Emotion`,
+  `#$Joy-Emotion`, ...), the "axioms we inherit for free"
+  (`#$NegativeEmotion`, `#$contraryProperty`, `#$emotionalBlend`,
+  `#$emotionalInhibition`, `#$causes`, ...) and the mechanism constants were
+  not in OpenCyc: 25 of 28 names. So blend, dampen and evoke, and the eight
+  mechanisms, are the programme's own vocabulary (written `T:`, the
+  TTheoryVocabularyMt prefix), not OpenCyc predicates.
 
-  Key Cyc axioms we inherit for free:
-    (#$isa #$Fear-Emotion #$NegativeEmotion)
-    (#$isa #$Joy-Emotion  #$PositiveEmotion)
-    (#$contraryProperty #$Joy-Emotion #$Sadness-Emotion)   -- W_ij < 0
-    (#$causes #$EpisodicMemoryRetrieval #$Nostalgia)
-    (#$causes #$AcousticStartleResponse #$Fear-Emotion)
-    (#$emotionalBlend #$Joy #$Sadness #$Nostalgia)
-    (#$preconditionFor #$MusicalExpertise #$AestheticAppraisal)
-
-  The `dampen` combinator maps to `#$emotionalInhibition` — Cyc's predicate
-  for "A suppresses B in a joint-activation context."  This is W_ij < 0.
+  Strings cannot be checked by the compiler; types can. The typed twin of
+  this interpreter is `EmotionCyc` (paper/proofs/EmotionCyc.lean): each base
+  emotion must prove, from the KB, that it is an `EmotionalQuantityType`, so
+  a wrong name does not compile.
 -/
 
 /-- A CycL expression: a constant identifier or a predicate application. -/
@@ -479,33 +479,33 @@ structure CycRef : Type where
   deriving Repr
 
 instance : EmotionLang CycRef where
-  joy          := ⟨"#$Joy-Emotion"⟩
-  sadness      := ⟨"#$Sadness-Emotion"⟩
-  fear         := ⟨"#$Fear-Emotion"⟩
-  anger        := ⟨"#$Anger-Emotion"⟩
-  disgust      := ⟨"#$Disgust-Emotion"⟩
-  surprise     := ⟨"#$Surprise-Emotion"⟩
-  trust        := ⟨"#$Trust-Emotion"⟩
-  anticipation := ⟨"#$Anticipation-Emotion"⟩
-  blend  c₁ c₂ := ⟨s!"(#$emotionalBlend {c₁.cycl} {c₂.cycl})"⟩
-  dampen c₁ c₂ := ⟨s!"(#$emotionalInhibition {c₁.cycl} {c₂.cycl})"⟩
+  joy          := ⟨"#$Happiness"⟩
+  sadness      := ⟨"#$Sadness"⟩
+  fear         := ⟨"#$Fear"⟩
+  anger        := ⟨"#$Anger"⟩
+  disgust      := ⟨"#$Disgust"⟩
+  surprise     := ⟨"#$Surprise"⟩
+  trust        := ⟨"T:Trust"⟩            -- OpenCyc has no emotion type for trust
+  anticipation := ⟨"#$Anticipation-Feeling"⟩
+  blend  c₁ c₂ := ⟨s!"(T:blend {c₁.cycl} {c₂.cycl})"⟩
+  dampen c₁ c₂ := ⟨s!"(T:dampen {c₁.cycl} {c₂.cycl})"⟩
   evoke  m  c  :=
     let mech := match m with
-      | .BrainStem              => "#$AcousticStartleResponse"
-      | .RhythmicEntrainment    => "#$RhythmicEntrainmentPsychological"
-      | .EvaluativeConditioning => "#$ClassicalConditioning"
-      | .Contagion              => "#$EmotionalContagion"
-      | .VisualImagery          => "#$MentalImagery"
-      | .EpisodicMemory         => "#$EpisodicMemoryRetrieval"
-      | .MusicalExpectancy      => "#$ExpectancyViolation"
-      | .AestheticJudgement     => "#$AestheticAppraisal"
-    ⟨s!"(#$causes {mech} {c.cycl})"⟩
+      | .BrainStem              => "T:BrainStemReflex"
+      | .RhythmicEntrainment    => "T:RhythmicEntrainment"
+      | .EvaluativeConditioning => "T:EvaluativeConditioning"
+      | .Contagion              => "T:EmotionalContagion"
+      | .VisualImagery          => "T:VisualImagery"
+      | .EpisodicMemory         => "T:EpisodicMemory"
+      | .MusicalExpectancy      => "T:MusicalExpectancy"
+      | .AestheticJudgement     => "T:AestheticJudgement"
+    ⟨s!"(T:evokes {mech} {c.cycl})"⟩
 
 -- Cyc display examples
-#eval (Emotion.nostalgia      : CycRef)   -- (#$causes #$EpisodicMemoryRetrieval (#$emotionalBlend #$Joy-Emotion #$Sadness-Emotion))
-#eval (Emotion.awe            : CycRef)   -- (#$emotionalBlend #$Fear-Emotion #$Surprise-Emotion)
-#eval (Emotion.contempt       : CycRef)   -- (#$emotionalInhibition #$Disgust-Emotion #$Anger-Emotion)
-#eval (Emotion.acousticFright : CycRef)   -- (#$causes #$AcousticStartleResponse #$Fear-Emotion)
+#eval (Emotion.nostalgia      : CycRef)   -- (T:evokes T:EpisodicMemory (T:blend #$Happiness #$Sadness))
+#eval (Emotion.awe            : CycRef)   -- (T:blend #$Fear #$Surprise)
+#eval (Emotion.contempt       : CycRef)   -- (T:dampen #$Disgust #$Anger)
+#eval (Emotion.acousticFright : CycRef)   -- (T:evokes T:BrainStemReflex #$Fear)
 
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -611,67 +611,26 @@ def FeynmanDiagram.order : FeynmanDiagram → Nat
 /-
   EmotionLang method  Diesel  OWL2               W matrix         Cyc             Feynman
   ──────────────────────────────────────────────────────────────────────────────────────────
-  blend a b           a ⊓ b   intersectionOf     W_ij > 0         emotionalBlend  ──●── vertex
-  dampen a b          a ⊓ ¬b  a ⊓ ¬b             W_ij < 0         emotionalInhib  ──⊗── vertex
-  evoke m e           m-->e   someValuesFrom      W_ij ≠ 0         causes          ~~m●── probe
-  joy, fear, ...      atom    Named individual    energy minimum   #$Joy-Emotion   external leg
-  nostalgia           expr    EquivClass          metastable min   emotionalBlend  2-vertex diag
-  brainStemThenMemory chain   propertyChain       W_ik · W_kj      causes∘causes   4-vertex diag
+  blend a b           a ⊓ b   intersectionOf     W_ij > 0         T:blend         ──●── vertex
+  dampen a b          a ⊓ ¬b  a ⊓ ¬b             W_ij < 0         T:dampen        ──⊗── vertex
+  evoke m e           m-->e   someValuesFrom      W_ij ≠ 0         T:evokes        ~~m●── probe
+  joy, fear, ...      atom    Named individual    energy minimum   #$Happiness     external leg
+  nostalgia           expr    EquivClass          metastable min   T:blend         2-vertex diag
+  brainStemThenMemory chain   propertyChain       W_ik · W_kj      T:evokes∘evokes 4-vertex diag
 -/
 
 
 -- ════════════════════════════════════════════════════════════════════════════
--- LIVE TYPEDB QUERIES  (Interpreter 6 — OpenCyc KB, runtime)
+-- OPENCYC CHECKS (formerly Interpreter 6, live TypeDB queries; retired 11 Oct 2026)
 -- ════════════════════════════════════════════════════════════════════════════
 
 /-
-  Prerequisites:
-    docker compose up -d                        (start TypeDB)
-    pip install -r scripts/requirements.txt
-    python scripts/load_opencyc.py              (load ~239k concepts, ~15 min)
-
-  Then run the #eval blocks below.  Each calls paper/scripts/query_cyc.py via
-  IO.Process.output, querying the live KB and printing results inside Lean.
-
-  This is Interpreter 6: not a typeclass instance (the KB is runtime, not
-  compile-time) but a live bridge between the DSL and the OpenCyc ground truth.
-  Every term in Emotion.* can be sent to TypeDB to retrieve Cyc's own
-  description, its superclass chain, and its cause/effect relations.
+  The TypeDB bridge (docker compose, load_opencyc.py, query_cyc.py,
+  validate_cycrefs.py) is retired: its scripts are kept as *.OBSOLETE in
+  paper/scripts/. It could only check names when a database was running, and
+  it printed "skipped" otherwise, which is how 25 names that are not in
+  OpenCyc stayed here unnoticed. OpenCyc now lives in Lean (Sherlock,
+  sherlock/), and the check is the compiler's: `EmotionCyc` anchors each base
+  emotion with a proof from UniversalVocabularyMt (`lake build EmotionCyc`).
+  To look a word up in OpenCyc: `python sherlock/lookup.py <word>`.
 -/
-
-/-- Run a query_cyc.py command and return its output.
-    Requires Python + TypeDB running.  Returns error string on failure. -/
-def queryCyc (args : Array String) : IO String := do
-  let result ← IO.Process.output {
-    cmd  := "python"
-    args := #["paper/scripts/query_cyc.py"] ++ args
-  }
-  return if result.exitCode == 0 then result.stdout
-         else s!"[TypeDB error: {result.stderr.take 200}]"
-
--- What does Cyc say about Nostalgia?
--- Expected: parents = PsychologicalAttribute / EmotionalState
---           causedBy = EpisodicMemoryRetrieval
-#eval queryCyc #["Nostalgia"] >>= IO.println
-
--- What does Cyc say about Fear?
-#eval queryCyc #["Fear-Emotion"] >>= IO.println
-
--- What does Cyc say about Joy?
-#eval queryCyc #["Joy-Emotion"] >>= IO.println
-
--- All direct subtypes of EmotionalState (how many has Cyc?  More than our 14?)
-#eval queryCyc #["--subtypes", "EmotionalState"] >>= IO.println
-
--- Validate every CycRef string in this file against TypeDB
--- (runs paper/scripts/validate_cycrefs.py — shows ✓ / ✗ for each)
-#eval do
-  try
-    let result ← IO.Process.output {
-      cmd  := "python"
-      args := #["paper/scripts/validate_cycrefs.py"]
-    }
-    IO.println (if result.exitCode == 0 then result.stdout
-                else s!"exit {result.exitCode}")
-  catch _ =>
-    IO.println "[validate_cycrefs: skipped]"
