@@ -1990,7 +1990,40 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       the standard free-space outgoing Green's function at an illustrative
       wavenumber — the known closed-form solution, not invented data; the
       Conclusion's boxed restatement of the same equation left unmarked);
-      papers 116 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      papers 116 of 233;
+      11 Oct: the nine `books/T-Theory/*/book-*.md` marked up (books 1 of 38
+      before, 35 of 38 after): book-law 1 of 1 (energy-landscape); book-
+      social-science 1 of 1 (the dyadic coupling block as a 4x4 illustrative
+      matrix-heatmap); book-geophysics 2 of 2 (the elastic wave equation
+      reduced to a convolution seismogram with illustrative P/S arrivals, and
+      the WKB nucleation barrier as an energy-landscape); book-economics 1 of
+      2 (the potential-game defining identity left unmarked — an abstract
+      equality with no closed form to draw); book-psychiatry-asd 2 of 2 and
+      book-clinical-psychology 3 of 3 (energy-landscape, the Langevin
+      equation's stationary Boltzmann-like distribution, and — in clinical-
+      psychology only — the memory-kernel convolution); book-music-arts 3 of
+      3 (the 16-dimensional listener state as a type-decomposition, plus the
+      same energy-landscape/distribution pair); book-philosophy 9 of 10 (the
+      tensor-product state, a threshold dichotomy, the Hopfield energy and
+      its stationary distribution, two memory kernels, a 1D Helmholtz
+      Green's-function reduction, and the M11 decomposition; the retarded
+      1+1D wave propagator left unmarked — needs Bessel functions outside the
+      SAFE expression set, a candidate primitive if more equations need it);
+      book-physics 13 of 14 on top of the 1 already present (the same
+      energy-landscape/distribution pair, a 1D two-point-function reduction,
+      the Lambda_USF/Lambda_obs and Omega_DM comparisons on `log-scale`, a
+      memory-kernel convolution, two M11-style type-decompositions, a 1D
+      Helmholtz reduction at scale-dependent k(sigma), the classical
+      Gamma=0 limit of the transverse-field Hamiltonian, and the W8 = W_G2 +
+      deltaW matrix-heatmap decomposition; only the abstract vacuum-amplitude
+      definition of Lambda, stated with no concrete numbers at that point in
+      the text, is left unmarked). Every book build (`make -C books/T-Theory
+      book-<domain>`, or the absolute bld path for book-philosophy and
+      book-physics, which have no `book-%` phony alias) exits 0 with the new
+      figures drawn and checked; `make visualize-coverage` now reports books
+      35 of 38. Primitive candidates from what remains skipped: a Bessel-
+      function-capable curve or wave-propagator primitive (book-philosophy's
+      retarded propagator; 1 equation so far, below the 3-equation bar) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [x] (11 Oct 01:55) New primitives from the skip lists: `matrix-heatmap` (a
