@@ -34,6 +34,8 @@ Green's function equation:
 
 $$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x') \tag{1}$$
 
+{{Visualize | introduction | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="separation $|x-x'|$"; ylabel="$\mathrm{Re}\,G$" }} The real part of the free-space Green's function, equation (1), at three illustrative wavenumbers $k$: an oscillation whose envelope decays as $1/|x-x'|$ — the same propagator form this paper evaluates at Scales 7-10 with geography-specific boundary conditions.
+
 for field propagation at twenty scales from quantum foam to the observable
 universe. Scales 7–9 on the USF dial correspond to animal swarms, human
 organisms, and societal-scale dynamics. This paper presents worked examples at
@@ -86,6 +88,8 @@ update probability:
 
 $$P(s_i \to 1) = \sigma\!\left(\sum_j G_{ij} \cdot s_j - \theta\right) \tag{2}$$
 
+{{Visualize | estuary-english-a-structural-contagion-wave | function-plot:soma | f="1/(1+exp(-(x-theta)))"; vary=theta:-2,0,2; x=[-6,6]; xlabel="social input $\sum_j G_{ij}s_j$"; ylabel="$P(s_i\to1)$" }} The sigmoid update rule above at three illustrative prestige thresholds $\theta$: a speaker adopts Estuary English with high probability once the weighted social input from already-Estuary neighbours clears the threshold — raising $\theta$ shifts the step to the right.
+
 where $G_{ij}$ is the social interaction kernel (how frequently speakers $i$
 and $j$ encounter one another), $\theta$ is a social prestige threshold, and
 $\sigma$ is a sigmoid function.
@@ -120,6 +124,8 @@ The governing equation is the Toner-Tu model:
 
 $$\frac{\partial \mathbf{v}}{\partial t} + \lambda(\mathbf{v}\cdot\nabla)\mathbf{v}
 = -\nabla P + D_T \nabla^2\mathbf{v} + \eta\hat{\mathbf{n}} \tag{3}$$
+
+{{Visualize | ring-necked-parakeets-an-active-matter-velocity-field | flock:earth | n=400; box=10; radius=1; v0=0.03; steps=500; seed=4; low=0.5; high=4.0; eta=[0.25,5.5]; points=10; curve_steps=300; expect_order_low=0.99; expect_order_high=0.17; expect_tol=0.005 }} The generic Vicsek active-matter model behind equation (3) — not a simulation of the Staines/King George VI reservoir geometry or the actual flock size: each simulated agent steers towards its neighbours' average heading with some random error. Left: low noise gives a coherent, ordered flock. Centre: high noise gives a disordered swarm. Right: order against noise, checked at the two illustrative settings shown.
 
 where $\mathbf{v}$ is the local velocity field, $P$ an effective pressure
 preventing overlap, and $\hat{\mathbf{n}}$ the local orientation field. The
