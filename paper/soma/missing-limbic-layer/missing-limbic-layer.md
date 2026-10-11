@@ -66,6 +66,8 @@ $\xi^\mu \in \{-1, +1\}^D$, via Hebbian learning:
 
 $$W_{ij} = \frac{1}{N} \sum_{\mu=1}^{N} \xi^\mu_i \xi^\mu_j, \quad W_{ii} = 0$$
 
+{{Visualize | hopfield-networks-1982-classical | matrix-heatmap:neural | matrix="[[0,1,-1],[1,0,-1],[-1,-1,0]]"; rows="1,2,3"; cols="1,2,3"; expect_sum=-2 }} An illustrative Hebbian weight matrix with the diagonal zeroed as the equation requires. The symmetry shows reciprocal pairwise associations; the program checked the displayed entries sum to $-2$.
+
 The energy function is the Ising Hamiltonian:
 
 $$E_{82}(s) = -\frac{1}{2} s^T W s$$
@@ -73,6 +75,8 @@ $$E_{82}(s) = -\frac{1}{2} s^T W s$$
 and the synchronous update rule:
 
 $$s_i \leftarrow \text{sign}\left(\sum_j W_{ij} s_j\right)$$
+
+{{Visualize | hopfield-networks-1982-classical | function-plot:neural | f="where(x<0,-1,1)"; x=[-3,3]; value_at=1; expect_value=1; xlabel="net input $\sum_j W_{ij}s_j$"; ylabel="updated state $s_i$" }} The classical Hopfield update as a hard threshold: negative net input maps to $-1$, positive net input maps to $+1$. The program checked a positive input returns $+1$.
 
 descends $E_{82}$ monotonically. Stored patterns are local energy minima.
 The network is guaranteed to converge to a fixed point in finite steps.
@@ -149,6 +153,8 @@ to Hopfield dynamics.
 
 $$T(t) = T_0 + \sigma \cdot \Phi_\text{limbic}(t)$$
 
+{{Visualize | the-two-coupling-equations | function-plot:soma | f="0.25 + sigma*x"; vary=sigma:0.5,1,2; x=[0,1]; value_at=0; expect_value=0.25; xlabel="limbic field $\Phi_\text{limbic}$"; ylabel="temperature $T$" }} Equation 1 before inversion: with illustrative $T_0=0.25$, temperature rises linearly as the limbic field increases, faster for stronger coupling. The program checked the baseline $T(0)=0.25$.
+
 $$\beta(t) = \frac{1}{T(t)} = \frac{1}{T_0 + \sigma \cdot \Phi_\text{limbic}(t)}$$
 
 where $T_0 > 0$ is the baseline temperature and $\sigma > 0$ is the limbic
@@ -160,6 +166,8 @@ and the softmax distribution flattens — energy barriers become traversable.
 **Equation 2 — Weight Modulation (Ephaptic Gain):**
 
 $$W(t) = W_0 + \gamma \cdot \Phi_\text{limbic}(t) \cdot J$$
+
+{{Visualize | the-two-coupling-equations | matrix-heatmap:soma | matrix="[[0,1,-1],[1,0,-1],[-1,-1,0]]"; matrix2="[[0,1+gamma*Phi,-1],[1+gamma*Phi,0,-1+gamma*Phi],[-1,-1+gamma*Phi,0]]"; gamma=0.5; Phi=0.6; titles="baseline $W_0$, modulated $W(t)$"; diff=true; rows="1,2,3"; cols="1,2,3"; expect_sum=-2; expect_sum2=-0.8 }} Equation 2 as an illustrative before-and-after weight matrix: the limbic gain changes selected connections while preserving the zero diagonal. The program checked the baseline and modulated matrix sums.
 
 where $J \in \mathbb{R}^{D \times D}$ is the limbic coupling matrix encoding
 which attractor connections are subject to somatic override, and $\gamma > 0$

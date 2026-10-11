@@ -120,6 +120,8 @@ with the causal (retarded) boundary condition:
 
 $$G_R(x,t;\,x',t') = 0 \quad \text{for } t < t'$$
 
+{{Visualize | the-retarded-greens-function | function-plot:soma | f="where(x<0,0,1)"; x=[-3,3]; value_at=-1; expect_value=0; xlabel="time order $t-t'$"; ylabel="retarded support" }} The retarded boundary condition as a step: the propagator has no support when the observation time precedes the source time. The program checked the future side is zero.
+
 The retarded condition is the mathematical statement that effects follow causes:
 the somatic field at $(x,t)$ can be influenced only by sources at earlier times
 $t' < t$, never by future events.
@@ -322,6 +324,8 @@ The full time-dependent field equation with external therapeutic forcing is:
 
 $$\left(\frac{1}{v_s^2}\frac{\partial^2}{\partial t^2} - \nabla^2 + k^2\right)\Phi(x,t) = -J_\text{endo}(x,t) - J_\text{therapy}(x,t)$$
 
+{{Visualize | the-forced-field-equation | process-diagram:soma | steps="endogenous current, therapeutic current, driven field response"; layout=line; edges="adds to source, solves forced equation"; expect_steps=3 }} The forced equation as a flow: the endogenous and therapeutic currents enter the same source side and jointly drive the field response. This is a structural diagram of the equation, not a therapy protocol.
+
 where $J_\text{endo}$ is the endogenous source current (the body's own sensory
 and interoceptive signals) and $J_\text{therapy}$ is the external therapeutic
 forcing current — the physical effect of the therapist's interventions on the
@@ -480,6 +484,8 @@ type-theoretic reading, the retarded propagator has the type:
 
 $$G_R : (t\,t' : \mathrm{Time}) \to (t' < t) \to \mathrm{Space} \to \mathrm{Space} \to \mathrm{Field}$$
 
+{{Visualize | the-time-variable-in-the-lean-4-formalisation | process-diagram:soma | steps="choose times, supply proof $t'<t$, apply spatial points, return field"; layout=line; edges="causality premise, arguments, value"; expect_steps=4 }} The proposed type signature as a pipeline: a call to the retarded propagator must pass through the causality proof before it can return a field value. The program checks the four typed stages in the diagram.
+
 The inequality $t' < t$ is a proof argument — a term of type `Prop` that must
 be supplied at every call site. If formalised this way, the Lean 4 kernel would
 enforce the causality premise at compile time: any use of the propagator that does
@@ -494,6 +500,8 @@ propagator as a function that takes a causality proof). Together they suggest th
 full USF type:
 
 $$\text{USF} \;\equiv\; \sum_{\sigma : \mathrm{Scale}_{20}} \left( \mathrm{Substrate}(\sigma) \;\times\; G_R(\sigma) \right)$$
+
+{{Visualize | the-time-variable-in-the-lean-4-formalisation | type-decomposition:soma | whole="one scale fibre of USF"; parts="Substrate($\sigma$), retarded $G_R(\sigma)$"; op=times }} One fibre of the dependent sum above: each scale carries a substrate together with its retarded propagator. Equal widths are used because the equation gives types, not dimensions.
 
 where $G_R(\sigma)$ is the retarded propagator at scale $\sigma$, carrying the
 causality constraint as a proof argument.

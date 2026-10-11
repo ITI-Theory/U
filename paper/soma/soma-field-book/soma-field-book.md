@@ -458,6 +458,9 @@ activation levels across a set of emotional dimensions. Call this vector $\mathb
 
 $$\mathbf{e} = (e_1, e_2, \ldots, e_n)$$
 
+{{Visualize | the-soma-field-a-technical-definition | type-decomposition:soma | whole="$\mathbf{e}$"; parts="$e_1$, $e_2$, $\cdots$, $e_n$"; op=plus }} The state vector as a sum of emotional-mode coordinates: a momentary soma-field position is made from many activations, not a single arousal number.
+
+
 Each $e_i$ is a real number representing the activation level of a somatic emotional
 mode at a given moment: the level of fear-readiness in the body, the level of
 grief-contraction, the level of social-engagement openness, and so on. The exact
@@ -622,6 +625,9 @@ The dynamics — the way the field moves through state space over time — follo
 energy function. The field always moves *downhill*: toward lower values of $H$.
 
 $$\dot{\mathbf{e}} = -\nabla H(\mathbf{e}) + \eta(t)$$
+
+{{Visualize | the-hamiltonian | energy-landscape:soma | U="x^4/4 - x^2/2 + 0.04*x"; x=[-1.8,1.8]; ball=-1; expect_minima="-1.02,0.98" }} The dynamics equation in one illustrative dimension: the deterministic term points downhill toward a basin while the noise term can jostle the state over the barrier.
+
 
 This equation says: the rate of change of the emotional state ($\dot{\mathbf{e}}$) equals
 the negative gradient of the energy (the direction of steepest descent on the landscape)
@@ -1425,6 +1431,9 @@ The Soma-Field Model describes the energy landscape of the emotional field:
 
 $$H_{\text{soma}} = -\frac{1}{2}\sum_{i,j} W_{ij}\,e_i\,e_j - \sum_i \theta_i\,e_i$$
 
+{{Visualize | the-same-hamiltonian | energy-landscape:soma | U="x^4/4 - x^2/2 - theta*x"; vary=theta:-0.3,0,0.3; x=[-2,2]; xlabel="emotional state $e$"; ylabel="$H_\text{soma}$" }} The soma-field Hamiltonian as the same attractor-form energy in one illustrative mode: changing $\theta_i$ tilts the landscape but keeps the Hopfield/Ising structure.
+
+
 Replace $J_{ij} \to W_{ij}$, $\sigma_i \to e_i$, $h_i \to \theta_i$: these are the same
 equation written with different letters. The same mathematics describes magnetic spins
 in a crystal, memories in a neural network, and emotional states in a body.
@@ -1510,6 +1519,9 @@ and thermal physics.
 And the memory kernel for C-PTSD trauma?
 
 $$K_{\text{trauma}}(\tau) = \sum_k A_k\, e^{-|\tau|/\tau_k}$$
+
+{{Visualize | the-wick-rotation-one-substitution | function-plot:soma | f="A*exp(-abs(x)/tau)"; vary=tau:2,6,18; A=1; x=[-30,30]; xlabel="time separation $\tau$"; ylabel="$K_\text{trauma}(\tau)$" }} The trauma kernel has the same two-sided decaying shape as the Euclidean propagator: longer illustrative $\tau_k$ values leave correlations across a wider time interval.
+
 
 This has the decaying form of a Euclidean, Wick-rotated propagator. Under the simple
 one-mode correspondence, the QFT field mass $m$ corresponds to $1/\tau_k$, and the
@@ -1717,6 +1729,9 @@ and a reduction in **damping** $\gamma$ of the field dynamics.
 The Langevin equation with these parameters:
 
 $$\dot{\mathbf{e}} = -\gamma\,\nabla H(\mathbf{e}) + \sigma_0\,\eta(t)$$
+
+{{Visualize | adhd-a-thermodynamic-framing | function-plot:soma | f="exp(-x^2/(2*sigma^2))/(sigma*sqrt(2*pi))"; vary=sigma:0.5,1,2; x=[-6,6]; xlabel="noise kick"; ylabel="density" }} The $\sigma_0\eta(t)$ term as illustrative kick densities: increasing $\sigma_0$ broadens the fluctuations, while smaller $\gamma$ lets the field move farther before damping.
+
 
 In the ADHD regime, $\sigma_0$ is large and $\gamma$ is small. The implications:
 
@@ -2368,6 +2383,9 @@ couples to the screen signal $S(t)$:
 
 $$\dot{\mathbf{e}}_V = -\nabla H_V(\mathbf{e}_V) + \lambda \cdot S(t) + \eta_V$$
 
+{{Visualize | the-emotional-score | convolution:soma | input="exp(-((t-4)/0.8)^2) + 0.7*exp(-((t-12)/1.2)^2)"; kernel="exp(-t/4)"; x=[0,24]; input_label="screen signal $S(t)$"; kernel_label="viewer response"; output_label="viewer field contribution"; xlabel="film time" }} A viewer's field driven by the screen signal: two illustrative film cues are filtered by the viewer's own response kernel, so the same signal can leave different traces in different landscapes.
+
+
 The director controls $S(t)$ — the screen signal — but not $H_V$ (the viewer's own
 landscape). A viewer whose own field has a deep shame attractor will have a different
 response to the same $S(t)$ than a viewer without it. The film is the same; the voyage
@@ -2596,6 +2614,9 @@ derivations, Lean 4 type sketches, and bibliography are in the companion documen
 
 $$H(\mathbf{e}) = -\frac{1}{2}\,\mathbf{e}^{\top} W\, \mathbf{e} - \boldsymbol{\theta}^{\top}\mathbf{e}$$
 
+{{Visualize | appendix-a-the-mathematics-in-full | energy-landscape:soma | U="x^4/4 - x^2/2 - theta*x"; vary=theta:-0.25,0,0.25; x=[-2,2]; xlabel="state $e$"; ylabel="$H(e)$" }} The appendix Hamiltonian in a one-mode illustrative slice: the bias vector term tilts a stable attractor landscape without changing the quadratic-coupling form.
+
+
 where $W \in \mathbb{R}^{n \times n}$ is the coupling matrix and
 $\boldsymbol{\theta} \in \mathbb{R}^n$ is the threshold bias vector.
 
@@ -2603,11 +2624,17 @@ $\boldsymbol{\theta} \in \mathbb{R}^n$ is the threshold bias vector.
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \sigma_0\,\eta(t) = W\mathbf{e} + \boldsymbol{\theta} + \sigma_0\,\eta(t)$$
 
+{{Visualize | appendix-a-the-mathematics-in-full | process-diagram:soma | steps="coupling $W\mathbf{e}$, bias $\boldsymbol{\theta}$, noise $\sigma_0\eta$, velocity $\dot{\mathbf{e}}$"; layout=line; expect_steps=4 }} The appendix dynamics decomposed into its three visible contributions: coupling, bias and stochastic fluctuation together determine the field velocity.
+
+
 where $\eta(t)$ is white noise with $\langle\eta_i(t)\eta_j(s)\rangle = \delta_{ij}\delta(t-s)$.
 
 ### A.3 The C-PTSD Modification
 
 $$W_{\text{C-PTSD}} = W_0 + \Delta W, \qquad \Delta W_{ij} \neq \Delta W_{ji}$$
+
+{{Visualize | appendix-a-the-mathematics-in-full | matrix-heatmap:soma | matrix="[[0,0.3,-0.4],[0.3,0,0.2],[-0.4,0.2,0]]"; matrix2="[[0,0.5,-0.4],[0.1,0,0.2],[-0.4,0.2,0]]"; rows="Fear,Shame,Calm"; cols="Fear,Shame,Calm"; titles="$W_0$ (illustrative), $W_\text{C-PTSD}$ (illustrative)"; diff=true; diff_title="$\Delta W$ asymmetry (illustrative)" }} The C-PTSD modification as an illustrative asymmetric update to one fear--shame pair; the difference panel makes $\Delta W_{ij}\neq\Delta W_{ji}$ visible.
+
 
 The asymmetry of $\Delta W$ breaks the gradient flow property and introduces directional
 cycles in the landscape.
@@ -2620,11 +2647,20 @@ $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \int_0^t K(t-s)\,\mathbf{e}(s)\,
 
 $$K(\tau) = \sum_k A_k\, e^{-\tau/\tau_k}$$
 
+{{Visualize | a.4-the-memory-kernel | function-plot:soma | f="A*exp(-x/tau)"; vary=tau:2,5,12; A=1; x=[0,30]; xlabel="time lag $\tau$"; ylabel="$K(\tau)$" }} The appendix kernel formula by itself: illustrative longer decay times keep more of a past activation available to the present dynamics.
+
+
 ### A.5 Developmental Time Parameterisation
 
 $$W(\tau_d) = f(\tau_d)\cdot W_0 + \bigl(1 - f(\tau_d)\bigr)\cdot W_{\text{trauma}}$$
 
+{{Visualize | a.5-developmental-time-parameterisation | matrix-heatmap:soma | matrix="[[0,0.3,-0.4],[0.3,0,0.2],[-0.4,0.2,0]]"; matrix2="[[0,0.3477,-0.4],[0.2523,0,0.2],[-0.4,0.2,0]]"; rows="Fear,Shame,Calm"; cols="Fear,Shame,Calm"; titles="$W_0$ (illustrative), $W(\tau_c)$ at $f=\tanh(1)$"; diff=true; diff_title="blend minus baseline (illustrative)" }} The developmental interpolation at $\tau_d=\tau_c$: the matrix is mostly baseline but still carries an illustrative asymmetric trauma component.
+
+
 $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right), \qquad \tau_c \approx 36 \text{ months}$$
+
+{{Visualize | a.5-developmental-time-parameterisation | function-plot:soma | f="tanh(x/36)"; x=[0,120]; value_at=36; expect_value=0.7616; xlabel="developmental age $\tau_d$ (months)"; ylabel="$f(\tau_d)$" }} The structural fraction used in the interpolation: at the text's $\tau_c\approx36$ months the checked value is $\tanh(1)\approx0.7616$.
+
 
 ### A.6 The QFT Correspondence
 

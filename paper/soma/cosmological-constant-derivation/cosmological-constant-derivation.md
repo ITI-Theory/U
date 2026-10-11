@@ -79,6 +79,8 @@ Setting $\Lambda_\text{USF} = \Lambda_\text{obs}$ and solving for $\Phi_0$:
 $$\Phi_0 = \sqrt{\frac{\Lambda_\text{obs}\,M_\text{Pl}^2 c^2}{k_\text{cosm}^2}}
   \approx 8.9\times10^{34}\;\text{m}^{-1}$$
 
+{{Visualize | required-vacuum-amplitude | log-scale:cosmic | items="required $\Phi_0$=8.9e34, inverse Planck length $\ell_P^{-1}$=6.19e34"; range=[34,35]; unit="m$^{-1}$" }} The raw vacuum amplitude from the equation on a log scale beside the inverse Planck length. The figure shows why the paper calls the required value Planck-scale rather than a tiny tuned amplitude.
+
 In Planck units:
 $$\ell_P\,\Phi_0 \approx 8.9\times10^{34}\times 1.616\times10^{-35} \approx 1.43
   = \sqrt{3\,\Omega_\Lambda}$$
@@ -109,8 +111,12 @@ $$k(\sigma) = k_0\,/\,\Lambda_Z^\sigma$$
 where $\Lambda_Z$ is the scale factor of the zoom step. At $\sigma=19$:
 $$k_{19} = k_P / \Lambda_Z^{19} = H_0/c$$
 
+{{Visualize | derivation-of-phi_0-sim-m_textpl-from-compactification | log-scale:cosmic | items="Planck wavenumber $k_P$=6.19e34, Hubble wavenumber $H_0/c$=7.29e-27"; range=[-27,35]; unit="m$^{-1}$" }} The endpoint relation in the equation spans about 61 decades, from the Planck wavenumber to the Hubble wavenumber. This is the same scale gap that the nineteen zoom steps bridge.
+
 The **field amplitude** transforms under the zoom as:
 $$\Phi_0^{(\sigma)} = \Phi_0^{(0)} \cdot (k_\sigma/k_0)^{\Delta_\Phi}$$
+
+{{Visualize | derivation-of-phi_0-sim-m_textpl-from-compactification | function-plot:cosmic | f="x^Delta"; vary=Delta:0,0.5,1; x=[0.001,1]; logx=true; logy=true; xlabel="$k_\sigma/k_0$"; ylabel="$\Phi_0^{(\sigma)}/\Phi_0^{(0)}$" }} The scaling law in the equation for three illustrative scaling dimensions. The $\Delta_\Phi=0$ curve is flat, matching the classical-background assumption used next.
 
 where $\Delta_\Phi = 1$ (canonical dimension of a scalar field). But $\Phi$ here is
 a background field (classical condensate), not a quantum fluctuation — its
@@ -118,11 +124,15 @@ vacuum value is pinned to the attractor of the regulated calm state. At the
 cosmological scale, the regulated calm attractor has:
 $$\Phi_0^{(19)} \sim \Phi_0^{(0)} \cdot (H_0/k_P)^0 = \Phi_0^{(0)}$$
 
+{{Visualize | derivation-of-phi_0-sim-m_textpl-from-compactification | function-plot:cosmic | f="1"; x=[0,19]; xlabel="zoom step $\sigma$"; ylabel="$\Phi_0^{(\sigma)}/\Phi_0^{(0)}$" }} With exponent zero, the background amplitude stays constant across the zoom steps. The flat line is the visual content of $(H_0/k_P)^0=1$.
+
 (the classical background amplitude does **not** scale with the quantum
 fluctuation dimension — it is set by the boundary condition at the compactification
 surface). Hence $\Phi_0 \sim M_\text{Pl}$ at all scales, and the cosmological
 constant is:
 $$\Lambda_\text{USF} \sim k_\text{cosm}^2\cdot M_\text{Pl}^2 / M_\text{Pl}^2 = k_\text{cosm}^2 = H_0^2/c^2$$
+
+{{Visualize | derivation-of-phi_0-sim-m_textpl-from-compactification | function-plot:cosmic | f="x^2"; x=[0,2]; value_at=1; expect_value=1; xlabel="relative cosmic wavenumber $k_\text{cosm}/k_0$"; ylabel="relative $\Lambda_\text{USF}$" }} After the Planck factors cancel, the estimate is quadratic in the cosmic wavenumber. The program checked the normalised point $k_\text{cosm}/k_0=1 \mapsto \Lambda/\Lambda_0=1$.
 
 **What is input and what is predicted.** The numbers below use the measured
 $H_0$, and $k_\text{cosm} = H_0/c$ enters through the zoom: nineteen steps of
@@ -353,6 +363,8 @@ $$\boxed{\Lambda_\text{USF} = \frac{21}{11}\,\frac{H_0^2}{c^2}
   \approx 1.01\times10^{-52}\;\text{m}^{-2}
   \quad\text{vs}\quad
   \Lambda_\text{obs} \approx 1.09\times10^{-52}\;\text{m}^{-2} \;(7.1\%\text{ low})}$$
+
+{{Visualize | conclusion | data-points:cosmic | points="1:1.01e-52,2:1.09e-52"; names="USF, observed"; fit=none; expect_n=2; xlabel="comparison"; ylabel="$\Lambda$ (m$^{-2}$)" }} The final cosmological-constant comparison as two points: the USF estimate is slightly below the observed value. The program checked that the figure contains the two stated numbers.
 
 ---
 

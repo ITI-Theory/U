@@ -239,6 +239,8 @@ The hierarchy is a chain of projections (proved or defined in
 `UniversalSomaticField.eight_contains_four`):
 $$\text{11D} \twoheadrightarrow \text{8D} \twoheadrightarrow \text{4D}$$
 
+{{Visualize | three-tiers | process-diagram:soma | steps="11D organism, 8D organism, 4D organism"; layout=line; edges="drop cortex, drop propagator-limbic tier"; expect_steps=3 }} The projection chain in the equation as a line: the 11D organism projects to the 8D tier, which projects to the 4D tier. The program checks the three tiers shown.
+
 Each projection drops one tier of internal structure; no tier is "broken" —
 each is complete at its own level.
 
@@ -361,6 +363,8 @@ between adjacent fibers:
 
 $$\Lambda : (\sigma : \mathrm{Scale}_{20}) \to \mathrm{Substrate}(\sigma) \to \mathrm{Substrate}(\sigma + 1)$$
 
+{{Visualize | schreibers-modal-homotopy-type-theory | process-diagram:soma | steps="scale $\sigma$, substrate at $\sigma$, substrate at $\sigma+1$"; layout=line; edges="choose fibre, apply $\Lambda$"; expect_steps=3 }} The Zoom Operator type as a process: choose a scale, take that scale's substrate, and map it to the adjacent substrate. The diagram shows the type flow, not a metric rescaling.
+
 This enforces **type-safe scale invariance**: the Lean 4 kernel prevents the
 application of human-scale emotional operators to galaxy-scale configurations.
 A scale mismatch is not merely physically wrong — it is a *type error*, caught
@@ -434,6 +438,8 @@ state $e_0$, the dynamics
 
 $$\dot{e} = -\nabla H(e) + \eta(t)$$
 
+{{Visualize | from-autonomous-to-driven-dynamics | function-plot:soma | f="-4*x*(x^2-1)"; x=[-1.6,1.6]; hline="0"; xlabel="state $e$ in an illustrative double well"; ylabel="deterministic drift $-\nabla H$" }} The autonomous part of the Langevin equation for an illustrative double well $H=(e^2-1)^2$: drift points back toward the wells and vanishes at the fixed points. The noise term is not drawn; this is the deterministic skeleton.
+
 evolve the field under the Hopfield Hamiltonian plus thermal noise.
 The agent — the person whose soma-field is being modelled — is a
 *patient*: they observe which attractor basin they settle into.
@@ -448,6 +454,8 @@ protocols.
 We extend the dynamics with a **volitional source term** $J_{\text{user}}(t)$:
 
 $$\dot{e} = -\nabla H(e) + J_{\text{user}}(t) + \eta(t)$$
+
+{{Visualize | the-somatic-injection | function-plot:soma | f1="-4*x*(x^2-1)"; name1="no injection"; f2="-4*x*(x^2-1)+0.8"; name2="with $J_\text{user}=0.8$"; x=[-1.6,1.6]; hline="0"; xlabel="state $e$ in an illustrative double well"; ylabel="drift" }} Adding a user source term tilts the same illustrative drift field: zero crossings and preferred motion shift rather than merely adding noise. The caption's $J_\text{user}=0.8$ is illustrative.
 
 $J_{\text{user}}(t) \in \mathbb{R}^8$ is a time-dependent vector in the
 BRECVEMA mechanism space. At each instant, the subject injects energy into

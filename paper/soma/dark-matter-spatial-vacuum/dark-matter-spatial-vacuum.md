@@ -101,6 +101,8 @@ The dark matter prediction follows from the spatial block $\langle\Phi_{ij}\rang
 $$\Omega_\text{DM}^\text{USF} = \frac{N_\text{spatial}}{N_\text{total}}
   = \frac{3}{11} \approx 0.2727$$
 
+{{Visualize | the-spatial-block-identifies-as-dark-matter | type-decomposition:cosmic | whole="$M_{11}$"; parts="spatial dark-matter block=3, remaining dimensions=8"; expect_total=11 }} The dark-matter fraction in the equation as a dimensional split: three spatial directions out of eleven are assigned to the spatial vacuum block. The program checked the total dimension count is 11.
+
 ## Numerical predictions
 
 All three leading-order predictions from dimensional counting:
@@ -274,6 +276,8 @@ factor from the USF CP-violation structure is an open problem (see §5).
 The sum of the three USF predictions undershoots unity:
 $$\frac{7}{11} + \frac{3}{11} + \frac{1}{22} = \frac{14 + 6 + 1}{22} = \frac{21}{22} \approx 0.955$$
 
+{{Visualize | the-radiation-sector-and-dilution-resolution | type-decomposition:cosmic | whole="leading USF sectors"; parts="$\Omega_\Lambda$=7/11, $\Omega_\text{DM}$=3/11, $\Omega_b$=1/22"; expect_total=21/22 }} The leading USF sector sum in the equation: dark energy, dark matter and the auxiliary baryon term fill $21/22$ of the budget. The program checked the stated total.
+
 The observed sum (including Planck 2018 neutrino contribution):
 $$\Omega_\Lambda + \Omega_\text{DM} + \Omega_b + \Omega_\nu + \Omega_r
   \approx 0.6847 + 0.2645 + 0.0493 + 0.001 + 0.0001 \approx 0.9996$$
@@ -443,6 +447,8 @@ Dimensional counting in the 11D USF compactification predicts the dark matter
 energy fraction:
 $$\boxed{\Omega_\text{DM}^\text{USF} = \frac{3}{11} \approx 0.2727
   \quad\text{vs}\quad \Omega_\text{DM}^\text{obs} = 0.2645 \quad (3.1\%\text{ high})}$$
+
+{{Visualize | conclusion | data-points:cosmic | points="1:0.2727,2:0.2645"; names="USF $3/11$, observed"; fit=none; expect_n=2; xlabel="comparison"; ylabel="$\Omega_\text{DM}$" }} The final dark-matter comparison as two points: the USF leading fraction sits slightly above the Planck 2018 value. The program checked that the figure contains the two stated numbers.
 
 The proposed physical mechanism is the vacuum energy of the three non-compact
 spatial dimensions of M-theory. Under the stated localisation and KK-reduction

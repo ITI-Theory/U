@@ -249,6 +249,9 @@ energy function he used is:
 
 $$H(\mathbf{s}) = -\frac{1}{2} \sum_{i,j} W_{ij}\, s_i s_j - \sum_i \theta_i s_i$$
 
+{{Visualize | neural-network-energy-functions-and-hopfield-networks | energy-landscape:soma | U="x^4/4 - x^2/2 - theta*x"; vary=theta:-0.35,0,0.35; x=[-2,2]; xlabel="state $s$"; ylabel="$H(s)$" }} A one-dimensional illustrative slice of the Hopfield energy above: changing the threshold bias $\theta$ tilts the two-attractor landscape while the state still moves downhill toward a local minimum.
+
+
 where $\mathbf{s}$ is the state of the network, $W_{ij}$ is the coupling strength between
 units $i$ and $j$, and $\theta_i$ is the activation threshold of unit $i$. The network
 always moves in the direction of decreasing $H$.
@@ -354,6 +357,9 @@ $$H_{\text{Ising}}(\boldsymbol{\sigma}) = -\frac{1}{2}\sum_{i,j} J_{ij}\,\sigma_
 
 $$H_{\text{soma}}(\mathbf{e}) = -\frac{1}{2}\sum_{i,j} W_{ij}\,e_i\,e_j - \sum_i b_i\,e_i$$
 
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | energy-landscape:soma | U="x^4/4 - x^2/2 - b*x"; vary=b:-0.25,0,0.25; x=[-2,2]; xlabel="emotional state $e$"; ylabel="$H_\text{soma}$" }} The same Hopfield-form energy written for one emotional mode: an illustrative bias $b$ tilts the attractor pair without changing the energy-function type.
+
+
 Replace $J_{ij} \to W_{ij}$, $\sigma_i \to e_i$, $h_i \to b_i$: the canonical Hopfield
 form is preserved. The physicist, the neural network theorist, and the somatic clinician
 are, under this modelling choice, using the same energy-function form on different state
@@ -366,8 +372,14 @@ further to emotional dynamics.
 In quantum mechanics, the time evolution operator is a complex phase:
 $$U(t) = e^{-i\hat{H}t/\hbar}$$
 
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | function-plot:quantum | f="cos(omega*x)"; vary=omega:1,2,4; x=[0,10]; xlabel="time $t$ (illustrative, $\hat H/\hbar\to\omega$)"; ylabel="$\mathrm{Re}\,U(t)$" }} The real part of the quantum time-evolution operator above, at three illustrative frequencies: before Wick rotation the factor oscillates rather than decays.
+
+
 Substitute $t \to -i\tau$ (the *Wick rotation* — replacing real time with imaginary time):
 $$e^{-i\hat{H}(-i\tau)/\hbar} = e^{-\hat{H}\tau/\hbar}$$
+
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | function-plot:quantum | f="exp(-k*x)"; vary=k:0.5,1,2; x=[0,6]; xlabel="imaginary time $\tau$ (illustrative, $\hat H/\hbar\to k$)"; ylabel="$e^{-\hat H\tau/\hbar}$" }} After the substitution the same factor is a real decay: larger illustrative $\hat H/\hbar$ gives a shorter correlation time.
+
 
 The oscillating complex exponential becomes a real decaying exponential. This is the
 Boltzmann weight $e^{-\beta\hat{H}}$ at $\beta = \tau/\hbar$. The Langevin equation
@@ -617,6 +629,9 @@ influencing the other. The total emotional field is their combined state:
 
 $$\mathbf{E}(x,t) = \mathbf{E}_\text{body}(x,t) \otimes \mathbf{E}_\text{neural}(x,t)$$
 
+{{Visualize | emotions-as-a-persistent-wave-field | type-decomposition:soma | whole="$\mathbf{E}(x,t)$"; parts="$\mathbf{E}_\text{body}$, $\mathbf{E}_\text{neural}$"; op=times }} The tensor product in the equation, drawn as two coupled factors of one field: the body wave and neural wave are components of a single state, not two separate readouts.
+
+
 The field is characterised by:
 
 - **Multiplicity**: multiple emotional modes can be simultaneously active and interfering
@@ -731,6 +746,9 @@ function toward activation or rest attractors:
 
 $$H(\mathbf{e}, t) = H_0(\mathbf{e}) - \alpha\,\dot{H}(t)\,\boldsymbol{\beta}\cdot\mathbf{e}$$
 
+{{Visualize | the-three-layer-architecture | energy-landscape:soma | U="(x^2-1)^2 - a*x"; vary=a:-0.6,0,0.6; x=[-2,2]; xlabel="activation direction $\boldsymbol{\beta}\cdot\mathbf{e}$"; ylabel="$H(\mathbf{e},t)$" }} The cardiac-acceleration term acts as a landscape tilt: negative, zero and positive illustrative $\alpha\dot H$ values favour opposite sides of the same baseline attractor landscape.
+
+
 where $\alpha > 0$ is the cardiac-somatic coupling constant and $\boldsymbol{\beta}$ is
 a mode-coupling vector (at leading order, $\boldsymbol{\beta} = \mathbf{1}$: the tilt
 acts uniformly across all modes). When $\dot{H}(t) > 0$ (heart accelerating), the
@@ -741,6 +759,9 @@ three-layer equation including the cardiac acceleration term is:
 $$\dot{\mathbf{e}}(t) = -\nabla H_0(\mathbf{e}) + \alpha\,\dot{H}(t)\,\boldsymbol{\beta}
   + R_{\text{PFC}}(\mathbf{e}, t)
   + \frac{\sigma_0}{C_{\text{HRV}}}\,\xi(t)$$
+
+{{Visualize | the-three-layer-architecture | process-diagram:soma | steps="energy gradient, cardiac tilt, PFC regulation, HRV-scaled noise, field update"; layout=line; expect_steps=5 }} The four terms in the equation, drawn as inputs to the next field update: baseline descent, cardiac acceleration, prefrontal regulation and autonomic noise all enter the same velocity.
+
 
 The two cardiac terms serve distinct functions: $C_{\text{HRV}}$ (state) modulates the
 noise floor; $\dot{H}$ (acceleration) tilts the deterministic landscape. Both are needed
@@ -1572,6 +1593,9 @@ point at which dissonance (the phase lag Δφ between field modes) first becomes
 **Π — Projection Functor (𝓕 → 𝓢)**
 Integrates the continuous field over the soma to produce the finite-dimensional state vector:
 $$\Pi[\mathbf{E}](i) = \int_{\text{Soma}} K_i(x)\, \mathbf{E}(x,t)\, dx$$
+
+{{Visualize | a.3-the-four-categories-and-their-functors | area-under:soma | f="exp(-((x-1.0)^2)/0.8)*(0.8 + 0.25*sin(4*x))"; x=[-3,5]; from=-3; to=5; xlabel="somatic coordinate $x$"; ylabel="$K_i(x)\,E(x,t)$" }} An illustrative projection integral: the shaded weighted field over the soma is the finite-dimensional emotional component $i$.
+
 where $K_i(x)$ is a kernel that weights the somatic region relevant to emotional mode $i$.
 This is the step at which the infinite-dimensional field becomes computationally tractable.
 The choice of kernels $K_i$ is, clinically, the question of *where in the body* each emotion
@@ -1884,9 +1908,15 @@ $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
   + \int_0^t K_{\text{trauma}}(t - s)\, \mathbf{e}(s)\, ds
   + \eta(t)$$
 
+{{Visualize | b.2-complex-ptsd-the-memory-kernel-and-asymmetric-coupling | convolution:soma | input="exp(-((t-3)/0.35)^2) + 0.7*exp(-((t-12)/0.5)^2)"; kernel="exp(-t/5)"; x=[0,24]; input_label="activation history"; kernel_label="trauma kernel, illustrative $\tau_k=5$"; output_label="history term"; xlabel="time" }} The non-Markovian term in the equation as a convolution: each past activation starts a decaying echo, and the present history term is their sum.
+
+
 The trauma memory kernel is a sum of decaying traces, one per encoded traumatic event:
 
 $$K_{\text{trauma}}(\tau) = \sum_{k} A_k\, e^{-\tau / \tau_k}$$
+
+{{Visualize | b.2-complex-ptsd-the-memory-kernel-and-asymmetric-coupling | function-plot:soma | f="A*exp(-x/tau)"; vary=tau:2,6,18; A=1; x=[0,40]; xlabel="time since activation $\tau$"; ylabel="$K_\text{trauma}(\tau)$" }} Three illustrative decay times in the trauma kernel: larger $\tau_k$ leaves a longer echo, while reducing $A_k$ would lower the whole curve.
+
 
 where $A_k > 0$ is the amplitude (intensity) of the $k$-th memory trace and $\tau_k$ is
 its decay time (the timescale over which the event's echo fades). **Therapeutic
@@ -2012,6 +2042,9 @@ ADHD is modelled as a modification of the Langevin equation's **noise amplitude*
 $$\gamma_{\text{ADHD}}\, \dot{\mathbf{e}}(t) =
   -\nabla H(\mathbf{e}(t)) + \sqrt{2 D_{\text{ADHD}}}\, \xi(t)$$
 
+{{Visualize | b.3-adhd-high-temperature-low-damping-dynamics | function-plot:soma | f="exp(-x^2/(4*D))/sqrt(4*pi*D)"; vary=D:0.25,1,4; x=[-8,8]; xlabel="noise kick"; ylabel="density" }} The noise term $\sqrt{2D_{\text{ADHD}}}\,\xi(t)$ as illustrative Gaussian kick densities: larger $D$ broadens the fluctuations that push the field across shallow basins.
+
+
 with $\gamma_{\text{ADHD}} < \gamma_0$ (reduced damping) and
 $D_{\text{ADHD}} > D_0$ (increased diffusion / noise temperature).
 
@@ -2056,11 +2089,17 @@ ASC is modelled as two modifications at different levels of the pipeline.
 
 $$\Pi[\mathbf{E}](i) = \int_{\text{Soma}} K_i(x)\, \mathbf{E}(x,t)\, dx$$
 
+{{Visualize | b.4-autism-spectrum-condition-sparse-coupling-and-modified-projection | area-under:soma | f="exp(-((x+1.0)^2)/0.7)*(0.8 + 0.2*cos(3*x))"; x=[-4,4]; from=-4; to=4; xlabel="somatic coordinate $x$"; ylabel="$K_i(x)\,E(x,t)$" }} The standard projection as a weighted area over the soma; the ASC modification below changes the kernel before this integration is performed.
+
+
 uses kernels $K_i(x)$ that determine which somatic regions contribute to the $i$-th
 emotional mode. In ASC, consistent with interoceptive research (Garfinkel et al., 2016),
 these kernels are modified:
 
 $$K_i^{\text{ASC}}(x) = \beta_i(x)\, K_i(x), \quad \beta_i(x) \geq 0$$
+
+{{Visualize | b.4-autism-spectrum-condition-sparse-coupling-and-modified-projection | function-plot:soma | f1="exp(-x^2/3)"; name1="$K_i$ baseline"; f2="(0.6 + 1.2*exp(-(x-1.2)^2/0.5))*exp(-x^2/3)"; name2="$\beta_i K_i$ modified"; x=[-4,4]; xlabel="somatic coordinate $x$"; ylabel="kernel weight" }} An illustrative non-negative sensitivity profile $\beta_i(x)$ reweights the projection kernel: one region is over-sampled and the background is under-sampled.
+
 
 where $\beta_i(x) > 1$ in regions of sensory hypersensitivity and $\beta_i(x) < 1$
 in regions of interoceptive under-registration. The result is a projection that
@@ -2103,6 +2142,9 @@ $$\gamma_{\text{ADHD}}\, \dot{\mathbf{e}}(t) =
   -\nabla H_{\text{ASC}}(\mathbf{e}(t))
   + \int_0^t K_{\text{trauma}}(t - s)\, \mathbf{e}(s)\, ds
   + \sqrt{2 D_{\text{ADHD}}}\, \xi_{1/f}(t)$$
+
+{{Visualize | b.5-composition-the-three-operators-together | process-diagram:soma | steps="ASC sparse landscape, trauma history term, ADHD noise term, composed field dynamics"; layout=line; expect_steps=4 }} The composed operator in the equation: sparse ASC topology, trauma memory and ADHD noise are simultaneous terms in one field dynamics, not three separate diagnoses added afterward.
+
 
 where $H_{\text{ASC}}$ uses $W_{\text{ASC}}$ (sparse coupling and modified projection).
 
@@ -2697,6 +2739,9 @@ Off-diagonal couplings $W_{ij}$ ($i \neq j$) produce the primary interaction ver
 At first perturbative order, the response of mode $i$ to mode $j$ is:
 
 $$e_i(t) \;\supset\; W_{ij} \int_{-\infty}^{t} G^R_i(t - t')\, e_j(t')\, dt'$$
+
+{{Visualize | d.3-the-coupling-vertex | convolution:soma | input="exp(-((t-2)/0.4)^2) + 0.5*exp(-((t-7)/0.6)^2)"; kernel="exp(-t/3)"; x=[0,16]; input_label="source mode $e_j$"; kernel_label="retarded response $G^R_i$"; output_label="contribution to $e_i$"; xlabel="time" }} The first-order coupling response as a convolution: activity in mode $j$ is carried forward by the retarded propagator before contributing to mode $i$.
+
 
 ## D.4 Memory Kernel Vertices
 
