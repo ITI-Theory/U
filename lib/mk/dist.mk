@@ -3,7 +3,7 @@
 # DO NOT EDIT -- run: make generate
 
 # Candidate build inputs adopted from PAPERS.yaml at generation time.
-REGISTRY_PAPER_TARGETS := main quantum method synthesis substrate book pov tensor music temporal zsf exp limbic osqft intqft geo gestalt preverbal swarm usf cosconst darkmatter phenomena g2break demo-case lean-appendix omnibus-a4
+REGISTRY_PAPER_TARGETS := main quantum method synthesis substrate book pov tensor music temporal zsf exp limbic osqft intqft geo gestalt preverbal swarm usf cosconst darkmatter phenomena g2break sh1 demo-case lean-appendix omnibus-a4
 REGISTRY_PAPER_ROYAL_TARGETS := omnibus-royal
 REGISTRY_FRACTAL_PREREQUISITES := 
 REGISTRY_FRACTAL_TARGETS := fractal-thesis vol1 vol2 book-gateway book-physics book-neuroscience book-clinical-psychology book-computer-science book-formal-mathematics book-consciousness book-complex-systems book-music-arts book-geophysics book-social-science book-economics book-law book-ppe book-psychiatry-asd
@@ -35,6 +35,7 @@ dist-papers: registry-papers
 	cp -f $(PAPERS_BLD)/dark-matter-spatial-vacuum.pdf               $(DIST)/papers/dark-matter-spatial-vacuum.pdf
 	cp -f $(PAPERS_BLD)/ttheory-phenomena.pdf                        $(DIST)/papers/ttheory-phenomena.pdf
 	cp -f $(PAPERS_BLD)/g2-symmetry-breaking.pdf                     $(DIST)/papers/g2-symmetry-breaking.pdf
+	cp -f $(PAPERS_BLD)/sherlock-affidavit.pdf                       $(DIST)/papers/sherlock-affidavit.pdf
 	cp -f $(PAPERS_BLD)/SFT-DEMO-CASE.pdf                            $(DIST)/papers/SFT-DEMO-CASE.pdf
 	cp -f $(PAPERS_BLD)/lean-proofs-appendix.pdf                     $(DIST)/papers/lean-proofs-appendix.pdf
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/papers/omnibus-a4.pdf
@@ -88,6 +89,7 @@ zenodo-papers: registry-papers
 	cp -f $(PAPERS_BLD)/dark-matter-spatial-vacuum.pdf               $(DIST)/zenodo/P22-dark-matter-spatial-vacuum.pdf
 	cp -f $(PAPERS_BLD)/ttheory-phenomena.pdf                        $(DIST)/zenodo/P23-ttheory-phenomena.pdf
 	cp -f $(PAPERS_BLD)/g2-symmetry-breaking.pdf                     $(DIST)/zenodo/P24-g2-symmetry-breaking.pdf
+	cp -f $(PAPERS_BLD)/sherlock-affidavit.pdf                       $(DIST)/zenodo/SH1-sherlock-affidavit.pdf
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/zenodo/C1v2-omnibus.pdf
 
 zenodo-ttheory: registry-fractal

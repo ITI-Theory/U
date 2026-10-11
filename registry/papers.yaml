@@ -393,6 +393,21 @@ canonical_papers:
     references_minimum: 5
     nlm: P24-g2-symmetry-breaking
 
+  - id: SH1
+    slug: sherlock-affidavit
+    title: "Sherlock: An Affidavit for an Abstract Film"
+    discipline: "Knowledge representation; automated reasoning"
+    level: "masters"
+    doi: null
+    status: pending-review
+    notes: "First Sherlock paper (11 Oct 2026): The Tensor (P8, frozen at U 2d36eaf) checked against its own numbers and OpenCyc in Lean 4; Lean in U sherlock/."
+    file: papers/sherlock-affidavit.pdf
+    zenodo_file: zenodo/SH1-sherlock-affidavit.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: sh1
+    references_minimum: 5
+
 datasets:
 
   - id: E1
