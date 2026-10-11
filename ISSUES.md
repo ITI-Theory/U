@@ -2090,6 +2090,39 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       out instead of referencing the alias), and `\ge` in a matplotlib
       axis label (matplotlib's mathtext wants `\geq`; the prose caption,
       rendered by LaTeX/HTML rather than matplotlib, keeps `\ge`).
+      11 Oct: finished the course chapters, 01-fields-waves-scale,
+      04-zooming, 09-flocks-swarms and 12-cosmology-dark-sectors to near-full
+      coverage (3 of 3, 5 of 6, 2 of 2, 3 of 4: the wave equation's
+      travelling-wave solution, a guitar string's harmonics, a block
+      average, the Gaussian closure for hidden kinetic energy, both
+      Vicsek-model terms (noise and polarisation), the critical density and
+      the Planck dark-sector budget, all at the chapter's own numbers;
+      04-zooming's zoom operator and 12-cosmology's Friedmann equation stay
+      abstract, left unmarked), then 13-eleven-dimensions, 14-dark-sectors
+      and 15-evidence-proof to full coverage (4 of 4, 5 of 5, 5 of 5): the
+      Kaluza-Klein mass tower, a holonomy-angle check, galaxy rotation
+      curves, the lensing deflection angle, and the response grammar as a
+      line `process-diagram` ($J\to G_B\to$ response $\to O\to y$); course
+      131 of 142 — every course chapter now processed. Two more build
+      errors: `\mathbf v_1` (no braced argument) broke matplotlib's
+      mathtext, fixed by dropping the bold (plain $v_1$ matches the rest of
+      the book); an unescaped comma inside a LaTeX thin-space (`\,`) inside
+      a `process-diagram` step's label was read as a step separator by the
+      renderer's own comma-splitter, silently adding a sixth, broken step
+      (`\,` replaced by `\;`); and that diagram's five step labels, each a
+      multi-symbol LaTeX fraction, were too wide for a `layout=line`
+      diagram at this box count and overlapped the arrows between them,
+      fixed by shortening each label to a single symbol. 11 of the course's
+      142 equations stay unmarked throughout: abstract general forms
+      (an undetermined $U(x)$ and $F(t)$, a Langevin SDE, the
+      eigenvalue/eigenvector definition, a zoom/coarse-graining operator,
+      the Friedmann equation with no stated evolution law) and restatements
+      of an equation already drawn (the Bohr-radius derivation, the
+      uncertainty inequality) — no primitive candidates reach the
+      3-equation bar from this list. Builds verified one at a time with
+      `make -C Part2/book/field-atlas-textbook html`, 0 errors throughout;
+      figures spot-checked for legible, non-overlapping labels and correct
+      numbers at every stage.
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
