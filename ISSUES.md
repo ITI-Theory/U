@@ -2058,8 +2058,23 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       Schwarzschild-radius/redshift/rotation-curve examples, rates and
       derivatives, decay and relaxation laws, dice statistics, the normal
       law, random walks and the Boltzmann factor); course 85 of 142 so far.
-      Builds verified one at a time with `make -C Part2/book/field-atlas-textbook
-      html`, 0 errors; figures spot-checked for legible, non-overlapping labels.
+      02-response-greens-resonance, m1-numbers-units-scale and 06-molecules-cells
+      marked up to full coverage (6 of 6, 8 of 8, 5 of 5): the damped
+      oscillator's free ringing, its impulse response, two kicks added by
+      convolution, the Yukawa nuclear-force range, powers of ten, unit
+      conversion, logarithm rules, decibels, power-law scaling, the cable
+      equation's Green's function, the neuron length constant and a
+      three-neuron Hopfield energy drop, each at the chapter's own numbers;
+      m5-vectors-matrices 8 of 9 (work as a dot product, a rotation
+      eigen-transform, its characteristic polynomial, and a saddle-point
+      vector field, all at the chapter's own worked numbers; the abstract
+      eigenvalue/eigenvector definition stays unmarked, restated concretely
+      two equations later); course 103 of 142 so far. One macro parameter
+      named `lambda` in each of two chapters collided with the Python
+      keyword and was renamed `lam` (same value, same caption) after the
+      build caught it. Builds verified one at a time with
+      `make -C Part2/book/field-atlas-textbook html`, 0 errors; figures
+      spot-checked for legible, non-overlapping labels.
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
