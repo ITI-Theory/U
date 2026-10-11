@@ -3044,3 +3044,41 @@ NotebookLM (rate limit), agents, the author's reviews.
       and the ledger in parallel (one module per process, several at once).
 - [ ] Optional: a devcontainer with prebuilds so a Codespace starts ready (first
       setup otherwise about half a day).
+
+## ISS-069: Four screens as the big concept: the inverted-T cockpit (ship, time machine, fantastic voyage) — OPEN
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+
+Author, 11 Oct 22:31. The Soma Machine's layout is four screens in an inverted T:
+a main screen on top, one screen beneath it, and one left and one right below
+that. The top screen is the main one; a one-screen system is that screen.
+- One screen: the film plays (say the 2021 film, a dark one) and a control flips
+  between the real version and the viewer's modified one ("the happy version"):
+  the twin view (ISS-052, 6b9ebd0) as an A/B flip as well as a split.
+- Two screens: the modified view goes on the second screen, beneath the main one,
+  like a modern cockpit's synthetic vision (the view through cloud), with the
+  controls beneath. Unlike an aircraft's fixed windows, any view can be moved to
+  any screen ("we can swap the images around").
+- Four screens: the bottom left and right show other information (the level, the
+  elevator, the engine room, Sherlock's findings, the maintenance deck, ISS-065).
+- One screen, 3D: a glass cockpit rendered in 3D, the window as the main view and
+  the other screens as panels inside the cockpit; three tablets beneath as the
+  controls. The vessel is a ship, a time machine and a fantastic-voyage shrinking
+  craft in one (The Tensor's containers: the river boat, the submarine in the
+  bloodstream).
+
+Fit with what exists: `screens.js` already has window roles (level, cockpit,
+engine; maintenance planned) sharing the view's state across windows; the twin
+view already renders a second viewer. Difficulty (Copilot): the layout, the swap
+and the A/B flip are small (a role per screen, a "show this view here" control,
+the twin's right window as a full view). The 3D glass cockpit is medium to hard:
+each panel is a live render of another view drawn as a texture inside the 3D
+scene, and the tablets need a network channel (the windows' channel only reaches
+windows of one browser; a relay through the MOTHER bridge would serve tablets).
+Not lost: build it after the four-screen layout works.
+- [ ] Screen roles for the inverted T (main, beneath, left, right), any view to any screen.
+- [ ] One-screen A/B flip between the real film and the modified viewer's version.
+- [ ] The modified view on the screen beneath ("synthetic vision").
+- [ ] Tablets as controls: a relay for the screens' channel (MOTHER bridge).
+- [ ] The 3D glass cockpit (after the above): panels as live textures, the window as the main view.
+
