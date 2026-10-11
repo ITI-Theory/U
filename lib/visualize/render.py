@@ -977,6 +977,62 @@ def draw_process_diagram(spec: Spec):
     return fig
 
 
+def draw_data_points(spec: Spec):
+    """Tabulated data from the text as points: points="x:y, x:y" (optional yerr= in the same
+    order, names= labels), optionally a least-squares fit (fit=linear|exp) or a model
+    curve f(x) from the text to compare; logx/logy as for function plots."""
+    pts = []
+    for part in split_top(spec.need("points")):
+        x, sep, y = part.partition(":")
+        if not sep:
+            raise SpecError(f"data-points: {part!r} must be x:y")
+        pts.append((number(x), number(y)))
+    if len(pts) < 2:
+        raise SpecError("data-points needs at least two points")
+    xs = np.array([p[0] for p in pts])
+    ys = np.array([p[1] for p in pts])
+    yerr = numbers(spec.get("yerr", ""))
+    if yerr and len(yerr) != len(pts):
+        raise SpecError(f"yerr: {len(yerr)} values for {len(pts)} points")
+    names = [s.strip() for s in split_top(spec.get("names", ""))]
+    fig, ax = spec.axes()
+    logx, logy = flag(spec.p, "logx"), flag(spec.p, "logy")
+    spec.used.update({"logx", "logy"})
+    c0 = spec.colors[0]
+    ax.errorbar(xs, ys, yerr=yerr or None, fmt="o", color=c0, ms=5, capsize=3, lw=1, label=spec.get("name", "data"))
+    for i, n in enumerate(names):
+        if i < len(pts) and n:
+            ax.annotate(n, (xs[i], ys[i]), textcoords="offset points", xytext=(5, 5), fontsize=8, color="0.3")
+    grid = np.logspace(np.log10(xs.min()), np.log10(xs.max()), 300) if logx else np.linspace(xs.min(), xs.max(), 300)
+    fit = spec.get("fit", "none")
+    if fit not in ("none", "linear", "exp"):
+        raise SpecError("fit must be none, linear or exp")
+    if fit == "linear":
+        slope, icpt = np.polyfit(xs, ys, 1)
+        ax.plot(grid, slope * grid + icpt, color=spec.colors[1], lw=1.4, label=f"fit: slope {slope:.3g}")
+        spec.expect("expect_slope", float(slope))
+        spec.expect("expect_intercept", float(icpt))
+    elif fit == "exp":
+        if (ys <= 0).any():
+            raise SpecError("fit=exp needs positive y values")
+        rate, lna = np.polyfit(xs, np.log(ys), 1)
+        ax.plot(grid, np.exp(lna) * np.exp(rate * grid), color=spec.colors[1], lw=1.4, label=f"fit: $e^{{{rate:.3g}x}}$")
+        spec.expect("expect_slope", float(rate))
+    if spec.get("f"):
+        model = compile_expr(spec.get("f"), spec.names("x"))
+        ax.plot(grid, as_array(model({**spec.scalars(), "x": grid}), grid), color=spec.colors[2], lw=1.4, ls="--",
+                label=spec.get("f_name", "model"))
+    spec.expect("expect_n", float(len(pts)))
+    if logx:
+        ax.set_xscale("log")
+    if logy:
+        ax.set_yscale("log")
+    reference_lines(spec, ax)
+    spec.labels(ax, "$x$", "$y$")
+    place_legend(spec, ax)
+    return fig
+
+
 DRAW = {
     "function-plot": draw_function_plot, "area-under": draw_area_under,
     "log-scale": draw_log_scale, "complex-plane": draw_complex_plane,
@@ -985,6 +1041,7 @@ DRAW = {
     "distribution": draw_distribution, "spectrum": draw_spectrum, "convolution": draw_convolution,
     "flock": draw_flock, "type-decomposition": draw_type_decomposition,
     "matrix-heatmap": draw_matrix_heatmap, "process-diagram": draw_process_diagram,
+    "data-points": draw_data_points,
 }
 
 

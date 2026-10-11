@@ -1949,6 +1949,10 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       to the skipped equations (coupling matrices, the abduction loop,
       Black-Scholes) and onward to five not-yet-marked papers; see the
       "Mark up the papers" note above.
+- [x] (11 Oct 02:40) New primitive `data-points`: tabulated numbers from the text as
+      points (error bars, labels), a least-squares fit (linear or exponential) or the
+      text's own model curve to compare; checks `expect_slope`, `expect_intercept`,
+      `expect_n`. For the (barrier, T*) table and other small datasets.
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
