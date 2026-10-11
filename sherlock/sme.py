@@ -1,6 +1,7 @@
 """Sherlock's structure mapping: a small SME over relational descriptions (ISS-063).
 
     python sherlock/sme.py zsf-double-wells      # registry/analogies/<id>.yaml
+    python sherlock/sme.py path/to/analogy.yaml  # any analogy file (e.g. a private one)
 
 Structure-Mapping Engine after Falkenhainer, Forbus & Gentner (1989):
 match hypotheses pair base and target expressions with the same predicate
@@ -130,7 +131,9 @@ def main() -> int:
     if len(sys.argv) != 2:
         print(__doc__)
         return 2
-    an = yaml.safe_load((U / "registry" / "analogies" / f"{sys.argv[1]}.yaml").read_text(encoding="utf-8"))
+    arg = Path(sys.argv[1])  # an id in registry/analogies, or a file (private analogies live outside U)
+    src = arg if arg.suffix in (".yaml", ".yml") and arg.exists() else U / "registry" / "analogies" / f"{arg}.yaml"
+    an = yaml.safe_load(src.read_text(encoding="utf-8"))
     base = [parse(f["s"]) for f in an["base"]["facts"]]
     target = [parse(f["s"]) for f in an["target"]["facts"]]
     emap, chosen, total, inferences = sme(base, target)
@@ -148,7 +151,8 @@ def main() -> int:
     unmatched_t = [t for t in target if t not in matched_t]
     out += ["", "## Target facts with no base counterpart", ""] + [f"- {show(t)}" for t in unmatched_t]
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / f"sme-{an['id']}.md").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
+    dest = src.with_suffix(".sme.md") if not src.is_relative_to(U) else OUT / f"sme-{an['id']}.md"
+    dest.write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
     print("\n".join(out))
     return 0
 
