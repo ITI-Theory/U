@@ -252,6 +252,8 @@ emotion is a quantum particle.
 
 $$G(\omega) = \frac{1}{\omega^2 - m^2 + i\epsilon}$$
 
+{{Visualize | five-co-identifications | complex-plane:quantum | points="m - 0.05*j, -m + 0.05*j"; names="omega=+m,omega=-m"; poles=true; m=1 }} The two poles of the propagator above, at an illustrative mass/correlation parameter $m=1$: the Feynman $i\epsilon$ prescription moves them slightly off the real $\omega$-axis (shift exaggerated here for visibility).
+
 In the formal analogy, a threshold parameter plays a role comparable to a mass/correlation parameter in the propagator. Conscious perception is an open biological interpretation.
 
 **Co-identification 3: The brane identification.**
