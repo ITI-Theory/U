@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 2 (Nuclear (10^-15 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-2
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "2"
+name: "Nuclear (10^-15 m)"
+facts:
+  - {s: (obeysMasterEquation NuclearField), line: 428}
+  - {s: (wavenumberSetBy NuclearField PionMass), line: 428}
+  - {s: (boundaryOf ConfinementRadius NuclearField), line: 429}
+  - {s: (substrateOf QuarksGluonsNuclei NuclearField), line: 431}
+  - {s: (propagatorOf YukawaKernel NuclearField), line: 435}
+  - {s: (finiteRange YukawaKernel), line: 436}
+  - {s: (limitOf CoulombPropagator YukawaKernel), line: 436}
+  - {s: (mindMatrixOf NuclearSMatrix NuclearField), line: 440}
+  - {s: (eigenmodesOf NuclearEnergyLevels YukawaKernel), line: 440}
+proposed: {}

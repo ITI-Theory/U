@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 14 (Black Holes and Compact Objects (10^3-10^10 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-14
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "14"
+name: "Black Holes and Compact Objects (10^3-10^10 m)"
+facts:
+  - {s: (obeysMasterEquation BlackHoleField), line: 700}
+  - {s: (wavenumberSetBy BlackHoleField ISCOFrequency), line: 700}
+  - {s: (boundaryOf EventHorizon BlackHoleField), line: 701}
+  - {s: (substrateOf CompactObjects BlackHoleField), line: 703}
+  - {s: (propagatorOf QuasiNormalModes BlackHoleField), line: 706}
+  - {s: (oscillatoryRegime BlackHoleField), line: 707}
+  - {s: (impulseResponseOf QuasiNormalModes CurvedSpacetime), line: 709}
+  - {s: (mindMatrixOf BlackHoleThermodynamicState BlackHoleField), line: 711}
+  - {s: (storesPatterns BekensteinHawkingEntropy EntropyBits), line: 711}
+proposed: {}

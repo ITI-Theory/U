@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 17-18 (Large-Scale Structure (10^23-10^24 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-17-18
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "17-18"
+name: "Large-Scale Structure (10^23-10^24 m)"
+facts:
+  - {s: (obeysMasterEquation LargeScaleStructureField), line: 738}
+  - {s: (wavenumberSetBy LargeScaleStructureField BAOScale), line: 738}
+  - {s: (substrateOf GalaxyClustersFilamentsVoids LargeScaleStructureField), line: 741}
+  - {s: (substrateOf BaryonPhotonFluid LargeScaleStructureField), line: 742}
+  - {s: (propagatorOf BAOKernel LargeScaleStructureField), line: 745}
+  - {s: (impulseResponseOf BAOKernel PrimordialPlasma), line: 745}
+  - {s: (storesPatterns MatterDistribution BAOImprint), line: 746}
+  - {s: (enables BAOKernel StandardRuler), line: 747}
+  - {s: (mindMatrixOf CosmicWebTopology LargeScaleStructureField), line: 750}
+proposed: {}

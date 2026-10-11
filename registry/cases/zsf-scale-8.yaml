@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 8 (Animal Swarms (10^0-10^1 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-8
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "8"
+name: "Animal Swarms (10^0-10^1 m)"
+facts:
+  - {s: (obeysMasterEquation SwarmField), line: 576}
+  - {s: (wavenumberSetBy SwarmField AlignmentRadius), line: 576}
+  - {s: (substrateOf DiscreteAgents SwarmField), line: 579}
+  - {s: (alignsWith DiscreteAgents LocalNeighbours), line: 579}
+  - {s: (propagatorOf ActiveMatterVelocityField SwarmField), line: 582}
+  - {s: (causes LocalInteractions GlobalFormation), line: 584}
+  - {s: (enables GreenFunctionStructure SingleMatrixVectorProduct), line: 589}
+  - {s: (causes SingleMatrixVectorProduct ReducedCoordinationCost), line: 587}
+  - {s: (enables KEqualsOne JamResistance), line: 591}
+proposed: {}

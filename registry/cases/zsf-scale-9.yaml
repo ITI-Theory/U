@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 9 (Society / City (10^3 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-9
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "9"
+name: "Society / City (10^3 m)"
+facts:
+  - {s: (obeysMasterEquation SocietyField), line: 599}
+  - {s: (wavenumberSetBy SocietyField InteractionRadius), line: 599}
+  - {s: (substrateOf UrbanInfrastructure SocietyField), line: 602}
+  - {s: (couples CityCouplingNetwork PopulationDistribution), line: 602}
+  - {s: (propagatorOf SocialInteractionKernel SocietyField), line: 605}
+  - {s: (causes SocialGreensFunction StructuralContagionWave), line: 606}
+  - {s: (mindMatrixOf CulturalAttractors SocietyField), line: 611}
+  - {s: (attractorIn LanguageVariants CulturalAttractors), line: 612}
+  - {s: (boundaryOf GeographicBoundaryConditions SocietyField), line: 613}
+proposed: {}

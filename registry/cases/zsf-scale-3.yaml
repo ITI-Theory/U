@@ -1,0 +1,19 @@
+# P11 catalogue, Scale 3 (Atomic (10^-10 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-3
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "3"
+name: "Atomic (10^-10 m)"
+facts:
+  - {s: (obeysMasterEquation AtomicField), line: 451}
+  - {s: (wavenumberSetBy AtomicField ElectronEnergy), line: 451}
+  - {s: (boundaryOf MolecularOrbitalExtent AtomicField), line: 451}
+  - {s: (staticRegime AtomicField), line: 452}
+  - {s: (substrateOf AtomsOrbitalsBonds AtomicField), line: 454}
+  - {s: (propagatorOf CoulombKernel AtomicField), line: 457}
+  - {s: (inverseRDecay CoulombKernel), line: 457}
+  - {s: (infiniteRange CoulombKernel), line: 458}
+  - {s: (eigenmodesOf AtomicOrbitals CoulombKernel), line: 459}
+  - {s: (mindMatrixOf AtomicOrbitalBasis AtomicField), line: 465}
+  - {s: (barrierHeight AtomicAttractor IonisationEnergy), line: 466}
+proposed: {}

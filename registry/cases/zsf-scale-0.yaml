@@ -1,0 +1,15 @@
+# P11 catalogue, Scale 0 (Quantum Foam (10^-35 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-0
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "0"
+name: "Quantum Foam (10^-35 m)"
+facts:
+  - {s: (obeysMasterEquation QuantumFoamField), line: 376}
+  - {s: (wavenumberSetBy QuantumFoamField PlanckWavenumber), line: 376}
+  - {s: (boundaryOf PeriodicBoundary QuantumFoamField), line: 377}
+  - {s: (substrateOf DiscreteSpacetimeNodes QuantumFoamField), line: 380}
+  - {s: (propagatorOf GravitationalQuantumAmplitude QuantumFoamField), line: 384}
+  - {s: (mindMatrixOf QuantumSuperpositionState QuantumFoamField), line: 389}
+  - {s: (storesPatterns SMatrix ScatteringOutcomes), line: 389}
+proposed: {}

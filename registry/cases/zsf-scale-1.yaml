@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 1 (String Scale (10^-32 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-1
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "1"
+name: "String Scale (10^-32 m)"
+facts:
+  - {s: (obeysMasterEquation StringField), line: 399}
+  - {s: (wavenumberSetBy StringField StringLengthInverse), line: 399}
+  - {s: (boundaryOf StringBoundaryConditions StringField), line: 400}
+  - {s: (substrateOf StringWorldsheets StringField), line: 402}
+  - {s: (propagatorOf WorldsheetGreensFunction StringField), line: 405}
+  - {s: (eigenmodesOf VibrationalModes WorldsheetGreensFunction), line: 407}
+  - {s: (impulseResponseOf WorldsheetGreensFunction StringWorldsheet), line: 411}
+  - {s: (mindMatrixOf StringLandscape StringField), line: 417}
+  - {s: (attractorIn UniverseVacuum StringLandscape), line: 418}
+proposed: {}

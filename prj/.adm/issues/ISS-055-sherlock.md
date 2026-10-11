@@ -104,6 +104,35 @@ the programme's own Lean.
   a model gets alone; a locally run model with Sherlock choosing what it sees
   (chain finder, the slice) is the comparison: retrieval by Lean, explanation
   by the model.
+- **D12. OpenCyc classes as Lean types** (11 Oct, spike: `sherlock/Types/Spike.lean`,
+  62 s). A thin typed layer over the same facts: `Inst m c` is collection `c` as a
+  Lean type (the terms microtheory `m` says are its instances, each with its
+  proof); `genls` gives a coercion (`Inst.up`); `disjointWith` gives
+  `Inst.apart` (one term with both types is `Holds m .falsum`, so no coercion
+  between disjoint types can be added consistently). On P11: with
+  `Percept := Inst Z "Perceiving"` and `Pole := Inst Z "MathematicalObject"`, a
+  function about poles applied to a percept is rejected by the compiler
+  ("Application type mismatch: has type Percept but is expected to have type
+  Pole"); the correspondence reading (`occursAt q p`) type-checks; and
+  `no_percept_is_a_pole` is proved. A category error becomes a type error in
+  the formal parts; prose is still the affidavits' job.
+  **Open for the author: how the programme's Lean gets the types.** (a) The
+  programme's Lean imports Sherlock's KB: exact, but every programme build
+  then loads UniversalVocabularyMt (about a minute and several GB per
+  process). (b) Recommended: a generated slice: `make -C sherlock types`
+  writes a small standalone module (the concept registry's classes as types,
+  the `genls` coercions the chain finder found, the disjointness facts between
+  them, as axioms), and Sherlock certifies in its own build that each axiom is
+  a theorem of the full KB. Programme builds stay light, and the axioms are
+  checked, not trusted. Then: the concept registry's classes become types; the
+  app's type guard reads the generated table (which coercions exist).
+  **Decided (author, 11 Oct 22:00): (a), the full KB, slice first.** The author's
+  working method for big ontology files: take a small slice (the first few
+  hundred lines), fix its errors, widen it, and only then run the whole. So:
+  the generated slice (b) is the development loop (seconds per run), and the
+  release imports the full KB, where the slice's axioms become theorems proved
+  by the chain finder. Already the pattern elsewhere: `MT=...` in `lean-gen`,
+  8,000-fact parts, the spike importing one microtheory.
 
 ## The end-to-end slice (author, 11 Oct: "the red way")
 

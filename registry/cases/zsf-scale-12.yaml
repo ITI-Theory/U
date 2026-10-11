@@ -1,0 +1,17 @@
+# P11 catalogue, Scale 12 (Orbital (10^9 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-12
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "12"
+name: "Orbital (10^9 m)"
+facts:
+  - {s: (obeysMasterEquation OrbitalField), line: 662}
+  - {s: (staticRegime OrbitalField), line: 662}
+  - {s: (wavenumberSetBy OrbitalField NewtonianGravity), line: 662}
+  - {s: (substrateOf PlanetaryLunarOrbits OrbitalField), line: 665}
+  - {s: (propagatorOf GravitationalCoulombKernel OrbitalField), line: 669}
+  - {s: (inverseRDecay GravitationalCoulombKernel), line: 669}
+  - {s: (infiniteRange GravitationalCoulombKernel), line: 662}
+  - {s: (mindMatrixOf OrbitalResonanceStructure OrbitalField), line: 674}
+  - {s: (eigenmodesOf MeanMotionResonances GravitationalCoulombKernel), line: 674}
+proposed: {}

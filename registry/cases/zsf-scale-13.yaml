@@ -1,0 +1,16 @@
+# P11 catalogue, Scale 13 (Stellar (10^11 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-13
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "13"
+name: "Stellar (10^11 m)"
+facts:
+  - {s: (obeysMasterEquation StellarField), line: 682}
+  - {s: (wavenumberSetBy StellarField SoundSpeed), line: 682}
+  - {s: (boundaryOf RadiationPressureGravity StellarField), line: 685}
+  - {s: (substrateOf ThermonuclearPlasma StellarField), line: 685}
+  - {s: (propagatorOf HelioseismicGreensFunction StellarField), line: 688}
+  - {s: (eigenmodesOf AcousticModes HelioseismicGreensFunction), line: 689}
+  - {s: (mindMatrixOf StellarOscillationSpectrum StellarField), line: 692}
+  - {s: (storesPatterns StellarOscillationSpectrum InteriorStructure), line: 692}
+proposed: {}

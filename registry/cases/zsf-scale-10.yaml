@@ -1,0 +1,16 @@
+# P11 catalogue, Scale 10 (Geological (10^5 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-10
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "10"
+name: "Geological (10^5 m)"
+facts:
+  - {s: (obeysMasterEquation GeologicalField), line: 621}
+  - {s: (wavenumberSetBy GeologicalField PWaveVelocity), line: 621}
+  - {s: (boundaryOf CrustalMohoFreeSurface GeologicalField), line: 622}
+  - {s: (substrateOf TectonicPlates GeologicalField), line: 624}
+  - {s: (propagatorOf SeismicGreensFunction GeologicalField), line: 630}
+  - {s: (eigenmodesOf EarthNormalModes SeismicGreensFunction), line: 631}
+  - {s: (mindMatrixOf CrustalStressTensor GeologicalField), line: 634}
+  - {s: (storesPatterns GeologicalMemory CollisionHistory), line: 635}
+proposed: {}

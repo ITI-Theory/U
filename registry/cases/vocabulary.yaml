@@ -1,0 +1,47 @@
+# Sherlock's case vocabulary (ISS-063): the predicates a case in registry/cases may use.
+# Structure mapping matches only identical predicates, so the same structure must be
+# written with the same predicate in every case, whatever the scale or the paper. A
+# property worth matching is a predicate (inverseRDecay ?p), not a constant argument.
+# Entities (the arguments) are free names local to their case; the mapping pairs them.
+# A case may use a predicate not listed here only under `proposed:` in its own file
+# (the validator warns); a reviewed proposal moves here. arity: argument count.
+# A document's own sameness claims ("identical in structure") are never facts of a
+# case: they are what the tests (registry/cases/tests.yaml) check.
+predicates:
+  # the master equation and its propagator (P11 equation 1)
+  obeysMasterEquation: {arity: 1, gloss: "field ?f obeys (nabla^2 + k^2) G = delta (P11 eq. 1)"}
+  staticRegime: {arity: 1, gloss: "field ?f is the k = 0 case of the master equation"}
+  oscillatoryRegime: {arity: 1, gloss: "field ?f has real k > 0 (waves)"}
+  evanescentRegime: {arity: 1, gloss: "field ?f has imaginary k (decay, e.g. the cable equation)"}
+  wavenumberSetBy: {arity: 2, gloss: "the wavenumber of field ?f is set by quantity ?q"}
+  boundaryOf: {arity: 2, gloss: "?b is the boundary condition of field ?f"}
+  substrateOf: {arity: 2, gloss: "?s is the physical substrate carrying field ?f"}
+  propagatorOf: {arity: 2, gloss: "?g is the propagator (Green's function) of field ?f"}
+  inverseRDecay: {arity: 1, gloss: "propagator ?g falls off as 1/r"}
+  infiniteRange: {arity: 1, gloss: "propagator ?g has infinite range (massless carrier)"}
+  finiteRange: {arity: 1, gloss: "propagator ?g has a finite range or screening length"}
+  eigenmodesOf: {arity: 2, gloss: "?m are the eigenmodes (resonances) of propagator ?g"}
+  impulseResponseOf: {arity: 2, gloss: "propagator ?g is the impulse response of system ?s"}
+  feedsBackOn: {arity: 2, gloss: "field ?f acts back on ?x (a self-modulating propagator)"}
+  # the mind matrix: state space, landscape, attractors (P11 catalogue; P1, P13)
+  mindMatrixOf: {arity: 2, gloss: "?m is the mind matrix (state space) at the scale of field ?f"}
+  energyLandscapeOf: {arity: 2, gloss: "?l is the energy landscape over state space ?m"}
+  attractorIn: {arity: 2, gloss: "?a is an attractor (basin, minimum) in landscape ?l"}
+  doubleWell: {arity: 1, gloss: "potential ?v has two minima and a barrier (W (x^2-1)^2)"}
+  barrierHeight: {arity: 2, gloss: "potential ?v has barrier height ?w"}
+  storesPatterns: {arity: 2, gloss: "matrix ?m stores patterns ?p as minima (Hopfield)"}
+  minimisesOn: {arity: 2, gloss: "process ?p minimises energy on landscape ?l"}
+  attractorTransitionIn: {arity: 2, gloss: "?t is a transition between attractors of ?l"}
+  tunnelsThrough: {arity: 2, gloss: "process ?p crosses the barrier of ?v by tunnelling"}
+  trapsUnder: {arity: 2, gloss: "landscape ?v traps the state under dynamics ?d (no escape)"}
+  thresholdOf: {arity: 2, gloss: "?t is a threshold above which ?x appears (a phase transition)"}
+  # coupling and collective dynamics (P9, P10, P19, P17)
+  couples: {arity: 2, gloss: "?x is coupled to ?y"}
+  synchronises: {arity: 2, gloss: "coupling ?c brings oscillators ?o into step (Kuramoto)"}
+  oscillatorsIn: {arity: 2, gloss: "?o are oscillators in system ?s"}
+  alignsWith: {arity: 2, gloss: "agent ?a aligns its heading with neighbours ?n (Vicsek)"}
+  orderParameterOf: {arity: 2, gloss: "?r is the order parameter of collective ?c"}
+  # higher-order relations (systematicity: these carry the structure)
+  causes: {arity: 2, gloss: "event or state ?x causes ?y"}
+  enables: {arity: 2, gloss: "?x makes ?y possible without forcing it"}
+  limitOf: {arity: 2, gloss: "?x is a limiting case of ?y"}

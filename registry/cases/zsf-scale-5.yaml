@@ -1,0 +1,20 @@
+# P11 catalogue, Scale 5 (Cellular / Neural (10^-6 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-5
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "5"
+name: "Cellular / Neural (10^-6 m)"
+facts:
+  - {s: (obeysMasterEquation NeuralField), line: 505}
+  - {s: (wavenumberSetBy NeuralField AxonSpaceConstant), line: 501}
+  - {s: (evanescentRegime NeuralField), line: 506}
+  - {s: (substrateOf NeuronsSynapsesAxons NeuralField), line: 504}
+  - {s: (propagatorOf SynapticTransferFunction NeuralField), line: 508}
+  - {s: (impulseResponseOf SynapticTransferFunction SynapticSystem), line: 508}
+  - {s: (couples EphapticCoupling NeuralElectricField), line: 510}
+  - {s: (mindMatrixOf SynapticWeightMatrix NeuralField), line: 513}
+  - {s: (energyLandscapeOf HopfieldEnergyLandscape SynapticWeightMatrix), line: 514}
+  - {s: (storesPatterns SynapticWeightMatrix StoredMemories), line: 513}
+  - {s: (attractorIn StoredMemories HopfieldEnergyLandscape), line: 514}
+  - {s: (causes (tunnelsThrough QuantumAnnealing TraumaAttractorBarrier) TraumaEscape), line: 518}
+proposed: {}

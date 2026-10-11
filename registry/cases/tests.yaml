@@ -1,0 +1,46 @@
+tests:
+  - id: zsf-scale-0-string-scale
+    document: P11
+    line: 387
+    quote: 'worldsheet SHO is G evaluated at the string scale (Scale 1)'
+    pairs: [[zsf-scale-0, zsf-scale-1]]
+  - id: zsf-scale-0-coarse-grained
+    document: P11
+    line: 393
+    quote: 'Every subsequent scale is this equation, coarse-grained.'
+    cases: [zsf-scale-0, zsf-scale-1, zsf-scale-2, zsf-scale-3, zsf-scale-4, zsf-scale-5, zsf-scale-6, zsf-scale-7, zsf-scale-8, zsf-scale-9, zsf-scale-10, zsf-scale-11, zsf-scale-12, zsf-scale-13, zsf-scale-14, zsf-scale-15-16, zsf-scale-17-18, zsf-scale-19-20]
+  - id: zsf-yukawa-coulomb-2-3
+    document: P11
+    line: 437
+    quote: 'recovers the Coulomb propagator of Scale 3'
+    pairs: [[zsf-scale-2, zsf-scale-3]]
+  - id: zsf-same-as-always-3-20
+    document: P11
+    line: 468
+    quote: 'The $1/r$ dependence of $G_\text{EM}$ at atomic scale'
+    pairs: [[zsf-scale-3, zsf-scale-19-20]]
+  - id: zsf-double-well-4-6
+    document: P11
+    line: 493
+    quote: 'is identical in structure to the limbic'
+    pairs: [[zsf-scale-4, zsf-limbic-double-well]]
+  - id: zsf-swarm-preceding-scales
+    document: P11
+    line: 585
+    quote: 'same Green''s function structure as all preceding scales'
+    pairs: [[zsf-scale-8, zsf-scale-0], [zsf-scale-8, zsf-scale-1], [zsf-scale-8, zsf-scale-2], [zsf-scale-8, zsf-scale-3], [zsf-scale-8, zsf-scale-4], [zsf-scale-8, zsf-scale-5], [zsf-scale-8, zsf-scale-6], [zsf-scale-8, zsf-scale-7]]
+  - id: zsf-orbital-coulomb-12-3
+    document: P11
+    line: 670
+    quote: 'same $1/r$ form as the electromagnetic Coulomb kernel of Scale 3'
+    pairs: [[zsf-scale-12, zsf-scale-3]]
+  - id: zsf-same-as-always-19-20
+    document: P11
+    line: 778
+    quote: 'identical to the Coulomb propagator at Scale 3'
+    pairs: [[zsf-scale-19-20, zsf-scale-3], [zsf-scale-19-20, zsf-scale-5]]
+  - id: zsf-same-equation-all-scales-12-1
+    document: P11
+    line: 1104
+    quote: 'same equation governs propagation at all scales'
+    cases: [zsf-scale-0, zsf-scale-1, zsf-scale-2, zsf-scale-3, zsf-scale-4, zsf-scale-5, zsf-scale-6, zsf-scale-7, zsf-scale-8, zsf-scale-9, zsf-scale-10, zsf-scale-11, zsf-scale-12, zsf-scale-13, zsf-scale-14, zsf-scale-15-16, zsf-scale-17-18, zsf-scale-19-20]

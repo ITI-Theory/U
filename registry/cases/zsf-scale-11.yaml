@@ -1,0 +1,18 @@
+# P11 catalogue, Scale 11 (Planetary (10^6 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-11
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "11"
+name: "Planetary (10^6 m)"
+facts:
+  - {s: (obeysMasterEquation PlanetaryField), line: 643}
+  - {s: (wavenumberSetBy PlanetaryField ConvectionWavelengths), line: 643}
+  - {s: (substrateOf MantleCore PlanetaryField), line: 646}
+  - {s: (propagatorOf ThermodynamicConvectionKernel PlanetaryField), line: 650}
+  - {s: (propagatorOf SeismicTomographyGreensFunction EarthInteriorField), line: 650}
+  - {s: (mindMatrixOf ClimateSystem PlanetaryField), line: 653}
+  - {s: (energyLandscapeOf IceAgeAttractorSequence ClimateSystem), line: 653}
+  - {s: (attractorIn GlacialAttractor IceAgeAttractorSequence), line: 654}
+  - {s: (attractorIn InterglacialAttractor IceAgeAttractorSequence), line: 655}
+  - {s: (causes OrbitalForcing ClimateBifurcation), line: 655}
+proposed: {}

@@ -1,0 +1,15 @@
+# P11 catalogue, Scale 19-20 (Observable Universe (10^26 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-19-20
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "19-20"
+name: "Observable Universe (10^26 m)"
+facts:
+  - {s: (obeysMasterEquation ObservableUniverseField), line: 757}
+  - {s: (wavenumberSetBy ObservableUniverseField GravitationalWaveFrequency), line: 757}
+  - {s: (substrateOf ObservableUniverse ObservableUniverseField), line: 760}
+  - {s: (propagatorOf GravitationalWavePropagator ObservableUniverseField), line: 764}
+  - {s: (impulseResponseOf GravitationalWavePropagator MetricField), line: 767}
+  - {s: (mindMatrixOf GlobalCosmologicalState ObservableUniverseField), line: 771}
+  - {s: (thresholdOf CosmicConsciousnessThreshold UniversalConsciousness), line: 771}
+proposed: {}

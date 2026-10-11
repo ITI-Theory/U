@@ -1,0 +1,19 @@
+# P11 catalogue, Scale 6 (Brain / CEMI Field (10^-1 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-6
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "6"
+name: "Brain / CEMI Field (10^-1 m)"
+facts:
+  - {s: (obeysMasterEquation BrainField), line: 531}
+  - {s: (wavenumberSetBy BrainField GammaBand), line: 531}
+  - {s: (substrateOf CortexNeuronsSynapses BrainField), line: 535}
+  - {s: (propagatorOf CEMIField BrainField), line: 538}
+  - {s: (causes SynchronisedNeuralFiring CEMIField), line: 540}
+  - {s: (feedsBackOn CEMIField NeuronalFiringThresholds), line: 542}
+  - {s: (mindMatrixOf AwarenessAssociativeMemory BrainField), line: 545}
+  - {s: (energyLandscapeOf HopfieldEnergyLandscape AwarenessAssociativeMemory), line: 545}
+  - {s: (attractorIn TraumaticConfigurations HopfieldEnergyLandscape), line: 546}
+  - {s: (couples FMHNArchitecture LimbicField), line: 547}
+  - {s: (thresholdOf ConsciousnessThreshold Awareness), line: 549}
+proposed: {}

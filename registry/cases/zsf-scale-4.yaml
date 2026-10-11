@@ -1,0 +1,21 @@
+# P11 catalogue, Scale 4 (Molecular (10^-9 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-4
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "4"
+name: "Molecular (10^-9 m)"
+facts:
+  - {s: (obeysMasterEquation MolecularField), line: 476}
+  - {s: (wavenumberSetBy MolecularField BondEnergy), line: 476}
+  - {s: (boundaryOf NuclearGeometry MolecularField), line: 476}
+  - {s: (substrateOf ChemicalBonds MolecularField), line: 479}
+  - {s: (propagatorOf SchrodingerGreensFunction MolecularField), line: 483}
+  - {s: (eigenmodesOf MolecularOrbitals SchrodingerGreensFunction), line: 484}
+  - {s: (mindMatrixOf ConformationalSpace MolecularField), line: 487}
+  - {s: (energyLandscapeOf MolecularAttractorLandscape ConformationalSpace), line: 488}
+  - {s: (minimisesOn ProteinFolding MolecularAttractorLandscape), line: 488}
+  - {s: (attractorTransitionIn ConformationalTransition MolecularAttractorLandscape), line: 489}
+  - {s: (causes (attractorTransitionIn ConformationalTransition MolecularAttractorLandscape) VisionOnset), line: 489}
+  - {s: (doubleWell MolecularConformationPotential), line: 492}
+  - {s: (barrierHeight MolecularConformationPotential WMol), line: 493}
+proposed: {}

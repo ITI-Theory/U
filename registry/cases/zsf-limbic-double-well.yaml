@@ -1,0 +1,19 @@
+# P11, the limbic double well (sections 3.3 and 6.3): the referent of Scale 4's "same as
+# always" claim ("the limbic double-well (Scale 6, W of about 10)"), which the Scale 6
+# catalogue section itself does not describe. Facts in the shared vocabulary, each with its line.
+id: zsf-limbic-double-well
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "6"
+name: "Limbic double well (sections 3.3, 6.3)"
+facts:
+  - {s: (doubleWell LimbicPotential), line: 276}
+  - {s: (barrierHeight LimbicPotential BarrierW), line: 282}
+  - {s: (attractorIn SomaticAttractor LimbicPotential), line: 282}
+  - {s: (attractorIn CorticalAttractor LimbicPotential), line: 282}
+  - {s: (attractorIn TraumaAttractor LimbicPotential), line: 283}
+  - {s: (trapsUnder LimbicPotential ClassicalGradientDescent), line: 846}
+  - {s: (tunnelsThrough QuantumTunnelling LimbicPotential), line: 854}
+  - {s: (attractorTransitionIn TunnellingTransition LimbicPotential), line: 854}
+  - {s: (causes (tunnelsThrough QuantumAnnealing LimbicPotential) AweBasinReached), line: 861}
+proposed: {}

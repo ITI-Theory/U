@@ -1,0 +1,16 @@
+# P11 catalogue, Scale 15-16 (Galactic (10^20-10^22 m)). Facts in the shared vocabulary, each with its line.
+id: zsf-scale-15-16
+document: P11
+source: {file: paper/soma/zoomable-somatic-field/zoomable-somatic-field.md, commit: 3c97a44, sha256: 79536841bf2e51c9f9eb849bea362de6fb8ec7ff57c0b289ed3eb24d17de0022}
+scale: "15-16"
+name: "Galactic (10^20-10^22 m)"
+facts:
+  - {s: (obeysMasterEquation GalacticField), line: 719}
+  - {s: (wavenumberSetBy GalacticField SpiralArmHalfWavelength), line: 719}
+  - {s: (substrateOf StellarPopulations GalacticField), line: 722}
+  - {s: (propagatorOf DensityWaveKernel GalacticField), line: 725}
+  - {s: (causes DensityWaves SpiralArms), line: 725}
+  - {s: (eigenmodesOf StablePatternSpeeds DensityWaveKernel), line: 727}
+  - {s: (mindMatrixOf GalacticKinematics GalacticField), line: 730}
+  - {s: (storesPatterns RotationCurve MassDistribution), line: 731}
+proposed: {}
