@@ -1,0 +1,215 @@
+# Sherlock affidavit (DRAFT): The Universal Somatic Field (P20). Schema: sherlock/registry.py.
+id: universal-somatic-field
+document: P20
+title: "The Universal Somatic Field: Green's Functions as Scale-Invariant Oscillators across Twenty Scale Levels"
+source:
+  file: paper/soma/universal-somatic-field/universal-somatic-field.md
+  commit: 401efc1
+  sha256: e11b7d4fb63338b33df0591088ad60661685219441391a46a13ea57f3d03a067
+lean: []
+microtheories: {}
+claims:
+  - id: U1
+    quote: '| 8 | Organism | Body | Somatic EMF (full USF) |'
+    lines: [199, 200, 201, 565, 566, 567]
+    kind: cross-paper
+    finding: >-
+      P11's own 20-scale catalogue names Scale 6 Brain/CEMI Field, Scale 7
+      Organism and Scale 8 Animal Swarms; P20's dial and its correspondence
+      list restate the same three substrates shifted up by one index each
+      (Brain=7, Organism=8, Swarm=9), a one-step scale-index disagreement
+      between the two companion papers that share this catalogue.
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [7, 6, 1]}, {template: diff, args: [8, 7, 1]},
+            {template: diff, args: [9, 8, 1]}]
+    disposition: open
+  - id: U2
+    quote: '$$M_{11} = \underbrace{M_4}_{\text{Spacetime}} \times \underbrace{P_3}_{\text{Propagator}} \times \underbrace{L_1}_{\text{Limbic}} \times \underbrace{C_3}_{\text{Cortex}}$$'
+    lines: [140, 142]
+    kind: internal-arithmetic
+    finding: the four subspace dimensions 4+3+1+3 add up to 11, as the prose claims ("add up to 11")
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 3, 1, 3, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+    disposition: none
+  - id: U3
+    quote: '$$X_7 = P_3 \times L_1 \times C_3$$'
+    lines: [152, 154]
+    kind: internal-arithmetic
+    finding: the compact internal space dimensions 3+1+3 sum to 7, matching the caption's "3+1+3=7 (checked)"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [3, 1, 3, 7]}]
+    values:
+      - {quantity: USF-CompactDimensionCount, value: 7}
+    disposition: none
+  - id: U4
+    quote: 4 + 7 = 11 (both totals checked)
+    lines: [160]
+    kind: internal-arithmetic
+    finding: spacetime (4) plus the compact 7-space X7 sum to the stated 11 total, as the isomorphism figure asserts
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 7, 11]}]
+    disposition: none
+  - id: U5
+    quote: Twenty Scale Levels
+    lines: [2, 191, 196, 205, 592]
+    kind: internal-count
+    finding: >-
+      the dial's own indices run 0 to 19 inclusive (19+1=20 levels), matching
+      the title's "Twenty Scale Levels", the "20-step scale hierarchy" and
+      "20 scales of physical reality"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [19, 1, 20]}]
+    values:
+      - {quantity: USF-ScaleLevelCount, value: 20}
+    disposition: none
+  - id: U6
+    quote: '| Scale | Level | Substrate | Green''s function role |'
+    lines: [195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205]
+    kind: internal-arithmetic
+    finding: the ten sampled scale indices printed in the 20-Scale Dial table (0,2,5,7,8,9,11,12,15,19) are strictly increasing, consistent with the stated 0-19 range
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0, 2, 5, 7, 8, 9, 11, 12, 15, 19]}]
+    disposition: none
+  - id: U7
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
+    quote: The fractions 7/11 and 3/11 follow exactly from the proposed dimensional partition
+    lines: [533, 534]
+    kind: cross-paper
+    finding: >-
+      with the compact X7=7 (lines 152-154) and the Limbic Axis L1=1
+      (lines 140-142) from this paper's own 11D partition, 7+3+1=11, so the
+      quoted 7/11 and 3/11 fractions plus the remaining 1/11 sum exactly to
+      1, matching the dark-energy/dark-matter fractions used in the
+      companion papers
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [7, 3, 1, 11]}, {template: sum, args: [7/11, 3/11, 1/11, 1]}]
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+      - {quantity: USF-DarkMatterFraction, value: 3/11}
+    disposition: none
+  - id: U8
+    quote: (Spacetime + Propagator + Limbic)
+    lines: [140, 142, 224]
+    kind: internal-arithmetic
+    finding: spacetime (4) plus propagator (3) plus limbic (1) sum to 8, matching the tier's own name "8D organism"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 3, 1, 8]}]
+    values:
+      - {quantity: USF-EightDOrganismDimension, value: 8}
+    disposition: none
+  - id: U9
+    quote: five companion files
+    lines: [404, 405, 407, 408, 409, 410, 411, 412, 413]
+    kind: internal-count
+    finding: the table immediately below lists exactly five files (LimbicTunnel, MTheoryIsomorphism, LimbicHopfield, SwarmPropagator, UniversalSomaticField), matching "five companion files"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-FormalisationFileCount, value: 5}
+    disposition: none
+  - id: U10
+    quote: five real sorries
+    lines: [424, 579]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the proof-surface sorry count (5) is restated unchanged near the end
+      of the paper ("still contains five real `sorry`s")
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-SorryCount, value: 5}
+    disposition: none
+  - id: U11
+    quote: '\mathbb{R}^8$ is a time-dependent vector in the'
+    lines: [452, 484, 488, 539]
+    kind: internal-count
+    finding: >-
+      the volitional source space is given as 8-dimensional three ways:
+      $\mathbb{R}^8$, the Lean `Field8` type used in the definitions, and
+      the "eight-channel BRECVEMA coupling matrix"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [8, 8]}]
+    values:
+      - {quantity: USF-BrecvemaDimensionCount, value: 8}
+    disposition: none
+
+# Claims not expressible with a check template (typing/category and Lean-status
+# candidates for a future sherlock/Affidavits/USF/*.lean; not entered as claims):
+#
+# TYPING: "A conscious percept is a resonance of the propagator, occurring
+#   when the excitation frequency matches the manifold's natural mode."
+#   (lines 294-296) - identifies a perceiving-event with a mathematical/
+#   physical resonance; the same identity-vs-correspondence slip flagged for
+#   P11's "pole in the propagator" claim.
+# TYPING: "not as a material loop in this account, but as a relational act:
+#   the substrate's impulse response" (line 59) - a string (normally a
+#   PhysicalObject/MathematicalObject) is re-typed as a relation/event.
+# TYPING: "are modelled as systems that have crossed the limbic threshold
+#   $T_c$" (line 396, of Hoffman's "conscious agents") - typing of an agent
+#   as a threshold-crossing predicate instance.
+# TYPING: "The universe is treated as a structural test case for the model's
+#   organism predicate." (lines 21, 68, 606) - types the observable universe
+#   as (a candidate instance of) Organism.
+# LEAN: "Lean status (`UniversalSomaticField.greens_fn_is_SHO`): the current
+#   Lean declaration is a placeholder theorem proving `True`, not a
+#   distributional proof of the SHO identity." (lines 104-107)
+# LEAN: "`universe_is_11D_organism` — a definition/witness of the model
+#   predicate, not cosmological evidence." (lines 418-419)
+# LEAN: "`cosmological_correspondence` — shows inhabited field-equation
+#   structure at scale 19, not a proof of linearised general relativity."
+#   (lines 420-421)
+# LEAN: "`sft_iso_modal_hott` and `sft_grounds_hoffman` — axioms/interpretive
+#   bridges." (line 422)
+# LEAN: "the current proof surface contains five real sorries plus axioms,
+#   definitions, imported theorem applications, and arithmetic." (line 424;
+#   ledger-checkable count against the five named Lean files)
+# LEAN: "The theorem that volitional update reduces to autonomous update
+#   when $J = 0$ is proved by `funext` and `simp`; it is true by definition
+#   of the update." (lines 492-494)
+  - id: U12
+    quote: Twenty Scale Levels
+    lines: [2]
+    kind: ledger
+    finding: the document lists axioms but never mentions quant_exp_1 and greens_achieves_minimum_energy, axioms of modules it cites (make -C sherlock ledger)
+    verdict: unclear
+    label: kernel-verified
+    lean: null
+    ledger: make -C sherlock ledger (bld/sherlock/ledger.md)
+    disposition: open
+  - id: U13
+    quote: 'Twenty Scale Levels'
+    lines: [2]
+    kind: cross-paper
+    finding: >-
+      twenty scale levels (0-19), where the programme's Lean has ScaleLevel := Fin 21
+      (UniversalSomaticField.lean) and P11 has 21 (0-20)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [20, 21]}]
+    disposition: open

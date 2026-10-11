@@ -1,0 +1,198 @@
+# Sherlock affidavit (DRAFT): G2 Symmetry Breaking in the Universal Somatic Field (P24).
+# Schema: sherlock/registry.py. All claims here are arithmetic on the paper's own
+# W_8 matrix, recomputed with Python (numpy for eigenvalues, Fraction for exact
+# rational checks) and verified before being written as `check:` templates.
+id: g2-symmetry-breaking
+document: P24
+title: "G2 Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal"
+source:
+  file: paper/soma/g2-symmetry-breaking/g2-symmetry-breaking.md
+  commit: 3c94873
+  sha256: 539d00a5ac9b4d8e507dd290b322185e24dd2f61fe12fa33bad4f5167911c26a
+lean: []
+microtheories: {}
+claims:
+  - id: G1
+    levels: [whole-brain-cemi]
+    quote: '\|W_8\|_F = 3.877'
+    lines: [109]
+    kind: internal-arithmetic
+    finding: >-
+      recomputing the Frobenius norm from the paper's own W_8 entries (diagonal
+      6/5, off-diagonal 3/10, 2/5, 1/2, 2/5, 3/5, 7/10, -2/5, -3/10, each
+      appearing symmetrically) gives sum-of-squares 376/25 = 15.04, so
+      ||W_8||_F = sqrt(15.04) = 3.878143886..., which rounds to 3.878, not the
+      stated 3.877 (||dW||_F = 1.876 is correct); a last-digit slip
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: diff, args: [3.878143886, 3.877, 0.001143886]}
+      - {template: rel-between, args: [3.878143886, 3.877, 0.0002, 0.0004]}
+    values:
+      - {quantity: G2Sym-W8FrobeniusNormStated, value: 3.877}
+      - {quantity: G2Sym-W8FrobeniusNormComputed, value: 3.878143886}
+    disposition: open
+  - id: G2
+    levels: [whole-brain-cemi]
+    quote: '= 0.484 \quad (48.4\%\text{ symmetry broken})'
+    lines: [110]
+    kind: internal-arithmetic
+    finding: >-
+      the ratio ||dW||_F/||W_8||_F computed exactly from the matrix entries is
+      sqrt(11/47) = 0.48377945..., which rounds to 0.484 (48.4%), as stated
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.4837794468, 0.484, 0, 0.0005]}]
+    values:
+      - {quantity: G2Sym-SymmetryBreakRatio, value: 0.484}
+    disposition: none
+  - id: G3
+    levels: [whole-brain-cemi]
+    quote: 'sum $48/5=9.6$ checked'
+    lines: [75]
+    kind: internal-arithmetic
+    finding: >-
+      the eight diagonal entries of W_8 (each 6/5, the self-coupling) sum to
+      48/5 = 9.6, as the figure caption states
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [6/5, 6/5, 6/5, 6/5, 6/5, 6/5, 6/5, 6/5, 48/5]}]
+    values:
+      - {quantity: G2Sym-W8Trace, value: 48/5}
+    disposition: none
+  - id: G4
+    levels: [whole-brain-cemi]
+    quote: '\tfrac{48}{5} - \tfrac{48}{5} = 0'
+    lines: [105]
+    kind: internal-arithmetic
+    finding: >-
+      tr(W_8) = 48/5 and 8*(6/5) = 48/5, so tr(dW) = tr(W_8) - 8*(6/5) = 0
+      exactly, confirming dW is traceless as claimed
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [48/5, 48/5, 0]}]
+    disposition: none
+  - id: G5
+    levels: [whole-brain-cemi]
+    quote: Their sum is exactly zero
+    lines: [113, 117]
+    kind: internal-arithmetic
+    finding: >-
+      the eight eigenvalues as printed (rounded to 3 d.p.) sum to -0.002, a
+      rounding residual from rounding each eigenvalue independently; the exact
+      sum is 0 because it equals tr(dW), which is 0 by construction (claim G4)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [0.984, 0.718, 0.591, 0.113, -0.226, -0.585, -0.742, -0.855, -0.002]}]
+    disposition: none
+  - id: G6
+    levels: [whole-brain-cemi]
+    quote: '$-0.742$, $-0.855$'
+    lines: [113, 115]
+    kind: internal-arithmetic
+    finding: >-
+      diagonalising dW (the paper's own matrix) gives eigenvalues
+      -0.8545..., -0.7415..., -0.5850..., -0.2260..., 0.1134..., 0.5915...,
+      0.7182..., 0.9839...; the smallest magnitude (0.855) and the largest
+      (0.984) agree with the stated eigenvalues to within 0.06%
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: rel-between, args: [0.85452776, 0.855, 0, 0.001]}
+      - {template: rel-between, args: [0.98393744, 0.984, 0, 0.001]}
+    values:
+      - {quantity: G2Sym-DeltaWEigenMinAbs, value: 0.855}
+      - {quantity: G2Sym-DeltaWEigenMaxAbs, value: 0.984}
+    disposition: none
+  - id: G7
+    levels: [whole-brain-cemi]
+    quote: any traceless $8\times8$ matrix has seven independent
+    lines: [26]
+    kind: internal-count
+    finding: >-
+      an 8x8 matrix has 8 eigenvalues; tracelessness is one linear constraint
+      on their sum, leaving 8 - 1 = 7 independent eigenvalue directions, as
+      claimed
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [8, 1, 7]}]
+    disposition: none
+  - id: G8
+    concepts: [brecvema-brain-stem, brecvema-rhythmic-entrainment, brecvema-evaluative-conditioning,
+      brecvema-contagion, brecvema-visual-imagery, brecvema-episodic-memory,
+      brecvema-musical-expectancy, brecvema-aesthetic-judgement]
+    levels: [whole-brain-cemi]
+    quote: (BRECVEMA, eight mechanisms)
+    lines: [40, 61, 62]
+    kind: internal-count
+    finding: >-
+      the paper names exactly eight mechanisms (BrainStem, Rhythmic
+      Entrainment, Evaluative Conditioning, Contagion, Visual Imagery,
+      Episodic Memory, Musical Expectancy, Aesthetic Judgement), matching the
+      8x8 size of W_8 and the stated count
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 1, 1, 1, 8]}]
+    values:
+      - {quantity: G2Sym-MechanismCount, value: 8}
+    disposition: none
+  - id: G9
+    levels: [whole-brain-cemi]
+    quote: '$$W_{G_2} = \frac{6}{5} I_8$$'
+    lines: [73, 75]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the self-coupling 6/5 used to define W_{G_2} equals the 1.2 diagonal
+      entries given for W_{G_2} in the heatmap's matrix argument
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [6/5, 1.2]}]
+    disposition: none
+  - id: G10
+    concepts: [brecvema-musical-expectancy, brecvema-aesthetic-judgement]
+    levels: [whole-brain-cemi]
+    quote: \delta W_{ME,AJ} = +0.7
+    lines: [98, 128]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the ME-AJ coupling is quoted twice: $+7/10$ in the coupling table and
+      $+0.7$ in the physical-interpretation list; the two agree exactly
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [7/10, 0.7]}]
+    values:
+      - {quantity: G2Sym-MeAjCoupling, value: 0.7}
+    disposition: none
+
+# Claims not expressible with the numeric templates (not written as `claims:` above):
+# TYPING: "a matrix W acting on R^8 is G2-invariant if it commutes with all G2
+#   transformations" (lines 64-68) — a Lie-theory/OpenCyc typing claim about
+#   G2-invariance and Schur's lemma, not a number; needs an OpenCyc mapping for
+#   "invariant" / "representation" and a microtheory reading, not a template.
+# TYPING: "A conscious percept is a pole in the propagator"-style identification is
+#   absent from this paper, but the paper's own disclaimer "it does not derive a
+#   G2-holonomy metric for X_7" (lines 27, 194-195) is a scope/typing claim about
+#   what the algebra does and does not establish (compatibility vs. derivation) —
+#   worth a Lean/OpenCyc reading of "compatible with" vs. "derives", not a number.
+# TYPING: "stress suppresses aesthetics" / BS-AJ anti-correlation and the EC-VI
+#   anti-correlation (lines 134-135) are explicitly flagged `interpretive` by the
+#   paper itself; an OpenCyc typing affidavit could check the mapped predicates
+#   (e.g. causation vs. correlation) but the paper already labels the reading.
+# LEAN: "Formal Status" table (lines 165-170) claims `brecvema_G2_decomposition`
+#   is proved by `norm_num` in `BRECVEMAVariational.lean`, and that
+#   `moduli_space_is_G2_homotopy` is open formalisation — these are claims about
+#   the programme's own Lean (theorem exists, uses norm_num, no sorry) and
+#   belong to `make -C sherlock ledger`, not the arithmetic registry.
+# LEAN: the Formal Status table's distinction between "definition used in
+#   theorem" (W_{G_2}) and "proved" (tracelessness of dW) is also a ledger claim
+#   about declaration kinds (def vs theorem), checkable only against the Lean.

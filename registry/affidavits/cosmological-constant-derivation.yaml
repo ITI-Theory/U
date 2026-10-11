@@ -1,0 +1,246 @@
+# Sherlock affidavit: The Cosmological Constant as the Vacuum Amplitude of the
+# Universal Somatic Field (P21). Schema: sherlock/registry.py.
+# Sister of registry/affidavits/dark-matter-spatial-vacuum.yaml (P22): both
+# quote the 7/11 dark-energy fraction against the Planck 2018 baseline, so
+# USF-DarkEnergyFraction and USF-DarkEnergyFraction-Planck2018 are reused here.
+id: cosmological-constant-derivation
+document: P21
+title: The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field
+source:
+  file: paper/soma/cosmological-constant-derivation/cosmological-constant-derivation.md
+  commit: e25ff47
+  sha256: 65071e3dd4e7deea20c5c0ee3e063a123a9fb545b5520b9090f77fa10fd2c949
+lean: []
+microtheories: {}
+claims:
+  - id: L1
+    levels: [observable-universe]
+    quote: \Lambda_\text{obs} \approx 1.09\times10^{-52}\;\text{m}^{-2} \;(7.1\%\text{ low})
+    lines: [352, 353, 355]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the stated 7.1% follows from the unrounded values (21/11)x5.30e-53 = 1.0118e-52
+      and 3x0.6847x5.30e-53 = 1.0887e-52 (7.06%); the displayed roundings 1.01 and 1.09
+      give 7.34%: rounding, not a contradiction
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [1.011818e-52, 1.088673e-52, 0.0705, 0.0715]}, {template: rel-between, args: [1.01e-52, 1.09e-52, 0.073, 0.074]}]
+    values:
+      - {quantity: USF-CosmologicalConstantUSF, value: 1.01e-52}
+      - {quantity: USF-CosmologicalConstantObserved, value: 1.09e-52}
+    disposition: none
+  - id: L2
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
+    quote: $\Lambda_\text{USF} = (21/11)H_0^2/c^2 \approx 0.93\,\Lambda_\text{obs}$ — a 7.1\%
+    lines: [21, 181, 182, 186]
+    kind: internal-arithmetic
+    finding: >-
+      the abstract's 0.93 Lambda_obs / 7.1% discrepancy matches the body:
+      0.6364/0.6847 = 0.929 ≈ 0.93 (93%), and (0.6847 - 7/11)/0.6847 = 7.06%,
+      rounding to the stated 7.1%
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [7/11, 0.6847, 0.0705, 0.0715]}]
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+      - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
+    disposition: none
+  - id: L3
+    levels: [observable-universe]
+    quote: $\Lambda_\text{USF} \approx H_0^2/c^2 \approx 0.49\,\Lambda_\text{obs}$
+    lines: [19, 138, 142, 146]
+    kind: internal-arithmetic
+    finding: >-
+      the abstract's first-order ≈0.49 Lambda_obs matches the body:
+      1/(3×0.6847) = 10000/20541 ≈ 0.4868, rounding to the stated 0.49 (49%)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: ["10000/20541", 0.49, 0, 0.007]}]
+    values:
+      - {quantity: USF-CosmologicalConstantRatioFirstOrder, value: 0.49}
+    disposition: none
+  - id: L4
+    levels: [observable-universe]
+    quote: \approx 1.09\times10^{-52}\,\text{m}^{-2} \quad (\Omega_\Lambda = 0.6847,\;
+    lines: [72, 73, 74, 138]
+    kind: internal-arithmetic
+    finding: >-
+      3×0.6847×5.30e-53 = 1.088673e-52, consistent with the stated
+      Lambda_obs ≈ 1.09e-52 and with the stated preliminary
+      Lambda_USF^(1) = H0^2/c^2 ≈ 5.30e-53 it is built from
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [1.088673e-52, 1.09e-52, 0, 0.0013]}]
+    values:
+      - {quantity: USF-CosmologicalConstantObserved, value: 1.09e-52}
+      - {quantity: USF-CosmologicalConstantFirstOrder, value: 5.30e-53}
+      - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
+    disposition: none
+  - id: L5
+    levels: [observable-universe]
+    quote: value $\Lambda_\text{obs} \approx 1.09 \times 10^{-52}$ m$^{-2}$ by $10^{117}$
+    lines: [38, 39]
+    kind: internal-arithmetic
+    finding: >-
+      6×10^64 m^-2, the quoted zero-point-energy value, lies between
+      10^116×Lambda_obs (1.09e64) and 10^118×Lambda_obs (1.09e66), consistent
+      with the stated "overshoots... by 10^117"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [1.09e64, 6e64]}, {template: lt, args: [6e64, 1.09e66]}]
+    values:
+      - {quantity: USF-CosmologicalConstantObserved, value: 1.09e-52}
+    disposition: none
+  - id: L6
+    levels: [observable-universe]
+    quote: nineteen steps of $10^{3.207}$ span $\log_{10}(k_P c/H_0) = 60.93$ decades
+    lines: [128, 129]
+    kind: internal-arithmetic
+    finding: >-
+      19 steps × 3.207 decades/step = 60.933, rounding to the stated
+      60.93 decades
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [60.933, 60.93, 0, 0.0001]}]
+    values:
+      - {quantity: USF-ScaleLevelCount, value: 20}
+      - {quantity: USF-ZoomStepExponent, value: 3.207}
+      - {quantity: USF-ZoomDecades, value: 60.93}
+    disposition: none
+  - id: L7
+    levels: [observable-universe]
+    quote: \ell_P\,\Phi_0 \approx 8.9\times10^{34}\times 1.616\times10^{-35} \approx 1.43
+    lines: [83, 84]
+    kind: internal-arithmetic
+    finding: >-
+      8.9e34 × 1.616e-35 = 1.43824, consistent with the stated ≈1.43 (and with
+      sqrt(3×0.6847) ≈ 1.4332, the paper's second route to the same number)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [1.43824, 1.43, 0, 0.006]}]
+    values:
+      - {quantity: USF-VacuumAmplitude, value: 8.9e34}
+    disposition: none
+  - id: L8
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
+    quote: $$\Omega_\text{vac}^\text{USF} = \frac{N_\text{compact}}{N_\text{total}} = \frac{7}{11} \approx 0.6364$$
+    lines: [161]
+    kind: internal-arithmetic
+    finding: 7/11 = 0.636364, consistent with the stated ≈0.6364
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [7/11, 0.6364, 0, 0.0001]}]
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+    disposition: none
+  - id: L9
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
+    quote: '- **7 compact** ($X_7$): vacuum energy cannot propagate in 4D; it'
+    lines: [155, 157, 161]
+    kind: internal-arithmetic
+    finding: >-
+      7 compact + 4 non-compact = 11 total dimensions, as the paper's own
+      count and the Visualize caption ("the program checked that they add
+      to 11") state
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [7, 4, 11]}]
+    values:
+      - {quantity: USF-CompactDimensionCount, value: 7}
+      - {quantity: USF-NonCompactDimensionCount, value: 4}
+    disposition: none
+  - id: L10
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
+    quote: = \frac{21}{11}\,\frac{H_0^2}{c^2} \approx 1.01\times10^{-52}\;\text{m}^{-2}$$
+    lines: [176, 177]
+    kind: internal-arithmetic
+    finding: (21/11)×5.30e-53 ≈ 1.011818e-52, consistent with the stated ≈1.01e-52
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [1.01181818e-52, 1.01e-52, 0, 0.0019]}]
+    values:
+      - {quantity: USF-CosmologicalConstantUSF, value: 1.01e-52}
+      - {quantity: USF-CosmologicalConstantFirstOrder, value: 5.30e-53}
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+    disposition: none
+  - id: L11
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
+    quote: This unrefined calculation captures 49\% of the observed value. The factor $3\Omega_\Lambda \approx 2.05$ is resolved in \S2.4 by compact-dimension counting, bringing the estimate to 93\%.
+    lines: [146, 147, 148]
+    kind: internal-arithmetic
+    finding: >-
+      0.49 (=10000/20541, the first-order ratio) × 21/11 (the
+      compact-dimension correction) = 70000/75317 ≈ 0.929, consistent with
+      the stated transition from 49% to 93%
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: ["70000/75317", 0.93, 0, 0.0007]}]
+    values:
+      - {quantity: USF-CosmologicalConstantRatioFirstOrder, value: 0.49}
+      - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
+    disposition: none
+
+# TYPING: "the cosmological constant is the steady background amplitude of
+#   the somatic field of the empty universe" (line ~262, interpretive image,
+#   explicitly labelled `interpretive` by the paper itself) and "A classical
+#   background condensate... has w = p/rho = -1" (line ~288) assert physical
+#   identities between a field-theoretic amplitude and a cosmological
+#   constant/equation-of-state; OpenCyc typing would check whether a
+#   CosmologicalConstant and a FieldAmplitude can be read as the same kind
+#   of thing, or only as corresponding under the paper's own assumptions.
+# TYPING: "the field equation $(\nabla^2+k^2)G=\delta(x-x')$... Its stable
+#   vacuum state is the regulated attractor of the 11-dimensional field"
+#   (lines 42-50) analogises a cosmological vacuum expectation value to
+#   condensed-matter Green-function attractors; worth an opencyc-typing
+#   mapping (PhysicalAmplitude vs CosmologicalConstant vs VacuumState).
+# LEAN: the Formal Status table (lines ~208-219) cites `omega_lambda_fraction`,
+#   `omega_lambda_discrepancy_small`, `cosmological_constant_identification`,
+#   `cosmological_correspondence`, `geometricFlow_waveEquation` as proved (two
+#   of them explicitly "weak form"), `calabi_yau_rg_coefficients` as an axiom,
+#   `universe_is_11D_organism` as a definition, and `usf_equation_of_state` as
+#   a "type-level placeholder" whose physics is admittedly not formalised.
+#   These are ledger claims (axiom/proved/sorry against the actual Lean), to
+#   be checked by `make -C sherlock ledger`, not by the registry's arithmetic
+#   templates.
+# LEAN: "Mathlib's differential geometry infrastructure... is approaching
+#   readiness; the linearised GR result is on the Mathlib roadmap" (lines
+#   ~222-224) is a claim about Mathlib's own status, not this programme's
+#   Lean; not ledger-checkable here.
+  - id: L12
+    quote: 'Formal Status'
+    lines: []
+    kind: ledger
+    finding: the document lists axioms but never mentions sft_iso_modal_hott and sft_grounds_hoffman, axioms of the module it cites (make -C sherlock ledger)
+    verdict: unclear
+    label: kernel-verified
+    lean: null
+    ledger: make -C sherlock ledger (bld/sherlock/ledger.md)
+    disposition: open
+  - id: L13
+    quote: 'nineteen steps of $10^{3.207}$ span $\log_{10}(k_P c/H_0) = 60.93$ decades'
+    lines: [128, 129]
+    kind: cross-paper
+    finding: >-
+      twenty scale levels (0-19), where the programme's Lean has ScaleLevel := Fin 21
+      (UniversalSomaticField.lean) and P11 has 21 (0-20)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [20, 21]}]
+    disposition: open

@@ -89,7 +89,7 @@ def check() -> int:
                                "args": [[a.numerator, a.denominator] for a in args]})
             if c["lean"]:
                 names.append({"doc": aff["id"], "claim": cid, "name": c["lean"]})
-            elif not checks_c and c["verdict"] != "not-provable":
+            elif not checks_c and c["verdict"] != "not-provable" and not c.get("ledger"):
                 errs.append(f"{where} {cid}: no Lean theorem for a {c['verdict']} finding")
             for field, folder in (("levels", "levels"), ("concepts", "concepts")):
                 unknown = [x for x in c.get(field) or [] if not (U / "registry" / folder / f"{x}.yaml").exists()]

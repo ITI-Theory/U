@@ -1,0 +1,206 @@
+# Sherlock affidavit: The Missing Limbic Layer (P13). Schema: sherlock/registry.py.
+# DRAFT (bld/sherlock/drafts): not yet promoted to registry/affidavits.
+id: missing-limbic-layer
+document: P13
+title: "The Missing Limbic Layer: A Somatic Field Extension of Hopfield Networks via the Correspondence Principle"
+source:
+  file: paper/soma/missing-limbic-layer/missing-limbic-layer.md
+  commit: e3747df
+  sha256: 11aa557e5b07eb3b799fe9964d12c267b93b195227e3a3d2481d68e775999db2
+lean: []
+microtheories: {}
+claims:
+  - id: M1
+    levels: [whole-brain-cemi, human-vertebrate]
+    concepts: [limbic-correspondence-principle]
+    quote: 'T = T_0 + \sigma \cdot 0 = T_0$ (direct substitution)'
+    lines: [150, 162, 195, 196]
+    kind: internal-arithmetic
+    finding: at the visualised baseline T0=0.25, sigma=2, the correspondence-limit substitution T0 + sigma*0 = T0 holds as the proof claims
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0.25, 0.25]}]
+    disposition: none
+  - id: M2
+    quote: 'The program checked $\tanh 2 = 0.964$.'
+    lines: [110]
+    kind: internal-arithmetic
+    finding: tanh(2) = 0.96403, within 0.003% of the quoted 0.964
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.9640275800758169, 0.964, 0, 0.0001]}]
+    disposition: none
+  - id: M3
+    quote: 'The program checked $0.6225$ at $\beta = 1$, $z_1 - z_2 = 0.5$.'
+    lines: [214]
+    kind: internal-arithmetic
+    finding: sigmoid(0.5) = 1/(1+e^-0.5) = 0.622459, within 0.007% of the quoted 0.6225
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.6224593312018546, 0.6225, 0, 0.0001]}]
+    disposition: none
+  - id: M4
+    levels: [whole-brain-cemi, human-vertebrate]
+    concepts: [limbic-tunnelling]
+    quote: 'approximately $2.1\times10^{-6}$'
+    lines: [238, 281, 284, 285]
+    kind: internal-arithmetic
+    finding: Theta(12) = exp(-8*sqrt(24)/3) = 2.1203e-6, within 1% of the quoted "approximately 2.1e-6" at the paper's own W=12
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [2.1203162733952513e-06, 2.1e-06, 0, 0.012]}]
+    values:
+      - {quantity: FMHN-WkbAmplitude-W12, value: 2.1e-6}
+    disposition: none
+  - id: M5
+    quote: '$T_\text{ADHD} \approx 1.8 \cdot T_0$.'
+    lines: [253, 260]
+    kind: internal-duplicate-mismatch
+    finding: the ADHD operator's 1.8*T0 is restated identically in prose and in the LimbicHopfield.adhdOperator description
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [1.8, 1.8]}]
+    values:
+      - {quantity: FMHN-AdhdTempMultiplier, value: 1.8}
+    disposition: none
+  - id: M6
+    quote: '$T_\text{ASC} \approx 0.4 \cdot T_0$.'
+    lines: [264, 271]
+    kind: internal-duplicate-mismatch
+    finding: the ASC operator's 0.4*T0 is restated identically in prose and in the LimbicHopfield.autismOperator description
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0.4, 0.4]}]
+    values:
+      - {quantity: FMHN-AscTempMultiplier, value: 0.4}
+    disposition: none
+  - id: M7
+    quote: 'ADHD operates hotter than baseline; ASC operates colder'
+    lines: [253, 264, 289]
+    kind: internal-arithmetic
+    finding: the ADHD multiplier 1.8 exceeds the ASC multiplier 0.4, confirming adhd_hotter_than_autism's claim against the paper's own numbers
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [0.4, 1.8]}]
+    disposition: none
+  - id: M8
+    quote: 'approximately $0.14 \cdot D$ patterns'
+    lines: [79, 107]
+    kind: internal-duplicate-mismatch
+    finding: the 1982 storage-capacity coefficient 0.14 is restated identically where the 2020 model's exponential capacity is contrasted with it
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0.14, 0.14]}]
+    disposition: none
+  - id: M9
+    quote: 'reached the target in 3/3 barrier cases; the cold classical baseline achieved 0/48.'
+    lines: [241, 242, 365]
+    kind: internal-duplicate-mismatch
+    finding: the QUANT-EXP-1 counts (3/3 quantum-adjacent, 0/48 cold classical) are restated identically in the Falsifiability section and the Conclusion
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [1, 1]}, {template: eq, args: [0, 0]}]
+    values:
+      - {quantity: FMHN-ReachabilityQuantumSuccessRate, value: 3/3}
+      - {quantity: FMHN-ReachabilityClassicalSuccessRate, value: 0/48}
+    disposition: none
+  - id: M10
+    levels: [whole-brain-cemi, human-vertebrate]
+    concepts: [limbic-tunnelling]
+    quote: 'W \in \{8, 10, 12\}$ is documented'
+    lines: [240, 241, 281, 284]
+    kind: internal-arithmetic
+    finding: 12 is indeed the largest of the QUANT-EXP-1 barrier set {8, 10, 12}, so calling it "the maximum barrier" for the C-PTSD operator is correct
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [8, 10, 12]}, {template: eq, args: [12, 12]}]
+    values:
+      - {quantity: FMHN-CptsdBarrierW, value: 12}
+    disposition: none
+  - id: M11
+    quote: 'We derive two coupling equations'
+    lines: [17, 18, 54, 145, 148, 160]
+    kind: internal-count
+    finding: the abstract, introduction and body each say "two" coupling/modulation equations, and exactly two are defined (Equation 1, Equation 2)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    disposition: none
+  - id: M12
+    quote: 'the program checked the calm minima, $\pm 0.9993$.'
+    lines: [178]
+    kind: internal-arithmetic
+    finding: the self-consistency check tanh(4*0.9993) = 0.999326, within 0.003% of the quoted fixed point 0.9993 at the calm beta=4
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.99932553455154, 0.9993, 0, 0.0001]}]
+    disposition: none
+
+# Not expressible with a numeric template (category/typing or Lean-only claims):
+# TYPING: "A conscious percept" style identity claims are absent here; the paper
+#   is careful to hedge CEMI-field claims as modelling assumptions throughout
+#   (e.g. "These remain contested biophysical claims rather than premises
+#   established by this paper.", lines 41-42) rather than asserting them as fact
+#   -- a possible opencyc-typing candidate would be whether "limbic field" maps
+#   to a physical field (PhysicalField) or a modelled scalar parameter only.
+# TYPING: quote: "the limbic system occupies the 1D segment $D_8$ connecting the
+#   somatic body-field ($D_{1-7}$) to the cortical mind-field ($D_{9-11}$)."
+#   lines: [133, 134] -- whether "limbic system" (an anatomical/physiological
+#   kind) can be typed as occupying a 1D mathematical segment is an
+#   opencyc-typing candidate (anatomical structure vs. coordinate interval).
+# LEAN: quote: "This is `LimbicHopfield.correspondence_principle` -- proved in
+#   Lean 4 by unfolding and applying the companion zero-stress lemmas."
+#   lines: [200, 201] -- a ledger claim: does LimbicHopfield.lean actually
+#   contain a kernel-checked theorem named correspondence_principle (not an
+#   axiom or sorry)?
+# LEAN: quote: "`correspondence_principle` -- by-definition algebraic result
+#   from zero-stress lemmas" / "`stress_raises_temp` -- proved by `linarith`" /
+#   "`modulation_monotone` -- proved by `linarith`" / "`adhd_hotter_than_autism`
+#   -- proved by `linarith`" / "`softmax_nonneg`, `softmax_sum_one` --
+#   substantive real-arithmetic lemmas" / "`lse_ge_max` -- substantive
+#   log-sum-exp inequality lemma" lines: [333-340] -- a ledger claim: each
+#   named Lean declaration's actual kind (theorem/def/axiom) and proof status.
+# LEAN: quote: "Proof obligations pending real-analysis scaffolding:
+#   `softmax_limit_argmax`, `energy_descent_modern`, `correspondence_limit`."
+#   lines: [341, 342] -- a ledger claim: whether these three are indeed
+#   sorry/open obligations in LimbicHopfield.lean rather than closed theorems.
+# LEAN: quote: "The local quartic-well theorem
+#   `LimbicTunnel.gradient_traps_near_neg1` proves the trapping sign near the
+#   negative well; the broader `classical_trapped` statement is a
+#   placeholder-shaped proof obligation and should not be treated as an
+#   established flow theorem." lines: [233-236] -- a ledger claim about the
+#   proof status of two named LimbicTunnel declarations.
+# TYPING: quote: "A conscious percept" is not used in this paper, but the
+#   ADHD/ASC/C-PTSD "operator" sections map a clinical diagnostic category to a
+#   model parameter regime, e.g. "This represents hyperarousal and
+#   distractibility in the toy model" (line 256) and "This represents
+#   monotropism in the toy model" (line 267) -- opencyc-typing candidates
+#   for whether a diagnosed condition (a kind of PsychologicalCondition) can be
+#   identified with a (beta, J, W) parameter tuple (a MathematicalObject),
+#   which the paper itself hedges as "hypotheses, not diagnostic claims" (line
+#   20) and "Mapping them to clinical labels remains a hypothesis rather than a
+#   diagnostic claim." (line 361).
+  - id: M13
+    quote: '`softmax_limit_argmax`, `energy_descent_modern`, `correspondence_limit`.'
+    lines: [212, 343]
+    kind: ledger
+    finding: >-
+      the three cited theorems do not exist in the programme's Lean; LimbicHopfield.lean
+      names them only in a comment (make -C sherlock ledger)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    ledger: make -C sherlock ledger (bld/sherlock/ledger.md)
+    disposition: open
