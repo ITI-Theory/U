@@ -3308,6 +3308,8 @@ hazard warnings and all.
 - [x] (12 Oct, behind RICE: WARNING freeze attractor near, CAUTION heart rising, ADVISORY
       threshold within two minutes) Alerts first (they are the most useful): the three levels, from the score and the
       heart, at the score stop;
-- [ ] then the route-plan view of the score for the MFD
+- [x] (13 Oct, behind RICE at the score stop: a vertical-profile panel, Language as the
+      altitude over the whole story-time, thresholds as waypoints, phases as legs, the
+      chevron where the viewer is; `modesAt` exported from score.js) then the route-plan view of the score for the MFD
       screen of a layout.
 

@@ -1435,6 +1435,44 @@ function makeScore() {
         label(ctx, u, `H-AL: ${pilotText}`, 0, 0.6, '#9ad9ff', 'center', 0.03);
         ctx.restore();
       }
+      // RICE (ISS-075): the route plan, as a glass cockpit's vertical profile: the journey's
+      // descent below words (Language as the altitude), thresholds as waypoints, phases as
+      // legs, the chevron where the viewer is now
+      if (rice() && player.modesAt) {
+        const box = { x: -0.95 * (env.w / 2) / u + 0.04, y: 0.34, w: 0.8, h: 0.3 };
+        if (box.x < -1.6) box.x = -1.6;
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.78)';
+        ctx.strokeStyle = 'rgba(232,238,252,0.35)';
+        ctx.fillRect(box.x * u, box.y * u, box.w * u, box.h * u);
+        ctx.strokeRect(box.x * u, box.y * u, box.w * u, box.h * u);
+        const px = tt => (box.x + 0.03 + (box.w - 0.06) * tt) * u;
+        const py = alt => (box.y + 0.04 + (box.h - 0.09) * (1 - alt)) * u;
+        ctx.strokeStyle = '#ff4fd8';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let k = 0; k <= 80; k++) {
+          const tt = k / 80;
+          const alt = player.modesAt(tt).L ?? 0;
+          if (k === 0) ctx.moveTo(px(tt), py(alt)); else ctx.lineTo(px(tt), py(alt));
+        }
+        ctx.stroke();
+        ctx.fillStyle = '#3fd0e9';
+        for (const th of player.thresholdList ?? []) {
+          const x = px(th.t);
+          const y = py(player.modesAt(th.t).L ?? 0);
+          ctx.beginPath(); ctx.moveTo(x, y - 6); ctx.lineTo(x - 5, y + 4); ctx.lineTo(x + 5, y + 4); ctx.closePath(); ctx.fill();
+        }
+        // the chevron: where the viewer is now
+        const nx = px(player.t);
+        const ny = py(m.L ?? 0);
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath(); ctx.moveTo(nx + 8, ny); ctx.lineTo(nx - 6, ny - 6); ctx.lineTo(nx - 2, ny); ctx.lineTo(nx - 6, ny + 6); ctx.closePath(); ctx.fill();
+        ctx.restore();
+        label(ctx, u, 'VERT PROFILE · ALT = LANGUAGE', box.x + 0.02, box.y + 0.02, '#9fe8ff', 'left', 0.018);
+        for (const th of player.thresholdList ?? []) label(ctx, u, th.id, (px(th.t) / u) - 0.012, py(player.modesAt(th.t).L ?? 0) / u - 0.035, '#3fd0e9', 'left', 0.017);
+        (player.phaseList ?? []).filter(p => p.name).forEach((ph, k) => label(ctx, u, ph.name.slice(0, 10).toUpperCase(), (px(ph.t) / u) + 0.004, box.y + box.h - 0.018 - 0.021 * (k % 3), ph === player.phase() ? '#ffffff' : 'rgba(232,238,252,0.5)', 'left', 0.013));
+      }
       if (player.holding) label(ctx, u, `THRESHOLD ${player.holding.id} · ${player.holding.from} → ${player.holding.to} · ${env.kr > 0 ? 'waiting for the heart to settle (falling, below 85) or POKE' : 'holding until ready (POKE)'}`, 0, -0.7, COLORS.gold, 'center', 0.03);
     },
   };

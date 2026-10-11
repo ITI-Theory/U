@@ -107,6 +107,13 @@ export function createScorePlayer(score, { kappaV = 1, start = 0, kappaD = null,
       return current;
     },
     names: () => (score?.modes ?? []).map(m => m.name),
+    // the shaped score at any story-time (the route plan draws the whole journey from it)
+    modesAt(time) {
+      const values = at(Math.max(0, Math.min(1, time)));
+      return shape(Object.fromEntries(MODE_IDS.map((id, k) => [id, values[k] ?? 0])), { kd, kw, active, coupling });
+    },
+    phaseList: phases,
+    thresholdList: thresholds,
     seconds,
     knobs: { kd, kw, mask: active ? [...active] : MODE_IDS.slice() },
   };
