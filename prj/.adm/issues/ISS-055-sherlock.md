@@ -141,6 +141,28 @@ documents. State of the slice:
   reading writes each philosopher's position as a small affidavit in the
   same vocabulary (D2), so SME can show which positions share structure
   across centuries, the time-invariance the author wants from Russell.
+## Refinement (11 Oct, evening)
+
+- Registry: all four affidavits (The Tensor, the Claude advert, P11, P22),
+  26 Lean theorems and 14 template checks; claims carry `levels` and
+  `concepts` (the mind palace index, `bld/sherlock/palace.json`).
+- D9 numbers as data: `Tools/Checks.lean` reads `checks.json` and adds one
+  kernel-checked theorem per check (`decide` on exact rationals); a wrong
+  number fails with the claim named.
+- D10 equation twins: `sherlock/equations.py` (units without dependencies,
+  the Visualize expression syntax): symbols declared, both sides alike,
+  exp/log/sin arguments dimensionless, values at the document's numbers.
+  P11's six equations pass (its neural wavenumber is 41.9 for "≈ 40");
+  e^{-iEt/ħ} without its t fails ("the argument has dimension s^-1").
+- Ledger over all papers (186 citations, 28 documents, about 9 minutes, one
+  Lean process per module): 16 disagreements after refining the reading
+  (table columns, was/now, clauses, status columns, tactics, Sherlock's own
+  names, namespaces). Real: P13 cites `softmax_limit_argmax`,
+  `energy_descent_modern` and `correspondence_limit`, named only in a
+  comment of LimbicHopfield.lean, never declared; P19 cites
+  `Rat.div_lt_div_right`, not in the current Mathlib; P11's axiom table
+  (four "axioms": one axiom, one def, two theorems) and the axioms it omits;
+  P20 and P21 list axioms but omit their cited modules' own.
 ## Sub-issues and order
 
 1. ISS-056 claims registry and validator (D1-D4; migrate exhibits A-D).

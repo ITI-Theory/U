@@ -33,6 +33,7 @@ KINDS = {"internal-count", "internal-arithmetic", "internal-duplicate-mismatch",
 VERDICTS = {"contradicted", "confirmed", "consistent", "not-provable", "unclear"}
 LABELS = {"kernel-verified", "derived-under-assumptions", "interpretive", "sourced"}
 REQUIRED = ("id", "quote", "lines", "kind", "finding", "verdict", "label", "lean")
+TEMPLATES = {"eq", "ne", "lt", "sum", "diff", "rel-between", "monotone", "not-monotone"}
 
 
 def frozen_text(src: dict) -> str:
@@ -53,7 +54,7 @@ def load() -> list[tuple[Path, dict]]:
 
 
 def check() -> int:
-    errs, names = [], []
+    errs, names, checks = [], [], []
     for path, aff in load():
         where = path.relative_to(U).as_posix()
         text = frozen_text(aff["source"]) if aff.get("source") else None
@@ -78,9 +79,17 @@ def check() -> int:
                 bad = [n for n in c["lines"] if not 1 <= n <= len(lines)]
                 if bad:
                     errs.append(f"{where} {cid}: lines out of range {bad}")
+            checks_c = c.get("check") or []
+            for k, chk in enumerate(checks_c if isinstance(checks_c, list) else [checks_c]):
+                if chk.get("template") not in TEMPLATES:
+                    errs.append(f"{where} {cid}: unknown template {chk.get('template')!r}")
+                    continue
+                args = [Fraction(str(a)) for a in chk.get("args") or []]
+                checks.append({"doc": aff["id"], "claim": cid, "k": k, "template": chk["template"],
+                               "args": [[a.numerator, a.denominator] for a in args]})
             if c["lean"]:
                 names.append({"doc": aff["id"], "claim": cid, "name": c["lean"]})
-            elif c["verdict"] != "not-provable":
+            elif not checks_c and c["verdict"] != "not-provable":
                 errs.append(f"{where} {cid}: no Lean theorem for a {c['verdict']} finding")
             for field, folder in (("levels", "levels"), ("concepts", "concepts")):
                 unknown = [x for x in c.get(field) or [] if not (U / "registry" / folder / f"{x}.yaml").exists()]
@@ -88,12 +97,19 @@ def check() -> int:
                     errs.append(f"{where} {cid}: unknown {field} {unknown} (registry/{folder})")
             if "formal" in c and c["formal"].count("(") != c["formal"].count(")"):
                 errs.append(f"{where} {cid}: unbalanced formal form")
+        for eq in aff.get("equations") or []:
+            if text is not None and squash(eq.get("quote", "")) not in flat:
+                errs.append(f"{where} equation {eq.get('id')}: quote not found in the frozen source")
+            if "twin" not in eq:
+                errs.append(f"{where} equation {eq.get('id')}: no twin")
         for f in aff.get("lean") or []:
             if not (U / f).exists():
                 errs.append(f"{where}: lean file missing {f}")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "names.json").write_text(json.dumps(names, indent=1), encoding="utf-8", newline="\n")
-    print("\n".join(errs) or f"registry OK: {len(load())} affidavits, {len(names)} Lean theorems to check")
+    (OUT / "checks.json").write_text(json.dumps(checks, indent=1), encoding="utf-8", newline="\n")
+    print("\n".join(errs) or f"registry OK: {len(load())} affidavits, {len(names)} Lean theorems and "
+          f"{len(checks)} template checks to check")
     return 1 if errs else 0
 
 

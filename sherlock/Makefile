@@ -62,14 +62,16 @@ affidavits:
 	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
 	done
 	lake build Affidavits
-	$(PYTHON) findings.py
 	$(MAKE) check
 
 # The claims registry (registry/affidavits): schema, frozen sources, quotes; every cited
-# theorem exists in the compiled affidavits; reports (affidavits.md, values.md).
+# theorem exists in the compiled affidavits; the template checks (numbers as data,
+# kernel-checked); reports (affidavits.md, values.md, palace.json).
 check:
 	cd .. && $(PYTHON) sherlock/registry.py check
+	cd .. && $(PYTHON) sherlock/equations.py
 	LEAN_NUM_THREADS=2 lake env lean Tools/Names.lean
+	LEAN_NUM_THREADS=2 lake env lean Tools/Checks.lean
 	cd .. && $(PYTHON) sherlock/registry.py report
 
 # Documents' claims about the programme's own Lean (DOCS=... paper sources).

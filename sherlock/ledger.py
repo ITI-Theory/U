@@ -27,14 +27,28 @@ CLAIMS = [("axiom", re.compile(r"\baxiom", re.I)), ("sorry", re.compile(r"\bsorr
           ("theorem", re.compile(r"\btheorem\b", re.I)), ("def", re.compile(r"\bdef(inition)?\b", re.I))]
 
 
+NOT_LEAN = re.compile(r"^(scipy|numpy|np|torch|matplotlib|pandas|sympy|math|os|sys)\.|\.(md|lean|py|yaml|yml|pdf|tex|bib|json|csv|png)$")
+SHERLOCK_SRC = "\n".join(p.read_text(encoding="utf-8") for p in (U / "sherlock").rglob("*.lean")
+                         if ".lake" not in p.parts)
+
+
 def looks_lean(n: str) -> bool:
-    # snake_case with an underscore, or Module.name; not file names or plain words
-    return ("_" in n or "." in n) and not re.search(r"\.(md|lean|py|yaml|pdf|tex)$", n) and not n.startswith(".")
+    # snake_case with an underscore, or Module.name; not files, Python modules or symbols like T_c
+    return (("_" in n or "." in n) and not NOT_LEAN.search(n) and not n.startswith(".")
+            and not re.fullmatch(r"[A-Za-z]_[A-Za-z0-9]{1,3}", n))
+
+
+def clause(text: str, name: str) -> str:
+    """The clause (between ; or sentence ends) that mentions the name."""
+    for part in re.split(r";|(?<=\.)\s", text):
+        if name in part:
+            return part
+    return text
 
 
 TACTICS = {"fin_cases", "norm_num", "simp", "decide", "omega", "linarith", "nlinarith", "positivity",
            "aesop", "rfl", "field_simp", "ring", "ring_nf", "native_decide", "exact_mod_cast", "push_cast",
-           "interval_cases", "gcongr", "polyrith", "continuity", "measurability", "fun_prop"}
+           "interval_cases", "gcongr", "polyrith", "continuity", "measurability", "fun_prop", "fail_if_success"}
 
 
 def said_in(text: str) -> str | None:
@@ -42,10 +56,12 @@ def said_in(text: str) -> str | None:
     m = re.search(r"\bnow\b(.*)", text, re.I) if re.search(r"\bwas\b", text, re.I) else None
     if m:
         text = m.group(1)
+    if re.search(r"closes with|by `?(rfl|decide|norm_num|simp|omega)`?\b", text, re.I):
+        return "kernel-checked"
     for k, rx in CLAIMS:
         if rx.search(text):
             return k
-    if re.search(r"\bproved\b|\bproven\b", text, re.I):
+    if re.search(r"\bproved\b|\bproven\b|closes with|by `?(rfl|decide|norm_num|simp|omega)", text, re.I):
         return "kernel-checked"
     return None
 
@@ -78,10 +94,17 @@ def extract(files: list[str]) -> int:
                     col = next((k for k, c in enumerate(row) if m.group(0) in c), None)
                     if col is not None and col < len(header):
                         said = said_in(header[col])  # a column headed "Axiom"
-                    if said is None:
-                        said = said_in(" ".join(c for k, c in enumerate(row) if k != col))  # a status cell
+                    if said is None and col is not None:
+                        said = said_in(clause(row[col], m.group(0)))  # the name's own clause in its cell
+                    if said is None:  # a status column ("Status", "Proof", "Lean", "Result")
+                        status = [c for k, c in enumerate(row) if k != col and k < len(header)
+                                  and re.search(r"status|proof|lean|result", header[k], re.I)]
+                        said = said_in(" ".join(status)) if status else None
                 if said is None:
-                    said = said_in(line)
+                    now = re.search(r"\bnow\b(.*)", line, re.I) if re.search(r"\bwas\b", line, re.I) else None
+                    said = said_in(now.group(1)) if now else said_in(clause(line, m.group(0)))
+                if re.search(rf"\b(theorem|lemma|def|axiom)\s+{re.escape(n.split('.')[-1])}\b", SHERLOCK_SRC):
+                    said = "sherlock"  # Sherlock's own theorems (SH1), checked by make -C sherlock check
                 if n in TACTICS:
                     said = "tactic"
                 items.append({"doc": doc, "line": i, "name": n, "said": said or "cited", "text": line.strip()[:200]})
@@ -124,7 +147,7 @@ def judge() -> int:
 
 def disagrees(said: str, r: dict) -> str | None:
     kind, axioms = r.get("kind"), r.get("axioms", [])
-    if said == "tactic":
+    if said in ("tactic", "sherlock") or kind == "namespace":
         return None
     if kind == "missing":
         return "no such declaration"
@@ -167,7 +190,8 @@ def report() -> int:
                            + (f" [{r['resolved']}]" if r.get("resolved") else ""))
         mods = {results[c["name"]]["module"] for c in rows if results.get(c["name"], {}).get("module") in module_axioms}
         named = {results[c["name"]].get("resolved") for c in rows if c["said"] == "axiom" and c["name"] in results}
-        silent = [a for m in sorted(mods) for a in module_axioms[m] if a not in named]
+        lists_axioms = any(c["said"] == "axiom" for c in rows)  # only a document that lists axioms omits some
+        silent = [a for m in sorted(mods) for a in module_axioms[m] if a not in named] if lists_axioms else []
         if silent:
             bad += len(silent)
             out.append(f"- axioms in the cited modules the document never calls axioms: "

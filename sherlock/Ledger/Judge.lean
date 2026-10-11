@@ -75,6 +75,12 @@ def result (env : Environment) (cited : String) (n : Name) (mod : String) : IO J
         if !lib.contains c && last == c then lib := lib.insert c n
   for (c, n) in lib.toList do
     found := found.insert c (← result env c n "library")
+  -- a cited namespace (`SomaField.MTheory`): some declaration of this module lives under it
+  for c in wanted do
+    unless found.contains c do
+      let pre := c ++ "."
+      if (env.const2ModIdx.toList.any fun (n, i) => i == idx && (n.toString.startsWith pre)) then
+        found := found.insert c (Json.mkObj [("name", c), ("kind", "namespace"), ("module", modStr)])
   -- every axiom the module declares, so the report can list the ones a document never mentions
   let mut axioms : Array Json := #[]
   for (n, i) in env.const2ModIdx.toList do

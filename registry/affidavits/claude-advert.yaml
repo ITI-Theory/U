@@ -1,0 +1,44 @@
+# Sherlock affidavit: the Claude advert, exhibit C of SH1 (an example, not a programme document).
+id: claude-advert
+document: null
+title: Did you see the Claude advert?
+source: null
+exhibits: {C: SH1}
+microtheories:
+  ClaudeAdvertMt: one advert, two showings
+lean:
+  - sherlock/Affidavits/ClaudeAdvert.lean
+claims:
+  - id: C1
+    quote: '"Did you see the latest advert for Claude?" "Yes, on Tuesday." "I saw it on Thursday."'
+    lines: []
+    kind: opencyc-typing
+    reading: ClaudeAdvertMt
+    formal: (and (instantiationOfWork ClaudeAdvert-Showing-Tuesday ClaudeAdvert) (instantiationOfWork ClaudeAdvert-Showing-Thursday ClaudeAdvert))
+    finding: we saw the same thing, one work instantiated by both showings
+    verdict: confirmed
+    label: derived-under-assumptions
+    lean: Affidavit.ClaudeAdvert.same_work
+    disposition: example
+  - id: C2
+    quote: We clearly didn't see the same thing.
+    lines: []
+    kind: opencyc-typing
+    reading: ClaudeAdvertMt
+    formal: (equals ClaudeAdvert-Showing-Tuesday ClaudeAdvert-Showing-Thursday)
+    finding: the two showings are two things (unique names)
+    verdict: contradicted
+    label: derived-under-assumptions
+    lean: Affidavit.ClaudeAdvert.different_showings
+    disposition: example
+  - id: C3
+    quote: the advert I saw on Tuesday is the advert
+    lines: []
+    kind: opencyc-typing
+    reading: ClaudeAdvertMt
+    formal: (equals ClaudeAdvert-Showing-Tuesday ClaudeAdvert)
+    finding: a showing taken for the work would be both spatial and aspatial
+    verdict: contradicted
+    label: derived-under-assumptions
+    lean: Affidavit.ClaudeAdvert.showing_is_not_the_work
+    disposition: example

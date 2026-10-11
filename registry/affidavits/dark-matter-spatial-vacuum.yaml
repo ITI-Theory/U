@@ -19,6 +19,7 @@ claims:
     verdict: consistent
     label: kernel-verified
     lean: Affidavit.DarkMatter.Numbers.dark_matter_three_point_one
+    check: [{template: rel-between, args: [3/11, 0.2645, 0.031, 0.032]}]
     values:
       - {quantity: USF-DarkMatterFraction, value: 3/11}
       - {quantity: USF-DarkMatterFraction-Planck2018, value: 0.2645}
@@ -33,6 +34,7 @@ claims:
     verdict: consistent
     label: kernel-verified
     lean: Affidavit.DarkMatter.Numbers.dark_energy_seven_point_one
+    check: [{template: rel-between, args: [7/11, 0.6847, 0.0705, 0.0715]}]
     values:
       - {quantity: USF-DarkEnergyFraction, value: 7/11}
       - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
@@ -46,6 +48,7 @@ claims:
     verdict: consistent
     label: kernel-verified
     lean: Affidavit.DarkMatter.Numbers.baryons_seven_point_eight
+    check: [{template: rel-between, args: [1/22, 0.0493, 0.0775, 0.0785]}]
     values:
       - {quantity: USF-BaryonFraction, value: 1/22}
       - {quantity: USF-BaryonFraction-Planck2018, value: 0.0493}
@@ -59,4 +62,5 @@ claims:
     verdict: consistent
     label: kernel-verified
     lean: Affidavit.DarkMatter.Numbers.observed_budget
+    check: [{template: sum, args: [0.6847, 0.2645, 0.0493, 0.001, 0.0001, 0.9996]}]
     disposition: none

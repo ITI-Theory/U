@@ -1,0 +1,130 @@
+# Sherlock affidavit: The Tensor (P8), exhibits A and B of SH1. Schema: sherlock/registry.py.
+id: the-tensor
+document: P8
+title: The Tensor
+source:
+  file: paper/soma/the-tensor/the-tensor.md
+  commit: 2d36eaf
+  sha256: 0ec7a4dfe0d36413ea2e1e597fed624cebc5a26e98138a0d3fe7a46aada1e012
+exhibits: {A: SH1, B: SH1}
+microtheories:
+  TheTensorMt: the paper's typing of its seven modes
+  TheTensorScoreReadingMt: '"the same film" read as three refinements of one score'
+  TheTensorSameFilmReadingMt: '"the same film" read as each film including all of the other'
+lean:
+  - sherlock/Affidavits/TheTensor/Score.lean
+  - sherlock/Affidavits/TheTensor/Language.lean
+  - sherlock/Affidavits/TheTensor/Containers.lean
+claims:
+  - id: A1
+    quote: 'Two operating modes:'
+    lines: [144, 150]
+    kind: internal-count
+    finding: the table under it has three (Projection, Resonance, Mirror)
+    verdict: contradicted
+    label: kernel-verified
+    lean: Affidavit.TheTensor.Score.operating_modes_not_two
+    check: [{template: ne, args: [2, 3]}]
+    disposition: open
+  - id: A2
+    quote: The score drives the viewer.
+    lines: [94, 136, 148]
+    kind: internal-arithmetic
+    finding: >-
+      the model equation puts kappa_r on the film-to-viewer term, so at kappa_r = 0
+      (Projection) the screen signal drops out; the knob table defines kappa_r as the
+      weight of the viewer on the film
+    verdict: contradicted
+    label: kernel-verified
+    lean: Affidavit.TheTensor.Score.projection_screen_drops_out
+    disposition: open
+  - id: A3
+    quote: 'condition: "F > 0.7 AND A rising"'
+    lines: [566]
+    kind: internal-arithmetic
+    finding: fear peaks at exactly 0.70 and is at most 0.70 at every rational story-time; Threshold 1 never fires
+    verdict: contradicted
+    label: kernel-verified
+    lean: Affidavit.TheTensor.Score.threshold1_unreached
+    disposition: open
+  - id: A4
+    quote: 'THRESHOLD EVENTS: 2  (at t = 0.52 and t = 0.74)'
+    lines: [179, 204, 574]
+    kind: internal-arithmetic
+    finding: the condition holds at 0.70 and fails at 0.74 and on all of [0.72, 0.8]; the chart's t ≈ 0.71 is right
+    verdict: contradicted
+    label: kernel-verified
+    lean: Affidavit.TheTensor.Score.threshold2_fails_at_074
+    values:
+      - {quantity: TheTensor-Threshold2Time, value: 0.74}
+      - {quantity: TheTensor-Threshold2Time, value: 0.71}
+    disposition: open
+  - id: A5
+    quote: 'EMOTIONAL SCORE: THE RIVER FILM'
+    lines: [189, 545]
+    kind: internal-duplicate-mismatch
+    finding: the chart and the keyframes differ in 11 of 77 values, all at t >= 0.7
+    verdict: contradicted
+    label: kernel-verified
+    lean: Affidavit.TheTensor.Score.chart_keyframes_differ
+    disposition: open
+  - id: A6
+    quote: '| Language | $e_L$ | Symbolic, conceptual, narrative organisation |'
+    lines: [50, 60]
+    kind: opencyc-typing
+    reading: TheTensorMt
+    mapping: {Language: Language, emotional mode: EmotionalQuantityType}
+    formal: (isa Language EmotionalQuantityType)
+    finding: >-
+      Fear, Awe, Grief, Curiosity and Shame are OpenCyc emotions; Safety and Pre-verbal
+      are not; Language as an emotional mode makes Arabic both an information store and a
+      scalar interval
+    verdict: contradicted
+    label: derived-under-assumptions
+    lean: Affidavit.TheTensor.language_mode_contradiction
+    disposition: open
+  - id: B1
+    quote: All three are the same film.
+    lines: [426]
+    kind: opencyc-typing
+    reading: TheTensorSameFilmReadingMt
+    mapping: {same film: genlWorks both ways}
+    formal: (and (genlWorks TheRiverFilm-River TheRiverFilm-Body) (genlWorks TheRiverFilm-Body TheRiverFilm-River))
+    finding: genlWorks is antisymmetric, so the two films are equal, which unique names forbid
+    verdict: contradicted
+    label: derived-under-assumptions
+    lean: Affidavit.TheTensor.Containers.same_film_contradiction
+    disposition: open
+  - id: B2
+    quote: All three are the same film.
+    lines: [426]
+    kind: opencyc-typing
+    reading: TheTensorScoreReadingMt
+    formal: (genlWorks TheRiverFilm-River TheRiverFilm-Score)
+    finding: as three refinements of one score (OpenCyc's story-to-plot relation) the claim is consistent
+    verdict: consistent
+    label: derived-under-assumptions
+    lean: Affidavit.TheTensor.Containers.score_generalises_river
+    disposition: open
+  - id: B3
+    quote: because the score is what is being rendered, not the container.
+    lines: [428]
+    kind: opencyc-typing
+    reading: TheTensorScoreReadingMt
+    formal: (performanceOfWork TheRiverFilm-River-Showing1 TheRiverFilm-Score)
+    finding: not provable from OpenCyc (no rule links performanceOfWork to genlWorks)
+    verdict: not-provable
+    label: derived-under-assumptions
+    lean: null
+    disposition: open
+  - id: B4
+    quote: All three are the same film.
+    lines: [426]
+    kind: opencyc-slip
+    reading: TheTensorScoreReadingMt
+    formal: (parts TheRiverFilm-Score TheRiverFilm-River)
+    finding: OpenCyc's genlInverse genlWorks parts makes the river film a part of its score, the reverse of genlWorks' gloss
+    verdict: confirmed
+    label: derived-under-assumptions
+    lean: Affidavit.TheTensor.Containers.river_part_of_score
+    disposition: reported

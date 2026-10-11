@@ -11,6 +11,54 @@ microtheories:
 lean:
   - sherlock/Affidavits/ZSF/Numbers.lean
   - sherlock/Affidavits/ZSF/Typing.lean
+symbols:
+  k: 1/m
+  r: m
+  G: 1/m
+  G_e: 1/m
+  delta3: 1/m**3
+  lambda_axon: mm
+  f: Hz
+  c_neural: m/s
+  Theta: '1'
+  W: '1'
+  x: '1'
+  dxdt: '1'
+equations:
+  - id: Q1
+    quote: $(\nabla^2 + k^2)G(x,x') = \delta(x-x')$
+    lines: [11]
+    twin: k**2*G = delta3
+    note: the Helmholtz equation term by term (the Laplacian has the units of k squared); G is 1/m in three dimensions
+  - id: Q2
+    quote: $G_e(x,x') = e^{ik|x-x'|}/(4\pi|x-x'|)$
+    lines: [484]
+    twin: G_e = exp(1j*k*r)/(4*pi*r)
+  - id: Q3
+    quote: $k = \lambda_\text{axon}^{-1} \approx 2000$
+    lines: [501, 502]
+    twin: k = 1/lambda_axon
+    where: {lambda_axon: 0.5}
+    expect: 2000
+    tolerance: 0.01
+  - id: Q4
+    quote: $k = \omega/c_\text{neural} \approx 2\pi \times
+    lines: [531, 532]
+    twin: k = 2*pi*f/c_neural
+    where: {f: 40, c_neural: 6}
+    expect: 40
+    tolerance: 0.1
+  - id: Q5
+    quote: $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) \tag{12}$$
+    lines: [857]
+    twin: Theta = exp(-8*sqrt(2*W)/3)
+  - id: Q6
+    quote: -4Wx(x^2-1) < 0
+    lines: [849]
+    twin: dxdt = -4*W*x*(x**2-1)
+    where: {W: 8, x: -0.5}
+    expect: -12
+    tolerance: 0.001
 claims:
   - id: D1
     quote: The Twenty-Scale Catalogue
@@ -32,6 +80,8 @@ claims:
     verdict: contradicted
     label: kernel-verified
     lean: Affidavit.ZSF.Numbers.dial_not_monotone
+    check: [{template: not-monotone, args: [-35, -32, -15, -10, -9, -6, -1, 0, 0, 3, 5, 6, 9, 11, 3, 20, 23, 26]},
+            {template: monotone, args: [-35, -32, -15, -10, -9, -6, -1, 0, 0, 3, 5, 6, 9, 11]}]
     disposition: open
   - id: D3
     levels: [molecular, whole-brain-cemi]
@@ -42,6 +92,7 @@ claims:
     verdict: contradicted
     label: kernel-verified
     lean: Affidavit.ZSF.Numbers.molecular_limbic_eight_orders
+    check: [{template: diff, args: [-1, -9, 8]}, {template: ne, args: [8, 25]}]
     disposition: open
   - id: D4
     levels: [nuclear, atomic]
@@ -52,6 +103,7 @@ claims:
     verdict: contradicted
     label: kernel-verified
     lean: Affidavit.ZSF.Numbers.nuclear_rank_differs
+    check: [{template: ne, args: [1e2, 1e5]}]
     values:
       - {quantity: USF-MindRank-Scale2, value: 1e2}
       - {quantity: USF-MindRank-Scale2, value: 1e5}
@@ -65,6 +117,7 @@ claims:
     verdict: contradicted
     label: kernel-verified
     lean: Affidavit.ZSF.Numbers.stellar_modes_differ
+    check: [{template: ne, args: [1e6, 1e7]}]
     values:
       - {quantity: USF-StellarModeCount, value: 1e6}
       - {quantity: USF-StellarModeCount, value: 1e7}
@@ -115,6 +168,8 @@ claims:
     verdict: consistent
     label: kernel-verified
     lean: Affidavit.ZSF.Numbers.dimensions_add_up
+    check: [{template: sum, args: [4, 3, 1, 3, 11]}, {template: sum, args: [3, 1, 3, 7]},
+            {template: sum, args: [7/11, 3/11, 1/11, 1]}]
     values:
       - {quantity: USF-DarkMatterFraction, value: 3/11}
       - {quantity: USF-DarkEnergyFraction, value: 7/11}
