@@ -2574,9 +2574,14 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
 - [ ] Markup: SSML is the W3C standard for speech (prosody, break, emphasis,
       IPA phonemes) but Piper supports little of it yet; use a small
       pronunciation lexicon (H-AL, Hopfield, Kuramoto, Mandelbulb, Φ) instead.
-      EmotionML (W3C, 2014) can carry a score's mode trajectories as
+- [x] EmotionML (W3C, 2014) can carry a score's mode trajectories as
       `<trace>` samples: add an EmotionML export of registry/scores (coupling
-      and thresholds stay in the native YAML).
+      and thresholds stay in the native YAML). (Done 11 Oct: `make
+      emotionml`, `lib/scores/emotionml.py`, bld/scores/<id>.emotionml: an
+      inline dimension vocabulary of the score's modes, one trace per mode
+      over the film's length at $\kappa_v = 1$, `<info>` pointing back to
+      the YAML; the script checks the EmotionML rules it relies on, and the
+      W3C XSD reports 0 errors.)
 
 ## ISS-055: Sherlock: three ways of reasoning over OpenCyc (consistency, proof, analogy) — OPEN
 {{Tags area.proofs, area.theory, area.books}}

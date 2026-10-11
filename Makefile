@@ -46,6 +46,7 @@ help:
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
 	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
 	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
+	$(info   emotionml       export the film scores (registry/scores) as W3C EmotionML in bld/scores/)
 	$(info   check           run the papers, books and Atlas validators)
 	$(info   clean           remove repo-root bld/)
 	$(info   generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml)
@@ -120,6 +121,11 @@ visualize-library:
 .PHONY: visualize-coverage
 visualize-coverage:
 	$(PYTHON) lib/visualize/coverage.py
+
+# The emotional scores (registry/scores, The Tensor) as W3C EmotionML 1.0: bld/scores/ (ISS-054).
+.PHONY: emotionml
+emotionml:
+	$(PYTHON) lib/scores/emotionml.py
 
 # NotebookLM compute left (five-hour and weekly windows, about how many questions).
 nlm-usage:
