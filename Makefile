@@ -46,6 +46,7 @@ help:
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
 	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
 	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
+	$(info   make -C sherlock help  Sherlock: affidavits checked in Lean against OpenCyc (paper SH1))
 	$(info   emotionml       export the film scores (registry/scores) as W3C EmotionML in bld/scores/)
 	$(info   check           run the papers, books and Atlas validators)
 	$(info   clean           remove repo-root bld/)

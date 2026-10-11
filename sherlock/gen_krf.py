@@ -1,0 +1,200 @@
+"""NextKB (CycL flat files) to Lean: one module per microtheory.
+
+usage: gen_krf.py NEXTKB_ZIP OUT_DIR [MT ...]
+
+Writes OUT_DIR/CycKB/<Mt>.lean (ground facts as axioms `Holds mt sentence`,
+each an Aesop rule in rule set Cyc), OUT_DIR/CycKB/Mts.lean (every genlMt
+link; each microtheory also inherits BaseKB, as in Cyc) and OUT_DIR/CycKB.lean
+(imports). With MT names, only those microtheories get fact modules.
+Rules and other sentences with variables or logical connectives are counted
+and skipped for now.
+"""
+import collections
+import re
+import sys
+import zipfile
+from pathlib import Path
+
+CONNECTIVES = {"implies", "and", "or", "not", "forAll", "thereExists", "thereExistAtLeast",
+               "thereExistAtMost", "thereExistExactly", "exceptWhen", "exceptFor", "ist",
+               "holdsIn", "defSuggestion"}
+BASE = "BaseKB"
+PART_BYTES = 1_500_000  # Lean source per module; bigger microtheories are split into parts
+
+
+def tokens(text):
+    i, n = 0, len(text)
+    while i < n:
+        ch = text[i]
+        if ch in " \t\r\n":
+            i += 1
+        elif ch == ";":
+            while i < n and text[i] != "\n":
+                i += 1
+        elif ch in "()":
+            yield ch
+            i += 1
+        elif ch == '"':
+            j, buf = i + 1, []
+            while j < n and text[j] != '"':
+                if text[j] == "\\" and j + 1 < n:
+                    j += 1
+                buf.append(text[j])
+                j += 1
+            yield ("str", "".join(buf))
+            i = j + 1
+        else:
+            j = i
+            while j < n and text[j] not in " \t\r\n()\";":
+                j += 1
+            yield text[i:j]
+            i = j
+
+
+def sexprs(text):
+    stack = []
+    for tok in tokens(text):
+        if tok == "(":
+            stack.append([])
+        elif tok == ")":
+            if not stack:
+                continue
+            done = stack.pop()
+            if stack:
+                stack[-1].append(done)
+            else:
+                yield done
+        elif stack:
+            stack[-1].append(tok)
+        else:
+            yield tok
+
+
+def lean_str(s):
+    return '"' + s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n").replace("\r", "") + '"'
+
+
+def term(x):
+    """CycL term to Lean `Cyc.Term`, or None if not ground."""
+    if isinstance(x, tuple):
+        return f".s {lean_str(x[1])}"
+    if isinstance(x, list):
+        if not x:
+            return None
+        parts = [term(a) for a in x]
+        if any(p is None for p in parts):
+            return None
+        return f"(.app ({parts[0]}) [{', '.join(parts[1:])}])"
+    if x.startswith("?"):
+        return None
+    if re.fullmatch(r"-?\d+", x):
+        return f"(.n ({x}))"
+    return f"(.c {lean_str(x)})"
+
+
+def sentence(e):
+    if not isinstance(e, list) or not e or not isinstance(e[0], str):
+        return None
+    pred = e[0]
+    if pred in CONNECTIVES or pred.startswith("?"):
+        return None
+    args = [term(a) for a in e[1:]]
+    if any(a is None for a in args):
+        return None
+    if pred in ("isa", "genls", "disjointWith") and len(args) == 2:
+        # a string argument needs brackets here, (isa "stress test" ...), not inside lists
+        a, b = (f"({x})" if x.startswith(".s ") else x for x in args)
+        return f"(.{pred} {a} {b})"
+    return f"(.atom (.c {lean_str(pred)}) [{', '.join(args)}])"
+
+
+def module_name(mt):
+    name = re.sub(r"[^A-Za-z0-9_]", "_", mt)
+    return name if re.match(r"[A-Za-z]", name) else "Mt_" + name
+
+
+def main():
+    zpath, out = sys.argv[1], Path(sys.argv[2])
+    only = set(sys.argv[3:])
+    facts = collections.defaultdict(list)
+    genlmt, skipped = set(), collections.Counter()
+    with zipfile.ZipFile(zpath) as z:
+        for name in z.namelist():
+            if not name.endswith(".krf"):
+                continue
+            mt = None
+            for e in sexprs(z.read(name).decode("utf-8", errors="replace")):
+                if isinstance(e, list) and e and e[0] == "in-microtheory" and len(e) > 1:
+                    mt = e[1] if isinstance(e[1], str) else None
+                    continue
+                if mt is None or not isinstance(e, list) or not e:
+                    continue
+                if e[0] == "genlMt" and len(e) == 3 and all(isinstance(a, str) for a in e[1:]):
+                    genlmt.add((e[1], e[2]))
+                    continue
+                s = sentence(e)
+                if s is None:
+                    skipped[e[0] if isinstance(e[0], str) else "?"] += 1
+                    continue
+                facts[mt].append(s)
+    mts = set(facts) | {a for a, _ in genlmt} | {b for _, b in genlmt}
+    for mt in mts:
+        if mt != BASE:
+            genlmt.add((mt, BASE))
+    kb = out / "CycKB"
+    kb.mkdir(parents=True, exist_ok=True)
+    with open(kb / "Mts.lean", "w", encoding="utf-8", newline="\n") as f:
+        f.write("import Cyc.Core\n\n/-! Microtheory inheritance from NextKB (genlMt), plus BaseKB for every\nmicrotheory as in Cyc. Generated by gen_krf.py. -/\n\nnamespace CycKB.Mts\nopen Cyc\n\n")
+        for i, (a, b) in enumerate(sorted(genlmt)):
+            f.write(f"@[aesop safe apply (rule_sets := [Cyc])] axiom g{i} : GenlMt (.c {lean_str(a)}) (.c {lean_str(b)})\n")
+        f.write("\nend CycKB.Mts\n")
+    chosen = sorted(only) if only else sorted(facts)
+    written = []
+    for mt in chosen:
+        mod = module_name(mt)
+        mt_facts = facts.get(mt, [])
+        parts, cur, size = [], [], 0
+        for s in mt_facts:
+            n = len(s) + len(mt) + 80
+            if cur and size + n > PART_BYTES:
+                parts.append(cur)
+                cur, size = [], 0
+            cur.append(s)
+            size += n
+        parts.append(cur)
+
+        def write_facts(path, name, chunk, start):
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write(f"import CycKB.Mts\n\n/-! Ground facts of microtheory {mt} (NextKB). Generated by gen_krf.py. -/\n\n")
+                f.write(f"namespace CycKB.{name}\nopen Cyc\n\n")
+                for i, s in enumerate(chunk, start):
+                    f.write(f"@[aesop safe apply (rule_sets := [Cyc])] axiom f{i} : Holds (.c {lean_str(mt)}) {s}\n")
+                f.write(f"\nend CycKB.{name}\n")
+
+        if len(parts) == 1:
+            write_facts(kb / f"{mod}.lean", mod, parts[0], 0)
+        else:
+            # Large microtheories in parts (memory and time per Lean process stay
+            # small); the microtheory module only imports its parts.
+            names, offset = [], 0
+            for k, chunk in enumerate(parts, 1):
+                name = f"{mod}_p{k}"
+                write_facts(kb / f"{name}.lean", name, chunk, offset)
+                offset += len(chunk)
+                names.append(name)
+            with open(kb / f"{mod}.lean", "w", encoding="utf-8", newline="\n") as f:
+                f.write(f"-- parts: microtheory {mt}, {len(mt_facts)} facts in {len(names)} parts\n")
+                f.write("".join(f"import CycKB.{n}\n" for n in names))
+        written.append((mod, len(mt_facts)))
+    with open(out / "CycKB.lean", "w", encoding="utf-8", newline="\n") as f:
+        f.write("import CycKB.Mts\n" + "".join(f"import CycKB.{m}\n" for m, _ in written))
+    total = sum(len(v) for v in facts.values())
+    print(f"gen_krf: {len(mts)} microtheories, {len(genlmt)} genlMt links, {total} ground facts, "
+          f"{sum(skipped.values())} skipped (rules etc.)")
+    for m, n in written:
+        print(f"  CycKB.{m}: {n} facts")
+    print("  skipped, top:", ", ".join(f"{k}={v}" for k, v in skipped.most_common(8)))
+
+
+if __name__ == "__main__":
+    main()

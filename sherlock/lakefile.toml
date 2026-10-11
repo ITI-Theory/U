@@ -1,0 +1,23 @@
+name = "OpenCyc"
+defaultTargets = ["Cyc"]
+
+# Core: terms, sentences, Holds (Cyc's ist), the inference rules (committed).
+[[lean_lib]]
+name = "Cyc"
+
+# Generated from NextKB, one module per microtheory (make -C sherlock lean-gen).
+[[lean_lib]]
+name = "CycKB"
+srcDir = "../bld/sherlock/lean"
+
+[[require]]
+name = "aesop"
+git = "https://github.com/leanprover-community/aesop"
+rev = "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e"
+# Queries and tests against generated microtheories.
+[[lean_lib]]
+name = "Queries"
+
+# Sherlock affidavits: a document's claims typed against OpenCyc.
+[[lean_lib]]
+name = "Affidavits"
