@@ -12,7 +12,7 @@
 const CHANNEL = 'soma-screens';
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
-  'kf', 'tw', 'pv', 'ca', 'cs', 'cp'];
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx'];
 export const ROLES = ['level', 'cockpit', 'engine'];
 
 export const screenRole = (() => {

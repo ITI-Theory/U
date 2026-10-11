@@ -3173,9 +3173,12 @@ course: a slider (or radio buttons) with a word of help now and then.
   without being told what it is: the score is what is rendered, not the story.
 - Fits the externalising machine (ISS-053): the less the film says, the more the
   viewer brings.
-- [ ] A text-level parameter (`kx`, 0-4) in the score player, the hash, tours and
-      the score stop's controls; intertitles as full-screen cards.
-- [ ] The suggestion after a viewing, and the remembered level.
+- [x] (12 Oct) WORDS (`kx`, 0-4) at the score stop: NUMBER (the film's number only,
+      the setting line hidden), TITLE, CARDS (an intertitle on a darkened frame as
+      each phase begins), CAPTIONS (the phase lines, fading with the Language mode),
+      NARRATION (H-AL speaks); in the hash, tours and the screens' shared keys.
+- [x] (12 Oct) The level is remembered in the browser; at the end of a viewing the
+      film says "Next time, try it with fewer words" and stores the suggestion.
 
 ## ISS-073: SpaceEngine PRO for the cosmic scales; music generated from the score — OPEN
 {{Tags area.app, area.instrument}}

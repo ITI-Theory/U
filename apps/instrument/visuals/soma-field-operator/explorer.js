@@ -18,6 +18,13 @@ import { scores, viewers } from './generated/app-data.js';
 // the condition sliders ca, cs, cp (ADHD, ASD, C-PTSD: P13's model operators, not diagnoses)
 const RIVER_SCORE = scores?.find(s => s.id === 'river-film') ?? scores?.[0];
 const filmScore = id => scores?.find(s => s.id === id) ?? RIVER_SCORE;
+// How much language the film gives (ISS-072; kx): 0 a number only (as Rothko numbered his
+// pictures), 1 the title, 2 intertitles at each phase (silent-film cards), 3 captions (the
+// phase lines), 4 narration (H-AL speaks each phase). Within the film the words still recede
+// with the Language mode; after a viewing the film suggests one notch lower (fading).
+export const WORDS = ['NUMBER', 'TITLE', 'CARDS', 'CAPTIONS', 'NARRATION'];
+const filmNumber = f => `No. ${Math.max(0, scores?.findIndex(s => s.id === f?.id) ?? 0) + 1}`;
+const filmName = (f, kx) => (kx >= 1 ? f?.title ?? '' : filmNumber(f));
 const viewerPreset = id => viewers?.find(v => v.id === (id || 'v2021')) ?? viewers?.find(v => v.id === 'neutral') ?? null;
 import { createExplorerMusic } from './explorer-music.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
@@ -128,7 +135,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on). FILM (kf) picks the film: the River Film or the 2021 film. TWIN (tw=1): one film, two viewers, side by side on the river: left the viewer of now, right a VIEWER preset (pv: as I was in 2021, fitted from the two films; neutral; or a model condition) plus the ADHD, ASD and C-PTSD sliders (ca, cs, cp: P13\'s model operators, hypotheses, not diagnoses); the knobs and the heart move both.',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on). FILM (kf) picks the film: the River Film or the 2021 film. TWIN (tw=1): one film, two viewers, side by side on the river: left the viewer of now, right a VIEWER preset (pv: as I was in 2021, fitted from the two films; neutral; or a model condition) plus the ADHD, ASD and C-PTSD sliders (ca, cs, cp: P13\'s model operators, hypotheses, not diagnoses); the knobs and the heart move both. WORDS (kx): how much language the film gives, from NUMBER (only its number, as Rothko numbered his pictures) through TITLE and CARDS (silent-film intertitles) to CAPTIONS and NARRATION; each press is one notch fewer, and after a viewing the film suggests trying the next one down.',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1151,6 +1158,9 @@ function makeScore() {
   // the film (?film=1): H-AL speaks each phase line of the score as story-time reaches it
   let spokenPhase = null;
   let narrator = null;
+  let cardPhase = null; // the intertitle on screen (kx 2) and how long it has left
+  let cardTime = 0;
+  let suggested = false;
   let hrvClock = 0;
   let pairR = 1;
   let burst = false;
@@ -1184,11 +1194,19 @@ function makeScore() {
       // browsers only speak after the viewer has touched the page: wait for that, then say the
       // phase the film is in
       const mayspeak = typeof navigator === 'undefined' || (navigator.userActivation?.hasBeenActive ?? true);
-      if (env.film && mayspeak && phase.name && phase.name !== spokenPhase) {
+      if (env.kx >= 4 && mayspeak && phase.name && phase.name !== spokenPhase) {
         spokenPhase = phase.name;
         narrator ??= createVoice();
         narrator.speak(phase.line, 'hal');
       }
+      if (env.kx === 2 && phase.name && phase.name !== cardPhase) { cardPhase = phase.name; cardTime = 3.5; }
+      cardTime = Math.max(0, cardTime - env.dt);
+      // after a viewing: suggest one notch fewer words next time (remembered, not imposed)
+      if (player.t >= 0.999 && !suggested && env.kx > 0) {
+        suggested = true;
+        try { localStorage.setItem('soma-kx-suggest', String(env.kx - 1)); } catch { /* private mode */ }
+      }
+      if (player.t < 0.5) suggested = false;
       if (env.kc === 'session') {
         const m = scoreModes;
         for (let k = 0; k < 3; k++) pairR = dyadStep(pair, m.F, m.S > 0.5, env.dt / 3);
@@ -1231,10 +1249,10 @@ function makeScore() {
         const xr = (env.w / 4) / u;
         const pr = viewerPreset(env.pv);
         const p = presetParams(pr, { adhd: env.ca, asd: env.cs, cptsd: env.cp });
-        label(ctx, u, `NOW · the neutral viewer · ${film?.title ?? ''}`, -xr, -0.64, COLORS.ink, 'center', 0.028);
+        label(ctx, u, `NOW · the neutral viewer · ${filmName(film, env.kx)}`, -xr, -0.64, COLORS.ink, 'center', 0.028);
         label(ctx, u, `${(pr?.title ?? 'neutral').toUpperCase()} · the same film`, xr, -0.64, COLORS.ink, 'center', 0.028);
         label(ctx, u, `ADHD ${p.adhd.toFixed(2)} · ASD ${p.asd.toFixed(2)} · C-PTSD ${p.cptsd.toFixed(2)} (model operators, not diagnoses)`, xr, -0.6, COLORS.dim, 'center', 0.022);
-      } else label(ctx, u, `SETTING: ${SETTINGS[env.kc] ?? SETTINGS.mind} · the same score`, 0, -0.64, COLORS.ink, 'center', 0.028);
+      } else if (env.kx >= 1) label(ctx, u, `SETTING: ${SETTINGS[env.kc] ?? SETTINGS.mind} · the same score`, 0, -0.64, COLORS.ink, 'center', 0.028);
       if (env.kc === 'session') label(ctx, u, `in step r = ${pairR.toFixed(2)}`, 0, -0.6, pairR > 0.9 ? COLORS.teal : COLORS.orange, 'center', 0.024);
       // the score: seven bars, story-time, the phase
       const names = player.names();
@@ -1277,14 +1295,34 @@ function makeScore() {
       ctx.restore();
       const phase = player.phase();
       const mins = (player.t * player.seconds) / 60;
-      label(ctx, u, `${film?.title ?? ''} · ${phase.name} · t = ${player.t.toFixed(3)} · ${mins.toFixed(1)} min · κv ${player.velocity}`, 0, bar.y - 0.04, COLORS.dim, 'center', 0.024);
+      label(ctx, u, `${filmName(film, env.kx)}${env.kx >= 2 ? ` · ${phase.name}` : ''} · t = ${player.t.toFixed(3)} · ${mins.toFixed(1)} min · κv ${player.velocity}`, 0, bar.y - 0.04, COLORS.dim, 'center', 0.024);
       const kn = player.knobs;
       label(ctx, u, `κd ${kn.kd.toFixed(2)} · κt ${(env.kt ?? 0).toFixed(2)} · κW ${kn.kw.toFixed(2)} · modes ${kn.mask.join(' ')}`, 0, bar.y - 0.09, COLORS.dim, 'center', 0.022);
       // words fade with the Language mode: at the bottom of the river there are none
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, Math.min(1, (m.L - 0.1) / 0.6));
-      label(ctx, u, phase.line, 0, 0.66, COLORS.ink, 'center', 0.034);
-      ctx.restore();
+      if (env.kx >= 3) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, (m.L - 0.1) / 0.6));
+        label(ctx, u, phase.line, 0, 0.66, COLORS.ink, 'center', 0.034);
+        ctx.restore();
+      }
+      // kx 2: a silent-film intertitle when a phase begins, the frame darkened behind it
+      if (env.kx === 2 && cardTime > 0 && cardPhase) {
+        const a = Math.min(1, cardTime / 0.6, (3.5 - cardTime) / 0.4);
+        ctx.save();
+        ctx.globalAlpha = 0.85 * a;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(-env.w / 2, -env.h / 2, env.w, env.h);
+        ctx.globalAlpha = a;
+        ctx.strokeStyle = '#e8eefc';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(-0.42 * u, -0.16 * u, 0.84 * u, 0.32 * u);
+        ctx.restore();
+        ctx.save();
+        ctx.globalAlpha = a;
+        label(ctx, u, cardPhase, 0, 0.0, COLORS.ink, 'center', 0.06);
+        ctx.restore();
+      }
+      if (player.t >= 0.999 && env.kx > 0) label(ctx, u, `Next time, try it with fewer words: ${WORDS[env.kx - 1]} (WORDS)`, 0, 0.58, COLORS.gold, 'center', 0.028);
       if (player.holding) label(ctx, u, `THRESHOLD ${player.holding.id} · ${player.holding.from} → ${player.holding.to} · ${env.kr > 0 ? 'waiting for the heart to settle (falling, below 85) or POKE' : 'holding until ready (POKE)'}`, 0, -0.7, COLORS.gold, 'center', 0.03);
     },
   };
@@ -1827,6 +1865,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__hr" title="The viewer's heart rate (the slider, or a chest strap: ♥ STRAP). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
       <button type="button" data-act="kc" title="One score, four settings (The Tensor, the Trilogy of Containers): the mind (the Mandelbulb), the river, the body, the session. The same thresholds at the same story-times">SETTING: MIND</button>
       <button type="button" data-act="kf" title="The film (registry/scores): the River Film (2026) or the 2021 film (Art – FIS). Both windows of the twin view play it">FILM: RIVER</button>
+      <button type="button" data-act="kx" title="How much language the film gives (kx): NUMBER only (as Rothko numbered his pictures), TITLE, CARDS (silent-film intertitles), CAPTIONS, NARRATION (H-AL speaks). After a viewing the film suggests one notch fewer words">WORDS: CAPTIONS</button>
       <button type="button" data-act="tw" aria-pressed="false" title="The twin view (setting: the river): one film, two viewers. Left the viewer of now (neutral); right a viewer preset. The knobs and the heart move both">TWIN</button>
       <button type="button" data-act="pv" title="The right window's viewer (registry/viewers): as I was in 2021 (fitted from the two films), neutral, or a model condition (P13: hypotheses, not diagnoses)">VIEWER</button>
       <span class="explorer__conds" role="group" aria-label="Conditions (added to the preset)" title="Added to the preset's conditions: P13's model operators (ADHD: the temperature up, noise; ASD: the temperature down, monotropism; C-PTSD: the barrier deeper, slower back). Hypotheses, not diagnoses">${[['ca', 'ADHD'], ['cs', 'ASD'], ['cp', 'C-PTSD']].map(([k, n]) => `<label>${n} <input type="range" min="0" max="1" step="0.05" value="0" data-cond="${k}" aria-label="${n} (added to the preset)" /></label>`).join('')}</span>
@@ -1856,6 +1895,7 @@ export function createExplorer(hooks = {}) {
   const kcButton = root.querySelector('[data-act="kc"]');
   const kfButton = root.querySelector('[data-act="kf"]');
   const twButton = root.querySelector('[data-act="tw"]');
+  const kxButton = root.querySelector('[data-act="kx"]');
   const pvButton = root.querySelector('[data-act="pv"]');
   const condRow = root.querySelector('.explorer__conds');
   for (const input of condRow.querySelectorAll('input')) {
@@ -1890,6 +1930,8 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0,
+    // words: the viewer's last choice, else narration for the film (?film=1), else captions
+    kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
   // 3D SBS: far (background), screen (scene, labels) and near (the field) layers, composited
   // per eye with opposite shifts; the 3D landscape renders its own two eyes.
@@ -1975,6 +2017,8 @@ export function createExplorer(hooks = {}) {
     kfButton.hidden = st.stop !== 'score' || (scores?.length ?? 0) < 2;
     kfButton.textContent = `FILM: ${(filmScore(st.kf)?.title ?? st.kf).replace(/^The /, '').toUpperCase()}`;
     twButton.hidden = st.stop !== 'score';
+    kxButton.hidden = st.stop !== 'score';
+    kxButton.textContent = `WORDS: ${WORDS[st.kx]}`;
     twButton.classList.toggle('active', st.tw);
     twButton.setAttribute('aria-pressed', String(st.tw));
     pvButton.hidden = condRow.hidden = st.stop !== 'score' || !st.tw;
@@ -2161,7 +2205,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
     if (stereo) {
       prepareLayers(lw);
@@ -2281,6 +2325,11 @@ export function createExplorer(hooks = {}) {
       st.kf = ids[(ids.indexOf(st.kf) + 1) % ids.length] ?? 'river-film';
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'kx') {
+      st.kx = (st.kx + 4) % 5; // down a notch each press: fewer words, then round to narration
+      try { localStorage.setItem('soma-kx', String(st.kx)); } catch { /* private mode */ }
+      syncUi();
+      hooks.onChange?.();
     } else if (b.dataset.act === 'tw') {
       st.tw = !st.tw;
       if (st.tw) st.kc = 'river'; // the twin view is drawn in the river (two viewports)
@@ -2392,13 +2441,13 @@ export function createExplorer(hooks = {}) {
     },
     get loop() { return { bpm: st.bpm, kr: st.kr }; },
     get heart() { return { strap: strap.connected, status: strapStatus, rr: rrIntervals.slice() }; },
-    get scoreParams() { return { kv: st.kv, st: st.st, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw ? 1 : 0, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp }; },
+    get scoreParams() { return { kv: st.kv, st: st.st, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw ? 1 : 0, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx }; },
     setLoop({ bpm, kr } = {}) {
       if (bpm !== null && bpm !== undefined && bpm !== '' && Number.isFinite(Number(bpm))) st.bpm = Math.max(50, Math.min(140, Number(bpm)));
       if (kr !== null && kr !== undefined && ['0', '0.5', '1'].includes(String(kr))) st.kr = Number(kr);
       syncUi();
     },
-    setScore({ kv, st: start, kd, kt, kw, km, kc, kf, tw, pv, ca, cs, cp } = {}) {
+    setScore({ kv, st: start, kd, kt, kw, km, kc, kf, tw, pv, ca, cs, cp, kx } = {}) {
       if (SETTING_IDS.includes(kc)) st.kc = kc;
       const num = x => x !== null && x !== undefined && x !== '' && Number.isFinite(Number(x));
       if (scores?.some(sc => sc.id === kf)) st.kf = kf;
@@ -2407,6 +2456,7 @@ export function createExplorer(hooks = {}) {
       if (num(ca)) st.ca = clamp(Number(ca), 0, 1);
       if (num(cs)) st.cs = clamp(Number(cs), 0, 1);
       if (num(cp)) st.cp = clamp(Number(cp), 0, 1);
+      if (num(kx) && Number.isInteger(Number(kx)) && Number(kx) >= 0 && Number(kx) <= 4) st.kx = Number(kx);
       syncUi();
       if (num(kd)) st.kd = clamp(Number(kd), 0, 1);
       if (num(kt)) st.kt = clamp(Number(kt), 0, 1);
