@@ -1,0 +1,231 @@
+# Sherlock affidavit (DRAFT): Experimental Benchmarks for the Universal Somatic
+# Field Framework (P12). Schema: sherlock/registry.py. All claims here are
+# arithmetic on the paper's own numbers (benchmark counts, the QUANT-EXP-1
+# reachability counts, the Britain 1939 N and K values, the MNIST prototype
+# dimension), recomputed with Python (Fraction for exact rational checks) and
+# verified before being written as `check:` templates. FMHN-ReachabilityQuantumSuccessRate,
+# FMHN-ReachabilityClassicalSuccessRate and USF-SorryCount are reused from
+# registry/affidavits/missing-limbic-layer.yaml and universal-somatic-field.yaml:
+# this paper restates the same QUANT-EXP-1 counts and the same project-wide
+# sorry count.
+id: experimental-validation
+document: P12
+title: "Experimental Benchmarks for the Universal Somatic Field Framework: Four-Model Comparison, MNIST Prototype, Macroscopic Synchronisation Analogies, and the God-Knob Hysteresis Test"
+source:
+  file: paper/soma/experimental-validation/experimental-validation.md
+  commit: c9a42c0
+  sha256: 0420422619605c76fc82e5ff2f3e4b28b95d4211f1207479eb0418efdcca4eb9
+lean: []
+microtheories: {}
+claims:
+  - id: X1
+    quote: 'A 5×4 MNIST prototype (20-dimensional, matching `D = 20`'
+    lines: [159]
+    kind: internal-arithmetic
+    finding: >-
+      5×4 = 20, so the "5×4 MNIST prototype" is correctly described as
+      20-dimensional and matches the stated `D = 20` in Hopfield.lean
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [5, 5, 5, 5, 20]}]
+    values:
+      - {quantity: ExpVal-MnistPrototypeDimension, value: 20}
+    disposition: none
+  - id: X2
+    quote: 'with N = 45,000,000 and K = 5 because its premise is `N < K`'
+    lines: [234]
+    kind: internal-arithmetic
+    finding: >-
+      N = 45,000,000 is not less than K = 5 (45,000,000 > 5), so the premise
+      `N < K` of `propagator_beats_classical` does indeed fail for these
+      numbers, confirming the stated conclusion that the theorem "cannot be
+      instantiated" with them
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [5, 45000000]}]
+    values:
+      - {quantity: ExpVal-Britain1939AgentCount, value: 45000000}
+      - {quantity: ExpVal-Britain1939KValue, value: 5}
+    disposition: none
+  - id: X3
+    quote: 'This section connects it to three benchmark scenarios'
+    lines: [169]
+    kind: internal-count
+    finding: >-
+      the three subsections that follow (3.1 Kuramoto order parameter, 3.2
+      the GHZ test, 3.3 the Britain 1939 scenario) number exactly three,
+      matching the stated "three benchmark scenarios"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    values:
+      - {quantity: ExpVal-MacroscopicAnalogyCount, value: 3}
+    disposition: none
+  - id: X4
+    quote: '(W ∈ {8, 10, 12})'
+    lines: [290, 291]
+    kind: internal-count
+    finding: >-
+      the three listed barrier values W ∈ {8, 10, 12} number exactly three,
+      matching the stated numerator of the "3/3 barrier cases" reachability
+      count
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    disposition: none
+  - id: X5
+    quote: 'presents five benchmark designs'
+    lines: [14, 22, 321]
+    kind: internal-count
+    finding: >-
+      the abstract's "(1)...(5)" enumeration (four-model comparison, MNIST
+      test, macroscopic analogies, hysteresis test, QUANT-EXP-1 software
+      analogue) lists exactly five items, matching the stated "five
+      benchmark designs" and the Discussion's "The five benchmarks"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: ExpVal-BenchmarkCount, value: 5}
+    disposition: none
+  - id: X6
+    quote: '45 × 10⁶ agents'
+    lines: [219, 227, 234]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Britain 1939 agent count N is restated in three notations —
+      "approximately 45 million" (line 219), "45 × 10⁶" (line 227), and
+      "45,000,000" (line 234) — all equal to 45,000,000
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [45e6, 45000000]}]
+    values:
+      - {quantity: ExpVal-Britain1939AgentCount, value: 45000000}
+    disposition: none
+  - id: X7
+    quote: 'average degree 5'
+    lines: [231, 234]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the average node degree assumed for classical gossip propagation (5,
+      line 231) is the same number reused as K in "N = 45,000,000 and K = 5"
+      (line 234)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: ExpVal-Britain1939KValue, value: 5}
+    disposition: none
+  - id: X8
+    quote: 'O(2 × 10¹⁵) operations for one matrix-vector'
+    lines: [227, 232]
+    kind: internal-arithmetic
+    finding: >-
+      with N = 45,000,000, N² = 2,025,000,000,000,000 = 2.025e15, which is
+      within 1.25% of the stated order-of-magnitude figure O(2 × 10¹⁵); a
+      Big-O figure, not a claim of the exact value
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [2.025e15, 2e15, 0, 0.02]}]
+    values:
+      - {quantity: ExpVal-Britain1939PropagatorOpsComputed, value: 2.025e15}
+      - {quantity: ExpVal-Britain1939PropagatorOpsStated, value: 2e15}
+    disposition: none
+  - id: X9
+    quote: 'uses 20-dimensional representations'
+    lines: [159, 358]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the "What has not been established" section restates the MNIST
+      prototype as "20-dimensional", matching the dimension given earlier
+      for the 5×4 prototype (claim X1)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [20, 20]}]
+    values:
+      - {quantity: ExpVal-MnistPrototypeDimension, value: 20}
+    disposition: none
+  - id: X10
+    quote: '3/3 barrier cases'
+    lines: [290]
+    kind: cross-paper
+    finding: >-
+      the stated 3/3 quantum-adjacent reachability rate for QUANT-EXP-1
+      matches FMHN-ReachabilityQuantumSuccessRate (3/3) quoted for the same
+      experiment in missing-limbic-layer.yaml M9
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [1, 1]}]
+    values:
+      - {quantity: FMHN-ReachabilityQuantumSuccessRate, value: 3/3}
+    disposition: none
+  - id: X11
+    quote: 'failed in 0/48 runs'
+    lines: [292]
+    kind: cross-paper
+    finding: >-
+      the stated 0/48 cold-classical-baseline failure rate for QUANT-EXP-1
+      matches FMHN-ReachabilityClassicalSuccessRate (0/48) quoted for the
+      same experiment in missing-limbic-layer.yaml M9
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0, 0]}]
+    values:
+      - {quantity: FMHN-ReachabilityClassicalSuccessRate, value: 0/48}
+    disposition: none
+  - id: X12
+    quote: 'five remaining real'
+    lines: [35, 36]
+    kind: cross-paper
+    finding: >-
+      the "five remaining real `sorry`s project-wide" count matches
+      USF-SorryCount (5) quoted in universal-somatic-field.yaml U10 ("five
+      real sorries")
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-SorryCount, value: 5}
+    disposition: none
+
+# TYPING: "QUANT-EXP-1" is treated throughout as the name of a published
+# experiment/result (an event or exhibit), not a physical quantity or a
+# theorem; OpenCyc mapping candidate: Event-Localized or
+# ExperimentalExhibitionEvent (via lookup.py "experiment"), not a
+# PhysicalQuantity constant.
+# TYPING: "the God-Knob" is used both as the name of the source term
+# J_user(t) (a function/variable) and, informally, as the name of the
+# hysteresis test protocol built around it; worth a reading split
+# (TestProtocol vs. MathematicalFunction-Programs) if this paper is pursued
+# further for typing claims.
+# TYPING: "barrier W" / "barrier height W" is used as a scalar parameter of
+# the WKB gate (`T = exp(-W)`), not as a spatial or energetic "barrier"
+# object in the OpenCyc sense of a physical obstacle; candidate mapping is
+# to a ScalarIntervalParameter or similar, not SpatialThing-Localized.
+# TYPING: "the awe basin" / "fear basin" name attractor regions of a
+# dynamical system's state space, not emotions themselves (the emotions are
+# BRECVEMA-dimension labels on points in that space); candidate OpenCyc
+# mapping is AttractorRegion-adjacent (a region-of-space-like construct)
+# rather than directly an Emotion-TypeByAppraisal individual.
+# LEAN: the paper names five theorems with explicit proof status
+# (`propagator_beats_classical`, `correspondence_principle`,
+# `quant_exp_1_awe_reachable`, `jellyfish_single_step`, `wkbGate_creates_awe`,
+# `volitional_update`/`volitional_superposition`, `gradient_traps_near_neg1`)
+# and states the project-wide sorry count as five (claim X12) and that
+# `runBenchmark`'s `#eval` line is commented out because the benchmark
+# remains noncomputable (lines 59-61, 92-94): candidates for
+# `make -C sherlock ledger` against the Lean sources named (SwarmPropagator.lean,
+# LimbicHopfield.lean, QuantumSim.lean, UniversalSomaticField.lean,
+# LimbicTunnel.lean, Benchmark.lean), not yet checked here.

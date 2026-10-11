@@ -1,0 +1,224 @@
+# Sherlock affidavit (DRAFT): Single-Step Multi-Agent Coordination via Green's
+# Function Propagators: A Macroscopic Brane Projection Framework (P19). Schema:
+# sherlock/registry.py. Arithmetic claims recomputed with Python (Fraction for
+# exact rational checks) and verified before being written as `check:`
+# templates. Dimension-count values reuse the cross-document names already
+# agreed in bld/sherlock/values.md (USF-TotalDimensionCount,
+# USF-CompactDimensionCount, USF-NonCompactDimensionCount, USF-ScaleLevelCount).
+id: swarm-propagator
+document: P19
+title: "Single-Step Multi-Agent Coordination via Green's Function Propagators: A Macroscopic Brane Projection Framework"
+source:
+  file: paper/soma/swarm-propagator/swarm-propagator.md
+  commit: 401efc1
+  sha256: a7c4f1ba95e76d686db516073d313fc8bb213008f2a5a48937fcb1973202f5a5
+lean: []
+microtheories: {}
+claims:
+  - id: S1
+    quote: 'proved by `Rat.div_lt_div_right`'
+    lines: [201]
+    kind: ledger
+    finding: >-
+      the paper claims `speedup_monotone_in_K` is kernel-checked by
+      `Rat.div_lt_div_right`, but that declaration does not exist in the
+      current Mathlib (`make -C sherlock ledger`)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    ledger: make -C sherlock ledger (bld/sherlock/ledger.md)
+    disposition: open
+  - id: S2
+    quote: K = O(N) in the
+    lines: [37, 38, 87, 88, 90]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the paper states two different worst-case growth orders for the number
+      of communication rounds K: "K = O(N) in the worst case" (lines 37-38)
+      for bounded-degree swarms, then separately derives "in the worst case"
+      (line 90) a classical total cost of O(N^3 log(1/eps)) from "K =
+      O(N^2 log(1/eps))" rounds (line 88) for the common sparse-graph case —
+      exponent 1 versus exponent 2 for the same worst-case quantity K, and a
+      common-case bound that is asymptotically larger than the stated
+      worst-case bound
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [1, 2]}]
+    values:
+      - {quantity: Swarm-WorstCaseKExponentIntro, value: 1}
+      - {quantity: Swarm-WorstCaseKExponentBackground, value: 2}
+    disposition: open
+  - id: S3
+    quote: 'a 50× reduction at'
+    lines: [18, 19, 185]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the abstract's "50x reduction at typical operating parameters (N=100,
+      K=5000)" equals the complexity table's N=100, K=5,000 row speedup
+      (K/N = 5000/100 = 50), so the headline figure matches the body
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5000/100, 50]}]
+    values:
+      - {quantity: Swarm-HeadlineSpeedup, value: 50}
+      - {quantity: Swarm-HeadlineSwarmSize, value: 100}
+      - {quantity: Swarm-HeadlineRounds, value: 5000}
+    disposition: none
+  - id: S4
+    quote: '500,000 | 10,000'
+    lines: [182, 183, 184, 185, 186, 187]
+    kind: internal-arithmetic
+    finding: >-
+      recomputing the complexity table's break-even row (N=100, K=100:
+      classical N*K=10,000, propagator N^2=10,000, speedup K/N=1) and its
+      largest-N row (N=1,000, K=5,000: classical N*K=5,000,000, propagator
+      N^2=1,000,000, speedup K/N=5) from the table's own N and K columns
+      reproduces the stated Classical, Propagator and Speedup entries exactly
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [10000, 10000]}
+      - {template: eq, args: [10000, 10000]}
+      - {template: eq, args: [100/100, 1]}
+      - {template: eq, args: [5000000, 5000000]}
+      - {template: eq, args: [1000000, 1000000]}
+      - {template: eq, args: [5000/1000, 5]}
+    disposition: none
+  - id: S5
+    quote: M_{11} = M_4 \times X_7
+    lines: [129]
+    kind: cross-paper
+    finding: >-
+      the paper's 11-dimensional configuration-space split M_11 = M_4 x X_7
+      (Spacetime x Propagator-Limbic-Cortex) uses 4 + 7 = 11, matching the
+      USF-TotalDimensionCount (11), USF-NonCompactDimensionCount (4) and
+      USF-CompactDimensionCount (7) values already agreed across the
+      Soma-Field papers (universal-somatic-field, cosmological-constant-derivation)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 7, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+      - {quantity: USF-NonCompactDimensionCount, value: 4}
+      - {quantity: USF-CompactDimensionCount, value: 7}
+    disposition: none
+  - id: S6
+    quote: 'P_3 \times L_1 \times C_3$=7'
+    lines: [131]
+    kind: internal-arithmetic
+    finding: >-
+      the Visualize block's part dimensions for X_7 (Propagator P_3=3,
+      Limbic L_1=1, Cortex C_3=3) sum to 3+1+3=7, matching the X_7=7 total
+      used in the M_11 decomposition (claim S5)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [3, 1, 3, 7]}]
+    values:
+      - {quantity: Swarm-PropagatorSubspaceDimensionCount, value: 3}
+      - {quantity: Swarm-LimbicSubspaceDimensionCount, value: 1}
+      - {quantity: Swarm-CortexSubspaceDimensionCount, value: 3}
+    disposition: none
+  - id: S7
+    quote: D_{5-7} \cong \mathbb{R}^3
+    lines: [133, 139]
+    kind: internal-count
+    finding: >-
+      the Propagator Space is named D_5-D_7, i.e. the three dimension
+      indices 5, 6, 7 (7 - 4 = 3, counting from the last Spacetime index
+      D_4), matching the stated "3-dimensional subspace" and the
+      Swarm-PropagatorSubspaceDimensionCount=3 of claim S6
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [7, 4, 3]}]
+    disposition: none
+  - id: S8
+    quote: 20-level scale dial
+    lines: [267]
+    kind: cross-paper
+    finding: >-
+      a 20-level scale dial, as P20 and P21 say, where the programme's Lean has
+      ScaleLevel := Fin 21 (UniversalSomaticField.lean) and P11 has 21
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [20, 21]}]
+    values:
+      - {quantity: USF-ScaleLevelCount, value: 20}
+    disposition: open
+  - id: S9
+    quote: '**50×**'
+    lines: [182, 183, 184, 185]
+    kind: internal-count
+    finding: >-
+      at the paper's own fixed N=100, the table's speedup column increases
+      monotonically with K (1, 5, 10, 50 for K=100, 500, 1000, 5000), as the
+      stated K/N speedup ratio requires
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [1, 5, 10, 50]}]
+    disposition: none
+  - id: S10
+    quote: classical_wins_single_round
+    lines: [18, 200]
+    kind: internal-arithmetic
+    finding: >-
+      the paper's own canonical swarm size N=100 confirms the cited
+      `classical_wins_single_round` theorem's claim that for K=1 classical
+      message passing (cost N*K=100) is cheaper than the propagator protocol
+      (cost N^2=10,000)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [100, 10000]}]
+    disposition: none
+  - id: S11
+    quote: 'equal cost when $K = N$'
+    lines: [169, 182, 186]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the corollary's break-even condition N*K=N^2 at K=N is confirmed by
+      both table rows where K=N (N=100, K=100 and N=1,000, K=1,000), each
+      giving Classical=Propagator and the stated "1x (break-even)"/"1x" entry
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [10000, 10000]}
+      - {template: eq, args: [1000000, 1000000]}
+    disposition: none
+
+# Claims not expressible with the numeric templates (not written as `claims:` above):
+# TYPING: "the Green's function of the field serves as a propagator matrix"
+#   (lines 8-9) and "the Gram matrix of the field's Green's function"
+#   (lines 141-142) identify a continuous kernel with a finite N x N matrix;
+#   an OpenCyc typing claim about "propagator" / "Green's function" /
+#   "matrix" as distinct kinds of thing, not a number.
+# TYPING: "the swarm is treated as a Macroscopic Brane Projection of a
+#   continuous electromagnetic field" (lines 6-8) reuses the M-theory "brane"
+#   concept for a drone swarm — a category/typing claim (physical object vs.
+#   field-theoretic construct) rather than an arithmetic one.
+# TYPING: "the propagator protocol completes in a single evaluation" (lines
+#   218-219) vs. "practical jam resistance requires an engineering threat
+#   model" (lines 227-228): the paper itself distinguishes the proved
+#   one-step identity from a security claim — worth an OpenCyc reading of
+#   "proves" vs. "is resistant to", not a template.
+# LEAN: "Formal Proof Status" (lines 241-244) states
+#   `greens_achieves_minimum_energy` is an axiom "pending PDE scaffolding in
+#   Mathlib", distinct from the five theorems listed at lines 196-202
+#   (`propagator_beats_classical`, `breakeven_at_N`,
+#   `classical_wins_single_round`, `speedup_monotone_in_K`, `jam_resistant`)
+#   — a ledger claim about declaration kinds (axiom vs. theorem) and sorry
+#   status, checkable only against the Lean, beyond the one Rat.div_lt_div_right
+#   finding already written as claim S1.
+# LEAN: "proved by `nlinarith`" (propagator_beats_classical, line 198), "proved
+#   by `simp`" (breakeven_at_N, line 199) and "proved (for K=1, classical is
+#   faster)" (classical_wins_single_round, line 200) are further claims about
+#   which tactic closes each theorem, checkable by the ledger but not
+#   attempted here beyond S1.

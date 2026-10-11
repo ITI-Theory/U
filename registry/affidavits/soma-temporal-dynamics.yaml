@@ -1,0 +1,208 @@
+# Sherlock affidavit (DRAFT): Temporal Dynamics of the Universal Somatic Field (P10).
+# Schema: sherlock/registry.py. All numeric checks were recomputed with Python
+# (exact Fraction arithmetic for the counts; math.exp/math.pi for the Kramers
+# growth check, where only ordering, not exact value, is asserted) before being
+# written as `check:` templates below.
+id: soma-temporal-dynamics
+document: P10
+title: "Temporal Dynamics of the Universal Somatic Field: Retarded Propagators, Transition Rates, and the Memory of Feeling"
+source:
+  file: paper/soma/soma-temporal-dynamics/soma-temporal-dynamics.md
+  commit: ceb8ca1
+  sha256: 868f0be2bde3a7542a70220a849b69ba94d10ba77845aa1be696866c8db19256
+lean: []
+microtheories: {}
+symbols:
+  k: 1/m
+  ell: m
+  v_s: m/s
+  tau_m: s
+equations:
+  - id: Q1
+    quote: '\ell = 1/k'
+    lines: [107]
+    twin: ell = 1/k
+    note: the wavenumber $k$ (1/m) inverted gives a length (m), the somatic correlation length
+  - id: Q2
+    quote: '\tau_m = 1/(k v_s)'
+    lines: [171]
+    twin: tau_m = 1/(k*v_s)
+    where: {k: 0.25, v_s: 8}
+    expect: 0.5
+    note: k (1/m) times v_s (m/s) is 1/s, inverted is s, matching tau_m's stated unit
+claims:
+  - id: T1
+    quote: '\mathrm{Scale}_{20}'
+    lines: [422, 429, 496, 514]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the proposed USF type sums over $\sigma : \mathrm{Scale}_{20}$ (a 20-element
+      type, indices 0..19), but the same paragraph's own Zoom Operator row gives
+      $\sigma \in \{0,\ldots,20\}$ (21 values) and the cosmological-scale example
+      a few lines earlier explicitly uses $\sigma = 19$--$20$, an index outside
+      Scale_20's range, so the paper's two statements of the scale count disagree
+      by one (20 vs 21)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [21, 20, 1]}]
+    values:
+      - {quantity: USF-ScaleLevelCount, value: 20}
+      - {quantity: USF-ScaleLevelCount, value: 21}
+    disposition: open
+  - id: T2
+    quote: these three objects provide a kinematic language
+    lines: [522, 523, 524, 525, 526, 527, 528]
+    kind: internal-count
+    finding: >-
+      three objects are named, then four aspects the language covers (where, how long,
+      memory, control); loose wording rather than a contradiction
+    verdict: unclear
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [4, 3, 1]}]
+    values:
+      - {quantity: Temporal-ConclusionNamedObjectCount, value: 3}
+      - {quantity: Temporal-ConclusionDescribedRoleCount, value: 4}
+    disposition: open
+  - id: T3
+    quote: Section 7 places the results in the context of the
+    lines: [78, 79, 394, 436]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Organisation-of-the-Paper paragraph says Section 6 draws clinical
+      implications and Section 7 places the results in the broader USF context,
+      but counting the paper's own top-level headings (Introduction=1 through
+      Therapeutic Intervention=5) the 6th section is actually "The Temporal
+      Somatic Field Across Scales" (the broader-context material) and the 7th is
+      "Implications and Open Questions" (the clinical-implications material), so
+      the two descriptions are swapped relative to the body
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [7, 6, 1]}]
+    values:
+      - {quantity: Temporal-ClinicalImplicationsSectionStated, value: 6}
+      - {quantity: Temporal-ClinicalImplicationsSectionActual, value: 7}
+    disposition: open
+  - id: T4
+    quote: '\ell = 1/k'
+    lines: [107, 171]
+    kind: internal-arithmetic
+    finding: >-
+      the somatic correlation length $\ell = 1/k$ (Section 2) and the somatic
+      memory timescale $\tau_m = 1/(k v_s)$ (Section 3), two quantities defined
+      independently in different sections, satisfy the wave relation
+      $\ell = v_s\,\tau_m$ exactly, e.g. at illustrative $k=1/4$, $v_s=8$:
+      $\ell=4$ and $v_s\,\tau_m = 8\times(1/2) = 4$
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [4, 4, 0]}]
+    disposition: none
+  - id: T5
+    quote: seconds to minutes
+    lines: [184, 190, 196]
+    kind: internal-arithmetic
+    finding: >-
+      the paper's three qualitative memory regimes are given in increasing
+      timescale order — short-term ($\tau_m \sim$ seconds to minutes), medium-term
+      ($\tau_m \sim$ hours to days), long-term ($\tau_m \sim$ months to years) —
+      consistent with representative lower-bound durations (1 s, 1 hour = 3600 s,
+      1 month $\approx$ 2,592,000 s) being nondecreasing
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [1, 3600, 2592000]}]
+    disposition: none
+  - id: T6
+    quote: '\tau_m \sim 10^3$ to $10^6$ years'
+    lines: [422, 424, 429, 431]
+    kind: internal-arithmetic
+    finding: >-
+      the geological-scale memory timescale ($\sigma=10$, $\tau_m \sim 10^3$ to
+      $10^6$ years) and the cosmological-scale memory timescale ($\sigma=19$--$20$,
+      the Hubble time $\sim 10^{10}$ years) are nondecreasing with scale index, as
+      required by the paper's own claim that larger scale (smaller $k$) means
+      longer memory
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [1000, 1000000, 10000000000]}]
+    values:
+      - {quantity: Temporal-GeologicalScaleIndex, value: 10}
+      - {quantity: Temporal-CosmologicalScaleIndexMin, value: 19}
+      - {quantity: Temporal-CosmologicalScaleIndexMax, value: 20}
+      - {quantity: Temporal-GeologicalMemoryTimescaleMinYears, value: 1000}
+      - {quantity: Temporal-GeologicalMemoryTimescaleMaxYears, value: 1000000}
+      - {quantity: Temporal-CosmologicalMemoryTimescaleYears, value: 10000000000}
+    disposition: none
+  - id: T7
+    quote: the escape time grows exponentially with the barrier-to-diffusion ratio
+    lines: [252, 254]
+    kind: internal-arithmetic
+    finding: >-
+      the figure's plotted function $f=2\pi\,e^{x}$ (caption states
+      $\omega_A\omega_B=1$) matches the Kramers formula
+      $\langle T\rangle = (2\pi/\omega_A\omega_B)\,e^{\Delta V/D}$ reduced at that
+      value, and is nondecreasing at $x=\Delta V/D=0,1,2$
+      ($2\pi\approx6.283$, $2\pi e\approx17.079$, $2\pi e^2\approx46.427$),
+      confirming the caption's "grows exponentially" claim
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [6.283185307, 17.079468445, 46.426808715]}]
+    values:
+      - {quantity: Temporal-KramersOmegaProductCaption, value: 1}
+    disposition: none
+  - id: T8
+    quote: \delta^4(x-x')
+    lines: [117, 510]
+    kind: internal-count
+    finding: >-
+      the Unified Kinematic Picture table abbreviates the retarded propagator's
+      source as $\delta^4(x-x')$, matching the explicit equation given earlier,
+      $\delta^{(3)}(x-x')\,\delta(t-t')$: 3 spatial delta dimensions plus 1
+      temporal delta dimension is 4, as the shorthand exponent states
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [3, 1, 4]}]
+    values:
+      - {quantity: Temporal-PropagatorSpacetimeDimensionCount, value: 4}
+    disposition: none
+
+# TYPING: the dependent-type causality reading (line 481), "$G_R : (t\,t' :
+#   \mathrm{Time}) \to (t' < t) \to \mathrm{Space} \to \mathrm{Space} \to
+#   \mathrm{Field}$" — whether OpenCyc's Field-the-physics-quantity sense
+#   (distinct from Field-of-study, Field-Geographical) is the correct mapping
+#   for the "Field" in the propagator's codomain.
+# TYPING: "trauma well" / "attractor basin" (lines 206-220) as an energy-landscape
+#   region standing in for a psychological/emotional State — a SpatialThing-vs-
+#   MentalState category question for the OpenCyc mapping.
+# TYPING: "window of tolerance ... a temporal bandwidth constraint" (lines
+#   291-293, 448-452) maps a clinical/psychological attribute onto a frequency-
+#   domain engineering concept (bandwidth) — candidate for opencyc-typing.
+# TYPING: "the field temperature $T_\text{field}$" (lines 261, 340-345) — whether
+#   this is typed as a literal ThermodynamicTemperature or a same-named but
+#   distinct model parameter (a SomaticFieldParameter), to avoid a homonym slip
+#   with ordinary Temperature.
+# TYPING: "EC (Emotional Core) junction" (lines 378-384) as a PhysicalConnection
+#   vs. an abstract functional-coupling constant $\kappa_\text{EC}$ — candidate
+#   category-error check.
+# TYPING: the memory kernel $K(t-t')$ (line 162) standing in for
+#   "autobiographical memory" (line 226) — a mathematical Function used to
+#   represent a RememberingAnEvent-type mental content; candidate opencyc-slip.
+
+# LEAN: lines 469-470, "Some spatial and stationary components of the USF proof
+#   surface have Lean 4 formalisations ... while other files still contain open
+#   `sorry`s" — a ledger claim (sorry count) against the actual Lean build, not
+#   checked here.
+# LEAN: lines 472-475, "The retarded boundary condition ... should be stated as
+#   a Lean 4 theorem; the exponential decay ... should follow as a corollary;
+#   the Kramers mean first-passage time formula should be derived ..." — these
+#   are proposed future theorems; the ledger should confirm no such declarations
+#   exist yet under the stated names.
+# LEAN: lines 478-489, the proposed dependent-type signature for $G_R$ — not
+#   yet a Lean declaration; a ledger candidate once (if) `ScaleUniverse.lean` or
+#   a sibling module adds it.

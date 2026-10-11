@@ -50,13 +50,18 @@ def squash(s: str) -> str:
 
 
 def load() -> list[tuple[Path, dict]]:
-    return [(p, yaml.safe_load(p.read_text(encoding="utf-8"))) for p in sorted(REG.glob("*.yaml"))]
+    """The registry, plus drafts in SHERLOCK_DRAFTS (a folder) when set: agents validate drafts in place."""
+    import os
+    files = sorted(REG.glob("*.yaml"))
+    if os.environ.get("SHERLOCK_DRAFTS"):
+        files += sorted(Path(os.environ["SHERLOCK_DRAFTS"]).glob("*.yaml"))
+    return [(p, yaml.safe_load(p.read_text(encoding="utf-8"))) for p in files]
 
 
 def check() -> int:
     errs, names, checks = [], [], []
     for path, aff in load():
-        where = path.relative_to(U).as_posix()
+        where = path.relative_to(U).as_posix() if path.is_relative_to(U) else str(path)
         text = frozen_text(aff["source"]) if aff.get("source") else None
         lines = text.splitlines() if text else []
         flat = squash(text) if text else ""
