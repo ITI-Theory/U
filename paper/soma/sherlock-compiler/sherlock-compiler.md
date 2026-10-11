@@ -452,8 +452,11 @@ markers; the other affidavits, and a count of the source, say five (Y2).
 P9 names seven mechanisms of an eight-letter acronym (M1).
 
 The ledger, over the 24 papers, found 171 citations of Lean names, of which
-16 disagree with the Lean: names that do not exist, and declarations called
-theorems or kernel-checked that are axioms or rest on axioms. The values
+17 disagree with the Lean: names that do not exist, declarations called
+theorems or kernel-checked that are axioms or rest on axioms, and one called a
+theorem that proves only `True` (the ledger reads the programme's own export of
+its Lean, which flags such placeholders; papers that call them placeholders
+agree with it). The values
 check groups 218 quoted quantities and finds five quoted differently.
 
 One finding came from the programme's Lean rather than its prose. Its

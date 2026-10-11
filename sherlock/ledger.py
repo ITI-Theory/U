@@ -62,6 +62,8 @@ def said_in(text: str) -> str | None:
         text = m.group(1)
     if ABSENT.search(text):
         return "absent"
+    if re.search(r"placeholder|proving `?True`?|:= trivial", text, re.I):
+        return "placeholder"
     if re.search(r"closes with|by `?(rfl|decide|norm_num|simp|omega)`?\b", text, re.I):
         return "kernel-checked"
     for k, rx in CLAIMS:
@@ -121,6 +123,10 @@ def extract(files: list[str]) -> int:
                 if said is None:
                     now = re.search(r"\bnow\b(.*)", line, re.I) if re.search(r"\bwas\b", line, re.I) else None
                     said = said_in(now.group(1)) if now else said_in(clause(line, m.group(0)))
+                # a sentence that continues: "theorem `x`, currently a / placeholder proving True"
+                if said in ("theorem", "kernel-checked") and i < len(lines) and re.search(r"placeholder|proving `?True`?", lines[i], re.I) \
+                        and not lines[i].lstrip().startswith(("|", "#")):
+                    said = "placeholder"
                 if re.search(rf"\b(theorem|lemma|def|axiom)\s+{re.escape(n.split('.')[-1])}\b", SHERLOCK_SRC):
                     said = "sherlock"  # Sherlock's own theorems (SH1), checked by make -C sherlock check
                 if n in TACTICS:
@@ -165,10 +171,26 @@ def judge() -> int:
     return 0
 
 
+def trivial_names() -> set[str]:
+    """Declarations whose statement is only `True` (bld/sherlock/towers.json, make -C sherlock towers)."""
+    path = OUT / "towers.json"
+    if not path.exists():
+        return set()
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {d["name"] for t in data.get("towers", []) for d in t["declarations"] if d.get("trivial")}
+
+
+TRIVIAL: set[str] = set()
+
+
 def disagrees(said: str, r: dict) -> str | None:
     kind, axioms = r.get("kind"), r.get("axioms", [])
+    if said in ("kernel-checked", "theorem") and r.get("resolved") in TRIVIAL:
+        return f"called {said}, but it proves only True (a placeholder)"
     if said in ("tactic", "sherlock", "module") or kind == "namespace":
         return None
+    if said == "placeholder":  # the document says it proves only True: the Lean must agree
+        return None  # an honest disclosure of a weak or empty statement
     if said == "absent":  # the document says the name does not exist: the Lean must agree
         return None if kind == "missing" else f"said not to exist, but is a {kind}"
     if kind == "missing":
@@ -189,6 +211,7 @@ def disagrees(said: str, r: dict) -> str | None:
 
 
 def report() -> int:
+    TRIVIAL.update(trivial_names())
     claims = json.loads((OUT / "ledger-claims.json").read_text(encoding="utf-8"))
     results: dict[str, dict] = {}
     module_axioms: dict[str, list[str]] = {}

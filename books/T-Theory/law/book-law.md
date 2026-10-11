@@ -410,7 +410,7 @@ Running the form over the programme's 24 papers produced findings that a lawyer 
 
 **The work and the copy.** One exhibit is a conversation: "Did you see the advert?" "Yes, on Tuesday." "I saw it on Thursday." OpenCyc keeps the advert, a work, apart from each showing of it, and taking a showing for the work is a contradiction in its terms. Copyright law draws the same line between the work and its copies or performances: the right attaches to the work, the infringement to a copy or a performance. Two very different traditions of making the world precise arrived at the same distinction `interpretive`.
 
-**Cross-examination.** Sherlock's adversarial mode, which the author called Moriarty, asks of each claim what single fact would collapse it. That is the cross-examiner's question. Its current form is narrow: the ledger asks the programme's proof library whether every theorem a paper cites exists and rests on the axioms the paper says it rests on, and finds sixteen that do not `kernel-verified`.
+**Cross-examination.** Sherlock's adversarial mode, which the author called Moriarty, asks of each claim what single fact would collapse it. That is the cross-examiner's question. Its current form is narrow: the ledger asks the programme's proof library whether every theorem a paper cites exists and rests on the axioms the paper says it rests on, and finds seventeen that do not, one of them a theorem that proves nothing but `True` `kernel-verified`.
 
 ## Precedent and versions
 
@@ -430,7 +430,7 @@ The sharpest limit is the oldest rule of natural justice: no one should be a jud
 |---|---|---|
 | A Sherlock affidavit lists a document's claims with quotes, lines, kinds, verdicts and evidence labels, the document frozen by commit and hash. | `kernel-verified` | `registry/affidavits/`; paper SH1 |
 | Over the programme's 24 papers: 248 claims, 42 problems in 16 papers; twelve are values stated twice differently. | `kernel-verified` | paper SH1 |
-| The ledger finds sixteen cited Lean declarations that disagree with the Lean. | `kernel-verified` | `bld/sherlock/ledger.md` |
+| The ledger finds seventeen cited Lean declarations that disagree with the Lean. | `kernel-verified` | `bld/sherlock/ledger.md` |
 | Prior inconsistent statement, hearsay, judicial notice and cross-examination map onto Sherlock's checks. | `interpretive` | This chapter |
 | OpenCyc's work/showing distinction parallels copyright's work/copy distinction. | `interpretive` | This chapter; paper SH1 (Exhibit C) |
 | Sherlock is not a court, and its author is not independent of the programme it checks. | `interpretive` | This chapter; paper SH1 |
