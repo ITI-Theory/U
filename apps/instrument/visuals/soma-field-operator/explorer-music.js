@@ -87,6 +87,23 @@ export function createExplorerMusic() {
     src.start(now);
   }
 
+  // the heartbeat persists (The Tensor, Part III): a soft low lub-dub at the viewer's heart
+  // rate, no sharp edge (a slow attack, under the low-pass), dry so it stays a body sound
+  let heartAt = 0;
+  function thump(at, level) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(58, at);
+    osc.frequency.exponentialRampToValueAtTime(42, at + 0.25);
+    gain.gain.setValueAtTime(0, at);
+    gain.gain.linearRampToValueAtTime(level, at + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.38);
+    osc.connect(gain).connect(filter);
+    osc.start(at);
+    osc.stop(at + 0.4);
+  }
+
   function bell(now) {
     const root = ROOTS[sector] ?? 50;
     const osc = ctx.createOscillator();
@@ -136,6 +153,12 @@ export function createExplorerMusic() {
         feedback.gain.setTargetAtTime(0.2 + 0.55 * score.S, now, 1);
         filter.frequency.setTargetAtTime(400 + 2200 * score.A + 600 * score.C - 300 * score.G, now, 1);
         // pre-verbal: grains of noise, denser as language fades
+        const bpm = Math.max(40, Math.min(160, state.bpm ?? 68));
+        if (now >= heartAt) {
+          thump(now, 0.07);
+          thump(now + 0.28, 0.045);
+          heartAt = now + 60 / bpm;
+        }
         if (now >= grainAt && score.PV > 0.25) {
           grain(now, score.PV);
           grainAt = now + 0.05 + 0.6 * (1 - score.PV) * Math.random();

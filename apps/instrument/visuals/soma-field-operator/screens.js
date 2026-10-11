@@ -15,6 +15,7 @@
 
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice } from './rice.js';
+import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
 
 const CHANNEL = 'soma-screens';
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
@@ -258,6 +259,11 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <p class="engine-room__hint">The author's options (ricing): crew alerts at the score stop, and more as they arrive. Every window of this browser follows.</p>
         <button type="button" data-rice="1">ON</button><button type="button" data-rice="0">OFF</button>
       </fieldset>
+      <fieldset data-midi><legend>MIDI OUT (ABLETON)</legend>
+        <p class="engine-room__hint">The score as MIDI, channel 1: CC ${Object.entries(MIDI_CC).map(([id, cc]) => `${cc} ${id}`).join(', ')}; a phase plays note ${PHASE_NOTE}+, a threshold note ${THRESHOLD_NOTE}+. Into a virtual port (loopMIDI), then Ableton's MIDI Map. Chrome asks once.</p>
+        <label>PORT<input type="text" maxlength="60" data-midi-port placeholder="loopMIDI" /></label>
+        <button type="button" data-midi="1">ON</button><button type="button" data-midi="0">OFF</button>
+      </fieldset>
       <fieldset class="engine-room__names"><legend>NAMES</legend>
         <p class="engine-room__hint">Your own name for each persona and layer. Kept in this browser only; empty restores the default.</p>
         ${Object.entries(DEFAULT_NAMES).map(([id, name]) => `<label>${name}<input type="text" maxlength="40" data-name="${id}" placeholder="${name}" /></label>`).join('')}
@@ -277,6 +283,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     input.addEventListener('change', () => setDisplayName(input.dataset.name, input.value));
   }
   const banks = room.querySelector('.engine-room__banks');
+  room.querySelector('[data-midi-port]').value = midiOutSetting() ?? '';
   const bridge = () => (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, '');
 
   const gauges = room.querySelector('.engine-room__gauges');
@@ -353,6 +360,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
 
   function sync() {
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
+    for (const b of room.querySelectorAll('[data-midi]')) b.classList.toggle('active', (b.dataset.midi === '1') === (midiOutSetting() !== null));
     const params = readParams();
     for (const fieldset of room.querySelectorAll('fieldset[data-key]')) {
       const current = params.get(fieldset.dataset.key);
@@ -385,6 +393,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.rice) setRice(button.dataset.rice === '1');
+    if (button.dataset.midi) setMidiOut(button.dataset.midi === '1' ? (room.querySelector('[data-midi-port]').value.trim() || 'loopMIDI') : null);
     if (button.dataset.open) {
       const url = new URL(location.href);
       url.searchParams.set('screen', button.dataset.open);

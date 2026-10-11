@@ -16,6 +16,7 @@ import { createScorePlayer, viewerField, presetParams, viewerTransform, viewerSt
 import { diveMath } from '../flight3d.js';
 import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
+import { midiMessages, createMidiOut, MIDI_CC } from '../midi-out.js';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
 const scoreText = readFileSync(new URL('../../../../../registry/scores/river-film.yaml', import.meta.url), 'utf8');
@@ -143,6 +144,26 @@ const holdTime = kappaD => {
   return wasHeld;
 };
 
+// MIDI OUT (ISS-073): the frame's messages, and one window of two sending (the lease)
+const half = { S: 0.5, F: 0.5, C: 0.5, A: 0.5, G: 0.5, L: 0.5, PV: 0.5 };
+const midiLast = {};
+const midiFirst = midiMessages({ modes: half, bpm: 100, t: 0, phase: 0, crossed: -1 }, midiLast);
+const midiAgain = midiMessages({ modes: half, bpm: 100, t: 0, phase: 0, crossed: 1 }, midiLast);
+const midiFirstOk = midiFirst.length === 10 && midiFirst.filter(m => m[0] === 0xb0 && m[2] === 64).length === 8
+  && midiFirst.some(m => m[1] === MIDI_CC.T && m[2] === 0) && midiFirst.some(m => m[0] === 0x90 && m[1] === 36);
+const midiAgainOk = midiAgain.length === 1 && midiAgain[0][0] === 0x90 && midiAgain[0][1] === 49;
+const shim = new Map([['soma-midi-out', 'loopMIDI']]);
+globalThis.localStorage = { getItem: k => shim.get(k) ?? null, setItem: (k, v) => shim.set(k, String(v)) };
+const sent = [];
+const access = async () => ({ outputs: new Map([['x', { name: 'loopMIDI Port', send: m => sent.push(m) }]]) });
+const winA = createMidiOut({ requestAccess: access, id: 'a' });
+const winB = createMidiOut({ requestAccess: access, id: 'b' });
+winA.send({ modes: half }); winB.send({ modes: half });
+await winA.ready; await winB.ready;
+const fromA = winA.send({ modes: half }).length;
+const fromB = winB.send({ modes: half }).length;
+delete globalThis.localStorage;
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -187,6 +208,9 @@ const checks = [
   ['hrv: irregular beats are not coherent (< 0.3)', hrvNoise.coherence, 0, 0.3],
   ['hrv: calm coherent heart raises safety at the same rate (S with HRV - S without)', viewerField(75, 0, hrvCalm).S - viewerField(75, 0, { rmssd: 5, breath: 18, coherence: 0.05 }).S, 0.2, 1],
   // FLY into the Mandelbulb (flight3d.js)
+  ['midi: a frame sends the seven modes, heart and time as CCs and the phase as a note', Number(midiFirstOk), 1, 1],
+  ['midi: unchanged values are not resent; a crossed threshold plays its note', Number(midiAgainOk), 1, 1],
+  ['midi: of two windows, only one sends (the lease)', Number(fromA === 7 && fromB === 0 && sent.length === 7 && winA.status.includes('loopMIDI')), 1, 1],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

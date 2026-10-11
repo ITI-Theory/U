@@ -3229,7 +3229,8 @@ Plan:
 - [ ] SpaceEngine for the cosmic scales (dial levels 12-20): rendered footage and
       plates for the film and the atlas, backdrops for the Soma Machine's cosmic
       levels; the credit line in each work and in the app's credits.
-- [ ] Music generated from the score (recommended): The Tensor's Part III audio
+- [x] (13 Oct: already mostly built at the score stop; the persisting heartbeat added, a
+      soft low lub-dub at the viewer's heart rate) Music generated from the score (recommended): The Tensor's Part III audio
       rendering (harmonic content falls with the descent, grain rises with
       Pre-verbal, the heartbeat persists), driving the app's generative music
       (`createExplorerMusic`) from the seven modes live, so the music is the film's
@@ -3244,7 +3245,11 @@ Plan:
   could SpaceEngine just play its music and Ableton add the effects? Sound, yes;
   licence, no for anything published: effects make a derivative of the soundtrack,
   which the licence excludes (private listening while working is fine).
-- [ ] Ableton as the score's instrument (recommended): the Soma Machine sends the score
+- [x] (13 Oct: `midi-out.js`, MIDI OUT in the Engine Room, Web MIDI to a named port,
+      default loopMIDI; channel 1, CC 20-26 the modes S F C A G L PV, CC 27 the heart,
+      CC 28 story-time, note 36+ a phase begins, 48+ a threshold crossed; only one
+      window sends (a lease); explorer-check covers it. Author UAT: loopMIDI, Ableton's
+      MIDI Map, the MOTU) Ableton as the score's instrument (recommended): the Soma Machine sends the score
       as MIDI (the seven modes as CC knobs; thresholds and phases as notes or scene
       launches) through a virtual port (loopMIDI on Windows; the existing
       `soma_midi.py` bridge, or Web MIDI, ISS-053) into Ableton Live; Ableton (its

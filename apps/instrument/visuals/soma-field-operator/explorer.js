@@ -48,6 +48,7 @@ const filmNumber = f => `No. ${Math.max(0, scores?.findIndex(s => s.id === f?.id
 const filmName = (f, kx) => (kx >= 1 ? f?.title ?? '' : filmNumber(f));
 const viewerPreset = id => viewers?.find(v => v.id === (id || 'v2021')) ?? viewers?.find(v => v.id === 'neutral') ?? null;
 import { createExplorerMusic } from './explorer-music.js';
+import { createMidiOut } from './midi-out.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 
@@ -156,7 +157,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on). FILM (kf) picks the film: the River Film or the 2021 film. TWIN (tw=1): one film, two viewers, side by side on the river: left the viewer of now, right a VIEWER preset (pv: as I was in 2021, fitted from the two films; neutral; or a model condition) plus the ADHD, ASD and C-PTSD sliders (ca, cs, cp: P13\'s model operators, hypotheses, not diagnoses); the knobs and the heart move both. WORDS (kx): how much language the film gives, from NUMBER (only its number, as Rothko numbered his pictures) through TITLE and CARDS (silent-film intertitles) to CAPTIONS and NARRATION; each press is one notch fewer, and after a viewing the film suggests trying the next one down. A/B (ab): on one screen, flip the whole film between A, as it is, and B, the same film for the VIEWER preset (your version), with the same knobs and heart; A/B is per window, so in a LAYOUT the screen beneath the main one can show B while the main one shows A. PILOT (ap): AUTOPILOT, H-AL flies the feelings and thinks aloud as each moves (modelled feeling, not a claim that the AI feels); CO-PILOT, you take one knob at a time, fear first, and each finished journey hands over one more; MANUAL, every knob is yours. The journey starts still: POKE to begin.',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on). FILM (kf) picks the film: the River Film or the 2021 film. TWIN (tw=1): one film, two viewers, side by side on the river: left the viewer of now, right a VIEWER preset (pv: as I was in 2021, fitted from the two films; neutral; or a model condition) plus the ADHD, ASD and C-PTSD sliders (ca, cs, cp: P13\'s model operators, hypotheses, not diagnoses); the knobs and the heart move both. WORDS (kx): how much language the film gives, from NUMBER (only its number, as Rothko numbered his pictures) through TITLE and CARDS (silent-film intertitles) to CAPTIONS and NARRATION; each press is one notch fewer, and after a viewing the film suggests trying the next one down. A/B (ab): on one screen, flip the whole film between A, as it is, and B, the same film for the VIEWER preset (your version), with the same knobs and heart; A/B is per window, so in a LAYOUT the screen beneath the main one can show B while the main one shows A. PILOT (ap): AUTOPILOT, H-AL flies the feelings and thinks aloud as each moves (modelled feeling, not a claim that the AI feels); CO-PILOT, you take one knob at a time, fear first, and each finished journey hands over one more; MANUAL, every knob is yours. The journey starts still: POKE to begin. MUSIC plays the score: the chord darkens with fear, the grain rises as words fade, and a soft heartbeat keeps your pace. MIDI OUT (Engine Room) sends the score to Ableton or any synth: the seven modes, the heart and story-time as knobs, phases and thresholds as notes.',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1161,6 +1162,8 @@ export const SETTING_IDS = ['mind', 'river', 'body', 'session'];
 const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G: '#8ecbff', L: '#e8eefc', PV: '#ff7aa8' };
 
 let scoreModes = null;
+// the score as MIDI for Ableton (ISS-073), when the Engine Room switches it on
+const midiOut = createMidiOut();
 
 function makeScore() {
   let gl = null;
@@ -1260,6 +1263,7 @@ function makeScore() {
       } else twinModes = null;
       if (player.justCrossed >= 0) burst = true;
       const phase = player.phase();
+      midiOut.send({ modes: scoreModes, bpm: bpmS, t: player.t, phase: (player.phaseList ?? []).indexOf(phase), crossed: player.justCrossed });
       // browsers only speak after the viewer has touched the page: wait for that, then say the
       // phase the film is in
       const mayspeak = typeof navigator === 'undefined' || (navigator.userActivation?.hasBeenActive ?? true);
@@ -1369,6 +1373,7 @@ function makeScore() {
       if (env.kr > 0 && player.slowed < 0.95) label(ctx, u, `heart rising: film ×${player.slowed.toFixed(2)}`, x0, -0.07, COLORS.orange, 'left', 0.024);
       if (hrv) label(ctx, u, `HRV ${Math.round(hrv.rmssd)} ms · breath ${hrv.breath.toFixed(0)}/min · coherence ${hrv.coherence.toFixed(2)} (estimates)`, x0, -0.02, COLORS.teal, 'left', 0.022);
       else if (env.strap) label(ctx, u, 'HRV: collecting beats (20 s)', x0, -0.02, COLORS.dim, 'left', 0.022);
+      if (midiOut.status !== 'off') label(ctx, u, `MIDI ${midiOut.status}`, x0, 0.03, COLORS.dim, 'left', 0.02);
       const bar = { x: -0.6, w: 1.2, y: 0.78 };
       ctx.save();
       ctx.fillStyle = 'rgba(232,238,252,0.15)';
@@ -2375,7 +2380,7 @@ export function createExplorer(hooks = {}) {
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
       sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
-    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null });
+    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null, bpm: st.bpm });
     if (stereo) {
       prepareLayers(lw);
       ctx = layers.far.ctx;
