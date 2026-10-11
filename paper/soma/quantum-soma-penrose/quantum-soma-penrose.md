@@ -181,6 +181,8 @@ $W[\mathrm{Fear},\mathrm{Awe}] \in \{-6, -7, \ldots, -14\}$.
 | $-13$ | 0.127 | 0.393 |
 | $-14$ | 0.129 | 0.390 |
 
+{{Visualize | the-noise-equivalence-curve | data-points:quantum | points="-6:0.094, -7:0.101, -8:0.107, -9:0.112, -10:0.117, -11:0.120, -12:0.124, -13:0.127, -14:0.129"; xlabel="barrier strength $W[\mathrm{Fear},\mathrm{Awe}]$"; ylabel="$T^*$"; expect_n=9 }} The 9 (barrier, $T^*$) pairs from the table above: the classical noise temperature needed to match quantum Awe-basin occupancy, at each tested barrier strength. No fit is drawn; the text states only that $T^*$ rises monotonically with barrier strength, not a rate.
+
 $T^*$ rises monotonically with barrier strength. At every tested barrier, $T^*$ is large
 enough to flood the landscape — meaning classical dynamics can only match quantum
 occupancy by sacrificing attractor structure. The quantum system has no such tradeoff.
