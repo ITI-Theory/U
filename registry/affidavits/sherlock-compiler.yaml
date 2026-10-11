@@ -1,77 +1,76 @@
-# Sherlock affidavit: SH1 v2, Sherlock: A Neuro-Symbolic Compiler for Free-Form Text.
+# Sherlock affidavit: SH1 v3, Sherlock: A Neuro-Symbolic Compiler for Free-Form Text.
 # Sherlock run on the paper that describes it (author, 11 Oct 23:28: "make sure you run
-# sherlock on it"): the writing loop's step 2. Two problems: the abstract counts the
-# advert's claims as the papers' (230 + 3 = 233), and the ledger's "19 documents" is
-# stale (23 papers have affidavits). The counts, the table and the registry figures agree.
+# sherlock on it"), the writing loop in full. v2 (frozen at 42d3827, the old path
+# paper/soma/sherlock-affidavit/sherlock-affidavit.md; this file's history) had two
+# problems: the abstract counted the advert's claims as the papers' (230 + 3 = 233), and
+# the ledger's "19 documents" predated four affidavits. Both are fixed in v3, whose figures
+# cover all 24 papers; the quotes now carry the numbers they vouch for (in v2 the table's
+# claim quoted its header row, so delta could not see the numbers change).
 id: sherlock-compiler
 document: SH1
 title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
 source:
-  file: paper/soma/sherlock-affidavit/sherlock-affidavit.md
-  commit: 42d3827
-  sha256: 00eb1723ca132f7911135215821a9898880e61377411e1316ef2852a35657592
+  file: paper/soma/sherlock-compiler/sherlock-compiler.md
+  commit: ff0ddeb
+  sha256: fe0b96cee647660b78d5c1f53cf7c6331ac52c1609b10e8fe31ccfe40639c35e
 lean: []
 microtheories: {}
 claims:
   - id: K1
-    quote: 'Sherlock has written affidavits for 23 of its papers: 233 claims'
-    lines: [23, 24, 428, 429, 430]
+    quote: 'Sherlock has written affidavits for all 24 of the programme''s papers, 248 claims, and for Exhibit C, 3 more: 251 claims'
+    lines: [23, 24, 428, 429]
     kind: internal-duplicate-mismatch
     finding: >-
-      the abstract gives 233 claims for the 23 papers, but the body says the 233
-      include Exhibit C's affidavit ("for 23 of the programme's 24 papers ... and for
-      Exhibit C: 233 claims"); the advert's affidavit has 3 claims, so the papers have
-      230 (230 + 3 = 233); fix the abstract
-    verdict: contradicted
+      v2's problem fixed: the abstract's 248 claims are the papers', and the body adds
+      Exhibit C's 3 to make 251 (248 + 3 = 251); the registry gives the same
+    verdict: consistent
     label: kernel-verified
     lean: null
-    check: [{template: sum, args: [230, 3, 233]}, {template: ne, args: [230, 233]}]
+    check: [{template: sum, args: [248, 3, 251]}]
     values:
-      - {quantity: Sherlock-ClaimsInPapers, value: 230}
-    disposition: open
+      - {quantity: Sherlock-ClaimsInPapers, value: 248}
+    disposition: fixed
   - id: K2
-    quote: 'The ledger, over 19 documents, found 171 citations of Lean names'
-    lines: [453, 454]
+    quote: 'The ledger, over the 24 papers, found 171 citations of Lean names'
+    lines: [454]
     kind: internal-duplicate-mismatch
     finding: >-
-      the paper says the ledger runs over every affidavit's document (Reproducing),
-      and that 23 papers have affidavits, but reports a ledger run over 19
-      documents: the run predates the affidavits for P15-P18; rerun and update the
-      figures
-    verdict: contradicted
+      v2's problem fixed: the ledger now runs over the same 24 papers that have
+      affidavits (bld/sherlock/ledger.md at this commit: 171 citations, 16 disagree)
+    verdict: consistent
     label: kernel-verified
     lean: null
-    check: [{template: ne, args: [19, 23]}]
-    disposition: open
+    check: [{template: eq, args: [24, 24]}]
+    disposition: fixed
   - id: K3
-    quote: 'of which 223 are'
+    quote: '251 claims, of which 237 are labelled'
     lines: [429, 430, 431]
     kind: internal-arithmetic
-    finding: the evidence labels add up to the claims (223 kernel-verified + 9 derived + 1 sourced = 233)
+    finding: the evidence labels add up to the claims (237 + 9 + 4 + 1 = 251)
     verdict: confirmed
     label: kernel-verified
     lean: null
-    check: [{template: sum, args: [223, 9, 1, 233]}]
+    check: [{template: sum, args: [237, 9, 4, 1, 251]}]
     disposition: none
   - id: K4
-    quote: '119 are confirmed, 69 consistent, 4 unclear, 1 not provable'
-    lines: [431, 432, 433]
+    quote: '129 are confirmed, 69 consistent, 4 unclear,'
+    lines: [431, 432, 433, 434]
     kind: internal-arithmetic
-    finding: the verdicts add up to the claims (119 + 69 + 4 + 1 + 40 = 233), and 40 - 2 by design = 38 problems
+    finding: the verdicts add up to the claims (129 + 69 + 4 + 5 + 44 = 251), and 44 - 2 by design = 42 problems
     verdict: confirmed
     label: kernel-verified
     lean: null
-    check: [{template: sum, args: [119, 69, 4, 1, 40, 233]}, {template: sum, args: [38, 2, 40]}]
+    check: [{template: sum, args: [129, 69, 4, 5, 44, 251]}, {template: sum, args: [42, 2, 44]}]
     disposition: none
   - id: K5
-    quote: '| Kind | Problems | Example |'
-    lines: [435, 437, 438, 439, 440, 441, 442]
+    quote: '| A value stated twice, differently | 12 |'
+    lines: [438, 439, 440, 441, 442, 443]
     kind: internal-count
-    finding: the table's six kinds add up to the 38 problems (11 + 8 + 7 + 6 + 3 + 3)
+    finding: the table's six kinds add up to the 42 problems (12 + 9 + 8 + 7 + 3 + 3)
     verdict: confirmed
     label: kernel-verified
     lean: null
-    check: [{template: sum, args: [11, 8, 7, 6, 3, 3, 38]}]
+    check: [{template: sum, args: [12, 9, 8, 7, 3, 3, 42]}]
     disposition: none
   - id: K6
     quote: 'Sherlock''s affidavit finds eight problems.'
@@ -115,7 +114,7 @@ claims:
     disposition: none
   - id: K10
     quote: 'three need common-sense knowledge no style checker has'
-    lines: [515, 442]
+    lines: [516, 443]
     kind: internal-duplicate-mismatch
     finding: the Discussion's three agrees with the table's three category findings against OpenCyc
     verdict: confirmed
@@ -125,11 +124,21 @@ claims:
     disposition: none
   - id: K11
     quote: '25 of the 28 OpenCyc names in that file were not in'
-    lines: [461]
+    lines: [462]
     kind: cross-paper
     finding: the NextKB check of 11 Oct (bld/sherlock/lexicon.json) gives 25 of 28 names absent; 28 - 25 = 3 present
     verdict: confirmed
     label: kernel-verified
     lean: null
     check: [{template: sum, args: [25, 3, 28]}]
+    disposition: none
+  - id: K12
+    quote: 'It found two problems in the'
+    lines: [527, 528, 529, 530, 531]
+    kind: internal-count
+    finding: the paper's account of its own check matches the v2 affidavit (two contradicted claims, K1 and K2) and the ledger's two false positives on v2 (Cyc.Types, Rat.div_lt_div_right)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 2]}]
     disposition: none

@@ -2928,6 +2928,11 @@ different scales (ZSF's "same as always").
       have caught it only ran with a database and printed "skipped" otherwise:
       retired (`*.OBSOLETE`). The philosophy book's account of the "built substrate"
       (TypeDB) is now out of date (ISS-064 rewrite).
+- [x] The concept registry as types (12 Oct): `make -C sherlock types` (sherlock/gen_types.py)
+      makes each OpenCyc class in registry/concepts a Lean type and proves the class
+      exists from all of OpenCyc (10 of 10, about a minute); SLICE=1 writes the same
+      facts as axioms for the fast loop (the author's slice-first method). Next: the
+      programme's own types anchored to them, beyond the emotions (EmotionCyc).
 - [ ] OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
       programme's own collections (TTheoryVocabularyMt and what it inherits, a few
       hundred) as Lean types; genls as coercions, disjointness as no common member;
