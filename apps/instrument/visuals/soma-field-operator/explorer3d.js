@@ -278,7 +278,7 @@ function makeCity(items) {
     const row = Math.floor(i / 2);
     const x = side * (1.0 + (row % 3) * 0.9 + ((i * 13) % 5) * 0.05);
     const z = -3.6 - row * 0.62;
-    const height = HEIGHT[item.status] ?? 1.4 + ((i * 7) % 10) / 10;
+    const height = item.height ?? HEIGHT[item.status] ?? 1.4 + ((i * 7) % 10) / 10;
     const hue = item.status === 'kernel-verified' ? 150 : item.status === 'sorry' || item.status === 'axiom' ? 320 : 190;
     const texture = towerTexture(item, hue);
     const tower = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0.92, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));

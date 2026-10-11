@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -29,6 +29,7 @@ help:
 	$(info   delta       ID=<affidavit> [REV=...]: what an edit did to its claims; delta-<ID>.md)
 	$(info   rules-gen   OpenCyc's Horn rules to Lean (CycRules), no facts rebuild)
 	$(info   types       the concept registry's OpenCyc classes as Lean types (SLICE=1: axioms, seconds; else proofs from the KB))
+	$(info   towers      the programme's Lean exported for the city of code (bld/sherlock/towers.json; about 25 min))
 	$(info   all         fetch lean-gen rules-gen lean affidavits)
 	@:
 
@@ -87,6 +88,10 @@ ledger:
 # What an edit did to an affidavit: make delta ID=zoomable-somatic-field [REV=...]
 delta:
 	cd .. && $(PYTHON) sherlock/delta.py $(ID) $(if $(REV),--rev $(REV),)
+
+# The programme's Lean for the Soma Machine's city of code (ISS-071): one Lean process per module.
+towers:
+	cd .. && $(PYTHON) sherlock/towers.py
 
 # The concept registry's OpenCyc classes as Lean types (ISS-063, D12): SLICE=1 for the fast loop.
 types:

@@ -924,6 +924,15 @@ five real `sorry`s remain in three files.
    current witness `0` does not satisfy `M ψ̈ = W ψ(t)` in general. Either
    assume the mass matrix is invertible and take `ψ̈ = M⁻¹ W ψ(t)`, or state
    it as a labelled axiom.
+- [ ] (12 Oct, from the towers export) Eight theorems prove only `True` (placeholders):
+      `G2Compactification` su3_holonomy and g2_holonomy (structure fields),
+      `LimbicTunnel.classical_trapped`, `MTheoryIsomorphism.X7_is_7D_product`,
+      `ScaleUniverse.scale_shift_preserves_structure`, `SomaNetwork.sft_gate_toward_awe`,
+      `UniversalSomaticField.greens_fn_is_SHO` (declared a placeholder in P11) and
+      `sft_encapsulates_cemi`. And 20 declarations rest on `sorryAx`, in four modules
+      (BRECVEMAVariational, DyadicField, SomaNetwork, and ScaleUniverse, which has no
+      `sorry` of its own: transitively). Papers citing these as theorems or
+      kernel-checked should say so; the ledger flags the sorry ones, not yet the `True` ones.
 - [ ] Remaining `sorry`s: `BRECVEMAVariational.lean` (2: the above and
    `moduli_space_is_G2_homotopy`), `DyadicField.lean` (2: block-sum lemma and
    the `Field8` transfer of `dyadic_energy_coupling_lowers`), `SomaNetwork.lean`
@@ -3149,7 +3158,11 @@ Author, 11 Oct 23:02: the Root Monster "really wants to see a demo of the Lean m
 [T]-Theory in the Towers, or close to". Today the city of code (11D, ISS-052)
 draws Sherlock's concepts as towers, taller for stronger evidence. Copilot's
 proposal, in steps:
-- [ ] Export the Lean: every declaration of the programme's modules with its
+- [x] (12 Oct: `make -C sherlock towers`, sherlock/Ledger/Export.lean and towers.py:
+      26 modules, 980 declarations, 311 theorems, 468 definitions, 13 axioms, 20
+      resting on sorry, 8 proving only True; the city of code draws a tower per
+      module, its glowing text the declarations marked ✓ = ◆ ✗ ∘, kernel-checked at
+      the stated commit) Export the Lean: every declaration of the programme's modules with its
       kind (theorem, def, axiom), its statement, its source line and the axioms
       it rests on (sorryAx shows a sorry): a Lean metaprogram like the ledger's
       judge (one module per process), written to bld/, read by generate.py. The
