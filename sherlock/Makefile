@@ -11,6 +11,7 @@ include ../lib/mk/paths.mk
 
 KB  := $(BLD)/sherlock/lean
 RAW := $(BLD)/sherlock/raw
+LOG := $(BLD)/sherlock/lake.log
 NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
@@ -46,12 +47,17 @@ lean:
 	  m=CycKB.$$(basename $$f .lean); \
 	  [ -f .lake/build/lib/lean/CycKB/$$(basename $$f .lean).olean ] && continue; \
 	  echo "lean $$m ($$(du -h $$f | cut -f1))"; \
-	  LEAN_NUM_THREADS=2 lake build $$m 2>&1 | tail -n 2 || exit 1; \
+	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
 	done
 	lake build CycKB Queries
 
+# One affidavit at a time: each imports all of UniversalVocabularyMt.
 affidavits:
-	LEAN_NUM_THREADS=2 lake build Affidavits
+	@for f in $$(find Affidavits -name '*.lean' | sort); do \
+	  m=$$(echo $${f%.lean} | tr / .); echo "lean $$m"; \
+	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
+	done
+	lake build Affidavits
 
 clean:
 	rm -rf "$(BLD)/sherlock" .lake/build
