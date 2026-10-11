@@ -2855,14 +2855,14 @@ Epic ISS-055 (document list in the epic file). Per document: freeze, extract
 with the saved prompt (D7), verify, registry entry, Lean (numbers in core
 Lean, typing against OpenCyc), findings; the author disposes. About 1-2 hours
 each.
-- [ ] Papers P1-P24: 23 of 24 done (11 Oct); P6 soma-field-book (2,842 lines) remains.
+- [x] Papers P1-P24: all 24 (P6 on 12 Oct: 4 problems); and SH1 itself.
 - [ ] The fifteen domain books, the course book, CS1, D1, D2.
 - [ ] `make -C sherlock affidavits` in the release gate.
-- [ ] SH1 v2 (author, 11 Oct 21:30: "is a new paper needed?"; next): exhibit D (ZSF) and the
+- [x] (11-12 Oct: v2, then v3 after Sherlock ran on it; renamed sherlock-compiler) SH1 v2 (author, 11 Oct 21:30: "is a new paper needed?"; next): exhibit D (ZSF) and the
       programme-wide results (24 affidavits, 270 kernel checks, the real findings by kind,
       the ledger's 16 disagreements, values across documents, units, delta, structure
       mapping): the paper that makes the "compiler for papers" claim.
-- [ ] Books catch up with Sherlock built: Computer Science ("a future Sherlock" becomes
+- [x] (12 Oct: both done; CS gained "Sherlock as built: engineering notes") Books catch up with Sherlock built: Computer Science ("a future Sherlock" becomes
       what was built, with its costs); the course ch. 15 one worked example (P4's "seven
       sorries", five in the Lean). Philosophy and Law: ISS-064.
 
@@ -3212,4 +3212,14 @@ Plan:
       Musopen; Satie's Gymnopedies for Departure); keep a credits file.
 - Not recommended: AI song generators (licences and training data unclear; the
   lesson of ISS-066).
+- Author, 12 Oct 00:40: a MOTU 8A routes the PC's audio into Ableton Live 12 Suite;
+  could SpaceEngine just play its music and Ableton add the effects? Sound, yes;
+  licence, no for anything published: effects make a derivative of the soundtrack,
+  which the licence excludes (private listening while working is fine).
+- [ ] Ableton as the score's instrument (recommended): the Soma Machine sends the score
+      as MIDI (the seven modes as CC knobs; thresholds and phases as notes or scene
+      launches) through a virtual port (loopMIDI on Windows; the existing
+      `soma_midi.py` bridge, or Web MIDI, ISS-053) into Ableton Live; Ableton (its
+      instruments, Max for Live) renders the music live, following the knobs and the
+      heart, out through the MOTU. The author's own music: clean to publish.
 
