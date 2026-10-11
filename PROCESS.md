@@ -146,7 +146,7 @@ Test questions:
 - “Is the D-Wave quantum experiment described? Is the result stated?”
 - “Is the cosmological constant derivation present? Is dark matter addressed?”
 
-### Tier 3 — Cookie Monster: “Can anyone understand it?”
+### Tier 3 — The Monster: “Can anyone understand it?”
 
 Checks accessibility. The cheat-sheet is the primary test artefact.
 

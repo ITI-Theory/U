@@ -45,7 +45,7 @@
 
 **Status:** PENDING
 
-## Cookie Monster: Reader Navigation
+## The Monster: Reader Navigation
 
 ### TC-1 Entry points
 

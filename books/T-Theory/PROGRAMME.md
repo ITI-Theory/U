@@ -114,7 +114,7 @@ because it exists in every serious project and is almost never written down.
  PRE-FORMAL                          │                        VALIDATION
  (not in methodology)                │                    (right-arm mirror)
                                      │
- Cookie Monster ─────────────────────┼──────────────── Cookie Monster test
+ The Monster ────────────────────────┼──────────────── The Monster test
   diverge, brainstorm,               │                  Can a non-specialist
   lateral thinking                   │                  understand it?
   the hardest audience               │                  → book-gateway.pdf
@@ -153,8 +153,8 @@ engineering possible. The names are comical precisely to make this boundary
 visible: no organisation documents this phase, which is why so many projects
 go wrong during it.
 
-**Right arm — Cookie Monster test (top):** The hardest validation in the
-whole V. Cookie Monster is not a joke audience — they are Penny from The Big
+**Right arm — The Monster test (top):** The hardest validation in the
+whole V. The Monster is not a joke audience — they are Penny from The Big
 Bang Theory: intelligent, curious, no specialist background, and with no
 obligation to persist if you lose them. If the gateway book and the NLM
 notebook can be understood by someone with no physics, no maths, and no

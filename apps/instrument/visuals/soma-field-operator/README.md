@@ -24,7 +24,7 @@ product. Data comes from `registry/` (see `registry/README.md`).
   developer view.
 - **Screenshots from the app, diagrams into the app.** Atlas figures are
   captured from the app; Atlas diagrams are attached to their level as media.
-- **Cookie Monster register.** Every level is explained at three registers:
+- **The Monster register.** Every level is explained at three registers:
   `cookie` (for a ten-year-old), `general`, `specialist`. If a level cannot be
   explained to a child, it is not yet understood.
 - **Every displayed claim carries a badge** (FORMAL, SOURCED, INTERPRETIVE,

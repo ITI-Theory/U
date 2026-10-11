@@ -2516,4 +2516,4 @@ Earlier entries above keep the old name.
   a nurse he had written 15 or 16 books and walked her through the app level
   by level. Her reaction: "I see why you wrote 16 books." A non-specialist
   saw the scope of the programme from the app alone, which is what the app
-  is for (the Cookie Monster tier). One viewer, no protocol.
+  is for (the Monster tier). One viewer, no protocol.

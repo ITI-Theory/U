@@ -1,0 +1,149 @@
+# Sherlock affidavit (DRAFT): The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes (P16). Schema: sherlock/registry.py.
+# Recomputed checks found one confirmed scale-coverage problem: the introduction says the worked examples
+# cover exactly Scales 7-9, but the explicit examples are at Scales 7, 9 and 10, with no Scale 8 example.
+# Other equation-parameter arithmetic checked here is consistent: 1 km -> k=10^-3, 7 m -> k≈0.143,
+# f=100 Hz in air -> k≈1.85≈1.8, and the two-Thames-plus-one-Klöntalersee count is three cases.
+id: geographic-somatic-field
+document: P16
+title: "The Geographic Somatic Field: Scale-Invariant Wave Propagation in Human Landscapes"
+source:
+  file: paper/soma/geographic-somatic-field/geographic-somatic-field.md
+  commit: 6ce4ac7
+  sha256: e6b01808648138eaa3dcb5bf76cb35e3b25f3853b0f60a02be8fb1b68b725b57
+lean: []
+microtheories: {}
+claims:
+  - id: G1
+    quote: 'exactly these scales'
+    lines: [40, 41, 42, 121, 148, 149, 181, 224, 225, 226, 264]
+    kind: internal-count
+    finding: >-
+      the Introduction says the paper presents worked examples at exactly
+      Scales 7-9, whose integer scale sum is 7+8+9=24; the explicit worked
+      examples are parakeets at Scale 7, Estuary English at Scale 9 and
+      Klöntalersee at Scale 10, whose sum is 7+9+10=26, so Scale 8 is absent
+      and Scale 10 is added
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: sum, args: [7, 8, 9, 24]}
+      - {template: sum, args: [7, 9, 10, 26]}
+      - {template: ne, args: [24, 26]}
+    values:
+      - {quantity: Geographic-ClaimedWorkedScaleSum, value: 24}
+      - {quantity: Geographic-ActualWorkedScaleSum, value: 26}
+    disposition: open
+  - id: G2
+    quote: 'Two examples from the same geographic corridor'
+    lines: [12, 13, 48, 49, 146, 148, 259, 260, 261, 262]
+    kind: internal-count
+    finding: >-
+      the Thames-Valley count is consistent: the abstract and body name two
+      Thames examples, Estuary English and ring-necked parakeets, and the
+      conclusion again says the Thames Valley supports two simultaneous examples
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 2]}]
+    values:
+      - {quantity: Geographic-ThamesExampleCount, value: 2}
+    disposition: none
+  - id: G3
+    quote: 'social interaction radius $\sim 1$ km'
+    lines: [105, 106]
+    kind: internal-arithmetic
+    finding: >-
+      the Estuary-English equation parameters state k≈10^-3 m^-1 for a social
+      interaction radius of about 1 km; recomputing 1/(1000 m) gives exactly
+      0.001 m^-1
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [1/1000, 0.001]}]
+    values:
+      - {quantity: Geographic-EstuarySocialWavenumber, value: 0.001}
+    disposition: none
+  - id: G4
+    quote: 'alignment radius $\approx 7$ m'
+    lines: [142, 143, 144]
+    kind: internal-arithmetic
+    finding: >-
+      the parakeet equation parameters define k as the reciprocal of the
+      alignment radius; with r_align≈7 m this gives k≈1/7=0.142857 m^-1
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [1/7, 0.142857142857, 0, 0.000001]}]
+    values:
+      - {quantity: Geographic-ParakeetAlignmentRadius, value: 7}
+      - {quantity: Geographic-ParakeetAlignmentWavenumber, value: 0.142857142857}
+    disposition: none
+  - id: G5
+    quote: 'Scale | 9 (societal) | 7 (animal swarm)'
+    lines: [146, 148, 149, 152, 153, 154, 155, 161]
+    kind: internal-arithmetic
+    finding: >-
+      the comparison table's two phenomenon columns are at distinct scale
+      numbers, 9 and 7, separated by two scale steps, matching the section title
+      "Two Scales, One Corridor"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [9, 7, 2]}]
+    values:
+      - {quantity: Geographic-EstuaryScale, value: 9}
+      - {quantity: Geographic-ParakeetScale, value: 7}
+    disposition: none
+  - id: G6
+    quote: 'f=100$ Hz: $k \approx 1.8$ m$^{-1}$'
+    lines: [195, 196]
+    kind: internal-arithmetic
+    finding: >-
+      for the acoustic Klöntalersee example, recomputing k=2*pi*f/340 at
+      f=100 Hz gives 1.8479956786 m^-1, which is within about 2.6% of the
+      rounded stated value k≈1.8 m^-1
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [1.8479956786, 1.8, 0.025, 0.027]}]
+    values:
+      - {quantity: Geographic-AcousticWavenumberF100, value: 1.8}
+    disposition: none
+  - id: G7
+    quote: 'expect_order_low=0.99; expect_order_high=0.17'
+    lines: [128]
+    kind: internal-arithmetic
+    finding: >-
+      the Vicsek illustration's embedded expected order values support the
+      caption: the high-noise value 0.17 is less than the low-noise value 0.99,
+      so low noise is the more coherent ordered flock
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [0.17, 0.99]}]
+    values:
+      - {quantity: Geographic-VicsekOrderLowNoise, value: 0.99}
+      - {quantity: Geographic-VicsekOrderHighNoise, value: 0.17}
+    disposition: none
+  - id: G8
+    quote: 'In all three cases'
+    lines: [48, 49, 173, 181, 257, 259, 264, 267]
+    kind: internal-count
+    finding: >-
+      the conclusion's "three cases" count is consistent with the paper's own
+      inventory: two Thames-Valley examples plus one Klöntalersee example
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [2, 1, 3]}]
+    values:
+      - {quantity: Geographic-WorkedExampleCount, value: 3}
+    disposition: none
+
+# TYPING CANDIDATES (not registered as findings here):
+# - "Estuary English" can likely map to BritishEnglishDialect or LanguageDialect; use RegionalDialectOfLanguageFn only if a region argument is formalised.
+# - "parakeet" maps cleanly to Parakeet (genls Parrot); flock/murmuration needs a collective-animal-group constant if one is available.
+# - "valley" maps to Valley (LandTopographicalFeature, CavityWithWalls), useful for the Thames Valley and Klöntalersee boundary-condition reading.
+# - "field" in Green's function / velocity field should use Field-Mathematical, not Field-Land.
+# - "wave-guide" and "resonator" had no lookup.py candidates in this checkout; likely constants would need to be named manually or introduced as domain readings.

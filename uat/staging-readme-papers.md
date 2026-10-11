@@ -3,7 +3,7 @@
 ## Copy This Into NotebookLM
 
 ```text
-Read papers-omnibus-nlm-uat.md and execute every Sherlock, Harry Potter, and Cookie Monster item. For each item, use this exact format: ITEM, STATUS (PASS/FIX/OPEN), FINDING, EVIDENCE (exact source PDF filename and page number). Do not repeat the worksheet or list headings without an answer. Finish with the Acceptance Decision table.
+Read papers-omnibus-nlm-uat.md and execute every Sherlock, Harry Potter, and the Monster item. For each item, use this exact format: ITEM, STATUS (PASS/FIX/OPEN), FINDING, EVIDENCE (exact source PDF filename and page number). Do not repeat the worksheet or list headings without an answer. Finish with the Acceptance Decision table.
 ```
 
 Upload every file in this folder first, then paste only the instruction above.
@@ -44,7 +44,7 @@ as a release input.
    item.
 3. If all Sherlock and Harry Potter items pass, record the acceptance decision
    in the worksheet and continue with the Papers track in `Dist/README.md`.
-4. Cookie Monster reader-bridge items may be deferred only when marked
+4. The Monster reader-bridge items may be deferred only when marked
    non-blocking in the worksheet.
 
 ## Current RC2 Result

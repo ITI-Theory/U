@@ -43,7 +43,7 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 - [ ] Author: review P21 (cosmological constant) and set it to pending-upload
    in `Dist/PAPERS.yaml` (`make generate` afterwards).
 - [ ] NotebookLM UAT from `uat/staging/<track>/`, fresh private `nlm-uat`:
-   Sherlock (built right), Harry Potter (built the right thing), Cookie Monster
+   Sherlock (built right), Harry Potter (built the right thing), The Monster
    (understandable). Record in `paper/UAT.md`.
 - [ ] Lulu print preview of the [T]-Theory volumes.
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
@@ -2928,3 +2928,40 @@ prj/.adm/issues/ISS-065-sergeant-major.md.
 - [ ] Reminder collector (`HAL remind`): read, never copy.
 - [ ] Maintenance deck (screens.js role `maintenance`): done and snooze only.
 - [ ] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
+
+## ISS-066: Names and third-party characters: Sherlock, the Monster, Harry Potter — OPEN
+{{Tags area.admin}}
+{{Fields date.created=2026-10-11, date.start=2026-10-11, date.end=, epic=}}
+
+Author, 11 Oct 20:47: now Sherlock is alive, is the name safe (old, but the
+new TV series)? Ditto Cookie Monster; the other name was "Sheerluck". Not
+legal advice; the checks and decisions:
+
+- Sherlock and Moriarty: Doyle's stories are public domain (UK/EU since
+  2001, US since 2023); the Conan Doyle Estate still holds "Sherlock Holmes"
+  trademarks and enforces them. Decision (author, 20:50, on the HUD): keep
+  "Sherlock" for the method, in papers, code and as a plain text label in
+  the Soma Machine's HUD (a description, not a brand). No logo, silhouette,
+  deerstalker or pipe, nothing from the BBC series (look, title cards, 221B
+  styling, actors). "Mind palace" is generic (the method of loci); cite
+  Doyle's own "brain attic" (*A Study in Scarlet*, 1887). "SheerLuck" (the
+  author's pun, in the chats since spring) is the reserve name if Sherlock
+  is ever released as a standalone tool or product.
+- [ ] About note in the app and SH1: "Named after Conan Doyle's detective
+      (public domain); not affiliated with the Conan Doyle Estate or any
+      adaptation."
+- [x] Cookie Monster (Sesame Workshop's character and trademark, in
+      copyright): renamed **The Monster** (author, 20:54: "this whole app
+      is about abstract things") in the live documents (PROCESS.md tier 3,
+      PROGRAMME.md, the app README, FIELD-NOTES, UAT.md and the uat
+      worksheets). `reader=cookie` stays (a common word). Historical records
+      (uat/results, uat/RC1*, *.OBSOLETE) are left as they were. MUNCH is
+      the Monster's voice (ISS-052).
+- [ ] Phase Dot (`Part2/book/phase-dot/phase-dot.md`, public): about 90
+      lines of pasted web search results about Cookie Monster eye templates
+      and Sesame Street listings (around line 9140): author to cut them or
+      keep Phase Dot private.
+- [ ] Harry Potter, the second UAT persona (Rowling and Warner Bros, in
+      copyright and trademarked): rename (author to choose).
+- Mentions in prose (Penny from *The Big Bang Theory* in PROGRAMME.md) are
+  references, not names of our things: low risk, left.

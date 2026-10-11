@@ -1,0 +1,140 @@
+# Sherlock affidavit (DRAFT): Osterwalder–Schrader Axioms for the Interacting Universal Somatic Field: Reflection Positivity under Hopfield Coupling (P15). Schema: sherlock/registry.py.
+# Recomputed checks found no internal numeric contradiction in the paper's proof-obligation counts,
+# illustrative Hopfield matrix, critical-coupling arithmetic, UV-regulator monotonicity, or phase table.
+# One Lean-surface statement is recorded as a sourced ledger item for later ledger checking: the proposed
+# interacting theorem is described by the paper itself as not yet present in the proof surface.
+id: usf-interacting-qft
+document: P15
+title: "Osterwalder–Schrader Axioms for the Interacting Universal Somatic Field: Reflection Positivity under Hopfield Coupling"
+source:
+  file: paper/soma/usf-interacting-qft/usf-interacting-qft.md
+  commit: d308978
+  sha256: a3f6faca67809bcb3a6cec90ac7654dd8fc6e89e42952c79c65914d8e12a5bb4
+lean: []
+microtheories: {}
+claims:
+  - id: I1
+    quote: 'five Osterwalder–Schrader (OS) axioms'
+    lines: [13, 44, 208]
+    kind: cross-paper
+    finding: >-
+      the abstract's inherited free-field count, the body phrase OS0–OS4 and
+      the conclusion's imported free-field result all point to the same five
+      Osterwalder-Schrader axioms; this agrees with the existing OSQFT-AxiomCount
+      used by the companion free-field affidavit
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 5]}]
+    values:
+      - {quantity: OSQFT-AxiomCount, value: 5}
+    disposition: none
+  - id: I2
+    quote: 'key proof obligations'
+    lines: [18, 19, 20, 21, 22, 23, 84, 86, 106, 126, 147]
+    kind: internal-count
+    finding: >-
+      the abstract enumerates four proof obligations (i)-(iv), and Section 2
+      has exactly four matching obligation subsections: lower bound, OS3
+      perturbation stability, ultraviolet regularisation and thermodynamic limit
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: InteractingQFT-ProofObligationCount, value: 4}
+    disposition: none
+  - id: I3
+    quote: 'illustrative $4\times4$ grid: symmetric'
+    lines: [67]
+    kind: internal-arithmetic
+    finding: >-
+      the Visualize matrix has four rows and four columns, and its six
+      off-diagonal pairs match exactly: 0.4/0.4, -0.2/-0.2, 0.3/0.3,
+      0.5/0.5, -0.1/-0.1 and 0.3/0.3; the symmetric-grid caption is consistent
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [4, 4]}
+      - {template: eq, args: [0.4, 0.4]}
+      - {template: eq, args: [-0.2, -0.2]}
+      - {template: eq, args: [0.3, 0.3]}
+      - {template: eq, args: [0.5, 0.5]}
+      - {template: eq, args: [-0.1, -0.1]}
+    values:
+      - {quantity: InteractingQFT-HopfieldIllustrationDimension, value: 4}
+    disposition: none
+  - id: I4
+    quote: 'falls to zero exactly at the critical coupling'
+    lines: [88, 89, 98, 100, 104, 120, 121]
+    kind: internal-arithmetic
+    finding: >-
+      at the figure's own illustrative values k=2 and W_max=1, the critical
+      coupling is k^2/W_max = 4; substituting kappa=4 gives effective
+      mass-squared k^2-kappa W_max = 0, matching the caption's vline and
+      expect_value
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: diff, args: [4, 4, 0]}
+      - {template: eq, args: [0, 0]}
+    values:
+      - {quantity: InteractingQFT-CriticalCouplingIllustrative, value: 4}
+      - {quantity: InteractingQFT-EffectiveMassSquaredAtCritical, value: 0}
+    disposition: none
+  - id: I5
+    quote: 'widens towards 1 everywhere as $\Lambda\to\infty$'
+    lines: [137, 139, 142]
+    kind: internal-arithmetic
+    finding: >-
+      at the plotted high-momentum endpoint p=6, recomputing
+      exp(-p^2/Lambda^2) for Lambda=1,2,4 gives approximately
+      2.3195e-16, 0.0001234098 and 0.1053992, a monotone increase toward 1;
+      this supports the caption's qualitative statement about widening cutoffs
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0.0000000000000002319522830, 0.0001234098041, 0.1053992246]}]
+    values:
+      - {quantity: InteractingQFT-UVCutoffMinIllustrative, value: 1}
+      - {quantity: InteractingQFT-UVCutoffMaxIllustrative, value: 4}
+    disposition: none
+  - id: I6
+    quote: '| Healthy | $\kappa < \kappa_c$'
+    lines: [194, 195, 196, 197, 198]
+    kind: internal-count
+    finding: >-
+      the phase table contains exactly three data rows, one for each comparison
+      with the critical coupling: kappa below, equal to, and above kappa_c
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: InteractingQFT-PhaseTableRowCount, value: 3}
+    disposition: none
+  - id: I7
+    quote: 'not yet present in the proof surface'
+    lines: [160, 165, 170, 177, 211, 212, 213]
+    kind: ledger
+    finding: >-
+      the paper explicitly marks the proposed single-component interacting
+      theorem as a future Lean addition; a source search finds
+      k_eff and interacting_USF_satisfies_OS_axioms_below_critical only in this
+      paper text, not in the Lean source tree, so the paper's status statement
+      is internally consistent and ready for a later ledger check
+    verdict: confirmed
+    label: sourced
+    lean: null
+    ledger: "source grep for k_eff and interacting_USF_satisfies_OS_axioms_below_critical; no Lean process run"
+    values:
+      - {quantity: InteractingQFT-ProposedLeanDeclarationCount, value: 2}
+    disposition: none
+
+# TYPING CANDIDATES (not registered as findings here):
+# - "Hopfield coupling" / "weight matrix": lookup.py has no Hopfield constant; likely map the coupling relation to Coupling-Configuration only with care, since OpenCyc's hits are physical connections, not neural-network weights.
+# - "field" in "field components" and "Universal Somatic Field": Field-Mathematical is a likely constant; distinguish it from Field-Land.
+# - "phase" in Healthy/Critical/Trauma phase table: Phase exists but is very broad and biological-phase examples dominate; use a physics phase-transition reading if formalised.
+# - "theorem" in the Lean snippet: Theorem-Proposition is a plausible OpenCyc constant for the proposed Lean theorem, separate from the syntactic declaration.

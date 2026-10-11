@@ -1,0 +1,126 @@
+# Sherlock affidavit (DRAFT): The Mathematical Foundations of Gestalt Field Dynamics: Formalising the Soma-Field via Russellian Neutral Monism (P17). Schema: sherlock/registry.py.
+# Draft summary: no confirmed internal contradiction was found. The draft records
+# consistent arithmetic positives for section/proof counts, the 11=4+7 dimension
+# split, fixed-point/slope calculations, and winding/tilt numeric checks.
+id: gestalt-field-dynamics
+document: P17
+title: "The Mathematical Foundations of Gestalt Field Dynamics: Formalising the Soma-Field via Russellian Neutral Monism"
+source:
+  file: paper/soma/gestalt-field-dynamics/gestalt-field-dynamics.md
+  commit: 4c80124
+  sha256: ac656f2caf5b1e614286584031f9bbeb7e780bcaa7810d6c1edad1ae0a6e76aa
+lean: []
+microtheories: {}
+claims:
+  - id: G1
+    quote: 'provide three mathematical'
+    lines: [147, 151, 168, 206]
+    kind: internal-count
+    finding: >-
+      the paper says it provides three mathematical derivations, and the proof
+      headings enumerate exactly three derivations: Proof 1 (Bio-Somatic
+      Interface), Proof 2 (Lyapunov Stability), and Proof 3 (Topological
+      Resolution)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: Gestalt-DerivationCount, value: 3}
+    disposition: none
+  - id: G2
+    quote: 'The table below proposes structural correspondences'
+    lines: [130, 135, 137, 138, 139, 140, 141]
+    kind: internal-count
+    finding: >-
+      the comparative framework table contains five substantive correspondence
+      rows (Hopfield basin, Green's-function pole, brane embedding,
+      non-contractible loops, and phase-space trajectory modulation), so the
+      table is internally well formed as a five-row mapping across its three
+      columns
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 5]}]
+    values:
+      - {quantity: Gestalt-FrameworkCorrespondenceCount, value: 5}
+    disposition: none
+  - id: G3
+    quote: 'eleven-dimensional coupling manifold'
+    lines: [106, 153, 214]
+    kind: internal-arithmetic
+    finding: >-
+      the dimension statements are mutually consistent: the global manifold is
+      11-dimensional, the somatic brane is four-dimensional, and the later
+      G2-type discussion refers to seven compactified dimensions; 4 + 7 = 11,
+      matching the programme-wide USF dimension quantities
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 7, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+      - {quantity: USF-NonCompactDimensionCount, value: 4}
+      - {quantity: USF-CompactDimensionCount, value: 7}
+    disposition: none
+  - id: G4
+    quote: 'one basin at $\mathbf{e}^* = -W^{-1}\mathbf{b} = (0.406, 0.344)$'
+    lines: [178]
+    kind: internal-arithmetic
+    finding: >-
+      solving the displayed two-mode flow W e + b = 0 for W = [[-1, 0.6],
+      [0.6, -1]] and b = (0.2, 0.1) gives e* = (0.40625, 0.34375), which
+      rounds to the paper's stated (0.406, 0.344)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: rel-between, args: [0.40625, 0.406, 0, 0.001]}
+      - {template: rel-between, args: [0.34375, 0.344, 0, 0.001]}
+    disposition: none
+  - id: G5
+    quote: 'The program checked the slope, $-0.624$'
+    lines: [196]
+    kind: internal-arithmetic
+    finding: >-
+      differentiating the displayed energy-above-minimum curve at t = 0.5 gives
+      |dH/dt| = 0.16 exp(-0.4) + 2.56 exp(-1.6) = 0.624106..., agreeing with
+      the plotted/check-stated slope magnitude 0.624 to three decimals
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.6241062934, 0.624, 0, 0.001]}]
+    disposition: none
+  - id: G6
+    quote: 'the circulation is $2\pi$, so $n = 1$'
+    lines: [222, 224]
+    kind: internal-arithmetic
+    finding: >-
+      the vector-field caption's checked circulation 6.2832 is 2π to the shown
+      precision; substituting it into n = (1 / 2π) integral dθ gives n ≈ 1
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: rel-between, args: [6.2832, 6.283185307, 0, 0.00001]}
+      - {template: rel-between, args: [1.000002339, 1, 0, 0.00001]}
+    disposition: none
+  - id: G7
+    quote: 'above $J = 2/(3\sqrt{3}) \approx 0.385$'
+    lines: [236]
+    kind: internal-arithmetic
+    finding: >-
+      for the displayed double-well U = x^4/4 - x^2/2 - J x, the stated saddle-node
+      value 2/(3 sqrt(3)) evaluates to 0.384900..., matching the paper's
+      approximation 0.385
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.3849001795, 0.385, 0, 0.001]}]
+    disposition: none
+
+# TYPING candidates (lookup.py): Gestalt therapy -> MedicalTreatmentEvent / SkilledActivityType;
+# conscious percept -> Perceiving, while Green's-function pole -> MathematicalObject;
+# brane/embedding maps only indirectly (lookup gives Membrane, LocallyEuclideanSpatialThing);
+# fixed Gestalt / attractor basin is a candidate relation between PsychologicalSituation and MathematicalObject.
+# LEAN/ledger: no claims about this programme's theorem names, axioms, or sorry counts were found in P17.

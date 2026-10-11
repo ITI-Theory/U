@@ -134,7 +134,7 @@ scientific claims? Identify its stated limits on generalisation.
 document as a self-case demonstration of explanatory precision, not a clinical
 trial or population-level claim.
 
-## Cookie Monster: Comprehensibility
+## The Monster: Comprehensibility
 
 ### C-1 Central claim
 
@@ -189,7 +189,7 @@ citations.
 
 - If all Sherlock and Harry Potter items pass: accept the Papers candidate,
   then decide Zenodo actions in `Dist/ISSUES.md`.
-- If only Cookie Monster C-3 remains open: defer it to the next Papers
+- If only the Monster C-3 remains open: defer it to the next Papers
   iteration; do not broaden the current release.
 - If any scientific consistency item is `FIX`: make a narrow source edit,
   rebuild affected PDFs, refresh `U/uat/staging/papers/`, and repeat only the
