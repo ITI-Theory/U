@@ -2495,6 +2495,16 @@ Steps:
 - [ ] Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
       this framing; keep the cockpit only as "the view out of the window" onto
       the landscape.
+- [x] (6b9ebd0) The twin view, at the SCORE stop: one film, two viewers
+      ($S = R(e^*, \kappa, e_V)$). TWIN (`tw=1`) plays the film twice on the
+      river: left the viewer of now (neutral), right a VIEWER preset
+      (`registry/viewers`, `pv`) plus ADHD, ASD and C-PTSD sliders (`ca`, `cs`,
+      `cp`: P13's model operators, hypotheses, not diagnoses); the knobs and
+      the heart move both. FILM (`kf`) picks the River Film or the 2021 film.
+      "As I was in 2021" (`v2021`) is fitted by `scripts/fit_viewer.py` from
+      the two films (RMS 0.178 to 0.058 over the shared phases; it reads as
+      C-PTSD 1.0, curiosity -0.29, safety +0.15). Still to do: the author
+      tunes the presets and the condition mappings (and asks H-AL).
 ---
 
 ## ISS-053: The externalising machine: you compose your own film, the AI only asks — OPEN
