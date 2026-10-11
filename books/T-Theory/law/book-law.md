@@ -386,6 +386,55 @@ The legal-theory audience should therefore read the rest of the volume with two 
 | Emergency powers are a stress test for constitutional restoring forces. | `open-hypothesis` | This chapter |
 | Legal reform may fail when it perturbs slopes without crossing barriers. | `interpretive` | This chapter |
 
+# Affidavits: Claims, Exhibits and Precedent
+
+Law has a mature technology for turning a story into checkable statements: the affidavit. A witness states facts, one to a paragraph, each within their own knowledge, and attaches the documents they rely on as exhibits; the statement is sworn, so a false one has consequences; and the court weighs it against other evidence under a stated standard of proof. The programme's checker, Sherlock, borrows the form deliberately (paper SH1). This chapter reads the borrowing in both directions: what the legal form gives a checker of research prose, and what the checker's results show about legal reasoning `interpretive`.
+
+## The form
+
+A Sherlock affidavit lists a document's checkable claims. Each claim quotes the exact sentence it comes from, with its line, and names its kind (a count, a value, arithmetic, a claim about the programme's proofs, a typing against common sense), a verdict and an evidence label `kernel-verified`. The document itself is the exhibit, and it is identified the way a careful court identifies a document: frozen at a version (a commit) and fixed by a cryptographic hash, so that nobody can later say the affidavit was about a different text. That is a chain of custody for a manuscript `interpretive`.
+
+The verdicts are three, and the third matters most. A claim may be proved, contradicted, or *not provable from what the knowledge base holds*. Sherlock never reads "not provable" as "false". Scots law long had a third verdict too, not proven, for the space between a conviction and a finding of innocence; whatever its merits in criminal trials, in research the third verdict is indispensable, because most of what a knowledge base does not say is simply unsaid, not denied `interpretive`.
+
+The evidence labels play the part of standards of proof. Arithmetic over the document's own numbers is `kernel-verified`: checked by a proof kernel, the analogue of a fact admitted by both sides. A finding against common sense is `derived-under-assumptions`: it rests on the knowledge base's facts and on the mapping of words to concepts, as an expert's conclusion rests on their premises. A reading of a claim is `interpretive`, the analogue of argument rather than evidence `interpretive`.
+
+## Familiar doctrines, new material
+
+Running the form over the programme's 24 papers produced findings that a lawyer would recognise at once `kernel-verified`.
+
+**Prior inconsistent statements.** The largest class of problems, twelve, is a value stated twice in the same document, differently: a scale given ten to the second power in one place and ten to the fifth in another; "two operating modes" heading a table of three. In court a witness who says two things is impeached on the inconsistency, without anyone needing to know which is true; Sherlock does the same and leaves the choice to the author.
+
+**Hearsay.** Several papers cite an experiment's result ("classical 0/48, quantum 3/3") from an earlier run, while the paper that reports the experiment now describes a different design. A claim repeated from another document is admissible only as good as its source, and here the source has moved. Sherlock's cross-document check is a hearsay rule for numbers: a value quoted by a document is compared with the value in the document it came from.
+
+**Judicial notice.** Courts accept without proof facts so generally known that they cannot reasonably be disputed, and allow the other side to rebut them. OpenCyc, the common-sense knowledge base Sherlock uses, is judicial notice made explicit: a language is not a feeling; a showing of a film is not the film. Like judicial notice it can be wrong, and Sherlock labels what follows from it as derived under its assumptions, never as proved `derived-under-assumptions`.
+
+**The work and the copy.** One exhibit is a conversation: "Did you see the advert?" "Yes, on Tuesday." "I saw it on Thursday." OpenCyc keeps the advert, a work, apart from each showing of it, and taking a showing for the work is a contradiction in its terms. Copyright law draws the same line between the work and its copies or performances: the right attaches to the work, the infringement to a copy or a performance. Two very different traditions of making the world precise arrived at the same distinction `interpretive`.
+
+**Cross-examination.** Sherlock's adversarial mode, which the author called Moriarty, asks of each claim what single fact would collapse it. That is the cross-examiner's question. Its current form is narrow: the ledger asks the programme's proof library whether every theorem a paper cites exists and rests on the axioms the paper says it rests on, and finds sixteen that do not `kernel-verified`.
+
+## Precedent and versions
+
+A finding is disposed of in one of two ways: the document is corrected in a new version, or the finding is kept as an exhibit. A new version gets a new affidavit; the old one stays, frozen, with its findings. The structure is precedent's: a later decision may depart from an earlier one, but the earlier one remains in the reports, and the departure must be visible and reasoned. Sherlock's `delta` tool states, for each claim of the earlier affidavit, whether the new version left it unchanged, edited it, probably fixed it or dropped it, so that a correction is a recorded departure, not a silent rewrite `kernel-verified`.
+
+The paper describing Sherlock went through this loop itself: its own affidavit found two problems in one version, both were fixed, and the next version was checked again. A tool that reports on others should be seen to accept its own reports.
+
+## What the analogy does not license
+
+Sherlock is not a court. Nobody is sworn, nothing is at stake for a witness, and a verdict of "contradicted" is a finding about a text, not a judgement about a person. Common sense is not law: a knowledge base built in 2012 by a company is not an authority in the way a statute is, and its gaps (it knows the film *Oliver Twist* but not the novel) are gaps, not rulings `interpretive`.
+
+The sharpest limit is the oldest rule of natural justice: no one should be a judge in their own cause. The programme's author wrote both the papers and the checker. Paper SH1 says so, and the findings are reported as found; but independence is not something a party can grant itself. The legal answer is the right one here too: the procedure, the exhibits and the reasons are published, so that anyone can re-run the checks and contest the result `interpretive`.
+
+## Ledger
+
+| Claim | Label | Source |
+|---|---|---|
+| A Sherlock affidavit lists a document's claims with quotes, lines, kinds, verdicts and evidence labels, the document frozen by commit and hash. | `kernel-verified` | `registry/affidavits/`; paper SH1 |
+| Over the programme's 24 papers: 248 claims, 42 problems in 16 papers; twelve are values stated twice differently. | `kernel-verified` | paper SH1 |
+| The ledger finds sixteen cited Lean declarations that disagree with the Lean. | `kernel-verified` | `bld/sherlock/ledger.md` |
+| Prior inconsistent statement, hearsay, judicial notice and cross-examination map onto Sherlock's checks. | `interpretive` | This chapter |
+| OpenCyc's work/showing distinction parallels copyright's work/copy distinction. | `interpretive` | This chapter; paper SH1 (Exhibit C) |
+| Sherlock is not a court, and its author is not independent of the programme it checks. | `interpretive` | This chapter; paper SH1 |
+
 # Reading the Soma-Field Research Programme
 
 The first embedded paper is the programme synthesis. Lawyers should read it less as a source of legal conclusions than as a methodological charter. It presents a sequence: identify a recurring mathematical structure, build a model, test a bounded computational prediction, and maintain a claim ledger. For legal theory, that sequence is more important than any particular physics claim. The law volume needs exactly this discipline because jurisprudential metaphors can travel too easily.

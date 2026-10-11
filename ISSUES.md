@@ -2949,8 +2949,11 @@ exhibits, versions as precedent), with Sherlock's exhibits as worked cases.
 Philosophy (C2-book-06): Russell's *History of Western Philosophy* read as a
 sequence of affidavits about the same questions, compared by structure
 mapping (ISS-063).
-- [ ] Law chapter; Philosophy reading.
-- [ ] Philosophy (11 Oct): Sherlock is no longer "proposed": tense and results;
+- [x] Law chapter (12 Oct: "Affidavits: Claims, Exhibits and Precedent": prior inconsistent
+      statements, hearsay, judicial notice, the work and the copy, cross-examination,
+      precedent and versions, nemo iudex).
+- [ ] Philosophy reading: Russell's *History* as a sequence of affidavits compared by structure mapping.
+- [x] (12 Oct: chapters 12-13, "October 2026: Sherlock built", "Denoting, fiction and consensus", status rows, Appendix B) Philosophy (11 Oct): Sherlock is no longer "proposed": tense and results;
       Moriarty/DOT as an actual role (Popper); SH1's "consensus is not mathematics"
       (the Claude advert, Oliver Twist) read through Russell's theory of
       descriptions ("On Denoting", 1905) and Frege's sense and reference, with
