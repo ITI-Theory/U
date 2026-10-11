@@ -8,8 +8,7 @@ names that documents cite, as `Module.name` or a bare name. Loads one programme 
 so memory stays bounded, and some modules cannot share an environment:
 OSforGFF and Physlib both define `SpaceTime`), resolves the cited names declared
 there, and writes `bld/sherlock/ledger/<Module>.json`: the resolved name, its
-kind and the axioms it rests on (`sorryAx` shows a sorry). Library names (Mathlib) are
-resolved too. Python extracts and reports, Lean decides (Sherlock epic, D5).
+kind and the axioms it rests on (`sorryAx` shows a sorry). Library names (Mathlib) are resolved too, bare ones by their last component. Python extracts and reports, Lean decides (Sherlock epic, D5).
 Run by `sherlock/ledger.py judge` from the repository root.
 -/
 
@@ -62,10 +61,26 @@ def result (env : Environment) (cited : String) (n : Name) (mod : String) : IO J
     for cited in wanted do
       if !found.contains cited && citedAs cited mod n then
         found := found.insert cited (← result env cited n modStr)
-  for cited in wanted do
-    unless found.contains cited do
-      if env.contains cited.toName && !programme.contains cited.toName.getRoot then
-        found := found.insert cited (← result env cited cited.toName "library")
+  -- library names (Mathlib, core): exact, else by last component (`exp_pos` is `Real.exp_pos`)
+  let rest := wanted.filter fun c => !found.contains c
+  let mut lib : Std.HashMap String Name := {}
+  for c in rest do
+    if env.contains c.toName && !programme.contains c.toName.getRoot then lib := lib.insert c c.toName
+  let bare := rest.filter fun c => !lib.contains c && !(c.contains '.')
+  if !bare.isEmpty then
+    for (n, _) in env.constants.toList do
+      if n.isInternal || programme.contains n.getRoot then continue
+      let last := n.getString!
+      for c in bare do
+        if !lib.contains c && last == c then lib := lib.insert c n
+  for (c, n) in lib.toList do
+    found := found.insert c (← result env c n "library")
+  -- every axiom the module declares, so the report can list the ones a document never mentions
+  let mut axioms : Array Json := #[]
+  for (n, i) in env.const2ModIdx.toList do
+    if i == idx then
+      if let some (.axiomInfo _) := env.find? n then
+        axioms := axioms.push (Json.mkObj [("name", toString n), ("kind", "module-axiom"), ("module", modStr)])
   IO.FS.createDirAll "bld/sherlock/ledger"
-  IO.FS.writeFile s!"bld/sherlock/ledger/{modStr}.json" (Json.pretty (Json.arr (found.toArray.map (·.2))))
+  IO.FS.writeFile s!"bld/sherlock/ledger/{modStr}.json" (Json.pretty (Json.arr (found.toArray.map (·.2) ++ axioms)))
   IO.println s!"ledger judge {modStr}: {found.size} of {wanted.size} names resolved here"

@@ -11,7 +11,6 @@ microtheories:
 lean:
   - sherlock/Affidavits/ZSF/Numbers.lean
   - sherlock/Affidavits/ZSF/Typing.lean
-  - sherlock/Ledger/ZSF.lean
 claims:
   - id: D1
     quote: The Twenty-Scale Catalogue
@@ -25,6 +24,7 @@ claims:
       - {quantity: USF-ScaleLevelCount, value: 21}
     disposition: open
   - id: D2
+    levels: [stellar, compact-object]
     quote: Scale 14 — Black Holes and Compact Objects ($10^{3}$–$10^{10}$ m)
     lines: [680, 698]
     kind: internal-arithmetic
@@ -34,6 +34,7 @@ claims:
     lean: Affidavit.ZSF.Numbers.dial_not_monotone
     disposition: open
   - id: D3
+    levels: [molecular, whole-brain-cemi]
     quote: separated by twenty-five orders of magnitude in characteristic length
     lines: [474, 492, 529]
     kind: internal-arithmetic
@@ -43,6 +44,7 @@ claims:
     lean: Affidavit.ZSF.Numbers.molecular_limbic_eight_orders
     disposition: open
   - id: D4
+    levels: [nuclear, atomic]
     quote: from $N \approx 10^2$ at nuclear scale
     lines: [27, 344, 440, 465]
     kind: internal-duplicate-mismatch
@@ -55,6 +57,7 @@ claims:
       - {quantity: USF-MindRank-Scale2, value: 1e5}
     disposition: open
   - id: D5
+    levels: [stellar]
     quote: $N \approx 10^6$ oscillation modes
     lines: [683, 689]
     kind: internal-duplicate-mismatch
@@ -77,7 +80,7 @@ claims:
     verdict: contradicted
     label: kernel-verified
     lean: Affidavit.ZSF.Numbers.axioms_four_not_five
-    ledger: sherlock/Ledger/ZSF.lean
+    ledger: make -C sherlock ledger (bld/sherlock/ledger.md)
     disposition: open
   - id: D7
     quote: Multi-agent coordination is shown to reduce from $O(N \cdot K)$ to $O(N^2)$ with $K=1$
@@ -89,6 +92,8 @@ claims:
     lean: Affidavit.ZSF.Numbers.k_one_is_not_a_reduction
     disposition: open
   - id: D8
+    levels: [whole-brain-cemi]
+    concepts: [consciousness-threshold]
     quote: A conscious percept is a **pole in the propagator**
     lines: [838]
     kind: opencyc-typing
@@ -101,6 +106,8 @@ claims:
     lean: Affidavit.ZSF.Typing.percept_pole_contradiction
     disposition: open
   - id: D9
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
     quote: $$11 = 7 + 3 + 1.$$
     lines: [213, 229, 789]
     kind: internal-arithmetic
@@ -114,6 +121,8 @@ claims:
       - {quantity: USF-DarkMatterFraction-Planck2018, value: 0.2645}
     disposition: none
   - id: D10
+    levels: [whole-brain-cemi]
+    concepts: [classical-trapping]
     quote: $$\frac{dx}{dt} = -V'(x) = -4Wx(x^2-1) < 0 \quad \text{for } x \in (-1,0)$$
     lines: [849]
     kind: internal-arithmetic

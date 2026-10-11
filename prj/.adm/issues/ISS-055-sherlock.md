@@ -35,6 +35,13 @@ the programme's own Lean.
    claimed?", the containers test, precedent for the Law book.
 6. The Law book has an affidavit chapter (claims, exhibits, precedent) and the
    Philosophy book reads the history of philosophy (Russell) as affidavits.
+7. **Sherlock is a compiler for papers, and its registry is the mind palace**
+   (author, 11 Oct): an edit re-checks what it touches; every claim, value and
+   analogy lives in one relational vocabulary; the Soma Machine is the way in,
+   its zoom across the scale levels the walk through the palace (claims and
+   findings shown where they live). Design for it: everything Sherlock knows
+   is data in the registry, addressable by document, claim, scale level and
+   concept, so the app can show it.
 
 ## Design decisions (made for the end state)
 

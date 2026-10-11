@@ -11,6 +11,7 @@ lean:
   - sherlock/Affidavits/DarkMatter/Numbers.lean
 claims:
   - id: E1
+    levels: [observable-universe]
     quote: $\Omega_\text{DM}^\text{obs} = 0.2645$ — a **3.1\% high discrepancy**.
     lines: [15, 17, 111]
     kind: internal-arithmetic
@@ -23,6 +24,8 @@ claims:
       - {quantity: USF-DarkMatterFraction-Planck2018, value: 0.2645}
     disposition: none
   - id: E2
+    levels: [observable-universe]
+    concepts: [omega-lambda-fraction]
     quote: '| Dark energy ($\Lambda$) | $7/11$ | 0.6364 | 0.6847 | 7.1\% low |'
     lines: [110]
     kind: internal-arithmetic
@@ -35,6 +38,7 @@ claims:
       - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
     disposition: none
   - id: E3
+    levels: [observable-universe]
     quote: \approx 0.0455 \quad\text{vs}\quad \Omega_b^\text{obs} = 0.0493 \quad(7.8\%\text{ low})$$
     lines: [263]
     kind: internal-arithmetic
@@ -47,6 +51,7 @@ claims:
       - {quantity: USF-BaryonFraction-Planck2018, value: 0.0493}
     disposition: none
   - id: E4
+    levels: [observable-universe]
     quote: \approx 0.6847 + 0.2645 + 0.0493 + 0.001 + 0.0001 \approx 0.9996$$
     lines: [279]
     kind: internal-arithmetic

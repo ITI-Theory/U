@@ -32,25 +32,64 @@ def looks_lean(n: str) -> bool:
     return ("_" in n or "." in n) and not re.search(r"\.(md|lean|py|yaml|pdf|tex)$", n) and not n.startswith(".")
 
 
+TACTICS = {"fin_cases", "norm_num", "simp", "decide", "omega", "linarith", "nlinarith", "positivity",
+           "aesop", "rfl", "field_simp", "ring", "ring_nf", "native_decide", "exact_mod_cast", "push_cast",
+           "interval_cases", "gcongr", "polyrith", "continuity", "measurability", "fun_prop"}
+
+
+def said_in(text: str) -> str | None:
+    """What a piece of text says about a declaration; "was X ... now Y" means Y."""
+    m = re.search(r"\bnow\b(.*)", text, re.I) if re.search(r"\bwas\b", text, re.I) else None
+    if m:
+        text = m.group(1)
+    for k, rx in CLAIMS:
+        if rx.search(text):
+            return k
+    if re.search(r"\bproved\b|\bproven\b", text, re.I):
+        return "kernel-checked"
+    return None
+
+
+def cells(line: str) -> list[str]:
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
 def extract(files: list[str]) -> int:
     items = []
     for f in files:
         path = U / f
         doc = path.stem
-        for i, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        header: list[str] | None = None
+        for i, line in enumerate(lines, 1):
+            is_row = line.lstrip().startswith("|")
+            if is_row and i < len(lines) and re.match(r"^\s*\|[\s:|-]+\|\s*$", lines[i]):
+                header = cells(line)  # the next line is the separator: this is a header row
+                continue
+            if not is_row:
+                header = None
             for m in NAME.finditer(line):
                 n = m.group(1)
                 if not looks_lean(n):
                     continue
-                said = [k for k, rx in CLAIMS if rx.search(line)]
-                items.append({"doc": doc, "line": i, "name": n, "said": said[0] if said else "cited",
-                              "text": line.strip()[:200]})
+                said = None
+                if is_row and header:
+                    row = cells(line)
+                    col = next((k for k, c in enumerate(row) if m.group(0) in c), None)
+                    if col is not None and col < len(header):
+                        said = said_in(header[col])  # a column headed "Axiom"
+                    if said is None:
+                        said = said_in(" ".join(c for k, c in enumerate(row) if k != col))  # a status cell
+                if said is None:
+                    said = said_in(line)
+                if n in TACTICS:
+                    said = "tactic"
+                items.append({"doc": doc, "line": i, "name": n, "said": said or "cited", "text": line.strip()[:200]})
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "ledger-claims.json").write_text(json.dumps(items, indent=1, ensure_ascii=False),
                                             encoding="utf-8", newline="\n")
     print(f"bld/sherlock/ledger-claims.json: {len(items)} citations of Lean names in {len(files)} documents")
     return 0
-
 
 PROOFS = U / "paper" / "proofs"
 
@@ -85,6 +124,8 @@ def judge() -> int:
 
 def disagrees(said: str, r: dict) -> str | None:
     kind, axioms = r.get("kind"), r.get("axioms", [])
+    if said == "tactic":
+        return None
     if kind == "missing":
         return "no such declaration"
     if said == "axiom" and kind != "axiom":
@@ -105,8 +146,12 @@ def disagrees(said: str, r: dict) -> str | None:
 def report() -> int:
     claims = json.loads((OUT / "ledger-claims.json").read_text(encoding="utf-8"))
     results: dict[str, dict] = {}
+    module_axioms: dict[str, list[str]] = {}
     for f in sorted((OUT / "ledger").glob("*.json")):
         for r in json.loads(f.read_text(encoding="utf-8")):
+            if r.get("kind") == "module-axiom":
+                module_axioms.setdefault(r["module"], []).append(r["name"])
+                continue
             if r["name"] not in results or results[r["name"]].get("module") == "library":
                 results[r["name"]] = r
     out, bad = ["# Sherlock ledger: documents against the programme's Lean", ""], 0
@@ -120,6 +165,13 @@ def report() -> int:
                 bad += 1
                 out.append(f"- line {c['line']} `{c['name']}` ({c['said']}): **{why}**"
                            + (f" [{r['resolved']}]" if r.get("resolved") else ""))
+        mods = {results[c["name"]]["module"] for c in rows if results.get(c["name"], {}).get("module") in module_axioms}
+        named = {results[c["name"]].get("resolved") for c in rows if c["said"] == "axiom" and c["name"] in results}
+        silent = [a for m in sorted(mods) for a in module_axioms[m] if a not in named]
+        if silent:
+            bad += len(silent)
+            out.append(f"- axioms in the cited modules the document never calls axioms: "
+                       + ", ".join(f"`{a}`" for a in silent))
         out.append("")
     (OUT / "ledger.md").write_text("\n".join(out), encoding="utf-8", newline="\n")
     print(f"bld/sherlock/ledger.md: {len(claims)} citations, {bad} disagree with the Lean")

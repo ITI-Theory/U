@@ -23,8 +23,7 @@ help:
 	$(info   fetch       download NextKB into bld/sherlock/raw and check SHA-256)
 	$(info   lean-gen    NextKB to Lean, one module per microtheory (MT="BiologyMt ..." limits it))
 	$(info   lean        build the core and all microtheories, one Lean process at a time (hours, several GB))
-	$(info   affidavits  check the affidavits in Affidavits/ and the fixed ledgers in Ledger/, after lean;)
-	$(info               then check; reports in bld/sherlock/)
+	$(info   affidavits  check the affidavits in Affidavits/, after lean; then check; reports in bld/sherlock/)
 	$(info   check       the claims registry: sources, quotes, cited theorems; affidavits.md, values.md)
 	$(info   ledger      documents' claims about the programme's Lean (LEDGER_DOCS=...); ledger.md)
 	$(info   delta       ID=<affidavit> [REV=...]: what an edit did to its claims; delta-<ID>.md)
@@ -63,10 +62,6 @@ affidavits:
 	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
 	done
 	lake build Affidavits
-	@for f in $$(ls Ledger/*.lean | grep -v Judge); do echo "ledger $$f"; \
-	  (cd .. && LEAN_NUM_THREADS=2 lake env lean sherlock/$$f) > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; \
-	  grep -v OSforGFF "$(LOG)"; \
-	done
 	$(PYTHON) findings.py
 	$(MAKE) check
 

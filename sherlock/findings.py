@@ -80,7 +80,7 @@ def main() -> int:
            "not provable (from what OpenCyc holds; not the same as false).", ""]
     for f in files:
         out += affidavit(f)
-    for f in sorted((HERE / "Ledger").glob("*.lean")):
+    for f in sorted(p for p in (HERE / "Ledger").glob("*.lean") if p.name != "Judge.lean"):
         out += ledger(f)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")

@@ -1,16 +1,16 @@
 """Sherlock's claims registry (registry/affidavits/<doc>.yaml): check and report.
 
     python sherlock/registry.py check    # schema, frozen source, quotes, lines
-    python sherlock/registry.py report   # bld/sherlock/affidavits.md and values.md
+    python sherlock/registry.py report   # bld/sherlock/affidavits.md, values.md, palace.json
 
 Each affidavit file names a frozen source (file, commit, SHA-256) and lists
 claims: id, quote, lines, kind, finding, verdict, label, lean (the theorem
 that proves the finding, or null for "not provable"), and optionally reading
 (microtheory), mapping (words to OpenCyc constants), formal (CycL-shaped
-sentence), values (quoted quantities), ledger, disposition. `check` also
+sentence), values (quoted quantities), ledger, disposition, levels (registry/levels ids), concepts (registry/concepts\nids). `check` also
 writes bld/sherlock/names.json, which sherlock/Tools/Names.lean checks against
-the compiled affidavits (Python extracts, Lean decides). `report` groups the
-quoted values by quantity across all documents and flags disagreements.
+the compiled affidavits (Python extracts, Lean decides). `report` writes palace.json (every claim by scale level and concept, for
+the Soma Machine: the mind palace) and groups the quoted values by quantity across all documents and flags disagreements.
 """
 from __future__ import annotations
 
@@ -82,6 +82,10 @@ def check() -> int:
                 names.append({"doc": aff["id"], "claim": cid, "name": c["lean"]})
             elif c["verdict"] != "not-provable":
                 errs.append(f"{where} {cid}: no Lean theorem for a {c['verdict']} finding")
+            for field, folder in (("levels", "levels"), ("concepts", "concepts")):
+                unknown = [x for x in c.get(field) or [] if not (U / "registry" / folder / f"{x}.yaml").exists()]
+                if unknown:
+                    errs.append(f"{where} {cid}: unknown {field} {unknown} (registry/{folder})")
             if "formal" in c and c["formal"].count("(") != c["formal"].count(")"):
                 errs.append(f"{where} {cid}: unbalanced formal form")
         for f in aff.get("lean") or []:
@@ -100,6 +104,7 @@ def number(v) -> Fraction:
 def report() -> int:
     out = ["# Sherlock affidavits (registry)", ""]
     values = defaultdict(list)
+    palace: dict[str, dict[str, list[dict]]] = {"levels": defaultdict(list), "concepts": defaultdict(list)}
     for _, aff in load():
         src = aff.get("source") or {}
         out += [f"## {aff['title']}" + (f" ({aff['document']})" if aff.get("document") else ""), "",
@@ -109,6 +114,11 @@ def report() -> int:
                        f" `{c['lean'] or 'not provable'}`; disposition: {c.get('disposition', 'open')}.")
             for v in c.get("values") or []:
                 values[v["quantity"]].append((aff["id"], c["id"], v["value"]))
+            entry = {"doc": aff["id"], "document": aff.get("document"), "claim": c["id"],
+                     "verdict": c["verdict"], "label": c["label"], "finding": c["finding"]}
+            for field in ("levels", "concepts"):
+                for x in c.get(field) or []:
+                    palace[field][x].append(entry)
         out.append("")
     vals = ["# Quoted values across documents", "",
             "Each quantity with every value quoted for it; DIFFER marks disagreement.", ""]
@@ -119,6 +129,8 @@ def report() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "affidavits.md").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
     (OUT / "values.md").write_text("\n".join(vals) + "\n", encoding="utf-8", newline="\n")
+    # the mind palace index: every claim where it lives (scale level, concept), for the Soma Machine
+    (OUT / "palace.json").write_text(json.dumps(palace, indent=1, ensure_ascii=False), encoding="utf-8", newline="\n")
     differ = sum(1 for l in vals if " DIFFER:" in l)
     print(f"bld/sherlock/affidavits.md, bld/sherlock/values.md: {len(values)} quantities, {differ} differ")
     return 0
