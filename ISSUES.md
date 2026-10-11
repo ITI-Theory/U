@@ -3095,3 +3095,56 @@ second machine need the relay (item above).
 - [ ] Layout profiles (inverted T, simulator, the author's desk): a profile names
       the role of each window; any window can switch role; saved per machine.
 
+## ISS-070: The Monsters: example personas, and names the user can change — OPEN
+{{Tags area.app, area.ops}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+
+Author, 11 Oct 23:02. The Monster (the understandability tier, ISS-066) gets
+example Monsters, each a reader with a taste, for UAT and for the app's reader
+register:
+- **The Chocolate Biscuit Monster** (the author is from the UK): plain English,
+  short, a cup of tea in reach. Its test, the dunk test: can the idea be told
+  before the biscuit goes soft (about a minute)?
+- **The Ricer** (working name; alternatives: The Neon Ricer, The Rice Monster,
+  The Glow Monster), "sort of the author": loves neon, glowing grids and green
+  code rain, tiling desktops ("ricing": customising a desktop's look); wants to
+  see the real thing, the programme's Lean, in the towers of code (ISS-071).
+- [ ] Monster personas in the UAT worksheets and the reader register (`reader=`).
+- [ ] Settings: the user sets their own display name for each layer and persona
+      (Sherlock, the Wizard, the Monster and its kinds, H-AL, MOTHER, the
+      screens' roles). Display only: the ids, the files and the published
+      defaults stay as they are; a name is kept in the browser (localStorage),
+      never shipped (so the defaults stay clear of third-party names, ISS-066).
+- [ ] The author picks the Ricer's name.
+
+## ISS-071: The towers of code: a walk-through of the programme's Lean (the Ricer's wish) — OPEN
+{{Tags area.app, area.proofs}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+
+Author, 11 Oct 23:02: the Ricer "really wants to see a demo of the Lean model of
+[T]-Theory in the Towers, or close to". Today the city of code (11D, ISS-052)
+draws Sherlock's concepts as towers, taller for stronger evidence. Copilot's
+proposal, in steps:
+- [ ] Export the Lean: every declaration of the programme's modules with its
+      kind (theorem, def, axiom), its statement, its source line and the axioms
+      it rests on (sorryAx shows a sorry): a Lean metaprogram like the ledger's
+      judge (one module per process), written to bld/, read by generate.py. The
+      result is stamped with the commit it was checked at ("kernel-checked at
+      <commit>"), never claimed live.
+- [ ] Towers as modules (about 25), floors as declarations; the glow says the
+      status: theorems one colour, definitions another, axioms amber at the
+      foundations, the five sorries flickering red; beams from each theorem down
+      to the axioms it rests on, so the foundations are visible.
+- [ ] Walk into a tower: the module's source falls as code rain, our own neon
+      palette; a floor opens its theorem (the statement, the proof, its axioms,
+      the papers that cite it from the ledger, Sherlock's verdicts).
+- [ ] On the horizon, OpenCyc's skyline (1.37M facts, 678 microtheories), with
+      `EmotionCyc` as the bridge between the programme's towers and it.
+- [ ] A tour, the Ricer's tour: into UniversalSomaticField, up to
+      `consciousness_dichotomy`, down its beams to the axioms, past the red floors,
+      across the bridge to OpenCyc.
+- [ ] Later, desktop only: PROVE on a floor asks the MOTHER bridge to run Lean on
+      that theorem and stream the kernel's answer (the browser cannot run Lean).
+Difficulty: the export and the towers are medium (the judge and the city exist);
+the live PROVE is the hard part and optional.
+
