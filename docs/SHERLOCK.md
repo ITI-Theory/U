@@ -46,3 +46,28 @@ time (several GB of memory; do not run two Lean builds at once).
    choosing a reading is `interpretive`. "Not provable" is never "false".
 6. Record the findings in ISS-055 and, when the author decides, either fix the
    document (a new version) or keep it as an exhibit.
+
+## Claim extraction (step 2, with an AI agent)
+
+The ZSF affidavit used a read-only agent with this prompt (one in eight of
+its candidates was wrong, so check each before writing Lean):
+
+> Read the whole paper `<file>` (all of it, in chunks). Read-only: no edits,
+> builds or commits. Sherlock checks a document's claims in two ways: against
+> its own numbers and statements (counts, sums, ranges, values stated twice,
+> tables against prose, equations at the paper's own parameter values, "N
+> things" against the list given) and against OpenCyc typing (what kind of
+> thing something is said to be; category errors). Report candidate
+> findings, each with: the exact quote(s) and line numbers; the kind
+> (internal-count, internal-arithmetic, internal-duplicate-mismatch,
+> internal-unit, cross-paper, opencyc-typing with the OpenCyc concept you
+> would map to); your verdict (CONFIRMED / CONSISTENT / UNCLEAR) with the
+> computation shown; and for internal ones the exact numbers needed to state
+> it in Lean. Cover every table, every count, every equation with numbers,
+> every repeated constant, the abstract against the body, and every claim
+> about Lean (theorem names, axioms, sorries). Most important confirmed
+> findings first, then consistent positives, then 5-10 typing candidates.
+
+Claims about the programme's own Lean (axioms, theorems, sorries) go in a
+ledger (`sherlock/Ledger/`), which asks the root package's Lean environment
+what each declaration is; `make -C sherlock affidavits` runs the ledgers too.
