@@ -14,6 +14,7 @@ bibliography: ../../../paper/bibliography.bib
 csl: ../../../paper/apa-7th.csl
 include-in-header:
   - templates/a3-header.tex
+  - ../../../lib/format/ttheory-titlepage.tex
 variables:
   geometry: paperwidth=420mm,paperheight=297mm,margin=18mm,top=20mm,bottom=20mm
   fontsize: 11pt

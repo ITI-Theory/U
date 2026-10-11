@@ -15,6 +15,7 @@ bibliography: ../../../paper/bibliography.bib
 csl: ../../../paper/apa-7th.csl
 include-in-header:
   - templates/a3-header.tex
+  - ../../../lib/format/ttheory-titlepage.tex
 include-after-body:
   - templates/even-pages.tex
 variables:
