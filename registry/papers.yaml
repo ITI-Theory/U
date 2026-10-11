@@ -395,12 +395,12 @@ canonical_papers:
 
   - id: SH1
     slug: sherlock-affidavit
-    title: "Sherlock: An Affidavit for an Abstract Film"
+    title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
     discipline: "Knowledge representation; automated reasoning"
     level: "masters"
     doi: null
     status: pending-review
-    notes: "First Sherlock paper (11 Oct 2026): The Tensor (P8, frozen at U 2d36eaf) checked against its own numbers and OpenCyc in Lean 4; Lean in U sherlock/."
+    notes: "Sherlock (v2, 11 Oct 2026): a neuro-symbolic compiler for free-form text; affidavits for 23 programme papers checked in Lean 4 against themselves, each other, the programme's Lean and OpenCyc; structure mapping; OpenCyc collections as Lean types. Lean in U sherlock/."
     file: papers/sherlock-affidavit.pdf
     zenodo_file: zenodo/SH1-sherlock-affidavit.pdf
     make_class: citeproc

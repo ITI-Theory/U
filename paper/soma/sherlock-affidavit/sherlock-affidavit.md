@@ -1,36 +1,41 @@
 ---
-title: "Sherlock: An Affidavit for an Abstract Film"
-subtitle: "Checking what a document claims against itself and against OpenCyc, in Lean 4"
+title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
+subtitle: "Affidavits for a research programme, checked in Lean 4 against themselves, each other and OpenCyc"
 author: "Alistair Johnson"
 date: "2026"
 lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  Sherlock writes what a document is trying to say as a short set of
-  checkable claims, an affidavit, and checks it in two ways: against the
-  document's own numbers, in ordinary mathematics, and against OpenCyc, a
-  knowledge base of common-sense consensus, inside the Lean 4 theorem prover
-  with the Aesop proof search. All of OpenCyc, as distributed in NextKB
-  (1,366,193 ground facts in 678 microtheories), is loaded into Lean with
-  each microtheory kept as a separate scope, because the knowledge base taken
-  as one flat ontology is inconsistent. A contradiction is then a theorem,
-  `Holds mt falsum`, whose proof says why, and it stays inside its
-  microtheory. The first exhibit is *The Tensor*, the author's abstract film
-  definition, frozen at a stated version. Sherlock finds six problems in it:
-  four in its own statements and numbers (a table of three under "Two
-  operating modes", a control knob that removes the film from its own model
-  equation, a threshold the score never reaches, a threshold time the score
-  does not support), one between its two copies of the score (11 of 77
-  values differ), and one against OpenCyc (Language is not an emotion, and
-  calling it an emotional mode makes Arabic a feeling). A second exhibit
-  tests the paper's claim that its three narrative containers are "the same
-  film": OpenCyc's relation of a story to its plot makes them the same
-  *score*, not the same film. A third, the question "did you see the Claude
-  advert?", shows why: OpenCyc keeps a work apart from its showings. The
-  findings are of two kinds and are labelled as such: kernel-verified
-  arithmetic, and derivations under OpenCyc's consensus, which is not
-  mathematics.
+  Sherlock compiles what a text claims into checkable statements and checks
+  them. Its front end is a language model, which reads the text and proposes
+  claims, each with the sentence it comes from; a person confirms them. Its
+  back end is the Lean 4 theorem prover with the Aesop proof search, which
+  decides: against the text's own numbers, in ordinary arithmetic checked by
+  the kernel; against the programme's own Lean proofs; against the other
+  documents; and against OpenCyc, a knowledge base of common-sense consensus,
+  all of which (1,366,193 ground facts in 678 microtheories, as distributed
+  in NextKB) is loaded into Lean with each microtheory kept as its own scope.
+  The claims of a document, frozen to a version and a SHA-256, form its
+  affidavit. The test case is [T]-Theory, the author's research programme on
+  emotion and field theory (24 papers, 15 books, a course and an atlas, with
+  its own Lean proofs), chosen because it makes every kind of claim Sherlock
+  checks, in many places at once. Sherlock has written affidavits for 23 of
+  its papers: 233 claims, and 38 problems in 15 papers: counts that do not match their
+  lists, values stated twice differently, arithmetic that does not hold,
+  numbers that differ between papers, cited Lean declarations that do not
+  exist, and category errors against the consensus. Two further layers turn
+  checking into compiling. Structure mapping (SME, MAC/FAC) tests the
+  programme's many claims that two things share "the same structure": most
+  rest on the shared form of one equation, not on shared structure, and one
+  contains a contradiction the prose hides. OpenCyc's collections become Lean
+  types, so that a category error is a type error: the programme's emotion
+  vocabulary now compiles against OpenCyc, after Sherlock found that 25 of
+  the 28 OpenCyc names it used were not in OpenCyc. Findings carry evidence
+  labels: kernel-verified arithmetic, derivations under OpenCyc's consensus
+  (which is not mathematics), and interpretation. The text so far has been
+  scientific papers, an advertisement and handwritten notes; free-form text
+  in general is the claim to be tested.
 ---
 
 # Introduction
@@ -40,20 +45,69 @@ They say what a thing is ("an emotional mode"), how many there are ("two
 operating modes"), when something happens ("at $t = 0.74$") and what is the
 same as what ("all three are the same film"). A careful reader checks such
 claims against the paper itself and against what everyone knows. Sherlock is
-that reader, made explicit.
+that reader, made explicit, and built like a compiler.
 
-The method has three steps. First, the claims are written as an **affidavit**:
-a short list of facts in a fixed vocabulary, each pointing to the sentence it
-comes from. Second, the claims about numbers are checked as arithmetic in the
-Lean 4 theorem prover [@moura2021lean4]. Third, the claims about kinds of
-things are typed against OpenCyc [@lenat1995cyc; @opencyc2012owl], and the
-Aesop proof search [@limperg2023aesop] looks for what follows. What follows
-may be a contradiction; Sherlock reports it with its proof.
+A compiler has a front end that reads source text into a structure and a
+back end that checks and transforms the structure deterministically.
+Sherlock's front end is a language model: it reads a document and proposes
+its checkable claims, each with the sentence and line it comes from, and a
+person confirms or rejects each. Its back end is Lean 4 [@moura2021lean4]:
+once a claim is stated, the kernel decides it, and the same claim gets the
+same answer every time. The front end is neural and fallible; the back end
+is symbolic and exact. That division, language models at the ends and Lean
+in the middle, is the design.
 
-This paper describes the method and its first three exhibits. The code is in
-the repository's `sherlock/` directory, every finding below is a named Lean
-theorem, and `make -C sherlock all` rebuilds everything from the published
-NextKB archive.
+The back end checks a claim against four things: the document's own numbers
+(arithmetic, decided by the kernel); the programme's own Lean (does the
+theorem the paper cites exist, and on what axioms does it rest); the other
+documents (is a value quoted the same everywhere); and common sense, as
+OpenCyc [@lenat1995cyc; @opencyc2012owl] holds it, with the Aesop proof
+search [@limperg2023aesop] looking for what follows. Two further layers
+compare and type: structure mapping asks whether two things a document calls
+"the same" share structure, and OpenCyc's collections as Lean types make a
+category error a compile error.
+
+The first version of this paper described the method and its first three
+exhibits, on one document. This version reports Sherlock run over a whole
+research programme, [T]-Theory: 23 papers, their Lean, and the claims they
+make about each other. The code is in the repository's `sherlock/` directory, the
+claims are in `registry/affidavits/`, every finding is a named Lean theorem
+or a kernel-checked template, and `make -C sherlock all` rebuilds everything
+from the published NextKB archive.
+
+# The test case: [T]-Theory
+
+A checker needs a corpus that makes the claims it checks. Sherlock's is
+[T]-Theory, the author's research programme on emotion and field theory, and
+it is a demanding one, for four reasons.
+
+**Size and repetition.** The programme has 24 papers, 15 domain books, a
+course and an atlas, written over a few months. Each central claim (how many
+scale levels there are, what an experiment found, which theorem proves what)
+is made in several documents, so a change in one leaves the others behind.
+
+**Every kind of claim.** It counts and tabulates; it computes; it does
+physics, from a Green's function at the Planck length to the observable
+universe; it makes clinical and emotional claims, where common sense
+applies; it argues by analogy ("the same structure at every scale"); and it
+describes its own formal proofs. Few bodies of text exercise all of
+Sherlock's checks at once.
+
+**Its own Lean.** The programme has a Lean 4 library, built on Mathlib,
+physlib and a formalisation of the Osterwalder--Schrader axioms, which the
+papers cite by name. The ledger can therefore check what the prose says about
+the proofs against the proofs.
+
+**Written quickly, with AI help.** Much of the programme was drafted with
+language models. That is the setting in which values drift between documents
+and plausible names are invented, and so the setting in which a compiler for
+text earns its keep (the programme's own Lean used 25 OpenCyc names that do
+not exist).
+
+The author of the programme is the author of Sherlock. The findings below are
+reported as found; the documents they are about are frozen at the stated
+versions and kept as exhibits, and the problems are being fixed in new
+versions, which get new affidavits.
 
 # Consensus is not mathematics
 
@@ -103,7 +157,9 @@ where `Holds mt φ` is Cyc's `ist`, "sentence φ is true in microtheory mt".
 a contradiction in OpenCyc is not an explosion but a theorem
 `Holds mt .falsum`. Microtheory inheritance (`genlMt`) is a separate
 relation, and every microtheory inherits `BaseKB`. The ground facts are
-translated; OpenCyc's implication rules are counted and not yet translated.
+translated, and 408 of OpenCyc's simple implication rules (Horn rules) are
+translated into a library of their own, so the facts are never rebuilt
+when a rule changes.
 The largest microtheories are split into parts, and the modules are built one
 Lean process at a time.
 
@@ -129,6 +185,66 @@ Aesop finds single facts and short chains by itself; it does not guess the
 middle collection of a long `genls` chain. Such chains are written out link
 by link, and Aesop finds each link as a fact. This makes the proofs longer
 and the explanations better: each finding lists the facts it uses.
+
+## The front end
+
+Claims are proposed by a language model with a fixed instruction (in
+`docs/SHERLOCK.md`): read the whole document, report candidate findings with
+their exact quotes and lines, recompute every number, and sort them into
+kinds (a count against the list it counts, a value stated twice, arithmetic,
+a unit, a value quoted by another document, a claim about the programme's
+Lean, a typing against OpenCyc). Each candidate is checked by a person before
+it is written down; on the first full paper, about one candidate in eight
+was wrong. The confirmed claims go into the affidavit's registry entry
+(`registry/affidavits/<doc>.yaml`), with the document frozen at a commit and
+its SHA-256; the validator refuses a quote that is not in the frozen text.
+
+## Templates: numbers as data
+
+Most claims about a document's numbers need no Lean to be written. A claim
+carries a check template with the document's numbers as data (`eq`, `ne`,
+`lt`, `sum`, `diff`, `rel-between`, `monotone`, `not-monotone`), and a single
+Lean file evaluates each one and adds it as a theorem proved by `decide`.
+The kernel checks the arithmetic; the template only says which arithmetic.
+
+## Across documents
+
+Three further checks run over the whole programme. The **ledger** extracts
+every Lean name a document cites and what it says about it ("axiom",
+"kernel-checked", "theorem", "sorry"), asks the programme's Lean, one module
+per Lean process, what each name is and which axioms it rests on, and lists
+the disagreements. **Values** groups the quantities the affidavits record
+(a scale count, an experiment's result) by name across documents and flags
+those quoted differently. **Delta** compares an affidavit with a later
+version of its document and proposes which claims an edit changed.
+
+## Structure mapping
+
+Many claims are analogies: two things "have the same structure". Sherlock
+tests them with the Structure-Mapping Engine [@gentner1983structure;
+@falkenhainer1989sme] and its retrieval model MAC/FAC [@forbus1995macfac].
+A **case** describes one thing a document models (a scale of a catalogue, a
+paper's model) as relational facts in a shared vocabulary of 33 predicates,
+each fact with the line that states it; the same structure must be written
+with the same predicate in every case, and a document's own sameness claims
+are never facts of a case but tests of them. MAC ranks all cases by a cheap
+count of predicates; FAC maps the probe onto each candidate; similarity is
+the mapping's score over the probe's score against itself, averaged over
+both directions. Because documents often describe every case under the same
+headings, Sherlock also reports similarity **beyond the template**: with
+the predicates that most cases share removed.
+
+## Types
+
+OpenCyc's knowledge is a deep embedding: `Holds mt φ` is a proposition about
+a sentence. A thin typed layer sits over it (`Cyc.Types`): `Inst mt c` is
+collection `c` as a Lean type, the terms microtheory `mt` says are its
+instances, each carrying its proof; a `genls` fact gives a coercion from one
+type to the other; a `disjointWith` fact gives a theorem that a term with
+both types is a contradiction, so no coercion between disjoint types can be
+added consistently. A programme type anchored to a collection then turns a
+category error into a type error, reported by the compiler before any
+search.
 
 ## Evidence labels
 
@@ -234,7 +350,8 @@ Sherlock's advice is to say "the same score", not "the same film". The
 analogy the paper intends, the same relational structure in three settings
 [@gentner1983structure; @forbus2017analogy], is then a claim about the score,
 and it can be tested by comparing three independently written container
-descriptions, which the paper does not yet contain.
+descriptions, which the paper does not yet contain (the body and session
+versions are drafted for the author; the test runs once they are in the paper).
 
 The exhibit also found a slip in OpenCyc. It states
 `genlInverse genlWorks parts`, which makes the river film a *part* of its
@@ -260,55 +377,188 @@ theorems follow.
 The answer to "did we see the same thing?" depends on which thing the
 question is about, and the consensus makes the question say.
 
+# Exhibit D: The Zoomable Universal Somatic Field
+
+The fourth exhibit is a long paper, P11, *The Zoomable Universal Somatic
+Field*, frozen at commit `3c97a44`. It claims that one equation, the
+Helmholtz Green's function equation $(\nabla^2 + k^2) G = \delta$, governs
+propagation at every scale from the Planck length to the observable
+universe, and it walks through a catalogue of scales, each ending in a
+sentence beginning "Same as always."
+
+Sherlock's affidavit finds eight problems. The catalogue covers 21 levels,
+as the abstract and the programme's Lean (`ScaleLevel := Fin 21`) say, but
+the text says "twenty" five times (D1). The scale dial is not monotone in
+length: Scale 14 ($10^3$ m) follows Scale 13 ($10^{11}$ m) (D2). The double
+well of Scale 4 is said to be "separated by twenty-five orders of magnitude"
+from the limbic one at Scale 6, but the paper's own headings ($10^{-9}$ m,
+$10^{-1}$ m) give eight (D3). Two mode counts are stated twice with
+different values (D4, D5). The table of the paper's axioms has four rows;
+the Lean holds only one of them as an axiom, and the cited files hold three
+axioms the table omits (D6, found by the ledger). A cost reduction claimed
+in the abstract needs a condition the abstract omits (D7). And "a conscious
+percept is a pole in the propagator", read as identity, makes an event of
+perceiving a mathematical object, which OpenCyc holds disjoint (D8); read as
+correspondence it is fine, and Sherlock's advice is the word "corresponds".
+
+Structure mapping then tests the "Same as always" sentences. Each of the 18
+catalogue sections became a case (164 facts), and the limbic double well of
+§§3.3 and 6.3 a nineteenth. Every section states the equation, a propagator,
+a substrate and what sets the wavenumber: the general claim holds as
+written, because each section asserts it. Beyond those headings the
+specific claims mostly share little: of seven (fifteen pairs of scales), only
+Scale 12 against Scale 3 (both $1/r$ propagators) shares structure
+(similarity 0.90 beyond the template, the best match of all cases); the
+others share 0.31 or less. The molecular and limbic double wells, "identical in
+structure", are far apart: of the 18 other cases, the limbic one is the least like
+Scale 4 (0.14): both are
+quartic double wells, but only the limbic one has attractors, trapping and
+tunnelling. They share a form, not a structure.
+
+Reading the cases against their sentences found one more problem. Scale
+19--20's propagator is the gravitational wave's, with $k = \omega/c$ (line
+758); twenty lines later it is "formally identical to the Coulomb
+propagator ... both are $1/r$ forms of equation (1) with $k=0$" (line 779),
+and identical too to Scale 5's synaptic transfer function, which the paper
+writes with $k = i\lambda^{-1}$. Two of the three propagators that are "the
+same" with $k = 0$ have, in the paper's own words, a different $k$.
+
+# The programme: twenty-three affidavits of [T]-Theory
+
+Sherlock has written affidavits for 23 of the programme's 24 papers (the
+book-length P6 is next) and for Exhibit C: 233 claims, of which 223 are
+labelled kernel-verified, nine derived under OpenCyc's assumptions and one
+sourced. 119 are confirmed, 69 consistent, 4 unclear, 1 not provable from
+what OpenCyc holds, and 40 contradicted. Two of the 40 are Exhibit C's,
+contradictions by design; the other 38 are problems in 15 papers.
+
+| Kind | Problems | Example |
+|---|---:|---|
+| A value stated twice, differently | 11 | P11 gives $N \approx 10^2$ at Scale 2 in equation (10) and $10^5$ in the catalogue |
+| Arithmetic | 8 | P1 infers "more than 24%" from a bound of $1 - \tanh 1 = 0.2384\ldots$ |
+| Between papers | 7 | P19, P20, P21 count 20 scale levels; P11 and the Lean have 21 |
+| A count against its list | 6 | P4's "three categories of work remain" lists four |
+| A claim about the Lean | 3 | P19 cites `Rat.div_lt_div_right`, which current Mathlib does not have |
+| Category, against OpenCyc | 3 | The Tensor's Language as an "emotional mode" |
+
+Some are slips a careful proofreader would catch; some need the arithmetic
+done (the threshold The Tensor's score never reaches); and some only show up
+across documents. The programme cites one experiment, QUANT-EXP-1, as
+"classical 0/48, quantum 3/3" in three papers; those are the figures of an
+earlier sweep, and the paper that reports the experiment now gives a
+different design (P2, Q1). P4 says the repository has seven `sorry`
+markers; the other affidavits, and a count of the source, say five (Y2).
+P9 names seven mechanisms of an eight-letter acronym (M1).
+
+The ledger, over 19 documents, found 171 citations of Lean names, of which
+16 disagree with the Lean: names that do not exist, and declarations called
+theorems or kernel-checked that are axioms or rest on axioms. The values
+check groups 201 quoted quantities and finds five quoted differently.
+
+One finding came from the programme's Lean rather than its prose. Its
+emotion vocabulary, a typed DSL with an OpenCyc interpreter, rendered each
+emotion as an OpenCyc name and listed "key Cyc axioms we inherit for free".
+Checked against NextKB, 25 of the 28 OpenCyc names in that file were not in
+OpenCyc: `Fear-Emotion` and `Joy-Emotion` where OpenCyc has `Fear` and
+`Happiness`, and predicates such as `emotionalBlend` that OpenCyc does not
+have. The check it relied on ran only when an external database was running,
+and printed "skipped" otherwise. It is now a type check (next section).
+
+# Types: a category error is a compile error
+
+Exhibit D's percept and pole show the typed layer. With
+`Percept := Inst Z "Perceiving"` and `Pole := Inst Z "MathematicalObject"`
+in P11's microtheory, a function about poles applied to a percept is
+rejected when the file compiles: "Application type mismatch: has type
+Percept but is expected to have type Pole". The correspondence reading, a
+relation between a percept and a pole, type-checks; and a theorem shows
+that no future coercion could make a percept a pole without a contradiction
+in that microtheory.
+
+The programme's emotion vocabulary now has a typed interpreter
+(`EmotionCyc`). Each base emotion is an `EmotionType`, a term that
+UniversalVocabularyMt classifies as an `EmotionalQuantityType`, and the
+anchor is a proof found by Aesop over all of OpenCyc when the file
+compiles: Happiness, Sadness, Fear, Anger, Disgust, Surprise,
+Anticipation-Feeling, and Awe. `Fear-Emotion` does not compile. Trust has
+no emotion type in OpenCyc and is marked as unanchored, visibly, instead of
+being given an invented name; the programme's blend, dampen and evoke are
+its own operators, not OpenCyc predicates, and are now written as such. The
+programme's Lean package requires Sherlock's package, which shares its
+Lean, Aesop and Batteries versions, so the programme sees all of OpenCyc
+without rebuilding it.
+
 # Discussion
 
-**More than a text linter.** Of the six findings in Exhibit A, three need
-arithmetic over the score and one needs common-sense knowledge that no style
-checker has. Exhibit B turns an informal claim into a choice between two
-precise ones and finds the one that holds.
+**A compiler, with a language-model parser.** Sherlock's back end is a
+compiler in the ordinary sense: a stated claim is decided the same way
+every time, and its proof can be read. Its front end is not yet: a language
+model proposes claims and mappings, and a person confirms them. Language
+models at the ends and Lean in the middle is the design, not a stopgap: the
+model reads and explains, Lean decides. A first test of the other
+arrangement, a language model given all of OpenCyc as sources and asked
+Sherlock's questions directly, retrieves facts but does not derive from
+them; the scored comparison, with a locally run model, is a companion
+paper's subject.
 
-**The mapping is the weak link.** Which OpenCyc constant a word means is a
-choice made by whoever writes the affidavit. "Language" could have been
-mapped to something else, and "Safety" has no emotion of that name in
-OpenCyc. Sherlock makes the choice explicit and checkable; it does not make
-it for the author. A front end that proposes mappings (for instance from
-NextKB's links between words, FrameNet frames and OpenCyc) and lets the
-author confirm them is the natural next step.
+**More than a linter.** Of the 38 problems, most need arithmetic or a second
+document to see; three need common-sense knowledge no style checker has;
+and the structure-mapping results change what the programme can say:
+"the same equation" or "the same form" where it said "identical in
+structure".
 
-**Limits.** OpenCyc's implication rules and its default reasoning are not yet
-in Lean; Aesop needs long chains spelled out; and the knowledge base is
-OpenCyc's 2012 consensus, with its gaps (no *Oliver Twist* novel) and its
-slips (`genlInverse genlWorks parts`).
+**The mapping is the weak link.** Which OpenCyc constant a word means, and
+which predicate of the case vocabulary a sentence states, are choices made
+by whoever writes the affidavit or the case. Sherlock makes them explicit
+and checkable, cites the line for each, and reports the template control;
+it does not make the choices for the author.
+
+**Limits.** OpenCyc's 408 simple implication rules are in Lean; its default
+reasoning and its more complex rules are not, and Aesop needs long chains
+spelled out. The knowledge base is OpenCyc's 2012 consensus, with its gaps
+(no *Oliver Twist* novel) and its slips (`genlInverse genlWorks parts`).
+The texts so far are one programme's papers, an advertisement and the
+author's handwritten notes; "free-form text" is the claim to be tested on a
+mixed set (news, a contract, a novel's chapter, a recipe).
 
 **Where the idea came from.** The author added the W3C OWL 2 Primer's family
 ontology [@hitzler2012owlprimer] as a test to the Scala RDF library
 banana-rdf on 13 February 2015 [@bananardf]: a document's facts, typed and
-checked. Sherlock is that test grown up, with the document a scientific paper
-and the ontology the common sense its reader brings.
+checked. The programme's emotion vocabulary descends from the same library's
+OWL DSL. Sherlock is that test grown up, with the document a scientific
+paper and the ontology the common sense its reader brings.
 
-**Next.** An affidavit for each paper of the programme; affidavits as a form
-of legal argument (claims, exhibits, precedent); analogy between affidavits by
-structure mapping [@gentner1983structure; @forbus2017analogy], to ask where
-else a claim has been made; and a reading of the history of philosophy
-[@russell1945history] as a sequence of affidavits about the same questions.
+**Next.** The book-length paper and the programme's books; the containers
+test of Exhibit B, once the body and session versions of the film are
+written; the whole programme's concepts as types; affidavits as a form of
+legal argument (claims, exhibits, precedent); and a reading of the history
+of philosophy [@russell1945history] as a sequence of affidavits about the
+same questions.
 
 # Conclusion
 
-An affidavit is cheap to write and exact to check. On its first document,
-Sherlock found six problems, separated the mathematical findings from the
-consensus ones, and turned the claim that three films are one into the
-precise statement that they share a score. OpenCyc is not mathematics, and
-Sherlock does not pretend it is: it says what follows from the consensus, in
-which microtheory, and why.
+An affidavit is cheap to write and exact to check. Run over a research
+programme, [T]-Theory, Sherlock found 38 problems in 15 of 23 papers, separated the
+mathematical findings from the consensus ones, showed that most of the
+programme's "same structure" claims share a form rather than a structure,
+and caught 25 invented names in the programme's own Lean by making them
+fail to compile. OpenCyc is not mathematics, and Sherlock does not pretend
+it is: it says what follows from the consensus, in which microtheory, and
+why.
 
 # Reproducing the exhibits
 
-`make -C sherlock fetch lean-gen lean affidavits` downloads NextKB (checked
-by SHA-256), generates the Lean modules, builds them one at a time (hours,
-several gigabytes) and checks the affidavits in `sherlock/Affidavits/`:
-`TheTensor/Score.lean` (A1 to A5), `TheTensor/Language.lean` (A6),
-`TheTensor/Containers.lean` (Exhibit B) and `ClaudeAdvert.lean`
-(Exhibit C). The River Film score is also exported as W3C EmotionML
+`make -C sherlock fetch lean-gen rules-gen lean affidavits` downloads NextKB
+(checked by SHA-256), generates the Lean modules and the rules, builds them
+one Lean process at a time (hours, several gigabytes), checks the affidavits
+in `sherlock/Affidavits/` and the registry's template checks, and runs the
+ledger over every affidavit's document; the reports are in `bld/sherlock/`.
+`python sherlock/macfac.py report` runs the structure mapping over
+`registry/cases/`; `lake build EmotionCyc` compiles the typed emotions; the
+type spike is `sherlock/Types/Spike.lean`. Exhibit A is
+`TheTensor/Score.lean` (A1 to A5) and `TheTensor/Language.lean` (A6),
+Exhibit B `TheTensor/Containers.lean`, Exhibit C `ClaudeAdvert.lean`,
+Exhibit D `ZSF/`. The River Film score is also exported as W3C EmotionML
 [@burkhardt2014emotionml] by `make emotionml`.
 
 # References
