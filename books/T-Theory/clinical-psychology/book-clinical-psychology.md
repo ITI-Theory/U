@@ -46,11 +46,15 @@ $$
 H(e) = -\tfrac12 e^\top W e - b^\top e,
 $$
 
+{{Visualize | introduction-a-map-that-must-not-become-a-protocol | energy-landscape:soma | U="-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2)"; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="$H$" }} An illustrative one-dimensional slice through the energy function above: several valleys, each a candidate stable affective state under this reading. The actual number, depth, and position of the valleys are set by the coupling matrix $W$ and bias $b$, which this general form leaves unspecified.
+
 with noisy dynamics of the general Langevin form
 
 $$
 \gamma\dot e = -\nabla H(e) + \sqrt{2D}\,\xi(t) + J(t).
 $$
+
+{{Visualize | introduction-a-map-that-must-not-become-a-protocol | distribution:soma | pdf="exp(-(-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2))/D)"; D=0.15; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="stationary probability density" }} The stationary (Boltzmann-like) distribution implied by the Langevin equation above over the same illustrative landscape, with perturbation $J(t)=0$ and an illustrative noise level $D=0.15$: the state settles mostly into the deepest well. A larger $D$ (a higher effective temperature) would spread the distribution across the wells instead; neither value is measured.
 
 Here $W$ encodes coupling among affective dimensions, $b$ encodes bias, $D/\gamma$ acts like an effective temperature, $\xi(t)$ represents fluctuation, and $J(t)$ is an external or volitional perturbation (`derived-under-assumptions`). For clinical readers, the point is not the equation itself. The point is the kind of question it makes possible. Does a person return to the same state because of meaning, memory, habit, autonomic constraint, relational expectation, physiological load, or some coupled mixture? What counts as a local skill, what counts as a landscape change, and what would longitudinal evidence look like?
 
@@ -127,6 +131,8 @@ Memory kernels introduce time. Trauma is not only a stored content; it may be a 
 $$
 \phi(t)=\int K(t-t')J(t')\,dt'.
 $$
+
+{{Visualize | trauma-topology-basins-barriers-temperature-memory | convolution:soma | input="exp(-((t-0.3)/0.08)^2)"; kernel="0.6*exp(-t/2) + 0.4*exp(-t/20)"; x=[0,60]; input_label="triggering event $J$"; kernel_label="memory kernel $K$ (fast + slow)"; output_label="present response $\phi$"; xlabel="time since the event (illustrative)" }} An illustrative two-term memory kernel: a fast part that fades quickly and a slow part that lingers, convolved with a single triggering perturbation to give an illustrative present response. The real kernel's shape, and whether it decomposes this way, is not established; the amplitudes and time constants shown are illustrative.
 
 For clinical readers, the equation says that present response may depend on a weighted history of prior events, not only on present appraisal (`derived-under-assumptions`). Different kernels imply different clinical pictures: rapid decay, long tail, recurrent reactivation, context-specific amplification.
 

@@ -45,17 +45,23 @@ $$
 \mathbf{e}(t)=(e^s_1,\ldots,e^s_8,e^c_1,\ldots,e^c_8)\in[0,1]^{16},
 $$
 
+{{Visualize | introduction-music-as-a-field-art | type-decomposition:soma | whole="$\mathbf{e}(t)$"; parts="calm=2, fight=2, flight=2, grief=2, freeze=2, hypervigilance=2, flow=2, joy=2"; op=plus; row_label="somatic + cognitive"; expect_total=16 }} The sixteen coordinates of the equation above by mode: each of the eight affective modes contributes a somatic and a cognitive component (dimension 2). The program checked that they sum to 16.
+
 where each of eight affective modes has somatic and cognitive components. The modes used by the paper are calm, fight, flight, grief, freeze or dissociation, hypervigilance, flow or absorption, and joy. The proposed energy function is
 
 $$
 H(\mathbf{e})=\tfrac12\mathbf{e}^{\top}W\mathbf{e}-\mathbf{b}^{\top}\mathbf{e},
 $$
 
+{{Visualize | introduction-music-as-a-field-art | energy-landscape:soma | U="-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2)"; x=[-3,3]; xlabel="listener state (illustrative slice)"; ylabel="$H$" }} An illustrative one-dimensional slice through the energy function above: several valleys, each a candidate stable listener state under this reading. The actual number, depth, and position of the valleys are set by the coupling matrix $W$ and bias $\mathbf{b}$, which this general form leaves unspecified.
+
 and the response dynamics are written as
 
 $$
 \gamma\dot{\mathbf{e}}=-\nabla H(\mathbf{e})+\sqrt{2D}\,\xi(t)+J(t),
 $$
+
+{{Visualize | introduction-music-as-a-field-art | distribution:soma | pdf="exp(-(-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2))/D)"; D=0.15; x=[-3,3]; xlabel="listener state (illustrative slice)"; ylabel="stationary probability density" }} The stationary (Boltzmann-like) distribution implied by the response dynamics above over the same illustrative landscape, with source $J(t)=0$ and an illustrative noise level $D=0.15$: the listener settles mostly into the deepest basin. A larger $D$ (higher effective temperature $T_{\mathrm{eff}}$) would spread the distribution across the basins instead; neither value is measured.
 
 with $T_{\mathrm{eff}}=D/\gamma$. This is not a claim that a concert hall has secretly become a particle accelerator. It is a model class: affective state is represented as a damped, noisy, forced trajectory over basins and barriers `derived-under-assumptions`.
 

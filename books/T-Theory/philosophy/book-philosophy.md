@@ -129,9 +129,13 @@ The core field claim is simple enough to state. The Soma field is written as a b
 
 $$E(x,t)=E_{\text{body}}(x,t)\otimes E_{\text{neural}}(x,t),$$
 
+{{Visualize | what-t-theory-claims | type-decomposition:soma | whole="$E(x,t)$"; parts="$E_\text{body}$, $E_\text{neural}$"; op=times }} The tensor product above as a picture: one field, not two separate systems. No dimensions are stated in the general model, so the parts are shown with equal widths.
+
 whose components may remain active below reportable awareness `derived-under-assumptions`. A conscious emotion in mode $i$ is modelled as a threshold crossing,
 
 $$\text{Emotion } i \text{ is consciously perceived}\iff |E_i(t)|>T_i,$$
+
+{{Visualize | what-t-theory-claims | function-plot:soma | f="abs(x)"; name="$|E_i|$"; x=[-3,3]; hline=1.4142; value_at=1.4142; expect_value=1.4142; xlabel="field amplitude $E_i$"; ylabel="$|E_i|$" }} An illustrative amplitude $|E_i|$ against the threshold $T_i$ (dotted line, here the Lean example's $\sqrt2$): above the line the emotion is modelled as consciously perceived, below it as sub-perceptual. The program checked $|\sqrt2|=\sqrt2$.
 
 where $T_i$ is that mode's perceptual threshold `derived-under-assumptions`. In the papers this accounts for the thought that an emotion may be physiologically and behaviourally active before it is named. The Lean threshold example is narrower: the formal theorem divides a real amplitude at $\sqrt{2}$ `kernel-verified`, while the biological identification of that threshold with consciousness remains open `open-hypothesis`.
 
@@ -139,11 +143,15 @@ The finite operational model is a Hopfield-style energy landscape. The state vec
 
 $$H(e)=-\tfrac12 e^\top W e-b^\top e,$$
 
+{{Visualize | what-t-theory-claims | energy-landscape:soma | U="-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2)"; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="$H$" }} An illustrative one-dimensional slice through the energy function above: several valleys, each a candidate attractor basin under this reading. The actual number, depth, and position of the valleys are set by the coupling matrix $W$ and bias $b$, which this general form leaves unspecified.
+
 where $W$ is the emotional coupling matrix and $b$ or $\theta$ records baseline bias or threshold terms. Positive entries in $W$ amplify co-activation, negative entries inhibit, and local minima of $H$ are attractor basins such as calm, fight, flight, freeze, flow, dissociation, grief, or awe `derived-under-assumptions`. The programme's philosophical claim is that these minima can be read as structured ways the body is held ready to respond.
 
 The dynamics are usually written as a Langevin equation. In the writing kit's canonical form,
 
 $$\gamma\dot e=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t),\qquad T_{\text{eff}}=D/\gamma.$$
+
+{{Visualize | what-t-theory-claims | distribution:soma | pdf="exp(-(-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2))/D)"; D=0.15; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="stationary probability density" }} The stationary (Boltzmann-like) distribution implied by the Langevin equation above over the same illustrative landscape, with forcing $J(t)=0$ and an illustrative noise level $D=0.15$: the state settles mostly into the deepest basin. A larger $D$ (a higher effective temperature $T_\text{eff}$) would spread the distribution across the basins instead; neither value is measured.
 
 The gradient term pulls the state downhill in the landscape, the noise term supplies stochastic fluctuation, and $J(t)$ is an external forcing impulse. Higher effective temperature means easier escape from local minima; lower effective temperature means stronger local trapping `derived-under-assumptions`. The programme uses this to redescribe affect regulation as motion in a landscape rather than as a switch between named states.
 
@@ -151,15 +159,21 @@ Trauma enters as landscape deformation and memory. A trauma well is not simply a
 
 $$K_{\text{trauma}}(\tau)=\sum_k A_k e^{-|\tau|/\tau_k},$$
 
+{{Visualize | what-t-theory-claims | function-plot:soma | f="0.6*exp(-abs(x)/2) + 0.4*exp(-abs(x)/20)"; name="$K_\text{trauma}$"; x=[-20,20]; xlabel="lag $\tau$"; ylabel="$K_\text{trauma}(\tau)$" }} An illustrative two-term version of the kernel above: a fast-decaying component ($\tau_1=2$) and a slow, lingering one ($\tau_2=20$), each with an illustrative amplitude. The real number of terms, amplitudes, and time constants are not specified by this general form.
+
 or, in the temporal paper, as a retarded memory kernel derived from the temporal part of a Green's function,
 
 $$K(\tau)=K_0 e^{-\tau/\tau_m}\theta(\tau)$$
+
+{{Visualize | what-t-theory-claims | function-plot:soma | f="where(x>=0, exp(-x/3), 0)"; name="$K$"; x=[-5,15]; xlabel="lag $\tau$"; ylabel="$K(\tau)/K_0$" }} An illustrative one-sided (causal) exponential decay at $\tau_m=3$: zero before the event, then decaying afterwards, unlike the two-sided kernel above. The real decay time $\tau_m=1/(kv_s)$ is not fixed by this general form.
 
 with $\tau_m=1/(kv_s)$. Present response is then shaped by convolution with past perturbations `derived-under-assumptions`. The clinical interpretation is that some present reactions are not responses to the present alone, but present states weighted by still-active kernels from earlier events. That interpretation is not a clinical validation claim `open-hypothesis`.
 
 The propagator vocabulary generalises the model. The spatial master equation is the Helmholtz-style Green's-function equation,
 
 $$(\nabla^2+k^2)G(x,x')=\delta(x-x'),$$
+
+{{Visualize | what-t-theory-claims | function-plot:soma | f="sin(k*abs(x))/(2*k)"; vary=k:0.5,1,2; x=[-10,10]; xlabel="$x-x'$"; ylabel="$\mathrm{Re}\,G$" }} The one-dimensional free-space reduction of the equation above, $\mathrm{Re}\,G(x-x')=\sin(k|x-x'|)/(2k)$, at three wavenumbers $k$: the propagator oscillates faster for a larger $k$. Boundary conditions, dimensionality, and substrate are suppressed in this reduction.
 
 with $k$, boundary conditions, and substrate changing by scale `derived-under-assumptions`. The temporal paper extends this to the retarded propagator,
 
@@ -170,6 +184,8 @@ with $G_R=0$ for $t<t'$ `derived-under-assumptions`. Philosophically, this lets 
 The hierarchy of organismal description is 4D, 8D, and 11D. The 4D level is the physical spacetime substrate $M_4$. The 8D feeling organism is $M_4+P_3+L_1$, adding a propagator sector and a limbic axis `derived-under-assumptions`. The 11D thinking organism is
 
 $$M_{11}=M_4\times P_3\times L_1\times C_3,$$
+
+{{Visualize | what-t-theory-claims | type-decomposition:soma | whole="$M_{11}$"; parts="$M_4$=4, $P_3$=3, $L_1$=1, $C_3$=3"; expect_total=11 }} The eleven dimensions of the equation above by their parts: spacetime $M_4$, the propagator $P_3$, the limbic axis $L_1$, and the cortex $C_3$. The program checked that they add up to 11.
 
 where $C_3$ is the cortical or matrix-routing sector `derived-under-assumptions`. Lean can check product decompositions and simple dimension counts, such as $4+3+1+3=11$ `kernel-verified`. It does not thereby prove that a biological organism is literally an M-theory compactification `open-hypothesis`.
 
@@ -707,6 +723,8 @@ The Temporal Dynamics paper (P10) develops the time-dependent version of the Uni
 The paper then defines a temporal memory kernel
 
 $$K(\tau)=K_0 e^{-\tau/\tau_m}\theta(\tau),$$
+
+{{Visualize | what-p10-actually-says | function-plot:soma | f="where(x>=0, exp(-x/tau_m), 0)"; vary=tau_m:1,3,8; x=[-2,20]; xlabel="elapsed time $\tau$"; ylabel="$K(\tau)/K_0$" }} The kernel above at three illustrative memory timescales $\tau_m$: zero before the event, then a decay whose speed is set by $\tau_m$; a longer $\tau_m$ means the past stays influential for longer. Illustrative values; the text does not fix $\tau_m$ numerically.
 
 with $\tau=t-t'$ and $\tau_m=1/(kv_s)$. This is the core fact for the present chapter. The kernel is not written as a function of a named date. It depends on elapsed time. The present is influenced by the past according to how long ago the past occurred and how slowly that influence decays `derived-under-assumptions`.
 
