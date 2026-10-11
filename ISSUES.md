@@ -3119,7 +3119,8 @@ register:
   and he wants the roots, the axioms under every tower. Reads the Lean before the
   prose; wants to see the programme's Lean in the towers of code (ISS-071).
 - [ ] Monster personas in the UAT worksheets and the reader register (`reader=`).
-- [ ] Settings: the user sets their own display name for each layer and persona
+- [x] (12 Oct: `names.js`; the Engine Room's NAMES panel; MOTHER/H-AL's terminal title
+      follows it; other labels can call `displayName(id)` as they appear) Settings: the user sets their own display name for each layer and persona
       (Sherlock, the Wizard, the Monster and its kinds, H-AL, MOTHER, the
       screens' roles). Display only: the ids, the files and the published
       defaults stay as they are; a name is kept in the browser (localStorage),

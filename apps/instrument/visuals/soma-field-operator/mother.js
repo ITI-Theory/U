@@ -9,6 +9,7 @@ import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
 import { eras, levels, questions } from './generated/app-data.js';
 import { createVoice } from './voice.js';
+import { displayName, isRenamed } from './names.js';
 import { EVIDENCE_LABELS, createTourPlayer, extractTourBlock, parseTourBlock, presetIds, presetTour, resolveTour } from './tour.js';
 
 const STORAGE = {
@@ -198,7 +199,10 @@ export function createMother({ getContext }) {
     terminal.querySelector('.mother-compare').hidden = activeTab !== 'chat';
     terminal.querySelector('.mother-speak').hidden = activeTab !== 'chat';
     terminal.querySelector('.mother-observatory').hidden = activeTab !== 'chat';
-    titleSpan.textContent = persona() === 'hal' ? 'H-AL // HOLOGRAM ALISTAIR' : 'MU/TH/UR // [T]-THEORY INTERFACE';
+    // the user's own names for the personas (ISS-070), else the defaults
+    titleSpan.textContent = persona() === 'hal'
+      ? `${displayName('hal').toUpperCase()} // HOLOGRAM ALISTAIR`
+      : `${isRenamed('mother') ? displayName('mother').toUpperCase() : 'MU/TH/UR'} // [T]-THEORY INTERFACE`;
     terminal.classList.toggle('persona-hal', persona() === 'hal');
     if (xterm) xterm.options.theme = shellTheme();
   };
@@ -207,6 +211,7 @@ export function createMother({ getContext }) {
     radio.addEventListener('change', () => { write(STORAGE.persona, persona()); loadHistory(); syncPersona(); });
   }
   modeSelect.addEventListener('change', syncPersona);
+  globalThis.addEventListener?.('soma-names', syncPersona);
   syncPersona();
   const compareInput = terminal.querySelector('.mother-compare input');
   compareInput.checked = read(STORAGE.compare, 'on') === 'on';

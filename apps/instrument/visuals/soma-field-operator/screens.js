@@ -9,6 +9,8 @@
 // Any window that changes the view (a click, a tour step) tells the others; a window
 // only follows, it never answers back, so there is no echo.
 
+import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
+
 const CHANNEL = 'soma-screens';
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
@@ -183,6 +185,10 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <button type="button" data-open="engine">OPEN ENGINE ROOM</button>
         <p class="engine-room__hint">Drag a window to a tablet, then press F for full screen.</p>
       </fieldset>
+      <fieldset class="engine-room__names"><legend>NAMES</legend>
+        <p class="engine-room__hint">Your own name for each persona and layer. Kept in this browser only; empty restores the default.</p>
+        ${Object.entries(DEFAULT_NAMES).map(([id, name]) => `<label>${name}<input type="text" maxlength="40" data-name="${id}" placeholder="${name}" /></label>`).join('')}
+      </fieldset>
       <fieldset class="engine-room__fuel"><legend>FUEL: KNOWLEDGE BANKS</legend>
         <p class="engine-room__hint">The notebooks MOTHER and H-AL answer from (local bridge), and the NotebookLM compute left.</p>
         <div class="engine-room__gauges"></div>
@@ -192,6 +198,11 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     </div>`;
   document.body.append(room);
   const fxInput = room.querySelector('.engine-room__fx');
+  const names = displayNames();
+  for (const input of room.querySelectorAll('[data-name]')) {
+    if (names[input.dataset.name] !== DEFAULT_NAMES[input.dataset.name]) input.value = names[input.dataset.name];
+    input.addEventListener('change', () => setDisplayName(input.dataset.name, input.value));
+  }
   const banks = room.querySelector('.engine-room__banks');
   const bridge = () => (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, '');
 
