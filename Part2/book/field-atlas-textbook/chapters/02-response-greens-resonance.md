@@ -24,6 +24,8 @@ $$m\ddot{x} + b\dot{x} + kx = F(t).$$
 
 The left side is the system; the right side is the **source**, an external force $F(t)$. Dividing by $m$ gives the standard form
 
+{{Visualize | sec:response-damped-oscillator | function-plot:wave | omega0=20.0; gamma=2.0; f1="exp(-gamma*t)*(cos(sqrt(omega0^2-gamma^2)*t)+gamma/sqrt(omega0^2-gamma^2)*sin(sqrt(omega0^2-gamma^2)*t))"; name1="displacement"; f2="exp(-gamma*t)"; name2="envelope"; f3="-exp(-gamma*t)"; name3=""; var=t; x=[0,1.2]; xlabel="time (s)"; ylabel="relative displacement"; legend=below; hline=0 }} Using the later mass-spring values $\omega_0 = 20\,\mathrm{rad\,s^{-1}}$ and $\gamma = 2\,\mathrm{s^{-1}}$, the driven equation with $F = 0$ after release gives an oscillation trapped inside the exponential envelopes $\pm e^{-\gamma t}$: spring, inertia and friction combine to make ringing that slowly dies away.
+
 $$\ddot{x} + 2\gamma\dot{x} + \omega_0^2 x = F(t)/m,$$
 
 with **natural angular frequency** $\omega_0 = \sqrt{k/m}$ and **damping rate** $\gamma = b/2m$. Their ratio, the **damping ratio** $\zeta = \gamma/\omega_0$, decides the character of the motion. If $\zeta < 1$ the system is **underdamped**: released from a stretch, it rings at the slightly lower frequency $\omega_d = \sqrt{\omega_0^2 - \gamma^2}$ while the swings shrink as $e^{-\gamma t}$. If $\zeta = 1$ it is **critically damped** and returns as fast as possible without overshooting; car suspensions and door closers are tuned close to this. If $\zeta > 1$ it is **overdamped** and creeps back slowly.
@@ -43,6 +45,8 @@ A $0.50\,\mathrm{kg}$ mass hangs on a spring with $k = 200\,\mathrm{N\,m^{-1}}$ 
 ::: {.check-your-learning}
 The friction in @ex:response-mass-spring is increased until $\zeta = 1$. What is the new value of $b$? (Answer: $b = 2m\omega_0 = 20\,\mathrm{kg\,s^{-1}}$, ten times the original.)
 :::
+
+{{Visualize | ex:response-mass-spring | function-plot:wave | omega0=20.0; gamma_u=2.0; gamma_o=30.0; f1="exp(-gamma_u*t)*(cos(sqrt(omega0^2-gamma_u^2)*t)+gamma_u/sqrt(omega0^2-gamma_u^2)*sin(sqrt(omega0^2-gamma_u^2)*t))"; name1="underdamped"; f2="exp(-omega0*t)*(1+omega0*t)"; name2="critical"; f3="exp(-gamma_o*t)*(cosh(sqrt(gamma_o^2-omega0^2)*t)+gamma_o/sqrt(gamma_o^2-omega0^2)*sinh(sqrt(gamma_o^2-omega0^2)*t))"; name3="overdamped"; var=t; x=[0,1.2]; y=[-0.7,1.05]; xlabel="time (s)"; ylabel="release from unit stretch"; legend=below; hline=0 }} With the chapter's mass-spring numbers the standard form sorts the motion by $\zeta = \gamma/\omega_0$: underdamped at $\zeta = 0.10$, critical at $\zeta = 1$, and overdamped for an illustrative stronger friction $\gamma = 30\,\mathrm{s^{-1}}$.
 
 ## The impulse response {#sec:response-impulse-response}
 
@@ -69,6 +73,8 @@ The resting mass of @ex:response-mass-spring is struck with an impulse $J = 0.10
 
 **Significance.** The peak is a little below the nominal amplitude because damping has already removed some energy by the time of the first swing. The heavier the damping, the larger this shortfall.
 :::
+
+{{Visualize | ex:response-kicking-spring | function-plot:wave | m=0.50; omega0=20.0; gamma=2.0; f="heaviside(t,1)*exp(-gamma*t)*sin(sqrt(omega0^2-gamma^2)*t)/(m*sqrt(omega0^2-gamma^2))"; var=t; x=[-0.1,0.8]; xlabel="time (s)"; ylabel="Green's function $G(t)$"; legend=none; hline=0; vline=0 }} For the chapter's mass-spring numbers, the Green's function is exactly zero before the kick and then rings as a decaying sine. Multiplying the whole curve by the example impulse $J = 0.10\,\mathrm{N\,s}$ turns it into the actual displacement $x(t) = JG(t)$.
 
 ::: {.check-your-learning}
 If the kick in @ex:response-kicking-spring is doubled, what happens to $G(t)$ and to the motion? (Answer: $G(t)$ is unchanged, as it belongs to the system; the motion doubles, because $x = J\,G(t)$ for a linear system.)
@@ -99,6 +105,8 @@ The oscillator of @ex:response-mass-spring receives a kick of $0.10\,\mathrm{N\,
 
 **Significance.** Every child on a swing knows this: push in time with the motion and it grows; push against it and it stops. The same two kicks give a large or small effect depending only on *timing*. Timing effects of exactly this kind appear in the synchronisation of neurons and people (@ch:groups).
 :::
+
+{{Visualize | ex:response-pushing-swing-wrong | convolution:wave | m=0.50; omega0=20.0; gamma=2.0; delay=0.316; input="exp(-((t-0.8)/0.015)^2)+exp(-((t-(0.8+delay))/0.015)^2)"; kernel="exp(-gamma*t)*sin(sqrt(omega0^2-gamma^2)*t)/(m*sqrt(omega0^2-gamma^2))"; x=[0,1.8]; n=4000; input_label="two kicks"; kernel_label="one kick's ringing"; output_label="total response"; xlabel="time (s)" }} Using the worked example's ringing period $T_d = 0.316\,\mathrm{s}$, two short kicks one full period apart create two delayed copies of $G$ that add in phase. The bottom trace is the convolution $G * F$: the present motion is the sum of the surviving echoes of the two earlier kicks.
 
 ## Resonance and the quality factor {#sec:response-resonance-quality-factor}
 
@@ -155,6 +163,8 @@ The carrier of the long-range part of the nuclear force is the pion, with $mc^2 
 :::
 
 ![The Yukawa response (finite range) and the Coulomb response (infinite range) on the same axes. The ratio of the two is $e^{-r/\lambda}$.](../field-atlas/figures/theory/T2_7_yukawa_coulomb.png){width="100%"}
+
+{{Visualize | ex:response-range-nuclear-force | data-points:quantum | lam=1.41; points="0.5:0.70, 1.41:0.37, 3.0:0.12"; name="text values"; f="exp(-x/lam)"; f_name="e^{-r/\lambda}"; xlabel="distance r (fm)"; ylabel="Yukawa/Coulomb" }} With $\lambda = 1.41\,\mathrm{fm}$ from the pion example, the Yukawa response is reduced relative to Coulomb by the factor $e^{-r/\lambda}$. The three quoted values in the text sit on that same exponential cutoff.
 
 ::: {.making-connections title="Making Connections — Helmholtz: from the nerve to the equation"}
 The equation behind both spatial responses carries the name of Hermann von Helmholtz (1821–1894), who began as a physician. He trained as an army surgeon, measured the speed of the nerve impulse in 1850, about $30\,\mathrm{m\,s^{-1}}$ in a frog's nerve [@helmholtz1850nerve], invented the ophthalmoscope in 1851, and wrote founding works on vision and hearing, among them *On the Sensations of Tone* [@helmholtz1863tone]. The equation now named after him, $(\nabla^2 + k^2)\,G = -\delta$, came from his study of sound in organ pipes [@helmholtz1860luft]. Coulomb's response is its $k = 0$ case and Yukawa's its $k^2 = -1/\lambda^2$ case; for real $k$ the response oscillates, $G = \cos(kr)/4\pi r$, a standing wave around the source.

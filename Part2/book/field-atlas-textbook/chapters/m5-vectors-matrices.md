@@ -32,6 +32,8 @@ A child pulls a sledge $10\,\mathrm{m}$ along flat snow with a rope at $30^\circ
 **Significance.** The upward part of the pull, $50\sin 30^\circ = 25\,\mathrm{N}$, lifts some of the sledge's weight off the snow but does no work, because the sledge does not rise. The dot product sorts the useful part of a force from the rest.
 :::
 
+{{Visualize | ex:m-vec-sledge | function-plot:generic | f="500*cos(x*pi/180)"; x=[0,180]; y=[-520,520]; value_at=30; expect_value=433; vline=30; hline=433; xlabel="rope angle $\theta$ (degrees)"; ylabel="work $W$ (J)"; label=fig:m-vec-dot-work; height=34% }} For the sledge example, $W = |\mathbf{F}|\,|\mathbf{d}|\cos\theta = 500\cos\theta$. The marked point at $30^\circ$ gives $433\,\mathrm{J}$; by $90^\circ$ the pull is straight up and does no work on the forward motion.
+
 ::: {.check-your-learning}
 Find the angle between $\mathbf{a} = (2, 3)$ and $\mathbf{b} = (4, -1)$. (Answer: $\mathbf{a}\cdot\mathbf{b} = 5$, $|\mathbf{a}| = 3.61$, $|\mathbf{b}| = 4.12$, so $\cos\theta = 0.336$ and $\theta = 70.3^\circ$.)
 :::
@@ -86,6 +88,8 @@ $$\begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatri
 
 Matrices of this kind are **linear**: they send straight lines to straight lines and keep the origin fixed. A diagonal matrix $\begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$ stretches the plane by two along $x$ and leaves $y$ alone. The matrix $R = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ turns every vector a quarter-turn anticlockwise: it sends $(3, 4)$ to $(-4, 3)$, exactly what multiplying $3 + 4i$ by $i$ did in @fig:m-osc-rotate.
 
+{{Visualize | sec:m-vec-matrices | eigen-transform:generic | matrix="[[0,-1],[1,0]]"; label=fig:m-vec-quarter-turn; height=34% }} The quarter-turn matrix $R = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ sends the unit circle to itself and rotates every sample arrow anticlockwise by $90^\circ$; the text's example $(3, 4) \mapsto (-4, 3)$ is one point on the same transformation.
+
 Applying one matrix after another is the same as applying their **product**, found by taking dot products of the rows of the first with the columns of the second. Order matters: in general $AB \neq BA$, as anyone who has rotated a book and then flipped it, or flipped and then rotated, can confirm.
 
 ::: {.check-your-learning}
@@ -109,6 +113,8 @@ For a $2 \times 2$ matrix the eigenvalues solve a quadratic, the **characteristi
 $$\lambda^2 - (a + d)\,\lambda + (ad - bc) = 0,$$ {#eq:m-vec-characteristic}
 
 whose coefficients are the **trace** $a + d$ (the sum of the diagonal) and the **determinant** $ad - bc$ (the factor by which the matrix scales areas). The eigenvalues add up to the trace and multiply to the determinant.
+
+{{Visualize | sec:m-vec-eigen | function-plot:generic | f="x^2 - 4*x + 3"; x=[0,4]; hline=0; vline=1,3; xlabel="eigenvalue $\lambda$"; ylabel="characteristic polynomial"; label=fig:m-vec-characteristic; height=34% }} Using the worked example just below, where the trace is $4$ and the determinant is $3$, the characteristic polynomial $\lambda^2 - 4\lambda + 3$ crosses zero at $\lambda = 1$ and $\lambda = 3$, the two eigenvalues.
 
 $$A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$$ {#eq:m-vec-example-matrix}
 
@@ -143,6 +149,8 @@ Close to a resting point almost any system behaves linearly: the rate of change 
 $$\frac{d\mathbf{x}}{dt} = A\,\mathbf{x}.$$ {#eq:m-vec-linear-system}
 
 Along an eigenvector the matrix only stretches, so each eigen-direction behaves like the one-number law of @eq:m-change-decay-law: it changes as $e^{\lambda t}$. If every eigenvalue has a negative real part, every disturbance dies away and the resting point is **stable**. If any has a positive real part, some disturbance grows and the point is **unstable**. If the eigenvalues are complex, $\lambda = -\gamma \pm i\omega$, the disturbance spirals as it decays: these are exactly the poles of the damped oscillator (@eq:m-osc-poles). Eigenvalues and poles are the same thing seen from two sides.
+
+{{Visualize | sec:m-vec-stability | vector-field:generic | u="x"; v="-2*y"; x=[-2,2]; y=[-2,2]; n=15; label=fig:m-vec-saddle; height=34% }} Using the chapter's later saddle example $A = \begin{pmatrix} 1 & 0 \\ 0 & -2 \end{pmatrix}$, the linear system $\dot{\mathbf{x}} = A\mathbf{x}$ pushes disturbances out along $x$ but pulls them back along $y$: one eigen-direction grows, the other decays.
 
 $$A_{\mathrm{spiral}} = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}$$ {#eq:m-vec-spiral-matrix}
 

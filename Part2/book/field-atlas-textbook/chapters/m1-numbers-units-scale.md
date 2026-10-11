@@ -18,6 +18,8 @@ A hydrogen atom is about $0.000\,000\,000\,106\,\mathrm{m}$ across, and the Eart
 
 $$0.000\,000\,000\,106\,\mathrm{m} = 1.06 \times 10^{-10}\,\mathrm{m}, \qquad 12\,700\,000\,\mathrm{m} = 1.27 \times 10^{7}\,\mathrm{m}.$$ {#eq:m-scale-sci}
 
+{{Visualize | eq:m-scale-sci | log-scale:generic | items="hydrogen atom=1.06e-10, Earth=1.27e7"; range=[-11,8]; unit="metres" }} The two sizes in @eq:m-scale-sci on a powers-of-ten line. Their exponents differ by $17$, so scientific notation turns seventeen counted zeros into seventeen equal logarithmic steps.
+
 The exponent counts how many places the decimal point moved: seven places to the left for the Earth, ten places to the right for the atom. A positive exponent means a large number and a negative exponent a small one; $10^0 = 1$.
 
 Powers of ten combine by adding exponents, because $10^a$ means $a$ tens multiplied together:
@@ -57,6 +59,8 @@ A number without a unit says nothing about the world. "The string is $0.648$ lon
 Converting units means multiplying by a fraction equal to one. Since $1\,\mathrm{km} = 1000\,\mathrm{m}$ and $1\,\mathrm{h} = 3600\,\mathrm{s}$, a car at $100\,\mathrm{km\,h^{-1}}$ travels at
 
 $$100\,\frac{\mathrm{km}}{\mathrm{h}} \times \frac{1000\,\mathrm{m}}{1\,\mathrm{km}} \times \frac{1\,\mathrm{h}}{3600\,\mathrm{s}} = 27.8\,\mathrm{m\,s^{-1}}.$$
+
+{{Visualize | sec:m-scale-units | function-plot:generic | f="1000*x/3600"; x=[0,130]; value_at=100; expect_value=27.8; xlabel="speed $(\mathrm{km\,h^{-1}})$"; ylabel="speed $(\mathrm{m\,s^{-1}})$" }} Unit conversion here is a straight line: multiply by $1000/3600$, so the red point marks the chapter's $100\,\mathrm{km\,h^{-1}} = 27.8\,\mathrm{m\,s^{-1}}$.
 
 The units cancel like algebra, which is the easiest way to see that the factors are the right way up.
 
@@ -100,11 +104,15 @@ Because logarithms count powers, the power rules of @eq:m-scale-powers become ru
 
 $$\log(ab) = \log a + \log b, \qquad \log\frac{a}{b} = \log a - \log b, \qquad \log a^n = n \log a.$$ {#eq:m-scale-log-rules}
 
+{{Visualize | eq:m-scale-log-rules | function-plot:generic | f="log10(2*x)"; name="$\log_{10}(2x)$"; f2="log10(x)+log10(2)"; name2="$\log_{10}x + \log_{10}2$"; x=[0.05,100]; logx=true; xlabel="$x$"; ylabel="value"; legend=below; height=26% }} A concrete case of $\log(ab)=\log a+\log b$: with $a=2$, the two curves lie on top of each other, and the constant offset is the text's $\log_{10}2 \approx 0.301$.
+
 Mathematicians and physicists often use the **natural logarithm** $\ln x$, the logarithm to base $e = 2.718\ldots$, which appears whenever something grows or decays at a rate proportional to itself (@ch:m-change). The two differ only by a constant factor: $\ln x = 2.303\,\log_{10} x$.
 
 Several everyday scales are logarithmic, because the human senses and many natural processes respond to ratios. The **sound level** in decibels compares an intensity $I$ with the threshold of hearing $I_0 = 10^{-12}\,\mathrm{W\,m^{-2}}$:
 
 $$L = 10\,\log_{10}\frac{I}{I_0}\ \mathrm{dB}.$$
+
+{{Visualize | sec:m-scale-logs | function-plot:wave | I0=1e-12; f="10*log10(x/I0)"; x=[1e-12,1e-3]; logx=true; value_at=1e-6; expect_value=60; hline="0,60,90"; xlabel="intensity $(\mathrm{W\,m^{-2}})$"; ylabel="level (dB)" }} Decibels turn intensity ratios into equal vertical steps: the red point is the chapter's conversation level, $10^{-6}\,\mathrm{W\,m^{-2}} = 60\,\mathrm{dB}$, six factors of ten above threshold.
 
 A conversation at $10^{-6}\,\mathrm{W\,m^{-2}}$ is $60\,\mathrm{dB}$; doubling the intensity adds only $10\log_{10}2 = 3.01\,\mathrm{dB}$.
 
@@ -159,6 +167,8 @@ Estimate how many times a human heart beats in an $80$-year life at $70$ beats p
 Many relations in nature are **power laws**:
 
 $$y = A\,x^{k},$$ {#eq:m-scale-power-law}
+
+{{Visualize | eq:m-scale-power-law | function-plot:generic | A=3.4; f="A*x^k"; vary=k:2/3,3/4,1; x=[0.01,10000]; logx=true; logy=true; xlabel="$x$"; ylabel="$y$"; legend=below; height=30% }} On log-log axes every $y = A x^k$ is a straight line with slope $k$. Using the chapter's later $A=3.4$ and the exponents $2/3$, $3/4$ and $1$, the $3/4$ line sits between surface-like and volume-like scaling.
 
 where $A$ and $k$ are constants. Taking logarithms with @eq:m-scale-log-rules gives $\log y = \log A + k \log x$: on a plot with both axes logarithmic (a **log–log plot**), a power law is a straight line whose slope is the exponent $k$. This is the main reason scientists plot data on logarithmic axes. A straight line reveals the law, and its slope gives the exponent.
 

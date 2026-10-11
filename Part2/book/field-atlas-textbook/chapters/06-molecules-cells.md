@@ -90,6 +90,8 @@ A nerve fibre is a long thin tube of salt water inside a leaky insulating membra
 
 $$\tau\frac{\partial V}{\partial t} = \lambda^2\frac{\partial^2V}{\partial x^2} - V + R_mI(x,t),$$
 
+{{Visualize | sec:cells-passive-spread-cable | function-plot:neural | f="exp(-t)*exp(-x^2/(4*t))/sqrt(4*pi*t)"; vary=t:0.5,1,2,4; x=[-8,8]; xlabel="distance $x$ (in units of $\lambda$)"; ylabel="scaled voltage"; legend=below; height=30% }} An illustrative dimensionless Green's-function slice for one brief kick in the cable equation: as time advances (here $t/\tau = 0.5, 1, 2, 4$), the pulse spreads in $x$ like diffusion while its peak falls because the membrane leaks.
+
 with a **time constant** $\tau = R_mC_m$ and a **length constant**
 
 $$\lambda = \sqrt{\frac{aR_m}{2R_i}},$$
@@ -107,6 +109,8 @@ A dendrite of radius $a = 5\,\mu\mathrm{m}$ has $R_m = 1\,\Omega\,\mathrm{m^2}$ 
 
 **Significance.** Passive spread works over a millimetre or so, enough to carry signals across a single neuron's branches, but a metre-long fibre would attenuate any passive signal by a factor of $e^{-600}$. Long-distance signalling needs something better: a signal that is rebuilt as it goes.
 :::
+
+{{Visualize | ex:cells-length-constant | function-plot:neural | f="exp(-x/lam)"; lam=1.58; x=[0,5]; value_at=1; expect_value=0.531; xlabel="distance $x$ (mm)"; ylabel="surviving fraction $V/V_0$"; height=28% }} Using the worked example in @ex:cells-length-constant, the steady cable solution $V/V_0 = e^{-x/\lambda}$ with $\lambda = 1.58\,\mathrm{mm}$ still carries about $53\,\%$ of its starting voltage after $1\,\mathrm{mm}$ (red point).
 
 ::: {.check-your-learning}
 How much of a steady voltage survives three length constants along a cable? (Answer: $e^{-3} = 0.050$, five per cent.)
@@ -173,6 +177,8 @@ Store the pattern $\xi = (+1, -1, +1)$ in a three-neuron network. Start the netw
 **Significance.** One update repaired the error and lowered the energy from $+\tfrac13$ to $-1$, the bottom of the valley. A network of $10^{11}$ neurons does this with millions of patterns, which is one leading model of how partial cues recall whole memories.
 :::
 
+{{Visualize | ex:cells-threeneuron-memory | data-points:neural | points="1:1/3, 2:-1"; names="(+1,+1,+1), (+1,-1,+1)"; hline="0"; xlabel="network state"; ylabel="energy $E$"; height=24% }} In @ex:cells-threeneuron-memory, the update from the corrupted state to the stored one drops the Hopfield energy from $+\tfrac13$ to $-1$, showing the downhill recall step encoded by $E = -\tfrac12\sum_{i \ne j}w_{ij}s_is_j$.
+
 ::: {.making-connections title="Making Connections — Two neurons firing together"}
 @ch:response showed that two kicks reinforce or cancel depending on their timing. At a synapse the timing is everything: an input arriving while the receiving cell is already near threshold can tip it over, and the same input during its refractory period does nothing. Hebb's rule turns this into memory, because repeated coincidences strengthen the connection. @ch:groups takes the same arithmetic up two levels, to people who fall into step.
 :::
@@ -188,6 +194,8 @@ Store the pattern $\xi = (+1, -1, +1)$ in a three-neuron network. Start the netw
 Everything up to @sec:cells-cells-networks-memory is standard science. The Missing Limbic Layer paper [@P13] adds one assumption to the Hopfield network. The landscape is not fixed: a slowly varying somatic field $\Phi(t)$, representing the state of the body, changes both the shape of the valleys and how sharply the network falls into them. In its notation the weights and a temperature become
 
 $$W(t) = W_0 + \gamma\,\Phi(t)\,J, \qquad T(t) = T_0 + \sigma\,\Phi(t),$$
+
+{{Visualize | sec:cells-field-that-tunes | function-plot:soma | f="W0 + gamma*phi*J"; f2="T0 + sigma*phi"; W0=1; T0=0.8; gamma=0.6; J=1; sigma=0.3; var=phi; x=[-1,1]; vline="0"; name="weight $W$"; name2="temperature $T$"; xlabel="somatic field $\Phi$ (illustrative units)"; ylabel="rescaled value"; legend=below; height=28% }} An illustrative linear reading of the FM-HN couplings in rescaled units: positive $\Phi$ raises both the effective weight scale and the temperature when $\gamma J$ and $\sigma$ are positive, while at $\Phi = 0$ the lines return to the baseline values $W_0$ and $T_0$.
 
 where $W_0$ are the stored memories, $J$ is a fixed coupling pattern, and $\gamma$ and $\sigma$ set the strength of the effect. The update uses a modern, smooth form of Hopfield's rule whose sharpness is set by $\beta = 1/T$. The paper calls the result the **Field-Modulated Hopfield Network** (FM-HN). In plain terms: a body under stress (large $\Phi$) recalls with a different landscape and less precision than a calm body, so the same cue can fall into a different valley.
 
