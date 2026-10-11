@@ -29,6 +29,7 @@ inductive OperatingMode | projection | resonance | mirror
 /-- The table under "Two operating modes:" (Part I, The Somatic Loop). -/
 def operatingModes : List OperatingMode := [.projection, .resonance, .mirror]
 
+/-- "Two operating modes:" heads a table of three. -/
 theorem operating_modes_not_two : operatingModes.length ≠ 2 ∧ operatingModes.Nodup := by
   decide
 
@@ -95,6 +96,7 @@ theorem threshold2_holds_at_070 : L7 0 < 1000 ∧ PV7 0 > 8500 := by decide
 /-- At the declared t = 0.74: L = 0.11 and PV = 0.78; the condition fails. -/
 theorem threshold2_fails_at_074 : ¬ (L7 40 < 1000 ∧ PV7 40 > 8500) := by decide
 
+/-- Threshold 2's condition fails on all of [0.72, 0.8] (PV ≤ 0.84). -/
 theorem threshold2_fails_from_072 (s : Nat) (h1 : 20 ≤ s) (h2 : s ≤ 100) :
     ¬ PV7 s > 8500 := by
   unfold PV7; omega
@@ -115,6 +117,8 @@ def differences : List Nat :=
   (chart.zip keyframes).map fun (c, k) =>
     ((c.vals.zip k.vals).filter fun (x, y) => x * 10 != y).length
 
+/-- The chart and the keyframes, the same score twice, differ in 11 of 77 values,
+all at t ≥ 0.7. -/
 theorem chart_keyframes_differ : differences = [0, 0, 0, 0, 0, 0, 0, 3, 4, 4, 0] := by
   decide
 

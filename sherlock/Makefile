@@ -23,7 +23,7 @@ help:
 	$(info   fetch       download NextKB into bld/sherlock/raw and check SHA-256)
 	$(info   lean-gen    NextKB to Lean, one module per microtheory (MT="BiologyMt ..." limits it))
 	$(info   lean        build the core and all microtheories, one Lean process at a time (hours, several GB))
-	$(info   affidavits  check the affidavits (Affidavits/), after lean)
+	$(info   affidavits  check the affidavits (Affidavits/), after lean; report: bld/sherlock/findings.md)
 	$(info   all         fetch lean-gen lean affidavits)
 	@:
 
@@ -58,6 +58,7 @@ affidavits:
 	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
 	done
 	lake build Affidavits
+	$(PYTHON) findings.py
 
 clean:
 	rm -rf "$(BLD)/sherlock" .lake/build

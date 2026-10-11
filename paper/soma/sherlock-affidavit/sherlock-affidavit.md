@@ -156,14 +156,34 @@ The paper gives the score twice: as a 0 to 9 chart in Part II and as
 keyframes in its Appendix. Between keyframes it is read by linear
 interpolation, the only reading the Appendix offers.
 
-| # | Claim in the paper | Finding | Theorem | Label |
-|---|---|---|---|---|
-| A1 | "Two operating modes:" | the table under it has three (Projection, Resonance, Mirror) | `operating_modes_not_two` | kernel-verified |
-| A2 | Projection, $\kappa_r \approx 0$: "the score drives the viewer" | the model equation $\dot{e}_V = -\nabla H_V + \kappa_r \lambda S + \eta_V$ puts $\kappa_r$ on the film-to-viewer term, so at $\kappa_r = 0$ the screen signal drops out; the knob table defines $\kappa_r$ the other way, as the weight of the viewer on the film | `projection_screen_drops_out` | kernel-verified |
-| A3 | Threshold 1 when "F > 0.7" | fear peaks at exactly 0.70; at every rational story-time it is at most 0.70, so the score never crosses, and at the default $\kappa_r = 0$ the film holds at T1 for ever | `threshold1_unreached` | kernel-verified |
-| A4 | Threshold 2 at $t = 0.74$ when "L < 0.1 AND PV > 0.85" | the condition holds at 0.70 and fails at 0.74 and on all of $[0.72, 0.8]$; the chart's "$t \approx 0.71$" is right | `threshold2_fails_at_074` | kernel-verified |
-| A5 | the chart and the keyframes are one score | 11 of 77 values differ, all at $t \geq 0.7$ | `chart_keyframes_differ` | kernel-verified |
-| A6 | seven "emotional modes" | Fear, Awe, Grief, Curiosity and Shame are OpenCyc emotions (`EmotionalQuantityType`); Safety and Pre-verbal are not (the nearest emotion to Safety is `Security-Emotion`); Language as an emotional mode proves `falsum` | `language_mode_contradiction` | derived-under-assumptions |
+**A1.** "Two operating modes:" heads a table of three (Projection, Resonance,
+Mirror). `operating_modes_not_two`, kernel-verified.
+
+**A2.** Projection, $\kappa_r \approx 0$, is where "the score drives the
+viewer", but the model equation
+$\dot{e}_V = -\nabla H_V + \kappa_r \lambda S + \eta_V$ puts $\kappa_r$ on the
+film-to-viewer term, so at $\kappa_r = 0$ the screen signal drops out. The
+knob table defines $\kappa_r$ the other way round, as the weight of the
+viewer on the film. `projection_screen_drops_out`, kernel-verified.
+
+**A3.** Threshold 1 fires when "F > 0.7", but fear peaks at exactly 0.70 and
+is at most 0.70 at every rational story-time. The score never crosses, and at
+the default $\kappa_r = 0$ the film holds at T1 for ever.
+`threshold1_unreached`, kernel-verified.
+
+**A4.** Threshold 2 is declared at $t = 0.74$ with the condition
+"L < 0.1 AND PV > 0.85", which holds at 0.70 and fails at 0.74 and on all of
+$[0.72, 0.8]$; the chart's "$t \approx 0.71$" is right.
+`threshold2_fails_at_074`, kernel-verified.
+
+**A5.** The chart and the keyframes, the same score twice, differ in 11 of 77
+values, all at $t \geq 0.7$. `chart_keyframes_differ`, kernel-verified.
+
+**A6.** Of the seven "emotional modes", Fear, Awe, Grief, Curiosity and Shame
+are OpenCyc emotions (`EmotionalQuantityType`); Safety and Pre-verbal are not
+(the nearest emotion to Safety is `Security-Emotion`); and Language as an
+emotional mode proves `falsum`. `language_mode_contradiction`,
+derived-under-assumptions.
 
 A6 needs OpenCyc and is worth spelling out. The affidavit maps the mode
 "Language" to OpenCyc's `Language` and asserts the paper's typing,

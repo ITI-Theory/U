@@ -36,6 +36,8 @@ theorem lift {φ : Sentence} (h : Holds UV φ) : Holds T φ := inherit tensor_uv
 
 /-! ## The modes OpenCyc agrees are emotions -/
 
+/-- OpenCyc agrees: Fear is an emotion (as are Awe, Grief, Curiosity, Shame
+and Security-Emotion, below). -/
 theorem fear : Holds UV (isa (.c "Fear") (.c "EmotionalQuantityType")) := by
   aesop (rule_sets := [Cyc])
 theorem awe : Holds UV (isa (.c "Awe") (.c "EmotionalQuantityType")) := by
@@ -65,8 +67,8 @@ theorem language_feeling : Holds T (genls (.c "Language") (.c "FeelingAttribute"
 /-- One `genls` link, a fact of UniversalVocabularyMt. -/
 macro "link" : term => `((by aesop (rule_sets := [Cyc]) : Holds UV (genls _ _)))
 
-/-- Aesop does not guess the middle collection of a chain, so the chains are
-spelled out; each link is a fact. -/
+-- Aesop does not guess the middle collection of a chain, so the chains are
+-- spelled out; each link is a fact.
 theorem feeling_interval : Holds UV (genls (.c "FeelingAttribute") (.c "ScalarOrVectorInterval")) :=
   genls_trans (b := .c "MentalQuantity") link <|
   genls_trans (b := .c "ScalarQuantity") link <|

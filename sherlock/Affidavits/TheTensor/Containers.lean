@@ -50,6 +50,8 @@ axiom body_refines : Holds S (rel "genlWorks" body score)
 axiom session_refines : Holds S (rel "genlWorks" session score)
 axiom river_shown : Holds S (rel "performanceOfWork" riverShowing river)
 
+/-- A showing of the River film instantiates it (genlPreds performanceOfWork
+instantiationOfWork). -/
 theorem showing_instantiates_river : Holds S (rel "instantiationOfWork" riverShowing river) :=
   genlPreds_holds (liftS (by aesop (rule_sets := [Cyc]))) river_shown
 
@@ -79,6 +81,8 @@ theorem liftF {φ : Sentence} (h : Holds UV φ) : Holds F φ := inherit f_uv h
 axiom river_includes_body : Holds F (rel "genlWorks" river body)
 axiom body_includes_river : Holds F (rel "genlWorks" body river)
 
+/-- "The same film" read as each container film including all of the other:
+genlWorks is antisymmetric, so River = Body, which Cyc's unique names forbid. -/
 theorem same_film_contradiction : Holds F .falsum :=
   unique_names (a := "TheRiverFilm-River") (b := "TheRiverFilm-Body") (by decide)
     (antisymmetric_equals (liftF (by aesop (rule_sets := [Cyc])))
