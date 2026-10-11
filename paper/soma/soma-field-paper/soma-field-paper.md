@@ -422,6 +422,8 @@ function evaluated in momentum space:
 
 $$\tilde{G}_{\text{QFT}}(k^\mu) = \frac{i}{k^2 - m^2 + i\varepsilon}$$
 
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | complex-plane:quantum | points="m - 0.05*j, -m + 0.05*j"; names="k=+m,k=-m"; poles=true; m=1 }} The two on-shell poles of the propagator above, at an illustrative mass $m=1$: the Feynman $i\varepsilon$ prescription moves them slightly off the real $k$-axis (shift exaggerated here for visibility). The particle is the singularity, not a separate object drawn alongside the field.
+
 The particle exists precisely when the four-momentum satisfies $k^2 = m^2$ — the
 *on-shell condition*. The particle is the singularity in the field’s response to a
 point source: the field’s Green’s function, evaluated at its own resonance.
@@ -705,6 +707,9 @@ arousal systems, interoceptive machinery. In the model, this layer is represente
 noise term and, specifically, by the heart rate variability coherence $C_{\text{HRV}}$,
 which modulates effective noise amplitude across the whole field:
 $$\sigma_{\text{eff}} = \frac{\sigma_0}{C_{\text{HRV}}}$$
+
+{{Visualize | the-three-layer-architecture | function-plot:soma | f="1/x"; x=[0.25,2]; xlabel="HRV coherence $C_\text{HRV}$"; ylabel="$\sigma_\text{eff}$ (illustrative $\sigma_0=1$)"; value_at=1; expect_value=1.0 }} The equation above at an illustrative $\sigma_0=1$ (not stated numerically in the text): effective noise falls as HRV coherence rises, checked at $C_{\text{HRV}}=1$.
+
 High HRV coherence narrows effective noise, stabilising the field in its current attractor.
 This is the modelled mechanism of HRV biofeedback as a regulatory intervention: it does
 not target any specific emotional mode but lowers the fluctuation floor of the entire field.
@@ -1553,6 +1558,8 @@ The pipeline is a chain of functors:
 
 $$\mathbf{\mathcal{M}} \;\xrightarrow{\;\Lambda\;}\; \mathbf{\mathcal{F}} \;\xrightarrow{\;\Pi\;}\; \mathbf{\mathcal{S}} \;\xrightarrow{\;M\;}\; \mathbf{\mathcal{P}} \;\xrightarrow{\;O\;}\; \mathbf{\mathcal{O}}$$
 
+{{Visualize | a.3-the-four-categories-and-their-functors | process-diagram:generic | steps="$\mathcal{M}$, $\mathcal{F}$, $\mathcal{S}$, $\mathcal{P}$, $\mathcal{O}$"; edges="$\Lambda$, $\Pi$, $M$, $O$"; layout=line; expect_steps=5 }} The functor chain above, drawn as a line: manifold ($\mathcal{M}$) to field ($\mathcal{F}$) to state ($\mathcal{S}$) to percept ($\mathcal{P}$) to any output category ($\mathcal{O}$), each arrow the named functor.
+
 where **𝓞** is any output category (audio, MIDI, visual, haptic — each a separate functor
 from **𝓟** that can be independently composed).
 
@@ -1620,6 +1627,8 @@ coalgebra* of $F$ — the unique type $X$ such that $F(X) \cong X$. For a fracta
 output rendering the emotional field:
 
 $$F(X) = \text{EmotionalState} \times X$$
+
+{{Visualize | a.4-the-holographic-principle-fractal-output-and-h-al | type-decomposition:generic | whole="$F(X)$"; parts="EmotionalState, $X$"; op=times }} The product-type functor above: one emotional state paired with the rest of the stream $X$. No dimensions are given in the general model (equal widths); the terminal coalgebra unrolls this one step infinitely.
 
 The terminal coalgebra of this functor is an infinite stream of emotional states — a
 coinductive rendering of the field's evolution. Each level of zoom in the fractal corresponds
@@ -1852,6 +1861,8 @@ amplitude $\sigma_0$:
 
 $$\eta(t) \sim \mathcal{N}(0,\, \sigma_0^2 \mathbf{I})$$
 
+{{Visualize | b.1-the-standard-dynamics-baseline | distribution:soma | pdf="exp(-x^2/(2*sigma0^2))"; x=[-4,4]; sigma0=1; expect_mean=0; expect_sd=1 }} The noise density above at an illustrative $\sigma_0=1$ (not stated numerically in the general model): a zero-mean Gaussian, checked at mean 0 and standard deviation 1.
+
 The coupling matrix $W$ is assumed **symmetric** ($W = W^\top$), which in the standard Hopfield setting guarantees that the
 dynamics have only point attractors — the field always settles to a fixed minimum of $H$.
 This symmetry condition is the Hopfield convergence theorem. Neurodivergent modifications
@@ -1887,6 +1898,8 @@ is broken. The coupling matrix acquires an antisymmetric component:
 
 $$W_{\text{PTSD}} = W_{\text{sym}} + W_{\text{anti}}, \quad W_{\text{anti}} = -W_{\text{anti}}^\top$$
 
+{{Visualize | b.2-complex-ptsd-the-memory-kernel-and-asymmetric-coupling | matrix-heatmap:soma | matrix="[[0,0.3,-0.4,0.2],[0.3,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; matrix2="[[0,0.45,-0.4,0.2],[0.15,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; rows="Fear,Shame,Calm,Anger"; cols="Fear,Shame,Calm,Anger"; titles="$W_\text{sym}$ (illustrative baseline), $W_\text{PTSD}$ (illustrative, one antisymmetric pair added)"; diff=true; diff_title="$W_\text{anti}$ (illustrative; $W_\text{anti}^\top=-W_\text{anti}$)" }} The equation above over the text's own fear/shame/calm/anger example (see "The Interaction of Emotional Modes": "fear can amplify shame"): an illustrative symmetric baseline plus an illustrative antisymmetric fear$\leftrightarrow$shame pair. No concrete entries are given in the general model.
+
 An asymmetric $W$ breaks the Hopfield convergence guarantee: the field may enter
 **limit cycles** — persistent oscillations between states that never settle to a minimum.
 Re-experiencing episodes, intrusive affect, and the oscillation between hyperarousal and
@@ -1911,6 +1924,8 @@ traumatic modification occurred. The character of the modification interpolates 
 with $\tau_d$:
 
 $$W(\tau_d) = f(\tau_d)\cdot W_0 + \bigl(1 - f(\tau_d)\bigr)\cdot W_{\text{trauma}}$$
+
+{{Visualize | b.2.1-developmental-time-parameterisation | matrix-heatmap:soma | matrix="[[0,0.3,-0.4,0.2],[0.3,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; matrix2="[[0,0.33576,-0.4,0.2],[0.26424,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; rows="Fear,Shame,Calm,Anger"; cols="Fear,Shame,Calm,Anger"; titles="$W_0$ (illustrative baseline), $W(\tau_c)$ at $f=\tanh(1)\approx0.76$ (illustrative)"; diff=true; diff_title="the blend, minus baseline (illustrative)" }} The equation above, blending the illustrative baseline $W_0$ of "B.2" with the same illustrative $W_{\text{trauma}}$ at the checked ratio $f(\tau_c)\approx0.76$ (the figure above): at this developmental age the blend is close to, but not identical to, $W_0$. No concrete $W_0$ or $W_{\text{trauma}}$ is given in the general model; the entries are illustrative.
 
 where $W_0$ is the neurotypical coupling baseline, $W_{\text{trauma}}$ is the
 asymmetric modification matrix, and $f$ is a smooth interpolation:
@@ -2059,6 +2074,8 @@ off-diagonal entries: emotions cross-activate one another broadly. In ASC, the c
 matrix is sparser:
 
 $$W_{\text{ASC}} = W \odot M_{\text{sparse}}, \quad [M_{\text{sparse}}]_{ij} \in \{0, 1\}$$
+
+{{Visualize | b.4-autism-spectrum-condition-sparse-coupling-and-modified-projection | matrix-heatmap:soma | matrix="[[0,0.3,-0.4,0.2],[0.3,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; matrix2="[[0,0.3,-0.4,0],[0.3,0,0,0],[-0.4,0,0,0],[0,0,0,0]]"; rows="Fear,Shame,Calm,Anger"; cols="Fear,Shame,Calm,Anger"; titles="$W$ (illustrative, dense baseline), $W_\text{ASC}$ (illustrative, sparse)"; diff=true; diff_title="entries the mask removes (illustrative)" }} The equation above over the text's own illustrative baseline: an illustrative binary mask keeps only the fear$\leftrightarrow$shame and fear$\leftrightarrow$calm couplings, zeroing the rest — fewer cross-activation pathways, as the text describes for monotropism. No concrete $W$ or mask is given in the general model.
 
 where $\odot$ denotes element-wise multiplication and $M_{\text{sparse}}$ is a binary mask
 that zeros out many cross-couplings. The attractor topology that results has:
@@ -2387,6 +2404,8 @@ the appearance of loops is the signature of self-referential dynamics.
 In Appendix B.2, the C-PTSD memory kernel term is:
 
 $$\int_0^t K(t-s)\, \mathbf{e}(s)\, ds$$
+
+{{Visualize | c.6-the-c-ptsd-memory-kernel-as-a-feynman-loop | convolution:soma | input="exp(-((t-3)/0.4)^2) + exp(-((t-15)/0.4)^2)"; kernel="exp(-t/5)"; x=[0,25]; input_label="two activation episodes (illustrative)"; kernel_label="memory kernel $K$, illustrative $\tau_k=5$"; output_label="loop output $\int_0^t K(t-s)\,\mathbf{e}(s)\,ds$"; xlabel="time" }} The loop integral above as a convolution: each illustrative activation episode (top) starts a copy of the decaying kernel $K$ (middle, the loop propagator); the loop output (bottom) is their sum — a later episode adds to, rather than replaces, an earlier trace still decaying.
 
 This integral is represented here as a loop diagram. The emotional state at past time $s$ propagates forward
 to present time $t$, where it enters the current dynamics as an effective self-interaction.
