@@ -501,6 +501,16 @@ Sherlock's questions directly, retrieves facts but does not derive from
 them; the scored comparison, with a locally run model, is a companion
 paper's subject.
 
+**When to compile.** Sherlock is run like a compiler in a writing loop:
+draft and improve with a language model; compile (the affidavit and its
+checks); let the model fix what the findings name, each finding being a
+precise instruction with its proof; compile again, and compare the versions.
+Sherlock does not correct the text, and should not: the model rewrites well
+and notices poorly, and Sherlock the reverse. An affidavit is not worth
+writing for text whose claims will change tomorrow; the cheap checks
+(templates, the ledger, values, types) can run on every change, and the
+front end at milestones.
+
 **More than a linter.** Of the 38 problems, most need arithmetic or a second
 document to see; three need common-sense knowledge no style checker has;
 and the structure-mapping results change what the programme can say:

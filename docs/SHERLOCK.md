@@ -3,10 +3,46 @@
 Sherlock checks what a document claims: against the document's own numbers
 and statements (arithmetic in Lean), against OpenCyc's common-sense consensus
 (Lean + Aesop, microtheories as scopes), and against the programme's own Lean
-(the ledger). It is a compiler for papers: an edit re-checks what it touches.
-Method and first exhibits: paper SH1 (`paper/soma/sherlock-affidavit/`). The
-epic, its end state and design decisions D1-D10: ISS-055,
-`prj/.adm/issues/ISS-055-sherlock.md`. Commands: `make -C sherlock help`.
+(the ledger). It is a neuro-symbolic compiler for free-form text: a language
+model proposes the claims (the front end), Lean decides them (the back end),
+and an edit re-checks what it touches. Method and results: paper SH1
+(`paper/soma/sherlock-affidavit/`). The epic, its end state and design
+decisions D1-D12: ISS-055, `prj/.adm/issues/ISS-055-sherlock.md`. Commands:
+`make -C sherlock help`.
+
+## When to run Sherlock: the writing loop
+
+Write and improve with a language model first, compile with Sherlock, let the
+model fix what Sherlock found, then compile again. As with code: you do not
+compile every keystroke, and the compiler does not fix the bugs; it says
+exactly where they are and why.
+
+1. **Draft** with the model: ideas, structure, clarity.
+2. **Compile**: write the affidavit (below) and check it. Each finding comes
+   with its proof ("line 779 says k = 0; line 758 says k = omega/c").
+3. **Fix** with the model, guided by the findings; the author approves each fix.
+4. **Compile again**: a new version, `make -C sherlock delta ID=...`, and the
+   checks.
+5. **Release**: the release gate (section 21), then NotebookLM as the final
+   reader's check (do the fixes read right? D11).
+
+Why this order:
+
+- **Not on immature text.** An affidavit freezes claims; if they will change
+  tomorrow, the affidavit is stale tomorrow. Run it when the text makes claims
+  you would defend: a version you would show someone.
+- **Sherlock does not correct, and should not.** It reports with a proof,
+  which is the best instruction a model can get. The model is good at
+  rewriting and poor at noticing; Sherlock is the reverse.
+- **The model is also a source of errors** (values that drift between
+  documents, plausible names that do not exist: 25 invented OpenCyc names in
+  the programme's own Lean). So its fix is compiled again.
+
+Two speeds: the **cheap checks** (templates, the ledger, values across
+documents, types) run all the time, like a linter, in the release gate and in
+CI (ISS-068); the **expensive front end** (extracting and confirming a new
+affidavit's claims) runs at milestones. Who runs what, and when, is the
+user's choice; this is the default.
 
 ## Setup (once, hours)
 
@@ -25,6 +61,8 @@ one Lean module per microtheory in `bld/sherlock/lean`, OpenCyc's Horn rules
 | `make -C sherlock ledger LEDGER_DOCS=...` | documents' claims about the programme's own Lean (axiom, kernel-checked, sorry) against the Lean |
 | `make -C sherlock delta ID=... [REV=...]` | what an edit did to an affidavit's claims (unchanged, edited, probably fixed, lost, new text) |
 | `python sherlock/sme.py ID` | structure mapping between two relational descriptions (`registry/analogies/`) |
+| `python sherlock/macfac.py check\|report` | MAC/FAC over the case library (`registry/cases/`): where else a structure occurs; the documents' sameness claims as tests |
+| `lake build EmotionCyc` (root) | the programme's emotions as OpenCyc types (`Cyc.Types`): a wrong name does not compile |
 | `make -C sherlock affidavits` | every affidavit module, one at a time, then `check` |
 
 Reports in `bld/sherlock/`: `affidavits.md` (every claim), `values.md` (values
