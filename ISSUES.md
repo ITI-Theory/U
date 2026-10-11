@@ -3179,7 +3179,10 @@ proposal, in steps:
 - [ ] Walk into a tower: the module's source falls as code rain, our own neon
       palette; a floor opens its theorem (the statement, the proof, its axioms,
       the papers that cite it from the ledger, Sherlock's verdicts).
-- [ ] On the horizon, OpenCyc's skyline (1.37M facts, 678 microtheories), with
+- [x] (13 Oct: `make -C sherlock skyline` counts the generated KB, 1,366,193 facts in
+      547 microtheories with facts; a wireframe tower per microtheory on a wide arc,
+      height by log facts, UniversalVocabularyMt (497,791) at the centre; an amber
+      arc from the programme's towers to it, labelled EMOTIONCYC BRIDGE) On the horizon, OpenCyc's skyline (1.37M facts, 678 microtheories), with
       `EmotionCyc` as the bridge between the programme's towers and it.
 - [ ] A tour, the Root Monster's tour: into UniversalSomaticField, up to
       `consciousness_dichotomy`, down its beams to the axioms, past the red floors,

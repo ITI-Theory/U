@@ -19,7 +19,7 @@ const TRAIL = 160;
 // energy(px, py, beta, J) and the well positions come from explorer.js, so the terrain
 // is exactly what the simulation rolls on.
 // city: [{ title, lines: [...], status }] (main.js: the concept registry and level equations)
-export function createLandscape3D({ energy, wells, city = [] }) {
+export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -77,6 +77,8 @@ export function createLandscape3D({ energy, wells, city = [] }) {
   const country = makeCountry();
   scene.add(country.mesh);
   const cityGroup = makeCity(city);
+  // OpenCyc on the horizon, part of the city (11D)
+  if (skyline.length) cityGroup.add(makeSkyline(skyline));
   scene.add(cityGroup);
 
   const wellLights = wells.map(() => {
@@ -366,6 +368,37 @@ function makeCity(items) {
   const traces = new THREE.BufferGeometry();
   traces.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
   group.add(new THREE.LineSegments(traces, new THREE.LineBasicMaterial({ color: '#b46cff', transparent: true, opacity: 0.85 })));
+  return group;
+}
+
+// OpenCyc's skyline (ISS-071): a tower per microtheory on a wide arc beyond the city,
+// height by the log of its facts, the largest (UniversalVocabularyMt) at the centre; a faint
+// wireframe that the fog does not hide. EmotionCyc is the bridge: an amber arc from the
+// programme's towers at the front of the avenue over the city to the centre tower.
+function makeSkyline(rows) {
+  const group = new THREE.Group();
+  const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)).attributes.position.array;
+  const pos = [];
+  const R = 42;
+  const top = { y: 0, z: 0 };
+  rows.forEach(([, facts], k) => {
+    const side = k % 2 ? 1 : -1;
+    const a = side * Math.ceil(k / 2) * (1.45 / Math.max(1, rows.length / 2));
+    const r = R + ((k * 7919) % 13) * 0.9;
+    const x = r * Math.sin(a);
+    const z = 4 - r * Math.cos(a);
+    const lg = Math.log10(facts + 1);
+    const h = 0.3 + 0.35 * lg * lg;
+    const w = 0.12 + 0.07 * lg;
+    if (k === 0) { top.y = h; top.z = z; }
+    for (let i = 0; i < edges.length; i += 3) pos.push(x + edges[i] * w, h / 2 + edges[i + 1] * h - 0.1, z + edges[i + 2] * w);
+  });
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  group.add(new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({ color: '#8f7cff', transparent: true, opacity: 0.38, fog: false, depthWrite: false })));
+  const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0.2, -3.6), new THREE.Vector3(0, 16, (top.z - 3.6) / 2), new THREE.Vector3(0, top.y, top.z));
+  const bridge = new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(64)), new THREE.LineBasicMaterial({ color: '#ffb833', transparent: true, opacity: 0.8, fog: false, blending: THREE.AdditiveBlending, depthWrite: false }));
+  group.add(bridge);
   return group;
 }
 

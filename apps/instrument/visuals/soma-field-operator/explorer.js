@@ -12,7 +12,7 @@ import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
 import { rice } from './rice.js';
-import { scores, viewers } from './generated/app-data.js';
+import { scores, viewers, cycSkyline } from './generated/app-data.js';
 // the River Film (The Tensor), by id; kf picks another film (registry/scores, e.g. fis-2021).
 // The twin view (?tw=1): one film, two viewers (S = R(e*, kappa, e_V)): left the viewer of now
 // (neutral), right a viewer preset (pv, registry/viewers; default v2021, as I was in 2021) plus
@@ -1890,7 +1890,9 @@ function makeLandscape() {
         if (env.labels) {
           const zones = [[[0, 0.75, 1.75], 'MOUNTAINS · the body’s memories (4D)', COLORS.ice, 4],
             [[-3.4, 0.9, -0.6], 'COUNTRY · the limbic plains (8D)', '#56f0a2', 8],
-            [[0, 3.8, -9], 'CITY OF CODE · the formal mind (11D)', '#b46cff', 11]];
+            [[0, 3.8, -9], 'CITY OF CODE · the formal mind (11D)', '#b46cff', 11],
+            ...(cycSkyline?.length ? [[[22, 2.2, -30], `OPENCYC · ${(cycSkyline.reduce((a, r) => a + r[1], 0) / 1e6).toFixed(2)}M facts in ${cycSkyline.length} microtheories`, '#9f8cff', 11],
+              [[0, 2.2, -9], 'EMOTIONCYC BRIDGE', '#ffb833', 11]] : [])];
           for (const [[x, y, z], text, color, layer] of zones) {
             const s = layer <= dim ? env.gl.projectWorld(x, y, z) : null;
             if (s?.visible) label(ctx, u, text, (s.x * env.w) / u, (s.y * env.h) / u, color, 'center', 0.028);
@@ -2117,7 +2119,7 @@ export function createExplorer(hooks = {}) {
   });
   // The 3D stops (explorer3d.js), each made on first use; null where WebGL is missing.
   const GL_MAKERS = {
-    landscape: () => createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [] }),
+    landscape: () => createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [], skyline: cycSkyline ?? [] }),
     dyad: () => createDyad3D(),
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
