@@ -64,6 +64,8 @@ $$
 V[\phi] = -\tfrac{1}{2}\sum_{a,b} W_{ab}\int \phi(x)^a\phi(x)^b\,d^4x
 $$
 
+{{Visualize | motivation-and-context | matrix-heatmap:quantum | matrix="[[0,0.4,-0.2,0.3],[0.4,0,0.5,-0.1],[-0.2,0.5,0,0.3],[0.3,-0.1,0.3,0]]"; rows="1,2,3,4"; cols="1,2,3,4" }} The Hopfield weight matrix $W_{ab}$ above, as an illustrative $4\times4$ grid: symmetric, as for the Hopfield networks this paper's interaction is built from. No concrete weights are given for the field-component coupling; the entries are illustrative only.
+
 where $W_{ab}$ is the Hopfield weight matrix and $a, b$ index field
 components. For a single-component field and a scalar Hopfield weight $W$,
 this reduces to:
@@ -99,6 +101,8 @@ completing the square in the action. At $\kappa = \kappa_c$ the theory
 undergoes a phase transition (spontaneous symmetry breaking), corresponding
 in USF terms to the model's attractor transition.
 
+{{Visualize | obligation-1-action-lower-bound-stability | function-plot:quantum | f="sqrt(where(k^2-x*W>0, k^2-x*W, 0))"; k=2; W=1; x=[0,6]; vline="4"; value_at=4; expect_value=0 }} The effective mass $k_\text{eff}=\sqrt{k^2-\kappa W_\max}$ against the Hopfield coupling $\kappa$, at illustrative $k=2$, $W_\max=1$: it falls to zero exactly at the critical coupling $\kappa_c=k^2/W_\max=4$ (checked), the phase transition the text describes; the model's single-vacuum Gaussian description does not extend past this point, shown here as a flat zero.
+
 ### 2.2 Obligation 2: Stability of OS3 under perturbation
 
 **Conjecture 2.** If $\mu_0$ satisfies OS3 and $V$ is a polynomial
@@ -129,6 +133,8 @@ data). This suggests a natural UV regularisation:
 $$
 W_{ab}(p) = W_{ab}^{(0)}\,f_\Lambda(p), \qquad f_\Lambda(p) = e^{-p^2/\Lambda^2}.
 $$
+
+{{Visualize | obligation-3-ultraviolet-regularisation | function-plot:quantum | f="exp(-x^2/Lambda^2)"; vary=Lambda:1,2,4; x=[-6,6]; xlabel="momentum $p$"; ylabel="$f_\Lambda(p)$" }} The Gaussian UV regulator $f_\Lambda(p)$ above, at three illustrative cutoffs $\Lambda$: it damps high-momentum modes of the Hopfield weight, and widens towards 1 everywhere as $\Lambda\to\infty$ — the cutoff the text says must be removed to close Obligation 3.
 
 **Obligation 3.** Show that the $\Lambda \to \infty$ limit exists and yields
 a well-defined interacting measure satisfying OS3.
