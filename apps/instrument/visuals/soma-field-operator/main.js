@@ -1185,6 +1185,7 @@ function readHashState() {
     cs: params.get('cs'),
     cp: params.get('cp'),
     kx: params.get('kx'),
+    ab: params.get('ab'),
   };
 }
 
@@ -1680,7 +1681,7 @@ function applyVoyage(hashState) {
     screens?.setFx(phi);
   }
   if (hashState.feel) explorer.setFeel(hashState.feel);
-  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc, kf: hashState.kf, tw: hashState.tw, pv: hashState.pv, ca: hashState.ca, cs: hashState.cs, cp: hashState.cp, kx: hashState.kx });
+  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc, kf: hashState.kf, tw: hashState.tw, pv: hashState.pv, ca: hashState.ca, cs: hashState.cs, cp: hashState.cp, kx: hashState.kx, ab: hashState.ab });
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2150,6 +2151,13 @@ function hashForState() {
       if (sp.kc && sp.kc !== 'mind') params.set('kc', sp.kc);
       if (sp.kf && sp.kf !== 'river-film') params.set('kf', sp.kf);
       if (sp.kx !== undefined && sp.kx !== 3) params.set('kx', String(sp.kx));
+      if (sp.ab === 'b') {
+        params.set('ab', 'b');
+        if (!sp.tw) {
+          if (sp.pv !== 'v2021') params.set('pv', sp.pv);
+          for (const k of ['ca', 'cs', 'cp']) if (sp[k]) params.set(k, String(sp[k]));
+        }
+      }
       if (sp.tw) {
         params.set('tw', '1');
         if (sp.pv !== 'v2021') params.set('pv', sp.pv);

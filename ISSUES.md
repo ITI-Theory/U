@@ -3083,7 +3083,9 @@ scene, and the tablets need a network channel (the windows' channel only reaches
 windows of one browser; a relay through the MOTHER bridge would serve tablets).
 Not lost: build it after the four-screen layout works.
 - [ ] Screen roles for the inverted T (main, beneath, left, right), any view to any screen.
-- [ ] One-screen A/B flip between the real film and the modified viewer's version.
+- [x] One-screen A/B flip between the real film and the modified viewer's version (12 Oct:
+      A/B at the score stop, `ab=b`: every setting drawn for the VIEWER preset, with the
+      condition sliders; the twin view stays the side-by-side).
 - [ ] The modified view on the screen beneath ("synthetic vision").
 - [ ] Tablets as controls: a relay for the screens' channel (MOTHER bridge).
 - [ ] The 3D glass cockpit (after the above): panels as live textures, the window as the main view.
