@@ -1,0 +1,262 @@
+# Sherlock affidavit (DRAFT): Quantum Topology and Trauma: From The Emperor's New
+# Mind to a Testable Model of Attractor Reachability (P2). Schema:
+# sherlock/registry.py. All numeric checks were recomputed with Python (exact
+# Fraction arithmetic) before being written as `check:` templates below.
+# QUANT-EXP-1's own numbers (this paper is the source of that experiment) were
+# compared against the values quoted for it in experimental-validation and
+# missing-limbic-layer (bld/sherlock/values.md): FMHN-ReachabilityClassicalSuccessRate,
+# FMHN-ReachabilityQuantumSuccessRate, FMHN-CptsdBarrierW, FMHN-WkbAmplitude-W12.
+id: quantum-soma-penrose
+document: P2
+title: "Quantum Topology and Trauma: From The Emperor's New Mind to a Testable Model of Attractor Reachability"
+source:
+  file: paper/soma/quantum-soma-penrose/quantum-soma-penrose.md
+  commit: 061b0bb
+  sha256: 7e667165d0ffe4bf2bb3f1d72930e4e511e4cae0d15852ae8596409f7b0d3dd5
+lean: []
+microtheories: {}
+claims:
+  - id: Q1
+    quote: '0/200 (0.000)'
+    lines: [335, 339, 340, 341]
+    kind: cross-paper
+    finding: >-
+      P11, P12, P13 and the thesis preamble cite this paper for QUANT-EXP-1 as 'classical
+      0/48, quantum 3/3': those are the 20 May sweep (16 seeds x 3 barriers; quantum
+      Awe-dominant in 3 of 3 barrier cases, QUANT-EXP-SWEEP-2026-05-20.md); this paper
+      reports the hardened rerun, 0/200 per barrier (0/600 in all), and gives neither
+      0/48 nor 3/3: the citations name the wrong run
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [16, 16, 16, 48]}, {template: ne, args: [48, 600]}]
+    values:
+      - {quantity: FMHN-ReachabilityClassicalSuccessRate, value: "0/200"}
+      - {quantity: QSoma-ClassicalTrialsTotal, value: 600}
+    disposition: open
+  - id: Q2
+    quote: 'reported in §10.1'
+    lines: [304, 320, 324]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Pre-Registered Hardening Protocol subsection cross-references itself
+      twice as "(§10.1)" (lines 320, 324), but counting the paper's own top-level
+      headings (Introduction=1 through References=12) that subsection lives
+      inside section 9, "Limitations, Controls, and Claim Boundaries", not
+      section 10 — the self-reference is one section number too high (and an
+      earlier forward reference to "the supplementary data archive" as "§11",
+      line 191, likewise does not land on any section with that content;
+      actual section 11 is Acknowledgements)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [10, 9, 1]}]
+    values:
+      - {quantity: QSoma-LimitationsSectionNumberStated, value: 10}
+      - {quantity: QSoma-LimitationsSectionNumberActual, value: 9}
+    disposition: open
+  - id: Q3
+    quote: 'reaches a maximum of $+1.025$ at'
+    lines: [152, 153, 154, 156]
+    kind: internal-arithmetic
+    finding: >-
+      recomputing the stated barrier interpolation $H(\lambda) = -10\lambda^2 +
+      9\lambda - 1$ at its own quoted vertex $\lambda = 0.45 = 9/20$ gives
+      $H(0.45) = 41/40 = 1.025$ exactly, and the barrier height above the Fear
+      basin $H(0) = -1$ is $1.025 - (-1) = 2.025$, matching both numbers the text
+      states
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [9/20, 0.45]}
+      - {template: diff, args: [1.025, -1, 2.025]}
+    values:
+      - {quantity: QSoma-BarrierHeight, value: 2.025}
+      - {quantity: QSoma-BarrierPeakLambda, value: 0.45}
+    disposition: none
+  - id: Q4
+    quote: 'e^{-101} \approx 0'
+    lines: [160]
+    kind: internal-arithmetic
+    finding: >-
+      the cold-classical "STUCK" row's own cited transition-probability figure
+      $e^{-101} \approx 1.4\times10^{-44}$, well under $10^{-40}$, which is
+      consistent with the row's "$\approx 0$" label
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [1.4e-44, 1e-40]}]
+    disposition: none
+  - id: Q5
+    quote: 'Quantum peak: 0.408'
+    lines: [162, 178, 340, 349]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the quantum peak Awe-dominant occupancy at $W[\mathrm{Fear},\mathrm{Awe}]
+      = -10$ is quoted identically as 0.408 in four separate places — the main
+      results table, the noise-equivalence-curve table's $-10$ row, the
+      pre-registered bootstrap table's B10 row, and Negative Control A — a
+      figure recomputed four times across the paper that never drifts
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0.408, 0.408]}]
+    values:
+      - {quantity: QSoma-QuantumPeakOccupancyW10, value: 0.408}
+    disposition: none
+  - id: Q6
+    quote: '2^8 = 256'
+    lines: [140]
+    kind: internal-arithmetic
+    finding: >-
+      the stated 8-qubit Hilbert space dimension $2^8 = 256$ is arithmetically
+      exact, matching the paper's own description of a dense statevector
+      simulation with no sampling approximation
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [256, 256]}]
+    values:
+      - {quantity: QSoma-HilbertSpaceDimension, value: 256}
+    disposition: none
+  - id: Q7
+    quote: 'B12 (W = −12)'
+    lines: [339, 340, 341]
+    kind: cross-paper
+    finding: >-
+      this paper's headline pre-registered protocol tests exactly three barrier
+      strengths in increasing order, B8, B10, B12 (|W| = 8, 10, 12), whose
+      maximum, 12, matches the value used elsewhere (missing-limbic-layer) as
+      "QUANT-EXP-1 maximum barrier" (FMHN-CptsdBarrierW = 12)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: monotone, args: [8, 10, 12]}
+      - {template: eq, args: [12, 12]}
+    values:
+      - {quantity: FMHN-CptsdBarrierW, value: 12}
+    disposition: none
+  - id: Q8
+    quote: 'under five seconds'
+    lines: [18, 19, 143, 144]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the abstract's claim of running "in under five seconds on commodity
+      hardware" (lines 18-19) is consistent with the Setup list's more precise
+      figure of "$\approx 4$ seconds on commodity CPU" (line 144): 4 < 5
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [4, 5]}]
+    values:
+      - {quantity: QSoma-RuntimeSecondsApprox, value: 4}
+    disposition: none
+  - id: Q9
+    quote: 'upper bound on the cold-classical success rate is 1.9%'
+    lines: [317, 318, 339, 340, 341, 343]
+    kind: internal-arithmetic
+    finding: >-
+      the stated Wilson 95% confidence interval upper bound, 0.019 (quoted
+      identically in the Limitations text and all three B8/B10/B12 bootstrap
+      table rows), equals the "1.9%" figure given immediately afterwards
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0.019, 19/1000]}]
+    values:
+      - {quantity: QSoma-ClassicalCIUpperBoundPercent, value: 1.9}
+    disposition: none
+  - id: Q10
+    quote: 'narrows monotonically with barrier strength'
+    lines: [364, 365]
+    kind: internal-arithmetic
+    finding: >-
+      the three quoted spectral-gap values for increasing barrier strength
+      (B8: 0.0095, B10: 0.0089, B12: 0.0085) are monotonically decreasing,
+      matching the claim that the gap "narrows monotonically with barrier
+      strength" (checked as the reverse sequence 0.0085, 0.0089, 0.0095 being
+      nondecreasing)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0.0085, 0.0089, 0.0095]}]
+    values:
+      - {quantity: QSoma-SpectralGapB8, value: 0.0095}
+      - {quantity: QSoma-SpectralGapB10, value: 0.0089}
+      - {quantity: QSoma-SpectralGapB12, value: 0.0085}
+    disposition: none
+  - id: Q11
+    quote: 'rises monotonically with barrier strength'
+    lines: [172, 174, 182, 184, 186]
+    kind: internal-arithmetic
+    finding: >-
+      the Noise-Equivalence-Curve table's nine $T^*$ values, read in the order
+      given (barrier strength $-6$ down to $-14$), are nondecreasing
+      (0.094, 0.101, 0.107, 0.112, 0.117, 0.120, 0.124, 0.127, 0.129), matching
+      the text's claim that "$T^*$ rises monotonically with barrier strength"
+      and the Visualize block's own count of 9 pairs
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: monotone, args: [0.094, 0.101, 0.107, 0.112, 0.117, 0.120, 0.124, 0.127, 0.129]}
+    values:
+      - {quantity: QSoma-NoiseEquivalencePointCount, value: 9}
+    disposition: none
+  - id: Q12
+    quote: 'stays in Awe: 16/16 (100%)'
+    lines: [349, 355]
+    kind: internal-arithmetic
+    finding: >-
+      both pre-registered negative controls report 16 out of 16 classical-cold
+      runs matching the predicted outcome (Control A, barrier intact: stays in
+      Awe 16/16; Control B, barrier removed: reaches Awe 16/16), each correctly
+      arithmetically equal to the stated "100%"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [16/16, 1]}]
+    values:
+      - {quantity: QSoma-ControlASuccessRate, value: "16/16"}
+      - {quantity: QSoma-ControlBSuccessRate, value: "16/16"}
+    disposition: none
+
+# TYPING candidates (OpenCyc, not checked here):
+# - "emotional state vector" e in R^8 over BRECVEMA modes (line 73-76): maps to
+#   a mathematical vector-space representation of an EmotionalState-type
+#   attribute, not an EmotionalState itself — interpretive mapping risk.
+# - "winding number" of an attractor (lines 90-91, 262): a topological invariant
+#   (TopologicalProperty / MathematicalObject in OpenCyc), not a physical
+#   quantity; the paper is careful to call this a "model assumption", which
+#   avoids an opencyc-slip.
+# - "quantum gravity" / "Objective Reduction" (lines 46-50, 203): PhysicalTheory,
+#   specifically a disputed/speculative one per OpenCyc's scientific-theory
+#   status predicates.
+# - "trauma" / "attractor basin" (lines 92-96): trauma as a PsychologicalState,
+#   attractor basin as a dynamical-systems construct — the paper explicitly
+#   keeps these as distinct types ("topologically protected" is a property of
+#   the model object, not of the clinical state), avoiding a category slip.
+# - "Orch-OR" / microtubule quantum coherence (lines 48-50): a SpeculativeTheory
+#   about a BiologicalStructure (microtubule), contrasted with this paper's
+#   TransverseFieldIsingModel, a standard-physics ComputationalModel.
+# - "quantum annealing" (title, throughout): a well-typed PhysicalProcess /
+#   AlgorithmType (D-Wave, Google Sycamore are named as hardware instances);
+#   no slip observed.
+# - "EMDR" / "psychedelic-assisted therapy" (lines 263-268): named as
+#   TherapeuticIntervention candidates and explicitly marked "analogues, not
+#   established mechanisms" (line 278-280) — the paper itself flags the
+#   typing risk rather than asserting it.
+
+# LEAN candidates (programme ledger, not checked here):
+# - THERAPY-2 / `TopologicalTraumaRequiresTopologicalIntervention` in
+#   `paper/FieldAxioms.lean`, cited twice (lines 95-99, 271-272) as an axiom,
+#   not a theorem — a ledger check should confirm it is declared `axiom` and
+#   not silently `sorry` or proved.
+# - "QUANT-EXP-1: PASS — commit `1f52282`, 20 May 2026" (line 164): a claim
+#   about a specific commit hash; checkable against git log, not Lean.
+# - `quant_exp_1_awe_reachable` in `QuantumSim.lean` (named only in
+#   experimental-validation, not in this document) formalises a weaker, W>0
+#   statement than the WKB-threshold claims attributed to QUANT-EXP-1 elsewhere
+#   — a ledger check on that declaration's actual statement would be useful.

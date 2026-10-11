@@ -1,0 +1,299 @@
+# Sherlock affidavit (DRAFT): The Soma-Field: A Wave-Based Model of Emotional
+# Dynamics and Its Clinical Implications (P1, the programme's main paper).
+# Schema: sherlock/registry.py. All numeric checks were recomputed with Python
+# (exact Fraction arithmetic for counts/integers; math.tanh and numpy.roots for
+# the two transcendental/polynomial checks, where only the stated rounded value
+# is confirmed to within 0.1%) before being written as `check:` templates below.
+id: soma-field-paper
+document: P1
+title: "The Soma-Field: A Wave-Based Model of Emotional Dynamics and Its Clinical Implications"
+source:
+  file: paper/soma/soma-field-paper/soma-field-paper.md
+  commit: 25d893e
+  sha256: 0aa35626da09190cd97203248e95977fa1ce557a2391085a6a4125811afc4105
+lean: []
+microtheories: {}
+claims:
+  - id: F1
+    quote: 'Section 9.2 explicitly labels pilot support and companion-only scope'
+    lines: [1304, 1317, 1320, 1360]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the reviewer-risk table attributes the scope-label explanation ("pilot
+      support and companion-only scope") to "Section 9.2", but counting the
+      Conclusion's own `##` subsections in order (9.1 Publication Claim
+      Registry, 9.2 Claim-Evidence-Result Matrix, 9.3 Replication Package
+      Requirements, 9.4 Reviewer-Risk Objections and Responses) the sentence
+      "Scope labels: S1 = structural; S2 = predictive; S3 = independently
+      replicated" actually appears in 9.1, immediately after the claim
+      registry table, not in 9.2 (the Claim-Evidence-Result Matrix, which
+      lists evidence artifacts and result status and never uses the words
+      "pilot" or "companion-only"); the citation is off by one subsection
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [2, 1, 1]}]
+    values:
+      - {quantity: SomaField-ScopeLabelsSectionStated, value: 2}
+      - {quantity: SomaField-ScopeLabelsSectionActual, value: 1}
+    disposition: open
+  - id: F2
+    quote: 'more than 24% of the coupling matrix is trauma-formed'
+    lines: [1933, 1935, 1990]
+    kind: internal-arithmetic
+    finding: >-
+      the developmental-time section infers from "the structural fraction is
+      below $\tanh(1) \approx 0.76$" that "more than 24% of the coupling
+      matrix is trauma-formed", but the precise bound is $1-\tanh(1) =
+      0.238406\ldots$ (the paper's own stated value $\tanh(1)\approx0.7616$,
+      used three lines earlier, gives the same figure), which is below 24%,
+      not above it — the rounding of $\tanh(1)$ down to two decimals (0.76)
+      flips the direction of the inequality that the text draws from it
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [0.238405844044235, 0.24]}]
+    values:
+      - {quantity: SomaField-PreVerbalTraumaFractionStated, value: 0.24}
+      - {quantity: SomaField-PreVerbalTraumaFractionComputed, value: 0.238405844044235}
+    disposition: open
+  - id: F3
+    quote: 'obtained by *compactifying* 7 extra dimensions onto'
+    lines: [28, 1454, 1468, 1469]
+    kind: cross-paper
+    finding: >-
+      the compactification tower (Table A1) gives the 11-dimensional
+      emotional manifold as a 4-dimensional effective spacetime obtained by
+      compactifying 7 extra dimensions onto a G$_2$ manifold (also called
+      "the seven-dimensional geometry" when discussed as $W$'s topology),
+      consistent with the abstract's "eleven-dimensional coupling manifold"
+      and with the same 11 = 7 + 4 split quoted by other programme papers
+      (USF-TotalDimensionCount, USF-CompactDimensionCount,
+      USF-NonCompactDimensionCount)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [7, 4, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+      - {quantity: USF-CompactDimensionCount, value: 7}
+      - {quantity: USF-NonCompactDimensionCount, value: 4}
+    disposition: none
+  - id: F4
+    quote: 'The repository has five real sorries'
+    lines: [1245, 2594]
+    kind: cross-paper
+    finding: >-
+      the Limitations section states "the repository has five real sorries"
+      and Appendix C.9 restates "the five real project-wide `sorry` markers
+      recorded in the proof-status ledger" — the same count stated twice in
+      this paper, and it agrees with the cross-paper USF-SorryCount already
+      quoted (as 5) by the experimental-validation and universal-somatic-field
+      affidavits
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-SorryCount, value: 5}
+    disposition: none
+  - id: F5
+    quote: 'Section 6 describes the Soma-Field'
+    lines: [112, 113, 941, 1024]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Introduction's organisation paragraph says "Section 6 describes the
+      Soma-Field Instrument ... Section 7 addresses clinical implications",
+      and counting the paper's own top-level headings in order (Introduction
+      = 1 through Clinical Implications = 7) the 6th is indeed "The Soma-Field
+      Instrument" (line 941) and the 7th is indeed "Clinical Implications"
+      (line 1024) — unlike the analogous claim in the companion
+      soma-temporal-dynamics affidavit (T3), this paper's forward-reference
+      is not swapped
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: eq, args: [6, 6]}
+      - {template: eq, args: [7, 7]}
+    values:
+      - {quantity: SomaField-InstrumentSectionStated, value: 6}
+      - {quantity: SomaField-InstrumentSectionActual, value: 6}
+      - {quantity: SomaField-ClinicalSectionStated, value: 7}
+      - {quantity: SomaField-ClinicalSectionActual, value: 7}
+    disposition: none
+  - id: F6
+    quote: 'Three hierarchically organised layers'
+    lines: [698, 699, 705, 769, 795]
+    kind: internal-count
+    finding: >-
+      the Three-Layer Architecture section's own count ("Three hierarchically
+      organised layers contribute to field dynamics") matches the number of
+      layers it goes on to name — Layer 1 (line 705), Layer 2 (line 769),
+      Layer 3 (line 795); the "Layer 1 extension" (line 717) is explicitly a
+      refinement of Layer 1, not a fourth layer
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    values:
+      - {quantity: SomaField-ThreeLayerArchitectureCount, value: 3}
+    disposition: none
+  - id: F7
+    quote: 'Four quotients have been proposed'
+    lines: [293, 297, 298, 299, 300, 302]
+    kind: internal-count
+    finding: >-
+      the text's "Four quotients have been proposed" and Table 3's own
+      caption "Four dimensions of biological intelligence" match the number
+      of rows the table actually lists: IQ, EQ, AQ, and SQ
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: SomaField-FormalIntelligenceQuotientCount, value: 4}
+    disposition: none
+  - id: F8
+    quote: 'installed pre-verbally, at approximately eighteen months of age'
+    lines: [1278, 1933]
+    kind: internal-arithmetic
+    finding: >-
+      the provenance note's "installed pre-verbally, at approximately
+      eighteen months of age" is consistent with Appendix B.2.1's own
+      definition of the pre-verbal regime ($\tau_d < \tau_c$, with
+      $\tau_c \approx 36$ months, "the approximate onset of verbal encoding
+      capacity"): 18 months is below the stated 36-month threshold, so the
+      provenance note's own case falls inside the model's own pre-verbal
+      category it invokes two sections later
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [18, 36]}]
+    values:
+      - {quantity: SomaField-PreVerbalTraumaAgeMonths, value: 18}
+      - {quantity: SomaField-VerbalEncodingThresholdMonths, value: 36}
+    disposition: none
+  - id: F9
+    quote: 'pre-verbal trauma in approximately 1968'
+    lines: [1295, 1298]
+    kind: internal-arithmetic
+    finding: >-
+      the causal-chain paragraph's "a pre-verbal trauma in approximately
+      1968" and "fifty-seven years later, that system's accurate
+      interoceptive signal was dismissed" are arithmetically consistent with
+      the acute somatic emergency dated elsewhere in the same section to 2025
+      (1968 + 57 = 2025)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [2025, 1968, 57]}]
+    values:
+      - {quantity: SomaField-ProvenanceTraumaYear, value: 1968}
+      - {quantity: SomaField-ProvenanceYearsElapsedStated, value: 57}
+      - {quantity: SomaField-ProvenanceEmergencyYear, value: 2025}
+    disposition: none
+  - id: F10
+    quote: 'The program checked $f(36) = \tanh 1 = 0.7616$'
+    lines: [1933, 1935]
+    kind: internal-arithmetic
+    finding: >-
+      recomputing $\tanh(1)$ gives 0.7615941559557649, matching the paper's
+      own stated "$f(36) = \tanh 1 = 0.7616$" to within 0.001% — the
+      four-decimal rounding is correct even though the two-decimal rounding
+      used two lines later ("$\approx 0.76$", see F2) is not precise enough
+      to support the ">24%" inference drawn from it
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.7616, 0.7615941559557649, 0, 0.001]}]
+    values:
+      - {quantity: SomaField-TanhOneStated, value: 0.7616}
+    disposition: none
+  - id: F11
+    quote: 'expect_minima="-1.017,0.982"'
+    lines: [688]
+    kind: internal-arithmetic
+    finding: >-
+      the one-mode energy landscape figure's own potential $U(x) =
+      x^4/4 - x^2/2 + 0.035x$ has stationary points where $U'(x) = x^3 - x +
+      0.035 = 0$; solving this cubic gives roots at approximately
+      $-1.017061$, $0.035043$ (the local maximum, the barrier) and
+      $0.982018$ — matching the caption's own annotated minima
+      "-1.017,0.982" to within 0.01%
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: rel-between, args: [1.017, 1.017060905269918, 0, 0.001]}
+      - {template: rel-between, args: [0.982, 0.9820178719278599, 0, 0.001]}
+    values:
+      - {quantity: SomaField-EnergyLandscapeLeftMinimumStated, value: -1.017}
+      - {quantity: SomaField-EnergyLandscapeRightMinimumStated, value: 0.982}
+    disposition: none
+  - id: F12
+    quote: expect_steps=5
+    lines: [1537, 1557, 1561]
+    kind: internal-count
+    finding: >-
+      the functor-chain figure's own "expect_steps=5" annotation matches the
+      number of categories it names in sequence — $\mathcal{M}$,
+      $\mathcal{F}$, $\mathcal{S}$, $\mathcal{P}$, $\mathcal{O}$ — even though
+      the section heading calls them "The Four Categories" (only
+      $\mathcal{M}, \mathcal{F}, \mathcal{S}, \mathcal{P}$ are formally
+      defined as categories of the model; $\mathcal{O}$ is explicitly "any
+      output category", a family rather than a fifth defined one, so the
+      heading and the 5-step chain do not conflict)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: SomaField-FunctorChainStepCountStated, value: 5}
+    disposition: none
+
+# TYPING: "the coupling matrix $W$ is precisely the hyphen, made formal" (line
+#   ~471, "The load-bearing hyphen") — identifying a punctuation mark
+#   (LinguisticObject / orthographic symbol) with a mathematical matrix
+#   (MathematicalObject) is a candidate category-error check for the OpenCyc
+#   mapping (is "hyphen" typed as the symbol or as the relation it denotes?).
+# TYPING: "cardiac acceleration $\dot H(t)$ ... carries units beats/s$^2$" set
+#   in exact dimensional parallel with "gravitational acceleration $g$ ...
+#   units m/s$^2$" (lines ~726-732) — both are called "acceleration", but one
+#   is a PhysicalQuantity-Acceleration (SpatialThing-derived) and the other a
+#   rate-of-change of a physiological rate; candidate opencyc-typing check for
+#   whether the shared word "acceleration" licenses the shared OpenCyc type.
+# TYPING: "H-AL ... whose body geometry is a live fractal rendering of the
+#   soma-field state" (lines ~1650-1663) — a Mandelbulb hologram described as
+#   having a "body" (BodyPart-bearing Organism-adjacent concept) rather than
+#   an Artifact/Device; candidate opencyc-slip for the OpenCyc mapping of
+#   "body" here.
+# TYPING: "the noise $\xi(t)$ ... $D/\gamma = k_B T_{\text{eff}}$ defines an
+#   effective temperature" (lines ~2012-2017) — a model noise-to-damping ratio
+#   named "temperature" alongside literal thermodynamic Temperature elsewhere
+#   in the programme (cf. soma-temporal-dynamics T_field); candidate homonym
+#   slip for the OpenCyc mapping, distinct from ThermodynamicTemperature.
+# TYPING: "EQ, AQ, SQ" (Table 3, lines 297-300) presented as measurable
+#   quotients parallel to IQ — whether OpenCyc's PsychometricQuotient (or
+#   nearest type) is the correct mapping for three quantities the paper itself
+#   says are "modelled here" as proposed constructs rather than measured
+#   psychometric instruments; candidate category question.
+# TYPING: "the memory kernel $K_{\text{trauma}}(\tau)$" (line ~1893) standing
+#   in for "autobiographical memory" / "narrative memory" (lines ~1945-1951)
+#   — a mathematical Function representing a RememberingAnEvent-type mental
+#   content, the same pattern flagged in the soma-temporal-dynamics affidavit
+#   (T-series) for this programme's memory-kernel papers generally.
+
+# LEAN: lines 1245 and 2594, "the repository has five real sorries" / "the
+#   five real project-wide `sorry` markers recorded in the proof-status
+#   ledger" — a ledger claim (sorry count) against the actual Lean build, not
+#   checked here (`make -C sherlock ledger`).
+# LEAN: lines 1960-1972, the illustrative `preVerbalIsStructural` theorem
+#   sketch — the paper itself calls Appendix A.5 and this B.2.1 sketch "an
+#   illustrative historical design sketch, not the current `paper/proofs/`
+#   source inventory" (line 1678-1680); a ledger candidate to confirm no
+#   declaration of this name exists under the stated module.
+# LEAN: lines 2529-2536 (Appendix C.8), the `classifyAttractor` `sorry` said
+#   to "inherit the standard Hopfield proof strategy", which "does not cover
+#   the asymmetric case" — a ledger candidate to confirm the declaration's
+#   current signature and sorry status against this characterisation.

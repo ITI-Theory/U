@@ -1,0 +1,234 @@
+# Sherlock affidavit (DRAFT): The Universal Somatic Field as a Euclidean Quantum
+# Field Theory: Osterwalder-Schrader Axiom Verification via Lean 4 (P14). Schema:
+# sherlock/registry.py. All counts and arithmetic were recomputed with Python
+# (exact Fraction arithmetic) before being written as `check:` templates below.
+# No internal contradiction was found in this paper's own axiom count, section
+# organisation, Lean-surface table or repeated numbers; all claims below are
+# confirmed or consistent positives (none invented).
+id: usf-euclidean-qft
+document: P14
+title: "The Universal Somatic Field as a Euclidean Quantum Field Theory: Osterwalder\u2013Schrader Axiom Verification via Lean 4"
+source:
+  file: paper/soma/usf-euclidean-qft/usf-euclidean-qft.md
+  commit: 77ecb57
+  sha256: 6335f6272323dd016479234902c93b1c718761ba0c401e565a75cf40cca42fb3
+lean: []
+microtheories: {}
+claims:
+  - id: E1
+    quote: 'all five Osterwalder'
+    lines: [10, 67, 68, 69, 70, 72, 138, 139, 209, 211, 212, 213, 214, 215, 314]
+    kind: internal-count
+    finding: >-
+      the paper's axiom count (five Osterwalder-Schrader axioms, OS0-OS4) is
+      stated identically in five independent places: the abstract ("all five
+      Osterwalder-Schrader (OS) axioms"), the Introduction's own numbered list
+      (five items, OS0 through OS4), the quoted Douglas et al. master theorem
+      ("all five ... axioms (OS0-OS4)"), the Axiom inventory table (five rows,
+      Section 4.3) and the Conclusion ("OS0-OS4"); counting the enumerated
+      OS0..OS4 list gives exactly five axioms throughout
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 5]}]
+    values:
+      - {quantity: OSQFT-AxiomCount, value: 5}
+    disposition: none
+  - id: E2
+    quote: 'Individual axioms are extracted as corollaries'
+    lines: [188, 191, 195, 199, 207, 208, 209, 210, 211, 212, 213, 214, 215]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Section 4.2 Lean code shows three individually-extracted corollary
+      theorems (USF_OS0_Analyticity, USF_OS3_ReflectionPositivity,
+      USF_OS4_Clustering) plus two axioms left bundled in
+      freefield_USF_satisfies_OS_axioms (OS1, OS2); the Section 4.3 "Local
+      Lean surface" table column matches this exactly (three "imported from
+      OSforGFF" named-theorem rows, two "bundled in ..." rows), and
+      3 individually-extracted + 2 bundled sums to the paper's own five-axiom
+      count (claim E1)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [3, 2, 5]}]
+    values:
+      - {quantity: OSQFT-IndividuallyExtractedAxiomCount, value: 3}
+      - {quantity: OSQFT-BundledAxiomCount, value: 2}
+    disposition: none
+  - id: E3
+    quote: 'Section 2 states the free-field USF'
+    lines: [82, 84, 85, 86, 87, 88, 89, 93, 124, 154, 222, 282, 312]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the "Structure of this paper" paragraph (Section 1.1) describes
+      Sections 2 through 6 (five sections: free-field USF, the GFF and
+      Douglas et al., the identification and Lean proof, physical
+      interpretation, path to the interacting theory), and the document's
+      own `##` headings confirm exactly those five section titles in that
+      order; together with Section 1 (Introduction, containing the
+      description itself) and Section 7 (Conclusion, left undescribed) that
+      is 5 described + 2 undescribed = 7 top-level sections, matching the
+      paper's own seven `##` headings
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [5, 2, 7]}]
+    values:
+      - {quantity: OSQFT-DescribedSectionCount, value: 5}
+      - {quantity: OSQFT-TotalSectionCount, value: 7}
+    disposition: none
+  - id: E4
+    quote: '32\,000 lines'
+    lines: [17, 134, 135]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      Douglas, Hoback, Mei and Nissim's GFF Lean formalisation line count is
+      stated identically in two independent places: the abstract ("0 sorries
+      across 32\,000 lines") and Section 3 ("zero sorries and zero extra
+      axioms, across approximately 32\,000 lines") — the same figure
+      (32,000 lines, 0 sorries) is repeated, not contradicted
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [32000, 32000]}]
+    values:
+      - {quantity: OSQFT-GffLeanLineCount, value: 32000}
+    disposition: none
+  - id: E5
+    quote: 'five real sorries'
+    lines: [13, 205, 318]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the repository-wide sorry count is stated as "five real sorries" in
+      the abstract (line 13) and the Conclusion (line 318), and as "five
+      real `sorry`s in other files" in Section 4.2 (line 205) — all three
+      restatements of this count agree on five, and are consistent with the
+      same section's statement that `USF_OSAxioms.lean` itself contains no
+      `sorry`
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-SorryCount, value: 5}
+    disposition: none
+  - id: E6
+    quote: 'five real sorries'
+    lines: [13, 318]
+    kind: cross-paper
+    finding: >-
+      this paper's own repository-wide sorry count ("five real sorries",
+      abstract and Conclusion) agrees with the USF-SorryCount=5 already
+      agreed across the corpus (experimental-validation claim X12,
+      universal-somatic-field claim U10)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-SorryCount, value: 5}
+    disposition: none
+  - id: E7
+    quote: '\mathbb{R}^4'
+    lines: [101, 120, 213]
+    kind: internal-count
+    finding: >-
+      the Euclidean spacetime dimension (4) is used consistently: the
+      momentum $p \in \mathbb{R}^4$ (Section 2, line 101), the Schwartz
+      test-function space $\mathcal{S}(\mathbb{R}^4)$ (line 120), and the
+      OS2 Euclidean-invariance row of the Axiom inventory table, "$Z$
+      invariant under $E(4)$" (line 213) — the Euclidean group's index (4)
+      matches the momentum space's dimension (4) throughout
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [4, 4]}]
+    values:
+      - {quantity: OSQFT-SpacetimeDimension, value: 4}
+    disposition: none
+  - id: E8
+    quote: 'faster for larger $k$'
+    lines: [264, 265, 268, 269, 272]
+    kind: internal-arithmetic
+    finding: >-
+      the OS4 clustering figure's caption claims the connected correlator
+      "falls off exponentially, faster for larger $k$" for the plotted
+      function $e^{-kx}$ at the caption's own illustrative rates
+      $k=0.5,1,2$ (vary=k:0.5,1,2; line 272); recomputing $e^{-k \cdot 4}$
+      (a representative separation inside the plotted range $x=[0,8]$) at
+      $k=2,1,0.5$ gives a nondecreasing sequence (0.000335..., 0.0183...,
+      0.1353...), i.e. the value is smaller for larger $k$, confirming
+      "faster for larger $k$"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: monotone, args: [0.0003354626279, 0.01831563889, 0.1353352832]}]
+    values:
+      - {quantity: OSQFT-ClusteringVaryKMin, value: 0.5}
+      - {quantity: OSQFT-ClusteringVaryKMax, value: 2}
+    disposition: none
+  - id: E9
+    quote: 'theorem freefield_USF_satisfies_OS_axioms'
+    lines: [182, 183, 184, 185, 186, 188, 190, 191, 194, 195, 198, 199]
+    kind: internal-count
+    finding: >-
+      Section 4.2 names four Lean theorems in `USF_OSAxioms.lean`: one
+      master theorem (freefield_USF_satisfies_OS_axioms, lines 182-186) plus
+      three corollaries extracted individually (USF_OS0_Analyticity,
+      USF_OS3_ReflectionPositivity, USF_OS4_Clustering, lines 190-201) — 1
+      master + 3 corollaries is the 4 named declarations actually shown in
+      the code blocks, consistent with the 3 individually-extracted axioms
+      of claim E2
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 3, 4]}]
+    values:
+      - {quantity: OSQFT-NamedLeanTheoremCount, value: 4}
+    disposition: none
+
+# TYPING: the abstract's "USF=GFF is a model assumption / co-identification"
+#   (line 12), Section 4.1's "identifying this representation with the
+#   physical USF remains a model assumption" (lines 168-169), and the
+#   Conclusion's "USF=GFF is derived under assumptions" (line 318) — three
+#   paraphrases of the same epistemic status; whether OpenCyc would type
+#   these as the same kind of assumption-qualifier (candidate for
+#   opencyc-typing, not a number).
+# TYPING: "the Green's function ... is identical to the massive Gaussian
+#   Free Field (GFF) propagator" (abstract, lines 14-15) treats an
+#   identification between two mathematical objects (a physical-model
+#   Green's function and a probability-measure's covariance kernel) as a
+#   strict identity rather than a representation/model choice — a
+#   SpatialThing/MathematicalObject-adjacent category question for the
+#   OpenCyc mapping of "identical to".
+# TYPING: "a Hamiltonian $H$, and field operators $\hat\phi(x)$ after
+#   analytic continuation $\tau \to it$" (Section 5.1, lines 229-230) and
+#   "the field temperature" style USF parameters elsewhere in the programme
+#   — whether $\hat\phi(x)$ here is typed as a genuine QuantumOperator or a
+#   formal placeholder standing in for the somatic field; candidate
+#   opencyc-slip check against the programme's other somatic-field papers.
+# TYPING: "the Hopfield weight operator" $\hat W$ and "coupling strength"
+#   $\kappa$ (Section 6, lines 288-292) reuse a neural-network term
+#   (Hopfield network) inside a quantum-field Lagrangian term — a candidate
+#   opencyc-typing check of "weight operator" as Function-in-QFT vs.
+#   Function-in-a-neural-network.
+
+# LEAN: Section 4.2 (lines 173-205) states `USF_OSAxioms.lean` imports
+#   `OSforGFF.OS.Master` and names `freefield_USF_satisfies_OS_axioms`,
+#   `USF_OS0_Analyticity`, `USF_OS3_ReflectionPositivity` and
+#   `USF_OS4_Clustering`, each proved by direct application of
+#   `gaussianFreeField_satisfies_all_OS_axioms` — a ledger claim (declaration
+#   exists, no sorry) against the actual Lean, not checked here.
+# LEAN: line 204, "`USF_OSAxioms.lean` contains no `sorry`" and line 205,
+#   "the current repository-wide proof surface still contains five real
+#   `sorry`s in other files" — a ledger claim (sorry count per file) against
+#   the actual Lean build.
+# LEAN: lines 133-139, the external claim that Douglas, Hoback, Mei and
+#   Nissim's `gaussianFreeField_satisfies_all_OS_axioms` theorem (in the
+#   `OSforGFF` repository, not this repository) has "zero sorries and zero
+#   extra axioms, across approximately 32,000 lines" — not checkable by this
+#   repository's ledger (external repository).
+# LEAN: lines 254-260, the table row "Minkowski: retarded propagator is
+#   causal | `TemporalDynamics.lean` | `somaticRetardedPropagator_isRetarded`"
+#   — a ledger claim belonging to the companion temporal-dynamics affidavit,
+#   not re-checked here.

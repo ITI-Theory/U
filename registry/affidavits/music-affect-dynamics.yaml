@@ -1,0 +1,262 @@
+# Sherlock affidavit (DRAFT): A Dynamical Field Model of Music-Induced Affect:
+# Beyond the Valence-Arousal Circumplex (P9). Schema: sherlock/registry.py.
+# Arithmetic claims recomputed with Python (Fraction/numpy/scipy for exact and
+# numeric checks) and verified before being written as `check:` templates.
+# P24 (g2-symmetry-breaking) shares the BRECVEMA mechanism taxonomy and quotes
+# an explicit 8x8 coupling matrix W_8 (G2Sym-MechanismCount=8); this paper
+# names the same taxonomy (claim M1) but never instantiates numeric W entries
+# of its own — its coupling matrix $W$ is left purely qualitative ("symmetric,
+# negative semi-definite on the basin of each attractor", line 103), so no
+# cross-paper numeric comparison of W-entries is possible here, only of the
+# mechanism count.
+id: music-affect-dynamics
+document: P9
+title: "A Dynamical Field Model of Music-Induced Affect: Beyond the Valence\u2013Arousal Circumplex"
+source:
+  file: paper/soma/music-affect-dynamics/music-affect-dynamics.md
+  commit: c212e40
+  sha256: a16e820a3981c0a9bd573f403af371c22c7ed2e62f49c40951880d7d62a91784
+lean: []
+microtheories: {}
+claims:
+  - id: M1
+    quote: '(brainstem reflex, rhythmic'
+    lines: [49, 50, 51, 52]
+    kind: cross-paper
+    finding: >-
+      Juslin's BRECVEMA framework names only seven mechanisms here (brainstem
+      reflex, rhythmic entrainment, conditioning, visual imagery, episodic
+      memory, musical expectancy, appraisal) — one short of the 8-letter
+      BRECVEMA acronym and of P24's eight named BRECVEMA mechanisms
+      (G2Sym-MechanismCount=8), because Contagion (the "C") is not listed
+      separately from "conditioning" (Evaluative Conditioning, the "E")
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [7, 8]}]
+    values:
+      - {quantity: Music-BrecvemaNamedMechanismCount, value: 7}
+      - {quantity: G2Sym-MechanismCount, value: 8}
+    disposition: open
+  - id: M2
+    quote: 'duration: 114.88 s,'
+    lines: [185, 187, 188, 190, 322]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Protocol section specifies a 30-minute (1,800 s), three-block
+      demonstration session (baseline 5 min + directed transitions 15 min +
+      free improvisation 10 min), but the "Exploratory Pilot Fill" that fills
+      in that same protocol's results template reports a session-level
+      summary with total logged duration of only 114.88 s — about 6.4% of
+      1,800 s, a roughly 15.7x shortfall — with no reconciliation of the
+      block timings given
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [114.88, 1800, 0.9, 1]}]
+    values:
+      - {quantity: Music-PilotSessionDurationSeconds, value: 114.88}
+      - {quantity: Music-ProtocolSessionMinutes, value: 30}
+    disposition: open
+  - id: M3
+    quote: 'with 8 emotional modes each carrying a somatic and a cognitive intensity'
+    lines: [15, 62, 63, 64, 92]
+    kind: internal-arithmetic
+    finding: >-
+      the state vector's 16 dimensions equal 8 emotional modes times one
+      somatic plus one cognitive intensity component each (8+8=16),
+      consistent with both $\mathbf{e}(t)\in\mathbb{R}^{16}$ (abstract and
+      body) and the explicit split $[0,1]^{16}=(e_1^s,\ldots,e_8^s,e_1^c,
+      \ldots,e_8^c)$
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [8, 8, 16]}]
+    values:
+      - {quantity: Music-EmotionModeCount, value: 8}
+      - {quantity: Music-StateVectorDimension, value: 16}
+    disposition: none
+  - id: M4
+    quote: 'The eight modes are: *calm*, *anger/fight*,'
+    lines: [95, 96, 97]
+    kind: internal-count
+    finding: >-
+      the eight named emotional modes (calm, anger/fight, anxiety/flight,
+      grief, freeze/dissociation, hypervigilance, flow/absorption, joy)
+      count to exactly 8, matching the stated "eight modes" and the
+      Music-EmotionModeCount of claim M3
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 1, 1, 1, 8]}]
+    disposition: none
+  - id: M5
+    quote: 'attractor states of the polyvagal and trauma literature (regulated calm,'
+    lines: [16, 17, 18, 108, 109]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the six named attractors given in the abstract (regulated calm, fight,
+      flight, freeze, flow, dissociation) exactly match, in the same order,
+      the six named in the body's "Named attractors match the polyvagal
+      hierarchy and trauma literature" list
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [6, 6]}]
+    values:
+      - {quantity: Music-NamedAttractorCount, value: 6}
+    disposition: none
+  - id: M6
+    quote: '**Baseline (5 min):** neutral sound bed, no intentional modulation.'
+    lines: [185, 187, 188, 190]
+    kind: internal-arithmetic
+    finding: >-
+      the three protocol blocks (baseline 5 min, directed transitions 15
+      min, free improvisation 10 min) sum to 5+15+10=30 minutes, matching
+      the stated "Session structure (30 minutes)"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [5, 15, 10, 30]}]
+    values:
+      - {quantity: Music-ProtocolSessionMinutes, value: 30}
+    disposition: none
+  - id: M7
+    quote: 'total transitions: 14,'
+    lines: [318, 322, 323]
+    kind: internal-arithmetic
+    finding: >-
+      dividing the session summary's 14 total transitions by its 114.88 s
+      duration (114.88/60=1.91467 minutes) gives 14/1.91467=7.312
+      transitions/min, matching the H3 pilot-fill row's stated "7.31
+      transitions/min" to within 0.03%
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [7.311977716, 7.31, 0, 0.001]}]
+    values:
+      - {quantity: Music-PilotTransitionCount, value: 14}
+      - {quantity: Music-PilotTransitionRatePerMinute, value: 7.31}
+    disposition: none
+  - id: M8
+    quote: '+1.20 percentage points | [0.69, 1.60] percentage points'
+    lines: [316]
+    kind: internal-arithmetic
+    finding: >-
+      the H1 row's reported effect size, +1.20 percentage points, lies
+      strictly inside the row's own stated 95% confidence interval [0.69,
+      1.60] percentage points (0.69 < 1.20 < 1.60)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: lt, args: [0.69, 1.20]}
+      - {template: lt, args: [1.20, 1.60]}
+    values:
+      - {quantity: Music-PilotGriefOccupancyEffectSize, value: 1.20}
+    disposition: none
+  - id: M9
+    quote: '0.024,1.596,3.396'
+    lines: [111]
+    kind: internal-arithmetic
+    finding: >-
+      recomputing the local minima of the paper's own one-dimensional energy
+      slice $U(x)=-e^{-x^2/0.4}-0.45e^{-(x-1.6)^2/0.15}-0.8e^{-(x-3.4)^2/0.05}
+      +0.04(x-1.5)^2$ on $x\in[-1.5,4.5]$ numerically gives minima at
+      x=0.02365, 1.59644, 3.39526, each within the stated tolerance
+      (expect_tol=0.01) of the Visualize block's claimed "0.024,1.596,3.396",
+      confirming "The program checked the three minima"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: rel-between, args: [0.023655, 0.024, 0, 0.02]}
+      - {template: rel-between, args: [1.596441, 1.596, 0, 0.001]}
+      - {template: rel-between, args: [3.395259, 3.396, 0, 0.001]}
+    values:
+      - {quantity: Music-EnergyLandscapeMinimaCount, value: 3}
+    disposition: none
+  - id: M10
+    quote: 'shade=[0,2.2]; expect_prob=0.2431'
+    lines: [120]
+    kind: internal-arithmetic
+    finding: >-
+      integrating the paper's own tilted-double-well pdf (unnormalised
+      $e^{-(x^4/4-x^2/2+0.1x)/0.15}$) over $x\in[-2.2,2.2]$ and over the
+      shaded $[0,2.2]$ gives a share of 0.24309, matching both the Visualize
+      block's "expect_prob=0.2431" and the caption's rounded "the program
+      checked the share, $0.243$"
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.24309087, 0.2431, 0, 0.0001]}]
+    values:
+      - {quantity: Music-DynamicsShadedProbability, value: 0.2431}
+    disposition: none
+  - id: M11
+    quote: '0.3*sin(2*pi*0.25*t)'
+    lines: [238]
+    kind: internal-arithmetic
+    finding: >-
+      the mode channel's three sinusoidal components have amplitudes 0.3
+      (f=0.25 Hz), 0.15 (f=1 Hz) and 0.05 (f=1.7 Hz); since 0.3 is the
+      largest of the three, the amplitude spectrum's tallest peak is at
+      f=0.25, matching "the program checked the largest peak, $0.25$" and
+      the stated "peaks=3" for the three distinct rates
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check:
+      - {template: lt, args: [0.15, 0.3]}
+      - {template: lt, args: [0.05, 0.15]}
+      - {template: sum, args: [1, 1, 1, 3]}
+    values:
+      - {quantity: Music-SpectrumDominantFrequency, value: 0.25}
+    disposition: none
+  - id: M12
+    quote: 'hline=0.7; y=[0,1]'
+    lines: [131]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Visualize block's horizontal threshold line "hline=0.7" matches
+      the prose's stated perception threshold "the threshold $\theta = 0.7$"
+      in the same sentence
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0.7, 0.7]}]
+    values:
+      - {quantity: Music-PerceptionThreshold, value: 0.7}
+    disposition: none
+
+# Claims not expressible with the numeric templates (not written as `claims:` above):
+# TYPING: "BRECVEMA's mechanisms act as *forcing functions* on the energy
+#   landscape: rhythmic entrainment modulates..." (lines 79-82) identifies
+#   Juslin's taxonomic mechanism labels with physical forcing terms in a
+#   Langevin equation — an OpenCyc typing claim about "mechanism"/"taxonomy
+#   item" vs. "force"/"parameter modulation", not a number.
+# TYPING: "the adaptive function of high effective temperature (ADHD
+#   modifier)" (line 27) and "a high-temperature listener is not necessarily
+#   worse at music engagement" (lines 362-368) reframe a clinical diagnostic
+#   category (ADHD) as a physical noise-temperature parameter of the model —
+#   worth an OpenCyc typing/microtheory reading of "psychiatric disorder" vs.
+#   "physical quantity", not a template.
+# TYPING: "Sub-threshold activity is real and causally active but not
+#   consciously perceived" (lines 126-128) makes an ontological claim about
+#   the relation between causal activity and conscious experience — an
+#   OpenCyc typing claim about "activity" vs. "percept"/"conscious
+#   experience", not a number.
+# TYPING: "Catharsis is modelled as threshold crossing plus attractor
+#   transfer under temporarily elevated energy and noise" (lines 350-351)
+#   identifies a folk-psychological/aesthetic concept ("catharsis") with a
+#   specific dynamical-systems event signature — a mechanism-vs-phenomenon
+#   typing claim, not arithmetic.
+# TYPING: "emotional state is a continuous vector field on the body-brain
+#   system" (lines 59-61, importing the soma-field model) treats "emotional
+#   state" as a physical field rather than a mental state — an OpenCyc
+#   typing claim about "field" vs. "mental state"/"emotion", worth a
+#   microtheory reading.
+# LEAN: this paper makes no statements about the programme's own Lean
+#   (no theorem, axiom, sorry, or "Formal Status" table is cited anywhere in
+#   the frozen text, unlike P24's BRECVEMAVariational.lean citations), so
+#   there is nothing here for the ledger to check.
