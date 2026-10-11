@@ -1898,7 +1898,45 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       17 of its 25 equations are abstract gradient-flow/coupling-matrix
       restatements needing a matrix primitive, or near-exact restatements
       already drawn, including Appendix A's six-equation condensation of the
-      main text, left unmarked); papers 79 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      main text, left unmarked); papers 79 of 233;
+      11 Oct: revisited equations skipped for want of a primitive, now that
+      `matrix-heatmap` and `process-diagram` exist: soma-field-book's
+      $W_\text{C-PTSD}$ and developmental-age interpolation (2 more figures,
+      matrix before/after/difference over the text's own fear/shame/calm/anger
+      example); zoomable-somatic-field's FM-HN weight-modulation equation (1
+      more figure); mathematical-co-identification's abduction loop, the
+      Hopfield/Ising and renormalisation-group coupling matrices, and the
+      Black-Scholes closed-form call price using the new `normcdf` (4 more
+      figures, the at-the-money call checked at 6.80); swarm-propagator's
+      classical-vs-propagator matrix recursion, sparse vs dense (1 more
+      figure); universal-somatic-field's $\Sigma$-type sum, drawn with
+      `type-decomposition`'s `op=oplus` (1 more figure); 9 figures added
+      across these 5 already-marked papers;
+      usf-interacting-qft: 3 figures, 0 checks (first pass; the Hopfield
+      weight matrix, the mass-renormalisation curve with its critical
+      coupling checked at exactly zero, and the Gaussian UV regulator; the
+      bare action functionals, the Lean effective-mass definition and the
+      phase-transition table give no further concrete form, left unmarked);
+      g2-symmetry-breaking: 2 figures, 9 checks (first pass; unusually, this
+      paper states exact numbers rather than illustrative ones: $W_{G_2}$,
+      $W_8$ and $\delta W$ as matrix-heatmaps, the stated trace and all
+      eight eigenvalues of $\delta W$ checked against the text);
+      usf-euclidean-qft: 3 figures, 0 checks (first pass; the free
+      propagator, the retarded propagator and the OS4 clustering decay; the
+      generating functional, Lean theorem statements and the interacting
+      field equation give no further concrete form, left unmarked);
+      geographic-somatic-field: 3 figures, 2 checks (first pass; equation
+      (1) as in the other USF papers, the social-Hopfield sigmoid, and the
+      Toner-Tu/parakeet murmuration drawn with the generic Vicsek `flock`
+      primitive, captioned as not a simulation of the real reservoir
+      geometry or flock size); quantum-soma-penrose: 3 figures, 2 checks
+      (first pass over QUANT-EXP-1's own stated numbers: the Fear-Awe
+      coupling $W=-10$ as a $2\times2$ matrix, the linear transverse-field
+      anneal schedule, and the analytic barrier interpolation checked at
+      its stated peak; the general 8-mode Hamiltonian, the transverse-field
+      Ising Hamiltonian and the tabulated noise-equivalence curve are
+      abstract or have no scatter/table primitive, left unmarked); papers 99
+      of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [x] (11 Oct 01:55) New primitives from the skip lists: `matrix-heatmap` (a
@@ -1907,8 +1945,10 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       `expect_eigen`, `expect_sum`), `process-diagram` (named steps in a cycle or a
       line, arrows between the boxes, labels on the arrows), and `erf`, `erfc`,
       `normcdf` in the allowed maths (Black-Scholes: the at-the-money call at
-      sigma 0.1, r 5 %, T 1 checks 6.80). docs/VISUALIZE.md updated. Next: apply them
-      to the skipped equations (coupling matrices, the abduction loop, Black-Scholes).
+      sigma 0.1, r 5 %, T 1 checks 6.80). docs/VISUALIZE.md updated. Applied
+      to the skipped equations (coupling matrices, the abduction loop,
+      Black-Scholes) and onward to five not-yet-marked papers; see the
+      "Mark up the papers" note above.
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
