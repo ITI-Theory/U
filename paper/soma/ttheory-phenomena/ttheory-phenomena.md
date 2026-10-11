@@ -70,6 +70,8 @@ The master field equation of the USF at any scale $n$ is:
 
 $$(\nabla^2 + k^2(n))\,G(x, x') = \delta(x - x')$$
 
+{{Visualize | the-greens-function-is-substrate-independent | function-plot:wave | f="cos(k*x)/(4*pi*x)"; x=[0.5,12]; k=2; xlabel="distance from the source $r$"; ylabel="Re $G(r)$ (illustrative $k$)" }} The standard outgoing free-space solution of the Helmholtz equation above (real part, illustrative wavenumber $k$): the same structural form the text treats as unchanged across carriers, only $k$ and the coupling constant differing.
+
 The substrate-independence claim, in this interpretive Scale-9 setting, is
 that this equation can be used as the shared structural model of propagation
 across carriers — whether that carrier
