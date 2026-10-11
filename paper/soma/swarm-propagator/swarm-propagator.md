@@ -79,6 +79,8 @@ After K rounds:
 
 $$s^{(K)} = W^K \cdot s^{(0)}$$
 
+{{Visualize | classical-multi-agent-coordination | matrix-heatmap:generic | matrix="[[1/3,1/3,0,0,1/3],[1/3,1/3,1/3,0,0],[0,1/3,1/3,1/3,0],[0,0,1/3,1/3,1/3],[1/3,0,0,1/3,1/3]]"; matrix2="[[1,0.3679,0.1353,0.1353,0.3679],[0.3679,1,0.3679,0.1353,0.1353],[0.1353,0.3679,1,0.3679,0.1353],[0.1353,0.1353,0.3679,1,0.3679],[0.3679,0.1353,0.1353,0.3679,1]]"; titles="classical consensus $W$ (sparse, doubly-stochastic, illustrative), propagator $G$ (dense, Green's-function values, illustrative)"; expect_sum=5 }} The two matrix recursions above as illustrative $5\times5$ grids over a ring of 5 agents: the classical consensus matrix $W$ is sparse (each agent weights only itself and its two ring neighbours, as stated for the "bounded-degree connectivity" of physical swarms) and its rows sum to 1 (checked, doubly stochastic); the propagator $G$ below (the Gram matrix $G_{ij}=G(p_i,p_j)$ of the field's Green's function) is dense — every pair of agents is coupled directly in a single evaluation. No concrete entries are given for either matrix in general; the numbers are illustrative, chosen only to make the stated sparse/dense contrast visible.
+
 For $W$ to converge to a consensus state, $W$ must be doubly stochastic and
 the spectral gap of $W$ must be bounded away from zero. The convergence rate
 is $O(\log(1/\varepsilon) / \text{gap}(W))$ to reach $\varepsilon$-consensus.

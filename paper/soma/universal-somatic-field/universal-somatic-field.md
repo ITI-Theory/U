@@ -346,6 +346,8 @@ Homotopy Type Theory, the full soma-field configuration space is a
 
 $$\text{SomaField} \;\equiv\; \sum_{\sigma\,:\,\mathrm{Scale}_{20}} \mathrm{Substrate}(\sigma)$$
 
+{{Visualize | schreibers-modal-homotopy-type-theory | type-decomposition:soma | whole="SomaField"; parts="Substrate(0), Substrate(1), $\cdots$, Substrate(19)"; op=oplus }} The dependent sum above as a schematic of its 20 fibers, drawn as equal-width boxes since the equation gives no dimension for $\mathrm{Substrate}(\sigma)$ at each scale (only four of the twenty terms are shown, the rest elided by $\cdots$) — a type-level picture of the sum, not a claim about the fibers' relative sizes.
+
 where $\mathrm{Substrate}(\sigma) : \mathrm{Type}$ is the physical substrate type
 at scale level $\sigma \in \{0,\ldots,19\}$. This is analogous to a **fiber bundle**:
 the total space is the soma-field configuration space; the base space is the
