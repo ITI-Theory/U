@@ -260,6 +260,8 @@ These are not separate systems:
 
 $$\mathbf{E}(x,t) = \mathbf{E}_\text{body}(x,t) \otimes \mathbf{E}_\text{neural}(x,t)$$
 
+{{Visualize | emotions-as-a-persistent-wave-field | type-decomposition:soma | whole="$\mathbf{E}(x,t)$"; parts="$\mathbf{E}_\text{body}$, $\mathbf{E}_\text{neural}$"; op=times }} The coupling above: one field, not two systems. No dimensions are stated in the general model (equal widths).
+
 ![The Soma-Field: somatic and neural waves couple to form a single unified emotional field.](figures/fig_coupled_waves.pdf){width=90%}
 
 ## The Perception Threshold
@@ -268,6 +270,8 @@ Not all field activity is consciously perceived. Each emotional mode $i$ has a
 threshold $T_i$:
 
 $$\text{Emotion } i \text{ is consciously perceived} \iff |\mathbf{E}_i(t)| > T_i$$
+
+{{Visualize | the-perception-threshold | function-plot:soma | f="abs(sin(x)*(0.6 + 0.5*exp(-(x-9)^2/4)))"; x=[0,18]; hline=0.8; xlabel="time $t$"; ylabel="$|E_i(t)|$" }} A field mode that is always active and crosses the threshold $T_i$ (the line) only during a burst: only then is it consciously perceived. Illustrative.
 
 Below threshold: the emotion is sub-perceptual. It exists, it influences behaviour and
 physiology, but it does not surface as a named conscious feeling. This is the author's
@@ -334,6 +338,8 @@ mode $j$ on mode $i$:
 The field evolves according to the energy gradient plus noise:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}) + \eta(t)$$
+
+{{Visualize | the-interaction-of-emotional-modes | energy-landscape:soma | U="x^4/4 - x^2/2 + 0.035*x"; x=[-1.8,1.8]; ball=-1; expect_minima="-1.017,0.982" }} A one-mode slice of the energy landscape $H$: two valleys separated by a barrier. The state rolls downhill (the $-\nabla H$ term) and noise $\eta$ can carry it over the barrier. Illustrative.
 
 The noise term $\eta(t)$ represents the continuous sub-perceptual fluctuations. The
 field is never still. This is not pathology; it is physics.
@@ -428,6 +434,8 @@ $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
 
 $$K_{\text{trauma}}(\tau) = \sum_{k} A_k\, e^{-\tau / \tau_k}$$
 
+{{Visualize | complex-ptsd-memory-kernel-and-asymmetric-coupling | function-plot:soma | f1="0.6*exp(-x/2) + 0.4*exp(-x/20)"; name1="kernel"; f2="0.6*exp(-x/2)"; name2="fast part"; f3="0.4*exp(-x/20)"; name3="slow part"; x=[0,60]; xlabel="time since the event $\tau$"; ylabel="$K(\tau)$" }} A two-term memory kernel: a fast part that fades in days and a slow part that lingers. Illustrative amplitudes and time constants.
+
 This is a decaying kernel. The past does not vanish; it rings in the model's sense of a
 persisting echo. Therapeutic processing can be described as the progressive reduction of
 $A_k$ — the amplitude of the echo — and the shortening of $\tau_k$ — the time over which
@@ -446,6 +454,8 @@ of an asymmetric coupling matrix.
 ADHD modifies the **effective temperature** of the field:
 
 $$\gamma_{\text{ADHD}}\, \dot{\mathbf{e}}(t) = -\nabla H + \sqrt{2 D_{\text{ADHD}}}\, \xi_{1/f}(t)$$
+
+{{Visualize | adhd-high-temperature-low-damping-pink-noise | function-plot:soma | f="x^(-alpha)"; vary=alpha:0,1,2; x=[0.01,10]; logx=true; logy=true; xlabel="frequency $f$"; ylabel="$S_\xi(f)$" }} The $1/f$ noise $\xi_{1/f}$ above: white ($\alpha=0$), pink ($\alpha=1$) and red ($\alpha=2$) spectra on logarithmic axes; ADHD is hypothesised near pink.
 
 with $\gamma_{\text{ADHD}} < \gamma_0$ (less damping) and $D_{\text{ADHD}} > D_0$
 (more noise). The noise has $1/f$ spectral structure — long-range temporal correlations
