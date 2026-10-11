@@ -2810,9 +2810,9 @@ but nothing else finds them). Plan:
 - Parked: QP simulation (the arithmetic answered the threshold questions),
   HermiT explanations (the Lean route replaced the OWL one), sketches.
 
-## ISS-056: Sherlock claims registry and validator — OPEN
+## ISS-056: Sherlock claims registry and validator — CLOSED
 {{Tags area.proofs}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-11, epic=ISS-055-sherlock}}
 
 Epic ISS-055, decisions D1-D4. `registry/affidavits/<doc>.yaml`: the frozen
 source (commit, SHA-256), and per claim: id, quote, lines, kind, reading
@@ -2820,23 +2820,23 @@ source (commit, SHA-256), and per claim: id, quote, lines, kind, reading
 theorem, disposition (open / fixed in version / kept as exhibit). A validator
 (`make -C sherlock check`) ties each finding to a compiled theorem; the
 findings report reads the registry.
-- [ ] Schema and validator; `TTheoryVocabularyMt` (shared programme concepts).
-- [ ] Migrate exhibits A-D (The Tensor, containers, Claude advert, ZSF).
+- [x] Schema and validator; `TTheoryVocabularyMt` (shared programme concepts). (11 Oct: `sherlock/registry.py`, `make -C sherlock check`.)
+- [x] Migrate exhibits A-D (The Tensor, containers, Claude advert, ZSF).
 
-## ISS-057: Sherlock chain finder — OPEN
+## ISS-057: Sherlock chain finder — CLOSED
 {{Tags area.proofs}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-11, epic=ISS-055-sherlock}}
 
 Epic ISS-055. Aesop does not guess the middle collection of a `genls` chain,
 so chains are written link by link. `sherlock/chain.py A B [MT]` searches the
 KRF (`isa`, `genls`, `disjointWith`, `typeGenls`, `genlPreds`, `genlInverse`)
 and prints the Lean proof term, or the disjointness that makes two
 collections incompatible. Later perhaps a Lean tactic.
-- [ ] chain.py with paths and disjointness; use it in the existing affidavits.
+- [x] chain.py with paths and disjointness; use it in the existing affidavits.
 
-## ISS-058: Sherlock programme-wide ledger — OPEN
+## ISS-058: Sherlock programme-wide ledger — CLOSED
 {{Tags area.proofs, release}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-11, epic=ISS-055-sherlock}}
 
 Epic ISS-055, D5. Every paper's and book's claims about the programme's own
 Lean (named theorems and modules, "axiom", "sorry", "kernel-checked")
@@ -2845,7 +2845,7 @@ and reports each declaration's kind, its axioms (`#print axioms`), and
 whether it exists; the report lists mismatches per document. ZSF says "five
 real sorries"; a scan counts 14 uncommented `sorry` tokens in
 `paper/proofs`: to settle.
-- [ ] Extractor, Lean judge, report; replaces `Ledger/ZSF.lean`'s fixed list.
+- [x] Extractor, Lean judge, report; replaces `Ledger/ZSF.lean`'s fixed list. (11 Oct: all affidavit documents by default; 171 citations, 16 disagree; about 18 min.)
 
 ## ISS-059: An affidavit for every paper and book — OPEN
 {{Tags area.proofs, area.books, release}}
@@ -2855,35 +2855,41 @@ Epic ISS-055 (document list in the epic file). Per document: freeze, extract
 with the saved prompt (D7), verify, registry entry, Lean (numbers in core
 Lean, typing against OpenCyc), findings; the author disposes. About 1-2 hours
 each.
-- [ ] Papers P1-P24 (P8 and P11 done).
+- [ ] Papers P1-P24: 23 of 24 done (11 Oct); P6 soma-field-book (2,842 lines) remains.
 - [ ] The fifteen domain books, the course book, CS1, D1, D2.
 - [ ] `make -C sherlock affidavits` in the release gate.
-- [ ] SH1 updated: exhibit D (ZSF), the programme-wide summary.
+- [ ] SH1 v2 (author, 11 Oct 21:30: "is a new paper needed?"; next): exhibit D (ZSF) and the
+      programme-wide results (24 affidavits, 270 kernel checks, the real findings by kind,
+      the ledger's 16 disagreements, values across documents, units, delta, structure
+      mapping): the paper that makes the "compiler for papers" claim.
+- [ ] Books catch up with Sherlock built: Computer Science ("a future Sherlock" becomes
+      what was built, with its costs); the course ch. 15 one worked example (P4's "seven
+      sorries", five in the Lean). Philosophy and Law: ISS-064.
 
-## ISS-060: Sherlock mapping assistant (words to OpenCyc constants) — OPEN
+## ISS-060: Sherlock mapping assistant (words to OpenCyc constants) — CLOSED
 {{Tags area.proofs}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-11, epic=ISS-055-sherlock}}
 
 Epic ISS-055. The weakest link is which OpenCyc constant a word means.
 `sherlock/lookup.py WORD` searches NextKB's lexicon (NuLex
 `denotation`, FrameNet links, `prettyString`) and constant names, and lists
 candidates with their `comment`, `isa` and key `genls`, for the affidavit's
 author to choose; the choice is recorded in the registry.
-- [ ] lookup.py; mappings recorded per claim.
+- [x] lookup.py; mappings recorded per claim.
 
-## ISS-061: Values quoted across documents — OPEN
+## ISS-061: Values quoted across documents — CLOSED
 {{Tags area.proofs, area.theory}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-11, epic=ISS-055-sherlock}}
 
 Epic ISS-055, D2-D3. Numeric claims in the registry as `quotedValue doc
 quantity value unit`; a check groups by quantity across documents and
 reports disagreements (e.g. synapse counts, Ω_DM = 3/11, scale-level
 counts, N(σ)). Filled in while ISS-059 runs.
-- [ ] Quantity vocabulary; cross-document report.
+- [x] Quantity vocabulary; cross-document report (`values.md`: 201 quantities, 5 differ).
 
-## ISS-062: OpenCyc's simple rules into Lean — OPEN
+## ISS-062: OpenCyc's simple rules into Lean — CLOSED
 {{Tags area.proofs}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-11, epic=ISS-055-sherlock}}
 
 Epic ISS-055, D6. NextKB has 769 `implies` sentences, now skipped by
 gen_krf.py. Translate the Horn-shaped ones (a conjunction of atoms implies an
@@ -2891,7 +2897,7 @@ atom, variables universally quantified) into Aesop rules in their
 microtheory's rule set; count the rest. Changes the generated KB: overnight
 rebuild by the author. Check whether the exhibit B gap (a showing performs
 the score) closes.
-- [ ] Translator, rebuild, affidavits re-run.
+- [x] Translator, rebuild, affidavits re-run (`gen_rules.py`, 408 Horn rules in `CycRules`).
 
 ## ISS-063: Structure mapping over affidavits — OPEN
 {{Tags area.proofs, area.theory}}
@@ -2903,7 +2909,8 @@ MAC/FAC retrieval ("where else is this structure claimed?"). First tests:
 The Tensor's three containers (after the Body and Session phases are
 written, ISS-053), and pairs of papers claiming the same structure at
 different scales (ZSF's "same as always").
-- [ ] SME core; MAC/FAC; the two tests.
+- [x] SME core (`sme.py`; River Film vs the 2021 film, 66% shared).
+- [ ] MAC/FAC retrieval; the two tests (three containers; ZSF's "same as always").
 
 ## ISS-064: The Law book's affidavit chapter and the Russell reading — OPEN
 {{Tags area.books}}
@@ -2915,9 +2922,15 @@ Philosophy (C2-book-06): Russell's *History of Western Philosophy* read as a
 sequence of affidavits about the same questions, compared by structure
 mapping (ISS-063).
 - [ ] Law chapter; Philosophy reading.
+- [ ] Philosophy (11 Oct): Sherlock is no longer "proposed": tense and results;
+      Moriarty/DOT as an actual role (Popper); SH1's "consensus is not mathematics"
+      (the Claude advert, Oliver Twist) read through Russell's theory of
+      descriptions ("On Denoting", 1905) and Frege's sense and reference, with
+      OpenCyc's unique names assumption as one engineering answer. Do with the
+      Russell reading.
 
 ## ISS-065: Sergeant Major: admin reminders pushed to H-AL, a Maintenance deck, a releasable voice — OPEN
-{{Tags area.instrument area.admin}}
+{{Tags area.instrument, area.ops}}
 {{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-065-sergeant-major}}
 
 Author, 11 Oct 20:31: "my ADHD makes me the worst admin guy ever"; the
@@ -2930,7 +2943,7 @@ prj/.adm/issues/ISS-065-sergeant-major.md.
 - [ ] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
 
 ## ISS-066: Names and third-party characters: Sherlock, the Monster, the Wizard — OPEN
-{{Tags area.admin}}
+{{Tags area.ops}}
 {{Fields date.created=2026-10-11, date.start=2026-10-11, date.end=, epic=}}
 
 Author, 11 Oct 20:47: now Sherlock is alive, is the name safe (old, but the
@@ -2969,3 +2982,16 @@ legal advice; the checks and decisions:
 - Mentions in prose are references, not names of our things: low risk,
   left (Penny from *The Big Bang Theory* in PROGRAMME.md; the Pensieve in
   The Tensor and FIELD-NOTES).
+
+## ISS-067: SH2: can a language model do Sherlock's job? — OPEN
+{{Tags area.papers}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Author, 11 Oct: a second Sherlock paper, after the experiments (which run only at
+the end of a usage period). NotebookLM (Gemini) with all of OpenCyc, Sherlock's
+slice pack and the papers as sources (notebook Sherlock-UAT; exp0 Q1-Q2: it
+retrieves facts but does not derive), against Sherlock's kernel-checked answers;
+then a locally run model. D11: language models at both ends, Lean in the middle.
+- [ ] Experiments: exp0 Q3-Q5, exp1, exp2 (`sherlock/nlm_test.py`), one per period.
+- [ ] A local model on the same questions (ISS-048).
+- [ ] Write SH2: scores, where the model was right, wrong or could not say.

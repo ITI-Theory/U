@@ -48,10 +48,11 @@ bibliography: ../../../paper/bibliography.bib
 csl: ../../../paper/apa-7th.csl
 include-in-header:
   - templates/textbook-a4-header.tex
+  - ../../../lib/format/ttheory-titlepage.tex
 variables:
   geometry: a4paper,top=22mm,bottom=24mm,inner=24mm,outer=22mm
   fontsize: 11pt
-  linestretch: 1.1
+  linestretch: 1.3
 filters:
   - ../../../lib/format/registry.lua
   - ../../../lib/format/unicode-glyphs.lua

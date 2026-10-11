@@ -23,9 +23,9 @@ help:
 	$(info   fetch       download NextKB into bld/sherlock/raw and check SHA-256)
 	$(info   lean-gen    NextKB to Lean, one module per microtheory (MT="BiologyMt ..." limits it))
 	$(info   lean        build the core and all microtheories, one Lean process at a time (hours, several GB))
-	$(info   affidavits  check the affidavits in Affidavits/, after lean; then check; reports in bld/sherlock/)
+	$(info   affidavits  check the affidavits in Affidavits/, after lean; then check and ledger; reports in bld/sherlock/)
 	$(info   check       the claims registry: sources, quotes, cited theorems; affidavits.md, values.md)
-	$(info   ledger      documents' claims about the programme's Lean (LEDGER_DOCS=...); ledger.md)
+	$(info   ledger      documents' claims about the programme's Lean (all affidavits' documents, or LEDGER_DOCS=...); ledger.md)
 	$(info   delta       ID=<affidavit> [REV=...]: what an edit did to its claims; delta-<ID>.md)
 	$(info   rules-gen   OpenCyc's Horn rules to Lean (CycRules), no facts rebuild)
 	$(info   all         fetch lean-gen rules-gen lean affidavits)
@@ -63,6 +63,7 @@ affidavits:
 	done
 	lake build Affidavits
 	$(MAKE) check
+	$(MAKE) ledger
 
 # The claims registry (registry/affidavits): schema, frozen sources, quotes; every cited
 # theorem exists in the compiled affidavits; the template checks (numbers as data,
@@ -74,8 +75,9 @@ check:
 	LEAN_NUM_THREADS=2 lake env lean Tools/Checks.lean
 	cd .. && $(PYTHON) sherlock/registry.py report
 
-# Documents' claims about the programme's own Lean (DOCS=... paper sources).
-LEDGER_DOCS ?= ../paper/soma/zoomable-somatic-field/zoomable-somatic-field.md
+# Documents' claims about the programme's own Lean: every document with an affidavit
+# (registry/affidavits), or LEDGER_DOCS=... paper sources.
+LEDGER_DOCS ?=
 ledger:
 	cd .. && $(PYTHON) sherlock/ledger.py extract $(patsubst ../%,%,$(LEDGER_DOCS))
 	cd .. && $(PYTHON) sherlock/ledger.py judge

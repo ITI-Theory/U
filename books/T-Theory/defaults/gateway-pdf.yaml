@@ -20,7 +20,7 @@ variables:
 highlight-style: tango
 include-in-header:
   - ../../paper/journal.tex
-  - ttheory-titlepage.tex
+  - ../../lib/format/ttheory-titlepage.tex
   - ttheory-packages.tex
 filters:
   - filters/ttheory-direct.lua

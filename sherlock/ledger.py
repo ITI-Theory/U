@@ -1,6 +1,7 @@
 """Sherlock's ledger: what documents say about the programme's own Lean.
 
-    python sherlock/ledger.py extract paper/soma/<doc>/<doc>.md ...   # -> bld/sherlock/ledger-claims.json
+    python sherlock/ledger.py extract [paper/soma/<doc>/<doc>.md ...] # -> bld/sherlock/ledger-claims.json
+                                       # (no files: every document with an affidavit)
     python sherlock/ledger.py judge                                    # -> bld/sherlock/ledger/<Module>.json
     python sherlock/ledger.py report                                   # -> bld/sherlock/ledger.md
 
@@ -70,7 +71,19 @@ def cells(line: str) -> list[str]:
     return [c.strip() for c in line.strip().strip("|").split("|")]
 
 
+def registry_documents() -> list[str]:
+    """The source file of every affidavit in registry/affidavits (that exists in the repo)."""
+    import yaml
+    files = []
+    for f in sorted((U / "registry" / "affidavits").glob("*.yaml")):
+        src = ((yaml.safe_load(f.read_text(encoding="utf-8")) or {}).get("source") or {}).get("file")
+        if src and (U / src).exists() and src not in files:
+            files.append(src)
+    return files
+
+
 def extract(files: list[str]) -> int:
+    files = files or registry_documents()
     items = []
     for f in files:
         path = U / f

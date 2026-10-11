@@ -282,6 +282,30 @@ else
   warn "node not found: mind explorer check skipped"
 fi
 
+hdr "21. Sherlock affidavits (registry/affidavits, ISS-059)"
+# With OpenCyc built (make -C sherlock all, hours): the registry, the cited theorems and every
+# template check in the Lean kernel. Without it: the registry and the quotes only.
+# Findings and ledger disagreements are the author's to dispose of: they warn, never fail.
+if [[ -d sherlock/.lake/build/lib/lean/CycKB ]]; then
+  SHERLOCK_CHECK=$(make -s -C sherlock check 2>&1)
+  if [[ $? -eq 0 ]]; then
+    ok "Affidavits: $(echo "$SHERLOCK_CHECK" | grep -oE '[0-9]+ of [0-9]+ kernel-checked' | head -1)"
+  else
+    fail "Sherlock affidavits do not check: make -C sherlock check"
+    echo "$SHERLOCK_CHECK" | tail -n 8 | sed 's/^/    /'
+  fi
+else
+  if py sherlock/registry.py check >/dev/null 2>&1; then
+    warn "OpenCyc not built: registry and quotes checked, the Lean checks skipped (make -C sherlock all)"
+  else
+    fail "Sherlock registry: broken source, quote or schema: python sherlock/registry.py check"
+  fi
+fi
+if [[ -f bld/sherlock/ledger.md ]]; then
+  LEDGER=$(grep -c '^\- line ' bld/sherlock/ledger.md || true)
+  [[ "$LEDGER" -gt 0 ]] && warn "Ledger: $LEDGER citations disagree with the Lean (bld/sherlock/ledger.md; make -C sherlock ledger)"
+fi
+
 # ── Summary ────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════"

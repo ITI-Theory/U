@@ -31,13 +31,12 @@
 % A4 single column: long boxes continue on the next page rather than leaving a gap
 % A box splits across pages only if at least six lines fit before the break;
 % otherwise it moves whole to the next page (no stub with an open bottom edge).
-\newtcolorbox{textbookbox}[2][]{enhanced,breakable,lines before break=6,colback=textbookgray,colframe=#2,arc=1.5mm,left=1.5mm,right=1.5mm,top=1mm,bottom=1mm,fonttitle=\sffamily\bfseries,title={#1}}
+\newtcolorbox{textbookbox}[2][]{enhanced,breakable,lines before break=6,before skip=5mm,after skip=5mm,colback=textbookgray,colframe=#2,arc=1.5mm,left=2mm,right=2mm,top=2mm,bottom=2mm,fonttitle=\sffamily\bfseries,title={#1}}
 % Parts of the course book
 % \coursepartintro is set just before each \part and printed on the part page
 \newcommand{\coursepartintro}{}
 \titleformat{\part}[display]{\centering\sffamily\bfseries\color{textbookblue}\Huge}{\partname\ \thepart}{0.6em}{\Huge}[\vspace{2.5em}\begin{minipage}{0.72\textwidth}\normalsize\normalfont\color{black}\raggedright\coursepartintro\end{minipage}]
 % contents: room for chapter numbers such as M1 and 12
 \makeatletter\patchcmd{\l@chapter}{1.5em}{2.4em}{}{}\patchcmd{\l@section}{2.3em}{3.0em}{}{}\makeatother
-% Title recto, blank verso, contents recto (paper/FORMAT.md, shared rules)
-\let\coursemaketitle\maketitle
-\renewcommand{\maketitle}{\coursemaketitle\clearpage\thispagestyle{empty}\null\clearpage}
+% Title recto (the shared [T] title page, lib/format/ttheory-titlepage.tex), blank verso,
+% contents recto (paper/FORMAT.md, shared rules)
