@@ -94,6 +94,9 @@ The social-intelligence paper writes the dyadic coupling matrix as
 $$
 W_{AB}=\begin{pmatrix}W_8 & J\\J^\top&W_8\end{pmatrix},
 $$
+
+{{Visualize | synchronisation-rapport-and-interpersonal-fields | matrix-heatmap:neural | matrix="[[1,0,0.3,0.1],[0,1,0.1,0.3],[0.3,0.1,1,0],[0.1,0.3,0,1]]"; rows="A1,A2,B1,B2"; cols="A1,A2,B1,B2" }} An illustrative small version of the block matrix above, with two internal states per person instead of eight: the diagonal blocks are each person's own coupling $W_8$, the off-diagonal blocks the cross-person coupling $J$. The real block size and the coupling strengths are set by the fitted dyadic model, not shown here.
+
 with the resolvent form $G_{AB}(\lambda)=(\lambda I_{16}-W_{AB})^{-1}$. The poles or eigenvalues of this coupled system are interpreted as shared attractor modes. In prose: rapport occurs when two people occupy a stable shared mode. In evidence terms, `DyadicField.lean` defines the block matrix and proves a narrow symmetry/existence statement for a dyadic propagator matrix, while broader dyadic-energy claims in that file still have open proof obligations; the claim that real rapport is this propagator is a social and physiological hypothesis `open-hypothesis`.
 
 This model is strongest when it is treated as a measurement proposal. It suggests that dyads should have estimable coupling matrices, that some pairs should show larger or cleaner leading modes, and that these modes should predict independent measures of rapport: self-report, observer coding, conversational smoothness, repair after rupture, therapeutic alliance, or joint task performance. It also predicts that physiological synchrony should not be a simple yes/no marker but a structured relation among frequency, phase, coupling, context, and task `open-hypothesis`.

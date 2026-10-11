@@ -70,9 +70,13 @@ An operator in this book is not a hidden essence. It is a rule for response. If 
 
 $$H(e) = -\tfrac12 e^\top W e - b^\top e,$$
 
+{{Visualize | operator-language-for-psychiatry | energy-landscape:neural | U="-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2)"; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="$H$" }} An illustrative one-dimensional slice through the energy function above: several valleys, each a stable affective state under this reading. The actual number, depth, and position of the valleys are set by the coupling matrix $W$ and bias $b$, which this general form leaves unspecified.
+
 then $W$ encodes co-activation and inhibition, $b$ encodes bias, and the field evolves under a gradient term, noise, and input:
 
 $$\gamma \dot e = -\nabla H(e) + \sqrt{2D}\,\xi(t) + J(t).$$
+
+{{Visualize | operator-language-for-psychiatry | distribution:neural | pdf="exp(-(-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2))/D)"; D=0.15; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="stationary probability density" }} The stationary (Boltzmann-like) distribution implied by the Langevin equation above over the same illustrative landscape, with input $J(t)=0$ and an illustrative noise level $D=0.15$: the state settles mostly into the deepest well. A larger $D$ (higher effective temperature) would spread the distribution across the wells instead; neither value is measured.
 
 That compact notation does not claim that a person is a network. It says that a person's affective dynamics may be modelled, for some purposes, as movement through a landscape with basins, barriers, and forcing terms `derived-under-assumptions`. The model is useful only if it helps clinicians and readers ask better questions than the old vocabulary allows.
 

@@ -97,6 +97,8 @@ $$
 \sigma_{ij} = \lambda\,\delta_{ij}\,\partial_k u_k+\mu(\partial_i u_j+\partial_j u_i),
 $$
 
+{{Visualize | seismic-greens-functions-and-the-master-equation | convolution:earth | input="exp(-((t-0.3)/0.08)^2)"; kernel="exp(-((t-3)/0.15)^2) + 0.6*exp(-((t-6)/0.3)^2)"; x=[0,12]; input_label="source pulse"; kernel_label="toy Green's function $G$ (P then S)"; output_label="seismogram $= G * $ source"; xlabel="time (s, illustrative)" }} An illustrative reduction of the equation above to a single receiver: a narrow source pulse convolved with a toy Green's function kernel carrying a sharp fast (P) arrival and a broader, larger, slower (S) arrival gives an illustrative seismogram. The real Green's tensor $G_{ij}$ carries receiver direction, path, attenuation, and boundary effects that this scalar toy omits.
+
 with density $\rho$, Lamé parameters $\lambda,\mu$, stress tensor $\sigma_{ij}$, and body force $f_i$. In a heterogeneous anisotropic Earth the constitutive tensor, density, attenuation, and interfaces become spatially dependent, and the scalar Helmholtz equation becomes a reduced or idealised member of a wider elastodynamic family. The relevant object is the Green's tensor, not merely a scalar $G$. It carries source and receiver components, phase conversions, boundary interactions, and polarisation.
 
 A seismic Green's function can be written conceptually as $G_{ij}(x,t;x',t')$, the $i$-component of displacement at the receiver caused by an impulsive force in the $j$-direction at the source. In the frequency domain and under appropriate assumptions this becomes the resolvent of the elastic operator. It is the field's impulse response in exactly the sense used by mathematical physics. This is why the programme's Green-propagator language is not foreign to seismology `derived-under-assumptions`. It is a relabelling of something the field already uses, with the warning that the real elastic operator is richer than the scalar textbook form.
@@ -211,6 +213,8 @@ $$
 P_{\text{nucl}}\approx \exp\left[-\frac{2}{\hbar_{\text{geo}}}
 \int_{q_1}^{q_2}\sqrt{V(q)-E}\,dq\right]
 $$
+
+{{Visualize | fluids-temperature-and-effective-stress | energy-landscape:earth | U="x^2/2 - 0.6*x^3/3"; x=[-1,2.5]; ball=0; barrier=true; xlabel="reaction coordinate $q$ (illustrative)"; ylabel="$V(q)$" }} An illustrative shape for the reduction coordinate $q$: a locked state in the well and a barrier the state must cross to nucleate. The exponential in the equation above penalises crossing this barrier at a rate set by $\hbar_{\text{geo}}$; the real potential, its barrier height and its reaction coordinate are not yet specified from laboratory or field data.
 
 has the right exponential sensitivity to barrier shape, but its exact square-root action is imported from semiclassical tunnelling. For geological systems the more defensible claim is that an exponential action law may describe nucleation probability under a suitable reduction `open-hypothesis`. Literal quantum terminology should be avoided unless a genuine quantum mechanism is being asserted, which this book does not assert.
 
