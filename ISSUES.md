@@ -2708,6 +2708,32 @@ forbus2017analogy, chaudhri2025knowledge):**
         than "emotional modes", or map Safety to Security; three operating
         modes; one T2 time; one score table) or keep it as Sherlock's first
         exhibit.
+- [x] Sherlock public in U and paper SH1 (11 Oct): `sherlock/` (moved from
+      U.Ops; the built KB reused, no rebuild), `docs/SHERLOCK.md` (how to
+      write an affidavit), `make -C sherlock affidavits` (one module at a
+      time, stops on errors, then `bld/sherlock/findings.md`). SH1
+      `paper/soma/sherlock-affidavit/` (`make -C paper sh1`; Dist/PAPERS.yaml
+      SH1, pending review): exhibit A The Tensor (frozen at 2d36eaf),
+      B "the same film" (OpenCyc's `genlWorks`, story to plot: the same
+      score, not the same film; OpenCyc's own slip `genlInverse genlWorks
+      parts`), C the Claude advert (work vs showing).
+- [x] Exhibit D, ZSF (P11, frozen at 3c97a44; the author's "start here"
+      paper), `Affidavits/ZSF/`, `Ledger/ZSF.lean`. Claims extracted by an
+      agent (8 candidates, 1 false: the Scale 20 propagator is a 1/r form),
+      each checked: 21 levels but "twenty" five times; the dial not
+      monotone (Scale 14, 10³ m, after Scale 13, 10¹¹ m); "twenty-five
+      orders of magnitude" between Scales 4 and 6 is eight; N(σ=2) 10² in
+      eq. (10) and the abstract, 10⁵ in the Scale 2 entry; Scale 13 gives
+      10⁶ and 10⁷ modes; "the five axioms in §10", a table of four;
+      "O(N·K) to O(N²) with K = 1" needs K > N; "a conscious percept is a
+      pole in the propagator" read as identity proves `falsum` (an event of
+      perceiving is a TemporalThing, a pole a mathematical object). The
+      ledger asks the programme's own Lean: of the four "axioms" only
+      `quant_exp_1` is one (`universe_is_11D_organism` is a def, line 774
+      calls it an axiom; two are theorems), and the cited files hold three
+      axioms the table omits. Passing checks: 11 = 4+3+1+3, 7/11+3/11+1/11,
+      the 20 transition steps, the trauma gradient sign. Author to decide:
+      fix P11 or keep it as an exhibit.
 - [ ] The paper's own disclaimers become microtheories (ArtisticDesignMt vs
       ClinicalMt): Sherlock checks that no clinical-context claim is made
       without evidence. The affidavit, and the legal use.
@@ -2746,3 +2772,25 @@ the tools themselves not needed).**
 - Text to facts from NuLex/FrameNet: medium; QRG's parser is not the part we
   get, so the LLM does the parsing and the semantic translations check it.
 - Sketch understanding: hard; not before the rest works.
+
+**Revisited 11 Oct, from experience.** Engineering was overestimated (OpenCyc
+in Lean took about a day plus one overnight build, not weeks; an affidavit
+1.5 hours); the bottleneck is reading: extracting claims (an agent helps, 1
+false positive in 8, so every candidate is checked) and mapping words to
+OpenCyc constants. Findings per hour: the document's own numbers first, then
+claims about the Lean against the Lean (ledger), then OpenCyc typing (fewer,
+but nothing else finds them). Plan:
+- [ ] Essential: chain finder (KRF search emits the `genls` proof chain;
+      Aesop does not guess the middle), half a day.
+- [ ] Essential: programme-wide ledger (every paper's "axiom", "sorry",
+      "kernel-checked" claims against the Lean; ZSF says "five real sorries",
+      a scan counts 14 uncommented `sorry` tokens, to check), a day.
+- [ ] Essential: an affidavit per paper with the saved extraction prompt,
+      1-2 hours each; `make -C sherlock affidavits` in the release gate.
+- [ ] Next: values quoted across papers (cross-paper consistency, MAC/FAC
+      lite); a mapping assistant from NextKB's lexicon; OpenCyc's 769
+      `implies` rules (the simple ones) into Lean, days each.
+- [ ] Later: SME (after the Body and Session phases are written); the Law
+      book's affidavit chapter and the Russell reading (writing, not tools).
+- Parked: QP simulation (the arithmetic answered the threshold questions),
+  HermiT explanations (the Lean route replaced the OWL one), sketches.

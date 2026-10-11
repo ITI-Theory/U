@@ -57,6 +57,18 @@ def affidavit(path: Path) -> list[str]:
         lines.append(f"- steps (proved): {', '.join(steps)}")
     return lines + [""]
 
+def ledger(path: Path) -> list[str]:
+    """A ledger file: each #eval check, with the comment line(s) just above it."""
+    src = path.read_text(encoding="utf-8")
+    header = re.search(r"/-!\s*#\s*(.+)", src)
+    lines = [f"## {header.group(1).strip() if header else path.stem}", "",
+             f"`{path.relative_to(HERE).as_posix()}` (programme's own Lean, root package)", ""]
+    for m in re.finditer(r"((?:^--[^\n]*\n)+)#eval", src, re.M):
+        note = clean(" ".join(l[2:] for l in m.group(1).splitlines()))
+        lines.append(f"- **ledger** (Lean environment checked): {note}")
+    return lines + [""]
+
+
 def main() -> int:
     files = sorted((HERE / "Affidavits").rglob("*.lean"))
     if not files:
@@ -68,6 +80,8 @@ def main() -> int:
            "not provable (from what OpenCyc holds; not the same as false).", ""]
     for f in files:
         out += affidavit(f)
+    for f in sorted((HERE / "Ledger").glob("*.lean")):
+        out += ledger(f)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
     n = sum(1 for l in out if l.startswith("- "))
