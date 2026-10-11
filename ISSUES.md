@@ -3105,23 +3105,23 @@ register:
 - **The Chocolate Biscuit Monster** (the author is from the UK): plain English,
   short, a cup of tea in reach. Its test, the dunk test: can the idea be told
   before the biscuit goes soft (about a minute)?
-- **The Ricer** (working name; alternatives: The Neon Ricer, The Rice Monster,
-  The Glow Monster), "sort of the author": loves neon, glowing grids and green
-  code rain, tiling desktops ("ricing": customising a desktop's look); wants to
-  see the real thing, the programme's Lean, in the towers of code (ISS-071).
+- **The Root Monster** (named by the author, 11 Oct 23:10), "sort of the author":
+  a hacker who rices his Linux (neon terminals, tiling windows, dotfiles polished
+  for hours; glowing grids and green code rain). Root twice: the Linux superuser,
+  and he wants the roots, the axioms under every tower. Reads the Lean before the
+  prose; wants to see the programme's Lean in the towers of code (ISS-071).
 - [ ] Monster personas in the UAT worksheets and the reader register (`reader=`).
 - [ ] Settings: the user sets their own display name for each layer and persona
       (Sherlock, the Wizard, the Monster and its kinds, H-AL, MOTHER, the
       screens' roles). Display only: the ids, the files and the published
       defaults stay as they are; a name is kept in the browser (localStorage),
       never shipped (so the defaults stay clear of third-party names, ISS-066).
-- [ ] The author picks the Ricer's name.
 
-## ISS-071: The towers of code: a walk-through of the programme's Lean (the Ricer's wish) — OPEN
+## ISS-071: The towers of code: a walk-through of the programme's Lean (the Root Monster's wish) — OPEN
 {{Tags area.app, area.proofs}}
 {{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
 
-Author, 11 Oct 23:02: the Ricer "really wants to see a demo of the Lean model of
+Author, 11 Oct 23:02: the Root Monster "really wants to see a demo of the Lean model of
 [T]-Theory in the Towers, or close to". Today the city of code (11D, ISS-052)
 draws Sherlock's concepts as towers, taller for stronger evidence. Copilot's
 proposal, in steps:
@@ -3140,7 +3140,7 @@ proposal, in steps:
       the papers that cite it from the ledger, Sherlock's verdicts).
 - [ ] On the horizon, OpenCyc's skyline (1.37M facts, 678 microtheories), with
       `EmotionCyc` as the bridge between the programme's towers and it.
-- [ ] A tour, the Ricer's tour: into UniversalSomaticField, up to
+- [ ] A tour, the Root Monster's tour: into UniversalSomaticField, up to
       `consciousness_dichotomy`, down its beams to the axioms, past the red floors,
       across the bridge to OpenCyc.
 - [ ] Later, desktop only: PROVE on a floor asks the MOTHER bridge to run Lean on
