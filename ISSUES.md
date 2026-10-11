@@ -2911,6 +2911,18 @@ written, ISS-053), and pairs of papers claiming the same structure at
 different scales (ZSF's "same as always").
 - [x] SME core (`sme.py`; River Film vs the 2021 film, 66% shared).
 - [ ] MAC/FAC retrieval; the two tests (three containers; ZSF's "same as always").
+      Author, 11 Oct 21:35: prioritised ahead of SH1 v2 and the books (it may change
+      claims across the project). Order: (1) MAC/FAC over a case library and the ZSF
+      test; (2) OWL classes as Lean types: a design note and a spike, the author
+      decides; (3) SH1 v2 with both; (4) the books; (5) the containers test once the
+      Body and Session phases exist (Copilot drafts them from The Tensor for the
+      author to correct; ISS-053).
+- [ ] OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
+      programme's own collections (TTheoryVocabularyMt and what it inherits, a few
+      hundred) as Lean types; genls as coercions, disjointness as no common member;
+      a category error becomes a type error in the programme's Lean, the concept
+      registry and the app's type guard. Design note and spike on Emotion, Percept,
+      Pole first.
 
 ## ISS-064: The Law book's affidavit chapter and the Russell reading — OPEN
 {{Tags area.books}}
@@ -2995,3 +3007,29 @@ then a locally run model. D11: language models at both ends, Lean in the middle.
 - [ ] Experiments: exp0 Q3-Q5, exp1, exp2 (`sherlock/nlm_test.py`), one per period.
 - [ ] A local model on the same questions (ISS-048).
 - [ ] Write SH2: scores, where the model was right, wrong or could not say.
+
+## ISS-068: Release builds and Sherlock in CI on a large runner — OPEN
+{{Tags area.build, area.ops}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+
+Author, 11 Oct 21:37 ("fire up a really fast machine in the GitHub cloud?"). Not
+now: the current bottleneck is review and agent time, not CPU. Worth it at the
+release rebuild (everything rebuilt anyway) and for Sherlock as a compiler in CI.
+Where compute helps: the ledger judge (18 min, one Lean process per module: about
+3 min with 8-10 in parallel on 128 GB); the OpenCyc build (hours, one process at a
+time for RAM); all papers, books, course and atlas (`make -j`). Where it does not:
+NotebookLM (rate limit), agents, the author's reviews.
+- [ ] A release-build workflow (GitHub Actions; a large runner needs the org on
+      Team or Enterprise, else a 32-core / 128 GB Codespace at about $2.90 an
+      hour): build everything in parallel, run the release gate including
+      Sherlock's kernel checks, publish the PDFs as artifacts. Reproducible and
+      independent of the laptop.
+- [ ] Caches: Lean and Mathlib (`lake exe cache get`), the built OpenCyc oleans
+      (tens of GB: a cache or an artifact, rebuilt only when `gen_krf.py` changes),
+      TeX, pandoc and pandoc-crossref at the pinned versions (docs/BUILD.md).
+- [ ] Portability: the build scripts' Windows assumptions (paths, PowerShell);
+      private repos (Me, U.Ops) only through secrets, never in public logs.
+- [ ] Sherlock in CI: `make -C sherlock check` on every push that touches a paper,
+      and the ledger in parallel (one module per process, several at once).
+- [ ] Optional: a devcontainer with prebuilds so a Codespace starts ready (first
+      setup otherwise about half a day).
