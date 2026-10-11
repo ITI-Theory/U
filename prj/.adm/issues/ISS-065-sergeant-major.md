@@ -49,6 +49,9 @@ top, which is quicker.
   H-AL-ifier needs the speech as audio: Piper via the bridge returns WAV,
   and the H-AL-ifier runs in the bridge or in Web Audio. The browser voice
   stays the fallback.
+- D5 (author, 11 Oct 20:43) The stock voice is the preferred end state,
+  not a stopgap: H-AL should not be the author's own voice. Recording and
+  training his voice (ISS-054) is dropped unless he asks again.
 
 ## Sub-issues (to open when the work starts)
 

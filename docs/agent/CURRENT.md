@@ -32,6 +32,11 @@ now brace-balances macros.
 
 ## Next
 
+Working rules (author, 11 Oct 20:43): work first. Experiments (NotebookLM
+and the like) only at the end of a usage period, with what is left of it.
+New requirements from the author go into ISSUES.md, unless doing them at
+once clearly makes more sense.
+
 1. Author: decide the paper fixes the affidavit found (`the-tensor.md`), or
    keep it as Sherlock's first exhibit. UAT the strap and the film narration
    (`?film=1#voyage=score&st=0&kv=1&kc=river`; touch the page once).

@@ -2599,6 +2599,9 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
       app ("H-AL // HOLOGRAM ALISTAIR" in the MOTHER panel); HAL only in
       commands, files and code; "HAL 9000" only for the film. Audit: tours,
       app text and docs already used H-AL; two code comments fixed.
+- Author, 11 Oct 20:43: H-AL should *not* be his own voice; a stock voice
+  with the H-AL-ifier is the preferred end state (ISS-065 D5). The two
+  recording and training items below are dropped unless he asks again.
 - [ ] Record the voice: about one hour of clean, single-speaker audio, 22 kHz
       mono WAV with transcripts (known scripts: the tours themselves are the
       best script, they are what H-AL will say; plus dictation); a quiet
