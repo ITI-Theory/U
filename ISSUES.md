@@ -3226,3 +3226,31 @@ Plan:
       instruments, Max for Live) renders the music live, following the knobs and the
       heart, out through the MOTU. The author's own music: clean to publish.
 
+## ISS-074: Autopilot, co-pilot, manual: learning to set and name feelings without a lesson — OPEN
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+
+Author, 12 Oct 01:00: a simpler way to train setting and expressing emotions with
+AI help. The journey starts at zero all round and needs a poke; then two modes, as
+in a flight simulator: autopilot (the AI takes over, says what it feels and turns
+the knobs) and manual (the user does it). "An easy way of teaching someone to do
+something without them knowing they are being taught."
+Copilot's shaping (modelling and fading, as with WORDS, ISS-072):
+- Start still: every mode at zero until a poke moves the journey.
+- AUTOPILOT: H-AL flies and thinks aloud in plain feeling-words ("fear is rising,
+  about a six; I notice it in the chest; I'll bring safety up a touch") while the
+  knob moves on screen: affect labelling and emotional granularity, taught by
+  example.
+- CO-PILOT, the step real autopilots have: hand over one axis at a time ("you have
+  fear; I keep safety and the rest"), then two, then all seven.
+- MANUAL: the user drives every knob (on screen, MIDI, or the heart via the strap);
+  H-AL is quiet or names what it sees.
+- The next journey hands over earlier (remembered in the browser).
+- H-AL's narration is modelled feeling ("in this river I would feel..."), not a claim
+  that the AI feels; not therapy; labelled interpretive. In the repository,
+  "Autopilot" also names the speech-to-text helper (ISS-047 note 9): keep the two
+  apart in the docs.
+- [ ] A start-at-zero journey with a poke; the AUTOPILOT / CO-PILOT / MANUAL control at
+      the score stop; per-mode handover; H-AL's think-aloud lines per mode change.
+- [ ] Remembered handover level; the next journey hands over earlier.
+
