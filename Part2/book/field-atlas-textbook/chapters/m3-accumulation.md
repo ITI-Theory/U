@@ -42,6 +42,8 @@ $$S_n = \sum_{i=1}^{n} f(x_i)\,\Delta x.$$ {#eq:m-acc-riemann}
 
 This is a **Riemann sum**; the Greek capital $\Sigma$ (sigma) means "add up". As the strips get thinner the sum approaches a limit, the **integral**,
 
+{{Visualize | eq:m-acc-riemann | area-under:generic | f="x^2"; x=[0,1.1]; from=0; to=1; n=10; rule=mid; expect_area=1/3; expect_sum=0.3325; label=fig:m-acc-riemann-sum; height=30% }} A Riemann sum for $y = x^2$ on $[0,1]$: ten midpoint rectangles add to $0.3325$, already very close to the exact area $1/3$.
+
 $$\int_a^b f(x)\,dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i)\,\Delta x.$$ {#eq:m-acc-integral}
 
 The long S is Leibniz's, chosen to mean "sum", and $dx$ is the thin width that $\Delta x$ becomes. The numbers $a$ and $b$ are the **limits** of integration. Where $f$ is negative, the strips count negatively: an integral is a *signed* area.
@@ -73,6 +75,8 @@ Repeat the example with four strips, using the *left* end of each strip. Why is 
 Strips work, but there is a shortcut, and it is one of the great discoveries of mathematics. Let $F(x)$ be the area under $f$ from $a$ up to $x$. Moving $x$ on by a small $h$ adds one thin strip of area $f(x)\,h$, so $F$ changes at the rate $f$: the derivative of the accumulated area is the curve itself. This is the **fundamental theorem of calculus**: integration undoes differentiation. To integrate $f$, find a function $F$ whose derivative is $f$, an **antiderivative**, and subtract its values at the limits:
 
 $$\int_a^b f(x)\,dx = F(b) - F(a), \qquad \text{where } \frac{dF}{dx} = f.$$ {#eq:m-acc-ftc}
+
+{{Visualize | eq:m-acc-ftc | function-plot:generic | f="x^3/3"; x=[0,1.3]; tangent_at=1; expect_slope=1; value_at=1; expect_value=1/3; xlabel="$x$"; ylabel="$F(x)$"; label=fig:m-acc-ftc; height=28% }} For the chapter's parabola example, the accumulated area is $F(x) = x^3/3$. At $x = 1$ the height is $1/3$ and the tangent slope is $1 = f(1)$, so differentiating the accumulation recovers the original curve.
 
 Reading the rules of @eq:m-change-rules backwards gives the antiderivatives this course needs:
 
@@ -109,6 +113,8 @@ The **average** of a function over an interval is its integral divided by the le
 $$\langle f \rangle = \frac{1}{b - a}\int_a^b f(x)\,dx.$$ {#eq:m-acc-average}
 
 It is the height of the rectangle with the same area. For the falling stone, the average speed over two seconds is $19.6\,\mathrm{m}/2\,\mathrm{s} = 9.8\,\mathrm{m\,s^{-1}}$, half the final speed, as expected for a speed that grows steadily.
+
+{{Visualize | eq:m-acc-average | area-under:generic | f="9.8*x"; x=[0,2.2]; from=0; to=2; expect_area=19.6; hline=9.8; xlabel="time $t$ (s)"; ylabel="speed (m/s)"; note=false; label=fig:m-acc-average; height=28% }} For the falling stone, the area under $v(t) = 9.8t$ from $0$ to $2\,\mathrm{s}$ is still $19.6\,\mathrm{m}$, and the dotted line at $9.8\,\mathrm{m\,s^{-1}}$ is the rectangle height that gives the same area: the average speed of @eq:m-acc-average.
 
 Oscillations raise a puzzle. The average of $\sin t$ over a whole cycle is zero, because the positive and negative halves cancel, yet an alternating current certainly heats a kettle. The useful measure is the **root mean square** (RMS): square the signal (making it positive), average, then take the square root. The average of $\sin^2 t$ over a cycle is exactly one half, so
 
@@ -147,6 +153,8 @@ Now take a source that sends out a steady amount, such as a lamp radiating power
 $$I(r) = \frac{L}{4\pi r^2}.$$ {#eq:m-acc-inverse-square}
 
 The **inverse-square law** is not an extra assumption: it is conservation plus the geometry of spheres. The same argument gives Newton's law of gravity and Coulomb's law of electric force their $1/r^2$ form, and it is the idea behind Gauss's law in electromagnetism.
+
+{{Visualize | eq:m-acc-inverse-square | function-plot:generic | f="1361/r^2"; var=r; x=[0.7,2.2]; value_at=1.524; expect_value=1361/(1.524^2); xlabel="distance / Earth-Sun distance"; ylabel="intensity (W m$^{-2}$)"; label=fig:m-acc-inverse-square; height=28% }} Using the chapter's solar constant $1361\,\mathrm{W\,m^{-2}}$ at one Earth-Sun distance ($r = 1$), the inverse-square law sends Mars, at $r = 1.524$, down to about $586\,\mathrm{W\,m^{-2}}$ (red point).
 
 The two-dimensional version is easy to draw. A source in a plane spreads out over circles of circumference $2\pi r$, so its field falls as $1/r$. The flux out of any circle around it is the same.
 

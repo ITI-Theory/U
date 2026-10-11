@@ -36,6 +36,8 @@ Charcoal from an ancient hearth contains $30\,\%$ of the carbon-14 found in livi
 **Significance.** The fire burned about ten thousand years ago, near the end of the last ice age. Radiocarbon ages are corrected with calibration curves, because the production of carbon-14 in the atmosphere has varied; the correction is a few per cent at this age.
 :::
 
+{{Visualize | ex:earth-dating-charcoal | function-plot:earth | f="2^(-x/T14)"; T14=5730; x=[0,20000]; value_at=9950; expect_value=0.30; hline="0.30, 0.25"; vline="9950, 11460"; xlabel="time (years)"; ylabel="fraction of carbon-14 remaining"; height=24% }} Carbon-14 decay from the law above, using the worked charcoal example. The red point marks the chapter's $30\,\%$ sample at about $9950$ years; the dotted guides show $25\,\%$ at exactly two half-lives, $11\,460$ years.
+
 ::: {.check-your-learning}
 What fraction of the Earth's original uranium-238 is left today? (Answer: $2^{-4.54/4.47} = 0.49$, about half: the Earth is almost exactly one uranium-238 half-life old.)
 :::
@@ -90,6 +92,8 @@ At $3\,\mathrm{km}$ depth, rock of density $2700\,\mathrm{kg\,m^{-3}}$ presses o
 **Significance.** Raising the pore pressure makes the fault six times weaker without changing the rock at all. The same effect explains earthquakes triggered by injecting fluid underground, as in some geothermal and waste-disposal projects.
 :::
 
+{{Visualize | ex:earth-water-weakens-fault | function-plot:earth | f="mu*(sigma - x)"; mu=0.6; sigma=79; x=[0,80]; value_at=29; expect_value=30; hline="30, 4.8"; vline="29, 72"; xlabel="pore pressure $P_f$ (MPa)"; ylabel="shear strength $\tau$ (MPa)"; height=24% }} With $C$ neglected as in the worked example, the Coulomb strength falls linearly as pore pressure rises. Hydrostatic water at $29\,\mathrm{MPa}$ leaves about $30\,\mathrm{MPa}$ of strength (red point), while the chapter's overpressured case at $72\,\mathrm{MPa}$ leaves only $4.8\,\mathrm{MPa}$.
+
 Friction is not a fixed number. Laboratory experiments by Dieterich and Ruina showed that it depends on how fast the surfaces slide and on how long they have been in contact [@dieterich1979modeling; @ruina1983slip]. In their **rate-and-state** description, the friction coefficient carries a state variable that records the history of sliding, and it forgets that history over a characteristic slip distance $D_c$, typically a few to a hundred micrometres in the laboratory. Two numbers, $a$ and $b$, set the size of the effects. A surface held still grows stronger by about $b\ln10$ for every tenfold increase in the time at rest: rock literally remembers how long it has been resting. A step change in sliding speed from $V_1$ to $V_2$ changes the steady friction by
 
 $$\Delta\mu_\text{ss} = (a - b)\ln\frac{V_2}{V_1}.$$
@@ -99,6 +103,8 @@ If $b > a$, faster sliding means *lower* friction, **velocity weakening**. A wea
 ::: {.check-your-learning}
 With $a = 0.008$ and $b = 0.010$, by how much does steady friction change when the sliding speed rises tenfold? (Answer: $(0.008 - 0.010)\ln10 = -0.0046$; the fault weakens.)
 :::
+
+{{Visualize | sec:earth-rock-that-remembers | function-plot:earth | f="(a - b)*log(x)"; a=0.008; b=0.010; x=[0.1,100]; logx=true; value_at=10; expect_value=-0.0046; hline=0; vline=10; xlabel="speed ratio $V_2/V_1$"; ylabel="steady friction change $\Delta\mu_\text{ss}$"; height=24% }} Rate-and-state friction for the chapter's $a=0.008$, $b=0.010$ example. On this logarithmic speed axis, no change in speed sits at $V_2/V_1 = 1$; a tenfold speed-up (red point) gives $\Delta\mu_\text{ss} \approx -0.0046$, so the fault weakens.
 
 ## A ringing, shaking planet {#sec:earth-ringing-shaking-planet}
 
@@ -125,6 +131,8 @@ Compare a magnitude 9 earthquake with a magnitude 7 in energy released and in ho
 
 **Significance.** A hundred magnitude 7 earthquakes together release only a tenth of the energy of one magnitude 9. Most of the energy is in the rare giants, which is why seismic hazard is dominated by events that may not occur in a given century.
 :::
+
+{{Visualize | ex:earth-great-earthquake-large | data-points:earth | points="7:1, 8:0.1, 9:0.01"; names="M7, M8, M9"; name="normalised counts"; f="10^(7 - x)"; f_name="$b=1$ law"; logy=true; xlabel="magnitude $M$"; ylabel="relative number $N(\geq M)$"; height=24% }} Normalising the Gutenberg--Richter law so that $N(\ge 7)=1$, the chapter's $b=1$ rule puts magnitude 8 earthquakes at one tenth and magnitude 9 earthquakes at one hundredth as many. On a logarithmic vertical axis those points sit on the straight line implied by $\log_{10}N = a - bM$.
 
 ## Climate states and tipping points {#sec:earth-climate-states-tipping}
 

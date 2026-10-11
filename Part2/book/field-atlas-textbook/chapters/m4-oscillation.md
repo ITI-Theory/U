@@ -18,9 +18,13 @@ A spring pulls back in proportion to how far it is stretched: $F = -kx$, where $
 
 $$m\frac{d^2x}{dt^2} = -kx \qquad\text{or}\qquad \frac{d^2x}{dt^2} = -\omega_0^2\,x, \qquad \omega_0 = \sqrt{\frac{k}{m}}.$$ {#eq:m-osc-shm}
 
+{{Visualize | sec:m-osc-spring | function-plot:wave | omega0=20; f="-omega0^2*x"; x=[-0.03,0.03]; xlabel="displacement $x$ (m)"; ylabel="acceleration $\ddot{x}$ (m s$^{-2}$)"; value_at=0.03; expect_value=-12; height=26% }} For the worked example's $m = 0.50\,\mathrm{kg}$ and $k = 200\,\mathrm{N\,m^{-1}}$, $\omega_0 = 20\,\mathrm{rad\,s^{-1}}$, so the restoring acceleration is the straight line $\ddot{x} = -400x$; at $x = 3.0\,\mathrm{cm}$ it is $-12\,\mathrm{m\,s^{-2}}$, back towards the middle.
+
 The equation says: *the acceleration is proportional to the displacement and points back towards the middle*. Which function, differentiated twice, gives itself back with a minus sign? The rules of @eq:m-change-rules answer: sine and cosine. The general solution is
 
 $$x(t) = A\cos(\omega_0 t + \varphi),$$ {#eq:m-osc-solution}
+
+{{Visualize | sec:m-osc-spring | function-plot:wave | A=0.03; omega0=20; phi=0; f="A*cos(omega0*t + phi)"; var=t; x=[0,pi/10]; xlabel="time $t$ (s)"; ylabel="displacement $x$ (m)"; value_at=pi/20; expect_value=-0.03; height=26% }} Using the worked example's $A = 3.0\,\mathrm{cm}$ and $\omega_0 = 20\,\mathrm{rad\,s^{-1}}$, released from maximum displacement ($\varphi = 0$), the cosine completes one full period in $T = \pi/10\,\mathrm{s} \approx 0.31\,\mathrm{s}$.
 
 with **amplitude** $A$ (the largest displacement) and **phase** $\varphi$ (where in the cycle it starts), both set by how the motion begins. This is **simple harmonic motion**. The constant $\omega_0$ is the **angular frequency**, measured in radians per second. A full cycle is $2\pi$ radians, so the ordinary frequency and the period are
 
@@ -73,6 +77,8 @@ A wheel turns at $33\tfrac{1}{3}$ revolutions per minute. What is its angular fr
 The circle picture needs two coordinates for one oscillation. Complex numbers pack them into one number. Define a new number $i$ with
 
 $$i^2 = -1.$$ {#eq:m-osc-i}
+
+{{Visualize | sec:m-osc-complex | complex-plane:wave | points="1, j, -1"; names="$1$, $i$, $i^2$"; arrows=true; unit_circle=true; radius=1.4; height=30% }} Starting from $1$ on the unit circle, one multiplication by $i$ gives a quarter-turn to $i$ and a second gives the point $-1$, which is exactly the statement $i^2 = -1$.
 
 No ordinary number squares to $-1$, which is why $i$ was once called "imaginary". The name stuck, but the idea is concrete. A **complex number** $z = a + ib$ has a **real part** $a$ and an **imaginary part** $b$, and is drawn as the point $(a, b)$ on a plane, the **complex plane**. Its distance from the origin is the **modulus** $|z| = \sqrt{a^2 + b^2}$, and its angle from the positive real axis is the **argument** $\arg z$, with $\tan(\arg z) = b/a$.
 
@@ -141,6 +147,8 @@ Evaluate $e^{i\pi/3}$ in the form $a + ib$. (Answer: $\cos 60^\circ + i\sin 60^\
 Real oscillations die away, because friction or resistance drains their energy. Adding a drag force proportional to the velocity gives the **damped oscillator**:
 
 $$\frac{d^2x}{dt^2} + 2\gamma\frac{dx}{dt} + \omega_0^2\,x = 0,$$ {#eq:m-osc-damped}
+
+{{Visualize | sec:m-osc-damping | function-plot:wave | gamma=0.5; omega_d=3.9686; f="exp(-gamma*t)*cos(omega_d*t)"; name="motion"; f2="exp(-gamma*t)"; name2="envelope"; f3="-exp(-gamma*t)"; name3="-envelope"; var=t; x=[0,5]; xlabel="time $t$ (s)"; ylabel="$x/A$"; height=28% }} Using the later check's $\omega_0 = 4\,\mathrm{rad\,s^{-1}}$ and $\gamma = 0.5\,\mathrm{s^{-1}}$, the damped-oscillator equation gives a ringing cosine inside the exponential envelope $e^{-\gamma t}$; after $5\,\mathrm{s}$ the envelope is down to $e^{-2.5} \approx 0.082$.
 
 where $\gamma$ is the damping rate (per second). Try $x = e^{st}$, with $s$ a complex number to be found. Each derivative multiplies by $s$, so the equation becomes $s^2 + 2\gamma s + \omega_0^2 = 0$, a quadratic whose roots are
 

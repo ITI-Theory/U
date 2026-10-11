@@ -24,6 +24,8 @@ $$f(t) = a_0 + \sum_{n=1}^{\infty} \big( a_n \cos n\omega t + b_n \sin n\omega t
 
 The coefficients $a_n$ and $b_n$ say how much of each harmonic the signal contains; they are found by integrating the signal against each sine and cosine. A smooth, sine-like signal needs only the first few. A signal with sharp corners needs many, because only high frequencies can turn quickly.
 
+{{Visualize | eq:freq-fourier-series | function-plot:wave | f1="sin(2*pi*200*t) + 0.5*cos(2*pi*400*t) + 0.25*sin(2*pi*600*t)"; name1="sum"; f2="sin(2*pi*200*t)"; name2="200 Hz"; f3="0.5*cos(2*pi*400*t)"; name3="400 Hz"; f4="0.25*sin(2*pi*600*t)"; name4="600 Hz"; var=t; x=[0,0.015]; xlabel="time (s)"; legend=below; label=fig:freq-fourier-harmonics; height=38% }} A Fourier series built from the section's own $5\,\mathrm{ms}$ example, whose first three harmonics are $200$, $400$ and $600\,\mathrm{Hz}$. The coefficients $1$, $0.5$ and $0.25$ are illustrative: changing them changes the waveform without changing the period.
+
 The **square wave**, which jumps between $+1$ and $-1$, is the classic example. Its series contains only odd harmonics, with strengths falling as $1/n$:
 
 $$\mathrm{square}(t) = \frac{4}{\pi}\left( \sin t + \frac{\sin 3t}{3} + \frac{\sin 5t}{5} + \cdots \right).$$ {#eq:freq-square}
@@ -96,6 +98,8 @@ $$\tilde{y}(\omega) = H(\omega)\,\tilde{u}(\omega), \qquad H(\omega) = \tilde{G}
 
 This is the **convolution theorem**. The function $H(\omega)$, the Fourier transform of the impulse response, is the system's **transfer function**: for each frequency, the factor by which the system multiplies it (its modulus) and the delay it adds (its argument). A linear system cannot create frequencies that are not in its input; it can only amplify, weaken and delay those that are. That is what a **filter** does.
 
+{{Visualize | eq:freq-convolution-theorem | function-plot:wave | fc=159; f1="exp(-((x-110)/18)^2) + 0.5*exp(-((x-220)/18)^2) + 0.33*exp(-((x-330)/18)^2) + 0.25*exp(-((x-440)/18)^2)"; name1="input spectrum"; f2="1/sqrt(1 + (x/fc)^2)"; name2="filter gain"; f3="(exp(-((x-110)/18)^2) + 0.5*exp(-((x-220)/18)^2) + 0.33*exp(-((x-330)/18)^2) + 0.25*exp(-((x-440)/18)^2))/sqrt(1 + (x/fc)^2)"; name3="output spectrum"; x=[0,520]; y=[0,1.1]; xlabel="frequency (Hz)"; ylabel="relative amplitude"; legend=below; label=fig:freq-convolution-product; height=34% }} Using the chapter's four-harmonic string at $110$, $220$, $330$ and $440\,\mathrm{Hz}$, and the later low-pass value $f_c = 159\,\mathrm{Hz}$, the output spectrum is the pointwise product $|H|\,|\tilde{u}|$. Each spectral line is drawn as an illustrative narrow peak: the $110\,\mathrm{Hz}$ component survives best, while the higher harmonics are cut more strongly.
+
 The simplest filter is the resistor–capacitor circuit of @sec:m-change-relaxation, whose impulse response is a decaying exponential with time constant $\tau = RC$. Its transfer function is
 
 $$H(\omega) = \frac{1}{1 + i\omega\tau}, \qquad |H| = \frac{1}{\sqrt{1 + (\omega\tau)^2}}.$$ {#eq:freq-low-pass}
@@ -131,6 +135,8 @@ For the damped oscillator of @sec:response-damped-oscillator, trying $x = X e^{i
 $$H(\omega) = \frac{1}{\omega_0^2 - \omega^2 + 2i\gamma\omega}.$$ {#eq:freq-oscillator-h}
 
 Its modulus is the resonance curve $A(\omega)$ of @sec:response-resonance-quality-factor. For light damping the **power** response $|H|^2$ falls to half its peak at $\omega_0 \pm \gamma$, so the full width at half maximum is $\Delta\omega = 2\gamma$ and
+
+{{Visualize | eq:freq-oscillator-h | function-plot:wave | gam=0.15; f1="real(1/(1 - x^2 + 2*j*gam*x))"; name1="real part"; f2="imag(1/(1 - x^2 + 2*j*gam*x))"; name2="imaginary part"; f3="abs(1/(1 - x^2 + 2*j*gam*x))"; name3="modulus"; x=[0,2]; y=[-3.5,4.2]; xlabel="driving frequency $\omega/\omega_0$"; ylabel="dimensionless response"; legend=below; label=fig:freq-oscillator-complex; height=36% }} For the transfer function itself, not just its magnitude, an illustrative damping ratio $\gamma/\omega_0 = 0.15$ makes the real part change sign through resonance, the imaginary part peak there, and the modulus rise where both combine most strongly.
 
 $$Q = \frac{\omega_0}{\Delta\omega} = \frac{f_0}{\Delta f}.$$ {#eq:freq-q-width}
 
