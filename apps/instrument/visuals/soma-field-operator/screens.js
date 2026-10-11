@@ -6,6 +6,10 @@
 //   cockpit the view out of the window: panels hidden, H-AL's line as a HUD; follows
 //           the level shown in any other window. Camera: external or follow (drone).
 //   engine  the engine room: every setting in one place, FX, camera, open windows.
+// LAYOUT (in the engine room) opens a whole arrangement of windows (ISS-069): the main
+// window stays where it is, the others are placed on the other monitors when Chrome's
+// Window Management API is allowed, else opened cascaded to be dragged. A/B (`ab`) is per
+// window, not shared: the screen beneath the main one shows the viewer's version (B).
 // Any window that changes the view (a click, a tour step) tells the others; a window
 // only follows, it never answers back, so there is no echo.
 
@@ -14,7 +18,7 @@ import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 const CHANNEL = 'soma-screens';
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
-  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab'];
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx'];
 export const ROLES = ['level', 'cockpit', 'engine'];
 
 export const screenRole = (() => {
@@ -159,6 +163,68 @@ function createHud() {
   };
 }
 
+// Layout profiles (ISS-069, the author's three): where each window goes, relative to the
+// main screen, and what it shows. place: beneath | left | right | tablet1-3 | side.
+export const LAYOUTS = {
+  't': { title: 'INVERTED T', windows: [
+    { place: 'beneath', role: 'level', hash: 'ab=b', note: 'your version (B), as synthetic vision' },
+    { place: 'left', role: 'engine' },
+    { place: 'right', role: 'cockpit' },
+  ] },
+  sim: { title: 'SIMULATOR', windows: [
+    { place: 'left', role: 'cockpit', note: 'glass cockpit 1' },
+    { place: 'right', role: 'level', hash: 'ab=b', note: 'glass cockpit 2: your version' },
+    { place: 'tablet1', role: 'engine', note: 'the flight bag' },
+  ] },
+  desk: { title: 'DESK', windows: [
+    { place: 'tablet1', role: 'cockpit' },
+    { place: 'tablet2', role: 'level', hash: 'ab=b' },
+    { place: 'tablet3', role: 'engine' },
+    { place: 'side', role: 'level', note: 'the laptop screen' },
+  ] },
+};
+
+// The other monitors, ordered for a place: below the main screen first for beneath and
+// tablets (left to right), left of it for left, right of it for right and side.
+function pickScreen(screens, main, place, used) {
+  const free = screens.filter(s => s !== main && !used.has(s));
+  const below = free.filter(s => s.top >= main.top + main.height - 40).sort((a, b) => a.left - b.left);
+  const left = free.filter(s => s.left + s.width <= main.left + 40).sort((a, b) => b.left - a.left);
+  const right = free.filter(s => s.left >= main.left + main.width - 40).sort((a, b) => a.left - b.left);
+  const order = place === 'left' ? [...left, ...below, ...free]
+    : place === 'right' || place === 'side' ? [...right, ...below, ...free]
+      : [...below, ...free];
+  return order[0] ?? null;
+}
+
+export async function openLayout(id) {
+  const layout = LAYOUTS[id];
+  if (!layout) return 0;
+  localStorage.setItem('soma-layout', id);
+  let screens = null;
+  let main = null;
+  try {
+    const details = await globalThis.getScreenDetails?.(); // Chrome asks the user once
+    screens = details?.screens ?? null;
+    main = details?.currentScreen ?? null;
+  } catch { /* not allowed: cascade */ }
+  const used = new Set();
+  layout.windows.forEach((w, k) => {
+    const url = new URL(location.href);
+    url.searchParams.set('screen', w.role);
+    const shared = sharedState(location.hash);
+    url.hash = [shared, w.hash].filter(Boolean).join('&');
+    let features = `popup,width=1280,height=800,left=${80 + 40 * k},top=${80 + 40 * k}`;
+    const target = screens && main ? pickScreen(screens, main, w.place, used) : null;
+    if (target) {
+      used.add(target);
+      features = `popup,left=${target.availLeft},top=${target.availTop},width=${target.availWidth},height=${target.availHeight}`;
+    }
+    window.open(url.toString(), `soma-${id}-${w.place}`, features);
+  });
+  return layout.windows.length;
+}
+
 // The engine room: one page with every setting, for its own window or tablet.
 export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   const room = document.createElement('section');
@@ -184,6 +250,8 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <button type="button" data-open="cockpit">OPEN COCKPIT VIEW</button>
         <button type="button" data-open="engine">OPEN ENGINE ROOM</button>
         <p class="engine-room__hint">Drag a window to a tablet, then press F for full screen.</p>
+        <p class="engine-room__hint">LAYOUT: open a whole arrangement around the main window (Chrome may ask to place windows on your screens).</p>
+        ${Object.entries(LAYOUTS).map(([id, l]) => `<button type="button" data-layout="${id}" title="${l.windows.map(w => `${w.place}: ${w.role}${w.hash ? ` (${w.hash})` : ''}${w.note ? `, ${w.note}` : ''}`).join('; ')}">${l.title}</button>`).join('')}
       </fieldset>
       <fieldset class="engine-room__names"><legend>NAMES</legend>
         <p class="engine-room__hint">Your own name for each persona and layer. Kept in this browser only; empty restores the default.</p>
@@ -309,6 +377,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
       fetch(`${bridge()}/hal-notebook`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: button.dataset.useHal }) })
         .then(() => loadFuel());
     }
+    if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.open) {
       const url = new URL(location.href);
       url.searchParams.set('screen', button.dataset.open);

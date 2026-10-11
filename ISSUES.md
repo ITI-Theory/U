@@ -3103,8 +3103,12 @@ window, so a layout is a named profile (which role on which screen), not code:
   the laptop screen to the right.
 Windows on one machine already share the view (`screens.js`); tablets and a
 second machine need the relay (item above).
-- [ ] Layout profiles (inverted T, simulator, the author's desk): a profile names
-      the role of each window; any window can switch role; saved per machine.
+- [x] Layout profiles (inverted T, simulator, the author's desk): a profile names
+      the role of each window; any window can switch role; saved per machine. (12 Oct:
+      LAYOUT in the Engine Room opens the arrangement around the main window, placed on
+      the monitors with Chrome's Window Management API when allowed, else cascaded;
+      A/B is per window, so the screen beneath shows B. Not yet tried on the real
+      monitors and tablets.)
 
 ## ISS-070: The Monsters: example personas, and names the user can change — OPEN
 {{Tags area.app, area.ops}}
@@ -3253,4 +3257,32 @@ Copilot's shaping (modelling and fading, as with WORDS, ISS-072):
 - [ ] A start-at-zero journey with a poke; the AUTOPILOT / CO-PILOT / MANUAL control at
       the score stop; per-mode handover; H-AL's think-aloud lines per mode change.
 - [ ] Remembered handover level; the next journey hands over earlier.
+
+## ISS-075: RICE: a ricing switch for the author's options, and the glass cockpit as design vocabulary — OPEN
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+
+Author, 12 Oct 01:20: a RICE (ricing) on/off in settings, so that all his "weird
+stuff" lives behind it; and the glass cockpit (a primary and a multi-function
+display) as a source of design ideas, without making the Soma Machine a flight
+simulator: the film's graph is the route plan, and there are many more parallels,
+hazard warnings and all.
+- [ ] RICE in the Engine Room, off by default (the public app calm and clean); on, it
+      reveals the author's options: neon themes, code rain, the Root Monster's tours
+      (ISS-070, ISS-071), experimental features, the cockpit extras below. Kept per
+      browser.
+- [ ] Cockpit parallels, generic terms (PFD, MFD; no product names):
+      route plan = the film's score graph (phases as legs, thresholds as waypoints);
+      vertical profile = the trajectory over story-time; speed tape = velocity
+      (kv); altitude tape = depth (pre-verbal); attitude = the balance of safety and
+      fear; engine strip = heart rate, HRV, breathing (strap); crew alerting = red
+      WARNING (freeze attractor near), amber CAUTION (heart rising), ADVISORY
+      (threshold in two minutes); terrain awareness = the energy landscape ahead
+      ("deep basin ahead"); synthetic vision = the viewer's version on the screen
+      beneath (A/B, ISS-069, done); flight director = the score's target (the white
+      ticks); autopilot panel = ISS-074; traffic = the other viewer in the twin view
+      or the dyad; checklists = before a viewing (strap on, lights down, touch the page).
+- [ ] Alerts first (they are the most useful): the three levels, from the score and the
+      heart, at the score stop; then the route-plan view of the score for the MFD
+      screen of a layout.
 
