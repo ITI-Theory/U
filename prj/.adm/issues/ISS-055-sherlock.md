@@ -163,6 +163,29 @@ documents. State of the slice:
   `Rat.div_lt_div_right`, not in the current Mathlib; P11's axiom table
   (four "axioms": one axiom, one def, two theorems) and the axioms it omits;
   P20 and P21 list axioms but omit their cited modules' own.
+## Can a language model do Sherlock's job? (11 Oct, NotebookLM)
+
+Notebook Sherlock-UAT (private; `Me/notebooklm/Sherlock-UAT/sources.yaml`):
+P8 and P11 as sources, and OpenCyc three ways: all of NextKB (898 files,
+10.6M words, `sherlock/fulltext.py`, 24 sources; one 6.8 MB part failed to
+process and went up in halves), Sherlock's slice (`sherlock/pack.py`, 487
+constants, 32k words) and one microtheory, UniversalVocabularyMt (3.6M words,
+12 sources). `sherlock/nlm_test.py --exp N` asks five questions per
+condition (three need OpenCyc typing, two are arithmetic controls) and keeps
+answers in `bld/sherlock/nlm-exp<N>.json`. Asks over all of OpenCyc are
+expensive: four of them used the whole five-hour window.
+
+Exp0, first two questions (none vs all of OpenCyc): with everything, Gemini
+cites real OpenCyc facts (Fear, Shame, Grief are EmotionalQuantityType;
+Safety maps to Security-Emotion, as Sherlock found) but misplaces Curiosity,
+says Language as an emotion "would create a category error" without citing
+the disjointness or deriving it, and hedges; on "the same film" it reasons
+about type and token as well without OpenCyc as with it, and never finds
+`genlWorks`, OpenCyc's relation for exactly this. Retrieval of prominent
+facts works; finding the specific relation and chaining facts into a proof
+do not. Still to run: exp0 Q3-Q5, exp1 (the slice), exp2 (one
+microtheory): does slicing help a language model, when the Lean reasoner
+needs none?
 ## Sub-issues and order
 
 1. ISS-056 claims registry and validator (D1-D4; migrate exhibits A-D).
