@@ -46,14 +46,24 @@ Physics is already a discipline of response. Faraday's lines of force and Maxwel
 
 The question is not whether emotion has a physics in the banal sense that brains and bodies are physical. It plainly does. The question is whether there is a useful field variable, a useful state space, and a useful propagator for the body--brain dynamics that precede, accompany, and sometimes enter awareness. The Soma-Field papers answer by proposing an affect state $e(t)$, a Hopfield-type energy
 $$H(e)=-\tfrac12 e^\top W e-b^\top e,$$
+
+{{Visualize | introduction-field-equations-of-mind | energy-landscape:soma | U="-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2)"; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="$H$" }} An illustrative one-dimensional slice through the energy function above: several valleys, each a candidate attractor basin under this reading. The actual number, depth, and position of the valleys are set by the coupling matrix $W$ and bias $b$, which this general form leaves unspecified.
+
 and a Langevin evolution
+
 $$\gamma\dot e=-\nabla H(e)+\sqrt{2D}\,\xi(t)+J(t),\qquad T_{\mathrm{eff}}=D/\gamma.$$
+
+{{Visualize | introduction-field-equations-of-mind | distribution:soma | pdf="exp(-(-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2))/D)"; D=0.15; x=[-3,3]; xlabel="affective state (illustrative slice)"; ylabel="stationary probability density" }} The stationary (Boltzmann-like) distribution implied by the Langevin equation above over the same illustrative landscape, with forcing $J(t)=0$ and an illustrative noise level $D=0.15$: the state settles mostly into the deepest basin. A larger $D$ (a higher $T_{\mathrm{eff}}$) would spread the distribution across the basins instead; neither value is measured.
+
 This is a model class, not an observation. It inherits the strength of Hopfield networks as a theory of attractors [@hopfield1982] and the weakness of any coarse-grained reduction: the chosen variables, coupling matrix, noise model, and measurement map must be justified empirically `derived-under-assumptions`.
 
 The physics volume therefore begins from an austere rule. A claim may be formal, numerical, simulated, empirical, interpretive, or open. The Lean kernel can check that a theorem follows from definitions and axioms; it cannot check that a human field variable is the right variable or that a clinical word names the same state as a mathematical attractor. The current proof surface contains valuable checked objects, but it also contains five real `sorry`s across `BRECVEMAVariational.lean`, `DyadicField.lean`, and `SomaNetwork.lean`. `FieldAxioms.lean` is an axiom registry. Results depending on it are not theorems about nature; they are consequences of stated premises `derived-under-assumptions`.
 
 For physicists, the most interesting object is the proposed somatic tensor $\Phi$ and its two-point function
 $$G_{\mu\nu}(x,x')=\langle \Phi_\mu(x)\Phi_\nu(x')\rangle_0.$$
+
+{{Visualize | introduction-field-equations-of-mind | function-plot:quantum | f="exp(-m*abs(x))/(2*m)"; vary=m:0.5,1,2; x=[-6,6]; xlabel="separation $x-x'$"; ylabel="$G(x-x')$" }} An illustrative one-dimensional free-field reduction of the two-point function above, $G(x-x')=e^{-m|x-x'|}/(2m)$, at three illustrative masses $m$: narrower and taller for a larger mass. The full tensor two-point function's indices, state, and substrate are suppressed in this reduction.
+
 Read this first as a formal aspiration: if a field $\Phi$ and vacuum state are given, the two-point function is the natural response object. The programme then proposes several reductions. At a neural or organism scale it reduces to a Hopfield/Langevin attractor model. At a free-field Euclidean scale it uses imported OSforGFF theorems for a Gaussian free field, with USF identification as an interpretation. At a cosmological scale it proposes that the vacuum amplitude of the tensor trace contributes to $\Lambda$. None of these reductions is automatic. Each is a correspondence principle with assumptions and possible failure modes `open-hypothesis`.
 
 The compactification language requires particular care. The Lean theorem `MTheoryIsomorphism.somaField_iso_mtheory` proves a type/product round-trip: the programme's 11-dimensional structure can be written as a 4D spacetime factor together with a 7D product sector and mapped back without loss. That is a legitimate formal statement and useful bookkeeping `kernel-verified`. It is not a derivation of physical M-theory, not a proof of a compact $G_2$-holonomy metric, and not evidence that biological states literally are Kaluza--Klein modes. Standard M-theory compactifications require geometric, spectral, anomaly, moduli-stabilisation, and phenomenological work [@witten1995; @horava1996]. The programme has a type isomorphism and a compactification hypothesis, and those should not be confused.
@@ -62,6 +72,9 @@ The same distinction applies to the Simple Harmonic Oscillator claim. The papers
 
 The cosmological material is similar. P21 no longer asks the reader to treat $\Omega_\Lambda(z)$ as a constant fraction at every redshift. It identifies $\Lambda$ with a vacuum amplitude; $\Lambda$ is constant. The fraction $7/11$ is a leading-order dimensional partition used to compare the model's present-day dark-energy density with Planck 2018 TT,TE,EE+lowE+lensing values. With $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, the text now gives
 $$\Lambda_{\mathrm{USF}}=\frac{21}{11}\frac{H_0^2}{c^2}\approx 1.01\times10^{-52}\,\mathrm{m}^{-2},$$
+
+{{Visualize | introduction-field-equations-of-mind | log-scale:cosmic | items="$\Lambda_\text{USF}$=1.01e-52, $\Lambda_\text{obs}$=1.09e-52"; unit="m^{-2}" }} The equation above's model estimate and the observed value on the same log scale: close enough to be interesting, with the model about 7 per cent below the observed value. The ratio is quoted as 0.93; the agreement is a comparison, not independent confirmation.
+
 where $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$ and the ratio is $0.93$ `derived-under-assumptions`. The numerical proximity is not independent confirmation. It is a model-derived comparison that lives or dies with the compactification, GR, vacuum-amplitude, and correction assumptions.
 
 QUANT-EXP-1 also needs a clean boundary. It is an exact 8-qubit dense statevector simulation of a transverse-field Ising/Hopfield landscape. It reports cold classical non-escape across the hardened barriers and a quantum Awe-dominant peak around $0.408$--$0.410$ `simulated`. It did not use D-Wave, IBM, or other quantum hardware. It does not prove therapy, consciousness, or runtime quantum advantage. Its value for physicists is narrower and still real: it supplies a transparent model in which transverse-field dynamics reaches a basin that the tested low-noise classical dynamics does not. That is a useful simulation of reachability in one landscape class.
@@ -105,6 +118,9 @@ The word "propagator" hides several inequivalent objects. In a hyperbolic classi
 
 For organism-scale dynamics, the relevant propagator is often closer to a resolvent or response kernel of a dissipative system than to a relativistic Feynman propagator. A perturbation $J(t)$ changes state through
 $$\phi(t)=\int K(t-t')J(t')\,dt',$$
+
+{{Visualize | propagators-compactification-and-derivation | convolution:wave | input="exp(-((t-0.3)/0.08)^2)"; kernel="0.6*exp(-t/2) + 0.4*exp(-t/20)"; x=[0,60]; input_label="perturbation $J$"; kernel_label="illustrative kernel $K$ (fast + slow)"; output_label="response $\phi$"; xlabel="time (illustrative)" }} An illustrative two-term version of the kernel $K$: a fast-decaying component and a slow, lingering one, convolved with a single perturbation to give an illustrative response. The real kernel's shape is not fixed by this general form.
+
 where $K$ may be retarded, coarse-grained, and history-dependent. Trauma and memory kernels in the papers are usually of this form. If $K(\tau)=\sum_k A_k e^{-|\tau|/\tau_k}$, then it resembles a Euclidean massive propagator in one dimension; that resemblance is mathematically informative but physically conditional. It does not by itself turn memory into a quantum field or therapy into particle scattering `interpretive`.
 
 The OS material sits at a different level. `USF_OSAxioms.lean` imports OSforGFF and applies the upstream Gaussian-free-field theorem surface to a massive Gaussian free field. The named results `USF_OS0_Analyticity`, `USF_OS3_ReflectionPositivity`, `USF_OS4_Clustering`, and `freefield_USF_satisfies_OS_axioms` are valuable because they anchor a free Euclidean field in a standard reconstruction framework `kernel-verified`. The status boundary is crucial: the theorems apply to the Gaussian free field object. Identifying that object with the physical USF, and then adding Hopfield couplings or organismic semantics, is an interpretation and further model construction `interpretive`.
@@ -113,6 +129,9 @@ This matters because reflection positivity is not a rhetorical badge. OS3 is the
 
 The compactification picture has a similar base-case structure. The programme writes
 $$M_{11}=M_4\times P_3\times L_1\times C_3,$$
+
+{{Visualize | propagators-compactification-and-derivation | type-decomposition:soma | whole="$M_{11}$"; parts="$M_4$=4, $P_3$=3, $L_1$=1, $C_3$=3"; expect_total=11 }} The eleven dimensions of the equation above by their parts: spacetime $M_4$, the propagator $P_3$, the limbic axis $L_1$, and the cortex $C_3$. The program checked that they add up to 11.
+
 with $P_3$ a propagator sector, $L_1$ a limbic axis, and $C_3$ a cortical or information sector. In Lean these are products of simple types, with maps `toMTheory` and `fromMTheory` proving a round-trip. This is useful because it prevents casual dimension drift. It also exposes the precise shortage: a type product is not a compact Riemannian 7-manifold with $G_2$ holonomy, a spectrum, moduli stabilisation, and low-energy physics `kernel-verified`.
 
 If one reads the compactification physically, the burden increases. One needs a compact $X_7$ or a justified non-compact effective replacement; a metric; a moduli-space analysis; a Kaluza--Klein spectrum; couplings to Standard Model fields; and a reason why the biological or somatic tensor is one of the low-energy fields rather than a new name for an existing degree of freedom. The papers sometimes sketch these steps. They do not complete them. The correct label for the physical compactification is therefore `open-hypothesis`, even though the product decomposition itself is formally checked.
@@ -121,6 +140,9 @@ The programme's strongest physics move is to use correspondence principles. At z
 
 The Simple Harmonic Oscillator claim can be understood in this correspondence spirit. Let a field equation at scale $\sigma$ have a characteristic $k(\sigma)$:
 $$(\nabla^2+k(\sigma)^2)G_\sigma=\delta.$$
+
+{{Visualize | propagators-compactification-and-derivation | function-plot:soma | f="sin(k*abs(x))/(2*k)"; vary=k:0.5,1,2; x=[-10,10]; xlabel="$x-x'$"; ylabel="$\mathrm{Re}\,G_\sigma$" }} The one-dimensional free-space reduction of the equation above, $\mathrm{Re}\,G_\sigma(x-x')=\sin(k(\sigma)|x-x'|)/(2k(\sigma))$, at three illustrative scale-dependent wavenumbers $k(\sigma)$: a larger $k$ gives a faster oscillation. Boundary conditions and dimensionality are suppressed in this reduction.
+
 Here the sign of the source term follows the book's response convention, not a universal Helmholtz convention. Away from the source, one-dimensional slices of $G_\sigma$ satisfy the homogeneous oscillator equation. Thus oscillator modes can be read as response modes of the substrate. This observation is standard enough in mathematical physics to be plausible; what is novel is the programme's attempt to use it as the bridge from string-theory worldsheet oscillator language to a universal response architecture `derived-under-assumptions`.
 
 There is a helpful negative formulation: the programme does not need to say that all substrates are the same. Electromagnetic, elastic, neural, gravitational, and cosmological systems differ in signature, source terms, dispersion, dissipation, gauge symmetry, and boundary conditions. The commonality is response form under a family of operators. That is much weaker than monism about substance and much stronger than saying "waves appear everywhere." It is a mathematical co-identification claim: theorem transfer is allowed only when the type signature, units, symmetries, and boundary assumptions match `derived-under-assumptions`.
@@ -178,8 +200,15 @@ This is not a derivation from established quantum gravity. It is a model choice 
 
 The current numerical statement is precise. With $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ and $\Omega_\Lambda=0.6847$ from the Planck 2018 TT,TE,EE+lowE+lensing baseline, the observed value is
 $$\Lambda_{\mathrm{obs}}=\frac{3\Omega_\Lambda H_0^2}{c^2}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}.$$
+
+{{Visualize | cosmological-limit-and-dark-sector-accounting | function-plot:cosmic | f="3*x*k0"; k0=5.30664e-53; x=[0.3,1]; value_at=0.6847; expect_value=1.09e-52; xlabel="$\Omega_\Lambda$"; ylabel="$\Lambda_{\mathrm{obs}}$ (m$^{-2}$)" }} The equation above as a linear relationship in $\Omega_\Lambda$, with $k_0=(H_0/c)^2$ calibrated from the quoted $H_0$ so that the curve passes through the quoted value at the Planck $\Omega_\Lambda=0.6847$. The program checked $\Lambda_{\mathrm{obs}}(0.6847)\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$.
+
 The model's compact-sector estimate is
+
 $$\Lambda_{\mathrm{USF}}=\frac{21}{11}\frac{H_0^2}{c^2}\approx1.01\times10^{-52}\,\mathrm{m}^{-2},$$
+
+{{Visualize | cosmological-limit-and-dark-sector-accounting | function-plot:cosmic | f="(x/11)/0.6847"; x=[4,9]; value_at=7; expect_value=0.93; xlabel="compact dimension count (illustrative)"; ylabel="$\Lambda_{\mathrm{USF}}/\Lambda_{\mathrm{obs}}$" }} The ratio in the sentence below as a function of the compact-sector dimension count: at the programme's stated 7 compact dimensions, the ratio is the quoted 0.93. The program checked this value; the curve itself is a bookkeeping sensitivity check, not a physical sweep over dimension.
+
 so $\Lambda_{\mathrm{USF}}/\Lambda_{\mathrm{obs}}=(7/11)/0.6847\approx0.93$ [@planck2018cosmology] `derived-under-assumptions`. The agreement is at the 7.1 per cent level. It is a comparison, not a precision cosmological fit.
 
 The distinction between $\Lambda$ and $\Omega_\Lambda(z)$ is essential. $\Lambda$ is constant in the model. The density parameter $\Omega_\Lambda(z)$ is a ratio to the critical density and therefore changes as the background cosmology changes. Saying that $7/11$ is the compact-sector partition is not the same as saying the observed dark-energy density parameter is $7/11$ at all epochs. The model predicts a constant dark-energy equation of state, $w=-1$, only under the LocalGR/static-moduli assumptions used in the proof surface `derived-under-assumptions`.
@@ -188,6 +217,9 @@ The Lean file `CosmologicalConstant.lean` is useful because it separates arithme
 
 P22 extends the same bookkeeping to dark matter. The spatial block $\langle\Phi_{ij}\rangle_0$ is assigned
 $$\Omega_{\mathrm{DM}}^{\mathrm{USF}}=\frac{3}{11}\approx0.2727,$$
+
+{{Visualize | cosmological-limit-and-dark-sector-accounting | log-scale:cosmic | items="$\Omega_\text{DM}^\text{USF}$=0.2727, $\Omega_\text{DM}^\text{Planck}$=0.2645"; unit="dimensionless fraction" }} The equation above's model fraction and the Planck value on the same log scale: close, with the model about 3.1 per cent high. The agreement is a comparison under the stated compactification and local-geometry assumptions, not independent confirmation.
+
 compared with the Planck 2018 TT,TE,EE+lowE+lensing value $0.2645$ [@planck2018cosmology]. In prose this is a 3.1 per cent high discrepancy. The model then has to explain why this spatial vacuum gravitates, clusters, has no Standard Model gauge charge, and behaves as cold pressureless matter with $w\simeq0$. The file supplies formal claims such as `spatial_vacuum_em_neutral` and `spatial_vacuum_pressure_zero`, but those depend on the programme's local-geometry assumptions `derived-under-assumptions`.
 
 The dark-matter paper's best feature is that it lists falsifiers. If the component has pressure inconsistent with cold dark matter, couples electromagnetically, fails to cluster, or produces no distinguishable structure from standard CDM, the spatial-vacuum reading loses force. A further challenge is degeneracy: a model that reproduces only the background density fraction can be observationally indistinguishable from many dark-sector parametrisations. To become physics rather than numerology, the USF dark-sector proposal needs perturbation theory, lensing predictions, structure-growth signatures, and a clear treatment of baryons and radiation `open-hypothesis`.
@@ -243,6 +275,9 @@ The model should be read as a coarse-grained effective theory. No one observes $
 
 QUANT-EXP-1 is best understood in this effective-theory setting. It takes an 8-mode Hopfield landscape with a strong Fear--Awe barrier and studies classical low-noise dynamics versus transverse-field quantum annealing. The quantum Hamiltonian is the standard transverse-field Ising form
 $$\hat H_Q=-\frac12\sum_{ij}W_{ij}\hat\sigma_i^z\hat\sigma_j^z-\sum_i b_i\hat\sigma_i^z-\Gamma\sum_i\hat\sigma_i^x.$$
+
+{{Visualize | quantum-biological-and-symmetry-broken-regimes | energy-landscape:quantum | U="-exp(-(x+1.5)^2/0.3) - 0.5*exp(-x^2/0.3) - 0.85*exp(-(x-1.5)^2/0.2)"; x=[-3,3]; barrier=true; xlabel="basin coordinate (illustrative, classical $\Gamma=0$ limit)"; ylabel="$H$" }} The classical $\Gamma=0$ limit of the Hamiltonian above, illustrated as a 1D landscape with a barrier between basins: this is the picture the cold classical dynamics fails to cross. The transverse-field term at $\Gamma>0$ permits quantum tunnelling-like transitions that this classical reduction cannot show.
+
 At $\Gamma=0$ it reduces to the classical problem Hamiltonian; at nonzero $\Gamma$ it permits tunnelling-like transitions across barriers in the model landscape `simulated`.
 
 The exact status matters. The calculation is a dense statevector simulation on $2^8=256$ states. The hardened results report cold classical $0/200$ escapes for B8, B10, and B12, Wilson interval $[0,0.019]$, and quantum peak Awe-dominant occupancy $0.408$--$0.410$ across the same barriers `simulated`. Earlier summaries sometimes use 3/3 barrier cases versus 0/48 cold classical trajectories; the hardened table is the safer statement for this book. No quantum processor was used. The simulation is therefore evidence about a model class, not about hardware speed-up or human therapy.
@@ -251,6 +286,9 @@ The Penrose connection should also be narrowed. Penrose argued that classical co
 
 At the biological symmetry level, P24 studies an 8D BRECVEMA coupling matrix. It decomposes
 $$W_8=W_{G_2}+\delta W,\qquad W_{G_2}=\frac65 I_8,$$
+
+{{Visualize | quantum-biological-and-symmetry-broken-regimes | matrix-heatmap:soma | matrix="[[1.2,0,0,0],[0,1.2,0,0],[0,0,1.2,0],[0,0,0,1.2]]"; matrix2="[[1.2,0.1,-0.05,0],[0.1,1.2,0.05,-0.1],[-0.05,0.05,1.2,0.1],[0,-0.1,0.1,1.2]]"; titles="$W_{G_2}$, $W_8$"; diff=true; diff_title="$\delta W$"; expect_sum=4.8 }} An illustrative 4x4 reduction of the 8x8 decomposition above (the real matrices are 8x8): the symmetric $G_2$-ideal part $W_{G_2}=\tfrac65 I$, an illustrative perturbed coupling $W_8$, and their traceless difference $\delta W$. The program checked that the $W_{G_2}$ panel sums to $4\times1.2=4.8$. The perturbation shown is illustrative and is not calibrated to reproduce the quoted 48.4 per cent Frobenius ratio.
+
 with $\delta W$ traceless and $\|\delta W\|_F/\|W_8\|_F=0.484$. The exact rational tracelessness is a matrix identity; the interpretation that the biological emotional system is 48.4 per cent symmetry-broken from a $G_2$ ideal is a model reading. The paper is careful that it resolves an algebraic $8\to7$ compatibility question but does not derive a compact $G_2$-holonomy metric for $X_7$ `derived-under-assumptions`.
 
 That distinction is not pedantry. $G_2$ is a specific exceptional holonomy group with stringent geometric meaning. An 8D real vector space decomposing as $\mathbb{R}\oplus\mathbb{R}^7$ is compatible with octonionic language, but compatibility is weaker than holonomy. The Lean facts in `BRECVEMAVariational.lean` include exact matrix definitions and some arithmetic results; the file also contains open variational and moduli-space statements. The result is a promising algebraic bridge, not a completed compactification theorem `open-hypothesis`.
