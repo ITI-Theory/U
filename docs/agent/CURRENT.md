@@ -40,3 +40,7 @@ now brace-balances macros.
    document (a paper's affidavit), and the Law book's affidavit chapter.
 3. Visualize: finish the course; the remaining papers' equations.
 4. Release path (ISS-047 / ISS-001), the film recording, the book.
+5. The final project: Sergeant Major (ISS-065): admin reminders read from the
+   repos and pushed to H-AL, a Maintenance deck below the engine room, H-AL
+   speaking in a stock Piper voice with the H-AL-ifier (the author's own voice
+   parked). Epic: prj/.adm/issues/ISS-065-sergeant-major.md.
