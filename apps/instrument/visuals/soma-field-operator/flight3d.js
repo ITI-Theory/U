@@ -721,25 +721,45 @@ export function createFlight3D() {
       if (sector === 'river') {
         // The Tensor drives the river: narrow (0 open .. 1 the narrowest, at the encounter),
         // light (safety), fear (darker water), mist (as language falls away)
-        const rv = state.river ?? { narrow: 0.3, light: 0.6, fear: 0.2, mist: 0.3 };
-        const half = 10 - 7 * rv.narrow;
-        for (const tile of tiles) {
-          const l = tile.getObjectByName('bankL');
-          const r = tile.getObjectByName('bankR');
-          if (l) l.position.x = -(half - 0.4);
-          if (r) r.position.x = half - 0.4;
+        const applyRiver = rv => {
+          const half = 10 - 7 * rv.narrow;
+          for (const tile of tiles) {
+            const l = tile.getObjectByName('bankL');
+            const r = tile.getObjectByName('bankR');
+            if (l) l.position.x = -(half - 0.4);
+            if (r) r.position.x = half - 0.4;
+          }
+          const warm = new THREE.Color('#e8a860');
+          const cold = new THREE.Color('#2a3a48');
+          const sky = cold.clone().lerp(warm, rv.light * 0.8).multiplyScalar(0.35 + 0.45 * rv.light);
+          scene.background = sky;
+          scene.fog = new THREE.Fog(sky, 2 + 6 * (1 - rv.mist), 18 + 40 * (1 - rv.mist));
+          // the water reflects the sky, darker with fear (linear colour values)
+          tiles[0].userData.tint = { r: 0.01 + 0.35 * sky.r * (1 - 0.7 * rv.fear), g: 0.012 + 0.35 * sky.g * (1 - 0.7 * rv.fear), b: 0.012 + 0.32 * sky.b * (1 - 0.4 * rv.fear) };
+          tiles[0].userData.animate?.(state.time);
+          // the boat: low on the water, swaying a little, keeping to the middle as the banks close in
+          camera.position.set(Math.sin(t * 0.07) * 0.08 * half, -1.15 + 0.05 * Math.sin(t * 1.3), 0);
+          camera.lookAt(Math.sin(t * 0.07 + 0.5) * 0.08 * half, -1.3, -12);
+          camera.rotateZ(Math.sin(t * 0.6) * 0.012);
+        };
+        if (state.twin) {
+          // the twin view: two films of one field side by side, the left (state.river) and the
+          // right (state.twin), each its own river, one clock
+          renderer.getSize(size);
+          camera.aspect = size.x / 2 / size.y;
+          camera.updateProjectionMatrix();
+          renderer.setScissorTest(true);
+          for (const [x, rv] of [[0, state.river], [size.x / 2, state.twin]]) {
+            applyRiver(rv);
+            renderer.setViewport(x, 0, size.x / 2, size.y);
+            renderer.setScissor(x, 0, size.x / 2, size.y);
+            renderEye(camera);
+          }
+          renderer.setScissorTest(false);
+          renderer.setViewport(0, 0, size.x, size.y);
+          return;
         }
-        const warm = new THREE.Color('#e8a860');
-        const cold = new THREE.Color('#2a3a48');
-        const sky = cold.clone().lerp(warm, rv.light * 0.8).multiplyScalar(0.35 + 0.45 * rv.light);
-        scene.background = sky;
-        scene.fog = new THREE.Fog(sky, 2 + 6 * (1 - rv.mist), 18 + 40 * (1 - rv.mist));
-        // the water reflects the sky, darker with fear (linear colour values)
-        tiles[0].userData.tint = { r: 0.01 + 0.35 * sky.r * (1 - 0.7 * rv.fear), g: 0.012 + 0.35 * sky.g * (1 - 0.7 * rv.fear), b: 0.012 + 0.32 * sky.b * (1 - 0.4 * rv.fear) };
-        // the boat: low on the water, swaying a little, keeping to the middle as the banks close in
-        camera.position.set(Math.sin(t * 0.07) * 0.08 * half, -1.15 + 0.05 * Math.sin(t * 1.3), 0);
-        camera.lookAt(Math.sin(t * 0.07 + 0.5) * 0.08 * half, -1.3, -12);
-        camera.rotateZ(Math.sin(t * 0.6) * 0.012);
+        applyRiver(state.river ?? { narrow: 0.3, light: 0.6, fear: 0.2, mist: 0.3 });
       } else {
         // a gentle banking glide, never a jolt (H-AL: smooth motion only)
         camera.position.set(Math.sin(t * 0.11) * 2.2, Math.sin(t * 0.07) * 1.2, 0);

@@ -1,0 +1,23 @@
+# As I was in 2021: a viewer preset fitted by scripts/fit_viewer.py (river-film seen as fis-2021).
+# The twin view (?tw=1) plays any film twice: left, the viewer of now (the knobs at neutral);
+# right, this viewer. The fit: the transform of the River Film that comes closest to the 2021
+# film over the shared phases (story-time up to 0.6): RMS 0.178 -> 0.058
+# (whole film 0.294 -> 0.207; after the encounter the two films are
+# different stories). A film gives one value per mode, so the somatic and cognitive knobs are
+# equal. A model reading of two scores, not a diagnosis; the author tunes it (and asks H-AL).
+id: v2021
+title: As I was in 2021
+order: 10
+fitted: {base: river-film, target: fis-2021, shared: 0.6, rms_before: 0.178, rms_after: 0.058, rms_whole_before: 0.294, rms_whole_after: 0.207}
+baseline:   # per mode [somatic, cognitive]
+  S: [0.15, 0.15]
+  F: [-0.04, -0.04]
+  C: [-0.29, -0.29]
+  A: [-0.01, -0.01]
+  G: [0.04, 0.04]
+  L: [-0.1, -0.1]
+  PV: [0.01, 0.01]
+conditions:   # model operators (P13): hypotheses, not diagnoses
+  adhd: 0.0
+  asd: 0.0
+  cptsd: 1.0

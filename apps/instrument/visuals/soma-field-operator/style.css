@@ -517,3 +517,7 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__hr input { width: 110px; accent-color: #ff4d5e; }
 .explorer__hr output { min-width: 2.2em; }
 .explorer__hr[hidden] { display: none; }
+.explorer__conds { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #e8eefc; }
+.explorer__conds label { display: flex; align-items: center; gap: 4px; }
+.explorer__conds input { width: 64px; accent-color: #a78bfa; }
+.explorer__conds[hidden] { display: none; }

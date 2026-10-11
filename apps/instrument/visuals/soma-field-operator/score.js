@@ -58,6 +58,12 @@ export function createScorePlayer(score, { kappaV = 1, start = 0, kappaD = null,
     get velocity() { return v; },
     // the viewer is ready to cross (POKE)
     ready() { if (holding) ready = true; },
+    // follow another player's clock (the twin view): jump to a story-time, no hold
+    seek(time) {
+      t = Math.max(0, Math.min(1, Number(time) || 0));
+      for (const th of thresholds) th.crossed = th.t <= t;
+      holding = null;
+    },
     // loop: { kr, hdot, bpm }
     step(dt, loop = {}) {
       const kr = Number(loop.kr) || 0;
@@ -136,3 +142,62 @@ export function viewerField(bpm, hdot, hrv = null) {
   return { S, F: a, L: Math.max(0, 0.8 - 0.5 * a - 0.2 * Math.max(0, hdot)) };
 }
 
+
+// ---------------------------------------------------------------- viewers (the twin view)
+// A viewer preset (registry/viewers): who watches the film. The Tensor's rendering function
+// S(t) = R(e*, kappa, e_V): the same score and knobs, a different viewer. Three layers:
+// - baseline: the instrument's 16 knobs (P1, "Design": eight emotional dimensions, each a
+//   somatic and a cognitive knob), here The Tensor's modes plus Shame (VIEW_MODES); offsets
+//   in [-1, 1] added to the film's modes (a mode the film does not have is ignored);
+// - conditions: model operators from P13 (hypotheses, not diagnoses): adhd and asd move the
+//   effective temperature T = T0 (1 + 0.8 adhd - 0.6 asd) (ADHD about 1.8 T0, ASC about
+//   0.4 T0): noise and texture; asd also monotropism (the two strongest modes stay, the
+//   others fade); cptsd deepens the barrier (W towards 12): safety lower, fear and grief
+//   higher, and slower to come back (the lag is the app's, applied over time);
+// - the film's own knobs, shared by both windows.
+// scripts/fit_viewer.py uses the same deterministic transform to fit a preset from two films.
+export const VIEW_MODES = ['S', 'F', 'Sh', 'G', 'C', 'A', 'L', 'PV'];
+const clamp01 = x => Math.max(0, Math.min(1, x));
+
+// a preset plus the three condition sliders (each slider adds to the preset's value)
+export function presetParams(preset = null, sliders = {}) {
+  const c = k => clamp01(Number(preset?.conditions?.[k] ?? 0) + Number(sliders?.[k] ?? 0));
+  return { adhd: c('adhd'), asd: c('asd'), cptsd: c('cptsd'), baseline: preset?.baseline ?? {} };
+}
+
+// the effective temperature, as a multiple of T0
+export function temperature(p) { return 1 + 0.8 * p.adhd - 0.6 * p.asd; }
+
+// the deterministic part of the viewer: baseline offsets, the C-PTSD barrier, ASD monotropism
+export function viewerTransform(m, p) {
+  const out = { ...m };
+  for (const id of Object.keys(out)) {
+    const b = p.baseline?.[id];
+    const off = Array.isArray(b) ? (Number(b[0] ?? 0) + Number(b[1] ?? 0)) / 2 : Number(b) || 0;
+    out[id] = clamp01(out[id] + off);
+  }
+  if ('S' in out) out.S = clamp01(out.S - 0.3 * p.cptsd);
+  if ('F' in out) out.F = clamp01(out.F + 0.2 * p.cptsd);
+  if ('G' in out) out.G = clamp01(out.G + 0.2 * p.cptsd);
+  if (p.asd > 0) {
+    const ids = Object.keys(out).sort((a, b) => out[b] - out[a]);
+    ids.forEach((id, k) => { out[id] = k < 2 ? clamp01(out[id] * (1 + 0.3 * p.asd)) : out[id] * (1 - 0.6 * p.asd); });
+  }
+  return out;
+}
+
+// the dynamic part, frame by frame: ADHD noise (a smooth jitter per mode, scaled by the
+// temperature above T0) and the C-PTSD lag (the viewer follows the film more slowly, the
+// deeper the barrier). state: the previous output (null at the start).
+export function viewerStep(target, p, state, time, dt) {
+  const noise = 0.18 * Math.max(0, temperature(p) - 1);
+  const tau = 0.5 + 12 * p.cptsd;
+  const out = {};
+  Object.keys(target).forEach((id, k) => {
+    const jitter = noise * (Math.sin(time * (0.9 + 0.37 * k) + k) * 0.6 + Math.sin(time * (2.3 + 0.21 * k) + 2 * k) * 0.4);
+    const goal = clamp01(target[id] + jitter);
+    const prev = state?.[id] ?? goal;
+    out[id] = prev + (goal - prev) * Math.min(1, dt / tau);
+  });
+  return out;
+}

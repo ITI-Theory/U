@@ -4,18 +4,19 @@
 // app's real ids before it runs; unknown steps are dropped, and nothing in a tour
 // is ever executed as code.
 
-import { eras, levels, models, paths, questions, tours, zUSFAbstract } from './generated/app-data.js';
+import { eras, levels, models, paths, questions, scores, tours, viewers, zUSFAbstract } from './generated/app-data.js';
 import { OVERLAYS, createPresentationStage } from './presentation.js';
 import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
-  'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc']);
+  'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
-  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session'],
+  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session'], tw: ['0', '1'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
 const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;
@@ -47,6 +48,8 @@ const IDS = {
   model: new Set(models.map(item => item.id)),
   era: new Set(eras.map(item => item.id)),
   q: new Set(questions.map(item => item.id)),
+  kf: new Set((scores ?? []).map(item => item.id)),
+  pv: new Set((viewers ?? []).map(item => item.id)),
 };
 const PRESETS = new Map(tours.map(tour => [tour.id, tour]));
 // main.js rewrites the hash on start-up, so keep the one the page was opened with.
@@ -62,7 +65,7 @@ export function viewProblems(view) {
   for (const [key, value] of params) {
     if (!TOUR_KEYS.has(key)) problems.push(`unknown key ${key}`);
     else if (FIXED[key] && !FIXED[key].includes(value)) problems.push(`${key}=${value} not allowed`);
-    else if (['phi', 'st', 'kd', 'kt'].includes(key) && !PHI.test(value)) problems.push(`${key}=${value} not a number from 0 to 1`);
+    else if (['phi', 'st', 'kd', 'kt', 'ca', 'cs', 'cp'].includes(key) && !PHI.test(value)) problems.push(`${key}=${value} not a number from 0 to 1`);
     else if (key === 'kw' && !(Number(value) >= 0.5 && Number(value) <= 2)) problems.push(`kw=${value} not from 0.5 to 2`);
     else if (key === 'km' && !value.split(',').every(id => SCORE_MODES.includes(id))) problems.push(`km=${value} not a list of ${SCORE_MODES.join(',')}`);
     else if (key === 'kv' && !(Number(value) >= 0.1 && Number(value) <= 3)) problems.push(`kv=${value} not from 0.1 to 3`);

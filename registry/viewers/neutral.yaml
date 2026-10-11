@@ -1,0 +1,6 @@
+# The viewer of now: no offsets, no conditions (the left window's viewer).
+id: neutral
+title: Neutral
+order: 0
+baseline: {}
+conditions: {adhd: 0, asd: 0, cptsd: 0}

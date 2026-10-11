@@ -12,7 +12,7 @@
 // Usage: node scripts/explorer-check.mjs [runs]. Exit 1 if a rate is below its bound.
 
 import { simulation as sim } from '../explorer.js';
-import { createScorePlayer, viewerField } from '../score.js';
+import { createScorePlayer, viewerField, presetParams, viewerTransform, viewerStep } from '../score.js';
 import { diveMath } from '../flight3d.js';
 import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
@@ -27,6 +27,25 @@ function scoreRun({ start, until, kr, bpm, hdot }) {
   let s = 0;
   while (p.t < until && s < 4000) { p.step(0.1, { kr, bpm, hdot }); s += 0.1; }
   return { s, held: p.holding !== null };
+}
+
+// the twin view's viewer presets (score.js): a mid-film moment, seen by different viewers
+const midFilm = { S: 0.5, F: 0.4, C: 0.3, A: 0.35, G: 0.2, L: 0.6, PV: 0.25 };
+const seen = (conditions, baseline = {}) => viewerTransform(midFilm, presetParams({ conditions, baseline }));
+const asdSeen = seen({ asd: 1 });
+// seconds for a viewer to come within 0.05 of a step in fear (0.2 to 0.8)
+function lagTime(cptsd) {
+  const p = presetParams({ conditions: { cptsd } });
+  let state = viewerStep({ F: 0.2 }, p, null, 0, 0.1);
+  let t = 0;
+  while (Math.abs(state.F - 0.8) > 0.05 && t < 200) { t += 0.1; state = viewerStep({ F: 0.8 }, p, state, t, 0.1); }
+  return t;
+}
+function jitter(adhd) {
+  const p = presetParams({ conditions: { adhd } });
+  let state = null, worst = 0;
+  for (let t = 0; t < 30; t += 0.1) { state = viewerStep({ S: 0.5 }, p, state, t, 0.1); if (t > 5) worst = Math.max(worst, Math.abs(state.S - 0.5)); }
+  return worst;
 }
 
 const runs = Number(process.argv[2] ?? 100);
@@ -152,6 +171,13 @@ const checks = [
   ['knobs: more coupling, more awe from fear (A at kw 2 minus kw 0.5)', knob({ kappaW: 2 }).A - knob({ kappaW: 0.5 }).A, 0.2, 1],
   ['knobs: depth 0 is shallower than depth 1 (PV)', knob({ kappaD: 1 }).PV - knob({ kappaD: 0 }).PV, 0.1, 1],
   ['knobs: depth sets the hold at a threshold without the loop (s at kd 1 / kd 0 >= 2)', holdTime(1) / holdTime(0) / 2, 1, Infinity],
+  // the twin view: viewer presets (score.js; P13's model operators, hypotheses, not diagnoses)
+  ['viewer: the neutral viewer sees the film as it is', Number(Object.keys(midFilm).every(id => Math.abs(seen({})[id] - midFilm[id]) < 1e-12)), 1, 1],
+  ['viewer: a baseline offset moves its mode only (C -0.2)', Number(Math.abs(seen({}, { C: [-0.2, -0.2] }).C - 0.1) < 1e-9 && seen({}, { C: [-0.2, -0.2] }).S === midFilm.S), 1, 1],
+  ['viewer: C-PTSD, less safety and more fear (S down + F up)', (midFilm.S - seen({ cptsd: 1 }).S) + (seen({ cptsd: 1 }).F - midFilm.F), 0.45, 0.55],
+  ['viewer: ASD, the two strongest modes stay, the others fade (modes up)', Object.keys(midFilm).filter(id => asdSeen[id] > midFilm[id]).length / 2, 1, 1],
+  ['viewer: C-PTSD, slower back (s to follow a step in fear, cptsd 1 / cptsd 0 >= 5)', lagTime(1) / lagTime(0) / 5, 1, Infinity],
+  ['viewer: ADHD, noise (largest jitter, adhd 1 > 0.1, adhd 0 = 0)', Number(jitter(1) > 0.1 && jitter(0) < 1e-9), 1, 1],
   // the chest strap's packets (heart.js)
   ['strap: 8-bit rate decoded (72 bpm)', Number(hr8.bpm === 72 && hr8.rr.length === 0), 1, 1],
   ['strap: 16-bit rate, energy skipped, RR intervals decoded (300 bpm; 1.0 s, 0.5 s)', Number(hr16.bpm === 300 && hr16.rr.length === 2 && hr16.rr[0] === 1 && hr16.rr[1] === 0.5), 1, 1],

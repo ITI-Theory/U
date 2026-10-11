@@ -1,0 +1,8 @@
+# A viewer preset for the twin view (?tw=1, score.js presetParams): the condition is a model
+# operator from P13 (missing-limbic-layer), a hypothesis, not a diagnosis. The sliders add to it.
+# C-PTSD: the barrier deepened (W towards 12): safety lower, fear and grief higher, slower back.
+id: cptsd
+title: C-PTSD (model)
+order: 22
+baseline: {}
+conditions: {adhd: 0, asd: 0, cptsd: 1}

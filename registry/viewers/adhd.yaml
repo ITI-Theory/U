@@ -1,0 +1,8 @@
+# A viewer preset for the twin view (?tw=1, score.js presetParams): the condition is a model
+# operator from P13 (missing-limbic-layer), a hypothesis, not a diagnosis. The sliders add to it.
+# ADHD: the temperature about 1.8 T0 (noise, texture).
+id: adhd
+title: ADHD (model)
+order: 20
+baseline: {}
+conditions: {adhd: 1, asd: 0, cptsd: 0}
