@@ -2631,10 +2631,45 @@ forbus2017analogy, chaudhri2025knowledge):**
       reasoner finds more than a text linter would.
 
 **2. Proof: Lean 4 and Aesop, microtheories as scopes.**
-- [ ] Generate Lean from NextKB (KRF is Lisp syntax): collections, `genls`,
+- [x] Generate Lean from NextKB (KRF is Lisp syntax): collections, `genls`,
       `isa`, disjointness, the 681 rules as Aesop rules in one rule set per
       microtheory; each microtheory a scope (assumptions as parameters, not
       global axioms), so a contradiction stays inside its microtheory.
+      (Done 11 Oct: U.Ops `make -C opencyc lean-gen lean`, all of NextKB,
+      1,366,193 facts in 678 microtheories, 923 Lake jobs, 0 errors; one Lean
+      process at a time.)
+- [x] The Tensor's affidavit in Lean (11 Oct, U.Ops 9268ae9, `make -C
+      opencyc affidavits`, about 6 min; done in Lean rather than OWL since
+      the KB is there). Findings, each a theorem:
+      - Its own numbers (`Affidavits/TheTensor/Score.lean`, core Lean):
+        "Two operating modes:" heads a table of three; the model equation
+        puts $\kappa_r$ on the film-to-viewer term, so in Projection
+        ($\kappa_r = 0$, "the score drives the viewer") the screen signal
+        drops out; Threshold 1 ("F > 0.7") is never reached, since fear
+        peaks at exactly 0.70 at every rational story-time, so the default
+        rendering holds at T1 for ever; Threshold 2 ("L < 0.1 AND
+        PV > 0.85") holds at t = 0.70 but fails at its declared 0.74 and on
+        all of [0.72, 0.8] (the chart's "t ≈ 0.71" is right, Phase 3's
+        0.74 is not); the 0–9 chart and the Appendix keyframes differ in 11
+        of 77 values, all at t ≥ 0.7.
+      - Against OpenCyc (`Affidavits/TheTensor/Language.lean`, imports all
+        of UniversalVocabularyMt): Fear, Awe, Grief, Curiosity and Shame
+        are OpenCyc emotions (`EmotionalQuantityType`); Safety and
+        Pre-verbal are not (Safety is only a quantity of a situation; the
+        nearest feeling is `Security-Emotion`); Language as an "emotional
+        mode" proves `Holds TheTensorMt falsum`: every emotion type is a
+        kind of `FeelingAttribute` (`typeGenls`, a new rule in
+        `Cyc/Typing.lean`), hence a scalar interval; Language is a kind of
+        `InformationStore`; the two are disjoint; Arabic is a language.
+      - Verdict: more than a text linter. The numeric findings need
+        arithmetic over the score; the Language finding needs OpenCyc. The
+        expected Pensieve check was not made (no InformationBearingThing
+        claim was typed). Aesop does not guess a chain's middle collection;
+        multi-step `genls` chains are spelled out, each link a fact.
+      - Author to decide: fix the paper (rename the axes "modes" rather
+        than "emotional modes", or map Safety to Security; three operating
+        modes; one T2 time; one score table) or keep it as Sherlock's first
+        exhibit.
 - [ ] The paper's own disclaimers become microtheories (ArtisticDesignMt vs
       ClinicalMt): Sherlock checks that no clinical-context claim is made
       without evidence. The affidavit, and the legal use.
