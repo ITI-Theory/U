@@ -3082,3 +3082,16 @@ Not lost: build it after the four-screen layout works.
 - [ ] Tablets as controls: a relay for the screens' channel (MOTHER bridge).
 - [ ] The 3D glass cockpit (after the above): panels as live textures, the window as the main view.
 
+Author, 11 Oct 22:40: more layouts, all kept; each screen is just another Chrome
+window, so a layout is a named profile (which role on which screen), not code:
+- **Inverted T** (above): main; beneath; bottom left; bottom right.
+- **Simulator**: the main screen and two glass cockpits beneath it, plus the
+  pilot's tablet (an electronic flight bag) for anything else: a search, this
+  chat, notes.
+- **The author's desk**: the 32-inch screen as main, three tablets beneath it,
+  the laptop screen to the right.
+Windows on one machine already share the view (`screens.js`); tablets and a
+second machine need the relay (item above).
+- [ ] Layout profiles (inverted T, simulator, the author's desk): a profile names
+      the role of each window; any window can switch role; saved per machine.
+
