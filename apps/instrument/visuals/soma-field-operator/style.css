@@ -523,3 +523,8 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__conds label { display: flex; align-items: center; gap: 4px; }
 .explorer__conds input { width: 64px; accent-color: #a78bfa; }
 .explorer__conds[hidden] { display: none; }
+.explorer__knobs { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #e8eefc; }
+.explorer__knobs label { display: flex; align-items: center; gap: 3px; }
+.explorer__knobs input { width: 48px; accent-color: #f6c75a; }
+.explorer__knobs input:disabled { opacity: 0.3; }
+.explorer__knobs[hidden] { display: none; }

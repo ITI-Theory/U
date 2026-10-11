@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { leanTowers } from './generated/app-data.js';
 import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
@@ -1186,6 +1187,7 @@ function readHashState() {
     cp: params.get('cp'),
     kx: params.get('kx'),
     ab: params.get('ab'),
+    ap: params.get('ap'),
   };
 }
 
@@ -1303,6 +1305,16 @@ const explorer = createExplorer({
   cityItems: () => [
     ...registryConcepts.map(c => ({ title: c.concept, status: c.status, lines: [c.lean ?? '', c.status ?? '', c.where ?? '', ...(c.papers ?? []).map(p => `paper ${p}`), c.notes ?? ''] })),
     ...registryLevels.filter(l => l.equation).map(l => ({ title: l.label, status: 'equation', lines: [l.equation, l.field ?? '', l.length_scale ?? '', l.substrate ?? ''] })),
+    // the programme's own Lean (ISS-071): a tower per module, its glowing text the declarations,
+    // marked ✓ theorem, = definition, ◆ axiom, ✗ resting on sorry, ∘ proving only True
+    ...(leanTowers?.towers ?? []).map(t => {
+      const mark = d => (d.sorry ? '✗' : d.k === 'axiom' ? '◆' : d.trivial ? '∘' : d.k === 'theorem' ? '✓' : '=');
+      const status = t.decls.some(d => d.sorry) ? 'sorry' : t.decls.some(d => d.k === 'axiom') ? 'axiom' : 'kernel-verified';
+      return {
+        title: `${t.module}.lean`, status, height: Math.min(3.8, 0.8 + t.decls.length / 12),
+        lines: [`kernel-checked at ${leanTowers.commit}`, ...t.decls.map(d => `${mark(d)} ${d.n} : ${d.s}`)],
+      };
+    }),
   ],
 });
 const elevator = createElevator({
@@ -1681,7 +1693,7 @@ function applyVoyage(hashState) {
     screens?.setFx(phi);
   }
   if (hashState.feel) explorer.setFeel(hashState.feel);
-  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc, kf: hashState.kf, tw: hashState.tw, pv: hashState.pv, ca: hashState.ca, cs: hashState.cs, cp: hashState.cp, kx: hashState.kx, ab: hashState.ab });
+  explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc, kf: hashState.kf, tw: hashState.tw, pv: hashState.pv, ca: hashState.ca, cs: hashState.cs, cp: hashState.cp, kx: hashState.kx, ab: hashState.ab, ap: hashState.ap });
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2151,6 +2163,7 @@ function hashForState() {
       if (sp.kc && sp.kc !== 'mind') params.set('kc', sp.kc);
       if (sp.kf && sp.kf !== 'river-film') params.set('kf', sp.kf);
       if (sp.kx !== undefined && sp.kx !== 3) params.set('kx', String(sp.kx));
+      if (sp.ap) params.set('ap', sp.ap);
       if (sp.ab === 'b') {
         params.set('ab', 'b');
         if (!sp.tw) {

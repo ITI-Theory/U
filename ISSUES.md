@@ -3254,9 +3254,11 @@ Copilot's shaping (modelling and fading, as with WORDS, ISS-072):
   that the AI feels; not therapy; labelled interpretive. In the repository,
   "Autopilot" also names the speech-to-text helper (ISS-047 note 9): keep the two
   apart in the docs.
-- [ ] A start-at-zero journey with a poke; the AUTOPILOT / CO-PILOT / MANUAL control at
-      the score stop; per-mode handover; H-AL's think-aloud lines per mode change.
-- [ ] Remembered handover level; the next journey hands over earlier.
+- [x] (12 Oct, first version; PILOT at the score stop, `ap=auto|co|manual`) A start-at-zero journey with a poke; the AUTOPILOT / CO-PILOT / MANUAL control at
+      the score stop; per-mode handover; H-AL's think-aloud lines per mode change
+      (spoken at WORDS NARRATION, shown at CAPTIONS, left to the knobs below: fading).
+- [x] Remembered handover level; the next journey hands over earlier.
+- [ ] Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes (ISS-053).
 
 ## ISS-075: RICE: a ricing switch for the author's options, and the glass cockpit as design vocabulary — OPEN
 {{Tags area.app, area.instrument}}
