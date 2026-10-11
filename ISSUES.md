@@ -1936,7 +1936,60 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       its stated peak; the general 8-mode Hamiltonian, the transverse-field
       Ising Hamiltonian and the tabulated noise-equivalence curve are
       abstract or have no scatter/table primitive, left unmarked); papers 99
-      of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
+      of 233;
+      11 Oct 02:40: new primitive `data-points` (tabulated numbers from the
+      text as points, a least-squares fit or the text's own model curve;
+      checks `expect_slope`, `expect_intercept`, `expect_n`); applied to
+      quantum-soma-penrose's previously-skipped (barrier, $T^*$) table, 9
+      points, no fit drawn since the text states only that $T^*$ rises
+      monotonically, not a rate (checked `expect_n=9`);
+      soma-field-paper (P1): 8 to 17 of 42 equations (9 more figures): the
+      QFT on-shell propagator as its pole pair (`complex-plane`); the
+      Layer-1 noise/HRV relation; the category-functor pipeline
+      $\mathcal{M}\to\mathcal{F}\to\mathcal{S}\to\mathcal{P}\to\mathcal{O}$
+      as a line `process-diagram`; the fractal output functor
+      $F(X)=\text{EmotionalState}\times X$ as a product `type-decomposition`;
+      the baseline noise $\mathcal{N}(0,\sigma_0^2)$ (`distribution`); the
+      C-PTSD $W_\text{PTSD}=W_\text{sym}+W_\text{anti}$ and the
+      developmental-age $W(\tau_d)$ interpolation over the same illustrative
+      fear/shame/calm/anger matrices as soma-field-book
+      (`matrix-heatmap`, before/after/difference); the ASC sparse coupling
+      $W_\text{ASC}=W\odot M_\text{sparse}$ (`matrix-heatmap`); the C-PTSD
+      memory kernel's loop integral as an illustrative `convolution`; the
+      generic Hopfield/Ising energy definitions, the Wick-rotation identity,
+      the landscape-tilt and three-layer ODEs, the plasticity index $\Pi$,
+      the compactification and projection functor integrals, the ADHD and
+      autism operator modifiers, the B.5 composed ODE and the MSR path
+      integral (Appendix D.1) stay abstract or have no closed form, left
+      unmarked; three of the new macros' own params used a bare
+      `\text{...}}` pattern whose doubled closing brace matches
+      visualize-reader.lua's non-greedy `}}` terminator early, silently
+      truncating the macro (caught and rewritten as `\text{...}` without the
+      extra wrapping braces; the same pattern, uncaught, already exists in
+      soma-field-book's committed "the-modification" figure — flagged, not
+      fixed here);
+      soma-field-patient-pov: 0 to 5 of 8 equations: the somatic/neural
+      coupling (`type-decomposition`), the perception threshold and the
+      one-mode landscape (reusing the technical paper's own illustrative
+      forms), the two-term memory kernel, and the ADHD $1/f$ noise term
+      (white/pink/red spectra); the general Hopfield energy and the full
+      C-PTSD/ADHD/composed ODEs stay abstract, left unmarked;
+      experimental-validation: its one equation (the God-Knob source term)
+      stays abstract, but the double-well $V(x)=W(x^2-1)^2$ named in the
+      next sentence is drawn as an energy landscape at an illustrative
+      $W=1$, minima at $x=\pm1$ checked (a direct consequence of the stated
+      form, not illustrative);
+      soma-field-synthesis: 0 to 1 of 2 (the QFT co-identification's
+      propagator as its two poles; the Hopfield co-identification's generic
+      $H(\mathbf{e})$ stays abstract);
+      soma-physical-substrate: its one equation is a prose correspondence
+      ("fascial stiffness $\leftrightarrow$ $|W_{ij}|$"), not a quantity —
+      no primitive fits, left unmarked;
+      ttheory-phenomena: 0 to 1 of 2 (the master Helmholtz equation drawn as
+      the standard free-space outgoing Green's function at an illustrative
+      wavenumber — the known closed-form solution, not invented data; the
+      Conclusion's boxed restatement of the same equation left unmarked);
+      papers 116 of 233) Mark up the papers: every display equation gets a `{{Visualize}}` when a
       primitive fits; a report lists equations with no fitting primitive (new
       primitives come from that list).
 - [x] (11 Oct 01:55) New primitives from the skip lists: `matrix-heatmap` (a
