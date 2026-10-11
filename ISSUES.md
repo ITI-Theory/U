@@ -2618,7 +2618,9 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
 
 ## ISS-055: Sherlock: three ways of reasoning over OpenCyc (consistency, proof, analogy) — OPEN
 {{Tags area.proofs, area.theory, area.books}}
-{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=, epic=}}
+{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=, epic=ISS-055-sherlock}}
+
+**Epic:** [ISS-055-sherlock.md](prj/.adm/issues/ISS-055-sherlock.md) (end state, design decisions D1-D7, sub-issues ISS-056 to ISS-064, the document list).
 
 Author, 10 Oct: model what a document is trying to say or prove as a short
 set of checkable facts (an affidavit), typed against OpenCyc, and reason over
@@ -2794,3 +2796,109 @@ but nothing else finds them). Plan:
       book's affidavit chapter and the Russell reading (writing, not tools).
 - Parked: QP simulation (the arithmetic answered the threshold questions),
   HermiT explanations (the Lean route replaced the OWL one), sketches.
+
+## ISS-056: Sherlock claims registry and validator — OPEN
+{{Tags area.proofs}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055, decisions D1-D4. `registry/affidavits/<doc>.yaml`: the frozen
+source (commit, SHA-256), and per claim: id, quote, lines, kind, reading
+(microtheory), formal form in OpenCyc vocabulary, verdict, label, Lean
+theorem, disposition (open / fixed in version / kept as exhibit). A validator
+(`make -C sherlock check`) ties each finding to a compiled theorem; the
+findings report reads the registry.
+- [ ] Schema and validator; `TTheoryVocabularyMt` (shared programme concepts).
+- [ ] Migrate exhibits A-D (The Tensor, containers, Claude advert, ZSF).
+
+## ISS-057: Sherlock chain finder — OPEN
+{{Tags area.proofs}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055. Aesop does not guess the middle collection of a `genls` chain,
+so chains are written link by link. `sherlock/chain.py A B [MT]` searches the
+KRF (`isa`, `genls`, `disjointWith`, `typeGenls`, `genlPreds`, `genlInverse`)
+and prints the Lean proof term, or the disjointness that makes two
+collections incompatible. Later perhaps a Lean tactic.
+- [ ] chain.py with paths and disjointness; use it in the existing affidavits.
+
+## ISS-058: Sherlock programme-wide ledger — OPEN
+{{Tags area.proofs, release}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055, D5. Every paper's and book's claims about the programme's own
+Lean (named theorems and modules, "axiom", "sorry", "kernel-checked")
+extracted by a script to JSON; one Lean program in the root package reads it
+and reports each declaration's kind, its axioms (`#print axioms`), and
+whether it exists; the report lists mismatches per document. ZSF says "five
+real sorries"; a scan counts 14 uncommented `sorry` tokens in
+`paper/proofs`: to settle.
+- [ ] Extractor, Lean judge, report; replaces `Ledger/ZSF.lean`'s fixed list.
+
+## ISS-059: An affidavit for every paper and book — OPEN
+{{Tags area.proofs, area.books, release}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055 (document list in the epic file). Per document: freeze, extract
+with the saved prompt (D7), verify, registry entry, Lean (numbers in core
+Lean, typing against OpenCyc), findings; the author disposes. About 1-2 hours
+each.
+- [ ] Papers P1-P24 (P8 and P11 done).
+- [ ] The fifteen domain books, the course book, CS1, D1, D2.
+- [ ] `make -C sherlock affidavits` in the release gate.
+- [ ] SH1 updated: exhibit D (ZSF), the programme-wide summary.
+
+## ISS-060: Sherlock mapping assistant (words to OpenCyc constants) — OPEN
+{{Tags area.proofs}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055. The weakest link is which OpenCyc constant a word means.
+`sherlock/lookup.py WORD` searches NextKB's lexicon (NuLex
+`denotation`, FrameNet links, `prettyString`) and constant names, and lists
+candidates with their `comment`, `isa` and key `genls`, for the affidavit's
+author to choose; the choice is recorded in the registry.
+- [ ] lookup.py; mappings recorded per claim.
+
+## ISS-061: Values quoted across documents — OPEN
+{{Tags area.proofs, area.theory}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055, D2-D3. Numeric claims in the registry as `quotedValue doc
+quantity value unit`; a check groups by quantity across documents and
+reports disagreements (e.g. synapse counts, Ω_DM = 3/11, scale-level
+counts, N(σ)). Filled in while ISS-059 runs.
+- [ ] Quantity vocabulary; cross-document report.
+
+## ISS-062: OpenCyc's simple rules into Lean — OPEN
+{{Tags area.proofs}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055, D6. NextKB has 769 `implies` sentences, now skipped by
+gen_krf.py. Translate the Horn-shaped ones (a conjunction of atoms implies an
+atom, variables universally quantified) into Aesop rules in their
+microtheory's rule set; count the rest. Changes the generated KB: overnight
+rebuild by the author. Check whether the exhibit B gap (a showing performs
+the score) closes.
+- [ ] Translator, rebuild, affidavits re-run.
+
+## ISS-063: Structure mapping over affidavits — OPEN
+{{Tags area.proofs, area.theory}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055 (later). SME (Falkenhainer, Forbus & Gentner 1989) over the
+registry's relational forms: score, correspondences, candidate inferences;
+MAC/FAC retrieval ("where else is this structure claimed?"). First tests:
+The Tensor's three containers (after the Body and Session phases are
+written, ISS-053), and pairs of papers claiming the same structure at
+different scales (ZSF's "same as always").
+- [ ] SME core; MAC/FAC; the two tests.
+
+## ISS-064: The Law book's affidavit chapter and the Russell reading — OPEN
+{{Tags area.books}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Epic ISS-055 (later). Law (C2-book-13): affidavits as legal argument (claims,
+exhibits, versions as precedent), with Sherlock's exhibits as worked cases.
+Philosophy (C2-book-06): Russell's *History of Western Philosophy* read as a
+sequence of affidavits about the same questions, compared by structure
+mapping (ISS-063).
+- [ ] Law chapter; Philosophy reading.
