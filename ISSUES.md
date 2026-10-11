@@ -2912,3 +2912,16 @@ Philosophy (C2-book-06): Russell's *History of Western Philosophy* read as a
 sequence of affidavits about the same questions, compared by structure
 mapping (ISS-063).
 - [ ] Law chapter; Philosophy reading.
+
+## ISS-065: Sergeant Major: admin reminders pushed to H-AL, a Maintenance deck, a releasable voice — OPEN
+{{Tags area.instrument area.admin}}
+{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-065-sergeant-major}}
+
+Author, 11 Oct 20:31: "my ADHD makes me the worst admin guy ever"; the
+final project. Reminders pushed out to H-AL, a Maintenance section below
+the engine room, and voice: the author's own voice stays parked; use a
+default voice with the H-AL-ifier on top (quicker). Epic file:
+prj/.adm/issues/ISS-065-sergeant-major.md.
+- [ ] Reminder collector (`HAL remind`): read, never copy.
+- [ ] Maintenance deck (screens.js role `maintenance`): done and snooze only.
+- [ ] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
