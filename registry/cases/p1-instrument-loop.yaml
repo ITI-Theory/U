@@ -1,0 +1,17 @@
+# P1, the Soma-Field Instrument closed feedback loop.
+id: p1-instrument-loop
+document: P1
+source: {file: paper/soma/soma-field-paper/soma-field-paper.md, commit: 25d893e, sha256: 0aa35626da09190cd97203248e95977fa1ce557a2391085a6a4125811afc4105}
+scale: ""
+name: "Soma-Field Instrument feedback loop"
+facts:
+  - {s: (enables RenderedFieldSignal TherapeuticAttention), line: 951}
+  - {s: (couples SomaticIntensity CognitiveNeuralIntensity), line: 963}
+  - {s: (energyLandscapeOf InstrumentEnergyFunction ExpressedEmotionalState), line: 998}
+  - {s: (rendersAs EnergyLevel SoundOutput), line: 999}
+  - {s: (rendersAs Dissonance SoundOutput), line: 1000}
+  - {s: (rendersAs EnergyDecrease MidiResolution), line: 1002}
+  - {s: (rendersAs ThresholdCrossings VisualFieldMap), line: 1003}
+  - {s: (causes ClosedFeedbackLoop ReflectionRegulation), line: 1009}
+proposed:
+  rendersAs: {arity: 2, gloss: "?x is represented or made available as sensory output ?y"}

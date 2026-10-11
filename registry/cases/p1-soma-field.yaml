@@ -1,0 +1,17 @@
+# P1, the Soma-Field model: the persistent coupled body/neural emotional field.
+id: p1-soma-field
+document: P1
+source: {file: paper/soma/soma-field-paper/soma-field-paper.md, commit: 25d893e, sha256: 0aa35626da09190cd97203248e95977fa1ce557a2391085a6a4125811afc4105}
+scale: ""
+name: "Soma-Field model"
+facts:
+  - {s: (impulseResponseOf ConsciousEmotionalExperience SomaManifold), line: 599}
+  - {s: (substrateOf SomaBodyMindSystem SomaField), line: 605}
+  - {s: (couples SomaticWave NeuralWave), line: 615}
+  - {s: (thresholdOf PerceptionThreshold EmotionalMode), line: 637}
+  - {s: (causes ThresholdCrossing Awareness), line: 647}
+  - {s: (couples EmotionalModeJ EmotionalModeI), line: 677}
+  - {s: (minimisesOn FieldDynamics EmotionalEnergyFunction), line: 684}
+  - {s: (mindMatrixOf LimbicEmotionalMemory SomaField), line: 769}
+  - {s: (storesPatterns LimbicEmotionalMemory EmotionalSomaticStates), line: 771}
+proposed: {}

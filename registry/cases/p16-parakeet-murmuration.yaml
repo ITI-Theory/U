@@ -1,0 +1,17 @@
+# P16, ring-necked parakeet murmurations as an active-matter velocity field.
+id: p16-parakeet-murmuration
+document: P16
+source: {file: paper/soma/geographic-somatic-field/geographic-somatic-field.md, commit: 6ce4ac7, sha256: e6b01808648138eaa3dcb5bf76cb35e3b25f3853b0f60a02be8fb1b68b725b57}
+scale: "7"
+name: "Ring-necked parakeet murmuration"
+facts:
+  - {s: (substrateOf DiscreteBirdAgents ParakeetSwarmField), line: 121}
+  - {s: (propagatorOf ActiveMatterVelocityField ParakeetSwarmField), line: 122}
+  - {s: (alignsWith BirdAgent LocalNeighbours), line: 128}
+  - {s: (boundaryOf ReservoirGeometry ParakeetSwarmField), line: 132}
+  - {s: (causes AlignmentPropagation FormationShape), line: 132}
+  - {s: (boundaryOf ReservoirPerimeter ParakeetSwarmField), line: 143}
+  - {s: (boundaryOf SurroundingVegetation ParakeetSwarmField), line: 143}
+  - {s: (wavenumberSetBy ParakeetSwarmField AlignmentRadius), line: 142}
+  - {s: (eigenmodesOf RoostTrajectories ActiveMatterGreensFunction), line: 138}
+proposed: {}

@@ -1,0 +1,16 @@
+# P17, Gestalt field dynamics: field language cast as Soma-Field relational dynamics.
+id: p17-gestalt-field-dynamics
+document: P17
+source: {file: paper/soma/gestalt-field-dynamics/gestalt-field-dynamics.md, commit: 4c80124, sha256: ac656f2caf5b1e614286584031f9bbeb7e780bcaa7810d6c1edad1ae0a6e76aa}
+scale: ""
+name: "Gestalt field dynamics"
+facts:
+  - {s: (impulseResponseOf EmotionalPercept CouplingManifold), line: 105}
+  - {s: (propagatorOf EmotionalPercept CouplingManifoldField), line: 106}
+  - {s: (mindMatrixOf SomaticAttractorNets CouplingManifoldField), line: 115}
+  - {s: (energyLandscapeOf HopfieldEnergy SomaticAttractorNets), line: 115}
+  - {s: (boundaryOf GlobalBoundaryConditions SomaticAttractorNets), line: 117}
+  - {s: (couples ExternalFieldCoupling BoundaryConditions), line: 141}
+  - {s: (causes ExternalFieldCoupling RelationalReordering), line: 141}
+  - {s: (couples FieldState SomaticVariables), line: 166}
+proposed: {}

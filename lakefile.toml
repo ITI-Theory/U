@@ -27,6 +27,12 @@ git = "https://github.com/mrdouglasny/OSforGFF.git"
 rev = "fef84a82937dfd2bb7f672108a72da329d3ef0fd"
 
 [[require]]
+# Sherlock: OpenCyc in Lean (sherlock/, same Lean, Aesop and Batteries pins); the
+# programme's types anchored to OpenCyc collections (ISS-063, D12).
+name = "OpenCyc"
+path = "sherlock"
+
+[[require]]
 # Mathlib LAST — overrides any transitive pins from OSforGFF
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"

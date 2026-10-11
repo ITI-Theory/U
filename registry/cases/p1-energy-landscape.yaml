@@ -1,0 +1,19 @@
+# P1, the emotional energy landscape and attractor basins.
+id: p1-energy-landscape
+document: P1
+source: {file: paper/soma/soma-field-paper/soma-field-paper.md, commit: 25d893e, sha256: 0aa35626da09190cd97203248e95977fa1ce557a2391085a6a4125811afc4105}
+scale: ""
+name: "Emotional energy landscape"
+facts:
+  - {s: (energyLandscapeOf EmotionalEnergyLandscape EmotionalStateSpace), line: 826}
+  - {s: (minimisesOn FieldDynamics EmotionalEnergyLandscape), line: 833}
+  - {s: (attractorIn StableEmotionalStates EmotionalEnergyLandscape), line: 829}
+  - {s: (attractorIn FightBasin EmotionalEnergyLandscape), line: 845}
+  - {s: (attractorIn FlightBasin EmotionalEnergyLandscape), line: 845}
+  - {s: (attractorIn FreezeBasin EmotionalEnergyLandscape), line: 845}
+  - {s: (attractorIn RegulatedCalmBasin EmotionalEnergyLandscape), line: 845}
+  - {s: (barrierHeight FreezeBasin EnergyBarriers), line: 868}
+  - {s: (causes EnergyIncrease FreezeEscape), line: 868}
+  - {s: (couples Shame Anxiety), line: 878}
+  - {s: (causes PositiveEmotionCoupling RegulatedCalmBasin), line: 881}
+proposed: {}

@@ -1,0 +1,19 @@
+# P13, model-defined ADHD, ASC and C-PTSD operator regimes.
+id: p13-condition-operators
+document: P13
+source: {file: paper/soma/missing-limbic-layer/missing-limbic-layer.md, commit: e3747df, sha256: 11aa557e5b07eb3b799fe9964d12c267b93b195227e3a3d2481d68e775999db2}
+scale: ""
+name: "Condition operator regimes"
+facts:
+  - {s: (causes HighBaselineTemperature LowBaselineBeta), line: 253}
+  - {s: (causes LowBaselineBeta UnstablePatternRecall), line: 254}
+  - {s: (attractorTransitionIn ADHDOscillation CompetingAttractors), line: 255}
+  - {s: (causes LowBaselineTemperature DeepNarrowAttractors), line: 264}
+  - {s: (trapsUnder DeepNarrowAttractors LowPerturbationDynamics), line: 266}
+  - {s: (barrierHeight CPTSDBarrier BarrierW), line: 276}
+  - {s: (attractorIn TraumaAttractor CPTSDLandscape), line: 276}
+  - {s: (attractorIn HealthyAttractor CPTSDLandscape), line: 276}
+  - {s: (trapsUnder CPTSDLandscape RandomThermalFluctuations), line: 277}
+  - {s: (tunnelsThrough TunnellingComponent BarrierW), line: 324}
+  - {s: (causes LimbicModulation BarrierLowering), line: 327}
+proposed: {}

@@ -1,0 +1,17 @@
+# P13, the Field-Modulated Hopfield Network / missing limbic layer.
+id: p13-limbic-layer
+document: P13
+source: {file: paper/soma/missing-limbic-layer/missing-limbic-layer.md, commit: e3747df, sha256: 11aa557e5b07eb3b799fe9964d12c267b93b195227e3a3d2481d68e775999db2}
+scale: ""
+name: "Field-Modulated Hopfield Network limbic layer"
+facts:
+  - {s: (storesPatterns ClassicalHopfieldNetwork StoredPatterns), line: 77}
+  - {s: (energyLandscapeOf HopfieldEnergyLandscape ClassicalHopfieldNetwork), line: 77}
+  - {s: (feedsBackOn CEMIField FiringThresholds), line: 129}
+  - {s: (couples LimbicField HopfieldDynamics), line: 145}
+  - {s: (causes LimbicFieldAmplitude TemperatureRise), line: 155}
+  - {s: (causes TemperatureRise BarrierTraversal), line: 156}
+  - {s: (couples LimbicCouplingMatrix WeightLandscape), line: 164}
+  - {s: (feedsBackOn CEMIInspiredTerm WeightLandscape), line: 166}
+  - {s: (limitOf ClassicalHopfieldNetwork FMHN), line: 210}
+proposed: {}

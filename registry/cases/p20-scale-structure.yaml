@@ -1,0 +1,18 @@
+# P20, the 20-scale structure over which the same field equation is evaluated.
+id: p20-scale-structure
+document: P20
+source: {file: paper/soma/universal-somatic-field/universal-somatic-field.md, commit: 401efc1, sha256: e11b7d4fb63338b33df0591088ad60661685219441391a46a13ea57f3d03a067}
+scale: ""
+name: "USF 20-scale structure"
+facts:
+  - {s: (obeysMasterEquation ScaleField), line: 207}
+  - {s: (wavenumberSetBy ScaleField ScaleDependentK), line: 207}
+  - {s: (boundaryOf ScaleBoundaryConditions ScaleField), line: 208}
+  - {s: (propagatorOf ScaleGreenFunction ScaleField), line: 207}
+  - {s: (substrateOf ScaleSubstrate ScaleField), line: 194}
+  - {s: (propagatorOf GravitonPropagator ScaleField), line: 194}
+  - {s: (propagatorOf SynapticImpulseResponse ScaleField), line: 197}
+  - {s: (propagatorOf SomaticEMF ScaleField), line: 200}
+  - {s: (propagatorOf JellyfishCoordinationKernel ScaleField), line: 201}
+  - {s: (propagatorOf GravitationalWavePropagator ScaleField), line: 205}
+proposed: {}

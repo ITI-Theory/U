@@ -44,3 +44,76 @@ tests:
     line: 1104
     quote: 'same equation governs propagation at all scales'
     cases: [zsf-scale-0, zsf-scale-1, zsf-scale-2, zsf-scale-3, zsf-scale-4, zsf-scale-5, zsf-scale-6, zsf-scale-7, zsf-scale-8, zsf-scale-9, zsf-scale-10, zsf-scale-11, zsf-scale-12, zsf-scale-13, zsf-scale-14, zsf-scale-15-16, zsf-scale-17-18, zsf-scale-19-20]
+
+  - id: p19-swarm-same-math-different-scale
+    document: P19
+    line: 266
+    quote: 'The swarm application is the same mathematics at a different scale.'
+    pairs: [[p19-swarm-propagator, zsf-scale-9]]
+  - id: p19-same-gs-operation-across-levels
+    document: P19
+    line: 277
+    quote: 'The same $G \cdot s$ operation is proposed across these levels.'
+    pairs: [[p19-swarm-propagator, zsf-scale-5], [p19-swarm-propagator, zsf-scale-9], [p19-swarm-propagator, zsf-scale-10], [p19-swarm-propagator, zsf-scale-12], [p19-swarm-propagator, zsf-scale-13]]
+  - id: p20-one-equation-twenty-scales
+    document: P20
+    line: 129
+    quote: 'One equation form. Twenty scale levels.'
+    pairs: [[p20-universal-field, zsf-scale-0], [p20-universal-field, zsf-scale-1], [p20-universal-field, zsf-scale-2], [p20-universal-field, zsf-scale-3], [p20-universal-field, zsf-scale-4], [p20-universal-field, zsf-scale-5], [p20-universal-field, zsf-scale-6], [p20-universal-field, zsf-scale-7], [p20-universal-field, zsf-scale-8], [p20-universal-field, zsf-scale-9], [p20-universal-field, zsf-scale-10], [p20-universal-field, zsf-scale-11], [p20-universal-field, zsf-scale-12], [p20-universal-field, zsf-scale-13], [p20-universal-field, zsf-scale-14], [p20-universal-field, zsf-scale-15-16], [p20-universal-field, zsf-scale-17-18], [p20-universal-field, zsf-scale-19-20]]
+  - id: p20-structural-equation-all-levels
+    document: P20
+    line: 207
+    quote: 'At every level, the structural equation is'
+    pairs: [[p20-scale-structure, zsf-scale-0], [p20-scale-structure, zsf-scale-1], [p20-scale-structure, zsf-scale-2], [p20-scale-structure, zsf-scale-3], [p20-scale-structure, zsf-scale-4], [p20-scale-structure, zsf-scale-5], [p20-scale-structure, zsf-scale-6], [p20-scale-structure, zsf-scale-7], [p20-scale-structure, zsf-scale-8], [p20-scale-structure, zsf-scale-9], [p20-scale-structure, zsf-scale-10], [p20-scale-structure, zsf-scale-11], [p20-scale-structure, zsf-scale-12], [p20-scale-structure, zsf-scale-13], [p20-scale-structure, zsf-scale-14], [p20-scale-structure, zsf-scale-15-16], [p20-scale-structure, zsf-scale-17-18], [p20-scale-structure, zsf-scale-19-20]]
+
+  - id: p20-correspondence-scale-8-soma-field
+    document: P20
+    line: 565
+    quote: 'At Scale 8 (organism): USF → the earlier Soma-Field clinical and computational models'
+    pairs: [[p20-universal-field, p17-gestalt-field-dynamics], [p20-universal-field, p17-fixed-gestalt], [p20-universal-field, p17-topological-impasse]]
+  - id: p20-correspondence-scale-9-swarm
+    document: P20
+    line: 566
+    quote: 'At Scale 9 (swarm): USF → the Green''s-function multi-agent coordination model'
+    pairs: [[p20-universal-field, p19-swarm-propagator], [p20-scale-structure, p19-swarm-propagator]]
+  - id: p20-zero-limbic-amplitude
+    document: P20
+    line: 568
+    quote: 'At zero limbic amplitude: USF → classical, non-conscious field dynamics'
+    pairs: [[p20-limbic-threshold, p20-universal-field]]
+  - id: p20-scale-restricted-projections
+    document: P20
+    line: 572
+    quote: 'scale-restricted projections of a single structural description'
+    pairs: [[p20-universal-field, p17-gestalt-field-dynamics], [p20-universal-field, p17-fixed-gestalt], [p20-universal-field, p17-topological-impasse], [p20-universal-field, p19-swarm-propagator], [p20-universal-field, p20-limbic-threshold]]
+
+  - id: p1-field-particle-propagator-category
+    document: P1
+    line: 29
+    quote: 'both are poles in the propagator'
+    pairs: [[p1-soma-field, zsf-scale-1]]
+  - id: p16-thames-two-scales-one-equation
+    document: P16
+    line: 149
+    quote: 'are modelled by equation (1)'
+    pairs: [[p16-estuary-waveguide, p16-parakeet-murmuration]]
+  - id: p16-thames-same-mechanism
+    document: P16
+    line: 163
+    quote: 'both patterns by the same mechanism'
+    pairs: [[p16-estuary-waveguide, p16-parakeet-murmuration]]
+  - id: p16-geographic-scales-p11-propagator
+    document: P16
+    line: 17
+    quote: 'same $(\nabla^2 + k^2)G = \delta$ propagator form'
+    pairs: [[p16-estuary-waveguide, zsf-scale-9], [p16-parakeet-murmuration, zsf-scale-8]]
+  - id: p16-kloentalersee-scale-10-greens-function
+    document: P16
+    line: 200
+    quote: 'same Green''s function equation'
+    pairs: [[p16-kloentalersee-resonator, zsf-scale-10]]
+  - id: p16-all-three-same-operator
+    document: P16
+    line: 267
+    quote: 'formal operator is the same'
+    pairs: [[p16-estuary-waveguide, p16-parakeet-murmuration], [p16-estuary-waveguide, p16-kloentalersee-resonator], [p16-parakeet-murmuration, p16-kloentalersee-resonator]]

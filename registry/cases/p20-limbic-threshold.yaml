@@ -1,0 +1,17 @@
+# P20, consciousness modelled as a threshold crossing in the limbic field.
+id: p20-limbic-threshold
+document: P20
+source: {file: paper/soma/universal-somatic-field/universal-somatic-field.md, commit: 401efc1, sha256: e11b7d4fb63338b33df0591088ad60661685219441391a46a13ea57f3d03a067}
+scale: ""
+name: "Limbic consciousness threshold"
+facts:
+  - {s: (thresholdOf ConsciousnessThreshold LimbicFieldAmplitude), line: 263}
+  - {s: (propagatorOf GreenFunction LimbicField), line: 268}
+  - {s: (causes LimbicFieldAmplitude ConsciousnessThresholdCrossing), line: 270}
+  - {s: (couples LimbicWave SomaticBoundary), line: 270}
+  - {s: (couples LimbicWave CorticalBoundary), line: 270}
+  - {s: (causes SomaticCorticalCoupling FirstPersonAwareness), line: 272}
+  - {s: (thresholdOf ConsciousnessThreshold ConsciousnessPhase), line: 289}
+  - {s: (wavenumberSetBy PropagatorMass DecayTime), line: 297}
+  - {s: (causes LongDecayTime NearZeroPole), line: 301}
+proposed: {}

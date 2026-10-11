@@ -1,0 +1,16 @@
+# P17, Proof 2: a fixed Gestalt represented with Hopfield/Lyapunov attractor dynamics.
+id: p17-fixed-gestalt
+document: P17
+source: {file: paper/soma/gestalt-field-dynamics/gestalt-field-dynamics.md, commit: 4c80124, sha256: ac656f2caf5b1e614286584031f9bbeb7e780bcaa7810d6c1edad1ae0a6e76aa}
+scale: ""
+name: "Fixed Gestalt Hopfield basin"
+facts:
+  - {s: (mindMatrixOf EmotionalStateVector FixedGestaltField), line: 171}
+  - {s: (energyLandscapeOf HopfieldEnergy EmotionalStateVector), line: 173}
+  - {s: (minimisesOn GradientDescent HopfieldEnergy), line: 173}
+  - {s: (attractorIn FixedGestalt HopfieldEnergy), line: 178}
+  - {s: (causes GradientFlow FixedGestalt), line: 178}
+  - {s: (attractorIn StableAttractorBasin HopfieldEnergy), line: 182}
+  - {s: (minimisesOn LyapunovDescent HopfieldEnergy), line: 194}
+  - {s: (attractorIn StableDefences HopfieldEnergy), line: 202}
+proposed: {}

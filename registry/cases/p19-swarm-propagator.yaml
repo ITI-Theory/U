@@ -1,0 +1,18 @@
+# P19, the single-step swarm propagator / macroscopic brane projection model.
+id: p19-swarm-propagator
+document: P19
+source: {file: paper/soma/swarm-propagator/swarm-propagator.md, commit: 401efc1, sha256: a7c4f1ba95e76d686db516073d313fc8bb213008f2a5a48937fcb1973202f5a5}
+scale: "9"
+name: "Single-step swarm propagator"
+facts:
+  - {s: (substrateOf AgentPositions SwarmField), line: 48}
+  - {s: (propagatorOf FieldGreenFunction SwarmField), line: 51}
+  - {s: (impulseResponseOf FieldGreenFunction ClassicalField), line: 94}
+  - {s: (obeysMasterEquation SwarmField), line: 100}
+  - {s: (inverseRDecay FieldGreenFunction), line: 106}
+  - {s: (causes SingleEvaluation FieldPropagation), line: 106}
+  - {s: (propagatorOf PropagatorMatrix SwarmField), line: 141}
+  - {s: (enables PropagatorMatrix SingleStepUpdate), line: 152}
+  - {s: (causes SingleStepUpdate ReducedCoordinationCost), line: 160}
+  - {s: (enables SingleEvaluation JamResistance), line: 218}
+proposed: {}

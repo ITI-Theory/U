@@ -1,0 +1,18 @@
+# P17, Proof 3: impasse as topological obstruction and driven boundary modulation.
+id: p17-topological-impasse
+document: P17
+source: {file: paper/soma/gestalt-field-dynamics/gestalt-field-dynamics.md, commit: 4c80124, sha256: ac656f2caf5b1e614286584031f9bbeb7e780bcaa7810d6c1edad1ae0a6e76aa}
+scale: ""
+name: "Topological impasse resolution"
+facts:
+  - {s: (boundaryOf G2Holonomy EmotionalCouplingManifold), line: 117}
+  - {s: (trapsUnder TopologicalObstruction ChronicStuckness), line: 226}
+  - {s: (boundaryOf ExternalDrivingTerm EmotionalField), line: 229}
+  - {s: (couples ClientTherapistCoregulation EmotionalField), line: 231}
+  - {s: (doubleWell TiltedEnergyLandscape), line: 236}
+  - {s: (trapsUnder TiltedEnergyLandscape LeftValley), line: 236}
+  - {s: (causes ExternalCurrent LandscapeShift), line: 238}
+  - {s: (attractorTransitionIn ResolutionTransition WindingNumberState), line: 248}
+  - {s: (causes DrivenPath ZeroWindingNumber), line: 248}
+  - {s: (boundaryOf BoundaryConditionOperations HighDimensionalEmotionalField), line: 257}
+proposed: {}

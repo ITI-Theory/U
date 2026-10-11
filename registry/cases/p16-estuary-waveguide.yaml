@@ -1,0 +1,17 @@
+# P16, Estuary English as a structural contagion wave in the Thames Valley wave-guide.
+id: p16-estuary-waveguide
+document: P16
+source: {file: paper/soma/geographic-somatic-field/geographic-somatic-field.md, commit: 6ce4ac7, sha256: e6b01808648138eaa3dcb5bf76cb35e3b25f3853b0f60a02be8fb1b68b725b57}
+scale: "9"
+name: "Estuary English structural contagion wave"
+facts:
+  - {s: (substrateOf CoupledPopulation EstuaryField), line: 85}
+  - {s: (propagatorOf SocialInteractionKernel EstuaryField), line: 93}
+  - {s: (thresholdOf SocialPrestigeThreshold Adoption), line: 94}
+  - {s: (mindMatrixOf CulturalAttractorCount EstuaryField), line: 108}
+  - {s: (wavenumberSetBy EstuaryField SocialInteractionRadius), line: 105}
+  - {s: (boundaryOf ChilternsNorth EstuaryField), line: 106}
+  - {s: (boundaryOf NorthDownsSouth EstuaryField), line: 106}
+  - {s: (boundaryOf ClassPrestigeGradient EstuaryField), line: 107}
+  - {s: (causes InteractionFrequency DiffusionConstant), line: 102}
+proposed: {}

@@ -1,0 +1,17 @@
+# P20, the Universal Somatic Field as a scale-invariant Green's-function field.
+id: p20-universal-field
+document: P20
+source: {file: paper/soma/universal-somatic-field/universal-somatic-field.md, commit: 401efc1, sha256: e11b7d4fb63338b33df0591088ad60661685219441391a46a13ea57f3d03a067}
+scale: ""
+name: "Universal Somatic Field"
+facts:
+  - {s: (obeysMasterEquation UniversalSomaticField), line: 9}
+  - {s: (propagatorOf UniversalGreenFunction UniversalSomaticField), line: 10}
+  - {s: (substrateOf FieldSubstrate UniversalSomaticField), line: 10}
+  - {s: (impulseResponseOf UniversalGreenFunction FieldSubstrate), line: 14}
+  - {s: (oscillatoryRegime UniversalSomaticField), line: 92}
+  - {s: (inverseRDecay UniversalGreenFunction), line: 92}
+  - {s: (impulseResponseOf UniversalGreenFunction HarmonicOscillator), line: 101}
+  - {s: (eigenmodesOf StringSpectrum UniversalGreenFunction), line: 125}
+  - {s: (wavenumberSetBy UniversalSomaticField ScaleDependentK), line: 129}
+proposed: {}

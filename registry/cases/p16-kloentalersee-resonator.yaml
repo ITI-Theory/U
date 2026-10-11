@@ -1,0 +1,17 @@
+# P16, the Klöntalersee basin as a parabolic acoustic resonator.
+id: p16-kloentalersee-resonator
+document: P16
+source: {file: paper/soma/geographic-somatic-field/geographic-somatic-field.md, commit: 6ce4ac7, sha256: e6b01808648138eaa3dcb5bf76cb35e3b25f3853b0f60a02be8fb1b68b725b57}
+scale: "10"
+name: "Klöntalersee parabolic acoustic resonator"
+facts:
+  - {s: (substrateOf KlontalerseeBasin AcousticField), line: 175}
+  - {s: (boundaryOf ParabolicBowl AcousticField), line: 176}
+  - {s: (boundaryOf LimestoneValleyWalls AcousticField), line: 197}
+  - {s: (propagatorOf AcousticGreensFunction AcousticField), line: 181}
+  - {s: (wavenumberSetBy AcousticField AcousticFrequency), line: 195}
+  - {s: (causes ParabolicBoundary WaveFocusing), line: 182}
+  - {s: (causes BoundaryConfinement SustainedResonantModes), line: 185}
+  - {s: (eigenmodesOf ResonantModes AcousticGreensFunction), line: 186}
+  - {s: (mindMatrixOf CrustalStressModeCount AcousticField), line: 198}
+proposed: {}

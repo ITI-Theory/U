@@ -1,0 +1,16 @@
+# P19, the jellyfish drone formation proof-of-concept.
+id: p19-jellyfish-formation
+document: P19
+source: {file: paper/soma/swarm-propagator/swarm-propagator.md, commit: 401efc1, sha256: a7c4f1ba95e76d686db516073d313fc8bb213008f2a5a48937fcb1973202f5a5}
+scale: "9"
+name: "Jellyfish drone formation"
+facts:
+  - {s: (propagatorOf TentaclePosition BellExcitation), line: 235}
+  - {s: (causes BellExcitation TentaclePosition), line: 235}
+  - {s: (causes LeadDrone FieldState), line: 239}
+  - {s: (causes FieldGreenFunction TargetPosition), line: 241}
+  - {s: (enables FieldGreenFunction OneStepFollowerUpdate), line: 241}
+  - {s: (causes LevelSets FormationShape), line: 244}
+  - {s: (wavenumberSetBy FormationShape FrequencyK), line: 246}
+  - {s: (enables FrequencyK RealTimeMorphing), line: 246}
+proposed: {}
