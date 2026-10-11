@@ -280,6 +280,8 @@ $V'(-1+\varepsilon)$ for $0<\varepsilon<1$ under its barrier assumptions. A full
 hysteresis theorem for the W8 coupling matrix is not yet present; the hysteresis
 test is therefore an empirical/model benchmark, not a completed Lean consequence.
 
+{{Visualize | connection-to-the-volitional-source-term | energy-landscape:soma | U="W*(x^2-1)^2"; x=[-1.8,1.8]; ball=-1; W=1; expect_minima="-1,1" }} The double well above at an illustrative $W=1$ (its stated form fixes the minima at $x=\pm1$ regardless of $W$): the fear basin near $x=-1$ that the hysteresis test starts from.
+
 ---
 
 # QUANT-EXP-1 Under the Four-Model Framework
