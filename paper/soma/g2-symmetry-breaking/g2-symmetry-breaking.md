@@ -72,6 +72,8 @@ For the USF, the self-coupling sets $\lambda_0 = \lambda_1 = \tfrac{6}{5}$
 (the diagonal of $W_8$), giving:
 $$W_{G_2} = \frac{6}{5} I_8$$
 
+{{Visualize | the-g₂-symmetric-limit | matrix-heatmap:soma | matrix="[[1.2,0,0,0,0,0,0,0],[0,1.2,0,0,0,0,0,0],[0,0,1.2,0,0,0,0,0],[0,0,0,1.2,0,0,0,0],[0,0,0,0,1.2,0,0,0],[0,0,0,0,0,1.2,0,0],[0,0,0,0,0,0,1.2,0],[0,0,0,0,0,0,0,1.2]]"; matrix2="[[1.2,0,0.3,0.4,0,0,0,-0.4],[0,1.2,0,0.5,0,0,0,0],[0.3,0,1.2,0.4,-0.3,0,0,0],[0.4,0.5,0.4,1.2,0,0,0,0],[0,0,-0.3,0,1.2,0.6,0,0],[0,0,0,0,0.6,1.2,0,0],[0,0,0,0,0,0,1.2,0.7],[-0.4,0,0,0,0,0,0.7,1.2]]"; rows="BS,RE,EC,CO,VI,EM,ME,AJ"; cols="BS,RE,EC,CO,VI,EM,ME,AJ"; titles="$W_{G_2}=\frac{6}{5} I_8$, $W_8$ (the model matrix)"; diff=true; diff_title="$\delta W$"; expect_sum=9.6 }} The decomposition from the Decomposition section below as three $8\times8$ grids, in the BS/RE/EC/CO/VI/EM/ME/AJ order the text uses: the $G_2$-symmetric ideal (left, diagonal, sum $48/5=9.6$ checked), the model's $W_8$ (middle, from the table of author-chosen coupling values), and their difference $\delta W$ (right) — the traceless symmetry-breaking term the next section analyses.
+
 This is the $G_2$-symmetric attractor: all eight mechanisms are equally coupled,
 no mechanism is privileged. In the $G_2$-symmetric limit, the emotional field has
 maximal symmetry — no directional anisotropy, no preferred emotional mode.
@@ -109,6 +111,8 @@ $$\frac{\|\delta W\|_F}{\|W_8\|_F} = 0.484 \quad (48.4\%\text{ symmetry broken})
 
 The eigenvalues of $\delta W$ (sorted):
 $+0.984$, $+0.718$, $+0.591$, $+0.113$, $-0.226$, $-0.585$, $-0.742$, $-0.855$
+
+{{Visualize | the-decomposition-of-w₈ | matrix-heatmap:soma | matrix="[[0,0,0.3,0.4,0,0,0,-0.4],[0,0,0,0.5,0,0,0,0],[0.3,0,0,0.4,-0.3,0,0,0],[0.4,0.5,0.4,0,0,0,0,0],[0,0,-0.3,0,0,0.6,0,0],[0,0,0,0,0.6,0,0,0],[0,0,0,0,0,0,0,0.7],[-0.4,0,0,0,0,0,0.7,0]]"; rows="BS,RE,EC,CO,VI,EM,ME,AJ"; cols="BS,RE,EC,CO,VI,EM,ME,AJ"; expect_eigen="-0.855,-0.742,-0.585,-0.226,0.113,0.591,0.718,0.984" }} The symmetry-breaking matrix $\delta W$ above, as an $8\times8$ grid: the strongest positive anisotropies (ME-AJ, VI-EM) and the two negative ones (BS-AJ, EC-VI) stand out from the zero diagonal. The program checked the eight stated eigenvalues (ascending) against the matrix's own spectrum.
 
 Their sum is exactly zero (tracelessness). The spectrum is non-degenerate:
 biological emotional processing is not $G_2$-symmetric at any sub-eigenspace level.
