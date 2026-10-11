@@ -2727,7 +2727,7 @@ forbus2017analogy, chaudhri2025knowledge):**
       U.Ops; the built KB reused, no rebuild), `docs/SHERLOCK.md` (how to
       write an affidavit), `make -C sherlock affidavits` (one module at a
       time, stops on errors, then `bld/sherlock/findings.md`). SH1
-      `paper/soma/sherlock-affidavit/` (`make -C paper sh1`; Dist/PAPERS.yaml
+      `paper/soma/sherlock-compiler/` (renamed from sherlock-affidavit, 11 Oct; `make -C paper sh1`; Dist/PAPERS.yaml
       SH1, pending review): exhibit A The Tensor (frozen at 2d36eaf),
       B "the same film" (OpenCyc's `genlWorks`, story to plot: the same
       score, not the same film; OpenCyc's own slip `genlInverse genlWorks
@@ -2983,9 +2983,10 @@ legal advice; the checks and decisions:
   Doyle's own "brain attic" (*A Study in Scarlet*, 1887). "SheerLuck" (the
   author's pun, in the chats since spring) is the reserve name if Sherlock
   is ever released as a standalone tool or product.
-- [ ] About note in the app and SH1: "Named after Conan Doyle's detective
+- [x] About note in the app and SH1: "Named after Conan Doyle's detective
       (public domain); not affiliated with the Conan Doyle Estate or any
-      adaptation."
+      adaptation." (11 Oct: the app README's Names section and SH1's
+      Discussion; the app has no About page yet: add it there when it does.)
 - [x] Cookie Monster (Sesame Workshop's character and trademark, in
       copyright): renamed **The Monster** (author, 20:54: "this whole app
       is about abstract things") in the live documents (PROCESS.md tier 3,
@@ -3147,4 +3148,27 @@ proposal, in steps:
       that theorem and stream the kernel's answer (the browser cannot run Lean).
 Difficulty: the export and the towers are medium (the judge and the city exist);
 the live PROVE is the hard part and optional.
+
+## ISS-072: How much language: a text-level control for the films, and help bringing it down — OPEN
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+
+Author, 12 Oct 00:30: Rothko gave his pictures numbers, no clues. The films get a
+control for how much language they give the viewer, from none to narration; the
+more text, the easier to connect, and the viewer is helped to bring it down. Not a
+course: a slider (or radio buttons) with a word of help now and then.
+- Levels: 0 a number only (No. 7); 1 the title; 2 intertitles at each phase
+  (silent-film cards: Departure, Descent, The Deep River, Return); 3 captions (the
+  phase lines); 4 narration (H-AL speaks each phase, today's `?film=1`).
+- Within a film the words already recede with the Language mode (The Tensor: at the
+  bottom of the river there are none); the level caps what the film may show.
+- Across viewings, fading (support withdrawn as it is no longer needed): after a
+  viewing the film suggests one notch lower ("next time, with fewer words"); the
+  viewer's level is remembered in the browser. The arrival point is a film felt
+  without being told what it is: the score is what is rendered, not the story.
+- Fits the externalising machine (ISS-053): the less the film says, the more the
+  viewer brings.
+- [ ] A text-level parameter (`kx`, 0-4) in the score player, the hash, tours and
+      the score stop's controls; intertitles as full-screen cards.
+- [ ] The suggestion after a viewing, and the remembered level.
 

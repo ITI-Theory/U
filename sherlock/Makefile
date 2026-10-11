@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -28,6 +28,7 @@ help:
 	$(info   ledger      documents' claims about the programme's Lean (all affidavits' documents, or LEDGER_DOCS=...); ledger.md)
 	$(info   delta       ID=<affidavit> [REV=...]: what an edit did to its claims; delta-<ID>.md)
 	$(info   rules-gen   OpenCyc's Horn rules to Lean (CycRules), no facts rebuild)
+	$(info   types       the concept registry's OpenCyc classes as Lean types (SLICE=1: axioms, seconds; else proofs from the KB))
 	$(info   all         fetch lean-gen rules-gen lean affidavits)
 	@:
 
@@ -86,6 +87,11 @@ ledger:
 # What an edit did to an affidavit: make delta ID=zoomable-somatic-field [REV=...]
 delta:
 	cd .. && $(PYTHON) sherlock/delta.py $(ID) $(if $(REV),--rev $(REV),)
+
+# The concept registry's OpenCyc classes as Lean types (ISS-063, D12): SLICE=1 for the fast loop.
+types:
+	$(PYTHON) gen_types.py $(if $(SLICE),--slice,)
+	LEAN_NUM_THREADS=2 lake build CycTypes.Concepts
 
 # OpenCyc's Horn rules (bld/sherlock/lean/CycRules.lean); importing only Cyc.Rules, they never rebuild the facts.
 rules-gen:

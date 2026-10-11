@@ -19,6 +19,11 @@ rev = "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e"
 name = "CycRules"
 srcDir = "../bld/sherlock/lean"
 
+# The concept registry's OpenCyc classes as Lean types, generated (make -C sherlock types).
+[[lean_lib]]
+name = "CycTypes"
+srcDir = "../bld/sherlock/lean"
+
 # Queries and tests against generated microtheories.
 [[lean_lib]]
 name = "Queries"

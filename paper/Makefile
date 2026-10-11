@@ -36,7 +36,7 @@ $(eval $(call register, cosmological-constant-derivation, citeproc, en,  coscons
 $(eval $(call register, dark-matter-spatial-vacuum,       citeproc, en,  darkmatter))
 $(eval $(call register, g2-symmetry-breaking,             citeproc, en,  g2break  ))
 $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenomena))
-$(eval $(call register, sherlock-affidavit,               citeproc, en,  sh1      ))
+$(eval $(call register, sherlock-compiler,                citeproc, en,  sh1      ))
 $(eval $(call register, SFT-DEMO-CASE,                     citeproc, en,  demo-case))
 
 # Derived target lists (computed from registry)

@@ -70,6 +70,16 @@ Two gaps weaken a formal proof. The keyword `sorry` tells Lean to accept a step 
 A theorem's `#print axioms` lists `sorryAx`. What does that mean? (Answer: somewhere in its proof, or in a result it uses, a step was assumed with `sorry`; the theorem is not yet proved.)
 :::
 
+::: {.example #ex:ev-prose-about-proofs title="Checking what the prose says about the proofs"}
+One of the programme's synthesis papers says that "the current repository still contains seven real `sorry` markers". Is that right?
+
+**Strategy.** The kernel checks proofs, not sentences about proofs, so the sentence needs its own check. Count the keyword `sorry` in the Lean source, leaving out comments (a comment that mentions `sorry` is not a gap).
+
+**Solution.** Removing block comments (`/- … -/`) and line comments (`-- …`) from the programme's Lean files and counting what remains gives $2 + 2 + 1 = 5$: two in `BRECVEMAVariational.lean`, two in `DyadicField.lean`, one in `SomaNetwork.lean`. The sentence's seven is wrong; counting comments as well gives a larger number still, which is probably how such slips arise.
+
+**Significance.** Prose about proofs drifts from the proofs as both change. The programme's checker, Sherlock, does this check for every paper: it extracts each Lean name a paper cites and what the paper says about it ("axiom", "kernel-checked", "sorry"), asks Lean, and lists every disagreement (@sec:ev-review).
+:::
+
 ## What a simulation shows {#sec:ev-simulation}
 
 ::: {.learning-objectives}

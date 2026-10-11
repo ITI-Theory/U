@@ -20,8 +20,8 @@ abstract: |
   affidavit. The test case is [T]-Theory, the author's research programme on
   emotion and field theory (24 papers, 15 books, a course and an atlas, with
   its own Lean proofs), chosen because it makes every kind of claim Sherlock
-  checks, in many places at once. Sherlock has written affidavits for 23 of
-  its papers: 233 claims, and 38 problems in 15 papers: counts that do not match their
+  checks, in many places at once. Sherlock has written affidavits for all 24
+  of its papers: 248 claims, and 42 problems in 16 papers: counts that do not match their
   lists, values stated twice differently, arithmetic that does not hold,
   numbers that differ between papers, cited Lean declarations that do not
   exist, and category errors against the consensus. Two further layers turn
@@ -69,7 +69,7 @@ category error a compile error.
 
 The first version of this paper described the method and its first three
 exhibits, on one document. This version reports Sherlock run over a whole
-research programme, [T]-Theory: 23 papers, their Lean, and the claims they
+research programme, [T]-Theory: 24 papers, their Lean, and the claims they
 make about each other. The code is in the repository's `sherlock/` directory, the
 claims are in `registry/affidavits/`, every finding is a named Lean theorem
 or a kernel-checked template, and `make -C sherlock all` rebuilds everything
@@ -423,21 +423,22 @@ and identical too to Scale 5's synaptic transfer function, which the paper
 writes with $k = i\lambda^{-1}$. Two of the three propagators that are "the
 same" with $k = 0$ have, in the paper's own words, a different $k$.
 
-# The programme: twenty-three affidavits of [T]-Theory
+# The programme: twenty-four affidavits of [T]-Theory
 
-Sherlock has written affidavits for 23 of the programme's 24 papers (the
-book-length P6 is next) and for Exhibit C: 233 claims, of which 223 are
-labelled kernel-verified, nine derived under OpenCyc's assumptions and one
-sourced. 119 are confirmed, 69 consistent, 4 unclear, 1 not provable from
-what OpenCyc holds, and 40 contradicted. Two of the 40 are Exhibit C's,
-contradictions by design; the other 38 are problems in 15 papers.
+Sherlock has written affidavits for all 24 of the programme's papers, 248
+claims, and for Exhibit C, 3 more: 251 claims, of which 237 are labelled
+kernel-verified, nine derived under OpenCyc's assumptions, four
+interpretive and one sourced. 129 are confirmed, 69 consistent, 4 unclear,
+5 not provable from what OpenCyc holds, and 44 contradicted. Two of the 44
+are Exhibit C's, contradictions by design; the other 42 are problems in 16
+papers.
 
 | Kind | Problems | Example |
 |---|---:|---|
-| A value stated twice, differently | 11 | P11 gives $N \approx 10^2$ at Scale 2 in equation (10) and $10^5$ in the catalogue |
-| Arithmetic | 8 | P1 infers "more than 24%" from a bound of $1 - \tanh 1 = 0.2384\ldots$ |
+| A value stated twice, differently | 12 | P11 gives $N \approx 10^2$ at Scale 2 in equation (10) and $10^5$ in the catalogue |
+| Arithmetic | 9 | P1 infers "more than 24%" from a bound of $1 - \tanh 1 = 0.2384\ldots$ |
+| A count against its list | 8 | P4's "three categories of work remain" lists four |
 | Between papers | 7 | P19, P20, P21 count 20 scale levels; P11 and the Lean have 21 |
-| A count against its list | 6 | P4's "three categories of work remain" lists four |
 | A claim about the Lean | 3 | P19 cites `Rat.div_lt_div_right`, which current Mathlib does not have |
 | Category, against OpenCyc | 3 | The Tensor's Language as an "emotional mode" |
 
@@ -450,10 +451,10 @@ different design (P2, Q1). P4 says the repository has seven `sorry`
 markers; the other affidavits, and a count of the source, say five (Y2).
 P9 names seven mechanisms of an eight-letter acronym (M1).
 
-The ledger, over 19 documents, found 171 citations of Lean names, of which
+The ledger, over the 24 papers, found 171 citations of Lean names, of which
 16 disagree with the Lean: names that do not exist, and declarations called
 theorems or kernel-checked that are axioms or rest on axioms. The values
-check groups 201 quoted quantities and finds five quoted differently.
+check groups 218 quoted quantities and finds five quoted differently.
 
 One finding came from the programme's Lean rather than its prose. Its
 emotion vocabulary, a typed DSL with an OpenCyc interpreter, rendered each
@@ -511,7 +512,7 @@ writing for text whose claims will change tomorrow; the cheap checks
 (templates, the ledger, values, types) can run on every change, and the
 front end at milestones.
 
-**More than a linter.** Of the 38 problems, most need arithmetic or a second
+**More than a linter.** Of the 42 problems, most need arithmetic or a second
 document to see; three need common-sense knowledge no style checker has;
 and the structure-mapping results change what the programme can say:
 "the same equation" or "the same form" where it said "identical in
@@ -522,6 +523,14 @@ which predicate of the case vocabulary a sentence states, are choices made
 by whoever writes the affidavit or the case. Sherlock makes them explicit
 and checkable, cites the line for each, and reports the template control;
 it does not make the choices for the author.
+
+**Sherlock on this paper.** Sherlock was run on this paper before
+publication, as the writing loop prescribes. It found two problems in the
+previous version (the abstract counted the advert's claims as the papers',
+and a ledger figure predated four affidavits), both fixed here; and the
+ledger found two disagreements in this paper that were its own errors: a
+module name read as a declaration, and a sentence saying that a name does
+not exist read as a claim that it does. The ledger now reads both.
 
 **Limits.** OpenCyc's 408 simple implication rules are in Lean; its default
 reasoning and its more complex rules are not, and Aesop needs long chains
@@ -536,9 +545,11 @@ ontology [@hitzler2012owlprimer] as a test to the Scala RDF library
 banana-rdf on 13 February 2015 [@bananardf]: a document's facts, typed and
 checked. The programme's emotion vocabulary descends from the same library's
 OWL DSL. Sherlock is that test grown up, with the document a scientific
-paper and the ontology the common sense its reader brings.
+paper and the ontology the common sense its reader brings. The name is Conan
+Doyle's detective's, whose stories are in the public domain; the work is not
+affiliated with the Conan Doyle Estate or with any adaptation.
 
-**Next.** The book-length paper and the programme's books; the containers
+**Next.** The programme's books; the containers
 test of Exhibit B, once the body and session versions of the film are
 written; the whole programme's concepts as types; affidavits as a form of
 legal argument (claims, exhibits, precedent); and a reading of the history
@@ -548,7 +559,7 @@ same questions.
 # Conclusion
 
 An affidavit is cheap to write and exact to check. Run over a research
-programme, [T]-Theory, Sherlock found 38 problems in 15 of 23 papers, separated the
+programme, [T]-Theory, Sherlock found 42 problems in 16 of 24 papers, separated the
 mathematical findings from the consensus ones, showed that most of the
 programme's "same structure" claims share a form rather than a structure,
 and caught 25 invented names in the programme's own Lean by making them

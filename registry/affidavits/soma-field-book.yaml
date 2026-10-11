@@ -1,0 +1,296 @@
+# Sherlock affidavit (DRAFT): A Voyage into Trauma (P6). Schema: sherlock/registry.py.
+# Draft summary: checks the book-length soma-field introduction against its own
+# figure labels, Lean-sketch prose, developmental-time arithmetic, tables, and
+# instrument counts. Three confirmed problems are included; positives are local
+# consistency checks, with OpenCyc candidates left as not-provable readings.
+id: soma-field-book
+document: P6
+title: "A Voyage into Trauma: The Soma-Field Theory of Emotional Life"
+source:
+  file: paper/soma/soma-field-book/soma-field-book.md
+  commit: 3c97a44
+  sha256: 9379a5f82f16fda7c078618863d5ac47be4b6b03c34078084dfdf346e60d9b7d
+lean: []
+microtheories:
+  SomaFieldBookMt: draft readings from the book's explanatory claims
+claims:
+  - id: SFB1
+    quote: '24% of the coupling matrix is trauma-formed'
+    lines: [1174, 1175, 1176, 1177, 1178, 1185, 1186]
+    kind: internal-arithmetic
+    finding: >-
+      the Lean-sketch explanation infers "more than 24%" trauma-formed from
+      structuralFraction < tanh(1), but recomputing the boundary gives
+      1 - tanh(1) = 0.238405844044235..., which is below 24%; the exact
+      inequality only guarantees more than about 23.84%, so rounding tanh(1)
+      down to 0.76 creates the stated 24% threshold
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [0.238405844044235, 0.24]}]
+    values:
+      - {quantity: SomaField-PreVerbalTraumaFractionStated, value: 0.24}
+      - {quantity: SomaField-PreVerbalTraumaFractionComputed, value: 0.238405844044235}
+    disposition: open
+  - id: SFB2
+    quote: 'Figure 9.2. The ABCD operator circuit.'
+    lines: [1856, 1912]
+    kind: internal-count
+    finding: >-
+      Chapter 9 assigns the label Figure 9.2 twice: first to the Soma-Field
+      instrument pipeline image and later to the ABCD operator circuit; counting
+      captions with the literal label "Figure 9.2." gives two captions, not one
+      unique figure number
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [2, 1]}]
+    values:
+      - {quantity: SFB-Figure9.2CaptionCount, value: 2}
+    disposition: open
+  - id: SFB3
+    quote: 'their `sorry` markers identify work not formalised'
+    lines: [114, 115, 116, 117, 2641, 2642, 2643, 2644]
+    kind: internal-count
+    finding: >-
+      the reader guidance says Appendix B's Lean sketches have `sorry` markers,
+      and Appendix B says `sorry` marks open proof obligations, but the fenced
+      Lean code in Appendix B contains zero `sorry` tokens; the prose describes
+      markers that are not present in the displayed sketches
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [0, 0]}, {template: ne, args: [0, 1]}]
+    values:
+      - {quantity: SFB-AppendixBCodeSorryCount, value: 0}
+    disposition: open
+  - id: SFB4
+    quote: "There are four T's in this book"
+    lines: [43, 44, 45, 46, 47, 48, 51, 2528, 2530, 2540, 2549, 2555, 2560, 2573]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the Preface and Epilogue each enumerate five T-terms once Trance is added,
+      but the lists are not the same: the Preface has Trauma, Threshold, Time,
+      Transformation, Trance, while the Epilogue has Theory, Threshold, Time,
+      Transformation, Trance; four names overlap and one name differs
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 1, 5]}, {template: ne, args: [4, 5]}]
+    values:
+      - {quantity: SFB-PrefaceTTermCount, value: 5}
+      - {quantity: SFB-EpilogueTTermCount, value: 5}
+      - {quantity: SFB-SharedTTermCount, value: 4}
+    disposition: open
+  - id: SFB5
+    quote: 'expect_sum=-0.6'
+    lines: [1102]
+    kind: internal-arithmetic
+    finding: >-
+      the baseline W0 matrix in the interpolation visual sums to -0.6 exactly:
+      the four row sums are 0.1, 0.1, -0.9 and 0.1, giving -3/5
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [0.1, 0.1, -0.9, 0.1, -0.6]}]
+    values:
+      - {quantity: SFB-InterpolationW0EntrySum, value: -0.6}
+    disposition: none
+  - id: SFB6
+    quote: 'expect_value=0.76'
+    lines: [1108, 1110, 1111]
+    kind: internal-arithmetic
+    finding: >-
+      at the document's stated threshold tau_c = 36 months, f(tau_c) =
+      tanh(36/36) = tanh(1) = 0.7615941559557649, within the visual's 0.003
+      tolerance of the quoted 0.76 and consistent with the figure's
+      "about three-quarters" caption
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: [0.7615941559557649, 0.76, 0, 0.003]}]
+    values:
+      - {quantity: SFB-VerbalEncodingThresholdMonths, value: 36}
+      - {quantity: SFB-StructuralFractionAtTauC, value: 0.7615941559557649}
+    disposition: none
+  - id: SFB7
+    quote: 'developmental ages 18 to 21 months'
+    lines: [1148, 1150, 1151, 1152, 1153]
+    kind: internal-arithmetic
+    finding: >-
+      the autobiographical calculation is internally consistent: 18 months is
+      half of the 36-month tau_c, tanh(18/36) = tanh(0.5) = 0.462117..., so
+      the baseline fraction is slightly less than half and the trauma-formed
+      fraction is about 0.537883; 21 - 18 also gives the stated three-month
+      hospitalisation interval
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [18, 36]}, {template: rel-between, args: [0.46211715726000974, 0.46, 0, 0.005]}, {template: diff, args: [21, 18, 3]}]
+    values:
+      - {quantity: SFB-AuthorTraumaAgeMonths, value: 18}
+      - {quantity: SFB-HospitalisationEndAgeMonths, value: 21}
+    disposition: none
+  - id: SFB8
+    quote: 'The instrument tracks seven primary dimensions'
+    lines: [1820, 1827, 1831, 1835, 1839, 1843, 1847, 1851]
+    kind: internal-count
+    finding: >-
+      the instrument section states seven primary dimensions and the boxed list
+      contains exactly seven numbered entries, matching the Figure 9.1 caption
+      that each dimension corresponds to a model parameter or derived quantity
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 1, 1, 7]}]
+    values:
+      - {quantity: SFB-InstrumentDimensionCount, value: 7}
+    disposition: none
+  - id: SFB9
+    quote: 'organised around four operators'
+    lines: [1860, 1862, 1868, 1874, 1880]
+    kind: internal-count
+    finding: >-
+      the ABCD section states four operators and then lists exactly A Attention,
+      B Body, C Coupling and D Dynamics
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    values:
+      - {quantity: SFB-ABCDOperatorCount, value: 4}
+    disposition: none
+  - id: SFB10
+    quote: 'three distinct phases of the field'
+    lines: [1660, 1661, 1668, 1674, 1680, 1690, 1691]
+    kind: internal-count
+    finding: >-
+      the phase-diagram section states three field phases and the diagram names
+      exactly the sympathetic, ventral vagal and dorsal vagal phases, matching
+      the caption's three polyvagal states
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 3]}]
+    values:
+      - {quantity: SFB-PolyvagalPhaseCount, value: 3}
+    disposition: none
+  - id: SFB11
+    quote: 'Table 7.1. Formal correspondences'
+    lines: [1567, 1568, 1569, 1570, 1571, 1572, 1573, 1574, 1575, 1576, 1579]
+    kind: internal-count
+    finding: >-
+      Table 7.1 contains ten correspondence rows between QFT quantities and
+      Soma-Field analogues before its caption
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10]}]
+    values:
+      - {quantity: SFB-QftCorrespondenceRowCount, value: 10}
+    disposition: none
+  - id: SFB12
+    quote: 'Appendix C: The Cross-Language Correspondence Table'
+    lines: [2689, 2693, 2694, 2695, 2696, 2697, 2698, 2699, 2700, 2701, 2702, 2703, 2704, 2705, 2706, 2707]
+    kind: internal-count
+    finding: >-
+      Appendix C's cross-language table contains fifteen mapping rows, from
+      symmetric monoidal category through symmetry breaking
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 15]}]
+    values:
+      - {quantity: SFB-CrossLanguageCorrespondenceRowCount, value: 15}
+    disposition: none
+  - id: SFB13
+    quote: 'emotion vector **e**(t) ∈ ℝ¹¹'
+    lines: [1856]
+    kind: cross-paper
+    finding: >-
+      Figure 9.2's real-time emotion vector dimension is 11, agreeing with
+      the existing corpus value USF-TotalDimensionCount = 11 used by the
+      programme's dimensional affidavits
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [11, 11]}]
+    values:
+      - {quantity: USF-TotalDimensionCount, value: 11}
+    disposition: none
+  - id: SFB14
+    quote: '210 million years of geological history'
+    lines: [1300, 1301, 1302]
+    kind: internal-arithmetic
+    finding: >-
+      the geology interlude's ages are arithmetically consistent: an ancient
+      slab at about 250 Ma over young sediment at about 40 Ma differs by
+      250 - 40 = 210 million years
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [250, 40, 210]}]
+    values:
+      - {quantity: SFB-GlarusAgeGapMa, value: 210}
+    disposition: none
+  - id: SFB15
+    quote: 'The body signal *is* the emotion'
+    lines: [393, 394, 395, 396, 397, 398]
+    kind: opencyc-typing
+    reading: SomaFieldBookMt
+    mapping: {body signal: PhysiologicalCondition, emotion: EmotionalState}
+    formal: (equals SFB-BodySignal SFB-Emotion)
+    finding: >-
+      OpenCyc candidate: read literally, the sentence identifies a physiological
+      signal with an emotional state; a safer formal reading may be representation
+      or realisation rather than strict identity
+    verdict: not-provable
+    label: interpretive
+    lean: null
+    disposition: open
+  - id: SFB16
+    quote: 'It is the nervous system’s model of the body'
+    lines: [438, 439, 440, 441, 442, 443]
+    kind: opencyc-typing
+    reading: SomaFieldBookMt
+    mapping: {soma-field: MathematicalObject, nervous system's model: CognitiveMap, body: OrganismPart}
+    formal: (isa SFB-SomaField CognitiveMap)
+    finding: >-
+      OpenCyc candidate: the soma-field vector is being typed as the nervous
+      system's model of the body, so the mapping should distinguish the
+      mathematical representation from the biological system that instantiates it
+    verdict: not-provable
+    label: interpretive
+    lean: null
+    disposition: open
+  - id: SFB17
+    quote: 'A geological cross-section is four-dimensional'
+    lines: [1306, 1307, 1308, 1309, 1310, 1311]
+    kind: opencyc-typing
+    reading: SomaFieldBookMt
+    mapping: {geological cross-section: GeologicalMap, four-dimensional: FourDimensionalThing, coupling matrix: MathematicalObject}
+    formal: (isa SFB-GeologicalCrossSection FourDimensionalThing)
+    finding: >-
+      OpenCyc candidate: the geological cross-section is a two-dimensional
+      representation that encodes time; the typing should capture representation
+      of four-dimensional history, not literal four-dimensional physical extent
+    verdict: not-provable
+    label: interpretive
+    lean: null
+    disposition: open
+  - id: SFB18
+    quote: 'fear and shame are coupled'
+    lines: [2224, 2225, 2226, 2235]
+    kind: opencyc-typing
+    reading: SomaFieldBookMt
+    mapping: {fear: EmotionalState, shame: EmotionalState, scatter: ParticleInteraction, coupling vertex: MathematicalObject}
+    formal: (relationAllExists coupledWith EmotionalState EmotionalState)
+    finding: >-
+      OpenCyc candidate: the Feynman-diagram language treats emotional modes as
+      lines that can scatter at a vertex; the intended type is a structural
+      diagram of coupling, not particle interaction by emotions as physical
+      particles
+    verdict: not-provable
+    label: interpretive
+    lean: null
+    disposition: open

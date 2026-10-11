@@ -35,7 +35,7 @@ dist-papers: registry-papers
 	cp -f $(PAPERS_BLD)/dark-matter-spatial-vacuum.pdf               $(DIST)/papers/dark-matter-spatial-vacuum.pdf
 	cp -f $(PAPERS_BLD)/ttheory-phenomena.pdf                        $(DIST)/papers/ttheory-phenomena.pdf
 	cp -f $(PAPERS_BLD)/g2-symmetry-breaking.pdf                     $(DIST)/papers/g2-symmetry-breaking.pdf
-	cp -f $(PAPERS_BLD)/sherlock-affidavit.pdf                       $(DIST)/papers/sherlock-affidavit.pdf
+	cp -f $(PAPERS_BLD)/sherlock-compiler.pdf                        $(DIST)/papers/sherlock-compiler.pdf
 	cp -f $(PAPERS_BLD)/SFT-DEMO-CASE.pdf                            $(DIST)/papers/SFT-DEMO-CASE.pdf
 	cp -f $(PAPERS_BLD)/lean-proofs-appendix.pdf                     $(DIST)/papers/lean-proofs-appendix.pdf
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/papers/omnibus-a4.pdf
@@ -89,7 +89,7 @@ zenodo-papers: registry-papers
 	cp -f $(PAPERS_BLD)/dark-matter-spatial-vacuum.pdf               $(DIST)/zenodo/P22-dark-matter-spatial-vacuum.pdf
 	cp -f $(PAPERS_BLD)/ttheory-phenomena.pdf                        $(DIST)/zenodo/P23-ttheory-phenomena.pdf
 	cp -f $(PAPERS_BLD)/g2-symmetry-breaking.pdf                     $(DIST)/zenodo/P24-g2-symmetry-breaking.pdf
-	cp -f $(PAPERS_BLD)/sherlock-affidavit.pdf                       $(DIST)/zenodo/SH1-sherlock-affidavit.pdf
+	cp -f $(PAPERS_BLD)/sherlock-compiler.pdf                        $(DIST)/zenodo/SH1-sherlock-compiler.pdf
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/zenodo/C1v2-omnibus.pdf
 
 zenodo-ttheory: registry-fractal

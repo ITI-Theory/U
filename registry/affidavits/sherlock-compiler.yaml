@@ -1,0 +1,135 @@
+# Sherlock affidavit: SH1 v2, Sherlock: A Neuro-Symbolic Compiler for Free-Form Text.
+# Sherlock run on the paper that describes it (author, 11 Oct 23:28: "make sure you run
+# sherlock on it"): the writing loop's step 2. Two problems: the abstract counts the
+# advert's claims as the papers' (230 + 3 = 233), and the ledger's "19 documents" is
+# stale (23 papers have affidavits). The counts, the table and the registry figures agree.
+id: sherlock-compiler
+document: SH1
+title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
+source:
+  file: paper/soma/sherlock-affidavit/sherlock-affidavit.md
+  commit: 42d3827
+  sha256: 00eb1723ca132f7911135215821a9898880e61377411e1316ef2852a35657592
+lean: []
+microtheories: {}
+claims:
+  - id: K1
+    quote: 'Sherlock has written affidavits for 23 of its papers: 233 claims'
+    lines: [23, 24, 428, 429, 430]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the abstract gives 233 claims for the 23 papers, but the body says the 233
+      include Exhibit C's affidavit ("for 23 of the programme's 24 papers ... and for
+      Exhibit C: 233 claims"); the advert's affidavit has 3 claims, so the papers have
+      230 (230 + 3 = 233); fix the abstract
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [230, 3, 233]}, {template: ne, args: [230, 233]}]
+    values:
+      - {quantity: Sherlock-ClaimsInPapers, value: 230}
+    disposition: open
+  - id: K2
+    quote: 'The ledger, over 19 documents, found 171 citations of Lean names'
+    lines: [453, 454]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the paper says the ledger runs over every affidavit's document (Reproducing),
+      and that 23 papers have affidavits, but reports a ledger run over 19
+      documents: the run predates the affidavits for P15-P18; rerun and update the
+      figures
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [19, 23]}]
+    disposition: open
+  - id: K3
+    quote: 'of which 223 are'
+    lines: [429, 430, 431]
+    kind: internal-arithmetic
+    finding: the evidence labels add up to the claims (223 kernel-verified + 9 derived + 1 sourced = 233)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [223, 9, 1, 233]}]
+    disposition: none
+  - id: K4
+    quote: '119 are confirmed, 69 consistent, 4 unclear, 1 not provable'
+    lines: [431, 432, 433]
+    kind: internal-arithmetic
+    finding: the verdicts add up to the claims (119 + 69 + 4 + 1 + 40 = 233), and 40 - 2 by design = 38 problems
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [119, 69, 4, 1, 40, 233]}, {template: sum, args: [38, 2, 40]}]
+    disposition: none
+  - id: K5
+    quote: '| Kind | Problems | Example |'
+    lines: [435, 437, 438, 439, 440, 441, 442]
+    kind: internal-count
+    finding: the table's six kinds add up to the 38 problems (11 + 8 + 7 + 6 + 3 + 3)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [11, 8, 7, 6, 3, 3, 38]}]
+    disposition: none
+  - id: K6
+    quote: 'Sherlock''s affidavit finds eight problems.'
+    lines: [389]
+    kind: internal-count
+    finding: Exhibit D names eight findings, D1 to D8, as P11's affidavit has (eight contradicted claims)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 1, 1, 1, 1, 8]}]
+    disposition: none
+  - id: K7
+    quote: 'it is a demanding one, for four reasons.'
+    lines: [82, 84, 89, 96, 101]
+    kind: internal-count
+    finding: four bold-headed reasons follow (size and repetition; every kind of claim; its own Lean; written quickly, with AI help)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 1, 1, 1, 4]}]
+    disposition: none
+  - id: K8
+    quote: 'a shared vocabulary of 33 predicates'
+    lines: [227]
+    kind: cross-paper
+    finding: registry/cases/vocabulary.yaml at the same commit defines 33 predicates
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [33, 33]}]
+    disposition: none
+  - id: K9
+    quote: 'of seven (fifteen pairs of scales)'
+    lines: [409]
+    kind: cross-paper
+    finding: registry/cases/tests.yaml has seven P11 tests with pairs, fifteen pairs in all
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [15, 15]}]
+    disposition: none
+  - id: K10
+    quote: 'three need common-sense knowledge no style checker has'
+    lines: [515, 442]
+    kind: internal-duplicate-mismatch
+    finding: the Discussion's three agrees with the table's three category findings against OpenCyc
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    disposition: none
+  - id: K11
+    quote: '25 of the 28 OpenCyc names in that file were not in'
+    lines: [461]
+    kind: cross-paper
+    finding: the NextKB check of 11 Oct (bld/sherlock/lexicon.json) gives 25 of 28 names absent; 28 - 25 = 3 present
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [25, 3, 28]}]
+    disposition: none

@@ -6,7 +6,7 @@ and statements (arithmetic in Lean), against OpenCyc's common-sense consensus
 (the ledger). It is a neuro-symbolic compiler for free-form text: a language
 model proposes the claims (the front end), Lean decides them (the back end),
 and an edit re-checks what it touches. Method and results: paper SH1
-(`paper/soma/sherlock-affidavit/`). The epic, its end state and design
+(`paper/soma/sherlock-compiler/`). The epic, its end state and design
 decisions D1-D12: ISS-055, `prj/.adm/issues/ISS-055-sherlock.md`. Commands:
 `make -C sherlock help`.
 

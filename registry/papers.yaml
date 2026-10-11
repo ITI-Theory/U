@@ -394,15 +394,15 @@ canonical_papers:
     nlm: P24-g2-symmetry-breaking
 
   - id: SH1
-    slug: sherlock-affidavit
+    slug: sherlock-compiler
     title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
     discipline: "Knowledge representation; automated reasoning"
     level: "masters"
     doi: null
     status: pending-review
     notes: "Sherlock (v2, 11 Oct 2026): a neuro-symbolic compiler for free-form text; affidavits for 23 programme papers checked in Lean 4 against themselves, each other, the programme's Lean and OpenCyc; structure mapping; OpenCyc collections as Lean types. Lean in U sherlock/."
-    file: papers/sherlock-affidavit.pdf
-    zenodo_file: zenodo/SH1-sherlock-affidavit.pdf
+    file: papers/sherlock-compiler.pdf
+    zenodo_file: zenodo/SH1-sherlock-compiler.pdf
     make_class: citeproc
     make_langs: en
     make_alias: sh1

@@ -23,12 +23,15 @@ from pathlib import Path
 U = Path(__file__).resolve().parents[1]
 OUT = U / "bld" / "sherlock"
 NAME = re.compile(r"`((?:[A-Z][A-Za-z0-9_]*\.)*[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*)`")
+ABSENT = re.compile(r"does not (exist|have)|doesn't (exist|have)|no such|not in (current )?Mathlib|not in the (programme's )?Lean|does not contain", re.I)
 CLAIMS = [("axiom", re.compile(r"\baxiom", re.I)), ("sorry", re.compile(r"\bsorry", re.I)),
           ("kernel-checked", re.compile(r"kernel[- ]checked|kernel[- ]verified|proved in Lean|Lean 4 kernel", re.I)),
           ("theorem", re.compile(r"\btheorem\b", re.I)), ("def", re.compile(r"\bdef(inition)?\b", re.I))]
 
 
 NOT_LEAN = re.compile(r"^(scipy|numpy|np|torch|matplotlib|pandas|sympy|math|os|sys)\.|\.(md|lean|py|yaml|yml|pdf|tex|bib|json|csv|png)$")
+MODULES = {".".join(f.relative_to(d).with_suffix("").parts)
+           for d in (U / "sherlock", U / "paper" / "proofs") for f in d.rglob("*.lean") if ".lake" not in f.parts}
 SHERLOCK_SRC = "\n".join(p.read_text(encoding="utf-8") for p in (U / "sherlock").rglob("*.lean")
                          if ".lake" not in p.parts)
 
@@ -57,6 +60,8 @@ def said_in(text: str) -> str | None:
     m = re.search(r"\bnow\b(.*)", text, re.I) if re.search(r"\bwas\b", text, re.I) else None
     if m:
         text = m.group(1)
+    if ABSENT.search(text):
+        return "absent"
     if re.search(r"closes with|by `?(rfl|decide|norm_num|simp|omega)`?\b", text, re.I):
         return "kernel-checked"
     for k, rx in CLAIMS:
@@ -120,6 +125,8 @@ def extract(files: list[str]) -> int:
                     said = "sherlock"  # Sherlock's own theorems (SH1), checked by make -C sherlock check
                 if n in TACTICS:
                     said = "tactic"
+                if n in MODULES:
+                    said = "module"
                 items.append({"doc": doc, "line": i, "name": n, "said": said or "cited", "text": line.strip()[:200]})
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "ledger-claims.json").write_text(json.dumps(items, indent=1, ensure_ascii=False),
@@ -160,8 +167,10 @@ def judge() -> int:
 
 def disagrees(said: str, r: dict) -> str | None:
     kind, axioms = r.get("kind"), r.get("axioms", [])
-    if said in ("tactic", "sherlock") or kind == "namespace":
+    if said in ("tactic", "sherlock", "module") or kind == "namespace":
         return None
+    if said == "absent":  # the document says the name does not exist: the Lean must agree
+        return None if kind == "missing" else f"said not to exist, but is a {kind}"
     if kind == "missing":
         return "no such declaration"
     if said == "axiom" and kind != "axiom":

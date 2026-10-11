@@ -32,6 +32,16 @@ product. Data comes from `registry/` (see `registry/README.md`).
   edges never assert literal identity. The T-Theory-off lens shows ordinary 4D
   physics only.
 
+## Names
+
+Sherlock (the checker, and its label in the HUD) is named after Arthur Conan
+Doyle's detective, whose stories are in the public domain; the Soma Machine is
+not affiliated with the Conan Doyle Estate or with any adaptation, and uses no
+imagery from them. The reader personas are our own: the Wizard, the Monster
+and its kinds (the Chocolate Biscuit Monster, the Root Monster), MUNCH. A user
+may give any layer or persona their own display name in settings; that name
+stays in their browser (ISS-066, ISS-070).
+
 ## Visual language
 
 - Cyan and hot pink: D1-4 somatic field layers through the whole body
