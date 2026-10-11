@@ -1966,8 +1966,9 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       visualize-reader.lua's non-greedy `}}` terminator early, silently
       truncating the macro (caught and rewritten as `\text{...}` without the
       extra wrapping braces; the same pattern, uncaught, already exists in
-      soma-field-book's committed "the-modification" figure — flagged, not
-      fixed here);
+      soma-field-book's committed "the-modification" figure — since fixed:
+      `protect()` now scans with brace balancing and errors on an
+      unbalanced macro, and that figure gets its full `titles`);
       soma-field-patient-pov: 0 to 5 of 8 equations: the somatic/neural
       coupling (`type-decomposition`), the perception threshold and the
       one-mode landscape (reusing the technical paper's own illustrative

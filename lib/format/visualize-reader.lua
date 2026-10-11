@@ -13,12 +13,35 @@
 local FORMAT = "markdown+yaml_metadata_block+tex_math_dollars+citations+smart" ..
   "+raw_tex+raw_html+fenced_divs+bracketed_spans+pipe_tables+implicit_figures"
 
+local function wrap(macro)
+  local fence = "`"
+  while macro:find(fence, 1, true) do fence = fence .. "`" end
+  return fence .. " " .. macro .. " " .. fence .. "{=visualize}"
+end
+
+-- A macro ends where its braces balance, so LaTeX in a parameter such as
+-- ylabel="$x_{\text{a}}$" (which contains "}}") cannot end it early; an
+-- unbalanced macro is an error, not a silently truncated figure.
 local function protect(text)
-  return (text:gsub("{{%s*Visualize.-}}", function(macro)
-    local fence = "`"
-    while macro:find(fence, 1, true) do fence = fence .. "`" end
-    return fence .. " " .. macro .. " " .. fence .. "{=visualize}"
-  end))
+  local out, pos = {}, 1
+  while true do
+    local s, e = text:find("{{%s*Visualize", pos)
+    if not s then break end
+    local depth, i = 2, e + 1
+    while i <= #text and depth > 0 do
+      local c = text:sub(i, i)
+      if c == "{" then depth = depth + 1 elseif c == "}" then depth = depth - 1 end
+      i = i + 1
+    end
+    if depth > 0 then
+      error("visualize-reader: unbalanced braces in the macro starting " .. text:sub(s, s + 60):gsub("\n", " "))
+    end
+    out[#out + 1] = text:sub(pos, s - 1)
+    out[#out + 1] = wrap(text:sub(s, i - 1))
+    pos = i
+  end
+  out[#out + 1] = text:sub(pos)
+  return table.concat(out)
 end
 
 function Reader(input, opts)
