@@ -3267,7 +3267,7 @@ stuff" lives behind it; and the glass cockpit (a primary and a multi-function
 display) as a source of design ideas, without making the Soma Machine a flight
 simulator: the film's graph is the route plan, and there are many more parallels,
 hazard warnings and all.
-- [ ] RICE in the Engine Room, off by default (the public app calm and clean); on, it
+- [x] (12 Oct: `rice.js`; RICE ON/OFF in the Engine Room, every window follows) RICE in the Engine Room, off by default (the public app calm and clean); on, it
       reveals the author's options: neon themes, code rain, the Root Monster's tours
       (ISS-070, ISS-071), experimental features, the cockpit extras below. Kept per
       browser.
@@ -3282,7 +3282,9 @@ hazard warnings and all.
       beneath (A/B, ISS-069, done); flight director = the score's target (the white
       ticks); autopilot panel = ISS-074; traffic = the other viewer in the twin view
       or the dyad; checklists = before a viewing (strap on, lights down, touch the page).
-- [ ] Alerts first (they are the most useful): the three levels, from the score and the
-      heart, at the score stop; then the route-plan view of the score for the MFD
+- [x] (12 Oct, behind RICE: WARNING freeze attractor near, CAUTION heart rising, ADVISORY
+      threshold within two minutes) Alerts first (they are the most useful): the three levels, from the score and the
+      heart, at the score stop;
+- [ ] then the route-plan view of the score for the MFD
       screen of a layout.
 

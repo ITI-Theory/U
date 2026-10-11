@@ -14,6 +14,7 @@
 // only follows, it never answers back, so there is no echo.
 
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
+import { rice, setRice } from './rice.js';
 
 const CHANNEL = 'soma-screens';
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
@@ -253,6 +254,10 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <p class="engine-room__hint">LAYOUT: open a whole arrangement around the main window (Chrome may ask to place windows on your screens).</p>
         ${Object.entries(LAYOUTS).map(([id, l]) => `<button type="button" data-layout="${id}" title="${l.windows.map(w => `${w.place}: ${w.role}${w.hash ? ` (${w.hash})` : ''}${w.note ? `, ${w.note}` : ''}`).join('; ')}">${l.title}</button>`).join('')}
       </fieldset>
+      <fieldset data-rice><legend>RICE</legend>
+        <p class="engine-room__hint">The author's options (ricing): crew alerts at the score stop, and more as they arrive. Every window of this browser follows.</p>
+        <button type="button" data-rice="1">ON</button><button type="button" data-rice="0">OFF</button>
+      </fieldset>
       <fieldset class="engine-room__names"><legend>NAMES</legend>
         <p class="engine-room__hint">Your own name for each persona and layer. Kept in this browser only; empty restores the default.</p>
         ${Object.entries(DEFAULT_NAMES).map(([id, name]) => `<label>${name}<input type="text" maxlength="40" data-name="${id}" placeholder="${name}" /></label>`).join('')}
@@ -347,6 +352,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   const fxValue = room.querySelector('.engine-room__fx-value');
 
   function sync() {
+    for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
     const params = readParams();
     for (const fieldset of room.querySelectorAll('fieldset[data-key]')) {
       const current = params.get(fieldset.dataset.key);
@@ -378,6 +384,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         .then(() => loadFuel());
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
+    if (button.dataset.rice) setRice(button.dataset.rice === '1');
     if (button.dataset.open) {
       const url = new URL(location.href);
       url.searchParams.set('screen', button.dataset.open);

@@ -11,6 +11,7 @@ import { createDyad3D, createLandscape3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
+import { rice } from './rice.js';
 import { scores, viewers } from './generated/app-data.js';
 // the River Film (The Tensor), by id; kf picks another film (registry/scores, e.g. fis-2021).
 // The twin view (?tw=1): one film, two viewers (S = R(e*, kappa, e_V)): left the viewer of now
@@ -1330,6 +1331,27 @@ function makeScore() {
         ctx.restore();
       }
       if (player.t >= 0.999 && env.kx > 0) label(ctx, u, `Next time, try it with fewer words: ${WORDS[env.kx - 1]} (WORDS)`, 0, 0.58, COLORS.gold, 'center', 0.028);
+      // RICE (ISS-075): crew alerting, as a glass cockpit does: red WARNING, amber CAUTION,
+      // cyan ADVISORY, read from the score and the heart. Model alerts, not clinical ones.
+      if (rice()) {
+        const alerts = [];
+        if (m.S < 0.2 && m.F > 0.55) alerts.push(['WARNING', 'FREEZE ATTRACTOR NEAR (safety low, fear high)', '#ff3b4f']);
+        if (hdot > 0.5 || bpmS > 105) alerts.push(['CAUTION', `HEART RISING (${Math.round(bpmS)} bpm, ${hdot >= 0 ? '+' : ''}${hdot.toFixed(1)}/s)`, '#f6b73c']);
+        const next = (film?.thresholds ?? []).find(th => th.t > player.t);
+        const toNext = next ? ((next.t - player.t) * player.seconds) / 60 : Infinity;
+        if (toNext < 2) alerts.push(['ADVISORY', `THRESHOLD ${next.id} IN ${toNext < 1 ? `${Math.round(toNext * 60)} S` : `${toNext.toFixed(1)} MIN`}`, '#3fd0e9']);
+        alerts.forEach(([level, text, colour], k) => {
+          const y = -0.5 + k * 0.055;
+          ctx.save();
+          ctx.fillStyle = level === 'WARNING' ? colour : 'rgba(4,8,16,0.85)';
+          ctx.strokeStyle = colour;
+          ctx.lineWidth = 1.5;
+          ctx.fillRect(-0.44 * u, (y - 0.022) * u, 0.88 * u, 0.044 * u);
+          ctx.strokeRect(-0.44 * u, (y - 0.022) * u, 0.88 * u, 0.044 * u);
+          ctx.restore();
+          label(ctx, u, `${level} · ${text}`, 0, y, level === 'WARNING' ? '#ffffff' : colour, 'center', 0.022);
+        });
+      }
       if (player.holding) label(ctx, u, `THRESHOLD ${player.holding.id} · ${player.holding.from} → ${player.holding.to} · ${env.kr > 0 ? 'waiting for the heart to settle (falling, below 85) or POKE' : 'holding until ready (POKE)'}`, 0, -0.7, COLORS.gold, 'center', 0.03);
     },
   };
