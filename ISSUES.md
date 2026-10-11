@@ -2040,6 +2040,26 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       points (error bars, labels), a least-squares fit (linear or exponential) or the
       text's own model curve to compare; checks `expect_slope`, `expect_intercept`,
       `expect_n`. For the (barrier, T*) table and other small datasets.
+- [ ] (11 Oct: course chapters, `Part2/book/field-atlas-textbook/chapters/*.md`;
+      course 52 of 142 before) 05-atoms-quantum-scale 1 to 7 of 11 (photon
+      energy, hydrogen levels, Balmer series, the confinement/Coulomb
+      energy-landscape at the Bohr radius, the line quality factor, and the
+      damped-oscillator poles at the chapter's own atomic $Q$; the general
+      $\lambda=h/p$ and the uncertainty inequality stay abstract, and the
+      Bohr-radius derivation restates the energy-landscape's already-drawn
+      minimum, left unmarked); 07-human-level 1 to 6 of 8 (the double-well
+      landscape, its Boltzmann distribution, Kramers escape time, the
+      asymmetric escape-time ratio and the Fear-Awe coupling matrix, all at
+      the chapter's own worked numbers; the generic overdamped ODE and the
+      Langevin SDE stay abstract, left unmarked); 08-two-people-groups,
+      11-stars-galaxies, m2-change and m6-chance marked up to full coverage
+      (8 of 8, 7 of 7, 9 of 9 and 9 of 9) using each chapter's own worked
+      numbers (phase-locking, Kuramoto onset, stellar luminosity/distance/
+      Schwarzschild-radius/redshift/rotation-curve examples, rates and
+      derivatives, decay and relaxation laws, dice statistics, the normal
+      law, random walks and the Boltzmann factor); course 85 of 142 so far.
+      Builds verified one at a time with `make -C Part2/book/field-atlas-textbook
+      html`, 0 errors; figures spot-checked for legible, non-overlapping labels.
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
