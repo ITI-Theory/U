@@ -18,9 +18,13 @@ The **probability** of an outcome is the fraction of times it happens in a long 
 
 $$\langle X \rangle = \sum_i p_i\,x_i,$$ {#eq:m-chance-mean}
 
+{{Visualize | eq:m-chance-mean | distribution:generic | levels="1,2,3,4,5,6"; weight="1"; xlabel="die score $x$"; label=fig:m-chance-mean; height=28% }} For a fair die each face carries the same weight, so the distribution balances halfway between $3$ and $4$: the mean is $\langle X \rangle = 3.5$.
+
 and the **variance** measures the spread about it, the mean squared distance from the mean:
 
 $$\sigma^2 = \langle (X - \langle X \rangle)^2 \rangle = \langle X^2 \rangle - \langle X \rangle^2.$$ {#eq:m-chance-variance}
+
+{{Visualize | eq:m-chance-variance | data-points:generic | points="1:6.25, 2:2.25, 3:0.25, 4:0.25, 5:2.25, 6:6.25"; mu=3.5; f="(x-mu)^2"; f_name="$(x-3.5)^2$"; hline=2.92; xlabel="die score $x$"; ylabel="squared departure from $3.5$"; label=fig:m-chance-variance; height=28% }} In the fair-die example below, the outer faces dominate the spread because their squared departures from the mean are largest; averaging these six values gives the variance $2.92$ and hence $\sigma = 1.71$.
 
 Its square root $\sigma$ is the **standard deviation**, the typical size of a departure from the mean, in the same units as $X$.
 
@@ -50,6 +54,8 @@ A quantity that can take any value, such as a height or the speed of a molecule,
 
 $$P(a < X < b) = \int_a^b p(x)\,dx, \qquad \int_{-\infty}^{\infty} p(x)\,dx = 1.$$ {#eq:m-chance-density}
 
+{{Visualize | eq:m-chance-density | area-under:generic | f="exp(-(x-mu)^2/(2*s^2))/(s*sqrt(2*pi))"; mu=170; s=8; x=[138,202]; from=154; to=186; note=false; xlabel="height $x$ (cm)"; label=fig:m-chance-density; height=28% }} Using the chapter's height numbers $\mu = 170\,\mathrm{cm}$ and $\sigma = 8\,\mathrm{cm}$, the shaded area from $154$ to $186\,\mathrm{cm}$ is about $95\,\%$ of the total probability.
+
 The integral of @ch:m-accumulation has become a probability. Mean and variance are the integrals $\int x\,p(x)\,dx$ and $\int (x - \langle x \rangle)^2\,p(x)\,dx$. In practice we meet a density through data: draw many samples, sort them into bins, and the **histogram**, scaled so that its total area is one, approaches the density as the number of samples grows.
 
 $$p(x) = \frac{1}{\sigma\sqrt{2\pi}}\,e^{-(x - \mu)^2/2\sigma^2}$$ {#eq:m-chance-normal}
@@ -73,6 +79,8 @@ The curve of @eq:m-chance-normal, the **normal** or **Gaussian** distribution wi
 For independent quantities, variances add. The sum of $N$ independent copies of a quantity with standard deviation $\sigma$ therefore has variance $N\sigma^2$ and standard deviation $\sqrt{N}\,\sigma$, and their *average* has standard deviation
 
 $$\sigma_{\text{mean}} = \frac{\sigma}{\sqrt{N}}.$$ {#eq:m-chance-sqrt-law}
+
+{{Visualize | eq:m-chance-sqrt-law | function-plot:generic | f="sigma/sqrt(N)"; sigma=2; var=N; x=[1,100]; value_at=25; expect_value=0.4; xlabel="number of readings $N$"; ylabel="$\sigma_{\text{mean}}$ (mm)"; label=fig:m-chance-sqrt-law; height=28% }} If each reading has $\sigma = 2.0\,\mathrm{mm}$, averaging $25$ readings brings the uncertainty down to $0.4\,\mathrm{mm}$, exactly as the check-your-learning exercise says.
 
 This **square-root law** is why repeated measurements help, why a large sample is more reliable than a small one, and why the fluctuations in a small volume of air in @sec:fields-zooming-out-when fell as $1/\sqrt{N}$: a cell holding $N$ molecules fluctuates by a fraction $1/\sqrt{N}$.
 
@@ -101,6 +109,8 @@ Twenty-five readings of a length each have $\sigma = 2.0\,\mathrm{mm}$. What is 
 A molecule in water is knocked about by its neighbours billions of times a second, each knock in a random direction. After $N$ steps of length $\ell$, its displacement is a sum of $N$ independent random steps, so by the square-root law its typical distance from the start is $\sqrt{N}\,\ell$, not $N\ell$. Steps happen at a steady rate, so $N$ grows in proportion to time, and the mean squared displacement along one direction grows linearly with time:
 
 $$\langle x^2 \rangle = 2Dt,$$ {#eq:m-chance-diffusion}
+
+{{Visualize | eq:m-chance-diffusion | function-plot:generic | f="2*D*t"; D=5e-4; var=t; x=[0,3600]; value_at=3600; expect_value=3.6; xlabel="time $t$ (s)"; ylabel="$\langle x^2 \rangle$ (mm$^2$)"; label=fig:m-chance-diffusion; height=28% }} For the sugar molecule example ($D = 5 \times 10^{-10}\,\mathrm{m^2\,s^{-1}} = 5 \times 10^{-4}\,\mathrm{mm^2\,s^{-1}}$), the mean squared displacement grows linearly; after one hour it reaches $3.6\,\mathrm{mm^2}$, so the rms distance is $\sqrt{\langle x^2 \rangle} = 1.9\,\mathrm{mm}$.
 
 where $D$, the **diffusion coefficient** in $\mathrm{m^2\,s^{-1}}$, depends on the molecule and the medium. A cloud of molecules released at one point spreads as a normal distribution whose width grows as $\sqrt{2Dt}$.
 
@@ -133,6 +143,8 @@ A protein with $D = 1 \times 10^{-11}\,\mathrm{m^2\,s^{-1}}$ must diffuse $10\,\
 A system in contact with surroundings at temperature $T$ does not sit in its lowest-energy state; the jostling of the surroundings keeps lifting it into higher ones. The probability of finding it in a state of energy $E$ is proportional to the **Boltzmann factor**:
 
 $$P(E) \propto e^{-E/kT},$$ {#eq:m-chance-boltzmann}
+
+{{Visualize | eq:m-chance-boltzmann | function-plot:quantum | f="exp(-E/kT)"; var=E; kT=0.0252; x=[0,0.126]; value_at=0.0252; expect_value=0.3678794412; vline=0.0252; xlabel="energy $E$ (eV)"; ylabel="relative weight"; label=fig:m-chance-boltzmann; height=28% }} At room temperature the chapter gives $kT = 0.0252\,\mathrm{eV}$, so moving up by one $kT$ cuts the Boltzmann weight to $e^{-1} = 0.368$; each further step of the same size multiplies it by the same factor again.
 
 where $k = 1.381 \times 10^{-23}\,\mathrm{J\,K^{-1}}$ is Boltzmann's constant. The product $kT$ is the **thermal energy**, the typical size of a kick from the surroundings: $0.0252\,\mathrm{eV}$ at room temperature, $293\,\mathrm{K}$. States less than a few $kT$ above the lowest are well populated; states many $kT$ above are almost empty, and each extra $kT$ of height costs a factor $e = 2.7$ in probability.
 

@@ -40,6 +40,8 @@ For the landscape $U = \Delta U\,(x^2 - 1)^2$ with $\Delta U = 1$ and $\gamma = 
 **Significance.** In this family of landscapes, a lower ridge also means shallower valleys. The same change that makes a state easier to leave makes it slower to recover from a small push, a link that @sec:human-tipping-points-critical turns into a warning signal.
 :::
 
+{{Visualize | ex:human-fast-does-valley | energy-landscape:soma | U="(x^2 - 1)^2"; x=[-1.6,1.6]; barrier=true; expect_minima="-1,1"; expect_barrier=1; xlabel="state $x$"; ylabel="energy $U$"; label=fig:human-double-well }} The double-well landscape $U = \Delta U\,(x^2 - 1)^2$ at the worked example's $\Delta U = 1$: valleys at $x = \pm1$ (markers) separated by a ridge of height $1$ at $x = 0$, the $k = 8$ curvature behind this section's $\tau = 0.125$.
+
 ::: {.check-your-learning}
 What is the curvature at the top of the ridge, $x = 0$, and what does its sign mean? (Answer: $U''(0) = -4\Delta U$; negative curvature means a balanced state there is unstable, and the smallest push sends it into one of the valleys.)
 :::
@@ -60,7 +62,11 @@ where $\eta(t)$ is **white noise**, a random push uncorrelated from one instant 
 
 $$p(x) \propto e^{-U(x)/D},$$
 
-the **Boltzmann distribution** of @ch:cells with $D$ in place of $k_BT$. Deep valleys are occupied, ridges are rarely visited. But rarely is not never: sooner or later a run of pushes in the same direction carries the state over the ridge. In 1940 Kramers worked out how long that takes. For an overdamped system the mean time to escape from valley A over a ridge of height $\Delta U$ is
+the **Boltzmann distribution** of @ch:cells with $D$ in place of $k_BT$. Deep valleys are occupied, ridges are rarely visited.
+
+{{Visualize | sec:human-noise-escape | distribution:soma | pdf="exp(-(x^2 - 1)^2/0.25)"; x=[-2,2]; expect_mean=0; xlabel="state $x$"; label=fig:human-boltzmann }} The Boltzmann distribution $p(x) \propto e^{-U(x)/D}$ for the worked double well ($\Delta U = 1$) at the noise level $D = 0.25$ of @ex:human-small-change-noise: the two valleys are occupied and the ridge at $x = 0$ is rarely visited.
+
+But rarely is not never: sooner or later a run of pushes in the same direction carries the state over the ridge. In 1940 Kramers worked out how long that takes. For an overdamped system the mean time to escape from valley A over a ridge of height $\Delta U$ is
 
 $$\langle t\rangle = \frac{2\pi\gamma}{\sqrt{k_A\,|k_\text{top}|}}\;e^{\Delta U/D},$$
 
@@ -75,6 +81,8 @@ For the landscape of @ex:human-fast-does-valley ($\Delta U = 1$, $\gamma = 1$), 
 
 **Significance.** Reducing the noise by a factor of $2.5$ lengthens the wait four hundred times ($e^6 = 403$). That is why the blue run in the opening figure never escapes during 400 time units: the expected wait is sixty times longer than the whole run.
 :::
+
+{{Visualize | ex:human-small-change-noise | function-plot:soma | f="1.11*exp(1/x)"; x=[0.08,0.3]; logy=true; value_at=0.25; xlabel="noise $D$"; ylabel="mean escape time"; label=fig:human-kramers }} Kramers escape time for the worked double well ($\Delta U = 1$, prefactor $1.11$) against noise $D$; at $D = 0.25$ (red point) it is $\approx 61$, and at the example's other point, $D = 0.10$ (off the left edge), $\approx 24\,000$.
 
 ::: {.check-your-learning}
 If the barrier doubles while the noise stays the same, what happens to the exponential factor? (Answer: $e^{2\Delta U/D} = \big(e^{\Delta U/D}\big)^2$; it is squared, so a factor of 55 becomes 3000.)
@@ -103,6 +111,8 @@ A landscape has $\Delta U_A = 1$ and $\Delta U_B = 3$, with noise $D = 0.25$ and
 
 **Significance.** A barrier only twice as high above B's floor as above A's makes B about three thousand times stickier. Exponential laws turn modest differences in landscape into enormous differences in time.
 :::
+
+{{Visualize | ex:human-asymmetric-pair-valleys | function-plot:soma | f="exp(2/x)"; x=[0.15,0.5]; logy=true; value_at=0.25; xlabel="noise $D$"; ylabel="escape-time ratio, B to A over A to B"; label=fig:human-asymmetry }} Ratio of escape times for the worked asymmetric pair ($\Delta U_A = 1$, $\Delta U_B = 3$) against noise; at $D = 0.25$ (red point) the ratio is $\approx 2980$: B holds the state about three thousand times longer than A.
 
 The temporal dynamics paper of the programme [@P10] applies this mathematics to a clinical observation: distressing states often form in minutes and dissolve over months. In its reading, an overwhelming event is a large forced push into a deep valley, and recovery is a noise-driven escape from below. The mathematics is standard and the asymmetry follows from it, so the conditional statement *if a state is a deep valley in such a landscape, then it forms faster than it dissolves* is `derived-under-assumptions`. Whether distressing states are such valleys, with measurable barriers, is `open-hypothesis`. The paper also stresses what the model does not say: a ball in a deep pit is following the equations, not failing.
 
@@ -179,6 +189,8 @@ The programme's human model is the landscape of this chapter in eight dimensions
 $$H(\mathbf{e}) = -\tfrac12\,\mathbf{e}^{\mathsf T}W\mathbf{e} - \mathbf{b}^{\mathsf T}\mathbf{e}.$$
 
 Valleys of $H$ are proposed as emotional states; a strongly negative coupling between two modes builds a high ridge between their valleys [@P1; @P10]. The quantum paper [@P2] then asks a computational question. Its starting point is Penrose's argument, surveyed in his chapters 29 and 30, that the reduction of the quantum state may involve gravity and that this may matter for consciousness [@penrose2004road]. The paper does not test that proposal; it borrows its shape, a gap that one kind of dynamics cannot cross and another can, and asks it of a model landscape. With a Fear–Awe coupling of $-10$, the ridge between the Fear valley and the Awe valley is $2.025$ high. Can a state that starts in the Fear valley reach the Awe valley?
+
+{{Visualize | sec:human-programmes-human-model | matrix-heatmap:soma | matrix="[[0,-10],[-10,0]]"; rows="Fear,Awe"; cols="Fear,Awe"; expect_eigen="-10,10"; expect_sum=-20; label=fig:human-fear-awe }} The two-mode slice of the eight-mode coupling $W$ used in QUANT-EXP-1: a Fear–Awe coupling of $-10$ and no self-coupling shown here, giving the $2.025$ ridge between the two valleys of $H(\mathbf{e})$.
 
 The experiment, QUANT-EXP-1, compares two kinds of dynamics on the same landscape. The classical runs use the Langevin equation of @sec:human-noise-escape. The quantum run replaces the landscape with the corresponding eight-qubit energy and slowly switches off a "transverse field" that lets the state tunnel through ridges rather than climb over them, a standard technique called **quantum annealing**. All $2^8 = 256$ quantum amplitudes are computed exactly. The results:
 

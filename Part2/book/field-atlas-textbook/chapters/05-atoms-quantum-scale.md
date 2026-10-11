@@ -38,6 +38,8 @@ A red laser pointer emits $1.0\,\mathrm{mW}$ at $633\,\mathrm{nm}$. Find the ene
 **Significance.** A beam this weak still carries three thousand million million packets a second, so its graininess is invisible to the eye. Single photons become visible only when the light is very faint: astronomical cameras and the retina's rod cells both count them one at a time.
 :::
 
+{{Visualize | ex:atoms-photons-laser-pointer | function-plot:quantum | f="1240/x"; x=[380,700]; value_at=633; expect_value=1.96; xlabel="wavelength (nm)"; ylabel="photon energy (eV)"; label=fig:atoms-photon-energy }} Photon energy against wavelength across the visible range, from $E = hc/\lambda$ with $hc = 1240\,\mathrm{eV\,nm}$. The laser pointer of the worked example, $633\,\mathrm{nm}$ (red point), carries $1.96\,\mathrm{eV}$ per photon.
+
 ::: {.check-your-learning}
 What wavelength carries photons of exactly $2.0\,\mathrm{eV}$, and what colour is it? (Answer: $1240/2.0 = 620\,\mathrm{nm}$, orange-red.)
 :::
@@ -54,7 +56,11 @@ In 1885 the schoolteacher Johann Balmer found a formula that fitted the four vis
 
 $$E_n = -\frac{13.6\,\mathrm{eV}}{n^2}, \qquad n = 1, 2, 3, \ldots$$
 
-The negative sign means the electron is bound: $13.6\,\mathrm{eV}$ must be supplied to free it from the lowest level, $n = 1$, which is called the **ground state**. Higher levels crowd together towards zero, as the left panel of the opening figure shows. When the electron drops from level $n_i$ to a lower level $n_f$, the atom emits one photon carrying the difference:
+The negative sign means the electron is bound: $13.6\,\mathrm{eV}$ must be supplied to free it from the lowest level, $n = 1$, which is called the **ground state**. Higher levels crowd together towards zero, as the left panel of the opening figure shows.
+
+{{Visualize | sec:atoms-hydrogen-spectrum | function-plot:quantum | f="-13.6/x^2"; x=[1,8]; sample_every=1; value_at=1; expect_value=-13.6; xlabel="$n$"; ylabel="$E_n$ (eV)"; label=fig:atoms-energy-levels }} Hydrogen's energy levels $E_n = -13.6\,\mathrm{eV}/n^2$ (red point: the ground state, $n = 1$), crowding together towards zero as $n$ grows; dots mark the allowed integer levels.
+
+When the electron drops from level $n_i$ to a lower level $n_f$, the atom emits one photon carrying the difference:
 
 $$hf = E_{n_i} - E_{n_f} = 13.6\,\mathrm{eV}\left(\frac{1}{n_f^2} - \frac{1}{n_i^2}\right).$$
 
@@ -69,6 +75,8 @@ Find the energy and wavelength of the photon emitted in the jump from $n = 3$ to
 
 **Significance.** The formula is within $0.03\,\%$ of the measurement, and the remaining gap has two known causes. The proton is not infinitely heavy, so the electron and proton orbit their common centre; this lowers every energy by the factor $1/(1 + m_e/m_p) = 1/1.000545$ and moves the line to $656.47\,\mathrm{nm}$ in vacuum. Light travels slightly slower in air, refractive index $1.000277$, which shortens the measured wavelength to $656.47/1.000277 = 656.29\,\mathrm{nm}$. The calculation now agrees with the measurement to one part in sixty thousand.
 :::
+
+{{Visualize | ex:atoms-red-line-hydrogen | function-plot:quantum | f="13.6*(1/4 - 1/x^2)"; x=[3,10]; sample_every=1; value_at=3; expect_value=1.889; xlabel="$n_i$"; ylabel="photon energy (eV)"; label=fig:atoms-balmer-series }} Energy of the Balmer-series photon released falling to $n_f = 2$, against the starting level $n_i$. The worked example's $n_i = 3 \to n_f = 2$ jump (red point) gives $1.89\,\mathrm{eV}$, the red hydrogen line (a more precise constant gives the example's $1.8897\,\mathrm{eV}$).
 
 ::: {.check-your-learning}
 Find the wavelength of the strongest Lyman line, the jump from $n = 2$ to $n = 1$. Can you see it? (Answer: $E = 13.6\times3/4 = 10.2\,\mathrm{eV}$, $\lambda = 121.5\,\mathrm{nm}$; no, it lies in the far ultraviolet and is absorbed by air.)
@@ -130,6 +138,8 @@ The hydrogen atom settles where this cost balances the Coulomb attraction of @ch
 
 $$E(r) \approx \frac{\hbar^2}{2m_er^2} - \frac{ke^2}{r}.$$
 
+{{Visualize | sec:atoms-atoms-have-size | energy-landscape:quantum | U="0.03809/x^2 - 1.440/x"; x=[0.02,0.15]; expect_minima="0.0529"; xlabel="radius (nm)"; ylabel="energy (eV)"; label=fig:atoms-hydrogen-well }} Confinement energy ($\propto 1/r^2$) against Coulomb attraction ($\propto -1/r$): their sum $E(r)$ has a single minimum (marker) at the Bohr radius, $0.0529\,\mathrm{nm}$, with energy $-13.6\,\mathrm{eV}$ — the size and binding energy of hydrogen.
+
 Too small a radius and the first term wins; too large and the attraction is wasted. Setting $dE/dr = 0$ gives the minimum at
 
 $$a_0 = \frac{\hbar^2}{m_eke^2} = \frac{(\hbar c)^2}{m_ec^2\,ke^2} = \frac{(197.3\,\mathrm{eV\,nm})^2}{(511\,000\,\mathrm{eV})(1.440\,\mathrm{eV\,nm})} = 0.0529\,\mathrm{nm},$$
@@ -164,6 +174,8 @@ A spectral line carries more than an element's name. Its position, width and str
 
 $$Q = 2\pi f\tau = 2\pi\times(4.57\times10^{14}\,\mathrm{Hz})\times(10^{-8}\,\mathrm{s}) \approx 3\times10^{7}.$$
 
+{{Visualize | sec:atoms-reading-spectral-line | function-plot:quantum | f="2*pi*4.57e14*x"; x=[1e-9,1e-7]; logx=true; logy=true; value_at=1e-8; xlabel="ringing lifetime $\tau$ (s)"; ylabel="$Q$"; label=fig:atoms-line-q }} Quality factor $Q = 2\pi f\tau$ for the red hydrogen line ($f = 4.57\times10^{14}\,\mathrm{Hz}$) against its ringing lifetime; at $\tau = 10\,\mathrm{ns}$ (red point), $Q \approx 2.9\times10^{7}$, the chapter's $\approx 3\times10^{7}$.
+
 A tuning fork has $Q \approx 1000$, the ringing Earth about 500. Atoms are the sharpest natural resonators known, which is why the world's clocks are now atomic.
 
 **Strength: population.** A line is strong only if many atoms sit in the level it starts from. In thermal equilibrium the fraction in a higher level falls as $e^{-\Delta E/k_BT}$, so the strength of a line is a thermometer.
@@ -195,6 +207,8 @@ Why do two lines from the same atom, at almost the same wavelength, sometimes ha
 $$G(\omega) \propto \frac{1}{\omega_0^2 - \omega^2 - 2i\gamma\omega}.$$
 
 This expression becomes infinite at two complex frequencies, $\omega = \pm\omega_d - i\gamma$, called the **poles** of the response. Their real part is the frequency at which the system rings; their imaginary part is its damping rate. The figure below plots them. A system with several natural frequencies has several pairs of poles, and its whole response can be rebuilt from them. An atom's response to light has this form, with one pair of poles for each transition: the positions give the line wavelengths and the distances below the real axis give the line widths. Reading a spectrum is reading off the poles of the atom's response. The mathematics of poles, and of rebuilding a function from them, is the complex calculus surveyed in Penrose's chapter 7 [@penrose2004road].
+
+{{Visualize | sec:atoms-lines-poles | complex-plane:quantum | omega0=2.872e15; gamma=1e8; points="omega0 - j*gamma, -omega0 - j*gamma"; poles=true; xlabel="real part (rad/s)"; ylabel="imaginary part (rad/s)"; label=fig:atoms-line-poles }} The two poles $\omega = \pm\omega_d - i\gamma$ of the red hydrogen line's response, using $\omega_0 = 2\pi f$ and $\gamma = 1/\tau$ from @fig:atoms-line-q's $Q \approx 3\times10^{7}$; at this scale $\gamma$ is far too small to pull the crosses visibly off the real axis, which is exactly why atomic lines are so sharp.
 
 ![Poles of a damped oscillator in the complex frequency plane. Heavier damping moves them further below the real axis, which on a spectrum means a wider line. A pole in the shaded upper half would grow without limit instead of ringing down.](../field-atlas/figures/theory/T2_4_poles_damping.png){width="100%"}
 

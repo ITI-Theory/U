@@ -28,6 +28,8 @@ The total power radiated from each square metre rises as the fourth power of tem
 
 $$L = 4\pi R^2\sigma T^4.$$
 
+{{Visualize | sec:stars-starlight-thermometer | function-plot:cosmic | f="1.71^2*(x/5772)^4"; name="1.71 solar radii"; f2="(x/5772)^4"; name2="1 solar radius"; x=[3000,10000]; value_at=9940; vline="5772, 9940"; xlabel="surface temperature (K)"; ylabel="luminosity / Sun"; legend=below; height=30% }} Stefan--Boltzmann in solar units: at the Sun's radius the luminosity rises as $T^4$, and at Sirius A's larger radius ($1.71\,R_\odot$) the same temperature increase reaches about $26\,L_\odot$ near $9940\,\mathrm{K}$, matching the worked example in this chapter.
+
 The Sun, at $5772\,\mathrm{K}$, peaks at $502\,\mathrm{nm}$, in the green, though its light as a whole looks white. A cool red giant at $3500\,\mathrm{K}$ peaks in the infrared; Sirius, at nearly $10\,000\,\mathrm{K}$, peaks in the ultraviolet and looks blue-white.
 
 Spectral lines carry more information. At Harvard in the early 1900s, Annie Jump Cannon classified the spectra of hundreds of thousands of stars and arranged them in the sequence O, B, A, F, G, K, M, along which the hydrogen lines rise to a maximum at class A and then fade [@cannon1929organization]. In 1925 Cecilia Payne showed in her doctoral thesis what the sequence means [@payne1925stellar]. @ch:atoms noted that the visible Balmer lines start on hydrogen's second level, which needs atoms excited by about $10\,\mathrm{eV}$. In a cool star almost no atoms are excited. In a very hot star almost all the hydrogen is ionised, with no electron left to absorb anything. Combining the Boltzmann factor for excitation with a matching law for ionisation, due to Saha, Payne found that the Balmer lines must be strongest near $10\,000\,\mathrm{K}$, as the figure below shows. The classes are a temperature sequence, not a sequence of compositions. Corrected for temperature, the line strengths showed that stars are made mostly of hydrogen and helium, a conclusion so unexpected that she was persuaded to describe the hydrogen abundance in print as "almost certainly not real". It was real.
@@ -60,9 +62,13 @@ As the Earth orbits the Sun, a nearby star appears to shift against the distant 
 
 $$d\,[\mathrm{pc}] = \frac{1}{p\,[\mathrm{arcsec}]}.$$
 
+{{Visualize | sec:stars-far-bright | function-plot:cosmic | f="1/x"; x=[0.05,1.0]; logx=true; logy=true; value_at=0.768; expect_value=1.30; vline="0.768, 1"; xlabel="parallax (arcsec)"; ylabel="distance (pc)"; height=24% }} Parallax distance falls as the reciprocal of the angle. The red point is Proxima Centauri: $p=0.768$ arcsec gives $d\approx1.30\,\mathrm{pc}$, exactly the nearby-star example in this section.
+
 The European Space Agency's Gaia satellite has measured parallaxes for more than a billion stars, with precisions down to a few hundred-thousandths of a second of arc [@gaia2018dr2]. With the distance known, the **flux** received, the power per square metre at the telescope, gives the luminosity by the inverse-square law
 
 $$F = \frac{L}{4\pi d^2}.$$
+
+{{Visualize | sec:stars-far-bright | function-plot:cosmic | f="(10/x)^2"; x=[1,20]; value_at=1.30; expect_value=59.2; vline="1.30, 10"; xlabel="distance (pc)"; ylabel="flux relative to 10 pc"; height=24% }} Holding luminosity fixed, flux falls as $1/d^2$. A star at Proxima's $1.30\,\mathrm{pc}$ would look about $59$ times brighter than the same star would at the $10\,\mathrm{pc}$ of the distance modulus.
 
 Astronomers express brightness in **magnitudes**, a logarithmic scale in which a difference of $5$ magnitudes is a factor of $100$ in flux and larger magnitudes are fainter. The **distance modulus**, the difference between a star's apparent magnitude $m$ and the absolute magnitude $M$ it would have at $10\,\mathrm{pc}$, depends only on distance: $m - M = 5\log_{10}(d/10\,\mathrm{pc})$.
 
@@ -96,6 +102,8 @@ How they die depends on their mass. A star like the Sun swells into a red giant,
 
 $$R_s = \frac{2GM}{c^2},$$
 
+{{Visualize | sec:stars-stars-live-die | function-plot:cosmic | f="2.95*x"; x=[0,40]; value_at=36; xlabel="mass (solar masses)"; ylabel="Schwarzschild radius (km)"; height=24% }} Schwarzschild radius grows linearly with mass at the chapter's quoted rate of about $2.95\,\mathrm{km}$ per solar mass. The red point marks the worked-homework black hole of $36$ solar masses, with $R_s\approx106\,\mathrm{km}$.
+
 about $3\,\mathrm{km}$ per solar mass. @ch:response measured the ringing of two such holes after they merged: GW150914, a $Q$ of about three [@abbott2016gw].
 
 ::: {.example #ex:stars-suns-mass-loss title="The Sun's mass loss"}
@@ -124,6 +132,8 @@ Einstein's general relativity predicts that clocks deeper in a gravitational fie
 
 $$\frac{\Delta t}{t} \approx \frac{GM}{rc^2}.$$
 
+{{Visualize | sec:stars-gravity-bends-time | function-plot:cosmic | f="1e10*GM/(1000*x*c^2)"; GM=3.986e14; c=3.00e8; x=[6371,30000]; value_at=26560; expect_value=1.67; vline="6371, 26560"; xlabel="radius from Earth's centre (km)"; ylabel="gravity term ($\times10^{-10}$)"; height=24% }} The weak-field gravity term falls as $1/r$. The dotted lines mark Earth's surface and the GPS orbit; at $26\,560\,\mathrm{km}$ the term is about $1.67\times10^{-10}$, and the surface-to-orbit difference is the $5.29\times10^{-10}$ per second used in the GPS example below.
+
 At the Earth's surface this is $7\times10^{-10}$, less than a nanosecond per second, yet it matters every day. The clocks on GPS satellites, $20\,000\,\mathrm{km}$ up, sit higher in the Earth's field and run fast relative to clocks on the ground; their orbital speed makes them run slow by the time dilation of special relativity. Without correcting for both, positions computed by GPS would drift by about ten kilometres a day. Near a neutron star or black hole the same effect becomes enormous, and at the event horizon a distant observer would see a falling clock stop altogether.
 
 General relativity has passed every test made of it, from the bending of starlight by the Sun to the orbits of pulsars and the gravitational waves of merging black holes. Penrose's survey gives its geometry in chapters 17 to 19 [@penrose2004road].
@@ -149,6 +159,8 @@ GPS satellites orbit at $r = 2.656\times10^{7}\,\mathrm{m}$ from the Earth's cen
 A star orbiting in a galaxy at radius $r$ with speed $v$ moves under the pull of all the mass inside its orbit. For a circular orbit, $v^2/r = GM(<r)/r^2$, so
 
 $$M(<r) = \frac{v^2r}{G}.$$
+
+{{Visualize | sec:stars-weighing-galaxies | function-plot:cosmic | f="((v*1000)^2*(x*kpc)/G/Msun)/1e11"; v=200; kpc=3.09e19; G=6.67e-11; Msun=1.99e30; x=[0,35]; value_at=10; expect_value=0.93; vline="10, 30"; xlabel="radius (kpc)"; ylabel="enclosed mass ($10^{11}$ solar masses)"; height=24% }} For a flat $200\,\mathrm{km\,s^{-1}}$ rotation curve, enclosed mass grows linearly with radius. The red point is the chapter's $10\,\mathrm{kpc}$ worked homework value, about $9.3\times10^{10}$ solar masses; by $30\,\mathrm{kpc}$ the same law gives three times as much.
 
 Speeds come from the Doppler shift of @sec:atoms-reading-spectral-line. The best tracer is the 21 cm line of cold hydrogen gas (@pr:atoms-radio-line-hydrogen), which extends far beyond the visible stars and is not blocked by dust. If most of a galaxy's mass were in its bright central regions, orbital speeds would fall with distance beyond them, as $v \propto 1/\sqrt r$ for the planets around the Sun. In the 1970s Vera Rubin and others measured the rotation of spiral galaxies and found that they do not [@rubin1980rotation]. The speeds stay roughly constant out to the edge of the visible disc and, in the 21 cm data, well beyond it. A flat curve, $v$ constant, means $M(<r)$ grows in proportion to $r$: mass keeps accumulating where there is almost no light. This is the most direct evidence for **dark matter**, mass detected only by its gravity. Gravitational lensing and the cosmic microwave background, met in @ch:cosmology, independently require about five times as much of it as of ordinary matter.
 

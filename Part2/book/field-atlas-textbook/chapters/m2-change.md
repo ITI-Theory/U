@@ -20,6 +20,8 @@ Any **average rate of change** has the same form. If a quantity $y$ depends on $
 
 $$\frac{\Delta y}{\Delta x} = \frac{f(x_2) - f(x_1)}{x_2 - x_1}.$$ {#eq:m-change-average}
 
+{{Visualize | sec:m-change-rates | data-points:generic | points="0:220, 12:160"; fit=linear; expect_slope=-5; xlabel="time (minutes)"; ylabel="oven temperature (°C)" }} The oven check from this section as two points joined by their straight line. Its slope is $-5\,^\circ\mathrm{C}$ per minute, the average rate in @eq:m-change-average.
+
 The Greek capital $\Delta$ (delta) means "change in". The units of a rate are the units of $y$ divided by the units of $x$: metres per second, kelvin per minute, volts per millisecond.
 
 An average hides what happens in between. The cyclist may have stopped at traffic lights and then sprinted. Her speedometer shows something different: the **instantaneous** rate, the speed *at this moment*. To find it from a graph, take the two points closer and closer together. The straight line through them turns into the **tangent**, the line that just touches the curve at one point, and its slope is the instantaneous rate.
@@ -40,11 +42,15 @@ The **derivative** of $f$ at $x$ is the slope of the tangent there: the average 
 
 $$\frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}.$$ {#eq:m-change-derivative}
 
+{{Visualize | sec:m-change-derivative | function-plot:generic | f="x^2"; x=[-2.5,2.5]; tangent_at=1; expect_slope=2; xlabel="$x$"; ylabel="$y$" }} For $f(x)=x^2$, the shrinking average rate of @eq:m-change-derivative becomes the tangent slope. At $x=1$ the tangent rises at $2$, exactly as the text states.
+
 The notation $df/dx$, due to Leibniz, is read "dee f by dee x" and reminds us that the derivative began as a ratio of small changes. Other common notations are $f'(x)$ and, for rates in time, a dot: $\dot{x} = dx/dt$.
 
 Try it on $f(x) = x^2$. The average rate over a step $h$ is $\big((x+h)^2 - x^2\big)/h = (2xh + h^2)/h = 2x + h$. As $h$ shrinks to zero this becomes $2x$. So the slope of the parabola $y = x^2$ is $2x$: zero at the bottom, $2$ at $x = 1$, $-4$ at $x = -2$. The same reasoning applied to any power gives the **power rule**, and a few more results cover nearly everything in this course:
 
 $$\frac{d}{dx}x^n = n x^{n-1}, \qquad \frac{d}{dx}e^{kx} = k\,e^{kx}, \qquad \frac{d}{dx}\sin kx = k\cos kx, \qquad \frac{d}{dx}\cos kx = -k\sin kx.$$ {#eq:m-change-rules}
+
+{{Visualize | sec:m-change-derivative | function-plot:generic | f="3*x^4 - 2*x + 7"; x=[-1.2,1.8]; tangent_at=1; expect_slope=10; xlabel="$x$"; ylabel="$y$" }} The polynomial from the check-your-learning box later in this section. Using the rules of @eq:m-change-rules gives $dy/dx = 12x^3 - 2$, so the tangent at $x=1$ has slope $10$.
 
 Derivatives of sums are sums of derivatives, and a constant factor stays in front: $\tfrac{d}{dx}\big(3x^2 + 5x\big) = 6x + 5$.
 
@@ -82,9 +88,13 @@ Some quantities change at a rate proportional to how much there is. A colony of 
 
 $$\frac{dN}{dt} = -\frac{N}{\tau},$$ {#eq:m-change-decay-law}
 
+{{Visualize | sec:m-change-exponential | function-plot:generic | f="exp(-t/tau)"; var=t; tau=1; x=[0,4]; tangent_at=0; expect_slope=-1; xlabel="time in units of $\tau$"; ylabel="$N/N_0$" }} An illustrative unit-time-constant decay. Because the rate law is $dN/dt = -N/\tau$, the curve starts with slope $-1$ when $\tau=1$ and $N$ is scaled by $N_0$.
+
 where $N$ is the amount and $\tau$ (tau) is a constant with units of time. The minus sign says that $N$ falls. Which function has a derivative proportional to itself? The rules of @eq:m-change-rules answer at once: the exponential. The solution is
 
 $$N(t) = N_0\, e^{-t/\tau},$$ {#eq:m-change-decay}
+
+{{Visualize | sec:m-change-exponential | function-plot:generic | f="exp(-t/8270)"; var=t; x=[0,10000]; value_at=10000; expect_value=0.298; xlabel="time (years)"; ylabel="remaining fraction $N/N_0$" }} The carbon-14 example later in this section: with $\tau = 8270$ years, @eq:m-change-decay leaves about $0.298$ of the sample after $10\,000$ years.
 
 with $N_0$ the amount at $t = 0$. Check it: the derivative of $e^{-t/\tau}$ is $-\tfrac{1}{\tau}e^{-t/\tau}$, so $dN/dt = -N/\tau$, as required.
 
@@ -149,6 +159,8 @@ A population grows by $3\,\%$ a year. How long does it take to double? Compare w
 Many systems do not decay to zero but settle at some other value: a cup of tea cools to room temperature, a charging capacitor approaches the battery voltage, a nerve membrane returns to its resting potential. If the rate of approach is proportional to the remaining distance, the law is
 
 $$\frac{dy}{dt} = -\frac{y - y_\infty}{\tau},$$ {#eq:m-change-relax}
+
+{{Visualize | sec:m-change-relaxation | function-plot:soma | f="70*exp(-t/17.9)"; var=t; x=[0,60]; value_at=10; expect_value=40; hline="40"; vline="10"; xlabel="time (minutes)"; ylabel="excess above room temperature (°C)" }} For the tea example later in this section, the excess temperature $y-y_\infty$ is what decays. After $10$ minutes it has fallen from $70$ to about $40\,^\circ\mathrm{C}$, matching @eq:m-change-relax.
 
 where $y_\infty$ is the final value. The distance from the target, $y - y_\infty$, obeys the decay law of @eq:m-change-decay-law, so
 

@@ -24,6 +24,8 @@ $$\dot\theta = \omega, \qquad \omega = 2\pi f = \frac{2\pi}{T}.$$
 
 A resting heart at $1.2\,\mathrm{Hz}$, for example, has $\omega = 2\pi\times1.2 = 7.5\,\mathrm{rad\,s^{-1}}$. The description throws away the size and shape of each cycle and keeps only its timing. This is a good approximation for a **self-sustained oscillator**, one that has its own energy supply and returns to its preferred cycle after a disturbance, unlike the damped oscillators of @ch:response. When such oscillators are coupled weakly, the coupling cannot change the shape of their cycles much; it can only nudge their timing. The whole story of synchronisation is then a story about phases.
 
+{{Visualize | sec:groups-describing-rhythm-phase | function-plot:neural | f="2*pi*1.2*x"; x=[0,1]; value_at=1; xlabel="time $t$ (s)"; ylabel="phase $\theta$ (rad)"; height=26% }} For the chapter's resting-heart example at $1.2\,\mathrm{Hz}$, phase rises at a constant rate of $\omega = 7.5\,\mathrm{rad\,s^{-1}}$: after one second the oscillator has advanced $1.2$ cycles, or about $7.5$ radians of unwrapped phase.
+
 ::: {.check-your-learning}
 A person walks at two steps per second. What are the period and angular frequency of the stepping rhythm? (Answer: $T = 0.5\,\mathrm{s}$, $\omega = 4\pi = 12.6\,\mathrm{rad\,s^{-1}}$.)
 :::
@@ -45,6 +47,8 @@ Subtracting gives a single equation for the phase gap $\varphi = \theta_A - \the
 $$\dot\varphi = \Delta\omega - 2\kappa\sin\varphi, \qquad \Delta\omega = \omega_A - \omega_B.$$
 
 The detuning $\Delta\omega$ tries to open the gap; the coupling tries to close it. If $2\kappa \ge |\Delta\omega|$, the gap stops changing where $\sin\varphi^\ast = \Delta\omega/2\kappa$: the oscillators are **phase-locked**, running at a common frequency with a fixed lag, the faster one slightly ahead. If $2\kappa < |\Delta\omega|$, the gap never settles. It creeps slowly while the coupling holds it back and then jumps through a full cycle, a **phase slip**, as in the red curve of the opening figure. The slips recur with period
+
+{{Visualize | sec:groups-oscillators-locking-slipping | function-plot:neural | f="0.63 - 0.8*sin(x)"; x=[0,2*pi]; hline=0; xlabel="phase gap $\varphi$ (rad)"; ylabel="gap drift $\dot\varphi$ (rad/s)"; height=26% }} Using the later walkers example's numbers, $\Delta\omega = 0.63\,\mathrm{rad\,s^{-1}}$ and $2\kappa = 0.80\,\mathrm{rad\,s^{-1}}$, the Adler drift crosses zero once between $0$ and $\pi$: that zero is the locked lag, about $52^\circ$, where detuning and coupling exactly balance.
 
 $$T_\text{slip} = \frac{2\pi}{\sqrt{\Delta\omega^2 - 4\kappa^2}},$$ {#eq:groups-slip}
 
@@ -93,6 +97,8 @@ How synchronised the crowd is can be measured by averaging the oscillators as ar
 $$r = \left|\frac1N\sum_{j=1}^{N}e^{i\theta_j}\right|,$$
 
 which is $0$ when phases are scattered evenly and $1$ when all coincide. Kuramoto's discovery was that the crowd behaves like a physical substance changing state. Below a **critical coupling** $K_c$, $r$ stays near zero: every oscillator keeps its own time. Above $K_c$ a cluster of oscillators with similar frequencies locks together, its common rhythm pulls in more members, and $r$ rises steeply. When the natural frequencies follow a bell-shaped (Lorentzian) spread of half-width $\gamma$, the result is exact:
+
+{{Visualize | sec:groups-many-oscillators-onset | complex-plane:neural | points="1, j, -1, -j, 0"; names="$0$, $\pi/2$, $\pi$, $3\pi/2$, mean"; arrows=true; unit_circle=true; radius=1.35; height=30% }} An illustrative evenly scattered four-oscillator crowd: four unit phasors a quarter-turn apart average to the origin, so $r = 0$. If the arrows all lay on top of each other, the mean would lie on the unit circle and $r = 1$.
 
 $$K_c = 2\gamma, \qquad r = \sqrt{1 - K_c/K}\quad (K > K_c).$$ {#eq:groups-kuramoto}
 
@@ -159,6 +165,8 @@ In the programme's dyadic model, the coupling links Safety to Safety with $J = 0
 
 **Significance.** Matching states sit lower and mismatched ones higher, so a coupled pair is drawn towards shared states. The arithmetic is the same as @ex:cells-threeneuron-memory's Hopfield memory, with one person's state acting as the cue for the other's.
 :::
+
+{{Visualize | ex:groups-shared-calm | function-plot:soma | f="-(0.30*0.8*x + 0.35*0.5*0.5)"; x=[-1,1]; hline=0; vline=-0.8,0.8; value_at=0.8; xlabel="person B Safety"; ylabel="coupling contribution to $H$"; height=26% }} In @ex:groups-shared-calm, with person A fixed at Safety $0.8$ and both Awe values fixed at $0.5$, the coupling term varies linearly with person B's Safety. Matching Safety ($x = 0.8$) gives the quoted lowering of about $-0.28$; reversing that Safety to $x = -0.8$ raises the term to about $+0.10$.
 
 ## What the programme claims for dyads and groups {#sec:groups-programme-claims-dyads}
 
