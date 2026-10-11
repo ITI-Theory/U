@@ -1,5 +1,6 @@
 import CycKB.UniversalVocabularyMt
 import Cyc.Typing
+import Cyc.TTheory
 
 /-!
 # The Tensor, part 3: "All three are the same film" (Sherlock exhibit B)
@@ -42,8 +43,8 @@ abbrev riverShowing : Term := .c "TheRiverFilm-River-Showing1"
 /-! ## Reading 1: the same score -/
 
 abbrev S : Mt := .c "TheTensorScoreReadingMt"
-axiom s_uv : GenlMt S UV
-theorem liftS {φ : Sentence} (h : Holds UV φ) : Holds S φ := inherit s_uv h
+axiom s_tt : GenlMt S TTheory.TT
+theorem liftS {φ : Sentence} (h : Holds UV φ) : Holds S φ := TTheory.liftDoc s_tt h
 
 axiom river_refines : Holds S (rel "genlWorks" river score)
 axiom body_refines : Holds S (rel "genlWorks" body score)
@@ -67,7 +68,7 @@ theorem river_part_of_score : Holds S (rel "parts" score river) :=
 example : True := by
   fail_if_success
     have : Holds S (rel "performanceOfWork" riverShowing score) := by
-      aesop (add safe apply river_refines, safe apply river_shown, safe apply s_uv,
+      aesop (add safe apply river_refines, safe apply river_shown, safe apply s_tt, safe apply TTheory.tt_uv,
         unsafe apply genlPreds_holds, unsafe apply genlInverse_holds,
         unsafe apply transitive_holds) (rule_sets := [Cyc])
   trivial
@@ -75,8 +76,8 @@ example : True := by
 /-! ## Reading 2: the same film -/
 
 abbrev F : Mt := .c "TheTensorSameFilmReadingMt"
-axiom f_uv : GenlMt F UV
-theorem liftF {φ : Sentence} (h : Holds UV φ) : Holds F φ := inherit f_uv h
+axiom f_tt : GenlMt F TTheory.TT
+theorem liftF {φ : Sentence} (h : Holds UV φ) : Holds F φ := TTheory.liftDoc f_tt h
 
 axiom river_includes_body : Holds F (rel "genlWorks" river body)
 axiom body_includes_river : Holds F (rel "genlWorks" body river)

@@ -1,5 +1,6 @@
 import CycKB.UniversalVocabularyMt
 import Cyc.Typing
+import Cyc.TTheory
 
 /-!
 # ZSF, part 2: "A conscious percept is a pole in the propagator"
@@ -25,8 +26,8 @@ abbrev UV : Mt := .c "UniversalVocabularyMt"
 abbrev Z : Mt := .c "ZoomableSomaticFieldMt"
 abbrev percept : Term := .c "ZSF-ConsciousPercept"
 
-axiom z_uv : GenlMt Z UV
-theorem lift {φ : Sentence} (h : Holds UV φ) : Holds Z φ := inherit z_uv h
+axiom z_tt : GenlMt Z TTheory.TT
+theorem lift {φ : Sentence} (h : Holds UV φ) : Holds Z φ := TTheory.liftDoc z_tt h
 
 axiom percept_perceiving : Holds Z (isa percept (.c "Perceiving"))
 /-- The paper's claim, typed: the percept is a pole, a mathematical object. -/

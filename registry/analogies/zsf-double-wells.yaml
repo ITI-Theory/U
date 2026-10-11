@@ -1,0 +1,30 @@
+# Sherlock structure mapping (ISS-063, first slice): P11's own "same as always" claim,
+# the molecular double-well (Scale 4) against the limbic one (Scale 6, §6.3).
+# Facts are CycL-shaped sentences, each with the frozen line it states (P11 at 3c97a44).
+id: zsf-double-wells
+source: zoomable-somatic-field
+claim: >-
+  "The molecular conformation double-well ... is identical in structure to the limbic
+  double-well" (lines 492-495)
+base:
+  name: molecular (Scale 4)
+  facts:
+    - {s: (doubleWell MolecularPotential), line: 492}
+    - {s: (barrierHeight MolecularPotential W-mol), line: 493}
+    - {s: (landscapeOf MolecularPotential ConformationalSpace), line: 486}
+    - {s: (minimisesOn ProteinFolding MolecularPotential), line: 487}
+    - {s: (attractorTransitionIn ConformationalTransition MolecularPotential), line: 488}
+    - {s: (causes (attractorTransitionIn ConformationalTransition MolecularPotential) VisionOnset), line: 489}
+    - {s: (eigenmodesOf MolecularOrbitals SchroedingerPropagator), line: 483}
+    - {s: (propagatorOf SchroedingerPropagator MolecularPotential), line: 482}
+target:
+  name: limbic (Scale 6, §6.3)
+  facts:
+    - {s: (doubleWell LimbicPotential), line: 846}
+    - {s: (barrierHeight LimbicPotential W-limbic), line: 846}
+    - {s: (landscapeOf LimbicPotential HopfieldEnergyLandscape), line: 545}
+    - {s: (deepBasinOf TraumaticConfiguration LimbicPotential), line: 546}
+    - {s: (attractorTransitionIn TraumaEscape LimbicPotential), line: 856}
+    - {s: (causes (attractorTransitionIn TraumaEscape LimbicPotential) AweBasinReached), line: 860}
+    - {s: (trapsUnder LimbicPotential ClassicalGradientDescent), line: 846}
+    - {s: (propagatorOf CEMIField LimbicPotential), line: 537}

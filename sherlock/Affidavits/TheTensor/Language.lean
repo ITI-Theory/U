@@ -1,5 +1,6 @@
 import CycKB.UniversalVocabularyMt
 import Cyc.Typing
+import Cyc.TTheory
 
 /-!
 # The Tensor, part 2: its seven modes typed against OpenCyc (ISS-055)
@@ -7,8 +8,9 @@ import Cyc.Typing
 Source: U `paper/soma/the-tensor/the-tensor.md`. The paper calls each axis of
 the score an "emotional mode" and lists Safety, Fear, Shame, Grief, Curiosity,
 Awe and Language (the River Film swaps Shame for Pre-verbal). The affidavit
-asserts that typing in its own microtheory, `TheTensorMt`, which inherits
-OpenCyc's `UniversalVocabularyMt`; a contradiction stays inside it.
+asserts that typing in its own microtheory, `TheTensorMt`, which inherits the
+programme's `TTheoryVocabularyMt` and through it OpenCyc's
+`UniversalVocabularyMt`; a contradiction stays inside it.
 
 Findings:
 - Fear, Awe, Grief, Curiosity and Shame are emotions in OpenCyc
@@ -27,12 +29,12 @@ open Cyc Sentence
 abbrev T : Mt := .c "TheTensorMt"
 abbrev UV : Mt := .c "UniversalVocabularyMt"
 
-axiom tensor_uv : GenlMt T UV
+axiom tensor_tt : GenlMt T TTheory.TT
 
 /-- The paper's claim, typed: Language is an emotional mode. -/
 axiom claim_language : Holds T (isa (.c "Language") (.c "EmotionalQuantityType"))
 
-theorem lift {φ : Sentence} (h : Holds UV φ) : Holds T φ := inherit tensor_uv h
+theorem lift {φ : Sentence} (h : Holds UV φ) : Holds T φ := TTheory.liftDoc tensor_tt h
 
 /-! ## The modes OpenCyc agrees are emotions -/
 

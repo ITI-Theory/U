@@ -69,7 +69,71 @@ the programme's own Lean.
 - **D7. AI extracts, a person or a second check confirms.** The extraction
   prompt is in `docs/SHERLOCK.md`; one in eight candidates was wrong on ZSF,
   so every candidate is verified before it becomes Lean.
+- **D8. Claims are anchored by their quote, not by line numbers** (author,
+  11 Oct: "if I delete a line, is that an error or an improvement?"). A delta
+  re-finds each claim's quote in a new version and classifies it:
+  unchanged (lines moved), edited (re-extract, re-check), gone (a
+  contradicted finding gone is probably the fix; a supporting claim gone, or
+  a value other documents quote, is a warning); text no claim covers is new
+  and gets the extraction prompt, on the delta only. Sherlock proposes, the
+  author confirms. Line numbers are derived.
+- **D9. Numbers are data.** Arithmetic claims use a small library of Lean
+  templates (count equals list length, two values differ, sum, ratio within
+  a range, monotone) that read their values from the registry, so an edited
+  number is re-checked without editing Lean. Hand-written Lean stays for
+  what the templates cannot say.
+- **D10. Equations have formal twins.** A labelled equation gets a formal
+  twin (SymPy or Lean) and the document a symbol table (each symbol's type
+  and unit, declared once); Sherlock checks that the LaTeX and the twin
+  agree, the units (an exponent must be dimensionless: delete the t from
+  e^{-iEt/ħ} and it fails), unbound variables and values at the paper's own
+  parameters. Arbitrary LaTeX is not parsed. Visualize's `expect_*` checks
+  are the first, partial form of this.
 
+## The end-to-end slice (author, 11 Oct: "the red way")
+
+Every feature first working, roughly, on P11; then each refined; then all
+documents. State of the slice:
+
+- Registry and validator (ISS-056): `registry/affidavits/` for P11 and P22,
+  `sherlock/registry.py check|report` (frozen SHA-256, every quote found in
+  the frozen text, lines in range), `Tools/Names.lean` (every cited theorem
+  exists), `TTheoryVocabularyMt` shared by the document affidavits.
+- Chain finder (ISS-057): `sherlock/chain.py genls|isa|disjoint`, printing
+  the Lean term; it found the richer chain for P11's percept (an
+  `IntentionalMentalEvent`).
+- Ledger (ISS-058): `sherlock/ledger.py extract|judge|report` with
+  `Ledger/Judge.lean`, one Lean process per programme module (environments
+  cannot be shared: OSforGFF and Physlib both define `SpaceTime`; one process
+  for all reached 31 GB). On P11: 52 citations; the seven "kernel-checked"
+  claims rest on no sorry; `universe_is_11D_organism` "axiom" is a def.
+  To refine: "was an axiom; it is now a theorem" read as "axiom"; library
+  names cited bare (`exp_pos`); table columns headed "Axiom".
+- Mapping assistant (ISS-060): `sherlock/lookup.py WORD` (FrameNet semantic
+  translations, canonical names, constant names, with comment, isa, genls).
+- Values across documents (ISS-061): `bld/sherlock/values.md`; P11 and P22
+  agree on 3/11, 7/11 and 0.2645; P11's two internal disagreements flagged.
+- Rules (ISS-062): `sherlock/gen_rules.py`: 408 Horn rules (233 not Horn, 1
+  unrestricted) in `CycRules`, importing only `Cyc.Rules` (`Sees m n`): no
+  facts rebuild, so no overnight build. A rule fires (`Queries/Rules.lean`).
+  Rules naming a constant in their conclusion are tried first (80%), fully
+  general ones last (10%), or the search loses itself in `isa_genls`.
+- Delta (D8): `sherlock/delta.py ID [--rev|--file]`; a scratch copy of P11
+  with five edits was classified right (fix, two edits with changed numbers,
+  lost support with the cross-document warning, new text).
+- Structure mapping (ISS-063): `sherlock/sme.py` with
+  `registry/analogies/zsf-double-wells.yaml`: P11's "identical in structure"
+  (molecular and limbic double-wells) maps at 66%; candidate inferences: a
+  process that minimises the limbic potential (as protein folding does the
+  molecular one), eigenmodes of the CEMI field; trapping and the traumatic
+  basin have no molecular counterpart.
+- Law and Russell (ISS-064): the Law chapter takes its cases from the
+  registry (claims, frozen exhibits, dispositions; a delta between versions
+  is the record of what was argued and changed, D4, D8) and its precedent
+  search from structure mapping over affidavits (MAC/FAC). The Russell
+  reading writes each philosopher's position as a small affidavit in the
+  same vocabulary (D2), so SME can show which positions share structure
+  across centuries, the time-invariance the author wants from Russell.
 ## Sub-issues and order
 
 1. ISS-056 claims registry and validator (D1-D4; migrate exhibits A-D).

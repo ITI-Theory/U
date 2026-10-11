@@ -1,0 +1,57 @@
+# Sherlock affidavit: Dark Matter as the Spatial Vacuum (P22). Schema: sherlock/registry.py.
+# First slice: the quoted cosmic fractions, shared with P11 (cross-document values).
+id: dark-matter-spatial-vacuum
+document: P22
+title: Dark Matter as the Spatial Vacuum of the Universal Somatic Field
+source:
+  file: paper/soma/dark-matter-spatial-vacuum/dark-matter-spatial-vacuum.md
+  commit: 2d728a4
+  sha256: 52f7ebbb4920243c8266e81479c9c74fbc3a9469ed5c85dd6ba777c6c63b05a6
+lean:
+  - sherlock/Affidavits/DarkMatter/Numbers.lean
+claims:
+  - id: E1
+    quote: $\Omega_\text{DM}^\text{obs} = 0.2645$ — a **3.1\% high discrepancy**.
+    lines: [15, 17, 111]
+    kind: internal-arithmetic
+    finding: (3/11 - 0.2645)/0.2645 = 3.11%, as stated
+    verdict: consistent
+    label: kernel-verified
+    lean: Affidavit.DarkMatter.Numbers.dark_matter_three_point_one
+    values:
+      - {quantity: USF-DarkMatterFraction, value: 3/11}
+      - {quantity: USF-DarkMatterFraction-Planck2018, value: 0.2645}
+    disposition: none
+  - id: E2
+    quote: '| Dark energy ($\Lambda$) | $7/11$ | 0.6364 | 0.6847 | 7.1\% low |'
+    lines: [110]
+    kind: internal-arithmetic
+    finding: (0.6847 - 7/11)/0.6847 = 7.06%, stated as 7.1%
+    verdict: consistent
+    label: kernel-verified
+    lean: Affidavit.DarkMatter.Numbers.dark_energy_seven_point_one
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+      - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
+    disposition: none
+  - id: E3
+    quote: \approx 0.0455 \quad\text{vs}\quad \Omega_b^\text{obs} = 0.0493 \quad(7.8\%\text{ low})$$
+    lines: [263]
+    kind: internal-arithmetic
+    finding: (0.0493 - 1/22)/0.0493 = 7.80%, as stated
+    verdict: consistent
+    label: kernel-verified
+    lean: Affidavit.DarkMatter.Numbers.baryons_seven_point_eight
+    values:
+      - {quantity: USF-BaryonFraction, value: 1/22}
+      - {quantity: USF-BaryonFraction-Planck2018, value: 0.0493}
+    disposition: none
+  - id: E4
+    quote: \approx 0.6847 + 0.2645 + 0.0493 + 0.001 + 0.0001 \approx 0.9996$$
+    lines: [279]
+    kind: internal-arithmetic
+    finding: the observed budget sums to 0.9996, as stated
+    verdict: consistent
+    label: kernel-verified
+    lean: Affidavit.DarkMatter.Numbers.observed_budget
+    disposition: none

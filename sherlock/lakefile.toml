@@ -14,6 +14,11 @@ srcDir = "../bld/sherlock/lean"
 name = "aesop"
 git = "https://github.com/leanprover-community/aesop"
 rev = "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e"
+# OpenCyc's Horn rules, generated (make -C sherlock rules-gen); import only Cyc.Rules.
+[[lean_lib]]
+name = "CycRules"
+srcDir = "../bld/sherlock/lean"
+
 # Queries and tests against generated microtheories.
 [[lean_lib]]
 name = "Queries"

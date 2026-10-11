@@ -16,19 +16,23 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
 	$(info   fetch       download NextKB into bld/sherlock/raw and check SHA-256)
 	$(info   lean-gen    NextKB to Lean, one module per microtheory (MT="BiologyMt ..." limits it))
 	$(info   lean        build the core and all microtheories, one Lean process at a time (hours, several GB))
-	$(info   affidavits  check the affidavits (Affidavits/) and the ledgers (Ledger/: declaration kinds in the
-	$(info               programme's own Lean, root package), after lean; report: bld/sherlock/findings.md)
-	$(info   all         fetch lean-gen lean affidavits)
+	$(info   affidavits  check the affidavits in Affidavits/ and the fixed ledgers in Ledger/, after lean;)
+	$(info               then check; reports in bld/sherlock/)
+	$(info   check       the claims registry: sources, quotes, cited theorems; affidavits.md, values.md)
+	$(info   ledger      documents' claims about the programme's Lean (LEDGER_DOCS=...); ledger.md)
+	$(info   delta       ID=<affidavit> [REV=...]: what an edit did to its claims; delta-<ID>.md)
+	$(info   rules-gen   OpenCyc's Horn rules to Lean (CycRules), no facts rebuild)
+	$(info   all         fetch lean-gen rules-gen lean affidavits)
 	@:
 
-all: fetch lean-gen lean affidavits
+all: fetch lean-gen rules-gen lean affidavits
 
 fetch:
 	mkdir -p "$(RAW)"
@@ -59,11 +63,35 @@ affidavits:
 	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
 	done
 	lake build Affidavits
-	@for f in Ledger/*.lean; do echo "ledger $$f"; \
+	@for f in $$(ls Ledger/*.lean | grep -v Judge); do echo "ledger $$f"; \
 	  (cd .. && LEAN_NUM_THREADS=2 lake env lean sherlock/$$f) > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; \
 	  grep -v OSforGFF "$(LOG)"; \
 	done
 	$(PYTHON) findings.py
+	$(MAKE) check
+
+# The claims registry (registry/affidavits): schema, frozen sources, quotes; every cited
+# theorem exists in the compiled affidavits; reports (affidavits.md, values.md).
+check:
+	cd .. && $(PYTHON) sherlock/registry.py check
+	LEAN_NUM_THREADS=2 lake env lean Tools/Names.lean
+	cd .. && $(PYTHON) sherlock/registry.py report
+
+# Documents' claims about the programme's own Lean (DOCS=... paper sources).
+LEDGER_DOCS ?= ../paper/soma/zoomable-somatic-field/zoomable-somatic-field.md
+ledger:
+	cd .. && $(PYTHON) sherlock/ledger.py extract $(patsubst ../%,%,$(LEDGER_DOCS))
+	cd .. && $(PYTHON) sherlock/ledger.py judge
+	cd .. && $(PYTHON) sherlock/ledger.py report
+
+# What an edit did to an affidavit: make delta ID=zoomable-somatic-field [REV=...]
+delta:
+	cd .. && $(PYTHON) sherlock/delta.py $(ID) $(if $(REV),--rev $(REV),)
+
+# OpenCyc's Horn rules (bld/sherlock/lean/CycRules.lean); importing only Cyc.Rules, they never rebuild the facts.
+rules-gen:
+	$(PYTHON) gen_rules.py "$(NEXTKB_ZIP)" "$(KB)"
+	lake build CycRules
 
 clean:
 	rm -rf "$(BLD)/sherlock" .lake/build

@@ -1,0 +1,129 @@
+"""Sherlock's claims registry (registry/affidavits/<doc>.yaml): check and report.
+
+    python sherlock/registry.py check    # schema, frozen source, quotes, lines
+    python sherlock/registry.py report   # bld/sherlock/affidavits.md and values.md
+
+Each affidavit file names a frozen source (file, commit, SHA-256) and lists
+claims: id, quote, lines, kind, finding, verdict, label, lean (the theorem
+that proves the finding, or null for "not provable"), and optionally reading
+(microtheory), mapping (words to OpenCyc constants), formal (CycL-shaped
+sentence), values (quoted quantities), ledger, disposition. `check` also
+writes bld/sherlock/names.json, which sherlock/Tools/Names.lean checks against
+the compiled affidavits (Python extracts, Lean decides). `report` groups the
+quoted values by quantity across all documents and flags disagreements.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+import subprocess
+import sys
+from collections import defaultdict
+from fractions import Fraction
+from pathlib import Path
+
+import yaml
+
+U = Path(__file__).resolve().parents[1]
+REG = U / "registry" / "affidavits"
+OUT = U / "bld" / "sherlock"
+KINDS = {"internal-count", "internal-arithmetic", "internal-duplicate-mismatch", "internal-unit",
+         "cross-paper", "opencyc-typing", "opencyc-slip", "ledger"}
+VERDICTS = {"contradicted", "confirmed", "consistent", "not-provable", "unclear"}
+LABELS = {"kernel-verified", "derived-under-assumptions", "interpretive", "sourced"}
+REQUIRED = ("id", "quote", "lines", "kind", "finding", "verdict", "label", "lean")
+
+
+def frozen_text(src: dict) -> str:
+    blob = subprocess.run(["git", "show", f"{src['commit']}:{src['file']}"], cwd=U,
+                          capture_output=True, check=True).stdout
+    digest = hashlib.sha256(blob).hexdigest()
+    if digest != src["sha256"]:
+        raise ValueError(f"{src['file']}@{src['commit']}: SHA-256 {digest} != {src['sha256']}")
+    return blob.decode("utf-8")
+
+
+def squash(s: str) -> str:
+    return " ".join(s.split())
+
+
+def load() -> list[tuple[Path, dict]]:
+    return [(p, yaml.safe_load(p.read_text(encoding="utf-8"))) for p in sorted(REG.glob("*.yaml"))]
+
+
+def check() -> int:
+    errs, names = [], []
+    for path, aff in load():
+        where = path.relative_to(U).as_posix()
+        text = frozen_text(aff["source"]) if aff.get("source") else None
+        lines = text.splitlines() if text else []
+        flat = squash(text) if text else ""
+        ids = set()
+        for c in aff.get("claims") or []:
+            cid = c.get("id", "?")
+            missing = [k for k in REQUIRED if k not in c]
+            if missing:
+                errs.append(f"{where} {cid}: missing {missing}")
+                continue
+            if cid in ids:
+                errs.append(f"{where} {cid}: duplicate id")
+            ids.add(cid)
+            for k, allowed in (("kind", KINDS), ("verdict", VERDICTS), ("label", LABELS)):
+                if c[k] not in allowed:
+                    errs.append(f"{where} {cid}: {k} {c[k]!r} not in {sorted(allowed)}")
+            if text is not None:
+                if squash(c["quote"]) not in flat:
+                    errs.append(f"{where} {cid}: quote not found in the frozen source")
+                bad = [n for n in c["lines"] if not 1 <= n <= len(lines)]
+                if bad:
+                    errs.append(f"{where} {cid}: lines out of range {bad}")
+            if c["lean"]:
+                names.append({"doc": aff["id"], "claim": cid, "name": c["lean"]})
+            elif c["verdict"] != "not-provable":
+                errs.append(f"{where} {cid}: no Lean theorem for a {c['verdict']} finding")
+            if "formal" in c and c["formal"].count("(") != c["formal"].count(")"):
+                errs.append(f"{where} {cid}: unbalanced formal form")
+        for f in aff.get("lean") or []:
+            if not (U / f).exists():
+                errs.append(f"{where}: lean file missing {f}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "names.json").write_text(json.dumps(names, indent=1), encoding="utf-8", newline="\n")
+    print("\n".join(errs) or f"registry OK: {len(load())} affidavits, {len(names)} Lean theorems to check")
+    return 1 if errs else 0
+
+
+def number(v) -> Fraction:
+    return Fraction(str(v)) if not isinstance(v, str) or "/" in v else Fraction(str(float(v)))
+
+
+def report() -> int:
+    out = ["# Sherlock affidavits (registry)", ""]
+    values = defaultdict(list)
+    for _, aff in load():
+        src = aff.get("source") or {}
+        out += [f"## {aff['title']}" + (f" ({aff['document']})" if aff.get("document") else ""), "",
+                f"Frozen: `{src.get('file', '-')}` at `{src.get('commit', '-')}`." if src else "Example, no source.", ""]
+        for c in aff["claims"]:
+            out.append(f"- **{c['id']}** {c['verdict']} ({c['label']}), lines {c['lines']}: {c['finding']}."
+                       f" `{c['lean'] or 'not provable'}`; disposition: {c.get('disposition', 'open')}.")
+            for v in c.get("values") or []:
+                values[v["quantity"]].append((aff["id"], c["id"], v["value"]))
+        out.append("")
+    vals = ["# Quoted values across documents", "",
+            "Each quantity with every value quoted for it; DIFFER marks disagreement.", ""]
+    for q in sorted(values):
+        distinct = {number(v) for _, _, v in values[q]}
+        mark = "DIFFER" if len(distinct) > 1 else "agree"
+        vals.append(f"- `{q}` {mark}: " + "; ".join(f"{v} ({d} {c})" for d, c, v in values[q]))
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "affidavits.md").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
+    (OUT / "values.md").write_text("\n".join(vals) + "\n", encoding="utf-8", newline="\n")
+    differ = sum(1 for l in vals if " DIFFER:" in l)
+    print(f"bld/sherlock/affidavits.md, bld/sherlock/values.md: {len(values)} quantities, {differ} differ")
+    return 0
+
+
+if __name__ == "__main__":
+    cmd = sys.argv[1] if len(sys.argv) > 1 else "check"
+    sys.exit({"check": check, "report": report}[cmd]())
