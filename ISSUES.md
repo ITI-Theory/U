@@ -2074,7 +2074,22 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       keyword and was renamed `lam` (same value, same caption) after the
       build caught it. Builds verified one at a time with
       `make -C Part2/book/field-atlas-textbook html`, 0 errors; figures
-      spot-checked for legible, non-overlapping labels.
+      spot-checked for legible, non-overlapping labels. 03-frequencies,
+      10-earth-deep-time-geology, m3-accumulation and m4-oscillation marked
+      up to full coverage (10 of 10, 5 of 5, 9 of 9, 9 of 9): Fourier series
+      and the convolution theorem, radiocarbon dating, fault friction and
+      the Gutenberg-Richter law, Riemann sums and the fundamental theorem
+      of calculus, the inverse-square law, simple harmonic and damped
+      motion, and $i^2=-1$ on the complex plane, all at the chapter's own
+      worked numbers; course 118 of 142 so far. Three more build errors
+      caught and fixed: a parameter computed from other parameters by a
+      formula string (not supported; scalar parameters must be plain
+      numbers, so the derived constant was computed by hand and inlined),
+      a parameter used as a bare stand-in for another parameter's formula
+      inside a third expression (same fix: the full expression was written
+      out instead of referencing the alias), and `\ge` in a matplotlib
+      axis label (matplotlib's mathtext wants `\geq`; the prose caption,
+      rendered by LaTeX/HTML rather than matplotlib, keeps `\ge`).
 - [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
