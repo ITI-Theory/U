@@ -106,6 +106,8 @@ $$
 G_{\mathrm{USF}}(p) = \frac{1}{p^2 + k^2}.
 $$
 
+{{Visualize | the-free-field-universal-somatic-field | function-plot:quantum | f="1/(x^2+k^2)"; vary=k:0.5,1,2; x=[-5,5]; xlabel="momentum $p$ (one component, illustrative)"; ylabel="$G_\text{USF}(p)$" }} The free-field propagator above at three illustrative wavenumbers $k$: a single peak at $p=0$ whose height and width are set by $k$ — the Lorentzian form the next section identifies with the Gaussian Free Field propagator under $m=k$.
+
 The Euclidean generating functional is
 
 $$
@@ -242,6 +244,8 @@ $$
 G_R(t) = \theta(t)\,e^{-\gamma t}\,\sin(\omega t)/\omega,
 $$
 
+{{Visualize | connection-to-the-retarded-propagator | function-plot:quantum | f="where(x>=0, exp(-gamma*x)*sin(omega*x)/omega, 0)"; gamma=0.3; omega=4; x=[-2,10]; xlabel="time $t$ (illustrative $\gamma=0.3$, $\omega=4$)"; ylabel="$G_R(t)$" }} The retarded propagator above, illustrative: zero for $t<0$ (the stated causal support) and a damped oscillation for $t\geq0$ — the Minkowski-side kernel compared, under the free-field identification, with the Euclidean GFF propagator's analytic continuation.
+
 causal ($G_R(t) = 0$ for $t < 0$) and bounded. This retarded propagator is compared with the Minkowski continuation of the
 Euclidean GFF propagator under $t_E \to it$. The two proof surfaces are thus
 complementary under the free-field identification:
@@ -264,6 +268,8 @@ $$
 \langle\phi(x)\phi(0)\rangle_{\text{conn}} \sim e^{-k|x|}
 \quad\text{as }|x|\to\infty.
 $$
+
+{{Visualize | os4-and-the-somatic-memory-kernel | function-plot:quantum | f="exp(-k*x)"; vary=k:0.5,1,2; x=[0,8]; xlabel="Euclidean separation $|x|$"; ylabel="$\langle\phi(x)\phi(0)\rangle_\text{conn}$" }} The clustering decay above at three illustrative rates $k$: the connected correlator falls off exponentially, faster for larger $k$ — the OS4 property identified with the Somatic Memory Kernel's decay rate $k=1/\tau_m$.
 
 In the USF context this motivates the Somatic Memory Kernel
 $K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)$ introduced in the temporal
