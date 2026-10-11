@@ -232,6 +232,8 @@ $$
 \xrightarrow{\;} \cdots
 $$
 
+{{Visualize | the-formal-computational-structure-abduction-aesop-and-the-loop | process-diagram:generic | steps="Observation, Hypothesis, Proof, Predictions, New observations"; layout=cycle; edges="abduction, Aesop, import, test, repeat" }} The loop above as a cycle of five named steps, in the order the text gives them: each arrow is labelled with the step that produces the next state; the loop's own final arrow ("$\xrightarrow{\;}\cdots$") is drawn here as "repeat," closing the cycle rather than continuing it as an open-ended line.
+
 The loop terminates locally when the registered predictions pass under the declared
 test conditions, or when a prediction fails (type match was only partial — failure modes are discussed
 in Section 7). At each iteration, the set of available theorems grows by
@@ -283,6 +285,8 @@ $$H(\sigma) = -\frac{1}{2}\sum_{ij} J_{ij}\sigma_i\sigma_j$$
 This is, to within notation, the Hamiltonian of the Ising spin glass:
 
 $$H_\text{Ising}(\sigma) = -\frac{1}{2}\sum_{ij} J_{ij}\sigma_i\sigma_j$$
+
+{{Visualize | hopfield-1982-the-ising-hamiltonian-and-neural-memory | matrix-heatmap:neural | matrix="[[0,0.6,-0.3,0.4],[0.6,0,0.5,-0.2],[-0.3,0.5,0,0.3],[0.4,-0.2,0.3,0]]"; rows="1,2,3,4"; cols="1,2,3,4" }} The exchange-coupling matrix $J_{ij}$ shared by both equations above, as an illustrative $4\times4$ grid: symmetric ($J_{ij}=J_{ji}$) and zero on the diagonal (no self-coupling), the standard convention of the Ising/Hopfield Hamiltonian the text identifies. No concrete weights are given by either Hopfield or the Ising model in general form; the entries here are illustrative only.
 
 The co-identification was explicit. By identifying neural states $\sigma_i \in
 \{-1, +1\}$ with spins, and synaptic weights $J_{ij}$ with exchange couplings,
@@ -465,6 +469,8 @@ on the space of coupling constants parameterised by an energy scale $\mu$,
 with fixed points corresponding to universality classes. The $\beta$-function:
 
 $$\frac{dW_{ij}}{d\log\mu} = \beta_{ij}(W)$$
+
+{{Visualize | co-identification-v-therapeutic-processing-as-renormalisation-group-flow | matrix-heatmap:soma | matrix="[[0,0.7,-0.9,0.3],[0.7,0,0.4,-0.6],[-0.9,0.4,0,0.5],[0.3,-0.6,0.5,0]]"; matrix2="[[0,0.21,-0.27,0.09],[0.21,0,0.12,-0.18],[-0.27,0.12,0,0.15],[0.09,-0.18,0.15,0]]"; rows="Fight, Flight, Freeze, Calm"; cols="Fight, Flight, Freeze, Calm"; titles="UV: raw detail (illustrative), IR: integrated narrative (illustrative)"; diff=true; diff_title="detail lost to coarse-graining (illustrative)" }} An illustrative picture of the stated RG-invariance claim: the same sign pattern (the attractor topology — fight, flight, freeze, calm) survives from UV to IR, only the magnitudes shrink as coarse-graining removes detail, per the text's "the attractor topology ... is RG-invariant." The $\beta$-function itself is not given a concrete form in this paper; the numbers are illustrative only, chosen to keep the sign pattern fixed.
 
 **The co-identification:** Therapeutic processing is modelled as an RG flow from UV (raw unprocessed
 traumatic detail) to IR (integrated narrative). The attractor topology —
@@ -850,6 +856,8 @@ $$
 $$
 
 which is exactly the heat operator class.
+
+{{Visualize | worked-external-example-non-soma-black-scholes-to-heat-equation | function-plot:generic | f="x*normcdf((log(x/K)+(r+0.5*sigma^2)*T)/(sigma*sqrt(T))) - K*exp(-r*T)*normcdf((log(x/K)+(r+0.5*sigma^2)*T)/(sigma*sqrt(T)) - sigma*sqrt(T))"; K=100; r=0.05; sigma=0.1; T=1; x=[50,150]; value_at=100; expect_value=6.80; xlabel="stock price $S$"; ylabel="call price $C(S)$" }} The standard closed-form solution of the Black-Scholes PDE above (the Feynman-Kac representation of Step A, using the normal CDF the heat-kernel integral above imports): at illustrative $\sigma=0.1$, $r=5\%$, $T=1$, strike $K=100$, the at-the-money call ($S=K$) prices at $6.80$ (checked). The PDE itself is given in the text; these parameter values are illustrative, chosen only to exercise the imported formula.
 
 ### Step B: Import Claim
 
