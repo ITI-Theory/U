@@ -996,6 +996,9 @@ def referenced_names(spec: Spec) -> set[str]:
 
 
 def main(argv: list[str]) -> int:
+    # section ids and captions may be Unicode (w₈); the Windows console codepage is not
+    for stream in (sys.stdout, sys.stderr):
+        stream.reconfigure(encoding="utf-8", errors="replace")
     if not argv:
         print(__doc__)
         return 2
