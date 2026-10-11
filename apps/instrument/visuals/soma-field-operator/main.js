@@ -1301,20 +1301,21 @@ const explorer = createExplorer({
   levelLabel: levelId => levelsById.get(levelId)?.label ?? levelId,
   levelId: () => state.levelId,
   levelSector: () => levelsById.get(state.levelId)?.sector ?? 'organismal',
-  // the 3D landscape's city of code: Sherlock's concepts (height by evidence) and the levels' equations
+  // the 3D landscape's city of code: the programme's own Lean nearest (the Root Monster's
+  // towers, ISS-071), then Sherlock's concepts (height by evidence) and the levels' equations
   cityItems: () => [
-    ...registryConcepts.map(c => ({ title: c.concept, status: c.status, lines: [c.lean ?? '', c.status ?? '', c.where ?? '', ...(c.papers ?? []).map(p => `paper ${p}`), c.notes ?? ''] })),
-    ...registryLevels.filter(l => l.equation).map(l => ({ title: l.label, status: 'equation', lines: [l.equation, l.field ?? '', l.length_scale ?? '', l.substrate ?? ''] })),
     // the programme's own Lean (ISS-071): a tower per module, its glowing text the declarations,
     // marked ✓ theorem, = definition, ◆ axiom, ✗ resting on sorry, ∘ proving only True
     ...(leanTowers?.towers ?? []).map(t => {
       const mark = d => (d.sorry ? '✗' : d.k === 'axiom' ? '◆' : d.trivial ? '∘' : d.k === 'theorem' ? '✓' : '=');
       const status = t.decls.some(d => d.sorry) ? 'sorry' : t.decls.some(d => d.k === 'axiom') ? 'axiom' : 'kernel-verified';
       return {
-        title: `${t.module}.lean`, status, height: Math.min(3.8, 0.8 + t.decls.length / 12),
+        title: `${t.module}.lean`, status, height: Math.min(3.8, 0.8 + t.decls.length / 12), decls: t.decls,
         lines: [`kernel-checked at ${leanTowers.commit}`, ...t.decls.map(d => `${mark(d)} ${d.n} : ${d.s}`)],
       };
     }),
+    ...registryConcepts.map(c => ({ title: c.concept, status: c.status, lines: [c.lean ?? '', c.status ?? '', c.where ?? '', ...(c.papers ?? []).map(p => `paper ${p}`), c.notes ?? ''] })),
+    ...registryLevels.filter(l => l.equation).map(l => ({ title: l.label, status: 'equation', lines: [l.equation, l.field ?? '', l.length_scale ?? '', l.substrate ?? ''] })),
   ],
 });
 const elevator = createElevator({

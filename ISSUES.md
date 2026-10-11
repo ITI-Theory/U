@@ -3168,7 +3168,11 @@ proposal, in steps:
       judge (one module per process), written to bld/, read by generate.py. The
       result is stamped with the commit it was checked at ("kernel-checked at
       <commit>"), never claimed live.
-- [ ] Towers as modules (about 25), floors as declarations; the glow says the
+- [x] (13 Oct: the Lean towers now stand nearest on the avenue, concepts behind; a
+      ring per declaration, axioms amber at the base, then definitions cyan, theorems
+      green, trivial-True grey, the 20 floors resting on sorry flickering red; amber
+      beams from the 6 theorems resting on the programme's own axioms to those axioms,
+      11 beams, all in LocalGR, LocalGeometry and their users) Towers as modules (about 25), floors as declarations; the glow says the
       status: theorems one colour, definitions another, axioms amber at the
       foundations, the five sorries flickering red; beams from each theorem down
       to the axioms it rests on, so the foundations are visible.

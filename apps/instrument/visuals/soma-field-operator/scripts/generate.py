@@ -657,7 +657,9 @@ def load_lean_towers() -> dict[str, Any]:
     towers = []
     for t in data.get("towers", []):
         decls = [{"n": d["name"].split(".")[-1], "k": d["kind"], "s": " ".join(d["statement"].split())[:160],
-                  "sorry": bool(d.get("sorry")), "trivial": bool(d.get("trivial")), "ax": d.get("own_axioms", [])}
+                  "sorry": bool(d.get("sorry")), "trivial": bool(d.get("trivial")),
+                  "ax": [a for a in d.get("own_axioms", []) if a != d["name"]],
+                  **({"f": d["name"]} if d["kind"] == "axiom" else {})}
                  for d in t["declarations"] if d["kind"] in ("theorem", "def", "axiom", "inductive", "opaque")]
         towers.append({"module": t["module"], "file": t["file"], "decls": decls})
     return {"commit": data.get("commit"), "towers": towers}

@@ -161,6 +161,8 @@ export function createLandscape3D({ energy, wells, city = [] }) {
       country.mesh.visible = state.dim >= 8;
       if (country.mesh.visible) country.update(state.phi, state.time);
       cityGroup.visible = state.dim >= 11;
+      // the floors resting on sorry flicker
+      if (cityGroup.userData.flicker) cityGroup.userData.flicker.opacity = 0.35 + 0.6 * Math.abs(Math.sin(state.time * 6.3 + 2 * Math.sin(state.time * 17)));
       ball.position.copy(toWorld(state.ball.x, state.ball.y, 0.06));
       const tp = trailGeometry.attributes.position;
       state.trail.forEach(([x, y], i) => {
@@ -268,11 +270,46 @@ function towerTexture(item, hue) {
 
 const mod = (n, m) => ((n % m) + m) % m;
 
+// The programme's Lean (ISS-071): a floor per declaration, a ring around the tower in the
+// colour of its status; axioms amber at the foundations, then definitions, then theorems.
+const FLOOR_ORDER = { axiom: 0, inductive: 1, opaque: 1, def: 2, theorem: 3 };
+const FLOOR_COLOUR = { axiom: [1, 0.72, 0.2], inductive: [0.37, 0.9, 1], opaque: [0.37, 0.9, 1], def: [0.37, 0.9, 1], theorem: [0.34, 0.94, 0.64], trivial: [0.55, 0.6, 0.7] };
+
+function floorRings(decls, x, z, height, w, rings, sorry, where) {
+  const floors = decls.map((d, i) => ({ d, i })).sort((a, b) => (FLOOR_ORDER[a.d.k] ?? 2) - (FLOOR_ORDER[b.d.k] ?? 2) || a.i - b.i);
+  const step = (height - 0.12) / Math.max(1, floors.length);
+  floors.forEach(({ d }, k) => {
+    const y = -0.08 + step * (k + 0.5);
+    const h = w / 2;
+    const corners = [[x - h, z - h], [x + h, z - h], [x + h, z + h], [x - h, z + h]];
+    const target = d.sorry ? sorry : rings;
+    const c = d.sorry ? [1, 0.25, 0.3] : FLOOR_COLOUR[d.trivial ? 'trivial' : d.k] ?? FLOOR_COLOUR.def;
+    for (let e = 0; e < 4; e++) {
+      const [ax, az] = corners[e];
+      const [bx, bz] = corners[(e + 1) % 4];
+      target.pos.push(ax, y, az, bx, y, bz);
+      target.col.push(...c, ...c);
+    }
+    where.set(d.f ?? `${x}|${z}|${k}`, new THREE.Vector3(x, y, z));
+    d._at = new THREE.Vector3(x, y, z);
+  });
+}
+
+function segments(buffers, material) {
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(buffers.pos, 3));
+  if (buffers.col) geometry.setAttribute('color', new THREE.Float32BufferAttribute(buffers.col, 3));
+  return new THREE.LineSegments(geometry, material);
+}
+
 function makeCity(items) {
   const group = new THREE.Group();
   if (!items.length) return group;
   const box = new THREE.BoxGeometry(1, 1, 1);
   const edges = new THREE.EdgesGeometry(box);
+  const rings = { pos: [], col: [] };
+  const sorry = { pos: [], col: [] };
+  const where = new Map();
   items.forEach((item, i) => {
     const side = i % 2 ? 1 : -1;
     const row = Math.floor(i / 2);
@@ -289,7 +326,26 @@ function makeCity(items) {
     outline.scale.copy(tower.scale);
     outline.position.copy(tower.position);
     group.add(outline);
+    if (item.decls?.length) floorRings(item.decls, x, z, height, 0.64, rings, sorry, where);
   });
+  if (rings.pos.length) {
+    group.add(segments(rings, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false, fog: false })));
+    const flicker = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false, fog: false });
+    if (sorry.pos.length) group.add(segments(sorry, flicker));
+    group.userData.flicker = flicker;
+    // beams: from each declaration down to the programme's own axioms it rests on
+    const beams = { pos: [] };
+    for (const item of items) {
+      for (const d of item.decls ?? []) {
+        for (const a of d.ax ?? []) {
+          const to = where.get(a);
+          if (to && d._at) beams.pos.push(d._at.x, d._at.y, d._at.z, to.x, to.y, to.z);
+        }
+      }
+    }
+    if (beams.pos.length) group.add(segments(beams, new THREE.LineBasicMaterial({ color: '#ffb833', transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false, fog: false })));
+    group.userData.beams = beams.pos.length / 6;
+  }
   // circuit traces: right-angled streets from the avenue down towards the mountains
   const points = [];
   const depth = -3.6 - Math.ceil(items.length / 2) * 0.62;
