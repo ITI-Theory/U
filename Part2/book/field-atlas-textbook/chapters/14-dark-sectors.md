@@ -22,6 +22,8 @@ A star in a circular orbit is held by the gravity of the mass inside its orbit. 
 
 $$M(<r) = \frac{v^2 r}{G}.$$ {#eq:dark-orbit-mass}
 
+{{Visualize | eq:dark-orbit-mass | function-plot:cosmic | f1="230^2*r/4.30e-6"; name1="230 km/s"; f2="200^2*r/4.30e-6"; name2="200 km/s"; var=r; x=[0,50]; y=[0,7e11]; value_at=8.2; legend=below; xlabel="orbital radius (kpc)"; ylabel="mass inside the orbit ($M_\odot$)"; height=30% }} At fixed speed, @eq:dark-orbit-mass makes the enclosed mass grow linearly with radius. The marked point is the Milky Way example in this section: $230\,\mathrm{km\,s^{-1}}$ at $8.2\,\mathrm{kpc}$ gives about $10^{11}\,M_\odot$.
+
 Measure a star's speed and distance, and you have weighed everything inside its orbit, visible or not. If most of a galaxy's mass sat in its bright centre, stars far out would orbit more slowly, $v \propto 1/\sqrt{r}$, like the outer planets of the solar system. In the 1970s Vera Rubin and Kent Ford measured spiral galaxies and found instead that the speed stays nearly constant far beyond the visible disc. A flat curve, $v$ constant, means $M(<r) \propto r$: mass keeps growing with radius where there is almost no light.
 
 $$v^2(r) = \frac{GM_{\mathrm{disc}}}{r} + v_\infty^2\left(1 - \frac{r_c}{r}\arctan\frac{r}{r_c}\right)$$ {#eq:dark-rotation-model}
@@ -53,6 +55,8 @@ A galaxy's rotation curve is flat at $200\,\mathrm{km\,s^{-1}}$ out to $30\,\mat
 General relativity predicts that light passing a mass $M$ at distance $b$ is bent by an angle
 
 $$\alpha = \frac{4GM}{c^2 b}.$$ {#eq:dark-deflection}
+
+{{Visualize | eq:dark-deflection | function-plot:cosmic | f="4*1.327e35*206265/(8.99e16*3.086e19*b)"; var=b; x=[100,1000]; y=[0,400]; value_at=500; xlabel="impact parameter (kpc)"; ylabel="deflection (arcsec)"; height=28% }} For the cluster example in this section ($10^{15}\,M_\odot$), @eq:dark-deflection falls as $1/b$. At $500\,\mathrm{kpc}$ the marked point is about $79''$, the value worked out in the example.
 
 Light grazing the Sun is bent by $1.75$ seconds of arc, as Eddington's eclipse expedition found in 1919. A cluster of galaxies bends the light of galaxies behind it into arcs and multiple images: a **gravitational lens**. Because lensing responds to all mass, luminous or not, a lens map shows where the mass is directly.
 

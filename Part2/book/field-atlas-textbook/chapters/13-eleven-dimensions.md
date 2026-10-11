@@ -48,6 +48,8 @@ A wave round the circle carries momentum $p = n\hbar/R$ in the hidden direction.
 
 $$m_n c^2 = \frac{|n|\,\hbar c}{R}.$$ {#eq:mth-kk-tower}
 
+{{Visualize | eq:mth-kk-tower | data-points:quantum | hbarc=1.97e-7; R=2e-20; points="0:0, 1:9.85, 2:19.7, 3:29.55"; name="tower rungs"; f="abs(x)*hbarc/R/1e12"; f_name="$|n|\hbar c/R$"; hline=10; xlabel="mode number $|n|$"; ylabel="mass energy $m_n c^2$ (TeV)"; height=28% }} Using the worked example's collider bound $R = 2\times10^{-20}\,\mathrm{m}$ and $\hbar c = 1.97\times10^{-7}\,\mathrm{eV\,m}$, the Kaluza–Klein tower has a massless $n=0$ mode and then rises in equal $9.85\,\mathrm{TeV}$ steps. The first massive rung is therefore essentially the chapter's rough $10\,\mathrm{TeV}$ threshold.
+
 This is the **Kaluza–Klein tower**: one ordinary, massless particle ($n = 0$) and above it a ladder of heavy copies, evenly spaced by $\hbar c/R$. A small circle means a widely spaced, very heavy tower, out of reach of any collider; that is how an extra dimension can hide. The geometry of the hidden space has become a spectrum of masses, the same move from boundary to spectrum as the atom in @ch:atoms.
 
 ::: {.example #ex:mth-lhc-circle title="How small would a hidden circle have to be?"}
@@ -77,6 +79,8 @@ A circle is the simplest hidden space. A **torus**, the surface of a ring doughn
 **Holonomy** is what happens to an arrow carried round a closed loop without being turned. On a flat sheet the arrow comes back pointing the same way. On a curved surface it need not. Carry an arrow along the equator of a globe, up a meridian to the north pole and back down another meridian, always keeping it as straight as the surface allows, and it returns rotated. On a sphere of radius $r$ the rotation angle equals the area enclosed by the loop divided by $r^2$:
 
 $$\theta = \frac{A}{r^2}.$$ {#eq:mth-holonomy-sphere}
+
+{{Visualize | eq:mth-holonomy-sphere | data-points:quantum | points="pi/3:pi/3, pi/2:pi/2"; name="quoted loops"; f="x"; f_name="$A/r^2$"; xlabel="enclosed area divided by $r^2$"; ylabel="holonomy angle $\theta$ (radians)"; height=28% }} The holonomy law is a straight line in the variable $A/r^2$. The chapter's two explicit cases sit on it: a loop of area $\pi r^2/3$ gives $\theta = \pi/3$, and the octant example gives $\theta = \pi/2$.
 
 ![Parallel transport round a loop on a curved surface. The arrow is never turned relative to the surface, yet it returns rotated; the set of all such rotations is the surface's holonomy group.](../field-atlas/figures/theory/T4_5_holonomy_transport.png){width=70%}
 

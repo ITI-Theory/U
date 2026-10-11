@@ -161,6 +161,8 @@ The programme's synthesis chapter of the Field Atlas reduces every level to one 
 
 $$y = O\left[\int G_B(x, x')\,J(x')\,dx'\right] + \epsilon.$$ {#eq:ev-grammar}
 
+{{Visualize | eq:ev-grammar | process-diagram:generic | steps="source $J$, kernel $G_B$, response $G_B * J$, observer $O$, data $y$"; edges="drive, integrate, observe, record"; layout=line; expect_steps=5; label=fig:ev-grammar; height=24% }} The chapter's response grammar as a shared form of description: a source $J$ drives a boundary-conditioned kernel $G_B$, the response is integrated, an observer $O$ projects it, and the recorded result is $y$ with additive noise $\epsilon$.
+
 Every row of the course, from the guitar string to the cosmic microwave background, has filled these slots. The grammar claims a shared *form* of description, not a shared *substance*: `interpretive` as an organising idea, and testable only row by row. A level claim should answer six questions, and its label follows from which it can answer: what is the state variable; what operator or rule acts on it; what boundary closes it; what source drives it; what observable is compared with data; and what result would make it weaker?
 
 New claims also differ in what they add. The programme sorts them into **difference classes**:
