@@ -96,6 +96,14 @@ the programme's own Lean.
   e^{-iEt/ħ} and it fails), unbound variables and values at the paper's own
   parameters. Arbitrary LaTeX is not parsed. Visualize's `expect_*` checks
   are the first, partial form of this.
+- **D11. Language models at the ends, Lean in the middle** (author, 11 Oct).
+  A language model extracts claims and proposes mappings at the start
+  (candidates, D7); Lean decides; NotebookLM is the final UAT check, a
+  reader's eye on the published version (do the fixes read right; does a
+  reader still find the problem). The NotebookLM experiments measure how far
+  a model gets alone; a locally run model with Sherlock choosing what it sees
+  (chain finder, the slice) is the comparison: retrieval by Lean, explanation
+  by the model.
 
 ## The end-to-end slice (author, 11 Oct: "the red way")
 
