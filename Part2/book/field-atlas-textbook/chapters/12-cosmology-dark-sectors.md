@@ -80,6 +80,8 @@ Compute $\rho_c$ for $H_0 = 2.18\times10^{-18}\,\mathrm{s^{-1}}$, and express it
 **Significance.** The universe is emptier than any laboratory vacuum. Ordinary matter is $4.9\,\%$ of this, a quarter of an atom per cubic metre on average; most of it is in thin gas between galaxies.
 :::
 
+{{Visualize | ex:cosmology-critical-density | function-plot:cosmic | G=6.67e-11; conv=3.2404407e-20; f="3*(conv*x)^2/(8*pi*G)"; x=[60,75]; value_at=67.4; expect_value=8.5e-27; expect_tol=0.01; xlabel="$H_0$ (km/s/Mpc)"; ylabel="critical density (kg/m^3)"; height=26% }} The critical density rises as $H_0^2$. Using this chapter's $1\,\mathrm{Mpc} = 3.086\times10^{22}\,\mathrm{m}$ conversion and $G = 6.67\times10^{-11}$, the Planck value $H_0 = 67.4$ gives $\rho_c \approx 8.5\times10^{-27}\,\mathrm{kg\,m^{-3}}$, about $5.1$ hydrogen atoms per cubic metre.
+
 ## The afterglow of the hot beginning {#sec:cosmology-afterglow-hot-beginning}
 
 ::: {.learning-objectives}
@@ -149,6 +151,8 @@ Compare $7/11$, $3/11$ and $1/22$ with the measured $0.6847$, $0.2645$ and $0.04
 
 **Significance.** Three numbers from one counting rule land within $8\,\%$ of measurement. Whether that is a discovery or a coincidence is the question of @sec:cosmology-testing-proposal. The leftover $4.5\,\%$ is itself a mismatch that the papers attribute to corrections from the shape of the compact dimensions, not yet calculated.
 :::
+
+{{Visualize | ex:cosmology-three-fractions-against | matrix-heatmap:cosmic | matrix="[[7/11,3/11,1/22]]"; matrix2="[[0.6847,0.2645,0.0493]]"; titles="counting rule, Planck 2018"; diff=true; diff_title="Planck - rule"; rows="share"; cols="$\Omega_\Lambda$,$\Omega_\mathrm{DM}$,$\Omega_b$"; expect_sum=21/22; expect_sum2=0.9985; height=22% }} The programme's three fractions beside the Planck 2018 values quoted in @ex:cosmology-three-fractions-against. Dark matter comes out slightly high, while dark energy and baryons come out low; together the three predicted shares sum to $21/22 = 0.955$ against the measured $0.9985$.
 
 ::: {.example #ex:cosmology-cosmological-constant title="The cosmological constant"}
 Compute the programme's $\Lambda_\text{USF}$ and the measured $\Lambda_\text{obs} = 3\Omega_\Lambda H_0^2/c^2$ for $H_0 = 2.184\times10^{-18}\,\mathrm{s^{-1}}$ and $\Omega_\Lambda = 0.6847$. Show that their ratio does not depend on $H_0$.

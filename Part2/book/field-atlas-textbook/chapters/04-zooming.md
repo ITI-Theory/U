@@ -22,6 +22,8 @@ The simplest way to zoom out is to average. Replace the value of a field $u(x)$ 
 
 $$\bar{u}_\ell(x) = \frac{1}{\ell}\int_{x - \ell/2}^{x + \ell/2} u(x')\,dx'.$$ {#eq:zoom-block}
 
+{{Visualize | eq:zoom-block | area-under:generic | f="1 + 0.4*sin(2*pi*x)"; x=[0,4]; from=1.5; to=2.5; vline="1.5, 2.5"; note=false; xlabel="position $x$"; height=28% }} An illustrative block average over one cell of width $\ell = 1$: the shaded area under $u(x)$, divided by the cell width, gives the coarse value $\bar{u}_\ell(x)$ of @eq:zoom-block. The waveform here is illustrative because this section states the averaging rule, not one fixed field.
+
 This is how a weather map turns millions of air molecules into a temperature, and how a camera pixel turns a patch of a scene into one brightness. It is also a convolution (@eq:freq-convolution) of the field with a box of width $\ell$, so by the convolution theorem it acts on each wavelength separately. A wave $\sin kx$ survives averaging multiplied by the factor
 
 $$\frac{\sin(k\ell/2)}{k\ell/2},$$ {#eq:zoom-sinc}
@@ -67,6 +69,8 @@ Wind blows with a mean speed of $10\,\mathrm{m\,s^{-1}}$ and turbulent fluctuati
 
 **Significance.** A weather model that ignored this would lose energy at every step. Real models add a turbulence closure: an estimate of the hidden term in terms of the resolved field. Material laws (stiffness, viscosity) and neural population models are closures of the same kind.
 :::
+
+{{Visualize | ex:zoom-hidden-energy | distribution:generic | mu=10; sig=2; pdf="exp(-(x-mu)^2/(2*sig^2))/(sig*sqrt(2*pi))"; x=[0,20]; vline=10; expect_mean=10; expect_sd=2; xlabel="speed $v$"; height=28% }} Using the worked values $\langle v \rangle = 10\,\mathrm{m\,s^{-1}}$ and $\sigma = 2\,\mathrm{m\,s^{-1}}$, @eq:zoom-mean-square gives $\langle v^2\rangle = 10^2 + 2^2 = 104$, so the true mean kinetic energy is $52\,\mathrm{J\,kg^{-1}}$ rather than the $50\,\mathrm{J\,kg^{-1}}$ computed from the mean speed alone.
 
 The lesson for the Atlas is sharp. A diagram that keeps the same equation from one level to the next, with bars placed over the symbols, is not a derivation. Every zoom step has to say what was averaged, what new terms appeared, and how they were closed.
 

@@ -22,11 +22,15 @@ In 1987 the computer-graphics researcher Craig Reynolds animated convincing floc
 
 $$\theta_i(t + \Delta t) = \langle\theta\rangle_{|\mathbf x_j - \mathbf x_i| < R} + \xi_i, \qquad \xi_i \in [-\tfrac{\eta}{2}, \tfrac{\eta}{2}].$$
 
+{{Visualize | sec:flocks-rules-without-leader | function-plot:generic | f="where(abs(x)<=eta/2,1/eta,0)"; vary=eta:0.5,4.0; x=[-2.5,2.5]; y=[0,2.2]; xlabel="steering error $\xi_i$"; ylabel="probability density"; legend=below }} The Vicsek update adds a uniform steering error $\xi_i$ in $[-\eta/2,\eta/2]$. Using the chapter's low- and high-noise settings, $\eta=0.5$ gives a narrow distribution of heading mistakes, while $\eta=4.0$ spreads the possible turn much more widely.
+
 How well the crowd moves together is measured by the **polarisation**, the length of the average velocity divided by the speed,
 
 $$\phi = \frac{1}{Nv_0}\left|\sum_{i=1}^{N}\mathbf v_i\right|,$$
 
 which is $1$ when all agents move in the same direction and close to $0$ when their headings are random. It is the order parameter of @ch:groups's Kuramoto model, with headings in place of phases.
+
+{{Visualize | sec:flocks-rules-without-leader | complex-plane:generic | points="exp(-0.5*j), exp(0.2*j), exp(0.9*j), (exp(-0.5*j) + exp(0.2*j) + exp(0.9*j))/3"; names="$v_1$, $v_2$, $v_3$, $\bar v/v_0$"; arrows=true; unit_circle=true; radius=1.25; xlabel="$v_x / v_0$"; ylabel="$v_y / v_0$" }} Illustrative unit-speed headings: the three long arrows are individual velocities, and the shorter arrow is their average. Its length is $\phi \approx 0.84$, so the flock is fairly well ordered; if the arrows pointed all around the circle, the average would shrink towards $0$.
 
 ::: {.example #ex:flocks-many-neighbours title="How many neighbours?"}
 Agents are spread over a plane at an average density of $0.05$ per square metre, and each aligns with all agents within $R = 4\,\mathrm{m}$. How many neighbours does a typical agent have? What if the density doubles?

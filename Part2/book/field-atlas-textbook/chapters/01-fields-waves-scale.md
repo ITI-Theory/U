@@ -54,6 +54,8 @@ $$\frac{\partial^2 u}{\partial t^2} = v^2\,\frac{\partial^2 u}{\partial x^2},$$
 
 where $u(x,t)$ is the displacement or pressure and $v$ is the speed at which disturbances travel. A sinusoidal solution has a **frequency** $f$ (oscillations per second, in hertz), a **period** $T = 1/f$, and a **wavelength** $\lambda$ (the distance between crests). One wavelength passes a fixed point in one period, so
 
+{{Visualize | sec:fields-waves | function-plot:wave | lam=0.780; shift=0.195; f1="sin(2*pi*x/lam)"; name1="t=0"; f2="sin(2*pi*(x-shift)/lam)"; name2="t=T/4"; x=[0,1.56]; y=[-1.2,1.2]; xlabel="position x (m)"; ylabel="displacement u"; label=fig:fields-travelling-wave; height=26% }} A travelling-wave solution of the wave equation, shown for the chapter's $440\,\mathrm{Hz}$ sound in air where $\lambda = 0.780\,\mathrm{m}$; after a quarter period the same profile has shifted by $\lambda/4 = 0.195\,\mathrm{m}$ without changing shape.
+
 $$v = f\lambda.$$ {#eq:fields-wave-speed}
 
 This small relation hides an important division of labour. The **source** sets the frequency: a tuning fork vibrates at $440\,\mathrm{Hz}$ whatever it is immersed in. The **medium** sets the speed. The wavelength follows from both.
@@ -81,6 +83,8 @@ The open A string of a guitar has a vibrating length of $0.648\,\mathrm{m}$ and 
 
 **Significance.** The boundary (the nut and the bridge) selects which frequencies the string can sustain. Pluck it anywhere and the sound is built only from $110$, $220$, $330\,\mathrm{Hz}$ and so on. The same logic gives the energy levels of an atom (@ch:atoms) and the free oscillations of the whole Earth (@ch:earth).
 :::
+
+{{Visualize | ex:fields-guitar-string | data-points:wave | v=142.56; L=0.648; points="1:110, 2:220, 3:330"; name="harmonics"; f="x*v/(2*L)"; f_name="n v/(2L)"; xlabel="harmonic number n"; ylabel="frequency f_n (Hz)"; label=fig:fields-guitar-harmonics; height=26% }} Using the guitar-string example, the first three harmonics lie on the straight line $f_n = n v/(2L)$ with $L = 0.648\,\mathrm{m}$ and the worked-example value $v = 2Lf_1 = 142.56\,\mathrm{m\,s^{-1}}$ (rounded in the prose to $143\,\mathrm{m\,s^{-1}}$); the third point is the quoted $330\,\mathrm{Hz}$.
 
 ::: {.check-your-learning}
 A $1000\,\mathrm{Hz}$ whistle is sounded in helium, where sound travels at $1007\,\mathrm{m\,s^{-1}}$. What is the wavelength? (Answer: $1.01\,\mathrm{m}$, about three times its length in air. The pitch heard by a listener in the helium would be unchanged.)
