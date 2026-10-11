@@ -31,7 +31,7 @@
 
 **Status:** PENDING
 
-## Harry Potter: Model Consistency
+## The Wizard: Model Consistency
 
 ### TH-1 Shared C1v2/C2 model
 

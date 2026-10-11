@@ -3,7 +3,7 @@
 ## Copy This Into NotebookLM
 
 ```text
-Read papers-omnibus-nlm-uat.md and execute every Sherlock, Harry Potter, and the Monster item. For each item, use this exact format: ITEM, STATUS (PASS/FIX/OPEN), FINDING, EVIDENCE (exact source PDF filename and page number). Do not repeat the worksheet or list headings without an answer. Finish with the Acceptance Decision table.
+Read papers-omnibus-nlm-uat.md and execute every Sherlock, Wizard and Monster item. For each item, use this exact format: ITEM, STATUS (PASS/FIX/OPEN), FINDING, EVIDENCE (exact source PDF filename and page number). Do not repeat the worksheet or list headings without an answer. Finish with the Acceptance Decision table.
 ```
 
 Upload every file in this folder first, then paste only the instruction above.
@@ -42,14 +42,14 @@ as a release input.
 2. If an item is `FIX`, make a narrow source correction, rebuild only affected
    candidates, rerun `make uat-stage-papers`, and repeat only that worksheet
    item.
-3. If all Sherlock and Harry Potter items pass, record the acceptance decision
+3. If all Sherlock and the Wizard items pass, record the acceptance decision
    in the worksheet and continue with the Papers track in `Dist/README.md`.
 4. The Monster reader-bridge items may be deferred only when marked
    non-blocking in the worksheet.
 
 ## Current RC2 Result
 
-Papers RC2 passed Sherlock and Harry Potter review on 2026-08-18. The G2
+Papers RC2 passed Sherlock and the Wizard review on 2026-08-18. The G2
 scope retest passed after the P24/omnibus clarification. C-3 non-specialist
 reader bridges are deferred to the next Papers iteration and do not block the
 current Zenodo scope.

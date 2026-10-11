@@ -122,7 +122,7 @@ because it exists in every serious project and is almost never written down.
   reach them, you've                 │                  If yes: PROBLEM NAILED
   nailed the problem                 │                          ▲
           │                          │                          │
- Harry Potter ───────────────────────┼─────────────── Omnibus + Fractal Programme
+ The Wizard ─────────────────────────┼─────────────── Omnibus + Fractal Programme
   serialise — AI chats as            │                  integrated, readable by
   Pensieve; capture structure        │                  15 specialist audiences
   before it evaporates               │                          ▲
@@ -147,7 +147,7 @@ because it exists in every serious project and is almost never written down.
 
 **Left arm:** Everything above the engineering entry point is real work. A
 conversation with an AI assistant about whether a release is correct, whether
-a file should be dropped, whether a claim holds — that is Harry Potter stage
+a file should be dropped, whether a claim holds — that is the Wizard stage
 work. It is not engineering. It is the cognitive scaffolding that makes
 engineering possible. The names are comical precisely to make this boundary
 visible: no organisation documents this phase, which is why so many projects

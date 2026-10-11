@@ -135,7 +135,7 @@ not form part of the candidate or release workflow.
 `bin/release-check` covers Float in proofs, sorry count, open problem markers,
 lean-appendix freshness, PAPERS.yaml pending uploads, git status, and release-file
 integrity. See ISS-013.
-### Tier 2 — Harry Potter: “Did we build the right thing?”
+### Tier 2 — The Wizard: “Did we build the right thing?”
 
 Checks completeness and scope.
 

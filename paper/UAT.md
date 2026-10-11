@@ -64,7 +64,7 @@ Before final promotion, this UAT must decide the action for every formal record:
 
 **Decision:** Papers track accepted with deferred C-3 reader bridges.
 
-Sherlock and Harry Potter checks passed for formal-claim alignment, P11/P12
+Sherlock and the Wizard checks passed for formal-claim alignment, P11/P12
 status, G2 scope, cosmological limitations, and D1's self-case boundary. The
 G2 review confirmed that the $8 \to 7$ result is algebraic compatibility, not
 a proved compact $G_2$-holonomy metric. The Monster identified reader

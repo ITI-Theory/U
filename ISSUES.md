@@ -43,7 +43,7 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 - [ ] Author: review P21 (cosmological constant) and set it to pending-upload
    in `Dist/PAPERS.yaml` (`make generate` afterwards).
 - [ ] NotebookLM UAT from `uat/staging/<track>/`, fresh private `nlm-uat`:
-   Sherlock (built right), Harry Potter (built the right thing), The Monster
+   Sherlock (built right), The Wizard (built the right thing), The Monster
    (understandable). Record in `paper/UAT.md`.
 - [ ] Lulu print preview of the [T]-Theory volumes.
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
@@ -2929,7 +2929,7 @@ prj/.adm/issues/ISS-065-sergeant-major.md.
 - [ ] Maintenance deck (screens.js role `maintenance`): done and snooze only.
 - [ ] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
 
-## ISS-066: Names and third-party characters: Sherlock, the Monster, Harry Potter — OPEN
+## ISS-066: Names and third-party characters: Sherlock, the Monster, the Wizard — OPEN
 {{Tags area.admin}}
 {{Fields date.created=2026-10-11, date.start=2026-10-11, date.end=, epic=}}
 
@@ -2961,7 +2961,11 @@ legal advice; the checks and decisions:
       lines of pasted web search results about Cookie Monster eye templates
       and Sesame Street listings (around line 9140): author to cut them or
       keep Phase Dot private.
-- [ ] Harry Potter, the second UAT persona (Rowling and Warner Bros, in
-      copyright and trademarked): rename (author to choose).
-- Mentions in prose (Penny from *The Big Bang Theory* in PROGRAMME.md) are
-  references, not names of our things: low risk, left.
+- [x] Harry Potter, the second UAT persona (Rowling and Warner Bros, in
+      copyright and trademarked): renamed **The Wizard** (author, 11 Oct) in
+      the same live documents and the philosophy book. The UAT triad is now
+      Sherlock (built right), the Wizard (built the right thing), the Monster
+      (understandable).
+- Mentions in prose are references, not names of our things: low risk,
+  left (Penny from *The Big Bang Theory* in PROGRAMME.md; the Pensieve in
+  The Tensor and FIELD-NOTES).

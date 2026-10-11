@@ -93,7 +93,7 @@ architecture are proved; compact $G_2$ geometry is open; consciousness,
 cosmological, dark-matter, and universe-as-organism claims retain their
 axiomatic, extrapolative, or interpretive limits.
 
-## Harry Potter: Scope and Completeness
+## The Wizard: Scope and Completeness
 
 ### H-1 Established versus open
 
@@ -183,11 +183,11 @@ citations.
 
 | Decision | Date | Reviewer | Notes |
 |---|---|---|---|
-| Papers track accepted with deferred C-3 reader bridges | 2026-08-18 | NotebookLM UAT | Sherlock and Harry Potter pass; C-3 remains a non-blocking next-iteration enhancement. |
+| Papers track accepted with deferred C-3 reader bridges | 2026-08-18 | NotebookLM UAT | Sherlock and the Wizard pass; C-3 remains a non-blocking next-iteration enhancement. |
 
 ## Next Action
 
-- If all Sherlock and Harry Potter items pass: accept the Papers candidate,
+- If all Sherlock and the Wizard items pass: accept the Papers candidate,
   then decide Zenodo actions in `Dist/ISSUES.md`.
 - If only the Monster C-3 remains open: defer it to the next Papers
   iteration; do not broaden the current release.
