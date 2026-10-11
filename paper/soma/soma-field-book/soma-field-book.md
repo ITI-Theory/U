@@ -787,6 +787,8 @@ In the Soma-Field Model, C-PTSD is represented as a modification of the coupling
 
 $$W_{\text{C-PTSD}} = W_0 + \Delta W_{\text{trauma}}$$
 
+{{Visualize | the-modification | matrix-heatmap:soma | matrix="[[0,0.3,-0.4,0.2],[0.3,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; matrix2="[[0,0.3,-0.4,0.2],[0.6,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; rows="Fear, Shame, Calm, Anger"; cols="Fear, Shame, Calm, Anger"; titles="baseline $W_0$ (symmetric, illustrative), $W_{\text{C-PTSD}}$ (asymmetric, illustrative)"; diff=true; diff_title="$\Delta W_{\text{trauma}}$ (illustrative)" }} The equation above as illustrative $4\times4$ matrices over the text's own named example (fear, shame, calm, anger — see "The Coupling Matrix"): $W_0$ is symmetric (fear and shame activate each other equally); $W_{\text{C-PTSD}}$ breaks only the fear$\to$shame entry, matching the text's example that "fear activates shame more strongly than shame activates fear." No concrete entries are given in the general model; the numbers here are illustrative, chosen only to make the stated asymmetry visible in the difference panel.
+
 where $W_0$ is the baseline coupling matrix and $\Delta W_{\text{trauma}}$ is the
 modification — an asymmetric additive term that reshapes the landscape. Crucially,
 $\Delta W_{\text{trauma}}$ is not symmetric: it introduces directional flows. Certain
@@ -1096,6 +1098,8 @@ The coupling matrix for a traumatised nervous system can be written as a functio
 developmental age:
 
 $$W(\tau_d) = f(\tau_d)\cdot W_0 + \bigl(1 - f(\tau_d)\bigr)\cdot W_{\text{trauma}}$$
+
+{{Visualize | the-interpolation | matrix-heatmap:soma | matrix="[[0,0.3,-0.4,0.2],[0.3,0,-0.3,0.1],[-0.4,-0.3,0,-0.2],[0.2,0.1,-0.2,0]]"; matrix2="[[0,0.4192,-0.3285,0.2715],[0.2762,0,-0.2523,0.1477],[-0.3285,-0.2523,0,-0.1642],[0.2715,0.1477,-0.1642,0]]"; rows="Fear, Shame, Calm, Anger"; cols="Fear, Shame, Calm, Anger"; titles="baseline $W_0$ (illustrative), $W(\tau_c)$ at $f=\tanh(1)\approx0.76$ (illustrative)"; expect_sum=-0.6 }} The equation above as illustrative matrices: $W_0$ (left, same illustrative baseline as "The Modification") blended with an illustrative fully trauma-formed $W_{\text{trauma}}$ at the checked ratio $f(\tau_c)\approx0.76$ from the figure below — at this developmental age the blend is close to, but not identical to, $W_0$. The program checked that $W_0$'s entries sum to the stated illustrative total; the blend itself is illustrative, since no concrete $W_0$ or $W_{\text{trauma}}$ is given in the general model.
 
 where $f$ is a smooth interpolation function:
 
