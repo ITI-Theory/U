@@ -4,6 +4,7 @@
     python sherlock/readings.py qp               # signs of influence across documents: conflicts
     python sherlock/readings.py report           # -> bld/sherlock/readings.md
     python sherlock/readings.py lean             # -> bld/sherlock/lean/CycReadings/Slice.lean (make -C sherlock readings-lean)
+    python sherlock/readings.py coverage         # how much of the affidavits' claim language NextKB can read
 
 A reading is a language model's proposal of what a sentence says, written as OpenCyc facts
 through one of NextKB's FrameNet semantic translations (semtrans.py): the word, which of its
@@ -348,6 +349,61 @@ def lean(rows: list[dict]) -> int:
     return 0
 
 
+STOP = set("""a an the and or but if then than that this these those of in on at to for from by with as is are was
+were be been being it its it's not no nor so such into onto over under between within without about above below
+can could may might must shall should will would do does did has have had he she they we you i his her their our
+your my me him them us which who whom whose what when where why how all any each every some most more less very
+also only just one two three four five six seven eight nine ten per via its there here both either neither""".split())
+# the programme's evidence labels annotate a claim; they are not its language
+STOP |= {"interpretive", "open-hypothesis", "derived-under-assumptions", "kernel-verified", "simulated", "empirical-result", "sourced"}
+
+
+def lemmas(word: str) -> list[str]:
+    w = word.lower()
+    out = [w]
+    for suf, rep in (("ies", "y"), ("es", ""), ("s", ""), ("ed", ""), ("ed", "e"), ("ing", ""), ("ing", "e")):
+        if w.endswith(suf) and len(w) > len(suf) + 2:
+            out.append(w[: -len(suf)] + rep)
+    return out
+
+
+def coverage() -> int:
+    """The claims of every affidavit: which content words NextKB's FrameNet can read at all
+    (a word with a translation; a crude lemma, no parser). A measure of how far the front end
+    can be checked, not a reading."""
+    st, _ = load()
+    words = st["words"]
+    per_doc = defaultdict(lambda: [0, 0, 0, 0])  # content words, translatable, claims, claims fully translatable
+    missing = defaultdict(int)
+    for f in sorted((U / "registry" / "affidavits").glob("*.yaml")):
+        a = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+        if not a.get("document"):
+            continue
+        for c in a.get("claims") or []:
+            toks = [t for t in re.findall(r"[A-Za-z][A-Za-z'-]+", str(c.get("quote", ""))) if t.lower() not in STOP and len(t) > 2]
+            if not toks:
+                continue
+            ok = [any(l in words for l in lemmas(t)) for t in toks]
+            d = per_doc[a["id"]]
+            d[0] += len(toks); d[1] += sum(ok); d[2] += 1; d[3] += all(ok)
+            for t, k in zip(toks, ok):
+                if not k:
+                    missing[t.lower()] += 1
+    tot = [sum(v[i] for v in per_doc.values()) for i in range(4)]
+    lines = ["# How much of the programme's claim language NextKB's FrameNet can read", "",
+             f"{tot[2]} claims in {len(per_doc)} affidavits: {tot[1]} of {tot[0]} content words have a FrameNet "
+             f"translation ({100 * tot[1] / max(tot[0], 1):.0f}%); {tot[3]} claims ({100 * tot[3] / max(tot[2], 1):.0f}%) "
+             "have one for every content word.", "", "| affidavit | claims | words read | claims fully readable |", "|---|---|---|---|"]
+    for k, v in sorted(per_doc.items()):
+        lines.append(f"| {k} | {v[2]} | {100 * v[1] / max(v[0], 1):.0f}% | {v[3]} |")
+    lines += ["", "The words most often without a translation: " + ", ".join(f"{w} ({n})" for w, n in sorted(missing.items(), key=lambda kv: -kv[1])[:40])]
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "readings-coverage.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    print(lines[2])
+    print(lines[-1][:400])
+    return 0
+
+
 def summary(rows: list[dict]) -> str:
     n = len(rows)
     c = defaultdict(int)
@@ -358,9 +414,11 @@ def summary(rows: list[dict]) -> str:
 
 def main() -> int:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "check"
-    if cmd not in ("check", "qp", "report", "lean"):
+    if cmd not in ("check", "qp", "report", "lean", "coverage"):
         print(__doc__)
         return 2
+    if cmd == "coverage":
+        return coverage()
     rows, kbf = all_rows(sys.argv[2] if cmd == "check" and len(sys.argv) > 2 else None)
     if cmd == "lean":
         return lean(rows)

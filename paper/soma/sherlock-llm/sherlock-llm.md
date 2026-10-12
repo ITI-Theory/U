@@ -175,6 +175,15 @@ condition label, and repeat each condition enough times to estimate stability
 for whether the answer cites the right source sentence, and another for whether
 it derives the right conclusion `open-hypothesis`.
 
+The division of labour can also be tightened at the front end itself. Since
+13 Oct 2026 a model's reading of a sentence, written as OpenCyc facts through
+one of NextKB's FrameNet semantic translations, is checked by Sherlock: the
+sense, the slots, the predicates and the argument types, with the type
+verdicts as Lean theorems (SH1, "The front end, checked") `kernel-verified`. A
+natural next experiment asks NotebookLM and a local model for readings in that
+format and scores them by the validator rather than by a person: how many
+validate, how many are refused, and why `open-hypothesis`.
+
 # Conclusion
 
 For these saved runs, NotebookLM did most of the visible reading work correctly

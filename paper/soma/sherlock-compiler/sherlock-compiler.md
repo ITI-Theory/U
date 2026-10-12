@@ -199,6 +199,47 @@ was wrong. The confirmed claims go into the affidavit's registry entry
 (`registry/affidavits/<doc>.yaml`), with the document frozen at a commit and
 its SHA-256; the validator refuses a quote that is not in the frozen text.
 
+## The front end, checked
+
+A language model's reading of a sentence can itself be compiled. NextKB
+[@nextkb2019] includes FrameNet's semantic translations [@baker1998framenet]:
+for 13,846 English words (26,435 senses in 1,023 frames), the OpenCyc type a
+word denotes and a binding template saying which grammatical slot is bound by
+which OpenCyc predicate. A *reading* names the word and its sense and, for
+each participant, the slot, the predicate and the OpenCyc type
+(`registry/readings/`). Sherlock checks it without guessing: the quote at its
+line in the frozen document; the sense in NextKB; the slot and predicate in
+that sense's template; every type an OpenCyc constant; each type against the
+predicate's argument type, proved by a `genls` path or refuted by a
+`disjointWith` above both, the verdicts generated as Lean theorems and
+checked by the kernel; and a sign of influence ("X raises Y", a qualitative
+proportionality [@forbus1984qp]) licensed by the sense's own type
+(`sherlock/readings.py`). `kernel-verified`
+
+The first readings (The Tensor, P1, P6; 15 sentences) gave 5 validated and 10
+with no translation: *amplify* is not in FrameNet, and safety, tempo and heart
+rate are not in OpenCyc. The validator corrected its own reader at once:
+"Fear rises", read with fear as the object of the change, was refuted, since
+the role needs a tangible thing and OpenCyc's feelings are aspatial; the
+reading it accepts makes fear the attribute whose value changes. "Fear
+activates shame" has no licensed reading: in NextKB, *activate* is a device's
+change of state. The refused readings are kept as tests that must stay
+refused. `derived-under-assumptions`
+
+The programme also states influences as data, in the coupling matrices of its
+figures ($W_{ij} > 0$: emotion $j$ amplifies emotion $i$). Comparing their
+signs across documents found one disagreement: P6's appendix couples calm and
+shame at $+0.2$, where every other figure in P1 and P6 has $-0.3$.
+`derived-under-assumptions`
+
+How far does this reach? Over the 385 claims of 43 affidavits, 65% of the
+content words have a FrameNet translation, and 16% of the claims have one for
+every word. The gaps are the programme's technical vocabulary (*propagator*,
+*attractor*, *limbic*, *Hopfield*) and connectives FrameNet does not translate
+(*because*, *therefore*). The checked front end reaches the everyday part of
+a claim; the technical part still needs a person, or the programme's own
+vocabulary added to OpenCyc. `empirical-result`
+
 ## Templates: numbers as data
 
 Most claims about a document's numbers need no Lean to be written. A claim
@@ -496,8 +537,11 @@ without rebuilding it.
 
 **A compiler, with a language-model parser.** Sherlock's back end is a
 compiler in the ordinary sense: a stated claim is decided the same way
-every time, and its proof can be read. Its front end is not yet: a language
-model proposes claims and mappings, and a person confirms them. Language
+every time, and its proof can be read. Its front end is not yet, but part of
+it can be: a language model proposes claims and mappings and a person
+confirms them, and where NextKB's FrameNet translations reach (two in three
+content words, one claim in six whole) a reading is checked like the rest
+(the front end, checked). Language
 models at the ends and Lean in the middle is the design, not a stopgap: the
 model reads and explains, Lean decides. A first test of the other
 arrangement, a language model given all of OpenCyc as sources and asked

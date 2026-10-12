@@ -4226,7 +4226,7 @@ Not for print: twin view, A/B, the consulting room, SCRIBE, the control room, MI
 
 ---
 
-## ISS-088: Sherlock's front end checked: text to facts without guessing (FrameNet and QP) — OPEN
+## ISS-088: Sherlock's front end checked: text to facts without guessing (FrameNet and QP) — CLOSED
 {{Tags area.proofs, area.papers}}
 {{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=}}
 
@@ -4279,7 +4279,18 @@ narrative-function rules. Today only the noun and verb types are used, as a hint
       finding: Calm and Shame are coupled at -0.3 in P1 (lines 1946, 1973, 2132) and P6 (796,
       1108), but at +0.2 in P6's Appendix A base matrix W0 (lines 2636, 2657): calm amplifies shame
       there. Author to decide (ISS-081).)
-- [ ] 5. Run on The Tensor and one paper; measure how much validates and what it finds; write it
+- [x] 5. Run on The Tensor and one paper; measure how much validates and what it finds; write it
       into SH1 and SH2.
+      (13 Oct: The Tensor, P1 and P6 read (15 sentences); `readings.py coverage` over all 385 claims
+      of 43 affidavits: 65% of content words have a FrameNet translation, 16% of claims have one for
+      every word; the gaps are the technical vocabulary (propagator, attractor, limbic, Hopfield) and
+      connectives (because, therefore). SH1 has a new section 4.4, "The front end, checked", and its
+      Discussion says what is checked now (Baker et al. 1998 and Forbus 1984 added to the
+      bibliography); SH2's future work proposes scoring models' readings by the validator.)
+
+**Closed 2026-10-13:** the front end can be checked where NextKB's FrameNet reaches. Next steps,
+if wanted (SOMEDAY): more readings per paper; the programme's own vocabulary (propagator,
+attractor, limbic) added to OpenCyc as a microtheory so the technical part can be read; the slice's
+facts proved from the full KB at release; SH2's experiment (models' readings scored by the validator).
 Risk: FrameNet covers everyday words better than technical ones, and OpenCyc lacks many of the
 programme's terms; "no translation" is measured, not guessed.
