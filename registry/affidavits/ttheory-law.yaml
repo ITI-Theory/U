@@ -1,0 +1,172 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-law
+document: BOOK-law
+title: '[T]-Theory: Law'
+source:
+  file: books/T-Theory/law/book-law.md
+  commit: 7ec7efa
+  sha256: c38c8e2dda8f5a293460bfdbe216704bf75f8b557248c931ba09520280758951
+lean: []
+microtheories: {}
+claims:
+- id: L1
+  quote: The caution must come first. [T]-Theory does not prove jurisprudence in Lean. The Lean proof surface verifies formal statements under definitions and axioms; five real `sorry`s remain across the repository; `FieldAxioms.lean` is an axiom registry, not a database of proven facts about the world. A theorem about a Hopfield energy function does not by itself establish what a right is. A type isomorphism does not make a constitution equivalent to M-theory. A simulation of an 8-qubit model does not validate legal reform. These boundaries are not disclaimers added after the argument. They are part of the method. The legal readings in this book are therefore mostly `interpretive` or `open-hypothesis`; formal machinery can discipline them, but it does not license doctrinal overclaim.
+  lines:
+  - 27
+  kind: ledger
+  finding: true of the source (five `sorry` markers, in BRECVEMAVariational 2, DyadicField 2, SomaNetwork 1) but incomplete as a measure, since the Lean export (towers.json) shows 20 declarations resting on sorry, including ScaleUniverse's, which depend on one transitively; the sentence should say both
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  ledger: bld/sherlock/towers.json
+  disposition: open
+- id: L2
+  quote: 'Hart''s framework is a useful first checkpoint. Hart''s primary rules guide conduct; secondary rules identify, change, and adjudicate primary rules. In field terms, primary rules alter the landscape directly, while secondary rules specify which landscape alterations count as legal alterations. The rule of recognition is especially important: it is not another ordinary barrier but a social practice among officials that identifies valid legal sources. It is therefore close to what this volume calls a meta-constraint: a constraint on the production of constraints `interpretive`. That translation is partial. Hart''s internal point of view cannot be reduced to behaviour alone; it is a practical attitude toward rules. Any field model that ignores that internal aspect would miss the legal character of legality.'
+  lines:
+  - 41
+  - 43
+  - 45
+  - 47
+  - 49
+  kind: internal-count
+  finding: 'the jurisprudence introduction gives five checkpoints: Hart, Fuller, Dworkin, Raz, and law-and-economics'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: L3
+  quote: This book therefore separates three questions. The descriptive question asks how law changes behaviour, expectation, coordination, and institutional pathways. The analytic question asks how legal concepts such as rights, powers, duties, remedies, authority, and validity can be represented in a structured model. The normative question asks which landscapes are just, legitimate, rights-respecting, or rule-of-law compliant. [T]-Theory can contribute to the first two and can make the third more precise, but it does not answer the third by itself `interpretive`.
+  lines:
+  - 51
+  kind: internal-count
+  finding: 'the book separates three questions: descriptive, analytic, and normative'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: L4
+  quote: The first task is a legal state space. A state space for law cannot be a single scalar. It must include at least normative text, institutional actor, procedure, enforcement probability, remedy, social meaning, cost of access, temporal delay, and affected class. For a rights domain, the state might encode doctrinal protection, standard of review, exceptions, remedy availability, enforcement frequency, and observed chilling effects. For a regulatory domain, it might encode compliance levels, sanctions, monitoring intensity, industry structure, political feedback, and harm indicators. The model's usefulness depends on disciplined dimensional choices `open-hypothesis`.
+  lines:
+  - 207
+  - 209
+  - 211
+  - 213
+  - 215
+  kind: internal-count
+  finding: 'the legal research-design section enumerates five tasks: state space, scale, source coding, adversarial jurisprudence, and labelling'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: L5
+  quote: 'Persistent homology of rights is the first candidate subprogramme. In topological data analysis, one studies features that persist across filtrations. The legal analogue would track a protected interest across increasing stress: ordinary policy disagreement, budget pressure, moral panic, emergency, hostile administration, court turnover, technological change, war, or regime transition. The question is not simply whether the word "right" remains in the text, but whether the protected function remains accessible. This could be piloted in a narrow domain `open-hypothesis`.'
+  lines:
+  - 217
+  - 225
+  - 229
+  - 233
+  - 237
+  kind: internal-count
+  finding: 'the subprogramme section gives five candidates: persistent homology of rights, ergodicity defect, spectral gap, regulatory optimal control, and constitutional stability'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: L6
+  quote: 'A persistent-homology study of such a right might encode stages of stress. Stage one: ordinary regulation. Stage two: heightened risk. Stage three: declared emergency. Stage four: prolonged emergency. Stage five: post-emergency normalisation. At each stage the researcher would ask whether core functions remain: criticising government, reporting facts, organising opposition, seeking judicial review, obtaining reasons, and challenging sanctions. The persistence interval would measure functional survival, not rhetorical survival `open-hypothesis`.'
+  lines:
+  - 271
+  - 275
+  - 281
+  - 287
+  - 293
+  - 299
+  - 303
+  - 307
+  - 311
+  kind: internal-count
+  finding: the worked legal examples enumerate nine examples from emergency-stage rights through international/transnational law
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 9
+  disposition: none
+- id: L7
+  quote: The verdicts are three, and the third matters most. A claim may be proved, contradicted, or *not provable from what the knowledge base holds*. Sherlock never reads "not provable" as "false". Scots law long had a third verdict too, not proven, for the space between a conviction and a finding of innocence; whatever its merits in criminal trials, in research the third verdict is indispensable, because most of what a knowledge base does not say is simply unsaid, not denied `interpretive`.
+  lines:
+  - 397
+  kind: internal-count
+  finding: 'the Sherlock-as-law section states three verdicts: proved, contradicted, and not provable'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: L8
+  quote: 'A finding is disposed of in one of two ways: the document is corrected in a new version, or the finding is kept as an exhibit. A new version gets a new affidavit; the old one stays, frozen, with its findings. The structure is precedent''s: a later decision may depart from an earlier one, but the earlier one remains in the reports, and the departure must be visible and reasoned. Sherlock''s `delta` tool states, for each claim of the earlier affidavit, whether the new version left it unchanged, edited it, probably fixed it or dropped it, so that a correction is a recorded departure, not a silent rewrite `kernel-verified`.'
+  lines:
+  - 417
+  kind: internal-count
+  finding: 'the disposition paragraph states two ways to dispose of a finding: correct a new version or keep the finding as an exhibit'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 2
+  disposition: none

@@ -1,0 +1,131 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-physics
+document: BOOK-physics
+title: '[T]-Theory: Physics'
+source:
+  file: books/T-Theory/physics/book-physics.md
+  commit: 7ec7efa
+  sha256: 5fa187c0c655e5f25333f3ae2c02663405bffdd3931b496dc34f8ec80c440db1
+lean: []
+microtheories: {}
+claims:
+- id: Y1
+  quote: '{{Visualize | propagators-compactification-and-derivation | type-decomposition:soma | whole="$M_{11}$"; parts="$M_4$=4, $P_3$=3, $L_1$=1, $C_3$=3"; expect_total=11 }} The eleven dimensions of the equation above by their parts: spacetime $M_4$, the propagator $P_3$, the limbic axis $L_1$, and the cortex $C_3$. The program checked that they add up to 11.'
+  lines:
+  - 131
+  - 133
+  - 135
+  kind: internal-arithmetic
+  finding: the compactification/product section adds M4, P3, L1, and C3 to the stated 11-dimensional structure
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 4
+    - 3
+    - 1
+    - 3
+    - 11
+  disposition: none
+- id: Y2
+  quote: 'There are three compactification claims in circulation, and confusing them produces most of the overreach. The first is a bookkeeping claim: the programme uses an eleven-dimensional product structure with four spacetime, three propagator, one limbic, and three cortical/information coordinates. This is the statement Lean handles well. It can prove that the proposed structure has the advertised decomposition, that projections commute in simple ways, and that a boundary point is not an interior point of the limbic interval `kernel-verified`.'
+  lines:
+  - 152
+  - 154
+  - 156
+  - 158
+  kind: internal-count
+  finding: 'the compactification section distinguishes three claims: bookkeeping, structural analogy, and physical derivation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: Y3
+  quote: so $\Lambda_{\mathrm{USF}}/\Lambda_{\mathrm{obs}}=(7/11)/0.6847\approx0.93$ [@planck2018cosmology] `derived-under-assumptions`. The agreement is at the 7.1 per cent level. It is a comparison, not a precision cosmological fit.
+  lines:
+  - 201
+  - 202
+  - 208
+  - 212
+  kind: internal-arithmetic
+  finding: the cosmology section states Lambda_USF/Lambda_obs=(7/11)/0.6847≈0.93 and a 7.1 percent discrepancy; recomputing the fractional discrepancy gives about 7.06 percent
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  check:
+  - template: rel-between
+    args:
+    - 0.6363636363636364
+    - 0.6847
+    - 0.0705
+    - 0.0715
+  disposition: none
+  values:
+  - quantity: USF-DarkEnergyFraction
+    value: 7/11
+  - quantity: USF-DarkEnergyFraction-Planck2018
+    value: 0.6847
+- id: Y4
+  quote: compared with the Planck 2018 TT,TE,EE+lowE+lensing value $0.2645$ [@planck2018cosmology]. In prose this is a 3.1 per cent high discrepancy. The model then has to explain why this spatial vacuum gravitates, clusters, has no Standard Model gauge charge, and behaves as cold pressureless matter with $w\simeq0$. The file supplies formal claims such as `spatial_vacuum_em_neutral` and `spatial_vacuum_pressure_zero`, but those depend on the programme's local-geometry assumptions `derived-under-assumptions`.
+  lines:
+  - 219
+  - 223
+  kind: internal-arithmetic
+  finding: the dark-matter fraction line states 3/11≈0.2727, and 3 divided by 11 is within 0.0002 (relative) of the quoted value
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  check:
+  - template: rel-between
+    args:
+    - 0.2727272727272727
+    - 0.2727
+    - 0
+    - 0.0002
+  disposition: none
+  values:
+  - quantity: USF-DarkMatterFraction
+    value: 3/11
+- id: Y5
+  quote: where $\Lambda_{\mathrm{obs}}\approx1.09\times10^{-52}\,\mathrm{m}^{-2}$ and the ratio is $0.93$ `derived-under-assumptions`. The numerical proximity is not independent confirmation. It is a model-derived comparison that lives or dies with the compactification, GR, vacuum-amplitude, and correction assumptions.
+  lines:
+  - 74
+  - 78
+  kind: internal-arithmetic
+  finding: the introductory Lambda comparison quotes 1.01e-52 versus 1.09e-52 and ratio 0.93; 1.01/1.09=0.9266, within 0.004 of 0.93
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  check:
+  - template: rel-between
+    args:
+    - 0.926605504587156
+    - 0.93
+    - 0
+    - 0.004
+  disposition: none
+  values:
+  - quantity: USF-CosmologicalConstantUSF
+    value: '1.01e-52'
+  - quantity: USF-CosmologicalConstantObserved
+    value: '1.09e-52'
+- id: Y6
+  quote: '| Five real `sorry`s remain project-wide. | `interpretive` | Lean proof-file audit |'
+  lines:
+  - 496
+  kind: ledger
+  finding: true of the source (five `sorry` markers, in BRECVEMAVariational 2, DyadicField 2, SomaNetwork 1) but incomplete as a measure, since the Lean export (towers.json) shows 20 declarations resting on sorry, including ScaleUniverse's, which depend on one transitively; the sentence should say both
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  ledger: bld/sherlock/towers.json
+  disposition: open

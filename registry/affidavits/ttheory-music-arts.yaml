@@ -1,0 +1,134 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-music-arts
+document: BOOK-music-arts
+title: '[T]-Theory: Music and the Arts'
+source:
+  file: books/T-Theory/music-arts/book-music-arts.md
+  commit: 7ec7efa
+  sha256: f86affb326c71b62734c7cb8eb42bfe84f76879a8b05f481b92ae590bb909ebe
+lean: []
+microtheories: {}
+claims:
+- id: A1
+  quote: '{{Visualize | introduction-music-as-a-field-art | type-decomposition:soma | whole="$\mathbf{e}(t)$"; parts="calm=2, fight=2, flight=2, grief=2, freeze=2, hypervigilance=2, flow=2, joy=2"; op=plus; row_label="somatic + cognitive"; expect_total=16 }} The sixteen coordinates of the equation above by mode: each of the eight affective modes contributes a somatic and a cognitive component (dimension 2). The program checked that they sum to 16.'
+  lines:
+  - 48
+  - 50
+  kind: internal-arithmetic
+  finding: the introductory type-decomposition claims sixteen components by assigning somatic and cognitive components to each of eight affective modes
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 2
+    - 2
+    - 2
+    - 2
+    - 2
+    - 2
+    - 2
+    - 2
+    - 16
+  disposition: none
+- id: A2
+  quote: 'The rest of this book proceeds in three movements. First, it examines BRECVEMA and related music-psychological mechanisms as dynamical field operations. Second, it turns to composition, performance, and the art of attractor traversal. Third, it describes the Soma Machine and [T]-Theory practice as a labelled experimental art form: one that can produce objects, interfaces, performances, and hypotheses without pretending that all of them have the same evidence status. The conclusion returns to the practical question for composers and artists: not "what emotion is this?", but "what trajectory am I asking a body to traverse?" `interpretive`.'
+  lines:
+  - 90
+  kind: internal-count
+  finding: 'the book says it proceeds in three movements: music-psychological mechanisms, composition/performance, and Soma Machine field art'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: A3
+  quote: 'For empirical work, the separation suggests factorial designs: stable pulse with expected harmony, stable pulse with violated harmony, unstable pulse with expected harmony, unstable pulse with violated harmony. Add movement permission as another factor, because entrainment can be suppressed by task constraints. The predicted response patterns should differ in phase locking, reported tension, transition timing, and post-event appraisal. If all four conditions collapse into a single arousal score, the field model adds little; if they separate in trajectory space, it earns its keep `open-hypothesis`.'
+  lines:
+  - 162
+  kind: internal-count
+  finding: 'the factorial-design paragraph lists four conditions: stable pulse/expected harmony, stable pulse/violated harmony, unstable pulse/expected harmony, and unstable pulse/violated harmony'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: A4
+  quote: The simplest compositional operation is basin deepening. Repetition, tonal centring, rhythmic stability, timbral consistency, and registral anchoring can make a state feel more stable. In the field notation this means the trajectory is encouraged to remain near a local minimum. Minimalist process, drone, groove, chant, lullaby, and certain ambient practices all exploit basin deepening in different ways. The emotional result need not be calm. A deep basin may be ecstatic, obsessive, martial, melancholic, suspended, or dissociative depending on the coupling matrix and cultural frame `interpretive`.
+  lines:
+  - 168
+  - 170
+  - 172
+  - 174
+  - 176
+  - 178
+  kind: internal-count
+  finding: 'the composition chapter enumerates six operations: basin deepening, barrier raising, barrier lowering, temperature modulation, coupling, and memory convolution'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: A5
+  quote: 'The three readings teach epistemic scale. In 4D, the selected human system is treated as body, nervous system, acoustics, movement, and ordinary time. This is the baseline of measurable substrate. In 8D, the same system becomes a response system with a declared forcing term and propagator. The visual action is "poke": introduce a disturbance and show propagation. In 11D, the display adds integration and meaning: body, propagator, limbic axis, cortex or matrix layer, threshold, and reportable percept. The machine thereby teaches interpretation as a controlled addition, not as a replacement for physical description `interpretive`.'
+  lines:
+  - 262
+  kind: internal-count
+  finding: 'the Soma Machine chapter says three readings teach epistemic scale: 4D, 8D, and 11D'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: A6
+  quote: One useful falsification test is cross-mechanism substitution. If a piece said to work through expectancy still produces the same trajectory when expectation is neutralised but memory cues remain, the mechanism assignment is wrong. If a groove effect remains when the pulse is removed but timbre and genre cues remain, entrainment was not the main route. If a claimed brainstem-reflex response depends on knowing the performer, it is not primarily brainstem. The model should welcome such substitutions because they distinguish route from outcome `open-hypothesis`.
+  lines:
+  - 348
+  - 350
+  - 352
+  - 354
+  - 356
+  kind: internal-count
+  finding: 'the falsification section gives five tests: cross-mechanism substitution, listener expertise, path dependence, after-response, and transfer across renderers'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none

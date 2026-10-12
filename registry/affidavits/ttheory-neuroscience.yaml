@@ -1,0 +1,172 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-neuroscience
+document: BOOK-neuroscience
+title: '[T]-Theory: Neuroscience'
+source:
+  file: books/T-Theory/neuroscience/book-neuroscience.md
+  commit: 7ec7efa
+  sha256: cf6efcdc37a2b75334174857064131978a3b7960164a475c42319d765c4faa0d
+lean: []
+microtheories: {}
+claims:
+- id: N1
+  quote: 'What, then, does this volume offer neuroscientists? First, it offers a way to connect CEMI, ephaptic coupling, field measurement, and coherence without collapsing them into one claim. Second, it offers a Hopfield-attractor language for affect that explicitly includes body-state modulation. Third, it offers a developmental hypothesis about pre-verbal structure that can be tested rather than merely narrated. Fourth, it offers an evidence discipline: Lean proofs for definitions, simulations for model reachability, empirical neuroscience for measurement, and open labels where the bridge is not yet built. The value of the programme is not certainty. It is the possibility of asking a sharper question: what physical variables would have to be measured for felt affect to become a field-theoretic object in neuroscience `interpretive`?'
+  lines:
+  - 49
+  kind: internal-count
+  finding: 'the offer to neuroscientists is threefold: connect CEMI/ephaptic/field/coherence language, provide Hopfield-attractor affect language, and discipline evidence'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: N2
+  quote: One candidate design is an affective entrainment protocol. Participants receive rhythmic auditory, visual, tactile, or interoceptive stimuli across a frequency range while EEG/MEG and autonomic data are recorded. Source-space phase locking, cross-frequency coupling, HRV, respiration, skin conductance, pupil size, and report are modelled together. The predicted Arnold tongue is not merely the range in which a cortical signal follows a stimulus; it is the range in which cortical, autonomic, and subjective responses cohere. The model predicts state-dependent narrowing or broadening under stress, fatigue, hypervigilance, dissociation, or focused attention. Failure to find such state dependence would constrain the theory `open-hypothesis`.
+  lines:
+  - 75
+  - 77
+  - 79
+  kind: internal-count
+  finding: 'the experiment-design section names three candidate designs: affective entrainment, perturbation recovery, and pharmacological/physiological modulation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: N3
+  quote: The physical substrate paper broadens this to biotensegrity, fascia, interstitial signalling, mechanical stress, bioelectricity, and contested biofield physiology. Neuroscientists should separate three levels. First, the body is mechanically continuous; fascia and connective tissue transmit force and house sensory endings. Second, interoceptive pathways carry bodily state to the nervous system. Third, stronger claims about coherent biophotonic or biofield correlates of emotion are speculative. The first two are mainstream enough to discuss as substrate; the third requires careful evidence and should remain explicitly open `open-hypothesis`.
+  lines:
+  - 131
+  kind: internal-count
+  finding: 'the body-substrate paragraph separates three levels: mechanical continuity, possible signalling/field effects, and clinical/phenomenological meaning'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: N4
+  quote: The first rung is measurement reliability. Before Arnold tongue width, effective field temperature, or attractor depth can be used theoretically, they must be reliable within individuals and sensitive to known manipulations. A steady-state auditory or visual entrainment task can estimate phase locking across frequencies. A respiration-paced interoceptive task can estimate coupling between bodily rhythm and cortical response. Resting-state EEG or MEG can estimate source-space spectral structure, but resting state alone is weak because it lacks a controlled input. The field programme should therefore prefer active response paradigms over passive maps `open-hypothesis`.
+  lines:
+  - 159
+  - 161
+  - 163
+  - 165
+  - 167
+  - 169
+  - 171
+  kind: internal-count
+  finding: the neuroscience evidence ladder enumerates seven rungs from measurement reliability to causal intervention
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 7
+  disposition: none
+- id: N5
+  quote: A field theory is easiest to misunderstand in abstraction, so this chapter gives four worked examples. They are not applications already established by data. They are examples of how a neuroscientist might turn the programme into hypotheses while preserving ordinary disciplinary caution `interpretive`.
+  lines:
+  - 183
+  kind: internal-count
+  finding: the worked-example chapter states that it gives four worked examples
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: N6
+  quote: Because [T]-Theory deliberately crosses vocabularies, it needs a stricter evidential grammar than a single-domain model. A neuroscientist should ask four questions of every claim. What is the measured variable? What is the model variable? What mapping connects them? What result would force revision? If any of the four is missing, the claim is not yet neuroscience `interpretive`.
+  lines:
+  - 220
+  kind: internal-count
+  finding: the evidential grammar asks four questions of every claim
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: N7
+  quote: 'A mature evidence ladder for this volume would have at least six levels. Level one is formal coherence: the equations are well defined and their limits behave as claimed. Level two is simulation: the model produces the predicted transitions in controlled artificial systems. Level three is measurement reliability: proposed neural and bodily parameters can be estimated consistently. Level four is cross-sectional prediction: parameters distinguish tasks or states better than baselines. Level five is longitudinal prediction: parameters forecast future transitions. Level six is intervention: changing a parameter changes the predicted dynamics under ethical and controlled conditions. The present programme is strongest at levels one and two, partial at level three, and mostly open beyond that `derived-under-assumptions`.'
+  lines:
+  - 236
+  kind: internal-count
+  finding: the mature evidence ladder states at least six levels
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: N8
+  quote: First, the electromagnetic claim must be narrowed to what can be measured. Brains generate fields; EEG and MEG measure aspects of them; ephaptic effects can occur; CEMI proposes that endogenous EM fields carry and causally integrate conscious information. SFT extends this by asking whether affective field state is visible in response functions, entrainment, perturbation recovery, and state-dependent attractor dynamics. The claim remains open until field variables predict something that local activity, anatomy, and standard connectivity do not `open-hypothesis`.
+  lines:
+  - 301
+  - 303
+  - 305
+  - 307
+  - 309
+  - 311
+  kind: internal-count
+  finding: the conclusion narrows the programme into six neuroscience claims/cautions
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none

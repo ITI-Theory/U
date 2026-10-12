@@ -2878,7 +2878,13 @@ with the saved prompt (D7), verify, registry entry, Lean (numbers in core
 Lean, typing against OpenCyc), findings; the author disposes. About 1-2 hours
 each.
 - [x] Papers P1-P24: all 24 (P6 on 12 Oct: 4 problems); and SH1 itself.
-- [ ] The fifteen domain books, the course book, CS1, D1, D2.
+- [x] (13 Oct, agent, redone once: the first pass checked numbers against themselves) Fourteen domain books: 103 claims, mostly stated counts
+      checked against the items listed, the cosmological arithmetic (7/11 vs 0.6847,
+      1.01/1.09, 3/11) and the books' Lean claims against the export; six books say
+      "five real sorries", true of the markers, incomplete (20 declarations rest on
+      sorry, ScaleUniverse's transitively): recorded as consistent, disposition open.
+      399 of 399 kernel checks. The soma-* folders have no book source.
+- [ ] The course book, CS1, D1, D2.
 - [ ] `make -C sherlock affidavits` in the release gate.
 - [x] (11-12 Oct: v2, then v3 after Sherlock ran on it; renamed sherlock-compiler) SH1 v2 (author, 11 Oct 21:30: "is a new paper needed?"; next): exhibit D (ZSF) and the
       programme-wide results (24 affidavits, 270 kernel checks, the real findings by kind,

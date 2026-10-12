@@ -1,0 +1,189 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-formal-mathematics
+document: BOOK-formal-mathematics
+title: '[T]-Theory: Mathematics'
+source:
+  file: books/T-Theory/formal-mathematics/book-formal-mathematics.md
+  commit: 7ec7efa
+  sha256: ad96f8863476ece68904791586fb71da23915945d9db45f9c28a283ad8bafda4
+lean: []
+microtheories: {}
+claims:
+- id: M1
+  quote: 'The central mathematical task is to distinguish four levels. First, there are definitions: `ScaleLevel := Fin 21`; `consciousnessThreshold : Real := Real.sqrt 2`; `isConscious phi := consciousnessThreshold <= phi`; `Spacetime4D := Fin 4 -> Real`; `CompactX7 := PropagatorSpace3D x LimbicAxis1D x CortexSpace3D`. Second, there are by-definition or elementary consequences: `consciousness_dichotomy` is `lt_or_ge phi consciousnessThreshold`; `threshold_positive` follows from positivity of a square root; `volitional_is_autonomous_when_zero` is a `simp` proof about adding zero. Third, there are substantive imported-library applications, such as Physlib''s harmonic oscillator and wave-equation results in `MTheoryIsomorphism.lean`, Mathlib''s Hermitian spectral machinery in `SomaField.lean`, and OSforGFF''s Osterwalder-Schrader theorem in `USF_OSAxioms.lean`. Fourth, there are assumptions, placeholders, and unfinished proofs. The mathematics begins when these levels stop being blurred.'
+  lines:
+  - 29
+  kind: internal-count
+  finding: 'the central mathematical task distinguishes four levels: definitions, theorems, simulations, and interpretations/empirical claims'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: M2
+  quote: 'The product geometry sits in `MTheoryIsomorphism.lean`. The file defines `SomaField11D` as a structure with four fields: spacetime, propagator, limbic, and cortex. It defines `MTheory11D` as `Spacetime4D x CompactX7`, with `CompactX7` itself a product of the propagator, limbic, and cortex spaces. The theorem `somaField_iso_mtheory` proves that `fromMTheory (toMTheory s) = s` as a function equality; `UniversalSomaticField.lean` later repackages this as a `SomaticLens`, a section-retraction pair. This is real formal content about products and records. It is not a physical derivation of M-theory. `kernel-verified`'
+  lines:
+  - 36
+  kind: internal-arithmetic
+  finding: the product-geometry paragraph combines four spacetime fields with a seven-dimensional compact/product sector to make the stated 11-dimensional bookkeeping
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 4
+    - 7
+    - 11
+  disposition: none
+- id: M3
+  quote: 'The five papers embedded in this volume should be read under that discipline. Mathematical co-identification gives the intended epistemic method: transfer theorems only when the relevant type signature and assumptions transfer. The Soma-Field paper gives the finite energy-landscape and BRECVEMA field vocabulary. The Universal and Zoomable USF papers give the scale-indexed Green-function architecture and the eleven-dimensional decomposition. The Lean appendix lists the proof surface, but this volume does not reproduce it inline; the builder will replace the AddPaper line with a note. The book you are reading supplies the missing connective work: how a mathematician should read the proof claims without inflating them.'
+  lines:
+  - 44
+  kind: internal-count
+  finding: the embedding paragraph says five papers are included and names their roles
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: M4
+  quote: 'The project-wide `sorry` count matters because generated wrappers have previously said there were no active sorries. A direct source audit finds five real `sorry`s, in `BRECVEMAVariational.lean` (two), `DyadicField.lean` (two), and `SomaNetwork.lean` (one). There are also many axioms outside `FieldAxioms.lean`: for example `quant_exp_1` in `LimbicTunnel.lean`, `greens_achieves_minimum_energy` in `SwarmPropagator.lean`, local GR and geometry axioms, and RG coefficient axioms. A formal mathematics volume should not hide this. In proof engineering, a labelled `sorry` is a map of future work. In public prose, ignoring it is overclaim. `open-hypothesis`'
+  lines:
+  - 75
+  kind: ledger
+  finding: true of the source (five `sorry` markers, in BRECVEMAVariational 2, DyadicField 2, SomaNetwork 1) but incomplete as a measure, since the Lean export (towers.json) shows 20 declarations resting on sorry, including ScaleUniverse's, which depend on one transitively; the sentence should say both
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  ledger: bld/sherlock/towers.json
+  disposition: open
+- id: M5
+  quote: 'The formal programme has three recurrent mathematical forms: scale-indexed dependent families, product decompositions, and threshold predicates. Each is legitimate; each is also easy to overread. This chapter states them as mathematical objects.'
+  lines:
+  - 100
+  kind: internal-count
+  finding: 'the formal programme is said to have three recurrent mathematical forms: scale-indexed dependent families, product decompositions, and threshold predicates'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: M6
+  quote: 'The mathematical cost is that the scale family is still a designed interface. Its fibres are not derived from a universal physical theorem. Nineteen of the twenty-one positions are assigned real types by import or local definition; two are string tags. Some assignments are natural, such as organism scale to `Field8` or swarm scale to `SwarmState 8`. Others are proxies: `StellarNeighbour`, `GalacticDisc`, and similar positions use available wave-vector or fluid/cosmology types. A type family can enforce consistency once the assignment is made; it does not prove the assignment is the unique or empirically correct one. `derived-under-assumptions`'
+  lines:
+  - 104
+  kind: internal-arithmetic
+  finding: the scale-family paragraph states nineteen non-String field-layer types and two string tags, which add to the twenty-one positions
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 19
+    - 2
+    - 21
+  disposition: none
+- id: M7
+  quote: First is the finite affect field. `SomaField.lean` defines `N8 := 8`, maps BRECVEMA mechanisms to indices, and defines an exact rational coupling matrix `W8`. The matrix has diagonal self-amplification 6/5 and specified off-diagonal couplings such as positive BrainStem-Contagion and MusicalExpectancy-AestheticJudgement terms, plus inhibitory BrainStem-AestheticJudgement and EvaluativeConditioning-VisualImagery terms. `W8_symm` proves symmetry by case analysis using `min` and `max`. This is concrete finite mathematics. `kernel-verified`
+  lines:
+  - 177
+  - 179
+  - 185
+  - 187
+  - 189
+  - 191
+  - 193
+  - 195
+  kind: internal-count
+  finding: 'the formal-object map enumerates seven objects: finite affect field, emotion-language algebra, product architecture, limbic tunnel, FM-HN, swarm propagator, and OS/QFT surface'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 7
+  disposition: none
+- id: M8
+  quote: 'The formal proof status is not an administrative detail appended to the science. In this repository it is itself mathematical content. The same English phrase can name at least five different proof situations: a definitional equality, an elementary arithmetic theorem, an imported library theorem, an axiom, or an unfinished proof. A reader who collapses those situations will misunderstand the programme even if every formula is copied correctly.'
+  lines:
+  - 216
+  - 218
+  - 220
+  - 222
+  - 224
+  - 226
+  - 228
+  kind: internal-count
+  finding: the proof-status section distinguishes six proof situations/classes, including theorem-shaped documentation
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: M9
+  quote: The first route is finite exact computation. `SomaField.lean` already has rational entries for the BRECVEMA matrix. A natural next step is to introduce a computable rational matrix parallel to the real matrix, prove transfer to the real version, and close finite inequalities by exact computation. The two current sorries in that file look susceptible to this approach. If the nostalgia residual is really about 0.27 for a specified witness, an exact rational or interval proof should be possible. If the startle-to-contagion activation is 23/25, the proof should not depend on informal arithmetic in a comment. `open-hypothesis`
+  lines:
+  - 251
+  - 253
+  - 255
+  - 257
+  - 259
+  - 261
+  - 263
+  kind: internal-count
+  finding: the future mathematical work section enumerates seven routes
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 7
+  disposition: none

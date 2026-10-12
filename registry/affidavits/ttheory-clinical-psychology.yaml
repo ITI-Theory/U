@@ -1,0 +1,148 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-clinical-psychology
+document: BOOK-clinical-psychology
+title: '[T]-Theory: Trauma'
+source:
+  file: books/T-Theory/clinical-psychology/book-clinical-psychology.md
+  commit: 7ec7efa
+  sha256: b6b4327a3b69fb14e0827d993bd33319d0f1a1ed1486cf9092b5e40b2b3cbf0b
+lean: []
+microtheories: {}
+claims:
+- id: C1
+  quote: 'A fair clinical science reading of SFT has five layers. First, there is phenomenology: testimony about what it is like to have affect present below language. Second, there is construct modelling: variables such as $e(t)$, $W$, $T_{\text{eff}}$, $K(t)$, and $J(t)$. Third, there is formal consistency: whether the equations and Lean definitions do what the prose says. Fourth, there is simulation: whether toy systems show predicted transitions. Fifth, there is empirical validation: whether human data support the constructs in a way that changes prediction (`interpretive`). Most of the programme currently lives in the first four layers. Clinical authority would require the fifth.'
+  lines:
+  - 105
+  kind: internal-count
+  finding: the clinical-science reading states five layers and names phenomenology, construct modelling, formal consistency, simulation, and empirical validation
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: C2
+  quote: The discipline of labels is central. In this book, `kernel-verified` means a named Lean theorem compiles without `sorry` in the named proof surface. It does not mean the clinical interpretation is proved. `derived-under-assumptions` means a result follows from stated definitions, axioms, or model choices. `simulated` means a computational model produced the stated output. `empirical-result` means a documented measurement or experiment produced a result. `interpretive` means a conceptual mapping or explanatory reading. `open-hypothesis` means a claim with a path to discrimination but no settled evidence. These labels are not decoration. They are the book's safety system.
+  lines:
+  - 113
+  kind: internal-count
+  finding: 'the safety label paragraph defines six labels: kernel-verified, derived-under-assumptions, simulated, empirical-result, interpretive, and open-hypothesis'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: C3
+  quote: 'The first measurement domain is state. Trauma research already uses self-report scales, clinician ratings, behavioural tasks, and physiological measures. SFT would need repeated state measures fine-grained enough to detect transitions. A single pre/post symptom score cannot reveal a landscape. Researchers would need time series: momentary affect, bodily sensation, context, perceived safety, dissociation, intrusive material, avoidance, interpersonal rupture and repair, sleep, pain, and medication changes. The burden is high because attractor claims are dynamic claims (`open-hypothesis`).'
+  lines:
+  - 197
+  - 199
+  - 201
+  - 203
+  kind: internal-count
+  finding: 'the measurement chapter enumerates four domains: state, physiology, meaning/relationship, and safety'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: C4
+  quote: A minimal observational study might recruit adults with trauma histories and collect two weeks of ecological momentary assessment plus wearable physiology. It would not change treatment. It would ask whether state transitions show attractor-like recurrence and whether candidate temperature metrics predict transition frequency, dwell time, or subjective window. Such a study could fail cleanly. If no attractor structure appears, SFT weakens. If simpler models predict as well, SFT adds little (`open-hypothesis`).
+  lines:
+  - 205
+  - 207
+  - 209
+  - 211
+  - 213
+  kind: internal-count
+  finding: 'the research-design section gives five study sketches: observational, psychotherapy-process, perturbation, C-PTSD, and reconsolidation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: C5
+  quote: 'The field model is most credible when it clarifies rather than replaces established trauma science. This chapter therefore revisits four established areas: autonomic state, tolerance window, memory change, and complex trauma. Each is already a large literature. SFT''s role is to ask whether a shared dynamical vocabulary can connect them without erasing their differences (`interpretive`).'
+  lines:
+  - 237
+  kind: internal-count
+  finding: the established-trauma-science chapter says it revisits four areas and lists autonomic state, tolerance window, memory change, and complex trauma
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: C6
+  quote: 'Before any SFT-informed clinical decision support is built, there should be governance at five levels. First, scientific governance: preregistered hypotheses, independent statistics, and open negative results. Second, clinical governance: professional oversight, adverse-event procedures, and clear separation from treatment recommendation. Third, service-user governance: people with trauma histories and neurodivergent people involved in design and interpretation. Fourth, cultural governance: attention to race, class, migration, disability, gender, and institutional power. Fifth, formal governance: a claim ledger that states which claims are axioms, simulations, interpretations, and open hypotheses (`interpretive`).'
+  lines:
+  - 428
+  kind: internal-count
+  finding: the governance paragraph states five levels and enumerates scientific, clinical, participant, data, and publication governance
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: C7
+  quote: 'The clinical interest lies in the three operator sketches: ADHD, Autism Spectrum Condition, and C-PTSD. For this volume, the C-PTSD operator is the relevant one: high barriers, memory, and altered coupling model why self-organisation disturbances may persist beyond individual fear memories (`open-hypothesis`). The numerical parameters in the paper are model parameters, not biomarkers. The paper should inspire measurement design, not diagnostic classification. Its best use is to ask whether physiological and behavioural data can distinguish temperature-like volatility, low-temperature rigidity, and high-barrier capture in traumatised populations.'
+  lines:
+  - 486
+  kind: internal-count
+  finding: 'the embedded psychiatry/neurodivergence reading names three operator sketches: ADHD, Autism Spectrum Condition, and C-PTSD'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none

@@ -1,0 +1,139 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-philosophy
+document: BOOK-philosophy
+title: '[T]-Theory: Philosophy'
+source:
+  file: books/T-Theory/philosophy/book-philosophy.md
+  commit: 7ec7efa
+  sha256: a360e569a62ad076f93baf34580e7cfb5c03a15910cbcc47ef0b5277e42e2e4e
+lean: []
+microtheories: {}
+claims:
+- id: P1
+  quote: The six evidence labels need a little practice. A `kernel-verified` claim is a named Lean theorem whose stated proof surface has been checked by Lean's kernel, without treating that label as a claim that the world obeys the theorem's intended interpretation. The theorem may still depend on definitions, imported theorems, and explicit axioms, and other files in the wider proof surface may still contain holes. A `derived-under-assumptions` claim follows from stated mathematical or modelling premises. A `simulated` claim reports the output of a computational model. An `empirical-result` claim reports documented measurement or build output. An `interpretive` claim is a conceptual mapping or philosophical reading. An `open-hypothesis` is a proposed claim with a possible route to confirmation or disconfirmation.
+  lines:
+  - 70
+  kind: internal-count
+  finding: the prologue defines six evidence labels and lists their meanings
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: P2
+  quote: 'Part V returns to the hard problem. It distinguishes three questions: the formal predicate, the empirical substrate threshold, and the metaphysical claim about intrinsic nature. The formal dichotomy can be kernel-verified as arithmetic; the biological phase-transition account remains open; the Russellian reading of field-inside as experience remains philosophical.'
+  lines:
+  - 86
+  kind: internal-count
+  finding: 'the hard-problem section distinguishes three questions: formal predicate, empirical substrate threshold, and metaphysical intrinsic-nature claim'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: P3
+  quote: '{{Visualize | what-t-theory-claims | type-decomposition:soma | whole="$M_{11}$"; parts="$M_4$=4, $P_3$=3, $L_1$=1, $C_3$=3"; expect_total=11 }} The eleven dimensions of the equation above by their parts: spacetime $M_4$, the propagator $P_3$, the limbic axis $L_1$, and the cortex $C_3$. The program checked that they add up to 11.'
+  lines:
+  - 184
+  - 186
+  - 188
+  - 190
+  kind: internal-arithmetic
+  finding: the organism hierarchy adds M4, P3, L1, and C3 to the stated eleven-dimensional decomposition
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 4
+    - 3
+    - 1
+    - 3
+    - 11
+  disposition: none
+- id: P4
+  quote: 'The corpus of books matters because it shows the programme''s diffusion across domains. The first fifteen domain books are largely wrappers and thematic dossiers around a smaller repeated kernel: Soma Field Theory, mathematical co-identification, QUANT-EXP-1, Zoomable USF, limbic Hopfield dynamics, pre-verbal manifold material, and benchmark or swarm papers. Their value is rhetorical routing: generalist, physicist, neuroscientist, therapist, computing reader, mathematician, philosopher, complex-systems reader, music and arts reader, geological reader, social-field reader, economist, legal theorist, PPE reader, and clinical/neurodivergence reader. Their danger is promotion of hypotheses into certainty. This philosophy volume must therefore be less a sixteenth wrapper than an audit of the whole method.'
+  lines:
+  - 206
+  - 212
+  kind: internal-arithmetic
+  finding: the cosmology discussion computes the 7.1 percent discrepancy from 7/11 against Planck Omega_Lambda=0.6847, matching the book's stated comparison
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  check:
+  - template: rel-between
+    args:
+    - 0.6363636363636364
+    - 0.6847
+    - 0.0705
+    - 0.0715
+  disposition: none
+  values:
+  - quantity: USF-DarkEnergyFraction
+    value: 7/11
+  - quantity: USF-DarkEnergyFraction-Planck2018
+    value: 0.6847
+- id: P5
+  quote: '| The Lean surface contains axioms and five real `sorry`s; the whole programme is not fully verified. | `empirical-result` | `paper/FieldAxioms.lean`; `paper/proofs/BRECVEMAVariational.lean`; `paper/proofs/DyadicField.lean`; `paper/proofs/SomaNetwork.lean` |'
+  lines:
+  - 287
+  kind: ledger
+  finding: true of the source (five `sorry` markers, in BRECVEMAVariational 2, DyadicField 2, SomaNetwork 1) but incomplete as a measure, since the Lean export (towers.json) shows 20 declarations resting on sorry, including ScaleUniverse's, which depend on one transitively; the sentence should say both
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  ledger: bld/sherlock/towers.json
+  disposition: open
+- id: P6
+  quote: The Phase Dot preface is the source record's governing witness. It says that, after a 7,000-franc legal bill in February 2026, Johnson spent four months under a blanket with a phone, typing to machines while earlier hospital memories returned. It also reports an early childhood hospital admission and later speech delay as family testimony, not remembered experience. The stated aim was survival through triggered freezes, not the planned production of papers, proofs, and an app. That origin is discovery context. It can explain urgency, metaphors, and attention; it cannot justify equations or empirical claims.
+  lines:
+  - 295
+  kind: internal-arithmetic
+  finding: the provenance paragraph runs from February 2026 to June 2026, a four-month span as stated
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: diff
+    args:
+    - 6
+    - 2
+    - 4
+  disposition: none
+- id: P7
+  quote: '| The build practice is run/build/inspect/fix/rerun/commit/package. | `empirical-result` | `Part2/book/phase-dot/phase-dot.md`; `paper/scripts/paper_status.py`; `paper/scripts/package_papers.py` |'
+  lines:
+  - 402
+  kind: internal-count
+  finding: 'the build-practice row lists six steps: run, build, inspect, fix, rerun, commit/package'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none

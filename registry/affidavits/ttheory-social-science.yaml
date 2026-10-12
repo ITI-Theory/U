@@ -1,0 +1,211 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-social-science
+document: BOOK-social-science
+title: '[T]-Theory: Society'
+source:
+  file: books/T-Theory/social-science/book-social-science.md
+  commit: 7ec7efa
+  sha256: f605baed57c1de38ddfe57efb5f4f929f0fe0a02e19ad86379f88e8d9a376ab5
+lean: []
+microtheories: {}
+claims:
+- id: S1
+  quote: 'Zoom note: the primary working scales are $\sigma=8$ for embodied persons, $\sigma=9$ for dyads and small groups, $\sigma=10$ for communities and organisations, and $\sigma=11$ for regional culture and institutional fields `interpretive`.'
+  lines:
+  - 19
+  kind: internal-count
+  finding: 'the zoom note names four primary working scales: sigma 8, 9, 10, and 11'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: S2
+  quote: 'The six embedded papers in this volume should be read in that spirit. The geographic paper supplies spatial examples: dialect diffusion, parakeet collective motion, and valley resonance. The swarm paper supplies a computational coordination claim: a Green''s-function matrix product can outperform iterative message passing when the number of rounds $K$ exceeds the number of agents $N$ [@johnsonswarm2026]. The social-intelligence paper supplies the dyadic formalism: $W_{AB}$, the dyadic propagator, Arnold tongues, and SQ. The Gestalt paper supplies an interpretive bridge between field dynamics, perception, and neutral-monist philosophy. The synthesis and Soma-Field papers provide the programme''s core machinery and its evidence boundaries.'
+  lines:
+  - 43
+  kind: internal-count
+  finding: the embedded-paper paragraph says the volume has six embedded papers and names their roles
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: S3
+  quote: 'A practical research design would compare four models on the same case: a baseline demographic model, a network contagion model, a bounded-confidence or threshold model, and the [T]-Theory kernel model with explicit geography and coupling. The case might be a dialect feature, a health practice, a protest frame, or an organisational routine. The programme''s model would need to improve out-of-sample prediction and produce interpretable parameters. Otherwise it remains a metaphor `open-hypothesis`.'
+  lines:
+  - 77
+  kind: internal-count
+  finding: the practical research design compares four models on the same case
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: S4
+  quote: 'For rapport, the minimum operational package should include at least three layers. First, bodily synchrony: respiration, heart-rate variability, movement, speech rhythm, gaze, and prosody. Second, interactional performance: turn-taking smoothness, repair after interruption, joint-task success, and conversational satisfaction. Third, subjective and relational report: perceived understanding, comfort, safety, mutuality, and desire for future interaction. The dyadic propagator should be tested against all three, because synchrony without felt safety is not rapport `open-hypothesis`.'
+  lines:
+  - 190
+  kind: internal-count
+  finding: 'the rapport operational package is stated to include at least three layers: bodily synchrony, interactional performance, and report/meaning'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: S5
+  quote: 'A plausible five-year research programme would begin with measurement, not metaphysics. Year one: dyadic synchrony datasets with rapport and task outcomes; small network datasets with independent trust measures; one geographic diffusion case with good temporal data. The aim would be to estimate whether the proposed operators are even recoverable. Null results would narrow the theory productively `open-hypothesis`.'
+  lines:
+  - 236
+  - 238
+  - 240
+  - 242
+  - 244
+  kind: internal-count
+  finding: the social-science research programme is staged across five years
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: S6
+  quote: 'A careful reader should reject three tempting versions of the social-field claim. The first is **total reduction**: the idea that because social actors have bodies, sociology can be replaced by physiology. This is false. Bodies are always situated in language, role, institution, economy, and history. Physiological coupling may help explain how a conversation feels or how a crowd entrains, but it cannot by itself explain why a legal category exists, why a class relation persists, or why a symbol carries authority `interpretive`.'
+  lines:
+  - 326
+  - 328
+  - 330
+  kind: internal-count
+  finding: the social-field caution rejects three tempting versions of the claim
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: S7
+  quote: The first teaching principle is to distinguish **state**, **coupling**, **threshold**, **memory**, and **boundary**. State is what changes. Coupling is who or what can affect it. Threshold is how much input is needed. Memory is how the past remains active. Boundary is what blocks, channels, or transforms propagation. Students can apply this five-part frame to cases before seeing any equation. The mathematics then names relations they have already analysed `interpretive`.
+  lines:
+  - 350
+  - 352
+  - 354
+  - 356
+  kind: internal-count
+  finding: the teaching section gives four principles
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: S8
+  quote: 'The social extension begins mostly as interpretation and open hypothesis. To promote a claim, the programme should require staged evidence. Stage one: formal clarity. The operator, state variables, assumptions, and predicted observables are specified. Stage two: measurement feasibility. The variables can be estimated reliably and ethically. Stage three: model comparison. The field model outperforms or usefully complements alternatives. Stage four: independent replication. Other teams reproduce the result in new settings `open-hypothesis`.'
+  lines:
+  - 372
+  kind: internal-count
+  finding: the staged-evidence paragraph enumerates four stages from formal clarity to independent replication
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: S9
+  quote: The social-science volume should adopt several house rules. First, never infer ontology from formal resemblance alone. A dialect wave, a flock, a therapeutic dyad, and an institutional crisis may all be modelled with propagators, but they do not share one substrate in any socially meaningful sense until measurement says so. The safest default is analogy or modelling transfer; co-identification must be earned case by case `interpretive`.
+  lines:
+  - 382
+  - 384
+  - 386
+  - 388
+  - 390
+  - 392
+  kind: internal-count
+  finding: the house-rules section enumerates six rules
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: S10
+  quote: The first empirical programme should be narrow. Begin with dyads, because dyads are measurable. Estimate coupling and synchrony across conversation, cooperation, conflict, and repair. Compare dyadic spectral measures with rapport ratings and behavioural outcomes. Include neurodivergent participants in designs that respect sensory and social preferences. Publish null results. Only then scale to groups, organisations, and cities `open-hypothesis`.
+  lines:
+  - 518
+  - 520
+  - 522
+  - 524
+  kind: internal-count
+  finding: 'the empirical-programme section proposes four programmes: dyads, social trust, geographic propagation, and organisational propagators'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none

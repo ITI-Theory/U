@@ -1,0 +1,213 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-psychiatry-asd
+document: BOOK-psychiatry-asd
+title: '[T]-Theory: Rewiring'
+source:
+  file: books/T-Theory/psychiatry-asd/book-psychiatry-asd.md
+  commit: 7ec7efa
+  sha256: 297f9047fff83fec3ffb0ccf609d1e215879be4299fcd72d0c7fb2710a9ece75
+lean: []
+microtheories: {}
+claims:
+- id: R1
+  quote: The book therefore adopts three disciplines. First, every strong programme claim is labelled. Lean results are labelled only where a named theorem exists and are interpreted modestly. For example, `LimbicHopfield.correspondence_principle` establishes that the field-modulated network reduces to its baseline equations when limbic modulation is zero `kernel-verified`. It does not establish that any diagnostic category is identical to a Lean definition. QUANT-EXP-1 is an exact 8-qubit statevector simulation showing reachability in a model class `simulated`. It does not show that a quantum device treats trauma, that consciousness has been explained, or that therapy should be organised by quantum language.
+  lines:
+  - 47
+  - 49
+  - 51
+  kind: internal-count
+  finding: 'the psychiatry/neurodivergence volume adopts three disciplines: labels, bounded testimony, and research-question framing'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: R2
+  quote: 'The book''s own chapters do three things around those papers. The first chapter explains operator language in terms psychiatrists and neurodivergence researchers can use without accepting ontological overreach. The second chapter treats the pre-verbal manifold and lived testimony, carefully separating developmental research questions from claims about autism''s origin. The third chapter turns to clinical regimes and service design, again without giving treatment advice. The reading chapters then show how each embedded paper should be approached. The conclusion offers a research agenda and an ethics of modelling: if the field language is to help, it must increase respect, precision, and testability at once.'
+  lines:
+  - 61
+  kind: internal-count
+  finding: the book says its own chapters do three things around the embedded papers
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: R3
+  quote: 'The first question is about temperature. In statistical mechanics, high temperature means more exploration and less stable settlement; low temperature means sharper settlement and less exploration. In the field-modulated Hopfield model, effective temperature can be changed by limbic state. The Missing Limbic Layer paper writes this as $T(t)=T_0+\sigma\Phi_\text{limbic}(t)$ and $\beta(t)=1/T(t)$ `derived-under-assumptions`. The corresponding Lean theorem `stress_raises_temp` states, within the definitions of `LimbicHopfield.lean`, that a positive stress term raises temperature `kernel-verified`. The clinical reading is much weaker: bodily arousal may change how accessible transitions are. It might melt barriers; it might also flood structure. Which effect matters depends on the person, state, and context `open-hypothesis`.'
+  lines:
+  - 83
+  - 85
+  - 87
+  - 91
+  - 95
+  - 99
+  kind: internal-count
+  finding: 'the operator-language chapter asks six questions: temperature, specificity, synchronisation bandwidth, ergodicity, operator stacking, and safety'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: R4
+  quote: Every useful clinical language creates boundary cases. The operator vocabulary is no exception. One boundary case is ordinary preference. Not every strong interest is a deep attractor in a clinically relevant sense; sometimes it is simply what a person likes. Not every dislike of a noisy room is pathology; sometimes the room is unpleasant. The model should not medicalise taste. It becomes relevant when transition cost, distress, disability, access, or support need are at stake `interpretive`.
+  lines:
+  - 119
+  - 121
+  - 123
+  - 125
+  - 127
+  kind: internal-count
+  finding: the boundary-case section enumerates five boundary cases
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: R5
+  quote: 'Take emotional dysregulation. The term is clinically common and often imprecise. A field account separates at least four mechanisms. First, temperature may be too high: the field is noisy, transitions are uncontrolled, and small inputs produce large swings. Second, temperature may be too low: the field is locked, and the apparent outburst is the rare forced transition after prolonged constraint. Third, coupling may be mis-specified: somatic and narrative registers do not update together. Fourth, the environment may repeatedly inject forcing terms larger than the person''s current capacity. Each mechanism suggests different research variables. None licenses a one-size intervention.'
+  lines:
+  - 145
+  kind: internal-count
+  finding: the emotional-dysregulation example separates at least four mechanisms
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: R6
+  quote: For service design, the model's first implication is environmental humility. If a person repeatedly fails in a setting but functions in another, the difference may not be motivation. It may be the field-environment coupling. Clinics, schools, wards, and workplaces are not neutral containers. Lighting, noise, waiting-room uncertainty, forms, appointment timing, staff turnover, restraint policy, communication style, and discharge procedures all shape the field. A service that ignores these variables may misattribute its own design failure to patient pathology.
+  lines:
+  - 263
+  - 265
+  - 267
+  - 269
+  - 271
+  kind: internal-count
+  finding: the service-design section gives five implications
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: R7
+  quote: How, then, might the operator hypotheses be tested? A narrow first study could examine social synchrony under controlled conditions. Autistic and non-autistic participants, with participatory design, could choose preferred and non-preferred interaction modes. Researchers could vary noise, explicitness, pace, shared interest, and sensory environment while measuring subjective effort, physiological synchrony, recovery time, and mutual satisfaction. The Arnold-tongue hypothesis predicts not a global absence of synchrony, but a narrower or differently centred range of stable synchrony `open-hypothesis`.
+  lines:
+  - 273
+  - 275
+  - 277
+  - 279
+  - 281
+  kind: internal-count
+  finding: the operator-hypothesis section proposes five studies
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: R8
+  quote: First, consider an autistic adult who wants close relationships but leaves most social events exhausted, ashamed, and unable to speak the next day. A deficit account may ask why the person avoids social life. A motivational account may ask whether anxiety is maintaining avoidance. A field account asks about coupling bandwidth. Were the interactions too noisy, too fast, too ambiguous, too multi-threaded, or too unpredictable? Did the person synchronise better around shared interest, parallel activity, written communication, or one-to-one rhythm? Was the collapse caused by social contact itself, or by forced entrainment outside the person's Arnold tongue? The answer would need measurement, but the question already reduces blame `open-hypothesis`.
+  lines:
+  - 301
+  - 303
+  - 305
+  - 307
+  - 309
+  - 311
+  - 313
+  kind: internal-count
+  finding: the worked examples enumerate seven cases
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 7
+  disposition: none
+- id: R9
+  quote: A useful research programme should change practice only after it changes questions, measures, and evidence. For this volume, progress would first mean better descriptions. A clinic that distinguishes transition cost from refusal, sensory forcing from anxiety, social bandwidth from social motivation, bodily safety from verbal reassurance, and burnout from ordinary fatigue has already improved its epistemology `interpretive`. That improvement does not require accepting the whole Universal Somatic Field. It requires noticing dynamics.
+  lines:
+  - 475
+  - 477
+  - 479
+  - 481
+  - 483
+  - 485
+  - 487
+  kind: internal-count
+  finding: the progress section states seven meanings of progress
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 7
+  disposition: none

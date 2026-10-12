@@ -1,0 +1,176 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-economics
+document: BOOK-economics
+title: '[T]-Theory: Economics'
+source:
+  file: books/T-Theory/economics/book-economics.md
+  commit: 7ec7efa
+  sha256: f1dd673cb4560e0b3cb91bd8071fb242f1b573d892da52b225d1d0b367d55675
+lean: []
+microtheories: {}
+claims:
+- id: E1
+  quote: 'The volume therefore proceeds by separation. First, it identifies the exact mathematical cases: exact potential games, symmetric pairwise-interaction games, and Hopfield networks with Lyapunov energy. Second, it discusses analogous but non-exact cases: general games, markets with strategic feedback, financial networks with endogenous leverage, and heterogeneous-agent dynamics. Third, it asks how the programme''s simulation and proof surfaces bear on economics. The answer is cautious. Lean theorems about complexity, WKB reachability, and formal encodings are real facts about their definitions; QUANT-EXP-1 is an exact statevector simulation; the economic claims in this volume are mostly derived under assumptions or open hypotheses. `interpretive`'
+  lines:
+  - 39
+  kind: internal-count
+  finding: 'the introduction separates the economics volume into two stages: exact mathematical cases and analogous non-exact cases'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 2
+  disposition: none
+- id: E2
+  quote: One possible contribution is the common treatment of metastability. A DSGE model may have occasionally binding constraints; an industrial-organisation model may have entry deterrence; a finance model may have liquidity spirals; a game-learning model may have convention lock-in. Each involves persistence that is not simply equilibrium. Energy landscapes, barriers, and noise provide a cross-domain way to discuss why systems remain where they are and what scale of perturbation changes them. But the underlying equations remain domain-specific. `interpretive`
+  lines:
+  - 69
+  - 71
+  - 73
+  - 75
+  kind: internal-count
+  finding: 'the opening economics chapter names four possible contributions: metastability, memory, scale, and auditability'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: E3
+  quote: 'This gives a practical classification table for future work. Class A: exact potential games, where Hopfield energy is exact after sign change. Class B: near-potential games, where the potential component dominates but cyclic components may matter. Class C: non-potential games, where energy language is analogy or decomposition only. Class D: saddle and Hamiltonian strategic systems, where a different field operator is needed. Class E: institutional mechanisms that intentionally transform a game from one class to another. The economics volume''s strongest claims live in Class A and carefully labelled parts of Class B. `interpretive`'
+  lines:
+  - 164
+  kind: internal-count
+  finding: 'the classification table has three classes: exact potential games, near-potential games, and non-potential/cyclic games'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: E4
+  quote: 'A future economics anchor paper should begin with definitions rather than analogies. Define a finite player set, finite action sets, payoff functions, and the unilateral-deviation graph on pure profiles. Define exact potential, ordinal potential, and weighted potential. Define Hopfield energy on the same graph as $H=-\Phi$ where $\Phi$ exists. Then prove: a pure profile is a Nash equilibrium if and only if it is a local minimum of $H$ on the unilateral-deviation graph. This theorem is short, but it is the hinge on which the exact claim turns. `derived-under-assumptions`'
+  lines:
+  - 178
+  - 180
+  - 182
+  - 184
+  - 186
+  kind: internal-count
+  finding: 'the proposed economics anchor paper is specified as five results: definitions, continuous games, decomposition/counterexample, dynamics, and empirical preparation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: E5
+  quote: The second step is to define the state vector. In a limit-order-book study the state might include bid and ask depth at several levels, order arrival rates, cancellation rates, signed order flow, short-horizon volatility, and inventory proxies. In a funding-network study it might include haircuts, maturities, collateral classes, counterparty exposures, rollover rates, and liquidity buffers. In a portfolio-overlap study it might include holdings, leverage, redemption pressure, and covariance of liquidation demand. These choices are substantive economics, not data plumbing. `derived-under-assumptions`
+  lines:
+  - 248
+  - 250
+  - 252
+  - 254
+  - 256
+  - 258
+  - 260
+  - 262
+  kind: internal-count
+  finding: the financial-criticality measurement protocol has eight steps from domain selection through reflexivity
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 8
+  disposition: none
+- id: E6
+  quote: A mechanism-design translation should ask five questions before drawing any energy diagram. First, what behaviour is intended to be stable? Truthful reporting, efficient matching, cooperation, liquidity provision, entry, innovation, or restraint are different target basins. Second, what deviations are locally profitable? The neighbourhood relation might be unilateral misreporting, bilateral blocking, coalition deviation, withdrawal, collusion, or manipulation of an algorithm. Third, what makes the target basin robust? It may be dominant strategy incentives, repeated-game punishment, reputation, verification, collateral, or legal sanction. Fourth, what undesirable basins remain? Fifth, who bears the cost of making the desired basin deep? `interpretive`
+  lines:
+  - 348
+  kind: internal-count
+  finding: the mechanism-design translation says to ask five landscape questions
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: E7
+  quote: 'The strongest immediate research path is theorem-first. Formalise the Nash--Hopfield claim for finite exact potential games. State the profile neighbourhood. Prove local equivalence. Extend to weighted and ordinal potential games with appropriate weakening. Give counterexamples: matching pennies, rock--paper--scissors, and games with antisymmetric payoff components. Then connect stochastic best-response dynamics to Gibbs-like stationary distributions where standard assumptions allow. This would turn the anchor slogan into a mathematical contribution. `open-hypothesis`'
+  lines:
+  - 476
+  - 478
+  - 480
+  - 482
+  kind: internal-count
+  finding: 'the conclusion gives four research paths: theorem-first, experiment-first, market-data-first, and mechanism-first'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: E8
+  quote: 'A careful validation ladder would have five rungs. Rung one is formal: prove the exact potential-game correspondence and publish counterexamples. Rung two is computational: simulate known landscapes and show that the proposed estimators recover basin structure, barriers, and transition probabilities. Rung three is laboratory: test equilibrium selection and switching in controlled games. Rung four is institutional: apply the model to observed rule changes or market microstructure with pre-registered predictions. Rung five is comparative: show that the field model outperforms established economic baselines in a domain where the extra complexity is justified. `open-hypothesis`'
+  lines:
+  - 508
+  kind: internal-count
+  finding: 'the validation ladder states five rungs: formal, computational, laboratory, institutional, and comparative'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none

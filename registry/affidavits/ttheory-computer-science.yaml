@@ -1,0 +1,113 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-computer-science
+document: BOOK-computer-science
+title: '[T]-Theory: Computing'
+source:
+  file: books/T-Theory/computer-science/book-computer-science.md
+  commit: 7ec7efa
+  sha256: e6c62b5aeb89073627a6fb61c0ebe59f5e3abd019f2c150a9f18e75f0f65fc75
+lean: []
+microtheories: {}
+claims:
+- id: CS1
+  quote: The Lean layer is the second concrete deliverable. The proof surface includes files such as `SwarmPropagator.lean`, `LimbicHopfield.lean`, `QuantumSim.lean`, `UniversalSomaticField.lean`, `EmotionOntology.lean`, and `FieldProofs.lean`. The important reading for a software engineer is not "the corpus is proved". It is that each theorem has a dependency shape. Some proofs are by definition or `rfl`; some are arithmetic; some use imported libraries; some depend on explicit axioms; five real `sorry`s remain across the proof surface. That dependency shape is what a serious verification culture should expose.
+  lines:
+  - 41
+  kind: internal-count
+  finding: 'the Lean layer paragraph lists six proof-surface files: SwarmPropagator, LimbicHopfield, QuantumSim, UniversalSomaticField, EmotionOntology, and FieldProofs'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: CS2
+  quote: From a software-engineering standpoint, the architecture can be written as five interfaces. `StateSpace` owns dimensions, units, bounds, and observables. `EnergyLandscape` owns $H$, $W$, barriers, and attractor definitions. `Propagator` owns $G$, boundary conditions, storage, update cost, and validity regime. `EvidenceRecord` owns theorem names, files, labels, and failure modes. `Renderer` owns user-visible presentation. The repository is not yet organised exactly in those interfaces, but much of its content already falls into them `interpretive`.
+  lines:
+  - 59
+  - 61
+  - 63
+  - 65
+  - 67
+  - 69
+  kind: internal-count
+  finding: 'the architecture section states five interfaces/responsibilities: StateSpace, EnergyLandscape, Propagator, EvidenceRecord, and Renderer'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: CS3
+  quote: 'The experimental validation paper places four models side by side: Hopfield 1982 with sign activation, Krotov and Hopfield''s dense-associative/polynomial variant [@krotov2016dense], Hopfield 2020 with softmax attention, and the Field-Modulated Hopfield Network. The benchmark task is a stylised basin-crossing from startle or fear toward musical awe. The reported qualitative result is that the classical models settle into the wrong attractor while the FM-HN reaches the target through a WKB-like gate `simulated`. The exact task is small and stylised; the important computing point is the model comparison protocol, not a general performance claim.'
+  lines:
+  - 111
+  kind: internal-count
+  finding: the experimental-validation summary lists four Hopfield/FMHN benchmark models
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: CS4
+  quote: The break-even theorem is equally important. `breakeven_at_N` says the costs are equal at $K=N$. `classical_wins_single_round` says classical cost for $K=1$ is lower than the dense propagator cost when $1<N$. These two theorems prevent a misleading reading. The propagator wins only when the comparison baseline needs enough rounds. The paper's engineering value is therefore not "field methods always beat message passing". It is "if convergence is slow enough, precomputed dense response can be cheaper than repeated local rounds" `kernel-verified`.
+  lines:
+  - 151
+  kind: ledger
+  finding: towers.json records propagator_beats_classical, breakeven_at_N, and classical_wins_single_round as non-sorry theorems, matching the book's account of the three swarm cost theorems
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  ledger: bld/sherlock/towers.json
+  disposition: none
+- id: CS5
+  quote: The repository root pins `leanprover/lean4:v4.33.0`; `lakefile.toml` directly requires Mathlib and physlib at v4.33.0 and OSforGFF at a pinned commit, with one small compatibility patch recorded in the repository. Those are build-configuration facts, not proof results. The proof surface therefore has to be read as dependency information. `SwarmPropagator.lean` contains arithmetic cost theorems and an axiom for global optimality. `LimbicHopfield.lean` contains algebraic theorems about temperature and weight modulation. `QuantumSim.lean` contains a small WKB-gate reachability theorem for a two-state abstraction and theorem `quant_exp_1_awe_reachable` derived from it. `UniversalSomaticField.lean` contains scale and threshold definitions. `FieldAxioms.lean` is explicitly an axiom registry with twenty `axiom` declarations. The repository also has five real `sorry`s in three files, so whole-programme "no sorries" language would be wrong.
+  lines:
+  - 191
+  kind: ledger
+  finding: true of the source (five `sorry` markers, in BRECVEMAVariational 2, DyadicField 2, SomaNetwork 1) but incomplete as a measure, since the Lean export (towers.json) shows 20 declarations resting on sorry, including ScaleUniverse's, which depend on one transitively; the sentence should say both
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  ledger: bld/sherlock/towers.json
+  disposition: open
+- id: CS6
+  quote: 'The Soma Field Operator implements a parallel architecture in the visual layer. It is a Three.js app with modules for theory atlas entries, cheat-sheet registries, scale morphisms, zoom implementations, scene coverage, and runtime rendering. Its README states that new hard-coded theory, publication, scale, route, equation, G-ID, or claim tables should not be added to JavaScript. Authority remains outside the bundle: `Dist/PAPERS.yaml` owns publication metadata and G-IDs; `operator-theory.yaml` owns routes, visual contracts, scale transitions, and claim boundaries; paper Markdown and Lean proofs own scientific prose, equations, and proof status.'
+  lines:
+  - 199
+  kind: internal-count
+  finding: 'the Operator authority paragraph names three external sources of theory authority: Dist/PAPERS.yaml, operator-theory.yaml, and paper Markdown/Lean proofs'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+

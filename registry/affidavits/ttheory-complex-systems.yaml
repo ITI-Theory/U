@@ -1,0 +1,152 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-complex-systems
+document: BOOK-complex-systems
+title: '[T]-Theory: Complex Systems'
+source:
+  file: books/T-Theory/complex-systems/book-complex-systems.md
+  commit: 7ec7efa
+  sha256: db57d3dac4c1f1a39bcefef34502f36f40f1a36fc35446ed660c48335b88bcb4
+lean: []
+microtheories: {}
+claims:
+- id: X1
+  quote: 'This volume therefore has two tasks. First, it gives complex-systems readers a careful entrance into the embedded papers: the zoomable field architecture, geographic propagation, swarm coordination, Gestalt field dynamics, the foundational Soma-Field model, and the programme synthesis. Secondly, it states what would have to be true for the programme to graduate from suggestive cross-domain architecture to complex-systems theory: calibrated variables, explicit RG flows, measured exponents, competing null models, finite-size analysis, reproducible simulations, and domain-specific predictions that can fail `open-hypothesis`.'
+  lines:
+  - 49
+  kind: internal-count
+  finding: the introduction states two tasks for the volume and names the entrance into embedded papers and the evidence discipline
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 2
+  disposition: none
+- id: X2
+  quote: 'A useful complex-systems version would proceed in three layers. The first is descriptive: fit a field or network model at one scale. The second is predictive: use the fitted model to forecast behaviour at the same scale under new boundary conditions. The third is renormalising: derive or learn a transformation from one scale''s parameters to another scale''s effective parameters, then predict higher-scale observables without refitting them freely. Only the third would justify strong scale-invariance language `open-hypothesis`.'
+  lines:
+  - 71
+  kind: internal-count
+  finding: 'the complex-systems version proceeds in three layers: descriptive, predictive, and cross-scale/renormalisation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: X3
+  quote: 'A serious complex-systems book should say how the framework could fail. The first failure mode is triviality: if every system with a response can be called a USF instantiation, the claim loses content. To avoid triviality, the programme must require more than a loose propagator metaphor. It must demand matched operator form, specified boundary conditions, measurable observables, and predictions that would not be made by an unconstrained analogy `interpretive`.'
+  lines:
+  - 113
+  - 115
+  - 117
+  - 119
+  - 121
+  - 123
+  kind: internal-count
+  finding: 'the failure-mode section enumerates six modes: triviality, overfitting, scale slippage, theorem-status drift, category error, and intervention overclaim'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none
+- id: X4
+  quote: One particularly clean test would begin with a single domain rather than the whole universe. Choose a data-rich system, such as bird-flock perturbation data, linguistic feature diffusion, dyadic physiological synchrony, or multi-agent drone coordination. Define the state vector, kernel family, boundary conditions, and observables. Estimate parameters on training data. Pre-register predictions on held-out data. Compare with standard models. Only after such within-domain success should cross-scale claims be attempted `open-hypothesis`.
+  lines:
+  - 127
+  - 129
+  - 131
+  - 133
+  kind: internal-count
+  finding: 'the test section gives four tests: single-domain data, criticality, swarm propagator, and co-identification checklist'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: X5
+  quote: 'A minimal measurement table would have seven columns: claim, system, state variable, operator, observable, competing model, and disconfirmation. For the dialect example, the observable could be feature frequency by locality and cohort; the competing models could be isotropic diffusion, mobility-network contagion, and sociolinguistic covariates. For active matter, the observable could be velocity-correlation response after perturbation; competitors could be Vicsek/Toner-Tu variants. For dyadic physiology, the observable could be lagged cross-correlation, phase locking, or recovery after a stressor; competitors could be ordinary coupled oscillator or state-space models. For swarm engineering, the observable could be coordination error under communication limits `interpretive`.'
+  lines:
+  - 194
+  kind: internal-count
+  finding: 'the measurement table is stated to have seven columns: claim, system, state variable, operator, observable, competing model, and disconfirmation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 7
+  disposition: none
+- id: X6
+  quote: 'A robust experimental pipeline could start with simulation. Simulations are not second-class; they are where assumptions become executable. The QUANT-EXP-1 result is useful because it states a landscape, dynamics, and outcome in a finite model. Similar simulations could be built for dialect diffusion, active-matter perturbations, dyadic synchrony, and swarm coordination. But simulation should be labelled `simulated`, and success in simulation should be followed by sensitivity analysis: how much depends on parameter choice, initial condition, noise, network topology, and threshold convention? `simulated`.'
+  lines:
+  - 200
+  - 202
+  - 204
+  - 206
+  kind: internal-count
+  finding: 'the experimental pipeline has four layers: simulation, data fitting, cross-scale prediction, and adversarial audit'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: X7
+  quote: 'For teaching, this gives the volume a simple classroom use. Assign one embedded paper and ask students to build the operator table: variables, kernel, boundary conditions, observables, baseline models, and evidence label. Then ask which part of the paper would survive if the universal ontology were removed. The exercise usually leaves a substantial residue: a model of propagation, an attractor landscape, a formal theorem, a simulation, or a falsification protocol. That residue is the scientifically portable part of the programme.'
+  lines:
+  - 349
+  kind: internal-count
+  finding: 'the classroom operator table asks for six entries: variables, kernel, boundary conditions, observables, baseline models, and evidence label'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+  disposition: none

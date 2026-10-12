@@ -1,0 +1,135 @@
+# Sherlock affidavit: [T]-Theory domain book. Schema: sherlock/registry.py.
+id: ttheory-geophysics
+document: BOOK-geophysics
+title: '[T]-Theory: Geophysics'
+source:
+  file: books/T-Theory/geophysics/book-geophysics.md
+  commit: 7ec7efa
+  sha256: cb6c64e28b0eb0b52a60bab3bbec81dbc5ca98e122f618cd45c18818e80e9f68
+lean: []
+microtheories: {}
+claims:
+- id: G1
+  quote: The book's answer is deliberately tiered. At the first tier, the contact is ordinary mathematics. The elastodynamic Green's tensor $G_{ij}(x,t;x',t')$ is the displacement in direction $i$ at $x,t$ caused by an impulsive unit force in direction $j$ at $x',t'$, subject to the medium's density, elastic moduli, attenuation, anisotropy, interfaces, and boundary conditions. This is a genuine equation-level contact with the programme's master propagator `derived-under-assumptions`. A seismologist does not need a new ontology to recognise it.
+  lines:
+  - 43
+  - 45
+  - 47
+  kind: internal-count
+  finding: 'the introduction says the geological answer is tiered and gives three tiers: standard mathematics, stress-landscape co-identification, and WKB-like nucleation'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: G2
+  quote: '## Source, path, site: three places for co-identification to fail'
+  lines:
+  - 144
+  - 146
+  kind: internal-count
+  finding: the source-path-site section names three places where co-identification can fail
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
+- id: G3
+  quote: The first proposed test concerns WKB-like nucleation in controlled systems. Natural earthquakes are difficult because the state is poorly observed and recurrence is slow. Laboratory stick-slip experiments, biaxial fault apparatus, rotary shear, and acoustic-emission monitored rock failure offer better initial targets. There one can control normal stress, loading rate, pore pressure, roughness, temperature, and material; record acoustic emissions; image deformation; and observe repeated failures. A reaction coordinate $q$ could be learned from the experiment, and an action-like variable could be tested against failure probability. Success in the lab would not prove natural prediction, but failure in the lab would be informative.
+  lines:
+  - 287
+  - 289
+  - 291
+  - 293
+  - 295
+  - 297
+  - 299
+  - 301
+  kind: internal-count
+  finding: the proposed geological test suite enumerates eight tests, from controlled WKB-like nucleation to basin/topographic Green functions
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 8
+  disposition: none
+- id: G4
+  quote: 'A revised version of the anchor paper could become highly useful by adding four tables: standard seismological object, [T]-Theory object, evidence label, and test. For example, seismic Green''s tensor maps cleanly to propagator; locked-patch stability maps provisionally to attractor basin; rate-state variable maps to memory coordinate; b-value maps to critical exponent only as an open target. Such a table would let Earth scientists engage the claims without first accepting the wider metaphysics.'
+  lines:
+  - 369
+  kind: internal-count
+  finding: 'the revised anchor-paper proposal calls for four tables: standard seismological object, [T]-Theory object, evidence label, and test'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 4
+  disposition: none
+- id: G5
+  quote: The strongest conclusion is therefore not that [T]-Theory has derived earthquake prediction. It has not. The strongest conclusion is that geophysics offers one of the programme's best tests because the propagator is already real in the field's mathematics `derived-under-assumptions`. A seismic Green's tensor is an impulse response. A site-response function is boundary-conditioned propagation. A tomographic sensitivity kernel is a response of data to structure. An ambient-noise correlation can approximate an interstation Green's function. These are not borrowed metaphors. They are points where the programme must match an existing technical discipline.
+  lines:
+  - 427
+  - 429
+  - 431
+  - 433
+  - 435
+  kind: internal-count
+  finding: the conclusion section gives five conclusions about earthquake prediction, energy landscapes, WKB, Gutenberg-Richter/Omori, and geological memory
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 5
+  disposition: none
+- id: G6
+  quote: The practical research path is staged. First, translate the programme's variables into rate-and-state, fracture, and elastic language. Second, test rare-transition action laws in laboratory stick-slip and acoustic-emission systems. Third, test induced-seismicity catalogues where forcing is partly known. Fourth, examine b-value, Omori, and aftershock-kernel predictions against strict null models. Fifth, attempt natural tectonic applications only when the smaller systems have constrained the parameters. Sixth, publish failures as carefully as successes. A programme that claims universality should welcome hard local tests.
+  lines:
+  - 437
+  kind: internal-count
+  finding: 'the practical research path is staged in three steps: translation, laboratory tests, and induced-seismicity tests'
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 3
+  disposition: none
