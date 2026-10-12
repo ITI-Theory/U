@@ -54,7 +54,7 @@ $$T_\text{slip} = \frac{2\pi}{\sqrt{\Delta\omega^2 - 4\kappa^2}},$$ {#eq:groups-
 
 which is longer than the uncoupled beat period $2\pi/\Delta\omega$ and grows without limit as the threshold is approached: critical slowing down again (Chapters [-@ch:cells] and [-@ch:human]).
 
-::: {.example #ex:groups-walkers title="Two walkers"}
+::: {.example #ex:groups-walkers title="Two walkers" show="q=dyad-fall-into-step"}
 Two people walking side by side have natural step rates of $1.9$ and $2.0$ steps per second. Each adjusts towards the other's timing with $\kappa = 0.40\,\mathrm{rad\,s^{-1}}$. Do they fall into step, and if so with what lag?
 
 **Strategy.** Compute $\Delta\omega$, compare with $2\kappa$, then find $\varphi^\ast$.
@@ -64,7 +64,7 @@ Two people walking side by side have natural step rates of $1.9$ and $2.0$ steps
 **Significance.** Locking does not require identical rhythms, only coupling strong enough to bridge the difference. The price of the difference is a lag: the closer the pair is to the threshold, the larger the lag, reaching a quarter cycle ($90^\circ$) exactly at threshold.
 :::
 
-::: {.example #ex:groups-just-too-weak title="Just too weak"}
+::: {.example #ex:groups-just-too-weak title="Just too weak" show="level=dyad&lens=on&dim=11"}
 For the walkers of @ex:groups-walkers, the coupling drops to $\kappa = 0.20\,\mathrm{rad\,s^{-1}}$. How often do they slip out of step, and how does that compare with no coupling at all?
 
 **Strategy.** Apply the slip-period formula.
@@ -108,7 +108,7 @@ Synchrony appears through the crowd as a whole, not pair by pair. Each oscillato
 
 ![The order parameter $r$ against coupling $K$ for a crowd with critical coupling $K_c = 1$. The curve is Kuramoto's exact result; the dots are a simulation of 2000 oscillators, which follows it closely above $K_c$ and stays near zero below it.](figures/generated/ch06-kuramoto.png){width="100%"}
 
-::: {.example #ex:groups-much-order title="How much order?"}
+::: {.example #ex:groups-much-order title="How much order?" show="q=crowd-mood"}
 A population has natural frequencies spread with half-width $\gamma = 0.5\,\mathrm{rad\,s^{-1}}$. Find $K_c$, and the order parameter at $K = 1.5$ and $K = 2.0\,\mathrm{rad\,s^{-1}}$.
 
 **Strategy.** $K_c = 2\gamma$; then $r = \sqrt{1 - K_c/K}$.
@@ -156,7 +156,7 @@ $$H(\mathbf a, \mathbf b) = H(\mathbf a) + H(\mathbf b) - \mathbf a^{\mathsf T}J
 
 for symmetric $J$. If $J$ couples each mode of A to the same mode of B with positive strength, the last term is negative whenever the two people are active in the same modes and positive when they are active in opposite ones. Coupling deepens the valleys in which the two states match and raises the ridges between mismatched ones. The two landscapes become one landscape in twice as many dimensions, but the two state vectors stay distinct: coupling correlates two systems, it does not merge them.
 
-::: {.example #ex:groups-shared-calm title="Shared calm"}
+::: {.example #ex:groups-shared-calm title="Shared calm" show="level=dyad&lens=on&dim=8"}
 In the programme's dyadic model, the coupling links Safety to Safety with $J = 0.30$ and Awe to Awe with $0.35$ (in model units). Two people both have Safety $0.8$ and Awe $0.5$, and zero in the other modes. How much does the coupling lower their combined energy? What if one of them has Safety $-0.8$ instead?
 
 **Strategy.** The coupling term is $-\sum_i J_{ii}a_ib_i$ for this diagonal $J$.

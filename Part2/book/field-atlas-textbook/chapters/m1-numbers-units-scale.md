@@ -32,7 +32,7 @@ To multiply two numbers in scientific notation, multiply the front parts and add
 
 The line in @fig:m-scale-sizes is a **logarithmic scale**: moving one tick to the right multiplies the size by ten. On an ordinary ruler with the person at one centimetre, the Earth would sit about seventy kilometres away and the atom would be far too small to see. On the logarithmic line they are a short walk apart.
 
-::: {.example #ex:m-scale-atoms-across-cell title="Atoms across a red blood cell"}
+::: {.example #ex:m-scale-atoms-across-cell title="Atoms across a red blood cell" show="level=cellular-synaptic&lens=off"}
 A red blood cell is about $8 \times 10^{-6}\,\mathrm{m}$ across, and a hydrogen atom $1.06 \times 10^{-10}\,\mathrm{m}$. How many atoms would fit side by side across the cell?
 
 **Strategy.** Divide the two sizes: front parts divided, exponents subtracted.
@@ -66,7 +66,7 @@ The units cancel like algebra, which is the easiest way to see that the factors 
 
 Every quantity has a **dimension**: what kind of thing it measures, whatever the unit. Speed has dimensions of length divided by time, written $[v] = \mathrm{L\,T^{-1}}$; energy has $[E] = \mathrm{M\,L^2\,T^{-2}}$. An equation can be right only if both sides have the same dimensions. This check, **dimensional analysis**, catches most algebra slips in one line. It does more: it can predict how a quantity depends on the others before any equation is solved.
 
-::: {.example #ex:m-scale-pendulum-dimensions title="A pendulum from dimensions alone"}
+::: {.example #ex:m-scale-pendulum-dimensions title="A pendulum from dimensions alone" show="level=human-vertebrate&lens=off"}
 A pendulum's period $T$ might depend on its length $L$, the mass $m$ of its bob, and the gravitational acceleration $g = 9.81\,\mathrm{m\,s^{-2}}$. Find the only combination with the dimensions of time, and evaluate it for $L = 1.00\,\mathrm{m}$.
 
 **Strategy.** Write $T \propto L^a m^b g^c$ and match the powers of M, L and T on both sides.
@@ -116,7 +116,7 @@ $$L = 10\,\log_{10}\frac{I}{I_0}\ \mathrm{dB}.$$
 
 A conversation at $10^{-6}\,\mathrm{W\,m^{-2}}$ is $60\,\mathrm{dB}$; doubling the intensity adds only $10\log_{10}2 = 3.01\,\mathrm{dB}$.
 
-::: {.example #ex:m-scale-earthquake-energy title="How much bigger is a bigger earthquake?"}
+::: {.example #ex:m-scale-earthquake-energy title="How much bigger is a bigger earthquake?" show="level=geological&lens=on"}
 An earthquake's energy grows by a factor $10^{1.5}$ for each unit of moment magnitude. The 2004 Sumatra–Andaman earthquake had magnitude $9.1$. How many times more energy did it release than a magnitude $6.1$ earthquake that damages a town?
 
 **Strategy.** Three magnitude units means three factors of $10^{1.5}$; multiply them by adding exponents.
@@ -140,7 +140,7 @@ How many factors of ten separate a hydrogen atom ($1.06 \times 10^{-10}\,\mathrm
 
 Many questions need only an answer good to a factor of two or three: is an effect important, is a field description possible, is a claim even plausible? An **order-of-magnitude estimate** answers them by breaking the quantity into factors that can each be guessed, then multiplying. The method is often named after the physicist Enrico Fermi, who used it constantly. The individual guesses are rough, but their errors tend to cancel, and the answer is usually within a factor of a few of the truth.
 
-::: {.example #ex:m-scale-atoms-in-person title="How many atoms are in a person?"}
+::: {.example #ex:m-scale-atoms-in-person title="How many atoms are in a person?" show="level=human-vertebrate&lens=off"}
 Estimate the number of atoms in a $70\,\mathrm{kg}$ person.
 
 **Strategy.** The body is mostly water, $\mathrm{H_2O}$: three atoms sharing a mass of $18$ atomic mass units, about $6\,\mathrm{u}$ per atom. One atomic mass unit is $1.66 \times 10^{-27}\,\mathrm{kg}$.
@@ -182,7 +182,7 @@ with $M$ the body mass. The exponent $3/4$ is neither the $2/3$ of pure surface 
 
 {{Visualize | eq:m-scale-kleiber | function-plot:neural | f="3.4*x^0.75"; name="Kleiber, slope 3/4"; f2="3.4*x"; name2="proportional to mass, slope 1"; x=[0.01,10000]; logx=true; logy=true; xlabel="body mass (kg)"; ylabel="resting power (W)"; label=fig:m-scale-kleiber; height=30% }} Kleiber's law on log–log axes. Both laws are straight lines; the shallower slope of $3/4$ means that, per kilogram, a large animal burns energy more slowly than a small one.
 
-::: {.example #ex:m-scale-mouse-human title="A mouse and a person"}
+::: {.example #ex:m-scale-mouse-human title="A mouse and a person" show="level=human-vertebrate&lens=off"}
 Use @eq:m-scale-kleiber to compare the resting power of a $70\,\mathrm{kg}$ person and a $25\,\mathrm{g}$ mouse, in total and per kilogram.
 
 **Strategy.** Evaluate $M^{3/4}$ with logarithms or a calculator, then divide by the mass.

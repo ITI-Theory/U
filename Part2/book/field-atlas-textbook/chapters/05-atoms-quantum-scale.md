@@ -28,7 +28,7 @@ $$hc = 1240\,\mathrm{eV\,nm}.$$
 
 A photon's energy in electronvolts is therefore $1240$ divided by its wavelength in nanometres. Visible light, from $700\,\mathrm{nm}$ (red) to $380\,\mathrm{nm}$ (violet), spans $1.8$ to $3.3\,\mathrm{eV}$. That is a hundred times the thermal energy $k_BT \approx 0.026\,\mathrm{eV}$ of a molecule at room temperature, which is why a room-temperature object does not glow but can be bleached, tanned or photographed by light that carries only a few electronvolts per packet.
 
-::: {.example #ex:atoms-photons-laser-pointer title="Photons from a laser pointer"}
+::: {.example #ex:atoms-photons-laser-pointer title="Photons from a laser pointer" show="level=atomic&lens=off"}
 A red laser pointer emits $1.0\,\mathrm{mW}$ at $633\,\mathrm{nm}$. Find the energy of one photon in eV and in joules, and the number of photons leaving the pointer each second.
 
 **Strategy.** Use $E = 1240/\lambda$ for the photon energy, convert to joules, and divide the power by the energy per photon.
@@ -66,7 +66,7 @@ $$hf = E_{n_i} - E_{n_f} = 13.6\,\mathrm{eV}\left(\frac{1}{n_f^2} - \frac{1}{n_i
 
 The same photon, absorbed, lifts the electron back up. The visible lines are the **Balmer series**, the jumps that end on $n_f = 2$. Jumps ending on $n_f = 1$ release more energy and form the **Lyman series** in the ultraviolet. Each element has its own set of levels and therefore its own pattern of lines, a fingerprint that can be read from a lamp in a laboratory or from a star a thousand light-years away.
 
-::: {.example #ex:atoms-red-line-hydrogen title="The red line of hydrogen"}
+::: {.example #ex:atoms-red-line-hydrogen title="The red line of hydrogen" show="level=atomic&lens=on&compare=1"}
 Find the energy and wavelength of the photon emitted in the jump from $n = 3$ to $n = 2$, and compare with the measured wavelength, $656.28\,\mathrm{nm}$ in air.
 
 **Strategy.** Compute the energy difference, then $\lambda = 1240/E$ with more figures than usual, since the comparison is precise.
@@ -100,7 +100,7 @@ $$\lambda = \frac{1.226\,\mathrm{nm}}{\sqrt{E/\mathrm{eV}}}.$$ {#eq:atoms-electr
 
 An electron of a few electronvolts therefore has a wavelength of about a nanometre, comparable with the size of atoms, and that is exactly where wave effects should show. In 1927 Davisson and Germer fired electrons at a nickel crystal and found that they bounced off strongly only at particular angles, the signature of diffraction from the regular rows of atoms.
 
-::: {.example #ex:atoms-electrons-diffracting-nickel title="Electrons diffracting from nickel"}
+::: {.example #ex:atoms-electrons-diffracting-nickel title="Electrons diffracting from nickel" show="level=atomic&lens=off"}
 Davisson and Germer used $54\,\mathrm{eV}$ electrons. The surface rows of their nickel crystal are $d = 0.215\,\mathrm{nm}$ apart. Find the electron wavelength and the angle at which the first diffraction peak should appear, using $d\sin\theta = \lambda$.
 
 **Strategy.** Compute $\lambda$ from the energy, then solve the grating condition for $\theta$.
@@ -148,7 +148,7 @@ where the energy is $E(a_0) = -ke^2/2a_0 = -13.6\,\mathrm{eV}$. The estimate lan
 
 ![Left: the confinement cost and the Coulomb gain, and their sum, which has its minimum at $a_0$ with energy $-13.6\,\mathrm{eV}$. Right: the probability of finding the ground-state electron at each radius, which peaks at the same $a_0$.](figures/generated/ch03-hydrogen.png){width="100%"}
 
-::: {.example #ex:atoms-price-squeezing title="The price of squeezing"}
+::: {.example #ex:atoms-price-squeezing title="The price of squeezing" show="level=quantum-foam&lens=off"}
 Estimate the confinement energy $\hbar^2/2mL^2$ of an electron held within $L = 0.1\,\mathrm{nm}$, a typical atomic size. Repeat for a proton held within a nucleus, $L = 5\,\mathrm{fm}$, using $m_pc^2 = 938.3\,\mathrm{MeV}$ and $\hbar c = 197.3\,\mathrm{MeV\,fm}$.
 
 **Strategy.** Write the energy as $(\hbar c)^2/2mc^2L^2$ so that the units are energies and lengths.
@@ -180,7 +180,7 @@ A tuning fork has $Q \approx 1000$, the ringing Earth about 500. Atoms are the s
 
 **Strength: population.** A line is strong only if many atoms sit in the level it starts from. In thermal equilibrium the fraction in a higher level falls as $e^{-\Delta E/k_BT}$, so the strength of a line is a thermometer.
 
-::: {.example #ex:atoms-line-moving-planet title="The line from a moving planet"}
+::: {.example #ex:atoms-line-moving-planet title="The line from a moving planet" show="level=orbital-system&lens=off"}
 The Earth orbits the Sun at $30\,\mathrm{km\,s^{-1}}$. Find the largest Doppler shift of the red hydrogen line, $656.3\,\mathrm{nm}$, in light from a source fixed in the sky in the plane of the Earth's orbit, as the Earth moves towards it and away from it during the year.
 
 **Strategy.** Apply $\Delta\lambda = \lambda v/c$.

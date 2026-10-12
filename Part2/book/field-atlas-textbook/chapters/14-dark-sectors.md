@@ -30,7 +30,7 @@ $$v^2(r) = \frac{GM_{\mathrm{disc}}}{r} + v_\infty^2\left(1 - \frac{r_c}{r}\arct
 
 {{Visualize | eq:dark-rotation-model | function-plot:cosmic | f1="sqrt(259200/r)"; name1="visible disc alone"; f2="170*sqrt(1 - (5/r)*arctan(r/5))"; name2="dark halo alone"; f3="sqrt(259200/r + 170^2*(1 - (5/r)*arctan(r/5)))"; name3="disc + halo"; var=r; x=[2,40]; y=[0,400]; legend=below; xlabel="distance from the centre (kpc)"; ylabel="orbital speed (km/s)"; label=fig:dark-rotation; height=32% }} A model rotation curve for a galaxy like the Milky Way. The visible disc alone would give speeds falling as $1/\sqrt{r}$; adding a dark halo whose mass grows with radius keeps the curve nearly flat, as observed.
 
-::: {.example #ex:dark-milky-way-mass title="Weighing the Milky Way"}
+::: {.example #ex:dark-milky-way-mass title="Weighing the Milky Way" show="level=galactic-halo&lens=on"}
 The Sun orbits the centre of the Milky Way at $230\,\mathrm{km\,s^{-1}}$, $8.2\,\mathrm{kpc}$ out. How much mass lies inside its orbit? Use $G = 4.30 \times 10^{-6}\,\mathrm{kpc\,(km\,s^{-1})^2}\,M_\odot^{-1}$, which measures masses in Suns.
 
 **Strategy.** Use @eq:dark-orbit-mass in these units.
@@ -62,7 +62,7 @@ Light grazing the Sun is bent by $1.75$ seconds of arc, as Eddington's eclipse e
 
 The most quoted example is the **Bullet Cluster**, two clusters that collided about a hundred and fifty million years ago. Their hot gas, which holds most of the ordinary matter, collided and was slowed, glowing in X-rays between them. The lensing map shows most of the mass well ahead of the gas, moving with the galaxies, which passed through each other almost untouched. Whatever carries most of the mass does not collide like gas: a strong constraint on any explanation that ties gravity to visible matter alone.
 
-::: {.example #ex:dark-cluster-lens title="A cluster as a lens"}
+::: {.example #ex:dark-cluster-lens title="A cluster as a lens" show="level=galaxy-cluster&lens=on"}
 A galaxy cluster of $10^{15}\,M_\odot$ bends the light of a background galaxy passing $500\,\mathrm{kpc}$ from its centre. Estimate the deflection, treating the cluster's mass as concentrated inside that distance. Use $GM_\odot = 1.327 \times 10^{20}\,\mathrm{m^3\,s^{-2}}$ and $1\,\mathrm{kpc} = 3.086 \times 10^{19}\,\mathrm{m}$.
 
 **Strategy.** Apply @eq:dark-deflection in SI units.
@@ -94,7 +94,7 @@ while a universe of matter alone would grow as $a = (\tfrac{3}{2}H_0 t)^{2/3}$, 
 
 {{Visualize | eq:dark-scale-factor | function-plot:cosmic | f1="(Om/OL)^(1/3)*sinh(1.5*sqrt(OL)*x)^(2/3)"; name1="matter and dark energy"; f2="(1.5*x)^(2/3)"; name2="matter only"; Om=0.315; OL=0.685; x=[0,2]; y=[0,2.5]; hline=1; vline="0.951, 0.667"; legend=below; xlabel="time since the big bang, $H_0 t$"; ylabel="size of the universe $a(t)$"; label=fig:dark-scale-factor; height=30% }} The growth of the universe with and without dark energy, for the same expansion rate today. With dark energy the curve bends upwards (acceleration) and today ($a = 1$) is reached later: the universe is older.
 
-::: {.example #ex:dark-age title="How old is the universe?"}
+::: {.example #ex:dark-age title="How old is the universe?" show="level=observable-universe&lens=off"}
 With $H_0 = 67.4\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, $1/H_0 = 14.5$ billion years. Find the age of a matter-only universe and of one with $\Omega_m = 0.315$, $\Omega_\Lambda = 0.685$.
 
 **Strategy.** For matter only, $a = 1$ when $H_0 t = 2/3$. For the mixture, solve @eq:dark-scale-factor for $a = 1$: $H_0 t_0 = \frac{2}{3\sqrt{\Omega_\Lambda}}\,\mathrm{arsinh}\sqrt{\Omega_\Lambda/\Omega_m}$.
@@ -130,7 +130,7 @@ A gap of $6.6$ standard deviations is far outside chance (@sec:m-chance-normal):
 
 The second measure is subtler. How surprising is it that *some* simple fraction lies near a measured number? There are only forty-seven fractions between zero and one with denominators up to twelve, but they are dense enough to be near almost anything.
 
-::: {.example #ex:dark-coincidence title="The odds of a near fraction"}
+::: {.example #ex:dark-coincidence title="The odds of a near fraction" show="q=dark-energy-origin"}
 Pick a number at random between $0.20$ and $0.30$. How often does it lie within $3.1\,\%$ of some fraction $p/q$ with $q \le 12$? How often within $3.1\,\%$ of an eleventh, $p/11$?
 
 **Strategy.** Check every number on a fine grid against every fraction; the verification script of this book does exactly this.

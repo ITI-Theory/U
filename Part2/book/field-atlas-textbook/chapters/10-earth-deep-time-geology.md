@@ -26,7 +26,7 @@ where $\lambda$ is the **decay constant** and $T_{1/2}$ the **half-life**, the t
 
 Each clock suits its own range. Carbon-14, with a half-life of $5730$ years, dates wood, bone and charcoal up to about $50\,000$ years old; beyond that too little remains to measure. Potassium-40 ($1.25$ billion years) and uranium-238 ($4.47$ billion years) date volcanic rocks and minerals across the whole history of the Earth. In 1956 Clair Patterson used the decay of uranium to lead in meteorites to measure the age of the Solar System, and with it the Earth: $4.54$ billion years, a value that has changed by less than one per cent since.
 
-::: {.example #ex:earth-dating-charcoal title="Dating charcoal"}
+::: {.example #ex:earth-dating-charcoal title="Dating charcoal" show="level=geological&lens=off"}
 Charcoal from an ancient hearth contains $30\,\%$ of the carbon-14 found in living wood. How old is it? What age would $25\,\%$ give?
 
 **Strategy.** Solve $2^{-t/T_{1/2}} = f$ for $t$: $t = T_{1/2}\log_2(1/f)$.
@@ -54,7 +54,7 @@ The Earth's outer shell is broken into a dozen large **plates**, each about $100
 
 The evidence is direct. As new ocean floor cools at a ridge it records the direction of the Earth's magnetic field, which reverses at irregular intervals; the ocean floor on both sides of every ridge carries the same symmetric stripes of reversed and normal magnetisation, like a tape recording played out in both directions. Satellite positioning now measures the motions year by year, and they agree with the speeds recorded in the stripes over millions of years.
 
-::: {.example #ex:earth-opening-ocean title="Opening an ocean"}
+::: {.example #ex:earth-opening-ocean title="Opening an ocean" show="level=planetary&lens=off"}
 The central Atlantic, between North America and north-west Africa, has been widening at an average of about $2.5\,\mathrm{cm}$ per year since it began to open, roughly $180$ million years ago. How wide should it be?
 
 **Strategy.** Convert to kilometres per year and multiply by the time.
@@ -82,7 +82,7 @@ $$\tau = C + \mu\,(\sigma_n - P_f),$$
 
 where $\sigma_n$ is the stress pressing the two sides together, $P_f$ is the pressure of fluid in the pores, which pushes them apart, $C$ is a small cohesion and $\mu$ is the friction coefficient, about $0.6$ to $0.85$ for most rocks. The fluid term solved a long-standing puzzle about Glarus. A slab of rock tens of kilometres long seemed far too strong to push over its base without crumbling. In 1959 Hubbert and Rubey showed that water at high pressure in the fault zone can carry most of the weight of the overlying rock, cutting the friction to a fraction of its dry value.
 
-::: {.example #ex:earth-water-weakens-fault title="Why water weakens a fault"}
+::: {.example #ex:earth-water-weakens-fault title="Why water weakens a fault" show="q=rock-memory"}
 At $3\,\mathrm{km}$ depth, rock of density $2700\,\mathrm{kg\,m^{-3}}$ presses on a fault. Taking $\mu = 0.6$ and neglecting $C$, find the shear strength when the pore water is at ordinary (hydrostatic) pressure and when it reaches $90\,\%$ of the rock's weight.
 
 **Strategy.** $\sigma_n = \rho gz$; hydrostatic $P_f = \rho_wgz$; then apply the criterion.
@@ -122,7 +122,7 @@ so each step of one magnitude unit is ten times rarer. Each unit also releases a
 
 The largest earthquakes do more than shake the ground near them. @ch:response described how the 2004 Sumatra earthquake set the whole Earth ringing in its free oscillations, the slowest of which, ${}_0S_2$, has a period of $54$ minutes and a quality factor of about $500$, so it rings for days [@dahlen1998theoretical; @park2005earth]. Seismic waves travelling through the interior are the main evidence for the Earth's structure: a liquid outer core, which shear waves cannot cross, and a solid inner core inside it. The planet is read through its response to kicks, as every system in this book is.
 
-::: {.example #ex:earth-great-earthquake-large title="A great earthquake and a large one"}
+::: {.example #ex:earth-great-earthquake-large title="A great earthquake and a large one" show="level=geological&lens=on"}
 Compare a magnitude 9 earthquake with a magnitude 7 in energy released and in how often each occurs.
 
 **Strategy.** Energy scales as $10^{1.5\Delta M}$, frequency as $10^{-b\Delta M}$ with $b = 1$.
@@ -156,7 +156,7 @@ Albedo is not fixed. Ice and snow reflect far more sunlight than ocean and land,
 
 Parts of today's climate system may have their own smaller double wells: the Greenland and West Antarctic ice sheets, the overturning circulation of the Atlantic, the Amazon rainforest. Lenton and colleagues called these **tipping elements**, parts of the system that a modest change could switch into a different state that is hard to reverse [@lenton2008tipping]. The early-warning signals of @ch:human, rising autocorrelation and variance as a valley flattens, have been found in records before several abrupt climate changes of the past [@scheffer2009early], and are now monitored in some present-day systems. The limits stated in @ch:human apply: the signals indicate a flattening valley, not a date.
 
-::: {.example #ex:earth-whiter-earth title="A whiter Earth"}
+::: {.example #ex:earth-whiter-earth title="A whiter Earth" show="level=planetary&lens=off"}
 Find the effective radiating temperature if the Earth's albedo rose from $0.30$ to $0.62$, as for a planet largely covered in ice. Use $\sigma = 5.67\times10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}$.
 
 **Strategy.** Substitute into $T_\text{eff}$.

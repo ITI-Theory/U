@@ -50,7 +50,7 @@ The long S is Leibniz's, chosen to mean "sum", and $dx$ is the thin width that $
 
 {{Visualize | eq:m-acc-riemann | area-under:generic | f="x^2"; x=[0,1.15]; from=0; to=1; n=5; rule=mid; expect_area=1/3; expect_sum=0.33; label=fig:m-acc-riemann; height=30% }} Five midpoint strips under $y = x^2$ between $0$ and $1$. Their total, $0.330$, is already within one per cent of the exact area, $1/3$.
 
-::: {.example #ex:m-acc-area-parabola title="Area under a parabola"}
+::: {.example #ex:m-acc-area-parabola title="Area under a parabola" show="level=orbital-system&lens=off"}
 Estimate $\int_0^1 x^2\,dx$ with five strips, using the midpoint of each strip, and compare with the exact value $1/3$.
 
 **Strategy.** The strips are $0.2$ wide with midpoints $0.1, 0.3, 0.5, 0.7, 0.9$. Add $f(x_i)\,\Delta x$.
@@ -84,7 +84,7 @@ $$\int x^n\,dx = \frac{x^{n+1}}{n+1} \ (n \neq -1), \qquad \int e^{-t/\tau}\,dt 
 
 For the parabola, $F = x^3/3$, so $\int_0^1 x^2\,dx = \tfrac{1}{3} - 0 = \tfrac{1}{3}$ exactly, the value the strips were approaching.
 
-::: {.example #ex:m-acc-capacitor-charge title="Charge from a decaying current"}
+::: {.example #ex:m-acc-capacitor-charge title="Charge from a decaying current" show="level=cellular-synaptic&lens=on&dim=4"}
 A capacitor of $100\,\mu\mathrm{F}$, charged to $9.0\,\mathrm{V}$, discharges through $10\,\mathrm{k}\Omega$. The current is $I(t) = (V_0/R)\,e^{-t/\tau}$ with $\tau = RC = 1.0\,\mathrm{s}$. How much charge flows in total, and how much in the first second?
 
 **Strategy.** Charge is the accumulated current, $Q = \int I\,dt$. Use the exponential antiderivative.
@@ -124,7 +124,7 @@ for a sine wave of amplitude $A$.
 
 {{Visualize | eq:m-acc-rms | area-under:wave | f="sin(x)^2"; x=[0,6.6]; from=0; to=2*pi; expect_area=pi; hline=0.5; xlabel="phase $t$ (radians)"; ylabel="$\sin^2 t$"; label=fig:m-acc-sin2; height=28% }} The square of a sine wave over one cycle. Its area is $\pi$ over a width $2\pi$, so its average is exactly one half (dotted line): the hills above the line fill the valleys below it.
 
-::: {.example #ex:m-acc-mains title="Mains voltage"}
+::: {.example #ex:m-acc-mains title="Mains voltage" show="level=society-city&lens=off"}
 European mains electricity is quoted as $230\,\mathrm{V}$. This is the RMS value. What is the peak voltage, and what average power does it deliver to a $53\,\Omega$ kettle element?
 
 **Strategy.** Invert @eq:m-acc-rms for the peak. Power in a resistor is $V^2/R$, so its average uses the mean of $V^2$, which is $V_{\mathrm{rms}}^2$.
@@ -162,7 +162,7 @@ $$\mathbf{F}(x, y) = \frac{(x, y)}{x^2 + y^2}$$ {#eq:m-acc-source-2d}
 
 {{Visualize | eq:m-acc-source-2d | vector-field:generic | u="x/(x^2+y^2)"; v="y/(x^2+y^2)"; x=[-2,2]; y=[-2,2]; n=16; circle=1.2; expect_flux=2*pi; expect_circulation=0; label=fig:m-acc-flux; height=36% }} A point source in a plane. The arrows weaken as $1/r$, but the flux out of the red circle is $2\pi$ whatever its radius: what the source sends out must cross every circle around it. Nothing circulates around the source.
 
-::: {.example #ex:m-acc-solar-constant title="Sunlight at the Earth"}
+::: {.example #ex:m-acc-solar-constant title="Sunlight at the Earth" show="level=orbital-system&lens=off"}
 The Sun radiates $L = 3.83 \times 10^{26}\,\mathrm{W}$. The Earth is $1.496 \times 10^{11}\,\mathrm{m}$ away. What is the intensity of sunlight at the Earth, above the atmosphere?
 
 **Strategy.** Spread the Sun's power over a sphere of radius one Earth–Sun distance, @eq:m-acc-inverse-square.

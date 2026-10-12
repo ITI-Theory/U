@@ -62,7 +62,7 @@ after $t$ seconds, with $g = 9.8\,\mathrm{m\,s^{-2}}$.
 
 {{Visualize | eq:m-change-fall | function-plot:generic | f="4.9*t^2"; var=t; x=[0,3]; tangent_at=2; expect_slope=19.6; xlabel="time $t$ (s)"; ylabel="distance fallen (m)"; label=fig:m-change-tangent; height=30% }} Distance fallen against time. The dashed tangent at $t = 2\,\mathrm{s}$ has slope $19.6\,\mathrm{m\,s^{-1}}$: the stone's speed at that instant. The slope grows steadily, because the stone accelerates.
 
-::: {.example #ex:m-change-falling-stone title="Speed of a falling stone"}
+::: {.example #ex:m-change-falling-stone title="Speed of a falling stone" show="level=planetary&lens=off"}
 Using @eq:m-change-fall, find the stone's velocity and acceleration after $2.0\,\mathrm{s}$.
 
 **Strategy.** Differentiate the position once for the velocity and again for the acceleration, using the power rule.
@@ -104,7 +104,7 @@ $$t_{1/2} = \tau \ln 2 = 0.693\,\tau.$$ {#eq:m-change-half-life}
 
 {{Visualize | eq:m-change-decay | function-plot:generic | f="exp(-t/tau)"; var=t; vary=tau:1,2,4; x=[0,10]; hline="0.5"; xlabel="time $t$"; ylabel="$N/N_0$"; label=fig:m-change-decay; height=30% }} Exponential decay for three time constants. Every curve starts at the same height and falls to half (dotted line) after $0.693\,\tau$; a larger $\tau$ stretches the same shape along the time axis.
 
-::: {.example #ex:m-change-carbon-dating title="Carbon dating"}
+::: {.example #ex:m-change-carbon-dating title="Carbon dating" show="level=geological&lens=off"}
 Carbon-14 has a half-life of $5730$ years. What fraction of the carbon-14 in a piece of wood remains after $10\,000$ years?
 
 **Strategy.** Find $\tau$ from @eq:m-change-half-life, then use @eq:m-change-decay.
@@ -134,7 +134,7 @@ Taking the natural logarithm of @eq:m-change-decay gives $\ln N = \ln N_0 - t/\t
 
 Growth can be counted in doublings. Ten doublings multiply by $2^{10} = 1024$, about a thousand; twenty by about a million; thirty by about a billion. This is why exponential growth always ends: no real resource keeps up with it for long.
 
-::: {.example #ex:m-change-bacteria title="A dividing colony"}
+::: {.example #ex:m-change-bacteria title="A dividing colony" show="level=cellular-synaptic&lens=off"}
 A bacterium in warm broth divides every $20$ minutes. Starting from one cell, how many are there after eight hours, if nothing runs out?
 
 **Strategy.** Count the doublings, then raise two to that power.
@@ -168,7 +168,7 @@ $$y(t) = y_\infty + \big(y_0 - y_\infty\big)\,e^{-t/\tau}.$$ {#eq:m-change-relax
 
 This **relaxation** is the simplest way a system responds to a disturbance and returns to rest. It is the first example in this course of a **response**, and @ch:response builds the whole response grammar from it and from its oscillating cousin (@ch:m-oscillation).
 
-::: {.example #ex:m-change-cooling-tea title="A cooling cup of tea"}
+::: {.example #ex:m-change-cooling-tea title="A cooling cup of tea" show="level=human-vertebrate&lens=off"}
 Tea at $90\,^\circ\mathrm{C}$ stands in a $20\,^\circ\mathrm{C}$ room and has cooled to $60\,^\circ\mathrm{C}$ after $10$ minutes. Find the time constant, and when it reaches $40\,^\circ\mathrm{C}$.
 
 **Strategy.** Use @eq:m-change-relax-solution with $y_\infty = 20$: the excess temperature falls from $70$ to $40$ in $10$ minutes.

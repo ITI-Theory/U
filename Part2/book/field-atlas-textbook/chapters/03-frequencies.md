@@ -32,7 +32,7 @@ $$\mathrm{square}(t) = \frac{4}{\pi}\left( \sin t + \frac{\sin 3t}{3} + \frac{\s
 
 {{Visualize | eq:freq-square | function-plot:wave | f1="4/pi*sin(t)"; name1="1 term"; f2="4/pi*(sin(t) + sin(3*t)/3 + sin(5*t)/5)"; name2="3 terms"; f3="4/pi*(sin(t) + sin(3*t)/3 + sin(5*t)/5 + sin(7*t)/7 + sin(9*t)/9 + sin(11*t)/11 + sin(13*t)/13 + sin(15*t)/15)"; name3="8 terms"; var=t; x=[0,12.6]; xlabel="time $t$"; label=fig:freq-square; height=30% }} Building a square wave from its odd harmonics. One sine is a rough sketch; three already show the flat tops; eight make sharp edges, with small overshoots at each jump that never quite go away.
 
-::: {.example #ex:freq-harmonics title="How loud is each harmonic?"}
+::: {.example #ex:freq-harmonics title="How loud is each harmonic?" show="level=human-vertebrate&lens=on"}
 In the square wave of @eq:freq-square, how strong are the third and fifth harmonics compared with the fundamental, in amplitude and in power (which goes as amplitude squared)?
 
 **Strategy.** Read the coefficients: $4/\pi$, $4/3\pi$, $4/5\pi$.
@@ -64,7 +64,7 @@ The integral compares the signal with a rotating phasor $e^{i\omega t}$ (@sec:m-
 
 The peaks in @fig:freq-string-spectrum have a width. A pure sine lasting for ever would give an infinitely sharp line; a sine that fades away has a spread of frequencies, and the faster it fades the broader its peak. The width of a spectral peak therefore measures how long the oscillation lasts, an idea made exact in @sec:freq-short-sharp.
 
-::: {.example #ex:freq-reading-chord title="Reading a chord"}
+::: {.example #ex:freq-reading-chord title="Reading a chord" show="level=human-vertebrate&lens=on"}
 A spectrum of a held chord shows strong peaks at $261.6$, $329.6$ and $392.0\,\mathrm{Hz}$. What are the frequency ratios, and which simple fractions are they close to?
 
 **Strategy.** Divide each frequency by the lowest.
@@ -108,7 +108,7 @@ Slow signals ($\omega\tau \ll 1$) pass almost unchanged; fast ones ($\omega\tau 
 
 {{Visualize | eq:freq-low-pass | function-plot:generic | f="1/sqrt(1 + (x/fc)^2)"; fc=159; x=[1,20000]; logx=true; logy=true; y=[0.005,1.5]; vline=159; xlabel="frequency (Hz)"; ylabel="gain $|H|$"; label=fig:freq-low-pass; height=28% }} Gain of a low-pass filter with $\tau = 1\,\mathrm{ms}$ on log–log axes. Below the corner frequency ($159\,\mathrm{Hz}$, dotted) signals pass; above it the gain falls by ten for every factor of ten in frequency, a straight line of slope $-1$ (@sec:m-scale-laws).
 
-::: {.example #ex:freq-rc-filter title="Taming a hiss"}
+::: {.example #ex:freq-rc-filter title="Taming a hiss" show="level=cellular-synaptic&lens=on&dim=4"}
 A circuit with $R = 10\,\mathrm{k}\Omega$ and $C = 100\,\mathrm{nF}$ filters an audio signal. Find its corner frequency, and the gain at $1\,\mathrm{kHz}$ and at $10\,\mathrm{kHz}$.
 
 **Strategy.** $\tau = RC$; then use @eq:freq-low-pass with $\omega = 2\pi f$.
@@ -144,7 +144,7 @@ The quality factor is the sharpness of the peak: the resonant frequency divided 
 
 {{Visualize | eq:freq-oscillator-h | function-plot:wave | f="1/sqrt((1 - x^2)^2 + (2*zeta*x)^2)"; vary=zeta:0.05,0.15,0.4; x=[0,2]; y=[0,11]; xlabel="driving frequency $\omega/\omega_0$"; ylabel="gain $|H|\,\omega_0^2$"; label=fig:freq-resonance; height=30% }} Resonance curves for three damping ratios. Light damping gives a tall, narrow peak near $\omega_0$; heavier damping a low, broad one. The peak height is about $Q$ and the width about $1/Q$.
 
-::: {.example #ex:freq-earth-mode title="Hearing the Earth ring"}
+::: {.example #ex:freq-earth-mode title="Hearing the Earth ring" show="level=planetary&lens=on"}
 The Earth's slowest free oscillation has a period of $53.9$ minutes and a quality factor of about $500$. What is its spectral width, and how long a seismogram is needed to resolve it?
 
 **Strategy.** $f_0 = 1/T$; then $\Delta f = f_0/Q$ from @eq:freq-q-width. Resolving a width $\Delta f$ needs a record of length about $1/\Delta f$ (@sec:freq-short-sharp).
@@ -176,7 +176,7 @@ The denominator is the characteristic polynomial of @sec:m-osc-damping. Where it
 
 The picture explains every rule of this chapter at once. A pole close to the axis (small $\gamma$) makes a tall, narrow peak, a long ringing and a high $Q$. A pole far from the axis makes a low, broad peak and a quick decay. The height of the pole above the real axis is the ringing frequency. And because the impulse response $G(t)$ is a sum of $e^{st}$ over the poles (the Going Further box in @sec:m-osc-damping), the same two numbers describe the system in time and in frequency. **Poles are the system.**
 
-::: {.example #ex:freq-reading-pole title="From a measured peak to a pole"}
+::: {.example #ex:freq-reading-pole title="From a measured peak to a pole" show="q=black-hole-ringdown"}
 A resonance measured on a bridge peaks at $2.0\,\mathrm{Hz}$ and has a full width at half power of $0.10\,\mathrm{Hz}$. Where are its poles, and how long does the bridge ring after a gust?
 
 **Strategy.** $\Delta\omega = 2\gamma$, so $\gamma = \pi\Delta f$. The imaginary part is close to $\omega_0 = 2\pi f_0$ for light damping.
@@ -206,7 +206,7 @@ This is a property of waves, not of measuring instruments. In quantum mechanics,
 
 {{Visualize | eq:freq-trade-off | spectrum:wave | f="exp(-((t-0.5)/0.01)^2)*sin(2*pi*200*t)"; x=[0,1]; fmax=400; show=[0.44,0.56]; expect_peak=200; xlabel="time (s)"; flabel="frequency (Hz)"; label=fig:freq-burst; height=40% }} A $200\,\mathrm{Hz}$ tone that lasts only about $20\,\mathrm{ms}$. Its spectrum is centred on $200\,\mathrm{Hz}$ but about $50\,\mathrm{Hz}$ wide: the ear hears a click with a vague pitch rather than a note.
 
-::: {.example #ex:freq-natural-linewidth title="The width of a spectral line"}
+::: {.example #ex:freq-natural-linewidth title="The width of a spectral line" show="level=atomic&lens=on&compare=1"}
 Hydrogen's Lyman-alpha line, at a wavelength of $121.6\,\mathrm{nm}$, comes from a level that lives $1.6\,\mathrm{ns}$ on average. Estimate the natural width of the line and its $Q$.
 
 **Strategy.** The light is a wave train decaying with $\tau = 1.6\,\mathrm{ns}$; use @eq:freq-trade-off. The line's frequency is $c/\lambda$.

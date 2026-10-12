@@ -72,6 +72,34 @@ local function level_table()
     specs, pandoc.TableHead({ header }), { pandoc.TableBody(rows) }, pandoc.TableFoot())
 end
 
+-- "Show me" (ISS-083, from ISS-038): an example may name the app view it describes,
+-- show="level=atomic&lens=on" (or q=<question>, tour=<preset>); HTML links it into the
+-- Soma Machine. Every view is checked against the registry: an unknown id fails the build.
+local APP = "https://t-theory.org/app/"
+local LEVEL_SET = {}
+for _, id in ipairs(LEVELS) do LEVEL_SET[id] = true end
+
+local function registry_ids(dir)
+  local ids = {}
+  for _, name in ipairs(pandoc.system.list_directory(dir)) do
+    local id = name:match("^(.+)%.yaml$")
+    if id then ids[id] = true end
+  end
+  return ids
+end
+local QUESTIONS = registry_ids("../../../registry/questions")
+local TOURS = registry_ids("../../../registry/tours")
+
+local function check_view(view, where)
+  for key, value in view:gmatch("([%w]+)=([^&]+)") do
+    local ok = (key == "level" and LEVEL_SET[value]) or (key == "q" and QUESTIONS[value])
+      or (key == "tour" and TOURS[value]) or (key == "lens" and (value == "on" or value == "off"))
+      or (key == "dim" and (value == "4" or value == "8" or value == "11")) or (key == "compare" and value == "1")
+      or (key == "stop" and value:match("^%d+$"))
+    if not ok then error("textbook-boxes: " .. where .. ": unknown app view " .. key .. "=" .. value) end
+  end
+end
+
 local function box(div, class, spec)
   local title = markdown_inlines(div.attributes.title or spec[1])
   local content = pandoc.Blocks({})
@@ -91,11 +119,17 @@ local function box(div, class, spec)
   end
   local heading = pandoc.Para({ pandoc.Span(title, pandoc.Attr("", { "box-title" })) })
   content:insert(1, heading)
+  local view = div.attributes.show
+  if view then
+    content:insert(pandoc.Para({ pandoc.Link({ pandoc.Str("Show me in the Soma Machine ▸") }, APP .. "#" .. view,
+      "Open the Soma Machine at " .. view, pandoc.Attr("", { "show-me" })) }))
+  end
   return pandoc.Div(content, pandoc.Attr(div.identifier, { "textbook-box", class }))
 end
 
 function Div(div)
   if div.classes:includes("level-registry-table") then return level_table() end
+  if div.attributes.show then check_view(div.attributes.show, div.identifier) end
   for class, spec in pairs(BOXES) do
     if div.classes:includes(class) then return box(div, class, spec) end
   end

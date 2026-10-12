@@ -24,7 +24,7 @@ Fields come in three common kinds. A **scalar field** assigns one number to each
 
 The most useful single operation on a field is the **gradient**, the rate at which the value changes with position. For a scalar field it points uphill, and its size is the slope. Many physical laws say that something flows *down* a gradient: heat flows from hot to cold (Fourier's law, $\mathbf{q} = -k\nabla T$), particles diffuse from high concentration to low (Fick's law), and charge moves down the electric potential (Ohm's law).
 
-::: {.example #ex:fields-heat-flow-across title="Heat flow across a still room"}
+::: {.example #ex:fields-heat-flow-across title="Heat flow across a still room" show="level=human-vertebrate&lens=off"}
 In a room without draughts, a thermometer reads $18\,^\circ\mathrm{C}$ near the floor and $24\,^\circ\mathrm{C}$ at the ceiling, $2.5\,\mathrm{m}$ higher. Estimate the vertical temperature gradient and the conductive heat flux through the air. The thermal conductivity of air is $k = 0.026\,\mathrm{W\,m^{-1}\,K^{-1}}$.
 
 **Strategy.** Treat the temperature as varying linearly with height, so the gradient is the difference divided by the distance. Then apply Fourier's law.
@@ -60,7 +60,7 @@ $$v = f\lambda.$$ {#eq:fields-wave-speed}
 
 This small relation hides an important division of labour. The **source** sets the frequency: a tuning fork vibrates at $440\,\mathrm{Hz}$ whatever it is immersed in. The **medium** sets the speed. The wavelength follows from both.
 
-::: {.example #ex:fields-same-note-air title="The same note in air and in water"}
+::: {.example #ex:fields-same-note-air title="The same note in air and in water" show="level=human-vertebrate&lens=on"}
 A source emits a $440\,\mathrm{Hz}$ tone (concert A). Find its wavelength in air, where sound travels at $343\,\mathrm{m\,s^{-1}}$, and in water, where it travels at $1480\,\mathrm{m\,s^{-1}}$.
 
 **Solution.** In air, $\lambda = v/f = 343/440 = 0.780\,\mathrm{m}$. In water, $\lambda = 1480/440 = 3.36\,\mathrm{m}$.
@@ -76,7 +76,7 @@ $$f_n = \frac{n v}{2L}, \qquad n = 1, 2, 3, \dots$$
 
 The lowest, $f_1$, is the **fundamental**; the others are **harmonics** at whole-number multiples of it.
 
-::: {.example #ex:fields-guitar-string title="A guitar string"}
+::: {.example #ex:fields-guitar-string title="A guitar string" show="level=human-vertebrate&lens=on&dim=4"}
 The open A string of a guitar has a vibrating length of $0.648\,\mathrm{m}$ and a fundamental of $110\,\mathrm{Hz}$. Find the wave speed on the string and the frequency of its third harmonic.
 
 **Solution.** From $f_1 = v/2L$, $v = 2Lf_1 = 2 \times 0.648 \times 110 = 143\,\mathrm{m\,s^{-1}}$. The third harmonic is $f_3 = 3f_1 = 330\,\mathrm{Hz}$.
@@ -106,7 +106,7 @@ The logarithmic middle of the Atlas is a surprising place. The midpoint of $-35$
 
 Every level also has a characteristic **response time** $\tau$, the time it takes to react noticeably to a disturbance: about $10^{-16}\,\mathrm{s}$ for an atom's electron cloud, milliseconds for a synapse, seconds to minutes for a human body, millions of years for a mountain belt. A useful yardstick is the **light-crossing time** $L/c$, the time a signal moving at the speed of light ($c = 3.00\times10^{8}\,\mathrm{m\,s^{-1}}$) needs to cross a system of size $L$. No system can respond as a whole faster than that.
 
-::: {.example #ex:fields-slow-person title="How slow is a person?"}
+::: {.example #ex:fields-slow-person title="How slow is a person?" show="level=human-vertebrate&lens=off"}
 Compare the response time with the light-crossing time for an atom ($L = 10^{-10}\,\mathrm{m}$, $\tau \approx 10^{-16}\,\mathrm{s}$), a human body ($L \approx 1\,\mathrm{m}$, $\tau \approx 10\,\mathrm{s}$) and a galactic disc ($L \approx 10^{20}\,\mathrm{m}$, $\tau \approx 10^{16}\,\mathrm{s}$).
 
 **Solution.** For the atom, $L/c = 10^{-10}/3.00\times10^{8} = 3.3\times10^{-19}\,\mathrm{s}$, so $\tau$ is about 300 times the light-crossing time. For the body, $L/c = 3.3\times10^{-9}\,\mathrm{s}$, so $\tau$ is about $3\times10^{9}$ times longer. For the galactic disc, $L/c = 3.3\times10^{11}\,\mathrm{s}$ (about $10\,000$ years), and $\tau$ is about $3\times10^{4}$ times longer.
@@ -131,7 +131,7 @@ How long does light take to cross the Earth, diameter $1.27\times10^{7}\,\mathrm
 
 Air is made of molecules, yet engineers describe it with smooth fields of pressure, density and velocity. The step from many particles to a smooth field is called **coarse-graining**: average over a small cell that still contains so many particles that the average barely fluctuates. If a cell holds $N$ independent particles, the relative fluctuation of its contents is about $1/\sqrt{N}$.
 
-::: {.example #ex:fields-small-can-point title="How small can a 'point' of air be?"}
+::: {.example #ex:fields-small-can-point title="How small can a 'point' of air be?" show="level=molecular&lens=off"}
 Air at atmospheric pressure ($p = 1.013\times10^{5}\,\mathrm{Pa}$) and room temperature ($T = 293\,\mathrm{K}$) has number density $n = p/k_B T$, with $k_B = 1.38\times10^{-23}\,\mathrm{J\,K^{-1}}$. How many molecules are in a cube $1\,\mu\mathrm{m}$ on a side, and in a cube $10\,\mathrm{nm}$ on a side? How large are the relative fluctuations?
 
 **Solution.** $n = 1.013\times10^{5}/(1.38\times10^{-23}\times293) = 2.5\times10^{25}\,\mathrm{m^{-3}}$. A $1\,\mu\mathrm{m}$ cube has volume $10^{-18}\,\mathrm{m^3}$ and holds $2.5\times10^{7}$ molecules; $1/\sqrt{N} = 2\times10^{-4}$, a fluctuation of $0.02\,\%$. A $10\,\mathrm{nm}$ cube has volume $10^{-24}\,\mathrm{m^3}$ and holds about $25$ molecules; $1/\sqrt{N} = 0.2$, a fluctuation of $20\,\%$.

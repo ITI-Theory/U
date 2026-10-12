@@ -28,7 +28,7 @@ Hubble's law does not put us at the centre. If every distance in the universe gr
 
 Run the expansion backwards and the galaxies converge. The time it would take at today's rate is the **Hubble time**, $1/H_0$, about $14.5$ billion years. The measured age of the universe, $13.8$ billion years, is close to it but not equal, because the rate of expansion has changed over time.
 
-::: {.example #ex:cosmology-galaxy-100-megaparsecs title="A galaxy at 100 megaparsecs"}
+::: {.example #ex:cosmology-galaxy-100-megaparsecs title="A galaxy at 100 megaparsecs" show="level=cosmic-filaments&lens=off"}
 A galaxy lies $100\,\mathrm{Mpc}$ away. How fast does it recede, and what is its redshift?
 
 **Strategy.** $v = H_0d$; then $z = v/c$.
@@ -70,7 +70,7 @@ about $8.5\times10^{-27}\,\mathrm{kg\,m^{-3}}$, the mass of five hydrogen atoms 
 
 The evidence for the two dark components is different in kind. Dark matter pulls: it is detected by its gravity on stars, gas and light, and it clusters. Dark energy pushes: in 1998 two teams found that distant supernovae are fainter than expected, so the expansion is speeding up [@riess1998observational; @perlmutter1999measurements]. A cosmological constant does this, since it acts as an energy of empty space whose density does not dilute as space grows.
 
-::: {.example #ex:cosmology-critical-density title="The critical density"}
+::: {.example #ex:cosmology-critical-density title="The critical density" show="level=observable-universe&lens=off"}
 Compute $\rho_c$ for $H_0 = 2.18\times10^{-18}\,\mathrm{s^{-1}}$, and express it as hydrogen atoms (mass $1.67\times10^{-27}\,\mathrm{kg}$) per cubic metre.
 
 **Strategy.** Substitute into $\rho_c = 3H_0^2/8\pi G$.
@@ -94,7 +94,7 @@ If the universe has expanded, it was once denser, and the radiation in it hotter
 
 At what temperature did hydrogen become neutral? Its binding energy is $13.6\,\mathrm{eV}$, which corresponds to $160\,000\,\mathrm{K}$, but the answer is about $3000\,\mathrm{K}$, where $k_BT$ is only $0.26\,\mathrm{eV}$. The reason is the Saha balance of @ch:stars with an extreme number: the universe holds more than a billion photons for every proton. Even when the typical photon is far too weak to ionise hydrogen, the rare photons in the blackbody's high-energy tail outnumber the atoms and keep them ionised, until the temperature falls far enough.
 
-::: {.example #ex:cosmology-then-now title="Then and now"}
+::: {.example #ex:cosmology-then-now title="Then and now" show="q=early-universe-sound"}
 The CMB was released at a redshift of about $1090$, when distances were $1/(1 + z)$ of today's. What was its temperature then, and what was $k_BT$?
 
 **Strategy.** Temperature scales as $1 + z$.
@@ -142,7 +142,7 @@ The cosmological-constant paper writes the first as $\Lambda_\text{USF} = (21/11
 
 ![The measured cosmic energy budget (Planck 2018) beside the programme's fractions $7/11$, $3/11$ and $1/22$. The dark-matter prediction is $3.1\,\%$ high, the dark-energy prediction $7.1\,\%$ low and the ordinary-matter prediction $7.8\,\%$ low.](figures/generated/ch10-dark-sectors.png){width="100%"}
 
-::: {.example #ex:cosmology-three-fractions-against title="Three fractions against the sky"}
+::: {.example #ex:cosmology-three-fractions-against title="Three fractions against the sky" show="q=dark-matter-spatial-vacuum"}
 Compare $7/11$, $3/11$ and $1/22$ with the measured $0.6847$, $0.2645$ and $0.0493$. What do the three predictions add up to?
 
 **Strategy.** Compute each fraction and its relative difference.
@@ -154,7 +154,7 @@ Compare $7/11$, $3/11$ and $1/22$ with the measured $0.6847$, $0.2645$ and $0.04
 
 {{Visualize | ex:cosmology-three-fractions-against | matrix-heatmap:cosmic | matrix="[[7/11,3/11,1/22]]"; matrix2="[[0.6847,0.2645,0.0493]]"; titles="counting rule, Planck 2018"; diff=true; diff_title="Planck - rule"; rows="share"; cols="$\Omega_\Lambda$,$\Omega_\mathrm{DM}$,$\Omega_b$"; expect_sum=21/22; expect_sum2=0.9985; height=22% }} The programme's three fractions beside the Planck 2018 values quoted in @ex:cosmology-three-fractions-against. Dark matter comes out slightly high, while dark energy and baryons come out low; together the three predicted shares sum to $21/22 = 0.955$ against the measured $0.9985$.
 
-::: {.example #ex:cosmology-cosmological-constant title="The cosmological constant"}
+::: {.example #ex:cosmology-cosmological-constant title="The cosmological constant" show="q=dark-energy-origin"}
 Compute the programme's $\Lambda_\text{USF}$ and the measured $\Lambda_\text{obs} = 3\Omega_\Lambda H_0^2/c^2$ for $H_0 = 2.184\times10^{-18}\,\mathrm{s^{-1}}$ and $\Omega_\Lambda = 0.6847$. Show that their ratio does not depend on $H_0$.
 
 **Strategy.** Substitute; then divide the two expressions symbolically.

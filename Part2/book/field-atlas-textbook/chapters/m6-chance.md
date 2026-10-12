@@ -28,7 +28,7 @@ $$\sigma^2 = \langle (X - \langle X \rangle)^2 \rangle = \langle X^2 \rangle - \
 
 Its square root $\sigma$ is the **standard deviation**, the typical size of a departure from the mean, in the same units as $X$.
 
-::: {.example #ex:m-chance-die title="A fair die"}
+::: {.example #ex:m-chance-die title="A fair die" show="level=human-group&lens=off"}
 Find the mean and standard deviation of the score on one roll of a fair die.
 
 **Strategy.** Each face has $p = 1/6$. Use @eq:m-chance-mean for $\langle X \rangle$ and $\langle X^2 \rangle$, then @eq:m-chance-variance.
@@ -84,7 +84,7 @@ $$\sigma_{\text{mean}} = \frac{\sigma}{\sqrt{N}}.$$ {#eq:m-chance-sqrt-law}
 
 This **square-root law** is why repeated measurements help, why a large sample is more reliable than a small one, and why the fluctuations in a small volume of air in @sec:fields-zooming-out-when fell as $1/\sqrt{N}$: a cell holding $N$ molecules fluctuates by a fraction $1/\sqrt{N}$.
 
-::: {.example #ex:m-chance-coins title="A hundred coin tosses"}
+::: {.example #ex:m-chance-coins title="A hundred coin tosses" show="level=human-group&lens=off"}
 A fair coin is tossed $100$ times. What are the mean and standard deviation of the number of heads? Would $60$ heads be surprising?
 
 **Strategy.** Each toss has mean $0.5$ and $\sigma = 0.5$ (the check in @sec:m-chance-averages). Sums add means and variances.
@@ -118,7 +118,7 @@ $$c(x, t) = \frac{1}{\sqrt{4\pi D t}}\,e^{-x^2/4Dt}$$ {#eq:m-chance-spreading}
 
 {{Visualize | eq:m-chance-spreading | function-plot:neural | f="exp(-x^2/(4*t))/sqrt(4*pi*t)"; vary=t:0.25,1,4; x=[-8,8]; xlabel="position $x$ (units with $D = 1$)"; ylabel="concentration"; label=fig:m-chance-spreading; height=30% }} A drop of dye spreading by diffusion, at three times. Each time four times longer doubles the width and halves the peak; the area under every curve, the total amount of dye, stays the same.
 
-::: {.example #ex:m-chance-sugar title="Sugar in water"}
+::: {.example #ex:m-chance-sugar title="Sugar in water" show="level=molecular&lens=off"}
 A sugar molecule in water has $D = 5 \times 10^{-10}\,\mathrm{m^2\,s^{-1}}$. How far does it typically wander along one direction in one second, and in one hour?
 
 **Strategy.** The typical distance is $\sqrt{2Dt}$, from @eq:m-chance-diffusion.
@@ -152,7 +152,7 @@ $$p_n = \frac{e^{-E_n/kT}}{\sum_m e^{-E_m/kT}}$$ {#eq:m-chance-levels}
 
 {{Visualize | eq:m-chance-levels | distribution:quantum | levels="0,1,2,3,4"; weight="exp(-E/kT)"; vary=kT:0.5,1,3; expect_p0=0.8647; xlabel="energy level $E$ (in units of the level spacing)"; label=fig:m-chance-levels; height=30% }} Populations of five equally spaced levels at three temperatures. When $kT$ is half a level spacing almost everything sits in the lowest level ($86.5\,\%$); as $kT$ grows the higher levels fill and the distribution flattens.
 
-::: {.example #ex:m-chance-atmosphere title="How high does the air go?"}
+::: {.example #ex:m-chance-atmosphere title="How high does the air go?" show="level=planetary&lens=off"}
 The density of the atmosphere falls with height $h$ because a molecule at height $h$ has extra energy $mgh$. Using the Boltzmann factor, find the height over which the density falls by a factor $e$ at $288\,\mathrm{K}$, for air molecules of mass $4.81 \times 10^{-26}\,\mathrm{kg}$.
 
 **Strategy.** The density goes as $e^{-mgh/kT}$, which falls by $e$ when $mgh = kT$.

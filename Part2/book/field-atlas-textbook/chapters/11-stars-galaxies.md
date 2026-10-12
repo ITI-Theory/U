@@ -36,7 +36,7 @@ Spectral lines carry more information. At Harvard in the early 1900s, Annie Jump
 
 ![The fraction of hydrogen atoms able to absorb the Balmer lines against the surface temperature of a star, from the Boltzmann law for excitation and the Saha law for ionisation at a typical atmospheric pressure. The peak lies near $9900\,\mathrm{K}$. The Sun's hydrogen lines are weak not because it has little hydrogen but because it is too cool.](figures/generated/ch09-balmer.png){width="100%"}
 
-::: {.example #ex:stars-sirius title="Sirius"}
+::: {.example #ex:stars-sirius title="Sirius" show="level=stellar&lens=off"}
 Sirius A has a surface temperature of $9940\,\mathrm{K}$ and a radius of $1.71$ times the Sun's. Find its peak wavelength and its luminosity in units of the Sun's.
 
 **Strategy.** Wien's law for the peak; for the luminosity, ratios cancel the constants: $L/L_\odot = (R/R_\odot)^2(T/T_\odot)^4$.
@@ -72,7 +72,7 @@ $$F = \frac{L}{4\pi d^2}.$$
 
 Astronomers express brightness in **magnitudes**, a logarithmic scale in which a difference of $5$ magnitudes is a factor of $100$ in flux and larger magnitudes are fainter. The **distance modulus**, the difference between a star's apparent magnitude $m$ and the absolute magnitude $M$ it would have at $10\,\mathrm{pc}$, depends only on distance: $m - M = 5\log_{10}(d/10\,\mathrm{pc})$.
 
-::: {.example #ex:stars-nearest-star title="The nearest star"}
+::: {.example #ex:stars-nearest-star title="The nearest star" show="level=stellar-cluster&lens=off"}
 Proxima Centauri has a parallax of $0.768$ seconds of arc. How far away is it in parsecs and in light-years?
 
 **Strategy.** $d = 1/p$; multiply by $3.26$ for light-years.
@@ -106,7 +106,7 @@ $$R_s = \frac{2GM}{c^2},$$
 
 about $3\,\mathrm{km}$ per solar mass. @ch:response measured the ringing of two such holes after they merged: GW150914, a $Q$ of about three [@abbott2016gw].
 
-::: {.example #ex:stars-suns-mass-loss title="The Sun's mass loss"}
+::: {.example #ex:stars-suns-mass-loss title="The Sun's mass loss" show="level=stellar&lens=on"}
 At what rate does the Sun convert mass into energy?
 
 **Strategy.** The rate is $L/c^2$.
@@ -138,7 +138,7 @@ At the Earth's surface this is $7\times10^{-10}$, less than a nanosecond per sec
 
 General relativity has passed every test made of it, from the bending of starlight by the Sun to the orbits of pulsars and the gravitational waves of merging black holes. Penrose's survey gives its geometry in chapters 17 to 19 [@penrose2004road].
 
-::: {.example #ex:stars-gps-clocks title="GPS clocks"}
+::: {.example #ex:stars-gps-clocks title="GPS clocks" show="q=gravity-time-bending"}
 GPS satellites orbit at $r = 2.656\times10^{7}\,\mathrm{m}$ from the Earth's centre, where the orbital speed is $3.87\,\mathrm{km\,s^{-1}}$. Using $GM_\oplus = 3.986\times10^{14}\,\mathrm{m^3\,s^{-2}}$ and $R_\oplus = 6.371\times10^{6}\,\mathrm{m}$, find the daily gain from gravity, the daily loss from speed, and the net effect.
 
 **Strategy.** Gravity: $\frac{GM}{c^2}\big(\frac{1}{R_\oplus} - \frac1r\big)$ per second. Speed: $v^2/2c^2$ per second. Multiply each by $86\,400\,\mathrm{s}$.
@@ -164,7 +164,7 @@ $$M(<r) = \frac{v^2r}{G}.$$
 
 Speeds come from the Doppler shift of @sec:atoms-reading-spectral-line. The best tracer is the 21 cm line of cold hydrogen gas (@pr:atoms-radio-line-hydrogen), which extends far beyond the visible stars and is not blocked by dust. If most of a galaxy's mass were in its bright central regions, orbital speeds would fall with distance beyond them, as $v \propto 1/\sqrt r$ for the planets around the Sun. In the 1970s Vera Rubin and others measured the rotation of spiral galaxies and found that they do not [@rubin1980rotation]. The speeds stay roughly constant out to the edge of the visible disc and, in the 21 cm data, well beyond it. A flat curve, $v$ constant, means $M(<r)$ grows in proportion to $r$: mass keeps accumulating where there is almost no light. This is the most direct evidence for **dark matter**, mass detected only by its gravity. Gravitational lensing and the cosmic microwave background, met in @ch:cosmology, independently require about five times as much of it as of ordinary matter.
 
-::: {.example #ex:stars-mass-inside-suns title="The mass inside the Sun's orbit"}
+::: {.example #ex:stars-mass-inside-suns title="The mass inside the Sun's orbit" show="level=galactic-disc&lens=off"}
 The Sun orbits the centre of the Milky Way at about $230\,\mathrm{km\,s^{-1}}$, at a distance of $8.2\,\mathrm{kpc}$ ($1\,\mathrm{kpc} = 3.09\times10^{19}\,\mathrm{m}$). Find the mass inside its orbit.
 
 **Strategy.** Apply $M = v^2r/G$ in SI units, then divide by the Sun's mass, $1.99\times10^{30}\,\mathrm{kg}$.

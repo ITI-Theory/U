@@ -34,7 +34,7 @@ Note what is missing: the amplitude. A stiff spring and a light mass oscillate f
 
 {{Visualize | eq:m-osc-solution | function-plot:wave | f="cos(t)"; name="position $x/A$"; f2="-sin(t)"; name2="velocity $v/(A\omega_0)$"; var=t; x=[0,12.6]; xlabel="phase $\omega_0 t$ (radians)"; label=fig:m-osc-shm; height=28% }} Simple harmonic motion over two cycles. The velocity (the derivative) runs a quarter of a cycle ahead of the position: fastest through the middle, at rest at the ends.
 
-::: {.example #ex:m-osc-mass-spring title="A mass on a spring"}
+::: {.example #ex:m-osc-mass-spring title="A mass on a spring" show="level=human-vertebrate&lens=on&dim=4"}
 A $0.50\,\mathrm{kg}$ mass hangs on a spring with $k = 200\,\mathrm{N\,m^{-1}}$. It is pulled down $3.0\,\mathrm{cm}$ and released. Find the angular frequency, the frequency, the period and the largest speed.
 
 **Strategy.** Use @eq:m-osc-shm and @eq:m-osc-period; the largest speed is $A\omega_0$, since the derivative of $A\cos\omega_0 t$ is $-A\omega_0\sin\omega_0 t$.
@@ -90,7 +90,7 @@ The geometric meaning of multiplication is the key to everything that follows: *
 
 {{Visualize | eq:m-osc-multiply | complex-plane:generic | points="3+4j, j*(3+4j), -(3+4j)"; names="$z$, $iz$, $i^2 z$"; arrows=true; radius=6; label=fig:m-osc-rotate; height=34% }} Multiplying $z = 3 + 4i$ by $i$ turns it a quarter-turn to $iz = -4 + 3i$; multiplying again gives $i^2 z = -z$, a half-turn. Every multiplication by $i$ is a rotation by $90^\circ$.
 
-::: {.example #ex:m-osc-complex-arithmetic title="Modulus, argument and a product"}
+::: {.example #ex:m-osc-complex-arithmetic title="Modulus, argument and a product" show="level=atomic&lens=on&compare=1"}
 For $z = 3 + 4i$, find $|z|$ and $\arg z$. Then compute $z \times i$ and check that the modulus is unchanged.
 
 **Strategy.** Use Pythagoras for the modulus and the inverse tangent for the argument; multiply with @eq:m-osc-multiply.
@@ -122,7 +122,7 @@ The number $e^{i\theta}$ lies on the circle of radius one at angle $\theta$. As 
 
 Now let the angle grow steadily, $\theta = \omega t$. The complex number $A e^{i\omega t}$ is an arrow of length $A$ turning at $\omega$ radians per second, called a **phasor**. Its real part, $A\cos\omega t$, is simple harmonic motion: the shadow of @sec:m-osc-circle. Physicists and engineers write oscillations as phasors and take the real part at the end, because exponentials are far easier to differentiate than sines: $\tfrac{d}{dt}e^{i\omega t} = i\omega\,e^{i\omega t}$. Differentiating multiplies by $i\omega$, a quarter-turn and a stretch, which is the quarter-cycle lead of the velocity in @fig:m-osc-shm.
 
-::: {.example #ex:m-osc-phasor-check title="The spring equation with a phasor"}
+::: {.example #ex:m-osc-phasor-check title="The spring equation with a phasor" show="level=human-vertebrate&lens=on&dim=4"}
 Show that $x = e^{i\omega_0 t}$ solves @eq:m-osc-shm.
 
 **Strategy.** Differentiate twice, each time multiplying by $i\omega_0$.
@@ -166,7 +166,7 @@ $$\frac{s}{\omega_0} = -\zeta \pm i\sqrt{1 - \zeta^2}$$ {#eq:m-osc-poles-scaled}
 
 The **quality factor** $Q = \omega_0/2\gamma = 1/2\zeta$ counts roughly how many radians the system rings before its energy falls by a factor $e$. @sec:response-resonance-quality-factor uses $Q$ to predict how sharply a system resonates, and @sec:atoms-lines-poles reads the width of a spectral line as the distance of a pole from the real axis.
 
-::: {.example #ex:m-osc-guitar-q title="How long a guitar string rings"}
+::: {.example #ex:m-osc-guitar-q title="How long a guitar string rings" show="level=human-vertebrate&lens=on"}
 The guitar's A string vibrates at $110\,\mathrm{Hz}$, and its amplitude falls by a factor $e$ in about $3\,\mathrm{s}$. Estimate $\gamma$, $\zeta$ and $Q$.
 
 **Strategy.** The envelope is $e^{-\gamma t}$, so $\gamma = 1/(3\,\mathrm{s})$. Then $\omega_0 = 2\pi \times 110$.

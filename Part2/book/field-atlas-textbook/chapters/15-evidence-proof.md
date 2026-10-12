@@ -27,7 +27,7 @@ When a scientist says that two things are "the same", or that one "explains" ano
 
 Each is useful; none should borrow the authority of another. A neat analogy does not become a derivation by being drawn carefully, and a simulation does not become a measurement of nature by being exact. Measurements of nature are a fifth thing (`empirical-result`): checked by instruments, protocols, statistics and independent replication. A claim not yet checked in any of these ways is an `open-hypothesis`, which is a respectable status if it comes with a test.
 
-::: {.example #ex:ev-classify title="Classifying four sentences"}
+::: {.example #ex:ev-classify title="Classifying four sentences" show="tour=whats-different"}
 Give each sentence its label: (a) "a string fixed at both ends has modes $f_n = nv/2L$"; (b) "the Lean theorem `omega_dm_fraction` proves $\Omega_{\mathrm{DM}} = 3/11$ inside the declared model"; (c) "an exact statevector run reached the Awe basin in the tested cases"; (d) "a change of emotional state behaves like quantum tunnelling".
 
 **Strategy.** Ask what would check each one.
@@ -70,7 +70,7 @@ Two gaps weaken a formal proof. The keyword `sorry` tells Lean to accept a step 
 A theorem's `#print axioms` lists `sorryAx`. What does that mean? (Answer: somewhere in its proof, or in a result it uses, a step was assumed with `sorry`; the theorem is not yet proved.)
 :::
 
-::: {.example #ex:ev-prose-about-proofs title="Checking what the prose says about the proofs"}
+::: {.example #ex:ev-prose-about-proofs title="Checking what the prose says about the proofs" show="tour=whats-different"}
 One of the programme's synthesis papers says that "the current repository still contains seven real `sorry` markers". Is that right?
 
 **Strategy.** The kernel checks proofs, not sentences about proofs, so the sentence needs its own check. Count the keyword `sorry` in the Lean source, leaving out comments (a comment that mentions `sorry` is not a gap).
@@ -102,7 +102,7 @@ $$p_{\max} \approx \frac{3}{n}$$ {#eq:ev-rule-of-three}
 
 {{Visualize | eq:ev-rule-of-three | distribution:generic | pdf="(1-x)^48"; x=[0,0.2]; shade=[0,0.0593]; expect_prob=0.95; xlabel="true success rate"; ylabel="probability density after 0 of 48"; label=fig:ev-zero-of-48; height=28% }} What forty-eight failures say. The success rate is almost certainly small: below $6\,\%$ at the 95 per cent level (shaded), close to the rule-of-three estimate $3/48$.
 
-::: {.example #ex:ev-how-many-runs title="How many runs are enough?"}
+::: {.example #ex:ev-how-many-runs title="How many runs are enough?" show="tour=whats-different"}
 A simulated method succeeds in $190$ of $200$ bootstrap runs. Estimate its success rate with a 95 per cent interval.
 
 **Strategy.** The observed rate is $p = 0.95$. The standard error of a proportion is $\sqrt{p(1-p)/n}$ (@sec:m-chance-normal), and 95 per cent is about $1.96$ standard errors.
@@ -145,7 +145,7 @@ What the experiment establishes, and what it does not:
 | Nervous systems use quantum dynamics of this kind | `open-hypothesis`, untested; no hardware or brain data are involved |
 | Any clinical implication | none claimed; hypotheses only, requiring ethics approval and controlled evidence |
 
-::: {.example #ex:ev-design-controls title="Designing the controls"}
+::: {.example #ex:ev-design-controls title="Designing the controls" show="tour=whats-different"}
 Propose two negative controls for QUANT-EXP-1: runs that *should* fail if the result is genuine.
 
 **Strategy.** Remove the ingredient the claim credits, or the obstacle it overcomes, and check the outcome changes as predicted.

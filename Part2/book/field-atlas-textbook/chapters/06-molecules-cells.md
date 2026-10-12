@@ -22,7 +22,7 @@ Logarithms (@sec:m-scale-logs); relaxation (@sec:m-change-relaxation); diffusion
 
 What matters for life is how these energies compare with the random jostling of molecules at body temperature, $k_BT = 0.0267\,\mathrm{eV}$ at $310\,\mathrm{K}$. A covalent bond is about 170 times larger, and the chance that a thermal collision supplies that much energy is of order $e^{-170}$: effectively zero. Covalent bonds hold the molecule's shape. Much weaker interactions hold molecules to each other. A **hydrogen bond**, the attraction between a hydrogen atom on one molecule and an oxygen or nitrogen atom on another, is about $0.2\,\mathrm{eV}$, only seven or eight times $k_BT$. In water such bonds break and re-form within a few trillionths of a second. They zip the two strands of DNA together, fold proteins into working shapes and let enzymes grip and release their targets. Life operates in the narrow band where bonds are strong enough to hold a structure for a while and weak enough to let it change.
 
-::: {.example #ex:cells-cells-energy-currency title="The cell's energy currency"}
+::: {.example #ex:cells-cells-energy-currency title="The cell's energy currency" show="level=molecular&lens=off"}
 Inside a cell, splitting one molecule of ATP releases about $50\,\mathrm{kJ\,mol^{-1}}$. Express this per molecule in electronvolts and in units of $k_BT$ at body temperature.
 
 **Strategy.** Divide by $96.5\,\mathrm{kJ\,mol^{-1}}$ per eV, then by $0.0267\,\mathrm{eV}$.
@@ -52,7 +52,7 @@ $$E_\text{ion} = \frac{k_BT}{ze}\ln\frac{c_\text{out}}{c_\text{in}},$$ {#eq:cell
 
 where $z$ is the ion's charge number. At body temperature $k_BT/e = 26.7\,\mathrm{mV}$. A real resting cell has some sodium and chloride channels open too, and settles between the individual Nernst potentials, usually near $-70\,\mathrm{mV}$, closest to potassium's.
 
-::: {.example #ex:cells-nernst-potentials title="Two Nernst potentials"}
+::: {.example #ex:cells-nernst-potentials title="Two Nernst potentials" show="level=cellular-synaptic&lens=off"}
 Compute the Nernst potentials for potassium ($5$ outside, $140$ inside) and sodium ($145$ outside, $12$ inside) at $310\,\mathrm{K}$.
 
 **Strategy.** Both ions have $z = +1$; apply the formula with $k_BT/e = 26.7\,\mathrm{mV}$.
@@ -64,7 +64,7 @@ Compute the Nernst potentials for potassium ($5$ outside, $140$ inside) and sodi
 
 {{Visualize | ex:cells-nernst-potentials | function-plot:neural | f="26.7*log(x)"; x=[0.01,100]; logx=true; value_at=5/140; expect_value=-89; hline="-70, 67"; vline="12.08"; xlabel="concentration ratio, outside / inside"; ylabel="equilibrium potential (mV)"; label=fig:cells-nernst; height=28% }} The Nernst potential of @eq:cells-nernst against the concentration ratio: a straight line on a logarithmic axis, $61.5\,\mathrm{mV}$ for every factor of ten. Potassium (ratio $1/28$, red point) sits at $-89\,\mathrm{mV}$; sodium (ratio $12$, dotted) at $+67\,\mathrm{mV}$. The resting cell, at $-70\,\mathrm{mV}$ (lower dotted line), lies between them, nearer potassium.
 
-::: {.example #ex:cells-few-ions title="How few ions?"}
+::: {.example #ex:cells-few-ions title="How few ions?" show="level=cellular-synaptic&lens=off"}
 A spherical cell of radius $10\,\mu\mathrm{m}$ rests at $-70\,\mathrm{mV}$. How many ions must cross its membrane to set up this voltage, and what fraction is that of the potassium ions inside?
 
 **Strategy.** The charge is $Q = C_mAV$; divide by $e$. Count potassium from the concentration and volume.
@@ -100,7 +100,7 @@ where $a$ is the fibre's radius, $R_m$ the membrane's resistance times area, and
 
 ![Left: the cable's response to one brief kick of current at $x = 0$, at four times. The voltage spreads like heat and leaks through the membrane. Right: a steady injection gives an exponential fall with distance; one length constant leaves 37 %.](figures/generated/ch04-cable.png){width="100%"}
 
-::: {.example #ex:cells-length-constant title="A length constant"}
+::: {.example #ex:cells-length-constant title="A length constant" show="level=cellular-synaptic&lens=on&dim=4"}
 A dendrite of radius $a = 5\,\mu\mathrm{m}$ has $R_m = 1\,\Omega\,\mathrm{m^2}$ and $R_i = 1\,\Omega\,\mathrm{m}$, typical values. Find $\lambda$ and $\tau$, and the fraction of a steady voltage that survives $1\,\mathrm{mm}$ along the fibre.
 
 **Strategy.** Substitute into the two formulas, then use $e^{-x/\lambda}$.
@@ -137,7 +137,7 @@ The threshold has a signature worth noticing in the figure. The spike from the $
 
 The impulse travels because the inrushing sodium current spreads passively a short way ahead, as in @sec:cells-passive-spread-cable, and lifts the next patch of membrane over threshold. The refractory patch behind stops it turning back. The squid fibre, $0.5\,\mathrm{mm}$ thick, conducts at about $21\,\mathrm{m\,s^{-1}}$; Hodgkin and Huxley's equations predicted $18.8$. Vertebrates do better by wrapping fibres in **myelin**, an insulating sheath interrupted every millimetre or so. The impulse jumps from gap to gap at up to $120\,\mathrm{m\,s^{-1}}$ in a fibre twenty-five times thinner than the squid's.
 
-::: {.example #ex:cells-reflex title="A reflex"}
+::: {.example #ex:cells-reflex title="A reflex" show="q=neuron-all-or-none"}
 A tap below the knee sends an impulse along a sensory fibre $1.0\,\mathrm{m}$ long to the spinal cord at $60\,\mathrm{m\,s^{-1}}$. A motor command returns along a similar fibre. Ignoring the time spent at the synapses and in the muscle, how long does the round trip take?
 
 **Strategy.** Time is distance over speed, for each leg.
@@ -167,7 +167,7 @@ $$E = -\frac12\sum_{i \ne j}w_{ij}s_is_j,$$
 
 so the network rolls downhill until it reaches a minimum and stops. To store a pattern $\xi$ (a list of $\pm1$ values), set the weights by Hebb's rule, $w_{ij} = \xi_i\xi_j/N$. The pattern then sits at the bottom of a valley of the energy landscape, and any nearby state, a corrupted or partial version of the pattern, rolls back into it. Memory becomes geography: remembering is falling into the right valley. Several patterns can be stored by adding their weights; the valleys stay distinct until about $0.14N$ patterns are stored, after which they merge and recall fails.
 
-::: {.example #ex:cells-threeneuron-memory title="A three-neuron memory"}
+::: {.example #ex:cells-threeneuron-memory title="A three-neuron memory" show="level=local-circuit&lens=on"}
 Store the pattern $\xi = (+1, -1, +1)$ in a three-neuron network. Start the network in the corrupted state $(+1, +1, +1)$, update neuron 2, and compare the energies before and after.
 
 **Strategy.** Build the weights with Hebb's rule, compute the input to neuron 2, then evaluate $E$, which for three neurons is $-(w_{12}s_1s_2 + w_{13}s_1s_3 + w_{23}s_2s_3)$.

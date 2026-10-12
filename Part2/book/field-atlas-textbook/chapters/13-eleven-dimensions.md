@@ -52,7 +52,7 @@ $$m_n c^2 = \frac{|n|\,\hbar c}{R}.$$ {#eq:mth-kk-tower}
 
 This is the **Kaluza–Klein tower**: one ordinary, massless particle ($n = 0$) and above it a ladder of heavy copies, evenly spaced by $\hbar c/R$. A small circle means a widely spaced, very heavy tower, out of reach of any collider; that is how an extra dimension can hide. The geometry of the hidden space has become a spectrum of masses, the same move from boundary to spectrum as the atom in @ch:atoms.
 
-::: {.example #ex:mth-lhc-circle title="How small would a hidden circle have to be?"}
+::: {.example #ex:mth-lhc-circle title="How small would a hidden circle have to be?" show="level=string-boundary&lens=on"}
 The Large Hadron Collider has found no Kaluza–Klein particles up to energies of roughly $10\,\mathrm{TeV}$. If an extra dimension is a circle, roughly how small must it be? Use $\hbar c = 1.97 \times 10^{-7}\,\mathrm{eV\,m}$.
 
 **Strategy.** The first rung of the tower, $\hbar c/R$, must be above $10^{13}\,\mathrm{eV}$; solve @eq:mth-kk-tower for $R$.
@@ -84,7 +84,7 @@ $$\theta = \frac{A}{r^2}.$$ {#eq:mth-holonomy-sphere}
 
 ![Parallel transport round a loop on a curved surface. The arrow is never turned relative to the surface, yet it returns rotated; the set of all such rotations is the surface's holonomy group.](../field-atlas/figures/theory/T4_5_holonomy_transport.png){width=70%}
 
-::: {.example #ex:mth-octant title="An arrow round an eighth of a globe"}
+::: {.example #ex:mth-octant title="An arrow round an eighth of a globe" show="level=string-boundary&lens=on"}
 An arrow is carried round the triangle formed by a quarter of the equator and two meridians meeting at the north pole, with a right angle at each corner. By how much is it rotated when it returns?
 
 **Strategy.** The triangle covers one eighth of the sphere; use @eq:mth-holonomy-sphere.
@@ -140,7 +140,7 @@ $$A = \begin{pmatrix} 1.5 & 0.4 \\ 0.4 & 0.9 \end{pmatrix} = \tfrac{6}{5}\,I + \
 
 {{Visualize | eq:mth-split | eigen-transform:quantum | matrix="[[1.5,0.4],[0.4,0.9]]"; expect_eigen="0.7,1.7"; label=fig:mth-split; height=34% }} The matrix of @eq:mth-split acting on the unit circle. The isotropic part alone would turn the circle into a larger circle of radius $1.2$; the traceless remainder stretches one direction and squeezes the other by $0.5$, giving eigenvalues $1.2 \pm 0.5$.
 
-::: {.example #ex:mth-frobenius title="How far from isotropic?"}
+::: {.example #ex:mth-frobenius title="How far from isotropic?" show="level=string-boundary&lens=on"}
 For the matrix $A$ of @eq:mth-split, find the size of the traceless part relative to the whole, measured by the **Frobenius norm** (the square root of the sum of the squares of all entries).
 
 **Strategy.** The isotropic part is the mean of the diagonal, $\mathrm{tr}A/2 = 1.2 = 6/5$, times $I$. Subtract it, then compare norms.

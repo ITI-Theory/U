@@ -32,7 +32,7 @@ which is $1$ when all agents move in the same direction and close to $0$ when th
 
 {{Visualize | sec:flocks-rules-without-leader | complex-plane:generic | points="exp(-0.5*j), exp(0.2*j), exp(0.9*j), (exp(-0.5*j) + exp(0.2*j) + exp(0.9*j))/3"; names="$v_1$, $v_2$, $v_3$, $\bar v/v_0$"; arrows=true; unit_circle=true; radius=1.25; xlabel="$v_x / v_0$"; ylabel="$v_y / v_0$" }} Illustrative unit-speed headings: the three long arrows are individual velocities, and the shorter arrow is their average. Its length is $\phi \approx 0.84$, so the flock is fairly well ordered; if the arrows pointed all around the circle, the average would shrink towards $0$.
 
-::: {.example #ex:flocks-many-neighbours title="How many neighbours?"}
+::: {.example #ex:flocks-many-neighbours title="How many neighbours?" show="q=starling-turn"}
 Agents are spread over a plane at an average density of $0.05$ per square metre, and each aligns with all agents within $R = 4\,\mathrm{m}$. How many neighbours does a typical agent have? What if the density doubles?
 
 **Strategy.** The expected count is density times the area of the interaction circle, $\rho\pi R^2$.
@@ -70,7 +70,7 @@ Do real birds align with everything within a fixed distance, as in Vicsek's mode
 
 The advantage is robustness. A flock that thins out, at its edges or after a predator's attack, keeps the same number of interaction partners per bird and so keeps its cohesion. A metric flock would break into pieces as soon as its density fell, which is exactly what simulations of metric models show and what real flocks do not do.
 
-::: {.example #ex:flocks-seven-neighbours-any title="Seven neighbours at any density"}
+::: {.example #ex:flocks-seven-neighbours-any title="Seven neighbours at any density" show="level=flock&lens=on"}
 For the density of @ex:flocks-many-neighbours, $0.05\,\mathrm{m^{-2}}$, what interaction radius would give each agent seven neighbours? What happens to that radius if the density doubles?
 
 **Strategy.** Solve $\rho\pi R^2 = 7$ for $R$.
@@ -94,7 +94,7 @@ That observation rules out the simplest explanation. If each bird merely copied 
 
 ![A turn started by the first bird in a line, spreading by imitation (diffusion, red) and with turning inertia (wave, blue). The diffusive arrival time grows with the square of distance; the wave arrives at constant speed.](figures/generated/ch07-turn-wave.png){width="100%"}
 
-::: {.example #ex:flocks-diffusion-or-wave title="Diffusion or wave?"}
+::: {.example #ex:flocks-diffusion-or-wave title="Diffusion or wave?" show="q=starling-turn"}
 A flock is $40\,\mathrm{m}$ across. Neighbouring birds are about $a = 1\,\mathrm{m}$ apart and react in about $\tau = 0.1\,\mathrm{s}$, so imitation alone would spread a turn with a diffusion constant of order $D \approx a^2/\tau = 10\,\mathrm{m^2\,s^{-1}}$. Estimate the crossing time by diffusion, $L^2/2D$, and by a wave at $30\,\mathrm{m\,s^{-1}}$.
 
 **Strategy.** Substitute into each expression.
@@ -120,7 +120,7 @@ The programme's swarm paper proposes a shortcut [@P19]. If the swarm's interacti
 
 The paper is explicit about the conditions. The protocol assumes that $G$ has been computed and distributed before coordination begins, which is feasible when agents' positions and links are known in advance, as in a pre-planned drone display, and needs adaptation when agents join, leave or move unpredictably. It is exact only for linear interactions. And computing $G$ is itself a cost: for a general network it means inverting an $N\times N$ matrix, of order $N^3$ operations. The question for any application is how many times the same $G$ will be reused.
 
-::: {.example #ex:flocks-paying-propagator title="Paying for the propagator"}
+::: {.example #ex:flocks-paying-propagator title="Paying for the propagator" show="level=animal-swarm&lens=on"}
 For $N = 100$ agents, computing $G$ costs about $N^3 = 10^6$ operations. How many coordinations does it take to repay that cost when each would otherwise need $K = 5000$ rounds? When it would need only $K = 200$?
 
 **Strategy.** Each use saves $NK - N^2$ operations; divide the set-up cost by the saving.

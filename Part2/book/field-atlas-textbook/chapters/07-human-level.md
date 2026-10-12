@@ -30,7 +30,7 @@ A steep valley returns the state quickly; a shallow one slowly. A landscape with
 
 What the reduction gains is calculation: a handful of measurable numbers (curvature, barrier, noise) predicts how a state responds and how long it stays. What it loses is everything else, and that loss must be stated whenever the model is applied to a person. A coordinate $x$ might be a measured heart rate, a self-rated mood score or a combination of several signals; the model is only as good as the measurement behind $x$.
 
-::: {.example #ex:human-fast-does-valley title="How fast does a valley return?"}
+::: {.example #ex:human-fast-does-valley title="How fast does a valley return?" show="level=human-vertebrate&lens=on&dim=8"}
 For the landscape $U = \Delta U\,(x^2 - 1)^2$ with $\Delta U = 1$ and $\gamma = 1$ (in model units), find the curvature at the valley floors and the relaxation time. How does the relaxation time change if the barrier is halved?
 
 **Strategy.** Differentiate twice and evaluate at $x = \pm1$; then $\tau = \gamma/k$.
@@ -72,7 +72,7 @@ $$\langle t\rangle = \frac{2\pi\gamma}{\sqrt{k_A\,|k_\text{top}|}}\;e^{\Delta U/
 
 where $k_A$ and $k_\text{top}$ are the curvatures at the valley floor and at the top of the ridge. The prefactor sets the time scale; the exponential does nearly all the work. The same law, with $D = k_BT$, governs the rates of chemical reactions, where it is known as the Arrhenius law and has been tested on millions of reactions.
 
-::: {.example #ex:human-small-change-noise title="A small change in noise"}
+::: {.example #ex:human-small-change-noise title="A small change in noise" show="level=human-vertebrate&lens=on&dim=8"}
 For the landscape of @ex:human-fast-does-valley ($\Delta U = 1$, $\gamma = 1$), compute the Kramers escape time at noise $D = 0.25$ and at $D = 0.10$, the two runs in the opening figure.
 
 **Strategy.** $k_A = 8$ and $|k_\text{top}| = 4$, so the prefactor is $2\pi/\sqrt{32} = 1.11$. Multiply by $e^{\Delta U/D}$.
@@ -102,7 +102,7 @@ $$\frac{\langle t_{B\to A}\rangle}{\langle t_{A\to B}\rangle} \approx e^{(\Delta
 
 There is a second way to change valleys. A large outside push, a force $F(t)$ much bigger than the noise, can carry the state over the ridge in the time the push lasts, without waiting for luck. Forced transitions are fast; noise-driven escapes from a deep valley are exponentially slow. Put the two together and the asymmetry is stark: a strong push can put a system into a deep valley in moments, and noise alone may take longer than any observation to get it out.
 
-::: {.example #ex:human-asymmetric-pair-valleys title="An asymmetric pair of valleys"}
+::: {.example #ex:human-asymmetric-pair-valleys title="An asymmetric pair of valleys" show="level=human-vertebrate&lens=on&dim=8"}
 A landscape has $\Delta U_A = 1$ and $\Delta U_B = 3$, with noise $D = 0.25$ and similar curvatures. How much longer, on average, does the state stay in B than in A?
 
 **Strategy.** Use the ratio formula above.
@@ -136,7 +136,7 @@ The function $K$ is called a **memory kernel** and $\tau_m$ the **memory time**.
 
 Memory changes what a threshold does. A single push may fall short of a threshold; the same push repeated before the first has faded can cross it, because the state still carries part of the first. The response to the second push depends on the first, so the system behaves as if it remembers.
 
-::: {.example #ex:human-pushes title="Two pushes"}
+::: {.example #ex:human-pushes title="Two pushes" show="q=feeling-memory"}
 A state with memory kernel $K(\tau) = e^{-\tau/\tau_m}$, $\tau_m = 5\,\mathrm{s}$, receives two identical brief pushes of unit size, at $t = 0$ and $t = 5\,\mathrm{s}$. A threshold sits at $1.2$. Does either push cross it?
 
 **Strategy.** Just after each push, add the push to whatever remains of earlier ones.
@@ -166,7 +166,7 @@ With $\tau_m = 5\,\mathrm{s}$, what fraction of a push remains after $1\,\mathrm
 
 A noisy state in a slow valley wanders further and stays away longer, which shows up in a simple statistic. Sampled every $\Delta t$, successive values are correlated by $e^{-\Delta t/\tau}$, the **lag autocorrelation**. As a tipping point approaches, $\tau$ grows and the autocorrelation creeps towards one; the variance grows too. These **early-warning signals** have been found before abrupt changes in lakes, fisheries and past climates [@scheffer2009early]. They have limits: they need long, regular records, they can be masked by noise or by changes in the noise itself, and some transitions happen without them, for example when a single large push throws a system over a ridge that was not flattening at all. Researchers have looked for the same signals in daily mood records; that work is young, and any single-person forecast from it would be premature.
 
-::: {.example #ex:human-rising-autocorrelation title="A rising autocorrelation"}
+::: {.example #ex:human-rising-autocorrelation title="A rising autocorrelation" show="level=human-vertebrate&lens=on&dim=8"}
 A mood score is recorded once a day. Its relaxation time is $1$ day, and then over some months it rises to $2$ days and to $4$. Find the lag-one-day autocorrelation at each stage.
 
 **Strategy.** Use $e^{-\Delta t/\tau}$ with $\Delta t = 1$ day.

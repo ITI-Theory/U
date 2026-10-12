@@ -32,7 +32,7 @@ with **natural angular frequency** $\omega_0 = \sqrt{k/m}$ and **damping rate** 
 
 A single number summarises how long a system rings: the **quality factor** $Q = 1/2\zeta = \omega_0/2\gamma$. Roughly, $Q$ counts how many radians of oscillation pass while the energy falls by a factor $e$; a bell or a tuning fork has $Q$ in the thousands, a car on its springs less than one.
 
-::: {.example #ex:response-mass-spring title="A mass on a spring"}
+::: {.example #ex:response-mass-spring title="A mass on a spring" show="level=human-vertebrate&lens=on&dim=4"}
 A $0.50\,\mathrm{kg}$ mass hangs on a spring with $k = 200\,\mathrm{N\,m^{-1}}$ and friction coefficient $b = 2.0\,\mathrm{kg\,s^{-1}}$. Find $\omega_0$, $f_0$, $\gamma$, $\zeta$, $Q$ and the time for the amplitude to fall by a factor $e$.
 
 **Strategy.** Substitute into the definitions above.
@@ -64,7 +64,7 @@ $$G(t) = \frac{1}{m\omega_d}\,e^{-\gamma t}\sin(\omega_d t)\quad (t \ge 0), \qqu
 
 Two features are worth stating carefully. First, $G(t) = 0$ before the kick: the system cannot respond to a cause that has not happened yet. A response function with this property is called **retarded** or **causal**, and every physical response in this book is of this kind. Second, $G$ contains everything about the system: its natural frequency, its damping, and its mass all appear in it. Measuring the response to one sharp kick is how engineers test bridges, how seismologists probe the Earth and how neuroscientists characterise a synapse.
 
-::: {.example #ex:response-kicking-spring title="Kicking the spring"}
+::: {.example #ex:response-kicking-spring title="Kicking the spring" show="level=human-vertebrate&lens=on&dim=4"}
 The resting mass of @ex:response-mass-spring is struck with an impulse $J = 0.10\,\mathrm{N\,s}$. Find its initial speed, the amplitude of the ringing, and the largest displacement it reaches.
 
 **Strategy.** The impulse sets the initial velocity $v_0 = J/m$. The motion is then $x(t) = J\,G(t)$.
@@ -96,7 +96,7 @@ The upper limit $t$ is causality again: only kicks that have already happened co
 
 ![The convolution idea: an input history is cut into kicks, each produces a delayed copy of the impulse response, and the copies add up to the total response.](../field-atlas/figures/theory/T2_8_convolution.png){width="100%"}
 
-::: {.example #ex:response-pushing-swing-wrong title="Pushing a swing at the wrong moment"}
+::: {.example #ex:response-pushing-swing-wrong title="Pushing a swing at the wrong moment" show="level=human-vertebrate&lens=on&dim=4"}
 The oscillator of @ex:response-mass-spring receives a kick of $0.10\,\mathrm{N\,s}$, then an identical kick, in the same direction, exactly half a ringing period later. Then repeat with the second kick one full period later. By what factor does the ringing amplitude change in each case?
 
 **Strategy.** The ringing period is $T_d = 2\pi/\omega_d = 0.316\,\mathrm{s}$. Half a period later the mass is moving the other way, so a same-direction kick opposes it; one period later it is moving the same way. Use superposition, remembering that the first ringing has decayed by $e^{-\gamma\Delta t}$.
@@ -122,7 +122,7 @@ $$A(\omega) = \frac{F_0/m}{\sqrt{(\omega_0^2 - \omega^2)^2 + (2\gamma\omega)^2}}
 
 Far below $\omega_0$ the mass simply follows the force through the spring; far above, it barely moves. Near $\omega_0$ the response is largest: **resonance**. At $\omega = \omega_0$ the amplitude is $Q$ times the static displacement $F_0/k$, and the peak has a width of about $\Delta\omega \approx \omega_0/Q$. A high-$Q$ system rings for a long time after a kick *and* responds strongly only in a narrow band of frequencies. These are the same fact seen two ways, because the resonance curve is the Fourier transform of the impulse response.
 
-::: {.example #ex:response-long-does-earth title="How long does the Earth ring?"}
+::: {.example #ex:response-long-does-earth title="How long does the Earth ring?" show="level=planetary&lens=on"}
 After the magnitude 9.1 Sumatra–Andaman earthquake of 2004, seismometers worldwide recorded the Earth's slowest free oscillation, the mode called ${}_0S_2$, with a period of $53.9$ minutes and a quality factor of about $Q \approx 500$ [@park2005earth; @dahlen1998theoretical]. How long does the amplitude take to fall by a factor $e$, and what fraction remains after three weeks?
 
 **Strategy.** From $Q = \omega_0/2\gamma$, the decay time is $1/\gamma = 2Q/\omega_0$.
@@ -154,7 +154,7 @@ $$G_Y(r) = \frac{e^{-r/\lambda}}{4\pi r}, \qquad \lambda = \frac{\hbar}{mc},$$
 
 where $\lambda$ is the **range**. Within a distance $\lambda$ the force behaves like $1/r$; beyond it, it vanishes exponentially. The heavier the carrier, the shorter the range.
 
-::: {.example #ex:response-range-nuclear-force title="The range of the nuclear force"}
+::: {.example #ex:response-range-nuclear-force title="The range of the nuclear force" show="level=nuclear&lens=on"}
 The carrier of the long-range part of the nuclear force is the pion, with $mc^2 = 139.6\,\mathrm{MeV}$. Using $\hbar c = 197.3\,\mathrm{MeV\,fm}$, find the range and how strongly the Yukawa response is suppressed relative to Coulomb at $0.5$, $1.4$ and $3.0\,\mathrm{fm}$.
 
 **Solution.** $\lambda = \hbar c/mc^2 = 197.3/139.6 = 1.41\,\mathrm{fm}$. The suppression factor is $e^{-r/\lambda}$: $0.70$ at $0.5\,\mathrm{fm}$, $0.37$ at $1.41\,\mathrm{fm}$ and $0.12$ at $3.0\,\mathrm{fm}$.

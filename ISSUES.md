@@ -4004,8 +4004,13 @@ SpaceEngine renders) and the one waiting on a viewer stay.
       theory chapters.
       (13 Oct review: moved to ISS-087: the Atlas has its Part I theory; each level's text page
       points to the theory sections to read with it, in the A4-landscape edition.)
-- [ ] (from ISS-080) (ISS-038) Per worked example "Show me" tours in the textbook HTML (one
+- [x] (from ISS-080) (ISS-038) Per worked example "Show me" tours in the textbook HTML (one
       block per example) if the chapter-level stops prove useful.
+      (13 Oct: done: each of the course's 96 worked examples names its app view (`show=` on the
+      example, a level with lens, dimension or compare, a question or a tour); the HTML ends the box
+      with "Show me in the Soma Machine" linking to https://t-theory.org/app/#<view>; the PDF is
+      unchanged. textbook-boxes.lua checks every view against the registry (levels, questions,
+      tours, lens, dim, compare) and fails the build on an unknown one.)
 - [ ] (from ISS-080) (ISS-069) The 3D glass cockpit (after the above): panels as live
       textures, the window as the main view.
 - [ ] (from ISS-080) (ISS-071) Later, desktop only: PROVE on a floor asks the MOTHER bridge

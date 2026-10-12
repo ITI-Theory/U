@@ -32,7 +32,7 @@ which is close to one for long waves ($k\ell \ll 1$) and small or zero for waves
 
 {{Visualize | eq:zoom-sinc | function-plot:generic | f1="sin(x) + 0.5*sin(6*x) + 0.3*sin(17*x)"; name1="fine-grained field"; f2="sin(x)*sin(l/2)/(l/2) + 0.5*sin(6*x)*sin(3*l)/(3*l) + 0.3*sin(17*x)*sin(8.5*l)/(8.5*l)"; name2="block average over $\ell = 1$"; l=1; legend=below; x=[0,12.6]; xlabel="position $x$"; label=fig:zoom-block; height=30% }} A field with detail at three wavelengths, and its block average over cells of width one. The longest wave passes almost untouched ($96\,\%$); the two short waves are cut to less than a tenth of their size, as @eq:zoom-sinc predicts.
 
-::: {.example #ex:zoom-averaging-wave title="How much of a wave survives?"}
+::: {.example #ex:zoom-averaging-wave title="How much of a wave survives?" show="level=molecular&lens=off"}
 A wave of wavelength $\lambda$ is averaged over cells half a wavelength wide. What fraction of its amplitude survives? What if the cells are a whole wavelength wide?
 
 **Strategy.** With $k = 2\pi/\lambda$ and $\ell = \lambda/2$, $k\ell/2 = \pi/2$. Use @eq:zoom-sinc.
@@ -60,7 +60,7 @@ $$\langle u^2 \rangle = \langle u \rangle^2 + \sigma_u^2.$$ {#eq:zoom-mean-squar
 
 So when a law contains $u^2$, or any nonlinear function of $u$, the averaged law contains the averaged field *and* a term that depends on the fluctuations the averaging threw away. The coarse description is not closed: it needs extra information about the fine scale. Supplying that information, by measurement or by a model, is the **closure problem**, and it appears at almost every step of the ladder.
 
-::: {.example #ex:zoom-hidden-energy title="Energy hidden in eddies"}
+::: {.example #ex:zoom-hidden-energy title="Energy hidden in eddies" show="level=planetary&lens=off"}
 Wind blows with a mean speed of $10\,\mathrm{m\,s^{-1}}$ and turbulent fluctuations of standard deviation $2\,\mathrm{m\,s^{-1}}$ about the mean. Compare the true mean kinetic energy per kilogram with the value computed from the mean speed.
 
 **Strategy.** Kinetic energy per kilogram is $\tfrac{1}{2}v^2$; use @eq:zoom-mean-square.
@@ -94,7 +94,7 @@ where $v$ is a speed, $L$ a size and $\nu$ the fluid's kinematic viscosity, $1.0
 
 {{Visualize | eq:zoom-reynolds | log-scale:wave | items="bacterium=6e-5, sperm cell=5e-3, small fish=5e3, human swimmer=2e6, blue whale=2.5e8"; range=[-5,9]; unit="Reynolds number"; label=fig:zoom-reynolds; width=100% }} Swimmers in water placed by Reynolds number. All swim in the same fluid, but across thirteen factors of ten they face different physics: a bacterium lives in a world of syrup, a whale in a world of momentum.
 
-::: {.example #ex:zoom-bacterium title="Life at low Reynolds number"}
+::: {.example #ex:zoom-bacterium title="Life at low Reynolds number" show="level=cellular-synaptic&lens=off"}
 A bacterium $2\,\mu\mathrm{m}$ long swims at $30\,\mu\mathrm{m\,s^{-1}}$; a person $2\,\mathrm{m}$ tall swims at $1\,\mathrm{m\,s^{-1}}$. Find the Reynolds number of each in water.
 
 **Strategy.** Use @eq:zoom-reynolds with $\nu = 1.0 \times 10^{-6}\,\mathrm{m^2\,s^{-1}}$.
@@ -106,7 +106,7 @@ A bacterium $2\,\mu\mathrm{m}$ long swims at $30\,\mu\mathrm{m\,s^{-1}}$; a pers
 
 Equal dimensionless numbers mean equal behaviour, which is why engineers test **scale models**. A ship's bow wave is controlled by the **Froude number** $Fr = v/\sqrt{gL}$, the ratio of speed to the speed of a gravity wave as long as the ship. A model that matches $Fr$ makes the same waves, scaled.
 
-::: {.example #ex:zoom-ship-model title="Testing a ship in a tank"}
+::: {.example #ex:zoom-ship-model title="Testing a ship in a tank" show="tour=cell-to-cosmos"}
 A ship $100\,\mathrm{m}$ long will sail at $10\,\mathrm{m\,s^{-1}}$. A model is built at $1{:}25$ scale. How fast must it be towed to make the same pattern of waves?
 
 **Strategy.** Keep $Fr = v/\sqrt{gL}$ fixed: $v \propto \sqrt{L}$.
@@ -136,7 +136,7 @@ Worse, a frequency above $f_N$ does not simply vanish: it reappears disguised as
 
 {{Visualize | eq:zoom-nyquist | function-plot:generic | f1="sin(2*pi*9*t)"; name1="true signal, 9 Hz"; f2="-sin(2*pi*1*t)"; name2="what the samples show, 1 Hz"; var=t; x=[0,1]; sample_every=0.1; legend=below; xlabel="time (s)"; label=fig:zoom-alias; height=30% }} A $9\,\mathrm{Hz}$ oscillation sampled ten times a second (dots). The samples fall exactly on a slow $1\,\mathrm{Hz}$ wave: the fast signal has been aliased to a slow one. Nothing in the samples alone can tell the two apart.
 
-::: {.example #ex:zoom-cd-audio title="Why a CD samples at 44.1 kHz"}
+::: {.example #ex:zoom-cd-audio title="Why a CD samples at 44.1 kHz" show="level=human-vertebrate&lens=on"}
 Human hearing extends to about $20\,\mathrm{kHz}$. What is the Nyquist frequency of CD audio, sampled at $44.1\,\mathrm{kHz}$, and why must sounds above it be filtered out before recording?
 
 **Strategy.** $f_N = 1/2\Delta t$ = half the sampling rate.

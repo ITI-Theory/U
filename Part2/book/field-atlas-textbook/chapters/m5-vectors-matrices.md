@@ -22,7 +22,7 @@ $$\mathbf{a} \cdot \mathbf{b} = a_x b_x + a_y b_y = |\mathbf{a}|\,|\mathbf{b}|\c
 
 where $\theta$ is the angle between them. It measures how much one vector points along the other. It is largest when they are parallel, zero when they are perpendicular and negative when they point apart. The **work** done by a force $\mathbf{F}$ moving an object through a displacement $\mathbf{d}$ is $W = \mathbf{F} \cdot \mathbf{d}$: only the part of the force along the motion does work.
 
-::: {.example #ex:m-vec-sledge title="Pulling a sledge"}
+::: {.example #ex:m-vec-sledge title="Pulling a sledge" show="level=human-vertebrate&lens=off"}
 A child pulls a sledge $10\,\mathrm{m}$ along flat snow with a rope at $30^\circ$ above the horizontal, with a force of $50\,\mathrm{N}$. How much work does the child do?
 
 **Strategy.** Use $W = |\mathbf{F}|\,|\mathbf{d}|\cos\theta$ from @eq:m-vec-dot.
@@ -60,7 +60,7 @@ $$\mathbf{F}_{\mathrm{swirl}}(x, y) = (-y,\ x)$$ {#eq:m-vec-swirl}
 
 {{Visualize | eq:m-vec-swirl | vector-field:wave | u="-y"; v="x"; x=[-2,2]; y=[-2,2]; n=15; circle=1; expect_flux=0; expect_circulation=2*pi; label=fig:m-vec-swirl; height=34% }} A pure swirl. Nothing flows out of the red circle (the flux is zero), but going round it the field pushes all the way: the circulation is $2\pi$, twice the area of the circle.
 
-::: {.example #ex:m-vec-temperature-gradient title="A gradient in a room"}
+::: {.example #ex:m-vec-temperature-gradient title="A gradient in a room" show="level=human-vertebrate&lens=off"}
 In a room, the temperature is $T(x, y) = 20 + 0.5x - 0.2y$ (in $^\circ\mathrm{C}$, with $x$ and $y$ in metres). Find the gradient, its magnitude, and the direction heat flows.
 
 **Strategy.** Take the partial derivatives of @eq:m-vec-gradient; heat flows along $-\nabla T$.
@@ -120,7 +120,7 @@ $$A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$$ {#eq:m-vec-example-matrix}
 
 {{Visualize | eq:m-vec-example-matrix | eigen-transform:generic | matrix="[[2,1],[1,2]]"; expect_eigen="1,3"; label=fig:m-vec-eigen; height=36% }} The matrix $A$ turns the unit circle (dashed) into an ellipse. Grey arrows show where sample points move; most change direction. Along the two eigenvectors they do not: the diagonal $(1, 1)$ is stretched three times, and the other diagonal $(1, -1)$ is left unchanged.
 
-::: {.example #ex:m-vec-eigen-example title="Eigenvalues of a symmetric matrix"}
+::: {.example #ex:m-vec-eigen-example title="Eigenvalues of a symmetric matrix" show="level=human-vertebrate&lens=on&dim=8"}
 Find the eigenvalues and eigenvectors of the matrix $A$ in @eq:m-vec-example-matrix.
 
 **Strategy.** The trace is $4$ and the determinant $3$; solve @eq:m-vec-characteristic, then find $\mathbf{v}$ from $A\mathbf{v} = \lambda\mathbf{v}$.
@@ -156,7 +156,7 @@ $$A_{\mathrm{spiral}} = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}$$ {#eq:m
 
 {{Visualize | eq:m-vec-spiral-matrix | vector-field:soma | u="-x + 2*y"; v="-2*x - y"; x=[-2,2]; y=[-2,2]; n=15; circle=1; expect_flux=-2*pi; expect_circulation=-4*pi; label=fig:m-vec-spiral; height=34% }} The flow of $\dot{\mathbf{x}} = A_{\mathrm{spiral}}\mathbf{x}$. Arrows turn clockwise and point inwards: a disturbance spirals back to rest. The inward flux through the circle reflects the negative trace, the circulation the rotation.
 
-::: {.example #ex:m-vec-spiral title="A stable spiral"}
+::: {.example #ex:m-vec-spiral title="A stable spiral" show="level=human-vertebrate&lens=on&dim=8"}
 Find the eigenvalues of $A_{\mathrm{spiral}}$ and describe what a small disturbance does.
 
 **Strategy.** Trace $-2$, determinant $(-1)(-1) - (2)(-2) = 5$. Solve @eq:m-vec-characteristic.
