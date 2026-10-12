@@ -4019,10 +4019,14 @@ SpaceEngine renders) and the one waiting on a viewer stay.
       ask Lean: the extension accepts only names in Sherlock's towers export, writes
       `import <Module>`, `#check @<name>`, `#print axioms <name>`, runs `lake env lean` (one process,
       no shell) and streams the kernel's answer to the floor; tested with a harness on
-      sft_ne_classical, and an injection attempt refused. In Neovim, `:SherlockProve` does the same
+      sft_ne_classical, and an injection attempt refused. In a local browser (with Neovim, or on its
+      own) the floor asks the MOTHER bridge, POST /prove, with the same rules (towers export only,
+      one process, no shell, local origins); tested on sft_gate_toward_awe, injection and a foreign
+      origin refused. In Neovim, `:SherlockProve` does the same
       in a terminal split (U.Dot nvim/lua/sherlock.lua, which also loads the ledger's findings as
-      diagnostics, runs the ledger and the readings check, and opens the app at a file's view
-      with `:SomaView`).)
+      diagnostics, runs the ledger and the readings check, opens the app at a file's view with
+      `:SomaView` and at a declaration's tower floor with `:SomaTower`, on a local dev server when
+      one runs so PROVE is there).)
 - [x] (from ISS-080) (ISS-073) SpaceEngine for the cosmic scales (dial levels 12-20):
       rendered footage and plates for the film and the atlas, backdrops for the Soma
       Machine's cosmic levels; the credit line in each work and in the app's credits.

@@ -60,9 +60,13 @@ export function createTowerPanel(root) {
       <pre class="explorer__prove" hidden></pre>` : ''}`;
   }
 
-  // PROVE (ISS-083, from ISS-071): only where a host can run Lean, the VS Code extension; the
-  // browser cannot. The host runs the kernel on the declaration and streams its answer back.
-  function canProve() { return typeof window !== 'undefined' && window.SOMA_HOST === 'vscode' && typeof window.somaHostPost === 'function'; }
+  // PROVE (ISS-083, from ISS-071): only where a host can run Lean; the browser cannot. In the VS
+  // Code extension the extension runs it; in a local browser (with Neovim, or on its own) the
+  // MOTHER bridge does (POST /prove). Either way the kernel's answer comes back to the floor.
+  const inVsCode = () => typeof window !== 'undefined' && window.SOMA_HOST === 'vscode' && typeof window.somaHostPost === 'function';
+  const localPage = () => typeof location !== 'undefined' && /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+  function canProve() { return inVsCode() || localPage(); }
+  const bridgeUrl = () => { try { return (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, ''); } catch { return 'http://127.0.0.1:8765'; } };
   const moduleOf = it => String(it?.title ?? '').replace(/\.lean$/, '');
   if (typeof window !== 'undefined') {
     addEventListener('message', event => {
@@ -103,7 +107,21 @@ export function createTowerPanel(root) {
       b.disabled = true;
       const out = panel.querySelector('.explorer__prove');
       if (out) { out.hidden = false; out.textContent = 'asking Lean (one process; a big module takes a minute)…\n'; }
-      window.somaHostPost({ type: 'prove', module: moduleOf(item), name: floorName });
+      const req = { module: moduleOf(item), name: floorName };
+      if (inVsCode()) window.somaHostPost({ type: 'prove', ...req });
+      else {
+        const name = floorName;
+        fetch(`${bridgeUrl()}/prove`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(req) })
+          .then(r => r.json())
+          .then(res => {
+            postMessage({ type: 'prove-out', name, text: res.output ?? res.error ?? '' }, '*');
+            postMessage({ type: 'prove-done', name, code: res.code ?? 1 }, '*');
+          })
+          .catch(() => {
+            postMessage({ type: 'prove-out', name, text: 'The MOTHER bridge is not running (make mother-bridge); it runs Lean on this machine.' }, '*');
+            postMessage({ type: 'prove-done', name, code: 1 }, '*');
+          });
+      }
     }
   });
 

@@ -15,6 +15,7 @@ POST /ask {"prompt": "...", "question": "...", "compare": false} -> {"answer": "
 GET  /health -> {"ok": true, "notebook": "<id>", "voice": true|false}
 POST /speak {"text": "..."} -> audio/wav in the H-AL voice (Piper; optional, private use)
 GET  /art/manifest.json, /art/<book>/<n>.jpg -> the author's private art (art_private.py; RICE)
+POST /prove {"module", "name"} -> {"output", "code"}: Lean's #check and #print axioms for a tower floor
 """
 from __future__ import annotations
 
@@ -57,6 +58,42 @@ LOCAL_ORIGIN = re.compile(r"^http://(127\.0\.0\.1|localhost)(:\d+)?$")
 SHELL_TOKEN = secrets.token_urlsafe(32)
 SHELL_LOCK = threading.Lock()
 ACTIVE_SHELLS = 0
+
+
+PROVE_LOCK = threading.Lock()
+
+
+def prove_decl(module: str, short: str) -> dict:
+    """PROVE on a tower floor (ISS-083): the kernel's answer for a declaration of the programme's
+    Lean. Only names in Sherlock's towers export are accepted (never free text); one Lean process
+    at a time; a fixed argument list, no shell."""
+    towers = DEFAULT_SHELL_CWD / "bld" / "sherlock" / "towers.json"
+    if not towers.exists():
+        return {"output": "No towers export (make -C sherlock towers).", "code": 1}
+    full = None
+    for t in json.loads(towers.read_text(encoding="utf-8")).get("towers", []):
+        if t.get("module") == module:
+            for d in t.get("declarations", []):
+                if d["name"] == short or d["name"].endswith("." + short):
+                    full = d["name"]
+                    break
+    if not full or not re.fullmatch(r"[\w.']+", full) or not re.fullmatch(r"[\w.]+", module):
+        return {"output": f"{module}.{short} is not in the towers export.", "code": 1}
+    lake = shutil.which("lake") or str(Path.home() / ".elan" / "bin" / ("lake.exe" if os.name == "nt" else "lake"))
+    if not PROVE_LOCK.acquire(blocking=False):
+        return {"output": "Lean is already running; one process at a time.", "code": 1}
+    try:
+        scratch = DEFAULT_SHELL_CWD / "bld" / "sherlock" / "prove" / "Prove.lean"
+        scratch.parent.mkdir(parents=True, exist_ok=True)
+        scratch.write_text(f"import {module}\n#check @{full}\n#print axioms {full}\n", encoding="utf-8")
+        r = subprocess.run([lake, "env", "lean", str(scratch)], cwd=DEFAULT_SHELL_CWD, capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=900)
+        head = f"lake env lean (import {module}; #check @{full}; #print axioms {full})\n"
+        return {"output": head + r.stdout + r.stderr, "code": r.returncode}
+    except subprocess.TimeoutExpired:
+        return {"output": "Lean took longer than 15 minutes; stopped.", "code": 1}
+    finally:
+        PROVE_LOCK.release()
 
 
 def local_config() -> dict:
@@ -641,6 +678,17 @@ class Handler(BaseHTTPRequestHandler):
             self._json(500, {"error": f"{type(error).__name__}: {error}"})
 
     def do_POST(self) -> None:  # noqa: N802
+        if self.path == "/prove":
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                data = json.loads(self.rfile.read(min(length, 2000)) or b"{}")
+                self._json(200, prove_decl(str(data.get("module", "")), str(data.get("name", ""))))
+            except Exception as error:
+                self._json(400, {"error": f"{type(error).__name__}: {error}"})
+            return
         if self.path == "/speak":
             if not self._origin_ok():
                 self._json(403, {"error": "local origins only"})
