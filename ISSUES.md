@@ -1415,11 +1415,11 @@ sources, and the chat-ingest process exists in three competing forms.
 
 ---
 
-## ISS-045: HAL next steps — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-045: HAL next steps — PARKED
 {{Tags area.ops}}
 {{Fields date.created=2026-10-06, date.start=, date.end=, epic=}}
 
-Parked by the author after the Git Bash work of 6 Oct (ISS-044). HAL now runs
+Fully parked by the author on 13 Oct (was on hold until after Mk 1). Parked by the author after the Git Bash work of 6 Oct (ISS-044). HAL now runs
 on Git Bash with platform detection, capability guards, dry run (`-n`),
 `HAL.cmd`, `copilot start|save|wrapup`, `chat new|list`, `mother ask`,
 `hal ask`; one bash standard in U.Dot. Design: T.Dot/DESIGN.md.
