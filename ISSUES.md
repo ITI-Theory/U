@@ -3633,8 +3633,21 @@ Copilot, 13 Oct:
   opens onto that level's own view. Phase: the shaft and 8 hall styles first, the doors to
   the existing views second, a palace tour third (the memory-palace exercise: place a thought
   in a hall, find it again).
-- [ ] LOOK and VIGILANCE (C-PTSD scanning) in the 3D windows.
+- [x] (13 Oct: look.js, at PATH, URETER, FLY, SCORE and the CAVE: arrow keys and a right-drag
+      turn the head, B the rear view; VIGILANCE glances left, right, up and behind, more often,
+      faster and further with the C-PTSD slider, settling with safety, the score's S or the
+      limbic breath) LOOK and VIGILANCE (C-PTSD scanning) in the 3D windows.
 - [ ] The cathedral from outside: the ventricular cast in stone, a spire per hall, the field in
       the windows, an orbit; the rear view from inside first.
 - [ ] The mind palace: the tower as the elevator, eight sector halls, doors to the levels' views.
 - [ ] The palace tour: the method of loci as an exercise.
+- [ ] Mindfulness and the foam (author, 13 Oct 17:20: is the quantum foam the mind's ultimate
+      mindful state, the zero moment? not sure). Copilot: half right, and the better half is
+      surprising. The foam is not still: it is the most agitated level; even the vacuum's
+      zero-point state fluctuates. That fits mindfulness better than stillness does: not a blank
+      mind but one where things arise and pass without being held (the Abhidharma's
+      momentariness). So mindfulness is a way of attending, not a place on the dial: in
+      THOUGHTS, a MINDFUL mode where a thought does not poke the next (the chains stop; the
+      branching ratio falls below 1: bursts arise and fade alone), Φ is not forced down; and in
+      the palace the foam floor becomes the hall of the zero moment, where that is easiest to
+      see. Interpretive throughout; a picture, not physics of the mind.

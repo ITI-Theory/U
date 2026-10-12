@@ -15,6 +15,7 @@
 // The world is two copies of one tile that leapfrog past the camera. Mono or stereo (SBS).
 
 import * as THREE from 'three';
+import { applyLook } from './look.js';
 
 const TILE = 60;
 const mod = (n, m) => ((n % m) + m) % m;
@@ -741,6 +742,7 @@ export function createFlight3D() {
           camera.position.set(Math.sin(t * 0.07) * 0.08 * half, -1.15 + 0.05 * Math.sin(t * 1.3), 0);
           camera.lookAt(Math.sin(t * 0.07 + 0.5) * 0.08 * half, -1.3, -12);
           camera.rotateZ(Math.sin(t * 0.6) * 0.012);
+          applyLook(camera);
         };
         if (state.twin) {
           // the twin view: two films of one field side by side, the left (state.river) and the
@@ -765,6 +767,7 @@ export function createFlight3D() {
         camera.position.set(Math.sin(t * 0.11) * 2.2, Math.sin(t * 0.07) * 1.2, 0);
         camera.lookAt(Math.sin(t * 0.11 + 0.6) * 2.2, Math.sin(t * 0.07 + 0.4) * 1.2, -10);
         camera.rotateZ(Math.sin(t * 0.09) * 0.06);
+        applyLook(camera);
       }
       renderer.getSize(size);
       if (state.stereo === 'half' || state.stereo === 'full') {

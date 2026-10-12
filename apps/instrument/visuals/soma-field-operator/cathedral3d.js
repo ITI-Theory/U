@@ -10,6 +10,7 @@
 
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { applyLook } from './look.js';
 
 // VISUAL THOUGHTS (ISS-077): soap bubbles with a figure inside. The shell is a thin film
 // (three.js iridescence: the colours of a soap film, 200-900 nm thick) reflecting a soft room;
@@ -272,6 +273,7 @@ export function createCathedral3D() {
       const ahead = curve.getPointAt(Math.min(0.999, u + 0.012));
       camera.position.copy(p).add(new THREE.Vector3(0, -0.15 * radiusAt(u), 0));
       camera.lookAt(ahead);
+      applyLook(camera);
       lamp.position.copy(camera.position);
       const fx = Math.max(0, Math.min(1, state.phi ?? 0.5));
       field.forEach((l, k) => {

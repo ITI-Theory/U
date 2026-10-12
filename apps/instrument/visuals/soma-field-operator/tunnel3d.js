@@ -10,6 +10,7 @@
 
 import * as THREE from 'three';
 import { XS } from './ureter-model.js';
+import { applyLook } from './look.js';
 import { createVessel } from './vessel.js';
 
 function seeded(seed) {
@@ -724,6 +725,7 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
       camera.position.copy(behind).add(new THREE.Vector3(0, ureter ? 0 : 0.45, 0));
       if (light) light.position.copy(camera.position);
       camera.lookAt(curve.getPointAt((u + 0.01 * dir + 1) % 1));
+      applyLook(camera);
       if (ureter && state.ureter) for (const r of rings) r.ring.visible = false;
       if (ureter && view !== 'scope' && stone.size > 0) {
         const c = stone.mesh.position;

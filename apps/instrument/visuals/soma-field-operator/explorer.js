@@ -59,6 +59,7 @@ import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
 import { createSomaLoop } from './somaloop.js';
+import { createLook, LOOK } from './look.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 
@@ -2872,6 +2873,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
       <button type="button" data-act="uo" title="The four stages (ISS-076): 1 the stone, 2 the stent, 3 the laser, 4 the stent out">STAGE 1 · THE STONE ▸</button>
       <button type="button" data-act="uv" title="INSIDE the tube, OUTSIDE (the urinary tract and where the pain is felt), or BOTH; on two screens, one window INSIDE and the other OUTSIDE">VIEW: INSIDE</button>
+      <button type="button" data-act="vig" aria-pressed="false" title="VIGILANCE (ISS-078): the view glances around by itself, left, right, behind; more often and faster with the C-PTSD slider; safety lets it settle. Look yourself: the arrow keys, a right-drag; B: the rear view">VIGILANCE</button>
       <button type="button" data-act="body" aria-pressed="false" title="ONE BODY (ISS-077): the stone's pain reaches the head, the head's tension tightens the body, the limbic breath calms both; with the ADHD, ASD and C-PTSD sliders">LOOP: BODY + MIND</button>
       <button type="button" data-act="follow" title="Follow the colic from the stone to the brain: up the spinal cord to the thalamus and the pain regions (ISS-077)">FOLLOW THE PAIN ▸</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
@@ -2957,6 +2959,29 @@ export function createExplorer(hooks = {}) {
   const followButton = root.querySelector('[data-act="follow"]');
   const uoButton = root.querySelector('[data-act="uo"]');
   const bodyButton = root.querySelector('[data-act="body"]');
+  const vigButton = root.querySelector('[data-act="vig"]');
+  // LOOK: the head in the first-person 3D stops
+  const look = createLook();
+  const LOOK_STOPS = ['tunnel', 'ureter', 'flight', 'score', 'brain'];
+  const lookHere = () => st.open && LOOK_STOPS.includes(st.stop) && st.view3d && (st.stop !== 'brain' || st.cave);
+  const lookHud = document.createElement('div');
+  lookHud.className = 'explorer__look';
+  root.append(lookHud);
+  addEventListener('keydown', event => {
+    if (!lookHere() || event.target.closest?.('input, textarea, select')) return;
+    if (event.key.startsWith('Arrow')) { look.key(event.key, true); event.preventDefault(); }
+    else if (event.key.toLowerCase() === 'b' && !event.ctrlKey && !event.metaKey) look.toggleRear();
+  });
+  addEventListener('keyup', event => look.key(event.key, false));
+  let rdrag = null;
+  root.addEventListener('contextmenu', event => { if (lookHere()) event.preventDefault(); });
+  root.addEventListener('pointerdown', event => { if (event.button === 2 && lookHere()) rdrag = { x: event.clientX, y: event.clientY }; });
+  addEventListener('pointerup', event => { if (event.button === 2) rdrag = null; });
+  root.addEventListener('pointermove', event => {
+    if (!rdrag) return;
+    look.drag(event.clientX - rdrag.x, event.clientY - rdrag.y);
+    rdrag = { x: event.clientX, y: event.clientY };
+  });
   const uvButton = root.querySelector('[data-act="uv"]');
   const wdownButton = root.querySelector('[data-act="wdown"]');
   const wupButton = root.querySelector('[data-act="wup"]');
@@ -3015,7 +3040,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, vig: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -3100,6 +3125,9 @@ export function createExplorer(hooks = {}) {
     followButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
     uoButton.hidden = uvButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
     bodyButton.hidden = !['ureter', 'brain'].includes(st.stop) || Boolean(wallNow);
+    vigButton.hidden = !LOOK_STOPS.includes(st.stop) || Boolean(wallNow) || (st.stop === 'brain' && !st.cave);
+    vigButton.classList.toggle('active', st.vig);
+    vigButton.setAttribute('aria-pressed', String(st.vig));
     bodyButton.classList.toggle('active', st.body);
     bodyButton.setAttribute('aria-pressed', String(st.body));
     uoButton.textContent = `STAGE ${st.uo + 1} · ${URETER_STAGES[st.uo].title} ▸`;
@@ -3144,7 +3172,7 @@ export function createExplorer(hooks = {}) {
     twButton.classList.toggle('active', st.tw);
     twButton.setAttribute('aria-pressed', String(st.tw));
     pvButton.hidden = st.stop !== 'score' || !(st.tw || st.ab === 'b');
-    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && (st.thoughts || st.cave || st.body)) || (st.stop === 'ureter' && st.body));
+    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && (st.thoughts || st.cave || st.body)) || (st.stop === 'ureter' && st.body) || (st.vig && LOOK_STOPS.includes(st.stop)));
     abButton.hidden = st.stop !== 'score' || st.tw;
     apButton.hidden = st.stop !== 'score';
     apButton.textContent = `PILOT: ${{ '': 'OFF', auto: 'AUTOPILOT', co: `CO-PILOT (${st.own})`, manual: 'MANUAL' }[st.ap]}`;
@@ -3337,7 +3365,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3386,6 +3414,20 @@ export function createExplorer(hooks = {}) {
     } else if (towerPanel.open) towerPanel.close();
     if (stereo) ctx = layers.screen.ctx;
     bodyStep(env);
+    // the head: vigilance and the look, settled by safety (the score's S, the limbic breath)
+    if (lookHere()) {
+      const safety = Math.min(1, (st.stop === 'score' && scoreModes ? scoreModes.S : 0) + (st.body ? 0.6 * BODY.loop.breath : 0));
+      look.update(env.dt, { vigilance: st.vig, cp: st.cp, safety });
+      const parts = [];
+      if (st.vig) parts.push(`VIGILANCE${st.cp > 0.05 ? ` · C-PTSD ${Math.round(100 * st.cp)}%` : ''}${safety > 0.3 ? ' · settling (safety)' : ''}`);
+      if (LOOK.behind) parts.push('LOOKING BEHIND');
+      else if (LOOK.glancing) parts.push('a glance');
+      lookHud.textContent = parts.join(' · ');
+      lookHud.hidden = !parts.length;
+    } else {
+      LOOK.yaw = 0; LOOK.pitch = 0;
+      lookHud.hidden = true;
+    }
     scene(st.stop).tick(env);
     const entering = st.enterStart ? clamp((t - st.enterStart) / 1.6, 0, 1) : 1;
     if (entering < 1) {
@@ -3525,6 +3567,9 @@ export function createExplorer(hooks = {}) {
       hooks.onChange?.();
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
+      syncUi();
+    } else if (b.dataset.act === 'vig') {
+      st.vig = !st.vig;
       syncUi();
     } else if (b.dataset.act === 'body') {
       st.body = !st.body;

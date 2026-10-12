@@ -482,6 +482,9 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__pop-formula { color: #ffd166; font-size: 12px; word-break: break-word; }
 .explorer__pop-doc { color: rgba(232,238,252,.55); font-size: 11px; }
 .explorer__vivid { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #ffd166; }
+/* LOOK and VIGILANCE (ISS-078) */
+.explorer__look { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); z-index: 3; padding: 3px 10px; font-size: 11px; letter-spacing: .1em; color: #ffd166; background: rgba(5,7,14,.6); border: 1px solid rgba(255,209,102,.35); pointer-events: none; }
+.explorer__look[hidden] { display: none; }
 /* MY FILM: the score editor (ISS-053) */
 .explorer__editor { position: absolute; left: 14px; bottom: 14px; width: min(800px, 60vw); padding: 10px 12px; background: rgba(4,7,16,.94); border: 1px solid rgba(255,209,102,.5); z-index: 4; font-size: 12px; }
 .explorer__editor header { display: flex; gap: 10px; align-items: baseline; color: #ffd166; margin-bottom: 6px; }
