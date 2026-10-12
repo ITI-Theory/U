@@ -38,6 +38,7 @@ $(eval $(call register, g2-symmetry-breaking,             citeproc, en,  g2break
 $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenomena))
 $(eval $(call register, sherlock-compiler,                citeproc, en,    sh1      ))
 $(eval $(call register, path-sensitive-transitions,       citeproc, en,    pathsens))
+$(eval $(call register, sherlock-llm,                     citeproc, en,    sh2      ))
 $(eval $(call register, SFT-DEMO-CASE,                     citeproc, en,  demo-case))
 
 # Derived target lists (computed from registry)

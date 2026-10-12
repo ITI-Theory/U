@@ -408,6 +408,22 @@ canonical_papers:
     make_alias: sh1
     references_minimum: 5
 
+
+  - id: SH2
+    slug: sherlock-llm
+    title: "Can a Language Model Do Sherlock's Job? NotebookLM against Sherlock's registry, OpenCyc slice packs and paper-local arithmetic"
+    discipline: "Knowledge representation; language-model evaluation"
+    level: "masters"
+    doi: null
+    status: pending-review
+    notes: "Draft companion to SH1 for ISS-067; reports saved NotebookLM runs in bld/sherlock/nlm-exp*.json and marks missing cells and local-model run as future work."
+    file: papers/sherlock-llm.pdf
+    zenodo_file: zenodo/SH2-sherlock-llm.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: sh2
+    references_minimum: 5
+
   - id: P25
     slug: path-sensitive-transitions
     title: "Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Action Costs in [T]-Theory"
