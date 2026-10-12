@@ -68,8 +68,7 @@ the Lean refresh (`make -C sherlock towers`, then `make -C sherlock ledger`) was
 through the towers export. On restart: rerun both (towers, then ledger, one Lean process at
 a time; the build alongside), then a full `lake build`, `make -C sherlock check`, `make
 uat-check`. The ledger's last 7 lines are names written tonight awaiting Lean's judge.
-Then the author reads the Body and Session draft
-(`paper/soma/the-tensor/body-and-session-phases.draft.md`).
+The Body and Session lines are in The Tensor's Part II (author, 13 Oct: "go with yours").
 
 ## Next
 

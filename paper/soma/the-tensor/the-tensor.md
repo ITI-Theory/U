@@ -217,6 +217,14 @@ Tempo is regular. Visual: clear light, organised geometry, recognisable forms.
 *In the river container:* the boat leaves the last town. The last road disappears
 behind the tree line. The journey has begun.
 
+*In the body container:* the craft is released into a wide vein. The walls are
+lit and readable: valves, branches, every one on the chart. The pilot still
+names what passes.
+
+*In the session container:* the client arrives and talks. The story is told in
+sentences, in order. The room is safe; the therapist is there. Under the
+story, something pulls.
+
 **Phase 2: Descent** $t \in [0.25, 0.52]$
 
 Safety falls steadily. Curiosity peaks and begins to fall. Fear rises. Language
@@ -233,6 +241,14 @@ peripheral detail.
 vegetation becomes unrecognisable. Something that was navigable is becoming
 something that is navigating you.
 
+*In the body container:* the vessels narrow. The flow takes the craft; cells
+crowd the hull; nothing outside matches the chart. Something that was steered
+is now steering.
+
+*In the session container:* the sentences shorten. The body takes over from
+the story: breath, a tightness in the chest, the hands. The therapist slows
+down. What was being told is now being felt.
+
 **Threshold 1** $t \approx 0.52$
 
 The first instanton-like score event. Safety $< 2$, Fear $> 7$. The field tips. This is the
@@ -241,6 +257,12 @@ awe. The two are close — they activate the same somatic substrate. The differe
 is the interpretation. The rendering system holds here until the crossing completes.
 
 *In the river container:* the moment you cannot go back. Not a decision. A discovery.
+
+*In the body container:* the craft passes the last branch it could have turned
+from; the current into the heart has it. Not a decision. A discovery.
+
+*In the session container:* the fear peaks and does not discharge. The story
+cannot be picked up again. Not a decision. A discovery.
 
 **Phase 3: The Deep River** $t \in [0.52, 0.74]$
 
@@ -259,6 +281,14 @@ wonder and loss that characterises the deepest attractors.
 *In the river container:* the encounter. Whatever Kurtz is. Whatever the heart
 of darkness is. It does not speak in sentences. It does not need to.
 
+*In the body container:* the heart chamber. A beat louder than anything; no
+forms, only pressure and rhythm. The oldest immune memory, older than the
+self. It does not speak in sentences.
+
+*In the session container:* no words. The freeze, held, with someone present:
+the body at its oldest position. Only the breath and the heartbeat. Nobody
+needs to speak.
+
 **Threshold 2** $t \approx 0.74$
 
 The second instanton-like score event. Language $= 0$, Pre-verbal $= 9$. The encounter.
@@ -269,6 +299,12 @@ has no name in any clinical taxonomy. It has only a position in the field.
 
 The rendering system may pause here. At high $\kappa_r$, the viewer's own
 biofeedback determines when this phase ends.
+
+*In the body container:* the chamber's oldest memory meets the craft: the first
+loss, the one before memory. Grief opens fully.
+
+*In the session container:* the freeze lifts. Grief comes: not sadness, the
+oldest loss, as it was.
 
 **Phase 4: Return** $t \in [0.74, 1.0]$
 
@@ -285,6 +321,15 @@ that carries the memory of noise.
 
 *In the river container:* the river widens. Light returns. Towns appear on the
 bank. The world has not changed. You have.
+
+*In the body container:* out through the great vessels into open flow. Light;
+the chart makes sense again, though not the old sense. The body has not
+changed. The pilot has.
+
+*In the session container:* words return, slowly, for something they could not
+say at the start. The client leaves the room. Not a round trip: the return
+basin is different (a reorganised return basin is a design target, not a
+promise).
 
 ---
 

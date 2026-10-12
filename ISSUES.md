@@ -3941,12 +3941,13 @@ steps to take now.
       matter (area, visibility, sources, evidence label); quarantined claims stay out.
       *Phase Dot* is built from the notes, filtered by visibility.
 
-## ISS-084: Sherlock's analogy and the books' writing, after the Body and Session phases — ON-HOLD (after the Body and Session draft)
+## ISS-084: Sherlock's analogy and the books' writing, after the Body and Session phases — OPEN
 {{Tags area.proofs, area.books}}
 {{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
 
-Waits for the author's corrections to `paper/soma/the-tensor/body-and-session-phases.draft.md`:
 SME needs the Body and Session containers written before it can compare them with the River.
+They are (13 Oct): the author accepted the draft as it was ("go with yours, I have read it"), and
+its lines are in The Tensor's Part II under each phase, beside the river's; the draft file is gone.
 
 - [ ] (from ISS-080) (ISS-055) Later: SME (after the Body and Session phases are written);
       the Law book's affidavit chapter and the Russell reading (writing, not tools).
