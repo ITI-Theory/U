@@ -8,7 +8,8 @@ the other working documents are listed in [docs/agent/README.md](README.md).
 
 ## Now (13 Oct 2026, small hours)
 
-**Sherlock is a neuro-symbolic compiler for free-form text** (ISS-055; paper
+**Sherlock is a neuro-symbolic compiler for natural language** (a natural language
+compiler, NLC; renamed 13 Oct) (ISS-055; paper
 SH1, `paper/soma/sherlock-compiler/`). A language model proposes a document's
 claims, a person confirms them, Lean decides: against the document's own numbers
 (templates, kernel-checked), against the programme's Lean (the ledger), against

@@ -1,5 +1,5 @@
 ---
-title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
+title: "Sherlock: A Neuro-Symbolic Compiler for Natural Language"
 subtitle: "Affidavits for a research programme, checked in Lean 4 against themselves, each other and OpenCyc"
 author: "Alistair Johnson"
 date: "2026"
@@ -7,8 +7,8 @@ lang: en-GB
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  Sherlock compiles what a text claims into checkable statements and checks
-  them. Its front end is a language model, which reads the text and proposes
+  Sherlock is a natural language compiler (NLC): it compiles what a text
+  claims into checkable statements and checks them. Its front end is a language model, which reads the text and proposes
   claims, each with the sentence it comes from; a person confirms them. Its
   back end is the Lean 4 theorem prover with the Aesop proof search, which
   decides: against the text's own numbers, in ordinary arithmetic checked by
@@ -34,7 +34,7 @@ abstract: |
   the 28 OpenCyc names it used were not in OpenCyc. Findings carry evidence
   labels: kernel-verified arithmetic, derivations under OpenCyc's consensus
   (which is not mathematics), and interpretation. The text so far has been
-  scientific papers, an advertisement and handwritten notes; free-form text
+  scientific papers, an advertisement and handwritten notes; natural language
   in general is the claim to be tested.
 ---
 
@@ -540,7 +540,7 @@ reasoning and its more complex rules are not, and Aesop needs long chains
 spelled out. The knowledge base is OpenCyc's 2012 consensus, with its gaps
 (no *Oliver Twist* novel) and its slips (`genlInverse genlWorks parts`).
 The texts so far are one programme's papers, an advertisement and the
-author's handwritten notes; "free-form text" is the claim to be tested on a
+author's handwritten notes; "natural language" is the claim to be tested on a
 mixed set (news, a contract, a novel's chapter, a recipe).
 
 **Where the idea came from.** The author added the W3C OWL 2 Primer's family

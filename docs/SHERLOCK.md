@@ -3,7 +3,8 @@
 Sherlock checks what a document claims: against the document's own numbers
 and statements (arithmetic in Lean), against OpenCyc's common-sense consensus
 (Lean + Aesop, microtheories as scopes), and against the programme's own Lean
-(the ledger). It is a neuro-symbolic compiler for free-form text: a language
+(the ledger). It is a neuro-symbolic compiler for natural language, a natural
+language compiler (NLC) for short: a language
 model proposes the claims (the front end), Lean decides them (the back end),
 and an edit re-checks what it touches. Method and results: paper SH1
 (`paper/soma/sherlock-compiler/`). The epic, its end state and design
