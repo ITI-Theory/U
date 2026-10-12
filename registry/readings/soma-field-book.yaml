@@ -12,7 +12,15 @@ readings:
   none: 'no licensed reading: activate''s only sense in NextKB is ChangingDeviceState (FN_Change_operational_state),
     whose :OBJECT binds deviceUsed; read as doneBy Fear and objectOfStateChange Shame, the validator refuted both
     (Fear and Shame genls AspatialThing, disjointWith SpatialThing). The influence Fear -> Shame (+) is the reader''s.'
+  qp:
+    sign: +
+    constrainer: Fear
+    constrained: Shame
 - id: p6-2246b
   line: 2246
   quote: shame amplifies fear
   none: NextKB has no FrameNet translation for amplify
+  qp:
+    sign: +
+    constrainer: Shame
+    constrained: Fear

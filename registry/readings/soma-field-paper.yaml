@@ -11,6 +11,10 @@ readings:
   quote: why fear amplifies pain
   none: NextKB has no FrameNet translation for amplify; the influence Fear -> LevelOfPain (+) would be the reader's,
     not licensed
+  qp:
+    sign: +
+    constrainer: Fear
+    constrained: LevelOfPain
 - id: p1-503b
   line: 503
   quote: why safety reduces
@@ -19,3 +23,7 @@ readings:
   line: 701
   quote: fear can amplify shame
   none: NextKB has no FrameNet translation for amplify
+  qp:
+    sign: +
+    constrainer: Fear
+    constrained: Shame

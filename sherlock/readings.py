@@ -18,8 +18,12 @@ OpenCyc type. Nothing in it is taken on trust. The validator checks, without gue
   R6 a sign of influence ("X raises Y": qprop+) is licensed by the sense's own type
      (genls IncreaseEvent: +, DecreaseEvent: -), not by the reader.
 
-`qp` collects the influences across all documents and reports the same pair read with
-opposite signs. The KB's own errors found on the way (a translation whose type contradicts
+`qp` collects the influences: those read from sentences (licensed by the sense, or the
+reader's where the verb has no translation) and those the documents state as data, the
+coupling matrices of their figures (`matrix-heatmap` with emotion rows; W_ij > 0: j amplifies
+i, P1). A sentence and a matrix of the same document with opposite signs for the same pair is a
+finding; two documents' matrices that differ in sign are listed for the author's judgement (a
+figure's second matrix is a deliberate modification and is not compared). The KB's own errors found on the way (a translation whose type contradicts
 its word) are reported as such.
 """
 from __future__ import annotations
@@ -126,6 +130,8 @@ def check_doc(path_: Path, st: dict, kb: dict) -> tuple[list[dict], list[str]]:
         if r.get("none"):
             res["status"] = "no translation"
             note("R2", "info", r["none"])
+            if r.get("qp"):
+                res["qp"] = {**r["qp"], "licensed": False}
             rows.append(res)
             continue
         # R2 the sense
@@ -172,10 +178,10 @@ def check_doc(path_: Path, st: dict, kb: dict) -> tuple[list[dict], list[str]]:
                 note("R6", "error", f"the sense licenses {licensed}, the reading says {r['qp']['sign']}")
             else:
                 note("R6", "info", f"sign {licensed} licensed by the sense's type")
+            res["qp"] = {**r["qp"], "licensed": licensed == r["qp"]["sign"]}
             for k in ("constrainer", "constrained"):
                 if r["qp"][k] not in constants:
                     note("R4", "error", f"{r['qp'][k]} is not an OpenCyc constant")
-            res["qp"] = r["qp"]
         rows.append(res)
     return rows, kb_findings
 
@@ -190,6 +196,55 @@ def all_rows(only: str | None = None) -> tuple[list[dict], list[str]]:
         rows += r
         kbf += k
     return rows, sorted(set(kbf))
+
+
+# matrix row labels that are OpenCyc constants (checked in check_labels); others are skipped,
+# never guessed (Freeze would be OpenCyc's Freezing, a thermal process)
+LABELS = {"fear": "Fear", "shame": "Shame", "anger": "Anger", "calm": "Calm", "awe": "Awe"}
+
+
+def matrix_influences() -> list[dict]:
+    """The influences the documents state as data: their figures' coupling matrices."""
+    out = []
+    files = [p for p in list((U / "paper" / "soma").rglob("*.md")) + list((U / "books" / "T-Theory").rglob("*.md"))
+             if not any(x in p.as_posix() for x in ("archive", "translations", "OBSOLETE"))]
+    for p in sorted(files):
+        for i, line in enumerate(p.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+            if "matrix-heatmap" not in line or "rows=" not in line:
+                continue
+            labels = [x.strip().lower() for x in re.search(r'rows="([^"]+)"', line).group(1).split(",")]
+            m = re.search(r'(?<![\w])matrix="(\[\[[^"]+\]\])"', line)
+            if not m or not any(l in LABELS for l in labels):
+                continue
+            w = json.loads(m.group(1))
+            for a, row in enumerate(w):
+                for b, v in enumerate(row):
+                    if a != b and v and a < len(labels) and b < len(labels) and labels[a] in LABELS and labels[b] in LABELS:
+                        out.append({"doc": p.stem, "file": p.relative_to(U).as_posix(), "line": i,
+                                    "constrainer": LABELS[labels[b]], "constrained": LABELS[labels[a]],
+                                    "sign": "+" if v > 0 else "-", "value": v})
+    return out
+
+
+def qp_findings(rows: list[dict]) -> tuple[list[str], list[str], int]:
+    """(sentence against matrix in one document, matrices that differ across documents, influences)."""
+    data = matrix_influences()
+    found, differs = [], []
+    for r in rows:
+        if not r.get("qp") or r["status"] == "error":
+            continue
+        q = r["qp"]
+        for d in data:
+            if d["doc"] == r["doc"] and (d["constrainer"], d["constrained"]) == (q["constrainer"], q["constrained"]) and d["sign"] != q["sign"]:
+                found.append(f"{r['doc']}:{r['line']} \"{r['quote']}\" reads {q['constrainer']} -> {q['constrained']} {q['sign']}"
+                             f"{'' if q.get('licensed') else ' (the reader' + chr(39) + 's sign)'}, but its matrix at line {d['line']} has W = {d['value']}")
+    by_pair = defaultdict(list)
+    for d in data:
+        by_pair[(d["constrainer"], d["constrained"])].append(d)
+    for (a, b), ds in sorted(by_pair.items()):
+        if len({d["sign"] for d in ds}) > 1:
+            differs.append(f"{a} -> {b}: " + "; ".join(f"{d['sign']} ({d['value']}) {d['doc']}:{d['line']}" for d in ds))
+    return found, differs, len(data)
 
 
 def qp_conflicts(rows: list[dict]) -> list[str]:
@@ -221,10 +276,17 @@ def main() -> int:
     rows, kbf = all_rows(sys.argv[2] if cmd == "check" and len(sys.argv) > 2 else None)
     if cmd == "qp":
         conflicts = qp_conflicts(rows)
+        found, differs, n = qp_findings(rows)
         for c in conflicts:
             print(f"conflict  {c}")
-        print(f"{sum(1 for r in rows if r.get('qp'))} influences read; {len(conflicts)} pairs with opposite signs")
-        return 1 if conflicts else 0
+        for f in found:
+            print(f"finding   {f}")
+        for d in differs:
+            print(f"differs   {d}")
+        print(f"{sum(1 for r in rows if r.get('qp'))} influences read, {n} in the documents' coupling matrices; "
+              f"{len(conflicts)} read pairs with opposite signs, {len(found)} sentences against their own matrix, "
+              f"{len(differs)} pairs whose matrices differ across documents")
+        return 1 if conflicts or found else 0
     bad = 0
     out = ["# Sherlock's readings: sentences checked against NextKB", "", summary(rows), ""]
     for r in rows:
@@ -235,7 +297,10 @@ def main() -> int:
                 out.append(f"  - {ch['code']} {ch['level']}: {ch['msg']}")
         bad += r["status"] == "error"
     conflicts = qp_conflicts(rows)
+    found, differs, _ = qp_findings(rows)
     out += ["", "## Influences read with opposite signs", ""] + ([f"- {c}" for c in conflicts] or ["- none"])
+    out += ["", "## Sentences against their own document's coupling matrix", ""] + ([f"- {f}" for f in found] or ["- none"])
+    out += ["", "## Coupling matrices that differ in sign across documents (for the author)", ""] + ([f"- {d}" for d in differs] or ["- none"])
     out += ["", "## Errors in NextKB found on the way", ""] + ([f"- {k}" for k in kbf] or ["- none"])
     if cmd == "report":
         OUT.mkdir(parents=True, exist_ok=True)

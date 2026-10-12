@@ -3938,6 +3938,9 @@ other work.
       (13 Oct 22:20, author: "it's a paper, def now". Done: P25 in Dist/PAPERS.yaml
       (pending-upload), "draft" wording removed, a References heading added (11 references,
       check passes); the philosophy book's paper table and corpus count say 25.)
+- [ ] (ISS-088, Sherlock's first QP finding) P6 Appendix A, lines 2636 and 2657: the base matrix
+      W0 couples Calm and Shame at +0.2 (calm amplifies shame); every other figure in P1 and P6 has
+      -0.3. A slip in the illustrative example, or meant? If a slip, -0.3 at both places.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -4261,8 +4264,16 @@ narrative-function rules. Today only the noun and verb types are used, as a hint
       PartiallyTangible), the right reading being Fear as the attribute that changes (fe_attribute);
       "fear activates shame" has no licensed reading (activate is a device's state change in NextKB).
       Still to do: the R5 type facts kernel-checked in Lean (Sherlock's OpenCyc), as gen_types does.)
-- [ ] 4. QP sign consistency: "X increases / decreases with Y" read into qualitative
+- [x] 4. QP sign consistency: "X increases / decreases with Y" read into qualitative
       proportionalities; two documents stating opposite signs for the same pair are a finding.
+      (13 Oct: `readings.py qp`. The programme states influences with verbs FrameNet lacks (amplify)
+      or between quantities OpenCyc lacks (Φ, safety), so few sentences license a sign; it also
+      states them as data, the coupling matrices of its figures (W_ij > 0: j amplifies i, P1 line
+      701). The check compares sentences with their own document's matrices, and matrices across
+      documents: 74 influences in the labelled matrices (Fear, Shame, Anger, Calm, Awe). First
+      finding: Calm and Shame are coupled at -0.3 in P1 (lines 1946, 1973, 2132) and P6 (796,
+      1108), but at +0.2 in P6's Appendix A base matrix W0 (lines 2636, 2657): calm amplifies shame
+      there. Author to decide (ISS-081).)
 - [ ] 5. Run on The Tensor and one paper; measure how much validates and what it finds; write it
       into SH1 and SH2.
 Risk: FrameNet covers everyday words better than technical ones, and OpenCyc lacks many of the
