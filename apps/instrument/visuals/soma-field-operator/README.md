@@ -128,6 +128,12 @@ paper or social derivative. Keep the procedural scene as the source of truth.
 Deep-link hash keys include `level`, `path`, `lens`, `dim`, `model`, `reader`,
 `compare`, `contours`, `styleoff`, `q`, `demo`, `era`, `ui`, and `labels`.
 
+## Maintenance deck
+
+Open `?screen=maintenance` (or ROLE until MAINTENANCE) for a static H-AL admin
+deck. `registry/reminders.yaml` is baked into `generated/app-data.js`; the
+browser stores only done/snooze state in localStorage.
+
 ## MOTHER / H-AL terminal
 
 The MOTHER panel has `CHAT` and `SHELL` tabs. `CHAT` keeps the MOTHER/H-AL

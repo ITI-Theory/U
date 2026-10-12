@@ -402,7 +402,19 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .screen-hud__label[data-label="interpretive"], .screen-hud__label[data-label="open-hypothesis"] { color: #ff8fd8; }
 .screen-hud__say { margin: 0; color: #eaf5ff; font: 400 clamp(16px, 1.6vw, 24px)/1.45 'Space Mono', monospace; }
 .screen-engine .wm-panel, .screen-engine .wm-dock, .screen-engine .tour-card, .screen-engine .wm-clean-hint { display: none !important; }
+.screen-maintenance .wm-panel, .screen-maintenance .wm-dock, .screen-maintenance .tour-card, .screen-maintenance .wm-clean-hint { display: none !important; }
 .engine-room { position: fixed; z-index: 130; inset: 0; overflow: auto; padding: 4vh 4vw; color: #eaf5ff; background: radial-gradient(circle at 20% 0%, rgba(20,229,255,.12), transparent 50%), rgba(5,7,14,.94); font: 13px/1.5 'Space Mono', monospace; }
+.maintenance-deck { position: fixed; z-index: 130; inset: 0; overflow: auto; padding: 4vh 4vw; color: #eaf5ff; background: radial-gradient(circle at 20% 0%, rgba(246,199,90,.12), transparent 48%), rgba(5,7,14,.95); font: 13px/1.5 'Space Mono', monospace; }
+.maintenance-deck h1 { margin: 6px 0; font: 800 clamp(28px, 4vw, 52px)/1 Syne, sans-serif; color: #f3ead0; }
+.maintenance-deck__kicker { margin: 0; color: #f6c75a; font-size: 11px; letter-spacing: .14em; }
+.maintenance-deck__hint, .maintenance-deck__empty { color: rgba(234,245,255,.65); max-width: 860px; }
+.maintenance-deck__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; margin-top: 3vh; }
+.maintenance-card { padding: 16px; border: 1px solid rgba(246,199,90,.4); background: rgba(5,7,14,.68); box-shadow: 0 0 30px rgba(246,199,90,.08); }
+.maintenance-card__source { margin: 0 0 8px; color: var(--cyan); font-weight: 700; letter-spacing: .12em; }
+.maintenance-card h2 { margin: 0 0 8px; color: #fff2b8; font: 800 18px/1.2 Syne, sans-serif; }
+.maintenance-card p { color: rgba(234,245,255,.82); }
+.maintenance-card button { margin: 10px 8px 0 0; padding: 8px 12px; color: #eaf5ff; border: 1px solid rgba(234,245,255,.32); background: transparent; font: 700 11px/1 'Space Mono', monospace; letter-spacing: .08em; cursor: pointer; }
+.maintenance-card button:hover, .maintenance-card button:focus-visible { color: #05070e; background: #f6c75a; border-color: #f6c75a; }
 .engine-room h1 { margin: 6px 0; font: 800 clamp(28px, 4vw, 52px)/1 Syne, sans-serif; color: #f3ead0; }
 .engine-room__kicker { margin: 0; color: var(--cyan); font-size: 11px; letter-spacing: .14em; }
 .engine-room__hint { margin: 6px 0 0; color: rgba(234,245,255,.6); font-size: 11px; }

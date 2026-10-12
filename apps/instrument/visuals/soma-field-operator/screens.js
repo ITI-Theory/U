@@ -45,7 +45,7 @@ export function setRelay(value) {
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
   'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ap', 'uo'];
-export const ROLES = ['level', 'cockpit', 'engine'];
+export const ROLES = ['level', 'cockpit', 'engine', 'maintenance'];
 
 export const screenRole = (() => {
   const role = new URLSearchParams(location.search).get('screen');
@@ -157,7 +157,7 @@ export function createScreens(hooks) {
   roleButton.type = 'button';
   roleButton.className = 'screen-role';
   roleButton.textContent = `ROLE: ${screenRole.toUpperCase()}`;
-  roleButton.title = 'Turn this window into another role: level, cockpit, engine room';
+  roleButton.title = 'Turn this window into another role: level, cockpit, engine room, maintenance';
   roleButton.addEventListener('click', () => {
     const url = new URL(location.href);
     url.searchParams.set('screen', ROLES[(ROLES.indexOf(screenRole) + 1) % ROLES.length]);
@@ -284,6 +284,62 @@ export async function openLayout(id) {
   return layout.windows.length;
 }
 
+const MAINTENANCE_KEY = 'soma-maintenance-reminders';
+
+export function createMaintenanceDeck({ reminders = [] } = {}) {
+  const deck = document.createElement('section');
+  deck.className = 'maintenance-deck';
+  deck.innerHTML = `
+    <header>
+      <p class="maintenance-deck__kicker">[T]-THEORY / H-AL</p>
+      <h1>MAINTENANCE</h1>
+      <p class="maintenance-deck__hint">Static admin reminders from the issue register. Read private material in place; never copy secrets. This browser stores only DONE and SNOOZE.</p>
+    </header>
+    <div class="maintenance-deck__list"></div>`;
+  document.body.append(deck);
+  const list = deck.querySelector('.maintenance-deck__list');
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(MAINTENANCE_KEY) || '{}'); } catch { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(MAINTENANCE_KEY, JSON.stringify(state)); } catch { /* private mode */ }
+  }
+  function render() {
+    const state = load();
+    const now = Date.now();
+    const visible = reminders.filter(item => !state[item.id]?.done && (state[item.id]?.snoozeUntil ?? 0) <= now);
+    list.replaceChildren();
+    if (!visible.length) {
+      const empty = document.createElement('p');
+      empty.className = 'maintenance-deck__empty';
+      empty.textContent = 'No reminders due. Snoozed items will return tomorrow; done items stay hidden in this browser.';
+      list.append(empty);
+      return;
+    }
+    for (const item of visible) {
+      const card = document.createElement('article');
+      card.className = 'maintenance-card';
+      card.innerHTML = `<p class="maintenance-card__source">${item.source}</p><h2></h2><p></p><nav><button type="button" data-done="${item.id}">DONE</button><button type="button" data-snooze="${item.id}">SNOOZE</button></nav>`;
+      card.querySelector('h2').textContent = item.title;
+      card.querySelector('p:not(.maintenance-card__source)').textContent = item.text;
+      list.append(card);
+    }
+  }
+  deck.addEventListener('click', event => {
+    const button = event.target.closest('button');
+    if (!button) return;
+    const id = button.dataset.done || button.dataset.snooze;
+    if (!id) return;
+    const state = load();
+    state[id] = button.dataset.done ? { done: true } : { snoozeUntil: Date.now() + 24 * 60 * 60 * 1000 };
+    save(state);
+    render();
+  });
+  render();
+  return { refresh: render };
+}
+
 // The engine room: one page with every setting, for its own window or tablet.
 export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   const room = document.createElement('section');
@@ -308,6 +364,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <button type="button" data-open="level">OPEN LEVEL VIEW</button>
         <button type="button" data-open="cockpit">OPEN COCKPIT VIEW</button>
         <button type="button" data-open="engine">OPEN ENGINE ROOM</button>
+        <button type="button" data-open="maintenance">OPEN MAINTENANCE</button>
         <p class="engine-room__hint">Drag a window to a tablet, then press F for full screen.</p>
         <p class="engine-room__hint">LAYOUT: open a whole arrangement around the main window (Chrome may ask to place windows on your screens).</p>
         ${Object.entries(LAYOUTS).map(([id, l]) => `<button type="button" data-layout="${id}" title="${l.windows.map(w => `${w.place}: ${w.role}${w.hash ? ` (${w.hash})` : ''}${w.note ? `, ${w.note}` : ''}`).join('; ')}">${l.title}</button>`).join('')}

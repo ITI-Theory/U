@@ -1,7 +1,7 @@
 import { displayName } from './names.js';
 import * as THREE from 'three';
 import { leanTowers, scribeIndex } from './generated/app-data.js';
-import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts } from './generated/app-data.js';
+import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts, reminders as registryReminders } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
@@ -12,7 +12,7 @@ import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
-import { createScreens, createEngineRoom, screenRole, SHARED_KEYS } from './screens.js';
+import { createScreens, createEngineRoom, createMaintenanceDeck, screenRole, SHARED_KEYS } from './screens.js';
 import { createExplorer, LEVEL_STOPS, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { createElevator } from './elevator.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
@@ -2730,6 +2730,10 @@ if (screenRole === 'engine') {
       location.hash = params.toString();
     },
   });
+}
+if (screenRole === 'maintenance') {
+  abstractSplash.hidden = true;
+  createMaintenanceDeck({ reminders: registryReminders });
 }
 const examplesByLevel = new Map();
 for (const example of registryExamples) {
