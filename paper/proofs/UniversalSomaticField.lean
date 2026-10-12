@@ -222,9 +222,10 @@ theorem threshold_positive : 0 < consciousnessThreshold := by
     `scale_invariance_inhabited` already proves the field equation is inhabited
     at every scale.  Scale 7 is the brain / CEMI scale. -/
 theorem sft_encapsulates_cemi :
-    -- The CEMI field is the Scale-7 restriction of the universal somatic field
-    ∃ (_eq7 : FieldEquation ⟨7, by norm_num⟩), True :=
-  ⟨(scale_invariance_inhabited ⟨7, by norm_num⟩).some, trivial⟩
+    -- What is proved: the field equation is inhabited at Scale 7 (the brain, CEMI's scale);
+    -- that CEMI is its restriction is the interpretation, not part of the statement (ISS-036)
+    Nonempty (FieldEquation ⟨7, by norm_num⟩) :=
+  scale_invariance_inhabited ⟨7, by norm_num⟩
 
 /-- Schreiber Modal HoTT: physics is formalised in dependent type theory.
     SFT arrives at the same 11D structure from the bottom up (trauma science),

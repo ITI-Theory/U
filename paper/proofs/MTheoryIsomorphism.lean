@@ -144,8 +144,8 @@ theorem boundary_not_interior (i : Fin 2) : ¬ limbicInterior (limbicBoundary i)
     is treated as a literal string theory compactification, which is not claimed.
     The structural identification with M-theory's dimension count is proved;
     the geometric claim requires a future compactification programme. -/
-theorem X7_is_7D_product :
-    ∃ (_ : CompactX7), True := ⟨(fun _ => 0, 0, fun _ => 0), trivial⟩
+theorem X7_is_7D_product : Module.finrank ℝ CompactX7 = 7 := by
+  simp [CompactX7, PropagatorSpace3D, LimbicAxis1D, CortexSpace3D, Module.finrank_prod]
 
 /-- **PROVED** (was axiom): Zoom Operator covariance — the wave equation is
     preserved under simultaneous rescaling of amplitude and velocity.

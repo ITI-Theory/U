@@ -993,12 +993,12 @@ five real `sorry`s remain in three files.
    assume the mass matrix is invertible and take `ψ̈ = M⁻¹ W ψ(t)`, or state
    it as a labelled axiom.
       (13 Oct triage: done: proved for an invertible mass matrix (`[Invertible L.mass]`, witness M⁻¹ W ψ(t)); `moduli_space_is_G2_homotopy` is now a labelled axiom, the open G₂ target. BRECVEMAVariational has no `sorry` left; module builds; the Lean appendix catalogue says so. Remaining: DyadicField 2, SomaNetwork 1)
-- [ ] (13 Oct: seven left. `LimbicTunnel.classical_trapped` is now proved: under gradient flow
+- [x] (13 Oct: seven left. `LimbicTunnel.classical_trapped` is now proved: under gradient flow
       a state below the barrier top on the trauma side stays there for all t >= 0 (V is a
       Lyapunov function, then the intermediate value theorem), Lean's standard axioms only.
       P11 lines 1057 and 1108, P13 line 252 and the formal-mathematics book line 77 still call
       it a placeholder: true of their frozen versions, to update in their next version.)
-- [ ] (12 Oct, from the towers export) Eight theorems prove only `True` (placeholders):
+- [x] (12 Oct, from the towers export) Eight theorems prove only `True` (placeholders):
       `G2Compactification` su3_holonomy and g2_holonomy (structure fields),
       `LimbicTunnel.classical_trapped`, `MTheoryIsomorphism.X7_is_7D_product`,
       `ScaleUniverse.scale_shift_preserves_structure`, `SomaNetwork.sft_gate_toward_awe`,
@@ -1007,12 +1007,27 @@ five real `sorry`s remain in three files.
       (BRECVEMAVariational, DyadicField, SomaNetwork, and ScaleUniverse, which has no
       `sorry` of its own: transitively). Papers citing these as theorems or
       kernel-checked should say so; the ledger flags the sorry ones, not yet the `True` ones.
-- [ ] Remaining `sorry`s: `BRECVEMAVariational.lean` (2: the above and
+      (13 Oct: six of the eight fixed. The two `True` holonomy fields are removed from
+      `G2Compactification` (the holonomy is the labelled axiom's job); `X7_is_7D_product` now
+      states `Module.finrank ℝ CompactX7 = 7`; `sft_encapsulates_cemi` states
+      `Nonempty (FieldEquation ⟨7,_⟩)`; `sft_gate_toward_awe` and `classical_trapped` are real
+      theorems. Left as honest placeholders, disclosed as such in the books:
+      `scale_shift_preserves_structure` and `greens_fn_is_SHO`. books.yaml called the first
+      "kernel-verified" (twice): corrected. The formal-mathematics book now states the X7
+      dimension; P11 lines 249 and 1034 describe the frozen version, to update in its next
+      version. The ledger now also reads the data files (books.yaml, the manifest, registry
+      concepts, tours and levels, the app's cheat sheet), finds unbackticked declaration names
+      there, and flags anything called kernel-checked or a theorem that proves only `True`.)
+- [x] Remaining `sorry`s: `BRECVEMAVariational.lean` (2: the above and
    `moduli_space_is_G2_homotopy`), `DyadicField.lean` (2: block-sum lemma and
    the `Field8` transfer of `dyadic_energy_coupling_lowers`), `SomaNetwork.lean`
    (1: `sft_ne_classical`, waiting on the `Field8` migration).
-- [ ] Field8 Float→ℝ migration (see the ISS-009 follow-ups) unblocks the
+      (13 Oct: done: `count_sorries` total 0. DyadicField's block decomposition is proved and the
+      transfer goes through `W8_eq_W8ℝ` (SomaField.lean); `sft_ne_classical` is proved. The books
+      and the Lean appendix say "no real sorry remains".)
+- [x] Field8 Float→ℝ migration (see the ISS-009 follow-ups) unblocks the
    `DyadicField` and `SomaNetwork` debts.
+      (13 Oct: not needed: both layers are already ℝ; the debts closed without it.)
 - [ ] Optional good-citizen step: an issue or note to the OSforGFF author
    saying where the library is used (no code change needed).
 

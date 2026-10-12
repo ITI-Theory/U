@@ -59,10 +59,10 @@ abbrev LimbicOrbifold := Quotient z2Rel
     Biological correspondence: Cortex D₉₋₁₁ — higher-order cognitive field.
     Full holonomy specification (SU(3) ⊂ SO(6)) requires Riemannian holonomy in Mathlib. -/
 structure CYThreefold where
-  /-- Abstract carrier (full definition: complex 3-manifold with Ricci-flat Kähler metric). -/
+  /-- Abstract carrier (full definition: complex 3-manifold with Ricci-flat Kähler metric).
+      Its SU(3) holonomy is not formalised (it needs Riemannian holonomy in Mathlib); the
+      field that used to stand for it proved only `True` and was removed (ISS-036). -/
   carrier     : Type
-  /-- SU(3) holonomy ⊂ SO(6) — pending formal Riemannian geometry in Mathlib. -/
-  su3_holonomy : True  -- sorry-placeholder for Hol(CY₃) = SU(3)
 
 /-- The compact 7-manifold X₇ = CY₃ × (S¹/ℤ₂) with emergent G₂ holonomy.
     Dimensions: 6 (Calabi-Yau) + 1 (Limbic orbifold) = 7. ✓
@@ -70,10 +70,10 @@ structure CYThreefold where
 structure G2CompactManifold where
   /-- The 6D Calabi-Yau factor (Cortex D₉₋₁₁). -/
   cy3        : CYThreefold
-  /-- The 1D Hořava–Witten Limbic Axis D₈. -/
+  /-- The 1D Hořava–Witten Limbic Axis D₈. G₂ holonomy is not formalised here: the field
+      that stood for it proved only `True` and was removed (ISS-036); see
+      `g2_holonomy_stability` below for what is stated. -/
   limbicAxis : LimbicOrbifold
-  /-- G₂ holonomy is an emergent consequence — see g2_holonomy_stability below. -/
-  g2_holonomy : True
 
 /-- Dimension check: X₇ has exactly 7 dimensions. -/
 theorem x7_dimension : (6 : ℕ) + 1 = 7 := by norm_num
