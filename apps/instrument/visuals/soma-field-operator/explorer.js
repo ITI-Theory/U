@@ -19,6 +19,9 @@ import { scores, viewers, cycSkyline } from './generated/app-data.js';
 // the condition sliders ca, cs, cp (ADHD, ASD, C-PTSD: P13's model operators, not diagnoses)
 const RIVER_SCORE = scores?.find(s => s.id === 'river-film') ?? scores?.[0];
 const filmScore = id => scores?.find(s => s.id === id) ?? RIVER_SCORE;
+// your own film (ISS-053, score-editor.js), kept in this browser: FILM cycles to it, kf=mine
+{ const mine = loadMine(); if (mine && Array.isArray(scores) && !scores.some(s => s.id === 'mine')) scores.push(mine); }
+let mineVersion = 0;
 // How much language the film gives (ISS-072; kx): 0 a number only (as Rothko numbered his
 // pictures), 1 the title, 2 intertitles at each phase (silent-film cards), 3 captions (the
 // phase lines), 4 narration (H-AL speaks each phase). Within the film the words still recede
@@ -51,6 +54,7 @@ import { createExplorerMusic } from './explorer-music.js';
 import { createMidiOut } from './midi-out.js';
 import { startMidiIn } from './midi-in.js';
 import { createTowerPanel } from './tower.js';
+import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
@@ -160,7 +164,7 @@ const CAPTIONS = {
   score: {
     title: 'THE RIVER FILM · SCORE', label: 'interpretive',
     4: 'The Tensor (the film paper): a film defined as an emotional score, seven modes over story-time, rendered here as the Mandelbulb. Awe sets its power, safety its warmth and light, fear a cold hue and hard edges, grief takes the colour out and slows the orbit, pre-verbal deepens the fractal, curiosity sets how far in the camera goes. Words fade with the Language mode.',
-    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on). FILM (kf) picks the film: the River Film or the 2021 film. TWIN (tw=1): one film, two viewers, side by side on the river: left the viewer of now, right a VIEWER preset (pv: as I was in 2021, fitted from the two films; neutral; or a model condition) plus the ADHD, ASD and C-PTSD sliders (ca, cs, cp: P13\'s model operators, hypotheses, not diagnoses); the knobs and the heart move both. WORDS (kx): how much language the film gives, from NUMBER (only its number, as Rothko numbered his pictures) through TITLE and CARDS (silent-film intertitles) to CAPTIONS and NARRATION; each press is one notch fewer, and after a viewing the film suggests trying the next one down. A/B (ab): on one screen, flip the whole film between A, as it is, and B, the same film for the VIEWER preset (your version), with the same knobs and heart; A/B is per window, so in a LAYOUT the screen beneath the main one can show B while the main one shows A. PILOT (ap): AUTOPILOT, H-AL flies the feelings and thinks aloud as each moves (modelled feeling, not a claim that the AI feels); CO-PILOT, you take one knob at a time, fear first, and each finished journey hands over one more; MANUAL, every knob is yours. The journey starts still: POKE to begin. MUSIC plays the score: the chord darkens with fear, the grain rises as words fade, and a soft heartbeat keeps your pace. MIDI OUT (Engine Room) sends the score to Ableton or any synth: the seven modes, the heart and story-time as knobs, phases and thresholds as notes.',
+    8: 'At each threshold the film holds until the viewer is ready. The somatic loop (♥: the slider, or a chest strap): LOOP cycles Projection (the score drives), Resonance and Mirror (the heart drives, the score is the target; white ticks). ♥ STRAP connects a Bluetooth chest strap (Chrome or Edge), which then drives the heart. With the loop on, a rising heart (Ḣ > 0, the paper\'s primary signal) slows the film, and at a threshold it waits for the heart to settle; POKE crosses. Velocity: kv (0.1 to 3; 90 minutes at 1). The other knobs, in the address: kd depth (0 to 1: how far into the pre-verbal attractor, and how long a threshold holds), kt texture (0 smooth to 1 granular), kw coupling (0.5 to 2, the score\'s W*: fear drives awe, awe grief, language and pre-verbal hold each other down), km the modes rendered (e.g. km=S,F,A). SETTING (kc): the same score in the mind, the river (the boat on the water), the body (the submarine in the bloodstream) or the session (client and therapist): one player, the same thresholds at the same story-times (the paper\'s Trilogy of Containers). The full River Film, 90 minutes, H-AL speaking each phase: ?film=1#voyage=score&st=0&kv=1&kc=river (MUSIC on). FILM (kf) picks the film: the River Film or the 2021 film. TWIN (tw=1): one film, two viewers, side by side on the river: left the viewer of now, right a VIEWER preset (pv: as I was in 2021, fitted from the two films; neutral; or a model condition) plus the ADHD, ASD and C-PTSD sliders (ca, cs, cp: P13\'s model operators, hypotheses, not diagnoses); the knobs and the heart move both. WORDS (kx): how much language the film gives, from NUMBER (only its number, as Rothko numbered his pictures) through TITLE and CARDS (silent-film intertitles) to CAPTIONS and NARRATION; each press is one notch fewer, and after a viewing the film suggests trying the next one down. A/B (ab): on one screen, flip the whole film between A, as it is, and B, the same film for the VIEWER preset (your version), with the same knobs and heart; A/B is per window, so in a LAYOUT the screen beneath the main one can show B while the main one shows A. PILOT (ap): AUTOPILOT, H-AL flies the feelings and thinks aloud as each moves (modelled feeling, not a claim that the AI feels); CO-PILOT, you take one knob at a time, fear first, and each finished journey hands over one more; MANUAL, every knob is yours. The journey starts still: POKE to begin. MUSIC plays the score: the chord darkens with fear, the grain rises as words fade, and a soft heartbeat keeps your pace. MIDI OUT (Engine Room) sends the score to Ableton or any synth: the seven modes, the heart and story-time as knobs, phases and thresholds as notes. EDIT: your own film, the seven modes over story-time; drag a point, give it the sentence it came from (docs/INTERVIEW.md), PLAY MINE, SAVE; kept in this browser only.',
   },
   flight: {
     title: 'FLY', label: 'interpretive',
@@ -1372,6 +1376,7 @@ export const SETTING_IDS = ['mind', 'river', 'body', 'session'];
 const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G: '#8ecbff', L: '#e8eefc', PV: '#ff7aa8' };
 
 let scoreModes = null;
+let scoreT = 0;
 let midiInStatus = 'off';
 // the score as MIDI for Ableton (ISS-073), when the Engine Room switches it on
 const midiOut = createMidiOut();
@@ -1427,7 +1432,7 @@ function makeScore() {
   return {
     focus: [0, 0],
     tick(env) {
-      const key = `${env.kv}|${env.st}|${env.kd}|${env.kw}|${env.km}|${env.kf}`;
+      const key = `${env.kv}|${env.st}|${env.kd}|${env.kw}|${env.km}|${env.kf}|${mineVersion}`;
       if (!player || key !== params) {
         params = key;
         film = filmScore(env.kf);
@@ -1444,6 +1449,7 @@ function makeScore() {
       if (`${env.ap}` !== pilotKey) { pilotKey = `${env.ap}`; pilotStarted = false; pilotSaid = {}; pilotText = ''; handedOver = false; }
       if (!env.ap || pilotStarted) player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
       scoreModes = pilotModes(player.modes(viewer, env.kr), env);
+      scoreT = player.t;
       // H-AL thinks aloud about the modes it still flies: one line at a time, at most every 6 s
       pilotClock += env.dt;
       pilotTextT = Math.max(0, pilotTextT - env.dt);
@@ -2299,6 +2305,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__hr" title="The viewer's heart rate (the slider, or a chest strap: ♥ STRAP). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
       <button type="button" data-act="kc" title="One score, four settings (The Tensor, the Trilogy of Containers): the mind (the Mandelbulb), the river, the body, the session. The same thresholds at the same story-times">SETTING: MIND</button>
       <button type="button" data-act="kf" title="The film (registry/scores): the River Film (2026) or the 2021 film (Art – FIS). Both windows of the twin view play it">FILM: RIVER</button>
+      <button type="button" data-act="edit" title="Your own film (ISS-053): the seven modes over story-time; drag the points, give each the sentence it came from; PLAY MINE, SAVE">EDIT</button>
       <button type="button" data-act="kx" title="How much language the film gives (kx): NUMBER only (as Rothko numbered his pictures), TITLE, CARDS (silent-film intertitles), CAPTIONS, NARRATION (H-AL speaks). After a viewing the film suggests one notch fewer words">WORDS: CAPTIONS</button>
       <button type="button" data-act="ap" title="The pilot (ISS-074): AUTOPILOT (H-AL flies the feelings and thinks aloud), CO-PILOT (you take one knob at a time, fear first), MANUAL (every knob is yours). The journey starts still: POKE to begin">PILOT: OFF</button>
       <span class="explorer__knobs" role="group" aria-label="Your knobs">${PILOT_ORDER.map(id => `<label>${id} <input type="range" min="0" max="1" step="0.05" value="0" data-knob="${id}" aria-label="${id}" /></label>`).join('')}</span>
@@ -2335,6 +2342,7 @@ export function createExplorer(hooks = {}) {
   const twButton = root.querySelector('[data-act="tw"]');
   const kxButton = root.querySelector('[data-act="kx"]');
   const abButton = root.querySelector('[data-act="ab"]');
+  const editButton = root.querySelector('[data-act="edit"]');
   const wallButton = root.querySelector('[data-act="wall"]');
   const wdownButton = root.querySelector('[data-act="wdown"]');
   const wupButton = root.querySelector('[data-act="wup"]');
@@ -2498,6 +2506,9 @@ export function createExplorer(hooks = {}) {
     kfButton.textContent = `FILM: ${(filmScore(st.kf)?.title ?? st.kf).replace(/^The /, '').toUpperCase()}`;
     twButton.hidden = st.stop !== 'score';
     kxButton.hidden = st.stop !== 'score';
+    editButton.hidden = st.stop !== 'score';
+    editButton.classList.toggle('active', Boolean(editor?.open));
+    if (st.stop !== 'score' && editor?.open) editor.close();
     kxButton.textContent = `WORDS: ${WORDS[st.kx]}`;
     twButton.classList.toggle('active', st.tw);
     twButton.setAttribute('aria-pressed', String(st.tw));
@@ -2821,6 +2832,22 @@ export function createExplorer(hooks = {}) {
   });
   root.addEventListener('wheel', event => { const g = orbiting(); if (g) { event.preventDefault(); g.zoom(event.deltaY > 0 ? 1.1 : 0.9); } }, { passive: false });
 
+  // MY FILM: the score editor at the score stop
+  const editor = createScoreEditor(root, {
+    base: () => filmScore(st.kf === 'mine' ? 'river-film' : st.kf),
+    colors: MODE_COLORS,
+    now: () => scoreT,
+    onPlay: score => {
+      const copy = JSON.parse(JSON.stringify(score));
+      const i = scores.findIndex(s => s.id === 'mine');
+      if (i >= 0) scores[i] = copy; else scores.push(copy);
+      mineVersion += 1;
+      st.kf = 'mine';
+      syncUi();
+      hooks.onChange?.();
+    },
+  });
+
   // walk into a tower: a click on the city of code (landscape, 11D) opens it
   const towerPanel = createTowerPanel(root);
   let towerShown = '|';
@@ -2863,6 +2890,9 @@ export function createExplorer(hooks = {}) {
       st.own = Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1));
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'edit') {
+      editor.toggle();
+      syncUi();
     } else if (b.dataset.act === 'past') {
       st.past = !st.past;
       syncUi();

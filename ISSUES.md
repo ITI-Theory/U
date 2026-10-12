@@ -2611,7 +2611,9 @@ Steps:
       protocol) The interview protocol (a document first): the five composer questions,
       emotion probes, provenance per answer, stop rules; same script for an
       AI or a therapist.
-- [ ] The score editor: knobs per mode over story-time, each value linked to
+- [x] (13 Oct: score-editor.js, EDIT at the score stop: a mode's points dragged, a point
+      added at the playhead, each with its BECAUSE sentence (gold ring), PLAY MINE (kf=mine),
+      SAVE downloads YAML with the provenance; kept in the browser, private) The score editor: knobs per mode over story-time, each value linked to
       the answer it came from; the person overrides; saves a score file
       (registry/scores format; private scores in Me).
 - [ ] Pages in: photograph ten A5 pages, read them in, keep them private.
