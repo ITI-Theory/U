@@ -22,6 +22,7 @@ import { createUreterModel } from '../ureter-model.js';
 import { createSomaLoop } from '../somaloop.js';
 import { BARRIERS, transmission, exponent } from '../barrier.js';
 import { greenProfiles } from '../questions.js';
+import { createThread, topicOf } from '../mother-thread.js';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
 const scoreText = readFileSync(new URL('../../../../../registry/scores/river-film.yaml', import.meta.url), 'utf8');
@@ -309,6 +310,23 @@ const checks = [
   const near = greenProfiles(0.05), far = greenProfiles(2);
   checks.push(['gravity: GR and the Green function agree near the mass (relative gap at r = 0.05 r0)', Math.abs(near.gr - near.green) / Math.abs(near.newton), 0, 0.01]);
   checks.push(['gravity: they part near 1/k (relative gap at r = 2 r0)', Math.abs(far.gr - far.green) / Math.abs(far.newton), 0.3, 100]);
+}
+// MOTHER's wandering chat (ISS-083): turns, departures, a return that branches, the tree
+{
+  const mem = new Map();
+  const th = createThread('t', { getItem: k => mem.get(k) ?? null, setItem: (k, v) => mem.set(k, v) });
+  const a = th.add('How does the brain make a thought?', { levelLabel: 'Whole Brain' });
+  const b = th.add('And the cortex, does it ring?');
+  const c = th.add('Is dark energy the same field across the universe?');
+  th.returnTo(a.turn.id);
+  const d = th.add('What does music do to it?');
+  const tree = th.tree();
+  const ok = !a.departure && !b.departure && c.departure?.from === 'brain' && c.departure?.to === 'cosmos'
+    && d.turn.parent === a.turn.id && d.departure?.to === 'music' && tree.length === 4
+    && tree.filter(r => r.branch).length === 2 && Math.max(...tree.map(r => r.depth)) === 2
+    && topicOf('What is this?', { levelLabel: 'Dyad' }) === 'view: Dyad'
+    && createThread('t', { getItem: k => mem.get(k) ?? null, setItem: () => {} }).turns.length === 4;
+  checks.push(['MOTHER thread: departures, a return that branches, the tree and its storage', ok ? 1 : 0, 1, 1]);
 }
 let failed = 0;
 for (const [name, value, min, max = 1] of checks) {

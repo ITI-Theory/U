@@ -4044,8 +4044,14 @@ SpaceEngine renders) and the one waiting on a viewer stay.
       translations (FrameNet frames mapped to OpenCyc; QP frames with narrative functions)
       as the target vocabulary and validator for the later LLM front end.
       (13 Oct: promoted to its own issue, ISS-088, started now (author).)
-- [ ] (from ISS-080) (ISS-047) MOTHER follows a wandering chat: log and tag each departure,
+- [x] (from ISS-080) (ISS-047) MOTHER follows a wandering chat: log and tag each departure,
       show the chat as a branching path, revisit and continue; sound effects (note 11).
+      (13 Oct: done. `mother-thread.js`: every question is a turn (parent, topic tag, the view it was
+      asked from, the start of the answer), kept in this browser; a change of topic is a departure,
+      logged ("NEW BRANCH: BRAIN -> COSMOS") with a rising tone; /path draws the conversation as a
+      branching tree with RETURN on each turn, which restores its view and continues from there (a
+      falling tone); a follow-up tells NotebookLM which question it follows; /path clear starts
+      again. explorer-check checks the thread; tested in the browser.)
 - [x] (from ISS-080) (ISS-047) Test book: a topic suggested by someone else (waiting for the
       viewer).
       (13 Oct: dropped by the author. It was the 7 Oct UAT viewer's topic for a book not from the

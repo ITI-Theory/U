@@ -4,6 +4,7 @@
 // API (answer inline through the local bridge in apps/instrument/mother/,
 // which uses the author's own login; never exposed publicly).
 
+import { createThread, chirp } from './mother-thread.js';
 import { FitAddon } from '@xterm/addon-fit';
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
@@ -26,7 +27,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -192,6 +193,7 @@ export function createMother({ getContext }) {
   let pendingShellPaste = '';
   let history = [];
   let historyIndex = null;
+  const thread = createThread('mother-thread');
   let typing = Promise.resolve();
   const persona = () => (modeSelect.value === 'api' ? personaInputs.find(radio => radio.checked)?.value ?? 'mother' : 'mother');
   const syncPersona = () => {
@@ -423,7 +425,7 @@ export function createMother({ getContext }) {
 
   function helpHtml() {
     const idList = (title, items) => `<p><strong>${title}</strong>: ${items.map(escapeHtml).join(', ')}</p>`;
-    return `<div class="mother-answer"><p class="mother-section">CHAT COMMANDS</p><p>${SLASH_COMMANDS.map(escapeHtml).join('  ')}</p>${idList('LEVEL IDS', levels.map(level => level.id))}${idList('QUESTION IDS', questions.map(question => question.id))}${idList('ERA IDS', eras.map(era => era.id))}<p>UP/DOWN browse per-persona history. TAB completes commands and ids. Code blocks have RUN IN SHELL buttons that paste only.</p></div>`;
+    return `<div class="mother-answer"><p class="mother-section">CHAT COMMANDS</p><p>${SLASH_COMMANDS.map(escapeHtml).join('  ')}</p>${idList('LEVEL IDS', levels.map(level => level.id))}${idList('QUESTION IDS', questions.map(question => question.id))}${idList('ERA IDS', eras.map(era => era.id))}<p>UP/DOWN browse per-persona history. TAB completes commands and ids. Code blocks have RUN IN SHELL buttons that paste only. /path shows the conversation as a branching path; RETURN on a turn goes back to it and continues from there.</p></div>`;
   }
 
   function handleCommand(command) {
@@ -478,6 +480,28 @@ export function createMother({ getContext }) {
       const resolved = presetTour(rest[0] ?? '');
       if (!resolved.steps.length) type(`UNKNOWN TOUR ${rest[0] ?? ''}. TRY /tours`);
       else tourPlayer.play(resolved);
+      return true;
+    }
+    if (verb === '/path') {
+      if (rest[0] === 'clear') { thread.clear(); type('THREAD CLEARED'); return true; }
+      const rows = thread.tree();
+      if (!rows.length) { type('NO THREAD YET: ASK SOMETHING, AND EVERY TURN IS KEPT HERE'); return true; }
+      const cur = thread.current?.id;
+      const html = rows.map(({ turn, depth, branch }) => `<li style="margin-left:${depth * 14}px">${branch ? '↳ ' : ''}<strong>${escapeHtml(turn.tag.toUpperCase())}</strong> ${escapeHtml(turn.q.length > 70 ? `${turn.q.slice(0, 69)}…` : turn.q)}${turn.id === cur ? ' <em>(here)</em>' : ` <button type="button" class="mother-path-return" data-turn="${turn.id}">RETURN</button>`}</li>`).join('');
+      const block = document.createElement('div');
+      block.className = 'mother-answer mother-path';
+      block.innerHTML = `<p class="mother-section">THE PATH OF THIS CONVERSATION (${rows.length} TURNS, ${rows.filter(r => r.branch).length} DEPARTURES)</p><ol style="list-style:none;padding-left:0">${html}</ol>`;
+      block.addEventListener('click', event => {
+        const b = event.target.closest('.mother-path-return');
+        if (!b) return;
+        const t = thread.returnTo(Number(b.dataset.turn));
+        if (!t) return;
+        if (t.view) location.hash = t.view;
+        chirp('return');
+        type(`BACK AT ${t.tag.toUpperCase()}: "${t.q}"\nASK TO CONTINUE FROM HERE${t.a ? `\nTHE ANSWER WAS: ${t.a.slice(0, 160)}…` : ''}`);
+      });
+      log.append(block);
+      log.scrollTop = log.scrollHeight;
       return true;
     }
     if (verb === '/clear') {
@@ -591,11 +615,22 @@ export function createMother({ getContext }) {
     remember(question);
     voice.stop();
     const context = getContext();
-    const prompt = composePrompt(question, context) + (observatoryInput.checked ? observatoryInstruction() : '');
+    // the wandering chat: every question is a turn; a change of topic is a departure
+    const { turn, departure } = thread.add(question, context, location.hash.slice(1));
+    const parent = thread.parentOf(turn);
+    const followUp = parent ? `\n\nThis follows an earlier question in the same conversation: "${parent.q}"` : '';
+    const prompt = composePrompt(question, context) + followUp + (observatoryInput.checked ? observatoryInstruction() : '');
     const asked = document.createElement('div');
     asked.className = 'mother-line mother-question';
     asked.textContent = `> ${question}`;
     log.append(asked);
+    if (departure) {
+      const d = document.createElement('div');
+      d.className = 'mother-line mother-departure';
+      d.textContent = `↳ NEW BRANCH: ${departure.from.toUpperCase()} → ${departure.to.toUpperCase()} (/path shows the way back)`;
+      log.append(d);
+      chirp('departure');
+    }
 
     if (modeSelect.value === 'web') {
       const url = notebookInput.value.trim();
@@ -633,6 +668,7 @@ export function createMother({ getContext }) {
       const { prose, block } = extractTourBlock(data.answer ?? '');
       const answerTour = block ? resolveTour(parseTourBlock(block)) : null;
       section(data.diff ? `${persona() === 'hal' ? 'H-AL' : 'MOTHER'} / [T]-THEORY` : '', renderAnswer(prose || '(NO ANSWER)') + sources(data.citations));
+      thread.answer(turn.id, prose);
       if (answerTour) {
         const row = section('', `<p class="mother-tour-line">TOUR: ${escapeHtml(answerTour.title)} (${answerTour.steps.length} STOP${answerTour.steps.length === 1 ? '' : 'S'}${answerTour.dropped.length ? `, ${answerTour.dropped.length} SKIPPED` : ''}) <button type="button" class="mother-tour-play">PLAY TOUR</button></p>`, 'mother-answer mother-tour');
         row.querySelector('.mother-tour-play').addEventListener('click', () => tourPlayer.play(answerTour));

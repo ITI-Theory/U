@@ -604,3 +604,6 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .maintenance-deck__brief:hover { background: rgba(255,207,125,.12); }
 .engine-room__depth { width: 75%; vertical-align: middle; }
 .engine-room__depth-value { margin-left: 8px; color: var(--cyan); }
+.mother-terminal .mother-path .mother-path-return { display: inline-block; width: auto; min-height: 0; margin: 0 0 0 8px; padding: 1px 7px; font-size: 10px; line-height: 1.4; color: var(--cyan); background: transparent; border: 1px solid currentColor; }
+.mother-terminal .mother-path li { margin-bottom: 3px; }
+.mother-terminal .mother-departure { color: var(--gold); }
