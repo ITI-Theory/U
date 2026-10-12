@@ -6,7 +6,7 @@ defaultTargets = [
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
   "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms", "CosmologicalConstant",
   "LocalGR", "G2Compactification", "BRECVEMAField", "BRECVEMAVariational", "LocalGeometry",
-  "SomaPhilosophy", "FieldEvent"
+  "SomaPhilosophy", "FieldEvent", "EffectSpec", "HopfieldAsync"
 ]
 
 # ---------------------------------------------------------------------------
@@ -60,6 +60,16 @@ srcDir = "paper/proofs"
 # Same field, different type: emotion at D8, thought at D9-11 (ISS-052).
 [[lean_lib]]
 name = "FieldEvent"
+srcDir = "paper/proofs"
+
+# Effects, a causal response interpreter and a lawful lens (ISS-024).
+[[lean_lib]]
+name = "EffectSpec"
+srcDir = "paper/proofs"
+
+# A finite Hopfield network with asynchronous update: attractors and convergence (ISS-011).
+[[lean_lib]]
+name = "HopfieldAsync"
 srcDir = "paper/proofs"
 
 [[lean_lib]]

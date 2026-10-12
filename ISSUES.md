@@ -61,6 +61,9 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    Dist; Origin, The Questions, Building, The Machine). Fractal split done:
    Vol I 575 pp, Vol II 506 pp, Vol III 547 pp, all under Lulu's 800-page cap.
    Phase Dot 2: Vol I 333 pp, Vol II 454 pp, Vol III 593 pp, Vol IV 527 pp, all built.
+   One Lulu order, everything at A4 (author, 13 Oct 22:57); the books, papers omnibus, Fractal
+   volumes, course and Phase Dot are A4 already; the Field Atlas joins as A4 landscape (about
+   395 pages at 10pt, ISS-087); the bookfactory Jumbo comes later, once, trimmed to 300 pages.
 - [x] UAT runner (13 Oct): `uat/checklist.yaml` and `uat/scripts/uat.py`
    (`make uat-run`, `HAL uat`): step by step in a terminal, resumable, answers in
    `uat/results/`, `c` sends a finding to the VS Code chat (`code chat`).
@@ -266,7 +269,7 @@ test : `grep -i float paper/proofs/*.lean | grep -v Movie.lean `
 
 ---
 
-## ISS-011: Hopfield.lean — upgrade to SpinState + asynchronous update — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-011: Hopfield.lean — upgrade to SpinState + asynchronous update — CLOSED
 
 Current Hopfield.lean uses `Pattern = Fin D → ℝ` (synchronous step). This
 makes proofs 3 (attractor\_exists) and 4 (convergence) hard because the state
@@ -312,6 +315,16 @@ Plan: fork it (not official code) and depend on the fork from our lakefile.
 - `step_range`, `fixed_point_iff`, `energy_at_fixed_point`, `energy_nondec_at_fixed` — PROVED
 - `zero_weight_attractor_exists`, `zero_weight_converges_in_one_step` — PROVED
 - General finite-spin asynchronous convergence — deferred to this issue
+
+**Closed 2026-10-13** (author, 13 Oct: waiting for the fork will not work): proved directly
+instead of porting HopfieldNet2, in `paper/proofs/HopfieldAsync.lean` (Mathlib only, no
+`sorry`, no axioms of its own, no lint warnings; Lake target, in the Lean appendix catalogue).
+States `Fin n → Bool` (2ⁿ), asynchronous update that flips only on a strict disagreement;
+with symmetric weights and no self-coupling: `energy_update` (the change is −(b − sᵢ)·hᵢ),
+`update_lowers_energy`, `attractor_exists`, `run_settles` (any schedule),
+`fair_run_reaches_attractor`, `cyclic_is_fair`, `hebbian_pattern_stable`. `Hopfield.lean`
+(the demonstration the books cite) is unchanged. The fork and port steps above are no
+longer needed; the `../probe-nn` scratch folder can be deleted.
 
 ---
 
@@ -601,7 +614,7 @@ domain books already provide valid local Lulu outputs.
 
 ---
 
-## ISS-024: Effect specification and causal-response interpreter — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-024: Effect specification and causal-response interpreter — CLOSED
 
 **Tag:** Future / USM formal foundation
 
@@ -632,12 +645,25 @@ future mirror lens a type-safe conceptual foundation without asserting new physi
 - `uat/RC1.1/inbox/SomaMachine/SomaUniverse.lean` (design sketch only)
 
 **Actions:**
-- [ ] Reconcile the 20/21 scale conventions before defining the new type.
-- [ ] Define `EffectSpec`, a response interpreter contract, and an observation
+- [x] Reconcile the 20/21 scale conventions before defining the new type.
+      (13 Oct: 21 levels numbered 0 to 20; "the 20-scale dial" counts the 20 steps between
+      them; `scaleEquiv : ScaleStep ≃ ScaleLevel` proves the named and numbered scales agree.
+      `RenormalisationGroup.RGCouplings` keeps `Fin 20`, one coupling per step.)
+- [x] Define `EffectSpec`, a response interpreter contract, and an observation
    lens with lawful non-lossy semantics.
-- [ ] Prove only structural/type-safety facts; keep physical theorems in their
+      (13 Oct: `EffectSpec σ α` (pure, poke J, observe x t); `Responder σ` with causality as a
+      contract; `TypedUniverse σ`; `interpret` into the sketch's `SomaticIO`; `Lens` with the
+      get/put laws, `limbicLens` on X₇.)
+- [x] Prove only structural/type-safety facts; keep physical theorems in their
    specific existing modules.
-- [ ] Add a focused Lake target and build it with no `sorry`.
+      (13 Oct: `interpret_bind` (a monad morphism, not the sketch's equivalence),
+      `late_poke_unseen`, `poke_then_observe` (a delayed responder), `typed_universe_at_every_scale`,
+      `lossy_view_has_no_review` and `limbic_view_is_lossy` (why the sketch's lens was dropped).)
+- [x] Add a focused Lake target and build it with no `sorry`.
+      (13 Oct: `lake build EffectSpec`, no `sorry`, no axioms of its own, no lint warnings; in the
+      Lean appendix catalogue.)
+
+**Closed 2026-10-13:** `paper/proofs/EffectSpec.lean`.
 
 ---
 
@@ -4049,6 +4075,11 @@ Nothing is broken; this waits on upstream.
       v4.34.x, and OSforGFF, GaussianField and BochnerMinlos to upstream commits for the
       same release (`bash lean/upgrade-build.sh`); full `lake build`.
 - [ ] Drop `lean/patches/v4.33/` once upstream builds unpatched.
+- [ ] (13 Oct, from the towers export) physlib's `Cosmology.FLRW` rests on `sorryAx` upstream;
+      `ScaleUniverse.FieldLayerType` uses it for the three cosmic levels, so 15 ScaleUniverse
+      declarations inherit it (the programme's own files have no `sorry`: count_sorries 0). At
+      the upgrade, check whether physlib has closed it; until then the ledger reports them as
+      resting on sorry, which is true.
 
 ---
 
@@ -4139,7 +4170,7 @@ and the format was open. Decided (author, 13 Oct 23:00): proof first. An A4-land
 everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to 800 pages, no
 300 limit), read on paper; the Jumbo (CHF 600) once, when the content is final, trimmed to 300
 (drop the city of code and the Tensor score, tighten the voyage, or the callout on the text page).
-- [ ] An A4-landscape edition: `make -C Part2/book/field-atlas lulu` (defaults/lulu.yaml, scaled
+- [ ] (in the one Lulu order, ISS-001; 10pt, about 395 pages with everything) An A4-landscape edition: `make -C Part2/book/field-atlas lulu` (defaults/lulu.yaml, scaled
       from the A3 layout; Lulu's size, bleed and cover template checked at order time).
 
 - [x] Recapture check: compare fresh portrait captures of a few levels with the 9 Oct ones;

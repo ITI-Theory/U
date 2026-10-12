@@ -410,3 +410,36 @@ FieldEvent.lean:
     without changing the field state, and are inverse on D8; an event at D11 is
     always a thought. A typing discipline, not a fact about brains
     (`derived-under-assumptions`).
+
+EffectSpec.lean:
+  title: |
+    Effects, a Causal Response and a Lawful Lens
+  description: |
+    How the Soma Machine's POKE FIELD and observation can be typed without claiming
+    new physics (ISS-024). `EffectSpec σ α` describes what is asked at scale σ (poke
+    the field with a forcing J(x, t), observe it at (x, t)); a `Responder σ` is how
+    the substrate answers, with causality as a contract (the response at t reads the
+    forcing only before t); `interpret` runs the description into a state monad and
+    respects sequencing (`interpret_bind`), a monad morphism, not an equivalence.
+    `limbicLens` focuses X₇ on the limbic axis with the lawful get/put laws, and
+    `lossy_view_has_no_review` proves that a lossy projection has no inverse, which
+    is why a UAT sketch's `SomaticIO ≃ ImpulseResponse` and two-sided lens were
+    dropped. `scaleEquiv` proves the named and numbered scales are the same 21
+    levels (0 to 20). Structural facts only (`derived-under-assumptions`).
+
+HopfieldAsync.lean:
+  title: |
+    The Finite Hopfield Network: Attractors and Convergence
+  description: |
+    `Hopfield.lean` is the 20-pixel demonstration with synchronous update, which can
+    cycle. This file proves the classical result on the finite state space (ISS-011):
+    each neuron up or down, so 2ⁿ states; an asynchronous update flips one neuron only
+    when its local field disagrees. With symmetric weights and no self-coupling every
+    flip strictly lowers the energy (`energy_update`, `update_lowers_energy`), so the
+    lowest-energy state is an attractor (`attractor_exists`), every asynchronous run
+    stops changing after finitely many steps under any schedule (`run_settles`), and
+    under a fair schedule, the cyclic sweep included, it ends on an attractor
+    (`fair_run_reaches_attractor`, `cyclic_is_fair`). One stored pattern with Hebbian
+    weights is an attractor (`hebbian_pattern_stable`). Written from the textbook
+    argument (Hopfield 1982), Mathlib only; Cipollina, Karatarakis and Wiedijk (2025)
+    formalise the theory at scale. No `sorry`, no axioms of its own.
