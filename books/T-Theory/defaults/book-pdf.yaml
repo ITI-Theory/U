@@ -32,6 +32,7 @@ filters:
   - ../../lib/format/programme-refs.lua
   - type: citeproc
   - ../../lib/format/breakable-tokens.lua
+  - ../../lib/format/licence.lua
 # citeproc runs explicitly after the filters (see filters list)
 citeproc: false
 bibliography: ../../paper/bibliography.bib

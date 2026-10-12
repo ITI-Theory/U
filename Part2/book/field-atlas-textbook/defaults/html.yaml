@@ -60,6 +60,7 @@ filters:
   - ../../../lib/format/columns.lua
   - filters/textbook-boxes.lua
   - type: citeproc
+  - ../../../lib/format/licence.lua
 metadata:
   visualize-manifest: ../../../bld/textbook/visualize/manifest.json
   visualize-src: ../visualize

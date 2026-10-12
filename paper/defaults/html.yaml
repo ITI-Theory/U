@@ -12,6 +12,7 @@ filters:
   - ../lib/format/visualize.lua
   - filters/strip-keywords.lua
   - filters/boxes.lua
+  - ../lib/format/licence.lua
 metadata:
   # {{Visualize}} (ISS-051): every figure is drawn and checked, none is shown in the
   # papers (the figure library and HTML hold them).

@@ -18,6 +18,7 @@ filters:
   - filters/boxes.lua
   - type: citeproc
   - ../lib/format/breakable-tokens.lua
+  - ../lib/format/licence.lua
 variables:
   colorlinks: true
   linkcolor: NavyBlue

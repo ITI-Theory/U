@@ -2,11 +2,14 @@
 
     python paper/scripts/check_licences.py            # files, READMEs, manifests, statements
     python paper/scripts/check_licences.py --zenodo   # also every Zenodo record in Dist/PAPERS.yaml
+    python paper/scripts/check_licences.py --pdfs     # also every built PDF carries its licence line
 
 A licence text is easily lost (a file deleted, replaced, truncated): each public
 repository's licence files must exist with exactly the canonical text (SHA-256), its README
 must have a Licence section naming the licences, package manifests must carry the SPDX
-expression, and the statements that name the text licence must still say it. Sibling
+expression, and the statements that name the text licence must still say it; with --pdfs,
+every built book and paper (documents.pdfs) must state the copyright holder and the text
+licence (pdftotext), as lib/format/licence.lua writes them from the registry. Sibling
 repositories not cloned next to U are reported and skipped (a CI checkout of U alone).
 """
 from __future__ import annotations
@@ -14,6 +17,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
 import sys
 import urllib.request
 from pathlib import Path
@@ -67,10 +71,24 @@ def main() -> int:
             got = (json.load(urllib.request.urlopen(req, timeout=30))["metadata"].get("license") or {}).get("id")
             if got != "cc-by-4.0":
                 errors.append(f"zenodo.{i}: licence {got!r}, should be cc-by-4.0")
+    if "--pdfs" in sys.argv:
+        docs = reg["documents"]
+        holder = reg["holder"].split(" (")[0]
+        short = lic[docs["text"]]["short"]
+        for pattern in docs["pdfs"]:
+            found = sorted(U.glob(pattern))
+            if not found:
+                skipped.append(pattern)
+            for pdf in found:
+                checked += 1
+                r = subprocess.run(["pdftotext", "-q", "-enc", "UTF-8", str(pdf), "-"], capture_output=True)
+                text = " ".join(r.stdout.decode("utf-8", "replace").split())
+                if r.returncode or holder not in text or short not in text:
+                    errors.append(f"{pdf.relative_to(U).as_posix()}: no licence line ({holder}, {short}); rebuild it")
     for e in errors:
         print(f"FAIL  {e}")
     if skipped:
-        print(f"note  not cloned next to U, skipped: {', '.join(skipped)}")
+        print(f"note  not cloned next to U, or not built, skipped: {', '.join(skipped)}")
     if errors:
         return 1
     print(f"PASS  licences: {checked} checks (CC BY 4.0 for text, Apache-2.0 for code)")

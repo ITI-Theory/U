@@ -232,11 +232,11 @@ else
 fi
 
 hdr "14c. Licences: CC BY 4.0 for text, Apache-2.0 for code, as registered (ISS-086)"
-LIC_CHECK=$(py paper/scripts/check_licences.py 2>&1)
+LIC_CHECK=$(py paper/scripts/check_licences.py --pdfs 2>&1)
 if [[ $? -eq 0 ]]; then
   ok "$(echo "$LIC_CHECK" | tail -1 | sed 's/^PASS  //')"
 else
-  fail "Licence files, READMEs or manifests out of step with registry/licences.yaml"
+  fail "Licence files, READMEs, manifests or built PDFs out of step with registry/licences.yaml"
   echo "$LIC_CHECK" | sed 's/^/    /'
 fi
 

@@ -20,5 +20,6 @@ filters:
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua
   - type: citeproc
+  - ../../../lib/format/licence.lua
 metadata:
   programme-papers: ../../../registry/papers.yaml

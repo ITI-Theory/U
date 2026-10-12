@@ -74,8 +74,9 @@ check-registry-hooks:
 check-lean-catalogue:
 	$(PYTHON) $(SCRIPTS)/check_lean_catalogue.py
 
+# ARGS=--pdfs: also every built PDF carries its licence line; ARGS=--zenodo: the live records
 check-licences:
-	$(PYTHON) $(SCRIPTS)/check_licences.py
+	$(PYTHON) $(SCRIPTS)/check_licences.py $(ARGS)
 
 check-unicode-diagrams:
 	$(PYTHON) $(SCRIPTS)/check_unicode_diagrams.py $(if $(STRICT),--strict)
@@ -191,16 +192,19 @@ endef
 $(foreach l,de fr it,$(eval $(call BUILD_OMNIBUS_TRANS_RULE,$(l))))
 omnibus-translations: omnibus-royal-de omnibus-royal-fr omnibus-royal-it omnibus-a4-de omnibus-a4-fr omnibus-a4-it
 
+# The licence line every PDF and HTML carries (ISS-086, lib/format/licence.lua)
+LICENCE_DEPS := ../lib/format/licence.lua ../registry/licences.yaml
+
 # --- Rule generation from registry ---
 # EN rule: source via vpath; flags + citeproc derived from doc class
 define BUILD_EN_RULE
-$(BUILDDIR)/$(1).pdf: $(1).md journal.tex unicode-math-text.tex filters/strip-keywords.lua filters/boxes.lua ../lib/format/breakable-tokens.lua $(BIB) $(CSL) $(DEFAULTS)/pdf-a4.yaml $(DEFAULTS)/book.yaml | $(BUILDDIR)
+$(BUILDDIR)/$(1).pdf: $(1).md journal.tex unicode-math-text.tex filters/strip-keywords.lua filters/boxes.lua ../lib/format/breakable-tokens.lua $(BIB) $(CSL) $(DEFAULTS)/pdf-a4.yaml $(DEFAULTS)/book.yaml $(LICENCE_DEPS) | $(BUILDDIR)
 	$(PANDOC) $$< -o $$@ $(if $(filter book,$($(1).class)),$(BOOK_FLAGS),$(FLAGS))
 	@echo "Built: $$@"
 endef
 
 define BUILD_HTML_RULE
-$(BUILDDIR)/$(1).html: $(1).md filters/strip-keywords.lua filters/boxes.lua $(BIB) $(CSL) $(DEFAULTS)/html.yaml | $(BUILDDIR)
+$(BUILDDIR)/$(1).html: $(1).md filters/strip-keywords.lua filters/boxes.lua $(BIB) $(CSL) $(DEFAULTS)/html.yaml $(LICENCE_DEPS) | $(BUILDDIR)
 	$(PANDOC) $$< -o $$@ $(HTML_DEFAULTS)
 	@echo "Built: $$@"
 endef

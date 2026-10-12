@@ -11,11 +11,13 @@ licences:
     name: Creative Commons Attribution 4.0 International
     url: https://creativecommons.org/licenses/by/4.0/
     covers: text, papers, books, figures, data
+    short: CC BY 4.0
     sha256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
   Apache-2.0:
     name: Apache License 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
     covers: code, build files, Lean proofs, Sherlock, the apps
+    short: Apache-2.0
     sha256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
 
 # Public repositories, paths relative to U's parent folder. Private ones (T, T.Ops, U.Ops,
@@ -51,3 +53,19 @@ manifests:
 statements:
   registry/papers.yaml: CC BY 4.0
   paper/ZENODO_RELEASE_SHEETS.md: CC BY 4.0
+
+# Every book and paper states its licence, from here (lib/format/licence.lua): at a
+# `::: licence` placeholder (the Field Atlas colophon), else at the end of the document.
+# A document opts out with `licence: none` in its metadata (single art pages, cheat sheets).
+documents:
+  text: CC-BY-4.0
+  code: Apache-2.0
+  line: "© {year} {holder}. This work is released under the {text_name} licence ({text_short}, {text_url}): you may copy, share and adapt it, also commercially, provided you give attribution and indicate changes. Its code and Lean proofs are released under the {code_name} ({code_url})."
+  # built PDFs that must carry the line (check_licences.py --pdfs; pdftotext)
+  pdfs:
+    - bld/papers/*.pdf
+    - bld/books/book-*.pdf
+    - bld/books/ttheory-vol*.pdf
+    - bld/books/ttheory-omnibus*.pdf
+    - bld/textbook/*.pdf
+    - bld/atlas/*.pdf

@@ -20,6 +20,7 @@ filters:
   - filters/strip-keywords.lua
   - type: citeproc
   - ../lib/format/breakable-tokens.lua
+  - ../lib/format/licence.lua
 variables:
   documentclass: memoir
   classoption:

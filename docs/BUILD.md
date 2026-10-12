@@ -63,6 +63,15 @@ textbook edition) is built the same way:
    earlier, the drawing is computed from the expression in the text, and
    `expect_*` parameters check quoted numbers. No hand-drawn or
    AI-generated physics figures.
+4d. **Every book and paper states its licence, from the registry.**
+   `lib/format/licence.lua`, the last filter of every book, paper, course
+   and Atlas defaults file (after citeproc), writes the copyright and
+   licence line from `registry/licences.yaml` (`documents.line`): into a
+   `::: licence` placeholder where the document has one (the Atlas
+   colophon), else at the end. Never type it per document; `licence: none`
+   in the metadata opts out (cheat sheets, single art pages).
+   `check_licences.py --pdfs` (release check 14c) fails on a built PDF
+   without it.
 5. **No build scripts that write markup.** Python (or any other language)
    must not generate Markdown, LaTeX or HTML for a document build. Allowed
    uses of Python: validators (`check_*.py`), figure generation (matplotlib
