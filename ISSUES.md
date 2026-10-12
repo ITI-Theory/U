@@ -3444,3 +3444,60 @@ the stone is the freeze attractor in the body, and the voyage teaches the model.
       Hameroff; decoherence objections, Tegmark 2000). The programme's limbic tunnel is a
       model (WKB gate; `quant_exp_1` is an axiom recording a numerical result), not a
       claim that neurons tunnel. Say so on screen.
+
+## ISS-077: Inside the brain: the cathedral, thoughts as bursts, the path of pain — OPEN
+{{Tags area.app, area.instrument, area.visualize}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Author, 13 Oct 03:55: visualise thoughts, feelings and pain in the brain. First get in:
+are the main arteries mapped in 3D? Then the brain not as a solid mass but, with all
+that electricity, a huge EM field as well as the matter: explore it as a massive stone
+cave, cathedral-sized and beautiful. ADHD pictures show thoughts as comic-strip bubbles,
+loads of them floating, louder, softer: abstract that as the bright bursts of the foam
+scale, loads of them buzzing about; match it to something scientific; they are his
+thoughts. And pain.
+
+Copilot, 13 Oct (the facts first):
+- Arteries: not mapped. The app has a generic vessel (`vessel.js`) and a schematic
+  brain; no named arteries. The way in is real anatomy: heart, aortic arch, common
+  carotid, internal carotid, the circle of Willis at the base of the brain, the middle
+  cerebral artery out over the cortex (and the vertebral arteries joining as the
+  basilar). Either draw them schematically from OpenStax Anatomy & Physiology (CC BY,
+  the reference already chosen, ISS-052) with true calibres (aorta about 25 mm, carotid
+  about 7, internal carotid about 5, middle cerebral about 3: the voyage shrinks as it
+  goes), or import real meshes (BodyParts3D or Z-Anatomy: CC BY-SA, share-alike on the
+  derived meshes; the author decides).
+- The cathedral is real: the brain's ventricles are an actual cave system, filled with
+  cerebrospinal fluid: the fourth ventricle, the aqueduct, the third, and the two lateral
+  ventricles, curved halls with the choroid plexus hanging like curtains. Enter from the
+  arteries (the choroid plexus is where blood becomes CSF) and the voyage is inside the
+  brain without passing through tissue. The walls as carved stone, the gyri above as the
+  vault; through them the field: the programme's whole-brain level is the brain's own
+  electromagnetic field (CEMI, McFadden), drawn as light in the stone.
+- Thoughts as bursts: the match is neural avalanches (Beggs and Plenz 2003): cascades of
+  activity with a power law of sizes, many small, a few large, which is exactly "loads of
+  them, louder, softer". A large one that spreads through the cortex is what the global
+  workspace calls ignition (Dehaene): the moment a thought becomes conscious. Loudness =
+  size; colour = the feeling mode carried (the Tensor's seven); with ADHD more bursts,
+  more scattered (P13's operator: the temperature up, more noise), a picture and a model,
+  not a diagnosis. Mind-wandering (the default mode network) as the slow background hum.
+- Pain is not in one place: from the ureter's stone, a C-fibre signal climbs the
+  spinothalamic tract to the thalamus, then the insula, the cingulate and the sensory
+  cortex (the pain neuromatrix, Melzack; the ureter stop already says C-fibre to insula).
+  Drawn as a red pulse arriving and the regions lighting; with fear it is louder (P1's
+  W between fear and pain); chronic pain is a valley that stays lit. And a line for the
+  cathedral: the brain itself has no pain receptors; the stone does not hurt, pain is
+  music played in it.
+Order (Copilot): thoughts as avalanches first (most expressive; the foam scale's bursts
+and the ADHD slider exist), then pain's path from the stone (it continues the ureter
+voyage), then the ventricle cathedral, then the arteries as the way in. Difficulty:
+avalanches and pain medium; the cathedral and the arteries medium to hard (anatomy).
+- [ ] Thoughts as neural avalanches in the brain stop: bursts with a power law of sizes,
+      loudness as size, colour as the mode, ignition when one spreads; ADHD slider; checks
+      that the sizes are power-law distributed.
+- [ ] Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,
+      insula, cingulate and sensory cortex; fear makes it louder; chronic as a lit valley.
+- [ ] The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
+      light in the stone; FX off the plain anatomy.
+- [ ] The way in: the arteries from the heart to the circle of Willis and the middle
+      cerebral artery, true calibres, the voyage shrinking; source and licence decided.
