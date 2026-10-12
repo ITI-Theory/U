@@ -827,9 +827,9 @@ organization profile and the `T` repository landing page.
 
 ---
 
-## ISS-033: Archive publication and print context curation — OPEN
+## ISS-033: Archive publication and print context curation — CLOSED
 {{Tags area.papers, area.books}}
-{{Fields date.created=2026-08-26, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-26, date.start=, date.end=2026-10-13, epic=}}
 
 `paper/archive/` contains durable source material alongside dated publication
 snapshots and submission checklists. In particular, `PRINT-SPEC.md` documents
@@ -838,13 +838,18 @@ QR destination is now superseded by ISS-032 and other operational content may
 also be stale.
 
 **Actions:**
-- [ ] Audit the archive Markdown files and classify each as durable reference,
+- [x] Audit the archive Markdown files and classify each as durable reference,
    current operational guide, or historical snapshot.
-- [ ] Move or distil still-valid print, publication, and brand decisions into
+      (13 Oct triage: done: paper/archive/README.md classifies all eight (one durable reference, seven historical snapshots), with the current authority for each)
+- [x] Move or distil still-valid print, publication, and brand decisions into
    maintained Markdown documentation without silently carrying forward stale
    claims, dates, or destinations.
-- [ ] Leave an explicit archive pointer or status note for retained historical
+      (13 Oct triage: done: docs/PRINT.md, pointers to Dist/PAPERS.yaml, Dist/README.md, PROCESS.md, paper/UAT.md, the sticker assets; the mark, Field Realism, no ISBN or retail edition)
+- [x] Leave an explicit archive pointer or status note for retained historical
    records so their date and authority are clear.
+      (13 Oct triage: done: a status note at the top of every archive file)
+
+**Closed 2026-10-13:** the archive is classified and labelled, and the still-valid decisions live in docs/PRINT.md (1a31fc3; reviewed 13 Oct: every pointer exists, the ISBN rule is sourced from PRINT-SPEC).
 
 ---
 
