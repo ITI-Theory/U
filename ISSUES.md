@@ -2452,7 +2452,10 @@ Steps:
       floor, ISS-071; the fly-through is left as a later tour move) City, next: towers clickable (open the concept, its Lean file and paper);
       a fly-through from the city down the avenue to the mountains as a tour
       move; the city grows as Sherlock's registry grows.
-- [ ] Elevator, from H-AL: show the tensor rank N(σ) beside ℓ(σ), the response
+- [ ] (13 Oct, part: the readout shows τ, the level's response time, beside ℓ, and the
+      carrier field retypes as the car rides, "passing → riding to"; N(σ) waits for a
+      sourced value: only ScaleUniverse's tensor_rank exists, and it rests on sorry)
+      Elevator, from H-AL: show the tensor rank N(σ) beside ℓ(σ), the response
       time τ, and the carrier field retyping as the car moves; more STEP OUT
       floors as stops appear (dyad, swarm, geological memory, cosmic web);
       other buildings next door for other paths (the 7 Oct chat).

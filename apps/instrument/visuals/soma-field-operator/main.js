@@ -1338,7 +1338,7 @@ function updateElevator() {
   elevator.setFloors(zoom.scales.map(id => {
     const level = levelsById.get(id);
     return {
-      id, label: level?.label ?? id, exponent: lengthScaleExponent(id), field: level?.field ?? '',
+      id, label: level?.label ?? id, exponent: lengthScaleExponent(id), field: level?.field ?? '', tau: level?.response_time ?? '',
       claims: level?.claims ?? {}, stop: LEVEL_STOPS[id] ?? null,
       dims: { 8: state.tTheory, 11: state.tTheory && elevenDimensionalAvailable(id) },
     };

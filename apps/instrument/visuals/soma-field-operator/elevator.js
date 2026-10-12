@@ -91,7 +91,7 @@ export function createElevator(hooks = {}) {
     }
     const target = floors.find(f => f.id === currentId);
     const near = floors[Math.max(0, Math.min(floors.length - 1, Math.round(carIndex)))];
-    let text = `FLOOR ${floors.indexOf(target) + 1} / ${floors.length} · ${target?.label ?? ''} · ℓ ≈ ${scaleText(target?.exponent)}`;
+    let text = `FLOOR ${floors.indexOf(target) + 1} / ${floors.length} · ${target?.label ?? ''} · ℓ ≈ ${scaleText(target?.exponent)}${target?.tau ? ` · τ ≈ ${target.tau}` : ''}`;
     if (moving && target && near && target.exponent !== null && near.exponent !== null && target.id !== near.id) {
       const d = target.exponent - near.exponent;
       text = `RIDING ${d >= 0 ? 'UP' : 'DOWN'} · scale ×10^${fmt(d)} · k ×10^${fmt(-d)} · ${near.label} → ${target.label}`;
@@ -99,7 +99,11 @@ export function createElevator(hooks = {}) {
     if (text !== lastText) {
       lastText = text;
       readout.textContent = text;
-      fieldEl.textContent = target ? `carrier field: ${target.field ?? ''}` : '';
+      // the carrier field retypes as the car passes the floors (H-AL): the one it is passing,
+      // then the one it is riding to
+      fieldEl.textContent = !target ? '' : moving && near && near.id !== target.id
+        ? `carrier field: ${near.field ?? ''} → ${target.field ?? ''}`
+        : `carrier field: ${target.field ?? ''}`;
     }
   }
 
