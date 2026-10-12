@@ -46,7 +46,8 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    Sherlock (built right), The Wizard (built the right thing), The Monster
    (understandable). Record in `paper/UAT.md`.
 - [ ] Lulu print preview of the [T]-Theory volumes.
-- [ ] Print the lot (author, 13 Oct): 23 physical books, one each. The
+- [ ] Print the lot (author, 13 Oct): 24 physical books, one each. The
+   papers omnibus (*The Soma-Field: Collected Works*, 2nd ed., A4, 470 pp). The
    Fractal Programme in three volumes (I Cosmos and Matter, II Mind and Body,
    III Culture and Society; replaces the 825/782-page two), the 15 domain
    books, the Field Atlas (A3, BookFactory), the Course, and Phase Dot 2 in
