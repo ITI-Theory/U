@@ -2933,9 +2933,9 @@ real sorries"; a scan counts 14 uncommented `sorry` tokens in
 `paper/proofs`: to settle.
 - [x] Extractor, Lean judge, report; replaces `Ledger/ZSF.lean`'s fixed list. (11 Oct: all affidavit documents by default; 171 citations, 16 disagree; about 18 min.)
 
-## ISS-059: An affidavit for every paper and book — OPEN
+## ISS-059: An affidavit for every paper and book — CLOSED
 {{Tags area.proofs, area.books, release}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=ISS-055-sherlock}}
 
 Epic ISS-055 (document list in the epic file). Per document: freeze, extract
 with the saved prompt (D7), verify, registry entry, Lean (numbers in core
@@ -2948,8 +2948,10 @@ each.
       "five real sorries", true of the markers, incomplete (20 declarations rest on
       sorry, ScaleUniverse's transitively): recorded as consistent, disposition open.
       399 of 399 kernel checks. The soma-* folders have no book source.
-- [ ] The course book, CS1, D1, D2.
-- [ ] `make -C sherlock affidavits` in the release gate.
+- [x] The course book, CS1, D1, D2.
+      (13 Oct triage: done: registry/affidavits ttheory-course (the course's evidence-and-proof chapter, 15), ttheory-cheatsheet (CS1, the booklet body), sft-demo-case (D1), lean-proofs-appendix (D2), 8 claims each; registry check OK; make -C sherlock check 411 of 411 (D7's tolerance check corrected to a relative 1 %))
+- [x] `make -C sherlock affidavits` in the release gate.
+      (13 Oct triage: done: bin/release-check section 21 runs make -C sherlock check when OpenCyc is built)
 - [x] (11-12 Oct: v2, then v3 after Sherlock ran on it; renamed sherlock-compiler) SH1 v2 (author, 11 Oct 21:30: "is a new paper needed?"; next): exhibit D (ZSF) and the
       programme-wide results (24 affidavits, 270 kernel checks, the real findings by kind,
       the ledger's 16 disagreements, values across documents, units, delta, structure
@@ -2957,6 +2959,8 @@ each.
 - [x] (12 Oct: both done; CS gained "Sherlock as built: engineering notes") Books catch up with Sherlock built: Computer Science ("a future Sherlock" becomes
       what was built, with its costs); the course ch. 15 one worked example (P4's "seven
       sorries", five in the Lean). Philosophy and Law: ISS-064.
+
+**Closed 2026-10-13:** every paper and book has an affidavit: 44, 411 of 411 template checks kernel-checked; the release gate runs them (bin/release-check section 21).
 
 ## ISS-060: Sherlock mapping assistant (words to OpenCyc constants) — CLOSED
 {{Tags area.proofs}}

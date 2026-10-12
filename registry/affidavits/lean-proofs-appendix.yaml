@@ -1,0 +1,133 @@
+# Sherlock affidavit. Schema: sherlock/registry.py.
+id: lean-proofs-appendix
+document: D2
+title: 'Appendix: Formal Lean 4 Verifications'
+source:
+  file: paper/soma/lean-proofs-appendix/lean-proofs-appendix.md
+  commit: 960d403
+  sha256: 79cb0d7dfd32154473291be229ed5d35d072970cb9fd58d8f0e0d4f31f315c5f
+lean: []
+microtheories: {}
+claims:
+- id: L1
+  quote: 'when the Lean kernel accepts a
+
+    file, it has verified — with mathematical certainty — that every claimed
+
+    theorem follows from its stated premises, and that every definition is
+
+    well-typed.'
+  lines:
+  - 16
+  - 17
+  - 18
+  - 19
+  kind: ledger
+  finding: the appendix states the kernel-checking standard in terms of theorem statements following from premises and definitions
+    being well-typed
+  verdict: not-provable
+  label: interpretive
+  lean: null
+  ledger: source explanation
+- id: L2
+  quote: 'The twenty-six files that follow collectively establish:'
+  lines:
+  - 38
+  kind: internal-count
+  finding: the appendix says the proof appendix covers twenty-six Lean files
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: eq
+    args:
+    - 26
+    - 26
+- id: L3
+  quote: '`SomaNetwork.lean` | Common typeclass interface for Hopfield-style networks | Compiles; 2 theorems, 1 open sorry
+    (`sft_ne_classical`)'
+  lines:
+  - 54
+  kind: internal-count
+  finding: the appendix records one open sorry in SomaNetwork
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: eq
+    args:
+    - 1
+    - 1
+- id: L4
+  quote: '`BFSSIsomorphism.lean` | Correspondence with a simplified BFSS matrix model | Compiles; 9 theorems, 2 axioms'
+  lines:
+  - 57
+  kind: internal-count
+  finding: the appendix records nine theorems and two axioms for BFSSIsomorphism
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 9
+    - 2
+    - 11
+- id: L5
+  quote: '`CosmologicalConstant.lean` | Vacuum amplitude $\Lambda \equiv \langle \operatorname{tr}\Phi\rangle_0$ and its dimensional
+    bookkeeping | Compiles; 17 theorems, no new axioms; inherits the gate axioms above, so results are derived under assumptions'
+  lines:
+  - 62
+  kind: ledger
+  finding: the appendix labels CosmologicalConstant results as derived under inherited gate assumptions rather than axiom-free
+    world facts
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source proof-status table
+- id: L6
+  quote: '`USF_OSAxioms.lean` | The free field in four dimensions satisfies all Osterwalder–Schrader axioms, by identification
+    with the Gaussian free field proved in the OSforGFF library | Compiles; 4 theorems, no axioms of its own'
+  lines:
+  - 66
+  kind: ledger
+  finding: the appendix states that USF_OSAxioms applies OSforGFF Gaussian-free-field results and has no axioms of its own
+  verdict: consistent
+  label: sourced
+  lean: null
+  ledger: docs/agent/THEORY-STATUS.md
+- id: L7
+  quote: 'There are five real Lean `sorry` stubs:
+
+    `BRECVEMAVariational` (2), `DyadicField` (2), and
+
+    `SomaNetwork` (1).'
+  lines:
+  - 70
+  - 71
+  - 72
+  kind: internal-count
+  finding: the appendix counts five real sorries as 2 + 2 + 1
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 2
+    - 2
+    - 1
+    - 5
+- id: L8
+  quote: 'A build means Lean accepted the file; individual declarations may be axioms,
+
+    # definitions, arithmetic, imported theorem applications, or sorry-backed placeholders.'
+  lines:
+  - 93
+  - 94
+  kind: ledger
+  finding: the verification instructions distinguish file acceptance from per-declaration proof status
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source verification instructions

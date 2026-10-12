@@ -1,0 +1,137 @@
+# Sherlock affidavit. Schema: sherlock/registry.py.
+id: ttheory-course
+document: COURSE
+title: '[T]-Theory: A Course — Evidence and Proof chapter'
+source:
+  file: Part2/book/field-atlas-textbook/chapters/15-evidence-proof.md
+  commit: 960d403
+  sha256: 7f2afe157bd2e8f58fbc37bff081e54ae96072a1cf75de150eb9cfdf52fa3cd2
+lean: []
+microtheories: {}
+claims:
+- id: C1
+  quote: 'Every chapter of this course has labelled its claims: `kernel-verified`, `derived-under-assumptions`, `simulated`,
+    `empirical-result`, `interpretive`, `open-hypothesis`.'
+  lines:
+  - 5
+  kind: internal-count
+  finding: the chapter lists six evidence labels
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+- id: C2
+  quote: When a scientist says that two things are "the same", or that one "explains" another, four quite different relations
+    may be meant, and each is checked differently.
+  lines:
+  - 21
+  kind: internal-count
+  finding: the chapter introduces four relations before listing identity, derivation, simulation and analogy
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: eq
+    args:
+    - 4
+    - 4
+- id: C3
+  quote: 'Measurements of nature are a fifth thing (`empirical-result`): checked by instruments, protocols, statistics and
+    independent replication.'
+  lines:
+  - 28
+  kind: internal-count
+  finding: the chapter distinguishes empirical measurement as a fifth kind of check
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 4
+    - 1
+    - 5
+- id: C4
+  quote: The programme's appendix contains twenty-six Lean files.
+  lines:
+  - 52
+  kind: internal-count
+  finding: the chapter states that the appendix contains twenty-six Lean files
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: eq
+    args:
+    - 26
+    - 26
+- id: C5
+  quote: 'counting what remains gives $2 + 2 + 1 = 5$: two in `BRECVEMAVariational.lean`, two in `DyadicField.lean`, one in
+    `SomaNetwork.lean`.'
+  lines:
+  - 78
+  kind: internal-count
+  finding: the worked example counts five real sorries as 2 + 2 + 1
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 2
+    - 2
+    - 1
+    - 5
+- id: C6
+  quote: '| Nervous systems use quantum dynamics of this kind | `open-hypothesis`, untested; no hardware or brain data are
+    involved |'
+  lines:
+  - 145
+  kind: ledger
+  finding: the QUANT-EXP-1 lab table explicitly marks the biological quantum-dynamics reading as untested with no hardware
+    or brain data
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source lab table
+- id: C7
+  quote: 'A level claim should answer six questions, and its label follows from which it can answer: what is the state variable;
+    what operator or rule acts on it; what boundary closes it; what source drives it; what observable is compared with data;
+    and what result would make it weaker?'
+  lines:
+  - 176
+  kind: internal-count
+  finding: the review protocol lists six questions for a level claim
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: sum
+    args:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 6
+- id: C8
+  quote: QUANT-EXP-1 is a `simulated` result about a model; its biological reading is an `open-hypothesis` and it makes no
+    clinical claim.
+  lines:
+  - 254
+  kind: ledger
+  finding: the chapter summary labels QUANT-EXP-1 as simulation and denies clinical claim status
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source summary

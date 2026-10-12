@@ -1,0 +1,103 @@
+# Sherlock affidavit. Schema: sherlock/registry.py.
+id: sft-demo-case
+document: D1
+title: 'SFT Applied: A Self-Case Analysis'
+source:
+  file: paper/soma/SFT-DEMO-CASE/SFT-DEMO-CASE.md
+  commit: 960d403
+  sha256: c92bed1b52bd4bb9c818fe8ff75c827de0a10f81d18474044e32ee29b1cff7d1
+lean: []
+microtheories: {}
+claims:
+- id: D1
+  quote: 'It is reproduced here as a demonstration of the model''s interpretive fit — specifically
+
+    the delta between standard trauma neuroscience and SFT''s proposed formal vocabulary.'
+  lines:
+  - 20
+  - 21
+  kind: ledger
+  finding: the document frames itself as an interpretive demonstration rather than independent clinical evidence
+  verdict: not-provable
+  label: interpretive
+  lean: null
+  ledger: source framing
+- id: D2
+  quote: This is a modelling claim, not a clinical limit on psychotherapy.
+  lines:
+  - 68
+  kind: ledger
+  finding: the therapy-barrier statement is explicitly hedged as modelling, not a clinical limit
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source hedging
+- id: D3
+  quote: This is not a claim of literal quantum annealing in tissue.
+  lines:
+  - 86
+  kind: ledger
+  finding: the rucksack-training analogy explicitly denies literal quantum annealing in tissue
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source hedging
+- id: D4
+  quote: this is not measured tissue-level $W$ or quantum annealing.
+  lines:
+  - 99
+  kind: ledger
+  finding: the BDNF/fascia paragraph denies measured tissue-level W and literal quantum annealing
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source hedging
+- id: D5
+  quote: The system is described as if it had found a minimal-action transition path.
+  lines:
+  - 126
+  kind: ledger
+  finding: the encounter is described with an as-if minimal-action reading, not as a measured path
+  verdict: not-provable
+  label: interpretive
+  lean: null
+  ledger: source interpretation
+- id: D6
+  quote: 'The writing is not treated here as the cause of
+
+    the integration; within the model, it is evidence consistent with integration.'
+  lines:
+  - 133
+  - 134
+  kind: ledger
+  finding: the writing is framed as evidence consistent with integration, not the cause of integration
+  verdict: not-provable
+  label: interpretive
+  lean: null
+  ledger: source interpretation
+- id: D7
+  quote: $f(\tau_d) = \tanh(18/36) \approx 0.46$
+  lines:
+  - 163
+  kind: internal-arithmetic
+  finding: the developmental-factor calculation uses 18 divided by 36; the text reports about 0.46
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: rel-between
+    args:
+    - 0.462
+    - 0.46
+    - 0
+    - 0.01
+- id: D8
+  quote: no causal therapeutic mechanism is established by this case report.
+  lines:
+  - 187
+  kind: ledger
+  finding: the summary explicitly states that the case report does not establish a causal therapeutic mechanism
+  verdict: confirmed
+  label: sourced
+  lean: null
+  ledger: source hedging

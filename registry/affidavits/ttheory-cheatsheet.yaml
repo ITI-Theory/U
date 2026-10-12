@@ -1,0 +1,108 @@
+# Sherlock affidavit. Schema: sherlock/registry.py.
+id: ttheory-cheatsheet
+document: CS1
+title: '[T]-Theory Cheatsheet'
+source:
+  file: books/T-Theory/booklet/booklet_body.md
+  commit: 960d403
+  sha256: 7718e9ff31597328fe6c57da3e8d55d931afa68262b6a053723a8a91d4f50042
+lean: []
+microtheories: {}
+claims:
+- id: CS1
+  quote: '**Proved (Lean 4, 0 sorries)**'
+  lines:
+  - 3
+  kind: ledger
+  finding: the cheatsheet asserts a zero-sorry proof surface, which the current proof-status ledger contradicts because five
+    real sorries remain
+  verdict: contradicted
+  label: sourced
+  lean: null
+  ledger: docs/agent/THEORY-STATUS.md; paper/soma/lean-proofs-appendix/lean-proofs-appendix.md
+- id: CS2
+  quote: Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ (61 orders of magnitude)
+  lines:
+  - 7
+  kind: internal-count
+  finding: the cheatsheet states the scale range and 61-order span; the arithmetic difference between exponents is 61
+  verdict: confirmed
+  label: kernel-verified
+  lean: null
+  check:
+  - template: diff
+    args:
+    - 26
+    - -35
+    - 61
+- id: CS3
+  quote: '*[T]-Theory accounts for **95.5%** of the total mass-energy of the universe via
+
+    a zero-parameter geometric derivation.*'
+  lines:
+  - 20
+  - 21
+  kind: ledger
+  finding: the cheatsheet presents the 95.5 percent cosmology statement; this remains a model-derived comparison, not independent
+    empirical confirmation
+  verdict: consistent
+  label: sourced
+  lean: null
+  ledger: docs/agent/THEORY-STATUS.md
+- id: CS4
+  quote: The base space is the 20-point scale hierarchy; each fiber is a field configuration.
+  lines:
+  - 60
+  kind: ledger
+  finding: the cheatsheet states a 20-point scale base, while the later ZSF affidavit records a 21-level catalogue inconsistency
+  verdict: consistent
+  label: sourced
+  lean: null
+  ledger: registry/affidavits/zoomable-somatic-field.yaml
+- id: CS5
+  quote: barrier cases; classical simulation achieves it in 0/48. Quantum advantage is real.
+  lines:
+  - 119
+  kind: ledger
+  finding: the cheatsheet turns QUANT-EXP-1 into a quantum-advantage claim; the evidence ledger limits it to an exact statevector
+    simulation, not quantum hardware or runtime advantage
+  verdict: contradicted
+  label: sourced
+  lean: null
+  ledger: docs/agent/THEORY-STATUS.md
+- id: CS6
+  quote: A rock is a 4D organism. A jellyfish is a 7D organism. A human is an 11D organism.
+  lines:
+  - 154
+  kind: ledger
+  finding: the organism hierarchy is stated as a categorical claim in the cheatsheet; as prose it remains a model interpretation
+    rather than an empirical taxonomy
+  verdict: not-provable
+  label: interpretive
+  lean: null
+  ledger: docs/agent/THEORY-STATUS.md
+- id: CS7
+  quote: '**Lean 4 kernel verification: 0 sorries · 0 extra axioms**'
+  lines:
+  - 241
+  kind: ledger
+  finding: the verification-status line conflicts with the current appendix, which says five real sorries remain and several
+    files contain axioms
+  verdict: contradicted
+  label: sourced
+  lean: null
+  ledger: paper/soma/lean-proofs-appendix/lean-proofs-appendix.md
+- id: CS8
+  quote: 'All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
+
+    `gaussianFreeField_satisfies_all_OS_axioms`).'
+  lines:
+  - 243
+  - 244
+  kind: ledger
+  finding: the cheatsheet names the OSforGFF-backed OS axiom check; the current status ledger treats this as an imported Gaussian-free-field
+    result applied under the USF identification
+  verdict: consistent
+  label: sourced
+  lean: null
+  ledger: docs/agent/THEORY-STATUS.md
