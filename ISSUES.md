@@ -7,7 +7,13 @@ fields: date.created, date.start, date.end, epic
 
 Issue tracker for work that spans sessions or needs a future decision.
 Format: `ISS-NNN: Title — STATUS`
-Status: OPEN | IN-PROGRESS | CLOSED
+Status: OPEN | IN-PROGRESS | ON-HOLD (trigger) | SOMEDAY | CLOSED
+- OPEN, IN-PROGRESS: being worked on; checked every session.
+- ON-HOLD (trigger): paused until a named event, e.g. `ON-HOLD (after Mk 1, 21 Oct)`;
+  it comes back by itself when the trigger happens. Not checked before then.
+- SOMEDAY: cannot be done now (hardware, money, a missing piece); never checked,
+  reviewed at each release.
+- CLOSED: done, or decided against ("won't do" in the closing note).
 
 ## Issue Metadata
 
@@ -235,7 +241,7 @@ test : `grep -i float paper/proofs/*.lean | grep -v Movie.lean `
 
 ---
 
-## ISS-011: Hopfield.lean — upgrade to SpinState + asynchronous update — PARKED
+## ISS-011: Hopfield.lean — upgrade to SpinState + asynchronous update — ON-HOLD (after Mk 1, 21 Oct)
 
 Current Hopfield.lean uses `Pattern = Fin D → ℝ` (synchronous step). This
 makes proofs 3 (attractor\_exists) and 4 (convergence) hard because the state
@@ -570,7 +576,7 @@ domain books already provide valid local Lulu outputs.
 
 ---
 
-## ISS-024: Effect specification and causal-response interpreter — PARKED
+## ISS-024: Effect specification and causal-response interpreter — ON-HOLD (after Mk 1, 21 Oct)
 
 **Tag:** Future / USM formal foundation
 
@@ -610,7 +616,7 @@ future mirror lens a type-safe conceptual foundation without asserting new physi
 
 ---
 
-## ISS-025: USM human route — appraisal and context layer (CODA) — PARKED
+## ISS-025: USM human route — appraisal and context layer (CODA) — ON-HOLD (after Mk 1, 21 Oct)
 
 **Tag:** Current USM specification / literature update
 
@@ -650,7 +656,7 @@ Frontiers in Psychology, 13:822264, doi:10.3389/fpsyg.2022.822264.
 
 ---
 
-## ISS-026: USM human route — body-map and 8x8 field-grid renderer — PARKED
+## ISS-026: USM human route — body-map and 8x8 field-grid renderer — ON-HOLD (after Mk 1, 21 Oct)
 
 **Tag:** Current USM specification / visual instrument
 
@@ -879,7 +885,7 @@ reader-facing Markdown in Python.
       out of handwritten sources.
 ---
 
-## ISS-035: Path-sensitive transition dynamics — PARKED
+## ISS-035: Path-sensitive transition dynamics — OPEN
 {{Tags area.theory, area.proofs, area.clinical}}
 {{Fields date.created=2026-09-30, date.start=, date.end=, epic=}}
 
@@ -1243,7 +1249,7 @@ bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
 
 ---
 
-## ISS-043: Upgrade pandoc and pandoc-crossref together (after the release) — OPEN
+## ISS-043: Upgrade pandoc and pandoc-crossref together (after the release) — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.build}}
 {{Fields date.created=2026-10-05, date.start=, date.end=, epic=}}
 
@@ -1349,7 +1355,7 @@ sources, and the chat-ingest process exists in three competing forms.
 
 ---
 
-## ISS-045: HAL next steps — PARKED
+## ISS-045: HAL next steps — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.ops}}
 {{Fields date.created=2026-10-06, date.start=, date.end=, epic=}}
 
@@ -1636,7 +1642,7 @@ The author ran a UAT session on 7 Oct; the notes are in
       status pending-upload (all nine review items are fixed in the text).
 ---
 
-## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — PARKED
+## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — SOMEDAY
 {{Tags area.app, area.ops}}
 {{Fields date.created=2026-10-08, date.start=, date.end=, epic=}}
 
@@ -3115,7 +3121,7 @@ legal advice; the checks and decisions:
 
 **Closed 2026-10-13:** every item done.
 
-## ISS-067: SH2: can a language model do Sherlock's job? — PARKED
+## ISS-067: SH2: can a language model do Sherlock's job? — OPEN
 {{Tags area.papers}}
 {{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
 
@@ -3128,7 +3134,7 @@ then a locally run model. D11: language models at both ends, Lean in the middle.
 - [ ] A local model on the same questions (ISS-048).
 - [ ] Write SH2: scores, where the model was right, wrong or could not say.
 
-## ISS-068: Release builds and Sherlock in CI on a large runner — PARKED
+## ISS-068: Release builds and Sherlock in CI on a large runner — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.build, area.ops}}
 {{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
 
@@ -3717,7 +3723,7 @@ Copilot, 13 Oct:
 - [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
       the author says so).
 
-## ISS-080: Later: the optional and someday steps of closed issues — OPEN
+## ISS-080: Later: the optional and someday steps of closed issues — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.app, area.instrument, area.ops}}
 {{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
 
