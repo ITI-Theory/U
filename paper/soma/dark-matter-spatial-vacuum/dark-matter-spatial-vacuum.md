@@ -54,6 +54,8 @@ gives:
 - **3 spatial non-compact** ($M_3$): dark matter — **this paper**.
 - **1 temporal** ($\mathbb{R}_t$): baryonic matter — auxiliary claim, §4.
 
+{{Visualize | the-dark-matter-problem-usf-perspective | type-decomposition:cosmic | whole="$M_{11}$"; parts="compact $\Omega_\Lambda$=7, spatial $\Omega_\text{DM}$=3, time sector=1"; expect_total=11 }} The leading dimensional bookkeeping behind the abstract's $3/11$ claim: seven compact directions, three non-compact spatial directions, and one temporal direction. The program checked that the parts add to the eleven-dimensional total; assigning the three-direction block to dark matter is the model assumption, not an observation.
+
 ---
 
 # The Dimensional Partition and Leading-Order Prediction
@@ -418,6 +420,9 @@ $N_\text{compact} = 7$ used by the companion compact-sector model, the spatial c
 by subtraction:
 $$N_\text{spatial} = N_\text{total} - N_\text{compact} - N_\text{time}
   = 11 - 7 - 1 = 3$$
+
+{{Visualize | is-this-coincidence | type-decomposition:cosmic | whole="$M_{11}$"; parts="compact $X_7$=7, time $\mathbb{R}_t$=1, residual spatial $M_3$=3"; expect_total=11 }} The subtraction in the displayed equation as a dimension split: after the seven compact and one time directions are accounted for, three non-compact spatial directions remain. The renderer checked only the integer bookkeeping, not the physical identification with dark matter.
+
 The leading fraction $\Omega_\text{DM} = 3/11$ has no fitted continuous
 parameters once the 11D partition is adopted: the integer 3 is fixed by the
 same bookkeeping. The remaining question is whether this dimensional structure,
