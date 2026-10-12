@@ -74,6 +74,8 @@ def main() -> int:
         if not found:
             continue
         total += len(found)
+        for line, sentence in found:  # compiler style, for VS Code's Problems panel
+            print(f"{f}:{line}: warning: a clinical claim with no hedge or evidence label: {sentence[:140]}")
         out += [f"## {Path(f).stem}", ""]
         out += [f"- line {line}: {s[:300]}" for line, s in found]
         out.append("")

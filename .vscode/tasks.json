@@ -1,0 +1,25 @@
+{
+  // Sherlock in VS Code (ISS-055): its findings as compiler errors and warnings in the
+  // Problems panel and as squiggles in the papers and books. "Sherlock: report" is fast
+  // (Python, from the last Lean judge); "Sherlock: ledger" re-judges with Lean (slow).
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Sherlock: report",
+      "type": "shell",
+      "command": "python sherlock/ledger.py extract && python sherlock/ledger.py report && python sherlock/clinical.py --problems",
+      "group": "build",
+      "presentation": { "reveal": "silent", "clear": true },
+      "problemMatcher": { "owner": "sherlock", "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": { "regexp": "^(.+?):(\\d+): (error|warning): (.*)$", "file": 1, "line": 2, "severity": 3, "message": 4 } }
+    },
+    {
+      "label": "Sherlock: ledger (Lean, slow)",
+      "type": "shell",
+      "command": "make -C sherlock ledger",
+      "presentation": { "reveal": "always", "clear": true },
+      "problemMatcher": { "owner": "sherlock", "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": { "regexp": "^(.+?):(\\d+): (error|warning): (.*)$", "file": 1, "line": 2, "severity": 3, "message": 4 } }
+    }
+  ]
+}

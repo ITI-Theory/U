@@ -64,10 +64,20 @@ one Lean module per microtheory in `bld/sherlock/lean`, OpenCyc's Horn rules
 | `python sherlock/macfac.py check\|report` | MAC/FAC over the case library (`registry/cases/`): where else a structure occurs; the documents' sameness claims as tests |
 | `lake build EmotionCyc` (root) | the programme's emotions as OpenCyc types (`Cyc.Types`): a wrong name does not compile |
 | `make -C sherlock affidavits` | every affidavit module, one at a time, then `check` |
+| `make -C sherlock clinical` | sentences claiming a clinical effect with no hedge in the sentence and no evidence label in the paragraph |
+| `make -C sherlock towers`, `skyline` | the programme's Lean and OpenCyc exported for the Soma Machine's city of code |
 
 Reports in `bld/sherlock/`: `affidavits.md` (every claim), `values.md` (values
 quoted across documents), `palace.json` (claims by scale level and concept,
 for the Soma Machine), `ledger.md`, `delta-<id>.md`, `sme-<id>.md`.
+
+**As a compiler.** The ledger and the clinical check also print their findings the way a
+compiler does, `path:line: error|warning: message` (`bld/sherlock/ledger.txt`). In VS Code,
+run the task **Sherlock: report** (fast, from the last Lean judge) or **Sherlock: ledger**
+(re-judges with Lean): each finding appears in the Problems panel and as a squiggle on its
+line in the paper or book. A finding read and accepted as not an error goes into
+`registry/ledger-accepted.yaml` with its reason (a disposition); the ledger then reports it
+as accepted, as a compiler's warning is silenced with a reason, never quietly.
 
 ## Writing an affidavit for a document
 
