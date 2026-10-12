@@ -2545,6 +2545,69 @@ The calibration problem is subtler than finding a number. The Lean code uses $\s
 
 Hysteresis deserves special attention. Many phase transitions do not reverse at the same point at which they occur. A system may require one path into a phase and another path out. In consciousness, this would predict asymmetry between induction and emergence under anaesthesia, between panic onset and recovery, between sleep onset and waking, or between trauma activation and regulation `open-hypothesis`. The programme's temporal-dynamics material, with retarded propagators and memory kernels, is relevant here `derived-under-assumptions`. It suggests that the present state is not a function only of present amplitude; path history matters. A threshold theory without hysteresis would be too simple for real phenomenology.
 
+
+## Open hypothesis: path-sensitive transition dynamics
+
+The energy-landscape account used so far is local in the simplest sense. It
+pictures a state in a basin, a ridge between basins, and a transition when a
+trajectory crosses the ridge `derived-under-assumptions`. That account remains
+useful: it defines attractors, saddles, barrier height, and hysteresis in a way
+that can be simulated or checked inside a chosen model `derived-under-assumptions`.
+It is not yet the whole story of a lived or clinical transition `open-hypothesis`.
+A person may fail to move from one state to another not because there is one
+large barrier, but because the possible route contains many small coordination
+costs, forbidden intermediate states, memory penalties, or bodily constraints
+that accumulate along the way `open-hypothesis`.
+
+A path-sensitive version therefore treats a transition as a curve
+$\gamma:[0,T]\to\mathcal S$ through a state space $\mathcal S$, not only as a
+point crossing a height contour `derived-under-assumptions`. For the programme,
+$\mathcal S$ would at minimum include an affective state vector, coupling
+parameters, slow memory variables, and any measured bodily or neural variables
+that the protocol actually records `open-hypothesis`. An admissible path is not
+any curve one can draw: it must respect the dynamics, rate limits, boundary
+conditions, ethical constraints on intervention, and available regulation or
+support channels `open-hypothesis`. A path cost or action
+$S[\gamma]=\int_0^T L(\gamma(t),\dot\gamma(t),t)\,dt$ would then score the whole
+route. Terms in $L$ might include potential energy, dissipation, control effort,
+coordination mismatch, memory-kernel penalties, and noise scale
+`open-hypothesis`.
+
+This is close in form to three established mathematical languages, without yet
+claiming their biological truth here. A minimum-action account asks which
+admissible path has least cumulative cost `derived-under-assumptions`.
+Freidlin--Wentzell large-deviation theory studies the rare paths by which noisy
+dynamical systems escape basins [@freidlin2012random] `derived-under-assumptions`.
+Onsager--Machlup theory writes probabilities for stochastic paths in terms of a
+path functional [@onsager1953fluctuations] `derived-under-assumptions`. A literal
+Feynman path integral sums amplitudes over histories in quantum mechanics
+[@feynman1948] `derived-under-assumptions`; importing that literal quantum
+reading into trauma, overload, or consciousness would be an additional and
+currently unproved step `open-hypothesis`.
+
+The observable question is how to tell a single-barrier story from a distributed
+path-cost story. A single-barrier model predicts that transition probability is
+mainly controlled by a local barrier height and noise or forcing scale
+`open-hypothesis`. A distributed path-cost model predicts stronger dependence on
+route history: different preparation paths to the same measured point may have
+different escape rates, recovery may not retrace onset, dwell-time distributions
+may be broader than a one-barrier Arrhenius picture, and small interventions at
+bottleneck micro-steps may outperform larger interventions applied at the
+nominal barrier `open-hypothesis`. In trauma or overload work, the relevant data
+would be longitudinal and within-person: time-resolved affect, autonomic and
+sleep measures, exposure or demand history, regulation attempts, social support,
+relapse and recovery timing, and carefully hedged clinical annotation
+`open-hypothesis`. Such data could show path dependence; it would not by itself
+prove the Universal Somatic Field interpretation `open-hypothesis`.
+
+The proposal warrants a dedicated draft paper before it warrants new Lean
+claims. The paper should specify the state variables, admissible paths, action
+functional, limiting cases, and discriminating observations, and it should say
+which parts are standard stochastic dynamics and which parts are programme
+interpretation `open-hypothesis`. A later formal development could encode a
+finite-state or smooth-state toy model and prove statements about minimum-cost
+paths or hysteresis, but no such theorem is claimed here `open-hypothesis`.
+
 The same applies to correlation length. In a neural or somatic system, literal spatial correlation length may be hard to define, but the underlying idea is measurable: how far perturbations propagate across brain regions, body systems, report channels, or action policies before they decay `open-hypothesis`. Near a conscious transition, one might expect increased long-range coordination, altered metastability, or susceptibility to small perturbations. Existing neuroscience already studies integration, complexity, perturbational responses, and ignition. The programme's task is not to ignore that literature, but to state what its field-order-parameter vocabulary adds `open-hypothesis`.
 
 Universality should be used modestly. It is tempting to say that because magnets, fluids, brains, and societies all show transitions, one theory explains them all. The better claim is conditional: if systems share the relevant symmetries, dimensions, conservation or dissipation structure, and order-parameter dynamics, then some critical behaviour may transfer `derived-under-assumptions`. Mathematical co-identification is supposed to police exactly this kind of transfer. The philosophy book should therefore treat universality as a disciplined hope, not a licence. The phrase "same equation" must always be followed by "under what assumptions, with what variables, and preserving which predictions?" `interpretive`.
@@ -3036,7 +3099,7 @@ This ledger lists major claims across the programme and this book. It is not a p
 | 37 | Dyadic energy-lowering theorem depends on `sorry`. | `open-hypothesis` | `DyadicField.lean::dyadic_energy_coupling_lowers`; `dyadic_energy_coupling_lowers_ℝ` | Proof gap on the computational version. |
 | 38 | BRECVEMA maps to a 7D compact sector plus gauge mode. | `kernel-verified` | `BRECVEMAField.lean::SomaField.BRECVEMA.gauge_round_trip`; `brecvema_compact_iso` | Formal mapping. |
 | 39 | P24 trace decomposition is arithmetically proved. | `kernel-verified` | `BRECVEMAVariational.lean::SomaField.Variational.brecvema_G2_decomposition`; `delta_W_dof` | Full G₂ geometry open. |
-| 40 | Euler-Lagrange and G₂ homotopy targets contain `sorry`. | `open-hypothesis` | `BRECVEMAVariational.lean::SomaField.Variational.euler_lagrange_BRECVEMA`; `moduli_space_is_G2_homotopy` | Real proof holes. |
+| 40 | Euler-Lagrange is solved under invertible mass; G₂ homotopy is a labelled axiom. | `open-hypothesis` | `BRECVEMAVariational.lean::SomaField.Variational.euler_lagrange_BRECVEMA`; `moduli_space_is_G2_homotopy` | Variational derivation and geometry remain open. |
 | 41 | Cosmological $\Omega_\Lambda=7/11$ is arithmetic plus model comparison. | `derived-under-assumptions` | P21; `CosmologicalConstant.lean::SomaField.Cosmological.omega_lambda_fraction` | Physical assumptions required. |
 | 42 | Dark matter $\Omega_{DM}=3/11$ is arithmetic plus model comparison. | `derived-under-assumptions` | P22; `CosmologicalConstant.lean::SomaField.DarkMatter.omega_dm_fraction` | Not independent confirmation. |
 | 43 | Baryon fraction $1/22$ is formal arithmetic. | `kernel-verified` | `CosmologicalConstant.lean::SomaField.DarkMatter.omega_baryon_fraction` | Interpretation assumption-heavy. |

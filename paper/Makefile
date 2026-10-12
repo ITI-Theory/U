@@ -36,7 +36,8 @@ $(eval $(call register, cosmological-constant-derivation, citeproc, en,  coscons
 $(eval $(call register, dark-matter-spatial-vacuum,       citeproc, en,  darkmatter))
 $(eval $(call register, g2-symmetry-breaking,             citeproc, en,  g2break  ))
 $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenomena))
-$(eval $(call register, sherlock-compiler,                citeproc, en,  sh1      ))
+$(eval $(call register, sherlock-compiler,                citeproc, en,    sh1      ))
+$(eval $(call register, path-sensitive-transitions,       citeproc, en,    pathsens))
 $(eval $(call register, SFT-DEMO-CASE,                     citeproc, en,  demo-case))
 
 # Derived target lists (computed from registry)
@@ -49,7 +50,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all html help omnibus omnibus-royal omnibus-a4 glyph-papers lulu-cover uat-context-papers check-registry-hooks check-unicode-diagrams check-lulu-pages check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
+.PHONY: all html help omnibus omnibus-royal omnibus-a4 glyph-papers lulu-cover uat-context-papers synthesis-table check-synthesis-table check-registry-hooks check-unicode-diagrams check-lulu-pages check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
 	clean check setup freeze \
@@ -63,6 +64,16 @@ glyph-papers: $(_ALL_EN_PDFS) lean-appendix
 
 uat-context-papers:
 	$(PYTHON) $(SCRIPTS)/generate_uat_context.py
+
+
+SYNTHESIS_TABLE_SRC := soma/soma-field-synthesis/programme-table.tsv
+SYNTHESIS_TABLE_MD := soma/soma-field-synthesis/programme-table.generated.md
+
+synthesis-table: $(SYNTHESIS_TABLE_SRC) $(SCRIPTS)/generate_synthesis_table.py
+	$(PYTHON) $(SCRIPTS)/generate_synthesis_table.py
+
+check-synthesis-table: $(SYNTHESIS_TABLE_SRC) $(SYNTHESIS_TABLE_MD) $(SCRIPTS)/generate_synthesis_table.py
+	$(PYTHON) $(SCRIPTS)/generate_synthesis_table.py --check
 
 check-registry-hooks:
 	$(PYTHON) $(SCRIPTS)/check_registry_hooks.py

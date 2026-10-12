@@ -1397,9 +1397,9 @@ stays useful for the laptop and for cloud machines.
       `U.Dot/bin/HAL1` directly (9 Oct). Part of the install step above.
 ---
 
-## ISS-046: Open items carried over from the old CURRENT.md (1-6 Oct 2026) — OPEN
+## ISS-046: Open items carried over from the old CURRENT.md (1-6 Oct 2026) — CLOSED
 {{Tags area.papers, area.books, area.app, area.proofs}}
-{{Fields date.created=2026-10-06, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-06, date.start=, date.end=2026-10-13, epic=}}
 
 CURRENT.md was rewritten to one screen on 6 Oct (stale-file review, ISS-044);
 the full old file is `docs/agent/CURRENT-2026-10-01-to-06.md.OBSOLETE`. Each
@@ -1416,25 +1416,30 @@ all 31 levels; no "no sorries" claims left in the appendix or books.
       Lean doc comments in `G2Compactification.lean` and `LocalGR.lean` said
       `dΩ_Λ/dz = 0`; the correct statement is that Λ (ρ_Λ) is constant
       (Ω_Λ itself changes with z). Comments only; the proofs are unaffected.
-- [ ] OSforGFF pull request mrdouglasny/OSforGFF#22 awaiting review.
-- [ ] Optional: `git worktree remove ../U-lean-v433`.
+- [x] OSforGFF pull request mrdouglasny/OSforGFF#22 awaiting review.
+      (13 Oct triage: still open upstream, 13 Oct; tracked in ISS-036, which drops the patches once it is merged)
+- [x] Optional: `git worktree remove ../U-lean-v433`.
+      (13 Oct triage: done: no such worktree any more (git worktree list))
 
 **App (ideas from the 1 Oct notebook review and the design note
 `docs/agent/APP-ATLAS-DESIGN.md.OBSOLETE`; its design principles are in the
 app README):**
-- [ ] A display-mode axis `4d-baseline | 7d-usf-field | 8d-life | 11d-mind` in
+- [x] A display-mode axis `4d-baseline | 7d-usf-field | 8d-life | 11d-mind` in
       `operator-theory.yaml` (the app has `dim=4|8` today).
-- [ ] A gravity view pairing a baseline GR render with the Green-function render.
-- [ ] Mind rank N(σ) beside physical scale; the user source term J_user(t) as
+      (13 Oct triage: superseded: the app's 4D / 8D / 11D dimension switch (dim=4|8|11))
+- (moved to ISS-080) A gravity view pairing…
+- [x] Mind rank N(σ) beside physical scale; the user source term J_user(t) as
       a control; a benchmark suite for validation. Theory data stays out of
       browser JS.
-- [ ] Type guard (on by default): each level declares which layers its type
+      (13 Oct triage: J(t) is the POKE FIELD / J(t) control; N(σ) is tracked in ISS-052 (it waits for a sourced value); the benchmark is paper/proofs/Benchmark.lean)
+- [x] Type guard (on by default): each level declares which layers its type
       admits. With the guard off the user may add any layer anywhere (feelings
       in a rock) and the app shows a red `ILL-TYPED` banner naming the rule.
       To make that honest, generate a small Lean file from the registry (one
       inductive per level's admissible layers) so the rejection is a real type
       error. Links to Sherlock.
-- [ ] (Sherlock's reasoning plan, 10 Oct: ISS-055.) Sherlock concept registry `registry/concepts/<id>.yaml`: concept,
+      (13 Oct triage: tracked in ISS-063, OWL classes as Lean types)
+- [x] (Sherlock's reasoning plan, 10 Oct: ISS-055.) Sherlock concept registry `registry/concepts/<id>.yaml`: concept,
       ontology class (OpenCyc/OWL), Lean type (Mathlib, PhysLib or programme),
       proof status, papers, levels, so that gaps become visible.
       9 Oct, v0: `registry/concepts/` (23 concepts: the 8 emotions and 8 BRECVEMA
@@ -1448,21 +1453,9 @@ app README):**
       type guard below generated from the same registry.
       App (9 Oct): SHERLOCK panel per level (tally and list: ontology class, Lean name,
       PROVED / SORRY / AXIOM / DEFINED, papers), from the same status code.
-- [ ] Sherlock finding, 9 Oct: none of the 16 OpenCyc constants in
-      EmotionOntology.lean's CycRef interpreter exist in OpenCyc (checked against
-      the OpenCyc OWL, 239,119 constants): `#$Joy-Emotion` etc., and the predicates
-      `#$emotionalBlend`, `#$emotionalInhibition`; `#$causes` exists only typed
-      (`causes-SitSit` ...). Real classes: Happiness, Sadness, Fear, Anger, Disgust,
-      Surprise, Anticipation-Feeling, ReflexiveAction, Expectation,
-      AestheticDiscrimination; no match for trust, entrainment, conditioning,
-      contagion, imagery, episodic memory. The registry now uses the real classes
-      (the Lean string kept as `lean_cycref`); `make concepts` fails on any class
-      that is not an OpenCyc constant. Author decides: change the Lean strings
-      (and the CycRef examples quoted in the papers and the omnibus) to real
-      constants, or define the missing ones as the programme's own OWL classes.
-- [ ] Visual rhymes: renderers may share motion styles across levels (sliding
-      plates for `geological`, ring/belt debris for `orbital-system`), badged
-      as visual analogy (`INTERPRETIVE`); the physics differs.
+      (13 Oct triage: done: v0 registry/concepts, make concepts, release-check section 19, the SHERLOCK panel; the next steps are ISS-063 and ISS-059)
+- (moved to ISS-081) Sherlock finding, 9 Oct: none of the 16 OpenCyc constants…
+- (moved to ISS-080) Visual rhymes…
 - [x] Public app at https://www.t-theory.org/app/ (first published 6 Oct from
       U 424c0a9 into ITI-Theory/t-theory.org, by hand). `make app-publish`
       (DRY=1 first) now builds, checks for private material, copies, commits
@@ -1471,11 +1464,8 @@ app README):**
       the check rejects the private notebook ids from mother.local.json.
 
 **Books and Atlas:**
-- [ ] Each Fractal Thesis book: a domain introduction spread (specialist label,
-      G-ID, zoom note); a per-book G-ID registry; "61 decades of magnitude" as
-      the headline with the scales as tick marks.
-- [ ] Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1,
-      2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
+- (moved to ISS-080) Each Fractal Thesis book: a domain introduction spread…
+- (moved to ISS-080) Field Atlas: Physical / Field / Mind parallel layout…
 - [x] Course book: Visualize for chapter 9 (needs a flock primitive). Done 9 Oct:
       primitive `flock` (Vicsek); the chapter opener is now declared in the text and
       checks the quoted orders (0.99 at noise 0.5, 0.17 at 4.0) on every build.
@@ -1496,6 +1486,8 @@ post-operative case (N = 1 field note); NotebookLM's "verified", "zero
 sorries" and "proves" statements.
 
 Not now (author, 1 Oct): completing *Phase Dot*.
+
+**Closed 2026-10-13:** every carried-over item is done, superseded, tracked in its own issue, or moved to ISS-080 (later) and ISS-081 (the author's desk).
 
 ---
 
@@ -3787,6 +3779,15 @@ optional step are closed; the step is kept here, word for word, with the issue i
 - [ ] (ISS-047) MOTHER follows a wandering chat: log and tag each departure, show the chat
       as a branching path, revisit and continue; sound effects (note 11).
 - [ ] (ISS-047) Test book: a topic suggested by someone else (waiting for the viewer).
+- [ ] (ISS-046) A gravity view pairing a baseline GR render with the Green-function render.
+- [ ] (ISS-046) Visual rhymes: renderers may share motion styles across levels (sliding
+      plates for `geological`, ring/belt debris for `orbital-system`), badged as visual
+      analogy (`INTERPRETIVE`); the physics differs.
+- [ ] (ISS-046) Each Fractal Thesis book: a domain introduction spread (specialist label,
+      G-ID, zoom note); a per-book G-ID registry; "61 decades of magnitude" as the headline
+      with the scales as tick marks.
+- [ ] (ISS-046) Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1, 2,
+      4, 5 only if redrawn and badged `INTERPRETIVE`.
 
 ## ISS-081: The author's desk: steps only the author can take — OPEN
 {{Tags area.ops}}
@@ -3822,4 +3823,15 @@ steps; ISS-047 the RC3 follow-up.
       H0? If not, H0 is an input and P21 predicts Omega_Lambda = 7/11 given H0 (what the
       paper now says, review item 4); if yes, P21 predicts H0 and the paper should say so.
       Then sign-off and status pending-upload (all nine review items are fixed in the text).
+- [ ] (ISS-046) Sherlock finding, 9 Oct: none of the 16 OpenCyc constants in
+      EmotionOntology.lean's CycRef interpreter exist in OpenCyc (checked against the
+      OpenCyc OWL, 239,119 constants): `#$Joy-Emotion` etc., and the predicates
+      `#$emotionalBlend`, `#$emotionalInhibition`; `#$causes` exists only typed
+      (`causes-SitSit` ...). Real classes: Happiness, Sadness, Fear, Anger, Disgust,
+      Surprise, Anticipation-Feeling, ReflexiveAction, Expectation, AestheticDiscrimination;
+      no match for trust, entrainment, conditioning, contagion, imagery, episodic memory.
+      The registry now uses the real classes (the Lean string kept as `lean_cycref`); `make
+      concepts` fails on any class that is not an OpenCyc constant. Author decides: change
+      the Lean strings (and the CycRef examples quoted in the papers and the omnibus) to
+      real constants, or define the missing ones as the programme's own OWL classes.
 

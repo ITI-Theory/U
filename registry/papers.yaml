@@ -408,6 +408,21 @@ canonical_papers:
     make_alias: sh1
     references_minimum: 5
 
+  - id: P25
+    slug: path-sensitive-transitions
+    title: "Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Action Costs in [T]-Theory"
+    discipline: "Dynamical systems; clinical modelling; philosophy of science"
+    level: "masters"
+    doi: null
+    status: pending-review
+    notes: "Draft created for ISS-035; specifies state space, admissible paths, action functional and discriminating observations before any formal or clinical claim."
+    file: papers/path-sensitive-transitions.pdf
+    zenodo_file: zenodo/P25-path-sensitive-transitions.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: pathsens
+    references_minimum: 5
+
 datasets:
 
   - id: E1
