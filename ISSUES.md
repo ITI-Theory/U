@@ -3776,10 +3776,11 @@ Copilot, 13 Oct:
       warned first); Marketplace pre-release and Open VSX.
 - [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
       the author says so).
-- [ ] (from ISS-081, author, 13 Oct: not the author's) (ISS-047) Autopilot correction (note
+- [x] (from ISS-081, author, 13 Oct: not the author's) (ISS-047) Autopilot correction (note
       9): it is for speech-to-text; the AI repeats back before acting, and a planned task is
       armed before it is confirmed. Update the Autopilot rule in T README/AGENTS with the
       author.
+      (13 Oct triage: done: T/AGENTS.md Autopilot: repeat back first; arm, then confirm)
 
 ## ISS-080: Later: the optional and someday steps of closed issues — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.app, area.instrument, area.ops}}
@@ -3883,6 +3884,8 @@ steps; ISS-047 the RC3 follow-up.
       ISS-052).
 - [ ] (ISS-041) Read the course through, then the release decision (the chapter-opening
       banners are ISS-051).
+- [x] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder
+      (13 Oct triage: done, into HAL/ as chat material, with its sources entry; Me 024cd43)
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — SOMEDAY
 {{Tags area.app, area.instrument}}
