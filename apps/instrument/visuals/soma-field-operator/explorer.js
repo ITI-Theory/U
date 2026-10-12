@@ -49,6 +49,7 @@ const filmName = (f, kx) => (kx >= 1 ? f?.title ?? '' : filmNumber(f));
 const viewerPreset = id => viewers?.find(v => v.id === (id || 'v2021')) ?? viewers?.find(v => v.id === 'neutral') ?? null;
 import { createExplorerMusic } from './explorer-music.js';
 import { createMidiOut } from './midi-out.js';
+import { createTowerPanel } from './tower.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 
@@ -2415,6 +2416,16 @@ export function createExplorer(hooks = {}) {
     } else {
       background(t, lw);
     }
+    // a tour or a link opens a tower (tower=<module>&floor=<declaration>); a click opens one too
+    if (st.stop === 'landscape' && env.gl?.towerItem) {
+      const want = `${st.tower}|${st.floor}`;
+      if (want !== towerShown) {
+        towerShown = want;
+        const item = st.tower ? env.gl.towerItem(st.tower) : null;
+        if (item) towerPanel.show(item, st.floor || null);
+        else towerPanel.close();
+      }
+    } else if (towerPanel.open) towerPanel.close();
     if (stereo) ctx = layers.screen.ctx;
     scene(st.stop).tick(env);
     const entering = st.enterStart ? clamp((t - st.enterStart) / 1.6, 0, 1) : 1;
@@ -2481,6 +2492,23 @@ export function createExplorer(hooks = {}) {
     syncUi();
     if (notify) hooks.onChange?.();
   }
+
+  // walk into a tower: a click on the city of code (landscape, 11D) opens it
+  const towerPanel = createTowerPanel(root);
+  let towerShown = '|';
+  root.addEventListener('click', event => {
+    if (event.target.closest('button, .explorer__tower, .explorer__card') || st.stop !== 'landscape') return;
+    const gl = gls.landscape;
+    if (!gl?.pick) return;
+    const r = root.getBoundingClientRect();
+    const item = gl.pick((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
+    if (item) towerPanel.show(item);
+    else if (towerPanel.open) towerPanel.close();
+    st.tower = towerPanel.open ? towerPanel.item.title.replace(/\.lean$/, '') : '';
+    st.floor = '';
+    towerShown = `${st.tower}|`;
+    hooks.onChange?.();
+  });
 
   root.addEventListener('click', event => {
     const b = event.target.closest('button');
@@ -2580,6 +2608,9 @@ export function createExplorer(hooks = {}) {
   });
 
   const api = {
+    // the open tower of the city of code and its floor (the hash keys tower and floor)
+    get tower() { return towerPanel.open ? { tower: towerPanel.item.title.replace(/\.lean$/, ''), floor: towerPanel.floor } : null; },
+    setTower(tower, floor) { st.tower = tower || ''; st.floor = floor || ''; },
     get open() { return st.open; },
     get stereo() { return st.stereo; },
     setStereo(mode) {

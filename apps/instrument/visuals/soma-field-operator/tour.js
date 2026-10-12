@@ -11,7 +11,7 @@ import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
-  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap']);
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],

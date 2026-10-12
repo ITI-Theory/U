@@ -205,6 +205,19 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
       const v = toWorld(px, py, lift).project(camera);
       return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 };
     },
+    // the tower under a screen point (fractions of the canvas from the centre, as project()),
+    // or null: walk into a tower of the city of code (ISS-071)
+    pick(fx, fy) {
+      if (!cityGroup.visible || !cityGroup.userData.towers) return null;
+      const ray = new THREE.Raycaster();
+      ray.setFromCamera(new THREE.Vector2(fx * 2, -fy * 2), camera);
+      const hit = ray.intersectObjects(cityGroup.userData.towers, false)[0];
+      return hit?.object.userData.item ?? null;
+    },
+    // the towers' titles (for tours: tower=<module>)
+    towerItem(title) {
+      return (cityGroup.userData.towers ?? []).map(t => t.userData.item).find(it => it.title === title || it.title === `${title}.lean`) ?? null;
+    },
     // the same for a world point (zone labels: city, country)
     projectWorld(x, y, z) {
       const v = new THREE.Vector3(x, y, z).project(camera);
@@ -323,7 +336,9 @@ function makeCity(items) {
     const tower = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0.92, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
     tower.scale.set(0.55, height, 0.55);
     tower.position.set(x, height / 2 - 0.1, z);
+    tower.userData.item = item;
     group.add(tower);
+    (group.userData.towers ??= []).push(tower);
     const outline = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: new THREE.Color(`hsl(${hue}, 90%, 65%)`), transparent: true, opacity: 0.7 }));
     outline.scale.copy(tower.scale);
     outline.position.copy(tower.position);

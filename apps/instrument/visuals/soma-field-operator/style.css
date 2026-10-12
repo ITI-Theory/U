@@ -470,6 +470,21 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-open .question-nudge, .explorer-open .gravity-question-readouts { visibility: hidden !important; pointer-events: none !important; }
 .explorer__gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .9s ease; }
 .explorer__gl.is-active { opacity: 1; }
+/* walk into a tower (ISS-071): the module's code rain behind its floors */
+.explorer__tower { position: absolute; right: 14px; top: 84px; bottom: 14px; width: min(520px, 46vw); overflow: hidden; background: rgba(2,6,12,.9); border: 1px solid rgba(86,240,162,.55); box-shadow: 0 0 28px rgba(86,240,162,.18); z-index: 3; }
+.explorer__rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
+.explorer__tower-body { position: relative; height: 100%; overflow-y: auto; padding: 12px 16px; font-size: 12px; line-height: 1.5; }
+.explorer__tower-body h3 { margin: 0 0 4px; color: #56f0a2; font-size: 14px; letter-spacing: .06em; text-shadow: 0 0 10px rgba(86,240,162,.6); word-break: break-all; }
+.explorer__tower-body pre { white-space: pre-wrap; word-break: break-word; background: rgba(0,0,0,.6); padding: 8px; border-left: 2px solid #56f0a2; }
+.explorer__tower-body ul, .explorer__floors { margin: 4px 0 8px; padding-left: 18px; }
+.explorer__tower-kind { color: rgba(232,238,252,.65); }
+.explorer__tower [data-tower="close"] { float: right; }
+.explorer .explorer__floor { border: none; background: rgba(0,0,0,.55); padding: 1px 6px; text-align: left; }
+.explorer .explorer__floor--theorem { color: #56f0a2; }
+.explorer .explorer__floor--def, .explorer .explorer__floor--inductive { color: #5ee7ff; }
+.explorer .explorer__floor--axiom { color: #ffb833; }
+.explorer .explorer__floor--sorry { color: #ff4d5e; }
+.explorer .explorer__floor--trivial { color: #9aa3b8; }
 /* During a tour H-AL's card carries the line: it sits above the explorer, whose own caption steps aside. */
 .explorer-open .tour-card, .explorer-open .screen-hud { z-index: 210; }
 .explorer-open.tour-active .explorer__card { display: none; }

@@ -2444,7 +2444,8 @@ Steps:
       projection between them), so the claim becomes a definition the
       registry can point to; a tunnelling move on the landscape (the ball
       through a barrier, QUANT-EXP-1) at 11D.
-- [ ] City, next: towers clickable (open the concept, its Lean file and paper);
+- [x] (13 Oct: every tower opens, concepts with their lines, the Lean modules floor by
+      floor, ISS-071; the fly-through is left as a later tour move) City, next: towers clickable (open the concept, its Lean file and paper);
       a fly-through from the city down the avenue to the mountains as a tour
       move; the city grows as Sherlock's registry grows.
 - [ ] Elevator, from H-AL: show the tensor rank N(σ) beside ℓ(σ), the response
@@ -3176,7 +3177,10 @@ proposal, in steps:
       status: theorems one colour, definitions another, axioms amber at the
       foundations, the five sorries flickering red; beams from each theorem down
       to the axioms it rests on, so the foundations are visible.
-- [ ] Walk into a tower: the module's source falls as code rain, our own neon
+- [x] (13 Oct: tower.js; click a tower at 11D, or tower=<module>&floor=<name> in the
+      hash: the module's text falls as code rain behind its floors, foundations first;
+      a floor shows its statement, status, source line, the programme's axioms it rests
+      on and the papers citing it from Sherlock's ledger) Walk into a tower: the module's source falls as code rain, our own neon
       palette; a floor opens its theorem (the statement, the proof, its axioms,
       the papers that cite it from the ledger, Sherlock's verdicts).
 - [x] (13 Oct: `make -C sherlock skyline` counts the generated KB, 1,366,193 facts in
@@ -3184,7 +3188,9 @@ proposal, in steps:
       height by log facts, UniversalVocabularyMt (497,791) at the centre; an amber
       arc from the programme's towers to it, labelled EMOTIONCYC BRIDGE) On the horizon, OpenCyc's skyline (1.37M facts, 678 microtheories), with
       `EmotionCyc` as the bridge between the programme's towers and it.
-- [ ] A tour, the Root Monster's tour: into UniversalSomaticField, up to
+- [x] (13 Oct: registry/tours/root-monster.yaml, 9 stops, `#tour=root-monster`; adds
+      greens_fn_is_SHO (only True), DyadicField's sorry and LimbicTunnel's
+      classical_trapped, only True, the link to ISS-076) A tour, the Root Monster's tour: into UniversalSomaticField, up to
       `consciousness_dichotomy`, down its beams to the axioms, past the red floors,
       across the bridge to OpenCyc.
 - [ ] Later, desktop only: PROVE on a floor asks the MOTHER bridge to run Lean on

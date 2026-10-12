@@ -584,7 +584,7 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
              "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr", "kd", "kt", "kw", "km", "kc",
-             "kf", "tw", "pv", "ca", "cs", "cp", "kx", "ab", "ap"}
+             "kf", "tw", "pv", "ca", "cs", "cp", "kx", "ab", "ap", "tower", "floor"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
@@ -640,6 +640,8 @@ def tour_view_errors(view: str, ids: dict[str, set[str]]) -> list[str]:
             problems.append(f"kw={value!r} not from 0.5 to 2")
         elif key == "km" and not set(value.split(",")) <= {"S", "F", "C", "A", "G", "L", "PV"}:
             problems.append(f"km={value!r} not a list of S,F,C,A,G,L,PV")
+        elif key in ("tower", "floor") and not re.match(r"^[A-Za-z0-9_.]+$", value):
+            problems.append(f"{key}={value!r} not a Lean module or declaration name")
         elif key == "bpm" and not (value.isdigit() and 50 <= int(value) <= 140):
             problems.append(f"bpm={value!r} not from 50 to 140")
         elif key in ids and value not in ids[key]:
@@ -655,11 +657,21 @@ def load_lean_towers() -> dict[str, Any]:
     if not path.exists():
         return {"commit": None, "towers": []}
     data = json.loads(path.read_text(encoding="utf-8"))
+    # who cites each declaration: Sherlock's ledger (bld/sherlock/ledger-claims.json)
+    cites: dict[str, list[str]] = {}
+    claims = REPO_ROOT / "bld" / "sherlock" / "ledger-claims.json"
+    if claims.exists():
+        for c in json.loads(claims.read_text(encoding="utf-8")):
+            entry = f"{c['doc']} (line {c['line']}, says {c['said']})"
+            short = c["name"].split(".")[-1]
+            if entry not in cites.setdefault(short, []):
+                cites[short].append(entry)
     towers = []
     for t in data.get("towers", []):
         decls = [{"n": d["name"].split(".")[-1], "k": d["kind"], "s": " ".join(d["statement"].split())[:160],
                   "sorry": bool(d.get("sorry")), "trivial": bool(d.get("trivial")),
                   "ax": [a for a in d.get("own_axioms", []) if a != d["name"]],
+                  "line": d.get("line"), "cite": cites.get(d["name"].split(".")[-1], [])[:8],
                   **({"f": d["name"]} if d["kind"] == "axiom" else {})}
                  for d in t["declarations"] if d["kind"] in ("theorem", "def", "axiom", "inductive", "opaque")]
         towers.append({"module": t["module"], "file": t["file"], "decls": decls})

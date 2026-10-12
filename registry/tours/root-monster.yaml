@@ -1,0 +1,57 @@
+id: root-monster
+title: "The Root Monster's tour: the towers of code"
+summary: 'About four minutes in the city of code (ISS-071), for the reader who reads the Lean before
+  the prose: a tower per module of the programme''s Lean, a ring per declaration; into
+  UniversalSomaticField, a theorem that proves only True, down the amber beams of LocalGR to the axioms
+  it rests on, past the red floors that rest on sorry, and out to OpenCyc on the horizon. Every fact on
+  screen is from the Lean export, kernel-checked at the stated commit.'
+steps:
+- view: voyage=landscape&dim=11&phi=0.5
+  say: This tour is for the Root Monster, who reads the Lean before the prose. Behind the mountains
+    stands the city of code. Each tower is one module of the programme's Lean, each ring one declaration.
+    Amber at the base are axioms, assumed, not proved. Blue are definitions. Green are theorems the
+    kernel has checked. The red rings flicker. They rest on sorry, a proof not yet written.
+  label: kernel-verified
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=UniversalSomaticField
+  say: Into UniversalSomaticField, the hub of the programme. Its own text falls as code rain behind
+    the floors, foundations first.
+  label: kernel-verified
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=UniversalSomaticField&floor=consciousness_dichotomy
+  say: Consciousness dichotomy. Every limbic amplitude is either preconscious or conscious. A theorem,
+    checked by the kernel, resting on Lean's standard axioms only, none of the programme's own.
+  label: kernel-verified
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=UniversalSomaticField&floor=greens_fn_is_SHO
+  say: Not every green ring is what its name says. Greens function is SHO proves only True. It is a
+    placeholder. Sherlock's ledger flags any paper that calls it proved.
+  label: kernel-verified
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=LocalGR&floor=g2_implies_omega_lambda_static
+  say: In LocalGR, this theorem gives omega lambda as seven elevenths. Follow its amber beams down.
+    It rests on two of the programme's own axioms. The theorem is only as strong as they are.
+  label: derived-under-assumptions
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=LocalGR&floor=g2_holonomy_implies_rigid_attractor
+  say: Here is a foundation itself. An axiom. G2 holonomy gives a rigid attractor. Assumed, not
+    proved.
+  label: open-hypothesis
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=DyadicField&floor=dyadic_energy_coupling_lowers
+  say: Past the red floors. In DyadicField, the claim that coupling two people lowers the energy
+    still rests on sorry. Five real sorries remain in the programme, and this is two of them.
+  label: open-hypothesis
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5&tower=LimbicTunnel&floor=classical_trapped
+  say: And one for the stone in the ureter. Classically trapped, a state behind a barrier stays
+    behind it, so far proves only True. The tunnelling it sets up is the next thing to prove
+    properly.
+  label: kernel-verified
+  pause: 4
+- view: voyage=landscape&dim=11&phi=0.5
+  say: Now look past the city. On the horizon stands OpenCyc, one point three seven million facts in
+    five hundred and forty seven microtheories, a tower for each. The amber arc is EmotionCyc, the
+    bridge that ties the programme's emotions to OpenCyc's own classes, with proofs. Root reached.
+  label: kernel-verified
+  pause: 5

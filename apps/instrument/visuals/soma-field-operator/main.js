@@ -1188,6 +1188,8 @@ function readHashState() {
     kx: params.get('kx'),
     ab: params.get('ab'),
     ap: params.get('ap'),
+    tower: params.get('tower'),
+    floor: params.get('floor'),
   };
 }
 
@@ -1696,6 +1698,7 @@ function applyVoyage(hashState) {
   if (hashState.feel) explorer.setFeel(hashState.feel);
   explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc, kf: hashState.kf, tw: hashState.tw, pv: hashState.pv, ca: hashState.ca, cs: hashState.cs, cp: hashState.cp, kx: hashState.kx, ab: hashState.ab, ap: hashState.ap });
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
+  explorer.setTower(hashState.tower, hashState.floor);
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
   state.voyage = VOYAGE_STOPS.includes(hashState.voyage) ? hashState.voyage : null;
@@ -2151,6 +2154,10 @@ function hashForState() {
     params.set('phi', explorer.phi.toFixed(2));
     if (explorer.feel !== 'calm') params.set('feel', explorer.feel);
     if (explorer.resource) params.set('resource', '1');
+    if (state.voyage === 'landscape' && explorer.tower) {
+      params.set('tower', explorer.tower.tower);
+      if (explorer.tower.floor) params.set('floor', explorer.tower.floor);
+    }
     if (state.voyage === 'score') {
       if (explorer.scoreParams.kv !== 1) params.set('kv', String(explorer.scoreParams.kv));
       if (explorer.scoreParams.st) params.set('st', String(explorer.scoreParams.st));
