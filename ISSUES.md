@@ -3499,7 +3499,10 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       fading, a first taste of the cathedral's echo) Thoughts as neural avalanches in the brain stop: bursts with a power law of sizes,
       loudness as size, colour as the mode, ignition when one spreads; ADHD slider; checks
       that the sizes are power-law distributed.
-- [ ] Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,
+- [x] (13 Oct: PAIN at the BRAIN stop, OFF, ACUTE, CHRONIC: pulses about once a second up the
+      spinal cord to the thalamus, then to the insula, the cingulate and the sensory cortex,
+      which light; louder with Φ; chronic, they stay lit; the no-pain-receptors line. Not
+      yet started from the ureter's colic itself) Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,
       insula, cingulate and sensory cortex; fear makes it louder; chronic as a lit valley.
 - [ ] The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
       light in the stone; FX off the plain anatomy.

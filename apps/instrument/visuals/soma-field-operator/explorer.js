@@ -581,6 +581,27 @@ function makeBrain() {
   const traffic = makeTraffic();
   let flash = 0;
   let phiNow = 0;
+  // PAIN (ISS-077): the path of a visceral pain, from the spinal cord (the spinothalamic
+  // tract) to the thalamus, then the pain neuromatrix: the insula, the anterior cingulate and
+  // the sensory cortex. Each pulse lights them; fear (Phi) makes the same signal louder (P1's
+  // W between fear and pain modes); chronic, they stay lit between pulses.
+  const INSULA = [-0.13, 0.04];
+  const ACC = BRAIN.cingulate[2];
+  const pain = {
+    clock: 0,
+    lit: { insula: 0, acc: 0, s1: 0, thalamus: 0 },
+    up: polyline([[0.24, 0.64], [0.2, 0.45], [0.14, 0.24], BRAIN.thalamus]),
+    out: { insula: polyline([BRAIN.thalamus, INSULA]), acc: polyline([BRAIN.thalamus, [-0.02, -0.12], ACC]), s1: polyline([BRAIN.thalamus, [0.2, -0.15], BRAIN.sensory]) },
+  };
+  const painPulse = () => {
+    const loud = 0.5 + phiNow;
+    traffic.spawn(pain.up, { travel: 0.7, color: '#ff3048', size: 0.012 + 0.01 * loud, onArrive: () => {
+      pain.lit.thalamus = Math.min(1.5, pain.lit.thalamus + 0.6 * loud);
+      for (const [k, path] of Object.entries(pain.out)) {
+        traffic.spawn(path, { travel: 0.45, color: '#ff3048', size: 0.01 + 0.008 * loud, onArrive: () => { pain.lit[k] = Math.min(1.5, pain.lit[k] + 0.7 * loud); } });
+      }
+    } });
+  };
   const alarm = () => {
     flash = 1;
     if (Math.random() < 0.2 + phiNow) traffic.spawn(roads.out, { travel: 0.8, color: COLORS.orange });
@@ -614,6 +635,14 @@ function makeBrain() {
         ignited = Math.max(0, ignited - env.dt);
       } else bursts.length = 0;
       flash = Math.max(0, flash - env.dt * 2.5);
+      if (env.pain) {
+        // colic comes in waves: a pulse about every second
+        pain.clock += env.dt;
+        if (pain.clock > 0.9) { pain.clock = 0; painPulse(); }
+      }
+      // acute: the lit regions fade between pulses; chronic: they barely fade
+      const fade = env.pain === 'chronic' ? 0.08 : 1.4;
+      for (const k of Object.keys(pain.lit)) pain.lit[k] = Math.max(env.pain === 'chronic' ? 0.45 : 0, pain.lit[k] - env.dt * fade);
       if (env.dim >= 8 && Math.random() < (0.35 + 1.4 * env.phi) * env.dt) event();
       traffic.tick(env.dt);
     },
@@ -724,6 +753,21 @@ function makeBrain() {
       ctx.fill();
       ctx.restore();
       dot(ctx, u, BRAIN.hypothalamus[0], BRAIN.hypothalamus[1], 0.035, COLORS.orange, 0.9);
+      // PAIN: the neuromatrix lit
+      if (env.pain || Object.values(pain.lit).some(v => v > 0.01)) {
+        for (const [k, [x, y], r] of [['insula', INSULA, 0.11], ['acc', ACC, 0.1], ['s1', BRAIN.sensory, 0.12], ['thalamus', BRAIN.thalamus, 0.08]]) {
+          const v = Math.min(1, pain.lit[k]);
+          if (v > 0.01) glow(ctx, u, x, y, r * (1.1 + 0.6 * v), '#ff2040', 0.45 + 0.9 * v);
+        }
+        if (env.pain) {
+          ctx.save();
+          ctx.setLineDash([3, 6]);
+          ctx.strokeStyle = 'rgba(255,48,72,0.45)';
+          ctx.lineWidth = 1.5;
+          for (const pl of [pain.up, ...Object.values(pain.out)]) { strokePath(ctx, u, pl.points); ctx.stroke(); }
+          ctx.restore();
+        }
+      }
       const pulse = 0.5 + 0.5 * Math.sin(t * (2 + 6 * phi));
       glow(ctx, u, BRAIN.amygdala[0], BRAIN.amygdala[1], 0.08 + 0.14 * phi + 0.08 * flash, COLORS.red, 0.3 + 0.6 * phi * (0.7 + 0.3 * pulse) + 0.5 * flash);
       ctx.save();
@@ -744,6 +788,12 @@ function makeBrain() {
         }
         ctx.restore();
         traffic.draw(ctx, u);
+      }
+      if (env.labels && env.pain) {
+        label(ctx, u, env.pain === 'chronic' ? 'CHRONIC PAIN: the regions stay lit between pulses, a valley that stays deep' : 'PAIN: up the spinal cord to the thalamus, then the insula, the cingulate, the sensory cortex', 0, 0.74, '#ff6070', 'center', 0.024);
+        label(ctx, u, `louder with fear (Φ ${env.phi.toFixed(2)}) · the brain itself has no pain receptors: the stone does not hurt, pain is music played in it`, 0, 0.8, COLORS.dim, 'center', 0.02);
+        leader(ctx, u, 'INSULA (deep, beneath the cortex)', INSULA, [-0.62, 0.12], '#ff6070');
+        leader(ctx, u, 'SENSORY CORTEX', BRAIN.sensory, [0.62, -0.5], '#ff6070');
       }
       if (env.labels && env.thoughts) {
         label(ctx, u, ignited > 0 ? 'IGNITION: a burst spreads through the cortex, a thought becoming conscious (global workspace)' : 'THOUGHTS: bursts of activity, neural avalanches: many small, a few large (a power law); colour, the feeling', 0, -0.72, ignited > 0 ? '#ffffff' : COLORS.dim, 'center', 0.024);
@@ -2437,6 +2487,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
+      <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
       <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
@@ -2475,6 +2526,7 @@ export function createExplorer(hooks = {}) {
   const resourceButton = root.querySelector('[data-act="resource"]');
   const pastButton = root.querySelector('[data-act="past"]');
   const thoughtsButton = root.querySelector('[data-act="thoughts"]');
+  const painButton = root.querySelector('[data-act="pain"]');
   const hrLabel = root.querySelector('.explorer__hr');
   const hrInput = hrLabel.querySelector('input');
   const hrOut = hrLabel.querySelector('output');
@@ -2544,7 +2596,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2639,6 +2691,9 @@ export function createExplorer(hooks = {}) {
     resourceButton.classList.toggle('active', st.resource);
     pastButton.hidden = st.stop !== 'network';
     thoughtsButton.hidden = st.stop !== 'brain';
+    painButton.hidden = st.stop !== 'brain';
+    painButton.textContent = `PAIN: ${(st.pain || 'off').toUpperCase()}`;
+    painButton.classList.toggle('active', Boolean(st.pain));
     thoughtsButton.classList.toggle('active', st.thoughts);
     pastButton.classList.toggle('active', st.past);
     pastButton.setAttribute('aria-pressed', String(st.past));
@@ -2851,7 +2906,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3038,6 +3093,9 @@ export function createExplorer(hooks = {}) {
       hooks.onChange?.();
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
+      syncUi();
+    } else if (b.dataset.act === 'pain') {
+      st.pain = { '': 'acute', acute: 'chronic', chronic: '' }[st.pain];
       syncUi();
     } else if (b.dataset.act === 'thoughts') {
       st.thoughts = !st.thoughts;
