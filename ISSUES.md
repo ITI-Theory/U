@@ -961,7 +961,7 @@ not be presented as an established clinical mechanism without evidence.
 
 ---
 
-## ISS-036: Lean toolchain upgrade and remaining proof debts — OPEN
+## ISS-036: Lean toolchain upgrade and remaining proof debts — ON-HOLD (until OSforGFF #22 is merged upstream)
 {{Tags area.proofs, area.ops}}
 {{Fields date.created=2026-10-03, date.start=, date.end=, epic=}}
 
