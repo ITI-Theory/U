@@ -37,6 +37,14 @@ Before final promotion, this UAT must decide the action for every formal record:
 | Published, no update currently indicated | P1–P10 except P11/P12, P13–P20, D1, QUANT-EXP-1 | Confirm during source review that no unrecorded substantive change exists. |
 | Not a Zenodo publication | 15 individual fractal books; Fractal Volumes I, II, and III; default cheatsheet | Review for NotebookLM/Lulu/`Dist` as applicable, but do not prepare Zenodo metadata. |
 
+### RC3 decision — 13 Oct 2026
+
+RC3 (staged 4–6 Oct, restaged as rc3.2) passed the author's session of 7 Oct:
+levels 1–20 work and nothing blocked a release (ISS-047). It is not released on
+its own: the next release is [T]-Theory Mk 1 (V1, 21 Oct; ISS-079), and RC3's
+open NotebookLM UAT and visual acceptance fold into Mk 1's (ISS-001,
+`uat/checklist.yaml`).
+
 ### Candidate-to-source map
 
 | Candidate class | Candidate PDF(s) | Authoritative source |

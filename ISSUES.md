@@ -1499,9 +1499,9 @@ Not now (author, 1 Oct): completing *Phase Dot*.
 
 ---
 
-## ISS-047: RC3 UAT: author session of 7 Oct 2026 and follow-up — OPEN
+## ISS-047: RC3 UAT: author session of 7 Oct 2026 and follow-up — CLOSED
 {{Tags release, uat}}
-{{Fields date.created=2026-10-08, date.start=2026-10-07, date.end=, epic=ISS-047-rc3-uat}}
+{{Fields date.created=2026-10-08, date.start=2026-10-07, date.end=2026-10-13, epic=ISS-047-rc3-uat}}
 
 **Epic:** [ISS-047-rc3-uat.md](prj/.adm/issues/ISS-047-rc3-uat.md)
 
@@ -1515,25 +1515,28 @@ The author ran a UAT session on 7 Oct; the notes are in
       Me/chats/Inbox/20261008_202500_RC3_UAT_session_raw.md).
 - [x] Turn each finding into a sub-issue (8 Oct). The session passed: levels 1-20
       work; nothing blocks the release. The ideas are for after RC3:
-  - [ ] MOTHER only works with the author's NotebookLM login: give MOTHER a
+  - [x] MOTHER only works with the author's NotebookLM login: give MOTHER a
         backend others can use (ISS-048, parked).
-  - [ ] Soma Machine as the workstation: shell to local/remote machines, file
+        (13 Oct triage: tracked in ISS-048, SOMEDAY)
+  - [x] Soma Machine as the workstation: shell to local/remote machines, file
         browser, full screen on tablets; local app server for several screens
         (notes 3-4). HAL tablet install on hold (ISS-045).
-  - [ ] Cockpit/HUD with a fractal journey per level, Sherlock as the HUD, FX
+        (13 Oct triage: done: MOTHER /shell (a local shell), SCRIBE (the files, vim keys), F for full screen, several windows (screens.js); remote machines and the HAL tablet in ISS-045, ON-HOLD)
+  - [x] Cockpit/HUD with a fractal journey per level, Sherlock as the HUD, FX
         slider, era views; must stay abstract; pokes must show their effect
         (notes 5, 7; pokes in ISS-046).
-  - [ ] Sherlock: OWL classes mapped to Lean types (note 8; concept registry
+        (13 Oct triage: done: ?screen=cockpit as the HUD, the Φ LIMBIC/FX slider, the SHERLOCK panel, era views, pokes that show their effect (ISS-052))
+  - [x] Sherlock: OWL classes mapped to Lean types (note 8; concept registry
         and type guard in ISS-046).
-  - [ ] Autopilot correction (note 9): it is for speech-to-text; the AI repeats
-        back before acting, and a planned task is armed before it is confirmed.
-        Update the Autopilot rule in T README/AGENTS with the author.
-  - [ ] Engine room view for all settings (note 10).
-  - [ ] MOTHER follows a wandering chat: log and tag each departure, show the
-        chat as a branching path, revisit and continue; sound effects (note 11).
-  - [ ] HAL's private knowledge (AJ wiki, links, books) with a switch per
+        (13 Oct triage: tracked in ISS-063)
+  - (moved to ISS-081) Autopilot correction (note 9)…
+  - [x] Engine room view for all settings (note 10).
+        (13 Oct triage: done: ?screen=engine, below)
+  - (moved to ISS-080) MOTHER follows a wandering chat…
+  - [x] HAL's private knowledge (AJ wiki, links, books) with a switch per
         source; bulk sorting (notes 12-13; ISS-048 and ISS-049).
-  - [ ] Test book: a topic suggested by someone else (waiting for the viewer).
+        (13 Oct triage: tracked in ISS-048, SOMEDAY, and ISS-049)
+  - (moved to ISS-080) Test book: a topic suggested…
 - [x] D1 (`SFT-DEMO-CASE`, self-case paper): public, as decided 16 Aug (the
       author considered private, then kept it public because it was already on
       Zenodo: record 20459826, open access). PAPERS.yaml matches; no change.
@@ -1542,13 +1545,15 @@ The author ran a UAT session on 7 Oct; the notes are in
 - [x] Runbook step 4, `make uat-check` (8 Oct): 15 PASS, 3 WARN (5 sorries, research
       gaps, 44 pending uploads), 0 FAIL. Check 2 had reported zero sorries; its
       pattern missed `sorry -- ...` and `by sorry`. Fixed (count_sorries.py).
-- [ ] NotebookLM UAT for RC3. Versions now in file names (rc3.1 = U aa28403);
+- [x] NotebookLM UAT for RC3. Versions now in file names (rc3.1 = U aa28403);
       notebooks keep the previous version for a CMP item. Papers: S-1..S-4, H-1
       PASS; H-2, H-3, C-1..C-3 and CMP not run (daily chat quota): resume with
       `make uat-nlm TRACK=papers KEEP=1 ITEMS=H-2,H-3,C-1,C-2,C-3` (superseded:
       rc3.2 is staged, so run the full papers track again, CMP against rc3.1). Then
       `make uat-nlm TRACK=ttheory` (DRY=1 first).
-- [ ] Runbook step 3, visual acceptance of each staged PDF (author).
+      (13 Oct triage: superseded: Mk 1's NotebookLM UAT, ISS-001)
+- [x] Runbook step 3, visual acceptance of each staged PDF (author).
+      (13 Oct triage: superseded: the UAT runner's PDF steps, uat/checklist.yaml, ISS-001)
 - [x] P21 Sherlock review (8 Oct, `uat/RC3/p21-sherlock-2026-10-08.md`): numbers
       right; Φ₀ wrong (1.43, not 0.39 M_Pl); the formal-status table overclaims
       (`usf_equation_of_state` and the LocalGR chain are empty existence
@@ -1572,15 +1577,17 @@ The author ran a UAT session on 7 Oct; the notes are in
       document); `\tolerance=1000` for prose dense with inline code; contents
       page numbers wide enough for the omnibus (p1000+); the Wick figure's note
       overlapped its boxes (removed, the caption says the same).
-- [ ] P1 (soma-field-paper) lost 23 lines of text in 7f794dd (23 Aug): an image
+- [x] P1 (soma-field-paper) lost 23 lines of text in 7f794dd (23 Aug): an image
       replaced the end of the body-schema paragraph and the phantom-limb,
       body-schema and somatic-modes paragraphs. Restored 9 Oct; P1 already
       needs a new Zenodo version (Dist/PAPERS.yaml), which must carry them.
-- [ ] Demo of 9 Oct (psychotherapist, UAT build): spoken H-AL tour
+      (13 Oct triage: restored 9 Oct; its new Zenodo version is ISS-001's Zenodo step)
+- [x] Demo of 9 Oct (psychotherapist, UAT build): spoken H-AL tour
       `registry/tours/hal-therapist.yaml` (15 stops, about 3 minutes; open
       `#tour=hal-therapist`, H-AL voice via `make mother-bridge`). Small
       findings from the demo go in the log below, one line each, and are fixed
       or moved to their own issue afterwards.
+      (13 Oct triage: held; its findings are logged below and fixed)
   - 9 Oct: stray edit in `books/T-Theory/noir-page.md` (typing slip, CRLF);
     reverted, never committed.
   - 9 Oct: at 1600 px wide the right-hand panels hide part of the scene (tour
@@ -1614,7 +1621,7 @@ The author ran a UAT session on 7 Oct; the notes are in
       F or the corner button for full screen. `screens.js`, BroadcastChannel.
       Combined cockpit view (all views, zooming) later.
 - [x] Demo stops 8 and 10 use the cockpit view (the panels hid the dyad).
-- [ ] Demo held 9 Oct by phone, on her older copy of the app (no tour). Her
+- [x] Demo held 9 Oct by phone, on her older copy of the app (no tour). Her
       feedback: "why a presentation for a Gestalt therapist?" The levels view
       gives a good overview; what she needs is "how does it help my daily work".
       Next version for therapists: the poke as the core (4D memoryless
@@ -1623,6 +1630,7 @@ The author ran a UAT session on 7 Oct; the notes are in
       limbic system (the L1 axis of the 11D split), the Penrose gap and current
       AI, individuals to groups. Needs a tour field that fires a poke, and a
       poke panel for the whole brain (only human, dyad and neuron have one).
+      (13 Oct triage: done 9 Oct, the sub-item below)
   - [x] Done 9 Oct: tour field `poke: weak|strong|twice`; whole-brain state
         panel (4D evoked potential, 8D cortical up/down states with adaptation:
         the brain alone forgets within seconds, 11D field synchrony as the CEMI
@@ -1632,14 +1640,13 @@ The author ran a UAT session on 7 Oct; the notes are in
         resonance (HAL-UAT, Mann ch. 7, 17-19, Frank ch. 2-3), neuron vs brain vs
         person, the limbic axis, AI and Penrose, groups, and what it could and
         could not do in daily work.
-- [ ] RC3 decision recorded in `paper/UAT.md`.
+- [x] RC3 decision recorded in `paper/UAT.md`.
+      (13 Oct triage: recorded: RC3 superseded by Mk 1, paper/UAT.md)
 
-- [ ] P21 sign-off blocker (author, physics): is the zoom step (10^3.207 per
-      level; 19 steps span log10(k_P c/H0) = 60.93 decades exactly) fixed
-      independently of H0? If not, H0 is an input and P21 predicts
-      Omega_Lambda = 7/11 given H0 (what the paper now says, review item 4); if
-      yes, P21 predicts H0 and the paper should say so. Then sign-off and
-      status pending-upload (all nine review items are fixed in the text).
+- (moved to ISS-081) P21 sign-off blocker (author, physics)…
+
+**Closed 2026-10-13:** RC3 is superseded by Mk 1 (ISS-079); every finding is built, tracked in its own issue, or moved to ISS-080 (later) and ISS-081 (the author's desk).
+
 ---
 
 ## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — SOMEDAY
@@ -3777,6 +3784,9 @@ optional step are closed; the step is kept here, word for word, with the issue i
       stays open) The paper's own disclaimers become microtheories (ArtisticDesignMt vs
       ClinicalMt): Sherlock checks that no clinical-context claim is made without evidence.
       The affidavit, and the legal use.
+- [ ] (ISS-047) MOTHER follows a wandering chat: log and tag each departure, show the chat
+      as a branching path, revisit and continue; sound effects (note 11).
+- [ ] (ISS-047) Test book: a topic suggested by someone else (waiting for the viewer).
 
 ## ISS-081: The author's desk: steps only the author can take — OPEN
 {{Tags area.ops}}
@@ -3804,3 +3814,12 @@ steps; ISS-047 the RC3 follow-up.
       9000 imitation private (ISS-048).
 - [ ] (ISS-074) Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes
       (ISS-053; 13 Oct: built, MIDI IN drives the pilot's knobs in CO-PILOT and MANUAL).
+- [ ] (ISS-047) Autopilot correction (note 9): it is for speech-to-text; the AI repeats back
+      before acting, and a planned task is armed before it is confirmed. Update the
+      Autopilot rule in T README/AGENTS with the author.
+- [ ] (ISS-047) P21 sign-off blocker (author, physics): is the zoom step (10^3.207 per
+      level; 19 steps span log10(k_P c/H0) = 60.93 decades exactly) fixed independently of
+      H0? If not, H0 is an input and P21 predicts Omega_Lambda = 7/11 given H0 (what the
+      paper now says, review item 4); if yes, P21 predicts H0 and the paper should say so.
+      Then sign-off and status pending-upload (all nine review items are fixed in the text).
+
