@@ -98,6 +98,9 @@ $$
 (p^2 + k^2)\,\tilde\phi(p) = \tilde J(p),
 $$
 
+{{Visualize | the-free-field-universal-somatic-field | function-plot:quantum | f="1/(x^2+k^2)"; vary=k:0.5,1,2; x=[-5,5]; value_at=0; expect_value=4; xlabel="momentum $p$ (one component)"; ylabel="response"; label=fig:osqft-field-equation-response }} The momentum-space field equation gives a response suppressed by $p^2+k^2$; for the $k=0.5$ curve the program checked the peak value $1/k^2=4$ at $p=0$.
+
+
 where $p \in \mathbb{R}^4$ is the Euclidean 4-momentum, $k > 0$ is the
 wavenumber (inverse correlation length), $\tilde\phi$ is the field and
 $\tilde J$ is the source. The free-field ($J = 0$) Green's function is
@@ -116,6 +119,9 @@ Z_{\mathrm{USF}}[f] = \exp\!\left(-\tfrac{1}{2}\,C_{\mathrm{USF}}(f,f)\right),
 C_{\mathrm{USF}}(f,g) = \int \frac{\tilde f(p)^*\,\tilde g(p)}{p^2+k^2}\,\frac{d^4p}{(2\pi)^4}.
 $$
 
+{{Visualize | the-free-field-universal-somatic-field | distribution:quantum | pdf="exp(-x^2/2)/sqrt(2*pi)"; x=[-4,4]; shade=[-1,1]; expect_prob=0.6827; samples=400; seed=51; bins=32; xlabel="test-function amplitude"; label=fig:osqft-gaussian-functional }} The Gaussian generating functional is represented by its one-dimensional normal analogue, with the central one-standard-deviation mass shaded. The program checked the standard normal probability.
+
+
 This is a Gaussian measure on the space of Schwartz test functions
 $\mathcal{S}(\mathbb{R}^4)$, with covariance kernel $G_{\mathrm{USF}}$.
 
@@ -129,6 +135,9 @@ propagator
 $$
 C_{\mathrm{GFF}}(p) = \frac{1}{p^2 + m^2}.
 $$
+
+{{Visualize | the-gaussian-free-field-and-the-douglas-et-al.-result | function-plot:quantum | f="1/(x^2+m^2)"; vary=m:0.5,1,2; x=[-5,5]; value_at=0; expect_value=4; xlabel="momentum $p$"; ylabel="$C_\mathrm{GFF}(p)$"; label=fig:osqft-gff-propagator }} The massive GFF propagator has the same Lorentzian form: the $m=0.5$ curve peaks at $4$, checked directly, and heavier fields have shorter momentum-space correlation width.
+
 
 Douglas, Hoback, Mei and Nissim [-@douglas2026osgff] report a Lean 4
 formalisation — with zero sorries and zero extra axioms, across approximately
@@ -162,6 +171,9 @@ G_{\mathrm{USF}}(p) = \frac{1}{p^2 + k^2}
 = \frac{1}{p^2 + m^2}\bigg|_{m = k}
 = C_{\mathrm{GFF}}(p)\big|_{m = k}.
 $$
+
+{{Visualize | the-key-identification | function-plot:quantum | f="1/(x^2+k^2)"; f2="1/(x^2+m^2)"; name="USF $k=1$"; name2="GFF $m=1$"; k=1; m=1; x=[-5,5]; value_at=0; expect_value=1; xlabel="momentum $p$"; ylabel="propagator"; label=fig:osqft-key-identification }} Under $m=k$, the two displayed kernels lie on top of one another; the checked value at $p=0$ is $1$ for the shared $k=m=1$ case.
+
 
 Under the identification $m \leftrightarrow k$, the free-field USF is
 represented by the Gaussian Free Field. The formal covariance kernels coincide;
@@ -288,6 +300,9 @@ physically richer theory includes the Hopfield coupling:
 $$
 (p^2 + k^2)\,\tilde\phi(p) = \kappa\,\hat W[\phi](p) + \tilde J(p),
 $$
+
+{{Visualize | os4-and-the-somatic-memory-kernel | function-plot:quantum | f="(J + kappa*tanh(x))/(x^2+k^2)"; vary=kappa:0,0.5,1; J=1; k=1; x=[-5,5]; value_at=0; expect_value=1; xlabel="momentum $p$"; ylabel="$\tilde\phi(p)$ (illustrative)"; label=fig:osqft-interacting-response }} The interacting momentum equation as an illustrative response curve: increasing $\kappa$ bends the source term while the free denominator remains. The $\kappa=0$ value at $p=0$ is checked.
+
 
 where $\hat W$ is the Hopfield weight operator and $\kappa > 0$ is the
 coupling strength. Proving OS axioms for the interacting theory would require:

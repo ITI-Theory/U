@@ -87,6 +87,9 @@ The stationary somatic field equation (introduced in the companion papers) is:
 
 $$(\nabla^2 + k^2)\,\Phi_{\mu\nu}(x) = -J_{\mu\nu}(x)$$
 
+{{Visualize | the-field-equation | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="distance from source"; ylabel="$\Phi$ response"; label=fig:temporal-helmholtz-response }} The static Helmholtz field equation represented by its radial Green-function response: a source produces an oscillatory field whose envelope decays with distance.
+
+
 where $\Phi_{\mu\nu}$ is the somatic tensor field, $k$ is the wavenumber
 (scale-dependent via the Zoom Operator $\Lambda$), and $J_{\mu\nu}$ is the source
 current encoding sensory input, motor output, and interoceptive signal.
@@ -95,6 +98,9 @@ The full time-dependent generalisation replaces the spatial Laplacian with the
 d'Alembertian:
 
 $$\left(\frac{1}{v_s^2}\frac{\partial^2}{\partial t^2} - \nabla^2 + k^2\right)\Phi_{\mu\nu}(x,t) = -J_{\mu\nu}(x,t)$$
+
+{{Visualize | the-field-equation | spectrum:wave | f="sin(2*pi*f0*t)"; f0=0.5; x=[0,8]; n=512; fmax=2; peaks=1; expect_peak=0.5; xlabel="time"; label=fig:temporal-wave-operator }} The wave-operator version admits propagating oscillations; the illustrative signal has the checked temporal frequency $f_0=0.5$.
+
 
 where $v_s$ is the somatic field propagation velocity — the speed at which
 a perturbation in one part of the field influences another part. In neural tissue,
@@ -115,6 +121,9 @@ signalling the onset of global integration.
 The retarded Green's function $G_R(x,t;\,x',t')$ satisfies:
 
 $$\left(\frac{1}{v_s^2}\frac{\partial^2}{\partial t^2} - \nabla^2 + k^2\right)G_R(x,t;\,x',t') = \delta^{(3)}(x - x')\,\delta(t - t')$$
+
+{{Visualize | the-retarded-greens-function | function-plot:wave | f="where(x>=0, exp(-k*x), 0)"; vary=k:0.5,1,2; x=[-2,8]; value_at=-1; expect_value=0; xlabel="retarded time $t-t'$"; ylabel="$G_R$"; label=fig:temporal-retarded-green }} A causal slice of the retarded Green function: the response is zero before the source time and then decays forward. The program checked the pre-source value.
+
 
 with the causal (retarded) boundary condition:
 

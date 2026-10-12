@@ -72,6 +72,9 @@ The energy function is the Ising Hamiltonian:
 
 $$E_{82}(s) = -\frac{1}{2} s^T W s$$
 
+{{Visualize | hopfield-networks-1982-classical | energy-landscape:neural | U="x^4/4 - x^2/2"; x=[-2,2]; expect_minima="-1,1"; xlabel="binary state coordinate"; ylabel="$E_{82}$"; label=fig:limbic-hopfield-energy }} The classical Hopfield energy in one collective coordinate has two stored-pattern basins. The renderer checked the minima at $x=-1$ and $x=1$.
+
+
 and the synchronous update rule:
 
 $$s_i \leftarrow \text{sign}\left(\sum_j W_{ij} s_j\right)$$
@@ -141,6 +144,9 @@ scalar function of the system's position along $D_8$:
 
 $$\Phi_\text{limbic}(t) \in [0, 1]$$
 
+{{Visualize | the-cemi-field-as-a-runtime-parameter | function-plot:soma | f="x"; x=[0,1]; value_at=1; expect_value=1; xlabel="normalised limbic amplitude"; ylabel="$\Phi_\text{limbic}$"; label=fig:limbic-runtime-range }} The runtime parameter is constrained to the unit interval; the plotted identity line simply makes the allowed range explicit and checks the upper endpoint.
+
+
 where $\Phi = 0$ denotes homeostatic calm and $\Phi = 1$ denotes maximum
 threat activation (fight/flight/freeze).
 
@@ -197,6 +203,9 @@ predictions of the theory it extends in the appropriate limit.
 Under zero model somatic stress $\Phi_\text{limbic} = 0$:
 
 $$T(t) = T_0, \quad W(t) = W_0$$
+
+{{Visualize | the-correspondence-principle | data-points:neural | points="1:0.25,2:1"; names="$T_0$, $W_0$"; expect_n=2; xlabel="baseline"; ylabel="normalised value"; label=fig:limbic-correspondence-baselines }} In the zero-field correspondence limit the runtime parameters reduce to their baselines; the two displayed placeholders mark the constants that remain.
+
 
 *Proof.* Substituting $\Phi = 0$ into Equations 1 and 2:
 

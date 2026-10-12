@@ -355,6 +355,9 @@ neural network (computational neuroscience, 1982) — Soma-Field Model:
 
 $$H_{\text{Ising}}(\boldsymbol{\sigma}) = -\frac{1}{2}\sum_{i,j} J_{ij}\,\sigma_i\,\sigma_j - \sum_i h_i\,\sigma_i$$
 
+{{Visualize | neural-network-energy-functions-and-hopfield-networks | energy-landscape:neural | U="x^4/4 - x^2/2 - h*x"; vary=h:-0.25,0,0.25; x=[-2,2]; xlabel="spin-like state $\sigma$"; ylabel="$H_\text{Ising}$"; label=fig:sfp-ising-energy }} The Ising Hamiltonian reduced to one collective coordinate: an external field $h$ tilts the two-well landscape while the coupling term keeps the attractor structure.
+
+
 $$H_{\text{soma}}(\mathbf{e}) = -\frac{1}{2}\sum_{i,j} W_{ij}\,e_i\,e_j - \sum_i b_i\,e_i$$
 
 {{Visualize | the-formal-correspondences-where-the-link-was-seen | energy-landscape:soma | U="x^4/4 - x^2/2 - b*x"; vary=b:-0.25,0,0.25; x=[-2,2]; xlabel="emotional state $e$"; ylabel="$H_\text{soma}$" }} The same Hopfield-form energy written for one emotional mode: an illustrative bias $b$ tilts the attractor pair without changing the energy-function type.
@@ -458,6 +461,9 @@ Setting the two propagators side by side:
 $$\underbrace{\frac{i}{k^2 - m^2 + i\varepsilon}}_{\text{QFT: particle at mass-shell }k^2=m^2}
 \qquad\longleftrightarrow\qquad
 \underbrace{\frac{\sigma_{\text{eff}}^2}{\omega^2 + \lambda_i^2}}_{\text{Soma-Field: percept at resonance }\omega = i\lambda_i}$$
+
+{{Visualize | the-formal-correspondences-where-the-link-was-seen | function-plot:quantum | f="1/(x^2 + lam^2)"; vary=lam:0.5,1,2; x=[-5,5]; value_at=0; expect_value=4; xlabel="frequency offset"; ylabel="propagator magnitude"; label=fig:sfp-propagator-denominators }} The two denominators in the displayed correspondence share the same resonant shape: small damping or mass gives a sharper pole. The program checked the peak of the $\lambda=0.5$ curve.
+
 
 Both are modelled as poles in the propagator of their respective field manifold. A photon is not
 the electromagnetic field; it is the field’s Green’s function evaluated at a resonance.
@@ -802,6 +808,9 @@ characterisation of the field's resilience under adverse conditions. Define the
 
 $$\Pi \;=\; \frac{1}{S_{\text{inst}}} + \left.\frac{\partial \|W\|}{\partial t}\right|_{\text{adversity}} + C_{\text{HRV}}^{\text{recovery}}$$
 
+{{Visualize | the-three-layer-architecture | data-points:soma | points="1:1,2:0.4,3:0.8"; names="$1/S_\text{inst}$, adversity slope, recovery"; expect_n=3; xlabel="term"; ylabel="illustrative contribution"; label=fig:sfp-instability-potential-terms }} The instability potential is a sum of three terms; the figure shows them as separate illustrative contributions before they are combined into $\Pi$.
+
+
 The three terms correspond to: (i) how accessible regulated-state attractors remain under
 adversity ($1/S_{\text{inst}}$, instanton accessibility — Section 4.4); (ii) how much the
 coupling matrix can structurally adapt following a threshold crossing
@@ -820,6 +829,9 @@ becomes:
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
   + R_{\text{PFC}}(\mathbf{e}, t)
   + \frac{\sigma_0}{C_{\text{HRV}}}\, \xi(t)$$
+
+{{Visualize | the-three-layer-architecture | vector-field:soma | u="-x + 0.5*y"; v="0.5*x - y"; potential="0.5*(x^2+y^2)-0.5*x*y"; x=[-2,2]; y=[-2,2]; circle=1; expect_flux=-6.283; expect_tol=0.01; xlabel="$e_1$"; ylabel="$e_2$"; label=fig:sfp-pfc-regulated-flow }} The regulated dynamics as a two-mode downhill flow with a stabilising linear coupling. The negative flux through the unit circle checks that the displayed field is dissipative.
+
 
 $R_{\text{PFC}}$ represents voluntary attention, therapeutic technique, and conscious
 reappraisal acting on the field. It is not a correction of Layer 2 but a modulation of
@@ -1880,6 +1892,9 @@ The standard Langevin dynamics of the emotional field are:
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t)) + \eta(t)$$
 
+{{Visualize | a.4-the-holographic-principle-fractal-output-and-h-al | vector-field:soma | u="-x + 0.4*y"; v="0.4*x - y"; potential="0.5*(x^2+y^2)-0.4*x*y"; x=[-2,2]; y=[-2,2]; circle=1; expect_flux=-6.283; expect_tol=0.01; xlabel="$e_1$"; ylabel="$e_2$"; label=fig:sfp-langevin-drift }} The Langevin drift term $-\nabla H$ shown without the noise: arrows point into the basin, while $\eta(t)$ would add fluctuations around these deterministic directions.
+
+
 where $H$ is the Hopfield energy function, and $\eta(t)$ is white Gaussian noise with
 amplitude $\sigma_0$:
 
@@ -2675,6 +2690,9 @@ The stochastic Langevin dynamics
 
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t)) + \eta(t)$$
 
+{{Visualize | c.2-the-cross-language-table | vector-field:soma | u="-x"; v="-y"; potential="0.5*(x^2+y^2)"; x=[-2,2]; y=[-2,2]; circle=1; expect_flux=-6.283; expect_tol=0.01; xlabel="$e_1$"; ylabel="$e_2$"; label=fig:sfp-cross-language-langevin }} The cross-language Langevin form reduced to two modes: deterministic drift pulls toward the origin, with the stochastic term understood as the omitted fluctuation around the plotted flow.
+
+
 can be reformulated as a path integral using the Martin-Siggia-Rose (MSR) formalism.
 One introduces a conjugate response field $\tilde{\mathbf{e}}(t)$ and writes:
 
@@ -2686,10 +2704,16 @@ with the MSR action:
 $$S = \int dt\; \tilde{e}_i\Bigl[\dot{e}_i + \nabla_i H(\mathbf{e})\Bigr]
   - \frac{\sigma^2}{2}\,\tilde{e}_i^2$$
 
+{{Visualize | c.2-the-cross-language-table | contour-map:soma | f="y*(x - x^3) - 0.5*sigma^2*y^2"; sigma=0.7; x=[-1.5,1.5]; y=[-2,2]; gradient=true; xlabel="$e_i$"; ylabel="$\tilde e_i$"; label=fig:sfp-msrjd-action-contour }} A two-variable slice of the MSRJD action density in equation (C.3): the response field $\tilde e_i$ couples to the drift term and is damped by the quadratic noise term.
+
+
 Substituting $\nabla_i H = -\sum_j W_{ij} e_j - \theta_i$:
 
 $$S = \int dt\;\tilde{e}_i\Bigl[\dot{e}_i - \sum_j W_{ij} e_j -
 \theta_i\Bigr] - \frac{\sigma^2}{2}\,\tilde{e}_i^2$$
+
+{{Visualize | c.2-the-cross-language-table | contour-map:soma | f="y*(x - W*x - theta) - 0.5*sigma^2*y^2"; W=0.6; theta=0.2; sigma=0.7; x=[-1.5,1.5]; y=[-2,2]; gradient=true; xlabel="$e_i$"; ylabel="$\tilde e_i$"; label=fig:sfp-linear-action-contour }} The linearised action replaces the nonlinear gradient with a weighted input and threshold; the contour map shows the same response-field structure for one mode.
+
 
 The quadratic part determines the propagator; higher-order terms (from the memory kernel
 and threshold nonlinearity) give the interaction vertices.

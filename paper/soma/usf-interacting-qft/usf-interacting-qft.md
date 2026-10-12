@@ -53,12 +53,18 @@ $$
 S_\kappa[\phi] = S_0[\phi] + \kappa\,V[\phi]
 $$
 
+{{Visualize | motivation-and-context | function-plot:quantum | f="S0 + kappa*V"; S0=1; V=0.6; vary=kappa:0,0.5,1; x=[0,1]; value_at=0; expect_value=1; xlabel="bookkeeping axis"; ylabel="$S_\kappa$"; label=fig:intqft-action-split }} Equation (1) as an action split: the free action is the intercept and the interaction strength tilts the line. The program checked that $\kappa=0$ leaves the free action.
+
+
 where $S_0$ is the free Euclidean action and $V[\phi]$ is the Hopfield
 interaction. In momentum space:
 
 $$
 S_0[\phi] = \tfrac{1}{2}\int (p^2 + k^2)|\tilde\phi(p)|^2\,\frac{d^4p}{(2\pi)^4}
 $$
+
+{{Visualize | motivation-and-context | function-plot:quantum | f="0.5*(x^2+k^2)*phi^2"; vary=k:0.5,1,2; phi=1; x=[0,5]; value_at=0; expect_value=0.125; xlabel="momentum $p$"; ylabel="free quadratic density"; label=fig:intqft-free-action-density }} The free action density weights modes by $p^2+k^2$; the checked value is the $k=0.5$, $\phi=1$ density at zero momentum.
+
 
 $$
 V[\phi] = -\tfrac{1}{2}\sum_{a,b} W_{ab}\int \phi(x)^a\phi(x)^b\,d^4x
@@ -73,6 +79,9 @@ this reduces to:
 $$
 V[\phi] = -\tfrac{W}{2}\int \phi(x)^2\,d^4x = -\tfrac{W}{2}\int \frac{|\tilde\phi(p)|^2}{(2\pi)^4}\,d^4p,
 $$
+
+{{Visualize | motivation-and-context | function-plot:soma | f="-0.5*W*x^2"; vary=W:0.5,1,2; x=[-2,2]; value_at=1; expect_value=-0.25; xlabel="$\phi$"; ylabel="interaction density"; label=fig:intqft-quadratic-interaction }} The quadratic interaction term contributes a negative density proportional to $W\phi^2$; the program checked the $W=0.5$, $\phi=1$ value.
+
 
 which is a mass renormalisation: $k^2 \to k^2 - \kappa W$. For the
 multi-component case, the Hopfield lift can generate polynomial terms in the

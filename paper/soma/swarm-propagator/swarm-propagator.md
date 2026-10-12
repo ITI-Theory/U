@@ -73,6 +73,9 @@ $i$ via a weighted sum of its neighbours:
 
 $$s_i^{(t+1)} = \sum_j W_{ij} s_j^{(t)}$$
 
+{{Visualize | classical-multi-agent-coordination | matrix-heatmap:neural | matrix="[[0.6,0.3,0.1],[0.2,0.6,0.2],[0.1,0.3,0.6]]"; rows="1,2,3"; cols="1,2,3"; expect_sum=3; label=fig:swarm-weight-update }} The linear update in equation (1) as a small row-stochastic coupling matrix: each agent retains most of its state and mixes in neighbours. The program checked the displayed matrix sum.
+
+
 or in matrix form: $s^{(t+1)} = W \cdot s^{(t)}$.
 
 After K rounds:
@@ -96,6 +99,9 @@ operator $\mathcal{L}$ satisfies:
 
 $$\mathcal{L}\, G(x, x') = \delta(x - x')$$
 
+{{Visualize | greens-functions-and-field-propagation | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="separation $|x-x'|$"; ylabel="$G$"; label=fig:swarm-green-function }} The Green-function equation represented by a one-dimensional radial slice: an impulse at $x'$ propagates outward with a decaying oscillatory response.
+
+
 $G$ is the impulse response of the field: the response at point $x$ to a
 unit excitation at $x'$. For the Helmholtz operator
 $\mathcal{L} = \nabla^2 + k^2$, the free-space Green's function in three
@@ -112,6 +118,9 @@ The key property: given a source distribution $\rho(x')$, the field response
 everywhere is:
 
 $$\phi(x) = \int G(x, x') \rho(x')\, dx'$$
+
+{{Visualize | greens-functions-and-field-propagation | convolution:wave | input="exp(-((t-2)^2)/0.2)"; kernel="exp(-t/1.5)"; x=[0,8]; n=300; input_label="source $\rho$"; kernel_label="Green kernel"; output_label="$\phi=G*\rho$"; expect_area=1.1776; expect_tol=0.02; label=fig:swarm-convolution-field }} Equation (3) as convolution: a compact source is spread forward by a decaying Green kernel. The renderer checked the numerical area of the output with a loose plotting tolerance.
+
 
 Discretised at N agent positions $\{x_1, \ldots, x_N\}$, this becomes the
 matrix-vector product $\phi = G \cdot \rho$, where $G_{ij} = G(x_i, x_j)$.
@@ -148,6 +157,9 @@ ensure the required source state is available.
 For each coordination step:
 
 $$s' = G \cdot s$$
+
+{{Visualize | the-single-step-protocol | matrix-heatmap:neural | matrix="[[0.7,0.2,0.1],[0.1,0.8,0.1],[0.2,0.2,0.6]]"; rows="1,2,3"; cols="1,2,3"; expect_eigen="0.5,0.6,1"; label=fig:swarm-single-step-protocol }} The protocol $s'=G\cdot s$ as one illustrative transition matrix: one eigenvalue is $1$, preserving the consensus mode, while the smaller modes decay. The eigenvalues are checked.
+
 
 This is a single matrix-vector multiply: O(N²) cost, K = 1.
 

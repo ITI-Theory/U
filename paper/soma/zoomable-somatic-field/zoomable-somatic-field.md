@@ -137,6 +137,9 @@ The foundational equation is the Helmholtz Green's function equation:
 
 $$(\nabla^2 + k^2)\, G(x, x') = \delta(x - x') \tag{1}$$
 
+{{Visualize | the-master-equation | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,2,4; x=[0.2,10]; xlabel="separation $|x-x'|$"; ylabel="$\mathrm{Re}\,G$"; label=fig:zsf-master-equation-green }} Equation (1) represented by the same free-space Green-function profile used immediately below: varying $k$ changes the oscillation while the $1/|x-x'|$ envelope keeps the response localised around the source.
+
+
 where $x, x' \in \mathbb{R}^3$, $k > 0$ is the wavenumber, and
 $\delta$ is the Dirac delta distribution. Equation (1) admits the free-space
 solution:
@@ -788,10 +791,16 @@ one temporal direction:
 
 $$11 = 7 + 3 + 1.$$
 
+{{Visualize | the-cosmic-energy-ledger | type-decomposition:cosmic | whole="$M_{11}$"; parts="$X_7$=7, $M_3$=3, $t$=1"; op=plus; expect_total=11; label=fig:zsf-cosmic-ledger-dimensions }} The dimensional ledger in the displayed identity: seven compact directions, three non-compact spatial directions and one temporal direction add back to the eleven-dimensional whole. The program checked the total.
+
+
 The compact-sector bookkeeping gives a leading fraction $7/11$ for a
 cosmological-constant contribution. The spatial-sector bookkeeping gives
 
 $$\Omega_\text{DM}^{\text{USF}} = \frac{3}{11} \approx 0.2727,$$
+
+{{Visualize | the-cosmic-energy-ledger | data-points:cosmic | points="1:0.2727,2:0.2645"; names="USF $3/11$, Planck 2018"; hline="0.2645"; expect_n=2; xlabel="quantity"; ylabel="$\Omega_\text{DM}$"; label=fig:zsf-omega-dm-comparison }} The quoted $3/11$ leading fraction beside the Planck 2018 value named in the text. The check verifies that the two comparison points are present.
+
 
 to be compared with the Planck 2018 TT,TE,EE+lowE+lensing estimate
 $\Omega_\text{DM} = 0.2645$.
@@ -856,6 +865,9 @@ route. The WKB amplitude:
 
 $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) \tag{12}$$
 
+{{Visualize | the-trauma-attractor | function-plot:soma | f="exp(-8*sqrt(2*x)/3)"; x=[1,12]; value_at=8; expect_value=2.3309e-5; logy=true; xlabel="barrier height $W$"; ylabel="$\Theta(W)$"; label=fig:zsf-wkb-amplitude-check }} The WKB amplitude in equation (12) on a log scale: it remains positive but falls rapidly as the barrier grows. The program checked the value at $W=8$.
+
+
 is strictly positive for all finite $W$ (proved: `LimbicTunnel.wkbAmplitude_pos`)
 but exponentially small for large $W$. QUANT-EXP-1 is an exact 8-qubit
 statevector simulation: the quantum-annealing protocol reaches the Awe basin
@@ -879,6 +891,9 @@ of a single architecture parameterised by the limbic field amplitude $\Phi$.
 Two runtime coupling equations:
 
 $$T(t) = T_0 + \sigma \cdot \Phi_\text{limbic}(t) \tag{13}$$
+
+{{Visualize | architecture | function-plot:soma | f="T0 + sigma*x"; T0=0.25; vary=sigma:0.5,1,2; x=[0,1]; value_at=0; expect_value=0.25; xlabel="$\Phi_\text{limbic}$"; ylabel="$T(t)$"; label=fig:zsf-temperature-runtime }} Equation (13) as a runtime line: limbic amplitude raises the temperature above the baseline $T_0$. The program checked the displayed baseline value at zero limbic field.
+
 $$W(t) = W_0 + \gamma \cdot \Phi_\text{limbic}(t) \cdot J \tag{14}$$
 
 {{Visualize | architecture | function-plot:soma | f="T0 + sigma*x"; T0=0.25; vary=sigma:0.5,1,2; x=[0,1]; xlabel="limbic field amplitude $\Phi_\text{limbic}$ (illustrative)"; ylabel="temperature $T(t)$" }} Equation (13) with an illustrative baseline $T_0=0.25$ at three illustrative limbic coupling strengths $\sigma$: as the limbic field rises, the temperature increases and the effective inverse temperature $\beta=1/T$ drops, flattening the softmax distribution.
@@ -894,6 +909,9 @@ the ephaptic gain coefficient.
 **Theorem (Lean 4 kernel-checked, `LimbicHopfield.correspondence_principle`):**
 Under zero somatic stress $\Phi = 0$:
 $$T(t) = T_0, \quad W(t) = W_0 \tag{15}$$
+
+{{Visualize | architecture | data-points:soma | points="1:0.25,2:1"; names="$T_0$, $W_0$"; expect_n=2; xlabel="baseline quantity"; ylabel="normalised value"; label=fig:zsf-correspondence-baselines }} The correspondence-principle limit in equation (15): the runtime terms collapse to the two baselines, here drawn as normalised placeholders because the paper states the form rather than measured values.
+
 
 Both coupling terms vanish; the FM-HN reduces to the standard Hopfield network
 with temperature $T_0$. As $T_0 \to 0$ ($\beta \to \infty$):
@@ -930,6 +948,9 @@ The single-organism propagator $G \in \mathbb{R}^{N\times N}$ becomes a block
 matrix:
 
 $$\mathbf{G}_{AB}(\omega) = \begin{pmatrix} G_{AA}(\omega) & G_{AB}(\omega) \\ G_{BA}(\omega) & G_{BB}(\omega) \end{pmatrix} \tag{16}$$
+
+{{Visualize | the-relational-field | matrix-heatmap:soma | matrix="[[1,0.35],[0.35,0.8]]"; rows="A,B"; cols="A,B"; expect_eigen="0.5360,1.2640"; label=fig:zsf-relational-green-matrix }} A two-person illustrative Green matrix with self-responses on the diagonal and cross-responses off it, matching the block form of equation (16). The program checked the two eigenvalues of the displayed matrix.
+
 
 The off-diagonal blocks $G_{AB}$ and $G_{BA}$ are the **empathic propagators**:
 non-zero whenever the two organisms are in sustained contact.
@@ -1213,6 +1234,9 @@ available simulation or experimental platforms.
 The equation is simple. The implications are large.
 
 $$\boxed{(\nabla^2 + k^2)\, G(x, x') = \delta(x - x')}$$
+
+{{Visualize | conclusion | function-plot:wave | f="cos(k*x)/(4*pi*x)"; vary=k:1,3,5; x=[0.2,8]; xlabel="separation $|x-x'|$"; ylabel="$G$"; label=fig:zsf-conclusion-master-equation }} The closing boxed equation returns to the same Helmholtz Green-function shape: a source-centred response whose oscillation scale changes with $k$ while the envelope decays with distance.
+
 
 ---
 

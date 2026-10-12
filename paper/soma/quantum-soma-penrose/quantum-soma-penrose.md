@@ -71,6 +71,9 @@ emotional dynamics as a continuous field evolving on a Hopfield energy landscape
 
 $$H(\mathbf{e}) = -\frac{1}{2}\, \mathbf{e}^\top W\, \mathbf{e} - \mathbf{b}^\top \mathbf{e}$$
 
+{{Visualize | the-soma-field-model-a-recap | energy-landscape:soma | U="x^4/4 - x^2/2 - b*x"; vary=b:-0.25,0,0.25; x=[-2,2]; xlabel="emotional coordinate $e$"; ylabel="$H$"; label=fig:quantum-soma-energy-recap }} The recap Hamiltonian reduced to one coordinate: coupling creates an attractor landscape and the bias term tilts the preferred basin.
+
+
 where $\mathbf{e} \in \mathbb{R}^8$ is the emotional state vector over eight BRECVEMA
 modes (Safety, Fear, Curiosity, Awe, Grief, Language, Preverbal, Shame), $W$ is the
 emotional coupling matrix encoding which modes amplify or suppress each other, and
@@ -79,6 +82,9 @@ $\mathbf{b}$ is the bias vector encoding intrinsic resting-state preferences.
 Under classical Langevin dynamics, the system evolves as:
 
 $$d\mathbf{e} = -\nabla H(\mathbf{e})\, dt + \sqrt{2T}\, d\mathbf{W}_t$$
+
+{{Visualize | the-soma-field-model-a-recap | vector-field:soma | u="-x"; v="-y"; potential="0.5*(x^2+y^2)"; x=[-2,2]; y=[-2,2]; circle=1; expect_flux=-6.283; expect_tol=0.01; xlabel="$e_1$"; ylabel="$e_2$"; label=fig:quantum-soma-langevin-flow }} The deterministic part of the Langevin equation as a two-mode gradient flow; the Brownian term adds fluctuations around the plotted inward drift.
+
 
 where $T$ is the noise temperature and $d\mathbf{W}_t$ is Brownian motion.
 
@@ -106,6 +112,9 @@ Ising Hamiltonian:
 
 $$\hat{H}_Q = -\frac{1}{2}\sum_{ij} W_{ij}\, \hat{\sigma}^z_i \hat{\sigma}^z_j
   - \sum_i b_i\, \hat{\sigma}^z_i - \Gamma \sum_i \hat{\sigma}^x_i$$
+
+{{Visualize | the-quantum-extension | matrix-heatmap:quantum | matrix="[[-1,-0.4],[-0.4,1]]"; rows="$|0\rangle$,$|1\rangle$"; cols="$|0\rangle$,$|1\rangle$"; expect_eigen="-1.077,1.077"; label=fig:quantum-transverse-ising-block }} A two-state transverse-field block illustrating the final $\Gamma\sigma^x$ term as off-diagonal mixing between classical $\sigma^z$ states. The matrix eigenvalues are checked.
+
 
 where $\Gamma$ is the transverse field strength — the "quantum temperature" — controlling
 the rate of quantum tunneling. At $\Gamma = 0$ this reduces exactly to the classical

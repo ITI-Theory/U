@@ -352,6 +352,9 @@ field is never still. This is not pathology; it is physics.
 
 $$H(\mathbf{e}) = -\frac{1}{2}\,\mathbf{e}^\top W\,\mathbf{e} - \boldsymbol{\theta} \cdot \mathbf{e}$$
 
+{{Visualize | the-hopfield-energy-function | energy-landscape:soma | U="x^4/4 - x^2/2 - theta*x"; vary=theta:-0.3,0,0.3; x=[-2,2]; xlabel="state $e$"; ylabel="$H$"; label=fig:pov-hopfield-energy }} The patient-facing Hopfield energy in one coordinate: the threshold term tilts the attractor landscape without changing the two-basin form.
+
+
 The field always moves toward lower $H$. The stable states of the system are the
 local minima of $H$ — the attractor basins.
 
@@ -432,6 +435,9 @@ decaying echoes.
 $$\dot{\mathbf{e}}(t) = -\nabla H(\mathbf{e}(t))
   + \int_0^t K_{\text{trauma}}(t - s)\, \mathbf{e}(s)\, ds + \eta(t)$$
 
+{{Visualize | complex-ptsd-memory-kernel-and-asymmetric-coupling | convolution:soma | input="exp(-((t-1.5)^2)/0.3)"; kernel="exp(-t/tau)"; tau=2; x=[0,10]; n=300; input_label="state history"; kernel_label="$K_\text{trauma}$"; output_label="memory term"; expect_area=1.9298; expect_tol=0.02; label=fig:pov-trauma-kernel-convolution }} The memory-kernel term in the equation as a convolution: a past activation is carried forward by a decaying trauma kernel before re-entering the present dynamics.
+
+
 $$K_{\text{trauma}}(\tau) = \sum_{k} A_k\, e^{-\tau / \tau_k}$$
 
 {{Visualize | complex-ptsd-memory-kernel-and-asymmetric-coupling | function-plot:soma | f1="0.6*exp(-x/2) + 0.4*exp(-x/20)"; name1="kernel"; f2="0.6*exp(-x/2)"; name2="fast part"; f3="0.4*exp(-x/20)"; name3="slow part"; x=[0,60]; xlabel="time since the event $\tau$"; ylabel="$K(\tau)$" }} A two-term memory kernel: a fast part that fades in days and a slow part that lingers. Illustrative amplitudes and time constants.
@@ -495,6 +501,9 @@ $$\gamma_{\text{ADHD}}\, \dot{\mathbf{e}}(t) =
   -\nabla H_{\text{ASC}}(\mathbf{e}(t))
   + \int_0^t K_{\text{trauma}}(t - s)\, \mathbf{e}(s)\, ds
   + \sqrt{2 D_{\text{ADHD}}}\, \xi_{1/f}(t)$$
+
+{{Visualize | the-composed-condition | function-plot:soma | f="sqrt(2*D/gamma)"; vary=gamma:0.5,1,2; D=1; x=[0,1]; value_at=0; expect_value=2; xlabel="bookkeeping axis"; ylabel="noise scale"; label=fig:pov-composed-noise-scale }} In the composed condition, larger ADHD diffusion raises the stochastic scale while larger damping lowers it; the flat lines show the scale for three illustrative damping values. The first checked line has value $2$.
+
 
 The interaction effects are non-trivial:
 
