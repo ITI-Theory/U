@@ -3073,18 +3073,23 @@ mapping (ISS-063).
       OpenCyc's unique names assumption as one engineering answer. Do with the
       Russell reading.
 
-## ISS-065: Sergeant Major: admin reminders pushed to H-AL, a Maintenance deck, a releasable voice — OPEN
+## ISS-065: Sergeant Major: admin reminders pushed to H-AL, a Maintenance deck, a releasable voice — CLOSED
 {{Tags area.instrument, area.ops}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-065-sergeant-major}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=ISS-065-sergeant-major}}
 
 Author, 11 Oct 20:31: "my ADHD makes me the worst admin guy ever"; the
 final project. Reminders pushed out to H-AL, a Maintenance section below
 the engine room, and voice: the author's own voice stays parked; use a
 default voice with the H-AL-ifier on top (quicker). Epic file:
 prj/.adm/issues/ISS-065-sergeant-major.md.
-- [ ] Reminder collector (`HAL remind`): read, never copy.
-- [ ] Maintenance deck (screens.js role `maintenance`): done and snooze only.
-- [ ] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
+- [x] Reminder collector (`HAL remind`): read, never copy.
+      (13 Oct triage: done: bin/remind reads ISS-081 and ISS-001's Author items (U f72c58c, U.Dot 02976b1))
+- [x] Maintenance deck (screens.js role `maintenance`): done and snooze only.
+      (13 Oct triage: done: ?screen=maintenance, done and snooze only (2cabe66), its list read from ISSUES.md (9490f10))
+- [x] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
+      (13 Oct triage: done: BRIEF ME on the deck reads the due steps, H-AL's Piper voice through the bridge, else the browser voice (f72c58c))
+
+**Closed 2026-10-13:** the reminders are read from ISSUES.md, never copied: bin/remind (make remind, HAL remind), the Maintenance deck (?screen=maintenance) with DONE, SNOOZE and BRIEF ME.
 
 ## ISS-066: Names and third-party characters: Sherlock, the Monster, the Wizard — CLOSED
 {{Tags area.ops}}
@@ -3567,9 +3572,10 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       coloured lights (FX); proportions schematic. FX off (13 Oct): the plain labelled side view of
       the ventricles in the same order, a dot where the voyage is) The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
       light in the stone; FX off the plain anatomy.
-- [ ] The way in: the arteries from the heart to the circle of Willis and the middle
+- [x] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
       (Author, 13 Oct 04:20: OpenStax, drawn from Anatomy & Physiology 2e, CC BY 4.0, credited.)
+      (13 Oct triage: done: the WAY IN stop (f3503db): heart, aorta ~25 mm, common carotid ~6.5 mm, internal carotid ~4.5 mm, circle of Willis, middle cerebral artery ~3 mm, a schematic route after OpenStax Anatomy and Physiology 2e (CC BY 4.0, credited), arriving at BRAIN; reviewed 13 Oct)
 - [x] ONE BODY (author, 13 Oct 16:50: waves in the tube cause waves in the head, already busy; the
       limbic system forces slow deep breathing, as in labour or the way out of freeze: the
       calming wave; modified for C-PTSD, ADHD, ASD: "Mount Everest"). Built 13 Oct:
