@@ -2928,7 +2928,9 @@ The Tensor's three containers (after the Body and Session phases are
 written, ISS-053), and pairs of papers claiming the same structure at
 different scales (ZSF's "same as always").
 - [x] SME core (`sme.py`; River Film vs the 2021 film, 66% shared).
-- [ ] MAC/FAC retrieval; the two tests (three containers; ZSF's "same as always").
+- [x] (12 Oct: sherlock/macfac.py, 35 cases, 320 facts, 23 tests; ZSF's "same as
+      always" mostly shares only the section template, Scale 12~3 holds; the containers
+      test waits for the author's corrections to the Body and Session phases, ISS-053) MAC/FAC retrieval; the two tests (three containers; ZSF's "same as always").
       Author, 11 Oct 21:35: prioritised ahead of SH1 v2 and the books (it may change
       claims across the project). Order: (1) MAC/FAC over a case library and the ZSF
       test; (2) OWL classes as Lean types: a design note and a spike, the author
@@ -3200,9 +3202,9 @@ proposal, in steps:
 Difficulty: the export and the towers are medium (the judge and the city exist);
 the live PROVE is the hard part and optional.
 
-## ISS-072: How much language: a text-level control for the films, and help bringing it down — OPEN
+## ISS-072: How much language: a text-level control for the films, and help bringing it down — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-12, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 12 Oct 00:30: Rothko gave his pictures numbers, no clues. The films get a
 control for how much language they give the viewer, from none to narration; the
