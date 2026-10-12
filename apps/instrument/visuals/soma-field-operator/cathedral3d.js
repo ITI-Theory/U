@@ -8,6 +8,7 @@
 // echoes back, fading, as a sound does in a cathedral. Shapes and sizes are schematic: the
 // order of the halls is anatomy, the proportions are for the eye.
 
+import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { applyLook } from './look.js';
@@ -411,7 +412,7 @@ export function createCathedral3D() {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
-        stereo.update(camera);
+        updateStereo(stereo, camera, 0.06);
         renderer.setScissorTest(true);
         for (const [x, eye] of [[0, stereo.cameraL], [size.x / 2, stereo.cameraR]]) {
           renderer.setViewport(x, 0, size.x / 2, size.y);

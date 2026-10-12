@@ -9,6 +9,7 @@
 // arises and passes, nothing is held). PLACE puts a thought in the hall; it stays there.
 // Interpretive: a building for the mind, not a claim about the cosmos.
 
+import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
 
@@ -187,7 +188,7 @@ export function createPalace3D(floors) {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
-        stereo.update(camera);
+        updateStereo(stereo, camera, 0.06);
         renderer.setScissorTest(true);
         for (const [x, eye] of [[0, stereo.cameraL], [size.x / 2, stereo.cameraR]]) {
           renderer.setViewport(x, 0, size.x / 2, size.y);

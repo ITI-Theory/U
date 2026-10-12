@@ -7,6 +7,7 @@
 // voyage=<stop>&phi=<0..1>&feel=<mode>&resource=0|1. Drawings are schematic, and each
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
+import { stereoDepth } from './stereo-depth.js';
 import { createDyad3D, createLandscape3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
@@ -3149,7 +3150,6 @@ export function createExplorer(hooks = {}) {
     diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0',
     stereo: STEREO_MODES.includes(new URLSearchParams(location.search).get('stereo')) ? new URLSearchParams(location.search).get('stereo')
       : STEREO_MODES.includes(localStorage.getItem('soma-stereo')) ? localStorage.getItem('soma-stereo') : 'off',
-    depth: Number(localStorage.getItem('soma-stereo-depth') ?? 1) || 1,
     // ?film=1: the film pace (0.6) and the controls hidden until the mouse moves; ?pace= sets it
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
@@ -3456,8 +3456,8 @@ export function createExplorer(hooks = {}) {
     const H = canvas.height;
     const L = layers.screen.canvas.width;
     const scale = W / 2 / L;
-    const far = 0.011 * L * st.depth;
-    const near = 0.007 * L * st.depth;
+    const far = 0.011 * L * stereoDepth();
+    const near = 0.007 * L * stereoDepth();
     mainCtx.setTransform(1, 0, 0, 1, 0, 0);
     mainCtx.clearRect(0, 0, W, H);
     for (const sign of [-1, 1]) {

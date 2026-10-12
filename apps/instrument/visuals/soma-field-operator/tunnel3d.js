@@ -8,6 +8,7 @@
 // (network, systemic: the city of code's cubic towers), stars (cosmic); at 11D a
 // Mandelbulb, the mind, floats at the centre of the loop. Mono or stereo (SBS).
 
+import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { XS } from './ureter-model.js';
 import { applyLook } from './look.js';
@@ -768,7 +769,7 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
-        stereoCamera.update(camera);
+        updateStereo(stereoCamera, camera, 0.05);
         renderer.setScissorTest(true);
         for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
           renderer.setViewport(x, 0, size.x / 2, size.y);

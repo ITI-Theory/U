@@ -14,6 +14,7 @@
 // Everything drifts with one flow field (the fluid), speed rises with Phi, POKE is a surge.
 // The world is two copies of one tile that leapfrog past the camera. Mono or stereo (SBS).
 
+import { stereoDepth, updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
 
@@ -672,7 +673,7 @@ export function createFlight3D() {
             iters: diveMath.iters(depth), morph: dive?.morph ?? tt * 0.05, fade };
         }
         // the eye separation and the near plane follow the dive (stereo stays fusable deep in)
-        stereoCamera.eyeSep = !sc && dive ? Math.min(0.12, 0.04 * dive.d) : 0.12;
+        stereoCamera.eyeSep = (!sc && dive ? Math.min(0.12, 0.04 * dive.d) : 0.12) * stereoDepth();
         camera.near = Math.max(1e-6, Math.min(0.05, (dive?.d ?? 1) * 0.1));
         renderer.getSize(size);
         const pr = renderer.getPixelRatio();
@@ -774,7 +775,7 @@ export function createFlight3D() {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
-        stereoCamera.update(camera);
+        updateStereo(stereoCamera, camera, 0.12);
         renderer.setScissorTest(true);
         for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
           renderer.setViewport(x, 0, size.x / 2, size.y);

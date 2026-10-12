@@ -10,6 +10,7 @@
 // The camera swings over the mountains with the city behind. The explorer's 2D canvas
 // draws the labels on top.
 
+import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 
 const SIZE = 2.9;
@@ -185,7 +186,7 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
-        stereoCamera.update(camera);
+        updateStereo(stereoCamera, camera, 0.09);
         renderer.setScissorTest(true);
         for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
           renderer.setViewport(x, 0, size.x / 2, size.y);
@@ -561,7 +562,7 @@ export function createDyad3D() {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
-        stereoCamera.update(camera);
+        updateStereo(stereoCamera, camera, 0.1);
         renderer.setScissorTest(true);
         for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
           renderer.setViewport(x, 0, size.x / 2, size.y);

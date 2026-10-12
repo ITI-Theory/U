@@ -1,3 +1,4 @@
+import { updateStereo } from './stereo-depth.js';
 import { displayName } from './names.js';
 import * as THREE from 'three';
 import { leanTowers, scribeIndex } from './generated/app-data.js';
@@ -2958,7 +2959,7 @@ function renderScene() {
   if (state.stereoSbs && state.viewMode === '3d') {
     // the eye cameras copy camera.matrixWorld, which only a mono render would otherwise refresh
     camera.updateMatrixWorld();
-    stereoCamera.update(camera);
+    updateStereo(stereoCamera, camera, 0.064);
     // setViewport/setScissor take CSS pixels; three.js applies the pixel ratio.
     const { x: width, y: height } = renderer.getSize(viewportSize);
     const halfWidth = Math.floor(width / 2);
