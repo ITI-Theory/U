@@ -3509,14 +3509,16 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       that the sizes are power-law distributed.
 - [x] (13 Oct: PAIN at the BRAIN stop, OFF, ACUTE, CHRONIC: pulses about once a second up the
       spinal cord to the thalamus, then to the insula, the cingulate and the sensory cortex,
-      which light; louder with Φ; chronic, they stay lit; the no-pain-receptors line. Not
-      yet started from the ureter's colic itself) Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,
+      which light; louder with Φ; chronic, they stay lit; the no-pain-receptors line. 13 Oct:
+      FOLLOW THE PAIN ▸ at the URETER stop goes there, and says the ureter's nerves enter the
+      cord at T11-L2, the loin and the groin) Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,
       insula, cingulate and sensory cortex; fear makes it louder; chronic as a lit valley.
 - [x] (13 Oct: CAVE at the BRAIN stop, cathedral3d.js: a flight through the ventricles in
       anatomical order, fourth ventricle, aqueduct, third, the foramen, the lateral ventricle
       as the nave, the atrium as the crossing, the temporal horn; ashlar stone, vaulting ribs
       in the wide halls, the choroid plexus as bead curtains, the field as three moving
-      coloured lights (FX); proportions schematic. FX off is not yet the plain anatomy) The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
+      coloured lights (FX); proportions schematic. FX off (13 Oct): the plain labelled side view of
+      the ventricles in the same order, a dot where the voyage is) The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
       light in the stone; FX off the plain anatomy.
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.

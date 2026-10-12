@@ -537,6 +537,15 @@ const BRAIN = {
 // model operators, pictures, not diagnoses: ADHD more bursts, ASD fewer and focused,
 // C-PTSD echoes (a burst comes back, fading, as in a cathedral).
 export const IGNITION = 1000;
+// FX off in the cathedral: the honest drawing. The ventricles in a side view (front to the
+// left), in the order the cave is flown: fourth ventricle, aqueduct, third ventricle, the
+// interventricular foramen, the lateral ventricle's body, the atrium, the temporal horn.
+// Schematic positions within the brain outline, not measurements.
+const VENTRICLE_ROUTE = [[0.28, 0.34], [0.25, 0.27], [0.2, 0.17], [0.15, 0.1], [0.07, 0.05], [0.02, 0.0], [-0.07, -0.05],
+  [-0.2, -0.13], [0.02, -0.2], [0.26, -0.1], [0.24, 0.06], [0.1, 0.16]];
+const VENTRICLE_LABELS = [['FOURTH VENTRICLE', [0.28, 0.34], [0.55, 0.5]], ['AQUEDUCT', [0.18, 0.15], [0.5, 0.25]],
+  ['THIRD VENTRICLE', [0.05, 0.03], [0.62, 0.05]], ['FORAMEN', [-0.07, -0.05], [-0.55, 0.1]],
+  ['LATERAL VENTRICLE (body)', [-0.08, -0.18], [-0.45, -0.55]], ['ATRIUM', [0.26, -0.1], [0.55, -0.35]], ['TEMPORAL HORN', [0.14, 0.15], [-0.2, 0.45]]];
 // VISUAL THOUGHTS: a burst this large becomes a bubble with a picture (in the cathedral)
 export const VISUAL = 60;
 const THOUGHT_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
@@ -678,6 +687,36 @@ function makeBrain() {
         caveGl.vividness = env.vivid ?? 0.8;
         caveGl.onPop = img => popHandler?.(img);
         caveGl.render({ time: t, phi, speed: 0.004 + 0.006 * phi, stereo: env.stereo });
+        // FX off: no stone, no light show; the anatomy as it is, and where the voyage is
+        if (phi < 0.05) {
+          const W = env.w / 2 / u, H = env.h / 2 / u;
+          ctx.save();
+          ctx.fillStyle = '#0b0d16';
+          ctx.fillRect(-W * u, -H * u, 2 * W * u, 2 * H * u);
+          closedSmooth(ctx, u, CEREBRUM);
+          ctx.strokeStyle = 'rgba(232,238,252,0.55)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.strokeStyle = 'rgba(94,231,255,0.35)';
+          ctx.lineWidth = 0.05 * u;
+          strokePath(ctx, u, VENTRICLE_ROUTE, true);
+          ctx.stroke();
+          ctx.strokeStyle = '#5ee7ff';
+          ctx.lineWidth = 2;
+          strokePath(ctx, u, VENTRICLE_ROUTE, true);
+          ctx.stroke();
+          ctx.restore();
+          const [px, py] = along(polyline(VENTRICLE_ROUTE), caveGl.u);
+          dot(ctx, u, px, py, 0.022, '#ffd166', 1);
+          if (env.labels) {
+            for (const [name, at, to] of VENTRICLE_LABELS) leader(ctx, u, name, at, to, name === caveGl.hall.replace(/^THE NAVE: |^THE CROSSING: |^THE /, '').replace('LATERAL VENTRICLE', 'LATERAL VENTRICLE (body)') ? '#ffd166' : '#5ee7ff');
+            label(ctx, u, `FX OFF: THE VENTRICLES · you are in ${caveGl.hall}`, 0, -0.72, '#e8eefc', 'center', 0.032);
+            label(ctx, u, 'a side view, front to the left; schematic positions; the cave is filled with cerebrospinal fluid · raise FX for the cathedral', 0, -0.65, COLORS.dim, 'center', 0.02);
+          }
+          return;
+        }
         // thoughts in the stone; the large ones become visual thoughts, a picture in a bubble;
         // without THOUGHTS, a visual thought now and then
         const rate = env.thoughts ? (3 + 4 * phi) * (1 + 3 * (env.ca ?? 0)) * (1 - 0.6 * (env.cs ?? 0)) : 0.25;
@@ -840,6 +879,7 @@ function makeBrain() {
       if (env.labels && env.pain) {
         label(ctx, u, env.pain === 'chronic' ? 'CHRONIC PAIN: the regions stay lit between pulses, a valley that stays deep' : 'PAIN: up the spinal cord to the thalamus, then the insula, the cingulate, the sensory cortex', 0, 0.74, '#ff6070', 'center', 0.024);
         label(ctx, u, `louder with fear (Φ ${env.phi.toFixed(2)}) · the brain itself has no pain receptors: the stone does not hurt, pain is music played in it`, 0, 0.8, COLORS.dim, 'center', 0.02);
+        if (env.painFrom === 'ureter') label(ctx, u, 'from the stone in the ureter: its nerves enter the spinal cord at T11 to L2, which is why the colic is felt in the loin and the groin', 0, 0.86, '#ff9a3c', 'center', 0.02);
         leader(ctx, u, 'INSULA (deep, beneath the cortex)', INSULA, [-0.62, 0.12], '#ff6070');
         leader(ctx, u, 'SENSORY CORTEX', BRAIN.sensory, [0.62, -0.5], '#ff6070');
       }
@@ -2539,6 +2579,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
+      <button type="button" data-act="follow" title="Follow the colic from the stone to the brain: up the spinal cord to the thalamus and the pain regions (ISS-077)">FOLLOW THE PAIN ▸</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
       <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
       <button type="button" data-act="climb" title="Climb the stone's north face (a climber 40 µm tall: the stone is 150 climbers high)">CLIMB</button>
@@ -2619,6 +2660,7 @@ export function createExplorer(hooks = {}) {
   const abButton = root.querySelector('[data-act="ab"]');
   const editButton = root.querySelector('[data-act="edit"]');
   const wallButton = root.querySelector('[data-act="wall"]');
+  const followButton = root.querySelector('[data-act="follow"]');
   const wdownButton = root.querySelector('[data-act="wdown"]');
   const wupButton = root.querySelector('[data-act="wup"]');
   const orbitButton = root.querySelector('[data-act="orbit"]');
@@ -2676,7 +2718,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', cave: false, vivid: 0.8, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2758,6 +2800,7 @@ export function createExplorer(hooks = {}) {
     feelRow.hidden = st.stop !== 'body';
     const wallNow = st.stop === 'ureter' ? scene('ureter').wall : 0;
     wallButton.hidden = st.stop !== 'ureter';
+    followButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
     wallButton.textContent = wallNow ? '◂ SCOPE' : 'WALL ▸';
     wdownButton.hidden = wupButton.hidden = !wallNow;
     wdownButton.disabled = wallNow >= BARRIERS.length;
@@ -2991,7 +3034,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, cave: st.cave, vivid: st.vivid, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3179,12 +3222,18 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
       syncUi();
+    } else if (b.dataset.act === 'follow') {
+      st.pain = 'acute';
+      st.painFrom = 'ureter';
+      st.cave = false;
+      go('brain');
     } else if (b.dataset.act === 'cave') {
       st.cave = !st.cave;
       if (st.cave) st.view3d = true;
       syncUi();
     } else if (b.dataset.act === 'pain') {
       st.pain = { '': 'acute', acute: 'chronic', chronic: '' }[st.pain];
+      if (!st.pain) st.painFrom = '';
       syncUi();
     } else if (b.dataset.act === 'thoughts') {
       st.thoughts = !st.thoughts;
