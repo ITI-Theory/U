@@ -42,7 +42,7 @@ The twenty-six files that follow collectively establish:
 | `Hopfield.lean` | Hopfield energy function; Hebbian weight construction | Compiles; theorem-level declarations are cited below |
 | `EmotionOntology.lean` | Final-tagless emotion algebra; 5 interpreters; LEAN-1 | Compiles; theorem-level declarations are cited below |
 | `FieldProofs.lean` | Promoted axioms; `awe_is_universal` closes with `rfl` | Compiles; contains axioms and theorem-level declarations |
-| `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Compiles; contains kernel-verified declarations and open sorries listed below |
+| `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Compiles; no sorries; `W8_eq_W8ℝ` ties the dynamics to the ℝ layer |
 | `DyadicField.lean` | Dyadic propagator; co-regulation poles | Compiles; no sorries (the block decomposition and both energy-lowering theorems proved, October 2026) |
 | `LimbicTunnel.lean` | WKB amplitude; classical trapping; quantum advantage | Compiles; theorem-level declarations are cited below |
 | `MTheoryIsomorphism.lean` | 11D isomorphism; organism hierarchy | Compiles; theorem-level declarations are cited below |
