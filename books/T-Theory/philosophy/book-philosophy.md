@@ -243,7 +243,7 @@ The current visual operator is therefore a boundary object. For a philosopher, i
 
 The 15 books should be read similarly. They show that the programme can be routed through physics, neuroscience, trauma, computation, mathematics, philosophy, complex systems, music, geology, society, economics, law, PPE, and neurodivergent clinical framing. They do not, by repetition, multiply evidence. Repeating the same kernel in fifteen wrappers can clarify audiences, but it can also amplify overclaim. This philosophy book therefore treats the books as a corpus to be audited, not as fifteen independent confirmations.
 
-Finally, the claim that the programme has a corpus of 24 papers, 15 books, Lean proofs, simulations, and an app is a claim about production and organisation `empirical-result`. It is not a claim that each produced artefact has equal epistemic standing. A paper can be published on Zenodo and still contain open hypotheses. A Lean file can compile and still rely on axioms. A simulation can pass and still remain inside its model. An app can render a field and still be educational rather than diagnostic. The programme's philosophical seriousness depends on keeping all four sentences true at once.
+Finally, the claim that the programme has a corpus of 25 papers, 15 books, Lean proofs, simulations, and an app is a claim about production and organisation `empirical-result`. It is not a claim that each produced artefact has equal epistemic standing. A paper can be published on Zenodo and still contain open hypotheses. A Lean file can compile and still rely on axioms. A simulation can pass and still remain inside its model. An app can render a field and still be educational rather than diagnostic. The programme's philosophical seriousness depends on keeping all four sentences true at once.
 
 There is a further claim about memory and time. The Temporal Dynamics paper treats trauma and memory not merely as contents stored somewhere, but as retarded effects in a causal field. This is philosophically significant because it shifts the question from "where is the memory?" to "how does a past perturbation remain weighted in the present response?". The answer is formal only at the level of kernels and propagators `derived-under-assumptions`; it becomes psychological only when the variables are operationally connected to bodily and neural measures `open-hypothesis`.
 
@@ -2748,7 +2748,7 @@ A philosopher's first duty is therefore bookkeeping. The question is not whether
 
 ## The papers
 
-The twenty-four papers form the public spine of the programme. Their titles matter because each names a different evidential wager rather than a chapter of one already-established theory.
+The twenty-five papers form the public spine of the programme. Their titles matter because each names a different evidential wager rather than a chapter of one already-established theory.
 
 | ID | Title | Ledger reading |
 |---|---|---|
@@ -2776,6 +2776,7 @@ The twenty-four papers form the public spine of the programme. Their titles matt
 | P22 | *Dark Matter as the Spatial Block Vacuum of 11-Dimensional M-Theory* | $\Omega_{DM}=3/11$ model comparison `derived-under-assumptions`. |
 | P23 | *[T]-Theory as Fixed Point: The Universal Somatic Field Describes Its Own Propagation* | Self-propagation thesis `interpretive`. |
 | P24 | *G₂ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal* | Trace decomposition and broken-symmetry programme `derived-under-assumptions`. |
+| P25 | *Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Action Costs* | Route cost instead of one barrier; a specification with discriminating data, no Lean yet `open-hypothesis`. |
 
 This table already shows the pattern. P1, P10, P13, P20, and parts of P14 carry the most defensible mathematical modelling content. P2 and P12 contain the strongest simulation result: the exact statevector QUANT-EXP-1 comparison in an eight-qubit, 256-state model. P21 and P22 are arithmetically sharp but assumption-heavy cosmological extrapolations. P23 is not a physical proof at all; it is the programme's self-description as a cultural object moving through a social field. P24 contains real algebraic structure, but the full G₂-holonomy claim remains beyond the present proof surface.
 
@@ -2885,7 +2886,7 @@ Naming these failures does not weaken the programme. It gives it shape. A progra
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
-| The twenty-four papers form a mixed evidence programme rather than one uniform claim. | `interpretive` | P1-P24; `apps/instrument/visuals/soma-field-operator/GEMINI-SOMA-FIELD-OPERATOR.md` |
+| The twenty-five papers form a mixed evidence programme rather than one uniform claim. | `interpretive` | P1-P25; `apps/instrument/visuals/soma-field-operator/GEMINI-SOMA-FIELD-OPERATOR.md` |
 | The Hopfield/Langevin affect model is a mathematical modelling core. | `derived-under-assumptions` | P1; P13; `Hopfield.lean`; `LimbicHopfield.lean` |
 | `consciousness_dichotomy` proves only a formal real-number threshold split. | `kernel-verified` | `UniversalSomaticField.lean` |
 | `FieldAxioms.lean` is an axiom registry, not proof of its scientific claims. | `derived-under-assumptions` | `paper/FieldAxioms.lean` |

@@ -7,20 +7,24 @@ import subprocess
 import re
 from pathlib import Path
 
+import yaml
+
 PAPER_DIR = Path(__file__).resolve().parent.parent
 
 
 def main() -> None:
     output = subprocess.run(
-        ["pandoc", "tests/registry-hooks.md", "--lua-filter=registry-hooks.lua", "-t", "plain"],
+        ["pandoc", "tests/registry-hooks.md", "--lua-filter=filters/registry-hooks.lua", "-t", "plain"],
         cwd=PAPER_DIR,
         check=True,
         capture_output=True,
         text=True,
     ).stdout
     output = re.sub(r"\s+", " ", output)
+    # the expected count from the registry itself, so a new paper does not break the test
+    registry = yaml.safe_load((PAPER_DIR.parent.parent / "Dist" / "PAPERS.yaml").read_text(encoding="utf-8"))
     required = (
-        "Canonical count: 24",
+        f"Canonical count: {len(registry['canonical_papers'])}",
         "P21: The Cosmological Constant as the Vacuum Amplitude of the Universal Somatic Field",
         "C1v2: The Soma-Field: Collected Works",
         "Second Edition",

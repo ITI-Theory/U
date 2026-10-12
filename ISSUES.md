@@ -78,6 +78,14 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 - [ ] Fill new DOIs in `Dist/PAPERS.yaml`, `make generate`, update the org
    README DOI tables; commit and tag U and Dist together.
 
+- [ ] The omnibus, completed (author, 13 Oct): P10, P14 and P15 were in no domain book, and P25
+      is new. The manifest now places P10 in Neuroscience, P14 and P15 in Physics (pointers in
+      Formal Mathematics), P25 in Trauma (pointers in Complex Systems and Philosophy); each is
+      printed in full once. Rebuild the Fractal Programme volumes and the omnibus at release and
+      re-check the page counts (Vol I 575 and Vol II 506 grow; Lulu's cap is 800).
+- [ ] P25 (path-sensitive transitions): UAT reading, upload to Zenodo with the others; and its
+      Sherlock affidavit, so SH1's "affidavits for all its papers" stays true at SH1's next
+      version (SH1 v2 is a snapshot of the 24 papers of 11 Oct, left as it is).
 - [ ] Set P21 to pending-upload in `Dist/PAPERS.yaml` (`make generate` afterwards) once the
       UAT has read it; its physics question is answered (ISS-081, 13 Oct).
 - [ ] Print: the Field Atlas at bookfactory uses their template with bleed (3 mm assumed,
@@ -3898,9 +3906,12 @@ other work.
       (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover it);
       `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
       (13 Oct triage: done or superseded: a barebone Neovim (U.Dot nvim, ISS-001); the task engine is ISSUES.md with bin/remind and the Maintenance deck; the developer tips are notes, nothing to build)
-- [ ] (ISS-035) Review the draft paper `paper/soma/path-sensitive-transitions/`
+- [x] (ISS-035) Review the draft paper `paper/soma/path-sensitive-transitions/`
       (`make -C paper pathsens`) and the philosophy book's new open-hypothesis section;
       decide whether it becomes a paper for Mk 1 or waits.
+      (13 Oct 22:20, author: "it's a paper, def now". Done: P25 in Dist/PAPERS.yaml
+      (pending-upload), "draft" wording removed, a References heading added (11 references,
+      check passes); the philosophy book's paper table and corpus count say 25.)
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).

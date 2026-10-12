@@ -393,6 +393,21 @@ canonical_papers:
     references_minimum: 5
     nlm: P24-g2-symmetry-breaking
 
+  - id: P25
+    slug: path-sensitive-transitions
+    title: "Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Action Costs in [T]-Theory"
+    discipline: "Dynamical systems; clinical theory"
+    level: "masters"
+    doi: null
+    status: pending-upload
+    notes: "Promoted from draft by the author on 2026-10-13 (ISS-035, ISS-081): an open hypothesis, transitions limited by the cost of a whole route rather than one barrier; no Lean claims yet."
+    file: papers/path-sensitive-transitions.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: pathsens
+    references_minimum: 5
+    nlm: P25-path-sensitive-transitions
+
   - id: SH1
     slug: sherlock-compiler
     title: "Sherlock: A Neuro-Symbolic Compiler for Natural Language"
@@ -406,37 +421,6 @@ canonical_papers:
     make_class: citeproc
     make_langs: en
     make_alias: sh1
-    references_minimum: 5
-
-
-  - id: SH2
-    slug: sherlock-llm
-    title: "Can a Language Model Do Sherlock's Job? NotebookLM against Sherlock's registry, OpenCyc slice packs and paper-local arithmetic"
-    discipline: "Knowledge representation; language-model evaluation"
-    level: "masters"
-    doi: null
-    status: pending-review
-    notes: "Draft companion to SH1 for ISS-067; reports saved NotebookLM runs in bld/sherlock/nlm-exp*.json and marks missing cells and local-model run as future work."
-    file: papers/sherlock-llm.pdf
-    zenodo_file: zenodo/SH2-sherlock-llm.pdf
-    make_class: citeproc
-    make_langs: en
-    make_alias: sh2
-    references_minimum: 5
-
-  - id: P25
-    slug: path-sensitive-transitions
-    title: "Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Action Costs in [T]-Theory"
-    discipline: "Dynamical systems; clinical modelling; philosophy of science"
-    level: "masters"
-    doi: null
-    status: pending-review
-    notes: "Draft created for ISS-035; specifies state space, admissible paths, action functional and discriminating observations before any formal or clinical claim."
-    file: papers/path-sensitive-transitions.pdf
-    zenodo_file: zenodo/P25-path-sensitive-transitions.pdf
-    make_class: citeproc
-    make_langs: en
-    make_alias: pathsens
     references_minimum: 5
 
 datasets:

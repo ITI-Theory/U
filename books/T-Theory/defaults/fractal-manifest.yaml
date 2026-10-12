@@ -78,6 +78,8 @@ fractal_manifest:
     - c:cosmological-constant-derivation
     - c:dark-matter-spatial-vacuum
     - c:g2-symmetry-breaking
+    - c:usf-euclidean-qft
+    - c:usf-interacting-qft
     source_book: physics/book-physics.md
     green_id: The Master Green’s Function — (∇²+k²)G=δ in relativistic field theory
   - id: neuroscience
@@ -90,6 +92,7 @@ fractal_manifest:
     - c:missing-limbic-layer
     - c:preverbal-manifold
     - c:soma-field-paper
+    - c:soma-temporal-dynamics
     source_book: neuroscience/book-neuroscience.md
     green_id: The Cortical EMF Propagator — macroscopic field from synchronised neural firing
   - id: clinical-psychology
@@ -105,6 +108,7 @@ fractal_manifest:
     - c:soma-field-synthesis
     - c:experimental-validation
     - c:soma-field-paper
+    - c:path-sensitive-transitions
     source_book: clinical-psychology/book-clinical-psychology.md
     green_id: Trauma-Well Resolution — escape probability from a somatic attractor basin
     recto_open: true
@@ -133,6 +137,8 @@ fractal_manifest:
     - c:universal-somatic-field
     - c:zoomable-somatic-field
     - c:lean-proofs-appendix
+    - c:usf-euclidean-qft
+    - c:usf-interacting-qft
     source_book: formal-mathematics/book-formal-mathematics.md
     green_id: Functorial Green’s Function — category-theoretic propagator between field spaces
   - id: consciousness
@@ -148,6 +154,7 @@ fractal_manifest:
     - c:soma-field-synthesis
     - c:soma-field-paper
     - c:missing-limbic-layer
+    - c:path-sensitive-transitions
     source_book: philosophy/book-philosophy.md
     booklet_id: philosophy
     green_id: Conscious Percept Propagator Pole — singularity at phase transition threshold Tᴄ
@@ -163,6 +170,7 @@ fractal_manifest:
     - c:gestalt-field-dynamics
     - c:soma-field-paper
     - c:soma-field-synthesis
+    - c:path-sensitive-transitions
     source_book: complex-systems/book-complex-systems.md
     green_id: Scale-Invariant Propagator — G invariant under renormalisation group flow
     recto_open: true

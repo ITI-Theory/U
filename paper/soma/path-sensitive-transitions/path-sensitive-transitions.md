@@ -4,18 +4,17 @@ subtitle: "From local barriers to distributed action costs in [T]-Theory"
 author: "Alistair Johnson"
 date: "2026"
 lang: en-GB
-status: draft
 bibliography: ../../bibliography.bib
 csl: ../../apa-7th.csl
 abstract: |
-  This draft specifies an open extension to the current [T]-Theory landscape
+  This paper specifies an open extension to the current [T]-Theory landscape
   account of transition. The existing account treats emotional, cognitive or
   conscious change as motion in an energy landscape with attractors, saddles,
   barriers and hysteresis `derived-under-assumptions`. The extension asks
   whether some trauma, overload or recovery transitions are better modelled as
   path-sensitive: limited by the cumulative action or coordination cost of an
   admissible route through state space, rather than by one local barrier
-  `open-hypothesis`. The draft distinguishes minimum-action, stochastic-path
+  `open-hypothesis`. The paper distinguishes minimum-action, stochastic-path
   and path-integral languages; defines a candidate state space, admissible
   paths, action functional and observables; and lists data that could
   discriminate a single-barrier explanation from a distributed path-cost
@@ -80,7 +79,7 @@ non-relativistic quantum path integral is a quantum-amplitude formalism
 [@feynman1948] `derived-under-assumptions`. It can be a useful metaphor for
 "many possible histories" `interpretive`, but a literal quantum path integral
 for trauma or overload would require its own state variables, amplitudes,
-measurement model and evidence `open-hypothesis`. This draft does not assume
+measurement model and evidence `open-hypothesis`. This paper does not assume
 that literal quantum claim `open-hypothesis`.
 
 # State space
@@ -188,7 +187,7 @@ model when only the maximum potential matters; inequivalence when two paths have
 the same maximum height but different cumulative costs; and hysteresis when
 forward and reverse admissible sets differ `derived-under-assumptions`.
 
-No Lean theorem is claimed in this draft `open-hypothesis`. A later kernel check
+No Lean theorem is claimed in this paper `open-hypothesis`. A later kernel check
 would establish only the stated toy theorem under its definitions
 `kernel-verified`; it would not establish a clinical or biological mechanism
 without empirical evidence `open-hypothesis`.
@@ -203,3 +202,7 @@ with their assumptions visible `derived-under-assumptions`, and states
 observations that could make the proposal stronger or weaker
 `open-hypothesis`. The extension should remain labelled as an open hypothesis
 until such observations exist `open-hypothesis`.
+
+---
+
+# References
