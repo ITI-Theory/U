@@ -246,6 +246,6 @@ All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
 - **G₂ holonomy** → `X7_is_7D_product`: USF's X₇ = ℝ³×ℝ×ℝ³ (flat product). G₂ holonomy is a string-theory constraint; the USF use case is proved.
 - **Zoom Operator covariance** → `scale_invariance_full` (`MTheoryIsomorphism.lean`)
 - **Retarded propagator causality** → `retardedDecayFactor_isCausal` (`TemporalDynamics.lean`) + OS3
-- **RG equations** → `GeometricRGFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)
+- **RG equations** → `geometricFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)
 
 ![T-Theory](../../lib/images/sticker/tt-qr-t-theory-org.png)

@@ -98,9 +98,10 @@ This identification — the SHO as the impulse response, not a postulate —
 is what resolves the ontological puzzle that string theory leaves open.
 
 The formal statement is the theorem `greens_fn_is_SHO` in the companion
-Lean 4 file `UniversalSomaticField.lean`.  The proof requires distribution
-theory (the Schwartz space characterisation of $\delta$) and is currently
-stated as an axiom pending Mathlib scaffolding; the path to closure is
+Lean 4 file `UniversalSomaticField.lean`.  Lean proves its classical form: $G(x)=\sin(k|x|)/(2k)$ solves
+$G''+k^2G=0$ on each side of the source and its slope jumps by exactly 1
+there. The distributional form needs distribution theory (the Schwartz space
+characterisation of $\delta$) and awaits Mathlib scaffolding; the path to closure is
 documented in the Open Research Problems section of the zUSF paper.
 
 ---

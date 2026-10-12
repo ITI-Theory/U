@@ -59,7 +59,7 @@ abstract: |
   Homotopy Type Theory (structural isomorphism), and Hoffman's Conscious
   Agents model (with the physical substrate anchor that model lacks). Core
   algebraic results are machine-checked in Lean~4 (current proof surface:
-  v4.33.0); axioms and remaining `sorry`s are distinguished in §10.
+  v4.33.0); axioms and the `sorry`s closed in October 2026 are distinguished in §10.
 keywords:
   - scale invariance
   - Green's function
@@ -160,9 +160,9 @@ point source at $x'$. Three properties are immediate:
 Property 3 is the central structural identification: **the Green's function is the SHO**.
 The SHO of string theory, required at every worldsheet point, is the substrate's
 impulse response. This observation, formalised in the companion file
-`UniversalSomaticField.lean` (theorem `greens_fn_is_SHO`, currently a
-placeholder theorem proving `True` while the distributional identity awaits
-Mathlib Schwartz-space infrastructure), is the structural core of the zUSF.
+`UniversalSomaticField.lean` (theorem `greens_fn_is_SHO`, which proves the
+classical form: two branches solving $G''+k^2G=0$ and a unit slope jump at the
+source; the distributional identity awaits Mathlib Schwartz-space infrastructure), is the structural core of the zUSF.
 
 ## 2.2  Scale Invariance
 
@@ -415,8 +415,8 @@ the SHO equation $\ddot{X}^n + n^2 X^n = 0$.
 **Key result.** In the structural model, the SHO of string theory is identified with $G$. A string vibrational mode
 at frequency $n$ is the $n$-th Fourier mode of the worldsheet's impulse
 response. The string is modelled as the substrate's propagation pattern. This
-is `UniversalSomaticField.greens_fn_is_SHO` (a placeholder theorem proving
-`True`; the distributional identity and physical interpretation remain proof
+is `UniversalSomaticField.greens_fn_is_SHO` (the classical identity is proved;
+the distributional identity and physical interpretation remain proof
 obligations).
 
 **Mind matrix:** The string landscape: $N \sim 10^{500}$ vacuum configurations.
@@ -1061,11 +1061,12 @@ The following table lists representative theorems, proof methods, and files.
 | `classical_trapped` | theorem (proved 13 Oct 2026) | gradient flow below the barrier stays in the trauma well (a Lyapunov argument) | none |
 | `quant_exp_1` | axiom | connecting WKB amplitude to QUANT-EXP-1 rates | Probabilistic model of annealing |
 
-`greens_fn_is_SHO` was an axiom; it is now `theorem greens_fn_is_SHO ... := trivial`.
+`greens_fn_is_SHO` was an axiom, then a theorem of `True`; since October 2026 it
+proves the classical SHO identity (two branches, continuity, unit slope jump).
 The OSforGFF files support the free Gaussian-field formal model; the
 distributional SHO identity and USF interpretation remain separate obligations.
 
-Cite each result by theorem/status; current proof surface contains five real sorries and several axioms/definitions/imported theorem applications/arithmetic facts.
+Cite each result by theorem/status; current proof surface contains no real sorry (five were closed in October 2026) but several axioms/definitions/imported theorem applications/arithmetic facts.
 
 ---
 

@@ -75,7 +75,7 @@ One of the programme's synthesis papers says that "the current repository still 
 
 **Strategy.** The kernel checks proofs, not sentences about proofs, so the sentence needs its own check. Count the keyword `sorry` in the Lean source, leaving out comments (a comment that mentions `sorry` is not a gap).
 
-**Solution.** Removing block comments (`/- … -/`) and line comments (`-- …`) from the programme's Lean files and counting what remains gives $2 + 2 + 1 = 5$: two in `BRECVEMAVariational.lean`, two in `DyadicField.lean`, one in `SomaNetwork.lean`. The sentence's seven is wrong; counting comments as well gives a larger number still, which is probably how such slips arise.
+**Solution.** Removing block comments (`/- … -/`) and line comments (`-- …`) from the programme's Lean files and counting what remains gives $2 + 2 + 1 = 5$: two in `BRECVEMAVariational.lean`, two in `DyadicField.lean`, one in `SomaNetwork.lean`. That was the count in early October 2026; all five have since been closed, so the count today is 0. Either way the sentence's seven was wrong; counting comments as well gives a larger number still, which is probably how such slips arise.
 
 **Significance.** Prose about proofs drifts from the proofs as both change. The programme's checker, Sherlock, does this check for every paper: it extracts each Lean name a paper cites and what the paper says about it ("axiom", "kernel-checked", "sorry"), asks Lean, and lists every disagreement (@sec:ev-review).
 :::

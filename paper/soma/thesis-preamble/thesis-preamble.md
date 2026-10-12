@@ -70,7 +70,7 @@ emotion algebra (simultaneously valid in five semantic domains); the FM-HN
 Correspondence Principle (unifying 1982 and 2020 Hopfield networks); the
 O(N²) swarm coordination complexity theorem; the M-theory type/product isomorphism; and
 scale-invariance inhabitance. The proof sources are included in the Appendix,
-alongside explicit axioms and remaining `sorry`s.
+alongside explicit axioms; no real `sorry` remains (October 2026).
 
 **Clinical and experimental grounding** is provided by: QUANT-EXP-1, an exact
 8-qubit statevector simulation that reaches the Awe attractor basin in 3/3
@@ -100,7 +100,7 @@ formalisations, the quantum experiment design and results, and the writing are
 all my own work, except where explicit citation is given.
 
 The Lean 4 proof sources in the Appendix distinguish kernel-checked theorems
-from axioms and remaining `sorry`s (current proof surface: v4.33.0). They are
+from axioms (current proof surface: v4.33.0; no real `sorry` remains). They are
 available in the repository
 `ITI-Theory/U` on GitHub and can be independently verified by any party
 with access to Lean 4 and Mathlib.

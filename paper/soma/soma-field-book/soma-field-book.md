@@ -2639,7 +2639,7 @@ where $\eta(t)$ is white noise with $\langle\eta_i(t)\eta_j(s)\rangle = \delta_{
 
 $$W_{\text{C-PTSD}} = W_0 + \Delta W, \qquad \Delta W_{ij} \neq \Delta W_{ji}$$
 
-{{Visualize | appendix-a-the-mathematics-in-full | matrix-heatmap:soma | matrix="[[0,0.3,-0.4],[0.3,0,0.2],[-0.4,0.2,0]]"; matrix2="[[0,0.5,-0.4],[0.1,0,0.2],[-0.4,0.2,0]]"; rows="Fear,Shame,Calm"; cols="Fear,Shame,Calm"; titles="$W_0$ (illustrative), $W_\text{C-PTSD}$ (illustrative)"; diff=true; diff_title="$\Delta W$ asymmetry (illustrative)" }} The C-PTSD modification as an illustrative asymmetric update to one fear--shame pair; the difference panel makes $\Delta W_{ij}\neq\Delta W_{ji}$ visible.
+{{Visualize | appendix-a-the-mathematics-in-full | matrix-heatmap:soma | matrix="[[0,0.3,-0.4],[0.3,0,-0.3],[-0.4,-0.3,0]]"; matrix2="[[0,0.5,-0.4],[0.1,0,-0.3],[-0.4,-0.3,0]]"; rows="Fear,Shame,Calm"; cols="Fear,Shame,Calm"; titles="$W_0$ (illustrative), $W_\text{C-PTSD}$ (illustrative)"; diff=true; diff_title="$\Delta W$ asymmetry (illustrative)" }} The C-PTSD modification as an illustrative asymmetric update to one fear--shame pair; the difference panel makes $\Delta W_{ij}\neq\Delta W_{ji}$ visible.
 
 
 The asymmetry of $\Delta W$ breaks the gradient flow property and introduces directional
@@ -2660,7 +2660,7 @@ $$K(\tau) = \sum_k A_k\, e^{-\tau/\tau_k}$$
 
 $$W(\tau_d) = f(\tau_d)\cdot W_0 + \bigl(1 - f(\tau_d)\bigr)\cdot W_{\text{trauma}}$$
 
-{{Visualize | a.5-developmental-time-parameterisation | matrix-heatmap:soma | matrix="[[0,0.3,-0.4],[0.3,0,0.2],[-0.4,0.2,0]]"; matrix2="[[0,0.3477,-0.4],[0.2523,0,0.2],[-0.4,0.2,0]]"; rows="Fear,Shame,Calm"; cols="Fear,Shame,Calm"; titles="$W_0$ (illustrative), $W(\tau_c)$ at $f=\tanh(1)$"; diff=true; diff_title="blend minus baseline (illustrative)" }} The developmental interpolation at $\tau_d=\tau_c$: the matrix is mostly baseline but still carries an illustrative asymmetric trauma component.
+{{Visualize | a.5-developmental-time-parameterisation | matrix-heatmap:soma | matrix="[[0,0.3,-0.4],[0.3,0,-0.3],[-0.4,-0.3,0]]"; matrix2="[[0,0.3477,-0.4],[0.2523,0,-0.3],[-0.4,-0.3,0]]"; rows="Fear,Shame,Calm"; cols="Fear,Shame,Calm"; titles="$W_0$ (illustrative), $W(\tau_c)$ at $f=\tanh(1)$"; diff=true; diff_title="blend minus baseline (illustrative)" }} The developmental interpolation at $\tau_d=\tau_c$: the matrix is mostly baseline but still carries an illustrative asymmetric trauma component.
 
 
 $$f(\tau_d) = \tanh\!\left(\frac{\tau_d}{\tau_c}\right), \qquad \tau_c \approx 36 \text{ months}$$

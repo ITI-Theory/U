@@ -65,8 +65,8 @@ barrier top never reaches it), kernel-checked on Lean's standard axioms. New: `p
 **Stopped for a BIOS update (13 Oct, 05:10), both safe to rerun:** `make uat-build`
 had built all papers, the domain books and the omnibus (no errors) and was on vol1;
 the Lean refresh (`make -C sherlock towers`, then `make -C sherlock ledger`) was part-way
-through the towers export. On restart: rerun both (towers, then ledger, one Lean process at
-a time; the build alongside), then a full `lake build`, `make -C sherlock check`, `make
+through the towers export. On restart: rerun both (towers, then ledger, at most two Lean
+processes at a time), then a full `lake build`, `make -C sherlock check`, `make
 uat-check`. The ledger's last 7 lines are names written tonight awaiting Lean's judge.
 The Body and Session lines are in The Tensor's Part II (author, 13 Oct: "go with yours").
 
@@ -84,5 +84,6 @@ about important things, otherwise work through the issue list.
 2. Release path (ISS-001): review P21, the UAT build, NotebookLM UAT, Lulu,
    Zenodo.
 3. The NotebookLM runs left (exp0 Q3-5, exp1 Q4, exp2 Q5), then SH2 (ISS-067).
-4. Proof debts (ISS-036): the other placeholders proving `True`, the five sorries.
+4. Proof debts: closed (ISS-036, 13 Oct). No sorry and no theorem of `True` is
+   left in the programme's own Lean; the Lean v4.34 move is ISS-085 (parked).
 5. The final project: Sergeant Major (ISS-065).

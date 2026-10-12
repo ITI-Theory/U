@@ -10,7 +10,7 @@ abstract: |
   (USF) inherits all five Osterwalder–Schrader (OS) axioms for a Euclidean
   quantum field theory. Named free-GFF theorem applications are Lean-checked;
   USF=GFF is a model assumption / co-identification, and the wider proof
-  surface has five real sorries. The key identification is that the USF
+  surface has no real sorry left (five were closed in October 2026). The key identification is that the USF
   Green's function in momentum space, $G(p) = 1/(p^2 + k^2)$, is
   identical to the massive Gaussian Free Field (GFF) propagator with mass
   parameter $m = k$. Douglas, Hoback, Mei and Nissim (2026) established,
@@ -213,8 +213,8 @@ theorem USF_OS4_Clustering (k : ℝ) [Fact (0 < k)] :
   (gaussianFreeField_satisfies_all_OS_axioms k).os4_clustering
 ```
 
-`USF_OSAxioms.lean` contains no `sorry`; the current repository-wide proof
-surface still contains five real `sorry`s in other files.
+`USF_OSAxioms.lean` contains no `sorry`; the five real `sorry`s that
+other files of the repository contained were closed in October 2026.
 
 ### 4.3 Axiom inventory
 
@@ -330,7 +330,7 @@ Under the free-Gaussian identification, the formal model inherits OS0–OS4 from
 the imported GFF theorem; physical identification remains an assumption. The proof
 surface is:
 
-- **Lean-checked for named free-Gaussian theorem applications**; repository-wide surface has five real sorries and USF=GFF is derived under assumptions;
+- **Lean-checked for named free-Gaussian theorem applications**; the repository-wide surface has no real sorry left and USF=GFF is derived under assumptions;
 - **Tight**: a single application of the Douglas et al. master theorem under
   the identification $m \leftrightarrow k$;
 - **Coherent** with the temporal dynamics proof, with OS3 explaining why the

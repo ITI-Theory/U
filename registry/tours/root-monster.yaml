@@ -2,8 +2,8 @@ id: root-monster
 title: "The Root Monster's tour: the towers of code"
 summary: 'About four minutes in the city of code (ISS-071), for the reader who reads the Lean before
   the prose: a tower per module of the programme''s Lean, a ring per declaration; into
-  UniversalSomaticField, a theorem that proves only True, down the amber beams of LocalGR to the axioms
-  it rests on, past the red floors that rest on sorry, and out to OpenCyc on the horizon. Every fact on
+  UniversalSomaticField, a placeholder that became a theorem, down the amber beams of LocalGR to the
+  axioms it rests on, past the floors that were red until October, and out to OpenCyc on the horizon. Every fact on
   screen is from the Lean export, kernel-checked at the stated commit.'
 steps:
 - view: voyage=landscape&dim=11&phi=0.5
@@ -24,8 +24,10 @@ steps:
   label: kernel-verified
   pause: 4
 - view: voyage=landscape&dim=11&phi=0.5&tower=UniversalSomaticField&floor=greens_fn_is_SHO
-  say: Not every green ring is what its name says. Greens function is SHO proves only True. It is a
-    placeholder. Sherlock's ledger flags any paper that calls it proved.
+  say: Greens function is SHO. Until the thirteenth of October this ring proved only True, a
+    placeholder. Now it says what its name says, in classical form. On each side of the source the
+    Green's function solves the oscillator equation, and its slope jumps by exactly one, the unit
+    impulse. The distributional form is still to come.
   label: kernel-verified
   pause: 4
 - view: voyage=landscape&dim=11&phi=0.5&tower=LocalGR&floor=g2_implies_omega_lambda_static
@@ -39,14 +41,15 @@ steps:
   label: open-hypothesis
   pause: 4
 - view: voyage=landscape&dim=11&phi=0.5&tower=DyadicField&floor=dyadic_energy_coupling_lowers
-  say: Past the red floors. In DyadicField, the claim that coupling two people lowers the energy
-    still rests on sorry. Five real sorries remain in the programme, and this is two of them.
-  label: open-hypothesis
+  say: These floors were red until the thirteenth of October. In DyadicField, the claim that
+    coupling two people lowers the energy is proved now, and no real sorry is left in the
+    programme's own Lean. The model is proved; that people work like it is still a hypothesis.
+  label: kernel-verified
   pause: 4
 - view: voyage=landscape&dim=11&phi=0.5&tower=LimbicTunnel&floor=classical_trapped
   say: And one for the stone in the ureter. Classically trapped, a state behind a barrier stays
-    behind it, so far proves only True. The tunnelling it sets up is the next thing to prove
-    properly.
+    behind it, for all time, under the gradient flow; proved, with Lean's standard axioms only. The
+    tunnelling that gets past it is the next part of the story.
   label: kernel-verified
   pause: 4
 - view: voyage=landscape&dim=11&phi=0.5

@@ -15,10 +15,10 @@ machinery not yet in Mathlib. We do NOT claim to have proved it.
 
 What we DO prove:
 
-1. `RGCouplings` and `GeometricRGFlow` — the simplest consistent RG trajectory:
+1. `RGCouplings` and `geometricFlow` — the simplest consistent RG trajectory:
    coupling constants $k(\sigma) = k_0 / \lambda^\sigma$ for scale factor $\lambda > 1$.
 
-2. `GeometricRGFlow_waveEquation` — the geometric flow is **consistent**: the wave
+2. `geometricFlow_waveEquation` — the geometric flow is **consistent**: the wave
    equation is satisfied at every scale level. Proved from `planeWave_waveEquation`.
 
 3. `rg_flow_existence` — **at least one** consistent RG flow exists for any initial

@@ -15,7 +15,7 @@ books:
       observable: "Cross-scale response and correlation structure"
       historical_observation: "They saw a guitar string. I heard the music."
     sherlock_audit:
-      status: "Lean files across the programme check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
+      status: "Lean files across the programme check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
         [
           "SHO as Green-function impulse response: derived under assumptions",
@@ -45,7 +45,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "11D product decomposition as a typed model: kernel-verified (MTheoryIsomorphism.lean, somaField_iso_mtheory)",
@@ -78,7 +78,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (LimbicHopfield.lean, LimbicTunnel.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (LimbicHopfield.lean, LimbicTunnel.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "CEMI field as a local view of the universal propagator: open hypothesis",
@@ -141,10 +141,10 @@ books:
       invariant: "Typed proofs preserve declared field constraints"
       observable: "Kernel-checked theorems, coordination accuracy, and collective criticality"
     sherlock_audit:
-      status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
+      status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
         - "Propagator coordination beats K-round classical coordination when K exceeds N: kernel-verified (SwarmPropagator.lean, propagator_beats_classical)"
-        - "ScaleUniverse preserves structure across a scale shift: a placeholder: the Lean statement proves only True (ScaleUniverse.lean, scale_shift_preserves_structure)"
+        - "ScaleUniverse preserves structure across a scale shift: kernel-checked at the type level: equal coupling and rank give the same skeleton, only the contents differ (ScaleUniverse.lean, scale_shift_preserves_structure)"
         - "Renormalisation flow exists for positive initial coupling: kernel-verified (RenormalisationGroup.lean, rg_flow_existence)"
       moriarty_check:
         attack: "Does a verified scale map prove that all complex systems obey one physical law?"
@@ -170,7 +170,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (SomaNetwork.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (SomaNetwork.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Propagator cost is an N by N matrix-vector step: derived under assumptions",
@@ -203,10 +203,10 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (ScaleUniverse.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (ScaleUniverse.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
-            "Scale-shift structure preservation: a placeholder: the Lean statement proves only True (ScaleUniverse.lean, scale_shift_preserves_structure)",
+            "Scale-shift structure preservation: kernel-checked at the type level, not a law of physics (ScaleUniverse.lean, scale_shift_preserves_structure)",
             "Nineteen field layers upgraded from placeholders to real types: kernel-verified (ScaleUniverse.lean, nineteen_scales_have_real_types)",
             "Univalence-style reading of equivalent somatic structures: interpretive",
           ],
@@ -236,7 +236,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (SomaField.lean, EmotionOntology.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (SomaField.lean, EmotionOntology.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Rhythmic entrainment as Arnold tongue frequency locking: interpretive",
@@ -302,7 +302,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (ScaleUniverse.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (ScaleUniverse.lean, SwarmPropagator.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Geological memory as a high-scale analogy to associative memory: interpretive",
@@ -336,7 +336,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Rapport as Huygens-style frequency locking: interpretive",
@@ -369,7 +369,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (SomaNetwork.lean, RenormalisationGroup.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (SomaNetwork.lean, RenormalisationGroup.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Nash equilibrium as Hopfield energy minimum for potential games: derived under assumptions",
@@ -402,7 +402,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (MTheoryIsomorphism.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (MTheoryIsomorphism.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Rule of law as field ergodicity: interpretive",
@@ -435,7 +435,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (UniversalSomaticField.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (UniversalSomaticField.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Cross-scale alignment as geometric matching of attractor landscapes: open hypothesis",
@@ -468,7 +468,7 @@ books:
       }
     sherlock_audit:
       {
-        status: "Lean files cited (LimbicHopfield.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (seven sorries remain project-wide). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
+        status: "Lean files cited (LimbicHopfield.lean, MTheoryIsomorphism.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named.",
         primary_inductions:
           [
             "Trauma as topology with non-contractible-loop obstructions: open hypothesis",

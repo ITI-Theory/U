@@ -6,7 +6,8 @@
     python sherlock/ledger.py report                                   # -> bld/sherlock/ledger.md
 
 The extractor finds every backticked Lean-looking name in a document and what
-the document says about it on that line ("axiom", "kernel-checked",
+the document says about it on that line (in the data files, DATA_FILES, also the
+programme's declaration names written without backticks) ("axiom", "kernel-checked",
 "theorem", "def", "sorry"). The judge (Lean, root package, one process per
 programme module that may declare a cited name) resolves each name, gives its kind and the axioms it rests on (sorryAx shows a sorry). The
 report lists, per document, the names whose claimed status disagrees with
@@ -96,12 +97,44 @@ def registry_documents() -> list[str]:
     return files
 
 
+# Data the books and the app are built from also make claims about the Lean ("kernel-verified
+# (ScaleUniverse.lean, scale_shift_preserves_structure)"), often without backticks.
+DATA_FILES = ["books/T-Theory/books.yaml", "books/T-Theory/defaults/fractal-manifest.yaml",
+              "registry/concepts/*.yaml", "registry/tours/*.yaml", "registry/levels/*.yaml",
+              "apps/instrument/visuals/soma-field-operator/cheat-sheet-registry.js"]
+
+
+def data_documents() -> list[str]:
+    files = []
+    for pattern in DATA_FILES:
+        files += sorted(p.relative_to(U).as_posix() for p in U.glob(pattern))
+    return files
+
+
+def known_names() -> set[str]:
+    """The programme's declarations (short and full names) from the towers export; plain
+    words in data files count only if they are one of these and look like Lean names."""
+    path = OUT / "towers.json"
+    if not path.exists():
+        return set()
+    names = set()
+    for t in json.loads(path.read_text(encoding="utf-8")).get("towers", []):
+        for d in t["declarations"]:
+            for n in (d["name"], d["name"].split(".")[-1]):
+                if looks_lean(n) and "_" in n:
+                    names.add(n)
+    return names
+
+
 def extract(files: list[str]) -> int:
-    files = files or registry_documents()
+    files = files or (registry_documents() + data_documents())
+    data = set(data_documents())
+    plain = known_names()
+    PLAIN = re.compile(r"(?<![`\w.])(" + "|".join(sorted(map(re.escape, plain), key=len, reverse=True)) + r")(?![\w`])") if plain else None
     items = []
     for f in files:
         path = U / f
-        doc = path.stem
+        doc = path.stem if f not in data else f.replace("/", ":")
         lines = path.read_text(encoding="utf-8").splitlines()
         header: list[str] | None = None
         for i, line in enumerate(lines, 1):
@@ -113,7 +146,10 @@ def extract(files: list[str]) -> int:
                 header = None
             if NOT_LEAN_LINE in line:
                 continue
-            for m in NAME.finditer(line):
+            found = list(NAME.finditer(line))
+            if f in data and PLAIN:  # plain declaration names in data files
+                found += [m for m in PLAIN.finditer(line)]
+            for m in found:
                 n = m.group(1)
                 if not looks_lean(n):
                     continue
@@ -121,14 +157,19 @@ def extract(files: list[str]) -> int:
                 if is_row and header:
                     row = cells(line)
                     col = next((k for k, c in enumerate(row) if m.group(0) in c), None)
-                    if col is not None and col < len(header):
-                        said = said_in(header[col])  # a column headed "Axiom"
+                    if col is not None and col < len(header) and "/" not in header[col]:
+                        said = said_in(header[col])  # a column headed "Axiom"; "paper/file/theorem" lists kinds, claims none
                     if said is None and col is not None:
                         said = said_in(clause(row[col], m.group(0)))  # the name's own clause in its cell
-                    if said is None:  # a status column ("Status", "Proof", "Lean", "Result")
+                    if said is None:  # a status column ("Status", "Proof", "Lean", "Result", "Label")
                         status = [c for k, c in enumerate(row) if k != col and k < len(header)
-                                  and re.search(r"status|proof|lean|result", header[k], re.I)]
+                                  and re.search(r"status|proof|lean|result|label", header[k], re.I)]
                         said = said_in(" ".join(status)) if status else None
+                if said is None and f in data:
+                    # data: "<claim>: <status> (<File>.lean, <name>)": the status is what precedes the name
+                    st_m = re.search(rf":\s*([^:()]*?)\s*\([^()]*\b{re.escape(n)}\b", line)
+                    if st_m:
+                        said = said_in(st_m.group(1)) or "cited"
                 if said is None:
                     now = re.search(r"\bnow\b(.*)", line, re.I) if re.search(r"\bwas\b", line, re.I) else None
                     said = said_in(now.group(1)) if now else said_in(clause(line, m.group(0)))
@@ -136,7 +177,7 @@ def extract(files: list[str]) -> int:
                 if said in ("theorem", "kernel-checked") and is_row and re.search(r"placeholder|proves only `?True", line, re.I):
                     said = "placeholder"
                 # a sentence that continues: "theorem `x`, currently a / placeholder proving True"
-                if said in ("theorem", "kernel-checked") and i < len(lines) and re.search(r"placeholder|proving `?True`?", lines[i], re.I) \
+                if said in ("theorem", "kernel-checked") and f not in data and i < len(lines) and re.search(r"placeholder|proving `?True`?", lines[i], re.I) \
                         and not lines[i].lstrip().startswith(("|", "#")):
                     said = "placeholder"
                 if re.search(rf"\b(theorem|lemma|def|axiom)\s+{re.escape(n.split('.')[-1])}\b", SHERLOCK_SRC):

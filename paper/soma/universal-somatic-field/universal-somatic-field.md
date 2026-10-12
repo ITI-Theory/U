@@ -105,10 +105,11 @@ $$\frac{\partial^2 G}{\partial {x'}^2} + k^2 G = \delta(x' - x)$$
 away from the singularity. The impulse response is therefore modelled as the
 harmonic oscillator.
 
-**Lean status** (`UniversalSomaticField.greens_fn_is_SHO`): the current Lean
-declaration is a placeholder theorem proving `True`, not a distributional
-proof of the SHO identity. The distributional Green's-function statement
-awaits Schwartz-space/PDE scaffolding.
+**Lean status** (`UniversalSomaticField.greens_fn_is_SHO`): Lean proves the
+classical form of the SHO identity: $G(x)=\sin(k|x|)/(2k)$ solves
+$G''+k^2G=0$ on each side of the source, is continuous there, and its slope
+jumps by exactly 1, the unit impulse. The distributional statement
+$G''+k^2G=\delta$ awaits Schwartz-space/PDE scaffolding.
 
 The "vibrating string" is therefore the substrate's answer function. There is
 no material loop. There is the system's response to being perturbed, encoded
@@ -421,15 +422,15 @@ five companion files:
 | `UniversalSomaticField.lean` | `scale_invariance_inhabited`, `consciousness_dichotomy`, `consciousness_monotone`, `universal_field_theory` |
 
 Open or assumption-bound items include:
-- `greens_fn_is_SHO` — currently a placeholder theorem proving `True`; the
-  distributional identity requires Schwartz/PDE infrastructure.
+- `greens_fn_is_SHO` — proves the classical (two-sided, unit slope jump) SHO
+  identity; the distributional identity requires Schwartz/PDE infrastructure.
 - `universe_is_11D_organism` — a definition/witness of the model predicate,
   not cosmological evidence.
 - `cosmological_correspondence` — shows inhabited field-equation structure at
   scale 19, not a proof of linearised general relativity.
 - `sft_iso_modal_hott` and `sft_grounds_hoffman` — axioms/interpretive bridges.
 
-Every result must be cited by theorem/status; the current proof surface contains five real sorries plus axioms, definitions, imported theorem applications, and arithmetic.
+Every result must be cited by theorem/status; the current proof surface contains no real sorry (five were closed in October 2026) but does contain axioms, definitions, imported theorem applications, and arithmetic.
 
 ---
 
@@ -588,8 +589,8 @@ read as scale-restricted projections of a single structural description.
 The use of Lean 4 as the verification environment is not decorative. It
 enforces a discipline that prose mathematics cannot: every claim must be
 given a type, every proof must be kernel-checked, every axiom must be named
-and isolated. The current proof surface still contains five real `sorry`s,
-axioms, placeholder/definition-level results, imported theorem applications,
+and isolated. The current proof surface no longer contains a real `sorry`
+(five were closed in October 2026); it contains axioms, placeholder/definition-level results, imported theorem applications,
 and arithmetic proofs; these categories must not be conflated.
 
 This is the field's contribution to epistemology: a formal boundary between

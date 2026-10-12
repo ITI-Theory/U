@@ -44,9 +44,11 @@ operational measure and empirical calibration of the threshold.
   percept-as-propagator-pole and attractor-as-Hopfield-minimum. Results that
   depend on it are `derived-under-assumptions`, not `kernel-verified` facts
   about the world.
-- Five real `sorry`s in three files: `BRECVEMAVariational.lean` (2),
-  `DyadicField.lean` (2), `SomaNetwork.lean` (1). Prose
-  that says "no sorries" across the whole surface is wrong until these close.
+- No real `sorry` in the programme's own Lean (the five in
+  `BRECVEMAVariational.lean`, `DyadicField.lean` and `SomaNetwork.lean` were
+  closed in October 2026), no theorem of `True`, and nothing resting on
+  `sorryAx`: ScaleUniverse used physlib's `Cosmology.FLRW`, still a `sorry`
+  placeholder, and now uses its own `FLRWData` instead. Axioms remain: "everything is proved" is still wrong.
 - Many theorems are true by definition, `rfl`, `decide`, or arithmetic. Label
   them as such when they are cited in prose.
 - `MTheoryIsomorphism.somaField_iso_mtheory` is a type/product isomorphism,

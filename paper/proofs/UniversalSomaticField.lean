@@ -8,9 +8,10 @@ import MTheoryIsomorphism
 /-!
 # UniversalSomaticField.lean — The Capstone
 
-**Status**: Scale-invariance theorem and organism hierarchy kernel-verified.
-Consciousness threshold, cosmological limit, and full SHO identity stated
-as axioms pending PDE / cosmology scaffolding in Mathlib.
+**Status**: Scale-invariance theorem, organism hierarchy and the classical
+(two-sided) SHO Green's-function identity kernel-verified. Consciousness
+threshold and cosmological limit stated pending PDE / cosmology scaffolding in
+Mathlib; the distributional form of the SHO identity is not formalised.
 
 ## What This File Proves
 
@@ -85,20 +86,48 @@ theorem scale_invariance_inhabited (n : ScaleLevel) :
     Nonempty (FieldEquation n) :=
   ⟨⟨1, one_pos, fun _ _ => 0⟩⟩
 
-/-- The SHO identity: the Green's function of a harmonic system is itself
-    the oscillator that string theory requires.
-    G(x, x') satisfies ∂²G/∂x² + k²G = δ(x-x'),
-    i.e., G is the fundamental solution of the SHO equation.
+/-- One branch of the 1-D SHO Green's function: `sin (k x) / (2 k)`. -/
+noncomputable def shoBranch (k x : ℝ) : ℝ := Real.sin (k * x) / (2 * k)
 
-    Physical content established by USF_OSAxioms.lean via OSforGFF:
-    the free-field USF = GFF(m=k), whose covariance kernel is the
-    fundamental solution of (-Δ + k²). The distributional identity
-    itself awaits Mathlib Schwartz-space infrastructure for a
-    fully symbolic proof; OSforGFF supports the free Gaussian-field formal
-    model, while the distributional SHO identity and the USF interpretation
-    remain separate. This declaration is a placeholder proving `True`. -/
-theorem greens_fn_is_SHO (n : ScaleLevel) (_eq : FieldEquation n) (_x : ℝ) :
-    True := trivial
+/-- Its slope: `cos (k x) / 2`. -/
+noncomputable def shoSlope (k x : ℝ) : ℝ := Real.cos (k * x) / 2
+
+/-- The 1-D SHO Green's function with the source at the origin:
+    `G(x) = sin (k |x|) / (2 k)`. -/
+noncomputable def shoGreen (k x : ℝ) : ℝ := Real.sin (k * |x|) / (2 * k)
+
+/-- The SHO identity: the Green's function of a harmonic system is itself
+    the oscillator that string theory requires,
+    G''(x) + k² G(x) = δ(x), with the wavenumber `k` of scale level `n`.
+
+    Proved here in its classical form: on each side of the source `G` is a
+    branch `±shoBranch k` that solves `G'' + k² G = 0` (slope `shoSlope k`,
+    curvature `-k² G`); `G` is continuous at the source; and its slope jumps
+    by exactly 1 there, the unit impulse. The distributional identity follows
+    from these by integration by parts but is not itself formalised (that
+    needs Schwartz-space distributions); the free-field USF = GFF(m=k)
+    covariance is in USF_OSAxioms.lean. That the USF *is* this field at every
+    scale is the programme's interpretation, not part of the theorem. -/
+theorem greens_fn_is_SHO (n : ScaleLevel) (eq : FieldEquation n) :
+    (∀ x, HasDerivAt (shoBranch eq.k) (shoSlope eq.k x) x) ∧
+    (∀ x, HasDerivAt (shoSlope eq.k) (-(eq.k ^ 2) * shoBranch eq.k x) x) ∧
+    (∀ x, 0 ≤ x → shoGreen eq.k x = shoBranch eq.k x) ∧
+    (∀ x, x ≤ 0 → shoGreen eq.k x = -shoBranch eq.k x) ∧
+    shoSlope eq.k 0 - (-shoSlope eq.k 0) = 1 := by
+  have hk : eq.k ≠ 0 := eq.hk.ne'
+  refine ⟨fun x => ?_, fun x => ?_, fun x hx => ?_, fun x hx => ?_, ?_⟩
+  · have h := (((hasDerivAt_id' x).const_mul eq.k).sin).div_const (2 * eq.k)
+    refine h.congr_deriv ?_
+    simp only [shoSlope]
+    field_simp
+  · have h := (((hasDerivAt_id' x).const_mul eq.k).cos).div_const 2
+    refine h.congr_deriv ?_
+    simp only [shoBranch]
+    field_simp
+  · simp [shoGreen, shoBranch, abs_of_nonneg hx]
+  · simp [shoGreen, shoBranch, abs_of_nonpos hx, Real.sin_neg, neg_div]
+  · simp [shoSlope]
+    norm_num
 
 /-! ## 2. The 20-Scale Zoom Dial -/
 

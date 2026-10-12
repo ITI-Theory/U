@@ -106,9 +106,11 @@ inductive ScaleStep : Type
       Scale 15 (galactic):    ClassicalMechanics.WaveVector 3  ← density wave
       Scale 16 (halo):        FluidDynamics.MassDensity 3  ← dark matter density
       Scale 17 (cluster):     FluidDynamics.FluidFlow 3  ← intracluster medium
-      Scale 18 (large-scale): Cosmology.FLRW  ← Friedmann metric
-      Scale 19 (universe):    Cosmology.FLRW
-      Scale 20 (cosmic web):  Cosmology.FLRW
+      Scale 18 (large-scale): FLRWData  ← Friedmann metric
+      Scale 19 (universe):    FLRWData
+      Scale 20 (cosmic web):  FLRWData
+      (physlib's own `Cosmology.FLRW` is still `def FLRW : Type := sorry`; `FLRWData`
+      is the structure its TODO asks for, built from its sorry-free parts)
       Remaining:  PlanckFoam, StringScale ← String (no Physlib type yet)
 -/
 
@@ -122,6 +124,19 @@ structure CemiField where
   phase : ℝ
   /-- Frequency band (Hz): δ=1-4, θ=4-8, α=8-12, β=12-30, γ>30. -/
   freq_hz : ℝ
+
+/-- The data of a Friedmann–Lemaître–Robertson–Walker cosmology, as physlib's TODO for
+    its placeholder `Cosmology.FLRW` describes it: a positive scale factor `a(t)`, twice
+    differentiable, and a spatial geometry (spherical, flat or saddle). Built from
+    physlib's `Time` and `Cosmology.SpatialGeometry`, which carry no `sorry`; the
+    Friedmann equations (`Cosmology.FLRW.FriedmannEquation`) apply to its `a`. -/
+structure FLRWData where
+  /-- The scale factor `a(t)`. -/
+  a : Time → ℝ
+  a_pos : ∀ t, 0 < a t
+  a_smooth : ContDiff ℝ 2 a
+  /-- The spatial geometry: spherical, flat or saddle. -/
+  geometry : Cosmology.SpatialGeometry
 
 def FieldLayerType : ScaleStep → Type
   -- Biological scales (Field8 / CemiField / SwarmState — SFT home domain):
@@ -142,9 +157,9 @@ def FieldLayerType : ScaleStep → Type
   | .GalacticDisc       => ClassicalMechanics.WaveVector 3     -- spiral arm density wave
   | .GalacticHalo       => FluidDynamics.MassDensity 3         -- dark matter density profile
   | .GalaxyCluster      => FluidDynamics.FluidFlow 3          -- intracluster hot gas
-  | .LargeScaleStruct   => Cosmology.FLRW                     -- baryon acoustic oscillation
-  | .ObservableUniverse => Cosmology.FLRW                     -- Friedmann metric
-  | .CosmicWeb          => Cosmology.FLRW                     -- cosmic web (FLRW regime)
+  | .LargeScaleStruct   => FLRWData                           -- baryon acoustic oscillation
+  | .ObservableUniverse => FLRWData                           -- Friedmann metric
+  | .CosmicWeb          => FLRWData                           -- cosmic web (FLRW regime)
   -- String: no Physlib type available yet:
   | .PlanckFoam         => String          -- needs QuantumMechanics module
   | .StringScale        => String          -- StringTheory/Basic is a stub
@@ -212,17 +227,36 @@ noncomputable def swarmLevel : T_TheoryUniverse ScaleStep.SwarmCrowd := {
 
 /-! ## 5. The Scale Shift Theorem -/
 
+/-- The structural parameters of a universe at any scale: the limbic coupling
+    (D8) and the tensor rank (D9–D11). Substrate and field layer are its contents. -/
+def skeleton {σ : ScaleStep} (u : T_TheoryUniverse σ) : ℝ × ℕ :=
+  (u.limbic_coupling, u.tensor_rank)
+
 /-- Changing the scale parameter does NOT change the structural type of
     T_TheoryUniverse — it changes only the type of `field_layer`.
     This is the formal statement of scale invariance at the type level:
-    the architecture is the same; only the field contents change. -/
+    if two universes, at any two scales, agree on the structural parameters,
+    they have the same skeleton, and the second is exactly the first's
+    structure filled with its own substrate and field contents. -/
 theorem scale_shift_preserves_structure
     (σ₁ σ₂ : ScaleStep)
     (u₁ : T_TheoryUniverse σ₁) (u₂ : T_TheoryUniverse σ₂) :
     u₁.tensor_rank = u₂.tensor_rank →
     u₁.limbic_coupling = u₂.limbic_coupling →
-    -- The structural parameters are equal; only field_layer types differ
-    True := fun _ _ => trivial
+    skeleton u₁ = skeleton u₂ ∧
+    u₂ = { substrate := u₂.substrate, field_layer := u₂.field_layer,
+           limbic_coupling := u₁.limbic_coupling, tensor_rank := u₁.tensor_rank } := by
+  intro hr hc
+  refine ⟨by simp [skeleton, hr, hc], ?_⟩
+  rw [hr, hc]
+
+/-- The scale shift itself: any universe's structure can be carried to any
+    other scale, with any substrate and field contents there. -/
+theorem scale_shift_exists {σ₁ : ScaleStep} (σ₂ : ScaleStep)
+    (u₁ : T_TheoryUniverse σ₁) (substrate : String) (field : FieldLayerType σ₂) :
+    ∃ u₂ : T_TheoryUniverse σ₂, skeleton u₂ = skeleton u₁ ∧
+      u₂.substrate = substrate ∧ u₂.field_layer = field :=
+  ⟨⟨substrate, field, u₁.limbic_coupling, u₁.tensor_rank⟩, rfl, rfl, rfl⟩
 
 /-- The human level is at scale 8 (OrganismBody).
     The swarm level is at scale 9 (SwarmCrowd).

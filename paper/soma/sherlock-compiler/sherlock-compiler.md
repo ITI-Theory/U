@@ -497,7 +497,7 @@ across documents. The programme cites one experiment, QUANT-EXP-1, as
 "classical 0/48, quantum 3/3" in three papers; those are the figures of an
 earlier sweep, and the paper that reports the experiment now gives a
 different design (P2, Q1). P4 says the repository has seven `sorry`
-markers; the other affidavits, and a count of the source, say five (Y2).
+markers; the other affidavits, and a count of the source, said five (Y2); all five were closed in October 2026.
 P9 names seven mechanisms of an eight-letter acronym (M1).
 
 The ledger, over the 24 papers, found 171 citations of Lean names, of which

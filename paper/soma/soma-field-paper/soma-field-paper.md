@@ -1275,7 +1275,7 @@ systemic and relational approaches to psychotherapy, that emotional fields are n
 by individual bodies but are co-generated in the space between people. The coupling matrix
 $W$ of a relationship may be as clinically significant as the $W$ of an individual.
 
-**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal Somatic Field as a Euclidean Quantum Field Theory* applies imported OSforGFF results to a free Gaussian model under $m \leftrightarrow k$. The repository has five real sorries, and Minkowski continuation remains within model assumptions. The
+**Axiomatic QFT status (update, 2026).** The subsequent paper *The Universal Somatic Field as a Euclidean Quantum Field Theory* applies imported OSforGFF results to a free Gaussian model under $m \leftrightarrow k$. No real sorry remains in the repository's own Lean (five were closed in October 2026), and Minkowski continuation remains within model assumptions. The
 interacting (Hopfield-coupled) theory is addressed in *Osterwalder–Schrader
 Axioms for the Interacting Universal Somatic Field*.
 
@@ -2650,8 +2650,8 @@ stability is suggestive of structural coherence but is not evidence of physical 
 reality.
 
 **The gaps are in the same place in all four languages.** The illustrative `sorry` markers
-in Appendix A.5, the five real project-wide `sorry` markers recorded in the proof-status
-ledger, the asymmetric $W$ gap discussed in Section C.8, and the non-perturbative
+in Appendix A.5, the five project-wide `sorry` markers the proof-status ledger recorded until
+October 2026 (now closed), the asymmetric $W$ gap discussed in Section C.8, and the non-perturbative
 dorsal-to-ventral transition in Section C.7 are not gaps in one language that happen to
 be filled in another. They are open questions in all four languages simultaneously. The
 Lean 4 proof obligation and the QFT instanton calculation and the categorical colimit
