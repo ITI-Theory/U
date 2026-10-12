@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical upload fileset from May 2026; not a current upload checklist. Authority: historical archive only. Superseded by Dist/PAPERS.yaml and Dist/README.md.
+
 # Publish Now Fileset
 
 This is the exact file list to publish right now, using the no-APC route.

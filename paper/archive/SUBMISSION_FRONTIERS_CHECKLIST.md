@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical optional Frontiers checklist from May 2026; not a current journal route. Authority: historical archive only. Superseded by Dist/PAPERS.yaml and Dist/README.md.
+
 # Frontiers Submission Checklist
 
 Status note (May 2026): optional route only due to APC cost.

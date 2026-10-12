@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical arXiv checklist from May 2026; not a current submission gate. Authority: historical archive only. Superseded by Dist/PAPERS.yaml and Dist/README.md.
+
 # arXiv Submission Checklist
 
 Target category: math-ph or q-bio.NC

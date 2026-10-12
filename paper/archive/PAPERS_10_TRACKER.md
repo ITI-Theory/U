@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical snapshot from 2026-05-20; not a current quality gate. Authority: historical archive only. Superseded by docs/agent/THEORY-STATUS.md, paper/UAT.md, and the release checks.
+
 # Papers 10/10 Tracker
 
 Generated: 2026-05-20

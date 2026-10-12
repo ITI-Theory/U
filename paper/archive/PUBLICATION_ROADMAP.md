@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical publication route snapshot from May 2026; not a current publication plan. Authority: historical archive only. Superseded by Dist/PAPERS.yaml and Dist/README.md.
+
 # Publication Roadmap (May 2026)
 
 ## Portfolio Routing (No-APC First)

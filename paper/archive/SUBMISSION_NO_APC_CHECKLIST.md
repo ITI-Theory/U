@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical no-APC checklist from May 2026; not a current submission gate. Authority: historical archive only. Superseded by Dist/PAPERS.yaml and Dist/README.md.
+
 # No-APC Submission Checklist
 
 Use this checklist when APC-charging journals are out of scope.

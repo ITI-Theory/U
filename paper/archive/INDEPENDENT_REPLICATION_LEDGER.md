@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Durable reference schema from 2026-05-20; not the current evidence ledger. Authority: historical archive only. Superseded by docs/agent/THEORY-STATUS.md for evidence labels and Dist/PAPERS.yaml for publication status.
+
 # Independent Replication Run Ledger
 
 Generated: 2026-05-20

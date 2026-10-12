@@ -1,3 +1,5 @@
+> **Archive status (2026-10-12):** Historical print/brand specification locked 2026-06-02; not the current print runbook. Authority: historical archive only. Superseded by docs/PRINT.md, lib/images/sticker/README.md, paper/UAT.md, and Dist/README.md.
+
 # Print Spec — [T]-Theory Phase 1 Tetralogy
 
 **Status:** v2.1 LOCKED — 2026-06-02

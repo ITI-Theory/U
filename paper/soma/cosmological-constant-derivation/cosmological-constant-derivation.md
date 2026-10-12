@@ -99,6 +99,8 @@ Zoom Operator are developed in [@johnson2026usf]. At the Planck scale
 ($\sigma = 0$), the field amplitude is set by the compactification scale:
 $$\Phi_0^{(\sigma=0)} \sim \ell_P^{-1} = M_\text{Pl}/(\hbar c)$$
 
+{{Visualize | derivation-of-phi_0-sim-m_textpl-from-compactification | log-scale:cosmic | items="inverse Planck length=6.19e34, required amplitude=8.9e34"; range=[34,35]; unit="m^{-1}" }} The compactification-scale estimate in the equation as a logarithmic scale: both the inverse Planck length and the required amplitude are order $10^{35}\,\mathrm{m}^{-1}$. The comparison is dimensional bookkeeping, not an independent measurement.
+
 The Zoom Operator $\Lambda_Z:\sigma\mapsto k(\sigma)$ (written $\Lambda$ in the
 zoom papers; subscripted here to keep it apart from the cosmological constant)
 acts on the field by
