@@ -149,6 +149,27 @@ only when `nvim` is already installed. MOTHER answer code blocks get a
 `RUN IN SHELL` button that switches tabs and pastes the command without
 pressing Enter.
 
+## Cockpit vocabulary
+
+The glass cockpit is the app's design vocabulary for the film and the score (ISS-075),
+in generic terms only (PFD, MFD; no product names):
+
+| Cockpit | The Soma Machine |
+|---|---|
+| Route plan | the film's score graph: phases as legs, thresholds as waypoints |
+| Vertical profile | the trajectory over story-time |
+| Speed tape | velocity (`kv`) |
+| Altitude tape | depth (pre-verbal) |
+| Attitude | the balance of safety and fear |
+| Engine strip | heart rate, HRV, breathing (the chest strap) |
+| Crew alerting | red WARNING (a freeze attractor near), amber CAUTION (heart rising), ADVISORY (a threshold in two minutes) |
+| Terrain awareness | the energy landscape ahead ("deep basin ahead") |
+| Synthetic vision | the viewer's version on the screen beneath (A/B, ISS-069) |
+| Flight director | the score's target (the white ticks) |
+| Autopilot panel | autopilot, co-pilot, manual (ISS-074) |
+| Traffic | the other viewer in the twin view, or the dyad |
+| Checklists | before a viewing: strap on, lights down, touch the page |
+
 ## Voice
 
 `voice.js` speaks MOTHER, H-AL, tours and the Maintenance deck's briefing. RICE's VOICE
