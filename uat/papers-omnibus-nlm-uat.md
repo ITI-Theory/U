@@ -176,6 +176,30 @@ UAT. This is a qualitative usability result, not a paginated source citation.
 mathematical stress-test; Wick rotation = valley's echo; D1-orbifold = axis
 of regulation. These are proposed explanatory bridges, not scientific claims.
 
+### C-4 The Chocolate Biscuit Monster: the dunk test
+
+**Persona:** an educated reader in plain English, short attention, a cup of tea
+in reach (ISS-070). The dunk test: can the idea be told before the biscuit goes
+soft, about one minute?
+
+**Question:** For each paper, give its central claim in at most 120 words of
+plain English (no symbols, no unexplained terms), then say whether the paper's
+own abstract or introduction already allows that. Cite the page used.
+
+**Status:** PENDING
+
+### C-5 The Root Monster: the roots under every tower
+
+**Persona:** a hacker who reads the Lean before the prose and wants the axioms
+under every result (ISS-070, ISS-071).
+
+**Question:** For each paper that cites Lean, list each cited theorem or axiom
+with the status the paper gives it (theorem, axiom, sorry, kernel-checked,
+placeholder). Is each status stated where it is used, so a reader never takes an
+axiom or a placeholder for a proof? Cite the page used.
+
+**Status:** PENDING
+
 ## Acceptance Decision
 
 Complete this only after every `PENDING` item has source

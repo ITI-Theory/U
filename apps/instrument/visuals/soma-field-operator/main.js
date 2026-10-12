@@ -1,3 +1,4 @@
+import { displayName } from './names.js';
 import * as THREE from 'three';
 import { leanTowers } from './generated/app-data.js';
 import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts } from './generated/app-data.js';
@@ -64,11 +65,13 @@ const displayPresets = [
   { id: 'evidence', label: 'EVIDENCE', sections: ['identity', 'physics', 'evidence', 'interpretation'] },
   { id: 'full', label: 'FULL LEDGER', sections: cheatSheetSections.map(section => section.id) },
 ];
+// the registers, each with its example Monster (ISS-070; the names follow NAMES in the Engine Room)
 const readerRegisters = [
-  { id: 'cookie', label: 'COOKIE' },
+  { id: 'cookie', label: 'COOKIE', persona: 'chocolate-biscuit-monster' },
   { id: 'general', label: 'GENERAL' },
-  { id: 'specialist', label: 'SPECIALIST' },
+  { id: 'specialist', label: 'SPECIALIST', persona: 'root-monster' },
 ];
+const readerLabel = entry => (entry.persona ? `${entry.label} · ${displayName(entry.persona)}` : entry.label);
 
 function clampIndex(index, length) {
   return Math.max(0, Math.min(Math.max(0, length - 1), index));
@@ -1730,7 +1733,8 @@ state.canonicalStart = canonicalStart.options[0]?.value ?? state.levelId;
 state.canonicalEnd = canonicalEnd.options[canonicalEnd.options.length - 1]?.value ?? state.levelId;
 canonicalStart.value = state.canonicalStart;
 canonicalEnd.value = state.canonicalEnd;
-for (const registerEntry of readerRegisters) readerRegisterSelect.add(new Option(registerEntry.label, registerEntry.id));
+for (const registerEntry of readerRegisters) readerRegisterSelect.add(new Option(readerLabel(registerEntry), registerEntry.id));
+addEventListener('soma-names', () => [...readerRegisterSelect.options].forEach((option, k) => { option.text = readerLabel(readerRegisters[k]); }));
 readerRegisterSelect.value = state.reader;
 for (const preset of displayPresets) displayPreset.add(new Option(preset.label, preset.id));
 displayPreset.add(new Option('CUSTOM', 'custom'));

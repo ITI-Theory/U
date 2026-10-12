@@ -53,6 +53,28 @@
 
 **Status:** PENDING
 
+### TC-2 The Chocolate Biscuit Monster: the dunk test
+
+**Persona:** an educated reader in plain English, short attention, a cup of tea
+in reach (ISS-070). The dunk test: can the idea be told before the biscuit goes
+soft, about one minute?
+
+**Question:** For each volume, can its purpose be told in at most 120 words of
+plain English from its opening pages alone? Give the summary and the page used.
+
+**Status:** PENDING
+
+### TC-3 The Root Monster: the roots under every tower
+
+**Persona:** a hacker who reads the Lean before the prose and wants the axioms
+under every result (ISS-070, ISS-071).
+
+**Question:** Where a volume says a result is proved, does it name the Lean
+theorem and say whether it rests on an axiom, a sorry or only proves a
+placeholder? List the volumes that do and do not, with pages.
+
+**Status:** PENDING
+
 ## Acceptance Decision
 
 | Decision | Date | Reviewer | Notes |
