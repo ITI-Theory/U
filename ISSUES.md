@@ -3115,12 +3115,19 @@ each panel is a live render of another view drawn as a texture inside the 3D
 scene, and the tablets need a network channel (the windows' channel only reaches
 windows of one browser; a relay through the MOTHER bridge would serve tablets).
 Not lost: build it after the four-screen layout works.
-- [ ] Screen roles for the inverted T (main, beneath, left, right), any view to any screen.
+- [x] (13 Oct: ROLE beside FULL SCREEN on every window turns it into the next role, level,
+      cockpit, engine room, keeping the view; the layouts place them) Screen roles for the inverted T (main, beneath, left, right), any view to any screen.
 - [x] One-screen A/B flip between the real film and the modified viewer's version (12 Oct:
       A/B at the score stop, `ab=b`: every setting drawn for the VIEWER preset, with the
       condition sliders; the twin view stays the side-by-side).
-- [ ] The modified view on the screen beneath ("synthetic vision").
-- [ ] Tablets as controls: a relay for the screens' channel (MOTHER bridge).
+- [x] (12 Oct, with the layouts: the window beneath opens with ab=b, the viewer's version) The modified view on the screen beneath ("synthetic vision").
+- [x] (13 Oct: not through the MOTHER bridge, which has a shell and acts with the Google
+      account and so stays on 127.0.0.1, but a separate relay, apps/instrument/mother/
+      relay.py, `make relay LAN=1`: view messages only, a pairing token, Server-Sent
+      Events; the app joins with ?relay=…&token=… or the Engine Room's RELAY panel; a
+      message heard on both the channel and the relay counts once. Tested across two
+      browser contexts, a level and a cockpit window following; a real tablet is author
+      UAT) Tablets as controls: a relay for the screens' channel (MOTHER bridge).
 - [ ] The 3D glass cockpit (after the above): panels as live textures, the window as the main view.
 
 Author, 11 Oct 22:40: more layouts, all kept; each screen is just another Chrome

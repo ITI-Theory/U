@@ -391,6 +391,9 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .screen-fullscreen { position: fixed; z-index: 150; top: 10px; right: 10px; left: auto; width: auto; min-width: 0; margin: 0; padding: 5px 9px; color: rgba(234,245,255,.8); border: 1px solid rgba(20,229,255,.45); background: rgba(5,7,14,.7); font: 700 10px/1 'Space Mono', monospace; letter-spacing: .08em; cursor: pointer; opacity: .35; transition: opacity .3s; }
 .screen-fullscreen:hover, .screen-fullscreen:focus-visible { opacity: 1; }
 .screen-fullscreen[hidden] { display: none; }
+.screen-role { position: fixed; z-index: 150; top: 10px; right: 120px; left: auto; width: auto; min-width: 0; margin: 0; padding: 5px 9px; color: rgba(234,245,255,.8); border: 1px solid rgba(20,229,255,.45); background: rgba(5,7,14,.7); font: 700 10px/1 'Space Mono', monospace; letter-spacing: .08em; cursor: pointer; opacity: .35; transition: opacity .3s; }
+.screen-role:hover, .screen-role:focus-visible { opacity: 1; }
+.screen-role[hidden], .explorer-film .screen-role, .explorer-stereo:not(.explorer-chrome) .screen-role { display: none; }
 .screen-cockpit .wm-clean-hint, .screen-cockpit .tour-card, .screen-cockpit .wm-dock { display: none !important; }
 .screen-hud { position: fixed; z-index: 140; left: 50%; bottom: 4vh; width: min(1100px, calc(100vw - 48px)); transform: translateX(-50%); padding: 14px 22px; border-top: 1px solid rgba(20,229,255,.5); border-bottom: 1px solid rgba(20,229,255,.5); background: linear-gradient(90deg, rgba(5,7,14,0), rgba(5,7,14,.72) 12%, rgba(5,7,14,.72) 88%, rgba(5,7,14,0)); text-align: center; pointer-events: none; }
 .screen-hud[hidden] { display: none; }
@@ -489,6 +492,7 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-open .tour-card, .explorer-open .screen-hud { z-index: 210; }
 .explorer-open.tour-active .explorer__card { display: none; }
 .explorer-open .screen-fullscreen { z-index: 210; top: auto; bottom: 10px; }
+.explorer-open .screen-role { z-index: 210; top: auto; bottom: 10px; }
 @media (max-width: 760px) { .explorer__card { max-width: none; right: 14px; } .explorer__phi input { width: 100px; } }
 
 /* Elevator (elevator.js, ISS-052): the zoom as floors, the car rides the zoom. */

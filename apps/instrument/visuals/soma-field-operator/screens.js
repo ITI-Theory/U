@@ -12,12 +12,35 @@
 // window, not shared: the screen beneath the main one shows the viewer's version (B).
 // Any window that changes the view (a click, a tour step) tells the others; a window
 // only follows, it never answers back, so there is no echo.
+// Across devices (tablets, a second machine): the relay (apps/instrument/mother/relay.py)
+// carries the same messages; open the app with ?relay=<url>&token=<token> once, or set it
+// in the Engine Room. Each message has an id, so one heard twice (channel and relay) counts
+// once. ROLE (beside FULL SCREEN) turns any window into any role: any view to any screen.
 
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice } from './rice.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
 
 const CHANNEL = 'soma-screens';
+const RELAY_KEY = 'soma-relay';
+
+// the relay: from the address (?relay=&token=, then remembered) or the Engine Room
+export function relaySetting() {
+  const q = new URLSearchParams(location.search);
+  if (q.get('relay') && q.get('token')) {
+    const value = { url: q.get('relay').replace(/\/$/, ''), token: q.get('token') };
+    try { localStorage.setItem(RELAY_KEY, JSON.stringify(value)); } catch { /* private mode */ }
+    return value;
+  }
+  try { return JSON.parse(localStorage.getItem(RELAY_KEY) || 'null'); } catch { return null; }
+}
+
+export function setRelay(value) {
+  try {
+    if (value?.url && value?.token) localStorage.setItem(RELAY_KEY, JSON.stringify({ url: value.url.replace(/\/$/, ''), token: value.token }));
+    else localStorage.removeItem(RELAY_KEY);
+  } catch { /* private mode */ }
+}
 export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'labels', 'styleoff',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
   'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ap'];
@@ -42,6 +65,10 @@ export function createScreens(hooks) {
   let fx = Number(localStorage.getItem('soma-fx') ?? 0.5);
   let cameraMode = localStorage.getItem('soma-camera') ?? 'external';
   const hud = screenRole === 'cockpit' ? createHud() : null;
+  const self = Math.random().toString(36).slice(2);
+  const heard = new Set();
+  const relay = relaySetting();
+  let relayStatus = relay ? 'connecting' : 'off';
 
   document.body.classList.add(`screen-${screenRole}`);
   if (screenRole !== 'level') post({ type: 'hello', role: screenRole });
@@ -49,7 +76,17 @@ export function createScreens(hooks) {
   if (screenRole === 'cockpit') hooks.setCameraMode(cameraMode);
 
   function post(message) {
-    channel?.postMessage(message);
+    const m = { ...message, mid: `${self}-${Math.random().toString(36).slice(2, 10)}`, from: self };
+    heard.add(m.mid);
+    channel?.postMessage(m);
+    if (relay) fetch(`${relay.url}/send?token=${encodeURIComponent(relay.token)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(m) })
+      .then(r => { relayStatus = r.ok ? 'connected' : `refused (${r.status})`; }).catch(() => { relayStatus = 'not reachable'; });
+  }
+  if (relay && 'EventSource' in globalThis) {
+    const events = new EventSource(`${relay.url}/events?token=${encodeURIComponent(relay.token)}`);
+    events.onopen = () => { relayStatus = 'connected'; };
+    events.onerror = () => { relayStatus = 'not reachable (retrying)'; };
+    events.onmessage = event => { try { receive(JSON.parse(event.data)); } catch { /* not ours */ } };
   }
 
   // A new window adopts the current view instead of announcing its own start-up view:
@@ -76,8 +113,14 @@ export function createScreens(hooks) {
     hooks.setFx?.(fx);
   }
 
-  channel?.addEventListener('message', ({ data }) => {
-    if (!data || typeof data !== 'object') return;
+  channel?.addEventListener('message', ({ data }) => receive(data));
+  function receive(data) {
+    if (!data || typeof data !== 'object' || data.from === self) return;
+    if (data.mid) {
+      if (heard.has(data.mid)) return;
+      heard.add(data.mid);
+      if (heard.size > 500) heard.clear();
+    }
     // A level window keeps the view it was opened with (a link, a tour) until it has settled.
     if (data.type === 'view' && screenRole === 'level' && !settled) {
       return;
@@ -98,7 +141,7 @@ export function createScreens(hooks) {
       cameraMode = data.mode;
       hooks.setCameraMode(cameraMode);
     }
-  });
+  }
 
   // Full screen at the display's full resolution: F, or the button in the corner.
   const fullButton = document.createElement('button');
@@ -108,6 +151,18 @@ export function createScreens(hooks) {
   fullButton.title = 'Full screen (F)';
   fullButton.addEventListener('click', toggleFullscreen);
   document.body.append(fullButton);
+  // ROLE: any view to any screen; the window reopens in the next role, the view kept
+  const roleButton = document.createElement('button');
+  roleButton.type = 'button';
+  roleButton.className = 'screen-role';
+  roleButton.textContent = `ROLE: ${screenRole.toUpperCase()}`;
+  roleButton.title = 'Turn this window into another role: level, cockpit, engine room';
+  roleButton.addEventListener('click', () => {
+    const url = new URL(location.href);
+    url.searchParams.set('screen', ROLES[(ROLES.indexOf(screenRole) + 1) % ROLES.length]);
+    location.href = url.toString();
+  });
+  document.body.append(roleButton);
   function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen?.();
     else document.documentElement.requestFullscreen?.({ navigationUI: 'hide' });
@@ -120,7 +175,7 @@ export function createScreens(hooks) {
     toggleFullscreen();
   });
   document.addEventListener('fullscreenchange', () => {
-    fullButton.hidden = Boolean(document.fullscreenElement);
+    fullButton.hidden = roleButton.hidden = Boolean(document.fullscreenElement);
     dispatchEvent(new Event('resize'));
   });
 
@@ -141,6 +196,7 @@ export function createScreens(hooks) {
       if (screenRole === 'cockpit') hooks.setCameraMode(mode);
     },
     get fx() { return fx; },
+    get relayStatus() { return relayStatus; },
     get cameraMode() { return cameraMode; },
   };
 }
@@ -264,6 +320,13 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <label>PORT<input type="text" maxlength="60" data-midi-port placeholder="loopMIDI" /></label>
         <button type="button" data-midi="1">ON</button><button type="button" data-midi="0">OFF</button>
       </fieldset>
+      <fieldset data-relay><legend>RELAY (TABLETS)</legend>
+        <p class="engine-room__hint">Tablets and a second machine follow this one through the relay: run <code>python apps/instrument/mother/relay.py --lan</code>, enter its address and token here and on each device (or open the app there with ?relay=…&amp;token=…), and serve the app on the network (npm run start -- --host). Reload to connect.</p>
+        <label>ADDRESS<input type="text" maxlength="80" data-relay-url placeholder="http://192.168.1.10:8766" /></label>
+        <label>TOKEN<input type="text" maxlength="40" data-relay-token /></label>
+        <button type="button" data-relay="1">SAVE</button><button type="button" data-relay="0">OFF</button>
+        <p class="engine-room__hint engine-room__relay-status"></p>
+      </fieldset>
       <fieldset class="engine-room__names"><legend>NAMES</legend>
         <p class="engine-room__hint">Your own name for each persona and layer. Kept in this browser only; empty restores the default.</p>
         ${Object.entries(DEFAULT_NAMES).map(([id, name]) => `<label>${name}<input type="text" maxlength="40" data-name="${id}" placeholder="${name}" /></label>`).join('')}
@@ -284,6 +347,9 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   }
   const banks = room.querySelector('.engine-room__banks');
   room.querySelector('[data-midi-port]').value = midiOutSetting() ?? '';
+  const relayNow = relaySetting();
+  room.querySelector('[data-relay-url]').value = relayNow?.url ?? '';
+  room.querySelector('[data-relay-token]').value = relayNow?.token ?? '';
   const bridge = () => (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, '');
 
   const gauges = room.querySelector('.engine-room__gauges');
@@ -360,6 +426,8 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
 
   function sync() {
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
+    const relayLine = room.querySelector('.engine-room__relay-status');
+    if (!relayLine.textContent.startsWith('Saved')) relayLine.textContent = `Relay: ${screens.relayStatus}`;
     for (const b of room.querySelectorAll('[data-midi]')) b.classList.toggle('active', (b.dataset.midi === '1') === (midiOutSetting() !== null));
     const params = readParams();
     for (const fieldset of room.querySelectorAll('fieldset[data-key]')) {
@@ -393,6 +461,10 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.rice) setRice(button.dataset.rice === '1');
+    if (button.dataset.relay) {
+      setRelay(button.dataset.relay === '1' ? { url: room.querySelector('[data-relay-url]').value.trim(), token: room.querySelector('[data-relay-token]').value.trim() } : null);
+      room.querySelector('.engine-room__relay-status').textContent = 'Saved: reload each window to connect.';
+    }
     if (button.dataset.midi) setMidiOut(button.dataset.midi === '1' ? (room.querySelector('[data-midi-port]').value.trim() || 'loopMIDI') : null);
     if (button.dataset.open) {
       const url = new URL(location.href);

@@ -41,6 +41,7 @@ help:
 	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
 	$(info   app             build the Soma Machine app)
 	$(info   app-start       run the app locally (http://127.0.0.1:5173); mother-bridge for the MOTHER panel)
+	$(info   relay           the screens' channel for tablets (LAN=1: the home network; prints the address and token))
 	$(info   app-publish     publish the app to www.t-theory.org/app/ (DRY=1 first))
 	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
@@ -97,13 +98,16 @@ app:
 
 # Run the app locally (vite, http://127.0.0.1:5173). The MOTHER panel needs the
 # bridge too: `make mother-bridge` in a second terminal (http://127.0.0.1:8765).
-.PHONY: app-start mother-bridge app-publish nlm-usage
+.PHONY: app-start mother-bridge relay app-publish nlm-usage
 app-start:
 	npm --prefix $(APP_DIR) run start
 
 # Publish the app to https://www.t-theory.org/app/ (site repo ../t-theory.org).
 app-publish:
 	$(PYTHON) $(APP_DIR)/scripts/publish.py $(if $(DRY),--dry-run,)
+
+relay:
+	cd apps/instrument/mother && $(MOTHER_PY) relay.py $(if $(LAN),--lan,)
 
 mother-bridge:
 	cd apps/instrument/mother && $(MOTHER_PY) bridge.py
