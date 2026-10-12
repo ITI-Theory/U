@@ -1,0 +1,17 @@
+# The Russell reading (ISS-064): the philosophy book's chapter 7 reads each ancient
+# philosopher, after Russell's History, in the programme's terms. This case is that
+# reading as written in the book (each fact with its line), not the philosopher's own
+# doctrine and not Russell's text; MAC/FAC asks which of the programme's own structures
+# it actually resembles. Interpretive throughout, as the book labels it.
+id: phil-socrates
+document: BOOK-philosophy
+source: {file: books/T-Theory/philosophy/book-philosophy.md, commit: ff0ddeb, sha256: a360e569a62ad076f93baf34580e7cfb5c03a15910cbcc47ef0b5277e42e2e4e}
+scale: interpretive
+name: "Socrates: ethical perturbation (book ch. 7)"
+facts:
+  - {s: (energyLandscapeOf CivicConvention Athens), line: 1069}
+  - {s: (attractorTransitionIn Examination CivicConvention), line: 1069}
+  - {s: (causes Questioning (attractorTransitionIn Examination CivicConvention)), line: 1069}
+  - {s: (couples Questioner Citizens), line: 1071}
+  - {s: (feedsBackOn Pupils Questioning), line: 1069}
+proposed: {}

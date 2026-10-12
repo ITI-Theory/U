@@ -2477,7 +2477,8 @@ Steps:
       cascade; interpretive); explorer-check: calm FIGHT ends in FREEZE with it, never
       without) From H-AL: the memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji) on
       the memory stop: the past keeps shaping the ground.
-- [ ] From H-AL: link back out to the zoom dial (the levels), not only inward.
+- [x] (13 Oct: already there, STEP BACK IN ↩ takes any stop out to its level on the zoom
+      dial, STOP_LEVELS) From H-AL: link back out to the zoom dial (the levels), not only inward.
 - [x] (13 Oct: a stop in registry/tours/mind-explorer.yaml after the poke that rolls back)
       From H-AL: Beisser's paradoxical theory of change as a landscape tour
       line (staying with the sensation raises Φ, rather than pushing).
@@ -2992,7 +2993,12 @@ mapping (ISS-063).
 - [x] Law chapter (12 Oct: "Affidavits: Claims, Exhibits and Precedent": prior inconsistent
       statements, hearsay, judicial notice, the work and the copy, cross-examination,
       precedent and versions, nemo iudex).
-- [ ] Philosophy reading: Russell's *History* as a sequence of affidavits compared by structure mapping.
+- [x] (13 Oct: the philosophy book's own chapter-7 readings of Pythagoras, Heraclitus,
+      Parmenides, Socrates and Plato as cases, registry/cases/phil-*.yaml, frozen at ff0ddeb;
+      MAC/FAC pairs Parmenides with Plato 0.53, Heraclitus with Socrates 0.49, the "opposites"
+      Heraclitus and Parmenides share a frame 0.35, permanence reads as P17's fixed gestalt
+      and flow does not, Pythagoras finds no partner: P9 has no case yet. Written up in
+      chapter 7, "Reading Russell with Sherlock"; no Russell text quoted) Philosophy reading: Russell's *History* as a sequence of affidavits compared by structure mapping.
 - [x] (12 Oct: chapters 12-13, "October 2026: Sherlock built", "Denoting, fiction and consensus", status rows, Appendix B) Philosophy (11 Oct): Sherlock is no longer "proposed": tense and results;
       Moriarty/DOT as an actual role (Popper); SH1's "consensus is not mathematics"
       (the Claude advert, Oliver Twist) read through Russell's theory of

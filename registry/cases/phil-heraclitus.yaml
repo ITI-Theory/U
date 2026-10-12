@@ -1,0 +1,17 @@
+# The Russell reading (ISS-064): the philosophy book's chapter 7 reads each ancient
+# philosopher, after Russell's History, in the programme's terms. This case is that
+# reading as written in the book (each fact with its line), not the philosopher's own
+# doctrine and not Russell's text; MAC/FAC asks which of the programme's own structures
+# it actually resembles. Interpretive throughout, as the book labels it.
+id: phil-heraclitus
+document: BOOK-philosophy
+source: {file: books/T-Theory/philosophy/book-philosophy.md, commit: ff0ddeb, sha256: a360e569a62ad076f93baf34580e7cfb5c03a15910cbcc47ef0b5277e42e2e4e}
+scale: interpretive
+name: "Heraclitus: flow under a law (book ch. 7)"
+facts:
+  - {s: (energyLandscapeOf Flux WorldState), line: 1049}
+  - {s: (attractorTransitionIn RegulatedTransformation Flux), line: 1049}
+  - {s: (boundaryOf Logos Flow), line: 1051}
+  - {s: (couples Flow Medium), line: 1051}
+  - {s: (enables (couples Flow Medium) (attractorTransitionIn RegulatedTransformation Flux)), line: 1051}
+proposed: {}

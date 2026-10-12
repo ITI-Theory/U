@@ -1,0 +1,17 @@
+# The Russell reading (ISS-064): the philosophy book's chapter 7 reads each ancient
+# philosopher, after Russell's History, in the programme's terms. This case is that
+# reading as written in the book (each fact with its line), not the philosopher's own
+# doctrine and not Russell's text; MAC/FAC asks which of the programme's own structures
+# it actually resembles. Interpretive throughout, as the book labels it.
+id: phil-pythagoras
+document: BOOK-philosophy
+source: {file: books/T-Theory/philosophy/book-philosophy.md, commit: ff0ddeb, sha256: a360e569a62ad076f93baf34580e7cfb5c03a15910cbcc47ef0b5277e42e2e4e}
+scale: interpretive
+name: "Pythagorean harmony (book ch. 7)"
+facts:
+  - {s: (oscillatorsIn StringModes Monochord), line: 1029}
+  - {s: (eigenmodesOf Intervals StringPropagator), line: 1029}
+  - {s: (impulseResponseOf StringPropagator Monochord), line: 1029}
+  - {s: (couples Monochord ListeningBody), line: 1029}
+  - {s: (causes (eigenmodesOf Intervals StringPropagator) FeltConsonance), line: 1029}
+proposed: {}

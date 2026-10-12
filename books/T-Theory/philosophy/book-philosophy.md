@@ -1137,6 +1137,22 @@ This sequence should not be presented as progress toward [T]-Theory. It is a his
 
 The time-invariant reading is now visible in human terms. A society under instability may desire order; a society under oppressive order may desire flux; a community frightened by fate may seek inner liberty; a community frightened by chance may seek law. These are not predictions. They are response patterns for interpretation `interpretive`. The programme's parameters give the Soma Machine a way to display them without turning history into destiny.
 
+## Reading Russell with Sherlock
+
+The readings above are this book's, not the philosophers' and not Russell's: each says what a doctrine looks like when it is written in the programme's grammar. Sherlock can test such readings without judging the philosophy. Five of them (Pythagoras, Heraclitus, Parmenides, Socrates and Plato, as written in this chapter) were encoded as cases in the same vocabulary as the programme's own models, each fact tied to its line here (`registry/cases/phil-*.yaml`, frozen at ff0ddeb), and MAC/FAC asked which structures each actually resembles: the structure-mapping score of one description onto another, against its score onto itself, averaged both ways (0 nothing in common, 1 the same structure) [@forbus1995macfac] `derived-under-assumptions`.
+
+| Pair | Similarity | What it says |
+|---|---|---|
+| Parmenides and Plato | 0.53 | the closest pair: both readings are attractors of permanence; structure mapping finds, from this chapter's sentences alone, the inheritance Russell describes |
+| Heraclitus and Socrates | 0.49 | both are perturbations that move a landscape between attractors |
+| Heraclitus and Parmenides | 0.35 | the "opposites" share their frame: the same landscape and coupling, opposite values; a contrast is an alignable difference, not an absence of structure |
+| Plato and the programme's fixed gestalt (P17) | 0.41 | the closest programme model to the forms |
+| Parmenides and the fixed gestalt | 0.33 | permanence reads as the clinical fixed gestalt |
+| Heraclitus and the fixed gestalt | 0.14 | flow does not: the book's pairing "Heraclitus is flow; Parmenides is attractor" holds as structure |
+| Pythagoras and any programme model | at most 0.28 | the harmony reading has no partner: the case library has no model of P9's music-affect forcing yet, so the analogy points at a gap, not a match |
+
+Three cautions. The numbers measure the readings as written, so they test this book's consistency, not Greek philosophy. A high score says two descriptions share relational structure; it does not say either is true. And the vocabulary is the programme's, so the method can only find the programme's shapes: what it misses in Pythagoras is as informative as what it finds in Parmenides. The use is the one Russell's method invites: philosophers as effects and causes, compared by the structure of what they set in motion, with every comparison checkable `interpretive`.
+
 ## Soma Machine entries {.unnumbered .unlisted}
 | Era | Figure or event | Impulse | Social or physical response | Field reading | Label |
 |---|---|---|---|---|---|
