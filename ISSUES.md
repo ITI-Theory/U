@@ -3152,7 +3152,8 @@ retrieves facts but does not derive), against Sherlock's kernel-checked answers;
 then a locally run model. D11: language models at both ends, Lean in the middle.
 - [ ] Experiments: exp0 Q3-Q5, exp1, exp2 (`sherlock/nlm_test.py`), one per period.
 - [ ] A local model on the same questions (ISS-048).
-- [ ] Write SH2: scores, where the model was right, wrong or could not say.
+- [x] Write SH2: scores, where the model was right, wrong or could not say.
+      (13 Oct triage: drafted: paper/soma/sherlock-llm (make -C paper sh2, builds; registry pending). Scores corrected on review 13 Oct (2b9d34d): 10 correct, 1 partial, 1 wrong, 8 unanswered; provisional until the missing cells are run and the scoring is blind)
 
 ## ISS-068: Release builds and Sherlock in CI on a large runner — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.build, area.ops}}
