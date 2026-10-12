@@ -2792,7 +2792,12 @@ forbus2017analogy, chaudhri2025knowledge):**
       axioms the table omits. Passing checks: 11 = 4+3+1+3, 7/11+3/11+1/11,
       the 20 transition steps, the trauma gradient sign. Author to decide:
       fix P11 or keep it as an exhibit.
-- [ ] The paper's own disclaimers become microtheories (ArtisticDesignMt vs
+- [ ] (13 Oct, first pass in Python: `make -C sherlock clinical`, sherlock/clinical.py: every
+      registry document's sentences that claim a clinical effect with no hedge in the sentence
+      and no evidence label in the paragraph, as candidates; 2 in 39 documents, for the
+      author: P1 line 499, "the formal account of why fear amplifies pain, why safety reduces
+      it" (no "in the model"), and the synthesis line 437, "The therapeutic implication is
+      ..." (a prescription without a label). The microtheory version stays open) The paper's own disclaimers become microtheories (ArtisticDesignMt vs
       ClinicalMt): Sherlock checks that no clinical-context claim is made
       without evidence. The affidavit, and the legal use.
 - [ ] Physics through Mathlib and physlib (already in the lakefile).

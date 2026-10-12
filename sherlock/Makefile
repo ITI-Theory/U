@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers skyline
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers skyline clinical
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -30,6 +30,7 @@ help:
 	$(info   rules-gen   OpenCyc's Horn rules to Lean (CycRules), no facts rebuild)
 	$(info   types       the concept registry's OpenCyc classes as Lean types (SLICE=1: axioms, seconds; else proofs from the KB))
 	$(info   towers      the programme's Lean exported for the city of code (bld/sherlock/towers.json; about 25 min))
+	$(info   clinical    sentences claiming a clinical effect with no hedge or evidence label (bld/sherlock/clinical.md; seconds))
 	$(info   skyline     OpenCyc's facts per microtheory for the city's horizon (bld/sherlock/skyline.json; after lean-gen, seconds))
 	$(info   all         fetch lean-gen rules-gen lean affidavits)
 	@:
@@ -96,6 +97,9 @@ towers:
 
 skyline:
 	cd .. && $(PYTHON) sherlock/skyline.py
+
+clinical:
+	cd .. && $(PYTHON) sherlock/clinical.py
 
 # The concept registry's OpenCyc classes as Lean types (ISS-063, D12): SLICE=1 for the fast loop.
 types:
