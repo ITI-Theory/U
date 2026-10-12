@@ -2605,7 +2605,10 @@ Steps:
       eight BRECVEMA mechanisms and the 32 on-screen knobs? How should an
       AI interview turn ten handwritten pages into a score without the AI
       becoming the author?" Then print `make nlm-usage`.
-- [ ] The interview protocol (a document first): the five composer questions,
+- [x] (13 Oct: docs/INTERVIEW.md, a draft for the author: safety and consent first, the
+      five questions with what each answer sets, probes built only from the person's
+      words, provenance, stop rules, system rules for an AI interviewer; not a clinical
+      protocol) The interview protocol (a document first): the five composer questions,
       emotion probes, provenance per answer, stop rules; same script for an
       AI or a therapist.
 - [ ] The score editor: knobs per mode over story-time, each value linked to
