@@ -46,12 +46,23 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    Sherlock (built right), The Wizard (built the right thing), The Monster
    (understandable). Record in `paper/UAT.md`.
 - [ ] Lulu print preview of the [T]-Theory volumes.
-- [ ] Print the lot (author, 13 Oct): 24 physical books, one each. The
+- [ ] Print the lot (author, 13 Oct): 25 physical books, one each. The
    papers omnibus (*The Soma-Field: Collected Works*, 2nd ed., A4, 470 pp). The
    Fractal Programme in three volumes (I Cosmos and Matter, II Mind and Body,
    III Culture and Society; replaces the 825/782-page two), the 15 domain
    books, the Field Atlas (A3, BookFactory), the Course, and Phase Dot 2 in
-   three A4 volumes (private: `Me/books/phase-dot`, never Dist). Split done: Vol I 575 pp, Vol II 506 pp, Vol III 547 pp, all under Lulu's 800-page cap.
+   four A4 volumes at 9pt, two columns (private: `Me/books/phase-dot`, never
+   Dist; Origin, The Questions, Building, The Machine). Fractal split done:
+   Vol I 575 pp, Vol II 506 pp, Vol III 547 pp, all under Lulu's 800-page cap.
+   Phase Dot 2: Vol I 333 pp, Vol II 454 pp, Vol III 593 pp, Vol IV building.
+- [x] UAT runner (13 Oct): `uat/checklist.yaml` and `uat/scripts/uat.py`
+   (`make uat-run`, `HAL uat`): step by step in a terminal, resumable, answers in
+   `uat/results/`, `c` sends a finding to the VS Code chat (`code chat`).
+- [ ] Author: run the UAT inside the Soma Machine (MOTHER `/shell`: bash and a
+   barebone Neovim, not `soma-neovim-init.lua`). Neovim is not installed yet
+   (the winget install stalled, probably on the admin prompt). H-AL needs a
+   NotebookLM re-login first (`apps/instrument/mother/.venv/Scripts/notebooklm
+   login`) to ask about the author's Neovim habits.
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
    manifests, commit Dist.
 - [ ] Zenodo: `ZENODO_SANDBOX_TOKEN` then `bin/zenodo-publish --sandbox plan`,
@@ -1218,8 +1229,8 @@ bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
    (`soma-pedal-zoom (1).sh`); Conky desktop status panel
    (`soma-machine-conky.conf`); TouchDesigner Mandelbulb render
    (`soma-touchdesigner-mandelbulb (1).py`).
-- [ ] Workflow extras: Neovim config (`soma-neovim-init.lua`; the MOTHER shell
-   already offers Neovim when installed); a Markdown task engine
+- [ ] Workflow extras: Neovim config (`soma-neovim-init.lua`: author, 13 Oct,
+   not this file, origin unsure; a barebone Neovim instead, ISS-001); a Markdown task engine
    (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover
    it); `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
 - [ ] `ttheory-cheatsheets-vault.md` (11 book assets, equations, field notes):
