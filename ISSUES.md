@@ -2642,15 +2642,20 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
 - [ ] Train: fine-tune a Piper checkpoint on the recordings (piper-train);
       check the base checkpoint's licence so the result is the author's to
       release; keep the HAL 9000 imitation private (ISS-048).
-- [ ] Halify, delivery: slower rate, lower pitch, even pitch contour, longer
+- [x] (13 Oct: the bridge's HAL_DELIVERY for any Piper voice: length scale 1.15, noise
+      scales 0.55/0.5, 0.45 s after each sentence, overridable in its local config; the
+      browser voice keeps rate 0.88, pitch 0.55; docs/HALIFY.md) Halify, delivery: slower rate, lower pitch, even pitch contour, longer
       pauses at sentence ends (post-processing, or Piper length/noise scales);
       a per-line `pause` already exists in the tour language.
-- [ ] Halify, vocabulary: a rule sheet for the AI writing H-AL's lines (calm,
+- [x] (13 Oct: docs/HALIFY.md, nine rules; the one-sentence question stays the author's)
+      Halify, vocabulary: a rule sheet for the AI writing H-AL's lines (calm,
       measured, no drama, plain sensory words, mathematics on screen not in
       speech, name the evidence label plainly). H-AL quotes a rule "one
       sentence per stop"; the night's film tours use several: author to
       decide.
-- [ ] Markup: SSML is the W3C standard for speech (prosody, break, emphasis,
+- [x] (13 Oct: lexicon.js, applied to every spoken line: symbols as words, units in full,
+      10^n as "ten to the n", names as they sound; H-AL as "Hal" and BRECVEMA marked for
+      the author to check by ear) Markup: SSML is the W3C standard for speech (prosody, break, emphasis,
       IPA phonemes) but Piper supports little of it yet; use a small
       pronunciation lexicon (H-AL, Hopfield, Kuramoto, Mandelbulb, Φ) instead.
 - [x] EmotionML (W3C, 2014) can carry a score's mode trajectories as

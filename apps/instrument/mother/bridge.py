@@ -111,16 +111,42 @@ def voice_available() -> bool:
     return PiperVoice is not None and voice_model().exists()
 
 
+# The H-AL-ifier's delivery (ISS-054, ISS-065 D5): any stock Piper voice made H-AL by
+# rules, not by imitation. Slower (length_scale above 1), an even contour (less phoneme-
+# duration noise), and a pause after each sentence. local_config "hal_delivery" overrides.
+HAL_DELIVERY = {"length_scale": 1.15, "noise_scale": 0.55, "noise_w_scale": 0.5, "sentence_pause": 0.45}
+
+
 def synthesize(text: str) -> bytes:
     global _VOICE
     import io
+    import re as _re
     import wave
+    delivery = {**HAL_DELIVERY, **(local_config().get("hal_delivery") or {})}
     with VOICE_LOCK:
         if _VOICE is None:
             _VOICE = PiperVoice.load(str(voice_model()))
+        try:
+            from piper.config import SynthesisConfig
+            config = SynthesisConfig(length_scale=delivery["length_scale"], noise_scale=delivery["noise_scale"],
+                                     noise_w_scale=delivery["noise_w_scale"])
+        except Exception:  # an older piper: its defaults
+            config = None
+        sentences = [s for s in _re.split(r"(?<=[.!?])\s+", text.strip()) if s] or [text]
+        frames, params = [], None
+        for sentence in sentences:
+            part = io.BytesIO()
+            with wave.open(part, "wb") as wav:
+                _VOICE.synthesize_wav(sentence, wav, syn_config=config)
+            part.seek(0)
+            with wave.open(part, "rb") as wav:
+                params = wav.getparams()
+                frames.append(wav.readframes(wav.getnframes()))
+                frames.append(b"\x00" * int(params.framerate * delivery["sentence_pause"]) * params.sampwidth * params.nchannels)
         buffer = io.BytesIO()
         with wave.open(buffer, "wb") as wav:
-            _VOICE.synthesize_wav(text, wav)
+            wav.setparams(params)
+            wav.writeframes(b"".join(frames[:-1]))
     return buffer.getvalue()
 
 

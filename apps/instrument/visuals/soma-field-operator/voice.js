@@ -10,6 +10,8 @@ const PERSONA_VOICE = {
   munch: { rate: 1.12, pitch: 0.05, prefer: /(male|david|george|guy|mark|fred|ryan|thomas)/i },
 };
 
+import { pronounce } from './lexicon.js';
+
 // Turn Markdown-with-LaTeX into something a speech engine can read.
 export function speakableText(markdown) {
   return String(markdown ?? '')
@@ -92,7 +94,7 @@ export function createVoice() {
     // bridge: base URL of the local bridge when H-AL's Piper voice should be used.
     // Resolves with 'piper', 'browser' or 'silent' once the speech has finished or been stopped.
     async speak(markdown, persona = 'mother', bridge = '') {
-      const text = speakableText(markdown);
+      const text = pronounce(speakableText(markdown));
       if (!text) return 'silent';
       stopAll();
       if (persona === 'hal' && bridge) {
