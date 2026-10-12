@@ -1190,9 +1190,9 @@ AI-drawn physics figures.
 
 **Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
 
-## ISS-042: Collected Works side files (Me/chats/notebooks/The_Soma-Field_Collected_Works) — OPEN
+## ISS-042: Collected Works side files (Me/chats/notebooks/The_Soma-Field_Collected_Works) — CLOSED
 {{Tags area.app, area.proofs, area.books}}
-{{Fields date.created=2026-10-05, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-05, date.start=, date.end=2026-10-13, epic=}}
 
 Audit 2026-10-05 of the 50 files exported with the Collected Works chat
 (2026-09-30). Most are earlier versions of work U now does differently or
@@ -1222,30 +1222,24 @@ bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
    thinkers; field-of-sense zoom keeps rules, epoch and rationality; Spinoza
    parallelism without reduction; Kant's appearance and the unrecoverable
    noumenon. In the default build and the Lean appendix (now 26 files).
-- [ ] (done above) Optional small, honest Lean file for the philosophy band: Russell's
+- [x] (done above) Optional small, honest Lean file for the philosophy band: Russell's
    epochs as an ordered type matching `registry/eras.yaml`'s philosophy band,
    and the true statement that `philosophyZoom` preserves rationality
    (`rfl`). Label `kernel-verified` only for what it proves.
-- [ ] Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent
-   emotion only at biological scales, structural contours elsewhere
-   (Davies, Barrett). The claim boundary is already in
-   `SOMA-MACHINE-MVP.md`; decide whether the typed version (Lean types, HUD
-   retyping) is wanted.
-- [ ] UI completeness claim (`ttheory-ui-completeness-proof.md`, prose only):
+      (13 Oct triage: done, as the item says)
+- (moved to ISS-081) Dual-emotion model…
+- [x] UI completeness claim (`ttheory-ui-completeness-proof.md`, prose only):
    either state and prove a precise control-to-state surjectivity, or drop the
    word "proof".
-- [ ] Instrument extras not in U, author to decide: ERAE touch controller over
-   MIDI 2.0 via Bome (`soma-erae-bome-routing (1).js`); foot-pedal zoom
-   (`soma-pedal-zoom (1).sh`); Conky desktop status panel
-   (`soma-machine-conky.conf`); TouchDesigner Mandelbulb render
-   (`soma-touchdesigner-mandelbulb (1).py`).
-- [ ] Workflow extras: Neovim config (`soma-neovim-init.lua`: author, 13 Oct,
-   not this file, origin unsure; a barebone Neovim instead, ISS-001); a Markdown task engine
-   (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover
-   it); `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
-- [ ] `ttheory-cheatsheets-vault.md` (11 book assets, equations, field notes):
+      (13 Oct triage: no live document calls it a proof; the word survives only in the incoming RC1.1 file uat/RC1.1/inbox/SomaMachine/ttheory-ui-completeness-proof.md, a historical record left as it was; scale-morphisms.js names it as a source)
+- (moved to ISS-081) Instrument extras not in U…
+- (moved to ISS-081) Workflow extras…
+- [x] `ttheory-cheatsheets-vault.md` (11 book assets, equations, field notes):
    check against the current cheat-sheet sources (ISS-031) for anything not
    carried over.
+      (13 Oct triage: checked: books/T-Theory/books.yaml carries every book's why, field notes and Sherlock audit from the vault, reworded to drop its overclaims (invented Lean hashes, "Verified without Sorry"); nothing left to carry)
+
+**Closed 2026-10-13:** the side files are carried, quarantined or with the author (ISS-081).
 
 ---
 
@@ -3834,4 +3828,16 @@ steps; ISS-047 the RC3 follow-up.
       concepts` fails on any class that is not an OpenCyc constant. Author decides: change
       the Lean strings (and the CycRef examples quoted in the papers and the omnibus) to
       real constants, or define the missing ones as the programme's own OWL classes.
+- [ ] (ISS-042) Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent emotion
+      only at biological scales, structural contours elsewhere (Davies, Barrett). The claim
+      boundary is already in `SOMA-MACHINE-MVP.md`; decide whether the typed version (Lean
+      types, HUD retyping) is wanted.
+- [ ] (ISS-042) Instrument extras not in U, author to decide: ERAE touch controller over
+      MIDI 2.0 via Bome (`soma-erae-bome-routing (1).js`); foot-pedal zoom (`soma-pedal-zoom
+      (1).sh`); Conky desktop status panel (`soma-machine-conky.conf`); TouchDesigner
+      Mandelbulb render (`soma-touchdesigner-mandelbulb (1).py`).
+- [ ] (ISS-042) Workflow extras: Neovim config (`soma-neovim-init.lua`: author, 13 Oct, not
+      this file, origin unsure; a barebone Neovim instead, ISS-001); a Markdown task engine
+      (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover it);
+      `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
 
