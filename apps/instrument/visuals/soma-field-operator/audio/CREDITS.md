@@ -28,4 +28,4 @@ Check the current licence before each release.
 
 | Use | Work | Author / performer | Licence | Source (checked) |
 |---|---|---|---|---|
-| (none yet) | | | | |
+| Arterial way-in anatomy (schematic, no copied images) | Anatomy and Physiology 2e | OpenStax | CC BY 4.0 | Anatomy after OpenStax, Anatomy and Physiology 2e, CC BY 4.0 |

@@ -100,6 +100,10 @@ The scene exposes three normalised fields in `[0, 1]`:
 - **Cosmic scale**: at $\sigma=19$, the panel shows the current sourced
 	relations $\Lambda_\mathrm{USF}=(21/11)H_0^2/c^2$ and
 	$\Omega_\mathrm{DM}=3/11$.
+- **Mind-body explorer**: the BRAIN route now has THE WAY IN, a schematic
+	arterial voyage from the heart through the aorta, carotids, circle of Willis
+	and middle cerebral artery into the cathedral stop, with approximate calibre
+	labels and OpenStax Anatomy & Physiology 2e credited in `audio/CREDITS.md`.
 
 These are visual navigation states for the research model, not medical display
 or diagnostic controls.

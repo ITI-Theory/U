@@ -85,12 +85,13 @@ const temperature = phi => T0 + SIGMA * phi;
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
 export const STEREO_MODES = ['off', 'half', 'full'];
-export const STOPS = ['human', 'body', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight', 'score'];
+export const STOPS = ['human', 'body', 'wayin', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight', 'score'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
 export const STOP_LEVELS = {
   human: { level: 'human-vertebrate' }, body: { level: 'human-vertebrate' },
+  wayin: { level: 'whole-brain-cemi', dim: 4 },
   brain: { level: 'whole-brain-cemi' }, limbic: { level: 'human-vertebrate', dim: 8 },
   thought: { level: 'whole-brain-cemi', dim: 11 },
   neuron: { level: 'cellular-synaptic' }, network: { level: 'whole-brain-cemi' },
@@ -102,7 +103,7 @@ export const STOP_LEVELS = {
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
@@ -129,6 +130,12 @@ const CAPTIONS = {
     4: 'The body as anatomy. Colour shows where the chosen feeling is usually felt: warm for more, blue for less (a design map after Nummenmaa et al. 2014, not yet audited). Raising Φ makes it stronger.',
     8: 'Electrical layer: nerves carry impulses between body and brain, and the vagus nerve links heart and gut to the brain. More Φ, more traffic and a faster heart.',
     11: 'Field layer: the model\'s "second nervous system", one field that couples the whole body at once. Open hypothesis.',
+  },
+  wayin: {
+    title: 'THE WAY IN', label: 'sourced',
+    4: 'A schematic arterial voyage from the heart to the brain: aorta, common carotid, internal carotid, circle of Willis, middle cerebral artery. The labels carry approximate calibres; the tube shrinks as the voyage climbs.',
+    8: 'The pulse is the same heartbeat seen as flow through smaller vessels. It is anatomy for orientation, not a clinical display.',
+    11: 'The arrival is the BRAIN stop: the cathedral, thoughts as bursts, and the field as light in the stone.',
   },
   brain: {
     title: 'THE BRAIN', label: 'interpretive',
@@ -520,6 +527,75 @@ function makeBody() {
         if (dim >= 8) label(ctx, u, 'VAGUS', -0.17, -0.3, COLORS.gold, 'center', 0.026);
       }
   }
+}
+
+// ---------------------------------------------------------------- stop: the arterial way in
+
+const WAY_IN = [
+  { id: 'aorta', label: 'AORTA', mm: 25, note: 'from the heart' },
+  { id: 'common-carotid', label: 'COMMON CAROTID', mm: 6.5, note: 'up the neck' },
+  { id: 'internal-carotid', label: 'INTERNAL CAROTID', mm: 4.5, note: 'into the skull' },
+  { id: 'circle-of-willis', label: 'CIRCLE OF WILLIS', mm: 3.5, note: 'the arterial ring at the base' },
+  { id: 'mca', label: 'MIDDLE CEREBRAL ARTERY', mm: 3, note: 'out over the cortex' },
+];
+const WAY_POINTS = [[-0.58, 0.36], [-0.44, 0.08], [-0.27, -0.14], [-0.05, -0.28], [0.18, -0.18], [0.38, -0.05]];
+
+function makeWayIn() {
+  const path = polyline(WAY_POINTS);
+  let pulse = 0;
+  return {
+    focus: [0, -0.02],
+    tick(env) { pulse = (pulse + env.dt * (0.12 + 0.16 * env.phi)) % 1; },
+    poke() { pulse = 0; },
+    draw(ctx, env) {
+      const { u, t, phi } = env;
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      for (let pass = 0; pass < 2; pass++) {
+        for (let i = 0; i < WAY_POINTS.length - 1; i++) {
+          const a = WAY_POINTS[i], b = WAY_POINTS[i + 1];
+          const mm = WAY_IN[Math.min(i, WAY_IN.length - 1)].mm;
+          const width = (0.018 + 0.055 * (mm / 25)) * u * (pass ? 0.46 : 1);
+          ctx.strokeStyle = pass ? 'rgba(255,210,180,0.55)' : 'rgba(175,24,44,0.62)';
+          ctx.lineWidth = width;
+          ctx.beginPath();
+          ctx.moveTo(a[0] * u, a[1] * u);
+          const sag = 0.05 * Math.sin(i + 1.3);
+          ctx.quadraticCurveTo(((a[0] + b[0]) / 2) * u, ((a[1] + b[1]) / 2 + sag) * u, b[0] * u, b[1] * u);
+          ctx.stroke();
+        }
+      }
+      // the heart and the brain/cathedral gate at the end of the voyage
+      glow(ctx, u, -0.62, 0.42, 0.09, '#ff3048', 0.45 + 0.4 * Math.sin(t * 5) ** 2);
+      ctx.fillStyle = '#ff3048';
+      ctx.beginPath();
+      ctx.ellipse(-0.62 * u, 0.42 * u, 0.07 * u, 0.055 * u, -0.35, 0, TAU);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(94,231,255,0.35)';
+      ctx.lineWidth = 1.5;
+      closedSmooth(ctx, u, CEREBRUM);
+      ctx.stroke();
+      glow(ctx, u, 0.38, -0.05, 0.13, COLORS.violet, 0.25 + 0.45 * phi);
+      const dotAt = along(path, pulse);
+      glow(ctx, u, dotAt[0], dotAt[1], 0.035, '#fff2b8', 0.85);
+      dot(ctx, u, dotAt[0], dotAt[1], 0.012, '#fff2b8', 1);
+      const marks = [0.08, 0.3, 0.52, 0.72, 0.9];
+      WAY_IN.forEach((vessel, i) => {
+        const p = along(path, marks[i]);
+        const side = i % 2 ? 1 : -1;
+        const target = [p[0] + 0.16 * side, p[1] - 0.08 + 0.04 * i];
+        leader(ctx, u, `${vessel.label} · ~${vessel.mm} mm`, p, target, i >= 3 ? COLORS.cyan : '#ff9aa8');
+        label(ctx, u, vessel.note, target[0], target[1] + 0.055, COLORS.dim, 'center', 0.018);
+      });
+      if (env.labels) {
+        label(ctx, u, 'THE WAY IN: heart → aorta → carotids → circle of Willis → middle cerebral artery', 0, -0.72, '#fff2b8', 'center', 0.026);
+        label(ctx, u, 'The tube narrows from about 25 mm to about 3 mm; a schematic route after general anatomy, not an atlas mesh.', 0, -0.66, COLORS.dim, 'center', 0.02);
+        label(ctx, u, 'ARRIVAL: press WAY IN ▸ again, or BRAIN, to enter the cathedral stop.', 0, 0.82, COLORS.violet, 'center', 0.022);
+      }
+      ctx.restore();
+    },
+  };
 }
 
 // ---------------------------------------------------------------- stop: brain
@@ -2867,7 +2943,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, wayin: makeWayIn, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
 export const simulation = { avalancheSize, tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
@@ -2891,6 +2967,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
+      <button type="button" data-act="wayin" title="THE WAY IN (ISS-077): ride from the heart up the arteries to the circle of Willis and the middle cerebral artery, then arrive at the BRAIN cathedral">WAY IN ▸</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
       <label class="explorer__vivid" title="How vivid visual thoughts are (mental imagery varies from none, aphantasia, to very vivid, hyperphantasia)">VIVIDNESS <input type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Vividness" /></label>
       <button type="button" data-act="palace" aria-pressed="false" title="THE MIND PALACE (ISS-078): the 21 levels of the zoom dial as floors of one tower, from the quantum foam to the cosmic web; ride, go through a door, place a thought">PALACE</button>
@@ -2943,6 +3020,7 @@ export function createExplorer(hooks = {}) {
   const card = root.querySelector('.explorer__card');
   const feelRow = root.querySelector('.explorer__feel');
   const resourceButton = root.querySelector('[data-act="resource"]');
+  const wayInButton = root.querySelector('[data-act="wayin"]');
   const pastButton = root.querySelector('[data-act="past"]');
   const thoughtsButton = root.querySelector('[data-act="thoughts"]');
   const painButton = root.querySelector('[data-act="pain"]');
@@ -3182,6 +3260,8 @@ export function createExplorer(hooks = {}) {
     }
     resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
+    wayInButton.hidden = !['body', 'wayin', 'brain'].includes(st.stop);
+    wayInButton.textContent = st.stop === 'body' ? 'WAY IN ▸' : st.stop === 'wayin' ? 'ARRIVE: BRAIN ▸' : '◂ WAY IN';
     pastButton.hidden = st.stop !== 'network';
     thoughtsButton.hidden = st.stop !== 'brain';
     painButton.hidden = st.stop !== 'brain' || st.cave;
@@ -3652,6 +3732,8 @@ export function createExplorer(hooks = {}) {
       st.uv = { in: 'out', out: 'both', both: 'in' }[st.uv];
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'wayin') {
+      go(st.stop === 'wayin' ? 'brain' : 'wayin');
     } else if (b.dataset.act === 'follow') {
       st.pain = 'acute';
       st.painFrom = 'ureter';
