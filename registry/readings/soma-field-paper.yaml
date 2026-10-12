@@ -9,8 +9,15 @@ readings:
 - id: p1-503a
   line: 503
   quote: why fear amplifies pain
-  none: NextKB has no FrameNet translation for amplify; the influence Fear -> LevelOfPain (+) would be the reader's,
-    not licensed
+  word: amplify
+  sense: 0
+  fillers:
+    :SUBJECT:
+      pred: causes-Underspecified
+      type: Fear
+    :OBJECT:
+      pred: fe_attribute
+      type: LevelOfPain
   qp:
     sign: +
     constrainer: Fear
@@ -18,11 +25,46 @@ readings:
 - id: p1-503b
   line: 503
   quote: why safety reduces
-  none: Safety has no OpenCyc constant
+  word: reduce
+  sense: 6
+  fillers:
+    :SUBJECT:
+      pred: causes-Underspecified
+      type: FeltSafety-TTheory
+    :OBJECT:
+      pred: fe_attribute
+      type: LevelOfPain
+  qp:
+    sign: '-'
+    constrainer: FeltSafety-TTheory
+    constrained: LevelOfPain
+  rejected:
+  - word: reduce
+    sense: 0
+    fillers:
+      :SUBJECT:
+        pred: causes-Underspecified
+        type: FeltSafety-TTheory
+      :OBJECT:
+        pred: fe_attribute
+        type: LevelOfPain
+    qp:
+      sign: '-'
+      constrainer: FeltSafety-TTheory
+      constrained: LevelOfPain
+    why: NextKB's scale sense of reduce is typed IncreaseAction, so it licenses +, not -
 - id: p1-701
   line: 701
   quote: fear can amplify shame
-  none: NextKB has no FrameNet translation for amplify
+  word: amplify
+  sense: 0
+  fillers:
+    :SUBJECT:
+      pred: causes-Underspecified
+      type: Fear
+    :OBJECT:
+      pred: fe_attribute
+      type: Shame
   qp:
     sign: +
     constrainer: Fear

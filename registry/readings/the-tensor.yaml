@@ -14,8 +14,12 @@ readings:
 - id: tensor-127
   line: 127
   quote: may trigger the
-  none: NextKB's only verb sense of trigger is ActivatingATriggeringMechanism (a mechanism, FN_Triggering), and
-    heart rate has no OpenCyc constant
+  word: trigger
+  sense: 3
+  fillers:
+    :SUBJECT:
+      pred: causes-Underspecified
+      type: HeartRate-TTheory
 - id: tensor-130
   line: 130
   quote: may allow the score velocity to increase
@@ -53,7 +57,12 @@ readings:
 - id: tensor-230a
   line: 230
   quote: Safety falls steadily.
-  none: Safety has no OpenCyc constant (only SafetyFn, a function)
+  word: fall
+  sense: 4
+  fillers:
+    :SUBJECT:
+      pred: fe_attribute
+      type: FeltSafety-TTheory
 - id: tensor-230b
   line: 230
   quote: Fear rises.

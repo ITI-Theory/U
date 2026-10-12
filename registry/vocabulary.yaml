@@ -1,0 +1,113 @@
+# The programme's own vocabulary, as an OpenCyc microtheory (TTheoryVocabularyMt; ISS-089).
+#
+# OpenCyc and NextKB's FrameNet do not have the programme's technical words, or have them in
+# another sense (OpenCyc's Threshold is part of a building, Landscape a topographical feature,
+# NeuralNetwork an AI program; FrameNet's "dampen" is to make wet). Each entry here is the
+# programme's own definition: a new constant placed under existing OpenCyc collections by
+# `genls` (checked: every anchor exists in OpenCyc, and no constant falls under two disjoint
+# collections), or the English word for a constant OpenCyc already has. Verbs copy the binding
+# template of an existing FrameNet sense and are typed with an OpenCyc event type, so the sign
+# of an influence they state is licensed. sherlock/semtrans.py merges this file into the
+# indexes, marked as the programme's (source TTheoryVocabularyMt), never as OpenCyc's facts.
+# Anchors are deliberately neutral: a model quantity is a ScalarQuantity, not a physical claim.
+
+microtheory: TTheoryVocabularyMt
+
+constants:
+  - name: Propagator-TTheory
+    genls: [MathematicalObject]
+    words: [propagator]
+    comment: A Green's function G(x, x') of the field equation (nabla^2 + k^2) G = delta, the response at x to a source at x'.
+  - name: Attractor-TTheory
+    genls: [MathematicalObject]
+    words: [attractor]
+    comment: A state or set of states of a dynamical model that nearby trajectories approach (an emotional basin in the programme's models).
+  - name: EnergyLandscape-TTheory
+    genls: [MathematicalObject]
+    words: [landscape]
+    comment: The energy function of a model over its state space, pictured as terrain (not OpenCyc's Landscape, a topographical feature).
+  - name: EnergyBarrier-TTheory
+    genls: [MathematicalObject]
+    words: [barrier]
+    comment: A ridge of the energy landscape separating two basins; its height sets how hard a transition is.
+  - name: LimbicGate-TTheory
+    genls: [MathematicalObject]
+    words: [gate]
+    comment: A barrier on a path through the model's state space that opens when the limbic field is above its height (LimbicTunnel.lean).
+  - name: Threshold-TTheory
+    genls: [ScalarQuantity]
+    words: [threshold]
+    comment: A value of a model quantity at which its behaviour changes (not OpenCyc's Threshold, part of a building).
+  - name: MemoryKernel-TTheory
+    genls: [MathematicalObject]
+    words: [kernel]
+    comment: The memory kernel K(tau) of the programme's temporal dynamics, weighting the past in the present response.
+  - name: CouplingMatrix-TTheory
+    genls: [MathematicalObject]
+    words: [matrix]
+    comment: The coupling matrix W between emotion modes (W_ij > 0, mode j amplifies mode i).
+  - name: Coupling-TTheory
+    genls: [ScalarQuantity]
+    words: [coupling]
+    comment: The strength of an interaction between two modes or two people in a model.
+  - name: HopfieldNetwork-TTheory
+    genls: [MathematicalObject]
+    words: [hopfield]
+    comment: A Hopfield network as a mathematical model of associative memory (not OpenCyc's NeuralNetwork, an AI program).
+  - name: LimbicField-TTheory
+    genls: [ScalarQuantity]
+    words: [phi]
+    comment: The order parameter Phi of the programme's models (the limbic field, the FX slider); a model quantity, interpretive.
+  - name: SomaField-TTheory
+    genls: [Field-LogicalOrPhysical]
+    words: [soma-field]
+    comment: The programme's field of emotional states; whether it is physical is an open hypothesis, so it is placed under Field-LogicalOrPhysical.
+  - name: UniversalSomaticField-TTheory
+    genls: [Field-LogicalOrPhysical]
+    words: [usf]
+    comment: The Universal Somatic Field, the soma-field at every scale; its physical reading is an open hypothesis.
+  - name: CosmologicalConstant-TTheory
+    genls: [PhysicalQuantity]
+    words: [lambda]
+    comment: The cosmological constant Lambda of general relativity, which the programme compares with its derived value.
+  - name: FeltSafety-TTheory
+    genls: [FeelingAttribute]
+    words: [safety]
+    comment: The feeling of being safe, a mode of the programme's models (OpenCyc has only SafetyFn).
+  - name: HeartRate-TTheory
+    genls: [Rate, PhysiologicalQuantity]
+    words: [heart rate]
+    comment: The number of heartbeats per unit time.
+  - name: Tempo-TTheory
+    genls: [Frequency]
+    words: [tempo]
+    comment: The pace of music, beats per unit time.
+  - name: NeuralSynchrony-TTheory
+    genls: [ScalarQuantity]
+    words: [synchrony]
+    comment: The degree to which neural oscillations are in phase (Kuramoto's order parameter r in the programme's models).
+  - name: Dyad-TTheory
+    genls: [SocialGroup]
+    words: [dyad, dyadic]
+    comment: Two people treated as one coupled system.
+
+# English words for constants OpenCyc already has
+words:
+  - {word: simulation, constant: ComputerSimulation}
+  - {word: axiom, constant: Axiom}
+  - {word: definition, constant: Definition}
+  - {word: dimension, constant: Dimension}
+  - {word: limbic, constant: LimbicSystem}
+  - {word: hysteresis, constant: Hysteresis}
+  - {word: tunnelling, constant: QuantumTunneling}
+  - {word: tunneling, constant: QuantumTunneling}
+
+# The programme's verbs: a FrameNet sense's binding template, typed with an OpenCyc event type
+verbs:
+  - {word: amplify, type: IncreaseAction, template: increase/2, comment: "to raise the value of a mode or quantity (FrameNet has no amplify)"}
+  - {word: deepen, type: IncreaseAction, template: increase/2, comment: "to raise a depth: a barrier, a basin"}
+  - {word: activate, type: IncreaseAction, template: increase/2, comment: "to raise a mode's activation (NextKB's activate is a device's change of state)"}
+  - {word: soften, type: DecreaseAction, template: lower/0, comment: "to lower a barrier's height (FrameNet's soften is a change of consistency)"}
+  - {word: dampen, type: DecreaseAction, template: lower/0, comment: "to lower an amplitude (FrameNet's dampen is to make wet)"}
+  - {word: reduce, type: DecreaseAction, template: lower/0, comment: "to lower a value (NextKB types its scale sense of reduce IncreaseAction, an error)"}
+  - {word: trigger, type: CausationEvent, template: cause/1, comment: "to cause (NextKB's trigger is a mechanism's trigger)"}

@@ -10,8 +10,15 @@ readings:
 - id: p6-2246a
   line: 2246
   quote: fear activates shame
-  none: 'no licensed reading: activate''s only sense in NextKB is ChangingDeviceState (FN_Change_operational_state);
-    the reading below was refused'
+  word: activate
+  sense: 1
+  fillers:
+    :SUBJECT:
+      pred: causes-Underspecified
+      type: Fear
+    :OBJECT:
+      pred: fe_attribute
+      type: Shame
   qp:
     sign: +
     constrainer: Fear
@@ -30,7 +37,15 @@ readings:
 - id: p6-2246b
   line: 2246
   quote: shame amplifies fear
-  none: NextKB has no FrameNet translation for amplify
+  word: amplify
+  sense: 0
+  fillers:
+    :SUBJECT:
+      pred: causes-Underspecified
+      type: Shame
+    :OBJECT:
+      pred: fe_attribute
+      type: Fear
   qp:
     sign: +
     constrainer: Shame

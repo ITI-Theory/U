@@ -198,7 +198,7 @@ def check_doc(path_: Path, st: dict, kb: dict) -> tuple[list[dict], list[str]]:
         res["rejected"] = []
         for k, alt in enumerate(r.get("rejected") or []):
             a = check_one({**alt, "id": f"{r['id']}-rejected{k}", "line": r["line"], "quote": r["quote"]},
-                          doc["document"], lines, st, kb, constants, [], doc["file"], doc["commit"])
+                          doc["document"], lines, st, kb, constants, kb_findings, doc["file"], doc["commit"])
             res["rejected"].append(a)
             if a["status"] != "error":
                 res["checks"].append({"code": "R0", "level": "warn", "msg": f"rejected reading {k} now validates ({alt.get('why', '')})"})
@@ -295,10 +295,15 @@ def lean(rows: list[dict]) -> int:
     and the kernel checks the reasoning; proving the facts from the full KB is the release step."""
     facts: dict[str, str] = {}
     thms: list[str] = []
+    vocab = set(load()[1].get("vocabGenls", []))
 
     def g(a: str, b: str) -> str:
-        n = f"g_{lean_id(a)}__{lean_id(b)}"
-        facts[n] = f'axiom {n} : Holds NK (genls (.c "{a}") (.c "{b}"))'
+        if f"{a}|{b}" in vocab:  # the programme's own definition, not an OpenCyc fact
+            n = f"v_{lean_id(a)}__{lean_id(b)}"
+            facts[n] = f'/-- The programme\'s definition (TTheoryVocabularyMt, registry/vocabulary.yaml). -/\naxiom {n} : Holds NK (genls (.c "{a}") (.c "{b}"))'
+        else:
+            n = f"g_{lean_id(a)}__{lean_id(b)}"
+            facts[n] = f'axiom {n} : Holds NK (genls (.c "{a}") (.c "{b}"))'
         return n
 
     def climb(var: str, chain: list[str], tag: str, body: list[str]) -> str:
@@ -345,7 +350,9 @@ def lean(rows: list[dict]) -> int:
             "namespace CycReadings", "", "open Cyc Cyc.Sentence", "", 'abbrev NK : Mt := .c "NextKB"', "",
             *sorted(facts.values()), "", *thms, "end CycReadings", ""]
     (out / "Slice.lean").write_text("\n".join(text), encoding="utf-8", newline="\n")
-    print(f"bld/sherlock/lean/CycReadings/Slice.lean: {len(facts)} NextKB facts, {sum(1 for t in thms if t.startswith('theorem'))} theorems")
+    nv = sum(1 for k in facts if k.startswith("v_"))
+    print(f"bld/sherlock/lean/CycReadings/Slice.lean: {len(facts) - nv} NextKB facts, {nv} programme definitions, "
+          f"{sum(1 for t in thms if t.startswith('theorem'))} theorems")
     return 0
 
 

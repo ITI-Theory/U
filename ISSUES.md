@@ -4289,8 +4289,40 @@ narrative-function rules. Today only the noun and verb types are used, as a hint
       bibliography); SH2's future work proposes scoring models' readings by the validator.)
 
 **Closed 2026-10-13:** the front end can be checked where NextKB's FrameNet reaches. Next steps,
-if wanted (SOMEDAY): more readings per paper; the programme's own vocabulary (propagator,
-attractor, limbic) added to OpenCyc as a microtheory so the technical part can be read; the slice's
+if wanted (SOMEDAY): more readings per paper; (done 13 Oct, ISS-089: the programme's own vocabulary
+added to OpenCyc as a microtheory); the slice's
 facts proved from the full KB at release; SH2's experiment (models' readings scored by the validator).
 Risk: FrameNet covers everyday words better than technical ones, and OpenCyc lacks many of the
 programme's terms; "no translation" is measured, not guessed.
+
+---
+
+## ISS-089: The programme's own vocabulary in OpenCyc (TTheoryVocabularyMt) — CLOSED
+{{Tags area.proofs, area.papers}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-13, epic=}}
+
+From ISS-088 (author, 13 Oct 23:43: "vocab, yes pls"). OpenCyc and NextKB's FrameNet lack the
+programme's technical words, or have them in another sense: OpenCyc's Threshold is part of a
+building, Landscape a topographical feature, NeuralNetwork an AI program; FrameNet's dampen is
+to make wet; NextKB's scale sense of reduce is typed IncreaseAction (an error).
+
+- [x] `registry/vocabulary.yaml` (TTheoryVocabularyMt, the microtheory `sherlock/Cyc/TTheory.lean`
+      already declared): 19 constants (Propagator, Attractor, EnergyLandscape, EnergyBarrier,
+      LimbicGate, Threshold, MemoryKernel, CouplingMatrix, Coupling, HopfieldNetwork, LimbicField
+      (Phi), SomaField, UniversalSomaticField, CosmologicalConstant, FeltSafety, HeartRate, Tempo,
+      NeuralSynchrony, Dyad; each `-TTheory`) placed by `genls` under neutral OpenCyc collections
+      (a model quantity is a ScalarQuantity, the soma-field a Field-LogicalOrPhysical: no physical
+      claim); words for 8 constants OpenCyc has (simulation, axiom, definition, dimension, limbic,
+      hysteresis, tunnelling); 7 verbs typed with OpenCyc event types on a FrameNet sense's template
+      (amplify, deepen, activate, soften, dampen, trigger, reduce).
+- [x] `sherlock/semtrans.py build` merges it, marked as the programme's (source
+      TTheoryVocabularyMt), after NextKB's senses so their numbers do not move; it refuses an anchor
+      OpenCyc lacks, a name OpenCyc uses, a missing template, and a constant under two disjoint
+      collections. In the Lean slice the vocabulary's facts are named and documented apart (`v_`).
+- [x] Re-read: 12 of the 15 readings validate (5 before); the 5 influences read from sentences now
+      carry licensed signs and agree with their own documents' coupling matrices; NextKB's reduce
+      error is reported. Coverage over the 385 claims: 69% of content words, 18% of claims fully
+      (65% and 16% with NextKB alone). The rest is general academic language and connectives.
+      SH1 4.4 updated.
+
+**Closed 2026-10-13.**

@@ -218,7 +218,16 @@ proportionality [@forbus1984qp]) licensed by the sense's own type
 
 The first readings (The Tensor, P1, P6; 15 sentences) gave 5 validated and 10
 with no translation: *amplify* is not in FrameNet, and safety, tempo and heart
-rate are not in OpenCyc. The validator corrected its own reader at once:
+rate are not in OpenCyc. The programme's own vocabulary then became a
+microtheory, `TTheoryVocabularyMt` (`registry/vocabulary.yaml`): 19 constants
+placed under neutral OpenCyc collections (a model quantity is a
+`ScalarQuantity`, not a physical claim), words for 8 constants OpenCyc
+already has, and 7 verbs typed with OpenCyc event types. It was needed for
+more than coverage: OpenCyc's *threshold* is part of a building, its
+*landscape* a topographical feature, its *neural network* an AI program, and
+FrameNet's *dampen* is to make wet. With it, 12 of the 15 readings validate,
+and every influence read from a sentence carries a sign its verb licenses;
+the definitions are marked as the programme's, never as OpenCyc's. The validator corrected its own reader at once:
 "Fear rises", read with fear as the object of the change, was refuted, since
 the role needs a tangible thing and OpenCyc's feelings are aspatial; the
 reading it accepts makes fear the attribute whose value changes. "Fear
@@ -234,11 +243,10 @@ shame at $+0.2$, where every other figure in P1 and P6 has $-0.3$.
 
 How far does this reach? Over the 385 claims of 43 affidavits, 65% of the
 content words have a FrameNet translation, and 16% of the claims have one for
-every word. The gaps are the programme's technical vocabulary (*propagator*,
-*attractor*, *limbic*, *Hopfield*) and connectives FrameNet does not translate
-(*because*, *therefore*). The checked front end reaches the everyday part of
-a claim; the technical part still needs a person, or the programme's own
-vocabulary added to OpenCyc. `empirical-result`
+every word; with the programme's vocabulary, 69% and 18%. The rest is general
+academic language (*real*, *formal*, *clinical*, *empirical*) and connectives
+(*because*, *therefore*, *whether*), which are a claim's logical structure
+rather than words a lexicon translates. `empirical-result`
 
 ## Templates: numbers as data
 

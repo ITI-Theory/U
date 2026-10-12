@@ -14,6 +14,12 @@ The KB index holds what the validator needs to check a reading against OpenCyc: 
 constants exist, each predicate's arity and argument types (`arg1Isa` ...), and the `isa` /
 `genls` graph. Python reads; the facts are NextKB's, the decisions are the validator's and,
 for types, Lean's (readings.py).
+
+The programme's own vocabulary (registry/vocabulary.yaml, TTheoryVocabularyMt; ISS-089) is
+merged in: its constants under their OpenCyc anchors, its words as senses after NextKB's (so
+NextKB's sense numbers do not move), each marked with its source. The merge refuses an anchor
+OpenCyc does not have, a name OpenCyc already uses, a template that does not exist, and a
+constant under two disjoint collections.
 """
 from __future__ import annotations
 
@@ -158,16 +164,94 @@ def build_kb(z: zipfile.ZipFile) -> dict:
             "disjointWith": {k: sorted(v) for k, v in disjoint.items()}, "disjointOrig": sorted(disjoint_orig)}
 
 
+VOCAB = U / "registry" / "vocabulary.yaml"
+
+
+def merge_vocabulary(st: dict, kb: dict) -> list[str]:
+    """The programme's vocabulary into both indexes; returns the problems (empty: merged)."""
+    import yaml
+    v = yaml.safe_load(VOCAB.read_text(encoding="utf-8"))
+    mt = v["microtheory"]
+    opencyc = set(kb["constants"])
+    errors: list[str] = []
+    new = {c["name"] for c in v.get("constants") or []}
+    for c in v.get("constants") or []:
+        if c["name"] in opencyc:
+            errors.append(f"{c['name']}: OpenCyc already has this name")
+        for g in c["genls"]:
+            if g not in opencyc and g not in new:
+                errors.append(f"{c['name']}: anchor {g} is not in OpenCyc")
+    for w in v.get("words") or []:
+        if w["constant"] not in opencyc:
+            errors.append(f"word {w['word']}: {w['constant']} is not in OpenCyc")
+    if errors:
+        return errors
+    vocab_genls = []
+    for c in v.get("constants") or []:
+        kb["genls"].setdefault(c["name"], [])
+        for g in c["genls"]:
+            kb["genls"][c["name"]].append(g)
+            vocab_genls.append(f"{c['name']}|{g}")
+        kb["isa"].setdefault(c["name"], []).append("Collection")
+    kb["constants"] = sorted(opencyc | new)
+    kb["vocabGenls"] = vocab_genls
+    kb["vocabComment"] = {c["name"]: c.get("comment", "") for c in v.get("constants") or []}
+    # disjointness: no new constant under two disjoint collections
+    for c in v.get("constants") or []:
+        seen, todo = {c["name"]}, [c["name"]]
+        while todo:
+            x = todo.pop()
+            for g in kb["genls"].get(x, []):
+                if g not in seen:
+                    seen.add(g); todo.append(g)
+        for a in seen:
+            for d in kb["disjointWith"].get(a, []):
+                if d in seen:
+                    errors.append(f"{c['name']}: falls under {a} and {d}, which OpenCyc says are disjoint")
+    def sense(word: str, typ: str, src: dict, pos: str, slots_: dict, frame: str) -> dict:
+        return {"pos": pos, "word": word, "particles": [], "types": [[":ACTION" if pos == "verb" else ":NOUN", typ]],
+                "other": [], "frame": frame, "slots": slots_, "source": mt, "comment": src.get("comment", "")}
+    for c in v.get("constants") or []:
+        for w in c.get("words") or []:
+            st["words"].setdefault(w, []).append(sense(w, c["name"], c, "noun", {}, f"TT_{c['name']}"))
+    for w in v.get("words") or []:
+        st["words"].setdefault(w["word"], []).append(sense(w["word"], w["constant"], w, "noun", {}, f"TT_{w['constant']}"))
+    for vb in v.get("verbs") or []:
+        lem, k = vb["template"].split("/")
+        tmpl = (st["words"].get(lem) or [])
+        if not (0 <= int(k) < len(tmpl)) or tmpl[int(k)]["pos"] != "verb":
+            errors.append(f"verb {vb['word']}: template {vb['template']} is not a verb sense")
+            continue
+        if vb["type"] not in opencyc:
+            errors.append(f"verb {vb['word']}: {vb['type']} is not in OpenCyc")
+            continue
+        st["words"].setdefault(vb["word"], []).append(
+            sense(vb["word"], vb["type"], vb, "verb", tmpl[int(k)]["slots"], f"TT_{vb['word']} (template {tmpl[int(k)]['frame']})"))
+    for senses in st["words"].values():
+        for k, s_ in enumerate(senses):
+            s_["sense"] = k
+    st["senses"] = sum(len(x) for x in st["words"].values())
+    st["vocabulary"] = {"microtheory": mt, "constants": len(new), "words": len(v.get("words") or []), "verbs": len(v.get("verbs") or [])}
+    return errors
+
+
 def build() -> int:
     with zipfile.ZipFile(ZIP) as z:
         st = build_semtrans(z)
         kb = build_kb(z)
+    problems = merge_vocabulary(st, kb)
+    if problems:
+        for e in problems:
+            print(f"FAIL  vocabulary: {e}")
+        return 1
     OUT.mkdir(parents=True, exist_ok=True)
     SEMTRANS.write_text(json.dumps(st, ensure_ascii=False), encoding="utf-8")
     KB.write_text(json.dumps(kb, ensure_ascii=False), encoding="utf-8")
     print(f"{SEMTRANS.relative_to(U).as_posix()}: {len(st['words'])} words, {st['senses']} senses, {st['frames']} frames")
     print(f"{KB.relative_to(U).as_posix()}: {len(kb['constants'])} constants, {len(kb['arity'])} predicates with an arity, "
           f"{len(kb['argIsa'])} with argument types")
+    voc = st["vocabulary"]
+    print(f"vocabulary ({voc['microtheory']}): {voc['constants']} constants, {voc['words']} words for OpenCyc constants, {voc['verbs']} verbs")
     return 0
 
 
@@ -190,7 +274,8 @@ def main() -> int:
         print(f"no FrameNet translation for {word!r}")
         return 1
     for s in senses:
-        print(f"{word} [{s['pos']} {s['sense']}] {s['frame']}: " + ", ".join(f"{r} isa {t}" for r, t in s["types"]))
+        print(f"{word} [{s['pos']} {s['sense']}] {s['frame']}: " + ", ".join(f"{r} isa {t}" for r, t in s["types"])
+              + (f"  ({s['source']}: {s['comment']})" if s.get("source") else ""))
         for slot, alts in s["slots"].items():
             print(f"    {slot}: " + "; ".join(f"{a['phrase']} -> {' | '.join(a['preds']) or '-'}" for a in alts))
     return 0
