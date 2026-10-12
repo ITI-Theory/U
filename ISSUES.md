@@ -3518,6 +3518,29 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       light in the stone; FX off the plain anatomy.
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
+- [ ] Visual thoughts (author, 13 Oct 04:10): steal from Kandinsky; images floating; 3D
+      bubbles as real as possible with the image on them; they grow; one that comes close
+      fills the screen and you pop into it, into the "video". Copilot's view:
+      - The science fits: mental imagery reuses the visual cortex (Kosslyn), weaker and
+        blurrier than seeing, built top-down from memory; how vivid it is varies from none
+        (aphantasia) to very vivid (hyperphantasia): a VIVIDNESS slider, as the conditions
+        have theirs. The images come from memory, so they should be ours: the 992 generated
+        figures (bld/visualize, the papers, the books) and the equations, the author's own
+        thoughts made visible. A curated set (about 60) copied into the app at generate time.
+      - Kandinsky as grammar, not copies (he died 1944, his works are public domain in most
+        countries, but the point is his language): colour carries the feeling (his yellow
+        loud, blue deep), point, line and plane; the bubbles' tint is the mode, as THOUGHTS.
+      - One mechanism, not two: a THOUGHT burst that grows past ignition becomes a bubble
+        with an image; small bursts stay sparks. Bubbles: three.js thin-film iridescence and
+        transmission, the image wrapped on with a fisheye; size from the avalanche; they
+        drift, grow, pop.
+      - Pop in: when a bubble nears the camera it fills the screen through its refraction and
+        the content takes over: a figure full screen with its equation and caption (EQUATION,
+        FIGURES, READ MORE, ISS-051), or, better, a bubble holding a stop of the Soma Machine
+        (the river, the stone, a tower), so popping in is travelling by thought.
+      - Where: the cathedral's nave (thoughts floating through it) and the brain stop.
+      Difficulty: bubbles with images medium (a dozen at once; transmission is costly);
+      the pop-in medium; live stops inside bubbles (render targets) hard, later.
 - [x] (13 Oct: in the cave, THOUGHTS and POKE flash in the stone; with the C-PTSD slider each
       returns, fading, more often and longer as cp rises, and the music's echo lengthens; the
       partial-cue flashback is not yet built) C-PTSD echoes in the cathedral (author, 13 Oct 04:00). The match: a cathedral's
