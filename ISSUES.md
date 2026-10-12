@@ -1309,11 +1309,11 @@ bridge and coprocessor spec (partly the MOTHER bridge, ISS-037/038).
 
 ---
 
-## ISS-043: Upgrade pandoc and pandoc-crossref together (after the release) — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-043: Upgrade pandoc and pandoc-crossref together (after the release) — PARKED
 {{Tags area.build}}
 {{Fields date.created=2026-10-05, date.start=, date.end=, epic=}}
 
-The course book now uses pandoc-crossref (BUILD.md rule 4b). Installed:
+Parked by the author on 13 Oct (was on hold until after Mk 1). The course book now uses pandoc-crossref (BUILD.md rule 4b). Installed:
 pandoc 3.10.2 (Chocolatey) with pandoc-crossref 0.3.25 (built on 3.10.1;
 `%LOCALAPPDATA%\Pandoc\pandoc-crossref.exe`). It warns about the patch-level
 mismatch; output was verified word for word against the pre-crossref build.
