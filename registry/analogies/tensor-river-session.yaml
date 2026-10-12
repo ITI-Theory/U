@@ -1,0 +1,47 @@
+# Sherlock structure mapping (ISS-084, the containers test): The Tensor's claim that the
+# River, Body and Session containers are "the same film", tested by relational structure.
+# Facts are CycL-shaped sentences from the container lines of Part II, each with its line
+# in the paper frozen at d53a893 (the commit that added the Body and Session lines). The
+# same predicate is used only where the two lines say the same kind of thing.
+source: the-tensor
+claim: >-
+  "All three are the same film" (Part IV, The Trilogy of Containers); the container lines
+  sit side by side under each phase in Part II (lines 210-331 at d53a893)
+id: tensor-river-session
+base:
+  name: the river container
+  facts:
+    - {s: (departsFrom Traveller LastTown), line: 217}
+    - {s: (losesSightOf Traveller LastRoad), line: 217}
+    - {s: (narrows River), line: 240}
+    - {s: (strengthens Current), line: 240}
+    - {s: (unrecognisable Surroundings), line: 241}
+    - {s: (causes (strengthens Current) (steers Current Traveller)), line: 241}
+    - {s: (irreversible Threshold1), line: 259}
+    - {s: (discovery Threshold1), line: 259}
+    - {s: (encounters Traveller Kurtz), line: 281}
+    - {s: (speechless Kurtz), line: 282}
+    - {s: (widens River), line: 322}
+    - {s: (returns Light), line: 322}
+    - {s: (unchanged World), line: 323}
+    - {s: (changed Traveller), line: 323}
+target:
+  name: the session container
+  facts:
+    - {s: (arrivesAt Client ConsultingRoom), line: 224}
+    - {s: (tellsInSentences Client Story), line: 224}
+    - {s: (safe ConsultingRoom), line: 225}
+    - {s: (pulls Something Client), line: 225}
+    - {s: (shortens Sentences), line: 248}
+    - {s: (takesOver Body Story), line: 248}
+    - {s: (causes (takesOver Body Story) (felt Story)), line: 250}
+    - {s: (peaksWithoutDischarge Fear), line: 264}
+    - {s: (irreversible Threshold1), line: 265}
+    - {s: (discovery Threshold1), line: 265}
+    - {s: (holds Client Freeze), line: 288}
+    - {s: (speechless Freeze), line: 288}
+    - {s: (lifts Freeze), line: 306}
+    - {s: (opensFully Grief), line: 306}
+    - {s: (returns Words), line: 329}
+    - {s: (leaves Client ConsultingRoom), line: 330}
+    - {s: (asymmetricReturn Session), line: 330}

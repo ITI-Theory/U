@@ -1,0 +1,47 @@
+# Sherlock structure mapping (ISS-084, the containers test): The Tensor's claim that the
+# River, Body and Session containers are "the same film", tested by relational structure.
+# Facts are CycL-shaped sentences from the container lines of Part II, each with its line
+# in the paper frozen at d53a893 (the commit that added the Body and Session lines). The
+# same predicate is used only where the two lines say the same kind of thing.
+source: the-tensor
+claim: >-
+  "All three are the same film" (Part IV, The Trilogy of Containers); the container lines
+  sit side by side under each phase in Part II (lines 210-331 at d53a893)
+id: tensor-body-river
+base:
+  name: the body container
+  facts:
+    - {s: (entersInto Craft WideVein), line: 220}
+    - {s: (readable VesselWalls), line: 220}
+    - {s: (names Pilot WhatPasses), line: 222}
+    - {s: (narrows Vessels), line: 244}
+    - {s: (carries Flow Craft), line: 244}
+    - {s: (unrecognisable Surroundings), line: 245}
+    - {s: (causes (carries Flow Craft) (steers Flow Pilot)), line: 245}
+    - {s: (irreversible Threshold1), line: 261}
+    - {s: (discovery Threshold1), line: 262}
+    - {s: (encounters Pilot HeartChamber), line: 284}
+    - {s: (speechless HeartChamber), line: 286}
+    - {s: (meets OldestMemory Craft), line: 303}
+    - {s: (opensFully Grief), line: 304}
+    - {s: (widens Flow), line: 325}
+    - {s: (returns Light), line: 325}
+    - {s: (unchanged Body), line: 326}
+    - {s: (changed Pilot), line: 327}
+target:
+  name: the river container
+  facts:
+    - {s: (departsFrom Traveller LastTown), line: 217}
+    - {s: (losesSightOf Traveller LastRoad), line: 217}
+    - {s: (narrows River), line: 240}
+    - {s: (strengthens Current), line: 240}
+    - {s: (unrecognisable Surroundings), line: 241}
+    - {s: (causes (strengthens Current) (steers Current Traveller)), line: 241}
+    - {s: (irreversible Threshold1), line: 259}
+    - {s: (discovery Threshold1), line: 259}
+    - {s: (encounters Traveller Kurtz), line: 281}
+    - {s: (speechless Kurtz), line: 282}
+    - {s: (widens River), line: 322}
+    - {s: (returns Light), line: 322}
+    - {s: (unchanged World), line: 323}
+    - {s: (changed Traveller), line: 323}

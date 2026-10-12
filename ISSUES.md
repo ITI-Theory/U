@@ -3949,5 +3949,26 @@ SME needs the Body and Session containers written before it can compare them wit
 They are (13 Oct): the author accepted the draft as it was ("go with yours, I have read it"), and
 its lines are in The Tensor's Part II under each phase, beside the river's; the draft file is gone.
 
-- [ ] (from ISS-080) (ISS-055) Later: SME (after the Body and Session phases are written);
-      the Law book's affidavit chapter and the Russell reading (writing, not tools).
+- [x] SME on the containers (13 Oct): `registry/analogies/tensor-river-body.yaml`,
+      `tensor-river-session.yaml`, `tensor-body-river.yaml` (The Tensor frozen at d53a893;
+      `python sherlock/sme.py <id>`, report in bld/sherlock/sme-<id>.md). Findings:
+      - River -> Body: 9 of 14 river facts map (58 %): traveller -> pilot, Kurtz -> heart
+        chamber, world -> body; narrowing, the irreversible discovery at Threshold 1, the
+        wordless encounter, light returning, "the world has not changed, you have". The body
+        container is the same journey `derived-under-assumptions`.
+      - River -> Session: 4 of 14 (26 %): only the threshold, the wordless deep phase
+        (Kurtz -> the freeze) and the return map. The session has no traveller who meets
+        anything: SME infers (encounters ?Traveller Freeze). It is the same score, not the
+        same journey `derived-under-assumptions`.
+      - Body -> River (48 %): the river has no Threshold 2 line; Body and Session both do
+        (the oldest memory, grief opens fully). A gap in Part II.
+      - The scores depend on the encoding (which lines share a predicate): one encoder, so
+        `interpretive` until a second reading checks it.
+      Verdict on "All three are the same film": the same score in all three; the same film
+      for River and Body; the Session is the same score told without a journey, as Sherlock's
+      SH1 found for the film claim.
+- [ ] Possible edits to The Tensor from the test (author's call): a river line for Threshold 2
+      (grief opens fully, the oldest loss); and in the session, someone meets the freeze (the
+      encounter), so the three tell the same journey; or keep them as they are and let
+      Part IV say "the same score" rather than "the same film".
+- [ ] The Law book's affidavit chapter and the Russell reading (writing, not tools).
