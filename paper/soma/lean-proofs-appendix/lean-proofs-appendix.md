@@ -51,7 +51,7 @@ The twenty-six files that follow collectively establish:
 | `UniversalSomaticField.lean` | Scale invariance; consciousness threshold; universality | Compiles; contains axioms and theorem-level declarations |
 | `Movie.lean` | The River Film as Lean data; typeclass renderer architecture | Compiles; data and renderer declarations |
 | `QuantumSim.lean` | Minimal quantum simulator; two-state WKB-gate reachability | Compiles; 5 theorems, no axioms |
-| `SomaNetwork.lean` | Common typeclass interface for Hopfield-style networks | Compiles; 2 theorems, 1 open sorry (`sft_ne_classical`) |
+| `SomaNetwork.lean` | Common typeclass interface for Hopfield-style networks | Compiles; 2 theorems, no sorries: the SFT gate differs from Hopfield 1982's and moves every mode toward the awe pattern |
 | `ScaleUniverse.lean` | `T_TheoryUniverse`: the scale-indexed dependent type, with Physlib field types per scale | Compiles; 3 theorems |
 | `Benchmark.lean` | Timed comparison of network update rules (1982, 2016, 2020, FM-HN) | Compiles; executable benchmark, no theorems |
 | `BFSSIsomorphism.lean` | Correspondence with a simplified BFSS matrix model | Compiles; 9 theorems, 2 axioms |
@@ -67,9 +67,9 @@ The twenty-six files that follow collectively establish:
 | `SomaPhilosophy.lean` | The philosophy band: Russell's timeline, fields of sense, Spinoza's dual aspect, Kant's appearance | Compiles; 10 theorems, no axioms, no sorries; core Lean only |
 
 **On proof status and axioms:** Lean accepts the files, but a build is not a
-file-level proof certificate. There is one real Lean `sorry` stub, in
-`SomaNetwork` (five until October 2026, when the two in `DyadicField` were
-proved and `BRECVEMAVariational` was restated with a labelled axiom). Individual declarations may be kernel-verified theorems,
+file-level proof certificate. There is no real Lean `sorry` stub (five until
+October 2026, when those in `DyadicField` and `SomaNetwork` were proved and
+`BRECVEMAVariational` was restated with a labelled axiom). Individual declarations may be kernel-verified theorems,
 axioms, definitions, arithmetic facts, imported theorem applications, or
 sorry-backed placeholders. Open work is represented as named axioms, explicit
 gap markers, or scoped future formalisation, each documented in source.

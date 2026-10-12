@@ -110,13 +110,29 @@ noncomputable instance hopfield1982 : SomaNetwork Field8 Field8 where
 theorem sft_ne_classical (W : ℝ) (hW : 0 < W) :
     somaFieldNetwork.tunnelGate (startlePattern) W ≠
     hopfield1982.tunnelGate (startlePattern) W := by
-  sorry  -- pending Field8→ℝ and tunnelGate implementation (ISS-009)
+  intro h
+  -- at mode 6 the startle pattern is 0 and the awe pattern 1: the gate would give 1 - T = 0
+  have h6 : startlePattern ⟨6, by decide⟩ * Real.exp (-W)
+      + musicalAwePattern ⟨6, by decide⟩ * (1 - Real.exp (-W)) = startlePattern ⟨6, by decide⟩ :=
+    congrFun h ⟨6, by decide⟩
+  have hT : Real.exp (-W) < 1 := by
+    simpa using Real.exp_lt_exp.mpr (show -W < 0 by linarith)
+  simp only [startlePattern, musicalAwePattern] at h6
+  linarith
 
-/-- The SFT tunnel gate moves the state TOWARD the awe pattern.
-    (Stated as a direction theorem, not magnitude.) -/
-theorem sft_gate_toward_awe (W : ℝ) (_hW : 0 < W) (_i : Fin N8) :
-    True := by  -- placeholder; full statement pending ISS-009
-  trivial
+/-- The SFT tunnel gate moves every mode TOWARD the awe pattern: the distance to it
+    shrinks by the factor T = exp(−W) < 1 (ISS-036: was a placeholder proving `True`). -/
+theorem sft_gate_toward_awe (W : ℝ) (hW : 0 < W) (e : Field8) (i : Fin N8) :
+    |somaFieldNetwork.tunnelGate e W i - musicalAwePattern i| ≤ |e i - musicalAwePattern i| := by
+  have hT0 : 0 < Real.exp (-W) := Real.exp_pos _
+  have hT1 : Real.exp (-W) < 1 := by
+    simpa using Real.exp_lt_exp.mpr (show -W < 0 by linarith)
+  have hgap : somaFieldNetwork.tunnelGate e W i - musicalAwePattern i
+      = (e i - musicalAwePattern i) * Real.exp (-W) := by
+    show e i * Real.exp (-W) + musicalAwePattern i * (1 - Real.exp (-W)) - musicalAwePattern i = _
+    ring
+  rw [hgap, abs_mul, abs_of_pos hT0]
+  exact mul_le_of_le_one_right (abs_nonneg _) hT1.le
 
 /-! ## 5. The Python Contract (documentation) -/
 
