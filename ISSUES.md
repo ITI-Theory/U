@@ -961,7 +961,7 @@ not be presented as an established clinical mechanism without evidence.
 
 ---
 
-## ISS-036: Lean toolchain upgrade and remaining proof debts — ON-HOLD (until OSforGFF #22 is merged upstream)
+## ISS-036: Lean toolchain upgrade and remaining proof debts — CLOSED
 {{Tags area.proofs, area.ops}}
 {{Fields date.created=2026-10-03, date.start=, date.end=, epic=}}
 
@@ -981,11 +981,12 @@ five real `sorry`s remain in three files.
    HEAD with a one-line patch submitted as mrdouglasny/OSforGFF#22; all 25
    libraries build with 0 errors and 0 lint warnings in our files;
    `lean/upgrade-build.sh` applies the patch after `lake update`.
-- [ ] Move to v4.34.x when upstream OSforGFF does; drop `lean/patches/v4.33/`
+- [x] Move to v4.34.x when upstream OSforGFF does; drop `lean/patches/v4.33/`
    once #22 is merged. Original plan: upgrade Lean, Mathlib and physlib to v4.34.x and OSforGFF,
    GaussianField and BochnerMinlos to upstream commits for the same release;
    drop `lean/patches/` once upstream builds unpatched; full `lake build`.
    Low priority: a separate task, not before a release.
+      (13 Oct: moved to ISS-085, parked.)
 - [x] Reproducible from a clean clone: `bash lean/upgrade-build.sh` runs
    `lake update`, applies `lean/patches/v4.33/`, fetches the Mathlib cache and builds.
 - [x] Restate `euler_lagrange_BRECVEMA` (`BRECVEMAVariational.lean`): the
@@ -1028,8 +1029,13 @@ five real `sorry`s remain in three files.
 - [x] Field8 Float→ℝ migration (see the ISS-009 follow-ups) unblocks the
    `DyadicField` and `SomaNetwork` debts.
       (13 Oct: not needed: both layers are already ℝ; the debts closed without it.)
-- [ ] Optional good-citizen step: an issue or note to the OSforGFF author
+- [x] Optional good-citizen step: an issue or note to the OSforGFF author
    saying where the library is used (no code change needed).
+      (13 Oct: done: the PR, mrdouglasny/OSforGFF#22, links the author's work.)
+
+**Closed 2026-10-13:** on v4.33.0, reproducible from a clean clone; no real `sorry` remains;
+six of the eight `True` placeholders replaced, the other two disclosed as placeholders. The
+v4.34 move is ISS-085 (parked).
 
 ---
 
@@ -4018,3 +4024,17 @@ its lines are in The Tensor's Part II under each phase, beside the river's; the 
 
 **Closed 2026-10-13:** the containers test is run and The Tensor edited from it; the Law chapter and the Russell reading were already written (ISS-064).
 
+---
+
+## ISS-085: Lean v4.34 move, after OSforGFF — PARKED
+{{Tags area.proofs, area.ops}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+From ISS-036. The proofs build on Lean, Mathlib and physlib v4.33.0, with a one-line local
+patch to OSforGFF (`lean/patches/v4.33/`) submitted upstream as mrdouglasny/OSforGFF#22.
+Nothing is broken; this waits on upstream.
+
+- [ ] When #22 is merged and OSforGFF moves to v4.34.x: upgrade Lean, Mathlib and physlib to
+      v4.34.x, and OSforGFF, GaussianField and BochnerMinlos to upstream commits for the
+      same release (`bash lean/upgrade-build.sh`); full `lake build`.
+- [ ] Drop `lean/patches/v4.33/` once upstream builds unpatched.
