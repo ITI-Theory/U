@@ -104,6 +104,9 @@ The scene exposes three normalised fields in `[0, 1]`:
 	arterial voyage from the heart through the aorta, carotids, circle of Willis
 	and middle cerebral artery into the cathedral stop, with approximate calibre
 	labels and OpenStax Anatomy & Physiology 2e credited in `audio/CREDITS.md`.
+- **URETER / stent mode**: the stone sequence keeps a persistent mild stent
+	signal while the stent is in, showing curled-end irritation and occasional
+	reflux on bladder filling without treatment advice, sizes, or settings.
 
 These are visual navigation states for the research model, not medical display
 or diagnostic controls.

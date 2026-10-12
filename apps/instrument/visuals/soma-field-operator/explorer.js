@@ -1684,6 +1684,7 @@ function drawUreterOutside(ctx, u, env, m, box) {
     if (m.stone > 0) leader(ctx, u, 'STONE', at(0.55), P(0.82, 0.5), COLORS.gold);
     if (m.stent) leader(ctx, u, 'STENT (double-J)', at(0.75), P(0.8, 0.7), '#4aa3ff');
     leader(ctx, u, 'BLADDER', bl, P(0.86, 0.86), 'rgba(255,190,200,0.9)');
+    if (m.stent) label(ctx, u, `STENT MODE: mild background ${Math.round(100 * m.stentSignal)}% · curled ends irritate; bladder filling can reflux`, 0, 0.56, '#8ecbff', 'center', 0.022);
     if (pain > 0.15) {
       label(ctx, u, 'felt in the loin', ...P(0.14, 0.42), '#ff6070', 'center', 0.02);
       label(ctx, u, 'and the groin (T11 to L2)', ...P(0.7, 1.0), '#ff6070', 'center', 0.02);
@@ -1979,7 +1980,7 @@ function makeUreter() {
         drawStages(ctx, env);
         const where = model.stage === 2 ? (gl.blocked ? 'THE SCOPE AT THE STONE' : 'THE SCOPE comes up from the bladder') : model.stage === 1 ? 'INSIDE, above the stone: the stent (blue, on the floor) drains past it; the swelling falls' : model.stone > 0 ? 'INSIDE the ureter above the stone, looking down at it: the tube swells, the waves crash into it' : 'INSIDE the ureter: the waves pass freely';
         label(ctx, u, where, 0, -0.47, COLORS.teal, 'center', 0.024);
-        label(ctx, u, `pain ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM${model.stage === 2 ? ' · under anaesthetic: the nerves still signal (' + Math.round(100 * Math.min(1, model.raw)) + '%), it is not felt' : ''}`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.028);
+        label(ctx, u, `pain ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM${model.stent ? ' · stent signal ' + Math.round(100 * model.stentSignal) + '%' : ''}${model.stage === 2 ? ' · under anaesthetic: the nerves still signal (' + Math.round(100 * Math.min(1, model.raw)) + '%), it is not felt' : ''}`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.028);
         label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸ the next stage · VIEW: inside, outside, both · LOOP: the head joins in`, 0, 0.7, COLORS.dim, 'center', 0.02);
         if (env.body) label(ctx, u, `THE HEAD: Φ ${BODY.loop.phi.toFixed(2)}, tension ×${BODY.loop.bodyGain.toFixed(2)} on the spasms${BODY.loop.breath > 0.5 ? ' · the limbic breath is softening them' : ''}`, 0, 0.56, BODY.loop.breath > 0.5 ? COLORS.cyan : '#ff8090', 'center', 0.022);
         if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.41, COLORS.gold, 'center', 0.03);

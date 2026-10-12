@@ -219,6 +219,16 @@ const loopOpen = loopRun({}, false), loopNone = loopRun({}), loopCp = loopRun({ 
 const loopMindful = loopRun({ mindful: true });
 // the stone alone: the tube swells and the spasms come in waves
 const stoneRun = (() => { const m = createUreterModel(); let peaks = 0, prev = 0, up = false; for (let t = 0; t < 60; t += 0.05) { m.step(0.05, { phi: 0.5 }); if (m.spasm > prev) up = true; else if (up && prev > 0.2) { peaks++; up = false; } prev = m.spasm; } return { D: m.distension, peaks, above: m.radius(0.3), below: m.radius(0.8) }; })();
+const stentRun = (() => {
+  const m = createUreterModel();
+  m.setStage(1);
+  let signal = 0, pain = 0, reflux = 0, n = 0;
+  for (let t = 0; t < 90; t += 0.05) {
+    m.step(0.05, { phi: 0.5 });
+    if (t > 10) { signal += m.stentSignal; pain += m.pain; reflux = Math.max(reflux, m.stentSignal); n++; }
+  }
+  return { signal: signal / n, pain: pain / n, reflux };
+})();
 
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
@@ -282,6 +292,9 @@ const checks = [
   ['thoughts: avalanche sizes follow a power law with slope about -3/2 (-1.75 to -1.25)', avalancheSlope, -1.75, -1.25],
   ['stone: the tube above the stone swells (radius above / below > 1.5)', stoneRun.above / stoneRun.below, 1.5, Infinity],
   ['stone: the pain comes in waves (spasms in a minute: 6 to 30)', stoneRun.peaks, 6, 30],
+  ['stent: mild signal persists while the stent is in (15% to 45%)', stentRun.signal, 0.15, 0.45],
+  ['stent: reflux/filling bumps the mild signal at least once', stentRun.reflux - stentRun.signal, 0.05, 0.5],
+  ['stent: discomfort stays below the obstructing-stone pain', stentRun.pain / loopOpen.pain, 0, 0.75],
   ['one body: the limbic breath lowers the pain (with the loop / without < 0.85)', loopNone.pain / loopOpen.pain, 0, 0.85],
   ['one body: C-PTSD comes to the breath later (s, C-PTSD minus none > 3)', loopCp.breathAt - loopNone.breathAt, 3, Infinity],
   ['one body: C-PTSD and ADHD keep the field higher (mean Phi above none)', Number(loopCp.phi > loopNone.phi && loopCa.phi > loopNone.phi), 1, 1],
