@@ -4082,12 +4082,18 @@ every public repository says what it gives, and every borrowed thing says where 
   generated from or checked against.
 
 **Actions:**
-- [ ] Author's decision: the code licence (Apache-2.0 recommended, or MIT); Dist: CC BY 4.0
+- [x] Author's decision: the code licence (Apache-2.0 recommended, or MIT); Dist: CC BY 4.0
       instead of CC0 (recommended; note that CC0 on the already-published PDFs cannot be taken
       back for copies already taken, only for what is published from now on).
-- [ ] `registry/licences.yaml`: per repository and per kind (text, code, data), with the SPDX id.
-- [ ] LICENSE files: U (a LICENSE for text, LICENSE-CODE for code, or a REUSE layout), T,
+      (13 Oct 22:12, author: CC BY 4.0 for text, Apache-2.0 for code; Dist to CC BY 4.0.)
+- [x] `registry/licences.yaml`: per repository and per kind (text, code, data), with the SPDX id.
+- [x] LICENSE files: U (a LICENSE for text, LICENSE-CODE for code, or a REUSE layout), T,
       U.Dot, Dist (replace CC0); GitHub then shows them.
+      (13 Oct: done for the public repositories (T and U.Dot are private): U and t-theory.org
+      LICENSE-APACHE and LICENSE-CC-BY, Dist LICENSE now CC BY 4.0 (its README notes the CC0
+      mistake), T.Dot LICENSE Apache-2.0; a Licence section in each README and a line on the
+      organisation's profile page; the VS Code extension and the app's package.json say
+      `Apache-2.0 AND CC-BY-4.0`. All 39 Zenodo records checked: CC BY 4.0.)
 - [ ] Every book and paper: a copyright and licence line on the copyright page or colophon,
       from the build (a pandoc metadata field filled from the registry, not typed per book).
 - [ ] Zenodo: the deposit metadata's licence read from the registry; the release check compares
@@ -4099,3 +4105,7 @@ every public repository says what it gives, and every borrowed thing says where 
       the registry; every built PDF contains its licence line (pdftotext); the app's
       `package.json` and the VS Code extension's licence fields match; every third-party asset
       credited.
+      (13 Oct: first part done: `make -C paper check-licences` (release check 14c) checks every
+      public repository's licence files against the canonical text (SHA-256), the README
+      sections, the manifests and the statements; `--zenodo` checks every record live. The
+      PDF licence lines and the CREDITS coverage follow those items.)

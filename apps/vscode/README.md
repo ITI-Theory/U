@@ -49,4 +49,4 @@ The Soma Machine is a research and teaching instrument. Its body and mind
 views (pain, C-PTSD, ADHD, the stone) are models and illustrations, **not
 medical advice**.
 
-© Alistair Johnson. CC BY 4.0.
+© Alistair Johnson. Code Apache-2.0; text and figures CC BY 4.0 (LICENSE.md).

@@ -122,3 +122,15 @@ Validate changes with:
 ```bash
 bin/issues-check
 ```
+
+## Licence
+
+Copyright 2026 Alistair Johnson (ORCID 0009-0007-2194-0850).
+
+- **Text, papers, books, figures and data:** [Creative Commons Attribution 4.0
+  International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/), full text in
+  [LICENSE-CC-BY](LICENSE-CC-BY). You may share and adapt them, also commercially, if you
+  credit the author and say what you changed.
+- **Code (apps, scripts, build files, Lean proofs, Sherlock):** [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0),
+  full text in [LICENSE-APACHE](LICENSE-APACHE) (Mathlib's licence).
+- **Third-party material** keeps its own licence and is listed in the CREDITS files next to it.

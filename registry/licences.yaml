@@ -1,0 +1,53 @@
+# The programme's licences (ISS-086): the one place they are decided. Each public
+# repository's licence files, README section and the package manifests are checked against
+# this file by paper/scripts/check_licences.py (make -C paper check-licences; release check 14c).
+# Author's decision, 13 Oct 2026: CC BY 4.0 for text, Apache-2.0 for code.
+
+holder: "Alistair Johnson (ORCID 0009-0007-2194-0850)"
+year: 2026
+
+licences:
+  CC-BY-4.0:
+    name: Creative Commons Attribution 4.0 International
+    url: https://creativecommons.org/licenses/by/4.0/
+    covers: text, papers, books, figures, data
+    sha256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
+  Apache-2.0:
+    name: Apache License 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+    covers: code, build files, Lean proofs, Sherlock, the apps
+    sha256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+
+# Public repositories, paths relative to U's parent folder. Private ones (T, T.Ops, U.Ops,
+# U.Dot, Me) carry no licence: nothing is offered.
+repositories:
+  U:
+    path: U
+    files: {LICENSE-APACHE: Apache-2.0, LICENSE-CC-BY: CC-BY-4.0}
+    readme: README.md
+  Dist:
+    path: Dist
+    files: {LICENSE: CC-BY-4.0}
+    readme: README.md
+  t-theory.org:
+    path: t-theory.org
+    files: {LICENSE-APACHE: Apache-2.0, LICENSE-CC-BY: CC-BY-4.0}
+    readme: README.md
+  T.Dot:
+    path: T.Dot
+    files: {LICENSE: Apache-2.0}
+    readme: README.md
+  .github:
+    path: .github
+    files: {}
+    readme: profile/README.md
+
+# Package manifests in U: their licence field (SPDX)
+manifests:
+  apps/vscode/package.json: Apache-2.0 AND CC-BY-4.0
+  apps/instrument/visuals/soma-field-operator/package.json: Apache-2.0 AND CC-BY-4.0
+
+# Statements in U that must name the text licence
+statements:
+  registry/papers.yaml: CC BY 4.0
+  paper/ZENODO_RELEASE_SHEETS.md: CC BY 4.0

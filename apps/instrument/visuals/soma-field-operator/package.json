@@ -1,6 +1,7 @@
 {
   "name": "soma-field-operator",
   "private": true,
+  "license": "Apache-2.0 AND CC-BY-4.0",
   "type": "module",
   "scripts": {
     "start": "vite --host 127.0.0.1",
