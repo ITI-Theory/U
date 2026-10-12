@@ -9,6 +9,26 @@
 // order of the halls is anatomy, the proportions are for the eye.
 
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+
+// VISUAL THOUGHTS (ISS-077): soap bubbles with a figure inside. The shell is a thin film
+// (three.js iridescence: the colours of a soap film, 200-900 nm thick) reflecting a soft room;
+// the figure sits on a disc inside, its texture pulled towards the middle like a view through
+// a ball (a fisheye). A bubble grows as it drifts; when it comes close it pops and the figure
+// takes the screen (onPop). VIVIDNESS is how much of the picture shows (0: the bubble, no
+// picture, as in aphantasia; 1: vivid). Kandinsky's grammar: the tint is the feeling.
+function fisheyeDisc() {
+  const g = new THREE.CircleGeometry(1, 64);
+  const p = g.attributes.position;
+  const uv = g.attributes.uv;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), y = p.getY(i);
+    const r = Math.hypot(x, y);
+    const k = r > 0 ? Math.pow(r, 1.45) / r : 0;
+    uv.setXY(i, 0.5 + 0.5 * x * k, 0.5 + 0.5 * y * k);
+  }
+  return g;
+}
 
 // the route, in order, with the radius of each hall (scene units; the real halls are mm)
 const ROUTE = [
@@ -74,6 +94,7 @@ export function createCathedral3D() {
     const e = s * s * (3 - 2 * s);
     return ROUTE[i].r + (ROUTE[i + 1].r - ROUTE[i].r) * e;
   };
+  const routeLength = curve.getLength();
   const hallAt = u => ROUTE[Math.min(ROUTE.length - 1, Math.round(u * (ROUTE.length - 1)))].name;
 
   // the walls: a tube whose radius follows the halls, roughened like hewn stone
@@ -96,7 +117,11 @@ export function createCathedral3D() {
   tube.computeVertexNormals();
   const map = stoneTexture();
   const walls = new THREE.Mesh(tube, new THREE.MeshStandardMaterial({ map, bumpMap: map, bumpScale: 0.05, roughness: 0.85, metalness: 0.05, side: THREE.BackSide }));
+  walls.material.envMapIntensity = 0;
   scene.add(walls);
+  // a soft room for the bubbles to reflect (the stone ignores it)
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   // vaulting ribs where the hall is wide (the nave and the crossing)
   const ribMat = new THREE.MeshStandardMaterial({ color: '#8d8496', roughness: 0.7 });
@@ -160,12 +185,67 @@ export function createCathedral3D() {
     flashes.push({ m, age: -delay, life: 0.8 + 0.4 * Math.log10(size + 1), size, gain });
   }
 
+  // the bubbles
+  const bubbles = [];
+  const loader = new THREE.TextureLoader();
+  const textures = new Map();
+  const disc = fisheyeDisc();
+  const shellGeo = new THREE.SphereGeometry(1, 48, 32);
+  const shellMat = () => new THREE.MeshPhysicalMaterial({
+    color: '#ffffff', metalness: 0, roughness: 0.04, transparent: true, opacity: 0.22, depthWrite: false,
+    iridescence: 1, iridescenceIOR: 1.33, iridescenceThicknessRange: [200, 900], clearcoat: 1, clearcoatRoughness: 0.02,
+    envMapIntensity: 2.2, specularIntensity: 1,
+  });
+  let vivid = 0.8;
+  let onPop = null;
+  const texture = src => {
+    if (!textures.has(src)) {
+      const t = loader.load(src);
+      t.colorSpace = THREE.SRGBColorSpace;
+      textures.set(src, t);
+    }
+    return textures.get(src);
+  };
+
   let u = 0.01;
   let last = 0;
   const COLORS = ['#3fd0c9', '#ff4d5e', '#ffd166', '#a78bfa', '#8ecbff', '#e8eefc', '#ff7aa8'];
   return {
     canvas,
     get hall() { return hallAt(u); },
+    get bubbleCount() { return bubbles.filter(b => !b.popping).length; },
+    set vividness(v) { vivid = Math.max(0, Math.min(1, v)); },
+    set onPop(fn) { onPop = fn; },
+    // a visual thought: a bubble ahead in the hall, holding image { src, ... }, tint a colour,
+    // loud 0..1 (its size)
+    bubble(image, tint = '#ffffff', loud = 0.5) {
+      if (bubbles.filter(b => !b.popping).length >= 10) return null;
+      // 2.5 to 5 units ahead: about half a minute before the visitor reaches it
+      const bu = Math.min(0.985, u + (2.5 + 2.5 * Math.random()) / routeLength);
+      const hall = radiusAt(bu);
+      const group = new THREE.Group();
+      const shell = new THREE.Mesh(shellGeo, shellMat());
+      const film = new THREE.Mesh(disc, new THREE.MeshBasicMaterial({ map: image ? texture(image.src) : null, color: new THREE.Color('#ffffff').lerp(new THREE.Color(tint), 0.22), transparent: true, opacity: 0, depthWrite: false }));
+      film.scale.setScalar(0.9);
+      film.visible = Boolean(image);
+      group.add(film, shell);
+      const a = Math.random() * Math.PI * 2;
+      const off = new THREE.Vector2(Math.cos(a), Math.sin(a)).multiplyScalar(hall * 0.45 * Math.random());
+      scene.add(group);
+      const b = { group, shell, film, image, u: bu, off, size: Math.min(hall * 0.55, 0.12 + 0.38 * loud), age: 0, phase: Math.random() * 6, popping: 0 };
+      group.scale.setScalar(0.01);
+      bubbles.push(b);
+      return b;
+    },
+    // the bubble under a screen point (fractions from the centre), popped: the click pops it
+    pick(fx, fy) {
+      const ray = new THREE.Raycaster();
+      ray.setFromCamera(new THREE.Vector2(fx * 2, -fy * 2), camera);
+      const hit = ray.intersectObjects(bubbles.filter(b => !b.popping).map(b => b.shell), false)[0];
+      const b = hit && bubbles.find(x => x.shell === hit.object);
+      if (b) { b.popping = 0.001; onPop?.(b.image); }
+      return Boolean(b);
+    },
     get u() { return u; },
     resize(w, h, dpr) { renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); },
     // a thought burst on the wall near the camera (POKE), or anywhere ahead
@@ -200,6 +280,41 @@ export function createCathedral3D() {
         l.intensity = (0.4 + 2.2 * fx) * (0.6 + 0.4 * Math.sin(state.time * (0.7 + 0.3 * k) + k));
       });
       swayTufts(state.time);
+      for (let i = bubbles.length - 1; i >= 0; i--) {
+        const b = bubbles[i];
+        b.age += dt;
+        // drift: slowly towards the visitor, bobbing, growing to full size over about 4 s
+        b.u = Math.max(0, b.u - dt * 0.0015);
+        const c = curve.getPointAt(b.u);
+        const t = curve.getTangentAt(b.u);
+        const n1 = new THREE.Vector3().crossVectors(t, new THREE.Vector3(0, 1, 0)).normalize();
+        const n2 = new THREE.Vector3().crossVectors(t, n1).normalize();
+        b.group.position.copy(c).addScaledVector(n1, b.off.x + 0.05 * Math.sin(state.time * 0.7 + b.phase)).addScaledVector(n2, b.off.y + 0.06 * Math.sin(state.time * 0.5 + b.phase * 2));
+        const grow = Math.min(1, b.age / 4);
+        const wobble = 1 + 0.03 * Math.sin(state.time * 3 + b.phase);
+        let s = b.size * (0.15 + 0.85 * (1 - (1 - grow) ** 2)) * wobble;
+        b.film.lookAt(camera.position);
+        b.film.material.opacity = vivid * Math.min(1, b.age / 1.5) * (b.popping ? Math.max(0, 1 - b.popping * 3) : 1);
+        b.shell.rotation.y += dt * 0.2;
+        const dist = b.group.position.distanceTo(camera.position);
+        if (!b.popping && b.age > 1 && dist < s * 1.8) {
+          b.popping = 0.001;
+          onPop?.(b.image);
+        }
+        if (b.popping) {
+          b.popping += dt;
+          s *= 1 + 2.5 * b.popping;
+          b.shell.material.opacity = Math.max(0, 0.22 * (1 - b.popping * 3));
+        }
+        b.group.scale.setScalar(s);
+        // gone: popped, or left behind the visitor
+        if (b.popping > 0.4 || b.u < u - 0.004) {
+          scene.remove(b.group);
+          b.shell.material.dispose();
+          b.film.material.dispose();
+          bubbles.splice(i, 1);
+        }
+      }
       for (let i = flashes.length - 1; i >= 0; i--) {
         const fl = flashes[i];
         fl.age += dt;

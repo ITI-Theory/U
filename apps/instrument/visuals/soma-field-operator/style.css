@@ -473,6 +473,15 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-open .question-nudge, .explorer-open .gravity-question-readouts { visibility: hidden !important; pointer-events: none !important; }
 .explorer__gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .9s ease; }
 .explorer__gl.is-active { opacity: 1; }
+/* POP IN: a visual thought's figure (ISS-077), revealed through a growing circle */
+.explorer__pop { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: radial-gradient(circle at 50% 45%, rgba(40,20,60,.94), rgba(4,2,10,.97)); clip-path: circle(0% at 50% 50%); transition: clip-path .6s cubic-bezier(.2,.8,.2,1); cursor: zoom-out; }
+.explorer__pop.is-open { clip-path: circle(75% at 50% 50%); }
+.explorer__pop figure { margin: 0; max-width: min(1100px, 92vw); text-align: center; }
+.explorer__pop img { max-width: 100%; max-height: 66vh; border-radius: 14px; box-shadow: 0 0 0 2px rgba(255,255,255,.12), 0 0 70px rgba(167,139,250,.45), 0 0 140px rgba(94,231,255,.2); background: #fff; }
+.explorer__pop figcaption { margin-top: 12px; font-size: 13px; line-height: 1.5; color: #e8eefc; }
+.explorer__pop-formula { color: #ffd166; font-size: 12px; word-break: break-word; }
+.explorer__pop-doc { color: rgba(232,238,252,.55); font-size: 11px; }
+.explorer__vivid { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #ffd166; }
 /* MY FILM: the score editor (ISS-053) */
 .explorer__editor { position: absolute; left: 14px; bottom: 14px; width: min(800px, 60vw); padding: 10px 12px; background: rgba(4,7,16,.94); border: 1px solid rgba(255,209,102,.5); z-index: 4; font-size: 12px; }
 .explorer__editor header { display: flex; gap: 10px; align-items: baseline; color: #ffd166; margin-bottom: 6px; }

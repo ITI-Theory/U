@@ -3519,7 +3519,13 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
       (Author, 13 Oct 04:20: OpenStax, drawn from Anatomy & Physiology 2e, CC BY 4.0, credited.)
-- [ ] Visual thoughts (author, 13 Oct 04:10): steal from Kandinsky; images floating; 3D
+- [x] (13 Oct 04:30, built: 60 of the programme's figures, a spread over 14 kinds, copied at
+      generate time to public/thoughts (git-ignored); in the CAVE, bursts above 60 and POKE
+      blow bubbles, iridescent thin-film shells reflecting a soft room, the figure on a
+      fisheye disc inside, tinted by its domain; they drift towards you and grow, and pop
+      when close or clicked: the figure fills the screen through a growing circle, with its
+      caption, formula and paper; VIVIDNESS 0 is aphantasia, bubbles without pictures. Live
+      stops inside bubbles: later) Visual thoughts (author, 13 Oct 04:10): steal from Kandinsky; images floating; 3D
       bubbles as real as possible with the image on them; they grow; one that comes close
       fills the screen and you pop into it, into the "video". Copilot's view:
       - The science fits: mental imagery reuses the visual cortex (Kosslyn), weaker and

@@ -12,7 +12,7 @@ import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
 import { rice } from './rice.js';
-import { scores, viewers, cycSkyline } from './generated/app-data.js';
+import { scores, viewers, cycSkyline, thoughtImages } from './generated/app-data.js';
 // the River Film (The Tensor), by id; kf picks another film (registry/scores, e.g. fis-2021).
 // The twin view (?tw=1): one film, two viewers (S = R(e*, kappa, e_V)): left the viewer of now
 // (neutral), right a viewer preset (pv, registry/viewers; default v2021, as I was in 2021) plus
@@ -537,6 +537,18 @@ const BRAIN = {
 // model operators, pictures, not diagnoses: ADHD more bursts, ASD fewer and focused,
 // C-PTSD echoes (a burst comes back, fading, as in a cathedral).
 export const IGNITION = 1000;
+// VISUAL THOUGHTS: a burst this large becomes a bubble with a picture (in the cathedral)
+export const VISUAL = 60;
+const THOUGHT_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
+const CONCEPT_TINT = { soma: '#ff7aa8', wave: '#5ee7ff', cosmic: '#a78bfa', quantum: '#ffd166', neural: '#3fd0c9', earth: '#8ecbff', generic: '#e8eefc' };
+function randomThought() {
+  const list = thoughtImages ?? [];
+  if (!list.length) return null;
+  const t = list[Math.floor(Math.random() * list.length)];
+  return { ...t, src: `${THOUGHT_BASE}${t.src}` };
+}
+// the explorer's full-screen view of a popped bubble (set by createExplorer)
+let popHandler = null;
 
 export function avalancheSize(sigma = 1, rand = Math.random, cap = 5000) {
   let active = 1;
@@ -650,7 +662,12 @@ function makeBrain() {
       traffic.tick(env.dt);
     },
     poke(strength) {
-      if (caveGl) { caveGl.burst(Math.max(20, avalancheSize(1)), lastCp); return; }
+      if (caveGl) {
+        caveGl.burst(Math.max(20, avalancheSize(1)), lastCp);
+        const img = randomThought();
+        caveGl.bubble(img, CONCEPT_TINT[img?.concept] ?? '#ffffff', 0.85);
+        return;
+      }
       event(strength);
     },
     draw(ctx, env) {
@@ -658,14 +675,24 @@ function makeBrain() {
       caveGl = env.cave && env.gl?.burst ? env.gl : null;
       lastCp = env.cp ?? 0;
       if (caveGl) {
+        caveGl.vividness = env.vivid ?? 0.8;
+        caveGl.onPop = img => popHandler?.(img);
         caveGl.render({ time: t, phi, speed: 0.004 + 0.006 * phi, stereo: env.stereo });
-        if (env.thoughts) {
-          const rate = (3 + 4 * phi) * (1 + 3 * (env.ca ?? 0)) * (1 - 0.6 * (env.cs ?? 0));
-          if (Math.random() < rate * env.dt) caveGl.burst(avalancheSize(1), lastCp);
+        // thoughts in the stone; the large ones become visual thoughts, a picture in a bubble;
+        // without THOUGHTS, a visual thought now and then
+        const rate = env.thoughts ? (3 + 4 * phi) * (1 + 3 * (env.ca ?? 0)) * (1 - 0.6 * (env.cs ?? 0)) : 0.25;
+        if (Math.random() < rate * env.dt) {
+          const size = env.thoughts ? avalancheSize(1) : VISUAL * 2;
+          if (env.thoughts) caveGl.burst(size, lastCp);
+          if (size >= VISUAL) {
+            const img = randomThought();
+            caveGl.bubble(img, CONCEPT_TINT[img?.concept] ?? '#ffffff', Math.min(1, Math.log10(size) / Math.log10(IGNITION)));
+          }
         }
         if (env.labels) {
           label(ctx, u, `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
           label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
+          label(ctx, u, `VISUAL THOUGHTS: the programme's own figures in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
           label(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
         }
         return;
@@ -2508,6 +2535,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
+      <label class="explorer__vivid" title="How vivid visual thoughts are (mental imagery varies from none, aphantasia, to very vivid, hyperphantasia)">VIVIDNESS <input type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Vividness" /></label>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
@@ -2550,6 +2578,35 @@ export function createExplorer(hooks = {}) {
   const thoughtsButton = root.querySelector('[data-act="thoughts"]');
   const painButton = root.querySelector('[data-act="pain"]');
   const caveButton = root.querySelector('[data-act="cave"]');
+  const vividLabel = root.querySelector('.explorer__vivid');
+  vividLabel.querySelector('input').addEventListener('input', event => { st.vivid = Number(event.target.value); });
+  // POP IN: a bubble's figure takes the screen
+  const pop = document.createElement('section');
+  pop.className = 'explorer__pop';
+  pop.hidden = true;
+  pop.innerHTML = '<figure><img alt="" /><figcaption><p class="explorer__pop-caption"></p><p class="explorer__pop-formula"></p><p class="explorer__pop-doc"></p></figcaption></figure><button type="button" data-pop="close">◂ BACK TO THE CATHEDRAL</button>';
+  root.append(pop);
+  const closePop = () => { pop.classList.remove('is-open'); setTimeout(() => { pop.hidden = true; }, 500); };
+  popHandler = img => {
+    if (!img || !pop.hidden) return;
+    pop.querySelector('img').src = img.src;
+    pop.querySelector('.explorer__pop-caption').textContent = img.caption ?? '';
+    pop.querySelector('.explorer__pop-formula').textContent = img.formula ? `the figure of: ${img.formula}` : '';
+    pop.querySelector('.explorer__pop-doc').textContent = `${img.document ?? ''} · ${img.primitive ?? ''} · generated and checked by the Visualize build`;
+    pop.hidden = false;
+    void pop.offsetWidth;
+    pop.classList.add('is-open');
+  };
+  pop.addEventListener('click', event => { event.stopPropagation(); closePop(); });
+  addEventListener('keydown', event => { if (event.key === 'Escape' && !pop.hidden) closePop(); });
+  // a click in the cathedral pops the bubble under it
+  root.addEventListener('click', event => {
+    if (st.stop !== 'brain' || !st.cave || event.target.closest('button, input, label, .explorer__pop, .explorer__card')) return;
+    const g = gls['brain-cave'];
+    if (!g?.pick) return;
+    const r = root.getBoundingClientRect();
+    g.pick((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
+  });
   const hrLabel = root.querySelector('.explorer__hr');
   const hrInput = hrLabel.querySelector('input');
   const hrOut = hrLabel.querySelector('output');
@@ -2619,7 +2676,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', cave: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', cave: false, vivid: 0.8, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2718,6 +2775,7 @@ export function createExplorer(hooks = {}) {
     thoughtsButton.hidden = st.stop !== 'brain';
     painButton.hidden = st.stop !== 'brain' || st.cave;
     caveButton.hidden = st.stop !== 'brain';
+    vividLabel.hidden = st.stop !== 'brain' || !st.cave;
     caveButton.classList.toggle('active', st.cave);
     painButton.textContent = `PAIN: ${(st.pain || 'off').toUpperCase()}`;
     painButton.classList.toggle('active', Boolean(st.pain));
@@ -2933,7 +2991,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, cave: st.cave, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, cave: st.cave, vivid: st.vivid, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
