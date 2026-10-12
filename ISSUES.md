@@ -3143,7 +3143,9 @@ register:
   for hours; glowing grids and green code rain). Root twice: the Linux superuser,
   and he wants the roots, the axioms under every tower. Reads the Lean before the
   prose; wants to see the programme's Lean in the towers of code (ISS-071).
-- [ ] Monster personas in the UAT worksheets and the reader register (`reader=`).
+- [x] (13 Oct: papers C-4 and C-5, volumes TC-2 and TC-3 in the NotebookLM worksheets, the dunk
+      test and the roots under every tower; the reader register shows COOKIE with the
+      Chocolate Biscuit Monster, SPECIALIST with the Root Monster, following NAMES) Monster personas in the UAT worksheets and the reader register (`reader=`).
 - [x] (12 Oct: `names.js`; the Engine Room's NAMES panel; MOTHER/H-AL's terminal title
       follows it; other labels can call `displayName(id)` as they appear) Settings: the user sets their own display name for each layer and persona
       (Sherlock, the Wizard, the Monster and its kinds, H-AL, MOTHER, the
