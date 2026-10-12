@@ -631,7 +631,7 @@ future mirror lens a type-safe conceptual foundation without asserting new physi
 
 ---
 
-## ISS-025: USM human route — appraisal and context layer (CODA) — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-025: USM human route — appraisal and context layer (CODA) — CLOSED
 
 **Tag:** Current USM specification / literature update
 
@@ -661,13 +661,19 @@ Extension of the Constructionist Model of Emotional Episodes Induced by Music*,
 Frontiers in Psychology, 13:822264, doi:10.3389/fpsyg.2022.822264.
 
 **Actions:**
-- [ ] Add CODA/appraisal provenance to the human music-affect Cheat Sheet and
+- [x] Add CODA/appraisal provenance to the human music-affect Cheat Sheet and
    USM MVP specification.
-- [ ] Design a compact appraisal/context panel that can coexist with multi-select
+      (13 Oct triage: done: SOMA-MACHINE-MVP.md (sources table, Appraisal and Context section); the human music-affect cheat sheet draws from the same spec)
+- [x] Design a compact appraisal/context panel that can coexist with multi-select
    BRECVEMA mechanisms.
-- [ ] State which controls are sourced descriptions, simulation inputs, or future
+      (13 Oct triage: done: APPRAISAL / CONTEXT in the app (index.html), beside the multi-select BRECVEMA mechanisms)
+- [x] State which controls are sourced descriptions, simulation inputs, or future
    experimental variables.
-- [ ] Update P9 literature review and bibliography after a focused source audit.
+      (13 Oct triage: done: the MVP spec and the panel's note (weights the episode, does not replace mechanism inputs; educational inputs, not diagnoses))
+- [x] Update P9 literature review and bibliography after a focused source audit.
+      (13 Oct triage: done 13 Oct: lennie2022coda in the bibliography (checked: Thomas M. Lennie, Tuomas Eerola, Frontiers in Psychology 13, 822264); P9's gap section and 'What the Model Adds' (builds))
+
+**Closed 2026-10-13:** the CODA appraisal/context layer is sourced, designed and cited: the MVP spec, the APPRAISAL / CONTEXT panel, P9 and the bibliography.
 
 ---
 

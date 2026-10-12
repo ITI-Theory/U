@@ -53,6 +53,16 @@ appraisal).  It does not model the *dynamics* that result: how these mechanisms
 combine to move a listener through state space, how long states persist, what
 determines escape.
 
+Constructionist accounts add what a mechanism list leaves out: the same music can
+produce different episodes in different listeners and situations, because
+appraisal, goals, personal relevance, context and individual history shape the
+episode as it unfolds. The CODA model [@lennie2022coda] reviews this line and
+extends the constructionist model of music-induced emotional episodes with that
+dynamic weighting `empirical-result`. The present model keeps BRECVEMA as the
+mechanism layer and treats appraisal and context as a second, optional layer that
+weights the forcing; the weights are user-selected simulation inputs, not
+measurements of a listener's psychology `interpretive`.
+
 This paper presents a model that does both.
 
 ## The Soma-Field Model
@@ -344,6 +354,10 @@ Concretely, the model adds:
 - Quantifiable attractor depth and transition latency
 - Testable hysteresis and barrier-crossing predictions
 - A direct bridge from controller gestures to state-space motion
+- A place for appraisal and context (CODA, [@lennie2022coda]) as a layer that
+  weights the mechanism forcing rather than replacing it; in the instrument it is
+  the APPRAISAL / CONTEXT panel, an educational input, not a diagnosis
+  `interpretive`
 
 ## Phase Transitions and Musical Catharsis
 
