@@ -1,5 +1,7 @@
 // Human music-affect data shared by the USM web route and future controller adapters.
-// Mechanism maps are design hypotheses until the cited body-map literature audit is complete.
+// Audited 13 Oct (BODY-MAPS.md): the self-reported bodily maps of emotion and of music
+// (Nummenmaa 2014; Putkinen 2024) show where feelings are felt, not which mechanism acts where;
+// the mechanism-to-region placements below are the app's design map.
 
 export const appraisalDimensions = [
   { id: 'novelty', label: 'NOVELTY', description: 'Familiarity versus surprise in the music or situation.' },
@@ -32,5 +34,5 @@ export const bodyGrid = {
     M: ['spine', 'chest', 'abdomen'],
     A: ['head', 'chest'],
   },
-  provenance: 'DESIGN MAP / body-region placements require source-specific audit before sourced claim status.',
+  provenance: 'DESIGN MAP / mechanism placements are the app\'s own; music is felt mainly in limbs, chest and head (Putkinen 2024)',
 };

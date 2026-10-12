@@ -677,7 +677,7 @@ Frontiers in Psychology, 13:822264, doi:10.3389/fpsyg.2022.822264.
 
 ---
 
-## ISS-026: USM human route — body-map and 8x8 field-grid renderer — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-026: USM human route — body-map and 8x8 field-grid renderer — CLOSED
 
 **Tag:** Current USM specification / visual instrument
 
@@ -709,13 +709,19 @@ fact without a source-specific audit.
 - P9 music-affect dynamics for the forcing and field-state side.
 
 **Actions:**
-- [ ] Audit the body-map papers and extract only defensible region/measurement
+- [x] Audit the body-map papers and extract only defensible region/measurement
    claims.
-- [ ] Define the 8x8 grid coordinate system, region names, aggregation rules,
+      (13 Oct triage: done 13 Oct (BODY-MAPS.md): Nummenmaa et al. 2014 and Putkinen et al. 2024 (abstracts checked on PubMed): self-reported felt sensation, separable and cross-cultural; music mainly in limbs, chest and head; no source maps mechanisms to regions. The BODY stop's feelings now carry their basis on screen: anger, anxiety, grief, joy, calm after Nummenmaa 2014; freeze, hypervigilance, flow artistic placements)
+- [x] Define the 8x8 grid coordinate system, region names, aggregation rules,
    and visual encoding.
-- [ ] Add stacked-region rendering for multi-selected mechanisms.
-- [ ] Keep the web demo hardware-free; specify a future controller adapter only
+      (13 Oct triage: done: human-affect.js bodyGrid (8 x 8, row 0 the head; head, throat, chest, arms, abdomen, legs, spine), documented in BODY-MAPS.md with its aggregation and encoding)
+- [x] Add stacked-region rendering for multi-selected mechanisms.
+      (13 Oct triage: done: main.js renderBodyGrid adds one per selected mechanism per cell ('N MECHANISM(S) STACKED'))
+- [x] Keep the web demo hardware-free; specify a future controller adapter only
    after the on-screen grid is accepted.
+      (13 Oct triage: so: no controller code; an adapter waits for the grid's acceptance)
+
+**Closed 2026-10-13:** audited and documented (BODY-MAPS.md): what the bodily-map sources support, the BODY stop's feelings labelled by basis, the 8x8 grid specified; the grid and stacking were already built.
 
 ---
 

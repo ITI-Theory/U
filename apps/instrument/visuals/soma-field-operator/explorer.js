@@ -107,18 +107,20 @@ const STOP_TITLES = {
   human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
-// Where a feeling is felt: a design map after the bodily maps of emotion (Nummenmaa et
-// al. 2014), not yet audited; values from -1 (less) to 1 (more). The eight modes are those
-// of the music affect paper.
+// Where a feeling is felt (audited 13 Oct, BODY-MAPS.md): five follow the self-reported bodily
+// maps of emotion (Nummenmaa et al. 2014) qualitatively, three are artistic placements (basis);
+// values from -1 (less) to 1 (more). The eight modes are those of the music affect paper.
+const AFTER = 'after Nummenmaa 2014';
+const ARTISTIC = 'artistic placement';
 export const FEELINGS = {
-  calm: { label: 'CALM', head: 0.2, throat: 0, chest: 0.15, belly: 0.1, arms: 0, hands: 0.1, legs: 0 },
-  fight: { label: 'ANGER / FIGHT', head: 0.8, throat: 0.4, chest: 0.8, belly: 0.3, arms: 0.7, hands: 0.9, legs: 0.2 },
-  flight: { label: 'ANXIETY / FLIGHT', head: 0.5, throat: 0.4, chest: 0.9, belly: 0.5, arms: 0.1, hands: 0.2, legs: 0.3 },
-  grief: { label: 'GRIEF', head: 0.3, throat: 0.4, chest: 0.5, belly: 0, arms: -0.6, hands: -0.5, legs: -0.7 },
-  freeze: { label: 'FREEZE', head: 0.3, throat: 0.2, chest: 0.4, belly: 0.2, arms: -0.7, hands: -0.6, legs: -0.8 },
-  vigilance: { label: 'HYPERVIGILANCE', head: 0.9, throat: 0.3, chest: 0.6, belly: 0.2, arms: 0.3, hands: 0.3, legs: 0.3 },
-  flow: { label: 'FLOW', head: 0.6, throat: 0.1, chest: 0.4, belly: 0.2, arms: 0.4, hands: 0.5, legs: 0.3 },
-  joy: { label: 'JOY', head: 0.8, throat: 0.5, chest: 0.9, belly: 0.6, arms: 0.7, hands: 0.8, legs: 0.6 },
+  calm: { label: 'CALM', basis: AFTER, head: 0.2, throat: 0, chest: 0.15, belly: 0.1, arms: 0, hands: 0.1, legs: 0 },
+  fight: { label: 'ANGER / FIGHT', basis: AFTER, head: 0.8, throat: 0.4, chest: 0.8, belly: 0.3, arms: 0.7, hands: 0.9, legs: 0.2 },
+  flight: { label: 'ANXIETY / FLIGHT', basis: AFTER, head: 0.5, throat: 0.4, chest: 0.9, belly: 0.5, arms: 0.1, hands: 0.2, legs: 0.3 },
+  grief: { label: 'GRIEF', basis: AFTER, head: 0.3, throat: 0.4, chest: 0.5, belly: 0, arms: -0.6, hands: -0.5, legs: -0.7 },
+  freeze: { label: 'FREEZE', basis: ARTISTIC, head: 0.3, throat: 0.2, chest: 0.4, belly: 0.2, arms: -0.7, hands: -0.6, legs: -0.8 },
+  vigilance: { label: 'HYPERVIGILANCE', basis: ARTISTIC, head: 0.9, throat: 0.3, chest: 0.6, belly: 0.2, arms: 0.3, hands: 0.3, legs: 0.3 },
+  flow: { label: 'FLOW', basis: ARTISTIC, head: 0.6, throat: 0.1, chest: 0.4, belly: 0.2, arms: 0.4, hands: 0.5, legs: 0.3 },
+  joy: { label: 'JOY', basis: AFTER, head: 0.8, throat: 0.5, chest: 0.9, belly: 0.6, arms: 0.7, hands: 0.8, legs: 0.6 },
 };
 
 const CAPTIONS = {
@@ -128,7 +130,7 @@ const CAPTIONS = {
   },
   body: {
     title: 'THE BODY', label: 'interpretive',
-    4: 'The body as anatomy. Colour shows where the chosen feeling is usually felt: warm for more, blue for less (a design map after Nummenmaa et al. 2014, not yet audited). Raising Φ makes it stronger.',
+    4: 'The body as anatomy. Colour shows where the chosen feeling is usually felt: warm for more, blue for less (self-reported bodily maps of emotion, Nummenmaa et al. 2014: anger, anxiety, grief, joy and calm follow them; freeze, hypervigilance and flow are artistic placements). Raising Φ makes it stronger.',
     8: 'Electrical layer: nerves carry impulses between body and brain, and the vagus nerve links heart and gut to the brain. More Φ, more traffic and a faster heart.',
     11: 'Field layer: the model\'s "second nervous system", one field that couples the whole body at once. Open hypothesis.',
   },
@@ -525,6 +527,7 @@ function makeBody() {
       if (env.labels) {
         label(ctx, u, `${Math.round(60 + 60 * phi)} BPM`, 0.5, -0.45, COLORS.red, 'left', 0.03);
         label(ctx, u, feel.label, 0.5, -0.36, COLORS.gold, 'left', 0.03);
+      label(ctx, u, feel.basis, 0.5, -0.325, COLORS.dim ?? '#8a93a8', 'left', 0.018);
         if (dim >= 8) label(ctx, u, 'VAGUS', -0.17, -0.3, COLORS.gold, 'center', 0.026);
       }
   }
