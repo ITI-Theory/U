@@ -51,7 +51,7 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    Fractal Programme in three volumes (I Cosmos and Matter, II Mind and Body,
    III Culture and Society; replaces the 825/782-page two), the 15 domain
    books, the Field Atlas (A3, BookFactory), the Course, and Phase Dot 2 in
-   three A4 volumes (private: `Me/books/phase-dot`, never Dist).
+   three A4 volumes (private: `Me/books/phase-dot`, never Dist). Split done: Vol I 575 pp, Vol II 506 pp, Vol III 547 pp, all under Lulu's 800-page cap.
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
    manifests, commit Dist.
 - [ ] Zenodo: `ZENODO_SANDBOX_TOKEN` then `bin/zenodo-publish --sandbox plan`,

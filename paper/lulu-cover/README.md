@@ -36,9 +36,9 @@ The output is written under `bld/lulu-covers/` at the repository root.
 The same identifier covers the complete Lulu set:
 
 - `01-omnibus-v2`
-- `03-ttheory-vol1-foundation`
-- `04-ttheory-vol2-application` only after it is reduced to the registered
-  800-page limit
+- `03-ttheory-vol1-cosmos-matter`
+- `04-ttheory-vol2-mind-body`
+- `05-ttheory-vol3-culture-society`
 - `ttheory-book-*` for all 15 domain books
 
 ## Configuration contract

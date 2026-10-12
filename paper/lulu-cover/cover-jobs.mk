@@ -4,13 +4,17 @@
 cover-01-omnibus-v2:
 	$(MAKE) -f Makefile jacket linen-wrap COVER='01-omnibus-v2' INTERIOR='../../bld/papers/omnibus-a4.pdf' TITLE='The Soma-Field: Collected Works' SUBTITLE='Second Edition'
 
-.PHONY: cover-03-ttheory-vol1-foundation
-cover-03-ttheory-vol1-foundation:
-	$(MAKE) -f Makefile jacket linen-wrap COVER='03-ttheory-vol1-foundation' INTERIOR='../../bld/books/ttheory-vol1.pdf' TITLE='[T]-Theory: The Fractal Programme' SUBTITLE='Volume I: Foundation'
+.PHONY: cover-03-ttheory-vol1-cosmos-matter
+cover-03-ttheory-vol1-cosmos-matter:
+	$(MAKE) -f Makefile jacket linen-wrap COVER='03-ttheory-vol1-cosmos-matter' INTERIOR='../../bld/books/ttheory-vol1.pdf' TITLE='[T]-Theory: The Fractal Programme' SUBTITLE='Volume I: Cosmos and Matter'
 
-.PHONY: cover-04-ttheory-vol2-application
-cover-04-ttheory-vol2-application:
-	$(MAKE) -f Makefile jacket linen-wrap COVER='04-ttheory-vol2-application' INTERIOR='../../bld/books/ttheory-vol2.pdf' TITLE='[T]-Theory: The Fractal Programme' SUBTITLE='Volume II: Application'
+.PHONY: cover-04-ttheory-vol2-mind-body
+cover-04-ttheory-vol2-mind-body:
+	$(MAKE) -f Makefile jacket linen-wrap COVER='04-ttheory-vol2-mind-body' INTERIOR='../../bld/books/ttheory-vol2.pdf' TITLE='[T]-Theory: The Fractal Programme' SUBTITLE='Volume II: Mind and Body'
+
+.PHONY: cover-05-ttheory-vol3-culture-society
+cover-05-ttheory-vol3-culture-society:
+	$(MAKE) -f Makefile jacket linen-wrap COVER='05-ttheory-vol3-culture-society' INTERIOR='../../bld/books/ttheory-vol3.pdf' TITLE='[T]-Theory: The Fractal Programme' SUBTITLE='Volume III: Culture and Society'
 
 .PHONY: cover-ttheory-book-gateway
 cover-ttheory-book-gateway:
@@ -73,4 +77,4 @@ cover-ttheory-book-psychiatry-asd:
 	$(MAKE) -f Makefile jacket linen-wrap COVER='ttheory-book-psychiatry-asd' INTERIOR='../../bld/books/book-psychiatry-asd.pdf' TITLE='[T]-Theory: Rewiring' SUBTITLE=''
 
 .PHONY: all
-all: cover-01-omnibus-v2 cover-03-ttheory-vol1-foundation cover-04-ttheory-vol2-application cover-ttheory-book-gateway cover-ttheory-book-physics cover-ttheory-book-neuroscience cover-ttheory-book-clinical-psychology cover-ttheory-book-computer-science cover-ttheory-book-formal-mathematics cover-ttheory-book-consciousness cover-ttheory-book-complex-systems cover-ttheory-book-music-arts cover-ttheory-book-geophysics cover-ttheory-book-social-science cover-ttheory-book-economics cover-ttheory-book-law cover-ttheory-book-ppe cover-ttheory-book-psychiatry-asd
+all: cover-01-omnibus-v2 cover-03-ttheory-vol1-cosmos-matter cover-04-ttheory-vol2-mind-body cover-05-ttheory-vol3-culture-society cover-ttheory-book-gateway cover-ttheory-book-physics cover-ttheory-book-neuroscience cover-ttheory-book-clinical-psychology cover-ttheory-book-computer-science cover-ttheory-book-formal-mathematics cover-ttheory-book-consciousness cover-ttheory-book-complex-systems cover-ttheory-book-music-arts cover-ttheory-book-geophysics cover-ttheory-book-social-science cover-ttheory-book-economics cover-ttheory-book-law cover-ttheory-book-ppe cover-ttheory-book-psychiatry-asd

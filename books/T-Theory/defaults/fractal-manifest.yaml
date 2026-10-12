@@ -1,30 +1,34 @@
 fractal_manifest:
   volumes:
     vol1:
-      title: '[T]-Theory: The Fractal Programme — Volume I: Foundation'
-      subtitle: Gateway · Physics · Mathematics · Neuroscience · Philosophy · Complex Systems · Computing
+      title: '[T]-Theory: The Fractal Programme — Volume I: Cosmos and Matter'
+      subtitle: Gateway · Physics · Mathematics · Complex Systems · Computing · Geophysics
       domains:
       - gateway
       - physics
       - formal-mathematics
-      - neuroscience
-      - consciousness
       - complex-systems
       - computer-science
-      closing_paper: c:ttheory-phenomena
-      closing_title: 'Closing: The Gateway to Phase 2'
+      - geophysics
     vol2:
-      title: '[T]-Theory: The Fractal Programme — Volume II: Application'
-      subtitle: Music and the Arts · Geophysics · Society · Economics · Law · PPE · Trauma · Rewiring
+      title: '[T]-Theory: The Fractal Programme — Volume II: Mind and Body'
+      subtitle: Neuroscience · Philosophy · Trauma · Rewiring
+      domains:
+      - neuroscience
+      - consciousness
+      - clinical-psychology
+      - psychiatry-asd
+    vol3:
+      title: '[T]-Theory: The Fractal Programme — Volume III: Culture and Society'
+      subtitle: Music and the Arts · Society · Economics · Law · PPE
       domains:
       - music-arts
-      - geophysics
       - social-science
       - economics
       - law
       - ppe
-      - clinical-psychology
-      - psychiatry-asd
+      closing_paper: c:ttheory-phenomena
+      closing_title: 'Closing: The Gateway to Phase 2'
     omnibus:
       title: '[T]-Theory: The Complete Fractal Programme'
       subtitle: Fifteen Domain Books on the Universal Somatic Field

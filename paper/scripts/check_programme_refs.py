@@ -29,6 +29,7 @@ STRICT = [
     "bld/books/book-gateway.pdf",
     "bld/books/ttheory-vol1.pdf",
     "bld/books/ttheory-vol2.pdf",
+    "bld/books/ttheory-vol3.pdf",
 ]
 BARE = re.compile(r"\bP(1[0-9]|2[0-4]|[1-9])\b")
 DIMENSION = re.compile(r"M4|L1|C3|×")

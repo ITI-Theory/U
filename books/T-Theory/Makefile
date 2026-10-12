@@ -24,7 +24,7 @@ SOURCE_BOOK_IDS := gateway physics complex-systems formal-mathematics \
 SOURCE_BOOK_PDFS := $(SOURCE_BOOK_IDS:%=$(BLD)/book-%.pdf)
 ALL_BOOKLET_PAGES := $(foreach domain,$(BOOKLET_DOMAINS),$(addprefix $(BLD)/booklet-$(domain)-,$(addsuffix .pdf,1 2 3 4)))
 
-.PHONY: all pdf html booklets fractal-thesis omnibus vol1 vol1-10pt vol2 \
+.PHONY: all pdf html booklets fractal-thesis omnibus vol1 vol2 vol3 \
         check clean help FORCE $(DOMAINS:%=book-%)
 .SECONDARY: $(ALL_BOOKLET_PAGES)
 .SECONDEXPANSION:
@@ -47,13 +47,13 @@ omnibus: $(BLD)/ttheory-omnibus.pdf
 	@echo "T-Theory omnibus built."
 
 vol1: $(BLD)/ttheory-vol1.pdf
-	@echo "T-Theory Vol I: Foundation built."
-
-vol1-10pt: $(BLD)/ttheory-vol1-10pt.pdf
-	@echo "T-Theory Vol I: Foundation 10pt comparison built."
+	@echo "T-Theory Vol I: Cosmos and Matter built."
 
 vol2: $(BLD)/ttheory-vol2.pdf
-	@echo "T-Theory Vol II: Application built."
+	@echo "T-Theory Vol II: Mind and Body built."
+
+vol3: $(BLD)/ttheory-vol3.pdf
+	@echo "T-Theory Vol III: Culture and Society built."
 
 $(DOMAINS:%=book-%): book-%: $(BLD)/book-%.pdf
 	@echo "Built: $<"
@@ -100,16 +100,8 @@ $(BLD)/book-%.html: $$(wildcard */book-$$*.md) defaults/book-html.yaml filters/t
 	$(PANDOC) $< --defaults=defaults/book-html.yaml --output=$@
 	@echo "Built domain book HTML: $@"
 
-$(BLD)/ttheory-vol1.pdf: defaults/assembly.md defaults/vol1.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
-	$(PANDOC) defaults/assembly.md --defaults=defaults/vol1.yaml --output=$@
-	@echo "Built: $@"
-
-$(BLD)/ttheory-vol1-10pt.pdf: defaults/assembly.md defaults/vol1.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
-	$(PANDOC) defaults/assembly.md --defaults=defaults/vol1.yaml --output=$@
-	@echo "Built: $@"
-
-$(BLD)/ttheory-vol2.pdf: defaults/assembly.md defaults/vol2.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
-	$(PANDOC) defaults/assembly.md --defaults=defaults/vol2.yaml --output=$@
+$(BLD)/ttheory-vol%.pdf: defaults/assembly.md defaults/vol%.yaml defaults/volume-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
+	$(PANDOC) defaults/assembly.md --defaults=defaults/vol$*.yaml --output=$@
 	@echo "Built: $@"
 
 $(BLD)/ttheory-omnibus.pdf: defaults/assembly.md defaults/omnibus.yaml defaults/omnibus-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
@@ -128,7 +120,7 @@ clean:
 	rm -rf "$(BLD)"
 
 help:
-	@echo "Targets: all pdf html booklets vol1 vol1-10pt vol2 omnibus fractal-thesis book-<domain> check clean"
+	@echo "Targets: all pdf html booklets vol1 vol2 vol3 omnibus fractal-thesis book-<domain> check clean"
 	@echo "Outputs are written to $(BLD)"
 
 FORCE:

@@ -18,7 +18,7 @@ distribution channel are then verified against that accepted source PDF.
 |---|---|---|
 | Zenodo | Canonical papers P1–P24, D1, D2, the paper omnibus (C1v2), and the complete fractal thesis (C2). | Review each formal record PDF. Individual fractal books and Volumes I/II are **not** Zenodo records. |
 | NotebookLM | Two current PDFs: the accepted current paper omnibus and the accepted fractal thesis. | Verify both files are the accepted candidates and together cover the current programme. |
-| Lulu | Personal print files: current paper omnibus, Fractal Volume I, and Fractal Volume II. | Visual print review after their source candidates are accepted. |
+| Lulu | Personal print files: current paper omnibus, Fractal Volumes I, II, and III. | Visual print review after their source candidates are accepted. |
 | `Dist/papers` and landing pages | A mirror and public download surface, not an independent release. | Verify file names, links, descriptions, and checksums only after candidate acceptance. |
 | `Dist/stuff` | The default cheatsheet and supporting supplementary materials. | Review the default cheatsheet once, then verify the distributed copy. |
 
@@ -35,7 +35,7 @@ Before final promotion, this UAT must decide the action for every formal record:
 | New Zenodo record | P21, P22, P23, P24 | Review and accept the current candidate PDF and metadata. |
 | New Zenodo version | P11, P12, D2, C1v2, C2 | Local source changed after the live record. Verify the exact accepted change before upload. |
 | Published, no update currently indicated | P1–P10 except P11/P12, P13–P20, D1, QUANT-EXP-1 | Confirm during source review that no unrecorded substantive change exists. |
-| Not a Zenodo publication | 15 individual fractal books; Fractal Volumes I and II; default cheatsheet | Review for NotebookLM/Lulu/`Dist` as applicable, but do not prepare Zenodo metadata. |
+| Not a Zenodo publication | 15 individual fractal books; Fractal Volumes I, II, and III; default cheatsheet | Review for NotebookLM/Lulu/`Dist` as applicable, but do not prepare Zenodo metadata. |
 
 ### Candidate-to-source map
 
@@ -45,7 +45,7 @@ Before final promotion, this UAT must decide the action for every formal record:
 | D1 clinical case | `SFT-DEMO-CASE.pdf` | `paper/soma/SFT-DEMO-CASE/SFT-DEMO-CASE.md` |
 | D2 proofs appendix | `lean-proofs-appendix.pdf` | `paper/proofs/*.lean` → `paper/filters/lean-include.lua` + `paper/soma/lean-proofs-appendix/lean-proofs-appendix.md` |
 | Paper omnibus | `omnibus-a4.pdf` / print variant | `paper/filters/omnibus.lua` plus its canonical-paper inputs from `Dist/PAPERS.yaml`; registry order is intentional, and later corrections must be signposted. |
-| Fractal thesis, volumes, and 15 books | `ttheory-omnibus.pdf`, `ttheory-vol1.pdf`, `ttheory-vol2.pdf`, `book-*.pdf` | `books/T-Theory/Makefile`, its defaults/filters, and the canonical-paper inputs. The fractal thesis is the current canonical synthesis, not a historical record. |
+| Fractal thesis, volumes, and 15 books | `ttheory-omnibus.pdf`, `ttheory-vol1.pdf`, `ttheory-vol2.pdf`, `ttheory-vol3.pdf`, `book-*.pdf` | `books/T-Theory/Makefile`, its defaults/filters, and the canonical-paper inputs. The fractal thesis is the current canonical synthesis, not a historical record. |
 | Default cheatsheet | `ttheory-cheatsheet.pdf` | `books/T-Theory` booklet build (`bld/books/booklet-gateway.pdf`) |
 
 ### Required UAT sequence

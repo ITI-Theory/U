@@ -81,8 +81,8 @@ steps:
     do: "Engine Room LAYOUT; make relay LAN=1; open a tablet with ?relay=…&token=…"
   - id: decide-lulu
     kind: manual
-    title: "Decision: vol1 is 825 pages, over Lulu's 800"
-    do: "the 10pt vol1 (make vol1-10pt), or move a section to vol2 (782 pages)"
+    title: "Decision: verify the three-volume Lulu split"
+    do: "confirm Vol I, Vol II, and Vol III are each under Lulu's 800-page cap before print preview"
   - id: decide-p21
     kind: manual
     title: "Decision: review P21 and set it to pending-upload (ISS-001)"

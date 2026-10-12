@@ -21,7 +21,9 @@ linen-wrap: check-inputs | $(BUILD)
 
 proof-set:
 	$(MAKE) jacket linen-wrap COVER=01-omnibus-v2 INTERIOR=$(PAPERS_BLD)/omnibus-a4.pdf TITLE="The Soma-Field: Collected Works" SUBTITLE="Second Edition"
-	$(MAKE) jacket linen-wrap COVER=03-ttheory-vol1-foundation INTERIOR=$(BOOKS_BLD)/ttheory-vol1.pdf TITLE="[T]-Theory Vol I: Foundation" SUBTITLE="Universal Somatic Field"
+	$(MAKE) jacket linen-wrap COVER=03-ttheory-vol1-cosmos-matter INTERIOR=$(BOOKS_BLD)/ttheory-vol1.pdf TITLE="[T]-Theory: The Fractal Programme" SUBTITLE="Volume I: Cosmos and Matter"
+	$(MAKE) jacket linen-wrap COVER=04-ttheory-vol2-mind-body INTERIOR=$(BOOKS_BLD)/ttheory-vol2.pdf TITLE="[T]-Theory: The Fractal Programme" SUBTITLE="Volume II: Mind and Body"
+	$(MAKE) jacket linen-wrap COVER=05-ttheory-vol3-culture-society INTERIOR=$(BOOKS_BLD)/ttheory-vol3.pdf TITLE="[T]-Theory: The Fractal Programme" SUBTITLE="Volume III: Culture and Society"
 	$(MAKE) jacket linen-wrap COVER=ttheory-book-gateway INTERIOR=$(BOOKS_BLD)/book-gateway.pdf TITLE="[T]-Theory: Gateway" SUBTITLE="Universal Somatic Field"
 
 all-covers:

@@ -58,7 +58,7 @@ def targets() -> list[tuple[Path, list[tuple[int, str]]]]:
         else:
             out.append((pdf, single))
     for name in ("papers/omnibus-a4.pdf", "books/ttheory-omnibus.pdf", "books/ttheory-vol1.pdf",
-                 "books/ttheory-vol2.pdf", "textbook/ttheory-course.pdf"):
+                 "books/ttheory-vol2.pdf", "books/ttheory-vol3.pdf", "textbook/ttheory-course.pdf"):
         out.append((BLD / name, master))
     return out
 

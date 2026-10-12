@@ -19,7 +19,7 @@ include lib/mk/dist.mk
 
 .DEFAULT_GOAL := help
 
-.PHONY: help all build papers papers-html omnibus atlas atlas-html textbook textbook-html books vol1 vol2 lean app check clean \
+.PHONY: help all build papers papers-html omnibus atlas atlas-html textbook textbook-html books vol1 vol2 vol3 lean app check clean \
 	registry-papers registry-papers-royal registry-fractal lean-appendix \
 	fractal-thesis cheatsheet uat-build uat-check uat-run release-build release-check \
 	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
@@ -37,6 +37,7 @@ help:
 	$(info   books           build all T-Theory books)
 	$(info   vol1            build T-Theory volume 1)
 	$(info   vol2            build T-Theory volume 2)
+	$(info   vol3            build T-Theory volume 3)
 	$(info   lean            build Lean proofs)
 	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
 	$(info   app             build the Soma Machine app)
@@ -86,6 +87,9 @@ vol1:
 
 vol2:
 	$(MAKE) -C $(BOOKS_DIR) vol2
+
+vol3:
+	$(MAKE) -C $(BOOKS_DIR) vol3
 
 lean:
 	LEAN_NUM_THREADS=2 lake build
@@ -205,7 +209,6 @@ uat-stage-ttheory: registry-fractal
 	$(PYTHON) paper/scripts/stage_uat.py ttheory
 
 uat-stage-lulu-proofs: registry-papers registry-fractal
-	$(MAKE) -C $(BOOKS_DIR) vol1-10pt
 	$(MAKE) -C paper/lulu-cover proof-set
 	$(PYTHON) paper/scripts/stage_uat.py lulu-proofs
 

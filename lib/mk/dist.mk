@@ -5,8 +5,8 @@
 # Candidate build inputs adopted from PAPERS.yaml at generation time.
 REGISTRY_PAPER_TARGETS := main quantum method synthesis substrate book pov tensor music temporal zsf exp limbic osqft intqft geo gestalt preverbal swarm usf cosconst darkmatter phenomena g2break sh1 demo-case lean-appendix omnibus-a4
 REGISTRY_PAPER_ROYAL_TARGETS := omnibus-royal
-REGISTRY_FRACTAL_PREREQUISITES := 
-REGISTRY_FRACTAL_TARGETS := fractal-thesis vol1 vol2 book-gateway book-physics book-neuroscience book-clinical-psychology book-computer-science book-formal-mathematics book-consciousness book-complex-systems book-music-arts book-geophysics book-social-science book-economics book-law book-ppe book-psychiatry-asd
+REGISTRY_FRACTAL_PREREQUISITES :=
+REGISTRY_FRACTAL_TARGETS := fractal-thesis vol1 vol2 vol3 book-gateway book-physics book-neuroscience book-clinical-psychology book-computer-science book-formal-mathematics book-consciousness book-complex-systems book-music-arts book-geophysics book-social-science book-economics book-law book-ppe book-psychiatry-asd
 
 .PHONY: dist-papers papers-royal ttheory zenodo zenodo-papers zenodo-ttheory nlm nlm-papers nlm-ttheory lulu stuff dist
 
@@ -47,6 +47,7 @@ ttheory: registry-fractal
 	cp -f $(BOOKS_BLD)/ttheory-omnibus.pdf                           $(DIST)/papers/ttheory-omnibus.pdf
 	cp -f $(BOOKS_BLD)/ttheory-vol1.pdf                              $(DIST)/papers/ttheory-vol1.pdf
 	cp -f $(BOOKS_BLD)/ttheory-vol2.pdf                              $(DIST)/papers/ttheory-vol2.pdf
+	cp -f $(BOOKS_BLD)/ttheory-vol3.pdf                              $(DIST)/papers/ttheory-vol3.pdf
 	cp -f $(BOOKS_BLD)/booklet-gateway.pdf                           $(DIST)/papers/ttheory-cheatsheet.pdf
 	cp -f $(BOOKS_BLD)/book-gateway.pdf                              $(DIST)/papers/book-gateway.pdf
 	cp -f $(BOOKS_BLD)/book-physics.pdf                              $(DIST)/papers/book-physics.pdf
@@ -129,8 +130,9 @@ nlm-papers: dist-papers
 nlm-ttheory: ttheory
 	cp -f $(DIST)/papers/ttheory-omnibus.pdf                         $(DIST)/nlm-min/02-ttheory-fractal-programme.pdf
 	cp -f $(DIST)/papers/ttheory-omnibus.pdf                         $(DIST)/nlm-max/02-fractal-programme.pdf
-	cp -f $(DIST)/papers/ttheory-vol1.pdf                            $(DIST)/nlm-max/03-fractal-vol1-foundation.pdf
-	cp -f $(DIST)/papers/ttheory-vol2.pdf                            $(DIST)/nlm-max/04-fractal-vol2-application.pdf
+	cp -f $(DIST)/papers/ttheory-vol1.pdf                            $(DIST)/nlm-max/03-ttheory-vol1-cosmos-matter.pdf
+	cp -f $(DIST)/papers/ttheory-vol2.pdf                            $(DIST)/nlm-max/04-ttheory-vol2-mind-body.pdf
+	cp -f $(DIST)/papers/ttheory-vol3.pdf                            $(DIST)/nlm-max/06-ttheory-vol3-culture-society.pdf
 	cp -f $(DIST)/papers/ttheory-cheatsheet.pdf                      $(DIST)/nlm-max/cheatsheet.pdf
 	cp -f $(DIST)/PROMPTS.md                                         $(DIST)/nlm-max/PROMPTS.md
 
@@ -138,8 +140,9 @@ nlm: nlm-papers nlm-ttheory
 
 lulu: registry-fractal
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/lulu/01-omnibus-v2.pdf
-	cp -f $(BOOKS_BLD)/ttheory-vol1.pdf                              $(DIST)/lulu/03-ttheory-vol1-foundation.pdf
-	cp -f $(BOOKS_BLD)/ttheory-vol2.pdf                              $(DIST)/lulu/04-ttheory-vol2-application.pdf
+	cp -f $(BOOKS_BLD)/ttheory-vol1.pdf                              $(DIST)/lulu/03-ttheory-vol1-cosmos-matter.pdf
+	cp -f $(BOOKS_BLD)/ttheory-vol2.pdf                              $(DIST)/lulu/04-ttheory-vol2-mind-body.pdf
+	cp -f $(BOOKS_BLD)/ttheory-vol3.pdf                              $(DIST)/lulu/05-ttheory-vol3-culture-society.pdf
 	cp -f $(BOOKS_BLD)/book-gateway.pdf                              $(DIST)/lulu/ttheory-book-gateway.pdf
 	cp -f $(BOOKS_BLD)/book-physics.pdf                              $(DIST)/lulu/ttheory-book-physics.pdf
 	cp -f $(BOOKS_BLD)/book-neuroscience.pdf                         $(DIST)/lulu/ttheory-book-neuroscience.pdf

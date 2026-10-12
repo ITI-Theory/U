@@ -1,0 +1,5 @@
+defaults:
+  - defaults/volume-pdf.yaml
+metadata:
+  fractal-manifest: defaults/fractal-manifest.yaml
+  fractal-target: vol3

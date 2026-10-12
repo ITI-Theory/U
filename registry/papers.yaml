@@ -563,47 +563,69 @@ collections:
     lulu_category: "Science & Medicine"
 
   - id: C2-vol1
-    slug: ttheory-vol1
-    title: "[T]-Theory: The Fractal Programme — Volume I: Foundation"
+    slug: ttheory-vol1-cosmos-matter
+    title: "[T]-Theory: The Fractal Programme — Volume I: Cosmos and Matter"
     discipline: "Fractal Programme collection"
     level: "masters-phd"
     doi: ~
     status: pending-upload
-    notes: "Volume title aligned with builder and source-owned books on 2026-10-01."
+    notes: "Three-volume split approved by the author on 2026-10-13; replaces the former two-volume layout."
     file: papers/ttheory-vol1.pdf
     build: fractal
     bld_file: ttheory-vol1.pdf
     make_targets: [vol1]
-    nlm: 03-fractal-vol1-foundation
-    lulu: 03-ttheory-vol1-foundation
+    nlm: 03-ttheory-vol1-cosmos-matter
+    lulu: 03-ttheory-vol1-cosmos-matter
     lulu_page_limit: 800
-    lulu_spine_title: "[T] Vol 1 Foundation"
+    lulu_spine_title: "[T] Vol 1 Cosmos/Matter"
     lulu_spine_author: "Alistair Johnson"
     lulu_linen: Black
     lulu_foil: Gold
-    lulu_title: "[T]-Theory: The Fractal Programme — Volume I: Foundation"
+    lulu_title: "[T]-Theory: The Fractal Programme — Volume I: Cosmos and Matter"
     lulu_category: "Science & Medicine"
 
   - id: C2-vol2
-    slug: ttheory-vol2
-    title: "[T]-Theory: The Fractal Programme — Volume II: Application"
+    slug: ttheory-vol2-mind-body
+    title: "[T]-Theory: The Fractal Programme — Volume II: Mind and Body"
     discipline: "Fractal Programme collection"
     level: "masters-phd"
     doi: ~
     status: pending-upload
-    notes: "Volume title aligned with builder and source-owned books on 2026-10-01."
+    notes: "Three-volume split approved by the author on 2026-10-13; replaces the former two-volume layout."
     file: papers/ttheory-vol2.pdf
     build: fractal
     bld_file: ttheory-vol2.pdf
     make_targets: [vol2]
-    nlm: 04-fractal-vol2-application
-    lulu: 04-ttheory-vol2-application
+    nlm: 04-ttheory-vol2-mind-body
+    lulu: 04-ttheory-vol2-mind-body
     lulu_page_limit: 800
-    lulu_spine_title: "[T] Vol 2 Application"
+    lulu_spine_title: "[T] Vol 2 Mind/Body"
     lulu_spine_author: "Alistair Johnson"
     lulu_linen: Black
     lulu_foil: Gold
-    lulu_title: "[T]-Theory: The Fractal Programme — Volume II: Application"
+    lulu_title: "[T]-Theory: The Fractal Programme — Volume II: Mind and Body"
+    lulu_category: "Science & Medicine"
+
+  - id: C2-vol3
+    slug: ttheory-vol3-culture-society
+    title: "[T]-Theory: The Fractal Programme — Volume III: Culture and Society"
+    discipline: "Fractal Programme collection"
+    level: "masters-phd"
+    doi: ~
+    status: pending-upload
+    notes: "Three-volume split approved by the author on 2026-10-13; carries the closing Phase 2 gateway paper."
+    file: papers/ttheory-vol3.pdf
+    build: fractal
+    bld_file: ttheory-vol3.pdf
+    make_targets: [vol3]
+    nlm: 06-ttheory-vol3-culture-society
+    lulu: 05-ttheory-vol3-culture-society
+    lulu_page_limit: 800
+    lulu_spine_title: "[T] Vol 3 Culture/Society"
+    lulu_spine_author: "Alistair Johnson"
+    lulu_linen: Black
+    lulu_foil: Gold
+    lulu_title: "[T]-Theory: The Fractal Programme — Volume III: Culture and Society"
     lulu_category: "Science & Medicine"
 
   - id: CS1

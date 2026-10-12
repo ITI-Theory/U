@@ -58,6 +58,7 @@ ttheory:
     - bld/books/ttheory-omnibus.pdf
     - bld/books/ttheory-vol1.pdf
     - bld/books/ttheory-vol2.pdf
+    - bld/books/ttheory-vol3.pdf
     - bld/books/book-philosophy.pdf
     - bld/books/booklet-gateway.pdf
 
@@ -68,11 +69,16 @@ lulu-proofs:
   files:
     - bld/papers/omnibus-a4.pdf
     - bld/books/ttheory-vol1.pdf
-    - bld/books/ttheory-vol1-10pt.pdf
+    - bld/books/ttheory-vol2.pdf
+    - bld/books/ttheory-vol3.pdf
     - bld/books/book-gateway.pdf
     - bld/papers/lulu-covers/01-omnibus-v2-linen-wrap-proof.pdf
     - bld/papers/lulu-covers/01-omnibus-v2-dust-jacket.pdf
-    - bld/papers/lulu-covers/03-ttheory-vol1-foundation-linen-wrap-proof.pdf
-    - bld/papers/lulu-covers/03-ttheory-vol1-foundation-dust-jacket.pdf
+    - bld/papers/lulu-covers/03-ttheory-vol1-cosmos-matter-linen-wrap-proof.pdf
+    - bld/papers/lulu-covers/03-ttheory-vol1-cosmos-matter-dust-jacket.pdf
+    - bld/papers/lulu-covers/04-ttheory-vol2-mind-body-linen-wrap-proof.pdf
+    - bld/papers/lulu-covers/04-ttheory-vol2-mind-body-dust-jacket.pdf
+    - bld/papers/lulu-covers/05-ttheory-vol3-culture-society-linen-wrap-proof.pdf
+    - bld/papers/lulu-covers/05-ttheory-vol3-culture-society-dust-jacket.pdf
     - bld/papers/lulu-covers/ttheory-book-gateway-linen-wrap-proof.pdf
     - bld/papers/lulu-covers/ttheory-book-gateway-dust-jacket.pdf
