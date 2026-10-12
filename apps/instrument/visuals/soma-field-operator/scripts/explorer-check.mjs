@@ -248,6 +248,8 @@ const checks = [
   ['midi in: CC 1 at full turns fear to 1, CC 9 at 0 sets velocity 0.1, notes and other CCs are ignored', Number(
     midiControl([0xb0, 1, 127])?.id === 'F' && midiControl([0xb0, 1, 127]).value === 1 && midiControl([0xb0, 9, 0]).value === 0.1
     && midiControl([0x90, 1, 127]) === null && midiControl([0xb0, 40, 64]) === null), 1, 1],
+  ['tunnel: at calm the FREEZE valley almost never lets go (P < 1%)', sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.1, false, () => 1).p, 0, 0.01],
+  ['tunnel: warming the field raises the chance (P at Phi 0.3 / P at Phi 0.1 > 5)', sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.3, false, () => 1).p / sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.1, false, () => 1).p, 5, Infinity],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

@@ -2137,20 +2137,67 @@ function landscapeStep(ball, phi, resource, dt, forcing = null) {
   }
 }
 
+// TUNNEL (ISS-052, QUANT-EXP-1's picture; interpretive): at 11D a poke may carry the state
+// THROUGH a barrier instead of over it. Along the straight path to each other valley, the
+// barrier is where the energy rises above the state's own: its width d and its height dE
+// above the state; the WKB chance is P = exp(-2 d sqrt(2 dE) / HBAR_MODEL), the best path
+// is tried once. HBAR_MODEL is a model constant (the landscape has no Planck constant):
+// small enough that a deep valley at calm almost never lets go, large enough to be seen.
+export const HBAR_MODEL = 0.3;
+
+export function tunnelTry(ball, phi, resource, rand = Math.random) {
+  const beta = 1 / temperature(phi);
+  const J = resource ? RESOURCE_J : 0;
+  const e0 = energy(ball.x, ball.y, beta, J);
+  let best = null;
+  for (const [wx, wy] of WELLS) {
+    const L = Math.hypot(wx - ball.x, wy - ball.y);
+    if (L < 0.3) continue;
+    let inside = 0, top = e0, exit = null;
+    const n = 120;
+    for (let i = 1; i <= n; i++) {
+      const s = i / n;
+      const x = ball.x + (wx - ball.x) * s;
+      const y = ball.y + (wy - ball.y) * s;
+      const e = energy(x, y, beta, J);
+      if (e > e0) { inside += L / n; top = Math.max(top, e); } else if (inside > 0 && !exit) exit = { x, y };
+    }
+    if (!exit || inside <= 0) continue;
+    const p = Math.exp((-2 * inside * Math.sqrt(2 * (top - e0))) / HBAR_MODEL);
+    if (!best || p > best.p) best = { p, exit, width: inside, height: top - e0 };
+  }
+  if (!best) return { tried: false };
+  const through = rand() < best.p;
+  if (through) { ball.x = best.exit.x; ball.y = best.exit.y; }
+  return { tried: true, through, ...best };
+}
+
 function makeLandscape() {
   const R = 1.45;
   const ball = { x: WELLS[2][0] * 0.95, y: WELLS[2][1] * 0.95 };
   const trail = [];
   let theta = 0.5;
+  let lastEnv = null;
+  let tunnelEvent = { text: '', until: 0 };
   return {
     focus: [0, 0],
     tick(env) {
+      lastEnv = env;
       theta += env.dt * 0.07;
       landscapeStep(ball, env.phi, env.resource, env.dt, env.music ? { time: env.t } : null);
       trail.push([ball.x, ball.y]);
       if (trail.length > 160) trail.shift();
     },
     poke(strength) {
+      if (lastEnv && lastEnv.dim >= 11) {
+        const r = tunnelTry(ball, lastEnv.phi, lastEnv.resource);
+        if (r.tried) {
+          const chance = r.p >= 0.001 ? `${(100 * r.p).toPrecision(2)}%` : `10^${Math.log10(r.p).toFixed(1)}`;
+          tunnelEvent = { text: r.through ? `TUNNELLED through the barrier (chance ${chance}; width ${r.width.toFixed(2)}, height ${r.height.toFixed(2)})` : `HELD: the barrier did not let go (chance ${chance}); warm the field to lower it`, until: lastEnv.t + 4, through: r.through };
+          return;
+        }
+        tunnelEvent = { text: 'NO BARRIER to tunnel through: the valleys have melted, the state moves freely', until: lastEnv.t + 4, through: true };
+      }
       const a = Math.random() * TAU;
       ball.x += Math.cos(a) * 0.6 * strength;
       ball.y += Math.sin(a) * 0.6 * strength;
@@ -2178,6 +2225,8 @@ function makeLandscape() {
           }
           landscapeHud(ctx, u, phi, T, beta, env.resource);
           if (env.music && env.labels) label(ctx, u, `♪ MUSIC: the ground rocks towards SAFE and back every ${FORCING.P} s (a forcing; in this model, with the noise, it helps the state out)`, 0, 0.9, COLORS.violet, 'center', 0.022);
+          if (env.labels && tunnelEvent.until > env.t) label(ctx, u, tunnelEvent.text, 0, -0.62, tunnelEvent.through ? COLORS.cyan : COLORS.orange, 'center', 0.028);
+          else if (env.labels && dim >= 11) label(ctx, u, 'at 11D, POKE tries to TUNNEL through the nearest barrier (QUANT-EXP-1, a picture)', 0, -0.62, COLORS.dim, 'center', 0.02);
         }
         return;
       }
@@ -2261,6 +2310,8 @@ function makeLandscape() {
       }
       if (env.labels) landscapeHud(ctx, u, phi, T, beta, env.resource);
           if (env.music && env.labels) label(ctx, u, `♪ MUSIC: the ground rocks towards SAFE and back every ${FORCING.P} s (a forcing; in this model, with the noise, it helps the state out)`, 0, 0.9, COLORS.violet, 'center', 0.022);
+          if (env.labels && tunnelEvent.until > env.t) label(ctx, u, tunnelEvent.text, 0, -0.62, tunnelEvent.through ? COLORS.cyan : COLORS.orange, 'center', 0.028);
+          else if (env.labels && dim >= 11) label(ctx, u, 'at 11D, POKE tries to TUNNEL through the nearest barrier (QUANT-EXP-1, a picture)', 0, -0.62, COLORS.dim, 'center', 0.02);
     },
   };
 }
@@ -2274,7 +2325,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
 const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
-export const simulation = { memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
+export const simulation = { tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
 
 // ---------------------------------------------------------------- the explorer
 
