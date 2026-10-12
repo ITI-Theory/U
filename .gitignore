@@ -1,4 +1,4 @@
-# OpenCyc OWL download (50 MB — fetch with: python scripts/load_opencyc.py)
+# Local data downloads (never committed)
 data/
 !data/.gitkeep
 

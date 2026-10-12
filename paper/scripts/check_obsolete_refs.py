@@ -27,7 +27,9 @@ ROOT = Path(__file__).resolve().parents[2]
 SUFFIX = ".OBSOLETE"
 ALLOWED = {".ignore", ".vscode/settings.json", "bin/release-check",
            "paper/scripts/check_obsolete_refs.py"}
-APPEND_ONLY = {"paper/FIELD-NOTES.md"}
+# Historical records, never rewritten: field notes, and Phase Dot (pasted chat transcripts,
+# whose compose files and the like belong to other machines, not to this repository)
+APPEND_ONLY = {"paper/FIELD-NOTES.md", "Part2/book/phase-dot/phase-dot.md"}
 TEXT = {".md", ".py", ".lua", ".sh", ".js", ".mjs", ".ts", ".yaml", ".yml",
         ".tex", ".json", ".toml", ".txt", ".html", ".css", ".lean", ".mk", ""}
 MAX_BYTES = 3_000_000

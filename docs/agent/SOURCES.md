@@ -78,8 +78,8 @@ introduction and conclusion around embedded papers
 
 Sherlock is a design and a philosophy, not an implemented program.
 
-- Built substrate (retired 11 Oct 2026, now `*.OBSOLETE`): `paper/scripts/schema.tql`,
-  `load_opencyc.py`, `query_cyc.py`, `query_emotions.tql` (OpenCyc OWL into TypeDB);
+- Built substrate (retired 11 Oct 2026, now `*.OBSOLETE`): `paper/scripts/schema.tql.OBSOLETE`,
+  `paper/scripts/load_opencyc.py.OBSOLETE`, `paper/scripts/query_cyc.py.OBSOLETE`, `paper/scripts/query_emotions.tql.OBSOLETE` (OpenCyc OWL into TypeDB);
   replaced by Sherlock (`sherlock/`, OpenCyc in Lean) and `paper/proofs/EmotionCyc.lean`;
   `paper/proofs/EmotionOntology.lean`, `FieldProofs.lean`.
 - `Part2/book/phase-dot/phase-dot.md` L1-6110: first `{{Sherlock}}` and

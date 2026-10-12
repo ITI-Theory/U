@@ -21510,25 +21510,25 @@ info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:569:0: "((~~bs●── 
 info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:574:0: 2
 info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:575:0: 4
 info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:626:0: [TypeDB error: Traceback (most recent call last):
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line 251, in <module>
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line 251, in <module>
     main()
     ~~~~^^
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line ]
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line ]
 info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:629:0: [TypeDB error: Traceback (most recent call last):
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line 251, in <module>
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line 251, in <module>
     main()
     ~~~~^^
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line ]
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line ]
 info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:632:0: [TypeDB error: Traceback (most recent call last):
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line 251, in <module>
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line 251, in <module>
     main()
     ~~~~^^
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line ]
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line ]
 info: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:635:0: [TypeDB error: Traceback (most recent call last):
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line 251, in <module>
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line 251, in <module>
     main()
     ~~~~^^
-  File "C:\Users\alist\prj\git\U\scripts\query_cyc.py", line ]
+  File "C:\Users\alist\prj\git\U\scripts\paper/scripts/query_cyc.py.OBSOLETE", line ]
 error: C:\Users\alist\prj\git\U\src\EmotionOntology.lean:639:0: Tried to read from handle containing non UTF-8 data.
 error: Lean exited with code 1
 Some required builds logged failures:

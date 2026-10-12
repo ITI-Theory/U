@@ -625,9 +625,8 @@ def FeynmanDiagram.order : FeynmanDiagram → Nat
 -- ════════════════════════════════════════════════════════════════════════════
 
 /-
-  The TypeDB bridge (docker compose, load_opencyc.py, query_cyc.py,
-  validate_cycrefs.py) is retired: its scripts are kept as *.OBSOLETE in
-  paper/scripts/. It could only check names when a database was running, and
+  The TypeDB bridge (docker compose and three Python scripts that loaded and
+  queried OpenCyc) is retired; its files are kept for history in paper/scripts/. It could only check names when a database was running, and
   it printed "skipped" otherwise, which is how 25 names that are not in
   OpenCyc stayed here unnoticed. OpenCyc now lives in Lean (Sherlock,
   sherlock/), and the check is the compiler's: `EmotionCyc` anchors each base

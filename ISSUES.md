@@ -838,7 +838,7 @@ reader-facing Markdown in Python.
 - [x] Inventory each script's caller, inputs, outputs, generated-file policy,
    and current release/build role.
       9 Oct inventory of paper/scripts (33): 26 run by make or release-check.
-      No caller: `load_opencyc.py`, `query_cyc.py`, `validate_cycrefs.py` (OpenCyc
+      No caller: `paper/scripts/load_opencyc.py.OBSOLETE`, `paper/scripts/query_cyc.py.OBSOLETE`, `paper/scripts/validate_cycrefs.py.OBSOLETE` (OpenCyc
       in TypeDB via docker compose; owner Sherlock, ISS-046: next, validate the
       registry's ontology classes with them); `plot_field.py` + `soma_midi.py`
       (BRECVEMA field plots; candidates for Visualize primitives, ISS-051);
