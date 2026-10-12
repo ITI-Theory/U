@@ -2377,7 +2377,9 @@ Steps:
       plain triad, awe/curiosity → brightness, grief → darker and fewer
       notes, pre-verbal → granular noise. Four checks in explorer-check (18).
       Hash keys bpm, kr.
-- [ ] The Tensor, next: (1) a real heart-rate strap (Web Bluetooth, standard
+- [x] (13 Oct, all five built: heart.js, the HRV estimator, kd kt km kw and W*, the river,
+      body and session containers, the 90-minute film; real-strap and film UAT are the
+      author's, items below) The Tensor, next: (1) a real heart-rate strap (Web Bluetooth, standard
       Heart Rate service) in place of the slider; (2) a better field estimator
       (HRV, breath); (3) the
       remaining knobs κ_d, κ_t, κ_m, κ_W and the coupling W*; (4) containers:
