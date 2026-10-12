@@ -85,7 +85,9 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
       is new. The manifest now places P10 in Neuroscience, P14 and P15 in Physics (pointers in
       Formal Mathematics), P25 in Trauma (pointers in Complex Systems and Philosophy); each is
       printed in full once. Rebuild the Fractal Programme volumes and the omnibus at release and
-      re-check the page counts (Vol I 575 and Vol II 506 grow; Lulu's cap is 800).
+      re-check the page counts (Vol I 575 and Vol II 506 grow; Lulu's cap is 800). Also: section
+      labels repeat across the assembled books (32 in Vol II: introduction, conclusion, the
+      "Reading the ..." pointer sections); make them unique per book so links cannot be ambiguous.
 - [ ] P25 (path-sensitive transitions): UAT reading, upload to Zenodo with the others; and its
       Sherlock affidavit, so SH1's "affidavits for all its papers" stays true at SH1's next
       version (SH1 v2 is a snapshot of the 24 papers of 11 Oct, left as it is).
@@ -4049,9 +4051,15 @@ SpaceEngine renders) and the one waiting on a viewer stay.
 - [ ] (from ISS-080) (ISS-046) Visual rhymes: renderers may share motion styles across
       levels (sliding plates for `geological`, ring/belt debris for `orbital-system`),
       badged as visual analogy (`INTERPRETIVE`); the physics differs.
-- [ ] (from ISS-080) (ISS-046) Each Fractal Thesis book: a domain introduction spread
+- [x] (from ISS-080) (ISS-046) Each Fractal Thesis book: a domain introduction spread
       (specialist label, G-ID, zoom note); a per-book G-ID registry; "61 decades of
       magnitude" as the headline with the scales as tick marks.
+      (13 Oct: done. Each book's opening in the Fractal volumes and the omnibus already had its
+      reader and G-ID (the manifest's green_id is the per-book registry); it now has the strip: the
+      31 levels of registry/levels as tick marks over the ladder, the book's own levels tall, the
+      headline computed from the registry (10^-35 m to 10^26 m: 61 decades), and a zoom note naming
+      the levels and their range. Each domain's `levels:` is in fractal-manifest.yaml (author may
+      edit); Gateway and Mathematics read the whole ladder. Checked in Vol II.)
 - [x] (from ISS-080) (ISS-046) Field Atlas: Physical / Field / Mind parallel layout;
       notebook figures 1, 2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
       (13 Oct review: done: the 4D / 8D / 11D triptych on every level is the body / feeling /

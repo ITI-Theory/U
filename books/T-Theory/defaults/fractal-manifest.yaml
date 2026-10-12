@@ -70,6 +70,8 @@ fractal_manifest:
     subtitle: Field Equations of Mind
     audience: physicists and astrophysicists
     field: mathematical physics, astrophysics, quantum field theory
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [quantum-foam, string-boundary, nuclear, atomic, stellar, galactic-disc, galactic-halo, galaxy-cluster, cosmic-filaments, cosmic-web, observable-universe]
     papers:
     - c:soma-field-paper
     - c:quantum-soma-penrose
@@ -87,6 +89,8 @@ fractal_manifest:
     subtitle: The Electromagnetic Nervous System
     audience: neuroscientists, cognitive scientists
     field: neuroscience, cognitive neuroscience, computational neuroscience
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [molecular, cellular-synaptic, local-circuit, whole-brain-cemi]
     papers:
     - c:soma-physical-substrate
     - c:missing-limbic-layer
@@ -100,6 +104,8 @@ fractal_manifest:
     subtitle: Trauma as Topology
     audience: clinical psychologists, therapists, psychiatrists
     field: clinical psychology, psychotherapy, trauma studies
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [whole-brain-cemi, human-vertebrate, dyad]
     papers:
     - c:soma-field-patient-pov
     - c:SFT-DEMO-CASE
@@ -117,6 +123,8 @@ fractal_manifest:
     subtitle: Verified Emotional Computing
     audience: computer scientists, AI researchers, software engineers
     field: computer science, artificial intelligence, formal verification
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [cellular-synaptic, local-circuit, animal-swarm, flock, human-group]
     papers:
     - c:swarm-propagator
     - c:experimental-validation
@@ -146,6 +154,8 @@ fractal_manifest:
     subtitle: Consciousness, Effect, and Proof in the Fractal Programme
     audience: philosophers of mind, consciousness researchers
     field: philosophy of mind, consciousness studies, phenomenology
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [cellular-synaptic, local-circuit, whole-brain-cemi, human-vertebrate]
     papers:
     - c:universal-somatic-field
     - c:quantum-soma-penrose
@@ -163,6 +173,8 @@ fractal_manifest:
     subtitle: Scale-Free Dynamics
     audience: complex systems researchers, network scientists
     field: complex systems, emergence, self-organisation, network science
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [animal-swarm, flock, colony-roost, human-group, society-city, regional-institutional, geological, planetary]
     papers:
     - c:zoomable-somatic-field
     - c:geographic-somatic-field
@@ -179,6 +191,8 @@ fractal_manifest:
     subtitle: The Physics of Music and Affect
     audience: musicologists, music psychologists, artists, composers
     field: music psychology, musicology, aesthetics, cognitive science of art
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [whole-brain-cemi, human-vertebrate, dyad, human-group]
     papers:
     - c:music-affect-dynamics
     - c:the-tensor
@@ -191,6 +205,8 @@ fractal_manifest:
     subtitle: The Geological Soma
     audience: geophysicists, seismologists, Earth scientists
     field: geophysics, seismology, tectonics, Earth sciences
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [geological, planetary, orbital-system]
     papers:
     - c:geographic-somatic-field
     - c:zoomable-somatic-field
@@ -205,6 +221,8 @@ fractal_manifest:
     subtitle: The Physics of Society
     audience: sociologists, social psychologists, anthropologists
     field: sociology, social psychology, anthropology, political science
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [dyad, human-group, society-city, regional-institutional]
     papers:
     - c:geographic-somatic-field
     - c:swarm-propagator
@@ -219,6 +237,8 @@ fractal_manifest:
     subtitle: Economic Criticality
     audience: economists, game theorists, financial mathematicians
     field: economics, game theory, financial mathematics, mechanism design
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [human-group, society-city, regional-institutional, civilisational-solar]
     papers:
     - c:swarm-propagator
     - c:experimental-validation
@@ -233,6 +253,8 @@ fractal_manifest:
     subtitle: Topology of Justice
     audience: legal scholars, jurisprudents, political scientists, policymakers
     field: law, jurisprudence, political theory, regulatory studies
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [society-city, regional-institutional, civilisational-solar]
     papers:
     - c:soma-field-synthesis
     - c:universal-somatic-field
@@ -247,6 +269,8 @@ fractal_manifest:
     subtitle: Mind, Market, and Mandate
     audience: PPE students and scholars, political economists, philosophers
     field: philosophy, politics, economics (Oxford PPE tradition)
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [human-group, society-city, regional-institutional, civilisational-solar]
     papers:
     - c:soma-field-synthesis
     - f:soma-game-theory
@@ -262,6 +286,8 @@ fractal_manifest:
     subtitle: Neurodivergence and Trauma
     audience: psychiatrists, psychologists, neurodivergent people and their families
     field: psychiatry, clinical psychology, neurodevelopmental conditions
+    # where the book sits on the ladder (registry/levels): its zoom note and the 61-decade strip
+    levels: [cellular-synaptic, whole-brain-cemi, human-vertebrate, dyad]
     papers:
     - c:missing-limbic-layer
     - c:preverbal-manifold

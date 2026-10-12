@@ -203,6 +203,72 @@ local function booklet_pages(domain)
   return pandoc.List:new({ pandoc.Para({ pandoc.Link("Domain cheatsheet", pdf_abs("booklet-" .. booklet_id .. ".pdf")) }) })
 end
 
+-- The level ladder from the registry (registry/levels/*.yaml): id, label, length exponent.
+local ladder_cache
+local function ladder()
+  if ladder_cache then return ladder_cache end
+  ladder_cache = {}
+  local dir = project_file("../../registry/levels")
+  local ok, files = pcall(system.list_directory, dir)
+  if not ok then return ladder_cache end
+  for _, f in ipairs(files) do
+    if f:match("%.yaml$") then
+      local text = read_text(path.join({ dir, f }))
+      local id = text:match("^id: ([%w%-]+)") or text:match("\nid: ([%w%-]+)")
+      local label = text:match("\nlabel: '?([^\n']+)")
+      local e = tonumber((text:match("\nlength_scale: '?10%^{?(%-?[%d%.]+)") or ""))
+      if id and e then ladder_cache[#ladder_cache + 1] = { id = id, label = label or id, e = e } end
+    end
+  end
+  table.sort(ladder_cache, function(a, b) return a.e < b.e end)
+  return ladder_cache
+end
+
+local function fmt_e(e)
+  return (e == math.floor(e)) and string.format("%d", e) or string.format("%.1f", e)
+end
+
+-- "61 decades of magnitude": the ladder as tick marks, the book's own levels tall (ISS-083).
+local function zoom_strip(domain)
+  local all = ladder()
+  if #all < 2 then return nil, nil end
+  local lo, hi = all[1].e, all[#all].e
+  local mine = {}
+  for _, id in ipairs(meta_list_values(domain.levels)) do mine[id] = true end
+  local chosen, elo, ehi = {}, nil, nil
+  for _, l in ipairs(all) do
+    if mine[l.id] then
+      chosen[#chosen + 1] = l.label
+      elo = elo and math.min(elo, l.e) or l.e
+      ehi = ehi and math.max(ehi, l.e) or l.e
+    end
+  end
+  local whole = #chosen == 0
+  local headline = string.format("%s decades of magnitude", fmt_e(hi - lo))
+  local note = whole and string.format("This book reads the whole ladder, from 10^%s m to 10^%s m.", fmt_e(lo), fmt_e(hi))
+    or string.format("This book zooms in on %s (10^%s m to 10^%s m).", table.concat(chosen, ", "), fmt_e(elo), fmt_e(ehi))
+  if not FORMAT:match("latex") then return headline, note end
+  local W = 150
+  local x = function(e) return string.format("%.2f", (e - lo) / (hi - lo) * W) end
+  local parts = { "\\setlength{\\unitlength}{1mm}\\begin{picture}(150,16)",
+    "\\linethickness{0.3pt}\\put(0,6){\\line(1,0){150}}" }
+  for _, l in ipairs(all) do
+    if whole or mine[l.id] then
+      parts[#parts + 1] = "\\linethickness{1.2pt}\\put(" .. x(l.e) .. ",3){\\line(0,1){7}}"
+    else
+      parts[#parts + 1] = "\\linethickness{0.4pt}\\put(" .. x(l.e) .. ",5){\\line(0,1){2}}"
+    end
+  end
+  parts[#parts + 1] = string.format("\\put(0,0){\\makebox(0,0)[l]{\\scriptsize $10^{%s}$\\,m}}", fmt_e(lo))
+  parts[#parts + 1] = string.format("\\put(150,0){\\makebox(0,0)[r]{\\scriptsize $10^{%s}$\\,m}}", fmt_e(hi))
+  parts[#parts + 1] = string.format("\\put(75,14){\\makebox(0,0){\\sffamily\\bfseries %s}}", latex_text(headline))
+  parts[#parts + 1] = "\\end{picture}\\par"
+  local latex_note = whole
+    and string.format("This book reads the whole ladder, from $10^{%s}$\\,m to $10^{%s}$\\,m.", fmt_e(lo), fmt_e(hi))
+    or string.format("This book zooms in on %s ($10^{%s}$\\,m to $10^{%s}$\\,m).", latex_text(table.concat(chosen, ", ")), fmt_e(elo), fmt_e(ehi))
+  return table.concat(parts, "\n"), latex_note
+end
+
 local function book_opening(domain)
   local title = meta_text(domain.title)
   local subtitle = meta_text(domain.subtitle)
@@ -210,6 +276,7 @@ local function book_opening(domain)
   local green_id = meta_text(domain.green_id)
   local audience = meta_text(domain.audience)
   local blocks = pandoc.List:new()
+  local strip, note = zoom_strip(domain)
   if FORMAT:match("latex") then
     local prefix = meta_text(domain.recto_open) == "true" and "\\cleardoublepage\n" or ""
     blocks:insert(pandoc.RawBlock("latex", prefix .. string.format([[\part{%s}
@@ -220,11 +287,16 @@ local function book_opening(domain)
 {\sffamily\bfseries G-ID: %s\par}
 \vspace{4mm}
 {\sffamily Reader: %s\par}
+\vspace{14mm}
+%s
+\vspace{4mm}
+{\small\itshape %s\par}
 \end{center}
-\clearpage]], latex_text(title), latex_text(title), latex_text(title), latex_text(subtitle), latex_text(green_id), latex_text(audience))))
+\clearpage]], latex_text(title), latex_text(title), latex_text(title), latex_text(subtitle), latex_text(green_id), latex_text(audience), strip or "", note or "")))
   else
     blocks:insert(pandoc.Header(1, title))
     if subtitle ~= "" then blocks:insert(pandoc.Para({ pandoc.Emph({ pandoc.Str(subtitle) }) })) end
+    if strip then blocks:insert(pandoc.Para({ pandoc.Strong({ pandoc.Str(strip) }), pandoc.Str(". "), pandoc.Str(note) })) end
   end
   if id == "gateway" then
     blocks:extend(noir_block())
