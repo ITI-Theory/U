@@ -226,6 +226,8 @@ The stone is in the water. The field is already propagating.
 
 $$\boxed{(\nabla^2 + k^2)\,G = \delta}$$
 
+{{Visualize | conclusion | function-plot:wave | f="cos(k*x)/(4*pi*x)"; x=[0.5,12]; k=2; value_at=1; expect_value="-0.033115"; xlabel="distance from source $r$"; ylabel="illustrative Re $G(r)$" }} The closing Helmholtz equation shown as the same illustrative outgoing Green's-function profile used earlier: a damped oscillatory response away from a source. The renderer checked the plotted value at $r=1$ for this illustrative $k=2$ curve; this is a visual map of the equation's structural form, not evidence about cultural propagation.
+
 at every scale, as a proposed structural model from quantum foam to the cosmic web.
 
 ---
