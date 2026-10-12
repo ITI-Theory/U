@@ -3941,9 +3941,9 @@ steps to take now.
       matter (area, visibility, sources, evidence label); quarantined claims stay out.
       *Phase Dot* is built from the notes, filtered by visibility.
 
-## ISS-084: Sherlock's analogy and the books' writing, after the Body and Session phases — OPEN
+## ISS-084: Sherlock's analogy and the books' writing, after the Body and Session phases — CLOSED
 {{Tags area.proofs, area.books}}
-{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-13, date.start=, date.end=2026-10-13, epic=}}
 
 SME needs the Body and Session containers written before it can compare them with the River.
 They are (13 Oct): the author accepted the draft as it was ("go with yours, I have read it"), and
@@ -3972,4 +3972,8 @@ its lines are in The Tensor's Part II under each phase, beside the river's; the 
       encounter), so the three tell the same journey; or keep them as they are and let
       Part IV say "the same score" rather than "the same film".
       (13 Oct triage: done (author, 13 Oct: my recommendation): a river line for Threshold 2 (the oldest loss surfaces from the dark water; grief opens fully), and Part IV now says "All three are the same score" (River and Body the same journey, the Session the same shape without a voyage); the session line kept as it is. The translations follow at their next refresh)
-- [ ] The Law book's affidavit chapter and the Russell reading (writing, not tools).
+- [x] The Law book's affidavit chapter and the Russell reading (writing, not tools).
+      (13 Oct triage: already done, a duplicate of ISS-064 (closed): the Law book's chapter "Affidavits: Claims, Exhibits and Precedent" (book-law.md line 389, 12 Oct) and "Reading Russell with Sherlock" in the philosophy book's chapter 7 (line 1140, 13 Oct; registry/cases/phil-*.yaml))
+
+**Closed 2026-10-13:** the containers test is run and The Tensor edited from it; the Law chapter and the Russell reading were already written (ISS-064).
+
