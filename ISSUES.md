@@ -4133,8 +4133,19 @@ Its inputs are the registry, its own front and back matter, its theory figures a
 captures, not the papers, the omnibus or the Lean. Decided (author, 13 Oct 22:40): everything
 printable, about 300 pages (bookfactory: even, at most 400).
 
-- [ ] Recapture check: compare fresh portrait captures of a few levels with the 9 Oct ones;
+**Limit and cost (author, 13 Oct 22:55):** bookfactory's Jumbo takes at most 300 pages (not 400;
+the build now fails above 300) and costs about CHF 600. So the plan must fit 300 with a margin,
+and the format was open. Decided (author, 13 Oct 23:00): proof first. An A4-landscape edition with
+everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to 800 pages, no
+300 limit), read on paper; the Jumbo (CHF 600) once, when the content is final, trimmed to 300
+(drop the city of code and the Tensor score, tighten the voyage, or the callout on the text page).
+- [ ] An A4-landscape edition: `make -C Part2/book/field-atlas lulu` (defaults/lulu.yaml, scaled
+      from the A3 layout; Lulu's size, bleed and cover template checked at order time).
+
+- [x] Recapture check: compare fresh portrait captures of a few levels with the 9 Oct ones;
       recapture all 31 levels if the level views changed.
+      (13 Oct: 15 captures of 5 levels, mean difference 0.2 to 2.9 of 255, the animation phase only:
+      the level views have not changed; the 9 Oct triptychs stay.)
 - [ ] 1. A new part, "The Voyage Inside", after sector 3: the explorer's stops as plates with
       text (about 30 pages): the body maps (feelings by basis), the way in (arteries with true
       calibres, OpenStax CC BY, credited), the cathedral of the ventricles (inside, outside,

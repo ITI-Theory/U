@@ -41,7 +41,7 @@ bookfactory: $(BF_PDF)
 	@pdfinfo "$(BF_PDF)" | grep -E '^(Pages|Page size):'
 	@pages=$$(pdfinfo "$(BF_PDF)" | awk '/^Pages:/ {print $$2}'); \
 	if [ $$((pages % 2)) -ne 0 ]; then echo "bookfactory: odd page count $$pages (add a blank page)"; exit 1; fi; \
-	if [ $$pages -gt 400 ]; then echo "bookfactory: $$pages pages exceeds the 400-page maximum"; exit 1; fi; \
+	if [ $$pages -gt 300 ]; then echo "bookfactory: $$pages pages exceeds the 300-page maximum for Jumbo (author, 13 Oct)"; exit 1; fi; \
 	echo "bookfactory: PASS ($$pages pages)"
 
 $(BF_TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) | $(BLD)
