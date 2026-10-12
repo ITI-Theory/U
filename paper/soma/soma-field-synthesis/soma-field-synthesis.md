@@ -94,14 +94,8 @@ The programme fills both gaps with the same model, via the same method.
 
 The argument has three movements and several extensions:
 
-| Paper | Movement | Contribution |
-|---|---|---|
-| *Mathematical Co-identification* (2026) | Method | Names and formalises the procedure |
-| *The Soma-Field* (2026) | Model | Applies it to emotional dynamics |
-| *Quantum Soma and the Penrose Gap* (2026) | Computational test | Tests the central reachability claim |
-| *Field Notes from the Inside* (2026) | Lived case | Primary-source clinical grounding |
-| *A Dynamical Field Model of Music-Induced Affect* (2026) | Extension | Demonstrates domain generality |
-| *The Tensor* (2026) | Extension | Applies the framework to abstract film |
+::: {.markdown-include path="soma/soma-field-synthesis/programme-table.generated.md"}
+:::
 
 The popular account (*A Voyage into Trauma*, 2026) provides the same argument in
 accessible form, for readers without a physics background.
@@ -237,6 +231,8 @@ The model represents emotional attractor dynamics with the canonical Hopfield
 energy-function form. The energy function is:
 
 $$H(\mathbf{e}) = -\tfrac{1}{2}\mathbf{e}^{\top} W \mathbf{e} - \mathbf{b}^{\top}\mathbf{e}$$
+
+{{Visualize | five-co-identifications | energy-landscape:soma | U="0.25*x^4 - x^2"; x=[-2,2]; expect_minima="-1.414,1.414"; xlabel="one emotional coordinate"; ylabel="illustrative Hopfield energy" }} A one-dimensional slice of the Hopfield energy idea in the equation: two local minima stand in for attractor states separated by an energy barrier. The curve is illustrative; the renderer checked the two minima of this chosen slice.
 
 where $\mathbf{e} \in \mathbb{R}^N$ is the emotional state vector, $W$ is the coupling
 matrix, and $\mathbf{b}$ is a bias vector encoding baseline arousal. The local minima
