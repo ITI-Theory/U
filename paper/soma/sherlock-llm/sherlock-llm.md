@@ -15,10 +15,13 @@ abstract: |
   `nlm-exp1.json`, `nlm-exp2.json` and `nlm-test.json` asked five questions
   about The Tensor (P8) and the Zoomable Universal Somatic Field (P11), with
   different source packs. Against a simple rubric derived from Sherlock's
-  affidavits, 10 of 20 condition-question cells are correct, 1 is partial,
-  1 is wrong, and 8 contain no completed answer because the run hit
-  rate-limit or network failures. Among completed answers the score is 10 of
-  12; as an end-to-end replacement for Sherlock it is 10 of 20. The scoring is
+  affidavits, 15 of 20 condition-question cells are correct, 1 is partial,
+  1 is wrong, and 3 contain no completed answer because the run hit
+  rate-limit or network failures (after a second run on 13 Oct). Among
+  completed answers the score is 15 of 17; as an end-to-end replacement for
+  Sherlock it is 15 of 20. The arithmetic checks on the papers' own numbers
+  succeed from the papers alone; the one typing question fails without
+  OpenCyc in the sources. The scoring is
   provisional: one scorer, not blind to the condition. This is an empirical result about these saved runs and
   an interpretive scoring judgement, not a general result about language models.
 ---
@@ -34,7 +37,7 @@ reading, deriving and judging the answers itself `open-hypothesis`.
 
 The short answer from the saved runs is cautious. The model often recovered the
 same answer when it answered at all `empirical-result`. It also failed to
-complete 8 of 20 condition-question cells because of rate-limit or network
+complete 3 of 20 condition-question cells because of rate-limit or network
 failures recorded in the JSON files `empirical-result`. It did not produce Lean
 proofs, template checks, frozen-source hashes or reproducible type judgements
 `empirical-result`. It therefore did not replace Sherlock's compiler role
@@ -91,11 +94,11 @@ the scoring judgement.
 
 | Source file | Condition | Correct | Partial | Wrong | No answer | Notes |
 |---|---:|---:|---:|---:|---:|---|
-| `nlm-exp0.json` | papers only | 1 | 0 | 1 | 3 | Q1 wrong (no contradiction, it says); Q2 correct; Q3--Q5 hit rate-limit errors. |
-| `nlm-exp0.json` | papers + all of OpenCyc | 2 | 0 | 0 | 3 | Q1--Q2 answered; Q3--Q5 hit rate-limit errors. |
-| `nlm-exp1.json` | papers + Sherlock slice | 3 | 1 | 0 | 1 | Q1 partial (Safety and Pre-verbal counted as emotions); Q2, Q3, Q5 correct; Q4 hit a network/streaming error. |
-| `nlm-exp2.json` | papers + UniversalVocabularyMt | 4 | 0 | 0 | 1 | Q1--Q4 answered; Q5 hit a rate-limit error. |
-| **Total** | all stored condition-question cells | **10** | **1** | **1** | **8** | 10/20 end to end; 10/12 among completed answers. |
+| `nlm-exp0.json` | papers only | 4 | 0 | 1 | 0 | Q1 wrong (no contradiction, it says); Q2--Q5 correct (Q3--Q5 from the second run, 13 Oct). |
+| `nlm-exp0.json` | papers + all of OpenCyc | 4 | 0 | 0 | 1 | Q1--Q3 and Q5 correct (Q3, Q5 from the second run); Q4 hit a network/streaming error twice. |
+| `nlm-exp1.json` | papers + Sherlock slice | 3 | 1 | 0 | 1 | Q1 partial (Safety and Pre-verbal counted as emotions); Q2, Q3, Q5 correct; Q4 failed twice (network, then rate limit). |
+| `nlm-exp2.json` | papers + UniversalVocabularyMt | 4 | 0 | 0 | 1 | Q1--Q4 correct; Q5 hit a rate-limit error twice. |
+| **Total** | all stored condition-question cells | **15** | **1** | **1** | **3** | 15/20 end to end; 15/17 among completed answers. |
 
 The scoring was revised on review (13 Oct): a first pass had counted every
 completed cell as correct `interpretive`.
@@ -118,17 +121,19 @@ from a false literal identity reading `empirical-result`. This is close to
 Sherlock's distinction between the score-generalisation reading and the mutual
 same-film reading `derived-under-assumptions`.
 
-On Q3, the two completed answers called the percept--pole identity a category
+On Q3, all four completed answers called the percept--pole identity a category
 error and identified the pole as a mathematical object `empirical-result`. This
 matches Sherlock's recommendation to say "corresponds to" rather than "is"
 `derived-under-assumptions`.
 
-On Q4, the completed answer found all three internal checks: there are three
+On Q4, both completed answers (with the papers only, and with UniversalVocabularyMt) found all three internal checks: there are three
 operating modes, Threshold 1 never strictly satisfies `F > 0.7`, and Threshold 2
 fails at `t=0.74` but holds earlier near `t=0.70` `empirical-result`.
 
-On Q5, the completed answer found the twenty/twenty-one inconsistency, the
-8-order rather than 25-order separation, and the non-monotone scale dial
+On Q5, all three completed answers found the twenty/twenty-one inconsistency, the
+8-order rather than 25-order separation, and the non-monotone scale dial (Scale
+14 after Scale 13) `empirical-result`. Q4 and Q5 are controls on the papers' own
+numbers: with the papers alone the model did them as well as with OpenCyc
 `empirical-result`.
 
 # Where the model was wrong or could not say
@@ -143,9 +148,8 @@ Pre-verbal included; that is partial `interpretive`. Without OpenCyc in the
 sources, the model took the paper's own framing; with it, the model found the
 contradiction `interpretive`.
 
-The unanswered cells are part of the result:
-exp0 Q3--Q5, exp1 Q4 and exp2 Q5 did not complete in the saved data
-`empirical-result`. A system that cannot reliably return an answer cannot serve
+The unanswered cells are part of the result: exp0 Q4 with all of OpenCyc,
+exp1 Q4 and exp2 Q5 did not complete in two runs `empirical-result`. A system that cannot reliably return an answer cannot serve
 as a deterministic compiler back end `interpretive`.
 
 The answers also did not provide frozen-source hashes, exact line anchoring in
@@ -156,13 +160,9 @@ and a reproducible check `interpretive`.
 
 # Future work not yet run
 
-The stored exp0 run did not complete Q3--Q5 `empirical-result`. Those cells
-should be rerun before comparing "papers only" with OpenCyc-assisted settings
-`open-hypothesis`.
-
-The saved exp1 and exp2 runs also have one missing cell each: exp1 Q4 and exp2
-Q5 `empirical-result`. They should be completed before any source-pack ranking
-is claimed `open-hypothesis`.
+Three cells are still missing after two runs: exp0 Q4 with all of OpenCyc,
+exp1 Q4 and exp2 Q5 `empirical-result`. They should be completed before any
+source-pack ranking is claimed `open-hypothesis`.
 
 ISS-048's local-model comparison has not been run in the stored data
 `empirical-result`. A fair SH2 result needs the same five questions asked of a
@@ -178,7 +178,7 @@ it derives the right conclusion `open-hypothesis`.
 # Conclusion
 
 For these saved runs, NotebookLM did most of the visible reading work correctly
-when it produced an answer, 10 of 12 `empirical-result`; with the papers alone it
+when it produced an answer, 15 of 17 `empirical-result`; with the papers alone it
 accepted the paper's framing where Sherlock found a contradiction
 `empirical-result`. It did not do Sherlock's job as a
 compiler, because it did not guarantee completion, preserve a frozen source,
