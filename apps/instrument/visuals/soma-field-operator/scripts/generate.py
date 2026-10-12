@@ -883,29 +883,15 @@ def load_reading(level_ids: set[str]) -> list[dict[str, Any]]:
 
 
 def load_reminders() -> list[dict[str, Any]]:
-    """The Maintenance deck's prompts (ISS-065: read, never copy): the open author steps in
-    ISSUES.md, the author's desk (ISS-081) and ISS-001's "Author:" items, read at generate
-    time. The browser records only done/snooze state, keyed by a hash of the item."""
-    import hashlib
-    text = (REPO_ROOT / "ISSUES.md").read_text(encoding="utf-8")
-    items = []
-    for key, only_author in (("ISS-081", False), ("ISS-001", True)):
-        m = re.search(rf"(?m)^## {key}:.*$", text)
-        if not m:
-            continue
-        nxt = re.search(r"(?m)^## ISS-\d+:", text[m.end():])
-        body = text[m.end(): m.end() + nxt.start()] if nxt else text[m.end():]
-        for item in re.finditer(r"(?m)^[ \t]*- \[ \](.*(?:\n(?![ \t]*- )[ \t]{3,}\S.*)*)", body):
-            line = " ".join(item.group(1).split())
-            src = re.match(r"\((ISS-\d+)\)\s*", line)
-            source = src.group(1) if src else key
-            line = line[src.end():] if src else line
-            if only_author and not line.startswith("Author"):
-                continue
-            title = re.split(r"(?<=[.:;])\s|\s\(", line, maxsplit=1)[0].rstrip(".:;")
-            items.append({"id": hashlib.sha1(line.encode("utf-8")).hexdigest()[:10], "title": title[:90],
-                          "source": source, "text": line})
-    return items
+    """The Maintenance deck's prompts (ISS-065: read, never copy): the author's open steps,
+    read from ISSUES.md by bin/remind, the same list `HAL remind` prints. The browser
+    records only done/snooze state, keyed by a hash of the item."""
+    import importlib.util
+    from importlib.machinery import SourceFileLoader
+    loader = SourceFileLoader("remind", str(REPO_ROOT / "bin" / "remind"))
+    remind = importlib.util.module_from_spec(importlib.util.spec_from_loader("remind", loader))
+    loader.exec_module(remind)
+    return remind.read_author_steps(REPO_ROOT / "ISSUES.md")
 
 
 def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], eras: list[dict[str, Any]]) -> list[dict[str, Any]]:

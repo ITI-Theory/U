@@ -17,6 +17,7 @@
 // in the Engine Room. Each message has an id, so one heard twice (channel and relay) counts
 // once. ROLE (beside FULL SCREEN) turns any window into any role: any view to any screen.
 
+import { createVoice } from './voice.js';
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice } from './rice.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
@@ -294,6 +295,7 @@ export function createMaintenanceDeck({ reminders = [] } = {}) {
       <p class="maintenance-deck__kicker">[T]-THEORY / H-AL</p>
       <h1>MAINTENANCE</h1>
       <p class="maintenance-deck__hint">Static admin reminders from the issue register. Read private material in place; never copy secrets. This browser stores only DONE and SNOOZE.</p>
+      <button type="button" class="maintenance-deck__brief" data-brief>BRIEF ME</button>
     </header>
     <div class="maintenance-deck__list"></div>`;
   document.body.append(deck);
@@ -326,9 +328,28 @@ export function createMaintenanceDeck({ reminders = [] } = {}) {
       list.append(card);
     }
   }
+  // H-AL's briefing (ISS-065): the due steps read aloud, H-AL's Piper voice through the
+  // bridge when it runs (MOTHER's bridge setting), else the browser's voice
+  const voice = createVoice();
+  const briefButton = deck.querySelector('[data-brief]');
+  let briefing = false;
+  async function brief() {
+    if (briefing) { voice.stop(); return; }
+    const state = load();
+    const now = Date.now();
+    const due = reminders.filter(item => !state[item.id]?.done && (state[item.id]?.snoozeUntil ?? 0) <= now);
+    const text = due.length
+      ? `${due.length} step${due.length === 1 ? '' : 's'} on your desk. ` + due.map((item, i) => `${i + 1}. ${item.title}.`).join(' ') + ' That is all.'
+      : 'Nothing is due. Your desk is clear.';
+    const bridge = (() => { try { return localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765'; } catch { return ''; } })();
+    briefing = true;
+    briefButton.textContent = 'STOP';
+    try { await voice.speak(text, 'hal', bridge); } finally { briefing = false; briefButton.textContent = 'BRIEF ME'; }
+  }
   deck.addEventListener('click', event => {
     const button = event.target.closest('button');
     if (!button) return;
+    if (button.dataset.brief !== undefined) { brief(); return; }
     const id = button.dataset.done || button.dataset.snooze;
     if (!id) return;
     const state = load();

@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""The author's open steps, read from ISSUES.md (ISS-065: read, never copy).
+
+    bin/remind            # print them: source, title, then the full text
+    bin/remind --titles   # one line each
+
+The author's desk (ISS-081) and ISS-001's "Author:" items. The Soma Machine's
+Maintenance deck shows the same list (scripts/generate.py imports read_author_steps).
+"""
+from __future__ import annotations
+
+import hashlib
+import re
+import sys
+import textwrap
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+ITEM = re.compile(r"(?m)^[ \t]*- \[ \](.*(?:\n(?![ \t]*- )[ \t]{3,}\S.*)*)")
+
+
+def read_author_steps(issues: Path = ROOT / "ISSUES.md") -> list[dict[str, str]]:
+    text = issues.read_text(encoding="utf-8")
+    steps = []
+    for key, only_author in (("ISS-081", False), ("ISS-001", True)):
+        m = re.search(rf"(?m)^## {key}:.*$", text)
+        if not m:
+            continue
+        nxt = re.search(r"(?m)^## ISS-\d+:", text[m.end():])
+        body = text[m.end(): m.end() + nxt.start()] if nxt else text[m.end():]
+        for item in ITEM.finditer(body):
+            line = " ".join(item.group(1).split())
+            src = re.match(r"\((ISS-\d+)\)\s*", line)
+            source = src.group(1) if src else key
+            line = line[src.end():] if src else line
+            if only_author and not line.startswith("Author"):
+                continue
+            title = re.split(r"(?<=[.:;])\s|\s\(", line, maxsplit=1)[0].rstrip(".:;")
+            steps.append({"id": hashlib.sha1(line.encode("utf-8")).hexdigest()[:10], "title": title[:90],
+                          "source": source, "text": line})
+    return steps
+
+
+def main() -> int:
+    for f in (sys.stdout,):
+        f.reconfigure(encoding="utf-8", errors="replace")
+    steps = read_author_steps()
+    print(f"{len(steps)} step{'' if len(steps) == 1 else 's'} on the author's desk (ISSUES.md)\n")
+    for i, s in enumerate(steps, 1):
+        print(f"{i:>2}. [{s['source']}] {s['title']}")
+        if "--titles" not in sys.argv[1:]:
+            print(textwrap.indent(textwrap.fill(s["text"], 88), "      ") + "\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

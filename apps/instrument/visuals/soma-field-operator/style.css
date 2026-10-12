@@ -595,3 +595,5 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .scribe-panel footer { padding: 4px 10px; color: #8a7a5a; border-top: 1px solid #3a2a0f; font-size: 10.5px; letter-spacing: .04em; }
 /* SCRIBE stays beside the explorer (every other panel hides there): gd and gs fly it */
 .explorer-open .scribe-panel.wm-panel { visibility: visible !important; pointer-events: auto !important; z-index: 220 !important; }
+.maintenance-deck__brief { margin-top: 10px; padding: 6px 14px; color: #ffe3a8; border: 1px solid #8a6a2f; background: transparent; font: 12px 'Space Mono', monospace; letter-spacing: .12em; cursor: pointer; }
+.maintenance-deck__brief:hover { background: rgba(255,207,125,.12); }
