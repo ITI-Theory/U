@@ -3519,6 +3519,18 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
       (Author, 13 Oct 04:20: OpenStax, drawn from Anatomy & Physiology 2e, CC BY 4.0, credited.)
+- [ ] Avant-garde art as visual thoughts too (author, 13 Oct 04:35): the author's Calibre
+      library (C:\Users\alist\OneDrive\Apps\Calibre Portable\Calibre Library) has Kandinsky
+      (On the Spiritual in Art; Kandinsky in Munich; Russian and Bauhaus Years), Klee's
+      Notebook 1, The Moderns, Subway Art, Banksy. Copyright, two tiers:
+      - Private (RICE on, this machine only): images extracted from the books (pdfimages /
+        the EPUBs) into a private folder, served by the local MOTHER bridge (/art), never
+        copied into the app's public/ (a vite build publishes all of public/); any artist.
+      - Public: only works in the public domain (Kandinsky d. 1944, Klee d. 1940: 70 years
+        after death in CH and the EU), and only from open-access museum files marked CC0
+        or public domain, not scans from the books (the book's photographs and layout have
+        their own rights; Swiss law also protects photographs); each in audio/CREDITS.md
+        (rename it CREDITS for all media). Subway Art and Banksy: private only.
 - [x] (13 Oct 04:30, built: 60 of the programme's figures, a spread over 14 kinds, copied at
       generate time to public/thoughts (git-ignored); in the CAVE, bursts above 60 and POKE
       blow bubbles, iridescent thin-film shells reflecting a soft room, the figure on a
