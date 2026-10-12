@@ -139,6 +139,57 @@ function orderedQuestions(questions) {
   return ordered;
 }
 
+// Radial profiles in units of GM/r0 against x = r/r0, where r0 is the zero-gravity radius
+// (attraction balanced by Lambda: Lambda c^2 / 3 = GM / r0^3). GR, weak field:
+// Phi = -(1/x + x^2/2). The programme's Green function of (nabla^2 + k^2) G = delta, real part:
+// -cos(kappa x)/x with kappa = k r0 = 1 for the picture. Both tend to Newton's -1/x as x -> 0.
+export function greenProfiles(x, kappa = 1) {
+  return { newton: -1 / x, gr: -(1 / x + (x * x) / 2), green: -Math.cos(kappa * x) / x };
+}
+
+function drawGreenProfiles(canvas) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height, pad = { l: 46, r: 14, t: 14, b: 30 };
+  const x0 = 0.05, x1 = 2.6, y0 = -6, y1 = 1.5;
+  const px = x => pad.l + ((x - x0) / (x1 - x0)) * (W - pad.l - pad.r);
+  const py = y => pad.t + ((y1 - Math.max(y0, Math.min(y1, y))) / (y1 - y0)) * (H - pad.t - pad.b);
+  ctx.clearRect(0, 0, W, H);
+  // where gravity is tested: kr << 1
+  ctx.fillStyle = 'rgba(86,240,162,0.10)';
+  ctx.fillRect(px(x0), pad.t, px(0.3) - px(x0), H - pad.t - pad.b);
+  ctx.fillStyle = '#56f0a2';
+  ctx.font = '700 15px Space Mono, monospace';
+  ctx.fillText('tested here: the same', px(x0) + 6, pad.t + 18);
+  // axes
+  ctx.strokeStyle = 'rgba(234,245,255,0.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.l, py(0)); ctx.lineTo(W - pad.r, py(0)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(px(1), pad.t); ctx.lineTo(px(1), H - pad.b); ctx.stroke();
+  ctx.fillStyle = 'rgba(234,245,255,0.7)';
+  ctx.font = '13px Space Mono, monospace';
+  ctx.fillText('r₀ = 1/k', px(1) + 5, H - pad.b - 6);
+  ctx.fillText('r →', W - pad.r - 34, py(0) + 16);
+  ctx.fillText('Φ', pad.l - 22, pad.t + 12);
+  const curve = (key, color, dash) => {
+    ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.setLineDash(dash);
+    ctx.beginPath();
+    for (let i = 0; i <= 300; i++) {
+      const x = x0 + (i / 300) * (x1 - x0);
+      const y = greenProfiles(x)[key];
+      if (i === 0) ctx.moveTo(px(x), py(y)); else ctx.lineTo(px(x), py(y));
+    }
+    ctx.stroke(); ctx.setLineDash([]);
+  };
+  curve('newton', 'rgba(234,245,255,0.55)', [6, 6]);
+  curve('gr', '#14e5ff', []);
+  curve('green', '#ff3bce', []);
+  ctx.font = '700 14px Space Mono, monospace';
+  ctx.fillStyle = '#14e5ff'; ctx.fillText('GR + Λ', px(2.0), py(greenProfiles(2.0).gr) + 18);
+  ctx.fillStyle = '#ff3bce'; ctx.fillText('Green, −cos(kr)/r', px(1.75), py(greenProfiles(1.75).green) - 10);
+  ctx.fillStyle = 'rgba(234,245,255,0.75)'; ctx.fillText('Newton −1/r', px(0.62), py(-1 / 0.62) + 20);
+}
+
 function createGravityScene(scene, THREE) {
   const group = new THREE.Group();
   scene.add(group);
@@ -169,8 +220,18 @@ function createGravityScene(scene, THREE) {
         <span class="gravity-question-ruler__mark gravity-question-ruler__mark--t">T 1.647</span>
         <strong>+2.5%</strong>
       </div>
+    </article>
+    <article class="gravity-question-readout gravity-question-readout--green">
+      <p class="gravity-question-readout__kicker">THE SAME MASS, TWO PICTURES OF ITS FIELD (ISS-046)</p>
+      <h3>Einstein's potential and the programme's Green function</h3>
+      <canvas class="gravity-question-green" width="760" height="300" aria-label="Radial profiles: GR weak-field potential and the Green function of (∇² + k²)G = δ"></canvas>
+      <p class="gravity-question-green__note">Both start as Newton's −1/r near the mass, where gravity is tested: there the
+        propagator of (∇² + k²)G = δ is the weak-field limit of GR (kr ≪ 1). They part only near 1/k. GR line:
+        Schwarzschild–de Sitter, weak field, −GM/r − Λc²r²/6, sourced. Green line: −cos(kr)/r,
+        derived-under-assumptions; k drawn at 1/r₀ for the picture, interpretive.</p>
     </article>`;
   document.body.append(readouts);
+  drawGreenProfiles(readouts.querySelector('.gravity-question-green'));
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(8.2, 4.75),
     new THREE.MeshBasicMaterial({ color: 0x05070e, transparent: true, opacity: 0.22, depthWrite: false }),

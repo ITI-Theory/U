@@ -21,6 +21,7 @@ import { midiControl } from '../midi-in.js';
 import { createUreterModel } from '../ureter-model.js';
 import { createSomaLoop } from '../somaloop.js';
 import { BARRIERS, transmission, exponent } from '../barrier.js';
+import { greenProfiles } from '../questions.js';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
 const scoreText = readFileSync(new URL('../../../../../registry/scores/river-film.yaml', import.meta.url), 'utf8');
@@ -302,6 +303,13 @@ const checks = [
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];
+// gravity (ISS-046): GR's weak-field potential and the Green function of (nabla^2 + k^2)G = delta
+// agree near the mass (both Newton's -1/r) and part near 1/k
+{
+  const near = greenProfiles(0.05), far = greenProfiles(2);
+  checks.push(['gravity: GR and the Green function agree near the mass (relative gap at r = 0.05 r0)', Math.abs(near.gr - near.green) / Math.abs(near.newton), 0, 0.01]);
+  checks.push(['gravity: they part near 1/k (relative gap at r = 2 r0)', Math.abs(far.gr - far.green) / Math.abs(far.newton), 0.3, 100]);
+}
 let failed = 0;
 for (const [name, value, min, max = 1] of checks) {
   const ok = value >= min && value <= max;

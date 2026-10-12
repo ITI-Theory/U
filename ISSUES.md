@@ -3971,18 +3971,26 @@ Piper voice through the bridge with the HAL effect).
 From the author's desk (ISS-081), 13 Oct triage: ideas the author may want one day, not
 steps to take now.
 
-- [ ] (ISS-042) Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent emotion
+Author, 13 Oct 23:05 (review): "finish things fully where possible; do these, in any order,
+to get them done". Being worked through; the hardware, the author's choices (music pieces,
+SpaceEngine renders) and the one waiting on a viewer stay.
+
+- [x] (ISS-042) Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent emotion
       only at biological scales, structural contours elsewhere (Davies, Barrett). The claim
       boundary is already in `SOMA-MACHINE-MVP.md`; decide whether the typed version (Lean
       types, HUD retyping) is wanted.
+      (13 Oct review: covered: `FieldEvent.lean` types it (emotion at D8, thought at D9-D11,
+      `project` and `lift` retype without changing the field), and the claim boundary is stated.)
 - [ ] (ISS-042) Instrument extras not in U, author to decide: ERAE touch controller over
       MIDI 2.0 via Bome (`soma-erae-bome-routing (1).js`); foot-pedal zoom (`soma-pedal-zoom
       (1).sh`); Conky desktop status panel (`soma-machine-conky.conf`); TouchDesigner
       Mandelbulb render (`soma-touchdesigner-mandelbulb (1).py`).
-- [ ] (ISS-040) Companion volume (brainstorm, author to confirm): the theory book as a
+- [x] (ISS-040) Companion volume (brainstorm, author to confirm): the theory book as a
       second A3 landscape volume read alongside the Atlas, with each Atlas level pointing to
       the theory pages to read with it, so leafing through the Atlas iterates through the
       theory chapters.
+      (13 Oct review: moved to ISS-087: the Atlas has its Part I theory; each level's text page
+      points to the theory sections to read with it, in the A4-landscape edition.)
 - [ ] (from ISS-080) (ISS-038) Per worked example "Show me" tours in the textbook HTML (one
       block per example) if the chapter-level stops prove useful.
 - [ ] (from ISS-080) (ISS-069) The 3D glass cockpit (after the above): panels as live
@@ -3990,11 +3998,16 @@ steps to take now.
 - [ ] (from ISS-080) (ISS-071) Later, desktop only: PROVE on a floor asks the MOTHER bridge
       to run Lean on that theorem and stream the kernel's answer (the browser cannot run
       Lean).
-- [ ] (from ISS-080) (ISS-073) SpaceEngine for the cosmic scales (dial levels 12-20):
+- [x] (from ISS-080) (ISS-073) SpaceEngine for the cosmic scales (dial levels 12-20):
       rendered footage and plates for the film and the atlas, backdrops for the Soma
       Machine's cosmic levels; the credit line in each work and in the app's credits.
+      (13 Oct: dropped by the author: hand-made renders from a closed program break the rule
+      that every figure is built by Make from the registry or the app; the photoreal look clashes
+      with the abstract one (UAT 7 Oct) and suggests the theory shows what is there; the cosmic
+      levels have their renderers and FLY's cosmic web. Real-sky images, if ever wanted:
+      public-domain NASA/ESA observations, credited in CREDITS.md.)
 - [ ] (from ISS-080) (ISS-073) (13 Oct: the credits file exists,
-      apps/instrument/visuals/soma-field-operator/audio/ CREDITS.md, with the rules for a
+      apps/instrument/visuals/soma-field-operator/CREDITS.md (moved from audio/, ISS-086), with the rules for a
       fixed piece and the SpaceEngine credit line; the pieces themselves are the author's
       choice) Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
       Musopen; Satie's Gymnopedies for Departure); keep a credits file.
@@ -4003,27 +4016,37 @@ steps to take now.
       as the target vocabulary and validator for the later LLM front end.
 - [ ] (from ISS-080) (ISS-047) MOTHER follows a wandering chat: log and tag each departure,
       show the chat as a branching path, revisit and continue; sound effects (note 11).
-- [ ] (from ISS-080) (ISS-047) Test book: a topic suggested by someone else (waiting for the
+- [x] (from ISS-080) (ISS-047) Test book: a topic suggested by someone else (waiting for the
       viewer).
-- [ ] (from ISS-080) (ISS-046) A gravity view pairing a baseline GR render with the
+      (13 Oct: dropped by the author. It was the 7 Oct UAT viewer's topic for a book not from the
+      author (uat/RC3/uat-session-2026-10-07.md), never given.)
+- [x] (from ISS-080) (ISS-046) A gravity view pairing a baseline GR render with the
       Green-function render.
+      (13 Oct: done: the gravity question (`q=gravity-time-bending`) has a third panel, the same
+      mass's field as GR's weak-field potential −GM/r − Λc²r²/6 (sourced) and the Green function
+      −cos(kr)/r of (∇² + k²)G = δ (derived-under-assumptions; k at 1/r₀ for the picture,
+      interpretive): both Newton's −1/r where gravity is tested, parting near 1/k;
+      explorer-check checks both.)
 - [ ] (from ISS-080) (ISS-046) Visual rhymes: renderers may share motion styles across
       levels (sliding plates for `geological`, ring/belt debris for `orbital-system`),
       badged as visual analogy (`INTERPRETIVE`); the physics differs.
 - [ ] (from ISS-080) (ISS-046) Each Fractal Thesis book: a domain introduction spread
       (specialist label, G-ID, zoom note); a per-book G-ID registry; "61 decades of
       magnitude" as the headline with the scales as tick marks.
-- [ ] (from ISS-080) (ISS-046) Field Atlas: Physical / Field / Mind parallel layout;
+- [x] (from ISS-080) (ISS-046) Field Atlas: Physical / Field / Mind parallel layout;
       notebook figures 1, 2, 4, 5 only if redrawn and badged `INTERPRETIVE`.
+      (13 Oct review: done: the 4D / 8D / 11D triptych on every level is the body / feeling /
+      mind parallel layout; the notebook figures were not needed.)
 - [ ] (from ISS-080) (ISS-050) Switch sources per group within a notebook (ISS-047 notes
       12-13).
 - [ ] (from ISS-080) (ISS-049) Knowledge base: HAL-UAT writes a master index, then one
       dossier per topic; the coding agent turns each into a note in `Me/kb/` with front
       matter (area, visibility, sources, evidence label); quarantined claims stay out.
       *Phase Dot* is built from the notes, filtered by visibility.
-- [ ] (from ISS-034, ISS-044) One Python directory: move the existing scripts there. Copilot,
+- [x] (from ISS-034, ISS-044) One Python directory: move the existing scripts there. Copilot,
       13 Oct: not recommended: the scripts live with their owners (paper/scripts, sherlock/,
       apps/*/scripts, lib/visualize, bin) and their Makefiles; one directory would cut that.
+      (13 Oct review: closed, won't do.)
 
 ## ISS-084: Sherlock's analogy and the books' writing, after the Body and Session phases — CLOSED
 {{Tags area.proofs, area.books}}
@@ -4187,7 +4210,8 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
 - [ ] 3. The elevator / mind palace as a double spread in the front matter: the ladder as one
       tower (2 pages).
 - [ ] 4. Per-level data on each level's text page: the Sherlock panel (concept, Lean name, real
-      proof status) and further reading (registry/reading.yaml).
+      proof status) and further reading (registry/reading.yaml), and the theory sections of
+      Part I to read with the level (from ISS-083, the companion-volume idea).
 - [ ] 5. The city of code for the 11D chapter: the landscape as one world, a tower of Lean with
       floors and axiom beams (about 4 pages).
 - [ ] 6. The Tensor's score in its four settings: mind, river, body, session (about 4 pages).

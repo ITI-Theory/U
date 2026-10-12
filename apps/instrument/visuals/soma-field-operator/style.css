@@ -260,6 +260,10 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .gravity-question-readout--right { left: calc(50% + 24px); border-color: rgba(255,59,206,.78); box-shadow: 0 0 28px rgba(255,59,206,.14); }
 .gravity-question-readout__kicker { margin: 0 0 6px; color: var(--cyan); font: 700 10px/1.2 'Space Mono', monospace; }
 .gravity-question-readout--right .gravity-question-readout__kicker { color: var(--pink); }
+.gravity-question-readout--green { top: auto; bottom: 24px; left: 50%; transform: translateX(-50%); width: min(560px, calc(100vw - 48px)); border-color: rgba(86,240,162,.75); box-shadow: 0 0 28px rgba(86,240,162,.14); }
+.gravity-question-readout--green .gravity-question-readout__kicker { color: #56f0a2; }
+.gravity-question-green { display: block; width: 100%; height: auto; }
+.gravity-question-green__note { margin: 6px 0 0; font-size: 10.5px; line-height: 1.35; color: var(--text); }
 .gravity-question-readout h3 { margin: 0 0 7px; color: #f3ead0; font: 800 16px/1.05 'Syne', sans-serif; }
 .gravity-question-readout dl { display: grid; gap: 4px; margin: 0; font-size: 12px; line-height: 1.3; }
 .gravity-question-readout dl div { display: grid; grid-template-columns: 92px 1fr; gap: 8px; align-items: baseline; }
@@ -275,6 +279,7 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 @media (max-width: 1500px) {
   .gravity-question-readout { top: 68px; width: 330px; min-width: 0; }
   .gravity-question-readout--left { left: 350px; }
+  .gravity-question-readout--green { top: auto; width: min(520px, calc(100vw - 48px)); }
 }
 .style-layers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin: 0 0 11px; padding: 7px; border: 1px solid rgba(255,59,206,.28); }
 .style-layers legend { padding: 0 4px; color: var(--pink); font: 700 8px/1 'Space Mono', monospace; }
