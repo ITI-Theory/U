@@ -61,6 +61,15 @@ barrier top never reaches it), kernel-checked on Lean's standard axioms. New: `p
 **Visualize** (ISS-051): papers 204 of 233 equations, books 35 of 38, the course
 131 of 142.
 
+**Stopped for a BIOS update (13 Oct, 05:10), both safe to rerun:** `make uat-build`
+had built all papers, the domain books and the omnibus (no errors) and was on vol1;
+the Lean refresh (`make -C sherlock towers`, then `make -C sherlock ledger`) was part-way
+through the towers export. On restart: rerun both (towers, then ledger, one Lean process at
+a time; the build alongside), then a full `lake build`, `make -C sherlock check`, `make
+uat-check`. The ledger's last 7 lines are names written tonight awaiting Lean's judge.
+Then the author reads the Body and Session draft
+(`paper/soma/the-tensor/body-and-session-phases.draft.md`).
+
 ## Next
 
 Working rules (author, 11-12 Oct): work first; experiments (NotebookLM) only
