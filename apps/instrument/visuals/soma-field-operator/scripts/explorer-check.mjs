@@ -18,6 +18,8 @@ import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
 import { midiMessages, createMidiOut, MIDI_CC } from '../midi-out.js';
 import { midiControl } from '../midi-in.js';
+import { createUreterModel } from '../ureter-model.js';
+import { createSomaLoop } from '../somaloop.js';
 import { BARRIERS, transmission, exponent } from '../barrier.js';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
@@ -201,6 +203,22 @@ const avalancheSlope = (() => {
   return pts.reduce((a, p) => a + (p[0] - mx) * (p[1] - my), 0) / pts.reduce((a, p) => a + (p[0] - mx) ** 2, 0);
 })();
 
+// ONE BODY: the stone's pain and the head, 120 s, measured after the first 30 s
+const loopRun = (cond, loop = true) => {
+  const m = createUreterModel(), s = createSomaLoop();
+  let breathAt = -1, sumPain = 0, sumPhi = 0;
+  for (let t = 0; t < 120; t += 0.05) {
+    m.step(0.05, loop ? { phi: s.phi, gain: s.bodyGain } : { phi: 0.5 });
+    s.step(0.05, { pain: m.pain, ...cond });
+    if (breathAt < 0 && s.breath > 0.5) breathAt = t;
+    if (t > 30) { sumPain += m.pain; sumPhi += s.phi; }
+  }
+  return { breathAt, pain: sumPain / 1800, phi: sumPhi / 1800 };
+};
+const loopOpen = loopRun({}, false), loopNone = loopRun({}), loopCp = loopRun({ cp: 0.8 }), loopCa = loopRun({ ca: 0.8 });
+// the stone alone: the tube swells and the spasms come in waves
+const stoneRun = (() => { const m = createUreterModel(); let peaks = 0, prev = 0, up = false; for (let t = 0; t < 60; t += 0.05) { m.step(0.05, { phi: 0.5 }); if (m.spasm > prev) up = true; else if (up && prev > 0.2) { peaks++; up = false; } prev = m.spasm; } return { D: m.distension, peaks, above: m.radius(0.3), below: m.radius(0.8) }; })();
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -261,6 +279,11 @@ const checks = [
   ['tunnel: at calm the FREEZE valley almost never lets go (P < 1%)', sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.1, false, () => 1).p, 0, 0.01],
   ['tunnel: warming the field raises the chance (P at Phi 0.3 / P at Phi 0.1 > 5)', sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.3, false, () => 1).p / sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.1, false, () => 1).p, 5, Infinity],
   ['thoughts: avalanche sizes follow a power law with slope about -3/2 (-1.75 to -1.25)', avalancheSlope, -1.75, -1.25],
+  ['stone: the tube above the stone swells (radius above / below > 1.5)', stoneRun.above / stoneRun.below, 1.5, Infinity],
+  ['stone: the pain comes in waves (spasms in a minute: 6 to 30)', stoneRun.peaks, 6, 30],
+  ['one body: the limbic breath lowers the pain (with the loop / without < 0.85)', loopNone.pain / loopOpen.pain, 0, 0.85],
+  ['one body: C-PTSD comes to the breath later (s, C-PTSD minus none > 3)', loopCp.breathAt - loopNone.breathAt, 3, Infinity],
+  ['one body: C-PTSD and ADHD keep the field higher (mean Phi above none)', Number(loopCp.phi > loopNone.phi && loopCa.phi > loopNone.phi), 1, 1],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

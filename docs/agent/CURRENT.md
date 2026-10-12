@@ -16,8 +16,8 @@ claims, a person confirms them, Lean decides: against the document's own numbers
 the other documents (values), and against all of OpenCyc in Lean (NextKB, 678
 microtheories as scopes, `sherlock/`). Affidavits for all 24 papers, SH1 and now
 fourteen domain books (40 documents; 399 template checks, all kernel-checked);
-the ledger reads every one of them (`make -C sherlock ledger`: 416 citations, 32 disagree with the Lean, after
-fixes that stopped file names, generated tokens and hypotheticals counting).
+the ledger reads every one of them (`make -C sherlock ledger`: 419 citations, 0 disagree with the Lean, 13 Oct, after
+the fixes and Sherlock's findings dispositioned; as compiler errors in VS Code).
 New tonight: `make -C sherlock clinical` (sentences claiming a clinical effect
 with no hedge or label: 2 candidates, P1 line 499 and the synthesis line 437,
 for the author) and `make -C sherlock skyline`. How to use it, and when:

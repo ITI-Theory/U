@@ -58,6 +58,7 @@ import { createCathedral3D } from './cathedral3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
+import { createSomaLoop } from './somaloop.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 
@@ -559,6 +560,16 @@ function randomThought() {
 }
 // the explorer's full-screen view of a popped bubble (set by createExplorer)
 let popHandler = null;
+// ONE BODY (ISS-077): the stone in the ureter and the mind-body loop, shared by every stop, so
+// the ureter's waves reach the head and the head's tension and breath reach the ureter. The
+// loop is on when LOOP is pressed at the ureter or the brain (st.body).
+const BODY = { ureter: createUreterModel(), loop: createSomaLoop() };
+function bodyStep(env) {
+  const on = Boolean(env.body);
+  BODY.ureter.setStage(env.uo ?? 0);
+  BODY.ureter.step(env.dt, on ? { phi: BODY.loop.phi, gain: BODY.loop.bodyGain } : { phi: env.phi });
+  if (on) BODY.loop.step(env.dt, { pain: BODY.ureter.pain, ca: env.ca ?? 0, cs: env.cs ?? 0, cp: env.cp ?? 0 });
+}
 
 export function avalancheSize(sigma = 1, rand = Math.random, cap = 5000) {
   let active = 1;
@@ -638,10 +649,16 @@ function makeBrain() {
   return {
     focus: [-0.05, 0.12],
     tick(env) {
-      phiNow = env.phi;
-      if (env.thoughts) {
+      const loop = env.body ? BODY.loop : null;
+      phiNow = loop ? loop.phi : env.phi;
+      if (env.thoughts || loop) {
         const ca = env.ca ?? 0, cs = env.cs ?? 0, cp = env.cp ?? 0;
-        const rate = (3 + 4 * env.phi) * (1 + 3 * ca) * (1 - 0.6 * cs);
+        const rate = (3 + 4 * phiNow) * (1 + 3 * ca) * (1 - 0.6 * cs);
+        // the body's pain lands in the head: pain bursts, near the sensory cortex and insula
+        if (loop && Math.random() < loop.painShare() * rate * env.dt) {
+          const at = Math.random() < 0.5 ? BRAIN.sensory : [-0.13, 0.04];
+          bursts.push({ x: at[0] + (Math.random() - 0.5) * 0.12, y: at[1] + (Math.random() - 0.5) * 0.12, size: avalancheSize(1) + 20, mode: 'pain', age: 0, life: 1.4, gain: 1, echo: 0 });
+        }
         if (Math.random() < rate * env.dt) {
           const size = avalancheSize(1);
           // ASD: bursts gather near one place (monotropism); otherwise anywhere in the cortex
@@ -649,11 +666,23 @@ function makeBrain() {
           do { x = lerp(-0.55, 0.55, Math.random()); y = lerp(-0.42, 0.28, Math.random()); } while ((x / 0.6) ** 2 + ((y + 0.06) / 0.4) ** 2 > 0.9);
           if (cs > 0) { x = lerp(x, -0.3, cs * 0.8); y = lerp(y, -0.2, cs * 0.8); }
           // fear more likely as the field heats
-          const mode = Math.random() < 0.15 + 0.4 * env.phi ? 'F' : THOUGHT_MODES[Math.floor(Math.random() * THOUGHT_MODES.length)];
+          const mode = Math.random() < 0.15 + 0.4 * phiNow ? 'F' : THOUGHT_MODES[Math.floor(Math.random() * THOUGHT_MODES.length)];
           bursts.push({ x, y, size, mode, age: 0, life: 0.9 + 0.5 * Math.log10(size + 1), gain: 1, echo: 0 });
           if (size >= IGNITION) ignited = 2.5;
           // C-PTSD: the burst returns off the walls, fading, the longer the higher cp
           if (cp > 0.05) for (let k = 1; k <= Math.round(2 + 6 * cp); k++) bursts.push({ x: x + (Math.random() - 0.5) * 0.06, y: y + (Math.random() - 0.5) * 0.06, size, mode, age: -0.55 * k, life: 0.9 + 0.5 * Math.log10(size + 1), gain: Math.pow(0.55 + 0.35 * cp, k), echo: k });
+        }
+        // THOUGHT POKES THOUGHT: a large burst sets off its neighbours, a chain, not a flash
+        for (const b of bursts) {
+          if (!b.sparked && b.age > 0.25 && b.size >= 30 && !b.echo) {
+            b.sparked = true;
+            const n = Math.min(4, Math.floor(Math.log10(b.size)));
+            for (let k = 0; k < n; k++) {
+              if (bursts.length > 160) break;
+              const a = Math.random() * TAU, d = 0.06 + 0.06 * Math.random();
+              bursts.push({ x: b.x + Math.cos(a) * d, y: b.y + Math.sin(a) * d, size: Math.max(2, Math.floor(b.size / (3 + 3 * Math.random()))), mode: b.mode, age: -0.05 * k, life: 0.9, gain: 0.85, echo: 0, from: [b.x, b.y] });
+            }
+          }
         }
         for (const b of bursts) b.age += env.dt;
         for (let i = bursts.length - 1; i >= 0; i--) if (bursts[i].age > bursts[i].life) bursts.splice(i, 1);
@@ -772,7 +801,7 @@ function makeBrain() {
       glow(ctx, u, BRAIN.prefrontal[0], BRAIN.prefrontal[1], 0.2, '#6aa8ff', 0.55 * (1 - phi) + 0.05);
       // THOUGHTS: each burst a glow, louder for larger ones; medium ones in a thought bubble;
       // ignition washes the whole cortex
-      if (env.thoughts) {
+      if (env.thoughts || env.body) {
         if (ignited > 0) glow(ctx, u, -0.05, -0.05, 0.75, '#ffffff', 0.35 * Math.min(1, ignited));
         for (const b of bursts) {
           if (b.age < 0) continue;
@@ -780,7 +809,18 @@ function makeBrain() {
           const loud = Math.log10(b.size + 1) / Math.log10(IGNITION);
           const r = (0.02 + 0.09 * loud) * (0.6 + 0.6 * f);
           const a = (1 - f) * (0.25 + 0.75 * loud) * b.gain;
-          const color = MODE_COLORS[b.mode] ?? '#ffffff';
+          const color = b.mode === 'pain' ? '#ff2a3c' : MODE_COLORS[b.mode] ?? '#ffffff';
+          if (b.from && f < 0.5) {
+            ctx.save();
+            ctx.globalAlpha *= (1 - 2 * f) * 0.7;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(b.from[0] * u, b.from[1] * u);
+            ctx.lineTo(b.x * u, b.y * u);
+            ctx.stroke();
+            ctx.restore();
+          }
           glow(ctx, u, b.x, b.y, r * 1.8, color, a);
           if (b.size >= 8 && b.size < IGNITION && !b.echo && f < 0.7) {
             ctx.save();
@@ -876,6 +916,27 @@ function makeBrain() {
         }
         ctx.restore();
         traffic.draw(ctx, u);
+      }
+      // the calming breath: a slow blue wave rolling down over the head with each out-breath
+      if (env.body && BODY.loop.breath > 0.05) {
+        const fr = BODY.loop.calmFront;
+        const y = -0.5 + 1.1 * fr;
+        ctx.save();
+        // inside the brain only, and down the brainstem to the body
+        closedSmooth(ctx, u, CEREBRUM);
+        ctx.rect(0.08 * u, 0.2 * u, 0.2 * u, 0.5 * u);
+        ctx.clip();
+        const g = ctx.createLinearGradient(0, (y - 0.18) * u, 0, (y + 0.06) * u);
+        g.addColorStop(0, 'rgba(94,231,255,0)');
+        g.addColorStop(0.7, `rgba(94,231,255,${0.32 * BODY.loop.breath})`);
+        g.addColorStop(1, 'rgba(94,231,255,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(-0.7 * u, (y - 0.18) * u, 1.4 * u, 0.24 * u);
+        ctx.restore();
+      }
+      if (env.labels && env.body) {
+        const L = BODY.loop;
+        label(ctx, u, `ONE BODY · pain in ${Math.round(100 * Math.min(1, L.painIn))}% · the field Φ ${L.phi.toFixed(2)} · ${L.breath > 0.5 ? 'the limbic breath: slow and deep, a calming wave' : L.painIn > 0.4 ? 'the head heats; tension tightens the body' : 'the head is busy, as always'}`, 0, 0.68, L.breath > 0.5 ? COLORS.cyan : '#ff8090', 'center', 0.022);
       }
       if (env.labels && env.pain) {
         label(ctx, u, env.pain === 'chronic' ? 'CHRONIC PAIN: the regions stay lit between pulses, a valley that stays deep' : 'PAIN: up the spinal cord to the thalamus, then the insula, the cingulate, the sensory cortex', 0, 0.74, '#ff6070', 'center', 0.024);
@@ -1555,7 +1616,7 @@ function drawUreterOutside(ctx, u, env, m, box) {
 function makeUreter() {
   let gl = null;
   // the stone as a process: the model drives both views (ureter-model.js)
-  const model = createUreterModel();
+  const model = BODY.ureter;
   let pokeEvent = { text: '', until: 0 };
   // the wall (ISS-076): 0 = the scope's view; 1..6 = the barrier at a scale (BARRIERS[wall - 1])
   let wall = 0;
@@ -1752,17 +1813,14 @@ function makeUreter() {
     URETER_STAGES.forEach((stg, k) => {
       const x = -0.66 + k * 0.44;
       const on = k === model.stage;
-      label(ctx, u, `${k + 1} ${stg.title}`, x, -0.75, on ? COLORS.gold : 'rgba(232,238,252,0.4)', 'center', on ? 0.03 : 0.024);
+      label(ctx, u, `${k + 1} ${stg.title}`, x, -0.66, on ? COLORS.gold : 'rgba(232,238,252,0.4)', 'center', on ? 0.03 : 0.024);
     });
-    wrapLines(URETER_STAGES[model.stage].line, 120).forEach((l, k) => label(ctx, u, l, 0, -0.69 + k * 0.035, COLORS.ink, 'center', 0.019));
+    wrapLines(URETER_STAGES[model.stage].line, 120).forEach((l, k) => label(ctx, u, l, 0, -0.61 + k * 0.035, COLORS.ink, 'center', 0.019));
   }
 
   return {
     focus: [0, 0],
-    tick(env) {
-      model.setStage(env.uo ?? 0);
-      model.step(env.dt, { phi: env.phi });
-    },
+    tick() {},
     get model() { return model; },
     get wall() { return wall; },
     get gl() { return gl; },
@@ -1818,11 +1876,12 @@ function makeUreter() {
         const pain = Math.min(1, model.pain);
         drawStages(ctx, env);
         const where = model.stage === 2 ? (gl.blocked ? 'THE SCOPE AT THE STONE' : 'THE SCOPE comes up from the bladder') : model.stage === 1 ? 'INSIDE, above the stone: the stent (blue, on the floor) drains past it; the swelling falls' : model.stone > 0 ? 'INSIDE the ureter above the stone, looking down at it: the tube swells, the waves crash into it' : 'INSIDE the ureter: the waves pass freely';
-        label(ctx, u, where, 0, -0.56, COLORS.teal, 'center', 0.024);
+        label(ctx, u, where, 0, -0.47, COLORS.teal, 'center', 0.024);
         label(ctx, u, `pain ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM${model.stage === 2 ? ' · under anaesthetic: the nerves still signal (' + Math.round(100 * Math.min(1, model.raw)) + '%), it is not felt' : ''}`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.028);
-        label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸ the next stage · VIEW: inside, outside, both`, 0, 0.7, COLORS.dim, 'center', 0.02);
-        if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.5, COLORS.gold, 'center', 0.03);
-        else if (pokeEvent.until > model.time) label(ctx, u, pokeEvent.text, 0, -0.5, COLORS.gold, 'center', 0.028);
+        label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸ the next stage · VIEW: inside, outside, both · LOOP: the head joins in`, 0, 0.7, COLORS.dim, 'center', 0.02);
+        if (env.body) label(ctx, u, `THE HEAD: Φ ${BODY.loop.phi.toFixed(2)}, tension ×${BODY.loop.bodyGain.toFixed(2)} on the spasms${BODY.loop.breath > 0.5 ? ' · the limbic breath is softening them' : ''}`, 0, 0.56, BODY.loop.breath > 0.5 ? COLORS.cyan : '#ff8090', 'center', 0.022);
+        if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.41, COLORS.gold, 'center', 0.03);
+        else if (pokeEvent.until > model.time) label(ctx, u, pokeEvent.text, 0, -0.41, COLORS.gold, 'center', 0.028);
       }
     },
   };
@@ -2813,6 +2872,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
       <button type="button" data-act="uo" title="The four stages (ISS-076): 1 the stone, 2 the stent, 3 the laser, 4 the stent out">STAGE 1 · THE STONE ▸</button>
       <button type="button" data-act="uv" title="INSIDE the tube, OUTSIDE (the urinary tract and where the pain is felt), or BOTH; on two screens, one window INSIDE and the other OUTSIDE">VIEW: INSIDE</button>
+      <button type="button" data-act="body" aria-pressed="false" title="ONE BODY (ISS-077): the stone's pain reaches the head, the head's tension tightens the body, the limbic breath calms both; with the ADHD, ASD and C-PTSD sliders">LOOP: BODY + MIND</button>
       <button type="button" data-act="follow" title="Follow the colic from the stone to the brain: up the spinal cord to the thalamus and the pain regions (ISS-077)">FOLLOW THE PAIN ▸</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
       <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
@@ -2896,6 +2956,7 @@ export function createExplorer(hooks = {}) {
   const wallButton = root.querySelector('[data-act="wall"]');
   const followButton = root.querySelector('[data-act="follow"]');
   const uoButton = root.querySelector('[data-act="uo"]');
+  const bodyButton = root.querySelector('[data-act="body"]');
   const uvButton = root.querySelector('[data-act="uv"]');
   const wdownButton = root.querySelector('[data-act="wdown"]');
   const wupButton = root.querySelector('[data-act="wup"]');
@@ -2954,7 +3015,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -3038,6 +3099,9 @@ export function createExplorer(hooks = {}) {
     wallButton.hidden = st.stop !== 'ureter';
     followButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
     uoButton.hidden = uvButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
+    bodyButton.hidden = !['ureter', 'brain'].includes(st.stop) || Boolean(wallNow);
+    bodyButton.classList.toggle('active', st.body);
+    bodyButton.setAttribute('aria-pressed', String(st.body));
     uoButton.textContent = `STAGE ${st.uo + 1} · ${URETER_STAGES[st.uo].title} ▸`;
     uvButton.textContent = `VIEW: ${{ in: 'INSIDE', out: 'OUTSIDE', both: 'BOTH' }[st.uv]}`;
     wallButton.textContent = wallNow ? '◂ SCOPE' : 'WALL ▸';
@@ -3080,7 +3144,7 @@ export function createExplorer(hooks = {}) {
     twButton.classList.toggle('active', st.tw);
     twButton.setAttribute('aria-pressed', String(st.tw));
     pvButton.hidden = st.stop !== 'score' || !(st.tw || st.ab === 'b');
-    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && (st.thoughts || st.cave)));
+    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && (st.thoughts || st.cave || st.body)) || (st.stop === 'ureter' && st.body));
     abButton.hidden = st.stop !== 'score' || st.tw;
     apButton.hidden = st.stop !== 'score';
     apButton.textContent = `PILOT: ${{ '': 'OFF', auto: 'AUTOPILOT', co: `CO-PILOT (${st.own})`, manual: 'MANUAL' }[st.ap]}`;
@@ -3273,7 +3337,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3321,6 +3385,7 @@ export function createExplorer(hooks = {}) {
       }
     } else if (towerPanel.open) towerPanel.close();
     if (stereo) ctx = layers.screen.ctx;
+    bodyStep(env);
     scene(st.stop).tick(env);
     const entering = st.enterStart ? clamp((t - st.enterStart) / 1.6, 0, 1) : 1;
     if (entering < 1) {
@@ -3461,6 +3526,10 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
       syncUi();
+    } else if (b.dataset.act === 'body') {
+      st.body = !st.body;
+      syncUi();
+      hooks.onChange?.();
     } else if (b.dataset.act === 'uo') {
       st.uo = (st.uo + 1) % URETER_STAGES.length;
       syncUi();

@@ -3536,6 +3536,18 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
       (Author, 13 Oct 04:20: OpenStax, drawn from Anatomy & Physiology 2e, CC BY 4.0, credited.)
+- [x] ONE BODY (author, 13 Oct 16:50: waves in the tube cause waves in the head, already busy; the
+      limbic system forces slow deep breathing, as in labour or the way out of freeze: the
+      calming wave; modified for C-PTSD, ADHD, ASD: "Mount Everest"). Built 13 Oct:
+      somaloop.js; one shared body for every stop; LOOP: BODY + MIND at the URETER and BRAIN
+      stops: the stone's pain lands in the head as red bursts at the sensory cortex and insula,
+      heats the field, and the head's tension tightens the spasms (the vicious circle); past a
+      threshold the limbic breath (about six a minute) sends a blue calming wave through the
+      brain and softens the spasms; ADHD keeps the head busier, ASD amplifies the pain channel,
+      C-PTSD echoes the pain, comes to the breath later and cools slower. THOUGHT POKES THOUGHT:
+      a large burst sets off its neighbours, lines from one to the next. explorer-check: the
+      breath lowers the pain to 73 %, C-PTSD breathes 6 s later, C-PTSD and ADHD keep Φ higher.
+      Interpretive; numbers for the eye.
 - [ ] Avant-garde art as visual thoughts too (author, 13 Oct 04:35): the author's Calibre
       library (C:\Users\alist\OneDrive\Apps\Calibre Portable\Calibre Library) has Kandinsky
       (On the Spiritual in Art; Kandinsky in Munich; Russian and Bauhaus Years), Klee's

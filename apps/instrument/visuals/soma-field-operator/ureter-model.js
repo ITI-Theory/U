@@ -90,7 +90,8 @@ export function createUreterModel() {
       return Math.max(0.35, r);
     },
 
-    step(dt, { phi = 0.5 } = {}) {
+    // gain: the head's tension on the muscle (somaloop.js bodyGain; 1 when no loop)
+    step(dt, { phi = 0.5, gain = 1 } = {}) {
       time += dt;
       const D = distension();
       // the kidney keeps producing; the stone (or the stent) lets it through
@@ -113,7 +114,7 @@ export function createUreterModel() {
         if (before < XS && w.x >= XS && stone > 0) {
           // the wave crashes into the stone: what does not pass is spasm and back-pressure
           const pass = Math.min(1, conductance());
-          const spike = (1 - pass) * (0.35 + 0.65 * D);
+          const spike = Math.min(1.2, (1 - pass) * (0.35 + 0.65 * D) * gain);
           spasm = Math.max(spasm, spike);
           Pu += 0.12 * (1 - pass);
           ring(XS, spike);
@@ -135,7 +136,7 @@ export function createUreterModel() {
       const ends = stent ? 0.2 + 0.2 * (stage === 1 ? 1 - dilation : 0) : 0;
       raw = stretch + spasm + ends + reflux + event;
       // fear makes the same signal louder; under anaesthetic (the laser) it is not felt
-      pain = Math.min(1.5, raw * (0.55 + 0.9 * phi) * (stage === 2 ? 0.15 : 1));
+      pain = Math.min(1.5, raw * (0.4 + 0.6 * phi) * (stage === 2 ? 0.15 : 1));
       if (stretch > 0.1 && Math.random() < dt * 0.5) ring(XS * 0.6, stretch * 0.6, 'stretch');
       for (const r of rings) r.age += dt;
       for (let i = rings.length - 1; i >= 0; i--) if (rings[i].age > 3) rings.splice(i, 1);
