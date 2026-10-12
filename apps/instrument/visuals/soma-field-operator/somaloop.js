@@ -34,8 +34,10 @@ export function createSomaLoop() {
     burstRate(base = 3) { return base * (0.6 + 1.6 * phi); },
     painShare() { return Math.min(0.7, 0.6 * painIn); },
 
-    // pain: the body's pain this step (0 .. 1.5); ca, cs, cp: the conditions (0 .. 1)
-    step(dt, { pain = 0, ca = 0, cs = 0, cp = 0, rest = 0.3 } = {}) {
+    // pain: the body's pain this step (0 .. 1.5); ca, cs, cp: the conditions (0 .. 1);
+    // mindful: attending without grasping: the pain still arrives, but heats the head less
+    // (mindfulness changes the suffering more than the sensation: Zeidan et al. 2011)
+    step(dt, { pain = 0, ca = 0, cs = 0, cp = 0, rest = 0.3, mindful = false } = {}) {
       time += dt;
       // ASD: one channel amplified (here, the pain), more intense and focused
       let p = pain * (1 + 0.8 * cs);
@@ -54,7 +56,7 @@ export function createSomaLoop() {
       // about 6 breaths a minute when deep
       breathPhase += dt * (2 * Math.PI / (10 - 4 * (1 - breath)));
       // the field: heated by pain and by a busy head (ADHD), cooled by the breath; C-PTSD slow
-      const target = Math.min(1, rest + 0.15 * ca + 0.55 * painIn - 0.45 * breath * (0.6 + 0.4 * Math.sin(breathPhase) ** 2));
+      const target = Math.min(1, rest + 0.15 * ca + (mindful ? 0.3 : 0.55) * painIn - 0.45 * breath * (0.6 + 0.4 * Math.sin(breathPhase) ** 2));
       phi += (Math.max(0, target) - phi) * Math.min(1, dt / (1.5 + 4 * cp));
       traceClock += dt;
       while (traceClock >= 0.25) { traceClock -= 0.25; trace.push([painIn, phi, breath]); if (trace.length > 240) trace.shift(); }

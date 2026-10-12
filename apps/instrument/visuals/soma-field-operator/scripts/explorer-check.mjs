@@ -216,6 +216,7 @@ const loopRun = (cond, loop = true) => {
   return { breathAt, pain: sumPain / 1800, phi: sumPhi / 1800 };
 };
 const loopOpen = loopRun({}, false), loopNone = loopRun({}), loopCp = loopRun({ cp: 0.8 }), loopCa = loopRun({ ca: 0.8 });
+const loopMindful = loopRun({ mindful: true });
 // the stone alone: the tube swells and the spasms come in waves
 const stoneRun = (() => { const m = createUreterModel(); let peaks = 0, prev = 0, up = false; for (let t = 0; t < 60; t += 0.05) { m.step(0.05, { phi: 0.5 }); if (m.spasm > prev) up = true; else if (up && prev > 0.2) { peaks++; up = false; } prev = m.spasm; } return { D: m.distension, peaks, above: m.radius(0.3), below: m.radius(0.8) }; })();
 
@@ -284,6 +285,7 @@ const checks = [
   ['one body: the limbic breath lowers the pain (with the loop / without < 0.85)', loopNone.pain / loopOpen.pain, 0, 0.85],
   ['one body: C-PTSD comes to the breath later (s, C-PTSD minus none > 3)', loopCp.breathAt - loopNone.breathAt, 3, Infinity],
   ['one body: C-PTSD and ADHD keep the field higher (mean Phi above none)', Number(loopCp.phi > loopNone.phi && loopCa.phi > loopNone.phi), 1, 1],
+  ['mindful: the same pain heats the head less (mean Phi, mindful / not < 0.9)', loopMindful.phi / loopNone.phi, 0, 0.9],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

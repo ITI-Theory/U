@@ -3643,7 +3643,12 @@ Copilot, 13 Oct:
       the windows, an orbit; the rear view from inside first.
 - [ ] The mind palace: the tower as the elevator, eight sector halls, doors to the levels' views.
 - [ ] The palace tour: the method of loci as an exercise.
-- [ ] Mindfulness and the foam (author, 13 Oct 17:20: is the quantum foam the mind's ultimate
+- [x] (13 Oct, author: "we're in trouble if mindfulness is not included"; built: MINDFUL at the
+      BRAIN stop: thoughts arise and pass on their own, none pokes the next, softer and longer;
+      the field is not pushed down; with the body loop the same pain heats the head less (Φ to
+      64 %, explorer-check; after Zeidan et al. 2011: mindfulness changes the unpleasantness more
+      than the intensity; Kabat-Zinn 1990, both in the bibliography). The palace's foam hall
+      comes with the palace) Mindfulness and the foam (author, 13 Oct 17:20: is the quantum foam the mind's ultimate
       mindful state, the zero moment? not sure). Copilot: half right, and the better half is
       surprising. The foam is not still: it is the most agitated level; even the vacuum's
       zero-point state fluctuates. That fits mindfulness better than stillness does: not a blank
