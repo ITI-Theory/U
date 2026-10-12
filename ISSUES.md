@@ -1733,9 +1733,9 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
 
 ---
 
-## ISS-049: Chats out of Me: private marking, lift, knowledge base — OPEN
+## ISS-049: Chats out of Me: private marking, lift, knowledge base — CLOSED
 {{Tags area.ops, area.books}}
-{{Fields date.created=2026-10-08, date.start=2026-10-08, date.end=, epic=}}
+{{Fields date.created=2026-10-08, date.start=2026-10-08, date.end=2026-10-13, epic=}}
 
 Goal (author, 8 Oct): get the chats out of the private Me repo into a cleaned,
 text-based knowledge base, and from there into *Phase Dot* book(s), with
@@ -1761,16 +1761,17 @@ segment tags (28 Jun), `visibility: private` (16 Aug, considered for D1, then
 dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
 
 **Proposal (to decide):**
-- [ ] Whole files: `visibility: private` in the header (default public).
-- [ ] Parts of files: `<!-- PRIVATE -->` ... `<!-- /PRIVATE -->`.
-- [ ] `make -C Me/chats lift`: copy non-private files with private blocks
+- [x] Whole files: `visibility: private` in the header (default public).
+      (13 Oct triage: done: lift skips them (Me/chats/scripts/lift_chats.py))
+- [x] Parts of files: `<!-- PRIVATE -->` ... `<!-- /PRIVATE -->`.
+      (13 Oct triage: done: lift strips them)
+- [x] `make -C Me/chats lift`: copy non-private files with private blocks
       stripped; refuse contact details and keys.
-- [ ] `make -C Me/chats collate`: rebuild the volumes (today a one-off script);
+      (13 Oct triage: done (Me eaab5e1): 247 public files, 22 refused for contact details or keys, report in tmp/lift/REFUSED.md; DRY=1 to preview)
+- [x] `make -C Me/chats collate`: rebuild the volumes (today a one-off script);
       refresh HAL-UAT after big sessions.
-- [ ] Knowledge base: HAL-UAT writes a master index, then one dossier per
-      topic; the coding agent turns each into a note in `Me/kb/` with front
-      matter (area, visibility, sources, evidence label); quarantined claims
-      stay out. *Phase Dot* is built from the notes, filtered by visibility.
+      (13 Oct triage: done (Me eaab5e1): 15 volumes in tmp/collated, the old format; the HAL-UAT refresh is the item below)
+- (moved to ISS-080) Knowledge base: HAL-UAT writes a master index…
 
 - [x] VS Code chats (9 Oct, Me 0f8b327): `make -C Me/chats vscode [DRY=1]` replays
       each VS Code Copilot Chat session log (all workspaces) into `Inbox/`
@@ -1796,8 +1797,10 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
 - [x] Agent sessions (`~/.copilot/session-state`): only 2 of the 8 folders have
       a session log (this one, 0eee7915, and c06281b7 of 15 Feb); both are in the
       Inbox. Nothing else to export.
-- [ ] Then `collate` (item above) and refresh HAL-UAT's chat volumes (NotebookLM
-      usage: `make nlm-usage`; uploads cost little, questions about 1.6% each).
+- (moved to ISS-080) Then `collate` (item above) and refresh HAL-UAT…
+
+**Closed 2026-10-13:** marking, lift and collate are built (Me eaab5e1); the knowledge base and the HAL-UAT refresh need NotebookLM and wait in ISS-080.
+
 ---
 
 ## ISS-050: NotebookLM sources: folders and book selection — CLOSED
@@ -3790,6 +3793,12 @@ optional step are closed; the step is kept here, word for word, with the issue i
 - [ ] (ISS-046) Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1, 2,
       4, 5 only if redrawn and badged `INTERPRETIVE`.
 - [ ] (ISS-050) Switch sources per group within a notebook (ISS-047 notes 12-13).
+- [ ] (ISS-049) Knowledge base: HAL-UAT writes a master index, then one dossier per topic;
+      the coding agent turns each into a note in `Me/kb/` with front matter (area,
+      visibility, sources, evidence label); quarantined claims stay out. *Phase Dot* is
+      built from the notes, filtered by visibility.
+- [ ] (ISS-049) Then `collate` (item above) and refresh HAL-UAT's chat volumes (NotebookLM
+      usage: `make nlm-usage`; uploads cost little, questions about 1.6% each).
 
 ## ISS-081: The author's desk: steps only the author can take — OPEN
 {{Tags area.ops}}
