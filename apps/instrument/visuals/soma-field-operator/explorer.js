@@ -716,6 +716,7 @@ function makeBrain() {
       lastCp = env.cp ?? 0;
       if (caveGl) {
         caveGl.vividness = env.vivid ?? 0.8;
+        caveGl.outside = env.caveOut;
         caveGl.onPop = img => popHandler?.(img);
         caveGl.render({ time: t, phi, speed: 0.004 + 0.006 * phi, stereo: env.stereo });
         // FX off: no stone, no light show; the anatomy as it is, and where the voyage is
@@ -760,7 +761,7 @@ function makeBrain() {
           }
         }
         if (env.labels) {
-          label(ctx, u, `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
+          label(ctx, u, env.caveOut ? `THE CATHEDRAL FROM OUTSIDE · the visitor is in ${caveGl.hall} (the white spire)` : `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
           label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
           label(ctx, u, `VISUAL THOUGHTS: the programme's own figures in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
           label(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
@@ -2868,6 +2869,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
       <label class="explorer__vivid" title="How vivid visual thoughts are (mental imagery varies from none, aphantasia, to very vivid, hyperphantasia)">VIVIDNESS <input type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Vividness" /></label>
+      <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
@@ -2915,6 +2917,7 @@ export function createExplorer(hooks = {}) {
   const thoughtsButton = root.querySelector('[data-act="thoughts"]');
   const painButton = root.querySelector('[data-act="pain"]');
   const caveButton = root.querySelector('[data-act="cave"]');
+  const caveOutButton = root.querySelector('[data-act="caveout"]');
   const vividLabel = root.querySelector('.explorer__vivid');
   vividLabel.querySelector('input').addEventListener('input', event => { st.vivid = Number(event.target.value); });
   // POP IN: a bubble's figure takes the screen
@@ -3040,7 +3043,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, vig: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, vig: false, caveOut: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -3149,6 +3152,8 @@ export function createExplorer(hooks = {}) {
     thoughtsButton.hidden = st.stop !== 'brain';
     painButton.hidden = st.stop !== 'brain' || st.cave;
     caveButton.hidden = st.stop !== 'brain';
+    caveOutButton.hidden = st.stop !== 'brain' || !st.cave;
+    caveOutButton.classList.toggle('active', st.caveOut);
     vividLabel.hidden = st.stop !== 'brain' || !st.cave;
     caveButton.classList.toggle('active', st.cave);
     painButton.textContent = `PAIN: ${(st.pain || 'off').toUpperCase()}`;
@@ -3365,7 +3370,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3567,6 +3572,9 @@ export function createExplorer(hooks = {}) {
       hooks.onChange?.();
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
+      syncUi();
+    } else if (b.dataset.act === 'caveout') {
+      st.caveOut = !st.caveOut;
       syncUi();
     } else if (b.dataset.act === 'vig') {
       st.vig = !st.vig;

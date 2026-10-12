@@ -208,12 +208,66 @@ export function createCathedral3D() {
     return textures.get(src);
   };
 
+  // OUTSIDE (ISS-078): the same halls seen from outside, as anatomists know them (the cast of
+  // the ventricles), built as an abstract castle: the hewn shell, a spire on each hall, lit
+  // windows that flare when a thought fires inside, all orbited at a distance.
+  const outside = new THREE.Group();
+  outside.visible = false;
+  scene.add(outside);
+  const shell = new THREE.Mesh(tube, new THREE.MeshStandardMaterial({ map, bumpMap: map, bumpScale: 0.05, roughness: 0.8, metalness: 0.05, color: '#b8b0c4', side: THREE.FrontSide }));
+  outside.add(shell);
+  const spireMat = new THREE.MeshStandardMaterial({ color: '#8d8496', roughness: 0.6, metalness: 0.1 });
+  const spireTips = [];
+  ROUTE.forEach((s, k) => {
+    if (k > 0 && ROUTE[k - 1].name === s.name) return;
+    const h = 1.2 + 1.6 * s.r;
+    const spire = new THREE.Mesh(new THREE.ConeGeometry(0.18 + 0.12 * s.r, h, 8), spireMat);
+    spire.position.set(s.p[0], s.p[1] + s.r + h / 2 - 0.1, s.p[2]);
+    outside.add(spire);
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.07, 10, 8), new THREE.MeshBasicMaterial({ color: '#ffd166' }));
+    tip.position.set(s.p[0], s.p[1] + s.r + h - 0.05, s.p[2]);
+    outside.add(tip);
+    spireTips.push({ name: s.name, tip });
+  });
+  // windows: small lit panes on the shell, each near a point of the route
+  const WINDOWS = 140;
+  const panes = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.22, 0.4), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.95, side: THREE.DoubleSide, fog: false }), WINDOWS);
+  const paneU = new Float32Array(WINDOWS);
+  const paneGlow = new Float32Array(WINDOWS);
+  {
+    const o = new THREE.Object3D();
+    for (let k = 0; k < WINDOWS; k++) {
+      const uu = 0.02 + 0.96 * Math.random();
+      paneU[k] = uu;
+      const c = curve.getPointAt(uu);
+      const t = curve.getTangentAt(uu);
+      const n1 = new THREE.Vector3().crossVectors(t, new THREE.Vector3(0, 1, 0)).normalize();
+      const n2 = new THREE.Vector3().crossVectors(t, n1).normalize();
+      const a = Math.random() * Math.PI * 2;
+      const dirv = n1.clone().multiplyScalar(Math.cos(a)).addScaledVector(n2, Math.sin(a));
+      o.position.copy(c).addScaledVector(dirv, radiusAt(uu) * 1.07);
+      o.lookAt(o.position.clone().add(dirv));
+      o.updateMatrix();
+      panes.setMatrixAt(k, o.matrix);
+      panes.setColorAt(k, new THREE.Color('#ffcf7a'));
+    }
+  }
+  outside.add(panes);
+  const outsideLights = [new THREE.DirectionalLight('#c8d8ff', 0), new THREE.HemisphereLight('#a8b8ff', '#20102a', 0)];
+  outsideLights[0].position.set(6, 10, 4);
+  outsideLights.forEach(l => scene.add(l));
+  const centre = new THREE.Box3().setFromPoints(ROUTE.map(s => new THREE.Vector3(...s.p))).getCenter(new THREE.Vector3());
+  let viewOut = false;
+  let orbitA = 0.6;
+
   let u = 0.01;
   let last = 0;
   const COLORS = ['#3fd0c9', '#ff4d5e', '#ffd166', '#a78bfa', '#8ecbff', '#e8eefc', '#ff7aa8'];
   return {
     canvas,
     get hall() { return hallAt(u); },
+    get outside() { return viewOut; },
+    set outside(on) { viewOut = Boolean(on); },
     get bubbleCount() { return bubbles.filter(b => !b.popping).length; },
     set vividness(v) { vivid = Math.max(0, Math.min(1, v)); },
     set onPop(fn) { onPop = fn; },
@@ -261,6 +315,8 @@ export function createCathedral3D() {
       const at = c.clone().addScaledVector(n1, Math.cos(a) * r).addScaledVector(n2, Math.sin(a) * r);
       const color = COLORS[Math.floor(Math.random() * COLORS.length)];
       burst(sizeArg, at, color);
+      // seen from outside: the windows near it flare
+      for (let k = 0; k < WINDOWS; k++) if (Math.abs(paneU[k] - ahead) < 0.04) paneGlow[k] = Math.min(1.5, paneGlow[k] + 0.4 + 0.3 * Math.log10(sizeArg + 1));
       if (cp > 0.05) for (let k = 1; k <= Math.round(2 + 6 * cp); k++) burst(sizeArg, at.clone().add(new THREE.Vector3((Math.random() - 0.5) * 0.3, (Math.random() - 0.5) * 0.3, (Math.random() - 0.5) * 0.3)), color, Math.pow(0.55 + 0.35 * cp, k), 0.55 * k);
     },
     // state: { time, phi (FX: the field's light), speed, stereo }
@@ -271,9 +327,32 @@ export function createCathedral3D() {
       if (u > 0.985) u = 0.01;
       const p = curve.getPointAt(u);
       const ahead = curve.getPointAt(Math.min(0.999, u + 0.012));
-      camera.position.copy(p).add(new THREE.Vector3(0, -0.15 * radiusAt(u), 0));
-      camera.lookAt(ahead);
-      applyLook(camera);
+      outside.visible = viewOut;
+      walls.visible = !viewOut;
+      scene.fog.density = viewOut ? 0.012 : 0.09;
+      outsideLights[0].intensity = viewOut ? 1.4 : 0;
+      outsideLights[1].intensity = viewOut ? 0.7 : 0;
+      if (viewOut) {
+        // orbit at a distance; the visitor's place glows as a small light inside
+        orbitA += dt * 0.06;
+        const R = 19;
+        camera.position.set(centre.x + R * Math.cos(orbitA), centre.y + 5 + 2 * Math.sin(orbitA * 0.7), centre.z + R * Math.sin(orbitA));
+        camera.lookAt(centre);
+        const fxw = Math.max(0, Math.min(1, state.phi ?? 0.5));
+        const tint = new THREE.Color();
+        for (let k = 0; k < WINDOWS; k++) {
+          paneGlow[k] *= Math.exp(-dt / 1.2);
+          const near = Math.abs(paneU[k] - u) < 0.03 ? 0.6 : 0;
+          const g = Math.min(1.6, 0.6 + 0.5 * fxw + paneGlow[k] + near);
+          panes.setColorAt(k, tint.setRGB(1.2 * g, 0.85 * g, 0.4 * g + 0.5 * paneGlow[k]));
+        }
+        panes.instanceColor.needsUpdate = true;
+        for (const s of spireTips) s.tip.material.color.set(s.name === hallAt(u) ? '#ffffff' : '#ffd166');
+      } else {
+        camera.position.copy(p).add(new THREE.Vector3(0, -0.15 * radiusAt(u), 0));
+        camera.lookAt(ahead);
+        applyLook(camera);
+      }
       lamp.position.copy(camera.position);
       const fx = Math.max(0, Math.min(1, state.phi ?? 0.5));
       field.forEach((l, k) => {
