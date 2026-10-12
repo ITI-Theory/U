@@ -26,3 +26,5 @@ alike: read its "Working on this repo" section and follow it (start order,
   `Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>`.
 - **Evidence labels** for claims: `docs/agent/THEORY-STATUS.md`.
 - **Never** paste or commit tokens; Zenodo tokens live in the environment only.
+- **No sub-agents** (author, 13 Oct): do the work yourself, one step at a time. A running
+  agent cannot be stopped, and the runtime may pick a model the author has ruled out (no GPT).

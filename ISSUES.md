@@ -2712,9 +2712,9 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
 
 **Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
 
-## ISS-055: Sherlock: three ways of reasoning over OpenCyc (consistency, proof, analogy) — OPEN
+## ISS-055: Sherlock: three ways of reasoning over OpenCyc (consistency, proof, analogy) — CLOSED
 {{Tags area.proofs, area.theory, area.books}}
-{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=2026-10-13, epic=ISS-055-sherlock}}
 
 **Epic:** [ISS-055-sherlock.md](prj/.adm/issues/ISS-055-sherlock.md) (end state, design decisions D1-D7, sub-issues ISS-056 to ISS-064, the document list).
 
@@ -2736,12 +2736,13 @@ forbus2017analogy, chaudhri2025knowledge):**
       1.3M facts, the NuLex lexicon and FrameNet/VerbNet/WordNet links, the QP
       ontology, the analogy ontology. Fills what the OWL export dropped
       (microtheory of each statement, rules, words to concepts).
-- [ ] H-AL found the earlier design: the April 2026 chat "lean 4 implementing
+- [x] H-AL found the earlier design: the April 2026 chat "lean 4 implementing
       a axiom based knowledge base from opencyc" (collections as types,
       genls as `extends`, properties as typeclasses, microtheories as
       namespaces and parameters, generated Lean, Aesop rule sets per domain,
       the LLM last). It was in the Takeout import, not in H-AL's volumes
       until 10 Oct (ISS-049).
+      (13 Oct triage: recorded; the design is what sherlock/ now implements)
 
 **1. Consistency: OWL 2 DL (OpenCyc as one knowledge base, nothing removed).**
 - [x] `make -C opencyc ttl repair profile STAGE=repaired`: ten SPARQL Update
@@ -2751,11 +2752,12 @@ forbus2017analogy, chaudhri2025knowledge):**
       ("M4I" = 2), OWL built-ins the export wrote for Cyc constants mapped
       back (`owl:Thing` to `#$Thing`, `rdfs:subClassOf` to `#$genls`, `rdfs:range` to
       `#$arg2Isa`), statements OWL 2 DL cannot state kept as `fix:` annotations.
-- [ ] HermiT consistency and classification of the repaired KB (3.1M triples;
+- [x] HermiT consistency and classification of the repaired KB (3.1M triples;
       running 10 Oct). If the full KB is too large for HermiT: Konclude, or
       locality-based modules (provably complete for every entailment over the
       chosen terms; not a slice of the KB).
-- [ ] The Tensor in OWL (`the-tensor.ttl`, 30-50 triples importing OpenCyc):
+      (13 Oct triage: superseded, the Lean route replaced the OWL one (see Parked below))
+- [x] The Tensor in OWL (`the-tensor.ttl`, 30-50 triples importing OpenCyc):
       the affidavit (score is a proposal, not what the viewer feels; output
       R(e*, kappa, e_V); container independence; thresholds; somatic loop and
       the three kappa_r modes; the Pensieve claim; "artistic and systems-design,
@@ -2765,6 +2767,7 @@ forbus2017analogy, chaudhri2025knowledge):**
       (a film), not an emotion type; the Pensieve file "stores" an experience
       (InformationBearingThing vs mental event: to be checked). Worth it if the
       reasoner finds more than a text linter would.
+      (13 Oct triage: superseded, done in Lean instead (the affidavit item below))
 
 **2. Proof: Lean 4 and Aesop, microtheories as scopes.**
 - [x] Generate Lean from NextKB (KRF is Lisp syntax): collections, `genls`,
@@ -2832,38 +2835,29 @@ forbus2017analogy, chaudhri2025knowledge):**
       axioms the table omits. Passing checks: 11 = 4+3+1+3, 7/11+3/11+1/11,
       the 20 transition steps, the trauma gradient sign. Author to decide:
       fix P11 or keep it as an exhibit.
-- [ ] (13 Oct, first pass in Python: `make -C sherlock clinical`, sherlock/clinical.py: every
-      registry document's sentences that claim a clinical effect with no hedge in the sentence
-      and no evidence label in the paragraph, as candidates; 2 in 39 documents, for the
-      author: P1 line 499, "the formal account of why fear amplifies pain, why safety reduces
-      it" (no "in the model"), and the synthesis line 437, "The therapeutic implication is
-      ..." (a prescription without a label); both reworded with the author's OK, 13 Oct 04:30,
-      as model claims labelled open-hypothesis, P1 with a source (Sharp and Harvey 2001); now
-      0 candidates. The microtheory version stays open) The paper's own disclaimers become microtheories (ArtisticDesignMt vs
-      ClinicalMt): Sherlock checks that no clinical-context claim is made
-      without evidence. The affidavit, and the legal use.
-- [ ] Physics through Mathlib and physlib (already in the lakefile).
+- (moved to ISS-080) (13 Oct, first pass in Python…
+- (moved to ISS-080) Physics through Mathlib and physlib…
 
 **3. Analogy: structure mapping and qualitative processes (NextKB/QRG ideas;
 the tools themselves not needed).**
-- [ ] SME-style structure mapping (Gentner; Falkenhainer, Forbus & Gentner
+- [x] SME-style structure mapping (Gentner; Falkenhainer, Forbus & Gentner
       1989): compares two descriptions by relational structure; gives a score,
       the correspondences and the candidate inferences. Tests the programme's
       cross-domain claims, graded (Lean functors are the strict end). First
       test: The Tensor's three containers (River, Body, Session: "all three are
       the same film") against the score.
-- [ ] MAC/FAC retrieval over a case library of the programme's claims: "where
+      (13 Oct triage: done, sherlock/sme.py with registry/analogies (6a7f9cd, f8ed78c))
+- [x] MAC/FAC retrieval over a case library of the programme's claims: "where
       else have I claimed this structure?" Cross-paper consistency, and case
       law's precedent search (Law book).
-- [ ] QP theory (Forbus): The Tensor's somatic loop as a qualitative model
+      (13 Oct triage: done, sherlock/macfac.py over registry/cases (cd7f629))
+- [x] QP theory (Forbus): The Tensor's somatic loop as a qualitative model
       (H-dot pushes toward a threshold; kappa_r sets coupling; a threshold
       crossing is a limit point); a qualitative simulation tests whether the
       river film's phases are reachable.
-- [ ] Text to facts without guessing: NextKB's semantic translations (FrameNet
-      frames mapped to OpenCyc; QP frames with narrative functions) as the
-      target vocabulary and validator for the later LLM front end.
-- [ ] Sketch understanding (CogSketch's idea): the author's handwritten A5
-      film pages (ISS-053) to a qualitative structure. Speculative; last.
+      (13 Oct triage: superseded, the arithmetic answered the threshold questions (Parked below))
+- (moved to ISS-080) Text to facts without guessing…
+- (moved to ISS-080) Sketch understanding…
 
 **Doable?** (assessment, 10 Oct)
 - OWL consistency and The Tensor test: yes, days; the open risk is HermiT's
@@ -2885,20 +2879,26 @@ false positive in 8, so every candidate is checked) and mapping words to
 OpenCyc constants. Findings per hour: the document's own numbers first, then
 claims about the Lean against the Lean (ledger), then OpenCyc typing (fewer,
 but nothing else finds them). Plan:
-- [ ] Essential: chain finder (KRF search emits the `genls` proof chain;
+- [x] Essential: chain finder (KRF search emits the `genls` proof chain;
       Aesop does not guess the middle), half a day.
-- [ ] Essential: programme-wide ledger (every paper's "axiom", "sorry",
+      (13 Oct triage: done, sherlock/chain.py (6a7f9cd))
+- [x] Essential: programme-wide ledger (every paper's "axiom", "sorry",
       "kernel-checked" claims against the Lean; ZSF says "five real sorries",
       a scan counts 14 uncommented `sorry` tokens, to check), a day.
-- [ ] Essential: an affidavit per paper with the saved extraction prompt,
+      (13 Oct triage: done, sherlock/ledger.py; 0 of 419 disagree)
+- [x] Essential: an affidavit per paper with the saved extraction prompt,
       1-2 hours each; `make -C sherlock affidavits` in the release gate.
-- [ ] Next: values quoted across papers (cross-paper consistency, MAC/FAC
+      (13 Oct triage: the gate is bin/release-check section 21; the remaining documents are ISS-059)
+- [x] Next: values quoted across papers (cross-paper consistency, MAC/FAC
       lite); a mapping assistant from NextKB's lexicon; OpenCyc's 769
       `implies` rules (the simple ones) into Lean, days each.
-- [ ] Later: SME (after the Body and Session phases are written); the Law
-      book's affidavit chapter and the Russell reading (writing, not tools).
+      (13 Oct triage: done, cross-document values, the mapping assistant sherlock/lookup.py and the Horn rules (gen_rules.py, CycRules.lean), 6a7f9cd)
+- (moved to ISS-080) Later: SME (after the Body and Session phases are written)…
 - Parked: QP simulation (the arithmetic answered the threshold questions),
   HermiT explanations (the Lean route replaced the OWL one), sketches.
+
+**Closed 2026-10-13:** the three ways are built or superseded (ticked above with the
+evidence); the later steps moved to ISS-080.
 
 ## ISS-056: Sherlock claims registry and validator — CLOSED
 {{Tags area.proofs}}
@@ -3758,6 +3758,25 @@ optional step are closed; the step is kept here, word for word, with the issue i
       white ticks); autopilot panel = ISS-074; traffic = the other viewer in the twin view
       or the dyad; checklists = before a viewing (strap on, lights down, touch the page).
 - [ ] (ISS-078) The palace tour: the method of loci as an exercise.
+- [ ] (ISS-055) Physics through Mathlib and physlib (already in the lakefile).
+- [ ] (ISS-055) Text to facts without guessing: NextKB's semantic translations (FrameNet
+      frames mapped to OpenCyc; QP frames with narrative functions) as the target vocabulary
+      and validator for the later LLM front end.
+- [ ] (ISS-055) Sketch understanding (CogSketch's idea): the author's handwritten A5 film
+      pages (ISS-053) to a qualitative structure. Speculative; last.
+- [ ] (ISS-055) Later: SME (after the Body and Session phases are written); the Law book's
+      affidavit chapter and the Russell reading (writing, not tools).
+- [ ] (ISS-055) (13 Oct, first pass in Python: `make -C sherlock clinical`,
+      sherlock/clinical.py: every registry document's sentences that claim a clinical effect
+      with no hedge in the sentence and no evidence label in the paragraph, as candidates; 2
+      in 39 documents, for the author: P1 line 499, "the formal account of why fear
+      amplifies pain, why safety reduces it" (no "in the model"), and the synthesis line
+      437, "The therapeutic implication is ..." (a prescription without a label); both
+      reworded with the author's OK, 13 Oct 04:30, as model claims labelled open-hypothesis,
+      P1 with a source (Sharp and Harvey 2001); now 0 candidates. The microtheory version
+      stays open) The paper's own disclaimers become microtheories (ArtisticDesignMt vs
+      ClinicalMt): Sherlock checks that no clinical-context claim is made without evidence.
+      The affidavit, and the legal use.
 
 ## ISS-081: The author's desk: steps only the author can take — OPEN
 {{Tags area.ops}}
