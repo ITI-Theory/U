@@ -3501,3 +3501,13 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       light in the stone; FX off the plain anatomy.
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
+- [ ] C-PTSD echoes in the cathedral (author, 13 Oct 04:00). The match: a cathedral's
+      reverberation time is how long a sound lives after it stops; the programme already
+      has the same shape, the memory kernel K(τ) (PAST, 13 Oct) and P13's C-PTSD operator
+      (the barrier deeper, slower back). So in C-PTSD mode a burst does not die: it comes
+      back off the walls, again and again, slowly fading, the reverberation time set by
+      the C-PTSD slider (cp). A cue that resembles an old pattern (recall from a partial
+      cue, as in the memory stop's Hopfield net) wakes a loud echo: the flashback picture,
+      the old burst returning as if now. The music's echo is the same knob (its delay
+      feedback is the "reverb blanket"): with cp up the sound echoes too. Safety (S) and a
+      resource shorten the echo. A picture and a model, not a diagnosis (ISS-066's care).
