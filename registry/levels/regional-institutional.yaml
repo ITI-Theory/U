@@ -36,3 +36,8 @@ former_labels:
   app: REGIONAL / INSTITUTIONAL sigma 12
   field_atlas: regional refinement
   operator_contract: zoom 12 Regional
+# a visual rhyme (ISS-083): this level borrows another's motion; the physics is not shared
+rhyme:
+  motion: sliding-plates
+  with: geological
+  note: "Institutions lock and slip: strain builds slowly, then sudden reform."

@@ -4057,9 +4057,15 @@ SpaceEngine renders) and the one waiting on a viewer stay.
       −cos(kr)/r of (∇² + k²)G = δ (derived-under-assumptions; k at 1/r₀ for the picture,
       interpretive): both Newton's −1/r where gravity is tested, parting near 1/k;
       explorer-check checks both.)
-- [ ] (from ISS-080) (ISS-046) Visual rhymes: renderers may share motion styles across
+- [x] (from ISS-080) (ISS-046) Visual rhymes: renderers may share motion styles across
       levels (sliding plates for `geological`, ring/belt debris for `orbital-system`),
       badged as visual analogy (`INTERPRETIVE`); the physics differs.
+      (13 Oct: done. A level may borrow another's motion (registry/levels/<id>.yaml `rhyme:
+      {motion, with, note}`, checked by generate.py): regional-institutional borrows geological's
+      sliding plates (lock and slip), galactic-disc the orbital system's sheared debris ring.
+      `renderers/rhymes.js` draws it faintly with a VISUAL RHYME · INTERPRETIVE badge naming the
+      level, only with the lens on at 11D and RICE's new RHYMES switch on; the Atlas captures turn
+      it off. More rhymes are one registry entry each.)
 - [x] (from ISS-080) (ISS-046) Each Fractal Thesis book: a domain introduction spread
       (specialist label, G-ID, zoom note); a per-book G-ID registry; "61 decades of
       magnitude" as the headline with the scales as tick marks.

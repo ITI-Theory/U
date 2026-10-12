@@ -232,7 +232,7 @@ async function main() {
     for (const [index, levelId] of ladder.entries()) {
       if (args.levels && !args.levels.has(levelId)) continue;
       const level = levelById.get(levelId);
-      const plateHash = dimension => `level=${levelId}&lens=${dimension.lens}&dim=${dimension.dim}&reader=${args.reader}&styleoff=motion&atlas=1`;
+      const plateHash = dimension => `level=${levelId}&lens=${dimension.lens}&dim=${dimension.dim}&reader=${args.reader}&styleoff=motion.rhyme&atlas=1`;
       let frame = null;
       if (args.portrait) {
         const boxes = [];

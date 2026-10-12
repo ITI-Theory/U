@@ -721,6 +721,7 @@ const morphologyLayers = [
 
 const quantumFoam = get('quantum-foam').create(scene, THREE);
 const thoughtSparks = get('thought-sparks').create(scene, THREE);
+const rhymes = get('rhymes').create(scene, THREE);
 
 const cellularDensityCanvas = document.createElement('canvas');
 cellularDensityCanvas.width = 160;
@@ -1228,7 +1229,7 @@ const state = {
   compare: false,
   contours: false,
   // Imaging styles (renderers read these); all off gives a plain line drawing.
-  style: { fluorescence: true, falsecolour: true, glow: true, motion: true },
+  style: { fluorescence: true, falsecolour: true, glow: true, motion: true, rhyme: true },
   tTheory: true,
   brecvema: false,
   selectedMechanism: 'B',
@@ -3132,6 +3133,7 @@ function applyScene(time, delta, responsePulse) {
   const renderState = rendererState();
   quantumFoam.update({ ...renderState, rendererId: renderState.rendererId === 'quantum-foam' ? 'quantum-foam' : null }, time, responsePulse);
   thoughtSparks.update({ ...renderState, rendererId: renderState.rendererId === 'thought-sparks' ? 'thought-sparks' : null }, time, responsePulse);
+  { const rh = activeLevel().rhyme; rhymes.update({ ...renderState, rhyme: rh ? { ...rh, withLabel: levelsById.get(rh.with)?.label } : null }, time, responsePulse); }
   if (!['quantum-foam', 'thought-sparks'].includes(renderState.rendererId)) updateRegistryRenderer(renderState, time, responsePulse);
   else for (const instance of rendererInstances.values()) instance.update({ ...renderState, rendererId: null }, time, responsePulse);
   questionTours?.updateOverlay(renderState, time, responsePulse);

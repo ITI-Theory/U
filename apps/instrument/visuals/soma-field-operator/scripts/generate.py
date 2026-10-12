@@ -235,6 +235,12 @@ def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
         validate_equation(level.get("equation"), f"{path.relative_to(REPO_ROOT)}: equation", errors)
         validate_equation(level.get("atlas_rows", {}).get("equation_setting"), f"{path.relative_to(REPO_ROOT)}: atlas_rows.equation_setting", errors)
         validate_level_text(level, str(path.relative_to(REPO_ROOT)), errors)
+        rhyme = level.get("rhyme")
+        if rhyme is not None:  # a visual rhyme (ISS-083): another level's motion, badged INTERPRETIVE
+            known = {p.stem for p in (REGISTRY_ROOT / "levels").glob("*.yaml")}
+            if not isinstance(rhyme, dict) or rhyme.get("motion") not in ("sliding-plates", "debris-ring") \
+                    or rhyme.get("with") not in known or rhyme.get("with") == level_id or not rhyme.get("note"):
+                errors.append(f"{path.relative_to(REPO_ROOT)}: rhyme needs motion (sliding-plates | debris-ring), with (another level id) and note")
         level["resolved_sources"] = resolve_sources(level.get("sources", []), papers)
         related = []
         for source in level["resolved_sources"]:
