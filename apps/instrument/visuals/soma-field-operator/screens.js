@@ -20,6 +20,7 @@
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice } from './rice.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
+import { midiInOn, setMidiIn, MIDI_IN_MAP } from './midi-in.js';
 
 const CHANNEL = 'soma-screens';
 const RELAY_KEY = 'soma-relay';
@@ -320,6 +321,10 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <label>PORT<input type="text" maxlength="60" data-midi-port placeholder="loopMIDI" /></label>
         <button type="button" data-midi="1">ON</button><button type="button" data-midi="0">OFF</button>
       </fieldset>
+      <fieldset data-midiin><legend>MIDI IN (CONTROLLER)</legend>
+        <p class="engine-room__hint">A controller turns the knobs live (a MIDI Fighter Twister's factory CCs): ${Object.entries(MIDI_IN_MAP).map(([cc, id]) => `CC ${cc} ${id}`).join(', ')}. The mode knobs act in CO-PILOT and MANUAL. Reload the windows after switching.</p>
+        <button type="button" data-midiin="1">ON</button><button type="button" data-midiin="0">OFF</button>
+      </fieldset>
       <fieldset data-relay><legend>RELAY (TABLETS)</legend>
         <p class="engine-room__hint">Tablets and a second machine follow this one through the relay: run <code>python apps/instrument/mother/relay.py --lan</code>, enter its address and token here and on each device (or open the app there with ?relay=…&amp;token=…), and serve the app on the network (npm run start -- --host). Reload to connect.</p>
         <label>ADDRESS<input type="text" maxlength="80" data-relay-url placeholder="http://192.168.1.10:8766" /></label>
@@ -428,6 +433,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
     const relayLine = room.querySelector('.engine-room__relay-status');
     if (!relayLine.textContent.startsWith('Saved')) relayLine.textContent = `Relay: ${screens.relayStatus}`;
+    for (const b of room.querySelectorAll('[data-midiin]')) b.classList.toggle('active', (b.dataset.midiin === '1') === midiInOn());
     for (const b of room.querySelectorAll('[data-midi]')) b.classList.toggle('active', (b.dataset.midi === '1') === (midiOutSetting() !== null));
     const params = readParams();
     for (const fieldset of room.querySelectorAll('fieldset[data-key]')) {
@@ -461,6 +467,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.rice) setRice(button.dataset.rice === '1');
+    if (button.dataset.midiin) setMidiIn(button.dataset.midiin === '1');
     if (button.dataset.relay) {
       setRelay(button.dataset.relay === '1' ? { url: room.querySelector('[data-relay-url]').value.trim(), token: room.querySelector('[data-relay-token]').value.trim() } : null);
       room.querySelector('.engine-room__relay-status').textContent = 'Saved: reload each window to connect.';

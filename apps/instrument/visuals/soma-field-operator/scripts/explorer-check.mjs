@@ -17,6 +17,7 @@ import { diveMath } from '../flight3d.js';
 import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
 import { midiMessages, createMidiOut, MIDI_CC } from '../midi-out.js';
+import { midiControl } from '../midi-in.js';
 import { BARRIERS, transmission, exponent } from '../barrier.js';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
@@ -244,6 +245,9 @@ const checks = [
   ['past: without them, calm FIGHT stays FIGHT (never FREEZE)', pastRate(false), 0, 0.05],
   ['music: the rhythm (mean zero) helps FREEZE out to SAFE at Phi 0.4 (with music, within 60 s)', forcedWith, 0.75, 1],
   ['music: and it is the rhythm that does it (with minus without, at least 20 points)', forcedWith - forcedWithout, 0.2, 1],
+  ['midi in: CC 1 at full turns fear to 1, CC 9 at 0 sets velocity 0.1, notes and other CCs are ignored', Number(
+    midiControl([0xb0, 1, 127])?.id === 'F' && midiControl([0xb0, 1, 127]).value === 1 && midiControl([0xb0, 9, 0]).value === 0.1
+    && midiControl([0x90, 1, 127]) === null && midiControl([0xb0, 40, 64]) === null), 1, 1],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

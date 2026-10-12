@@ -49,6 +49,7 @@ const filmName = (f, kx) => (kx >= 1 ? f?.title ?? '' : filmNumber(f));
 const viewerPreset = id => viewers?.find(v => v.id === (id || 'v2021')) ?? viewers?.find(v => v.id === 'neutral') ?? null;
 import { createExplorerMusic } from './explorer-music.js';
 import { createMidiOut } from './midi-out.js';
+import { startMidiIn } from './midi-in.js';
 import { createTowerPanel } from './tower.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
@@ -1371,6 +1372,7 @@ export const SETTING_IDS = ['mind', 'river', 'body', 'session'];
 const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G: '#8ecbff', L: '#e8eefc', PV: '#ff7aa8' };
 
 let scoreModes = null;
+let midiInStatus = 'off';
 // the score as MIDI for Ableton (ISS-073), when the Engine Room switches it on
 const midiOut = createMidiOut();
 
@@ -1585,6 +1587,7 @@ function makeScore() {
       if (hrv) label(ctx, u, `HRV ${Math.round(hrv.rmssd)} ms · breath ${hrv.breath.toFixed(0)}/min · coherence ${hrv.coherence.toFixed(2)} (estimates)`, x0, -0.02, COLORS.teal, 'left', 0.022);
       else if (env.strap) label(ctx, u, 'HRV: collecting beats (20 s)', x0, -0.02, COLORS.dim, 'left', 0.022);
       if (midiOut.status !== 'off') label(ctx, u, `MIDI ${midiOut.status}`, x0, 0.03, COLORS.dim, 'left', 0.02);
+      if (midiInStatus !== 'off') label(ctx, u, `MIDI IN ${midiInStatus}`, x0, 0.13, COLORS.dim, 'left', 0.02);
       // entrainment (P9, BRECVEMA's rhythmic entrainment): the gap between the music's pulse and
       // the heart, and whether it closes over the last minute. A measure, not a proof.
       if (env.music) {
@@ -2339,6 +2342,20 @@ export function createExplorer(hooks = {}) {
   const climbButton = root.querySelector('[data-act="climb"]');
   const apButton = root.querySelector('[data-act="ap"]');
   const knobRow = root.querySelector('.explorer__knobs');
+  // MIDI IN: a controller's encoders turn the knobs, Φ, depth and velocity
+  startMidiIn(({ id, value }) => {
+    if (id in st.knobs) {
+      st.knobs[id] = value;
+      const input = knobRow.querySelector(`[data-knob="${id}"]`);
+      if (input) input.value = String(value);
+    } else if (id === 'phi') {
+      phiInput.value = String(value);
+      phiInput.dispatchEvent(new Event('input', { bubbles: true }));
+    } else if (id === 'kd' || id === 'kv') {
+      st[id] = value;
+      hooks.onChange?.();
+    }
+  }).then(status => { midiInStatus = status; });
   for (const input of knobRow.querySelectorAll('input')) {
     input.addEventListener('input', () => { st.knobs[input.dataset.knob] = Number(input.value); });
   }

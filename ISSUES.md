@@ -2615,7 +2615,9 @@ Steps:
       the answer it came from; the person overrides; saves a score file
       (registry/scores format; private scores in Me).
 - [ ] Pages in: photograph ten A5 pages, read them in, keep them private.
-- [ ] MIDI: a 16-knob controller (Web MIDI) for the macros, live.
+- [x] (13 Oct: midi-in.js, MIDI IN in the Engine Room: CC 0-6 the seven modes, CC 7 Φ, CC 8
+      depth, CC 9 velocity, a Twister's factory CCs; tested with a simulated controller;
+      the real one is author UAT) MIDI: a 16-knob controller (Web MIDI) for the macros, live.
 ---
 
 ## ISS-054: H-AL's name, its own voice and its markup — OPEN
@@ -3345,7 +3347,8 @@ Copilot's shaping (modelling and fading, as with WORDS, ISS-072):
       the score stop; per-mode handover; H-AL's think-aloud lines per mode change
       (spoken at WORDS NARRATION, shown at CAPTIONS, left to the knobs below: fading).
 - [x] Remembered handover level; the next journey hands over earlier.
-- [ ] Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes (ISS-053).
+- [ ] Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes (ISS-053;
+      13 Oct: built, MIDI IN drives the pilot's knobs in CO-PILOT and MANUAL).
 
 ## ISS-075: RICE: a ricing switch for the author's options, and the glass cockpit as design vocabulary — OPEN
 {{Tags area.app, area.instrument}}
