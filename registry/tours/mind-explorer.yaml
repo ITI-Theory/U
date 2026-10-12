@@ -53,6 +53,13 @@ steps:
     morning the old pattern is back.
   label: interpretive
   pause: 5
+- view: voyage=landscape&dim=11&phi=0.35
+  say: Arnold Beisser called it the paradoxical theory of change. Change comes when a person becomes what
+    they are, not when they try to become what they are not. In the landscape, pushing is the poke that
+    rolls back. Staying with the sensation is different. It warms the field, and the ground itself begins
+    to soften.
+  label: interpretive
+  pause: 5
 - view: voyage=landscape&dim=11&phi=0.65
   say: Raise the limbic field past the middle. The valleys melt into one shallow bowl, and the state can
     move. In the model, arousal is not only the problem. It is also the door.

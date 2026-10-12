@@ -165,6 +165,16 @@ const fromA = winA.send({ modes: half }).length;
 const fromB = winB.send({ modes: half }).length;
 delete globalThis.localStorage;
 
+// PAST (memory kernel and the defence cascade): from FIGHT, calm, 15 s, how often recall ends in FREEZE
+const pastRun = withPast => {
+  const x = Float32Array.from(sim.PATTERNS[1]);
+  const past = withPast ? { trace: Float32Array.from(x) } : null;
+  let w = [0, 1, 0];
+  for (let s = 0; s < 150; s++) w = sim.memoryStep(x, 0.1, false, 0.1, past);
+  return w.indexOf(Math.max(...w)) === 2;
+};
+const pastRate = withPast => { let n = 0; for (let k = 0; k < 40; k++) n += pastRun(withPast) ? 1 : 0; return n / 40; };
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -215,6 +225,8 @@ const checks = [
   ['barrier: transmission rises at every step down the scales (stone to electron)', Number(BARRIERS.every((b, k) => k === 0 || exponent(b) < exponent(BARRIERS[k - 1]))), 1, 1],
   ['barrier: the stone, the cell and the membrane never pass (T < 1e-300)', Number(BARRIERS.slice(0, 3).every(b => transmission(b) < 1e-300)), 1, 1],
   ['barrier: at the quantum gap an electron tunnels about one try in eight (T)', transmission(BARRIERS[5]), 0.08, 0.2],
+  ['past: with the kernel and the cascade, calm FIGHT ends in FREEZE', pastRate(true), 0.9, 1],
+  ['past: without them, calm FIGHT stays FIGHT (never FREEZE)', pastRate(false), 0, 0.05],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

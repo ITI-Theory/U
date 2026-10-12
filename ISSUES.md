@@ -2466,10 +2466,14 @@ Steps:
       stops before the return to the jellyfish human.
 - [ ] From H-AL: music as forcing (BRECVEMA mechanisms, rhythm) on the body and
       landscape stops: the Somatron roots of the machine.
-- [ ] From H-AL: the memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji) on
+- [x] (13 Oct: PAST on the MEMORY stop: recall blends the present with a trace,
+      K(τ) = e^(−τ/4 s), drawn as rings; FIGHT feeds FREEZE, not the reverse (the defence
+      cascade; interpretive); explorer-check: calm FIGHT ends in FREEZE with it, never
+      without) From H-AL: the memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji) on
       the memory stop: the past keeps shaping the ground.
 - [ ] From H-AL: link back out to the zoom dial (the levels), not only inward.
-- [ ] From H-AL: Beisser's paradoxical theory of change as a landscape tour
+- [x] (13 Oct: a stop in registry/tours/mind-explorer.yaml after the poke that rolls back)
+      From H-AL: Beisser's paradoxical theory of change as a landscape tour
       line (staying with the sensation raises Φ, rather than pushing).
 - [x] (9 Oct, Friday night: `explorer.js`, the **mind explorer**; tour
       `mind-explorer`, 23 stops, about seven minutes) Origin tour ("where it

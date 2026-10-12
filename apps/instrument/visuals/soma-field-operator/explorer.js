@@ -1908,18 +1908,33 @@ const N_CELLS = 49;
 const RECALL_GAIN = 2;
 const RESOURCE_PULL = 0.1;
 
-function memoryStep(x, phi, resource, dt) {
+// PAST (H-AL's suggestion, ISS-052; interpretive): the memory kernel and asymmetric
+// coupling. past = { trace }: recall compares a blend of the present and a fading trace of
+// the past, K(tau) = exp(-tau / PAST_TAU) / PAST_TAU, so the past keeps shaping the ground;
+// and the coupling is not symmetric (W_ij != W_ji): recalling FIGHT feeds FREEZE, not the
+// reverse, after the defence cascade (fight or flight, then freeze). Off by default.
+const PAST_TAU = 4;
+const PAST_BLEND = 0.5;
+const CASCADE = 0.35;
+
+function memoryStep(x, phi, resource, dt, past = null) {
   const T = temperature(phi);
   const gamma = RECALL_GAIN / T;
+  if (past) for (let i = 0; i < N_CELLS; i++) past.trace[i] += (x[i] - past.trace[i]) * Math.min(1, dt / PAST_TAU);
   const sims = PATTERNS.map((p, k) => {
     let s = 0;
-    for (let i = 0; i < N_CELLS; i++) s += p[i] * x[i];
+    for (let i = 0; i < N_CELLS; i++) s += p[i] * (past ? (1 - PAST_BLEND) * x[i] + PAST_BLEND * past.trace[i] : x[i]);
     return s / N_CELLS + (resource && k === 0 ? RESOURCE_PULL : 0);
   });
   const m = Math.max(...sims);
   const e = sims.map(s => Math.exp(gamma * (s - m)));
   const z = e.reduce((a, b) => a + b, 0);
   const w = e.map(v => v / z);
+  if (past) {
+    const fed = CASCADE * w[1];
+    w[1] -= fed;
+    w[2] += fed;
+  }
   const noise = 0.02 + 0.55 * phi * phi;
   const k = 1 - Math.exp(-dt * 6);
   for (let i = 0; i < N_CELLS; i++) {
@@ -1937,6 +1952,7 @@ function cellColor(v, alpha = 1) {
 
 function makeNetwork() {
   const x = Float32Array.from(PATTERNS[2]);
+  const past = { trace: Float32Array.from(x) };
   let weights = [0, 0, 1];
   const flips = new Float32Array(N_CELLS);
   const prevSign = Float32Array.from(x, Math.sign);
@@ -1946,7 +1962,8 @@ function makeNetwork() {
     focus: [-0.31, -0.09],
     tick(env) {
       const steps = 3;
-      for (let s = 0; s < steps; s++) weights = memoryStep(x, env.phi, env.resource, env.dt / steps);
+      if (!env.past) past.trace.set(x);
+      for (let s = 0; s < steps; s++) weights = memoryStep(x, env.phi, env.resource, env.dt / steps, env.past ? past : null);
       for (let i = 0; i < N_CELLS; i++) {
         const sign = Math.sign(x[i]);
         if (sign !== prevSign[i]) flips[i] = 1;
@@ -1996,6 +2013,14 @@ function makeNetwork() {
         ctx.arc(cx * u, cy * u, 0.034 * u, 0, TAU);
         ctx.fill();
         ctx.stroke();
+        // PAST: the trace as a ring around each cell, the colour of what it was
+        if (env.past) {
+          ctx.strokeStyle = cellColor(past.trace[i], 0.9);
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(cx * u, cy * u, 0.042 * u, 0, TAU);
+          ctx.stroke();
+        }
         ctx.restore();
       }
       for (const [k, th] of thumbs.entries()) {
@@ -2018,6 +2043,10 @@ function makeNetwork() {
         const T = temperature(phi);
         label(ctx, u, `RECALLED: ${MEMORY_NAMES[best].toUpperCase()}`, -0.31, -0.52, MEMORY_COLORS[MEMORY_NAMES[best]], 'center', 0.038);
         label(ctx, u, `T = ${T.toFixed(2)}${env.resource ? '   RESOURCE: pull towards SAFE' : ''}`, -0.31, 0.31, COLORS.dim, 'center', 0.028);
+        if (env.past) {
+          label(ctx, u, `PAST: K(τ) = e^(−τ/${PAST_TAU} s), the rings are the trace; W_ij ≠ W_ji: FIGHT feeds FREEZE`, -0.31, 0.38, COLORS.violet, 'center', 0.022);
+          label(ctx, u, 'the past keeps shaping the ground (interpretive: the defence cascade)', -0.31, 0.43, COLORS.dim, 'center', 0.02);
+        }
       }
     },
   };
@@ -2227,6 +2256,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
+      <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
       <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
       <button type="button" data-act="climb" title="Climb the stone's north face (a climber 40 µm tall: the stone is 150 climbers high)">CLIMB</button>
@@ -2261,6 +2291,7 @@ export function createExplorer(hooks = {}) {
   const card = root.querySelector('.explorer__card');
   const feelRow = root.querySelector('.explorer__feel');
   const resourceButton = root.querySelector('[data-act="resource"]');
+  const pastButton = root.querySelector('[data-act="past"]');
   const hrLabel = root.querySelector('.explorer__hr');
   const hrInput = hrLabel.querySelector('input');
   const hrOut = hrLabel.querySelector('output');
@@ -2315,7 +2346,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2408,6 +2439,9 @@ export function createExplorer(hooks = {}) {
     }
     resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
+    pastButton.hidden = st.stop !== 'network';
+    pastButton.classList.toggle('active', st.past);
+    pastButton.setAttribute('aria-pressed', String(st.past));
     hrLabel.hidden = st.stop !== 'score';
     krButton.hidden = st.stop !== 'score';
     strapButton.hidden = st.stop !== 'score';
@@ -2613,7 +2647,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null, bpm: st.bpm });
     if (stereo) {
       prepareLayers(lw);
@@ -2779,6 +2813,9 @@ export function createExplorer(hooks = {}) {
       st.own = Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1));
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'past') {
+      st.past = !st.past;
+      syncUi();
     } else if (b.dataset.act === 'orbit' || b.dataset.act === 'climb') {
       const g = scene('ureter').gl;
       g?.setView(g.view === b.dataset.act ? 'scope' : b.dataset.act);
