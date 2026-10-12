@@ -2447,7 +2447,9 @@ Steps:
       T_eff, bursts at threshold crossings, after the chats); branching paths
       (several tunnels; which one a thought takes depends on the gates); the
       granular sound of motion; fluid as a real flow solver.
-- [ ] Emotion and thought, next: a Lean type for "same field, different type"
+- [ ] (13 Oct, part: the tunnelling move is built: at 11D POKE tries the landscape's lowest
+      barrier with the WKB chance, model ħ 0.3; calm 0.2 %, Φ 0.3 2.6 %, in explorer-check; the
+      Lean FieldEvent type is still open) Emotion and thought, next: a Lean type for "same field, different type"
       (an inductive FieldEvent with emotion at D8 and thought at D9–11 and a
       projection between them), so the claim becomes a definition the
       registry can point to; a tunnelling move on the landscape (the ball
