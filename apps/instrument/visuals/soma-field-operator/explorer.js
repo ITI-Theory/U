@@ -57,6 +57,7 @@ import { createTowerPanel } from './tower.js';
 import { createCathedral3D } from './cathedral3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
+import { createUreterModel, URETER_STAGES } from './ureter-model.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 
@@ -1364,8 +1365,198 @@ function makeTunnel() {
 
 // ---------------------------------------------------------------- stop: the ureter
 
+// THE STAGES, OUTSIDE (ISS-076): the urinary tract as a medical illustration, from the kidney to
+// the bladder, the tube's width from the model, the stone, the stent, the waves; and the pain as
+// the adverts draw it: a red glow where it starts, rings spreading from each spasm, and the places
+// it is felt (the loin and the groin, the dermatomes T11 to L2). Beneath, the last minute of pain:
+// it comes in waves. box: { x, y, w } in scene units, the tract above, the trace below.
+function wrapLines(text, n) {
+  const out = [];
+  let line = '';
+  for (const word of String(text).split(' ')) {
+    if ((line + ' ' + word).trim().length > n) { out.push(line.trim()); line = word; } else line += ' ' + word;
+  }
+  if (line.trim()) out.push(line.trim());
+  return out;
+}
+
+function drawUreterOutside(ctx, u, env, m, box) {
+  const s = box.w;
+  const P = (px, py) => [box.x + px * s, box.y + py * s];
+  const bez = x => {
+    const a = [0.42, 0.2], b = [0.28, 0.42], c = [0.56, 0.6], d = [0.52, 0.8];
+    const q = 1 - x;
+    return [q * q * q * a[0] + 3 * q * q * x * b[0] + 3 * q * x * x * c[0] + x * x * x * d[0],
+      q * q * q * a[1] + 3 * q * q * x * b[1] + 3 * q * x * x * c[1] + x * x * x * d[1]];
+  };
+  const at = x => P(...bez(Math.max(0, Math.min(1, x))));
+  const normal = x => {
+    const [x0, y0] = bez(Math.max(0, x - 0.01));
+    const [x1, y1] = bez(Math.min(1, x + 0.01));
+    const len = Math.hypot(x1 - x0, y1 - y0) || 1;
+    return [-(y1 - y0) / len, (x1 - x0) / len];
+  };
+  const D = m.distension;
+  const t = env.t;
+  const glowAt = ([x, y], r, color, a) => { if (a > 0.01) glow(ctx, u, x, y, r, color, Math.min(1, a)); };
+  ctx.save();
+  // the body, faint, as the adverts draw it
+  ctx.strokeStyle = 'rgba(160,190,230,0.22)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse((box.x + 0.5 * s) * u, (box.y + 0.5 * s) * u, 0.42 * s * u, 0.52 * s * u, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  // the places the pain is felt: the loin and the groin (the same spinal segments)
+  const pain = Math.min(1, m.pain);
+  const pulse = 0.65 + 0.35 * Math.sin(t * 2.2);
+  glowAt(P(0.14, 0.3), 0.14 * s, '#ff2a3c', 0.55 * pain * pulse);
+  glowAt(P(0.66, 0.92), 0.12 * s, '#ff2a3c', 0.45 * pain * pulse);
+  // the kidney (it swells too when the urine backs up) and the bladder
+  const kid = P(0.33, 0.14);
+  ctx.fillStyle = '#9a3846';
+  ctx.strokeStyle = 'rgba(255,190,200,0.6)';
+  ctx.beginPath();
+  ctx.ellipse(kid[0] * u, kid[1] * u, 0.07 * s * (1 + 0.15 * D) * u, 0.11 * s * (1 + 0.15 * D) * u, -0.25, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  const bl = P(0.53, 0.86);
+  ctx.fillStyle = '#b8606e';
+  ctx.beginPath();
+  ctx.ellipse(bl[0] * u, bl[1] * u, 0.11 * s * u, 0.065 * s * u, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  // the ureter: its width from the model, the urine inside it, pooled above the stone
+  const hw0 = 0.016 * s;
+  const side = (k, f) => {
+    const pts = [];
+    for (let i = 0; i <= 80; i++) {
+      const x = i / 80;
+      const [px, py] = at(x);
+      const [nx, ny] = normal(x);
+      const w = hw0 * m.radius(x) * f * k;
+      pts.push([px + nx * w, py + ny * w]);
+    }
+    return pts;
+  };
+  const tubePath = f => {
+    const a = side(1, f);
+    const b = side(-1, f).reverse();
+    ctx.beginPath();
+    [...a, ...b].forEach(([x, y], i) => (i ? ctx.lineTo(x * u, y * u) : ctx.moveTo(x * u, y * u)));
+    ctx.closePath();
+  };
+  tubePath(1);
+  ctx.fillStyle = '#d97a88';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,220,225,0.7)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  tubePath(0.55);
+  ctx.fillStyle = `rgba(255,226,120,${0.25 + 0.5 * D})`;
+  ctx.fill();
+  // the waves: muscle rings travelling down
+  ctx.strokeStyle = '#6a1424';
+  ctx.lineWidth = 3;
+  for (const w of m.waves) {
+    const [px, py] = at(w.x);
+    const [nx, ny] = normal(w.x);
+    const hw = hw0 * m.radius(w.x) * 1.15;
+    ctx.beginPath();
+    ctx.moveTo((px - nx * hw) * u, (py - ny * hw) * u);
+    ctx.lineTo((px + nx * hw) * u, (py + ny * hw) * u);
+    ctx.stroke();
+  }
+  // the stent, curled at both ends
+  if (m.stent) {
+    ctx.strokeStyle = '#4aa3ff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    const curl = ([cx, cy], r0) => { for (let a = 0; a <= Math.PI * 3; a += 0.2) ctx.lineTo((cx + r0 * Math.cos(a)) * u, (cy + r0 * Math.sin(a)) * u); };
+    const k0 = P(0.37, 0.16);
+    ctx.moveTo((k0[0] + 0.025 * s) * u, k0[1] * u);
+    curl(k0, 0.025 * s);
+    for (let i = 0; i <= 60; i++) { const [px, py] = at(i / 60); ctx.lineTo(px * u, py * u); }
+    curl(P(0.53, 0.84), 0.03 * s);
+    ctx.stroke();
+  }
+  // the stone
+  if (m.stone > 0) {
+    const [sx, sy] = at(0.55);
+    const r = hw0 * 1.5 * (0.45 + 0.55 * m.stone / 3);
+    ctx.fillStyle = '#e0b860';
+    ctx.strokeStyle = '#7a5428';
+    for (let k = 0; k < 7; k++) {
+      const a = k * 0.9 + 0.3;
+      const cx = sx + (k ? Math.cos(a) * r * 0.6 : 0);
+      const cy = sy + (k ? Math.sin(a) * r * 0.6 : 0);
+      const rr = k ? r * 0.5 : r * 0.8;
+      ctx.beginPath();
+      ctx.moveTo(cx * u, (cy - rr) * u);
+      ctx.lineTo((cx + rr * 0.6) * u, cy * u);
+      ctx.lineTo(cx * u, (cy + rr) * u);
+      ctx.lineTo((cx - rr * 0.6) * u, cy * u);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+  // the pain where it starts: the stone's spasm, the swollen tube, the stent's ends
+  glowAt(at(0.55), (0.05 + 0.12 * m.spasm) * s, '#ff2a3c', (0.3 + 0.7 * m.spasm) * (0.4 + 0.6 * pain));
+  glowAt(at(0.28), 0.1 * s * D, '#ff4d5e', 0.5 * Math.max(0, D - 0.25) * (0.5 + pain));
+  if (m.stent) { glowAt(kid, 0.06 * s, '#ff7a3c', 0.5); glowAt(bl, 0.06 * s, '#ff7a3c', 0.5); }
+  // rings spreading from each spasm, as in the adverts
+  for (const r of m.rings) {
+    const c = r.kind === 'end' ? (r.x < 0.5 ? kid : bl) : at(r.x);
+    const f = r.age / 3;
+    ctx.strokeStyle = r.kind === 'end' ? `rgba(255,140,60,${(1 - f) * Math.min(1, r.strength * 1.5)})` : `rgba(255,50,70,${(1 - f) * Math.min(1, r.strength * 1.5)})`;
+    ctx.lineWidth = 3 * (1 - f) + 1;
+    ctx.beginPath();
+    ctx.arc(c[0] * u, c[1] * u, (0.03 + 0.28 * f) * s * u, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  ctx.restore();
+  if (env.labels) {
+    leader(ctx, u, 'KIDNEY', kid, P(0.06, 0.06), 'rgba(255,190,200,0.9)');
+    leader(ctx, u, 'URETER', at(0.25), P(0.04, 0.48), 'rgba(255,190,200,0.9)');
+    if (m.stone > 0) leader(ctx, u, 'STONE', at(0.55), P(0.82, 0.5), COLORS.gold);
+    if (m.stent) leader(ctx, u, 'STENT (double-J)', at(0.75), P(0.8, 0.7), '#4aa3ff');
+    leader(ctx, u, 'BLADDER', bl, P(0.86, 0.86), 'rgba(255,190,200,0.9)');
+    if (pain > 0.15) {
+      label(ctx, u, 'felt in the loin', ...P(0.14, 0.42), '#ff6070', 'center', 0.02);
+      label(ctx, u, 'and the groin (T11 to L2)', ...P(0.7, 1.0), '#ff6070', 'center', 0.02);
+    }
+  }
+  // the last minute: the pain (red) and the swelling (gold)
+  const cy0 = box.y + 1.06 * s;
+  const ch = 0.2 * s;
+  const cx0 = box.x + 0.04 * s;
+  const cw = 0.92 * s;
+  ctx.save();
+  ctx.fillStyle = 'rgba(8,10,20,0.75)';
+  ctx.fillRect(cx0 * u, cy0 * u, cw * u, ch * u);
+  const tr = m.trace;
+  const X = i => cx0 + cw * (i / 239);
+  ctx.beginPath();
+  ctx.moveTo(X(240 - tr.length) * u, (cy0 + ch) * u);
+  tr.forEach(([p], i) => ctx.lineTo(X(240 - tr.length + i) * u, (cy0 + ch - ch * Math.min(1, p / 1.2)) * u));
+  ctx.lineTo(X(239) * u, (cy0 + ch) * u);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(255,42,60,0.55)';
+  ctx.fill();
+  ctx.strokeStyle = COLORS.gold;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  tr.forEach(([, d], i) => { const x = X(240 - tr.length + i) * u, y = (cy0 + ch - ch * d) * u; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
+  ctx.stroke();
+  ctx.restore();
+  if (env.labels) label(ctx, u, `THE LAST MINUTE · pain (red) comes in waves: colic · swelling (gold)${m.stage === 2 ? ' · under anaesthetic' : ''}`, cx0, cy0 - 0.02, COLORS.dim, 'left', 0.018);
+}
+
 function makeUreter() {
   let gl = null;
+  // the stone as a process: the model drives both views (ureter-model.js)
+  const model = createUreterModel();
+  let pokeEvent = { text: '', until: 0 };
   // the wall (ISS-076): 0 = the scope's view; 1..6 = the barrier at a scale (BARRIERS[wall - 1])
   let wall = 0;
   const shot = { x: -1, state: 'idle', wob: 0, through: false };
@@ -1555,25 +1746,63 @@ function makeUreter() {
     }
   }
 
+  // the stage strip and its line, at the top of either view
+  function drawStages(ctx, env) {
+    const { u } = env;
+    URETER_STAGES.forEach((stg, k) => {
+      const x = -0.66 + k * 0.44;
+      const on = k === model.stage;
+      label(ctx, u, `${k + 1} ${stg.title}`, x, -0.75, on ? COLORS.gold : 'rgba(232,238,252,0.4)', 'center', on ? 0.03 : 0.024);
+    });
+    wrapLines(URETER_STAGES[model.stage].line, 120).forEach((l, k) => label(ctx, u, l, 0, -0.69 + k * 0.035, COLORS.ink, 'center', 0.019));
+  }
+
   return {
     focus: [0, 0],
-    tick() {},
+    tick(env) {
+      model.setStage(env.uo ?? 0);
+      model.step(env.dt, { phi: env.phi });
+    },
+    get model() { return model; },
     get wall() { return wall; },
     get gl() { return gl; },
     setWall(n) { wall = Math.max(0, Math.min(BARRIERS.length, n)); shot.state = 'idle'; shot.through = false; wallEvent = { text: '', until: 0 }; },
     poke(strength) {
       if (wall) { if (shot.state === 'idle') { shot.state = 'go'; shot.x = -0.75; shot.through = false; } return; }
-      gl?.poke(strength);
+      const r = model.poke();
+      if (r === 'wave') pokeEvent = { text: 'a drink: more urine comes down, another wave', until: model.time + 3 };
     },
     draw(ctx, env) {
       const { u, t, phi } = env;
       if (wall) { drawWall(ctx, env); return; }
-      if (!env.gl) {
-        if (env.labels) label(ctx, u, 'URETER needs WebGL (3D)', 0, 0, COLORS.dim, 'center', 0.03);
+      const view = env.uv || 'in';
+      const W = env.w / 2 / u;
+      if (view === 'out' || !env.gl) {
+        // OUTSIDE: the urinary tract, full screen
+        ctx.save();
+        ctx.fillStyle = '#0b0d16';
+        ctx.fillRect(-W * u, -env.h / 2, 2 * W * u, env.h);
+        ctx.restore();
+        const bw = Math.min(1.05, 2 * W - 0.2);
+        drawUreterOutside(ctx, u, env, model, { x: -bw / 2, y: -0.6, w: bw * 0.92 });
+        if (env.labels) {
+          drawStages(ctx, env);
+          label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸: the next stage · a teaching picture: days compressed into seconds, not medical advice`, 0, 0.94, COLORS.dim, 'center', 0.018);
+        }
         return;
       }
       gl = env.gl;
-      gl.render({ phi, resource: env.resource, dim: env.dim, time: t, stereo: env.stereo });
+      gl.render({ phi, resource: env.resource, dim: env.dim, time: t, stereo: env.stereo, ureter: model });
+      if (view === 'both') {
+        // BOTH: the outside as a panel beside the inside
+        const bw = Math.min(0.62, W * 0.55);
+        const bx = W - bw - 0.04;
+        ctx.save();
+        ctx.fillStyle = 'rgba(6,8,16,0.82)';
+        ctx.fillRect((bx - 0.02) * u, -0.64 * u, (bw + 0.04) * u, 1.42 * u);
+        ctx.restore();
+        drawUreterOutside(ctx, u, env, model, { x: bx, y: -0.56, w: bw });
+      }
       if (env.labels && gl.view === 'orbit') {
         label(ctx, u, 'ORBIT · THE STONE · 6 mm · drag to turn, the wheel to zoom', 0, -0.7, COLORS.gold, 'center', 0.03);
         label(ctx, u, 'calcium oxalate dihydrate (weddellite): sharp bipyramid crystals, honey to ivory; brown flecks of the monohydrate', 0, 0.7, COLORS.dim, 'center', 0.022);
@@ -1586,11 +1815,14 @@ function makeUreter() {
         return;
       }
       if (env.labels) {
-        const pain = Math.min(1, gl.colic * (0.6 + 0.8 * phi));
-        const msg = gl.blocked ? 'AT THE 6 mm STONE · too big to pass · POKE = laser, or WALL ▸ to try the wall' : gl.stoneAhead ? 'STONE AHEAD (6 mm) · POKE = laser' : gl.colic > 0.05 ? 'moving up the ureter · a stone is somewhere ahead' : 'the path is clear';
-        label(ctx, u, msg, 0, -0.7, gl.blocked || gl.stoneAhead ? COLORS.orange : COLORS.teal, 'center', 0.03);
-        label(ctx, u, `colic ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.03);
-        if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.62, COLORS.gold, 'center', 0.032);
+        const pain = Math.min(1, model.pain);
+        drawStages(ctx, env);
+        const where = model.stage === 2 ? (gl.blocked ? 'THE SCOPE AT THE STONE' : 'THE SCOPE comes up from the bladder') : model.stage === 1 ? 'INSIDE, above the stone: the stent (blue, on the floor) drains past it; the swelling falls' : model.stone > 0 ? 'INSIDE the ureter above the stone, looking down at it: the tube swells, the waves crash into it' : 'INSIDE the ureter: the waves pass freely';
+        label(ctx, u, where, 0, -0.56, COLORS.teal, 'center', 0.024);
+        label(ctx, u, `pain ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM${model.stage === 2 ? ' · under anaesthetic: the nerves still signal (' + Math.round(100 * Math.min(1, model.raw)) + '%), it is not felt' : ''}`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.028);
+        label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸ the next stage · VIEW: inside, outside, both`, 0, 0.7, COLORS.dim, 'center', 0.02);
+        if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.5, COLORS.gold, 'center', 0.03);
+        else if (pokeEvent.until > model.time) label(ctx, u, pokeEvent.text, 0, -0.5, COLORS.gold, 'center', 0.028);
       }
     },
   };
@@ -2579,6 +2811,8 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
+      <button type="button" data-act="uo" title="The four stages (ISS-076): 1 the stone, 2 the stent, 3 the laser, 4 the stent out">STAGE 1 · THE STONE ▸</button>
+      <button type="button" data-act="uv" title="INSIDE the tube, OUTSIDE (the urinary tract and where the pain is felt), or BOTH; on two screens, one window INSIDE and the other OUTSIDE">VIEW: INSIDE</button>
       <button type="button" data-act="follow" title="Follow the colic from the stone to the brain: up the spinal cord to the thalamus and the pain regions (ISS-077)">FOLLOW THE PAIN ▸</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
       <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
@@ -2661,6 +2895,8 @@ export function createExplorer(hooks = {}) {
   const editButton = root.querySelector('[data-act="edit"]');
   const wallButton = root.querySelector('[data-act="wall"]');
   const followButton = root.querySelector('[data-act="follow"]');
+  const uoButton = root.querySelector('[data-act="uo"]');
+  const uvButton = root.querySelector('[data-act="uv"]');
   const wdownButton = root.querySelector('[data-act="wdown"]');
   const wupButton = root.querySelector('[data-act="wup"]');
   const orbitButton = root.querySelector('[data-act="orbit"]');
@@ -2718,7 +2954,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2801,6 +3037,9 @@ export function createExplorer(hooks = {}) {
     const wallNow = st.stop === 'ureter' ? scene('ureter').wall : 0;
     wallButton.hidden = st.stop !== 'ureter';
     followButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
+    uoButton.hidden = uvButton.hidden = st.stop !== 'ureter' || Boolean(wallNow);
+    uoButton.textContent = `STAGE ${st.uo + 1} · ${URETER_STAGES[st.uo].title} ▸`;
+    uvButton.textContent = `VIEW: ${{ in: 'INSIDE', out: 'OUTSIDE', both: 'BOTH' }[st.uv]}`;
     wallButton.textContent = wallNow ? '◂ SCOPE' : 'WALL ▸';
     wdownButton.hidden = wupButton.hidden = !wallNow;
     wdownButton.disabled = wallNow >= BARRIERS.length;
@@ -3034,7 +3273,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3222,6 +3461,14 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
       syncUi();
+    } else if (b.dataset.act === 'uo') {
+      st.uo = (st.uo + 1) % URETER_STAGES.length;
+      syncUi();
+      hooks.onChange?.();
+    } else if (b.dataset.act === 'uv') {
+      st.uv = { in: 'out', out: 'both', both: 'in' }[st.uv];
+      syncUi();
+      hooks.onChange?.();
     } else if (b.dataset.act === 'follow') {
       st.pain = 'acute';
       st.painFrom = 'ureter';
@@ -3325,6 +3572,14 @@ export function createExplorer(hooks = {}) {
     // the open tower of the city of code and its floor (the hash keys tower and floor)
     get tower() { return towerPanel.open ? { tower: towerPanel.item.title.replace(/\.lean$/, ''), floor: towerPanel.floor } : null; },
     setTower(tower, floor) { st.tower = tower || ''; st.floor = floor || ''; },
+    // the ureter's stage (shared by all windows) and view (this window): uo 1-4, uv in|out|both
+    get ureterParams() { return { uo: st.uo, uv: st.uv }; },
+    setUreter({ uo, uv } = {}) {
+      const n = Number(uo);
+      if (uo !== null && uo !== undefined && n >= 1 && n <= URETER_STAGES.length) st.uo = n - 1;
+      if (['in', 'out', 'both'].includes(uv)) st.uv = uv;
+      syncUi();
+    },
     get open() { return st.open; },
     get stereo() { return st.stereo; },
     setStereo(mode) {

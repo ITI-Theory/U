@@ -3452,6 +3452,19 @@ the stone is the freeze attractor in the body, and the voyage teaches the model.
       Hameroff; decoherence objections, Tegmark 2000). The programme's limbic tunnel is a
       model (WKB gate; `quant_exp_1` is an axiom recording a numerical result), not a
       claim that neurons tunnel. Say so on screen.
+- [x] (13 Oct 16:30, author: the stone is not a point, it is always being poked; the main picture
+      is the waves; two screens, one inside, one outside, like the adverts of pain spreading;
+      four stages: the stone, the stent, the laser, the stent out.) Built: ureter-model.js, the
+      stone as a process: the kidney keeps producing, urine backs up above the stone, the tube
+      swells, peristaltic waves come faster and deeper and crash into the stone (a spasm each),
+      the pain is stretch + spasm (+ the stent's ends, + reflux when the bladder empties),
+      louder with Φ, not felt under anaesthetic. STAGE ▸ 1-4 (uo, shared by all windows; the
+      stent drains and dilates, the laser breaks it, the stent out gives a last spasm); VIEW:
+      INSIDE (the 3D tube swelling and squeezing, waves as muscle rings, the stent on the floor,
+      a red light at each spasm), OUTSIDE (the urinary tract drawn like a medical illustration,
+      the stone, the stent, pain rings spreading from each spasm, the loin and the groin
+      lighting, the last minute of pain: it comes in waves), BOTH (uv, per window: one screen
+      inside, one outside). A teaching picture, days compressed into seconds.
 
 ## ISS-077: Inside the brain: the cathedral, thoughts as bursts, the path of pain — OPEN
 {{Tags area.app, area.instrument, area.visualize}}

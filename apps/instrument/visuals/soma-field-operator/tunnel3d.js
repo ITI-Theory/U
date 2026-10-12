@@ -9,6 +9,7 @@
 // Mandelbulb, the mind, floats at the centre of the loop. Mono or stereo (SBS).
 
 import * as THREE from 'three';
+import { XS } from './ureter-model.js';
 import { createVessel } from './vessel.js';
 
 function seeded(seed) {
@@ -298,6 +299,74 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
     scene.add(stone.mesh);
   }
   if (ureter) newStone();
+  // THE STAGES (ureter-model.js, ISS-076): the model is the stone as a process. Where the
+  // ureter lies on the loop: the kidney at uOf(0), the stone at STONE_U, the bladder at uOf(1)
+  const L = 0.4;
+  const uOf = x => STONE_U + (XS - x) * L;
+  const xOf = uu => XS - (uu - STONE_U) / L;
+  // the walls swell and squeeze: each ring of the tube scaled about the centre line
+  function deformer(mesh, TS, RS) {
+    const pos = mesh.geometry.attributes.position;
+    const base = Float32Array.from(pos.array);
+    const centres = Array.from({ length: TS + 1 }, (_, i) => curve.getPointAt((i / TS) % 1));
+    return scale => {
+      for (let i = 0; i <= TS; i++) {
+        const sc = scale(i / TS);
+        const c = centres[i];
+        for (let j = 0; j <= RS; j++) {
+          const k = (i * (RS + 1) + j) * 3;
+          pos.array[k] = c.x + (base[k] - c.x) * sc;
+          pos.array[k + 1] = c.y + (base[k + 1] - c.y) * sc;
+          pos.array[k + 2] = c.z + (base[k + 2] - c.z) * sc;
+        }
+      }
+      pos.needsUpdate = true;
+    };
+  }
+  const deformTube = ureter ? deformer(tube, 360, 14) : null;
+  const vesselsMesh = ureter ? scene.children.find(o => o.isMesh && o !== tube && o.material.wireframe) : null;
+  const deformVessels = vesselsMesh ? deformer(vesselsMesh, 360, 10) : null;
+  // the stent: a thin blue tube beside the stone from the bladder to the kidney, curled at both ends
+  function makeStent() {
+    const up = new THREE.Vector3(0, 1, 0);
+    const frame = uu => {
+      const p = curve.getPointAt(uu);
+      const t = curve.getTangentAt(uu);
+      return { p, t, n: new THREE.Vector3().crossVectors(t, up).normalize() };
+    };
+    // along the floor of the tube, away from the scope's line of sight
+    const down = new THREE.Vector3(0, -1, 0);
+    const off = 0.72;
+    const line = [];
+    for (let k = 0; k <= 80; k++) {
+      const { p } = frame(uOf(1) + (uOf(0) - uOf(1)) * k / 80);
+      line.push(p.clone().addScaledVector(down, off));
+    }
+    const curl = (uu, sign) => {
+      const { p, t, n } = frame(uu);
+      const c = p.clone().addScaledVector(down, off).addScaledVector(t, sign * 0.3);
+      const out = [];
+      for (let a = 0.25; a <= 1.6 * Math.PI * 2; a += 0.25) out.push(c.clone().addScaledVector(t, -sign * 0.3 * Math.cos(a)).addScaledVector(n, 0.3 * Math.sin(a)));
+      return out;
+    };
+    const pts = [...curl(uOf(1), -1).reverse(), ...line, ...curl(uOf(0), 1)];
+    const mesh = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 700, 0.035, 8, false),
+      new THREE.MeshStandardMaterial({ color: '#4aa3ff', roughness: 0.3, emissive: '#0a2a55', transparent: true, opacity: 0.9 }));
+    mesh.visible = false;
+    scene.add(mesh);
+    return mesh;
+  }
+  const stentMesh = ureter ? makeStent() : null;
+  const waveRings = ureter ? Array.from({ length: 8 }, () => {
+    const r = new THREE.Mesh(new THREE.TorusGeometry(1.08, 0.14, 8, 36), new THREE.MeshStandardMaterial({ color: '#b03050', roughness: 0.55, emissive: '#300810' }));
+    r.visible = false;
+    scene.add(r);
+    return r;
+  }) : [];
+  const painLight = ureter ? new THREE.PointLight('#ff2a3c', 0, 5, 1.5) : null;
+  if (painLight) { painLight.position.copy(curve.getPointAt(STONE_U)); scene.add(painLight); }
+  let modelStage = -1;
+  let dir = 1;
   let colic = 0;
   let stoneAhead = false;
   // ORBIT and CLIMB (ISS-076): fly around the stone, or climb its north face (the side facing
@@ -423,6 +492,7 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
     get view() { return view; },
     get climbAltitude() { return climb.alt; },
     get hasStone() { return stone.size > 0; },
+    get stageView() { return dir; },
     setView(next) {
       view = stone.size > 0 ? next : 'scope';
       if (climber) climber.visible = view === 'climb';
@@ -440,7 +510,99 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
       if (!ureter && !vessel && state.world !== world) buildWalls(state.world);
       const dt = Math.min(0.05, last ? state.time - last : 0.016);
       last = state.time;
-      if (ureter) {
+      if (ureter && state.ureter) {
+        const m = state.ureter;
+        // a new stage: where the camera is and which way it looks
+        if (m.stage !== modelStage) {
+          modelStage = m.stage;
+          if (m.stage === 2) { dir = 1; u = 0.42; } else { dir = -1; u = m.stage === 3 ? 0.66 : 0.62; }
+          speed = 0;
+        }
+        // the stone follows the model; a smaller stone than before is a laser shot
+        if (m.stone > 0 && !stone.mesh) newStone();
+        if (m.stone < stone.size && stone.mesh) {
+          light.intensity = 14;
+          for (let k = 0; k < 40; k++) {
+            const d = new THREE.Mesh(new THREE.TetrahedronGeometry(0.012 + 0.02 * Math.random()), new THREE.MeshStandardMaterial({ color: '#d9b878', flatShading: true }));
+            d.position.copy(stone.mesh.position);
+            stone.dust.push({ m: d, v: new THREE.Vector3((Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 0.8), age: 0 });
+            scene.add(d);
+          }
+          event = m.stone > 0 ? { text: `LASER: the stone breaks (${m.stone} of 3 left)`, until: state.time + 3 } : { text: 'LASER: dust. The path is clear, the urine flows again', until: state.time + 4 };
+        }
+        stone.size = m.stone;
+        if (stone.mesh) {
+          if (m.stone > 0) stone.mesh.scale.setScalar(0.45 + 0.55 * (m.stone / 3));
+          else { scene.remove(stone.mesh); stone.mesh = null; }
+        }
+        light.intensity += ((view === 'scope' ? 3 : view === 'climb' ? 0.35 : 1.2) - light.intensity) * Math.min(1, dt * 4);
+        // the walls: swelling above the stone, the clamp around it, the waves
+        const scaleAt = uu => {
+          const x = xOf(uu);
+          if (x < -0.05 || x > 1.05) return 1;
+          const w = Math.min(1, Math.min(x + 0.05, 1.05 - x) / 0.05);
+          return 1 + (m.radius(Math.max(0, Math.min(1, x))) - 1) * w;
+        };
+        deformTube(scaleAt);
+        deformVessels?.(scaleAt);
+        // the pain: the whole wall glows with it; a red pulse at the stone with each spasm
+        colic = m.pain;
+        tube.material.emissive.setRGB(0.2 + 0.45 * Math.min(1, m.pain) * (0.7 + 0.3 * Math.sin(state.time * 4)), 0.03, 0.06);
+        painLight.intensity = 6 * m.spasm + (m.stent ? 0 : 0.6 * m.distension);
+        if (stone.mesh && view === 'scope') stone.mesh.rotation.y += dt * 0.15;
+        if (!stone.mesh && view !== 'scope') { view = 'scope'; climber.visible = false; }
+        stentMesh.visible = m.stent;
+        // the waves as muscle rings, travelling from the kidney towards the bladder
+        waveRings.forEach((r, k) => {
+          const w = m.waves[k];
+          r.visible = Boolean(w);
+          if (!w) return;
+          const uu = uOf(w.x);
+          const pp = curve.getPointAt(uu);
+          r.position.copy(pp);
+          r.lookAt(pp.clone().add(curve.getTangentAt(uu)));
+          const sc = 0.98 * m.radius(w.x);
+          r.scale.set(sc, sc, 1);
+        });
+        // the urine: from the kidney down; held above the stone, dripping through a stent
+        const D = m.distension;
+        for (let i = 0; i < FLOW; i++) {
+          const x0 = xOf(flowU[i]);
+          const pooled = m.stone > 0 && x0 < XS;
+          flowU[i] -= (pooled ? 0.004 + 0.01 * (1 - D) : 0.04 + 0.03 * Math.random()) * dt;
+          if (m.stone > 0 && xOf(flowU[i]) >= XS && x0 < XS) {
+            if (!(m.stent && Math.random() < 0.08)) flowU[i] = STONE_U + 0.004 + Math.random() * 0.2 * L * (0.3 + D);
+          }
+          if (xOf(flowU[i]) > 1.02 || flowU[i] < uOf(1.02)) flowU[i] = uOf(0) - Math.random() * 0.02;
+          const x1 = Math.max(0, Math.min(1, xOf(flowU[i])));
+          const pp = curve.getPointAt(((flowU[i] % 1) + 1) % 1).addScaledVector(flowOff[i], 0.9 * m.radius(x1));
+          flowPos[i * 3] = pp.x;
+          flowPos[i * 3 + 1] = pp.y;
+          flowPos[i * 3 + 2] = pp.z;
+        }
+        flowGeo.attributes.position.needsUpdate = true;
+        for (let i = stone.dust.length - 1; i >= 0; i--) {
+          const sd = stone.dust[i];
+          sd.age += dt;
+          sd.m.position.addScaledVector(sd.v, dt);
+          sd.v.multiplyScalar(0.96);
+          sd.m.rotation.x += dt * 3;
+          if (sd.age > 6) { scene.remove(sd.m); stone.dust.splice(i, 1); }
+        }
+        // the camera: the scope comes up from the bladder (the laser); otherwise the view is
+        // inside the swollen ureter above the stone, looking down at it with the flow
+        const ahead = dir > 0 ? (STONE_U - u + 1) % 1 : (u - STONE_U + 1) % 1;
+        const stop = m.stone > 0 ? ahead < 0.03 : (dir > 0 ? u > 0.62 : u < 0.36);
+        stoneAhead = m.stone > 0 && ahead < 0.12;
+        blockedAt = stop ? 0 : -1;
+        if (stop || view !== 'scope') speed = 0;
+        else {
+          speed += ((0.008 + 0.006 * state.phi) - speed) * Math.min(1, dt * 1.5);
+          u = (u + dir * speed * dt + 1) % 1;
+        }
+        state.colic = colic;
+        pokeWanted = 0;
+      } else if (ureter) {
         const there = stone.size > 0;
         const d = (STONE_U - u + 1) % 1;
         const blocked = there && d < 0.03;
@@ -472,6 +634,7 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
         if (stone.mesh && there && view === 'scope') stone.mesh.rotation.y += dt * 0.2;
         if (!there && view !== 'scope') { view = 'scope'; climber.visible = false; }
         for (const r of rings) {
+          r.ring.visible = true;
           r.u = (r.u + dt * 0.04) % 1;
           const pp = curve.getPointAt(r.u);
           r.ring.position.copy(pp);
@@ -557,10 +720,11 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
       ball.visible = !ureter;
       if (!ureter && blood.mesh.visible) blood.update(dt, speed);
       halo.scale.setScalar(1 + 0.25 * Math.sin(state.time * 6));
-      const behind = curve.getPointAt((u - 0.03 + 1) % 1);
+      const behind = curve.getPointAt((u - 0.03 * dir + 1) % 1);
       camera.position.copy(behind).add(new THREE.Vector3(0, ureter ? 0 : 0.45, 0));
       if (light) light.position.copy(camera.position);
-      camera.lookAt(curve.getPointAt((u + 0.01) % 1));
+      camera.lookAt(curve.getPointAt((u + 0.01 * dir + 1) % 1));
+      if (ureter && state.ureter) for (const r of rings) r.ring.visible = false;
       if (ureter && view !== 'scope' && stone.size > 0) {
         const c = stone.mesh.position;
         sun.intensity = view === 'climb' ? 0.8 : 1.2;
