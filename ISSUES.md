@@ -46,8 +46,6 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 
 **Actions (in order, Dist/README.md release cycle):**
 - [x] Build candidates (`make uat-stage-full`) and pass `make uat-check`.
-- [ ] Author: review P21 (cosmological constant) and set it to pending-upload
-   in `Dist/PAPERS.yaml` (`make generate` afterwards).
 - [ ] NotebookLM UAT from `uat/staging/<track>/`, fresh private `nlm-uat`:
    Sherlock (built right), The Wizard (built the right thing), The Monster
    (understandable). Record in `paper/UAT.md`.
@@ -70,6 +68,7 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    `U.Dot/nvim`, the author's own barebone-nvim (H-AL: chosen 29 Aug, "BB looks right";
    `soma-neovim-init.lua` was the Collected Works notebook's, 26 Aug), fixed for 0.12
    (U.Dot 84d88df). Restart the MOTHER bridge so its shell sees `nvim`.
+   The UAT includes the pilot's lines (wording and pace) and the MIDI knobs (ISS-074).
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
    manifests, commit Dist.
 - [ ] Zenodo: `ZENODO_SANDBOX_TOKEN` then `bin/zenodo-publish --sandbox plan`,
@@ -77,8 +76,14 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 - [ ] Fill new DOIs in `Dist/PAPERS.yaml`, `make generate`, update the org
    README DOI tables; commit and tag U and Dist together.
 
-**Closes:** `Dist/ISSUES.md` ISS-001 (migrated here 2026-08-14)
+- [ ] Set P21 to pending-upload in `Dist/PAPERS.yaml` (`make generate` afterwards) once the
+      UAT has read it; its physics question is answered (ISS-081, 13 Oct).
+- [ ] Print: the Field Atlas at bookfactory uses their template with bleed (3 mm assumed,
+      single pages unless they ask for spreads; checked in their configurator when
+      ordering), and its cover's spine width comes from their configurator for the final
+      page count (ISS-040).
 
+**Closes:** `Dist/ISSUES.md` ISS-001 (migrated here 2026-08-14)
 ---
 
 ## ISS-002: Phase 1 → Phase 2 — directory + versioning strategy — CLOSED
@@ -2195,6 +2200,9 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       READ MORE), using the generated figures.
 - [ ] Rules unchanged: context first, caption required, expressions are maths
       only, `expect_*` checks (docs/VISUALIZE.md).
+- [ ] (from ISS-081, author, 13 Oct: not the author's) The course's chapter-opening banners
+      for M1-M6, 3, 4, 13-15 (ISS-041).
+
 ---
 
 ## ISS-052: The Soma Machine is a mind-body explorer, not a flight simulator — OPEN
@@ -2588,6 +2596,13 @@ Steps:
       the two films (RMS 0.178 to 0.058 over the shared phases; it reads as
       C-PTSD 1.0, curiosity -0.29, safety +0.15). Still to do: the author
       tunes the presets and the condition mappings (and asks H-AL).
+- [ ] (from ISS-081, author, 13 Oct: not the author's) A DEPTH slider in the engine room for
+      `localStorage soma-stereo-depth` (default 1), for the author's calibration with the
+      glasses.
+- [ ] (from ISS-081, author, 13 Oct: not the author's) (ISS-027) H-AL's cautions
+      (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth transitions only, moderate depth
+      for clients (looming 3D can trigger C-PTSD), labels never in depth.
+
 ---
 
 ## ISS-053: The externalising machine: you compose your own film, the AI only asks — CLOSED
@@ -3052,6 +3067,19 @@ different scales (ZSF's "same as always").
       a category error becomes a type error in the programme's Lean, the concept
       registry and the app's type guard. Design note and spike on Emotion, Percept,
       Pole first.
+- [ ] (from ISS-081, author, 13 Oct: not the author's; do with the OWL types) (ISS-046)
+      Sherlock finding, 9 Oct: none of the 16 OpenCyc constants in EmotionOntology.lean's
+      CycRef interpreter exist in OpenCyc (checked against the OpenCyc OWL, 239,119
+      constants): `#$Joy-Emotion` etc., and the predicates `#$emotionalBlend`,
+      `#$emotionalInhibition`; `#$causes` exists only typed (`causes-SitSit` ...). Real
+      classes: Happiness, Sadness, Fear, Anger, Disgust, Surprise, Anticipation-Feeling,
+      ReflexiveAction, Expectation, AestheticDiscrimination; no match for trust,
+      entrainment, conditioning, contagion, imagery, episodic memory. The registry now uses
+      the real classes (the Lean string kept as `lean_cycref`); `make concepts` fails on any
+      class that is not an OpenCyc constant. Author decides: change the Lean strings (and
+      the CycRef examples quoted in the papers and the omnibus) to real constants, or define
+      the missing ones as the programme's own OWL classes. Plan: the real constants where
+      OpenCyc has them, the rest as the programme's own classes in TTheoryVocabularyMt.
 
 ## ISS-064: The Law book's affidavit chapter and the Russell reading — CLOSED
 {{Tags area.books}}
@@ -3748,6 +3776,10 @@ Copilot, 13 Oct:
       warned first); Marketplace pre-release and Open VSX.
 - [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
       the author says so).
+- [ ] (from ISS-081, author, 13 Oct: not the author's) (ISS-047) Autopilot correction (note
+      9): it is for speech-to-text; the AI repeats back before acting, and a planned task is
+      armed before it is confirmed. Update the Autopilot rule in T README/AGENTS with the
+      author.
 
 ## ISS-080: Later: the optional and someday steps of closed issues — ON-HOLD (after Mk 1, 21 Oct)
 {{Tags area.app, area.instrument, area.ops}}
@@ -3829,62 +3861,28 @@ Triage of 2026-10-13: issues whose remaining step is the author's own (a read-th
 a calibration, a UAT) are closed; the steps are here in one place. ISS-001 keeps the release
 steps; ISS-047 the RC3 follow-up.
 
-- [ ] (ISS-027) Calibrate on the Atom with the glasses (which layout the projector takes;
-      depth comfort): depth multiplier `localStorage soma-stereo-depth` (default 1); make it
-      a slider in the engine room.
-- [ ] (ISS-027) H-AL's cautions (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth
-      transitions only, moderate depth for clients (looming 3D can trigger C-PTSD), labels
-      never in depth.
-- [ ] (ISS-041) Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; release
-      decision. (Visualize for chapters 1, 2 and 9 done: 1 and 2 earlier, 9 on 9 Oct.)
 - [ ] (ISS-053) Pages in: photograph ten A5 pages, read them in, keep them private.
-- [ ] (ISS-074) Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes
-      (ISS-053; 13 Oct: built, MIDI IN drives the pilot's knobs in CO-PILOT and MANUAL).
-- [ ] (ISS-047) Autopilot correction (note 9): it is for speech-to-text; the AI repeats back
-      before acting, and a planned task is armed before it is confirmed. Update the
-      Autopilot rule in T README/AGENTS with the author.
-- [ ] (ISS-047) P21 sign-off blocker (author, physics): is the zoom step (10^3.207 per
+- [x] (ISS-047) P21 sign-off blocker (author, physics): is the zoom step (10^3.207 per
       level; 19 steps span log10(k_P c/H0) = 60.93 decades exactly) fixed independently of
       H0? If not, H0 is an input and P21 predicts Omega_Lambda = 7/11 given H0 (what the
       paper now says, review item 4); if yes, P21 predicts H0 and the paper should say so.
       Then sign-off and status pending-upload (all nine review items are fixed in the text).
-- [ ] (ISS-046) Sherlock finding, 9 Oct: none of the 16 OpenCyc constants in
-      EmotionOntology.lean's CycRef interpreter exist in OpenCyc (checked against the
-      OpenCyc OWL, 239,119 constants): `#$Joy-Emotion` etc., and the predicates
-      `#$emotionalBlend`, `#$emotionalInhibition`; `#$causes` exists only typed
-      (`causes-SitSit` ...). Real classes: Happiness, Sadness, Fear, Anger, Disgust,
-      Surprise, Anticipation-Feeling, ReflexiveAction, Expectation, AestheticDiscrimination;
-      no match for trust, entrainment, conditioning, contagion, imagery, episodic memory.
-      The registry now uses the real classes (the Lean string kept as `lean_cycref`); `make
-      concepts` fails on any class that is not an OpenCyc constant. Author decides: change
-      the Lean strings (and the CycRef examples quoted in the papers and the omnibus) to
-      real constants, or define the missing ones as the programme's own OWL classes.
-- [ ] (ISS-042) Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent emotion
-      only at biological scales, structural contours elsewhere (Davies, Barrett). The claim
-      boundary is already in `SOMA-MACHINE-MVP.md`; decide whether the typed version (Lean
-      types, HUD retyping) is wanted.
-- [ ] (ISS-042) Instrument extras not in U, author to decide: ERAE touch controller over
-      MIDI 2.0 via Bome (`soma-erae-bome-routing (1).js`); foot-pedal zoom (`soma-pedal-zoom
-      (1).sh`); Conky desktop status panel (`soma-machine-conky.conf`); TouchDesigner
-      Mandelbulb render (`soma-touchdesigner-mandelbulb (1).py`).
-- [ ] (ISS-042) Workflow extras: Neovim config (`soma-neovim-init.lua`: author, 13 Oct, not
+      (13 Oct triage: answered: nothing in the programme fixes the zoom step independently of H0 (it is 60.93 decades / 19; P21 and the registry); so H0 is an input and P21's present wording, Omega_Lambda = 7/11 given the measured H0, is the right one. The status change is a release step, ISS-001)
+- [x] (ISS-042) Workflow extras: Neovim config (`soma-neovim-init.lua`: author, 13 Oct, not
       this file, origin unsure; a barebone Neovim instead, ISS-001); a Markdown task engine
       (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover it);
       `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
-- [ ] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
+      (13 Oct triage: done or superseded: a barebone Neovim (U.Dot nvim, ISS-001); the task engine is ISSUES.md with bin/remind and the Maintenance deck; the developer tips are notes, nothing to build)
 - [ ] (ISS-050) The old HAL notebook (d6cfc42e) is empty: delete it, or fill it with the
       private group (favourites, AJ wiki, links) when that exists.
-- [ ] (ISS-040) Author: confirm bleed and safe zone in bookfactory's PDF-to-Book
-      configurator (3 mm assumed); check whether they want single pages or spreads.
-- [ ] (ISS-040) Cover file (spine width from bookfactory for the final page count), or
-      embossing text only if Premium Plus covers are unprinted.
-- [ ] (ISS-040) Companion volume (brainstorm, author to confirm): the theory book as a
-      second A3 landscape volume read alongside the Atlas, with each Atlas level pointing to
-      the theory pages to read with it, so leafing through the Atlas iterates through the
-      theory chapters.
 - [ ] (ISS-035) Review the draft paper `paper/soma/path-sensitive-transitions/`
       (`make -C paper pathsens`) and the philosophy book's new open-hypothesis section;
       decide whether it becomes a paper for Mk 1 or waits.
+- [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
+      projector takes, and a comfortable depth (the DEPTH slider in the engine room,
+      ISS-052).
+- [ ] (ISS-041) Read the course through, then the release decision (the chapter-opening
+      banners are ISS-051).
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — SOMEDAY
 {{Tags area.app, area.instrument}}
@@ -3903,3 +3901,23 @@ Piper voice through the bridge with the HAL effect).
 - [ ] (ISS-054) Train: fine-tune a Piper checkpoint on the recordings (piper-train); check
       the base checkpoint's licence so the result is the author's to release; keep the HAL
       9000 imitation private (ISS-048).
+
+## ISS-083: Ideas and extras for some day — SOMEDAY
+{{Tags area.app, area.instrument, area.books}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+From the author's desk (ISS-081), 13 Oct triage: ideas the author may want one day, not
+steps to take now.
+
+- [ ] (ISS-042) Dual-emotion model (`ttheory-dual-emotion-spec-v2.md`): occurrent emotion
+      only at biological scales, structural contours elsewhere (Davies, Barrett). The claim
+      boundary is already in `SOMA-MACHINE-MVP.md`; decide whether the typed version (Lean
+      types, HUD retyping) is wanted.
+- [ ] (ISS-042) Instrument extras not in U, author to decide: ERAE touch controller over
+      MIDI 2.0 via Bome (`soma-erae-bome-routing (1).js`); foot-pedal zoom (`soma-pedal-zoom
+      (1).sh`); Conky desktop status panel (`soma-machine-conky.conf`); TouchDesigner
+      Mandelbulb render (`soma-touchdesigner-mandelbulb (1).py`).
+- [ ] (ISS-040) Companion volume (brainstorm, author to confirm): the theory book as a
+      second A3 landscape volume read alongside the Atlas, with each Atlas level pointing to
+      the theory pages to read with it, so leafing through the Atlas iterates through the
+      theory chapters.
