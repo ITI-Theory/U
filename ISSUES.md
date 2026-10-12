@@ -3669,3 +3669,31 @@ Copilot, 13 Oct:
       branching ratio falls below 1: bursts arise and fade alone), Φ is not forced down; and in
       the palace the foam floor becomes the hall of the zero moment, where that is easiest to
       see. Interpretive throughout; a picture, not physics of the mind.
+
+## ISS-079: [T]-Theory Mk 1 (V1, 21 Oct) and the VS Code extension as a back door — OPEN
+{{Tags area.ops, area.app, area.instrument}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-21, epic=}}
+
+Author, 13 Oct 18:28: a Sherlock plug-in with a Lean scribe is a lot of work for no return;
+instead ship the Soma Machine inside the Sherlock extension ("view in Soma Machine"): a back
+door to distribute the app, VS Code users see the pictures. Then: before the UAT, the web
+(t-theory.org) and the GitHub organisation; a big UAT release, [T]-Theory Mk 1. Nothing is
+pushed to the web yet. V1 release date 21 Oct (the author's birthday). Books to Lulu as soon
+as possible. No actual extension release for now: preview "sneaks".
+
+Copilot, 13 Oct:
+- [x] `apps/vscode/` (Sherlock & the Soma Machine, 0.1.0, preview): the Soma Machine in a
+      webview (the app built with relative paths, about 3.5 MB; bridge panels hidden);
+      Go to a Stop; View in Soma Machine (a Lean file opens its tower in the city of code, a
+      document the stop its text is about); Sherlock's ledger as Problems (reloads when it
+      changes), Sherlock: Check, a quick fix from a finding to its declaration's tower. No AI
+      model, no Lean in the extension. `npm run package` writes `bld/*.vsix`; a sneak is that
+      file (Extensions: Install from VSIX). Tested in a two-origin webview emulation
+      (Playwright): no errors, the stop and tower deep links open.
+- [x] App: a `tower=` link survives the hash rewrite before its panel opens.
+- [ ] Author: try the VSIX in VS Code; the licence for code (CC BY 4.0 for now, as the
+      records; U has no LICENSE file).
+- [ ] Later, if people bite: "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB,
+      warned first); Marketplace pre-release and Open VSX.
+- [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
+      the author says so).

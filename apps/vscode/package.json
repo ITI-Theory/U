@@ -1,0 +1,98 @@
+{
+  "name": "soma-machine",
+  "displayName": "Sherlock & the Soma Machine",
+  "description": "The Soma Machine in an editor tab, and Sherlock's findings (a neuro-symbolic compiler for natural language) as compiler errors.",
+  "version": "0.1.0",
+  "preview": true,
+  "publisher": "iti-theory",
+  "author": "Alistair Johnson",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ITI-Theory/U"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Visualization",
+    "Education",
+    "Linters"
+  ],
+  "keywords": [
+    "lean",
+    "neuro-symbolic",
+    "soma field",
+    "visualization",
+    "three.js"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "workspaceContains:bld/sherlock/ledger.txt",
+    "onLanguage:lean4",
+    "onLanguage:markdown"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "somaMachine.open",
+        "title": "Open",
+        "category": "Soma Machine"
+      },
+      {
+        "command": "somaMachine.openStop",
+        "title": "Go to a Stop…",
+        "category": "Soma Machine"
+      },
+      {
+        "command": "somaMachine.viewHere",
+        "title": "View in Soma Machine",
+        "category": "Sherlock"
+      },
+      {
+        "command": "sherlock.check",
+        "title": "Check (run the ledger)",
+        "category": "Sherlock"
+      },
+      {
+        "command": "sherlock.reload",
+        "title": "Reload findings",
+        "category": "Sherlock"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "somaMachine.viewHere",
+          "when": "editorLangId == markdown || editorLangId == lean4",
+          "group": "navigation@90"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Sherlock & the Soma Machine",
+      "properties": {
+        "sherlock.ledgerFile": {
+          "type": "string",
+          "default": "bld/sherlock/ledger.txt",
+          "description": "Sherlock's findings, one `file:line: error|warning: message` per line (workspace-relative)."
+        },
+        "sherlock.checkCommand": {
+          "type": "string",
+          "default": "python sherlock/ledger.py report",
+          "description": "Command that refreshes the findings file (run in the workspace folder)."
+        },
+        "sherlock.codeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show “View in Soma Machine” above Lean files and documents."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "app": "node scripts/build-app.mjs",
+    "package": "npm run app && npx --yes @vscode/vsce package --no-dependencies --out bld/"
+  },
+  "icon": "media/icon.png"
+}

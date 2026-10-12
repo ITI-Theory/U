@@ -3753,7 +3753,8 @@ export function createExplorer(hooks = {}) {
 
   const api = {
     // the open tower of the city of code and its floor (the hash keys tower and floor)
-    get tower() { return towerPanel.open ? { tower: towerPanel.item.title.replace(/\.lean$/, ''), floor: towerPanel.floor } : null; },
+    // a tower asked for by a link counts before the next frame opens its panel (the hash is rewritten at once)
+    get tower() { return towerPanel.open ? { tower: towerPanel.item.title.replace(/\.lean$/, ''), floor: towerPanel.floor } : st.tower ? { tower: st.tower, floor: st.floor } : null; },
     setTower(tower, floor) { st.tower = tower || ''; st.floor = floor || ''; },
     // the ureter's stage (shared by all windows) and view (this window): uo 1-4, uv in|out|both
     get ureterParams() { return { uo: st.uo, uv: st.uv }; },
