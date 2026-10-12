@@ -1147,8 +1147,10 @@ figure script draws from equations; outputs checked like the answers). No
 AI-drawn physics figures.
 
 **Actions:**
-- [ ] Draft the chapter plan for author review.
-- [ ] Licence check of each OpenStax maths source.
+- [x] Draft the chapter plan for author review. (Approved 2026-10-05: the plan above.)
+- [x] Licence check of each OpenStax maths source. (2026-10-04, each copy's own copyright page:
+      docs/agent/OPENSTAX-SURVEY.md; Calculus and University Physics are CC BY-NC-SA, reference
+      only, the toolkit written in our own words.)
 - [x] A4 defaults, parts (3b58411); generated numbering with pandoc-crossref (7ce084a).
 - [x] Visualize macro (docs/VISUALIZE.md), toolkit M1-M6, chapter 3 Frequencies (5 Oct, c9228e5).
 - [x] Chapter 4 zooming (T3), Part III 13-15 (T4-T6), Appendix F Atlas cross-reference, Visualize retrofit of 5-8 and 10-12, glossary (5 Oct, to 03:30).
