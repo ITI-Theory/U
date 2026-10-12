@@ -1998,7 +1998,7 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       swarm 4, patient POV 3, temporal 3, quantum 3, limbic 3; `make visualize-coverage`:
       papers 204 of 233, books 35 of 38, course 131 of 142; the rest are definitions,
       identities or abstract operators with nothing honest to draw.)
-- [x] (14 Oct, agent, "literally everything": the last 35 equations marked up in 9
+- [x] (13 Oct, agent, "literally everything": the last 35 equations marked up in 9
       papers, 3 books and 6 course chapters, each figure an honest picture of
       the equation's own form, without invented data: abstract operators are
       drawn at stated or illustrative parameters and labelled as such, and
@@ -2558,31 +2558,16 @@ Steps:
       shaded by its waves, jungle banks of hills and trees, mist; it narrows towards the
       encounter, t ~ 0.7, and opens on the way back; safety warms the light, fear darkens
       the water, the mist closes in as language falls away; the camera low like a boat.)
-- [ ] (10 Oct 23:50, coded, to test in UAT with a real strap) A Bluetooth heart-rate
-      chest strap: heart.js (Web Bluetooth, the standard Heart Rate service 0x180D and
-      measurement 0x2A37: 8- or 16-bit rate, RR intervals kept for HRV), ♥ STRAP on the
-      SCORE stop (Chrome or Edge, https or localhost); while connected it drives the
-      heart and the slider is off; explorer-check decodes sample packets. UAT: connect a
-      strap (Polar, Garmin, Wahoo ...), watch ♥ follow it, LOOP on, a rising heart
-      slows the film; then HRV from the RR intervals (next item).
-- [x] (11 Oct 00:10) HRV and breathing from the strap's RR intervals (heart.js
-      `hrvFromRR`, the last 60 s): RMSSD (vagal tone), breaths a minute (the respiratory
-      rhythm in the heart rate, 0.12-0.4 Hz) and coherence (one slow regular peak); they
-      refine the viewer's Safety (score.js `viewerField`); shown on the SCORE stop as
-      estimates. explorer-check: breathing 15/min recovered, a slow 6/min rhythm coherent,
-      irregular beats not, a calm coherent heart raises Safety. Estimates for the film, not
-      clinical measures; to test with a strap in UAT.
-- [ ] (11 Oct 00:15, to check in UAT: the page must be visible and touched once) The full
-      River Film, 90 minutes: `?film=1#voyage=score&st=0&kv=1&kc=river` (any SETTING), MUSIC
-      on; in film mode H-AL speaks each phase line of the score as story-time reaches it
-      (after the viewer has touched the page, as browsers require); thresholds hold as the
-      loop says. Next: phase lines in the author's words, and a recording.
-- [ ] Film, next: record it (H-AL's voice, music on) to a video file; titles
-      and credits; the author's review of every line; OpenStax Anatomy &
-      Physiology (CC BY; Calibre 163, now in the HAL-UAT `medical` group, not
-      yet loaded) as the reference for accurate anatomy in the body, ureter
-      and brain stops.
-- [ ] Urologist, next: the author reviews the tour wording; a stent mode (persistent signal after the stone);
+- [x] (13 Oct: moved to ISS-091, parked) The Bluetooth chest strap, and HRV and breathing
+      from its RR intervals (coded; to test with a real strap).
+- [x] (13 Oct: the checks moved to the UAT list, uat/checklist.yaml steps `film-river-90`,
+      `film-record`, `film-review`) The full River Film, its recording and the author's
+      review of every line.
+- [ ] Film, next (development): titles and credits; OpenStax Anatomy & Physiology (CC BY;
+      Calibre 163, in the HAL-UAT `medical` group, not yet loaded) as the reference for
+      accurate anatomy in the body, ureter and brain stops.
+- [ ] (13 Oct, checked: the stent mode is done, app README "URETER / stent mode"; the
+      author's review of the tour wording is left) Urologist, next: the author reviews the tour wording; a stent mode (persistent signal after the stone);
       calculi sizes and laser settings stay out (no clinical claims).
 - [ ] (10 Oct 23:40: FLY at Whole Brain dives INTO the Mandelbulb: down the line of
       sight to a surface point, zoom to x40,000 at fixed detail (16 iterations), Φ the
@@ -2671,7 +2656,8 @@ Steps:
       FREEZE (100%), the resource alone does not free it (100%), heat with the
       resource then cooling ends in SAFE (100%), heat without it moves the state
       but not reliably to SAFE (about a third; in the network SAFE or FIGHT).
-- [ ] Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
+- [x] (13 Oct, checked: superseded by ISS-075; the app README's "Cockpit vocabulary"
+      keeps the cockpit as the design vocabulary of the film and score only) Rework the old cockpit/flight notes (ISS-047, the engine room, FX) under
       this framing; keep the cockpit only as "the view out of the window" onto
       the landscape.
 - [x] (12 Oct, author: "Fantastic Voyage's oval things, mesh curtains, hair"; a 3D lining,
@@ -2696,7 +2682,10 @@ Steps:
       `localStorage soma-stereo-depth` (default 1), for the author's calibration with the
       glasses.
       (13 Oct triage: done: DEPTH (STEREO) in the engine room scales every 3D view's eye separation and the 2D stereo, live across windows (1606e3b))
-- [ ] (from ISS-081, author, 13 Oct: not the author's) (ISS-027) H-AL's cautions
+- [ ] (13 Oct, checked: labels stay flat at the screen plane in each eye (explorer.js), stop
+      changes ease in and out, one DEPTH slider scales every view (stereo-depth.js, 0 to 2.5);
+      left: a moderate depth for clients, not just the author's calibration)
+      (from ISS-081, author, 13 Oct: not the author's) (ISS-027) H-AL's cautions
       (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth transitions only, moderate depth
       for clients (looming 3D can trigger C-PTSD), labels never in depth.
 - [ ] (from ISS-080) (ISS-078) The palace tour: the method of loci as an exercise. Needs the
@@ -3160,13 +3149,37 @@ different scales (ZSF's "same as always").
       exists from all of OpenCyc (10 of 10, about a minute); SLICE=1 writes the same
       facts as axioms for the fast loop (the author's slice-first method). Next: the
       programme's own types anchored to them, beyond the emotions (EmotionCyc).
+- [ ] The inversion test (author, 13 Oct, on Me/film/art-fis-2021-08.md, the FIS notes of
+      Aug 2021): "linking bad people from bad films and inverting their persona onto
+      'normal' people, who underneath are the same". That is structure mapping's own claim:
+      analogy follows shared relations, not attributes. The thug in *Made in Britain*,
+      *Scum*'s housemaster and *A Clockwork Orange*'s therapists hold the same relations to a
+      helpless person (power over, a "cure" imposed, the victim blamed, self-harm as the
+      only reply) as the doctor, judge, social worker and ABA school of the notes; only the
+      costume differs (braces and Chelsea boots against a title and a contract). The notes'
+      page 2 is the author's own mapping ("ABA in ASD == school in MiB", "Forensic
+      treatment == ACO therapy", "school == Borstal, MB centre, Prison"), and page 9 states
+      the inversion ("Doctor is a skinhead + Racist"). ABA is applied behaviour analysis, which in
+      the author's reading reinforces masking rather than preventing it (author, 13 Oct):
+      the relation it shares with ACO's Ludovico treatment is conditioning the outward
+      behaviour while the person is left as they were ("no free will ⇒ 'Cured'", page 1;
+      "Masking = survival", page 2). The cases should carry that relation, not the word. Test: the films and the institutions
+      as cases (relations only, no names that give the answer away); does MAC/FAC retrieve
+      the film for each institution, and does SME's mapping recover the author's "=="
+      pairs? A pair it misses, or one it adds, is a finding either way. Private material: the
+      cases stay in Me, only the scores go to U.
 - [ ] OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
       programme's own collections (TTheoryVocabularyMt and what it inherits, a few
       hundred) as Lean types; genls as coercions, disjointness as no common member;
       a category error becomes a type error in the programme's Lean, the concept
       registry and the app's type guard. Design note and spike on Emotion, Percept,
       Pole first.
-- [ ] (from ISS-081, author, 13 Oct: not the author's; do with the OWL types) (ISS-046)
+- [x] (13 Oct, checked: done by 7981cab and ISS-089. EmotionOntology's CycRef names are
+      OpenCyc's real constants, the rest marked `T:` in TTheoryVocabularyMt
+      (registry/vocabulary.yaml); EmotionCyc.lean's `#check_failure anchor "Fear-Emotion"`
+      keeps the old name from compiling; SH1 reports the finding; the concept
+      registry keeps `lean_cycref` as history only)
+      (from ISS-081, author, 13 Oct: not the author's; do with the OWL types) (ISS-046)
       Sherlock finding, 9 Oct: none of the 16 OpenCyc constants in EmotionOntology.lean's
       CycRef interpreter exist in OpenCyc (checked against the OpenCyc OWL, 239,119
       constants): `#$Joy-Emotion` etc., and the predicates `#$emotionalBlend`,
@@ -3956,7 +3969,10 @@ other work.
       (13 Oct 22:20, author: "it's a paper, def now". Done: P25 in Dist/PAPERS.yaml
       (pending-upload), "draft" wording removed, a References heading added (11 references,
       check passes); the philosophy book's paper table and corpus count say 25.)
-- [ ] (ISS-088, Sherlock's first QP finding) P6 Appendix A, lines 2636 and 2657: the base matrix
+- [x] (13 Oct, author: "your call". A slip, and not the author's: the +0.2 was in two
+      illustrative {{Visualize}} matrices an agent added on 11 Oct, not in the prose; set to -0.3
+      in both figures, baseline and modified; `readings.py qp`: 0 clashes)
+      (ISS-088, Sherlock's first QP finding) P6 Appendix A, lines 2636 and 2657: the base matrix
       W0 couples Calm and Shame at +0.2 (calm amplifies shame); every other figure in P1 and P6 has
       -0.3. A slip in the illustrative example, or meant? If a slip, -0.3 at both places.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
@@ -4155,11 +4171,19 @@ Nothing is broken; this waits on upstream.
       v4.34.x, and OSforGFF, GaussianField and BochnerMinlos to upstream commits for the
       same release (`bash lean/upgrade-build.sh`); full `lake build`.
 - [ ] Drop `lean/patches/v4.33/` once upstream builds unpatched.
-- [ ] (13 Oct, from the towers export) physlib's `Cosmology.FLRW` rests on `sorryAx` upstream;
-      `ScaleUniverse.FieldLayerType` uses it for the three cosmic levels, so 15 ScaleUniverse
+- [x] (13 Oct, from the towers export) physlib's `Cosmology.FLRW` rests on `sorryAx` upstream;
+      `ScaleUniverse.FieldLayerType` uses it for the three cosmic levels, so 17 ScaleUniverse
       declarations inherit it (the programme's own files have no `sorry`: count_sorries 0). At
       the upgrade, check whether physlib has closed it; until then the ledger reports them as
       resting on sorry, which is true.
+      (13 Oct, author: "any other option?" Yes: physlib's `FLRW` is `def FLRW : Type := sorry`
+      with a TODO saying what it should be. ScaleUniverse now defines `FLRWData` exactly as
+      that TODO says (a positive, twice-differentiable scale factor `Time → ℝ` and a
+      `SpatialGeometry`, both from physlib's sorry-free parts) and uses it for the three cosmic
+      levels: nothing in the programme rests on `sorryAx` any more.)
+- [ ] Offer `FLRWData` upstream as the replacement for physlib's placeholder (a PR to
+      leanprover-community/physlib, as with OSforGFF#22); if merged, switch back to
+      `Cosmology.FLRW` at the upgrade.
 
 ---
 
@@ -4216,7 +4240,11 @@ every public repository says what it gives, and every borrowed thing says where 
       mistake), T.Dot LICENSE Apache-2.0; a Licence section in each README and a line on the
       organisation's profile page; the VS Code extension and the app's package.json say
       `Apache-2.0 AND CC-BY-4.0`. All 39 Zenodo records checked: CC BY 4.0.)
-- [ ] Every book and paper: a copyright and licence line on the copyright page or colophon,
+- [x] (13 Oct: lib/format/licence.lua, the last filter of all 17 book, paper, course and Atlas
+      defaults files, writes the line from registry/licences.yaml `documents.line`: into the
+      Atlas colophon's `::: licence` placeholder (its hand-typed sentence removed), else at the
+      end; cheat sheets and the noir page opt out; docs/BUILD.md rule 4d. Checked in the P11,
+      Law book and Atlas PDFs) Every book and paper: a copyright and licence line on the copyright page or colophon,
       from the build (a pandoc metadata field filled from the registry, not typed per book).
 - [ ] Zenodo: the deposit metadata's licence read from the registry; the release check compares
       the live records' licence (Zenodo API) with it.
@@ -4230,7 +4258,11 @@ every public repository says what it gives, and every borrowed thing says where 
       (13 Oct: first part done: `make -C paper check-licences` (release check 14c) checks every
       public repository's licence files against the canonical text (SHA-256), the README
       sections, the manifests and the statements; `--zenodo` checks every record live. The
-      PDF licence lines and the CREDITS coverage follow those items.)
+      PDF licence lines and the CREDITS coverage follow those items.
+      13 Oct: `--pdfs` (release check 14c; `make -C paper check-licences ARGS=--pdfs`) reads
+      every built paper, book, volume, omnibus, course and Atlas PDF with pdftotext and fails
+      on one without the holder and CC BY 4.0. Today it fails on the volumes, the omnibus and
+      the course until they are rebuilt (ISS-001's release rebuild). CREDITS coverage left.)
 
 ---
 
@@ -4395,3 +4427,30 @@ extension is wanted as the back door for distribution, after Mk 1.
 - [ ] Author: try the VSIX in VS Code (`npm run package` in apps/vscode).
 - [ ] "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB, warned first).
 - [ ] Marketplace pre-release and Open VSX (publisher account, screenshots, a public build).
+
+---
+
+## ISS-091: The chest strap: heart rate, HRV and breathing from a real strap — PARKED
+{{Tags area.instrument}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+From ISS-052 (author, 13 Oct: its own issue, parked). Coded and checked with sample
+packets; waits for a real strap.
+
+- [ ] (10 Oct 23:50, coded, to test in UAT with a real strap) A Bluetooth heart-rate
+      chest strap: heart.js (Web Bluetooth, the standard Heart Rate service 0x180D and
+      measurement 0x2A37: 8- or 16-bit rate, RR intervals kept for HRV), ♥ STRAP on the
+      SCORE stop (Chrome or Edge, https or localhost); while connected it drives the
+      heart and the slider is off; explorer-check decodes sample packets. UAT: connect a
+      strap (Polar, Garmin, Wahoo ...), watch ♥ follow it, LOOP on, a rising heart
+      slows the film; then HRV from the RR intervals (next item).
+- [x] (11 Oct 00:10) HRV and breathing from the strap's RR intervals (heart.js
+      `hrvFromRR`, the last 60 s): RMSSD (vagal tone), breaths a minute (the respiratory
+      rhythm in the heart rate, 0.12-0.4 Hz) and coherence (one slow regular peak); they
+      refine the viewer's Safety (score.js `viewerField`); shown on the SCORE stop as
+      estimates. explorer-check: breathing 15/min recovered, a slow 6/min rhythm coherent,
+      irregular beats not, a calm coherent heart raises Safety. Estimates for the film, not
+      clinical measures; to test with a strap in UAT.
+- [ ] UAT with a real strap (Polar, Garmin, Wahoo ...): ♥ STRAP on the SCORE stop; ♥ follows
+      it; LOOP on, a rising heart slows the film; RMSSD, breaths a minute and coherence look
+      plausible. Then put the strap back into uat/checklist.yaml's `hw-strap-twister` step.

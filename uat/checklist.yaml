@@ -12,7 +12,7 @@ steps:
   # 1. the gates: the machine checks first
   - id: gate-lean
     kind: gate
-    title: "The programme's Lean builds (warnings only for the five known sorries)"
+    title: "The programme's Lean builds (no sorry, nothing resting on one)"
     run: "lake build 2>&1 | grep -vE 'OSforGFF|local changes' | tail -6"
   - id: gate-sherlock
     kind: gate
@@ -70,11 +70,25 @@ steps:
     title: "The towers of code and the Root Monster's tour"
     url: "#tour=root-monster"
     do: "follow the tour; click a tower; open a floor"
-  # 4. hardware and decisions
+  # 4. the film (ISS-052): watch it whole, record it, review every line
+  - id: film-river-90
+    kind: app
+    title: "The full River Film, 90 minutes: H-AL speaks each phase line; the thresholds hold"
+    url: "?film=1#voyage=score&st=0&kv=1&kc=river"
+    do: "touch the page once (browsers need it before H-AL can speak); MUSIC on; keep the tab visible; watch to the end; any SETTING"
+  - id: film-record
+    kind: manual
+    title: "Record the film to a video file (H-AL's voice, music on)"
+    do: "screen-record film-river-90 with system audio (e.g. OBS); keep the file outside the repos; note its path"
+  - id: film-review
+    kind: manual
+    title: "The author's review of every line of the film"
+    do: "read the phase lines as H-AL speaks them (the recording); mark lines to put in your own words; send the list to Copilot (c)"
+  # 5. hardware and decisions
   - id: hw-strap-twister
     kind: manual
-    title: "Hardware: the chest strap, the Twister (MIDI IN), Ableton (MIDI OUT via loopMIDI)"
-    do: "SCORE stop: ♥ STRAP; Engine Room: MIDI IN on, turn CC 0-9; MIDI OUT to Ableton"
+    title: "Hardware: the Twister (MIDI IN), Ableton (MIDI OUT via loopMIDI); the chest strap is parked (ISS-091)"
+    do: "Engine Room: MIDI IN on, turn CC 0-9; MIDI OUT to Ableton"
   - id: hw-screens
     kind: manual
     title: "Screens: a LAYOUT on the real monitors; a tablet through the relay"

@@ -28,3 +28,5 @@ alike: read its "Working on this repo" section and follow it (start order,
 - **Never** paste or commit tokens; Zenodo tokens live in the environment only.
 - **No sub-agents** (author, 13 Oct): do the work yourself, one step at a time. A running
   agent cannot be stopped, and the runtime may pick a model the author has ruled out (no GPT).
+- **At most two Lean processes at a time** (author, 13 Oct): a `lake build`, a towers
+  export, the ledger judge or a `lake env lean` count one each.
