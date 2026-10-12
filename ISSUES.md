@@ -3644,7 +3644,7 @@ the stone is the freeze attractor in the body, and the voyage teaches the model.
 
 **Closed 2026-10-13:** every item done.
 
-## ISS-077: Inside the brain: the cathedral, thoughts as bursts, the path of pain — OPEN
+## ISS-077: Inside the brain: the cathedral, thoughts as bursts, the path of pain — CLOSED
 {{Tags area.app, area.instrument, area.visualize}}
 {{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
 
@@ -3788,6 +3788,8 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       the old burst returning as if now. The music's echo is the same knob (its delay
       feedback is the "reverb blanket"): with cp up the sound echoes too. Safety (S) and a
       resource shorten the echo. A picture and a model, not a diagnosis (ISS-066's care).
+
+**Closed 2026-10-13:** thoughts as avalanches, pain's path, the cathedral, the way in, one body, visual thoughts, C-PTSD echoes, and avant-garde art (public and private tiers) all built.
 
 ## ISS-078: The control room, the cathedral from outside, the mind palace as the universe — CLOSED
 {{Tags area.app, area.instrument}}
