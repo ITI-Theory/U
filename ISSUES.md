@@ -924,6 +924,11 @@ five real `sorry`s remain in three files.
    current witness `0` does not satisfy `M ψ̈ = W ψ(t)` in general. Either
    assume the mass matrix is invertible and take `ψ̈ = M⁻¹ W ψ(t)`, or state
    it as a labelled axiom.
+- [ ] (13 Oct: seven left. `LimbicTunnel.classical_trapped` is now proved: under gradient flow
+      a state below the barrier top on the trauma side stays there for all t >= 0 (V is a
+      Lyapunov function, then the intermediate value theorem), Lean's standard axioms only.
+      P11 lines 1057 and 1108, P13 line 252 and the formal-mathematics book line 77 still call
+      it a placeholder: true of their frozen versions, to update in their next version.)
 - [ ] (12 Oct, from the towers export) Eight theorems prove only `True` (placeholders):
       `G2Compactification` su3_holonomy and g2_holonomy (structure fields),
       `LimbicTunnel.classical_trapped`, `MTheoryIsomorphism.X7_is_7D_product`,

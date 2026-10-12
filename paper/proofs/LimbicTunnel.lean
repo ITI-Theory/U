@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.Calculus.Deriv.Pow
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
 
 /-!
 # LimbicTunnel.lean — The Limbic Barrier and Quantum Tunneling
@@ -170,18 +171,36 @@ def barrierValues : List ℕ := [8, 10, 12]
 
 /-! ## 5. The quantum advantage — formal statement -/
 
-/-- The classical escape probability from the trauma well is zero.
-    Formally: gradient flow on V starting in (−∞, 0) stays in (−∞, 0).
-
-    PROOF OBLIGATION: Lyapunov argument using `gradient_traps_near_neg1`.
-    The proof requires showing that the flow x'(t) = −V'(x(t)) satisfies
-    x(t) < 0 for all t whenever x(0) ∈ (−1, 0). -/
-theorem classical_trapped (_p : BarrierParam) :
-    ∀ x₀ : ℝ, x₀ < 0 →
-    ∀ t : ℝ, 0 ≤ t →
-    -- x(t) stays negative under gradient flow (classical dynamics)
-    True := by  -- placeholder: proof obligation #1
-  intros; trivial
+/-- The classical escape probability from the trauma well is zero (proved 13 Oct 2026,
+    replacing a placeholder that concluded `True`). Under gradient flow x' = −V'(x) the
+    energy V(x(t)) never increases (its derivative is −V'(x)²): V is a Lyapunov function.
+    A state that starts on the trauma side below the barrier top, V(x₀) < W (that is,
+    −√2 < x₀ < 0), can therefore never reach x = 0, where V = W; by the intermediate
+    value theorem it stays negative for all t ≥ 0. Any solution of the flow is covered:
+    existence is not assumed, only that `x` solves it. -/
+theorem classical_trapped (p : BarrierParam) (x : ℝ → ℝ)
+    (hflow : ∀ t, HasDerivAt x (-(4 * p.W * x t * (x t ^ 2 - 1))) t)
+    (hbelow : V p (x 0) < p.W) (hneg : x 0 < 0) :
+    ∀ t, 0 ≤ t → x t < 0 := by
+  have hcont : Continuous x := continuous_iff_continuousAt.2 fun t => (hflow t).continuousAt
+  -- the energy along the flow, and its derivative -V'(x)^2
+  have hg : ∀ t, HasDerivAt (V p ∘ x) (-(4 * p.W * x t * (x t ^ 2 - 1)) ^ 2) t := by
+    intro t
+    exact ((deriv_V p (x t)).comp t (hflow t)).congr_deriv (by ring)
+  have hanti : Antitone (V p ∘ x) := by
+    apply antitone_of_deriv_nonpos
+    · exact fun s => (hg s).differentiableAt
+    · intro s
+      rw [(hg s).deriv]
+      exact neg_nonpos.mpr (sq_nonneg _)
+  intro t ht
+  by_contra hcon
+  push Not at hcon
+  -- the path from x 0 < 0 to x t >= 0 crosses 0, where V is the barrier top
+  obtain ⟨s, ⟨hs0, _⟩, hxs⟩ := intermediate_value_Icc ht hcont.continuousOn ⟨hneg.le, hcon⟩
+  have h1 : V p (x s) ≤ V p (x 0) := hanti hs0
+  rw [hxs, barrier_height] at h1
+  linarith
 
 /-- Quantum tunnelling amplitude is strictly positive for any finite barrier.
     Formal version of: Θ(W) > 0, proved above by `wkbAmplitude_pos`. -/

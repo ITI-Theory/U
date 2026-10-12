@@ -6,7 +6,7 @@ defaultTargets = [
   "QuantumSim", "SomaNetwork", "ScaleUniverse", "Benchmark", "BFSSIsomorphism",
   "TemporalDynamics", "RenormalisationGroup", "USF_OSAxioms", "CosmologicalConstant",
   "LocalGR", "G2Compactification", "BRECVEMAField", "BRECVEMAVariational", "LocalGeometry",
-  "SomaPhilosophy"
+  "SomaPhilosophy", "FieldEvent"
 ]
 
 # ---------------------------------------------------------------------------
@@ -55,6 +55,11 @@ srcDir = "paper/proofs"
 
 [[lean_lib]]
 name = "Hopfield"
+srcDir = "paper/proofs"
+
+# Same field, different type: emotion at D8, thought at D9-11 (ISS-052).
+[[lean_lib]]
+name = "FieldEvent"
 srcDir = "paper/proofs"
 
 [[lean_lib]]

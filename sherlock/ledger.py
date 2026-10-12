@@ -29,7 +29,12 @@ CLAIMS = [("axiom", re.compile(r"\baxiom", re.I)), ("sorry", re.compile(r"\bsorr
           ("theorem", re.compile(r"\btheorem\b", re.I)), ("def", re.compile(r"\bdef(inition)?\b", re.I))]
 
 
-NOT_LEAN = re.compile(r"^(scipy|numpy|np|torch|matplotlib|pandas|sympy|math|os|sys)\.|\.(md|lean|py|yaml|yml|pdf|tex|bib|json|csv|png)$")
+NOT_LEAN = re.compile(r"^(scipy|numpy|np|torch|matplotlib|pandas|sympy|math|os|sys)\.|\.(md|lean|py|yaml|yml|pdf|tex|bib|json|csv|png|toml|tql|mdl|mlean|js|ts|sh|ps1|txt|ipynb)$"
+                      r"|^[A-Z0-9_]+$")  # file names; ALL_CAPS strings (constants, generated tokens) are not Lean names
+# A line the author marks as naming no Lean (generated output, quoted code): <!-- not-lean -->
+NOT_LEAN_LINE = "<!-- not-lean -->"
+# "a theorem called `x` could ...": a hypothetical, not a claim about the programme's Lean
+HYPOTHETICAL = re.compile(r"\b(theorem|lemma|definition|axiom)\s+(called|named)\s+`", re.I)
 MODULES = {".".join(f.relative_to(d).with_suffix("").parts)
            for d in (U / "sherlock", U / "paper" / "proofs") for f in d.rglob("*.lean") if ".lake" not in f.parts}
 SHERLOCK_SRC = "\n".join(p.read_text(encoding="utf-8") for p in (U / "sherlock").rglob("*.lean")
@@ -104,6 +109,8 @@ def extract(files: list[str]) -> int:
                 continue
             if not is_row:
                 header = None
+            if NOT_LEAN_LINE in line:
+                continue
             for m in NAME.finditer(line):
                 n = m.group(1)
                 if not looks_lean(n):
@@ -129,6 +136,8 @@ def extract(files: list[str]) -> int:
                     said = "placeholder"
                 if re.search(rf"\b(theorem|lemma|def|axiom)\s+{re.escape(n.split('.')[-1])}\b", SHERLOCK_SRC):
                     said = "sherlock"  # Sherlock's own theorems (SH1), checked by make -C sherlock check
+                if HYPOTHETICAL.search(clause(line, m.group(0))):
+                    said = "hypothetical"
                 if n in TACTICS:
                     said = "tactic"
                 if n in MODULES:
@@ -187,7 +196,7 @@ def disagrees(said: str, r: dict) -> str | None:
     kind, axioms = r.get("kind"), r.get("axioms", [])
     if said in ("kernel-checked", "theorem") and r.get("resolved") in TRIVIAL:
         return f"called {said}, but it proves only True (a placeholder)"
-    if said in ("tactic", "sherlock", "module") or kind == "namespace":
+    if said in ("tactic", "sherlock", "module", "hypothetical") or kind in ("namespace", "module"):
         return None
     if said == "placeholder":  # the document says it proves only True: the Lean must agree
         return None  # an honest disclosure of a weak or empty statement

@@ -73,8 +73,22 @@ def result (env : Environment) (cited : String) (n : Name) (mod : String) : IO J
       let last := n.getString!
       for c in bare do
         if !lib.contains c && last == c then lib := lib.insert c n
+  -- a partly qualified library name (`InitialConditions.trajectory_equationOfMotion` is
+  -- `ClassicalMechanics.HarmonicOscillator.InitialConditions.trajectory_equationOfMotion`)
+  let dotted := rest.filter fun c => !lib.contains c && c.contains '.'
+  if !dotted.isEmpty then
+    for (n, _) in env.constants.toList do
+      if n.isInternal || programme.contains n.getRoot then continue
+      let s := n.toString
+      for c in dotted do
+        if !lib.contains c && s.endsWith ("." ++ c) then lib := lib.insert c n
   for (c, n) in lib.toList do
     found := found.insert c (← result env c n "library")
+  -- an imported module's name (`OSforGFF.OS.Master`)
+  for c in wanted do
+    unless found.contains c do
+      if env.header.moduleNames.contains c.toName then
+        found := found.insert c (Json.mkObj [("name", c), ("kind", "module"), ("module", "library")])
   -- a cited namespace (`SomaField.MTheory`): some declaration of this module lives under it
   for c in wanted do
     unless found.contains c do
