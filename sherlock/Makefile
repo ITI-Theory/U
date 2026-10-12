@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings skyline clinical
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -103,6 +103,10 @@ readings:
 	cd .. && $(PYTHON) sherlock/semtrans.py build
 	cd .. && $(PYTHON) sherlock/readings.py report
 	cd .. && $(PYTHON) sherlock/readings.py qp
+
+readings-lean:
+	cd .. && $(PYTHON) sherlock/readings.py lean
+	LEAN_NUM_THREADS=2 lake build CycReadings.Slice
 
 clinical:
 	cd .. && $(PYTHON) sherlock/clinical.py

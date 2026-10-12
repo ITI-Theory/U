@@ -128,6 +128,7 @@ def build_kb(z: zipfile.ZipFile) -> dict:
     isa, genls = defaultdict(set), defaultdict(set)
     arity, argisa, genlpreds = {}, defaultdict(dict), defaultdict(set)
     disjoint = defaultdict(set)
+    disjoint_orig: set[str] = set()
     for name in z.namelist():
         if not name.endswith(".krf"):
             continue
@@ -148,13 +149,13 @@ def build_kb(z: zipfile.ZipFile) -> dict:
             elif p == "genlPreds":
                 genlpreds[a].add(b)
             elif p == "disjointWith":
-                disjoint[a].add(b); disjoint[b].add(a)
+                disjoint[a].add(b); disjoint[b].add(a); disjoint_orig.add(f"{a}|{b}")
             elif p in ("comment", "prettyString-Canonical"):
                 constants.add(a)
     return {"constants": sorted(c for c in constants if re.fullmatch(r"[A-Za-z][\w-]*", c)),
             "isa": {k: sorted(v) for k, v in isa.items()}, "genls": {k: sorted(v) for k, v in genls.items()},
             "arity": arity, "argIsa": argisa, "genlPreds": {k: sorted(v) for k, v in genlpreds.items()},
-            "disjointWith": {k: sorted(v) for k, v in disjoint.items()}}
+            "disjointWith": {k: sorted(v) for k, v in disjoint.items()}, "disjointOrig": sorted(disjoint_orig)}
 
 
 def build() -> int:

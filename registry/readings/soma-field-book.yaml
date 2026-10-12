@@ -1,5 +1,6 @@
 # Sherlock's readings (ISS-088): sentences of the document as OpenCyc facts through NextKB's
 # FrameNet semantic translations; checked by `python sherlock/readings.py check`.
+# `rejected`: the reader's earlier readings the validator refused, kept as tests (each must stay refused).
 document: soma-field-book
 file: paper/soma/soma-field-book/soma-field-book.md
 commit: 7163c9fa323ef2baf076e5905ce8fcce7ae96433
@@ -9,13 +10,23 @@ readings:
 - id: p6-2246a
   line: 2246
   quote: fear activates shame
-  none: 'no licensed reading: activate''s only sense in NextKB is ChangingDeviceState (FN_Change_operational_state),
-    whose :OBJECT binds deviceUsed; read as doneBy Fear and objectOfStateChange Shame, the validator refuted both
-    (Fear and Shame genls AspatialThing, disjointWith SpatialThing). The influence Fear -> Shame (+) is the reader''s.'
+  none: 'no licensed reading: activate''s only sense in NextKB is ChangingDeviceState (FN_Change_operational_state);
+    the reading below was refused'
   qp:
     sign: +
     constrainer: Fear
     constrained: Shame
+  rejected:
+  - word: activate
+    sense: 0
+    fillers:
+      :SUBJECT:
+        pred: doneBy
+        type: Fear
+      :OBJECT:
+        pred: objectOfStateChange
+        type: Shame
+    why: activate is a device's change of state; Fear and Shame are aspatial
 - id: p6-2246b
   line: 2246
   quote: shame amplifies fear

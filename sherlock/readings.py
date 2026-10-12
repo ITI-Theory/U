@@ -3,6 +3,7 @@
     python sherlock/readings.py check [<doc>]   # validate registry/readings/<doc>.yaml (all by default)
     python sherlock/readings.py qp               # signs of influence across documents: conflicts
     python sherlock/readings.py report           # -> bld/sherlock/readings.md
+    python sherlock/readings.py lean             # -> bld/sherlock/lean/CycReadings/Slice.lean (make -C sherlock readings-lean)
 
 A reading is a language model's proposal of what a sentence says, written as OpenCyc facts
 through one of NextKB's FrameNet semantic translations (semtrans.py): the word, which of its
@@ -83,17 +84,20 @@ def arg_type(kb: dict, pred: str) -> tuple[str | None, str]:
     return kb["argIsa"].get(pred, {}).get("2"), pred
 
 
-def fits(kb: dict, typ: str, need: str) -> tuple[str, str]:
-    """proved | refuted | unproved, with the evidence."""
+def fits(kb: dict, typ: str, need: str) -> tuple[str, str, dict]:
+    """proved | refuted | unproved, the evidence in words, and the chains (for Lean)."""
     up = ancestors(kb, typ)
     if need in up:
-        return "proved", " genls ".join(path(up, need))
+        chain = path(up, need)
+        return "proved", " genls ".join(chain), {"chain": chain}
     need_up = ancestors(kb, need)
+    orig = set(kb.get("disjointOrig", []))
     for a in up:
         for d in kb["disjointWith"].get(a, []):
             if d in need_up:
-                return "refuted", f"{typ} genls {a}, disjointWith {d}, which {need} genls"
-    return "unproved", f"no genls path from {typ} to {need} in NextKB"
+                return ("refuted", f"{typ} genls {a}, disjointWith {d}, which {need} genls",
+                        {"chain": path(up, a), "need_chain": path(need_up, d), "disjoint": [a, d] if f"{a}|{d}" in orig else [d, a]})
+    return "unproved", f"no genls path from {typ} to {need} in NextKB", {}
 
 
 def sense_sign(kb: dict, sense: dict) -> str | None:
@@ -104,6 +108,79 @@ def sense_sign(kb: dict, sense: dict) -> str | None:
     return None
 
 
+def check_one(r: dict, docname: str, lines: list[str], st: dict, kb: dict, constants: set[str],
+              kb_findings: list[str], file_: str, commit: str) -> dict:
+    res = {"doc": docname, "id": r["id"], "line": r["line"], "quote": r["quote"], "word": r.get("word"),
+           "checks": [], "status": "ok", "evidence": []}
+
+    def note(code: str, level: str, msg: str) -> None:
+        res["checks"].append({"code": code, "level": level, "msg": msg})
+        if level == "error":
+            res["status"] = "error"
+        elif level == "warn" and res["status"] == "ok":
+            res["status"] = "warn"
+    # R1 the quote, in the frozen document
+    near = " ".join(lines[max(0, r["line"] - 2): r["line"] + 1]).replace("*", "")
+    if " ".join(r["quote"].split()) not in " ".join(near.split()):
+        note("R1", "error", f"quote not at line {r['line']} of {file_}@{commit[:8]}")
+    if r.get("none"):
+        res["status"] = "no translation"
+        note("R2", "info", r["none"])
+        if r.get("qp"):
+            res["qp"] = {**r["qp"], "licensed": False}
+        return res
+    # R2 the sense
+    senses = st["words"].get(r["word"].lower(), [])
+    if not senses:
+        res["status"] = "no translation"
+        note("R2", "info", f"NextKB has no FrameNet translation for {r['word']!r}")
+        return res
+    if not (0 <= r["sense"] < len(senses)):
+        note("R2", "error", f"{r['word']!r} has senses 0-{len(senses) - 1}, not {r['sense']}")
+        return res
+    s = senses[r["sense"]]
+    res["meaning"] = f"{s['frame']}; " + ", ".join(f"{a} isa {t}" for a, t in s["types"])
+    # R3 R4 R5 the participants
+    for slot, f in (r.get("fillers") or {}).items():
+        allowed = sorted({p for alt in s["slots"].get(slot, []) for p in alt["preds"]})
+        if slot not in s["slots"]:
+            note("R3", "error", f"{slot} is not in the binding template of {r['word']} [{r['sense']}]")
+            continue
+        if f["pred"] not in allowed:
+            note("R3", "error", f"{slot} binds {', '.join(allowed)}, not {f['pred']}")
+        if f["type"] not in constants:
+            note("R4", "error", f"{f['type']} is not an OpenCyc constant")
+            continue
+        need, base = arg_type(kb, f["pred"])
+        if not need:
+            note("R5", "info", f"{base} has no argument type in NextKB: {f['type']} accepted untyped")
+            continue
+        verdict, why, ev = fits(kb, f["type"], need)
+        if ev:
+            res["evidence"].append({"verdict": verdict, "type": f["type"], "need": need, "pred": base, **ev})
+        note("R5", {"proved": "info", "refuted": "error", "unproved": "warn"}[verdict],
+             f"{f['type']} as {need} ({base}): {verdict}: {why}")
+    # R6 the sign of influence
+    if r.get("qp"):
+        licensed = sense_sign(kb, s)
+        stem = r["word"].lower()
+        word_sign = next((k for k, ws in SIGN_WORDS.items() if stem.startswith(ws)), None)
+        if licensed and word_sign and licensed != word_sign:
+            kb_findings.append(f"NextKB: {r['word']} [{r['sense']}] ({s['frame']}) is typed "
+                               f"{', '.join(t for _, t in s['types'])}, sign {licensed}, but the word means {word_sign}")
+        if licensed is None:
+            note("R6", "warn", f"the sense's type does not license a sign; {r['qp']['sign']} is the reader's")
+        elif licensed != r["qp"]["sign"]:
+            note("R6", "error", f"the sense licenses {licensed}, the reading says {r['qp']['sign']}")
+        else:
+            note("R6", "info", f"sign {licensed} licensed by the sense's type")
+        for k in ("constrainer", "constrained"):
+            if r["qp"][k] not in constants:
+                note("R4", "error", f"{r['qp'][k]} is not an OpenCyc constant")
+        res["qp"] = {**r["qp"], "licensed": licensed == r["qp"]["sign"]}
+    return res
+
+
 def check_doc(path_: Path, st: dict, kb: dict) -> tuple[list[dict], list[str]]:
     doc = yaml.safe_load(path_.read_text(encoding="utf-8"))
     rows, kb_findings = [], []
@@ -112,76 +189,23 @@ def check_doc(path_: Path, st: dict, kb: dict) -> tuple[list[dict], list[str]]:
     lines = text.splitlines()
     constants = set(kb["constants"])
     for r in doc.get("readings") or []:
-        res = {"doc": doc["document"], "id": r["id"], "line": r["line"], "quote": r["quote"], "word": r.get("word"),
-               "checks": [], "status": "ok"}
-
-        def note(code: str, level: str, msg: str) -> None:
-            res["checks"].append({"code": code, "level": level, "msg": msg})
-            if level == "error":
-                res["status"] = "error"
-            elif level == "warn" and res["status"] == "ok":
-                res["status"] = "warn"
-        # R1 the quote, in the frozen document
+        res = check_one(r, doc["document"], lines, st, kb, constants, kb_findings, doc["file"], doc["commit"])
         if doc.get("sha256") and doc["sha256"] != sha:
-            note("R1", "error", f"the frozen file's SHA-256 is {sha[:12]}, not {doc['sha256'][:12]}")
-        near = " ".join(lines[max(0, r["line"] - 2): r["line"] + 1]).replace("*", "")
-        if " ".join(r["quote"].split()) not in " ".join(near.split()):
-            note("R1", "error", f"quote not at line {r['line']} of {doc['file']}@{doc['commit'][:8]}")
-        if r.get("none"):
-            res["status"] = "no translation"
-            note("R2", "info", r["none"])
-            if r.get("qp"):
-                res["qp"] = {**r["qp"], "licensed": False}
-            rows.append(res)
-            continue
-        # R2 the sense
-        senses = st["words"].get(r["word"].lower(), [])
-        if not senses:
-            res["status"] = "no translation"
-            note("R2", "info", f"NextKB has no FrameNet translation for {r['word']!r}")
-            rows.append(res)
-            continue
-        if not (0 <= r["sense"] < len(senses)):
-            note("R2", "error", f"{r['word']!r} has senses 0-{len(senses) - 1}, not {r['sense']}")
-            rows.append(res)
-            continue
-        s = senses[r["sense"]]
-        res["meaning"] = f"{s['frame']}; " + ", ".join(f"{a} isa {t}" for a, t in s["types"])
-        # R3 R4 R5 the participants
-        for slot, f in (r.get("fillers") or {}).items():
-            allowed = sorted({p for alt in s["slots"].get(slot, []) for p in alt["preds"]})
-            if slot not in s["slots"]:
-                note("R3", "error", f"{slot} is not in the binding template of {r['word']} [{r['sense']}]")
-                continue
-            if f["pred"] not in allowed:
-                note("R3", "error", f"{slot} binds {', '.join(allowed)}, not {f['pred']}")
-            if f["type"] not in constants:
-                note("R4", "error", f"{f['type']} is not an OpenCyc constant")
-                continue
-            need, base = arg_type(kb, f["pred"])
-            if not need:
-                note("R5", "info", f"{base} has no argument type in NextKB: {f['type']} accepted untyped")
-                continue
-            verdict, why = fits(kb, f["type"], need)
-            note("R5", {"proved": "info", "refuted": "error", "unproved": "warn"}[verdict], f"{f['type']} as {need} ({base}): {verdict}: {why}")
-        # R6 the sign of influence
-        if r.get("qp"):
-            licensed = sense_sign(kb, s)
-            stem = r["word"].lower()
-            word_sign = next((k for k, ws in SIGN_WORDS.items() if stem.startswith(ws)), None)
-            if licensed and word_sign and licensed != word_sign:
-                kb_findings.append(f"NextKB: {r['word']} [{r['sense']}] ({s['frame']}) is typed "
-                                   f"{', '.join(t for _, t in s['types'])}, sign {licensed}, but the word means {word_sign}")
-            if licensed is None:
-                note("R6", "warn", f"the sense's type does not license a sign; {r['qp']['sign']} is the reader's")
-            elif licensed != r["qp"]["sign"]:
-                note("R6", "error", f"the sense licenses {licensed}, the reading says {r['qp']['sign']}")
+            res["checks"].append({"code": "R1", "level": "error", "msg": f"the frozen file's SHA-256 is {sha[:12]}, not {doc['sha256'][:12]}"})
+            res["status"] = "error"
+        # the reader's own mistakes, kept as tests: each must stay refuted
+        res["rejected"] = []
+        for k, alt in enumerate(r.get("rejected") or []):
+            a = check_one({**alt, "id": f"{r['id']}-rejected{k}", "line": r["line"], "quote": r["quote"]},
+                          doc["document"], lines, st, kb, constants, [], doc["file"], doc["commit"])
+            res["rejected"].append(a)
+            if a["status"] != "error":
+                res["checks"].append({"code": "R0", "level": "warn", "msg": f"rejected reading {k} now validates ({alt.get('why', '')})"})
+                if res["status"] == "ok":
+                    res["status"] = "warn"
             else:
-                note("R6", "info", f"sign {licensed} licensed by the sense's type")
-            res["qp"] = {**r["qp"], "licensed": licensed == r["qp"]["sign"]}
-            for k in ("constrainer", "constrained"):
-                if r["qp"][k] not in constants:
-                    note("R4", "error", f"{r['qp'][k]} is not an OpenCyc constant")
+                res["checks"].append({"code": "R0", "level": "info", "msg": f"rejected reading {k} still refused: "
+                                      + "; ".join(c["msg"] for c in a["checks"] if c["level"] == "error")})
         rows.append(res)
     return rows, kb_findings
 
@@ -260,6 +284,70 @@ def qp_conflicts(rows: list[dict]) -> list[str]:
     return out
 
 
+def lean_id(text: str) -> str:
+    return re.sub(r"\W", "_", text)
+
+
+def lean(rows: list[dict]) -> int:
+    """The R5 verdicts as Lean theorems over Sherlock's OpenCyc core. Slice mode: the NextKB
+    facts used are axioms (stated in one microtheory, NextKB), so the module builds in seconds
+    and the kernel checks the reasoning; proving the facts from the full KB is the release step."""
+    facts: dict[str, str] = {}
+    thms: list[str] = []
+
+    def g(a: str, b: str) -> str:
+        n = f"g_{lean_id(a)}__{lean_id(b)}"
+        facts[n] = f'axiom {n} : Holds NK (genls (.c "{a}") (.c "{b}"))'
+        return n
+
+    def climb(var: str, chain: list[str], tag: str, body: list[str]) -> str:
+        cur = var
+        for k in range(len(chain) - 1):
+            nxt = f"{tag}{k + 1}"
+            body.append(f"  have {nxt} := isa_genls {cur} {g(chain[k], chain[k + 1])}")
+            cur = nxt
+        return cur
+
+    seen = set()
+    for r in rows:
+        for which, res in [("", r)] + [(f"_rejected{k}", a) for k, a in enumerate(r.get("rejected") or [])]:
+            for e in res.get("evidence") or []:
+                name = lean_id(f"{r['doc']}_{r['line']}_{r['id']}{which}_{e['type']}_{e['pred']}")
+                if name in seen:
+                    continue
+                seen.add(name)
+                doc = f'/-- {r["doc"]}:{r["line"]} "{r["quote"]}"{", rejected reading" if which else ""}: {e["type"]} as {e["need"]} ({e["pred"]}). -/'
+                if e["verdict"] == "refuted":
+                    body: list[str] = []
+                    hx = climb("h", e["chain"], "h", body)
+                    kx = climb("k", e["need_chain"], "k", body)
+                    a, d = e["disjoint"]
+                    dn = f"d_{lean_id(a)}__{lean_id(d)}"
+                    facts[dn] = f'axiom {dn} : Holds NK (disjointWith (.c "{a}") (.c "{d}"))'
+                    top_t, top_n = e["chain"][-1], e["need_chain"][-1]
+                    args = (hx, kx) if (a, d) == (top_t, top_n) else (kx, hx)
+                    thms += [doc, f'theorem {name} (x : Term) (h : Holds NK (isa x (.c "{e["type"]}")))',
+                             f'    (k : Holds NK (isa x (.c "{e["need"]}"))) : Holds NK .falsum := by', *body,
+                             f"  exact disjoint {dn} {args[0]} {args[1]}", ""]
+                elif e["verdict"] == "proved":
+                    ch = e["chain"]
+                    term = g(ch[0], ch[1])
+                    for k in range(1, len(ch) - 1):
+                        term = f"(genls_trans {term} {g(ch[k], ch[k + 1])})"
+                    thms += [doc, f'theorem {name} : Holds NK (genls (.c "{ch[0]}") (.c "{ch[-1]}")) := {term}', ""]
+    out = OUT / "lean" / "CycReadings"
+    out.mkdir(parents=True, exist_ok=True)
+    text = ["import Cyc.Core", "", "/-!", "# Sherlock's readings, the type verdicts (ISS-088; generated by sherlock/readings.py lean)", "",
+            "Slice mode: the NextKB facts used are axioms in one microtheory, `NextKB`; the kernel checks",
+            "each verdict's reasoning from them with Cyc.Core's rules. Never committed: rebuild from the",
+            "registry. The full check proves the facts from the knowledge base (release step).", "-/", "",
+            "namespace CycReadings", "", "open Cyc Cyc.Sentence", "", 'abbrev NK : Mt := .c "NextKB"', "",
+            *sorted(facts.values()), "", *thms, "end CycReadings", ""]
+    (out / "Slice.lean").write_text("\n".join(text), encoding="utf-8", newline="\n")
+    print(f"bld/sherlock/lean/CycReadings/Slice.lean: {len(facts)} NextKB facts, {sum(1 for t in thms if t.startswith('theorem'))} theorems")
+    return 0
+
+
 def summary(rows: list[dict]) -> str:
     n = len(rows)
     c = defaultdict(int)
@@ -270,10 +358,12 @@ def summary(rows: list[dict]) -> str:
 
 def main() -> int:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "check"
-    if cmd not in ("check", "qp", "report"):
+    if cmd not in ("check", "qp", "report", "lean"):
         print(__doc__)
         return 2
     rows, kbf = all_rows(sys.argv[2] if cmd == "check" and len(sys.argv) > 2 else None)
+    if cmd == "lean":
+        return lean(rows)
     if cmd == "qp":
         conflicts = qp_conflicts(rows)
         found, differs, n = qp_findings(rows)

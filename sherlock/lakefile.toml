@@ -24,6 +24,11 @@ srcDir = "../bld/sherlock/lean"
 name = "CycTypes"
 srcDir = "../bld/sherlock/lean"
 
+# Sherlock's readings: the type verdicts as theorems, generated (make -C sherlock readings-lean).
+[[lean_lib]]
+name = "CycReadings"
+srcDir = "../bld/sherlock/lean"
+
 # Queries and tests against generated microtheories.
 [[lean_lib]]
 name = "Queries"

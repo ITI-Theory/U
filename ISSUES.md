@@ -4263,7 +4263,12 @@ narrative-function rules. Today only the noun and verb types are used, as a hint
       with Fear as objectOfStateChange was refuted (a feeling is AspatialThing; the role needs a
       PartiallyTangible), the right reading being Fear as the attribute that changes (fe_attribute);
       "fear activates shame" has no licensed reading (activate is a device's state change in NextKB).
-      Still to do: the R5 type facts kernel-checked in Lean (Sherlock's OpenCyc), as gen_types does.)
+      R5 in Lean, 13 Oct: `make -C sherlock readings-lean` writes `CycReadings.Slice` (generated):
+      each refusal as a theorem (an instance of both types gives `Holds .falsum`), each proved fit as
+      a `genls` theorem, proofs built step by step with Cyc.Core's rules; the NextKB facts used (27)
+      are axioms in slice mode. 7 theorems, kernel-checked in 2.4 s. The reader's refused readings
+      are kept in the registry (`rejected`) as tests that must stay refused (R0). Proving the slice's
+      facts from the full KB is the release step, as for the concept types.)
 - [x] 4. QP sign consistency: "X increases / decreases with Y" read into qualitative
       proportionalities; two documents stating opposite signs for the same pair are a finding.
       (13 Oct: `readings.py qp`. The programme states influences with verbs FrameNet lacks (amplify)
