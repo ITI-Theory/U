@@ -568,3 +568,18 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__knobs input { width: 48px; accent-color: #f6c75a; }
 .explorer__knobs input:disabled { opacity: 0.3; }
 .explorer__knobs[hidden] { display: none; }
+
+/* SCRIBE (scribe.js): the sources with vim keys, amber on dark like a lit manuscript */
+.scribe-panel { position: fixed; right: 18px; top: 120px; z-index: 30; width: min(720px, 46vw); height: min(640px, 70vh); display: grid; grid-template-rows: auto 1fr auto; color: #ffcf7d; border: 1px solid #8a6a2f; background: rgba(14,9,2,.95); box-shadow: 0 0 40px rgba(255,190,90,.14), inset 0 0 60px rgba(255,190,90,.04); font: 12px/1.4 'Space Mono', monospace; }
+.scribe-panel[hidden] { display: none; }
+.scribe-panel.wm-panel { grid-template-rows: auto auto 1fr auto; overflow: hidden; }
+.scribe-panel.wm-panel > .wm-titlebar { margin: 0; color: #ffe3a8; border-bottom-color: #8a6a2f; background: rgba(60,40,10,.55); }
+.scribe-panel header { display: flex; gap: 10px; align-items: center; padding: 6px 10px; border-bottom: 1px solid #8a6a2f; }
+.scribe-panel header select { max-width: 46%; color: #ffcf7d; border: 1px solid #8a6a2f; background: #1a1206; font: 11px 'Space Mono', monospace; }
+.scribe-status { flex: 1; overflow: hidden; color: #c9a86a; font-size: 11px; white-space: nowrap; text-overflow: ellipsis; }
+.scribe-panel header button { width: auto; margin: 0; padding: 2px 8px; color: #ffcf7d; border: 1px solid #8a6a2f; background: transparent; }
+.scribe-host { min-height: 0; overflow: hidden; }
+.scribe-host .cm-editor { height: 100%; }
+.scribe-panel footer { padding: 4px 10px; color: #8a7a5a; border-top: 1px solid #3a2a0f; font-size: 10.5px; letter-spacing: .04em; }
+/* SCRIBE stays beside the explorer (every other panel hides there): gd and gs fly it */
+.explorer-open .scribe-panel.wm-panel { visibility: visible !important; pointer-events: auto !important; z-index: 220 !important; }

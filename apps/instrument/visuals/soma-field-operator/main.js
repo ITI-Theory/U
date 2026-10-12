@@ -1,12 +1,13 @@
 import { displayName } from './names.js';
 import * as THREE from 'three';
-import { leanTowers } from './generated/app-data.js';
+import { leanTowers, scribeIndex } from './generated/app-data.js';
 import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
 import { FieldAudio } from './audio/field-audio.js';
 import { createMother } from './mother.js';
+import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
@@ -2631,6 +2632,18 @@ document.addEventListener('keydown', event => {
 panelManager.registerPanel(document.querySelector('.field-readout'), { id: 'controls', title: 'FIELD CONTROLS', dockLabel: 'CONTROLS', minWidth: 260, minHeight: 260 });
 panelManager.registerPanel(document.querySelector('.equation-wall'), { id: 'morphism', title: 'DEPENDENT-TYPE MORPHISM', dockLabel: 'MORPHISM', minWidth: 320, minHeight: 220 });
 panelManager.registerPanel(document.querySelector('.mother-terminal'), { id: 'mother', title: 'MOTHER / H-AL TERMINAL', dockLabel: 'MOTHER', minWidth: 380, minHeight: 250 });
+// SCRIBE (ISS-079): the sources with vim keys; gd and gs move the machine through the hash
+const scribe = createScribe({
+  index: scribeIndex,
+  towers: leanTowers,
+  go: values => {
+    const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+    for (const key of ['tower', 'floor']) params.delete(key);
+    for (const [key, value] of Object.entries(values)) params.set(key, value);
+    location.hash = params.toString();
+  },
+});
+panelManager.registerPanel(scribe.panel, { id: 'scribe', title: 'SCRIBE', dockLabel: 'SCRIBE', minWidth: 420, minHeight: 260 });
 panelManager.registerPanel(document.querySelector('.question-card'), { id: 'whats-different', title: "WHAT'S DIFFERENT?", dockLabel: 'DIFFERENCE', minWidth: 310, minHeight: 180 });
 panelManager.registerPanel(document.querySelector('#dimension-dynamics-panel'), { id: 'state-dynamics', title: 'STATE DYNAMICS', dockLabel: 'STATE', minWidth: 300, minHeight: 220 });
 

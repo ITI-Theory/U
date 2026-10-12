@@ -136,6 +136,18 @@ only when `nvim` is already installed. MOTHER answer code blocks get a
 `RUN IN SHELL` button that switches tabs and pastes the command without
 pressing Enter.
 
+## SCRIBE
+
+`scribe.js` (ISS-079): the programme's papers, books and Lean in a read-only
+reader with vim keys (CodeMirror 6 and `@replit/codemirror-vim`, loaded on
+first open). `` ` `` or the SCRIBE button opens it, also beside the explorer;
+`:q` closes it. `:e <name>` opens a file (fuzzy), `gd` on a Lean name flies to
+its tower in the city of code, `gs` flies to the stop the section is about,
+`]d` and `[d` step through Sherlock's findings. `npm run generate` copies the
+sources to `public/scribe/` (git-ignored) and bakes the file list and
+`bld/sherlock/ledger.txt` into `generated/app-data.js`. No bridge needed: it
+works in the browser, the multi-screen windows and the VS Code extension.
+
 ## Panel window manager
 
 Every major overlay has a neon title bar: drag it to move, use the corner grip

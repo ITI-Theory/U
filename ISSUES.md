@@ -3691,6 +3691,12 @@ Copilot, 13 Oct:
       file (Extensions: Install from VSIX). Tested in a two-origin webview emulation
       (Playwright): no errors, the stop and tower deep links open.
 - [x] App: a `tower=` link survives the hash rewrite before its panel opens.
+- [x] SCRIBE (author: "neovim js... we already have the browser"): the sources in a
+      read-only CodeMirror reader with vim keys inside the Soma Machine (`scribe.js`):
+      `:e`, `gd` to a declaration's tower, `gs` to the section's stop, Sherlock's findings as
+      diagnostics, `` ` `` to open, `:q` to close; stays beside the explorer. Real Neovim
+      cannot run in a browser; `node-client`/`pynvim` drive a native nvim, so a coupling of
+      MOTHER's `/shell` Neovim to the machine through the bridge is a later option.
 - [ ] Author: try the VSIX in VS Code; the licence for code (CC BY 4.0 for now, as the
       records; U has no LICENSE file).
 - [ ] Later, if people bite: "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB,
