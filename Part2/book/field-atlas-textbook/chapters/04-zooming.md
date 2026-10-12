@@ -162,6 +162,8 @@ Everything so far is standard physics and signal processing. The programme behin
 
 $$Z_{a \to b}: (D_a, V_a, L_a, B_a, J_a, O_a) \longrightarrow (D_b, V_b, L_b, B_b, J_b, O_b),$$ {#eq:zoom-operator}
 
+{{Visualize | sec:zoom-operator | type-decomposition:generic | whole="description at level $a$"; parts="$D_a$, $V_a$, $L_a$, $B_a$, $J_a$, $O_a$"; iso="$D_b$, $V_b$, $L_b$, $B_b$, $J_b$, $O_b$"; iso_label="$Z_{a\to b}$" }} The zoom operator carries all six labels at once: domain, values, operator, boundary, source and observable at level $a$ map to their counterparts at level $b$.
+
 where $D$ is the domain, $V$ the space of values the field takes, $L$ the operator (the equation), $B$ the boundary, $J$ the source and $O$ the observable. These are the four questions of @sec:fields-zooming-out-when with the domain and value space made explicit. A **strong transfer** between levels defines a map for every component that matters; a **weak analogy** carries over only the diagram of source, kernel and response. The programme allows both, provided each is labelled as what it is. The Field Atlas draws the thirty-one levels as a ladder from the registry data in its chapter T3.
 
 The registry joins levels by **path edges**, and each edge is one of four different mathematical acts:

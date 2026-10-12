@@ -179,6 +179,8 @@ with $k$, boundary conditions, and substrate changing by scale `derived-under-as
 
 $$\left(\frac{1}{v_s^2}\frac{\partial^2}{\partial t^2}-\nabla^2+k^2\right)G_R(x,t;x',t')=\delta^{(3)}(x-x')\delta(t-t'),$$
 
+{{Visualize | what-t-theory-claims | function-plot:wave | f="where(x>0, sin(2*x)*exp(-0.3*x)/2, 0)"; x=[-3,12]; xlabel="time since the source $t-t'$"; ylabel="$G_R$ (illustrative, at one point)" }} A retarded response at one point, illustrative: nothing before the source acts ($G_R=0$ for $t<t'$), then a ring-down. Causality is built into the kernel, which is what lets the programme speak of memory and influence as response.
+
 with $G_R=0$ for $t<t'$ `derived-under-assumptions`. Philosophically, this lets the programme speak of memory and influence as causal response rather than as static representation.
 
 The hierarchy of organismal description is 4D, 8D, and 11D. The 4D level is the physical spacetime substrate $M_4$. The 8D feeling organism is $M_4+P_3+L_1$, adding a propagator sector and a limbic axis `derived-under-assumptions`. The 11D thinking organism is

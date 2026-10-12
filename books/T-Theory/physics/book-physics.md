@@ -196,6 +196,8 @@ The cosmology papers are the most vulnerable to over-reading because their numbe
 
 P21 reframes the cosmological constant problem by refusing the usual zero-point-energy sum up to a high cutoff. Instead of treating $\Lambda$ as the naive sum of oscillator vacuum energies, it identifies it with a classical background amplitude of the Universal Somatic Field trace:
 $$\Lambda\equiv \frac{k_{\mathrm{cosm}}^2\langle\mathrm{tr}\,\Phi\rangle_0^2}{M_{\mathrm{Pl}}^2c^2},\qquad k_{\mathrm{cosm}}=\frac{H_0}{c}.$$
+
+{{Visualize | cosmological-limit-and-dark-sector-accounting | log-scale:cosmic | items="naive mode sum (Planck cutoff)=1e69, observed=1.1e-52, USF amplitude=1.0e-52"; unit="m^-2" }} The cosmological constant on a powers-of-ten line: a naive sum of vacuum modes up to the Planck scale overshoots the observed value by about 120 orders of magnitude; the programme's vacuum amplitude lands near the observed one by construction of the model (derived under assumptions).
 This is not a derivation from established quantum gravity. It is a model choice designed to make the vacuum amplitude, rather than a divergent mode sum, the relevant object `derived-under-assumptions`.
 
 The current numerical statement is precise. With $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ and $\Omega_\Lambda=0.6847$ from the Planck 2018 TT,TE,EE+lowE+lensing baseline, the observed value is

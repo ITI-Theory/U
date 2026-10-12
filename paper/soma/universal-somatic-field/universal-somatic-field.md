@@ -79,6 +79,8 @@ $[a_m, a_n^\dagger] = \delta_{mn}$, and the string's energy spectrum is:
 
 $$E = \sum_{n=1}^\infty n \, a_n^\dagger a_n$$
 
+{{Visualize | the-string-theory-problem | data-points:quantum | points="1:1, 2:2, 3:3, 4:4, 5:5, 6:6"; xlabel="mode number $n$"; ylabel="energy of one quantum (units of the fundamental)" }} The string's spectrum: one quantum of mode $n$ costs $n$ units, so the levels are equally spaced, the signature of a harmonic oscillator, the structural core the text goes on to ask about.
+
 The SHO is the structural core of the theory. But what *is* it? In conventional
 string theory, it is simply assumed: strings vibrate, and vibrations are
 harmonic oscillators. The ontological question — why is space filled with
@@ -97,6 +99,8 @@ For fixed observation point $x$, the function $x' \mapsto G(x, x')$ satisfies
 the SHO equation in the source variable:
 
 $$\frac{\partial^2 G}{\partial {x'}^2} + k^2 G = \delta(x' - x)$$
+
+{{Visualize | the-identification | function-plot:wave | f="sin(k*abs(x))/(2*k)"; vary=k:1,2,4; x=[-6,6]; xlabel="source point $x'-x$"; ylabel="$G(x,x')$" }} One solution of the equation above, the standing-wave choice $G=\sin(k|x'-x|)/2k$: an oscillation in the source variable with a kink at $x'=x$, where the delta source sits; larger $k$, shorter wave.
 
 away from the singularity. The impulse response is therefore modelled as the
 harmonic oscillator.

@@ -42,6 +42,8 @@ Take two oscillators, A and B, with slightly different natural frequencies, and 
 
 $$\dot\theta_A = \omega_A + \kappa\sin(\theta_B - \theta_A), \qquad \dot\theta_B = \omega_B + \kappa\sin(\theta_A - \theta_B).$$
 
+{{Visualize | sec:groups-oscillators-locking-slipping | function-plot:generic | f="dw - 2*k*sin(x)"; vary=k:0.2,0.5,1; dw=1; x=[-3.1416,3.1416]; hline=0; xlabel="phase gap $\varphi$"; ylabel="$\dot\varphi$" }} The pair's phase gap obeys $\dot\varphi=\Delta\omega-2\kappa\sin\varphi$ (detuning $\Delta\omega=1$ here): when $2\kappa>\Delta\omega$ the curve crosses zero and the gap locks there; weaker coupling never crosses, and the gap keeps slipping.
+
 Subtracting gives a single equation for the phase gap $\varphi = \theta_A - \theta_B$, known as the **Adler equation**:
 
 $$\dot\varphi = \Delta\omega - 2\kappa\sin\varphi, \qquad \Delta\omega = \omega_A - \omega_B.$$
@@ -91,6 +93,8 @@ Two locked oscillators have $\Delta\omega/2\kappa = 0.4$. What is the locked pha
 In 1975 Yoshiki Kuramoto generalised the pair to a crowd of $N$ oscillators, each with its own natural frequency drawn from a spread, each coupled equally to all the others [@kuramoto1984chemical]:
 
 $$\dot\theta_i = \omega_i + \frac{K}{N}\sum_{j=1}^{N}\sin(\theta_j - \theta_i).$$
+
+{{Visualize | sec:groups-many-oscillators-onset | function-plot:generic | f="where(x>Kc, sqrt(abs(1-Kc/x)), 0)"; Kc=2; x=[0,8]; xlabel="coupling $K$"; ylabel="order parameter $r$"; value_at=8; expect_value=0.866 }} Kuramoto's result for a Lorentzian spread of natural frequencies (critical coupling $K_c$, here 2): below $K_c$ there is no collective rhythm, $r=0$; above it $r=\sqrt{1-K_c/K}$ grows towards full synchrony.
 
 How synchronised the crowd is can be measured by averaging the oscillators as arrows on a circle. The length of the average arrow is the **order parameter**
 

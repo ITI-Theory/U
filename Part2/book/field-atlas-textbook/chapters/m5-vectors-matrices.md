@@ -108,6 +108,8 @@ Most vectors change direction when a matrix acts on them. A few special ones do 
 
 $$A\,\mathbf{v} = \lambda\,\mathbf{v}.$$ {#eq:m-vec-eigen}
 
+{{Visualize | sec:m-vec-eigen | eigen-transform:generic | matrix="[[2,1],[1,2]]"; expect_eigen="1,3" }} The matrix $\begin{pmatrix}2&1\\1&2\end{pmatrix}$ acting on the unit circle: most arrows turn, but along the diagonals they only stretch, by 3 and by 1, its two eigenvalues.
+
 For a $2 \times 2$ matrix the eigenvalues solve a quadratic, the **characteristic equation**,
 
 $$\lambda^2 - (a + d)\,\lambda + (ad - bc) = 0,$$ {#eq:m-vec-characteristic}

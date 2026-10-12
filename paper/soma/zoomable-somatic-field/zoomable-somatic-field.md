@@ -300,6 +300,8 @@ type constructor:
 
 $$\Lambda : \text{ScaleLevel} \to \text{FieldEquation} \tag{9}$$
 
+{{Visualize | definition | log-scale:cosmic | items="Planck=1e-35, nucleus=1e-15, atom=1e-10, cell=1e-6, brain=1e-1, body=1, city=1e3, planet=1e6, galaxy=1e20, universe=1e26"; unit="m" }} The domain of $\Lambda$: a selection of the 21 scale levels on one powers-of-ten line. To each, the Zoom Operator assigns its own field equation (wavenumber, boundary conditions, substrate); the form of the equation stays the same.
+
 where $\text{ScaleLevel} = \text{Fin}(21)$ and $\text{FieldEquation}(\sigma)$
 packages the wavenumber $k(\sigma)$, boundary conditions, and substrate type.
 
@@ -917,6 +919,8 @@ Both coupling terms vanish; the FM-HN reduces to the standard Hopfield network
 with temperature $T_0$. As $T_0 \to 0$ ($\beta \to \infty$):
 
 $$\text{FM-HN update} \to \text{sign}(W_0 \cdot s) = \text{HN-1982 update}$$
+
+{{Visualize | correspondence-principle | function-plot:neural | f="tanh(beta*x)"; vary=beta:1,4,20; x=[-2,2]; xlabel="local field $W_0\cdot s$"; ylabel="update" }} The correspondence principle at work, with a soft (tanh) update as an illustration: as the temperature falls ($\beta=1/T_0$ grows) it becomes the sign function, the Hopfield (1982) update, as proved in Lean (`calm_temp_is_baseline`, `calm_weight_is_baseline`).
 
 Proof: `calm_temp_is_baseline` and `calm_weight_is_baseline` by `simp`. $\square$
 

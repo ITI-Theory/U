@@ -156,12 +156,16 @@ The induced metric $g_{\mu\nu}$ on the somatic brane is determined by the pull-b
 
 $$g_{\mu\nu}(x) = G_{MN}(X) \frac{\partial X^M}{\partial x^\mu} \frac{\partial X^N}{\partial x^\nu}$$
 
+{{Visualize | proof-1-the-bio-somatic-interface-via-brane-embedding | process-diagram:soma | steps="brane coordinates $x^\mu$, embedding $X^M(x)$, bulk metric $G_{MN}$, induced metric $g_{\mu\nu}$"; layout=line; expect_steps=4 }} The pull-back in four steps: points of the somatic brane are embedded in the bulk, and the bulk metric read along the embedding is the metric the modelled bodily variables live on. A diagram of the formula, not a measurement.
+
 Let an emotional state change be represented by a bulk field fluctuation
 $\Phi(X)$. The restriction of this field to the somatic brane gives the
 modelled visceral state $\phi(x) = \Phi(X(x))$. The action $S_{\text{soma}}$
 for the modelled bodily variables is given by:
 
 $$S_{\text{soma}} = \int_{\Sigma_4} d^4x \sqrt{-g} \left[ -\frac{1}{2} g^{\mu\nu} \partial_\mu \phi \partial_\nu \phi - V(\phi) \right]$$
+
+{{Visualize | proof-1-the-bio-somatic-interface-via-brane-embedding | energy-landscape:soma | U="x^4/4 - x^2/2"; x=[-1.8,1.8]; xlabel="field value $\phi$"; ylabel="$V(\phi)$"; expect_minima="-1,1" }} An illustrative potential $V(\phi)$ for the action above, which leaves $V$ general: its two minima are resting states of the modelled bodily field, and the kinetic term charges every change of $\phi$ along the brane.
 
 Within the model, this suggests coupling between field state and somatic variables on the 3-brane. It does not prove clinical limits of cognitive reflection; it represents emotional state change as structurally coupled to the physical tissue variables of the somatic brane ($g_{\mu\nu}$).
 
@@ -188,6 +192,8 @@ $H(\mathbf{e})$ to be a valid Lyapunov function, it must satisfy two conditions:
 We compute the total time derivative of $H(\mathbf{e})$ using the chain rule:
 
 $$\frac{dH}{dt} = \sum_{i=1}^N \frac{\partial H}{\partial e_i} \frac{de_i}{dt}$$
+
+{{Visualize | proof-2-lyapunov-stability-of-the-fixed-gestalt | function-plot:soma | f="exp(-2*k*x)"; vary=k:0.5,1,2; x=[0,4]; xlabel="time $t$"; ylabel="$H(t)/H(0)$"; value_at=0; expect_value=1 }} With $de_i/dt=-\partial H/\partial e_i$ the sum above is $-\sum_i(\partial H/\partial e_i)^2\le 0$: along every trajectory the energy only falls. Shown for a quadratic well of stiffness $k$, where $H(t)=H(0)\,e^{-2kt}$ (illustrative).
 
 Substituting the dynamical equation $\frac{de_i}{dt} = -\frac{\partial H}{\partial e_i}$ into the expression yields:
 

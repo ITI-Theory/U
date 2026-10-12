@@ -101,6 +101,8 @@ parameter modulations.
 
 $$\mathbf{e}(t) = (e_1^s, \ldots, e_8^s,\; e_1^c, \ldots, e_8^c) \in [0,1]^{16}$$
 
+{{Visualize | state-space | type-decomposition:soma | whole="$\mathbf{e}(t)\in[0,1]^{16}$"; parts="somatic $e^s$=8, cognitive $e^c$=8"; op=times; expect_total=16 }} The state space as two eight-dimensional halves: for each of the eight emotion modes, a somatic and a cognitive intensity.
+
 where $e_i^s$ is the somatic intensity and $e_i^c$ the cognitive intensity
 of emotional mode $i$.  The eight modes are: *calm*, *anger/fight*,
 *anxiety/flight*, *grief*, *freeze/dissociation*, *hypervigilance*,
@@ -237,6 +239,8 @@ To characterise wave-like behaviour in trajectories, we add spectral analysis of
 mode channels:
 
 $$S_i(f) = |\mathcal{F}[e_i(t)]|^2$$
+
+{{Visualize | state-trajectory-analysis | spectrum:soma | f="0.3*sin(2*pi*0.1*t)+0.15*sin(2*pi*0.6*t)"; x=[0,60]; n=1200; fmax=1.5; peaks=2; expect_peak=0.1 }} An illustrative mode channel $e_i(t)$ over a minute, about its mean (a slow ten-second swell with a faster 0.6 Hz pulse), and its spectrum $S_i(f)$: wave-like behaviour shows as peaks; a trajectory that does not oscillate has none.
 
 and cross-spectral coherence between selected mode pairs:
 

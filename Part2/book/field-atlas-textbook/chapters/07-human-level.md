@@ -22,6 +22,8 @@ Landscapes and stability (@sec:m-vec-stability); exponentials (@sec:m-change-exp
 
 $$\gamma\dot{x} = -U'(x) + F(t),$$
 
+{{Visualize | sec:human-state-landscape | energy-landscape:soma | U="x^4/4 - x^2/2 - F*x"; vary=F:0,0.2,0.4; x=[-2,2]; xlabel="state $x$"; ylabel="$U(x)-Fx$" }} A steady push $F$ tilts the landscape: the state slides to the bottom of the tilted valley; past a critical push, about 0.38 here, the shallower valley vanishes and the state must move to the other.
+
 where $x$ is the state, $U(x)$ is a **landscape** whose downhill slope is the restoring force, $\gamma$ is a friction coefficient, and $F(t)$ is any outside push. The state slides downhill and stops at the bottom of a valley. Near a valley floor the landscape is a parabola, $U \approx \tfrac12kx^2$, where $k = U''$ is the **curvature**. The equation becomes $\gamma\dot{x} = -kx$, so a displacement dies away as $e^{-t/\tau}$ with **relaxation time**
 
 $$\tau = \frac{\gamma}{k}.$$
@@ -57,6 +59,8 @@ What is the curvature at the top of the ridge, $x = 0$, and what does its sign m
 No real system is perfectly quiet. Molecules jostle, cells fire at random, a day brings a hundred small events. The simplest model adds a random force to the equation of motion,
 
 $$\gamma\dot{x} = -U'(x) + \sqrt{2\gamma D}\,\eta(t),$$
+
+{{Visualize | sec:human-noise-escape | distribution:soma | pdf="exp(-(x^4/4 - x^2/2)/D)"; D=0.15; x=[-2,2]; samples=4000; seed=1; bins=40 }} Where a noisy state spends its time: the Boltzmann density $e^{-U/D}$ for the double well at noise strength $D=0.15$, with 4000 random draws. Most time is spent in the valleys and little on the ridge, which is why escapes are rare and sudden.
 
 where $\eta(t)$ is **white noise**, a random push uncorrelated from one instant to the next, and $D$ measures its strength in units of energy. This is a **Langevin equation**, the same one that describes a pollen grain jiggled by water molecules, for which $D = k_BT$. After a long time the state is found at $x$ with probability proportional to
 

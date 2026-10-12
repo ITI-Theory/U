@@ -282,6 +282,8 @@ Hopfield introduced the energy function for a network of binary neurons
 
 $$H(\sigma) = -\frac{1}{2}\sum_{ij} J_{ij}\sigma_i\sigma_j$$
 
+{{Visualize | hopfield-1982-the-ising-hamiltonian-and-neural-memory | energy-landscape:neural | U="x^4/4 - x^2/2 - h*x"; vary=h:-0.25,0,0.25; x=[-2,2]; xlabel="collective state $m$"; ylabel="$H$" }} The Hopfield energy, which is the Ising Hamiltonian, reduced to one collective coordinate (illustrative): two stored states are two valleys, and a field $h$ tilts one deeper. One picture serves both readings, which is the co-identification this section describes.
+
 This is, to within notation, the Hamiltonian of the Ising spin glass:
 
 $$H_\text{Ising}(\sigma) = -\frac{1}{2}\sum_{ij} J_{ij}\sigma_i\sigma_j$$
@@ -316,6 +318,8 @@ time $t$ satisfies:
 
 $$\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
 + rS\frac{\partial V}{\partial S} - rV = 0$$
+
+{{Visualize | black-and-scholes-1973-the-heat-equation-and-options-pricing | function-plot:generic | f="x*normcdf((log(x/K)+(r+s^2/2)*T)/(s*sqrt(T))) - K*exp(-r*T)*normcdf((log(x/K)+(r-s^2/2)*T)/(s*sqrt(T)))"; vary=T:0.1,0.5,1; K=100; r=0.05; s=0.2; x=[50,150]; xlabel="underlying price $S$"; ylabel="call value $V$" }} The equation's solution for a European call (strike $K=100$, rate 5%, volatility 20%) at three times to expiry $T$: the kink at the strike spreads out as $T$ grows, exactly as heat spreads in the heat equation the change of variables reveals.
 
 This is, after a change of variables, the heat equation [@blackscholes1973]:
 
@@ -848,6 +852,8 @@ $$
 + rS \frac{\partial V}{\partial S}
 - rV = 0.
 $$
+
+{{Visualize | step-a-signature-match | function-plot:generic | f="exp(-x^2/(4*tau))/sqrt(4*pi*tau)"; vary=tau:0.1,0.5,2; x=[-4,4]; xlabel="log-price $x$"; ylabel="heat kernel" }} After the log-price and time-reversal change of variables the equation is the heat equation, whose kernel, drawn at three times $\tau$, spreads as the option's value does. Step A's signature match is this identity of form, not of meaning.
 
 After the standard log-price and time-reversal change of variables, this maps to:
 

@@ -1599,6 +1599,8 @@ from **𝓟** that can be independently composed).
 **Λ — Compactification Functor (𝓜 → 𝓕)**
 Takes a manifold deformation δΩ to a field configuration via the acoustic coupling operator:
 $$\Lambda[\delta\Omega] = \frac{1}{2\pi\,\ell_s\,f_0} \int_{M_7} \delta\Omega \wedge \star\,\delta\Omega$$
+
+{{Visualize | a.3-the-four-categories-and-their-functors | process-diagram:cosmic | steps="deformation $\delta\Omega$ of $M_7$, acoustic coupling $1/(2\pi\ell_s f_0)$, integral over $M_7$, field configuration $\Lambda[\delta\Omega]$"; layout=line; expect_steps=4 }} The compactification functor as a pipeline: a deformation of the internal space is weighted by the acoustic coupling and integrated into a field configuration. A diagram of the definition; the geometry itself is an open hypothesis.
 This is the bridge from M-theory geometry to the observable somatic field. It is also the
 point at which dissonance (the phase lag Δφ between field modes) first becomes computable.
 
@@ -2698,6 +2700,8 @@ One introduces a conjugate response field $\tilde{\mathbf{e}}(t)$ and writes:
 
 $$Z = \int D\mathbf{e}\, D\tilde{\mathbf{e}}\; \exp\bigl(-S[\mathbf{e},
 \tilde{\mathbf{e}}]\bigr)$$
+
+{{Visualize | d.1-the-path-integral-and-msr-action | process-diagram:soma | steps="Langevin equation, response field $\tilde{\mathbf{e}}$, MSR action $S$, generating functional $Z$"; layout=line; expect_steps=4 }} From the noisy dynamics to the path integral: a conjugate response field turns the Langevin equation into an action, and integrating over all paths gives $Z$, from which the correlation and response functions follow.
 
 with the MSR action:
 

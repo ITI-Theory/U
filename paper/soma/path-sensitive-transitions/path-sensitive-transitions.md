@@ -123,6 +123,8 @@ $$
 S[\gamma]=\int_0^T L(\gamma(t),\dot\gamma(t),t)\,dt + \Phi(\gamma(0),\gamma(T)).
 $$
 
+{{Visualize | action-functional | contour-map:soma | f="(x^2-1)^2 + 2*y^2 - 0.3*x"; x=[-1.8,1.8]; y=[-1.2,1.2]; levels=16; downhill=true }} An illustrative two-basin landscape $V(x,y)$. A barrier account asks only how high the saddle between the basins is; the action $S[\gamma]$ charges a whole route, its potential cost and its rate cost together, so two routes over the same saddle can cost differently (open hypothesis).
+
 The Lagrangian $L$ may include potential cost $V(\gamma)$, kinetic or rate cost
 $\|\dot\gamma\|^2$, dissipation, control effort, mismatch among coupled
 subsystems, memory-kernel penalties, risk terms and noise scaling

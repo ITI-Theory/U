@@ -1998,7 +1998,16 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       swarm 4, patient POV 3, temporal 3, quantum 3, limbic 3; `make visualize-coverage`:
       papers 204 of 233, books 35 of 38, course 131 of 142; the rest are definitions,
       identities or abstract operators with nothing honest to draw.)
-- [ ] (9 Oct: `make visualize-coverage`: papers 0 of 233 display equations have a
+- [x] (14 Oct, agent, "literally everything": the last 35 equations marked up in 9
+      papers, 3 books and 6 course chapters, each figure an honest picture of
+      the equation's own form, without invented data: abstract operators are
+      drawn at stated or illustrative parameters and labelled as such, and
+      definitions are drawn as `type-decomposition` or `process-diagram`.
+      `make visualize-coverage`: papers 234 of 234 (P25 added one), books 38 of
+      38, course 142 of 142. `make visualize-library`: 411 figures, every
+      `expect_*` check passes; builds of the 9 papers, 3 books and the course
+      exit 0.)
+- [x] (9 Oct: `make visualize-coverage`: papers 0 of 233 display equations have a
       figure, books 1 of 38, course 52 of 142; the paper builds now carry the
       reader and filter with `visualize-show: none`; P1 marked up: 8 figures, 2
       checks; Gestalt field dynamics: 7 figures, 6 checks;
@@ -2190,7 +2199,7 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       points (error bars, labels), a least-squares fit (linear or exponential) or the
       text's own model curve to compare; checks `expect_slope`, `expect_intercept`,
       `expect_n`. For the (barrier, T*) table and other small datasets.
-- [ ] (11 Oct: course chapters, `Part2/book/field-atlas-textbook/chapters/*.md`;
+- [x] (11 Oct: course chapters, `Part2/book/field-atlas-textbook/chapters/*.md`;
       course 52 of 142 before) 05-atoms-quantum-scale 1 to 7 of 11 (photon
       energy, hydrogen levels, Balmer series, the confinement/Coulomb
       energy-landscape at the Bohr radius, the line quality factor, and the

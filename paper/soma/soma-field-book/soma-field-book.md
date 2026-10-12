@@ -1006,6 +1006,8 @@ episodes: to restore the gap between activations in which recovery occurs.
 > $t \to -i\tau$ that takes quantum mechanics into statistical mechanics — is the
 > formal bridge between them, and it is the subject of Chapter 7.
 
+{{Visualize | what-therapy-does | function-plot:quantum | f="exp(-m*abs(x))/(2*m)"; vary=m:0.5,1,2; x=[-4,4]; xlabel="imaginary time $\tau$"; ylabel="$G_E(\tau)$" }} The Euclidean propagator at three masses: a heavier mode correlates over a shorter time. In this section's analogy $m$ plays $1/\tau_k$, so a shorter-lived trace is a narrower curve (interpretive).
+
 ---
 
 > **KEY TERMS**
@@ -1421,11 +1423,15 @@ interacting spins — magnetic moments that can point up or down:
 
 $$H_{\text{Ising}} = -\frac{1}{2}\sum_{i,j} J_{ij}\,\sigma_i\,\sigma_j - \sum_i h_i\,\sigma_i$$
 
+{{Visualize | the-same-hamiltonian | energy-landscape:neural | U="x^4/4 - x^2/2 - h*x"; vary=h:-0.25,0,0.25; x=[-2,2]; xlabel="collective spin $m$"; ylabel="$H_\text{Ising}$" }} The Ising energy reduced to one collective coordinate (illustrative): the couplings $J$ make two ordered valleys, and a field $h$ tilts them.
+
 The Hopfield network (computational neuroscience, Hopfield 1982; recognised in the
 2024 Nobel Prize in Physics for foundational work enabling machine learning)
 describes a network of interacting neurons that stores memories as stable states:
 
 $$H_{\text{Hopfield}} = -\frac{1}{2}\sum_{i,j} W_{ij}\,x_i\,x_j - \sum_i \theta_i\,x_i$$
+
+{{Visualize | the-same-hamiltonian | energy-landscape:neural | U="x^4/4 - x^2/2 - theta*x"; vary=theta:-0.25,0,0.25; x=[-2,2]; xlabel="collective state $m$"; ylabel="$H_\text{Hopfield}$" }} The Hopfield energy in the same reduced form: stored memories are valleys, and the thresholds $\theta$ tilt them, term for term the Ising picture above.
 
 The Soma-Field Model describes the energy landscape of the emotional field:
 

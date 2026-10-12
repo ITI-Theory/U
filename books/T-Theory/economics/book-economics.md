@@ -92,6 +92,8 @@ In a finite exact potential game, for every player $i$, every profile of others'
 
 $$u_i(a_i,s_{-i})-u_i(b_i,s_{-i})=\Phi(a_i,s_{-i})-\Phi(b_i,s_{-i}).$$
 
+{{Visualize | exact-where-exact-nash-equilibrium-potential-games-and-hopfield-energy | contour-map:generic | f="-(x-0.6)^2 - (y-0.4)^2 + 0.3*x*y"; x=[0,1]; y=[0,1]; levels=12; gradient=true }} An illustrative exact potential $\Phi$ over two players' mixed strategies: every better reply climbs $\Phi$, so play climbs to its peak, a Nash equilibrium; with $H=-\Phi$ the same profile is the bottom of a Hopfield-type energy, as the text states.
+
 A pure profile is a Nash equilibrium exactly when no unilateral move raises any player's payoff. By the defining equality, that is exactly when no unilateral move raises $\Phi$. Set $H=-\Phi$. Then the same profile is a local minimum of $H$ under unilateral moves. The statement is exact, elementary, and important. It is also narrower than "all Nash equilibria are Hopfield minima". `derived-under-assumptions`
 
 Rosenthal's congestion games are the canonical finite example: each player's route choice imposes costs on shared resources, and the Rosenthal potential sums the marginal congestion costs encountered as users are added to each resource. [@rosenthal1973class] Network congestion, routing, facility location, club goods, and some public-goods games can often be written in potential form. In such games, energy language is not merely ornamental. With the cost-potential sign convention, local minima are equilibria; with a utility potential, $H=-\Phi$ gives the corresponding energy minima. Barriers are coordination costs, and stochastic perturbations can select among equilibria. `derived-under-assumptions`

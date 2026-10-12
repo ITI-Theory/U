@@ -40,6 +40,8 @@ A film is defined by its **emotional score**: a vector-valued trajectory
 
 $$\mathbf{e}^*(t) = \bigl(e^*_1(t),\; e^*_2(t),\; \ldots,\; e^*_n(t)\bigr)$$
 
+{{Visualize | the-emotional-score | function-plot:soma | f="0.15+0.75/(1+exp(-14*(x-0.55)))"; name="awe"; f2="0.1+0.8*exp(-((x-0.45)/0.14)^2)"; name2="fear"; x=[0,1]; xlabel="story-time $t$"; ylabel="intended activation $e^*_k(t)$" }} Two components of an illustrative emotional score: fear peaks before the threshold near $t\approx0.5$; awe rises through it and stays. The score is the film's intent, written in advance; what a viewer feels is the subject of the next sections.
+
 parameterised by story-time $t \in [0, 1]$ (opening to closing). Each component
 $e^*_k(t)$ is the intended activation of emotional mode $k$ at story-moment $t$.
 
@@ -102,6 +104,8 @@ The screen signal $S(t)$ — the actual audio and visual output — is:
 
 $$S(t) = \mathcal{R}\bigl(\mathbf{e}^*(t),\; \kappa,\; \mathbf{e}_V(t)\bigr)$$
 
+{{Visualize | the-rendering-function | process-diagram:soma | steps="score $\mathbf{e}^*(t)$, knobs $\kappa$, viewer estimate $\mathbf{e}_V(t)$, rendering $\mathcal{R}$, screen signal $S(t)$"; layout=line; expect_steps=5 }} The rendering function: the score, the knobs and the estimate of the viewer meet in $\mathcal{R}$, which produces the sound and picture on the screen.
+
 where:
 
 - $\mathbf{e}^*(t)$ is the abstract score
@@ -134,6 +138,8 @@ and instantaneous BPM as a secondary state indicator.
 The model equation is
 
 $$\dot{\mathbf{e}}_V = -\nabla H_V(\mathbf{e}_V) + \kappa_r \cdot \lambda \cdot S(t) + \eta_V$$
+
+{{Visualize | the-somatic-loop | process-diagram:soma | steps="screen signal $S(t)$, viewer field $\mathbf{e}_V$, measured signals, resonance knob $\kappa_r$"; layout=cycle; expect_steps=4 }} The somatic loop: the screen drives the viewer's estimated field, measured signals update the estimate, and the resonance knob feeds it back into what is rendered. A model and a design for the player, not a measured effect.
 
 The screen signal $S(t)$ drives the viewer's estimated field; the viewer's field
 modifies $S(t)$ via the resonance knob $\kappa_r$ and the rendering function

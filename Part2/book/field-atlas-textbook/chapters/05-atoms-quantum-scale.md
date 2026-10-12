@@ -22,6 +22,8 @@ Light is an electromagnetic wave, as @ch:fields described, but it delivers its e
 
 $$E = hf = \frac{hc}{\lambda},$$
 
+{{Visualize | sec:atoms-light-arrives-packets | function-plot:quantum | f="1240/x"; x=[380,750]; xlabel="wavelength $\lambda$ (nm)"; ylabel="photon energy $E$ (eV)"; value_at=656; expect_value=1.89 }} Photon energy across the visible spectrum, $E=hc/\lambda$ with $hc=1240$ eV nm: violet photons carry about 3.3 eV, red about 1.7; hydrogen's red line at 656 nm, 1.89 eV.
+
 where $h = 6.626\times10^{-34}\,\mathrm{J\,s}$ is **Planck's constant**. At atomic scales the joule is inconveniently large, so energies are quoted in **electronvolts**: $1\,\mathrm{eV} = 1.602\times10^{-19}\,\mathrm{J}$, the energy an electron gains crossing one volt. In these units the product $hc$ takes a value worth memorising:
 
 $$hc = 1240\,\mathrm{eV\,nm}.$$
@@ -94,6 +96,8 @@ Bohr's rule worked but did not say why only certain energies are allowed. In 192
 
 $$\lambda = \frac{h}{p}.$$
 
+{{Visualize | sec:atoms-electrons-are-waves | function-plot:quantum | f="1.226/sqrt(x)"; x=[1,1000]; logx=true; logy=true; xlabel="electron kinetic energy $E$ (eV)"; ylabel="wavelength $\lambda$ (nm)"; value_at=54; expect_value=0.1668 }} The de Broglie wavelength of an electron, $\lambda=1.226\,\mathrm{nm}/\sqrt{E/\mathrm{eV}}$: at 54 eV, Davisson and Germer's energy, it is 0.17 nm, the spacing of atoms in a nickel crystal.
+
 For an electron with kinetic energy $E$, $p = \sqrt{2m_eE}$, and the numbers combine into a convenient form:
 
 $$\lambda = \frac{1.226\,\mathrm{nm}}{\sqrt{E/\mathrm{eV}}}.$$ {#eq:atoms-electron-wavelength}
@@ -132,6 +136,8 @@ Why does the electron not simply fall into the proton, which attracts it? The an
 
 $$\Delta x\,\Delta p \ge \frac{\hbar}{2}, \qquad \hbar = \frac{h}{2\pi}.$$
 
+{{Visualize | sec:atoms-atoms-have-size | function-plot:quantum | f="0.5/x"; x=[0.1,4]; y=[0,5]; xlabel="$\Delta x$"; ylabel="$\Delta p$ (units with $\hbar=1$)"; value_at=0.5; expect_value=1 }} The uncertainty principle in units with $\hbar=1$: every possible wave lies on or above the curve $\Delta p=1/(2\Delta x)$; squeezing a particle into a smaller region forces a larger spread of momenta.
+
 This is Heisenberg's **uncertainty principle** of 1927 [@griffiths2018qm]. It is not a limit on measuring instruments; it describes what a wave is. Squeezing a particle costs kinetic energy of order $\hbar^2/2mr^2$, the **confinement energy**, which grows rapidly as the region shrinks.
 
 The hydrogen atom settles where this cost balances the Coulomb attraction of @ch:response. Writing the electrical energy as $-ke^2/r$, with $ke^2 = 1.440\,\mathrm{eV\,nm}$, the total energy at radius $r$ is roughly
@@ -143,6 +149,8 @@ $$E(r) \approx \frac{\hbar^2}{2m_er^2} - \frac{ke^2}{r}.$$
 Too small a radius and the first term wins; too large and the attraction is wasted. Setting $dE/dr = 0$ gives the minimum at
 
 $$a_0 = \frac{\hbar^2}{m_eke^2} = \frac{(\hbar c)^2}{m_ec^2\,ke^2} = \frac{(197.3\,\mathrm{eV\,nm})^2}{(511\,000\,\mathrm{eV})(1.440\,\mathrm{eV\,nm})} = 0.0529\,\mathrm{nm},$$
+
+{{Visualize | sec:atoms-atoms-have-size | log-scale:quantum | items="proton radius=8.4e-16, Bohr radius a0=5.29e-11, carbon bond=1.54e-10, red light=6.56e-7"; unit="m" }} The Bohr radius among other small lengths: about 60 000 times the radius of the proton it orbits, a third of a carbon-carbon bond, and ten thousand times smaller than the wavelength of red light.
 
 where the energy is $E(a_0) = -ke^2/2a_0 = -13.6\,\mathrm{eV}$. The estimate lands exactly on the ground-state radius and energy. That exactness is partly luck, because the confinement term was only estimated; the full Schrödinger calculation confirms both numbers and shows that $a_0$ is the radius at which the electron is most likely to be found. Both curves appear in the figure below.
 

@@ -56,6 +56,8 @@ Einstein's equations, applied to a universe that is the same everywhere on large
 
 $$H^2 = \frac{8\pi G}{3}\rho + \frac{\Lambda c^2}{3} - \frac{kc^2}{a^2},$$
 
+{{Visualize | sec:cosmology-budget-universe | function-plot:cosmic | f="sqrt(0.315*x^-3 + 0.685)"; x=[0.2,3]; logy=true; xlabel="scale factor $a$ (today $a=1$)"; ylabel="$H/H_0$"; value_at=1; expect_value=1 }} The Friedmann equation for a flat universe with today's fractions (matter 0.315, cosmological constant 0.685; radiation neglected): the expansion rate falls as matter thins out, then levels off at $H_0\sqrt{0.685}$ as $\Lambda$ takes over.
+
 where $\rho$ is the density of matter and radiation, $\Lambda$ is Einstein's **cosmological constant**, $k$ measures the curvature of space and $a$ is the scale factor by which all distances grow. Measurements show that space is flat, $k = 0$, to within a fraction of a per cent. A flat universe expanding at rate $H_0$ must then contain exactly the **critical density**
 
 $$\rho_c = \frac{3H_0^2}{8\pi G},$$
