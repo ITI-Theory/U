@@ -3601,3 +3601,40 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       the old burst returning as if now. The music's echo is the same knob (its delay
       feedback is the "reverb blanket"): with cp up the sound echoes too. Safety (S) and a
       resource shorten the echo. A picture and a model, not a diagnosis (ISS-066's care).
+
+## ISS-078: The control room, the cathedral from outside, the mind palace as the universe — OPEN
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Author, 13 Oct 17:04 ("fun", not for the UAT): (1) a control room, many monitors of outside and
+system views; the multi-window layouts already give it, but a window view needs to look
+around: pan left/right, forward/back. Why: C-PTSD, constant vigilance. (2) In the thought
+cathedral a rear view, then look at the cathedral from outside, like Hogwarts but abstract.
+(3) The elevator in the cathedral is different: each level is different; the mind palace IS
+the universe. A lot; doable; best strategy?
+
+Copilot, 13 Oct:
+- (1) LOOK: a free look in every 3D window (drag, or keys), plus a VIGILANCE mode: with the
+  C-PTSD slider the view scans by itself, glancing left, right and behind, more often and
+  faster as cp rises; with safety it settles forward. Hypervigilance as something the viewer
+  feels, not reads. Small; one camera offset shared by the 3D stops.
+- (2) OUTSIDE THE CATHEDRAL: the ventricles really have a famous shape from outside (the
+  ventricular cast); the same hall curve rendered from outside in stone, with a spire rising
+  from each hall (the hall's name), windows lit by the field, thoughts flashing behind them,
+  the camera orbiting at a distance: Hogwarts, abstract. Medium; it reuses the cave's curve.
+- (3) THE MIND PALACE: the method of loci (memory palaces) is real and old (Simonides; modern
+  memory champions; it recruits the hippocampus's place cells). The programme's own claim
+  makes the rest: the same response grammar at every scale, so a palace whose floors are the
+  31 levels of the zoom dial is the programme in one building. Strategy: do not build 31
+  worlds; the app has them (32 level renderers, the elevator, STEP OUT). The cathedral's
+  tower becomes the elevator shaft; each floor a hall dressed by its sector (8: cosmological,
+  geological, collective, systemic, network, organismal, micro-physical, named solutions:
+  stars in the vault, strata in the walls, a crowd's lights ...), and the door of each hall
+  opens onto that level's own view. Phase: the shaft and 8 hall styles first, the doors to
+  the existing views second, a palace tour third (the memory-palace exercise: place a thought
+  in a hall, find it again).
+- [ ] LOOK and VIGILANCE (C-PTSD scanning) in the 3D windows.
+- [ ] The cathedral from outside: the ventricular cast in stone, a spire per hall, the field in
+      the windows, an orbit; the rear view from inside first.
+- [ ] The mind palace: the tower as the elevator, eight sector halls, doors to the levels' views.
+- [ ] The palace tour: the method of loci as an exercise.
