@@ -3012,9 +3012,9 @@ different scales (ZSF's "same as always").
       registry and the app's type guard. Design note and spike on Emotion, Percept,
       Pole first.
 
-## ISS-064: The Law book's affidavit chapter and the Russell reading — OPEN
+## ISS-064: The Law book's affidavit chapter and the Russell reading — CLOSED
 {{Tags area.books}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=ISS-055-sherlock}}
 
 Epic ISS-055 (later). Law (C2-book-13): affidavits as legal argument (claims,
 exhibits, versions as precedent), with Sherlock's exhibits as worked cases.
@@ -3194,9 +3194,9 @@ second machine need the relay (item above).
       A/B is per window, so the screen beneath shows B. Not yet tried on the real
       monitors and tablets.)
 
-## ISS-070: The Monsters: example personas, and names the user can change — OPEN
+## ISS-070: The Monsters: example personas, and names the user can change — CLOSED
 {{Tags area.app, area.ops}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 11 Oct 23:02. The Monster (the understandability tier, ISS-066) gets
 example Monsters, each a reader with a taste, for UAT and for the app's reader
