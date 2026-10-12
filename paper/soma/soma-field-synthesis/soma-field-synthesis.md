@@ -94,8 +94,14 @@ The programme fills both gaps with the same model, via the same method.
 
 The argument has three movements and several extensions:
 
-::: {.markdown-include path="soma/soma-field-synthesis/programme-table.generated.md"}
-:::
+| Paper | Movement | Contribution |
+|---|---|---|
+| *Mathematical Co-identification* (2026) | Method | Names and formalises the procedure |
+| *The Soma-Field* (2026) | Model | Applies it to emotional dynamics |
+| *Quantum Soma and the Penrose Gap* (2026) | Computational test | Tests the central reachability claim |
+| *Field Notes from the Inside* (2026) | Lived case | Primary-source clinical grounding |
+| *A Dynamical Field Model of Music-Induced Affect* (2026) | Extension | Demonstrates domain generality |
+| *The Tensor* (2026) | Extension | Applies the framework to abstract film |
 
 The popular account (*A Voyage into Trauma*, 2026) provides the same argument in
 accessible form, for readers without a physics background.
