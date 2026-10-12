@@ -33,9 +33,14 @@ end
 function Div(div)
   if not div.classes:includes("lean-include") then return nil end
   local dir = div.attributes.dir or "proofs"
+  local path = div.attributes.catalogue or "soma/lean-proofs-appendix/catalogue.yaml"
+  local catalogue = read_catalogue(path)
+  -- the order is the catalogue's own (its top-level keys, as written): one inventory, not two
   local order = split_order(div.attributes.order)
-  if #order == 0 then error("lean-include requires an order attribute") end
-  local catalogue = read_catalogue(div.attributes.catalogue or "soma/lean-proofs-appendix/catalogue.yaml")
+  if #order == 0 then
+    for name in read_all(path):gmatch("\n([%w_]+%.lean):") do order[#order + 1] = name end
+  end
+  if #order == 0 then error("lean-include: no files in " .. path) end
 
   local blocks = pandoc.Blocks({})
   for _, filename in ipairs(order) do

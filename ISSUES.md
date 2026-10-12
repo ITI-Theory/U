@@ -879,9 +879,9 @@ also be stale.
 
 ---
 
-## ISS-034: Paper script ownership and generated-content boundaries — OPEN
+## ISS-034: Paper script ownership and generated-content boundaries — CLOSED
 {{Tags area.ops, area.papers, area.books}}
-{{Fields date.created=2026-08-26, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-08-26, date.start=, date.end=2026-10-13, epic=}}
 
 `paper/scripts/` has accumulated build generators, validators, packaging,
 translation, staging, and maintenance tools with uneven ownership and output
@@ -908,13 +908,18 @@ reader-facing Markdown in Python.
    reads the `.lean` files; `build_lean_appendix.py`, `build_thesis.py`,
    `build_omnibus.py`, `build_atlas.py` and `build_fractal_books.py` are
    retired; see `docs/BUILD.md`.)
-- [ ] Keep Makefiles as the canonical build graph; any replacement must avoid
+- [x] Keep Makefiles as the canonical build graph; any replacement must avoid
    hard-coded duplicate source inventories and retain a focused regeneration
    check for the checked-in appendix source.
+      (13 Oct triage: done 13 Oct: the appendix's duplicate order list removed, lean-include.lua reads the catalogue's own order; paper/scripts/check_lean_catalogue.py (make -C paper check-lean-catalogue; release-check 14b) fails when a .lean file is not catalogued; it found two (EmotionCyc, FieldEvent), now in the appendix. The appendix is not a checked-in generated file any more, so there is nothing to regenerate)
 
-- [ ] (from ISS-044) One Python directory: move the existing scripts there.
-- [ ] (from ISS-021) Move generated registry views such as the synthesis table
+- (moved to ISS-083) (from ISS-044) One Python directory…
+- [x] (from ISS-021) Move generated registry views such as the synthesis table
       out of handwritten sources.
+      (13 Oct triage: not a registry view: the synthesis table's Movement and Contribution are the paper's own argument (only the titles are registry facts); it stays handwritten. A cancelled agent's TSV-plus-generator version was reverted (ed3c524))
+
+**Closed 2026-10-13:** the Lean appendix has one inventory (its catalogue) with a check in make and the release gate; the synthesis table is the paper's own content; the Python directory waits as an idea (ISS-083).
+
 ---
 
 ## ISS-035: Path-sensitive transition dynamics — CLOSED
@@ -3952,6 +3957,9 @@ steps to take now.
       dossier per topic; the coding agent turns each into a note in `Me/kb/` with front
       matter (area, visibility, sources, evidence label); quarantined claims stay out.
       *Phase Dot* is built from the notes, filtered by visibility.
+- [ ] (from ISS-034, ISS-044) One Python directory: move the existing scripts there. Copilot,
+      13 Oct: not recommended: the scripts live with their owners (paper/scripts, sherlock/,
+      apps/*/scripts, lib/visualize, bin) and their Makefiles; one directory would cut that.
 
 ## ISS-084: Sherlock's analogy and the books' writing, after the Body and Session phases — CLOSED
 {{Tags area.proofs, area.books}}

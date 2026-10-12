@@ -222,6 +222,15 @@ else
 fi
 echo "$REFS_CHECK" | sed 's/^/    /'
 
+hdr "14b. The Lean appendix's catalogue lists every Lean file (ISS-034)"
+LEANCAT_CHECK=$(py paper/scripts/check_lean_catalogue.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "$(echo "$LEANCAT_CHECK" | tail -1 | sed 's/^PASS  //')"
+else
+  fail "Lean appendix catalogue out of step with paper/proofs"
+  echo "$LEANCAT_CHECK" | sed 's/^/    /'
+fi
+
 hdr "15. Nothing live depends on .OBSOLETE files"
 OBSOLETE_CHECK=$(py paper/scripts/check_obsolete_refs.py 2>&1)
 if [[ $? -eq 0 ]]; then

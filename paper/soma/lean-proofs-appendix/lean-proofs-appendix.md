@@ -100,5 +100,5 @@ The source files are reproduced in full below, in dependency order.
 \leanappendixstart
 ```
 
-::: {.lean-include dir="proofs" order="Hopfield.lean,EmotionOntology.lean,FieldProofs.lean,SomaField.lean,DyadicField.lean,LimbicTunnel.lean,MTheoryIsomorphism.lean,LimbicHopfield.lean,SwarmPropagator.lean,UniversalSomaticField.lean,Movie.lean,QuantumSim.lean,SomaNetwork.lean,ScaleUniverse.lean,Benchmark.lean,BFSSIsomorphism.lean,BRECVEMAField.lean,BRECVEMAVariational.lean,LocalGR.lean,LocalGeometry.lean,CosmologicalConstant.lean,G2Compactification.lean,RenormalisationGroup.lean,TemporalDynamics.lean,USF_OSAxioms.lean,SomaPhilosophy.lean"}
+::: {.lean-include dir="proofs"}
 :::

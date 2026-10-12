@@ -51,7 +51,7 @@ PDFS_IT := $(addprefix $(BUILDDIR)/, $(addsuffix .it.pdf, $(_MULTI_DOCS)))
 
 # -----------------------------------------------------------------------------
 
-.PHONY: all html help omnibus omnibus-royal omnibus-a4 glyph-papers lulu-cover uat-context-papers check-registry-hooks check-unicode-diagrams check-lulu-pages check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
+.PHONY: all html help omnibus omnibus-royal omnibus-a4 glyph-papers lulu-cover uat-context-papers check-registry-hooks check-lean-catalogue check-unicode-diagrams check-lulu-pages check-omnibus-format check-individual-format check-paper-references check-glyph-warnings \
 	omnibus-translations translate-omnibus translate-omnibus-deepl \
 	lean-appendix \
 	clean check setup freeze \
@@ -69,6 +69,10 @@ uat-context-papers:
 
 check-registry-hooks:
 	$(PYTHON) $(SCRIPTS)/check_registry_hooks.py
+
+# The Lean appendix's catalogue lists exactly paper/proofs/*.lean (ISS-034): one inventory.
+check-lean-catalogue:
+	$(PYTHON) $(SCRIPTS)/check_lean_catalogue.py
 
 check-unicode-diagrams:
 	$(PYTHON) $(SCRIPTS)/check_unicode_diagrams.py $(if $(STRICT),--strict)

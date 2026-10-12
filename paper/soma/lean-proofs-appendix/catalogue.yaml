@@ -385,3 +385,28 @@ SomaPhilosophy.lean:
     reading is `interpretive`.  The file replaces two earlier drafts that claimed
     verification while relying on `sorry` (ISSUES.md ISS-042).
 
+EmotionCyc.lean:
+  title: |
+    The Emotions Anchored to OpenCyc, as Types
+  description: |
+    `EmotionOntology`'s string interpreter named OpenCyc constants that do not
+    exist (`#$Fear-Emotion`, `#$emotionalBlend`, ...; Sherlock, 11 Oct 2026).
+    This file types them instead: a base emotion is an `EmotionType`, a constant
+    that OpenCyc's UniversalVocabularyMt says is an `EmotionalQuantityType`, and
+    `anchor` proves it from the knowledge base when the file compiles, so a wrong
+    name does not compile. Trust, which has no OpenCyc emotion type, is marked
+    `unanchored`; blend, dampen and evoke stay the programme's own structure.
+    Built on its own (`lake build EmotionCyc`), not a default target: it imports
+    all of UniversalVocabularyMt.
+
+FieldEvent.lean:
+  title: |
+    Same Field, Different Type: Emotion and Thought
+  description: |
+    The programme's claim that emotion and thought are the same soma-field read
+    at different layers (emotion at D8, the limbic layer; thought at D9 to D11)
+    as a definition the concept registry can point to. `FieldEvent l` is an event
+    of the field read at layer `l`; `project` and `lift` retype one as the other
+    without changing the field state, and are inverse on D8; an event at D11 is
+    always a thought. A typing discipline, not a fact about brains
+    (`derived-under-assumptions`).
