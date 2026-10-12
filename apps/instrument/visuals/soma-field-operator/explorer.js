@@ -1684,7 +1684,7 @@ function drawUreterOutside(ctx, u, env, m, box) {
     if (m.stone > 0) leader(ctx, u, 'STONE', at(0.55), P(0.82, 0.5), COLORS.gold);
     if (m.stent) leader(ctx, u, 'STENT (double-J)', at(0.75), P(0.8, 0.7), '#4aa3ff');
     leader(ctx, u, 'BLADDER', bl, P(0.86, 0.86), 'rgba(255,190,200,0.9)');
-    if (m.stent) label(ctx, u, `STENT MODE: mild background ${Math.round(100 * m.stentSignal)}% · curled ends irritate; bladder filling can reflux`, 0, 0.56, '#8ecbff', 'center', 0.022);
+    if (m.stent) label(ctx, u, `STENT MODE: mild background ${Math.round(100 * m.stentSignal)}% · curled ends irritate; voiding pushes urine back up`, 0, 0.56, '#8ecbff', 'center', 0.022);
     if (pain > 0.15) {
       label(ctx, u, 'felt in the loin', ...P(0.14, 0.42), '#ff6070', 'center', 0.02);
       label(ctx, u, 'and the groin (T11 to L2)', ...P(0.7, 1.0), '#ff6070', 'center', 0.02);

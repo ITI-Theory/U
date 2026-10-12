@@ -293,7 +293,7 @@ const checks = [
   ['stone: the tube above the stone swells (radius above / below > 1.5)', stoneRun.above / stoneRun.below, 1.5, Infinity],
   ['stone: the pain comes in waves (spasms in a minute: 6 to 30)', stoneRun.peaks, 6, 30],
   ['stent: mild signal persists while the stent is in (15% to 45%)', stentRun.signal, 0.15, 0.45],
-  ['stent: reflux/filling bumps the mild signal at least once', stentRun.reflux - stentRun.signal, 0.05, 0.5],
+  ['stent: reflux on voiding bumps the mild signal at least once', stentRun.reflux - stentRun.signal, 0.05, 0.5],
   ['stent: discomfort stays below the obstructing-stone pain', stentRun.pain / loopOpen.pain, 0, 0.75],
   ['one body: the limbic breath lowers the pain (with the loop / without < 0.85)', loopNone.pain / loopOpen.pain, 0, 0.85],
   ['one body: C-PTSD comes to the breath later (s, C-PTSD minus none > 3)', loopCp.breathAt - loopNone.breathAt, 3, Infinity],

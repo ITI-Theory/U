@@ -7,7 +7,7 @@
 //   2 THE STENT   a double-J stent is slipped past the stone: the urine drains, the swelling
 //                 falls, the waves quieten (a stent damps peristalsis); over days it stretches
 //                 the ureter wider; its curled ends irritate the kidney and the bladder, and
-//                 as the bladder fills it can reflux urine up into the kidney (a flank signal)
+//                 when the bladder empties urine refluxes up it into the kidney (a flank pain)
 //   3 THE LASER   under anaesthetic: the ureteroscope comes up the widened ureter, the laser
 //                 breaks the stone (POKE); the signal is there, it is not felt
 //   4 STENT OUT   the stent is pulled out: a last spasm, then the waves pass freely
@@ -17,7 +17,7 @@
 export const XS = 0.55;
 export const URETER_STAGES = [
   { id: 'stone', title: 'THE STONE', line: 'The stone blocks the ureter. Urine backs up, the tube above it swells, and the muscle squeezes harder and more often to push it on: each wave that crashes into the stone is a spasm, a spike of pain. The pain comes in waves: colic.', poke: 'POKE: a drink, more urine, another wave' },
-  { id: 'stent', title: 'THE STENT', line: 'A stent, a thin tube curled at both ends (a double-J), is slipped past the stone. The urine drains through it, the swelling falls, the waves quieten. Over days it stretches the ureter wider for the laser. Its curled ends irritate the kidney and the bladder; as the bladder fills, urine can run back up it into the kidney: a flank signal.', poke: 'POKE: a drink, another wave' },
+  { id: 'stent', title: 'THE STENT', line: 'A stent, a thin tube curled at both ends (a double-J), is slipped past the stone. The urine drains through it, the swelling falls, the waves quieten. Over days it stretches the ureter wider for the laser. Its curled ends irritate the kidney and the bladder; when the bladder empties, urine is pushed back up it into the kidney: a flank pain.', poke: 'POKE: a drink, another wave' },
   { id: 'laser', title: 'THE LASER', line: 'Under anaesthetic, the scope comes up the widened ureter and the laser breaks the stone to dust. The nerves still signal; the anaesthetic means it is not felt.', poke: 'POKE: the laser' },
   { id: 'free', title: 'STENT OUT', line: 'The stent is pulled out: a sharp pull, a last spasm. Then the waves pass freely to the bladder and the pain settles.', poke: 'POKE: a drink, a wave that passes' },
 ];
@@ -125,7 +125,7 @@ export function createUreterModel() {
         if (w.x > 1) waves.splice(i, 1);
       }
       spasm *= Math.exp(-dt / 2.5);
-      // the bladder fills now and then; with a stent, urine can run back up it to the kidney
+      // the bladder empties now and then; with a stent, urine runs back up it to the kidney
       nextVoid -= dt;
       if (nextVoid <= 0) {
         nextVoid = 18;
