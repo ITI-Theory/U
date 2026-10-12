@@ -3307,7 +3307,9 @@ Plan:
       the score stop shows ♪ PULSE, ♥, the gap and whether it closes over the last
       minute, a measure, not a proof; a real strap is author UAT) Measure it with P9 (BRECVEMA): rhythmic entrainment as tempo against the
       viewer's heart rate, read from the strap.
-- [ ] Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
+- [ ] (13 Oct: the credits file exists, apps/instrument/visuals/soma-field-operator/audio/
+      CREDITS.md, with the rules for a fixed piece and the SpaceEngine credit line; the pieces
+      themselves are the author's choice) Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
       Musopen; Satie's Gymnopedies for Departure); keep a credits file.
 - Not recommended: AI song generators (licences and training data unclear; the
   lesson of ISS-066).
