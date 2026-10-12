@@ -64,11 +64,12 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 - [x] UAT runner (13 Oct): `uat/checklist.yaml` and `uat/scripts/uat.py`
    (`make uat-run`, `HAL uat`): step by step in a terminal, resumable, answers in
    `uat/results/`, `c` sends a finding to the VS Code chat (`code chat`).
-- [ ] Author: run the UAT inside the Soma Machine (MOTHER `/shell`: bash and a
-   barebone Neovim, not `soma-neovim-init.lua`). Neovim is not installed yet
-   (the winget install stalled, probably on the admin prompt). H-AL needs a
-   NotebookLM re-login first (`apps/instrument/mother/.venv/Scripts/notebooklm
-   login`) to ask about the author's Neovim habits.
+- [ ] Author: run the UAT inside the Soma Machine (MOTHER `/shell`: bash and Neovim),
+   `HAL uat`. Ready 13 Oct: Neovim 0.12 installed for the user (no admin,
+   %LOCALAPPDATA%\Programs\Neovim, on the user PATH); %LOCALAPPDATA%\nvim links to
+   `U.Dot/nvim`, the author's own barebone-nvim (H-AL: chosen 29 Aug, "BB looks right";
+   `soma-neovim-init.lua` was the Collected Works notebook's, 26 Aug), fixed for 0.12
+   (U.Dot 84d88df). Restart the MOTHER bridge so its shell sees `nvim`.
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
    manifests, commit Dist.
 - [ ] Zenodo: `ZENODO_SANDBOX_TOKEN` then `bin/zenodo-publish --sandbox plan`,
