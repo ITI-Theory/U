@@ -3518,6 +3518,7 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       light in the stone; FX off the plain anatomy.
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
+      (Author, 13 Oct 04:20: OpenStax, drawn from Anatomy & Physiology 2e, CC BY 4.0, credited.)
 - [ ] Visual thoughts (author, 13 Oct 04:10): steal from Kandinsky; images floating; 3D
       bubbles as real as possible with the image on them; they grow; one that comes close
       fills the screen and you pop into it, into the "video". Copilot's view:
