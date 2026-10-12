@@ -51,8 +51,8 @@ introduction and conclusion around embedded papers
 
 ## Origins
 
-- `Part2/book/phase-dot/phase-dot.md` (*Phase Dot: Conversations with
-  Machines, April-May 2026*). Author preface at L23-93. L1-6110 hold Lean and
+- `Me/books/phase-dot/phase-dot.md` (*Phase Dot: Conversations with
+  Machines, April-May 2026*; private since 13 Oct 2026, moved out of U). Author preface at L23-93. L1-6110 hold Lean and
   the first Sherlock/Moriarty material; L16220-30144 hold the genesis of Soma
   Field Theory, Part II "The Build", Appendix A (Somatic M-Theory Manifold),
   and Appendix B (the [T] brand and the Russell/Knuth line). L6111-16219 is
@@ -82,7 +82,7 @@ Sherlock is a design and a philosophy, not an implemented program.
   `paper/scripts/load_opencyc.py.OBSOLETE`, `paper/scripts/query_cyc.py.OBSOLETE`, `paper/scripts/query_emotions.tql.OBSOLETE` (OpenCyc OWL into TypeDB);
   replaced by Sherlock (`sherlock/`, OpenCyc in Lean) and `paper/proofs/EmotionCyc.lean`;
   `paper/proofs/EmotionOntology.lean`, `FieldProofs.lean`.
-- `Part2/book/phase-dot/phase-dot.md` L1-6110: first `{{Sherlock}}` and
+- `Me/books/phase-dot/phase-dot.md` L1-6110: first `{{Sherlock}}` and
   `{{Moriarty}}` macros; OpenCyc in Lean with Aesop.
 - `Me/chats/Inbox/ShelockBS.md`, `SherlockBS2.md`: DOT, ASO-to-Cyc morphisms,
   the triples pivot, generator/filter, and the `.mdl`/`.mlean` idea.

@@ -109,11 +109,11 @@ This also sets the reader's burden. One should not ask the labels to remove judg
 | Claim | Label | Source |
 |---|---|---|
 | The book uses Reichenbach's discovery/justification distinction as its frame. | `interpretive` | [@reichenbach1938experience] |
-| *Phase Dot* is treated as context of discovery, not authority for scientific truth. | `interpretive` | `Part2/book/phase-dot/phase-dot.md` preface |
+| *Phase Dot* is treated as context of discovery, not authority for scientific truth. | `interpretive` | `Me/books/phase-dot/phase-dot.md` preface |
 | `consciousness_dichotomy` is formally `lt_or_ge φ √2` with `consciousnessThreshold := Real.sqrt 2`. | `kernel-verified` | `paper/proofs/UniversalSomaticField.lean` |
 | The claim that consciousness is a limbic threshold crossing requires empirical calibration. | `open-hypothesis` | `paper/proofs/UniversalSomaticField.lean`; `paper/soma/soma-field-paper/soma-field-paper.md` |
 | QUANT-EXP-1 should be read as exact simulation evidence, not hardware, therapy, or consciousness proof. | `simulated` | `paper/soma/quantum-soma-penrose/quantum-soma-penrose.md`; `paper/soma/quantum-soma-penrose/QUANT-EXP-SWEEP-2026-05-20.md` |
-| Sherlock began as a proposed audit practice; since October 2026 it is built: a neuro-symbolic compiler that checks the programme's papers in Lean against themselves, each other, the programme's Lean and OpenCyc. | `kernel-verified` (its checks); `interpretive` (its reading) | `sherlock/`; `registry/affidavits/`; paper SH1 (`paper/soma/sherlock-compiler/`); `Part2/book/phase-dot/phase-dot.md` |
+| Sherlock began as a proposed audit practice; since October 2026 it is built: a neuro-symbolic compiler that checks the programme's papers in Lean against themselves, each other, the programme's Lean and OpenCyc. | `kernel-verified` (its checks); `interpretive` (its reading) | `sherlock/`; `registry/affidavits/`; paper SH1 (`paper/soma/sherlock-compiler/`); `Me/books/phase-dot/phase-dot.md` |
 | The Soma Machine's full historical time axis is intended, while the current app implements response time and scale-oriented visual controls. | `open-hypothesis` | `apps/instrument/visuals/soma-field-operator/SOMA-MACHINE-MVP.md`; `apps/instrument/visuals/soma-field-operator/operator-theory.yaml` |
 | The book's six-part structure moves from object, through Russell and time-invariant history, to proof, consciousness, and wrap-up. | `interpretive` | present volume outline |
 
@@ -276,7 +276,7 @@ The first chapter has deliberately stated the claims as a system rather than as 
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
-| [T]-Theory is the umbrella; SFT is the scientific engine; USF is the scale ontology. | `interpretive` | `Part2/book/phase-dot/phase-dot.md`; `paper/soma/soma-field-paper/soma-field-paper.md` |
+| [T]-Theory is the umbrella; SFT is the scientific engine; USF is the scale ontology. | `interpretive` | `Me/books/phase-dot/phase-dot.md`; `paper/soma/soma-field-paper/soma-field-paper.md` |
 | The Soma field is modelled as $E_{body}\otimes E_{neural}$ with thresholded conscious modes. | `derived-under-assumptions` | `paper/soma/soma-field-paper/soma-field-paper.md`; `paper/proofs/UniversalSomaticField.lean` |
 | The finite affect model uses Hopfield energy $H(e)=-\frac12e^TWe-b^Te$ and Langevin dynamics. | `derived-under-assumptions` | P4; `apps/instrument/visuals/soma-field-operator/SOMA-MACHINE-MVP.md` |
 | Trauma is modelled as attractor deformation plus memory kernels. | `derived-under-assumptions` | `paper/soma/soma-temporal-dynamics/soma-temporal-dynamics.md` |
@@ -298,7 +298,7 @@ One older root was technical. Johnson recalls physics and neural-computing work 
 
 A second root is the limbic/PFC question chain. The recorded sequence begins with the question how the limbic system regulates the prefrontal cortex, then asks how that influence would modify a neural network, learning, growth, and AI. The AI supplies names: hypernetworks, temperature, attention, gating, reward, homeostasis, and artificial limbic analogues. The pressure of the questioning is Johnson's: cortex alone is not enough; valuation, arousal, threat, attachment, and bodily state need a formal layer.
 
-That pressure becomes the programme's correspondence principle. Hopfield networks work; therefore a new affective model must not throw them away. It must say how Hopfield energy appears as a subcase, limit, or projection. In `Part2/book/phase-dot/phase-dot.md`, Johnson corrects the AI's early framing: the project is not simply based on a Hopfield network; it is a Soma approach in which Hopfield is a component or solution inside a larger tensor field. The AI's contribution is to write down and stabilise the Hopfield Hamiltonian as the operational engine `derived-under-assumptions`.
+That pressure becomes the programme's correspondence principle. Hopfield networks work; therefore a new affective model must not throw them away. It must say how Hopfield energy appears as a subcase, limit, or projection. In `Me/books/phase-dot/phase-dot.md`, Johnson corrects the AI's early framing: the project is not simply based on a Hopfield network; it is a Soma approach in which Hopfield is a component or solution inside a larger tensor field. The AI's contribution is to write down and stabilise the Hopfield Hamiltonian as the operational engine `derived-under-assumptions`.
 
 The Gestalt root is equally important. Johnson first asks about Gestalt stuckness, then connects stuckness to attractor basins and possible tunnelling. In one early exchange, AI warns that a literal clinical-neuroscience or physics reading risks pseudoscience. Johnson's correction is decisive: the object is not a robot reading emotions from sensors; it is an emotional interface in which a person self-reports or turns knobs and watches a field respond. The human is the sensor. This line preserves the instrument from premature clinical claim and keeps it in a human-in-the-loop research and art space `interpretive`.
 
@@ -391,18 +391,18 @@ By the end of the making story, [T]-Theory has become a peculiar composite: an a
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
-| The 2026 crisis and four months typing to machines are provenance, not scientific evidence. | `interpretive` | `Part2/book/phase-dot/phase-dot.md` preface L23-93 |
-| The 1993 neural-topology seed is author-originated in the source record. | `interpretive` | `Part2/book/phase-dot/phase-dot.md` |
-| The limbic/PFC question chain is author-directed, while AI supplies much of the vocabulary. | `interpretive` | `Part2/book/phase-dot/phase-dot.md` |
-| The "human is the sensor" instrument line redirects the work away from sensor-first diagnosis. | `interpretive` | `Part2/book/phase-dot/phase-dot.md` |
-| Hopfield is retained by a correspondence principle rather than discarded. | `derived-under-assumptions` | `Part2/book/phase-dot/phase-dot.md`; P4 |
-| Matrix-to-Tensor and [T]-Theory over SFT are authorial pivots; AI supplies didactic expansion. | `interpretive` | `Part2/book/phase-dot/phase-dot.md` |
+| The 2026 crisis and four months typing to machines are provenance, not scientific evidence. | `interpretive` | `Me/books/phase-dot/phase-dot.md` preface L23-93 |
+| The 1993 neural-topology seed is author-originated in the source record. | `interpretive` | `Me/books/phase-dot/phase-dot.md` |
+| The limbic/PFC question chain is author-directed, while AI supplies much of the vocabulary. | `interpretive` | `Me/books/phase-dot/phase-dot.md` |
+| The "human is the sensor" instrument line redirects the work away from sensor-first diagnosis. | `interpretive` | `Me/books/phase-dot/phase-dot.md` |
+| Hopfield is retained by a correspondence principle rather than discarded. | `derived-under-assumptions` | `Me/books/phase-dot/phase-dot.md`; P4 |
+| Matrix-to-Tensor and [T]-Theory over SFT are authorial pivots; AI supplies didactic expansion. | `interpretive` | `Me/books/phase-dot/phase-dot.md` |
 | Lean enters as a boundary-making discipline, not automatic world-truth. | `interpretive` | `paper/FieldAxioms.lean`; `paper/proofs/BRECVEMAVariational.lean`; `paper/proofs/DyadicField.lean`; `paper/proofs/SomaNetwork.lean` |
-| QUANT-EXP-1 begins as an author-requested proof/example and becomes a local exact simulation. | `simulated` | `paper/soma/quantum-soma-penrose/quantum-soma-penrose.md`; `paper/soma/quantum-soma-penrose/QUANT-EXP-SWEEP-2026-05-20.md`; `Part2/book/phase-dot/phase-dot.md` |
-| The build practice is run/build/inspect/fix/rerun/commit/package. | `empirical-result` | `Part2/book/phase-dot/phase-dot.md`; `paper/scripts/paper_status.py`; `paper/scripts/package_papers.py` |
-| The author's distrust of AI flattery motivates Mathematical Co-identification and evidence labels. | `interpretive` | `paper/soma/mathematical-co-identification/mathematical-co-identification.md`; `Part2/book/phase-dot/phase-dot.md` |
-| Phase Dot is an incomplete source record and loses authority when repository evidence contradicts it. | `interpretive` | `Part2/book/phase-dot/phase-dot.md`; `paper/FieldAxioms.lean`; `paper/proofs/` |
-| Discovery-context material can explain origins and method but cannot justify the programme's scientific claims. | `interpretive` | [@reichenbach1938experience]; `Part2/book/phase-dot/phase-dot.md` |
+| QUANT-EXP-1 begins as an author-requested proof/example and becomes a local exact simulation. | `simulated` | `paper/soma/quantum-soma-penrose/quantum-soma-penrose.md`; `paper/soma/quantum-soma-penrose/QUANT-EXP-SWEEP-2026-05-20.md`; `Me/books/phase-dot/phase-dot.md` |
+| The build practice is run/build/inspect/fix/rerun/commit/package. | `empirical-result` | `Me/books/phase-dot/phase-dot.md`; `paper/scripts/paper_status.py`; `paper/scripts/package_papers.py` |
+| The author's distrust of AI flattery motivates Mathematical Co-identification and evidence labels. | `interpretive` | `paper/soma/mathematical-co-identification/mathematical-co-identification.md`; `Me/books/phase-dot/phase-dot.md` |
+| Phase Dot is an incomplete source record and loses authority when repository evidence contradicts it. | `interpretive` | `Me/books/phase-dot/phase-dot.md`; `paper/FieldAxioms.lean`; `paper/proofs/` |
+| Discovery-context material can explain origins and method but cannot justify the programme's scientific claims. | `interpretive` | [@reichenbach1938experience]; `Me/books/phase-dot/phase-dot.md` |
 
 ```{=latex}
 \part{Russell's Method}
@@ -527,7 +527,7 @@ That is the Russellian inheritance in its shortest form: situated thought, publi
 | Liberty maps to effective temperature or exploratory freedom. | `interpretive` | Russell cohesion/liberty theme; field analogy |
 | Russell's book is methodologically valuable despite known scholarly criticisms. | `interpretive` | Critical reception summarised in prose |
 | A response theory must distinguish a doctrine's truth from its propagation. | `interpretive` | Programme evidence labels; `paper/FieldAxioms.lean`; `paper/proofs/UniversalSomaticField.lean` |
-| [T]-Theory's philosophical history should be "a" situated history, not a total history. | `interpretive` | Russell title and method; *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`) as provenance |
+| [T]-Theory's philosophical history should be "a" situated history, not a total history. | `interpretive` | Russell title and method; *Phase Dot* (`Me/books/phase-dot/phase-dot.md`) as provenance |
 
 # 4. The Social Field
 
@@ -868,7 +868,7 @@ Every time.
 | Strict LTI assumptions do not hold for societies, but provide a useful limiting model. | `interpretive` | Chapter analysis |
 | Popper's critique of historicism blocks any predictive law-of-history reading. | `interpretive` | @popper1957poverty applied as foil |
 | Recurrence in philosophy is recurrence of structure, not repetition of content. | `interpretive` | Part III method |
-| The Russell -> Knuth -> Lean brand line is cultural genealogy, not evidence for the physics. | `interpretive` | *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`); `paper/proofs/UniversalSomaticField.lean` |
+| The Russell -> Knuth -> Lean brand line is cultural genealogy, not evidence for the physics. | `interpretive` | *Phase Dot* (`Me/books/phase-dot/phase-dot.md`); `paper/proofs/UniversalSomaticField.lean` |
 | The Soma Machine's full Big Bang-to-human-history time axis is intended, not built. | `open-hypothesis` | Soma Field Operator source, `apps/instrument/visuals/soma-field-operator/operator-theory.yaml` |
 | Non-stationarity, nonlinearity, reflexivity, novelty, and value limit the invariant grammar. | `interpretive` | Chapter scope analysis |
 | Part III will use invariant questions as a reading discipline, not as historical proof. | `interpretive` | Book outline and chapter method |
@@ -1303,8 +1303,8 @@ This also prepares the transition to modern philosophy. The Renaissance will not
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
-| Catholic philosophy is read here as a high-cohesion social medium with long memory, not as a conscious collective subject. | `interpretive` | *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`); chapter method |
-| The Church-as-field language is an interpretive social ontology and must not imply that institutions feel. | `interpretive` | *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`); chapter method |
+| Catholic philosophy is read here as a high-cohesion social medium with long memory, not as a conscious collective subject. | `interpretive` | *Phase Dot* (`Me/books/phase-dot/phase-dot.md`); chapter method |
+| The Church-as-field language is an interpretive social ontology and must not imply that institutions feel. | `interpretive` | *Phase Dot* (`Me/books/phase-dot/phase-dot.md`); chapter method |
 | The memory-kernel image is used to describe recurrence of doctrine through institutions, not to prove a literal historical law. | `interpretive` | Temporal Dynamics (P10); chapter method |
 | Russell's cohesion/liberty contrast is mapped to coupling and effective temperature for this historical reading. | `interpretive` | [@russell1945history]; chapter method |
 | Augustine is treated as increasing the gain on interior variables such as memory, will, guilt, and desire. | `interpretive` | Russell history reading; chapter argument |
@@ -2037,7 +2037,7 @@ Sherlock's future chapter can be read as the proposed institutionalisation of th
 | `paper/scripts/schema.tql.OBSOLETE` is built ontology plumbing for OpenCyc/TypeDB, not a completed Sherlock system. | `interpretive` | `paper/scripts/schema.tql.OBSOLETE`; `paper/scripts/load_opencyc.py.OBSOLETE`; `paper/scripts/query_cyc.py.OBSOLETE` |
 | `paper/scripts/load_opencyc.py.OBSOLETE` and `paper/scripts/query_cyc.py.OBSOLETE` provide practical OpenCyc-to-TypeDB loading/query substrate, with engineering caveats. | `interpretive` | `paper/scripts/load_opencyc.py.OBSOLETE`; `paper/scripts/query_cyc.py.OBSOLETE`; `paper/scripts/schema.tql.OBSOLETE` |
 | `EmotionOntology.lean` separates vocabulary from interpreters and proves small facts about concrete encodings. | `kernel-verified` | `paper/proofs/EmotionOntology.lean` |
-| A Sherlock system that maps paper claims to ontology entities, Lean declarations, and evidence labels is proposed rather than complete. | `open-hypothesis` | *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`); `paper/scripts/schema.tql.OBSOLETE`; `paper/proofs/EmotionOntology.lean` |
+| A Sherlock system that maps paper claims to ontology entities, Lean declarations, and evidence labels is proposed rather than complete. | `open-hypothesis` | *Phase Dot* (`Me/books/phase-dot/phase-dot.md`); `paper/scripts/schema.tql.OBSOLETE`; `paper/proofs/EmotionOntology.lean` |
 | The programme's evidence labels are a practical response to Quinean underdetermination, not its abolition. | `interpretive` | Chapter argument; `paper/FieldAxioms.lean`; `paper/proofs/QuantumSim.lean`; `paper/proofs/UniversalSomaticField.lean` |
 | Knowledge changes authority when moved among paper, OWL, program, Lean, and empirical forms. | `interpretive` | Chapter argument |
 
@@ -2222,7 +2222,7 @@ A laboratory notebook records what happened before the polished paper explains w
 
 The record is also dangerous. A chat log is not a measurement. A NotebookLM response is not a citation. A generated theorem name is not a theorem. A proposed build script is not a build. An enthusiastic summary is not peer review. The very density of the source record can create an illusion of evidence: there are so many words, files, hashes, YAML blocks, and claims that one feels something must have been established. Sherlock's function is to resist that feeling.
 
-There is a respectful reason not to sanitise the notebook. The Phase Dot record (`Part2/book/phase-dot/phase-dot.md`) describes a person in a prolonged freeze state using machines, mathematics, music, and type discipline to survive, then keeping the parts that could be externalised, tested, built, and cited. That origin does not validate the theory. It does explain why the notebook is unusually intense, why provenance matters, and why the programme insists on labels.
+There is a respectful reason not to sanitise the notebook. The Phase Dot record (`Me/books/phase-dot/phase-dot.md`) describes a person in a prolonged freeze state using machines, mathematics, music, and type discipline to survive, then keeping the parts that could be externalised, tested, built, and cited. That origin does not validate the theory. It does explain why the notebook is unusually intense, why provenance matters, and why the programme insists on labels.
 
 The chat notebook also records self-correction. The author repeatedly refuses AI inflation: he narrows from artificial self-awareness to computational neuroscience, from universal proof to one 11-page paper, from MCI as key to MCI as tool, from generated certificates to actual Lean status, from domain-book proof rhetoric to projection status. That pattern matters more than any single overconfident AI paragraph.
 
@@ -2984,7 +2984,7 @@ The final philosophical courtesy is to leave room for that response to be more i
 | Russell's usefulness criterion can be applied as better distinctions, questions, and criticism rather than final truth. | `interpretive` | Russell method; this chapter |
 | Evidence labels are a durable contribution even if the physics fails. | `interpretive` | `apps/instrument/visuals/soma-field-operator/GEMINI-SOMA-FIELD-OPERATOR.md`; `paper/FieldAxioms.lean`; `paper/proofs/UniversalSomaticField.lean` |
 | Sherlock names the audit problem of moving between prose, ontology, proof, and generated summaries. | `open-hypothesis` | `paper/proofs/EmotionOntology.lean`; `paper/proofs/FieldProofs.lean`; `paper/scripts/schema.tql.OBSOLETE` |
-| The `[T]` mark functions as a closing interpretive image, not historical proof. | `interpretive` | *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`) |
+| The `[T]` mark functions as a closing interpretive image, not historical proof. | `interpretive` | *Phase Dot* (`Me/books/phase-dot/phase-dot.md`) |
 | The response to this book is unknown. | `open-hypothesis` | Fixed-point thesis applied to the book |
 
 ```{=latex}
@@ -3044,7 +3044,7 @@ This ledger lists major claims across the programme and this book. It is not a p
 | 45 | The Fixed Point formal seed is small. | `kernel-verified` | `CosmologicalConstant.lean::SomaField.EnergyBudget.usf_is_fixed_point` | Full social fixed point open. |
 | 46 | [T]-Theory as cultural self-propagation is a reading. | `interpretive` | P23; Ch. 19 | Not validation. |
 | 47 | The Soma Machine full history axis is intended, not complete. | `open-hypothesis` | `apps/instrument/visuals/soma-field-operator/GEMINI-SOMA-FIELD-OPERATOR.md`; Chs. 6-10 | Current app has scale and response time. |
-| 48 | The instrument's maxim is that the human is the sensor. | `interpretive` | *Phase Dot* (`Part2/book/phase-dot/phase-dot.md`); Ch. 18 | Interface ethic. |
+| 48 | The instrument's maxim is that the human is the sensor. | `interpretive` | *Phase Dot* (`Me/books/phase-dot/phase-dot.md`); Ch. 18 | Interface ethic. |
 | 49 | Sherlock has built ontology/proof substrates. | `derived-under-assumptions` | `EmotionOntology.lean::Emotion.emotionLang_is_universal`; `FieldProofs.lean::awe_is_universal`; TypeDB scripts | Not full system. |
 | 50 | Sherlock as a claim checker for the programme's papers is built (October 2026); as a Markdown-macro framework it is proposed. | `kernel-verified` / `open-hypothesis` | `sherlock/`; `registry/affidavits/`; paper SH1 (`paper/soma/sherlock-compiler/`) | V0 met; users other than the author still needed. |
 | 51 | Emotion ontology list and valence facts are locally checked. | `kernel-verified` | `EmotionOntology.lean::Emotion.awe_involves_fear`; `nostalgia_is_mixed`; `FieldProofs.lean::fear_in_awe`; `nostalgia_requires_longing` | Encodings only. |

@@ -33,7 +33,6 @@ MODELS="gpt-4o-mini,gpt-4o,Meta-Llama-3.1-405B-Instruct,Meta-Llama-3.1-8B-Instru
 # So one entry per paper is enough.
 QUEUE=(
   "field-atlas-body"
-  "phase-dot"
   "omnibus-body"
 )
 
@@ -62,7 +61,6 @@ echo "================================================================"
 
 # Build all translated PDFs
 make field-atlas-translations    || echo "[queue] field-atlas PDFs partial"
-make phase-dot-translations     || echo "[queue] phase-dot PDFs partial"
 make omnibus-translations       || echo "[queue] omnibus PDFs partial"
 
 echo "[queue] ALL DONE at $(date -u +%FT%TZ)"

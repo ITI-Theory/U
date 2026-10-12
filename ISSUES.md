@@ -3079,10 +3079,11 @@ legal advice; the checks and decisions:
       worksheets). `reader=cookie` stays (a common word). Historical records
       (uat/results, uat/RC1*, *.OBSOLETE) are left as they were. MUNCH is
       the Monster's voice (ISS-052).
-- [ ] Phase Dot (`Part2/book/phase-dot/phase-dot.md`, public): about 90
+- [x] Phase Dot (`Part2/book/phase-dot/phase-dot.md`, public): about 90
       lines of pasted web search results about Cookie Monster eye templates
-      and Sesame Street listings (around line 9140): author to cut them or
-      keep Phase Dot private.
+      and Sesame Street listings (around line 9140). Resolved 13 Oct: Phase
+      Dot is private, moved to `Me/books/phase-dot/` (author: "makes sense
+      to mv it"); its hybrid rebuild with the Takeout exports is Phase Dot 2.
 - [x] Harry Potter, the second UAT persona (Rowling and Warner Bros, in
       copyright and trademarked): renamed **The Wizard** (author, 11 Oct) in
       the same live documents and the philosophy book. The UAT triad is now
