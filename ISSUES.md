@@ -3727,7 +3727,15 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       a large burst sets off its neighbours, lines from one to the next. explorer-check: the
       breath lowers the pain to 73 %, C-PTSD breathes 6 s later, C-PTSD and ADHD keep Φ higher.
       Interpretive; numbers for the eye.
-- [ ] Avant-garde art as visual thoughts too (author, 13 Oct 04:35): the author's Calibre
+- [x] (13 Oct: done, both tiers. PICTURES in the CAVE: FIGURES, ART or BOTH. Public: 6 Kandinsky
+      (Art Institute of Chicago) and 6 Klee (Cleveland Museum of Art), public domain from CC0
+      open-access files (`scripts/fetch-public-art.py` -> `public/art/`, each in CREDITS.md, the
+      pop-in names artist, work, museum and licence). Private, RICE on: 261 picture pages rendered
+      from the author's 8 art books (`apps/instrument/mother/art_private.py`, pdftoppm; pdfimages
+      mis-decoded the scanned books) into %LOCALAPPDATA%/SomaMachine/art, outside every repository,
+      served only by the MOTHER bridge's `/art/` (local origins only; traversal and other file types
+      refused; tested). `audio/CREDITS.md` became the app's `CREDITS.md`, for all media (ISS-086).
+      Restart the MOTHER bridge to serve /art.) Avant-garde art as visual thoughts too (author, 13 Oct 04:35): the author's Calibre
       library (C:\Users\alist\OneDrive\Apps\Calibre Portable\Calibre Library) has Kandinsky
       (On the Spiritual in Art; Kandinsky in Munich; Russian and Bauhaus Years), Klee's
       Notebook 1, The Moderns, Subway Art, Banksy. Copyright, two tiers:

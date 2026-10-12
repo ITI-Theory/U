@@ -634,12 +634,36 @@ const VENTRICLE_LABELS = [['FOURTH VENTRICLE', [0.28, 0.34], [0.55, 0.5]], ['AQU
 export const VISUAL = 60;
 const THOUGHT_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
 const CONCEPT_TINT = { soma: '#ff7aa8', wave: '#5ee7ff', cosmic: '#a78bfa', quantum: '#ffd166', neural: '#3fd0c9', earth: '#8ecbff', generic: '#e8eefc' };
-function randomThought() {
-  const list = thoughtImages ?? [];
-  if (!list.length) return null;
-  const t = list[Math.floor(Math.random() * list.length)];
-  return { ...t, src: `${THOUGHT_BASE}${t.src}` };
+// AVANT-GARDE ART as visual thoughts too (ISS-077): PICTURES chooses the programme's figures,
+// art, or both. Public art: public-domain works from museum open-access files marked CC0
+// (public/art, CREDITS.md). Private art: with RICE on, pictures from the author's own art
+// books, served only by the local MOTHER bridge (/art), never published.
+export const ART_MODES = ['figures', 'art', 'both'];
+let artMode = 'figures';
+const artPool = { public: [], private: [], privateFrom: '' };
+fetch(`${THOUGHT_BASE}art/manifest.json`).then(r => (r.ok ? r.json() : [])).then(list => {
+  artPool.public = list.map(a => ({ ...a, src: `${THOUGHT_BASE}${a.src}`, art: true }));
+}).catch(() => {});
+function loadPrivateArt() {
+  if (!rice()) { artPool.private = []; artPool.privateFrom = ''; return; }
+  const bridge = (() => { try { return (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, ''); } catch { return ''; } })();
+  if (!bridge || artPool.privateFrom === bridge) return;
+  artPool.privateFrom = bridge;
+  fetch(`${bridge}/art/manifest.json`).then(r => (r.ok ? r.json() : [])).then(list => {
+    artPool.private = list.map(a => ({ ...a, src: `${bridge}/art/${a.src}`, art: true }));
+  }).catch(() => { artPool.private = []; });
 }
+function randomThought() {
+  loadPrivateArt();
+  const figures = (thoughtImages ?? []).map(t => ({ ...t, src: `${THOUGHT_BASE}${t.src}` }));
+  const art = [...artPool.public, ...(rice() ? artPool.private : [])];
+  const list = artMode === 'art' ? (art.length ? art : figures) : artMode === 'both' ? [...figures, ...art] : figures;
+  if (!list.length) return null;
+  return list[Math.floor(Math.random() * list.length)];
+}
+// the tint of a visual thought: the concept's colour for a figure; Kandinsky's grammar for art
+const ART_TINTS = ['#ffd166', '#5ee7ff', '#ff4d5e', '#a78bfa', '#3fd0c9'];
+const thoughtTint = img => (img?.art ? ART_TINTS[Math.floor(Math.random() * ART_TINTS.length)] : CONCEPT_TINT[img?.concept] ?? '#ffffff');
 // the explorer's full-screen view of a popped bubble (set by createExplorer)
 let popHandler = null;
 // ONE BODY (ISS-077): the stone in the ureter and the mind-body loop, shared by every stop, so
@@ -792,7 +816,7 @@ function makeBrain() {
       if (caveGl) {
         caveGl.burst(Math.max(20, avalancheSize(1)), lastCp);
         const img = randomThought();
-        caveGl.bubble(img, CONCEPT_TINT[img?.concept] ?? '#ffffff', 0.85);
+        caveGl.bubble(img, thoughtTint(img), 0.85);
         return;
       }
       event(strength);
@@ -857,13 +881,13 @@ function makeBrain() {
           if (env.thoughts) caveGl.burst(size, lastCp);
           if (size >= VISUAL) {
             const img = randomThought();
-            caveGl.bubble(img, CONCEPT_TINT[img?.concept] ?? '#ffffff', Math.min(1, Math.log10(size) / Math.log10(IGNITION)));
+            caveGl.bubble(img, thoughtTint(img), Math.min(1, Math.log10(size) / Math.log10(IGNITION)));
           }
         }
         if (env.labels) {
           label(ctx, u, env.caveOut ? `THE CATHEDRAL FROM OUTSIDE · the visitor is in ${caveGl.hall} (the white spire)` : `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
           label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
-          label(ctx, u, `VISUAL THOUGHTS: the programme's own figures in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
+          label(ctx, u, `VISUAL THOUGHTS: ${artMode === 'art' ? 'avant-garde art' : artMode === 'both' ? 'the programme\'s figures and avant-garde art' : 'the programme\'s own figures'} in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
           label(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
         }
         return;
@@ -2981,6 +3005,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="pdoor" title="Through the door: this level's own view">DOOR ▸</button>
       <button type="button" data-act="pplace" title="Place a thought in this hall (the method of loci)">PLACE</button>
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
+      <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
@@ -3031,6 +3056,7 @@ export function createExplorer(hooks = {}) {
   const painButton = root.querySelector('[data-act="pain"]');
   const caveButton = root.querySelector('[data-act="cave"]');
   const caveOutButton = root.querySelector('[data-act="caveout"]');
+  const artButton = root.querySelector('[data-act="art"]');
   const mindfulButton = root.querySelector('[data-act="mindful"]');
   const palaceButtons = ['palace', 'pup', 'pdown', 'pdoor', 'pplace'].map(a => root.querySelector(`[data-act="${a}"]`));
   const vividLabel = root.querySelector('.explorer__vivid');
@@ -3045,9 +3071,15 @@ export function createExplorer(hooks = {}) {
   popHandler = img => {
     if (!img || !pop.hidden) return;
     pop.querySelector('img').src = img.src;
-    pop.querySelector('.explorer__pop-caption').textContent = img.caption ?? '';
-    pop.querySelector('.explorer__pop-formula').textContent = img.formula ? `the figure of: ${img.formula}` : '';
-    pop.querySelector('.explorer__pop-doc').textContent = `${img.document ?? ''} · ${img.primitive ?? ''} · generated and checked by the Visualize build`;
+    if (img.art) {
+      pop.querySelector('.explorer__pop-caption').textContent = img.private ? `${img.artist}: from ${img.book}` : `${img.artist}, ${img.title} (${img.date})`;
+      pop.querySelector('.explorer__pop-formula').textContent = '';
+      pop.querySelector('.explorer__pop-doc').textContent = img.private ? 'the author\'s own book, on this machine only (RICE); not published' : `${img.museum} · ${img.licence}, public domain · ${img.url}`;
+    } else {
+      pop.querySelector('.explorer__pop-caption').textContent = img.caption ?? '';
+      pop.querySelector('.explorer__pop-formula').textContent = img.formula ? `the figure of: ${img.formula}` : '';
+      pop.querySelector('.explorer__pop-doc').textContent = `${img.document ?? ''} · ${img.primitive ?? ''} · generated and checked by the Visualize build`;
+    }
     pop.hidden = false;
     void pop.offsetWidth;
     pop.classList.add('is-open');
@@ -3279,6 +3311,9 @@ export function createExplorer(hooks = {}) {
     mindfulButton.classList.toggle('active', st.mindful);
     mindfulButton.setAttribute('aria-pressed', String(st.mindful));
     caveOutButton.classList.toggle('active', st.caveOut);
+    artButton.hidden = st.stop !== 'brain' || !st.cave;
+    artButton.textContent = `PICTURES: ${artMode.toUpperCase()}`;
+    artButton.classList.toggle('active', artMode !== 'figures');
     vividLabel.hidden = st.stop !== 'brain' || !st.cave;
     caveButton.classList.toggle('active', st.cave);
     painButton.textContent = `PAIN: ${(st.pain || 'off').toUpperCase()}`;
@@ -3720,6 +3755,9 @@ export function createExplorer(hooks = {}) {
       syncUi();
     } else if (b.dataset.act === 'caveout') {
       st.caveOut = !st.caveOut;
+      syncUi();
+    } else if (b.dataset.act === 'art') {
+      artMode = ART_MODES[(ART_MODES.indexOf(artMode) + 1) % ART_MODES.length];
       syncUi();
     } else if (b.dataset.act === 'vig') {
       st.vig = !st.vig;

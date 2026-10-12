@@ -103,7 +103,14 @@ The scene exposes three normalised fields in `[0, 1]`:
 - **Mind-body explorer**: the BRAIN route now has THE WAY IN, a schematic
 	arterial voyage from the heart through the aorta, carotids, circle of Willis
 	and middle cerebral artery into the cathedral stop, with approximate calibre
-	labels and OpenStax Anatomy & Physiology 2e credited in `audio/CREDITS.md`.
+	labels and OpenStax Anatomy & Physiology 2e credited in `CREDITS.md`.
+- **Visual thoughts, PICTURES** (in the CAVE): the bubbles show the programme's
+	own figures, avant-garde art, or both. The public art is public-domain
+	Kandinsky and Klee from museum open-access files marked CC0
+	(`scripts/fetch-public-art.py` writes `public/art/`; each work is in
+	`CREDITS.md`). With RICE on, the author's own art books are added too:
+	`apps/instrument/mother/art_private.py` extracts them into a folder outside
+	every repository, and only the local MOTHER bridge serves them (`/art/`).
 - **URETER / stent mode**: the stone sequence keeps a persistent mild stent
 	signal while the stent is in, showing curled-end irritation and occasional
 	reflux when the bladder empties, without treatment advice, sizes, or settings.

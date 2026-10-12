@@ -14,6 +14,7 @@ POST /ask {"prompt": "...", "question": "...", "compare": false} -> {"answer": "
      also {"baseline": {"answer", "citations"}, "diff": "what [T]-Theory adds"}
 GET  /health -> {"ok": true, "notebook": "<id>", "voice": true|false}
 POST /speak {"text": "..."} -> audio/wav in the H-AL voice (Piper; optional, private use)
+GET  /art/manifest.json, /art/<book>/<n>.jpg -> the author's private art (art_private.py; RICE)
 """
 from __future__ import annotations
 
@@ -31,12 +32,13 @@ import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from notebooklm import NotebookLMClient
 from notebooklm.exceptions import RateLimitError
 
 import nlm_usage
+from art_private import ART_DIR
 
 try:
     from winpty import PtyProcess
@@ -469,6 +471,9 @@ class Handler(BaseHTTPRequestHandler):
         if urlparse(self.path).path == "/shell":
             self._shell_ws()
             return
+        if urlparse(self.path).path.startswith("/art/"):
+            self._art(unquote(urlparse(self.path).path[len("/art/"):]))
+            return
         if self.path == "/usage":
             try:
                 self._json(200, nlm_usage.usage())
@@ -486,6 +491,25 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal), "voice": voice_available(), "shell": shell_status(bool(origin and LOCAL_ORIGIN.match(origin)))})
         else:
             self._json(404, {"error": "not found"})
+
+    def _art(self, rel: str) -> None:
+        """The author's private art (ISS-077): files under ART_DIR only, local origins only."""
+        if not self._origin_ok():
+            self._json(403, {"error": "local origins only"})
+            return
+        root = ART_DIR.resolve()
+        path = (root / rel).resolve()
+        if root not in path.parents or not path.is_file() or path.suffix.lower() not in (".jpg", ".json"):
+            self._json(404, {"error": "not found"})
+            return
+        body = path.read_bytes()
+        self.send_response(200)
+        self._cors()
+        self.send_header("Content-Type", "application/json" if path.suffix == ".json" else "image/jpeg")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
 
     def _shell_error(self, status: int, message: str) -> None:
         body = json.dumps({"error": message}).encode("utf-8")
