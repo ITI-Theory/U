@@ -300,6 +300,9 @@ has no name in any clinical taxonomy. It has only a position in the field.
 The rendering system may pause here. At high $\kappa_r$, the viewer's own
 biofeedback determines when this phase ends.
 
+*In the river container:* the oldest loss surfaces from the dark water, the one
+that was there before the journey. Grief opens fully.
+
 *In the body container:* the chamber's oldest memory meets the craft: the first
 loss, the one before memory. Grief opens fully.
 
@@ -468,7 +471,9 @@ a single value in the score definition:
 | **Body** | Miniaturised submarine in bloodstream | Heart chamber; the oldest immune memory |
 | **Session** | Psychotherapy room | The moment the freeze lifts |
 
-All three are the same film. All three cross the same two thresholds at the same
+All three are the same score: the same film in the score's sense, three different
+stories on the surface (the River and the Body are the same journey; the Session is
+the same shape without a voyage). All three cross the same two thresholds at the same
 story-times. All three return along the asymmetric path. The rendering renders all
 three identically — because the score is what is being rendered, not the container.
 

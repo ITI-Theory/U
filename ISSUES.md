@@ -58,7 +58,7 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    four A4 volumes at 9pt, two columns (private: `Me/books/phase-dot`, never
    Dist; Origin, The Questions, Building, The Machine). Fractal split done:
    Vol I 575 pp, Vol II 506 pp, Vol III 547 pp, all under Lulu's 800-page cap.
-   Phase Dot 2: Vol I 333 pp, Vol II 454 pp, Vol III 593 pp, Vol IV building.
+   Phase Dot 2: Vol I 333 pp, Vol II 454 pp, Vol III 593 pp, Vol IV 527 pp, all built.
 - [x] UAT runner (13 Oct): `uat/checklist.yaml` and `uat/scripts/uat.py`
    (`make uat-run`, `HAL uat`): step by step in a terminal, resumable, answers in
    `uat/results/`, `c` sends a finding to the VS Code chat (`code chat`).
@@ -3967,8 +3967,9 @@ its lines are in The Tensor's Part II under each phase, beside the river's; the 
       Verdict on "All three are the same film": the same score in all three; the same film
       for River and Body; the Session is the same score told without a journey, as Sherlock's
       SH1 found for the film claim.
-- [ ] Possible edits to The Tensor from the test (author's call): a river line for Threshold 2
+- [x] Possible edits to The Tensor from the test (author's call): a river line for Threshold 2
       (grief opens fully, the oldest loss); and in the session, someone meets the freeze (the
       encounter), so the three tell the same journey; or keep them as they are and let
       Part IV say "the same score" rather than "the same film".
+      (13 Oct triage: done (author, 13 Oct: my recommendation): a river line for Threshold 2 (the oldest loss surfaces from the dark water; grief opens fully), and Part IV now says "All three are the same score" (River and Body the same journey, the Session the same shape without a voyage); the session line kept as it is. The translations follow at their next refresh)
 - [ ] The Law book's affidavit chapter and the Russell reading (writing, not tools).
