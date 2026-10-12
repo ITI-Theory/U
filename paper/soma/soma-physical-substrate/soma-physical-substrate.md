@@ -241,6 +241,8 @@ The bridge:
 
 $$\text{fascial stiffness at region } r \;\leftrightarrow\; |W_{ij}| \text{ for state transition involving } r$$
 
+{{Visualize | fascial-armoring-as-attractor-depth | process-diagram:soma | steps="stiffness at r, barrier |W_ij|, transition data"; layout=line; expect_steps=3 }} The correspondence in the displayed bridge as a three-step empirical programme: measure a regional stiffness, map it to an effective barrier parameter, then compare it with transition data. The diagram labels an open hypothesis, not an established clinical mechanism.
+
 High fascial stiffness is therefore hypothesised to track a high effective energy
 barrier. On this model, the organism may be constrained by tissue-level as well as
 neural dynamics. This offers a formal reading of van der Kolk's title [@vdkolk2014]:
