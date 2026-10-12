@@ -886,9 +886,9 @@ reader-facing Markdown in Python.
       out of handwritten sources.
 ---
 
-## ISS-035: Path-sensitive transition dynamics — OPEN
+## ISS-035: Path-sensitive transition dynamics — CLOSED
 {{Tags area.theory, area.proofs, area.clinical}}
-{{Fields date.created=2026-09-30, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-09-30, date.start=, date.end=2026-10-13, epic=}}
 
 **Merged 2026-10-08 from ISS-014 and ISS-016:** dissonance is path-dependent
 (a Neapolitan sixth resolving upward is not the same pitch approached
@@ -905,15 +905,21 @@ micro-transitions. This is an open theoretical and empirical question; it must
 not be presented as an established clinical mechanism without evidence.
 
 **Actions:**
-- [ ] Distinguish the current potential/energy-landscape account from candidate
+- [x] Distinguish the current potential/energy-landscape account from candidate
    minimum-action, stochastic-path, and path-integral formulations.
-- [ ] Define the proposed state space, admissible paths, action functional, and
+      (13 Oct triage: done: the draft's 'present landscape account' and 'candidate path formalisms' (Kramers, Freidlin-Wentzell, Onsager-Machlup, path integrals as a separate, unproved step))
+- [x] Define the proposed state space, admissible paths, action functional, and
    observable predictions before changing papers or Lean theorems.
-- [ ] Specify what data could distinguish a single-barrier explanation from a
+      (13 Oct triage: done: the draft's state space, admissible paths, action functional and observable predictions)
+- [x] Specify what data could distinguish a single-barrier explanation from a
    distributed path-cost explanation in trauma or overload transitions.
-- [ ] Introduce the extension in the philosophy book as a clearly labelled open
+      (13 Oct triage: done: the draft's discriminating data (route dependence, recovery not retracing onset, dwell-time spread, bottleneck interventions; longitudinal within-person data))
+- [x] Introduce the extension in the philosophy book as a clearly labelled open
    hypothesis, then decide whether it warrants a dedicated paper and formal
    development.
+      (13 Oct triage: done: 'Open hypothesis: path-sensitive transition dynamics' in book-philosophy.md; a dedicated draft paper written, no Lean claims yet)
+
+**Closed 2026-10-13:** specified and drafted: paper/soma/path-sensitive-transitions (make -C paper pathsens, builds; registry pending) and an open-hypothesis section in the philosophy book; reviewed 13 Oct (references real, claims labelled). The author's review of the draft is in ISS-081.
 
 ---
 
@@ -3869,4 +3875,7 @@ steps; ISS-047 the RC3 follow-up.
       second A3 landscape volume read alongside the Atlas, with each Atlas level pointing to
       the theory pages to read with it, so leafing through the Atlas iterates through the
       theory chapters.
+- [ ] (ISS-035) Review the draft paper `paper/soma/path-sensitive-transitions/`
+      (`make -C paper pathsens`) and the philosophy book's new open-hypothesis section;
+      decide whether it becomes a paper for Mk 1 or waits.
 
