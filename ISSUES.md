@@ -3883,10 +3883,7 @@ Copilot, 13 Oct:
       diagnostics, `` ` `` to open, `:q` to close; stays beside the explorer. Real Neovim
       cannot run in a browser; `node-client`/`pynvim` drive a native nvim, so a coupling of
       MOTHER's `/shell` Neovim to the machine through the bridge is a later option.
-- [ ] Author: try the VSIX in VS Code; the licence for code (CC BY 4.0 for now, as the
-      records; U has no LICENSE file).
-- [ ] Later, if people bite: "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB,
-      warned first); Marketplace pre-release and Open VSX.
+- (moved to ISS-090, parked, 13 Oct) Try the VSIX; "Sherlock: Set up"; the Marketplace and Open VSX.
 - [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
       the author says so).
 - [x] (from ISS-081, author, 13 Oct: not the author's) (ISS-047) Autopilot correction (note
@@ -4015,9 +4012,17 @@ SpaceEngine renders) and the one waiting on a viewer stay.
       tours, lens, dim, compare) and fails the build on an unknown one.)
 - [ ] (from ISS-080) (ISS-069) The 3D glass cockpit (after the above): panels as live
       textures, the window as the main view.
-- [ ] (from ISS-080) (ISS-071) Later, desktop only: PROVE on a floor asks the MOTHER bridge
+- [x] (from ISS-080) (ISS-071) Later, desktop only: PROVE on a floor asks the MOTHER bridge
       to run Lean on that theorem and stream the kernel's answer (the browser cannot run
       Lean).
+      (13 Oct: done where a host can run Lean. In the VS Code extension a tower floor has PROVE ▸
+      ask Lean: the extension accepts only names in Sherlock's towers export, writes
+      `import <Module>`, `#check @<name>`, `#print axioms <name>`, runs `lake env lean` (one process,
+      no shell) and streams the kernel's answer to the floor; tested with a harness on
+      sft_ne_classical, and an injection attempt refused. In Neovim, `:SherlockProve` does the same
+      in a terminal split (U.Dot nvim/lua/sherlock.lua, which also loads the ledger's findings as
+      diagnostics, runs the ledger and the readings check, and opens the app at a file's view
+      with `:SomaView`).)
 - [x] (from ISS-080) (ISS-073) SpaceEngine for the cosmic scales (dial levels 12-20):
       rendered footage and plates for the film and the atlas, backdrops for the Soma
       Machine's cosmic levels; the credit line in each work and in the app's credits.
@@ -4349,3 +4354,19 @@ to make wet; NextKB's scale sense of reduce is typed IncreaseAction (an error).
       SH1 4.4 updated.
 
 **Closed 2026-10-13.**
+
+---
+
+## ISS-090: The VS Code extension: trying, setting up, publishing — PARKED
+{{Tags area.app}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Parked by the author on 13 Oct (from ISS-079): what is built stays (apps/vscode 0.1.0: the
+Soma Machine in a tab, Sherlock's findings as errors, View in Soma Machine, PROVE on a tower
+floor; Apache-2.0 AND CC-BY-4.0); the author works in Neovim, where U.Dot's `sherlock.lua`
+gives the same Sherlock commands and opens the app in the browser. Picked up if the
+extension is wanted as the back door for distribution, after Mk 1.
+
+- [ ] Author: try the VSIX in VS Code (`npm run package` in apps/vscode).
+- [ ] "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB, warned first).
+- [ ] Marketplace pre-release and Open VSX (publisher account, screenshots, a public build).

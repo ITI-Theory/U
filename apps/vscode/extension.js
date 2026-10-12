@@ -87,6 +87,7 @@ function html(ctx, webview, hash) {
   addEventListener('message', e => { if (e.data && e.data.type === 'go') location.hash = e.data.hash; });
   addEventListener('hashchange', () => vscode.setState({ hash: location.hash.slice(1) }));
   window.SOMA_HOST = 'vscode';
+  window.somaHostPost = m => vscode.postMessage(m);
 })();
 </script>
 <style>.mother-open, .mother-terminal, .mother-settings { display: none !important; }</style>`;
@@ -107,6 +108,41 @@ function open(ctx, hash) {
   panel.iconPath = vscode.Uri.joinPath(ctx.extensionUri, 'media', 'icon.png');
   panel.webview.html = html(ctx, panel.webview, hash);
   panel.onDidDispose(() => { panel = null; }, null, ctx.subscriptions);
+  panel.webview.onDidReceiveMessage(m => { if (m && m.type === 'prove') prove(m.module, m.name); }, null, ctx.subscriptions);
+}
+
+// --- PROVE: the kernel's answer for a tower floor (ISS-083) ---------------------
+// The webview names a module and a declaration; only names in Sherlock's towers export are
+// accepted (never free text), and one Lean process runs at a time.
+let proving = false;
+
+function prove(module, short) {
+  const send = m => panel && panel.webview.postMessage({ ...m, name: short });
+  const ws = folder();
+  const file = ws && path.join(ws.uri.fsPath, 'bld', 'sherlock', 'towers.json');
+  if (!ws || !fs.existsSync(file)) { send({ type: 'prove-out', text: 'No towers export in this workspace (make -C sherlock towers).\n' }); send({ type: 'prove-done', code: 1 }); return; }
+  if (proving) { send({ type: 'prove-out', text: 'Lean is already running; one process at a time.\n' }); send({ type: 'prove-done', code: 1 }); return; }
+  let full = null;
+  try {
+    const tower = (JSON.parse(fs.readFileSync(file, 'utf8')).towers || []).find(t => t.module === module);
+    const d = tower && (tower.declarations || []).find(d => d.name === short || d.name.endsWith(`.${short}`));
+    full = d && d.name;
+  } catch { /* unreadable export: refused below */ }
+  if (!full || !/^[\w.']+$/.test(full) || !/^[\w.]+$/.test(module)) {
+    send({ type: 'prove-out', text: `${module}.${short} is not in the towers export.\n` }); send({ type: 'prove-done', code: 1 }); return;
+  }
+  const dir = path.join(ws.uri.fsPath, 'bld', 'sherlock', 'prove');
+  fs.mkdirSync(dir, { recursive: true });
+  const scratch = path.join(dir, 'Prove.lean');
+  fs.writeFileSync(scratch, `import ${module}\n#check @${full}\n#print axioms ${full}\n`);
+  send({ type: 'prove-out', text: `lake env lean (import ${module}; #check @${full}; #print axioms ${full})\n` });
+  proving = true;
+  const child = require('child_process').spawn('lake', ['env', 'lean', scratch], { cwd: ws.uri.fsPath });
+  const pipe = data => send({ type: 'prove-out', text: String(data) });
+  child.stdout.on('data', pipe);
+  child.stderr.on('data', pipe);
+  child.on('error', err => { proving = false; send({ type: 'prove-out', text: `could not run lake: ${err.message}\n` }); send({ type: 'prove-done', code: 1 }); });
+  child.on('close', code => { proving = false; send({ type: 'prove-done', code: code ?? 1 }); });
 }
 
 // --- Sherlock's findings -----------------------------------------------------

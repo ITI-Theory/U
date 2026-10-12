@@ -55,7 +55,29 @@ export function createTowerPanel(root) {
       <h3>${MARK(d)} ${esc(d.n)}</h3><p class="explorer__tower-kind">${esc(KIND(d))}${d.line ? ` · line ${d.line}` : ''}</p>
       <pre>${esc(d.s)}</pre>
       ${rests ? `<p>Rests on the programme's own axioms:</p><ul>${rests}</ul>` : d.k === 'theorem' && !d.sorry ? '<p>Rests on no axiom of the programme (Lean\'s standard axioms only).</p>' : ''}
-      ${cites ? `<p>Cited by (Sherlock's ledger):</p><ul>${cites}</ul>` : '<p>Not cited by any paper\'s affidavit.</p>'}`;
+      ${cites ? `<p>Cited by (Sherlock's ledger):</p><ul>${cites}</ul>` : '<p>Not cited by any paper\'s affidavit.</p>'}
+      ${canProve() ? `<button type="button" data-prove="1" title="Ask Lean now, on this machine: the statement and the axioms it rests on, from the kernel">PROVE ▸ ask Lean</button>
+      <pre class="explorer__prove" hidden></pre>` : ''}`;
+  }
+
+  // PROVE (ISS-083, from ISS-071): only where a host can run Lean, the VS Code extension; the
+  // browser cannot. The host runs the kernel on the declaration and streams its answer back.
+  function canProve() { return typeof window !== 'undefined' && window.SOMA_HOST === 'vscode' && typeof window.somaHostPost === 'function'; }
+  const moduleOf = it => String(it?.title ?? '').replace(/\.lean$/, '');
+  if (typeof window !== 'undefined') {
+    addEventListener('message', event => {
+      const m = event.data;
+      if (!m || (m.type !== 'prove-out' && m.type !== 'prove-done') || m.name !== floorName) return;
+      const out = panel.querySelector('.explorer__prove');
+      if (!out) return;
+      out.hidden = false;
+      if (m.type === 'prove-out') out.textContent += m.text;
+      else {
+        out.textContent += m.code === 0 ? '\n✔ the kernel accepted it' : `\n✖ Lean exited with ${m.code}`;
+        const b = panel.querySelector('[data-prove]');
+        if (b) b.disabled = false;
+      }
+    });
   }
 
   function listView() {
@@ -77,6 +99,12 @@ export function createTowerPanel(root) {
     if (b.dataset.tower === 'close') api.close();
     else if (b.dataset.tower === 'back') body.innerHTML = listView();
     else if (b.dataset.floor) body.innerHTML = floorView(item.decls[Number(b.dataset.floor)]);
+    else if (b.dataset.prove && canProve()) {
+      b.disabled = true;
+      const out = panel.querySelector('.explorer__prove');
+      if (out) { out.hidden = false; out.textContent = 'asking Lean (one process; a big module takes a minute)…\n'; }
+      window.somaHostPost({ type: 'prove', module: moduleOf(item), name: floorName });
+    }
   });
 
   const api = {
