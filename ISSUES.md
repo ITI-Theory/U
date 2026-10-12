@@ -83,6 +83,9 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
       ordering), and its cover's spine width comes from their configurator for the final
       page count (ISS-040).
 
+- [ ] At go-live, HAL-UAT becomes H-AL's production notebook (author, 13 Oct: UAT to prod);
+      the old, empty HAL notebook (d6cfc42e) is reused for it or deleted then (ISS-050).
+
 **Closes:** `Dist/ISSUES.md` ISS-001 (migrated here 2026-08-14)
 ---
 
@@ -2596,9 +2599,10 @@ Steps:
       the two films (RMS 0.178 to 0.058 over the shared phases; it reads as
       C-PTSD 1.0, curiosity -0.29, safety +0.15). Still to do: the author
       tunes the presets and the condition mappings (and asks H-AL).
-- [ ] (from ISS-081, author, 13 Oct: not the author's) A DEPTH slider in the engine room for
+- [x] (from ISS-081, author, 13 Oct: not the author's) A DEPTH slider in the engine room for
       `localStorage soma-stereo-depth` (default 1), for the author's calibration with the
       glasses.
+      (13 Oct triage: done: DEPTH (STEREO) in the engine room scales every 3D view's eye separation and the 2D stereo, live across windows (1606e3b))
 - [ ] (from ISS-081, author, 13 Oct: not the author's) (ISS-027) H-AL's cautions
       (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth transitions only, moderate depth
       for clients (looming 3D can trigger C-PTSD), labels never in depth.
@@ -3862,6 +3866,9 @@ Triage of 2026-10-13: issues whose remaining step is the author's own (a read-th
 a calibration, a UAT) are closed; the steps are here in one place. ISS-001 keeps the release
 steps; ISS-047 the RC3 follow-up.
 
+Author, 13 Oct: the reading (the pages, the draft paper, the course) comes last, after the
+other work.
+
 - [ ] (ISS-053) Pages in: photograph ten A5 pages, read them in, keep them private.
 - [x] (ISS-047) P21 sign-off blocker (author, physics): is the zoom step (10^3.207 per
       level; 19 steps span log10(k_P c/H0) = 60.93 decades exactly) fixed independently of
@@ -3874,8 +3881,6 @@ steps; ISS-047 the RC3 follow-up.
       (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover it);
       `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
       (13 Oct triage: done or superseded: a barebone Neovim (U.Dot nvim, ISS-001); the task engine is ISSUES.md with bin/remind and the Maintenance deck; the developer tips are notes, nothing to build)
-- [ ] (ISS-050) The old HAL notebook (d6cfc42e) is empty: delete it, or fill it with the
-      private group (favourites, AJ wiki, links) when that exists.
 - [ ] (ISS-035) Review the draft paper `paper/soma/path-sensitive-transitions/`
       (`make -C paper pathsens`) and the philosophy book's new open-hypothesis section;
       decide whether it becomes a paper for Mk 1 or waits.
