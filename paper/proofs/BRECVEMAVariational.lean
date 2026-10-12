@@ -31,6 +31,7 @@
 
 import Mathlib.Analysis.InnerProductSpace.Basic
 import Mathlib.Data.Matrix.Basic
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import SomaField
 import MTheoryIsomorphism
 import BRECVEMAField
@@ -67,24 +68,27 @@ noncomputable def lagrangian_value (L : NeurodynamicalLagrangian)
 
 -- ── §2. Euler-Lagrange Equations (Target) ────────────────────────────────────────
 
-/-- The Euler-Lagrange equations for the Neurodynamical Lagrangian.
-    Physical content: M ψ̈ = W ψ  (Newton's law for the emotional field).
-    This is the Hopfield attractor dynamics in Lagrangian form.
+/-- Linear-algebra form of the Euler-Lagrange equations for the Neurodynamical
+    Lagrangian, after the variational derivative has been taken.
+    Physical content: an invertible mass matrix lets us choose
+    `ψ̈ = M⁻¹ W ψ`, hence `M ψ̈ = W ψ`.
 
-    Proof requires:
+    What this theorem proves is the solved equation of motion, not the
+    variational derivation itself.  The latter still requires:
     (1) Functional derivative δℒ/δψ (Mathlib: partial available via MeasureTheory)
     (2) The identity δ(ψᵀWψ)/δψ = (W + Wᵀ)ψ = 2Wψ (W symmetric)
     (3) Variational principle: δS = 0 ⟹ E-L equations -/
 theorem euler_lagrange_BRECVEMA
     (L : NeurodynamicalLagrangian)
+    [Invertible L.mass]
     (ψ : ℝ → BRECVEMAField8)  -- trajectory
-    (hsmooth : Differentiable ℝ ψ) :
+    (_hsmooth : Differentiable ℝ ψ) :
     -- The equations of motion for the emotional field are M ψ̈ = W ψ
     ∀ t : ℝ, ∃ ψ_ddot : BRECVEMAField8,
       L.mass.mulVec ψ_ddot = L.coupling.mulVec (ψ t) := by
   intro t
-  -- Trivial witness; full variational derivation requires calculus of variations in Mathlib
-  exact ⟨fun _ => 0, by sorry⟩
+  exact ⟨L.mass⁻¹.mulVec (L.coupling.mulVec (ψ t)), by
+    rw [Matrix.mulVec_mulVec, Matrix.mul_inv_of_invertible, Matrix.one_mulVec]⟩
 
 -- ── §3. The Moduli Space ──────────────────────────────────────────────────────────
 
@@ -104,7 +108,7 @@ def gauge_constraint (W : BRECVEMAMatrix) : Prop :=
 
 -- ── §4. The G₂ Target Theorem ────────────────────────────────────────────────────
 
-/-- TARGET: The moduli space of a neurodynamically consistent Lagrangian
+/-- AXIOM (open geometric target): The moduli space of a neurodynamically consistent Lagrangian
     has the homotopy type of a G₂-holonomy manifold.
 
     Physical meaning: IF the emotional field equations have G₂ symmetry,
@@ -125,25 +129,24 @@ def gauge_constraint (W : BRECVEMAMatrix) : Prop :=
     (3) Lie algebra holonomy ⊆ G₂ ← special holonomy + Berger     (requires Mathlib holonomy)
     (4) Ricci-flat + dim 7 + holonomy ⊆ G₂ → holonomy = G₂        (Berger classification)
 
-    Bottleneck: steps (3) and (4) require Riemannian holonomy in Mathlib (P-future). -/
-theorem moduli_space_is_G2_homotopy
+    Bottleneck: steps (3) and (4) require Riemannian holonomy in Mathlib (P-future).
+    This is therefore deliberately recorded as an axiom, not as a completed proof. -/
+axiom moduli_space_is_G2_homotopy
     (L : NeurodynamicalLagrangian)
-    -- The AJ gauge constraint (the 8→7 reduction — THE OPEN PROBLEM)  -- NOTE: Numerical test shows W8ℝ row sums are ALL non-zero:
+    -- The AJ gauge constraint (the 8→7 reduction — THE OPEN PROBLEM)
+  -- NOTE: Numerical test shows W8ℝ row sums are ALL non-zero:
   --   BS=3/2, RE=17/10, EC=8/5, CO=5/2, VI=3/2, EM=9/5, ME=19/10, AJ=3/2
   -- The zero-sum gauge criterion is FALSIFIED for the empirical W8ℝ.
   -- Revised picture (P24): W8ℝ = (6/5)I₈ + δW where δW is traceless.
   -- The G₂-symmetric component is (6/5)I₈; the 7D structure comes from
-  -- tracelessness of δW (8 symmetry-breaking modes summing to zero = 7 dof).    (h_gauge : gauge_constraint L.coupling)
+  -- tracelessness of δW (8 symmetry-breaking modes summing to zero = 7 dof).
+    (h_gauge : gauge_constraint L.coupling)
     -- Coupling matrix is symmetric (mutual emotional coupling is symmetric)
     (h_sym : ∀ i j : Fin 8, L.coupling i j = L.coupling j i)
     -- Trace-free coupling (Ricci-flat condition — required for G₂ holonomy)
     (h_trace : Matrix.trace L.coupling = 0) :
     -- The moduli space (gauge-fixed) maps isomorphically to CompactX7
-    ∃ (f : ModuliSpace L → CompactX7), Function.Injective f := by
-  -- Trivial injection via the gauge projection and somatic_to_compact
-  refine ⟨fun ⟨ψ, _⟩ => somatic_to_compact (brecvema_gauge_project ψ), ?_⟩
-  intro ⟨ψ₁, h₁⟩ ⟨ψ₂, h₂⟩ heq
-  sorry  -- ← closed when gauge_constraint is formally derived (Step 3)
+    ∃ (f : ModuliSpace L → CompactX7), Function.Injective f
 
 -- ── §5. The Somatic Conservation Law (Conjecture) ────────────────────────────────
 

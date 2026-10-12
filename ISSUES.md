@@ -943,10 +943,11 @@ five real `sorry`s remain in three files.
    Low priority: a separate task, not before a release.
 - [x] Reproducible from a clean clone: `bash lean/upgrade-build.sh` runs
    `lake update`, applies `lean/patches/v4.33/`, fetches the Mathlib cache and builds.
-- [ ] Restate `euler_lagrange_BRECVEMA` (`BRECVEMAVariational.lean`): the
+- [x] Restate `euler_lagrange_BRECVEMA` (`BRECVEMAVariational.lean`): the
    current witness `0` does not satisfy `M ψ̈ = W ψ(t)` in general. Either
    assume the mass matrix is invertible and take `ψ̈ = M⁻¹ W ψ(t)`, or state
    it as a labelled axiom.
+      (13 Oct triage: done: proved for an invertible mass matrix (`[Invertible L.mass]`, witness M⁻¹ W ψ(t)); `moduli_space_is_G2_homotopy` is now a labelled axiom, the open G₂ target. BRECVEMAVariational has no `sorry` left; module builds; the Lean appendix catalogue says so. Remaining: DyadicField 2, SomaNetwork 1)
 - [ ] (13 Oct: seven left. `LimbicTunnel.classical_trapped` is now proved: under gradient flow
       a state below the barrier top on the trauma side stays there for all t >= 0 (V is a
       Lyapunov function, then the intermediate value theorem), Lean's standard axioms only.

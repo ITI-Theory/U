@@ -310,7 +310,7 @@ BRECVEMAVariational.lean:
   description: |
     A neurodynamical Lagrangian for the eight-mechanism field, with mass matrix $M$ and coupling $W$, and the target statement that the gauge-fixed moduli space maps into the G₂-holonomy compact space. The numerical row sums of the coupling matrix falsified the original zero-sum gauge criterion; the revised picture writes $W = \tfrac{6}{5}I_8 + \delta W$ with traceless $\delta W$.
 
-    **Status:** compiles; four theorems; two open `sorry`s (`euler_lagrange_BRECVEMA` and `moduli_space_is_G2_homotopy`), tracked in the issue log.
+    **Status:** compiles, no `sorry`: `euler_lagrange_BRECVEMA` is proved for an invertible mass matrix (the solved equation of motion; the variational derivation itself is not formalised), and `moduli_space_is_G2_homotopy` is a labelled axiom, the open G₂ target, until Mathlib has Riemannian holonomy.
 LocalGR.lean:
   title: |
     Local Gate: Linearised General Relativity
