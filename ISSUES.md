@@ -4120,3 +4120,36 @@ every public repository says what it gives, and every borrowed thing says where 
       public repository's licence files against the canonical text (SHA-256), the README
       sections, the manifests and the statements; `--zenodo` checks every record live. The
       PDF licence lines and the CREDITS coverage follow those items.)
+
+---
+
+## ISS-087: Field Atlas, the print edition with the new graphics (about 300 pages) — OPEN
+{{Tags area.books, area.app, area.visualize}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=}}
+
+Author, 13 Oct 22:33: the Atlas prints differently (bookfactory.ch, not Lulu), so do it first;
+it depends on the app, and a lot has been added since it was laid out (4 Oct; triptychs 9 Oct).
+Its inputs are the registry, its own front and back matter, its theory figures and the app's
+captures, not the papers, the omnibus or the Lean. Decided (author, 13 Oct 22:40): everything
+printable, about 300 pages (bookfactory: even, at most 400).
+
+- [ ] Recapture check: compare fresh portrait captures of a few levels with the 9 Oct ones;
+      recapture all 31 levels if the level views changed.
+- [ ] 1. A new part, "The Voyage Inside", after sector 3: the explorer's stops as plates with
+      text (about 30 pages): the body maps (feelings by basis), the way in (arteries with true
+      calibres, OpenStax CC BY, credited), the cathedral of the ventricles (inside, outside,
+      FX-off anatomy), thoughts as avalanches (with the power-law figure), pain's path, the
+      limbic hinge, the neuron, memory recall, the landscape of states, the dyad, the path's
+      gates, the ureter in four stages.
+- [ ] 2. One fractal world per sector (FLY), opening each sector (5 pages).
+- [ ] 3. The elevator / mind palace as a double spread in the front matter: the ladder as one
+      tower (2 pages).
+- [ ] 4. Per-level data on each level's text page: the Sherlock panel (concept, Lean name, real
+      proof status) and further reading (registry/reading.yaml).
+- [ ] 5. The city of code for the 11D chapter: the landscape as one world, a tower of Lean with
+      floors and axiom beams (about 4 pages).
+- [ ] 6. The Tensor's score in its four settings: mind, river, body, session (about 4 pages).
+- [ ] Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
+      back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
+      print steps in ISS-001 (pages to check, bleed, spine width, cover).
+Not for print: twin view, A/B, the consulting room, SCRIBE, the control room, MIDI, the voices.
