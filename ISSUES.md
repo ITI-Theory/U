@@ -4038,3 +4038,64 @@ Nothing is broken; this waits on upstream.
       v4.34.x, and OSforGFF, GaussianField and BochnerMinlos to upstream commits for the
       same release (`bash lean/upgrade-build.sh`); full `lake build`.
 - [ ] Drop `lean/patches/v4.33/` once upstream builds unpatched.
+
+---
+
+## ISS-086: Licences: what is declared, what is stated, and a check so it cannot be lost — OPEN
+{{Tags release, area.build, area.papers, area.books}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Author, 13 Oct 22:10: look at the licences of my work (books, code, etc.): what have we
+defined and what is actually stated, on GitHub, in the books themselves, on Zenodo? Harden
+it: a licence text is easily lost, so add it to the tests and checks. Is CREDITS part of it?
+
+**Found (13 Oct survey, before any change):**
+- The intent is CC BY 4.0: `registry/papers.yaml` line 19 ("All records: CC BY 4.0"),
+  `paper/ZENODO_RELEASE_SHEETS.md` ("License for all records: CC BY 4.0"), PROCESS.md step 7
+  (Zenodo metadata, by hand), the Field Atlas colophon, and the VS Code extension
+  (`apps/vscode/LICENSE.md` and `package.json`: CC-BY-4.0).
+- **Dist's LICENSE is CC0 1.0** (a public-domain dedication; GitHub shows Dist as CC0).
+  Dist is where the published PDFs live, so it contradicts CC BY 4.0: anyone may take them
+  without attribution. The most important item.
+- **U, T, U.Dot: no LICENSE file**, and GitHub shows no licence: by default all rights
+  reserved, so the public code and Lean cannot be reused, whatever the papers say. (U.Ops and
+  Me are private: none needed.)
+- The papers' and books' build files (pandoc defaults, filters) state no licence: only the
+  Field Atlas says it in its colophon; the other books and the papers do not, unless by hand.
+- The Zenodo uploads set the licence by hand (PROCESS.md); no script, no check.
+- Code under CC BY is not recommended (Creative Commons itself advises a software licence
+  for code); the VS Code extension's code is CC BY 4.0 today.
+
+**CREDITS is the other half.** A licence says what others may do with the author's work;
+CREDITS says what the author uses from others under their licences (three.js and xterm.js
+MIT; OpenStax CC BY 4.0; the museum art CC0, ISS-077; the audio; the Field Atlas textbook's
+`figures/CREDITS.yaml`; Mathlib and physlib Apache-2.0 for the Lean). One check covers both:
+every public repository says what it gives, and every borrowed thing says where it is from.
+
+**Copilot's view:** two licences, stated once and checked everywhere.
+- Text, figures, books, papers, data: CC BY 4.0 (as intended).
+- Code (the app, scripts, Lean, Sherlock): a software licence; Apache-2.0 (Mathlib's
+  licence, with a patent grant) or MIT (shortest). Recommended: Apache-2.0 for the Lean and
+  code, so the proofs match Mathlib's.
+- One source of truth, e.g. `registry/licences.yaml`, which each repository's LICENSE,
+  every book's and paper's copyright page, the Zenodo metadata and the app's About are
+  generated from or checked against.
+
+**Actions:**
+- [ ] Author's decision: the code licence (Apache-2.0 recommended, or MIT); Dist: CC BY 4.0
+      instead of CC0 (recommended; note that CC0 on the already-published PDFs cannot be taken
+      back for copies already taken, only for what is published from now on).
+- [ ] `registry/licences.yaml`: per repository and per kind (text, code, data), with the SPDX id.
+- [ ] LICENSE files: U (a LICENSE for text, LICENSE-CODE for code, or a REUSE layout), T,
+      U.Dot, Dist (replace CC0); GitHub then shows them.
+- [ ] Every book and paper: a copyright and licence line on the copyright page or colophon,
+      from the build (a pandoc metadata field filled from the registry, not typed per book).
+- [ ] Zenodo: the deposit metadata's licence read from the registry; the release check compares
+      the live records' licence (Zenodo API) with it.
+- [ ] CREDITS: one CREDITS file per public app/book (rename `audio/CREDITS.md` to the app's
+      `CREDITS.md`, ISS-077), each third-party asset listed with its licence; a check that every
+      file under `public/art`, `audio`, the textbook figures, etc. has an entry.
+- [ ] `make check-licences`, wired into the release check: LICENSE files present and matching
+      the registry; every built PDF contains its licence line (pdftotext); the app's
+      `package.json` and the VS Code extension's licence fields match; every third-party asset
+      credited.
