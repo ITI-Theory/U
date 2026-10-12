@@ -3492,7 +3492,11 @@ Order (Copilot): thoughts as avalanches first (most expressive; the foam scale's
 and the ADHD slider exist), then pain's path from the stone (it continues the ureter
 voyage), then the ventricle cathedral, then the arteries as the way in. Difficulty:
 avalanches and pain medium; the cathedral and the arteries medium to hard (anatomy).
-- [ ] Thoughts as neural avalanches in the brain stop: bursts with a power law of sizes,
+- [x] (13 Oct: THOUGHTS at the BRAIN stop: a critical branching process per burst, sizes
+      with slope -1.47 against the theory's -3/2 (in explorer-check), loudness as size, the
+      mode as colour, thought bubbles for the middle sizes, ignition above 1000; the ADHD,
+      ASD and C-PTSD sliders: more and scattered, fewer and focused, each burst echoing back
+      fading, a first taste of the cathedral's echo) Thoughts as neural avalanches in the brain stop: bursts with a power law of sizes,
       loudness as size, colour as the mode, ignition when one spreads; ADHD slider; checks
       that the sizes are power-law distributed.
 - [ ] Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,

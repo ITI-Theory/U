@@ -191,6 +191,16 @@ const forcedRate = forced => {
 const forcedWith = forcedRate(true);
 const forcedWithout = forcedRate(false);
 
+// THOUGHTS: avalanche sizes at sigma = 1 follow P(s) ~ s^-3/2 (log-binned slope over 2..128)
+const avalancheSlope = (() => {
+  const N = 20000, sizes = [];
+  for (let i = 0; i < N; i++) sizes.push(sim.avalancheSize(1));
+  const bins = [2, 4, 8, 16, 32, 64, 128];
+  const pts = bins.slice(0, -1).map((b0, k) => [Math.log10(Math.sqrt(b0 * bins[k + 1])), Math.log10(sizes.filter(s => s >= b0 && s < bins[k + 1]).length / N / (bins[k + 1] - b0))]);
+  const mx = pts.reduce((a, p) => a + p[0], 0) / pts.length, my = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+  return pts.reduce((a, p) => a + (p[0] - mx) * (p[1] - my), 0) / pts.reduce((a, p) => a + (p[0] - mx) ** 2, 0);
+})();
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -250,6 +260,7 @@ const checks = [
     && midiControl([0x90, 1, 127]) === null && midiControl([0xb0, 40, 64]) === null), 1, 1],
   ['tunnel: at calm the FREEZE valley almost never lets go (P < 1%)', sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.1, false, () => 1).p, 0, 0.01],
   ['tunnel: warming the field raises the chance (P at Phi 0.3 / P at Phi 0.1 > 5)', sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.3, false, () => 1).p / sim.tunnelTry({ x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 }, 0.1, false, () => 1).p, 5, Infinity],
+  ['thoughts: avalanche sizes follow a power law with slope about -3/2 (-1.75 to -1.25)', avalancheSlope, -1.75, -1.25],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

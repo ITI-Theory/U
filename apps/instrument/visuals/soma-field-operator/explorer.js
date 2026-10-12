@@ -528,8 +528,37 @@ const BRAIN = {
   callosum: [[-0.24, 0.03], [-0.2, -0.1], [-0.06, -0.17], [0.12, -0.17], [0.24, -0.1], [0.27, 0.02]],
 };
 
+// THOUGHTS (ISS-077): thoughts as neural avalanches (Beggs and Plenz 2003). Each burst is
+// a cascade of a critical branching process: every active unit wakes two neighbours with
+// probability sigma / 2 each; at sigma = 1 the sizes follow a power law, P(s) ~ s^-3/2, many
+// small, a few large ("loads of them, louder, softer"). A burst that spreads far is
+// ignition (the global workspace: a thought becoming conscious). The conditions are P13's
+// model operators, pictures, not diagnoses: ADHD more bursts, ASD fewer and focused,
+// C-PTSD echoes (a burst comes back, fading, as in a cathedral).
+export const IGNITION = 1000;
+
+export function avalancheSize(sigma = 1, rand = Math.random, cap = 5000) {
+  let active = 1;
+  let size = 1;
+  while (active > 0 && size < cap) {
+    let next = 0;
+    for (let i = 0; i < active; i++) {
+      if (rand() < sigma / 2) next += 1;
+      if (rand() < sigma / 2) next += 1;
+    }
+    active = next;
+    size += next;
+  }
+  return Math.min(size, cap);
+}
+
+const THOUGHT_MODES = ['S', 'F', 'C', 'A', 'G', 'L', 'PV'];
+
 function makeBrain() {
   const rand = seeded(7);
+  // THOUGHTS: the bursts on screen, and their echoes
+  const bursts = [];
+  let ignited = 0;
   const gyri = [];
   while (gyri.length < 30) {
     const x = lerp(-0.58, 0.58, rand());
@@ -564,6 +593,26 @@ function makeBrain() {
     focus: [-0.05, 0.12],
     tick(env) {
       phiNow = env.phi;
+      if (env.thoughts) {
+        const ca = env.ca ?? 0, cs = env.cs ?? 0, cp = env.cp ?? 0;
+        const rate = (3 + 4 * env.phi) * (1 + 3 * ca) * (1 - 0.6 * cs);
+        if (Math.random() < rate * env.dt) {
+          const size = avalancheSize(1);
+          // ASD: bursts gather near one place (monotropism); otherwise anywhere in the cortex
+          let x, y;
+          do { x = lerp(-0.55, 0.55, Math.random()); y = lerp(-0.42, 0.28, Math.random()); } while ((x / 0.6) ** 2 + ((y + 0.06) / 0.4) ** 2 > 0.9);
+          if (cs > 0) { x = lerp(x, -0.3, cs * 0.8); y = lerp(y, -0.2, cs * 0.8); }
+          // fear more likely as the field heats
+          const mode = Math.random() < 0.15 + 0.4 * env.phi ? 'F' : THOUGHT_MODES[Math.floor(Math.random() * THOUGHT_MODES.length)];
+          bursts.push({ x, y, size, mode, age: 0, life: 0.9 + 0.5 * Math.log10(size + 1), gain: 1, echo: 0 });
+          if (size >= IGNITION) ignited = 2.5;
+          // C-PTSD: the burst returns off the walls, fading, the longer the higher cp
+          if (cp > 0.05) for (let k = 1; k <= Math.round(2 + 6 * cp); k++) bursts.push({ x: x + (Math.random() - 0.5) * 0.06, y: y + (Math.random() - 0.5) * 0.06, size, mode, age: -0.55 * k, life: 0.9 + 0.5 * Math.log10(size + 1), gain: Math.pow(0.55 + 0.35 * cp, k), echo: k });
+        }
+        for (const b of bursts) b.age += env.dt;
+        for (let i = bursts.length - 1; i >= 0; i--) if (bursts[i].age > bursts[i].life) bursts.splice(i, 1);
+        ignited = Math.max(0, ignited - env.dt);
+      } else bursts.length = 0;
       flash = Math.max(0, flash - env.dt * 2.5);
       if (env.dim >= 8 && Math.random() < (0.35 + 1.4 * env.phi) * env.dt) event();
       traffic.tick(env.dt);
@@ -604,6 +653,42 @@ function makeBrain() {
         ctx.stroke();
       }
       glow(ctx, u, BRAIN.prefrontal[0], BRAIN.prefrontal[1], 0.2, '#6aa8ff', 0.55 * (1 - phi) + 0.05);
+      // THOUGHTS: each burst a glow, louder for larger ones; medium ones in a thought bubble;
+      // ignition washes the whole cortex
+      if (env.thoughts) {
+        if (ignited > 0) glow(ctx, u, -0.05, -0.05, 0.75, '#ffffff', 0.35 * Math.min(1, ignited));
+        for (const b of bursts) {
+          if (b.age < 0) continue;
+          const f = b.age / b.life;
+          const loud = Math.log10(b.size + 1) / Math.log10(IGNITION);
+          const r = (0.02 + 0.09 * loud) * (0.6 + 0.6 * f);
+          const a = (1 - f) * (0.25 + 0.75 * loud) * b.gain;
+          const color = MODE_COLORS[b.mode] ?? '#ffffff';
+          glow(ctx, u, b.x, b.y, r * 1.8, color, a);
+          if (b.size >= 8 && b.size < IGNITION && !b.echo && f < 0.7) {
+            ctx.save();
+            ctx.globalAlpha *= a;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.ellipse((b.x + r) * u, (b.y - r * 1.4) * u, r * 1.3 * u, r * 0.8 * u, 0, 0, TAU);
+            ctx.moveTo((b.x + r * 0.3) * u, (b.y - r * 0.7) * u);
+            ctx.lineTo(b.x * u, b.y * u);
+            ctx.stroke();
+            ctx.restore();
+          }
+          if (b.echo) {
+            ctx.save();
+            ctx.globalAlpha *= a * 0.8;
+            ctx.strokeStyle = color;
+            ctx.setLineDash([3, 5]);
+            ctx.beginPath();
+            ctx.arc(b.x * u, b.y * u, (r * 2 + 0.03 * b.echo) * u, 0, TAU);
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      }
       if (dim >= 11) {
         ripples(ctx, u, -0.05, 0.1, t, 1.3 - 0.5 * phi, 0.75, COLORS.cyan, 0.4, 0.75);
         ctx.strokeStyle = COLORS.violet;
@@ -659,6 +744,11 @@ function makeBrain() {
         }
         ctx.restore();
         traffic.draw(ctx, u);
+      }
+      if (env.labels && env.thoughts) {
+        label(ctx, u, ignited > 0 ? 'IGNITION: a burst spreads through the cortex, a thought becoming conscious (global workspace)' : 'THOUGHTS: bursts of activity, neural avalanches: many small, a few large (a power law); colour, the feeling', 0, -0.72, ignited > 0 ? '#ffffff' : COLORS.dim, 'center', 0.024);
+        const cond = [(env.ca ?? 0) > 0.05 ? 'ADHD: more, scattered' : '', (env.cs ?? 0) > 0.05 ? 'ASD: fewer, focused' : '', (env.cp ?? 0) > 0.05 ? 'C-PTSD: each burst echoes' : ''].filter(Boolean).join(' · ');
+        if (cond) label(ctx, u, `${cond} (model operators, pictures, not diagnoses)`, 0, -0.66, COLORS.violet, 'center', 0.02);
       }
       if (env.labels) {
         leader(ctx, u, 'AMYGDALA', BRAIN.amygdala, [-0.42, 0.46], COLORS.red);
@@ -2325,7 +2415,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
 const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
-export const simulation = { tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
+export const simulation = { avalancheSize, tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
 
 // ---------------------------------------------------------------- the explorer
 
@@ -2346,6 +2436,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
+      <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
       <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
@@ -2383,6 +2474,7 @@ export function createExplorer(hooks = {}) {
   const feelRow = root.querySelector('.explorer__feel');
   const resourceButton = root.querySelector('[data-act="resource"]');
   const pastButton = root.querySelector('[data-act="past"]');
+  const thoughtsButton = root.querySelector('[data-act="thoughts"]');
   const hrLabel = root.querySelector('.explorer__hr');
   const hrInput = hrLabel.querySelector('input');
   const hrOut = hrLabel.querySelector('output');
@@ -2452,7 +2544,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2546,6 +2638,8 @@ export function createExplorer(hooks = {}) {
     resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     pastButton.hidden = st.stop !== 'network';
+    thoughtsButton.hidden = st.stop !== 'brain';
+    thoughtsButton.classList.toggle('active', st.thoughts);
     pastButton.classList.toggle('active', st.past);
     pastButton.setAttribute('aria-pressed', String(st.past));
     hrLabel.hidden = st.stop !== 'score';
@@ -2563,7 +2657,8 @@ export function createExplorer(hooks = {}) {
     kxButton.textContent = `WORDS: ${WORDS[st.kx]}`;
     twButton.classList.toggle('active', st.tw);
     twButton.setAttribute('aria-pressed', String(st.tw));
-    pvButton.hidden = condRow.hidden = st.stop !== 'score' || !(st.tw || st.ab === 'b');
+    pvButton.hidden = st.stop !== 'score' || !(st.tw || st.ab === 'b');
+    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && st.thoughts));
     abButton.hidden = st.stop !== 'score' || st.tw;
     apButton.hidden = st.stop !== 'score';
     apButton.textContent = `PILOT: ${{ '': 'OFF', auto: 'AUTOPILOT', co: `CO-PILOT (${st.own})`, manual: 'MANUAL' }[st.ap]}`;
@@ -2756,7 +2851,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -2943,6 +3038,9 @@ export function createExplorer(hooks = {}) {
       hooks.onChange?.();
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
+      syncUi();
+    } else if (b.dataset.act === 'thoughts') {
+      st.thoughts = !st.thoughts;
       syncUi();
     } else if (b.dataset.act === 'past') {
       st.past = !st.past;
