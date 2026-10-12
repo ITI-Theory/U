@@ -20,3 +20,20 @@ export function setRice(on) {
 
 // another window changed it
 globalThis.addEventListener?.('storage', event => { if (event.key === KEY) cached = event.newValue === '1'; });
+
+// VOICE (RICE): how the machine speaks. 'ms' (default): the browser's voices, Microsoft's
+// Natural ones first where the browser has them (Edge: online Natural voices; Windows 11:
+// the installed ones). 'hal': H-AL speaks in his Piper voice through the bridge, lowered,
+// slowed and given a little room (the HAL effect); MOTHER keeps the Natural voice.
+const VOICE_KEY = 'soma-voice';
+export const VOICE_STYLES = ['ms', 'hal'];
+
+export function voiceStyle() {
+  try { const v = localStorage.getItem(VOICE_KEY); return VOICE_STYLES.includes(v) ? v : 'ms'; } catch { return 'ms'; }
+}
+
+export function setVoiceStyle(style) {
+  const v = VOICE_STYLES.includes(style) ? style : 'ms';
+  try { localStorage.setItem(VOICE_KEY, v); } catch { /* private mode */ }
+  globalThis.dispatchEvent?.(new CustomEvent('soma-voice', { detail: { style: v } }));
+}

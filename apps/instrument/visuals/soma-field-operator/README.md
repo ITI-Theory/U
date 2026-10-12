@@ -149,6 +149,15 @@ only when `nvim` is already installed. MOTHER answer code blocks get a
 `RUN IN SHELL` button that switches tabs and pastes the command without
 pressing Enter.
 
+## Voice
+
+`voice.js` speaks MOTHER, H-AL, tours and the Maintenance deck's briefing. RICE's VOICE
+(engine room, `rice.js` `voiceStyle`) chooses how: **MS** (default), the browser's voices
+with Microsoft's Natural ones first where the browser has them (Edge's online Natural
+voices, Windows 11's installed ones); **H-AL**, H-AL in his Piper voice through the MOTHER
+bridge with the HAL effect (a little lower and slower, a soft top, a small room; WebAudio),
+MOTHER staying Natural. Without the bridge H-AL falls back to the browser voice.
+
 ## SCRIBE
 
 `scribe.js` (ISS-079): the programme's papers, books and Lean in a read-only

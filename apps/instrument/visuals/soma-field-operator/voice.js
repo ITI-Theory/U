@@ -1,8 +1,14 @@
-// Voice for MOTHER and H-AL. H-AL speaks in the HAL 9000 Piper voice, synthesised
-// by the local bridge (POST /speak; private use, model kept outside the repo).
-// MOTHER, and H-AL when the bridge has no voice, use the browser's built-in
-// speech engine (Web Speech API), H-AL pitched lower and slower.
+// Voice for MOTHER and H-AL, set by RICE's VOICE (rice.js voiceStyle):
+//  - 'ms' (default): the browser's speech engine (Web Speech API), Microsoft's Natural
+//    voices first when the browser offers them (Edge, Windows 11), for every persona.
+//  - 'hal': H-AL speaks in the HAL 9000 Piper voice, synthesised by the local bridge
+//    (POST /speak; private use, model kept outside the repo), with the HAL effect: a
+//    little lower and slower, and a small room. Without the bridge, the browser voice
+//    pitched lower and slower. MOTHER keeps the Natural voice.
 
+// In 'ms' style H-AL is a Natural male voice, only a shade lower: the neural voices
+// break up when pitched far down.
+const NATURAL_HAL = { rate: 0.94, pitch: 0.85 };
 const PERSONA_VOICE = {
   mother: { rate: 1.0, pitch: 1.0, prefer: /(female|zira|hazel|susan|libby|sonia|samantha|serena|karen|moira)/i },
   hal: { rate: 0.88, pitch: 0.55, prefer: /(male|david|george|daniel|ryan|guy|alex|fred|thomas|oliver)/i },
@@ -11,6 +17,7 @@ const PERSONA_VOICE = {
 };
 
 import { pronounce } from './lexicon.js';
+import { voiceStyle } from './rice.js';
 
 // Turn Markdown-with-LaTeX into something a speech engine can read.
 export function speakableText(markdown) {
@@ -39,7 +46,39 @@ export function createVoice() {
   function pickVoice(persona) {
     const english = voices.filter(voice => /^en(-|_|$)/i.test(voice.lang));
     const pool = english.length ? english : voices;
-    return pool.find(voice => PERSONA_VOICE[persona].prefer.test(voice.name)) ?? pool.find(voice => voice.default) ?? pool[0] ?? null;
+    const natural = pool.filter(voice => /natural/i.test(voice.name));
+    const prefer = PERSONA_VOICE[persona].prefer;
+    return natural.find(voice => prefer.test(voice.name)) ?? natural[0]
+      ?? pool.find(voice => prefer.test(voice.name)) ?? pool.find(voice => voice.default) ?? pool[0] ?? null;
+  }
+
+  // The HAL effect on the Piper audio: a semitone and a bit lower (and so a little slower),
+  // a soft top end, and a short room. WebAudio, so it needs the page to have been touched.
+  let ctx = null;
+  function halEffect(element) {
+    try {
+      element.preservesPitch = false;
+      element.playbackRate = 0.92;
+      ctx = ctx ?? new AudioContext();
+      const source = ctx.createMediaElementSource(element);
+      const tone = ctx.createBiquadFilter();
+      tone.type = 'lowpass';
+      tone.frequency.value = 5200;
+      const room = ctx.createConvolver();
+      const length = Math.floor(ctx.sampleRate * 0.45);
+      const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+      for (let c = 0; c < 2; c += 1) {
+        const data = impulse.getChannelData(c);
+        for (let i = 0; i < length; i += 1) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 3);
+      }
+      room.buffer = impulse;
+      const dry = ctx.createGain(); dry.gain.value = 0.85;
+      const wet = ctx.createGain(); wet.gain.value = 0.18;
+      source.connect(tone);
+      tone.connect(dry).connect(ctx.destination);
+      tone.connect(room).connect(wet).connect(ctx.destination);
+      if (ctx.state === 'suspended') ctx.resume();
+    } catch { /* plain playback */ }
   }
 
   // Long answers are split into sentences: some engines stop after ~15 s of one utterance.
@@ -82,6 +121,7 @@ export function createVoice() {
     const blob = await response.blob();
     if (mine !== request) return;
     audio = new Audio(URL.createObjectURL(blob));
+    halEffect(audio);
     const ended = waitForEnd();
     audio.addEventListener('ended', () => { const done = finish; finish = null; done?.(); }, { once: true });
     await audio.play();
@@ -97,7 +137,8 @@ export function createVoice() {
       const text = pronounce(speakableText(markdown));
       if (!text) return 'silent';
       stopAll();
-      if (persona === 'hal' && bridge) {
+      const style = voiceStyle();
+      if (persona === 'hal' && bridge && style === 'hal') {
         try {
           await speakWithBridge(text, bridge);
           return 'piper';
@@ -106,7 +147,7 @@ export function createVoice() {
         }
       }
       if (!supported) return 'silent';
-      const settings = PERSONA_VOICE[persona] ?? PERSONA_VOICE.mother;
+      const settings = persona === 'hal' && style === 'ms' ? NATURAL_HAL : PERSONA_VOICE[persona] ?? PERSONA_VOICE.mother;
       const voice = pickVoice(persona in PERSONA_VOICE ? persona : 'mother');
       const ended = waitForEnd();
       const parts = chunks(text);

@@ -19,7 +19,7 @@
 
 import { createVoice } from './voice.js';
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
-import { rice, setRice } from './rice.js';
+import { rice, setRice, voiceStyle, setVoiceStyle } from './rice.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
 import { midiInOn, setMidiIn, MIDI_IN_MAP } from './midi-in.js';
 
@@ -393,6 +393,8 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
       <fieldset data-rice><legend>RICE</legend>
         <p class="engine-room__hint">The author's options (ricing): crew alerts at the score stop, and more as they arrive. Every window of this browser follows.</p>
         <button type="button" data-rice="1">ON</button><button type="button" data-rice="0">OFF</button>
+        <p class="engine-room__hint">VOICE: MS, the browser's Microsoft Natural voices (Edge, Windows 11); H-AL, his Piper voice through the bridge with the HAL effect (MOTHER stays Natural).</p>
+        <button type="button" data-voice-style="ms">VOICE: MS</button><button type="button" data-voice-style="hal">VOICE: H-AL</button>
       </fieldset>
       <fieldset data-midi><legend>MIDI OUT (ABLETON)</legend>
         <p class="engine-room__hint">The score as MIDI, channel 1: CC ${Object.entries(MIDI_CC).map(([id, cc]) => `${cc} ${id}`).join(', ')}; a phase plays note ${PHASE_NOTE}+, a threshold note ${THRESHOLD_NOTE}+. Into a virtual port (loopMIDI), then Ableton's MIDI Map. Chrome asks once.</p>
@@ -509,6 +511,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
 
   function sync() {
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
+    for (const b of room.querySelectorAll('[data-voice-style]')) b.classList.toggle('active', b.dataset.voiceStyle === voiceStyle());
     const relayLine = room.querySelector('.engine-room__relay-status');
     if (!relayLine.textContent.startsWith('Saved')) relayLine.textContent = `Relay: ${screens.relayStatus}`;
     for (const b of room.querySelectorAll('[data-midiin]')) b.classList.toggle('active', (b.dataset.midiin === '1') === midiInOn());
@@ -545,6 +548,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.rice) setRice(button.dataset.rice === '1');
+    if (button.dataset.voiceStyle) { setVoiceStyle(button.dataset.voiceStyle); sync(); }
     if (button.dataset.midiin) setMidiIn(button.dataset.midiin === '1');
     if (button.dataset.relay) {
       setRelay(button.dataset.relay === '1' ? { url: room.querySelector('[data-relay-url]').value.trim(), token: room.querySelector('[data-relay-token]').value.trim() } : null);

@@ -3753,8 +3753,6 @@ Triage of 2026-10-13 (author: "43 open is a lot"): issues whose work is done exc
 optional step are closed; the step is kept here, word for word, with the issue it came from.
 
 - [ ] (ISS-020) Add one real omnibus or paper use-case before expanding the vocabulary.
-- [ ] (ISS-037) A licence-clean neural voice for public MOTHER (a stock Piper voice such as
-      en_GB) if browser voices prove too uneven across platforms.
 - [ ] (ISS-038) Per worked example "Show me" tours in the textbook HTML (one block per
       example) if the chapter-level stops prove useful.
 - [ ] (ISS-069) The 3D glass cockpit (after the above): panels as live textures, the window
@@ -3836,13 +3834,6 @@ steps; ISS-047 the RC3 follow-up.
 - [ ] (ISS-041) Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; release
       decision. (Visualize for chapters 1, 2 and 9 done: 1 and 2 earlier, 9 on 9 Oct.)
 - [ ] (ISS-053) Pages in: photograph ten A5 pages, read them in, keep them private.
-- [ ] (ISS-054) Record the voice: about one hour of clean, single-speaker audio, 22 kHz mono
-      WAV with transcripts (known scripts: the tours themselves are the best script, they
-      are what H-AL will say; plus dictation); a quiet room, one microphone, one session
-      setup.
-- [ ] (ISS-054) Train: fine-tune a Piper checkpoint on the recordings (piper-train); check
-      the base checkpoint's licence so the result is the author's to release; keep the HAL
-      9000 imitation private (ISS-048).
 - [ ] (ISS-074) Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes
       (ISS-053; 13 Oct: built, MIDI IN drives the pilot's knobs in CO-PILOT and MANUAL).
 - [ ] (ISS-047) Autopilot correction (note 9): it is for speech-to-text; the AI repeats back
@@ -3891,3 +3882,20 @@ steps; ISS-047 the RC3 follow-up.
       (`make -C paper pathsens`) and the philosophy book's new open-hypothesis section;
       decide whether it becomes a paper for Mk 1 or waits.
 
+## ISS-082: The voices: the author's own, and a licence-clean public one — SOMEDAY
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Author, 13 Oct: "all issues re my voice etc, they can be moved to someday". Meanwhile RICE's
+VOICE chooses MS (Microsoft's Natural voices in the browser, the default) or H-AL (his
+Piper voice through the bridge with the HAL effect).
+
+- [ ] (ISS-037) A licence-clean neural voice for public MOTHER (a stock Piper voice such as
+      en_GB) if browser voices prove too uneven across platforms.
+- [ ] (ISS-054) Record the voice: about one hour of clean, single-speaker audio, 22 kHz mono
+      WAV with transcripts (known scripts: the tours themselves are the best script, they
+      are what H-AL will say; plus dictation); a quiet room, one microphone, one session
+      setup.
+- [ ] (ISS-054) Train: fine-tune a Piper checkpoint on the recordings (piper-train); check
+      the base checkpoint's licence so the result is the author's to release; keep the HAL
+      9000 imitation private (ISS-048).
