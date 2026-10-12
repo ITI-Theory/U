@@ -235,7 +235,7 @@ test : `grep -i float paper/proofs/*.lean | grep -v Movie.lean `
 
 ---
 
-## ISS-011: Hopfield.lean — upgrade to SpinState + asynchronous update — OPEN
+## ISS-011: Hopfield.lean — upgrade to SpinState + asynchronous update — PARKED
 
 Current Hopfield.lean uses `Pattern = Fin D → ℝ` (synchronous step). This
 makes proofs 3 (attractor\_exists) and 4 (convergence) hard because the state
@@ -420,7 +420,7 @@ Deferred because the build is slow. Do when CI/CD is set up (ISS-012).
 
 ---
 
-## ISS-020: Registry-Driven Pandoc Lua Hooks — OPEN
+## ISS-020: Registry-Driven Pandoc Lua Hooks — CLOSED
 
 **Problem:** Paper and omnibus prose currently risks hand-written references to
 project-wide counts, DOI/status values, and cross-paper locations. Those links
@@ -438,7 +438,7 @@ template language or silently rewrite scientific prose.
 **Next actions:**
 - [x] Define the initial hook syntax and allowed registry fields.
 - [x] Implement a Pandoc Lua filter with fixture-based pass/fail tests.
-- [ ] Add one real omnibus or paper use-case before expanding the vocabulary.
+- (moved to ISS-080) Add one real omnibus or paper use-case before expanding the vocabulary.…
 
 **Prototype result (2026-08-19):** `paper/registry-hooks.lua` resolves
 `{{papers.count}}`, `{{paper:ID.title|doi|status}}`, and
@@ -450,6 +450,8 @@ filters, not a registry hook framework. A narrow, tested hook layer is a quick
 win; unrestricted macro substitution would recreate the drift it is meant to prevent.
 
 ---
+
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
 
 ## ISS-021: Shared Omnibus Document Model — CLOSED
 
@@ -568,7 +570,7 @@ domain books already provide valid local Lulu outputs.
 
 ---
 
-## ISS-024: Effect specification and causal-response interpreter — OPEN
+## ISS-024: Effect specification and causal-response interpreter — PARKED
 
 **Tag:** Future / USM formal foundation
 
@@ -608,7 +610,7 @@ future mirror lens a type-safe conceptual foundation without asserting new physi
 
 ---
 
-## ISS-025: USM human route — appraisal and context layer (CODA) — OPEN
+## ISS-025: USM human route — appraisal and context layer (CODA) — PARKED
 
 **Tag:** Current USM specification / literature update
 
@@ -648,7 +650,7 @@ Frontiers in Psychology, 13:822264, doi:10.3389/fpsyg.2022.822264.
 
 ---
 
-## ISS-026: USM human route — body-map and 8x8 field-grid renderer — OPEN
+## ISS-026: USM human route — body-map and 8x8 field-grid renderer — PARKED
 
 **Tag:** Current USM specification / visual instrument
 
@@ -690,9 +692,9 @@ fact without a source-specific audit.
 
 ---
 
-## ISS-027: Soma Field Operator stereoscopic projection — OPEN
+## ISS-027: Soma Field Operator stereoscopic projection — CLOSED
 {{Tags area.instrument, project.soma-field-operator, projection.3d}}
-{{Fields date.created=2026-08-25, date.start=, date.end=, epic=ISS-027-soma-field-operator-projection}}
+{{Fields date.created=2026-08-25, date.start=, date.end=2026-10-13, epic=ISS-027-soma-field-operator-projection}}
 
 **Epic:** [ISS-027-soma-field-operator-projection.md](prj/.adm/issues/ISS-027-soma-field-operator-projection.md)
 
@@ -711,14 +713,12 @@ mode.
       H-AL's tour line is drawn flat at the screen plane in each eye. Fixed an
       older bug: in SBS the eye cameras copied a stale camera matrix (the view
       sat inside the figure when SBS was the first render).
-- [ ] Calibrate on the Atom with the glasses (which layout the projector
-      takes; depth comfort): depth multiplier `localStorage soma-stereo-depth`
-      (default 1); make it a slider in the engine room.
-- [ ] H-AL's cautions (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth
-      transitions only, moderate depth for clients (looming 3D can trigger
-      C-PTSD), labels never in depth.
+- (moved to ISS-081) Calibrate on the Atom with the glasses (which layout the projector…
+- (moved to ISS-081) H-AL's cautions (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth…
 
 ---
+
+**Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
 
 ## ISS-028: Large issue-body convention — CLOSED
 {{Tags area.ops}}
@@ -879,7 +879,7 @@ reader-facing Markdown in Python.
       out of handwritten sources.
 ---
 
-## ISS-035: Path-sensitive transition dynamics — OPEN
+## ISS-035: Path-sensitive transition dynamics — PARKED
 {{Tags area.theory, area.proofs, area.clinical}}
 {{Fields date.created=2026-09-30, date.start=, date.end=, epic=}}
 
@@ -966,9 +966,9 @@ five real `sorry`s remain in three files.
 
 ---
 
-## ISS-037: MOTHER/H-AL voice — OPEN
+## ISS-037: MOTHER/H-AL voice — CLOSED
 {{Tags area.app}}
-{{Fields date.created=2026-10-03, date.start=2026-10-03, date.end=, epic=}}
+{{Fields date.created=2026-10-03, date.start=2026-10-03, date.end=2026-10-13, epic=}}
 
 Answers in the MOTHER terminal can be read aloud (SPEAK toggle, `/speak`,
 `/stop`, Esc). H-AL uses the HAL 9000 Piper voice (campwill/HAL-9000-Piper-TTS,
@@ -980,15 +980,16 @@ private use only, model outside the repo) through the local bridge's
    `voice.js` in the app, SPEAK toggle and slash commands, README setup.
 - [x] Speak the WHAT [T]-THEORY ADDS section on request (`/speak diff`). Done 9 Oct
       (mother.js: the last compare answer's section, in the current persona's voice).
-- [ ] A licence-clean neural voice for public MOTHER (a stock Piper voice such
-   as en_GB) if browser voices prove too uneven across platforms.
+- (moved to ISS-080) A licence-clean neural voice for public MOTHER (a stock Piper voice such…
 - [x] 2026-10-04: narrated tours: tour stops are spoken (ISS-038).
 
 ---
 
-## ISS-038: soma-tour language and MOTHER/H-AL observatory mode — OPEN
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
+
+## ISS-038: soma-tour language and MOTHER/H-AL observatory mode — CLOSED
 {{Tags area.app, area.books}}
-{{Fields date.created=2026-10-04, date.start=2026-10-04, date.end=, epic=}}
+{{Fields date.created=2026-10-04, date.start=2026-10-04, date.end=2026-10-13, epic=}}
 
 The design agreed on 2026-10-03 (see the session archive in `Me/archive/sessions/`):
 answers carry a fenced `soma-tour` block of `- view:` / `say:` / `label:` /
@@ -1009,14 +1010,15 @@ against registry ids, drops unknown steps, and never executes anything.
 **Actions:**
 - [x] (9 Oct: loaded into MOTHER and HAL-UAT with `make -C Me/notebooklm load ... GROUPS=guides`) Author: upload `bld/app/observatory-guide.md` to the MOTHER and H-AL
    notebooks, then ask one question with OBSERVATORY on and judge the tour.
-- [ ] Per worked example "Show me" tours in the textbook HTML (one block per
-   example) if the chapter-level stops prove useful.
+- (moved to ISS-080) Per worked example "Show me" tours in the textbook HTML (one block per…
 - [x] More presets from Dist PROMPTS.md (one per audience section). Done 9 Oct:
       `for-physicists`, `for-neuroscientists`, `for-doctors`, `for-musicians`,
       `for-engineers` (5-7 stops each, pokes where they help; therapists have
       `hal-therapist`, `hal-consulting-room`, `hal-gestalt`). All stops render.
 
 ---
+
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
 
 ## ISS-039: Local MOTHER/H-AL fallback (retrieval + local model) — CLOSED
 {{Tags area.app, area.ops}}
@@ -1115,9 +1117,9 @@ in black linen; Lulu has no A3.)
       Done 9 Oct (fb17cd4, 34b04cc): upright per-dimension captures framed on the subject; author to check printed pages 70-83.
 ---
 
-## ISS-041: [T]-Theory course book (textbook edition becomes the course) — OPEN
+## ISS-041: [T]-Theory course book (textbook edition becomes the course) — CLOSED
 {{Tags area.books}}
-{{Fields date.created=2026-10-04, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-04, date.start=, date.end=2026-10-13, epic=}}
 
 **Decisions (author, 2026-10-04):**
 - The Field Atlas stays the refined A3 reference and art book (ISS-040).
@@ -1176,9 +1178,11 @@ AI-drawn physics figures.
 - [x] A4 defaults, parts (3b58411); generated numbering with pandoc-crossref (7ce084a).
 - [x] Visualize macro (docs/VISUALIZE.md), toolkit M1-M6, chapter 3 Frequencies (5 Oct, c9228e5).
 - [x] Chapter 4 zooming (T3), Part III 13-15 (T4-T6), Appendix F Atlas cross-reference, Visualize retrofit of 5-8 and 10-12, glossary (5 Oct, to 03:30).
-- [ ] Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; release decision. (Visualize for chapters 1, 2 and 9 done: 1 and 2 earlier, 9 on 9 Oct.)
+- (moved to ISS-081) Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; release dec…
 
 ---
+
+**Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
 
 ## ISS-042: Collected Works side files (Me/chats/notebooks/The_Soma-Field_Collected_Works) — OPEN
 {{Tags area.app, area.proofs, area.books}}
@@ -1345,7 +1349,7 @@ sources, and the chat-ingest process exists in three competing forms.
 
 ---
 
-## ISS-045: HAL next steps (parked 6 Oct 2026) — OPEN
+## ISS-045: HAL next steps — PARKED
 {{Tags area.ops}}
 {{Fields date.created=2026-10-06, date.start=, date.end=, epic=}}
 
@@ -1632,7 +1636,7 @@ The author ran a UAT session on 7 Oct; the notes are in
       status pending-upload (all nine review items are fixed in the text).
 ---
 
-## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — OPEN (parked 8 Oct)
+## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — PARKED
 {{Tags area.app, area.ops}}
 {{Fields date.created=2026-10-08, date.start=, date.end=, epic=}}
 
@@ -2569,9 +2573,9 @@ Steps:
       tunes the presets and the condition mappings (and asks H-AL).
 ---
 
-## ISS-053: The externalising machine: you compose your own film, the AI only asks — OPEN
+## ISS-053: The externalising machine: you compose your own film, the AI only asks — CLOSED
 {{Tags area.instrument}}
-{{Fields date.created=2026-10-10, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-10, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 10 Oct 04:26 (last thought before sleep): we have 32 knobs on screen
 (and MIDI Fighter Twister-style controllers, 16 per bank), each with sub-knobs.
@@ -2645,15 +2649,17 @@ Steps:
       SAVE downloads YAML with the provenance; kept in the browser, private) The score editor: knobs per mode over story-time, each value linked to
       the answer it came from; the person overrides; saves a score file
       (registry/scores format; private scores in Me).
-- [ ] Pages in: photograph ten A5 pages, read them in, keep them private.
+- (moved to ISS-081) Pages in: photograph ten A5 pages, read them in, keep them private.…
 - [x] (13 Oct: midi-in.js, MIDI IN in the Engine Room: CC 0-6 the seven modes, CC 7 Φ, CC 8
       depth, CC 9 velocity, a Twister's factory CCs; tested with a simulated controller;
       the real one is author UAT) MIDI: a 16-knob controller (Web MIDI) for the macros, live.
 ---
 
-## ISS-054: H-AL's name, its own voice and its markup — OPEN
+**Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
+
+## ISS-054: H-AL's name, its own voice and its markup — CLOSED
 {{Tags area.instrument}}
-{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=, epic=}}
+{{Fields date.created=2026-10-10, date.start=2026-10-10, date.end=2026-10-13, epic=}}
 
 Author, 10 Oct 17:25: the official name is **H-AL**, short for Hologram
 Alistair; `HAL` only in file and command names. The real reason: the voice.
@@ -2671,13 +2677,8 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
 - Author, 11 Oct 20:43: H-AL should *not* be his own voice; a stock voice
   with the H-AL-ifier is the preferred end state (ISS-065 D5). The two
   recording and training items below are dropped unless he asks again.
-- [ ] Record the voice: about one hour of clean, single-speaker audio, 22 kHz
-      mono WAV with transcripts (known scripts: the tours themselves are the
-      best script, they are what H-AL will say; plus dictation); a quiet
-      room, one microphone, one session setup.
-- [ ] Train: fine-tune a Piper checkpoint on the recordings (piper-train);
-      check the base checkpoint's licence so the result is the author's to
-      release; keep the HAL 9000 imitation private (ISS-048).
+- (moved to ISS-081) Record the voice: about one hour of clean, single-speaker audio, 22 kHz…
+- (moved to ISS-081) Train: fine-tune a Piper checkpoint on the recordings (piper-train);…
 - [x] (13 Oct: the bridge's HAL_DELIVERY for any Piper voice: length scale 1.15, noise
       scales 0.55/0.5, 0.45 s after each sentence, overridable in its local config; the
       browser voice keeps rate 0.88, pitch 0.55; docs/HALIFY.md) Halify, delivery: slower rate, lower pitch, even pitch contour, longer
@@ -2702,6 +2703,8 @@ The Tensor. H-AL's answer and the checks: uat/RC3/hal-voice-name-markup-2026-10-
       over the film's length at $\kappa_v = 1$, `<info>` pointing back to
       the YAML; the script checks the EmotionML rules it relies on, and the
       W3C XSD reports 0 errors.)
+
+**Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
 
 ## ISS-055: Sherlock: three ways of reasoning over OpenCyc (consistency, proof, analogy) — OPEN
 {{Tags area.proofs, area.theory, area.books}}
@@ -3067,9 +3070,9 @@ prj/.adm/issues/ISS-065-sergeant-major.md.
 - [ ] Maintenance deck (screens.js role `maintenance`): done and snooze only.
 - [ ] H-AL's briefing, spoken: a stock Piper voice plus the H-AL-ifier.
 
-## ISS-066: Names and third-party characters: Sherlock, the Monster, the Wizard — OPEN
+## ISS-066: Names and third-party characters: Sherlock, the Monster, the Wizard — CLOSED
 {{Tags area.ops}}
-{{Fields date.created=2026-10-11, date.start=2026-10-11, date.end=, epic=}}
+{{Fields date.created=2026-10-11, date.start=2026-10-11, date.end=2026-10-13, epic=}}
 
 Author, 11 Oct 20:47: now Sherlock is alive, is the name safe (old, but the
 new TV series)? Ditto Cookie Monster; the other name was "Sheerluck". Not
@@ -3110,7 +3113,9 @@ legal advice; the checks and decisions:
   left (Penny from *The Big Bang Theory* in PROGRAMME.md; the Pensieve in
   The Tensor and FIELD-NOTES).
 
-## ISS-067: SH2: can a language model do Sherlock's job? — OPEN
+**Closed 2026-10-13:** every item done.
+
+## ISS-067: SH2: can a language model do Sherlock's job? — PARKED
 {{Tags area.papers}}
 {{Fields date.created=2026-10-11, date.start=, date.end=, epic=ISS-055-sherlock}}
 
@@ -3123,7 +3128,7 @@ then a locally run model. D11: language models at both ends, Lean in the middle.
 - [ ] A local model on the same questions (ISS-048).
 - [ ] Write SH2: scores, where the model was right, wrong or could not say.
 
-## ISS-068: Release builds and Sherlock in CI on a large runner — OPEN
+## ISS-068: Release builds and Sherlock in CI on a large runner — PARKED
 {{Tags area.build, area.ops}}
 {{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
 
@@ -3149,9 +3154,9 @@ NotebookLM (rate limit), agents, the author's reviews.
 - [ ] Optional: a devcontainer with prebuilds so a Codespace starts ready (first
       setup otherwise about half a day).
 
-## ISS-069: Four screens as the big concept: the inverted-T cockpit (ship, time machine, fantastic voyage) — OPEN
+## ISS-069: Four screens as the big concept: the inverted-T cockpit (ship, time machine, fantastic voyage) — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 11 Oct 22:31. The Soma Machine's layout is four screens in an inverted T:
 a main screen on top, one screen beneath it, and one left and one right below
@@ -3193,7 +3198,7 @@ Not lost: build it after the four-screen layout works.
       message heard on both the channel and the relay counts once. Tested across two
       browser contexts, a level and a cockpit window following; a real tablet is author
       UAT) Tablets as controls: a relay for the screens' channel (MOTHER bridge).
-- [ ] The 3D glass cockpit (after the above): panels as live textures, the window as the main view.
+- (moved to ISS-080) The 3D glass cockpit (after the above): panels as live textures, the window as t…
 
 Author, 11 Oct 22:40: more layouts, all kept; each screen is just another Chrome
 window, so a layout is a named profile (which role on which screen), not code:
@@ -3211,6 +3216,8 @@ second machine need the relay (item above).
       the monitors with Chrome's Window Management API when allowed, else cascaded;
       A/B is per window, so the screen beneath shows B. Not yet tried on the real
       monitors and tablets.)
+
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
 
 ## ISS-070: The Monsters: example personas, and names the user can change — CLOSED
 {{Tags area.app, area.ops}}
@@ -3237,9 +3244,9 @@ register:
       defaults stay as they are; a name is kept in the browser (localStorage),
       never shipped (so the defaults stay clear of third-party names, ISS-066).
 
-## ISS-071: The towers of code: a walk-through of the programme's Lean (the Root Monster's wish) — OPEN
+## ISS-071: The towers of code: a walk-through of the programme's Lean (the Root Monster's wish) — CLOSED
 {{Tags area.app, area.proofs}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 11 Oct 23:02: the Root Monster "really wants to see a demo of the Lean model of
 [T]-Theory in the Towers, or close to". Today the city of code (11D, ISS-052)
@@ -3279,10 +3286,11 @@ proposal, in steps:
       classical_trapped, only True, the link to ISS-076) A tour, the Root Monster's tour: into UniversalSomaticField, up to
       `consciousness_dichotomy`, down its beams to the axioms, past the red floors,
       across the bridge to OpenCyc.
-- [ ] Later, desktop only: PROVE on a floor asks the MOTHER bridge to run Lean on
-      that theorem and stream the kernel's answer (the browser cannot run Lean).
+- (moved to ISS-080) Later, desktop only: PROVE on a floor asks the MOTHER bridge to run Lean on…
 Difficulty: the export and the towers are medium (the judge and the city exist);
 the live PROVE is the hard part and optional.
+
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
 
 ## ISS-072: How much language: a text-level control for the films, and help bringing it down — CLOSED
 {{Tags area.app, area.instrument}}
@@ -3310,9 +3318,9 @@ course: a slider (or radio buttons) with a word of help now and then.
 - [x] (12 Oct) The level is remembered in the browser; at the end of a viewing the
       film says "Next time, try it with fewer words" and stores the suggestion.
 
-## ISS-073: SpaceEngine PRO for the cosmic scales; music generated from the score — OPEN
+## ISS-073: SpaceEngine PRO for the cosmic scales; music generated from the score — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-12, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 12 Oct 00:13: he owns SpaceEngine PRO, with rights to use its output; would
 its music be usable, and what else for music? The licence (SpaceEngine PRO Licence
@@ -3325,9 +3333,7 @@ before use):
 - Music: no. Both the grant and the re-use rights exclude "music/soundtrack"; the
   soundtrack is licensed third-party tracks, not generated by the engine.
 Plan:
-- [ ] SpaceEngine for the cosmic scales (dial levels 12-20): rendered footage and
-      plates for the film and the atlas, backdrops for the Soma Machine's cosmic
-      levels; the credit line in each work and in the app's credits.
+- (moved to ISS-080) SpaceEngine for the cosmic scales (dial levels 12-20): rendered footage and…
 - [x] (13 Oct: already mostly built at the score stop; the persisting heartbeat added, a
       soft low lub-dub at the viewer's heart rate) Music generated from the score (recommended): The Tensor's Part III audio
       rendering (harmonic content falls with the descent, grain rises with
@@ -3339,10 +3345,7 @@ Plan:
       the score stop shows ♪ PULSE, ♥, the gap and whether it closes over the last
       minute, a measure, not a proof; a real strap is author UAT) Measure it with P9 (BRECVEMA): rhythmic entrainment as tempo against the
       viewer's heart rate, read from the strap.
-- [ ] (13 Oct: the credits file exists, apps/instrument/visuals/soma-field-operator/audio/
-      CREDITS.md, with the rules for a fixed piece and the SpaceEngine credit line; the pieces
-      themselves are the author's choice) Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
-      Musopen; Satie's Gymnopedies for Departure); keep a credits file.
+- (moved to ISS-080) (13 Oct: the credits file exists, apps/instrument/visuals/soma-field-operator/au…
 - Not recommended: AI song generators (licences and training data unclear; the
   lesson of ISS-066).
 - Author, 12 Oct 00:40: a MOTU 8A routes the PC's audio into Ableton Live 12 Suite;
@@ -3360,9 +3363,11 @@ Plan:
       instruments, Max for Live) renders the music live, following the knobs and the
       heart, out through the MOTU. The author's own music: clean to publish.
 
-## ISS-074: Autopilot, co-pilot, manual: learning to set and name feelings without a lesson — OPEN
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
+
+## ISS-074: Autopilot, co-pilot, manual: learning to set and name feelings without a lesson — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-12, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 12 Oct 01:00: a simpler way to train setting and expressing emotions with
 AI help. The journey starts at zero all round and needs a poke; then two modes, as
@@ -3388,12 +3393,13 @@ Copilot's shaping (modelling and fading, as with WORDS, ISS-072):
       the score stop; per-mode handover; H-AL's think-aloud lines per mode change
       (spoken at WORDS NARRATION, shown at CAPTIONS, left to the knobs below: fading).
 - [x] Remembered handover level; the next journey hands over earlier.
-- [ ] Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes (ISS-053;
-      13 Oct: built, MIDI IN drives the pilot's knobs in CO-PILOT and MANUAL).
+- (moved to ISS-081) Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes (ISS-…
 
-## ISS-075: RICE: a ricing switch for the author's options, and the glass cockpit as design vocabulary — OPEN
+**Closed 2026-10-13:** done; what was left (the author's own step) moved to ISS-081.
+
+## ISS-075: RICE: a ricing switch for the author's options, and the glass cockpit as design vocabulary — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-12, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-12, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 12 Oct 01:20: a RICE (ricing) on/off in settings, so that all his "weird
 stuff" lives behind it; and the glass cockpit (a primary and a multi-function
@@ -3404,17 +3410,7 @@ hazard warnings and all.
       reveals the author's options: neon themes, code rain, the Root Monster's tours
       (ISS-070, ISS-071), experimental features, the cockpit extras below. Kept per
       browser.
-- [ ] Cockpit parallels, generic terms (PFD, MFD; no product names):
-      route plan = the film's score graph (phases as legs, thresholds as waypoints);
-      vertical profile = the trajectory over story-time; speed tape = velocity
-      (kv); altitude tape = depth (pre-verbal); attitude = the balance of safety and
-      fear; engine strip = heart rate, HRV, breathing (strap); crew alerting = red
-      WARNING (freeze attractor near), amber CAUTION (heart rising), ADVISORY
-      (threshold in two minutes); terrain awareness = the energy landscape ahead
-      ("deep basin ahead"); synthetic vision = the viewer's version on the screen
-      beneath (A/B, ISS-069, done); flight director = the score's target (the white
-      ticks); autopilot panel = ISS-074; traffic = the other viewer in the twin view
-      or the dyad; checklists = before a viewing (strap on, lights down, touch the page).
+- (moved to ISS-080) Cockpit parallels, generic terms (PFD, MFD; no product names):…
 - [x] (12 Oct, behind RICE: WARNING freeze attractor near, CAUTION heart rising, ADVISORY
       threshold within two minutes) Alerts first (they are the most useful): the three levels, from the score and the
       heart, at the score stop;
@@ -3423,9 +3419,11 @@ hazard warnings and all.
       chevron where the viewer is; `modesAt` exported from score.js) then the route-plan view of the score for the MFD
       screen of a layout.
 
-## ISS-076: The stone in the ureter: barriers down the scales, tunnelling at the quantum level — OPEN
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
+
+## ISS-076: The stone in the ureter: barriers down the scales, tunnelling at the quantum level — CLOSED
 {{Tags area.app, area.instrument, area.visualize}}
-{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-13, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 13 Oct: at the end of the ureter voyage, a 6 mm stone (a huge rock at that
 scale; stones over about 5-6 mm often do not pass on their own). You cannot get past.
@@ -3483,6 +3481,8 @@ the stone is the freeze attractor in the body, and the voyage teaches the model.
       the stone, the stent, pain rings spreading from each spasm, the loin and the groin
       lighting, the last minute of pain: it comes in waves), BOTH (uv, per window: one screen
       inside, one outside). A teaching picture, days compressed into seconds.
+
+**Closed 2026-10-13:** every item done.
 
 ## ISS-077: Inside the brain: the cathedral, thoughts as bursts, the path of pain — OPEN
 {{Tags area.app, area.instrument, area.visualize}}
@@ -3620,9 +3620,9 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       feedback is the "reverb blanket"): with cp up the sound echoes too. Safety (S) and a
       resource shorten the echo. A picture and a model, not a diagnosis (ISS-066's care).
 
-## ISS-078: The control room, the cathedral from outside, the mind palace as the universe — OPEN
+## ISS-078: The control room, the cathedral from outside, the mind palace as the universe — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-13, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 13 Oct 17:04 ("fun", not for the UAT): (1) a control room, many monitors of outside and
 system views; the multi-window layouts already give it, but a window view needs to look
@@ -3664,7 +3664,7 @@ Copilot, 13 Oct:
       cosmic web; each a round hall in its sector's style (strata, a pulse, crowd lights, stars ...),
       its name carved; ▲ ▼ ride the car; DOOR ▸ goes into that level's own view; PLACE leaves a
       thought that stays in the hall) The mind palace: the tower as the elevator, eight sector halls, doors to the levels' views.
-- [ ] The palace tour: the method of loci as an exercise.
+- (moved to ISS-080) The palace tour: the method of loci as an exercise.…
 - [x] (13 Oct, author: "we're in trouble if mindfulness is not included"; built: MINDFUL at the
       BRAIN stop: thoughts arise and pass on their own, none pokes the next, softer and longer;
       the field is not pushed down; with the body loop the same pain heats the head less (Φ to
@@ -3680,6 +3680,8 @@ Copilot, 13 Oct:
       branching ratio falls below 1: bursts arise and fade alone), Φ is not forced down; and in
       the palace the foam floor becomes the hall of the zero moment, where that is easiest to
       see. Interpretive throughout; a picture, not physics of the mind.
+
+**Closed 2026-10-13:** done; what was left (a later or optional step) moved to ISS-080.
 
 ## ISS-079: [T]-Theory Mk 1 (V1, 21 Oct) and the VS Code extension as a back door — OPEN
 {{Tags area.ops, area.app, area.instrument}}
@@ -3714,3 +3716,66 @@ Copilot, 13 Oct:
       warned first); Marketplace pre-release and Open VSX.
 - [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
       the author says so).
+
+## ISS-080: Later: the optional and someday steps of closed issues — OPEN
+{{Tags area.app, area.instrument, area.ops}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Triage of 2026-10-13 (author: "43 open is a lot"): issues whose work is done except a later or
+optional step are closed; the step is kept here, word for word, with the issue it came from.
+
+- [ ] (ISS-020) Add one real omnibus or paper use-case before expanding the vocabulary.
+- [ ] (ISS-037) A licence-clean neural voice for public MOTHER (a stock Piper voice such as
+      en_GB) if browser voices prove too uneven across platforms.
+- [ ] (ISS-038) Per worked example "Show me" tours in the textbook HTML (one block per
+      example) if the chapter-level stops prove useful.
+- [ ] (ISS-069) The 3D glass cockpit (after the above): panels as live textures, the window
+      as the main view.
+- [ ] (ISS-071) Later, desktop only: PROVE on a floor asks the MOTHER bridge to run Lean on
+      that theorem and stream the kernel's answer (the browser cannot run Lean).
+- [ ] (ISS-073) SpaceEngine for the cosmic scales (dial levels 12-20): rendered footage and
+      plates for the film and the atlas, backdrops for the Soma Machine's cosmic levels; the
+      credit line in each work and in the app's credits.
+- [ ] (ISS-073) (13 Oct: the credits file exists,
+      apps/instrument/visuals/soma-field-operator/audio/ CREDITS.md, with the rules for a
+      fixed piece and the SpaceEngine credit line; the pieces themselves are the author's
+      choice) Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
+      Musopen; Satie's Gymnopedies for Departure); keep a credits file.
+- [ ] (ISS-075) Cockpit parallels, generic terms (PFD, MFD; no product names): route plan =
+      the film's score graph (phases as legs, thresholds as waypoints); vertical profile =
+      the trajectory over story-time; speed tape = velocity (kv); altitude tape = depth
+      (pre-verbal); attitude = the balance of safety and fear; engine strip = heart rate,
+      HRV, breathing (strap); crew alerting = red WARNING (freeze attractor near), amber
+      CAUTION (heart rising), ADVISORY (threshold in two minutes); terrain awareness = the
+      energy landscape ahead ("deep basin ahead"); synthetic vision = the viewer's version
+      on the screen beneath (A/B, ISS-069, done); flight director = the score's target (the
+      white ticks); autopilot panel = ISS-074; traffic = the other viewer in the twin view
+      or the dyad; checklists = before a viewing (strap on, lights down, touch the page).
+- [ ] (ISS-078) The palace tour: the method of loci as an exercise.
+
+## ISS-081: The author's desk: steps only the author can take — OPEN
+{{Tags area.ops}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+
+Triage of 2026-10-13: issues whose remaining step is the author's own (a read-through, a recording,
+a calibration, a UAT) are closed; the steps are here in one place. ISS-001 keeps the release
+steps; ISS-047 the RC3 follow-up.
+
+- [ ] (ISS-027) Calibrate on the Atom with the glasses (which layout the projector takes;
+      depth comfort): depth multiplier `localStorage soma-stereo-depth` (default 1); make it
+      a slider in the engine room.
+- [ ] (ISS-027) H-AL's cautions (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth
+      transitions only, moderate depth for clients (looming 3D can trigger C-PTSD), labels
+      never in depth.
+- [ ] (ISS-041) Author read-through; chapter-opening banners for M1-M6, 3, 4, 13-15; release
+      decision. (Visualize for chapters 1, 2 and 9 done: 1 and 2 earlier, 9 on 9 Oct.)
+- [ ] (ISS-053) Pages in: photograph ten A5 pages, read them in, keep them private.
+- [ ] (ISS-054) Record the voice: about one hour of clean, single-speaker audio, 22 kHz mono
+      WAV with transcripts (known scripts: the tours themselves are the best script, they
+      are what H-AL will say; plus dictation); a quiet room, one microphone, one session
+      setup.
+- [ ] (ISS-054) Train: fine-tune a Piper checkpoint on the recordings (piper-train); check
+      the base checkpoint's licence so the result is the author's to release; keep the HAL
+      9000 imitation private (ISS-048).
+- [ ] (ISS-074) Author UAT: the lines' wording and pace; MIDI knobs for the viewer's modes
+      (ISS-053; 13 Oct: built, MIDI IN drives the pilot's knobs in CO-PILOT and MANUAL).
