@@ -17,6 +17,7 @@ import { diveMath } from '../flight3d.js';
 import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
 import { midiMessages, createMidiOut, MIDI_CC } from '../midi-out.js';
+import { BARRIERS, transmission, exponent } from '../barrier.js';
 
 // the River Film score, parsed by hand from its keyframes (no YAML parser in the check)
 const scoreText = readFileSync(new URL('../../../../../registry/scores/river-film.yaml', import.meta.url), 'utf8');
@@ -211,6 +212,9 @@ const checks = [
   ['midi: a frame sends the seven modes, heart and time as CCs and the phase as a note', Number(midiFirstOk), 1, 1],
   ['midi: unchanged values are not resent; a crossed threshold plays its note', Number(midiAgainOk), 1, 1],
   ['midi: of two windows, only one sends (the lease)', Number(fromA === 7 && fromB === 0 && sent.length === 7 && winA.status.includes('loopMIDI')), 1, 1],
+  ['barrier: transmission rises at every step down the scales (stone to electron)', Number(BARRIERS.every((b, k) => k === 0 || exponent(b) < exponent(BARRIERS[k - 1]))), 1, 1],
+  ['barrier: the stone, the cell and the membrane never pass (T < 1e-300)', Number(BARRIERS.slice(0, 3).every(b => transmission(b) < 1e-300)), 1, 1],
+  ['barrier: at the quantum gap an electron tunnels about one try in eight (T)', transmission(BARRIERS[5]), 0.08, 0.2],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

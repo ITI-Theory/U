@@ -124,16 +124,28 @@ for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <
 // pieces off and sprays dust; after three it is dust, flow returns, the colic eases. A new
 // stone forms after a while so the demonstration can repeat. Plain physiology plus a
 // picture; no clinical claim.
-function stoneGeometry(rand) {
-  const g = new THREE.IcosahedronGeometry(0.55, 2);
-  const p = g.attributes.position;
-  for (let i = 0; i < p.count; i++) {
-    const v = new THREE.Vector3(p.getX(i), p.getY(i), p.getZ(i));
-    v.multiplyScalar(0.75 + 0.45 * rand() * rand());
-    p.setXYZ(i, v.x, v.y, v.z);
-  }
-  g.computeVertexNormals();
-  return g;
+// The stone (ISS-076): a crystal aggregate grown as a small 3D fractal, as kidney stones are
+// aggregates of crystals: a bipyramid (calcium oxalate dihydrate's habit), bipyramids on its
+// faces, and bipyramids on theirs, each a little rotated. One shared material.
+function stoneAggregate(rand, material) {
+  const group = new THREE.Group();
+  const habit = new THREE.OctahedronGeometry(1, 0);
+  habit.scale(0.62, 1, 0.62);
+  const grow = (pos, r, depth, tilt) => {
+    const m = new THREE.Mesh(habit, material);
+    m.position.copy(pos);
+    m.scale.setScalar(r);
+    m.rotation.set(tilt.x, tilt.y, tilt.z);
+    group.add(m);
+    if (depth >= 2) return;
+    const n = depth === 0 ? 10 : 4;
+    for (let k = 0; k < n; k++) {
+      const dir = new THREE.Vector3(rand() - 0.5, rand() - 0.5, rand() - 0.5).normalize();
+      grow(pos.clone().addScaledVector(dir, r * 0.78), r * (0.42 + 0.12 * rand()), depth + 1, new THREE.Euler(rand() * 3, rand() * 3, rand() * 3));
+    }
+  };
+  grow(new THREE.Vector3(), 0.42, 0, new THREE.Euler(0.3, 0, 0.2));
+  return group;
 }
 
 // vessel: the body container (the submarine in the bloodstream): the wall built from its
@@ -228,7 +240,7 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
   const stone = { mesh: null, size: 0, pieces: [], dust: [], clearedAt: -1 };
   function newStone() {
     if (stone.mesh) scene.remove(stone.mesh);
-    stone.mesh = new THREE.Mesh(stoneGeometry(rand), new THREE.MeshStandardMaterial({ color: '#e0b860', roughness: 0.7, metalness: 0.1, flatShading: true, emissive: '#3a2a08' }));
+    stone.mesh = stoneAggregate(rand, new THREE.MeshStandardMaterial({ color: '#e0b860', roughness: 0.45, metalness: 0.15, flatShading: true, emissive: '#3a2a08' }));
     stone.mesh.position.copy(curve.getPointAt(STONE_U));
     stone.size = 3;
     stone.mesh.scale.setScalar(1);

@@ -3362,19 +3362,25 @@ exp(-2d·sqrt(2m(V-E))/ħ), so mass and width make it zero for a stone or a cell
 for an electron or a proton. It is also the programme's own metaphor: LimbicTunnel.lean's
 WKB gate is how the field escapes a trauma well (classically stuck, quantum-possible), so
 the stone is the freeze attractor in the body, and the voyage teaches the model.
-- [ ] The stone at the end of the ureter voyage: a new fractal (a calcium oxalate
+- [x] (13 Oct: the 3D stone is a crystal aggregate, bipyramids on bipyramids, tunnel3d.js;
+      the stone says 6 mm, too big to pass) The stone at the end of the ureter voyage: a new fractal (a calcium oxalate
       crystal grown as a 3D fractal; several Mandelbulb-like bodies, fractal passages),
       perhaps its own thread.
-- [ ] The wall: its layers close up; POKE gives an elastic boing (spring and sound), and
+- [x] (13 Oct: WALL ▸ at the URETER stop: the four layers; POKE sends the stone, the wall
+      wobbles and boings, and says try the elevator) The wall: its layers close up; POKE gives an elastic boing (spring and sound), and
       a hint: "try the elevator".
-- [ ] Each level down, the barrier in that level's form (tissue, cell membrane, bilayer,
+- [x] (13 Oct: barrier.js, six scales on the ▼ ▲ elevator: wall, cell, membrane, hydrogen
+      bond, atom, a 0.2 nm gap; T from the WKB exponent with each scale's mass, width and
+      height, from 10^-(5.6×10^27) for the stone to 13% for an electron; explorer-check
+      covers it. The app's own level control is not yet linked) Each level down, the barrier in that level's form (tissue, cell membrane, bilayer,
       molecule, electron cloud), each refusing, each with the reason in one line (the
       exponent, with this level's mass and width).
-- [ ] The quantum level: the tunnel opens. FX off: the honest drawing, an incoming wave,
+- [x] (13 Oct: the wave in, its decay in the barrier, √T out; POKE tunnels at the rate T;
+      FX above 0.3 shows the glowing secret tunnel, FX off the plain drawing) The quantum level: the tunnel opens. FX off: the honest drawing, an incoming wave,
       its exponential decay inside the barrier, the small wave out, the probability as a
       number; FX high: the glowing secret tunnel. All FX off must still be correct
       (renderers/README.md).
-- [ ] Tunnelling in the brain, labelled (docs/agent/THEORY-STATUS.md): established,
+- [x] (13 Oct: on screen at the atom and quantum scales) Tunnelling in the brain, labelled (docs/agent/THEORY-STATUS.md): established,
       electron and proton tunnelling in enzymes and the respiratory chain; contested,
       vibration-assisted tunnelling in smell (Turin); speculative, Orch-OR (Penrose and
       Hameroff; decoherence objections, Tegmark 2000). The programme's limbic tunnel is a

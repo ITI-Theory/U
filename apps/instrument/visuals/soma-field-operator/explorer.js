@@ -50,6 +50,7 @@ const viewerPreset = id => viewers?.find(v => v.id === (id || 'v2021')) ?? viewe
 import { createExplorerMusic } from './explorer-music.js';
 import { createMidiOut } from './midi-out.js';
 import { createTowerPanel } from './tower.js';
+import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 
@@ -151,7 +152,7 @@ const CAPTIONS = {
   },
   ureter: {
     title: 'THE URETER', label: 'interpretive',
-    4: 'The view down a ureteroscope: smooth-muscle walls with waves of peristalsis, urine flowing. A stone blocks the path; the flow dams behind it and the colic rises (the red pulse). Unlike the gates of PATH, a stone is mechanical: Φ, calm or alarm, does not open it. POKE is the laser: three shots break it to dust, the flow returns and the colic eases.',
+    4: 'The view down a ureteroscope: smooth-muscle walls with waves of peristalsis, urine flowing. A stone blocks the path; the flow dams behind it and the colic rises (the red pulse). Unlike the gates of PATH, a stone is mechanical: Φ, calm or alarm, does not open it. POKE is the laser: three shots break it to dust, the flow returns and the colic eases. Or WALL: turn to the wall and POKE (it boings back), then ride the elevator ▼ down the scales, cell, membrane, molecule, atom, until an electron tunnels through a 0.2 nm gap: the same barrier, a different rule at each scale.',
     8: 'Electrical layer: visceral pain travels as C-fibre signals to the spinal cord and on to the insula, and the body answers (heart rate, guarding). Raise Φ and the same stone hurts more: the alarm amplifies the signal.',
     11: 'A teaching picture, not medical advice or a model of any patient.',
   },
@@ -1132,12 +1133,207 @@ function makeTunnel() {
 
 function makeUreter() {
   let gl = null;
+  // the wall (ISS-076): 0 = the scope's view; 1..6 = the barrier at a scale (BARRIERS[wall - 1])
+  let wall = 0;
+  const shot = { x: -1, state: 'idle', wob: 0, through: false };
+  let wallEvent = { text: '', until: 0 };
+  let audio = null;
+  // a soft boing: a sine that drops in pitch with a wobble, under a low-pass (no sharp edge)
+  function boing() {
+    try {
+      audio ??= new AudioContext();
+      const now = audio.currentTime;
+      const osc = audio.createOscillator();
+      const wob = audio.createOscillator();
+      const wobGain = audio.createGain();
+      const gain = audio.createGain();
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(90, now + 0.6);
+      wob.frequency.value = 14;
+      wobGain.gain.value = 30;
+      wob.connect(wobGain).connect(osc.frequency);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.12, now + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+      osc.connect(gain).connect(audio.destination);
+      osc.start(now); wob.start(now);
+      osc.stop(now + 0.75); wob.stop(now + 0.75);
+    } catch { /* no audio */ }
+  }
+
+  function drawWall(ctx, env) {
+    const { u, t } = env;
+    const fx = Math.max(0, Math.min(1, env.phi));
+    const b = BARRIERS[wall - 1];
+    const T = transmission(b);
+    const W = env.w / 2 / u;
+    const H = env.h / 2 / u;
+    ctx.save();
+    ctx.fillStyle = wall === 1 ? '#1a0508' : '#05060f';
+    ctx.fillRect(-W * u, -H * u, 2 * W * u, 2 * H * u);
+    // the barrier slab, wobbling after a boing
+    shot.wob *= Math.exp(-env.dt * 4);
+    const sx = 1 + 0.12 * shot.wob * Math.sin(t * 28);
+    const x0 = -0.2 * sx;
+    const x1 = 0.2 * sx;
+    const y0 = -0.42;
+    const y1 = 0.42;
+    ctx.shadowColor = 'transparent';
+    if (fx > 0.05) { ctx.shadowBlur = 30 * fx; }
+    const slab = (color, a, b2, c, d) => { ctx.fillStyle = color; ctx.fillRect(a * u, c * u, (b2 - a) * u, (d - c) * u); };
+    if (b.id === 'tissue') {
+      // the wall's layers, inside to out
+      const bands = [['#ff9aa8', 0.18], ['#f3d6d0', 0.22], ['#c4384e', 0.4], ['#e8c48a', 0.2]];
+      let x = x0;
+      for (const [color, f] of bands) { ctx.shadowColor = color; slab(color, x, x + f * (x1 - x0), y0, y1); x += f * (x1 - x0); }
+      ctx.strokeStyle = 'rgba(80,0,10,0.5)';
+      for (let k = 0; k < 14; k++) { const yy = y0 + (k + 0.5) * (y1 - y0) / 14; ctx.beginPath(); ctx.moveTo((x0 + 0.4 * (x1 - x0)) * u, yy * u); ctx.lineTo((x0 + 0.8 * (x1 - x0)) * u, (yy + 0.02 * Math.sin(k + t)) * u); ctx.stroke(); }
+    } else if (b.id === 'cell') {
+      for (let k = 0; k < 6; k++) {
+        const yy = y0 + k * (y1 - y0) / 6;
+        ctx.shadowColor = '#ff8ab0';
+        ctx.fillStyle = `hsl(${340 + 6 * k}, 60%, ${55 + 5 * fx}%)`;
+        ctx.beginPath(); ctx.roundRect(x0 * u, (yy + 0.005) * u, (x1 - x0) * u, ((y1 - y0) / 6 - 0.01) * u, 0.03 * u); ctx.fill();
+        ctx.fillStyle = '#6a1440';
+        ctx.beginPath(); ctx.ellipse(0, (yy + (y1 - y0) / 12) * u, 0.05 * u, 0.025 * u, 0, 0, Math.PI * 2); ctx.fill();
+      }
+    } else if (b.id === 'membrane') {
+      ctx.shadowColor = '#ffd166';
+      for (const side of [-1, 1]) {
+        for (let k = 0; k < 18; k++) {
+          const yy = y0 + (k + 0.5) * (y1 - y0) / 18;
+          const hx = side * 0.16 * sx;
+          ctx.strokeStyle = '#d9c38a'; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(hx * u, yy * u); ctx.lineTo((hx - side * 0.13) * u, (yy + 0.01 * Math.sin(t * 3 + k)) * u); ctx.stroke();
+          ctx.fillStyle = '#ffd166';
+          ctx.beginPath(); ctx.arc(hx * u, yy * u, 0.02 * u, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+    } else if (b.id === 'molecule') {
+      ctx.shadowColor = '#5ee7ff';
+      ctx.fillStyle = 'rgba(94,231,255,0.08)';
+      ctx.fillRect(x0 * u, y0 * u, (x1 - x0) * u, (y1 - y0) * u);
+      for (const [xx, txt] of [[-0.3, 'O'], [0.3, 'O']]) { ctx.fillStyle = '#ff4d5e'; ctx.beginPath(); ctx.arc(xx * u, 0, 0.07 * u, 0, Math.PI * 2); ctx.fill(); label(ctx, u, txt, xx, 0, '#ffffff', 'center', 0.04); }
+      ctx.setLineDash([4, 6]); ctx.strokeStyle = COLORS.cyan; ctx.beginPath(); ctx.moveTo(-0.23 * u, 0); ctx.lineTo(0.23 * u, 0); ctx.stroke(); ctx.setLineDash([]);
+    } else {
+      // the atom and the quantum gap: electron clouds either side, a bare gap between
+      for (const side of [-1, 1]) {
+        const g = ctx.createRadialGradient(side * 0.45 * u, 0, 0, side * 0.45 * u, 0, 0.42 * u);
+        g.addColorStop(0, `rgba(167,139,250,${0.5 + 0.3 * fx})`);
+        g.addColorStop(1, 'rgba(167,139,250,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(side * 0.45 * u, 0, 0.42 * u, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.fillStyle = b.id === 'quantum' ? 'rgba(232,238,252,0.18)' : 'rgba(232,238,252,0.28)';
+      ctx.fillRect(x0 * u, y0 * u, (x1 - x0) * u, (y1 - y0) * u);
+      ctx.strokeStyle = 'rgba(232,238,252,0.6)';
+      ctx.strokeRect(x0 * u, y0 * u, (x1 - x0) * u, (y1 - y0) * u);
+    }
+    ctx.shadowBlur = 0;
+    // the honest drawing: the wave in, its decay inside the barrier, what comes out
+    const amp = 0.16;
+    const out = amp * Math.sqrt(T);
+    const kappa = out > 1e-4 ? Math.log(amp / out) / (x1 - x0) : 40;
+    const wy = 0.62;
+    ctx.strokeStyle = COLORS.gold;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let k = 0; k <= 900; k++) {
+      const x = -W + (2 * W) * k / 900;
+      let y;
+      if (x < x0) y = amp * Math.cos(30 * x - 6 * t);
+      else if (x <= x1) y = amp * Math.exp(-kappa * (x - x0)) * Math.cos(30 * x0 - 6 * t);
+      else y = out * Math.cos(30 * (x - x1) + 30 * x0 - 6 * t);
+      if (k === 0) ctx.moveTo(x * u, (wy - y) * u); else ctx.lineTo(x * u, (wy - y) * u);
+    }
+    ctx.stroke();
+    label(ctx, u, 'the wave in', -0.9, wy - 0.24, COLORS.gold, 'center', 0.024);
+    label(ctx, u, out > 0.002 ? 'out: amplitude √T' : T > 1e-30 ? 'out: too small to draw' : 'out: nothing', 0.9, wy - 0.24, out > 0.002 ? COLORS.gold : COLORS.dim, 'center', 0.024);
+    // FX high, at the quantum scales: the secret tunnel, a glowing passage through the gap
+    if (T > 1e-3 && fx > 0.3) {
+      ctx.save();
+      ctx.shadowColor = '#5ee7ff';
+      ctx.shadowBlur = 40 * fx;
+      ctx.strokeStyle = `rgba(94,231,255,${0.4 + 0.5 * fx})`;
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.ellipse(0, 0, (x1 - x0) * 0.62 * u, 0.09 * u, 0, 0, Math.PI * 2); ctx.stroke();
+      for (let k = 0; k < 10; k++) {
+        const px = x0 + ((t * 0.25 + k / 10) % 1) * (x1 - x0);
+        ctx.fillStyle = '#e9fbff';
+        ctx.beginPath(); ctx.arc(px * u, 0.03 * Math.sin(k * 7 + t * 5) * u, 0.012 * u, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+      label(ctx, u, 'THE SECRET TUNNEL', 0, 0.16, COLORS.cyan, 'center', 0.028);
+    }
+    // the particle: POKE sends it at the wall
+    if (shot.state === 'go') {
+      shot.x += env.dt * 1.2;
+      if (shot.x >= x0 - 0.06 && !shot.through) {
+        if (Math.random() < T) {
+          shot.through = true;
+          shot.x = x1 + 0.06;
+          wallEvent = { text: `TUNNELLED · it came out the other side (chance ${formatT(b)} a try)`, until: t + 4 };
+        } else {
+          shot.state = 'back';
+          shot.wob = 1;
+          boing();
+          wallEvent = { text: `BOING · the barrier held (chance ${formatT(b)})${wall < BARRIERS.length ? ' · try the elevator ▼' : ''}`, until: t + 4 };
+        }
+      }
+      if (shot.x > W) shot.state = 'idle';
+    } else if (shot.state === 'back') {
+      shot.x -= env.dt * 1.4;
+      if (shot.x < -W) shot.state = 'idle';
+    }
+    const px = shot.state === 'idle' ? -0.75 : shot.x;
+    ctx.save();
+    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 20 * fx;
+    if (b.id === 'tissue') {
+      // the stone: a crystal aggregate, bipyramids on bipyramids
+      const diamond = (cx, cy, r, d) => {
+        ctx.fillStyle = `hsl(42, 60%, ${48 + 8 * d}%)`;
+        ctx.beginPath(); ctx.moveTo(cx * u, (cy - r) * u); ctx.lineTo((cx + 0.6 * r) * u, cy * u); ctx.lineTo(cx * u, (cy + r) * u); ctx.lineTo((cx - 0.6 * r) * u, cy * u); ctx.closePath(); ctx.fill();
+        if (d < 2) for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3 + d; diamond(cx + Math.cos(a) * r * 0.7, cy + Math.sin(a) * r * 0.7, r * 0.45, d + 1); }
+      };
+      diamond(Math.min(px, x0 - 0.2), 0, 0.16, 0);
+    } else {
+      const r = { cell: 0.06, membrane: 0.035, molecule: 0.02 }[b.id] ?? 0.018;
+      ctx.fillStyle = b.id === 'cell' ? '#9ae66e' : b.id === 'membrane' ? '#ffd166' : '#ffffff';
+      if (b.id === 'cell') { ctx.beginPath(); ctx.roundRect((px - 2 * r) * u, -r * u, 4 * r * u, 2 * r * u, r * u); ctx.fill(); }
+      else { ctx.beginPath(); ctx.arc(px * u, 0, r * u, 0, Math.PI * 2); ctx.fill(); }
+    }
+    ctx.restore();
+    ctx.restore();
+    if (env.labels) {
+      label(ctx, u, `${b.title} · ${b.scale} · level ${wall} of ${BARRIERS.length}`, 0, -0.72, COLORS.cyan, 'center', 0.036);
+      label(ctx, u, `${b.who} against ${b.what}`, 0, -0.65, COLORS.ink, 'center', 0.024);
+      label(ctx, u, `T ≈ exp(−2d·√(2m(V−E))/ħ) = ${formatT(b)}`, 0, 0.84, COLORS.gold, 'center', 0.028);
+      label(ctx, u, reason(b), 0, 0.92, COLORS.dim, 'center', 0.022);
+      if (wallEvent.until > t) label(ctx, u, wallEvent.text, 0, -0.57, wallEvent.text.startsWith('TUNNEL') ? COLORS.cyan : COLORS.orange, 'center', 0.03);
+      else label(ctx, u, 'POKE: send it at the wall · ▼ ▲: the elevator, a scale down or up · FX: the graphics', 0, -0.57, COLORS.dim, 'center', 0.022);
+      if (b.id === 'quantum' || b.id === 'atom') {
+        const lines = ['Tunnelling in the body and brain, honestly:',
+          'established: electrons and protons tunnel in enzymes and the respiratory chain;',
+          'contested: tunnelling in smell (Turin); speculative: Orch-OR (Penrose, Hameroff; Tegmark 2000).',
+          'The programme\'s limbic tunnel is a model (a WKB gate), not a claim that neurons tunnel.'];
+        lines.forEach((l, k) => label(ctx, u, l, -W + 0.04, -0.46 + k * 0.042, k ? COLORS.dim : COLORS.violet, 'left', 0.018));
+      }
+    }
+  }
+
   return {
     focus: [0, 0],
     tick() {},
-    poke(strength) { gl?.poke(strength); },
+    get wall() { return wall; },
+    setWall(n) { wall = Math.max(0, Math.min(BARRIERS.length, n)); shot.state = 'idle'; shot.through = false; wallEvent = { text: '', until: 0 }; },
+    poke(strength) {
+      if (wall) { if (shot.state === 'idle') { shot.state = 'go'; shot.x = -0.75; shot.through = false; } return; }
+      gl?.poke(strength);
+    },
     draw(ctx, env) {
       const { u, t, phi } = env;
+      if (wall) { drawWall(ctx, env); return; }
       if (!env.gl) {
         if (env.labels) label(ctx, u, 'URETER needs WebGL (3D)', 0, 0, COLORS.dim, 'center', 0.03);
         return;
@@ -1146,7 +1342,7 @@ function makeUreter() {
       gl.render({ phi, resource: env.resource, dim: env.dim, time: t, stereo: env.stereo });
       if (env.labels) {
         const pain = Math.min(1, gl.colic * (0.6 + 0.8 * phi));
-        const msg = gl.blocked ? 'AT THE STONE · the flow is dammed · POKE = laser' : gl.stoneAhead ? 'STONE AHEAD · POKE = laser' : gl.colic > 0.05 ? 'moving up the ureter · a stone is somewhere ahead' : 'the path is clear';
+        const msg = gl.blocked ? 'AT THE 6 mm STONE · too big to pass · POKE = laser, or WALL ▸ to try the wall' : gl.stoneAhead ? 'STONE AHEAD (6 mm) · POKE = laser' : gl.colic > 0.05 ? 'moving up the ureter · a stone is somewhere ahead' : 'the path is clear';
         label(ctx, u, msg, 0, -0.7, gl.blocked || gl.stoneAhead ? COLORS.orange : COLORS.teal, 'center', 0.03);
         label(ctx, u, `colic ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.03);
         if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.62, COLORS.gold, 'center', 0.032);
@@ -2019,6 +2215,9 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
+      <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
+      <button type="button" data-act="wdown" title="The elevator: a scale down">▼</button>
+      <button type="button" data-act="wup" title="The elevator: a scale up">▲</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
       <label class="explorer__hr" title="The viewer's heart rate (the slider, or a chest strap: ♥ STRAP). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
       <button type="button" data-act="kc" title="One score, four settings (The Tensor, the Trilogy of Containers): the mind (the Mandelbulb), the river, the body, the session. The same thresholds at the same story-times">SETTING: MIND</button>
@@ -2058,6 +2257,9 @@ export function createExplorer(hooks = {}) {
   const twButton = root.querySelector('[data-act="tw"]');
   const kxButton = root.querySelector('[data-act="kx"]');
   const abButton = root.querySelector('[data-act="ab"]');
+  const wallButton = root.querySelector('[data-act="wall"]');
+  const wdownButton = root.querySelector('[data-act="wdown"]');
+  const wupButton = root.querySelector('[data-act="wup"]');
   const apButton = root.querySelector('[data-act="ap"]');
   const knobRow = root.querySelector('.explorer__knobs');
   for (const input of knobRow.querySelectorAll('input')) {
@@ -2175,6 +2377,12 @@ export function createExplorer(hooks = {}) {
     for (const b of root.querySelectorAll('[data-dim]')) b.classList.toggle('active', Number(b.dataset.dim) === dim());
     for (const b of root.querySelectorAll('[data-feel]')) b.classList.toggle('active', b.dataset.feel === st.feel);
     feelRow.hidden = st.stop !== 'body';
+    const wallNow = st.stop === 'ureter' ? scene('ureter').wall : 0;
+    wallButton.hidden = st.stop !== 'ureter';
+    wallButton.textContent = wallNow ? '◂ SCOPE' : 'WALL ▸';
+    wdownButton.hidden = wupButton.hidden = !wallNow;
+    wdownButton.disabled = wallNow >= BARRIERS.length;
+    wupButton.disabled = wallNow <= 1;
     resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     hrLabel.hidden = st.stop !== 'score';
@@ -2535,6 +2743,10 @@ export function createExplorer(hooks = {}) {
       st.own = Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1));
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'wall' || b.dataset.act === 'wdown' || b.dataset.act === 'wup') {
+      const sc = scene('ureter');
+      sc.setWall(b.dataset.act === 'wall' ? (sc.wall ? 0 : 1) : sc.wall + (b.dataset.act === 'wdown' ? 1 : -1));
+      syncUi();
     } else if (b.dataset.act === 'ab') {
       st.ab = st.ab === 'b' ? 'a' : 'b';
       syncUi();
