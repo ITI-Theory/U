@@ -4011,9 +4011,10 @@ SpaceEngine renders) and the one waiting on a viewer stay.
       fixed piece and the SpaceEngine credit line; the pieces themselves are the author's
       choice) Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
       Musopen; Satie's Gymnopedies for Departure); keep a credits file.
-- [ ] (from ISS-080) (ISS-055) Text to facts without guessing: NextKB's semantic
+- [x] (from ISS-080) (ISS-055) Text to facts without guessing: NextKB's semantic
       translations (FrameNet frames mapped to OpenCyc; QP frames with narrative functions)
       as the target vocabulary and validator for the later LLM front end.
+      (13 Oct: promoted to its own issue, ISS-088, started now (author).)
 - [ ] (from ISS-080) (ISS-047) MOTHER follows a wandering chat: log and tag each departure,
       show the chat as a branching path, revisit and continue; sound effects (note 11).
 - [x] (from ISS-080) (ISS-047) Test book: a topic suggested by someone else (waiting for the
@@ -4219,3 +4220,37 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).
 Not for print: twin view, A/B, the consulting room, SCRIBE, the control room, MIDI, the voices.
+
+---
+
+## ISS-088: Sherlock's front end checked: text to facts without guessing (FrameNet and QP) — OPEN
+{{Tags area.proofs, area.papers}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=}}
+
+From ISS-083 (ISS-055). Author, 13 Oct 23:20: the biggest open piece not implemented; do it
+now, before the Atlas. Today the front end is "a language model proposes, a person checks" (one
+candidate in eight was wrong); this makes it "a language model proposes, Sherlock checks
+mechanically", which is what makes "natural language compiler" literally true.
+
+**In NextKB (bld/sherlock/raw, 13 Oct inventory):** about 24,400 FrameNet semantic
+translations (14,900 nouns, 6,300 verbs, 3,100 adjectives; `Noun-`, `Verb-`,
+`ADJ-Semtranses.krf`): each word's frame, the OpenCyc type it denotes and a binding template
+(syntactic role to OpenCyc predicate); about 660 QP-frame statements (`qpframes.krf`,
+`qpframesupport.krf`: "X increases with Y" as qualitative proportionalities); about 350
+narrative-function rules. Today only the noun and verb types are used, as a hint for a person
+(`sherlock/lookup.py`).
+
+**Plan (estimate about a week; a first working version in 2 to 3 days):**
+- [ ] 1. Index the semantic translations: word, part of speech, frame, denoted type, binding
+      template (role to predicate), from the archive (`bld/sherlock/semtrans.json`).
+- [ ] 2. A target format: per claim sentence, the word whose translation is used and the role
+      bindings, giving OpenCyc facts (`registry/readings/<doc>.yaml`).
+- [ ] 3. The validator: every constant and predicate exists in OpenCyc; arguments satisfy
+      OpenCyc's argument types (checked in Lean against Sherlock's OpenCyc types); bindings
+      match the word's own template. Reports "no translation" honestly.
+- [ ] 4. QP sign consistency: "X increases / decreases with Y" read into qualitative
+      proportionalities; two documents stating opposite signs for the same pair are a finding.
+- [ ] 5. Run on The Tensor and one paper; measure how much validates and what it finds; write it
+      into SH1 and SH2.
+Risk: FrameNet covers everyday words better than technical ones, and OpenCyc lacks many of the
+programme's terms; "no translation" is measured, not guessed.
