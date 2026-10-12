@@ -67,8 +67,10 @@ def said_in(text: str) -> str | None:
         text = m.group(1)
     if ABSENT.search(text):
         return "absent"
-    if re.search(r"placeholder|proving `?True`?|:= trivial", text, re.I):
+    if re.search(r"placeholder|proving `?True`?|proves (only )?`?True`?|:= trivial", text, re.I):
         return "placeholder"
+    if re.search(r"proof obligations?|obligations? pending|pending real|not yet (proved|written)|\bplanned\b|to be proved", text, re.I):
+        return "planned"
     if re.search(r"closes with|by `?(rfl|decide|norm_num|simp|omega)`?\b", text, re.I):
         return "kernel-checked"
     for k, rx in CLAIMS:
@@ -130,19 +132,24 @@ def extract(files: list[str]) -> int:
                 if said is None:
                     now = re.search(r"\bnow\b(.*)", line, re.I) if re.search(r"\bwas\b", line, re.I) else None
                     said = said_in(now.group(1)) if now else said_in(clause(line, m.group(0)))
+                # a table row that discloses a placeholder, whatever its column heading says
+                if said in ("theorem", "kernel-checked") and is_row and re.search(r"placeholder|proves only `?True", line, re.I):
+                    said = "placeholder"
                 # a sentence that continues: "theorem `x`, currently a / placeholder proving True"
                 if said in ("theorem", "kernel-checked") and i < len(lines) and re.search(r"placeholder|proving `?True`?", lines[i], re.I) \
                         and not lines[i].lstrip().startswith(("|", "#")):
                     said = "placeholder"
                 if re.search(rf"\b(theorem|lemma|def|axiom)\s+{re.escape(n.split('.')[-1])}\b", SHERLOCK_SRC):
                     said = "sherlock"  # Sherlock's own theorems (SH1), checked by make -C sherlock check
+                if said in (None, "cited") and i >= 2 and re.search(r"proof obligations?|obligations? pending", lines[i - 2] + " " + line, re.I):
+                    said = "planned"
                 if HYPOTHETICAL.search(clause(line, m.group(0))):
                     said = "hypothetical"
                 if n in TACTICS:
                     said = "tactic"
                 if n in MODULES:
                     said = "module"
-                items.append({"doc": doc, "line": i, "name": n, "said": said or "cited", "text": line.strip()[:200]})
+                items.append({"doc": doc, "file": f, "line": i, "name": n, "said": said or "cited", "text": line.strip()[:200]})
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "ledger-claims.json").write_text(json.dumps(items, indent=1, ensure_ascii=False),
                                             encoding="utf-8", newline="\n")
@@ -196,7 +203,7 @@ def disagrees(said: str, r: dict) -> str | None:
     kind, axioms = r.get("kind"), r.get("axioms", [])
     if said in ("kernel-checked", "theorem") and r.get("resolved") in TRIVIAL:
         return f"called {said}, but it proves only True (a placeholder)"
-    if said in ("tactic", "sherlock", "module", "hypothetical") or kind in ("namespace", "module"):
+    if said in ("tactic", "sherlock", "module", "hypothetical", "planned") or kind in ("namespace", "module"):
         return None
     if said == "placeholder":  # the document says it proves only True: the Lean must agree
         return None  # an honest disclosure of a weak or empty statement
@@ -219,8 +226,21 @@ def disagrees(said: str, r: dict) -> str | None:
     return None
 
 
+def accepted() -> dict[tuple[str, int, str], str]:
+    """The author's dispositions (registry/ledger-accepted.yaml): findings read and accepted as
+    not an error, each with a reason. {(doc, line, name): reason}; axiom omissions use line 0."""
+    import yaml
+    path = U / "registry" / "ledger-accepted.yaml"
+    if not path.exists():
+        return {}
+    rows = (yaml.safe_load(path.read_text(encoding="utf-8")) or {}).get("accepted") or []
+    return {(r["doc"], int(r.get("line", 0)), r["name"]): r["reason"] for r in rows}
+
+
 def report() -> int:
     TRIVIAL.update(trivial_names())
+    ok = accepted()
+    errors: list[str] = []  # compiler style: path:line: error: message (VS Code links them)
     claims = json.loads((OUT / "ledger-claims.json").read_text(encoding="utf-8"))
     results: dict[str, dict] = {}
     module_axioms: dict[str, list[str]] = {}
@@ -238,20 +258,35 @@ def report() -> int:
         for c in rows:
             r = results.get(c["name"], {"kind": "missing"})
             why = disagrees(c["said"], r)
+            if why and (c["doc"], c["line"], c["name"]) in ok:
+                out.append(f"- line {c['line']} `{c['name']}`: accepted ({ok[(c['doc'], c['line'], c['name'])]})")
+                continue
             if why:
                 bad += 1
+                errors.append(f"{c.get('file', c['doc'])}:{c['line']}: error: `{c['name']}` ({c['said']}): {why}"
+                              + (f" [{r['resolved']}]" if r.get("resolved") else ""))
                 out.append(f"- line {c['line']} `{c['name']}` ({c['said']}): **{why}**"
                            + (f" [{r['resolved']}]" if r.get("resolved") else ""))
         mods = {results[c["name"]]["module"] for c in rows if results.get(c["name"], {}).get("module") in module_axioms}
         named = {results[c["name"]].get("resolved") for c in rows if c["said"] == "axiom" and c["name"] in results}
         lists_axioms = any(c["said"] == "axiom" for c in rows)  # only a document that lists axioms omits some
-        silent = [a for m in sorted(mods) for a in module_axioms[m] if a not in named] if lists_axioms else []
+        # the axioms the cited declarations rest on (not every axiom of their modules): a
+        # document need not mention an axiom nothing it cites depends on
+        rests = {a for c in rows for a in results.get(c["name"], {}).get("axioms", [])}
+        silent = [a for m in sorted(mods) for a in module_axioms[m] if a not in named and a in rests] if lists_axioms else []
+        silent = [a for a in silent if (doc, 0, a) not in ok]
         if silent:
+            first = next((c for c in rows if c["said"] == "axiom"), rows[0])
+            errors.append(f"{first.get('file', doc)}:{first['line']}: warning: the document lists axioms but not "
+                          + ", ".join(f"`{a}`" for a in silent))
             bad += len(silent)
             out.append(f"- axioms in the cited modules the document never calls axioms: "
                        + ", ".join(f"`{a}`" for a in silent))
         out.append("")
     (OUT / "ledger.md").write_text("\n".join(out), encoding="utf-8", newline="\n")
+    (OUT / "ledger.txt").write_text("\n".join(errors) + ("\n" if errors else ""), encoding="utf-8", newline="\n")
+    for e in errors:
+        print(e)
     print(f"bld/sherlock/ledger.md: {len(claims)} citations, {bad} disagree with the Lean")
     return 0
 

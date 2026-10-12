@@ -774,7 +774,7 @@ measure gravitational-wave signals consistent with that response.
 **Mind matrix:** The global cosmological state. If the universal CEMI field
 amplitude satisfies $\phi_\text{cosmic} \geq T_c$, the universe satisfies
 the structural requirements for consciousness
-(`UniversalSomaticField.universe_is_11D_organism`, axiom). Whether this
+(`UniversalSomaticField.universe_is_11D_organism`, a definition, not a proved fact). Whether this
 condition is met dynamically is an empirical question.
 
 **Same as always.** The gravitational wave propagator at Scale 20 is formally
@@ -1031,7 +1031,7 @@ The following table lists representative theorems, proof methods, and files.
 |---|---|---|---|
 | `somaField_iso_mtheory` | SomaField $\cong$ M-Theory | `simp` | MTheoryIsomorphism |
 | `organism_hierarchy` | $11D \twoheadrightarrow 7D \twoheadrightarrow 4D$ | `simp` | MTheoryIsomorphism |
-| `X7_is_7D_product` | $X_7$ is inhabited as a 7D product | constructor | MTheoryIsomorphism |
+| `X7_is_7D_product` | $X_7$ is inhabited as a 7D product (as stated it proves only `True`: a placeholder) | constructor | MTheoryIsomorphism |
 | `scale_invariance_full` | rescaled wave mode satisfies the wave equation | imported wave equation | MTheoryIsomorphism |
 | `boundary_not_interior` | $L_1$ endpoints $\notin$ interior | `fin_cases` | MTheoryIsomorphism |
 | `V_nonneg` | $V(x) \geq 0$ everywhere | `positivity` | LimbicTunnel |
@@ -1050,12 +1050,12 @@ The following table lists representative theorems, proof methods, and files.
 
 **Axioms and open obligations (not world-claims proved by the kernel):**
 
-| Axiom | Content | Scaffolding needed |
-|---|---|---|
-| `universe_is_11D_organism` | Universe satisfies 11D structure | Cosmological boundary conditions |
-| `cosmological_correspondence` | weak Scale 19 field-equation inhabitance | full linearised GR in Mathlib |
-| `classical_trapped` | placeholder theorem returning `True` for trapping statement | Lyapunov theory for ODEs |
-| `quant_exp_1` | axiom connecting WKB amplitude to QUANT-EXP-1 rates | Probabilistic model of annealing |
+| Declaration | Kind | Content | Scaffolding needed |
+|---|---|---|---|
+| `universe_is_11D_organism` | definition | Universe satisfies 11D structure | Cosmological boundary conditions |
+| `cosmological_correspondence` | theorem (weak) | weak Scale 19 field-equation inhabitance | full linearised GR in Mathlib |
+| `classical_trapped` | theorem (proved 13 Oct 2026) | gradient flow below the barrier stays in the trauma well (a Lyapunov argument) | none |
+| `quant_exp_1` | axiom | connecting WKB amplitude to QUANT-EXP-1 rates | Probabilistic model of annealing |
 
 `greens_fn_is_SHO` was an axiom; it is now `theorem greens_fn_is_SHO ... := trivial`.
 The OSforGFF files support the free Gaussian-field formal model; the

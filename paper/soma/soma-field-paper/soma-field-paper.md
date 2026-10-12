@@ -499,11 +499,11 @@ tension should be. The felt body is the predicted body.
 The formal consequence is direct: the soma-field's state vector $\mathbf{e}(t)$ must
 include **somatic modes** — pain states, regional tension, visceral sensation,
 proprioceptive activation — alongside emotional modes. These are modes of the same field,
-governed by the same coupling matrix $W$. The $W_{ij}$ between fear modes and somatic pain
-modes is the formal account of why fear amplifies pain, why safety reduces it, and why
-chronic pain and C-PTSD are highly comorbid. They are not separate conditions sharing a
-correlation. They are the same attractor architecture operating across emotional and somatic
-modes simultaneously.
+governed by the same coupling matrix $W$. In the model, the $W_{ij}$ between fear modes and
+somatic pain modes offers a formal account of why fear amplifies pain, why safety reduces
+it, and of the high comorbidity of chronic pain and C-PTSD [@sharp2001chronic]. On this
+reading they would not be separate conditions sharing a correlation but one attractor
+architecture acting across emotional and somatic modes `open-hypothesis`.
 
 **Phantom limb as attractor persistence.** An amputated limb's somatic modes do not
 disappear from $W$ when the limb is removed. The neural model persists. When movement-

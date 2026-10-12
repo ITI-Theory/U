@@ -210,7 +210,7 @@ The complexity results are type-checked in `SwarmPropagator.lean`:
 - `propagator_beats_classical` — arithmetic cost inequality proved by `nlinarith`
 - `breakeven_at_N` — proved by `simp`
 - `classical_wins_single_round` — proved (for K=1, classical is faster)
-- `speedup_monotone_in_K` — proved by `Rat.div_lt_div_right`
+- `speedup_monotone_in_K` — proved by `div_lt_div_of_pos_right`
 - `jam_resistant` — one-step update identity proved by `rfl`
 
 ---

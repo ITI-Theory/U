@@ -1,0 +1,8 @@
+# Sherlock ledger dispositions (ISS-055): findings the author has read and accepted as not
+# an error, each with a reason. sherlock/ledger.py reports them as accepted, not as errors.
+# line 0 with an axiom name: an axiom the document need not mention.
+accepted:
+  - doc: book-formal-mathematics
+    line: 145
+    name: Matrix.IsHermitian
+    reason: "the sentence says a theorem's type requires the predicate; it does not call the predicate a theorem"

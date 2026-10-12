@@ -438,8 +438,9 @@ The formal content is a set of operator modifications for the three conditions:
   $T_{\text{eff}}$. This is a quantitative modification, not a qualitative one. The
   system is modelled not as broken but as sampling the energy landscape at higher
   temperature.
-  The therapeutic implication is not to reduce the noise but to design the landscape
-  so that high-temperature sampling is an advantage.
+  If the model holds, the implication for therapy would be not to reduce the noise but
+  to design the landscape so that high-temperature sampling becomes an advantage: a
+  design hypothesis, not a treatment recommendation `open-hypothesis`.
 
 - **CPTSD**: The coupling matrix $W$ has the topological structure described in §3.2:
   a winding-number-protected barrier between Fear and regulated states. The barrier

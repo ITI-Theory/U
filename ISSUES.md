@@ -2811,7 +2811,9 @@ forbus2017analogy, chaudhri2025knowledge):**
       and no evidence label in the paragraph, as candidates; 2 in 39 documents, for the
       author: P1 line 499, "the formal account of why fear amplifies pain, why safety reduces
       it" (no "in the model"), and the synthesis line 437, "The therapeutic implication is
-      ..." (a prescription without a label). The microtheory version stays open) The paper's own disclaimers become microtheories (ArtisticDesignMt vs
+      ..." (a prescription without a label); both reworded with the author's OK, 13 Oct 04:30,
+      as model claims labelled open-hypothesis, P1 with a source (Sharp and Harvey 2001); now
+      0 candidates. The microtheory version stays open) The paper's own disclaimers become microtheories (ArtisticDesignMt vs
       ClinicalMt): Sherlock checks that no clinical-context claim is made
       without evidence. The affidavit, and the legal use.
 - [ ] Physics through Mathlib and physlib (already in the lakefile).
