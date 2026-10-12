@@ -2464,7 +2464,10 @@ Steps:
       (explorer-check, 14 checks): calm r 0.96, hot 0.70, hot with the
       resource 0.95, repair 1.4 times faster with the resource. Tour: three
       stops before the return to the jellyfish human.
-- [ ] From H-AL: music as forcing (BRECVEMA mechanisms, rhythm) on the body and
+- [x] (13 Oct, the landscape: with MUSIC on, its 8 s phrase rocks the ground towards SAFE
+      and back, J(t) = J + 0.12 cos(2πt/8), mean zero; with the noise it lifts escapes
+      from FREEZE to SAFE within a minute at Φ 0.4 from about 48% to 90%, a stochastic-
+      resonance effect in the model, in explorer-check; the body stop not yet) From H-AL: music as forcing (BRECVEMA mechanisms, rhythm) on the body and
       landscape stops: the Somatron roots of the machine.
 - [x] (13 Oct: PAST on the MEMORY stop: recall blends the present with a trace,
       K(τ) = e^(−τ/4 s), drawn as rings; FIGHT feeds FREEZE, not the reverse (the defence
@@ -3273,7 +3276,10 @@ Plan:
       Pre-verbal, the heartbeat persists), driving the app's generative music
       (`createExplorerMusic`) from the seven modes live, so the music is the film's
       score made audible; it follows the knobs and the strap. Ours, and clean.
-- [ ] Measure it with P9 (BRECVEMA): rhythmic entrainment as tempo against the
+- [x] (13 Oct: the music's pulse now follows the score's tempo in PROJECTION, the heart in
+      MIRROR, between in RESONANCE, so a heart drawn to it is entrainment, not an echo;
+      the score stop shows ♪ PULSE, ♥, the gap and whether it closes over the last
+      minute, a measure, not a proof; a real strap is author UAT) Measure it with P9 (BRECVEMA): rhythmic entrainment as tempo against the
       viewer's heart rate, read from the strap.
 - [ ] Fixed pieces where wanted: public-domain compositions in CC0 recordings (e.g.
       Musopen; Satie's Gymnopedies for Departure); keep a credits file.

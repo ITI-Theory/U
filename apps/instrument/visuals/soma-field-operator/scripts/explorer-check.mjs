@@ -175,6 +175,21 @@ const pastRun = withPast => {
 };
 const pastRate = withPast => { let n = 0; for (let k = 0; k < 40; k++) n += pastRun(withPast) ? 1 : 0; return n / 40; };
 
+// MUSIC as forcing: from FREEZE at Phi 0.4, how often the state reaches SAFE within 60 s
+const forcedRate = forced => {
+  let n = 0;
+  for (let r = 0; r < 100; r++) {
+    const b = { x: sim.WELLS[2][0] * 0.95, y: sim.WELLS[2][1] * 0.95 };
+    for (let t = 0; t < 60; t += 0.05) {
+      sim.landscapeStep(b, 0.4, false, 0.05, forced ? { time: t } : null);
+      if (Math.hypot(b.x - sim.WELLS[0][0], b.y - sim.WELLS[0][1]) < 0.45) { n += 1; break; }
+    }
+  }
+  return n / 100;
+};
+const forcedWith = forcedRate(true);
+const forcedWithout = forcedRate(false);
+
 // Durations follow the tour (registry/tours/mind-explorer.yaml): about 15 s per stop.
 const checks = [
   // [name, rate, lowest allowed, highest allowed]
@@ -227,6 +242,8 @@ const checks = [
   ['barrier: at the quantum gap an electron tunnels about one try in eight (T)', transmission(BARRIERS[5]), 0.08, 0.2],
   ['past: with the kernel and the cascade, calm FIGHT ends in FREEZE', pastRate(true), 0.9, 1],
   ['past: without them, calm FIGHT stays FIGHT (never FREEZE)', pastRate(false), 0, 0.05],
+  ['music: the rhythm (mean zero) helps FREEZE out to SAFE at Phi 0.4 (with music, within 60 s)', forcedWith, 0.75, 1],
+  ['music: and it is the rhythm that does it (with minus without, at least 20 points)', forcedWith - forcedWithout, 0.2, 1],
   ['fly: every dive finds the surface', diveRun.found, 1],
   ['fly: the camera stays outside the fractal on every dive (min DE / distance > 0)', diveRun.worst, 1e-6, Infinity],
 ];

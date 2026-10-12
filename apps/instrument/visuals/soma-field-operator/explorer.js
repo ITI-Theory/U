@@ -1383,6 +1383,8 @@ function makeScore() {
   let params = '';
   let bpmS = 68;
   let hdot = 0;
+  const gaps = [];
+  let entrainClock = 0;
   let viewer = null;
   // The Trilogy of Containers (paper Part IV): the same score in the river, the body or the
   // session; one player, so the thresholds fall at the same story-times in all three.
@@ -1583,6 +1585,25 @@ function makeScore() {
       if (hrv) label(ctx, u, `HRV ${Math.round(hrv.rmssd)} ms · breath ${hrv.breath.toFixed(0)}/min · coherence ${hrv.coherence.toFixed(2)} (estimates)`, x0, -0.02, COLORS.teal, 'left', 0.022);
       else if (env.strap) label(ctx, u, 'HRV: collecting beats (20 s)', x0, -0.02, COLORS.dim, 'left', 0.022);
       if (midiOut.status !== 'off') label(ctx, u, `MIDI ${midiOut.status}`, x0, 0.03, COLORS.dim, 'left', 0.02);
+      // entrainment (P9, BRECVEMA's rhythmic entrainment): the gap between the music's pulse and
+      // the heart, and whether it closes over the last minute. A measure, not a proof.
+      if (env.music) {
+        const pulse = (1 - env.kr) * scoreTempo(m) + env.kr * bpmS;
+        const gap = bpmS - pulse;
+        entrainClock += env.dt;
+        if (entrainClock >= 1) { entrainClock = 0; gaps.push(Math.abs(gap)); if (gaps.length > 60) gaps.shift(); }
+        let trend = '';
+        if (gaps.length >= 20) {
+          const n = gaps.length;
+          const mx = (n - 1) / 2;
+          const my = gaps.reduce((a, b) => a + b, 0) / n;
+          let sxy = 0, sxx = 0;
+          gaps.forEach((g, k) => { sxy += (k - mx) * (g - my); sxx += (k - mx) * (k - mx); });
+          const slope = (sxy / sxx) * 60;
+          trend = slope < -0.5 ? ` · closing ${(-slope).toFixed(1)} bpm/min: entraining` : slope > 0.5 ? ` · opening ${slope.toFixed(1)} bpm/min` : ' · steady';
+        }
+        label(ctx, u, `♪ PULSE ${Math.round(pulse)} · ♥ ${Math.round(bpmS)} · gap ${gap >= 0 ? '+' : ''}${gap.toFixed(0)}${trend}`, x0, 0.08, COLORS.violet, 'left', 0.02);
+      } else gaps.length = 0;
       const bar = { x: -0.6, w: 1.2, y: 0.78 };
       ctx.save();
       ctx.fillStyle = 'rgba(232,238,252,0.15)';
@@ -2082,9 +2103,16 @@ function gradient(px, py, beta, J) {
 // is small when calm, so that a resource alone rarely frees a stuck state (checked in
 // scripts/explorer-check.mjs).
 const BALL_LIMIT = 1.37;
-function landscapeStep(ball, phi, resource, dt) {
+// MUSIC as forcing (H-AL, ISS-052; P9's rhythmic entrainment; interpretive): with the music
+// on, its phrase rhythm tilts the ground towards SAFE and back, J(t) = J + A cos(2 pi t / P).
+// A periodic push too small to cross a barrier alone, which with the noise can (stochastic
+// resonance). forcing = { time } or null.
+export const FORCING = { A: 0.12, P: 8 };
+export const scoreTempo = m => Math.max(48, Math.min(110, 52 + 30 * (m.F ?? 0) + 10 * (m.C ?? 0) - 8 * (m.S ?? 0)));
+
+function landscapeStep(ball, phi, resource, dt, forcing = null) {
   const T = temperature(phi);
-  const J = resource ? RESOURCE_J : 0;
+  const J = (resource ? RESOURCE_J : 0) + (forcing ? FORCING.A * Math.cos((2 * Math.PI * forcing.time) / FORCING.P) : 0);
   const D = 0.002 + 0.06 * phi * phi;
   const sub = 4;
   const h = Math.min(dt, 0.05) * 2.5 / sub;
@@ -2109,7 +2137,7 @@ function makeLandscape() {
     focus: [0, 0],
     tick(env) {
       theta += env.dt * 0.07;
-      landscapeStep(ball, env.phi, env.resource, env.dt);
+      landscapeStep(ball, env.phi, env.resource, env.dt, env.music ? { time: env.t } : null);
       trail.push([ball.x, ball.y]);
       if (trail.length > 160) trail.shift();
     },
@@ -2140,6 +2168,7 @@ function makeLandscape() {
             if (s.visible) label(ctx, u, MEMORY_NAMES[k].toUpperCase(), (s.x * env.w) / u, (s.y * env.h) / u, MEMORY_COLORS[MEMORY_NAMES[k]], 'center', 0.034);
           }
           landscapeHud(ctx, u, phi, T, beta, env.resource);
+          if (env.music && env.labels) label(ctx, u, `♪ MUSIC: the ground rocks towards SAFE and back every ${FORCING.P} s (a forcing; in this model, with the noise, it helps the state out)`, 0, 0.9, COLORS.violet, 'center', 0.022);
         }
         return;
       }
@@ -2222,6 +2251,7 @@ function makeLandscape() {
         if (env.labels) label(ctx, u, name.toUpperCase(), sx, sy - 0.12, MEMORY_COLORS[name], 'center', 0.034);
       }
       if (env.labels) landscapeHud(ctx, u, phi, T, beta, env.resource);
+          if (env.music && env.labels) label(ctx, u, `♪ MUSIC: the ground rocks towards SAFE and back every ${FORCING.P} s (a forcing; in this model, with the noise, it helps the state out)`, 0, 0.9, COLORS.violet, 'center', 0.022);
     },
   };
 }
@@ -2647,8 +2677,11 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
-    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null, bpm: st.bpm });
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+    // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
+    // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
+    const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
+    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null, bpm: pulse });
     if (stereo) {
       prepareLayers(lw);
       ctx = layers.far.ctx;
@@ -2700,10 +2733,10 @@ export function createExplorer(hooks = {}) {
     } else if (st.from && p < 1) {
       const e = ease(p);
       if (st.forward) {
-        drawScene(st.from, env, 1 - e, 1 + 7 * e, scene(st.from).focus);
+        drawScene(st.from, { ...env, gl: null }, 1 - e, 1 + 7 * e, scene(st.from).focus);
         drawScene(st.stop, env, e, lerp(0.35, 1, e), [0, 0]);
       } else {
-        drawScene(st.from, env, 1 - e, lerp(1, 0.35, e), [0, 0]);
+        drawScene(st.from, { ...env, gl: null }, 1 - e, lerp(1, 0.35, e), [0, 0]);
         drawScene(st.stop, env, e, lerp(8, 1, e), scene(st.stop).focus);
       }
     } else {
