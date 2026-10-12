@@ -3504,11 +3504,17 @@ avalanches and pain medium; the cathedral and the arteries medium to hard (anato
       which light; louder with Φ; chronic, they stay lit; the no-pain-receptors line. Not
       yet started from the ureter's colic itself) Pain's path: from the ureter's colic up the spinothalamic tract to the thalamus,
       insula, cingulate and sensory cortex; fear makes it louder; chronic as a lit valley.
-- [ ] The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
+- [x] (13 Oct: CAVE at the BRAIN stop, cathedral3d.js: a flight through the ventricles in
+      anatomical order, fourth ventricle, aqueduct, third, the foramen, the lateral ventricle
+      as the nave, the atrium as the crossing, the temporal horn; ashlar stone, vaulting ribs
+      in the wide halls, the choroid plexus as bead curtains, the field as three moving
+      coloured lights (FX); proportions schematic. FX off is not yet the plain anatomy) The cathedral: the ventricles as the cave (CSF, the choroid plexus), the field as
       light in the stone; FX off the plain anatomy.
 - [ ] The way in: the arteries from the heart to the circle of Willis and the middle
       cerebral artery, true calibres, the voyage shrinking; source and licence decided.
-- [ ] C-PTSD echoes in the cathedral (author, 13 Oct 04:00). The match: a cathedral's
+- [x] (13 Oct: in the cave, THOUGHTS and POKE flash in the stone; with the C-PTSD slider each
+      returns, fading, more often and longer as cp rises, and the music's echo lengthens; the
+      partial-cue flashback is not yet built) C-PTSD echoes in the cathedral (author, 13 Oct 04:00). The match: a cathedral's
       reverberation time is how long a sound lives after it stops; the programme already
       has the same shape, the memory kernel K(τ) (PAST, 13 Oct) and P13's C-PTSD operator
       (the barrier deeper, slower back). So in C-PTSD mode a burst does not die: it comes

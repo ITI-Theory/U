@@ -164,7 +164,8 @@ export function createExplorerMusic() {
           grainAt = now + 0.05 + 0.6 * (1 - score.PV) * Math.random();
         }
       } else {
-        feedback.gain.setTargetAtTime(0.45, now, 1);
+        // in the cathedral, C-PTSD lengthens the echo (ISS-077)
+        feedback.gain.setTargetAtTime(0.45 + 0.45 * Math.max(0, Math.min(1, state.echo ?? 0)), now, 1);
         filter.frequency.setTargetAtTime(600 + 1800 * phi, now, 0.8);
       }
       if (now >= chordAt) {

@@ -54,6 +54,7 @@ import { createExplorerMusic } from './explorer-music.js';
 import { createMidiOut } from './midi-out.js';
 import { startMidiIn } from './midi-in.js';
 import { createTowerPanel } from './tower.js';
+import { createCathedral3D } from './cathedral3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
@@ -559,6 +560,8 @@ function makeBrain() {
   // THOUGHTS: the bursts on screen, and their echoes
   const bursts = [];
   let ignited = 0;
+  let caveGl = null;
+  let lastCp = 0;
   const gyri = [];
   while (gyri.length < 30) {
     const x = lerp(-0.58, 0.58, rand());
@@ -646,9 +649,27 @@ function makeBrain() {
       if (env.dim >= 8 && Math.random() < (0.35 + 1.4 * env.phi) * env.dt) event();
       traffic.tick(env.dt);
     },
-    poke(strength) { event(strength); },
+    poke(strength) {
+      if (caveGl) { caveGl.burst(Math.max(20, avalancheSize(1)), lastCp); return; }
+      event(strength);
+    },
     draw(ctx, env) {
       const { u, phi, dim, t } = env;
+      caveGl = env.cave && env.gl?.burst ? env.gl : null;
+      lastCp = env.cp ?? 0;
+      if (caveGl) {
+        caveGl.render({ time: t, phi, speed: 0.004 + 0.006 * phi, stereo: env.stereo });
+        if (env.thoughts) {
+          const rate = (3 + 4 * phi) * (1 + 3 * (env.ca ?? 0)) * (1 - 0.6 * (env.cs ?? 0));
+          if (Math.random() < rate * env.dt) caveGl.burst(avalancheSize(1), lastCp);
+        }
+        if (env.labels) {
+          label(ctx, u, `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
+          label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
+          label(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
+        }
+        return;
+      }
       // cerebellum and brainstem behind the cerebrum
       ctx.save();
       ctx.fillStyle = '#24182a';
@@ -2487,6 +2508,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
+      <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
@@ -2527,6 +2549,7 @@ export function createExplorer(hooks = {}) {
   const pastButton = root.querySelector('[data-act="past"]');
   const thoughtsButton = root.querySelector('[data-act="thoughts"]');
   const painButton = root.querySelector('[data-act="pain"]');
+  const caveButton = root.querySelector('[data-act="cave"]');
   const hrLabel = root.querySelector('.explorer__hr');
   const hrInput = hrLabel.querySelector('input');
   const hrOut = hrLabel.querySelector('output');
@@ -2596,7 +2619,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', cave: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -2629,6 +2652,8 @@ export function createExplorer(hooks = {}) {
     'score-river': () => createFlight3D(),
     'score-body': () => createTunnel3D({ vessel: true }),
     'score-session': () => createDyad3D(),
+    // the brain's own cave: the ventricles as a cathedral (ISS-077)
+    'brain-cave': () => createCathedral3D(),
   };
   const gls = {};
   function stageGl(stop) {
@@ -2691,7 +2716,9 @@ export function createExplorer(hooks = {}) {
     resourceButton.classList.toggle('active', st.resource);
     pastButton.hidden = st.stop !== 'network';
     thoughtsButton.hidden = st.stop !== 'brain';
-    painButton.hidden = st.stop !== 'brain';
+    painButton.hidden = st.stop !== 'brain' || st.cave;
+    caveButton.hidden = st.stop !== 'brain';
+    caveButton.classList.toggle('active', st.cave);
     painButton.textContent = `PAIN: ${(st.pain || 'off').toUpperCase()}`;
     painButton.classList.toggle('active', Boolean(st.pain));
     thoughtsButton.classList.toggle('active', st.thoughts);
@@ -2713,7 +2740,7 @@ export function createExplorer(hooks = {}) {
     twButton.classList.toggle('active', st.tw);
     twButton.setAttribute('aria-pressed', String(st.tw));
     pvButton.hidden = st.stop !== 'score' || !(st.tw || st.ab === 'b');
-    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && st.thoughts));
+    condRow.hidden = !((st.stop === 'score' && (st.tw || st.ab === 'b')) || (st.stop === 'brain' && (st.thoughts || st.cave)));
     abButton.hidden = st.stop !== 'score' || st.tw;
     apButton.hidden = st.stop !== 'score';
     apButton.textContent = `PILOT: ${{ '': 'OFF', auto: 'AUTOPILOT', co: `CO-PILOT (${st.own})`, manual: 'MANUAL' }[st.ap]}`;
@@ -2906,11 +2933,11 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, cave: st.cave, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
-    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null, bpm: pulse });
+    music.update({ sector: st.stop === 'flight' ? env.world : 'organismal', phi: st.phi, resource: st.resource, score: st.stop === 'score' ? scoreModes : null, bpm: pulse, echo: st.stop === 'brain' && st.cave ? st.cp : 0 });
     if (stereo) {
       prepareLayers(lw);
       ctx = layers.far.ctx;
@@ -2930,7 +2957,7 @@ export function createExplorer(hooks = {}) {
       return;
     }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop) : null;
+    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
@@ -3093,6 +3120,10 @@ export function createExplorer(hooks = {}) {
       hooks.onChange?.();
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
+      syncUi();
+    } else if (b.dataset.act === 'cave') {
+      st.cave = !st.cave;
+      if (st.cave) st.view3d = true;
       syncUi();
     } else if (b.dataset.act === 'pain') {
       st.pain = { '': 'acute', acute: 'chronic', chronic: '' }[st.pain];
