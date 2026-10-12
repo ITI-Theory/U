@@ -14,4 +14,6 @@ facts:
   - {s: (impulseResponseOf StringPropagator Monochord), line: 1029}
   - {s: (couples Monochord ListeningBody), line: 1029}
   - {s: (causes (eigenmodesOf Intervals StringPropagator) FeltConsonance), line: 1029}
-proposed: {}
+  - {s: (forces Music SomaFieldState), line: 1029}
+proposed:
+  forces: {arity: 2, gloss: "?x drives landscape or field ?y as an external forcing (a source term or parameter modulation)"}

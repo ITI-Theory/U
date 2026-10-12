@@ -1149,7 +1149,7 @@ The readings above are this book's, not the philosophers' and not Russell's: eac
 | Plato and the programme's fixed gestalt (P17) | 0.41 | the closest programme model to the forms |
 | Parmenides and the fixed gestalt | 0.33 | permanence reads as the clinical fixed gestalt |
 | Heraclitus and the fixed gestalt | 0.14 | flow does not: the book's pairing "Heraclitus is flow; Parmenides is attractor" holds as structure |
-| Pythagoras and any programme model | at most 0.28 | the harmony reading has no partner: the case library has no model of P9's music-affect forcing yet, so the analogy points at a gap, not a match |
+| Pythagoras and any programme model | at most 0.26 | the harmony reading has no close partner. A case for P9's music-affect forcing (`p9-music-forcing`, with a proposed predicate for forcing, which the vocabulary lacked) is found, but only third (0.23): the reading joins the string's eigenmodes to the forcing of an affect landscape, and no programme model joins them yet. "Structure becomes experience through response" names a bridge the programme has still to build |
 
 Three cautions. The numbers measure the readings as written, so they test this book's consistency, not Greek philosophy. A high score says two descriptions share relational structure; it does not say either is true. And the vocabulary is the programme's, so the method can only find the programme's shapes: what it misses in Pythagoras is as informative as what it finds in Parmenides. The use is the one Russell's method invites: philosophers as effects and causes, compared by the structure of what they set in motion, with every comparison checkable `interpretive`.
 

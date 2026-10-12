@@ -2997,7 +2997,7 @@ mapping (ISS-063).
       Parmenides, Socrates and Plato as cases, registry/cases/phil-*.yaml, frozen at ff0ddeb;
       MAC/FAC pairs Parmenides with Plato 0.53, Heraclitus with Socrates 0.49, the "opposites"
       Heraclitus and Parmenides share a frame 0.35, permanence reads as P17's fixed gestalt
-      and flow does not, Pythagoras finds no partner: P9 has no case yet. Written up in
+      and flow does not; Pythagoras finds no close partner, even with a new P9 case and a proposed `forces` predicate (0.23): the bridge from eigenmodes to affect forcing is unbuilt. Written up in
       chapter 7, "Reading Russell with Sherlock"; no Russell text quoted) Philosophy reading: Russell's *History* as a sequence of affidavits compared by structure mapping.
 - [x] (12 Oct: chapters 12-13, "October 2026: Sherlock built", "Denoting, fiction and consensus", status rows, Appendix B) Philosophy (11 Oct): Sherlock is no longer "proposed": tense and results;
       Moriarty/DOT as an actual role (Popper); SH1's "consensus is not mathematics"

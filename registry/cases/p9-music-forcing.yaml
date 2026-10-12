@@ -1,0 +1,23 @@
+# P9, music-affect dynamics (sections "Why Music", "The Model", "State Trajectory
+# Analysis"): music as forcing on the soma-field landscape. Written for the Russell reading
+# (ISS-064), whose Pythagoras found no partner without it. Facts in the shared vocabulary,
+# each with its line.
+id: p9-music-forcing
+document: P9
+source: {file: paper/soma/music-affect-dynamics/music-affect-dynamics.md, commit: c212e40, sha256: a16e820a3981c0a9bd573f403af371c22c7ed2e62f49c40951880d7d62a91784}
+scale: "6"
+name: "Music as forcing on the affect landscape (P9)"
+facts:
+  - {s: (energyLandscapeOf AffectEnergy AffectSpace), line: 101}
+  - {s: (storesPatterns CouplingW NamedAttractors), line: 104}
+  - {s: (attractorIn RegulatedCalm AffectEnergy), line: 108}
+  - {s: (attractorIn Freeze AffectEnergy), line: 109}
+  - {s: (synchronises RhythmicEntrainment ModeChannels), line: 80}
+  - {s: (oscillatorsIn ModeChannels AffectSpace), line: 236}
+  - {s: (couples ModeChannels ModeChannels), line: 236}
+  - {s: (causes (synchronises RhythmicEntrainment ModeChannels) DampingChange), line: 80}
+  - {s: (enables MusicalExpectancy (attractorTransitionIn Resolution AffectEnergy)), line: 81}
+  - {s: (barrierHeight AffectEnergy FreezeBarrier), line: 205}
+  - {s: (forces Music AffectEnergy), line: 80}
+proposed:
+  forces: {arity: 2, gloss: "?x drives landscape or field ?y as an external forcing (a source term or parameter modulation)"}
