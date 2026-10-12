@@ -21,7 +21,7 @@ include lib/mk/dist.mk
 
 .PHONY: help all build papers papers-html omnibus atlas atlas-html textbook textbook-html books vol1 vol2 lean app check clean \
 	registry-papers registry-papers-royal registry-fractal lean-appendix \
-	fractal-thesis cheatsheet uat-build uat-check release-build release-check \
+	fractal-thesis cheatsheet uat-build uat-check uat-run release-build release-check \
 	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
 
 help:
@@ -46,6 +46,7 @@ help:
 	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
 	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
+	$(info   uat-run         the UAT step by step in a terminal (ARGS=--new|--report|--step ID); also HAL uat)
 	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
 	$(info   make -C sherlock help  Sherlock: affidavits checked in Lean against OpenCyc (paper SH1))
 	$(info   emotionml       export the film scores (registry/scores) as W3C EmotionML in bld/scores/)
@@ -189,6 +190,11 @@ uat-build:
 
 uat-check:
 	bin/release-check
+
+# The UAT itself, step by step in a terminal (uat/checklist.yaml; HAL uat): resumable,
+# answers in uat/results/, `c` sends a finding to the VS Code chat.
+uat-run:
+	$(PYTHON) uat/scripts/uat.py $(ARGS)
 
 uat-stage-papers: registry-papers
 	$(MAKE) -C paper uat-context-papers

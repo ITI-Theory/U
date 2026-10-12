@@ -1,0 +1,89 @@
+# The UAT checklist (`HAL uat`, `make uat-run`; uat/scripts/uat.py).
+# Steps run in order; each answer is recorded in uat/results/uat-<run>.yaml and the run can
+# be resumed. kinds:
+#   gate   run `run` (from U's root); show its last lines; the exit code is a hint, you decide
+#   pdf    open each file in `files` (globs under bld/); look; answer
+#   app    open `url` on the Soma Machine (dev server http://127.0.0.1:5199); try `do`; answer
+#   manual a check by hand (hardware, a decision); `do` says what
+# Answers: p pass, f fail, n note, s skip, c send to Copilot (VS Code chat), q quit.
+# The sequence follows paper/UAT.md "Required UAT sequence"; the app checks follow ISSUES.md.
+title: "[T]-Theory release UAT"
+steps:
+  # 1. the gates: the machine checks first
+  - id: gate-lean
+    kind: gate
+    title: "The programme's Lean builds (warnings only for the five known sorries)"
+    run: "lake build 2>&1 | grep -vE 'OSforGFF|local changes' | tail -6"
+  - id: gate-sherlock
+    kind: gate
+    title: "Sherlock: the affidavits are kernel-checked; the ledger agrees with the Lean"
+    run: "make -C sherlock check 2>&1 | grep -E 'registry OK|sherlock checks|error' ; python sherlock/ledger.py report | tail -1; python sherlock/clinical.py | tail -1"
+  - id: gate-release
+    kind: gate
+    title: "The release gate (bin/release-check): every FAIL read; WARNs known"
+    run: "make uat-check 2>&1 | grep -E 'FAIL|WARN|PASS:' | head -30"
+  - id: gate-explorer
+    kind: gate
+    title: "The Soma Machine's simulations tell their stories (explorer-check)"
+    run: "cd apps/instrument/visuals/soma-field-operator && node scripts/explorer-check.mjs 2>&1 | grep -cE '^PASS' ; node scripts/explorer-check.mjs 2>&1 | grep -E 'FAIL' | head"
+  # 2. the PDFs: visual acceptance (paper/UAT.md step 3)
+  - id: pdf-papers
+    kind: pdf
+    title: "Each paper PDF: title page, abstract, contents, figures, no overflow"
+    files: ["bld/papers/*.pdf"]
+  - id: pdf-books
+    kind: pdf
+    title: "The domain books and the omnibus volumes"
+    files: ["bld/books/book-*.pdf", "bld/books/ttheory-vol*.pdf"]
+  - id: pdf-course-atlas
+    kind: pdf
+    title: "The course book and the Field Atlas"
+    files: ["bld/textbook/*.pdf", "bld/atlas/*.pdf"]
+  # 3. the Soma Machine, by hand
+  - id: app-ureter-stages
+    kind: app
+    title: "The stone as a process: the four stages, inside and outside"
+    url: "#voyage=ureter&dim=11&phi=0.5&uv=both"
+    do: "STAGE ▸ through all four; POKE in each; VIEW inside/outside/both; does the pain come in waves?"
+  - id: app-one-body
+    kind: app
+    title: "One body: the stone's waves reach the head; the limbic breath calms both"
+    url: "#voyage=ureter&dim=11&phi=0.5"
+    do: "LOOP: BODY + MIND; then BRAIN; raise C-PTSD, ADHD, ASD in turn; MINDFUL"
+  - id: app-cathedral
+    kind: app
+    title: "The cathedral: thoughts, echoes, bubbles, outside, FX off"
+    url: "#voyage=brain&dim=11&phi=0.6"
+    do: "CAVE, THOUGHTS, POKE; C-PTSD echoes; a bubble pops in; OUTSIDE; FX to 0 shows the plain ventricles"
+  - id: app-palace
+    kind: app
+    title: "The mind palace: ride the 21 floors, a door, a placed thought"
+    url: "#voyage=brain&dim=11&phi=0.5"
+    do: "PALACE; ▲ to floor 11 and back; PLACE; DOOR ▸"
+  - id: app-vigilance
+    kind: app
+    title: "Vigilance: the view glances about with C-PTSD; settles with safety"
+    url: "#voyage=ureter&dim=11&phi=0.5"
+    do: "VIGILANCE; C-PTSD up; arrow keys and B; is it uncomfortable in the right way?"
+  - id: app-towers
+    kind: app
+    title: "The towers of code and the Root Monster's tour"
+    url: "#tour=root-monster"
+    do: "follow the tour; click a tower; open a floor"
+  # 4. hardware and decisions
+  - id: hw-strap-twister
+    kind: manual
+    title: "Hardware: the chest strap, the Twister (MIDI IN), Ableton (MIDI OUT via loopMIDI)"
+    do: "SCORE stop: ♥ STRAP; Engine Room: MIDI IN on, turn CC 0-9; MIDI OUT to Ableton"
+  - id: hw-screens
+    kind: manual
+    title: "Screens: a LAYOUT on the real monitors; a tablet through the relay"
+    do: "Engine Room LAYOUT; make relay LAN=1; open a tablet with ?relay=…&token=…"
+  - id: decide-lulu
+    kind: manual
+    title: "Decision: vol1 is 825 pages, over Lulu's 800"
+    do: "the 10pt vol1 (make vol1-10pt), or move a section to vol2 (782 pages)"
+  - id: decide-p21
+    kind: manual
+    title: "Decision: review P21 and set it to pending-upload (ISS-001)"
+    do: "read P21; edit Dist/PAPERS.yaml status"
