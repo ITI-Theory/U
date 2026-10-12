@@ -3380,6 +3380,12 @@ the stone is the freeze attractor in the body, and the voyage teaches the model.
       its exponential decay inside the barrier, the small wave out, the probability as a
       number; FX high: the glowing secret tunnel. All FX off must still be correct
       (renderers/README.md).
+- [x] (13 Oct, author: "rock climbing on the north face of The Stone?") ORBIT and CLIMB at
+      the URETER stop: fly round the stone (drag, wheel), or climb its north face with a
+      climber drawn to scale (40 µm, the stone 150 climbers high; the Eiger's north face
+      is some 1000), a rope behind, the altitude in mm; the stone looks like calcium
+      oxalate dihydrate (weddellite: sharp bipyramids, honey to ivory, brown monohydrate
+      flecks, a grainy bump texture), 170 crystals in three generations.
 - [x] (13 Oct: on screen at the atom and quantum scales) Tunnelling in the brain, labelled (docs/agent/THEORY-STATUS.md): established,
       electron and proton tunnelling in enzymes and the respiratory chain; contested,
       vibration-assisted tunnelling in smell (Turin); speculative, Orch-OR (Penrose and

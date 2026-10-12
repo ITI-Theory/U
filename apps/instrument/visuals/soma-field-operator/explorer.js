@@ -1326,6 +1326,7 @@ function makeUreter() {
     focus: [0, 0],
     tick() {},
     get wall() { return wall; },
+    get gl() { return gl; },
     setWall(n) { wall = Math.max(0, Math.min(BARRIERS.length, n)); shot.state = 'idle'; shot.through = false; wallEvent = { text: '', until: 0 }; },
     poke(strength) {
       if (wall) { if (shot.state === 'idle') { shot.state = 'go'; shot.x = -0.75; shot.through = false; } return; }
@@ -1340,6 +1341,17 @@ function makeUreter() {
       }
       gl = env.gl;
       gl.render({ phi, resource: env.resource, dim: env.dim, time: t, stereo: env.stereo });
+      if (env.labels && gl.view === 'orbit') {
+        label(ctx, u, 'ORBIT · THE STONE · 6 mm · drag to turn, the wheel to zoom', 0, -0.7, COLORS.gold, 'center', 0.03);
+        label(ctx, u, 'calcium oxalate dihydrate (weddellite): sharp bipyramid crystals, honey to ivory; brown flecks of the monohydrate', 0, 0.7, COLORS.dim, 'center', 0.022);
+        return;
+      }
+      if (env.labels && gl.view === 'climb') {
+        const alt = gl.climbAltitude;
+        label(ctx, u, alt > 0.97 ? 'SUMMIT · the first ascent of the north face of the Stone' : `THE NORTH FACE · altitude ${(6 * alt).toFixed(1)} of 6 mm`, 0, -0.7, alt > 0.97 ? COLORS.gold : COLORS.cyan, 'center', 0.03);
+        label(ctx, u, 'the climber is 40 µm tall: the stone is 150 climbers high (an Eiger north face is about 1.8 km, some 1000 climbers)', 0, 0.7, COLORS.dim, 'center', 0.022);
+        return;
+      }
       if (env.labels) {
         const pain = Math.min(1, gl.colic * (0.6 + 0.8 * phi));
         const msg = gl.blocked ? 'AT THE 6 mm STONE · too big to pass · POKE = laser, or WALL ▸ to try the wall' : gl.stoneAhead ? 'STONE AHEAD (6 mm) · POKE = laser' : gl.colic > 0.05 ? 'moving up the ureter · a stone is somewhere ahead' : 'the path is clear';
@@ -2216,6 +2228,8 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="wall" title="The stone is too big to pass: turn to the wall, then ride the elevator down the scales (ISS-076)">WALL ▸</button>
+      <button type="button" data-act="orbit" title="Fly around the stone: drag to turn, the wheel to zoom">ORBIT</button>
+      <button type="button" data-act="climb" title="Climb the stone's north face (a climber 40 µm tall: the stone is 150 climbers high)">CLIMB</button>
       <button type="button" data-act="wdown" title="The elevator: a scale down">▼</button>
       <button type="button" data-act="wup" title="The elevator: a scale up">▲</button>
       <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
@@ -2260,6 +2274,8 @@ export function createExplorer(hooks = {}) {
   const wallButton = root.querySelector('[data-act="wall"]');
   const wdownButton = root.querySelector('[data-act="wdown"]');
   const wupButton = root.querySelector('[data-act="wup"]');
+  const orbitButton = root.querySelector('[data-act="orbit"]');
+  const climbButton = root.querySelector('[data-act="climb"]');
   const apButton = root.querySelector('[data-act="ap"]');
   const knobRow = root.querySelector('.explorer__knobs');
   for (const input of knobRow.querySelectorAll('input')) {
@@ -2383,6 +2399,13 @@ export function createExplorer(hooks = {}) {
     wdownButton.hidden = wupButton.hidden = !wallNow;
     wdownButton.disabled = wallNow >= BARRIERS.length;
     wupButton.disabled = wallNow <= 1;
+    const ugl = st.stop === 'ureter' && !wallNow ? scene('ureter').gl : null;
+    orbitButton.hidden = climbButton.hidden = st.stop !== 'ureter' || Boolean(wallNow) || !st.view3d;
+    if (ugl) {
+      orbitButton.classList.toggle('active', ugl.view === 'orbit');
+      climbButton.classList.toggle('active', ugl.view === 'climb');
+      orbitButton.disabled = climbButton.disabled = !ugl.hasStone;
+    }
     resourceButton.hidden = !['network', 'landscape', 'dyad', 'tunnel'].includes(st.stop);
     resourceButton.classList.toggle('active', st.resource);
     hrLabel.hidden = st.stop !== 'score';
@@ -2701,6 +2724,19 @@ export function createExplorer(hooks = {}) {
     if (notify) hooks.onChange?.();
   }
 
+  // ORBIT around the stone: drag to turn, the wheel to zoom
+  let drag = null;
+  const orbiting = () => (st.stop === 'ureter' && scene('ureter').gl?.view === 'orbit' ? scene('ureter').gl : null);
+  root.addEventListener('pointerdown', event => { if (orbiting() && !event.target.closest('button, input')) drag = { x: event.clientX, y: event.clientY }; });
+  addEventListener('pointerup', () => { drag = null; });
+  root.addEventListener('pointermove', event => {
+    const g = orbiting();
+    if (!g || !drag) return;
+    g.turn(-(event.clientX - drag.x) * 0.006, (event.clientY - drag.y) * 0.006);
+    drag = { x: event.clientX, y: event.clientY };
+  });
+  root.addEventListener('wheel', event => { const g = orbiting(); if (g) { event.preventDefault(); g.zoom(event.deltaY > 0 ? 1.1 : 0.9); } }, { passive: false });
+
   // walk into a tower: a click on the city of code (landscape, 11D) opens it
   const towerPanel = createTowerPanel(root);
   let towerShown = '|';
@@ -2743,6 +2779,10 @@ export function createExplorer(hooks = {}) {
       st.own = Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1));
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'orbit' || b.dataset.act === 'climb') {
+      const g = scene('ureter').gl;
+      g?.setView(g.view === b.dataset.act ? 'scope' : b.dataset.act);
+      syncUi();
     } else if (b.dataset.act === 'wall' || b.dataset.act === 'wdown' || b.dataset.act === 'wup') {
       const sc = scene('ureter');
       sc.setWall(b.dataset.act === 'wall' ? (sc.wall ? 0 : 1) : sc.wall + (b.dataset.act === 'wdown' ? 1 : -1));

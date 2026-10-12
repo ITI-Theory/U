@@ -125,27 +125,78 @@ for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <
 // stone forms after a while so the demonstration can repeat. Plain physiology plus a
 // picture; no clinical claim.
 // The stone (ISS-076): a crystal aggregate grown as a small 3D fractal, as kidney stones are
-// aggregates of crystals: a bipyramid (calcium oxalate dihydrate's habit), bipyramids on its
-// faces, and bipyramids on theirs, each a little rotated. One shared material.
-function stoneAggregate(rand, material) {
-  const group = new THREE.Group();
+// aggregates of crystals. The look follows calcium oxalate dihydrate (weddellite): sharp
+// tetragonal bipyramids, honey to ivory, with darker flecks of the monohydrate (whewellite)
+// and a grainy surface (a canvas texture used as colour and bump). Bipyramids on the faces of
+// bipyramids, three generations, one instanced mesh (about 170 crystals).
+function stoneTexture() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 256;
+  const g = c.getContext('2d');
+  g.fillStyle = '#d8c07a';
+  g.fillRect(0, 0, 256, 256);
+  for (let k = 0; k < 2600; k++) {
+    const r = Math.random();
+    g.fillStyle = r < 0.08 ? 'rgba(92,58,24,0.55)' : r < 0.5 ? `rgba(255,246,214,${0.15 + 0.3 * Math.random()})` : `rgba(150,110,50,${0.1 + 0.25 * Math.random()})`;
+    const s = 1 + Math.random() * (r < 0.08 ? 5 : 2.5);
+    g.fillRect(Math.random() * 256, Math.random() * 256, s, s);
+  }
+  // growth lines, as on a cut stone
+  g.strokeStyle = 'rgba(120,84,36,0.25)';
+  for (let k = 0; k < 12; k++) { g.beginPath(); g.arc(128, 128, 10 + k * 11, 0, Math.PI * 2); g.stroke(); }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+
+function stoneAggregate(rand) {
+  const map = stoneTexture();
+  const material = new THREE.MeshStandardMaterial({ color: '#ffffff', map, bumpMap: map, bumpScale: 0.04, roughness: 0.42, metalness: 0.05, flatShading: true, emissive: '#2a1e06' });
   const habit = new THREE.OctahedronGeometry(1, 0);
   habit.scale(0.62, 1, 0.62);
+  const parts = [];
   const grow = (pos, r, depth, tilt) => {
-    const m = new THREE.Mesh(habit, material);
-    m.position.copy(pos);
-    m.scale.setScalar(r);
-    m.rotation.set(tilt.x, tilt.y, tilt.z);
-    group.add(m);
-    if (depth >= 2) return;
-    const n = depth === 0 ? 10 : 4;
+    parts.push({ pos, r, tilt, depth });
+    if (depth >= 3) return;
+    const n = [10, 4, 3][depth];
     for (let k = 0; k < n; k++) {
       const dir = new THREE.Vector3(rand() - 0.5, rand() - 0.5, rand() - 0.5).normalize();
-      grow(pos.clone().addScaledVector(dir, r * 0.78), r * (0.42 + 0.12 * rand()), depth + 1, new THREE.Euler(rand() * 3, rand() * 3, rand() * 3));
+      grow(pos.clone().addScaledVector(dir, r * 0.78), r * (0.4 + 0.12 * rand()), depth + 1, new THREE.Euler(rand() * 3, rand() * 3, rand() * 3));
     }
   };
   grow(new THREE.Vector3(), 0.42, 0, new THREE.Euler(0.3, 0, 0.2));
+  const mesh = new THREE.InstancedMesh(habit, material, parts.length);
+  const m = new THREE.Matrix4();
+  const q = new THREE.Quaternion();
+  const tint = new THREE.Color();
+  parts.forEach((p, k) => {
+    m.compose(p.pos, q.setFromEuler(p.tilt), new THREE.Vector3(p.r, p.r, p.r));
+    mesh.setMatrixAt(k, m);
+    // ivory to honey; now and then a brown monohydrate crystal
+    const v = rand();
+    mesh.setColorAt(k, v < 0.12 ? tint.set('#7a5428') : tint.setHSL(0.11 + 0.03 * rand(), 0.45 + 0.2 * rand(), 0.55 + 0.25 * v));
+  });
+  const group = new THREE.Group();
+  group.add(mesh);
+  group.userData.crystals = mesh;
   return group;
+}
+
+// the climber (ISS-076, the author's north face): a small figure, helmet and rope, drawn
+// 40 µm tall, so the 6 mm stone is 150 climbers high
+function makeClimber() {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.012, 0.03, 4, 8), new THREE.MeshStandardMaterial({ color: '#3fd0c9', roughness: 0.5 }));
+  body.position.y = 0.03;
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.011, 12, 8), new THREE.MeshStandardMaterial({ color: '#ff4d5e', roughness: 0.3 }));
+  head.position.y = 0.062;
+  const lamp = new THREE.PointLight('#fff4d0', 0.12, 0.08);
+  lamp.position.y = 0.07;
+  g.add(body, head, lamp);
+  // to scale: the stone is about 1.8 units across (6 mm), so 40 µm is 0.012 units
+  g.scale.setScalar(0.17);
+  return g;
 }
 
 // vessel: the body container (the submarine in the bloodstream): the wall built from its
@@ -240,7 +291,7 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
   const stone = { mesh: null, size: 0, pieces: [], dust: [], clearedAt: -1 };
   function newStone() {
     if (stone.mesh) scene.remove(stone.mesh);
-    stone.mesh = stoneAggregate(rand, new THREE.MeshStandardMaterial({ color: '#e0b860', roughness: 0.45, metalness: 0.15, flatShading: true, emissive: '#3a2a08' }));
+    stone.mesh = stoneAggregate(rand);
     stone.mesh.position.copy(curve.getPointAt(STONE_U));
     stone.size = 3;
     stone.mesh.scale.setScalar(1);
@@ -249,6 +300,23 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
   if (ureter) newStone();
   let colic = 0;
   let stoneAhead = false;
+  // ORBIT and CLIMB (ISS-076): fly around the stone, or climb its north face (the side facing
+  // -z), the camera leaving the scope's path
+  let view = 'scope';
+  const orbit = { yaw: 0.6, pitch: 0.25, r: 2.0 };
+  const climber = ureter ? makeClimber() : null;
+  if (climber) { climber.visible = false; scene.add(climber); }
+  const climb = { c: 0, trail: [], line: null, alt: 0 };
+  const ray = new THREE.Raycaster();
+  const sun = ureter ? new THREE.DirectionalLight('#fff2dc', 0) : null;
+  if (sun) { sun.position.set(2, 4, 1); scene.add(sun); scene.add(sun.target); }
+  // a point on the stone's surface, looking in from outside along a direction
+  function surface(dir) {
+    const c = stone.mesh.position;
+    ray.set(c.clone().addScaledVector(dir, 3), dir.clone().negate());
+    const hit = ray.intersectObject(stone.mesh, true)[0];
+    return hit ? hit.point : c.clone().addScaledVector(dir, 0.5);
+  }
 
   let walls = null;
   let world = '';
@@ -352,6 +420,16 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
     get blocked() { return blockedAt >= 0; },
     get colic() { return colic; },
     get stoneAhead() { return stoneAhead; },
+    get view() { return view; },
+    get climbAltitude() { return climb.alt; },
+    get hasStone() { return stone.size > 0; },
+    setView(next) {
+      view = stone.size > 0 ? next : 'scope';
+      if (climber) climber.visible = view === 'climb';
+      if (view === 'climb') { climb.c = 0; climb.trail = []; }
+    },
+    turn(dx, dy) { orbit.yaw += dx; orbit.pitch = Math.max(-1.3, Math.min(1.3, orbit.pitch + dy)); },
+    zoom(f) { orbit.r = Math.max(1.0, Math.min(4, orbit.r * f)); },
     resize(w, h, dpr) {
       renderer.setPixelRatio(dpr);
       renderer.setSize(w, h, false);
@@ -386,12 +464,13 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
           }
         }
         pokeWanted = 0;
-        light.intensity += (3 - light.intensity) * Math.min(1, dt * 4);
+        light.intensity += ((view === 'scope' ? 3 : view === 'climb' ? 0.35 : 1.2) - light.intensity) * Math.min(1, dt * 4);
         if (!there && stone.clearedAt >= 0 && state.time - stone.clearedAt > 25 && d > 0.3) newStone();
         // colic: rises while the flow is dammed, eases when it is clear
         colic = Math.max(0, Math.min(1, colic + (there ? 0.06 : -0.12) * dt));
         tube.material.emissive.setRGB(0.23 + 0.5 * colic * (0.6 + 0.4 * Math.sin(state.time * 5)), 0.04, 0.07);
-        if (stone.mesh && there) stone.mesh.rotation.y += dt * 0.2;
+        if (stone.mesh && there && view === 'scope') stone.mesh.rotation.y += dt * 0.2;
+        if (!there && view !== 'scope') { view = 'scope'; climber.visible = false; }
         for (const r of rings) {
           r.u = (r.u + dt * 0.04) % 1;
           const pp = curve.getPointAt(r.u);
@@ -423,9 +502,9 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
           }
         }
         stoneAhead = there && d < 0.12;
-        if (blocked) {
+        if (blocked || view !== 'scope') {
           speed = 0;
-          blockedAt = 0;
+          blockedAt = blocked ? 0 : -1;
         } else {
           blockedAt = -1;
           speed += ((0.012 + 0.01 * state.phi) - speed) * Math.min(1, dt * 1.5);
@@ -482,6 +561,40 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
       camera.position.copy(behind).add(new THREE.Vector3(0, ureter ? 0 : 0.45, 0));
       if (light) light.position.copy(camera.position);
       camera.lookAt(curve.getPointAt((u + 0.01) % 1));
+      if (ureter && view !== 'scope' && stone.size > 0) {
+        const c = stone.mesh.position;
+        sun.intensity = view === 'climb' ? 0.8 : 1.2;
+        sun.position.copy(c).add(new THREE.Vector3(2, 4, 1.5));
+        sun.target.position.copy(c);
+        if (view === 'orbit') {
+          orbit.yaw += dt * 0.08;
+          const d = new THREE.Vector3(Math.cos(orbit.pitch) * Math.sin(orbit.yaw), Math.sin(orbit.pitch), Math.cos(orbit.pitch) * Math.cos(orbit.yaw));
+          camera.position.copy(c).addScaledVector(d, orbit.r);
+          camera.lookAt(c);
+        } else {
+          // up the north face: from 165 degrees from the summit to the summit, about a minute
+          climb.c = Math.min(1, climb.c + dt / 60);
+          const polar = (165 - 160 * climb.c) * Math.PI / 180;
+          const dir = new THREE.Vector3(0.15 * Math.sin(climb.c * 9), Math.cos(polar), -Math.sin(polar)).normalize();
+          const p = surface(dir);
+          const out = p.clone().sub(c).normalize();
+          climber.position.copy(p);
+          climber.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), out);
+          if (!climb.trail.length || climb.trail[climb.trail.length - 1].distanceTo(p) > 0.01) {
+            climb.trail.push(p.clone().addScaledVector(out, 0.002));
+            if (climb.line) { scene.remove(climb.line); climb.line.geometry.dispose(); }
+            climb.line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(climb.trail), new THREE.LineBasicMaterial({ color: '#ff9a3c' }));
+            scene.add(climb.line);
+          }
+          const box = new THREE.Box3().setFromObject(stone.mesh);
+          climb.alt = (p.y - box.min.y) / Math.max(1e-6, box.max.y - box.min.y);
+          // over the shoulder: out from the face and a little below, looking up the route
+          camera.position.copy(p).addScaledVector(out, 0.07).add(new THREE.Vector3(0, -0.03, 0));
+          camera.lookAt(p.clone().add(new THREE.Vector3(0, 0.05, 0)));
+        }
+        if (light) light.position.copy(camera.position);
+      } else if (sun) sun.intensity = 0;
+      if (climb.line && view !== 'climb') { scene.remove(climb.line); climb.line = null; }
       bulb.visible = state.dim >= 11;
       bulb.rotation.y = state.time * 0.05;
       renderer.getSize(size);
