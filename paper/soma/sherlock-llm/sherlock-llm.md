@@ -15,11 +15,11 @@ abstract: |
   `nlm-exp1.json`, `nlm-exp2.json` and `nlm-test.json` asked five questions
   about The Tensor (P8) and the Zoomable Universal Somatic Field (P11), with
   different source packs. Against a simple rubric derived from Sherlock's
-  affidavits, 12 of 20 condition-question cells contain substantially correct
-  answers, 0 contain a scored wrong answer, and 8 contain no completed answer
-  because the run hit rate-limit or network failures. Among completed answers,
-  the score is therefore 12/12; as an end-to-end replacement for Sherlock, it is
-  12/20 with 8 missing. This is an empirical result about these saved runs and
+  affidavits, 10 of 20 condition-question cells are correct, 1 is partial,
+  1 is wrong, and 8 contain no completed answer because the run hit
+  rate-limit or network failures. Among completed answers the score is 10 of
+  12; as an end-to-end replacement for Sherlock it is 10 of 20. The scoring is
+  provisional: one scorer, not blind to the condition. This is an empirical result about these saved runs and
   an interpretive scoring judgement, not a general result about language models.
 ---
 
@@ -76,8 +76,10 @@ The rubric is deliberately small and tied to Sherlock's existing affidavits
 | Q5 | P11 alternates between twenty and twenty-one levels; Scale 4 to Scale 6 is eight orders of magnitude, not twenty-five; the scale dial is not monotone in length. | `registry/affidavits/zoomable-somatic-field.yaml`, D1--D3 |
 
 A cell is scored **correct** when the saved answer states the relevant Sherlock
-finding without reversing it `interpretive`. A cell is scored **wrong** when it
-states the opposite or endorses the paper's erroneous wording `interpretive`. A
+finding without reversing it `interpretive`. A cell is scored **partial** when it
+states part of the finding and contradicts another part `interpretive`. A cell
+is scored **wrong** when it reverses the finding's central claim or endorses the
+paper's erroneous wording `interpretive`. A
 cell is scored **no answer** when the JSON answer begins with the recorded error
 message rather than a substantive answer `empirical-result`.
 
@@ -87,13 +89,16 @@ The following table was computed from the saved JSON files, then checked against
 the rubric above `empirical-result` for the file contents and `interpretive` for
 the scoring judgement.
 
-| Source file | Condition | Correct | Wrong | No answer | Notes |
-|---|---:|---:|---:|---:|---|
-| `nlm-exp0.json` | papers only | 2 | 0 | 3 | Q1--Q2 answered; Q3--Q5 hit rate-limit errors. |
-| `nlm-exp0.json` | papers + all of OpenCyc | 2 | 0 | 3 | Q1--Q2 answered; Q3--Q5 hit rate-limit errors. |
-| `nlm-exp1.json` | papers + Sherlock slice | 4 | 0 | 1 | Q1--Q3 and Q5 answered; Q4 hit a network/streaming error. |
-| `nlm-exp2.json` | papers + UniversalVocabularyMt | 4 | 0 | 1 | Q1--Q4 answered; Q5 hit a rate-limit error. |
-| **Total** | all stored condition-question cells | **12** | **0** | **8** | 12/20 end-to-end coverage; 12/12 among completed answers. |
+| Source file | Condition | Correct | Partial | Wrong | No answer | Notes |
+|---|---:|---:|---:|---:|---:|---|
+| `nlm-exp0.json` | papers only | 1 | 0 | 1 | 3 | Q1 wrong (no contradiction, it says); Q2 correct; Q3--Q5 hit rate-limit errors. |
+| `nlm-exp0.json` | papers + all of OpenCyc | 2 | 0 | 0 | 3 | Q1--Q2 answered; Q3--Q5 hit rate-limit errors. |
+| `nlm-exp1.json` | papers + Sherlock slice | 3 | 1 | 0 | 1 | Q1 partial (Safety and Pre-verbal counted as emotions); Q2, Q3, Q5 correct; Q4 hit a network/streaming error. |
+| `nlm-exp2.json` | papers + UniversalVocabularyMt | 4 | 0 | 0 | 1 | Q1--Q4 answered; Q5 hit a rate-limit error. |
+| **Total** | all stored condition-question cells | **10** | **1** | **1** | **8** | 10/20 end to end; 10/12 among completed answers. |
+
+The scoring was revised on review (13 Oct): a first pass had counted every
+completed cell as correct `interpretive`.
 
 `nlm-test.json` is byte-for-byte the same run content as `nlm-exp0.json` in this
 workspace snapshot, so it is treated as the exp0 baseline rather than as an
@@ -101,10 +106,11 @@ independent replicate `empirical-result`.
 
 # Where the model was right
 
-On Q1, every completed answer noticed that not all named axes are emotions, and
-each named Safety, Pre-verbal or Language as problematic `empirical-result`. The
-strongest answers also stated the OpenCyc-style reason: Language is a different
-kind of thing, and treating it as an emotional scalar creates a category problem
+On Q1, every completed answer said that Language is not an emotion
+`empirical-result`. The answers with OpenCyc material (exp0 with all of
+OpenCyc, exp1, exp2) also stated the OpenCyc reason: Language is a different
+kind of thing, and treating it as an emotional quantity is a contradiction
+`empirical-result`. Only exp2 also said that Safety is not an emotion
 `empirical-result`.
 
 On Q2, every completed answer distinguished a coherent score/rendering reading
@@ -127,8 +133,17 @@ On Q5, the completed answer found the twenty/twenty-one inconsistency, the
 
 # Where the model was wrong or could not say
 
-No completed stored answer was scored as wrong under the rubric `interpretive`.
-That should not be overread. The unanswered cells are part of the result:
+Two completed answers to Q1 failed `empirical-result`. With the papers only
+(exp0), the model said that calling Language an emotional mode "does not lead to
+a logical contradiction", because The Tensor uses "emotional mode" as an
+engineering umbrella term; that reverses Sherlock's finding, so the cell is
+scored wrong `interpretive`. With Sherlock's slice (exp1), it found the Language
+contradiction but called "six of the seven" axes genuine emotions, Safety and
+Pre-verbal included; that is partial `interpretive`. Without OpenCyc in the
+sources, the model took the paper's own framing; with it, the model found the
+contradiction `interpretive`.
+
+The unanswered cells are part of the result:
 exp0 Q3--Q5, exp1 Q4 and exp2 Q5 did not complete in the saved data
 `empirical-result`. A system that cannot reliably return an answer cannot serve
 as a deterministic compiler back end `interpretive`.
@@ -162,8 +177,10 @@ it derives the right conclusion `open-hypothesis`.
 
 # Conclusion
 
-For these saved runs, NotebookLM often did the visible reading work correctly
-when it produced an answer `empirical-result`. It did not do Sherlock's job as a
+For these saved runs, NotebookLM did most of the visible reading work correctly
+when it produced an answer, 10 of 12 `empirical-result`; with the papers alone it
+accepted the paper's framing where Sherlock found a contradiction
+`empirical-result`. It did not do Sherlock's job as a
 compiler, because it did not guarantee completion, preserve a frozen source,
 write a registry affidavit, run a template check, ask Lean, or type the claim
 against OpenCyc `empirical-result`. The result supports SH1's division of labour:
