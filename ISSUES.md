@@ -7,12 +7,14 @@ fields: date.created, date.start, date.end, epic
 
 Issue tracker for work that spans sessions or needs a future decision.
 Format: `ISS-NNN: Title — STATUS`
-Status: OPEN | IN-PROGRESS | ON-HOLD (trigger) | SOMEDAY | CLOSED
+Status: OPEN | IN-PROGRESS | ON-HOLD (trigger) | SOMEDAY | PARKED | CLOSED
 - OPEN, IN-PROGRESS: being worked on; checked every session.
 - ON-HOLD (trigger): paused until a named event, e.g. `ON-HOLD (after Mk 1, 21 Oct)`;
   it comes back by itself when the trigger happens. Not checked before then.
-- SOMEDAY: cannot be done now (hardware, money, a missing piece); never checked,
-  reviewed at each release.
+- SOMEDAY: not now, but it may still be slipped in when there is room (author, 13 Oct);
+  never checked, reviewed at each release.
+- PARKED: set aside; not reviewed; revisited only if the author picks it up again
+  (author, 13 Oct: "forget it, but I might revisit it").
 - CLOSED: done, or decided against ("won't do" in the closing note).
 
 ## Issue Metadata
@@ -1678,9 +1680,9 @@ The author ran a UAT session on 7 Oct; the notes are in
 
 ---
 
-## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — SOMEDAY
+## ISS-048: Self-hosted HAL: open model plus grounded chat over the corpus — CLOSED
 {{Tags area.app, area.ops}}
-{{Fields date.created=2026-10-08, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-08, date.start=, date.end=2026-10-13, epic=}}
 
 **Parked 8 Oct (author): no GPU for now.** NotebookLM with the collated chats
 (HAL-UAT, ISS-049) already gives the memory this issue was after. Later notes,
@@ -1773,6 +1775,8 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
       compare the answers side by side.
 - [ ] Decide: rent on demand, buy hardware (24 GB GPU or 128 GB machine), or stay
       with NotebookLM. Ask about Azure credits through the Microsoft contact.
+
+**Closed 2026-10-13 (won't do):** author, 13 Oct: not doing this: the programme uses Lean and NotebookLM, no models of its own ("if I change my mind, I can open them up again").
 
 ---
 
@@ -3227,9 +3231,9 @@ then a locally run model. D11: language models at both ends, Lean in the middle.
 
 **Closed 2026-10-13:** SH2 drafted with two runs of the experiments: 15 correct, 1 partial, 1 wrong, 3 unanswered (paper/soma/sherlock-llm, builds); the local model waits with ISS-048 (SOMEDAY).
 
-## ISS-068: Release builds and Sherlock in CI on a large runner — ON-HOLD (after Mk 1, 21 Oct)
+## ISS-068: Release builds and Sherlock in CI on a large runner — CLOSED
 {{Tags area.build, area.ops}}
-{{Fields date.created=2026-10-11, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-11, date.start=, date.end=2026-10-13, epic=}}
 
 Author, 11 Oct 21:37 ("fire up a really fast machine in the GitHub cloud?"). Not
 now: the current bottleneck is review and agent time, not CPU. Worth it at the
@@ -3252,6 +3256,8 @@ NotebookLM (rate limit), agents, the author's reviews.
       and the ledger in parallel (one module per process, several at once).
 - [ ] Optional: a devcontainer with prebuilds so a Codespace starts ready (first
       setup otherwise about half a day).
+
+**Closed 2026-10-13 (won't do):** author, 13 Oct: not doing this: no paid cloud builds; the laptop builds, Lean only, no database ("if I change my mind, I can open them up again").
 
 ## ISS-069: Four screens as the big concept: the inverted-T cockpit (ship, time machine, fantastic voyage) — CLOSED
 {{Tags area.app, area.instrument}}
@@ -3882,7 +3888,7 @@ other work.
 - [x] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder
       (13 Oct triage: done, into HAL/ as chat material, with its sources entry; Me 024cd43)
 
-## ISS-082: The voices: the author's own, and a licence-clean public one — SOMEDAY
+## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
 {{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
 

@@ -43,7 +43,7 @@ The twenty-six files that follow collectively establish:
 | `EmotionOntology.lean` | Final-tagless emotion algebra; 5 interpreters; LEAN-1 | Compiles; theorem-level declarations are cited below |
 | `FieldProofs.lean` | Promoted axioms; `awe_is_universal` closes with `rfl` | Compiles; contains axioms and theorem-level declarations |
 | `SomaField.lean` | 8D BRECVEMA soma-field; propagator resolvent | Compiles; contains kernel-verified declarations and open sorries listed below |
-| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Compiles; contains kernel-verified declarations and open sorries listed below |
+| `DyadicField.lean` | Dyadic propagator; co-regulation poles | Compiles; no sorries (the block decomposition and both energy-lowering theorems proved, October 2026) |
 | `LimbicTunnel.lean` | WKB amplitude; classical trapping; quantum advantage | Compiles; theorem-level declarations are cited below |
 | `MTheoryIsomorphism.lean` | 11D isomorphism; organism hierarchy | Compiles; theorem-level declarations are cited below |
 | `LimbicHopfield.lean` | FM-HN Correspondence Principle; clinical operators | Compiles; theorem-level declarations are cited below |
@@ -56,7 +56,7 @@ The twenty-six files that follow collectively establish:
 | `Benchmark.lean` | Timed comparison of network update rules (1982, 2016, 2020, FM-HN) | Compiles; executable benchmark, no theorems |
 | `BFSSIsomorphism.lean` | Correspondence with a simplified BFSS matrix model | Compiles; 9 theorems, 2 axioms |
 | `BRECVEMAField.lean` | Typed 8D to 7D map from the BRECVEMA field to `CompactX7` | Compiles; 2 theorems |
-| `BRECVEMAVariational.lean` | Neurodynamical Lagrangian; G₂ holonomy target | Compiles; 4 theorems, 2 open sorries listed below |
+| `BRECVEMAVariational.lean` | Neurodynamical Lagrangian; G₂ holonomy target | Compiles; no sorries: Euler-Lagrange proved for an invertible mass, the G₂ target a labelled axiom |
 | `LocalGR.lean` | Local gate: linearised general relativity | Compiles; 2 theorems, 3 axioms (standard GR premises) |
 | `LocalGeometry.lean` | Local gate: compact geometry | Compiles; 5 theorems, 2 axioms |
 | `CosmologicalConstant.lean` | Vacuum amplitude $\Lambda \equiv \langle \operatorname{tr}\Phi\rangle_0$ and its dimensional bookkeeping | Compiles; 17 theorems, no new axioms; inherits the gate axioms above, so results are derived under assumptions |
@@ -67,9 +67,9 @@ The twenty-six files that follow collectively establish:
 | `SomaPhilosophy.lean` | The philosophy band: Russell's timeline, fields of sense, Spinoza's dual aspect, Kant's appearance | Compiles; 10 theorems, no axioms, no sorries; core Lean only |
 
 **On proof status and axioms:** Lean accepts the files, but a build is not a
-file-level proof certificate. There are five real Lean `sorry` stubs:
-`BRECVEMAVariational` (2), `DyadicField` (2), and
-`SomaNetwork` (1). Individual declarations may be kernel-verified theorems,
+file-level proof certificate. There is one real Lean `sorry` stub, in
+`SomaNetwork` (five until October 2026, when the two in `DyadicField` were
+proved and `BRECVEMAVariational` was restated with a labelled axiom). Individual declarations may be kernel-verified theorems,
 axioms, definitions, arithmetic facts, imported theorem applications, or
 sorry-backed placeholders. Open work is represented as named axioms, explicit
 gap markers, or scoped future formalisation, each documented in source.

@@ -184,6 +184,34 @@ private lemma jOff_symm (a b : Nat) : jOff a b = jOff b a := by
   rcases a with _ | _ | _ | _ | _ | _ | a <;>
   rcases b with _ | _ | _ | _ | _ | _ | b <;> rfl
 
+/-- A sum over the 16 dyadic dimensions is the sum over A's eight plus B's eight. -/
+private lemma sum16 (f : Fin 16 → ℝ) :
+    ∑ i : Fin 16, f i =
+      ∑ i : Fin 8, f ⟨i.val, by omega⟩ + ∑ i : Fin 8, f ⟨i.val + 8, by omega⟩ := by
+  rw [Fin.sum_univ_add (a := 8) (b := 8)]
+  congr 1
+
+private lemma mk_lo (a b : Fin 8 → ℝ) (i : Fin 8) :
+    mkDyadicℝ a b ⟨i.val, by omega⟩ = a i := by
+  simp [mkDyadicℝ]
+
+private lemma mk_hi (a b : Fin 8 → ℝ) (i : Fin 8) :
+    mkDyadicℝ a b ⟨i.val + 8, by omega⟩ = b i := by
+  simp [mkDyadicℝ]
+
+private lemma W_lo_lo (i j : Fin 8) : W_ABℝ ⟨i.val, by omega⟩ ⟨j.val, by omega⟩ = W8ℝ i j := by
+  simp [W_ABℝ]
+
+private lemma W_lo_hi (i j : Fin 8) : W_ABℝ ⟨i.val, by omega⟩ ⟨j.val + 8, by omega⟩ = Jℝ i j := by
+  simp [W_ABℝ]
+
+private lemma W_hi_lo (i j : Fin 8) : W_ABℝ ⟨i.val + 8, by omega⟩ ⟨j.val, by omega⟩ = Jℝ i j := by
+  simp [W_ABℝ]
+
+private lemma W_hi_hi (i j : Fin 8) :
+    W_ABℝ ⟨i.val + 8, by omega⟩ ⟨j.val + 8, by omega⟩ = W8ℝ i j := by
+  simp [W_ABℝ]
+
 /-- Block decomposition: the 16-dim sum splits into 4 eight-dim blocks. -/
 private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     ∑ i : Fin N16, ∑ j : Fin N16,
@@ -192,10 +220,12 @@ private lemma dyadic_block_decomp (a b : Fin 8 → ℝ) :
     (∑ i : Fin 8, ∑ j : Fin 8, b i * W8ℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, a i * Jℝ i j * b j) +
     (∑ i : Fin 8, ∑ j : Fin 8, b i * Jℝ i j * a j) := by
-  sorry  -- ISS-005: Fin.sum_univ_add proof; simp_rw rewrites incomplete
+  show ∑ i : Fin 16, ∑ j : Fin 16, mkDyadicℝ a b i * W_ABℝ i j * mkDyadicℝ a b j = _
+  rw [sum16]
+  simp only [sum16, mk_lo, mk_hi, W_lo_lo, W_lo_hi, W_hi_lo, W_hi_hi, Finset.sum_add_distrib]
+  ring
 
-/-- Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0.
-    Proof complete except `dyadic_block_decomp` above (still `sorry`, ISS-005). -/
+/-- Dyadic coupling lowers energy when J ≥ 0 and fields ≥ 0 (proved, ISS-036). -/
 theorem dyadic_energy_coupling_lowers_ℝ
     (a b : Fin 8 → ℝ)
     (ha : ∀ i, 0 ≤ a i) (hb : ∀ i, 0 ≤ b i) :
@@ -262,13 +292,37 @@ lemma coupling_sum_nonneg
   apply Finset.sum_nonneg; intro j _
   exact mul_nonneg (mul_nonneg (ha i) (hJ i j)) (hb j)
 
-/-- Computational version — proof is `dyadic_energy_coupling_lowers_ℝ` above. -/
+-- The dynamics layer and the ℝ layer are the same objects (ISS-036): no migration needed.
+private lemma J_eq_Jℝ (i j : Fin 8) : J i j = Jℝ i j := by
+  unfold J Jℝ jOff
+  fin_cases i <;> fin_cases j <;> rfl
+
+private lemma W_AB_eq_W_ABℝ (i j : Fin 16) : W_AB i j = W_ABℝ i j := by
+  unfold W_AB W_ABℝ
+  by_cases h1 : i.val < 8 <;> by_cases h2 : j.val < 8 <;>
+    simp [h1, h2, W8_eq_W8ℝ, J_eq_Jℝ]
+
+private lemma mkDyadic_eq (a b : Field8) : mkDyadic a b = mkDyadicℝ a b := by
+  funext k
+  rcases k with ⟨k, hk⟩
+  simp [mkDyadic, mkDyadicℝ]
+
+private lemma energy8_eq (a : Field8) : energy8 a = energy8ℝ a := by
+  simp [energy8, energy8ℝ, W8_eq_W8ℝ]
+
+private lemma dyadicEnergy_eq (s : DyadicState) : dyadicEnergy s = dyadicEnergyℝ s := by
+  simp [dyadicEnergy, dyadicEnergyℝ, sumN16, W_AB_eq_W_ABℝ]
+
+/-- Computational version: the same statement for the dynamics' definitions, from
+    `dyadic_energy_coupling_lowers_ℝ` (the two layers agree). `J ≥ 0` holds for the
+    programme's J (`Jℝ_nonneg`), so the hypothesis is not needed. -/
 theorem dyadic_energy_coupling_lowers
     (a b : Field8)
     (ha : ∀ i, 0 ≤ a i) (hb : ∀ i, 0 ≤ b i)
-    (h : ∀ i j, 0 ≤ J i j) :
-    dyadicEnergy (mkDyadic a b) ≤ energy8 a + energy8 b :=
-  sorry  -- ℝ transfer; see dyadic_energy_coupling_lowers_ℝ (itself pending dyadic_block_decomp)
+    (_h : ∀ i j, 0 ≤ J i j) :
+    dyadicEnergy (mkDyadic a b) ≤ energy8 a + energy8 b := by
+  rw [mkDyadic_eq, dyadicEnergy_eq, energy8_eq, energy8_eq]
+  exact dyadic_energy_coupling_lowers_ℝ a b ha hb
 
 
 -- ════════════════════════════════════════════════════════════════════════════

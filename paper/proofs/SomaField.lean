@@ -255,6 +255,12 @@ private noncomputable def wOffℝ (a b : Nat) : ℝ :=
 noncomputable def W8ℝ : Matrix (Fin 8) (Fin 8) ℝ :=
   fun i j => if i = j then 6/5 else wOffℝ (min i.val j.val) (max i.val j.val)
 
+/-- The dynamics' `W8` and the proofs' `W8ℝ` are the same matrix (ISS-036): the two
+    layers agree entry by entry, so results proved over `W8ℝ` hold for `W8`. -/
+lemma W8_eq_W8ℝ (i j : Fin 8) : W8 i j = W8ℝ i j := by
+  unfold W8 W8ℝ
+  fin_cases i <;> fin_cases j <;> simp [wOff, wOffℝ] <;> norm_num
+
 /-- W8ℝ is symmetric: swapping indices leaves the value unchanged,
     because off-diagonal entries are defined via min/max (order-free). -/
 private lemma W8ℝ_symm (i j : Fin 8) : W8ℝ i j = W8ℝ j i := by
