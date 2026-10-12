@@ -102,11 +102,16 @@ no coupling values, so these numbers are modelling choices, not measurements:
 The unique decomposition $W_8 = W_{G_2} + \delta W$ gives:
 $$\delta W = W_8 - \frac{6}{5} I_8$$
 
+{{Visualize | the-decomposition-of-w₈ | matrix-heatmap:soma | matrix="[[0,0,0.3,0.4,0,0,0,-0.4],[0,0,0,0.5,0,0,0,0],[0.3,0,0,0.4,-0.3,0,0,0],[0.4,0.5,0.4,0,0,0,0,0],[0,0,-0.3,0,0,0.6,0,0],[0,0,0,0,0.6,0,0,0],[0,0,0,0,0,0,0,0.7],[-0.4,0,0,0,0,0,0.7,0]]"; rows="BS,RE,EC,CO,VI,EM,ME,AJ"; cols="BS,RE,EC,CO,VI,EM,ME,AJ"; expect_eigen="-0.855,-0.742,-0.585,-0.226,0.113,0.591,0.718,0.984" }} The subtraction above leaves only the anisotropic couplings: a trace-free $\delta W$ with zero diagonal and the positive and negative off-diagonal entries named in the table. The program checked the spectrum of this symmetry-breaking matrix against the eigenvalues stated below.
+
 $\delta W$ is traceless by construction: $\mathrm{tr}(\delta W) = \mathrm{tr}(W_8) - 8 \cdot \tfrac{6}{5} = \tfrac{48}{5} - \tfrac{48}{5} = 0$.
 
 **Key numerical results:**
 
 $$\|\delta W\|_F = 1.876, \quad \|W_8\|_F = 3.877$$
+
+{{Visualize | the-decomposition-of-w₈ | data-points:soma | points="1:1.876,2:3.877"; names="$\|\delta W\|_F$, $\|W_8\|_F$"; fit=none; expect_n=2; xlabel="norm"; ylabel="Frobenius norm" }} The two Frobenius norms quoted in the equation, plotted on the same scale: the symmetry-breaking part is smaller than the full model matrix. The program checked that both quoted numbers are present in the plotted data.
+
 $$\frac{\|\delta W\|_F}{\|W_8\|_F} = 0.484 \quad (48.4\%\text{ symmetry broken})$$
 
 The eigenvalues of $\delta W$ (sorted):
@@ -180,6 +185,8 @@ display. The tracelessness of $\delta W$ is an exact rational identity.
 The 8-dimensional BRECVEMA coupling matrix $W_8$ decomposes uniquely as:
 $$\boxed{W_8 = \frac{6}{5} I_8 + \delta W, \quad \mathrm{tr}(\delta W) = 0, \quad
   \|\delta W\|_F / \|W_8\|_F = 0.484}$$
+
+{{Visualize | conclusion | data-points:soma | points="0:0,1:0.484"; names="$G_2$ ideal, model ratio"; fit=none; hline=0.484; expect_n=2; xlabel="case"; ylabel="$\|\delta W\|_F / \|W_8\|_F$" }} The final boxed ratio compared with the symmetric ideal: the $G_2$ limit would have zero symmetry breaking, while this model matrix has ratio 0.484. The value is a property of the chosen coupling entries, not a measured clinical effect; the program checked the two plotted data points.
 
 The $G_2$-symmetric component $\tfrac{6}{5} I_8$ is the mathematical ideal of
 balanced emotional processing. The traceless symmetry-breaking $\delta W$ encodes the
