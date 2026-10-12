@@ -1800,9 +1800,9 @@ dropped: D1 stays public), disclaimer headers (21 May / 10 Jun; in 7 files).
       usage: `make nlm-usage`; uploads cost little, questions about 1.6% each).
 ---
 
-## ISS-050: NotebookLM sources: folders and book selection — OPEN
+## ISS-050: NotebookLM sources: folders and book selection — CLOSED
 {{Tags area.ops, area.books}}
-{{Fields date.created=2026-10-08, date.start=2026-10-08, date.end=, epic=}}
+{{Fields date.created=2026-10-08, date.start=2026-10-08, date.end=2026-10-13, epic=}}
 
 Which books and files go into which NotebookLM notebook. Layout (created 8 Oct,
 private repo Me): `Me/notebooklm/<notebook>/sources.yaml` lists each source
@@ -1828,17 +1828,18 @@ papers UAT notebook); one source can be large, so books can be merged.
       private config); engine room FUEL lists the banks, USE FOR H-AL switches.
       Tested: MOTHER 1 source, HAL-UAT 30 (H-AL), HAL 0 (the old notebook is
       empty), BASELINE 45. MOTHER's single source is worth a look.
-- [ ] Switch sources per group within a notebook (ISS-047 notes 12-13).
+- (moved to ISS-080) Switch sources per group within a notebook…
 - [x] `make` target: copy the listed sources into `upload/` (merging where the
       limit needs it) and upload with the bridge (`--dry-run` first).
       Done: `make -C Me/notebooklm load NB= GROUPS= [DRY=1]` (`load.py`, 8 Oct), used 9 Oct for HAL-UAT; it renews the session itself.
-- [ ] Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
-- [ ] Soma Machine Engine Room panel "Fuel" (knowledge banks, as in Star Trek's
+- (moved to ISS-081) Move `Me/notebooklm/rosetta.pdf`…
+- [x] Soma Machine Engine Room panel "Fuel" (knowledge banks, as in Star Trek's
       "load the medical database"; author 8 Oct): which groups are loaded in
       each notebook with a switch per group, a gauge (sources used of 50, chat
       quota left), "load gestalt" through the MOTHER bridge calling the same
       loader (`make -C Me/notebooklm load`); later by voice. Links to the Engine
       Room idea in ISS-047.
+      (13 Oct triage: done 9 Oct: the engine room's FUEL (banks per notebook, USE FOR H-AL, the usage gauges; screens.js, bridge /fuel, /usage, /hal-notebook); loading a group from the panel goes with the per-group switch, ISS-080)
 - Candidates noted 8 Oct (rule: one original per level, no remixes; CC BY can
   also go to MOTHER, NC/SA and copyrighted only to HAL/HAL-UAT): already owned:
   Earle *Physical Geology* 2e (CC BY 4.0), OpenStax *Astronomy* 2e older CC BY
@@ -1853,12 +1854,14 @@ papers UAT notebook); one source can be large, so books can be merged.
       (Me `MOTHER/sources.yaml`): the released work with a DOI (C1v2 papers
       omnibus, C2 Fractal Thesis omnibus, D1, D2) and the Observatory Guide: 6
       sources. Pending-upload work joins when released.
-- [ ] The old HAL notebook (d6cfc42e) is empty: delete it, or fill it with the
-      private group (favourites, AJ wiki, links) when that exists.
+- (moved to ISS-081) The old HAL notebook (d6cfc42e) is empty…
 - [x] NotebookLM usage (9 Oct): `make nlm-usage`, bridge `GET /usage`, two gauges
       in the engine room FUEL (five-hour, weekly; reset times from the server),
       UAT runs check the window first. A question costs about 1.6% of the
       five-hour window; audio/video overviews about 44%; uploads are not counted.
+
+**Closed 2026-10-13:** the notebooks, loader, FUEL panel and gauges are built; the per-group switch is in ISS-080, two housekeeping choices in ISS-081.
+
 ---
 
 ## ISS-051: Visualize everything: mark up all equations, generate every figure, show the equation by default — OPEN
@@ -3782,6 +3785,7 @@ optional step are closed; the step is kept here, word for word, with the issue i
       with the scales as tick marks.
 - [ ] (ISS-046) Field Atlas: Physical / Field / Mind parallel layout; notebook figures 1, 2,
       4, 5 only if redrawn and badged `INTERPRETIVE`.
+- [ ] (ISS-050) Switch sources per group within a notebook (ISS-047 notes 12-13).
 
 ## ISS-081: The author's desk: steps only the author can take — OPEN
 {{Tags area.ops}}
@@ -3840,4 +3844,7 @@ steps; ISS-047 the RC3 follow-up.
       this file, origin unsure; a barebone Neovim instead, ISS-001); a Markdown task engine
       (`tasks-makefile.md`; ISSUES.md and the issue tooling may already cover it);
       `soma-developer-tips.md` (eight-knob SomaFX strip, ME-MD-MAKE flow).
+- [ ] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
+- [ ] (ISS-050) The old HAL notebook (d6cfc42e) is empty: delete it, or fill it with the
+      private group (favourites, AJ wiki, links) when that exists.
 
