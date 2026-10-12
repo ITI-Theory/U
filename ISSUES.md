@@ -3641,7 +3641,11 @@ Copilot, 13 Oct:
       hall, the visitor's spire white, windows lit by the field that flare when a thought fires
       inside, an orbit at a distance; the rear view inside is B) The cathedral from outside: the ventricular cast in stone, a spire per hall, the field in
       the windows, an orbit; the rear view from inside first.
-- [ ] The mind palace: the tower as the elevator, eight sector halls, doors to the levels' views.
+- [x] (13 Oct: palace3d.js, PALACE at the BRAIN stop: one tower, the universal-21 levels as 21
+      floors from the quantum foam (the hall of the zero moment, sparks that arise and pass) to the
+      cosmic web; each a round hall in its sector's style (strata, a pulse, crowd lights, stars ...),
+      its name carved; ▲ ▼ ride the car; DOOR ▸ goes into that level's own view; PLACE leaves a
+      thought that stays in the hall) The mind palace: the tower as the elevator, eight sector halls, doors to the levels' views.
 - [ ] The palace tour: the method of loci as an exercise.
 - [x] (13 Oct, author: "we're in trouble if mindfulness is not included"; built: MINDFUL at the
       BRAIN stop: thoughts arise and pass on their own, none pokes the next, softer and longer;

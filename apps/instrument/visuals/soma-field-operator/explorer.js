@@ -12,7 +12,7 @@ import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
 import { rice } from './rice.js';
-import { scores, viewers, cycSkyline, thoughtImages } from './generated/app-data.js';
+import { scores, viewers, cycSkyline, thoughtImages, models as paletteModels, levels as paletteLevels } from './generated/app-data.js';
 // the River Film (The Tensor), by id; kf picks another film (registry/scores, e.g. fis-2021).
 // The twin view (?tw=1): one film, two viewers (S = R(e*, kappa, e_V)): left the viewer of now
 // (neutral), right a viewer preset (pv, registry/viewers; default v2021, as I was in 2021) plus
@@ -55,6 +55,7 @@ import { createMidiOut } from './midi-out.js';
 import { startMidiIn } from './midi-in.js';
 import { createTowerPanel } from './tower.js';
 import { createCathedral3D } from './cathedral3d.js';
+import { createPalace3D } from './palace3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
@@ -565,6 +566,12 @@ let popHandler = null;
 // the ureter's waves reach the head and the head's tension and breath reach the ureter. The
 // loop is on when LOOP is pressed at the ureter or the brain (st.body).
 const BODY = { ureter: createUreterModel(), loop: createSomaLoop() };
+// the palace's floors: the universal-21 model's levels, the quantum foam at the bottom
+const PALACE_FLOORS = (() => {
+  const by = Object.fromEntries((paletteLevels ?? []).map(l => [l.id, l]));
+  const model = (paletteModels ?? []).find(m => m.id === 'universal-21');
+  return (model?.levels ?? []).map(x => by[x.level]).filter(Boolean).map(l => ({ id: l.id, label: l.label, sector: l.sector, scale: l.length_scale }));
+})();
 function bodyStep(env) {
   const on = Boolean(env.body);
   BODY.ureter.setStage(env.uo ?? 0);
@@ -712,6 +719,19 @@ function makeBrain() {
     },
     draw(ctx, env) {
       const { u, phi, dim, t } = env;
+      if (env.palace && env.gl?.go) {
+        const pg = env.gl;
+        pg.render({ time: t, stereo: env.stereo });
+        if (env.labels) {
+          const f = pg.floorInfo(pg.floor);
+          const tgt = pg.floorInfo(pg.target);
+          label(ctx, u, pg.riding ? `THE MIND PALACE · riding to floor ${pg.target + 1}: ${tgt?.label ?? ''}` : `THE MIND PALACE · floor ${pg.floor + 1} of ${PALACE_FLOORS.length}: ${f?.label ?? ''}`, 0, -0.72, '#e8d8ff', 'center', 0.032);
+          label(ctx, u, `${f?.scale ?? ''} · ${f?.sector ?? ''}${f?.id === 'quantum-foam' ? ' · THE HALL OF THE ZERO MOMENT: everything arises and passes, nothing is held' : ''}`, 0, -0.66, f?.id === 'quantum-foam' ? '#a8f0d8' : COLORS.dim, 'center', 0.021);
+          label(ctx, u, `▲ ▼ ride the floors · DOOR: into this level · PLACE: leave a thought here (${pg.placedCount(pg.floor)} placed) · the method of loci: come back and find it`, 0, 0.84, COLORS.violet, 'center', 0.02);
+          label(ctx, u, 'the same grammar at every scale, so the palace of the mind is the universe: a building for the mind, not a claim about the cosmos', 0, 0.9, COLORS.dim, 'center', 0.018);
+        }
+        return;
+      }
       caveGl = env.cave && env.gl?.burst ? env.gl : null;
       lastCp = env.cp ?? 0;
       if (caveGl) {
@@ -2873,6 +2893,11 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
       <label class="explorer__vivid" title="How vivid visual thoughts are (mental imagery varies from none, aphantasia, to very vivid, hyperphantasia)">VIVIDNESS <input type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Vividness" /></label>
+      <button type="button" data-act="palace" aria-pressed="false" title="THE MIND PALACE (ISS-078): the 21 levels of the zoom dial as floors of one tower, from the quantum foam to the cosmic web; ride, go through a door, place a thought">PALACE</button>
+      <button type="button" data-act="pup" title="Up a floor">▲</button>
+      <button type="button" data-act="pdown" title="Down a floor">▼</button>
+      <button type="button" data-act="pdoor" title="Through the door: this level's own view">DOOR ▸</button>
+      <button type="button" data-act="pplace" title="Place a thought in this hall (the method of loci)">PLACE</button>
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CAVE</button>
@@ -2924,6 +2949,7 @@ export function createExplorer(hooks = {}) {
   const caveButton = root.querySelector('[data-act="cave"]');
   const caveOutButton = root.querySelector('[data-act="caveout"]');
   const mindfulButton = root.querySelector('[data-act="mindful"]');
+  const palaceButtons = ['palace', 'pup', 'pdown', 'pdoor', 'pplace'].map(a => root.querySelector(`[data-act="${a}"]`));
   const vividLabel = root.querySelector('.explorer__vivid');
   vividLabel.querySelector('input').addEventListener('input', event => { st.vivid = Number(event.target.value); });
   // POP IN: a bubble's figure takes the screen
@@ -2972,7 +2998,7 @@ export function createExplorer(hooks = {}) {
   // LOOK: the head in the first-person 3D stops
   const look = createLook();
   const LOOK_STOPS = ['tunnel', 'ureter', 'flight', 'score', 'brain'];
-  const lookHere = () => st.open && LOOK_STOPS.includes(st.stop) && st.view3d && (st.stop !== 'brain' || st.cave);
+  const lookHere = () => st.open && LOOK_STOPS.includes(st.stop) && st.view3d && (st.stop !== 'brain' || st.cave || st.palace);
   const lookHud = document.createElement('div');
   lookHud.className = 'explorer__look';
   root.append(lookHud);
@@ -3049,7 +3075,7 @@ export function createExplorer(hooks = {}) {
     film: new URLSearchParams(location.search).get('film') === '1',
     kv: 1, st: 0, bpm: 68, kr: 0, kd: null, kt: 0, kw: 1, km: '', kc: 'mind',
     kf: 'river-film', tw: false, pv: 'v2021', ca: 0, cs: 0, cp: 0, ab: 'a',
-    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, vig: false, caveOut: false, mindful: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
+    past: false, thoughts: false, pain: '', painFrom: '', cave: false, vivid: 0.8, uo: 0, uv: 'in', body: false, vig: false, caveOut: false, mindful: false, palace: false, ap: '', own: Math.max(1, Math.min(7, Number(localStorage.getItem('soma-handover')) || 1)), knobs: { S: 0, F: 0, C: 0, A: 0, G: 0, L: 0, PV: 0 },
     // words: the viewer's last choice, else narration for the film (?film=1), else captions
     kx: (() => { const v = Number(localStorage.getItem('soma-kx')); return Number.isInteger(v) && v >= 0 && v <= 4 && localStorage.getItem('soma-kx') !== null ? v : (new URLSearchParams(location.search).get('film') === '1' ? 4 : 3); })(),
     pace: Number(new URLSearchParams(location.search).get('pace')) || (new URLSearchParams(location.search).get('film') === '1' ? 0.6 : 1) };
@@ -3084,6 +3110,8 @@ export function createExplorer(hooks = {}) {
     'score-session': () => createDyad3D(),
     // the brain's own cave: the ventricles as a cathedral (ISS-077)
     'brain-cave': () => createCathedral3D(),
+    // the mind palace: the zoom dial's 21 levels as floors (ISS-078)
+    'brain-palace': () => createPalace3D(PALACE_FLOORS),
   };
   const gls = {};
   function stageGl(stop) {
@@ -3159,7 +3187,11 @@ export function createExplorer(hooks = {}) {
     painButton.hidden = st.stop !== 'brain' || st.cave;
     caveButton.hidden = st.stop !== 'brain';
     caveOutButton.hidden = st.stop !== 'brain' || !st.cave;
-    mindfulButton.hidden = st.stop !== 'brain';
+    mindfulButton.hidden = st.stop !== 'brain' || st.palace;
+    palaceButtons[0].hidden = st.stop !== 'brain';
+    palaceButtons[0].classList.toggle('active', st.palace);
+    for (const b2 of palaceButtons.slice(1)) b2.hidden = st.stop !== 'brain' || !st.palace;
+    caveButton.hidden = st.stop !== 'brain' || st.palace;
     mindfulButton.classList.toggle('active', st.mindful);
     mindfulButton.setAttribute('aria-pressed', String(st.mindful));
     caveOutButton.classList.toggle('active', st.caveOut);
@@ -3379,7 +3411,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3403,7 +3435,7 @@ export function createExplorer(hooks = {}) {
       return;
     }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
+    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
@@ -3582,6 +3614,22 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'edit') {
       editor.toggle();
       syncUi();
+    } else if (b.dataset.act === 'palace') {
+      st.palace = !st.palace;
+      if (st.palace) { st.view3d = true; st.cave = false; }
+      syncUi();
+    } else if (['pup', 'pdown', 'pdoor', 'pplace'].includes(b.dataset.act)) {
+      const pg = gls['brain-palace'];
+      if (pg) {
+        if (b.dataset.act === 'pup') pg.go(pg.target + 1);
+        else if (b.dataset.act === 'pdown') pg.go(pg.target - 1);
+        else if (b.dataset.act === 'pplace') pg.place(['#ffd166', '#5ee7ff', '#ff7aa8', '#a78bfa', '#56f0a2'][Math.floor(Math.random() * 5)]);
+        else {
+          const f = pg.floorInfo(pg.floor);
+          api.hide();
+          hooks.onLevel?.(f?.id, 11);
+        }
+      }
     } else if (b.dataset.act === 'mindful') {
       st.mindful = !st.mindful;
       if (st.mindful) st.thoughts = true;
