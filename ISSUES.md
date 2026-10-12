@@ -1064,9 +1064,9 @@ the machine. Advice recorded 2026-10-04 (see the session archive):
 
 ---
 
-## ISS-040: Field Atlas print edition for bookfactory.ch, and plate-led layout — OPEN
+## ISS-040: Field Atlas print edition for bookfactory.ch, and plate-led layout — CLOSED
 {{Tags area.books}}
-{{Fields date.created=2026-10-04, date.start=2026-10-04, date.end=, epic=}}
+{{Fields date.created=2026-10-04, date.start=2026-10-04, date.end=2026-10-13, epic=}}
 
 **Printer (author, 2026-10-04):** bookfactory.ch Premium Plus, Jumbo landscape
 40 x 29.4 cm, Magno Satin 170 g, **black** Japanese silk cover, gold
@@ -1080,26 +1080,22 @@ in black linen; Lulu has no A3.)
    count or more than 400 pages. First build: 200 pages.
 
 **Actions:**
-- [ ] Author: confirm bleed and safe zone in bookfactory's PDF-to-Book
-   configurator (3 mm assumed); check whether they want single pages or spreads.
-- [ ] Cover file (spine width from bookfactory for the final page count), or
-   embossing text only if Premium Plus covers are unprinted.
+- (moved to ISS-081) Author: confirm bleed and safe zone…
+- (moved to ISS-081) Cover file (spine width from bookfactory…
 - [x] 2026-10-04: plate-led level spreads, as specified by the author: the level
    opener alone on a right-hand page (centred title, scale and response time,
    equation, facts table); full-height triptych on the facing left-hand page;
    callout plate on the next right-hand page; then the text. All 31 levels
    verified on the correct side in both editions; Atlas now 254 pages.
-- [ ] (superseded by the item above) Plate-led level spreads (brainstorm): each level
+- [x] (superseded by the item above) Plate-led level spreads (brainstorm): each level
    opens on a right-hand page with the level table alone, designed as an
    artistic page; the image plates follow full page, starting on a left-hand
    page so plates face each other; the 4D / 8D / 11D triptych becomes three
    full pages (currently squeezed under the table, which clips the figures,
    e.g. Human / Vertebrate p. 59). Roughly 31 x 4-5 pages: about 300-330
    pages in all, within the 400 maximum.
-- [ ] Companion volume (brainstorm, author to confirm): the theory book as a
-   second A3 landscape volume read alongside the Atlas, with each Atlas level
-   pointing to the theory pages to read with it, so leafing through the Atlas
-   iterates through the theory chapters.
+      (13 Oct triage: superseded, as it says: the plate-led spreads were built 4 Oct)
+- (moved to ISS-081) Companion volume (brainstorm, author to confirm)…
 
 - [x] Triptych panels (L*.1) fixed at the source (author review 8 Oct, printed
       pages 70-83): today each panel is a narrow centre slice of one landscape
@@ -1121,6 +1117,9 @@ in black linen; Lulu has no A3.)
       length scale (they had sigma 0, which disabled their 11D). At the
       quantum scales the third panel says there is no 11D view.
       Done 9 Oct (fb17cd4, 34b04cc): upright per-dimension captures framed on the subject; author to check printed pages 70-83.
+
+**Closed 2026-10-13:** the plate-led print edition is built; bookfactory's settings, the cover and the companion volume are the author's (ISS-081).
+
 ---
 
 ## ISS-041: [T]-Theory course book (textbook edition becomes the course) — CLOSED
@@ -3847,4 +3846,12 @@ steps; ISS-047 the RC3 follow-up.
 - [ ] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder (author decides).
 - [ ] (ISS-050) The old HAL notebook (d6cfc42e) is empty: delete it, or fill it with the
       private group (favourites, AJ wiki, links) when that exists.
+- [ ] (ISS-040) Author: confirm bleed and safe zone in bookfactory's PDF-to-Book
+      configurator (3 mm assumed); check whether they want single pages or spreads.
+- [ ] (ISS-040) Cover file (spine width from bookfactory for the final page count), or
+      embossing text only if Premium Plus covers are unprinted.
+- [ ] (ISS-040) Companion volume (brainstorm, author to confirm): the theory book as a
+      second A3 landscape volume read alongside the Atlas, with each Atlas level pointing to
+      the theory pages to read with it, so leafing through the Atlas iterates through the
+      theory chapters.
 
