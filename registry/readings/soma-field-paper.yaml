@@ -1,0 +1,21 @@
+# Sherlock's readings (ISS-088): sentences of the document as OpenCyc facts through NextKB's
+# FrameNet semantic translations; checked by `python sherlock/readings.py check`.
+document: soma-field-paper
+file: paper/soma/soma-field-paper/soma-field-paper.md
+commit: 0cd00a1bbd2af61543671011aac56320e2d27506
+sha256: f5be643963e655b791a8abb598da872b6cc8e1ced0f3dab42cd11865ad7e2387
+reader: 'Copilot (Claude), 13 Oct 2026: the language-model front end; every reading checked by sherlock/readings.py'
+readings:
+- id: p1-503a
+  line: 503
+  quote: why fear amplifies pain
+  none: NextKB has no FrameNet translation for amplify; the influence Fear -> LevelOfPain (+) would be the reader's,
+    not licensed
+- id: p1-503b
+  line: 503
+  quote: why safety reduces
+  none: Safety has no OpenCyc constant
+- id: p1-701
+  line: 701
+  quote: fear can amplify shame
+  none: NextKB has no FrameNet translation for amplify

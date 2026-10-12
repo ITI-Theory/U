@@ -1,0 +1,79 @@
+# Sherlock's readings (ISS-088): sentences of the document as OpenCyc facts through NextKB's
+# FrameNet semantic translations; checked by `python sherlock/readings.py check`.
+document: the-tensor
+file: paper/soma/the-tensor/the-tensor.md
+commit: 4c659220fd26f28ecc8d591a6525a57809416c38
+sha256: 68030cecfd5e65d827fcec7df731f1b1cab2af0f86f7dbd702153bc2ca00d49d
+reader: 'Copilot (Claude), 13 Oct 2026: the language-model front end; every reading checked by sherlock/readings.py'
+readings:
+- id: tensor-097
+  line: 97
+  quote: High values increase inter-mode interaction
+  none: the coupling scale and inter-mode interaction have no OpenCyc constant
+- id: tensor-127
+  line: 127
+  quote: may trigger the
+  none: NextKB's only verb sense of trigger is ActivatingATriggeringMechanism (a mechanism, FN_Triggering), and
+    heart rate has no OpenCyc constant
+- id: tensor-130
+  line: 130
+  quote: may allow the score velocity to increase
+  word: increase
+  sense: 3
+  fillers:
+    :SUBJECT:
+      pred: fe_attribute
+      type: Speed
+  note: 'first read with objectOfStateChange; R5 refuted it (Speed genls AspatialThing, a tangible thing is needed): the feeling is the attribute that changes'
+- id: tensor-213
+  line: 213
+  quote: Curiosity rises
+  word: rise
+  sense: 3
+  fillers:
+    :SUBJECT:
+      pred: fe_attribute
+      type: Curiosity
+  note: 'first read with objectOfStateChange; R5 refuted it (Curiosity genls AspatialThing, a tangible thing is needed): the feeling is the attribute that changes'
+- id: tensor-230a
+  line: 230
+  quote: Safety falls steadily.
+  none: Safety has no OpenCyc constant (only SafetyFn, a function)
+- id: tensor-230b
+  line: 230
+  quote: Fear rises.
+  word: rise
+  sense: 3
+  fillers:
+    :SUBJECT:
+      pred: fe_attribute
+      type: Fear
+  note: 'first read with objectOfStateChange; R5 refuted it (Fear genls AspatialThing, a tangible thing is needed): the feeling is the attribute that changes'
+- id: tensor-236
+  line: 236
+  quote: Tempo irregularity increases.
+  none: tempo has no OpenCyc constant
+- id: tensor-240
+  line: 240
+  quote: The current strengthens.
+  none: a water current has no OpenCyc constant (River exists, a current does not)
+- id: tensor-269a
+  line: 269
+  quote: Awe rises toward maximum.
+  word: rise
+  sense: 3
+  fillers:
+    :SUBJECT:
+      pred: fe_attribute
+      type: Awe
+  note: 'first read with objectOfStateChange; R5 refuted it (Awe genls AspatialThing, a tangible thing is needed): the feeling is the attribute that changes'
+- id: tensor-269b
+  line: 269
+  quote: Fear falls
+  word: fall
+  sense: 4
+  fillers:
+    :SUBJECT:
+      pred: fe_attribute
+      type: Fear
+  note: 'first read with objectOfStateChange; R5 refuted it (Fear genls AspatialThing, a tangible thing is needed): the feeling is the attribute that changes'

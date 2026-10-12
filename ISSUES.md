@@ -4241,13 +4241,26 @@ narrative-function rules. Today only the noun and verb types are used, as a hint
 (`sherlock/lookup.py`).
 
 **Plan (estimate about a week; a first working version in 2 to 3 days):**
-- [ ] 1. Index the semantic translations: word, part of speech, frame, denoted type, binding
+- [x] 1. Index the semantic translations: word, part of speech, frame, denoted type, binding
       template (role to predicate), from the archive (`bld/sherlock/semtrans.json`).
-- [ ] 2. A target format: per claim sentence, the word whose translation is used and the role
+      (13 Oct: `sherlock/semtrans.py build`, 18 s: 13,846 words, 26,435 senses, 1,023 frames; and a KB
+      index of 165,344 constants, 28,621 predicates with an arity, 26,443 with argument types.
+      `semtrans.py show <word>` lists a word's senses.)
+- [x] 2. A target format: per claim sentence, the word whose translation is used and the role
       bindings, giving OpenCyc facts (`registry/readings/<doc>.yaml`).
-- [ ] 3. The validator: every constant and predicate exists in OpenCyc; arguments satisfy
+      (13 Oct: per document frozen at a commit with its SHA-256 and the reader named; each reading the
+      quote and line, the word and sense, per slot the predicate and OpenCyc type, an optional
+      influence (qp: sign, constrainer, constrained), or `none` with the reason.)
+- [x] 3. The validator: every constant and predicate exists in OpenCyc; arguments satisfy
       OpenCyc's argument types (checked in Lean against Sherlock's OpenCyc types); bindings
       match the word's own template. Reports "no translation" honestly.
+      (13 Oct: `sherlock/readings.py check`, rules R1-R6; `make -C sherlock readings`. First run, The
+      Tensor, P1 and P6: 15 readings, 5 validated, 10 with no translation (amplify is not in FrameNet;
+      Safety, tempo, heart rate are not in OpenCyc). It corrected its reader at once: "Fear rises" read
+      with Fear as objectOfStateChange was refuted (a feeling is AspatialThing; the role needs a
+      PartiallyTangible), the right reading being Fear as the attribute that changes (fe_attribute);
+      "fear activates shame" has no licensed reading (activate is a device's state change in NextKB).
+      Still to do: the R5 type facts kernel-checked in Lean (Sherlock's OpenCyc), as gen_types does.)
 - [ ] 4. QP sign consistency: "X increases / decreases with Y" read into qualitative
       proportionalities; two documents stating opposite signs for the same pair are a finding.
 - [ ] 5. Run on The Tensor and one paper; measure how much validates and what it finds; write it
