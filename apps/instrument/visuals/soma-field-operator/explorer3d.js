@@ -1005,3 +1005,144 @@ export function createThought3D({ levels, x0, x1 }) {
     },
   };
 }
+
+// THE BODY in 3D (ISS-052): the body inside the jellyfish human, a translucent figure on the 2D
+// stop's own layout. The feeling map's regions (after Nummenmaa et al. 2014, or the artistic
+// placements) glow inside it in the stop's colours; the nerves are fine tubes carrying the
+// stop's signals; the heart beats; at 11D the field's shells surround it.
+// layout: { nerves: { name: [[x, y]] }, regions: { name: [[x, y, r]] } } (2D, y down)
+export function createBody3D(layout) {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  } catch {
+    return null;
+  }
+  renderer.setClearColor('#05101a');
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog('#05101a', 6, 16);
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 60);
+  camera.focus = 6;
+  const stereoCamera = new THREE.StereoCamera();
+  const size = new THREE.Vector2();
+  scene.add(new THREE.HemisphereLight('#bff6e8', '#06121c', 0.9));
+
+  const S = 3.2;
+  const at = (x, y, z = 0) => new THREE.Vector3(x * S, -y * S, z * S);
+  const skin = new THREE.MeshStandardMaterial({ color: '#3fd0c9', transparent: true, opacity: 0.16, roughness: 0.3, depthWrite: false, side: THREE.DoubleSide });
+  const edge = new THREE.MeshBasicMaterial({ color: '#3fd0c9', wireframe: true, transparent: true, opacity: 0.14 });
+  const body = new THREE.Group();
+  const part = (geo, p) => { for (const m of [skin, edge]) { const mesh = new THREE.Mesh(geo, m); mesh.position.copy(p); body.add(mesh); } };
+  part(new THREE.SphereGeometry(0.115 * S, 28, 20), at(0, -0.8));
+  part(new THREE.CylinderGeometry(0.045 * S, 0.05 * S, 0.12 * S, 16), at(0, -0.66));
+  const torso = new THREE.CapsuleGeometry(0.15 * S, 0.42 * S, 8, 24);
+  torso.scale(1, 1, 0.62);
+  part(torso, at(0, -0.33));
+  const limb = (pts, r) => {
+    const curve = new THREE.CatmullRomCurve3(pts.map(([x, y]) => at(x, y)));
+    for (const m of [skin, edge]) body.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 32, r * S, 14), m));
+  };
+  limb(layout.nerves.armL.slice(1), 0.045); limb(layout.nerves.armR.slice(1), 0.045);
+  limb(layout.nerves.legL.slice(1), 0.06); limb(layout.nerves.legR.slice(1), 0.06);
+  scene.add(body);
+  // nerves
+  const nerveMat = new THREE.MeshBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.45 });
+  const curves = {};
+  for (const [name, pts] of Object.entries(layout.nerves)) {
+    const curve = new THREE.CatmullRomCurve3(pts.map(([x, y]) => at(x, y, name.startsWith('vagus') ? 0.03 : 0)));
+    curves[name] = curve;
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.0045 * S, 6), nerveMat);
+    tube.userData.nerve = true;
+    scene.add(tube);
+  }
+  // the feeling regions, as glows inside the body
+  const glows = [];
+  for (const [region, spots] of Object.entries(layout.regions)) {
+    for (const [x, y, r] of spots) {
+      const m = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+      m.position.copy(at(x, y));
+      m.scale.setScalar(r * S * 0.9);
+      scene.add(m);
+      glows.push({ region, m });
+    }
+  }
+  const heart = new THREE.Mesh(new THREE.SphereGeometry(0.035 * S, 18, 12), new THREE.MeshBasicMaterial({ color: '#ff3c50', transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
+  heart.position.copy(at(0.06, -0.45, 0.02));
+  scene.add(heart);
+  // the field (11D): shells around the whole body
+  const shells = Array.from({ length: 4 }, (_, k) => {
+    const g = new THREE.SphereGeometry(1, 40, 28);
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: '#a78bfa', wireframe: true, transparent: true, opacity: 0.06 - k * 0.01, depthWrite: false }));
+    m.scale.set((0.55 + k * 0.08) * S, (1.0 + k * 0.06) * S, (0.4 + k * 0.06) * S);
+    m.position.copy(at(0, -0.02));
+    scene.add(m);
+    return m;
+  });
+  const beadGeo = new THREE.SphereGeometry(0.012 * S, 10, 8);
+  const beads = Array.from({ length: 60 }, () => {
+    const m = new THREE.Mesh(beadGeo, new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending }));
+    scene.add(m);
+    return m;
+  });
+  const centre = at(0, -0.05);
+
+  return {
+    canvas,
+    resize(w, h, dpr) {
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+    },
+    // state: { feel: { region: -1..1 }, phi, beat (0..1), signals: [{ nerve, s, color }], dim, time, stereo }
+    render(state) {
+      const intensity = 0.55 + 0.45 * state.phi;
+      for (const { region, m } of glows) {
+        const v = state.feel[region] ?? 0;
+        m.material.color.set(v >= 0 ? new THREE.Color().setRGB(1, (225 - 155 * v) / 255, (90 - 40 * v) / 255) : new THREE.Color('#5a96ff'));
+        m.material.opacity = Math.min(1, Math.abs(v) * intensity) * 0.55;
+      }
+      heart.scale.setScalar(1 + 0.6 * state.beat);
+      for (const shell of shells) shell.visible = state.dim >= 11;
+      shells.forEach((sh, k) => { sh.rotation.y = state.time * (0.05 + 0.02 * k); });
+      scene.traverse(o => { if (o.userData.nerve) o.visible = state.dim >= 8; });
+      let used = 0;
+      for (const sig of state.signals ?? []) {
+        if (used >= beads.length || state.dim < 8) break;
+        const curve = curves[sig.nerve];
+        if (!curve) continue;
+        const b = beads[used++];
+        b.position.copy(curve.getPointAt(Math.min(1, Math.max(0, sig.s))));
+        b.material.color.set(sig.color);
+        b.visible = true;
+      }
+      for (let i = used; i < beads.length; i++) beads[i].visible = false;
+      const swing = Math.sin(state.time * 0.12) * 0.7;
+      camera.position.set(centre.x + Math.sin(swing) * 11, centre.y + 0.8, Math.cos(swing) * 11);
+      camera.lookAt(centre.x, centre.y + 0.45, 0);
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        updateStereo(stereoCamera, camera, 0.1);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderer.render(scene, eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    },
+    project(x, y, z = 0) {
+      const v = at(x, y, z).project(camera);
+      return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.1 };
+    },
+  };
+}

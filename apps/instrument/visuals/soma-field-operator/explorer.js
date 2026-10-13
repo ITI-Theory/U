@@ -8,7 +8,7 @@
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
 import { stereoDepth } from './stereo-depth.js';
-import { createDyad3D, createLandscape3D, createNeuron3D, createLimbic3D, createThought3D } from './explorer3d.js';
+import { createDyad3D, createLandscape3D, createNeuron3D, createLimbic3D, createThought3D, createBody3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
@@ -446,6 +446,26 @@ function makeBody() {
     },
     // the body is drawn a little smaller and lower, below the toolbar and the feelings row
     draw(ctx, outer) {
+      if (outer.gl?.project) {
+        // 3D (ISS-052): the body inside the jellyfish human, the same feeling map and signals
+        const gl = outer.gl;
+        const { u, phi, dim, t } = outer;
+        const feel = FEELINGS[outer.feel] ?? FEELINGS.calm;
+        const nameOf = item => Object.keys(nerves).find(k => nerves[k] === item.path);
+        gl.render({ feel, phi, beat: Math.exp(-((beatPhase % 1) * 7)), dim, time: t, stereo: outer.stereo,
+          signals: traffic.items.map(item => ({ nerve: nameOf(item), s: item.reverse ? 1 - item.s : item.s, color: item.color })) });
+        if (outer.labels) {
+          const put = (text, x, y, color, size = 0.028, align = 'center') => {
+            const p = gl.project(x, y);
+            if (p.visible) label(ctx, u, text, (p.x * outer.w) / u, (p.y * outer.h) / u, color, align, size);
+          };
+          put(`${Math.round(60 + 60 * phi)} BPM`, 0.42, -0.5, COLORS.red, 0.03, 'left');
+          put(feel.label, 0.42, -0.4, COLORS.gold, 0.03, 'left');
+          put(feel.basis, 0.42, -0.35, COLORS.dim ?? '#8a93a8', 0.018, 'left');
+          if (dim >= 8) put('VAGUS', -0.16, -0.32, COLORS.gold, 0.026);
+        }
+        return;
+      }
       ctx.save();
       ctx.translate(0, BODY_SHIFT * outer.u);
       drawBody(ctx, { ...outer, u: outer.u * BODY_SCALE, cy: outer.cy + BODY_SHIFT * outer.u });
@@ -3316,6 +3336,7 @@ export function createExplorer(hooks = {}) {
     neuron: () => createNeuron3D(scene('neuron').geometry),
     limbic: () => createLimbic3D(),
     thought: () => createThought3D(scene('thought').geometry),
+    body: () => createBody3D({ nerves: NERVES, regions: BODY_REGIONS }),
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
     ureter: () => createTunnel3D({ ureter: true }),

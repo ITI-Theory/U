@@ -2457,7 +2457,9 @@ Steps:
       opening into the three mind rings; the stop's signals as beads. THOUGHT in 3D
       (createThought3D): the sub-threshold sea as a moving surface, swells rising through the
       threshold plane into emotions and on to thoughts at the cortex level, the heartbeat in front.
-      Left: the body inside the jellyfish)
+      BODY in 3D (createBody3D): a translucent figure on the 2D layout, the feeling map's regions
+      glowing inside it, the nerves and their signals, the heart, the field's shells at 11D. Every
+      stop the issue named now has true 3D; left: to watch them on the projector in 3D SBS)
       All stops in true 3D (author, 10 Oct 01:16: "all rendered in 3D and 3D SBS
       on my 3D projector, 100-inch screen"). Done: 3D SBS for every stop
       (ISS-027), true 3D for HUMAN, LANDSCAPE and DYAD (two jellyfish figures,
