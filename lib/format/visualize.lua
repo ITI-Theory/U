@@ -43,6 +43,15 @@ local LAYOUT = { label = true, width = true, height = true, opener = true, displ
 
 local manifest_path, src_prefix, lean_root = nil, "visualize", nil
 local specs = {}
+local info = {}   -- id -> { vary, primitive, concept }: what the HTML extras need
+
+-- "See it move" (ISS-051): figures of something that moves in time name the Soma Machine
+-- view that shows it moving (a view is appended to the app's address after #).
+local MOVING = {
+  flock = function() return "level=flock&lens=on&dim=8" end,
+  ["energy-landscape"] = function(c) return (c == "soma" or c == "neural") and "voyage=landscape" or nil end,
+  convolution = function(c) return c == "soma" and "voyage=score" or nil end,
+}
 
 local function fail(msg) error("visualize: " .. msg, 0) end
 
@@ -153,6 +162,7 @@ local function visualize(para, seen)
   local id = "viz-" .. pandoc.utils.sha1(table.concat(canon, "\n")):sub(1, 12)
   specs[#specs + 1] = { id = id, context = context, primitive = primitive, concept = concept,
     params = render, caption = pandoc.utils.stringify(caption), document = document_name() }
+  info[id] = { vary = render.vary, primitive = primitive, concept = concept }
 
   local attrs = {}
   if params.width then attrs.width = params.width end
@@ -204,21 +214,43 @@ local function lean_statement(context)
   return nil
 end
 
+-- HTML only: a figure's other outputs (render.py): the SVG and the numbers it was drawn from;
+-- for a varied figure the sweep strip (one panel per value, one scale); for one that moves in
+-- time, the Soma Machine view that shows it moving.
+local function fig_extras(fig)
+  local src
+  fig:walk({ Image = function(img) src = src or img.src end })
+  if not src then return {} end
+  local out = { pandoc.Para({ pandoc.Str("Also"), pandoc.Space(), pandoc.Str("as"), pandoc.Space(),
+    pandoc.Link("SVG", (src:gsub("%.png$", ".svg"))), pandoc.Space(), pandoc.Str("and"), pandoc.Space(),
+    pandoc.Link({ pandoc.Str("the"), pandoc.Space(), pandoc.Str("data"), pandoc.Space(), pandoc.Str("(CSV)") }, (src:gsub("%.png$", ".csv"))),
+    pandoc.Str(".") }) }
+  local i = info[src:match("(viz%-%x+)%.png$") or ""]
+  if not i then return out end
+  if i.vary then
+    local name = i.vary:match("^%s*([^:]+)") or "the parameter"
+    local caption = pandoc.Inlines("One panel per value of ")
+    caption:insert(pandoc.Code(trim(name)))
+    caption:extend(pandoc.Inlines(", on one scale."))
+    out[#out + 1] = pandoc.Para({ pandoc.Image(caption, (src:gsub("%.png$", "-sweep.png")), "", pandoc.Attr("", { "visualize-sweep" })) })
+    out[#out + 1] = pandoc.Para(caption)
+  end
+  local view = MOVING[i.primitive] and MOVING[i.primitive](i.concept)
+  if view then
+    out[#out + 1] = pandoc.Para({ pandoc.Str("See"), pandoc.Space(), pandoc.Str("it"), pandoc.Space(), pandoc.Str("move:"), pandoc.Space(),
+      pandoc.Str("in"), pandoc.Space(), pandoc.Str("the"), pandoc.Space(), pandoc.Str("Soma"), pandoc.Space(), pandoc.Str("Machine,"), pandoc.Space(),
+      pandoc.Str("open"), pandoc.Space(), pandoc.Str("the"), pandoc.Space(), pandoc.Str("view"), pandoc.Space(), pandoc.Code("#" .. view), pandoc.Str(".") })
+  end
+  return out
+end
+
 local function tab_panel(eq, figs, contexts)
   tab_count = tab_count + 1
   local id = "vt" .. tab_count
-  -- each figure with its other outputs: the SVG and the numbers it was drawn from (render.py)
   local fig_blocks = {}
   for _, fig in ipairs(figs) do
     fig_blocks[#fig_blocks + 1] = fig
-    local src
-    fig:walk({ Image = function(img) src = src or img.src end })
-    if src then
-      fig_blocks[#fig_blocks + 1] = pandoc.Para({ pandoc.Str("Also"), pandoc.Space(), pandoc.Str("as"), pandoc.Space(),
-        pandoc.Link("SVG", (src:gsub("%.png$", ".svg"))), pandoc.Space(), pandoc.Str("and"), pandoc.Space(),
-        pandoc.Link({ pandoc.Str("the"), pandoc.Space(), pandoc.Str("data"), pandoc.Space(), pandoc.Str("(CSV)") }, (src:gsub("%.png$", ".csv"))),
-        pandoc.Str(".") })
-    end
+    for _, blk in ipairs(fig_extras(fig)) do fig_blocks[#fig_blocks + 1] = blk end
   end
   local tabs = { { "eq", "EQUATION", { eq } }, { "fig", "FIGURES", fig_blocks } }
   local lean_name, lean_text
@@ -334,10 +366,15 @@ function Pandoc(doc)
           out:insert(b)
         elseif b.t == "Div" then note(b.identifier); b.content = walk(b.content); out:insert(b)
         elseif b.t == "Para" then
-        if fig and shown(selected) then out:insert(fig)
+        if fig and shown(selected) then
+          out:insert(fig)
+          if html then for _, blk in ipairs(fig_extras(fig)) do out:insert(blk) end end
         elseif fig then
           local kept = hidden(fig)
-          if kept then out:insert(kept) end
+          if kept then
+            for _, blk in ipairs(fig_extras(fig)) do kept.content:insert(#kept.content, blk) end
+            out:insert(kept)
+          end
         else
           for _, el in ipairs(b.content) do
             if el.t == "Str" then note(el.text:match("^{#([%w:_.-]+)}$")) end

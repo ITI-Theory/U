@@ -78,6 +78,11 @@ def markdown(figures: dict[str, dict], out: Path) -> str:
             if figure["image"].exists():
                 relative = Path(os.path.relpath(figure["image"], out)).as_posix()
                 lines += [f"![{literal(figure['caption'])}]({relative}){{width=70%}}", ""]
+                strip = figure["image"].with_name(f"{figure['id']}-sweep.png")
+                if strip.exists():
+                    name = str(figure["params"]["vary"]).partition(":")[0].strip()
+                    lines += [f"![The sweep strip: one panel per value of {literal(name)}, on one scale.]"
+                              f"({Path(os.path.relpath(strip, out)).as_posix()}){{width=100%}}", ""]
             else:
                 lines += ["*(not drawn yet)*", ""]
     return "\n".join(lines) + "\n"

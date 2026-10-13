@@ -1086,6 +1086,55 @@ def export_data(fig, path: Path) -> int:
     return len(rows)
 
 
+# What a strip leaves out: the numeric checks and the marks that belong to the main figure.
+STRIP_DROP = ("vary", "value_at", "tangent_at", "sample_every", "legend")
+
+
+def sweep_strip(raw: dict, path: Path) -> int:
+    """The sweep strip (ISS-051): a figure with vary=name:v1,v2,... drawn once per value, the
+    panels side by side (at most four to a row), each titled with its value. Print shows the
+    family overlaid; the strip shows each member on its own. Returns the number of panels."""
+    import io
+    from PIL import Image
+
+    params = {k: v for k, v in (raw.get("params") or {}).items() if not str(k).startswith("expect_") and k not in STRIP_DROP}
+    name, _, values = str(raw["params"]["vary"]).partition(":")
+    name = name.strip()
+    figs = []
+    for v in numbers(values):
+        spec = Spec({**raw, "params": {**params, name: repr(float(v))}})
+        fig = DRAW[spec.primitive](spec)
+        fig.axes[0].set_title(f"${tex_name(name)} = {fmt(v)}$", fontsize=13)
+        figs.append(fig)
+    # one scale for all panels, so the eye compares like with like
+    if all(f.axes[0].get_yscale() == "linear" for f in figs):
+        lows, highs = zip(*(f.axes[0].get_ylim() for f in figs))
+        for f in figs:
+            f.axes[0].set_ylim(min(lows), max(highs))
+    panels = []
+    for fig in figs:
+        buf = io.BytesIO()
+        fig.savefig(buf, format="png", dpi=110, bbox_inches="tight")
+        plt.close(fig)
+        buf.seek(0)
+        panels.append(Image.open(buf).convert("RGB"))
+    if len(panels) < 2:
+        return 0
+    h = min(im.height for im in panels)
+    panels = [im.resize((round(im.width * h / im.height), h)) for im in panels]
+    per_row, gap = min(4, len(panels)), 16
+    rows = [panels[i:i + per_row] for i in range(0, len(panels), per_row)]
+    width = max(sum(im.width for im in row) + gap * (len(row) - 1) for row in rows)
+    strip = Image.new("RGB", (width, h * len(rows) + gap * (len(rows) - 1)), "white")
+    for r, row in enumerate(rows):
+        x = 0
+        for im in row:
+            strip.paste(im, (x, r * (h + gap)))
+            x += im.width + gap
+    strip.save(path, optimize=True)
+    return len(panels)
+
+
 def main(argv: list[str]) -> int:
     # section ids and captions may be Unicode (w₈); the Windows console codepage is not
     for stream in (sys.stdout, sys.stderr):
@@ -1103,7 +1152,8 @@ def main(argv: list[str]) -> int:
         spec = Spec(raw)
         target = out_dir / f"{spec.id}.png"
         checked = any(k.startswith("expect_") for k in spec.p)
-        complete = all(target.with_suffix(x).exists() for x in (".png", ".svg", ".csv"))
+        strip = target.with_name(f"{spec.id}-sweep.png") if spec.p.get("vary") else None
+        complete = all(target.with_suffix(x).exists() for x in (".png", ".svg", ".csv")) and (strip is None or strip.exists())
         if complete and not force and not checked:
             continue
         try:
@@ -1116,6 +1166,12 @@ def main(argv: list[str]) -> int:
             fig.savefig(target.with_suffix(".svg"), bbox_inches="tight")
             export_data(fig, target.with_suffix(".csv"))
             plt.close(fig)
+            if strip is not None:
+                try:
+                    sweep_strip(raw, strip)
+                except Exception as exc:  # the strip is an extra: report it, keep the figure
+                    plt.close("all")
+                    print(f"visualize WARN [{spec.context}] {spec.primitive}: no sweep strip ({type(exc).__name__}: {exc})", file=sys.stderr)
             drawn += 1
             note = "; ".join(spec.checks)
             print(f"visualize {spec.id} {spec.primitive} [{spec.context}]" + (f": {note}" if note else ""))

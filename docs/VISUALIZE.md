@@ -99,6 +99,18 @@ equation directly before them follow the table above. The PDF is unchanged.
 numbers the figure was drawn from in long form (`axes, series, x, y, value`: each
 line, point, bar or heatmap cell). The HTML tab panel links the SVG and the CSV.
 
+**Sweep strips and "see it move".** A figure with `vary=` also gets
+`viz-<id>-sweep.png`: the figure drawn once per value, side by side (four to a row),
+each panel titled with its value and all on one y-scale, so the eye compares like
+with like. The numeric checks (`expect_*`) and the marks of the main figure
+(`value_at`, `tangent_at`, `sample_every`) stay with the main figure. A figure of
+something that moves in time names the Soma Machine view that shows it moving:
+`flock` (`#level=flock&lens=on&dim=8`), `energy-landscape` with the `soma` or
+`neural` palette (`#voyage=landscape`), and `convolution` with `soma`
+(`#voyage=score`). Both appear in HTML (the FIGURES tab, or under a figure) and
+the strip in the figure library; the PDFs are unchanged, since print already
+shows the family overlaid in one figure.
+
 ## Concepts (palettes)
 
 `generic`, `wave`, `quantum`, `neural`, `soma`, `earth`, `cosmic`. The
