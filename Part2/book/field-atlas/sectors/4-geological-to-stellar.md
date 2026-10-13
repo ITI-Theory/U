@@ -17,3 +17,7 @@ The evidence gradient is also part of the sector. Geological claims may be check
 What is integrated out changes sharply. A named fault becomes lithospheric strength or topography at planetary scale. A complex planet becomes an effective gravitating body at orbital scale. An orbital environment becomes composition, spin, accretion, or tidal forcing inside a star. A luminous star becomes mass, spin, remnant type, field, and collapse history at compact-object scale. These losses are not errors. They are what make a higher-level variable useful.
 
 The negative boundary should be visible in both book and app. This sector does not claim feelings in rocks, planets, or stars; it does not infer intention from orbits; it does not treat black holes as minds. `open-hypothesis`: Any stronger cross-scale identification would need declared variables, predictions, and failure conditions. Lens off, the pictures should show ordinary geology, planetary layers, orbital diagrams, stellar interiors, and compact-object environments. Lens on, the overlay should add response waves, kernels, delays, damping, resonances, and integration boundaries, never personification.
+
+::: {.plate id="world-4"}
+The folded strata: the world of Sector IV, rock bent over geological time. A picture of the scale, not a section of any real outcrop (`interpretive`).
+:::

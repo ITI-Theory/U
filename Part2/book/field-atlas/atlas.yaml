@@ -1,18 +1,25 @@
 id: field-atlas
 title: "[T]-Theory: Field Atlas"
 subtitle: The Wave That Is Always There
+# Each sector opens with its world (world: a FLY view captured by capture.mjs --only voyage;
+# its caption is a ::: {.plate} in the sector file).
 # Ladder order, partitioning the canonical-5 bands (a level shared by two bands sits in the first). Level text lives in registry/levels/<id>.md (shared with the app);
 # sector introductions in sectors/, front and back matter in front/ and back/.
 sectors:
   - file: sectors/1-quantum-to-classical.md
+    world: {id: world-1, view: "level=quantum-foam&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [quantum-foam, string-boundary, nuclear, atomic, molecular]
   - file: sectors/2-chemistry-to-biology.md
+    world: {id: world-2, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [cellular-synaptic, local-circuit, whole-brain-cemi, human-vertebrate]
   - file: sectors/3-individual-to-collective.md
+    world: {id: world-3, view: "level=regional-institutional&voyage=flight&dim=11&phi=0.4", settle: 5000}
     levels: [dyad, human-group, animal-swarm, bird, flock, colony-roost, society-city, regional-institutional, civilisational-solar, species-stellar]
   - file: sectors/4-geological-to-stellar.md
+    world: {id: world-4, view: "level=geological&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [geological, planetary, orbital-system, stellar, compact-object]
   - file: sectors/5-stellar-to-cosmic.md
+    world: {id: world-5, view: "level=cosmic-web&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [stellar-cluster, galactic-disc, galactic-halo, galaxy-cluster, cosmic-filaments, observable-universe, cosmic-web]
 # The Voyage Inside (ISS-087): the mind-body explorer's stops as plates with text, a part after
 # sector 3. Each plate is captured from the app (capture.mjs --only voyage: the view is the
@@ -74,6 +81,13 @@ voyage:
         - {id: pain-path, view: "voyage=ureter&dim=11&phi=0.6", acts: [follow], settle: 9000}
 
 front: [front/1-how-to-read.md, front/2-the-ladder.md]
+# The mind palace (ISS-087): a double spread after the front matter, the tower (a figure from
+# the registry) on the left, two halls captured from the explorer on the right.
+palace:
+  file: front/3-the-mind-palace.md
+  plates:
+    - {id: palace-1, view: "voyage=brain&dim=11&phi=0.5", acts: [palace], settle: 3000}
+    - {id: palace-11, view: "voyage=brain&dim=11&phi=0.5", acts: [palace, pup, pup, pup, pup, pup, pup, pup, pup, pup, pup], act_wait: 600, settle: 40000}
 theory:
   - theory/1-fields-and-waves.md
   - theory/2-greens-functions-and-propagators.md

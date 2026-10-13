@@ -17,3 +17,7 @@ No level in this sector is assigned feeling, intention, or consciousness `interp
 The sector also sets the first boundary between equations and pictures. A lower-level equation may be exact only inside an approximation, while the picture is a renderer aid. The Coulomb kernel, Yukawa kernel, worldsheet propagator, and molecular Hamiltonian are not interchangeable. They are examples of how different substrates answer different disturbances. This is the point at which the atlas can be both readable and honest: the visual grammar repeats, but the physics does not collapse into one substance or one evidence category, and every caption should preserve that distinction in print and software.
 
 Sector I also establishes the first renderer logic. Lens off should move from almost objectless mathematical boundary to increasingly concrete objects: worldsheets, nuclei, atoms, and molecules. Lens on should not add mystical content. It should add kernels, response contours, boundary conditions, state transitions, and energy surfaces. The result is a scale ladder that works without [T]-Theory, then becomes a labelled response atlas when the interpretive layer is switched on.
+
+::: {.plate id="world-1"}
+The quantum foam: the world of Sector I as the FLY view draws it, a slow flight through bubbles of the vacuum. A picture of the scale, not data (`interpretive`).
+:::

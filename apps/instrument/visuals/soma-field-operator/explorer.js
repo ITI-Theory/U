@@ -838,7 +838,7 @@ function makeBrain() {
           const tgt = pg.floorInfo(pg.target);
           label(ctx, u, pg.riding ? `THE MIND PALACE · riding to floor ${pg.target + 1}: ${tgt?.label ?? ''}` : `THE MIND PALACE · floor ${pg.floor + 1} of ${PALACE_FLOORS.length}: ${f?.label ?? ''}`, 0, -0.72, '#e8d8ff', 'center', 0.032);
           label(ctx, u, `${f?.scale ?? ''} · ${f?.sector ?? ''}${f?.id === 'quantum-foam' ? ' · THE HALL OF THE ZERO MOMENT: everything arises and passes, nothing is held' : ''}`, 0, -0.66, f?.id === 'quantum-foam' ? '#a8f0d8' : COLORS.dim, 'center', 0.021);
-          label(ctx, u, `▲ ▼ ride the floors · DOOR: into this level · PLACE: leave a thought here (${pg.placedCount(pg.floor)} placed) · the method of loci: come back and find it`, 0, 0.84, COLORS.violet, 'center', 0.02);
+          hint(ctx, u, `▲ ▼ ride the floors · DOOR: into this level · PLACE: leave a thought here (${pg.placedCount(pg.floor)} placed) · the method of loci: come back and find it`, 0, 0.84, COLORS.violet, 'center', 0.02);
           label(ctx, u, 'the same grammar at every scale, so the palace of the mind is the universe: a building for the mind, not a claim about the cosmos', 0, 0.9, COLORS.dim, 'center', 0.018);
         }
         return;

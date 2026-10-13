@@ -692,6 +692,35 @@ def fig_V1():
     clean(ax); save(fig, "V1_avalanche_power_law")
 
 
+
+def fig_P1():
+    """The mind palace's tower: the universal-21 model's levels as floors, quantum foam at the
+    bottom, read from the registry (registry/models/universal-21.yaml, registry/levels)."""
+    model = yaml.safe_load((REPO / "registry/models/universal-21.yaml").read_text(encoding="utf-8"))
+    floors = []
+    for entry in model["levels"]:
+        level = yaml.safe_load((REPO / "registry/levels" / f"{entry['level']}.yaml").read_text(encoding="utf-8"))
+        floors.append((level.get("label", entry["level"]), level.get("sector", ""), str(level.get("length_scale", ""))))
+    tint = {"micro-physical": PURPLE, "organismal": CYAN, "collective": GREEN, "systemic": GOLD,
+            "geological": WARM, "cosmological": BLUE, "named-solution": GREY}
+    fig, ax = plt.subplots(figsize=(4.8, 7.6)); ax.axis("off")
+    n = len(floors)
+    for k, (label, sector, scale) in enumerate(floors):
+        y = k
+        colour = tint.get(sector, GREY)
+        ax.add_patch(Rectangle((0, y), 4.0, 0.86, fc=colour, ec=INK, lw=0.5, alpha=0.28))
+        ax.add_patch(Rectangle((0.55, y), 0.42, 0.62, fc="white", ec=INK, lw=0.4))
+        ax.text(0.12, y + 0.43, f"{k + 1}", ha="left", va="center", fontsize=6.5, color=INK)
+        ax.text(1.15, y + 0.57, label, ha="left", va="center", fontsize=6.6, color=INK)
+        ax.text(1.15, y + 0.24, re.sub(r"10\^(-?\d+)", r"$10^{\1}$", scale), ha="left", va="center", fontsize=5.6, color=GREY)
+        ax.text(4.12, y + 0.43, sector, ha="left", va="center", fontsize=5.4, color=colour)
+    ax.plot([0, 2.0, 4.0], [n, n + 0.8, n], color=INK, lw=0.8)
+    ax.text(2.0, n + 1.15, "the mind palace", ha="center", va="bottom", fontsize=8.5, color=INK)
+    ax.text(2.0, -0.55, "one tower, one door per floor: the zoom dial's 21 levels", ha="center", va="top", fontsize=6.2, color=GREY)
+    ax.set_xlim(-0.2, 5.3); ax.set_ylim(-1.1, n + 1.8)
+    save(fig, "P1_palace_tower")
+
+
 FIGURES = [
     fig_T1_1, fig_T1_2, fig_T1_3, fig_T1_4, fig_T1_5, fig_T1_6,
     fig_T2_1, fig_T2_2, fig_T2_3, fig_T2_4, fig_T2_5, fig_T2_6, fig_T2_7, fig_T2_8,
@@ -699,7 +728,7 @@ FIGURES = [
     fig_T4_1, fig_T4_2, fig_T4_3, fig_T4_4, fig_T4_5, fig_T4_6, fig_T4_7, fig_T4_8,
     fig_T5_1, fig_T5_2, fig_T5_3, fig_T5_4, fig_T5_5,
     fig_T6_1, fig_T6_2, fig_T6_3, fig_T6_4,
-    fig_V1,
+    fig_V1, fig_P1,
 ]
 
 

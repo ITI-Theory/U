@@ -5,7 +5,7 @@
 //
 //   npm run capture                       # full matrix
 //   npm run capture -- --only plates      # plates | console | print | questions | atlas-plates | voyage
-//   npm run capture -- --only voyage      # The Voyage Inside: atlas.yaml's voyage plates
+//   npm run capture -- --only voyage      # atlas.yaml's app plates: sector worlds, The Voyage Inside
 //                                         # (figures/app/voyage/<id>.png; --plates human,cave-inside)
 //   npm run capture -- --clean            # add ui=clean&labels=off to every URL
 //   npm run capture -- --only atlas-plates --portrait --width 1200 --height 2160
@@ -307,7 +307,9 @@ async function main() {
     await mkdir(path.join(args.out, 'voyage'), { recursive: true });
     manifest.voyage = [];
     let n = 0;
-    for (const stop of atlas.voyage?.stops ?? []) {
+    // each sector's world (its opening FLY view), the mind palace's halls, the voyage's stops
+    const groups = [{ plates: (atlas.sectors ?? []).map(sector => sector.world).filter(Boolean) }, atlas.palace ?? {}, ...(atlas.voyage?.stops ?? [])];
+    for (const stop of groups) {
       for (const plate of stop.plates ?? []) {
         if (args.plates && !args.plates.has(plate.id)) continue;
         n += 1;
@@ -321,7 +323,7 @@ async function main() {
             return Boolean(button);
           }, act);
           if (!found) throw new Error(`voyage plate ${plate.id}: no button ${act}`);
-          await page.waitForTimeout(3000);
+          await page.waitForTimeout(plate.act_wait ?? 3000);
         }
         await page.waitForTimeout(plate.settle ?? 1500);
         const buffer = await page.screenshot({ type: 'png', timeout: 180000 });

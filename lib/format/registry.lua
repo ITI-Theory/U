@@ -472,6 +472,65 @@ local function voyage_part(voyage, missing)
   return out
 end
 
+-- The mind palace (ISS-087): a double spread after the front matter. The text and the two
+-- captured halls side by side fill the first page; the tower figure fills the second.
+local function palace_spread(palace, missing)
+  local out = {}
+  local doc = read_markdown_doc(ATLAS .. "/" .. palace.file)
+  local captions, figures, body = {}, {}, {}
+  for _, b in ipairs(doc.blocks) do
+    if b.t == "Div" and b.classes:includes("plate") then
+      captions[b.identifier] = caption_inlines(b)
+    elseif b.t == "Div" and b.classes:includes("figure") then
+      figures[#figures + 1] = {src = b.attributes.src, caption = caption_inlines(b)}
+    else
+      body[#body + 1] = b
+    end
+  end
+  out[#out + 1] = page_break()
+  local rest = {}
+  for i = 2, #body do rest[#rest + 1] = body[i] end
+  out[#out + 1] = body[1]
+  append(out, maybe_columns(rest))
+  -- page one: the text and the halls side by side
+  local images, caption = pandoc.Inlines({}), pandoc.Inlines({})
+  for k, plate in ipairs(palace.plates or {}) do
+    local src = "figures/app/voyage/" .. plate.id .. ".png"
+    if exists(ATLAS .. "/" .. src) then
+      if #images > 0 then images:insert(pandoc.Str(" ")) end
+      images:insert(pandoc.Image({}, src, "", attr("", {"plate"}, {width = "49%"})))
+      if #caption > 0 then caption:insert(pandoc.Space()) end
+      caption:extend({pandoc.Strong({pandoc.Str(k == 1 and "Left:" or "Right:")}), pandoc.Space()})
+      caption:extend(captions[plate.id] or {})
+    else
+      missing[#missing + 1] = "palace plate " .. plate.id .. " (npm run capture -- --only voyage)"
+    end
+  end
+  if #images > 0 then
+    out[#out + 1] = pandoc.Para(images)
+    local full = pandoc.Inlines({pandoc.Str("Figure P.1 —"), pandoc.Space()})
+    full:extend(caption)
+    out[#out + 1] = pandoc.Para({pandoc.Span(full, attr("", {"plate-caption"}, {}))})
+  end
+  -- page two: the tower
+  out[#out + 1] = raw_latex("\\clearpage") or pandoc.Plain({})
+  for _, fig in ipairs(figures) do
+    local fcaption = pandoc.Inlines({pandoc.Str("Figure P.2 —"), pandoc.Space()})
+    fcaption:extend(fig.caption)
+    if not exists(ATLAS .. "/figures/" .. fig.src) then
+      missing[#missing + 1] = "palace figure " .. fig.src
+    elseif FORMAT:match("latex") then
+      local inl = pandoc.Inlines({pandoc.RawInline("latex", "\\atlasplatepage{figures/" .. fig.src .. "}{")})
+      inl:extend(fcaption)
+      inl:insert(pandoc.RawInline("latex", "}"))
+      out[#out + 1] = pandoc.Plain(inl)
+    else
+      out[#out + 1] = pandoc.Para({pandoc.Image(fcaption, "figures/" .. fig.src, "", attr("", {"theory-figure"}, {width = "50%"}))})
+    end
+  end
+  return out
+end
+
 local function front_or_back(path)
   local doc = read_markdown_doc(path)
   if #doc.blocks <= 1 then return doc.blocks end
@@ -742,6 +801,7 @@ local function build_atlas(meta)
   local out = {}
   local fm = raw_latex("\\frontmatter"); if fm then out[#out + 1] = fm end
   for _, name in ipairs(atlas.front or {}) do append(out, front_or_back(ATLAS .. "/" .. name)) end
+  if atlas.palace then append(out, palace_spread(atlas.palace, missing)) end
   local mm = raw_latex("\\mainmatter"); if mm then out[#out + 1] = mm end
   if atlas.theory then
     out[#out + 1] = header(1, "Part I: Theory", "part-i-theory")
@@ -754,7 +814,27 @@ local function build_atlas(meta)
     local doc = read_markdown_doc(ATLAS .. "/" .. sector.file)
     local front = meta_to_lua(doc.meta)
     out[#out + 1] = header(1, "Sector " .. tostring(front.sector or number) .. ": " .. tostring(front.title or ""))
-    append(out, maybe_columns(doc.blocks))
+    -- the sector's world (ISS-087): a FLY view captured from the app, its caption in the file
+    local body, world_caption = {}, nil
+    for _, b in ipairs(doc.blocks) do
+      if b.t == "Div" and b.classes:includes("plate") then world_caption = caption_inlines(b) else body[#body + 1] = b end
+    end
+    append(out, maybe_columns(body))
+    if sector.world then
+      local src = "figures/app/voyage/" .. sector.world.id .. ".png"
+      local caption = pandoc.Inlines({pandoc.Str("Figure S" .. number .. " —"), pandoc.Space()})
+      if world_caption then caption:extend(world_caption) else missing[#missing + 1] = "caption for " .. sector.world.id end
+      if not exists(ATLAS .. "/" .. src) then
+        missing[#missing + 1] = "sector world " .. sector.world.id .. " (npm run capture -- --only voyage)"
+      elseif FORMAT:match("latex") then
+        local inl = pandoc.Inlines({pandoc.RawInline("latex", "\\atlasplatepage{" .. src .. "}{")})
+        inl:extend(caption)
+        inl:insert(pandoc.RawInline("latex", "}"))
+        out[#out + 1] = pandoc.Plain(inl)
+      else
+        out[#out + 1] = pandoc.Para({pandoc.Image(caption, src, "", attr("", {"plate"}, {width = "100%"}))})
+      end
+    end
     for _, level_id in ipairs(sector.levels or {}) do append(out, level_spread(level_id, ordinal[level_id], labels, edges, examples, missing, paths, captions)) end
     if atlas.voyage and tonumber(tostring(atlas.voyage.after_sector)) == number then append(out, voyage_part(atlas.voyage, missing)) end
   end
