@@ -204,7 +204,7 @@ $(BUILDDIR)/$(1).pdf: $(1).md journal.tex unicode-math-text.tex filters/strip-ke
 endef
 
 define BUILD_HTML_RULE
-$(BUILDDIR)/$(1).html: $(1).md filters/strip-keywords.lua filters/boxes.lua $(BIB) $(CSL) $(DEFAULTS)/html.yaml $(LICENCE_DEPS) | $(BUILDDIR)
+$(BUILDDIR)/$(1).html: $(1).md filters/strip-keywords.lua filters/boxes.lua $(BIB) $(CSL) $(DEFAULTS)/html.yaml $(LICENCE_DEPS) ../lib/format/visualize.lua | $(BUILDDIR)
 	$(PANDOC) $$< -o $$@ $(HTML_DEFAULTS)
 	@echo "Built: $$@"
 endef

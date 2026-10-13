@@ -161,7 +161,7 @@ local function visualize(para, seen)
   if params.opener == "true" then classes[#classes + 1] = "opener" end  -- chapter banner, full width
   local img = pandoc.Image(caption, src_prefix .. "/" .. id .. ".png", "", pandoc.Attr("", classes, attrs))
   return pandoc.Figure({ pandoc.Plain({ img }) }, { long = { pandoc.Plain(caption) } },
-    pandoc.Attr(params.label or "", { "visualize" })), params.display == "true"
+    pandoc.Attr(params.label or "", { "visualize" })), params.display == "true", context
 end
 
 -- visualize-show: all (default), selected (only display=true), none.
@@ -178,6 +178,84 @@ local function hidden(fig)
     fig,
     pandoc.RawBlock("html", "</details>"),
   }, pandoc.Attr("", { "visualize-hidden" }))
+end
+
+-- HTML (ISS-051): a display equation and the figures that follow it become one tab panel,
+-- EQUATION first and shown by default, then FIGURES, LEAN (the theorem's statement, for a
+-- lean: context) and READ MORE (the section the figures illustrate). Radio buttons and CSS
+-- only, so it works without JavaScript; the PDF is unchanged.
+local tab_count = 0
+local section_of = {}   -- a label -> the section that holds it {id, title}
+local current_section = nil
+
+local function lean_statement(context)
+  local module, name = context:match("^lean:([%w_.]+)%.([%w_']+)$")
+  if not module or not lean_root then return nil end
+  local f = io.open(lean_root .. "/" .. module:gsub("%.", "/") .. ".lean", "rb")
+  if not f then return nil end
+  local text = f:read("a"); f:close()
+  for _, kw in ipairs({ "theorem", "lemma", "def", "structure", "inductive", "abbrev" }) do
+    local s = text:find("%f[%w]" .. kw .. "%s+" .. name:gsub("%p", "%%%0") .. "%f[^%w_']")
+    if s then
+      local e = text:find(":=", s, true) or text:find("\n\n", s, true) or (s + 400)
+      return module .. "." .. name, (text:sub(s, e - 1):gsub("%s+$", ""))
+    end
+  end
+  return nil
+end
+
+local function tab_panel(eq, figs, contexts)
+  tab_count = tab_count + 1
+  local id = "vt" .. tab_count
+  local tabs = { { "eq", "EQUATION", { eq } }, { "fig", "FIGURES", figs } }
+  local lean_name, lean_text
+  for _, c in ipairs(contexts) do
+    lean_name, lean_text = lean_statement(c)
+    if lean_name then break end
+  end
+  if lean_name then
+    tabs[#tabs + 1] = { "lean", "LEAN", { pandoc.Para({ pandoc.Code(lean_name) }), pandoc.CodeBlock(lean_text, pandoc.Attr("", { "lean" })) } }
+  end
+  local more = {}
+  for _, c in ipairs(contexts) do
+    local sec = not c:match("^lean:") and section_of[c]
+    if sec then
+      more[#more + 1] = pandoc.Para({ pandoc.Str("These"), pandoc.Space(), pandoc.Str("figures"), pandoc.Space(), pandoc.Str("illustrate"), pandoc.Space(),
+        pandoc.Link(sec.title, "#" .. sec.id), pandoc.Str(". Each is drawn by code from the equation, its numbers checked; the figure library lists every one with its source and checks.") })
+      break
+    end
+  end
+  if #more > 0 then tabs[#tabs + 1] = { "more", "READ MORE", more } end
+  local out = { pandoc.RawBlock("html", '<div class="viz-tabs">') }
+  for k, t in ipairs(tabs) do
+    out[#out + 1] = pandoc.RawBlock("html", string.format('<input type="radio" class="viz-tab-%s" name="%s" id="%s-%s"%s><label for="%s-%s">%s</label>',
+      t[1], id, id, t[1], k == 1 and " checked" or "", id, t[1], t[2]))
+  end
+  for _, t in ipairs(tabs) do
+    out[#out + 1] = pandoc.Div(t[3], pandoc.Attr("", { "viz-panel", "viz-panel-" .. t[1] }))
+  end
+  out[#out + 1] = pandoc.RawBlock("html", "</div>")
+  return out
+end
+
+local TAB_CSS = [[<style>
+.viz-tabs { margin: 1em 0; border: 1px solid #c8ccd4; border-radius: 4px; }
+.viz-tabs > input { position: absolute; opacity: 0; pointer-events: none; }
+.viz-tabs > label { display: inline-block; padding: .3em .9em; font: 600 .75em/1.6 ui-monospace, monospace; letter-spacing: .06em; color: #4a5160; cursor: pointer; border-bottom: 2px solid transparent; }
+.viz-tabs > input:checked + label { color: #1f4f8a; border-bottom-color: #1f4f8a; }
+.viz-tabs > input:focus-visible + label { outline: 2px solid #1f4f8a; }
+.viz-tabs > .viz-panel { display: none; padding: 0 1em; border-top: 1px solid #c8ccd4; }
+.viz-tab-eq:checked ~ .viz-panel-eq, .viz-tab-fig:checked ~ .viz-panel-fig,
+.viz-tab-lean:checked ~ .viz-panel-lean, .viz-tab-more:checked ~ .viz-panel-more { display: block; }
+.viz-panel-lean pre { white-space: pre-wrap; font-size: .8em; }
+</style>]]
+
+local function is_display_eq(b)
+  if b.t ~= "Para" then return false end
+  for _, el in ipairs(b.content) do
+    if el.t == "Math" and el.mathtype == "DisplayMath" then return true end
+  end
+  return false
 end
 
 local function write_manifest()
@@ -210,13 +288,39 @@ function Pandoc(doc)
   -- One pass in document order: a context must be defined before it is used.
   local seen = {}
   local function note(id) if id and id ~= "" then seen[id] = true end end
+  local html = FORMAT:match("html") ~= nil
   local function walk(blocks)
     local out = pandoc.Blocks({})
+    -- HTML: the last display equation and the figures after it, until other content
+    local eq_at, group, contexts = nil, {}, {}
+    local function flush()
+      if eq_at and #group > 0 then
+        local eq = out[eq_at]
+        out:remove(eq_at)
+        for _, blk in ipairs(tab_panel(eq, group, contexts)) do out:insert(blk) end
+      end
+      eq_at, group, contexts = nil, {}, {}
+    end
     for _, b in ipairs(blocks) do
-      if b.t == "Header" then note(b.identifier); out:insert(b)
-      elseif b.t == "Div" then note(b.identifier); b.content = walk(b.content); out:insert(b)
-      elseif b.t == "Para" then
-        local fig, selected = visualize(b, seen)
+      local fig, selected, context
+      if b.t == "Para" then fig, selected, context = visualize(b, seen) end
+      if html and fig and eq_at then
+        group[#group + 1] = fig; contexts[#contexts + 1] = context
+      else
+        if html then flush() end
+        if html and b.t == "Para" and not fig and is_display_eq(b) then
+          out:insert(b); eq_at = #out
+          for _, el in ipairs(b.content) do
+            local label = el.t == "Str" and el.text:match("^{#([%w:_.-]+)}$") or (el.t == "Span" and el.identifier ~= "" and el.identifier) or nil
+            if label then note(label); section_of[label] = current_section end
+          end
+        elseif b.t == "Header" then
+          note(b.identifier)
+          current_section = { id = b.identifier, title = b.content }
+          section_of[b.identifier] = current_section
+          out:insert(b)
+        elseif b.t == "Div" then note(b.identifier); b.content = walk(b.content); out:insert(b)
+        elseif b.t == "Para" then
         if fig and shown(selected) then out:insert(fig)
         elseif fig then
           local kept = hidden(fig)
@@ -227,12 +331,22 @@ function Pandoc(doc)
           end
           out:insert(b)
         end
-      elseif b.t == "BlockQuote" then b.content = walk(b.content); out:insert(b)
-      else out:insert(b) end
+        elseif b.t == "BlockQuote" then b.content = walk(b.content); out:insert(b)
+        else out:insert(b) end
+      end
     end
+    if html then flush() end
     return out
   end
   doc.blocks = walk(doc.blocks)
+  if html and tab_count > 0 then
+    local hi = m["header-includes"]
+    local style = pandoc.MetaBlocks({ pandoc.RawBlock("html", TAB_CSS) })
+    if hi == nil then m["header-includes"] = pandoc.MetaList({ style })
+    elseif pandoc.utils.type(hi) == "List" then hi:insert(style)
+    else m["header-includes"] = pandoc.MetaList({ hi, style }) end
+  end
+  doc.meta = m
   write_manifest()
   -- One-step builds (pandoc straight to PDF, e.g. the Fractal Thesis books) draw
   -- the figures here, before pandoc runs LaTeX: metadata visualize-render names

@@ -86,6 +86,14 @@ metadata `visualize-show` decides what the reader sees:
 A figure referred to in the text (`@fig:x`) should carry `display=true`, so the
 reference resolves in `none` and `selected` outputs.
 
+**HTML: one tab panel per equation.** In HTML, a display equation followed directly
+by its figures (nothing else in between) becomes one panel, whatever
+`visualize-show` says: EQUATION (first, and shown by default), FIGURES (each figure
+drawn for it), LEAN (the declaration's statement, when a figure's context is
+`lean:Module.name`) and READ MORE (a link to the section the equation sits in).
+Radio buttons and CSS only, so it works without JavaScript. Figures with no
+equation directly before them follow the table above. The PDF is unchanged.
+
 ## Concepts (palettes)
 
 `generic`, `wave`, `quantum`, `neural`, `soma`, `earth`, `cosmic`. The
