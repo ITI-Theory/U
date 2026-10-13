@@ -4596,3 +4596,45 @@ version and a chapter of the Formal Mathematics book (not a new paper).
 - [ ] AI-made figures are claims: the P6 Calm-Shame sign slip was in figure parameters an agent wrote.
 - [ ] Yield follows numbers: a hedged paper (P25) gives Sherlock little to check; numeric papers most.
 
+---
+
+## ISS-094: Every check has a nasty: Moriarty, He-Who-Must-Not-Be-Named, the BOFH — OPEN
+{{Tags area.proofs, area.books, area.instrument}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=ISS-055-sherlock}}
+
+Author, 13 Oct: each of the three levels has an adversary, and a check that has never been
+attacked has not passed. Sherlock (verification, built right) has Moriarty, the breaker who
+finds the DOT; the Wizard (validation, built the right thing; Harry Potter in the V-model) has
+He-Who-Must-Not-Be-Named, who names what a book avoided naming; the Monster (comprehensibility;
+the Cookie Monster, the honest hungry reader) has the BOFH, who misuses and misquotes. H-AL was
+asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
+- Moriarty attacks the theory, not only Sherlock: two modes, as the philosophy book says,
+  the breaker (the DOT) and the abducer. So: (a) mutation tests of Sherlock's own sensitivity,
+  and (b) stress tests of the claims themselves.
+- The Wizard's rival is the author's own Disconfirmation Rule 4: "a formally stronger competing
+  mapping explains the same data with fewer assumptions"; the Wizard also keeps scope discipline
+  (the D1 boundary: one case is not a law; cosmological modesty).
+- The BOFH is the Monster level's adversary, not the Monster: the Cookie Monster stays the honest
+  reader whose question is "has it been translated?".
+
+- [ ] Moriarty (a), mutation tests (`make moriarty`): plant faults in copies of frozen documents (a
+      changed number, "proved" where the Lean has an axiom or `True`, a dropped evidence label, an
+      unhedged clinical sentence) and measure what Sherlock (affidavits, ledger, clinical, readings)
+      catches; each miss is a DOT in Sherlock.
+- [ ] Moriarty (b), stress tests of the claims (H-AL's first attacks): axiom smuggling (prose
+      "kernel-verified" over FieldAxioms or a placeholder); biological leakage (a D9-11 matrix
+      equated with tissue without a transduction map: the typing check, ISS-063); matrix
+      non-generalisation (QUANT-EXP-1 and FM-HN reachability under random non-symmetric couplings
+      with noise, not only the hand-tuned W8); algebraic vs metric G2 (prose implying a G2-holonomy
+      metric where only algebraic compatibility is proved).
+- [ ] He-Who-Must-Not-Be-Named (the Wizard's rivals): for each book's central claims, does it name
+      and answer the simpler rival: classical annealing, Langevin noise or modern Hopfield networks
+      without 11D or tunnelling; interoception and predictive processing (Craig's lamina I, Friston's
+      active inference); pure CEMI (McFadden, 4D Maxwell); and the D1 breach (N = 1 presented as a
+      law). The AI proposes rivals (with Cyc's neighbourhood and the bibliography), the author judges.
+- [x] (13 Oct: uat/*-nlm-uat.md C-6 and TC-4, uat/checklist.yaml monster-bofh) The BOFH: hostile
+      questions and out-of-context quotes; misuse of the app.
+- [ ] The BOFH, H-AL's further attacks: poke during scale transitions, 11D controls below sigma 7,
+      emotion labels leaking into non-biological scales; the jargon trap (a general-reader section,
+      the Gateway booklet, lapsing into untranslated string theory without a reader bridge).
+
