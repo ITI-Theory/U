@@ -328,7 +328,8 @@ else
   fi
 fi
 if [[ -f bld/sherlock/ledger.md ]]; then
-  LEDGER=$(grep -c '^\- line ' bld/sherlock/ledger.md || true)
+  # accepted findings (registry/ledger-accepted.yaml) are listed with their reason, not counted
+  LEDGER=$(grep '^\- line ' bld/sherlock/ledger.md | grep -vc ': accepted (' || true)
   [[ "$LEDGER" -gt 0 ]] && warn "Ledger: $LEDGER citations disagree with the Lean (bld/sherlock/ledger.md; make -C sherlock ledger)"
 fi
 

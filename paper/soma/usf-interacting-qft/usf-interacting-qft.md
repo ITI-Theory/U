@@ -110,7 +110,7 @@ completing the square in the action. At $\kappa = \kappa_c$ the theory
 undergoes a phase transition (spontaneous symmetry breaking), corresponding
 in USF terms to the model's attractor transition.
 
-{{Visualize | obligation-1-action-lower-bound-stability | function-plot:quantum | f="sqrt(where(k^2-x*W>0, k^2-x*W, 0))"; k=2; W=1; x=[0,6]; vline="4"; value_at=4; expect_value=0 }} The effective mass $k_\text{eff}=\sqrt{k^2-\kappa W_\max}$ against the Hopfield coupling $\kappa$, at illustrative $k=2$, $W_\max=1$: it falls to zero exactly at the critical coupling $\kappa_c=k^2/W_\max=4$ (checked), the phase transition the text describes; the model's single-vacuum Gaussian description does not extend past this point, shown here as a flat zero.
+{{Visualize | obligation-1-action-lower-bound-stability | function-plot:quantum | f="sqrt(where(k^2-x*W>0, k^2-x*W, 0))"; k=2; W=1; x=[0,6]; vline="4"; value_at=4; expect_value=0 }} The effective mass $k_\text{eff}=\sqrt{k^2-\kappa W_{\max}}$ against the Hopfield coupling $\kappa$, at illustrative $k=2$, $W_{\max}=1$: it falls to zero exactly at the critical coupling $\kappa_c=k^2/W_{\max}=4$ (checked), the phase transition the text describes; the model's single-vacuum Gaussian description does not extend past this point, shown here as a flat zero.
 
 ### 2.2 Obligation 2: Stability of OS3 under perturbation
 
