@@ -2450,7 +2450,10 @@ Steps:
       the body, the quantum flicker), three tour stops, and two Sherlock
       concepts (limbic-tunnelling, classical-trapping; 25 concepts, 7
       kernel-verified).
-- [ ] All stops in true 3D (author, 10 Oct 01:16: "all rendered in 3D and 3D SBS
+- [ ] (13 Oct night, part: NEURON in true 3D (explorer3d.js createNeuron3D): the 2D stop's own
+      cell lifted into space, saltatory spikes, field rings at 11D, the neighbour behind, labels
+      projected; 3D SBS as the other stops. Left: limbic hinge, body inside the jellyfish, thought)
+      All stops in true 3D (author, 10 Oct 01:16: "all rendered in 3D and 3D SBS
       on my 3D projector, 100-inch screen"). Done: 3D SBS for every stop
       (ISS-027), true 3D for HUMAN, LANDSCAPE and DYAD (two jellyfish figures,
       hearts pulsing with the simulated rhythms, ripple rings across the

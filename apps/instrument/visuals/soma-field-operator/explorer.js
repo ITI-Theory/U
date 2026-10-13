@@ -8,7 +8,7 @@
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
 import { stereoDepth } from './stereo-depth.js';
-import { createDyad3D, createLandscape3D } from './explorer3d.js';
+import { createDyad3D, createLandscape3D, createNeuron3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
@@ -2483,6 +2483,8 @@ function makeNeuron() {
   };
   return {
     focus: [0.7, Y0],
+    // the cell for the 3D view (explorer3d.js createNeuron3D)
+    geometry: { soma, dendrites, axonPts, terminals, ghost: GHOST },
     tick(env) {
       clock += env.dt;
       somaFlash = Math.max(0, somaFlash - env.dt * 3);
@@ -2558,9 +2560,15 @@ function makeNeuron() {
           ctx.restore();
         }
       };
-      if (dim >= 11) drawCell(GHOST[0], GHOST[1], 0.38, ghostAxon, ghostSpikes);
-      drawCell(0, 0, 1, axon, spikes);
-      glow(ctx, u, soma[0], soma[1], 0.14, COLORS.gold, somaFlash * 0.9);
+      const gl = env.gl?.project ? env.gl : null;
+      if (gl) {
+        // 3D (ISS-052): the same cell and spikes, in space
+        gl.render({ spikes: spikes.map(sp => saltatory(clamp(sp.s, 0, 1))), ghost: ghostSpikes.map(sp => saltatory(clamp(sp.s, 0, 1))), flash: somaFlash, dim, time: t, stereo: env.stereo });
+      } else {
+        if (dim >= 11) drawCell(GHOST[0], GHOST[1], 0.38, ghostAxon, ghostSpikes);
+        drawCell(0, 0, 1, axon, spikes);
+        glow(ctx, u, soma[0], soma[1], 0.14, COLORS.gold, somaFlash * 0.9);
+      }
       if (dim >= 8) {
         // membrane voltage over the last 4 s; spikes drawn as lines (they last about 1 ms)
         const x0 = -0.4, x1 = 0.85, yTop = 0.44, yBot = 0.68, span = 4;
@@ -2598,11 +2606,17 @@ function makeNeuron() {
         }
       }
       if (env.labels) {
-        label(ctx, u, 'DENDRITES', -0.7, Y0 - 0.33, '#8fb6e0');
-        label(ctx, u, 'CELL BODY', -0.3, Y0 - 0.12, '#8fb6e0');
-        label(ctx, u, 'AXON + MYELIN', 0.12, Y0 - 0.12, '#cfd8e8');
-        label(ctx, u, 'SYNAPSES', 0.74, Y0 - 0.22, COLORS.gold);
-        if (dim >= 11) label(ctx, u, 'NEIGHBOUR (ephaptic coupling)', 0.35, Y0 + GHOST[1] + 0.1, COLORS.cyan, 'center', 0.026);
+        // in 3D the labels follow the camera: each at its point of the cell, projected
+        const put = (text, x, y, color, size, gx, gy) => {
+          if (!gl) { label(ctx, u, text, x, y, color, 'center', size); return; }
+          const p = gx === undefined ? gl.project(x, y) : gl.project(gx, gy, true);
+          if (p.visible) label(ctx, u, text, (p.x * env.w) / u, (p.y * env.h) / u, color, 'center', size);
+        };
+        put('DENDRITES', -0.7, Y0 - 0.33, '#8fb6e0');
+        put('CELL BODY', -0.3, Y0 - 0.12, '#8fb6e0');
+        put('AXON + MYELIN', 0.12, Y0 - 0.12, '#cfd8e8');
+        put('SYNAPSES', 0.74, Y0 - 0.22, COLORS.gold);
+        if (dim >= 11) put('NEIGHBOUR (ephaptic coupling)', 0.35, Y0 + GHOST[1] + 0.1, COLORS.cyan, 0.026, 0.3, Y0 - 0.08);
       }
     },
   };
@@ -3251,6 +3265,7 @@ export function createExplorer(hooks = {}) {
   const GL_MAKERS = {
     landscape: () => createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [], skyline: cycSkyline ?? [] }),
     dyad: () => createDyad3D(),
+    neuron: () => createNeuron3D(scene('neuron').geometry),
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
     ureter: () => createTunnel3D({ ureter: true }),

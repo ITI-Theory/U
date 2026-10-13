@@ -584,3 +584,152 @@ export function createDyad3D() {
   };
 }
 
+// ONE NEURON in 3D (ISS-052): the 2D stop's own cell (dendrites, axon, myelin, synapses) lifted
+// into space, so the labels and the simulation stay the same. Spikes are glowing beads that jump
+// from node to node (saltatory); at 11D each spike's field is a ring around the axon, and a
+// neighbour cell sits behind (ephaptic coupling, small but measured; its role open).
+// geometry: { soma: [x, y], dendrites: [[a, b, depth]], axonPts: [[x, y]], terminals: [[x, y]], ghost: [dx, dy] }
+export function createNeuron3D(geometry) {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  } catch {
+    return null;
+  }
+  renderer.setClearColor('#070b16');
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog('#070b16', 5, 14);
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 60);
+  camera.focus = 5;
+  const stereoCamera = new THREE.StereoCamera();
+  const size = new THREE.Vector2();
+  scene.add(new THREE.HemisphereLight('#bcd8ff', '#0a0612', 0.9));
+  const key = new THREE.PointLight('#ffffff', 1.2, 20);
+  key.position.set(1, 2, 3);
+  scene.add(key);
+
+  const S = 4;   // 2D units to 3D
+  const [sx, sy] = geometry.soma;
+  const at = (x, y, z = 0) => new THREE.Vector3((x - 0.1) * S, -(y - sy) * S, z);
+  const rand = (() => { let a = 7; return () => { a = (a * 16807) % 2147483647; return a / 2147483647; }; })();
+
+  function cell(opacity) {
+    const group = new THREE.Group();
+    const membrane = new THREE.MeshStandardMaterial({ color: '#5a7fa8', roughness: 0.6, transparent: opacity < 1, opacity });
+    const myelinMat = new THREE.MeshStandardMaterial({ color: '#dfe6f2', roughness: 0.4, transparent: opacity < 1, opacity });
+    const somaMat = new THREE.MeshStandardMaterial({ color: '#2f4f74', emissive: '#ffd166', emissiveIntensity: 0, roughness: 0.5, transparent: opacity < 1, opacity });
+    const soma = new THREE.Mesh(new THREE.SphereGeometry(0.065 * S, 24, 18), somaMat);
+    soma.position.copy(at(sx, sy));
+    group.add(soma);
+    // dendrites: each branch a tapered tube, lifted a little out of the plane
+    const zOf = new Map();
+    for (const [a, b, depth] of geometry.dendrites) {
+      const ka = a.join(','), kb = b.join(',');
+      if (!zOf.has(ka)) zOf.set(ka, depth === 0 ? 0 : (rand() - 0.5) * 0.5);
+      zOf.set(kb, zOf.get(ka) + (rand() - 0.5) * 0.35);
+      const path = new THREE.LineCurve3(at(a[0], a[1], zOf.get(ka)), at(b[0], b[1], zOf.get(kb)));
+      group.add(new THREE.Mesh(new THREE.TubeGeometry(path, 4, (0.009 - depth * 0.0025) * S, 8), membrane));
+    }
+    // the axon along the 2D path, and the myelin sheaths between the nodes of Ranvier
+    const axonCurve = new THREE.CatmullRomCurve3(geometry.axonPts.map(([x, y]) => at(x, y)));
+    group.add(new THREE.Mesh(new THREE.TubeGeometry(axonCurve, 120, 0.007 * S, 10), membrane));
+    const NODES = 8;
+    for (let k = 0; k < NODES; k++) {
+      const t0 = (k + 0.12) / NODES, t1 = (k + 0.88) / NODES;
+      const seg = new THREE.CatmullRomCurve3(Array.from({ length: 8 }, (_, i) => axonCurve.getPointAt(t0 + (t1 - t0) * i / 7)));
+      group.add(new THREE.Mesh(new THREE.TubeGeometry(seg, 16, 0.02 * S, 14), myelinMat));
+    }
+    // synapses: the axon branches to its terminals, each a gold bouton
+    const end = geometry.axonPts[geometry.axonPts.length - 1];
+    for (const [x, y] of geometry.terminals) {
+      const curve = new THREE.QuadraticBezierCurve3(at(end[0], end[1]), at(end[0] + 0.06, end[1]), at(x, y));
+      group.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 10, 0.005 * S, 6), membrane));
+      const bouton = new THREE.Mesh(new THREE.SphereGeometry(0.018 * S, 14, 10), new THREE.MeshStandardMaterial({ color: '#ffd166', emissive: '#ffd166', emissiveIntensity: 0.3, transparent: opacity < 1, opacity }));
+      bouton.position.copy(at(x, y));
+      group.add(bouton);
+    }
+    scene.add(group);
+    return { group, somaMat, axonCurve };
+  }
+  const main = cell(1);
+  const [gx, gy] = geometry.ghost;
+  const neighbour = cell(0.32);
+  // the neighbour above and behind, clear of the voltage trace at the bottom of the screen
+  neighbour.group.position.set(gx * S, gy * S * 1.1, -1.4);
+
+  // spikes: a pool of glowing beads, and field rings at 11D
+  const bead = new THREE.SphereGeometry(0.022 * S, 12, 8);
+  const glowGeo = new THREE.SphereGeometry(0.06 * S, 12, 8);
+  const ringGeo = new THREE.TorusGeometry(1, 0.01, 6, 40);
+  const pool = Array.from({ length: 24 }, () => {
+    const core = new THREE.Mesh(bead, new THREE.MeshBasicMaterial({ color: '#ffffff' }));
+    const halo = new THREE.Mesh(glowGeo, new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.45, depthWrite: false, blending: THREE.AdditiveBlending }));
+    const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.4, depthWrite: false, blending: THREE.AdditiveBlending }));
+    scene.add(core, halo, ring);
+    return { core, halo, ring };
+  });
+
+  const centre = at(0.12, sy);
+  return {
+    canvas,
+    resize(w, h, dpr) {
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+    },
+    // state: { spikes: [0..1 along the axon], ghost: [0..1], flash, dim, time, stereo }
+    render(state) {
+      main.somaMat.emissiveIntensity = 0.9 * (state.flash ?? 0);
+      neighbour.group.visible = state.dim >= 11;
+      let used = 0;
+      const show = (list, curve, offset, alpha) => {
+        for (const s of list) {
+          if (used >= pool.length) return;
+          const b = pool[used++];
+          const p = curve.getPointAt(Math.min(1, Math.max(0, s))).clone().add(offset);
+          b.core.position.copy(p); b.halo.position.copy(p); b.ring.position.copy(p);
+          b.core.visible = b.halo.visible = state.dim >= 8;
+          b.halo.material.opacity = 0.45 * alpha;
+          const tangent = curve.getTangentAt(Math.min(1, Math.max(0, s)));
+          b.ring.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), tangent);
+          const pulse = (state.time * 1.6 + s * 7) % 1;
+          b.ring.scale.setScalar(0.06 * S * (0.6 + 2.2 * pulse));
+          b.ring.material.opacity = 0.45 * (1 - pulse) * alpha;
+          b.ring.visible = state.dim >= 11;
+        }
+      };
+      show(state.spikes ?? [], main.axonCurve, new THREE.Vector3(), 1);
+      if (state.dim >= 11) show(state.ghost ?? [], neighbour.axonCurve, neighbour.group.position, 0.4);
+      for (let i = used; i < pool.length; i++) pool[i].core.visible = pool[i].halo.visible = pool[i].ring.visible = false;
+      const swing = Math.sin(state.time * 0.1) * 0.6;
+      const radius = 7;
+      camera.position.set(centre.x + Math.sin(swing) * radius, centre.y + 1.1, centre.z + Math.cos(swing) * radius);
+      camera.lookAt(centre.x, centre.y + 0.25, centre.z);
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        updateStereo(stereoCamera, camera, 0.1);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderer.render(scene, eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    },
+    // a 2D stop point (its own coordinates) on the screen, for labels
+    project(x, y, onNeighbour = false) {
+      const v = (onNeighbour ? at(x, y).add(neighbour.group.position) : at(x, y)).project(camera);
+      return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.1 };
+    },
+  };
+}
