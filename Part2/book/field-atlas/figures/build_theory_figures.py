@@ -661,6 +661,37 @@ def fig_T6_4():
     save(fig, "T6_4_synthesis_map")
 
 
+
+def fig_V1():
+    """The Voyage Inside, thoughts as avalanches: the explorer's own rule (explorer.js
+    avalancheSize): every active unit wakes two neighbours with probability sigma/2 each.
+    At sigma = 1 (critical) the sizes follow P(s) ~ s^-3/2 (Beggs and Plenz 2003)."""
+    rng = np.random.default_rng(1)
+    def size(sigma, cap=5000):
+        active, total = 1, 1
+        while active and total < cap:
+            active = int(rng.binomial(2 * active, sigma / 2))
+            total += active
+        return min(total, cap)
+    fig, ax = plt.subplots(figsize=(4.6, 3.2))
+    bins = np.unique(np.round(np.logspace(0, np.log10(2000), 24)).astype(int))
+    for sigma, colour, name in [(1.0, WARM, "critical, $\\sigma=1$"), (0.8, BLUE, "subcritical, $\\sigma=0.8$")]:
+        sizes = np.array([size(sigma) for _ in range(60000)])
+        hist, edges = np.histogram(sizes, bins=bins)
+        widths = np.diff(edges)
+        centres = np.sqrt(edges[:-1] * edges[1:])
+        p = hist / widths / len(sizes)
+        keep = hist > 0
+        ax.loglog(centres[keep], p[keep], "o", ms=3.2, color=colour, label=name)
+    s_ref = np.logspace(0.3, 3.1, 50)
+    ax.loglog(s_ref, 0.35 * s_ref ** -1.5, "-", color=INK, lw=0.9, label="$s^{-3/2}$")
+    ax.set_xlabel("avalanche size $s$ (units woken)")
+    ax.set_ylabel("probability density $P(s)$")
+    ax.set_title("thoughts as avalanches: many small, a few large")
+    ax.legend(frameon=False)
+    clean(ax); save(fig, "V1_avalanche_power_law")
+
+
 FIGURES = [
     fig_T1_1, fig_T1_2, fig_T1_3, fig_T1_4, fig_T1_5, fig_T1_6,
     fig_T2_1, fig_T2_2, fig_T2_3, fig_T2_4, fig_T2_5, fig_T2_6, fig_T2_7, fig_T2_8,
@@ -668,6 +699,7 @@ FIGURES = [
     fig_T4_1, fig_T4_2, fig_T4_3, fig_T4_4, fig_T4_5, fig_T4_6, fig_T4_7, fig_T4_8,
     fig_T5_1, fig_T5_2, fig_T5_3, fig_T5_4, fig_T5_5,
     fig_T6_1, fig_T6_2, fig_T6_3, fig_T6_4,
+    fig_V1,
 ]
 
 

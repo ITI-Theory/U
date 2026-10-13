@@ -406,6 +406,72 @@ local function atlas_plate_blocks(level_id, label, ordinal, captions, missing)
   return out
 end
 
+-- The Voyage Inside (ISS-087): a part of plates from the mind-body explorer. Each stop's file
+-- holds its prose, a ::: {.plate id=...} caption per captured plate, and optionally a
+-- ::: {.figure src=...} theory figure; atlas.yaml lists the stops and the plates' app views.
+-- Print: the prose in columns first, then one plate per page (\atlasplatepage).
+local function caption_inlines(div)
+  local inl = pandoc.Inlines({})
+  for i, b in ipairs(div.content) do
+    if b.t == "Para" or b.t == "Plain" then
+      if i > 1 then inl:insert(pandoc.Space()) end
+      inl:extend(b.content)
+    end
+  end
+  return inl
+end
+
+local function voyage_part(voyage, missing)
+  local out = {}
+  local intro = read_markdown_doc(ATLAS .. "/" .. voyage.file)
+  local intro_meta = meta_to_lua(intro.meta) or {}
+  out[#out + 1] = header(1, intro_meta.title or "The Voyage Inside", "part-voyage-inside")
+  append(out, maybe_columns(intro.blocks))
+  for number, stop in ipairs(voyage.stops or {}) do
+    local doc = read_markdown_doc(ATLAS .. "/" .. stop.file)
+    local meta = meta_to_lua(doc.meta) or {}
+    local slug = stop.file:match("([^/]+)%.md$") or ("stop-" .. number)
+    local captions, figures, body = {}, {}, {}
+    for _, b in ipairs(doc.blocks) do
+      if b.t == "Div" and b.classes:includes("plate") then
+        captions[b.identifier] = caption_inlines(b)
+      elseif b.t == "Div" and b.classes:includes("figure") then
+        figures[#figures + 1] = {src = b.attributes.src, caption = caption_inlines(b)}
+      else
+        body[#body + 1] = b
+      end
+    end
+    out[#out + 1] = page_break()
+    out[#out + 1] = header(2, meta.title or slug, "voyage-" .. slug:gsub("^%d+%-", ""))
+    append(out, split_columns(body))
+    for k, plate in ipairs(stop.plates or {}) do
+      local src = "figures/app/voyage/" .. plate.id .. ".png"
+      local caption = pandoc.Inlines({pandoc.Str("Figure V" .. number .. "." .. k .. " —"), pandoc.Space()})
+      if captions[plate.id] then caption:extend(captions[plate.id]) else missing[#missing + 1] = "caption for voyage plate " .. plate.id end
+      if not exists(ATLAS .. "/" .. src) then
+        missing[#missing + 1] = "voyage plate " .. plate.id .. " (npm run capture -- --only voyage)"
+      elseif FORMAT:match("latex") then
+        local inl = pandoc.Inlines({pandoc.RawInline("latex", "\\atlasplatepage{" .. src .. "}{")})
+        inl:extend(caption)
+        inl:insert(pandoc.RawInline("latex", "}"))
+        out[#out + 1] = pandoc.Plain(inl)
+      else
+        out[#out + 1] = pandoc.Para({pandoc.Image(caption, src, "", attr("", {"plate"}, {width = "100%"}))})
+      end
+    end
+    for k, fig in ipairs(figures) do
+      local caption = pandoc.Inlines({pandoc.Str("Figure V" .. number .. "." .. (#(stop.plates or {}) + k) .. " —"), pandoc.Space()})
+      caption:extend(fig.caption)
+      if exists(ATLAS .. "/figures/" .. fig.src) then
+        out[#out + 1] = pandoc.Para({pandoc.Image(caption, "figures/" .. fig.src, "", attr("", {"theory-figure"}, {width = "50%"}))})
+      else
+        missing[#missing + 1] = "voyage figure " .. fig.src
+      end
+    end
+  end
+  return out
+end
+
 local function front_or_back(path)
   local doc = read_markdown_doc(path)
   if #doc.blocks <= 1 then return doc.blocks end
@@ -690,6 +756,7 @@ local function build_atlas(meta)
     out[#out + 1] = header(1, "Sector " .. tostring(front.sector or number) .. ": " .. tostring(front.title or ""))
     append(out, maybe_columns(doc.blocks))
     for _, level_id in ipairs(sector.levels or {}) do append(out, level_spread(level_id, ordinal[level_id], labels, edges, examples, missing, paths, captions)) end
+    if atlas.voyage and tonumber(tostring(atlas.voyage.after_sector)) == number then append(out, voyage_part(atlas.voyage, missing)) end
   end
   if atlas.questions ~= false then append(out, questions_part(load_questions(), labels)) end
   append(out, models_part(models, labels))

@@ -4,7 +4,9 @@
 // contact sheet (index.html) for review.
 //
 //   npm run capture                       # full matrix
-//   npm run capture -- --only plates      # plates | console | print | questions | atlas-plates
+//   npm run capture -- --only plates      # plates | console | print | questions | atlas-plates | voyage
+//   npm run capture -- --only voyage      # The Voyage Inside: atlas.yaml's voyage plates
+//                                         # (figures/app/voyage/<id>.png; --plates human,cave-inside)
 //   npm run capture -- --clean            # add ui=clean&labels=off to every URL
 //   npm run capture -- --only atlas-plates --portrait --width 1200 --height 2160
 //                                         # upright captures for the triptych panels
@@ -12,6 +14,7 @@
 //   npm run capture -- --levels quantum-foam,human-vertebrate --settle 3000
 //   npm run capture -- --out <dir> --width 1920 --height 1080 --scale 2
 
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -28,6 +31,7 @@ function parseArgs(argv) {
     only: 'all',
     levels: null,
     paths: null,
+    plates: null,
     settle: 2000,
     width: 1920,
     height: 1080,
@@ -50,10 +54,10 @@ function parseArgs(argv) {
     if (!(key in args)) throw new Error(`Unknown option --${key}`);
     i += 1;
     if (['settle', 'width', 'height', 'scale'].includes(key)) args[key] = Number(value);
-    else if (key === 'levels' || key === 'paths') args[key] = new Set(value.split(','));
+    else if (key === 'levels' || key === 'paths' || key === 'plates') args[key] = new Set(value.split(','));
     else args[key] = key === 'out' ? path.resolve(value) : value;
   }
-  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, or atlas-plates');
+  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, or voyage');
   return args;
 }
 
@@ -295,7 +299,41 @@ async function main() {
     }
   }
 
-  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates') {
+  if (args.only === 'voyage') {
+    // The Voyage Inside (ISS-087): each plate from a fresh page (no state carried over), the
+    // view's address plus atlas=1 (no controls), the acts pressed in order, then a screenshot.
+    const atlasYaml = path.join(repoRoot, 'Part2/book/field-atlas/atlas.yaml');
+    const atlas = JSON.parse(execFileSync('python', ['-c', 'import json,sys,yaml; print(json.dumps(yaml.safe_load(open(sys.argv[1], encoding="utf-8"))))', atlasYaml], { encoding: 'utf8' }));
+    await mkdir(path.join(args.out, 'voyage'), { recursive: true });
+    manifest.voyage = [];
+    let n = 0;
+    for (const stop of atlas.voyage?.stops ?? []) {
+      for (const plate of stop.plates ?? []) {
+        if (args.plates && !args.plates.has(plate.id)) continue;
+        n += 1;
+        await page.goto(`${base}?plate=${n}#${plate.view}&atlas=1`, { waitUntil: 'domcontentloaded', timeout: 120000 });
+        await page.waitForSelector('canvas');
+        await page.waitForTimeout(Math.max(args.settle, 4000));
+        for (const act of plate.acts ?? []) {
+          const found = await page.evaluate(name => {
+            const button = document.querySelector(`[data-act="${name}"]`);
+            if (button) button.click();
+            return Boolean(button);
+          }, act);
+          if (!found) throw new Error(`voyage plate ${plate.id}: no button ${act}`);
+          await page.waitForTimeout(3000);
+        }
+        await page.waitForTimeout(plate.settle ?? 1500);
+        const buffer = await page.screenshot({ type: 'png', timeout: 180000 });
+        const file = `voyage/${plate.id}.png`;
+        await writeFile(path.join(args.out, file), buffer);
+        manifest.voyage.push({ plate: plate.id, view: plate.view, acts: plate.acts ?? [], file, sha256: sha256(buffer) });
+        process.stdout.write(`voyage  ${file}\n`);
+      }
+    }
+  }
+
+  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage') {
     for (const route of data.paths) {
       if (args.paths && !args.paths.has(route.id)) continue;
       await mkdir(path.join(args.out, 'console', route.id), { recursive: true });
@@ -317,6 +355,13 @@ async function main() {
   await browser.close();
   await server.close();
 
+  if (args.only === 'voyage') {
+    // its own manifest: the level captures' manifest and contact sheet stay as they were
+    await writeFile(path.join(args.out, 'voyage/manifest.json'), `${JSON.stringify({ generated: manifest.generated, viewport: manifest.viewport, voyage: manifest.voyage, errors: pageErrors }, null, 2)}\n`);
+    console.log(`\n${manifest.voyage.length} voyage plates -> ${path.join(args.out, 'voyage')}`);
+    if (pageErrors.length) process.exitCode = 1;
+    process.exit();
+  }
   await writeFile(path.join(args.out, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   await writeFile(path.join(args.out, 'index.html'), contactSheet(manifest));
 
