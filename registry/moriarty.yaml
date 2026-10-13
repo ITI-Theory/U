@@ -87,5 +87,6 @@ faults:
   - id: matrix-equals-tissue
     what: "biological leakage: a coupling matrix said to be the amygdala (H-AL's attack)"
     file: paper/soma/missing-limbic-layer/missing-limbic-layer.md
-    append: "\n\nThe coupling matrix $W$ is the amygdala.\n"
-    expect: dot
+    find: "# Introduction\n"
+    replace: "# Introduction\n\nThe coupling matrix $W$ is the amygdala.\n\n"
+    expect: caught  # sherlock/leakage.py (ISS-094), was a DOT

@@ -25,6 +25,7 @@ BATTERY = {
     "clinical": ([[PY, "sherlock/clinical.py"]], r"(\d+) candidates in \d+ documents; (\d+) missing"),
     "qp": ([[PY, "sherlock/readings.py", "qp"]], r"(\d+) read pairs with opposite signs, (\d+) sentences against their own matrix, (\d+) pairs whose matrices differ"),
     "types": ([[PY, "sherlock/level_types.py"]], r"(\d+) concept findings, (\d+) problems"),
+    "leakage": ([[PY, "sherlock/leakage.py"]], r"(\d+) candidates"),
     "printed": ([[PY, "sherlock/coverage.py", "--printed"]], r"printed: (.*)"),
     "licences": ([[PY, "paper/scripts/check_licences.py"]], r"(PASS|FAIL)"),
 }

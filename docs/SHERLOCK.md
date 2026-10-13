@@ -66,6 +66,7 @@ one Lean module per microtheory in `bld/sherlock/lean`, OpenCyc's Horn rules
 | `lake build EmotionCyc` (root) | the programme's emotions as OpenCyc types (`Cyc.Types`): a wrong name does not compile |
 | `make -C sherlock affidavits` | every affidavit module, one at a time, then `check` |
 | `make -C sherlock level-types` | one set of types: each level's OpenCyc class (registry/level-types.yaml), whether it can bear a feeling (feelsEmotion takes an IndividualAgent) or is a person; a concept typed with a microtheory, or a feeling on a level that cannot feel, is an error; the Soma Machine's human controls read the same verdicts |
+| `make -C sherlock leakage` | biological leakage (ISS-094): a model object (a coupling matrix, an attractor, a propagator) said to *be* a body part, OpenCyc's own (1,349 animal parts), with no map stated and no interpretive label |
 | `make -C sherlock clinical` | sentences claiming a clinical effect with no hedge in the sentence and no evidence label in the paragraph; each document in its context (registry/microtheories.yaml: ClinicalMt and ArtisticDesignMt documents must carry their own disclaimer, and in ArtisticDesignMt a hedge is not enough) |
 | `make -C sherlock towers`, `skyline` | the programme's Lean and OpenCyc exported for the Soma Machine's city of code |
 
