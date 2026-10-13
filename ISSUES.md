@@ -2302,7 +2302,8 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
 - [x] (13 Oct: unchanged throughout; the build still fails on a missing context or caption)
       Rules unchanged: context first, caption required, expressions are maths
       only, `expect_*` checks (docs/VISUALIZE.md).
-- [ ] (from ISS-081, author, 13 Oct: not the author's) The course's chapter-opening banners
+- [x] (13 Oct, checked: done in 7465632, every listed chapter opens with an `opener=true` figure)
+      (from ISS-081, author, 13 Oct: not the author's) The course's chapter-opening banners
       for M1-M6, 3, 4, 13-15 (ISS-041).
 
 ---
