@@ -54,6 +54,18 @@ faults:
     file: books/T-Theory/music-arts/book-music-arts.md
     append: "\n\nIn patients, the score may reduce anxiety.\n"
     expect: caught
+  - id: emotion-of-a-galaxy
+    what: an emotion concept moved to a level whose substrate cannot feel (ISS-063, T2)
+    file: registry/concepts/emotion-fear.yaml
+    find: "levels:\n- human-vertebrate"
+    replace: "levels:\n- galactic-disc"
+    expect: caught
+  - id: microtheory-as-class
+    what: a concept typed with an OpenCyc microtheory (the Expectation trap put back, T1)
+    file: registry/concepts/brecvema-musical-expectancy.yaml
+    find: "  class: null\n"
+    replace: "  class: '#$Expectation'\n"
+    expect: caught
   - id: stale-sorry-count
     what: a stale count of sorries in prose, no Lean name cited (lesson 1 of ISS-093)
     file: books/T-Theory/law/book-law.md

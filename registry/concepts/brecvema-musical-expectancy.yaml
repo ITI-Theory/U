@@ -3,7 +3,7 @@ concept: Musical expectancy
 kind: mechanism
 ontology:
   system: OpenCyc
-  class: '#$Expectation'
+  class: null
   lean_cycref: '#$ExpectancyViolation'
 lean:
   module: EmotionOntology
@@ -13,4 +13,6 @@ papers:
 levels:
 - human-vertebrate
 notes: 'BRECVEMA mechanism (Juslin); the CycRef interpreter maps it to the OpenCyc constant. OpenCyc has
-  no constant #$ExpectancyViolation; nearest real class used.'
+  no constant #$ExpectancyViolation, and #$Expectation, used here before, is a microtheory in OpenCyc,
+  not a mental expectation (a word-sense trap, found by sherlock/level_types.py, ISS-063): no class
+  until a programme constant is defined.'

@@ -8,6 +8,11 @@ This registry is the data source for the Soma Field Operator generator. It recon
 - `paths/<path-id>/path.yaml`: a named graph over level ids.
 - `paths/<path-id>/edges/<from>--<to>.md`: front matter for preserved structure, additions/retypings, kernel, render operation, claim badge, and prose.
 - `models/<model-id>.yaml`: model-specific coordinates over level ids.
+- `level-types.yaml`: each level's substrate as an OpenCyc class and Sherlock's verdicts on it
+  (can it bear a feeling, is it a person), written by `sherlock/level_types.py --write`; the
+  app's human controls and type line read it (ISS-063).
+- `microtheories.yaml`: the context each document speaks in (ClinicalMt, ArtisticDesignMt,
+  TheoryMt) and the disclaimer it must carry; read by `sherlock/clinical.py` (ISS-063).
 - `eras.yaml`: ordered Big Bang-to-present time-axis records. Each era stores a machine time in seconds after the Big Bang, a display time, band, target registry level, summary, optional equation, optional app `theme`, app badge, and sources.
 - `lenses.yaml`: baseline/T-Theory/display/affect lens catalogue.
 - `catalogues/<id>.yaml`: external reference catalogues used as 4D baseline

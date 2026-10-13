@@ -3234,7 +3234,7 @@ different scales (ZSF's "same as always").
       over, cure imposed, victim blamed, self-harm as reply, masking as survival), each fact
       citing its line in art-fis-2021-08.md. For the author: the extraction is a reading of
       private notes, so he confirms the facts before the test is run.)
-- [ ] (13 Oct, part: the design note (docs/SHERLOCK.md, last section) and the spike
+- [x] (13 Oct, part: the design note (docs/SHERLOCK.md, last section) and the spike
       (sherlock/Cyc/Types/Spike.lean): Percept, Pole and Emotion as types; "a percept is a pole",
       read literally, is a contradiction in NextKB (Perceiving is a TemporalThing,
       PropagatorPole-TTheory a MathematicalOrComputationalThing, disjoint), so the coherent reading
@@ -3257,6 +3257,17 @@ different scales (ZSF's "same as always").
       a category error becomes a type error in the programme's Lean, the concept
       registry and the app's type guard. Design note and spike on Emotion, Percept,
       Pole first.
+      Done (13 Oct night; author: "one set of types, from OpenCyc"): registry/level-types.yaml gives
+      every level an OpenCyc class (Person, Bird, Brain, Synapse, Galaxy, Group ...), and
+      sherlock/level_types.py writes OpenCyc's verdicts beside it: can it bear a feeling
+      (feelsEmotion takes an IndividualAgent; Person and Bird proved, groups, regions, brains and
+      inanimate things refuted, a society or the cosmic web unproved) and is it a person. Concepts
+      are checked against them: T1 a class that is a microtheory (found one: musical expectancy was
+      typed #$Expectation, which in OpenCyc is a microtheory; now no class, with a note), T2 a
+      feeling on a level that cannot feel. The Soma Machine's human controls now come from
+      person: proved, and its type line states OpenCyc's verdict ("a galaxy cannot feel; feeling
+      here is a reading"). `make -C sherlock level-types`, release check 19; Moriarty: two new
+      faults (an emotion moved to a galaxy, the microtheory put back), both caught.
 - [x] (13 Oct, checked: done by 7981cab and ISS-089. EmotionOntology's CycRef names are
       OpenCyc's real constants, the rest marked `T:` in TTheoryVocabularyMt
       (registry/vocabulary.yaml); EmotionCyc.lean's `#check_failure anchor "Fear-Emotion"`

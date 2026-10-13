@@ -286,6 +286,14 @@ fi
 echo "$CONCEPT_CHECK" | grep -E '^(FAIL|[0-9]+ concepts)' | head -8 | sed 's/^/    /'
 GAPS=$(echo "$CONCEPT_CHECK" | grep -c '^GAP' || true)
 [[ "$GAPS" -gt 0 ]] && echo "    $GAPS gap(s): make concepts"
+# One set of types (ISS-063): the levels as OpenCyc classes, the concepts typed against them
+TYPES_CHECK=$(py sherlock/level_types.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Levels typed in OpenCyc; no concept is a microtheory or a feeling on a level that cannot feel"
+else
+  fail "Level types: a concept typed against its level's OpenCyc class fails (make -C sherlock level-types)"
+fi
+echo "$TYPES_CHECK" | tail -1 | sed 's/^/    /'
 
 hdr "20. Mind explorer: the simulations tell the tour's story (ISS-052)"
 if command -v node >/dev/null 2>&1; then

@@ -1,0 +1,211 @@
+# Each level's substrate as an OpenCyc class: one set of types for Sherlock and the Soma
+# Machine (ISS-063, author 13 Oct: "one set of types, from OpenCyc"). `cyc` and `note` are
+# written by hand; the verdicts below them are written by `python sherlock/level_types.py --write`
+# from NextKB and checked by `make -C sherlock level-types`. The app reads the verdicts
+# (scripts/generate.py), so it needs no KB.
+#   bears_feelings: can the substrate be the one who feels? OpenCyc's feelsEmotion takes an
+#     IndividualAgent: proved (a genls path), refuted (a disjointWith above both) or unproved.
+#   person: is it a Person? The human controls (BRECVEMA, appraisal, body map, thought sparks)
+#     need proved.
+levels:
+  animal-swarm:
+    cyc: Group
+    note: a swarm is a group of animals; OpenCyc has no flock or swarm collection
+    bears_feelings: refuted
+    bears_feelings_why: Group genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Group genls Group, disjointWith IndividualAgent, which Person genls
+  atomic:
+    cyc: Atom
+    bears_feelings: refuted
+    bears_feelings_why: Atom genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Atom genls ExanimateObject, disjointWith Agent-Generic, which Person genls
+  bird:
+    cyc: Bird
+    bears_feelings: proved
+    bears_feelings_why: Bird genls Biped genls Animal genls PerceptualAgent-Embodied genls EmbodiedAgent genls IndividualAgent
+    person: refuted
+    person_why: Bird genls NonPersonAnimal, disjointWith Person, which Person genls
+  cellular-synaptic:
+    cyc: Synapse
+    bears_feelings: refuted
+    bears_feelings_why: Synapse genls OrganismPart, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Synapse genls MicroscopicScaleObject, disjointWith HumanScaleObject, which Person genls
+  civilisational-solar:
+    cyc: Society
+    note: the social reading; the orbital reading is orbital-system
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from Society to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from Society to Person in NextKB
+  colony-roost:
+    cyc: Group
+    note: a colony or roost is a group of birds
+    bears_feelings: refuted
+    bears_feelings_why: Group genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Group genls Group, disjointWith IndividualAgent, which Person genls
+  compact-object:
+    cyc: NeutronStar
+    note: the nearest compact object OpenCyc has
+    bears_feelings: refuted
+    bears_feelings_why: NeutronStar genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: NeutronStar genls AstronomicalObject, disjointWith HumanScaleObject, which Person genls
+  cosmic-filaments:
+    cyc: PartiallyTangible
+    note: OpenCyc has no cosmic filament
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from PartiallyTangible to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from PartiallyTangible to Person in NextKB
+  cosmic-web:
+    cyc: PartiallyTangible
+    note: OpenCyc has no cosmic web
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from PartiallyTangible to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from PartiallyTangible to Person in NextKB
+  dyad:
+    cyc: Group
+    note: two people are a group of two; OpenCyc has no dyad
+    bears_feelings: refuted
+    bears_feelings_why: Group genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Group genls Group, disjointWith IndividualAgent, which Person genls
+  flock:
+    cyc: Group
+    note: a flock is a group of birds
+    bears_feelings: refuted
+    bears_feelings_why: Group genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Group genls Group, disjointWith IndividualAgent, which Person genls
+  galactic-disc:
+    cyc: Galaxy
+    bears_feelings: refuted
+    bears_feelings_why: Galaxy genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Galaxy genls AstronomicalObject, disjointWith HumanScaleObject, which Person genls
+  galactic-halo:
+    cyc: PartiallyTangible
+    note: OpenCyc has no galactic halo
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from PartiallyTangible to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from PartiallyTangible to Person in NextKB
+  galaxy-cluster:
+    cyc: Group
+    note: a cluster is a group of galaxies
+    bears_feelings: refuted
+    bears_feelings_why: Group genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Group genls Group, disjointWith IndividualAgent, which Person genls
+  geological:
+    cyc: Fault-Topographical
+    bears_feelings: refuted
+    bears_feelings_why: Fault-Topographical genls GeographicalRegion, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Fault-Topographical genls GeographicalRegion, disjointWith IndividualAgent, which Person genls
+  human-group:
+    cyc: SocialGroup
+    bears_feelings: refuted
+    bears_feelings_why: SocialGroup genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: SocialGroup genls Group, disjointWith IndividualAgent, which Person genls
+  human-vertebrate:
+    cyc: Person
+    bears_feelings: proved
+    bears_feelings_why: Person genls Sentient genls PerceptualAgent genls IndividualAgent
+    person: proved
+    person_why: Person
+  local-circuit:
+    cyc: NeuralNetwork
+    bears_feelings: refuted
+    bears_feelings_why: NeuralNetwork genls DevisedPracticeOrWork, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: NeuralNetwork genls DevisedPracticeOrWork, disjointWith Agent-Generic, which Person genls
+  molecular:
+    cyc: Molecule
+    bears_feelings: refuted
+    bears_feelings_why: Molecule genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Molecule genls ExanimateObject, disjointWith Agent-Generic, which Person genls
+  nuclear:
+    cyc: AtomicNucleus
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from AtomicNucleus to IndividualAgent in NextKB
+    person: refuted
+    person_why: AtomicNucleus genls MicroscopicScaleObject, disjointWith HumanScaleObject, which Person genls
+  observable-universe:
+    cyc: PartiallyTangible
+    note: OpenCyc has no universe as an object
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from PartiallyTangible to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from PartiallyTangible to Person in NextKB
+  orbital-system:
+    cyc: PlanetarySystem
+    bears_feelings: refuted
+    bears_feelings_why: PlanetarySystem genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: PlanetarySystem genls AstronomicalObject, disjointWith HumanScaleObject, which Person genls
+  planetary:
+    cyc: Planet
+    bears_feelings: refuted
+    bears_feelings_why: Planet genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Planet genls AstronomicalObject, disjointWith HumanScaleObject, which Person genls
+  quantum-foam:
+    cyc: PartiallyTangible
+    note: OpenCyc has no quantum foam
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from PartiallyTangible to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from PartiallyTangible to Person in NextKB
+  regional-institutional:
+    cyc: GeographicalRegion
+    bears_feelings: refuted
+    bears_feelings_why: GeographicalRegion genls GeographicalRegion, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: GeographicalRegion genls GeographicalRegion, disjointWith IndividualAgent, which Person genls
+  society-city:
+    cyc: City
+    bears_feelings: refuted
+    bears_feelings_why: City genls GeographicalRegion, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: City genls NonNaturalThing, disjointWith BiologicalLivingObject, which Person genls
+  species-stellar:
+    cyc: Population-Ecological
+    note: the population reading
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from Population-Ecological to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from Population-Ecological to Person in NextKB
+  stellar-cluster:
+    cyc: Group
+    note: a cluster is a group of stars
+    bears_feelings: refuted
+    bears_feelings_why: Group genls Group, disjointWith IndividualAgent, which IndividualAgent genls
+    person: refuted
+    person_why: Group genls Group, disjointWith IndividualAgent, which Person genls
+  stellar:
+    cyc: Star
+    bears_feelings: refuted
+    bears_feelings_why: Star genls ExanimateObject, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Star genls AstronomicalObject, disjointWith HumanScaleObject, which Person genls
+  string-boundary:
+    cyc: PartiallyTangible
+    note: OpenCyc has no string
+    bears_feelings: unproved
+    bears_feelings_why: no genls path from PartiallyTangible to IndividualAgent in NextKB
+    person: unproved
+    person_why: no genls path from PartiallyTangible to Person in NextKB
+  whole-brain-cemi:
+    cyc: Brain
+    bears_feelings: refuted
+    bears_feelings_why: Brain genls OrganismPart, disjointWith Agent-Generic, which IndividualAgent genls
+    person: refuted
+    person_why: Brain genls OrganismPart, disjointWith Agent-Generic, which Person genls

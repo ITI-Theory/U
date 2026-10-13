@@ -38,7 +38,8 @@ const universalCoordinateByLevel = new Map([...legacySigmaToLevelId.entries()].m
 const levelOrder = [...legacySigmaToLevelId.values()];
 const modelRouteById = Object.fromEntries(registryModels.map(model => [model.id, model.paths?.[0] ?? 'full-atlas']));
 const claimOrder = ['FORMAL', 'SOURCED', 'INTERPRETIVE'];
-const organismLevelIds = new Set(['human-vertebrate']);
+// The human controls need a Person (registry/level-types.yaml, Sherlock's OpenCyc verdicts: ISS-063).
+const organismLevelIds = new Set(registryLevels.filter(level => level.cyc_type?.person === 'proved').map(level => level.id));
 const thoughtSparkLevelIds = new Set(['human-vertebrate']);
 const dimensionDemoLevelIds = new Set(['human-vertebrate', 'dyad', 'cellular-synaptic', 'whole-brain-cemi']);
 const rendererInstances = new Map();
@@ -2413,9 +2414,15 @@ function updateScaleReadout() {
   lengthReadout.textContent = plate.length_scale;
   rankReadout.textContent = humanScale ? 'human-scale eligible' : 'typed substrate reading';
   timeReadout.textContent = responseTimeReadout(plate);
+  // OpenCyc's verdict on the substrate (the same types Sherlock checks the papers with)
+  const cyc = plate.cyc_type;
+  const feels = !cyc ? '' : cyc.bears_feelings === 'proved' ? ` / OPENCYC: A ${cyc.cyc.toUpperCase()} CAN FEEL`
+    : cyc.bears_feelings === 'refuted' ? ` / OPENCYC: A ${cyc.cyc.toUpperCase()} CANNOT FEEL; FEELING HERE IS A READING`
+    : ` / OPENCYC: ${cyc.cyc.toUpperCase()}, FEELING UNPROVED`;
   typeStatus.textContent = state.tTheory
-    ? `${badge} / ${humanScale ? 'HUMAN-SCALE VOCABULARY AVAILABLE' : 'RETYPE VARIABLES FOR SELECTED SUBSTRATE'}`
+    ? `${badge} / ${humanScale ? 'HUMAN-SCALE VOCABULARY AVAILABLE' : 'RETYPE VARIABLES FOR SELECTED SUBSTRATE'}${feels}`
     : `${badge} / PHYSICS BASELINE ACTIVE`;
+  typeStatus.title = cyc?.bears_feelings_why ?? '';
   typeStatus.classList.toggle('error', state.tTheory && !isHuman && state.brecvema);
   pathReadout.textContent = route.id === 'full-atlas'
     ? 'DEFAULT PATH / QUANTUM FOAM -> OBSERVABLE UNIVERSE'

@@ -223,10 +223,18 @@ def load_registry() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
     errors: list[str] = []
     papers, related_collections = load_paper_registry()
 
+    # One set of types (ISS-063): each level's OpenCyc class and Sherlock's verdicts on it
+    # (registry/level-types.yaml, written by sherlock/level_types.py); the app's guard reads them.
+    level_types = (load_yaml(REGISTRY_ROOT / "level-types.yaml") or {}).get("levels", {})
     levels = []
     for path in sorted((REGISTRY_ROOT / "levels").glob("*.yaml")):
         level = load_yaml(path)
         level_id = level.get("id")
+        typed = level_types.get(level_id)
+        if not typed or "person" not in typed:
+            errors.append(f"{path.relative_to(REPO_ROOT)}: no type in registry/level-types.yaml (run python sherlock/level_types.py --write)")
+        else:
+            level["cyc_type"] = {key: typed.get(key) for key in ("cyc", "bears_feelings", "bears_feelings_why", "person")}
         if not isinstance(level_id, str):
             errors.append(f"{path}: missing string id")
         elif level_id != path.stem:
