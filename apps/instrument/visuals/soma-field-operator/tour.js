@@ -179,7 +179,9 @@ export function createTourPlayer({ voice, narration }) {
       <button type="button" data-act="auto" aria-label="Play or pause"></button>
       <button type="button" data-act="next" aria-label="Next stop">NEXT &#9654;</button>
       <button type="button" data-act="end" aria-label="End tour">END</button>
-    </nav>`;
+      <button type="button" data-act="sound" aria-label="Narration on or off"></button>
+    </nav>
+    <button type="button" class="tour-card__start" data-act="start" hidden>&#9654; START THE TOUR (with sound)</button>`;
   document.body.append(card);
   const stage = createPresentationStage();
   const titleEl = card.querySelector('.tour-card__title');
@@ -188,6 +190,12 @@ export function createTourPlayer({ voice, narration }) {
   const sayEl = card.querySelector('.tour-card__say');
   const noteEl = card.querySelector('.tour-card__note');
   const autoButton = card.querySelector('[data-act="auto"]');
+  const soundButton = card.querySelector('[data-act="sound"]');
+  const startButton = card.querySelector('[data-act="start"]');
+  // Tours are narrated unless the visitor turns the sound off (kept in localStorage).
+  let sound = (() => { try { return localStorage.getItem('tour-sound') !== 'off'; } catch { return true; } })();
+  function syncSound() { soundButton.textContent = sound ? '🔊 SOUND' : '🔇 MUTED'; }
+  syncSound();
 
   let tour = null;
   let index = 0;
@@ -230,7 +238,7 @@ export function createTourPlayer({ voice, narration }) {
     });
     const settings = narration();
     // a step may name its own voice (voice: munch); otherwise the narrator's
-    if (settings.speak) await voice.speak(step.say, step.voice ?? settings.persona, step.voice ? '' : settings.bridge);
+    if (sound || settings.speak) await voice.speak(step.say, step.voice ?? settings.persona, step.voice ? '' : settings.bridge);
     if (mine !== token || !auto) return;
     if (index >= tour.steps.length - 1) {
       auto = false;
@@ -238,7 +246,7 @@ export function createTourPlayer({ voice, narration }) {
       return;
     }
     // pause: extra seconds to hold the view after the line (presentations).
-    const wait = (settings.speak ? 1200 : step.dwell * 1000) + (step.pause ?? 0) * 1000;
+    const wait = (sound || settings.speak ? 1200 : step.dwell * 1000) + (step.pause ?? 0) * 1000;
     timer = setTimeout(() => { if (mine === token && auto) go(index + 1); }, wait);
   }
 
@@ -258,6 +266,20 @@ export function createTourPlayer({ voice, narration }) {
     if (act === 'prev') go(index - 1);
     if (act === 'next') go(index + 1);
     if (act === 'end') end();
+    if (act === 'sound') {
+      sound = !sound;
+      try { localStorage.setItem('tour-sound', sound ? 'on' : 'off'); } catch { /* private mode */ }
+      syncSound();
+      if (!sound) voice.stop();
+    }
+    if (act === 'start') {
+      // The click is the user gesture Chrome needs before it lets the page speak.
+      startButton.hidden = true;
+      voice.unlock?.();
+      auto = true;
+      syncAuto();
+      go(index);
+    }
     if (act === 'auto') {
       auto = !auto;
       syncAuto();
@@ -286,12 +308,23 @@ export function createTourPlayer({ voice, narration }) {
     }
     tour = resolved;
     document.body.classList.add('tour-active');
-    auto = autoplay;
+    // Browsers refuse speech before the first click or key on the page: a narrated tour
+    // opened from a link waits at its first stop behind one START button.
+    const blocked = sound && autoplay && navigator.userActivation && !navigator.userActivation.hasBeenActive;
+    auto = autoplay && !blocked;
     syncAuto();
     card.hidden = false;
+    startButton.hidden = !blocked;
     noteEl.hidden = !resolved.dropped.length;
     noteEl.textContent = resolved.dropped.length ? `Skipped ${resolved.dropped.length} invalid stop(s): ${resolved.dropped.join('; ')}` : '';
-    go(start);
+    if (blocked) {
+      index = start;
+      const step = resolved.steps[start];
+      titleEl.textContent = resolved.title;
+      countEl.textContent = `${start + 1} / ${resolved.steps.length}`;
+      sayEl.textContent = step.say;
+      showView(step.view);
+    } else go(start);
     return true;
   }
 

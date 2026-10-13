@@ -128,9 +128,26 @@ export function createVoice() {
     await ended;
   }
 
+  // Chrome sometimes leaves the engine paused, or drops an utterance queued in the same
+  // tick as cancel(); resume it, and give the voices list a moment to arrive.
+  async function ready() {
+    if (!supported) return;
+    if (!voices.length) {
+      await new Promise(resolve => { const t = setTimeout(resolve, 1500); synth.addEventListener?.('voiceschanged', () => { clearTimeout(t); resolve(); }, { once: true }); });
+      loadVoices();
+    }
+    synth.resume();
+    await new Promise(resolve => setTimeout(resolve, 60));
+  }
+
   return {
     supported,
     stop: stopAll,
+    // Call from a click: a silent utterance so the browser counts speech as allowed.
+    unlock() {
+      if (!supported) return;
+      try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; synth.speak(u); } catch { /* ignore */ }
+    },
     // bridge: base URL of the local bridge when H-AL's Piper voice should be used.
     // Resolves with 'piper', 'browser' or 'silent' once the speech has finished or been stopped.
     async speak(markdown, persona = 'mother', bridge = '') {
@@ -147,6 +164,9 @@ export function createVoice() {
         }
       }
       if (!supported) return 'silent';
+      const mine = request;
+      await ready();
+      if (mine !== request) return 'silent';
       const settings = persona === 'hal' && style === 'ms' ? NATURAL_HAL : PERSONA_VOICE[persona] ?? PERSONA_VOICE.mother;
       const voice = pickVoice(persona in PERSONA_VOICE ? persona : 'mother');
       const ended = waitForEnd();
