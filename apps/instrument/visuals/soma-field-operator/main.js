@@ -1,7 +1,7 @@
 import { updateStereo } from './stereo-depth.js';
 import { displayName } from './names.js';
 import * as THREE from 'three';
-import { leanTowers, scribeIndex } from './generated/app-data.js';
+import { leanTowers, scribeIndex, levelFigures } from './generated/app-data.js';
 import { levels as registryLevels, paths as registryPaths, models as registryModels, eras as registryEras, lenses as registryLenses, coverage as registryCoverage, zUSFAbstract, sourceResolver, examples as registryExamples, questions as registryQuestions, reading as registryReading, concepts as registryConcepts, reminders as registryReminders } from './generated/app-data.js';
 import { appraisalDimensions, bodyGrid } from './human-affect.js';
 import { getScaleMorphism } from './scale-morphisms.js';
@@ -1895,6 +1895,93 @@ function developerRepoPaths(level, edge) {
   return [...new Set(paths)];
 }
 
+// The equation panel's tabs (ISS-051), as the HTML books have them: EQUATION (the readout),
+// FIGURES (the textbook's generated figures for this level, with their sweep strips) and
+// READ MORE (the chapters they come from and the level's papers).
+const levelTabs = [...document.querySelectorAll('[data-level-tab]')];
+const levelPanels = [...document.querySelectorAll('[data-level-panel]')];
+const levelFiguresEl = document.querySelector('#level-figures');
+const levelMoreEl = document.querySelector('#level-more');
+function showLevelTab(id) {
+  for (const tab of levelTabs) tab.setAttribute('aria-selected', String(tab.dataset.levelTab === id));
+  for (const panel of levelPanels) panel.hidden = panel.dataset.levelPanel !== id;
+}
+for (const tab of levelTabs) tab.addEventListener('click', () => showLevelTab(tab.dataset.levelTab));
+
+// Captions are text with $...$ math.
+function appendMixed(el, text) {
+  String(text).split(/(\$[^$]+\$)/).forEach(part => {
+    if (/^\$[^$]+\$$/.test(part) && globalThis.katex) {
+      const span = document.createElement('span');
+      globalThis.katex.render(part.slice(1, -1), span, { throwOnError: false });
+      el.append(span);
+    } else if (part) el.append(part);
+  });
+}
+
+function renderLevelFigures(level) {
+  const figures = levelFigures?.[level.id] ?? [];
+  const figTab = levelTabs.find(tab => tab.dataset.levelTab === 'fig');
+  if (figTab) figTab.textContent = `FIGURES (${figures.length})`;
+  levelFiguresEl.replaceChildren();
+  if (!figures.length) {
+    const note = document.createElement('p');
+    note.className = 'level-figure-note';
+    note.textContent = 'NO GENERATED FIGURE FOR THIS LEVEL YET: THE TEXTBOOK\'S EXAMPLES SHOW OTHER LEVELS.';
+    levelFiguresEl.append(note);
+  }
+  for (const figure of figures) {
+    const item = document.createElement('figure');
+    item.className = 'level-figure';
+    const link = document.createElement('a');
+    link.href = figure.src;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const img = document.createElement('img');
+    img.src = figure.src;
+    img.alt = figure.caption;
+    img.loading = 'lazy';
+    link.append(img);
+    item.append(link);
+    if (figure.sweep) {
+      const strip = document.createElement('img');
+      strip.src = figure.sweep;
+      strip.alt = 'Sweep strip: one panel per value, on one scale.';
+      strip.className = 'level-figure-sweep';
+      strip.loading = 'lazy';
+      item.append(strip);
+    }
+    const caption = document.createElement('figcaption');
+    appendMixed(caption, figure.caption);
+    item.append(caption);
+    levelFiguresEl.append(item);
+  }
+  levelMoreEl.replaceChildren();
+  const chapters = [...new Set(figures.map(figure => figure.chapter).filter(Boolean))];
+  const groups = [
+    { title: 'THE FIELD ATLAS TEXTBOOK', lines: chapters.map(chapter => ({ title: chapter })) },
+    { title: 'PAPERS', lines: level.resolved_sources ?? [] },
+  ];
+  for (const group of groups) {
+    if (!group.lines.length) continue;
+    const heading = document.createElement('p');
+    heading.textContent = group.title;
+    const list = document.createElement('ul');
+    list.className = 'level-more-list';
+    for (const line of group.lines) {
+      const item = document.createElement('li');
+      if (line.url || line.doi) appendSourceLink(item, line);
+      else item.textContent = line.title ?? line.label ?? '';
+      list.append(item);
+    }
+    levelMoreEl.append(heading, list);
+  }
+  const hint = document.createElement('p');
+  hint.className = 'level-figure-note';
+  hint.textContent = 'EVERY FIGURE IS DRAWN BY CODE FROM ITS EQUATION, ITS NUMBERS CHECKED. THE LIBRARY PANEL LISTS ALL SOURCES.';
+  levelMoreEl.append(hint);
+}
+
 function renderLibrary(level) {
   libraryTitle.textContent = level.label;
   renderSherlock(level);
@@ -2383,6 +2470,7 @@ function updateScaleReadout() {
   displayPreset.value = matchingPreset?.id ?? 'custom';
   renderCheatSheetLedger(plate, edge);
   renderLibrary(plate);
+  renderLevelFigures(plate);
   renderWallMath();
   syncTTheoryUI();
   syncQuestionTours();

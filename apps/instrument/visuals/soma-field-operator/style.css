@@ -630,3 +630,17 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
   cursor: pointer;
 }
 .tour-card__start[hidden] { display: none; }
+
+/* The equation panel's tabs (ISS-051): EQUATION, FIGURES, READ MORE. */
+.level-tabs { display: flex; gap: 2px; margin: -4px 0 8px; }
+.level-tabs button { flex: 1; padding: 3px 4px; border: 0; border-bottom: 2px solid transparent; background: none; color: #aeb8ce; font: 700 9px/1.4 'Space Mono', monospace; letter-spacing: .05em; cursor: pointer; }
+.level-tabs button[aria-selected="true"] { color: var(--pink); border-bottom-color: var(--pink); }
+.level-tab-panel[hidden] { display: none; }
+#level-figures { max-height: 46vh; overflow-y: auto; }
+.level-figure { margin: 0 0 10px; }
+.level-figure img { display: block; width: 100%; height: auto; background: #fff; border-radius: 2px; }
+.level-figure .level-figure-sweep { margin-top: 4px; }
+.level-figure figcaption { margin-top: 4px; color: #cfd6e6; font: 10px/1.4 'Space Mono', monospace; }
+.level-figure-note { color: #aeb8ce !important; font-weight: 400 !important; }
+.level-more-list { margin: 0 0 8px; padding-left: 14px; color: var(--text); font: 10px/1.45 'Space Mono', monospace; }
+.level-more-list a { color: var(--text); }

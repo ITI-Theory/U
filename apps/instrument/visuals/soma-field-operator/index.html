@@ -163,6 +163,14 @@
           <p id="body-map-status" class="mechanism-source">DESIGN MAP / SOURCE AUDIT PENDING</p>
         </details>
         <section class="math-readout" aria-live="polite">
+          <nav class="level-tabs" role="tablist" aria-label="Level panel">
+            <button type="button" role="tab" data-level-tab="eq" aria-selected="true">EQUATION</button>
+            <button type="button" role="tab" data-level-tab="fig" aria-selected="false">FIGURES</button>
+            <button type="button" role="tab" data-level-tab="more" aria-selected="false">READ MORE</button>
+          </nav>
+          <div class="level-tab-panel" data-level-panel="fig" hidden><div id="level-figures"></div></div>
+          <div class="level-tab-panel" data-level-panel="more" hidden><div id="level-more"></div></div>
+          <div class="level-tab-panel" data-level-panel="eq">
           <p id="equation-title">DEPENDENT-TYPE MORPHISM</p>
           <code id="equation-primary">SomaField = SUM(sigma:Scale20) Substrate(sigma)</code>
           <code id="equation-secondary">Lambda: Substrate(sigma) -> Substrate(sigma + 1)</code>
@@ -173,6 +181,7 @@
             <div><dt>N</dt><dd id="rank-readout">10^14-10^15</dd></div>
           </dl>
           <p id="type-status" class="type-status">LEAN: SCALE-COMPATIBLE / HUMAN OPERATORS ENABLED</p>
+          </div>
         </section>
         <details class="settings-panel">
           <summary>SETTINGS</summary>

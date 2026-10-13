@@ -2292,9 +2292,9 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       `make -C Part2/book/field-atlas-textbook html`, 0 errors throughout;
       figures spot-checked for legible, non-overlapping labels and correct
       numbers at every stage.
-- [ ] (13 Oct, part: render.py writes every figure as PNG, SVG and the CSV of the numbers it was
+- [x] (13 Oct, part: render.py writes every figure as PNG, SVG and the CSV of the numbers it was
       drawn from (lines, points, bars, heatmap cells; a process diagram has none); the HTML tab
-      panel links both. Left: the sweep strip and animations) More outputs per figure where reasonable: PNG and SVG; a parameter
+      panel links both. Then, 13 Oct night: the sweep strip, viz-<id>-sweep.png, one panel per value on one y-scale, for all 91 varied figures, in the HTML FIGURES tab and the figure library, PDFs unchanged; animations replaced by "see it move": flock, the feeling landscape and the score name their Soma Machine view; docs/VISUALIZE.md) More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
 - [x] (9 Oct: `lib/visualize/library.py`, 65 figures, 39 pages, 4.8 MB; each
@@ -2304,8 +2304,13 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       context, source paper and evidence label) and a Markdown index. Gemini
       Gems and NotebookLM read PDFs with images; one file stays inside the
       source limits.
-- [ ] Soma Machine: the same tab panel for the level equation (EQUATION, FIGURES,
+- [x] Soma Machine: the same tab panel for the level equation (EQUATION, FIGURES,
       READ MORE), using the generated figures.
+      Done (13 Oct night): the equation panel has EQUATION, FIGURES (n) and READ MORE tabs; the
+      figures are the textbook's, mapped to a level by the example that shows it (show="level=..."),
+      92 figures on 17 of the 31 levels, with sweep strips (scripts/generate.py levelFigures,
+      copies in public/figures/); READ MORE lists their chapters and the level's papers.
+
 - [x] (13 Oct: unchanged throughout; the build still fails on a missing context or caption)
       Rules unchanged: context first, caption required, expressions are maths
       only, `expect_*` checks (docs/VISUALIZE.md).
