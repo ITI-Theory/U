@@ -1978,9 +1978,9 @@ papers UAT notebook); one source can be large, so books can be merged.
 
 ---
 
-## ISS-051: Visualize everything: mark up all equations, generate every figure, show the equation by default — OPEN
+## ISS-051: Visualize everything: mark up all equations, generate every figure, show the equation by default — CLOSED
 {{Tags area.books, area.instrument, area.visualize}}
-{{Fields date.created=2026-10-09, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-09, date.start=2026-10-09, date.end=2026-10-13, epic=}}
 
 Author, 9 Oct: mark up as much as possible with `{{Visualize}}`, papers
 included (literally everything), and generate the figures, with as many outputs
