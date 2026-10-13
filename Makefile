@@ -48,6 +48,7 @@ help:
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
 	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
 	$(info   remind          the author's open steps from ISSUES.md (ARGS=--titles); also HAL remind)
+	$(info   wizard          the Wizard's checks (built the right thing): each book's scope covered, Cyc neighbours, never written (ISS-092); ARGS=field-atlas)
 	$(info   uat-run         the UAT step by step in a terminal (ARGS=--new|--report|--step ID); also HAL uat)
 	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
 	$(info   make -C sherlock help  Sherlock: affidavits checked in Lean against OpenCyc (paper SH1))
@@ -201,6 +202,12 @@ uat-check:
 # The author's open steps, read from ISSUES.md (also HAL remind, and the Maintenance deck).
 remind:
 	@$(PYTHON) bin/remind $(ARGS)
+
+# The Wizard (validation: built the right thing), beside Sherlock (verification) and the
+# Monster (comprehensibility, the UAT). Reports in bld/sherlock/coverage-<book>.md (ISS-092).
+.PHONY: wizard
+wizard:
+	$(PYTHON) sherlock/coverage.py $(ARGS)
 
 uat-run:
 	$(PYTHON) uat/scripts/uat.py $(ARGS)

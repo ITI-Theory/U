@@ -33,6 +33,11 @@
 
 ## The Wizard: Model Consistency
 
+Before these questions: the Wizard's automated checks (`make wizard`, ISS-092) report what each
+book promised and did not cover, and the neighbouring topics nobody discussed
+(bld/sherlock/coverage-<book>.md). Their gaps are attached to this run as sources; the questions
+below ask only for judgement: is what is covered the right thing, and does any gap matter?
+
 ### TH-1 Shared C1v2/C2 model
 
 **Question:** Compare the Papers omnibus and Fractal Thesis. Do both implement the approved two-level master TOC model: member title plus immediate internal chapter titles?
@@ -46,6 +51,12 @@
 **Status:** PENDING
 
 ## The Monster: Reader Navigation
+
+The Monster tests the reader: someone who did not build it. The friendly Monsters read; the
+BOFH Monster attacks (an adversary who tries to make the work overclaim). NotebookLM plays
+the reader here; at release a real reader does too (a therapist, a doctor, a musician, a
+physicist), recorded in uat/checklist.yaml. Sherlock and the Wizard are now largely automated,
+so this is where the UAT spends its effort.
 
 ### TC-1 Entry points
 
@@ -72,6 +83,20 @@ under every result (ISS-070, ISS-071).
 **Question:** Where a volume says a result is proved, does it name the Lean
 theorem and say whether it rests on an axiom, a sorry or only proves a
 placeholder? List the volumes that do and do not, with pages.
+
+**Status:** PENDING
+
+### TC-4 The BOFH Monster: tries to make it overclaim
+
+**Persona:** the Bastard Operator From Hell: an adversary, not a reader. He quotes a
+sentence out of context, asks the hostile question, and tries to get the volumes to say
+more than it does.
+
+**Question:** Find the three sentences that, quoted alone, would most overclaim (a cure,
+a proof of consciousness, a quantum result about people, a clinical effect). For each, does
+the sentence itself, or its paragraph, carry the evidence label or hedge that stops the
+overclaim? Then answer as the volumes would: "So this cures trauma?", "You proved
+consciousness in Lean?", "The quantum computer found awe?" Cite the pages used.
 
 **Status:** PENDING
 

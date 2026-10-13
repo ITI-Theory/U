@@ -4553,7 +4553,7 @@ packets; waits for a real strap.
 
 ---
 
-## ISS-092: Sherlock's coverage: what a book promises, what is next to it, what was never written — OPEN
+## ISS-092: The Wizard's checks: what a book promises, what is next to it, what was never written — OPEN
 {{Tags area.proofs, area.books}}
 {{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=ISS-055-sherlock}}
 
@@ -4562,8 +4562,15 @@ Sherlock: a definition of what each book is expected to cover, and the big quest
 anything we haven't discussed or considered that would make this better?", with a little
 interaction between the AI and Cyc. Three sources of gaps, each with its own tool; the AI
 proposes, the author confirms, the registry or Cyc decides.
+
+Author, 13 Oct: these are the Wizard's checks (validation: built the right thing), beside
+Sherlock (verification: built right) and the Monster (comprehensibility: reader tests by
+someone who did not build it, and the BOFH Monster, an adversary who tries to make the work
+overclaim, author 13 Oct). Automated, they run at release (`make wizard`); the NotebookLM UAT's Wizard section starts
+from their report and asks only the judgement questions, and the UAT concentrates on the Monster,
+with real readers.
 - [ ] Scope: each book's promise in books.yaml as registry ids (levels, explorer stops, concepts,
-      papers, models, paths, tours); `make -C sherlock coverage` checks each is covered and reports
+      papers, models, paths, tours); `make wizard` checks each is covered and reports
       what is missing. The Atlas first (all 31 levels, the 15 stops, the models, paths and tours).
 - [ ] Neighbourhood (Cyc): for each concept a book covers, its siblings and parents one step away
       in OpenCyc that the book never mentions (the emotions it leaves out, the organs next to the

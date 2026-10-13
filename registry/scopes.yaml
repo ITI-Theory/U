@@ -1,0 +1,20 @@
+# What each book promises to cover (ISS-092), as registry ids, so Sherlock can check it
+# (`make -C sherlock coverage`, sherlock/coverage.py). A scope is checked against the built
+# document's text (what the reader gets, generated parts included), or its sources when no build
+# is named. `all` means every id of that kind in the registry; a list names the ids. `report:`
+# kinds are listed but not required. The author decides what a book promises; this file says it.
+scopes:
+  field-atlas:
+    title: "[T]-Theory: Field Atlas"
+    built: bld/atlas/field-atlas-a3.tex
+    config: Part2/book/field-atlas/atlas.yaml
+    expect:
+      levels: all
+      stops: all
+      models: all
+      paths: all
+      questions: all
+      concepts: all
+      papers: all
+    report:
+      tours: all

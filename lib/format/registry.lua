@@ -251,10 +251,10 @@ local function table_row(values)
   return pandoc.Row(cells, attr())
 end
 
-local function simple_table(headers, rows)
+local function simple_table(headers, rows, widths)
   local colspecs = {}
   for i = 1, #headers do
-    local width = 1 / math.max(#headers, 1)
+    local width = widths and widths[i] or 1 / math.max(#headers, 1)
     if #headers == 2 and headers[1] == "" and headers[2] == "" then
       width = (i == 1) and 0.20 or 0.80
     end
@@ -665,6 +665,24 @@ local function time_axis_part(eras, labels)
   return out
 end
 
+-- The Soma Machine's guided tours (ISS-092: the print reader learns they exist): one entry each,
+-- its title, its summary and the address that starts it, read from registry/tours.
+local function tours_part()
+  local out = {
+    header(1, "Tours in the Soma Machine", "part-tours"),
+    para("The app that shares this atlas's registry also offers guided tours: a voice and a sequence of views, each a few minutes long. Each starts from its address in the Soma Machine (append it to the app's address). They are listed here so a reader of the printed atlas can find them."),
+  }
+  local rows = {}
+  for _, name in ipairs(list_dir(REGISTRY .. "/tours")) do
+    if name:match("%.yaml$") then
+      local t = read_yaml(REGISTRY .. "/tours/" .. name)
+      rows[#rows + 1] = {t.title or t.id, t.summary or "", {pandoc.Code("#tour=" .. (t.id or ""))}}
+    end
+  end
+  out[#out + 1] = simple_table({"Tour", "What it does", "Address"}, rows, {0.24, 0.56, 0.2})
+  return out
+end
+
 local function questions_part(questions, labels)
   if #questions == 0 then return {} end
   local out = {
@@ -925,6 +943,7 @@ local function build_atlas(meta)
   append(out, models_part(models, labels))
   append(out, paths_part(paths, labels, edges, examples, missing))
   append(out, time_axis_part(eras_meta.eras or {}, labels))
+  append(out, tours_part())
   local on_paths = {}; for _, p in ipairs(paths) do for _, id in ipairs(p.nodes or {}) do on_paths[id] = true end end
   for _, id in ipairs(listed) do if not on_paths[id] then missing[#missing + 1] = "level " .. id .. " is on no path" end end
   local bm = raw_latex("\\backmatter"); if bm then out[#out + 1] = bm end

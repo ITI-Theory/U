@@ -95,6 +95,11 @@ axiomatic, extrapolative, or interpretive limits.
 
 ## The Wizard: Scope and Completeness
 
+Before these questions: the Wizard's automated checks (`make wizard`, ISS-092) report what each
+book promised and did not cover, and the neighbouring topics nobody discussed
+(bld/sherlock/coverage-<book>.md). Their gaps are attached to this run as sources; the questions
+below ask only for judgement: is what is covered the right thing, and does any gap matter?
+
 ### H-1 Established versus open
 
 **Question:** What does the Papers collection establish, and what does it
@@ -135,6 +140,12 @@ document as a self-case demonstration of explanatory precision, not a clinical
 trial or population-level claim.
 
 ## The Monster: Comprehensibility
+
+The Monster tests the reader: someone who did not build it. The friendly Monsters read; the
+BOFH Monster attacks (an adversary who tries to make the work overclaim). NotebookLM plays
+the reader here; at release a real reader does too (a therapist, a doctor, a musician, a
+physicist), recorded in uat/checklist.yaml. Sherlock and the Wizard are now largely automated,
+so this is where the UAT spends its effort.
 
 ### C-1 Central claim
 
@@ -197,6 +208,20 @@ under every result (ISS-070, ISS-071).
 with the status the paper gives it (theorem, axiom, sorry, kernel-checked,
 placeholder). Is each status stated where it is used, so a reader never takes an
 axiom or a placeholder for a proof? Cite the page used.
+
+**Status:** PENDING
+
+### C-6 The BOFH Monster: tries to make it overclaim
+
+**Persona:** the Bastard Operator From Hell: an adversary, not a reader. He quotes a
+sentence out of context, asks the hostile question, and tries to get the papers to say
+more than it does.
+
+**Question:** Find the three sentences that, quoted alone, would most overclaim (a cure,
+a proof of consciousness, a quantum result about people, a clinical effect). For each, does
+the sentence itself, or its paragraph, carry the evidence label or hedge that stops the
+overclaim? Then answer as the papers would: "So this cures trauma?", "You proved
+consciousness in Lean?", "The quantum computer found awe?" Cite the pages used.
 
 **Status:** PENDING
 

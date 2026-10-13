@@ -18,6 +18,10 @@ steps:
     kind: gate
     title: "Sherlock: the affidavits are kernel-checked; the ledger agrees with the Lean"
     run: "make -C sherlock check 2>&1 | grep -E 'registry OK|sherlock checks|error' ; python sherlock/ledger.py report | tail -1; python sherlock/clinical.py | tail -1"
+  - id: gate-wizard
+    kind: gate
+    title: "The Wizard: every book covers what it promised (registry/scopes.yaml); the gaps read"
+    run: "make wizard 2>&1 | tail -12"
   - id: gate-release
     kind: gate
     title: "The release gate (bin/release-check): every FAIL read; WARNs known"
@@ -84,6 +88,16 @@ steps:
     kind: manual
     title: "The author's review of every line of the film"
     do: "read the phase lines as H-AL speaks them (the recording); mark lines to put in your own words; send the list to Copilot (c)"
+  # 5. the Monster: a real reader who did not build it (a reader test), and the BOFH Monster (an adversary)
+  - id: monster-reader
+    kind: manual
+    title: "The Monster: one real reader per audience (therapist, doctor, musician, physicist) finds their way in"
+    do: "give them the Atlas or their domain book and the app; ask them to find one thing they care about; note where they got lost"
+  - id: monster-bofh
+    kind: app
+    title: "The BOFH Monster: misuse the app on purpose; nothing breaks, nothing overclaims"
+    url: "#voyage=human&dim=11&phi=0.5"
+    do: "POKE forty times; switch stops mid-dive; FX to 0 and 1 rapidly; open it on a phone; read every caption a hostile journalist would quote: is the label there?"
   # 5. hardware and decisions
   - id: hw-strap-twister
     kind: manual

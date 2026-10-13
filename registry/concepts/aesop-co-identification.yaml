@@ -9,6 +9,6 @@ lean:
   name: AesopImplementsCoIdentification
 papers:
 - P3
-levels: []
+levels: [dyad]  # co-identification is P3's model of therapeutic attunement, a dyad (ISS-092)
 label: derived-under-assumptions
 notes: 'An axiom: a signpost for the co-identification method, not a proof about Aesop.'
