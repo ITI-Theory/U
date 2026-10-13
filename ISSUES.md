@@ -1990,7 +1990,10 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       Hidden figures are still drawn and checked; in HTML they collapse under
       the equation ("Show figure"). Default stays `all`; set `none` per output
       when the papers are marked up.
-- [ ] HTML: a tab panel per marked equation: EQUATION (first, default),
+- [x] (13 Oct, lib/format/visualize.lua, docs/VISUALIZE.md: in HTML a display equation and the
+      figures directly after it become one panel, radio buttons and CSS, no JavaScript; 71 panels
+      in the course book, 217 in the papers; checked in a browser with JavaScript off; PDFs
+      unchanged) HTML: a tab panel per marked equation: EQUATION (first, default),
       FIGURES (each output), LEAN (the theorem, when the context is
       `lean:`), READ MORE (the paper section, the level in the Soma Machine, the
       reading list). Works without JavaScript (first tab visible).
@@ -2294,7 +2297,8 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       source limits.
 - [ ] Soma Machine: the same tab panel for the level equation (EQUATION, FIGURES,
       READ MORE), using the generated figures.
-- [ ] Rules unchanged: context first, caption required, expressions are maths
+- [x] (13 Oct: unchanged throughout; the build still fails on a missing context or caption)
+      Rules unchanged: context first, caption required, expressions are maths
       only, `expect_*` checks (docs/VISUALIZE.md).
 - [ ] (from ISS-081, author, 13 Oct: not the author's) The course's chapter-opening banners
       for M1-M6, 3, 4, 13-15 (ISS-041).
