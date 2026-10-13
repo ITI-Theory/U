@@ -8,7 +8,7 @@
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
 import { stereoDepth } from './stereo-depth.js';
-import { createDyad3D, createLandscape3D, createNeuron3D, createLimbic3D } from './explorer3d.js';
+import { createDyad3D, createLandscape3D, createNeuron3D, createLimbic3D, createThought3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
@@ -1249,12 +1249,14 @@ function makeThought() {
   let beat = 0;
   const arousal = phi => clamp(phi + feedback, 0, 1.4);
   function trigger(strength = 0.6, x = lerp(X0 + 0.1, X1 - 0.1, Math.random())) {
-    swells.push({ x, a: 0, target: 0.06 + 0.42 * strength, born: clock, crossed: false, rose: false });
+    // z: where the swell rises across the sea, for the 3D view (the 2D drawing ignores it)
+    swells.push({ x, z: (Math.random() - 0.5) * 0.6, a: 0, target: 0.06 + 0.42 * strength, born: clock, crossed: false, rose: false });
   }
   const sea = (x, t, a) => 0.035 * (1 + a) * (Math.sin(9 * x + 2.1 * t) + 0.6 * Math.sin(17 * x - 3.3 * t + 1) + 0.4 * Math.sin(31 * x + 5 * t));
   const swellAt = x => swells.reduce((acc, s) => acc + s.a * Math.exp(-((x - s.x) ** 2) / 0.006), 0);
   return {
     focus: [0, Y.line],
+    geometry: { levels: Y, x0: X0, x1: X1 },
     tick(env) {
       clock += env.dt;
       const a = arousal(env.phi);
@@ -1268,13 +1270,13 @@ function makeThought() {
         if (!s.crossed && env.dim >= 8 && peak < Y.line) {
           s.crossed = true;
           const words = a > 0.5 ? EMOTION_WORDS.hot : EMOTION_WORDS.calm;
-          emotions.push({ x: s.x, y: Y.line, life: 0, word: words[Math.floor(Math.random() * words.length)], hot: a > 0.5 });
+          emotions.push({ x: s.x, z: s.z, y: Y.line, life: 0, word: words[Math.floor(Math.random() * words.length)], hot: a > 0.5 });
         }
         if (!s.rose && env.dim >= 11 && s.target > 0.38 && s.a > 0.36) {
           s.rose = true;
           const hot = a > 0.5;
           const words = hot ? THOUGHT_WORDS.hot : THOUGHT_WORDS.calm;
-          thoughts.push({ x: s.x, y: Y.emotion, life: 0, word: words[Math.floor(Math.random() * words.length)], hot });
+          thoughts.push({ x: s.x, z: s.z, y: Y.emotion, life: 0, word: words[Math.floor(Math.random() * words.length)], hot });
         }
       }
       for (let i = swells.length - 1; i >= 0; i--) {
@@ -1291,7 +1293,7 @@ function makeThought() {
         // the thought acts back on the body: a hot thought heats it, a calm one cools it
         if (!th.sent && th.life > 1.6) {
           th.sent = true;
-          pulses.push({ x: th.x, s: 0, hot: th.hot });
+          pulses.push({ x: th.x, z: th.z, s: 0, hot: th.hot });
         }
       }
       for (const pl of pulses) {
@@ -1309,6 +1311,34 @@ function makeThought() {
     draw(ctx, env) {
       const { u, dim, phi, t } = env;
       const a = arousal(phi);
+      if (env.gl?.project) {
+        // 3D (ISS-052): the sea, the threshold plane, emotions and thoughts in space
+        const gl = env.gl;
+        const swell3 = (x, z) => swells.reduce((acc, s) => acc + s.a * Math.exp(-((x - s.x) ** 2 + (z - s.z) ** 2) / 0.008), 0);
+        const items = [];
+        for (const e of emotions) items.push({ x: e.x, y: e.y, z: e.z, r: 0.03, color: e.hot ? COLORS.red : COLORS.teal, fade: clamp(1 - (e.life - 3) / 1.5, 0, 1) });
+        for (const th of thoughts) items.push({ x: th.x, y: th.y, z: th.z, r: 0.04, color: th.hot ? COLORS.orange : COLORS.violet, fade: clamp(1 - (th.life - 3) / 1.5, 0, 1) });
+        if (dim >= 11) for (const pl of pulses) items.push({ x: pl.x, y: lerp(Y.thought, Y.body, pl.s), z: pl.z, r: 0.018, color: pl.hot ? COLORS.orange : COLORS.teal, fade: 1 });
+        gl.render({
+          height: (x, z) => sea(x, t, a) * (1 + 0.3 * Math.sin(5 * z + t)) + swell3(x, z),
+          beatAt: x => { const q = (((beat - (X1 - x) * 1.5) % 1) + 1) % 1; return Math.exp(-((q - 0.1) ** 2) / 0.0009) * 0.07 - Math.exp(-((q - 0.14) ** 2) / 0.0006) * 0.025; },
+          items, dim, time: t, stereo: env.stereo,
+        });
+        if (env.labels) {
+          const put = (text, x, y, z, color, size = 0.026) => {
+            const p = gl.project(x, y, z);
+            if (p.visible) label(ctx, u, text, (p.x * env.w) / u, (p.y * env.h) / u, color, 'center', size);
+          };
+          for (const e of emotions) put(e.word, e.x, e.y - 0.06, e.z, e.hot ? COLORS.red : COLORS.teal, 0.026);
+          for (const th of thoughts) put(th.word, th.x, th.y - 0.07, th.z, '#ffffff', 0.026);
+          put('SUB-THRESHOLD SEA', X1, Y.sea, 0.4, '#5ea8ff');
+          if (dim >= 8) put('THRESHOLD T_c', X1, Y.line, 0.4, COLORS.gold);
+          if (dim >= 11) put('THOUGHT · cortex (D9–11)', X1, Y.thought, 0.4, COLORS.violet);
+          put('BODY (D1–7)', 0.55, Y.body + 0.07, 0.46, COLORS.red);
+          label(ctx, u, `emotion : type at D8   ·   thought : type at D9–11   ·   one field   ·   body ${Math.round(60 + 60 * a)} BPM`, 0, -0.62, COLORS.dim, 'center', 0.026);
+        }
+        return;
+      }
       const band = (y0, y1, color, text) => {
         ctx.save();
         ctx.fillStyle = color;
@@ -3285,6 +3315,7 @@ export function createExplorer(hooks = {}) {
     dyad: () => createDyad3D(),
     neuron: () => createNeuron3D(scene('neuron').geometry),
     limbic: () => createLimbic3D(),
+    thought: () => createThought3D(scene('thought').geometry),
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
     ureter: () => createTunnel3D({ ureter: true }),

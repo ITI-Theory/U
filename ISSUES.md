@@ -2454,8 +2454,10 @@ Steps:
       cell lifted into space, saltatory spikes, field rings at 11D, the neighbour behind, labels
       projected; 3D SBS as the other stops. LIMBIC in 3D (createLimbic3D): the eleven dimensions as
       an hourglass, seven body rings narrowing to the limbic ring D8, whose band widens with Phi,
-      opening into the three mind rings; the stop's signals as beads. Left: body inside the
-      jellyfish, thought)
+      opening into the three mind rings; the stop's signals as beads. THOUGHT in 3D
+      (createThought3D): the sub-threshold sea as a moving surface, swells rising through the
+      threshold plane into emotions and on to thoughts at the cortex level, the heartbeat in front.
+      Left: the body inside the jellyfish)
       All stops in true 3D (author, 10 Oct 01:16: "all rendered in 3D and 3D SBS
       on my 3D projector, 100-inch screen"). Done: 3D SBS for every stop
       (ISS-027), true 3D for HUMAN, LANDSCAPE and DYAD (two jellyfish figures,

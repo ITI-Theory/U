@@ -871,3 +871,137 @@ export function createLimbic3D() {
     },
   };
 }
+
+// EMOTION AND THOUGHT in 3D (ISS-052): the 2D stop's bands as levels in space. The sub-threshold
+// sea is a moving surface; a swell that rises through the gold threshold plane becomes an
+// emotion (a glowing sphere at the limbic level), and a strong one rises on to a thought (a
+// violet sphere at the cortex level); hot thoughts send pulses down to the body's heartbeat
+// line. Everything comes from the stop's own simulation (explorer.js makeThought).
+// levels: { body, sea, line, emotion, thought } (2D y, down positive); x0, x1: the 2D extent
+export function createThought3D({ levels, x0, x1 }) {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  } catch {
+    return null;
+  }
+  renderer.setClearColor('#070a16');
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog('#070a16', 6, 16);
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 60);
+  camera.focus = 6;
+  const stereoCamera = new THREE.StereoCamera();
+  const size = new THREE.Vector2();
+  scene.add(new THREE.HemisphereLight('#bcd8ff', '#0a0612', 0.9));
+
+  const S = 3.6;
+  const Z = 0.4;  // the sea's depth either side, in 2D units
+  const H = y => (levels.sea - y) * S;          // a 2D level as a height
+  const at = (x, y, z) => new THREE.Vector3(x * S, H(y), z * S);
+
+  // the sea: a grid whose heights follow the stop's sea function
+  const NX = 90, NZ = 36;
+  const seaGeo = new THREE.PlaneGeometry((x1 - x0) * S, 2 * Z * S, NX, NZ);
+  seaGeo.rotateX(-Math.PI / 2);
+  const sea = new THREE.Mesh(seaGeo, new THREE.MeshStandardMaterial({ color: '#2f7fd6', emissive: '#0b3a6a', roughness: 0.4, metalness: 0.1, transparent: true, opacity: 0.85, side: THREE.DoubleSide }));
+  scene.add(sea);
+  const seaWire = new THREE.Mesh(seaGeo, new THREE.MeshBasicMaterial({ color: '#5ee7ff', wireframe: true, transparent: true, opacity: 0.18 }));
+  scene.add(seaWire);
+  // the threshold plane
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry((x1 - x0) * S, 2 * Z * S), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false }));
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.y = H(levels.line);
+  scene.add(plane);
+  const planeEdge = new THREE.LineSegments(new THREE.EdgesGeometry(plane.geometry), new THREE.LineBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.7 }));
+  planeEdge.rotation.copy(plane.rotation);
+  planeEdge.position.copy(plane.position);
+  scene.add(planeEdge);
+  // the cortex level: a faint violet frame
+  const cortex = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry((x1 - x0) * S, 2 * Z * S)), new THREE.LineBasicMaterial({ color: '#a78bfa', transparent: true, opacity: 0.4 }));
+  cortex.rotation.x = -Math.PI / 2;
+  cortex.position.y = H(levels.thought);
+  scene.add(cortex);
+  // the body: a heartbeat line below the sea
+  const BODY_N = 200;
+  const bodyGeo = new THREE.BufferGeometry();
+  bodyGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array((BODY_N + 1) * 3), 3));
+  const bodyLine = new THREE.Line(bodyGeo, new THREE.LineBasicMaterial({ color: '#ff4d5e' }));
+  scene.add(bodyLine);
+
+  const sphere = new THREE.SphereGeometry(1, 16, 12);
+  const pool = Array.from({ length: 48 }, () => {
+    const core = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: '#ffffff' }));
+    const halo = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: '#ff4d5e', transparent: true, opacity: 0.35, depthWrite: false, blending: THREE.AdditiveBlending }));
+    scene.add(core, halo);
+    return { core, halo };
+  });
+
+  return {
+    canvas,
+    resize(w, h, dpr) {
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+    },
+    // state: { height(x, z) (2D units, up positive), beatAt(x) (2D offset), items: [{ x, y, z, color, r, fade }], dim, time, stereo }
+    render(state) {
+      const pos = seaGeo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i) / S, z = pos.getZ(i) / S;
+        pos.setY(i, state.height(x, z) * S);
+      }
+      pos.needsUpdate = true;
+      seaGeo.computeVertexNormals();
+      plane.visible = planeEdge.visible = state.dim >= 8;
+      cortex.visible = state.dim >= 11;
+      const bp = bodyGeo.attributes.position;
+      for (let i = 0; i <= BODY_N; i++) {
+        const x = x0 + (x1 - x0) * i / BODY_N;
+        bp.setXYZ(i, x * S, H(levels.body) + state.beatAt(x) * S, Z * S * 1.15);
+      }
+      bp.needsUpdate = true;
+      let used = 0;
+      for (const it of state.items) {
+        if (used >= pool.length) break;
+        const b = pool[used++];
+        const p = at(it.x, it.y, it.z);
+        b.core.position.copy(p); b.halo.position.copy(p);
+        b.core.scale.setScalar(it.r * S * 0.35);
+        b.halo.scale.setScalar(it.r * S);
+        b.halo.material.color.set(it.color);
+        b.halo.material.opacity = 0.4 * it.fade;
+        b.core.material.opacity = it.fade;
+        b.core.material.transparent = it.fade < 1;
+        b.core.visible = b.halo.visible = true;
+      }
+      for (let i = used; i < pool.length; i++) pool[i].core.visible = pool[i].halo.visible = false;
+      const swing = Math.sin(state.time * 0.09) * 0.5;
+      camera.position.set(Math.sin(swing) * 8.6, H(levels.line) + 0.9, Math.cos(swing) * 8.6);
+      camera.lookAt(0, H(levels.line) + 0.35, 0);
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        updateStereo(stereoCamera, camera, 0.1);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderer.render(scene, eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    },
+    project(x, y, z = 0) {
+      const v = at(x, y, z).project(camera);
+      return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.1 };
+    },
+  };
+}
