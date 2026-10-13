@@ -3212,6 +3212,14 @@ different scales (ZSF's "same as always").
       the film for each institution, and does SME's mapping recover the author's "=="
       pairs? A pair it misses, or one it adds, is a finding either way. Private material: the
       cases stay in Me, only the scores go to U.
+      (13 Oct night, plan, not run: macfac.py reads cases only from U's registry/cases, with a
+      frozen source in U. For private cases it needs a second case folder (Me/film/cases) whose
+      source commit is resolved in Me's repository, and a report that prints only scores and
+      predicate names to U. Then the cases: Made in Britain, Scum, A Clockwork Orange, Cuckoo's
+      Nest, and the clinic, the court, social services, ABA, each as relations only (power
+      over, cure imposed, victim blamed, self-harm as reply, masking as survival), each fact
+      citing its line in art-fis-2021-08.md. For the author: the extraction is a reading of
+      private notes, so he confirms the facts before the test is run.)
 - [ ] (13 Oct, part: the design note (docs/SHERLOCK.md, last section) and the spike
       (sherlock/Cyc/Types/Spike.lean): Percept, Pole and Emotion as types; "a percept is a pole",
       read literally, is a contradiction in NextKB (Perceiving is a TemporalThing,
