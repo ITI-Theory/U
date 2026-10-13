@@ -733,3 +733,141 @@ export function createNeuron3D(geometry) {
     },
   };
 }
+
+// THE LIMBIC HINGE in 3D (ISS-052): the 11 dimensions as an hourglass along one axis, the body
+// field's seven rings (teal) narrowing to the single limbic ring D8 (red, its width set by the
+// limbic field), opening into the mind field's three rings (violet). The 2D stop's signals run
+// as beads: up from the body through the waist to the mind, calming signals back down the
+// outside. A picture of the model's dimension count and of T = T0 + sigma Phi: interpretive.
+export function createLimbic3D() {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  } catch {
+    return null;
+  }
+  renderer.setClearColor('#070a16');
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog('#070a16', 6, 18);
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 60);
+  camera.focus = 6;
+  const stereoCamera = new THREE.StereoCamera();
+  const size = new THREE.Vector2();
+
+  // the axis: x from -3 (body) to 3 (mind); ring k at x = -3 + k * 0.6, k = 0..10
+  const X = k => -3 + k * 0.6;
+  const radius = (k, waist) => (k < 7 ? 0.35 + 0.12 * (6 - k) + waist : k === 7 ? waist : 0.35 + 0.18 * (k - 7) + waist);
+  const rings = Array.from({ length: 11 }, (_, k) => {
+    const color = k < 7 ? '#3fd0c9' : k === 7 ? '#ff4d5e' : '#a78bfa';
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1, k === 7 ? 0.035 : 0.018, 10, 64),
+      new THREE.MeshBasicMaterial({ color, transparent: true, opacity: k === 7 ? 0.95 : 0.6 }));
+    ring.rotation.y = Math.PI / 2;
+    ring.position.x = X(k);
+    scene.add(ring);
+    return ring;
+  });
+  // the hinge itself: the eighth dimension as a bright disc whose size is the limbic band
+  const hinge = new THREE.Mesh(new THREE.CircleGeometry(1, 48), new THREE.MeshBasicMaterial({ color: '#ff4d5e', transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
+  hinge.rotation.y = Math.PI / 2;
+  hinge.position.x = X(7);
+  scene.add(hinge);
+  // the skin of the hourglass: faint lines joining the rings
+  const SEG = 48;
+  const skin = Array.from({ length: 16 }, () => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(11 * 3), 3));
+    const line = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#e8eefc', transparent: true, opacity: 0.08 }));
+    scene.add(line);
+    return line;
+  });
+  const glowL = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), new THREE.MeshBasicMaterial({ color: '#ff4d5e', transparent: true, opacity: 0.2, depthWrite: false, blending: THREE.AdditiveBlending }));
+  glowL.position.x = X(7);
+  scene.add(glowL);
+  const beadGeo = new THREE.SphereGeometry(0.045, 10, 8);
+  const beads = Array.from({ length: 40 }, () => {
+    const m = new THREE.Mesh(beadGeo, new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending }));
+    scene.add(m);
+    return m;
+  });
+
+  return {
+    canvas,
+    resize(w, h, dpr) {
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+    },
+    // state: { phi, dim, time, stereo, signals: [{ s, kind: 'up1'|'up2'|'down', color, lane }] }
+    render(state) {
+      const waist = 0.12 + 0.28 * state.phi;   // the limbic band widens as the field rises
+      rings.forEach((ring, k) => {
+        ring.scale.setScalar(radius(k, waist));
+        ring.visible = k < 7 || state.dim >= 8 || k === 7;
+        if (k > 7) ring.visible = state.dim >= 11;
+      });
+      rings[7].material.color.set(state.phi > 0.5 ? '#ff4d5e' : '#ffd166');
+      hinge.scale.setScalar(waist);
+      hinge.material.color.set(state.phi > 0.5 ? '#ff4d5e' : '#ffd166');
+      glowL.scale.setScalar(waist * 2.2);
+      glowL.material.opacity = 0.05 + 0.15 * state.phi;
+      skin.forEach((line, j) => {
+        const a = (j / skin.length) * Math.PI * 2;
+        const pos = line.geometry.attributes.position;
+        for (let k = 0; k < 11; k++) {
+          const r = radius(k, waist);
+          pos.setXYZ(k, X(k), Math.sin(a) * r, Math.cos(a) * r);
+        }
+        pos.needsUpdate = true;
+        line.visible = state.dim >= 11 || j % 2 === 0;
+      });
+      let used = 0;
+      for (const sig of state.signals ?? []) {
+        if (used >= beads.length || state.dim < 8) break;
+        const b = beads[used++];
+        const lane = sig.lane * Math.PI * 2;
+        let x, r;
+        if (sig.kind === 'down') {   // calming signals: mind back to the hinge, on the outside
+          x = X(10) + (X(7) - X(10)) * sig.s;
+          r = radius(Math.round((x + 3) / 0.6), waist) + 0.25;
+        } else {
+          const from = sig.kind === 'up1' ? 0 : 7;
+          const to = sig.kind === 'up1' ? 7 : 10;
+          x = X(from) + (X(to) - X(from)) * sig.s;
+          r = 0.55 * radius(Math.max(0, Math.min(10, Math.round((x + 3) / 0.6))), waist);
+        }
+        b.position.set(x, Math.sin(lane) * r, Math.cos(lane) * r);
+        b.material.color.set(sig.color);
+        b.visible = true;
+      }
+      for (let i = used; i < beads.length; i++) beads[i].visible = false;
+      const swing = Math.sin(state.time * 0.1) * 0.7;
+      camera.position.set(Math.sin(swing) * 2.5, 1.4, 6.4 + Math.cos(swing) * 0.5);
+      camera.lookAt(0, 0, 0);
+      renderer.getSize(size);
+      if (state.stereo === 'half' || state.stereo === 'full') {
+        camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+        camera.updateProjectionMatrix();
+        camera.updateMatrixWorld();
+        updateStereo(stereoCamera, camera, 0.1);
+        renderer.setScissorTest(true);
+        for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+          renderer.setViewport(x, 0, size.x / 2, size.y);
+          renderer.setScissor(x, 0, size.x / 2, size.y);
+          renderer.render(scene, eye);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, size.x, size.y);
+        return;
+      }
+      camera.aspect = size.x / size.y;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    },
+    // ring k (0 = D1 .. 10 = D11) on the screen, for labels
+    projectRing(k, above = 0) {
+      const v = new THREE.Vector3(X(k), radius(k, 0.12) + 0.35 + above, 0).project(camera);
+      return { x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.1 };
+    },
+  };
+}

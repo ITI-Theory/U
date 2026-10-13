@@ -8,7 +8,7 @@
 // stop carries an evidence label (docs/agent/THEORY-STATUS.md).
 
 import { stereoDepth } from './stereo-depth.js';
-import { createDyad3D, createLandscape3D, createNeuron3D } from './explorer3d.js';
+import { createDyad3D, createLandscape3D, createNeuron3D, createLimbic3D } from './explorer3d.js';
 import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
@@ -1132,6 +1132,24 @@ function makeLimbic() {
     draw(ctx, env) {
       const { u, phi, dim, t } = env;
       const T = temperature(phi);
+      if (env.gl?.projectRing) {
+        // 3D (ISS-052): the hourglass of the eleven dimensions, the same signals as beads
+        const gl = env.gl;
+        const kindOf = item => (item.path === up1 ? 'up1' : item.path === up2 ? 'up2' : 'down');
+        gl.render({ phi, dim, time: t, stereo: env.stereo, signals: traffic.items.map((item, i) => ({ s: Math.min(1, item.s), kind: kindOf(item), color: item.color, lane: (i * 0.618) % 1 })) });
+        if (env.labels) {
+          const put = (text, k, color, size, above) => {
+            const p = gl.projectRing(k, above);
+            if (p.visible) label(ctx, u, text, (p.x * env.w) / u, (p.y * env.h) / u, color, 'center', size);
+          };
+          put('BODY FIELD · D1–7', 3, COLORS.teal, 0.03, 0.4);
+          put('LIMBIC · D8', 7, phi > 0.5 ? COLORS.red : COLORS.gold, 0.032, 0.55);
+          if (dim >= 11) put('MIND FIELD · D9–11', 9, COLORS.violet, 0.03, 0.4);
+          label(ctx, u, `Φ = ${phi.toFixed(2)}   T = T₀ + σΦ = ${T.toFixed(2)}   β = 1/T = ${(1 / T).toFixed(2)}: the limbic band widens as Φ rises`, 0.12, 0.66, COLORS.ink, 'center', 0.028);
+          if (dim >= 8) label(ctx, u, 'signals up through the hinge; calming signals back down the outside (blue), fewer when hot', 0.12, 0.72, '#8fbaff', 'center', 0.022);
+        }
+        return;
+      }
       ctx.save();
       ctx.lineCap = 'round';
       ctx.strokeStyle = 'rgba(232,238,252,0.12)';
@@ -3266,6 +3284,7 @@ export function createExplorer(hooks = {}) {
     landscape: () => createLandscape3D({ energy, wells: WELLS, city: hooks.cityItems?.() ?? [], skyline: cycSkyline ?? [] }),
     dyad: () => createDyad3D(),
     neuron: () => createNeuron3D(scene('neuron').geometry),
+    limbic: () => createLimbic3D(),
     flight: () => createFlight3D(),
     tunnel: () => createTunnel3D(),
     ureter: () => createTunnel3D({ ureter: true }),
