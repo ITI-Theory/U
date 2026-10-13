@@ -215,6 +215,7 @@ A sleep study could examine how affective or interoceptive stimuli perturb EEG, 
 Sleep also guards against a simplistic consciousness claim. The formal threshold in the programme is a predicate over an amplitude. Real consciousness has graded reportability, memory, attention, arousal, and content. Sleep stages show that threshold crossing cannot be read naively. A field neuroscience must distinguish subthreshold processing, reportable awareness, memory encoding, and later narration. The Lean dichotomy is formal; the biology is layered `kernel-verified`.
 
 These four examples share a method. Choose a phenomenon already studied by neuroscience. Define the field variable as a response property, not as a metaphysical conclusion. Measure neural and bodily channels. Estimate a model with failure criteria. Compare to simpler alternatives. Keep clinical and philosophical claims out of the result until the measurement earns them. That is how [T]-Theory can enter neuroscience without demanding premature belief `interpretive`.
+
 # What Would Count as Evidence
 
 Because [T]-Theory deliberately crosses vocabularies, it needs a stricter evidential grammar than a single-domain model. A neuroscientist should ask four questions of every claim. What is the measured variable? What is the model variable? What mapping connects them? What result would force revision? If any of the four is missing, the claim is not yet neuroscience `interpretive`.
@@ -246,6 +247,7 @@ A second near-term output would be a negative-results registry. Because the prog
 A third output would be terminology discipline. The programme should reserve `kernel-verified` for named Lean theorems; `derived-under-assumptions` for consequences of explicit model choices; `simulated` for computational outputs; `empirical-result` for documented measurements; `interpretive` for conceptual readings; and `open-hypothesis` for claims awaiting discrimination. These labels make it possible for a sceptical neuroscientist to read the book without wondering where the evidential floor is `interpretive`.
 
 The question "what would count as evidence?" therefore has a direct answer: reliable response functions, state-dependent predictions, body-brain convergence, perturbation recovery, longitudinal forecasting, comparative model performance, and eventually controlled parameter change. Anything less may still be interesting, but it should be labelled accordingly.
+
 # Reading The Physical Substrate of the Soma-Field
 
 The first embedded paper asks what kind of living body could host a somatic field. For neuroscientists, its value is not the strongest claim that the soma-field is formally identical with a biofield. That remains speculative. The useful material is the substrate inventory: biotensegrity, fascial interoception, mechanotransduction, bodily continuity, autonomic physiology, and candidate electromagnetic or bioelectric correlates. Read it as an attempt to prevent an overly cranial neuroscience of affect `interpretive`.

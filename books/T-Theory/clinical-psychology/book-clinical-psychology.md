@@ -301,6 +301,7 @@ Research that ignores these variables may misattribute change to therapy or mean
 After these caveats, the reader may ask what SFT adds. Its possible contribution is not a new therapy. It is a common dynamical grammar for phenomena that trauma science already recognises: state capture, window, bodily access, memory persistence, developmental timing, dissociation, relational safety, and heterogeneity. If that grammar improves measurement and prediction, it adds something. If it merely renames existing wisdom, it should be treated as a poetic synthesis and nothing more (`open-hypothesis`).
 
 This is a high bar, but a fair one. Clinical psychology does not need more metaphors unless they organise evidence. SFT's metaphors are disciplined by equations and labels; now they must be disciplined by data. The established trauma sciences are not obstacles to the programme. They are the tests the programme must pass (`interpretive`).
+
 # Research Vignettes: How the Model Can Be Used Without Advising Practice
 
 A research model becomes safer when it is tried first on imaginary or retrospective vignettes rather than on live clinical decisions. The vignettes in this chapter are not cases and not recommendations. They are examples of how a trauma researcher might translate familiar clinical patterns into SFT variables, then immediately ask what would have to be measured. Each vignette therefore ends not with an intervention but with a testable question (`interpretive`).
@@ -354,6 +355,7 @@ Some trauma patterns persist because they solve a problem. Numbing may preserve 
 A field study would therefore need outcome measures beyond symptom reduction: functioning, agency, safety, values, cultural fit, and adverse consequences. A model that treats all movement toward a researcher-defined calm basin as good would be clinically naive. The landscape has to include environment, not only organism (`open-hypothesis`).
 
 Taken together, these vignettes show the right use of SFT at this stage. The model can sharpen questions: What state returned? What route did it take? Which variables were coupled? What was the barrier? What was the boundary condition? What would count against the interpretation? It should not answer: what should the clinician do now? That answer belongs to established practice, professional judgement, consent, supervision, and evidence, not to an unvalidated field model (`interpretive`).
+
 # A Clinician's Glossary of the Field Terms
 
 This glossary is included to prevent the most common misreadings. Each term is a research construct unless the context says otherwise. None is an assessment instruction.
@@ -389,6 +391,7 @@ This glossary is included to prevent the most common misreadings. Each term is a
 **Co-identification.** The programme's method for saying two structures share enough formal type to import results under assumptions. In this book, co-identification should be treated as stronger than metaphor but weaker than empirical identity unless measured data support it (`derived-under-assumptions`).
 
 **Testimony.** First-person or patient-researcher evidence that constrains and motivates modelling. Testimony can reveal phenomena that instruments miss. It does not by itself establish general clinical mechanism. Johnson's N=1 material remains testimony throughout this volume (`interpretive`).
+
 # Falsification, Ethics, and Governance
 
 A theory that enters trauma research must say not only what would support it but what would stop it. This chapter makes the failure conditions explicit. The point is not adversarial scepticism for its own sake. It is clinical humility. A model that cannot be wrong will eventually be used to make vulnerable people wrong. The protection against that is a falsification culture built into the model from the beginning (`interpretive`).
@@ -446,6 +449,7 @@ For this reason, any computational tool should be decision-support for research 
 Even if SFT fails as a clinical mechanism, some things may survive. The insistence on evidence labels is useful. The distinction between testimony, simulation, proof, and clinical validation is useful. The idea that repeated state dynamics matter is compatible with broader computational psychiatry. The critique of blaming people for state capture is humane. The call for dynamic, embodied, and relational measurement is scientifically reasonable. A failed theory can still leave better questions behind (`interpretive`).
 
 This is a good outcome. The purpose of a research scaffold is not to be preserved at all costs. It is to build a bridge to evidence. If the bridge cannot carry weight, it should be marked, repaired, or dismantled. Trauma research does not need another totalising theory. It needs tools that are precise enough to help and honest enough to stop (`interpretive`).
+
 # Supervisory and Research Use
 
 Supervisors, lecturers, and research leads may find this volume useful as a teaching text about evidence boundaries. Its safest classroom use is not to ask trainees to "apply SFT" to clients, but to ask them to classify claims. Which sentences describe established trauma science? Which are analogies? Which are formal consequences of definitions? Which are simulations? Which are live clinical hypotheses? This exercise is itself clinically valuable because it trains resistance to attractive overclaim (`interpretive`).
@@ -459,6 +463,7 @@ For trauma services, the model is not ready to guide pathway design. It may, how
 For lived-experience researchers, the book offers both recognition and warning. It recognises that insider testimony can identify gaps in professional maps. It warns that one testimony can become overcentral if a programme is not pluralised. Future work should invite multiple lived-experience accounts, including accounts that do not fit SFT well. Disagreement is not a threat to the model; it is a way to discover its boundary (`interpretive`).
 
 For readers who are themselves clinicians with trauma histories, the same safety rule applies: the model is not a self-treatment framework. It may give language for research, writing, or discussion with appropriate supports. It should not be used to intensify self-monitoring, reinterpret all experience as topology, or replace care. The book's central ethical sentence remains: the person is distinct from the attractor landscape they traverse (`interpretive`).
+
 # Reading *Field Notes from the Inside*
 
 This paper should be read as patient-researcher testimony and model construction, not as a clinical case formulation. Its value for clinicians is that it describes a common difficulty in unusually explicit terms: affect can be present as bodily weather before it is available as named emotion. The paper proposes the soma-field as a persistent distributed field, with conscious feeling arising when local amplitude exceeds threshold (`derived-under-assumptions`). Readers should notice both the power and the limitation of that move. It gives alexithymia, sub-perceptual emotion, and bodily signal a formal place; it does not validate the threshold biologically.
@@ -585,6 +590,7 @@ That discipline also protects clinicians from false novelty. Much of what SFT va
 If future evidence contradicts the field vocabulary, the ethical response is not to defend the vocabulary but to keep the improved habits of measurement, labelling, and listening (`interpretive`).
 
 This is the minimum standard for a trauma-facing theory in clinical research (`interpretive`).
+
 # Evidence Ledger
 
 | Claim | Label | Source |

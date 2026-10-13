@@ -203,6 +203,13 @@ else
   ok "All 15 booklets are exactly four pages"
 fi
 
+hdr "12b. Headings are headings (UAT rc3.2)"
+if py paper/scripts/check_headings.py >/dev/null 2>&1; then
+  ok "No heading is glued to the paragraph before it (pandoc would print it as text)"
+else
+  fail "Headings printed as text: python paper/scripts/check_headings.py"
+fi
+
 # ── 13. Lulu page caps ────────────────────────────────────────────────────
 hdr "13. Lulu print page caps"
 LULU_CHECK=$(py paper/scripts/check_lulu_pages.py 2>&1)

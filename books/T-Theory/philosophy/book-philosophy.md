@@ -457,6 +457,7 @@ The same must be said of [T]-Theory's philosophical book. It cannot be the histo
 There is a further reflexive point. Russell's title says not only that the book is one history among others, but that the historian's own circumstances are part of the history. Russell writes after the collapse of nineteenth-century certainties, two world wars, the rise of mass politics, and his own long struggle with logic, empire, war, education, and public morality. His book is not a view from nowhere. It is a view from Russell.
 
 Johnson's book must be equally explicit. It is written after a programme made through AI dialogue, Lean proofs, simulations, lived crisis, music, app-building, and evidence ledgers `interpretive`. Its perspective is not a contamination to hide. It is the condition under which the perspective becomes intelligible. The context of discovery is not the context of justification, but it explains why certain questions became urgent `interpretive`. Russell's method permits that honesty. It says: do not pretend thought has no circumstances; instead, state them and then ask what survives public test.
+
 ## Criticisms of Russell's book
 
 The criticisms of *A History of Western Philosophy* are well known. It is uneven. It is often unfair to philosophers Russell dislikes. Its treatment of medieval philosophy has been criticised as impatient with scholastic subtlety. Its account of Hegel is hostile and compressed. Its handling of Nietzsche is often judged caricatural. It is weak as a specialist's guide to many periods. It can turn complex doctrines into moral temperaments and then judge the temperament. It sometimes gives the impression that history is moving toward the sort of scientific liberal clarity Russell himself preferred.
@@ -586,6 +587,7 @@ The social analogue is not that societies literally have trauma kernels of the s
 This matters for Russell's history. Christianity's reception of Greek philosophy is not merely a later reading of old texts. It is a convolution of Greek conceptual memory with Roman institutions, Jewish and Christian scripture, ecclesiastical authority, and medieval educational forms. The Reformation's reception of Augustine is not Augustine alone. It is Augustine through late-medieval church crisis, printing, vernacular literacy, political fragmentation, and spiritual anxiety. The Enlightenment reception of ancient scepticism is not simply scepticism repeated. It is scepticism through science, commerce, empire, and religious war.
 
 Delay also explains why philosophers often have effects they did not live to see. A doctrine may enter the medium below threshold and remain as latent structure. When later conditions change, the stored pattern becomes active. In field language, the earlier impulse altered the medium's response function even before it produced visible macroscopic transition `interpretive`. This is one reason historical influence is difficult to measure. The absence of immediate uptake is not absence of effect.
+
 ## Cohesion as coupling
 
 The programme's social books repeatedly use coupling language: dyadic coupling for rapport, social coupling for trust, legal coupling for constraint, market coupling for allocation. Russell's cohesion/liberty theme can be translated directly. Cohesion is coupling: the degree to which agents and institutions are bound into common modes `interpretive`.
@@ -767,6 +769,7 @@ It says something weaker and more useful: social response has recurrent structur
 Popper also helps keep falsification visible. If a field reading claims too much, it must risk failure. If it predicts that high legal uncertainty fragments attractors, one must be able to say what data would count against that. If it treats social trust as spectral gap, one must define the graph and compare outcomes. If it reads philosophical influence through memory kernels, one must distinguish that reading from a decorative metaphor by specifying channels, delays, and alternative explanations `open-hypothesis`.
 
 Thus Popper is not an enemy of the chapter. He is its guardrail. Time-invariant grammar is acceptable only if it remains a grammar of response, not a doctrine of fate `interpretive`.
+
 ## Recurrence without repetition
 
 The history of philosophy is full of recurrence. Structure returns after flux. Flux returns after structure. The many and the one, appearance and reality, body and mind, freedom and order, scepticism and system, experience and form, mechanism and life, proof and judgement: these pairs recur not because philosophers lack imagination, but because human societies repeatedly face structurally similar tensions under different conditions.
@@ -1282,6 +1285,7 @@ A high-cohesion field can look permanent from inside. Yet the Catholic synthesis
 The field reading is that long memory increases both stability and delayed instability `interpretive`. A trace held for centuries can become available under new conditions. When printing, urban wealth, state power, humanist philology, and scientific instrumentality alter the medium, stored impulses respond differently. Aristotle in Aquinas stabilises; Aristotle in later natural philosophy can trouble. Augustine's inwardness can serve confession; it can also later feed individuality. Ockham's economy can serve theology; it can also prepare empiricism.
 
 Russell's cohesion/liberty theme therefore should not be mapped mechanically. Cohesion is not the enemy in every respect. It stores the very materials from which later liberty is made. Liberty is not pure good in every respect. It can dissolve common memory into noise. The medieval chapter supplies the largest example of that double truth. Catholic philosophy is neither a dead weight nor a lost golden order. It is a long-memory medium whose response shaped the conditions under which modern philosophy could occur `interpretive`.
+
 ## Catholic philosophy as field training
 
 The Catholic period trains Europe in a certain kind of thought. It teaches that philosophy is not merely invention but commentary; not merely private insight but authorised speech; not merely argument but discipline. Russell, from his liberal and analytic standpoint, sees much of this as constraint. But the time-invariant history must preserve the double result. Constraint is also storage. Authority is also transmission. Orthodoxy is also an index of the medium's fear of dissolution.
@@ -1428,6 +1432,7 @@ Hume closes the first half of Russell's modern story because he makes the old fo
 The field reading is that Hume creates a metastable state `interpretive`. The previous attractors have been weakened, but no new basin has fully formed. Habit keeps the organism functioning while metaphysics loses stiffness. This is why Kant must answer. The response to Hume cannot be a mere return to Descartes, Spinoza, or Locke. It must explain how necessity can be valid for experience without pretending to read it from things in themselves.
 
 This afterimage is important for the programme because open hypotheses can also create metastability `interpretive`. The claim that consciousness is a phase transition is not empty; it organises questions about threshold, hysteresis, reportability, and unified point of view. But until operational measures and discriminating evidence exist, it should not be allowed to settle into dogma. It should remain a charged, productive instability. Hume teaches that a good disturbance can make philosophy more honest by preventing premature closure.
+
 ## The modern first half as response grammar
 
 From the Renaissance to Hume, the field changes from ecclesiastical memory to plural inquiry. Descartes responds by securing the subject and dividing the world. Spinoza restores unity. Leibniz multiplies perspective. Locke moderates experience. Berkeley removes matter behind perception. Hume dissolves necessity into habit. Each figure supplies an impulse; society responds according to its current parameters.
@@ -1572,6 +1577,7 @@ The temptation in a programme as synthetic as [T]-Theory is to convert every res
 The Soma Machine should therefore visualise recurrence rather than lineage. A line of influence would invite historical overclaim. A field of recurrence can show that different media produce analogous solutions when confronted with analogous tensions. The same pattern can recur because the problem recurs: how to think parts and wholes, structure and experience, person and environment, law and freedom. That is the time-invariant grammar at work `interpretive`.
 
 This distinction also protects the Gestalt material. The programme's Gestalt paper is valuable because it gathers Russell, type discipline, field language, and clinical field concepts into a research proposal `interpretive`. It is not valuable as a proof that Gestalt therapy is mathematically verified. Köhler and Lewin give explicit field theories of mind and behaviour. They should be placed on the axis as historical field events in psychology. The programme appears later as a labelled contemporary attempt to formalise affective response across body and brain `open-hypothesis`.
+
 ## Logical analysis and the handover to Part IV
 
 Russell's *History* ends with the philosophy of logical analysis. That ending is not accidental for this book. Logical analysis is where the time-invariant history hands over to proof, order, and knowledge representation. After centuries of impulses and social responses, Russell asks what can be said clearly, what follows from what, what type a statement has, and how language misleads us.
@@ -1920,6 +1926,7 @@ theorem threshold_le_three : threshold ≤ 3 := by
 Reverse the two declarations, and the theorem cannot be elaborated, because `threshold` is not yet known. Once elaborated and checked, however, the theorem is not “later than” the definition in the same sense that a program's second print statement is later than its first. The proof object depends on the declaration context. The content, once established, enters the environment as a reusable fact.
 
 This double character matters for the programme's proof files. `EmotionOntology.lean` first defines `EmotionLabel`, `Mechanism`, the `EmotionLang` typeclass, and named terms such as `awe` and `nostalgia`. Only then can it prove membership and valence facts. `MTheoryIsomorphism.lean` defines the component spaces before it proves the product round-trip. `USF_OSAxioms.lean` imports OSforGFF before it wraps the GFF theorem. The file order is necessary for elaboration as a Lean practice fact, but the propositions themselves are not empirical events unfolding in time `interpretive`.
+
 ## The programme's ontology substrate
 
 The programme's first ontology substrate, retired in October 2026, was modest and concrete. `paper/scripts/schema.tql.OBSOLETE` mapped OWL/OpenCyc material into TypeDB concepts and relations: `cyc-class`, `cyc-individual`, `subclass-of`, `equivalent-to`, `disjoint-from`, `instance-of`, `same-as`, and emotion-specific relations such as `emotional-blend`, `emotional-inhibition`, and `causes` `interpretive`. A fragment shows the shape:
@@ -2080,6 +2087,7 @@ Read through Popper, DOT is the programme's anti-protective device. Popper's acc
 This makes Moriarty more than red-team theatre. It is the institutionalisation of the author's own anxiety about overclaim. In `Me/chats/Inbox/history_western_philosophy.md`, he asks for grounded evidence rather than flattery and challenges, "did you read and analyze my paper? i doubt it". The philosophical importance is not the psychology of distrust. It is that distrust becomes method. `interpretive`
 
 There is a tension here. In one branch, Moriarty is the breaker: the one who finds DOT. In another, Moriarty is the abductive generator: the one who invents possible bridges while Sherlock verifies them. `interpretive` The ambiguity should not be hidden. A public specification should replace the literary names with two modes: abducer and breaker. The abducer proposes hypotheses that could explain the text; the breaker searches for contradictions, counterexamples, and proof-status gaps. Sherlock, in the strict sense, is the ledger that records which mode produced what and which filter accepted it. `open-hypothesis`
+
 ## The pipeline: Markdown to reasoner and back
 
 The cleanest architecture appears in a single authorial line: "markdown (user text) -> sherlock ->reasoner ->sherlock-> user" [`Me/chats/Inbox/SherlockBS2.md`]. This is not yet a program. It is a philosophy of interface. A human writes prose. Sherlock parses the prose into claims, entities, relations, proof obligations, and questions. A reasoner then does the appropriate work: an LLM may propose structure, a local model may classify, TypeDB may retrieve ontology neighbours, Lean may check a theorem, a simulator may rerun a case, a citation index may confirm provenance. Sherlock returns not a literary essay but an evidence-labelled verdict. `open-hypothesis`
@@ -2189,6 +2197,7 @@ The minimal honest Sherlock would be much less glamorous than the chats sometime
 Such a V0 would be enough to change practice. It could catch the difference between an axiom and a theorem.  It could mark a simulation as simulation where prose slides toward experiment. `simulated` It could notice that a citation is absent or that an LLM-generated line has no primary source. `derived-under-assumptions` It could expose when an app badge says FORMAL but the underlying claim is interpretive.  It could record an ASO term with no Cyc anchor without deciding whether that lack is bug or novelty. `interpretive`
 
 The success criterion should not be that Sherlock proves the theory. A better first success would be one real DOT found in an existing paper, one overclaim downgraded without destroying the underlying insight, one morphism gap preserved for later ontology work, and one theorem/prose mismatch corrected in a public ledger. That would be a philosophical instrument: not an oracle, but a device that makes intellectual debt visible.
+
 ## What Sherlock can never establish
 
 Sherlock can establish fewer things than its rhetoric sometimes suggests. It can establish that, under a fixed parser and ontology subset, a claim maps to certain triples. `derived-under-assumptions` It can establish that a named Lean theorem compiles, or that the source contains an axiom, `sorry`, or placeholder theorem. `kernel-verified` It can establish that a simulation was run with specified parameters, if the script and outputs are preserved. `simulated` It can establish that a source citation says what the paper claims it says, if the source is checked. `empirical-result` in the limited bibliographic sense. It can produce a ledger. `interpretive`
@@ -2265,6 +2274,7 @@ The author's distrust of flattery is not incidental. AI systems often reward the
 Philosophically, this distrust performs the role that peer review, replication, and adversarial seminars normally perform in slower research communities.  Johnson does not have the full institutional setting around him. He therefore tries to build adversarial functions into the workflow: Moriarty, UAT, claim ledgers, proof-status tables, replication ledgers, source-bounded NotebookLM, and Lean where appropriate. `interpretive`
 
 That substitution has limits. A self-built adversary is not equivalent to independent criticism.  The independent replication ledger remains pending. `open-hypothesis` NotebookLM is not a hostile specialist.  Lean does not care whether the formalisation captures the intended phenomenon.  But the distrust of flattery is still methodologically important because it prevents AI companionship from becoming epistemic confirmation. `interpretive`
+
 ## Underdetermination and the Duhem-Quine pressure
 
 AI-assisted research intensifies underdetermination. Duhem and Quine taught that hypotheses face experience as part of a larger web, with auxiliary assumptions, instruments, translations, and background commitments in play [@duhem1906aim; @quine1951dogmas]. In [T]-Theory, that web is unusually visible. A failed mapping may indicate a false theory, a bad ontology, a weak prompt, a missing theorem, an underdeveloped bridge law, a simulation artefact, or merely an over-ambitious sentence.
@@ -2346,6 +2356,7 @@ Progress in AI-assisted research should not be measured by the number of generat
 On this measure, the programme has mixed but real progress. `interpretive` It has converted some affective intuitions into Hopfield/Langevin equations.  It has converted some ontology ideas into Lean encodings and TypeDB scripts. `kernel-verified` /  It has converted the quantum barrier intuition into an exact 8-qubit simulation. `simulated` It has converted some release worries into UAT worksheets.  It has not converted the hard problem into an empirical result.  It has not converted Sherlock into a full implementation. `open-hypothesis` It has not converted all proof rhetoric into closed proofs. `derived-under-assumptions`
 
 That mixed status is not failure. It is the only honest shape a programme like this can have at this stage.  The danger would be to smooth the mixture into a triumphal line. AI prose wants to do that smoothing. The philosophy book must not. `interpretive`
+
 ## A faster library still needs librarians
 
 Calling AI a faster library also implies a human office: selection, cataloguing, exclusion, and responsibility. Libraries do not only contain books; they order books. They distinguish editions, authors, subjects, shelf marks, and restricted materials. An AI system without such ordering produces availability without authority. [T]-Theory's labels, ledgers, UAT worksheets, and proof-status tables are its attempted librarianship.
@@ -2355,6 +2366,7 @@ This librarianship is itself fallible.  A label can be wrong. A source note can 
 The social form of that process is also important. A lone author can begin the ledger, but the ledger becomes stronger when others can contest it. This is where ordinary academic norms return: replication, criticism, source checking, formal review, and domain expertise. AI can accelerate preparation for those norms, but it cannot replace them. The right ambition is not an AI-protected theory. It is an auditable theory whose AI-mediated discovery path has been exposed enough for human and formal criticism to operate.
 
 That is why this chapter does not end by praising AI. It ends by praising the filter.  The generator is easy to admire because it produces visible abundance. The filter is slower, less glamorous, and often disappointing. Yet in this corpus, the filter is where philosophy happens: in the conversion of enthusiasm into status, of analogy into hypothesis, of proof theatre into proof obligation, of source-like text into checked source, and of discovery into something that can face justification. `interpretive`
+
 ## The human remains the responsible author
 
 The final responsibility for AI-assisted research cannot be assigned to the model. This is not only a legal or ethical point; it is epistemological. The model has no stable stake in the distinction between a beautiful speculation and a warranted claim. It does not suffer the consequence of a false theorem name, a misquoted source, or an inflated clinical implication. The author does.
@@ -2362,6 +2374,7 @@ The final responsibility for AI-assisted research cannot be assigned to the mode
 Johnson's corpus is unusual because it leaves visible many moments where the author refuses the model's offered authority. He asks for evidence, corrects scope, rejects praise, demotes MCI, distinguishes release candidates from peer-reviewed work, and repeatedly returns to Lean, simulation, UAT, and source checking. These gestures are not incidental footnotes to AI use. They are the means by which AI use becomes research rather than performance.
 
 The lesson generalises beyond [T]-Theory. AI can help a philosopher or scientist think faster, but the human author must slow the result down before publication. Slowness here means status assignment, source checking, proof inspection, parameter reporting, and explicit uncertainty. The faster the generator, the more important the slowing device. Sherlock is one name for that device.
+
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
@@ -2805,6 +2818,7 @@ The Lean corpus is the programme's clearest discipline and its clearest temptati
 `Hopfield.lean`, `LimbicHopfield.lean`, `TemporalDynamics.lean`, `QuantumSim.lean`, and `SwarmPropagator.lean` contain useful local theorem names. `LimbicHopfield.correspondence_principle` states that the limbic-modulated Hopfield layer recovers the baseline model in the calm/zero-modulation case. `TemporalDynamics.retardedDecayFactor_isCausal`, `somaticMemoryKernel_isCausal`, and `somaticRetardedPropagator_isRetarded` formalise causal kernels by definition. `QuantumSim.wkbGate_creates_awe` and `quant_exp_1_awe_reachable` show finite gate reachability in the formal toy quantum system. `SwarmPropagator.propagator_beats_classical` proves a cost inequality under the stated condition $K>N$ `kernel-verified`; `greens_achieves_minimum_energy` is an axiom, not a proved global PDE theorem `derived-under-assumptions`. Likewise `moduli_space_is_G2_homotopy` in `BRECVEMAVariational.lean` is an axiom: the G₂ geometry of the moduli space is assumed, not proved `derived-under-assumptions`.
 
 The important negative facts are equally central. `paper/FieldAxioms.lean` is an axiom registry with twenty axioms, including `PerceptIsPropagatorPole`, `AttractorIsHopfieldMinimum`, `TherapyIsRGFlow`, `CoIdentificationIsAbduction`, and `QuantumTunnelingChangesWindingNumber` `derived-under-assumptions`. Results depending on that file are not kernel proof of the world. No real `sorry` remains (five until October 2026) `empirical-result`. Any sentence saying the entire proof surface is closed would be false. A serious philosophical reading should admire the proof surface for exposing this mixed status, not for eliminating it.
+
 ## QUANT-EXP-1
 
 QUANT-EXP-1 is the programme's strongest numerical image and one of its easiest overclaims. It is an exact dense statevector simulation of an eight-qubit transverse-field Ising/Hopfield landscape. In the canonical reports, cold classical dynamics does not escape to the Awe basin, while the annealed quantum model places substantial probability mass there, with peak Awe occupancy around 0.41 across the tested barriers. Hardened summaries report barrier cases such as W = 8, 10, 12, and broader ladder sweeps, with classical cold success at zero in the sampled runs and quantum reachability preserved `simulated`.
@@ -2880,11 +2894,13 @@ The programme should be judged with this range in mind. If $T_c$ never calibrate
 A philosopher can now say that [T]-Theory is neither pseudoscience in the simple sense nor established science in the strong sense. It is a speculative research programme with a formal proof surface, a numerical experiment, a proposed instrument, a body of generated domain wrappers, and an unusually explicit anxiety about its own evidential status `interpretive`. Its danger is over-identification: mistaking a shared equation for shared ontology. Its virtue is the counter-device it has begun to build: labels, theorem names, assumption registries, replication ledgers, and Sherlock.
 
 The best reading is therefore neither credulous nor dismissive. Credulity would allow the strongest metaphysical claims to borrow the authority of the smallest theorems. Dismissal would miss the methodological invention: a programme born in AI-assisted connection-making trying to make its own hallucination filter. The philosopher's ledger keeps both facts visible `interpretive`.
+
 ## Concrete failure modes
 
 The programme is strongest when it names the ways it can fail. $T_c$ may fail to calibrate against any stable physiological or behavioural observable. The threshold may be graded, contextual, or plural rather than sharp. QUANT-EXP-1 may disappear under fairer classical baselines, larger systems, hardware noise, or different barrier definitions. The cosmological fractions may remain elegant arithmetic without physical necessity `derived-under-assumptions`. The G₂ programme may stay at trace decomposition rather than becoming geometry. Sherlock may prove useful only as a manual claim ledger, not as a full neuro-symbolic engine `open-hypothesis`.
 
 Naming these failures does not weaken the programme. It gives it shape. A programme that cannot say what would count against it is only a mythology. A programme that can name its own demotions has begun to become research `interpretive`.
+
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
@@ -3002,6 +3018,7 @@ It has taught us to ask for the limiting case. If a new affect theory cannot exp
 These are modest habits, but they are not small. They are the habits by which speculative philosophy can continue after machine generation has made fluent integration cheap. The future scarcity is not prose. It is disciplined discrimination.
 
 The book therefore sends no command. It leaves an apparatus: labels, ledgers, kernels, fields, impulses, instruments, and the unfinished Sherlock. It leaves an image: `[T]`, bracketed, exact-looking, overfull, neither proof nor ornament alone `interpretive`. It leaves an instruction that is also a question: run the response.
+
 ## Conditions of a useful response
 
 What would it mean for the book's impulse to be useful? The answer differs by receiver, and the differences should not be collapsed.
@@ -3031,6 +3048,7 @@ There is one final distinction to keep: impulse is not essence. A book can be an
 This book asks to be received in that way. It does not ask to close the hard problem. It asks to alter how the problem is divided. It does not ask to prove [T]-Theory's physics. It asks to make the programme legible enough that the physics can be tested and the metaphysics criticised. It does not ask the reader to believe the mark. It asks the reader to notice what the mark compresses and what compression leaves out.
 
 The quiet ending is therefore not modesty performed after ambition. It is the only ending consistent with the theory. If response belongs to the field, the author cannot write the response in advance. The book can only enter, labelled, into a medium of readers `interpretive`.
+
 ## After the impulse
 
 After the impulse comes delay. That delay is philosophically important. A response may take the form of a failed replication, a careful theorem-strength audit, a better instrument, a hostile review, a student using the labels elsewhere, or silence `open-hypothesis`. Silence is also a response, though it is hard to interpret. A field theory of reception must allow non-response, damping, and absorption as possibilities rather than converting them into secret confirmation `interpretive`.

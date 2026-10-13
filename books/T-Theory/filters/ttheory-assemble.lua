@@ -161,11 +161,19 @@ local function paper_blocks(file, book_title, dedupe)
 
   if dedupe then seen[key] = "*" .. book_title .. "*" end
   local paper = strip_references(doc.blocks)
+  -- The two-level master TOC (paper/OMNIBUS_DOCUMENT_MODEL.md, decision 1): the paper is one
+  -- chapter-level entry, its title; its own headings move one level down, so its sections
+  -- appear in the book's local TOC, not among the master TOC's chapters (UAT rc3.2 TS-1).
   local first = paper[1]
-  if not (first and first.t == "Header" and first.level == 1) then
+  if first and first.t == "Header" and first.level == 1 and pandoc.utils.stringify(first) == title then
+    paper:remove(1)
+    blocks:insert(first)
+  else
     blocks:insert(pandoc.Header(1, title))
   end
-  blocks:extend(paper)
+  blocks:extend(pandoc.walk_block(pandoc.Div(paper), {
+    Header = function(h) h.level = math.min(h.level + 1, 6); return h end,
+  }).content)
   return blocks
 end
 
@@ -196,7 +204,10 @@ local function booklet_pages(domain)
   if FORMAT:match("latex") then
     local lines = {}
     for page = 1, 4 do
-      lines[#lines + 1] = "\\includepdf[pages=1]{" .. pdf_abs("booklet-" .. booklet_id .. "-" .. page .. ".pdf") .. "}"
+      -- the insert's first page is a TOC entry, so the cheatsheet can be found from the
+      -- contents (UAT rc3.2 TS-3)
+      local toc = page == 1 and (",addtotoc={1,section,1,Cheatsheet,cheatsheet-" .. booklet_id .. "}") or ""
+      lines[#lines + 1] = "\\includepdf[pages=1" .. toc .. "]{" .. pdf_abs("booklet-" .. booklet_id .. "-" .. page .. ".pdf") .. "}"
     end
     return pandoc.List:new({ pandoc.RawBlock("latex", table.concat(lines, "\n")) })
   end
