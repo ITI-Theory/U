@@ -4047,8 +4047,8 @@ other work.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
-- [x] (ISS-041) Read the course through, then the release decision (the chapter-opening Decided (author, 13 Oct 21:18): the course goes in the release, "it's good".
-      banners are ISS-051).
+- [x] (ISS-041) Read the course through, then the release decision (the chapter-opening
+      banners are ISS-051). Decided (author, 13 Oct 21:18): the course goes in the release, "it's good".
 - [x] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder
       (13 Oct triage: done, into HAL/ as chat material, with its sources entry; Me 024cd43)
 
