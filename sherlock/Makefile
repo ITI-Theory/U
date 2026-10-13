@@ -31,6 +31,7 @@ help:
 	$(info   types       the concept registry's OpenCyc classes as Lean types (SLICE=1: axioms, seconds; else proofs from the KB))
 	$(info   level-types the levels as OpenCyc classes; concepts typed against them (WRITE=1: recompute the verdicts))
 	$(info   leakage     model objects said to be body parts (OpenCyc's), no map stated (ISS-094))
+	$(info   neighbours  the Wizard: OpenCyc neighbours of the concepts that no paper or book names (ISS-092))
 	$(info   towers      the programme's Lean exported for the city of code (bld/sherlock/towers.json; about 25 min))
 	$(info   clinical    sentences claiming a clinical effect with no hedge or evidence label (bld/sherlock/clinical.md; seconds))
 	$(info   readings    sentences read as OpenCyc facts through NextKB's FrameNet translations, checked (bld/sherlock/readings.md; ISS-088))
@@ -114,6 +115,9 @@ clinical:
 	cd .. && $(PYTHON) sherlock/clinical.py
 
 # One set of types (ISS-063): each level's OpenCyc class and what it can bear; the app reads the verdicts.
+neighbours:
+	$(PYTHON) neighbours.py
+
 leakage:
 	$(PYTHON) leakage.py
 

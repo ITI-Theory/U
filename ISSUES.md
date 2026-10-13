@@ -4625,9 +4625,15 @@ with real readers.
       some book. It found P10, P14, P15 and P25 cited and printed nowhere, though the 13 Oct
       omnibus note said they were: Reading sections and AddPaper added (P10 Neuroscience, P14 and
       P15 Physics, P25 Trauma; pointers in Formal Mathematics and Complex Systems).)
-- [ ] Neighbourhood (Cyc): for each concept a book covers, its siblings and parents one step away
+- [x] Neighbourhood (Cyc): for each concept a book covers, its siblings and parents one step away
       in OpenCyc that the book never mentions (the emotions it leaves out, the organs next to the
       ones it shows); the AI ranks them and phrases each as a question for the author.
+      (14 Oct 01:15: sherlock/neighbours.py, `make -C sherlock neighbours`: each typed concept's
+      OpenCyc neighbours of the same kind, never named in the papers, books or atlas: 27, all
+      feelings next to the programme's emotions (trapped feeling, emotional coldness,
+      indifference, listlessness, nervousness, uneasiness, hate, gratitude, touched ...).
+      Concepts of no specific kind are skipped (a reflexive action's parent is any action on an
+      object). The ranking and the questions go to the HAL-UAT with the "never written" item.)
 - [ ] Never written (H-AL): ask H-AL what the chats discuss that no book covers; with the UAT.
 
 ## ISS-093: What Sherlock found in its own programme, written up — CLOSED
