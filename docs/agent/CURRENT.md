@@ -42,6 +42,15 @@ and the Soma Machine's own panel.
 **Volumes:** section ids are made unique per book by the assembler (Vol II had 32
 repeats; now 0, no broken links); Vol I 592, II 508, III 562 pages.
 
+**Soma Machine (ISS-052), later in the night:** every stop the issue named is now in true 3D
+(body, limbic hinge as an hourglass of the eleven dimensions, emotion and thought, neuron); the
+Mandelbulb dive is driven by the landscape state (H, |grad H|, T, a new valley a burst); the mind
+palace is in the address (`palace=1&pf=N`) with its tour (the method of loci); CLIENT caps the
+stereo depth at ×0.6. explorer-check covers the new behaviour; all pass.
+
+**Sherlock (ISS-063):** the OWL-types design note (docs/SHERLOCK.md) and spike: "a percept is a
+pole", read literally, is a contradiction in NextKB; the coherent reading is a map.
+
 **Private (Me):** the FIS film notes (2021) in three layers, the author's accepted
 version at the top; the chat saved (Me 2a93ad0).
 
@@ -56,6 +65,7 @@ books and papers before the Soma Machine; new requirements go into ISSUES.md.
    hardware).
 2. Release (ISS-001): NotebookLM UAT, P21 to pending-upload, Zenodo sandbox, `make dist`,
    the Lulu order (the volumes and the Atlas proof), the Jumbo trimmed to 300.
-3. ISS-063 (Sherlock: OWL classes as Lean types, the inversion test), then the Soma
-   Machine (ISS-052: the remaining 3D stops, the Mandelbulb from the model, the palace
-   tour, the client depth cap).
+3. Author's decisions: ISS-063 (restate every "X IS Y" axiom as a typed map?), ISS-051's
+   sweep strips and animations (GIF or animated SVG?), the CLIENT depth (×0.6?).
+4. ISS-063's inversion test (the FIS cases), then ISS-052's rest (branching paths, the sound
+   of motion, a flow solver; the film's titles and anatomy).
