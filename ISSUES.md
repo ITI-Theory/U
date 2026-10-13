@@ -2285,7 +2285,9 @@ book, the Atlas textbook and two Fractal books (docs/VISUALIZE.md).
       `make -C Part2/book/field-atlas-textbook html`, 0 errors throughout;
       figures spot-checked for legible, non-overlapping labels and correct
       numbers at every stage.
-- [ ] More outputs per figure where reasonable: PNG and SVG; a parameter
+- [ ] (13 Oct, part: render.py writes every figure as PNG, SVG and the CSV of the numbers it was
+      drawn from (lines, points, bars, heatmap cells; a process diagram has none); the HTML tab
+      panel links both. Left: the sweep strip and animations) More outputs per figure where reasonable: PNG and SVG; a parameter
       sweep strip; an animated SVG or GIF for time-dependent ones; the data
       table (CSV) the figure was drawn from.
 - [x] (9 Oct: `lib/visualize/library.py`, 65 figures, 39 pages, 4.8 MB; each

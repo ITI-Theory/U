@@ -94,6 +94,11 @@ drawn for it), LEAN (the declaration's statement, when a figure's context is
 Radio buttons and CSS only, so it works without JavaScript. Figures with no
 equation directly before them follow the table above. The PDF is unchanged.
 
+**Outputs.** `render.py` writes each figure three ways beside the manifest:
+`viz-<id>.png` (what the documents show), `viz-<id>.svg`, and `viz-<id>.csv`, the
+numbers the figure was drawn from in long form (`axes, series, x, y, value`: each
+line, point, bar or heatmap cell). The HTML tab panel links the SVG and the CSV.
+
 ## Concepts (palettes)
 
 `generic`, `wave`, `quantum`, `neural`, `soma`, `earth`, `cosmic`. The

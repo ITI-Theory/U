@@ -207,7 +207,20 @@ end
 local function tab_panel(eq, figs, contexts)
   tab_count = tab_count + 1
   local id = "vt" .. tab_count
-  local tabs = { { "eq", "EQUATION", { eq } }, { "fig", "FIGURES", figs } }
+  -- each figure with its other outputs: the SVG and the numbers it was drawn from (render.py)
+  local fig_blocks = {}
+  for _, fig in ipairs(figs) do
+    fig_blocks[#fig_blocks + 1] = fig
+    local src
+    fig:walk({ Image = function(img) src = src or img.src end })
+    if src then
+      fig_blocks[#fig_blocks + 1] = pandoc.Para({ pandoc.Str("Also"), pandoc.Space(), pandoc.Str("as"), pandoc.Space(),
+        pandoc.Link("SVG", (src:gsub("%.png$", ".svg"))), pandoc.Space(), pandoc.Str("and"), pandoc.Space(),
+        pandoc.Link({ pandoc.Str("the"), pandoc.Space(), pandoc.Str("data"), pandoc.Space(), pandoc.Str("(CSV)") }, (src:gsub("%.png$", ".csv"))),
+        pandoc.Str(".") })
+    end
+  end
+  local tabs = { { "eq", "EQUATION", { eq } }, { "fig", "FIGURES", fig_blocks } }
   local lean_name, lean_text
   for _, c in ipairs(contexts) do
     lean_name, lean_text = lean_statement(c)

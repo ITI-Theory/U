@@ -1052,6 +1052,40 @@ def referenced_names(spec: Spec) -> set[str]:
     return names
 
 
+def export_data(fig, path: Path) -> int:
+    """The numbers the figure was drawn from (ISS-051), in long form: one row per point of each
+    line, scatter or heatmap cell. Returns the number of rows."""
+    import csv
+    rows = []
+    for k, ax in enumerate(fig.axes):
+        for line in ax.get_lines():
+            label = line.get_label()
+            series = label if label and not label.startswith("_") else f"line{len(rows)}"
+            for x, y in zip(np.asarray(line.get_xdata(), dtype=float), np.asarray(line.get_ydata(), dtype=float)):
+                rows.append((k, series, x, y, ""))
+        for coll in ax.collections:
+            offsets = getattr(coll, "get_offsets", lambda: [])()
+            label = coll.get_label() if not coll.get_label().startswith("_") else "points"
+            for x, y in np.asarray(offsets, dtype=float).reshape(-1, 2) if len(offsets) else []:
+                rows.append((k, label, x, y, ""))
+        for bar in ax.patches:
+            if type(bar).__name__ == "Rectangle" and bar.get_width() > 0:
+                label = bar.get_label() if not bar.get_label().startswith("_") else "bars"
+                rows.append((k, label, bar.get_x() + bar.get_width() / 2, bar.get_height(), ""))
+        for im in ax.get_images():
+            arr = np.asarray(im.get_array(), dtype=float)
+            if arr.ndim == 2:
+                for i in range(arr.shape[0]):
+                    for j in range(arr.shape[1]):
+                        rows.append((k, "image", j, i, arr[i, j]))
+    with path.open("w", newline="", encoding="utf-8") as out:
+        w = csv.writer(out)
+        w.writerow(["axes", "series", "x", "y", "value"])
+        for k, series, x, y, v in rows:
+            w.writerow([k, series, f"{x:.6g}", f"{y:.6g}", f"{v:.6g}" if v != "" else ""])
+    return len(rows)
+
+
 def main(argv: list[str]) -> int:
     # section ids and captions may be Unicode (w₈); the Windows console codepage is not
     for stream in (sys.stdout, sys.stderr):
@@ -1069,7 +1103,8 @@ def main(argv: list[str]) -> int:
         spec = Spec(raw)
         target = out_dir / f"{spec.id}.png"
         checked = any(k.startswith("expect_") for k in spec.p)
-        if target.exists() and not force and not checked:
+        complete = all(target.with_suffix(x).exists() for x in (".png", ".svg", ".csv"))
+        if complete and not force and not checked:
             continue
         try:
             fig = DRAW[spec.primitive](spec)
@@ -1077,6 +1112,9 @@ def main(argv: list[str]) -> int:
             if unused:
                 raise SpecError(f"unused parameters {sorted(unused)} (misspelt?)")
             fig.savefig(target, bbox_inches="tight")
+            # more outputs (ISS-051): the same figure as SVG, and the numbers it was drawn from
+            fig.savefig(target.with_suffix(".svg"), bbox_inches="tight")
+            export_data(fig, target.with_suffix(".csv"))
             plt.close(fig)
             drawn += 1
             note = "; ".join(spec.checks)
