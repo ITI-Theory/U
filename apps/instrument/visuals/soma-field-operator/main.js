@@ -1625,6 +1625,8 @@ function applyHashState({ render = true } = {}) {
     state.level = Number(hashState.dim);
   }
   state.atlasCapture = hashState.atlas === '1';
+  // atlas=1 also strips the explorer's controls and card: the printed Atlas carries the text
+  document.body.classList.toggle('atlas-capture', state.atlasCapture);
   state.compare = hashState.compare === '1';
   state.contours = hashState.contours === '1';
   document.querySelector('#contours').checked = state.contours;

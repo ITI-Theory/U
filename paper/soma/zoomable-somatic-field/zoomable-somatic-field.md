@@ -1061,8 +1061,8 @@ The following table lists representative theorems, proof methods, and files.
 | `classical_trapped` | theorem (proved 13 Oct 2026) | gradient flow below the barrier stays in the trauma well (a Lyapunov argument) | none |
 | `quant_exp_1` | axiom | connecting WKB amplitude to QUANT-EXP-1 rates | Probabilistic model of annealing |
 
-`greens_fn_is_SHO` was an axiom, then a theorem of `True`; since October 2026 it
-proves the classical SHO identity (two branches, continuity, unit slope jump).
+`greens_fn_is_SHO` was an axiom, then a theorem of `True`; it now proves the
+classical SHO identity (two branches, continuity, unit slope jump; October 2026).
 The OSforGFF files support the free Gaussian-field formal model; the
 distributional SHO identity and USF interpretation remain separate obligations.
 

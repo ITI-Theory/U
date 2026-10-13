@@ -3050,6 +3050,17 @@ whether it exists; the report lists mismatches per document. ZSF says "five
 real sorries"; a scan counts 14 uncommented `sorry` tokens in
 `paper/proofs`: to settle.
 - [x] Extractor, Lean judge, report; replaces `Ledger/ZSF.lean`'s fixed list. (11 Oct: all affidavit documents by default; 171 citations, 16 disagree; about 18 min.)
+- [x] (13 Oct, the ledger trial) The data files too: books.yaml, the omnibus manifest, the
+      registry's concepts, tours and levels, the cheat sheet, read with plain declaration
+      names and a status rule ("<claim>: <status> (<File>.lean, <name>)"); a table header
+      that lists kinds ("paper/file/theorem") claims none; a "Label" column is a status
+      column. It found: books.yaml's "seven sorries remain" (13 places), two Root Monster
+      tour stops, the booklet's `GeometricRGFlow_waveEquation` (no such name), the
+      philosophy book's unlisted axiom, and the last two theorems of `True`
+      (`greens_fn_is_SHO`, `scale_shift_preserves_structure`), now real theorems; and,
+      through the towers export, physlib's `FLRW` sorry, now replaced (ISS-085). Result:
+      460 citations in 121 documents, 0 disagree with the Lean; towers 1116 declarations,
+      0 resting on sorry, 0 proving only True.
 
 ## ISS-059: An affidavit for every paper and book — CLOSED
 {{Tags area.proofs, area.books, release}}

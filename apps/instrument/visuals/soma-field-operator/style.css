@@ -566,6 +566,11 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .elevator button.elevator__fly { background: #5ee7ff; margin-left: 3px; }
 .explorer [data-act="music"].active { background: #ffd166; color: #070a16; }
 
+/* atlas=1: a capture for the printed Field Atlas (capture.mjs --only voyage): the picture
+   only; the stop's text, label and caption are printed beside it. */
+.atlas-capture .explorer__bar, .atlas-capture .explorer__feel, .atlas-capture .explorer__card,
+.atlas-capture .screen-fullscreen, .atlas-capture .screen-role, .atlas-capture .tour-card { display: none !important; }
+
 /* ?film=1: the film. Controls and the explorer's own caption hide; H-AL's tour line stays
    as a subtitle at the bottom; moving the mouse brings the controls back. */
 .explorer-film:not(.explorer-chrome) .explorer__bar, .explorer-film:not(.explorer-chrome) .explorer__feel,
