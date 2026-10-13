@@ -4617,10 +4617,17 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
 - The BOFH is the Monster level's adversary, not the Monster: the Cookie Monster stays the honest
   reader whose question is "has it been translated?".
 
-- [ ] Moriarty (a), mutation tests (`make moriarty`): plant faults in copies of frozen documents (a
+- [x] Moriarty (a), mutation tests (`make moriarty`): plant faults in copies of frozen documents (a
       changed number, "proved" where the Lean has an axiom or `True`, a dropped evidence label, an
       unhedged clinical sentence) and measure what Sherlock (affidavits, ledger, clinical, readings)
       catches; each miss is a DOT in Sherlock.
+      Done (13 Oct): registry/moriarty.yaml (8 faults), sherlock/moriarty.py; the file is restored
+      in a `finally`. 6 of 8 caught: an axiom called kernel-checked (ledger), a misspelt Lean name
+      (ledger), a dropped hedge (clinical), the Calm-Shame sign put back (qp: matrices differ), a
+      changed number (delta: edited), a dropped credit (licences). Two DOTs, both expected: a stale
+      sorry count in prose with no Lean name (ISS-093 lesson 1), and "the matrix $W$ is the
+      amygdala" (biological leakage in prose; the typing check, ISS-063, sees only axioms). Moriarty
+      (b) below is where these get attacked.
 - [ ] Moriarty (b), stress tests of the claims (H-AL's first attacks): axiom smuggling (prose
       "kernel-verified" over FieldAxioms or a placeholder); biological leakage (a D9-11 matrix
       equated with tissue without a transduction map: the typing check, ISS-063); matrix

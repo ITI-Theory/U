@@ -1,0 +1,56 @@
+# Moriarty, the breaker (ISS-094): faults planted in a copy of the text, one at a time, to see
+# whether Sherlock catches them. `make moriarty` (sherlock/moriarty.py) runs the battery of fast
+# checks (ledger, clinical, QP readings, licences, delta for documents with an affidavit) before
+# and after each fault; a fault is caught when any check's result changes. A miss is a DOT in
+# Sherlock: a kind of fault it cannot see. The file is always restored.
+# expect: caught (Sherlock should see it) or dot (a known blind spot, kept to see when it closes).
+faults:
+  - id: axiom-called-proved
+    what: an axiom called a kernel-checked theorem
+    file: books/T-Theory/formal-mathematics/book-formal-mathematics.md
+    find: "| `greens_achieves_minimum_energy` is an axiom, not a proved variational theorem. | `derived-under-assumptions` |"
+    replace: "| `greens_achieves_minimum_energy` is a kernel-checked theorem. | `kernel-verified` |"
+    expect: caught
+  - id: wrong-lean-name
+    what: a Lean name that does not exist (the booklet's old misspelling)
+    file: books/T-Theory/booklet/booklet_body.md
+    find: "`geometricFlow_waveEquation`"
+    replace: "`GeometricRGFlow_waveEquation`"
+    expect: caught
+  - id: hedge-dropped
+    what: a clinical sentence with its hedge and evidence label removed
+    file: paper/soma/soma-field-paper/soma-field-paper.md
+    find: "In the model, the $W_{ij}$ between fear modes and"
+    replace: "The $W_{ij}$ between fear modes and"
+    find2: "acting across emotional and somatic modes `open-hypothesis`."
+    replace2: "acting across emotional and somatic modes."
+    expect: caught
+  - id: sign-flipped
+    what: a coupling sign flipped in a figure (the P6 Calm-Shame slip, put back)
+    file: paper/soma/soma-field-book/soma-field-book.md
+    find: 'matrix="[[0,0.3,-0.4],[0.3,0,-0.3],[-0.4,-0.3,0]]"; matrix2="[[0,0.5,-0.4]'
+    replace: 'matrix="[[0,0.3,-0.4],[0.3,0,0.2],[-0.4,0.2,0]]"; matrix2="[[0,0.5,-0.4]'
+    expect: caught
+  - id: number-changed
+    what: a quoted number changed (3.1% to 1.3% in the dark-matter paper)
+    file: paper/soma/dark-matter-spatial-vacuum/dark-matter-spatial-vacuum.md
+    find: "a **3.1\\% high discrepancy**"
+    replace: "a **1.3\\% high discrepancy**"
+    expect: caught
+  - id: credit-dropped
+    what: a third-party picture's credit removed
+    file: apps/instrument/visuals/soma-field-operator/CREDITS.md
+    find: "| Visual thought (public/art/cma-156571.jpg)"
+    replace: "| Visual thought (removed)"
+    expect: caught
+  - id: stale-sorry-count
+    what: a stale count of sorries in prose, no Lean name cited (lesson 1 of ISS-093)
+    file: books/T-Theory/law/book-law.md
+    find: "no real `sorry` remains in the repository's own Lean (five were closed in October 2026);"
+    replace: "five real `sorry`s remain across the repository;"
+    expect: dot
+  - id: matrix-equals-tissue
+    what: "biological leakage: a coupling matrix said to be the amygdala (H-AL's attack)"
+    file: paper/soma/missing-limbic-layer/missing-limbic-layer.md
+    append: "\n\nThe coupling matrix $W$ is the amygdala.\n"
+    expect: dot

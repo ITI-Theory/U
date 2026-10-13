@@ -209,6 +209,12 @@ remind:
 wizard:
 	$(PYTHON) sherlock/coverage.py $(ARGS)
 
+# Moriarty, Sherlock's adversary (ISS-094): plant the faults in registry/moriarty.yaml one at a
+# time and see which the checks catch; each miss is a DOT. Report in bld/sherlock/moriarty.md.
+.PHONY: moriarty
+moriarty:
+	$(PYTHON) sherlock/moriarty.py $(ARGS)
+
 uat-run:
 	$(PYTHON) uat/scripts/uat.py $(ARGS)
 
