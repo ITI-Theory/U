@@ -4724,7 +4724,7 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       (total time 50) 0.60, the cold baseline 0.58; quantum beats simulated annealing on 2 of 30.
       C: an energy cannot carry the antisymmetric part of W (on average 68% of the classical
       drift), so the quantum formulation cannot represent one-way coupling.)
-- [ ] Author, before P2 is uploaded: QUANT-EXP-1's claim (stress test above). P2 says the
+- [x] Author, before P2 is uploaded: QUANT-EXP-1's claim (stress test above). P2 says the
       quantum formulation "reaches basins that the tested low-noise classical baseline does not";
       true as stated, but the two runs do different tasks and are measured differently (a set
       occupancy from a 0.25 start against reaching Awe itself from inside Fear), and the
@@ -4737,6 +4737,11 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       used); now "an exact 8-qubit simulation, no hardware ... A model result" (all 15 still four
       pages). books/T-Theory/conclusions/ and kappas/ (August, not built into anything) say the
       same; left as they are, out of the release.
+      (14 Oct 01:30, author: yes. Done: P2's abstract, a sixth limitation ("What the comparison
+      measures"), the verdict and the conclusions; P11, P12, P13, the thesis preamble, P11's
+      figure caption and the Physics, Philosophy and Law books quote the measured figures
+      (f40d138, a8114ae). P2's German, French and Italian versions keep the old abstract: not in
+      this release (author, 01:55); update them before they are published.)
 - [ ] The Dark Matter Lord (the Wizard's rivals): for each book's central claims, does it name
       and answer the simpler rival: classical annealing, Langevin noise or modern Hopfield networks
       without 11D or tunnelling; interoception and predictive processing (Craig's lamina I, Friston's
