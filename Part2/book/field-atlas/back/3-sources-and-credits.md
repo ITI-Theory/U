@@ -28,9 +28,12 @@ This atlas belongs to the Soma-Field and Universal Somatic Field research progra
 22. *Dark Matter as the Spatial Vacuum of the Universal Somatic Field: Ω_DM = 3/11*
 23. *The [T]-Theory Phenomena: Self-Propagating Field Dynamics and the Cultural Programme*
 24. *G$_2$ Symmetry Breaking in the Universal Somatic Field: The Biological Emotional Attractor and Geometric Ideal*
+25. *Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Activation*
 
 Supporting records include *QUANT-EXP-1: Quantum Annealing Reachability Experiment on an 8-Mode Soma-Field Hamiltonian*, *SFT Applied: A Worked Clinical Example*, *Lean 4 Formal Proofs Appendix*, and the collected programme editions.
 
 ## Image credits
 
-The atlas image policy is source-owned and app-centred. App renders are original outputs of the Soma Machine, generated from the same registry that drives the level data. Listed figures are original matplotlib or programme figures prepared for this edition. No third-party images are included in this edition. If future editions add public-domain, Creative Commons, or permission-cleared images, each figure should carry a visible source and licence note in the figure ledger and in the reader-facing credits.
+The atlas image policy is source-owned and app-centred. App renders are original outputs of the Soma Machine, generated from the same registry that drives the level data. Listed figures are original matplotlib or programme figures prepared for this edition. No third-party images are included in this edition.
+
+The plates of the sector openings, the mind palace, the city of code and The Voyage Inside are captures of the Soma Machine's own views (`npm run capture -- --only voyage`), with the app's controls removed. Where they draw anatomy, the drawing is schematic and made for the app, after OpenStax *Anatomy and Physiology 2e* (Betts et al., 2022; CC BY 4.0) for the arterial route, the ventricles, the neuron and the ureter; no OpenStax image is reproduced. The body maps follow the published data of Nummenmaa et al. (2014) qualitatively; their figures are not reproduced. The figures of the mind palace's tower and of the avalanche sizes are drawn for this edition from the registry and from the explorer's own simulation rule. If future editions add public-domain, Creative Commons, or permission-cleared images, each figure should carry a visible source and licence note in the figure ledger and in the reader-facing credits.
