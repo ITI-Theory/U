@@ -8,6 +8,8 @@ Usage:
     # Sandbox: set ZENODO_SANDBOX_TOKEN=<sandbox token>
 
     bin/zenodo-publish plan
+    bin/zenodo-publish --sandbox check-token
+    bin/zenodo-publish --sandbox rehearse            # every planned record, as sandbox drafts
     bin/zenodo-publish --sandbox plan
     bin/zenodo-publish --sandbox create P22
     bin/zenodo-publish --sandbox new-version P11 --update-metadata
@@ -17,6 +19,14 @@ Workflow: test on sandbox first, then run plan, create or update an unpublished
 Zenodo draft, inspect the draft URL, and only then publish with --publish. Live
 publishing additionally requires --yes. Tokens are sent only in Authorization
 headers and are never printed.
+
+The sandbox (sandbox.zenodo.org) is a separate site with its own account and token,
+and none of the live records: the live concept DOIs and the iti-theory community do not
+exist there. So on the sandbox the community is left out (set ZENODO_SANDBOX_COMMUNITY to
+a sandbox community to test it), and `rehearse` tests both paths for every planned
+record: a new record becomes an unpublished draft; a new version first publishes a
+sandbox seed record from the same file, then makes the new-version draft on it, so the
+version chain is exercised too. The report is bld/zenodo/sandbox-rehearsal.md.
 """
 
 from __future__ import annotations
@@ -264,6 +274,17 @@ def base_metadata(entry: dict, metadata_entry: dict) -> dict:
     return record_metadata
 
 
+def sandbox_metadata(record_metadata: dict) -> dict:
+    """The live community does not exist on the sandbox."""
+    community = os.environ.get("ZENODO_SANDBOX_COMMUNITY")
+    out = dict(record_metadata)
+    if community:
+        out["communities"] = [{"identifier": community}]
+    else:
+        out.pop("communities", None)
+    return out
+
+
 def merge_metadata(existing: dict, entry: dict, metadata_entry: dict, publication_date: str) -> dict:
     merged = dict(existing)
     merged["version"] = TODAY
@@ -381,6 +402,8 @@ def create_records(args: argparse.Namespace) -> int:
     client = ZenodoClient(SANDBOX_BASE if args.sandbox else LIVE_BASE, token_from_env(args.sandbox))
     for entry in entries:
         record_metadata = base_metadata(entry, metadata[entry["id"]])
+        if args.sandbox:
+            record_metadata = sandbox_metadata(record_metadata)
         draft = client.request("POST", "deposit/depositions", payload={})
         draft_id = draft["id"]
         draft = client.request("PUT", f"deposit/depositions/{draft_id}", payload={"metadata": record_metadata})
@@ -403,29 +426,88 @@ def new_versions(args: argparse.Namespace) -> int:
     client = ZenodoClient(SANDBOX_BASE if args.sandbox else LIVE_BASE, token_from_env(args.sandbox))
     for entry in entries:
         latest = latest_record(client, entry["doi"])
-        latest_id = latest["id"]
         publication_date = first_publication_date(
             client,
             entry["doi"],
             latest.get("metadata", {}).get("publication_date") or TODAY,
         )
-        response = client.request("POST", f"deposit/depositions/{latest_id}/actions/newversion")
-        draft_url = response.get("links", {}).get("latest_draft")
-        draft = client.request("GET", draft_url or f"deposit/depositions/{latest_id}")
-        delete_draft_files(client, draft)
-        draft_metadata = dict(draft.get("metadata") or latest.get("metadata") or {})
-        draft_metadata["version"] = TODAY
-        draft_metadata["publication_date"] = publication_date
-        if args.update_metadata:
-            draft_metadata = merge_metadata(draft_metadata, entry, metadata[entry["id"]], publication_date)
-        draft = client.request("PUT", f"deposit/depositions/{draft['id']}", payload={"metadata": draft_metadata})
-        bucket = draft.get("links", {}).get("bucket")
-        if not bucket:
-            raise ZenodoError(f"Draft {draft['id']} has no bucket link")
-        client.upload_file(bucket, dist_file(entry), file_name(entry))
-        draft = client.request("GET", f"deposit/depositions/{draft['id']}")
+        draft = new_version_draft(client, entry, latest, metadata[entry["id"]], publication_date, args.update_metadata, args.sandbox)
         publish_or_report(client, entry, draft, args.publish)
     return 0
+
+
+def new_version_draft(client: ZenodoClient, entry: dict, latest: dict, metadata_entry: dict,
+                      publication_date: str, update_metadata: bool, sandbox: bool) -> dict:
+    """The new-version step: a draft from the latest record, its files replaced by the Dist file."""
+    latest_id = latest["id"]
+    response = client.request("POST", f"deposit/depositions/{latest_id}/actions/newversion")
+    draft_url = response.get("links", {}).get("latest_draft")
+    draft = client.request("GET", draft_url or f"deposit/depositions/{latest_id}")
+    delete_draft_files(client, draft)
+    draft_metadata = dict(draft.get("metadata") or latest.get("metadata") or {})
+    draft_metadata["version"] = TODAY
+    draft_metadata["publication_date"] = publication_date
+    if update_metadata:
+        draft_metadata = merge_metadata(draft_metadata, entry, metadata_entry, publication_date)
+    if sandbox:
+        draft_metadata = sandbox_metadata(draft_metadata)
+    draft = client.request("PUT", f"deposit/depositions/{draft['id']}", payload={"metadata": draft_metadata})
+    bucket = draft.get("links", {}).get("bucket")
+    if not bucket:
+        raise ZenodoError(f"Draft {draft['id']} has no bucket link")
+    client.upload_file(bucket, dist_file(entry), file_name(entry))
+    return client.request("GET", f"deposit/depositions/{draft['id']}")
+
+
+def check_token(args: argparse.Namespace) -> int:
+    """One read with the token: does it work, and may it write depositions?"""
+    site = SANDBOX_BASE if args.sandbox else LIVE_BASE
+    client = ZenodoClient(site, token_from_env(args.sandbox))
+    client.request("GET", "deposit/depositions?size=1")
+    print(f"{site}: token accepted (deposit read). The scopes deposit:write and deposit:actions "
+          "are tested by the first draft (rehearse on the sandbox).")
+    return 0
+
+
+def rehearse(args: argparse.Namespace) -> int:
+    """Sandbox only: every planned record (or the ids given) as unpublished sandbox drafts."""
+    if not args.sandbox:
+        raise ZenodoError("rehearse runs on the sandbox only (--sandbox)")
+    metadata = upload_metadata()
+    entries = selected_entries(args.ids) if args.ids else [e for e in registry_entries() if e.get("status") in PLAN_STATUSES]
+    require_entries_metadata(entries, metadata, args.allow_unstaged)
+    client = ZenodoClient(SANDBOX_BASE, token_from_env(True))
+    rows, failures = [], 0
+    for entry in entries:
+        action = action_for(entry) or "skip"
+        try:
+            record_metadata = sandbox_metadata(base_metadata(entry, metadata[entry["id"]]))
+            draft = client.request("POST", "deposit/depositions", payload={})
+            draft = client.request("PUT", f"deposit/depositions/{draft['id']}", payload={"metadata": record_metadata})
+            client.upload_file(draft["links"]["bucket"], dist_file(entry), file_name(entry))
+            if action == "new-version":
+                # the live concept DOI does not exist here: publish a seed, then version it
+                seed = client.request("POST", f"deposit/depositions/{draft['id']}/actions/publish")
+                draft = new_version_draft(client, entry, seed, metadata[entry["id"]],
+                                          seed.get("metadata", {}).get("publication_date") or TODAY, True, True)
+            else:
+                draft = client.request("GET", f"deposit/depositions/{draft['id']}")
+            url = draft.get("links", {}).get("html") or draft.get("links", {}).get("latest_draft_html") or ""
+            rows.append((entry["id"], action, "OK", url))
+            print(f"{entry['id']:12} {action:11} OK  {url}")
+        except ZenodoError as error:
+            failures += 1
+            rows.append((entry["id"], action, "FAIL", str(error)[:300]))
+            print(f"{entry['id']:12} {action:11} FAIL {str(error)[:300]}", file=sys.stderr)
+    out = U_ROOT / "bld" / "zenodo"
+    out.mkdir(parents=True, exist_ok=True)
+    lines = ["# Zenodo sandbox rehearsal", "", f"{TODAY}: {len(rows)} records, {failures} failed. "
+             "Drafts are unpublished; new versions were made on a published sandbox seed.", "",
+             "| id | action | result | draft or error |", "|---|---|---|---|"]
+    lines += [f"| {i} | {a} | {r} | {u.replace('|', '/')} |" for i, a, r, u in rows]
+    (out / "sandbox-rehearsal.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    print(f"bld/zenodo/sandbox-rehearsal.md: {len(rows) - failures} of {len(rows)} OK")
+    return 1 if failures else 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -437,6 +519,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--update-metadata", action="store_true", help="new-version only: update title/description/keywords from metadata.yaml")
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("plan", help="show records requiring upload or new version; no network writes")
+    subparsers.add_parser("check-token", help="one read with the token (live, or --sandbox)")
+    rehearsal = subparsers.add_parser("rehearse", help="sandbox only: every planned record (or the ids) as sandbox drafts")
+    rehearsal.add_argument("ids", nargs="*")
     new_version = subparsers.add_parser("new-version", help="create new versions for existing concept DOIs")
     new_version.add_argument("ids", nargs="+")
     create = subparsers.add_parser("create", help="create new Zenodo depositions")
@@ -457,6 +542,10 @@ def main() -> int:
     args = parser.parse_args(normalise_argv(sys.argv[1:]))
     if args.command == "plan":
         return plan()
+    if args.command == "check-token":
+        return check_token(args)
+    if args.command == "rehearse":
+        return rehearse(args)
     if args.publish and not args.sandbox and not args.yes:
         parser.error("--yes is required with --publish on live Zenodo")
     if args.command == "new-version":

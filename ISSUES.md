@@ -76,8 +76,17 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
    The UAT includes the pilot's lines (wording and pace) and the MIDI knobs (ISS-074).
 - [ ] Promote accepted PDFs: `make dist`, verify checksums against the staging
    manifests, commit Dist.
-- [ ] Zenodo: `ZENODO_SANDBOX_TOKEN` then `bin/zenodo-publish --sandbox plan`,
-   sandbox drafts, then live with `ZENODO_TOKEN` (`--publish --yes`).
+- [ ] Author: the Zenodo sandbox account and token (Dist/zenodo/README.md, "Sandbox setup"):
+      sign up at sandbox.zenodo.org, token with deposit:write and deposit:actions, into the user
+      environment as ZENODO_SANDBOX_TOKEN (never a file), then `bin/zenodo-publish --sandbox
+      check-token`. (13 Oct: the script is ready: `check-token`, and `rehearse` makes every planned
+      record as a sandbox draft, new versions on a published sandbox seed since the live DOIs do not
+      exist there; the live community is left out on the sandbox. P25's metadata written; the stale
+      sorry counts in Dist/zenodo removed. `plan`: 46 records, the only errors P25's and Vol III's
+      PDFs, which `make dist` brings.)
+- [ ] Zenodo, after `make dist`: `bin/zenodo-publish --sandbox rehearse`, read the report
+      (bld/zenodo/sandbox-rehearsal.md) and two or three drafts; then live with `ZENODO_TOKEN`
+      (`plan`, drafts, `--publish --yes`).
 - [ ] Fill new DOIs in `Dist/PAPERS.yaml`, `make generate`, update the org
    README DOI tables; commit and tag U and Dist together.
 
