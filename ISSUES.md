@@ -4516,7 +4516,7 @@ floor; Apache-2.0 AND CC-BY-4.0); the author works in Neovim, where U.Dot's `she
 gives the same Sherlock commands and opens the app in the browser. Picked up if the
 extension is wanted as the back door for distribution, after Mk 1.
 
-(Unparked 13 Oct afternoon, author: the extension and the Marketplace, now.)
+(Unparked 13 Oct afternoon, author: prepare it, the local steps only; do not publish yet.)
 - [ ] Author: try the VSIX in VS Code (`npm run package` in apps/vscode).
 - [ ] "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB, warned first).
 - [ ] Marketplace pre-release and Open VSX (publisher account, screenshots, a public build).
@@ -4545,6 +4545,47 @@ packets; waits for a real strap.
       estimates. explorer-check: breathing 15/min recovered, a slow 6/min rhythm coherent,
       irregular beats not, a calm coherent heart raises Safety. Estimates for the film, not
       clinical measures; to test with a strap in UAT.
+- [ ] Uses beyond the score (author, 13 Oct: "I can see the benefit"): the body stop's heart, the
+      landscape's noise, the dyad's rhythm from a real heart; the author to say which he sees.
 - [ ] UAT with a real strap (Polar, Garmin, Wahoo ...): ♥ STRAP on the SCORE stop; ♥ follows
       it; LOOP on, a rising heart slows the film; RMSSD, breaths a minute and coherence look
       plausible. Then put the strap back into uat/checklist.yaml's `hw-strap-twister` step.
+
+---
+
+## ISS-092: Sherlock's coverage: what a book promises, what is next to it, what was never written — OPEN
+{{Tags area.proofs, area.books}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=ISS-055-sherlock}}
+
+Author, 13 Oct afternoon: before the UAT and asking H-AL whether we covered everything, add it to
+Sherlock: a definition of what each book is expected to cover, and the big question, "is there
+anything we haven't discussed or considered that would make this better?", with a little
+interaction between the AI and Cyc. Three sources of gaps, each with its own tool; the AI
+proposes, the author confirms, the registry or Cyc decides.
+- [ ] Scope: each book's promise in books.yaml as registry ids (levels, explorer stops, concepts,
+      papers, models, paths, tours); `make -C sherlock coverage` checks each is covered and reports
+      what is missing. The Atlas first (all 31 levels, the 15 stops, the models, paths and tours).
+- [ ] Neighbourhood (Cyc): for each concept a book covers, its siblings and parents one step away
+      in OpenCyc that the book never mentions (the emotions it leaves out, the organs next to the
+      ones it shows); the AI ranks them and phrases each as a question for the author.
+- [ ] Never written (H-AL): ask H-AL what the chats discuss that no book covers; with the UAT.
+
+## ISS-093: What Sherlock found in its own programme, written up — OPEN
+{{Tags area.papers, area.books, area.proofs}}
+{{Fields date.created=2026-10-13, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Author, 13 Oct afternoon: Sherlock has been used for a while; is there new information for the
+papers or books? Yes: six lessons from running it on the programme itself. For SH1's next
+version and a chapter of the Formal Mathematics book (not a new paper).
+- [ ] Prose about proofs goes stale within hours: after the last sorries closed, about 20 documents
+      still said "five remain", the data files (books.yaml) worst. Statements about proof status
+      should be generated from the Lean, as the licence line is.
+- [ ] "No sorry in my files" is not "nothing rests on sorry": physlib's FLRW placeholder reached 17
+      declarations through a dependency; only the towers export (#print axioms per declaration)
+      showed it.
+- [ ] Theorems of `True` look proved: two survived because their names said what they did not prove.
+- [ ] Word-sense traps: pole (a rod), threshold (part of a building), abduction (a kidnapping), landscape
+      (topography); and the ontology corrects intuition both ways (HRV as a quantity is mathematical).
+- [ ] AI-made figures are claims: the P6 Calm-Shame sign slip was in figure parameters an agent wrote.
+- [ ] Yield follows numbers: a hedged paper (P25) gives Sherlock little to check; numeric papers most.
+
