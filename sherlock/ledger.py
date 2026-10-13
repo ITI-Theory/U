@@ -25,7 +25,7 @@ U = Path(__file__).resolve().parents[1]
 OUT = U / "bld" / "sherlock"
 NAME = re.compile(r"`((?:[A-Z][A-Za-z0-9_]*\.)*[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*)`")
 ABSENT = re.compile(r"does not (exist|have)|doesn't (exist|have)|no such|not in (current )?Mathlib|not in the (programme's )?Lean|does not contain", re.I)
-CLAIMS = [("axiom", re.compile(r"\baxiom", re.I)), ("sorry", re.compile(r"\bsorry", re.I)),
+CLAIMS = [("axiom", re.compile(r"\baxiom", re.I)), ("sorry", re.compile(r"\bsorry|\bproof debts?\b", re.I)),
           ("kernel-checked", re.compile(r"kernel[- ]checked|kernel[- ]verified|proved in Lean|Lean 4 kernel", re.I)),
           ("theorem", re.compile(r"\btheorem\b", re.I)), ("def", re.compile(r"\bdef(inition)?\b", re.I))]
 
@@ -126,10 +126,27 @@ def known_names() -> set[str]:
     return names
 
 
+def camel_names() -> set[str]:
+    """CamelCase declarations of the programme (brainStemActivatesContagion): no underscore, so
+    looks_lean passes them by; a backticked one counts when the towers export has it (ISS-093:
+    Moriarty found a stale "remains a sorry" on such a name that the ledger never read)."""
+    path = OUT / "towers.json"
+    if not path.exists():
+        return set()
+    names = set()
+    for t in json.loads(path.read_text(encoding="utf-8")).get("towers", []):
+        for d in t["declarations"]:
+            for n in (d["name"], d["name"].split(".")[-1]):
+                if len(n) >= 8 and "_" not in n and re.search(r"[a-z][A-Z]", n):
+                    names.add(n)
+    return names
+
+
 def extract(files: list[str]) -> int:
     files = files or (registry_documents() + data_documents())
     data = set(data_documents())
     plain = known_names()
+    camel = camel_names()
     PLAIN = re.compile(r"(?<![`\w.])(" + "|".join(sorted(map(re.escape, plain), key=len, reverse=True)) + r")(?![\w`])") if plain else None
     items = []
     for f in files:
@@ -151,7 +168,7 @@ def extract(files: list[str]) -> int:
                 found += [m for m in PLAIN.finditer(line)]
             for m in found:
                 n = m.group(1)
-                if not looks_lean(n):
+                if not looks_lean(n) and not (m.group(0).startswith("`") and n in camel):
                     continue
                 said = None
                 if is_row and header:
@@ -254,6 +271,8 @@ def disagrees(said: str, r: dict) -> str | None:
         return "no such declaration"
     if said == "axiom" and kind != "axiom":
         return f"called an axiom, is a {kind}"
+    if said == "sorry" and "sorryAx" not in axioms:  # proof status in prose goes stale (ISS-093)
+        return f"said to contain sorry, but the {kind} rests on no sorry"
     if said == "kernel-checked":
         if kind == "axiom":
             return "called kernel-checked, is an axiom"

@@ -20,7 +20,7 @@
   2. Gradient descent contraction near stored patterns — OPEN (ISS-005)
   3. Stored patterns are stable minima — perceptIsPropagatorPole_nostalgia: CLOSED 2026-10-03
      (residual8ℝ nostalgiaPatternℝ 2 = 673/2500 < 1)
-  4. brainStemThenMemory trajectory — OPEN: brainStemActivatesContagion (sorry, ISS-005)
+  4. brainStemThenMemory trajectory — first step CLOSED: brainStemActivatesContagion (23/25 > 0)
   5. Therapeutic W modification — OPEN (Phase 2 / ISS-005)
 -/
 

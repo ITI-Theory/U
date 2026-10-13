@@ -529,6 +529,16 @@ Read the paper as a theory of questions. What would count as sub-perceptual affe
 
 {{AddPage}}
 
+# Reading Path-Sensitive Transition Dynamics
+
+The last embedded paper extends the landscape account this volume has used throughout. So far a stuck state has been described by a barrier: a basin too deep, a ridge too high. This paper asks whether some transitions in trauma, overload and recovery fail for a different reason: not because one barrier is high, but because every admissible route through state space is costly when the costs are added up along the way `open-hypothesis`.
+
+It distinguishes minimum-action, stochastic-path and path-integral languages, defines a candidate state space, admissible paths, an action functional and observables, and lists the data that would tell a single-barrier explanation from a distributed path-cost one `derived-under-assumptions`. For clinicians the useful question is concrete: when a client cannot move, is it one step that is too hard, or a whole sequence of small steps none of which is available at once? The paper turns that question into something measurable. It establishes no clinical mechanism, and says so `open-hypothesis`.
+
+{{AddPaper ../../paper/soma/path-sensitive-transitions/path-sensitive-transitions.md}}
+
+{{AddPage}}
+
 # Conclusion: Research Discipline for a Field-Theoretic Trauma Model
 
 This volume has argued for a careful middle position. SFT should not be dismissed merely because it uses physics and topology in a clinical domain. Trauma already demands cross-level thinking: physiology, memory, attachment, culture, language, development, and bodily experience. A field model is one disciplined way to hold those levels together. At the same time, SFT should not be adopted as a clinical framework merely because its metaphors are powerful or its equations are elegant. The clinical threshold is higher. Human evidence, safety, and professional accountability decide whether a model can guide practice (`interpretive`).

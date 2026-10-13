@@ -70,7 +70,7 @@ Some files contain more substantive imported mathematics. `MTheoryIsomorphism.le
 
 The Hopfield files show both implementation and limitation. `Hopfield.lean` defines a pattern type `Fin D -> Real`, a weight matrix, a threshold activation `sgn`, Hebbian storage, a synchronous `step`, and energy. It proves the range of `step`, a fixed-point characterisation, equality of energy at a fixed point, a very limited non-increase result at fixed points, and a zero-weight attractor baseline. The comment explicitly says general energy descent and convergence require additional assumptions such as finite spin states with asynchronous updates or stronger matrix hypotheses. That is exactly the correct mathematical posture. `kernel-verified`
 
-`SomaField.lean` translates the affective programme into an eight-dimensional BRECVEMA field. It defines mechanisms, the coupling matrix `W8`, symmetry lemmas, energy `energy8`, force `fieldForce8`, stored patterns, thresholds, a real matrix `W8ℝ`, proves `W8ℝ_isHermitian`, and defines `somaticPropagatorPoles` via Mathlib's Hermitian eigenvalues. This gives a concrete spectral surface for the claim that soma-field modes are propagator poles. But two important theorems still contain `sorry`: `perceptIsPropagatorPole_nostalgia` and `brainStemActivatesContagion`. The first currently asserts existence of an eigenvalue residual below one with witness `2`; the proof debt is numerical/spectral. The second asserts positive contagion activation from the startle pattern; the comment says the value is 23/25, but noncomputability blocks the present `norm_num` route. `open-hypothesis`
+`SomaField.lean` translates the affective programme into an eight-dimensional BRECVEMA field. It defines mechanisms, the coupling matrix `W8`, symmetry lemmas, energy `energy8`, force `fieldForce8`, stored patterns, thresholds, a real matrix `W8ℝ`, proves `W8ℝ_isHermitian`, and defines `somaticPropagatorPoles` via Mathlib's Hermitian eigenvalues. This gives a concrete spectral surface for the claim that soma-field modes are propagator poles. Two theorems make it concrete, both proved: `perceptIsPropagatorPole_nostalgia` exhibits an eigenvalue residual below one (witness `2`, residual 673/2500), and `brainStemActivatesContagion` shows that one coupling step from the startle pattern activates Contagion (the value is 23/25), each by unfolding the matrix and `norm_num`. They are finite numerical facts about the chosen matrix, not a spectral theory of perception. `kernel-verified`
 
 The project-wide `sorry` count matters because generated wrappers have previously said there were no active sorries. A direct source audit (13 October 2026) finds no real `sorry`. There were five: the two in `DyadicField.lean` and the one in `SomaNetwork.lean` are now proved, and `BRECVEMAVariational.lean` proves its Euler-Lagrange statement for an invertible mass and states its G₂ target as a labelled axiom. There are also many axioms outside `FieldAxioms.lean`: for example `quant_exp_1` in `LimbicTunnel.lean`, `greens_achieves_minimum_energy` in `SwarmPropagator.lean`, local GR and geometry axioms, and RG coefficient axioms. A formal mathematics volume should not hide this. In proof engineering, a labelled `sorry` is a map of future work. In public prose, ignoring it is overclaim. `open-hypothesis`
 
@@ -204,7 +204,7 @@ The common requirement is precision about evidence labels. A by-definition proof
 |---|---|---|
 | `W8` and `W8ℝ` give a finite exact coupling model. | `kernel-verified` | `SomaField.lean` |
 | `somaticPropagatorPoles` uses Hermitian eigenvalues after proving symmetry. | `kernel-verified` | `W8ℝ_isHermitian` |
-| Pattern residual and contagion activation still have proof debts. | `open-hypothesis` | `perceptIsPropagatorPole_nostalgia`; `brainStemActivatesContagion` |
+| Pattern residual and contagion activation are proved, as finite numerical facts about the matrix. | `kernel-verified` | `perceptIsPropagatorPole_nostalgia`; `brainStemActivatesContagion` |
 | `EmotionLang` separates syntax from multiple interpreters. | `kernel-verified` | `EmotionOntology.lean` |
 | Limbic tunnel calculus facts are proved; probability comparison is not. | `derived-under-assumptions` | `LimbicTunnel.lean` |
 | Swarm crossover theorem proves only the stated `K>N` arithmetic. | `kernel-verified` | `SwarmPropagator.lean` |
@@ -241,8 +241,33 @@ The distinction between `kernel-verified` and `derived-under-assumptions` is the
 | Arithmetic theorems with ambitious names remain arithmetic theorems. | `kernel-verified` | `UniversalSomaticField.lean`; `SwarmPropagator.lean`; `LimbicTunnel.lean` |
 | Imported theorems carry weight only through their stated hypotheses. | `kernel-verified` | Physlib, Mathlib, OSforGFF uses |
 | Axioms are typed assumptions and should be labelled as such. | `derived-under-assumptions` | `FieldAxioms.lean` |
-| Sorries are proof debts, not established results. | `open-hypothesis` | five project-wide `sorry`s |
+| Sorries are proof debts, not established results. | `open-hypothesis` | the five closed in October 2026 |
 | Theorem-shaped documentation is not proof unless strengthened. | `open-hypothesis` | `cosmological_correspondence`; placeholder-style results |
+
+# What the Checker Found: Proof Status Goes Stale
+
+The previous chapter treats proof status as mathematical content. This one records what happened when that content was checked mechanically, by Sherlock, the programme's checker, while the books were being finished in October 2026. The lessons are about the seam between the Lean and the prose that describes it, and they hold for any formal programme with a body of text around its proofs.
+
+The first lesson is that prose about proofs goes stale within hours. When the last five `sorry`s were closed, about twenty documents still said five remained; data files that feed the books were the worst, because no one reads them as prose. A day later this volume itself still said that two proved theorems, `perceptIsPropagatorPole_nostalgia` and `brainStemActivatesContagion`, remained `sorry`s, and the Lean file's own header comment agreed with it. The remedy is not more careful proofreading. Proof status should be generated from the Lean, as a build generates a table of contents, or stated without counts; and every sentence that does state a status should be checked. Sherlock's ledger now reads "contains a `sorry`" and "proof debt" as claims about a named declaration and checks them against what the kernel reports. `empirical-result`
+
+The second lesson is that "no `sorry` in my files" is not "nothing rests on `sorry`". A placeholder in a dependency, physlib's `Cosmology.FLRW`, itself defined by `sorry`, reached seventeen of the programme's declarations through an import. No search of the programme's own source could see it; the export that prints the axioms of every declaration (`#print axioms`, run over all of them) did. The programme now defines its own FLRW structure and does not import the placeholder. The general point is the one the previous chapter makes for axioms: a theorem inherits what its dependencies assume, and only the kernel's own account of those dependencies is reliable. `kernel-verified`
+
+The third lesson is that theorems of `True` look proved. Two declarations had survived because their names said what their statements did not; the export now flags any declaration whose statement is `True`, and both now state their content. The fourth is the converse failure of names: a checker that recognises declaration names by their shape (an underscore, a dot) never reads a name written in camelCase. That is how the stale "remains a `sorry`" about `brainStemActivatesContagion` escaped; the ledger now reads every name the programme's Lean declares. `empirical-result`
+
+The fifth lesson concerns the checker itself. A check that has never been attacked has not passed. Sherlock's adversary, Moriarty, plants faults in copies of the documents one at a time (an axiom called kernel-checked, a misspelt name, a proved theorem called a `sorry`, a changed number, a dropped evidence label) and counts what the checks catch. The misses are the useful output: each is a kind of error the checker cannot yet see. Two remain open at the time of writing: a count of `sorry`s in prose that names no declaration, which no name-based check can verify, and a sentence equating a coupling matrix with brain tissue, which is a category claim the type check reads only in axioms, not yet in prose. `empirical-result`
+
+For a mathematician the conclusion is modest and practical. A formal programme has two artefacts, the proofs and the text about them, and only the first is checked by the kernel. The second needs its own checker, and that checker needs its own adversary. `interpretive`
+
+## Ledger
+
+| Claim | Label | Source |
+|---|---|---|
+| Prose about proof status went stale within hours of the last `sorry`s closing. | `empirical-result` | the ledger against the Lean; this volume's own corrected rows |
+| A dependency's `sorry` reached seventeen declarations through an import. | `kernel-verified` | the towers export (`#print axioms` per declaration) |
+| Declarations whose statement is `True` are flagged by the export. | `kernel-verified` | the towers export |
+| A name-shape filter missed camelCase declarations; the ledger now reads every declared name. | `empirical-result` | `sherlock/ledger.py`; Moriarty's fault `proved-called-sorry` |
+| Planted faults measure what the checks can see; two kinds remain unseen. | `empirical-result` | `make moriarty` (bld/sherlock/moriarty.md) |
+| A text about proofs needs its own checker, and the checker an adversary. | `interpretive` | this chapter |
 
 # Open Problems for Type Theorists and Mathematicians
 
@@ -339,7 +364,7 @@ Read the paper with a proof engineer's pencil. When it lists type signatures, as
 
 The Soma-Field paper is the finite dynamical heart of the programme. It supplies the field vocabulary, Hopfield energy picture, sub-threshold activity, coupling matrix, thresholded conscious percept, and clinical language. A mathematician should not begin by accepting the clinical claims. Begin with the formal objects: an eight-dimensional vector, a symmetric rational matrix, an energy functional, thresholds, stored patterns, and a proposed resolvent.
 
-The Lean surface partly backs that reading. `SomaField.lean` proves matrix symmetry and Hermitian structure, defines spectral poles, and leaves concrete spectral/dynamical claims as `sorry`. `Hopfield.lean` gives the classical ancestor but deliberately does not prove general convergence. Therefore the paper should be read as a model proposal with partial finite formalisation. Its clinical language is an interpretation of the model, not a theorem. `derived-under-assumptions`
+The Lean surface partly backs that reading. `SomaField.lean` proves matrix symmetry and Hermitian structure, defines spectral poles, and proves two concrete numerical facts about the matrix (a pattern residual and a contagion step); general spectral and dynamical claims are not formalised. `Hopfield.lean` gives the classical ancestor but deliberately does not prove general convergence. Therefore the paper should be read as a model proposal with partial finite formalisation. Its clinical language is an interpretation of the model, not a theorem. `derived-under-assumptions`
 
 {{AddPaper ../../paper/soma/soma-field-paper/soma-field-paper.md}}
 
@@ -349,7 +374,7 @@ The Lean surface partly backs that reading. `SomaField.lean` proves matrix symme
 
 The Universal Somatic Field paper is where the programme scales from finite affective dynamics to Green functions, eleven-dimensional bookkeeping, and threshold consciousness. Its mathematical centre is the claim that the same response structure appears across scales and that the soma-field decomposition matches an eleven-dimensional product structure.
 
-Read this paper against `MTheoryIsomorphism.lean` and `UniversalSomaticField.lean`. The product/retraction facts are real. The threshold dichotomy is real but elementary. The scale-inhabitation theorem is real but weak. The SHO theorem currently proves `True`; the distributional identity remains future work. The universe-as-organism definition inhabits a structure by construction; the cosmological interpretation is in the paper's argument, not in the Lean line. `derived-under-assumptions`
+Read this paper against `MTheoryIsomorphism.lean` and `UniversalSomaticField.lean`. The product/retraction facts are real. The threshold dichotomy is real but elementary. The scale-inhabitation theorem is real but weak. The Green-function theorem proves the classical identity (the ODE on each side of the source, continuity, and the unit jump in slope); the distributional identity remains future work. The universe-as-organism definition inhabits a structure by construction; the cosmological interpretation is in the paper's argument, not in the Lean line. `derived-under-assumptions`
 
 {{AddPaper ../../paper/soma/universal-somatic-field/universal-somatic-field.md}}
 
@@ -367,11 +392,19 @@ But the paper's broader claims must be disaggregated. The `Fin 21` scale index a
 
 # Reading Appendix: Formal Lean 4 Verifications
 
-The appendix is listed for the volume because readers need a route into the proof files. This book does not reproduce the appendix inline; the volume builder replaces the AddPaper line with a note. The correct way to use the appendix is as an index, not as a blanket certificate. Check each named theorem against the current source. In particular, do not rely on old prose that says there are no active sorries; the current source has no real `sorry`, but it has axioms, and some theorems prove only `True`. Do not treat an axiom or a theorem of `True` as an established mathematical result.
+The appendix is listed for the volume because readers need a route into the proof files. This book does not reproduce the appendix inline; the volume builder replaces the AddPaper line with a note. The correct way to use the appendix is as an index, not as a blanket certificate. Check each named theorem against the current source. In particular, do not rely on prose about proof status at all, including this paragraph: check the source, which at the time of writing has no real `sorry` and no theorem of `True`, but has axioms. Do not treat an axiom as an established mathematical result.
 
 For a type theorist, the appendix's value is practical. It tells you which files carry by-definition DSL facts, which use imported libraries, which are finite matrix problems, which are axiomatic, and which are unfinished. The next mathematical work should happen in those source files, not in stronger prose around them. `kernel-verified`
 
 {{AddPaper ../../paper/soma/lean-proofs-appendix/lean-proofs-appendix.md}}
+
+{{AddPage}}
+
+# Reading the Osterwalder–Schrader Papers
+
+Two papers printed in the Physics volume belong to this book's argument as well: *The Universal Somatic Field as a Euclidean Quantum Field Theory* and *Osterwalder–Schrader Axioms for the Interacting Universal Somatic Field*. They are the clearest case of the imported-theorem surface described above. The first applies the Lean 4 proof that the Gaussian free field satisfies the five Osterwalder–Schrader axioms to the free model at mass $k$; the applications are kernel-checked, and the identification of the model with the free field is the modelling step `derived-under-assumptions`. The second states the proof obligations for the interacting model as conjectures with a formalisation strategy `open-hypothesis`.
+
+For a type theorist they show the bridge object plainly: the theorem is about a measure on distributions, and everything the programme adds sits in the definition that names that measure the somatic field. Read them in the Physics volume, where they are printed in full.
 
 {{AddPage}}
 
@@ -446,10 +479,10 @@ The book's answer to its title is therefore austere. There is not yet a complete
 | `awe_is_universal` is true by definition for every `EmotionLang` interpreter. | `kernel-verified` | `FieldProofs.lean` |
 | `W8ℝ_isHermitian` proves the exact BRECVEMA coupling matrix is Hermitian. | `kernel-verified` | `SomaField.lean` |
 | `somaticPropagatorPoles` uses Mathlib eigenvalues of the Hermitian matrix. | `kernel-verified` | `SomaField.lean` |
-| `perceptIsPropagatorPole_nostalgia` remains a `sorry`. | `open-hypothesis` | `SomaField.lean` |
-| `brainStemActivatesContagion` remains a `sorry`. | `open-hypothesis` | `SomaField.lean` |
+| `perceptIsPropagatorPole_nostalgia` exhibits an eigenvalue residual below one (673/2500 at witness 2). | `kernel-verified` | `SomaField.lean` |
+| `brainStemActivatesContagion` shows one coupling step from the startle pattern activates Contagion (23/25). | `kernel-verified` | `SomaField.lean` |
 | `FieldAxioms.lean` contains twenty explicit axiom declarations. | `derived-under-assumptions` | `paper/FieldAxioms.lean` |
-| No real sorry remains project-wide (five until October 2026); axioms and `True` placeholders do. | `empirical-result` | `paper/scripts/count_sorries.py` |
+| No real sorry remains project-wide (five until October 2026), and no declaration proves only `True`; axioms remain. | `empirical-result` | `paper/scripts/count_sorries.py`; the towers export |
 | `LimbicTunnel` proves quartic-potential and WKB positivity facts. | `kernel-verified` | `LimbicTunnel.lean` |
 | `quant_exp_1` is an axiom; QUANT-EXP-1 evidence is simulation output. | `simulated` | `LimbicTunnel.lean`; quantum paper |
 | `propagator_beats_classical` proves `N * N < N * K` for `0 < N` and `N < K`. | `kernel-verified` | `SwarmPropagator.lean` |

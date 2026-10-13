@@ -420,6 +420,26 @@ Read this paper as an algebraic compatibility result. It strengthens the program
 
 {{AddPage}}
 
+# Reading The Universal Somatic Field as a Euclidean Quantum Field Theory
+
+The eighth embedded paper places the free field in constructive quantum field theory. Its argument is short: the USF propagator in momentum space, $G(p)=1/(p^2+k^2)$, has the form of the massive Gaussian free field propagator with mass $m=k$; the Gaussian free field is known to satisfy the five Osterwalder–Schrader axioms; so under that identification the free USF inherits them, including reflection positivity, the condition that allows a physical Hilbert space and Wick rotation to Minkowski signature `derived-under-assumptions`.
+
+The formal part is strong and imported. The Osterwalder–Schrader results for the Gaussian free field were proved in Lean 4 by Douglas, Hoback, Mei and Nissim, and the programme's file applies them by name to the free field at mass $k$; those applications are kernel-checked `kernel-verified`. The physical claim is the identification itself, $m \leftrightarrow k$, which is a modelling step, not a theorem. A physicist should read the paper as showing that the free model is a well-posed Euclidean field theory, not that the somatic field is one.
+
+{{AddPaper ../../paper/soma/usf-euclidean-qft/usf-euclidean-qft.md}}
+
+{{AddPage}}
+
+# Reading Osterwalder–Schrader Axioms for the Interacting Universal Somatic Field
+
+The ninth embedded paper is a proof programme, not a result. It asks what it would take to keep the Osterwalder–Schrader axioms once the field modes are coupled through a Hopfield matrix, and lists the obligations: a lower bound on the Euclidean action, stability of reflection positivity under the coupling (in the Glimm–Jaffe framework), an ultraviolet regularisation compatible with the coupling matrix, and the thermodynamic limit `open-hypothesis`.
+
+Provisional reductions are given for the first two; the last two, and the multi-component interacting theory, are open. Read it as a precise statement of where constructive field theory would have to be extended for the programme's interacting model to be a quantum field theory, and as an invitation to the people who could do it `open-hypothesis`.
+
+{{AddPaper ../../paper/soma/usf-interacting-qft/usf-interacting-qft.md}}
+
+{{AddPage}}
+
 # Conclusion: What a Physics of Response Would Require
 
 The physics volume makes one proposal in many dialects: start from response. A field is known by the way it answers perturbation. A Green function is the concentrated form of that answer. If there is to be a physics of felt organismic state, it must have an operator, a source, a state space, a kernel, a coupling to known matter, and observables. Without those, "field" is only an honorific. With them, the proposal can be tested by the ordinary cruelty of physics `interpretive`.

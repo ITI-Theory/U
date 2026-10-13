@@ -18,3 +18,11 @@ scopes:
       papers: all
     report:
       tours: all
+# Books whose promise a manifest already states: pointed to, not copied. Each domain book of the
+# Fractal Programme promises its canonical papers (c:<slug>) and its levels; the concepts of
+# those papers are reported. Checked against the built book's text.
+manifests:
+  fractal-domains:
+    file: books/T-Theory/defaults/fractal-manifest.yaml
+    path: [fractal_manifest]
+    built: bld/books/{stem}.pdf

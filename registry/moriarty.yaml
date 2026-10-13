@@ -66,6 +66,18 @@ faults:
     find: "  class: null\n"
     replace: "  class: '#$Expectation'\n"
     expect: caught
+  - id: proved-called-sorry
+    what: a proved theorem said to remain a sorry (the stale row found on 13 Oct, put back)
+    file: books/T-Theory/formal-mathematics/book-formal-mathematics.md
+    find: "| `brainStemActivatesContagion` shows one coupling step from the startle pattern activates Contagion (23/25). | `kernel-verified` |"
+    replace: "| `brainStemActivatesContagion` remains a `sorry`. | `open-hypothesis` |"
+    expect: caught
+  - id: paper-printed-nowhere
+    what: a paper the manifest places in a book, its AddPaper removed (P10's gap of 13 Oct, put back)
+    file: books/T-Theory/neuroscience/book-neuroscience.md
+    find: "{{AddPaper ../../paper/soma/soma-temporal-dynamics/soma-temporal-dynamics.md}}"
+    replace: "(see the Temporal Dynamics paper)"
+    expect: caught
   - id: stale-sorry-count
     what: a stale count of sorries in prose, no Lean name cited (lesson 1 of ISS-093)
     file: books/T-Theory/law/book-law.md

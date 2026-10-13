@@ -294,6 +294,18 @@ The best way to read this paper is as the source grammar for the rest of the vol
 
 {{AddPage}}
 
+# Reading Temporal Dynamics of the Universal Somatic Field
+
+The fifth embedded paper adds time. The other papers in this volume describe states, basins and thresholds; this one asks how fast the field moves between them. It derives a model retarded Green's function, ties the relaxation time of an attractor to the spectral gap of its coupling matrix, and gives a WKB estimate for the time needed to cross a barrier between emotional states `derived-under-assumptions`.
+
+For neuroscientists the central object is the Somatic Memory Kernel $K(t-t')$: an exponentially decaying weight on past field states, proposed as one modelling language for autobiographical memory, re-experiencing and the decay of conditioned responses. It is a kernel, not a mechanism. Its time constants would have to be estimated from physiology (autonomic recovery after a startle, the decay of conditioned skin-conductance responses, the time course of EEG/MEG coherence after a stimulus) before it explains anything `open-hypothesis`.
+
+Its clinical reading is the paper's most testable claim and should be read as a hypothesis: that trauma processing is slower than trauma formation because escape from a deep basin is exponentially slower than falling into it, and that the window of tolerance is a bandwidth limit on how fast the field can be driven. Both predict measurable asymmetries in recovery time; neither is established `open-hypothesis`.
+
+{{AddPaper ../../paper/soma/soma-temporal-dynamics/soma-temporal-dynamics.md}}
+
+{{AddPage}}
+
 # Conclusion: Toward a Measurable Field Neuroscience
 
 A neuroscience of the somatic field would not replace cellular neuroscience, systems neuroscience, affective neuroscience, computational psychiatry, or clinical science. It would add a level of description: the response-function level at which body, brain, field, and report are modelled together. The promise of [T]-Theory is that it gives this level a shared mathematical language. The danger is that the same language can make unearned identities sound settled. This conclusion therefore states the programme in falsifiable terms `interpretive`.

@@ -316,6 +316,12 @@ The synthesis is also the place where readers can see the programme's internal s
 
 {{AddPage}}
 
+# Reading Path-Sensitive Transition Dynamics
+
+One paper printed in the Trauma volume belongs to this book's argument: *Path-Sensitive Transition Dynamics*. It replaces a pointwise question about transitions, how high is the ridge here, with a functional one, what does the whole route cost, using minimum-action and path-integral methods familiar from the study of rare events in complex systems `derived-under-assumptions`. For a complex-systems reader it is the programme's statement that some regime shifts may be limited by accumulated path cost rather than a single tipping point, with the observables that would distinguish the two `open-hypothesis`. It is printed in full in the Trauma volume.
+
+{{AddPage}}
+
 # Conclusion: Emergence With Assumption Gates
 
 The conclusion of this book is not that [T]-Theory has solved emergence. It is that the programme offers a disciplined way to ask whether emergence, criticality, and propagation can be written in a common response grammar across several domains `interpretive`. A strong unification reading would make complex systems science the mapping of one physical law across scales. The safer conclusion is more useful: complex systems science can test whether a scale-indexed Green-propagator architecture gives constrained, falsifiable models that improve on existing domain theories `open-hypothesis`.
