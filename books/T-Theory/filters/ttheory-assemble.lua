@@ -352,6 +352,38 @@ local function transform_source_book(domain)
   return blocks
 end
 
+-- Unique section ids across an assembled volume (ISS-001): books share headings such as
+-- "Introduction" and "Conclusion", whose automatic ids then repeat. An id already used by an
+-- earlier book (or earlier in the same book) gets the book's slug as a prefix, and the book's
+-- own links to it ("#conclusion") follow, so no link is ambiguous.
+local function unique_ids(blocks, slug, used)
+  local renamed = {}
+  local function fresh(id)
+    if id == "" then return id end
+    if not used[id] then used[id] = true; return id end
+    local base = slug .. "-" .. id
+    local new, n = base, 2
+    while used[new] do new = base .. "-" .. n; n = n + 1 end
+    used[new] = true
+    if renamed[id] == nil then renamed[id] = new end
+    return new
+  end
+  local defs = {
+    Header = function(el) el.identifier = fresh(el.identifier); return el end,
+    Div = function(el) el.identifier = fresh(el.identifier); return el end,
+    Span = function(el) el.identifier = fresh(el.identifier); return el end,
+  }
+  local out = pandoc.walk_block(pandoc.Div(blocks), defs).content
+  local links = {
+    Link = function(el)
+      local target = el.target:match("^#(.+)$")
+      if target and renamed[target] then el.target = "#" .. renamed[target] end
+      return el
+    end,
+  }
+  return pandoc.walk_block(pandoc.Div(out), links).content
+end
+
 local function volume_blocks(target)
   local volume = volume_by_id(target)
   seen = {}
@@ -361,11 +393,15 @@ local function volume_blocks(target)
     local opening = read_markdown_file(meta_text(volume.opening))
     blocks:extend(opening.blocks)
   end
+  local used = {}
+  blocks = pandoc.List:new(unique_ids(blocks, "volume", used))
   for _, domain_id in ipairs(meta_list_values(volume.domains)) do
     local domain = domain_by_id(domain_id)
-    blocks:extend(book_opening(domain))
-    blocks:extend(transform_source_book(domain))
-    blocks:extend(book_closing(domain))
+    local part = pandoc.List:new()
+    part:extend(book_opening(domain))
+    part:extend(transform_source_book(domain))
+    part:extend(book_closing(domain))
+    blocks:extend(unique_ids(part, domain_id, used))
   end
   if meta_text(volume.closing_paper) ~= "" then
     local ref = meta_text(volume.closing_paper)
@@ -382,7 +418,7 @@ local function volume_blocks(target)
       blocks:insert(pandoc.Header(1, meta_text(volume.closing_title)))
     end
     local closing = read_markdown_file(paper_path(ref))
-    blocks:extend(strip_references(closing.blocks))
+    blocks:extend(unique_ids(strip_references(closing.blocks), "phenomena", used))
   end
   if FORMAT:match("latex") then
     blocks:insert(pandoc.RawBlock("latex", [[\clearpage

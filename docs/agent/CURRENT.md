@@ -6,84 +6,56 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (13 Oct 2026, small hours)
+## Now (13 Oct 2026, through the night; the author asleep)
 
-**Sherlock is a neuro-symbolic compiler for natural language** (a natural language
-compiler, NLC; renamed 13 Oct) (ISS-055; paper
-SH1, `paper/soma/sherlock-compiler/`). A language model proposes a document's
-claims, a person confirms them, Lean decides: against the document's own numbers
-(templates, kernel-checked), against the programme's Lean (the ledger), against
-the other documents (values), and against all of OpenCyc in Lean (NextKB, 678
-microtheories as scopes, `sherlock/`). Affidavits for all 24 papers, SH1 and now
-fourteen domain books (40 documents; 399 template checks, all kernel-checked);
-the ledger reads every one of them (`make -C sherlock ledger`: 419 citations, 0 disagree with the Lean, 13 Oct, after
-the fixes and Sherlock's findings dispositioned; as compiler errors in VS Code).
-New tonight: `make -C sherlock clinical` (sentences claiming a clinical effect
-with no hedge or label: 2 candidates, P1 line 499 and the synthesis line 437,
-for the author) and `make -C sherlock skyline`. How to use it, and when:
-`docs/SHERLOCK.md`.
+**The Lean is clean.** No `sorry`, no theorem of `True` and nothing resting on `sorryAx`
+in the programme's own Lean: `greens_fn_is_SHO` proves the classical SHO Green's-function
+identity, `scale_shift_preserves_structure` a real skeleton statement, and ScaleUniverse
+uses its own `FLRWData` (physlib's `Cosmology.FLRW` is a `sorry` placeholder; offering
+ours upstream is ISS-085). Towers export at 641f3b4: 1,116 declarations, 0 on sorry,
+0 of True. The ledger (now reading the data files too): 460 citations in 122 documents,
+0 disagree with the Lean. About 20 books and papers no longer say "five sorries remain".
+Rule: at most two Lean processes at a time.
 
-**Structure mapping** (`registry/cases/`, 41 cases, `sherlock/macfac.py`): the
-Russell reading (ISS-064): the philosophy book's own chapter-7 readings as cases;
-Parmenides pairs with Plato (0.53), Heraclitus with Socrates (0.49), the
-"opposites" share a frame (0.35); Pythagoras finds no close partner even with a
-new P9 case (a proposed `forces` predicate): written up as "Reading Russell with
-Sherlock" in chapter 7.
+**Sherlock.** 45 affidavits (P25's new: its counts, and the three toy results it proposes
+proved in Lean); `make -C sherlock check` 414 of 414. The QP check found the P6 Calm-Shame
++0.2, a slip in two figure macros, fixed (author: "your call"). ISS-063's inversion test
+(the author's FIS notes: film personas mapped onto institutions) is written up and waits
+for the OWL-types work.
 
-**Proofs.** `LimbicTunnel.classical_trapped`, a placeholder that proved `True`,
-now states and proves the trapping (V is a Lyapunov function; a state below the
-barrier top never reaches it), kernel-checked on Lean's standard axioms. New: `paper/proofs/FieldEvent.lean`,
-"same field, different type" (emotion at D8, thought at D9-11) as a definition.
+**Field Atlas (ISS-087):** The Voyage Inside (15 stops, 25 plates captured from the app
+with `npm run capture -- --only voyage`), a world opening each sector, the mind palace
+spread, a Sherlock/reading/Part I panel on every level, the city of code after T4, the
+Tensor's score in four settings. A3 313 pages, the Lulu A4-landscape edition 348 pages
+(`make -C Part2/book/field-atlas lulu`); the Jumbo (max 300) needs trimming before it is
+ordered.
 
-**Soma Machine**, tonight (all Playwright-checked, `scripts/explorer-check.mjs`):
-- The towers of code: a floor per declaration (sorry flickers red, axioms amber,
-  beams to them); click a tower to walk in (code rain, each floor's statement,
-  axioms and citing papers); OpenCyc's skyline (1.37M facts, 547 microtheories)
-  and the EmotionCyc bridge; the Root Monster's tour (`#tour=root-monster`).
-- The stone in the ureter (ISS-076): WALL, the boing, the elevator down six
-  scales to a 0.2 nm gap where an electron tunnels (13 %); FX off the honest wave
-  drawing, FX high the secret tunnel; ORBIT and CLIMB the north face of a
-  weddellite stone with a climber drawn to scale.
-- Music: MIDI OUT to Ableton and MIDI IN from a controller (Twister CCs); the
-  score's heartbeat; the pulse follows the score so entrainment can be measured;
-  on the landscape the rhythm is a forcing (FREEZE to SAFE 48 % to 90 % at Φ 0.4).
-- MY FILM: the score editor (EDIT), each point with the sentence it came from;
-  the interview protocol (`docs/INTERVIEW.md`, a draft).
-- Inside the brain (ISS-077): THOUGHTS as neural avalanches (the power law, ignition, the
-  conditions' operators), PAIN's path to the neuromatrix (acute, chronic), the CAVE: the
-  ventricles as a stone cathedral where C-PTSD makes every thought echo.
-- PAST on the memory stop (the kernel and the defence cascade); Beisser in the
-  mind tour; the elevator shows τ and the carrier field retyping; RICE route plan.
-- Screens: ROLE on every window; a relay for tablets (`make relay LAN=1`, kept
-  apart from the MOTHER bridge, which stays on localhost).
-- H-AL: the H-AL-ifier (`docs/HALIFY.md`: delivery in the bridge, a lexicon
-  applied to every spoken line, the rule sheet).
+**Licences (ISS-086, closed):** a licence line in every book and paper from the registry
+(`lib/format/licence.lua`); `check_licences.py --pdfs --zenodo` (release check 14c):
+files, READMEs, manifests, every PDF, CREDITS coverage, all 39 Zenodo records.
 
-**Visualize** (ISS-051): papers 204 of 233 equations, books 35 of 38, the course
-131 of 142.
+**Visualize (ISS-051):** every display equation has a figure (papers 234, books 38,
+course 142); in HTML each equation is a tab panel (EQUATION, FIGURES, LEAN, READ MORE;
+no JavaScript), every figure also as SVG and CSV. Left: sweep strips and animations,
+and the Soma Machine's own panel.
 
-**Stopped for a BIOS update (13 Oct, 05:10), both safe to rerun:** `make uat-build`
-had built all papers, the domain books and the omnibus (no errors) and was on vol1;
-the Lean refresh (`make -C sherlock towers`, then `make -C sherlock ledger`) was part-way
-through the towers export. On restart: rerun both (towers, then ledger, at most two Lean
-processes at a time), then a full `lake build`, `make -C sherlock check`, `make
-uat-check`. The ledger's last 7 lines are names written tonight awaiting Lean's judge.
-The Body and Session lines are in The Tensor's Part II (author, 13 Oct: "go with yours").
+**Volumes:** section ids are made unique per book by the assembler (Vol II had 32
+repeats; now 0, no broken links); Vol I 592, II 508, III 562 pages.
+
+**Private (Me):** the FIS film notes (2021) in three layers, the author's accepted
+version at the top; the chat saved (Me 2a93ad0).
 
 ## Next
 
-Working rules (author, 11-12 Oct): work first; experiments (NotebookLM) only
-at the end of a usage period; new requirements go into ISSUES.md; ask only
-about important things, otherwise work through the issue list.
+Working rules (author, 11-13 Oct): work first; ask only about important things;
+books and papers before the Soma Machine; new requirements go into ISSUES.md.
 
-1. Author: Sherlock's findings to dispose of (the books' Lean claims in the
-   ledger; the two clinical candidates; the Body and Session draft for the
-   containers test, ISS-063); by ear: the lexicon's guesses (H-AL as "Hal",
-   BRECVEMA); UAT with real hardware: strap, Twister, tablets via the relay,
-   LAYOUT on the monitors, Ableton via loopMIDI.
-2. Release path (ISS-001): review P21, the UAT build, NotebookLM UAT, Lulu,
-   Zenodo.
-3. The NotebookLM runs left (exp0 Q3-5, exp1 Q4, exp2 Q5), then SH2 (ISS-067).
-4. Proof debts: closed (ISS-036, 13 Oct). No sorry and no theorem of `True` is
-   left in the programme's own Lean; the Lean v4.34 move is ISS-085 (parked).
-5. The final project: Sergeant Major (ISS-065).
+1. Author: the ISS-081 desk (photograph the A5 film pages, stereo calibration, read the
+   course); check tonight's editorial choices (the Atlas's Part I pairings per sector,
+   Sector III's world, the voyage texts); the UAT list (`uat/checklist.yaml`: the film,
+   hardware).
+2. Release (ISS-001): NotebookLM UAT, P21 to pending-upload, Zenodo sandbox, `make dist`,
+   the Lulu order (the volumes and the Atlas proof), the Jumbo trimmed to 300.
+3. ISS-063 (Sherlock: OWL classes as Lean types, the inversion test), then the Soma
+   Machine (ISS-052: the remaining 3D stops, the Mandelbulb from the model, the palace
+   tour, the client depth cap).

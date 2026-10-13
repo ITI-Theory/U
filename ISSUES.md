@@ -81,7 +81,10 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 - [ ] Fill new DOIs in `Dist/PAPERS.yaml`, `make generate`, update the org
    README DOI tables; commit and tag U and Dist together.
 
-- [ ] The omnibus, completed (author, 13 Oct): P10, P14 and P15 were in no domain book, and P25
+- [x] (13 Oct: rebuilt; Vol I 592, Vol II 508, Vol III 562 pages, all under Lulu's 800; the
+      omnibus 1,537 (digital); the assembler makes section ids unique per book (filters/
+      ttheory-assemble.lua `unique_ids`): duplicate labels 32 to 0 in Vol II, 0 in every volume,
+      no broken internal link) The omnibus, completed (author, 13 Oct): P10, P14 and P15 were in no domain book, and P25
       is new. The manifest now places P10 in Neuroscience, P14 and P15 in Physics (pointers in
       Formal Mathematics), P25 in Trauma (pointers in Complex Systems and Philosophy); each is
       printed in full once. Rebuild the Fractal Programme volumes and the omnibus at release and
