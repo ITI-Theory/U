@@ -2696,13 +2696,18 @@ Steps:
       `localStorage soma-stereo-depth` (default 1), for the author's calibration with the
       glasses.
       (13 Oct triage: done: DEPTH (STEREO) in the engine room scales every 3D view's eye separation and the 2D stereo, live across windows (1606e3b))
-- [ ] (13 Oct, checked: labels stay flat at the screen plane in each eye (explorer.js), stop
+- [x] (13 Oct night: CLIENT in the engine room's DEPTH holds every view at most ×0.6 (a choice for
+      the author to check), the slider keeping its own setting; explorer-check covers it)
+      (13 Oct, checked: labels stay flat at the screen plane in each eye (explorer.js), stop
       changes ease in and out, one DEPTH slider scales every view (stereo-depth.js, 0 to 2.5);
       left: a moderate depth for clients, not just the author's calibration)
       (from ISS-081, author, 13 Oct: not the author's) (ISS-027) H-AL's cautions
       (uat/RC3/hal-stereo-explorer-2026-10-10.md): smooth transitions only, moderate depth
       for clients (looming 3D can trigger C-PTSD), labels never in depth.
-- [ ] (from ISS-080) (ISS-078) The palace tour: the method of loci as an exercise. Needs the
+- [x] (13 Oct night: `palace=1&pf=N` in the address (docs/TOUR-LANGUAGE.md; the hash writer keeps
+      it), and registry/tours/mind-palace.yaml, seven stops: leave a thought on floors 7 and 8, ride
+      to the rock and the top, come back and find them; tested in a browser)
+      (from ISS-080) (ISS-078) The palace tour: the method of loci as an exercise. Needs the
       palace in the URL first (palace=1, a floor key) so a tour can ride it.
 
 ---

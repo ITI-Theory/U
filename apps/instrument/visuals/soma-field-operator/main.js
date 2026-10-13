@@ -1198,6 +1198,8 @@ function readHashState() {
     uo: params.get('uo'),
     uv: params.get('uv'),
     floor: params.get('floor'),
+    palace: params.get('palace'),
+    pf: params.get('pf'),
   };
 }
 
@@ -1709,6 +1711,7 @@ function applyVoyage(hashState) {
   explorer.setScore({ kv: hashState.kv, st: hashState.st, kd: hashState.kd, kt: hashState.kt, kw: hashState.kw, km: hashState.km, kc: hashState.kc, kf: hashState.kf, tw: hashState.tw, pv: hashState.pv, ca: hashState.ca, cs: hashState.cs, cp: hashState.cp, kx: hashState.kx, ab: hashState.ab, ap: hashState.ap });
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
   explorer.setTower(hashState.tower, hashState.floor);
+  explorer.setPalace(hashState.palace, hashState.pf);
   explorer.setUreter({ uo: hashState.uo, uv: hashState.uv });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2170,6 +2173,10 @@ function hashForState() {
       const up = explorer.ureterParams;
       if (up.uo) params.set('uo', String(up.uo + 1));
       if (up.uv !== 'in') params.set('uv', up.uv);
+    }
+    if (state.voyage === 'brain' && explorer.palace) {
+      params.set('palace', '1');
+      params.set('pf', String(explorer.palace.floor));
     }
     if (state.voyage === 'landscape' && explorer.tower) {
       params.set('tower', explorer.tower.tower);

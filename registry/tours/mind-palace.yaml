@@ -1,0 +1,44 @@
+id: mind-palace
+title: "The mind palace: the method of loci as an exercise"
+summary: 'About five minutes in the mind palace (ISS-078): the zoom dial''s twenty-one levels as
+  the floors of one tower. The oldest memory technique, places for things to remember, practised
+  on the atlas itself: leave a thought on a floor, ride on, come back and find it. An exercise in
+  attention, not a treatment.'
+steps:
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=1
+  say: Welcome to the mind palace. Orators in the ancient world remembered long speeches by
+    placing each thing in a room of an imagined building, and walking through it. This tower is
+    such a building. Its floors are the levels of the atlas. We start at the bottom, the hall of
+    the zero moment, where everything arises and passes and nothing is held.
+  label: interpretive
+  pause: 5
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=7
+  say: Floor seven, the whole brain. Think of one thing you want to keep from today, a word or
+    a picture. Press PLACE, and leave it here, in this hall.
+  label: interpretive
+  pause: 8
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=8
+  say: One floor up, the human. Leave a second thing here, something your body noticed today,
+    the breath, a tension, warmth. Press PLACE again.
+  label: interpretive
+  pause: 8
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=11
+  say: Now ride on, past the cities, into the rock. Floor eleven, geological. Nothing to leave
+    here. Notice the strata in the walls, laid down slowly, one on another, as memories are.
+  label: interpretive
+  pause: 5
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=21
+  say: The top of the tower, the cosmic web. The same grammar of response at every floor, and
+    the same reader riding them. A building for the mind, not a claim about the cosmos.
+  label: interpretive
+  pause: 5
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=7
+  say: Now come back down to floor seven. What did you leave here? Take your time. The place
+    holds it for you. That is the whole method, and it is more than two thousand years old.
+  label: interpretive
+  pause: 8
+- view: voyage=brain&dim=11&phi=0.5&palace=1&pf=8
+  say: And one floor up, the second thing. If it is there, the palace worked. If it is not,
+    that is fine too, the next ride will find it more easily. Palace reached.
+  label: interpretive
+  pause: 5

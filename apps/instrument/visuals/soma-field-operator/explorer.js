@@ -678,6 +678,8 @@ let popHandler = null;
 // loop is on when LOOP is pressed at the ureter or the brain (st.body).
 const BODY = { ureter: createUreterModel(), loop: createSomaLoop() };
 // the palace's floors: the universal-21 model's levels, the quantum foam at the bottom
+// a palace floor asked for in the address, applied on the next palace frame
+let palaceFloorWanted = 0;
 const PALACE_FLOORS = (() => {
   const by = Object.fromEntries((paletteLevels ?? []).map(l => [l.id, l]));
   const model = (paletteModels ?? []).find(m => m.id === 'universal-21');
@@ -832,6 +834,8 @@ function makeBrain() {
       const { u, phi, dim, t } = env;
       if (env.palace && env.gl?.go) {
         const pg = env.gl;
+        // a floor asked for in the address (palace=1&pf=N): ride there once the palace exists
+        if (env.palaceFloor) { pg.go(env.palaceFloor - 1); env.palaceFloor = 0; palaceFloorWanted = 0; }
         pg.render({ time: t, stereo: env.stereo });
         if (env.labels) {
           const f = pg.floorInfo(pg.floor);
@@ -3537,7 +3541,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3887,8 +3891,20 @@ export function createExplorer(hooks = {}) {
     // a tower asked for by a link counts before the next frame opens its panel (the hash is rewritten at once)
     get tower() { return towerPanel.open ? { tower: towerPanel.item.title.replace(/\.lean$/, ''), floor: towerPanel.floor } : st.tower ? { tower: st.tower, floor: st.floor } : null; },
     setTower(tower, floor) { st.tower = tower || ''; st.floor = floor || ''; },
+    // the mind palace from the address (ISS-052/078): palace=1 opens it at the brain stop, pf=N
+    // rides to floor N (1 = quantum foam), so a tour can ride it
+    setPalace(on, floor) {
+      if (on === null || on === undefined) return;
+      st.palace = String(on) === '1';
+      if (st.palace) { st.view3d = true; st.cave = false; }
+      const n = Number(floor);
+      if (st.palace && Number.isInteger(n) && n >= 1 && n <= PALACE_FLOORS.length) palaceFloorWanted = n;
+      syncUi();
+    },
     // the ureter's stage (shared by all windows) and view (this window): uo 1-4, uv in|out|both
     get ureterParams() { return { uo: st.uo, uv: st.uv }; },
+    // the mind palace for the address: open, and the floor the car is on (1 = quantum foam)
+    get palace() { return st.palace ? { floor: palaceFloorWanted || (gls['brain-palace']?.target ?? 0) + 1 } : null; },
     setUreter({ uo, uv } = {}) {
       const n = Number(uo);
       if (uo !== null && uo !== undefined && n >= 1 && n <= URETER_STAGES.length) st.uo = n - 1;

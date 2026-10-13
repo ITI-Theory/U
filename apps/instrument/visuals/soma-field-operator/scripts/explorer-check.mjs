@@ -19,6 +19,7 @@ import { readFileSync } from 'node:fs';
 import { midiMessages, createMidiOut, MIDI_CC } from '../midi-out.js';
 import { midiControl } from '../midi-in.js';
 import { createUreterModel } from '../ureter-model.js';
+import { stereoDepth, stereoDepthSetting, setStereoDepth, setClientSafe, CLIENT_MAX_DEPTH } from '../stereo-depth.js';
 import { createSomaLoop } from '../somaloop.js';
 import { BARRIERS, transmission, exponent } from '../barrier.js';
 import { greenProfiles } from '../questions.js';
@@ -327,6 +328,16 @@ const checks = [
     && topicOf('What is this?', { levelLabel: 'Dyad' }) === 'view: Dyad'
     && createThread('t', { getItem: k => mem.get(k) ?? null, setItem: () => {} }).turns.length === 4;
   checks.push(['MOTHER thread: departures, a return that branches, the tree and its storage', ok ? 1 : 0, 1, 1]);
+}
+// CLIENT (ISS-052): with a client the stereo depth is capped, the slider's own setting kept
+{
+  setStereoDepth(2);
+  setClientSafe(true);
+  const capped = stereoDepth() <= CLIENT_MAX_DEPTH && stereoDepthSetting() === 2;
+  setClientSafe(false);
+  const free = stereoDepth() === 2;
+  setStereoDepth(1);
+  checks.push(['stereo: CLIENT caps the depth, the slider keeps its setting', capped && free ? 1 : 0, 1, 1]);
 }
 let failed = 0;
 for (const [name, value, min, max = 1] of checks) {

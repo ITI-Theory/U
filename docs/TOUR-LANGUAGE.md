@@ -86,6 +86,8 @@ With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
 | `phi` | the limbic field Φ, a number from 0 to 1 (the FX bar): heats the explorer's body, brain, memories and landscape |
 | `feel` | the feeling on the body map: `calm`, `fight`, `flight`, `grief`, `freeze`, `vigilance`, `flow` or `joy` |
 | `resource` | `1`: a resource (the therapist's driving term J(t)) pulls the memories and tilts the landscape towards SAFE; `0` removes it |
+| `palace` | `1`: the mind palace at the brain stop (the zoom dial's 21 levels as floors); `0` closes it |
+| `pf` | with `palace=1`: ride to floor 1 (quantum foam) to 21 (cosmic web) |
 
 The mind-body explorer is a simple 2D voyage inside a person, over the level view; `dim`
 adds its layers (4: anatomy, 8: electrical activity, 11: the field). The preset tour

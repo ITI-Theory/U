@@ -595,7 +595,7 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
              "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr", "kd", "kt", "kw", "km", "kc",
-             "kf", "tw", "pv", "ca", "cs", "cp", "kx", "ab", "ap", "tower", "floor", "uo", "uv"}
+             "kf", "tw", "pv", "ca", "cs", "cp", "kx", "ab", "ap", "tower", "floor", "uo", "uv", "palace", "pf"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
@@ -653,6 +653,10 @@ def tour_view_errors(view: str, ids: dict[str, set[str]]) -> list[str]:
             problems.append(f"km={value!r} not a list of S,F,C,A,G,L,PV")
         elif key in ("tower", "floor") and not re.match(r"^[A-Za-z0-9_.]+$", value):
             problems.append(f"{key}={value!r} not a Lean module or declaration name")
+        elif key == "palace" and value not in ("0", "1"):
+            problems.append(f"palace={value!r} not 0 or 1")
+        elif key == "pf" and not (value.isdigit() and 1 <= int(value) <= 21):
+            problems.append(f"pf={value!r} not a palace floor from 1 to 21")
         elif key == "bpm" and not (value.isdigit() and 50 <= int(value) <= 140):
             problems.append(f"bpm={value!r} not from 50 to 140")
         elif key in ids and value not in ids[key]:

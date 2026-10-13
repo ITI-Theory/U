@@ -20,7 +20,7 @@
 import { createVoice } from './voice.js';
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice, voiceStyle, setVoiceStyle } from './rice.js';
-import { stereoDepth, setStereoDepth } from './stereo-depth.js';
+import { stereoDepth, stereoDepthSetting, setStereoDepth, clientSafe, setClientSafe, CLIENT_MAX_DEPTH } from './stereo-depth.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
 import { midiInOn, setMidiIn, MIDI_IN_MAP } from './midi-in.js';
 
@@ -381,7 +381,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
       ${choices.map(([key, title, options]) => `<fieldset data-key="${key}"><legend>${title}</legend>${options.map(([value, text]) => `<button type="button" data-value="${value}">${text}</button>`).join('')}</fieldset>`).join('')}
       <fieldset data-style><legend>STYLE</legend>${styleKeys.map(key => `<button type="button" data-style-key="${key}">${key.toUpperCase()}</button>`).join('')}</fieldset>
       <fieldset><legend>FX</legend><input class="engine-room__fx" type="range" min="0" max="1" step="0.05" aria-label="Effects intensity" /><span class="engine-room__fx-value"></span></fieldset>
-      <fieldset><legend>DEPTH (STEREO)</legend><p class="engine-room__hint">How deep the 3D looks in the glasses, for every view (0 flat, 1 as built). Calibrate on the projector; moderate for clients.</p><input class="engine-room__depth" type="range" min="0" max="2.5" step="0.05" aria-label="Stereo depth" /><span class="engine-room__depth-value"></span></fieldset>
+      <fieldset><legend>DEPTH (STEREO)</legend><p class="engine-room__hint">How deep the 3D looks in the glasses, for every view (0 flat, 1 as built). Calibrate on the projector; moderate for clients.</p><input class="engine-room__depth" type="range" min="0" max="2.5" step="0.05" aria-label="Stereo depth" /><span class="engine-room__depth-value"></span> <button type="button" class="engine-room__client" title="With a client: depth held at most ×0.6 in every view (looming 3D can trigger C-PTSD; H-AL's caution)">CLIENT: OFF</button></fieldset>
       <fieldset data-camera><legend>COCKPIT CAMERA</legend><button type="button" data-camera="external">EXTERNAL</button><button type="button" data-camera="follow">FOLLOW (DRONE)</button></fieldset>
       <fieldset><legend>WINDOWS</legend>
         <button type="button" data-open="level">OPEN LEVEL VIEW</button>
@@ -512,7 +512,15 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   const fxValue = room.querySelector('.engine-room__fx-value');
   const depthInput = room.querySelector('.engine-room__depth');
   const depthValue = room.querySelector('.engine-room__depth-value');
-  depthInput.addEventListener('input', () => { setStereoDepth(depthInput.value); depthValue.textContent = `×${stereoDepth().toFixed(2)}`; });
+  const clientButton = room.querySelector('.engine-room__client');
+  const showDepth = () => {
+    depthValue.textContent = `×${stereoDepth().toFixed(2)}${clientSafe() ? ` (client, at most ×${CLIENT_MAX_DEPTH})` : ''}`;
+    clientButton.textContent = `CLIENT: ${clientSafe() ? 'ON' : 'OFF'}`;
+    clientButton.classList.toggle('active', clientSafe());
+  };
+  depthInput.addEventListener('input', () => { setStereoDepth(depthInput.value); showDepth(); });
+  clientButton.addEventListener('click', () => { setClientSafe(!clientSafe()); showDepth(); });
+  showDepth();
 
   function sync() {
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
@@ -530,8 +538,8 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     for (const button of room.querySelectorAll('[data-style-key]')) button.classList.toggle('active', !off.has(button.dataset.styleKey));
     for (const button of room.querySelectorAll('[data-camera]')) button.classList.toggle('active', button.dataset.camera === screens.cameraMode);
     fxInput.value = String(screens.fx);
-    depthInput.value = String(stereoDepth());
-    depthValue.textContent = `×${stereoDepth().toFixed(2)}`;
+    depthInput.value = String(stereoDepthSetting());
+    showDepth();
     fxValue.textContent = `${Math.round(screens.fx * 100)}%`;
   }
 
