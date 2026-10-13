@@ -43,6 +43,17 @@ faults:
     find: "| Visual thought (public/art/cma-156571.jpg)"
     replace: "| Visual thought (removed)"
     expect: caught
+  - id: disclaimer-dropped
+    what: a clinical paper's only disclaimer removed (its context, ISS-063)
+    file: paper/soma/preverbal-manifold/preverbal-manifold.md
+    find: "**Not clinical advice.** This is a model reading of one life: not a"
+    replace: "**Reading.** This is a model reading of one life: a"
+    expect: caught
+  - id: hedged-claim-in-design
+    what: a hedged clinical claim in a design document (a hedge is not enough there)
+    file: books/T-Theory/music-arts/book-music-arts.md
+    append: "\n\nIn patients, the score may reduce anxiety.\n"
+    expect: caught
   - id: stale-sorry-count
     what: a stale count of sorries in prose, no Lean name cited (lesson 1 of ISS-093)
     file: books/T-Theory/law/book-law.md

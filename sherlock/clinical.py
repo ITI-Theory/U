@@ -4,9 +4,15 @@ The papers and books disclaim: a score is a design proposal, not a treatment; th
 teaching picture, not medical advice. This check reads every registry document (the
 affidavits' sources, as the ledger does) for sentences that claim a clinical EFFECT (a
 treatment, a cure, an improvement in patients) and lists those that carry no hedge and no
-evidence label in the same paragraph. A candidate is for a person to read, not a verdict:
-the later, Lean version files such claims in OpenCyc microtheories (a ClinicalMt claim needs
-a ClinicalEvidence fact; an ArtisticDesignMt claim does not).
+evidence label in the same paragraph. A candidate is for a person to read, not a verdict.
+
+Microtheories (ISS-063): registry/microtheories.yaml says which context each document speaks
+in, as OpenCyc files a claim in a microtheory. In ClinicalMt (patients, therapy, trauma) and
+ArtisticDesignMt (music, film, art as design) the document must carry its own disclaimer, a
+sentence saying it is a model, not clinical advice, a treatment or a diagnosis: the
+disclaimer is what puts it in that context. In ArtisticDesignMt a clinical-effect sentence
+has left its context, so a hedge is not enough: it needs an evidence label. Every other
+document speaks in TheoryMt, where the first rule holds.
 
     python sherlock/clinical.py          # -> bld/sherlock/clinical.md
 """
@@ -15,6 +21,8 @@ from __future__ import annotations
 import re
 import sys
 from pathlib import Path
+
+import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ledger import registry_documents  # noqa: E402
@@ -52,37 +60,68 @@ def paragraphs(text: str):
             buf = []
 
 
-def candidates(path: Path):
+def load_microtheories() -> tuple[dict[str, str], re.Pattern, dict]:
+    data = yaml.safe_load((U / "registry" / "microtheories.yaml").read_text(encoding="utf-8"))
+    mt_of = {doc: mt for mt, docs in data["documents"].items() for doc in docs}
+    disclaimer = re.compile("|".join(f"(?:{p})" for p in data["disclaimer_patterns"]), re.I)
+    return mt_of, disclaimer, data["microtheories"]
+
+
+def candidates(path: Path, mt: str = "TheoryMt"):
     for start, para in paragraphs(path.read_text(encoding="utf-8")):
         if LABEL.search(para):
             continue  # the paragraph states its evidence label
         for sentence in re.split(r"(?<=[.!?])\s+", para):
             if sentence.lstrip().startswith(("*", ">", "- [")) or re.search(r"\(\d{4}\)|\b(19|20)\d\d[a-z]?\)", sentence[:80]):
                 continue  # a title, a quotation, a reference
-            if CONTEXT.search(sentence) and EFFECT.search(sentence) and not HEDGE.search(sentence):
-                yield start, sentence.strip()
+            if CONTEXT.search(sentence) and EFFECT.search(sentence):
+                # in a design context a hedge does not bring a clinical claim back into context
+                if mt == "ArtisticDesignMt" or not HEDGE.search(sentence):
+                    yield start, sentence.strip()
+
+
+def disclaimer_line(path: Path, disclaimer: re.Pattern) -> int | None:
+    """The line where the disclaimer starts; a sentence may wrap across lines."""
+    text = path.read_text(encoding="utf-8")
+    m = disclaimer.search(re.sub(r"\s", " ", text))
+    return text.count("\n", 0, m.start()) + 1 if m else None
 
 
 def main() -> int:
     docs = registry_documents()
+    mt_of, disclaimer, mts = load_microtheories()
+    unknown = sorted(set(mt_of) - set(docs))
     out = ["# Sherlock: clinical claims without a hedge or a label", "",
            "Sentences that claim a clinical effect, with no hedge in the sentence and no evidence",
-           "label in the paragraph. Candidates for a person to read, not verdicts (sherlock/clinical.py).", ""]
-    total = 0
+           "label in the paragraph, and documents whose context needs a disclaimer they lack.",
+           "Candidates for a person to read, not verdicts (sherlock/clinical.py; contexts in",
+           "registry/microtheories.yaml).", ""]
+    total = missing = 0
+    table = ["## Contexts", "", "| document | microtheory | disclaimer |", "|---|---|---|"]
     for f in docs:
-        found = list(candidates(U / f))
+        mt = mt_of.get(f, "TheoryMt")
+        needs = mts[mt].get("disclaimer") == "required"
+        line = disclaimer_line(U / f, disclaimer) if needs else None
+        if needs and line is None:
+            missing += 1
+            print(f"{f}:1: warning: a {mt} document with no disclaimer (not clinical advice, a treatment or a diagnosis)")
+        table.append(f"| {Path(f).stem} | {mt} | {('line ' + str(line)) if line else ('**missing**' if needs else '-')} |")
+        found = list(candidates(U / f, mt))
         if not found:
             continue
         total += len(found)
         for line, sentence in found:  # compiler style, for VS Code's Problems panel
-            print(f"{f}:{line}: warning: a clinical claim with no hedge or evidence label: {sentence[:140]}")
-        out += [f"## {Path(f).stem}", ""]
+            print(f"{f}:{line}: warning: a clinical claim with no {'evidence label' if mt == 'ArtisticDesignMt' else 'hedge or evidence label'} ({mt}): {sentence[:140]}")
+        out += [f"## {Path(f).stem} ({mt})", ""]
         out += [f"- line {line}: {s[:300]}" for line, s in found]
         out.append("")
-    out.insert(4, f"{total} candidates in {len(docs)} documents.\n")
+    for f in unknown:
+        print(f"registry/microtheories.yaml: warning: {f} is not a registry document")
+    out.insert(6, f"{total} candidates in {len(docs)} documents; {missing} documents without the disclaimer their context needs.\n")
+    out += table + [""]
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "clinical.md").write_text("\n".join(out), encoding="utf-8", newline="\n")
-    print(f"bld/sherlock/clinical.md: {total} candidates in {len(docs)} documents")
+    print(f"bld/sherlock/clinical.md: {total} candidates in {len(docs)} documents; {missing} missing disclaimers")
     return 0
 
 

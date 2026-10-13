@@ -22,7 +22,7 @@ PY = sys.executable
 
 BATTERY = {
     "ledger": ([[PY, "sherlock/ledger.py", "extract"], [PY, "sherlock/ledger.py", "report"]], r"(\d+) disagree"),
-    "clinical": ([[PY, "sherlock/clinical.py"]], r"(\d+) candidates"),
+    "clinical": ([[PY, "sherlock/clinical.py"]], r"(\d+) candidates in \d+ documents; (\d+) missing"),
     "qp": ([[PY, "sherlock/readings.py", "qp"]], r"(\d+) read pairs with opposite signs, (\d+) sentences against their own matrix, (\d+) pairs whose matrices differ"),
     "licences": ([[PY, "paper/scripts/check_licences.py"]], r"(PASS|FAIL)"),
 }

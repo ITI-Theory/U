@@ -665,6 +665,9 @@ get matched across domains.
 
 # Epistemological Status
 
+Co-identification is a formal model of attunement, not clinical advice or a treatment: a
+therapist or client reading it gains a mathematical vocabulary, not a procedure.
+
 ## What Co-identification Claims
 
 Mathematical co-identification claims:

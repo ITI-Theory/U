@@ -3275,7 +3275,7 @@ different scales (ZSF's "same as always").
       the CycRef examples quoted in the papers and the omnibus) to real constants, or define
       the missing ones as the programme's own OWL classes. Plan: the real constants where
       OpenCyc has them, the rest as the programme's own classes in TTheoryVocabularyMt.
-- [ ] (from ISS-080) (ISS-055) (13 Oct, first pass in Python: `make -C sherlock clinical`,
+- [x] (from ISS-080) (ISS-055) (13 Oct, first pass in Python: `make -C sherlock clinical`,
       sherlock/clinical.py: every registry document's sentences that claim a clinical effect
       with no hedge in the sentence and no evidence label in the paragraph, as candidates; 2
       in 39 documents, for the author: P1 line 499, "the formal account of why fear
@@ -3296,6 +3296,16 @@ exhibits, versions as precedent), with Sherlock's exhibits as worked cases.
 Philosophy (C2-book-06): Russell's *History of Western Philosophy* read as a
 sequence of affidavits about the same questions, compared by structure
 mapping (ISS-063).
+      Done (13 Oct night): registry/microtheories.yaml puts each registry document in a context:
+      ClinicalMt (15 documents: the clinical papers, the case study, the clinical and psychiatry
+      books), ArtisticDesignMt (P9 and the music and arts book), TheoryMt (the rest). ClinicalMt
+      and ArtisticDesignMt documents must carry their own disclaimer (not clinical advice, a
+      treatment or a diagnosis); in ArtisticDesignMt a hedge does not bring a clinical claim back
+      into context, it needs an evidence label. Found: P1, P2, P3 and P18 had no disclaimer of
+      their own (their Zenodo descriptions had it); one sentence added to each one's limitations
+      or status section. Now 0 candidates, 0 missing disclaimers in 44 documents. Moriarty: two
+      new faults (a dropped disclaimer, a hedged clinical claim in a design book), both caught.
+      The affidavit's legal use stays with the Law book (ISS-064, closed).
 - [x] Law chapter (12 Oct: "Affidavits: Claims, Exhibits and Precedent": prior inconsistent
       statements, hearsay, judicial notice, the work and the copy, cross-examination,
       precedent and versions, nemo iudex).

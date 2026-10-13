@@ -1,0 +1,48 @@
+# The papers' own disclaimers as contexts (ISS-063, ISS-055): which microtheory each document
+# speaks in, and what a clinical claim needs there. Read by sherlock/clinical.py.
+# A document not listed speaks in TheoryMt. Names follow OpenCyc's microtheory convention.
+microtheories:
+  ClinicalMt:
+    about: patients, therapy, trauma and the clinic, as a model
+    disclaimer: required
+    clinical_claim: a hedge or an evidence label
+  ArtisticDesignMt:
+    about: music, film and art as design; an effect claim here is a design claim
+    disclaimer: required
+    clinical_claim: "an evidence label (a hedge is not enough: the claim has left its context)"
+  TheoryMt:
+    about: physics, mathematics, computing, society; clinical words appear as examples
+    disclaimer: optional
+    clinical_claim: a hedge or an evidence label
+# What counts as the document's disclaimer: one sentence that says the work is a model, not
+# clinical advice, a treatment, a diagnosis or a validated finding.
+disclaimer_patterns:
+  - not (?:medical|clinical) advice
+  - rather than (?:medical|clinical) advice
+  - not (?:a |an )?(?:treatment|therapy|diagnosis|diagnostic)\b
+  - not (?:a |an )?(?:validated|clinical|medical) (?:treatment|finding|instrument|device|measurement|claim|limit|mechanism)
+  - not (?:a |an )?validated treatment
+  - no clinical (?:claim|mechanism|efficacy|validation|finding)
+  - not clinically (?:validated|tested|established)
+  - not (?:a )?substitute for
+  - does not (?:diagnose|treat|provide medical advice)
+documents:
+  ClinicalMt:
+    - paper/soma/soma-field-paper/soma-field-paper.md
+    - paper/soma/quantum-soma-penrose/quantum-soma-penrose.md
+    - paper/soma/mathematical-co-identification/mathematical-co-identification.md
+    - paper/soma/soma-field-synthesis/soma-field-synthesis.md
+    - paper/soma/soma-physical-substrate/soma-physical-substrate.md
+    - paper/soma/soma-field-book/soma-field-book.md
+    - paper/soma/soma-field-patient-pov/soma-field-patient-pov.md
+    - paper/soma/soma-temporal-dynamics/soma-temporal-dynamics.md
+    - paper/soma/missing-limbic-layer/missing-limbic-layer.md
+    - paper/soma/gestalt-field-dynamics/gestalt-field-dynamics.md
+    - paper/soma/preverbal-manifold/preverbal-manifold.md
+    - paper/soma/path-sensitive-transitions/path-sensitive-transitions.md
+    - paper/soma/SFT-DEMO-CASE/SFT-DEMO-CASE.md
+    - books/T-Theory/clinical-psychology/book-clinical-psychology.md
+    - books/T-Theory/psychiatry-asd/book-psychiatry-asd.md
+  ArtisticDesignMt:
+    - paper/soma/music-affect-dynamics/music-affect-dynamics.md
+    - books/T-Theory/music-arts/book-music-arts.md

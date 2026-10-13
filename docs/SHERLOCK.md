@@ -65,7 +65,7 @@ one Lean module per microtheory in `bld/sherlock/lean`, OpenCyc's Horn rules
 | `python sherlock/macfac.py check\|report` | MAC/FAC over the case library (`registry/cases/`): where else a structure occurs; the documents' sameness claims as tests |
 | `lake build EmotionCyc` (root) | the programme's emotions as OpenCyc types (`Cyc.Types`): a wrong name does not compile |
 | `make -C sherlock affidavits` | every affidavit module, one at a time, then `check` |
-| `make -C sherlock clinical` | sentences claiming a clinical effect with no hedge in the sentence and no evidence label in the paragraph |
+| `make -C sherlock clinical` | sentences claiming a clinical effect with no hedge in the sentence and no evidence label in the paragraph; each document in its context (registry/microtheories.yaml: ClinicalMt and ArtisticDesignMt documents must carry their own disclaimer, and in ArtisticDesignMt a hedge is not enough) |
 | `make -C sherlock towers`, `skyline` | the programme's Lean and OpenCyc exported for the Soma Machine's city of code |
 
 Reports in `bld/sherlock/`: `affidavits.md` (every claim), `values.md` (values

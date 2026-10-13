@@ -313,7 +313,8 @@ in the supplementary archive.
 # Limitations, Controls, and Claim Boundaries
 
 This paper makes a bounded claim. The evidence is strong for this specific model class,
-but not universal.
+but not universal. It is not clinical advice or a treatment either: trauma enters as a model
+of a state space, not as a diagnosis.
 
 1. **Simulator evidence, not yet hardware evidence.** QUANT-EXP-1 uses exact statevector
    simulation. This is appropriate for a 256-dimensional ground-truth system, but the

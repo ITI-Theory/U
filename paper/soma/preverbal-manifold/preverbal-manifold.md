@@ -695,6 +695,9 @@ tests. They jointly probe the *pre-verbal manifold* construct.
 claimed; only the formal-object construction. The replication design is
 §9.
 
+**Not clinical advice.** This is a model reading of one life: not a
+diagnosis, a treatment or clinical advice for anyone else.
+
 **Author is case.** The author and the case are the same person. The
 methodological tradition for this configuration is established
 (Grandin, 1995; Levine, 2010; Jamison, 1995; cf. Charon, 2006; Frank,

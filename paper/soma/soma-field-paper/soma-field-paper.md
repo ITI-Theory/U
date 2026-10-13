@@ -1246,8 +1246,10 @@ well-documented and, within this framework, a mathematically expressible risk.
 
 # Limitations and Future Directions
 
-The Soma-Field Model is a theoretical framework and must be evaluated as such. Its current
-form makes several idealisations that require scrutiny.
+The Soma-Field Model is a theoretical framework and must be evaluated as such. It is not
+clinical advice, a diagnosis or a treatment: its clinical sentences are model claims, hedged
+or labelled with their evidence. Its current form makes several idealisations that require
+scrutiny.
 
 **The coupling matrix $W$** is treated as a fixed parameter, but emotional coupling is
 dynamic: it changes with context, relationship, and developmental history. A more complete
