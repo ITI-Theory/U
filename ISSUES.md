@@ -3263,7 +3263,7 @@ different scales (ZSF's "same as always").
       (feelsEmotion takes an IndividualAgent; Person and Bird proved, groups, regions, brains and
       inanimate things refuted, a society or the cosmic web unproved) and is it a person. Concepts
       are checked against them: T1 a class that is a microtheory (found one: musical expectancy was
-      typed #$Expectation, which in OpenCyc is a microtheory; now no class, with a note), T2 a
+      typed `#$Expectation`, which in OpenCyc is a microtheory; now no class, with a note), T2 a
       feeling on a level that cannot feel. The Soma Machine's human controls now come from
       person: proved, and its type line states OpenCyc's verdict ("a galaxy cannot feel; feeling
       here is a reading"). `make -C sherlock level-types`, release check 19; Moriarty: two new
