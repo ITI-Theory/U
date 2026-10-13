@@ -4715,6 +4715,28 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       smuggling is the ledger's, and its fault is caught; the G₂ wording, scanned once: the
       papers and books are careful, the booklets' summary page was not (fixed, see ISS-093).
       Left: the matrix non-generalisation test, random non-symmetric couplings with noise.)
+      (14 Oct 02:00, done: sherlock/stress_quant.py, bld/sherlock/stress-quant.md, reusing P2's
+      code. A, P2's instance: the 0.41 "Awe-dominant occupancy" is a set of 64 of 256 states, so
+      the start is already 0.25; the Awe state itself ends at 0.007 (total time 1), 0.051 at a
+      total time 200 (smallest gap ~0.009, an adiabatic anneal needs ~10^4); simulated annealing,
+      the rival the paper does not test, reaches Awe in 5 of 40 (slow) and 3 of 40; the cold
+      baseline 0 of 40. B, 30 random landscapes: simulated annealing 0.80 (27 of 30), the anneal
+      (total time 50) 0.60, the cold baseline 0.58; quantum beats simulated annealing on 2 of 30.
+      C: an energy cannot carry the antisymmetric part of W (on average 68% of the classical
+      drift), so the quantum formulation cannot represent one-way coupling.)
+- [ ] Author, before P2 is uploaded: QUANT-EXP-1's claim (stress test above). P2 says the
+      quantum formulation "reaches basins that the tested low-noise classical baseline does not";
+      true as stated, but the two runs do different tasks and are measured differently (a set
+      occupancy from a 0.25 start against reaching Awe itself from inside Fear), and the
+      obvious rival, simulated annealing, does better on random landscapes. Proposed: P2's
+      limitations name the metric's baseline, the fast (total time 1) sweep and simulated
+      annealing, and the claim becomes "a model result about occupancy under a fast sweep",
+      not an advantage. Also still to correct: the old "3/3 against 0/48" figures in P11, P12,
+      P13 and the thesis preamble (found by SH1, 11 Oct). Done meanwhile: the booklets' summary
+      page said "D-Wave reaches Awe basin in 3/3 ... Quantum advantage is real" (no hardware was
+      used); now "an exact 8-qubit simulation, no hardware ... A model result" (all 15 still four
+      pages). books/T-Theory/conclusions/ and kappas/ (August, not built into anything) say the
+      same; left as they are, out of the release.
 - [ ] The Dark Matter Lord (the Wizard's rivals): for each book's central claims, does it name
       and answer the simpler rival: classical annealing, Langevin noise or modern Hopfield networks
       without 11D or tunnelling; interoception and predictive processing (Craig's lamina I, Friston's

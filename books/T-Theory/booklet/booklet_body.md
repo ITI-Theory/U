@@ -115,8 +115,8 @@ slow for $\Delta V \gg D$.
 **WKB tunnelling amplitude:**
 $$P \approx \exp\!\left(-\frac{2}{\hbar_\text{geo}}\int_{q_1}^{q_2}\!\sqrt{V(q) - E}\;dq\right)$$
 
-Quantum annealing experiment (QUANT-EXP-1): D-Wave reaches Awe basin in 3/3
-barrier cases; classical simulation achieves it in 0/48. Quantum advantage is real.
+QUANT-EXP-1 (an exact 8-qubit simulation, no hardware): in the model, annealing shifts
+occupancy toward the Awe states while a cold classical run stays in Fear. A model result.
 
 **Arnold tongue** — rapport as Huygens frequency locking. Width = social/attentional bandwidth:
 $$|\omega_\text{ext} - \omega_0| < \Delta\omega_\text{lock}(\kappa)$$
