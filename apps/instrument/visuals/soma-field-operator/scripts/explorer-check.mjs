@@ -329,6 +329,20 @@ const checks = [
     && createThread('t', { getItem: k => mem.get(k) ?? null, setItem: () => {} }).turns.length === 4;
   checks.push(['MOTHER thread: departures, a return that branches, the tree and its storage', ok ? 1 : 0, 1, 1]);
 }
+// THE MIND (ISS-052): the dive follows the landscape state; calm, the state stays in FREEZE (no
+// burst); hot with the resource it crosses into another valley (a burst)
+{
+  const run = (phi, resource, steps) => {
+    const state = { x: Math.cos(-Math.PI / 6) * 0.95, y: Math.sin(-Math.PI / 6) * 0.95, basin: 2 };
+    let crossings = 0;
+    for (let i = 0; i < steps; i++) if (sim.mindDrive(state, phi, resource, 0.05).crossed) crossings++;
+    return crossings;
+  };
+  let calm = 0, hot = 0;
+  for (let r = 0; r < 20; r++) { if (run(0, false, 400) === 0) calm++; if (run(0.9, true, 1200) > 0) hot++; }
+  checks.push(['the mind: calm, no burst (the state stays in FREEZE)', calm / 20, 0.95, 1]);
+  checks.push(['the mind: hot with the resource, the state crosses (a burst)', hot / 20, 0.8, 1]);
+}
 // CLIENT (ISS-052): with a client the stereo depth is capped, the slider's own setting kept
 {
   setStereoDepth(2);

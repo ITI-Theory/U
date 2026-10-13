@@ -511,8 +511,7 @@ const DIVE_ITERS = 16;
 
 // A dive: a surface point P, marched from a random direction v; the camera then sits
 // at P - D v, looking at P and rolling slowly about the line of sight.
-function newDive(rand, phi, time) {
-  const power = 8 + 2 * phi;
+function newDive(rand, phi, time, power = 8 + 2 * phi) {
   const morph = time * 0.05;
   const iters = DIVE_ITERS;
   for (let attempt = 0; attempt < 8; attempt++) {
@@ -646,7 +645,11 @@ export function createFlight3D() {
           bulbState = { phi: state.phi, time: tt, surge, score: sc, power: 8, iters: 9, morph: tt * 0.05, fade: 0, texture: state.texture ?? 0 };
         } else {
           // FLY: dive into the Mandelbulb
-          dive ??= newDive(diveRand, state.phi, tt);
+          // driven by the model (explorer.js mindDrive): H sets the power of each new dive
+          const md = state.model;
+          const modelPower = md ? Math.max(5, Math.min(11, 8 + 2.5 * md.H)) : undefined;
+          dive ??= newDive(diveRand, state.phi, tt, modelPower);
+          if (md?.crossed && dive && !fading) { fading = 1; surge = Math.max(surge, 0.8); }
           if (dive && !fading) {
             const k = 0.12 + 0.35 * state.phi + 1.4 * surge;
             dive.d *= Math.exp(-k * dt);
@@ -655,7 +658,7 @@ export function createFlight3D() {
           }
           if (fading === 1) {
             fade = Math.min(1, fade + dt / 1.2);
-            if (fade >= 1) { dive = newDive(diveRand, state.phi, tt); fading = -1; }
+            if (fade >= 1) { dive = newDive(diveRand, state.phi, tt, modelPower); fading = -1; }
           } else if (fading === -1) {
             fade = Math.max(0, fade - dt / 1.5);
             if (fade <= 0) fading = 0;
@@ -663,13 +666,15 @@ export function createFlight3D() {
           if (dive) {
             const { p, v, t1, t2 } = dive;
             camera.position.set(p[0] - v[0] * dive.d, p[1] - v[1] * dive.d, p[2] - v[2] * dive.d);
-            const roll = 0.12 * dive.s;
+            // |grad H| sets how fast the view rolls
+            dive.roll = (dive.roll ?? 0) + dt * (0.12 + (md ? 0.9 * md.grad : 0));
+            const roll = dive.roll;
             camera.up.set(...[0, 1, 2].map(i => Math.cos(roll) * t2[i] - Math.sin(roll) * t1[i]));
             camera.lookAt(p[0], p[1], p[2]);
           }
           const depth = dive ? DIVE_START / dive.d : 1;
           this.depth = depth;
-          bulbState = { phi: state.phi, time: tt, surge, score: null, power: dive?.power ?? 8,
+          bulbState = { phi: md ? Math.max(0, Math.min(1, md.heat)) : state.phi, time: tt, surge, score: null, power: dive?.power ?? 8,
             iters: diveMath.iters(depth), morph: dive?.morph ?? tt * 0.05, fade };
         }
         // the eye separation and the near plane follow the dive (stereo stays fusable deep in)

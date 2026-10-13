@@ -2583,7 +2583,11 @@ Steps:
 - [ ] (13 Oct, checked: the stent mode is done, app README "URETER / stent mode"; the
       author's review of the tour wording is left) Urologist, next: the author reviews the tour wording; a stent mode (persistent signal after the stone);
       calculi sizes and laser settings stay out (no clinical claims).
-- [ ] (10 Oct 23:40: FLY at Whole Brain dives INTO the Mandelbulb: down the line of
+- [ ] (13 Oct night, part: the dive follows the landscape state (explorer.js mindDrive): H sets
+      each dive's power, |grad H| the roll, T_eff the colour, a crossing into another valley the
+      burst; explorer-check: calm, no burst; hot with the resource, a crossing. Left: branching
+      paths, the granular sound of motion, fluid as a flow solver)
+      (10 Oct 23:40: FLY at Whole Brain dives INTO the Mandelbulb: down the line of
       sight to a surface point, zoom to x40,000 at fixed detail (16 iterations), Φ the
       speed, POKE deeper, a burst and a new dive; stereo eye separation follows the
       depth; explorer-check: every dive finds the surface and the camera stays

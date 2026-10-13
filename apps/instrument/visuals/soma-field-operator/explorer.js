@@ -183,7 +183,7 @@ const CAPTIONS = {
   },
   flight: {
     title: 'FLY', label: 'interpretive',
-    4: 'A slow flight through the world of the level you are on, one natural form per scale: the cosmic web, the quantum foam, an inner sea of coral and flowers, a murmuration, folded rock, a network. Everything drifts in one current, the fluid. Φ is the speed; POKE is a surge. At Whole Brain the world is the Mandelbulb, the mind, and you dive into it: the surface keeps unfolding as you fall (zoom ×40,000), Φ is how fast you fall, POKE pushes you deeper, and each dive ends in a burst and starts again somewhere new. Pick another floor in the elevator (FLY ▸) to fly somewhere else; MUSIC adds calm sound (off by default).',
+    4: 'A slow flight through the world of the level you are on, one natural form per scale: the cosmic web, the quantum foam, an inner sea of coral and flowers, a murmuration, folded rock, a network. Everything drifts in one current, the fluid. Φ is the speed; POKE is a surge. At Whole Brain the world is the Mandelbulb, the mind, and you dive into it: the surface keeps unfolding as you fall (zoom ×40,000), Φ is how fast you fall, POKE pushes you deeper, and each dive ends in a burst and starts again somewhere new. The dive follows the person\'s state on the LANDSCAPE: its energy sets the shape of each dive, its slope how fast the view rolls, the temperature its colour, and when the state moves into another valley (SAFE, FIGHT, FREEZE) the dive bursts and starts again. Pick another floor in the elevator (FLY ▸) to fly somewhere else; MUSIC adds calm sound (off by default).',
     11: 'The forms are pictures of each scale, not data: an invitation to look inward the way the programme looks outward.',
   },
   neuron: {
@@ -2385,8 +2385,32 @@ function makeScore() {
 
 // ---------------------------------------------------------------- stop: fly
 
+// THE MIND driven by the model (ISS-052): at Whole Brain the dive follows the person's state on
+// the landscape of the LANDSCAPE stop (the same energy, the same Langevin step at T = T0 + sigma
+// Phi). The state's energy H sets the power of each new dive (deep in a valley a smoother shape,
+// on a ridge a more folded one), |grad H| how fast the view rolls, T_eff the colour, and a
+// crossing into another valley (SAFE, FIGHT, FREEZE) the burst and a new dive. The mapping is a
+// picture of the model, interpretive; the dynamics are the checked simulation's.
+export function mindDrive(state, phi, resource, dt) {
+  landscapeStep(state, phi, resource, dt);
+  const T = temperature(phi);
+  const J = resource ? RESOURCE_J : 0;
+  const H = energy(state.x, state.y, 1 / T, J);
+  const [gx, gy] = gradient(state.x, state.y, 1 / T, J);
+  // a crossing: the state comes within 0.55 of another valley's centre (hysteresis, so noise at
+  // a ridge does not flicker)
+  let crossed = false;
+  WELLS.forEach(([a, b], k) => {
+    if (k !== state.basin && Math.hypot(state.x - a, state.y - b) < 0.55) { state.basin = k; crossed = true; }
+  });
+  return { H, grad: Math.hypot(gx, gy), heat: (T - T0) / SIGMA, crossed, basin: MEMORY_NAMES[state.basin] };
+}
+
 function makeFlight() {
   let gl = null;
+  // the person's state for THE MIND, starting in FREEZE as on the landscape
+  const mind = { x: WELLS[2][0] * 0.95, y: WELLS[2][1] * 0.95, basin: 2 };
+  let model = null;
   const stars = Array.from({ length: 220 }, () => ({ x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random() }));
   return {
     focus: [0, 0],
@@ -2396,7 +2420,8 @@ function makeFlight() {
       const { u, phi, t } = env;
       if (env.gl) {
         gl = env.gl;
-        gl.render({ sector: env.world, phi, time: t, stereo: env.stereo });
+        model = env.world === 'mind' ? mindDrive(mind, phi, env.resource, env.dt) : null;
+        gl.render({ sector: env.world, phi, time: t, stereo: env.stereo, model });
       } else {
         // 2D fallback: a warp of stars
         for (const s of stars) {
@@ -2409,6 +2434,7 @@ function makeFlight() {
         label(ctx, u, worldName(env.world), 0, -0.7, COLORS.ink, 'center', 0.04);
         const zoom = env.world === 'mind' && gl?.depth ? ` · diving: zoom ×${gl.depth < 1000 ? gl.depth.toFixed(0) : Math.round(gl.depth).toLocaleString('en')}` : '';
         label(ctx, u, `${env.levelLabel} · speed Φ ${phi.toFixed(2)}${zoom}`, 0, -0.62, COLORS.dim, 'center', 0.026);
+        if (model) label(ctx, u, `the state: ${model.basin.toUpperCase()} · H ${model.H.toFixed(2)} sets the power · |∇H| ${model.grad.toFixed(2)} the roll · T ${(T0 + SIGMA * phi).toFixed(2)} the colour · a new valley, a burst`, 0, -0.57, COLORS.dim, 'center', 0.02);
       }
     },
   };
@@ -2986,7 +3012,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
 const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, wayin: makeWayIn, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
-export const simulation = { avalancheSize, tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
+export const simulation = { mindDrive, avalancheSize, tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
 
 // ---------------------------------------------------------------- the explorer
 
