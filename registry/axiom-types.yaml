@@ -1,0 +1,35 @@
+# The identity axioms of paper/FieldAxioms.lean, typed (ISS-063). Each "X IS Y" axiom names two
+# things; Sherlock types both sides (OpenCyc's collections, or the programme's own in
+# registry/vocabulary.yaml) and asks NextKB whether one thing can be both
+# (`python sherlock/readings.py axioms`). Where it cannot (the two collections are disjoint), the
+# literal "is" is a category error and the axiom is read as a map: X is modelled by Y. The Lean
+# statements already say so (an equation between quantities, or an existence of a model); the
+# reading, the doc comment and the papers' prose are what change. The choice of collection for
+# each side is a reading, interpretive; the verdict from it is checked by the kernel
+# (readings.py lean).
+file: paper/FieldAxioms.lean
+axioms:
+  - name: PerceptIsPropagatorPole
+    line: 99
+    left: {word: percept, type: Perceiving}
+    right: {word: pole of the somatic propagator, type: PropagatorPole-TTheory}
+  - name: AttractorIsHopfieldMinimum
+    line: 116
+    left: {word: attractor, type: Attractor-TTheory}
+    right: {word: local minimum of the Hopfield energy, type: HopfieldMinimum-TTheory}
+  - name: TherapyIsRGFlow
+    line: 138
+    left: {word: therapy, type: PsychologicalTherapy}
+    right: {word: renormalisation-group flow, type: RGFlow-TTheory}
+  - name: HRVIsSomaFieldSpectralDensity
+    line: 306
+    left: {word: heart rate variability, type: HeartRateVariability-TTheory}
+    right: {word: spectral density of the somatic propagator, type: SpectralDensity-TTheory}
+  - name: CoIdentificationIsAbduction
+    line: 343
+    left: {word: co-identification, type: CoIdentification-TTheory}
+    right: {word: abduction, type: Abduction-TTheory}
+  - name: SomaFieldIsQUBO
+    line: 425
+    left: {word: the Soma-Field, type: SomaField-TTheory}
+    right: {word: a QUBO, type: QUBO-TTheory}

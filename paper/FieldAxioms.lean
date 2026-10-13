@@ -88,6 +88,13 @@ opaque coIdRate_focused  : ℝ        -- co-identification rate in focused state
 [CO-ID-1] The conscious emotional percept is the pole of the soma-field
 propagator G̃(ω) — not an analogy, an identity.
 
+Typed (Sherlock, ISS-063; registry/axiom-types.yaml): read literally, "a percept is a pole" is
+a category error, since a percept is an event (OpenCyc: Perceiving, a TemporalThing) and a pole a
+mathematical object, and NextKB says the two are disjoint (kernel-checked in CycReadings). The
+identity holds where the statement below puts it: between numbers, `ω₀ = percept e`, the
+percept's complex frequency is the pole. So the percept is *modelled by* the pole; the identity
+is of its frequency, not of the experience with a number.
+
 Veneziano precedent: he found string theory by recognising the Euler beta
 function in scattering amplitude data. This paper does the same: the percept
 is recognised as a propagator pole, and all QFT propagator machinery imports
@@ -126,6 +133,12 @@ axiom AttractorIsHopfieldMinimum
 [THERAPY-1] Therapy is renormalisation group (RG) flow from UV (raw
 unprocessed traumatic material, high μ) to IR (integrated narrative,
 regulated calm, low μ).
+
+Typed (Sherlock, ISS-063): read literally, "therapy is an RG flow" is a category error, since
+therapy is an event between people (OpenCyc: PsychologicalTherapy, a TemporalThing) and an RG
+flow a mathematical object (kernel-checked in CycReadings). The statement below says what is
+meant: the change from `pre` to `post` is *modelled by* some RG flow of the couplings. Therapy
+is modelled by an RG flow.
 
 The attractor *topology* (which basins exist) is RG-invariant — this is why
 every modality (CBT, somatic, EMDR, relational) finds the same attractors.

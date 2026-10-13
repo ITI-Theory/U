@@ -22,6 +22,34 @@ constants:
     genls: [MathematicalObject]
     words: [pole]
     comment: A pole of a propagator, a complex frequency where the response diverges (a resonance); not OpenCyc's Pole-Rod, AxialPoleOfPlanet or Poles (ISS-063).
+  - name: RGFlow-TTheory
+    genls: [MathematicalObject]
+    words: [flow]
+    comment: "A renormalisation-group flow, couplings carried from one scale of resolution to another (RenormalisationGroup.lean); a mathematical object, not an event (ISS-063)."
+  - name: SpectralDensity-TTheory
+    genls: [MathematicalObject]
+    words: [spectrum]
+    comment: "A power spectral density, the power of a signal per frequency (as in HRV's spectrum)."
+  - name: HeartRateVariability-TTheory
+    genls: [PhysiologicalQuantity]
+    words: [hrv, variability]
+    comment: "Heart rate variability, the beat-to-beat variation of the heart rate (RMSSD, its spectrum)."
+  - name: HopfieldMinimum-TTheory
+    genls: [MathematicalObject]
+    words: [minimum]
+    comment: "A local minimum of a Hopfield network's energy, where recall settles."
+  - name: QUBO-TTheory
+    genls: [MathematicalObject]
+    words: [qubo]
+    comment: "A quadratic unconstrained binary optimisation problem (the Ising/Hopfield energy as an annealer takes it)."
+  - name: CoIdentification-TTheory
+    genls: [Reasoning]
+    words: [co-identification]
+    comment: "Mathematical co-identification (P3): identifying one system's structure with another's and transferring results."
+  - name: Abduction-TTheory
+    genls: [Reasoning]
+    words: [abduction]
+    comment: "Abductive inference, to the best explanation (not OpenCyc's abducting, a kidnapping)."
   - name: Attractor-TTheory
     genls: [MathematicalObject]
     words: [attractor]

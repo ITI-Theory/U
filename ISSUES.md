@@ -3226,7 +3226,18 @@ different scales (ZSF's "same as always").
       PropagatorPole-TTheory a MathematicalOrComputationalThing, disjoint), so the coherent reading
       is a map, which is how FieldAxioms already writes it. PropagatorPole-TTheory and "percept"
       added to the vocabulary. For the author: restate every "X IS Y" axiom as a typed map? the
-      concept registry and the app's type guard on the same types?) OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
+      concept registry and the app's type guard on the same types?)
+      (13 Oct, author: "let Sherlock type both sides, turn only the refuted ones into maps, keep
+      the names": registry/axiom-types.yaml types both sides of FieldAxioms.lean's six identity
+      axioms; `python sherlock/readings.py axioms` -> bld/sherlock/axiom-types.md; the verdicts go
+      into the readings' Lean slice (`make -C sherlock readings-lean`, kernel-checked). Refuted, so
+      read as maps: PerceptIsPropagatorPole (an event and a mathematical object) and TherapyIsRGFlow
+      (an event between people and a mathematical flow); their doc comments say so, the Lean
+      statements already did; P1's claims table SF-1 now says "modelled by". Not refuted:
+      AttractorIsHopfieldMinimum, HRVIsSomaFieldSpectralDensity (in OpenCyc a physiological
+      quantity is itself a mathematical quantity), CoIdentificationIsAbduction, SomaFieldIsQUBO. Seven
+      programme constants added to the vocabulary for the sides OpenCyc lacks, abduction among them,
+      since OpenCyc's abducting is a kidnapping) OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
       programme's own collections (TTheoryVocabularyMt and what it inherits, a few
       hundred) as Lean types; genls as coercions, disjointness as no common member;
       a category error becomes a type error in the programme's Lean, the concept

@@ -1341,7 +1341,7 @@ registers its highest-impact claims with scope labels and disconfirmation tests.
 
 | Claim ID | Claim | Scope | Evidence in this work | Disconfirmation criterion |
 |---|---|---|---|---|
-| SF-1 | Conscious percept is a propagator pole of the soma-field | S1 Structural | Formal derivation in Sections 2-3 | Inability to express percept dynamics as Green's-function response under stated operator |
+| SF-1 | Conscious percept is modelled by a propagator pole of the soma-field (its complex frequency is the pole) | S1 Structural | Formal derivation in Sections 2-3 | Inability to express percept dynamics as Green's-function response under stated operator |
 | SF-2 | Emotional attractors are Hopfield-energy minima | S2 Predictive | Energy model and trajectory framework | Constructed update rule under model assumptions with systematic energy ascent |
 | SF-3 | Threshold governs felt vs sub-felt emotional activity | S2 Predictive | Threshold operator and clinical mapping | Reliable high-amplitude mode activity with no threshold-dependent behavioural or physiological signature |
 | SF-4 | Topological barriers explain classical therapeutic plateaus | S2 Predictive | Formal treatment plus linked companion experiments | Controlled demonstration that matched low-noise classical dynamics crosses registered barriers at equivalent rate |
