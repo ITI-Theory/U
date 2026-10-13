@@ -319,6 +319,13 @@ function label(ctx, u, text, x, y, color = COLORS.ink, align = 'center', size = 
   ctx.restore();
 }
 
+// An instruction to the user (POKE, STAGE ▸, VIEW ...): drawn like a label, left out of
+// the printed Field Atlas's captures (atlas=1), where nobody can press anything.
+function hint(ctx, u, text, x, y, color, align, size) {
+  if (globalThis.document?.body?.classList.contains('atlas-capture')) return;
+  label(ctx, u, text, x, y, color, align, size);
+}
+
 function leader(ctx, u, text, from, to, color) {
   ctx.save();
   ctx.strokeStyle = color;
@@ -887,8 +894,8 @@ function makeBrain() {
         if (env.labels) {
           label(ctx, u, env.caveOut ? `THE CATHEDRAL FROM OUTSIDE · the visitor is in ${caveGl.hall} (the white spire)` : `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
           label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
-          label(ctx, u, `VISUAL THOUGHTS: ${artMode === 'art' ? 'avant-garde art' : artMode === 'both' ? 'the programme\'s figures and avant-garde art' : 'the programme\'s own figures'} in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
-          label(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
+          hint(ctx, u, `VISUAL THOUGHTS: ${artMode === 'art' ? 'avant-garde art' : artMode === 'both' ? 'the programme\'s figures and avant-garde art' : 'the programme\'s own figures'} in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
+          hint(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
         }
         return;
       }
@@ -1927,7 +1934,7 @@ function makeUreter() {
       label(ctx, u, `T ≈ exp(−2d·√(2m(V−E))/ħ) = ${formatT(b)}`, 0, 0.84, COLORS.gold, 'center', 0.028);
       label(ctx, u, reason(b), 0, 0.92, COLORS.dim, 'center', 0.022);
       if (wallEvent.until > t) label(ctx, u, wallEvent.text, 0, -0.57, wallEvent.text.startsWith('TUNNEL') ? COLORS.cyan : COLORS.orange, 'center', 0.03);
-      else label(ctx, u, 'POKE: send it at the wall · ▼ ▲: the elevator, a scale down or up · FX: the graphics', 0, -0.57, COLORS.dim, 'center', 0.022);
+      else hint(ctx, u, 'POKE: send it at the wall · ▼ ▲: the elevator, a scale down or up · FX: the graphics', 0, -0.57, COLORS.dim, 'center', 0.022);
       if (b.id === 'quantum' || b.id === 'atom') {
         const lines = ['Tunnelling in the body and brain, honestly:',
           'established: electrons and protons tunnel in enzymes and the respiratory chain;',
@@ -1976,7 +1983,7 @@ function makeUreter() {
         drawUreterOutside(ctx, u, env, model, { x: -bw / 2, y: -0.6, w: bw * 0.92 });
         if (env.labels) {
           drawStages(ctx, env);
-          label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸: the next stage · a teaching picture: days compressed into seconds, not medical advice`, 0, 0.94, COLORS.dim, 'center', 0.018);
+          hint(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸: the next stage · a teaching picture: days compressed into seconds, not medical advice`, 0, 0.94, COLORS.dim, 'center', 0.018);
         }
         return;
       }
@@ -2009,7 +2016,7 @@ function makeUreter() {
         const where = model.stage === 2 ? (gl.blocked ? 'THE SCOPE AT THE STONE' : 'THE SCOPE comes up from the bladder') : model.stage === 1 ? 'INSIDE, above the stone: the stent (blue, on the floor) drains past it; the swelling falls' : model.stone > 0 ? 'INSIDE the ureter above the stone, looking down at it: the tube swells, the waves crash into it' : 'INSIDE the ureter: the waves pass freely';
         label(ctx, u, where, 0, -0.47, COLORS.teal, 'center', 0.024);
         label(ctx, u, `pain ${'█'.repeat(Math.round(pain * 10)).padEnd(10, '·')}  ${Math.round(70 + 40 * pain)} BPM${model.stent ? ' · stent signal ' + Math.round(100 * model.stentSignal) + '%' : ''}${model.stage === 2 ? ' · under anaesthetic: the nerves still signal (' + Math.round(100 * Math.min(1, model.raw)) + '%), it is not felt' : ''}`, 0, 0.62, pain > 0.5 ? COLORS.red : COLORS.dim, 'center', 0.028);
-        label(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸ the next stage · VIEW: inside, outside, both · LOOP: the head joins in`, 0, 0.7, COLORS.dim, 'center', 0.02);
+        hint(ctx, u, `${URETER_STAGES[model.stage].poke} · STAGE ▸ the next stage · VIEW: inside, outside, both · LOOP: the head joins in`, 0, 0.7, COLORS.dim, 'center', 0.02);
         if (env.body) label(ctx, u, `THE HEAD: Φ ${BODY.loop.phi.toFixed(2)}, tension ×${BODY.loop.bodyGain.toFixed(2)} on the spasms${BODY.loop.breath > 0.5 ? ' · the limbic breath is softening them' : ''}`, 0, 0.56, BODY.loop.breath > 0.5 ? COLORS.cyan : '#ff8090', 'center', 0.022);
         if (gl.event.until > t) label(ctx, u, gl.event.text, 0, -0.41, COLORS.gold, 'center', 0.03);
         else if (pokeEvent.until > model.time) label(ctx, u, pokeEvent.text, 0, -0.41, COLORS.gold, 'center', 0.028);
@@ -2322,7 +2329,7 @@ function makeScore() {
           label(ctx, u, `${level} · ${text}`, 0, y, level === 'WARNING' ? '#ffffff' : colour, 'center', 0.022);
         });
       }
-      if (env.ap && !pilotStarted) label(ctx, u, 'STILL · every mode at zero · POKE to begin', 0, 0.0, COLORS.gold, 'center', 0.04);
+      if (env.ap && !pilotStarted) hint(ctx, u, 'STILL · every mode at zero · POKE to begin', 0, 0.0, COLORS.gold, 'center', 0.04);
       if (env.ap && pilotTextT > 0 && env.kx >= 3) {
         ctx.save();
         ctx.globalAlpha = Math.min(1, pilotTextT / 0.8);
@@ -2876,7 +2883,7 @@ function makeLandscape() {
           landscapeHud(ctx, u, phi, T, beta, env.resource);
           if (env.music && env.labels) label(ctx, u, `♪ MUSIC: the ground rocks towards SAFE and back every ${FORCING.P} s (a forcing; in this model, with the noise, it helps the state out)`, 0, 0.9, COLORS.violet, 'center', 0.022);
           if (env.labels && tunnelEvent.until > env.t) label(ctx, u, tunnelEvent.text, 0, -0.62, tunnelEvent.through ? COLORS.cyan : COLORS.orange, 'center', 0.028);
-          else if (env.labels && dim >= 11) label(ctx, u, 'at 11D, POKE tries to TUNNEL through the nearest barrier (QUANT-EXP-1, a picture)', 0, -0.62, COLORS.dim, 'center', 0.02);
+          else if (env.labels && dim >= 11) hint(ctx, u, 'at 11D, POKE tries to TUNNEL through the nearest barrier (QUANT-EXP-1, a picture)', 0, -0.62, COLORS.dim, 'center', 0.02);
         }
         return;
       }
@@ -2961,7 +2968,7 @@ function makeLandscape() {
       if (env.labels) landscapeHud(ctx, u, phi, T, beta, env.resource);
           if (env.music && env.labels) label(ctx, u, `♪ MUSIC: the ground rocks towards SAFE and back every ${FORCING.P} s (a forcing; in this model, with the noise, it helps the state out)`, 0, 0.9, COLORS.violet, 'center', 0.022);
           if (env.labels && tunnelEvent.until > env.t) label(ctx, u, tunnelEvent.text, 0, -0.62, tunnelEvent.through ? COLORS.cyan : COLORS.orange, 'center', 0.028);
-          else if (env.labels && dim >= 11) label(ctx, u, 'at 11D, POKE tries to TUNNEL through the nearest barrier (QUANT-EXP-1, a picture)', 0, -0.62, COLORS.dim, 'center', 0.02);
+          else if (env.labels && dim >= 11) hint(ctx, u, 'at 11D, POKE tries to TUNNEL through the nearest barrier (QUANT-EXP-1, a picture)', 0, -0.62, COLORS.dim, 'center', 0.02);
     },
   };
 }
