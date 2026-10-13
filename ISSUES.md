@@ -4621,7 +4621,7 @@ with real readers.
 
 ## ISS-093: What Sherlock found in its own programme, written up — CLOSED
 {{Tags area.papers, area.books, area.proofs}}
-{{Fields date.created=2026-10-13, date.start=, date.end=2026-10-13, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-13, epic=ISS-055-sherlock}}
 
 Author, 13 Oct afternoon: Sherlock has been used for a while; is there new information for the
 papers or books? Yes: six lessons from running it on the programme itself. For SH1's next

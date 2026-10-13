@@ -6,66 +6,44 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (13 Oct 2026, through the night; the author asleep)
+## Now (13 Oct 2026, late evening; before the big build)
 
-**The Lean is clean.** No `sorry`, no theorem of `True` and nothing resting on `sorryAx`
-in the programme's own Lean: `greens_fn_is_SHO` proves the classical SHO Green's-function
-identity, `scale_shift_preserves_structure` a real skeleton statement, and ScaleUniverse
-uses its own `FLRWData` (physlib's `Cosmology.FLRW` is a `sorry` placeholder; offering
-ours upstream is ISS-085). Towers export at 641f3b4: 1,116 declarations, 0 on sorry,
-0 of True. The ledger (now reading the data files too): 460 citations in 122 documents,
-0 disagree with the Lean. About 20 books and papers no longer say "five sorries remain".
-Rule: at most two Lean processes at a time.
+**Ready for the big build.** The author's order (21:34): ISS-051, ISS-063, ISS-093, then
+ISS-092/094's book parts; then `make uat-stage-full`, the release check, the UAT (HAL-UAT
+for Sherlock, the Wizard and the adversaries; a fresh notebook for the reader tests), the
+Lulu preview, `make dist`, Zenodo (sandbox first). The course goes in the release (ISS-081).
 
-**Sherlock.** 45 affidavits (P25's new: its counts, and the three toy results it proposes
-proved in Lean); `make -C sherlock check` 414 of 414. The QP check found the P6 Calm-Shame
-+0.2, a slip in two figure macros, fixed (author: "your call"). ISS-063's inversion test
-(the author's FIS notes: film personas mapped onto institutions) is written up and waits
-for the OWL-types work.
-
-**Field Atlas (ISS-087):** The Voyage Inside (15 stops, 25 plates captured from the app
-with `npm run capture -- --only voyage`), a world opening each sector, the mind palace
-spread, a Sherlock/reading/Part I panel on every level, the city of code after T4, the
-Tensor's score in four settings. A3 313 pages, the Lulu A4-landscape edition 348 pages
-(`make -C Part2/book/field-atlas lulu`); the Jumbo (max 300) needs trimming before it is
-ordered.
-
-**Licences (ISS-086, closed):** a licence line in every book and paper from the registry
-(`lib/format/licence.lua`); `check_licences.py --pdfs --zenodo` (release check 14c):
-files, READMEs, manifests, every PDF, CREDITS coverage, all 39 Zenodo records.
-
-**Visualize (ISS-051):** every display equation has a figure (papers 234, books 38,
-course 142); in HTML each equation is a tab panel (EQUATION, FIGURES, LEAN, READ MORE;
-no JavaScript), every figure also as SVG and CSV. Left: sweep strips and animations,
-and the Soma Machine's own panel.
-
-**Volumes:** section ids are made unique per book by the assembler (Vol II had 32
-repeats; now 0, no broken links); Vol I 592, II 508, III 562 pages.
-
-**Soma Machine (ISS-052), later in the night:** every stop the issue named is now in true 3D
-(body, limbic hinge as an hourglass of the eleven dimensions, emotion and thought, neuron); the
-Mandelbulb dive is driven by the landscape state (H, |grad H|, T, a new valley a burst); the mind
-palace is in the address (`palace=1&pf=N`) with its tour (the method of loci); CLIENT caps the
-stereo depth at ×0.6. explorer-check covers the new behaviour; all pass.
-
-**Sherlock (ISS-063):** the OWL-types design note (docs/SHERLOCK.md) and spike: "a percept is a
-pole", read literally, is a contradiction in NextKB; the coherent reading is a map.
-
-**Private (Me):** the FIS film notes (2021) in three layers, the author's accepted
-version at the top; the chat saved (Me 2a93ad0).
+**Done today, books and papers:**
+- ISS-051 closed: sweep strips for all 91 varied figures (one y-scale), "see it move" Soma
+  Machine views, both in HTML and the figure library (PDFs unchanged); the Soma Machine's
+  equation panel has EQUATION / FIGURES / READ MORE tabs (the textbook's figures by level).
+- ISS-063: the disclaimers as microtheories (`registry/microtheories.yaml`; P1, P2, P3, P18
+  got the disclaimer they lacked); one set of types from OpenCyc for Sherlock and the app
+  (`registry/level-types.yaml`, `make -C sherlock level-types`; musical expectancy was typed
+  with a microtheory). Left: the private inversion test (the author confirms the cases first).
+- ISS-093 closed: SH1's "After the snapshot" (ten lessons), a Formal Mathematics chapter on
+  stale proof status. The lessons kept proving themselves: stale `sorry` rows in that book,
+  overclaims on the booklets' summary page ("0 extra axioms", G2 "closed", "quantum
+  advantage real"), all fixed.
+- ISS-092: the Wizard scopes all fifteen domain books from the fractal manifest and checks
+  every assigned paper is printed somewhere: P10, P14, P15, P25 were printed nowhere; now in
+  Neuroscience, Physics and Trauma.
+- ISS-094: Moriarty (`make moriarty`) 13 of 14 faults caught (the miss: a `sorry` count in
+  prose naming no theorem); biological leakage checked (`make -C sherlock leakage`); the
+  Wizard's adversary is the Dark Matter Lord (author). Left: the random-matrix stress test;
+  the Dark Matter Lord's rivals and the BOFH's attacks go to the UAT.
+- Ledger: reads camelCase names and "sorry"/"proof debt" claims: 586 citations, 0 disagree.
+- Zenodo sandbox: `bin/zenodo-publish --sandbox check-token | rehearse`; P25's metadata;
+  stale counts out of Dist/zenodo. **Author: create the sandbox account and token** (Dist
+  zenodo/README.md, "Sandbox setup").
+- The app: tours narrate by default with a START button; the Duet audio driver crashed
+  Windows (17:29), not the app: use the Realtek speakers for demos.
 
 ## Next
 
-Working rules (author, 11-13 Oct): work first; ask only about important things;
-books and papers before the Soma Machine; new requirements go into ISSUES.md.
-
-1. Author: the ISS-081 desk (photograph the A5 film pages, stereo calibration, read the
-   course); check tonight's editorial choices (the Atlas's Part I pairings per sector,
-   Sector III's world, the voyage texts); the UAT list (`uat/checklist.yaml`: the film,
-   hardware).
-2. Release (ISS-001): NotebookLM UAT, P21 to pending-upload, Zenodo sandbox, `make dist`,
-   the Lulu order (the volumes and the Atlas proof), the Jumbo trimmed to 300.
-3. Author's decisions: ISS-063 (restate every "X IS Y" axiom as a typed map?), ISS-051's
-   sweep strips and animations (GIF or animated SVG?), the CLIENT depth (×0.6?).
-4. ISS-063's inversion test (the FIS cases), then ISS-052's rest (branching paths, the sound
-   of motion, a flow solver; the film's titles and anatomy).
+1. The big build: `make uat-stage-full`, then `bin/release-check` (the standalone books and
+   volumes grow by P10, P14, P15, P25: check Lulu's 800-page cap).
+2. UAT: HAL-UAT (Wizard, Cyc neighbours, never written, the Dark Matter Lord's rivals, the
+   BOFH), then a fresh notebook (reader tests), the author's reading, the Lulu preview.
+3. `make dist`, Zenodo sandbox rehearsal, live, DOIs.
+4. After the release: ISS-052 (app), the inversion test, the random-matrix test, ISS-090/091.
