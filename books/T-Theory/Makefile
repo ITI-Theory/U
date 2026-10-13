@@ -5,6 +5,10 @@ PROGRAMME_REFS := ../../lib/format/programme-refs.lua ../../lib/format/unicode-g
 BLD := $(BOOKS_BLD)
 # TeX and filters shared by the book, volume and omnibus builds: a change must rebuild them.
 BOOK_TEX := ../../lib/format/licence.lua ../../registry/licences.yaml ../../lib/format/ttheory-titlepage.tex ttheory-packages.tex ../../paper/journal.tex ../../lib/format/breakable-tokens.lua ../../lib/format/visualize.lua ../../lib/format/visualize-reader.lua ../../lib/visualize/render.py
+# The sources the books and volumes print: the books themselves and the papers they embed with
+# {{AddPaper}} (canonical c: and fractal f: papers). Without these an edited paper never rebuilt
+# the volumes (14 Oct: P2's corrections missing from the omnibus).
+BOOK_TEX += $(wildcard */*.md) $(wildcard ../../paper/soma/*/*.md)
 PANDOC ?= pandoc
 ifeq ($(OS),Windows_NT)
 GS ?= gswin64c
