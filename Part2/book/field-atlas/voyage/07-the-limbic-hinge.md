@@ -7,5 +7,5 @@ In the Soma-Field model the limbic system is dimension 8: the hinge between the 
 This is where the story of the programme turns. Trauma therapies that work with the body aim here, at the alarm rather than only at the thoughts [@levine2010; @ogden2006] `sourced`; the model gives that aim a coordinate. Whether the brain has such a hinge in this form is the hypothesis the model is built to test.
 
 ::: {.plate id="limbic"}
-The limbic hinge: dimension 8 between the body field and the mind field, the limbic field setting the temperature (`open-hypothesis`).
+The limbic hinge: the eleven dimensions as an hourglass, the body field's seven rings narrowing to the limbic ring D8 and opening into the mind field's three; the band widens as the limbic field rises (`open-hypothesis`).
 :::

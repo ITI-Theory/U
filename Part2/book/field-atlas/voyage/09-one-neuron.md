@@ -7,5 +7,5 @@ The voyage zooms to one cell. The dendrites on the left gather input, the cell b
 Each spike adds a little to the electric field around the axon, and that field can nudge a neighbouring cell: ephaptic coupling, small but measured in brain tissue [@anastassiou2011ephaptic] `sourced`. Whether such fields matter for experience is the open question the 11D layer carries `open-hypothesis`.
 
 ::: {.plate id="neuron"}
-One neuron: dendrites gather, the cell body decides, the axon sends; spikes jump along the myelin (`simulated`).
+One neuron: dendrites gather, the cell body decides, the axon sends; spikes jump from node to node along the myelin, each with a ring of field, and a neighbour sits behind (`simulated`; the field's role is `open-hypothesis`).
 :::

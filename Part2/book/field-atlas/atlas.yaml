@@ -62,13 +62,13 @@ voyage:
         - {id: thoughts, view: "voyage=brain&dim=11&phi=0.6", acts: [thoughts], settle: 4000}
     - file: voyage/07-the-limbic-hinge.md
       plates:
-        - {id: limbic, view: "voyage=limbic&dim=8&phi=0.6"}
+        - {id: limbic, view: "voyage=limbic&dim=11&phi=0.6"}
     - file: voyage/08-emotion-and-thought.md
       plates:
-        - {id: thought, view: "voyage=thought&dim=11&phi=0.6"}
+        - {id: thought, view: "voyage=thought&dim=11&phi=0.6", acts: [poke, poke], act_wait: 700, settle: 2500}
     - file: voyage/09-one-neuron.md
       plates:
-        - {id: neuron, view: "voyage=neuron&dim=8&phi=0.6"}
+        - {id: neuron, view: "voyage=neuron&dim=11&phi=0.6"}
     - file: voyage/10-memory.md
       plates:
         - {id: memory, view: "voyage=network&dim=11&phi=0.5"}
