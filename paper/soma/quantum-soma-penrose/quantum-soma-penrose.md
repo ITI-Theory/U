@@ -12,8 +12,11 @@ abstract: |
   ingredient. The specific mechanism he proposed — Orch-OR, quantum coherence in
   neuronal microtubules — remains experimentally unconfirmed. This paper identifies
   a related but more specific and more testable model instance of the same gap: in
-  the tested Soma-Field attractor landscape, low-noise classical Langevin dynamics
-  does not traverse the specified barrier while transverse-field annealing does.
+  the tested Soma-Field attractor landscape, a low-noise classical Langevin run started
+  in the Fear basin does not cross the specified barrier, while a fast transverse-field
+  anneal from the uniform superposition shifts occupancy towards the Awe basin. The two
+  runs are measured differently, and classical simulated annealing, the stronger rival,
+  is not part of the comparison (see the limitations).
   The simulation QUANT-EXP-1 (May 2026) demonstrates this result on an 8-qubit
   Hopfield instance with analytic ground truth, running in under five seconds on
   commodity hardware with no quantum device required. The contribution is threefold:
@@ -337,6 +340,21 @@ of a state space, not as a diagnosis.
    mechanics explains consciousness in general. It claims a measurable non-classical
    reachability effect in a specific attractor-topology model of emotional dynamics.
 
+6. **What the comparison measures (added October 2026, after a stress test).** The quantum
+   figure, peak Awe-dominant occupancy 0.41, is the probability of a set of 64 of the 256
+   states (Awe on, Fear off); the uniform superposition the anneal starts from already gives
+   0.25. The probability of the Awe state itself ends below 0.01. The anneal is a fast sweep
+   (total time 1); the smallest spectral gap on the way, about 0.009, means a slow, adiabatic
+   anneal would need a total time of order $10^4$. The classical figure asks something else: a
+   cold run started inside the Fear basin reaching Awe. Simulated annealing, the same Langevin
+   dynamics with the temperature lowered, is the stronger classical rival and is not tested
+   here: on this instance it reaches the Awe state in a few runs of forty, and on thirty random
+   eight-mode landscapes it reaches the global minimum more often than the anneal (0.80 against
+   0.60). An energy function also cannot represent one-way coupling between modes, which the
+   classical dynamics can. The result is therefore a model result about occupancy under a fast
+   sweep, not an advantage over classical optimisation. The stress test reuses this paper's
+   code (Sherlock, `stress_quant.py`).
+
 ## Pre-Registered Hardening Protocol — Completed (May 2026)
 
 The following protocol was pre-registered in the Zenodo v1 release and has been
@@ -375,9 +393,10 @@ cold-classical dynamics. Remove the barrier and classical freely crosses.
   (B8: 0.0095; B10: 0.0089; B12: 0.0085) and reaches its minimum at $s \approx 0.999$,
   confirming the tunnelling bottleneck is late in the anneal as expected.
 
-**Verdict: the bounded reachability claim stands.** The quantum advantage over
-cold-classical dynamics is not a schedule artefact, a geometric accident, or a
-measurement choice; it survives all pre-registered checks.
+**Verdict: the bounded reachability claim stands.** The difference from cold-classical
+dynamics is not a schedule artefact or a geometric accident, and it survives all
+pre-registered checks. It does depend on what is measured and on the baseline chosen, as
+item 6 of the limitations sets out, and it is not an advantage over classical optimisation.
 
 ---
 
@@ -386,6 +405,9 @@ measurement choice; it survives all pre-registered checks.
 This paper presents QUANT-EXP-1: an exact 8-qubit statevector simulation demonstrating
 that the exact statevector simulation reaches Awe-dominant model basins that
 low-noise classical Langevin dynamics cannot reach, across all tested barrier strengths.
+Awe-dominant occupancy rises from the 0.25 of the starting superposition to 0.41; the Awe
+state itself ends below 0.01, and classical simulated annealing, not tested here, is the
+stronger rival (limitations, item 6).
 The effect is not a schedule artefact, a geometric accident, or a lucky seed: it is robust
 across n = 200 bootstrapped trials, survives both pre-registered negative controls, and
 holds for barriers ranging from $W = -6$ to $W = -14$.

@@ -520,10 +520,10 @@ memories are local minima of $E_{82}(s) = -\frac{1}{2}s^TW s$.
 Storage capacity: approximately $0.14 \cdot D$ patterns for $D$-dimensional
 state space.
 
-**Key result.** QUANT-EXP-1 [@johnson2026c]: quantum annealing achieves
-escape from the trauma attractor (barrier $W \in \{8,10,12\}$) with 3/3
-success rate; classical Langevin dynamics achieve 0/48. WKB tunnelling
-amplitude:
+**Key result.** QUANT-EXP-1 [@johnson2026c]: a fast quantum anneal raises the occupancy of
+the Awe-dominant states from 0.25 to 0.41 (barrier $W \in \{8,10,12\}$), while a cold
+classical Langevin run from the trauma attractor escapes in 0 of 200 runs; classical simulated
+annealing, not tested there, is the stronger rival. WKB tunnelling amplitude:
 $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) > 0 \quad \forall W > 0 \tag{11}$$
 (proved: `LimbicTunnel.wkbAmplitude_pos`).
 
@@ -872,9 +872,9 @@ $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) \tag{12}$$
 
 is strictly positive for all finite $W$ (proved: `LimbicTunnel.wkbAmplitude_pos`)
 but exponentially small for large $W$. QUANT-EXP-1 is an exact 8-qubit
-statevector simulation: the quantum-annealing protocol reaches the Awe basin
-3/3 times at $W \in \{8,10,12\}$ while the classical Langevin baseline achieves
-0/48. It is not a hardware or clinical result.
+statevector simulation: a fast anneal raises the occupancy of the Awe-dominant states from
+0.25 to 0.41 at $W \in \{8,10,12\}$, while a cold classical Langevin run achieves 0 of 200;
+simulated annealing is not tested. It is not a hardware or clinical result.
 
 ![WKB tunnelling amplitude $\Theta(W)$ vs. barrier height $W$.
 QUANT-EXP-1 values ($W=8,10,12$) marked. Classical rate = 0;

@@ -255,9 +255,10 @@ FM-HN dynamics escape $\xi^-$ with probability bounded below by
 $\Theta(W) = \exp(-8\sqrt{2W}/3)$ (`LimbicTunnel.wkbAmplitude_pos`).
 
 Computational support for this prediction for $W \in \{8, 10, 12\}$ is documented
-in QUANT-EXP-1 [@johnson2026c]: the quantum-adjacent branch reached the
-target in 3/3 barrier cases; the cold classical baseline achieved 0/48. This was
-an exact statevector simulation, not hardware or clinical evidence.
+in QUANT-EXP-1 [@johnson2026c]: a fast transverse-field anneal raised the occupancy of the
+Awe-dominant states from 0.25 to 0.41, while a cold classical Langevin run from the Fear
+basin reached Awe in 0 of 200 runs; classical simulated annealing, not tested there, is the
+stronger rival. This was an exact statevector simulation, not hardware or clinical evidence.
 
 ---
 
@@ -379,8 +380,8 @@ The three neurodivergent operator modifications (ADHD, ASC, C-PTSD) are model-de
 
 The formal apparatus — field decomposition, correspondence proof, operator
 characterisation — is type-checked in Lean 4. The computational apparatus —
-3/3 quantum-adjacent reachability vs 0/48 cold classical baseline — is documented in
-QUANT-EXP-1.
+Awe-dominant occupancy from 0.25 to 0.41 under a fast anneal, against 0 of 200 for a cold
+classical run — is documented in QUANT-EXP-1.
 
 The limbic layer was not missing from the organism. It was missing from the model.
 

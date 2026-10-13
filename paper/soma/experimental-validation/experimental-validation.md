@@ -287,13 +287,14 @@ test is therefore an empirical/model benchmark, not a completed Lean consequence
 # QUANT-EXP-1 Under the Four-Model Framework
 
 QUANT-EXP-1 (published in `quantum-soma-penrose`) is an exact 8-qubit statevector
-simulation. It reports Awe-basin reachability in 3/3 barrier cases
-(W ∈ {8, 10, 12}) for the quantum-adjacent pathway where the cold classical baseline
-failed in 0/48 runs.
+simulation. It reports that a fast transverse-field anneal raises the occupancy of the
+Awe-dominant states from 0.25 to 0.41 at barriers W ∈ {8, 10, 12}, where a cold classical
+Langevin run started in the Fear basin reaches Awe in 0 of 200 runs. Classical simulated
+annealing, which it does not test, is the stronger rival.
 
 Under the four-model framework, QUANT-EXP-1 is a comparison between:
 
-- **Hopfield 1982 + Simulated Annealing** (the 0/48 baseline)
+- **Hopfield 1982 + cold Langevin dynamics** (the 0 of 200 baseline; simulated annealing is not tested)
 - **FM-HN USF 2026 + WKB Gate** (quantum-adjacent simulation branch)
 
 The simulation represents a WKB-like gate that samples amplitude through the

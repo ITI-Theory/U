@@ -21,6 +21,6 @@ accepted:
     name: FieldEquation
     reason: "the sentence says a theorem internal to FieldEquation would need a stronger structure; it does not call FieldEquation a theorem"
   - doc: book-philosophy
-    line: 1793
+    line: 1799
     name: gaugeCoupling
     reason: "the sentence says gaugeCoupling is defined as zero; the theorem it mentions is another"

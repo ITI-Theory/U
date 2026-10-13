@@ -73,8 +73,9 @@ scale-invariance inhabitance. The proof sources are included in the Appendix,
 alongside explicit axioms; no real `sorry` remains (October 2026).
 
 **Clinical and experimental grounding** is provided by: QUANT-EXP-1, an exact
-8-qubit statevector simulation that reaches the Awe attractor basin in 3/3
-cases where the classical baseline fails (0/48); clinical and patient-perspective
+8-qubit statevector simulation in which a fast anneal shifts occupancy towards the Awe basin
+where a cold classical run started in Fear does not (simulated annealing, the stronger
+classical rival, is not tested); clinical and patient-perspective
 materials formalised as field trajectories; and lived somatic testimony. These
 materials motivate hypotheses rather than establishing treatment efficacy.
 
