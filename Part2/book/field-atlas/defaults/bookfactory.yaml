@@ -31,6 +31,7 @@ filters:
   - ../../../lib/format/programme-refs.lua
   - ../../../lib/format/plates.lua
   - ../../../lib/format/columns.lua
+  - ../../../lib/format/breakable-tokens.lua
   - type: citeproc
   - ../../../lib/format/licence.lua
 metadata:

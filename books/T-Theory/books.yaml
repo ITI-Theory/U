@@ -144,7 +144,7 @@ books:
       status: "Lean files cited (SwarmPropagator.lean, ScaleUniverse.lean) check formal statements under their stated definitions and axioms (no sorry remains in the programme's own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named."
       primary_inductions:
         - "Propagator coordination beats K-round classical coordination when K exceeds N: kernel-verified (SwarmPropagator.lean, propagator_beats_classical)"
-        - "ScaleUniverse preserves structure across a scale shift: kernel-checked at the type level: equal coupling and rank give the same skeleton, only the contents differ (ScaleUniverse.lean, scale_shift_preserves_structure)"
+        - "A scale shift keeps the skeleton (same coupling and rank): kernel-verified (ScaleUniverse.lean, scale_shift_preserves_structure)"
         - "Renormalisation flow exists for positive initial coupling: kernel-verified (RenormalisationGroup.lean, rg_flow_existence)"
       moriarty_check:
         attack: "Does a verified scale map prove that all complex systems obey one physical law?"
