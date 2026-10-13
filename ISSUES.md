@@ -3234,6 +3234,10 @@ different scales (ZSF's "same as always").
       over, cure imposed, victim blamed, self-harm as reply, masking as survival), each fact
       citing its line in art-fis-2021-08.md. For the author: the extraction is a reading of
       private notes, so he confirms the facts before the test is run.)
+      (14 Oct, author OK: after the release, a one-evening CogSketch trial (QRG, free, v4.18,
+      Windows) as part of this test: trace one or two of the A5 film pages, export the facts and
+      run them through sherlock/sme.py beside the written cases, so a drawn structure is compared
+      directly. Sketch understanding was dropped from ISS-055 on 13 Oct; this is its narrow use.)
 - [x] (13 Oct, part: the design note (docs/SHERLOCK.md, last section) and the spike
       (sherlock/Cyc/Types/Spike.lean): Percept, Pole and Emotion as types; "a percept is a pole",
       read literally, is a contradiction in NextKB (Perceiving is a TemporalThing,
