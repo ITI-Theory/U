@@ -527,7 +527,7 @@ annealing, not tested there, is the stronger rival. WKB tunnelling amplitude:
 $$\Theta(W) = \exp\!\left(-\frac{8\sqrt{2W}}{3}\right) > 0 \quad \forall W > 0 \tag{11}$$
 (proved: `LimbicTunnel.wkbAmplitude_pos`).
 
-{{Visualize | scale-5-cellular-neural-10-6-m | function-plot:quantum | f="exp(-8*sqrt(2*x)/3)"; x=[0,20]; vline="8,10,12"; xlabel="barrier height $W$"; ylabel="$\Theta(W)$" }} The WKB tunnelling amplitude $\Theta(W)$, equation (11): strictly positive for every finite $W$ but exponentially small for a high barrier. The three vertical lines mark the QUANT-EXP-1 barrier heights, $W\in\{8,10,12\}$, where the quantum-annealing protocol reached the Awe basin 3/3 times against 0/48 for the classical baseline.
+{{Visualize | scale-5-cellular-neural-10-6-m | function-plot:quantum | f="exp(-8*sqrt(2*x)/3)"; x=[0,20]; vline="8,10,12"; xlabel="barrier height $W$"; ylabel="$\Theta(W)$" }} The WKB tunnelling amplitude $\Theta(W)$, equation (11): strictly positive for every finite $W$ but exponentially small for a high barrier. The three vertical lines mark the QUANT-EXP-1 barrier heights, $W\in\{8,10,12\}$, where QUANT-EXP-1's fast anneal raised Awe-dominant occupancy from 0.25 to 0.41 and a cold classical run reached Awe in 0 of 200.
 
 ---
 

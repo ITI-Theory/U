@@ -1790,7 +1790,7 @@ theorem wkbGate_creates_awe (W : ℝ) (hW : 0 < W) :
   linarith
 ```
 
-The theorem `quant_exp_1_awe_reachable` then obtains positive Born probability in this two-state formal model `kernel-verified`. QUANT-EXP-1 itself, however, is an exact 8-qubit statevector simulation rather than hardware evidence. Its reported summaries include quantum success across W = 8, 10, 12 with an Awe peak around 0.41, cold classical zero escapes in the 3-barrier summary (0/48), and hardened B8/B10/B12 cold-classical runs at 0/200 `simulated`. The Lean theorem is a formal reachability scaffold. It is not a proof of therapeutic effect, runtime advantage, or consciousness `open-hypothesis`.
+The theorem `quant_exp_1_awe_reachable` then obtains positive Born probability in this two-state formal model `kernel-verified`. QUANT-EXP-1 itself, however, is an exact 8-qubit statevector simulation rather than hardware evidence. Its hardened results are an Awe-dominant occupancy of about 0.41 across W = 8, 10, 12 (from the 0.25 of the starting superposition, under a fast anneal) and cold classical runs from the Fear basin at 0 of 200; classical simulated annealing, the stronger rival, is not tested `simulated`. The Lean theorem is a formal reachability scaffold. It is not a proof of therapeutic effect, runtime advantage, or consciousness `open-hypothesis`.
 
 This is the recurring pattern. Lean can show that a formal object has a property. A simulation can show that a computational model behaves in a certain run. A philosophical interpretation can relate that structure to experience. The discipline is to keep the labels from collapsing into one another `interpretive`.
 
