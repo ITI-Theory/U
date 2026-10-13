@@ -31,6 +31,10 @@ Check the current licence before each release.
 | Arterial way-in anatomy (schematic, no copied images) | Anatomy and Physiology 2e | OpenStax | CC BY 4.0 | Anatomy after OpenStax, Anatomy and Physiology 2e, CC BY 4.0 |
 | Code: 3D rendering | three.js | three.js authors | MIT | https://threejs.org (package.json) |
 | Code: terminal | xterm.js | The xterm.js authors | MIT | https://xtermjs.org (package.json) |
+| Code: text editor (SCRIBE) | CodeMirror 6 (codemirror, @codemirror/*, @lezer/*) | Marijn Haverbeke and contributors | MIT | https://codemirror.net (package.json) |
+| Code: Vim keys in the editor | codemirror-vim (@replit/codemirror-vim) | Replit and contributors | MIT | https://github.com/replit/codemirror-vim (package.json) |
+| Code: dev server and build | Vite | VoidZero Inc. and Vite contributors | MIT | https://vite.dev (package.json) |
+| Code: print captures (dev only) | Playwright | Microsoft Corporation | Apache-2.0 | https://playwright.dev (package.json) |
 | Visual thought (public/art/aic-8991.jpg) | Improvisation No. 30 (Cannons) (1913) | Vasily Kandinsky; Art Institute of Chicago | CC0 (public domain) | https://www.artic.edu/artworks/8991 (13 Oct 2026) |
 | Visual thought (public/art/aic-8980.jpg) | Landscape with Two Poplars (1912) | Vasily Kandinsky; Art Institute of Chicago | CC0 (public domain) | https://www.artic.edu/artworks/8980 (13 Oct 2026) |
 | Visual thought (public/art/aic-8987.jpg) | Painting with Green Center (1913) | Vasily Kandinsky; Art Institute of Chicago | CC0 (public domain) | https://www.artic.edu/artworks/8987 (13 Oct 2026) |

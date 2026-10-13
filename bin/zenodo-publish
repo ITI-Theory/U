@@ -53,6 +53,9 @@ USER_AGENT = "ITI-Theory-zenodo-publish/1.0"
 LIVE_BASE = "https://zenodo.org"
 SANDBOX_BASE = "https://sandbox.zenodo.org"
 TODAY = date.today().isoformat()
+# The text licence, from the one place it is decided (registry/licences.yaml, ISS-086).
+_LICENCES = yaml.safe_load((U_ROOT / "registry" / "licences.yaml").read_text(encoding="utf-8"))
+ZENODO_LICENSE = _LICENCES["licences"][_LICENCES["documents"]["text"]]["zenodo"]
 PLAN_STATUSES = {"needs-new-version", "pending-upload"}
 
 
@@ -245,7 +248,7 @@ def base_metadata(entry: dict, metadata_entry: dict) -> dict:
         "creators": [CREATOR],
         "description": metadata_entry.get("description", ""),
         "keywords": metadata_entry.get("keywords", []),
-        "license": "cc-by-4.0",
+        "license": ZENODO_LICENSE,
         "access_right": "open",
         "publication_date": TODAY,
         "communities": [{"identifier": COMMUNITY}],

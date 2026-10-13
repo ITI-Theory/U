@@ -12,6 +12,7 @@ licences:
     url: https://creativecommons.org/licenses/by/4.0/
     covers: text, papers, books, figures, data
     short: CC BY 4.0
+    zenodo: cc-by-4.0   # Zenodo's licence id (bin/zenodo-publish; check_licences.py --zenodo)
     sha256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
   Apache-2.0:
     name: Apache License 2.0
@@ -69,3 +70,20 @@ documents:
     - bld/books/ttheory-omnibus*.pdf
     - bld/textbook/*.pdf
     - bld/atlas/*.pdf
+
+# What the programme uses from others (ISS-086): each public app's CREDITS file must name every
+# third-party asset it ships (by path) and every package it depends on (by the credit's name).
+# The programme's own files (generated figures, its own texts) need no entry.
+credits:
+  - credits: apps/instrument/visuals/soma-field-operator/CREDITS.md
+    assets: [apps/instrument/visuals/soma-field-operator/public/art/*.jpg]
+    package: apps/instrument/visuals/soma-field-operator/package.json
+    names:
+      three: three.js
+      "@xterm/": xterm.js
+      codemirror: CodeMirror
+      "@codemirror/": CodeMirror
+      "@lezer/": CodeMirror
+      "@replit/codemirror-vim": codemirror-vim
+      vite: Vite
+      playwright: Playwright

@@ -62,6 +62,27 @@ def main() -> int:
         checked += 1
         if phrase not in (U / rel).read_text(encoding="utf-8"):
             errors.append(f"{rel}: no longer says {phrase!r}")
+    for entry in reg.get("credits") or []:
+        credits_file = U / entry["credits"]
+        text = credits_file.read_text(encoding="utf-8") if credits_file.exists() else ""
+        if not text:
+            errors.append(f"{entry['credits']}: missing")
+            continue
+        base = credits_file.parent
+        for pattern in entry.get("assets") or []:
+            for asset in sorted(U.glob(pattern)):
+                checked += 1
+                if asset.relative_to(base).as_posix() not in text:
+                    errors.append(f"{entry['credits']}: no entry for {asset.relative_to(base).as_posix()}")
+        if entry.get("package"):
+            pkg = json.loads((U / entry["package"]).read_text(encoding="utf-8"))
+            for dep in sorted({**pkg.get("dependencies", {}), **pkg.get("devDependencies", {})}):
+                checked += 1
+                name = next((v for k, v in entry.get("names", {}).items() if dep == k or (k.endswith("/") and dep.startswith(k))), None)
+                if name is None:
+                    errors.append(f"{entry['package']}: {dep} has no credit name in registry/licences.yaml")
+                elif name not in text:
+                    errors.append(f"{entry['credits']}: no entry for {name} ({dep})")
     if "--zenodo" in sys.argv:
         papers = ROOT / "Dist" / "PAPERS.yaml"
         ids = sorted(set(re.findall(r"10\.5281/zenodo\.(\d+)", papers.read_text(encoding="utf-8"))))
@@ -69,8 +90,9 @@ def main() -> int:
             checked += 1
             req = urllib.request.Request(f"https://zenodo.org/api/records/{i}", headers={"User-Agent": "ITI-Theory licence check"})
             got = (json.load(urllib.request.urlopen(req, timeout=30))["metadata"].get("license") or {}).get("id")
-            if got != "cc-by-4.0":
-                errors.append(f"zenodo.{i}: licence {got!r}, should be cc-by-4.0")
+            want = lic[reg["documents"]["text"]]["zenodo"]
+            if got != want:
+                errors.append(f"zenodo.{i}: licence {got!r}, should be {want}")
     if "--pdfs" in sys.argv:
         docs = reg["documents"]
         holder = reg["holder"].split(" (")[0]

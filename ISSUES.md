@@ -4198,9 +4198,9 @@ Nothing is broken; this waits on upstream.
 
 ---
 
-## ISS-086: Licences: what is declared, what is stated, and a check so it cannot be lost — OPEN
+## ISS-086: Licences: what is declared, what is stated, and a check so it cannot be lost — CLOSED
 {{Tags release, area.build, area.papers, area.books}}
-{{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-13, epic=}}
 
 Author, 13 Oct 22:10: look at the licences of my work (books, code, etc.): what have we
 defined and what is actually stated, on GitHub, in the books themselves, on Zenodo? Harden
@@ -4257,12 +4257,20 @@ every public repository says what it gives, and every borrowed thing says where 
       end; cheat sheets and the noir page opt out; docs/BUILD.md rule 4d. Checked in the P11,
       Law book and Atlas PDFs) Every book and paper: a copyright and licence line on the copyright page or colophon,
       from the build (a pandoc metadata field filled from the registry, not typed per book).
-- [ ] Zenodo: the deposit metadata's licence read from the registry; the release check compares
+- [x] (13 Oct night: bin/zenodo-publish reads the licence from registry/licences.yaml, the text
+      licence's `zenodo` id; `check_licences.py --zenodo` compares every live record with the same
+      value) Zenodo: the deposit metadata's licence read from the registry; the release check compares
       the live records' licence (Zenodo API) with it.
-- [ ] CREDITS: one CREDITS file per public app/book (rename `audio/CREDITS.md` to the app's
+- [x] (13 Oct night: registry/licences.yaml `credits:`; check_licences.py fails on an app asset
+      (public/art/*) or a package (dependencies and devDependencies, by a credit name) missing from
+      the app's CREDITS.md; CodeMirror, codemirror-vim, Vite and Playwright added; a removed entry is
+      caught. The books' and papers' figures are the programme's own: the Atlas credits page says
+      so, and the course book has its figures/CREDITS.yaml) CREDITS: one CREDITS file per public app/book (rename `audio/CREDITS.md` to the app's
       `CREDITS.md`, ISS-077), each third-party asset listed with its licence; a check that every
       file under `public/art`, `audio`, the textbook figures, etc. has an entry.
-- [ ] `make check-licences`, wired into the release check: LICENSE files present and matching
+- [x] (13 Oct night: all parts done: files, READMEs, manifests, statements, every built PDF
+      (--pdfs, release check 14c), CREDITS coverage, and the live Zenodo records (--zenodo))
+      `make check-licences`, wired into the release check: LICENSE files present and matching
       the registry; every built PDF contains its licence line (pdftotext); the app's
       `package.json` and the VS Code extension's licence fields match; every third-party asset
       credited.
