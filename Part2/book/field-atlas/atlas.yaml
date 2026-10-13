@@ -1,24 +1,33 @@
 id: field-atlas
 title: "[T]-Theory: Field Atlas"
 subtitle: The Wave That Is Always There
+# read_with: the Part I chapters each level page of the sector points to (an editorial pairing:
+# waves and M-theory for the quantum band, propagators and zoom for living matter, propagators
+# and synthesis for collectives, waves and zoom for Earth and stars, dark sectors and M-theory
+# for the cosmos).
 # Each sector opens with its world (world: a FLY view captured by capture.mjs --only voyage;
 # its caption is a ::: {.plate} in the sector file).
 # Ladder order, partitioning the canonical-5 bands (a level shared by two bands sits in the first). Level text lives in registry/levels/<id>.md (shared with the app);
 # sector introductions in sectors/, front and back matter in front/ and back/.
 sectors:
   - file: sectors/1-quantum-to-classical.md
+    read_with: [theory/1-fields-and-waves.md, theory/4-eleven-dimensions-m-theory.md]
     world: {id: world-1, view: "level=quantum-foam&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [quantum-foam, string-boundary, nuclear, atomic, molecular]
   - file: sectors/2-chemistry-to-biology.md
+    read_with: [theory/2-greens-functions-and-propagators.md, theory/3-zoom-operator-and-scale.md]
     world: {id: world-2, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [cellular-synaptic, local-circuit, whole-brain-cemi, human-vertebrate]
   - file: sectors/3-individual-to-collective.md
+    read_with: [theory/2-greens-functions-and-propagators.md, theory/6-synthesis-response-grammar.md]
     world: {id: world-3, view: "level=regional-institutional&voyage=flight&dim=11&phi=0.4", settle: 5000}
     levels: [dyad, human-group, animal-swarm, bird, flock, colony-roost, society-city, regional-institutional, civilisational-solar, species-stellar]
   - file: sectors/4-geological-to-stellar.md
+    read_with: [theory/1-fields-and-waves.md, theory/3-zoom-operator-and-scale.md]
     world: {id: world-4, view: "level=geological&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [geological, planetary, orbital-system, stellar, compact-object]
   - file: sectors/5-stellar-to-cosmic.md
+    read_with: [theory/5-dark-sectors.md, theory/4-eleven-dimensions-m-theory.md]
     world: {id: world-5, view: "level=cosmic-web&voyage=flight&dim=11&phi=0.5", settle: 5000}
     levels: [stellar-cluster, galactic-disc, galactic-halo, galaxy-cluster, cosmic-filaments, observable-universe, cosmic-web]
 # The Voyage Inside (ISS-087): the mind-body explorer's stops as plates with text, a part after
@@ -79,6 +88,12 @@ voyage:
         - {id: ureter-3, view: "voyage=ureter&dim=11&phi=0.5&uv=both&uo=3"}
         - {id: ureter-4, view: "voyage=ureter&dim=11&phi=0.5&uv=both&uo=4"}
         - {id: pain-path, view: "voyage=ureter&dim=11&phi=0.6", acts: [follow], settle: 9000}
+    - file: voyage/15-the-score.md
+      plates:
+        - {id: score-mind, view: "voyage=score&dim=11&st=0.45&kv=0.1&kc=mind", settle: 5000}
+        - {id: score-river, view: "voyage=score&dim=11&st=0.45&kv=0.1&kc=river", settle: 5000}
+        - {id: score-body, view: "voyage=score&dim=11&st=0.45&kv=0.1&kc=body", settle: 5000}
+        - {id: score-session, view: "voyage=score&dim=11&st=0.45&kv=0.1&kc=session", settle: 5000}
 
 front: [front/1-how-to-read.md, front/2-the-ladder.md]
 # The mind palace (ISS-087): a double spread after the front matter, the tower (a figure from
@@ -96,6 +111,16 @@ theory:
   - theory/5-dark-sectors.md
   - theory/6-synthesis-response-grammar.md
   - theory/7-glossary.md
+# The city of code (ISS-087): a section after T4 (eleven dimensions), the Lean as the app
+# draws it, along the Root Monster's tour; plates captured by capture.mjs --only voyage.
+code_city:
+  after: theory/4-eleven-dimensions-m-theory.md
+  file: theory/4a-the-city-of-code.md
+  plates:
+    - {id: city, view: "voyage=landscape&dim=11&phi=0.5", settle: 4000}
+    - {id: city-tower, view: "voyage=landscape&dim=11&phi=0.5&tower=UniversalSomaticField", settle: 6000}
+    - {id: city-floor, view: "voyage=landscape&dim=11&phi=0.5&tower=UniversalSomaticField&floor=greens_fn_is_SHO", settle: 6000}
+    - {id: city-beams, view: "voyage=landscape&dim=11&phi=0.5&tower=LocalGR&floor=g2_implies_omega_lambda_static", settle: 6000}
 questions: true
 time_axis:
   source: registry/eras.yaml

@@ -1,0 +1,34 @@
+# Print proof for Lulu (ISS-087): A4 landscape, the same content as a3.yaml, in the one Lulu
+# order with the other books (author, 13 Oct). Lulu's A4 landscape trim is 297 x 210 mm; nothing
+# in the Atlas prints to the edge, so the interior is the trim size with no bleed (check Lulu's
+# size, bleed and cover template at order time). 10pt keeps the three-column text readable.
+citeproc: false
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: atlas.yaml
+input-files:
+  - atlas.md
+output-file: ../../../bld/atlas/field-atlas-lulu.tex
+to: latex
+resource-path:
+  - .
+  - ../../..
+bibliography: ../../../paper/bibliography.bib
+csl: ../../../paper/apa-7th.csl
+include-in-header:
+  - templates/a3-header.tex
+  - ../../../lib/format/ttheory-titlepage.tex
+variables:
+  geometry: paperwidth=297mm,paperheight=210mm,margin=14mm,top=15mm,bottom=15mm
+  fontsize: 10pt
+  linestretch: 1.08
+filters:
+  - ../../../lib/format/registry.lua
+  - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/programme-refs.lua
+  - ../../../lib/format/plates.lua
+  - ../../../lib/format/columns.lua
+  - type: citeproc
+  - ../../../lib/format/licence.lua
+metadata:
+  programme-papers: ../../../registry/papers.yaml

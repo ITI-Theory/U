@@ -4293,28 +4293,43 @@ and the format was open. Decided (author, 13 Oct 23:00): proof first. An A4-land
 everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to 800 pages, no
 300 limit), read on paper; the Jumbo (CHF 600) once, when the content is final, trimmed to 300
 (drop the city of code and the Tensor score, tighten the voyage, or the callout on the text page).
-- [ ] (in the one Lulu order, ISS-001; 10pt, about 395 pages with everything) An A4-landscape edition: `make -C Part2/book/field-atlas lulu` (defaults/lulu.yaml, scaled
+- [x] (13 Oct night: defaults/lulu.yaml, 297 x 210 mm, no bleed (nothing prints to the edge), 10pt,
+      three columns; `make -C Part2/book/field-atlas lulu` checks Lulu's 800-page limit: 347 pages
+      with all six additions. The A3 edition is 313 pages, so the Jumbo (bookfactory, max 300) needs
+      trimming before it is ordered, as planned) (in the one Lulu order, ISS-001; 10pt, about 395 pages with everything) An A4-landscape edition: `make -C Part2/book/field-atlas lulu` (defaults/lulu.yaml, scaled
       from the A3 layout; Lulu's size, bleed and cover template checked at order time).
 
 - [x] Recapture check: compare fresh portrait captures of a few levels with the 9 Oct ones;
       recapture all 31 levels if the level views changed.
       (13 Oct: 15 captures of 5 levels, mean difference 0.2 to 2.9 of 255, the animation phase only:
       the level views have not changed; the 9 Oct triptychs stay.)
-- [ ] 1. A new part, "The Voyage Inside", after sector 3: the explorer's stops as plates with
+- [x] (13 Oct night, agent: done; atlas.yaml `voyage:`, Part2/book/field-atlas/voyage/, 15 stops and
+      25 plates captured from the app by `npm run capture -- --only voyage` with atlas=1, which now
+      hides the explorer's controls and its instructions (hint()); prose in the Atlas register
+      with evidence labels and sources (OpenStax A&P 2e, Nummenmaa, LeDoux, Beggs and Plenz added
+      to the bibliography); the avalanche power-law figure V1 from the explorer's own rule) 1. A new part, "The Voyage Inside", after sector 3: the explorer's stops as plates with
       text (about 30 pages): the body maps (feelings by basis), the way in (arteries with true
       calibres, OpenStax CC BY, credited), the cathedral of the ventricles (inside, outside,
       FX-off anatomy), thoughts as avalanches (with the power-law figure), pain's path, the
       limbic hinge, the neuron, memory recall, the landscape of states, the dyad, the path's
       gates, the ureter in four stages.
-- [ ] 2. One fractal world per sector (FLY), opening each sector (5 pages).
-- [ ] 3. The elevator / mind palace as a double spread in the front matter: the ladder as one
+- [x] (13 Oct night: quantum foam, Mandelbulb, network, folded strata, cosmic web; Sector III
+      uses the network, since the murmuration renders as single pixels in the software renderer
+      the captures use) 2. One fractal world per sector (FLY), opening each sector (5 pages).
+- [x] (13 Oct night: front/3-the-mind-palace.md; the tower drawn from registry/models/universal-21
+      (figure P1), two halls captured; the method of loci after Yates 1966) 3. The elevator / mind palace as a double spread in the front matter: the ladder as one
       tower (2 pages).
-- [ ] 4. Per-level data on each level's text page: the Sherlock panel (concept, Lean name, real
+- [x] (13 Oct night: each level page ends with "Sherlock, reading and theory": the level's
+      concepts with the real status of their Lean (check_concepts.py --json, the app's own source;
+      5 of 31 levels have concepts, the rest say none is registered), its level-specific further
+      reading, and the Part I chapters to read with it, paired per sector in atlas.yaml `read_with`,
+      an editorial choice for the author to check) 4. Per-level data on each level's text page: the Sherlock panel (concept, Lean name, real
       proof status) and further reading (registry/reading.yaml), and the theory sections of
       Part I to read with the level (from ISS-083, the companion-volume idea).
-- [ ] 5. The city of code for the 11D chapter: the landscape as one world, a tower of Lean with
+- [x] (13 Oct night: theory/4a-the-city-of-code.md after T4, four plates along the Root Monster's
+      tour, the towers export at 641f3b4: 1,116 declarations, none on sorry, none of True) 5. The city of code for the 11D chapter: the landscape as one world, a tower of Lean with
       floors and axiom beams (about 4 pages).
-- [ ] 6. The Tensor's score in its four settings: mind, river, body, session (about 4 pages).
+- [x] (13 Oct night: voyage stop 15, the same story-time in mind, river, body and session) 6. The Tensor's score in its four settings: mind, river, body, session (about 4 pages).
 - [ ] Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).

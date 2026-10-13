@@ -7,7 +7,7 @@ XELATEX ?= xelatex
 SOURCES := atlas.md atlas.yaml README.md $(wildcard front/*.md) $(wildcard theory/*.md) $(wildcard sectors/*.md) $(wildcard voyage/*.md) $(wildcard back/*.md)
 REGISTRY := $(wildcard $(ROOT)/registry/levels/*.yaml) $(wildcard $(ROOT)/registry/levels/*.md) $(wildcard $(ROOT)/registry/models/*.yaml) $(wildcard $(ROOT)/registry/examples/*.yaml) $(wildcard $(ROOT)/registry/questions/*.yaml) $(wildcard $(ROOT)/registry/paths/*/path.yaml) $(wildcard $(ROOT)/registry/paths/*/edges/*.md) $(ROOT)/registry/eras.yaml
 FILTERS := $(ROOT)/lib/format/licence.lua $(ROOT)/registry/licences.yaml $(ROOT)/lib/format/registry.lua $(ROOT)/lib/format/plates.lua $(ROOT)/lib/format/columns.lua $(ROOT)/lib/format/unicode-glyphs.lua $(ROOT)/lib/format/programme-refs.lua $(ROOT)/registry/papers.yaml
-DEFAULTS := defaults/a3.yaml defaults/bookfactory.yaml defaults/html.yaml $(ROOT)/lib/defaults/base-pdf.yaml $(ROOT)/lib/defaults/base-html.yaml
+DEFAULTS := defaults/a3.yaml defaults/bookfactory.yaml defaults/lulu.yaml defaults/html.yaml $(ROOT)/lib/defaults/base-pdf.yaml $(ROOT)/lib/defaults/base-html.yaml
 TEMPLATES := templates/a3-header.tex templates/even-pages.tex templates/field-atlas.css $(ROOT)/lib/format/ttheory-titlepage.tex
 FIGURES := $(wildcard figures/plates/*.png) $(wildcard figures/theory/*.png) $(wildcard figures/app/questions/*.png) $(wildcard figures/app/voyage/*.png)
 PDF := $(BLD)/field-atlas-a3.pdf
@@ -15,9 +15,13 @@ TEX := $(BLD)/field-atlas-a3.tex
 LOG := $(BLD)/field-atlas-a3.log
 BF_PDF := $(BLD)/field-atlas-bookfactory.pdf
 BF_TEX := $(BLD)/field-atlas-bookfactory.tex
+LULU_PDF := $(BLD)/field-atlas-lulu.pdf
+LULU_TEX := $(BLD)/field-atlas-lulu.tex
 HTML_INDEX := $(HTML)/index.html
+# Sherlock's concepts with the real status of their Lean (each level's panel, ISS-087)
+CONCEPTS_JSON := $(BLD)/concepts.json
 
-.PHONY: all a3 pdf html check bookfactory clean help
+.PHONY: all a3 pdf html check bookfactory lulu clean help
 
 all: a3
 
@@ -28,7 +32,10 @@ a3: $(PDF)
 $(BLD):
 	mkdir -p "$@"
 
-$(TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) | $(BLD)
+$(CONCEPTS_JSON): $(wildcard $(ROOT)/registry/concepts/*.yaml) $(wildcard $(ROOT)/paper/proofs/*.lean) $(ROOT)/paper/scripts/check_concepts.py | $(BLD)
+	$(PYTHON) $(ROOT)/paper/scripts/check_concepts.py --json $@ > /dev/null
+
+$(TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) $(CONCEPTS_JSON) | $(BLD)
 	$(PANDOC) --defaults=defaults/a3.yaml --eol=lf
 
 $(PDF): $(TEX)
@@ -44,16 +51,31 @@ bookfactory: $(BF_PDF)
 	if [ $$pages -gt 300 ]; then echo "bookfactory: $$pages pages exceeds the 300-page maximum for Jumbo (author, 13 Oct)"; exit 1; fi; \
 	echo "bookfactory: PASS ($$pages pages)"
 
-$(BF_TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) | $(BLD)
+$(BF_TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) $(CONCEPTS_JSON) | $(BLD)
 	$(PANDOC) --defaults=defaults/bookfactory.yaml --eol=lf
 
 $(BF_PDF): $(BF_TEX)
 	$(XELATEX) -interaction=nonstopmode -halt-on-error -output-directory=$(BLD) $(BF_TEX)
 	$(XELATEX) -interaction=nonstopmode -halt-on-error -output-directory=$(BLD) $(BF_TEX)
 
+# Lulu (ISS-087): the A4-landscape proof edition, in the one Lulu order with the other books.
+# Lulu takes up to 800 pages; the check reports the size and count.
+lulu: $(LULU_PDF)
+	@pdfinfo "$(LULU_PDF)" | grep -E '^(Pages|Page size):'
+	@pages=$$(pdfinfo "$(LULU_PDF)" | awk '/^Pages:/ {print $$2}'); \
+	if [ $$pages -gt 800 ]; then echo "lulu: $$pages pages exceeds Lulu's 800"; exit 1; fi; \
+	echo "lulu: PASS ($$pages pages)"
+
+$(LULU_TEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) $(CONCEPTS_JSON) | $(BLD)
+	$(PANDOC) --defaults=defaults/lulu.yaml --eol=lf
+
+$(LULU_PDF): $(LULU_TEX)
+	$(XELATEX) -interaction=nonstopmode -halt-on-error -output-directory=$(BLD) $(LULU_TEX)
+	$(XELATEX) -interaction=nonstopmode -halt-on-error -output-directory=$(BLD) $(LULU_TEX)
+
 html: $(HTML_INDEX)
 
-$(HTML_INDEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES)
+$(HTML_INDEX): $(SOURCES) $(REGISTRY) $(FILTERS) $(DEFAULTS) $(TEMPLATES) $(FIGURES) $(CONCEPTS_JSON)
 	mkdir -p "$(HTML)"
 	cp -R figures "$(HTML)/"
 	cp templates/field-atlas.css "$(HTML)/field-atlas.css"
@@ -72,6 +94,7 @@ help:
 	@echo "Field Atlas targets:"
 	@echo "  all/a3/pdf  Build A3 landscape PDF at $(PDF)"
 	@echo "  bookfactory Build the bookfactory.ch print edition at $(BF_PDF)"
+	@echo "  lulu        Build the Lulu A4-landscape proof edition at $(LULU_PDF)"
 	@echo "  html        Build HTML edition at $(HTML_INDEX)"
 	@echo "  check       Run prose validator and LaTeX log checks"
 	@echo "  clean       Remove $(BLD)"

@@ -21,6 +21,7 @@ when that differs from the real constant.
 from __future__ import annotations
 
 import argparse
+import json
 import gzip
 import os
 import re
@@ -106,11 +107,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--strict", action="store_true")
     parser.add_argument("--fetch-cyc", action="store_true", help="download OpenCyc to the cache if missing")
+    parser.add_argument("--json", metavar="PATH", help="also write each concept with its Lean status as JSON (the Field Atlas reads it)")
     args = parser.parse_args()
     cyc = opencyc_constants(args.fetch_cyc)
     papers = paper_ids()
     levels = {p.stem for p in LEVELS.glob("*.yaml")}
-    errors, gaps, rows = [], [], []
+    errors, gaps, rows, data = [], [], [], []
     for path in sorted(CONCEPTS.glob("*.yaml")):
         concept = yaml.safe_load(path.read_text(encoding="utf-8"))
         cid = concept.get("id")
@@ -140,7 +142,14 @@ def main() -> int:
                 errors.append(f"{cid}: labelled kernel-verified but the Lean declaration is {status} ({where})")
         else:
             gaps.append(f"{cid}: no Lean declaration")
+        data.append({"id": cid, "concept": concept.get("concept", cid), "ontology": onto.get("class"),
+                     "lean": f"{lean['module']}.{lean['name']}" if lean.get("name") else None, "status": status,
+                     "label": label, "levels": concept.get("levels") or [], "papers": concept.get("papers") or []})
         rows.append((cid, onto.get("class") or "-", f"{lean.get('module', '-')}.{lean.get('name', '-')}" if lean else "-", status or "-", label or "-"))
+    if args.json:
+        out = Path(args.json)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     width = max((len(r[0]) for r in rows), default=10)
     print(f"{'concept':{width}}  {'ontology':28}  {'lean':58}  {'status':16}  label")
     for cid, onto, lean, status, label in rows:

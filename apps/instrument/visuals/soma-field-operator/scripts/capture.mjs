@@ -308,7 +308,7 @@ async function main() {
     manifest.voyage = [];
     let n = 0;
     // each sector's world (its opening FLY view), the mind palace's halls, the voyage's stops
-    const groups = [{ plates: (atlas.sectors ?? []).map(sector => sector.world).filter(Boolean) }, atlas.palace ?? {}, ...(atlas.voyage?.stops ?? [])];
+    const groups = [{ plates: (atlas.sectors ?? []).map(sector => sector.world).filter(Boolean) }, atlas.palace ?? {}, atlas.code_city ?? {}, ...(atlas.voyage?.stops ?? [])];
     for (const stop of groups) {
       for (const plate of stop.plates ?? []) {
         if (args.plates && !args.plates.has(plate.id)) continue;

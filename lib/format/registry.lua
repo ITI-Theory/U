@@ -421,6 +421,53 @@ local function caption_inlines(div)
   return inl
 end
 
+-- A section of text with app plates (one per page in print) and optional theory figures:
+-- the stop's file holds the prose, a ::: {.plate id=...} caption per plate and any
+-- ::: {.figure src=...}; plates are captured to figures/app/voyage/<id>.png.
+local function plated_section(file, plates, prefix, level, id, missing)
+  local out = {}
+  local doc = read_markdown_doc(ATLAS .. "/" .. file)
+  local meta = meta_to_lua(doc.meta) or {}
+  local captions, figures, body = {}, {}, {}
+  for _, b in ipairs(doc.blocks) do
+    if b.t == "Div" and b.classes:includes("plate") then
+      captions[b.identifier] = caption_inlines(b)
+    elseif b.t == "Div" and b.classes:includes("figure") then
+      figures[#figures + 1] = {src = b.attributes.src, caption = caption_inlines(b)}
+    else
+      body[#body + 1] = b
+    end
+  end
+  out[#out + 1] = page_break()
+  out[#out + 1] = header(level, meta.title or id, id)
+  append(out, split_columns(body))
+  for k, plate in ipairs(plates or {}) do
+    local src = "figures/app/voyage/" .. plate.id .. ".png"
+    local caption = pandoc.Inlines({pandoc.Str("Figure " .. prefix .. "." .. k .. " —"), pandoc.Space()})
+    if captions[plate.id] then caption:extend(captions[plate.id]) else missing[#missing + 1] = "caption for plate " .. plate.id end
+    if not exists(ATLAS .. "/" .. src) then
+      missing[#missing + 1] = "plate " .. plate.id .. " (npm run capture -- --only voyage)"
+    elseif FORMAT:match("latex") then
+      local inl = pandoc.Inlines({pandoc.RawInline("latex", "\\atlasplatepage{" .. src .. "}{")})
+      inl:extend(caption)
+      inl:insert(pandoc.RawInline("latex", "}"))
+      out[#out + 1] = pandoc.Plain(inl)
+    else
+      out[#out + 1] = pandoc.Para({pandoc.Image(caption, src, "", attr("", {"plate"}, {width = "100%"}))})
+    end
+  end
+  for k, fig in ipairs(figures) do
+    local caption = pandoc.Inlines({pandoc.Str("Figure " .. prefix .. "." .. (#(plates or {}) + k) .. " —"), pandoc.Space()})
+    caption:extend(fig.caption)
+    if exists(ATLAS .. "/figures/" .. fig.src) then
+      out[#out + 1] = pandoc.Para({pandoc.Image(caption, "figures/" .. fig.src, "", attr("", {"theory-figure"}, {width = "50%"}))})
+    else
+      missing[#missing + 1] = "figure " .. fig.src
+    end
+  end
+  return out
+end
+
 local function voyage_part(voyage, missing)
   local out = {}
   local intro = read_markdown_doc(ATLAS .. "/" .. voyage.file)
@@ -428,46 +475,8 @@ local function voyage_part(voyage, missing)
   out[#out + 1] = header(1, intro_meta.title or "The Voyage Inside", "part-voyage-inside")
   append(out, maybe_columns(intro.blocks))
   for number, stop in ipairs(voyage.stops or {}) do
-    local doc = read_markdown_doc(ATLAS .. "/" .. stop.file)
-    local meta = meta_to_lua(doc.meta) or {}
     local slug = stop.file:match("([^/]+)%.md$") or ("stop-" .. number)
-    local captions, figures, body = {}, {}, {}
-    for _, b in ipairs(doc.blocks) do
-      if b.t == "Div" and b.classes:includes("plate") then
-        captions[b.identifier] = caption_inlines(b)
-      elseif b.t == "Div" and b.classes:includes("figure") then
-        figures[#figures + 1] = {src = b.attributes.src, caption = caption_inlines(b)}
-      else
-        body[#body + 1] = b
-      end
-    end
-    out[#out + 1] = page_break()
-    out[#out + 1] = header(2, meta.title or slug, "voyage-" .. slug:gsub("^%d+%-", ""))
-    append(out, split_columns(body))
-    for k, plate in ipairs(stop.plates or {}) do
-      local src = "figures/app/voyage/" .. plate.id .. ".png"
-      local caption = pandoc.Inlines({pandoc.Str("Figure V" .. number .. "." .. k .. " —"), pandoc.Space()})
-      if captions[plate.id] then caption:extend(captions[plate.id]) else missing[#missing + 1] = "caption for voyage plate " .. plate.id end
-      if not exists(ATLAS .. "/" .. src) then
-        missing[#missing + 1] = "voyage plate " .. plate.id .. " (npm run capture -- --only voyage)"
-      elseif FORMAT:match("latex") then
-        local inl = pandoc.Inlines({pandoc.RawInline("latex", "\\atlasplatepage{" .. src .. "}{")})
-        inl:extend(caption)
-        inl:insert(pandoc.RawInline("latex", "}"))
-        out[#out + 1] = pandoc.Plain(inl)
-      else
-        out[#out + 1] = pandoc.Para({pandoc.Image(caption, src, "", attr("", {"plate"}, {width = "100%"}))})
-      end
-    end
-    for k, fig in ipairs(figures) do
-      local caption = pandoc.Inlines({pandoc.Str("Figure V" .. number .. "." .. (#(stop.plates or {}) + k) .. " —"), pandoc.Space()})
-      caption:extend(fig.caption)
-      if exists(ATLAS .. "/figures/" .. fig.src) then
-        out[#out + 1] = pandoc.Para({pandoc.Image(caption, "figures/" .. fig.src, "", attr("", {"theory-figure"}, {width = "50%"}))})
-      else
-        missing[#missing + 1] = "voyage figure " .. fig.src
-      end
-    end
+    append(out, plated_section(stop.file, stop.plates, "V" .. number, 2, "voyage-" .. slug:gsub("^%d+%-", ""), missing))
   end
   return out
 end
@@ -715,7 +724,60 @@ local function opener_facts(data, claims, path_cell)
   return out
 end
 
-local function level_spread(level_id, ordinal, labels, edges, examples, missing, paths, captions)
+-- Each level's closing panel (ISS-087), as the Soma Machine shows it beside the level:
+-- Sherlock's concepts with the real status of their Lean (bld/atlas/concepts.json, written
+-- by paper/scripts/check_concepts.py --json), the level's further reading (registry/reading.yaml,
+-- level-specific items only), and the Part I chapters to read with it (atlas.yaml read_with).
+local SHERLOCK_STATUS = {["kernel-verified"] = "proved", sorry = "sorry", axiom = "axiom", definition = "defined"}
+
+-- a JSON string field, or nil (pandoc.json decodes null as a userdata value)
+local function jstr(x) if type(x) == "string" then return x end return nil end
+
+local function level_panel(level_id, extras)
+  if not extras then return {} end
+  local out = {header(3, "Sherlock, reading and theory", "", {"unnumbered"})}
+  local here = {}
+  for _, c in ipairs(extras.concepts or {}) do
+    for _, l in ipairs(c.levels or {}) do if l == level_id then here[#here + 1] = c end end
+  end
+  if #here == 0 then
+    out[#out + 1] = para("**Sherlock.** No concept of this level is registered yet (registry/concepts); its claims are carried by the evidence badges above.")
+  else
+    out[#out + 1] = para("**Sherlock.** The concepts of this level, each with its Lean declaration and what the kernel actually has for it:")
+    local items = {}
+    for _, c in ipairs(here) do
+      local lean, label = jstr(c.lean), jstr(c.label)
+      local status = SHERLOCK_STATUS[jstr(c.status) or ""] or "no Lean"
+      local text = "**" .. (jstr(c.concept) or jstr(c.id) or "") .. "**: " .. (lean and ("`" .. lean .. "`, " .. status) or "no Lean declaration") .. (label and (", labelled `" .. label .. "`") or "") .. "."
+      items[#items + 1] = {pandoc.Plain(parse_inlines(text))}
+    end
+    out[#out + 1] = pandoc.BulletList(items)
+  end
+  local books = {}
+  for _, it in ipairs(extras.reading or {}) do
+    for _, l in ipairs(it.levels or {}) do if l == level_id then books[#books + 1] = it end end
+  end
+  if #books > 0 then
+    local items = {}
+    for _, it in ipairs(books) do
+      items[#items + 1] = {pandoc.Plain(parse_inlines("*" .. (it.title or "") .. "*, " .. (it.author or "") .. ". " .. (it.why or "")))}
+    end
+    out[#out + 1] = para("**Further reading.**")
+    out[#out + 1] = pandoc.BulletList(items)
+  end
+  if extras.read_with and #extras.read_with > 0 then
+    local inl = pandoc.Inlines({pandoc.Strong({pandoc.Str("Read"), pandoc.Space(), pandoc.Str("with"), pandoc.Space(), pandoc.Str("Part"), pandoc.Space(), pandoc.Str("I:")}), pandoc.Space()})
+    for k, t in ipairs(extras.read_with) do
+      if k > 1 then inl:extend({pandoc.Str(";"), pandoc.Space()}) end
+      inl:insert(pandoc.Link(parse_inlines(t.title), "#" .. t.id))
+    end
+    inl:insert(pandoc.Str("."))
+    out[#out + 1] = pandoc.Para(inl)
+  end
+  return out
+end
+
+local function level_spread(level_id, ordinal, labels, edges, examples, missing, paths, captions, extras)
   local data = load_levels()[level_id]
   if not data then error("unknown level " .. level_id) end
   local entry_path = REGISTRY .. "/levels/" .. level_id .. ".md"
@@ -778,6 +840,7 @@ local function level_spread(level_id, ordinal, labels, edges, examples, missing,
       append(body_plus, edge.blocks)
     end
   end
+  append(body_plus, level_panel(level_id, extras))
   append(out, split_columns(body_plus))
   return out
 end
@@ -798,6 +861,17 @@ local function build_atlas(meta)
   local eras_meta = read_yaml(REGISTRY .. "/eras.yaml")
   local captions = load_plate_captions()
   local missing = {}
+  local concepts_json = read_file(ROOT .. "/bld/atlas/concepts.json")
+  local concepts = concepts_json and pandoc.json and pandoc.json.decode(concepts_json) or nil
+  if not concepts then missing[#missing + 1] = "bld/atlas/concepts.json (paper/scripts/check_concepts.py --json)" end
+  local reading = exists(REGISTRY .. "/reading.yaml") and (read_yaml(REGISTRY .. "/reading.yaml").items or {}) or {}
+  local theory_titles = {}
+  for _, name in ipairs(atlas.theory or {}) do
+    local doc = read_markdown_doc(ATLAS .. "/" .. name)
+    for _, b in ipairs(doc.blocks) do
+      if b.t == "Header" then theory_titles[name] = {title = pandoc.utils.stringify(b.content), id = b.identifier}; break end
+    end
+  end
   local out = {}
   local fm = raw_latex("\\frontmatter"); if fm then out[#out + 1] = fm end
   for _, name in ipairs(atlas.front or {}) do append(out, front_or_back(ATLAS .. "/" .. name)) end
@@ -806,7 +880,11 @@ local function build_atlas(meta)
   if atlas.theory then
     out[#out + 1] = header(1, "Part I: Theory", "part-i-theory")
     append(out, split_columns(parse_blocks("A field theory starts by naming a domain, a value space, an operator, boundary data, sources, and the observable projection. Waves, Green functions, scale changes, compact dimensions, and cosmological density fractions are then different uses of the same response grammar, with each physical claim carrying its own evidence label.")))
-    for _, name in ipairs(atlas.theory or {}) do append(out, theory_chapter(ATLAS .. "/" .. name)) end
+    for _, name in ipairs(atlas.theory or {}) do
+      append(out, theory_chapter(ATLAS .. "/" .. name))
+      local city = atlas.code_city
+      if city and city.after == name then append(out, plated_section(city.file, city.plates, "C", 2, "code-city", missing)) end
+    end
     out[#out + 1] = header(1, "Part II: Field Atlas", "part-ii-field-atlas")
   end
   local ordinal = {}; for i, id in ipairs(listed) do ordinal[id] = i end
@@ -835,7 +913,12 @@ local function build_atlas(meta)
         out[#out + 1] = pandoc.Para({pandoc.Image(caption, src, "", attr("", {"plate"}, {width = "100%"}))})
       end
     end
-    for _, level_id in ipairs(sector.levels or {}) do append(out, level_spread(level_id, ordinal[level_id], labels, edges, examples, missing, paths, captions)) end
+    local read_with = {}
+    for _, name in ipairs(sector.read_with or {}) do
+      if theory_titles[name] then read_with[#read_with + 1] = theory_titles[name] else missing[#missing + 1] = "read_with " .. name .. " is not a Part I chapter" end
+    end
+    local extras = {concepts = concepts or {}, reading = reading, read_with = read_with}
+    for _, level_id in ipairs(sector.levels or {}) do append(out, level_spread(level_id, ordinal[level_id], labels, edges, examples, missing, paths, captions, extras)) end
     if atlas.voyage and tonumber(tostring(atlas.voyage.after_sector)) == number then append(out, voyage_part(atlas.voyage, missing)) end
   end
   if atlas.questions ~= false then append(out, questions_part(load_questions(), labels)) end
