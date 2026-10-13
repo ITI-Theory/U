@@ -18,6 +18,10 @@ constants:
     genls: [MathematicalObject]
     words: [propagator]
     comment: A Green's function G(x, x') of the field equation (nabla^2 + k^2) G = delta, the response at x to a source at x'.
+  - name: PropagatorPole-TTheory
+    genls: [MathematicalObject]
+    words: [pole]
+    comment: A pole of a propagator, a complex frequency where the response diverges (a resonance); not OpenCyc's Pole-Rod, AxialPoleOfPlanet or Poles (ISS-063).
   - name: Attractor-TTheory
     genls: [MathematicalObject]
     words: [attractor]
@@ -101,6 +105,7 @@ words:
   - {word: hysteresis, constant: Hysteresis}
   - {word: tunnelling, constant: QuantumTunneling}
   - {word: tunneling, constant: QuantumTunneling}
+  - {word: percept, constant: Perceiving}
 
 # The programme's verbs: a FrameNet sense's binding template, typed with an OpenCyc event type
 verbs:

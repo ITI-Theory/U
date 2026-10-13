@@ -3190,7 +3190,13 @@ different scales (ZSF's "same as always").
       the film for each institution, and does SME's mapping recover the author's "=="
       pairs? A pair it misses, or one it adds, is a finding either way. Private material: the
       cases stay in Me, only the scores go to U.
-- [ ] OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
+- [ ] (13 Oct, part: the design note (docs/SHERLOCK.md, last section) and the spike
+      (sherlock/Cyc/Types/Spike.lean): Percept, Pole and Emotion as types; "a percept is a pole",
+      read literally, is a contradiction in NextKB (Perceiving is a TemporalThing,
+      PropagatorPole-TTheory a MathematicalOrComputationalThing, disjoint), so the coherent reading
+      is a map, which is how FieldAxioms already writes it. PropagatorPole-TTheory and "percept"
+      added to the vocabulary. For the author: restate every "X IS Y" axiom as a typed map? the
+      concept registry and the app's type guard on the same types?) OWL classes as Lean types (from ISS-047 note 8, now prioritised): the
       programme's own collections (TTheoryVocabularyMt and what it inherits, a few
       hundred) as Lean types; genls as coercions, disjointness as no common member;
       a category error becomes a type error in the programme's Lean, the concept

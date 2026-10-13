@@ -134,3 +134,30 @@ its candidates was wrong, so check each before writing Lean):
 Claims about the programme's own Lean (axioms, theorems, sorries) are checked
 by the ledger (`make -C sherlock ledger`), which asks the root package's Lean,
 one module per process, what each cited declaration is.
+
+## The programme's collections as Lean types (ISS-063, design note)
+
+A word in a paper names a collection: OpenCyc's where OpenCyc has the sense, the programme's
+own (`registry/vocabulary.yaml`, TTheoryVocabularyMt) where it does not. Typed, a collection is
+`Cyc.Ty.Inst m c` (`sherlock/Cyc/Types.lean`): the terms microtheory `m` says are instances of
+`c`. `genls` gives a coercion (`Inst.up`); `disjointWith` gives `Inst.apart`, so one term with two
+disjoint types is a contradiction. A category error then fails to type-check instead of passing
+as prose.
+
+The spike (`sherlock/Cyc/Types/Spike.lean`, 13 Oct) takes the first case the issue named.
+`FieldAxioms.PerceptIsPropagatorPole` says a percept *is* a pole of the somatic propagator. OpenCyc
+types a percept as a `Perceiving`, an event and so a `TemporalThing`; the programme's
+`PropagatorPole-TTheory` (added to the vocabulary for this, since OpenCyc's "pole" is a rod, a
+planet's pole or an ethnic group) is a `MathematicalOrComputationalThing`; NextKB says the two are
+disjoint. `percept_is_not_pole` proves the literal reading a contradiction. The coherent reading
+is that a percept is *modelled by* a pole, a map `Percept → Pole`, and that is how the Lean axiom
+is already written (`ω₀ = percept e`, `percept : EmotionState → ℂ`): the papers' "is" is the
+model's "=" between quantities, not an identity of kinds. Emotions are already typed this way
+(`paper/proofs/EmotionCyc.lean`).
+
+Decided so far: the slice mode of the readings (NextKB facts as axioms in one microtheory, the
+programme's definitions marked as such); OpenCyc's own constants where they exist, the programme's
+`-TTheory` constants where they do not. For the author: whether every co-identification axiom of
+`FieldAxioms.lean` ("X IS Y") should be restated as a map with its typing (the readings check
+already reports each such sentence's literal reading), and whether the concept registry and the
+app's type guard should read the same types.
