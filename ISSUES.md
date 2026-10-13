@@ -4604,34 +4604,52 @@ someone who did not build it, and the BOFH Monster, an adversary who tries to ma
 overclaim, author 13 Oct). Automated, they run at release (`make wizard`); the NotebookLM UAT's Wizard section starts
 from their report and asks only the judgement questions, and the UAT concentrates on the Monster,
 with real readers.
-- [ ] Scope: each book's promise in books.yaml as registry ids (levels, explorer stops, concepts,
+- [x] Scope: each book's promise in books.yaml as registry ids (levels, explorer stops, concepts,
       papers, models, paths, tours); `make wizard` checks each is covered and reports
       what is missing. The Atlas first (all 31 levels, the 15 stops, the models, paths and tours).
+      (13 Oct night: the fifteen domain books' scopes are read from the fractal manifest, not
+      copied: papers required, levels and concepts reported (the ladder note naming the levels is
+      added in the volumes, not the standalone books); a paper counts under its published or its
+      own title; and a printed check: every paper the manifest assigns must be printed in full in
+      some book. It found P10, P14, P15 and P25 cited and printed nowhere, though the 13 Oct
+      omnibus note said they were: Reading sections and AddPaper added (P10 Neuroscience, P14 and
+      P15 Physics, P25 Trauma; pointers in Formal Mathematics and Complex Systems).)
 - [ ] Neighbourhood (Cyc): for each concept a book covers, its siblings and parents one step away
       in OpenCyc that the book never mentions (the emotions it leaves out, the organs next to the
       ones it shows); the AI ranks them and phrases each as a question for the author.
 - [ ] Never written (H-AL): ask H-AL what the chats discuss that no book covers; with the UAT.
 
-## ISS-093: What Sherlock found in its own programme, written up — OPEN
+## ISS-093: What Sherlock found in its own programme, written up — CLOSED
 {{Tags area.papers, area.books, area.proofs}}
-{{Fields date.created=2026-10-13, date.start=, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-13, date.start=, date.end=2026-10-13, epic=ISS-055-sherlock}}
 
 Author, 13 Oct afternoon: Sherlock has been used for a while; is there new information for the
 papers or books? Yes: six lessons from running it on the programme itself. For SH1's next
 version and a chapter of the Formal Mathematics book (not a new paper).
-- [ ] Prose about proofs goes stale within hours: after the last sorries closed, about 20 documents
+- [x] Prose about proofs goes stale within hours: after the last sorries closed, about 20 documents
       still said "five remain", the data files (books.yaml) worst. Statements about proof status
       should be generated from the Lean, as the licence line is.
-- [ ] "No sorry in my files" is not "nothing rests on sorry": physlib's FLRW placeholder reached 17
+- [x] "No sorry in my files" is not "nothing rests on sorry": physlib's FLRW placeholder reached 17
       declarations through a dependency; only the towers export (#print axioms per declaration)
       showed it.
-- [ ] Theorems of `True` look proved: two survived because their names said what they did not prove.
-- [ ] Word-sense traps: pole (a rod), threshold (part of a building), abduction (a kidnapping), landscape
+- [x] Theorems of `True` look proved: two survived because their names said what they did not prove.
+- [x] Word-sense traps: pole (a rod), threshold (part of a building), abduction (a kidnapping), landscape
       (topography); and the ontology corrects intuition both ways (HRV as a quantity is mathematical).
-- [ ] AI-made figures are claims: the P6 Calm-Shame sign slip was in figure parameters an agent wrote.
-- [ ] Yield follows numbers: a hedged paper (P25) gives Sherlock little to check; numeric papers most.
+- [x] AI-made figures are claims: the P6 Calm-Shame sign slip was in figure parameters an agent wrote.
+- [x] Yield follows numbers: a hedged paper (P25) gives Sherlock little to check; numeric papers most.
 
 ---
+
+Done (13 Oct night): SH1 has a new section, "After the snapshot: what Sherlock found in its own
+programme", ten lessons (these six; disclaimers as contexts; one set of types; mentioned is not
+printed; a checker needs an adversary, with Moriarty's 13 of 14), the snapshot's counts left as
+they are. The Formal Mathematics book has a new chapter, "What the Checker Found: Proof Status
+Goes Stale", with its ledger. On the way the lessons kept proving themselves: the Formal
+Mathematics book still called two proved theorems `sorry`s and a scale family "rests on
+`sorry`"; the ledger missed the first because the name was camelCase (fixed: it reads every
+declared name, 460 to 586 citations, 0 disagree) and its was/now reading ran across a whole
+paragraph (fixed: the sentence); the booklets' summary page claimed "0 extra axioms", a G₂
+obligation "closed" by a flat product and a "quantum advantage real" from a simulation (fixed).
 
 ## ISS-094: Every check has a nasty: Moriarty, the Dark Matter Lord, the BOFH — OPEN
 {{Tags area.proofs, area.books, area.instrument}}
@@ -4671,6 +4689,11 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       non-generalisation (QUANT-EXP-1 and FM-HN reachability under random non-symmetric couplings
       with noise, not only the hand-tuned W8); algebraic vs metric G2 (prose implying a G2-holonomy
       metric where only algebraic compatibility is proved).
+      (13 Oct night, part: biological leakage is sherlock/leakage.py, model objects said to be
+      OpenCyc's body parts with no map, 0 in 44 documents, Moriarty's fault now caught; axiom
+      smuggling is the ledger's, and its fault is caught; the G₂ wording, scanned once: the
+      papers and books are careful, the booklets' summary page was not (fixed, see ISS-093).
+      Left: the matrix non-generalisation test, random non-symmetric couplings with noise.)
 - [ ] The Dark Matter Lord (the Wizard's rivals): for each book's central claims, does it name
       and answer the simpler rival: classical annealing, Langevin noise or modern Hopfield networks
       without 11D or tunnelling; interoception and predictive processing (Craig's lamina I, Friston's

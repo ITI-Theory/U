@@ -611,6 +611,73 @@ legal argument (claims, exhibits, precedent); and a reading of the history
 of philosophy [@russell1945history] as a sequence of affidavits about the
 same questions.
 
+# After the snapshot: what Sherlock found in its own programme
+
+The affidavits and counts above are a snapshot of 11 October 2026. In the days after it,
+Sherlock was run as the programme's own checker while the papers and books were finished for
+release. What it found is less about any one paper than about how the prose around a formal
+programme behaves. Ten lessons, each with the case that taught it.
+
+**Prose about proofs goes stale within hours.** When the last five `sorry`s were closed on
+13 October, about twenty documents still said five remained, the data files that feed the
+books worst; a day later a book still said two proved theorems "remain a `sorry`", and the
+public catalogue descriptions said seven. Statements of proof status should be generated from
+the Lean, as the licence lines are, or written without counts. The ledger now reads "contains a
+`sorry`" and "proof debt" as claims about a named declaration and checks them.
+
+**"No `sorry` in my files" is not "nothing rests on `sorry`".** A placeholder in a dependency
+(physlib's `Cosmology.FLRW`, itself a `sorry`) reached 17 of the programme's declarations
+through an import; only the export that prints the axioms of every declaration showed it.
+
+**Theorems of `True` look proved.** Two survived because their names said what their
+statements did not; the export now flags any declaration whose statement is `True`.
+
+**Words have senses the writer did not mean.** In OpenCyc a pole is a rod, a threshold part of
+a building, abduction a kidnapping and a landscape topography; and `Expectation` is a
+microtheory, which is how the concept registry had typed the mechanism of musical expectancy.
+The ontology corrects intuition in both directions: in OpenCyc heart-rate variability, as a
+quantity, is a mathematical object, so "HRV is a spectral density" is not a category error,
+while "a percept is a propagator pole" is (an event and a mathematical object, disjoint), and
+the programme now reads it as a map.
+
+**Figures are claims.** A sign in one figure's parameters, written by a coding agent,
+contradicted the paper's own matrix; the readings check now compares the matrices behind the
+figures with the text.
+
+**Disclaimers are contexts.** Four clinical papers carried no disclaimer of their own, though
+their catalogue descriptions did. Sherlock now files each document in a context, as OpenCyc
+files a claim in a microtheory (clinical, artistic design, theory); a clinical or design
+document must carry its disclaimer, and in a design document a hedged clinical claim still
+needs its evidence label.
+
+**One set of types.** Each level of the programme's atlas now has an OpenCyc class, and
+OpenCyc decides what it can be: `feelsEmotion` takes an individual agent, so a person or a bird
+can feel and a galaxy, a group or a brain cannot. The programme's app reads the same verdicts
+for its human-only controls, so a category error is caught the same way in the papers, the
+Lean and the app. A model object said to *be* an organ is caught in prose the same way (a
+coupling matrix is a mathematical object, the amygdala a body part).
+
+**Mentioned is not printed.** The book manifest placed four papers in domain books that never
+printed them; each was cited, so a check for its title passed. The coverage check now asks
+whether every assigned paper is printed in full somewhere.
+
+**A checker needs an adversary.** Moriarty plants faults in copies of the documents one at a
+time and counts what the checks catch: of fourteen kinds of fault planted, thirteen are caught. The misses are the useful output. One was
+a book calling a proved theorem a `sorry`: the ledger had never read the name, because it was
+written in camelCase without an underscore; it now reads every name the programme's Lean
+declares, and the citations it checks rose from 460 to 585. What remains unseen is a
+count of `sorry`s in prose that names no declaration: no check that works from names can
+verify it.
+
+**Yield follows numbers.** A carefully hedged paper gives Sherlock little to check: the newest
+paper, on path-sensitive transitions, has six claims, all about itself. The numerical papers
+give the most. That is as it should be, and it is a limit: Sherlock checks what a text commits
+to, and a text that commits to little passes easily. The summary page of the programme's
+booklets, which commits to a great deal in four pages, had three overclaims none of the standing
+checks read ("0 extra axioms", a G₂ obligation "closed" by a flat product, a simulated "quantum
+advantage"); a one-off scan of the programme's G₂ wording, one of Moriarty's stress tests,
+found them.
+
 # Conclusion
 
 An affidavit is cheap to write and exact to check. Run over a research

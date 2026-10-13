@@ -6,3 +6,21 @@ accepted:
     line: 145
     name: Matrix.IsHermitian
     reason: "the sentence says a theorem's type requires the predicate; it does not call the predicate a theorem"
+  # Read 13 Oct (Copilot, for the author to confirm): camelCase names, newly read by the ledger,
+  # where "theorem" or "axiom" in the sentence belongs to another name.
+  - doc: book-formal-mathematics
+    line: 59
+    name: EmotionLang
+    reason: "the axiom listed is EmotionLang's universality; EmotionLang itself is not called an axiom"
+  - doc: book-formal-mathematics
+    line: 112
+    name: SomaField11D
+    reason: "the theorem states an equation on SomaField11D; the type is not called a theorem"
+  - doc: book-formal-mathematics
+    line: 120
+    name: FieldEquation
+    reason: "the sentence says a theorem internal to FieldEquation would need a stronger structure; it does not call FieldEquation a theorem"
+  - doc: book-philosophy
+    line: 1793
+    name: gaugeCoupling
+    reason: "the sentence says gaugeCoupling is defined as zero; the theorem it mentions is another"

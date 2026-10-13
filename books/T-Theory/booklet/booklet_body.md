@@ -235,15 +235,15 @@ language channel. Explains inaccessibility to verbal recall; motivates somatic e
 - `LimbicTunnel.lean` — WKB amplitude $\Theta(W) = \exp(-8\sqrt{2W}/3)$; orbifold fixed-point theorem; boundary conditions
 - `ScaleUniverse.lean` — consciousness threshold (sharp spectral gap dichotomy); 20-scale `ScaleUniverse` type; Zoom Operator well-typedness
 - `BFSSIsomorphism.lean` — cortex eigenvalue emergence via Mathlib `IsHermitian.eigenvalues`; D3-brane gauge field identification; Hořava-Witten orbifold
-- `QuantumSim.lean` — Born probability of $|\text{awe}\rangle > 0$ after WKB gate (quantum advantage real)
+- `QuantumSim.lean` — Born probability of $|\text{awe}\rangle > 0$ after WKB gate (simulated; no hardware claim)
 - `Benchmark.lean` — FM-HN vs. classical timing; O(N²) bound demonstrated computationally
 
-**Lean 4 kernel verification: 0 sorries · 0 extra axioms**
+**Lean 4: no `sorry`; the axioms are declared and labelled**
 
-All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
-`gaussianFreeField_satisfies_all_OS_axioms`). All four former proof obligations closed:
+All five OS axioms machine-checked for the free field (`USF_OSAxioms.lean` via OSforGFF ·
+`gaussianFreeField_satisfies_all_OS_axioms`). Four former proof obligations, now:
 
-- **G₂ holonomy** → `X7_is_7D_product`: USF's X₇ = ℝ³×ℝ×ℝ³ (flat product). G₂ holonomy is a string-theory constraint; the USF use case is proved.
+- **G₂** → `X7_is_7D_product`: X₇ = ℝ³×ℝ×ℝ³ is proved a 7D product (flat); a G₂-holonomy metric is not claimed.
 - **Zoom Operator covariance** → `scale_invariance_full` (`MTheoryIsomorphism.lean`)
 - **Retarded propagator causality** → `retardedDecayFactor_isCausal` (`TemporalDynamics.lean`) + OS3
 - **RG equations** → `geometricFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)

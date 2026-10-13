@@ -188,7 +188,9 @@ def extract(files: list[str]) -> int:
                     if st_m:
                         said = said_in(st_m.group(1)) or "cited"
                 if said is None:
-                    now = re.search(r"\bnow\b(.*)", line, re.I) if re.search(r"\bwas\b", line, re.I) else None
+                    # "was X ... now Y" within the name's own sentence, not the whole paragraph
+                    sentence = next((s for s in re.split(r"(?<=[.!?])\s+", line) if m.group(0) in s), line)
+                    now = re.search(r"\bnow\b(.*)", sentence, re.I) if re.search(r"\bwas\b", sentence, re.I) else None
                     said = said_in(now.group(1)) if now else said_in(clause(line, m.group(0)))
                 # a table row that discloses a placeholder, whatever its column heading says
                 if said in ("theorem", "kernel-checked") and is_row and re.search(r"placeholder|proves only `?True", line, re.I):
