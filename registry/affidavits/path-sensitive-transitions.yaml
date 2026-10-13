@@ -1,0 +1,101 @@
+# Sherlock affidavit: Path-Sensitive Transition Dynamics (P25). Schema: sherlock/registry.py.
+# P25 is a programme paper of hedged hypotheses: few numbers, no Lean of its own. Its
+# checkable claims are its counts (three formalisms, five state-space factors, four
+# signatures, three toy results), its statement that it claims no Lean, and the three toy
+# results it proposes, proved here on concrete witnesses (sherlock/Affidavits/PathSensitive).
+id: path-sensitive-transitions
+document: P25
+title: "Path-Sensitive Transition Dynamics: From Local Barriers to Distributed Action Costs"
+source:
+  file: paper/soma/path-sensitive-transitions/path-sensitive-transitions.md
+  commit: b01d50a
+  sha256: 3aa697c075a13a65f065a7e72383e1a8372de9358fcf3195b2f9ec5a39f5662f
+lean:
+  - sherlock/Affidavits/PathSensitive/Toy.lean
+microtheories: {}
+claims:
+  - id: Q1
+    quote: minimum-action, stochastic-path and path-integral languages
+    lines: [17, 18, 62, 68, 77]
+    kind: internal-count
+    finding: >-
+      the abstract's three path languages are the three formalisms the body then defines,
+      in the same order and none added: minimum-action (line 62), stochastic-path (line 68)
+      and path-integral (line 77)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    values:
+      - {quantity: PathSensitive-FormalismCount, value: 3}
+    disposition: none
+  - id: Q2
+    quote: '$\mathcal S = E\times C\times M\times B\times N$'
+    lines: [88, 89, 90, 91, 92]
+    kind: internal-count
+    finding: >-
+      the candidate state space has five factors, and each is then defined once: E affective,
+      C coupling or control, M memory, B bodily and autonomic, N neural or field
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: PathSensitive-StateSpaceFactorCount, value: 5}
+    disposition: none
+  - id: Q3
+    quote: Four observable signatures would support the path-sensitive model
+    lines: [147, 149, 151, 152, 154]
+    kind: internal-count
+    finding: >-
+      "four observable signatures" are then listed as First, Second, Third and Fourth: four,
+      none missing
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [4, 4]}]
+    values:
+      - {quantity: PathSensitive-SignatureCount, value: 4}
+    disposition: none
+  - id: Q4
+    quote: 'One can then prove simple results: equivalence to a barrier'
+    lines: [187, 188, 189, 190]
+    kind: internal-arithmetic
+    finding: >-
+      the three toy results the paper proposes hold on concrete witnesses, with a route's
+      barrier its highest potential and its action the sum along it: the barrier model
+      treats two routes over one saddle alike; two routes with the same barrier (3) have
+      different actions (3 and 9); and with steps admissible one way only, the forward route
+      exists and the reverse does not. Toy statements, as the paper says, not a mechanism
+    verdict: confirmed
+    label: kernel-verified
+    lean: Affidavit.PathSensitive.Toy.same_barrier_different_action
+    values:
+      - {quantity: PathSensitive-ToyResultCount, value: 3}
+    disposition: none
+  - id: Q5
+    quote: No Lean theorem is claimed in this paper
+    lines: [192]
+    kind: ledger
+    finding: >-
+      the paper cites no Lean declaration of the programme, so the ledger finds nothing to
+      check in it and nothing that disagrees; the statement is true of the text. The toy
+      results of Q4 are this affidavit's, not the paper's
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    ledger: true
+    disposition: none
+  - id: Q6
+    quote: No clinical mechanism is established here
+    lines: [21]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      the abstract's disclaimer holds through the body: every clinical sentence (trauma,
+      overload, recovery, therapy, clinical data) carries `open-hypothesis`, and
+      `make -C sherlock clinical` reports no unhedged clinical claim in the paper
+    verdict: consistent
+    label: interpretive
+    lean: null
+    ledger: true
+    disposition: none

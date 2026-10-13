@@ -88,7 +88,11 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
       re-check the page counts (Vol I 575 and Vol II 506 grow; Lulu's cap is 800). Also: section
       labels repeat across the assembled books (32 in Vol II: introduction, conclusion, the
       "Reading the ..." pointer sections); make them unique per book so links cannot be ambiguous.
-- [ ] P25 (path-sensitive transitions): UAT reading, upload to Zenodo with the others; and its
+- [ ] (13 Oct, part: the affidavit is done, registry/affidavits/path-sensitive-transitions.yaml,
+      frozen at b01d50a: six claims (its counts, "no Lean theorem is claimed", no unhedged clinical
+      claim) and the three toy results it proposes proved on witnesses,
+      sherlock/Affidavits/PathSensitive/Toy.lean; `make -C sherlock check` 414 of 414. Left: the UAT
+      reading and the upload) P25 (path-sensitive transitions): UAT reading, upload to Zenodo with the others; and its
       Sherlock affidavit, so SH1's "affidavits for all its papers" stays true at SH1's next
       version (SH1 v2 is a snapshot of the 24 papers of 11 Oct, left as it is).
 - [ ] Set P21 to pending-upload in `Dist/PAPERS.yaml` (`make generate` afterwards) once the
