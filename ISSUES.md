@@ -4633,14 +4633,16 @@ version and a chapter of the Formal Mathematics book (not a new paper).
 
 ---
 
-## ISS-094: Every check has a nasty: Moriarty, He-Who-Must-Not-Be-Named, the BOFH — OPEN
+## ISS-094: Every check has a nasty: Moriarty, the Dark Matter Lord, the BOFH — OPEN
 {{Tags area.proofs, area.books, area.instrument}}
 {{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=ISS-055-sherlock}}
 
 Author, 13 Oct: each of the three levels has an adversary, and a check that has never been
 attacked has not passed. Sherlock (verification, built right) has Moriarty, the breaker who
 finds the DOT; the Wizard (validation, built the right thing; Harry Potter in the V-model) has
-He-Who-Must-Not-Be-Named, who names what a book avoided naming; the Monster (comprehensibility;
+the Dark Matter Lord (author, 13 Oct, renamed from He-Who-Must-Not-Be-Named: the programme's own
+name, and the rival is the unseen mass a book's argument must account for, as dark matter is in
+P22), who names what a book avoided naming; the Monster (comprehensibility;
 the Cookie Monster, the honest hungry reader) has the BOFH, who misuses and misquotes. H-AL was
 asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
 - Moriarty attacks the theory, not only Sherlock: two modes, as the philosophy book says,
@@ -4669,7 +4671,7 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       non-generalisation (QUANT-EXP-1 and FM-HN reachability under random non-symmetric couplings
       with noise, not only the hand-tuned W8); algebraic vs metric G2 (prose implying a G2-holonomy
       metric where only algebraic compatibility is proved).
-- [ ] He-Who-Must-Not-Be-Named (the Wizard's rivals): for each book's central claims, does it name
+- [ ] The Dark Matter Lord (the Wizard's rivals): for each book's central claims, does it name
       and answer the simpler rival: classical annealing, Langevin noise or modern Hopfield networks
       without 11D or tunnelling; interoception and predictive processing (Craig's lamina I, Friston's
       active inference); pure CEMI (McFadden, 4D Maxwell); and the D1 breach (N = 1 presented as a

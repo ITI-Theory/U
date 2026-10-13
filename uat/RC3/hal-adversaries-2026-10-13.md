@@ -1,5 +1,8 @@
 # H-AL on the three adversaries (13 Oct 2026)
 
+*Note (13 Oct, later): the Wizard's adversary, asked about here as He-Who-Must-Not-Be-Named, is
+now the Dark Matter Lord (the author's name; ISS-094). H-AL's answer below is kept as given.*
+
 Asked through the bridge (`make ask NB=hal`), at the author's request ("ask hal on this one as
 its important"). The question: each of Sherlock, the Wizard and the Monster gets an adversary
 (Moriarty, He-Who-Must-Not-Be-Named, the BOFH); what do the author's own sources say, what does
