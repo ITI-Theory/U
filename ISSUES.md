@@ -4288,6 +4288,17 @@ Nothing is broken; this waits on upstream.
 - [ ] Offer `FLRWData` upstream as the replacement for physlib's placeholder (a PR to
       leanprover-community/physlib, as with OSforGFF#22); if merged, switch back to
       `Cosmology.FLRW` at the upgrade.
+      (14 Oct 01:00, prepared, not opened: a clone of upstream physlib in ../physlib-flrw, branch
+      flrw-structure, local commit 8dfaa69: `Cosmology.FLRW` becomes the structure (a, a_pos,
+      contDiff_a, geometry), the placeholder, its `@[sorryful]` and the TODO's first half removed,
+      the dynamics half kept as a narrower TODO. Builds on upstream Lean v4.34.1 with every
+      Cosmology module; the style linter passes; the module-doc linter reports no new problem.
+      Physlib's AI-POLICY.md: the human author vouches for every line and talks to the reviewers
+      himself. The PR text is ../physlib-flrw/PR-DESCRIPTION.md. Author: read it, then
+      `gh repo fork leanprover-community/physlib --clone=false`, in ../physlib-flrw
+      `git remote add fork https://github.com/<you>/physlib.git` and `git push fork flrw-structure`,
+      and `gh pr create -R leanprover-community/physlib --head <you>:flrw-structure --body-file
+      PR-DESCRIPTION.md`.)
 
 ---
 
