@@ -4506,7 +4506,7 @@ to make wet; NextKB's scale sense of reduce is typed IncreaseAction (an error).
 
 ---
 
-## ISS-090: The VS Code extension: trying, setting up, publishing — PARKED
+## ISS-090: The VS Code extension: trying, setting up, publishing — OPEN
 {{Tags area.app}}
 {{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
 
@@ -4516,17 +4516,19 @@ floor; Apache-2.0 AND CC-BY-4.0); the author works in Neovim, where U.Dot's `she
 gives the same Sherlock commands and opens the app in the browser. Picked up if the
 extension is wanted as the back door for distribution, after Mk 1.
 
+(Unparked 13 Oct afternoon, author: the extension and the Marketplace, now.)
 - [ ] Author: try the VSIX in VS Code (`npm run package` in apps/vscode).
 - [ ] "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB, warned first).
 - [ ] Marketplace pre-release and Open VSX (publisher account, screenshots, a public build).
 
 ---
 
-## ISS-091: The chest strap: heart rate, HRV and breathing from a real strap — PARKED
+## ISS-091: The chest strap: heart rate, HRV and breathing from a real strap — OPEN
 {{Tags area.instrument}}
 {{Fields date.created=2026-10-13, date.start=, date.end=, epic=}}
 
-From ISS-052 (author, 13 Oct: its own issue, parked). Coded and checked with sample
+From ISS-052 (author, 13 Oct: its own issue, parked; unparked 13 Oct afternoon: "I can see the
+benefit"). Coded and checked with sample
 packets; waits for a real strap.
 
 - [ ] (10 Oct 23:50, coded, to test in UAT with a real strap) A Bluetooth heart-rate
