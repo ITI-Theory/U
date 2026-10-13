@@ -6,44 +6,35 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (13 Oct 2026, late evening; before the big build)
+## Now (14 Oct 2026, night; the author asleep from 01:55)
 
-**Ready for the big build.** The author's order (21:34): ISS-051, ISS-063, ISS-093, then
-ISS-092/094's book parts; then `make uat-stage-full`, the release check, the UAT (HAL-UAT
-for Sherlock, the Wizard and the adversaries; a fresh notebook for the reader tests), the
-Lulu preview, `make dist`, Zenodo (sandbox first). The course goes in the release (ISS-081).
+**Release candidate rc3.2, rebuilt and in UAT.** The big build ran (13 Oct 23:40) and again
+after each fix; the release check passes apart from what `make dist` brings (P25 and Vol III
+PDFs into Dist). Volumes: I 617, II about 511, III 562 pages, all under Lulu's 800.
 
-**Done today, books and papers:**
-- ISS-051 closed: sweep strips for all 91 varied figures (one y-scale), "see it move" Soma
-  Machine views, both in HTML and the figure library (PDFs unchanged); the Soma Machine's
-  equation panel has EQUATION / FIGURES / READ MORE tabs (the textbook's figures by level).
-- ISS-063: the disclaimers as microtheories (`registry/microtheories.yaml`; P1, P2, P3, P18
-  got the disclaimer they lacked); one set of types from OpenCyc for Sherlock and the app
-  (`registry/level-types.yaml`, `make -C sherlock level-types`; musical expectancy was typed
-  with a microtheory). Left: the private inversion test (the author confirms the cases first).
-- ISS-093 closed: SH1's "After the snapshot" (ten lessons), a Formal Mathematics chapter on
-  stale proof status. The lessons kept proving themselves: stale `sorry` rows in that book,
-  overclaims on the booklets' summary page ("0 extra axioms", G2 "closed", "quantum
-  advantage real"), all fixed.
-- ISS-092: the Wizard scopes all fifteen domain books from the fractal manifest and checks
-  every assigned paper is printed somewhere: P10, P14, P15, P25 were printed nowhere; now in
-  Neuroscience, Physics and Trauma.
-- ISS-094: Moriarty (`make moriarty`) 13 of 14 faults caught (the miss: a `sorry` count in
-  prose naming no theorem); biological leakage checked (`make -C sherlock leakage`); the
-  Wizard's adversary is the Dark Matter Lord (author). Left: the random-matrix stress test;
-  the Dark Matter Lord's rivals and the BOFH's attacks go to the UAT.
-- Ledger: reads camelCase names and "sorry"/"proof debt" claims: 586 citations, 0 disagree.
-- Zenodo sandbox: `bin/zenodo-publish --sandbox check-token | rehearse`; P25's metadata;
-  stale counts out of Dist/zenodo. **Author: create the sandbox account and token** (Dist
-  zenodo/README.md, "Sandbox setup").
-- The app: tours narrate by default with a START button; the Duet audio driver crashed
-  Windows (17:29), not the app: use the Realtek speakers for demos.
+**Found and fixed since the build:**
+- The UAT (books track, 3 answers before the quota ran out): the master contents ran to 25
+  pages (each embedded paper's sections listed as chapters; now one entry per paper), the
+  cheatsheet inserts were in no contents (now listed), and 34 headings in four books were
+  printed as text (no blank line before them; fixed, and release check 12b).
+- QUANT-EXP-1 under stress (sherlock/stress_quant.py): P2's 0.41 is the occupancy of a quarter
+  of the states, starting at 0.25; the Awe state itself ends below 0.01; simulated annealing,
+  untested, does better on random landscapes. Author: yes; P2's abstract, a sixth limitation,
+  verdict and conclusions corrected; the old "3/3 against 0/48" gone from P11, P12, P13, the
+  thesis preamble and the books; the booklets' "D-Wave ... quantum advantage is real" gone.
+  P2's translations keep the old abstract (not in this release).
+- The books Makefile now rebuilds volumes and books when an embedded paper changes.
+- The Wizard's neighbourhood (sherlock/neighbours.py): 27 feelings next to the programme's that
+  no book names.
+- physlib: the FLRW structure prepared in ../physlib-flrw for the author to open (ISS-085).
 
-## Next
+**Overnight (Copilot):** the full UAT after the quota resets at 03:48: the books track, the
+papers track, then HAL-UAT (uat/RC3/hal-uat-questions-rc3.2.md: built the right thing, never
+written, the Dark Matter Lord's rivals, the emotions next door). Reports in uat/results/.
 
-1. The big build: `make uat-stage-full`, then `bin/release-check` (the standalone books and
-   volumes grow by P10, P14, P15, P25: check Lulu's 800-page cap).
-2. UAT: HAL-UAT (Wizard, Cyc neighbours, never written, the Dark Matter Lord's rivals, the
-   BOFH), then a fresh notebook (reader tests), the author's reading, the Lulu preview.
-3. `make dist`, Zenodo sandbox rehearsal, live, DOIs.
-4. After the release: ISS-052 (app), the inversion test, the random-matrix test, ISS-090/091.
+## Next (author)
+
+1. Read the UAT reports (uat/results/*rc3.2*) and this file's overnight notes.
+2. Your desk: the Zenodo sandbox account and token (Dist/zenodo/README.md); the physlib PR
+   (ISS-085, read PR-DESCRIPTION.md first).
+3. Then `make dist`, the Zenodo sandbox rehearsal, live, the DOIs; the Lulu order.
