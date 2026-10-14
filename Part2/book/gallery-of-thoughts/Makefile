@@ -13,7 +13,7 @@ SOURCES := gallery.md $(wildcard rooms/*.md) $(REGISTRY)
 LAYOUT := filters/gallery.lua templates/gallery-header.tex $(ROOT)/lib/format/licence.lua $(ROOT)/registry/licences.yaml $(ROOT)/lib/defaults/base-pdf.yaml
 SRC_IMAGES := $(shell $(PYTHON) -c "import yaml;r=yaml.safe_load(open('$(REGISTRY)',encoding='utf-8'));print(' '.join(sorted({'$(ROOT)/'+p['src'] for p in [r['cover']]+[q for x in r['rooms'] for q in x['plates']]})))")
 
-.PHONY: all lulu a3 projector plates check clean help
+.PHONY: all lulu a3 projector plates contact hires check clean help
 .SECONDARY:
 
 all: lulu
@@ -26,6 +26,15 @@ projector: $(BLD)/gallery-of-thoughts-projector.pdf
 	@pdfinfo "$<" | grep -E '^(Pages|Page size):'
 
 plates: $(foreach f,$(FORMATS),$(PLATES)/$(f)/tones.json)
+
+# The curator's cut: every plate numbered on one sheet ($(BLD)/contact-lulu-a4.jpg).
+contact: $(PLATES)/lulu-a4/tones.json
+	$(PYTHON) $(ROOT)/lib/art/gallery.py $(PLATES) --format lulu-a4 --contact
+
+# The app's views recaptured at 3840 x 2160 (theirs are 1920 wide, soft at A3); the plates
+# use them when present. Slow (software WebGL); not committed.
+hires:
+	cd $(ROOT)/apps/instrument/visuals/soma-field-operator && npm run capture -- --only voyage --scale 2 --out $(BLD)/hires
 
 $(PLATES)/%/tones.json: $(REGISTRY) $(ART) $(SRC_IMAGES)
 	$(PYTHON) $(ROOT)/lib/art/gallery.py $(PLATES) --format $*
@@ -52,5 +61,7 @@ help:
 	@echo "  a3         the A3-landscape edition"
 	@echo "  projector  the 16:9 projector edition"
 	@echo "  plates     render the plates for every format (lib/art/gallery.py)"
+	@echo "  contact    a numbered contact sheet of every plate, for the curator's cut"
+	@echo "  hires      recapture the app's views at 4K for A3 (slow)"
 	@echo "  check      build the Lulu proof and check its log"
 	@echo "  clean      remove $(BLD)"
