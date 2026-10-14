@@ -28,13 +28,30 @@ PDFs into Dist). Volumes: I 617, II about 511, III 562 pages, all under Lulu's 8
   no book names.
 - physlib: the FLRW structure prepared in ../physlib-flrw for the author to open (ISS-085).
 
-**Overnight (Copilot):** the full UAT after the quota resets at 03:48: the books track, the
-papers track, then HAL-UAT (uat/RC3/hal-uat-questions-rc3.2.md: built the right thing, never
-written, the Dark Matter Lord's rivals, the emotions next door). Reports in uat/results/.
+**Overnight (Copilot), what happened:**
+- The UAT did not run: the NotebookLM login expired before 03:52 (AUTH_ERROR), so no question
+  was asked and no quota used. It needs a fresh login (`.venv\Scripts\notebooklm login` in
+  apps/instrument/mother); then `make uat-nlm TRACK=ttheory`, `make uat-nlm TRACK=papers` and
+  `apps/instrument/mother/.venv/Scripts/python.exe uat/scripts/hal_uat.py
+  uat/RC3/hal-uat-questions-rc3.2.md` (about 30 questions, under an hour).
+- Staged for it: papers at 7e46900, books at c2a7f27, both with the QUANT-EXP-1 corrections (the
+  Lean appendix too); release check: 24 pass, 1 fail (the 3 PDFs `make dist` brings).
+- Fixed: the books Makefile now rebuilds volumes when an embedded paper changes (the omnibus had
+  kept P2's old text).
+- DOIs before the print run, ready: `bin/zenodo-publish reserve` (unpublished drafts with
+  reserved DOIs for the 22 new records), `fill-dois` (into PAPERS.yaml), then the build; runbook
+  in Dist/zenodo/README.md. Needs ZENODO_TOKEN (and the sandbox token for the rehearsal).
+- VS Code extension (ISS-090): packaged locally (apps/vscode/bld/soma-machine-0.1.0.vsix),
+  Sherlock: Set up added (warned first), the WAY IN stop added, Marketplace metadata prepared;
+  nothing published.
+- For a decision some day: the papers omnibus shows its two books (the Soma-Field book, the
+  Tensor) with the same headings as papers (UAT TH-1); the omnibus document model wants them as
+  books. Not urgent.
 
 ## Next (author)
 
-1. Read the UAT reports (uat/results/*rc3.2*) and this file's overnight notes.
-2. Your desk: the Zenodo sandbox account and token (Dist/zenodo/README.md); the physlib PR
-   (ISS-085, read PR-DESCRIPTION.md first).
-3. Then `make dist`, the Zenodo sandbox rehearsal, live, the DOIs; the Lulu order.
+1. Log in to NotebookLM (as last night); I run the UAT (under an hour) and fix what it finds.
+2. Set ZENODO_SANDBOX_TOKEN and ZENODO_TOKEN (user environment, Dist/zenodo/README.md); I
+   rehearse on the sandbox, then `reserve` and `fill-dois` with your go, and rebuild with the DOIs.
+3. Your read of the UAT reports; `make dist`; publish; the Lulu uploads (early afternoon).
+4. When you like: the physlib PR (ISS-085), the VSIX (ISS-090).
