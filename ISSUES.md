@@ -4870,6 +4870,26 @@ lib/art/gallery.py (plates per format, tones for the labels); Part2/book/gallery
 - [ ] The author reads the proof: the rooms, the texts (drafts in his voice), the plates.
 - [ ] A3 and projector builds checked; the Lulu cover; an even page count if Lulu wants one.
 
+Author, 14 Oct evening: A3 landscape is in the budget (a sliding tier: 100 pages CHF 300, 150
+CHF 385, 200 CHF 468, 300 CHF 633); "only good art" sets the length (the curator's cut:
+`candidate: true` plates on a numbered contact sheet, `make contact`, the author strikes the
+weak ones). The fractals belong here, each with a thought description, filtered when less
+synthetic is wanted. Each plate records its [T]-stop as a photobook records f-stop and film:
+not every setting but what stood out when it was taken ("look how high the awe is"). Names:
+the Soma Machine is the somagraph, a plate a somagram (neither term found in use; an old US
+filing for SOMAGRAM, check before a commercial cover).
+- [x] (14 Oct) A3 edition built (426 x 303 mm with bleed, the same design); the app's views
+      recaptured at 4K for A3 (`make hires`); 38 candidates plus the room Pictures of
+      thoughts (the score's Mandelbulb at six moments, the river, the dive, the tunnel);
+      Gallery captures (`make captures`, registry `captures`, bursts of frames); the [T]-stop
+      under every plate and in the colophon (lib/art/gallery.py, tstops.json).
+- [x] (14 Oct) SNAP in the explorer (button or S; Shift+S keeps labels): the picture and its
+      [T]-stop as a somagram, saved to a chosen folder (bld/gallery/snaps) or Downloads; a
+      plate uses one with `src: snap:<name>`, its reading from the live values.
+- [ ] The author's cut (numbers from the contact sheet).
+- [ ] The author's shoot with SNAP: the cathedral (calm, one thought, it grows, seven, the
+      echo) and the palace's cosmos floor with the field at full.
+
 ## ISS-098: Levels of visualisation, by viewer (double dispatch) — OPEN
 {{Tags area.visualize, area.app, area.books}}
 {{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
