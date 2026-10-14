@@ -25,9 +25,9 @@ This is ~100 lines. No GPU needed. The proofs are symbolic.
 
 ## Connection to the SFT experiment
 
-The quantum annealing experiment (QUANT-EXP-1) showed:
-  - Quantum: Awe basin reached in 3/3 barrier cases (W ∈ {8, 10, 12})
-  - Classical: 0/48
+The quantum annealing simulation (QUANT-EXP-1, exact 8-qubit statevector) showed:
+  - Quantum, a fast anneal: Awe-dominant occupancy from 0.25 to 0.41 (W ∈ {8, 10, 12})
+  - Classical, a cold run from Fear: Awe in 0 of 200; simulated annealing not tested
 
 This file provides the Lean-level interpretation: the WKB tunnelling
 amplitude (from `LimbicTunnel.lean`) IS the matrix element that the
@@ -142,7 +142,7 @@ theorem wkbGate_creates_awe (W : ℝ) (hW : 0 < W) :
 /-! ## 5. Connection to QUANT-EXP-1 -/
 
 /-- QUANT-EXP-1 formalisation:
-    The quantum annealer reaches the Awe basin in 3/3 barrier cases
+    In the simulation a fast anneal shifts occupancy toward the Awe basin
     (W ∈ {8, 10, 12}).  Formally: the Born probability of measuring |awe⟩
     after applying the WKB gate from |fear⟩ is strictly positive for these W.
 

@@ -67,7 +67,7 @@ PROOFS STILL NEEDED (marked `sorry` below):
   2. `quantum_can_escape`  — WKB lower bound on tunnelling probability > 0.
   3. `barrier_monotone`    — Θ(W) strictly decreasing in W (proved analytically,
                              needs real analysis scaffolding).
-  4. `quant_exp_1_formal`  — formal statement of the 3/3 vs 0/48 result as a
+  4. `quant_exp_1_formal`  — formal statement of QUANT-EXP-1's occupancy result as a
                              probability inequality (needs measure theory).
 
 -/
@@ -211,7 +211,8 @@ theorem quantum_can_escape (W : ℝ) : 0 < wkbAmplitude W :=
     classical success probability for W ∈ {8, 10, 12}.
 
     PROOF OBLIGATION #4: Requires a probabilistic model of annealing trajectories.
-    The empirical evidence (3/3 quantum vs 0/48 classical) is in:
+    The simulation evidence (Awe-dominant occupancy 0.25 to 0.41 under a fast anneal; a cold
+    classical run from Fear 0 of 200; simulated annealing not tested) is in:
     paper/soma/quantum-soma-penrose/quantum-soma-penrose.md §QUANT-EXP-1. -/
 axiom quant_exp_1 (W : ℝ) (hW : W = 8 ∨ W = 10 ∨ W = 12) :
     -- P(quantum escape) > P(classical escape)
