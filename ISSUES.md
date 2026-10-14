@@ -4763,3 +4763,33 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       emotion labels leaking into non-biological scales; the jargon trap (a general-reader section,
       the Gateway booklet, lapsing into untranslated string theory without a reader bridge).
 
+---
+
+## ISS-095: ROOTED: the Soma Machine's science default, and an unlocked mode for the rest — OPEN
+{{Tags area.app, area.books}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct 14:27: the Soma Machine is, by default, science, as it is; everything there
+because it looks good ("non-science, it-looks-cool") moves into presets behind ROOTED, owned by
+the Root Monster. ROOTED is also the place for experimental things: the elevator gets a radio
+section there, greyed out as n/a for everyone else (a tease) but available to the author. ROOTED
+is over 18, so it can be more relaxed. And a rooted Atlas beside the Atlas: completely over the
+top, multi-page spreads of high-resolution fractals, just because.
+
+Copilot's opinion (agreed in outline): keep the Root Monster's specialist reader register as it
+is and make ROOTED a separate unlock it owns, so choosing the specialist register never turns
+the machine funky; write down what over 18 allows (language, darker material such as the film
+notes, intense visuals, flashing behind a warning) and what it never does (no clinical claims,
+nothing explicit); a confirm gate, not age verification. The rooted Atlas is an art edition,
+no science claims, kept out of the publication registry or as its own art record; bookfactory's
+Jumbo suits big spreads.
+
+- [ ] Inventory: every Soma Machine feature, tagged science or show, for the author to approve
+      (candidates for show: the Mandelbulb dive, the cathedral, MUNCH's bedtime tour, the visual
+      rhymes, stereo effects, the elevator).
+- [ ] ROOTED in the app: the unlock (Engine Room, the Root Monster), the presets, the elevator's
+      greyed radio section, a written over-18 rule, the warning gate; the default untouched.
+- [ ] The rooted Atlas: fractal spreads at print resolution (captures or a renderer), its own
+      build and edition.
+
+Order (author): after the release.
