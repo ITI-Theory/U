@@ -4950,3 +4950,55 @@ the overview can be the app's own views in frames that follow one another.
 - [ ] Author UAT: on the real desk (the 32-inch screen and the tablets).
 - [ ] The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
       matter and in the Gallery.
+
+## ISS-101: Three elevators: scale, dimension, frequency (the limbic and EM-field views) — OPEN
+{{Tags area.app, area.theory}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct 20:30: the elevator view is a 3D space viewer from small to large with a time
+slider (so 4D?); the brain views sit in other dimensions but are part of the same thing; could
+the limbic system and the EM field be shown in a complementary way, each with its own elevator?
+Model gap, bad thought, or new?
+
+Copilot's reading: the view is 3D space plus time (4D spacetime), and the elevator adds scale,
+a parameter rather than a direction in space (as in a renormalisation flow). In the model the
+brain's state is organised by dimension bands (body D1-7, limbic D8, mind D9-11: three, "one
+field, different types"); THEORY-STATUS: the 11D correspondence is a type isomorphism, not
+physical M-theory, and the anatomical brain stays in 3D. So three elevators, one per axis:
+- Scale (exists): the zoom dial, cell to cosmos.
+- Dimension (half exists: the 4D/8D/11D buttons): D1 to D11, body, the limbic hinge (D8),
+  mind; the limbic view's narrowing rings are this axis drawn sideways. In the model; only the
+  interface is missing.
+- Frequency (new): the brain's EM field (CEMI, the whole-brain level) by band, delta, theta,
+  alpha, beta, gamma. The bands are standard EEG; the papers have no frequency axis (gamma
+  once, in a wavenumber estimate in the Zoomable Somatic Field), so this is a model gap: any
+  mapping of bands to the model's types is new and interpretive, and must be labelled.
+The time slider runs through all three (eras, story-time, seconds). On the overview desk
+(ISS-100): the main screen the scale elevator (the jellyfish human), one tablet the limbic
+dimension elevator, one the EM-field frequency elevator: three views of one field.
+
+- [ ] The dimension elevator: D1 to D11 as floors, the limbic view as its picture.
+- [ ] The frequency elevator: sourced EEG bands at the whole-brain level; the model mapping, if
+      any, as a labelled hypothesis (a paper's question first, the author's call).
+- [ ] The overview desk's presets for the three.
+
+Author, 14 Oct 20:31: the model gap needs updating, and models and papers come first; but it
+is by doing the app, using the model, that we find these gaps: good, keep doing it. A visual
+to explore and fly through the limbic system is needed. Pre-release, a good point goes in, but
+stack a few before kicking off a big build, and UAT more first.
+Copilot's note for the fly-through: it extends the cathedral (ISS-077), whose route already
+ends in the temporal horn of the lateral ventricle; the hippocampus forms that horn's floor,
+the amygdala lies just in front of its tip, the fornix arches from the hippocampus along the
+ventricles to the hypothalamus (mammillary bodies), and the cingulate gyrus lies above the
+corpus callosum over the body of the ventricle: a sourced route through the limbic system with
+the ventricles as the road.
+- [ ] Papers first: the frequency axis of the field (the Zoomable Somatic Field paper, which
+      already has the gamma-band estimate, is the natural home; the author's call) and the
+      limbic route (P14, the missing limbic layer). Drafts for the author's OK; the papers'
+      claims are his.
+- [ ] Then the app: the limbic fly-through from the cathedral; the dimension and frequency
+      elevators.
+
+**Stacked for the next big build (author, 14 Oct: stack a few, UAT more first):** ISS-101
+(papers, then app), the Gallery's A3 and projector editions (ISS-097), the overview (ISS-100,
+done), SNAP and palace FX (done, in the app), the UAT walkaround's findings.

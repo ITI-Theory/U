@@ -5,7 +5,10 @@
 // dial, from the quantum foam at the bottom to the cosmic web at the top. One tower, one
 // elevator; each floor a round hall dressed by its sector: stone strata, a crowd's lights,
 // molecules, stars in the vault. A DOOR on each floor opens that level's own view (the app's
-// level renderers). The foam floor is the hall of the zero moment (mindfulness: everything
+// level renderers). FX (Φ above one half; author, 14 Oct: "def FX for the palace") lights the
+// halls: walls glowing in their sector's colour, lights drifting through the programme's pink
+// and blue, the fog thinning, a cloud of coloured motes, placed thoughts glowing; at Φ up to
+// one half the palace is as it was. The foam floor is the hall of the zero moment (mindfulness: everything
 // arises and passes, nothing is held). PLACE puts a thought in the hall; it stays there.
 // Interpretive: a building for the mind, not a claim about the cosmos.
 
@@ -14,6 +17,23 @@ import * as THREE from 'three';
 import { applyLook } from './look.js';
 
 const FLOOR_H = 3.2;
+const PINK = '#ff3bce';   // the programme's two colours (style.css --pink, --cyan)
+const BLUE = '#14e5ff';
+const PINK_C = new THREE.Color(PINK);
+const BLUE_C = new THREE.Color(BLUE);
+// a soft round point (the motes), not a square
+const SOFT = (() => {
+  const c = document.createElement('canvas');
+  c.width = c.height = 64;
+  const g = c.getContext('2d');
+  const r = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  r.addColorStop(0, 'rgba(255,255,255,1)');
+  r.addColorStop(0.35, 'rgba(255,255,255,0.6)');
+  r.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = r;
+  g.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(c);
+})();
 const HALL_R = 4.2;
 
 const STYLE = {
@@ -81,7 +101,10 @@ export function createPalace3D(floors) {
   const stereo = new THREE.StereoCamera();
   stereo.eyeSep = 0.06;
   const size = new THREE.Vector2();
-  scene.add(new THREE.AmbientLight('#605878', 0.7));
+  const ambient = new THREE.AmbientLight('#605878', 0.7);
+  scene.add(ambient);
+  const restBackground = new THREE.Color('#05040a');
+  const hue = new THREE.Color();
   const lamp = new THREE.PointLight('#fff2d8', 1.4, 14, 1.2);
   scene.add(lamp);
 
@@ -104,6 +127,22 @@ export function createPalace3D(floors) {
     const glow = new THREE.PointLight(style.glow, 0.8, 7, 1.5);
     glow.position.set(0, 1.6, -HALL_R + 1);
     group.add(glow);
+    // FX: motes in the hall's colour, the programme's pink and blue among them (hidden at rest)
+    const nm = 360;
+    const mp = new Float32Array(nm * 3), mc = new Float32Array(nm * 3);
+    const palette = [new THREE.Color(style.glow), new THREE.Color(PINK), new THREE.Color(BLUE), new THREE.Color('#ffffff')];
+    for (let i = 0; i < nm; i++) {
+      const a = Math.random() * Math.PI * 2, r = 1.1 + Math.random() * (HALL_R - 1.4);
+      mp.set([Math.cos(a) * r, 0.15 + Math.random() * (FLOOR_H - 0.4), Math.sin(a) * r], i * 3);
+      const c = palette[i % palette.length];
+      mc.set([c.r, c.g, c.b], i * 3);
+    }
+    const mgeo = new THREE.BufferGeometry();
+    mgeo.setAttribute('position', new THREE.Float32BufferAttribute(mp, 3));
+    mgeo.setAttribute('color', new THREE.Float32BufferAttribute(mc, 3));
+    const motes = new THREE.Points(mgeo, new THREE.PointsMaterial({ size: 0.05, map: SOFT, vertexColors: true, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+    motes.visible = false;
+    group.add(motes);
     // the foam: the hall of the zero moment, sparks that arise and pass
     let sparks = null;
     if (f.id === 'quantum-foam') {
@@ -115,7 +154,7 @@ export function createPalace3D(floors) {
       group.add(sparks);
     }
     scene.add(group);
-    return { f, group, door, glow, sparks, placed: [] };
+    return { f, group, wall, door, glow, motes, sparks, placed: [], base: { wall: new THREE.Color(style.wall), glow: new THREE.Color(style.glow) } };
   });
   // the shaft and the car: a glass column in the middle, a ring that rides it
   const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, floors.length * FLOOR_H, 24, 1, true), new THREE.MeshBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.08, side: THREE.DoubleSide, depthWrite: false }));
@@ -163,11 +202,34 @@ export function createPalace3D(floors) {
       camera.lookAt(Math.sin(yaw) * HALL_R, carY + 1.4, -Math.cos(yaw) * HALL_R);
       applyLook(camera);
       lamp.position.copy(camera.position);
+      // FX: 0 up to Φ = 0.5 (the palace as it was), 1 at Φ = 1
+      const fx = Math.max(0, Math.min(1, ((state.phi ?? 0) - 0.5) / 0.5));
+      ambient.intensity = 0.7 + 0.3 * fx;
+      lamp.intensity = 1.4 + 0.5 * fx;
+      scene.fog.density = 0.035 * (1 - 0.55 * fx);
       halls.forEach((h, k) => {
         const near = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 1.5;
         h.group.visible = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 4;
-        h.door.material.opacity = (near ? 0.5 : 0.25) + 0.15 * Math.sin(state.time * 1.5 + k);
-        for (const m of h.placed) m.rotation.y += dt * 0.6;
+        h.door.material.opacity = (near ? 0.5 : 0.25) + 0.15 * Math.sin(state.time * 1.5 + k) + 0.3 * fx;
+        // FX: the walls light in their sector's colour, the hall's light drifts through pink and blue
+        // the programme's pink and blue, drifting, not the hall's own (often pale) colour
+        const swing = 0.5 + 0.5 * Math.sin(state.time * 0.4 + k * 1.3);
+        hue.copy(PINK_C).lerp(BLUE_C, swing);
+        h.wall.material.emissiveIntensity = 0.25 + 0.55 * fx;
+        h.wall.material.emissive.copy(h.base.wall).lerp(hue, 0.65 * fx);
+        h.glow.color.copy(h.base.glow).lerp(hue, 0.8 * fx);
+        h.glow.intensity = 0.8 + 2.2 * fx;
+        h.motes.visible = fx > 0 && near;
+        if (h.motes.visible) {
+          h.motes.material.opacity = 0.9 * fx;
+          h.motes.material.size = 0.04 + 0.05 * fx;
+          h.motes.rotation.y += dt * (0.05 + 0.25 * fx);
+        }
+        for (const m of h.placed) {
+          m.rotation.y += dt * (0.6 + 1.4 * fx);
+          m.material.emissiveIntensity = 0.6 + 0.9 * fx;
+          m.scale.setScalar(1 + 0.25 * fx * (0.5 + 0.5 * Math.sin(state.time * 3 + m.id)));
+        }
         if (h.sparks) {
           const pos = h.sparks.geometry.attributes.position;
           const life = h.sparks.userData.life;
@@ -183,6 +245,8 @@ export function createPalace3D(floors) {
           h.sparks.material.opacity = 0.5 + 0.4 * Math.sin(state.time * 9);
         }
       });
+      scene.background.copy(restBackground).lerp(hue, 0.08 * fx);
+      scene.fog.color.copy(scene.background);
       renderer.getSize(size);
       if (state.stereo === 'half' || state.stereo === 'full') {
         camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;

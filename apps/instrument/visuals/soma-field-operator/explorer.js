@@ -857,7 +857,7 @@ function makeBrain() {
         const pg = env.gl;
         // a floor asked for in the address (palace=1&pf=N): ride there once the palace exists
         if (env.palaceFloor) { pg.go(env.palaceFloor - 1); env.palaceFloor = 0; palaceFloorWanted = 0; }
-        pg.render({ time: t, stereo: env.stereo });
+        pg.render({ time: t, stereo: env.stereo, phi });
         if (env.labels) {
           const f = pg.floorInfo(pg.floor);
           const tgt = pg.floorInfo(pg.target);
@@ -3116,6 +3116,7 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="snap" title="SNAP (S): save this moment as a somagram, the picture and its [T]-stop (the field's reading), for A Gallery of Thoughts; Shift+S keeps the labels">SNAP</button>
+      <button type="button" data-act="snapsay" title="SNAP + SAY (V): the picture, then speak a caption (8 s). Speech recognition is the browser's: Chrome sends the audio to Google, Edge to Microsoft">SNAP + SAY</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="wayin" title="THE WAY IN (ISS-077): ride from the heart up the arteries to the circle of Willis and the middle cerebral artery, then arrive at the BRAIN cathedral">WAY IN ▸</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
@@ -3847,6 +3848,7 @@ export function createExplorer(hooks = {}) {
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
     else if (b.dataset.act === 'snap') snapper.request(event.shiftKey);
+    else if (b.dataset.act === 'snapsay') snapper.request(event.shiftKey, true);
     else if (b.dataset.act === 'kc') {
       st.kc = SETTING_IDS[(SETTING_IDS.indexOf(st.kc) + 1) % SETTING_IDS.length];
       syncUi();
@@ -4001,6 +4003,7 @@ export function createExplorer(hooks = {}) {
     if (event.key === 'ArrowRight' && i < STOPS.length - 1) go(STOPS[i + 1]);
     else if (event.key === 'ArrowLeft' && i > 0) go(STOPS[i - 1]);
     else if (event.key.toLowerCase() === 's' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey);
+    else if (event.key.toLowerCase() === 'v' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey, true);
     else if (event.key === 'Escape') {
       api.hide();
       hooks.onChange?.();

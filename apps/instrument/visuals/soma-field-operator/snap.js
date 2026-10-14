@@ -4,12 +4,37 @@
 // it is on the screen (at the screen's resolution: full screen on a 4K display is 3840 wide)
 // and beside it a JSON file with its [T]-stop, the reading of the field when it was taken
 // (the address, which makes the view again; the stop; Φ; the dimension; the score's seven
-// feelings at that moment). Shift+S keeps the app's labels in the picture.
+// feelings at that moment). Shift+S keeps the app's labels in the picture. SNAP + SAY (V):
+// after the picture the app listens for up to 8 s and what you say becomes the somagram's
+// caption (`said`). Speech recognition is the browser's (Chrome sends the audio to Google, Edge
+// to Microsoft); without it, SAY is skipped.
 // Saving: Chrome and Edge ask once per session for a folder (choose bld/gallery/snaps; the
 // Gallery's renderer reads it); other browsers download the two files.
 //
 // A WebGL canvas is cleared after it is shown, so the picture is copied inside the frame
 // that drew it: request() marks the wish, the explorer's frame calls take() after drawing.
+
+// SAY: up to 8 s of speech, the browser's recognition, the best transcript (or '' if none)
+function hear(tell) {
+  const Recognition = globalThis.SpeechRecognition ?? globalThis.webkitSpeechRecognition;
+  if (!Recognition) {
+    tell('SAY: this browser has no speech recognition (use Chrome or Edge)');
+    return Promise.resolve('');
+  }
+  return new Promise(resolve => {
+    const r = new Recognition();
+    r.lang = navigator.language || 'en-GB';
+    r.interimResults = false;
+    r.maxAlternatives = 1;
+    let text = '';
+    const stop = setTimeout(() => r.stop(), 8000);
+    r.onresult = event => { text = Array.from(event.results).map(x => x[0].transcript).join(' ').trim(); };
+    r.onerror = () => {};
+    r.onend = () => { clearTimeout(stop); resolve(text); };
+    tell('SAY IT NOW: a caption for this picture (8 s)');
+    try { r.start(); } catch { clearTimeout(stop); resolve(''); }
+  });
+}
 
 export function createSnapper() {
   let wanted = null;
@@ -55,13 +80,13 @@ export function createSnapper() {
   return {
     get wanted() { return Boolean(wanted); },
     // from a click or a key (a user gesture, so the folder can be asked for now)
-    request(withLabels = false) {
-      wanted = { withLabels };
+    request(withLabels = false, say = false) {
+      wanted = { withLabels, say };
       folder();
     },
     // gl: the stop's 3D canvas (or null), overlay: the explorer's 2D canvas, reading: the [T]-stop
     take(gl, overlay, reading) {
-      const { withLabels } = wanted;
+      const { withLabels, say: listen } = wanted;
       wanted = null;
       const source = gl ?? overlay;
       const out = document.createElement('canvas');
@@ -80,8 +105,12 @@ export function createSnapper() {
       out.toBlob(async blob => {
         try {
           const where = await save(`${name}.png`, blob);
+          if (listen) {
+            const said = await hear(text => say(text));
+            if (said) record.said = said;
+          }
           await save(`${name}.json`, new Blob([`${JSON.stringify(record, null, 2)}\n`], { type: 'application/json' }));
-          say(`SNAP: ${name} (${out.width} x ${out.height}) saved to ${where}`);
+          say(`SNAP: ${name} (${out.width} x ${out.height}) saved to ${where}${record.said ? `: "${record.said}"` : ''}`);
         } catch (error) {
           say(`SNAP failed: ${error.message ?? error}`);
         }

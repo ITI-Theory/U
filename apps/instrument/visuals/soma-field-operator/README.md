@@ -147,6 +147,21 @@ while one slider moves them all. A fresh start (no address of its own) goes, aft
 abstract, to the main screen's view: the jellyfish human with the level elevator
 (`voyage=human`).
 
+## SNAP: somagrams for A Gallery of Thoughts
+
+In the mind-body explorer, SNAP (or S) saves the moment as a somagram (ISS-097): the picture
+as it is on the screen (full screen on a 4K display gives 3840 wide; no labels, Shift+S keeps
+them) and a JSON file with its [T]-stop, the field's reading when it was taken (the address,
+the stop, Φ, the dimension, the score's seven feelings as they were). SNAP + SAY (or V) then
+listens for up to 8 s and what you say becomes the caption (`said`); the recognition is the
+browser's (Chrome sends the audio to Google, Edge to Microsoft). Chrome and Edge ask once per
+session for a folder: choose `bld/gallery/snaps`; elsewhere the files go to Downloads.
+`python lib/art/gallery.py OUT --snaps` lists them as plate lines for `registry/gallery.yaml`.
+
+The mind palace answers FX: up to Φ = 0.5 it is as it was; above, the halls light in the
+programme's pink and blue, the fog thins, coloured motes fill the hall and placed thoughts
+glow.
+
 ## Maintenance deck
 
 Open `?screen=maintenance` (or ROLE until MAINTENANCE) for a static H-AL admin

@@ -15,7 +15,10 @@
 # Part2/book/gallery-of-thoughts plates`); the book's filter lays out the rooms from here.
 # The curator's cut (author, 14 Oct: "only good art"): `candidate: true` marks a plate offered
 # but not yet chosen; `make contact` draws every plate numbered, the author strikes the weak
-# ones, and the survivors (the flag removed) set the book's length.
+# ones, and the survivors (the flag removed) set the book's length. First cut, 14 Oct 20:13:
+# struck: the River score (murky at print), the 1966 crowd (nearly black), a third city,
+# the 1911 dyad and region (too empty); every other candidate kept (Copilot's suggestion,
+# the author's go).
 schema_version: 1
 title: A Gallery of Thoughts
 subtitle: "[T]-Theory, as pictures"
@@ -77,11 +80,11 @@ rooms:
          caption: "The jellyfish human, as a first drawing: the body as one field."}
       - {id: roots-world, src: Part2/book/field-atlas/figures/app/voyage/world-1.png, chain: ["stage:0.05"],
          caption: "The first world, before it had colour."}
-      - {id: roots-bird, src: Part2/book/field-atlas/figures/app/atlas-plates/28-bird--11d.png, chain: ["stage:0"], candidate: true,
+      - {id: roots-bird, src: Part2/book/field-atlas/figures/app/atlas-plates/28-bird--11d.png, chain: ["stage:0"],
          caption: "A bird, a first drawing."}
-      - {id: roots-vertebrate, src: Part2/book/field-atlas/figures/app/atlas-plates/09-human-vertebrate--11d.png, chain: ["stage:0.02"], candidate: true,
+      - {id: roots-vertebrate, src: Part2/book/field-atlas/figures/app/atlas-plates/09-human-vertebrate--11d.png, chain: ["stage:0.02"],
          caption: "The human level, in outline."}
-      - {id: roots-wayin, src: Part2/book/field-atlas/figures/app/voyage/wayin.png, chain: ["stage:0.05"], candidate: true,
+      - {id: roots-wayin, src: Part2/book/field-atlas/figures/app/voyage/wayin.png, chain: ["stage:0.05"],
          caption: "The way in: a door drawn before it opened."}
   - id: plastic
     title: Exploding Plastic Inevitable
@@ -96,11 +99,9 @@ rooms:
          caption: "The river score in black and white."}
       - {id: plastic-thoughts, src: Part2/book/field-atlas/figures/app/voyage/thoughts.png, chain: ["retro_bw"],
          caption: "Thoughts as avalanches, grain and all."}
-      - {id: plastic-group, src: Part2/book/field-atlas/figures/app/atlas-plates/11-human-group--11d.png, chain: ["retro_bw"], candidate: true,
-         caption: "A group, in the grain of 1966."}
-      - {id: plastic-human, src: Part2/book/field-atlas/figures/app/voyage/human.png, chain: ["retro_bw"], candidate: true,
+      - {id: plastic-human, src: Part2/book/field-atlas/figures/app/voyage/human.png, chain: ["retro_bw"],
          caption: "The jellyfish human, lit like a stage."}
-      - {id: plastic-body, src: Part2/book/field-atlas/figures/app/voyage/score-body.png, chain: ["retro_bw"], candidate: true,
+      - {id: plastic-body, src: Part2/book/field-atlas/figures/app/voyage/score-body.png, chain: ["retro_bw"],
          caption: "The body score, as film."}
   - id: lean
     title: Learning Lean
@@ -112,8 +113,6 @@ rooms:
          caption: "The city of code: every tower a Lean file, every floor a theorem."}
       - {id: lean-floor, src: Part2/book/field-atlas/figures/app/voyage/city-floor.png, chain: ["stage:0.15"],
          caption: "One floor: the field's Green's function is that of a harmonic oscillator."}
-      - {id: lean-beams, src: Part2/book/field-atlas/figures/app/voyage/city-beams.png, chain: ["stage:0.12"], candidate: true,
-         caption: "Beams between towers: one proof leaning on another."}
   - id: leibniz
     title: Calculemus
     when: "1714, and April 2026"
@@ -125,9 +124,9 @@ rooms:
          caption: "A tower of the city, engraved: a proof stands on the axioms beneath it."}
       - {id: leibniz-brain, src: Part2/book/field-atlas/figures/app/atlas-plates/08-whole-brain-cemi--11d.png, chain: ["engraving"],
          caption: "The whole brain, as a plate in an eighteenth-century book."}
-      - {id: leibniz-orbits, src: Part2/book/field-atlas/figures/app/atlas-plates/18-orbital-system--11d.png, chain: ["engraving"], candidate: true,
+      - {id: leibniz-orbits, src: Part2/book/field-atlas/figures/app/atlas-plates/18-orbital-system--11d.png, chain: ["engraving"],
          caption: "The planets' orbits, engraved as an astronomy plate of his day."}
-      - {id: leibniz-planet, src: Part2/book/field-atlas/figures/app/atlas-plates/17-planetary--11d.png, chain: ["engraving"], candidate: true,
+      - {id: leibniz-planet, src: Part2/book/field-atlas/figures/app/atlas-plates/17-planetary--11d.png, chain: ["engraving"],
          caption: "A planet, in copper."}
   - id: first-paper
     title: The first paper
@@ -141,7 +140,7 @@ rooms:
          caption: "The body in fight: the field drawn from the inside."}
       - {id: first-grief, src: Part2/book/field-atlas/figures/app/voyage/body-grief.png, chain: ["stage:0.3"],
          caption: "The body in grief: the same field, another shape."}
-      - {id: first-path, src: Part2/book/field-atlas/figures/app/voyage/path.png, chain: ["stage:0.28"], candidate: true,
+      - {id: first-path, src: Part2/book/field-atlas/figures/app/voyage/path.png, chain: ["stage:0.28"],
          caption: "The path of a thought, from body to cortex."}
   - id: penrose
     title: Drawn by hand
@@ -154,11 +153,11 @@ rooms:
          caption: "One neuron, in pencil."}
       - {id: penrose-synapse, src: Part2/book/field-atlas/figures/app/atlas-plates/06-cellular-synaptic--11d.png, chain: ["pencil"],
          caption: "The cellular and synaptic level, where the quantum question is asked."}
-      - {id: penrose-compact, src: Part2/book/field-atlas/figures/app/atlas-plates/20-compact-object--11d.png, chain: ["pencil"], candidate: true,
+      - {id: penrose-compact, src: Part2/book/field-atlas/figures/app/atlas-plates/20-compact-object--11d.png, chain: ["pencil"],
          caption: "A compact object, in pencil. Penrose showed in 1965 that collapse to a singularity is generic, not a special case."}
-      - {id: penrose-strings, src: Part2/book/field-atlas/figures/app/atlas-plates/02-string-boundary--11d.png, chain: ["pencil"], candidate: true,
+      - {id: penrose-strings, src: Part2/book/field-atlas/figures/app/atlas-plates/02-string-boundary--11d.png, chain: ["pencil"],
          caption: "The string boundary, drawn by hand."}
-      - {id: penrose-foam, src: Part2/book/field-atlas/figures/app/atlas-plates/01-quantum-foam--11d.png, chain: ["pencil"], candidate: true,
+      - {id: penrose-foam, src: Part2/book/field-atlas/figures/app/atlas-plates/01-quantum-foam--11d.png, chain: ["pencil"],
          caption: "The quantum foam, where the question begins."}
   - id: summer
     title: The long summer
@@ -172,11 +171,11 @@ rooms:
          caption: "The whole brain in the universal somatic field."}
       - {id: summer-foam, src: Part2/book/field-atlas/figures/app/atlas-plates/01-quantum-foam--11d.png, chain: ["stage:0.5"],
          caption: "The bottom of the ladder, in eleven dimensions."}
-      - {id: summer-flock, src: Part2/book/field-atlas/figures/app/atlas-plates/30-flock--11d.png, chain: ["stage:0.45"], candidate: true,
+      - {id: summer-flock, src: Part2/book/field-atlas/figures/app/atlas-plates/30-flock--11d.png, chain: ["stage:0.45"],
          caption: "A flock turning as one."}
-      - {id: summer-circuit, src: Part2/book/field-atlas/figures/app/atlas-plates/07-local-circuit--11d.png, chain: ["stage:0.5"], candidate: true,
+      - {id: summer-circuit, src: Part2/book/field-atlas/figures/app/atlas-plates/07-local-circuit--11d.png, chain: ["stage:0.5"],
          caption: "A local circuit of neurons."}
-      - {id: summer-molecule, src: Part2/book/field-atlas/figures/app/atlas-plates/05-molecular--11d.png, chain: ["stage:0.5"], candidate: true,
+      - {id: summer-molecule, src: Part2/book/field-atlas/figures/app/atlas-plates/05-molecular--11d.png, chain: ["stage:0.5"],
          caption: "The molecular level."}
   - id: august
     title: Fifteen books
@@ -190,13 +189,13 @@ rooms:
          caption: "The cosmic web, the top of the ladder."}
       - {id: august-compact, src: Part2/book/field-atlas/figures/app/atlas-plates/20-compact-object--11d.png, chain: ["stage:0.7"],
          caption: "A compact object, where the ladder meets gravity at its strongest."}
-      - {id: august-disc, src: Part2/book/field-atlas/figures/app/atlas-plates/22-galactic-disc--11d.png, chain: ["stage:0.62"], candidate: true,
+      - {id: august-disc, src: Part2/book/field-atlas/figures/app/atlas-plates/22-galactic-disc--11d.png, chain: ["stage:0.62"],
          caption: "A galactic disc."}
-      - {id: august-geology, src: Part2/book/field-atlas/figures/app/atlas-plates/16-geological--11d.png, chain: ["stage:0.65"], candidate: true,
+      - {id: august-geology, src: Part2/book/field-atlas/figures/app/atlas-plates/16-geological--11d.png, chain: ["stage:0.65"],
          caption: "The geological level: a planet's slow field."}
-      - {id: august-city, src: Part2/book/field-atlas/figures/app/atlas-plates/13-society-city--11d.png, chain: ["stage:0.68"], candidate: true,
+      - {id: august-city, src: Part2/book/field-atlas/figures/app/atlas-plates/13-society-city--11d.png, chain: ["stage:0.68"],
          caption: "A city: the level the law book reads."}
-      - {id: august-cluster, src: Part2/book/field-atlas/figures/app/atlas-plates/24-galaxy-cluster--11d.png, chain: ["stage:0.7"], candidate: true,
+      - {id: august-cluster, src: Part2/book/field-atlas/figures/app/atlas-plates/24-galaxy-cluster--11d.png, chain: ["stage:0.7"],
          caption: "A cluster of galaxies."}
   - id: september
     title: The quiet month
@@ -207,7 +206,7 @@ rooms:
     plates:
       - {id: september-universe, src: Part2/book/field-atlas/figures/app/atlas-plates/26-observable-universe--11d.png, chain: ["stage:0.78"],
          caption: "The observable universe, half drawn, half lit."}
-      - {id: september-filaments, src: Part2/book/field-atlas/figures/app/atlas-plates/25-cosmic-filaments--11d.png, chain: ["stage:0.78"], candidate: true,
+      - {id: september-filaments, src: Part2/book/field-atlas/figures/app/atlas-plates/25-cosmic-filaments--11d.png, chain: ["stage:0.78"],
          caption: "The cosmic filaments, at dusk."}
   - id: russell
     title: The ladder of 1911
@@ -222,14 +221,10 @@ rooms:
          caption: "Emotion and thought, as composition."}
       - {id: russell-score, src: Part2/book/field-atlas/figures/app/voyage/score-mind.png, chain: ["abstraction_1911"],
          caption: "The score of a mind: Kandinsky heard colours; here the colours are a score."}
-      - {id: russell-tower, src: Part2/book/field-atlas/figures/app/voyage/city-tower.png, chain: ["abstraction_1911"], candidate: true,
+      - {id: russell-tower, src: Part2/book/field-atlas/figures/app/voyage/city-tower.png, chain: ["abstraction_1911"],
          caption: "A tower of proofs: Russell's ladder of types, in Kandinsky's colours."}
-      - {id: russell-dyad, src: Part2/book/field-atlas/figures/app/atlas-plates/10-dyad--11d.png, chain: ["abstraction_1911"], candidate: true,
-         caption: "Two people, two fields, one coupling."}
-      - {id: russell-ureter, src: Part2/book/field-atlas/figures/app/voyage/ureter-1.png, chain: ["abstraction_1911"], candidate: true,
+      - {id: russell-ureter, src: Part2/book/field-atlas/figures/app/voyage/ureter-1.png, chain: ["abstraction_1911"],
          caption: "A pain's first stage, as composition."}
-      - {id: russell-region, src: Part2/book/field-atlas/figures/app/atlas-plates/14-regional-institutional--11d.png, chain: ["abstraction_1911"], candidate: true,
-         caption: "Institutions, as fields of colour."}
   - id: october
     title: The Soma Machine
     when: October 2026
@@ -250,27 +245,25 @@ rooms:
          caption: "The path of a pain, followed."}
       - {id: october-score, src: Part2/book/field-atlas/figures/app/voyage/score-mind.png, chain: ["stage:1"],
          caption: "The score of a mind."}
-      - {id: october-wayin, src: Part2/book/field-atlas/figures/app/voyage/wayin.png, chain: ["stage:1"], candidate: true,
+      - {id: october-wayin, src: Part2/book/field-atlas/figures/app/voyage/wayin.png, chain: ["stage:1"],
          caption: "The way in."}
-      - {id: october-palace, src: Part2/book/field-atlas/figures/app/voyage/palace-1.png, chain: ["stage:1"], candidate: true,
+      - {id: october-palace, src: Part2/book/field-atlas/figures/app/voyage/palace-1.png, chain: ["stage:1"],
          caption: "The mind palace, first hall."}
-      - {id: october-neuron, src: Part2/book/field-atlas/figures/app/voyage/neuron.png, chain: ["stage:1"], candidate: true,
+      - {id: october-neuron, src: Part2/book/field-atlas/figures/app/voyage/neuron.png, chain: ["stage:1"],
          caption: "One neuron."}
-      - {id: october-path, src: Part2/book/field-atlas/figures/app/voyage/path.png, chain: ["stage:1"], candidate: true,
+      - {id: october-path, src: Part2/book/field-atlas/figures/app/voyage/path.png, chain: ["stage:1"],
          caption: "The path of a thought."}
-      - {id: october-dyad, src: Part2/book/field-atlas/figures/app/voyage/dyad.png, chain: ["stage:1"], candidate: true,
+      - {id: october-dyad, src: Part2/book/field-atlas/figures/app/voyage/dyad.png, chain: ["stage:1"],
          caption: "The dyad."}
-      - {id: october-ureter-1, src: Part2/book/field-atlas/figures/app/voyage/ureter-1.png, chain: ["stage:1"], candidate: true,
+      - {id: october-ureter-1, src: Part2/book/field-atlas/figures/app/voyage/ureter-1.png, chain: ["stage:1"],
          caption: "The ureter, first stage."}
-      - {id: october-ureter-2, src: Part2/book/field-atlas/figures/app/voyage/ureter-2.png, chain: ["stage:1"], candidate: true,
+      - {id: october-ureter-2, src: Part2/book/field-atlas/figures/app/voyage/ureter-2.png, chain: ["stage:1"],
          caption: "Second stage."}
-      - {id: october-ureter-3, src: Part2/book/field-atlas/figures/app/voyage/ureter-3.png, chain: ["stage:1"], candidate: true,
+      - {id: october-ureter-3, src: Part2/book/field-atlas/figures/app/voyage/ureter-3.png, chain: ["stage:1"],
          caption: "Third stage."}
-      - {id: october-ureter-4, src: Part2/book/field-atlas/figures/app/voyage/ureter-4.png, chain: ["stage:1"], candidate: true,
+      - {id: october-ureter-4, src: Part2/book/field-atlas/figures/app/voyage/ureter-4.png, chain: ["stage:1"],
          caption: "Fourth stage."}
-      - {id: october-river, src: Part2/book/field-atlas/figures/app/voyage/score-river.png, chain: ["stage:1"], candidate: true,
-         caption: "The river score."}
-      - {id: october-body-score, src: Part2/book/field-atlas/figures/app/voyage/score-body.png, chain: ["stage:1"], candidate: true,
+      - {id: october-body-score, src: Part2/book/field-atlas/figures/app/voyage/score-body.png, chain: ["stage:1"],
          caption: "The body score."}
   - id: thoughts
     title: Pictures of thoughts
@@ -285,27 +278,27 @@ rooms:
          caption: "Descent. The river narrows; curiosity rises, and the surface opens into petals."}
       - {id: thoughts-approach, src: "hires:g-mind-approach", chain: ["stage:1"],
          caption: "Before the first threshold: fear rising, the colour cooling, the edges hardening."}
-      - {id: thoughts-deep, src: "hires:g-mind-deep", chain: ["stage:1"], candidate: true,
+      - {id: thoughts-deep, src: "hires:g-mind-deep", chain: ["stage:1"],
          caption: "The Deep River: no safety, no words; the pre-verbal deepens the fractal."}
       - {id: thoughts-awe, src: "hires:g-mind-awe", chain: ["stage:1"],
          caption: "Awe at its height: the mind past words."}
       - {id: thoughts-return, src: "hires:g-mind-return", chain: ["stage:1"],
          caption: "Return. The world has not changed. You have."}
-      - {id: thoughts-awe-pencil, src: "hires:g-mind-awe", chain: ["pencil"], candidate: true,
+      - {id: thoughts-awe-pencil, src: "hires:g-mind-awe", chain: ["pencil"],
          caption: "Awe again, drawn by hand: the same mind, less synthetic."}
-      - {id: thoughts-descent-engraved, src: "hires:g-mind-descent", chain: ["engraving"], candidate: true,
+      - {id: thoughts-descent-engraved, src: "hires:g-mind-descent", chain: ["engraving"],
          caption: "Descent, engraved."}
       - {id: thoughts-river, src: "hires:g-river-departure", chain: ["stage:1"],
          caption: "The same score as a river: the boat leaving at dusk."}
       - {id: thoughts-dive, src: "hires:g-dive-1", chain: ["stage:1"],
          caption: "The dive into the mind: the surface keeps unfolding as you fall."}
-      - {id: thoughts-dive-fast, src: "hires:g-dive-fast", chain: ["stage:1"], candidate: true,
+      - {id: thoughts-dive-fast, src: "hires:g-dive-fast", chain: ["stage:1"],
          caption: "The same dive with the limbic field near full: hotter, faster."}
       - {id: thoughts-tunnel, src: "hires:g-tunnel-brain", chain: ["stage:1"],
          caption: "The path of a thought; its walls are the fractal of the level."}
-      - {id: thoughts-tunnel-city, src: "hires:g-tunnel-city", chain: ["stage:1"], candidate: true,
+      - {id: thoughts-tunnel-city, src: "hires:g-tunnel-city", chain: ["stage:1"],
          caption: "The same path at the level of a city: Menger cubes, the towers of the city of code."}
-      - {id: thoughts-sea, src: "hires:g-sea", chain: ["stage:1"], candidate: true,
+      - {id: thoughts-sea, src: "hires:g-sea", chain: ["stage:1"],
          caption: "The inner sea: coral and flowers in one current."}
       - {id: thoughts-calm, src: "hires:g-cave-calm", chain: ["stage:1"],
          caption: "It is calm: the cathedral of the fourth ventricle, the field as light in the stone, the curtains of the choroid plexus."}
@@ -315,6 +308,8 @@ rooms:
          caption: "It grows as it comes closer."}
       - {id: thoughts-seven, src: "hires:g-cave-seven-7", chain: ["stage:1"],
          caption: "Then there are seven, and, and, and."}
+      - {id: thoughts-palace, src: "hires:g-palace-cosmos", chain: ["stage:1"],
+         caption: "The mind palace, top floor, the cosmos, the field at full: thoughts placed in the hall, to come back and find."}
   - id: inside
     title: Universes inside universes
     when: 14 October 2026
@@ -328,9 +323,9 @@ rooms:
          caption: "The universe that holds the brain, bent the same way."}
       - {id: inside-anatomy, src: Part2/book/field-atlas/figures/app/voyage/cave-anatomy.png, chain: ["distort:1.5"],
          caption: "A map, one level up, never the territory."}
-      - {id: inside-web, src: Part2/book/field-atlas/figures/app/atlas-plates/27-cosmic-web--11d.png, chain: ["distort:2"], candidate: true,
+      - {id: inside-web, src: Part2/book/field-atlas/figures/app/atlas-plates/27-cosmic-web--11d.png, chain: ["distort:2"],
          caption: "The cosmic web, bent."}
-      - {id: inside-human, src: Part2/book/field-atlas/figures/app/voyage/human.png, chain: ["distort:2"], candidate: true,
+      - {id: inside-human, src: Part2/book/field-atlas/figures/app/voyage/human.png, chain: ["distort:2"],
          caption: "The human inside it, bent the same way."}
-      - {id: inside-hall, src: Part2/book/field-atlas/figures/app/voyage/palace-1.png, chain: ["distort:3"], candidate: true,
+      - {id: inside-hall, src: Part2/book/field-atlas/figures/app/voyage/palace-1.png, chain: ["distort:3"],
          caption: "A hall of the palace, at the field's full amplitude."}

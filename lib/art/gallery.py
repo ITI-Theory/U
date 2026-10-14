@@ -246,8 +246,15 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--format", action="append", help="format(s) to render (default: all)")
     ap.add_argument("--only", help="comma-separated plate ids")
     ap.add_argument("--contact", action="store_true", help="also write a numbered contact sheet (the curator's cut)")
+    ap.add_argument("--snaps", action="store_true", help="list the author's somagrams (bld/gallery/snaps) as registry plate lines, what he said as the caption")
     a = ap.parse_args(argv)
     reg = yaml.safe_load(a.registry.read_text(encoding="utf-8"))
+    if a.snaps:
+        for f in sorted(SNAPS.glob("somagram-*.json")):
+            snap = json.loads(f.read_text(encoding="utf-8"))
+            said = (snap.get("said") or "").replace('"', "'")
+            print(f'      - {{id: snap-{f.stem[9:]}, src: "snap:{f.stem}", chain: ["stage:1"], candidate: true,\n         caption: "{said}"}}')
+        return 0
     only = set(a.only.split(",")) if a.only else None
     for fmt in a.format or list(reg["formats"]):
         render(reg, a.out, fmt, only)
