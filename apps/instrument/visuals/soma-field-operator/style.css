@@ -508,6 +508,12 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__pop.is-dive img { display: none; max-height: 44vh; }
 .explorer__pop.is-dive.show-picture img { display: inline-block; }
 .explorer__pop-nav { display: flex; gap: 10px; }
+/* the great hall's elevator: the floors, top first */
+.explorer__lift { position: absolute; z-index: 7; right: 4vw; top: 12vh; width: min(420px, 90vw); max-height: 76vh; overflow: auto; padding: 14px 16px; border: 1px solid rgba(94,231,255,.5); background: rgba(6,8,20,.86); }
+.explorer__lift h2 { margin: 0 0 10px; color: #5ee7ff; font: 700 12px/1.3 'Space Mono', monospace; letter-spacing: .1em; }
+.explorer__lift-floors { display: grid; gap: 4px; margin-bottom: 10px; }
+.explorer__lift-floors button { text-align: left; }
+.explorer__lift-floors button.active { color: #070a16; background: #5ee7ff; }
 .explorer__pop:not(.is-dive) [data-pop="picture"] { display: none; }
 .explorer__gl.explorer__dive-in { z-index: 1; transition: none; animation: explorer-dive-in 1s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes explorer-dive-in { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(80% at 50% 50%); } }

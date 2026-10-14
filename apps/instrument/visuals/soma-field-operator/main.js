@@ -1216,6 +1216,8 @@ function readHashState() {
     uv: params.get('uv'),
     floor: params.get('floor'),
     palace: params.get('palace'),
+    hall: params.get('hall'),
+    cave: params.get('cave'),
     pf: params.get('pf'),
   };
 }
@@ -1729,6 +1731,8 @@ function applyVoyage(hashState) {
   explorer.setLoop({ bpm: hashState.bpm, kr: hashState.kr });
   explorer.setTower(hashState.tower, hashState.floor);
   explorer.setPalace(hashState.palace, hashState.pf);
+  explorer.setHall(hashState.hall);
+  explorer.setCave(hashState.cave);
   explorer.setUreter({ uo: hashState.uo, uv: hashState.uv });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2278,6 +2282,8 @@ function hashForState() {
       if (up.uo) params.set('uo', String(up.uo + 1));
       if (up.uv !== 'in') params.set('uv', up.uv);
     }
+    if (state.voyage === 'brain' && explorer.hall) params.set('hall', '1');
+    if (state.voyage === 'brain' && explorer.cave) params.set('cave', '1');
     if (state.voyage === 'brain' && explorer.palace) {
       params.set('palace', '1');
       params.set('pf', String(explorer.palace.floor));

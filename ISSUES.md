@@ -5071,8 +5071,13 @@ trabeculae, crossing the fluid-filled subarachnoid space; the tissue curtains ar
 plexus.
 - [ ] A registry of hubs (registry/hubs.yaml): per elevator floor, its hall (shape, texture,
       FX), its routes (to which stop or tunnel), the elevator at its entrance.
-- [ ] First hub: the brain's great hall (the atrium), routes to the existing cathedral
-      passages, PATH, the limbic route (ISS-101), the elevator.
+- [x] (14 Oct, prototype; author UAT) First hub: the brain's great hall (the atrium),
+      greathall3d.js: a flooded dome of dark stone with neon veins (fractal noise; FX folds
+      it, as the palace), light shafts from above, the glomus as a chandelier of curtains, the
+      arachnoid's webs, jellyfish, motes; five doorways (the cathedral, the limbic hinge, the
+      path of a thought, the palace, the arteries) that a click glides to and takes; the
+      elevator at the entrance (all 21 floors, onLevel). GREAT HALL at the brain stop, address
+      `hall=1`; the CAVE button now says CATHEDRAL and has `cave=1` (ISS-102's finding).
 - [ ] Then: the body's hub (the heart's chambers; arteries as the routes, WAY IN), the cosmos
       (the palace's top floor), the others as the registry grows.
 - [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the
