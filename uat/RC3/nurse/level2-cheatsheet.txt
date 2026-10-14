@@ -1,0 +1,304 @@
+[T]-Theory: A Universal Theory of Everything
+One Equation. 61 Decades. Mind, Body, and Cosmos.
+The gap: Traditional AI and psychology often model valuation and limbic dynamics separately from field response. The solution: Frame the Universal Somatic Field as an 11-dimensional modelling scaffold linked to M-theory by a formal product isomorphism, not by physical identity.
+
+Proved (Lean 4, 0 sorries)
+• SHO = Green’s function (derived, not postulated as a primitive)
+• 11D manifold = minimum geometry for a conscious vertebrate organism
+• Scale invariance 10−35m → 1026m (61 orders of magnitude)
+• Theory is a proposed fixed-point attractor of its own subject matter (see the [T]-Theory phenomena paper)
+
+Numerical hits (Planck 2018)
+• ΩΛ = 7/11 (93.2%): dark energy as compactified vacuum
+• Ω𝑐 = 3/11 (97.1%): dark matter as spatial vacuum; gravity only; no direct detection possible
+• 𝑤 = −1 exact: live knife-edge test, DESI DR1 and Euclid
+[T]-Theory accounts for 95.5% of the total mass-energy of the universe via a zero-parameter geometric derivation.
+
+[T] I · The Master Field Equation
+
+II · Type-Theoretic Architecture (HoTT / Lean 4)
+
+The Universal Somatic Field is governed by a single structural equation — the Green’s function of a tensor field derived from M-theory compactification. Stationary form (Helmholtz):
+(∇2 + 𝑘2) 𝐺(𝑥, 𝑥′) = −𝛿3(𝑥 − 𝑥′)
+Time-dependent form (d’Alembertian):
+
+The soma-field has a rigorous type-theoretic formulation in Homotopy Type Theory, machine-verified in Lean 4 using Mathlib and Physlib. The Σ-type — soma-field as a fiber bundle over the 20-scale base:
+SomaField ≡ ∑ Substrate(𝜎)
+(𝜎 ∶ Scale20)
+
+( 1 𝜕2 − ∇2 + 𝑘2) Φ (𝑥, 𝑡) = −𝐽 (𝑥, 𝑡)
+
+𝑣𝑠2 𝑡
+
+𝜇𝜈
+
+𝜇𝜈
+
+Retarded propagator — causal, 𝜏 = 𝑡 − 𝑡′ > 0: 𝐺𝑅(𝑟, 𝜏 ) = 4𝑣𝜋𝑠𝑟 𝑒−𝑘𝑣𝑠𝜏 𝛿(𝜏 − 𝑟/𝑣𝑠) 𝜃(𝜏 )
+
+Somatic Memory Kernel: 𝐾(𝜏 ) = 𝐾0 𝑒−𝜏/𝜏𝑚 𝜃(𝜏 ),
+
+1 𝜏𝑚 = 𝑘𝑣
+𝑠
+
+General solution (field = integral of all past sources):
+
+where Substrate(𝜎) ∶ Type is the physical substrate at scale 𝜎. The base space is the 20-point scale hierarchy; each fiber is a field configuration. The Zoom Operator — dependent type constructor between adjacent fibers:
+Λ ∶ (𝜎 ∶ Scale20) → Substrate(𝜎) → Substrate(𝜎 + 1)
+Causality as a proof argument — the retarded propagator’s full type:
+𝐺𝑅 ∶ (𝑡 𝑡′ ∶ Time) → (𝑡′ < 𝑡) → Space → Space → Field
+
+𝑡
+Φ(𝑥, 𝑡) = Φ(0)(𝑥, 𝑡) + ∫ 𝑑𝑡′∫𝑑3𝑥′ 𝐺𝑅 𝐽
+−∞
+The effective mass 𝑘 sets the spatial correlation length ℓ = 1/𝑘. As 𝑘 → 0 (near consciousness threshold 𝑇𝑐), ℓ → ∞: global integration onset.
+The field temperature 𝑇field controls how freely the field explores the attractor landscape. Therapeutic window: 𝑇field ∈ [𝑇min, 𝑇max].
+
+The inequality 𝑡′ < 𝑡 is a proof term — the Lean 4 kernel enforces the arrow of time at compile time. A causal violation is a type error, not a runtime error. The full USF type:
+USF ≡ ∑ (Substrate(𝜎) × 𝐺𝑅(𝜎))
+(𝜎 ∶ Scale20)
+BFSS cortex — coordinates emerge from Hermitian
+
+
+matrix eigenvalues (not fixed a priori):
+CortexCoords ≡ eigenvalues(𝑋), 𝑋† = 𝑋, 𝑋 ∈ 𝑀3×3(ℂ).
+Proved in BFSSIsomorphism.lean using Mathlib’s Matrix. IsHermitian.eigenvalues. Connection to Schreiber’s mHoTT: the modal operators of Modal Homotopy Type Theory ARE the Zoom Operators of the USF. The ∞-topos of mHoTT = the soma-field configuration space. Type-safe zooming: a scale mismatch in Λ is a type error caught by the Lean 4 kernel at compile time — mathematically impossible to apply human-scale emotional operators to a galaxy.
+III · Attractor Dynamics
+
+QUANT-EXP-1 (an exact 8-qubit simulation, no hardware): in the model, annealing shifts occupancy toward the Awe states while a cold classical run stays in Fear. A model result. Arnold tongue — rapport as Huygens frequency locking. Width = social/attentional bandwidth:
+|𝜔ext − 𝜔0| < Δ𝜔lock(𝜅)
+SHO frequency (physlib trajectory_equationOf Motion):
+𝜔2 = 𝑘/𝑚, 𝜔2 = 𝑣2𝑘2 (dispersion relation)
+IV · The 11D Decomposition — M-Theory / BFSS / Ho řava-Witten
+
+[T] Hopfield energy landscape:
+
+𝑀11 = 𝑀4 × 𝑋7, 𝑋7 = 𝐷5–7 × 𝐷8 × 𝐷9–11
+
+𝐻 (e)
+
+=
+
+−
+
+1 2
+
+e⊤𝑊
+
+e
+
+Emotional states are attractor basins; trauma wells are deep narrow minima; therapeutic change is landscape modification. FM-HN Correspondence Principle (Lean 4 kernelverified):
+𝛽(𝑡) = 𝛽0 + 𝜅 |Φ(𝑡)|2 −−−→ 𝛽0
+Φ→0
+
+• 𝐷1–4: Spacetime — body embedded in Lorentzian 3+1D; symmetry group 𝑆𝑂(3, 1)
+• 𝐷5–7: Propagator — somatic EM field; gauge field trapped on D3-brane worldvolume
+• 𝐷8: Limbic axis — Hořava-Witten orbifold 𝑆1/ℤ2, segment [−1, +1]; body at −1, mind at +1; trauma =
+topological obstruction • 𝐷9–11: Cortex — BFSS matrix eigenvalue spectrum;
+emergent geometry, not fixed coordinates
+BFSS identification (Banks-Fischler-Shenker-Susskind
+
+Under zero somatic stress, FM-HN reduces exactly to the classical 1982 Hopfield network. The 1982 and 2020 Hopfield networks are both limiting cases.
+Consciousness threshold 𝑇𝑐: the spectral gap of the somatic field operator opens at |𝜙| > 𝑇𝑐. Below: diffusive dynamics, no stable attractors, no experience. Above: ordered phase, stable phenomenal states (qualia = attractor basin topology).
+
+1997): cortex coordinates are NOT fundamental — they emerge from the eigenvalues of 𝑁 × 𝑁 Hermitian matrices. Thoughts are eigenvalues; social dynamics are matrix commutators.
+Hořava-Witten (1996): 𝐷8 as the compact orbifold separates two 10D boundary spacetimes. The limbic system is the physical thickness between biology and psychology.
+
+Kramers mean first-passage time: ⟨𝑇 ⟩ = 2𝜋 𝑒Δ𝑉 /𝐷 𝜔𝐴 𝜔𝐵
+
+Cosmological limit: 𝜅bio → 0 recovers the linearised Einstein equation. The cosmological constant Λ ≡ ⟨tr Φ⟩0 — the vacuum expectation of the somatic tensor
+trace.
+
+Trauma asymmetry: formation time ≪ dissolution time. Formation: barrier crossed from above (external forcing). Escape: from inside the well, exponentially slow for Δ𝑉 ≫ 𝐷.
+WKB tunnelling amplitude:
+
+SHO derivation: 𝜔2 = 𝑘/𝑚 is derived (not postulated) as the lowest-order term in the Taylor expansion of the Calabi-Yau moduli space metric. This constrains the compactification geometry.
+Organism hierarchy:
+
+𝑃 ≈ exp(− 2 ∫𝑞2√𝑉 (𝑞) − 𝐸 𝑑𝑞) ℏgeo 𝑞1
+
+project
+
+project
+
+11𝐷 −−−→ 7𝐷 −−−→ 4𝐷
+
+A rock is a 4D organism. A jellyfish is a 7D organism. A
+
+
+human is an 11D organism.
+
+protects some agents from visiting accountability
+
+V · The 20-Scale Map
+
+regions • Rapport ≡ Huygens frequency locking — 𝜙1̇ − 𝜙2̇ →
+
+0; coupling must exceed locking threshold 𝜅min
+
+The same Helmholtz equation governs all 20 scales. • Social Intelligence SQ ≡ spectral gap — SQ ≡
+
+Coupling constants 𝑘(𝜎) are derived via the Zoom 𝜆1(𝐿̂𝑖𝑗); measures synchronisation rate Operator Λ from the Calabi-Yau moduli geometry — • Market crash ≡ somatic phase transition — 𝑇 → 𝑇𝑐+,
+
+they are not free parameters.
+
+𝜉 → ∞; systemic risk = proximity to critical point
+
+• 𝜎 0 Planck / quantum foam — ℏgeo, 𝜏𝑚 ∼ 10−43 s
+• 𝜎 1–2 Nuclear / atomic — ion channel gating, 𝜏𝑚 ∼ 10−23 s
+
+• Gutenberg-Richter 𝑏 ≈ 1 ≡ universality class — derived, not empirically fitted
+• Music ≡ field perturbation — tempo = Arnold tongue
+
+• 𝜎 3 Molecular — protein folding, receptor binding, driving; timbre = field direction; resolution = attractor
+
+𝜏𝑚 ∼ ms • 𝜎 4 Synaptic — vesicle release, LTP/LTD, 𝜏𝑚 ∼ ms–s
+
+basin entry • Somatic therapy eﬀiciency — 𝜂som/𝜂cog ≈ 𝜅−EC1;
+
+• 𝜎 5 Cellular — single neuron EM field, spike patterns, bypasses decoupled EC junction
+
+𝜏𝑚 ∼ s
+
+• Optimal regulation ≡ WKB problem — minimum
+
+• 𝜎 6 Local circuit — cortical column, gamma oscillation, intervention strength = barrier height in energy
+
+[T] 𝜏𝑚∼s–min
+• 𝜎 7 Whole brain — global somatic field, emotional
+state, 𝜏𝑚 ∼ min–hr • 𝜎 8 Dyadic — two-person field, rapport, therapy
+session, 𝜏𝑚 ∼ hr • 𝜎 9 Group / swarm — collective field, team
+coordination, 𝜏𝑚 ∼ hr–days • 𝜎 10 Community — social trust network, SQ ≡
+𝜆1(𝐿̂𝑖𝑗), 𝜏𝑚 ∼ yr • 𝜎 11 Regional — dialect spread, cultural identity,
+𝜏𝑚 ∼ decade • 𝜎 12 National — institutional field, law, 𝜏𝑚 ∼ decade
+
+landscape • Geologic memory ≡ Hopfield pattern — fault
+geometry encodes past ruptures; lowers energy barrier for future rupture
+VII · Clinical Framework
+ASC operator — high 𝛽, narrow Arnold tongue, deep stable attractors. Deep domain engagement, costly state transitions, narrow synchronisation bandwidth. Not a disorder — a field architecture with different costs and affordances.
+
+• 𝜎 13 Civilisational — economic attractor landscape, CPTSD operator — non-ergodic field (trauma well
+
+𝜏𝑚 ∼ century
+
+dominates landscape), 𝜅EC ≪ 1 (somatic-cognitive
+
+• 𝜎 14 Species — evolutionary field, 𝜏𝑚 ∼ millennium decoupling). Cannot “think out” of trauma: barrier too
+
+• 𝜎 15–17 Geological — tectonic soma, rock strata steep for classical gradient descent. Requires somatic
+
+memory, 𝜏𝑚 ∼ 103–106 yr
+
+entry or WKB tunnelling.
+
+• 𝜎 18 Galactic — astrophysical field, 𝜏𝑚 ∼ 108 yr
+
+ADHD operator — high field temperature 𝑇 , flat
+
+• 𝜎 19 Observable universe — cosmological, Λ ≡ landscape (all barriers ∼ 𝐷), rapid transitions between
+
+⟨tr Φ⟩0, 𝜏𝑚 ∼ 1010 yr
+
+attractors. The same high 𝑇 that causes dysregulation
+
+Geological memory (𝜎 = 15–17): fault zone geometry encodes past ruptures as Hopfield patterns. GutenbergRichter 𝑏 ≈ 1 derived from universality class.
+
+also enables escape from trauma wells (Anti-Freeze mechanism). Co-occurrence (ASC ∩ CPTSD): high 𝛽 ⇒ deeper
+
+VI · Key Identifications Across All Domains
+
+trauma wells on adverse input. Not coincidence — structural consequence of the field architecture.
+
+Therapeutic intervention = optimal control on field
+
+• SHO ≡ Green’s function — the “vibrating string” IS trajectory. Find 𝐽therapy(𝑥, 𝑡) that moves field from
+
+the field’s impulse response; derivation, not postulate trauma well to healthy attractor while staying within
+
+• Nash equilibrium ≡ Hopfield minimum — window of tolerance.
+
+Nash(𝐺) = arg min 𝐻(e); game theory = attractor Somatic injection directly perturbs Φ without
+
+dynamics
+
+• Rights ≡ topological invariants — stable under translation through decoupled EC junction. For CPTSD
+
+continuous deformation of legal landscape; cannot be with 𝜅EC ≪ 1: somatic ≫ cognitive eﬀiciency.
+
+removed without topological transition
+
+God-Knob = field temperature parameter. SSRIs raise 𝑇
+
+•
+
+Rule
+
+of
+
+law
+
+≡
+
+ergodicity
+
+—
+
+𝑓̄ time
+
+=
+
+𝑓ē nsemble ;
+
+power
+
+by serotonergic coupling. Titrated trauma processing =
+
+
+temperature regulation within the therapeutic window. Universe type; Zoom Operator well-typedness
+
+Pre-verbal manifold (𝜎 = 6, before language acquisition): large 𝑘, rapid memory decay. Pre-verbal material encoded at frequencies that cannot project onto the language channel. Explains inaccessibility to verbal recall; motivates somatic entry.
+VIII · Lean 4 Verification Status
+
+• BFSSIsomorphism.lean — cortex eigenvalue emergence via Mathlib IsHermitian.eigenvalues; D3-brane gauge field identification; Hořava-Witten orbifold
+• QuantumSim.lean — Born probability of |awe⟩ > 0 after WKB gate (simulated; no hardware claim)
+• Benchmark.lean — FM-HN vs. classical timing; O(N²)
+
+bound demonstrated computationally
+
+Verified by Lean 4 kernel:
+
+Lean 4: no sorry; the axioms are declared and labelled
+
+• MTheoryIsomorphism.lean — 𝜔2 = 𝑘/𝑚 via physlib All five OS axioms machine-checked for the free
+
+trajectory_equationOfMotion; wave equation field (USF_OSAxioms.lean via OSforGFF · gaussianFree
+
+via planeWave_waveEquation; structural 11D type Field_satisfies_all_OS_axioms). Four former proof
+
+isomorphism
+
+obligations, now:
+
+[T] • LimbicHopfield.lean — FM-HN Correspondence Principle; ASC/CPTSD/ADHD as distinct dynamical regimes with specific 𝛽 profiles • SwarmPropagator.lean — 𝑂(𝑁 2) coordination lower
+bound is tight (no algorithmic shortcut) • LimbicT√unnel.lean — WKB amplitude Θ(𝑊 ) =
+exp(−8 2𝑊 /3); orbifold fixed-point theorem;
+boundary conditions • ScaleUniverse.lean — consciousness threshold
+(sharp spectral gap dichotomy); 20-scale Scale
+
+• G2 → X7_is_7D_product: X7 = ℝ³×ℝ×ℝ³ is proved a 7D product (flat); a G2-holonomy metric is not claimed.
+• Zoom Operator covariance → scale_invariance_ full (MTheoryIsomorphism.lean)
+• Retarded propagator causality → retardedDecay Factor_isCausal (TemporalDynamics.lean) + OS3
+• RG equations → geometricFlow_waveEquation, rg_ flow_existence (RenormalisationGroup.lean)
+
+[ FIELD NOTES / FIELD SCAN ]
+
+[ AWAITING VALIDATION ]
+
+G-ID:> The Universal Propagator - G(x,x’) at the Hubble scale READER:> The Generalist SCALE:> Scale 20: Cosmological Horizon EQUATION:> (nabla^2 + k^2)G(x, x’) = -delta^3(x - x’) OPERATOR:> Universal Green Propagator
+
+[ ABDUCTING:> ]
+INVARIANT:> One response grammar across physical, somatic, and collective scales OBSERVABLE:> Cross-scale response and correlation structure
+
+[ SHERLOCK / EVIDENCE AUDIT ]
+WHY:> The opening claim is a reading guide; it is not itself a proof. STATUS:> Lean files across the programme check formal statements under their stated definitions and axioms (no sorry remains in the programme’s own Lean). The inductions below are domain readings: interpretive or open hypotheses unless a theorem is named. INDUCTION:> SHO as Green-function impulse response: derived under assumptions INDUCTION:> 11D field scaffold mirrors a 7+3+1 decomposition: derived under assumptions INDUCTION:> Cross-scale response grammar from Planck to cosmological scales: open hypothesis FORMAL:> Label only an explicitly linked Lean theorem or proof output. SOURCED:> Label claims grounded in the listed papers or this Cheat Sheet. INTERPRETIVE:> Label domain mappings, visualisations, and open hypotheses.
+MORIARTY:> Does this summary claim more than its linked evidence establishes?

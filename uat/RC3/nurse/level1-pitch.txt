@@ -1,0 +1,19 @@
+[T]-Theory Research Programme — Universal Somatic Field
+
+Research output of Alistair Johnson (ORCID 0009-0007-2194-0850), Independent
+Researcher, Zurich, 2025–2026.
+
+The Universal Somatic Field (USF) is a scale-invariant modelling framework for
+emotional dynamics, formal propagators, and cross-domain analogies. Its field
+language is motivated by an 11-dimensional decomposition and by Green-function
+methods; clinical, physical, and consciousness claims are explicitly labelled
+as formal checks, model-derived results, simulations, interpretations, or open
+hypotheses.
+
+The collection includes 25 papers (P1–P25), a paper on the Sherlock checker
+(SH1), datasets and appendices (E1, D1, D2), collected works, an exact 8-qubit statevector simulation (QUANT-EXP-1),
+Lean 4 formal artefacts, and the [T]-Theory Fractal Programme of 15 domain
+books. The Lean files check named statements under their definitions and
+axioms; the proof surface includes declared axioms, each documented. The
+work is public, citable, and falsifiable, but it is not peer reviewed and does
+not provide medical advice.
