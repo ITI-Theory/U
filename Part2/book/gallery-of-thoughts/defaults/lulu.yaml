@@ -1,0 +1,25 @@
+# A Gallery of Thoughts (ISS-097), the Lulu A4-landscape edition (the short-term proof). The page includes Lulu's bleed of 3.175 mm a side: trim 297 x 210 mm; plates print to the edge.
+citeproc: false
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: ../../../registry/gallery.yaml
+input-files:
+  - gallery.md
+output-file: ../../../bld/gallery/gallery-of-thoughts-lulu-a4.tex
+to: latex
+toc: false
+resource-path:
+  - .
+  - ../../..
+include-in-header:
+  - templates/gallery-header.tex
+variables:
+  geometry: paperwidth=303.35mm,paperheight=216.35mm,left=33mm,right=33mm,top=26mm,bottom=26mm
+  fontsize: 10pt
+  colorlinks: false
+filters:
+  - filters/gallery.lua
+  - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/licence.lua
+metadata:
+  plate-dir: ../../../bld/gallery/plates/lulu-a4

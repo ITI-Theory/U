@@ -4836,7 +4836,7 @@ territory breaks (the lesson of the identity axioms, ISS-063, at the scale of th
 
 ---
 
-## ISS-097: The art book (name to decide) and the Gallery — OPEN
+## ISS-097: A Gallery of Thoughts: the art book and the Gallery view — OPEN
 {{Tags area.books, area.app}}
 {{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
 
@@ -4858,6 +4858,17 @@ also as a new view in the app, the Gallery.
       copyright); the book's images made by the programme (renders, captures, filters), or
       public domain, or licensed.
 - [ ] The Gallery view in the Soma Machine.
+
+Author, 14 Oct 17:33: the name is *A Gallery of Thoughts*; A3 is the aim, Lulu A4 the short-term
+proof, and a projector edition (it looks good big); video later; no drone footage (the app's
+own flight replaces it). The release waits for this book (author, 14 Oct).
+First draft (14 Oct): registry/gallery.yaml (12 rooms on the development clock from git and the
+dated chats, four era rooms: 1966, 1714, 1989, 1911; 35 plates, all the programme's own);
+lib/art/filters.py (pencil, stage, engraving, abstraction_1911, retro_bw, distort) and
+lib/art/gallery.py (plates per format, tones for the labels); Part2/book/gallery-of-thoughts
+(`make lulu|a3|projector|check`, layout in filters/gallery.lua). Lulu proof: 49 pages.
+- [ ] The author reads the proof: the rooms, the texts (drafts in his voice), the plates.
+- [ ] A3 and projector builds checked; the Lulu cover; an even page count if Lulu wants one.
 
 ## ISS-098: Levels of visualisation, by viewer (double dispatch) — OPEN
 {{Tags area.visualize, area.app, area.books}}
@@ -4887,3 +4898,31 @@ The app becomes a gallery of thoughts rather than of fractal images.
       distributed in today's neuroscience; "regions associated with", not "the seat of").
 - [ ] Navigation by words (type or say a mood), then the flight to the region and its panel.
 
+## ISS-100: The whole cockpit at once: an overview screen that shows how the screens fit together — OPEN
+{{Tags area.app, area.instrument}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct 18:00. A flight simulator has a real cockpit and the rest is maths. The Soma
+Machine is the other way round: the cockpit is real (the user, the screens, the tablets) and
+the machine is the user. The problem is how it is shown. Shown one small screen at a time, a
+cockpit takes a long while to work out; seen whole, all the instruments together, it is obvious
+at once ("oh, that's cool"). The jellyfish human alone is great, but it doesn't show how the
+rest fits.
+
+- An intro screen, 2D and simple: the author's desk drawn as a picture (one big screen and three
+  tablets beneath), each showing a preset live view; click one to make it large, click again (or
+  Esc) to put it back. Its purpose is to teach how the screens fit together, not to be a 3D
+  cockpit (that stays in ISS-083).
+- The default one screen: the jellyfish human with the level elevator. If there is only one
+  screen, it is that one; the other screens show what the thoughts are right now.
+
+What exists (ISS-069): window roles and layouts (screens.js, the inverted T, the simulator,
+the author's desk), the relay for tablets. Same-origin frames share the screens' channel, so
+the overview can be the app's own views in frames that follow one another.
+
+- [ ] `?screen=overview`: the desk picture with four live frames (main: the jellyfish human and
+      the elevator; beneath: the brain and thoughts now, the body's feeling, the score or
+      Sherlock), a short label on each saying what it is for, expand/minimise.
+- [ ] The jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
+- [ ] The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
+      matter and in the Gallery.

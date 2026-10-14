@@ -1,0 +1,174 @@
+# A Gallery of Thoughts (ISS-097): the art book and the app's Gallery view.
+#
+# Two clocks (author, 14 Oct). The main one is the programme's own development: the rooms run
+# from its roots to October 2026, and `t` is how far along a room is (0 a raw pencil drawing
+# with the pink and blue barely there, 1 the Soma Machine's own picture). The second is the
+# era: where the text reaches back (Leibniz, Russell, Penrose, the Velvet Underground), the
+# room's pictures are made as that time made pictures. Dates are from the record (git, the
+# papers' registry, the dated chats); the chats are the story, never evidence.
+#
+# Every picture is the programme's own (an Atlas plate or an app capture), through a filter in
+# lib/art/filters.py: `stage:<t>`, `pencil`, `engraving` (1714), `abstraction_1911`,
+# `retro_bw` (1966), `distort:<amplitude>` (the field's amplitude). Artists of the eras are
+# named, never reproduced (their pictures are theirs; the Calibre avant-garde collection is
+# inspiration only). lib/art/gallery.py renders each plate for each format (`make -C
+# Part2/book/gallery-of-thoughts plates`); the book's filter lays out the rooms from here.
+schema_version: 1
+title: A Gallery of Thoughts
+subtitle: "[T]-Theory, as pictures"
+author: Alistair Johnson
+cover: {src: Part2/book/field-atlas/figures/app/voyage/cave-inside.png, chain: ["stage:1"]}
+# Page shapes, with bleed where the printer wants it. A4 and A3 are the same shape, so one
+# layout serves both; the projector edition is 16:9 (author, 14 Oct: A3 is the aim, A4 Lulu
+# the short-term proof, the projector for showing it big).
+formats:
+  lulu-a4: {paper_mm: [303.35, 216.35], bleed_mm: 3.175, px: [3000, 2140]}
+  a3: {paper_mm: [426.0, 303.0], bleed_mm: 3.0, px: [3840, 2731]}
+  projector: {paper_mm: [320.0, 180.0], bleed_mm: 0, px: [2560, 1440]}
+rooms:
+  - id: roots
+    title: Before
+    when: to April 2026
+    t: 0
+    file: rooms/01-before.md
+    plates:
+      - {id: roots-human, src: Part2/book/field-atlas/figures/app/voyage/human.png, chain: ["stage:0"],
+         caption: "The jellyfish human, as a first drawing: the body as one field."}
+      - {id: roots-world, src: Part2/book/field-atlas/figures/app/voyage/world-1.png, chain: ["stage:0.05"],
+         caption: "The first world, before it had colour."}
+  - id: plastic
+    title: Exploding Plastic Inevitable
+    when: "1966, and May 2026"
+    era: 1966
+    ground: "0B0B0B"
+    file: rooms/02-plastic-inevitable.md
+    plates:
+      - {id: plastic-score, src: Part2/book/field-atlas/figures/app/voyage/score-session.png, chain: ["retro_bw"],
+         caption: "The score of a session, filmed as 1966 filmed: light thrown onto the players."}
+      - {id: plastic-river, src: Part2/book/field-atlas/figures/app/voyage/score-river.png, chain: ["retro_bw"],
+         caption: "The river score in black and white."}
+      - {id: plastic-thoughts, src: Part2/book/field-atlas/figures/app/voyage/thoughts.png, chain: ["retro_bw"],
+         caption: "Thoughts as avalanches, grain and all."}
+  - id: lean
+    title: Learning Lean
+    when: April 2026
+    t: 0.1
+    file: rooms/03-learning-lean.md
+    plates:
+      - {id: lean-city, src: Part2/book/field-atlas/figures/app/voyage/city.png, chain: ["stage:0.1"],
+         caption: "The city of code: every tower a Lean file, every floor a theorem."}
+      - {id: lean-floor, src: Part2/book/field-atlas/figures/app/voyage/city-floor.png, chain: ["stage:0.15"],
+         caption: "One floor: the field's Green's function is that of a harmonic oscillator."}
+  - id: leibniz
+    title: Calculemus
+    when: "1714, and April 2026"
+    era: 1714
+    ground: "F4E9D2"
+    file: rooms/04-calculemus.md
+    plates:
+      - {id: leibniz-tower, src: Part2/book/field-atlas/figures/app/voyage/city-tower.png, chain: ["engraving"],
+         caption: "A tower of the city, engraved: a proof stands on the axioms beneath it."}
+      - {id: leibniz-brain, src: Part2/book/field-atlas/figures/app/atlas-plates/08-whole-brain-cemi--11d.png, chain: ["engraving"],
+         caption: "The whole brain, as a plate in an eighteenth-century book."}
+  - id: first-paper
+    title: The first paper
+    when: May 2026
+    t: 0.25
+    file: rooms/05-the-first-paper.md
+    plates:
+      - {id: first-limbic, src: Part2/book/field-atlas/figures/app/voyage/limbic.png, chain: ["stage:0.25"],
+         caption: "The limbic hinge, where feeling and thought meet."}
+      - {id: first-fight, src: Part2/book/field-atlas/figures/app/voyage/body-fight.png, chain: ["stage:0.25"],
+         caption: "The body in fight: the field drawn from the inside."}
+      - {id: first-grief, src: Part2/book/field-atlas/figures/app/voyage/body-grief.png, chain: ["stage:0.3"],
+         caption: "The body in grief: the same field, another shape."}
+  - id: penrose
+    title: Drawn by hand
+    when: "1989, and 30 May 2026"
+    era: 1989
+    ground: "F2EFE8"
+    file: rooms/06-drawn-by-hand.md
+    plates:
+      - {id: penrose-neuron, src: Part2/book/field-atlas/figures/app/voyage/neuron.png, chain: ["pencil"],
+         caption: "One neuron, in pencil."}
+      - {id: penrose-synapse, src: Part2/book/field-atlas/figures/app/atlas-plates/06-cellular-synaptic--11d.png, chain: ["pencil"],
+         caption: "The cellular and synaptic level, where the quantum question is asked."}
+  - id: summer
+    title: The long summer
+    when: June and July 2026
+    t: 0.45
+    file: rooms/07-the-long-summer.md
+    plates:
+      - {id: summer-swarm, src: Part2/book/field-atlas/figures/app/atlas-plates/12-animal-swarm--11d.png, chain: ["stage:0.45"],
+         caption: "A swarm: one Green's function steps every animal at once."}
+      - {id: summer-brain, src: Part2/book/field-atlas/figures/app/atlas-plates/08-whole-brain-cemi--11d.png, chain: ["stage:0.5"],
+         caption: "The whole brain in the universal somatic field."}
+      - {id: summer-foam, src: Part2/book/field-atlas/figures/app/atlas-plates/01-quantum-foam--11d.png, chain: ["stage:0.5"],
+         caption: "The bottom of the ladder, in eleven dimensions."}
+  - id: august
+    title: Fifteen books
+    when: August 2026
+    t: 0.65
+    file: rooms/08-fifteen-books.md
+    plates:
+      - {id: august-stellar, src: Part2/book/field-atlas/figures/app/atlas-plates/19-stellar--11d.png, chain: ["stage:0.6"],
+         caption: "A star, at the stellar level of the ladder."}
+      - {id: august-web, src: Part2/book/field-atlas/figures/app/atlas-plates/27-cosmic-web--11d.png, chain: ["stage:0.65"],
+         caption: "The cosmic web, the top of the ladder."}
+      - {id: august-compact, src: Part2/book/field-atlas/figures/app/atlas-plates/20-compact-object--11d.png, chain: ["stage:0.7"],
+         caption: "A compact object, where the ladder meets gravity at its strongest."}
+  - id: september
+    title: The quiet month
+    when: September 2026
+    t: 0.78
+    ground: "1F2633"          # dusk: between the paper and the night
+    file: rooms/09-the-quiet-month.md
+    plates:
+      - {id: september-universe, src: Part2/book/field-atlas/figures/app/atlas-plates/26-observable-universe--11d.png, chain: ["stage:0.78"],
+         caption: "The observable universe, half drawn, half lit."}
+  - id: russell
+    title: The ladder of 1911
+    when: "1910 to 1913, and October 2026"
+    era: 1911
+    ground: "F2EBDA"
+    file: rooms/10-the-ladder-of-1911.md
+    plates:
+      - {id: russell-palace, src: Part2/book/field-atlas/figures/app/voyage/palace-11.png, chain: ["abstraction_1911"],
+         caption: "The mind palace, eleven floors up, in the colours of 1911."}
+      - {id: russell-thought, src: Part2/book/field-atlas/figures/app/voyage/thought.png, chain: ["abstraction_1911"],
+         caption: "Emotion and thought, as composition."}
+      - {id: russell-score, src: Part2/book/field-atlas/figures/app/voyage/score-mind.png, chain: ["abstraction_1911"],
+         caption: "The score of a mind: Kandinsky heard colours; here the colours are a score."}
+  - id: october
+    title: The Soma Machine
+    when: October 2026
+    t: 1
+    file: rooms/11-the-soma-machine.md
+    plates:
+      - {id: october-brain, src: Part2/book/field-atlas/figures/app/voyage/brain.png, chain: ["stage:1"],
+         caption: "The brain, as the Soma Machine shows it."}
+      - {id: october-cave, src: Part2/book/field-atlas/figures/app/voyage/cave-inside.png, chain: ["stage:1"],
+         caption: "The cathedral: inside the fourth ventricle."}
+      - {id: october-cave-out, src: Part2/book/field-atlas/figures/app/voyage/cave-outside.png, chain: ["stage:1"],
+         caption: "The cathedral from outside."}
+      - {id: october-thought, src: Part2/book/field-atlas/figures/app/voyage/thought.png, chain: ["stage:1"],
+         caption: "Emotion and thought: a poke, and the field answers."}
+      - {id: october-memory, src: Part2/book/field-atlas/figures/app/voyage/memory.png, chain: ["stage:1"],
+         caption: "Memory as a network."}
+      - {id: october-pain, src: Part2/book/field-atlas/figures/app/voyage/pain-path.png, chain: ["stage:1"],
+         caption: "The path of a pain, followed."}
+      - {id: october-score, src: Part2/book/field-atlas/figures/app/voyage/score-mind.png, chain: ["stage:1"],
+         caption: "The score of a mind."}
+  - id: inside
+    title: Universes inside universes
+    when: 14 October 2026
+    t: 1
+    ground: "05080F"
+    file: rooms/12-universes-inside-universes.md
+    plates:
+      - {id: inside-palace, src: Part2/book/field-atlas/figures/app/voyage/palace-11.png, chain: ["distort:2"],
+         caption: "The palace inside the brain, bent by the field."}
+      - {id: inside-universe, src: Part2/book/field-atlas/figures/app/atlas-plates/26-observable-universe--11d.png, chain: ["distort:3"],
+         caption: "The universe that holds the brain, bent the same way."}
+      - {id: inside-anatomy, src: Part2/book/field-atlas/figures/app/voyage/cave-anatomy.png, chain: ["distort:1.5"],
+         caption: "A map, one level up, never the territory."}

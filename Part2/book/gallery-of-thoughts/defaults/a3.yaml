@@ -1,0 +1,25 @@
+# A Gallery of Thoughts (ISS-097), the A3-landscape edition (the aim, author 14 Oct): the same design as A4, the same shape, larger. The page includes 3 mm of bleed a side.
+citeproc: false
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: ../../../registry/gallery.yaml
+input-files:
+  - gallery.md
+output-file: ../../../bld/gallery/gallery-of-thoughts-a3.tex
+to: latex
+toc: false
+resource-path:
+  - .
+  - ../../..
+include-in-header:
+  - templates/gallery-header.tex
+variables:
+  geometry: paperwidth=426mm,paperheight=303mm,left=46mm,right=46mm,top=36mm,bottom=36mm
+  fontsize: 10pt
+  colorlinks: false
+filters:
+  - filters/gallery.lua
+  - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/licence.lua
+metadata:
+  plate-dir: ../../../bld/gallery/plates/a3

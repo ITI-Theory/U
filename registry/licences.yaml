@@ -70,6 +70,7 @@ documents:
     - bld/books/ttheory-omnibus*.pdf
     - bld/textbook/*.pdf
     - bld/atlas/*.pdf
+    - bld/gallery/*.pdf
 
 # What the programme uses from others (ISS-086): each public app's CREDITS file must name every
 # third-party asset it ships (by path) and every package it depends on (by the credit's name).

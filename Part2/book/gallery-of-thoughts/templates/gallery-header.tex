@@ -1,0 +1,52 @@
+% A Gallery of Thoughts (ISS-097). Every size is a fraction of the paper's width, so the A4,
+% A3 and projector editions are the same design at different sizes.
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\makeatletter
+\newlength\gallery@text \newlength\gallery@textskip
+\newlength\gallery@title \newlength\gallery@titleskip
+\newlength\gallery@label \newlength\gallery@labelskip
+\AtBeginDocument{%
+  \setlength\gallery@text{0.0118\paperwidth}\setlength\gallery@textskip{0.0172\paperwidth}%
+  \setlength\gallery@title{0.042\paperwidth}\setlength\gallery@titleskip{0.048\paperwidth}%
+  \setlength\gallery@label{0.0085\paperwidth}\setlength\gallery@labelskip{0.0118\paperwidth}%
+  \setlength\parskip{0.75\gallery@textskip}\pagestyle{empty}}
+\newcommand{\gallerytext}{\fontsize{\strip@pt\gallery@text}{\strip@pt\gallery@textskip}\selectfont}
+\newcommand{\gallerytitlefont}{\fontsize{\strip@pt\gallery@title}{\strip@pt\gallery@titleskip}\selectfont}
+\newcommand{\gallerylabelfont}{\fontsize{\strip@pt\gallery@label}{\strip@pt\gallery@labelskip}\selectfont}
+\makeatother
+% The cover: a plate to the edge, the title in a dark band at the lower left.
+% #1 image, #2 title, #3 subtitle, #4 author
+\newcommand{\gallerycover}[4]{%
+  \thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[inner sep=0pt] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{#1}};
+    \node[anchor=south west, fill=black, fill opacity=0.6, text opacity=1, text=white,
+          inner sep=0.022\paperwidth, text width=0.46\paperwidth, align=left]
+      at ([xshift=0.06\paperwidth,yshift=0.07\paperwidth]current page.south west)
+      {{\gallerytitlefont #2\par}\vspace{0.4\baselineskip}{\gallerytext\itshape #3\par}\vspace{0.8\baselineskip}{\gallerytext #4\par}};
+  \end{tikzpicture}\mbox{}\clearpage}
+% A room: its own ground colour, the title, the date, the text.
+% #1 ground, #2 ink, #3 title, #4 when
+\newenvironment{galleryroom}[4]{%
+  \clearpage\pagecolor[HTML]{#1}\color[HTML]{#2}\thispagestyle{empty}%
+  \vspace*{\fill}\begin{minipage}{0.62\textwidth}%
+  {\gallerytitlefont\raggedright\hyphenpenalty=10000 #3\par}\vspace{0.5\baselineskip}{\gallerytext\itshape #4\par}\vspace{1.2\baselineskip}\gallerytext}%
+  {\end{minipage}\vspace*{\fill}\clearpage\nopagecolor}
+% A plate to the edge, with a small numbered label at the lower left.
+% #1 image, #2 label ground, #3 label ink, #4 label opacity, #5 number, #6 caption
+\newcommand{\galleryplate}[6]{%
+  \clearpage\thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[inner sep=0pt] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{#1}};
+    \definecolor{gallerylabelground}{HTML}{#2}\definecolor{gallerylabelink}{HTML}{#3}%
+    \node[anchor=south west, fill=gallerylabelground, fill opacity=#4, text opacity=1, text=gallerylabelink,
+          inner sep=0.008\paperwidth, text width=0.36\paperwidth, align=left]
+      at ([xshift=0.045\paperwidth,yshift=0.04\paperwidth]current page.south west)
+      {\gallerylabelfont\textbf{#5}\enspace #6};
+  \end{tikzpicture}\mbox{}\clearpage}
+\newenvironment{galleryintro}{\clearpage\pagecolor[HTML]{F4F0E6}\vspace*{\fill}\begin{minipage}{0.62\textwidth}\gallerytext}{\end{minipage}\vspace*{\fill}\clearpage\nopagecolor}
+\newenvironment{gallerycolophon}{\clearpage\pagecolor[HTML]{F4F0E6}\vspace*{\fill}\begin{minipage}{0.62\textwidth}\gallerylabelfont\setlength\parskip{0.6\baselineskip}}{\end{minipage}\clearpage}

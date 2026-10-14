@@ -151,9 +151,17 @@ def abstraction_1911(img: Image.Image, cells: int = 150) -> Image.Image:
     names[coloured & (hue >= 165) & (hue < 250)] = "ultramarine"  # its blue
     names[coloured & (hue >= 250) & (hue < 300)] = "violet"
     names[(~coloured) & (val > 0.8)] = "yellow" if a.mean() < 0.4 else "ground"
+    border = np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]])
+    background = np.linalg.norm(a - np.median(border, 0), axis=-1) < 0.1   # the picture's own ground
+    names[background] = "black" if a.mean() < 0.4 else "ground"
     names[val < 0.16] = "black"
-    out = np.array([[PALETTE_1911[n] for n in row] for row in names])
-    flat = _img(out).resize((w0, h0), Image.Resampling.NEAREST).filter(ImageFilter.ModeFilter(9))
+    # Each colour field is enlarged on its own, smoothly, and every pixel takes the strongest:
+    # round shapes, not the steps of the small grid.
+    keys = list(PALETTE_1911)
+    masks = [_img(np.stack([(names == k).astype(float)] * 3, -1)).resize((w0, h0), Image.Resampling.BICUBIC)
+             .filter(ImageFilter.GaussianBlur(max(2, w0 / cells / 2))) for k in keys]
+    winner = np.argmax(np.stack([np.asarray(m, float)[..., 0] for m in masks]), 0)
+    flat = _img(np.array([PALETTE_1911[k] for k in keys])[winner])
     edges = np.asarray(flat.convert("L").filter(ImageFilter.FIND_EDGES).filter(ImageFilter.MaxFilter(5)), float) / 255
     b = _arr(flat.filter(ImageFilter.GaussianBlur(2)))
     k = np.clip(edges * 4, 0, 1)[..., None]
