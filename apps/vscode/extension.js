@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const STOPS = [
   ['human', 'HUMAN', 'the whole person'],
   ['body', 'BODY', 'the body and its signals'],
+  ['wayin', 'WAY IN', 'from the heart to the brain, by artery'],
   ['brain', 'BRAIN', 'the cathedral of thought'],
   ['limbic', 'LIMBIC', 'amygdala, memory, alarm'],
   ['thought', 'THOUGHT', 'thoughts as bursts'],
@@ -23,6 +24,7 @@ const STOPS = [
 // Which stop a passage is about: the stop whose words occur most often.
 const STOP_WORDS = {
   ureter: /\b(ureter\w*|kidney stone|stone|stent|colic|renal)\b/gi,
+  wayin: /\b(aorta|carotid\w*|arter\w*|circle of willis|blood flow|pulse)\b/gi,
   limbic: /\b(limbic|amygdala\w*|hippocamp\w*|threat|alarm|fear)\b/gi,
   thought: /\b(thoughts?|ruminat\w*|adhd|mindful\w*)\b/gi,
   neuron: /\b(neurons?|synap\w*|dendrit\w*|axons?|cellular)\b/gi,
@@ -295,6 +297,36 @@ function activate(ctx) {
     vscode.commands.registerCommand('sherlock.reload', () => {
       const n = reload();
       vscode.window.setStatusBarMessage(`Sherlock: ${n} finding${n === 1 ? '' : 's'}`, 4000);
+    }),
+    // Sherlock: Set up (ISS-090): the local build Sherlock's Lean checks need, after a warning.
+    vscode.commands.registerCommand('sherlock.setup', async () => {
+      const w = folder();
+      if (!w) return vscode.window.showWarningMessage('Sherlock: open the U repository as the workspace first.');
+      try {
+        require('child_process').execSync('lake --version', { stdio: 'ignore', cwd: w.uri.fsPath });
+      } catch {
+        const how = 'How to install Lean';
+        const pick = await vscode.window.showErrorMessage('Sherlock: Set up needs Lean (lake, from elan), which is not on the PATH.', how);
+        if (pick === how) vscode.env.openExternal(vscode.Uri.parse('https://lean-lang.org/lean4/doc/setup.html'));
+        return;
+      }
+      const go = 'Set up';
+      const answer = await vscode.window.showWarningMessage(
+        'Sherlock: Set up downloads and builds, in this workspace: Mathlib\'s prebuilt cache for Lean (several GB), ' +
+        'NextKB, the OpenCyc knowledge base (about 20 MB, checked against its SHA-256), and builds OpenCyc in Lean and ' +
+        'the affidavits. It needs Lean (elan) and make, and can take an hour or more. Continue?',
+        { modal: true }, go);
+      if (answer !== go) return;
+      const cmd = vscode.workspace.getConfiguration('sherlock').get('setupCommand');
+      const task = new vscode.Task({ type: 'shell' }, w, 'Sherlock: set up', 'sherlock', new vscode.ShellExecution(cmd));
+      const exec = await vscode.tasks.executeTask(task);
+      const done = vscode.tasks.onDidEndTaskProcess(e => {
+        if (e.execution !== exec) return;
+        done.dispose();
+        reload();
+        if (e.exitCode === 0) vscode.window.showInformationMessage('Sherlock is set up: the checks and the ledger are ready.');
+        else vscode.window.showErrorMessage(`Sherlock: set up stopped (exit ${e.exitCode}); see the terminal.`);
+      });
     }),
     vscode.commands.registerCommand('sherlock.check', async () => {
       const w = folder();

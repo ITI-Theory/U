@@ -49,6 +49,7 @@ help:
 	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
 	$(info   remind          the author's open steps from ISSUES.md (ARGS=--titles); also HAL remind)
 	$(info   wizard          the Wizard's checks (built the right thing): each book's scope covered, Cyc neighbours, never written (ISS-092); ARGS=field-atlas)
+	$(info   sherlock-setup  Sherlock's local build: Mathlib cache, NextKB, OpenCyc in Lean, affidavits, ledger (several GB) (ISS-090))
 	$(info   moriarty        Sherlock's adversary: plant faults (registry/moriarty.yaml), count what is caught; misses are DOTs (ISS-094))
 	$(info   uat-run         the UAT step by step in a terminal (ARGS=--new|--report|--step ID); also HAL uat)
 	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
@@ -209,6 +210,16 @@ remind:
 .PHONY: wizard
 wizard:
 	$(PYTHON) sherlock/coverage.py $(ARGS)
+
+# Sherlock's local build in one step (ISS-090; the VS Code command Sherlock: Set up runs this):
+# Mathlib's prebuilt cache, NextKB (checked against its SHA-256), OpenCyc in Lean, the affidavits,
+# then the ledger. Several GB and an hour or more; stops at the first failure.
+.PHONY: sherlock-setup
+sherlock-setup:
+	lake exe cache get
+	$(MAKE) -C sherlock all
+	$(PYTHON) sherlock/ledger.py extract
+	$(PYTHON) sherlock/ledger.py report
 
 # Moriarty, Sherlock's adversary (ISS-094): plant the faults in registry/moriarty.yaml one at a
 # time and see which the checks catch; each miss is a DOT. Report in bld/sherlock/moriarty.md.

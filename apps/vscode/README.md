@@ -10,9 +10,9 @@ appear as compiler errors.
 
 ## What it does
 
-- **Soma Machine: Open** shows the explorer in a tab: thirteen stops
-  (HUMAN, BODY, BRAIN, LIMBIC, THOUGHT, NEURON, MEMORY, LANDSCAPE, DYAD, PATH,
-  URETER, FLY, SCORE). **Soma Machine: Go to a Stop…** jumps straight to one.
+- **Soma Machine: Open** shows the explorer in a tab: fourteen stops
+  (HUMAN, BODY, WAY IN, BRAIN, LIMBIC, THOUGHT, NEURON, MEMORY, LANDSCAPE, DYAD,
+  PATH, URETER, FLY, SCORE). **Soma Machine: Go to a Stop…** jumps straight to one.
 - **View in Soma Machine** (a lens at the top of a file, or in the editor's
   context menu):
   - a Lean file opens its tower in the *city of code*: every declaration,
@@ -34,13 +34,19 @@ is involved.
 
 Sherlock's findings come from the [T]-Theory repository
 ([ITI-Theory/U](https://github.com/ITI-Theory/U)), where Python extracts the
-claims and Lean decides them. The extension reads the results; it does not
-install Lean.
+claims and Lean decides them. The extension reads the results.
+
+**Sherlock: Set up** builds Sherlock in a clone of that repository: Mathlib's
+prebuilt cache for Lean (several GB), NextKB, the OpenCyc knowledge base (about
+20 MB, checked against its SHA-256), OpenCyc in Lean, the affidavits and the
+ledger. It needs Lean (elan) and make, asks before it starts, and can take an
+hour or more. It does not install Lean.
 
 ## Settings
 
 - `sherlock.ledgerFile`: where the findings are (default `bld/sherlock/ledger.txt`).
 - `sherlock.checkCommand`: what **Sherlock: Check** runs (default `python sherlock/ledger.py report`).
+- `sherlock.setupCommand`: what **Sherlock: Set up** runs (default `make sherlock-setup`).
 - `sherlock.codeLens`: show the *View in Soma Machine* lens (default on).
 
 ## Note

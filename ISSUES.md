@@ -4568,8 +4568,16 @@ extension is wanted as the back door for distribution, after Mk 1.
 
 (Unparked 13 Oct afternoon, author: prepare it, the local steps only; do not publish yet.)
 - [ ] Author: try the VSIX in VS Code (`npm run package` in apps/vscode).
-- [ ] "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB, warned first).
+      (14 Oct 04:30: packaged, apps/vscode/bld/soma-machine-0.1.0.vsix, 9.5 MB, 333 files; install with
+      `code --install-extension apps/vscode/bld/soma-machine-0.1.0.vsix`. The WAY IN stop was missing
+      from its list (13 of the app's 14) and from View in Soma Machine's words; added.)
+- [x] "Sherlock: Set up" (Lean, NextKB 20 MB, local build, several GB, warned first).
+      (14 Oct: the command checks for Lean (lake), warns with the sizes in a modal, then runs
+      `make sherlock-setup` (Mathlib cache, NextKB with its SHA-256, OpenCyc in Lean, affidavits,
+      ledger; setting sherlock.setupCommand). Not run end to end here: this machine is set up.)
 - [ ] Marketplace pre-release and Open VSX (publisher account, screenshots, a public build).
+      (14 Oct, prepared: CHANGELOG.md, homepage, bugs, gallery banner; the README's two screenshots
+      and settings current. Left for the author: the publisher accounts and the decision to publish.)
 
 ---
 

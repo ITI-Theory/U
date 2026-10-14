@@ -58,6 +58,11 @@
         "command": "sherlock.reload",
         "title": "Reload findings",
         "category": "Sherlock"
+      },
+      {
+        "command": "sherlock.setup",
+        "title": "Set up (download and build, warned first)",
+        "category": "Sherlock"
       }
     ],
     "menus": {
@@ -82,6 +87,11 @@
           "default": "python sherlock/ledger.py report",
           "description": "Command that refreshes the findings file (run in the workspace folder)."
         },
+        "sherlock.setupCommand": {
+          "type": "string",
+          "default": "make sherlock-setup",
+          "description": "Command for Sherlock: Set up (run in the workspace folder): Mathlib's cache, NextKB, OpenCyc in Lean, the affidavits, the ledger."
+        },
         "sherlock.codeLens": {
           "type": "boolean",
           "default": true,
@@ -94,5 +104,14 @@
     "app": "node scripts/build-app.mjs",
     "package": "npm run app && npx --yes @vscode/vsce package --no-dependencies --out bld/"
   },
-  "icon": "media/icon.png"
+  "icon": "media/icon.png",
+  "homepage": "https://github.com/ITI-Theory/U/tree/main/apps/vscode",
+  "bugs": {
+    "url": "https://github.com/ITI-Theory/U/issues"
+  },
+  "galleryBanner": {
+    "color": "#0b1020",
+    "theme": "dark"
+  },
+  "qna": false
 }
