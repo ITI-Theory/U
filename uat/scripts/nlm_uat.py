@@ -49,6 +49,9 @@ NOTEBOOKS = {
 }
 UAT_TITLE = "UAT "
 SOURCE_LIMIT = 50  # NotebookLM sources per notebook
+# The notebooklm-py login profile (--profile): None is the default login. A second account's
+# profile, with --new, gives a cold reader that has never seen the programme.
+PROFILE: str | None = None
 # Previous-version sources kept for the comparison when a full second copy would
 # not fit (by name without version); the papers omnibus contains every paper.
 COMPARE_KEEP = {"papers": {"omnibus-a4.pdf", "lean-proofs-appendix.pdf", "MANIFEST.md"}}
@@ -158,7 +161,7 @@ async def dry_run(track: str, notebook_id: str, folder: Path, items: list[dict],
     print(f"DRY RUN: nothing is relabelled, deleted, uploaded or asked.\nnotebook {notebook_id} ({track}); staging {version} (U {ref})")
     previous = None
     try:
-        async with NotebookLMClient.from_storage() as client:
+        async with NotebookLMClient.from_storage(profile=PROFILE) as client:
             notebook = await client.notebooks.get(notebook_id)
             sources = await client.sources.list(notebook_id)
         print(f"  title: {notebook.title!r}")
@@ -254,7 +257,7 @@ async def run(track: str, notebook_id: str | None, only: set[str] | None, pause:
     stamp = dt.datetime.now().strftime("%Y%m%d-%H%M")
     previous = None
     results = []
-    async with NotebookLMClient.from_storage() as client:
+    async with NotebookLMClient.from_storage(profile=PROFILE) as client:
         if new:
             notebook = await client.notebooks.create(f"{UAT_TITLE}{track} {version} (U {ref})")
             notebook_id = notebook.id
@@ -350,7 +353,10 @@ def main() -> None:
     parser.add_argument("--list", action="store_true", help="list the worksheet items and exit")
     parser.add_argument("--pause", type=float, default=45.0, help="seconds between questions (default 45)")
     parser.add_argument("--force", action="store_true", help="run even if the usage window looks too small")
+    parser.add_argument("--profile", help="notebooklm-py login profile (default: the default login); with --new, a cold reader")
     args = parser.parse_args()
+    global PROFILE
+    PROFILE = args.profile
     if args.list:
         folder = UAT / "staging" / args.track
         for item in worksheet_items(folder / versioned(WORKSHEETS[args.track], staging_version(folder)[0])):
@@ -363,7 +369,7 @@ def main() -> None:
         import nlm_usage
         folder = UAT / "staging" / args.track
         count = len([i for i in worksheet_items(folder / versioned(WORKSHEETS[args.track], staging_version(folder)[0])) if not only or i["id"] in only]) + 1
-        ok, line = nlm_usage.enough_for(count)
+        ok, line = nlm_usage.enough_for(count, profile=PROFILE)
         print(f"{line}; this run asks up to {count}", flush=True)
         if not ok:
             raise SystemExit("not enough NotebookLM usage left for this run: wait for the reset, or --force")

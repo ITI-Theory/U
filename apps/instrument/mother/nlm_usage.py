@@ -23,10 +23,11 @@ def _cli() -> str:
     return "notebooklm"
 
 
-def usage() -> dict:
+def usage(profile: str | None = None) -> dict:
     """{'windows': [{kind, used_percent, remaining_percent, resets_at, resets_local}],
     'qna_cost': percent per question, 'questions_left': int, 'exhausted': bool}."""
-    result = subprocess.run([_cli(), "usage", "--json"], capture_output=True, text=True, timeout=90)
+    cmd = [_cli()] + (["-p", profile] if profile else []) + ["usage", "--json"]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=90)
     if result.returncode != 0:
         raise RuntimeError((result.stderr or result.stdout).strip()[-300:] or "notebooklm usage failed")
     data = json.loads(result.stdout)
@@ -42,9 +43,9 @@ def usage() -> dict:
             "exhausted": bool(data.get("is_exhausted"))}
 
 
-def enough_for(questions: int) -> tuple[bool, str]:
+def enough_for(questions: int, profile: str | None = None) -> tuple[bool, str]:
     """Whether the five-hour window has room for this many questions, with a one-line report."""
-    info = usage()
+    info = usage(profile)
     five = next((w for w in info["windows"] if w["kind"] == "five_hour"), {})
     line = (f"NotebookLM five-hour window: {five.get('remaining_percent', 0):.0f}% left, about "
             f"{info['questions_left']} questions; resets {five.get('resets_local', '?')}")
@@ -52,7 +53,7 @@ def enough_for(questions: int) -> tuple[bool, str]:
 
 
 def main() -> None:
-    info = usage()
+    info = usage(sys.argv[1] if len(sys.argv) > 1 else None)  # optional: a profile name
     for window in info["windows"]:
         print(f"{window['kind']:10} used {window['used_percent']:5.1f}%  left {window['remaining_percent']:5.1f}%  resets {window['resets_local']}")
     print(f"a question costs about {info['qna_cost']:.1f}% of the five-hour window: about {info['questions_left']} questions left")
