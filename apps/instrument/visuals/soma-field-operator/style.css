@@ -500,6 +500,17 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__pop figcaption { margin-top: 12px; font-size: 13px; line-height: 1.5; color: #e8eefc; }
 .explorer__pop-formula { color: #ffd166; font-size: 12px; word-break: break-word; }
 .explorer__pop-doc { color: rgba(232,238,252,.55); font-size: 11px; }
+/* inside a thought: the dive shows through; the caption and the way back sit low, the picture
+   only when asked for */
+.explorer__pop.is-dive { justify-content: flex-end; padding-bottom: 5vh; background: transparent; clip-path: none; cursor: default; pointer-events: none; }
+.explorer__pop.is-dive figure, .explorer__pop.is-dive .explorer__pop-nav { pointer-events: auto; }
+.explorer__pop.is-dive figure { padding: 10px 16px; border-radius: 10px; background: rgba(5,4,12,.55); }
+.explorer__pop.is-dive img { display: none; max-height: 44vh; }
+.explorer__pop.is-dive.show-picture img { display: inline-block; }
+.explorer__pop-nav { display: flex; gap: 10px; }
+.explorer__pop:not(.is-dive) [data-pop="picture"] { display: none; }
+.explorer__gl.explorer__dive-in { z-index: 1; transition: none; animation: explorer-dive-in 1s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes explorer-dive-in { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(80% at 50% 50%); } }
 .explorer__vivid { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #ffd166; }
 /* LOOK and VIGILANCE (ISS-078) */
 .explorer__look { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); z-index: 3; padding: 3px 10px; font-size: 11px; letter-spacing: .1em; color: #ffd166; background: rgba(5,7,14,.6); border: 1px solid rgba(255,209,102,.35); pointer-events: none; }

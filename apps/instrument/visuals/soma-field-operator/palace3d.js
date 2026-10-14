@@ -8,7 +8,9 @@
 // level renderers). FX (Φ above one half; author, 14 Oct: "def FX for the palace") lights the
 // halls: walls glowing in their sector's colour, lights drifting through the programme's pink
 // and blue, the fog thinning, a cloud of coloured motes, placed thoughts glowing; at Φ up to
-// one half the palace is as it was. The foam floor is the hall of the zero moment (mindfulness: everything
+// one half the palace is as it was. And the walls give way: with the field high they bend and
+// fold, the building becoming what the author chose instead of a palace ("why a palace? I
+// picked an 11d manifold", May/June 2026; HAL-UAT 14 Oct). The foam floor is the hall of the zero moment (mindfulness: everything
 // arises and passes, nothing is held). PLACE puts a thought in the hall; it stays there.
 // Interpretive: a building for the mind, not a claim about the cosmos.
 
@@ -21,6 +23,9 @@ const PINK = '#ff3bce';   // the programme's two colours (style.css --pink, --cy
 const BLUE = '#14e5ff';
 const PINK_C = new THREE.Color(PINK);
 const BLUE_C = new THREE.Color(BLUE);
+// the walls' fold (FX) and the time, shared by every hall's wall shader
+const FOLD = { value: 0 };
+const TIME = { value: 0 };
 // a soft round point (the motes), not a square
 const SOFT = (() => {
   const c = document.createElement('canvas');
@@ -113,8 +118,24 @@ export function createPalace3D(floors) {
     const y = k * FLOOR_H;
     const group = new THREE.Group();
     group.position.y = y;
-    const wall = new THREE.Mesh(new THREE.CylinderGeometry(HALL_R, HALL_R, FLOOR_H - 0.15, 48, 1, true),
-      new THREE.MeshStandardMaterial({ map: hallTexture(style, f.label, k), side: THREE.BackSide, roughness: 0.8, emissive: style.wall, emissiveIntensity: 0.25 }));
+    const wallMat = new THREE.MeshStandardMaterial({ map: hallTexture(style, f.label, k), side: THREE.BackSide, roughness: 0.8, emissive: style.wall, emissiveIntensity: 0.25 });
+    // the manifold: the wall pushed in and out along its normal by a few moving modes, by FX
+    wallMat.onBeforeCompile = shader => {
+      shader.uniforms.uFold = FOLD;
+      shader.uniforms.uTime = TIME;
+      shader.vertexShader = 'uniform float uFold;\nuniform float uTime;\nvarying float vFold;\n' + shader.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>
+        float fa = atan(position.z, position.x);
+        float ff = sin(3.0 * fa + uTime * 0.7 + position.y * 1.3) * sin(2.0 * position.y - uTime * 0.5) + 0.5 * sin(5.0 * fa - uTime * 1.1 + position.y);
+        // the wall stays calm round the door (at -z), so the way out stays open
+        ff *= smoothstep(0.35, 1.0, abs(fa + 1.5708));
+        vFold = ff * uFold;
+        transformed += normal * uFold * 0.6 * ff;`);
+      // the folds lit as bands: brighter where the wall pushes in, darker where it falls away
+      shader.fragmentShader = 'varying float vFold;\n' + shader.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        totalEmissiveRadiance *= 1.0 + 0.9 * vFold;
+        diffuseColor.rgb *= 1.0 + 0.5 * vFold;`);
+    };
+    const wall = new THREE.Mesh(new THREE.CylinderGeometry(HALL_R, HALL_R, FLOOR_H - 0.15, 64, 18, true), wallMat);
     wall.position.y = FLOOR_H / 2;
     group.add(wall);
     const floor = new THREE.Mesh(new THREE.RingGeometry(0.9, HALL_R, 48), new THREE.MeshStandardMaterial({ color: '#2a2630', roughness: 0.9, side: THREE.DoubleSide }));
@@ -207,6 +228,8 @@ export function createPalace3D(floors) {
       ambient.intensity = 0.7 + 0.3 * fx;
       lamp.intensity = 1.4 + 0.5 * fx;
       scene.fog.density = 0.035 * (1 - 0.55 * fx);
+      FOLD.value = fx * fx;
+      TIME.value = state.time;
       halls.forEach((h, k) => {
         const near = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 1.5;
         h.group.visible = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 4;

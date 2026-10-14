@@ -5045,3 +5045,9 @@ stacked for the next big build (ISS-101's stack).
       (past Threshold 2); the visitor is the pilot. And a contradiction to weigh: the author
       once rejected the palace ("why a palace?... I picked an 11d manifold", May/June 2026); the
       palace's caption already says "a map, one level up".
+- [x] (21:26, author: "1+2, like this, not new after all") Into a thought: a click on a bubble
+      opens through its skin into the thought's own world (the Mandelbulb dive, tinted with the
+      thought's colour; MUSIC: the pre-verbal's grains, words out); the caption and SEE THE
+      PICTURE low on the screen; BACK or Esc to the cathedral (explorer.js `thought-dive`).
+- [x] (21:26) The palace gives way to the manifold: above Φ 0.5 its walls bend and fold (a
+      vertex shader, a few moving modes, banded light), calm round the door; a line says so.

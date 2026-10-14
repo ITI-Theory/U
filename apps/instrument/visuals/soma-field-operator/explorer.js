@@ -694,6 +694,19 @@ const ART_TINTS = ['#ffd166', '#5ee7ff', '#ff4d5e', '#a78bfa', '#3fd0c9'];
 const thoughtTint = img => (img?.art ? ART_TINTS[Math.floor(Math.random() * ART_TINTS.length)] : CONCEPT_TINT[img?.concept] ?? '#ffffff');
 // the explorer's full-screen view of a popped bubble (set by createExplorer)
 let popHandler = null;
+// inside a thought (the dive into a clicked bubble), and the feelings that shape its sound:
+// curiosity and awe up, language out, the pre-verbal's grains in
+let inThought = null;
+const INTO_THOUGHT = { S: 0.3, F: 0.1, C: 0.8, A: 0.7, G: 0.2, L: 0.05, PV: 0.85 };
+// a colour's hue in degrees (white: 300, the dive's own pink, so no shift)
+function hueOf(hex) {
+  const n = parseInt(String(hex).replace('#', ''), 16);
+  const r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+  if (d < 0.05) return 300;
+  const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return (h * 60 + 360) % 360;
+}
 // ONE BODY (ISS-077): the stone in the ureter and the mind-body loop, shared by every stop, so
 // the ureter's waves reach the head and the head's tension and breath reach the ureter. The
 // loop is on when LOOP is pressed at the ureter or the brain (st.body).
@@ -865,6 +878,7 @@ function makeBrain() {
           label(ctx, u, `${f?.scale ?? ''} · ${f?.sector ?? ''}${f?.id === 'quantum-foam' ? ' · THE HALL OF THE ZERO MOMENT: everything arises and passes, nothing is held' : ''}`, 0, -0.66, f?.id === 'quantum-foam' ? '#a8f0d8' : COLORS.dim, 'center', 0.021);
           hint(ctx, u, `▲ ▼ ride the floors · DOOR: into this level · PLACE: leave a thought here (${pg.placedCount(pg.floor)} placed) · the method of loci: come back and find it`, 0, 0.84, COLORS.violet, 'center', 0.02);
           label(ctx, u, 'the same grammar at every scale: the palace is a map of the universe, one level up, never the universe itself (no level holds the whole of itself)', 0, 0.9, COLORS.dim, 'center', 0.018);
+          if (phi > 0.55) label(ctx, u, 'FX: the walls give way: not a building, a manifold, folding', 0, -0.61, '#ff7ad9', 'center', 0.021);
         }
         return;
       }
@@ -3186,15 +3200,36 @@ export function createExplorer(hooks = {}) {
   const palaceButtons = ['palace', 'pup', 'pdown', 'pdoor', 'pplace'].map(a => root.querySelector(`[data-act="${a}"]`));
   const vividLabel = root.querySelector('.explorer__vivid');
   vividLabel.querySelector('input').addEventListener('input', event => { st.vivid = Number(event.target.value); });
-  // POP IN: a bubble's figure takes the screen
+  // INTO A THOUGHT (ISS-102; the author on 25 June 2026: "bubbles... with a fractal world inside
+  // ... go into the bubbles... the music matching"): a clicked bubble is entered. The view
+  // opens through its skin into the thought's own world, the Mandelbulb dive tinted with the
+  // thought's colour; with MUSIC on, grains thicken as the words go out (the pre-verbal). The
+  // figure it carried stays at hand (SEE THE PICTURE); BACK or Esc returns to the cathedral.
   const pop = document.createElement('section');
   pop.className = 'explorer__pop';
   pop.hidden = true;
-  pop.innerHTML = '<figure><img alt="" /><figcaption><p class="explorer__pop-caption"></p><p class="explorer__pop-formula"></p><p class="explorer__pop-doc"></p></figcaption></figure><button type="button" data-pop="close">◂ BACK TO THE CATHEDRAL</button>';
+  pop.innerHTML = '<figure><img alt="" /><figcaption><p class="explorer__pop-caption"></p><p class="explorer__pop-formula"></p><p class="explorer__pop-doc"></p></figcaption></figure><nav class="explorer__pop-nav"><button type="button" data-pop="picture">SEE THE PICTURE</button><button type="button" data-pop="close">◂ BACK TO THE CATHEDRAL</button></nav>';
   root.append(pop);
-  const closePop = () => { pop.classList.remove('is-open'); setTimeout(() => { pop.hidden = true; }, 500); };
+  const closePop = () => {
+    pop.classList.remove('is-open', 'show-picture');
+    pop.querySelector('[data-pop="picture"]').textContent = 'SEE THE PICTURE';
+    setTimeout(() => { pop.hidden = true; pop.classList.remove('is-dive'); }, 500);
+    const g = gls['thought-dive'];
+    if (g) g.canvas.classList.remove('is-active', 'explorer__dive-in');
+    if (inThought) showGl(gls['brain-cave'] ?? null);
+    inThought = null;
+  };
   popHandler = img => {
     if (!img || !pop.hidden) return;
+    const g = stageGl('thought-dive');
+    if (g) {
+      inThought = { img, start: performance.now() };
+      g.canvas.style.filter = `hue-rotate(${Math.round(hueOf(thoughtTint(img)) - 300)}deg) saturate(1.15)`;
+      g.canvas.classList.remove('explorer__dive-in');
+      void g.canvas.offsetWidth;
+      g.canvas.classList.add('is-active', 'explorer__dive-in');
+      pop.classList.add('is-dive');
+    }
     pop.querySelector('img').src = img.src;
     if (img.art) {
       pop.querySelector('.explorer__pop-caption').textContent = img.private ? `${img.artist}: from ${img.book}` : `${img.artist}, ${img.title} (${img.date})`;
@@ -3209,7 +3244,12 @@ export function createExplorer(hooks = {}) {
     void pop.offsetWidth;
     pop.classList.add('is-open');
   };
-  pop.addEventListener('click', event => { event.stopPropagation(); closePop(); });
+  pop.addEventListener('click', event => {
+    event.stopPropagation();
+    const b = event.target.closest('[data-pop]');
+    if (b?.dataset.pop === 'picture') { pop.classList.toggle('show-picture'); b.textContent = pop.classList.contains('show-picture') ? 'HIDE THE PICTURE' : 'SEE THE PICTURE'; }
+    else if (b?.dataset.pop === 'close' || !inThought) closePop();
+  });
   addEventListener('keydown', event => { if (event.key === 'Escape' && !pop.hidden) closePop(); });
   // a click in the cathedral pops the bubble under it
   root.addEventListener('click', event => {
@@ -3355,6 +3395,8 @@ export function createExplorer(hooks = {}) {
     'brain-cave': () => createCathedral3D(),
     // the mind palace: the zoom dial's 21 levels as floors (ISS-078)
     'brain-palace': () => createPalace3D(PALACE_FLOORS),
+    // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
+    'thought-dive': () => createFlight3D(),
   };
   const gls = {};
   function stageGl(stop) {
@@ -3684,6 +3726,21 @@ export function createExplorer(hooks = {}) {
       raf = requestAnimationFrame(frame);
       return;
     }
+    // inside a thought: its own world, rendered instead of the cathedral (whose last frame
+    // shows through the opening for the first second)
+    if (inThought && st.stop === 'brain') {
+      const g = gls['thought-dive'];
+      if (g) {
+        if (performance.now() - inThought.start > 1000) showGl(g);
+        g.render({ sector: 'mind', phi: Math.max(0.55, st.phi), time: t, stereo: st.stereo });
+        mainCtx.setTransform(1, 0, 0, 1, 0, 0);
+        mainCtx.clearRect(0, 0, canvas.width, canvas.height);
+        music.update({ sector: 'organismal', phi: st.phi, resource: false, score: INTO_THOUGHT, bpm: st.bpm, echo: 0 });
+        if (snapper.wanted) snapper.take(g.canvas, canvas, { ...reading(), stop: 'thought' });
+        raf = requestAnimationFrame(frame);
+        return;
+      }
+    }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
     env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.gl);
@@ -4004,7 +4061,7 @@ export function createExplorer(hooks = {}) {
     else if (event.key === 'ArrowLeft' && i > 0) go(STOPS[i - 1]);
     else if (event.key.toLowerCase() === 's' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey);
     else if (event.key.toLowerCase() === 'v' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey, true);
-    else if (event.key === 'Escape') {
+    else if (event.key === 'Escape' && pop.hidden) {   // Esc in a thought goes back to the cathedral only
       api.hide();
       hooks.onChange?.();
     } else return;
