@@ -336,11 +336,16 @@ async function main() {
           await page.waitForTimeout(plate.act_wait ?? 3000);
         }
         await page.waitForTimeout(plate.settle ?? 1500);
-        const buffer = await page.screenshot({ type: 'png', timeout: 180000 });
-        const file = `voyage/${plate.id}.png`;
-        await writeFile(path.join(args.out, file), buffer);
-        manifest.voyage.push({ plate: plate.id, view: plate.view, acts: plate.acts ?? [], file, sha256: sha256(buffer) });
-        process.stdout.write(`voyage  ${file}\n`);
+        // frames: a burst from one session, a pause (ms) before each (a bubble growing, then
+        // popping, is chance; the burst gives a choice). Files <id>-1.png, <id>-2.png, ...
+        const shots = plate.frames ? plate.frames.map((pause, k) => ({ pause, file: `voyage/${plate.id}-${k + 1}.png` })) : [{ pause: 0, file: `voyage/${plate.id}.png` }];
+        for (const shot of shots) {
+          await page.waitForTimeout(shot.pause);
+          const buffer = await page.screenshot({ type: 'png', timeout: 180000 });
+          await writeFile(path.join(args.out, shot.file), buffer);
+          manifest.voyage.push({ plate: plate.id, view: plate.view, acts: plate.acts ?? [], file: shot.file, sha256: sha256(buffer) });
+          process.stdout.write(`voyage  ${shot.file}\n`);
+        }
       }
     }
   }

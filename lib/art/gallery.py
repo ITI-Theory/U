@@ -180,11 +180,16 @@ def render(reg: dict, out: Path, fmt: str, only: set[str] | None) -> None:
         if only and p["id"] not in only:
             continue
         src = Image.open(source(p["src"], p.get("hires", True))).convert("RGB")
+        if p.get("zoom", 1) > 1:                       # closer: the centre, 1/zoom of the picture
+            z = float(p["zoom"]); cw, ch = src.width / z, src.height / z
+            cx, cy = src.width * p.get("centre", [0.5, 0.5])[0], src.height * p.get("centre", [0.5, 0.5])[1]
+            left, top = min(max(0, cx - cw / 2), src.width - cw), min(max(0, cy - ch / 2), src.height - ch)
+            src = src.crop((round(left), round(top), round(left + cw), round(top + ch)))
         # Filter at a working size close to the page, so strokes and grain scale with the print.
         scale = max(w / src.width, h / src.height)
         if scale > 1:
             src = src.resize((round(src.width * scale), round(src.height * scale)), Image.Resampling.LANCZOS)
-        key = (str(source(p["src"], p.get("hires", True))), tuple(p["chain"]), src.size)
+        key = (str(source(p["src"], p.get("hires", True))), tuple(p["chain"]), src.size, p.get("zoom", 1), tuple(p.get("centre", [])))
         img = cache.get(key) or filters.apply(src, p["chain"])
         cache[key] = img
         page = filters.fill(img, w, h)
