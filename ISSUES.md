@@ -4833,3 +4833,57 @@ territory breaks (the lesson of the identity axioms, ISS-063, at the scale of th
       category error itself; now "a map of the universe, one level up, never the universe itself".
 - [ ] Stepping inside a thought bubble (and its elevator): ROOTED, ISS-095.
 - [ ] Rebuild the volumes, the Atlas and the app's capture at release (with the next build).
+
+---
+
+## ISS-097: The art book (name to decide) and the Gallery — OPEN
+{{Tags area.books, area.app}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct 17:16: an art book, perhaps in this release. Two clocks: the programme's own
+development time is the main stream (early pictures raw, pencil, as Penrose draws; the pink and
+blue of the programme already there, faintly, fitting in but not quite; growing towards the end);
+and when the text reaches back (Russell, say), the art switches back to that era; within one
+artist, the art follows that artist's own time. Filters for pictures and video (perhaps ROOTED):
+retro black-and-white as the Velvet Underground were filmed, distortion (to be mapped to the
+soma: distortion as the field's amplitude), pencil. The author's avant-garde collection for
+inspiration. The original idea, years ago: drone footage for the video. The finished pictures
+also as a new view in the app, the Gallery.
+
+- [ ] The book's plan: the two clocks on the registry's eras (registry/eras.yaml), a style per era
+      and per stage of the programme, where the pink and blue enter.
+- [ ] Filters for images and video (pencil, retro black-and-white, distortion driven by the field),
+      in the app and in the build; which are ROOTED.
+- [ ] Sources and licences: the collection as inspiration only (its works are others'
+      copyright); the book's images made by the programme (renders, captures, filters), or
+      public domain, or licensed.
+- [ ] The Gallery view in the Soma Machine.
+
+## ISS-098: Levels of visualisation, by viewer (double dispatch) — OPEN
+{{Tags area.visualize, area.app, area.books}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct: as the tests have levels (Sherlock, the Wizard, the Monster), so should the
+pictures: how to visualise [T]-Theory, a book, a chapter, a section, an equation (the Visualize
+macro is the equation level), and each depending on who is looking: double dispatch, the view
+chosen by both the thing and the viewer.
+
+- [ ] A registry of views: scope (programme, book, chapter, section, equation) by viewer (the
+      reader registers already in the app: Cookie, General, Specialist; and the personas: a nurse,
+      a physicist ...), each pointing to an existing view where one exists (a figure, an Atlas
+      plate, a tour, a palace floor, a Gallery piece) and naming the gaps.
+
+## ISS-099: Fantastic Voyage: go where the thought is — OPEN
+{{Tags area.app}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct: "I'm having this mood" and the app whizzes to the part of the brain (or body) that
+goes with it, as the shrunken submarine is injected to one point in Fantastic Voyage; once there,
+the stop's usual views (the cavern, the thought regions) and, above all, information about the
+thinking. Not every region as in a flight simulator: the destinations, and what one does there.
+The app becomes a gallery of thoughts rather than of fractal images.
+
+- [ ] A sourced map from moods and thoughts to regions, honest about localisation (emotions are
+      distributed in today's neuroscience; "regions associated with", not "the seat of").
+- [ ] Navigation by words (type or say a mood), then the flight to the region and its panel.
+
