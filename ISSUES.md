@@ -5078,6 +5078,15 @@ plexus.
       path of a thought, the palace, the arteries) that a click glides to and takes; the
       elevator at the entrance (all 21 floors, onLevel). GREAT HALL at the brain stop, address
       `hall=1`; the CAVE button now says CATHEDRAL and has `cave=1` (ISS-102's finding).
+**The standard (author, 14 Oct 22:33: "absolutely fantastic... the new standard for all
+atriums"):** every hub (an atrium: the hall an elevator exit opens into) is built as the great
+hall is: a vaulted place seen from inside, dark stone raised by fractal noise with thin neon
+veins (pink above, blue below), the field's glow rising with Φ and the walls folding when it
+is high (the manifold), light falling from above through a medium, the place's own anatomy
+hanging and crossing in it (curtains, webs, or what that level has), a few living drifters,
+fine motes; glowing doorways with the route's name and a line under it, a click gliding to
+one and going through; the elevator at the entrance; POKE a pulse across the stone; its signs
+off with the labels. Anatomy for the route, sci-fi for the look.
 - [ ] Then: the body's hub (the heart's chambers; arteries as the routes, WAY IN), the cosmos
       (the palace's top floor), the others as the registry grows.
 - [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the

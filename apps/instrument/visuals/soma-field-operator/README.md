@@ -147,6 +147,17 @@ while one slider moves them all. A fresh start (no address of its own) goes, aft
 abstract, to the main screen's view: the jellyfish human with the level elevator
 (`voyage=human`).
 
+## Atriums: the hub standard
+
+Every elevator exit opens into an atrium, a hub with routes going off it (ISS-103). The first is
+the brain's great hall (`greathall3d.js`, GREAT HALL at the brain stop, `hall=1`), and the
+author made its style the standard for all of them: a vaulted place seen from inside, dark
+stone raised by fractal noise with thin neon veins (pink above, blue below), the glow rising
+with Φ and the walls folding when it is high; light falling from above; the level's own anatomy
+hanging and crossing in it; drifters and motes; glowing doorways named with a line under each,
+a click gliding through; the elevator at the entrance; POKE a pulse across the stone. Anatomy
+for the route, sci-fi for the look.
+
 ## SNAP: somagrams for A Gallery of Thoughts
 
 In the mind-body explorer, SNAP (or S) saves the moment as a somagram (ISS-097): the picture
