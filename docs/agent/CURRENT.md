@@ -27,10 +27,11 @@ are built from the same design (A3 checked once; rebuild with the big build).
 - The cathedral: smaller abstract thought bubbles; a click dives into the thought's own fractal
   world (the author's 25 June idea, found by HAL-UAT). The palace lights pink and blue with Φ and
   its walls fold into the manifold.
-- **Atriums (ISS-103):** every exit opens into a hub with routes off it. The brain's great hall
-  ("absolutely fantastic... the new standard") and the heart's left atrium are built
-  (atrium3d.js); a click's arrival and the elevator's STEP OUT open in them; links keep their
-  view. CAVE is now CATHEDRAL, with `cave=1` and `hall=1` addresses.
+- **Atriums (ISS-103):** every exit opens into a hub with routes off it. Built (atrium3d.js):
+  the brain's great hall ("absolutely fantastic... the new standard"), the heart's left atrium
+  (the mitral valve beating), the neuron's soma (the nucleus, the axon hillock). A click's
+  arrival and the elevator's STEP OUT open in them; links and tours keep their view. CAVE is
+  now CATHEDRAL, with `cave=1` and `hall=1` addresses. Every doorway checked headless.
 - HAL-UAT on the cathedral, bubbles and frequencies: uat/RC3/hal-cathedral-2026-10-14-answers.md.
 - ISS-101: three elevators (scale, dimension, frequency); the frequency axis is a gap in the
   papers (papers first, author's call); a limbic fly-through wanted.
@@ -42,7 +43,8 @@ palace's elevator panel, the great cave rebuild), the next atriums (ISS-103).
 ## Next
 
 1. Author: walk the heart's atrium and the great hall on the 32-inch; SNAP a few somagrams.
-2. Copilot (going on overnight): the cosmos atrium (the palace's top floor), then the others
-   as the hubs registry grows (ISS-103); all app-only, no big build.
+2. Author's call (ISS-103): the human exit (the jellyfish human is the main screen: an atrium
+   there, or not?), and exits with atriums for the other floors (the cosmos: the palace's top
+   floor, or the FLY worlds).
 3. Author, when ready: ZENODO tokens (rehearse, reserve, fill-dois), the frequency-axis paper
    decision (ISS-101), then the big build, `make dist`, publish, Lulu (with the Gallery).
