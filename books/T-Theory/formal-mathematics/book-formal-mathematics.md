@@ -269,6 +269,23 @@ For a mathematician the conclusion is modest and practical. A formal programme h
 | Planted faults measure what the checks can see; two kinds remain unseen. | `empirical-result` | `make moriarty` (bld/sherlock/moriarty.md) |
 | A text about proofs needs its own checker, and the checker an adversary. | `interpretive` | this chapter |
 
+# Universe Levels and Self-Models
+
+The programme's instrument nests worlds: a mind explorer inside the universe it explores, a mind palace inside the mind, thought bubbles inside the palace, each with an elevator. A type theorist will recognise the hierarchy at once, because Lean has one of its own. `Type 0` is a type in `Type 1`, `Type 1` in `Type 2`, and the kernel rejects `Type : Type`, which would reproduce Girard's paradox [@girard1972], the type-theoretic form of Russell's [@russell1908types] `kernel-verified`.
+
+`SomaPhilosophy.lean` states the nesting as three theorems in core Lean. Read a level $\alpha$'s model of itself as a map $f : \alpha \to (\alpha \to \mathrm{Prop})$, from parts to collections of parts. `no_complete_self_model` is Cantor's diagonal argument [@cantor1891]: every such $f$ misses some collection, so none is surjective; the proof uses nothing beyond the logic itself. `level_up_represents` is the other half: the singleton map $a \mapsto (\cdot = a)$ is injective, so the level above has a distinct representative for every part of the level below. `nest_maps_not_territory` puts them on a tower, `Floor α 0 = α` and `Floor α (n+1) = Floor α n → Prop`: at every floor there is an injection to the next and no surjection onto it. Both rest only on propositional extensionality `kernel-verified`.
+
+The reading is the book's main ethic in another key. Each floor is a map of the one below, never the territory; the identity "the palace is the universe" is a category error of the same kind as "a percept is a pole", and its coherent reading is a map one level up `interpretive`. Infinite descent is not the problem: without the axiom of foundation, sets may contain themselves and endless chains of containment are consistent [@aczel1988]. The problem is the one level that contains all levels, itself included `interpretive`.
+
+## Ledger
+
+| Claim | Label | Source |
+|---|---|---|
+| No map from a level onto all the collections of its own parts exists (Cantor), with no axioms. | `kernel-verified` | `SomaPhilosophy.lean` (`no_complete_self_model`) |
+| Every floor represents the one below injectively, and no floor maps onto the next. | `kernel-verified` | `SomaPhilosophy.lean` (`level_up_represents`, `nest_maps_not_territory`) |
+| Lean's universes are stratified; `Type : Type` is rejected by the kernel. | `kernel-verified` | Lean's kernel; Girard (1972) |
+| Nested worlds in the programme nest as maps, never as the territory. | `interpretive` | this chapter |
+
 # Open Problems for Type Theorists and Mathematicians
 
 The most productive mathematical work on this project will be unglamorous. It will not begin by proving that experience is a field. It will begin by replacing comments with structures, replacing axioms with hypotheses, and replacing slogans with transport lemmas. This chapter lists the main routes.

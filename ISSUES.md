@@ -4792,4 +4792,44 @@ Jumbo suits big spreads.
 - [ ] The rooted Atlas: fractal spreads at print resolution (captures or a renderer), its own
       build and edition.
 
+- [ ] Experiments for ROOTED (author, 14 Oct): step inside a thought bubble, with its own elevator
+      (a world inside a world; the nesting is maps, ISS-096); wormholes as in SpaceEngine. The
+      science version of a wormhole stays in the default: a Morris-Thorne wormhole as an exact
+      solution of general relativity at the compact-object level, labelled "a solution of the
+      equations; none observed; a traversable one needs exotic matter" (an embedding diagram, and
+      the lensing view by a ray-traced shader); flying through one between floors, the palace or a
+      bubble is ROOTED (the elevator's sci-fi twin); a lensing skin is RICE.
 Order (author): after the release.
+
+---
+
+## ISS-096: Universes inside universes: nest maps, never the territory — OPEN
+{{Tags area.books, area.proofs, area.app}}
+{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=, epic=}}
+
+Author, 14 Oct 15:00: "we exist in one universe; in the Soma Machine a mind explorer, a mind
+palace with an elevator, another universe or the same? my thought bubbles, can I go inside each,
+and is there an elevator there too? a fractal universe. Forget the Soma Machine: is there anything
+useful in this view of us?" Then: "no way I'm sitting on this one; do it properly, everywhere it
+should be."
+
+What it touches: Leibniz's monads (each mirrors the whole), Indra's net, Hofstadter's strange
+loops, fractals and the renormalisation group (the programme's scale invariance), non-well-founded
+sets (Aczel), and Russell: a totality that contains itself is a paradox; the theory of types
+stratifies, as Lean's universes do (`Type : Type` is Girard's paradox). The useful rule: each inner
+world is a map of the one around it, one level up; maps nest without end, a map that is its
+territory breaks (the lesson of the identity axioms, ISS-063, at the scale of the whole).
+
+- [x] Lean: `SomaPhilosophy.lean` section 5, core Lean: `no_complete_self_model` (Cantor, no
+      axioms), `level_up_represents` (the singleton map is injective; propext),
+      `nest_maps_not_territory` (the elevator's floors: an injection to the next floor, no
+      surjection onto it, at every floor); `example : Type 1 := Type`.
+- [x] Philosophy book, chapter 11: a section "Universes inside universes" (Leibniz, Indra's net,
+      Hofstadter, Russell, Girard, Cantor, Aczel), two ledger rows; five references added to the
+      bibliography (Cantor 1891, Girard 1972, Aczel 1988, Hofstadter 1979, Cook 1977).
+- [x] Formal Mathematics book: a chapter "Universe Levels and Self-Models" with its ledger.
+- [x] Field Atlas, the mind palace spread: a paragraph, "Is the palace another universe?".
+- [x] Soma Machine: the palace's caption said "the palace of the mind is the universe", the
+      category error itself; now "a map of the universe, one level up, never the universe itself".
+- [ ] Stepping inside a thought bubble (and its elevator): ROOTED, ISS-095.
+- [ ] Rebuild the volumes, the Atlas and the app's capture at release (with the next build).

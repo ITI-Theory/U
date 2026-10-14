@@ -20,6 +20,14 @@ statements as written, `interpretive` for any reading of them).
    itself. Observers with the same categories see the same appearance, and
    different things in themselves can look the same (the noumenon cannot be
    recovered from the appearance).
+5. Universes inside universes (author, 14 Oct): a mind holds a model of the
+   universe, a mind palace inside it holds a model again, a thought bubble
+   again. Russell's rule, as the kernel enforces it: no level contains the
+   whole of itself. Cantor (1891): no map from a level onto all the
+   collections of its own parts exists; but the level above has a distinct
+   map for every part. So the levels nest as maps, each one up, forever, and
+   never as the territory. Lean's own universes do the same: `Type 0` lives
+   in `Type 1`, and `Type : Type` is rejected (Girard's paradox).
 
 No Mathlib: core Lean only, so the file builds in seconds.
 -/
@@ -138,5 +146,46 @@ theorem same_categories_same_appearance {N P : Type} (c₁ c₂ : N → P) (n : 
 theorem noumenon_not_recoverable :
     ∃ (c : Bool → Unit) (n₁ n₂ : Bool), n₁ ≠ n₂ ∧ appearance c n₁ = appearance c n₂ :=
   ⟨fun _ => (), true, false, by decide, rfl⟩
+
+/-! ## 5. Universes inside universes: nest maps, never the territory -/
+
+/-- A level's "model of itself": a map from its parts to collections of its parts (a
+predicate on the level). Cantor's diagonal: no such model covers every collection. A
+mind cannot hold the whole of what it could think about itself. -/
+theorem no_complete_self_model {α : Type u} (f : α → (α → Prop)) :
+    ¬ Function.Surjective f := by
+  intro hf
+  obtain ⟨a, ha⟩ := hf (fun x => ¬ f x x)
+  have h : f a a ↔ ¬ f a a := by
+    constructor
+    · intro h; rw [ha] at h; exact h
+    · intro h; rw [ha]; exact h
+  exact (fun hn : ¬ f a a => hn (h.mpr hn)) (fun hp => (h.mp hp) hp)
+
+/-- The level above represents every part of the level below, each by its own map (the
+singleton predicate "is this part"): an injection, so nothing below is lost. -/
+theorem level_up_represents {α : Type u} :
+    Function.Injective (fun a : α => fun b : α => b = a) := by
+  intro a a' h
+  have := congrFun h a'
+  simp at this
+  exact this.symm
+
+/-- The floors of the elevator: floor 0 is the level itself, floor n+1 holds the
+collections of floor n (a model of it). -/
+def Floor (α : Type u) : Nat → Type u
+  | 0 => α
+  | n + 1 => Floor α n → Prop
+
+/-- Every floor represents the one below without loss, and no floor holds the whole of
+itself: maps nest forever, the territory never does. -/
+theorem nest_maps_not_territory (α : Type u) (n : Nat) :
+    (∃ g : Floor α n → Floor α (n + 1), Function.Injective g) ∧
+    ∀ f : Floor α n → Floor α (n + 1), ¬ Function.Surjective f :=
+  ⟨⟨fun a b => b = a, level_up_represents⟩, fun f => no_complete_self_model f⟩
+
+/-- Lean's own universes nest the same way: the universe of types `Type` is a type one
+level up. (`Type : Type` would be Girard's paradox; the kernel rejects it.) -/
+example : Type 1 := Type
 
 end SomaPhilosophy

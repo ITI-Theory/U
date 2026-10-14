@@ -4,6 +4,8 @@ The oldest memory technique is a building. Ancient orators placed each thing to 
 
 The same tower is the elevator of the level view, the lift whose car rides the app's zoom: floor by floor the length scale changes by powers of ten while the response grammar stays on top, unchanged [@P11]. Below are two of its halls as the explorer draws them; overleaf is the whole tower, drawn from the registry, every floor with its scale and its sector. The palace is a building for the mind, not a claim about the cosmos `interpretive`. It is printed here, before the levels, because it is the shape of the whole atlas in one picture.
 
+Is the palace another universe, then, and a thought on one of its floors another again, with its own elevator? As a picture, yes, and the nesting can go on without end. But each world inside is a map of the one around it, one level up, never the thing itself: no level can hold the whole of itself (Cantor's theorem), while the level above can represent every part of the level below. The programme's Lean proves both, and Lean's own universes are built the same way [@cantor1891] `kernel-verified`. The palace is the universe drawn again, for the mind to walk through `interpretive`.
+
 ::: {.figure src="theory/P1_palace_tower.png"}
 The mind palace as one tower: the zoom dial's 21 levels as floors, quantum foam at the bottom and the cosmic web at the top, each with its scale and sector, read from the registry's universal-21 model (`interpretive`).
 :::

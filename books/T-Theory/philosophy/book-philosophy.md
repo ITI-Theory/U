@@ -1832,6 +1832,16 @@ The contemporary continuation of *Principia*, then, is not the dream that all kn
 
 One may put the point more sharply. The formal layer does not end philosophy by replacing interpretation with proof. It changes the ethics of interpretation. After formalisation, a reader can ask not only whether a claim is plausible, but where it lives: definition, theorem, axiom, imported theorem, simulation, or metaphor. That question is already philosophical analysis in Russell's sense, updated for a world in which proof objects can be inspected by machines `interpretive`.
 
+## Universes inside universes
+
+The Soma Machine has a mind explorer inside the universe it explores, a mind palace inside the mind, an elevator inside the palace, and thought bubbles one might step into, each with its own elevator again. The picture is old. Leibniz's monads each mirror the whole universe from a point of view, and every portion of matter is "a garden full of plants", each branch of which is again such a garden [@leibniz1714monadology]. The Huayan tradition's net of Indra hangs a jewel at every knot, each reflecting all the others and their reflections [@cook1977huayen]. Hofstadter calls the self a strange loop: a system that holds a model of itself which refers back to it [@hofstadter1979geb]. The programme's own scale invariance is the same intuition in physical dress: one response law at every zoom `interpretive`.
+
+Russell's paradox is the warning on this picture. A totality that contains itself cannot be had without contradiction, and the theory of types answers by stratifying: a predicate applies only to things below it [@russell1908types]. Lean's kernel enforces the same stratification on its own universes. `Type 0` is a type in `Type 1`, `Type 1` in `Type 2`, and so on; `Type : Type` is rejected, because it reproduces the paradox (Girard's) [@girard1972] `kernel-verified`.
+
+The precise form of the warning is Cantor's theorem [@cantor1891]. Read a level's "model of itself" as a map from its parts to collections of its parts; no such map reaches every collection. A mind cannot hold the whole of what it could think about itself. The other half is as easy and matters as much: the level above represents every part of the level below by its own map, so nothing is lost on the way up. `SomaPhilosophy.lean` proves both, in core Lean and with nothing assumed beyond propositional extensionality, and then the elevator: a tower of floors, each holding the collections of the floor below, every floor representing the one below without loss, and none holding the whole of itself (`no_complete_self_model`, `level_up_represents`, `nest_maps_not_territory`) `kernel-verified`.
+
+So the nesting is real and unlimited, but it is a nesting of maps. The palace inside the mind is a model of the universe one level up; a bubble inside the palace is a model of a model. What breaks the picture is a map that claims to be its territory: the palace that is the universe, the thought that is the thing thought of. That is the category error Sherlock found in the programme's identity axioms ("a percept is a pole"), now at the scale of the whole: the coherent reading of every "is" across levels is "is modelled by" `interpretive`. Infinite descent itself is not the danger; set theory without the axiom of foundation has sets that contain themselves, and an endless chain of bubbles is consistent [@aczel1988]. The danger is the single level that contains all levels, itself included `interpretive`.
+
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
@@ -1846,6 +1856,8 @@ One may put the point more sharply. The formal layer does not end philosophy by 
 | `QuantumSim.lean` proves positive two-state WKB-gate reachability. | `kernel-verified` | `paper/proofs/QuantumSim.lean` |
 | QUANT-EXP-1 remains simulation evidence, not hardware, runtime advantage, therapy, or consciousness. | `simulated` | Quantum Soma and the Penrose Gap (P2); Experimental Validation (P12); `paper/proofs/QuantumSim.lean` |
 | The specification gap — the kernel checks statements, not meanings — is the chapter's governing philosophical reading. | `interpretive` | Chapter analysis; `paper/proofs/UniversalSomaticField.lean`; `paper/FieldAxioms.lean` |
+| No level holds a complete model of itself (Cantor); the level above represents every part of the one below; the floors nest as maps without end. | `kernel-verified` | `paper/proofs/SomaPhilosophy.lean` (`no_complete_self_model`, `level_up_represents`, `nest_maps_not_territory`) |
+| Universes inside universes nest as maps, never as the territory; an "is" across levels reads as "is modelled by". | `interpretive` | Chapter analysis; Leibniz, Russell, Hofstadter |
 
 # 12. The Order Problem
 
