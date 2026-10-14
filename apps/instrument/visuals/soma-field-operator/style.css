@@ -567,6 +567,10 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer-stereo.explorer-chrome .explorer__bar, .explorer-stereo.explorer-chrome .tour-card { opacity: 1; transition: opacity .2s ease; }
 .elevator button.elevator__fly { background: #5ee7ff; margin-left: 3px; }
 .explorer [data-act="music"].active { background: #ffd166; color: #070a16; }
+/* SNAP (snap.js): a short note of what was saved */
+.snap-toast { position: fixed; z-index: 400; left: 50%; bottom: 7vh; margin: 0; padding: 7px 14px; transform: translateX(-50%); color: #070a16; background: #ffd166; font: 700 11px/1.3 'Space Mono', monospace; opacity: 0; pointer-events: none; }
+.snap-toast--on { animation: snap-toast 3.2s ease forwards; }
+@keyframes snap-toast { 0% { opacity: 0; } 8% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; } }
 
 /* atlas=1: a capture for the printed Field Atlas (capture.mjs --only voyage): the picture
    only; the stop's text, label and caption are printed beside it. */

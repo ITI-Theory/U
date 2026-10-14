@@ -64,6 +64,7 @@ import { createSomaLoop } from './somaloop.js';
 import { createLook, LOOK } from './look.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
+import { createSnapper } from './snap.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -3114,6 +3115,7 @@ export function createExplorer(hooks = {}) {
       <div class="explorer__layers" role="group" aria-label="Layers">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</div>
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
+      <button type="button" data-act="snap" title="SNAP (S): save this moment as a somagram, the picture and its [T]-stop (the field's reading), for A Gallery of Thoughts; Shift+S keeps the labels">SNAP</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
       <button type="button" data-act="wayin" title="THE WAY IN (ISS-077): ride from the heart up the arteries to the circle of Willis and the middle cerebral artery, then arrive at the BRAIN cathedral">WAY IN ▸</button>
       <button type="button" data-act="thoughts" aria-pressed="false" title="Thoughts as neural avalanches (ISS-077): many small bursts, a few large; ignition; with the ADHD, ASD and C-PTSD sliders">THOUGHTS</button>
@@ -3164,6 +3166,9 @@ export function createExplorer(hooks = {}) {
   const canvas = root.querySelector('canvas');
   const mainCtx = canvas.getContext('2d');
   let ctx = mainCtx;
+  // SNAP (ISS-097): the moment as a somagram, with the field's reading when it was taken
+  const snapper = createSnapper();
+  const reading = () => ({ address: location.hash.replace(/^#/, ''), stop: st.stop, phi: st.phi, dim: dim(), cave: Boolean(st.cave), palace: Boolean(st.palace), thoughts: Boolean(st.thoughts), cp: st.cp, setting: st.stop === 'score' ? st.kc : undefined, storyTime: st.stop === 'score' ? scoreT : undefined, modes: st.stop === 'score' && scoreModes ? { ...scoreModes } : undefined });
   const phiInput = root.querySelector('.explorer__phi input');
   const phiOut = root.querySelector('.explorer__phi output');
   const card = root.querySelector('.explorer__card');
@@ -3673,6 +3678,8 @@ export function createExplorer(hooks = {}) {
         mainCtx.setTransform(1, 0, 0, 1, 0, 0);
         mainCtx.clearRect(0, 0, canvas.width, canvas.height);
       }
+      // the level view shows through here (main.js keeps its drawing buffer)
+      if (snapper.wanted) snapper.take(document.querySelector('#operator'), canvas, reading());
       raf = requestAnimationFrame(frame);
       return;
     }
@@ -3740,6 +3747,7 @@ export function createExplorer(hooks = {}) {
       composite();
       ctx = mainCtx;
     }
+    if (snapper.wanted) snapper.take(env.gl?.canvas ?? null, canvas, reading());
     raf = requestAnimationFrame(frame);
   }
 
@@ -3838,6 +3846,7 @@ export function createExplorer(hooks = {}) {
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'poke') api.poke(1);
+    else if (b.dataset.act === 'snap') snapper.request(event.shiftKey);
     else if (b.dataset.act === 'kc') {
       st.kc = SETTING_IDS[(SETTING_IDS.indexOf(st.kc) + 1) % SETTING_IDS.length];
       syncUi();
@@ -3991,6 +4000,7 @@ export function createExplorer(hooks = {}) {
     const i = STOPS.indexOf(st.stop);
     if (event.key === 'ArrowRight' && i < STOPS.length - 1) go(STOPS[i + 1]);
     else if (event.key === 'ArrowLeft' && i > 0) go(STOPS[i - 1]);
+    else if (event.key.toLowerCase() === 's' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey);
     else if (event.key === 'Escape') {
       api.hide();
       hooks.onChange?.();

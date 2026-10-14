@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import filters  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
+SNAPS = ROOT / "bld" / "gallery" / "snaps"
 
 
 def plates(reg: dict) -> list[dict]:
@@ -39,6 +40,8 @@ def source(src: str, hires_ok: bool = True) -> Path:
     plate keeps the committed capture (a moving view can be caught at another moment)."""
     if src.startswith("hires:"):                       # a Gallery capture (registry `captures`)
         return ROOT / "bld" / "gallery" / "hires" / "voyage" / f"{src[6:]}.png"
+    if src.startswith("snap:"):                        # a somagram the author took (SNAP in the app)
+        return SNAPS / f"{src[5:]}.png"
     path = ROOT / src
     hires = ROOT / "bld" / "gallery" / "hires" / "voyage" / path.name
     return hires if hires_ok and "/app/voyage/" in src and hires.exists() else path
@@ -113,12 +116,19 @@ def tstop(p: dict, address: dict[str, str]) -> str:
     phase with the seven feelings, and the process (the filter)."""
     stem = Path(p["src"].split(":", 1)[-1]).stem
     parts = []
+    snap = None
+    if p["src"].startswith("snap:"):                   # the reading the app wrote when the author snapped
+        snap = json.loads((SNAPS / f"{p['src'][5:]}.json").read_text(encoding="utf-8"))
+        address = {**address, stem: snap.get("address", "")}
     if "--" in stem:                                   # an Atlas level plate: NN-level--11d
         level, dim = stem.split("--")
         parts += [dim.upper(), level.split("-", 1)[1].replace("-", " ")]
         q = {}
     else:
         q = dict(x.split("=", 1) for x in address.get(stem, "").split("&") if "=" in x)
+        if snap:                                       # live values beat the address's start values
+            q.update({k: str(v) for k, v in (("phi", snap.get("phi")), ("dim", snap.get("dim")), ("st", snap.get("storyTime")),
+                                              ("voyage", snap.get("stop"))) if v is not None})
         if "phi" in q:
             parts.append(f"Φ {float(q['phi']):.2f}")
         if "dim" in q:
@@ -130,7 +140,12 @@ def tstop(p: dict, address: dict[str, str]) -> str:
         if q.get("voyage") == "score" and "st" in q:
             st = float(q["st"])
             parts.insert(0, f"{phase_at(st)}, t {st:.2f}" + threshold_at(st))
-            parts.insert(1, salient(score_at(st)))
+            live = snap.get("modes") if snap else None   # the feelings as they were, knobs and all
+            parts.insert(1, salient(live or score_at(st)))
+    if snap:
+        local = snap.get("local")                       # "YYYYMMDD HH:MM", the author's own clock
+        when = f"{local[:4]}-{local[4:6]}-{local[6:8]}{local[8:]}" if local else snap["taken"][:16].replace("T", " ") + " UTC"
+        parts.append(f"snapped {when}")
     steps = []
     for step in p["chain"]:
         name, _, arg = step.partition(":")
