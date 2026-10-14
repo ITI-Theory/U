@@ -2635,7 +2635,9 @@ Steps:
       move; the city grows as Sherlock's registry grows.
 - [ ] (13 Oct, part: the readout shows τ, the level's response time, beside ℓ, and the
       carrier field retypes as the car rides, "passing → riding to"; N(σ) waits for a
-      sourced value: only ScaleUniverse's tensor_rank exists, and it rests on sorry)
+      sourced value: only ScaleUniverse's tensor_rank exists, and it rests on sorry; 14 Oct: it
+      rests on no sorry now (FLRWData), but only three levels instantiate it (human, brain,
+      swarm), all rank 2, and the cosmic web's rank 4 is a comment: it waits for more)
       Elevator, from H-AL: show the tensor rank N(σ) beside ℓ(σ), the response
       time τ, and the carrier field retyping as the car moves; more STEP OUT
       floors as stops appear (dyad, swarm, geological memory, cosmic web);
