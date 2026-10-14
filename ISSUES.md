@@ -5002,3 +5002,28 @@ the ventricles as the road.
 **Stacked for the next big build (author, 14 Oct: stack a few, UAT more first):** ISS-101
 (papers, then app), the Gallery's A3 and projector editions (ISS-097), the overview (ISS-100,
 done), SNAP and palace FX (done, in the app), the UAT walkaround's findings.
+
+## ISS-102: UAT walkaround, 14 Oct evening: findings — OPEN
+{{Tags area.app, area.uat}}
+{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=, epic=}}
+
+The author walks the app on the real desk (SNAP + SAY, palace FX, the overview); findings are
+stacked for the next big build (ISS-101's stack).
+
+- [ ] (20:55) The cathedral is hard to find: the button says CAVE (say CATHEDRAL), it shows
+      only at the BRAIN stop, and it has no address of its own (add `cave=1`, so it can be
+      linked, toured and put on the overview desk).
+- [ ] (21:00) The palace has no elevator panel: the floors are the level elevator's 21 levels,
+      so the palace should show the same elevator (pick a floor, not ▲ twenty times), and the
+      field's controls should act there: POKE (a thought arriving in the hall), THOUGHTS, Φ
+      (now the palace FX).
+- [ ] (21:05) The cave is a tube, not a cave: make a huge, majestic hall with the tunnels
+      flowing from it. Sourced shape: the atrium (trigone) of the lateral ventricle is the
+      ventricles' real great hall, where body, occipital and temporal horns meet and the
+      choroid plexus is largest (the glomus): a domed hub, the glomus as a chandelier of
+      curtains, the passages leaving it (frontal horn; temporal horn, the limbic route of
+      ISS-101; occipital horn; through the foramen to the third ventricle, the aqueduct, the
+      fourth). Proportions stay for the eye (the real ventricles hold about 25 ml).
+- [ ] (21:05) Thought bubbles: smaller, the picture inside abstracted (a filter, so it reads as
+      a thought, not a photograph), and no automatic popping: a bubble drifts past unless
+      clicked; a click goes into the thought.

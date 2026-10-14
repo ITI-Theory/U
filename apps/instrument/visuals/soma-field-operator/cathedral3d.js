@@ -16,8 +16,10 @@ import { applyLook } from './look.js';
 // VISUAL THOUGHTS (ISS-077): soap bubbles with a figure inside. The shell is a thin film
 // (three.js iridescence: the colours of a soap film, 200-900 nm thick) reflecting a soft room;
 // the figure sits on a disc inside, its texture pulled towards the middle like a view through
-// a ball (a fisheye). A bubble grows as it drifts; when it comes close it pops and the figure
-// takes the screen (onPop). VIVIDNESS is how much of the picture shows (0: the bubble, no
+// a ball (a fisheye), abstracted (blurred, saturated: a thought, not a photograph). A bubble
+// grows as it drifts and fades as it passes the visitor; only a click pops it, and then the
+// figure takes the screen as it is (onPop) (author, 14 Oct UAT: smaller, abstract, click to
+// go in). VIVIDNESS is how much of the picture shows (0: the bubble, no
 // picture, as in aphantasia; 1: vivid). Kandinsky's grammar: the tint is the feeling.
 function fisheyeDisc() {
   const g = new THREE.CircleGeometry(1, 64);
@@ -189,7 +191,6 @@ export function createCathedral3D() {
 
   // the bubbles
   const bubbles = [];
-  const loader = new THREE.TextureLoader();
   const textures = new Map();
   const disc = fisheyeDisc();
   const shellGeo = new THREE.SphereGeometry(1, 48, 32);
@@ -200,10 +201,22 @@ export function createCathedral3D() {
   });
   let vivid = 0.8;
   let onPop = null;
+  // the picture in a bubble, abstracted: drawn small, blurred and saturated on a canvas
   const texture = src => {
     if (!textures.has(src)) {
-      const t = loader.load(src);
+      const c = document.createElement('canvas');
+      c.width = c.height = 128;
+      const t = new THREE.CanvasTexture(c);
       t.colorSpace = THREE.SRGBColorSpace;
+      const img = new Image();
+      img.onload = () => {
+        const g = c.getContext('2d');
+        g.filter = 'blur(3px) saturate(1.8) contrast(1.15)';
+        const s = Math.max(128 / img.width, 128 / img.height);
+        g.drawImage(img, (128 - img.width * s) / 2, (128 - img.height * s) / 2, img.width * s, img.height * s);
+        t.needsUpdate = true;
+      };
+      img.src = src;
       textures.set(src, t);
     }
     return textures.get(src);
@@ -288,7 +301,7 @@ export function createCathedral3D() {
       const a = Math.random() * Math.PI * 2;
       const off = new THREE.Vector2(Math.cos(a), Math.sin(a)).multiplyScalar(hall * 0.45 * Math.random());
       scene.add(group);
-      const b = { group, shell, film, image, u: bu, off, size: Math.min(hall * 0.55, 0.12 + 0.38 * loud), age: 0, phase: Math.random() * 6, popping: 0 };
+      const b = { group, shell, film, image, u: bu, off, size: Math.min(hall * 0.3, 0.06 + 0.18 * loud), age: 0, phase: Math.random() * 6, popping: 0 };
       group.scale.setScalar(0.01);
       bubbles.push(b);
       return b;
@@ -376,13 +389,12 @@ export function createCathedral3D() {
         const wobble = 1 + 0.03 * Math.sin(state.time * 3 + b.phase);
         let s = b.size * (0.15 + 0.85 * (1 - (1 - grow) ** 2)) * wobble;
         b.film.lookAt(camera.position);
-        b.film.material.opacity = vivid * Math.min(1, b.age / 1.5) * (b.popping ? Math.max(0, 1 - b.popping * 3) : 1);
         b.shell.rotation.y += dt * 0.2;
+        // close to the visitor it fades and drifts past; only a click pops it (pick)
         const dist = b.group.position.distanceTo(camera.position);
-        if (!b.popping && b.age > 1 && dist < s * 1.8) {
-          b.popping = 0.001;
-          onPop?.(b.image);
-        }
+        const near = Math.max(0, Math.min(1, (dist - s) / (s * 2)));
+        b.film.material.opacity = vivid * Math.min(1, b.age / 1.5) * near * (b.popping ? Math.max(0, 1 - b.popping * 3) : 1);
+        if (!b.popping) b.shell.material.opacity = 0.22 * near;
         if (b.popping) {
           b.popping += dt;
           s *= 1 + 2.5 * b.popping;
