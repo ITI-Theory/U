@@ -17,6 +17,7 @@
 \newcommand{\gallerytext}{\fontsize{\strip@pt\gallery@text}{\strip@pt\gallery@textskip}\selectfont}
 \newcommand{\gallerytitlefont}{\fontsize{\strip@pt\gallery@title}{\strip@pt\gallery@titleskip}\selectfont}
 \newcommand{\gallerylabelfont}{\fontsize{\strip@pt\gallery@label}{\strip@pt\gallery@labelskip}\selectfont}
+\newcommand{\gallerystopfont}{\fontsize{\strip@pt\dimexpr0.8\gallery@label\relax}{\strip@pt\dimexpr0.85\gallery@labelskip\relax}\selectfont}
 \makeatother
 % The cover: a plate to the edge, the title in a dark band at the lower left.
 % #1 image, #2 title, #3 subtitle, #4 author
@@ -36,9 +37,10 @@
   \vspace*{\fill}\begin{minipage}{0.62\textwidth}%
   {\gallerytitlefont\raggedright\hyphenpenalty=10000 #3\par}\vspace{0.5\baselineskip}{\gallerytext\itshape #4\par}\vspace{1.2\baselineskip}\gallerytext}%
   {\end{minipage}\vspace*{\fill}\clearpage\nopagecolor}
-% A plate to the edge, with a small numbered label at the lower left.
-% #1 image, #2 label ground, #3 label ink, #4 label opacity, #5 number, #6 caption
-\newcommand{\galleryplate}[6]{%
+% A plate to the edge, with a small numbered label at the lower left: the caption, and under it
+% the [T]-stop (the reading of the field when it was taken, as a photobook gives f-stop and film).
+% #1 image, #2 label ground, #3 label ink, #4 label opacity, #5 number, #6 caption, #7 [T]-stop
+\newcommand{\galleryplate}[7]{%
   \clearpage\thispagestyle{empty}%
   \begin{tikzpicture}[remember picture,overlay]
     \node[inner sep=0pt] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{#1}};
@@ -46,7 +48,7 @@
     \node[anchor=south west, fill=gallerylabelground, fill opacity=#4, text opacity=1, text=gallerylabelink,
           inner sep=0.008\paperwidth, text width=0.36\paperwidth, align=left]
       at ([xshift=0.045\paperwidth,yshift=0.04\paperwidth]current page.south west)
-      {\gallerylabelfont\textbf{#5}\enspace #6};
+      {\gallerylabelfont\textbf{#5}\enspace #6\par\vspace{0.25\baselineskip}{\gallerystopfont\itshape #7\par}};
   \end{tikzpicture}\mbox{}\clearpage}
 \newenvironment{galleryintro}{\clearpage\pagecolor[HTML]{F4F0E6}\vspace*{\fill}\begin{minipage}{0.62\textwidth}\gallerytext}{\end{minipage}\vspace*{\fill}\clearpage\nopagecolor}
 \newenvironment{gallerycolophon}{\clearpage\pagecolor[HTML]{F4F0E6}\vspace*{\fill}\begin{minipage}{0.62\textwidth}\gallerylabelfont\setlength\parskip{0.6\baselineskip}}{\end{minipage}\clearpage}

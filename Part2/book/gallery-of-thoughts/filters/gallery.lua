@@ -3,7 +3,8 @@
 -- room page (its title, its date on the programme's clock or the era's, and its text from
 -- rooms/) followed by its plates, printed to the edge with a small label. The plates are
 -- images rendered by lib/art/gallery.py into the format's plate-dir; their tones.json says
--- whether the label's corner is light or dark. LaTeX markup only behind a format check.
+-- whether the label's corner is light or dark, their tstops.json each plate's [T]-stop (the
+-- reading of the field when the picture was taken). LaTeX markup only behind a format check.
 
 local stringify = pandoc.utils.stringify
 
@@ -45,7 +46,7 @@ local function ink(bg)
   return (0.2126 * r + 0.7152 * g + 0.0722 * b) > 128 and '1C1A17' or 'ECE8E0'
 end
 
-local plate_dir, tones = nil, {}
+local plate_dir, tones, tstops = nil, {}, {}
 local count = 0
 
 local function plate(p)
@@ -55,12 +56,14 @@ local function plate(p)
   local caption = stringify(p.caption or '')
   if is_latex() then
     local light = tones[id] == 'light'
-    return pandoc.RawBlock('latex', string.format('\\galleryplate{%s}{%s}{%s}{%s}{%d}{%s}',
+    local stop = tstops[id] and to_latex({ pandoc.Plain({ pandoc.Str(tstops[id]) }) }) or ''
+    return pandoc.RawBlock('latex', string.format('\\galleryplate{%s}{%s}{%s}{%s}{%d}{%s}{%s}',
       path, light and 'F4F0E6' or '000000', light and '1C1A17' or 'ECE8E0',
-      light and '0.78' or '0.55', count, md_latex(caption)))
+      light and '0.78' or '0.55', count, md_latex(caption), stop))
   end
   return pandoc.Figure(pandoc.Plain({ pandoc.Image({}, path) }),
-    { pandoc.Plain({ pandoc.Str(tostring(count) .. '. '), table.unpack(pandoc.read(caption, 'markdown').blocks[1].content) }) },
+    { pandoc.Plain({ pandoc.Str(tostring(count) .. '. '), table.unpack(pandoc.read(caption, 'markdown').blocks[1].content) }),
+      pandoc.Plain({ pandoc.Emph(tstops[id] or '') }) },
     { id = 'plate-' .. id })
 end
 
@@ -88,6 +91,8 @@ function Pandoc(doc)
   plate_dir = stringify(meta['plate-dir'])
   local ok, s = pcall(read_file, plate_dir .. '/tones.json')
   if ok then tones = pandoc.json.decode(s) end
+  local ok2, s2 = pcall(read_file, plate_dir .. '/tstops.json')
+  if ok2 then tstops = pandoc.json.decode(s2) end
   local blocks = {}
   -- The cover: the title on the first plate; the metadata title is moved off so the template
   -- adds no title page of its own.

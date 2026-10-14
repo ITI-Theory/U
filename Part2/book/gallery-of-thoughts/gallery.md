@@ -20,7 +20,14 @@ gallery at sixteen by nine, to be shown big.
 **Colophon.** The pictures are the programme's: plates of the *Field Atlas* and views of the
 Soma Machine, captured from the app and filtered by `lib/art/filters.py` (pencil, the stage of
 development, the 1714 engraving, the 1911 abstraction, the 1966 film, the field's
-distortion). The rooms and their pictures are listed in `registry/gallery.yaml`. Artists of
+distortion).
+
+**The [T]-stop.** A photobook gives each picture's f-stop, film and exposure. Here each
+plate is a somagram, the record the Soma Machine (the somagraph) makes, and it gives the
+reading of the field when it was taken: what stood out (the feelings that were very high
+or very low, at a moment of the River Film's score), the limbic field Φ, the dimension, the
+level or the stop, and the process. These are the app's settings, so with them the app
+makes the same picture again. The rooms and their pictures are listed in `registry/gallery.yaml`. Artists of
 the eras are named and never reproduced; their pictures are theirs. Set in TeX Gyre Pagella
 with pandoc and XeLaTeX.
 

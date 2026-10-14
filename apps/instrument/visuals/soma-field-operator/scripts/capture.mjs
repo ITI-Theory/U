@@ -6,6 +6,7 @@
 //   npm run capture                       # full matrix
 //   npm run capture -- --only plates      # plates | console | print | questions | atlas-plates | voyage
 //   npm run capture -- --only voyage      # atlas.yaml's app plates: sector worlds, The Voyage Inside
+//   npm run capture -- --only gallery --scale 2 --out ../../../../bld/gallery/hires   # registry/gallery.yaml's captures
 //                                         # (figures/app/voyage/<id>.png; --plates human,cave-inside)
 //   npm run capture -- --clean            # add ui=clean&labels=off to every URL
 //   npm run capture -- --only atlas-plates --portrait --width 1200 --height 2160
@@ -57,7 +58,7 @@ function parseArgs(argv) {
     else if (key === 'levels' || key === 'paths' || key === 'plates') args[key] = new Set(value.split(','));
     else args[key] = key === 'out' ? path.resolve(value) : value;
   }
-  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, or voyage');
+  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage', 'gallery'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, voyage, or gallery');
   return args;
 }
 
@@ -299,16 +300,23 @@ async function main() {
     }
   }
 
-  if (args.only === 'voyage') {
+  if (args.only === 'voyage' || args.only === 'gallery') {
     // The Voyage Inside (ISS-087): each plate from a fresh page (no state carried over), the
     // view's address plus atlas=1 (no controls), the acts pressed in order, then a screenshot.
-    const atlasYaml = path.join(repoRoot, 'Part2/book/field-atlas/atlas.yaml');
-    const atlas = JSON.parse(execFileSync('python', ['-c', 'import json,sys,yaml; print(json.dumps(yaml.safe_load(open(sys.argv[1], encoding="utf-8"))))', atlasYaml], { encoding: 'utf8' }));
+    // --only gallery takes the views of registry/gallery.yaml's `captures` (A Gallery of
+    // Thoughts, ISS-097: the fractal worlds, the score's Mandelbulb at moments of the film).
+    const readYaml = file => JSON.parse(execFileSync('python', ['-c', 'import json,sys,yaml; print(json.dumps(yaml.safe_load(open(sys.argv[1], encoding="utf-8"))))', file], { encoding: 'utf8' }));
     await mkdir(path.join(args.out, 'voyage'), { recursive: true });
     manifest.voyage = [];
     let n = 0;
-    // each sector's world (its opening FLY view), the mind palace's halls, the voyage's stops
-    const groups = [{ plates: (atlas.sectors ?? []).map(sector => sector.world).filter(Boolean) }, atlas.palace ?? {}, atlas.code_city ?? {}, ...(atlas.voyage?.stops ?? [])];
+    let groups;
+    if (args.only === 'gallery') {
+      groups = [{ plates: readYaml(path.join(repoRoot, 'registry/gallery.yaml')).captures ?? [] }];
+    } else {
+      const atlas = readYaml(path.join(repoRoot, 'Part2/book/field-atlas/atlas.yaml'));
+      // each sector's world (its opening FLY view), the mind palace's halls, the voyage's stops
+      groups = [{ plates: (atlas.sectors ?? []).map(sector => sector.world).filter(Boolean) }, atlas.palace ?? {}, atlas.code_city ?? {}, ...(atlas.voyage?.stops ?? [])];
+    }
     for (const stop of groups) {
       for (const plate of stop.plates ?? []) {
         if (args.plates && !args.plates.has(plate.id)) continue;
@@ -316,6 +324,8 @@ async function main() {
         await page.goto(`${base}?plate=${n}#${plate.view}&atlas=1`, { waitUntil: 'domcontentloaded', timeout: 120000 });
         await page.waitForSelector('canvas');
         await page.waitForTimeout(Math.max(args.settle, 4000));
+        // wait: before the acts (a ride to a palace floor asked for in the address)
+        await page.waitForTimeout(plate.wait ?? 0);
         for (const act of plate.acts ?? []) {
           const found = await page.evaluate(name => {
             const button = document.querySelector(`[data-act="${name}"]`);
@@ -335,7 +345,7 @@ async function main() {
     }
   }
 
-  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage') {
+  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage' && args.only !== 'gallery') {
     for (const route of data.paths) {
       if (args.paths && !args.paths.has(route.id)) continue;
       await mkdir(path.join(args.out, 'console', route.id), { recursive: true });
@@ -357,7 +367,7 @@ async function main() {
   await browser.close();
   await server.close();
 
-  if (args.only === 'voyage') {
+  if (args.only === 'voyage' || args.only === 'gallery') {
     // its own manifest: the level captures' manifest and contact sheet stay as they were
     await writeFile(path.join(args.out, 'voyage/manifest.json'), `${JSON.stringify({ generated: manifest.generated, viewport: manifest.viewport, voyage: manifest.voyage, errors: pageErrors }, null, 2)}\n`);
     console.log(`\n${manifest.voyage.length} voyage plates -> ${path.join(args.out, 'voyage')}`);

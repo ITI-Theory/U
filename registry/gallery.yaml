@@ -28,6 +28,44 @@ formats:
   lulu-a4: {paper_mm: [303.35, 216.35], bleed_mm: 3.175, px: [3000, 2140]}
   a3: {paper_mm: [426.0, 303.0], bleed_mm: 3.0, px: [3840, 2731]}
   projector: {paper_mm: [320.0, 180.0], bleed_mm: 0, px: [2560, 1440]}
+# Views captured for the Gallery only (`make -C Part2/book/gallery-of-thoughts captures`: the
+# app at 4K into bld/gallery/hires/voyage/<id>.png, as the Atlas's voyage plates are made);
+# a plate uses one with `src: hires:<id>`. The fractals (author, 14 Oct: "should be loads
+# there, with a thought description"): the score's Mandelbulb at moments of the River Film's
+# score (its seven feelings shape it: awe its power, safety its warmth, fear a cold hue and
+# hard edges, grief takes the colour out), the dive into the Mandelbulb, the FLY worlds, the
+# tunnel's fractal walls. labels=off: the picture without the app's words (the [T]-stop
+# carries the reading).
+captures:
+  - {id: g-mind-departure, view: "voyage=score&dim=11&st=0.05&kv=0.1&kc=mind&kx=0&labels=off", settle: 5000}
+  - {id: g-mind-descent, view: "voyage=score&dim=11&st=0.3&kv=0.1&kc=mind&kx=0&labels=off", settle: 5000}
+  - {id: g-mind-approach, view: "voyage=score&dim=11&st=0.48&kv=0.1&kc=mind&kx=0&labels=off", settle: 5000}
+  - {id: g-mind-deep, view: "voyage=score&dim=11&st=0.6&kv=0.1&kc=mind&kx=0&labels=off", settle: 5000}
+  - {id: g-mind-awe, view: "voyage=score&dim=11&st=0.7&kv=0.1&kc=mind&kx=0&labels=off", settle: 5000}
+  - {id: g-mind-return, view: "voyage=score&dim=11&st=0.95&kv=0.1&kc=mind&kx=0&labels=off", settle: 5000}
+  - {id: g-river-departure, view: "voyage=score&dim=11&st=0.05&kv=0.1&kc=river&kx=0&labels=off", settle: 5000}
+  - {id: g-dive-1, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.5&labels=off", settle: 5000}
+  - {id: g-dive-2, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.5&labels=off", settle: 16000}
+  - {id: g-dive-3, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.5&labels=off", settle: 30000}
+  - {id: g-dive-fast, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.95&labels=off", settle: 20000}
+  - {id: g-sea, view: "level=cellular-synaptic&voyage=flight&dim=11&phi=0.5&labels=off", settle: 6000}
+  - {id: g-murmuration, view: "level=animal-swarm&voyage=flight&dim=11&phi=0.5&labels=off", settle: 6000}
+  - {id: g-network, view: "level=local-circuit&voyage=flight&dim=11&phi=0.5&labels=off", settle: 6000}
+  - {id: g-tunnel-brain, view: "level=whole-brain-cemi&voyage=tunnel&dim=11&phi=0.5&labels=off", settle: 5000}
+  - {id: g-tunnel-city, view: "level=society-city&voyage=tunnel&dim=11&phi=0.5&labels=off", settle: 5000}
+  # A thought, in five frames (author, 14 Oct: "I go into my mind, it's calm; a thought comes,
+  # a bubble, in the cathedral; then it amplifies; then there are seven, and, and, and"): the
+  # cathedral calm, one POKE, the bubble growing as Φ rises, THOUGHTS (avalanches, the large
+  # ones pictures in bubbles), and with C-PTSD each one echoing. The bubbles are chance (the
+  # app's dice); the settings are not.
+  - {id: g-cave-calm, view: "voyage=brain&dim=11&phi=0.15&labels=off", acts: [cave], settle: 2500}
+  - {id: g-cave-one, view: "voyage=brain&dim=11&phi=0.35&labels=off", acts: [cave, poke], act_wait: 2500, settle: 500}
+  - {id: g-cave-grows, view: "voyage=brain&dim=11&phi=0.6&labels=off", acts: [cave, poke], act_wait: 2500, settle: 3500}
+  - {id: g-cave-seven, view: "voyage=brain&dim=11&phi=0.9&labels=off", acts: [cave, thoughts], settle: 7000}
+  - {id: g-cave-echo, view: "voyage=brain&dim=11&phi=0.9&cp=0.8&labels=off", acts: [cave, thoughts], settle: 7000}
+  # The palace's top floor, the cosmos, the field at full (author: "max FX, very colourful, and
+  # you see pictures of my thoughts"): ride to floor 21, PLACE five thoughts in the hall.
+  - {id: g-palace-cosmos, view: "voyage=brain&dim=11&phi=1&palace=1&pf=21&labels=off", wait: 60000, acts: [pplace, pplace, pplace, pplace, pplace], act_wait: 1500, settle: 3000}
 rooms:
   - id: roots
     title: Before
@@ -234,6 +272,41 @@ rooms:
          caption: "The river score."}
       - {id: october-body-score, src: Part2/book/field-atlas/figures/app/voyage/score-body.png, chain: ["stage:1"], candidate: true,
          caption: "The body score."}
+  - id: thoughts
+    title: Pictures of thoughts
+    when: October 2026
+    t: 1
+    ground: "0A0612"
+    file: rooms/11b-pictures-of-thoughts.md
+    plates:
+      - {id: thoughts-departure, src: "hires:g-mind-departure", chain: ["stage:1"],
+         caption: "Departure. The boat leaves the last town; safety and words are high, and the mind is smooth and warm."}
+      - {id: thoughts-descent, src: "hires:g-mind-descent", chain: ["stage:1"],
+         caption: "Descent. The river narrows; curiosity rises, and the surface opens into petals."}
+      - {id: thoughts-approach, src: "hires:g-mind-approach", chain: ["stage:1"],
+         caption: "Before the first threshold: fear rising, the colour cooling, the edges hardening."}
+      - {id: thoughts-deep, src: "hires:g-mind-deep", chain: ["stage:1"], candidate: true,
+         caption: "The Deep River: no safety, no words; the pre-verbal deepens the fractal."}
+      - {id: thoughts-awe, src: "hires:g-mind-awe", chain: ["stage:1"],
+         caption: "Awe at its height: the mind past words."}
+      - {id: thoughts-return, src: "hires:g-mind-return", chain: ["stage:1"],
+         caption: "Return. The world has not changed. You have."}
+      - {id: thoughts-awe-pencil, src: "hires:g-mind-awe", chain: ["pencil"], candidate: true,
+         caption: "Awe again, drawn by hand: the same mind, less synthetic."}
+      - {id: thoughts-descent-engraved, src: "hires:g-mind-descent", chain: ["engraving"], candidate: true,
+         caption: "Descent, engraved."}
+      - {id: thoughts-river, src: "hires:g-river-departure", chain: ["stage:1"],
+         caption: "The same score as a river: the boat leaving at dusk."}
+      - {id: thoughts-dive, src: "hires:g-dive-1", chain: ["stage:1"],
+         caption: "The dive into the mind: the surface keeps unfolding as you fall."}
+      - {id: thoughts-dive-fast, src: "hires:g-dive-fast", chain: ["stage:1"], candidate: true,
+         caption: "The same dive with the limbic field near full: hotter, faster."}
+      - {id: thoughts-tunnel, src: "hires:g-tunnel-brain", chain: ["stage:1"],
+         caption: "The path of a thought; its walls are the fractal of the level."}
+      - {id: thoughts-tunnel-city, src: "hires:g-tunnel-city", chain: ["stage:1"], candidate: true,
+         caption: "The same path at the level of a city: Menger cubes, the towers of the city of code."}
+      - {id: thoughts-sea, src: "hires:g-sea", chain: ["stage:1"], candidate: true,
+         caption: "The inner sea: coral and flowers in one current."}
   - id: inside
     title: Universes inside universes
     when: 14 October 2026

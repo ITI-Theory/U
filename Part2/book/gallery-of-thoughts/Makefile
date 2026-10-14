@@ -11,9 +11,9 @@ REGISTRY := $(ROOT)/registry/gallery.yaml
 ART := $(ROOT)/lib/art/filters.py $(ROOT)/lib/art/gallery.py
 SOURCES := gallery.md $(wildcard rooms/*.md) $(REGISTRY)
 LAYOUT := filters/gallery.lua templates/gallery-header.tex $(ROOT)/lib/format/licence.lua $(ROOT)/registry/licences.yaml $(ROOT)/lib/defaults/base-pdf.yaml
-SRC_IMAGES := $(shell $(PYTHON) -c "import yaml;r=yaml.safe_load(open('$(REGISTRY)',encoding='utf-8'));print(' '.join(sorted({'$(ROOT)/'+p['src'] for p in [r['cover']]+[q for x in r['rooms'] for q in x['plates']]})))")
+SRC_IMAGES := $(shell $(PYTHON) -c "import yaml;r=yaml.safe_load(open('$(REGISTRY)',encoding='utf-8'));print(' '.join(sorted({'$(ROOT)/'+p['src'] for p in [r['cover']]+[q for x in r['rooms'] for q in x['plates']] if not p['src'].startswith('hires:')})))")
 
-.PHONY: all lulu a3 projector plates contact hires check clean help
+.PHONY: all lulu a3 projector plates contact hires captures check clean help
 .SECONDARY:
 
 all: lulu
@@ -30,6 +30,10 @@ plates: $(foreach f,$(FORMATS),$(PLATES)/$(f)/tones.json)
 # The curator's cut: every plate numbered on one sheet ($(BLD)/contact-lulu-a4.jpg).
 contact: $(PLATES)/lulu-a4/tones.json
 	$(PYTHON) $(ROOT)/lib/art/gallery.py $(PLATES) --format lulu-a4 --contact
+
+# The Gallery's own views (registry/gallery.yaml `captures`: the fractals) at 4K; slow.
+captures:
+	cd $(ROOT)/apps/instrument/visuals/soma-field-operator && npm run capture -- --only gallery --scale 2 --out $(BLD)/hires
 
 # The app's views recaptured at 3840 x 2160 (theirs are 1920 wide, soft at A3); the plates
 # use them when present. Slow (software WebGL); not committed.
@@ -63,5 +67,6 @@ help:
 	@echo "  plates     render the plates for every format (lib/art/gallery.py)"
 	@echo "  contact    a numbered contact sheet of every plate, for the curator's cut"
 	@echo "  hires      recapture the app's views at 4K for A3 (slow)"
+	@echo "  captures   capture the Gallery's own views (the fractals) at 4K (slow)"
 	@echo "  check      build the Lulu proof and check its log"
 	@echo "  clean      remove $(BLD)"
