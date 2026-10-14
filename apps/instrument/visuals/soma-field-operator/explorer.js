@@ -448,8 +448,6 @@ function makeBody() {
     },
     // the body is drawn a little smaller and lower, below the toolbar and the feelings row
     draw(ctx, outer) {
-      // THE HEART (ISS-103): the body's atrium
-      if (drawAtrium(ctx, outer)) return;
       if (outer.gl?.project) {
         // 3D (ISS-052): the body inside the jellyfish human, the same feeling map and signals
         const gl = outer.gl;
@@ -699,7 +697,7 @@ const thoughtTint = img => (img?.art ? ART_TINTS[Math.floor(Math.random() * ART_
 let popHandler = null;
 // THE ATRIUMS (ISS-103): the stops that open into a hub, its 3D view and its button; the
 // atrium on screen now (for POKE)
-const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' } };
+const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' }, neuron: { gl: 'neuron-atrium', button: 'THE SOMA' } };
 let atriumGl = null;
 function drawAtrium(ctx, env) {
   if (!env.atrium || !env.gl?.route) return false;
@@ -885,8 +883,6 @@ function makeBrain() {
     },
     draw(ctx, env) {
       const { u, phi, dim, t } = env;
-      // THE GREAT HALL (ISS-103): the brain's atrium
-      if (drawAtrium(ctx, env)) return;
       if (env.palace && env.gl?.go) {
         const pg = env.gl;
         // a floor asked for in the address (palace=1&pf=N): ride there once the palace exists
@@ -3463,6 +3459,7 @@ export function createExplorer(hooks = {}) {
     // the atriums (ISS-103): the brain's great hall, the heart's left atrium
     'brain-hall': () => createAtrium3D('brain'),
     'body-atrium': () => createAtrium3D('heart'),
+    'neuron-atrium': () => createAtrium3D('neuron'),
     // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
     'thought-dive': () => createFlight3D(),
   };
@@ -3669,7 +3666,8 @@ export function createExplorer(hooks = {}) {
       c.scale(zoom, zoom);
       c.translate(-focus[0] * env.u, -focus[1] * env.u);
     }
-    sc.draw(ctx, { ...env, alpha });
+    // a stop's atrium (ISS-103) is drawn instead of its scene
+    if (!(id === st.stop && drawAtrium(ctx, { ...env, alpha }))) sc.draw(ctx, { ...env, alpha });
     for (const c of targets) c.restore();
   }
 

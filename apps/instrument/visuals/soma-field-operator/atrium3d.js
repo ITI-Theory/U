@@ -16,6 +16,11 @@
 // open high on its back wall: the light); in its floor the mitral valve opens and shuts with
 // every beat, its heart-strings (chordae tendineae) beneath; the comb-like pectinate muscles
 // ridge the wall of its appendage; red cells drift through; the walls contract with the beat.
+// THE NEURON: the soma, the cell body (the programme's own word): the nucleus hangs in the
+// middle, its chromatin glowing, the nucleolus within; the walls are stacked with rough
+// endoplasmic reticulum (the Nissl substance); the cytoskeleton's microtubules run as strands
+// towards the axon hillock, where the spike begins; mitochondria drift; now and then the cell
+// fires (more often as Φ rises), a ring of light across the membrane.
 
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
@@ -35,7 +40,7 @@ const KINDS = {
     routes: [
       { id: 'cathedral', angle: 0, label: 'THE CATHEDRAL', sub: 'down the foramen and the aqueduct to the fourth ventricle', color: '#a78bfa' },
       { id: 'limbic', angle: -0.95, label: 'THE LIMBIC HINGE', sub: 'the temporal horn: the hippocampus beneath, the amygdala ahead', color: '#ff7aa8' },
-      { id: 'path', angle: 0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
+      { id: 'tunnel', angle: 0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
       { id: 'palace', angle: -1.95, label: 'THE MIND PALACE', sub: 'twenty-one floors: the method of loci', color: '#5ee7ff' },
       { id: 'wayin', angle: 1.95, label: 'THE ARTERIES', sub: 'back the way in, to the heart', color: '#ff4d5e' },
     ],
@@ -50,6 +55,18 @@ const KINDS = {
       { id: 'bloodstream', angle: 0.95, label: 'THE BLOODSTREAM', sub: 'the score\'s body setting: the submarine in the blood', color: '#ff7aa8' },
       { id: 'human', angle: -1.95, label: 'THE JELLYFISH HUMAN', sub: 'the whole body as one field', color: '#5ee7ff' },
       { id: 'ureter', angle: 1.95, label: 'THE URETER', sub: 'down the aorta to the kidney, and the stone', color: '#a78bfa' },
+    ],
+  },
+  neuron: {
+    title: 'THE SOMA · the cell body of a neuron',
+    sub: 'the nucleus in the middle (chromatin, the nucleolus within); the walls stacked with rough endoplasmic reticulum (the Nissl substance); microtubules run to the axon hillock; mitochondria drift; proportions for the eye',
+    fog: '#060a18', fogHigh: '#10213f', shaft: [0.7, 0.85, 1.0], ridge: 0, stack: 1, beat: 0, fire: 1,
+    routes: [
+      { id: 'neuron', angle: 0, label: 'THE AXON HILLOCK', sub: 'where the spike begins: the whole neuron, firing', color: '#ffd166' },
+      { id: 'network', angle: -0.95, label: 'THE DENDRITES', sub: 'out along the branches to the other cells: memory as a network', color: '#5ee7ff' },
+      { id: 'thought', angle: 0.95, label: 'THE SUB-THRESHOLD SEA', sub: 'many cells together: a swell that crosses becomes a feeling', color: '#ff7aa8' },
+      { id: 'tunnel', angle: -1.95, label: 'THE PATH OF A THOUGHT', sub: 'from the body to the cortex, cell by cell', color: '#a78bfa' },
+      { id: 'brain', angle: 1.95, label: 'UP TO THE GREAT HALL', sub: 'the brain, eighty-six billion cells up', color: '#ff4d5e' },
     ],
   },
 };
@@ -266,6 +283,69 @@ function heartAnatomy(scene, rnd, U, dot) {
   };
 }
 
+// THE NEURON's anatomy: the nucleus, the microtubules to the axon hillock, mitochondria
+function neuronAnatomy(scene, rnd, U, dot) {
+  const nucleus = new THREE.Group();
+  nucleus.position.set(0, 1.2, -1);
+  const envelope = new THREE.Mesh(new THREE.SphereGeometry(3, 96, 64), new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: 'varying vec3 vP; varying vec3 vN; varying vec3 vV; void main() { vP = position; vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position, 1.0); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
+    fragmentShader: /* glsl */`
+      uniform float uTime; uniform float uFX; uniform vec3 uPink; uniform vec3 uBlue; varying vec3 vP; varying vec3 vN; varying vec3 vV;
+      ${NOISE}
+      void main() {
+        float rim = pow(1.0 - abs(dot(vN, vV)), 2.2);
+        float chromatin = fbm(vP * 1.4 + vec3(0.0, uTime * 0.05, 0.0));
+        vec3 c = mix(uBlue, vec3(0.56, 0.28, 1.0), chromatin) * (0.12 + 0.5 * chromatin * chromatin) + uBlue * rim * (0.7 + 0.6 * uFX);
+        gl_FragColor = vec4(c, 1.0);
+      }`,
+  }));
+  const nucleolus = new THREE.Mesh(new THREE.SphereGeometry(0.75, 48, 32), new THREE.MeshBasicMaterial({ color: '#ff7ad9', transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false }));
+  nucleolus.position.set(0.6, 0.3, 0.4);
+  nucleus.add(envelope, nucleolus);
+  {
+    // the pores of its envelope
+    const n = 260, pos = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) {
+      const v = new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize().multiplyScalar(3.02);
+      pos.set([v.x, v.y, v.z], i * 3);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    nucleus.add(new THREE.Points(g, new THREE.PointsMaterial({ map: dot, color: '#bff6ff', size: 0.16, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false })));
+  }
+  scene.add(nucleus);
+  // microtubules: long strands from all round the soma converging on the axon hillock
+  const hillock = new THREE.Vector3(0, -3.4, -R * 0.7);
+  strands(scene, rnd, 260, '#b8f0ff', 0.2, () => {
+    const dir = new THREE.Vector3(rnd() - 0.5, (rnd() - 0.5) * 1.2, rnd() * 0.8).normalize();
+    const a = new THREE.Vector3(dir.x * R * 0.8, dir.y * R * SQUASH * 0.7, dir.z * R * 0.8);
+    return [a, hillock.clone().add(new THREE.Vector3((rnd() - 0.5) * 2, (rnd() - 0.5) * 2, 0)), 0.015];
+  });
+  // mitochondria: small glowing capsules, drifting
+  const mito = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.08, 0.28, 4, 10), new THREE.MeshBasicMaterial({ color: '#ffae6b', transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false }), 70);
+  const drift = [];
+  for (let i = 0; i < 70; i++) drift.push({ p: new THREE.Vector3((rnd() - 0.5) * 18, -5 + rnd() * 10, (rnd() - 0.5) * 18), v: new THREE.Vector3(rnd() - 0.5, (rnd() - 0.5) * 0.4, rnd() - 0.5).multiplyScalar(0.25), r: new THREE.Euler(rnd() * 3, rnd() * 3, rnd() * 3) });
+  scene.add(mito);
+  const o = new THREE.Object3D();
+  return {
+    update(dt, state) {
+      nucleus.rotation.y += dt * 0.03;
+      for (let i = 0; i < drift.length; i++) {
+        const d = drift[i];
+        d.p.addScaledVector(d.v, dt * (1 + state.fx));
+        if (d.p.length() > 11) d.v.negate();
+        d.r.x += dt * 0.2;
+        o.position.copy(d.p);
+        o.rotation.copy(d.r);
+        o.updateMatrix();
+        mito.setMatrixAt(i, o.matrix);
+      }
+      mito.instanceMatrix.needsUpdate = true;
+    },
+  };
+}
+
 // fine strands that sag a little (the arachnoid's trabeculae, the heart's strings)
 function strands(scene, rnd, n, color, opacity, ends) {
   const pts = [];
@@ -304,7 +384,7 @@ export function createAtrium3D(kind = 'brain') {
   const dot = softDot();
   const U = {
     uTime: { value: 0 }, uFX: { value: 0 }, uPulse: { value: -1 }, uFog: { value: FOG.clone() }, uPink: { value: PINK }, uBlue: { value: BLUE },
-    uRidge: { value: K.ridge }, uBeat: { value: 0 },
+    uRidge: { value: K.ridge }, uStack: { value: K.stack ?? 0 }, uBeat: { value: 0 },
   };
 
   // THE VAULT: an ellipsoid seen from inside, its stone raised by fractal noise; FX folds it;
@@ -313,7 +393,7 @@ export function createAtrium3D(kind = 'brain') {
     uniforms: U,
     side: THREE.BackSide,
     vertexShader: /* glsl */`
-      uniform float uTime; uniform float uFX; uniform float uRidge; uniform float uBeat;
+      uniform float uTime; uniform float uFX; uniform float uRidge; uniform float uStack; uniform float uBeat;
       varying vec3 vPos; varying float vDepth;
       ${NOISE}
       void main() {
@@ -323,7 +403,9 @@ export function createAtrium3D(kind = 'brain') {
         float a = atan(p.z, p.x);
         float fold = sin(3.0 * a + uTime * 0.6 + p.y * 0.35) * sin(p.y * 0.45 - uTime * 0.4);
         float comb = uRidge * smoothstep(0.1, 0.9, sin(a * 2.0 + 1.0)) * pow(0.5 + 0.5 * sin(a * 46.0 + p.y * 0.4), 3.0);
-        p -= n * (3.4 * (f - 0.45) + uFX * uFX * 1.8 * fold - 0.9 * comb + uBeat * 0.5);
+        // the neuron's walls: stacked folds (the rough endoplasmic reticulum), wavering
+        float stack = uStack * pow(0.5 + 0.5 * sin(p.y * 2.6 + f * 5.0), 4.0);
+        p -= n * (3.4 * (f - 0.45) * (1.0 - 0.5 * uStack) + uFX * uFX * 1.8 * fold - 0.9 * comb - 1.1 * stack + uBeat * 0.5);
         vPos = p * vec3(1.0, ${SQUASH.toFixed(2)}, 1.0);
         vec4 mv = modelViewMatrix * vec4(p, 1.0);
         vDepth = -mv.z;
@@ -383,7 +465,7 @@ export function createAtrium3D(kind = 'brain') {
     scene.add(cone);
   }
 
-  const anatomy = (kind === 'heart' ? heartAnatomy : brainAnatomy)(scene, rnd, U, dot);
+  const anatomy = ({ heart: heartAnatomy, neuron: neuronAnatomy }[kind] ?? brainAnatomy)(scene, rnd, U, dot);
 
   // MOTES: fine particles rising slowly through the medium
   const MOTES = 1400;
@@ -423,20 +505,20 @@ export function createAtrium3D(kind = 'brain') {
 
   // THE ELEVATOR at the entrance: a glass column, its car riding; it goes to any level
   const lift = new THREE.Group();
-  lift.position.set(4.4, -4.4, 3.2);
-  const column = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 5.4, 40, 1, true),
+  lift.position.set(-5.4, -4.4, 4.2);   // near left of the entrance, clear of every doorway
+  const column = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 5.4, 40, 1, true),
     new THREE.MeshBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
   column.position.y = 1.6;
   const cars = [0, 1, 2].map(k => {
-    const c = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.035, 8, 64), new THREE.MeshBasicMaterial({ color: '#5ee7ff' }));
+    const c = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.03, 8, 64), new THREE.MeshBasicMaterial({ color: '#5ee7ff' }));
     c.rotation.x = Math.PI / 2;
     c.userData.phase = k / 3;
     lift.add(c);
     return c;
   });
   const liftLabel = textSprite('ELEVATOR', 'from here to any level', '#5ee7ff');
-  liftLabel.position.set(0, 4.9, 0);
-  liftLabel.scale.set(4, 1, 1);
+  liftLabel.position.set(0.6, 3.7, 0);
+  liftLabel.scale.set(3.2, 0.8, 1);
   lift.add(column, liftLabel);
   scene.add(lift);
 
@@ -478,6 +560,8 @@ export function createAtrium3D(kind = 'brain') {
       U.uBeat.value = beat;
       U.uFog.value.copy(FOG).lerp(FOG_HIGH, 0.6 * fx + 0.25 * beat);
       scene.background.copy(U.uFog.value);
+      // the neuron fires now and then by itself, more often as the field rises
+      if (K.fire && pulseAt < 0 && Math.random() < (0.08 + 0.5 * fx) * dt) pulseAt = 0;
       if (pulseAt >= 0) { pulseAt += dt / 2.4; if (pulseAt > 1) pulseAt = -1; }
       U.uPulse.value = pulseAt;
       if (travel) {

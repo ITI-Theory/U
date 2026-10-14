@@ -5096,7 +5096,18 @@ off with the labels. Anatomy for the route, sci-fi for the look.
 - [x] (14 Oct, night) Every exit starts in its atrium: a click's arrival at the brain or the
       body, and the main elevator's STEP OUT, open in the atrium; a link or a tour keeps the view
       its address names (no hall=1, no atrium), so the Atlas's captures are unchanged.
-- [ ] Then: the cosmos
+- [x] (14 Oct, night) The neuron's atrium, the soma (the cell body; the programme's own word):
+      the nucleus with glowing chromatin, its pores and the nucleolus; the walls stacked with
+      rough endoplasmic reticulum (the Nissl substance); microtubules converging on the axon
+      hillock; mitochondria; the cell fires by itself, more often with Φ. Doorways: THE AXON
+      HILLOCK (the neuron view), THE DENDRITES (the network), THE SUB-THRESHOLD SEA (thought),
+      THE PATH OF A THOUGHT, UP TO THE GREAT HALL. THE SOMA at the neuron stop; the three
+      elevator exits (neuron, brain, human) now open in atriums where they have one.
+      Fixed: the great hall's PATH doorway pointed at a stop that does not exist (path, not
+      tunnel); the elevator stood in front of a doorway (now at the near left, slimmer).
+      Checked headless: every brain doorway, the heart's BODY, the elevator, STEP OUT.
+- [ ] Then: the human (the jellyfish human's own atrium? the author: it is the main screen),
+      the cosmos
       (the palace's top floor), the others as the registry grows.
 - [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the
       display's resolution; checked on the author's 4K screen.
