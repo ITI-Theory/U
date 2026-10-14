@@ -224,8 +224,21 @@ async def upload(client, notebook_id: str, folder: Path, version: str) -> None:
     await client.sources.wait_for_sources(notebook_id, source_ids, timeout=900)
 
 
+async def fresh_conversation(client, notebook_id: str) -> None:
+    """Every item in a conversation of its own (14 Oct): ask() without an id extends the notebook's
+    latest conversation, so earlier answers (even a previous version's) leaked into new ones; the
+    library's way to start fresh is to delete the current conversation first."""
+    try:
+        cid = await client.chat.get_conversation_id(notebook_id)
+        if cid:
+            await client.chat.delete_conversation(notebook_id, cid)
+    except Exception as error:  # a stale conversation is worse than none, but not fatal
+        print(f"  (could not start a fresh conversation: {type(error).__name__}: {error})", flush=True)
+
+
 async def ask(client, notebook_id: str, prompt: str, source_ids: list[str], titles: dict) -> dict:
     try:
+        await fresh_conversation(client, notebook_id)
         answer = await client.chat.ask(notebook_id, prompt, source_ids=source_ids)
         cited = sorted({titles.get(ref.source_id, ref.source_id) for ref in answer.references})
         return {"answer": answer.answer, "cited": cited}
