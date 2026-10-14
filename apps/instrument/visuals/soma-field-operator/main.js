@@ -1351,7 +1351,8 @@ const explorer = createExplorer({
 });
 const elevator = createElevator({
   onFloor: index => setPathStep(index),
-  onStepOut: stop => openExplorerAt(stop),
+  // an elevator exit opens into the stop's atrium where it has one (ISS-103)
+  onStepOut: stop => { explorer.enterAtrium(stop); openExplorerAt(stop); },
   // FLY ▸ on any floor: ride there, then fly through that level's world
   onFly: index => {
     setPathStep(index);
@@ -2282,7 +2283,7 @@ function hashForState() {
       if (up.uo) params.set('uo', String(up.uo + 1));
       if (up.uv !== 'in') params.set('uv', up.uv);
     }
-    if (state.voyage === 'brain' && explorer.hall) params.set('hall', '1');
+    if (explorer.hall) params.set('hall', '1');
     if (state.voyage === 'brain' && explorer.cave) params.set('cave', '1');
     if (state.voyage === 'brain' && explorer.palace) {
       params.set('palace', '1');

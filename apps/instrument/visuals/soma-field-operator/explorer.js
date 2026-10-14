@@ -57,7 +57,7 @@ import { startMidiIn } from './midi-in.js';
 import { createTowerPanel } from './tower.js';
 import { createCathedral3D } from './cathedral3d.js';
 import { createPalace3D } from './palace3d.js';
-import { createGreatHall3D } from './greathall3d.js';
+import { createAtrium3D } from './atrium3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
@@ -448,6 +448,8 @@ function makeBody() {
     },
     // the body is drawn a little smaller and lower, below the toolbar and the feelings row
     draw(ctx, outer) {
+      // THE HEART (ISS-103): the body's atrium
+      if (drawAtrium(ctx, outer)) return;
       if (outer.gl?.project) {
         // 3D (ISS-052): the body inside the jellyfish human, the same feeling map and signals
         const gl = outer.gl;
@@ -695,6 +697,22 @@ const ART_TINTS = ['#ffd166', '#5ee7ff', '#ff4d5e', '#a78bfa', '#3fd0c9'];
 const thoughtTint = img => (img?.art ? ART_TINTS[Math.floor(Math.random() * ART_TINTS.length)] : CONCEPT_TINT[img?.concept] ?? '#ffffff');
 // the explorer's full-screen view of a popped bubble (set by createExplorer)
 let popHandler = null;
+// THE ATRIUMS (ISS-103): the stops that open into a hub, its 3D view and its button; the
+// atrium on screen now (for POKE)
+const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' } };
+let atriumGl = null;
+function drawAtrium(ctx, env) {
+  if (!env.atrium || !env.gl?.route) return false;
+  atriumGl = env.gl;
+  env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm });
+  if (env.labels) {
+    const { u } = env;
+    label(ctx, u, env.gl.info.title, 0, -0.72, '#e8d8ff', 'center', 0.034);
+    label(ctx, u, env.gl.info.sub, 0, -0.66, COLORS.dim, 'center', 0.019);
+    hint(ctx, u, 'click a doorway to take that route · the ELEVATOR at the entrance goes to any level · POKE: a pulse of the field · Φ: the field\'s light; high, the walls give way', 0, 0.86, COLORS.violet, 'center', 0.02);
+  }
+  return true;
+}
 // inside a thought (the dive into a clicked bubble), and the feelings that shape its sound:
 // curiosity and awe up, language out, the pre-verbal's grains in
 let inThought = null;
@@ -750,7 +768,6 @@ function makeBrain() {
   const bursts = [];
   let ignited = 0;
   let caveGl = null;
-  let hallGl = null;
   let lastCp = 0;
   const gyri = [];
   while (gyri.length < 30) {
@@ -858,7 +875,6 @@ function makeBrain() {
       traffic.tick(env.dt);
     },
     poke(strength) {
-      if (hallGl) { hallGl.pulse(); return; }
       if (caveGl) {
         caveGl.burst(Math.max(20, avalancheSize(1)), lastCp);
         const img = randomThought();
@@ -869,17 +885,8 @@ function makeBrain() {
     },
     draw(ctx, env) {
       const { u, phi, dim, t } = env;
-      // THE GREAT HALL (ISS-103): the hub; its doorways and elevator are picked by a click
-      hallGl = env.hall && env.gl?.route ? env.gl : null;
-      if (hallGl) {
-        hallGl.render({ time: t, phi, stereo: env.stereo, labels: env.labels });
-        if (env.labels) {
-          label(ctx, u, 'THE GREAT HALL · the atrium of the lateral ventricle', 0, -0.72, '#e8d8ff', 'center', 0.034);
-          label(ctx, u, 'the brain\'s own cave, under water (cerebrospinal fluid): the curtains are the choroid plexus at its largest, the webs the arachnoid\'s trabeculae; proportions for the eye', 0, -0.66, COLORS.dim, 'center', 0.02);
-          hint(ctx, u, 'click a doorway to take that route · the ELEVATOR at the entrance goes to any level · POKE: a pulse of the field · Φ: the field\'s light; high, the walls give way', 0, 0.86, COLORS.violet, 'center', 0.02);
-        }
-        return;
-      }
+      // THE GREAT HALL (ISS-103): the brain's atrium
+      if (drawAtrium(ctx, env)) return;
       if (env.palace && env.gl?.go) {
         const pg = env.gl;
         // a floor asked for in the address (palace=1&pf=N): ride there once the palace exists
@@ -3296,11 +3303,13 @@ export function createExplorer(hooks = {}) {
   const takeRoute = id => {
     if (id === 'cathedral') { st.hall = false; st.cave = true; st.view3d = true; syncUi(); hooks.onChange?.(); }
     else if (id === 'palace') { st.hall = false; st.palace = true; st.cave = false; st.view3d = true; syncUi(); hooks.onChange?.(); }
+    else if (id === st.stop) { st.hall = false; syncUi(); hooks.onChange?.(); }   // this stop's own view (the heart's THE BODY)
+    else if (id === 'bloodstream') { st.kc = 'body'; go('score'); }
     else go(id);
   };
   root.addEventListener('click', event => {
-    if (st.stop !== 'brain' || !st.hall || event.target.closest('button, input, label, .explorer__pop, .explorer__card, .explorer__lift')) return;
-    const g = gls['brain-hall'];
+    if (!ATRIUMS[st.stop] || !st.hall || event.target.closest('button, input, label, .explorer__pop, .explorer__card, .explorer__lift')) return;
+    const g = gls[ATRIUMS[st.stop].gl];
     if (!g?.pick) return;
     const r = root.getBoundingClientRect();
     const id = g.pick((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
@@ -3451,8 +3460,9 @@ export function createExplorer(hooks = {}) {
     'brain-cave': () => createCathedral3D(),
     // the mind palace: the zoom dial's 21 levels as floors (ISS-078)
     'brain-palace': () => createPalace3D(PALACE_FLOORS),
-    // the great hall, the brain's hub (ISS-103)
-    'brain-hall': () => createGreatHall3D(),
+    // the atriums (ISS-103): the brain's great hall, the heart's left atrium
+    'brain-hall': () => createAtrium3D('brain'),
+    'body-atrium': () => createAtrium3D('heart'),
     // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
     'thought-dive': () => createFlight3D(),
   };
@@ -3545,7 +3555,9 @@ export function createExplorer(hooks = {}) {
     artButton.classList.toggle('active', artMode !== 'figures');
     vividLabel.hidden = st.stop !== 'brain' || !st.cave;
     caveButton.classList.toggle('active', st.cave);
-    hallButton.hidden = st.stop !== 'brain';
+    hallButton.hidden = !ATRIUMS[st.stop];
+    root.classList.toggle('explorer--atrium', st.hall && Boolean(ATRIUMS[st.stop]));
+    hallButton.textContent = ATRIUMS[st.stop]?.button ?? 'ATRIUM';
     hallButton.classList.toggle('active', st.hall);
     painButton.textContent = `PAIN: ${(st.pain || 'off').toUpperCase()}`;
     painButton.classList.toggle('active', Boolean(st.pain));
@@ -3761,7 +3773,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -3802,7 +3814,7 @@ export function createExplorer(hooks = {}) {
       }
     }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'brain' && st.hall ? 'brain-hall' : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
+    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
@@ -3875,6 +3887,9 @@ export function createExplorer(hooks = {}) {
 
   function go(stop, { notify = true } = {}) {
     if (!STOPS.includes(stop) || st.diving) return;
+    // arriving by a click (not a link or a tour, which come with notify false): a stop with an
+    // atrium opens in it (ISS-103: every exit starts in its atrium)
+    if (notify && ATRIUMS[stop] && stop !== st.stop && !(stop === 'brain' && (st.palace || st.cave))) st.hall = true;
     if (st.open && stop !== st.stop && st.stop === 'human') {
       // dive: the level view's camera flies into the jellyfish human, then the stop fades in
       st.diving = true;
@@ -4154,16 +4169,24 @@ export function createExplorer(hooks = {}) {
     // the mind palace for the address: open, and the floor the car is on (1 = quantum foam)
     get palace() { return st.palace ? { floor: palaceFloorWanted || (gls['brain-palace']?.target ?? 0) + 1 } : null; },
     // the great hall and the cathedral for the address (hall=1, cave=1: linkable, tourable)
-    get hall() { return st.hall; },
+    get hall() { return st.hall && Boolean(ATRIUMS[st.stop]); },
+    // the elevator's STEP OUT: arrive in the stop's atrium, if it has one
+    enterAtrium(stop) {
+      if (!ATRIUMS[stop]) return;
+      st.hall = true;
+      st.cave = false;
+      st.palace = false;
+      st.view3d = true;
+    },
     get cave() { return st.cave; },
+    // a link means what it says: no hall=1 in the address, no atrium (a click's arrival writes it)
     setHall(on) {
-      if (on === null || on === undefined) return;
       st.hall = String(on) === '1';
       if (st.hall) { st.view3d = true; st.cave = false; st.palace = false; }
       syncUi();
     },
     setCave(on) {
-      if (on === null || on === undefined) return;
+      if (on === null || on === undefined) { if (!st.palace) st.cave = false; syncUi(); return; }
       st.cave = String(on) === '1';
       if (st.cave) { st.view3d = true; st.hall = false; st.palace = false; }
       syncUi();
@@ -4252,6 +4275,7 @@ export function createExplorer(hooks = {}) {
     setLabels(on) { st.labels = Boolean(on); },
     refresh() { syncUi(); },
     poke(strength = 1) {
+      if (st.open && st.hall && ATRIUMS[st.stop] && atriumGl) { atriumGl.pulse(); music.poke(); return; }
       if (st.open && st.stop !== 'human') scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1));
       music.poke();
     },

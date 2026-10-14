@@ -514,6 +514,8 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__lift-floors { display: grid; gap: 4px; margin-bottom: 10px; }
 .explorer__lift-floors button { text-align: left; }
 .explorer__lift-floors button.active { color: #070a16; background: #5ee7ff; }
+/* in an atrium the stop's own rows (the body's feelings) give way to the place */
+.explorer--atrium .explorer__feel { display: none; }
 .explorer__pop:not(.is-dive) [data-pop="picture"] { display: none; }
 .explorer__gl.explorer__dive-in { z-index: 1; transition: none; animation: explorer-dive-in 1s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes explorer-dive-in { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(80% at 50% 50%); } }

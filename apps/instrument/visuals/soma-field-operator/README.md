@@ -150,8 +150,11 @@ abstract, to the main screen's view: the jellyfish human with the level elevator
 ## Atriums: the hub standard
 
 Every elevator exit opens into an atrium, a hub with routes going off it (ISS-103). The first is
-the brain's great hall (`greathall3d.js`, GREAT HALL at the brain stop, `hall=1`), and the
-author made its style the standard for all of them: a vaulted place seen from inside, dark
+the brain's great hall (`atrium3d.js`, GREAT HALL at the brain stop, `hall=1`), and the
+author made its style the standard for all of them; the second is the heart's left atrium (THE
+HEART at the body stop: the mitral valve and its strings, red cells, the walls beating). A click's
+arrival at those stops, and the elevator's STEP OUT, open in the atrium; a link keeps its view.
+The style: a vaulted place seen from inside, dark
 stone raised by fractal noise with thin neon veins (pink above, blue below), the glow rising
 with Φ and the walls folding when it is high; light falling from above; the level's own anatomy
 hanging and crossing in it; drifters and motes; glowing doorways named with a line under each,

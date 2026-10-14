@@ -5087,7 +5087,16 @@ hanging and crossing in it (curtains, webs, or what that level has), a few livin
 fine motes; glowing doorways with the route's name and a line under it, a click gliding to
 one and going through; the elevator at the entrance; POKE a pulse across the stone; its signs
 off with the labels. Anatomy for the route, sci-fi for the look.
-- [ ] Then: the body's hub (the heart's chambers; arteries as the routes, WAY IN), the cosmos
+- [x] (14 Oct, night; author: "you choose, keep going") The heart's atrium, the left atrium
+      (atrium3d.js, one module for all atriums now: the shared hall, each place's anatomy): blood
+      from the four pulmonary veins as the light, the mitral valve in the floor opening and
+      shutting with the beat (st.bpm), its chordae beneath, the pectinate ridges, red cells, the
+      walls contracting; doorways THE WAY IN, THE BODY, THE BLOODSTREAM (the score's body
+      setting), THE JELLYFISH HUMAN, THE URETER. THE HEART at the body stop.
+- [x] (14 Oct, night) Every exit starts in its atrium: a click's arrival at the brain or the
+      body, and the main elevator's STEP OUT, open in the atrium; a link or a tour keeps the view
+      its address names (no hall=1, no atrium), so the Atlas's captures are unchanged.
+- [ ] Then: the cosmos
       (the palace's top floor), the others as the registry grows.
 - [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the
       display's resolution; checked on the author's 4K screen.
