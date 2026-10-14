@@ -40,6 +40,8 @@ canvas { display: block; width: 100vw; height: 100vh; }
 .abstract-splash__source { position: relative; z-index: 1; display: block; margin: 20px 0 0; color: var(--cyan); overflow-wrap: anywhere; }
 .abstract-splash__enter { position: relative; z-index: 1; width: auto; min-width: min(100%, 286px); margin-top: 23px; color: #f3ead0; border: 1px solid var(--pink); background: rgba(5,7,14,.3); box-shadow: 0 0 22px rgba(255,59,206,.16); }
 .abstract-splash__enter:hover, .abstract-splash__enter:focus-visible { color: var(--ink); background: var(--pink); }
+.abstract-splash__overview { position: relative; z-index: 1; display: block; margin-top: 14px; color: var(--cyan); font: 700 11px/1.3 'Space Mono', monospace; letter-spacing: .08em; text-decoration: none; }
+.abstract-splash__overview:hover, .abstract-splash__overview:focus-visible { text-decoration: underline; }
 .field-readout { position: fixed; z-index: 2; top: 24px; left: 24px; width: min(310px, calc(100vw - 48px)); max-height: calc(100vh - 48px); overflow-y: auto; padding: 16px; border: 1px solid rgba(20,229,255,.55); background: rgba(5,7,14,.72); box-shadow: 0 0 34px rgba(20,229,255,.12); backdrop-filter: blur(9px); }
 .eyebrow, .field-note, label, button { font-family: 'Space Mono', monospace; letter-spacing: 0; }
 .eyebrow { margin: 0 0 7px; color: var(--cyan); font-size: 10px; }

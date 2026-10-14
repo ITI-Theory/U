@@ -4920,9 +4920,13 @@ What exists (ISS-069): window roles and layouts (screens.js, the inverted T, the
 the author's desk), the relay for tablets. Same-origin frames share the screens' channel, so
 the overview can be the app's own views in frames that follow one another.
 
-- [ ] `?screen=overview`: the desk picture with four live frames (main: the jellyfish human and
-      the elevator; beneath: the brain and thoughts now, the body's feeling, the score or
-      Sherlock), a short label on each saying what it is for, expand/minimise.
-- [ ] The jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
+- [x] (14 Oct: `overview.html` rather than a role, so the page itself stays light; the four
+      screens are the app at real size, shrunk; `?link=mood` shares phi and feel only; OPEN ON
+      MY SCREENS; linked from the abstract) The desk picture with four live frames (main: the
+      jellyfish human and the elevator; beneath: thought, the body's feeling, the score), a
+      short label on each saying what it is for, expand/minimise.
+- [x] (14 Oct: a fresh start goes there after the abstract; a link keeps its own view) The
+      jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
+- [ ] Author UAT: on the real desk (the 32-inch screen and the tablets).
 - [ ] The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
       matter and in the Gallery.

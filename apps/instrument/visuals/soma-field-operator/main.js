@@ -13,7 +13,7 @@ import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
-import { createScreens, createEngineRoom, createMaintenanceDeck, screenRole, SHARED_KEYS } from './screens.js';
+import { createScreens, createEngineRoom, createMaintenanceDeck, screenRole, LINKED_KEYS } from './screens.js';
 import { createExplorer, LEVEL_STOPS, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { createElevator } from './elevator.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
@@ -227,11 +227,27 @@ renderTextWithMath(abstractSplashCopy, zUSFAbstract);
 abstractSplashSource.replaceChildren();
 abstractSplashSource.append('SOURCE / ');
 appendSourceLink(abstractSplashSource, sourceResolver.abstract_source);
+// One screen (author, 14 Oct, ISS-100): the jellyfish human with the level elevator is the
+// main screen, so a fresh start goes there after the abstract; the other screens show what
+// the thoughts are right now (overview.html shows how they fit together).
+const DEFAULT_VIEW = 'voyage=human&dim=11&phi=0.6';
+// Fresh means opened without an address of its own (the app writes one at start-up).
+const freshStart = !location.hash.replace(/^#/, '') && screenRole === 'level';
+function openDefaultView() {
+  if (!freshStart || location.hash.includes('voyage=')) return;
+  const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+  for (const [key, value] of new URLSearchParams(DEFAULT_VIEW)) params.set(key, value);
+  location.hash = params.toString();
+}
 abstractSplashEnter.addEventListener('click', () => {
   sessionStorage.setItem('zusf-abstract-acknowledged', 'true');
   abstractSplash.hidden = true;
+  openDefaultView();
 });
-if (sessionStorage.getItem('zusf-abstract-acknowledged') === 'true') abstractSplash.hidden = true;
+if (sessionStorage.getItem('zusf-abstract-acknowledged') === 'true') {
+  abstractSplash.hidden = true;
+  openDefaultView();
+}
 // A link straight into the mind explorer skips the opening abstract.
 if (new URLSearchParams(location.hash.slice(1)).has('voyage')) abstractSplash.hidden = true;
 
@@ -2791,7 +2807,7 @@ panelManager.registerPanel(compareCards, { id: 'compare-examples', title: 'COMPA
 screens = createScreens({
   applyShared: shared => {
     const params = new URLSearchParams(location.hash.replace(/^#/, ''));
-    for (const key of SHARED_KEYS) params.delete(key);
+    for (const key of LINKED_KEYS) params.delete(key);
     for (const [key, value] of new URLSearchParams(shared)) params.set(key, value);
     if (screenRole === 'cockpit') params.set('ui', 'clean');
     location.hash = params.toString();

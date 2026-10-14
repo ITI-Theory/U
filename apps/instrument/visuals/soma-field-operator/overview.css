@@ -1,0 +1,42 @@
+/* overview.html (ISS-100): the desk, drawn. */
+:root { --ink: #05070e; --cyan: #14e5ff; --pink: #ff3bce; --gold: #f6c75a; --text: #eaf5ff; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: radial-gradient(ellipse at 50% 30%, #121a2e 0%, #05070e 70%); color: var(--text); font-family: 'Space Mono', ui-monospace, monospace; }
+.ov-head { max-width: 1200px; margin: 0 auto; padding: 22px 24px 6px; }
+.ov-kicker { margin: 0; color: var(--pink); font-size: 11px; letter-spacing: .14em; }
+.ov-head h1 { margin: 4px 0 8px; font-size: clamp(20px, 2.6vw, 34px); letter-spacing: .1em; }
+.ov-hint { margin: 0; max-width: 980px; color: #aeb8ce; font-size: 13px; line-height: 1.55; }
+
+.ov-desk { position: relative; max-width: 1200px; margin: 14px auto 0; padding: 0 24px 34px; display: grid; gap: 18px; justify-items: center; }
+.ov-main { width: min(100%, 860px); }
+.ov-tablets { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.ov-desktop { position: absolute; left: 0; right: 0; bottom: 0; height: 26px; border-top: 2px solid rgba(20,229,255,.35); background: linear-gradient(rgba(20,229,255,.08), transparent); border-radius: 0 0 40% 40% / 0 0 100% 100%; }
+
+.ov-screen { margin: 0; display: grid; gap: 8px; }
+.ov-bezel { position: relative; aspect-ratio: 16 / 9; border: 10px solid #1a1f2c; border-radius: 10px; background: #000; box-shadow: 0 0 0 1px rgba(20,229,255,.35), 0 18px 40px rgba(0,0,0,.6); overflow: hidden; }
+.ov-screen--tablet .ov-bezel { aspect-ratio: 16 / 10; border-width: 12px; border-radius: 16px; }
+/* Each screen is drawn at a real screen's size and shrunk to fit (overview.js sets --s), so a
+   tablet looks like a tablet, not a crowded thumbnail. */
+.ov-bezel iframe { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; border: 0; background: #070a16; transform: scale(var(--s, .5)); transform-origin: 0 0; }
+.ov-screen--tablet .ov-bezel iframe { height: 1000px; }
+.ov-glass { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.ov-glass:hover, .ov-glass:focus-visible { background: rgba(20,229,255,.07); outline: 2px solid var(--cyan); outline-offset: -2px; }
+.ov-min { display: none; }
+.ov-screen figcaption { font-size: 12px; line-height: 1.45; color: #aeb8ce; }
+.ov-screen figcaption strong { display: block; color: var(--gold); letter-spacing: .1em; font-size: 12px; }
+.ov-screen--main figcaption strong { color: var(--cyan); font-size: 14px; }
+
+/* One screen made big: it fills the page, its controls come back; the rest wait behind. */
+.ov-screen--big { position: fixed; inset: 0; z-index: 50; padding: 0; background: var(--ink); }
+.ov-screen--big .ov-bezel { position: absolute; inset: 0; aspect-ratio: auto; border: 0; border-radius: 0; }
+.ov-screen--big .ov-bezel iframe { width: 100%; height: 100%; transform: none; }
+.ov-screen--big .ov-glass, .ov-screen--big figcaption { display: none; }
+.ov-screen--big .ov-min { display: block; position: absolute; z-index: 2; left: 50%; bottom: 12px; transform: translateX(-50%); padding: 6px 12px; color: var(--ink); border: 0; background: var(--gold); font: 700 11px/1 'Space Mono', monospace; letter-spacing: .08em; cursor: pointer; }
+.ov-has-big { overflow: hidden; }
+
+.ov-foot { max-width: 1200px; margin: 0 auto; padding: 4px 24px 28px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.ov-button { padding: 8px 14px; color: var(--text); border: 1px solid var(--pink); background: rgba(5,7,14,.4); font: 700 11px/1.2 'Space Mono', monospace; letter-spacing: .08em; text-decoration: none; cursor: pointer; }
+.ov-button:hover, .ov-button:focus-visible { color: var(--ink); background: var(--pink); }
+.ov-note { flex-basis: 100%; margin: 4px 0 0; color: #7f8aa3; font-size: 11px; }
+
+@media (max-width: 760px) { .ov-tablets { grid-template-columns: 1fr; } }

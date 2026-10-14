@@ -135,6 +135,18 @@ paper or social derivative. Keep the procedural scene as the source of truth.
 Deep-link hash keys include `level`, `path`, `lens`, `dim`, `model`, `reader`,
 `compare`, `contours`, `styleoff`, `q`, `demo`, `era`, `ui`, and `labels`.
 
+## The overview: how it fits together
+
+`overview.html` (ISS-100; linked from the opening abstract as FIRST TIME?) draws the
+author's desk: the main screen and three tablets beneath it, each a live view of the app
+drawn at a real screen's size and shrunk, with a label saying what it is for. Click a
+screen to make it big (its controls come back); MINIMISE or Esc puts it back. OPEN ON MY
+SCREENS opens the four as windows. The views are opened with `?link=mood`: they share only
+the limbic field and the feeling (`phi`, `feel`), never the place, so each keeps its own view
+while one slider moves them all. A fresh start (no address of its own) goes, after the
+abstract, to the main screen's view: the jellyfish human with the level elevator
+(`voyage=human`).
+
 ## Maintenance deck
 
 Open `?screen=maintenance` (or ROLE until MAINTENANCE) for a static H-AL admin

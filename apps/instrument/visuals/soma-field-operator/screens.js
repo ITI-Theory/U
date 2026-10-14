@@ -48,6 +48,12 @@ export const SHARED_KEYS = ['level', 'path', 'lens', 'dim', 'model', 'reader', '
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
   'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ap', 'uo'];
 export const ROLES = ['level', 'cockpit', 'engine', 'maintenance'];
+// ?link=mood (the overview's screens, ISS-100): a window shares only the field's state (the
+// limbic field and the feeling), never the place or the dimension, so each keeps its own view
+// while one slider moves them all.
+export const MOOD_KEYS = ['phi', 'feel'];
+export const linkMood = new URLSearchParams(location.search).get('link') === 'mood';
+export const LINKED_KEYS = linkMood ? MOOD_KEYS : SHARED_KEYS;
 
 export const screenRole = (() => {
   const role = new URLSearchParams(location.search).get('screen');
@@ -57,7 +63,7 @@ export const screenRole = (() => {
 function sharedState(hash) {
   const params = new URLSearchParams(String(hash ?? '').replace(/^#/, ''));
   const shared = new URLSearchParams();
-  for (const key of SHARED_KEYS) if (params.has(key)) shared.set(key, params.get(key));
+  for (const key of LINKED_KEYS) if (params.has(key)) shared.set(key, params.get(key));
   return shared.toString();
 }
 
