@@ -106,17 +106,104 @@ def field_distort(img: Image.Image, amplitude: float = 1.0, seed: int = 8) -> Im
     return _img(out)
 
 
+def engraving(img: Image.Image, spacing: int = 7) -> Image.Image:
+    """A copperplate engraving, Leibniz's 1714: sepia ink on laid paper, the tone made by
+    parallel lines that swell in the shadows, cross-hatched in the deepest. A picture drawn
+    light on dark (as the Soma Machine draws) is read the other way round, so its light is ink."""
+    g = np.asarray(ImageOps.grayscale(img).filter(ImageFilter.GaussianBlur(1.5)), float) / 255
+    tone = g if g.mean() < 0.4 else 1 - g                        # how much ink
+    tone = np.clip((tone - np.percentile(tone, 5)) / (np.percentile(tone, 97) - np.percentile(tone, 5) + 1e-6), 0, 1)
+    h, w = g.shape
+    yy, xx = np.mgrid[0:h, 0:w].astype(float)
+    spacing = max(4, int(spacing * max(h, w) / 1600))
+    phase = (yy + 0.3 * xx) % spacing / spacing
+    cross = (yy - 1.2 * xx) % spacing / spacing
+    ink = (np.abs(phase - 0.5) < 0.45 * tone).astype(float)
+    ink = np.maximum(ink, (np.abs(cross - 0.5) < 0.5 * np.clip(tone - 0.6, 0, 1) / 0.4).astype(float))
+    rng = np.random.default_rng(1714)
+    paper = 0.94 + 0.015 * np.sin(yy / max(2, spacing // 3)) + rng.normal(0, 0.01, g.shape)   # laid lines
+    sepia_ink, sepia_paper = np.array([0.22, 0.14, 0.08]), np.array([0.97, 0.92, 0.81])
+    out = paper[..., None] * sepia_paper * (1 - 0.9 * ink[..., None]) + 0.9 * ink[..., None] * sepia_ink
+    return _img(out).filter(ImageFilter.GaussianBlur(0.5))
+
+
+PALETTE_1911 = {"black": [0.06, 0.05, 0.07], "ultramarine": [0.12, 0.22, 0.62], "yellow": [0.96, 0.78, 0.12],
+                "vermilion": [0.86, 0.20, 0.12], "green": [0.18, 0.52, 0.32], "ground": [0.95, 0.91, 0.82],
+                "violet": [0.42, 0.22, 0.55]}
+
+
+def abstraction_1911(img: Image.Image, cells: int = 150) -> Image.Image:
+    """Abstraction as it began around 1911 (the Blaue Reiter years, when Principia was being
+    written): the picture reduced to flat fields of a few strong colours on a warm ground, with
+    black contours. Kandinsky's palette, not his pictures: the forms are the programme's own."""
+    import colorsys
+    w0, h0 = img.size
+    small = img.convert("RGB").resize((cells, max(1, round(cells * h0 / w0))), Image.Resampling.BOX)
+    small = small.filter(ImageFilter.MedianFilter(3))
+    a = _arr(small)
+    hsv = np.array([[colorsys.rgb_to_hsv(*px) for px in row] for row in a])
+    hue, sat, val = hsv[..., 0] * 360, hsv[..., 1], hsv[..., 2]
+    names = np.full(hue.shape, "ground", dtype=object)
+    coloured = sat > 0.18
+    names[coloured & ((hue < 40) | (hue >= 300))] = "vermilion"   # the programme's pink
+    names[coloured & (hue >= 40) & (hue < 75)] = "yellow"
+    names[coloured & (hue >= 75) & (hue < 165)] = "green"
+    names[coloured & (hue >= 165) & (hue < 250)] = "ultramarine"  # its blue
+    names[coloured & (hue >= 250) & (hue < 300)] = "violet"
+    names[(~coloured) & (val > 0.8)] = "yellow" if a.mean() < 0.4 else "ground"
+    names[val < 0.16] = "black"
+    out = np.array([[PALETTE_1911[n] for n in row] for row in names])
+    flat = _img(out).resize((w0, h0), Image.Resampling.NEAREST).filter(ImageFilter.ModeFilter(9))
+    edges = np.asarray(flat.convert("L").filter(ImageFilter.FIND_EDGES).filter(ImageFilter.MaxFilter(5)), float) / 255
+    b = _arr(flat.filter(ImageFilter.GaussianBlur(2)))
+    k = np.clip(edges * 4, 0, 1)[..., None]
+    b = b * (1 - k) + k * np.array(PALETTE_1911["black"])
+    rng = np.random.default_rng(1911)
+    b = b * (1 + rng.normal(0, 0.025, b.shape[:2])[..., None])   # the brush, a little uneven
+    return _img(b)
+
+
+def fill(img: Image.Image, width: int, height: int) -> Image.Image:
+    """Crop to the page's shape (centred) and scale to width x height: plates print to the edge."""
+    w, h = img.size
+    target = width / height
+    if w / h > target:
+        nw = round(h * target); img = img.crop(((w - nw) // 2, 0, (w - nw) // 2 + nw, h))
+    else:
+        nh = round(w / target); img = img.crop((0, (h - nh) // 2, w, (h - nh) // 2 + nh))
+    return img.resize((width, height), Image.Resampling.LANCZOS)
+
+
+FILTERS = {
+    "stage": lambda im, x: stage(im, float(x)),
+    "pencil": lambda im, x: pencil(im, float(x or 1.0)),
+    "retro_bw": lambda im, x: retro_bw(im),
+    "distort": lambda im, x: field_distort(im, float(x or 1.0)),
+    "engraving": lambda im, x: engraving(im),
+    "abstraction_1911": lambda im, x: abstraction_1911(im),
+}
+
+
+def apply(img: Image.Image, chain: list[str]) -> Image.Image:
+    """Apply a chain of filters named as in the registry: "stage:0.3", "distort:2", "retro_bw"."""
+    for step in chain:
+        name, _, arg = str(step).partition(":")
+        img = FILTERS[name](img, arg or None)
+    return img
+
+
 def main(argv: list[str]) -> int:
     src, out = Image.open(argv[0]).convert("RGB"), Path(argv[1])
     out.mkdir(parents=True, exist_ok=True)
     src.thumbnail((900, 900))
     frames = [("t0", stage(src, 0.0)), ("t25", stage(src, 0.25)), ("t50", stage(src, 0.5)),
               ("t75", stage(src, 0.75)), ("t100", stage(src, 1.0)), ("retro", retro_bw(src)),
-              ("distort", field_distort(src, 2.5))]
+              ("distort", field_distort(src, 2.5)), ("1714", engraving(src)),
+              ("1911", abstraction_1911(src)), ("1989", pencil(src))]
     for name, im in frames:
         im.save(out / f"{name}.png")
     w, h = frames[0][1].size
-    strip = Image.new("RGB", (w * 4 + 30, h * 2 + 10), "white")
+    strip = Image.new("RGB", (w * 4 + 30, h * 3 + 20), "white")
     for k, (_, im) in enumerate(frames):
         strip.paste(im, ((k % 4) * (w + 10), (k // 4) * (h + 10)))
     strip.save(out / "strip.png")
