@@ -4992,6 +4992,13 @@ the amygdala lies just in front of its tip, the fornix arches from the hippocamp
 ventricles to the hypothalamus (mammillary bodies), and the cingulate gyrus lies above the
 corpus callosum over the body of the ventricle: a sourced route through the limbic system with
 the ventricles as the road.
+HAL-UAT (14 Oct, uat/RC3/hal-cathedral-2026-10-14-answers.md): the author's chats give the
+frequency elevator a basis (40 Hz gamma with McFadden's CEMI, the Zoomable paper's wavenumber
+estimate; the EEG bands, June 2026; 140 BPM entrainment and Arnold tongues, the trance and
+freeze flip, August 2026); the elevator itself came from a chat on 7 October ("fly sideways
+through time"). HAL's claim that the bands are typed in the Lean appendix is not borne out:
+today's Lean has only a comment (EmotionOntology.lean, an EEG band as a possible interpreter),
+so the papers' gap stands.
 - [ ] Papers first: the frequency axis of the field (the Zoomable Somatic Field paper, which
       already has the gamma-band estimate, is the natural home; the author's call) and the
       limbic route (P14, the missing limbic layer). Drafts for the author's OK; the papers'
@@ -5027,3 +5034,14 @@ stacked for the next big build (ISS-101's stack).
 - [ ] (21:05) Thought bubbles: smaller, the picture inside abstracted (a filter, so it reads as
       a thought, not a photograph), and no automatic popping: a bubble drifts past unless
       clicked; a click goes into the thought.
+- [ ] (21:20, HAL-UAT, uat/RC3/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
+      dive, not a picture: the author on 25 June 2026 asked for "bubbles rotating with a fractal
+      world inside... go into the bubbles... the music matching (a granular synthesiser)". So a
+      click on a bubble flies into it: the thought's own fractal world (a Mandelbulb in the
+      thought's tint), granular sound; the small abstract bubble stays (this evening's change).
+- [ ] (HAL-UAT) For the cave rebuild: neon, not medicine ("you're not doing medicine, we're
+      doing sci-fi... neon blue, neon purple, neon pink always win"); grime against glow (neon
+      on gauze in a rough barn, "techno-baroque brutalism"); words go out in the deep river
+      (past Threshold 2); the visitor is the pilot. And a contradiction to weigh: the author
+      once rejected the palace ("why a palace?... I picked an 11d manifold", May/June 2026); the
+      palace's caption already says "a map, one level up".
