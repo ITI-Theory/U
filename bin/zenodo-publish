@@ -10,6 +10,8 @@ Usage:
     bin/zenodo-publish plan
     bin/zenodo-publish --sandbox check-token
     bin/zenodo-publish --sandbox rehearse            # every planned record, as sandbox drafts
+    bin/zenodo-publish reserve                       # new records: drafts with reserved DOIs
+    bin/zenodo-publish fill-dois                     # write the reserved concept DOIs into PAPERS.yaml
     bin/zenodo-publish --sandbox plan
     bin/zenodo-publish --sandbox create P22
     bin/zenodo-publish --sandbox new-version P11 --update-metadata
@@ -27,6 +29,12 @@ a sandbox community to test it), and `rehearse` tests both paths for every plann
 record: a new record becomes an unpublished draft; a new version first publishes a
 sandbox seed record from the same file, then makes the new-version draft on it, so the
 version chain is exercised too. The report is bld/zenodo/sandbox-rehearsal.md.
+
+DOIs before the build: `reserve` creates an unpublished draft (metadata, no file) for each new
+record, with a pre-reserved DOI, and keeps it in Dist/zenodo/reserved.yaml (reserved-sandbox.yaml
+on the sandbox); `fill-dois` writes each concept DOI into PAPERS.yaml (the books cite concept
+DOIs), so the printed books carry their final DOIs; `create` later fills the reserved draft with
+the file instead of making a new one. New versions keep the concept DOI they already have.
 """
 
 from __future__ import annotations
@@ -395,17 +403,96 @@ def publish_or_report(client: ZenodoClient, entry: dict, draft: dict, publish: b
     print_publish_yaml(entry, published)
 
 
+def reserved_path(sandbox: bool) -> Path:
+    return DIST_ROOT / "zenodo" / ("reserved-sandbox.yaml" if sandbox else "reserved.yaml")
+
+
+def load_reserved(sandbox: bool) -> dict:
+    path = reserved_path(sandbox)
+    return (yaml.safe_load(path.read_text(encoding="utf-8")) or {}) if path.exists() else {}
+
+
+def save_reserved(sandbox: bool, reserved: dict) -> None:
+    head = ("# Drafts with reserved DOIs (bin/zenodo-publish reserve): new records, not published.\n"
+            "# `create` fills these drafts with their files; `fill-dois` copies doi_concept into PAPERS.yaml.\n")
+    reserved_path(sandbox).write_text(head + yaml.safe_dump(reserved, sort_keys=True, allow_unicode=True),
+                                      encoding="utf-8", newline="\n")
+
+
+def reserve(args: argparse.Namespace) -> int:
+    """New records only: an unpublished draft each, with metadata and a pre-reserved DOI."""
+    metadata = upload_metadata()
+    entries = selected_entries(args.ids) if args.ids else [e for e in registry_entries() if action_for(e) == "create"]
+    missing = [e["id"] for e in entries if e["id"] not in metadata]
+    if missing:
+        raise ZenodoError(f"Missing metadata.yaml entry for: {', '.join(missing)}")
+    client = ZenodoClient(SANDBOX_BASE if args.sandbox else LIVE_BASE, token_from_env(args.sandbox))
+    reserved = load_reserved(args.sandbox)
+    for entry in entries:
+        rid = entry["id"]
+        if rid in reserved:
+            try:
+                client.request("GET", f"deposit/depositions/{reserved[rid]['draft_id']}")
+                print(f"{rid:12} already reserved: {reserved[rid]['doi_concept']}")
+                continue
+            except ZenodoError:
+                pass  # the draft is gone: reserve again
+        record_metadata = base_metadata(entry, metadata[rid])
+        if args.sandbox:
+            record_metadata = sandbox_metadata(record_metadata)
+        record_metadata["prereserve_doi"] = True
+        draft = client.request("POST", "deposit/depositions", payload={})
+        draft = client.request("PUT", f"deposit/depositions/{draft['id']}", payload={"metadata": record_metadata})
+        version_doi = (draft.get("metadata", {}).get("prereserve_doi") or {}).get("doi")
+        if not version_doi:
+            raise ZenodoError(f"{rid}: Zenodo returned no pre-reserved DOI for draft {draft['id']}")
+        prefix = version_doi.split("/")[0]
+        concept = f"{prefix}/zenodo.{draft.get('conceptrecid')}" if draft.get("conceptrecid") else version_doi
+        reserved[rid] = {"draft_id": draft["id"], "doi_version": version_doi, "doi_concept": concept,
+                         "url": draft.get("links", {}).get("html", "")}
+        save_reserved(args.sandbox, reserved)
+        print(f"{rid:12} reserved: concept {concept}, version {version_doi}")
+    print(f"{reserved_path(args.sandbox).relative_to(DIST_ROOT)}: {len(reserved)} reserved")
+    return 0
+
+
+def fill_dois(args: argparse.Namespace) -> int:
+    """Copy each reserved concept DOI into its PAPERS.yaml entry (only where doi is empty: null, ~ or "")."""
+    reserved = load_reserved(args.sandbox)
+    if args.sandbox:
+        raise ZenodoError("fill-dois writes live DOIs only; sandbox DOIs never go into PAPERS.yaml")
+    lines = REGISTRY_PATH.read_text(encoding="utf-8").split("\n")
+    current, filled = None, []
+    for i, line in enumerate(lines):
+        m = re.match(r"^\s*- id: (\S+)\s*$", line)
+        if m:
+            current = m.group(1)
+            continue
+        if current in reserved and re.match(r'^\s*doi:\s*(null|~|""|\'\')?\s*$', line):
+            indent = line[: len(line) - len(line.lstrip())]
+            lines[i] = f'{indent}doi: "{reserved[current]["doi_concept"]}"'
+            filled.append(current)
+    REGISTRY_PATH.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    print(f"PAPERS.yaml: {len(filled)} DOIs filled ({', '.join(filled) or 'none'}); run `make generate` in U next")
+    return 0
+
+
 def create_records(args: argparse.Namespace) -> int:
     metadata = upload_metadata()
     entries = selected_entries(args.ids)
     require_entries_metadata(entries, metadata, args.allow_unstaged)
     client = ZenodoClient(SANDBOX_BASE if args.sandbox else LIVE_BASE, token_from_env(args.sandbox))
+    reserved = load_reserved(args.sandbox)
     for entry in entries:
         record_metadata = base_metadata(entry, metadata[entry["id"]])
         if args.sandbox:
             record_metadata = sandbox_metadata(record_metadata)
-        draft = client.request("POST", "deposit/depositions", payload={})
-        draft_id = draft["id"]
+        if entry["id"] in reserved:  # the draft `reserve` made, its DOI already in PAPERS.yaml
+            draft_id = reserved[entry["id"]]["draft_id"]
+            record_metadata["prereserve_doi"] = True
+        else:
+            draft = client.request("POST", "deposit/depositions", payload={})
+            draft_id = draft["id"]
         draft = client.request("PUT", f"deposit/depositions/{draft_id}", payload={"metadata": record_metadata})
         bucket = draft.get("links", {}).get("bucket")
         if not bucket:
@@ -522,6 +609,9 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("check-token", help="one read with the token (live, or --sandbox)")
     rehearsal = subparsers.add_parser("rehearse", help="sandbox only: every planned record (or the ids) as sandbox drafts")
     rehearsal.add_argument("ids", nargs="*")
+    reserving = subparsers.add_parser("reserve", help="new records: unpublished drafts with reserved DOIs (no files)")
+    reserving.add_argument("ids", nargs="*")
+    subparsers.add_parser("fill-dois", help="write the reserved concept DOIs into Dist/PAPERS.yaml (live only)")
     new_version = subparsers.add_parser("new-version", help="create new versions for existing concept DOIs")
     new_version.add_argument("ids", nargs="+")
     create = subparsers.add_parser("create", help="create new Zenodo depositions")
@@ -546,6 +636,10 @@ def main() -> int:
         return check_token(args)
     if args.command == "rehearse":
         return rehearse(args)
+    if args.command == "reserve":
+        return reserve(args)
+    if args.command == "fill-dois":
+        return fill_dois(args)
     if args.publish and not args.sandbox and not args.yes:
         parser.error("--yes is required with --publish on live Zenodo")
     if args.command == "new-version":
