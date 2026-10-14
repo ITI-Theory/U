@@ -8,6 +8,7 @@ app and the terminal). Answers: <file>-answers.md, each under its heading.
 """
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -26,8 +27,10 @@ def main(argv):
         title, _, body = part.partition("\n")
         q = " ".join(body.split())
         print(f"ask: {title}", flush=True)
+        # NotebookLM answers carry emoji; the Windows console code page cannot print them
+        env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
         r = subprocess.run([sys.executable, "ask.py", "hal", q], cwd=MOTHER, capture_output=True,
-                           text=True, encoding="utf-8", errors="replace")
+                           text=True, encoding="utf-8", errors="replace", env=env)
         answer = r.stdout.strip() or f"(no answer; exit {r.returncode}: {r.stderr.strip()[-400:]})"
         out += [f"## {title.strip()}", "", answer, ""]
         dest = src.with_name(src.stem + "-answers.md")
