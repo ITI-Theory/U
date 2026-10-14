@@ -5051,3 +5051,29 @@ stacked for the next big build (ISS-101's stack).
       PICTURE low on the screen; BACK or Esc to the cathedral (explorer.js `thought-dive`).
 - [x] (21:26) The palace gives way to the manifold: above Φ 0.5 its walls bend and fold (a
       vertex shader, a few moving modes, banded light), calm round the door; a line says so.
+
+## ISS-103: Hub halls: every elevator exit opens into a place, and routes go off from it — OPEN
+{{Tags area.app}}
+{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+
+Author, 14 Oct 21:58: the jellyfish human is an abstract body that only sort of looks human;
+each elevator exit should start in a hall, gallery or cave, an abstract 3D place in high
+resolution (a fractal texture, the palace's warping; in the brain a great cave with cobwebs
+and tissue), with routes going off from it (tunnels, arteries), as in many games; and at the
+entrance the elevator to the other levels, from this thought.
+
+Copilot's reading: the hub world of games (Super Mario 64's castle, whose paintings lead to
+the worlds). It fits the app's pieces: the cathedral (ISS-077), the tunnels (tunnel3d.js:
+PATH, WAY IN, the ureter), the palace and its manifold warp (ISS-078, d5c10d3), the fractal
+worlds (flight3d.js). The brain's hub is anatomy, not invention: the atrium of the lateral
+ventricle (ISS-102); the cobwebs are real, the arachnoid mater is named for its web-like
+trabeculae, crossing the fluid-filled subarachnoid space; the tissue curtains are the choroid
+plexus.
+- [ ] A registry of hubs (registry/hubs.yaml): per elevator floor, its hall (shape, texture,
+      FX), its routes (to which stop or tunnel), the elevator at its entrance.
+- [ ] First hub: the brain's great hall (the atrium), routes to the existing cathedral
+      passages, PATH, the limbic route (ISS-101), the elevator.
+- [ ] Then: the body's hub (the heart's chambers; arteries as the routes, WAY IN), the cosmos
+      (the palace's top floor), the others as the registry grows.
+- [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the
+      display's resolution; checked on the author's 4K screen.
