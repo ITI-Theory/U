@@ -701,6 +701,43 @@ const thoughtTint = img => (img?.art ? ART_TINTS[Math.floor(Math.random() * ART_
 let popHandler = null;
 // THE ATRIUMS (ISS-103): the stops that open into a hub, its 3D view and its button; the
 // atrium on screen now (for POKE)
+// The card describes the place you are in, not only the stop (GPT review, fix 7): the atriums,
+// the palace, the cathedral, the course and a focused thought each say what they are and where
+// their exits go. The same evidence labels as the stops.
+const PLACE_CAPTIONS = {
+  'brain-hall': {
+    title: 'THE GREAT HALL', label: 'interpretive',
+    4: 'The brain as a building: a hall you stand in, with doorways out. The limbic gate leads to the mind chamber, the way up follows a signal from the body to the cortex, the mind palace keeps the twenty-one floors, the cathedral goes down into the ventricles, the arteries back to the heart. The elevator beside you rides the floors. Click a doorway to go.',
+  },
+  'body-atrium': {
+    title: 'THE HEART · LEFT ATRIUM', label: 'interpretive',
+    4: 'Inside the left atrium of the heart, the body\'s hub: the way in goes through the mitral valve and up the aorta to the brain; the body shows what a feeling does organ by organ; the bloodstream is the score\'s body setting; the ureter goes down to the kidney. Anatomy simplified; an educational model.',
+  },
+  'neuron-atrium': {
+    title: 'THE SOMA', label: 'interpretive',
+    4: 'Inside one neuron\'s cell body. The axon hillock is where a spike begins; the dendrites lead out to the other cells (memory as a network); the sub-threshold sea is many cells together, where a swell that crosses becomes a feeling; up leads back to the great hall.',
+  },
+  'thought-atrium': {
+    title: 'THE MIND CHAMBER', label: 'interpretive',
+    4: 'Behind the limbic gate. Below the gold line the foam: activity that does not cross. A bubble that crosses is a thought, shown with its expression and kind (words, picture, feeling, pain, flashback); most fade, some stay behind a ridge. Click one to focus it. The expressions come from the model\'s algebra (blend, dampen, evoke); the picture is interpretive, not a reading of anyone\'s mind.',
+  },
+  palace: {
+    title: 'THE MIND PALACE', label: 'interpretive',
+    4: 'The method of loci as a building: the twenty-one levels of the zoom dial as floors of one tower, from the quantum foam to the cosmic web. Ride ▲ ▼ or FLOORS, go through a floor\'s DOOR to its level, PLACE a thought to keep it. A memory aid, not a claim about how memory is stored.',
+  },
+  cathedral: {
+    title: 'THE CATHEDRAL', label: 'interpretive',
+    4: 'The brain\'s own cave: the ventricles, flown through from the lateral ventricles down the aqueduct to the fourth. The field shows as light in the stone; POKE sends a thought through it. The anatomy is simplified; the light is the model\'s picture, not a measurement.',
+  },
+  course: {
+    title: 'THE COURSE', label: 'interpretive',
+    4: 'Should I do it? Each hole is one consideration, scored by the model\'s three outcomes, SAFE, FIGHT and FREEZE (no good or bad, only downhill, uphill and barriers). A few considerations pop over the glass dome; SOLUTION melts them back. A scripted example, not advice.',
+  },
+  focus: {
+    title: 'A THOUGHT, FOCUSED', label: 'interpretive',
+    4: 'The thought you clicked opens into its course while the chamber blurs and carries on. Considerations rise over the dome; when it settles the thought resolves, or stays below the line and adds to the load. Escape leaves it unresolved. A scripted example of the process, not a reading of a mind.',
+  },
+};
 const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' }, neuron: { gl: 'neuron-atrium', button: 'THE SOMA' }, thought: { gl: 'thought-atrium', button: 'MIND CHAMBER' } };
 let atriumGl = null;
 // THE PATHS (ISS-104): drawn instead of the THOUGHT stop's scene when chosen
@@ -3449,6 +3486,7 @@ export function createExplorer(hooks = {}) {
     void c.canvas.offsetWidth;
     c.canvas.classList.add('is-active', 'explorer__focus');
     gls['thought-atrium']?.canvas.classList.add('explorer__blurred');
+    syncUi();
   };
   const endFocus = stays => {
     if (!focusGl) return;
@@ -3457,6 +3495,7 @@ export function createExplorer(hooks = {}) {
     focusGl = null;
     gls['thought-atrium']?.canvas.classList.remove('explorer__blurred');
     if (stays) gls['thought-atrium']?.park(text);
+    syncUi();
   };
   addEventListener('keydown', event => { if (event.key === 'Escape' && focusGl) { event.preventDefault(); endFocus(true); } });
   const takeRoute = id => {
@@ -3671,6 +3710,14 @@ export function createExplorer(hooks = {}) {
     return [4, 8, 11].includes(d) ? d : 11;
   }
 
+  function placeCaption() {
+    if (focusGl) return PLACE_CAPTIONS.focus;
+    if (st.stop === 'thought' && st.choices) return PLACE_CAPTIONS.course;
+    if (st.hall && ATRIUMS[st.stop]) return PLACE_CAPTIONS[ATRIUMS[st.stop].gl] ?? CAPTIONS[st.stop];
+    if (st.stop === 'brain' && st.palace) return PLACE_CAPTIONS.palace;
+    if (st.stop === 'brain' && st.cave) return PLACE_CAPTIONS.cathedral;
+    return CAPTIONS[st.stop];
+  }
   function syncUi() {
     const mechButton = root.querySelector('[data-act="mech"]');
     if (mechButton) { mechButton.textContent = mechLabel(); mechButton.hidden = !hooks.mechanisms; mechButton.classList.toggle('active', !mech.hidden); mechButton.setAttribute('aria-expanded', String(!mech.hidden)); }
@@ -3792,7 +3839,7 @@ export function createExplorer(hooks = {}) {
     view3dButton.setAttribute('aria-pressed', String(st.view3d));
     phiInput.value = String(st.phi);
     phiOut.textContent = st.phi.toFixed(2);
-    const cap = CAPTIONS[st.stop];
+    const cap = placeCaption();
     const d = dim();
     const text = [4, 8, 11].filter(k => k <= d && cap[k]).map(k => cap[k]).join(' ');
     card.querySelector('h2').textContent = `${cap.title} · ${d}D`;
@@ -3870,7 +3917,7 @@ export function createExplorer(hooks = {}) {
   // labels stay on a flat HUD, never floating in depth).
   function hud(lw) {
     const c = layers.screen.ctx;
-    const cap = CAPTIONS[st.stop];
+    const cap = placeCaption();
     const title = tourLine ? tourLine.title : `${cap.title} · ${dim()}D`;
     const label = tourLine ? tourLine.label : cap.label;
     const text = tourLine ? tourLine.say : [4, 8, 11].filter(k => k <= dim() && cap[k]).map(k => cap[k]).join(' ');

@@ -5373,7 +5373,12 @@ grammar's three gaps closed by it.
       evidence" holds EQUATION / FIGURES / READ MORE, FULL MODEL MATHEMATICS, the cheat sheet and
       MORE INFORMATION. The paths stay with the elevator. Headless: all lent, all returned on
       close, T-THEORY toggles from the drawer; explorer-check 0 failures.
-- [ ] Then fixes 5-7 (places map and breadcrumb, label hierarchy, the card for the place).
+- [x] Fix 7 done: the card describes the place you are in (explorer.js PLACE_CAPTIONS,
+      placeCaption): the great hall, the heart's atrium, the soma, the mind chamber, the palace,
+      the cathedral, the course, a focused thought; each says where its exits go and what it is
+      not (a scripted example, not advice; a picture, not a reading of a mind). Also the stereo
+      HUD line.
+- [ ] Then fixes 5 and 6 (a places map and a real breadcrumb; protected label hierarchy).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
