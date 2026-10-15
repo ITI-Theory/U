@@ -12,8 +12,6 @@
 
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
-import { buildGolf } from './minigolf3d.js';
-import { bubbleEnvironment } from './bubble.js';
 
 const SIZE = 2.9;
 const N = 110;
@@ -142,14 +140,38 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   }
 
   const toWorld = (px, py, lift = 0) => new THREE.Vector3(px, height(px, py) + lift, -py);
-  // THE MINI GOLF in 3D (author, 16 Oct): the six basins on a Star Trek chess frame floating over
-  // this landscape; built when first asked for; the camera pulls back to show both
-  let golf = null;
+  // THE LOAD in 3D (author, 16 Oct 00:27: "copy the FFF square ... paste 5 there ... the other
+  // worries"): the square in front is the thought now; five copies around it are unresolved
+  // thoughts, each the same SAFE / FIGHT / FREEZE landscape (one field: they share its shape and
+  // Φ), each with its own ball still rolling, a violet ghost. Struts join them to the square in
+  // front, red while that thought's ball is out of SAFE; the STRUTS slider spreads them out or
+  // crowds them in. The examples are illustrative; interpretive.
+  const LOAD_NAMES = ['cut the grass', 'book the dentist', 'the tax return', 'fix the bike', 'call mum'];
+  const LOAD_ANGLES = [-2.6, -2.05, -1.5708, -1.09, -0.54];   // around the back and the sides
+  const BOARD = 0.5;
+  let boards = null;
   let zoom = 0;
+  const strutMat = new THREE.MeshBasicMaterial({ color: '#ff7ad9', transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false });
+  function makeBoards() {
+    boards = LOAD_NAMES.map((name, k) => {
+      const group = new THREE.Group();
+      group.add(new THREE.Mesh(geometry, terrain.material), new THREE.LineSegments(gridGeometry, grid.material));
+      group.scale.setScalar(BOARD);
+      const ghost = new THREE.Mesh(new THREE.SphereGeometry(0.12, 20, 12), new THREE.MeshBasicMaterial({ color: '#c8b6ff', transparent: true, opacity: 0.75 }));
+      const strut = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 10, 1, true), strutMat.clone());
+      scene.add(group, ghost, strut);
+      const w = wells[k % wells.length];
+      return { name, group, ghost, strut, px: w[0] * 0.6, py: w[1] * 0.6, angle: LOAD_ANGLES[k], out: 0 };
+    });
+  }
 
   return {
     canvas,
-    get golf() { return golf; },
+    // the load's boards on screen, for the labels: [{ name, x, y, visible, out }]
+    loadBoards() {
+      if (!boards || zoom < 0.5) return [];
+      return boards.map(b => { const v = b.group.position.clone().add(new THREE.Vector3(0, 0.55, 0)).project(camera); return { name: b.name, x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.05, out: b.out }; });
+    },
     resize(w, h, dpr) {
       renderer.setPixelRatio(dpr);
       renderer.setSize(w, h, false);
@@ -164,26 +186,51 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
         rebuild(state.phi, state.T, state.J);
       }
       // swing over the mountains on the near side, the city on the horizon behind them
-      if (state.golf && !golf) {
-        golf = buildGolf({ layout: 'chess', ground: false });
-        golf.group.scale.setScalar(0.2);
-        golf.group.position.set(0, 1.55, -0.4);
-        // the names keep their size on screen (screen-sized sprites would shrink with the frame)
-        golf.group.traverse(o => { if (o.isSprite && o.material.sizeAttenuation === false) o.scale.multiplyScalar(5); });
-        scene.add(golf.group);
-        scene.environment ??= bubbleEnvironment(renderer);
-      }
-      if (golf) {
-        golf.group.visible = Boolean(state.golf);
-        if (state.golf) golf.update({ time: state.time, phi: state.phi, labels: state.golfLabels ?? state.labels, resource: state.resource, cp: state.cp });
-      }
+      if (state.golf && !boards) makeBoards();
       zoom += ((state.golf ? 1 : 0) - zoom) * 0.05;
-      const swing = Math.PI / 2 + 0.75 * Math.sin(state.theta * 0.9) * (1 - 0.5 * zoom);
-      const r = 4.6 + 3.4 * zoom;
-      camera.position.set(Math.cos(swing) * r, 1.45 + 2.1 * zoom + 0.2 * Math.sin(state.theta * 1.7), Math.sin(swing) * r);
-      camera.lookAt(0, 0.3 + 1.0 * zoom, -2.4 + 2.0 * zoom);
+      const spread = 2.3 + 2.4 * (state.strut ?? 0.5);
+      const holes = [[0, 0, 1.5]];
+      if (boards) {
+        const dt = Math.min(0.05, Math.max(0, (state.time ?? 0) - (boards.t ?? state.time ?? 0)));
+        boards.t = state.time;
+        const heat = Math.max(0.02, state.T ?? 0.1);
+        for (const b of boards) {
+          const on = Boolean(state.golf);
+          b.group.visible = b.ghost.visible = b.strut.visible = on && zoom > 0.05;
+          if (!on) continue;
+          const cx = Math.cos(b.angle) * spread * zoom, cz = Math.sin(b.angle) * spread * 0.85 * zoom;
+          b.group.position.set(cx, -0.05, cz);
+          holes.push([cx, cz, 1.5 * BOARD + 0.1]);
+          // its ball: the same rolling (a noisy descent of the same energy), its own path
+          const e = 0.01;
+          const gx = (energy(b.px + e, b.py, beta, J) - energy(b.px - e, b.py, beta, J)) / (2 * e);
+          const gy = (energy(b.px, b.py + e, beta, J) - energy(b.px, b.py - e, beta, J)) / (2 * e);
+          b.px = Math.max(-1.35, Math.min(1.35, b.px - gx * 0.6 * dt + Math.sqrt(2 * heat * dt) * 1.4 * (Math.random() - 0.5)));
+          b.py = Math.max(-1.35, Math.min(1.35, b.py - gy * 0.6 * dt + Math.sqrt(2 * heat * dt) * 1.4 * (Math.random() - 0.5)));
+          b.ghost.position.set(cx + b.px * BOARD, -0.05 + (height(b.px, b.py) + 0.07) * BOARD, cz - b.py * BOARD);
+          // out of SAFE (the first well): the strut glows red, its pull on the thought in front
+          let near = 0, best = 1e9;
+          wells.forEach(([wx, wy], k) => { const d = (wx - b.px) ** 2 + (wy - b.py) ** 2; if (d < best) { best = d; near = k; } });
+          b.out += ((near === 0 ? 0 : 1) - b.out) * Math.min(1, dt * 2);
+          b.strut.material.color.setRGB(0.6 + 0.4 * b.out, 0.48 * (1 - b.out) + 0.15, 0.85 * (1 - b.out) + 0.25);
+          b.strut.material.opacity = 0.35 + 0.45 * b.out + 0.2 * Math.sin(state.time * 3 + b.angle * 4) * b.out;
+          // the strut: from the square's edge to the board's
+          const from = new THREE.Vector3(Math.cos(b.angle) * 1.45, 0.12, Math.sin(b.angle) * 1.2);
+          const to = new THREE.Vector3(cx - Math.cos(b.angle) * 0.75, 0.12, cz - Math.sin(b.angle) * 0.75);
+          const len = Math.max(0.01, from.distanceTo(to));
+          b.strut.position.copy(from).lerp(to, 0.5);
+          b.strut.scale.set(0.02 + 0.02 * b.out, len, 0.02 + 0.02 * b.out);
+          b.strut.lookAt(to);
+          b.strut.rotateX(Math.PI / 2);
+        }
+      }
+      cityGroup.position.z = -(spread * 0.85 - 0.9) * zoom;
+      const swing = Math.PI / 2 + 0.75 * Math.sin(state.theta * 0.9) * (1 - 0.6 * zoom);
+      const r = 4.6 + (2.2 + 1.6 * (state.strut ?? 0.5)) * zoom;
+      camera.position.set(Math.cos(swing) * r, 1.45 + (1.4 + 0.9 * (state.strut ?? 0.5)) * zoom + 0.2 * Math.sin(state.theta * 1.7), Math.sin(swing) * r);
+      camera.lookAt(0, 0.3 - 0.3 * zoom, -2.4 + 1.4 * zoom);
       country.mesh.visible = state.dim >= 8;
-      if (country.mesh.visible) country.update(state.phi, state.time);
+      if (country.mesh.visible) country.update(state.phi, state.time, holes);
       cityGroup.visible = state.dim >= 11;
       // the floors resting on sorry flicker
       if (cityGroup.userData.flicker) cityGroup.userData.flicker.opacity = 0.35 + 0.6 * Math.abs(Math.sin(state.time * 6.3 + 2 * Math.sin(state.time * 17)));
@@ -256,12 +303,13 @@ function makeCountry() {
   const wire = mesh.geometry.attributes.position;
   return {
     mesh,
-    update(phi, time) {
+    // holes: [[x, z, half]] where boards sit (the main square and the load's)
+    update(phi, time, holes = [[0, 0, 1.5]]) {
       const amp = 0.06 + 0.22 * phi;
       for (let i = 0; i < wire.count; i++) {
         const x = wire.getX(i);
         const z = wire.getZ(i);
-        const inside = Math.abs(x) < 1.5 && Math.abs(z) < 1.5;
+        const inside = holes.some(([hx, hz, hh]) => Math.abs(x - hx) < hh && Math.abs(z - hz) < hh);
         const y = inside ? -0.9 : 0.25 + amp * (Math.sin(x * 0.9 + time * 0.4) * Math.cos(z * 0.7 - time * 0.3) + 0.5 * Math.sin((x + z) * 1.7 + time * 0.8));
         wire.setY(i, y);
       }

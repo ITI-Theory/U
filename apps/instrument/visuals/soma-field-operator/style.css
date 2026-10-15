@@ -501,6 +501,9 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__title, .explorer__crumbs, .explorer__crumbs button { text-shadow: 0 0 4px rgba(5,7,14,.95), 0 0 10px rgba(5,7,14,.85); }
 .explorer__legend { position: absolute; z-index: 4; top: 52px; left: 50%; transform: translateX(-50%); max-width: min(980px, 80vw); margin: 0; padding: 6px 12px; border: 1px solid rgba(255,209,102,.35); border-radius: 6px; background: rgba(7,10,22,.8); font-size: 11px; line-height: 1.45; color: rgba(232,238,252,.85); text-align: center; pointer-events: none; }
 .explorer__legend[hidden] { display: none; }
+.explorer__strut { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .08em; color: #ff7ad9; }
+.explorer__strut[hidden] { display: none; }
+.explorer__strut input { width: 110px; }
 .explorer__legend b { color: #ffd166; letter-spacing: .1em; }
 .explorer__legend i { font-style: normal; }
 .explorer__slot h3 { margin: 10px 0 4px; font: 700 10px/1.2 'Space Mono', monospace; letter-spacing: .12em; color: #5ee7ff; }

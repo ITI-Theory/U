@@ -5448,6 +5448,14 @@ grammar's three gaps closed by it.
       energy: FIGHT and FLIGHT on raised attack boards, SAFE the main board, FREEZE sunken, AWE
       and GRIEF lowest (QUANT-EXP-1's ground state) behind a tall ridge that the wires climb
       over and the tunnel passes through. The landscape's labels give way to the golf's.
+- [x] (author 00:27: the chess frame "very hard to read ... start with the single landscape, copy
+      the FFF square ... paste 5 ... the other worries ... a slider for the struts"; 00:35: each
+      board an unresolved thought, the load) Replaced in 3D by THE LOAD (explorer3d.js): the
+      square in front is the thought now; five copies around it, each the same SAFE / FIGHT /
+      FREEZE landscape (one field) with its own ball rolling (the same noisy descent), a violet
+      ghost; struts to the square, red while that thought is out of SAFE; STRUTS spreads or
+      crowds them, the city steps back; the moving wave mesh runs under them all. Example names.
+      2D stays the six-hole map. The chess layout stays in minigolf3d.js, unused.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 

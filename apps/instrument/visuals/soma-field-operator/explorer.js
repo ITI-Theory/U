@@ -768,6 +768,10 @@ const PLACE_CAPTIONS = {
     title: 'THE COURSE', label: 'interpretive',
     4: 'Should I do it? Each hole is a small landscape with the model\'s three outcomes, SAFE, FIGHT and FREEZE (no good or bad, only downhill, uphill and barriers); each consideration is a ripple that settles the holes it reaches. A few considerations pop over the glass dome; SOLUTION melts them back. A scripted example, not advice.',
   },
+  load: {
+    title: 'THE LOAD', label: 'interpretive',
+    4: 'The square in front is the thought now, the energy landscape with its three wells, SAFE, FIGHT and FREEZE, and the ball that rolls on it. Around it, five unresolved thoughts, the load (parked below the line in the MIND CHAMBER): each the same landscape, because it is one field, each with its own ball still rolling. A strut glows red while its thought is out of SAFE. STRUTS sets how close they press in. The names are examples. 2D shows the six-hole map of the model\'s basins.',
+  },
   golf: {
     title: 'THE MINI GOLF', label: 'interpretive',
     4: 'Six of the model\'s basins as holes: SAFE, FIGHT, FLIGHT and FREEZE (the four basins of the co-identification paper) and AWE and GRIEF (the ground state of the QUANT-EXP-1 simulation). The ball is the state. A fairway is a low barrier, crossed often; a wire a high one, crossed rarely; a slide runs one way, easy into FREEZE and hard out; the bridge out of FREEZE is there only with the resource (help); the tunnel to AWE is barrier tunnelling, an open hypothesis. Worry balls run imagined paths: they never move the ball, but it is drawn their way (BRECVEMA\'s V, visual imagery). The widths show the model\'s stated barriers, not computed rates.',
@@ -3148,7 +3152,7 @@ function makeLandscape() {
       const beta = 1 / T;
       const J = env.resource ? RESOURCE_J : 0;
       if (env.gl) {
-        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, stereo: env.stereo, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]), golf: env.golf, golfLabels: env.golfLabels ?? env.labels, resource: env.resource, cp: env.cp });
+        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, stereo: env.stereo, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]), golf: env.golf, strut: env.strut, labels: env.labels });
         if (env.labels) {
           const zones = [[[0, 0.75, 1.75], 'MOUNTAINS · the body’s memories (4D)', COLORS.ice, 4],
             [[-3.4, 0.9, -0.6], 'COUNTRY · the limbic plains (8D)', '#56f0a2', 8],
@@ -3305,6 +3309,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
+      <label class="explorer__strut" data-act="strut" title="THE LOAD: how far the unresolved thoughts stand from the one in front">STRUTS <input type="range" min="0" max="1" step="0.01" value="0.5" aria-label="Strut length" /></label>
       <button type="button" data-act="golf" title="THE MINI GOLF (author, 15 Oct): six of the model's basins as holes, the ways between them as fairways, wires, slides, a bridge and a tunnel; the ball is the state; worry balls run imagined paths">MINI GOLF</button>
       <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: each consideration a ripple across the holes, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
       <button type="button" data-act="hall" title="THE GREAT HALL (ISS-103): the brain's hub, the atrium of the lateral ventricle under water; doorways to the cathedral, the limbic hinge, the way up (a signal, body to cortex), the palace, the arteries; the elevator to any level">GREAT HALL</button>
@@ -3356,7 +3361,7 @@ export function createExplorer(hooks = {}) {
     const bar = root.querySelector('.explorer__bar');
     const crumbs = bar.querySelector('.explorer__crumbs');
     const GO = ['fleave', 'golf', 'choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
-    const DO = ['fpause', 'poke', 'mech', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
+    const DO = ['strut', 'fpause', 'poke', 'mech', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
     const deck = document.createElement('nav');
     deck.className = 'explorer__deck';
     deck.setAttribute('aria-label', 'Controls');
@@ -3516,6 +3521,7 @@ export function createExplorer(hooks = {}) {
   const COURSE_KEY = '<b>THE COURSE</b> · each consideration a ripple that settles the holes it reaches · <i style="color:#ff3b4e">red</i> warm (fear, anger), <i style="color:#3fb8ff">blue</i> cool (joy, trust) · height: the cost · the ball: the well it rolls to, SAFE / FIGHT / FREEZE · stress: height and colour disagreeing · no good or bad · a scripted example';
   legend.innerHTML = COURSE_KEY;
   root.append(legend);
+  root.querySelector('[data-act="strut"] input')?.addEventListener('input', event => { st.strut = Number(event.target.value); });
   // POKE's mechanisms (BRECVEMA, P9): chosen here, kept across places, fired by POKE
   const mech = document.createElement('section');
   mech.className = 'explorer__mech';
@@ -3721,7 +3727,7 @@ export function createExplorer(hooks = {}) {
   const scene = id => (scenes[id] ??= FACTORIES[id]());
   const rand = seeded(3);
   const particles = Array.from({ length: 70 }, () => ({ x: rand(), y: rand(), z: 0.3 + rand() * 0.7, r: rand() }));
-  const st = { golf: false, choices: false, hall: false, open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
+  const st = { strut: 0.5, golf: false, choices: false, hall: false, open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
     diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0',
     stereo: STEREO_MODES.includes(new URLSearchParams(location.search).get('stereo')) ? new URLSearchParams(location.search).get('stereo')
       : STEREO_MODES.includes(localStorage.getItem('soma-stereo')) ? localStorage.getItem('soma-stereo') : 'off',
@@ -3852,7 +3858,7 @@ export function createExplorer(hooks = {}) {
   function placeCaption() {
     if (focusGl) return PLACE_CAPTIONS.focus;
     if (st.stop === 'thought' && st.choices) return PLACE_CAPTIONS.course;
-    if (st.stop === 'landscape' && st.golf) return PLACE_CAPTIONS.golf;
+    if (st.stop === 'landscape' && st.golf) return st.view3d ? PLACE_CAPTIONS.load : PLACE_CAPTIONS.golf;
     if (st.hall && ATRIUMS[st.stop]) return PLACE_CAPTIONS[ATRIUMS[st.stop].gl] ?? CAPTIONS[st.stop];
     if (st.stop === 'brain' && st.palace) return PLACE_CAPTIONS.palace;
     if (st.stop === 'brain' && st.cave) return PLACE_CAPTIONS.cathedral;
@@ -3860,7 +3866,7 @@ export function createExplorer(hooks = {}) {
   }
   function syncUi() {
     const courseOn = Boolean(focusGl) || (st.stop === 'thought' && st.choices);
-    const golfOn = st.stop === 'landscape' && st.golf;
+    const golfOn = st.stop === 'landscape' && st.golf && !st.view3d;
     legend.hidden = !courseOn && !golfOn;
     legend.innerHTML = golfOn ? GOLF_KEY : COURSE_KEY;
     const fleave = root.querySelector('[data-act="fleave"]'), fpause = root.querySelector('[data-act="fpause"]');
@@ -3924,6 +3930,8 @@ export function createExplorer(hooks = {}) {
     choicesButton.hidden = st.stop !== 'thought';
     const golfButton = root.querySelector('[data-act="golf"]');
     if (golfButton) { golfButton.hidden = st.stop !== 'landscape'; golfButton.classList.toggle('active', st.golf); }
+    const strutRow = root.querySelector('[data-act="strut"]');
+    if (strutRow) strutRow.hidden = !(st.stop === 'landscape' && st.golf && st.view3d);
     choicesButton.classList.toggle('active', st.choices);
     if (st.choices) hallButton.classList.remove('active');
     root.classList.toggle('explorer--atrium', st.hall && Boolean(ATRIUMS[st.stop]));
@@ -4049,7 +4057,13 @@ export function createExplorer(hooks = {}) {
       mainCtx.canvas.classList.toggle('explorer__blurred', focus2d);
       // with the golf on, the landscape's own labels give way to the golf's
       sc.draw(ctx, id === st.stop && env.golf ? { ...env, alpha, labels: false, golfLabels: env.labels } : { ...env, alpha });
-      if (id === st.stop && env.golf && env.gl?.golf) { golfGl = env.gl.golf; golfLabels(ctx, { ...env, alpha }, env.gl.golf); }
+      if (id === st.stop && env.golf && env.gl?.loadBoards && env.labels) {
+        const { u } = env;
+        for (const b of env.gl.loadBoards()) if (b.visible) label(ctx, u, `${b.name}${b.out > 0.5 ? ' · out of SAFE' : ''}`, b.x * env.w / u, b.y * env.h / u, b.out > 0.5 ? '#ff7ad9' : '#c8b6ff', 'center', 0.024);
+        label(ctx, u, 'THE LOAD · the thought now, in front; five unresolved behind it, each its own SAFE / FIGHT / FREEZE, its ball still rolling', 0, -0.72, '#e8d8ff', 'center', 0.03);
+        label(ctx, u, 'one field: they share its shape and Φ; a strut glows red while its thought is out of SAFE; the names are examples; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+        hint(ctx, u, 'STRUTS: spread them out or crowd them in · Φ: hotter, every ball hops more · 2D: the six-hole map', 0, 0.84, COLORS.violet, 'center', 0.019);
+      }
       if (focus2d) focusGl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
     }
     for (const c of targets) c.restore();
@@ -4156,7 +4170,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, golf: st.golf && st.stop === 'landscape', choices: st.choices && st.stop === 'thought', atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, golf: st.golf && st.stop === 'landscape', strut: st.strut, choices: st.choices && st.stop === 'thought', atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
