@@ -485,7 +485,9 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 /* The human stop: the level view (the jellyfish human) shows through; the canvas fades in after the dive. */
 .explorer__canvas { transition: opacity .9s ease; }
 .explorer--see-through { background: transparent; pointer-events: none; }
-.explorer--see-through .explorer__bar > *, .explorer--see-through .explorer__card { pointer-events: auto; }
+.explorer--see-through .explorer__bar > *, .explorer--see-through .explorer__card,
+.explorer--see-through .explorer__deck, .explorer--see-through .explorer__drawer,
+.explorer--see-through .explorer__lift, .explorer--see-through .explorer__pop { pointer-events: auto; }
 .explorer--see-through .explorer__canvas { opacity: 0; }
 .explorer--diving .explorer__bar { opacity: .35; pointer-events: none; }
 .explorer-open .wm-panel, .explorer-open .wm-dock, .explorer-open .wm-clean-hint, .explorer-open .field-note, .explorer-open .compare-labels,

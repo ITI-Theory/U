@@ -5319,6 +5319,22 @@ grammar's three gaps closed by it.
 - [ ] Phase 4: more places (ISS-103).
 - [ ] (15 Oct 20:46, author) The BRECVEMA settings for POKE seem to have disappeared: check
       where they went (the spine, the deck, the drawers?) and reconsider where they belong.
+      Found (15 Oct 21:00): they still exist, in the levels view's FIELD CONTROLS (index.html
+      #brecvema, the mechanism grid), which the explorer hides while it is open; the explorer's
+      own drawer has no mechanism choice. Where they belong is still to decide.
+- [x] (15 Oct 21:00) A second opinion (author's one-off exception: GPT-6.1-sol, review only, no
+      repo changes): session files gpt-review/report.md, 27 screenshots. Verdict: shared
+      branding, not yet one instrument. Keep the great hall, the bubble-to-course focus, the
+      palace FLOORS list. Ranked fixes: (1) the first entry shows Quantum Foam under HUMAN;
+      (2) the human's deck and drawer took no clicks; (3) stale state after travel (the palace
+      floor list and crumb survive a click on HUMAN; `choices=1` lost on a hash change);
+      (4) one shell for levels and explorer; (5) a places map and a real breadcrumb instead of 14
+      equal buttons; (6) protected label hierarchy; (7) the card must describe the current
+      place; (8) one film stock; (9) the focused course legible and controllable; (10) one art
+      pass to the great hall's standard. Its ROOTED objection came from a slip in Copilot's
+      brief, not from DESIGN.md (ROOTED is the unlocked mode, ISS-095).
+- [x] Fix 2 done: the see-through human gives pointer input back to the deck, drawer, lift and
+      pop (style.css); hit-tested headless: STEP BACK IN, POKE, SNAP, SNAP + SAY, MUSIC, 3D.
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
