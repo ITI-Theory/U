@@ -77,7 +77,7 @@ const KINDS = {
     routes: [
       { id: 'brain', angle: 0, label: 'BACK TO THE GREAT HALL', sub: 'through the limbic gate, into the body', color: '#ff7aa8' },
       { id: 'tunnel', angle: -0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
-      { id: 'landscape', angle: 0.95, label: 'THE WELLS', sub: 'the landscape beneath: where states settle and stick', color: '#5ee7ff' },
+      { id: 'choices', angle: 0.95, label: 'THE PATHS', sub: 'should I do this, or that? the options on the land', color: '#5ee7ff' },
       { id: 'network', angle: -1.95, label: 'MEMORY', sub: 'a network: recall blended with a fading trace', color: '#a78bfa' },
       { id: 'limbic', angle: 1.95, label: 'THE LIMBIC HINGE', sub: 'the gate seen from the side: the amygdala, the hippocampus', color: '#ff4d5e' },
     ],

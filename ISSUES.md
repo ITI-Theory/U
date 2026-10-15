@@ -5191,6 +5191,13 @@ carried by every somagram taken on it.
       transitions paper (open-hypothesis) makes a path's cost cumulative along the route, not
       its highest hill, so paths glow by their summed cost; show three or four levels of the
       tree, not an exploding one. The Mind Chamber's PATHS doorway leads onto it.
+      Built (15 Oct 18:04, author: "go go go"): paths3d.js, THE PATHS at the THOUGHT stop (and
+      the Mind Chamber's doorway), `choices=1`: the land (dark, neon contours, blue wells, amber
+      ridges, field strips), a four-level tree from NOW, 700 particles choosing at each fork by
+      exp(-cost/T) with T rising with Φ, cumulative route cost (climb plus length), six flashes
+      where the activity was densest, coloured by the land, then the sequence (route lit, a
+      thought above it, "route cost · a well: it pulls / a ridge: it resists"), one sometimes
+      out of turn; POKE flashes now or starts again. The visual grammar: 12 of 12 terms shown.
 
 ## ISS-105: The Soma Machine as one instrument: the design (the show piece) — OPEN
 {{Tags area.app}}

@@ -106,3 +106,7 @@ channels:
     what: "the Mind Chamber: with C-PTSD some thoughts stay, rising a little and holding behind a crystalline ridge; echoes ring after each (DESIGN.md)"
     code: {file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "thoughts that stay: held behind a crystalline ridge"}
     expresses: [attractor, barrier, memory-kernel]
+  - id: paths-cost
+    what: "THE PATHS: a plan's options laid on the land; activity on every path, more on the cheap ones; each path glows by its cost summed along the route (blue cheap, pink costly); the hot spots stay lit, then one at a time (ISS-104)"
+    code: {file: apps/instrument/visuals/soma-field-operator/paths3d.js, anchor: "n.cost = p.cost + cost;"}
+    expresses: [route, threshold, limbic-field]
