@@ -111,6 +111,19 @@ only inside a thought. For ROOTED (the unlocked, non-science mode): the Hackers 
 avant-garde palettes (the art book keeps them), the Cookie Monster, the CRT terminals, 140 BPM
 psytrance, Mandelbulbs as anatomy.
 
+## Phase 1 status (15 Oct)
+
+Done in the explorer: SOMA MACHINE title; the breadcrumb (floor › stop › place, clickable); the
+places grouped BODY, BRAIN, MIND, WORLDS; the GO / DO deck with Φ; the SETTINGS drawer; the
+card at the right. Next, the levels view (the "first app"): today it is five floating windows
+(FIELD CONTROLS, ELEVATOR, MORPHISM, STATE DYNAMICS, SHERLOCK) over the level's picture. Plan:
+the same top bar (SOMA MACHINE · FLOOR n: level · the places, which step out into the explorer ·
+4D 8D 11D · SETTINGS); the elevator as the place's left column (it is the shaft); FIELD CONTROLS
+into the SETTINGS drawer (model, reader, zoom, era, T-THEORY); MORPHISM, STATE DYNAMICS and
+SHERLOCK into the right drawer (telemetry: what the field is doing here, and what is proved);
+the windows kept for the desk and the engine room (several screens), where moving them is the
+point. Saved window layouts are left alone; the new default applies to a fresh start.
+
 ## Build order
 
 1. **The spine**: one shell for the whole app (top bar with the elevator dial and breadcrumb,
