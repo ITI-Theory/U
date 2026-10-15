@@ -5426,3 +5426,11 @@ impact. Findings (15 Oct):
 - [x] (15 Oct 20:04, author) Asked out of interest only: no write-up, no new bets; dropped.
       The survey stays as a Sherlock target. For the record, not as work: DESI DR3 / Euclid at
       5 sigma w != -1 would falsify P21 as written; twistors (Penrose ch. 33) remain a gap.
+- Note (author, 15 Oct 21:39, with HAL, fyi): is 7/11 a leading-order term, like Boyle's law
+      before van der Waals, with a correction still to find? A fair framing, and P21 already
+      calls 7/11 zeroth order. But HAL's claim that the correction is "encoded" in the axiom
+      `calabi_yau_rg_coefficients` (RenormalisationGroup.lean) is wrong: that axiom only asserts
+      that RG scale factors > 1 exist at a rigid attractor; no correction to Omega is computed
+      anywhere (its own docstring: "a genuine open problem"). HAL also repeated superseded
+      numbers (Phi_0 ~ 0.4 M_Pl, now 1.43; 2.9% / 6.8%, now 3.1% / 7.1%). And the data point
+      to dark energy weakening over time (DESI), not to more dark matter. Recorded, no work.
