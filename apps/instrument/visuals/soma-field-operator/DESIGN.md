@@ -94,6 +94,25 @@ little and holding, twelve or thirty of them; and paths leaving for a plan's opt
   and sends a pulse down to the heart (the somatic loop), which stirs more foam.
 - **Going in**: a click on a sphere dives into its own fractal world (built, 14 Oct).
 
+## The process of thought (agreed 15 Oct)
+
+In the Mind Chamber thoughts pop and vanish, a wave, many at once. One sticks: a click (or the
+voice of someone talking) puts it in focus, and the chamber blurs but carries on. It opens in place
+into THE COURSE: hundreds of SAFE / FIGHT / FREEZE holes, so many they read as a surface, under a
+glass dome (the threshold; the global workspace, Baars, Dehaene). Considerations ripple across it
+(height the cost, colour the feeling); the strong ones pop out over the dome, at most four held at
+once; SOLUTION (an insight) melts them back down. If it does not resolve, the thought sinks below
+the line and stays, and the pile is the load: the chamber runs hotter (allostatic load; the
+Zeigarnik effect, suggestive). Thoughts are soap bubbles, changing shape as they drift. The PATH
+stop is THE WAY UP: a signal from the body to the cortex, the physical road, not a thought.
+
+**A model gap: the inner voice.** The little voice is inner speech (Vygotsky); in the brain, the
+language network (left inferior frontal and superior temporal cortex, the supplementary motor
+area), speech predicted and not spoken. The author's hypothesis that it becomes conscious by
+joining the brain's electromagnetic field is CEMI (McFadden), the model's whole-brain level: a
+labelled open hypothesis, and classical (the brain's field is low-frequency and warm; not quantum).
+Papers first (with ISS-101's frequency axis: gamma synchrony and conscious access).
+
 ## The visual grammar
 
 Every picture of the mind expresses a model term, or says it is decorative; every term is pinned

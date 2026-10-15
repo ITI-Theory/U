@@ -5005,6 +5005,9 @@ so the papers' gap stands.
       claims are his.
 - [ ] Then the app: the limbic fly-through from the cathedral; the dimension and frequency
       elevators.
+- [ ] (15 Oct) The inner voice, a model gap with the frequency axis: inner speech in the language
+      network; the author's hypothesis that it becomes conscious by joining the brain's field
+      (CEMI, classical, labelled; not quantum). A paper question first (DESIGN.md).
 
 **Stacked for the next big build (author, 14 Oct: stack a few, UAT more first):** ISS-101
 (papers, then app), the Gallery's A3 and projector editions (ISS-097), the overview (ISS-100,
