@@ -3374,8 +3374,10 @@ export function createExplorer(hooks = {}) {
   root.append(lift);
   // inPalace: the palace's own floors (ride there, stay in the palace); else, the levels
   let liftInPalace = false;
+  let liftStop = null;
   const openLift = (inPalace = false) => {
     liftInPalace = inPalace;
+    liftStop = st.stop;
     const here = inPalace ? PALACE_FLOORS[gls['brain-palace']?.floor ?? 0]?.id : hooks.levelId?.();
     lift.innerHTML = `<h2>${inPalace ? 'THE PALACE · ride to a floor' : 'ELEVATOR · from this thought to any level'}</h2><div class="explorer__lift-floors"></div><button type="button" data-lift="close">◂ BACK</button>`;
     const floors = lift.querySelector('.explorer__lift-floors');
@@ -3634,6 +3636,8 @@ export function createExplorer(hooks = {}) {
   }
 
   function syncUi() {
+    // a floor list belongs to the place that opened it (the palace, or this stop's hall)
+    if (!lift.hidden && (liftInPalace ? !(st.stop === 'brain' && st.palace) : !(st.hall && st.stop === liftStop))) lift.hidden = true;
     for (const b of root.querySelectorAll('[data-stop]')) b.classList.toggle('active', b.dataset.stop === st.stop);
     root.classList.toggle('explorer--diving', st.diving);
     for (const b of root.querySelectorAll('[data-dim]')) b.classList.toggle('active', Number(b.dataset.dim) === dim());
@@ -4024,7 +4028,15 @@ export function createExplorer(hooks = {}) {
     // arriving by a click (not a link or a tour, which come with notify false): a stop with an
     // atrium opens in it (ISS-103: every exit starts in its atrium)
     if (notify && ATRIUMS[stop] && stop !== st.stop && !(stop === 'brain' && (st.palace || st.cave))) st.hall = true;
-    if (stop !== st.stop) st.choices = false;
+    if (stop !== st.stop) {
+      // leaving a stop leaves its places: the palace and the cathedral are the brain's, a focused
+      // thought and a picture are the chamber's (not parked: leaving is not giving up on it)
+      // (a link's own choices=1 for the thought it opens was set just before: keep it)
+      if (notify || stop !== 'thought') st.choices = false;
+      if (stop !== 'brain') { st.palace = false; st.cave = false; }
+      endFocus(false);
+      if (!pop.hidden) closePop();
+    }
     if (st.open && stop !== st.stop && st.stop === 'human') {
       // dive: the level view's camera flies into the jellyfish human, then the stop fades in
       st.diving = true;
@@ -4313,7 +4325,8 @@ export function createExplorer(hooks = {}) {
     get palace() { return st.palace ? { floor: palaceFloorWanted || (gls['brain-palace']?.target ?? 0) + 1 } : null; },
     // the great hall and the cathedral for the address (hall=1, cave=1: linkable, tourable)
     get hall() { return st.hall && Boolean(ATRIUMS[st.stop]); },
-    get choices() { return st.choices && st.stop === 'thought'; },
+    // (during the dive to the thought the stop is still the human's; only the thought keeps choices)
+    get choices() { return st.choices && (st.stop === 'thought' || st.diving); },
     setChoices(on) { st.choices = String(on) === '1'; if (st.choices) { st.view3d = true; st.hall = false; } syncUi(); },
     // the elevator's STEP OUT: arrive in the stop's atrium, if it has one
     enterAtrium(stop) {

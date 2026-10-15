@@ -5335,6 +5335,17 @@ grammar's three gaps closed by it.
       brief, not from DESIGN.md (ROOTED is the unlocked mode, ISS-095).
 - [x] Fix 2 done: the see-through human gives pointer input back to the deck, drawer, lift and
       pop (style.css); hit-tested headless: STEP BACK IN, POKE, SNAP, SNAP + SAY, MUSIC, 3D.
+- [x] Fix 1 done: a fresh start opens on the human, floor 8 (main.js DEFAULT_VIEW names the
+      level; the start-up address had named Quantum Foam).
+- [x] Fix 3 done: leaving a stop leaves its places (explorer.js go(): the palace and cathedral
+      are the brain's; a focused thought ends, not parked; a picture closes); a floor list
+      closes when its place goes (syncUi); a link's choices=1 survives the dive to the thought.
+      Headless: PALACE > FLOORS > HUMAN now gives HUMAN, no list, no palace crumb; BRAIN by click
+      gives the great hall; voyage=thought&choices=1 from the human keeps the course.
+- [ ] Next (GPT's revised order): POKE's mechanisms in DO beside POKE ("POKE | MECHANISMS ▾",
+      a popover with the eight, multi-select, kept across places; the explorer's POKE to carry
+      the profile, not only the strength); then fixes 5-7 (places map and breadcrumb, label
+      hierarchy, the card for the place you are in).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
