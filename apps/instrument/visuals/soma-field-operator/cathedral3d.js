@@ -123,6 +123,35 @@ export function createCathedral3D() {
   const walls = new THREE.Mesh(tube, new THREE.MeshStandardMaterial({ map, bumpMap: map, bumpScale: 0.05, roughness: 0.85, metalness: 0.05, side: THREE.BackSide }));
   walls.material.envMapIntensity = 0;
   scene.add(walls);
+  // THE STARGATE (author, 15 Oct 22:52: "almost bright white, a Space Odyssey passage"): in the
+  // narrow passages (the aqueduct, the foramen) and only with the field near its top (Φ ≥ 0.85),
+  // slit-scan streaks of the field's light rush past along the walls, the app's colours whitening
+  // as Φ reaches 1. Smooth, never strobing. Interpretive: a picture of a high field, not a reading.
+  const gateU = { uTime: { value: 0 }, uGate: { value: 0 }, uWhite: { value: 0 } };
+  const gate = new THREE.Mesh(tube, new THREE.ShaderMaterial({
+    uniforms: gateU, transparent: true, depthWrite: false, depthTest: false, side: THREE.BackSide, blending: THREE.AdditiveBlending,
+    vertexShader: 'varying vec2 vUv; varying float vD; void main() { vUv = uv; vec4 w = modelMatrix * vec4(position, 1.0); vD = distance(w.xyz, cameraPosition); gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: /* glsl */`
+      uniform float uTime; uniform float uGate; uniform float uWhite; varying vec2 vUv; varying float vD;
+      float h(float n) { return fract(sin(n * 91.345) * 47453.21); }
+      void main() {
+        float lane = floor(vUv.y * 96.0);
+        float speed = 0.35 + 0.65 * h(lane);
+        float s = fract(vUv.x * (40.0 + 30.0 * h(lane + 7.0)) + uTime * speed * 1.4 + h(lane + 3.0));
+        float streak = smoothstep(0.0, 0.08, s) * (1.0 - smoothstep(0.08, 0.9, s));
+        float edge = 1.0 - abs(fract(vUv.y * 96.0) - 0.5) * 2.0;
+        vec3 pink = vec3(1.0, 0.36, 0.78), blue = vec3(0.3, 0.75, 1.0), violet = vec3(0.65, 0.45, 1.0);
+        float pick = h(lane + 11.0);
+        vec3 c = pick < 0.33 ? pink : pick < 0.66 ? blue : violet;
+        c = mix(c, vec3(1.0), uWhite);
+        float a = streak * smoothstep(0.0, 0.6, edge) * exp(-vD * 0.9) * uGate;
+        gl_FragColor = vec4(c * a * (1.6 + 1.4 * uWhite), 1.0);
+      }`,
+  }));
+  gate.renderOrder = 5;
+  gate.frustumCulled = false;
+  scene.add(gate);
+  let gateNow = 0;
   // a soft room for the bubbles to reflect (the stone ignores it)
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -337,7 +366,8 @@ export function createCathedral3D() {
     render(state) {
       const dt = Math.min(0.05, last ? state.time - last : 0.016);
       last = state.time;
-      u = (u + dt * (state.speed ?? 0.006)) % 1;
+      // in the stargate the passage rushes: the flight speeds up with it
+      u = (u + dt * (state.speed ?? 0.006) * (1 + 1.8 * gateNow)) % 1;
       if (u > 0.985) u = 0.01;
       const p = curve.getPointAt(u);
       const ahead = curve.getPointAt(Math.min(0.999, u + 0.012));
@@ -369,6 +399,14 @@ export function createCathedral3D() {
       }
       lamp.position.copy(camera.position);
       const fx = Math.max(0, Math.min(1, state.phi ?? 0.5));
+      // the stargate: narrow passage x the field near its top, eased in and out (no flashing)
+      const narrow = 1 - Math.max(0, Math.min(1, (radiusAt(u) - 0.34) / 0.16));
+      const want = viewOut ? 0 : narrow * Math.max(0, Math.min(1, (fx - 0.85) / 0.1));
+      gateNow += (want - gateNow) * Math.min(1, dt * 1.5);
+      gateU.uTime.value = state.time;
+      gateU.uGate.value = gateNow;
+      gateU.uWhite.value = Math.max(0, Math.min(1, (fx - 0.93) / 0.07)) * gateNow;
+      gate.visible = gateNow > 0.002;
       field.forEach((l, k) => {
         const lu = (u + 0.03 + 0.04 * k + 0.02 * Math.sin(state.time * 0.4 + k * 2)) % 1;
         l.position.copy(curve.getPointAt(Math.min(0.999, lu)));

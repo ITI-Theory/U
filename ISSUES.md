@@ -5412,6 +5412,12 @@ grammar's three gaps closed by it.
       the top bar beside 4D 8D 11D (explorer.js views group; view2d / view3d); 2D at the
       cathedral is the ventricle map, with where you are on it (the flight goes on underneath);
       3D is the flight at any Φ. The other places' 2D drawings use the same buttons.
+- [x] (author 22:52, in the aqueduct at max FX: "almost bright white, a Space Odyssey passage?")
+      THE STARGATE (cathedral3d.js): in the narrow passages (the aqueduct, the foramen) with Φ
+      from 0.85, slit-scan streaks of the field's light rush past along the walls in the app's
+      colours, whitening towards Φ = 1; the flight speeds up with it; eased in and out, never
+      strobing; interpretive. In the normal mode (it appears only at the top of Φ); ROOTED may
+      push it further later.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 
