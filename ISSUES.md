@@ -5197,6 +5197,11 @@ threshold, spheres that show their expression and kind, thoughts that stay, path
 grammar's three gaps closed by it.
 - [ ] The author's review of DESIGN.md, and its three open questions.
 - [ ] Phase 1: the spine (one shell for the whole app; the stops as places).
-- [ ] Phase 2: the Mind Chamber (ISS-104).
+- [~] (15 Oct, prototype for the author's review) Phase 2: the Mind Chamber (ISS-104):
+      atrium3d.js `mind`, MIND CHAMBER at the THOUGHT stop, the great hall's LIMBIC GATE leads
+      there: the foam, the gold threshold, spheres by expression (14 of EmotionOntology's named
+      terms) and kind (words, picture, feeling, pain, flashback), the mechanism's spark, the
+      pulse down, echoes, thoughts that stay behind a ridge with C-PTSD (up to 30). The visual
+      grammar now shows 11 of 12 terms (route still to come: the paths).
 - [ ] Phase 3: the drawers wired; the pulse down to the heart.
 - [ ] Phase 4: more places (ISS-103).

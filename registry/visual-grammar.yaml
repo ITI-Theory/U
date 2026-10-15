@@ -94,3 +94,15 @@ channels:
     what: "the palace's and the atriums' walls fold as Φ rises (the manifold, not a building)"
     code: {file: apps/instrument/visuals/soma-field-operator/palace3d.js, anchor: "FOLD.value"}
     expresses: [limbic-field]
+  - id: mind-expression
+    what: "the Mind Chamber: each thought sphere shows its expression, one core per basic emotion in its colour; blend, two cores fused and orbiting in phase; dampen, one radiant core with the other clamped in a dark lattice (DESIGN.md)"
+    code: {file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "blend: the two cores orbit in phase"}
+    expresses: [emotion-blend]
+  - id: mind-spark
+    what: "the Mind Chamber: the spark that ignites a sphere as it crosses the threshold, one signature per mechanism (a strike for the brain stem, a thread from the wall for episodic memory, a line from outside for contagion, a ring for the others)"
+    code: {file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "if (m === 'BrainStem')"}
+    expresses: [mechanism, threshold]
+  - id: mind-staying
+    what: "the Mind Chamber: with C-PTSD some thoughts stay, rising a little and holding behind a crystalline ridge; echoes ring after each (DESIGN.md)"
+    code: {file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "thoughts that stay: held behind a crystalline ridge"}
+    expresses: [attractor, barrier, memory-kernel]

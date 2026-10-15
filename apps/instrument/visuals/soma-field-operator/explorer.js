@@ -697,12 +697,12 @@ const thoughtTint = img => (img?.art ? ART_TINTS[Math.floor(Math.random() * ART_
 let popHandler = null;
 // THE ATRIUMS (ISS-103): the stops that open into a hub, its 3D view and its button; the
 // atrium on screen now (for POKE)
-const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' }, neuron: { gl: 'neuron-atrium', button: 'THE SOMA' } };
+const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' }, neuron: { gl: 'neuron-atrium', button: 'THE SOMA' }, thought: { gl: 'thought-atrium', button: 'MIND CHAMBER' } };
 let atriumGl = null;
 function drawAtrium(ctx, env) {
   if (!env.atrium || !env.gl?.route) return false;
   atriumGl = env.gl;
-  env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm });
+  env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm, cp: env.cp });
   if (env.labels) {
     const { u } = env;
     label(ctx, u, env.gl.info.title, 0, -0.72, '#e8d8ff', 'center', 0.034);
@@ -3462,6 +3462,7 @@ export function createExplorer(hooks = {}) {
     'brain-hall': () => createAtrium3D('brain'),
     'body-atrium': () => createAtrium3D('heart'),
     'neuron-atrium': () => createAtrium3D('neuron'),
+    'thought-atrium': () => createAtrium3D('mind'),
     // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
     'thought-dive': () => createFlight3D(),
   };
@@ -4275,7 +4276,7 @@ export function createExplorer(hooks = {}) {
     setLabels(on) { st.labels = Boolean(on); },
     refresh() { syncUi(); },
     poke(strength = 1) {
-      if (st.open && st.hall && ATRIUMS[st.stop] && atriumGl) { atriumGl.pulse(); music.poke(); return; }
+      if (st.open && st.hall && ATRIUMS[st.stop] && atriumGl) { atriumGl.pulse({ cp: st.cp, phi: st.phi }); music.poke(); return; }
       if (st.open && st.stop !== 'human') scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1));
       music.poke();
     },

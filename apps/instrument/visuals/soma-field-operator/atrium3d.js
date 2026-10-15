@@ -21,6 +21,7 @@
 // endoplasmic reticulum (the Nissl substance); the cytoskeleton's microtubules run as strands
 // towards the axon hillock, where the spike begins; mitochondria drift; now and then the cell
 // fires (more often as Φ rises), a ring of light across the membrane.
+// THE MIND: the Mind Chamber (DESIGN.md), behind the great hall's limbic gate: see mindAnatomy.
 
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
@@ -39,7 +40,7 @@ const KINDS = {
     fog: '#070519', fogHigh: '#1a0f3a', shaft: [0.55, 0.8, 1.0], ridge: 0, beat: 0,
     routes: [
       { id: 'cathedral', angle: 0, label: 'THE CATHEDRAL', sub: 'down the foramen and the aqueduct to the fourth ventricle', color: '#a78bfa' },
-      { id: 'limbic', angle: -0.95, label: 'THE LIMBIC HINGE', sub: 'the temporal horn: the hippocampus beneath, the amygdala ahead', color: '#ff7aa8' },
+      { id: 'thought', angle: -0.95, label: 'THE LIMBIC GATE', sub: 'the hinge between body and mind: into the mind chamber', color: '#ff7aa8' },
       { id: 'tunnel', angle: 0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
       { id: 'palace', angle: -1.95, label: 'THE MIND PALACE', sub: 'twenty-one floors: the method of loci', color: '#5ee7ff' },
       { id: 'wayin', angle: 1.95, label: 'THE ARTERIES', sub: 'back the way in, to the heart', color: '#ff4d5e' },
@@ -67,6 +68,18 @@ const KINDS = {
       { id: 'thought', angle: 0.95, label: 'THE SUB-THRESHOLD SEA', sub: 'many cells together: a swell that crosses becomes a feeling', color: '#ff7aa8' },
       { id: 'tunnel', angle: -1.95, label: 'THE PATH OF A THOUGHT', sub: 'from the body to the cortex, cell by cell', color: '#a78bfa' },
       { id: 'brain', angle: 1.95, label: 'UP TO THE GREAT HALL', sub: 'the brain, eighty-six billion cells up', color: '#ff4d5e' },
+    ],
+  },
+  mind: {
+    title: 'THE MIND CHAMBER · through the limbic gate',
+    sub: 'below the gold plane the field is real but not felt; a swell that crosses becomes a feeling, lifted, a thought; each sphere shows its expression (cores: the emotions; fused: blend; clamped: dampen; the spark: the mechanism); with C-PTSD some stay; interpretive, from the model',
+    fog: '#04030b', fogHigh: '#140a2c', shaft: [0.6, 0.55, 1.0], ridge: 0, beat: 1, void: 1, door: { y: -6.2, r: 0.88, scale: 0.55 }, eye: { y: 1.4, lookY: -4.2 },
+    routes: [
+      { id: 'brain', angle: 0, label: 'BACK TO THE GREAT HALL', sub: 'through the limbic gate, into the body', color: '#ff7aa8' },
+      { id: 'tunnel', angle: -0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
+      { id: 'landscape', angle: 0.95, label: 'THE WELLS', sub: 'the landscape beneath: where states settle and stick', color: '#5ee7ff' },
+      { id: 'network', angle: -1.95, label: 'MEMORY', sub: 'a network: recall blended with a fading trace', color: '#a78bfa' },
+      { id: 'limbic', angle: 1.95, label: 'THE LIMBIC HINGE', sub: 'the gate seen from the side: the amygdala, the hippocampus', color: '#ff4d5e' },
     ],
   },
 };
@@ -346,6 +359,257 @@ function neuronAnatomy(scene, rnd, U, dot) {
   };
 }
 
+// THE MIND CHAMBER's contents (ISS-104, DESIGN.md): the foam below a gold threshold plane;
+// thoughts that rise from the foam and ignite as they cross it, each showing its expression in
+// the model's algebra (EmotionOntology: blend, dampen, evoke over eight basic emotions); the
+// mechanism as the spark that births it; five kinds (the author's words heard, pictures seen, a
+// feeling, a pain, a flashback); with C-PTSD (cp) some stay, rising a little and holding behind
+// a crystalline ridge (a high barrier); echoes (the memory kernel) and a pulse down to the heart.
+// Interpretive: pictures of the model's terms, not of a brain.
+const EMO = { joy: '#ffd166', trust: '#3ddc97', fear: '#14e5ff', surprise: '#8ecbff', sadness: '#5a5cff', disgust: '#b04bff', anger: '#ff3b4e', anticipation: '#ff9f1c' };
+// named terms of EmotionOntology.lean (love, optimism, ... nostalgia), as expressions
+const EXPRESSIONS = [
+  { name: 'love', op: 'blend', a: 'joy', b: 'trust' },
+  { name: 'optimism', op: 'blend', a: 'joy', b: 'anticipation' },
+  { name: 'disapproval', op: 'blend', a: 'sadness', b: 'surprise' },
+  { name: 'remorse', op: 'blend', a: 'sadness', b: 'disgust' },
+  { name: 'awe', op: 'blend', a: 'fear', b: 'surprise' },
+  { name: 'contempt', op: 'dampen', a: 'disgust', b: 'anger' },
+  { name: 'submission', op: 'dampen', a: 'trust', b: 'fear' },
+  { name: 'aggressiveness', op: 'blend', a: 'anger', b: 'anticipation' },
+  { name: 'nostalgia', op: 'blend', a: 'joy', b: 'sadness', m: 'EpisodicMemory' },
+  { name: 'acoustic fright', op: 'atom', a: 'fear', m: 'BrainStem' },
+  { name: 'mirror sadness', op: 'atom', a: 'sadness', m: 'Contagion' },
+  { name: 'entrained calm', op: 'atom', a: 'joy', m: 'RhythmicEntrainment' },
+  { name: 'conditioned affect', op: 'atom', a: 'fear', m: 'EvaluativeConditioning' },
+  { name: 'imagined tenderness', op: 'blend', a: 'joy', b: 'sadness', m: 'VisualImagery' },
+];
+const exprText = e => {
+  const core = e.op === 'atom' ? e.a : `${e.op}(${e.a}, ${e.b})`;
+  return `${e.name} = ${e.m ? `evoke(${e.m}, ${core})` : core}`;
+};
+const WORDS = ['what have I got to do?', 'skiing on Saturday', 'this way, or that way', 'the chair', 'why did I say that', 'a third way'];
+const THRESHOLD_Y = -3.2;
+const FLOOR_Y = -7.2;
+
+function mindAnatomy(scene, rnd, U, dot) {
+  const texts = new Map();
+  const label = (text, color) => {
+    if (!texts.has(text)) {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 96;
+      const g = c.getContext('2d');
+      g.textAlign = 'center';
+      g.font = '40px "Space Mono", monospace';
+      g.shadowColor = color; g.shadowBlur = 12;
+      g.fillStyle = '#ffffff';
+      g.fillText(text, 512, 60);
+      const tx = new THREE.CanvasTexture(c);
+      tx.colorSpace = THREE.SRGBColorSpace;
+      texts.set(text, tx);
+    }
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: texts.get(text), transparent: true, depthWrite: false, fog: false }));
+    s.scale.set(4.2, 0.4, 1);
+    return s;
+  };
+  // THE FOAM: the field below the threshold, real but not felt, bubbling
+  const NF = 2600;
+  const fp = new Float32Array(NF * 3), fc = new Float32Array(NF * 3), base = new Float32Array(NF), phase = new Float32Array(NF);
+  const blue = new THREE.Color('#3a6bff'), violet = new THREE.Color('#8f47ff');
+  for (let i = 0; i < NF; i++) {
+    const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * 9.5;
+    base[i] = FLOOR_Y + rnd() * (THRESHOLD_Y - FLOOR_Y - 0.6);
+    phase[i] = rnd() * 6.28;
+    fp.set([Math.cos(a) * r, base[i], -1 + Math.sin(a) * r], i * 3);
+    const c = blue.clone().lerp(violet, rnd());
+    fc.set([c.r, c.g, c.b], i * 3);
+  }
+  const fg = new THREE.BufferGeometry();
+  fg.setAttribute('position', new THREE.Float32BufferAttribute(fp, 3));
+  fg.setAttribute('color', new THREE.Float32BufferAttribute(fc, 3));
+  const foam = new THREE.Points(fg, new THREE.PointsMaterial({ map: dot, size: 0.14, vertexColors: true, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false }));
+  scene.add(foam);
+  // THE THRESHOLD: a gold plane across the chamber (T_c, fixed in the model)
+  const plane = new THREE.Mesh(new THREE.CircleGeometry(10.5, 128), new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+    vertexShader: 'varying vec2 vP; void main() { vP = position.xy; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: /* glsl */`
+      uniform float uTime; varying vec2 vP;
+      void main() {
+        float r = length(vP);
+        float rings = smoothstep(0.92, 1.0, abs(sin(r * 3.0 - uTime * 0.4)));
+        float a = (0.05 + 0.12 * rings) * smoothstep(10.5, 6.0, r);
+        gl_FragColor = vec4(vec3(1.0, 0.78, 0.25) * a, 1.0);
+      }`,
+  }));
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.set(0, THRESHOLD_Y, -1);
+  scene.add(plane);
+  const planeLabel = label('THE THRESHOLD: below, real but not felt; above, conscious', '#ffd166');
+  planeLabel.position.set(0, THRESHOLD_Y + 0.25, -9.5);
+  planeLabel.scale.set(7, 0.66, 1);
+  scene.add(planeLabel);
+
+  const thoughts = [];
+  const effects = [];
+  const lineFx = (from, to, color, life) => {
+    const g = new THREE.BufferGeometry().setFromPoints([from, to]);
+    const l = new THREE.Line(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false }));
+    scene.add(l);
+    effects.push({ obj: l, age: 0, life, kind: 'line' });
+  };
+  const ringFx = (at, color, life, delay = 0, size = 0.6) => {
+    const m = new THREE.Mesh(new THREE.TorusGeometry(size, 0.025, 6, 64), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+    m.position.copy(at);
+    m.rotation.x = Math.PI / 2;
+    scene.add(m);
+    effects.push({ obj: m, age: -delay, life, kind: 'ring' });
+  };
+  const SPARK = { BrainStem: '#e8f6ff', EpisodicMemory: '#ffb347', Contagion: '#ff7ad9', RhythmicEntrainment: '#5ee7ff', EvaluativeConditioning: '#ffd166', VisualImagery: '#c9a7ff', MusicalExpectancy: '#7dffb2', AestheticJudgement: '#ffffff' };
+
+  function spawn(state, forced) {
+    const e = EXPRESSIONS[Math.floor(rnd() * EXPRESSIONS.length)];
+    const cp = state.cp ?? 0;
+    const roll = rnd();
+    let kind = e.m === 'VisualImagery' ? 'picture' : roll < 0.34 ? 'words' : roll < 0.58 ? 'picture' : roll < 0.84 ? 'feeling' : roll < 0.93 ? 'pain' : 'flashback';
+    if (kind === 'flashback' && cp < 0.05) kind = 'feeling';
+    const g = new THREE.Group();
+    const a = rnd() * Math.PI * 2, r = 2 + rnd() * 4.5;
+    g.position.set(Math.cos(a) * r, FLOOR_Y + 0.4, -1 + Math.sin(a) * r);
+    const shellColor = kind === 'pain' ? '#ff3b4e' : kind === 'flashback' ? '#7a3bff' : '#cfc4ff';
+    const shell = new THREE.Mesh(kind === 'pain' ? new THREE.IcosahedronGeometry(0.55, 0) : new THREE.SphereGeometry(0.5, 32, 16),
+      new THREE.MeshBasicMaterial({ color: shellColor, transparent: true, opacity: 0.08, wireframe: kind === 'pain', blending: THREE.AdditiveBlending, depthWrite: false }));
+    g.add(shell);
+    // the expression: one core per basic emotion; blend fused in phase, dampen clamped
+    const core = (name, rr) => new THREE.Mesh(new THREE.SphereGeometry(rr, 20, 12), new THREE.MeshBasicMaterial({ color: EMO[name], transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const cores = [];
+    if (e.op === 'atom') cores.push(core(e.a, 0.2));
+    else if (e.op === 'blend') cores.push(core(e.a, 0.16), core(e.b, 0.16));
+    else {
+      cores.push(core(e.a, 0.24));
+      const held = core(e.b, 0.09);
+      held.material.opacity = 0.45;
+      const lattice = new THREE.Mesh(new THREE.IcosahedronGeometry(0.15, 0), new THREE.MeshBasicMaterial({ color: '#2a2440', wireframe: true }));
+      held.add(lattice);
+      cores.push(held);
+    }
+    cores.forEach(c => g.add(c));
+    const extra = [];
+    if (kind === 'words') {
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.58, 0.008, 6, 64), new THREE.MeshBasicMaterial({ color: '#e8eefc', transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false }));
+      g.add(ring); extra.push(ring);
+      const w = label(`"${WORDS[Math.floor(rnd() * WORDS.length)]}"`, '#e8eefc');
+      w.position.set(0, -0.85, 0); w.scale.set(2, 0.19, 1);
+      g.add(w); extra.push(w);
+    } else if (kind === 'picture') {
+      const lens = new THREE.Sprite(new THREE.SpriteMaterial({ map: dot, color: EMO[e.a], transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
+      lens.scale.set(1.1, 1.1, 1);
+      g.add(lens); extra.push(lens);
+    }
+    const tag = label(exprText(e), EMO[e.a]);
+    tag.position.set(0, 0.85, 0);
+    tag.scale.set(2.6, 0.25, 1);
+    tag.visible = false;
+    g.add(tag);
+    g.scale.setScalar(0.45);
+    scene.add(g);
+    const stay = kind === 'flashback' || rnd() < cp * 0.55;
+    thoughts.push({ g, shell, cores, extra, tag, kind, e, age: 0, ignited: false, stay, holdY: -1.6 + rnd() * 5.5, drift: new THREE.Vector3(rnd() - 0.5, 0, rnd() - 0.5).multiplyScalar(0.4), fading: 0, ridge: null, pain: kind === 'pain' ? new THREE.Vector3(Math.cos(a) * 9, FLOOR_Y, -1 + Math.sin(a) * 9) : null });
+  }
+
+  function ignite(th, state) {
+    th.ignited = true;
+    const at = th.g.position.clone();
+    const m = th.e.m;
+    if (m === 'BrainStem') lineFx(new THREE.Vector3(at.x, FLOOR_Y, at.z), at, SPARK[m], 0.6);
+    else if (m === 'EpisodicMemory') {
+      const d = new THREE.Vector3(rnd() - 0.5, (rnd() - 0.2) * 0.6, rnd() - 0.5).normalize().multiplyScalar(R * 0.75);
+      lineFx(d, at, SPARK[m], 1.6);
+    } else if (m === 'Contagion') lineFx(at.clone().add(new THREE.Vector3(12, 0.5, 0)), at, SPARK[m], 1.4);
+    else ringFx(at, m ? SPARK[m] : '#ffffff', 1.4, 0, 0.5);
+    // the pulse down to the heart (the somatic loop): a thought acts on the body
+    lineFx(at, new THREE.Vector3(0, FLOOR_Y, -1), '#a78bfa', 0.9);
+    // echoes (the memory kernel; C-PTSD): fainter rings, later
+    const echoes = Math.round((state.cp ?? 0) * 4);
+    for (let k = 1; k <= echoes; k++) ringFx(at, '#a78bfa', 1.3, 0.45 * k, 0.5 + 0.25 * k);
+  }
+
+  return {
+    poke(state) { spawn(state ?? {}, true); },
+    update(dt, state, beat) {
+      const fx = state.fx ?? 0;
+      // the foam: bubbling, faster and higher as Φ heats the chamber
+      const pos = fg.attributes.position;
+      for (let i = 0; i < NF; i++) pos.setY(i, base[i] + (0.18 + 0.35 * fx) * Math.sin(state.time * (1.2 + 2.5 * fx) + phase[i]));
+      pos.needsUpdate = true;
+      foam.material.opacity = 0.45 + 0.35 * fx;
+      planeLabel.visible = state.labels !== false;
+      // new thoughts, more as the field heats
+      if (thoughts.length < 44 && rnd() < (0.25 + 0.9 * fx) * dt) spawn(state);
+      // too many staying: the oldest is let go
+      const staying = thoughts.filter(t => t.stay && t.ignited && !t.fading);
+      if (staying.length > 30) staying[0].stay = false;
+      for (let i = thoughts.length - 1; i >= 0; i--) {
+        const th = thoughts[i];
+        th.age += dt;
+        const p = th.g.position;
+        const goal = th.stay ? th.holdY : 0.5 + rnd() * 0.01;
+        if (!th.fading && p.y < goal) p.y += dt * (0.5 + 0.7 * fx) * (th.ignited ? 0.7 : 1);
+        if (!th.ignited && p.y >= THRESHOLD_Y) ignite(th, state);
+        // below the plane, a dim swell (a feeling at D8); above, the sphere condenses (D9-11)
+        const s = th.ignited ? Math.min(1, 0.45 + (p.y - THRESHOLD_Y) * 0.35) : 0.45;
+        const pulse = th.kind === 'feeling' ? 1 + 0.08 * beat + 0.04 * Math.sin(state.time * 2.4) : 1;
+        const shake = th.kind === 'flashback' ? 0.05 * Math.sin(state.time * 31 + i) : 0;
+        th.g.scale.setScalar(2 * s * pulse);   // a thought is a few times a foam bubble's size
+        th.g.position.x += shake;
+        th.shell.material.opacity = th.ignited ? 0.16 + 0.06 * Math.sin(state.time * 1.7 + i) : 0.05;
+        for (const c of th.cores) c.material.opacity = th.ignited ? 0.9 : 0.35;
+        // blend: the two cores orbit in phase, fused; dampen: the held one sits clamped
+        if (th.e.op === 'blend') { const a = state.time * 1.8 + i; th.cores[0].position.set(Math.cos(a) * 0.09, Math.sin(a) * 0.06, 0); th.cores[1].position.set(-Math.cos(a) * 0.09, -Math.sin(a) * 0.06, 0); }
+        else if (th.e.op === 'dampen') th.cores[1].position.set(0.12, 0.05, 0.1);
+        for (const x of th.extra) if (x.isMesh) x.rotation.z += dt * 0.8;
+        th.tag.visible = state.labels !== false && th.ignited && !th.fading;
+        // thoughts that stay: held behind a crystalline ridge (a high barrier)
+        if (th.stay && th.ignited && p.y >= goal - 0.05 && !th.ridge) {
+          th.ridge = new THREE.Mesh(new THREE.IcosahedronGeometry(0.78, 1), new THREE.MeshBasicMaterial({ color: '#bff6ff', wireframe: true, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, depthWrite: false }));
+          th.g.add(th.ridge);
+        }
+        if (th.ridge) th.ridge.rotation.y += dt * 0.15;
+        if (th.pain && th.ignited) {
+          if (!th.tether) {
+            th.tether = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: '#ff3b4e', transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false }));
+            scene.add(th.tether);
+          }
+          th.tether.geometry.setFromPoints([p.clone(), th.pain]);
+        }
+        // the rest drift away and fade
+        if (!th.stay && th.ignited && p.y >= goal - 0.05) {
+          th.fading += dt / 4;
+          p.addScaledVector(th.drift, dt);
+          th.g.scale.multiplyScalar(1 - 0.4 * th.fading);
+          th.shell.material.opacity *= 1 - th.fading;
+          for (const c of th.cores) c.material.opacity *= 1 - th.fading;
+        }
+        if (th.fading >= 1) {
+          scene.remove(th.g);
+          if (th.tether) scene.remove(th.tether);
+          th.g.traverse(o => { o.geometry?.dispose?.(); o.material?.dispose?.(); });
+          thoughts.splice(i, 1);
+        }
+      }
+      for (let i = effects.length - 1; i >= 0; i--) {
+        const f = effects[i];
+        f.age += dt;
+        if (f.age < 0) continue;
+        const k = f.age / f.life;
+        f.obj.material.opacity = Math.max(0, 1 - k);
+        if (f.kind === 'ring') f.obj.scale.setScalar(1 + 2.5 * k);
+        if (k >= 1) { scene.remove(f.obj); f.obj.geometry.dispose(); f.obj.material.dispose(); effects.splice(i, 1); }
+      }
+    },
+  };
+}
+
 // fine strands that sag a little (the arachnoid's trabeculae, the heart's strings)
 function strands(scene, rnd, n, color, opacity, ends) {
   const pts = [];
@@ -384,7 +648,7 @@ export function createAtrium3D(kind = 'brain') {
   const dot = softDot();
   const U = {
     uTime: { value: 0 }, uFX: { value: 0 }, uPulse: { value: -1 }, uFog: { value: FOG.clone() }, uPink: { value: PINK }, uBlue: { value: BLUE },
-    uRidge: { value: K.ridge }, uStack: { value: K.stack ?? 0 }, uBeat: { value: 0 },
+    uRidge: { value: K.ridge }, uStack: { value: K.stack ?? 0 }, uBeat: { value: 0 }, uVoid: { value: K.void ?? 0 },
   };
 
   // THE VAULT: an ellipsoid seen from inside, its stone raised by fractal noise; FX folds it;
@@ -412,7 +676,7 @@ export function createAtrium3D(kind = 'brain') {
         gl_Position = projectionMatrix * mv;
       }`,
     fragmentShader: /* glsl */`
-      uniform float uTime; uniform float uFX; uniform float uPulse; uniform float uBeat; uniform vec3 uFog; uniform vec3 uPink; uniform vec3 uBlue;
+      uniform float uTime; uniform float uFX; uniform float uPulse; uniform float uBeat; uniform float uVoid; uniform vec3 uFog; uniform vec3 uPink; uniform vec3 uBlue;
       varying vec3 vPos; varying float vDepth;
       ${NOISE}
       void main() {
@@ -433,6 +697,7 @@ export function createAtrium3D(kind = 'brain') {
           float d = length(vPos - vec3(0.0, 4.0, 0.0));
           col += mix(uPink, uBlue, 0.5) * exp(-pow((d - uPulse * 20.0) * 0.5, 2.0)) * (1.0 - uPulse) * 1.4;
         }
+        col *= 1.0 - 0.55 * uVoid;   // the mind chamber: the same stone, emptied to a void
         float fog = 1.0 - exp(-vDepth * vDepth * 0.0022);
         gl_FragColor = vec4(mix(col, uFog, fog * 0.8), 1.0);
       }`,
@@ -452,7 +717,7 @@ export function createAtrium3D(kind = 'brain') {
         gl_FragColor = vec4(uShaft * a, 1.0);
       }`,
   });
-  for (let k = 0; k < (kind === 'heart' ? 4 : 6); k++) {
+  for (let k = 0; k < (kind === 'heart' ? 4 : kind === 'mind' ? 2 : 6); k++) {
     const cone = new THREE.Mesh(new THREE.ConeGeometry(1.4 + rnd() * 1.6, 15, 40, 1, true), shaftMat);
     if (kind === 'heart') {
       // the four pulmonary veins open high on the back wall, two each side
@@ -465,7 +730,7 @@ export function createAtrium3D(kind = 'brain') {
     scene.add(cone);
   }
 
-  const anatomy = ({ heart: heartAnatomy, neuron: neuronAnatomy }[kind] ?? brainAnatomy)(scene, rnd, U, dot);
+  const anatomy = ({ heart: heartAnatomy, neuron: neuronAnatomy, mind: mindAnatomy }[kind] ?? brainAnatomy)(scene, rnd, U, dot);
 
   // MOTES: fine particles rising slowly through the medium
   const MOTES = 1400;
@@ -490,10 +755,12 @@ export function createAtrium3D(kind = 'brain') {
   });
   const doors = K.routes.map(route => {
     const dir = new THREE.Vector3(Math.sin(route.angle), 0, -Math.cos(route.angle));
-    const at = new THREE.Vector3(dir.x * R * 0.7, -3.4, dir.z * R * 0.7);
+    const D = K.door ?? { y: -3.4, r: 0.7, scale: 1 };   // the mind chamber keeps its doorways low, at the edge
+    const at = new THREE.Vector3(dir.x * R * D.r, D.y, dir.z * R * D.r);
     const g = new THREE.Group();
     g.position.copy(at);
-    g.lookAt(0, -3.4, 0);
+    g.lookAt(0, D.y, 0);
+    g.scale.setScalar(D.scale);
     const disc = new THREE.Mesh(new THREE.CircleGeometry(1.5, 64), doorMat(route.color));
     const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.08, 12, 96), new THREE.MeshBasicMaterial({ color: route.color, transparent: true, opacity: 0.95 }));
     const label = textSprite(route.label, route.sub, route.color);
@@ -546,7 +813,7 @@ export function createAtrium3D(kind = 'brain') {
       if (hits[0].object === column) return 'elevator';
       return doors.find(d => d.disc === hits[0].object)?.route.id ?? null;
     },
-    pulse() { pulseAt = 0; },
+    pulse(state) { pulseAt = 0; anatomy.poke?.(state); },
     resize(w, h, dpr) { renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); },
     // state: { time, phi, stereo, labels, bpm }
     render(state) {
@@ -572,8 +839,9 @@ export function createAtrium3D(kind = 'brain') {
         if (t >= 1) { const done = travel.done; travel = null; camera.position.copy(ENTRANCE); done?.(); }
       } else {
         const yaw = 0.6 * Math.sin(state.time * 0.045);
-        camera.position.copy(ENTRANCE).add(new THREE.Vector3(0, 0.15 * Math.sin(state.time * 0.3), 0));
-        target.set(Math.sin(yaw) * 14, -2.6 + 1.6 * Math.sin(state.time * 0.037), ENTRANCE.z - Math.cos(yaw) * 14);
+        const eye = K.eye ?? { y: ENTRANCE.y, lookY: -2.6 };   // the mind chamber looks down onto the foam
+        camera.position.set(ENTRANCE.x, eye.y + 0.15 * Math.sin(state.time * 0.3), ENTRANCE.z);
+        target.set(Math.sin(yaw) * 14, eye.lookY + 1.6 * Math.sin(state.time * 0.037), ENTRANCE.z - Math.cos(yaw) * 14);
         camera.lookAt(target);
         applyLook(camera);
       }
