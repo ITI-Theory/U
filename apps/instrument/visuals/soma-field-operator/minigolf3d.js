@@ -13,6 +13,10 @@
 // J_internal) and the more there are, the more the real ball is drawn their way. The widths
 // illustrate the model's stated barriers, qualitatively; they are not computed rates.
 // Interpretive throughout.
+// Two views (author, 16 Oct 00:09): 2D, this course seen flat from above, a map; 3D, a Star Trek
+// three-dimensional chess frame floating over the single LANDSCAPE (explorer3d.js), its boards
+// at heights that follow energy: FIGHT and FLIGHT raised (aroused), SAFE the main board, FREEZE
+// sunken, AWE and GRIEF lowest (QUANT-EXP-1's ground state) behind a tall ridge.
 
 import * as THREE from 'three';
 import { applyLook } from './look.js';
@@ -27,6 +31,12 @@ export const HOLES = {
   AWE: { at: [-9, 3.6, -15], color: '#a78bfa', depth: 0.9, note: 'remote; past a high ridge' },
   GRIEF: { at: [8, -4, -16], color: '#4b6bff', depth: 1.3, note: 'loss; deep' },
 };
+// the chess frame: [x, y, z, board size]
+export const CHESS = {
+  SAFE: [0, 0, 4, 5], FIGHT: [-7, 3, 1, 2.6], FLIGHT: [7, 3, 1, 2.6],
+  FREEZE: [0, -3, -4, 3.4], AWE: [-6, -5.5, -12, 3], GRIEF: [6, -6, -12.5, 3],
+};
+const RIDGE = { z: -8.2, bottom: -6.5, top: 4.5, width: 20 };
 // [a, b, type, width a→b, width b→a]; the model's words in the notes (HAL-UAT, Movie.lean)
 export const PATHS = [
   ['SAFE', 'FIGHT', 'fairway', 0.7, 0.5],
@@ -66,23 +76,12 @@ function textSprite(text, color, sub = '') {
   return s;
 }
 
-export function createMiniGolf3D() {
-  let renderer;
-  try { renderer = new THREE.WebGLRenderer({ antialias: true }); } catch { return null; }
-  const canvas = renderer.domElement;
-  canvas.className = 'explorer__gl';
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#05030c');
-  scene.fog = new THREE.FogExp2('#05030c', 0.022);
-  scene.environment = bubbleEnvironment(renderer);
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 300);
-  const stereo = new THREE.StereoCamera();
-  const size = new THREE.Vector2();
+// the six holes, the lanes, the ball and the worries, built into a group: layout 'flat' (the
+// map) or 'chess' (the frame); the caller adds the group to its scene and calls update
+export function buildGolf({ layout = 'flat', ground: withGround = true } = {}) {
+  const scene = new THREE.Group();
   const rnd = rand(1966);
-  scene.add(new THREE.AmbientLight('#6a5a9a', 0.7));
-  const key = new THREE.DirectionalLight('#cfd8ff', 1.1);
-  key.position.set(4, 12, 8);
-  scene.add(key);
+  const chess = layout === 'chess';
 
   // the ground: a dark neon grid, the great hall's palette
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), new THREE.ShaderMaterial({
@@ -100,13 +99,42 @@ export function createMiniGolf3D() {
   }));
   ground.rotation.x = -Math.PI / 2;
   ground.position.y = -4.6;
-  scene.add(ground);
+  if (withGround) scene.add(ground);
+  // THE FRAME (chess): a board under each hole, the central column and its arms, the ridge
+  if (chess) {
+    const chrome = new THREE.MeshStandardMaterial({ color: '#9fb4d8', metalness: 0.8, roughness: 0.3, emissive: '#2a3a66', emissiveIntensity: 0.4 });
+    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 12, 16), chrome);
+    col.position.set(0, -1.2, -3.5);
+    scene.add(col);
+    for (const [id, [x, y, z, w]] of Object.entries(CHESS)) {
+      const c = HOLES[id].color;
+      const board = new THREE.Mesh(new THREE.BoxGeometry(w, 0.08, w), new THREE.MeshStandardMaterial({ color: new THREE.Color(c).multiplyScalar(0.15), emissive: c, emissiveIntensity: 0.12, transparent: true, opacity: 0.55, roughness: 0.4 }));
+      board.position.set(x, y - 0.05, z);
+      const edges = new THREE.LineSegments(new THREE.EdgesGeometry(board.geometry), new THREE.LineBasicMaterial({ color: c }));
+      edges.position.copy(board.position);
+      // the checks: a lattice of squares, as on the Enterprise's boards
+      const checks = new THREE.Mesh(new THREE.PlaneGeometry(w, w, 4, 4), new THREE.MeshBasicMaterial({ color: c, wireframe: true, transparent: true, opacity: 0.35 }));
+      checks.rotation.x = -Math.PI / 2;
+      checks.position.set(x, y + 0.01, z);
+      const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1, 8), chrome);
+      const from = new THREE.Vector3(0, y - 0.05, -3.5), to = new THREE.Vector3(x, y - 0.05, z);
+      arm.position.copy(from).lerp(to, 0.5);
+      arm.scale.y = Math.max(0.01, from.distanceTo(to) - w * 0.5);
+      arm.lookAt(to); arm.rotateX(Math.PI / 2);
+      scene.add(board, edges, checks, arm);
+    }
+    // the ridge: a tall lattice between the near basins and the deep ones (AWE, GRIEF)
+    const ridge = new THREE.Mesh(new THREE.PlaneGeometry(RIDGE.width, RIDGE.top - RIDGE.bottom, 10, 6), new THREE.MeshBasicMaterial({ color: '#ff7ad9', wireframe: true, transparent: true, opacity: 0.22 }));
+    ridge.position.set(0, (RIDGE.top + RIDGE.bottom) / 2, RIDGE.z);
+    scene.add(ridge);
+  }
 
   // THE HOLES: a green, a glowing rim, a cup, a pillar of light, the name
   const holes = {};
   for (const [id, h] of Object.entries(HOLES)) {
     const g = new THREE.Group();
-    g.position.set(...h.at);
+    const at = chess ? CHESS[id].slice(0, 3) : h.at;
+    g.position.set(...at);
     const r = 1.3 + 0.5 * h.depth;
     const green = new THREE.Mesh(new THREE.CircleGeometry(r, 64), new THREE.MeshStandardMaterial({ color: new THREE.Color(h.color).multiplyScalar(0.25), emissive: h.color, emissiveIntensity: 0.18, roughness: 0.9 }));
     green.rotation.x = -Math.PI / 2;
@@ -124,7 +152,8 @@ export function createMiniGolf3D() {
     tag.position.y = 2.7;
     g.add(green, rim, cup, beam, flag, pole, tag);
     scene.add(g);
-    holes[id] = { ...h, g, rim, flag, tag, pos: new THREE.Vector3(...h.at), r };
+    if (chess) { green.visible = false; beam.visible = false; }
+    holes[id] = { ...h, g, rim, flag, tag, pos: new THREE.Vector3(...at), r };
   }
 
   // THE PATHS: two lanes each, one each way; the look says the kind, the width the ease
@@ -144,8 +173,10 @@ export function createMiniGolf3D() {
       const dir = B.clone().sub(A);
       const off = new THREE.Vector3().crossVectors(dir, up).normalize().multiplyScalar(0.45 * side);
       const mid = A.clone().lerp(B, 0.5).add(off);
-      if (type === 'tunnel') mid.y = Math.min(A.y, B.y) - 3.2;
-      else if (type === 'bridge') mid.y = Math.max(A.y, B.y) + 3.2;
+      const crossesRidge = chess && (A.z - RIDGE.z) * (B.z - RIDGE.z) < 0;
+      if (type === 'tunnel') mid.y = chess ? (A.y + B.y) / 2 : Math.min(A.y, B.y) - 3.2;
+      else if (type === 'bridge') mid.y = Math.max(A.y, B.y) + (chess ? 2 : 3.2);
+      else if (crossesRidge) mid.y = RIDGE.top + 1.2;   // over the ridge: up first, the barrier
       else if (type === 'wire') mid.y = Math.max(A.y, B.y) + 1.6;
       else mid.y += type === 'slide' ? 0.4 : 0.8;
       const pts = [A.clone().add(off.clone().multiplyScalar(0.6)), A.clone().lerp(mid, 0.5).add(new THREE.Vector3(0, 0.2, 0)), mid, mid.clone().lerp(B, 0.5).add(new THREE.Vector3(0, 0.2, 0)), B.clone().add(off.clone().multiplyScalar(0.6))];
@@ -223,16 +254,14 @@ export function createMiniGolf3D() {
   }
 
   let last = 0, clock = 0, kickNow = false;
-  const lookAt = new THREE.Vector3(0, 0.6, -6);
   return {
-    canvas,
+    group: scene,
     get at() { return real.lane ? `${real.lane.from} → ${real.lane.to} (${real.lane.type})` : real.at; },
     get worries() { return worries.filter(q => !q.fading).length; },
     // POKE: a kick; the ball goes now, by a way it can take from here
     poke() { kickNow = true; },
-    resize(w, h, dpr) { renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); },
-    // state: { time, phi, stereo, labels, resource, cp }
-    render(s) {
+    // state: { time, phi, labels, resource, cp }
+    update(s) {
       const dt = Math.min(0.05, last ? s.time - last : 0.016);
       last = s.time;
       clock += dt;
@@ -296,11 +325,40 @@ export function createMiniGolf3D() {
         h.flag.rotation.y = 0.3 * Math.sin(clock * 1.7 + h.pos.x);
         h.tag.visible = s.labels !== false;
       }
-      // the camera: above and in front, turning slowly; the look is the visitor's
-      const a = 0.22 * Math.sin(clock * 0.04);
-      camera.position.set(Math.sin(a) * 26, 17, 21 + 2 * Math.cos(clock * 0.05));
-      camera.lookAt(lookAt);
-      applyLook(camera);
+    },
+  };
+}
+
+// THE MAP (the 2D view): the flat course seen from straight above
+export function createMiniGolf3D() {
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ antialias: true }); } catch { return null; }
+  const canvas = renderer.domElement;
+  canvas.className = 'explorer__gl';
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color('#05030c');
+  scene.environment = bubbleEnvironment(renderer);
+  scene.add(new THREE.AmbientLight('#6a5a9a', 0.9));
+  const key = new THREE.DirectionalLight('#cfd8ff', 1.1);
+  key.position.set(4, 12, 8);
+  scene.add(key);
+  const golf = buildGolf({ layout: 'flat' });
+  scene.add(golf.group);
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 300);
+  const stereo = new THREE.StereoCamera();
+  const size = new THREE.Vector2();
+  return {
+    canvas,
+    golf,
+    get at() { return golf.at; },
+    get worries() { return golf.worries; },
+    poke() { golf.poke(); },
+    resize(w, h, dpr) { renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); },
+    render(s) {
+      golf.update(s);
+      camera.position.set(0, 52, -4.5);
+      camera.up.set(0, 0, -1);
+      camera.lookAt(0, 0, -4.5);
       renderer.getSize(size);
       if (s.stereo === 'half' || s.stereo === 'full') {
         camera.aspect = s.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;

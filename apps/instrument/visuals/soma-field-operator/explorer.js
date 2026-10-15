@@ -787,14 +787,18 @@ function drawGolf(ctx, env) {
   if (!env.golf || env.gl?.worries === undefined) return false;
   golfGl = env.gl;
   env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, resource: env.resource, cp: env.cp });
+  golfLabels(ctx, env, env.gl);
+  return true;
+}
+function golfLabels(ctx, env, g) {
+  env = { ...env, gl: g };
   if (env.labels) {
     const { u } = env;
     label(ctx, u, `THE MINI GOLF · the ball: ${env.gl.at}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
     label(ctx, u, 'six of the model\'s basins as holes; a way between two is wide where the barrier is low, thin where it is high; two lanes, one each way; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
     if (env.gl.worries) label(ctx, u, `WORRY: ${env.gl.worries} imagined ${env.gl.worries === 1 ? 'run' : 'runs'}; they never move the ball, but it is drawn their way (V, visual imagery: J_internal)`, 0, 0.74, '#a78bfa', 'center', 0.022);
-    hint(ctx, u, `POKE: kick the ball · Φ: hotter, it hops more · RESOURCE: the bridge out of FREEZE${env.resource ? ' (on)' : ''} · C-PTSD (settings): more worry`, 0, 0.84, COLORS.violet, 'center', 0.019);
+    hint(ctx, u, `POKE: kick the ball · Φ: hotter, it hops more · RESOURCE: the bridge out of FREEZE${env.resource ? ' (on)' : ''} · C-PTSD (settings): more worry · 2D: the map · 3D: the frame`, 0, 0.84, COLORS.violet, 'center', 0.019);
   }
-  return true;
 }
 function drawChoices(ctx, env) {
   if (!env.choices || !env.gl?.phase) return false;
@@ -3144,7 +3148,7 @@ function makeLandscape() {
       const beta = 1 / T;
       const J = env.resource ? RESOURCE_J : 0;
       if (env.gl) {
-        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, stereo: env.stereo, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]) });
+        env.gl.render({ phi, T, J, dim, theta, ball, trail, time: env.t, stereo: env.stereo, memoryColors: MEMORY_NAMES.map(name => MEMORY_COLORS[name]), golf: env.golf, golfLabels: env.golfLabels ?? env.labels, resource: env.resource, cp: env.cp });
         if (env.labels) {
           const zones = [[[0, 0.75, 1.75], 'MOUNTAINS · the body’s memories (4D)', COLORS.ice, 4],
             [[-3.4, 0.9, -0.6], 'COUNTRY · the limbic plains (8D)', '#56f0a2', 8],
@@ -4043,7 +4047,9 @@ export function createExplorer(hooks = {}) {
       // by CSS: a canvas filter per draw call is far too slow); the card and the key say what it is
       const focus2d = id === st.stop && st.stop === 'thought' && Boolean(focusGl) && !st.view3d;
       mainCtx.canvas.classList.toggle('explorer__blurred', focus2d);
-      sc.draw(ctx, { ...env, alpha });
+      // with the golf on, the landscape's own labels give way to the golf's
+      sc.draw(ctx, id === st.stop && env.golf ? { ...env, alpha, labels: false, golfLabels: env.labels } : { ...env, alpha });
+      if (id === st.stop && env.golf && env.gl?.golf) { golfGl = env.gl.golf; golfLabels(ctx, { ...env, alpha }, env.gl.golf); }
       if (focus2d) focusGl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
     }
     for (const c of targets) c.restore();
@@ -4193,7 +4199,7 @@ export function createExplorer(hooks = {}) {
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
     // the cathedral in 2D: its map, drawn over the flight, which goes on underneath (hidden)
     env.map2d = !st.view3d && st.stop === 'brain' && st.cave && !st.hall;
-    env.gl = env.map2d ? stageGl('brain-cave') : st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.stop === 'landscape' && st.golf ? 'landscape-golf' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
+    env.gl = env.golf ? stageGl(st.view3d ? 'landscape' : 'landscape-golf') : env.map2d ? stageGl('brain-cave') : st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.map2d ? null : env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it

@@ -12,6 +12,8 @@
 
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
+import { buildGolf } from './minigolf3d.js';
+import { bubbleEnvironment } from './bubble.js';
 
 const SIZE = 2.9;
 const N = 110;
@@ -140,9 +142,14 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   }
 
   const toWorld = (px, py, lift = 0) => new THREE.Vector3(px, height(px, py) + lift, -py);
+  // THE MINI GOLF in 3D (author, 16 Oct): the six basins on a Star Trek chess frame floating over
+  // this landscape; built when first asked for; the camera pulls back to show both
+  let golf = null;
+  let zoom = 0;
 
   return {
     canvas,
+    get golf() { return golf; },
     resize(w, h, dpr) {
       renderer.setPixelRatio(dpr);
       renderer.setSize(w, h, false);
@@ -157,10 +164,24 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
         rebuild(state.phi, state.T, state.J);
       }
       // swing over the mountains on the near side, the city on the horizon behind them
-      const swing = Math.PI / 2 + 0.75 * Math.sin(state.theta * 0.9);
-      const r = 4.6;
-      camera.position.set(Math.cos(swing) * r, 1.45 + 0.2 * Math.sin(state.theta * 1.7), Math.sin(swing) * r);
-      camera.lookAt(0, 0.3, -2.4);
+      if (state.golf && !golf) {
+        golf = buildGolf({ layout: 'chess', ground: false });
+        golf.group.scale.setScalar(0.2);
+        golf.group.position.set(0, 1.55, -0.4);
+        // the names keep their size on screen (screen-sized sprites would shrink with the frame)
+        golf.group.traverse(o => { if (o.isSprite && o.material.sizeAttenuation === false) o.scale.multiplyScalar(5); });
+        scene.add(golf.group);
+        scene.environment ??= bubbleEnvironment(renderer);
+      }
+      if (golf) {
+        golf.group.visible = Boolean(state.golf);
+        if (state.golf) golf.update({ time: state.time, phi: state.phi, labels: state.golfLabels ?? state.labels, resource: state.resource, cp: state.cp });
+      }
+      zoom += ((state.golf ? 1 : 0) - zoom) * 0.05;
+      const swing = Math.PI / 2 + 0.75 * Math.sin(state.theta * 0.9) * (1 - 0.5 * zoom);
+      const r = 4.6 + 3.4 * zoom;
+      camera.position.set(Math.cos(swing) * r, 1.45 + 2.1 * zoom + 0.2 * Math.sin(state.theta * 1.7), Math.sin(swing) * r);
+      camera.lookAt(0, 0.3 + 1.0 * zoom, -2.4 + 2.0 * zoom);
       country.mesh.visible = state.dim >= 8;
       if (country.mesh.visible) country.update(state.phi, state.time);
       cityGroup.visible = state.dim >= 11;

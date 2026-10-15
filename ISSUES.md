@@ -5441,6 +5441,13 @@ grammar's three gaps closed by it.
       fear to AWE by a tunnel (WKB; simulated, open hypothesis); AWE opens GRIEF (Movie.lean
       coupling +0.30); GRIEF back to SAFE slow. Worry balls (author): ghosts on imagined paths,
       their pull on the real ball BRECVEMA's V (J_internal), interpretive.
+- [x] (author 16 Oct 00:09: "make the current one the 2D one, and a 3D one ... on a framework like
+      3D chess in Star Trek ... in the single landscape, zoomed out") 2D is the course seen flat
+      from above (the map); 3D is a Star Trek chess frame floating over the LANDSCAPE scene, the
+      camera pulled back (minigolf3d.js buildGolf layout 'chess'; explorer3d.js). Heights follow
+      energy: FIGHT and FLIGHT on raised attack boards, SAFE the main board, FREEZE sunken, AWE
+      and GRIEF lowest (QUANT-EXP-1's ground state) behind a tall ridge that the wires climb
+      over and the tunnel passes through. The landscape's labels give way to the golf's.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 
