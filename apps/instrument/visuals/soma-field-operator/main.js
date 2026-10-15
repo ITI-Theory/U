@@ -1348,7 +1348,7 @@ const explorer = createExplorer({
       const mark = d => (d.sorry ? '✗' : d.k === 'axiom' ? '◆' : d.trivial ? '∘' : d.k === 'theorem' ? '✓' : '=');
       const status = t.decls.some(d => d.sorry) ? 'sorry' : t.decls.some(d => d.k === 'axiom') ? 'axiom' : 'kernel-verified';
       return {
-        title: `${t.module}.lean`, status, height: Math.min(3.8, 0.8 + t.decls.length / 12), decls: t.decls,
+        title: `${t.module}.lean`, file: t.file, status, height: Math.min(3.8, 0.8 + t.decls.length / 12), decls: t.decls,
         lines: [`kernel-checked at ${leanTowers.commit}`, ...t.decls.map(d => `${mark(d)} ${d.n} : ${d.s}`)],
       };
     }),

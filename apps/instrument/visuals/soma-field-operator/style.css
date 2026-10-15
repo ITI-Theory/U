@@ -613,6 +613,30 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__tower-body ul, .explorer__floors { margin: 4px 0 8px; padding-left: 18px; }
 .explorer__tower-kind { color: rgba(232,238,252,.65); }
 .explorer__tower [data-tower="close"] { float: right; }
+/* THE SOURCE (towers of code): the module's Lean in the app's palette and font; RICE's GLOW and FALSE COLOUR */
+.explorer__source { position: absolute; z-index: 3; left: 14px; right: calc(min(520px, 46vw) + 28px); top: 84px; bottom: 14px; display: flex; flex-direction: column; background: rgba(3,5,12,.95); border: 1px solid rgba(167,139,250,.6); box-shadow: 0 0 30px rgba(167,139,250,.18); }
+.explorer__source[hidden] { display: none; }
+.explorer__source header { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; border-bottom: 1px solid rgba(167,139,250,.35); background: rgba(167,139,250,.08); }
+.explorer__source-tab { font-size: 11px; letter-spacing: .1em; color: #5ee7ff; }
+.explorer__source-body { flex: 1; overflow: auto; padding: 8px 0; font: 12.5px/1.55 'Space Mono', ui-monospace, monospace; color: #d8def0; white-space: pre; tab-size: 2; }
+.lean-line { padding: 0 14px 0 0; }
+.lean-n { display: inline-block; width: 4.2em; padding-right: 1em; text-align: right; color: rgba(232,238,252,.25); user-select: none; }
+.lean-here { background: rgba(94,231,255,.09); box-shadow: inset 3px 0 0 #5ee7ff; }
+.lean-decl { color: #ff7ad9; font-weight: 700; }
+.lean-name { color: #5ee7ff; font-weight: 700; }
+.lean-axiom { color: #ffd166; }
+.lean-kw { color: #a78bfa; }
+.lean-tactic { color: #56f0a2; }
+.lean-sorry { color: #070a16; background: #ff3b4e; padding: 0 3px; border-radius: 2px; }
+.lean-comment { color: #6b7a99; font-style: italic; }
+.lean-doc { color: #8fa9d6; font-style: italic; }
+.lean-string { color: #ffd166; }
+.lean-num { color: #ff9e5e; }
+.lean-type { color: #c8b6ff; }
+.lean-sym { color: #ff7ad9; }
+.lean--glow .lean-decl, .lean--glow .lean-name, .lean--glow .lean-tactic, .lean--glow .lean-sym, .lean--glow .lean-sorry { text-shadow: 0 0 8px currentColor; }
+.lean--false .lean-decl { color: #ffe600; } .lean--false .lean-name { color: #00ffd5; } .lean--false .lean-kw { color: #ff2fd0; }
+.lean--false .lean-tactic { color: #9dff00; } .lean--false .lean-type { color: #ff8a00; } .lean--false .lean-sym { color: #00b3ff; }
 .explorer .explorer__floor { border: none; background: rgba(0,0,0,.55); padding: 1px 6px; text-align: left; }
 .explorer .explorer__floor--theorem { color: #56f0a2; }
 .explorer .explorer__floor--def, .explorer .explorer__floor--inductive { color: #5ee7ff; }

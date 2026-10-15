@@ -5427,6 +5427,19 @@ grammar's three gaps closed by it.
       older diagram (the sea, the gold threshold, the crossings), with nothing to click. Now a
       click on a crossing (a feeling or a thought, by its word) opens its course over the
       diagram, which blurs (makeThought.pick; CSS blur on the 2D canvas); the card stays above.
+- [x] (author 23:20) THE SOURCE in the towers of code: SOURCE ▸ in a tower (the file) or a floor
+      (scrolled to and banded on the declaration) opens the module's Lean beside the panel,
+      coloured in the app's palette and font (tower.js highlightLean: declarations pink, names
+      cyan, axioms gold, tactics green, sorry red, comments slate); RICE's GLOW and FALSE COLOUR
+      apply. The file is the SCRIBE copy (public/scribe/).
+- [ ] (author 23:25) THE MINI GOLF in LANDSCAPE, six holes from the model (HAL 23:40, checked):
+      SAFE, FIGHT, FLIGHT, FREEZE (the four basins, mathematical-co-identification.md) and AWE,
+      GRIEF (QUANT-EXP-1's {Awe, Grief} ground state, FIELD-NOTES). HAL erred once: in Movie.lean
+      the deepest attractor is Preverbal, not Grief. Paths: fairways among SAFE, FIGHT, FLIGHT;
+      steep one-way slides into FREEZE; FREEZE back to SAFE only by a bridge (the resource);
+      fear to AWE by a tunnel (WKB; simulated, open hypothesis); AWE opens GRIEF (Movie.lean
+      coupling +0.30); GRIEF back to SAFE slow. Worry balls (author): ghosts on imagined paths,
+      their pull on the real ball BRECVEMA's V (J_internal), interpretive.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 

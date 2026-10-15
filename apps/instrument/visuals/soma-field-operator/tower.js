@@ -8,12 +8,96 @@ const KIND = d => (d.sorry ? 'rests on sorry' : d.k === 'axiom' ? 'axiom (assume
 const ORDER = { axiom: 0, inductive: 1, opaque: 1, def: 2, theorem: 3 };
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
+// THE SOURCE (author, 15 Oct 23:20: "a window with highlighted source code, with a font and colour
+// matching the ricing"): the module's Lean, coloured in the app's palette, in the app's font;
+// RICE's GLOW and FALSE COLOUR apply. The file is the SCRIBE copy (public/scribe/, generated).
+const DECL_KW = 'theorem|lemma|def|axiom|structure|inductive|class|instance|abbrev|opaque|example';
+const LEAN = new RegExp([
+  '(--.*$)',                                                     // 1 line comment
+  '(/-)',                                                        // 2 block comment opens
+  '("(?:[^"\\\\]|\\\\.)*")',                                 // 3 string
+  `\\b(noncomputable\\s+)?(${DECL_KW})(\\s+)([^\\s:({\\[]+)`,          // 4-7 declaration and its name
+  '\\b(sorry)\\b',                                               // 8 sorry
+  '\\b(by|fun|let|have|show|from|where|with|match|if|then|else|do|at|calc|namespace|end|section|open|import|variable|universe|set_option|private|protected|noncomputable|deriving|in)\\b', // 9 keyword
+  '\\b(simp|simp_all|norm_num|linarith|nlinarith|ring|ring_nf|exact|apply|intro|intros|rw|rwa|unfold|constructor|refine|use|positivity|omega|decide|rfl|field_simp|gcongr|aesop|cases|rcases|obtain|induction|trivial|exists|specialize|push_cast|norm_cast|exact_mod_cast|calc|filter_upwards|nlinarith|polyrith|continuity|measurability|fin_cases|interval_cases|split|left|right|contradiction|exfalso|by_contra|subst|congr|ext|funext)\\b', // 10 tactic
+  '\\b(\\d+(?:\\.\\d+)?)\\b',                                   // 11 number
+  "\\b([A-Z][A-Za-z0-9_']*)",                                     // 12 type or namespace
+  '([∀∃λ→←↔∧∨¬≤≥≠∈∉⊆∑∏ℝℕℤℂ√⟨⟩∘×·∣⁻¹²³∞∫∂π]+)',                    // 13 symbols
+].join('|'), 'gu');
+function highlightLean(text) {
+  let inBlock = false, doc = false;
+  return text.split('\n').map(line => {
+    let out = '', i = 0;
+    while (i < line.length) {
+      if (inBlock) {
+        const close = line.indexOf('-/', i);
+        const end = close < 0 ? line.length : close + 2;
+        out += `<span class="lean-${doc ? 'doc' : 'comment'}">${esc(line.slice(i, end))}</span>`;
+        i = end;
+        if (close >= 0) inBlock = false;
+        continue;
+      }
+      LEAN.lastIndex = i;
+      const m = LEAN.exec(line);
+      if (!m) { out += esc(line.slice(i)); break; }
+      out += esc(line.slice(i, m.index));
+      if (m[1]) out += `<span class="lean-comment">${esc(m[1])}</span>`;
+      else if (m[2]) { inBlock = true; doc = line.startsWith('/--', m.index) || line.startsWith('/-!', m.index); out += `<span class="lean-${doc ? 'doc' : 'comment'}">/-</span>`; }
+      else if (m[3]) out += `<span class="lean-string">${esc(m[3])}</span>`;
+      else if (m[5]) out += `${m[4] ? '<span class="lean-kw">noncomputable</span> ' : ''}<span class="lean-decl">${m[5]}</span>${m[6]}<span class="lean-name${m[5] === 'axiom' ? ' lean-axiom' : ''}">${esc(m[7])}</span>`;
+      else if (m[8]) out += '<span class="lean-sorry">sorry</span>';
+      else if (m[9]) out += `<span class="lean-kw">${m[9]}</span>`;
+      else if (m[10]) out += `<span class="lean-tactic">${m[10]}</span>`;
+      else if (m[11]) out += `<span class="lean-num">${m[11]}</span>`;
+      else if (m[12]) out += `<span class="lean-type">${esc(m[12])}</span>`;
+      else if (m[13]) out += `<span class="lean-sym">${esc(m[13])}</span>`;
+      i = m.index + Math.max(1, m[0].length);
+    }
+    return out;
+  });
+}
+
 export function createTowerPanel(root) {
   const panel = document.createElement('aside');
   panel.className = 'explorer__tower';
   panel.hidden = true;
   panel.innerHTML = '<canvas class="explorer__rain" aria-hidden="true"></canvas><div class="explorer__tower-body"></div>';
   root.append(panel);
+  const source = document.createElement('section');
+  source.className = 'explorer__source';
+  source.hidden = true;
+  source.innerHTML = '<header><span class="explorer__source-tab"></span><button type="button" data-source="close" aria-label="Close the source">✕</button></header><div class="explorer__source-body"></div>';
+  root.append(source);
+  source.addEventListener('click', event => { event.stopPropagation(); if (event.target.closest('[data-source="close"]')) source.hidden = true; });
+  const sourceCache = new Map();
+  // the RICE (the level view's visual customisation) as it stands: glow, false colour
+  const rice = () => ({ glow: document.querySelector('#style-glow')?.checked ?? true, falsecolour: document.querySelector('#style-falsecolour')?.checked ?? false });
+  async function showSource(it, declName = '') {
+    if (!it?.file) return;
+    source.hidden = false;
+    const r = rice();
+    source.classList.toggle('lean--glow', r.glow);
+    source.classList.toggle('lean--false', r.falsecolour);
+    source.querySelector('.explorer__source-tab').textContent = `SOURCE · ${it.title}${declName ? ` · ${declName}` : ''}`;
+    const bodyEl = source.querySelector('.explorer__source-body');
+    if (!sourceCache.has(it.file)) {
+      bodyEl.textContent = 'loading…';
+      try {
+        const res = await fetch(`scribe/${it.file}`);
+        sourceCache.set(it.file, res.ok ? await res.text() : null);
+      } catch { sourceCache.set(it.file, null); }
+    }
+    const text = sourceCache.get(it.file);
+    if (text == null) { bodyEl.textContent = `The source is not in this build (scribe/${it.file}; npm run generate copies it).`; return; }
+    // the declaration's lines: from its own line to the next declaration's
+    const lines = (it.decls ?? []).map(d => d.line).filter(Boolean).sort((a, b) => a - b);
+    const d = (it.decls ?? []).find(x => x.n === declName);
+    const from = d?.line ?? 0;
+    const to = from ? (lines.find(l => l > from) ?? from + 12) - 1 : 0;
+    bodyEl.innerHTML = highlightLean(text).map((h, k) => `<div class="lean-line${k + 1 >= from && k + 1 <= to ? ' lean-here' : ''}"><span class="lean-n">${k + 1}</span>${h || ' '}</div>`).join('');
+    if (from) bodyEl.querySelector('.lean-here')?.scrollIntoView({ block: 'center' });
+    else bodyEl.scrollTop = 0;
+  }
   const rain = panel.querySelector('canvas');
   const body = panel.querySelector('.explorer__tower-body');
   let item = null;
@@ -53,6 +137,7 @@ export function createTowerPanel(root) {
     const rests = (d.ax ?? []).map(a => `<li>◆ ${esc(a)}</li>`).join('');
     return `<button type="button" data-tower="back">◂ FLOORS</button>
       <h3>${MARK(d)} ${esc(d.n)}</h3><p class="explorer__tower-kind">${esc(KIND(d))}${d.line ? ` · line ${d.line}` : ''}</p>
+      ${item.file ? '<button type="button" data-source="decl" title="The module\'s Lean, at this declaration">SOURCE ▸</button>' : ''}
       <pre>${esc(d.s)}</pre>
       ${rests ? `<p>Rests on the programme's own axioms:</p><ul>${rests}</ul>` : d.k === 'theorem' && !d.sorry ? '<p>Rests on no axiom of the programme (Lean\'s standard axioms only).</p>' : ''}
       ${cites ? `<p>Cited by (Sherlock's ledger):</p><ul>${cites}</ul>` : '<p>Not cited by any paper\'s affidavit.</p>'}
@@ -92,6 +177,7 @@ export function createTowerPanel(root) {
     return `<button type="button" data-tower="close" aria-label="Leave the tower">✕</button>
       <h3>${esc(item.title)}</h3>
       <p class="explorer__tower-kind">${esc(item.lines?.[0] ?? '')}</p>
+      ${item.file ? '<button type="button" data-source="file" title="The module\'s Lean source, highlighted">SOURCE ▸</button>' : ''}
       ${item.decls ? `<p>${count(d => d.k === 'theorem')} theorems · ${count(d => d.k === 'def')} definitions · ${count(d => d.k === 'axiom')} axioms · ${count(d => d.sorry)} on sorry · ${count(d => d.trivial)} only True</p>
       <ol class="explorer__floors">${rows}</ol>` : `<ul>${(item.lines ?? []).filter(Boolean).map(l => `<li>${esc(l)}</li>`).join('')}</ul>`}`;
   }
@@ -100,7 +186,9 @@ export function createTowerPanel(root) {
     const b = event.target.closest('button');
     if (!b) return;
     event.stopPropagation();
-    if (b.dataset.tower === 'close') api.close();
+    if (b.dataset.source === 'file') showSource(item);
+    else if (b.dataset.source === 'decl') showSource(item, floorName);
+    else if (b.dataset.tower === 'close') api.close();
     else if (b.dataset.tower === 'back') body.innerHTML = listView();
     else if (b.dataset.floor) body.innerHTML = floorView(item.decls[Number(b.dataset.floor)]);
     else if (b.dataset.prove && canProve()) {
@@ -140,6 +228,7 @@ export function createTowerPanel(root) {
     },
     close() {
       panel.hidden = true;
+      source.hidden = true;
       item = null;
       cancelAnimationFrame(raf);
     },
