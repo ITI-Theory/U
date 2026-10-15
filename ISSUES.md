@@ -5111,3 +5111,48 @@ off with the labels. Anatomy for the route, sci-fi for the look.
       (the palace's top floor), the others as the registry grows.
 - [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the
       display's resolution; checked on the author's 4K screen.
+
+## ISS-104: What the inside should show: physical first, then foam, thoughts, thoughts that stay, paths — OPEN
+{{Tags area.app, area.theory, area.sherlock}}
+{{Fields date.created=2026-10-15, date.start=, date.end=, epic=}}
+
+Author, 15 Oct 16:37 (brain dump):
+- Names: [T]-stop (like an f-stop) for the reading under a somagram; a photograph also records
+  film stock and ISO: here the user's base, the settings dialled in at the start, perhaps its
+  own somagram. Somagram, somagraph, Somatron (HAL's word, 13 Oct): asked of HAL-UAT
+  (uat/RC3/hal-names-2026-10-15.md). Note: cinema already has a T-stop (a lens's transmission
+  stop), so the brackets in [T]-stop matter.
+- What a Soma Machine is: the elevator is a physics model, the body and brain are biology,
+  educational. Step 1: explore these as physical places only, no mind: two shapes are enough,
+  the chamber (atrium) and the tube (river, tunnel, wormhole). References: Fantastic Voyage
+  (1966; Oscars for art direction and visual effects: d23.com/a-look-back-at-the-oscars-1967;
+  Lenfest Center, spring 2025, LK Fantastic Voyage; sciencefictionclassics.com, the cavern).
+- Then the mind, forward from experience: words heard, pictures seen, now and then emotions,
+  pain, flashbacks; dark, and they pop in. Not a tube with an emotion flowing: a foam below,
+  that now and then sparks into a sphere and drifts away: a chamber, not a river. Three levels:
+  the foam; the thought that pops; the thought that stays (C-PTSD: it rises a little and
+  stays; twelve, thirty of them). And paths: a plan's options ("I want to go skiing: this way,
+  that way, a third way"). Bubbles and paths both; this needs sorting.
+- And backward, from the Lean (reverse engineering): what the model says can be expressed, so
+  a picture can be checked; a thought drawn as a bar of chocolate should make Sherlock say it
+  expresses none of it.
+
+Copilot's reading of the model's terms (the brief for the author's chat with HAL:
+uat/RC3/hal-inside-brief-2026-10-15.md): a feeling is a blend of eight basic emotions evoked by
+one of eight mechanisms (EmotionOntology, SomaField); below a threshold the field is real but not
+felt (the foam), above it conscious (the pop: the consciousness dichotomy); one event is an
+emotion at D8 and a thought at D9-11 (FieldEvent); memories and stuck states are attractors,
+Φ heats the landscape, C-PTSD raises the barriers (the thought that stays: LimbicHopfield,
+HopfieldAsync); leaving a well is tunnelling (LimbicTunnel); the past acts through a memory
+kernel (TemporalDynamics); transitions depend on the route (the path-sensitive transitions
+paper: the paths). So the chamber holds the foam, the pops and the staying thoughts, and the
+paths leave it as tubes: the two shapes of step 1.
+- [ ] Step 1, physical only: the atriums and their tubes as places (ISS-103), without the mind
+      layers, for UAT on their own.
+- [ ] The author's chat with HAL on the inside (the brief); his take decides the design.
+- [ ] A visual grammar: each model quantity (blend, mechanism, threshold, band, well depth,
+      barrier, temperature, route) given a visual channel; a Sherlock check that every channel
+      maps to a model term and every term a channel (the chocolate-bar test).
+- [ ] The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
+      staying thoughts (rising, holding; the barrier), paths leaving as tubes.
+- [ ] The base as film stock: the start settings recorded with every somagram (after HAL).
