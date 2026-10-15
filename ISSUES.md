@@ -5378,7 +5378,13 @@ grammar's three gaps closed by it.
       the cathedral, the course, a focused thought; each says where its exits go and what it is
       not (a scripted example, not advice; a picture, not a reading of a mind). Also the stereo
       HUD line.
-- [ ] Then fixes 5 and 6 (a places map and a real breadcrumb; protected label hierarchy).
+- [x] Fix 5 done (author 22:05: "both"): the breadcrumb is spatial (FLOOR n › HUMAN › BRAIN ·
+      GREAT HALL › MIND CHAMBER › THE COURSE, each step a click: explorer.js placeTrail, navTo,
+      PLACE_PARENT); PLACES ▾ (or P; Escape closes it) replaces the fourteen buttons with a map
+      (PLACE_MAP: four columns, each stop with its places and doorways). WAY UP moved to BODY.
+      DESIGN.md updated ("After the second opinion").
+- [ ] Then fix 6 (protected label hierarchy), the levels view in the shell (fix 4), the art
+      pass (fix 10), the course legible and controllable (fix 9).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 

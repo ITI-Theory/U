@@ -143,6 +143,31 @@ SHERLOCK into the right drawer (telemetry: what the field is doing here, and wha
 the windows kept for the desk and the engine room (several screens), where moving them is the
 point. Saved window layouts are left alone; the new default applies to a fresh start.
 
+## After the second opinion (15 Oct evening)
+
+A review by GPT-6.1-sol (the author's one-off exception; ISS-105) found the app "shared
+branding, not yet one instrument". Done since, all in the explorer:
+
+- **Entry**: a fresh start opens on the human, floor 8; the human's deck and drawer take clicks.
+- **Leaving a place leaves its overlays**: the palace and cathedral belong to the brain stop; a
+  focused thought ends; a floor list closes with its place; a link's own place survives the dive.
+- **The breadcrumb is spatial**: FLOOR n › HUMAN › BRAIN · GREAT HALL › MIND CHAMBER › THE COURSE;
+  every step up is a click.
+- **PLACES ▾ (or P)** replaces the fourteen buttons: a map in four columns (BODY, BRAIN, MIND,
+  WORLDS), each stop with the places in it (the atriums, the palace, the cathedral, the course)
+  and the doorways that join them. WAY UP sits with WAY IN in BODY (a signal, not a thought).
+- **One set of controls**: while the explorer is open the level view's controls are lent to it.
+  POKE ▾ (MECHANISMS) holds BRECVEMA, somatic, cognitive, response time, audio, appraisal and
+  the body map; SETTINGS holds T-THEORY, the observation layers, RICE, the model, the reader,
+  the fractal settings and thought sparks; the card's "THIS FLOOR" holds the equation, figures,
+  full mathematics and the cheat sheet. POKE fires the whole poke, with the mechanisms.
+- **The card describes the place you are in** (hall, atrium, soma, chamber, palace, cathedral,
+  course, a focused thought), with what it is not.
+
+Still to do from the review: the label hierarchy (text sized to stay readable, exits before
+decoration), the levels view in the same shell, one art pass to the great hall's standard, a
+legible and controllable course.
+
 ## Build order
 
 1. **The spine**: one shell for the whole app (top bar with the elevator dial and breadcrumb,

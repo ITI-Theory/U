@@ -107,6 +107,38 @@ export const STOP_LEVELS = {
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 // THE SPINE (ISS-105, DESIGN.md): the places grouped, so the row reads as a map, not a list
+// THE PLACES MAP (ISS-105, fix 5): one PLACES ▾ button opens it; each stop with the places in it
+// (the atriums, the palace, the cathedral, the course) and the doorways that join them
+const PLACE_MAP = [
+  ['BODY', [
+    { stop: 'human', note: 'home: the whole body as one field' },
+    { stop: 'body', places: [['hall', 'THE HEART']], doors: 'the heart: the way in · the body · the bloodstream · the ureter · the human' },
+    { stop: 'wayin', note: 'blood in: heart to brain' },
+    { stop: 'tunnel', note: 'signal up: body to cortex' },
+    { stop: 'ureter' },
+  ]],
+  ['BRAIN', [
+    { stop: 'brain', places: [['hall', 'GREAT HALL'], ['palace', 'MIND PALACE'], ['cave', 'CATHEDRAL']], doors: 'the hall: limbic gate › mind chamber · the way up · the palace · the cathedral · the arteries' },
+    { stop: 'limbic', note: 'the hinge between body and mind' },
+    { stop: 'neuron', places: [['hall', 'THE SOMA']], doors: 'the soma: axon hillock · dendrites › memory · sub-threshold sea › thought · up to the hall' },
+    { stop: 'network', note: 'memory as a network' },
+  ]],
+  ['MIND', [
+    { stop: 'thought', places: [['hall', 'MIND CHAMBER'], ['choices', 'THE COURSE']], doors: 'the chamber: back to the hall · the way up · the course · memory · the limbic hinge' },
+    { stop: 'landscape', note: 'the energy landscape' },
+    { stop: 'dyad', note: 'two people, coupled' },
+  ]],
+  ['WORLDS', [
+    { stop: 'flight', note: 'fly the scales' },
+    { stop: 'score', note: 'the score: telemetry over time' },
+  ]],
+];
+// THE BREADCRUMB: where a place sits in space, so each step up is a click (ISS-105, fix 5)
+const PLACE_PARENT = {
+  body: ['human'], wayin: ['human', 'body'], ureter: ['human', 'body'], tunnel: ['human'],
+  brain: ['human'], limbic: ['human', 'brain'], neuron: ['human', 'brain'], network: ['human', 'brain'],
+  thought: ['human', 'brain'], landscape: ['human'], dyad: ['human'], flight: [], score: [], human: [],
+};
 const STOP_GROUPS = [['BODY', ['human', 'body', 'wayin', 'ureter']], ['BRAIN', ['brain', 'limbic', 'neuron', 'network']],
   ['MIND', ['thought', 'landscape', 'tunnel', 'dyad']], ['WORLDS', ['flight', 'score']]];
 const STOP_TITLES = {
@@ -3213,7 +3245,8 @@ export function createExplorer(hooks = {}) {
     <header class="explorer__bar">
       <span class="explorer__title">SOMA MACHINE</span>
       <nav class="explorer__crumbs" aria-label="Where you are"></nav>
-      <nav class="explorer__stops" aria-label="Places">${STOP_GROUPS.map(([name, ids]) => `<span class="explorer__group"><span class="explorer__group-name">${name}</span>${ids.map(id => `<button type="button" data-stop="${id}">${STOP_TITLES[id]}</button>`).join('')}</span>`).join('')}</nav>
+      <button type="button" class="explorer__places-toggle" aria-expanded="false" title="All the places and how they join (P)">PLACES ▾</button>
+      <nav class="explorer__places" aria-label="Places" hidden>${PLACE_MAP.map(([name, entries]) => `<section class="explorer__group"><h3 class="explorer__group-name">${name}</h3>${entries.map(e => `<div class="explorer__place"><button type="button" data-stop="${e.stop}">${STOP_TITLES[e.stop]}</button>${(e.places ?? []).map(([pl, label]) => `<button type="button" class="explorer__sub" data-place="${e.stop}:${pl}">› ${label}</button>`).join('')}${e.doors || e.note ? `<small>${e.doors ?? e.note}</small>` : ''}</div>`).join('')}</section>`).join('')}</nav>
       <div class="explorer__layers" role="group" aria-label="Layers">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</div>
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
@@ -3296,7 +3329,7 @@ export function createExplorer(hooks = {}) {
     toggle.className = 'explorer__settings';
     toggle.textContent = 'SETTINGS ▾';
     toggle.addEventListener('click', () => { drawer.hidden = !drawer.hidden; toggle.classList.toggle('active', !drawer.hidden); });
-    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__stops', 'explorer__layers']);
+    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__places-toggle', 'explorer__places', 'explorer__layers']);
     for (const el of [...bar.children]) {
       const act = el.dataset?.act;
       if (keep.has(el.className) || act === 'close') continue;
@@ -3318,19 +3351,30 @@ export function createExplorer(hooks = {}) {
       const c = event.target.closest('[data-crumb]');
       if (!c) return;
       if (c.dataset.crumb === 'floor') hooks.onLevel?.(hooks.levelId?.());
-      else if (c.dataset.crumb === 'stop') { st.hall = false; st.cave = false; st.palace = false; st.choices = false; syncUi(); hooks.onChange?.(); }
+      else if (c.dataset.place !== undefined) navTo(c.dataset.crumb, c.dataset.place);
     });
+    // the places map: PLACES ▾ (or P) opens it; any choice in it closes it
+    const placesToggle = bar.querySelector('.explorer__places-toggle');
+    const places = bar.querySelector('.explorer__places');
+    const showPlaces = on => { places.hidden = !on; placesToggle.classList.toggle('active', on); placesToggle.setAttribute('aria-expanded', String(on)); };
+    placesToggle.addEventListener('click', event => { event.stopPropagation(); showPlaces(places.hidden); });
+    places.addEventListener('click', event => { if (event.target.closest('button')) showPlaces(false); });
+    addEventListener('keydown', event => {
+      if (!st.open || event.target.closest?.('input, textarea, select')) return;
+      if (event.key === 'Escape' && !places.hidden) { event.stopImmediatePropagation(); showPlaces(false); }
+      else if ((event.key === 'p' || event.key === 'P') && !event.ctrlKey && !event.metaKey && !event.altKey) showPlaces(places.hidden);
+    }, true);
     let last = '';
     return {
       update() {
         const id = hooks.levelId?.();
         const k = PALACE_FLOORS.findIndex(f => f.id === id);
-        const here = st.choices && st.stop === 'thought' ? 'THE COURSE' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].button : st.cave ? 'CATHEDRAL' : st.palace ? 'MIND PALACE' : '';
-        const key = `${id}|${st.stop}|${here}`;
+        const trail = placeTrail();
+        const key = `${id}|${trail.map(t => t.join(':')).join('/')}`;
         if (key !== last) {
           last = key;
           const floor = k >= 0 ? `FLOOR ${k + 1}: ${PALACE_FLOORS[k].label.toUpperCase()}` : 'ELEVATOR';
-          crumbs.innerHTML = `<button type="button" data-crumb="floor" title="Back to the level view, the elevator">${floor}</button><span>›</span><button type="button" data-crumb="stop" title="This place's own view">${STOP_TITLES[st.stop] ?? ''}</button>${here ? `<span>›</span><b>${here}</b>` : ''}`;
+          crumbs.innerHTML = `<button type="button" data-crumb="floor" title="Back to the level view, the elevator">${floor}</button>${trail.map(([stop, place, label], n) => `<span>›</span>${n === trail.length - 1 ? `<b>${label}</b>` : `<button type="button" data-crumb="${stop}" data-place="${place}" title="Up to ${label}">${label}</button>`}`).join('')}`;
         }
         for (const g of deck.querySelectorAll('.explorer__deck-group')) g.hidden = ![...g.children].some(c => !c.hidden && !c.classList.contains('explorer__deck-label'));
       },
@@ -3710,6 +3754,32 @@ export function createExplorer(hooks = {}) {
     return [4, 8, 11].includes(d) ? d : 11;
   }
 
+  // the trail from the human to here: [stop, place, label]; place '' is the stop's own view
+  function placeTrail() {
+    const hallName = s => ({ brain: 'BRAIN · GREAT HALL', body: 'BODY · THE HEART', neuron: 'NEURON · THE SOMA', thought: 'MIND CHAMBER' })[s];
+    const t = (PLACE_PARENT[st.stop] ?? []).map(s => (ATRIUMS[s] ? [s, 'hall', hallName(s)] : [s, '', STOP_TITLES[s]]));
+    const here = STOP_TITLES[st.stop] ?? '';
+    if (st.stop === 'thought' && st.choices) t.push(['thought', 'hall', 'MIND CHAMBER'], ['thought', 'choices', 'THE COURSE']);
+    else if (st.hall && ATRIUMS[st.stop]) t.push([st.stop, 'hall', hallName(st.stop)]);
+    else if (st.stop === 'brain' && st.palace) t.push(['brain', 'hall', 'BRAIN · GREAT HALL'], ['brain', 'palace', 'MIND PALACE']);
+    else if (st.stop === 'brain' && st.cave) t.push(['brain', 'hall', 'BRAIN · GREAT HALL'], ['brain', 'cave', 'CATHEDRAL']);
+    else t.push([st.stop, '', here]);
+    return t;
+  }
+  // go to a place by the breadcrumb or the map: a stop, then the place in it ('' its own view)
+  function navTo(stop, place) {
+    if (!STOPS.includes(stop)) return;
+    if (stop !== st.stop) go(stop);
+    if (st.stop !== stop) return;   // diving from the human: it arrives in its atrium
+    endFocus(false);
+    st.hall = place === 'hall' && Boolean(ATRIUMS[stop]);
+    st.choices = place === 'choices' && stop === 'thought';
+    st.palace = place === 'palace' && stop === 'brain';
+    st.cave = place === 'cave' && stop === 'brain';
+    if (place) st.view3d = true;
+    syncUi();
+    hooks.onChange?.();
+  }
   function placeCaption() {
     if (focusGl) return PLACE_CAPTIONS.focus;
     if (st.stop === 'thought' && st.choices) return PLACE_CAPTIONS.course;
@@ -4205,7 +4275,8 @@ export function createExplorer(hooks = {}) {
   root.addEventListener('click', event => {
     const b = event.target.closest('button');
     if (!b) return;
-    if (b.dataset.stop) go(b.dataset.stop);
+    if (b.dataset.place && !b.dataset.crumb) { const [s, pl] = b.dataset.place.split(':'); navTo(s, pl); }
+    else if (b.dataset.stop) go(b.dataset.stop);
     else if (b.dataset.dim) hooks.onDim?.(Number(b.dataset.dim));
     else if (b.dataset.feel) {
       st.feel = b.dataset.feel;
