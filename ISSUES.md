@@ -5432,7 +5432,8 @@ grammar's three gaps closed by it.
       coloured in the app's palette and font (tower.js highlightLean: declarations pink, names
       cyan, axioms gold, tactics green, sorry red, comments slate); RICE's GLOW and FALSE COLOUR
       apply. The file is the SCRIBE copy (public/scribe/).
-- [ ] (author 23:25) THE MINI GOLF in LANDSCAPE, six holes from the model (HAL 23:40, checked):
+- [x] (author 23:25; built 23:55, minigolf3d.js; MINI GOLF in LANDSCAPE, golf=1) THE MINI GOLF in
+      LANDSCAPE, six holes from the model (HAL 23:40, checked):
       SAFE, FIGHT, FLIGHT, FREEZE (the four basins, mathematical-co-identification.md) and AWE,
       GRIEF (QUANT-EXP-1's {Awe, Grief} ground state, FIELD-NOTES). HAL erred once: in Movie.lean
       the deepest attractor is Preverbal, not Grief. Paths: fairways among SAFE, FIGHT, FLIGHT;

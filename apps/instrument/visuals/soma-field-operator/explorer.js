@@ -59,6 +59,7 @@ import { createCathedral3D } from './cathedral3d.js';
 import { createPalace3D } from './palace3d.js';
 import { createAtrium3D } from './atrium3d.js';
 import { createPaths3D } from './paths3d.js';
+import { createMiniGolf3D } from './minigolf3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
@@ -125,7 +126,7 @@ const PLACE_MAP = [
   ]],
   ['MIND', [
     { stop: 'thought', places: [['hall', 'MIND CHAMBER'], ['choices', 'THE COURSE']], doors: 'the chamber: back to the hall · the way up · the course · memory · the limbic hinge' },
-    { stop: 'landscape', note: 'the energy landscape' },
+    { stop: 'landscape', places: [['golf', 'MINI GOLF']], note: 'the energy landscape; the mini golf: six basins and the ways between' },
     { stop: 'dyad', note: 'two people, coupled' },
   ]],
   ['WORLDS', [
@@ -767,6 +768,10 @@ const PLACE_CAPTIONS = {
     title: 'THE COURSE', label: 'interpretive',
     4: 'Should I do it? Each hole is a small landscape with the model\'s three outcomes, SAFE, FIGHT and FREEZE (no good or bad, only downhill, uphill and barriers); each consideration is a ripple that settles the holes it reaches. A few considerations pop over the glass dome; SOLUTION melts them back. A scripted example, not advice.',
   },
+  golf: {
+    title: 'THE MINI GOLF', label: 'interpretive',
+    4: 'Six of the model\'s basins as holes: SAFE, FIGHT, FLIGHT and FREEZE (the four basins of the co-identification paper) and AWE and GRIEF (the ground state of the QUANT-EXP-1 simulation). The ball is the state. A fairway is a low barrier, crossed often; a wire a high one, crossed rarely; a slide runs one way, easy into FREEZE and hard out; the bridge out of FREEZE is there only with the resource (help); the tunnel to AWE is barrier tunnelling, an open hypothesis. Worry balls run imagined paths: they never move the ball, but it is drawn their way (BRECVEMA\'s V, visual imagery). The widths show the model\'s stated barriers, not computed rates.',
+  },
   focus: {
     title: 'A THOUGHT, FOCUSED', label: 'interpretive',
     4: 'The thought you clicked opens into its course while the chamber blurs and carries on. Considerations rise over the dome; when it settles the thought resolves, or stays below the line and adds to the load. Escape leaves it unresolved. A scripted example of the process, not a reading of a mind.',
@@ -776,6 +781,21 @@ const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl:
 let atriumGl = null;
 // THE PATHS (ISS-104): drawn instead of the THOUGHT stop's scene when chosen
 let choicesGl = null;
+// THE MINI GOLF: drawn instead of the LANDSCAPE stop's scene when chosen
+let golfGl = null;
+function drawGolf(ctx, env) {
+  if (!env.golf || env.gl?.worries === undefined) return false;
+  golfGl = env.gl;
+  env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, resource: env.resource, cp: env.cp });
+  if (env.labels) {
+    const { u } = env;
+    label(ctx, u, `THE MINI GOLF · the ball: ${env.gl.at}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
+    label(ctx, u, 'six of the model\'s basins as holes; a way between two is wide where the barrier is low, thin where it is high; two lanes, one each way; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+    if (env.gl.worries) label(ctx, u, `WORRY: ${env.gl.worries} imagined ${env.gl.worries === 1 ? 'run' : 'runs'}; they never move the ball, but it is drawn their way (V, visual imagery: J_internal)`, 0, 0.74, '#a78bfa', 'center', 0.022);
+    hint(ctx, u, `POKE: kick the ball · Φ: hotter, it hops more · RESOURCE: the bridge out of FREEZE${env.resource ? ' (on)' : ''} · C-PTSD (settings): more worry`, 0, 0.84, COLORS.violet, 'center', 0.019);
+  }
+  return true;
+}
 function drawChoices(ctx, env) {
   if (!env.choices || !env.gl?.phase) return false;
   choicesGl = env.gl;
@@ -3281,6 +3301,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
+      <button type="button" data-act="golf" title="THE MINI GOLF (author, 15 Oct): six of the model's basins as holes, the ways between them as fairways, wires, slides, a bridge and a tunnel; the ball is the state; worry balls run imagined paths">MINI GOLF</button>
       <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: each consideration a ripple across the holes, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
       <button type="button" data-act="hall" title="THE GREAT HALL (ISS-103): the brain's hub, the atrium of the lateral ventricle under water; doorways to the cathedral, the limbic hinge, the way up (a signal, body to cortex), the palace, the arteries; the elevator to any level">GREAT HALL</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CATHEDRAL</button>
@@ -3330,7 +3351,7 @@ export function createExplorer(hooks = {}) {
   const shell = (() => {
     const bar = root.querySelector('.explorer__bar');
     const crumbs = bar.querySelector('.explorer__crumbs');
-    const GO = ['fleave', 'choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
+    const GO = ['fleave', 'golf', 'choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
     const DO = ['fpause', 'poke', 'mech', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
     const deck = document.createElement('nav');
     deck.className = 'explorer__deck';
@@ -3487,7 +3508,9 @@ export function createExplorer(hooks = {}) {
   const legend = document.createElement('p');
   legend.className = 'explorer__legend';
   legend.hidden = true;
-  legend.innerHTML = '<b>THE COURSE</b> · each consideration a ripple that settles the holes it reaches · <i style="color:#ff3b4e">red</i> warm (fear, anger), <i style="color:#3fb8ff">blue</i> cool (joy, trust) · height: the cost · the ball: the well it rolls to, SAFE / FIGHT / FREEZE · stress: height and colour disagreeing · no good or bad · a scripted example';
+  const GOLF_KEY = '<b>THE MINI GOLF</b> · <i style="color:#56f0a2">fairway</i> a low barrier, crossed often · <i style="color:#ff7ad9">wire</i> a high one, rarely · <i style="color:#bfe8ff">slide</i> one way, into FREEZE · <i style="color:#ffd166">bridge</i> only with the resource · <i style="color:#a78bfa">tunnel</i> tunnelling, open hypothesis · white dots: the flow, each lane its own way · violet ghosts: worries · interpretive';
+  const COURSE_KEY = '<b>THE COURSE</b> · each consideration a ripple that settles the holes it reaches · <i style="color:#ff3b4e">red</i> warm (fear, anger), <i style="color:#3fb8ff">blue</i> cool (joy, trust) · height: the cost · the ball: the well it rolls to, SAFE / FIGHT / FREEZE · stress: height and colour disagreeing · no good or bad · a scripted example';
+  legend.innerHTML = COURSE_KEY;
   root.append(legend);
   // POKE's mechanisms (BRECVEMA, P9): chosen here, kept across places, fired by POKE
   const mech = document.createElement('section');
@@ -3694,7 +3717,7 @@ export function createExplorer(hooks = {}) {
   const scene = id => (scenes[id] ??= FACTORIES[id]());
   const rand = seeded(3);
   const particles = Array.from({ length: 70 }, () => ({ x: rand(), y: rand(), z: 0.3 + rand() * 0.7, r: rand() }));
-  const st = { choices: false, hall: false, open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
+  const st = { golf: false, choices: false, hall: false, open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
     diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0',
     stereo: STEREO_MODES.includes(new URLSearchParams(location.search).get('stereo')) ? new URLSearchParams(location.search).get('stereo')
       : STEREO_MODES.includes(localStorage.getItem('soma-stereo')) ? localStorage.getItem('soma-stereo') : 'off',
@@ -3752,6 +3775,7 @@ export function createExplorer(hooks = {}) {
     'thought-paths': () => createPaths3D({ loop: true }),
     // the course inside a thought that sticks, opened in place in the mind chamber
     'thought-course': () => createPaths3D({ loop: false }),
+    'landscape-golf': () => createMiniGolf3D(),
     // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
     'thought-dive': () => createFlight3D(),
   };
@@ -3799,6 +3823,7 @@ export function createExplorer(hooks = {}) {
     const t = (PLACE_PARENT[st.stop] ?? []).map(s => (ATRIUMS[s] ? [s, 'hall', hallName(s)] : [s, '', STOP_TITLES[s]]));
     const here = STOP_TITLES[st.stop] ?? '';
     if (st.stop === 'thought' && st.choices) t.push(['thought', 'hall', 'MIND CHAMBER'], ['thought', 'choices', 'THE COURSE']);
+    else if (st.stop === 'landscape' && st.golf) t.push(['landscape', '', 'LANDSCAPE'], ['landscape', 'golf', 'MINI GOLF']);
     else if (st.hall && ATRIUMS[st.stop]) t.push([st.stop, 'hall', hallName(st.stop)]);
     else if (st.stop === 'brain' && st.palace) t.push(['brain', 'hall', 'BRAIN · GREAT HALL'], ['brain', 'palace', 'MIND PALACE']);
     else if (st.stop === 'brain' && st.cave) t.push(['brain', 'hall', 'BRAIN · GREAT HALL'], ['brain', 'cave', 'CATHEDRAL']);
@@ -3813,6 +3838,7 @@ export function createExplorer(hooks = {}) {
     endFocus(false);
     st.hall = place === 'hall' && Boolean(ATRIUMS[stop]);
     st.choices = place === 'choices' && stop === 'thought';
+    st.golf = place === 'golf' && stop === 'landscape';
     st.palace = place === 'palace' && stop === 'brain';
     st.cave = place === 'cave' && stop === 'brain';
     if (place) st.view3d = true;
@@ -3822,6 +3848,7 @@ export function createExplorer(hooks = {}) {
   function placeCaption() {
     if (focusGl) return PLACE_CAPTIONS.focus;
     if (st.stop === 'thought' && st.choices) return PLACE_CAPTIONS.course;
+    if (st.stop === 'landscape' && st.golf) return PLACE_CAPTIONS.golf;
     if (st.hall && ATRIUMS[st.stop]) return PLACE_CAPTIONS[ATRIUMS[st.stop].gl] ?? CAPTIONS[st.stop];
     if (st.stop === 'brain' && st.palace) return PLACE_CAPTIONS.palace;
     if (st.stop === 'brain' && st.cave) return PLACE_CAPTIONS.cathedral;
@@ -3829,7 +3856,9 @@ export function createExplorer(hooks = {}) {
   }
   function syncUi() {
     const courseOn = Boolean(focusGl) || (st.stop === 'thought' && st.choices);
-    legend.hidden = !courseOn;
+    const golfOn = st.stop === 'landscape' && st.golf;
+    legend.hidden = !courseOn && !golfOn;
+    legend.innerHTML = golfOn ? GOLF_KEY : COURSE_KEY;
     const fleave = root.querySelector('[data-act="fleave"]'), fpause = root.querySelector('[data-act="fpause"]');
     if (fleave) fleave.hidden = !focusGl;
     if (fpause) { const g = focusGl ?? (courseOn ? choicesGl : null); fpause.hidden = !courseOn; fpause.textContent = g?.paused ? '▶ GO ON' : '❚❚ PAUSE'; fpause.classList.toggle('active', Boolean(g?.paused)); }
@@ -3889,6 +3918,8 @@ export function createExplorer(hooks = {}) {
     caveButton.classList.toggle('active', st.cave);
     hallButton.hidden = !ATRIUMS[st.stop];
     choicesButton.hidden = st.stop !== 'thought';
+    const golfButton = root.querySelector('[data-act="golf"]');
+    if (golfButton) { golfButton.hidden = st.stop !== 'landscape'; golfButton.classList.toggle('active', st.golf); }
     choicesButton.classList.toggle('active', st.choices);
     if (st.choices) hallButton.classList.remove('active');
     root.classList.toggle('explorer--atrium', st.hall && Boolean(ATRIUMS[st.stop]));
@@ -4007,7 +4038,7 @@ export function createExplorer(hooks = {}) {
       c.translate(-focus[0] * env.u, -focus[1] * env.u);
     }
     // a stop's atrium (ISS-103) is drawn instead of its scene
-    if (!(id === st.stop && (drawChoices(ctx, { ...env, alpha }) || drawAtrium(ctx, { ...env, alpha })))) {
+    if (!(id === st.stop && (drawGolf(ctx, { ...env, alpha }) || drawChoices(ctx, { ...env, alpha }) || drawAtrium(ctx, { ...env, alpha })))) {
       // in the 2D view a focused thought opens over the diagram, which blurs (the whole canvas,
       // by CSS: a canvas filter per draw call is far too slow); the card and the key say what it is
       const focus2d = id === st.stop && st.stop === 'thought' && Boolean(focusGl) && !st.view3d;
@@ -4119,7 +4150,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, choices: st.choices && st.stop === 'thought', atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, golf: st.golf && st.stop === 'landscape', choices: st.choices && st.stop === 'thought', atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -4162,7 +4193,7 @@ export function createExplorer(hooks = {}) {
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
     // the cathedral in 2D: its map, drawn over the flight, which goes on underneath (hidden)
     env.map2d = !st.view3d && st.stop === 'brain' && st.cave && !st.hall;
-    env.gl = env.map2d ? stageGl('brain-cave') : st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
+    env.gl = env.map2d ? stageGl('brain-cave') : st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.stop === 'landscape' && st.golf ? 'landscape-golf' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.map2d ? null : env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
@@ -4243,6 +4274,7 @@ export function createExplorer(hooks = {}) {
       // thought and a picture are the chamber's (not parked: leaving is not giving up on it)
       // (a link's own choices=1 for the thought it opens was set just before: keep it)
       if (notify || stop !== 'thought') st.choices = false;
+      if (notify || stop !== 'landscape') st.golf = false;
       if (stop !== 'brain') { st.palace = false; st.cave = false; }
       endFocus(false);
       if (!pop.hidden) closePop();
@@ -4314,7 +4346,7 @@ export function createExplorer(hooks = {}) {
   const towerPanel = createTowerPanel(root);
   let towerShown = '|';
   root.addEventListener('click', event => {
-    if (event.target.closest('button, .explorer__tower, .explorer__card') || st.stop !== 'landscape') return;
+    if (event.target.closest('button, .explorer__tower, .explorer__card') || st.stop !== 'landscape' || st.golf) return;
     const gl = gls.landscape;
     if (!gl?.pick) return;
     const r = root.getBoundingClientRect();
@@ -4422,6 +4454,11 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'cave') {
       st.cave = !st.cave;
       if (st.cave) { st.view3d = true; st.hall = false; }
+      syncUi();
+      hooks.onChange?.();
+    } else if (b.dataset.act === 'golf') {
+      st.golf = !st.golf;
+      if (st.golf) st.view3d = true;
       syncUi();
       hooks.onChange?.();
     } else if (b.dataset.act === 'choices') {
@@ -4550,6 +4587,8 @@ export function createExplorer(hooks = {}) {
     get hall() { return st.hall && Boolean(ATRIUMS[st.stop]); },
     // (during the dive to the thought the stop is still the human's; only the thought keeps choices)
     get choices() { return st.choices && (st.stop === 'thought' || st.diving); },
+    get golf() { return st.golf && (st.stop === 'landscape' || st.diving); },
+    setGolf(on) { if (on === null || on === undefined) return; st.golf = String(on) === '1'; if (st.golf) st.view3d = true; syncUi(); },
     setChoices(on) { st.choices = String(on) === '1'; if (st.choices) { st.view3d = true; st.hall = false; } syncUi(); },
     // the elevator's STEP OUT: arrive in the stop's atrium, if it has one
     enterAtrium(stop) {
@@ -4658,6 +4697,7 @@ export function createExplorer(hooks = {}) {
     // where the level view's controls go while the explorer is open: poke, look, read
     slot(name) { return root.querySelector(`.explorer__slot[data-slot="${name}"]`); },
     poke(strength = 1) {
+      if (st.open && st.golf && st.stop === 'landscape' && golfGl) { golfGl.poke(); music.poke(); return; }
       if (st.open && st.choices && st.stop === 'thought' && choicesGl) { choicesGl.poke(); music.poke(); return; }
       if (st.open && focusGl) { focusGl.poke(); music.poke(); return; }
       if (st.open && st.hall && ATRIUMS[st.stop] && atriumGl) { atriumGl.pulse({ cp: st.cp, phi: st.phi }); music.poke(); return; }
