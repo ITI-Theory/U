@@ -77,6 +77,30 @@ function stoneTexture() {
   return t;
 }
 
+// THE CORRIDOR (author, 15 Oct 23:09: "with FX on it moves towards" 2001's corridor): the same
+// blocks as light panels, white with dark seams, lit as the field rises
+function panelTexture() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 512;
+  const g = c.getContext('2d');
+  g.fillStyle = '#000000';
+  g.fillRect(0, 0, 512, 512);
+  for (let row = 0; row < 16; row++) {
+    const off = (row % 2) * 32;
+    for (let col = -1; col < 9; col++) {
+      const x = col * 64 + off, y = row * 32;
+      const v = 200 + Math.random() * 55;
+      g.fillStyle = `rgb(${v},${v},${Math.min(255, v + 12)})`;
+      g.fillRect(x + 5, y + 5, 54, 22);
+    }
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(24, 3);
+  return t;
+}
+
 export function createCathedral3D() {
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ antialias: true }); } catch { return null; }
@@ -122,6 +146,10 @@ export function createCathedral3D() {
   const map = stoneTexture();
   const walls = new THREE.Mesh(tube, new THREE.MeshStandardMaterial({ map, bumpMap: map, bumpScale: 0.05, roughness: 0.85, metalness: 0.05, side: THREE.BackSide }));
   walls.material.envMapIntensity = 0;
+  walls.material.emissive = new THREE.Color('#eef2ff');
+  walls.material.emissiveMap = panelTexture();
+  walls.material.emissiveIntensity = 0;
+  const FOG_LOW = new THREE.Color('#0a0612'), FOG_HIGH = new THREE.Color('#d8e0ff');
   scene.add(walls);
   // THE STARGATE (author, 15 Oct 22:52: "almost bright white, a Space Odyssey passage"): in the
   // narrow passages (the aqueduct, the foramen) and only with the field near its top (Φ ≥ 0.85),
@@ -399,6 +427,12 @@ export function createCathedral3D() {
       }
       lamp.position.copy(camera.position);
       const fx = Math.max(0, Math.min(1, state.phi ?? 0.5));
+      // the corridor: from Φ 0.45 the blocks light up as panels and the far end whitens
+      const corridor = viewOut ? 0 : Math.max(0, Math.min(1, (fx - 0.45) / 0.45)) ** 1.5;
+      walls.material.emissiveIntensity = 1.1 * corridor;
+      scene.fog.color.copy(FOG_LOW).lerp(FOG_HIGH, 0.75 * corridor);
+      scene.background.copy(scene.fog.color);
+      if (!viewOut) scene.fog.density = 0.09 - 0.04 * corridor;
       // the stargate: narrow passage x the field near its top, eased in and out (no flashing)
       const narrow = 1 - Math.max(0, Math.min(1, (radiusAt(u) - 0.34) / 0.16));
       const want = viewOut ? 0 : narrow * Math.max(0, Math.min(1, (fx - 0.85) / 0.1));

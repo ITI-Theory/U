@@ -5418,6 +5418,11 @@ grammar's three gaps closed by it.
       colours, whitening towards Φ = 1; the flight speeds up with it; eased in and out, never
       strobing; interpretive. In the normal mode (it appears only at the top of Φ); ROOTED may
       push it further later.
+- [x] (author 23:09: "with FX on it moves towards" 2001's corridor, "and then in certain cases,
+      the warp") THE CORRIDOR: from Φ 0.45 the cathedral's blocks light up as white panels with
+      dark seams and the far end whitens (cathedral3d.js panelTexture, emissive; fog to white);
+      the warp (the stargate) on top of it in the narrow passages from Φ 0.85. The top bar's
+      text keeps a dark halo over bright scenes.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 
