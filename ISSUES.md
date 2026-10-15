@@ -5231,6 +5231,36 @@ carried by every somagram taken on it.
       THE COURSE is also a place of its own at the THOUGHT stop (looping through a few to-dos).
       Visual grammar 12 of 12, 15 channels.
 
+**The dome and the inner voice (author, 15 Oct 19:06; for discussion, nothing built):** the course
+at 2^200 holes is no longer holes but a surface, a landscape; over it a glass dome (the
+threshold); now and then a few thoughts pop out above the dome, the sequential thoughts (a few
+held at once while working the problem); eventually "solution" (the author, or an "uber"
+level), and they melt back down. The mind palace was retrieval; this is the process, which only
+looks linear; underneath it is the wave, in real time. And a "wild fantasy": the little voice is
+the brain's EMF, perhaps quantum. Copilot's reading:
+- Agree, and it is mainstream: the global workspace (Baars 1988; Dehaene's global neuronal
+  workspace, "ignition"): many unconscious processes in parallel, a limited workspace where a
+  few contents cross a threshold and are broadcast, so a serial stream rides a parallel
+  substrate; about four items at once (Cowan's working-memory limit); "solution" as insight, a
+  sudden restructuring (Kounios and Beeman). The dome is the model's threshold made a surface.
+- Freud's levels: topographic, unconscious, preconscious, conscious; structural, id, ego,
+  superego. The superego is the conscience, not a meta level; the "uber" that says "solution"
+  is closer to metacognition (monitoring, the feeling of knowing) or the ego's executive role.
+- The inner voice: inner speech (Vygotsky); in the brain, the language network (left inferior
+  frontal gyrus, superior temporal cortex, supplementary motor area), with a corollary-discharge
+  account (speech predicted, not spoken; its misattribution is one account of hearing voices).
+  So the voice is fairly well placed in the language areas; not yet modelled in the programme.
+- The EMF: as a hypothesis, defensible and already the model's whole-brain level: McFadden's
+  CEMI field theory (the brain's electromagnetic field as the substrate that integrates
+  conscious information; ephaptic coupling is measured, Anastassiou et al. 2011, effects
+  small). So "the voice becomes conscious when the language network's activity joins the
+  field" is a labelled open hypothesis. "Quantum": disagree: the brain's field is classical
+  (low frequency, warm, wet; decoherence, Tegmark 2000), CEMI itself is classical, and the
+  programme's own QUANT-EXP-1 stress test has already corrected quantum claims.
+- [ ] (author's call) THE COURSE seen as a surface under a glass dome, a few thoughts popping
+      over it in sequence, "solution" melting them back; the inner voice as a model gap (the
+      language network; the CEMI hypothesis, classical, labelled), with ISS-101's frequency axis.
+
 ## ISS-105: The Soma Machine as one instrument: the design (the show piece) — OPEN
 {{Tags area.app}}
 {{Fields date.created=2026-10-15, date.start=, date.end=, epic=}}
