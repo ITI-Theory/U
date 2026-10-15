@@ -777,7 +777,7 @@ const PLACE_CAPTIONS = {
   },
   load: {
     title: 'THE LOAD', label: 'interpretive',
-    4: 'The square in front is the thought now, the energy landscape with its three wells, SAFE, FIGHT and FREEZE, and the ball that rolls on it. Around it, five unresolved thoughts, the load (parked below the line in the MIND CHAMBER): each the same landscape, because it is one field, each with its own ball still rolling. A strut glows red while its thought is out of SAFE. The purple ball is attention: it is held a while, then caught by the thought pulling hardest (one out of SAFE), or wanders; the others keep rolling unattended. STRUTS sets how close they press in. The names are examples. 2D shows the six-hole map of the model\'s basins.',
+    4: 'The square in front is the thought now, the energy landscape with its three wells, SAFE, FIGHT and FREEZE, and the ball that rolls on it. Around it, five unresolved thoughts, the load (parked below the line in the MIND CHAMBER): the same three wells, because it is one field, but each its own slope (steeper or shallower, deeper, leaning towards one well, with or without the resource; illustrative values), each with its own ball still rolling. A strut glows red while its thought is out of SAFE. The purple ball is attention: it is held a while, then caught by the thought pulling hardest (one out of SAFE), or wanders; the others keep rolling unattended. STRUTS sets how close they press in. The names are examples. 2D shows the six-hole map of the model\'s basins.',
   },
   golf: {
     title: 'THE MINI GOLF', label: 'interpretive',
@@ -4164,7 +4164,7 @@ export function createExplorer(hooks = {}) {
         const { u } = env;
         for (const b of env.gl.loadBoards()) if (b.visible) label(ctx, u, `${b.attended ? '◉ ' : ''}${b.name}${b.out > 0.5 ? ' · out of SAFE' : ''}`, b.x * env.w / u, b.y * env.h / u, b.attended ? '#d98bff' : b.out > 0.5 ? '#ff7ad9' : '#c8b6ff', 'center', b.attended ? 0.028 : 0.024);
         label(ctx, u, 'THE LOAD · six thoughts, each its own SAFE / FIGHT / FREEZE, each ball still rolling; the purple one is attention', 0, -0.72, '#e8d8ff', 'center', 0.03);
-        label(ctx, u, 'one field: they share its shape and Φ; a strut glows red while its thought is out of SAFE; attention goes to the one pulling hardest, or wanders; the names are examples; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+        label(ctx, u, 'one field, each thought its own slope (steepness, depth, a lean, the resource), all warmed by Φ; a strut glows red while its thought is out of SAFE; attention goes to the one pulling hardest, or wanders; the names are examples; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
         hint(ctx, u, 'STRUTS: spread them out or crowd them in · Φ: hotter, every ball hops more · 2D: the six-hole map', 0, 0.84, COLORS.violet, 'center', 0.019);
       }
       if (focus2d) focusGl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });

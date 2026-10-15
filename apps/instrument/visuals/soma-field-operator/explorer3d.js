@@ -147,6 +147,42 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   // front, red while that thought's ball is out of SAFE; the STRUTS slider spreads them out or
   // crowds them in. The examples are illustrative; interpretive.
   const LOAD_NAMES = ['cut the grass', 'book the dentist', 'the tax return', 'fix the bike', 'call mum'];
+  // each thought its own slope (author, 16 Oct 01:53: "can each FFF have different slope parameters?"):
+  // T its temperature (low: steep walls, the ball stays put; high: shallow, it wanders), J the
+  // resource, depth how deep the wells, tilt a lean towards one well (wells: SAFE, FIGHT, FREEZE),
+  // hue a shift of the colours. Illustrative values, not readings.
+  const LOAD_SHAPES = [
+    { T: 0.24, J: 0.15, depth: 0.7, tilt: [0, 1], lean: 0.12, hue: 0.07 },     // cut the grass: shallow, easy, leans SAFE
+    { T: 0.08, J: 0, depth: 1.3, tilt: [2], lean: 0.16, hue: -0.08 },          // book the dentist: deep, leans FREEZE
+    { T: 0.05, J: 0, depth: 1.6, tilt: [2, 1], lean: 0.12, hue: 0.16 },        // the tax return: steep, high barriers
+    { T: 0.14, J: 0, depth: 1.0, tilt: [1], lean: 0.18, hue: -0.18 },          // fix the bike: leans FIGHT
+    { T: 0.12, J: 0.45, depth: 0.9, tilt: [0], lean: 0.08, hue: 0.28 },        // call mum: the resource is there
+  ];
+  const BN = Math.round(N / 2);
+  function boardSurface(b) {
+    const lean = b.shape.tilt.reduce(([ax, ay], k) => [ax + wells[k][0], ay + wells[k][1]], [0, 0]);
+    const E = (x, y) => energy(x, y, 1 / b.shape.T, b.shape.J) * b.shape.depth - b.shape.lean * (lean[0] * x + lean[1] * y);
+    const ref = E(0, 0);
+    b.h = (x, y) => Math.max(-0.5, Math.min(0.35, E(x, y) - ref)) * 0.95;
+    b.E = E;
+  }
+  function paintBoard(b, phi) {
+    boardSurface(b);
+    const pos = b.geo.attributes.position, col = b.geo.attributes.color;
+    const hue = 0.52 - 0.46 * phi + b.shape.hue;
+    for (let i = 0; i < pos.count; i++) {
+      const y = b.h(pos.getX(i), -pos.getZ(i));
+      pos.setY(i, y);
+      color.setHSL(((hue + 0.18 * (y + 0.475) / 0.8) % 1 + 1) % 1, 0.75, 0.62 - 0.4 * (y + 0.475) / 0.8);
+      col.setXYZ(i, color.r, color.g, color.b);
+    }
+    pos.needsUpdate = true; col.needsUpdate = true;
+    b.geo.computeVertexNormals();
+    const lp = b.lines.geometry.attributes.position;
+    for (let i = 0; i < lp.count; i++) lp.setY(i, b.h(lp.getX(i), -lp.getZ(i)) + 0.004);
+    lp.needsUpdate = true;
+    b.lines.material.color.setHSL(((hue % 1) + 1) % 1, 0.9, 0.65);
+  }
   const LOAD_ANGLES = [-2.6, -2.05, -1.5708, -1.09, -0.54];   // around the back and the sides
   const BOARD = 0.5;
   let boards = null;
@@ -176,7 +212,18 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   function makeBoards() {
     boards = LOAD_NAMES.map((name, k) => {
       const group = new THREE.Group();
-      group.add(new THREE.Mesh(geometry, terrain.material), new THREE.LineSegments(gridGeometry, grid.material));
+      const geo = new THREE.PlaneGeometry(SIZE, SIZE, BN, BN);
+      geo.rotateX(-Math.PI / 2);
+      geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(geo.attributes.position.count * 3), 3));
+      // its grid: every fifth row and column, on its own surface
+      const lp = [];
+      const at = (i, j) => [-SIZE / 2 + SIZE * i / BN, -SIZE / 2 + SIZE * j / BN];
+      for (let j = 0; j <= BN; j += 5) for (let i = 0; i < BN; i++) { const [x0, z0] = at(i, j), [x1] = at(i + 1, j); lp.push(x0, 0, z0, x1, 0, z0); }
+      for (let i = 0; i <= BN; i += 5) for (let j = 0; j < BN; j++) { const [x0, z0] = at(i, j), [, z1] = at(i, j + 1); lp.push(x0, 0, z0, x0, 0, z1); }
+      const lg = new THREE.BufferGeometry();
+      lg.setAttribute('position', new THREE.Float32BufferAttribute(lp, 3));
+      const lines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.35 }));
+      group.add(new THREE.Mesh(geo, terrain.material), lines);
       group.scale.setScalar(BOARD);
       // the same ball and trail as the square in front, in the board's own coordinates
       const ghost = new THREE.Mesh(ball.geometry, ball.material.clone());
@@ -189,9 +236,12 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
       const strut = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 10, 1, true), strutMat.clone());
       scene.add(group, strut);
       const w = wells[k % wells.length];
-      return { name, group, ghost, trailLine, glows, strut, px: w[0] * 0.6, py: w[1] * 0.6, path: [], angle: LOAD_ANGLES[k], out: 0 };
+      const b = { name, shape: LOAD_SHAPES[k], geo, lines, group, ghost, trailLine, glows, strut, px: w[0] * 0.6, py: w[1] * 0.6, path: [], angle: LOAD_ANGLES[k], out: 0 };
+      paintBoard(b, 0.5);
+      return b;
     });
   }
+  const local = (b, x, y, lift = 0) => new THREE.Vector3(x, b.h(x, y) + lift, -y);
 
   return {
     canvas,
@@ -214,6 +264,7 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
       if (next !== key) {
         key = next;
         rebuild(state.phi, state.T, state.J);
+        if (boards) for (const b of boards) paintBoard(b, state.phi);
       }
       // swing over the mountains on the near side, the city on the horizon behind them
       if (state.golf && !boards) makeBoards();
@@ -233,18 +284,20 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
           holes.push([cx, cz, 1.5 * BOARD + 0.1]);
           // its ball: the same rolling (a noisy descent of the same energy), its own path
           const e = 0.01;
-          const gx = (energy(b.px + e, b.py, beta, J) - energy(b.px - e, b.py, beta, J)) / (2 * e);
-          const gy = (energy(b.px, b.py + e, beta, J) - energy(b.px, b.py - e, beta, J)) / (2 * e);
-          b.px = Math.max(-1.35, Math.min(1.35, b.px - gx * 0.6 * dt + Math.sqrt(2 * heat * dt) * 1.4 * (Math.random() - 0.5)));
-          b.py = Math.max(-1.35, Math.min(1.35, b.py - gy * 0.6 * dt + Math.sqrt(2 * heat * dt) * 1.4 * (Math.random() - 0.5)));
-          b.ghost.position.copy(toWorld(b.px, b.py, 0.06));
+          // on its own slope, at its own temperature (warmer with Φ)
+          const gx = (b.E(b.px + e, b.py) - b.E(b.px - e, b.py)) / (2 * e);
+          const gy = (b.E(b.px, b.py + e) - b.E(b.px, b.py - e)) / (2 * e);
+          const hb = b.shape.T * (0.6 + 1.2 * (state.phi ?? 0.5));
+          b.px = Math.max(-1.35, Math.min(1.35, b.px - gx * 0.6 * dt + Math.sqrt(2 * hb * dt) * 1.4 * (Math.random() - 0.5)));
+          b.py = Math.max(-1.35, Math.min(1.35, b.py - gy * 0.6 * dt + Math.sqrt(2 * hb * dt) * 1.4 * (Math.random() - 0.5)));
+          b.ghost.position.copy(local(b, b.px, b.py, 0.06));
           b.path.push([b.px, b.py]);
           if (b.path.length > TRAIL) b.path.shift();
           const tp = b.trailLine.geometry.attributes.position;
-          b.path.forEach(([x, y], i) => { const v = toWorld(x, y, 0.03); tp.setXYZ(i, v.x, v.y, v.z); });
+          b.path.forEach(([x, y], i) => { const v = local(b, x, y, 0.03); tp.setXYZ(i, v.x, v.y, v.z); });
           tp.needsUpdate = true;
           b.trailLine.geometry.setDrawRange(0, b.path.length);
-          wells.forEach(([x, y], k) => { b.glows[k].position.copy(toWorld(x, y, 0.12)); b.glows[k].material.color.set(state.memoryColors?.[k] ?? '#ffffff'); });
+          wells.forEach(([x, y], k) => { b.glows[k].position.copy(local(b, x, y, 0.12)); b.glows[k].material.color.set(state.memoryColors?.[k] ?? '#ffffff'); });
           // out of SAFE (the first well): the strut glows red, its pull on the thought in front
           let near = 0, best = 1e9;
           wells.forEach(([wx, wy], k) => { const d = (wx - b.px) ** 2 + (wy - b.py) ** 2; if (d < best) { best = d; near = k; } });

@@ -5493,6 +5493,12 @@ grammar's three gaps closed by it.
       UNIVERSE with three floors each; a dome with nothing inside is a door to a place or to a
       floor of the level view. Names on dark plates, the same size on screen. The fader: ▲ out,
       the names of the domes in view, ▼ in; keys ↑ ↓ Enter Backspace. The camera in front, swaying.
+- [x] (author 01:53: "can each FFF have different slope parameters?") Each of the load's boards has
+      its own surface and slope (explorer3d.js LOAD_SHAPES): temperature (steep or shallow),
+      depth, a lean towards one well, the resource, a colour shift; its ball rolls on its own
+      slope at its own temperature, warmed by Φ. Cut the grass shallow and easy; the dentist
+      deep, leaning FREEZE; the tax return steep with high barriers; fix the bike leaning
+      FIGHT; call mum with the resource. Illustrative values, labelled.
 - [ ] SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
       ROOTED, the unlocked mode); the science mode keeps THE WORLDS. With ROOTED.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
