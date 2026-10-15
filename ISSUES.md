@@ -5406,8 +5406,14 @@ grammar's three gaps closed by it.
 - [ ] (author 22:07) "I still see the old palace, with the curved walls": it is the current palace
       in its first style; the curved walls are the manifold view (walls fold only at 11D, the
       author's decision). Restyle it to the great hall's standard (part of fix 10).
+- [x] (author 22:32: from the great hall, CATHEDRAL gave "a biology textbook diagram ... I really
+      like it ... maybe 2D/3D views like in the levels?") It was the cathedral's hidden FX-off
+      rule (Φ = 0.00 swapped the flight for the ventricle map). Now a view you choose: 2D | 3D in
+      the top bar beside 4D 8D 11D (explorer.js views group; view2d / view3d); 2D at the
+      cathedral is the ventricle map, with where you are on it (the flight goes on underneath);
+      3D is the flight at any Φ. The other places' 2D drawings use the same buttons.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
-      starting with the palace.
+      starting with the palace (and the cathedral's pale 3D stone).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 

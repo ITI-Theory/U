@@ -1010,8 +1010,9 @@ function makeBrain() {
         caveGl.outside = env.caveOut;
         caveGl.onPop = img => popHandler?.(img);
         caveGl.render({ time: t, phi, speed: 0.004 + 0.006 * phi, stereo: env.stereo });
-        // FX off: no stone, no light show; the anatomy as it is, and where the voyage is
-        if (phi < 0.05) {
+        // the 2D view (author, 15 Oct: "a biology textbook diagram ... I really like it"): no stone,
+        // no light show; the anatomy as it is, and where the voyage is
+        if (env.map2d) {
           const W = env.w / 2 / u, H = env.h / 2 / u;
           ctx.save();
           ctx.fillStyle = '#0b0d16';
@@ -1035,8 +1036,8 @@ function makeBrain() {
           dot(ctx, u, px, py, 0.022, '#ffd166', 1);
           if (env.labels) {
             for (const [name, at, to] of VENTRICLE_LABELS) leader(ctx, u, name, at, to, name === caveGl.hall.replace(/^THE NAVE: |^THE CROSSING: |^THE /, '').replace('LATERAL VENTRICLE', 'LATERAL VENTRICLE (body)') ? '#ffd166' : '#5ee7ff');
-            label(ctx, u, `FX OFF: THE VENTRICLES · you are in ${caveGl.hall}`, 0, -0.72, '#e8eefc', 'center', 0.032);
-            label(ctx, u, 'a side view, front to the left; schematic positions; the cave is filled with cerebrospinal fluid · raise FX for the cathedral', 0, -0.65, COLORS.dim, 'center', 0.02);
+            label(ctx, u, `THE VENTRICLES · you are in ${caveGl.hall}`, 0, -0.72, '#e8eefc', 'center', 0.032);
+            label(ctx, u, 'a side view, front to the left; schematic positions; the cave is filled with cerebrospinal fluid · 3D: fly through it, the cathedral', 0, -0.65, COLORS.dim, 'center', 0.02);
           }
           return;
         }
@@ -3285,7 +3286,8 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="climb" title="Climb the stone's north face (a climber 40 µm tall: the stone is 150 climbers high)">CLIMB</button>
       <button type="button" data-act="wdown" title="The elevator: a scale down">▼</button>
       <button type="button" data-act="wup" title="The elevator: a scale up">▲</button>
-      <button type="button" data-act="view3d" aria-pressed="true" title="The landscape in 3D (on) or as the 2D drawing (off)">3D</button>
+      <button type="button" data-act="view2d" aria-pressed="false" title="The 2D view: the place as a drawing, a map (the cathedral: the ventricles, side view)">2D</button>
+      <button type="button" data-act="view3d" aria-pressed="true" title="The 3D view: the place to fly through">3D</button>
       <label class="explorer__hr" title="The viewer's heart rate (the slider, or a chest strap: ♥ STRAP). With the loop on, a rising heart slows the film and it waits at a threshold until the heart settles">♥ <input type="range" min="50" max="140" step="1" aria-label="Heart rate" /><output></output></label>
       <button type="button" data-act="kc" title="One score, four settings (The Tensor, the Trilogy of Containers): the mind (the Mandelbulb), the river, the body, the session. The same thresholds at the same story-times">SETTING: MIND</button>
       <button type="button" data-act="kf" title="The film (registry/scores): the River Film (2026) or the 2021 film (Art – FIS). Both windows of the twin view play it">FILM: RIVER</button>
@@ -3345,6 +3347,13 @@ export function createExplorer(hooks = {}) {
     const phi = drawer.querySelector('.explorer__phi');
     if (phi) deck.prepend(phi);
     bar.querySelector('.explorer__layers')?.after(toggle);
+    // the views (ISS-105, author 22:32): 2D | 3D beside 4D 8D 11D, as in the levels view
+    const views = document.createElement('div');
+    views.className = 'explorer__layers explorer__views';
+    views.setAttribute('role', 'group');
+    views.setAttribute('aria-label', 'View');
+    for (const a of ['view2d', 'view3d']) { const vb = drawer.querySelector(`[data-act="${a}"]`); if (vb) views.append(vb); }
+    toggle.before(views);
     const look = document.createElement('div');
     look.className = 'explorer__slot';
     look.dataset.slot = 'look';
@@ -3908,7 +3917,9 @@ export function createExplorer(hooks = {}) {
     krButton.textContent = `LOOP: ${{ 0: 'PROJECTION', 0.5: 'RESONANCE', 1: 'MIRROR' }[st.kr]}`;
     krButton.classList.toggle('active', st.kr > 0);
     resourceButton.setAttribute('aria-pressed', String(st.resource));
-    view3dButton.hidden = !GL_MAKERS[st.stop] || (st.stop in gls && !gls[st.stop]);
+    view3dButton.hidden = !(st.stop === 'brain' && st.cave) && (!GL_MAKERS[st.stop] || (st.stop in gls && !gls[st.stop]));
+    const view2dButton = root.querySelector('[data-act="view2d"]');
+    if (view2dButton) { view2dButton.hidden = view3dButton.hidden; view2dButton.classList.toggle('active', !st.view3d); view2dButton.setAttribute('aria-pressed', String(!st.view3d)); }
     const link = STOP_LEVELS[st.stop];
     const linkLevel = link.level ?? hooks.levelId?.();
     root.querySelector('[data-act="level"]').title = `Back into the elevator: the same thing in the level view, ${hooks.levelLabel?.(linkLevel) ?? linkLevel}${link.dim ? ` at ${link.dim}D` : ''}`;
@@ -4123,8 +4134,10 @@ export function createExplorer(hooks = {}) {
       }
     }
     const p = st.from ? clamp((t - st.transStart) / 1.3, 0, 1) : 1;
-    env.gl = st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
-    showGl(env.gl);
+    // the cathedral in 2D: its map, drawn over the flight, which goes on underneath (hidden)
+    env.map2d = !st.view3d && st.stop === 'brain' && st.cave && !st.hall;
+    env.gl = env.map2d ? stageGl('brain-cave') : st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
+    showGl(env.map2d ? null : env.gl);
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
       ctx.clearRect(0, 0, lw, h);
@@ -4445,8 +4458,8 @@ export function createExplorer(hooks = {}) {
       Promise.resolve(music.enabled ? music.disable() : music.enable()).then(syncUi);
     } else if (b.dataset.act === 'stereo') {
       api.setStereo(STEREO_MODES[(STEREO_MODES.indexOf(st.stereo) + 1) % STEREO_MODES.length]);
-    } else if (b.dataset.act === 'view3d') {
-      st.view3d = !st.view3d;
+    } else if (b.dataset.act === 'view3d' || b.dataset.act === 'view2d') {
+      st.view3d = b.dataset.act === 'view3d';
       localStorage.setItem('soma-explorer-3d', st.view3d ? '1' : '0');
       syncUi();
     } else if (b.dataset.act === 'resource') {
