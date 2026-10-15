@@ -2161,6 +2161,41 @@ function renderBodyGrid(time = 0) {
     ? `${bodyGrid.provenance} / ${state.selectedMechanisms.size} MECHANISM(S) STACKED`
     : bodyGrid.provenance;
 }
+// One set of controls (ISS-105): while the explorer is open the levels FIELD CONTROLS are hidden,
+// so their controls are lent to it, the same elements with their own handlers, and given back
+// when it closes: POKE's inputs to the POKE popover, the lens and look to the settings drawer,
+// the reading (the floor's mathematics and evidence) to the card.
+const LENT = {
+  poke: ['#somatic', '#cognitive', '#response-time', '#time-readout', '#audio-toggle', '#brecvema-inspector .mechanism-detail', '#appraisal-panel', '#body-map-panel'],
+  look: ['#t-theory-toggle', '.lens-layers', '.style-layers', '#implementation', '#reader-register', '.settings-panel', '#thought-sparks-panel'],
+  read: ['.math-readout', '.zoom-equation', '.cheat-sheet', '#library-toggle', '#library-panel'],
+};
+let lentToExplorer = false;
+const lentBack = [];
+function lendControls(open) {
+  lentToExplorer = open;
+  if (open) {
+    for (const [slotName, selectors] of Object.entries(LENT)) {
+      const slot = explorer.slot?.(slotName);
+      if (!slot) continue;
+      for (const selector of selectors) {
+        const found = document.querySelector(`.field-readout ${selector}`);
+        const el = found?.closest('.control') ?? found;
+        if (!el) continue;
+        const mark = document.createComment(`lent: ${selector}`);
+        el.before(mark);
+        slot.append(el);
+        lentBack.push([el, mark]);
+      }
+    }
+    renderMechanismSelection();
+  } else {
+    while (lentBack.length) {
+      const [el, mark] = lentBack.pop();
+      mark.replaceWith(el);
+    }
+  }
+}
 // the mechanisms count when the BRECVEMA inspector is open, or when chosen in the explorer's deck
 function mechanismsOn() {
   return state.brecvema || (explorer.open && state.selectedMechanisms.size > 0);
@@ -3235,6 +3270,7 @@ function frame() {
     responseTimeInput.value = state.responseTime.toFixed(3);
     if (state.responseTime >= 1) { state.impulse = 0; state.pokeRunning = false; }
   }
+  if (explorer.open !== lentToExplorer) lendControls(explorer.open);
   if (state.brecvema || state.impulse) renderBodyGrid(time);
   const mechanismsActive = mechanismsOn() && state.tTheory && organismLevelIds.has(activeLevel().id);
   const mechanismGain = mechanismsActive ? 1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15 : 1;

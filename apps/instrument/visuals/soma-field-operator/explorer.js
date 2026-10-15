@@ -3231,7 +3231,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
-    <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span></aside>`;
+    <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span><details class="explorer__read"><summary>THIS FLOOR · its mathematics and evidence</summary><div class="explorer__slot" data-slot="read"></div></details></aside>`;
   document.body.append(root);
   const canvas = root.querySelector('canvas');
   const mainCtx = canvas.getContext('2d');
@@ -3271,6 +3271,11 @@ export function createExplorer(hooks = {}) {
     const phi = drawer.querySelector('.explorer__phi');
     if (phi) deck.prepend(phi);
     bar.querySelector('.explorer__layers')?.after(toggle);
+    const look = document.createElement('div');
+    look.className = 'explorer__slot';
+    look.dataset.slot = 'look';
+    look.innerHTML = '<h3>THE LEVEL VIEW · lens and look</h3>';
+    drawer.append(look);
     root.append(deck, drawer);
     crumbs.addEventListener('click', event => {
       const c = event.target.closest('[data-crumb]');
@@ -3378,6 +3383,7 @@ export function createExplorer(hooks = {}) {
   const mech = document.createElement('section');
   mech.className = 'explorer__mech';
   mech.hidden = true;
+  mech.innerHTML = '<h2>POKE · the mechanisms and the inputs</h2><p class="explorer__drawer-note"></p><div class="explorer__mech-list"></div><div class="explorer__slot" data-slot="poke"></div><button type="button" data-mech-close>◂ DONE</button>';
   root.append(mech);
   const mechList = () => hooks.mechanisms?.() ?? [];
   const mechLabel = () => {
@@ -3387,12 +3393,15 @@ export function createExplorer(hooks = {}) {
   const renderMech = () => {
     const here = st.stop === 'human' ? 'At the human, they shape the field\'s response (the stacked pulse), its channels in 11D and the sound.'
       : 'Here POKE is this place\'s own pulse; the mechanisms shape the human\'s field response and the sound.';
-    mech.innerHTML = `<h2>POKE · the mechanisms</h2><p class="explorer__drawer-note">BRECVEMA (P9, sourced): choose any; they stack into the forcing J(t). Nothing fires until POKE. ${here}</p>${mechList().map(m => `<label class="explorer__mech-row"><input type="checkbox" data-mech="${m.id}"${m.on ? ' checked' : ''} /> <b>${m.id}</b> ${m.name}<small>${m.action}</small></label>`).join('')}<button type="button" data-mech-close>◂ DONE</button>`;
+    mech.querySelector('.explorer__drawer-note').textContent = `BRECVEMA (P9, sourced): choose any; they stack into the forcing J(t). Nothing fires until POKE. ${here}`;
+    mech.querySelector('.explorer__mech-list').innerHTML = mechList().map(m => `<label class="explorer__mech-row"><input type="checkbox" data-mech="${m.id}"${m.on ? ' checked' : ''} /> <b>${m.id}</b> ${m.name}<small>${m.action}</small></label>`).join('');
   };
   mech.addEventListener('click', event => {
     event.stopPropagation();
     if (event.target.closest('[data-mech-close]')) { mech.hidden = true; syncUi(); }
   });
+  // the level view's own controls, lent to the explorer while it is open (main.js lends them)
+  for (const slot of root.querySelectorAll('.explorer__slot')) slot.addEventListener('click', event => event.stopPropagation());
   mech.addEventListener('change', event => {
     const id = event.target.dataset?.mech;
     if (!id) return;
@@ -4468,6 +4477,8 @@ export function createExplorer(hooks = {}) {
     setResource(on) { st.resource = Boolean(on); syncUi(); },
     setLabels(on) { st.labels = Boolean(on); },
     refresh() { syncUi(); },
+    // where the level view's controls go while the explorer is open: poke, look, read
+    slot(name) { return root.querySelector(`.explorer__slot[data-slot="${name}"]`); },
     poke(strength = 1) {
       if (st.open && st.choices && st.stop === 'thought' && choicesGl) { choicesGl.poke(); music.poke(); return; }
       if (st.open && focusGl) { focusGl.poke(); music.poke(); return; }

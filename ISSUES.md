@@ -5364,6 +5364,15 @@ grammar's three gaps closed by it.
       group: mechanisms, somatic/cognitive, appraisal, response); the lens and look go in the
       film stock drawer; reading goes in the card (the inspector, GPT fix 7); paths stay with the
       elevator. Then the levels FIELD CONTROLS and the explorer drawer are one system (fix 8).
+- [x] (author 21:50: "do 1") Done as proposed: while the explorer is open the level view's
+      controls are lent to it, the same elements with their handlers, given back when it closes
+      (main.js LENT, lendControls; explorer.js slots poke / look / read). POKE ▾ now holds the
+      mechanisms, SOMATIC, COGNITIVE, RESPONSE TIME, AUDIO, the mechanism's equation, APPRAISAL
+      and BODY MAP; SETTINGS holds T-THEORY, the observation layers, RICE, the model, the reader,
+      the fractal settings and THOUGHT SPARKS; the card's "THIS FLOOR · its mathematics and
+      evidence" holds EQUATION / FIGURES / READ MORE, FULL MODEL MATHEMATICS, the cheat sheet and
+      MORE INFORMATION. The paths stay with the elevator. Headless: all lent, all returned on
+      close, T-THEORY toggles from the drawer; explorer-check 0 failures.
 - [ ] Then fixes 5-7 (places map and breadcrumb, label hierarchy, the card for the place).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
