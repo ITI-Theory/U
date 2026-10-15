@@ -5457,3 +5457,29 @@ impact. Findings (15 Oct):
       anywhere (its own docstring: "a genuine open problem"). HAL also repeated superseded
       numbers (Phi_0 ~ 0.4 M_Pl, now 1.43; 2.9% / 6.8%, now 3.1% / 7.1%). And the data point
       to dark energy weakening over time (DESI), not to more dark matter. Recorded, no work.
+
+## ISS-107: The music film (Part A) and the tensor film from music (Part B) — OPEN
+
+{{Tags area.app, area.art}}
+{{Fields date.created=2026-10-15, date.start=, date.end=, epic=}}
+
+Author, 15 Oct 22:20: a 1-2 hour psytrance mix (Captain Hook, Ozora Festival 2017, a 90 min WAV
+on his disk; personal, not for publication: the audio and the film stay in bld/, out of the repo
+and Dist). Part A: pick the app's scenes, fractals included, cut them in time with the music,
+zooming in, no UI: a movie. Part B: take part A and make it a tensor film. "Later, both, step by
+step" (22:24).
+
+Plan (Copilot, agreed in outline):
+- [ ] A1. Read the mix: tempo, bars, 16/32-bar phrases, breakdowns, builds and drops (numpy;
+      librosa if needed) into a cue sheet (bld/show/cues.json).
+- [ ] A2. SHOW mode, behind ROOTED (140 BPM psytrance is ROOTED, DESIGN.md / HAL 15 Oct): plays
+      the mix from the author's disk, clean picture (no chrome, labels off), scenes change on
+      phrase boundaries (great hall, cathedral, mind chamber, the sea, palace, fractal dives),
+      Φ pulses on the kick, zoom on builds, a dive or a zap on drops.
+- [ ] A3. Record in real time on the author's GPU (the browser's MediaRecorder: canvas + audio
+      to webm, or OBS); ffmpeg to mp4 (`winget install ffmpeg`). Headless rendering is too slow.
+- [ ] B. The tensor film: the music drives the model, not the edit. The energy envelope sets Φ;
+      BRECVEMA's R (rhythmic entrainment) and M (musical expectancy) are the terms: builds raise
+      barriers, drops are threshold crossings, breakdowns recovery; the SCORE's tensor-film
+      trajectory (Safety, Fear, Curiosity, Awe ...) written from the music; the picture is the
+      field's state. Interpretive, labelled as such.
