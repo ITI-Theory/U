@@ -105,6 +105,9 @@ export const STOP_LEVELS = {
   score: { level: 'whole-brain-cemi', dim: 11 },
 };
 export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
+// THE SPINE (ISS-105, DESIGN.md): the places grouped, so the row reads as a map, not a list
+const STOP_GROUPS = [['BODY', ['human', 'body', 'wayin', 'ureter']], ['BRAIN', ['brain', 'limbic', 'neuron', 'network']],
+  ['MIND', ['thought', 'landscape', 'tunnel', 'dyad']], ['WORLDS', ['flight', 'score']]];
 const STOP_TITLES = {
   human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
@@ -702,7 +705,7 @@ let atriumGl = null;
 function drawAtrium(ctx, env) {
   if (!env.atrium || !env.gl?.route) return false;
   atriumGl = env.gl;
-  env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm, cp: env.cp });
+  env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm, cp: env.cp, dim: env.dim });
   if (env.labels) {
     const { u } = env;
     label(ctx, u, env.gl.info.title, 0, -0.72, '#e8d8ff', 'center', 0.034);
@@ -887,7 +890,7 @@ function makeBrain() {
         const pg = env.gl;
         // a floor asked for in the address (palace=1&pf=N): ride there once the palace exists
         if (env.palaceFloor) { pg.go(env.palaceFloor - 1); env.palaceFloor = 0; palaceFloorWanted = 0; }
-        pg.render({ time: t, stereo: env.stereo, phi });
+        pg.render({ time: t, stereo: env.stereo, phi, dim: env.dim });
         if (env.labels) {
           const f = pg.floorInfo(pg.floor);
           const tgt = pg.floorInfo(pg.target);
@@ -895,7 +898,7 @@ function makeBrain() {
           label(ctx, u, `${f?.scale ?? ''} · ${f?.sector ?? ''}${f?.id === 'quantum-foam' ? ' · THE HALL OF THE ZERO MOMENT: everything arises and passes, nothing is held' : ''}`, 0, -0.66, f?.id === 'quantum-foam' ? '#a8f0d8' : COLORS.dim, 'center', 0.021);
           hint(ctx, u, `▲ ▼ ride the floors · DOOR: into this level · PLACE: leave a thought here (${pg.placedCount(pg.floor)} placed) · the method of loci: come back and find it`, 0, 0.84, COLORS.violet, 'center', 0.02);
           label(ctx, u, 'the same grammar at every scale: the palace is a map of the universe, one level up, never the universe itself (no level holds the whole of itself)', 0, 0.9, COLORS.dim, 'center', 0.018);
-          if (phi > 0.55) label(ctx, u, 'FX: the walls give way: not a building, a manifold, folding', 0, -0.61, '#ff7ad9', 'center', 0.021);
+          if (phi > 0.55) label(ctx, u, env.dim >= 11 ? 'the 11D view: the walls give way; not a building, the manifold it is made of' : 'a building for memory; the 11D view shows the manifold beneath', 0, -0.61, '#ff7ad9', 'center', 0.021);
         }
         return;
       }
@@ -3141,8 +3144,9 @@ export function createExplorer(hooks = {}) {
   root.innerHTML = `
     <canvas class="explorer__canvas"></canvas>
     <header class="explorer__bar">
-      <span class="explorer__title">MIND-BODY EXPLORER</span>
-      <nav class="explorer__stops" aria-label="Stops">${STOPS.map(id => `<button type="button" data-stop="${id}">${STOP_TITLES[id]}</button>`).join('<span aria-hidden="true">›</span>')}</nav>
+      <span class="explorer__title">SOMA MACHINE</span>
+      <nav class="explorer__crumbs" aria-label="Where you are"></nav>
+      <nav class="explorer__stops" aria-label="Places">${STOP_GROUPS.map(([name, ids]) => `<span class="explorer__group"><span class="explorer__group-name">${name}</span>${ids.map(id => `<button type="button" data-stop="${id}">${STOP_TITLES[id]}</button>`).join('')}</span>`).join('')}</nav>
       <div class="explorer__layers" role="group" aria-label="Layers">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</div>
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
@@ -3199,6 +3203,64 @@ export function createExplorer(hooks = {}) {
   const canvas = root.querySelector('canvas');
   const mainCtx = canvas.getContext('2d');
   let ctx = mainCtx;
+  // THE SPINE (ISS-105, DESIGN.md): every element is a place, a view, a control or a setting.
+  // Top bar: where you are (the breadcrumb: the elevator's floor, the stop, the place in it),
+  // the places, the views (4D 8D 11D), SETTINGS. Bottom deck: GO (the routes from here) and DO
+  // (what you do now). The settings drawer: everything set once and left (the film stock).
+  // The elements are the same ones, moved: their handlers and the tours keep working.
+  const shell = (() => {
+    const bar = root.querySelector('.explorer__bar');
+    const crumbs = bar.querySelector('.explorer__crumbs');
+    const GO = ['hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
+    const DO = ['poke', 'snap', 'snapsay', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
+    const deck = document.createElement('nav');
+    deck.className = 'explorer__deck';
+    deck.setAttribute('aria-label', 'Controls');
+    deck.innerHTML = '<span class="explorer__deck-group" data-group="go"><span class="explorer__deck-label">GO</span></span><span class="explorer__deck-group" data-group="do"><span class="explorer__deck-label">DO</span></span>';
+    const drawer = document.createElement('section');
+    drawer.className = 'explorer__drawer';
+    drawer.hidden = true;
+    drawer.innerHTML = '<h2>SETTINGS · the film stock</h2><p class="explorer__drawer-note">Set once and left; recorded with every somagram.</p>';
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'explorer__settings';
+    toggle.textContent = 'SETTINGS ▾';
+    toggle.addEventListener('click', () => { drawer.hidden = !drawer.hidden; toggle.classList.toggle('active', !drawer.hidden); });
+    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__stops', 'explorer__layers']);
+    for (const el of [...bar.children]) {
+      const act = el.dataset?.act;
+      if (keep.has(el.className) || act === 'close') continue;
+      if (GO.includes(act)) deck.querySelector('[data-group="go"]').append(el);
+      else if (DO.includes(act)) deck.querySelector('[data-group="do"]').append(el);
+      else drawer.append(el);
+    }
+    // the limbic field stays at hand: the one setting played live
+    const phi = drawer.querySelector('.explorer__phi');
+    if (phi) deck.prepend(phi);
+    bar.querySelector('.explorer__layers')?.after(toggle);
+    root.append(deck, drawer);
+    crumbs.addEventListener('click', event => {
+      const c = event.target.closest('[data-crumb]');
+      if (!c) return;
+      if (c.dataset.crumb === 'floor') hooks.onLevel?.(hooks.levelId?.());
+      else if (c.dataset.crumb === 'stop') { st.hall = false; st.cave = false; st.palace = false; syncUi(); hooks.onChange?.(); }
+    });
+    let last = '';
+    return {
+      update() {
+        const id = hooks.levelId?.();
+        const k = PALACE_FLOORS.findIndex(f => f.id === id);
+        const here = st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].button : st.cave ? 'CATHEDRAL' : st.palace ? 'MIND PALACE' : '';
+        const key = `${id}|${st.stop}|${here}`;
+        if (key !== last) {
+          last = key;
+          const floor = k >= 0 ? `FLOOR ${k + 1}: ${PALACE_FLOORS[k].label.toUpperCase()}` : 'ELEVATOR';
+          crumbs.innerHTML = `<button type="button" data-crumb="floor" title="Back to the level view, the elevator">${floor}</button><span>›</span><button type="button" data-crumb="stop" title="This place's own view">${STOP_TITLES[st.stop] ?? ''}</button>${here ? `<span>›</span><b>${here}</b>` : ''}`;
+        }
+        for (const g of deck.querySelectorAll('.explorer__deck-group')) g.hidden = ![...g.children].some(c => !c.hidden && !c.classList.contains('explorer__deck-label'));
+      },
+    };
+  })();
   // SNAP (ISS-097): the moment as a somagram, with the field's reading when it was taken
   const snapper = createSnapper();
   // the film stock's candidates: the base settings in force now (snap.js keeps the first)
@@ -3763,6 +3825,7 @@ export function createExplorer(hooks = {}) {
 
   function frame(now) {
     if (!st.open) return;
+    shell.update();
     // a virtual clock: film pace slows everything (motion, simulations, transitions)
     const real = now / 1000;
     const dt = Math.min(0.05, last ? real - last : 0.016) * st.pace;

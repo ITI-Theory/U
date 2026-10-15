@@ -5195,8 +5195,19 @@ layer, not the EEG bands). Every element a place, a view, a control or a setting
 mapped to places; the Mind Chamber behind the great hall through the limbic gate (foam, the gold
 threshold, spheres that show their expression and kind, thoughts that stay, paths); the visual
 grammar's three gaps closed by it.
-- [ ] The author's review of DESIGN.md, and its three open questions.
-- [ ] Phase 1: the spine (one shell for the whole app; the stops as places).
+- [x] (15 Oct 17:49, author) The open questions: the palace and the manifold both kept (the
+      palace a place, a building for memory; the manifold a view, the 11D view, where the walls
+      of every place give way; at 4D and 8D they stand); the Mind Chamber behind the great hall;
+      the spine first.
+- [~] (15 Oct) Phase 1, the spine, in the explorer: the title SOMA MACHINE; a breadcrumb (the
+      elevator's floor › the stop › the place in it, each clickable); the places grouped BODY,
+      BRAIN, MIND, WORLDS; a bottom deck, GO (routes) and DO (POKE, SNAP...), with Φ at hand;
+      a SETTINGS drawer (the film stock) for everything set once; the info card at the right.
+      The same elements moved, so handlers and tours keep working. Still to do: the levels view
+      inside the same shell (the "two apps"), the drawers' telemetry side, the canvas hints
+      clear of the deck.
+- Found and fixed: the release check's explorer test (20) had broken on 14 Oct: palace3d.js made
+      a texture at load, which needs a document; made lazy. explorer-check: 0 failures.
 - [~] (15 Oct, prototype for the author's review) Phase 2: the Mind Chamber (ISS-104):
       atrium3d.js `mind`, MIND CHAMBER at the THOUGHT stop, the great hall's LIMBIC GATE leads
       there: the foam, the gold threshold, spheres by expression (14 of EmotionOntology's named

@@ -648,7 +648,7 @@ export function createAtrium3D(kind = 'brain') {
   const dot = softDot();
   const U = {
     uTime: { value: 0 }, uFX: { value: 0 }, uPulse: { value: -1 }, uFog: { value: FOG.clone() }, uPink: { value: PINK }, uBlue: { value: BLUE },
-    uRidge: { value: K.ridge }, uStack: { value: K.stack ?? 0 }, uBeat: { value: 0 }, uVoid: { value: K.void ?? 0 },
+    uFold: { value: 0 }, uRidge: { value: K.ridge }, uStack: { value: K.stack ?? 0 }, uBeat: { value: 0 }, uVoid: { value: K.void ?? 0 },
   };
 
   // THE VAULT: an ellipsoid seen from inside, its stone raised by fractal noise; FX folds it;
@@ -657,7 +657,7 @@ export function createAtrium3D(kind = 'brain') {
     uniforms: U,
     side: THREE.BackSide,
     vertexShader: /* glsl */`
-      uniform float uTime; uniform float uFX; uniform float uRidge; uniform float uStack; uniform float uBeat;
+      uniform float uTime; uniform float uFX; uniform float uFold; uniform float uRidge; uniform float uStack; uniform float uBeat;
       varying vec3 vPos; varying float vDepth;
       ${NOISE}
       void main() {
@@ -669,7 +669,7 @@ export function createAtrium3D(kind = 'brain') {
         float comb = uRidge * smoothstep(0.1, 0.9, sin(a * 2.0 + 1.0)) * pow(0.5 + 0.5 * sin(a * 46.0 + p.y * 0.4), 3.0);
         // the neuron's walls: stacked folds (the rough endoplasmic reticulum), wavering
         float stack = uStack * pow(0.5 + 0.5 * sin(p.y * 2.6 + f * 5.0), 4.0);
-        p -= n * (3.4 * (f - 0.45) * (1.0 - 0.5 * uStack) + uFX * uFX * 1.8 * fold - 0.9 * comb - 1.1 * stack + uBeat * 0.5);
+        p -= n * (3.4 * (f - 0.45) * (1.0 - 0.5 * uStack) + uFold * 1.8 * fold - 0.9 * comb - 1.1 * stack + uBeat * 0.5);
         vPos = p * vec3(1.0, ${SQUASH.toFixed(2)}, 1.0);
         vec4 mv = modelViewMatrix * vec4(p, 1.0);
         vDepth = -mv.z;
@@ -824,6 +824,8 @@ export function createAtrium3D(kind = 'brain') {
       const beat = K.beat ? Math.exp(-((state.time * (state.bpm ?? 68) / 60) % 1) * 6) : 0;
       U.uTime.value = state.time;
       U.uFX.value = fx;
+      // the manifold is a view (DESIGN.md): the walls fold only in the 11D view
+      U.uFold.value = (state.dim ?? 11) >= 11 ? fx * fx : 0;
       U.uBeat.value = beat;
       U.uFog.value.copy(FOG).lerp(FOG_HIGH, 0.6 * fx + 0.25 * beat);
       scene.background.copy(U.uFog.value);

@@ -23,7 +23,7 @@ two rows of thirty-odd buttons mix four kinds of thing. Every element is one of 
   neuron's soma); the tubes between them (arteries, ventricles, nerves, the ureter); the Mind
   Chamber.
 - **View**: how you look at the place you are in (the 3D chamber, a cutaway, the field's glow;
-  4D, 8D, 11D; stereo).
+  4D, 8D, 11D, where 11D shows the manifold beneath the walls; stereo).
 - **Control**: what you do now (POKE: a push on the field, J_user; SNAP and SNAP + SAY; DRIVE
   along a tube or a path; STEP OUT and STEP IN).
 - **Setting**: how the world is tuned, set once and left (Φ, the neurotype operators, the
@@ -57,7 +57,7 @@ the elevator beside it (author, 14 Oct); the overview of the desk explains the s
 | DYAD | two chambers coupled (two people) |
 | FLY | the elevator's worlds (a floor's own flight) |
 | SCORE | the telemetry drawer's tape, and the film (the Tensor) |
-| PALACE, CATHEDRAL | routes from the great hall (the palace folds into the manifold with Φ) |
+| PALACE, CATHEDRAL | routes from the great hall (the palace a place; the manifold its 11D view) |
 | THOUGHTS, VIVIDNESS, ADHD/ASD/C-PTSD, MUSIC, VIGILANCE, LOOP | settings (drawer) |
 
 ## The Mind Chamber
@@ -124,13 +124,24 @@ psytrance, Mandelbulbs as anatomy.
 Left out (ROOTED or later): the EEG bands as a model quantity (a gap in the papers, ISS-101),
 a threshold slider (the model fixes it), damping as a setting (not yet a model term).
 
-## Open for the author
+## The palace and the manifold (author, 15 Oct: keep both)
 
-- The palace: the author once preferred the 11D manifold to a palace (May/June 2026); it stays a
-  route from the great hall and folds into the manifold with Φ. Keep, or let the manifold replace
-  it?
-- The Mind Chamber behind the great hall (HAL's unification): right?
-- Phase 1 first, as above, or the Mind Chamber first (it is the new content)?
+The author once chose the 11D manifold over a palace ("why a palace? I picked an 11d manifold",
+May/June 2026); now both stay, each in its kind:
+- **The palace is a place**: a building the mind makes for memory (the method of loci), its 21
+  floors the elevator's floors seen from inside the mind, one level up, a map and never the
+  territory. Reached from the great hall; you ride its floors and PLACE thoughts in its halls to
+  find them again. Later: a thought that stays in the Mind Chamber can be carried to a hall.
+- **The manifold is a view**: what every place is underneath, the field's geometry. In the 11D
+  view, with Φ high, walls give way and fold (the palace, the atriums, the chamber); at 4D and
+  8D they stand. So the palace is what the mind builds, the manifold what it is made of, and the
+  same button (11D) shows the one beneath the other.
+
+## Decided (author, 15 Oct)
+
+- The palace and the manifold both kept, as above.
+- The Mind Chamber behind the great hall, through the limbic gate.
+- The spine first (phase 1), then the Mind Chamber (a first prototype exists).
 
 ## Corrections made to HAL's draft (checked against the Lean)
 

@@ -475,7 +475,7 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer [data-act="resource"].active { background: #3fd0c9; box-shadow: 0 0 16px rgba(63,208,201,.6); }
 .explorer [hidden] { display: none !important; }
 .explorer__feel { position: absolute; top: 52px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; gap: 4px; }
-.explorer__card { position: absolute; left: 14px; bottom: 14px; max-width: min(460px, 44vw); padding: 12px 14px; background: rgba(7,10,22,.82); border: 1px solid rgba(94,231,255,.35); box-shadow: 0 0 24px rgba(94,231,255,.12); }
+.explorer__card { position: absolute; right: 14px; bottom: 96px; max-width: min(420px, 30vw); max-height: 46vh; overflow: auto; padding: 12px 14px; background: rgba(7,10,22,.82); border: 1px solid rgba(94,231,255,.35); box-shadow: 0 0 24px rgba(94,231,255,.12); }
 .explorer__card h2 { margin: 0 0 6px; font-size: 13px; letter-spacing: .1em; color: #5ee7ff; }
 .explorer__card p { margin: 0 0 8px; font-size: 12px; line-height: 1.5; }
 .explorer__label { display: inline-block; font-size: 11px; padding: 1px 7px; border: 1px solid currentColor; color: #ffd166; }
@@ -514,6 +514,26 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__lift-floors { display: grid; gap: 4px; margin-bottom: 10px; }
 .explorer__lift-floors button { text-align: left; }
 .explorer__lift-floors button.active { color: #070a16; background: #5ee7ff; }
+/* THE SPINE (ISS-105): the breadcrumb, the grouped places, the deck, the settings drawer */
+.explorer__crumbs { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(232,238,252,.45); }
+.explorer__crumbs button { padding: 2px 4px; border: 0; background: none; color: #5ee7ff; font: inherit; letter-spacing: .06em; cursor: pointer; }
+.explorer__crumbs button:hover { text-decoration: underline; }
+.explorer__crumbs b { color: #ff7ad9; letter-spacing: .06em; }
+.explorer__stops { flex-wrap: wrap; gap: 10px; }
+.explorer__group { display: inline-flex; align-items: center; gap: 3px; padding: 2px 4px 2px 6px; border-left: 1px solid rgba(94,231,255,.35); }
+.explorer__group-name { margin-right: 4px; font-size: 9px; letter-spacing: .14em; color: rgba(232,238,252,.45); }
+.explorer__deck { position: absolute; z-index: 5; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; max-width: min(1000px, 62vw); padding: 8px 12px; border: 1px solid rgba(94,231,255,.3); border-radius: 8px; background: rgba(7,10,22,.78); }
+.explorer__deck-group { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.explorer__deck-group[hidden] { display: none; }
+.explorer__deck-label { margin-right: 2px; font-size: 9px; letter-spacing: .14em; color: rgba(232,238,252,.5); }
+.explorer__drawer { position: absolute; z-index: 6; left: 12px; top: 92px; width: min(340px, 80vw); max-height: calc(100vh - 200px); overflow: auto; display: flex; flex-direction: column; align-items: stretch; gap: 6px; padding: 12px; border: 1px solid rgba(255,179,107,.45); background: rgba(7,10,22,.92); }
+.explorer__drawer[hidden] { display: none; }
+.explorer__drawer h2 { margin: 0; font-size: 11px; letter-spacing: .12em; color: #ffb36b; }
+.explorer__drawer-note { margin: 0 0 4px; font-size: 10px; color: rgba(232,238,252,.55); }
+.explorer__drawer > button, .explorer__drawer > label { justify-content: flex-start; text-align: left; }
+.explorer__settings.active { color: #070a16; background: #ffb36b; }
+.atlas-capture .explorer__deck, .atlas-capture .explorer__drawer, .atlas-capture .explorer__crumbs, .atlas-capture .explorer__settings { display: none !important; }
+.explorer-film:not(.explorer-chrome) .explorer__deck { opacity: 0; pointer-events: none; transition: opacity .6s ease; }
 /* in an atrium the stop's own rows (the body's feelings) give way to the place */
 .explorer--atrium .explorer__feel { display: none; }
 .explorer__pop:not(.is-dive) [data-pop="picture"] { display: none; }

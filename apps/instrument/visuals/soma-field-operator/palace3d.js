@@ -26,8 +26,10 @@ const BLUE_C = new THREE.Color(BLUE);
 // the walls' fold (FX) and the time, shared by every hall's wall shader
 const FOLD = { value: 0 };
 const TIME = { value: 0 };
-// a soft round point (the motes), not a square
-const SOFT = (() => {
+// a soft round point (the motes), not a square; made on first use (the explorer check loads
+// this module in node, where there is no document)
+let SOFT_TEX = null;
+const soft = () => SOFT_TEX ??= (() => {
   const c = document.createElement('canvas');
   c.width = c.height = 64;
   const g = c.getContext('2d');
@@ -161,7 +163,7 @@ export function createPalace3D(floors) {
     const mgeo = new THREE.BufferGeometry();
     mgeo.setAttribute('position', new THREE.Float32BufferAttribute(mp, 3));
     mgeo.setAttribute('color', new THREE.Float32BufferAttribute(mc, 3));
-    const motes = new THREE.Points(mgeo, new THREE.PointsMaterial({ size: 0.05, map: SOFT, vertexColors: true, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const motes = new THREE.Points(mgeo, new THREE.PointsMaterial({ size: 0.05, map: soft(), vertexColors: true, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
     motes.visible = false;
     group.add(motes);
     // the foam: the hall of the zero moment, sparks that arise and pass
@@ -228,7 +230,8 @@ export function createPalace3D(floors) {
       ambient.intensity = 0.7 + 0.3 * fx;
       lamp.intensity = 1.4 + 0.5 * fx;
       scene.fog.density = 0.035 * (1 - 0.55 * fx);
-      FOLD.value = fx * fx;
+      // the manifold is a view (DESIGN.md): the walls fold only in the 11D view
+      FOLD.value = (state.dim ?? 11) >= 11 ? fx * fx : 0;
       TIME.value = state.time;
       halls.forEach((h, k) => {
         const near = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 1.5;
