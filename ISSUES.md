@@ -5199,6 +5199,34 @@ carried by every somagram taken on it.
       thought above it, "route cost · a well: it pulls / a ridge: it resists"), one sometimes
       out of turn; POKE flashes now or starts again. The visual grammar: 12 of 12 terms shown.
 
+**The process, agreed with the author (15 Oct 18:21-18:40), replacing the tree built at 18:04:**
+1. The wave: in the Mind Chamber thoughts pop and vanish, many at once (a wave, not a single
+   thread).
+2. One sticks ("cut the grass"): it comes a little into focus, the rest go out of focus (depth
+   of field) but carry on: attention as a spotlight, the background (the subconscious) running.
+   An outer voice (a conversation) can hold the spotlight in the same way.
+3. It opens in place (author's choice): the bubble swells into a 3D field right there, the
+   chamber blurred round it. The field is a golf course (author: "each hole is a FFF"): the
+   LANDSCAPE stop's one SAFE / FIGHT / FREEZE landscape tiled into hundreds of small holes, one
+   per consideration (the weather, when it gets dark, rain tomorrow), fairways between them the
+   paths (chess: the moves from here). Each consideration arrives as a ripple across the field.
+   Height is the cost (the energy landscape); colour is the feeling (the emotion algebra: fear,
+   anger warm red; joy, trust cool blue) (author: both). Where the ball lies in a hole is its
+   reading. Stress is height and colour disagreeing and many separate peaks: low and blue an
+   obvious do, high and red an obvious don't, low but red avoidance, high but blue worth the
+   effort; a field that agrees is calm whatever its colour.
+4. It resolves, or it stays (author: "it stays beneath the threshold line, to be seen as a
+   thought; rather than flow away with the others they build up, and if too much build up,
+   stress"): unresolved thoughts sink just below the threshold and stay visible as thoughts, not
+   foam; the pile is the load; the load raises Φ, so the wave above boils faster and pops more:
+   the stress loop. Anchors: allostatic load (McEwen; sourced, physiology); the Zeigarnik
+   effect (1927; replications mixed: suggestive); in the model, the memory kernel and Φ
+   heating the landscape.
+- [ ] Rebuild THE PATHS as the inside of a focused thought: the course of FFF holes (the
+      landscape stop's wells, tiled), height cost, colour feeling, ripples per consideration, the
+      stress reading; the focus (depth of field) in the Mind Chamber; resolve, or sink below the
+      line and stay; the load raising Φ.
+
 ## ISS-105: The Soma Machine as one instrument: the design (the show piece) — OPEN
 {{Tags area.app}}
 {{Fields date.created=2026-10-15, date.start=, date.end=, epic=}}
