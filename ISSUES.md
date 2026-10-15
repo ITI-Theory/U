@@ -5158,6 +5158,11 @@ threshold (the aperture), damping, the baseline coupling W and the neurotype pre
 kernel, resting heart rate, HRV and its trend, whether the user was forcing (J_user), the scale
 and the layer (4D, 8D, 11D); the base is subtracted so a passing state is told from a lasting
 difference (the Empathy Baseline Engine, chats 28 June 2026).
+**Names decided (author, 15 Oct):** a somagram is the picture (the record); the somagraph is the
+instrument that makes it (the app's SNAP, the Soma Machine as camera); the Somatron stays the
+sound engine (9 June); the [T]-stop is the per-shot reading (like an f-stop: what stood out at
+that moment); the film stock is the base for the session (HAL's list above), recorded once and
+carried by every somagram taken on it.
 - [ ] Step 1, physical only: the atriums and their tubes as places (ISS-103), without the mind
       layers, for UAT on their own.
 - [ ] The author's chat with HAL on the inside (the brief); his take decides the design.
