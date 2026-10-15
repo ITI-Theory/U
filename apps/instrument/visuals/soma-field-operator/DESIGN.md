@@ -168,6 +168,10 @@ branding, not yet one instrument". Done since, all in the explorer:
   touching it; a consideration that crosses is a surge that reaches the glass, a violet zap
   where it touches, and the thought passes through. The key, PAUSE and LEAVE IT are on screen.
 
+- **THE WORLDS** (author, 16 Oct): the app's map of itself, the ten big places under glass domes
+  on boards stacked like 3D chess, body at the bottom, mind above, the maps on top; click a dome
+  to go through it. Proposed as the entry point.
+
 Still to do from the review: the label hierarchy (text sized to stay readable, exits before
 decoration), the levels view in the same shell, one art pass to the great hall's standard, a
 legible and controllable course.

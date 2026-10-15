@@ -2847,7 +2847,7 @@ panelManager.registerPanel(elevator.element, { id: 'elevator', title: 'ELEVATOR'
   const STOPS = [['BODY', [['human', 'HUMAN'], ['body', 'BODY'], ['wayin', 'WAY IN'], ['ureter', 'URETER']]],
     ['BRAIN', [['brain', 'BRAIN'], ['limbic', 'LIMBIC'], ['neuron', 'NEURON'], ['network', 'MEMORY']]],
     ['MIND', [['thought', 'THOUGHT'], ['landscape', 'LANDSCAPE'], ['tunnel', 'WAY UP'], ['dyad', 'DYAD']]],
-    ['WORLDS', [['flight', 'FLY'], ['score', 'SCORE']]]];
+    ['WORLDS', [['worlds', 'THE WORLDS'], ['flight', 'FLY'], ['score', 'SCORE']]]];
   document.body.classList.add('levels-shell');
   const bar = document.createElement('header');
   bar.className = 'levels-bar';

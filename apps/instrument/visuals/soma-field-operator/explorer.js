@@ -60,6 +60,7 @@ import { createPalace3D } from './palace3d.js';
 import { createAtrium3D } from './atrium3d.js';
 import { createPaths3D } from './paths3d.js';
 import { createMiniGolf3D } from './minigolf3d.js';
+import { createWorlds3D, WORLDS, LAYERS } from './worlds3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
@@ -90,11 +91,12 @@ const temperature = phi => T0 + SIGMA * phi;
 // human is the level view itself (the jellyfish human of the Field Atlas), seen through
 // the explorer; going on from it dives into the body.
 export const STEREO_MODES = ['off', 'half', 'full'];
-export const STOPS = ['human', 'body', 'wayin', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight', 'score'];
+export const STOPS = ['worlds', 'human', 'body', 'wayin', 'brain', 'limbic', 'thought', 'neuron', 'network', 'landscape', 'dyad', 'tunnel', 'ureter', 'flight', 'score'];
 // One app, different views of the same thing: each stop is a close-up of a level of the
 // level view (and the dimension layer to show it at); LEVEL VIEW goes there, and the
 // explorer opens at the stop of the level being shown.
 export const STOP_LEVELS = {
+  worlds: { level: null },
   human: { level: 'human-vertebrate' }, body: { level: 'human-vertebrate' },
   wayin: { level: 'whole-brain-cemi', dim: 4 },
   brain: { level: 'whole-brain-cemi' }, limbic: { level: 'human-vertebrate', dim: 8 },
@@ -130,6 +132,7 @@ const PLACE_MAP = [
     { stop: 'dyad', note: 'two people, coupled' },
   ]],
   ['WORLDS', [
+    { stop: 'worlds', note: 'all the places, each under its glass: the map' },
     { stop: 'flight', note: 'fly the scales' },
     { stop: 'score', note: 'the score: telemetry over time' },
   ]],
@@ -138,12 +141,12 @@ const PLACE_MAP = [
 const PLACE_PARENT = {
   body: ['human'], wayin: ['human', 'body'], ureter: ['human', 'body'], tunnel: ['human'],
   brain: ['human'], limbic: ['human', 'brain'], neuron: ['human', 'brain'], network: ['human', 'brain'],
-  thought: ['human', 'brain'], landscape: ['human'], dyad: ['human'], flight: [], score: [], human: [],
+  thought: ['human', 'brain'], landscape: ['human'], dyad: ['human'], flight: [], score: [], human: [], worlds: [],
 };
 const STOP_GROUPS = [['BODY', ['human', 'body', 'wayin', 'ureter']], ['BRAIN', ['brain', 'limbic', 'neuron', 'network']],
   ['MIND', ['thought', 'landscape', 'tunnel', 'dyad']], ['WORLDS', ['flight', 'score']]];
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'WAY UP', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  worlds: 'THE WORLDS', human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'WAY UP', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt (audited 13 Oct, BODY-MAPS.md): five follow the self-reported bodily
@@ -163,6 +166,10 @@ export const FEELINGS = {
 };
 
 const CAPTIONS = {
+  worlds: {
+    title: 'THE WORLDS', label: 'interpretive',
+    4: 'The Soma Machine\'s map of itself: its ten big places, each a live miniature under its own glass dome, on boards stacked like three-dimensional chess. The body at the bottom, the brain and the cells above it, the mind above that (the model\'s order: the body\'s dimensions, the limbic hinge, the cortex), and on top the maps: the palace (memory) and the city of code (the programme\'s own Lean). Tubes are the routes between them. Each dome is a threshold; click one to go through it. A map, never the territory.',
+  },
   human: {
     title: 'THE JELLYFISH HUMAN', label: 'interpretive',
     4: 'The whole person as the SOMA Machine draws them, the humanoid of the Field Atlas: body, fields and the brain on top. Raise Φ (the FX bar) and it glows; go on (→ or BODY) to dive inside. An educational model, not a medical or diagnostic tool.',
@@ -2649,6 +2656,37 @@ export function mindDrive(state, phi, resource, dt) {
   return { H, grad: Math.hypot(gx, gy), heat: (T - T0) / SIGMA, crossed, basin: MEMORY_NAMES[state.basin] };
 }
 
+// THE WORLDS (worlds3d.js): in 3D the domes; in 2D the same map as layers, body at the bottom
+function makeWorlds() {
+  return {
+    focus: [0, 0],
+    tick() {},
+    poke() {},
+    draw(ctx, env) {
+      const { u } = env;
+      if (env.gl) env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
+      else {
+        LAYERS.forEach((L, k) => {
+          const y = 0.5 - k * 0.32;
+          label(ctx, u, L.name, -0.78, y, COLORS.dim, 'left', 0.024);
+          const here = WORLDS.filter(w => w[3] === k);
+          here.forEach((w, i) => {
+            const x = -0.3 + (i - (here.length - 1) / 2) * 0.42 + 0.3;
+            glow(ctx, u, x, y, 0.07, w[7], 0.35);
+            label(ctx, u, w[1], x, y - 0.01, w[7], 'center', 0.024);
+            label(ctx, u, w[2], x, y + 0.04, COLORS.dim, 'center', 0.016);
+          });
+        });
+      }
+      if (env.labels) {
+        label(ctx, u, 'THE WORLDS · the Soma Machine\'s places, each under its glass', 0, -0.72, '#e8d8ff', 'center', 0.034);
+        label(ctx, u, 'body at the bottom, mind above it, the maps on top; tubes are the routes; a map, never the territory; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+        hint(ctx, u, 'click a dome to go through its glass · drag to look around · 2D: the same map flat', 0, 0.84, COLORS.violet, 'center', 0.02);
+      }
+    },
+  };
+}
+
 function makeFlight() {
   let gl = null;
   // the person's state for THE MIND, starting in FREEZE as on the landscape
@@ -3266,7 +3304,7 @@ function landscapeHud(ctx, u, phi, T, beta, resource) {
   if (resource) label(ctx, u, 'RESOURCE J(t): the ground tilts towards SAFE', 0, -0.55, COLORS.teal, 'center', 0.028);
 }
 
-const FACTORIES = { score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, wayin: makeWayIn, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
+const FACTORIES = { worlds: makeWorlds, score: makeScore, ureter: makeUreter, tunnel: makeTunnel, flight: makeFlight, body: makeBody, wayin: makeWayIn, brain: makeBrain, limbic: makeLimbic, thought: makeThought, dyad: makeDyad, neuron: makeNeuron, network: makeNetwork, landscape: makeLandscape };
 
 // For tests (scripts/explorer-check.mjs): the two simulations without any drawing.
 export const simulation = { mindDrive, avalancheSize, tunnelTry, memoryStep, landscapeStep, dyadStep, PATTERNS, MEMORY_NAMES, energy, gradient, WELLS, RESOURCE_J, temperature };
@@ -3613,6 +3651,21 @@ export function createExplorer(hooks = {}) {
     else if (id === 'bloodstream') { st.kc = 'body'; go('score'); }
     else go(id);
   };
+  // THE WORLDS: a click on a dome flies down through its glass, then arrives there
+  root.addEventListener('click', event => {
+    if (st.stop !== 'worlds' || !st.view3d || event.target.closest('button, input, label, .explorer__card, .explorer__drawer, .explorer__places, .explorer__mech')) return;
+    const g = gls.worlds;
+    if (!g?.pick || g.diving) return;
+    const r = root.getBoundingClientRect();
+    const w = g.pick((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
+    if (w) g.dive(w.id, () => navTo(w.stop, w.place));
+  });
+  root.addEventListener('pointermove', event => {
+    if (st.stop !== 'worlds' || !gls.worlds?.hover) return;
+    const r = root.getBoundingClientRect();
+    const t = gls.worlds.hover((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
+    root.style.cursor = t ? 'pointer' : '';
+  });
   root.addEventListener('click', event => {
     if (st.stop === 'thought' && !st.view3d && !st.choices && !event.target.closest('button, input, label, .explorer__pop, .explorer__card, .explorer__lift, .explorer__mech, .explorer__drawer, .explorer__places')) {
       if (focusGl) return;
@@ -3658,7 +3711,7 @@ export function createExplorer(hooks = {}) {
   const vigButton = root.querySelector('[data-act="vig"]');
   // LOOK: the head in the first-person 3D stops
   const look = createLook();
-  const LOOK_STOPS = ['tunnel', 'ureter', 'flight', 'score', 'brain'];
+  const LOOK_STOPS = ['tunnel', 'ureter', 'flight', 'score', 'brain', 'worlds'];
   const lookHere = () => st.open && LOOK_STOPS.includes(st.stop) && st.view3d && (st.stop !== 'brain' || st.cave || st.palace);
   const lookHud = document.createElement('div');
   lookHud.className = 'explorer__look';
@@ -3786,6 +3839,7 @@ export function createExplorer(hooks = {}) {
     // the course inside a thought that sticks, opened in place in the mind chamber
     'thought-course': () => createPaths3D({ loop: false }),
     'landscape-golf': () => createMiniGolf3D(),
+    worlds: () => createWorlds3D(),
     // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
     'thought-dive': () => createFlight3D(),
   };
@@ -4299,6 +4353,7 @@ export function createExplorer(hooks = {}) {
       endFocus(false);
       if (!pop.hidden) closePop();
       mech.hidden = true;
+      root.style.cursor = '';
     }
     if (st.open && stop !== st.stop && st.stop === 'human') {
       // dive: the level view's camera flies into the jellyfish human, then the stop fades in

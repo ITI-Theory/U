@@ -5462,6 +5462,17 @@ grammar's three gaps closed by it.
       the wells glowing in the memory colours; ATTENTION is the neon purple ball: held a while,
       then caught by the thought pulling hardest (its ball out of SAFE) or wandering, with a
       purple arc as it jumps; the attended board is marked ◉. Interpretive.
+- [x] (author 00:50: "sci-fi films have glass domes over everything ... all ten in a 3D with a
+      glass lid ... multi-dimensional chess, each layer one of our little worlds ... order and
+      placement reflect body, mind ... the entry point of the app, perhaps") THE WORLDS, a new
+      stop (worlds3d.js; voyage=worlds; PLACES ▾ › WORLDS): the ten big places as live
+      miniatures under glass domes on boards stacked like 3D chess round a chrome column: BODY
+      (the human, the heart), BRAIN (the soma, the great hall, the cathedral), MIND (the mind
+      chamber, the course, the load), THE MAPS (the palace, the city of code); tubes for the
+      routes; one glass over all. A click flies down through a dome and arrives there (navTo).
+      2D draws the same map flat. Each dome a threshold, as in the course; interpretive.
+- [ ] THE WORLDS as the app's entry point (author: "perhaps"): a fresh start would open here
+      instead of the human. The author's call.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 
