@@ -168,7 +168,7 @@ export const FEELINGS = {
 const CAPTIONS = {
   worlds: {
     title: 'THE WORLDS', label: 'interpretive',
-    4: 'The Soma Machine\'s map of itself: its ten big places, each a live miniature under its own glass dome, on boards stacked like three-dimensional chess. The body at the bottom, the brain and the cells above it, the mind above that (the model\'s order: the body\'s dimensions, the limbic hinge, the cortex), and on top the maps: the palace (memory) and the city of code (the programme\'s own Lean). Tubes are the routes between them. Each dome is a threshold; click one to go through it. A map, never the territory.',
+    4: 'The Soma Machine\'s map of itself: its ten big places, each a live miniature under its own glass dome, laid out like a park seen from the air, in four lands: the body nearest, then the brain and the cells, then the mind (the model\'s order: the body\'s dimensions, the limbic hinge, the cortex), and furthest the maps: the palace (memory) and the city of code (the programme\'s own Lean). Walkways are the routes between them. Each dome is a threshold; click one to go through it. A map, never the territory.',
   },
   human: {
     title: 'THE JELLYFISH HUMAN', label: 'interpretive',
@@ -2680,7 +2680,7 @@ function makeWorlds() {
       }
       if (env.labels) {
         label(ctx, u, 'THE WORLDS · the Soma Machine\'s places, each under its glass', 0, -0.72, '#e8d8ff', 'center', 0.034);
-        label(ctx, u, 'body at the bottom, mind above it, the maps on top; tubes are the routes; a map, never the territory; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+        label(ctx, u, 'the body nearest, the brain, the mind, the maps furthest; walkways are the routes; a map, never the territory; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
         hint(ctx, u, 'click a dome to go through its glass · drag to look around · 2D: the same map flat', 0, 0.84, COLORS.violet, 'center', 0.02);
       }
     },

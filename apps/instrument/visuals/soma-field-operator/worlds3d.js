@@ -28,10 +28,10 @@ export const WORLDS = [
   ['city', 'THE CITY OF CODE', 'the programme\'s own Lean', 3, 1, 'landscape', '', '#56f0a2'],
 ];
 export const LAYERS = [
-  { name: 'BODY', sub: 'D1-7: the body\'s dimensions', y: 0, n: 2, turn: 0.3 },
-  { name: 'BRAIN', sub: 'D8: the limbic hinge and the cells', y: 3.7, n: 3, turn: 1.4 },
-  { name: 'MIND', sub: 'D9-11: the cortex, thought', y: 7.4, n: 3, turn: 0.35 },
-  { name: 'THE MAPS', sub: 'memory and the formal layer: maps, not the territory', y: 11.1, n: 2, turn: 1.9 },
+  { name: 'BODY', sub: 'D1-7: the body\'s dimensions', y: 0, z: 9.5, n: 2, turn: 0.3, color: '#5ee7ff' },
+  { name: 'BRAIN', sub: 'D8: the limbic hinge and the cells', y: 0, z: 3.2, n: 3, turn: 1.4, color: '#a78bfa' },
+  { name: 'MIND', sub: 'D9-11: the cortex, thought', y: 0, z: -3.2, n: 3, turn: 0.35, color: '#ff7ad9' },
+  { name: 'THE MAPS', sub: 'memory and the formal layer: maps, not the territory', y: 0, z: -9.5, n: 2, turn: 1.9, color: '#56f0a2' },
 ];
 // the routes: the ways between the places, as the explorer's doorways and buttons have them
 const ROUTES = [
@@ -220,11 +220,19 @@ export function createWorlds3D() {
 
   // the column and the layers' names
   const chrome = new THREE.MeshStandardMaterial({ color: '#a8b8de', metalness: 0.85, roughness: 0.28, emissive: '#26345e', emissiveIntensity: 0.5 });
-  const top = LAYERS[LAYERS.length - 1].y;
-  const column = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.32, top + 2.4, 20), chrome);
-  column.position.y = (top - 1.2) / 2;
-  scene.add(column);
-  const layerTags = LAYERS.map(L => { const s = textSprite(L.name, '#e8d8ff', L.sub, 0.18); s.position.set(-11.5, L.y + 0.4, 0); scene.add(s); return s; });
+  // THE PARK (author, 16 Oct 01:18: "lay them flat ... a higher altitude ... like a theme park"):
+  // each layer a land on the ground, the body nearest, the maps furthest; walkways between
+  const top = 6;
+  for (const L of LAYERS) {
+    const land = new THREE.Mesh(new THREE.PlaneGeometry(26, 5.6), new THREE.MeshBasicMaterial({ color: L.color, transparent: true, opacity: 0.06, depthWrite: false }));
+    land.rotation.x = -Math.PI / 2;
+    land.position.set(0, -1.15, L.z);
+    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(26, 5.6)), new THREE.LineBasicMaterial({ color: L.color, transparent: true, opacity: 0.45 }));
+    edge.rotation.x = -Math.PI / 2;
+    edge.position.copy(land.position);
+    scene.add(land, edge);
+  }
+  const layerTags = LAYERS.map(L => { const s = textSprite(L.name, L.color, L.sub, 0.17); s.position.set(-15.5, 0, L.z); scene.add(s); return s; });
 
   // the worlds: a board on an arm, a glass dome, the miniature, the name
   const worlds = WORLDS.map(([id, title, sub, layer, slot, stop, place, color]) => {
@@ -232,8 +240,8 @@ export function createWorlds3D() {
     // facing the visitor (author, 16 Oct 01:00: "as it rotates round the back it is hard to read ... zig-zag"):
     // each layer spread left to right, alternate boards forward and back, the layers shifted
     // left and right in turn; the higher, the bigger
-    const pos = new THREE.Vector3((slot - (L.n - 1) / 2) * 5.6 + (layer % 2 ? 1.6 : -1.6), L.y, (slot % 2 ? -1.4 : 1.2));
-    const grow = 1 + 0.12 * layer;
+    const pos = new THREE.Vector3((slot - (L.n - 1) / 2) * 7 + (layer % 2 ? 1.8 : -1.8), L.y, L.z + (slot % 2 ? -0.7 : 0.7));
+    const grow = 1 + 0.08 * layer;   // the far lands a little bigger, against the perspective
     const g = new THREE.Group();
     g.position.copy(pos);
     g.scale.setScalar(grow);
@@ -252,14 +260,6 @@ export function createWorlds3D() {
     name.position.y = DOME + 0.55;
     g.add(board, rim, checks, mini, glass, name);
     scene.add(g);
-    // the arm to the column
-    const from = new THREE.Vector3(0, L.y - 0.06, 0);
-    const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 1, 10), chrome);
-    arm.position.copy(from).lerp(pos.clone().setY(L.y - 0.06), 0.5);
-    arm.scale.y = Math.max(0.01, Math.hypot(pos.x, pos.z) - DOME * grow);
-    arm.lookAt(pos.clone().setY(L.y - 0.06));
-    arm.rotateX(Math.PI / 2);
-    scene.add(arm);
     return { id, title, stop, place, color, g, glass, rim, tick, name, pos, hot: 0 };
   });
   const byId = Object.fromEntries(worlds.map(w => [w.id, w]));
@@ -268,10 +268,10 @@ export function createWorlds3D() {
   const routes = ROUTES.map(([a, b]) => {
     const A = byId[a].pos.clone(), B = byId[b].pos.clone();
     const mid = A.clone().lerp(B, 0.5);
-    mid.z += 2.4;
-    mid.y = (A.y + B.y) / 2 + 0.4;
+    mid.x += (A.z === B.z ? 0 : 1.2);
+    mid.y = 0.25;
     const curve = new THREE.CatmullRomCurve3([A.clone().setY(A.y + 0.1), mid, B.clone().setY(B.y + 0.1)]);
-    const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 60, 0.04, 8, false), new THREE.MeshBasicMaterial({ color: byId[a].color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 60, 0.07, 8, false), new THREE.MeshBasicMaterial({ color: byId[a].color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
     const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(0.06, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' }), 5);
     scene.add(tube, dots);
     return { curve, dots, phase: Math.random() };
@@ -280,13 +280,13 @@ export function createWorlds3D() {
   // THE GLASS OVER ALL OF IT
   const BIG = 12;
   const big = new THREE.Mesh(new THREE.SphereGeometry(BIG, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2), glassMaterial('#a78bfa'));
-  big.scale.set(1, (top + 4.5) / BIG, 0.55);
+  big.scale.set(1.45, 0.42, 1.25);
   big.position.y = -1.2;
   big.renderOrder = 6;
   scene.add(big);
 
   let last = 0, clock = 0, hover = null, dive = null;
-  const target = new THREE.Vector3(0, top / 2 + 1.2, 0);
+  const target = new THREE.Vector3(0, -1, -0.5);
   const o = new THREE.Object3D();
   const pickAt = (fx, fy) => {
     ray.setFromCamera(new THREE.Vector2(fx * 2, -fy * 2), camera);
@@ -331,9 +331,9 @@ export function createWorlds3D() {
         if (t >= 1) { const done = dive.done; dive = null; done?.(); }
       } else {
         // in front, swaying: all ten always in view, never from behind
-        const a = 0.32 * Math.sin(clock * 0.045);
-        const R = 33;
-        camera.position.set(Math.sin(a) * R, top / 2 + 2 + 1.2 * Math.sin(clock * 0.06), Math.cos(a) * R);
+        const a = 0.22 * Math.sin(clock * 0.045);
+        const R = 25;
+        camera.position.set(Math.sin(a) * R, 27 + 1.5 * Math.sin(clock * 0.06), Math.cos(a) * R + 4);
         camera.lookAt(target);
         applyLook(camera);
       }

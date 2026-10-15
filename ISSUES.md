@@ -5478,6 +5478,9 @@ grammar's three gaps closed by it.
       boards alternately forward and back, layers shifted left and right in turn (a zig-zag up),
       the higher the bigger; the camera sways in front instead of orbiting; layer names at the
       left. (Author: "a theme park ... Soma World".)
+- [x] (author 01:18: "lots of overlap ... lay them flat, a higher camera, like a theme park") The
+      worlds lie flat in four lands, body nearest to maps furthest, joined by walkways, under a
+      wide low glass; the camera high, looking down, swaying. No overlap.
 - [ ] SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
       ROOTED, the unlocked mode); the science mode keeps THE WORLDS. With ROOTED.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
