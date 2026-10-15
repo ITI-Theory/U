@@ -3190,6 +3190,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="pup" title="Up a floor">▲</button>
       <button type="button" data-act="pdown" title="Down a floor">▼</button>
       <button type="button" data-act="pdoor" title="Through the door: this level's own view">DOOR ▸</button>
+      <button type="button" data-act="pfloors" title="The palace's floors: pick one and ride there (the 21 levels of the elevator, seen from inside the mind)">FLOORS ▤</button>
       <button type="button" data-act="pplace" title="Place a thought in this hall (the method of loci)">PLACE</button>
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
@@ -3243,7 +3244,7 @@ export function createExplorer(hooks = {}) {
     const bar = root.querySelector('.explorer__bar');
     const crumbs = bar.querySelector('.explorer__crumbs');
     const GO = ['choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
-    const DO = ['poke', 'snap', 'snapsay', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
+    const DO = ['poke', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
     const deck = document.createElement('nav');
     deck.className = 'explorer__deck';
     deck.setAttribute('aria-label', 'Controls');
@@ -3312,7 +3313,7 @@ export function createExplorer(hooks = {}) {
   const caveOutButton = root.querySelector('[data-act="caveout"]');
   const artButton = root.querySelector('[data-act="art"]');
   const mindfulButton = root.querySelector('[data-act="mindful"]');
-  const palaceButtons = ['palace', 'pup', 'pdown', 'pdoor', 'pplace'].map(a => root.querySelector(`[data-act="${a}"]`));
+  const palaceButtons = ['palace', 'pup', 'pdown', 'pdoor', 'pplace', 'pfloors'].map(a => root.querySelector(`[data-act="${a}"]`));
   const vividLabel = root.querySelector('.explorer__vivid');
   vividLabel.querySelector('input').addEventListener('input', event => { st.vivid = Number(event.target.value); });
   // INTO A THOUGHT (ISS-102; the author on 25 June 2026: "bubbles... with a fractal world inside
@@ -3371,9 +3372,12 @@ export function createExplorer(hooks = {}) {
   lift.className = 'explorer__lift';
   lift.hidden = true;
   root.append(lift);
-  const openLift = () => {
-    const here = hooks.levelId?.();
-    lift.innerHTML = '<h2>ELEVATOR · from this thought to any level</h2><div class="explorer__lift-floors"></div><button type="button" data-lift="close">◂ BACK TO THE HALL</button>';
+  // inPalace: the palace's own floors (ride there, stay in the palace); else, the levels
+  let liftInPalace = false;
+  const openLift = (inPalace = false) => {
+    liftInPalace = inPalace;
+    const here = inPalace ? PALACE_FLOORS[gls['brain-palace']?.floor ?? 0]?.id : hooks.levelId?.();
+    lift.innerHTML = `<h2>${inPalace ? 'THE PALACE · ride to a floor' : 'ELEVATOR · from this thought to any level'}</h2><div class="explorer__lift-floors"></div><button type="button" data-lift="close">◂ BACK</button>`;
     const floors = lift.querySelector('.explorer__lift-floors');
     [...PALACE_FLOORS].reverse().forEach((f, k) => {
       const b = document.createElement('button');
@@ -3390,7 +3394,9 @@ export function createExplorer(hooks = {}) {
     const b = event.target.closest('[data-lift]');
     if (!b) return;
     lift.hidden = true;
-    if (b.dataset.lift !== 'close') hooks.onLevel?.(b.dataset.lift);
+    if (b.dataset.lift === 'close') return;
+    if (liftInPalace) { gls['brain-palace']?.go(PALACE_FLOORS.findIndex(f => f.id === b.dataset.lift)); hooks.onChange?.(); }
+    else hooks.onLevel?.(b.dataset.lift);
   });
   // THE FOCUS: the course opens where the thought was; the chamber blurs and carries on
   const startFocus = (text, x, y) => {
@@ -4132,6 +4138,8 @@ export function createExplorer(hooks = {}) {
       st.palace = !st.palace;
       if (st.palace) { st.view3d = true; st.cave = false; st.hall = false; }
       syncUi();
+    } else if (b.dataset.act === 'pfloors') {
+      openLift(true);
     } else if (['pup', 'pdown', 'pdoor', 'pplace'].includes(b.dataset.act)) {
       const pg = gls['brain-palace'];
       if (pg) {

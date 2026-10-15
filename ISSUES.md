@@ -5020,7 +5020,7 @@ stacked for the next big build (ISS-101's stack).
 - [ ] (20:55) The cathedral is hard to find: the button says CAVE (say CATHEDRAL), it shows
       only at the BRAIN stop, and it has no address of its own (add `cave=1`, so it can be
       linked, toured and put on the overview desk).
-- [ ] (21:00) The palace has no elevator panel: the floors are the level elevator's 21 levels,
+- [x] (15 Oct: FLOORS ▤ in the palace lists its 21 floors, a pick rides there) (21:00) The palace has no elevator panel: the floors are the level elevator's 21 levels,
       so the palace should show the same elevator (pick a floor, not ▲ twenty times), and the
       field's controls should act there: POKE (a thought arriving in the hall), THOUGHTS, Φ
       (now the palace FX).
