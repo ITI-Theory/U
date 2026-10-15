@@ -711,22 +711,35 @@ function drawChoices(ctx, env) {
   env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
   if (env.labels) {
     const { u } = env;
-    label(ctx, u, 'THE PATHS · should I do this, or that?', 0, -0.72, '#e8d8ff', 'center', 0.034);
-    label(ctx, u, 'the land is the energy landscape; the tree, a plan\'s options; activity runs on every path, more on the cheap ones; a path\'s cost is summed along its route (blue cheap, pink costly); interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
-    const say = { flow: 'the paths: activity on all of them at once, below the threshold', flash: 'the flashes: where the activity crossed the threshold; they stay lit', sequence: 'the sequence: one at a time, each route and what the land says there', rest: 'and again' }[env.gl.phase];
-    label(ctx, u, say, 0, 0.78, '#ffd166', 'center', 0.022);
-    hint(ctx, u, 'Φ: hotter, the activity explores the costly paths too · POKE: flash now, or start again · a rat at a fork does this (vicarious trial and error); for people, interpretive', 0, 0.84, COLORS.violet, 'center', 0.019);
+    label(ctx, u, `THE COURSE · "${env.gl.label}": should I do it?`, 0, -0.72, '#e8d8ff', 'center', 0.034);
+    label(ctx, u, 'the inside of a thought that sticks: a hole per consideration, each a small SAFE / FIGHT / FREEZE landscape; height its cost, colour the feeling (blue cool, red warm); stress is the two disagreeing; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+    if (env.gl.verdict) label(ctx, u, env.gl.verdict, 0, 0.78, env.gl.stress > 0.42 ? '#ff7ad9' : '#5ee7ff', 'center', 0.026);
+    hint(ctx, u, 'POKE: one more consideration · Φ: thoughts come faster · in the MIND CHAMBER, click a thought to focus it', 0, 0.84, COLORS.violet, 'center', 0.019);
   }
   return true;
 }
+// THE FOCUS (ISS-104): a thought that sticks opens in place into its course; the chamber blurs
+let focusGl = null;
 function drawAtrium(ctx, env) {
   if (!env.atrium || !env.gl?.route) return false;
   atriumGl = env.gl;
   env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm, cp: env.cp, dim: env.dim });
+  if (focusGl && env.atrium?.gl === 'thought-atrium') {
+    focusGl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
+    if (env.labels) {
+      const { u } = env;
+      label(ctx, u, `FOCUS · "${focusGl.label}"`, 0, -0.72, '#e8d8ff', 'center', 0.036);
+      label(ctx, u, 'one thought sticks; the rest blur and carry on. Inside it, the course: a hole per consideration (SAFE, FIGHT, FREEZE); height its cost, colour the feeling (blue cool, red warm); interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+      if (focusGl.verdict) label(ctx, u, focusGl.verdict, 0, 0.78, focusGl.stress > 0.42 ? '#ff7ad9' : '#5ee7ff', 'center', 0.026);
+      hint(ctx, u, 'POKE: one more consideration · Esc: let it go (unresolved, it stays below the line)', 0, 0.84, COLORS.violet, 'center', 0.019);
+    }
+    return true;
+  }
   if (env.labels) {
     const { u } = env;
     label(ctx, u, env.gl.info.title, 0, -0.72, '#e8d8ff', 'center', 0.034);
     label(ctx, u, env.gl.info.sub, 0, -0.66, COLORS.dim, 'center', 0.019);
+    if (env.gl.load) label(ctx, u, `LOAD: ${env.gl.load} unresolved below the line; the chamber runs hotter`, 0, 0.74, '#ff7ad9', 'center', 0.022);
     hint(ctx, u, 'click a doorway to take that route · the ELEVATOR at the entrance goes to any level · POKE: a pulse of the field · Φ: the field\'s light; high, the walls give way', 0, 0.86, COLORS.violet, 'center', 0.02);
   }
   return true;
@@ -3181,7 +3194,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
-      <button type="button" data-act="choices" title="THE PATHS (ISS-104): should I do this or that? the options laid on the land, activity on all of them, the flashes that stay lit, then one at a time">THE PATHS</button>
+      <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: a hole per consideration, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
       <button type="button" data-act="hall" title="THE GREAT HALL (ISS-103): the brain's hub, the atrium of the lateral ventricle under water; doorways to the cathedral, the limbic hinge, the path of a thought, the palace, the arteries; the elevator to any level">GREAT HALL</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CATHEDRAL</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
@@ -3268,7 +3281,7 @@ export function createExplorer(hooks = {}) {
       update() {
         const id = hooks.levelId?.();
         const k = PALACE_FLOORS.findIndex(f => f.id === id);
-        const here = st.choices && st.stop === 'thought' ? 'THE PATHS' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].button : st.cave ? 'CATHEDRAL' : st.palace ? 'MIND PALACE' : '';
+        const here = st.choices && st.stop === 'thought' ? 'THE COURSE' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].button : st.cave ? 'CATHEDRAL' : st.palace ? 'MIND PALACE' : '';
         const key = `${id}|${st.stop}|${here}`;
         if (key !== last) {
           last = key;
@@ -3379,6 +3392,29 @@ export function createExplorer(hooks = {}) {
     lift.hidden = true;
     if (b.dataset.lift !== 'close') hooks.onLevel?.(b.dataset.lift);
   });
+  // THE FOCUS: the course opens where the thought was; the chamber blurs and carries on
+  const startFocus = (text, x, y) => {
+    const c = stageGl('thought-course');
+    if (!c) return;
+    focusGl = c;
+    c.start(text);
+    c.onEnd = r => setTimeout(() => endFocus(r.stays), r.stays ? 3500 : 4500);
+    c.canvas.style.setProperty('--fx', `${x}px`);
+    c.canvas.style.setProperty('--fy', `${y}px`);
+    c.canvas.classList.remove('explorer__focus');
+    void c.canvas.offsetWidth;
+    c.canvas.classList.add('is-active', 'explorer__focus');
+    gls['thought-atrium']?.canvas.classList.add('explorer__blurred');
+  };
+  const endFocus = stays => {
+    if (!focusGl) return;
+    const text = focusGl.label;
+    focusGl.canvas.classList.remove('is-active', 'explorer__focus');
+    focusGl = null;
+    gls['thought-atrium']?.canvas.classList.remove('explorer__blurred');
+    if (stays) gls['thought-atrium']?.park(text);
+  };
+  addEventListener('keydown', event => { if (event.key === 'Escape' && focusGl) { event.preventDefault(); endFocus(true); } });
   const takeRoute = id => {
     if (id === 'cathedral') { st.hall = false; st.cave = true; st.view3d = true; syncUi(); hooks.onChange?.(); }
     else if (id === 'palace') { st.hall = false; st.palace = true; st.cave = false; st.view3d = true; syncUi(); hooks.onChange?.(); }
@@ -3393,6 +3429,7 @@ export function createExplorer(hooks = {}) {
     if (!g?.pick) return;
     const r = root.getBoundingClientRect();
     const id = g.pick((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
+    if (typeof id === 'string' && id.startsWith('thought:')) { if (!focusGl) startFocus(id.slice(8), event.clientX - r.left, event.clientY - r.top); return; }
     if (id === 'elevator') openLift();
     else if (id) g.route(id, () => takeRoute(id));
   });
@@ -3546,7 +3583,9 @@ export function createExplorer(hooks = {}) {
     'neuron-atrium': () => createAtrium3D('neuron'),
     'thought-atrium': () => createAtrium3D('mind'),
     // THE PATHS (ISS-104): the path problem, on the land
-    'thought-paths': () => createPaths3D(),
+    'thought-paths': () => createPaths3D({ loop: true }),
+    // the course inside a thought that sticks, opened in place in the mind chamber
+    'thought-course': () => createPaths3D({ loop: false }),
     // INTO A THOUGHT: a clicked bubble's own fractal world (the Mandelbulb dive, tinted)
     'thought-dive': () => createFlight3D(),
   };
@@ -3563,7 +3602,7 @@ export function createExplorer(hooks = {}) {
     return gls[stop];
   }
   function showGl(active) {
-    for (const g of Object.values(gls)) g?.canvas.classList.toggle('is-active', g === active);
+    for (const g of Object.values(gls)) g?.canvas.classList.toggle('is-active', g === active || (g === focusGl && Boolean(focusGl)));
     root.classList.toggle('explorer--gl', Boolean(active));
   }
   let raf = 0;
@@ -4238,7 +4277,7 @@ export function createExplorer(hooks = {}) {
     else if (event.key === 'ArrowLeft' && i > 0) go(STOPS[i - 1]);
     else if (event.key.toLowerCase() === 's' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey);
     else if (event.key.toLowerCase() === 'v' && !event.ctrlKey && !event.metaKey && !event.altKey) snapper.request(event.shiftKey, true);
-    else if (event.key === 'Escape' && pop.hidden) {   // Esc in a thought goes back to the cathedral only
+    else if (event.key === 'Escape' && pop.hidden && !focusGl) {   // Esc in a thought goes back to the cathedral only
       api.hide();
       hooks.onChange?.();
     } else return;
@@ -4374,6 +4413,7 @@ export function createExplorer(hooks = {}) {
     refresh() { syncUi(); },
     poke(strength = 1) {
       if (st.open && st.choices && st.stop === 'thought' && choicesGl) { choicesGl.poke(); music.poke(); return; }
+      if (st.open && focusGl) { focusGl.poke(); music.poke(); return; }
       if (st.open && st.hall && ATRIUMS[st.stop] && atriumGl) { atriumGl.pulse({ cp: st.cp, phi: st.phi }); music.poke(); return; }
       if (st.open && st.stop !== 'human') scene(st.stop).poke(clamp(Number(strength) || 1, 0, 1));
       music.poke();

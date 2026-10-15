@@ -77,7 +77,7 @@ const KINDS = {
     routes: [
       { id: 'brain', angle: 0, label: 'BACK TO THE GREAT HALL', sub: 'through the limbic gate, into the body', color: '#ff7aa8' },
       { id: 'tunnel', angle: -0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
-      { id: 'choices', angle: 0.95, label: 'THE PATHS', sub: 'should I do this, or that? the options on the land', color: '#5ee7ff' },
+      { id: 'choices', angle: 0.95, label: 'THE COURSE', sub: 'should I do it? a hole per consideration (click a thought to focus it)', color: '#5ee7ff' },
       { id: 'network', angle: -1.95, label: 'MEMORY', sub: 'a network: recall blended with a fading trace', color: '#a78bfa' },
       { id: 'limbic', angle: 1.95, label: 'THE LIMBIC HINGE', sub: 'the gate seen from the side: the amygdala, the hippocampus', color: '#ff4d5e' },
     ],
@@ -388,7 +388,7 @@ const exprText = e => {
   const core = e.op === 'atom' ? e.a : `${e.op}(${e.a}, ${e.b})`;
   return `${e.name} = ${e.m ? `evoke(${e.m}, ${core})` : core}`;
 };
-const WORDS = ['what have I got to do?', 'skiing on Saturday', 'this way, or that way', 'the chair', 'why did I say that', 'a third way'];
+const WORDS = ['cut the grass', 'book the dentist', 'answer the email', 'fix the bike', 'call mum', 'go skiing on Saturday', 'why did I say that'];
 const THRESHOLD_Y = -3.2;
 const FLOOR_Y = -7.2;
 
@@ -498,7 +498,9 @@ function mindAnatomy(scene, rnd, U, dot) {
     if (kind === 'words') {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(0.58, 0.008, 6, 64), new THREE.MeshBasicMaterial({ color: '#e8eefc', transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false }));
       g.add(ring); extra.push(ring);
-      const w = label(`"${WORDS[Math.floor(rnd() * WORDS.length)]}"`, '#e8eefc');
+      const said = WORDS[Math.floor(rnd() * WORDS.length)];
+      g.userData.text = said;
+      const w = label(`"${said}"`, '#e8eefc');
       w.position.set(0, -0.85, 0); w.scale.set(2, 0.19, 1);
       g.add(w); extra.push(w);
     } else if (kind === 'picture') {
@@ -514,6 +516,7 @@ function mindAnatomy(scene, rnd, U, dot) {
     g.scale.setScalar(0.45);
     scene.add(g);
     const stay = kind === 'flashback' || rnd() < cp * 0.55;
+    g.userData.text ??= e.name;
     thoughts.push({ g, shell, cores, extra, tag, kind, e, age: 0, ignited: false, stay, holdY: -1.6 + rnd() * 5.5, drift: new THREE.Vector3(rnd() - 0.5, 0, rnd() - 0.5).multiplyScalar(0.4), fading: 0, ridge: null, pain: kind === 'pain' ? new THREE.Vector3(Math.cos(a) * 9, FLOOR_Y, -1 + Math.sin(a) * 9) : null });
   }
 
@@ -534,18 +537,47 @@ function mindAnatomy(scene, rnd, U, dot) {
     for (let k = 1; k <= echoes; k++) ringFx(at, '#a78bfa', 1.3, 0.45 * k, 0.5 + 0.25 * k);
   }
 
+  // THE LOAD (ISS-104): thoughts that did not resolve sink just below the threshold and stay,
+  // seen as thoughts; the more there are, the hotter the chamber (more pops, a rougher foam)
+  const parked = [];
+  function park(text) {
+    const g = new THREE.Group();
+    const k = parked.length;
+    const a = k * 2.399, r = 2.5 + (k % 5) * 1.3;
+    g.position.set(Math.cos(a) * r, THRESHOLD_Y - 0.7 - 0.25 * (k % 3), -1 + Math.sin(a) * r);
+    const s = new THREE.Mesh(new THREE.SphereGeometry(0.5, 24, 14), new THREE.MeshBasicMaterial({ color: '#ff7ad9', transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.02, 6, 48), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const tag = label(`unresolved: ${text}`, '#ff7ad9');
+    tag.position.set(0, 0.8, 0);
+    tag.scale.set(2.6, 0.25, 1);
+    g.add(s, ring, tag);
+    scene.add(g);
+    parked.push({ g, ring, tag });
+  }
   return {
+    park,
+    get load() { return parked.length; },
+    // the thought under a screen ray, taken out of the chamber (it becomes the focus)
+    takeThought(ray) {
+      const hits = ray.intersectObjects(thoughts.filter(th => th.ignited && !th.fading).map(th => th.shell), false);
+      const th = hits.length && thoughts.find(x => x.shell === hits[0].object);
+      if (!th) return null;
+      th.fading = 0.999;
+      return th.g.userData.text;
+    },
     poke(state) { spawn(state ?? {}, true); },
     update(dt, state, beat) {
       const fx = state.fx ?? 0;
       // the foam: bubbling, faster and higher as Φ heats the chamber
       const pos = fg.attributes.position;
-      for (let i = 0; i < NF; i++) pos.setY(i, base[i] + (0.18 + 0.35 * fx) * Math.sin(state.time * (1.2 + 2.5 * fx) + phase[i]));
+      const heat = Math.min(1, fx + 0.12 * parked.length);   // the load heats the chamber
+      for (let i = 0; i < NF; i++) pos.setY(i, base[i] + (0.18 + 0.35 * heat) * Math.sin(state.time * (1.2 + 2.5 * heat) + phase[i]));
+      for (const q of parked) { q.ring.rotation.x += dt * 0.4; q.g.position.y += 0.002 * Math.sin(state.time * 1.3 + q.g.position.x); q.tag.visible = state.labels !== false; }
       pos.needsUpdate = true;
       foam.material.opacity = 0.45 + 0.35 * fx;
       planeLabel.visible = state.labels !== false;
       // new thoughts, more as the field heats
-      if (thoughts.length < 44 && rnd() < (0.25 + 0.9 * fx) * dt) spawn(state);
+      if (thoughts.length < 44 && rnd() < (0.25 + 0.9 * heat) * dt) spawn(state);
       // too many staying: the oldest is let go
       const staying = thoughts.filter(t => t.stay && t.ignited && !t.fading);
       if (staying.length > 30) staying[0].stay = false;
@@ -805,9 +837,13 @@ export function createAtrium3D(kind = 'brain') {
       if (!d || travel) return;
       travel = { from: camera.position.clone(), to: d.at.clone().lerp(new THREE.Vector3(0, -3.4, 0), 0.12), look: d.at.clone(), start: performance.now(), done };
     },
-    // the doorway or the elevator under a screen point (fractions from the centre)
+    park(text) { anatomy.park?.(text); },
+    get load() { return anatomy.load ?? 0; },
+    // the doorway, the elevator, or (in the mind chamber) a thought under a screen point
     pick(fx, fy) {
       ray.setFromCamera(new THREE.Vector2(fx * 2, -fy * 2), camera);
+      const thought = anatomy.takeThought?.(ray);
+      if (thought) return `thought:${thought}`;
       const hits = ray.intersectObjects([...doors.map(d => d.disc), column], false);
       if (!hits.length) return null;
       if (hits[0].object === column) return 'elevator';

@@ -532,6 +532,10 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__drawer-note { margin: 0 0 4px; font-size: 10px; color: rgba(232,238,252,.55); }
 .explorer__drawer > button, .explorer__drawer > label { justify-content: flex-start; text-align: left; }
 .explorer__settings.active { color: #070a16; background: #ffb36b; }
+/* THE FOCUS (ISS-104): the chamber blurs; the course opens where the thought was */
+.explorer__gl.explorer__blurred { filter: blur(7px) brightness(.5) saturate(.85); transition: filter .8s ease; }
+.explorer__gl.explorer__focus { z-index: 1; opacity: 1; transition: none; animation: explorer-focus-in 1.3s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes explorer-focus-in { from { clip-path: circle(0% at var(--fx, 50%) var(--fy, 50%)); } to { clip-path: circle(85% at 50% 50%); } }
 .atlas-capture .explorer__deck, .atlas-capture .explorer__drawer, .atlas-capture .explorer__crumbs, .atlas-capture .explorer__settings { display: none !important; }
 .explorer-film:not(.explorer-chrome) .explorer__deck { opacity: 0; pointer-events: none; transition: opacity .6s ease; }
 /* in an atrium the stop's own rows (the body's feelings) give way to the place */

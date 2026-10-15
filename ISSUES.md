@@ -5222,10 +5222,14 @@ carried by every somagram taken on it.
    the stress loop. Anchors: allostatic load (McEwen; sourced, physiology); the Zeigarnik
    effect (1927; replications mixed: suggestive); in the model, the memory kernel and Φ
    heating the landscape.
-- [ ] Rebuild THE PATHS as the inside of a focused thought: the course of FFF holes (the
-      landscape stop's wells, tiled), height cost, colour feeling, ripples per consideration, the
-      stress reading; the focus (depth of field) in the Mind Chamber; resolve, or sink below the
-      line and stay; the load raising Φ.
+- [x] (15 Oct, built; author's review) The course and the focus: paths3d.js rewritten as THE
+      COURSE (140 FFF holes, height the cost, colour the feeling, a ripple per consideration, the
+      ball in SAFE / FIGHT / FREEZE, the stress reading: obvious do, obvious don't, mixed); in
+      the Mind Chamber a click on a thought focuses it (the chamber blurs and carries on, the
+      course opens from the click); it resolves (the easiest way through drawn) or stays (Esc,
+      or a mixed verdict: it sinks below the line, labelled, and the LOAD heats the chamber).
+      THE COURSE is also a place of its own at the THOUGHT stop (looping through a few to-dos).
+      Visual grammar 12 of 12, 15 channels.
 
 ## ISS-105: The Soma Machine as one instrument: the design (the show piece) — OPEN
 {{Tags area.app}}
