@@ -5317,6 +5317,8 @@ grammar's three gaps closed by it.
       grammar now shows 11 of 12 terms (route still to come: the paths).
 - [ ] Phase 3: the drawers wired; the pulse down to the heart.
 - [ ] Phase 4: more places (ISS-103).
+- [ ] (15 Oct 20:46, author) The BRECVEMA settings for POKE seem to have disappeared: check
+      where they went (the spine, the deck, the drawers?) and reconsider where they belong.
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
