@@ -11,6 +11,22 @@
 // Saving: Chrome and Edge ask once per session for a folder (choose bld/gallery/snaps; the
 // Gallery's renderer reads it); other browsers download the two files.
 //
+// THE FILM STOCK (ISS-104; the author, 15 Oct: a photograph records its film and ISO): the
+// user's base, the settings in force when the first somagram of a session was taken (the
+// neurotype operators, the viewer preset, the resting heart, the loop, the start's Φ, level and
+// dimension, the model's fixed constants), recorded once and carried by every somagram of the
+// session, so two pictures can be compared fairly (a passing state against a lasting base).
+const STOCK_KEY = 'soma-film-stock';
+function filmStock(current) {
+  try {
+    const kept = JSON.parse(sessionStorage.getItem(STOCK_KEY) || 'null');
+    if (kept) return kept;
+    const stock = { loaded: new Date().toISOString(), ...current };
+    sessionStorage.setItem(STOCK_KEY, JSON.stringify(stock));
+    return stock;
+  } catch { return { loaded: new Date().toISOString(), ...current }; }
+}
+
 // A WebGL canvas is cleared after it is shown, so the picture is copied inside the frame
 // that drew it: request() marks the wish, the explorer's frame calls take() after drawing.
 
@@ -84,8 +100,9 @@ export function createSnapper() {
       wanted = { withLabels, say };
       folder();
     },
-    // gl: the stop's 3D canvas (or null), overlay: the explorer's 2D canvas, reading: the [T]-stop
-    take(gl, overlay, reading) {
+    // gl: the stop's 3D canvas (or null), overlay: the explorer's 2D canvas, reading: the [T]-stop,
+    // base: the settings now, kept as the film stock if this is the session's first somagram
+    take(gl, overlay, reading, base = {}) {
       const { withLabels, say: listen } = wanted;
       wanted = null;
       const source = gl ?? overlay;
@@ -101,7 +118,8 @@ export function createSnapper() {
       const two = n => String(n).padStart(2, '0');   // local time: the moment as the author lived it
       const stamp = `${now.getFullYear()}${two(now.getMonth() + 1)}${two(now.getDate())}-${two(now.getHours())}${two(now.getMinutes())}${two(now.getSeconds())}`;
       const name = `somagram-${stamp}-${reading.stop ?? 'view'}`;
-      const record = { taken: now.toISOString(), local: `${stamp.slice(0, 8)} ${stamp.slice(9, 11)}:${stamp.slice(11, 13)}`, width: out.width, height: out.height, labels: withLabels, ...reading };
+      const stock = filmStock(base);
+      const record = { stock, taken: now.toISOString(), local: `${stamp.slice(0, 8)} ${stamp.slice(9, 11)}:${stamp.slice(11, 13)}`, width: out.width, height: out.height, labels: withLabels, ...reading };
       out.toBlob(async blob => {
         try {
           const where = await save(`${name}.png`, blob);

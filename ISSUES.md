@@ -5166,9 +5166,13 @@ carried by every somagram taken on it.
 - [ ] Step 1, physical only: the atriums and their tubes as places (ISS-103), without the mind
       layers, for UAT on their own.
 - [ ] The author's chat with HAL on the inside (the brief); his take decides the design.
-- [ ] A visual grammar: each model quantity (blend, mechanism, threshold, band, well depth,
-      barrier, temperature, route) given a visual channel; a Sherlock check that every channel
-      maps to a model term and every term a channel (the chocolate-bar test).
+- [x] (15 Oct, author: "add these checks; as the model develops we need them") The visual
+      grammar: registry/visual-grammar.yaml (12 model terms pinned to Lean or a paper, 10 app
+      channels pinned to their code), sherlock/visual_grammar.py (`make -C sherlock grammar`,
+      release check 19): fails on a picture that expresses nothing undeclared, a missing Lean
+      name or code anchor; lists the terms not yet shown. Now: 9 of 12 shown; not yet shown:
+      emotion-blend, mechanism, route (the next pictures); one decorative channel (the bubble's
+      tint). Moriarty: chocolate-bar and model-moved-under-picture, both caught.
 - [ ] The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
       staying thoughts (rising, holding; the barrier), paths leaving as tubes.
 - [ ] The base as film stock: the start settings recorded with every somagram (after HAL).

@@ -90,3 +90,15 @@ faults:
     find: "# Introduction\n"
     replace: "# Introduction\n\nThe coupling matrix $W$ is the amygdala.\n\n"
     expect: caught  # sherlock/leakage.py (ISS-094), was a DOT
+  - id: chocolate-bar
+    what: "a picture that expresses nothing in the model and does not say so (a thought drawn as a bar of chocolate; ISS-104)"
+    file: registry/visual-grammar.yaml
+    find: "  - id: walls-fold\n"
+    replace: "  - id: chocolate-bar\n    what: thoughts drawn as a bar of chocolate\n    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: CONCEPT_TINT}\n    expresses: []\n  - id: walls-fold\n"
+    expect: caught  # sherlock/visual_grammar.py
+  - id: model-moved-under-picture
+    what: "the model changes under a picture: a Lean declaration a channel expresses is renamed (ISS-104)"
+    file: paper/proofs/LimbicTunnel.lean
+    find: "theorem barrier_height (p : BarrierParam)"
+    replace: "theorem barrier_top (p : BarrierParam)"
+    expect: caught  # sherlock/visual_grammar.py

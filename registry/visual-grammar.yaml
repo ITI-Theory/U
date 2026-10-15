@@ -1,0 +1,96 @@
+# The visual grammar (ISS-104): what the model says can be expressed, and which of the app's
+# visual channels expresses it. Sherlock's check (sherlock/visual_grammar.py, `make -C sherlock
+# grammar`) reads it both ways, so a picture can be checked against the model and the model
+# against the pictures (the author, 15 Oct: "if I visualise thoughts as a bar of chocolate,
+# Sherlock should complain that it is irrelevant, and say what they should be a combination of").
+#
+# terms:    the model's quantities, each pinned to a Lean declaration (file, name), or to a paper
+#           where the Lean does not yet carry it.
+# channels: a visual feature of the app, pinned to the code that draws it (file, anchor: a string
+#           that must be in that file), and the terms it expresses. A channel that expresses no
+#           term must say `decorative:` and why (a chocolate bar that admits it is one); one that
+#           expresses nothing and does not say so is a finding.
+# The check fails on: a term whose Lean name or paper is missing; a channel whose code anchor is
+# missing, which names an unknown term, or which expresses nothing undeclared. It reports, without
+# failing, the terms no channel expresses yet (the model's gaps in the app: the next pictures to
+# design) and the decorative channels. Add terms as the model develops, channels as the app does.
+schema_version: 1
+terms:
+  - id: emotion-blend
+    what: "a feeling is a blend (or damping) of basic emotions"
+    lean: {file: paper/proofs/EmotionOntology.lean, name: blend}
+  - id: mechanism
+    what: "the mechanism that evoked a feeling (brain stem, conditioning, contagion, visual imagery, episodic memory, rhythmic entrainment, musical expectancy, aesthetic judgement)"
+    lean: {file: paper/proofs/EmotionOntology.lean, name: Mechanism}
+  - id: threshold
+    what: "below the threshold the field is real but not felt; above it, conscious (the foam and the pop)"
+    lean: {file: paper/proofs/UniversalSomaticField.lean, name: consciousnessThreshold}
+  - id: band
+    what: "one event, two types; an emotion in the limbic band (D8), a thought in the cortical band (D9 to D11)"
+    lean: {file: paper/proofs/FieldEvent.lean, name: Layer}
+  - id: limbic-field
+    what: "the limbic field Φ heats the landscape (stress raises the temperature)"
+    lean: {file: paper/proofs/LimbicHopfield.lean, name: modulatedTemp}
+  - id: attractor
+    what: "memories and stuck states are attractors of an energy landscape"
+    lean: {file: paper/proofs/HopfieldAsync.lean, name: IsAttractor}
+  - id: energy-descent
+    what: "each update lowers the energy; the state settles into a well"
+    lean: {file: paper/proofs/HopfieldAsync.lean, name: update_lowers_energy}
+  - id: barrier
+    what: "the height of the barrier between wells (C-PTSD raises it)"
+    lean: {file: paper/proofs/LimbicTunnel.lean, name: barrier_height}
+  - id: tunnelling
+    what: "leaving a well through its barrier, with an amplitude that falls with the barrier"
+    lean: {file: paper/proofs/LimbicTunnel.lean, name: wkbAmplitude}
+  - id: memory-kernel
+    what: "the past keeps acting, fading, through a causal memory kernel"
+    lean: {file: paper/proofs/TemporalDynamics.lean, name: somaticMemoryKernel}
+  - id: neurotype
+    what: "the model operators for ADHD (hotter) and autism (colder); not diagnoses"
+    lean: {file: paper/proofs/LimbicHopfield.lean, name: adhdOperator}
+  - id: route
+    what: "a transition depends on the route taken (a plan's options are paths)"
+    paper: paper/soma/path-sensitive-transitions
+channels:
+  - id: phi-light
+    what: "the Φ LIMBIC / FX slider's light and heat in every view"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "Φ LIMBIC / FX"}
+    expresses: [limbic-field]
+  - id: thought-sea
+    what: "the THOUGHT stop: the sub-threshold sea, the gold threshold plane, a swell crossing it becomes an emotion at 8D, then a thought at 11D"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "THRESHOLD T_c"}
+    expresses: [threshold, band]
+  - id: landscape-wells
+    what: "the LANDSCAPE stop: the state as a ball in wells (SAFE, FIGHT, FREEZE), rolling downhill"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "WELLS"}
+    expresses: [attractor, energy-descent, barrier]
+  - id: path-gates
+    what: "the PATH stop: gates on a thought's path; POKE tries to tunnel through a closed one"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "tunnelTry"}
+    expresses: [barrier, tunnelling]
+  - id: memory-rings
+    what: "the MEMORY stop's PAST: recall blended with a fading trace, drawn as rings"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "K(τ)"}
+    expresses: [memory-kernel]
+  - id: condition-sliders
+    what: "the ADHD, ASD and C-PTSD sliders (more bursts, fewer and focused, echoes)"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "the condition sliders ca, cs, cp"}
+    expresses: [neurotype, barrier]
+  - id: cathedral-echo
+    what: "in the cathedral, with C-PTSD a thought's burst comes back, fading, as a sound in a cathedral"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "C-PTSD echoes (a burst comes back"}
+    expresses: [memory-kernel]
+  - id: bubble-appears
+    what: "in the cathedral only a large enough avalanche becomes a visual thought, a bubble"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "IGNITION"}
+    expresses: [threshold]
+  - id: bubble-tint
+    what: "the colour of a thought bubble"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "CONCEPT_TINT"}
+    expresses: []
+    decorative: "the tint is the carried figure's concept (or a random avant-garde hue), not the model's blend of emotions; ISS-104 wants it to become emotion-blend"
+  - id: walls-fold
+    what: "the palace's and the atriums' walls fold as Φ rises (the manifold, not a building)"
+    code: {file: apps/instrument/visuals/soma-field-operator/palace3d.js, anchor: "FOLD.value"}
+    expresses: [limbic-field]

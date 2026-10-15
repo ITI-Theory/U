@@ -3201,6 +3201,8 @@ export function createExplorer(hooks = {}) {
   let ctx = mainCtx;
   // SNAP (ISS-097): the moment as a somagram, with the field's reading when it was taken
   const snapper = createSnapper();
+  // the film stock's candidates: the base settings in force now (snap.js keeps the first)
+  const baseSettings = () => ({ neurotype: { adhd: st.ca, asd: st.cs, cptsd: st.cp }, viewer: st.pv, restingBpm: st.bpm, strap: strap.connected, loop: st.kr, phi: st.phi, level: hooks.levelId?.(), dim: dim(), model: { consciousnessThreshold: Math.SQRT2, memoryKernelSeconds: 4 } });
   const reading = () => ({ address: location.hash.replace(/^#/, ''), stop: st.stop, phi: st.phi, dim: dim(), cave: Boolean(st.cave), palace: Boolean(st.palace), thoughts: Boolean(st.thoughts), cp: st.cp, setting: st.stop === 'score' ? st.kc : undefined, storyTime: st.stop === 'score' ? scoreT : undefined, modes: st.stop === 'score' && scoreModes ? { ...scoreModes } : undefined });
   const phiInput = root.querySelector('.explorer__phi input');
   const phiOut = root.querySelector('.explorer__phi output');
@@ -3792,7 +3794,7 @@ export function createExplorer(hooks = {}) {
         mainCtx.clearRect(0, 0, canvas.width, canvas.height);
       }
       // the level view shows through here (main.js keeps its drawing buffer)
-      if (snapper.wanted) snapper.take(document.querySelector('#operator'), canvas, reading());
+      if (snapper.wanted) snapper.take(document.querySelector('#operator'), canvas, reading(), baseSettings());
       raf = requestAnimationFrame(frame);
       return;
     }
@@ -3806,7 +3808,7 @@ export function createExplorer(hooks = {}) {
         mainCtx.setTransform(1, 0, 0, 1, 0, 0);
         mainCtx.clearRect(0, 0, canvas.width, canvas.height);
         music.update({ sector: 'organismal', phi: st.phi, resource: false, score: INTO_THOUGHT, bpm: st.bpm, echo: 0 });
-        if (snapper.wanted) snapper.take(g.canvas, canvas, { ...reading(), stop: 'thought' });
+        if (snapper.wanted) snapper.take(g.canvas, canvas, { ...reading(), stop: 'thought' }, baseSettings());
         raf = requestAnimationFrame(frame);
         return;
       }
@@ -3875,7 +3877,7 @@ export function createExplorer(hooks = {}) {
       composite();
       ctx = mainCtx;
     }
-    if (snapper.wanted) snapper.take(env.gl?.canvas ?? null, canvas, reading());
+    if (snapper.wanted) snapper.take(env.gl?.canvas ?? null, canvas, reading(), baseSettings());
     raf = requestAnimationFrame(frame);
   }
 

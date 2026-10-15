@@ -301,6 +301,15 @@ else
   fail "Level types: a concept typed against its level's OpenCyc class fails (make -C sherlock level-types)"
 fi
 echo "$TYPES_CHECK" | tail -1 | sed 's/^/    /'
+# The visual grammar (ISS-104): every picture of the mind expresses a model term or says it is
+# decorative; every term is pinned to Lean (the chocolate-bar test); terms not yet shown are listed
+GRAMMAR_CHECK=$(py sherlock/visual_grammar.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Visual grammar: the app's pictures map to the model's terms, the terms to Lean"
+else
+  fail "Visual grammar: a picture expresses nothing undeclared, or a term or anchor is gone (make -C sherlock grammar)"
+fi
+echo "$GRAMMAR_CHECK" | sed 's/^/    /' | head -6
 
 hdr "20. Mind explorer: the simulations tell the tour's story (ISS-052)"
 if command -v node >/dev/null 2>&1; then
