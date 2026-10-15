@@ -504,6 +504,17 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__strut { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .08em; color: #ff7ad9; }
 .explorer__strut[hidden] { display: none; }
 .explorer__strut input { width: 110px; }
+/* THE ZOOM FADER (THE WORLDS): a slim DAW fader down the left edge, a thin triangle under it */
+.explorer__zoom { position: absolute; z-index: 5; left: 14px; top: 90px; bottom: 120px; width: 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.explorer__zoom[hidden] { display: none; }
+.explorer__zoom-track { flex: 1; display: flex; gap: 10px; min-height: 0; }
+.explorer__zoom input { writing-mode: vertical-lr; direction: rtl; width: 8px; height: 100%; margin: 0; accent-color: #5ee7ff; cursor: ns-resize; }
+.explorer__zoom-names { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+.explorer .explorer__zoom-names button { border: 0 !important; background: none !important; padding: 2px 4px !important; font-size: 11px !important; letter-spacing: .08em; color: rgba(232,238,252,.55) !important; text-align: left; }
+.explorer .explorer__zoom-names button.active { color: #5ee7ff !important; text-shadow: 0 0 8px rgba(94,231,255,.8); box-shadow: none !important; }
+.explorer__zoom-up { padding: 0 6px !important; font-size: 10px !important; }
+.explorer .explorer__zoom-in { width: 22px; height: 30px; padding: 0 !important; border: 0 !important; background: #5ee7ff !important; clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: none !important; }
+.explorer .explorer__zoom-in:hover { background: #ff7ad9 !important; }
 .explorer__legend b { color: #ffd166; letter-spacing: .1em; }
 .explorer__legend i { font-style: normal; }
 .explorer__slot h3 { margin: 10px 0 4px; font: 700 10px/1.2 'Space Mono', monospace; letter-spacing: .12em; color: #5ee7ff; }

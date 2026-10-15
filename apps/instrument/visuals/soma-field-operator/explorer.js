@@ -60,7 +60,7 @@ import { createPalace3D } from './palace3d.js';
 import { createAtrium3D } from './atrium3d.js';
 import { createPaths3D } from './paths3d.js';
 import { createMiniGolf3D } from './minigolf3d.js';
-import { createWorlds3D, WORLDS, LAYERS } from './worlds3d.js';
+import { createWorlds3D, TREE } from './worlds3d.js';
 import { createScoreEditor, loadMine } from './score-editor.js';
 import { BARRIERS, transmission, formatT, reason } from './barrier.js';
 import { createUreterModel, URETER_STAGES } from './ureter-model.js';
@@ -168,7 +168,7 @@ export const FEELINGS = {
 const CAPTIONS = {
   worlds: {
     title: 'THE WORLDS', label: 'interpretive',
-    4: 'The Soma Machine\'s map of itself: its ten big places, each a live miniature under its own glass dome, laid out like a park seen from the air, in four lands: the body nearest, then the brain and the cells, then the mind (the model\'s order: the body\'s dimensions, the limbic hinge, the cortex), and furthest the maps: the palace (memory) and the city of code (the programme\'s own Lean). Walkways are the routes between them. Each dome is a threshold; click one to go through it. A map, never the territory.',
+    4: 'The Soma Machine\'s map of itself, and its way in: the zoom as glass domes. Five on opening, the model\'s coarse levels from its sectors (quantum, life, human, earth, cosmos), each a scale model of the real thing. Click one, or point the fader at it and press ▼: it grows round the domes inside it and the others shrink to the shelf at the back. HUMAN holds BODY, BRAIN and MIND, and they hold the places. A dome with nothing inside is a door, to a place or to a floor of the level view. A map, never the territory; the models are pictures, not measurements.',
   },
   human: {
     title: 'THE JELLYFISH HUMAN', label: 'interpretive',
@@ -2666,22 +2666,19 @@ function makeWorlds() {
       const { u } = env;
       if (env.gl) env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
       else {
-        LAYERS.forEach((L, k) => {
-          const y = 0.5 - k * 0.32;
-          label(ctx, u, L.name, -0.78, y, COLORS.dim, 'left', 0.024);
-          const here = WORLDS.filter(w => w[3] === k);
-          here.forEach((w, i) => {
-            const x = -0.3 + (i - (here.length - 1) / 2) * 0.42 + 0.3;
-            glow(ctx, u, x, y, 0.07, w[7], 0.35);
-            label(ctx, u, w[1], x, y - 0.01, w[7], 'center', 0.024);
-            label(ctx, u, w[2], x, y + 0.04, COLORS.dim, 'center', 0.016);
-          });
+        // 2D: the tree flat, the five at the top, what is inside each below it
+        const top = TREE.children;
+        top.forEach((n, i) => {
+          const x = (i - (top.length - 1) / 2) * 0.36;
+          glow(ctx, u, x, -0.35, 0.08, n.color, 0.4);
+          label(ctx, u, n.title, x, -0.36, n.color, 'center', 0.03);
+          (n.children ?? []).forEach((c, k) => label(ctx, u, c.title, x, -0.22 + k * 0.07, k % 2 ? COLORS.dim : '#e8eefc', 'center', 0.017));
         });
       }
       if (env.labels) {
-        label(ctx, u, 'THE WORLDS · the Soma Machine\'s places, each under its glass', 0, -0.72, '#e8d8ff', 'center', 0.034);
-        label(ctx, u, 'the body nearest, the brain, the mind, the maps furthest; walkways are the routes; a map, never the territory; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
-        hint(ctx, u, 'click a dome to go through its glass · drag to look around · 2D: the same map flat', 0, 0.84, COLORS.violet, 'center', 0.02);
+        label(ctx, u, env.gl?.path ? env.gl.path.join('  ›  ') : 'THE WORLDS', 0, -0.72, '#e8d8ff', 'center', 0.034);
+        label(ctx, u, 'the zoom as glass domes, each a scale model of the real thing; a map, never the territory; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+        hint(ctx, u, 'click a dome to go in · the fader at the left: the zoom; ▼ in, ▲ out · the small domes at the back: the way across', 0, 0.84, COLORS.violet, 'center', 0.02);
       }
     },
   };
@@ -3658,8 +3655,59 @@ export function createExplorer(hooks = {}) {
     if (!g?.pick || g.diving) return;
     const r = root.getBoundingClientRect();
     const w = g.pick((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
-    if (w) g.dive(w.id, () => navTo(w.stop, w.place));
+    if (w) enterWorld(w);
   });
+  // a dome with domes inside opens; one without is a door: a place, or a floor of the level view
+  const enterWorld = w => {
+    const g = gls.worlds;
+    if (!w || !g) return;
+    if (w.inside) { g.open(w.id); syncZoom(); return; }
+    g.dive(w.id, () => (w.level ? hooks.onLevel?.(w.level) : navTo(w.stop, w.place)));
+  };
+  // THE ZOOM FADER (author, 16 Oct: "a DAW slider down the left edge, a slim triangle under it pointing
+  // down"): it points at one of the domes in view (the top the largest scale); ▼ goes in; ▲ comes out
+  const zoom = document.createElement('section');
+  zoom.className = 'explorer__zoom';
+  zoom.hidden = true;
+  zoom.innerHTML = '<button type="button" class="explorer__zoom-up" data-zoom="up" title="Out: back to the larger view">▲</button><div class="explorer__zoom-track"><input type="range" min="0" max="4" step="1" value="0" aria-label="Zoom" /><ol class="explorer__zoom-names"></ol></div><button type="button" class="explorer__zoom-in" data-zoom="in" title="In: through the glass of the dome it points at"></button>';
+  root.append(zoom);
+  const zoomInput = zoom.querySelector('input');
+  let zoomKey = null;
+  function syncZoom() {
+    const g = gls.worlds;
+    const on = st.stop === 'worlds' && st.view3d && Boolean(g?.children);
+    zoom.hidden = !on;
+    if (!on) return;
+    const kids = g.children;
+    const key = g.pathIds.join('/');
+    if (key !== zoomKey) {
+      zoomKey = key;
+      zoomInput.max = String(Math.max(0, kids.length - 1));
+      zoom.querySelector('.explorer__zoom-names').innerHTML = kids.map((k, i) => `<li><button type="button" data-zoom-pick="${i}">${k.title}</button></li>`).reverse().join('');
+      zoom.querySelector('.explorer__zoom-up').disabled = !g.pathIds.length;
+    }
+    zoomInput.value = String(g.highlight);
+    for (const b of zoom.querySelectorAll('[data-zoom-pick]')) b.classList.toggle('active', Number(b.dataset.zoomPick) === g.highlight);
+  }
+  zoomInput.addEventListener('input', () => { gls.worlds?.setHighlight(Number(zoomInput.value)); syncZoom(); });
+  zoom.addEventListener('click', event => {
+    event.stopPropagation();
+    const g = gls.worlds;
+    const b = event.target.closest('button');
+    if (!b || !g) return;
+    if (b.dataset.zoom === 'up') { g.up(); syncZoom(); }
+    else if (b.dataset.zoom === 'in') enterWorld(g.children[g.highlight]);
+    else if (b.dataset.zoomPick) { g.setHighlight(Number(b.dataset.zoomPick)); syncZoom(); }
+  });
+  addEventListener('keydown', event => {
+    if (st.stop !== 'worlds' || !st.open || event.target.closest?.('input, textarea, select')) return;
+    const g = gls.worlds;
+    if (!g) return;
+    if (event.key === 'ArrowUp') { event.preventDefault(); event.stopImmediatePropagation(); g.setHighlight(g.highlight + 1); syncZoom(); }
+    else if (event.key === 'ArrowDown') { event.preventDefault(); event.stopImmediatePropagation(); g.setHighlight(g.highlight - 1); syncZoom(); }
+    else if (event.key === 'Enter') { event.preventDefault(); enterWorld(g.children[g.highlight]); }
+    else if (event.key === 'Backspace') { event.preventDefault(); g.up(); syncZoom(); }
+  }, true);
   root.addEventListener('pointermove', event => {
     if (st.stop !== 'worlds' || !gls.worlds?.hover) return;
     const r = root.getBoundingClientRect();
@@ -3919,6 +3967,7 @@ export function createExplorer(hooks = {}) {
     return CAPTIONS[st.stop];
   }
   function syncUi() {
+    if (typeof syncZoom === 'function') syncZoom();
     const courseOn = Boolean(focusGl) || (st.stop === 'thought' && st.choices);
     const golfOn = st.stop === 'landscape' && st.golf && !st.view3d;
     legend.hidden = !courseOn && !golfOn;
@@ -4269,6 +4318,7 @@ export function createExplorer(hooks = {}) {
     env.map2d = !st.view3d && st.stop === 'brain' && st.cave && !st.hall;
     env.gl = env.golf ? stageGl(st.view3d ? 'landscape' : 'landscape-golf') : env.map2d ? stageGl('brain-cave') : st.view3d ? stageGl(st.stop === 'score' && st.kc !== 'mind' ? `score-${st.kc}` : st.stop === 'thought' && st.choices ? 'thought-paths' : st.hall && ATRIUMS[st.stop] ? ATRIUMS[st.stop].gl : st.stop === 'brain' && st.palace ? 'brain-palace' : st.stop === 'brain' && st.cave ? 'brain-cave' : st.stop) : null;
     showGl(env.map2d ? null : env.gl);
+    if (st.stop === 'worlds' || !zoom.hidden) syncZoom();
     if (env.gl) {
       // the terrain is on the WebGL canvas below; fade the old stop's background out over it
       ctx.clearRect(0, 0, lw, h);

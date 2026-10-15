@@ -5481,6 +5481,18 @@ grammar's three gaps closed by it.
 - [x] (author 01:18: "lots of overlap ... lay them flat, a higher camera, like a theme park") The
       worlds lie flat in four lands, body nearest to maps furthest, joined by walkways, under a
       wide low glass; the camera high, looking down, swaying. No overlap.
+- [x] (author 01:33: "the writing is really not clear ... start with the zoom slider ... a DAW fader
+      down the left edge, a slim triangle under it pointing down ... five levels, the coarse ones,
+      five glass domes ... under each a scale model of the real thing ... each dome goes down to
+      its set of domes ... click a big dome, the others shrink, that one gets bigger") THE
+      WORLDS rebuilt (worlds3d.js TREE): five domes from the model's sectors, QUANTUM (floors
+      1-4), LIFE (5-6), HUMAN (7-8), EARTH (9-12), COSMOS (13-21), each a scale model (an atom,
+      a cell, the human, the Earth with its moon, a spiral galaxy); a click (or the fader and
+      ▼) grows it round its own domes while the others shrink to a shelf at the back. HUMAN
+      holds BODY, BRAIN, MIND and they hold the places; COSMOS holds STARS, GALAXIES, THE
+      UNIVERSE with three floors each; a dome with nothing inside is a door to a place or to a
+      floor of the level view. Names on dark plates, the same size on screen. The fader: ▲ out,
+      the names of the domes in view, ▼ in; keys ↑ ↓ Enter Backspace. The camera in front, swaying.
 - [ ] SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
       ROOTED, the unlocked mode); the science mode keeps THE WORLDS. With ROOTED.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
