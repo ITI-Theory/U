@@ -29,9 +29,9 @@ export const WORLDS = [
 ];
 export const LAYERS = [
   { name: 'BODY', sub: 'D1-7: the body\'s dimensions', y: 0, n: 2, turn: 0.3 },
-  { name: 'BRAIN', sub: 'D8: the limbic hinge and the cells', y: 3.2, n: 3, turn: 1.4 },
-  { name: 'MIND', sub: 'D9-11: the cortex, thought', y: 6.4, n: 3, turn: 0.35 },
-  { name: 'THE MAPS', sub: 'memory and the formal layer: maps, not the territory', y: 9.6, n: 2, turn: 1.9 },
+  { name: 'BRAIN', sub: 'D8: the limbic hinge and the cells', y: 3.7, n: 3, turn: 1.4 },
+  { name: 'MIND', sub: 'D9-11: the cortex, thought', y: 7.4, n: 3, turn: 0.35 },
+  { name: 'THE MAPS', sub: 'memory and the formal layer: maps, not the territory', y: 11.1, n: 2, turn: 1.9 },
 ];
 // the routes: the ways between the places, as the explorer's doorways and buttons have them
 const ROUTES = [
@@ -224,15 +224,19 @@ export function createWorlds3D() {
   const column = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.32, top + 2.4, 20), chrome);
   column.position.y = (top - 1.2) / 2;
   scene.add(column);
-  const layerTags = LAYERS.map(L => { const s = textSprite(L.name, '#e8d8ff', L.sub, 0.18); s.position.set(0, L.y + 0.9, 0); scene.add(s); return s; });
+  const layerTags = LAYERS.map(L => { const s = textSprite(L.name, '#e8d8ff', L.sub, 0.18); s.position.set(-11.5, L.y + 0.4, 0); scene.add(s); return s; });
 
   // the worlds: a board on an arm, a glass dome, the miniature, the name
   const worlds = WORLDS.map(([id, title, sub, layer, slot, stop, place, color]) => {
     const L = LAYERS[layer];
-    const a = L.turn + (slot / L.n) * Math.PI * 2;
-    const pos = new THREE.Vector3(Math.cos(a) * R_ARM, L.y, Math.sin(a) * R_ARM);
+    // facing the visitor (author, 16 Oct 01:00: "as it rotates round the back it is hard to read ... zig-zag"):
+    // each layer spread left to right, alternate boards forward and back, the layers shifted
+    // left and right in turn; the higher, the bigger
+    const pos = new THREE.Vector3((slot - (L.n - 1) / 2) * 5.6 + (layer % 2 ? 1.6 : -1.6), L.y, (slot % 2 ? -1.4 : 1.2));
+    const grow = 1 + 0.12 * layer;
     const g = new THREE.Group();
     g.position.copy(pos);
+    g.scale.setScalar(grow);
     const board = new THREE.Mesh(new THREE.CylinderGeometry(DOME * 1.08, DOME * 1.12, 0.12, 48), new THREE.MeshStandardMaterial({ color: new THREE.Color(color).multiplyScalar(0.12), emissive: color, emissiveIntensity: 0.12, roughness: 0.5 }));
     board.position.y = -0.06;
     const rim = new THREE.Mesh(new THREE.TorusGeometry(DOME * 1.1, 0.035, 8, 80), new THREE.MeshBasicMaterial({ color }));
@@ -252,7 +256,7 @@ export function createWorlds3D() {
     const from = new THREE.Vector3(0, L.y - 0.06, 0);
     const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 1, 10), chrome);
     arm.position.copy(from).lerp(pos.clone().setY(L.y - 0.06), 0.5);
-    arm.scale.y = R_ARM - DOME;
+    arm.scale.y = Math.max(0.01, Math.hypot(pos.x, pos.z) - DOME * grow);
     arm.lookAt(pos.clone().setY(L.y - 0.06));
     arm.rotateX(Math.PI / 2);
     scene.add(arm);
@@ -264,7 +268,8 @@ export function createWorlds3D() {
   const routes = ROUTES.map(([a, b]) => {
     const A = byId[a].pos.clone(), B = byId[b].pos.clone();
     const mid = A.clone().lerp(B, 0.5);
-    mid.multiplyScalar(1.35).setY((A.y + B.y) / 2 + 0.6);
+    mid.z += 2.4;
+    mid.y = (A.y + B.y) / 2 + 0.4;
     const curve = new THREE.CatmullRomCurve3([A.clone().setY(A.y + 0.1), mid, B.clone().setY(B.y + 0.1)]);
     const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 60, 0.04, 8, false), new THREE.MeshBasicMaterial({ color: byId[a].color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
     const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(0.06, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' }), 5);
@@ -273,14 +278,15 @@ export function createWorlds3D() {
   });
 
   // THE GLASS OVER ALL OF IT
-  const big = new THREE.Mesh(new THREE.SphereGeometry(R_ARM + DOME + 3.2, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2), glassMaterial('#a78bfa'));
-  big.scale.y = (top + 4) / (R_ARM + DOME + 3.2);
+  const BIG = 12;
+  const big = new THREE.Mesh(new THREE.SphereGeometry(BIG, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2), glassMaterial('#a78bfa'));
+  big.scale.set(1, (top + 4.5) / BIG, 0.55);
   big.position.y = -1.2;
   big.renderOrder = 6;
   scene.add(big);
 
   let last = 0, clock = 0, hover = null, dive = null;
-  const target = new THREE.Vector3(0, top / 2 + 0.4, 0);
+  const target = new THREE.Vector3(0, top / 2 + 1.2, 0);
   const o = new THREE.Object3D();
   const pickAt = (fx, fy) => {
     ray.setFromCamera(new THREE.Vector2(fx * 2, -fy * 2), camera);
@@ -324,9 +330,10 @@ export function createWorlds3D() {
         camera.lookAt(target.clone().lerp(dive.look, e));
         if (t >= 1) { const done = dive.done; dive = null; done?.(); }
       } else {
-        const a = clock * 0.035;
-        const R = 28;
-        camera.position.set(Math.cos(a) * R, top / 2 + 5.5 + 1.2 * Math.sin(clock * 0.05), Math.sin(a) * R);
+        // in front, swaying: all ten always in view, never from behind
+        const a = 0.32 * Math.sin(clock * 0.045);
+        const R = 33;
+        camera.position.set(Math.sin(a) * R, top / 2 + 2 + 1.2 * Math.sin(clock * 0.06), Math.cos(a) * R);
         camera.lookAt(target);
         applyLook(camera);
       }

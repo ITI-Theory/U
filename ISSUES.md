@@ -5471,8 +5471,13 @@ grammar's three gaps closed by it.
       chamber, the course, the load), THE MAPS (the palace, the city of code); tubes for the
       routes; one glass over all. A click flies down through a dome and arrives there (navTo).
       2D draws the same map flat. Each dome a threshold, as in the course; interpretive.
-- [ ] THE WORLDS as the app's entry point (author: "perhaps"): a fresh start would open here
-      instead of the human. The author's call.
+- [x] THE WORLDS is the app's entry point (author 01:00: yes): a fresh start opens there
+      (main.js DEFAULT_VIEW voyage=worlds); explicit addresses keep their own place.
+- [x] (author 01:02: "as it rotates round the back it's hard to read ... zig-zag ... all in view at
+      once, but still moving") The worlds face the visitor: each layer spread left to right,
+      boards alternately forward and back, layers shifted left and right in turn (a zig-zag up),
+      the higher the bigger; the camera sways in front instead of orbiting; layer names at the
+      left. (Author: "a theme park ... Soma World".)
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 

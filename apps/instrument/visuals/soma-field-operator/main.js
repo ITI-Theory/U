@@ -227,10 +227,10 @@ renderTextWithMath(abstractSplashCopy, zUSFAbstract);
 abstractSplashSource.replaceChildren();
 abstractSplashSource.append('SOURCE / ');
 appendSourceLink(abstractSplashSource, sourceResolver.abstract_source);
-// One screen (author, 14 Oct, ISS-100): the jellyfish human with the level elevator is the
-// main screen, so a fresh start goes there after the abstract; the other screens show what
+// One screen (author, 14 Oct, ISS-100; 16 Oct: THE WORLDS, the app's map of itself, is the entry
+// point): a fresh start goes there after the abstract; the other screens show what
 // the thoughts are right now (overview.html shows how they fit together).
-const DEFAULT_VIEW = 'level=human-vertebrate&voyage=human&dim=11&phi=0.6';
+const DEFAULT_VIEW = 'level=human-vertebrate&voyage=worlds&dim=11&phi=0.6';
 // Fresh means opened without an address of its own (the app writes one at start-up).
 const freshStart = !location.hash.replace(/^#/, '') && screenRole === 'level';
 function openDefaultView() {
