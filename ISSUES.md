@@ -5318,10 +5318,10 @@ grammar's three gaps closed by it.
 - [ ] Phase 3: the drawers wired; the pulse down to the heart.
 - [ ] Phase 4: more places (ISS-103).
 
-## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — OPEN
+## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
 {{Tags area.physics}}
-{{Fields date.created=2026-10-15, date.start=2026-10-15, date.end=, epic=}}
+{{Fields date.created=2026-10-15, date.start=2026-10-15, date.end=2026-10-15, epic=}}
 
 Author, 15 Oct 19:43: where does [T]-Theory overlap with Einstein; are wormholes one of the
 places; can Sherlock, with Penrose's list, find where the programme could have an impact
@@ -5355,7 +5355,6 @@ impact. Findings (15 Oct):
 - The strongest kernel-backed levels are the mind's (Hopfield, the trauma well, the barrier,
   the threshold): B, new behaviour, but each note says the physical or clinical reading is
   open. The best bet is there, as a tested model of attractor dynamics, not in cosmology.
-- [ ] The author's view on the casino list; which bet (if any) to write up.
-- [ ] Watch DESI DR3 / Euclid: a 5 sigma w != -1 falsifies P21 as written.
-- [ ] Twistors (Penrose ch. 33) remain a gap; no concept backs the string-boundary or
-      quantum-foam levels yet.
+- [x] (15 Oct 20:04, author) Asked out of interest only: no write-up, no new bets; dropped.
+      The survey stays as a Sherlock target. For the record, not as work: DESI DR3 / Euclid at
+      5 sigma w != -1 would falsify P21 as written; twistors (Penrose ch. 33) remain a gap.
