@@ -5423,6 +5423,10 @@ grammar's three gaps closed by it.
       dark seams and the far end whitens (cathedral3d.js panelTexture, emissive; fog to white);
       the warp (the stargate) on top of it in the narrow passages from Φ 0.85. The top bar's
       text keeps a dark halo over bright scenes.
+- [x] (author 23:15: "2D thought focus not working?") In the 2D view the mind chamber is the
+      older diagram (the sea, the gold threshold, the crossings), with nothing to click. Now a
+      click on a crossing (a feeling or a thought, by its word) opens its course over the
+      diagram, which blurs (makeThought.pick; CSS blur on the 2D canvas); the card stays above.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 

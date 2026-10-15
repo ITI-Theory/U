@@ -495,6 +495,8 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__mech-row small { grid-column: 2 / 4; color: rgba(232,238,252,.5); font-size: 10px; }
 .explorer__mech [data-mech-close] { align-self: flex-end; margin-top: 6px; }
 .explorer__slot:empty { display: none; }
+/* the card stays above a focused thought's course (which opens over everything else) */
+.explorer__card { z-index: 3; }
 /* the top bar stays readable over bright scenes (the corridor, the stargate) */
 .explorer__title, .explorer__crumbs, .explorer__crumbs button { text-shadow: 0 0 4px rgba(5,7,14,.95), 0 0 10px rgba(5,7,14,.85); }
 .explorer__legend { position: absolute; z-index: 4; top: 52px; left: 50%; transform: translateX(-50%); max-width: min(980px, 80vw); margin: 0; padding: 6px 12px; border: 1px solid rgba(255,209,102,.35); border-radius: 6px; background: rgba(7,10,22,.8); font-size: 11px; line-height: 1.45; color: rgba(232,238,252,.85); text-align: center; pointer-events: none; }
@@ -579,7 +581,7 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .levels-shell .equation-wall h2 { font-size: 18px; margin-bottom: 10px; }
 .levels-shell .dimension-dynamics-panel { right: 12px; bottom: 12px; width: 380px; max-height: calc(100vh - 160px - 54vh); overflow: auto; }
 /* THE FOCUS (ISS-104): the chamber blurs; the course opens where the thought was */
-.explorer__gl.explorer__blurred { filter: blur(7px) brightness(.5) saturate(.85); transition: filter .8s ease; }
+.explorer__gl.explorer__blurred, .explorer__canvas.explorer__blurred { filter: blur(7px) brightness(.5) saturate(.85); transition: filter .8s ease; }
 .explorer__gl.explorer__focus { z-index: 1; opacity: 1; transition: none; animation: explorer-focus-in 1.3s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes explorer-focus-in { from { clip-path: circle(0% at var(--fx, 50%) var(--fy, 50%)); } to { clip-path: circle(85% at 50% 50%); } }
 .atlas-capture .explorer__deck, .atlas-capture .explorer__drawer, .atlas-capture .explorer__crumbs, .atlas-capture .explorer__settings { display: none !important; }

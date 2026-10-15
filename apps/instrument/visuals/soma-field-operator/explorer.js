@@ -795,7 +795,18 @@ function drawAtrium(ctx, env) {
   if (!env.atrium || !env.gl?.route) return false;
   atriumGl = env.gl;
   env.gl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels, bpm: env.bpm, cp: env.cp, dim: env.dim });
-  if (focusGl && env.atrium?.gl === 'thought-atrium') {
+  if (focusGl && env.atrium?.gl === 'thought-atrium') return drawFocus(ctx, env);
+  if (env.labels) {
+    const { u } = env;
+    label(ctx, u, env.gl.info.title, 0, -0.72, '#e8d8ff', 'center', 0.034);
+    label(ctx, u, env.gl.info.sub, 0, -0.66, COLORS.dim, 'center', 0.019);
+    if (env.gl.load) label(ctx, u, `LOAD: ${env.gl.load} unresolved below the line; the chamber runs hotter`, 0, 0.74, '#ff7ad9', 'center', 0.022);
+    hint(ctx, u, 'click a doorway to take that route · the ELEVATOR at the entrance goes to any level · POKE: a pulse of the field · Φ: the field\'s light; high, the walls give way', 0, 0.86, COLORS.violet, 'center', 0.02);
+  }
+  return true;
+}
+function drawFocus(ctx, env) {
+  {
     focusGl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
     if (env.labels) {
       const { u } = env;
@@ -806,14 +817,6 @@ function drawAtrium(ctx, env) {
     }
     return true;
   }
-  if (env.labels) {
-    const { u } = env;
-    label(ctx, u, env.gl.info.title, 0, -0.72, '#e8d8ff', 'center', 0.034);
-    label(ctx, u, env.gl.info.sub, 0, -0.66, COLORS.dim, 'center', 0.019);
-    if (env.gl.load) label(ctx, u, `LOAD: ${env.gl.load} unresolved below the line; the chamber runs hotter`, 0, 0.74, '#ff7ad9', 'center', 0.022);
-    hint(ctx, u, 'click a doorway to take that route · the ELEVATOR at the entrance goes to any level · POKE: a pulse of the field · Φ: the field\'s light; high, the walls give way', 0, 0.86, COLORS.violet, 'center', 0.02);
-  }
-  return true;
 }
 // inside a thought (the dive into a clicked bubble), and the feelings that shape its sound:
 // curiosity and awe up, language out, the pre-verbal's grains in
@@ -1414,6 +1417,13 @@ function makeThought() {
   return {
     focus: [0, Y.line],
     geometry: { levels: Y, x0: X0, x1: X1 },
+    // the 2D view's click (author, 15 Oct: "2D thought focus not working?"): the crossing nearest
+    // the point, a feeling or a thought, by its word
+    pick(x, y) {
+      let best = null, bd = 0.16;
+      for (const e of [...thoughts, ...emotions]) { const d = Math.hypot(e.x - x, e.y - y); if (d < bd) { bd = d; best = e.word; } }
+      return best;
+    },
     tick(env) {
       clock += env.dt;
       const a = arousal(env.phi);
@@ -3571,6 +3581,15 @@ export function createExplorer(hooks = {}) {
     else go(id);
   };
   root.addEventListener('click', event => {
+    if (st.stop === 'thought' && !st.view3d && !st.choices && !event.target.closest('button, input, label, .explorer__pop, .explorer__card, .explorer__lift, .explorer__mech, .explorer__drawer, .explorer__places')) {
+      if (focusGl) return;
+      const r = root.getBoundingClientRect();
+      const lw = viewW();
+      const u = Math.min(lw, h * 1.05) * 0.48;
+      const word = scene('thought').pick?.((event.clientX - r.left - lw / 2) / u, (event.clientY - r.top - h * 0.5) / u);
+      if (word) startFocus(word, event.clientX - r.left, event.clientY - r.top);
+      return;
+    }
     if (!ATRIUMS[st.stop] || !st.hall || event.target.closest('button, input, label, .explorer__pop, .explorer__card, .explorer__lift')) return;
     const g = gls[ATRIUMS[st.stop].gl];
     if (!g?.pick) return;
@@ -3988,7 +4007,14 @@ export function createExplorer(hooks = {}) {
       c.translate(-focus[0] * env.u, -focus[1] * env.u);
     }
     // a stop's atrium (ISS-103) is drawn instead of its scene
-    if (!(id === st.stop && (drawChoices(ctx, { ...env, alpha }) || drawAtrium(ctx, { ...env, alpha })))) sc.draw(ctx, { ...env, alpha });
+    if (!(id === st.stop && (drawChoices(ctx, { ...env, alpha }) || drawAtrium(ctx, { ...env, alpha })))) {
+      // in the 2D view a focused thought opens over the diagram, which blurs (the whole canvas,
+      // by CSS: a canvas filter per draw call is far too slow); the card and the key say what it is
+      const focus2d = id === st.stop && st.stop === 'thought' && Boolean(focusGl) && !st.view3d;
+      mainCtx.canvas.classList.toggle('explorer__blurred', focus2d);
+      sc.draw(ctx, { ...env, alpha });
+      if (focus2d) focusGl.render({ time: env.t, phi: env.phi, stereo: env.stereo, labels: env.labels });
+    }
     for (const c of targets) c.restore();
   }
 
