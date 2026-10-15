@@ -151,17 +151,45 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   const BOARD = 0.5;
   let boards = null;
   let zoom = 0;
+  // ATTENTION (author, 16 Oct 00:40): one ball is neon purple, the thought attended to now; it moves
+  // to whichever thought pulls hardest (one whose ball has left SAFE), else now and then on its
+  // own; the rest keep rolling unattended. 0 is the square in front, 1..5 the load.
+  const PURPLE = new THREE.Color('#c04dff'), CREAM = new THREE.Color('#fff4c2');
+  let attended = 0, attendedFor = 0, attendLast = null;
+  let jump = null;
+  const jumpLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({ length: 32 }, () => new THREE.Vector3())), new THREE.LineBasicMaterial({ color: '#c04dff', transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+  scene.add(jumpLine);
+  let glowT = null;
+  const glowTex = () => {
+    if (glowT) return glowT;
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const g = c.getContext('2d');
+    const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(0.4, 'rgba(255,255,255,0.25)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+    glowT = new THREE.CanvasTexture(c);
+    return glowT;
+  };
+  const boardCentre = k => (k === 0 ? new THREE.Vector3(0, 0, 0) : boards[k - 1].group.position.clone());
   const strutMat = new THREE.MeshBasicMaterial({ color: '#ff7ad9', transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false });
   function makeBoards() {
     boards = LOAD_NAMES.map((name, k) => {
       const group = new THREE.Group();
       group.add(new THREE.Mesh(geometry, terrain.material), new THREE.LineSegments(gridGeometry, grid.material));
       group.scale.setScalar(BOARD);
-      const ghost = new THREE.Mesh(new THREE.SphereGeometry(0.12, 20, 12), new THREE.MeshBasicMaterial({ color: '#c8b6ff', transparent: true, opacity: 0.75 }));
+      // the same ball and trail as the square in front, in the board's own coordinates
+      const ghost = new THREE.Mesh(ball.geometry, ball.material.clone());
+      const tg = new THREE.BufferGeometry();
+      tg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(TRAIL * 3), 3));
+      const trailLine = new THREE.Line(tg, trail.material);
+      // the wells glow in the memory colours (sprites, not lights: five boards of lights are too many)
+      const glows = wells.map(() => { const g = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex(), transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false })); g.scale.setScalar(0.9); group.add(g); return g; });
+      group.add(ghost, trailLine);
       const strut = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 10, 1, true), strutMat.clone());
-      scene.add(group, ghost, strut);
+      scene.add(group, strut);
       const w = wells[k % wells.length];
-      return { name, group, ghost, strut, px: w[0] * 0.6, py: w[1] * 0.6, angle: LOAD_ANGLES[k], out: 0 };
+      return { name, group, ghost, trailLine, glows, strut, px: w[0] * 0.6, py: w[1] * 0.6, path: [], angle: LOAD_ANGLES[k], out: 0 };
     });
   }
 
@@ -170,7 +198,9 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
     // the load's boards on screen, for the labels: [{ name, x, y, visible, out }]
     loadBoards() {
       if (!boards || zoom < 0.5) return [];
-      return boards.map(b => { const v = b.group.position.clone().add(new THREE.Vector3(0, 0.55, 0)).project(camera); return { name: b.name, x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.05, out: b.out }; });
+      const main = new THREE.Vector3(0, 0.7, 0).project(camera);
+      return [{ name: 'the thought in front', x: main.x / 2, y: -main.y / 2, visible: main.z < 1, out: 0, attended: attended === 0 },
+        ...boards.map((b, i) => { const v = b.group.position.clone().add(new THREE.Vector3(0, 0.55, 0)).project(camera); return { name: b.name, x: v.x / 2, y: -v.y / 2, visible: v.z < 1 && Math.abs(v.x) < 1.05, out: b.out, attended: attended === i + 1 }; })];
     },
     resize(w, h, dpr) {
       renderer.setPixelRatio(dpr);
@@ -207,7 +237,14 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
           const gy = (energy(b.px, b.py + e, beta, J) - energy(b.px, b.py - e, beta, J)) / (2 * e);
           b.px = Math.max(-1.35, Math.min(1.35, b.px - gx * 0.6 * dt + Math.sqrt(2 * heat * dt) * 1.4 * (Math.random() - 0.5)));
           b.py = Math.max(-1.35, Math.min(1.35, b.py - gy * 0.6 * dt + Math.sqrt(2 * heat * dt) * 1.4 * (Math.random() - 0.5)));
-          b.ghost.position.set(cx + b.px * BOARD, -0.05 + (height(b.px, b.py) + 0.07) * BOARD, cz - b.py * BOARD);
+          b.ghost.position.copy(toWorld(b.px, b.py, 0.06));
+          b.path.push([b.px, b.py]);
+          if (b.path.length > TRAIL) b.path.shift();
+          const tp = b.trailLine.geometry.attributes.position;
+          b.path.forEach(([x, y], i) => { const v = toWorld(x, y, 0.03); tp.setXYZ(i, v.x, v.y, v.z); });
+          tp.needsUpdate = true;
+          b.trailLine.geometry.setDrawRange(0, b.path.length);
+          wells.forEach(([x, y], k) => { b.glows[k].position.copy(toWorld(x, y, 0.12)); b.glows[k].material.color.set(state.memoryColors?.[k] ?? '#ffffff'); });
           // out of SAFE (the first well): the strut glows red, its pull on the thought in front
           let near = 0, best = 1e9;
           wells.forEach(([wx, wy], k) => { const d = (wx - b.px) ** 2 + (wy - b.py) ** 2; if (d < best) { best = d; near = k; } });
@@ -223,6 +260,41 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
           b.strut.lookAt(to);
           b.strut.rotateX(Math.PI / 2);
         }
+      }
+      // attention: held a while, then caught by the thought pulling hardest, or wandering
+      if (boards && state.golf) {
+        const dt2 = Math.min(0.05, Math.max(0, (state.time ?? 0) - (attendLast ?? state.time ?? 0)));
+        attendLast = state.time;
+        attendedFor += dt2;
+        if (attendedFor > 3) {
+          const pulls = boards.map((b, i) => [i + 1, b.out]).filter(([i]) => i !== attended).sort((p, q) => q[1] - p[1]);
+          let next = -1;
+          if (pulls[0] && pulls[0][1] > 0.7 && Math.random() < dt2 * 0.8) next = pulls[0][0];
+          else if (attendedFor > 9 && Math.random() < dt2 * 0.3) next = Math.floor(Math.random() * 6);
+          if (next >= 0 && next !== attended) {
+            jump = { from: boardCentre(attended), to: boardCentre(next), t: 0 };
+            attended = next;
+            attendedFor = 0;
+          }
+        }
+        ball.material.color.copy(attended === 0 ? PURPLE : CREAM);
+        ballLight.color.copy(attended === 0 ? PURPLE : new THREE.Color('#ffd166'));
+        boards.forEach((b, i) => {
+          const on = attended === i + 1;
+          b.ghost.material.color.copy(on ? PURPLE : CREAM);
+          b.ghost.scale.setScalar(on ? 2.2 : 1.4);
+        });
+        if (jump) {
+          jump.t += dt2 / 0.9;
+          const pts = jumpLine.geometry.attributes.position;
+          for (let i = 0; i < 32; i++) { const t = i / 31; const v = jump.from.clone().lerp(jump.to, t); v.y += 0.9 * Math.sin(Math.PI * t) + 0.3; pts.setXYZ(i, v.x, v.y, v.z); }
+          pts.needsUpdate = true;
+          jumpLine.material.opacity = Math.max(0, 1 - jump.t);
+          if (jump.t >= 1) jump = null;
+        }
+      } else {
+        ball.material.color.copy(CREAM);
+        jumpLine.material.opacity = 0;
       }
       cityGroup.position.z = -(spread * 0.85 - 0.9) * zoom;
       const swing = Math.PI / 2 + 0.75 * Math.sin(state.theta * 0.9) * (1 - 0.6 * zoom);

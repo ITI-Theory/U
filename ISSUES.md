@@ -5456,6 +5456,12 @@ grammar's three gaps closed by it.
       ghost; struts to the square, red while that thought is out of SAFE; STRUTS spreads or
       crowds them, the city steps back; the moving wave mesh runs under them all. Example names.
       2D stays the six-hole map. The chess layout stays in minigolf3d.js, unused.
+- [x] (author 00:40: "the balls morph through the well ... make them the same, with trace, colours
+      ... the active ball neon purple, the active thought changes by it moving around") Every
+      board's ball is now the same as the one in front, riding the terrain, with its trail and
+      the wells glowing in the memory colours; ATTENTION is the neon purple ball: held a while,
+      then caught by the thought pulling hardest (its ball out of SAFE) or wandering, with a
+      purple arc as it jumps; the attended board is marked ◉. Interpretive.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
       starting with the palace (and the cathedral's pale 3D stone).
 
