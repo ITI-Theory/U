@@ -110,7 +110,7 @@ export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'b
 const STOP_GROUPS = [['BODY', ['human', 'body', 'wayin', 'ureter']], ['BRAIN', ['brain', 'limbic', 'neuron', 'network']],
   ['MIND', ['thought', 'landscape', 'tunnel', 'dyad']], ['WORLDS', ['flight', 'score']]];
 const STOP_TITLES = {
-  human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'PATH', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
+  human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', thought: 'THOUGHT', dyad: 'DYAD', tunnel: 'WAY UP', ureter: 'URETER', flight: 'FLY', score: 'SCORE', brain: 'BRAIN', limbic: 'LIMBIC', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE',
 };
 
 // Where a feeling is felt (audited 13 Oct, BODY-MAPS.md): five follow the self-reported bodily
@@ -171,9 +171,9 @@ const CAPTIONS = {
     11: 'The shared field around both: bright when they are in step (the sync r near 1). The clinical reading (rupture and repair, co-regulation) is interpretive.',
   },
   tunnel: {
-    title: 'THE PATH OF A THOUGHT', label: 'simulated',
-    4: 'Boundaries are paths: a thought, the ball, races along a tunnel through the brain, and each boundary is a gate on its path. A gate opens when Φ, the limbic field, is above its height (gold: closed, teal: open); a closed gate stops the thought.',
-    8: 'POKE at a closed gate and the thought tries to tunnel through, with chance exp(−3 × the gap), never zero (LimbicTunnel.lean, wkbAmplitude_pos); RESOURCE lowers every gate a little (J(t)). Which path a thought takes is set by which gates are open.',
+    title: 'THE WAY UP · a signal, body to cortex', label: 'simulated',
+    4: 'A signal from the body, the ball, travels up a nerve tunnel towards the cortex, and each boundary is a gate on its way (the thalamus, for one, gates what reaches the cortex). A gate opens when Φ, the limbic field, is above its height (gold: closed, teal: open); a closed gate stops the signal. This is the physical road; thoughts themselves are not things in tubes: they pop in the MIND CHAMBER.',
+    8: 'POKE at a closed gate and the signal tries to tunnel through, with chance exp(−3 × the gap), never zero (LimbicTunnel.lean, wkbAmplitude_pos); RESOURCE lowers every gate a little (J(t)). Which way a signal gets through is set by which gates are open.',
     11: 'The walls are the fractal of the level: dendrites, or Menger cubes for networks (the city of code\'s towers); at the centre of the loop floats a Mandelbulb, the mind. Interpretive pictures around a simulated rule.',
   },
   ureter: {
@@ -1674,7 +1674,7 @@ function makeDyad() {
   };
 }
 
-// ---------------------------------------------------------------- stop: the path of a thought
+// ---------------------------------------------------------------- stop: the way up (a signal, body to cortex; ISS-104: thoughts are not things in tubes)
 
 function makeTunnel() {
   let gl = null;
@@ -3195,7 +3195,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
       <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: a hole per consideration, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
-      <button type="button" data-act="hall" title="THE GREAT HALL (ISS-103): the brain's hub, the atrium of the lateral ventricle under water; doorways to the cathedral, the limbic hinge, the path of a thought, the palace, the arteries; the elevator to any level">GREAT HALL</button>
+      <button type="button" data-act="hall" title="THE GREAT HALL (ISS-103): the brain's hub, the atrium of the lateral ventricle under water; doorways to the cathedral, the limbic hinge, the way up (a signal, body to cortex), the palace, the arteries; the elevator to any level">GREAT HALL</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CATHEDRAL</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
       <button type="button" data-act="past" aria-pressed="false" title="The memory kernel K(τ) and asymmetric coupling (W_ij ≠ W_ji): the past keeps shaping recall, and fight feeds freeze (H-AL's suggestion; interpretive)">PAST</button>

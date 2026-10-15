@@ -41,7 +41,7 @@ const KINDS = {
     routes: [
       { id: 'cathedral', angle: 0, label: 'THE CATHEDRAL', sub: 'down the foramen and the aqueduct to the fourth ventricle', color: '#a78bfa' },
       { id: 'thought', angle: -0.95, label: 'THE LIMBIC GATE', sub: 'the hinge between body and mind: into the mind chamber', color: '#ff7aa8' },
-      { id: 'tunnel', angle: 0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
+      { id: 'tunnel', angle: 0.95, label: 'THE WAY UP', sub: 'a signal from the body, through the gates to the cortex', color: '#ffd166' },
       { id: 'palace', angle: -1.95, label: 'THE MIND PALACE', sub: 'twenty-one floors: the method of loci', color: '#5ee7ff' },
       { id: 'wayin', angle: 1.95, label: 'THE ARTERIES', sub: 'back the way in, to the heart', color: '#ff4d5e' },
     ],
@@ -66,7 +66,7 @@ const KINDS = {
       { id: 'neuron', angle: 0, label: 'THE AXON HILLOCK', sub: 'where the spike begins: the whole neuron, firing', color: '#ffd166' },
       { id: 'network', angle: -0.95, label: 'THE DENDRITES', sub: 'out along the branches to the other cells: memory as a network', color: '#5ee7ff' },
       { id: 'thought', angle: 0.95, label: 'THE SUB-THRESHOLD SEA', sub: 'many cells together: a swell that crosses becomes a feeling', color: '#ff7aa8' },
-      { id: 'tunnel', angle: -1.95, label: 'THE PATH OF A THOUGHT', sub: 'from the body to the cortex, cell by cell', color: '#a78bfa' },
+      { id: 'tunnel', angle: -1.95, label: 'THE WAY UP', sub: 'a signal, cell by cell, from the body to the cortex', color: '#a78bfa' },
       { id: 'brain', angle: 1.95, label: 'UP TO THE GREAT HALL', sub: 'the brain, eighty-six billion cells up', color: '#ff4d5e' },
     ],
   },
@@ -76,7 +76,7 @@ const KINDS = {
     fog: '#04030b', fogHigh: '#140a2c', shaft: [0.6, 0.55, 1.0], ridge: 0, beat: 1, void: 1, door: { y: -6.2, r: 0.88, scale: 0.55 }, eye: { y: 1.4, lookY: -4.2 },
     routes: [
       { id: 'brain', angle: 0, label: 'BACK TO THE GREAT HALL', sub: 'through the limbic gate, into the body', color: '#ff7aa8' },
-      { id: 'tunnel', angle: -0.95, label: 'THE PATH OF A THOUGHT', sub: 'a thought, from the body to the cortex', color: '#ffd166' },
+      { id: 'tunnel', angle: -0.95, label: 'THE WAY UP', sub: 'where the signals come from: body to cortex', color: '#ffd166' },
       { id: 'choices', angle: 0.95, label: 'THE COURSE', sub: 'should I do it? a hole per consideration (click a thought to focus it)', color: '#5ee7ff' },
       { id: 'network', angle: -1.95, label: 'MEMORY', sub: 'a network: recall blended with a fading trace', color: '#a78bfa' },
       { id: 'limbic', angle: 1.95, label: 'THE LIMBIC HINGE', sub: 'the gate seen from the side: the amygdala, the hippocampus', color: '#ff4d5e' },

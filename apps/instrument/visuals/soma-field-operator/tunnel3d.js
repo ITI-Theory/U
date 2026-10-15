@@ -1,6 +1,7 @@
 // tunnel3d.js: the PATH stop of the mind-body explorer (ISS-052). Boundaries are paths
-// (author, 10 Oct): a thought, the ball, races along a tunnel through the brain, and the
-// boundaries are gates on that path. A gate is a barrier: it opens when the limbic field
+// (author, 10 Oct): a signal from the body, the ball, races along a tunnel to the cortex, and the
+// boundaries are gates on that way (15 Oct: thoughts are not things in tubes; they pop in the
+// Mind Chamber; this is the physical road). A gate is a barrier: it opens when the limbic field
 // Phi is above its height (FM-HN: heat softens barriers; the RESOURCE lowers them a
 // little, J(t)); a closed gate stops the thought, and POKE tries to tunnel through with
 // probability exp(-3 * gap), after LimbicTunnel.lean (wkbAmplitude_pos: never zero).

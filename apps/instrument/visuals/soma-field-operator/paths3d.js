@@ -11,13 +11,18 @@
 // red an obvious don't, low but red avoidance, high but blue worth the effort. At the end it
 // resolves (the easiest way through drawn across the course), or it does not, and the thought
 // stays: it sinks below the threshold and builds up (allostatic load; the Zeigarnik effect,
-// suggestive). Interpretive: pictures of the model's terms, not of a brain.
+// suggestive). Over it all a glass dome, the threshold (the global workspace: Baars; Dehaene's
+// ignition): the course runs below in parallel; a consideration that crosses pops out above the
+// dome as a thought, one after another, at most four held at once (the working-memory limit);
+// "solution" (an insight, a sudden settling) melts them back down. The stream looks serial; the
+// wave underneath is not (author, 15 Oct). Interpretive: pictures of the model's terms, not of a brain.
 
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
 
-const COLS = 14, ROWS = 10, SP = 3.4;
+// dense enough to read as a surface (the author: at 2^200 holes the course is a landscape)
+const COLS = 40, ROWS = 28, SP = 1.2;
 const X0 = -((COLS - 1) * SP) / 2, Z0 = 15;
 const LIE = { SAFE: [0, 0.15, -0.5], FIGHT: [-0.25, -0.15, -0.35], FREEZE: [0.25, -0.15, -0.35] };
 const LIE_COLOR = { SAFE: '#9fe8ff', FIGHT: '#ff3b4e', FREEZE: '#c8c8ff' };
@@ -123,7 +128,7 @@ export function createPaths3D({ loop = true } = {}) {
   })));
 
   // the balls: one per hole, in the well its reading fits
-  const balls = new THREE.InstancedMesh(new THREE.SphereGeometry(0.16, 12, 8), new THREE.MeshBasicMaterial({ color: '#ffffff' }), holes.length);
+  const balls = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' }), holes.length);
   scene.add(balls);
   const o = new THREE.Object3D();
   const placeBalls = () => {
@@ -163,6 +168,48 @@ export function createPaths3D({ loop = true } = {}) {
     scene.add(route);
   };
 
+  // THE DOME: the threshold over the course, glass, its rim catching the light
+  const CZ = Z0 - ((ROWS - 1) * SP) / 2;
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(29, 96, 48, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.ShaderMaterial({
+    uniforms: { uGlow: { value: 0 }, uTime: U.uTime },
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
+    vertexShader: 'varying vec3 vN; varying vec3 vV; varying vec3 vP; void main() { vP = position; vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position, 1.0); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
+    fragmentShader: /* glsl */`
+      uniform float uGlow; uniform float uTime; varying vec3 vN; varying vec3 vV; varying vec3 vP;
+      void main() {
+        float rim = pow(1.0 - abs(dot(vN, vV)), 3.0);
+        float bands = 0.5 + 0.5 * sin(vP.y * 1.2 - uTime * 0.8);
+        vec3 c = vec3(1.0, 0.8, 0.35) * (0.01 + 0.3 * pow(rim, 1.5) + 0.015 * bands) * (1.0 + 2.0 * uGlow);
+        gl_FragColor = vec4(c, 1.0);
+      }`,
+  }));
+  dome.scale.set(1, 0.42, 1);
+  dome.position.set(0, -0.6, CZ);
+  dome.renderOrder = 2;
+  scene.add(dome);
+  const domeTop = 29 * 0.42 - 0.6;
+  // THE THOUGHTS OVER THE DOME: considerations that crossed, one after another, at most four
+  const pops = [];
+  const SLOTS = [-12, -4, 4, 12];
+  function popThought(name, feel, from) {
+    const live = pops.filter(q => !q.sinking);
+    if (live.length >= 4) live[0].sinking = true;
+    const used = new Set(pops.filter(q => !q.sinking).map(q => q.slot));
+    const slot = SLOTS.findIndex((_, k) => !used.has(k));
+    const color = feel > 0 ? '#ff3b6e' : '#3fb8ff';
+    const g = new THREE.Group();
+    const s = new THREE.Mesh(new THREE.SphereGeometry(1.2, 32, 18), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.45, 0.05, 8, 64), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const tag = textSprite(name, color, 9);
+    tag.position.y = 2.2;
+    g.add(s, ring, tag);
+    g.position.set(from.x, 0.5, from.z);
+    g.renderOrder = 3;
+    scene.add(g);
+    pops.push({ g, s, ring, tag, slot: Math.max(0, slot), sinking: false, from: from.clone(), age: 0 });
+  }
+  function meltAll() { for (const q of pops) q.sinking = true; }
+
   let label = '';
   let queue = [];
   let state = { phase: 'ready', t: 0, next: 0, verdict: '', stress: 0, stays: false };
@@ -189,10 +236,8 @@ export function createPaths3D({ loop = true } = {}) {
     const h0 = holes[Math.floor(rnd() * holes.length)];
     const rip = ripples.find(r => r.w < 0.5 || now - r.z > 4) ?? ripples[0];
     rip.set(h0.x, h0.z, now, 1);
-    const tag = textSprite(name, feel > 0 ? '#ff5a6e' : '#5ee7ff', 7);
-    tag.position.set(h0.x, 3.2, h0.z);
-    scene.add(tag);
-    tags.push({ tag, born: now });
+    // it crosses the dome when it is strong enough (here, every consideration that is not trivial)
+    if (Math.abs(feel) + cost > 0.35) setTimeout(() => popThought(name, feel, new THREE.Vector3(h0.x, 0, h0.z)), 900);
     // the holes the ripple will reach take the consideration's colour and cost, with scatter;
     // a hole already set blends the two (a later thought revises an earlier one)
     for (const h of holes) {
@@ -208,12 +253,14 @@ export function createPaths3D({ loop = true } = {}) {
     for (const h of holes) { h.set = false; h.c = 0; h.r = 0.5; h.lie = 'SAFE'; h.pending = null; }
     for (const t of tags) scene.remove(t.tag);
     tags.length = 0;
+    for (const q of pops) scene.remove(q.g);
+    pops.length = 0;
     if (route) { scene.remove(route); route = null; }
     ripples.forEach(r => r.set(0, 0, -100, 0));
     const known = CONSIDERATIONS[text];
     queue = known ? known.map(x => [...x]) : GENERIC.map(n => [n, (rnd() - 0.5) * 1.8, rnd()]);
     queue.sort(() => rnd() - 0.5);
-    state = { phase: 'considering', t: 0, next: 0.8, verdict: '', stress: 0, stays: false };
+    state = { phase: 'considering', t: 0, next: 0.8, verdict: '', stress: 0, stays: false, solution: 0 };
     writeTex();
     placeBalls();
   }
@@ -266,8 +313,8 @@ export function createPaths3D({ loop = true } = {}) {
           const v = verdictOf(st);
           state.phase = 'done';
           state.stays = !v.clear;
-          state.verdict = v.clear ? `${v.text}: resolved` : `${v.text}: it stays, below the line`;
-          if (v.clear) drawRoute();
+          state.verdict = v.clear ? `SOLUTION · ${v.text}: the thoughts melt back down` : `${v.text}: it stays, below the line`;
+          if (v.clear) { drawRoute(); meltAll(); state.solution = clock; }
           restartAt = clock + 5;
           onEnd?.({ label, stays: state.stays, verdict: v.text, stress: st.stress });
         }
@@ -279,10 +326,23 @@ export function createPaths3D({ loop = true } = {}) {
         tags[k].tag.position.y = 3.2 + 0.3 * age;
         if (age > 4) { scene.remove(tags[k].tag); tags.splice(k, 1); }
       }
-      // the camera: above the front of the course, looking along it
-      const a = 0.18 * Math.sin(clock * 0.05);
-      camera.position.set(Math.sin(a) * 22, 15, 27 + 2 * Math.sin(clock * 0.07));
-      camera.lookAt(0, -1, -4);
+      // the thoughts over the dome: rise from where they crossed to their place above it; when a
+      // fifth comes, or at the solution, they melt back down through the glass
+      for (let k = pops.length - 1; k >= 0; k--) {
+        const q = pops[k];
+        q.age += dt;
+        const goal = q.sinking ? new THREE.Vector3(q.from.x, -1, q.from.z) : new THREE.Vector3(SLOTS[q.slot], domeTop + 4.2, CZ + 2);
+        q.g.position.lerp(goal, Math.min(1, dt * (q.sinking ? 1.2 : 1.6)));
+        q.ring.rotation.x += dt * 0.6;
+        q.tag.visible = s.labels !== false && !q.sinking;
+        if (q.sinking) { q.s.material.opacity *= 1 - dt * 0.9; q.ring.material.opacity *= 1 - dt * 0.9; }
+        if (q.sinking && q.g.position.y < 0.5) { scene.remove(q.g); q.g.traverse(o => { o.geometry?.dispose?.(); o.material?.dispose?.(); }); pops.splice(k, 1); }
+      }
+      dome.material.uniforms.uGlow.value = state.solution ? Math.max(0, 1 - (clock - state.solution) / 2.5) : 0;
+      // the camera: back and above, the dome and the thoughts over it in view
+      const a = 0.16 * Math.sin(clock * 0.05);
+      camera.position.set(Math.sin(a) * 30, 22, 46 + 2 * Math.sin(clock * 0.07));
+      camera.lookAt(0, 4, -3);
       applyLook(camera);
       renderer.getSize(size);
       if (s.stereo === 'half' || s.stereo === 'full') {

@@ -5257,6 +5257,12 @@ the brain's EMF, perhaps quantum. Copilot's reading:
   field" is a labelled open hypothesis. "Quantum": disagree: the brain's field is classical
   (low frequency, warm, wet; decoherence, Tegmark 2000), CEMI itself is classical, and the
   programme's own QUANT-EXP-1 stress test has already corrected quantum claims.
+- [x] (15 Oct 19:13, author: "go with this") THE COURSE as a surface (40 by 28 holes) under a
+      glass dome; considerations that cross pop out over it, at most four held, the oldest
+      melting when a fifth comes; SOLUTION melts them all back (the dome glows). And the PATH
+      stop reframed (author: "the balls racing around, that's not the thought"): THE WAY UP, a
+      signal from the body through the gates to the cortex (the physical road); thoughts pop in
+      the Mind Chamber.
 - [ ] (author's call) THE COURSE seen as a surface under a glass dome, a few thoughts popping
       over it in sequence, "solution" melting them back; the inner voice as a model gap (the
       language network; the CEMI hypothesis, classical, labelled), with ISS-101's frequency axis.

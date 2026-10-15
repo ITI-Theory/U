@@ -66,7 +66,7 @@ channels:
     code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "WELLS"}
     expresses: [attractor, energy-descent, barrier]
   - id: path-gates
-    what: "the PATH stop: gates on a thought's path; POKE tries to tunnel through a closed one"
+    what: "the WAY UP stop: gates on a signal's way from body to cortex; POKE tries to tunnel through a closed one"
     code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "tunnelTry"}
     expresses: [barrier, tunnelling]
   - id: memory-rings
