@@ -505,6 +505,7 @@ function mindAnatomy(scene, rnd, U, dot) {
       g.userData.text = said;
       const w = label(`"${said}"`, '#e8eefc');
       w.position.set(0, -0.85, 0); w.scale.set(2, 0.19, 1);
+      w.material.sizeAttenuation = false; w.userData.screen = [0.42, 0.04];
       g.add(w); extra.push(w);
     } else if (kind === 'picture') {
       const lens = new THREE.Sprite(new THREE.SpriteMaterial({ map: dot, color: EMO[e.a], transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
@@ -514,6 +515,8 @@ function mindAnatomy(scene, rnd, U, dot) {
     const tag = label(exprText(e), EMO[e.a]);
     tag.position.set(0, 0.85, 0);
     tag.scale.set(2.6, 0.25, 1);
+    // the expression keeps one readable size on screen, near or far (GPT review, fix 6)
+    tag.material.sizeAttenuation = false; tag.userData.screen = [0.6, 0.056];
     tag.visible = false;
     g.add(tag);
     g.scale.setScalar(0.45);
@@ -552,7 +555,8 @@ function mindAnatomy(scene, rnd, U, dot) {
     const ring = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.02, 6, 48), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false }));
     const tag = label(`unresolved: ${text}`, '#ff7ad9');
     tag.position.set(0, 0.8, 0);
-    tag.scale.set(2.6, 0.25, 1);
+    tag.material.sizeAttenuation = false;
+    tag.scale.set(0.6, 0.056, 1);
     g.add(s, ring, tag);
     scene.add(g);
     parked.push({ g, ring, tag });
@@ -584,6 +588,7 @@ function mindAnatomy(scene, rnd, U, dot) {
       // too many staying: the oldest is let go
       const staying = thoughts.filter(t => t.stay && t.ignited && !t.fading);
       if (staying.length > 30) staying[0].stay = false;
+      let named = 0;   // the newest few thoughts carry their expression; the rest stay quiet
       for (let i = thoughts.length - 1; i >= 0; i--) {
         const th = thoughts[i];
         th.age += dt;
@@ -603,7 +608,9 @@ function mindAnatomy(scene, rnd, U, dot) {
         if (th.e.op === 'blend') { const a = state.time * 1.8 + i; th.cores[0].position.set(Math.cos(a) * 0.09, Math.sin(a) * 0.06, 0); th.cores[1].position.set(-Math.cos(a) * 0.09, -Math.sin(a) * 0.06, 0); }
         else if (th.e.op === 'dampen') th.cores[1].position.set(0.12, 0.05, 0.1);
         for (const x of th.extra) if (x.isMesh) x.rotation.z += dt * 0.8;
-        th.tag.visible = state.labels !== false && th.ignited && !th.fading;
+        th.tag.visible = state.labels !== false && th.ignited && !th.fading && named < 8;
+        if (th.tag.visible) named++;
+        for (const sp of [th.tag, ...th.extra]) if (sp.userData.screen) { const gs = th.g.scale.x || 1; sp.scale.set(sp.userData.screen[0] / gs, sp.userData.screen[1] / gs, 1); }
         // thoughts that stay: held behind a crystalline ridge (a high barrier)
         if (th.stay && th.ignited && p.y >= goal - 0.05 && !th.ridge) {
           th.ridge = new THREE.Mesh(new THREE.IcosahedronGeometry(0.78, 1), new THREE.MeshBasicMaterial({ color: '#bff6ff', wireframe: true, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, depthWrite: false }));
@@ -827,6 +834,7 @@ export function createAtrium3D(kind = 'brain') {
 
   let last = 0;
   let travel = null;
+  let signAt = null;
   let pulseAt = -1;
   const ray = new THREE.Raycaster();
   const target = new THREE.Vector3();
@@ -858,6 +866,7 @@ export function createAtrium3D(kind = 'brain') {
     // state: { time, phi, stereo, labels, bpm }
     render(state) {
       const dt = Math.min(0.05, last ? state.time - last : 0.016);
+      signAt ??= new THREE.Vector3();
       last = state.time;
       const fx = Math.max(0, Math.min(1, ((state.phi ?? 0) - 0.3) / 0.7));
       // the heartbeat: a sharp rise at each beat, decaying (the heart only)
@@ -901,6 +910,12 @@ export function createAtrium3D(kind = 'brain') {
       cars.forEach(c => { c.position.y = -1.1 + 5.4 * ((state.time * 0.08 + c.userData.phase) % 1); });
       // the signs follow the explorer's labels (off: a clean picture, for SNAP)
       for (const d of doors) d.label.visible = state.labels !== false;
+      // a doorway's sign never shrinks below a readable size, however far the door (fix 6)
+      for (const d of doors) {
+        d.label.getWorldPosition(signAt);
+        const sy = Math.max(d.signY ??= d.label.scale.y, 0.1 * camera.position.distanceTo(signAt));
+        d.label.scale.set(sy * (d.signAspect ??= d.label.scale.x / d.label.scale.y), sy, 1);
+      }
       liftLabel.visible = state.labels !== false;
       renderer.getSize(size);
       if (state.stereo === 'half' || state.stereo === 'full') {

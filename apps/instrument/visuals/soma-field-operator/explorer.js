@@ -361,7 +361,8 @@ function label(ctx, u, text, x, y, color = COLORS.ink, align = 'center', size = 
 // the printed Field Atlas's captures (atlas=1), where nobody can press anything.
 function hint(ctx, u, text, x, y, color, align, size) {
   if (globalThis.document?.body?.classList.contains('atlas-capture')) return;
-  label(ctx, u, text, x, y, color, align, size);
+  // kept clear of the bottom deck (ISS-105, fix 6): the lowest hints sit just above it
+  label(ctx, u, text, x, Math.min(y, 0.78), color, align, size);
 }
 
 function leader(ctx, u, text, from, to, color) {

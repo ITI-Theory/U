@@ -5383,8 +5383,13 @@ grammar's three gaps closed by it.
       PLACE_PARENT); PLACES ▾ (or P; Escape closes it) replaces the fourteen buttons with a map
       (PLACE_MAP: four columns, each stop with its places and doorways). WAY UP moved to BODY.
       DESIGN.md updated ("After the second opinion").
-- [ ] Then fix 6 (protected label hierarchy), the levels view in the shell (fix 4), the art
-      pass (fix 10), the course legible and controllable (fix 9).
+- [x] Fix 6 (first pass): a thought's expression keeps one readable size on screen, near or
+      far, and only the newest eight carry one (atrium3d.js: sizeAttenuation off, scaled
+      against the bubble); a doorway's sign never shrinks below a readable size (scaled with
+      distance); the canvas hints sit above the deck (explorer.js hint()). Still: the long hall
+      hint runs under the card at 1920 wide.
+- [ ] Next: the levels view in the shell (fix 4), the art pass (fix 10), the course legible and
+      controllable (fix 9).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
