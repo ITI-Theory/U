@@ -5317,3 +5317,45 @@ grammar's three gaps closed by it.
       grammar now shows 11 of 12 terms (route still to come: the paths).
 - [ ] Phase 3: the drawers wired; the pulse down to the heart.
 - [ ] Phase 4: more places (ISS-103).
+
+## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — OPEN
+
+{{Tags area.physics}}
+{{Fields date.created=2026-10-15, date.start=2026-10-15, date.end=, epic=}}
+
+Author, 15 Oct 19:43: where does [T]-Theory overlap with Einstein; are wormholes one of the
+places; can Sherlock, with Penrose's list, find where the programme could have an impact
+("casino style, worth a shot")?
+
+HAL-UAT (uat/RC3/hal-einstein-2026-10-15-answers.md), checked against the repository:
+- Einstein overlaps: general relativity as the non-living limit (LocalGR.lean; the bridges
+  `linearised_einstein`, `g2_holonomy_implies_rigid_attractor` are axioms); the linearised field
+  equation as the Green's function at the cosmological scale; the cosmological constant and FLRW
+  (7/11, 3/11, 1/22: arithmetic kernel-checked, the physics assumed); the equivalence principle
+  (the somatic equivalence principle: interpretive analogy); gravitational waves (GW150914's
+  ringdown as a cross-scale template: interpretive); Brownian motion (the Langevin engine:
+  Einstein 1905 used as sourced physics).
+- Wormholes are not one. No paper names them (grep of paper/: 0); the Field Atlas lists them at
+  the compact-object scale as open-hypothesis geometry; the app keeps flying through one for
+  ROOTED (ISS-095). ER=EPR is never cited; the limbic tunnel is a Horava-Witten segment with WKB
+  tunnelling, not a throat. Any link would be new and speculative.
+
+The survey: `make -C sherlock impact` (sherlock/impact.py, bld/sherlock/impact.md): Penrose's
+chapters by difference class, crossed with the concept registry's labels, the Lean (theorem,
+axiom, sorry) and the numbers against Planck 2018, each with the reasons it might not be an
+impact. Findings (15 Oct):
+- The numbers: Omega_Lambda 7/11 is 6.6 sigma from Planck, Omega_b 1/22 6.4 sigma; only
+  Omega_DM 3/11 is within 1.4 sigma. As precision predictions two of three are ruled out
+  unless a correction is derived (the Course, chapter 14, already says so).
+- P21's falsifier (w = -1, no drift) is under pressure: DESI DR2 with CMB and supernovae
+  prefers evolving dark energy at 2.8 to 4.2 sigma (arXiv:2503.14738, 2507.09981); not yet 5.
+- P22 (no non-gravitational detection) is consistent but not distinctive.
+- P14's Osterwalder-Schrader theorem reuses OSforGFF's result with the mass renamed: correct,
+  not new.
+- The strongest kernel-backed levels are the mind's (Hopfield, the trauma well, the barrier,
+  the threshold): B, new behaviour, but each note says the physical or clinical reading is
+  open. The best bet is there, as a tested model of attractor dynamics, not in cosmology.
+- [ ] The author's view on the casino list; which bet (if any) to write up.
+- [ ] Watch DESI DR3 / Euclid: a 5 sigma w != -1 falsifies P21 as written.
+- [ ] Twistors (Penrose ch. 33) remain a gap; no concept backs the string-boundary or
+      quantum-foam levels yet.
