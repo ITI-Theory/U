@@ -5176,3 +5176,27 @@ carried by every somagram taken on it.
 - [ ] The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
       staying thoughts (rising, holding; the barrier), paths leaving as tubes.
 - [ ] The base as film stock: the start settings recorded with every somagram (after HAL).
+
+## ISS-105: The Soma Machine as one instrument: the design (the show piece) — OPEN
+{{Tags area.app}}
+{{Fields date.created=2026-10-15, date.start=, date.end=, epic=}}
+
+Author, 15 Oct 16:57: first impressions "awesome", but navigation: a mix of static, moving,
+diagrams and fractals; the levels view and the explorer look like two apps; the explorer's
+buttons do not show how they fit. The app, not the Lulu books, is the programme's show piece.
+At 17:20 he asked Copilot to hold the design conversation with HAL-UAT for him, sequentially, and
+draw up the final version for his review.
+
+The design: apps/instrument/visuals/soma-field-operator/DESIGN.md (from
+uat/RC3/hal-final-design-2026-10-15-answers.md and -q5-answers.md, checked against the Lean;
+HAL's two errors corrected: the blend is an algebra, not a weighted simplex; the band is the
+layer, not the EEG bands). Every element a place, a view, a control or a setting; one shell
+(top bar with the elevator dial and breadcrumb, bottom deck, two drawers); today's 14 stops
+mapped to places; the Mind Chamber behind the great hall through the limbic gate (foam, the gold
+threshold, spheres that show their expression and kind, thoughts that stay, paths); the visual
+grammar's three gaps closed by it.
+- [ ] The author's review of DESIGN.md, and its three open questions.
+- [ ] Phase 1: the spine (one shell for the whole app; the stops as places).
+- [ ] Phase 2: the Mind Chamber (ISS-104).
+- [ ] Phase 3: the drawers wired; the pulse down to the heart.
+- [ ] Phase 4: more places (ISS-103).
