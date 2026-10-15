@@ -5388,8 +5388,14 @@ grammar's three gaps closed by it.
       against the bubble); a doorway's sign never shrinks below a readable size (scaled with
       distance); the canvas hints sit above the deck (explorer.js hint()). Still: the long hall
       hint runs under the card at 1920 wide.
-- [ ] Next: the levels view in the shell (fix 4), the art pass (fix 10), the course legible and
-      controllable (fix 9).
+- [x] Fix 9 (first pass): the course has a key while it is open (what red, blue, height, the
+      ball and stress mean; no good or bad; a scripted example), ❚❚ PAUSE / ▶ GO ON (paths3d.js
+      pause), ◂ LEAVE IT in a focused thought (unresolved, adds to the load; was Escape only),
+      and a quieter dome. The verdict line, hidden behind the deck, now shows (hints pressed up
+      above the deck, keeping their order). Wording corrected everywhere (explorer, atrium sign,
+      card, visual-grammar registry): a consideration is a ripple that settles the holes it
+      reaches, not one hole.
+- [ ] Next: the levels view in the shell (fix 4), the art pass (fix 10).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 

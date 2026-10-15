@@ -181,7 +181,7 @@ export function createPaths3D({ loop = true } = {}) {
       void main() {
         float rim = pow(1.0 - abs(dot(vN, vV)), 3.0);
         float bands = 0.5 + 0.5 * sin(vP.y * 1.2 - uTime * 0.8);
-        vec3 c = vec3(1.0, 0.8, 0.35) * (0.01 + 0.3 * pow(rim, 1.5) + 0.015 * bands) * (1.0 + 2.0 * uGlow);
+        vec3 c = vec3(1.0, 0.8, 0.35) * (0.008 + 0.16 * pow(rim, 1.5) + 0.01 * bands) * (1.0 + 2.5 * uGlow);   // the glass, quieter than the course (GPT review, fix 9)
         gl_FragColor = vec4(c, 1.0);
       }`,
   }));
@@ -217,6 +217,7 @@ export function createPaths3D({ loop = true } = {}) {
   let state = { phase: 'ready', t: 0, next: 0, verdict: '', stress: 0, stays: false };
   const tags = [];
   let onEnd = null;
+  let paused = false;
 
   function stats() {
     const set = holes.filter(h => h.set);
@@ -284,9 +285,12 @@ export function createPaths3D({ loop = true } = {}) {
       else start(label || TODOS[0]);
     },
     resize(w, h, dpr) { renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); },
+    // PAUSE: the course holds still to be read (the camera still turns by hand)
+    pause(on) { paused = on ?? !paused; },
+    get paused() { return paused; },
     // state: { time, phi, stereo, labels }
     render(s) {
-      const dt = Math.min(0.05, last ? s.time - last : 0.016);
+      const dt = paused ? 0 : Math.min(0.05, last ? s.time - last : 0.016);
       last = s.time;
       clock += dt;
       U.uTime.value = clock;

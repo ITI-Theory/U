@@ -361,8 +361,9 @@ function label(ctx, u, text, x, y, color = COLORS.ink, align = 'center', size = 
 // the printed Field Atlas's captures (atlas=1), where nobody can press anything.
 function hint(ctx, u, text, x, y, color, align, size) {
   if (globalThis.document?.body?.classList.contains('atlas-capture')) return;
-  // kept clear of the bottom deck (ISS-105, fix 6): the lowest hints sit just above it
-  label(ctx, u, text, x, Math.min(y, 0.78), color, align, size);
+  // kept clear of the bottom deck (ISS-105, fix 6): the lowest band is pressed up above it,
+  // keeping the order and some of the spacing of hints that share a scene
+  label(ctx, u, text, x, y > 0.7 ? 0.62 + (y - 0.7) * 0.6 : y, color, align, size);
 }
 
 function leader(ctx, u, text, from, to, color) {
@@ -764,7 +765,7 @@ const PLACE_CAPTIONS = {
   },
   course: {
     title: 'THE COURSE', label: 'interpretive',
-    4: 'Should I do it? Each hole is one consideration, scored by the model\'s three outcomes, SAFE, FIGHT and FREEZE (no good or bad, only downhill, uphill and barriers). A few considerations pop over the glass dome; SOLUTION melts them back. A scripted example, not advice.',
+    4: 'Should I do it? Each hole is a small landscape with the model\'s three outcomes, SAFE, FIGHT and FREEZE (no good or bad, only downhill, uphill and barriers); each consideration is a ripple that settles the holes it reaches. A few considerations pop over the glass dome; SOLUTION melts them back. A scripted example, not advice.',
   },
   focus: {
     title: 'A THOUGHT, FOCUSED', label: 'interpretive',
@@ -782,7 +783,7 @@ function drawChoices(ctx, env) {
   if (env.labels) {
     const { u } = env;
     label(ctx, u, `THE COURSE · "${env.gl.label}": should I do it?`, 0, -0.72, '#e8d8ff', 'center', 0.034);
-    label(ctx, u, 'the inside of a thought that sticks: a hole per consideration, each a small SAFE / FIGHT / FREEZE landscape; height its cost, colour the feeling (blue cool, red warm); stress is the two disagreeing; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+    label(ctx, u, 'the inside of a thought that sticks: each hole a small SAFE / FIGHT / FREEZE landscape, each consideration a ripple that settles the holes it reaches; height the cost, colour the feeling (blue cool, red warm); stress is the two disagreeing; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
     if (env.gl.verdict) label(ctx, u, env.gl.verdict, 0, 0.78, env.gl.stress > 0.42 ? '#ff7ad9' : '#5ee7ff', 'center', 0.026);
     hint(ctx, u, 'POKE: one more consideration · Φ: thoughts come faster · in the MIND CHAMBER, click a thought to focus it', 0, 0.84, COLORS.violet, 'center', 0.019);
   }
@@ -799,7 +800,7 @@ function drawAtrium(ctx, env) {
     if (env.labels) {
       const { u } = env;
       label(ctx, u, `FOCUS · "${focusGl.label}"`, 0, -0.72, '#e8d8ff', 'center', 0.036);
-      label(ctx, u, 'one thought sticks; the rest blur and carry on. Inside it, the course: a hole per consideration (SAFE, FIGHT, FREEZE); height its cost, colour the feeling (blue cool, red warm); interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
+      label(ctx, u, 'one thought sticks; the rest blur and carry on. Inside it, the course: holes of SAFE, FIGHT, FREEZE, each consideration a ripple across them; height the cost, colour the feeling (blue cool, red warm); interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
       if (focusGl.verdict) label(ctx, u, focusGl.verdict, 0, 0.78, focusGl.stress > 0.42 ? '#ff7ad9' : '#5ee7ff', 'center', 0.026);
       hint(ctx, u, 'POKE: one more consideration · Esc: let it go (unresolved, it stays below the line)', 0, 0.84, COLORS.violet, 'center', 0.019);
     }
@@ -3252,6 +3253,8 @@ export function createExplorer(hooks = {}) {
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="mech" aria-expanded="false" title="BRECVEMA (P9): the eight music-affect mechanisms that compose the poke's forcing J(t); choose, then POKE">MECHANISMS ▾</button>
+      <button type="button" data-act="fleave" title="Leave this thought unresolved: it stays below the line and adds to the load (Escape)">◂ LEAVE IT</button>
+      <button type="button" data-act="fpause" title="Hold the course still to read it">❚❚ PAUSE</button>
       <button type="button" data-act="snap" title="SNAP (S): save this moment as a somagram, the picture and its [T]-stop (the field's reading), for A Gallery of Thoughts; Shift+S keeps the labels">SNAP</button>
       <button type="button" data-act="snapsay" title="SNAP + SAY (V): the picture, then speak a caption (8 s). Speech recognition is the browser's: Chrome sends the audio to Google, Edge to Microsoft">SNAP + SAY</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
@@ -3267,7 +3270,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
       <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
-      <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: a hole per consideration, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
+      <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: each consideration a ripple across the holes, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
       <button type="button" data-act="hall" title="THE GREAT HALL (ISS-103): the brain's hub, the atrium of the lateral ventricle under water; doorways to the cathedral, the limbic hinge, the way up (a signal, body to cortex), the palace, the arteries; the elevator to any level">GREAT HALL</button>
       <button type="button" data-act="cave" title="The cathedral (ISS-077): fly through the ventricles, the brain's own cave, the field as light in the stone; POKE a thought; C-PTSD echoes">CATHEDRAL</button>
       <button type="button" data-act="pain" title="The path of pain (ISS-077): from the ureter's colic up the spinal cord to the thalamus, the insula, the cingulate and the sensory cortex; ACUTE or CHRONIC">PAIN: OFF</button>
@@ -3315,8 +3318,8 @@ export function createExplorer(hooks = {}) {
   const shell = (() => {
     const bar = root.querySelector('.explorer__bar');
     const crumbs = bar.querySelector('.explorer__crumbs');
-    const GO = ['choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
-    const DO = ['poke', 'mech', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
+    const GO = ['fleave', 'choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
+    const DO = ['fpause', 'poke', 'mech', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
     const deck = document.createElement('nav');
     deck.className = 'explorer__deck';
     deck.setAttribute('aria-label', 'Controls');
@@ -3461,6 +3464,12 @@ export function createExplorer(hooks = {}) {
   lift.hidden = true;
   root.append(lift);
   // inPalace: the palace's own floors (ride there, stay in the palace); else, the levels
+  // THE COURSE's key (fix 9): what the colours, heights and balls mean, while a course is open
+  const legend = document.createElement('p');
+  legend.className = 'explorer__legend';
+  legend.hidden = true;
+  legend.innerHTML = '<b>THE COURSE</b> · each consideration a ripple that settles the holes it reaches · <i style="color:#ff3b4e">red</i> warm (fear, anger), <i style="color:#3fb8ff">blue</i> cool (joy, trust) · height: the cost · the ball: the well it rolls to, SAFE / FIGHT / FREEZE · stress: height and colour disagreeing · no good or bad · a scripted example';
+  root.append(legend);
   // POKE's mechanisms (BRECVEMA, P9): chosen here, kept across places, fired by POKE
   const mech = document.createElement('section');
   mech.className = 'explorer__mech';
@@ -3523,6 +3532,7 @@ export function createExplorer(hooks = {}) {
     const c = stageGl('thought-course');
     if (!c) return;
     focusGl = c;
+    c.pause?.(false);
     c.start(text);
     c.onEnd = r => setTimeout(() => endFocus(r.stays), r.stays ? 3500 : 4500);
     c.canvas.style.setProperty('--fx', `${x}px`);
@@ -3790,6 +3800,11 @@ export function createExplorer(hooks = {}) {
     return CAPTIONS[st.stop];
   }
   function syncUi() {
+    const courseOn = Boolean(focusGl) || (st.stop === 'thought' && st.choices);
+    legend.hidden = !courseOn;
+    const fleave = root.querySelector('[data-act="fleave"]'), fpause = root.querySelector('[data-act="fpause"]');
+    if (fleave) fleave.hidden = !focusGl;
+    if (fpause) { const g = focusGl ?? (courseOn ? choicesGl : null); fpause.hidden = !courseOn; fpause.textContent = g?.paused ? '▶ GO ON' : '❚❚ PAUSE'; fpause.classList.toggle('active', Boolean(g?.paused)); }
     const mechButton = root.querySelector('[data-act="mech"]');
     if (mechButton) { mechButton.textContent = mechLabel(); mechButton.hidden = !hooks.mechanisms; mechButton.classList.toggle('active', !mech.hidden); mechButton.setAttribute('aria-expanded', String(!mech.hidden)); }
     // a floor list belongs to the place that opened it (the palace, or this stop's hall)
@@ -4286,6 +4301,11 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'poke') {
       // the whole poke (the level view's response, the mechanisms, the sound) when the app gives one
       if (hooks.onPoke) hooks.onPoke(1); else api.poke(1);
+    } else if (b.dataset.act === 'fleave') {
+      endFocus(true);
+    } else if (b.dataset.act === 'fpause') {
+      (focusGl ?? choicesGl)?.pause?.();
+      syncUi();
     } else if (b.dataset.act === 'mech') {
       mech.hidden = !mech.hidden;
       if (!mech.hidden) renderMech();

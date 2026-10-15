@@ -107,7 +107,7 @@ channels:
     code: {file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "thoughts that stay: held behind a crystalline ridge"}
     expresses: [attractor, barrier, memory-kernel]
   - id: course
-    what: "THE COURSE, the inside of a thought that sticks: a hole per consideration, each the landscape stop's SAFE / FIGHT / FREEZE wells; height the cost, colour the feeling; the easiest way through drawn when it resolves (ISS-104)"
+    what: "THE COURSE, the inside of a thought that sticks: holes, each the landscape stop's SAFE / FIGHT / FREEZE wells, each consideration a ripple that settles the holes it reaches; height the cost, colour the feeling; the easiest way through drawn when it resolves (ISS-104)"
     code: {file: apps/instrument/visuals/soma-field-operator/paths3d.js, anchor: "the easiest way through, once it has settled"}
     expresses: [route, attractor, emotion-blend]
   - id: load
