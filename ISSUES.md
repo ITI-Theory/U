@@ -5147,6 +5147,17 @@ HopfieldAsync); leaving a well is tunnelling (LimbicTunnel); the past acts throu
 kernel (TemporalDynamics); transitions depend on the route (the path-sensitive transitions
 paper: the paths). So the chamber holds the foam, the pops and the staying thoughts, and the
 paths leave it as tubes: the two shapes of step 1.
+HAL-UAT on the names (uat/RC3/hal-names-2026-10-15-answers.md): all three are the author's own,
+9 June 2026 (chats-vol02): the Somatron, the playable sound engine (after the Mellotron); the
+SomaGram, the field projected into light (the optical counterpart); the SomaGraph, the field's
+map (also "the Mountain is the ultimate SomaGraph"). The [T]-stop and film-and-ISO are new (15
+Oct). Cinema's T-stop (transmission through a lens) helps: in the model the transmission across
+a barrier is T = e^(-W) (LimbicTunnel); it hinders only by clashing with the app's tour "stops".
+The film stock, HAL's list from the chats: effective temperature (the grain), the perception
+threshold (the aperture), damping, the baseline coupling W and the neurotype preset, the memory
+kernel, resting heart rate, HRV and its trend, whether the user was forcing (J_user), the scale
+and the layer (4D, 8D, 11D); the base is subtracted so a passing state is told from a lasting
+difference (the Empathy Baseline Engine, chats 28 June 2026).
 - [ ] Step 1, physical only: the atriums and their tubes as places (ISS-103), without the mind
       layers, for UAT on their own.
 - [ ] The author's chat with HAL on the inside (the brief); his take decides the design.
