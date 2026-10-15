@@ -1294,6 +1294,10 @@ const explorer = createExplorer({
     writeHashState();
   },
   onPhi: value => screens?.setFx(value),
+  // POKE's mechanisms in the explorer's deck (ISS-105): the same set the levels view's BRECVEMA grid edits
+  mechanisms: () => mechanisms.map(m => ({ id: m.id, name: m.name, action: m.action, on: state.selectedMechanisms.has(m.id) })),
+  onMechanism: id => selectMechanism(id),
+  onPoke: strength => firePoke(strength),
   onChange: () => {
     state.voyage = explorer.open ? explorer.stop : null;
     if (!explorer.open) resetDiveCamera();
@@ -2156,6 +2160,10 @@ function renderBodyGrid(time = 0) {
   bodyMapStatus.textContent = state.selectedMechanisms.size
     ? `${bodyGrid.provenance} / ${state.selectedMechanisms.size} MECHANISM(S) STACKED`
     : bodyGrid.provenance;
+}
+// the mechanisms count when the BRECVEMA inspector is open, or when chosen in the explorer's deck
+function mechanismsOn() {
+  return state.brecvema || (explorer.open && state.selectedMechanisms.size > 0);
 }
 function selectMechanism(id) {
   if (state.selectedMechanisms.has(id)) state.selectedMechanisms.delete(id);
@@ -3228,7 +3236,7 @@ function frame() {
     if (state.responseTime >= 1) { state.impulse = 0; state.pokeRunning = false; }
   }
   if (state.brecvema || state.impulse) renderBodyGrid(time);
-  const mechanismsActive = state.brecvema && state.tTheory && organismLevelIds.has(activeLevel().id);
+  const mechanismsActive = mechanismsOn() && state.tTheory && organismLevelIds.has(activeLevel().id);
   const mechanismGain = mechanismsActive ? 1 + Math.max(0, state.selectedMechanisms.size - 1) * 0.15 : 1;
   const responsePulse = state.impulse * mechanismGain * Math.exp(-state.responseTime * 3.4);
   const dynamicsState = dimensionDynamics.update({ time, delta, responsePulse });
@@ -3340,7 +3348,7 @@ function applyScene(time, delta, responsePulse) {
   root.position.y = -0.1;
   brecvemaLayer.rotation.y = time * 0.16;
   const humanScale = organismLevelIds.has(currentLevel.id);
-  brecvemaLayer.visible = tTheoryLayerOn && state.brecvema && humanScale && displayLevel === 11 && humanSceneWeight > 0.01;
+  brecvemaLayer.visible = tTheoryLayerOn && mechanismsOn() && humanScale && displayLevel === 11 && humanSceneWeight > 0.01;
   for (const channel of mechanismChannels) {
     const selected = state.selectedMechanisms.has(channel.id);
     channel.line.material.color.copy(selected ? pink : violet);

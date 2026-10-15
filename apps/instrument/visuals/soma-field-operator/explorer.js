@@ -3180,6 +3180,7 @@ export function createExplorer(hooks = {}) {
       <div class="explorer__layers" role="group" aria-label="Layers">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</div>
       <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
+      <button type="button" data-act="mech" aria-expanded="false" title="BRECVEMA (P9): the eight music-affect mechanisms that compose the poke's forcing J(t); choose, then POKE">MECHANISMS ▾</button>
       <button type="button" data-act="snap" title="SNAP (S): save this moment as a somagram, the picture and its [T]-stop (the field's reading), for A Gallery of Thoughts; Shift+S keeps the labels">SNAP</button>
       <button type="button" data-act="snapsay" title="SNAP + SAY (V): the picture, then speak a caption (8 s). Speech recognition is the browser's: Chrome sends the audio to Google, Edge to Microsoft">SNAP + SAY</button>
       <button type="button" data-act="resource" aria-pressed="false">RESOURCE</button>
@@ -3244,7 +3245,7 @@ export function createExplorer(hooks = {}) {
     const bar = root.querySelector('.explorer__bar');
     const crumbs = bar.querySelector('.explorer__crumbs');
     const GO = ['choices', 'hall', 'cave', 'caveout', 'palace', 'wayin', 'level'];
-    const DO = ['poke', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
+    const DO = ['poke', 'mech', 'snap', 'snapsay', 'pfloors', 'pup', 'pdown', 'pdoor', 'pplace', 'follow', 'wall', 'orbit', 'climb', 'wdown', 'wup', 'edit'];
     const deck = document.createElement('nav');
     deck.className = 'explorer__deck';
     deck.setAttribute('aria-label', 'Controls');
@@ -3373,6 +3374,32 @@ export function createExplorer(hooks = {}) {
   lift.hidden = true;
   root.append(lift);
   // inPalace: the palace's own floors (ride there, stay in the palace); else, the levels
+  // POKE's mechanisms (BRECVEMA, P9): chosen here, kept across places, fired by POKE
+  const mech = document.createElement('section');
+  mech.className = 'explorer__mech';
+  mech.hidden = true;
+  root.append(mech);
+  const mechList = () => hooks.mechanisms?.() ?? [];
+  const mechLabel = () => {
+    const on = mechList().filter(m => m.on).map(m => m.id);
+    return on.length ? `MECHANISMS: ${on.join('+')} ▾` : 'MECHANISMS ▾';
+  };
+  const renderMech = () => {
+    const here = st.stop === 'human' ? 'At the human, they shape the field\'s response (the stacked pulse), its channels in 11D and the sound.'
+      : 'Here POKE is this place\'s own pulse; the mechanisms shape the human\'s field response and the sound.';
+    mech.innerHTML = `<h2>POKE · the mechanisms</h2><p class="explorer__drawer-note">BRECVEMA (P9, sourced): choose any; they stack into the forcing J(t). Nothing fires until POKE. ${here}</p>${mechList().map(m => `<label class="explorer__mech-row"><input type="checkbox" data-mech="${m.id}"${m.on ? ' checked' : ''} /> <b>${m.id}</b> ${m.name}<small>${m.action}</small></label>`).join('')}<button type="button" data-mech-close>◂ DONE</button>`;
+  };
+  mech.addEventListener('click', event => {
+    event.stopPropagation();
+    if (event.target.closest('[data-mech-close]')) { mech.hidden = true; syncUi(); }
+  });
+  mech.addEventListener('change', event => {
+    const id = event.target.dataset?.mech;
+    if (!id) return;
+    hooks.onMechanism?.(id);
+    renderMech();
+    syncUi();
+  });
   let liftInPalace = false;
   let liftStop = null;
   const openLift = (inPalace = false) => {
@@ -3636,6 +3663,8 @@ export function createExplorer(hooks = {}) {
   }
 
   function syncUi() {
+    const mechButton = root.querySelector('[data-act="mech"]');
+    if (mechButton) { mechButton.textContent = mechLabel(); mechButton.hidden = !hooks.mechanisms; mechButton.classList.toggle('active', !mech.hidden); mechButton.setAttribute('aria-expanded', String(!mech.hidden)); }
     // a floor list belongs to the place that opened it (the palace, or this stop's hall)
     if (!lift.hidden && (liftInPalace ? !(st.stop === 'brain' && st.palace) : !(st.hall && st.stop === liftStop))) lift.hidden = true;
     for (const b of root.querySelectorAll('[data-stop]')) b.classList.toggle('active', b.dataset.stop === st.stop);
@@ -4036,6 +4065,7 @@ export function createExplorer(hooks = {}) {
       if (stop !== 'brain') { st.palace = false; st.cave = false; }
       endFocus(false);
       if (!pop.hidden) closePop();
+      mech.hidden = true;
     }
     if (st.open && stop !== st.stop && st.stop === 'human') {
       // dive: the level view's camera flies into the jellyfish human, then the stop fades in
@@ -4125,8 +4155,14 @@ export function createExplorer(hooks = {}) {
       st.feel = b.dataset.feel;
       syncUi();
       hooks.onChange?.();
-    } else if (b.dataset.act === 'poke') api.poke(1);
-    else if (b.dataset.act === 'snap') snapper.request(event.shiftKey);
+    } else if (b.dataset.act === 'poke') {
+      // the whole poke (the level view's response, the mechanisms, the sound) when the app gives one
+      if (hooks.onPoke) hooks.onPoke(1); else api.poke(1);
+    } else if (b.dataset.act === 'mech') {
+      mech.hidden = !mech.hidden;
+      if (!mech.hidden) renderMech();
+      syncUi();
+    } else if (b.dataset.act === 'snap') snapper.request(event.shiftKey);
     else if (b.dataset.act === 'snapsay') snapper.request(event.shiftKey, true);
     else if (b.dataset.act === 'kc') {
       st.kc = SETTING_IDS[(SETTING_IDS.indexOf(st.kc) + 1) % SETTING_IDS.length];

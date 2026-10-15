@@ -5342,10 +5342,29 @@ grammar's three gaps closed by it.
       closes when its place goes (syncUi); a link's choices=1 survives the dive to the thought.
       Headless: PALACE > FLOORS > HUMAN now gives HUMAN, no list, no palace crumb; BRAIN by click
       gives the great hall; voyage=thought&choices=1 from the human keeps the course.
-- [ ] Next (GPT's revised order): POKE's mechanisms in DO beside POKE ("POKE | MECHANISMS ▾",
-      a popover with the eight, multi-select, kept across places; the explorer's POKE to carry
-      the profile, not only the strength); then fixes 5-7 (places map and breadcrumb, label
-      hierarchy, the card for the place you are in).
+- [x] POKE's mechanisms back (15 Oct 21:40): MECHANISMS ▾ beside POKE in DO; a popover with
+      the eight (multi-select, the same set as the levels view's BRECVEMA grid, kept across
+      places); the explorer's POKE now fires the app's whole poke (the level view's response with
+      the stacked mechanisms, the sound), not only the place's pulse; at the human in 11D the
+      mechanism channels show. The note in the popover says what they do where you are.
+- [ ] (author, 21:30: "if that went, did anything else?") Yes. The explorer hides the whole
+      levels FIELD CONTROLS while it is open, and at the human (the level view under a
+      see-through explorer) none of these has an explorer equivalent:
+      * POKE's other inputs: SOMATIC and COGNITIVE (LIMBIC is Φ), RESPONSE TIME, APPRAISAL /
+        CONTEXT (CODA weights), BODY MAP 8x8, AUDIO (the field drone; MUSIC is the explorer's).
+      * The lens and the look of the level picture: T-THEORY on/off, lenses PHYSICS / RESPONSE /
+        MIRROR, styles FLUORESCENCE / FALSE COLOUR / GLOW / MOTION / RHYMES / CONTOURS, 2D/3D/SBS,
+        4D|T compare.
+      * Reading: the cheat sheet and evidence, FULL MODEL MATHEMATICS, EQUATION / FIGURES /
+        READ MORE, atlas coverage, MORE INFORMATION, reader register, model (implementation).
+      * Paths: the route, canonical start/end, play / back / next / bpm.
+      * Settings: display preset, background dim, fractal quality, developer paths; THOUGHT
+        SPARKS noise and threshold (interpretive); EXPORT FRAME (SNAP covers it).
+      Proposal (Copilot, for the author): POKE's inputs join the MECHANISMS popover (one POKE
+      group: mechanisms, somatic/cognitive, appraisal, response); the lens and look go in the
+      film stock drawer; reading goes in the card (the inspector, GPT fix 7); paths stay with the
+      elevator. Then the levels FIELD CONTROLS and the explorer drawer are one system (fix 8).
+- [ ] Then fixes 5-7 (places map and breadcrumb, label hierarchy, the card for the place).
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 

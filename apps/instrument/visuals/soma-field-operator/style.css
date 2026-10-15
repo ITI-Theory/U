@@ -487,7 +487,13 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer--see-through { background: transparent; pointer-events: none; }
 .explorer--see-through .explorer__bar > *, .explorer--see-through .explorer__card,
 .explorer--see-through .explorer__deck, .explorer--see-through .explorer__drawer,
-.explorer--see-through .explorer__lift, .explorer--see-through .explorer__pop { pointer-events: auto; }
+.explorer--see-through .explorer__lift, .explorer--see-through .explorer__pop, .explorer--see-through .explorer__mech { pointer-events: auto; }
+.explorer__mech { position: absolute; z-index: 7; left: 50%; bottom: 74px; transform: translateX(-50%); width: min(520px, 90vw); max-height: calc(100vh - 220px); overflow: auto; display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid rgba(255,122,168,.5); border-radius: 8px; background: rgba(7,10,22,.94); }
+.explorer__mech h2 { margin: 0 0 2px; font-size: 12px; letter-spacing: .14em; color: #ff7aa8; }
+.explorer__mech-row { display: grid; grid-template-columns: auto auto 1fr; align-items: baseline; gap: 2px 8px; font-size: 11px; color: rgba(232,238,252,.9); cursor: pointer; }
+.explorer__mech-row b { color: #ff7aa8; min-width: 2em; }
+.explorer__mech-row small { grid-column: 2 / 4; color: rgba(232,238,252,.5); font-size: 10px; }
+.explorer__mech [data-mech-close] { align-self: flex-end; margin-top: 6px; }
 .explorer--see-through .explorer__canvas { opacity: 0; }
 .explorer--diving .explorer__bar { opacity: .35; pointer-events: none; }
 .explorer-open .wm-panel, .explorer-open .wm-dock, .explorer-open .wm-clean-hint, .explorer-open .field-note, .explorer-open .compare-labels,
