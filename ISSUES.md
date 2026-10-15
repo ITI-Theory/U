@@ -5263,6 +5263,14 @@ the brain's EMF, perhaps quantum. Copilot's reading:
       stop reframed (author: "the balls racing around, that's not the thought"): THE WAY UP, a
       signal from the body through the gates to the cortex (the physical road); thoughts pop in
       the Mind Chamber.
+- [x] (15 Oct, author: "thoughts as 3D soap bubbles, changing shape like in a fluid") bubble.js:
+      an iridescent soap film (200-900 nm) reflecting a soft room, its shape wobbling with slow
+      travelling modes; every thought in the Mind Chamber (pain stays jagged; flashbacks wobble
+      harder), the parked ones, and the thoughts over the dome.
+- [x] (15 Oct) ISS-105 phase 1, the levels view in the same shell: the SOMA MACHINE top bar
+      (floor, the places grouped, which step out into atriums, 4D 8D 11D, SETTINGS = FIELD
+      CONTROLS), the elevator a left column, Sherlock / morphism / state a right column; saved
+      window positions still win; hidden in the explorer, clean mode, captures, other roles.
 - [ ] (author's call) THE COURSE seen as a surface under a glass dome, a few thoughts popping
       over it in sequence, "solution" melting them back; the inner voice as a model gap (the
       language network; the CEMI hypothesis, classical, labelled), with ISS-101's frequency axis.

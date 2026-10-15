@@ -20,6 +20,7 @@
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
+import { bubbleMaterial, bubbleEnvironment, tickBubbles } from './bubble.js';
 
 // dense enough to read as a surface (the author: at 2^200 holes the course is a landscape)
 const COLS = 40, ROWS = 28, SP = 1.2;
@@ -68,6 +69,7 @@ export function createPaths3D({ loop = true } = {}) {
   const stereo = new THREE.StereoCamera();
   const size = new THREE.Vector2();
   let rnd = rand(1966);
+  scene.environment = bubbleEnvironment(renderer);   // the thoughts over the dome are soap films
 
   // the holes, as a small texture the ground reads: R cost, G feeling (red), B set
   const data = new Uint8Array(COLS * ROWS * 4);
@@ -198,7 +200,7 @@ export function createPaths3D({ loop = true } = {}) {
     const slot = SLOTS.findIndex((_, k) => !used.has(k));
     const color = feel > 0 ? '#ff3b6e' : '#3fb8ff';
     const g = new THREE.Group();
-    const s = new THREE.Mesh(new THREE.SphereGeometry(1.2, 32, 18), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const s = new THREE.Mesh(new THREE.SphereGeometry(1.2, 48, 24), bubbleMaterial({ tint: color, opacity: 0.5 }));
     const ring = new THREE.Mesh(new THREE.TorusGeometry(1.45, 0.05, 8, 64), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false }));
     const tag = textSprite(name, color, 9);
     tag.position.y = 2.2;
@@ -288,6 +290,7 @@ export function createPaths3D({ loop = true } = {}) {
       last = s.time;
       clock += dt;
       U.uTime.value = clock;
+      tickBubbles(clock);
       if (state.phase === 'ready' && loop) start(TODOS[Math.floor(rnd() * TODOS.length)]);
       if (state.phase === 'considering') {
         state.t += dt;

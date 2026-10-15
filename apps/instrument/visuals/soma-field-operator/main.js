@@ -2790,6 +2790,47 @@ panelManager.registerPanel(sherlockPanel, { id: 'sherlock', title: 'SHERLOCK', d
 // The elevator (elevator.js, ISS-052): the zoom as floors; STEP OUT into the explorer.
 document.body.append(elevator.element);
 panelManager.registerPanel(elevator.element, { id: 'elevator', title: 'ELEVATOR', dockLabel: 'LIFT', minWidth: 300, minHeight: 160 });
+// THE SPINE in the levels view (ISS-105, DESIGN.md): one app. The same top bar as the explorer
+// (SOMA MACHINE, where you are, the places, 4D 8D 11D, SETTINGS); a default arrangement for a
+// fresh start (styles only: a saved window position is inline and always wins): the elevator a
+// left column, the field's readouts (Sherlock, the morphism, the state) a right column, FIELD
+// CONTROLS the settings, shown with SETTINGS. The buttons forward to the existing controls.
+(() => {
+  const STOPS = [['BODY', [['human', 'HUMAN'], ['body', 'BODY'], ['wayin', 'WAY IN'], ['ureter', 'URETER']]],
+    ['BRAIN', [['brain', 'BRAIN'], ['limbic', 'LIMBIC'], ['neuron', 'NEURON'], ['network', 'MEMORY']]],
+    ['MIND', [['thought', 'THOUGHT'], ['landscape', 'LANDSCAPE'], ['tunnel', 'WAY UP'], ['dyad', 'DYAD']]],
+    ['WORLDS', [['flight', 'FLY'], ['score', 'SCORE']]]];
+  document.body.classList.add('levels-shell');
+  const bar = document.createElement('header');
+  bar.className = 'levels-bar';
+  bar.innerHTML = `<span class="levels-bar__title">SOMA MACHINE</span><span class="levels-bar__crumb"></span>
+    <nav class="levels-bar__places" aria-label="Places: step out of the elevator">${STOPS.map(([g, ids]) => `<span class="explorer__group"><span class="explorer__group-name">${g}</span>${ids.map(([id, t]) => `<button type="button" data-place="${id}">${t}</button>`).join('')}</span>`).join('')}</nav>
+    <span class="levels-bar__dims">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</span>
+    <button type="button" class="levels-bar__settings">SETTINGS ▾</button>`;
+  document.body.append(bar);
+  const controls = document.querySelector('.field-readout');
+  const settings = bar.querySelector('.levels-bar__settings');
+  const fresh = (() => { try { return !JSON.parse(localStorage.getItem('soma-machine-panel-layout-v1') || '{}').controls; } catch { return true; } })();
+  if (fresh && controls) controls.hidden = true;
+  const sync = () => {
+    const k = activeZoom().scales.indexOf(state.levelId);
+    const label = levelsById.get(state.levelId)?.label ?? state.levelId;
+    bar.querySelector('.levels-bar__crumb').textContent = `${k >= 0 ? `FLOOR ${k + 1}: ` : ''}${String(label).toUpperCase()}`;
+    for (const b of bar.querySelectorAll('[data-dim]')) b.classList.toggle('active', Number(b.dataset.dim) === state.level);
+    settings.classList.toggle('active', Boolean(controls && !controls.hidden));
+  };
+  bar.addEventListener('click', event => {
+    const b = event.target.closest('button');
+    if (!b) return;
+    if (b.dataset.place) { explorer.enterAtrium(b.dataset.place); openExplorerAt(b.dataset.place); }
+    else if (b.dataset.dim) document.querySelector(`.hierarchy-button[data-level="${b.dataset.dim}"]`)?.click();
+    else if (b === settings && controls) controls.hidden = !controls.hidden;
+    sync();
+  });
+  addEventListener('hashchange', sync);
+  setInterval(sync, 1500);
+  sync();
+})();
 const SHERLOCK_STATUS = { 'kernel-verified': 'PROVED', sorry: 'SORRY', axiom: 'AXIOM', definition: 'DEFINED' };
 function renderSherlock(level) {
   const here = (registryConcepts ?? []).filter(concept => concept.levels.includes(level.id));

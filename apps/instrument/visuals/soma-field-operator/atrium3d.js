@@ -26,6 +26,7 @@
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
+import { bubbleMaterial, bubbleEnvironment, tickBubbles } from './bubble.js';
 
 const PINK = new THREE.Color('#ff3bce');
 const BLUE = new THREE.Color('#14e5ff');
@@ -477,8 +478,10 @@ function mindAnatomy(scene, rnd, U, dot) {
     const a = rnd() * Math.PI * 2, r = 2 + rnd() * 4.5;
     g.position.set(Math.cos(a) * r, FLOOR_Y + 0.4, -1 + Math.sin(a) * r);
     const shellColor = kind === 'pain' ? '#ff3b4e' : kind === 'flashback' ? '#7a3bff' : '#cfc4ff';
-    const shell = new THREE.Mesh(kind === 'pain' ? new THREE.IcosahedronGeometry(0.55, 0) : new THREE.SphereGeometry(0.5, 32, 16),
-      new THREE.MeshBasicMaterial({ color: shellColor, transparent: true, opacity: 0.08, wireframe: kind === 'pain', blending: THREE.AdditiveBlending, depthWrite: false }));
+    // a thought is a soap bubble, changing shape as it drifts (bubble.js); a pain stays jagged
+    const shell = kind === 'pain'
+      ? new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 0), new THREE.MeshBasicMaterial({ color: shellColor, transparent: true, opacity: 0.08, wireframe: true, blending: THREE.AdditiveBlending, depthWrite: false }))
+      : new THREE.Mesh(new THREE.SphereGeometry(0.5, 48, 24), bubbleMaterial({ tint: shellColor, opacity: 0.12, wobble: kind === 'flashback' ? 1.8 : 1 }));
     g.add(shell);
     // the expression: one core per basic emotion; blend fused in phase, dampen clamped
     const core = (name, rr) => new THREE.Mesh(new THREE.SphereGeometry(rr, 20, 12), new THREE.MeshBasicMaterial({ color: EMO[name], transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
@@ -545,7 +548,7 @@ function mindAnatomy(scene, rnd, U, dot) {
     const k = parked.length;
     const a = k * 2.399, r = 2.5 + (k % 5) * 1.3;
     g.position.set(Math.cos(a) * r, THRESHOLD_Y - 0.7 - 0.25 * (k % 3), -1 + Math.sin(a) * r);
-    const s = new THREE.Mesh(new THREE.SphereGeometry(0.5, 24, 14), new THREE.MeshBasicMaterial({ color: '#ff7ad9', transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const s = new THREE.Mesh(new THREE.SphereGeometry(0.5, 48, 24), bubbleMaterial({ tint: '#ff7ad9', opacity: 0.4, wobble: 0.6 }));
     const ring = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.02, 6, 48), new THREE.MeshBasicMaterial({ color: '#ffd166', transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false }));
     const tag = label(`unresolved: ${text}`, '#ff7ad9');
     tag.position.set(0, 0.8, 0);
@@ -594,7 +597,7 @@ function mindAnatomy(scene, rnd, U, dot) {
         const shake = th.kind === 'flashback' ? 0.05 * Math.sin(state.time * 31 + i) : 0;
         th.g.scale.setScalar(2 * s * pulse);   // a thought is a few times a foam bubble's size
         th.g.position.x += shake;
-        th.shell.material.opacity = th.ignited ? 0.16 + 0.06 * Math.sin(state.time * 1.7 + i) : 0.05;
+        th.shell.material.opacity = th.kind === 'pain' ? (th.ignited ? 0.16 + 0.06 * Math.sin(state.time * 1.7 + i) : 0.05) : (th.ignited ? 0.32 + 0.08 * Math.sin(state.time * 1.7 + i) : 0.1);
         for (const c of th.cores) c.material.opacity = th.ignited ? 0.9 : 0.35;
         // blend: the two cores orbit in phase, fused; dampen: the held one sits clamped
         if (th.e.op === 'blend') { const a = state.time * 1.8 + i; th.cores[0].position.set(Math.cos(a) * 0.09, Math.sin(a) * 0.06, 0); th.cores[1].position.set(-Math.cos(a) * 0.09, -Math.sin(a) * 0.06, 0); }
@@ -762,6 +765,7 @@ export function createAtrium3D(kind = 'brain') {
     scene.add(cone);
   }
 
+  if (kind === 'mind') scene.environment = bubbleEnvironment(renderer);   // the soap films reflect a soft room
   const anatomy = ({ heart: heartAnatomy, neuron: neuronAnatomy, mind: mindAnatomy }[kind] ?? brainAnatomy)(scene, rnd, U, dot);
 
   // MOTES: fine particles rising slowly through the medium
@@ -859,6 +863,7 @@ export function createAtrium3D(kind = 'brain') {
       // the heartbeat: a sharp rise at each beat, decaying (the heart only)
       const beat = K.beat ? Math.exp(-((state.time * (state.bpm ?? 68) / 60) % 1) * 6) : 0;
       U.uTime.value = state.time;
+      tickBubbles(state.time);
       U.uFX.value = fx;
       // the manifold is a view (DESIGN.md): the walls fold only in the 11D view
       U.uFold.value = (state.dim ?? 11) >= 11 ? fx * fx : 0;

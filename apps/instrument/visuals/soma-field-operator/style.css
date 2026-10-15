@@ -532,6 +532,23 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__drawer-note { margin: 0 0 4px; font-size: 10px; color: rgba(232,238,252,.55); }
 .explorer__drawer > button, .explorer__drawer > label { justify-content: flex-start; text-align: left; }
 .explorer__settings.active { color: #070a16; background: #ffb36b; }
+/* THE SPINE in the levels view (ISS-105): the top bar, and a default arrangement for windows
+   with no saved position (a saved position is inline and wins) */
+.levels-bar { position: fixed; z-index: 120; top: 0; left: 0; right: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 8px 250px 8px 12px; background: linear-gradient(rgba(5,7,14,.92), rgba(5,7,14,.6)); border-bottom: 1px solid rgba(94,231,255,.25); font: 700 11px/1.2 'Space Mono', monospace; }
+.levels-bar__title { color: #5ee7ff; letter-spacing: .12em; text-shadow: 0 0 12px rgba(94,231,255,.5); }
+.levels-bar__crumb { color: #ff7ad9; letter-spacing: .06em; }
+.levels-bar__places { display: flex; flex-wrap: wrap; gap: 8px; }
+.levels-bar button { width: auto; min-width: 0; margin: 0; padding: 4px 8px; font: inherit; font-weight: 400; letter-spacing: .04em; color: #e8eefc; background: rgba(10,14,28,.7); border: 1px solid rgba(167,139,250,.55); box-shadow: none; }
+.levels-bar button:hover { border-color: #5ee7ff; }
+.levels-bar__dims { display: flex; gap: 2px; }
+.levels-bar [data-dim].active, .levels-bar__settings.active { color: #070a16; background: #ffb36b; }
+.explorer-open .levels-bar, .ui-clean .levels-bar, .atlas-capture .levels-bar, .screen-cockpit .levels-bar, .screen-engine .levels-bar, .screen-maintenance .levels-bar { display: none; }
+.levels-shell .elevator { left: 12px; right: auto; top: 64px; width: 360px; max-height: calc(100vh - 90px); }
+.levels-shell .field-readout { top: 64px; left: 384px; }
+.levels-shell .sherlock-panel { left: auto; right: 12px; top: 64px; width: 380px; max-height: 18vh; }
+.levels-shell .equation-wall { right: 12px; bottom: auto; top: calc(72px + 18vh); width: 380px; min-height: 0; max-height: 36vh; overflow: auto; padding: 14px; }
+.levels-shell .equation-wall h2 { font-size: 18px; margin-bottom: 10px; }
+.levels-shell .dimension-dynamics-panel { right: 12px; bottom: 12px; width: 380px; max-height: calc(100vh - 160px - 54vh); overflow: auto; }
 /* THE FOCUS (ISS-104): the chamber blurs; the course opens where the thought was */
 .explorer__gl.explorer__blurred { filter: blur(7px) brightness(.5) saturate(.85); transition: filter .8s ease; }
 .explorer__gl.explorer__focus { z-index: 1; opacity: 1; transition: none; animation: explorer-focus-in 1.3s cubic-bezier(.2,.8,.2,1) both; }
