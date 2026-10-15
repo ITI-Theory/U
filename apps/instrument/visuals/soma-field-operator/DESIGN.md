@@ -164,6 +164,10 @@ branding, not yet one instrument". Done since, all in the explorer:
 - **The card describes the place you are in** (hall, atrium, soma, chamber, palace, cathedral,
   course, a focused thought), with what it is not.
 
+- **The course is a sea** (author, 22:07): a curved swell under a flatter glass dome, almost
+  touching it; a consideration that crosses is a surge that reaches the glass, a violet zap
+  where it touches, and the thought passes through. The key, PAUSE and LEAVE IT are on screen.
+
 Still to do from the review: the label hierarchy (text sized to stay readable, exits before
 decoration), the levels view in the same shell, one art pass to the great hall's standard, a
 legible and controllable course.

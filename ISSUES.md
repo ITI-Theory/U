@@ -5395,7 +5395,19 @@ grammar's three gaps closed by it.
       above the deck, keeping their order). Wording corrected everywhere (explorer, atrium sign,
       card, visual-grammar registry): a consideration is a ripple that settles the holes it
       reaches, not one hole.
-- [ ] Next: the levels view in the shell (fix 4), the art pass (fix 10).
+- [x] (author 22:07, walking it: "the new one is fab ... almost, not quite") THE SEA: the course
+      is now a curved sea under a flatter glass dome, a swell with chop rising and falling, almost
+      touching the glass as Φ rises (paths3d.js swellAt / SEA_GLSL, the same on CPU and GPU, so
+      the balls and the route ride it); each consideration that crosses is a surge that reaches
+      the glass; where it touches, a violet zap (a bolt up from the crest, branches crawling over
+      the dome, a flash, the glass flaring there) and the thought passes through from that point.
+      Scheduled on the course's clock, so PAUSE holds it. Reading: ignition at the threshold
+      (global workspace), interpretive.
+- [ ] (author 22:07) "I still see the old palace, with the curved walls": it is the current palace
+      in its first style; the curved walls are the manifold view (walls fold only at 11D, the
+      author's decision). Restyle it to the great hall's standard (part of fix 10).
+- [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
+      starting with the palace.
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 

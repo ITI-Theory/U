@@ -27,6 +27,35 @@ const COLS = 40, ROWS = 28, SP = 1.2;
 const X0 = -((COLS - 1) * SP) / 2, Z0 = 15;
 const LIE = { SAFE: [0, 0.15, -0.5], FIGHT: [-0.25, -0.15, -0.35], FREEZE: [0.25, -0.15, -0.35] };
 const LIE_COLOR = { SAFE: '#9fe8ff', FIGHT: '#ff3b4e', FREEZE: '#c8c8ff' };
+// THE SEA (author, 15 Oct 22:07): the course is a curved sea under the glass, its swell rising and
+// falling, almost touching the dome; a consideration is a surge that reaches the glass, and where
+// it touches, a purple zap, and the thought passes through (ignition at the threshold)
+const CZ = Z0 - ((ROWS - 1) * SP) / 2;
+const DOME_R = 29, DOME_SY = 0.3, DOME_Y0 = -0.6;
+const COST_H = 1.2;
+const domeY = (x, z) => DOME_Y0 + DOME_SY * Math.sqrt(Math.max(0, DOME_R * DOME_R - x * x - (z - CZ) * (z - CZ)));
+function swellAt(x, z, t, fx) {
+  const dz = z - CZ;
+  const env = Math.max(0, Math.min(1, 1 - (x * x + dz * dz) / (DOME_R * DOME_R)));
+  const wn = (Math.sin(x * 0.18 + t * 0.9) + 0.8 * Math.sin(z * 0.23 - t * 0.7 + 1.3) + 1.2 * Math.sin((x + z) * 0.11 + t * 0.5)) / 3;
+  const chop = 0.35 * Math.sin(x * 0.55 - t * 1.7) * Math.sin(z * 0.47 + t * 1.3) + 0.22 * Math.sin((x - z) * 0.8 + t * 2.3);
+  return env * (2.9 + (1.8 + 2.6 * fx) * wn + (0.6 + 0.8 * fx) * chop);
+}
+const surgeProfile = age => (age <= 0 || age >= 2.4 ? 0 : age < 0.9 ? (t => t * t * (3 - 2 * t))(age / 0.9) : age < 1.2 ? 1 : 1 - (t => t * t * (3 - 2 * t))((age - 1.2) / 1.2));
+const SEA_GLSL = /* glsl */`
+  float swell(vec2 q, float t, float fx) {
+    vec2 d = q - vec2(0.0, ${CZ.toFixed(3)});
+    float env = clamp(1.0 - dot(d, d) / ${(DOME_R * DOME_R).toFixed(1)}, 0.0, 1.0);
+    float wn = (sin(q.x * 0.18 + t * 0.9) + 0.8 * sin(q.y * 0.23 - t * 0.7 + 1.3) + 1.2 * sin((q.x + q.y) * 0.11 + t * 0.5)) / 3.0;
+    float chop = 0.35 * sin(q.x * 0.55 - t * 1.7) * sin(q.y * 0.47 + t * 1.3) + 0.22 * sin((q.x - q.y) * 0.8 + t * 2.3);
+    return env * (2.9 + (1.8 + 2.6 * fx) * wn + (0.6 + 0.8 * fx) * chop);
+  }
+  float surgeProfile(float age) {
+    if (age <= 0.0 || age >= 2.4) return 0.0;
+    if (age < 0.9) return smoothstep(0.0, 0.9, age);
+    if (age < 1.2) return 1.0;
+    return 1.0 - smoothstep(1.2, 2.4, age);
+  }`;
 
 // what comes to mind about a thing (a few the author named; the rest generic), each with its
 // feeling (-1 cool, +1 warm) and its cost (0 easy, 1 hard)
@@ -80,7 +109,10 @@ export function createPaths3D({ loop = true } = {}) {
   const holes = [];
   for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) holes.push({ i, j, x: X0 + i * SP, z: Z0 - j * SP, c: 0, r: 0.5, set: false, lie: 'SAFE' });
   const ripples = Array.from({ length: 4 }, () => new THREE.Vector4(0, 0, -100, 0));
-  const U = { uHoles: { value: tex }, uTime: { value: 0 }, uRip: { value: ripples } };
+  const surges = Array.from({ length: 4 }, () => new THREE.Vector4(0, 0, -100, 0));
+  const zapsAt = [new THREE.Vector4(0, 0, 0, -100), new THREE.Vector4(0, 0, 0, -100)];
+  const U = { uHoles: { value: tex }, uTime: { value: 0 }, uRip: { value: ripples }, uSurge: { value: surges }, uFX: { value: 0.5 } };
+  let fxNow = 0.5;
 
   // THE COURSE: one ground, the holes' heights and colours read from the texture; three small
   // wells in every hole (SAFE ahead, FIGHT and FREEZE behind); ripples running across it
@@ -90,8 +122,9 @@ export function createPaths3D({ loop = true } = {}) {
   scene.add(new THREE.Mesh(geo, new THREE.ShaderMaterial({
     uniforms: U,
     vertexShader: /* glsl */`
-      uniform sampler2D uHoles; uniform float uTime; uniform vec4 uRip[4];
-      varying vec3 vCol; varying float vRip; varying float vH; varying vec3 vP;
+      uniform sampler2D uHoles; uniform float uTime; uniform vec4 uRip[4]; uniform vec4 uSurge[4]; uniform float uFX;
+      varying vec3 vCol; varying float vRip; varying float vH; varying vec3 vP; varying float vSea;
+      ${SEA_GLSL}
       void main() {
         vec3 p = position;
         float u = (p.x - (${X0.toFixed(2)})) / ${SP.toFixed(2)};
@@ -102,7 +135,7 @@ export function createPaths3D({ loop = true } = {}) {
                      -0.35 * exp(-((lu + 0.25) * (lu + 0.25) + (lv + 0.15) * (lv + 0.15)) / 0.01)
                      -0.35 * exp(-((lu - 0.25) * (lu - 0.25) + (lv + 0.15) * (lv + 0.15)) / 0.01);
         float edge = step(-0.6, u) * step(u, ${COLS - 1}.6) * step(-0.6, v) * step(v, ${ROWS - 1}.6);
-        float y = (h.r * 2.0 * h.b + dips + 0.18 * (lu * lu + lv * lv)) * edge;
+        float y = (h.r * ${COST_H.toFixed(2)} * h.b + dips + 0.18 * (lu * lu + lv * lv)) * edge;
         float rip = 0.0;
         for (int k = 0; k < 4; k++) {
           float age = uTime - uRip[k].z;
@@ -112,17 +145,24 @@ export function createPaths3D({ loop = true } = {}) {
           }
         }
         y += 0.45 * rip;
+        // the sea under it all, and the surges that reach for the glass
+        float sea = swell(p.xz, uTime, uFX);
+        for (int k = 0; k < 4; k++) if (uSurge[k].w > 0.0) sea += uSurge[k].w * surgeProfile(uTime - uSurge[k].z) * exp(-dot(p.xz - uSurge[k].xy, p.xz - uSurge[k].xy) / 7.0);
+        y += sea;
+        vSea = sea;
         p.y = y;
         vec3 cool = vec3(0.08, 0.62, 1.0), warm = vec3(1.0, 0.18, 0.32), unset = vec3(0.16, 0.13, 0.3);
         vCol = mix(unset, mix(cool, warm, h.g), h.b) * edge;
-        vRip = rip; vH = y; vP = p;
+        vRip = rip; vH = y - sea; vP = p;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
       }`,
     fragmentShader: /* glsl */`
-      varying vec3 vCol; varying float vRip; varying float vH; varying vec3 vP;
+      varying vec3 vCol; varying float vRip; varying float vH; varying vec3 vP; varying float vSea;
       void main() {
         float line = smoothstep(0.44, 0.49, abs(fract(vH * 2.2) - 0.5));
-        vec3 col = vCol * (0.28 + 0.5 * line) + vec3(0.9, 0.95, 1.0) * vRip * 0.35;
+        // the swell's crests catch the light: the higher, the brighter, violet towards the glass
+        float crest = smoothstep(3.0, 7.5, vSea);
+        vec3 col = vCol * (0.28 + 0.5 * line) + vec3(0.9, 0.95, 1.0) * vRip * 0.35 + vec3(0.45, 0.25, 0.9) * crest * 0.35 + vec3(0.1, 0.2, 0.45) * (0.5 + 0.5 * sin(vSea * 3.0)) * 0.12;
         float fog = smoothstep(26.0, 36.0, length(vP.xz - vec2(0.0, -0.3)));
         gl_FragColor = vec4(col, 1.0 - fog);
       }`,
@@ -133,16 +173,25 @@ export function createPaths3D({ loop = true } = {}) {
   const balls = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' }), holes.length);
   scene.add(balls);
   const o = new THREE.Object3D();
+  const seaAt = (x, z) => {
+    let y = swellAt(x, z, U.uTime.value, fxNow);
+    for (const sg of surges) if (sg.w > 0) y += sg.w * surgeProfile(U.uTime.value - sg.z) * Math.exp(-((x - sg.x) ** 2 + (z - sg.y) ** 2) / 7);
+    return y;
+  };
   const placeBalls = () => {
+    holes.forEach((h, k) => balls.setColorAt(k, new THREE.Color(LIE_COLOR[h.lie])));
+    if (balls.instanceColor) balls.instanceColor.needsUpdate = true;
+  };
+  // every frame: the balls ride the swell in their wells
+  const moveBalls = () => {
     holes.forEach((h, k) => {
       const [lx, lz, dip] = LIE[h.lie];
-      o.position.set(h.x + lx * SP, h.set ? h.c * 2 + dip + 0.14 : -50, h.z - lz * SP);
+      const x = h.x + lx * SP, z = h.z - lz * SP;
+      o.position.set(x, h.set ? h.c * COST_H + dip + 0.14 + seaAt(x, z) : -50, z);
       o.updateMatrix();
       balls.setMatrixAt(k, o.matrix);
-      balls.setColorAt(k, new THREE.Color(LIE_COLOR[h.lie]));
     });
     balls.instanceMatrix.needsUpdate = true;
-    if (balls.instanceColor) balls.instanceColor.needsUpdate = true;
   };
   const writeTex = () => {
     holes.forEach((h, k) => data.set([Math.round(h.c * 255), Math.round(h.r * 255), h.set ? 255 : 0, 255], k * 4));
@@ -164,32 +213,103 @@ export function createPaths3D({ loop = true } = {}) {
         i = best;
       }
       const h = holes[j * COLS + i];
-      pts.push(new THREE.Vector3(h.x, (h.set ? h.c * 2 : 0) + 0.6, h.z));
+      pts.push(new THREE.Vector3(h.x, (h.set ? h.c * COST_H : 0) + 0.6, h.z));
     }
-    route = new THREE.Line(new THREE.BufferGeometry().setFromPoints(new THREE.CatmullRomCurve3(pts).getPoints(120)), new THREE.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.9 }));
+    const curve = new THREE.CatmullRomCurve3(pts).getPoints(120);
+    route = new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve), new THREE.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.9 }));
+    route.userData.base = curve.map(q => q.y);
     scene.add(route);
   };
 
   // THE DOME: the threshold over the course, glass, its rim catching the light
-  const CZ = Z0 - ((ROWS - 1) * SP) / 2;
-  const dome = new THREE.Mesh(new THREE.SphereGeometry(29, 96, 48, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.ShaderMaterial({
-    uniforms: { uGlow: { value: 0 }, uTime: U.uTime },
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(DOME_R, 96, 48, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.ShaderMaterial({
+    uniforms: { uGlow: { value: 0 }, uTime: U.uTime, uZap: { value: zapsAt } },
     transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
     vertexShader: 'varying vec3 vN; varying vec3 vV; varying vec3 vP; void main() { vP = position; vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position, 1.0); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
     fragmentShader: /* glsl */`
-      uniform float uGlow; uniform float uTime; varying vec3 vN; varying vec3 vV; varying vec3 vP;
+      uniform float uGlow; uniform float uTime; uniform vec4 uZap[2]; varying vec3 vN; varying vec3 vV; varying vec3 vP;
       void main() {
         float rim = pow(1.0 - abs(dot(vN, vV)), 3.0);
+        // where a surge touched: the glass flares violet and fades
+        float zap = 0.0;
+        for (int k = 0; k < 2; k++) { float age = uTime - uZap[k].w; if (age >= 0.0 && age < 1.5) zap += exp(-dot(vP - uZap[k].xyz, vP - uZap[k].xyz) / 60.0) * exp(-age * 2.6); }
         float bands = 0.5 + 0.5 * sin(vP.y * 1.2 - uTime * 0.8);
         vec3 c = vec3(1.0, 0.8, 0.35) * (0.008 + 0.16 * pow(rim, 1.5) + 0.01 * bands) * (1.0 + 2.5 * uGlow);   // the glass, quieter than the course (GPT review, fix 9)
+        c += vec3(0.72, 0.32, 1.0) * zap * 1.6;
         gl_FragColor = vec4(c, 1.0);
       }`,
   }));
-  dome.scale.set(1, 0.42, 1);
-  dome.position.set(0, -0.6, CZ);
+  dome.scale.set(1, DOME_SY, 1);
+  dome.position.set(0, DOME_Y0, CZ);
   dome.renderOrder = 2;
   scene.add(dome);
-  const domeTop = 29 * 0.42 - 0.6;
+  const domeTop = DOME_R * DOME_SY + DOME_Y0;
+  // THE ZAP: where a surge touches the glass, a violet bolt up from the crest and crawling over the
+  // dome, flickering for a moment; the glass flares there (uZap)
+  const zaps = [];
+  const zapMat = new THREE.LineBasicMaterial({ color: '#c77dff', transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false });
+  let zapSlot = 0;
+  let flashT = null;
+  const flashTex = () => {
+    if (flashT) return flashT;
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const g = c.getContext('2d');
+    const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.25, 'rgba(210,150,255,0.8)'); gr.addColorStop(1, 'rgba(120,40,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+    flashT = new THREE.CanvasTexture(c);
+    return flashT;
+  };
+  function zap(x, z) {
+    const top = domeY(x, z);
+    const geo = new THREE.BufferGeometry();
+    const line = new THREE.LineSegments(geo, zapMat.clone());
+    line.renderOrder = 4;
+    scene.add(line);
+    const flash = new THREE.Sprite(new THREE.SpriteMaterial({ map: flashTex(), color: '#d9a6ff', transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    flash.position.set(x, top, z);
+    flash.renderOrder = 5;
+    scene.add(flash);
+    zaps.push({ x, z, top, born: U.uTime.value, line, flash });
+    zapsAt[zapSlot].set(x, (top - DOME_Y0) / DOME_SY, z - CZ, U.uTime.value);
+    zapSlot = (zapSlot + 1) % zapsAt.length;
+  }
+  function drawZap(zp, age) {
+    const pts = [];
+    const jag = (a, b, n, spread) => {
+      let prev = a.clone();
+      for (let k = 1; k <= n; k++) {
+        const q = a.clone().lerp(b, k / n);
+        if (k < n) q.add(new THREE.Vector3((rnd() - 0.5) * spread, (rnd() - 0.5) * spread * 0.5, (rnd() - 0.5) * spread));
+        for (const d of [0, 0.06, -0.06]) pts.push(prev.clone().addScalar(d), q.clone().addScalar(d));
+        prev = q;
+      }
+    };
+    const top = new THREE.Vector3(zp.x, zp.top, zp.z);
+    jag(new THREE.Vector3(zp.x, zp.top - 2.2, zp.z), top, 7, 0.9);
+    // branches crawling over the glass
+    for (let b = 0; b < 4; b++) {
+      const a = rnd() * Math.PI * 2, r = 2.5 + rnd() * 4.5 * Math.min(1, age * 5);
+      const ex = zp.x + Math.cos(a) * r, ez = zp.z + Math.sin(a) * r;
+      const steps = 6;
+      let prev = top.clone();
+      for (let k = 1; k <= steps; k++) {
+        const t = k / steps;
+        const qx = zp.x + (ex - zp.x) * t + (rnd() - 0.5) * 0.8, qz = zp.z + (ez - zp.z) * t + (rnd() - 0.5) * 0.8;
+        const q = new THREE.Vector3(qx, domeY(qx, qz) + 0.05, qz);
+        for (const d of [0, 0.05]) pts.push(prev.clone().addScalar(d), q.clone().addScalar(d));
+        prev = q;
+      }
+    }
+    zp.line.geometry.dispose();
+    zp.line.geometry = new THREE.BufferGeometry().setFromPoints(pts);
+    zp.line.material.opacity = Math.max(0, 1 - age / 0.55) * (0.55 + 0.45 * rnd());
+    zp.flash.material.opacity = Math.max(0, 1 - age / 0.5) * (0.7 + 0.3 * rnd());
+    zp.flash.scale.setScalar(3 + 5 * age);
+  }
+  // things that happen on the course's own clock (so PAUSE holds them too)
+  const later = [];
   // THE THOUGHTS OVER THE DOME: considerations that crossed, one after another, at most four
   const pops = [];
   const SLOTS = [-12, -4, 4, 12];
@@ -205,7 +325,7 @@ export function createPaths3D({ loop = true } = {}) {
     const tag = textSprite(name, color, 9);
     tag.position.y = 2.2;
     g.add(s, ring, tag);
-    g.position.set(from.x, 0.5, from.z);
+    g.position.set(from.x, domeY(from.x, from.z), from.z);
     g.renderOrder = 3;
     scene.add(g);
     pops.push({ g, s, ring, tag, slot: Math.max(0, slot), sinking: false, from: from.clone(), age: 0 });
@@ -239,8 +359,14 @@ export function createPaths3D({ loop = true } = {}) {
     const h0 = holes[Math.floor(rnd() * holes.length)];
     const rip = ripples.find(r => r.w < 0.5 || now - r.z > 4) ?? ripples[0];
     rip.set(h0.x, h0.z, now, 1);
-    // it crosses the dome when it is strong enough (here, every consideration that is not trivial)
-    if (Math.abs(feel) + cost > 0.35) setTimeout(() => popThought(name, feel, new THREE.Vector3(h0.x, 0, h0.z)), 900);
+    // it crosses the dome when it is strong enough (here, every consideration that is not trivial):
+    // a surge rises from the sea to the glass; where it touches, the zap, and the thought passes
+    if (Math.abs(feel) + cost > 0.35) {
+      const sg = surges.find(q => U.uTime.value - q.z > 2.4) ?? surges[0];
+      const reach = domeY(h0.x, h0.z) + 0.2 - swellAt(h0.x, h0.z, now + 0.9, fxNow);
+      sg.set(h0.x, h0.z, now, Math.max(0.5, reach));
+      later.push({ at: now + 0.9, fn: () => { zap(h0.x, h0.z); popThought(name, feel, new THREE.Vector3(h0.x, 0, h0.z)); } });
+    }
     // the holes the ripple will reach take the consideration's colour and cost, with scatter;
     // a hole already set blends the two (a later thought revises an earlier one)
     for (const h of holes) {
@@ -264,6 +390,7 @@ export function createPaths3D({ loop = true } = {}) {
     queue = known ? known.map(x => [...x]) : GENERIC.map(n => [n, (rnd() - 0.5) * 1.8, rnd()]);
     queue.sort(() => rnd() - 0.5);
     state = { phase: 'considering', t: 0, next: 0.8, verdict: '', stress: 0, stays: false, solution: 0 };
+    later.length = 0;
     writeTex();
     placeBalls();
   }
@@ -294,7 +421,17 @@ export function createPaths3D({ loop = true } = {}) {
       last = s.time;
       clock += dt;
       U.uTime.value = clock;
+      fxNow = Math.max(0, Math.min(1, s.phi ?? 0.5));
+      U.uFX.value = fxNow;
       tickBubbles(clock);
+      for (let k = later.length - 1; k >= 0; k--) if (clock >= later[k].at) { const f = later[k].fn; later.splice(k, 1); f(); }
+      moveBalls();
+      if (route) { const pa = route.geometry.attributes.position; for (let k = 0; k < pa.count; k++) pa.setY(k, route.userData.base[k] + seaAt(pa.getX(k), pa.getZ(k))); pa.needsUpdate = true; }
+      for (let k = zaps.length - 1; k >= 0; k--) {
+        const age = clock - zaps[k].born;
+        if (age > 0.6) { scene.remove(zaps[k].line, zaps[k].flash); zaps[k].line.geometry.dispose(); zaps[k].line.material.dispose(); zaps[k].flash.material.dispose(); zaps.splice(k, 1); }
+        else drawZap(zaps[k], age);
+      }
       if (state.phase === 'ready' && loop) start(TODOS[Math.floor(rnd() * TODOS.length)]);
       if (state.phase === 'considering') {
         state.t += dt;
