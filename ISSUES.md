@@ -5175,7 +5175,22 @@ carried by every somagram taken on it.
       tint). Moriarty: chocolate-bar and model-moved-under-picture, both caught.
 - [ ] The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
       staying thoughts (rising, holding; the barrier), paths leaving as tubes.
-- [ ] The base as film stock: the start settings recorded with every somagram (after HAL).
+- [x] (15 Oct) The base as film stock: recorded once per session, carried by every somagram.
+- [ ] (author, 15 Oct 18:01) The path problem, in one picture: "should I do this or that" as a
+      tree of paths laid over farmland with gentle hills; movement on all the paths at once; five
+      or six flashes that stay lit, the hot spots of the paths; then the sequence, one at a time,
+      from the popping we already have: path, then wave, then sequence. Copilot: it joins the
+      bubbles and the paths (the land is the model's energy landscape; the tree the options laid
+      on it; the movement the sub-threshold activity, the foam; the flashes the places where it
+      crosses the threshold; the sequence the pop); a sourced anchor in rats (vicarious trial
+      and error and hippocampal forward sweeps at a choice point, Redish and colleagues:
+      several paths represented, then run through in turn), interpretive for human thought; it
+      closes the visual grammar's last gap (route). Cautions: the model has no good and bad,
+      only downhill (pulling), uphill (costly) and barriers, so hot spots are coloured by the
+      land (a well that pulls, a ridge that resists), never labelled; the path-sensitive
+      transitions paper (open-hypothesis) makes a path's cost cumulative along the route, not
+      its highest hill, so paths glow by their summed cost; show three or four levels of the
+      tree, not an exploding one. The Mind Chamber's PATHS doorway leads onto it.
 
 ## ISS-105: The Soma Machine as one instrument: the design (the show piece) — OPEN
 {{Tags area.app}}
