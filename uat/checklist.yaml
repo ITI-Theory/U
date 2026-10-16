@@ -129,7 +129,7 @@ steps:
   - id: film-record
     kind: manual
     title: "Record the film to a video file (H-AL's voice, music on)"
-    do: "screen-record film-river-90 with system audio (e.g. OBS); keep the file outside the repos; note its path"
+    do: "screen-record film-river-90 with system audio (e.g. OBS); keep the file outside the repos; note its path; then its sound: ffmpeg -i film.mp4 -ac 1 -ar 22050 film.wav and make -C sherlock readback REC=film.wav SCORE=river-film (does the film carry the score? ISS-115)"
   - id: film-review
     kind: manual
     title: "The author's review of every line of the film"

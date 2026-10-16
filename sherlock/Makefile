@@ -40,6 +40,7 @@ help:
 	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
 	$(info   privacy     what is private stays private: Phase Dot, H-AL's answers, the film notes (needs Me; ISS-116))
 	$(info   provenance  whose emotions a score carries, and whether the author has attested it (ISS-115))
+	$(info   readback    REC=<recording.wav> SCORE=<id>: does a recording carry the score? (ISS-115))
 	$(info   model       the high-level model of [T]-Theory: its pointers resolve, its labels hold (registry/model.yaml; ISS-108))
 	$(info   neighbours  the Wizard: OpenCyc neighbours of the concepts that no paper or book names (ISS-092))
 	$(info   towers      the programme's Lean exported for the city of code (bld/sherlock/towers.json; about 25 min))
@@ -158,6 +159,9 @@ privacy:
 
 provenance:
 	$(PYTHON) provenance.py
+
+readback:
+	$(PYTHON) readback.py "$(REC)" $(SCORE)
 
 model:
 	$(PYTHON) model.py

@@ -6082,7 +6082,13 @@ What it cannot check, so what is needed (then choose the music option):
       A sound grammar: every channel today is visual. Sound channels (harmony and tension, tempo
       and rhythm, timbre, register, density, silence) and the model terms each may express, checked
       like the pictures; until then everything audible is undeclared.
-- [ ] Read-back: does an output (sound or picture) carry the score: its order, peaks, thresholds
+- [x] (16 Oct, sound: sherlock/readback.py, `make -C sherlock readback REC=... SCORE=...`: the
+      expected curves from the score through the sound grammar's declared mappings against the
+      recording, window by window; brightness (the spectral centroid) and note density (onsets a
+      second) measurable now, r >= 0.5 carries. Tested on a recording made from river-film: r = 0.99
+      and 0.91, carries; the score run backwards: -0.29 and -0.82, does not. Not measurable yet: the
+      tritone, the reverb, the harmony, the grains, the echo. Pictures: later.)
+      Read-back: does an output (sound or picture) carry the score: its order, peaks, thresholds
       and calm? `lib/show/cues.py` reads a mix's structure; the check compares it with the score.
 - [x] (16 Oct: `provenance:` in each score (author, made_by, from, attested), sherlock/provenance.py,
       `make -C sherlock provenance`: river-film is the author's, from his paper; fis-2021's numbers are
