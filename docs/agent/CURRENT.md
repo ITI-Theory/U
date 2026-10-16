@@ -6,32 +6,40 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (15 Oct 2026, evening)
+## Now (16 Oct 2026, 02:45)
 
-**The release is held for the art book and now the app** (author: the app, not the Lulu books, is
-the programme's show piece). rc3.2 is built and staged; the DOI route waits for ZENODO_TOKEN.
+**The release is held for the art book and the app** (author: the app is the programme's show
+piece). rc3.2 is built and staged; the DOI route waits for ZENODO_TOKEN. Author, 02:42: "the end
+is in sight for this and the papers, books".
 
-**The Soma Machine: one instrument (ISS-105).** The design is
-apps/instrument/visuals/soma-field-operator/DESIGN.md (from a conversation with HAL-UAT,
-checked against the Lean). Built today:
-- The spine: SOMA MACHINE top bar in both the explorer and the levels view (breadcrumb, places
-  grouped BODY / BRAIN / MIND / WORLDS, 4D 8D 11D, SETTINGS = the film stock), GO / DO deck.
-- The Mind Chamber (behind the great hall's limbic gate): foam, a gold threshold, thoughts as
-  soap bubbles showing their expression (blend, dampen, evoke) and kind; a click focuses one,
-  the chamber blurs, and it opens into THE COURSE (FFF holes under a glass dome, considerations
-  rippling, a few thoughts over the dome, SOLUTION melts them back), or it stays below the line
-  and the LOAD heats the chamber.
-- The palace a place, the manifold the 11D view (walls fold only there); FLOORS ▤ in the palace.
-- PATH is now THE WAY UP (a signal, not a thought).
-- Atriums: the great hall, the heart's left atrium, the soma.
-- Checks: the visual grammar (Sherlock, release check 19, Moriarty): 12 of 12 model terms shown.
-  SNAP records the film stock. The release check's explorer test fixed (0 failures).
+**The Soma Machine (ISS-105).** Design: apps/instrument/visuals/soma-field-operator/DESIGN.md.
+A second opinion (GPT-6.1-sol, one-off, review only; session files gpt-review/report.md) led to:
+fresh start fixed; the human's deck takes clicks; leaving a place leaves its overlays; a spatial
+breadcrumb and PLACES ▾ (P); one set of controls (POKE ▾ with BRECVEMA and the inputs, SETTINGS
+with lens and look, the card's THIS FLOOR); the card describes the place you are in; readable
+labels; 2D | 3D in the bar. Then, with the author walking it tonight:
+- **THE WORLDS is the entry point** (worlds3d.js): five glass domes from the model's sectors
+  (QUANTUM, LIFE, HUMAN, EARTH, COSMOS), each a scale model; a click opens the domes inside
+  (HUMAN: BODY, BRAIN, MIND, then the places); a dome with nothing inside is a door to a place
+  or to a floor of the level view. A DAW fader at the left is the zoom. SOMA WORLD is its
+  ROOTED name (later).
+- **THE COURSE is a sea** under a glass dome; surges touch it with a violet zap and thoughts
+  pass through; a key, PAUSE, LEAVE IT. 2D thought focus works.
+- **The cathedral**: 2D is the ventricle map; FX turns the stone into 2001's lit corridor, and
+  the aqueduct and the foramen into a stargate at the top of Φ.
+- **LANDSCAPE**: MINI GOLF, 2D the six-hole map of the model's basins (SAFE, FIGHT, FLIGHT,
+  FREEZE, AWE, GRIEF, with fairways, wires, slides, a bridge, a tunnel; worry balls); 3D THE
+  LOAD, the square in front and five unresolved thoughts, each its own slope, with struts and
+  attention as the purple ball. The towers of code have a SOURCE window (highlighted Lean).
+- Recorded, not built: ISS-107 the music film (Part A) and tensor film (Part B), later, step by
+  step; ISS-106 (Einstein, impact) closed: interest only. All tested headless only.
 
 **Gallery of Thoughts (ISS-097):** 86 plates, Lulu proof 103 pages; A3 and projector built.
 
 ## Next
 
-1. Author: walk the app (the Mind Chamber, a focus, THE COURSE, the levels view); SNAP a few.
-2. Papers first for the open model gaps: the frequency axis and the inner voice (ISS-101).
-3. ISS-105 phases 3 and 4: the telemetry drawer (expression, mechanism, heart), more atriums.
+1. Author: walk the app on the big screen (THE WORLDS, the load, the course, the cathedral).
+2. ISS-105 left: the levels view inside the same shell (fix 4), one art pass to the great
+   hall's standard (the palace and the cathedral's pale stone first), ROOTED.
+3. Papers and books to their end; the frequency axis and the inner voice (ISS-101).
 4. Then the tokens, the big build, `make dist`, publish, Lulu (with the Gallery).
