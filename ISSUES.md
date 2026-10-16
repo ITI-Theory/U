@@ -5905,8 +5905,10 @@ Tasks:
 - [ ] Zenodo: sandbox rehearsal, then live; DOIs everywhere (ISS-001; tokens: AUTHOR, environment
       only, never a file).
 - [ ] The app as a release: the preview line on t-theory.org removed, make app-publish.
-- [ ] The web site: the notebook link ("ask the theory" first, ISS-109's last gap), the three
-      users (U, the scientist), the attribution line.
+- [~] The web site: the notebook link ("ask the theory" first, ISS-109's last gap), the three
+      users (U, the scientist), the attribution line. (16 Oct: written, web/home.md; Sherlock's
+      presence: 0 gaps. Still, Wed 21: drop the preview line, `make web-publish`, the author
+      pushes ../t-theory.org.)
 - [ ] Print on demand (AUTHOR's Lulu account): each print edition listed for sale online, the
       creator's revenue at zero (the buyer pays Lulu's print price and Lulu's own fee; Lulu sets
       that, not us), not ordered. The free PDFs are on Zenodo; the print is for those who want
