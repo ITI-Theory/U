@@ -4950,9 +4950,11 @@ chosen by both the thing and the viewer.
       a physicist ...), each pointing to an existing view where one exists (a figure, an Atlas
       plate, a tour, a palace floor, a Gallery piece) and naming the gaps.
 
-## ISS-099: Fantastic Voyage: go where the thought is — OPEN
+## ISS-099: Fantastic Voyage: go where the thought is — CLOSED
 {{Tags area.app}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** the sourced map and the navigation by words are in; the walk is UAT (`app-feel`).
 
 Author, 14 Oct: "I'm having this mood" and the app whizzes to the part of the brain (or body) that
 goes with it, as the shrunken submarine is injected to one point in Fantastic Voyage; once there,
