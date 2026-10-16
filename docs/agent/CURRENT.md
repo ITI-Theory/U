@@ -36,10 +36,11 @@ labels; 2D | 3D in the bar. Then, with the author walking it tonight:
 
 **Gallery of Thoughts (ISS-097):** 86 plates, Lulu proof 103 pages; A3 and projector built.
 
-## Next
+## Next: the release, by 21 October 2026 (ISS-114, the epic)
 
-1. Author: walk the app on the big screen (THE WORLDS, the load, the course, the cathedral).
-2. ISS-105 left: the levels view inside the same shell (fix 4), one art pass to the great
-   hall's standard (the palace and the cathedral's pale stone first), ROOTED.
-3. Papers and books to their end; the frequency axis and the inner voice (ISS-101).
-4. Then the tokens, the big build, `make dist`, publish, Lulu (with the Gallery).
+1. Content freeze end of Sat 17 Oct; the big build; release-check all PASS.
+2. Sun 18: the author's UAT reading and app walk; fixes.
+3. Mon 19: make dist; the Zenodo sandbox rehearsal (the author's token).
+4. Tue 20: Zenodo live; the DOIs everywhere; the print editions listed on Lulu at cost.
+5. Wed 21: the app published as a release, the web site, the tags.
+Kept open, not blockers: ISS-105 (levels shell, art pass), ISS-107, ISS-111, ISS-112.

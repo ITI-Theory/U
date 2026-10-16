@@ -40,6 +40,8 @@ Use Shift + Click on the folding icon to fold or unfold the region and all regio
 
 ## ISS-001: Phase 1 wrap — Zenodo uploads + NLM UAT — OPEN
 
+Part of the epic ISS-114 (release by 21 Oct 2026).
+
 **Status 2026-10-04 00:30:** release candidate built and staged. `bin/release-check`
 15 PASS, 0 FAIL, 2 WARN (pending uploads; one tracked research gap).
 `uat/staging/papers/` (34 files) and `uat/staging/ttheory/` (14 files) carry
@@ -5794,8 +5796,11 @@ clear of therapy claims.
       as interpretive, a map, never the territory, which is the programme's line.
       So the plan stands, with three routes to Ableton already here (MIDI OUT, OSC to Max for
       Live, Bome for the controllers); the missing piece is one clock (Link through the relay).
-- [ ] The mapping: score modes to universe qualities (a registry, labelled interpretive).
-- [ ] The generator: score to a SpaceEngine catalogue (.sc); the author installs it.
+- [x] The mapping: registry/universe.yaml (galaxy type and size from the whole score; a star per
+      phase, its class, temperature, size from the modes there; its worlds), labelled interpretive.
+- [x] The generator: python lib/universe/universe.py <score> writes bld/universe/<score>/catalogs
+      (galaxies, stars, planets .sc, SpaceEngine's format) and a README; the author copies it into
+      SpaceEngine's addons. The River Film: a galaxy, 6 stars, 16 worlds; the 2021 film too.
 - [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
 - [ ] The pitch, written: "create a new universe", humorous, labelled.
 
@@ -5842,3 +5847,52 @@ The READMEs (five in .github-private, two in .github):
       (T is for Theory, Type, Tensor, techno and trance), "we don't do middle"; humour, labelled.
 - [x] The beep in MOTHER's voice: bin/mother-beep.ps1 (a data trill, two rising bleeps; -Need adds
       a lower third, a question). Copilot's call to the author from now on.
+
+## ISS-114: EPIC: release [T]-Theory by 21 October 2026 — OPEN
+
+{{Tags area.release}}
+{{Fields date.created=2026-10-16, date.start=2026-10-16, date.end=, epic=ISS-114-release-2026-10-21}}
+
+Author, 16 Oct 17:40: the current epic is the release of [T]-Theory, on or by 21.10.2026, Zenodo
+included. The printed books available online where needed, not necessarily bought yet, at 0%
+commission. "It's doable, easily."
+
+What release means (from ISS-001, Dist/README.md's release cycle, and this week's work):
+the papers and books built, read and promoted to Dist with their checksums; every record on
+Zenodo with its DOI, and the DOIs back in Dist/PAPERS.yaml, the org page and the books; the app
+published at t-theory.org/app as a release, not a preview; the web site and GitHub linked; the
+print editions listed online for print on demand, at cost; U and Dist tagged together.
+
+Plan (Copilot's proposal; the author's days are marked AUTHOR):
+- Fri 16 Oct: the plan. Content freeze for the papers and books at the end of Sat 17 (only
+  fixes after it).
+- Sat 17: the big build (make uat-stage-full; page counts against Lulu's 800); bin/release-check
+  all PASS; the app's release build and app-publish DRY=1.
+- Sun 18: AUTHOR: the UAT reading (the Monster, the Wizard, Sherlock through HAL; uat/checklist),
+  and a walk of the app on the big screen. Fixes the same day.
+- Mon 19: make dist (checksums against the staging manifests), commit Dist. AUTHOR: Zenodo
+  sandbox token, then bin/zenodo-publish --sandbox rehearse; read the report and two drafts.
+- Tue 20: AUTHOR: the live ZENODO_TOKEN; plan, drafts, --publish --yes. The DOIs into
+  Dist/PAPERS.yaml, make generate, the org page's DOI tables, the books' colophons. Lulu: list
+  the print editions (AUTHOR's account), the creator's revenue set to zero.
+- Wed 21: app-publish (live), t-theory.org updated, tag U and Dist; HAL-UAT becomes H-AL's
+  production notebook; announce (optional).
+
+Tasks:
+- [ ] Content freeze, end of 17 Oct (author to confirm).
+- [ ] The big build and release-check all PASS (ISS-001).
+- [ ] UAT reading and the app walk (AUTHOR).
+- [ ] make dist, checksums, Dist committed (ISS-001).
+- [ ] Zenodo: sandbox rehearsal, then live; DOIs everywhere (ISS-001; tokens: AUTHOR, environment
+      only, never a file).
+- [ ] The app as a release: the preview line on t-theory.org removed, make app-publish.
+- [ ] The web site: the notebook link ("ask the theory" first, ISS-109's last gap), the three
+      users (U, the scientist), the attribution line.
+- [ ] Print on demand (AUTHOR's Lulu account): each print edition listed for sale online, the
+      creator's revenue at zero (the buyer pays Lulu's print price and Lulu's own fee; Lulu sets
+      that, not us), not ordered. The free PDFs are on Zenodo; the print is for those who want
+      paper. The Field Atlas at bookfactory later (ISS-040).
+- [ ] Tag U and Dist together; CURRENT.md and the README updated.
+- [ ] Which notebook is the public one (ec1a7e74 or 16368cb3, ISS-113): AUTHOR.
+Out of scope for the 21st (kept open, not blockers): ISS-105's levels-view shell and art pass,
+ISS-107 the films, ISS-112 the clock, ISS-111 the voice.

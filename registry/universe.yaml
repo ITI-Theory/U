@@ -1,0 +1,45 @@
+# A UNIVERSE FROM A SCORE (ISS-112, author 16 Oct: "a score becomes the overall configuration of a new
+# universe's qualities"). How a score's modes (registry/scores: S safety, F fear, C curiosity, A awe,
+# G grief, L language, PV pre-verbal) set the qualities of a made universe, written for SpaceEngine
+# (its catalogue format, spaceengine.org/manual/making-addons). Each phase of the score becomes one
+# star system along a path through the sky; the whole score sets the home galaxy. The mapping is an
+# artistic reading, interpretive: a picture of a feeling's course, not a claim about stars. The
+# author edits this file; the generator (scripts/universe.py) only follows it.
+
+galaxy:
+  # its Hubble type: grief and the pre-verbal close it into an old elliptical, safety and
+  # curiosity open it into a young spiral; awe makes it large and bright
+  type:
+    - {when: "G + PV > 1.2", value: E3}
+    - {when: "S + C > 1.0", value: Sc}
+    - {else: Sb}
+  radius_pc: "15000 + 25000 * A"
+  abs_magn: "-19.5 - 2.5 * A"
+
+star:
+  # a phase's star: fear makes it hot and blue and restless; grief old, red and swollen; safety a
+  # settled yellow dwarf; awe a bright giant; the pre-verbal a dim, deep one
+  class:
+    - {when: "G > 0.75", value: M2III}
+    - {when: "A > 0.6", value: B2III}
+    - {when: "F > 0.7", value: B5V}
+    - {when: "PV > 0.8", value: M5V}
+    - {when: "S > 0.55", value: G2V}
+    - {else: K3V}
+  teff: "5800 + 12000 * F * (1 - G) - 2800 * G - 2000 * PV"
+  radsol: "1 + 30 * G * G + 6 * A"
+  masssol: "0.6 + 2.5 * F + 1.5 * A"
+  lum: "0.3 + 20 * A + 5 * F"
+
+planet:
+  # one world for each phase: safety a temperate earth with oceans; curiosity a cratered wanderer;
+  # fear a hot, close world; grief a cold, far ice world; language a world with rings (structure)
+  count: "1 + round(3 * S + 2 * C)"
+  class:
+    - {when: "S > 0.55", value: Terra}
+    - {when: "G > 0.7", value: Ice}
+    - {when: "F > 0.7", value: Selena}
+    - {else: Terra}
+  semi_major_au: "0.6 + 4 * G - 0.4 * F"
+  radius_km: "3000 + 5000 * S + 2000 * C"
+  rings: "L > 0.6"
