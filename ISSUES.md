@@ -5583,6 +5583,12 @@ Plan (Copilot, agreed in outline):
       barriers, drops are threshold crossings, breakdowns recovery; the SCORE's tensor-film
       trajectory (Safety, Fear, Curiosity, Awe ...) written from the music; the picture is the
       field's state. Interpretive, labelled as such.
+- [ ] (author 16 Oct 15:51) Another music: Suicide, "Frankie Teardrop" (1979; the film by
+      Douglas Hart): old, dark, a low-tech flashing LED matrix, like an old AI. For the 2021
+      river trip (the 2021 film in the score, kf). Copilot: yes, it would fit: the dread and the
+      long build suit the river's descent; the LED matrix is a look the app can make (a dot
+      matrix, slow scan, few colours) for a ROOTED film style. Copyright: the track and the film
+      are not ours; private use only (HAL), never published.
 
 ## ISS-108: Three users and the way in: U, the scientist, and ROOTED — OPEN
 
@@ -5616,6 +5622,14 @@ which is fine as long as ROOTED holds nothing that must stay private.
       /help. index.html carries the welcome comment with the code and "don't tell anyone, give
       them clues". Rooted: the ROOTED badge, SOMA WORLD, the Root Monster's name (hidden
       otherwise). Still: what ROOTED switches on (ISS-095: the effects, the music, the theme park).
+- [x] (author 15:51: "lots of MOTHER's sounds ... the Nostromo boot sequence ... the typewriter;
+      rewards in ROOTED") nostromo.js: synthesised (Web Audio), in the spirit of a 1979 ship's
+      computer, nothing taken from the film: a teletype's chatter as MOTHER types, data trills,
+      bleeps, a boot sequence when access is granted; rewards (going through a dome, the
+      course's zap). On by default when ROOTED; /teletype on|off in MOTHER for anyone.
+- [x] MOTHER from anywhere: a green MOTHER button in the explorer's top bar (U starts in the
+      explorer, so access must be askable there); her terminal shows over the explorer; with no
+      notebook chosen she still answers her own commands and says how to choose one.
 - [x] FX is used twice: the bar is now Φ THE FIELD and its hints say Φ; FX is kept for ROOTED's
       effects. (Internal names unchanged.)
 - [ ] POKE more pronounced and more visual, for learning: the impulse, where it goes, what it
@@ -5706,3 +5720,8 @@ Facts and Copilot's view:
 - [ ] The "ask the theory first" path on the web page, then the app.
 - [ ] Test one arm band end to end; name it in the app's STRAP help.
 - [ ] The pitch, for U and for the scientist, labelled; through the clinical check.
+- [ ] (author 16 Oct 15:52) HAL follows access: a user with the web (a public notebook) gets
+      MOTHER; HAL (the API through the bridge, the author's private notebook) is the author's
+      only. Private material goes to HAL only, e.g. the last film (ISS-107: the mix and the
+      film stay out of the repository and Dist). Today: MOTHER's H-AL persona answers only in
+      API mode (the local bridge), so only the author has it; keep it so, and say so in the app.

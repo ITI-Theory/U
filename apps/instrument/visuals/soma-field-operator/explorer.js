@@ -70,6 +70,7 @@ import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 import { createSnapper } from './snap.js';
 import { who, setWho, rooted, placeName, PROFILES } from './who.js';
+import { reward, bleep } from './nostromo.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -3411,7 +3412,7 @@ export function createExplorer(hooks = {}) {
     toggle.className = 'explorer__settings';
     toggle.textContent = 'SETTINGS ▾';
     toggle.addEventListener('click', () => { drawer.hidden = !drawer.hidden; toggle.classList.toggle('active', !drawer.hidden); });
-    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__places-toggle', 'explorer__places', 'explorer__layers']);
+    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__places-toggle', 'explorer__places', 'explorer__layers', 'explorer__mother']);
     for (const el of [...bar.children]) {
       const act = el.dataset?.act;
       if (keep.has(el.className) || act === 'close') continue;
@@ -3423,6 +3424,14 @@ export function createExplorer(hooks = {}) {
     const phi = drawer.querySelector('.explorer__phi');
     if (phi) deck.prepend(phi);
     bar.querySelector('.explorer__layers')?.after(toggle);
+    // MOTHER, from anywhere (ISS-108: ask her for access; ask her about the view)
+    const motherButton = document.createElement('button');
+    motherButton.type = 'button';
+    motherButton.className = 'explorer__mother';
+    motherButton.textContent = 'MOTHER';
+    motherButton.title = 'MU/TH/UR: ask about this view; her commands (/help)';
+    motherButton.addEventListener('click', event => { event.stopPropagation(); hooks.onMother?.(); });
+    toggle.after(motherButton);
     const badge = document.createElement('span');
     badge.className = 'who-badge';
     badge.textContent = 'ROOTED';
@@ -3667,7 +3676,8 @@ export function createExplorer(hooks = {}) {
   const enterWorld = w => {
     const g = gls.worlds;
     if (!w || !g) return;
-    if (w.inside) { g.open(w.id); syncZoom(); return; }
+    if (w.inside) { g.open(w.id); syncZoom(); bleep('step'); return; }
+    reward();
     g.dive(w.id, () => (w.level ? hooks.onLevel?.(w.level) : navTo(w.stop, w.place)));
   };
   // THE ZOOM FADER (author, 16 Oct: "a DAW slider down the left edge, a slim triangle under it pointing
@@ -4118,7 +4128,7 @@ export function createExplorer(hooks = {}) {
     const cap = placeCaption();
     const d = dim();
     const text = [4, 8, 11].filter(k => k <= d && cap[k]).map(k => cap[k]).join(' ');
-    card.querySelector('h2').textContent = `${cap.title} · ${d}D`;
+    card.querySelector('h2').textContent = `${st.stop === 'worlds' && cap === CAPTIONS.worlds ? placeName('worlds') : cap.title} · ${d}D`;
     card.querySelector('p').textContent = text;
     const tag = card.querySelector('.explorer__label');
     tag.textContent = cap.label;

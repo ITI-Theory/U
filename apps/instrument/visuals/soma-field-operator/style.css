@@ -800,3 +800,6 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 /* ROOTED: a red badge in the top bar, only when rooted */
 .who-badge { padding: 2px 8px; border: 1px solid #ff3b4e; color: #ff7a8a; font-size: 10px; letter-spacing: .18em; text-shadow: 0 0 8px rgba(255,59,78,.8); }
 .who-badge[hidden] { display: none; }
+/* MOTHER over the explorer (ISS-108): her terminal opens above it from the top bar */
+.explorer-open .mother-terminal.wm-panel:not([hidden]), .explorer-open .mother-terminal:not([hidden]) { visibility: visible !important; pointer-events: auto !important; z-index: 260; }
+.explorer .explorer__mother { color: #7dff9a; border-color: #2f8f4f; text-shadow: 0 0 6px rgba(80,255,140,.55); }

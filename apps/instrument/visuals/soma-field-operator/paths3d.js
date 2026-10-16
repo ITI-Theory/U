@@ -21,6 +21,7 @@ import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
 import { bubbleMaterial, bubbleEnvironment, tickBubbles } from './bubble.js';
+import { reward } from './nostromo.js';
 
 // dense enough to read as a surface (the author: at 2^200 holes the course is a landscape)
 const COLS = 40, ROWS = 28, SP = 1.2;
@@ -365,7 +366,7 @@ export function createPaths3D({ loop = true } = {}) {
       const sg = surges.find(q => U.uTime.value - q.z > 2.4) ?? surges[0];
       const reach = domeY(h0.x, h0.z) + 0.2 - swellAt(h0.x, h0.z, now + 0.9, fxNow);
       sg.set(h0.x, h0.z, now, Math.max(0.5, reach));
-      later.push({ at: now + 0.9, fn: () => { zap(h0.x, h0.z); popThought(name, feel, new THREE.Vector3(h0.x, 0, h0.z)); } });
+      later.push({ at: now + 0.9, fn: () => { zap(h0.x, h0.z); reward(); popThought(name, feel, new THREE.Vector3(h0.x, 0, h0.z)); } });
     }
     // the holes the ripple will reach take the consideration's colour and cost, with scatter;
     // a hole already set blends the two (a later thought revises an earlier one)

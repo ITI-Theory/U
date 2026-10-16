@@ -1318,6 +1318,7 @@ const explorer = createExplorer({
   mechanisms: () => mechanisms.map(m => ({ id: m.id, name: m.name, action: m.action, on: state.selectedMechanisms.has(m.id) })),
   onMechanism: id => selectMechanism(id),
   onPoke: strength => firePoke(strength),
+  onMother: () => mother?.open(),
   onChange: () => {
     state.voyage = explorer.open ? explorer.stop : null;
     if (!explorer.open) resetDiveCamera();

@@ -12,6 +12,7 @@ import { eras, levels, questions } from './generated/app-data.js';
 import { createVoice } from './voice.js';
 import { displayName, isRenamed } from './names.js';
 import { rooted, setRooted, clearanceOk, setWho, PROFILES } from './who.js';
+import { teletype, trill, bleep, boot } from './nostromo.js';
 import { EVIDENCE_LABELS, createTourPlayer, extractTourBlock, parseTourBlock, presetIds, presetTour, resolveTour } from './tour.js';
 
 const STORAGE = {
@@ -28,7 +29,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -541,14 +542,15 @@ export function createMother({ getContext }) {
     if (awaitingCode) {
       awaitingCode = false;
       echo('●'.repeat(Math.min(12, said.length)));
-      if (clearanceOk(said)) { setRooted(true); type('CLEARANCE ACCEPTED. WELCOME TO ROOTED. THE MACHINE IS YOURS: MORE EFFECTS, LOUDER MUSIC, THE THEME PARK. NOTHING IN HERE IS DANGEROUS. (LEAVE ROOT TO GO BACK.)'); }
-      else type('CLEARANCE DENIED. THE CODE IS NOT A SECRET, ONLY HIDDEN. LOOK CLOSER AT THIS MACHINE.');
+      if (clearanceOk(said)) { setRooted(true); boot(); type('CLEARANCE ACCEPTED. WELCOME TO ROOTED. THE MACHINE IS YOURS: MORE EFFECTS, LOUDER MUSIC, THE THEME PARK. NOTHING IN HERE IS DANGEROUS. (LEAVE ROOT TO GO BACK.)'); }
+      else { bleep('no'); type('CLEARANCE DENIED. THE CODE IS NOT A SECRET, ONLY HIDDEN. LOOK CLOSER AT THIS MACHINE.'); }
       return true;
     }
     if (/^(\/root|request\s+access|request\s+clearance|access\s+request)\b/i.test(said)) {
       echo(said);
       if (rooted()) { type('YOU ARE ALREADY ROOTED.'); return true; }
       awaitingCode = true;
+      trill(0.5);
       type('ACCESS RESTRICTED. ENTER CLEARANCE CODE.');
       return true;
     }
@@ -556,6 +558,13 @@ export function createMother({ getContext }) {
       echo(said);
       setRooted(false);
       type('ROOT RELEASED. THE MACHINE IS BACK TO ITS SCIENCE.');
+      return true;
+    }
+    const tt = said.match(/^\/teletype\s+(on|off)\b/i);
+    if (tt) {
+      echo(said);
+      try { localStorage.setItem('soma-teletype', tt[1].toLowerCase()); } catch { /* private mode */ }
+      type(`TELETYPE ${tt[1].toUpperCase()}.`);
       return true;
     }
     const m = said.match(/^\/who\s+(u|scientist)\b/i);
@@ -576,6 +585,7 @@ export function createMother({ getContext }) {
       log.append(line);
       const step = () => {
         line.textContent += text.slice(index, index + 3);
+        teletype(text.slice(index, index + 3).replace(/\s/g, '').length);
         index += 3;
         log.scrollTop = log.scrollHeight;
         if (index < text.length) setTimeout(step, speed);
@@ -594,7 +604,7 @@ export function createMother({ getContext }) {
     notebookInput.hidden = mode !== 'web';
     bridgeInput.hidden = mode !== 'api';
     button.hidden = mode === 'off';
-    if (mode === 'off') terminal.hidden = true;
+    // off: no notebook, but she still opens (the explorer's MOTHER) for her own commands
   }
 
   modeSelect.value = read(STORAGE.mode, 'off');
@@ -669,6 +679,11 @@ export function createMother({ getContext }) {
       d.textContent = `↳ NEW BRANCH: ${departure.from.toUpperCase()} → ${departure.to.toUpperCase()} (/path shows the way back)`;
       log.append(d);
       chirp('departure');
+    }
+
+    if (modeSelect.value === 'off') {
+      await type('MOTHER HAS NO NOTEBOOK TO ASK. CHOOSE ONE IN THE LEVEL VIEW: FIELD CONTROLS, MOTHER: WEB (THE PUBLIC NOTEBOOK) OR API.');
+      return;
     }
 
     if (modeSelect.value === 'web') {
