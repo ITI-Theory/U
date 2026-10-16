@@ -26,6 +26,18 @@ const BLUE_C = new THREE.Color(BLUE);
 // the walls' fold (FX) and the time, shared by every hall's wall shader
 const FOLD = { value: 0 };
 const TIME = { value: 0 };
+// THE GREAT HALL'S STANDARD (ISS-105 fix 10, author 15 Oct 22:07): dark stone, fractal grain, thin
+// neon veins (pink above, blue below), always faintly lit and brighter with the field
+const VEIN = { value: 0 };
+const PINK_U = { value: new THREE.Vector3(1.0, 0.23, 0.81) };
+const BLUE_U = { value: new THREE.Vector3(0.08, 0.9, 1.0) };
+const STONE_GLSL = `
+  float ph3(vec3 p) { return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453); }
+  float pvn(vec3 p) { vec3 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(mix(ph3(i), ph3(i + vec3(1, 0, 0)), f.x), mix(ph3(i + vec3(0, 1, 0)), ph3(i + vec3(1, 1, 0)), f.x), f.y),
+               mix(mix(ph3(i + vec3(0, 0, 1)), ph3(i + vec3(1, 0, 1)), f.x), mix(ph3(i + vec3(0, 1, 1)), ph3(i + vec3(1, 1, 1)), f.x), f.y), f.z); }
+  float pfbm(vec3 p) { float a = 0.5, s = 0.0; for (int k = 0; k < 4; k++) { s += a * pvn(p); p *= 2.03; a *= 0.5; } return s; }
+`;
 // a soft round point (the motes), not a square; made on first use (the explorer check loads
 // this module in node, where there is no document)
 let SOFT_TEX = null;
@@ -108,11 +120,11 @@ export function createPalace3D(floors) {
   const stereo = new THREE.StereoCamera();
   stereo.eyeSep = 0.06;
   const size = new THREE.Vector2();
-  const ambient = new THREE.AmbientLight('#605878', 0.7);
+  const ambient = new THREE.AmbientLight('#404a80', 0.7);
   scene.add(ambient);
   const restBackground = new THREE.Color('#05040a');
   const hue = new THREE.Color();
-  const lamp = new THREE.PointLight('#fff2d8', 1.4, 14, 1.2);
+  const lamp = new THREE.PointLight('#b8c8ff', 1.3, 14, 1.2);
   scene.add(lamp);
 
   const halls = floors.map((f, k) => {
@@ -120,12 +132,17 @@ export function createPalace3D(floors) {
     const y = k * FLOOR_H;
     const group = new THREE.Group();
     group.position.y = y;
-    const wallMat = new THREE.MeshStandardMaterial({ map: hallTexture(style, f.label, k), side: THREE.BackSide, roughness: 0.8, emissive: style.wall, emissiveIntensity: 0.25 });
+    const wallMat = new THREE.MeshStandardMaterial({ map: hallTexture(style, f.label, k), color: '#5a5670', side: THREE.BackSide, roughness: 0.75, emissive: style.wall, emissiveIntensity: 0.25 });
     // the manifold: the wall pushed in and out along its normal by a few moving modes, by FX
     wallMat.onBeforeCompile = shader => {
       shader.uniforms.uFold = FOLD;
       shader.uniforms.uTime = TIME;
-      shader.vertexShader = 'uniform float uFold;\nuniform float uTime;\nvarying float vFold;\n' + shader.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>
+      shader.uniforms.uVein = VEIN;
+      shader.uniforms.uPink = PINK_U;
+      shader.uniforms.uBlue = BLUE_U;
+      shader.uniforms.uFloor = { value: k };
+      shader.vertexShader = 'uniform float uFold;\nuniform float uTime;\nvarying float vFold;\nvarying vec3 vStone;\n' + shader.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>
+        vStone = position;
         float fa = atan(position.z, position.x);
         float ff = sin(3.0 * fa + uTime * 0.7 + position.y * 1.3) * sin(2.0 * position.y - uTime * 0.5) + 0.5 * sin(5.0 * fa - uTime * 1.1 + position.y);
         // the wall stays calm round the door (at -z), so the way out stays open
@@ -133,21 +150,32 @@ export function createPalace3D(floors) {
         vFold = ff * uFold;
         transformed += normal * uFold * 0.6 * ff;`);
       // the folds lit as bands: brighter where the wall pushes in, darker where it falls away
-      shader.fragmentShader = 'varying float vFold;\n' + shader.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+      shader.fragmentShader = 'varying float vFold;\nvarying vec3 vStone;\nuniform float uTime;\nuniform float uVein;\nuniform float uFloor;\nuniform vec3 uPink;\nuniform vec3 uBlue;\n' + STONE_GLSL + shader.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        vec3 sp = vStone + vec3(0.0, uFloor * 3.2, 0.0);
+        float grain = pfbm(sp * 1.6);
+        diffuseColor.rgb *= 0.35 + 0.5 * grain;
+        float lv = pfbm(sp * 0.42 + vec3(0.0, 0.0, uTime * 0.012)) * 11.0;
+        float vein = smoothstep(0.468, 0.496, abs(fract(lv) - 0.5)) * 0.75;
+        vec3 vc = mix(uBlue, uPink, smoothstep(0.2, 2.8, vStone.y + 1.5));
+        totalEmissiveRadiance += vc * (vein * uVein + (0.03 + 0.1 * (uVein - 0.5)) * grain);
         totalEmissiveRadiance *= 1.0 + 0.9 * vFold;
         diffuseColor.rgb *= 1.0 + 0.5 * vFold;`);
     };
     const wall = new THREE.Mesh(new THREE.CylinderGeometry(HALL_R, HALL_R, FLOOR_H - 0.15, 64, 18, true), wallMat);
     wall.position.y = FLOOR_H / 2;
     group.add(wall);
-    const floor = new THREE.Mesh(new THREE.RingGeometry(0.9, HALL_R, 48), new THREE.MeshStandardMaterial({ color: '#2a2630', roughness: 0.9, side: THREE.DoubleSide }));
+    const floor = new THREE.Mesh(new THREE.RingGeometry(0.9, HALL_R, 48), new THREE.MeshStandardMaterial({ color: '#0d0b18', roughness: 0.3, metalness: 0.5, side: THREE.DoubleSide }));
     floor.rotation.x = -Math.PI / 2;
     group.add(floor);
-    // the door, opposite the elevator: a glowing arch
-    const door = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 2.1), new THREE.MeshBasicMaterial({ color: style.glow, transparent: true, opacity: 0.55, side: THREE.DoubleSide }));
-    door.position.set(0, 1.1, -HALL_R + 0.05);
-    group.add(door);
-    const glow = new THREE.PointLight(style.glow, 0.8, 7, 1.5);
+    // the door, opposite the elevator: a glowing portal, as the great hall's doorways
+    const door = new THREE.Mesh(new THREE.TorusGeometry(0.78, 0.07, 12, 64), new THREE.MeshBasicMaterial({ color: style.glow, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false }));
+    door.position.set(0, 1.35, -HALL_R + 0.12);
+    const doorway = new THREE.Mesh(new THREE.CircleGeometry(0.76, 48), new THREE.MeshBasicMaterial({ color: '#020108', transparent: true, opacity: 0.92 }));
+    doorway.position.set(0, 1.35, -HALL_R + 0.1);
+    const halo = new THREE.Mesh(new THREE.RingGeometry(0.82, 1.15, 64), new THREE.MeshBasicMaterial({ color: style.glow, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    halo.position.copy(door.position);
+    group.add(doorway, door, halo);
+    const glow = new THREE.PointLight(style.glow, 0.5, 5, 1.8);
     glow.position.set(0, 1.6, -HALL_R + 1);
     group.add(glow);
     // FX: motes in the hall's colour, the programme's pink and blue among them (hidden at rest)
@@ -172,7 +200,7 @@ export function createPalace3D(floors) {
       const n = 220;
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(n * 3), 3));
-      sparks = new THREE.Points(geo, new THREE.PointsMaterial({ color: '#d8ccff', size: 0.08, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
+      sparks = new THREE.Points(geo, new THREE.PointsMaterial({ color: '#d8ccff', size: 0.08, map: soft(), transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
       sparks.userData.life = new Float32Array(n);
       group.add(sparks);
     }
@@ -233,6 +261,7 @@ export function createPalace3D(floors) {
       // the manifold is a view (DESIGN.md): the walls fold only in the 11D view
       FOLD.value = (state.dim ?? 11) >= 11 ? fx * fx : 0;
       TIME.value = state.time;
+      VEIN.value = 0.5 + 0.9 * Math.max(0, Math.min(1, state.phi ?? 0.5));
       halls.forEach((h, k) => {
         const near = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 1.5;
         h.group.visible = Math.abs(k * FLOOR_H - carY) < FLOOR_H * 4;
@@ -244,7 +273,7 @@ export function createPalace3D(floors) {
         h.wall.material.emissiveIntensity = 0.25 + 0.55 * fx;
         h.wall.material.emissive.copy(h.base.wall).lerp(hue, 0.65 * fx);
         h.glow.color.copy(h.base.glow).lerp(hue, 0.8 * fx);
-        h.glow.intensity = 0.8 + 2.2 * fx;
+        h.glow.intensity = 0.5 + 2.0 * fx;
         h.motes.visible = fx > 0 && near;
         if (h.motes.visible) {
           h.motes.material.opacity = 0.9 * fx;

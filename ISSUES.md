@@ -5419,7 +5419,10 @@ grammar's three gaps closed by it.
       the dome, a flash, the glass flaring there) and the thought passes through from that point.
       Scheduled on the course's clock, so PAUSE holds it. Reading: ignition at the threshold
       (global workspace), interpretive.
-- [ ] (author 22:07) "I still see the old palace, with the curved walls": it is the current palace
+- [x] (16 Oct: palace3d.js restyled to the great hall's standard: dark stone with fractal grain,
+      thin neon veins pink above and blue below, always faintly lit and brighter with Φ; the
+      sector's motif a faint inlay; the door a glowing portal; a dark polished floor; soft foam
+      sparks, not squares; the manifold's fold kept) (author 22:07) "I still see the old palace, with the curved walls": it is the current palace
       in its first style; the curved walls are the manifold view (walls fold only at 11D, the
       author's decision). Restyle it to the great hall's standard (part of fix 10).
 - [x] (author 22:32: from the great hall, CATHEDRAL gave "a biology textbook diagram ... I really
@@ -5522,8 +5525,9 @@ grammar's three gaps closed by it.
       their size.
 - [ ] SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
       ROOTED, the unlocked mode); the science mode keeps THE WORLDS. With ROOTED.
-- [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),
-      starting with the palace (and the cathedral's pale 3D stone).
+- [ ] Next: the levels view in the shell (fix 4), after the author's walk (UAT, `uat/checklist.yaml`).
+- [~] The art pass (fix 10), starting with the palace (and the cathedral's pale 3D stone). (16 Oct:
+      the palace and the cathedral done, to the great hall's standard; the other places next.)
 
 ## ISS-106: Where could [T]-Theory have an impact? Einstein, wormholes, and a casino survey — CLOSED
 
