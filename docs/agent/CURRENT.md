@@ -35,8 +35,15 @@ Kokoro beside Piper in the bridge (`voices.py`, choose by ear); the mix read int
 (registry/regions.yaml) and `/feel` in MOTHER; ISS-115 records what Sherlock needs before a piece
 can carry the author's emotions (a sound grammar, read-back, provenance). Closed: ISS-099.
 
+**Later (16 Oct, 21:20):** what is private stays private (ISS-116: `make -C sherlock privacy`,
+release-check 14e; H-AL's answers now go to Me, never U, which is public; five old files await the
+author's decision); Sherlock for music (ISS-115): the sound grammar (`make -C sherlock grammar`),
+provenance of the scores (`make -C sherlock provenance`), read-back of a recording against a score
+(`make -C sherlock readback`); the band over MIDI OUT (channel 2: chord pads 60-66, CC 30-33) for
+Scaler 3, which the author is setting up.
+
 **Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
-ear; the Dark Matter Lord's two gaps; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
+ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
 tokens; the Lulu account; the UAT walk (now 33 steps).
 
 ## Next: the release, by 21 October 2026 (ISS-114, the epic)
