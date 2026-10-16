@@ -5778,7 +5778,20 @@ Machine, Ableton and the film share a tempo; (3) SpaceEngine flown by the score 
 scripting, camera paths), later. The pitch is good and true to the programme: making a model
 universe is a way to look at this one, a map, not the territory; keep it humorous, and keep it
 clear of therapy claims.
-- [ ] HAL: what the author said before (uat/RC3/hal-universe-2026-10-16.md).
+- [x] HAL (16 Oct, uat/RC3/hal-universe-2026-10-16-answers.md), checked against the repository:
+      SpaceEngine (author, June/July: "I've got the deluxe version of SpaceEngine ... planets ...
+      the universe ... how do we merge these video things live"): a two-engine plan (the app for
+      the small scales, SpaceEngine for the cosmic ones, by .se scripts and Spout), set aside for
+      the browser build. Ableton (19 May): the score as OSC into a Max for Live device, and that
+      exists: apps/instrument/field_render.py and ableton_m4l/movie_osc_receiver.maxpat (fear to
+      Drift's filter, awe to reverb, grief to pitch, story-time to attack); Ableton Link for the
+      heartbeat's BPM wanted (26 Aug). "Boom" is Bome MIDI Translator Pro: a hub merging many
+      controllers into one virtual port (19 May: "a must have ... 3-2-1 BOOM"). The local server
+      for several screens: the relay (mother/relay.py); HAL's soma-server.js does not exist.
+      "A new universe" (author, quoted: "make your own universe and then prove it"): HAL files it
+      as interpretive, a map, never the territory, which is the programme's line.
+      So the plan stands, with three routes to Ableton already here (MIDI OUT, OSC to Max for
+      Live, Bome for the controllers); the missing piece is one clock (Link through the relay).
 - [ ] The mapping: score modes to universe qualities (a registry, labelled interpretive).
 - [ ] The generator: score to a SpaceEngine catalogue (.sc); the author installs it.
 - [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
