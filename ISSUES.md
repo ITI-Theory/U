@@ -5803,7 +5803,11 @@ Facts and Copilot's view:
   recommending one.
 - The pitch: good, and it should keep the labels: the model is synced to your heart rate, not
   to your mind; a guided tour, not therapy.
-- [ ] Speech to text in HAL (faster-whisper) for UAT: speak a finding, HAL writes it down.
+- [x] Speech to text in HAL (faster-whisper) for UAT: speak a finding, HAL writes it down.
+      (16 Oct: uat/scripts/dictate.py, local on the CPU, the audio never leaves the machine;
+      `small.en`, word-perfect on a test sentence. In `HAL uat` (uat.py): `v` at a step is a spoken
+      note, and `v` at any note prompt speaks it; what was heard is shown to keep or correct.
+      Standalone: `python uat/scripts/dictate.py`.)
 - [ ] Better speech: Kokoro alongside Piper; choose by ear.
 - [x] The "ask the theory first" path on the web page, then the app. (16 Oct: web/home.md, built
       by `make web`, copied by `make web-publish` into ../t-theory.org; Sherlock's presence check

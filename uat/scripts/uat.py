@@ -4,7 +4,8 @@ Plain text in, plain text out, so it runs anywhere: Git Bash, the Soma Machine's
 (MOTHER /shell), a tablet over ssh. Each answer is recorded at once in
 uat/results/uat-<run>.yaml, so a run can stop and resume. A finding can go straight to the
 VS Code chat with `c` (`code chat -r`, VS Code 1.100 or later), the step and the note as the
-prompt, a file attached when there is one.
+prompt, a file attached when there is one. At any note, `v` speaks it instead (dictate.py:
+faster-whisper, local; ISS-111); `v` at the step's prompt is a spoken note.
 
     python uat/scripts/uat.py                 # resume the latest run, or start one
     python uat/scripts/uat.py --new           # a fresh run
@@ -108,25 +109,43 @@ def ask(step: dict, record: dict, path: Path, data: dict) -> bool:
     else:
         print(f"  do: {step.get('do', '')}")
     while True:
-        a = input("  p pass, f fail, n note, s skip, c to Copilot, q quit > ").strip().lower()
+        a = input("  p pass, f fail, n note, v spoken note, s skip, c to Copilot, q quit > ").strip().lower()
         if a in ("p", "f", "s"):
-            note = input("  note (optional): ").strip() if a == "f" else ""
+            note = note_in("  note (optional, v to speak): ") if a == "f" else ""
             record[step["id"]] = {"result": {"p": "pass", "f": "fail", "s": "skip"}[a], "note": note, "at": dt.datetime.now().isoformat(timespec="minutes")}
             save(path, data)
             return True
-        if a == "n":
-            note = input("  note: ").strip()
+        if a in ("n", "v"):
+            note = note_in("  note (v to speak): ") if a == "n" else _spoken()
             prev = record.get(step["id"], {})
             record[step["id"]] = {**prev, "result": prev.get("result", "note"), "note": (prev.get("note", "") + " " + note).strip(), "at": dt.datetime.now().isoformat(timespec="minutes")}
             save(path, data)
         elif a == "c":
-            note = input("  what should Copilot know? ").strip()
+            note = note_in("  what should Copilot know? (v to speak) ")
             to_copilot(step, note, attach)
             prev = record.get(step["id"], {})
             record[step["id"]] = {**prev, "result": prev.get("result", "note"), "note": (prev.get("note", "") + " [to Copilot] " + note).strip(), "at": dt.datetime.now().isoformat(timespec="minutes")}
             save(path, data)
         elif a == "q":
             return False
+
+
+def _spoken() -> str:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from dictate import dictate
+    said = dictate()
+    if said:
+        print(f"  heard: {said}")
+        said = input("  [enter] keep, or type a correction: ").strip() or said
+    return said
+
+
+def note_in(prompt: str) -> str:
+    """A typed note, or `v` to speak it (dictate.py, local faster-whisper)."""
+    text = input(prompt).strip()
+    if text.lower() != "v":
+        return text
+    return _spoken() or input("  (nothing heard) type it: ").strip()
 
 
 def report(path: Path) -> None:

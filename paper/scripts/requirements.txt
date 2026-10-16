@@ -14,3 +14,7 @@ python-osc>=1.8.3
 
 # Sherlock's presence check decodes the QR codes (sherlock/presence.py; optional: without it, a gap)
 opencv-python-headless>=4.9
+
+# Spoken UAT notes (uat/scripts/dictate.py; optional: without them, notes are typed)
+faster-whisper>=1.2
+sounddevice>=0.5
