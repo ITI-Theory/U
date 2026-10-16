@@ -5583,3 +5583,120 @@ Plan (Copilot, agreed in outline):
       barriers, drops are threshold crossings, breakdowns recovery; the SCORE's tensor-film
       trajectory (Safety, Fear, Curiosity, Awe ...) written from the music; the picture is the
       field's state. Interpretive, labelled as such.
+
+## ISS-108: Three users and the way in: U, the scientist, and ROOTED — OPEN
+
+{{Tags area.app}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+
+Author, 16 Oct 15:16 (brain dump 1). The app is new, in a domain that is not the usual one;
+the biggest difference between users is how they start.
+- User 1, THE SCIENTIST: everything, at a high level; first a companion to the papers.
+- User 2, U (anyone; "U" also as in the film, universal): monsters live here; first a
+  companion to the Field Atlas.
+- User 3, ROOTED: first a companion to the Fractal Thesis. Access by asking MOTHER, as in the
+  film; every notion of root or rooted is invisible until you type to MOTHER (ISS-095).
+- After the splash a small screen with two buttons only: left, blue, U; right, red, THE
+  SCIENTIST.
+
+Copilot's view: yes, and it simplifies a lot. Blue and red read as the two pills, and red for
+the scientist (the whole truth, the papers) fits. A hidden mode in a static web app is
+concealment for a cleaner experience, not security: anyone reading the code can find it,
+which is fine as long as ROOTED holds nothing that must stay private.
+- [ ] The choice screen after the splash (U blue left, THE SCIENTIST red right), remembered;
+      changeable later in SETTINGS.
+- [ ] A profile per user: the defaults (labels, reader register, the companion it points to),
+      the first place (U: THE WORLDS; the scientist: the level view or the papers' map?), and
+      the names (MINI GOLF may suit U; the scientist may want THE BASINS). Kept in a registry.
+- [ ] ROOTED by MOTHER only: typed in MOTHER, never shown otherwise; SOMA WORLD and the rest
+      of ISS-095 behind it.
+- [ ] FX is used twice: in ROOTED it is effects (audio-visual); in the app the Φ bar is the
+      limbic field. Rename the bar (Φ, THE FIELD) and keep FX for ROOTED's effects.
+- [ ] POKE more pronounced and more visual, for learning: the impulse, where it goes, what it
+      does, then the return.
+- [ ] A high-level model of [T]-Theory that Sherlock can check the app, the web site and the
+      repository against (the levels, the dimensions, the operators, the claims and their
+      labels), and that the app uses to explain itself.
+
+## ISS-109: The programme's presence: web, GitHub, app, names, licence, checked by Sherlock — OPEN
+
+{{Tags area.release, area.sherlock}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+
+Author, 16 Oct 15:16: t-theory.org and ITI-Theory on GitHub. The GitHub repository is dry, but
+right for the scientist: keep it that way, and t-theory.org can stay. The web site, GitHub and
+the app must link to each other, checked by Sherlock (a Visualize check?); doing this may change
+designs, layouts and names. Marketing: what else is there and free (X / Twitter, other
+networks; tttheory variations; .com as well as .org), what is available, what is the strategy;
+in Sherlock too. Licence: CC BY to Alistair Johnson, to [T]-Theory, or both?
+
+Facts (checked 16 Oct): copyright Alistair Johnson; text, papers, figures and data CC BY 4.0;
+code Apache-2.0 (README, LICENSE-CC-BY, LICENSE-APACHE). [T]-Theory is the work's name, not a
+legal person, so it cannot hold a licence: the licensor stays Alistair Johnson; the suggested
+attribution can name both ("Alistair Johnson, [T]-Theory, t-theory.org").
+- [ ] A presence registry (registry/presence.yaml): every place the programme appears (web,
+      GitHub, NotebookLM, Zenodo, ORCID, Lulu, socials, domains) with its URL, owner, status.
+- [ ] A Sherlock check: each place links to the others it should, the names agree, the licence
+      line agrees; broken or missing links fail.
+- [ ] Names and domains: check availability (t-theory.com, tttheory and variants; X, Bluesky,
+      Mastodon, YouTube, Instagram, LinkedIn); the author decides what to claim. Not checked yet.
+- [ ] A marketing plan, short: who each place is for (scientist, U), what it says, how often.
+- [ ] The suggested attribution line in README, the app's About and the web site.
+
+## ISS-110: Tours as tabs, a route planner, and WHEREAMI — OPEN
+
+{{Tags area.app}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+
+Author, 16 Oct 15:16: a scientist reads the splash and thinks wow; the app has to explain that.
+Tours as a new panel with tabs, like a terminal with several tabs: tab 1 the introduction,
+tab 2 the first destination. The same panel as a route planner (a tab per stop: its name and
+destination). And a moving map: WHEREAMI, as in bash: time, place, scale, body part; a route
+overlay would be nice.
+
+Copilot's view: yes; the tabs fit the app's terminal look and turn tours, routes and help into
+one thing.
+- [ ] The tab panel: tabs by stop, each with its text, its place and GO; open, close, reorder.
+- [ ] Tours as tabs (the existing tour.js steps); a route planner (choose places, it builds the
+      tabs and the walk between them).
+- [ ] WHEREAMI: a small live readout, time, place, scale (floor, metres), body part, the layer
+      (4D 8D 11D); a route overlay on THE WORLDS.
+- [ ] The scientist's introduction: what the splash promised, in three tabs, with the papers.
+
+## ISS-111: HAL's voice both ways, the wearable, and how to describe the Soma Machine — OPEN
+
+{{Tags area.app, area.hal}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+
+Author, 16 Oct 15:16:
+- Speech to text in HAL, for UAT; text to speech too, of good quality.
+- NotebookLM: if a user is inside NotebookLM and opens the app from a link in its header, is
+  that enough? A good way to make sure their NotebookLM is set up; the web page should still
+  encourage "ask the theory" before the app.
+- The pitch (draft): the Soma Machine is a mind and body explorer; it helps you think about
+  your body and its sensations, from your feet to your head; a bracelet syncs the model to
+  you. To explore your mind, look at pictures (a gallery; we can help), an abstract film, a
+  book; and a journey through your own mind palace, a guided tour, the real tour your own
+  (like a guided meditation). Which bracelet works with the web?
+
+Facts and Copilot's view:
+- HAL speaks today (the MOTHER bridge, Piper, /speak, a private voice model); it does not
+  listen. For speech to text: Whisper running locally (faster-whisper), free and offline. For
+  better speech: Kokoro (Apache-2.0, high quality, fast) beside Piper. A cloned voice stays for
+  private use.
+- The NotebookLM link: opening the app from NotebookLM proves nothing to the app (another site,
+  no way to see the login), so it is not a check; as a way in it is good ("ask the theory
+  first" tests the reader's setup).
+- The wearable: the app reads the standard Bluetooth heart-rate service through Web Bluetooth
+  (heart.js), in Chrome and Edge on desktop and Android, not in Safari, iOS or Firefox. Arm
+  bands that broadcast it: Polar Verity Sense, Polar OH1, Scosche Rhythm+, Wahoo TICKR FIT,
+  Coospo arm bands (cheap); many Garmin, Suunto and Coros watches with heart-rate broadcast on.
+  Not the Apple Watch or Fitbit without an extra app. To be checked on a device before
+  recommending one.
+- The pitch: good, and it should keep the labels: the model is synced to your heart rate, not
+  to your mind; a guided tour, not therapy.
+- [ ] Speech to text in HAL (faster-whisper) for UAT: speak a finding, HAL writes it down.
+- [ ] Better speech: Kokoro alongside Piper; choose by ear.
+- [ ] The "ask the theory first" path on the web page, then the app.
+- [ ] Test one arm band end to end; name it in the app's STRAP help.
+- [ ] The pitch, for U and for the scientist, labelled; through the clinical check.
