@@ -5597,10 +5597,12 @@ Plan (Copilot, agreed in outline):
       matrix, slow scan, few colours) for a ROOTED film style. Copyright: the track and the film
       are not ours; private use only (HAL), never published.
 
-## ISS-108: Three users and the way in: U, the scientist, and ROOTED — OPEN
+## ISS-108: Three users and the way in: U, the scientist, and ROOTED — CLOSED
 
 {{Tags area.app}}
-{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-16, date.start=, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** the dev work is done; the author's walk is UAT (`uat/checklist.yaml`, steps `app-who`, `app-model`, `app-poke`). A finding from the walk opens a new issue.
 
 Author, 16 Oct 15:16 (brain dump 1). The app is new, in a domain that is not the usual one;
 the biggest difference between users is how they start.
@@ -5630,12 +5632,12 @@ which is fine as long as ROOTED holds nothing that must stay private.
       anyone else), the teletype sounds and rewards, SOMA WORLD, the stargate earlier and hotter
       (from Φ 0.6), the Root Monster's tour in the guide; MOTHER lists it on access and at
       /rooted. Leaving root switches RICE back off if ROOTED switched it on.
-- [~] ROOTED by MOTHER only (author 15:27: the password in the page's source, "welcome to the
+- [x] ROOTED by MOTHER only (author 15:27: the password in the page's source, "welcome to the
       world of hacking", HelloWorld): REQUEST ACCESS in MOTHER, she asks for the clearance code,
       HelloWorld (spaces and case ignored) roots the machine; LEAVE ROOT goes back; not in
       /help. index.html carries the welcome comment with the code and "don't tell anyone, give
       them clues". Rooted: the ROOTED badge, SOMA WORLD, the Root Monster's name (hidden
-      otherwise). Still: what ROOTED switches on (ISS-095: the effects, the music, the theme park).
+      otherwise). What ROOTED switches on: the next item; the rest is ISS-095's.
 - [x] (author 15:51: "lots of MOTHER's sounds ... the Nostromo boot sequence ... the typewriter;
       rewards in ROOTED") nostromo.js: synthesised (Web Audio), in the spirit of a 1979 ship's
       computer, nothing taken from the film: a teletype's chatter as MOTHER types, data trills,
@@ -5695,10 +5697,12 @@ attribution can name both ("Alistair Johnson, [T]-Theory, t-theory.org").
       web/home.md "Licence and credit"; README's Licence; the app has no About, so the splash
       carries one small credit line.)
 
-## ISS-110: Tours as tabs, a route planner, and WHEREAMI — OPEN
+## ISS-110: Tours as tabs, a route planner, and WHEREAMI — CLOSED
 
 {{Tags area.app}}
-{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-16, date.start=, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** the dev work is done; the author's walk is UAT (`uat/checklist.yaml`, steps `app-guide`). A finding from the walk opens a new issue.
 
 Author, 16 Oct 15:16: a scientist reads the splash and thinks wow; the app has to explain that.
 Tours as a new panel with tabs, like a terminal with several tabs: tab 1 the introduction,
