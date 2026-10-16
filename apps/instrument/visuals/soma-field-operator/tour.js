@@ -11,12 +11,13 @@ import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
-  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor', 'uo', 'uv']);
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor', 'uo', 'uv', 'palace', 'pf', 'hall', 'cave', 'choices', 'golf']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
   voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session'], tw: ['0', '1'], kx: ['0', '1', '2', '3', '4'], ab: ['a', 'b'], ap: ['auto', 'co', 'manual'], uo: ['1', '2', '3', '4'], uv: ['in', 'out', 'both'],
+  palace: ['0', '1'], hall: ['0', '1'], cave: ['0', '1'], choices: ['0', '1'], golf: ['0', '1'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
 const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;
@@ -157,6 +158,37 @@ export function resolveTour(parsed) {
 
 export const presetTour = id => resolveTour({ tour: id, steps: [] });
 
+// TABS (ISS-110, author 16 Oct: "a panel with tabs, like a terminal with several tabs"): each
+// stop of a tour is a tab, named by its place; the same panel is the route planner (+ HERE adds
+// where you are to MY ROUTE) and the guide (the tours to choose from).
+const PLACE_NAMES = { worlds: 'THE WORLDS', human: 'HUMAN', body: 'BODY', wayin: 'WAY IN', brain: 'BRAIN', limbic: 'LIMBIC', thought: 'THOUGHT', neuron: 'NEURON', network: 'MEMORY', landscape: 'LANDSCAPE', dyad: 'DYAD', tunnel: 'WAY UP', ureter: 'URETER', flight: 'FLY', score: 'SCORE' };
+const HALL_NAMES = { brain: 'GREAT HALL', body: 'THE HEART', neuron: 'THE SOMA', thought: 'MIND CHAMBER' };
+const LEVEL_LABEL = new Map(levels.map(l => [l.id, l.label]));
+export function placeOf(view) {
+  const p = new URLSearchParams(String(view ?? '').replace(/^#/, ''));
+  const v = p.get('voyage');
+  if (v) {
+    if (p.get('hall') === '1' && HALL_NAMES[v]) return HALL_NAMES[v];
+    if (v === 'brain' && p.get('cave') === '1') return 'CATHEDRAL';
+    if (v === 'brain' && p.get('palace') === '1') return 'PALACE';
+    if (v === 'thought' && p.get('choices') === '1') return 'THE COURSE';
+    if (v === 'landscape' && p.get('golf') === '1') return 'MINI GOLF';
+    return PLACE_NAMES[v] ?? v.toUpperCase();
+  }
+  const l = p.get('level');
+  return l ? String(LEVEL_LABEL.get(l) ?? l).toUpperCase() : 'HERE';
+}
+const ROUTE_KEY = 'soma-route';
+export function myRoute() { try { return JSON.parse(localStorage.getItem(ROUTE_KEY) || '[]'); } catch { return []; } }
+function saveRoute(r) { try { localStorage.setItem(ROUTE_KEY, JSON.stringify(r.slice(0, 24))); } catch { /* private mode */ } }
+// where you are, as a tour view (the keys a tour may set)
+function hereView() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  const keep = new URLSearchParams();
+  for (const [k, v] of p) if (TOUR_KEYS.has(k) && !viewProblems(`${k}=${v}`).length) keep.set(k, v);
+  return keep.toString();
+}
+
 const LABEL_TEXT = {
   'kernel-verified': 'KERNEL-VERIFIED', 'derived-under-assumptions': 'DERIVED UNDER ASSUMPTIONS', simulated: 'SIMULATED',
   'empirical-result': 'EMPIRICAL RESULT', interpretive: 'INTERPRETIVE', 'open-hypothesis': 'OPEN HYPOTHESIS',
@@ -171,6 +203,7 @@ export function createTourPlayer({ voice, narration }) {
   card.setAttribute('aria-label', 'Soma tour');
   card.innerHTML = `
     <header><span class="tour-card__title"></span><span class="tour-card__count"></span></header>
+    <nav class="tour-card__tabs" aria-label="Stops"></nav>
     <p class="tour-card__label"></p>
     <p class="tour-card__say"></p>
     <p class="tour-card__note" hidden></p>
@@ -180,6 +213,8 @@ export function createTourPlayer({ voice, narration }) {
       <button type="button" data-act="next" aria-label="Next stop">NEXT &#9654;</button>
       <button type="button" data-act="end" aria-label="End tour">END</button>
       <button type="button" data-act="sound" aria-label="Narration on or off"></button>
+      <button type="button" data-act="here" title="Add where you are to MY ROUTE (the route planner)">+ HERE</button>
+      <button type="button" data-act="guide" title="The tours, and MY ROUTE">TOURS ▾</button>
     </nav>
     <button type="button" class="tour-card__start" data-act="start" hidden>&#9654; START THE TOUR (with sound)</button>`;
   document.body.append(card);
@@ -192,6 +227,29 @@ export function createTourPlayer({ voice, narration }) {
   const autoButton = card.querySelector('[data-act="auto"]');
   const soundButton = card.querySelector('[data-act="sound"]');
   const startButton = card.querySelector('[data-act="start"]');
+  const tabsEl = card.querySelector('.tour-card__tabs');
+  function renderTabs() {
+    if (!tour) { tabsEl.innerHTML = ''; return; }
+    tabsEl.innerHTML = tour.steps.map((st, k) => `<button type="button" data-tab="${k}" class="${k === index ? 'active' : ''}" title="${(st.say ?? '').replace(/"/g, '&quot;').slice(0, 140)}"><i>${k + 1}</i> ${placeOf(st.view)}</button>`).join('');
+    tabsEl.querySelector('.active')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+  // the guide: the tours, as a menu in the card (no tour running)
+  function showGuide() {
+    end(true);
+    card.hidden = false;
+    titleEl.textContent = 'THE GUIDE';
+    countEl.textContent = '';
+    labelEl.textContent = '';
+    noteEl.hidden = true;
+    const route = myRoute();
+    const who = (() => { try { return localStorage.getItem('soma-who') || 'u'; } catch { return 'u'; } })();
+    const welcome = who === 'scientist' ? 'welcome-scientist' : 'welcome-u';
+    const isRooted = (() => { try { return localStorage.getItem('soma-rooted') === '1'; } catch { return false; } })();
+    // the Root Monster's tour is ROOTED's (ISS-108)
+    const ids = [welcome, ...presetIds().filter(id => !id.startsWith('welcome-') && (isRooted || id !== 'root-monster'))];
+    tabsEl.innerHTML = '';
+    sayEl.innerHTML = `<span class="tour-card__menu">${ids.map(id => `<button type="button" data-preset="${id}">${PRESETS.get(id)?.title ?? id}</button>`).join('')}<button type="button" data-preset="my-route" ${route.length ? '' : 'disabled'}>MY ROUTE (${route.length})</button>${route.length ? '<button type="button" data-act="clear-route">CLEAR MY ROUTE</button>' : ''}</span><small>+ HERE, on any tour or here, adds where you are to MY ROUTE.</small>`;
+  }
   // Tours are narrated unless the visitor turns the sound off (kept in localStorage).
   let sound = (() => { try { return localStorage.getItem('tour-sound') !== 'off'; } catch { return true; } })();
   function syncSound() { soundButton.textContent = sound ? '🔊 SOUND' : '🔇 MUTED'; }
@@ -223,6 +281,7 @@ export function createTourPlayer({ voice, narration }) {
     const step = tour.steps[index];
     titleEl.textContent = tour.title;
     countEl.textContent = `${index + 1} / ${tour.steps.length}`;
+    renderTabs();
     labelEl.textContent = step.label ? LABEL_TEXT[step.label] : '';
     labelEl.dataset.label = step.label ?? '';
     sayEl.textContent = step.say;
@@ -250,19 +309,40 @@ export function createTourPlayer({ voice, narration }) {
     timer = setTimeout(() => { if (mine === token && auto) go(index + 1); }, wait);
   }
 
-  function end() {
+  function end(keepOpen = false) {
     token += 1;
     clearTimeout(timer);
     voice.stop();
     stage.clear();
     tour = null;
-    card.hidden = true;
+    renderTabs();
+    card.hidden = !keepOpen;
     document.body.classList.remove('tour-active');
     dispatchEvent(new CustomEvent('soma-tour-end'));
   }
 
   card.addEventListener('click', event => {
-    const act = event.target.closest('button')?.dataset.act;
+    const b = event.target.closest('button');
+    if (b?.dataset.tab) { go(Number(b.dataset.tab)); return; }
+    if (b?.dataset.preset) {
+      if (b.dataset.preset === 'my-route') play(resolveTour({ title: 'My route', steps: myRoute() }), { autoplay: false });
+      else play(presetTour(b.dataset.preset), { autoplay: false });
+      return;
+    }
+    const act = b?.dataset.act;
+    if (act === 'guide') { showGuide(); return; }
+    if (act === 'clear-route') { saveRoute([]); showGuide(); return; }
+    if (act === 'here') {
+      const view = hereView();
+      if (!view) return;
+      const r = myRoute();
+      r.push({ view, say: `A stop on my route: ${placeOf(view).toLowerCase()}.` });
+      saveRoute(r);
+      b.textContent = `+ HERE ✓ (${r.length})`;
+      setTimeout(() => { b.textContent = '+ HERE'; }, 1600);
+      if (!tour) showGuide();
+      return;
+    }
     if (act === 'prev') go(index - 1);
     if (act === 'next') go(index + 1);
     if (act === 'end') end();
@@ -340,5 +420,5 @@ export function createTourPlayer({ voice, narration }) {
   // main.js normalises the hash in its own hashchange handler, so read the URL the event carried.
   addEventListener('hashchange', event => fromHash(new URL(event.newURL).hash));
 
-  return { play, end, fromHash, get active() { return Boolean(tour); } };
+  return { play, end, fromHash, guide: showGuide, get active() { return Boolean(tour); } };
 }

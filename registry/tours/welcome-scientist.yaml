@@ -1,0 +1,24 @@
+id: welcome-scientist
+title: Welcome, scientist
+summary: 'The first tour for the scientist (ISS-108, ISS-110): the programme at a high level, beside the papers.'
+steps:
+- view: level=human-vertebrate&lens=on&dim=11&reader=specialist
+  say: 'Welcome. The splash was the programme in one paragraph: one field, twenty-one scales, eleven
+    dimensions. This view is the zoom: each floor is a level, with its equation and its evidence.'
+  label: interpretive
+- view: level=quantum-foam&lens=on&dim=11&reader=specialist
+  say: 'The first floor, the quantum foam. Every floor states what is sourced physics, what is derived
+    under assumptions, and what is open. The labels are the point.'
+  label: interpretive
+- view: level=human-vertebrate&lens=on&dim=8&reader=specialist
+  say: 'The human floor at eight dimensions: the limbic layer. The field model of feeling is the
+    programme''s boldest claim, and it is an open hypothesis.'
+  label: open-hypothesis
+- view: level=human-vertebrate&voyage=landscape&dim=11&reader=specialist
+  say: 'The energy landscape behind the model of emotion: three wells, safe, fight and freeze, and a ball
+    that rolls on it. The city behind it is the programme''s own Lean, tower by tower.'
+  label: simulated
+- view: level=human-vertebrate&voyage=worlds&dim=11&reader=specialist
+  say: 'The map of all of it. Read each claim with its label and its paper; the code is one click into
+    any tower. Go where you like.'
+  label: interpretive

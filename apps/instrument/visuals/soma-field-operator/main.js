@@ -9,6 +9,7 @@ import { get, has as hasRenderer, register } from './renderers/index.js';
 import { FieldAudio } from './audio/field-audio.js';
 import { createMother } from './mother.js';
 import { who, setWho, profile, rooted } from './who.js';
+import { createWhereAmI } from './whereami.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
@@ -244,6 +245,8 @@ function openDefaultView() {
   params.delete('path');
   location.hash = params.toString();
 }
+// WHEREAMI (ISS-110): a small live readout of time, place, scale, body and layer (the level window only)
+if (screenRole === 'level') createWhereAmI();
 // WHO IS EXPLORING? (ISS-108): asked once, after the splash; changeable in SETTINGS
 const whoChoice = document.querySelector('#who-choice');
 whoChoice?.addEventListener('click', event => {
@@ -253,6 +256,8 @@ whoChoice?.addEventListener('click', event => {
   whoChoice.hidden = true;
   applyProfile();
   openDefaultView();
+  // the first time: the welcome, as tabs (ISS-110); step through, or press PLAY
+  setTimeout(() => dispatchEvent(new CustomEvent('soma-play-tour', { detail: { id: b.dataset.who === 'scientist' ? 'welcome-scientist' : 'welcome-u' } })), 900);
 });
 // the profile's reading register; the rest follows from who.js where it is used
 function applyProfile() {

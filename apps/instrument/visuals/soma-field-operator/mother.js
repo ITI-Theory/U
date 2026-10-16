@@ -238,6 +238,9 @@ export function createMother({ getContext }) {
   });
   // Deferred so the 3D view and its hash handling are ready before the first stop.
   setTimeout(() => tourPlayer.fromHash(), 0);
+  // the guide (ISS-110) from anywhere: the tours as tabs, MY ROUTE; and a tour by id (the welcome)
+  addEventListener('soma-guide', () => tourPlayer.guide());
+  addEventListener('soma-play-tour', event => tourPlayer.play(presetTour(event.detail?.id), { autoplay: Boolean(event.detail?.autoplay) }));
 
   function historyKey() {
     return `${STORAGE.history}-${persona()}`;

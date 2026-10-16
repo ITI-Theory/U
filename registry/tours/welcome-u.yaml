@@ -1,0 +1,24 @@
+id: welcome-u
+title: Welcome, U
+summary: 'The first tour for anyone (ISS-108, ISS-110): what the Soma Machine is, and the first places to go.'
+steps:
+- view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.6
+  say: 'Welcome. This is the Soma Machine, a mind and body explorer. Each glass dome is a world, from
+    the quantum foam to the cosmic web. Click one to go through its glass.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=human&dim=11&phi=0.6
+  say: 'This is you, as the machine draws you: a body, its fields, and a brain on top. Raise the field
+    and it glows. Then dive in.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=brain&hall=1&dim=11&phi=0.6
+  say: 'The great hall: the brain as a building. Each doorway is a way somewhere: the cathedral, the
+    palace of memory, the gate to the mind chamber.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=thought&hall=1&dim=11&phi=0.7
+  say: 'The mind chamber. Below the gold line is the foam, activity you do not feel. A bubble that
+    crosses the line is a thought. Click one to see what it is made of.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.6
+  say: 'Back to the worlds. Everything here is a picture of a model, not a reading of you. Monsters live
+    here, and so does the Field Atlas. Go where you like.'
+  label: interpretive

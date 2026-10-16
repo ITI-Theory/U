@@ -803,3 +803,25 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 /* MOTHER over the explorer (ISS-108): her terminal opens above it from the top bar */
 .explorer-open .mother-terminal.wm-panel:not([hidden]), .explorer-open .mother-terminal:not([hidden]) { visibility: visible !important; pointer-events: auto !important; z-index: 260; }
 .explorer .explorer__mother { color: #7dff9a; border-color: #2f8f4f; text-shadow: 0 0 6px rgba(80,255,140,.55); }
+
+/* THE GUIDE (ISS-110): a tour's stops as tabs, like a terminal's; the guide's menu; over the explorer, top left */
+.tour-card__tabs { display: flex; gap: 2px; margin: 0 0 8px; overflow-x: auto; border-bottom: 1px solid rgba(20,229,255,.35); scrollbar-width: thin; }
+.tour-card__tabs:empty { display: none; }
+.tour-card__tabs button { flex: none; padding: 3px 9px 2px; border: 1px solid rgba(20,229,255,.35); border-bottom: 0; border-radius: 5px 5px 0 0; background: rgba(20,229,255,.05); color: rgba(234,245,255,.7); font: 10px 'Space Mono', monospace; letter-spacing: .05em; cursor: pointer; white-space: nowrap; }
+.tour-card__tabs button i { font-style: normal; color: #14e5ff; margin-right: 3px; }
+.tour-card__tabs button.active { background: rgba(20,229,255,.2); color: #fff; border-color: #14e5ff; }
+.tour-card__menu { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; max-height: 42vh; overflow-y: auto; }
+.tour-card__menu button { flex: 1 1 46%; text-align: left; padding: 3px 7px; border: 1px solid rgba(20,229,255,.55); background: transparent; color: #eaf5ff; font: 11px 'Space Mono', monospace; cursor: pointer; }
+.tour-card__menu button:hover { background: rgba(20,229,255,.14); }
+.tour-card__menu button:disabled { opacity: .4; cursor: default; }
+.tour-card__say small { display: block; color: rgba(234,245,255,.5); font-size: 10px; }
+.tour-card__controls { flex-wrap: wrap; }
+.explorer-open .tour-card { left: 190px; bottom: auto; top: 58px; width: min(520px, 40vw); }
+.explorer .explorer__guide { color: #14e5ff; border-color: rgba(20,229,255,.6); }
+
+/* WHEREAMI (ISS-110): a small terminal readout, top right, over every view */
+.whereami { position: fixed; z-index: 215; right: 14px; top: 52px; max-width: 330px; padding: 4px 8px 6px; border: 1px solid rgba(86,240,162,.45); background: rgba(2,8,6,.82); font: 10.5px/1.45 'Space Mono', monospace; color: #7dff9a; text-shadow: 0 0 5px rgba(80,255,140,.45); }
+.whereami__prompt { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none; color: #56f0a2; font: inherit; text-align: left; cursor: pointer; }
+.whereami__out { margin: 2px 0 0; white-space: pre-wrap; font: inherit; }
+.whereami--folded .whereami__out { display: none; }
+.screen-cockpit .whereami, .screen-engine .whereami, .screen-maintenance .whereami, .atlas-capture .whereami, .ui-clean .whereami { display: none; }

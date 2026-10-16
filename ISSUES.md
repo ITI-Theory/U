@@ -5676,12 +5676,15 @@ overlay would be nice.
 
 Copilot's view: yes; the tabs fit the app's terminal look and turn tours, routes and help into
 one thing.
-- [ ] The tab panel: tabs by stop, each with its text, its place and GO; open, close, reorder.
-- [ ] Tours as tabs (the existing tour.js steps); a route planner (choose places, it builds the
-      tabs and the walk between them).
-- [ ] WHEREAMI: a small live readout, time, place, scale (floor, metres), body part, the layer
-      (4D 8D 11D); a route overlay on THE WORLDS.
-- [ ] The scientist's introduction: what the splash promised, in three tabs, with the papers.
+- [x] The tab panel: the tour card shows the tour's stops as tabs, named by their place (tour.js
+      placeOf), like a terminal's; a click goes there. GUIDE in the explorer's top bar opens it.
+- [x] Tours as tabs (all presets); THE GUIDE lists them (the welcome first; the Root Monster's
+      only when rooted); a route planner: + HERE adds where you are to MY ROUTE, played as tabs.
+- [~] WHEREAMI (whereami.js): a live terminal readout, top right: time, place, scale (floor,
+      level, metres), body part, layer and Φ; click $ whereami to fold. Still: the route overlay
+      on THE WORLDS.
+- [~] The introductions: registry/tours/welcome-u.yaml and welcome-scientist.yaml, five tabs each,
+      opened after WHO IS EXPLORING? (step through, or PLAY). Still: links to the papers.
 
 ## ISS-111: HAL's voice both ways, the wearable, and how to describe the Soma Machine — OPEN
 

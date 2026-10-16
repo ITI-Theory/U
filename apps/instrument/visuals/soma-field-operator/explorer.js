@@ -3412,7 +3412,7 @@ export function createExplorer(hooks = {}) {
     toggle.className = 'explorer__settings';
     toggle.textContent = 'SETTINGS ▾';
     toggle.addEventListener('click', () => { drawer.hidden = !drawer.hidden; toggle.classList.toggle('active', !drawer.hidden); });
-    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__places-toggle', 'explorer__places', 'explorer__layers', 'explorer__mother']);
+    const keep = new Set(['explorer__title', 'explorer__crumbs', 'explorer__places-toggle', 'explorer__places', 'explorer__layers', 'explorer__mother', 'explorer__guide']);
     for (const el of [...bar.children]) {
       const act = el.dataset?.act;
       if (keep.has(el.className) || act === 'close') continue;
@@ -3432,6 +3432,14 @@ export function createExplorer(hooks = {}) {
     motherButton.title = 'MU/TH/UR: ask about this view; her commands (/help)';
     motherButton.addEventListener('click', event => { event.stopPropagation(); hooks.onMother?.(); });
     toggle.after(motherButton);
+    // THE GUIDE (ISS-110): the tours as tabs, the route planner
+    const guideButton = document.createElement('button');
+    guideButton.type = 'button';
+    guideButton.className = 'explorer__guide';
+    guideButton.textContent = 'GUIDE';
+    guideButton.title = 'The tours, as tabs; MY ROUTE (+ HERE adds where you are)';
+    guideButton.addEventListener('click', event => { event.stopPropagation(); dispatchEvent(new CustomEvent('soma-guide')); });
+    motherButton.before(guideButton);
     const badge = document.createElement('span');
     badge.className = 'who-badge';
     badge.textContent = 'ROOTED';
