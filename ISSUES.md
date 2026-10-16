@@ -5641,9 +5641,12 @@ which is fine as long as ROOTED holds nothing that must stay private.
       IMPULSE (a pulse falls in), the RESPONSE (rings spread, an echo), the RETURN (it settles),
       each named beside it with the mechanisms chosen; the model's response kernel drawn,
       interpretive.
-- [ ] A high-level model of [T]-Theory that Sherlock can check the app, the web site and the
-      repository against (the levels, the dimensions, the operators, the claims and their
-      labels), and that the app uses to explain itself.
+- [~] A high-level model of [T]-Theory (registry/model.yaml): nine claims (one field, eleven
+      dimensions, the emotion algebra, the landscape, limbic heat, the trauma well, the
+      threshold, the dyad, the cosmic partition), each pointing to its concepts, visual-grammar
+      terms, levels, papers and where the app shows it; Sherlock checks it (make -C sherlock
+      model): 0 broken pointers; it caught one over-label (the emotion algebra, now
+      derived-under-assumptions). Still: the app explaining itself from it (the guide, the card).
 
 ## ISS-109: The programme's presence: web, GitHub, app, names, licence, checked by Sherlock — OPEN
 
@@ -5739,3 +5742,44 @@ Facts and Copilot's view:
       only. Private material goes to HAL only, e.g. the last film (ISS-107: the mix and the
       film stay out of the repository and Dist). Today: MOTHER's H-AL persona answers only in
       API mode (the local bridge), so only the author has it; keep it so, and say so in the app.
+
+## ISS-112: A universe from a score: SpaceEngine, Ableton, one clock — OPEN
+
+{{Tags area.app, area.art}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+
+Author, 16 Oct 16:30 (a request from the past): a score can morph to other devices. SpaceEngine
+lets you define your own galaxies and planets; so: a score becomes the overall configuration of a
+new universe's qualities, then it plays in step with the Soma Machine. Ableton Live will need the
+link; perhaps a main server ("boom") for all of it. Ask HAL. And the pitch, with humour: after
+years of looking for the core problem, it is the whole universe, and I am part of it; not
+blaming, fixing: if this universe is not up to it, create a new one, and here is what I had in
+mind.
+
+Facts (checked 16 Oct):
+- SpaceEngine: yes, and better. Its catalogues (.sc files, an addons folder) define galaxies,
+  stars, planets and moons by hand, with their parameters (type, size, mass, temperature,
+  atmosphere, rings, colours); procedural generation fills the rest. A generator can write
+  such a catalogue from a score. SpaceEngine is commercial; a generated catalogue is the
+  author's own; it runs on his machine, not in the browser.
+- Ableton: already half there. MIDI OUT (midi-out.js, ISS-073, the Engine Room) sends the score
+  to Ableton through a virtual port: the seven modes as CC 20-26, the heart CC 27, story-time
+  CC 28, phases and thresholds as notes. Missing: tempo sync (Ableton Link needs a small native
+  bridge; a browser cannot speak Link), and Ableton driving the app back (MIDI IN exists for
+  some controls).
+- One clock: the relay (apps/instrument/mother/relay.py) already keeps several windows and
+  devices in step; it could carry the score's clock to SpaceEngine (by a script) and Ableton.
+
+Copilot's view: yes, worth doing, in this order: (1) score to universe: a generator that turns a
+score (its modes over story-time) into a SpaceEngine catalogue, a mapping written down and
+labelled interpretive (fear: colder, darker, denser; awe: vast, bright; grief: a dim red giant;
+safety: a temperate, settled system); (2) the clock: Ableton Link through the relay, so the Soma
+Machine, Ableton and the film share a tempo; (3) SpaceEngine flown by the score (its own
+scripting, camera paths), later. The pitch is good and true to the programme: making a model
+universe is a way to look at this one, a map, not the territory; keep it humorous, and keep it
+clear of therapy claims.
+- [ ] HAL: what the author said before (uat/RC3/hal-universe-2026-10-16.md).
+- [ ] The mapping: score modes to universe qualities (a registry, labelled interpretive).
+- [ ] The generator: score to a SpaceEngine catalogue (.sc); the author installs it.
+- [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
+- [ ] The pitch, written: "create a new universe", humorous, labelled.

@@ -1,0 +1,81 @@
+# THE MODEL at a high level (ISS-108, author 16 Oct: "a high-level model of [T]-Theory, so Sherlock
+# can check it"). A few claims, the programme's spine; each points (never copies) to its concepts
+# (registry/concepts), the visual grammar's terms (registry/visual-grammar.yaml), its levels
+# (registry/levels), its papers (registry/papers.yaml) and where the app shows it (explorer stops).
+# Its label is the claim's, the weakest link deciding it (docs/agent/THEORY-STATUS.md): a Lean
+# theorem about a definition does not make the physical reading more than its own label.
+# Sherlock checks every pointer (`make -C sherlock model`, sherlock/model.py), and the app explains
+# itself from it (the guide, the card).
+
+claims:
+  one-field:
+    say: "One field, many scales: the same response grammar (a field driven by a source, answering through
+      a retarded Green's function) recurs from the quantum foam to the cosmic web."
+    label: interpretive
+    concepts: [retarded-response]
+    terms: [memory-kernel]
+    levels: [quantum-foam, human-vertebrate, observable-universe]
+    papers: [P10, P20]
+    shown_at: [worlds, flight]
+  eleven-dimensions:
+    say: "Eleven dimensions in three bands: the body's (D1-7), the limbic hinge (D8), the cortex (D9-11);
+      one event can be typed in two bands, an emotion at D8 and a thought at D9-11."
+    label: derived-under-assumptions
+    terms: [band]
+    levels: [human-vertebrate]
+    papers: [P20]
+    shown_at: [limbic, thought]
+  emotion-algebra:
+    say: "Feelings are composed: a blend, a damping or an evocation of basic emotions, through a mechanism
+      (BRECVEMA). The operations are defined in Lean; that feelings compose this way is assumed."
+    label: derived-under-assumptions
+    concepts: [emotion-fear, emotion-joy, brecvema-brain-stem, brecvema-episodic-memory]
+    terms: [emotion-blend, mechanism]
+    papers: [P1, P9]
+    shown_at: [thought, body]
+  landscape:
+    say: "States are attractors of an energy landscape; each update lowers the energy, and a memory is a
+      fixed point."
+    label: kernel-verified
+    concepts: [hopfield-fixed-point-energy, limbic-correspondence-principle]
+    terms: [attractor, energy-descent]
+    levels: [local-circuit, whole-brain-cemi]
+    papers: [P13]
+    shown_at: [landscape, network]
+  limbic-heat:
+    say: "The limbic field Φ heats the landscape: stress raises the temperature, and the model's neurotype
+      operators make it hotter or colder."
+    label: derived-under-assumptions
+    terms: [limbic-field, neurotype]
+    papers: [P13]
+    shown_at: [landscape, thought]
+  trauma-well:
+    say: "A trauma is a deep well behind a high barrier: cold descent stays trapped, and leaving needs the
+      resource or tunnelling through it."
+    label: open-hypothesis
+    concepts: [classical-trapping, limbic-tunnelling]
+    terms: [barrier, tunnelling]
+    papers: [P2]
+    shown_at: [landscape, brain]
+  threshold:
+    say: "Below a threshold the field is real but not felt; a crossing is a felt state. The Lean proves only
+      the order split; that consciousness is such a crossing is open."
+    label: open-hypothesis
+    concepts: [consciousness-threshold]
+    terms: [threshold]
+    papers: [P20]
+    shown_at: [thought]
+  dyad:
+    say: "Two people are two coupled fields; coupling can lower the shared energy (co-regulation)."
+    label: open-hypothesis
+    concepts: [dyadic-coupling-lowers-energy, aesop-co-identification]
+    papers: [P3]
+    shown_at: [dyad]
+  cosmic-partition:
+    say: "At the largest scale the vacuum partitions as 7/11 dark energy, 3/11 dark matter, 1/22 baryons: the
+      arithmetic is proved; the physics is assumed, and 7/11 is several sigma from Planck."
+    label: open-hypothesis
+    concepts: [omega-lambda-fraction]
+    levels: [observable-universe]
+    papers: [P21]
+    shown_at: [worlds]
