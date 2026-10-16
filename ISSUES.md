@@ -4099,9 +4099,9 @@ other work.
       the Soma set stays on stock devices so an update cannot break it.
 - [ ] (ISS-111) Choose H-AL's voice by ear: bld/voice/compare/index.md (Piper's H-AL and eight
       Kokoro voices, the same lines); then set voice_engine and kokoro_voice (mother README, Voice).
-- [ ] (ISS-092) HAL's login has expired: `apps\instrument\mother\.venv\Scripts\notebooklm -p default login`,
-      then `apps\instrument\mother\.venv\Scripts\python uat/scripts/hal_uat.py uat/RC3/hal-never-written-2026-10-16.md`
-      (what the chats discuss that no book covers; before the freeze if you can).
+- [ ] (ISS-092) Read H-AL's "never written" (Me/notebooklm/hal-answers/hal-never-written-2026-10-16-answers.md,
+      private): ten ideas from the chats no book covers, and five things a reader would miss. Decide
+      what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -4679,8 +4679,11 @@ with real readers.
       indifference, listlessness, nervousness, uneasiness, hate, gratitude, touched ...).
       Concepts of no specific kind are skipped (a reflexive action's parent is any action on an
       object). The ranking and the questions go to the HAL-UAT with the "never written" item.)
-- [~] Never written (H-AL): ask H-AL what the chats discuss that no book covers; with the UAT.
-      (16 Oct: the questions are uat/RC3/hal-never-written-2026-10-16.md; HAL's login had expired: ISS-081.)
+- [x] Never written (H-AL): ask H-AL what the chats discuss that no book covers; with the UAT.
+      (16 Oct: the questions are uat/RC3/hal-never-written-2026-10-16.md; H-AL named ten ideas and
+      five things a reader would miss; Q2, the open promises, timed out. The answers carry personal
+      material, so they are in the private repository (Me/notebooklm/hal-answers/), not in U, which
+      is public. Rule: H-AL's answers with personal material go to Me. What goes in a book: ISS-081.)
 
 ## ISS-093: What Sherlock found in its own programme, written up — CLOSED
 {{Tags area.papers, area.books, area.proofs}}
