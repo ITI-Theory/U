@@ -5796,3 +5796,43 @@ clear of therapy claims.
 - [ ] The generator: score to a SpaceEngine catalogue (.sc); the author installs it.
 - [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
 - [ ] The pitch, written: "create a new universe", humorous, labelled.
+
+## ISS-113: The organisation's READMEs, and the old jokes worth keeping — OPEN
+
+{{Tags area.release}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+
+Author, 16 Oct 16:48: the org README has changed a lot; find the recursive fractal acronym, the
+Jason Bourne jokes, "I/we don't do middle" (when?); maybe for the web. And: why several READMEs?
+
+Found (chats in Me/chats, the .github and .github-private histories):
+- "I don't do middle" was the author's New Year 2026 motto (vscode chat, 29 May: "My New Year's
+  motto was I don't do Middle"); "we don't do middle" entered the manifesto on 16 May 2026
+  (Me/chats/Inbox/20260516_005542...: "add to the manifesto 'we don't do middle' ... all or
+  nothing, it's the dual"). It survives in .github-private/profile/README.original.md: "[T]-Theory:
+  JUST PROVE [IT]", the manifesto, U and its dual U_, the axiom we_dont_do_middle.
+- The recursive acronym: 28 June 2026 (Mind_Body chat: "T stands for Theory ... a recursive
+  acronym or even a fractal ... T also stands for tensor, a lot bigger than M for matrix; also
+  techno and trance"); 19 July (MS Copilot: "a one-letter fractal recursive acronym").
+- The Bourne cipher (Swindle.md, May 2026, from Ludlum's "Cain is for Charlie, Delta is for
+  Cain"): "T is for Type, and Type is for Theory, and Theory is for T", then "T is for Tensor,
+  and Tensor is for The Tensor, and The Tensor is for T."
+The public org history (.github) never carried them; they are in the private one and the chats.
+
+The READMEs (five in .github-private, two in .github):
+- .github/profile/README.md: the public organisation page, what everyone sees (12 Oct, current).
+- .github/README.md: the .github repository's own page, seen only by opening that repository; a
+  stale copy from 19 August that still says "zero sorries" and "the first emotional dynamics
+  model proved to be a valid Euclidean QFT" (both withdrawn: five sorries remained; the OS
+  result reuses OSforGFF's theorem), an old notebook link and the old app address.
+- .github-private/profile/README.md: the page members of the organisation see (13 August).
+- .github-private/README.md, README copy.md, profile/README copy.md, profile/README.original.md:
+  leftovers from May; README.original.md holds the manifesto.
+- [ ] (author's call) .github/README.md: replace with one line pointing to the profile, so the
+      withdrawn claims are no longer public.
+- [ ] (author's call) .github-private: keep the manifesto (move README.original.md to
+      profile/MANIFESTO.md), delete the copies, bring the members' page up to date.
+- [ ] The jokes on the web (t-theory.org, for U): the cipher, the one-letter recursive acronym
+      (T is for Theory, Type, Tensor, techno and trance), "we don't do middle"; humour, labelled.
+- [x] The beep in MOTHER's voice: bin/mother-beep.ps1 (a data trill, two rising bleeps; -Need adds
+      a lower third, a question). Copilot's call to the author from now on.
