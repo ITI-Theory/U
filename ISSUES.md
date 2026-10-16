@@ -4093,6 +4093,8 @@ other work.
       (ISS-088, Sherlock's first QP finding) P6 Appendix A, lines 2636 and 2657: the base matrix
       W0 couples Calm and Shame at +0.2 (calm amplifies shame); every other figure in P1 and P6 has
       -0.3. A slip in the illustrative example, or meant? If a slip, -0.3 at both places.
+- [ ] (ISS-112) Recurring, monthly (author 16 Oct): update Ableton Live and its third-party plugins;
+      the Soma set stays on stock devices so an update cannot break it.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -5864,6 +5866,16 @@ clear of therapy claims.
       (galaxies, stars, planets .sc, SpaceEngine's format) and a README; the author copies it into
       SpaceEngine's addons. The River Film: a galaxy, 6 stars, 16 worlds; the 2021 film too.
 - [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
+- [ ] (author 16 Oct, 18:2x: "configuring Live will be a pain: loads of third-party plugins, and they
+      need updating") Not now; when it is done: one Soma set made of Live's stock devices only (opens
+      anywhere, no plugin churn), loopMIDI, and AbletonOSC (a free remote script: tempo, clips, notes,
+      device parameters over OSC from Python). What Copilot could then do: write MIDI clips and play
+      them through the author's instruments, set parameters, record the result into an audio track
+      in real time, and measure it (tempo, loudness, spectrum; it cannot listen). Live cannot render
+      on command (its API has no export), and it makes no voice: speech is Piper or Kokoro outside
+      (ISS-111). Bome MIDI Translator is a MIDI router (the Twister, the ERAE): useful for hardware,
+      nothing to generate with. Without Live the app already sends MIDI out, and Python can write
+      .mid files to drop in later.
 - [x] The pitch, written: "create a new universe", humorous, labelled. (16 Oct: web/PITCH.md,
       the author's words, then the score-to-universe generator, `speculative`.)
 
