@@ -1,0 +1,113 @@
+# The sound grammar (ISS-115): what the model says can be heard, and which sound channel carries it.
+# The same model terms as the pictures (registry/visual-grammar.yaml `terms`: one model, two
+# senses). Sherlock's check (sherlock/sound_grammar.py, `make -C sherlock grammar`) reads it as it
+# reads the pictures: a sound channel expresses model terms, or says it is decorative and why;
+# expressing nothing undeclared fails. The author, 16 Oct: if the music is "just generated", it is
+# not enough; a declared mapping is the second of Sherlock's tests for a piece that carries his
+# emotions (ISS-115: provenance, a declared mapping, read-back, recognition).
+#
+# Two kinds of channel:
+#   heard:   in the app's own music (code: a file and an anchor that must be in it);
+#   planned: an external instrument the Soma Machine would steer over MIDI (via: scaler | instrument
+#            | daw), not built yet; each with its label (all interpretive until a paper says more).
+# The score's modes (S safety, F fear, C curiosity, A awe, G grief, L language, PV pre-verbal) are
+# parts of an emotion blend (term emotion-blend).
+schema_version: 1
+channels:
+  # --- heard: the app's music (explorer-music.js, ISS-052) ---
+  - id: fear-tritone
+    kind: heard
+    what: "with the score's fear above one half, the pad's chord takes the tritone"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "score.F > 0.5 ? [0, 6, 12, 18]"}
+    expresses: [emotion-blend]
+  - id: language-triad
+    kind: heard
+    what: "with language high, a plain triad: a tonal centre"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "score.L > 0.6 ? [0, 4, 7, 12]"}
+    expresses: [emotion-blend, band]
+  - id: safety-reverb
+    kind: heard
+    what: "safety lays a long reverb blanket"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "0.2 + 0.55 * score.S"}
+    expresses: [emotion-blend]
+  - id: brightness
+    kind: heard
+    what: "awe and curiosity brighten the sound, grief darkens it"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "400 + 2200 * score.A + 600 * score.C - 300 * score.G"}
+    expresses: [emotion-blend]
+  - id: phi-brightness
+    kind: heard
+    what: "without a score, the limbic field Φ opens the filter"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "600 + 1800 * phi"}
+    expresses: [limbic-field]
+  - id: preverbal-grains
+    kind: heard
+    what: "the pre-verbal mode: grains of noise, denser as language fades"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "score.PV > 0.25"}
+    expresses: [emotion-blend, threshold]
+  - id: cathedral-echo
+    kind: heard
+    what: "in the cathedral, C-PTSD lengthens the echo: the past keeps sounding"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "C-PTSD lengthens the echo"}
+    expresses: [memory-kernel, neurotype]
+  - id: note-rate
+    kind: heard
+    what: "curiosity brings more notes, grief fewer"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "5 * (1 - score.C) + 3 * score.G"}
+    expresses: [emotion-blend]
+  - id: heartbeat
+    kind: heard
+    what: "a soft lub-dub at the viewer's heart rate"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "the heartbeat persists"}
+    expresses: []
+    decorative: "the viewer's own heart (a measurement or a slider), played back; not a model term"
+  - id: sector-key
+    kind: heard
+    what: "a pentatonic chord whose root is the world (sector) you are in"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "ROOTS[sector]"}
+    expresses: []
+    decorative: "a key per world, a place marker, not a model term"
+  # --- planned: what the Soma Machine would steer outside it (ISS-115; the author's August plan,
+  #     H-AL 16 Oct; none built, all interpretive) ---
+  - id: chord-tension
+    kind: planned
+    via: scaler
+    what: "the next chord: resolution when the state settles into a well, a suspension while it climbs a barrier"
+    expresses: [attractor, barrier]
+    label: interpretive
+  - id: bass-motion
+    kind: planned
+    via: scaler
+    what: "the bass walks while the gradient is gentle, leaps when it is steep"
+    expresses: [energy-descent]
+    label: interpretive
+  - id: drum-density
+    kind: planned
+    via: instrument
+    what: "a steady ride when the field is cool, denser and syncopated as Φ heats the landscape"
+    expresses: [limbic-field]
+    label: interpretive
+  - id: guitar-drive
+    kind: planned
+    via: instrument
+    what: "clean when regulated, drive and wide reverb as the temperature rises"
+    expresses: [limbic-field]
+    label: interpretive
+  - id: section-tacet
+    kind: planned
+    via: daw
+    what: "a section (an instrument, strings, brass) stays silent while its mechanism is below the threshold, and enters above it"
+    expresses: [threshold, mechanism]
+    label: interpretive
+  - id: section-lock
+    kind: planned
+    via: scaler
+    what: "sections follow one another (shared chords and rhythm) while coupled, and answer (call and response) when one breaks away"
+    expresses: [coupling]
+    label: interpretive
+  - id: entrainment
+    kind: planned
+    via: daw
+    what: "the tempo the band locks to: rhythmic entrainment, one of the eight mechanisms"
+    expresses: [mechanism]
+    label: interpretive

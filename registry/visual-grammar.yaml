@@ -1,7 +1,7 @@
 # The visual grammar (ISS-104): what the model says can be expressed, and which of the app's
 # visual channels expresses it. Sherlock's check (sherlock/visual_grammar.py, `make -C sherlock
 # grammar`) reads it both ways, so a picture can be checked against the model and the model
-# against the pictures (the author, 15 Oct: "if I visualise thoughts as a bar of chocolate,
+# against the pictures; the sound grammar (registry/sound-grammar.yaml) uses the same terms (the author, 15 Oct: "if I visualise thoughts as a bar of chocolate,
 # Sherlock should complain that it is irrelevant, and say what they should be a combination of").
 #
 # terms:    the model's quantities, each pinned to a Lean declaration (file, name), or to a paper
@@ -52,6 +52,9 @@ terms:
   - id: route
     what: "a transition depends on the route taken (a plan's options are paths)"
     paper: paper/soma/path-sensitive-transitions
+  - id: coupling
+    what: "two fields coupled (a dyad, two sections of a band) settle lower together than apart"
+    lean: {file: paper/proofs/DyadicField.lean, name: dyadic_energy_coupling_lowers}
 channels:
   - id: phi-light
     what: "the Φ THE FIELD slider's light and heat in every view"
@@ -114,3 +117,7 @@ channels:
     what: "thoughts that do not resolve sink below the threshold and stay; the load heats the chamber (more pops, a rougher foam) (ISS-104)"
     code: {file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "the load heats the chamber"}
     expresses: [memory-kernel, limbic-field, threshold]
+  - id: dyad-lock
+    what: "at the DYAD stop, two people's rhythms drift, then lock when the coupling (and the resource) is strong enough (Kuramoto)"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "const DYAD = { rate: 1"}
+    expresses: [coupling]

@@ -132,6 +132,7 @@ leakage:
 
 grammar:
 	$(PYTHON) visual_grammar.py
+	$(PYTHON) sound_grammar.py
 
 impact:
 	$(PYTHON) impact.py

@@ -6070,7 +6070,16 @@ What Sherlock says today (asked 16 Oct 19:30):
 - The source exists: the scores (registry/scores: river-film, fis-2021), written from the story.
 
 What it cannot check, so what is needed (then choose the music option):
-- [ ] A sound grammar: every channel today is visual. Sound channels (harmony and tension, tempo
+- [x] (16 Oct: registry/sound-grammar.yaml, sherlock/sound_grammar.py, `make -C sherlock grammar`,
+      release-check 19: the same 13 model terms (a 13th, coupling, added for the ensemble: DyadicField's
+      kernel-checked dyadic_energy_coupling_lowers; the DYAD stop shows it). Heard in the app's music,
+      ten channels pinned to explorer-music.js (fear's tritone, safety's reverb, awe's brightness, Φ,
+      the pre-verbal grains, C-PTSD's echo; the heartbeat and the key per world declared decorative);
+      planned for Scaler and the instruments, seven channels, all interpretive (the chord's tension,
+      the bass's motion, the drums' density, the guitar's drive, a section silent below the threshold,
+      sections locking and answering, entrainment). 6 terms heard, 5 only planned, 2 carried by no
+      sound: tunnelling and route.)
+      A sound grammar: every channel today is visual. Sound channels (harmony and tension, tempo
       and rhythm, timbre, register, density, silence) and the model terms each may express, checked
       like the pictures; until then everything audible is undeclared.
 - [ ] Read-back: does an output (sound or picture) carry the score: its order, peaks, thresholds

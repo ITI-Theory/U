@@ -338,6 +338,14 @@ else
   fail "Visual grammar: a picture expresses nothing undeclared, or a term or anchor is gone (make -C sherlock grammar)"
 fi
 echo "$GRAMMAR_CHECK" | sed 's/^/    /' | head -6
+# The sound grammar (ISS-115): the same terms, heard in the app's music or planned for an instrument
+SOUND_CHECK=$(py sherlock/sound_grammar.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Sound grammar: the app's music maps to the model's terms; planned channels labelled"
+else
+  fail "Sound grammar: a sound expresses nothing undeclared, or an anchor is gone (make -C sherlock grammar)"
+fi
+echo "$SOUND_CHECK" | sed 's/^/    /' | head -4
 
 hdr "20. Mind explorer: the simulations tell the tour's story (ISS-052)"
 if command -v node >/dev/null 2>&1; then
