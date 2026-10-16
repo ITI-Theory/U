@@ -396,7 +396,7 @@ books:
         reader: "Legal Scholar",
         scale: "Scale 12: National Institutional Field",
         equation: "n = 1/(2 pi) integral d theta",
-        operator: "Juridical holonomy operator",
+        operator: "Juridical holonomy operator (a count of turns round a loop of change)",
         invariant: "Rights are read as intended invariants under institutional deformation",
         observable: "Rule-of-law access, institutional blockage, and persistence of constraints",
       }

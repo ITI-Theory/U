@@ -243,6 +243,24 @@ When the prose says *field*, ask whether it means a formal mathematical field, a
 
 This compass is not hostile. It is the form of respect appropriate to a large claim. A theory that aspires to connect mind, body, and cosmos should expect careful reading. The reward for such reading is that the work becomes more, not less, interesting. Its strongest claims stand out from its speculative ones. Its open questions become researchable. Its metaphors become tools rather than fog.
 
+## Words You Will Meet
+
+The papers borrow words from physics and mathematics. Each is a tool, not a password; here is what each one means in plain words.
+
+- **Attractor, basin.** A state a system settles into, as a ball comes to rest in a valley. The basin is every starting point that ends there.
+- **Energy landscape, Hamiltonian.** The Hamiltonian is the formula for a system's energy. Drawn as hills and valleys, it is the landscape the state moves on.
+- **Hopfield network, Ising model.** Two models with the same energy formula: a network of switches (neurons, or tiny magnets) whose stored patterns are the valleys of the landscape.
+- **Manifold.** A space that looks flat up close but may curve as a whole, as the surface of the Earth does. It can have any number of dimensions.
+- **Compactification, Calabi-Yau, G₂.** String theory curls its extra dimensions up too small to see: they are compactified. Calabi-Yau spaces (six dimensions) and G₂ spaces (seven) are the special shapes they are usually given. The programme proves a flat seven-dimensional product, not a G₂ shape.
+- **Holonomy.** What happens to a direction carried round a closed loop in a curved space. It sorts curved spaces into kinds, which is why "G₂ holonomy" names one kind of seven-dimensional space.
+- **String worldsheet.** The surface a string sweeps out as it moves through time, as a moving point draws a line.
+- **Brane, gauge field.** A brane is a membrane in string theory; a D3-brane has three dimensions of space. A gauge field is the kind of field electromagnetism is, and string theory can hold such fields on a brane.
+- **Orbifold.** A space folded onto itself. Folding a circle gives a line with two ends: the programme's limbic axis runs that way, from the body at one end to the mind at the other (Hořava and Witten's construction).
+- **Eigenvalue.** One of the special numbers that characterise a matrix, as its natural notes characterise a drum.
+- **Lagrangian.** One formula from which a theory's equations of motion follow. Deriving the field from one is future work.
+- **Fourier analysis.** Writing any signal as a sum of pure waves.
+- **Green's function, propagator.** The response at one place to a single knock at another: the Green Propagator of this book's opening.
+
 The order of the papers matters. The synthesis paper gives the programme's map. The trauma book gives its human origin and accessible language. The academic Soma-Field paper gives its central model. The Technical Foundation then widens the lens to scale. This sequence is intentional: map, body, model, cosmos. The Gateway reader should move through it slowly enough to keep the labels attached.
 
 

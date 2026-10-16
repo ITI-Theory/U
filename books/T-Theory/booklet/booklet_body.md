@@ -129,8 +129,8 @@ $$\omega^2 = k/m,\quad \omega^2 = v^2 k^2 \quad\text{(dispersion relation)}$$
 $$M_{11} = M_4 \times X_7,\quad X_7 = D_{5\text{–}7} \times D_8 \times D_{9\text{–}11}$$
 
 - **$D_{1\text{–}4}$: Spacetime** — body embedded in Lorentzian 3+1D; symmetry group $SO(3,1)$
-- **$D_{5\text{–}7}$: Propagator** — somatic EM field; gauge field trapped on D3-brane worldvolume
-- **$D_8$: Limbic axis** — Hořava-Witten orbifold $S^1/\mathbb{Z}_2$, segment $[-1, +1]$; body at $-1$, mind at $+1$; trauma = topological obstruction
+- **$D_{5\text{–}7}$: Propagator** — somatic EM field; a gauge field held on a D3-brane (a 3D membrane)
+- **$D_8$: Limbic axis** — Hořava-Witten orbifold $S^1/\mathbb{Z}_2$ (a circle folded to a line), segment $[-1, +1]$; body at $-1$, mind at $+1$; trauma = topological obstruction
 - **$D_{9\text{–}11}$: Cortex** — BFSS matrix eigenvalue spectrum; emergent geometry, not fixed coordinates
 
 **BFSS identification** (Banks-Fischler-Shenker-Susskind 1997): cortex coordinates
@@ -146,7 +146,7 @@ equation. The cosmological constant $\Lambda \equiv \langle\mathrm{tr}\,\Phi\ran
 the vacuum expectation of the somatic tensor trace.
 
 **SHO derivation:** $\omega^2 = k/m$ is derived (not postulated) as the lowest-order
-term in the Taylor expansion of the Calabi-Yau moduli space metric. This constrains
+term of the Calabi-Yau moduli metric (the curled-up dimensions' shapes). This constrains
 the compactification geometry.
 
 **Organism hierarchy:**
@@ -243,7 +243,7 @@ language channel. Explains inaccessibility to verbal recall; motivates somatic e
 All five OS axioms machine-checked for the free field (`USF_OSAxioms.lean` via OSforGFF ·
 `gaussianFreeField_satisfies_all_OS_axioms`). Four former proof obligations, now:
 
-- **G₂** → `X7_is_7D_product`: X₇ = ℝ³×ℝ×ℝ³ is proved a 7D product (flat); a G₂-holonomy metric is not claimed.
+- **G₂** → `X7_is_7D_product`: X₇ = ℝ³×ℝ×ℝ³ is proved a flat 7D product; M-theory's curved G₂ shape is not claimed.
 - **Zoom Operator covariance** → `scale_invariance_full` (`MTheoryIsomorphism.lean`)
 - **Retarded propagator causality** → `retardedDecayFactor_isCausal` (`TemporalDynamics.lean`) + OS3
 - **RG equations** → `geometricFlow_waveEquation`, `rg_flow_existence` (`RenormalisationGroup.lean`)

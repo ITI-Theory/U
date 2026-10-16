@@ -4101,7 +4101,14 @@ other work.
 - [ ] (ISS-094) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
       the Gestalt paper's somatic claims name no interoception or predictive processing (add a
       line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
-- [ ] (ISS-094) The jargon trap, before the content freeze (end of Sat 17): `make -C sherlock bofh`,
+- [x] (16 Oct, author: "you go for it": done. The Gateway book's Reader's Compass has a glossary,
+      "Words You Will Meet", before the embedded papers; the cheat sheet glosses its own terms in a
+      few words (all 15 still four pages); the law booklet's holonomy operator is glossed in
+      Dist/PAPERS.yaml. Left as they are: P6's five, explained by the sentences after them.
+      And every cheat sheet now stands on its own (author, 16 Oct): a credit line on every page,
+      © Alistair Johnson, CC BY 4.0, t-theory.org; `make -C sherlock standalone`, release-check 12a.
+      The QR codes are decoded by `make -C sherlock presence`.)
+      (ISS-094) The jargon trap, before the content freeze (end of Sat 17): `make -C sherlock bofh`,
       bld/sherlock/bofh.md lists 16 hard terms with no plain-words bridge in the general reader's
       documents, most in the Gateway book and booklets (G2 holonomy, gauge field on a D3-brane,
       Calabi-Yau moduli). Gloss them, or say the Gateway may assume them; Copilot can draft the
@@ -5962,6 +5969,10 @@ Tasks:
 - [ ] Zenodo: sandbox rehearsal, then live; DOIs everywhere (ISS-001; tokens: AUTHOR, environment
       only, never a file).
 - [ ] The app as a release: the preview line on t-theory.org removed, make app-publish.
+- [ ] At `make dist` (Mon 19): Dist's cheat sheets are old builds (no author, licence or link; the
+      stuff/ one is the one-page card that still says "0 sorries, all 4 obligations closed"): make
+      dist refreshes them from the booklets; then `python sherlock/standalone.py` must pass for
+      Dist too, and Dist/stuff/README.md's cheat sheet entry is rewritten for the four-page sheet.
 - [~] The web site: the notebook link ("ask the theory" first, ISS-109's last gap), the three
       users (U, the scientist), the attribution line. (16 Oct: written, web/home.md; Sherlock's
       presence: 0 gaps. Still, Wed 21: drop the preview line, `make web-publish`, the author

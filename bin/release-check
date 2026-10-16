@@ -203,6 +203,15 @@ else
   ok "All 15 booklets are exactly four pages"
 fi
 
+hdr "12a. Every cheat sheet stands on its own (author, 16 Oct)"
+STANDALONE=$(py sherlock/standalone.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Each booklet names the programme, the author, the licence and where to find more"
+else
+  fail "A cheat sheet does not stand on its own"
+fi
+echo "$STANDALONE" | sed 's/^/    /'
+
 hdr "12b. Headings are headings (UAT rc3.2)"
 if py paper/scripts/check_headings.py >/dev/null 2>&1; then
   ok "No heading is glued to the paragraph before it (pandoc would print it as text)"

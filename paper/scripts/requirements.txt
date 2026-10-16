@@ -11,3 +11,6 @@ plotly>=5.22              # interactive HTML figures (optional)
 
 # OSC output for visual software / TouchDesigner (optional)
 python-osc>=1.8.3
+
+# Sherlock's presence check decodes the QR codes (sherlock/presence.py; optional: without it, a gap)
+opencv-python-headless>=4.9

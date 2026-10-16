@@ -51,12 +51,21 @@ places:
     for: [scientist]
     status: waiting for ZENODO_TOKEN
 
+# QR codes: decoded by Sherlock, each must carry its place's URL exactly. `printed`: already out in
+# the world on stickers, so that URL must keep working for good (a redirect if the address moves).
+qr_codes:
+  - {file: lib/images/sticker/tt-qr-t-theory-org.png, place: web}          # booklets, title pages
+  - {file: lib/images/sticker/tt-qr-t-theory-org-print.png, place: web}
+  - {file: lib/images/sticker/tt-qr-github-t-theory.png, place: github-org, printed: true}   # the first stickers
+  - {file: lib/images/sticker/tt-qr-github-t-theory-print.png, place: github-org, printed: true}
+  - {file: ../Dist/stuff/t-theory-sticker.png, place: github-org, printed: true}   # the downloadable sticker: still the GitHub family
+
 # names not claimed yet; the author decides (ISS-109). Checked 16 Oct 2026 (RDAP for domains,
 # the public APIs for handles); "taken" is by someone else unless the author says it is his.
 candidates:
   domains:
-    free: [tttheory.org, t-theory.net]
-    taken: [t-theory.com (expires 2027-02-01), tttheory.com, ttheory.org, ttheory.com]
+    free: [tttheory.org, t-theory.net, tttheory.net, t-theory.io, ttheory.io, t-theory.app, tttheory.app, t-theory.ch, ttheory.ch]
+    taken: ["t-theory.com (since 2019, eNom, to 2027-02-01; the site errors)", "tttheory.com (since 2025, a live site)", "ttheory.com (since 1998; redirects to a psychology practice)", "ttheory.org (to 2028)"]
   bluesky:
     free: ["@t-theory.org (the domain as the handle)", "@ttheory.bsky.social", "@t-theory.bsky.social", "@tttheory.bsky.social"]
   mastodon.social:

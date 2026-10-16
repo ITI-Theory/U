@@ -96,9 +96,13 @@ def jargon(spec: dict) -> tuple[list[str], list[tuple[str, str, str]]]:
         if not text:
             continue
         names.append(d.relative_to(U).as_posix())
+        g = next((x for x in re.finditer(re.escape(spec["glossary"]), text, re.I) if ". . ." not in text[x.end(): x.end() + 40]), None) if spec.get("glossary") else None
+        glossary = text[g.end(): g.end() + 4000] if g else ""
         for t in terms:
+            if glossary and t.search(glossary):
+                continue
             # the first use in the running text (a contents line, dot leaders after it, is not one)
-            m = next((x for x in t.finditer(text) if ". . ." not in text[x.end(): x.end() + 60]), None)
+            m = next((x for x in t.finditer(text) if ". . ." not in text[x.end(): x.end() + 60] and not re.match(r"\w*\.lean", text[x.end():])), None)
             if m and not bridge.search(text[m.end(): m.end() + window]):
                 traps.append((d.name, m.group(0), text[max(0, m.start() - 80): m.end() + 120].strip()))
     return names, traps

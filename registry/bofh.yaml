@@ -14,7 +14,9 @@ leakage:
 # 2. The jargon trap: in a document for the general reader, a hard term's first use with no bridge
 # (a plain-words gloss) within `window` characters after it.
 jargon:
-  documents: [bld/books/book-gateway.pdf, bld/books/booklet-gateway-*.pdf]
+  documents: [bld/books/book-gateway.pdf, bld/books/booklet-gateway.pdf]
+  # a glossary in the same document bridges its terms (the Gateway's "Words You Will Meet")
+  glossary: 'Words You Will Meet'
   papers_levels: [popular, undergraduate]   # Dist/PAPERS.yaml `level`; their built PDFs in bld/papers
   window: 240
   terms: ['Calabi[- ]Yau', 'compactif\w+', 'holonomy', '\bG[_ ]?2\b', 'Hamiltonian', 'Lagrangian', 'eigen\w+', 'Hilbert space',

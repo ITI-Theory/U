@@ -1056,7 +1056,7 @@ collections:
     audience: "Legal Scholar"
     hud_scale: "Scale 12: National Institutional Field"
     hud_equation: "n = 1/(2 pi) integral d theta"
-    hud_operator: "Juridical holonomy operator"
+    hud_operator: "Juridical holonomy operator (a count of turns round a loop of change)"
     hud_invariant: "Rights are read as intended invariants under institutional deformation"
     hud_observable: "Rule-of-law access, institutional blockage, and persistence of constraints"
     hud_status: "Topological rights model is interpretive; legal force is institutional."
