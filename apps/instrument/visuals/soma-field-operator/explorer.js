@@ -4471,7 +4471,7 @@ export function createExplorer(hooks = {}) {
   const towerPanel = createTowerPanel(root);
   let towerShown = '|';
   root.addEventListener('click', event => {
-    if (event.target.closest('button, .explorer__tower, .explorer__card') || st.stop !== 'landscape' || st.golf) return;
+    if (event.target.closest('button, .explorer__tower, .explorer__card') || st.stop !== 'landscape' || (st.golf && !st.view3d) || event.target.closest('.explorer__source, .explorer__mech, .explorer__drawer, .explorer__places')) return;
     const gl = gls.landscape;
     if (!gl?.pick) return;
     const r = root.getBoundingClientRect();
