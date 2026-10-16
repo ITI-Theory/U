@@ -848,3 +848,15 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .tour-card__companion a { color: #e8eefc; }
 .tour-card__companion span { color: rgba(232,238,252,.6); }
 .mother-settings__note { display: block; margin-top: 4px; color: rgba(232,238,252,.55); font: 400 9px/1.4 'Space Mono', monospace; }
+/* SHOW mode, the music film (show.js, ISS-107): the panel, then a clean picture */
+.show-panel { position: fixed; z-index: 420; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(520px, 92vw); padding: 16px 18px; border: 1px solid #56f0a2; background: rgba(2,8,6,.94); color: #d6ffe9; font: 12px/1.5 'Space Mono', monospace; }
+.show-panel h2 { margin: 0 0 8px; color: #56f0a2; font-size: 13px; letter-spacing: .08em; }
+.show-panel code { color: #ffd166; }
+.show-panel__status { color: #8fd8ff; }
+.show-panel__go { display: flex; gap: 8px; margin: 10px 0 6px; }
+.show-panel button { padding: 6px 10px; border: 1px solid #56f0a2; background: transparent; color: #d6ffe9; font: inherit; cursor: pointer; }
+.show-panel button:disabled { opacity: .4; cursor: default; }
+body.show-mode { cursor: none; }
+body.show-mode .explorer > :not(canvas), body.show-mode .whereami, body.show-mode .tour-card, body.show-mode .mother-terminal,
+body.show-mode .field-readout, body.show-mode .screen-hud, body.show-mode .screen-role, body.show-mode .screen-fullscreen,
+body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !important; }

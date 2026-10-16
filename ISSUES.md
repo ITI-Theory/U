@@ -6009,3 +6009,37 @@ yet (P25, SH1, C2-vol3: make dist, Mon 19). The warnings are expected: GAP-5 is 
 EmotionCyc's #check_failure is a deliberate negative test, 46 records await Zenodo (Tue 20).
 Out of scope for the 21st (kept open, not blockers): ISS-105's levels-view shell and art pass,
 ISS-107 the films, ISS-112 the clock, ISS-111 the voice.
+
+## ISS-115: Externalising emotions: what Sherlock needs before a piece can carry them — OPEN
+
+{{Tags area.sherlock, area.art}}
+{{Fields date.created=2026-10-16, date.start=, date.end=, epic=ISS-055-sherlock}}
+
+Author, 16 Oct 19:20: "if I write a small story (done) and I want to externalise my emotions, have
+I done enough? ... if we use the Soma Machine to modify a piano (e.g. Scaler 3), does that fulfil my
+goal? I am worried that if you just generate stuff, it's not enough. So my question for Sherlock:
+what is needed?" Visuals: the app's pictures and fractals are the author's ideas, so they are fine;
+other cases unsure.
+
+What Sherlock says today (asked 16 Oct 19:30):
+- It checks pictures against the model: the visual grammar (registry/visual-grammar.yaml, `make -C
+  sherlock grammar`), 12 model terms and 15 visual channels; a picture expressing anything undeclared
+  fails. The app's visuals pass.
+- A music or film piece speaks in ArtisticDesignMt (registry/microtheories.yaml): its disclaimer is
+  required, and any effect claim needs an evidence label.
+- The source exists: the scores (registry/scores: river-film, fis-2021), written from the story.
+
+What it cannot check, so what is needed (then choose the music option):
+- [ ] A sound grammar: every channel today is visual. Sound channels (harmony and tension, tempo
+      and rhythm, timbre, register, density, silence) and the model terms each may express, checked
+      like the pictures; until then everything audible is undeclared.
+- [ ] Read-back: does an output (sound or picture) carry the score: its order, peaks, thresholds
+      and calm? `lib/show/cues.py` reads a mix's structure; the check compares it with the score.
+- [ ] Provenance: a score's author and the author's attestation that it is his (first person, N = 1,
+      labelled), so Sherlock can tell his emotion from someone else's material or a generator's.
+- [ ] Then the options for sound, Copilot's order (the author chooses): (1) the author performs (his
+      voice reading the story, or the Soma Machine ridden live: knobs, the heart strap) and the field
+      shapes it; (2) the score drives the sound directly (ISS-107 B, the tensor film); (3) existing
+      music modified by the trajectory (a piano through Scaler 3, the mix), where the emotion lives
+      only in the modification; (4) curation, scenes cut to music (ISS-107 A). Ableton waits (ISS-112).
+

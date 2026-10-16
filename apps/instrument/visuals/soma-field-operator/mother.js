@@ -548,6 +548,7 @@ export function createMother({ getContext }) {
     '  THE STARGATE ....... IN THE CATHEDRAL\'S AQUEDUCT, EARLIER AND HOTTER',
     '  THE ROOT MONSTER ... HIS TOUR, IN THE GUIDE',
     '  COMPANION .......... THE FRACTAL THESIS',
+    '  SHOW ............... A MIX AND ITS CUE SHEET AS A FILM (/show)',
     'TYPE /rooted FOR THIS LIST. LEAVE ROOT TO GO BACK.',
   ].join('\n');
   function accessGate(text) {
@@ -575,6 +576,7 @@ export function createMother({ getContext }) {
       return true;
     }
     if (/^\/rooted\b/i.test(said) && rooted()) { echo(said); trill(0.3); type(ROOTED_MENU); return true; }
+    if (/^\/show\b/i.test(said) && rooted()) { echo(said); trill(0.4); type('SHOW MODE. PICK THE MIX AND ITS CUE SHEET. ESC ENDS IT.'); dispatchEvent(new CustomEvent('soma-show')); return true; }
     const tt = said.match(/^\/teletype\s+(on|off)\b/i);
     if (tt) {
       echo(said);

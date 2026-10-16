@@ -11,6 +11,7 @@ import { createMother } from './mother.js';
 import { who, setWho, profile, rooted } from './who.js';
 import { createWhereAmI } from './whereami.js';
 import { createPokeFx } from './pokefx.js';
+import { createShow } from './show.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
@@ -2686,6 +2687,8 @@ thoughtThresholdInput.addEventListener('input', () => {
   state.thoughtThreshold = Number(thoughtThresholdInput.value);
 });
 const pokeFx = screenRole === 'level' ? createPokeFx() : null;
+// SHOW mode, the music film (ISS-107; ROOTED, MOTHER /show)
+if (screenRole === 'level') createShow({ explorer });
 function firePoke(strength = state.limbic) {
   // the three phases drawn plain over the view (ISS-108): impulse, response, return
   const mech = mechanismsOn() ? mechanisms.filter(m => state.selectedMechanisms.has(m.id)).map(m => m.name).join(' + ') : '';
