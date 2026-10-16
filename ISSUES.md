@@ -6084,7 +6084,11 @@ What it cannot check, so what is needed (then choose the music option):
       like the pictures; until then everything audible is undeclared.
 - [ ] Read-back: does an output (sound or picture) carry the score: its order, peaks, thresholds
       and calm? `lib/show/cues.py` reads a mix's structure; the check compares it with the score.
-- [ ] Provenance: a score's author and the author's attestation that it is his (first person, N = 1,
+- [x] (16 Oct: `provenance:` in each score (author, made_by, from, attested), sherlock/provenance.py,
+      `make -C sherlock provenance`: river-film is the author's, from his paper; fis-2021's numbers are
+      Copilot's estimate from his notes, not his until he corrects and attests it; both await his
+      attestation (UAT `attest-scores`).)
+      Provenance: a score's author and the author's attestation that it is his (first person, N = 1,
       labelled), so Sherlock can tell his emotion from someone else's material or a generator's.
 - [ ] Then the options for sound, Copilot's order (the author chooses): (1) the author performs (his
       voice reading the story, or the Soma Machine ridden live: knobs, the heart strap) and the field
@@ -6133,4 +6137,7 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
       hal-final-design-2026-10-15 (20), hal-universe-2026-10-16 (214). Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
 - [ ] AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
+- [ ] AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
+      comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
+      move the score to Me.
 

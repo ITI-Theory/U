@@ -112,6 +112,10 @@ steps:
     title: "Say how you feel: MOTHER flies to it and says where it is in the brain, sourced (ISS-099)"
     url: "#voyage=worlds&dim=11"
     do: "MOTHER: type 'I feel anxious', then '/feel numb', then '/feel blorp'; the limbic hinge with that feeling, WHERE IS THIS FEELING? open, each line labelled, the DOI links work; does anything claim a region is the seat of a feeling?"
+  - id: attest-scores
+    kind: manual
+    title: "Attest the scores: are these your emotions? (ISS-115, provenance)"
+    do: "python sherlock/provenance.py; play each score in the app (SCORE stop: river-film, then fis-2021, which is Copilot's estimate from your 2021 notes); correct the numbers you disagree with; then set attested: {by: Alistair Johnson, on: <date>} in registry/scores/<id>.yaml"
   - id: app-show
     kind: manual
     title: "SHOW mode, the music film: the mix drives the machine (ROOTED; ISS-107)"

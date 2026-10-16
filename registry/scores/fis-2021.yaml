@@ -10,6 +10,9 @@ id: fis-2021
 title: The 2021 Film
 version: '0.1'
 source: the author's 2021 notes (private), estimated
+# whose emotions these are (ISS-115, sherlock/provenance.py): the author's story, but the numbers are
+# Copilot's estimate from his notes; not his until he corrects and attests it
+provenance: {author: Alistair Johnson, made_by: Copilot (an estimate from the notes), from: "the author's 2021 notes (private)", attested: null}
 minutes: 90   # at kappa_v = 1
 modes:
 - {id: S, name: Safety}

@@ -6,6 +6,9 @@ id: river-film
 title: The River Film
 version: '0.1'
 source: paper/soma/the-tensor/the-tensor.md
+# whose emotions these are (ISS-115, sherlock/provenance.py): the author's, from his paper; his
+# attestation that the score is his is awaited (`attested: {by, on}` once he says so)
+provenance: {author: Alistair Johnson, made_by: the author, from: "The Tensor (the author's paper), its appendix", attested: null}
 minutes: 90   # at kappa_v = 1
 modes:
 - {id: S, name: Safety}
