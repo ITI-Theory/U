@@ -6,35 +6,28 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (16 Oct 2026, 02:45)
+## Now (16 Oct 2026, evening)
 
-**The release is held for the art book and the app** (author: the app is the programme's show
-piece). rc3.2 is built and staged; the DOI route waits for ZENODO_TOKEN. Author, 02:42: "the end
-is in sight for this and the papers, books".
+**The release epic is ISS-114** (by Wed 21 Oct; content freeze end of Sat 17, confirmed). A
+release-check dry run: 24 PASS, 2 FAIL, both for their days (the Lean appendix PDF in the big
+build; three PDFs into Dist at `make dist`).
 
-**The Soma Machine (ISS-105).** Design: apps/instrument/visuals/soma-field-operator/DESIGN.md.
-A second opinion (GPT-6.1-sol, one-off, review only; session files gpt-review/report.md) led to:
-fresh start fixed; the human's deck takes clicks; leaving a place leaves its overlays; a spatial
-breadcrumb and PLACES ▾ (P); one set of controls (POKE ▾ with BRECVEMA and the inputs, SETTINGS
-with lens and look, the card's THIS FLOOR); the card describes the place you are in; readable
-labels; 2D | 3D in the bar. Then, with the author walking it tonight:
-- **THE WORLDS is the entry point** (worlds3d.js): five glass domes from the model's sectors
-  (QUANTUM, LIFE, HUMAN, EARTH, COSMOS), each a scale model; a click opens the domes inside
-  (HUMAN: BODY, BRAIN, MIND, then the places); a dome with nothing inside is a door to a place
-  or to a floor of the level view. A DAW fader at the left is the zoom. SOMA WORLD is its
-  ROOTED name (later).
-- **THE COURSE is a sea** under a glass dome; surges touch it with a violet zap and thoughts
-  pass through; a key, PAUSE, LEAVE IT. 2D thought focus works.
-- **The cathedral**: 2D is the ventricle map; FX turns the stone into 2001's lit corridor, and
-  the aqueduct and the foramen into a stargate at the top of Φ.
-- **LANDSCAPE**: MINI GOLF, 2D the six-hole map of the model's basins (SAFE, FIGHT, FLIGHT,
-  FREEZE, AWE, GRIEF, with fairways, wires, slides, a bridge, a tunnel; worry balls); 3D THE
-  LOAD, the square in front and five unresolved thoughts, each its own slope, with struts and
-  attention as the purple ball. The towers of code have a SOURCE window (highlighted Lean).
-- Recorded, not built: ISS-107 the music film (Part A) and tensor film (Part B), later, step by
-  step; ISS-106 (Einstein, impact) closed: interest only. All tested headless only.
+**Housekeeping (author, 16 Oct):** issue tasks are dev tasks; the author's steps are on the desk
+(ISS-081, `bin/remind`); his walks, reads and tests are UAT (`uat/checklist.yaml`, `HAL uat`),
+with a pointer left in the issue. A closed issue keeps no empty box (`[x]` done, `[-]` not done;
+`bin/issues-check` enforces it). Closed today: ISS-094, ISS-102, ISS-108, ISS-110.
 
-**Gallery of Thoughts (ISS-097):** 86 plates, Lulu proof 103 pages; A3 and projector built.
+**Done today:** the three users (who.js, `registry/users.yaml` with companions resolved by
+generate.py; THE GUIDE shows YOUR COMPANION), MOTHER's ROOTED gate and the Nostromo sounds, tours
+as tabs, MY ROUTE (also on THE WORLDS' domes), WHEREAMI, POKE's IMPULSE/RESPONSE/RETURN, the model
+(`registry/model.yaml`, `make -C sherlock model`), presence (`make -C sherlock presence`: 0 gaps);
+the web site's source (`web/home.md`, `make web`, `make web-publish`; live when the author pushes
+the site on the 21st) and `web/PITCH.md`; the names checked (`registry/presence.yaml`); the
+splash credit line; the cathedral's neon pass and the palace to the great hall's standard; the
+Dark Matter Lord (`make -C sherlock rivals`) and the BOFH (`make -C sherlock bofh`).
+
+**Waiting on the author:** the jargon trap in the Gateway book (before the freeze; ISS-081); the
+public notebook (ec1a7e74 or 16368cb3); the Zenodo tokens; the Lulu account; the UAT walk.
 
 ## Next: the release, by 21 October 2026 (ISS-114, the epic)
 
