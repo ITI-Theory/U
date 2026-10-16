@@ -13,7 +13,7 @@ import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
 import { rice } from './rice.js';
-import { scores, viewers, cycSkyline, thoughtImages, models as paletteModels, levels as paletteLevels, modelClaims } from './generated/app-data.js';
+import { scores, viewers, cycSkyline, thoughtImages, models as paletteModels, levels as paletteLevels, modelClaims, regions } from './generated/app-data.js';
 // the River Film (The Tensor), by id; kf picks another film (registry/scores, e.g. fis-2021).
 // The twin view (?tw=1): one film, two viewers (S = R(e*, kappa, e_V)): left the viewer of now
 // (neutral), right a viewer preset (pv, registry/viewers; default v2021, as I was in 2021) plus
@@ -3384,7 +3384,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
-    <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span><details class="explorer__model"><summary>THE MODEL HERE</summary><ul></ul><button type="button" data-model-tour>THE WHOLE MODEL, CLAIM BY CLAIM ▸</button></details><details class="explorer__read"><summary>THIS FLOOR · its mathematics and evidence</summary><div class="explorer__slot" data-slot="read"></div></details></aside>`;
+    <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span><details class="explorer__where" hidden><summary>WHERE IS THIS FEELING?</summary><div></div></details><details class="explorer__model"><summary>THE MODEL HERE</summary><ul></ul><button type="button" data-model-tour>THE WHOLE MODEL, CLAIM BY CLAIM ▸</button></details><details class="explorer__read"><summary>THIS FLOOR · its mathematics and evidence</summary><div class="explorer__slot" data-slot="read"></div></details></aside>`;
   document.body.append(root);
   const canvas = root.querySelector('canvas');
   const mainCtx = canvas.getContext('2d');
@@ -4144,6 +4144,19 @@ export function createExplorer(hooks = {}) {
     tag.dataset.label = cap.label;
     // THE MODEL HERE (ISS-108): the programme's claims that this place shows, with their labels
     const here = Object.entries(modelClaims ?? {}).filter(([, c]) => (c.shown_at ?? []).includes(st.stop));
+    // WHERE IS THIS FEELING? (ISS-099): the brain side, sourced (registry/regions.yaml)
+    const whereBox = card.querySelector('.explorer__where');
+    const feeling = regions?.feelings?.[st.feel];
+    if (whereBox && whereBox.dataset.feel !== String(st.feel)) {
+      whereBox.dataset.feel = String(st.feel);
+      whereBox.hidden = !feeling;
+      if (feeling) {
+        const esc = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        const cites = list => (list ?? []).map(c => c.url ? `<a href="${c.url}" target="_blank" rel="noopener">${esc(c.short)}</a>` : esc(c.short)).join('; ');
+        const part = (x, label) => x ? `<p><span class="explorer__label" data-label="${label ?? x.label}">${label ?? x.label}</span> ${esc(x.say)}${x.cites?.length ? ` <small>(${cites(x.cites)})</small>` : ''}</p>` : '';
+        whereBox.querySelector('div').innerHTML = part(regions.verdict) + part(regions.pattern) + part(feeling, feeling.basic ? 'empirical-result' : 'interpretive');
+      }
+    }
     const modelBox = card.querySelector('.explorer__model');
     if (modelBox && modelBox.dataset.stop !== st.stop) {
       modelBox.dataset.stop = st.stop;

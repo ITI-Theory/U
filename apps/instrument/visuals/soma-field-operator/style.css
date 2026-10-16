@@ -860,3 +860,7 @@ body.show-mode { cursor: none; }
 body.show-mode .explorer > :not(canvas), body.show-mode .whereami, body.show-mode .tour-card, body.show-mode .mother-terminal,
 body.show-mode .field-readout, body.show-mode .screen-hud, body.show-mode .screen-role, body.show-mode .screen-fullscreen,
 body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !important; }
+/* WHERE IS THIS FEELING? (ISS-099) */
+.explorer__where summary { cursor: pointer; color: var(--cyan, #14e5ff); font-size: 10px; letter-spacing: .06em; }
+.explorer__where p { margin: 6px 0; font-size: 11px; line-height: 1.45; }
+.explorer__where small a { color: inherit; }

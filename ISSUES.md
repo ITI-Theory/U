@@ -4960,7 +4960,14 @@ the stop's usual views (the cavern, the thought regions) and, above all, informa
 thinking. Not every region as in a flight simulator: the destinations, and what one does there.
 The app becomes a gallery of thoughts rather than of fractal images.
 
-- [ ] A sourced map from moods and thoughts to regions, honest about localisation (emotions are
+- [x] (16 Oct: registry/regions.yaml, every sentence from a source's abstract, checked against PubMed
+      and Crossref; four meta-analyses added to paper/bibliography.bib: Lindquist et al. 2012, Vytal
+      and Hamann 2010, Saarimäki et al. 2016, Kragel and LaBar 2016. The verdict (no region is the seat;
+      a whole-brain pattern, not a home), the regions that tell emotions apart (Saarimäki's own list),
+      and each FEEL linked to its basic emotion or marked as none (calm, freeze, vigilance, flow). In
+      the app: WHERE IS THIS FEELING? on the card, labelled, with DOI links. Moods only: thoughts have
+      no such source yet.)
+      A sourced map from moods and thoughts to regions, honest about localisation (emotions are
       distributed in today's neuroscience; "regions associated with", not "the seat of").
 - [ ] Navigation by words (type or say a mood), then the flight to the region and its panel.
 

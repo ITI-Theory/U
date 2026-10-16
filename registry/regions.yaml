@@ -1,0 +1,61 @@
+# Where is a feeling in the brain? (ISS-099, "a sourced map from moods and thoughts to regions,
+# honest about localisation"). Every sentence here is traceable to a source's own abstract
+# (checked 16 Oct 2026 against PubMed and Crossref); the keys are in paper/bibliography.bib.
+# The app shows it on the card (WHERE IS THIS FEELING?); generate.py resolves the keys.
+# The body side is already sourced: the FEEL figures follow Nummenmaa et al. 2014 (bodily maps)
+# for calm, fight, flight, grief and joy, and are an artistic placement for the rest.
+
+verdict:
+  say: >-
+    No brain region is the seat of an emotion. Emotions are patterns across many regions that
+    also do other, non-emotional work; a basic emotion has a recognisable whole-brain pattern,
+    not a home.
+  label: empirical-result
+  sources: [lindquist2012brain, kragel2016decoding]
+
+pattern:
+  say: >-
+    The regions that most tell basic emotions apart: the medial and inferior lateral prefrontal
+    cortex, the frontal pole, the precentral and postcentral gyri, the precuneus and the
+    posterior cingulate cortex. The pattern carries over from emotions brought on by films to
+    those brought on by imagining, and across people; feelings that feel alike have patterns
+    that look alike.
+  regions: [medial prefrontal cortex, inferior lateral prefrontal cortex, frontal pole, precentral gyrus, postcentral gyrus, precuneus, posterior cingulate cortex]
+  label: empirical-result
+  sources: [saarimaki2016discrete]
+
+# the app's feelings (explorer.js FEELINGS) and the basic emotion each is closest to in these
+# studies; null where none of them studied it
+feelings:
+  fight:
+    basic: anger
+    say: Anger has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
+    sources: [vytal2010neuroimaging, saarimaki2016discrete]
+  flight:
+    basic: fear
+    say: Fear has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
+    sources: [vytal2010neuroimaging, saarimaki2016discrete]
+  grief:
+    basic: sadness
+    say: Sadness has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
+    sources: [vytal2010neuroimaging, saarimaki2016discrete]
+  joy:
+    basic: happiness
+    say: Happiness has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
+    sources: [vytal2010neuroimaging, saarimaki2016discrete]
+  calm:
+    basic: null
+    say: Calm is not one of the basic emotions these studies tested; the app shows the shared pattern only, and the body figure follows the bodily maps.
+    sources: []
+  freeze:
+    basic: null
+    say: Freeze is a defence state, not one of the basic emotions these studies tested; its picture here is an artistic placement.
+    sources: []
+  vigilance:
+    basic: null
+    say: Hypervigilance is a state of threat monitoring, not one of the basic emotions these studies tested; its picture here is an artistic placement.
+    sources: []
+  flow:
+    basic: null
+    say: Flow is a state of absorbed attention, not one of the basic emotions these studies tested; its picture here is an artistic placement.
+    sources: []
