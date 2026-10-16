@@ -5329,7 +5329,9 @@ grammar's three gaps closed by it.
       grammar now shows 11 of 12 terms (route still to come: the paths).
 - [ ] Phase 3: the drawers wired; the pulse down to the heart.
 - [ ] Phase 4: more places (ISS-103).
-- [ ] (15 Oct 20:46, author) The BRECVEMA settings for POKE seem to have disappeared: check
+- [x] (16 Oct, checked: they belong to POKE: the explorer's MECHANISMS ▾ popover, "POKE · the
+      mechanisms and the inputs", BRECVEMA's eight to choose, with the levels' own POKE inputs lent
+      into it, main.js LENT) (15 Oct 20:46, author) The BRECVEMA settings for POKE seem to have disappeared: check
       where they went (the spine, the deck, the drawers?) and reconsider where they belong.
       Found (15 Oct 21:00): they still exist, in the levels view's FIELD CONTROLS (index.html
       #brecvema, the mechanism grid), which the explorer hides while it is open; the explorer's
@@ -5359,7 +5361,9 @@ grammar's three gaps closed by it.
       places); the explorer's POKE now fires the app's whole poke (the level view's response with
       the stacked mechanisms, the sound), not only the place's pulse; at the human in 11D the
       mechanism channels show. The note in the popover says what they do where you are.
-- [ ] (author, 21:30: "if that went, did anything else?") Yes. The explorer hides the whole
+- [x] (16 Oct, checked: done as proposed, main.js LENT: POKE's inputs to the MECHANISMS popover,
+      the lens and look to the settings drawer, the reading to the card; paths stay with the
+      elevator) (author, 21:30: "if that went, did anything else?") Yes. The explorer hides the whole
       levels FIELD CONTROLS while it is open, and at the human (the level view under a
       see-through explorer) none of these has an explorer equivalent:
       * POKE's other inputs: SOMATIC and COGNITIVE (LIMBIC is Φ), RESPONSE TIME, APPRAISAL /
