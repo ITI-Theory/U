@@ -34,6 +34,10 @@ def main() -> int:
             elif c["code"]["anchor"] not in f.read_text(encoding="utf-8"):
                 problems.append(f"channel {c['id']}: anchor {c['code']['anchor']!r} not in {c['code']['file']}")
         elif kind == "planned":
+            if c.get("code"):
+                f = U / c["code"]["file"]
+                if not f.is_file() or c["code"]["anchor"] not in f.read_text(encoding="utf-8"):
+                    problems.append(f"channel {c['id']}: anchor {c['code']['anchor']!r} not in {c['code']['file']}")
             if not c.get("label"):
                 problems.append(f"channel {c['id']}: planned without a label")
             if c.get("via") not in ("scaler", "instrument", "daw"):

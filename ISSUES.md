@@ -6115,6 +6115,19 @@ What it cannot check, so what is needed (then choose the music option):
   as a retarded echo is new, interpretive), the conductor as the source term, a section silent below
   the threshold. Existing parts verified on disk: apps/instrument/server.py, midi_input.py,
   field_render.py, ableton_m4l/movie_osc_receiver.maxpat.
+- [x] (16 Oct 21:20) The band over MIDI: MIDI OUT (midi-out.js) also sends channel 2 at the SCORE stop:
+      notes 60-66 the chord pad for the tension (60 the most settled, 66 the most suspended), CC 30
+      the bass's motion, CC 31 the drums' density, CC 32 the guitar's drive, CC 33 the tension; the
+      formulas a first, interpretive proposal, pinned in sound-grammar.yaml and checked. To try with
+      Scaler 3 in Live: Engine Room, MIDI OUT to loopMIDI; a MIDI track with Scaler 3 (VST) taking
+      the loopMIDI port, channel 2; Scaler's pads bound to keys 60-66 (the chords from settled to
+      suspended); its output to an instrument track; CC 30-33 mapped in Live to Scaler's or the
+      instruments' parameters (Live's MIDI map). UAT: a step when the author has it set up.
+- (author 16 Oct 21:10, FYI) ReMIDI 2 by Songwish (an upgrade to 4 possible): a large library of MIDI
+  phrases, which could feed Scaler 3 as material (Scaler detects chords from incoming MIDI). By
+  Sherlock's provenance test it is someone else's material: the emotion lives only in the steering
+  (option 3). To check before a published piece: its licence for use in released works. Whether 4
+  adds anything needed: open (its MIDI export and browsing, not the model, decide).
 
 ## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — OPEN
 

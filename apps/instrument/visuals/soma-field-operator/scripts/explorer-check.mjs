@@ -16,7 +16,7 @@ import { createScorePlayer, viewerField, presetParams, viewerTransform, viewerSt
 import { diveMath } from '../flight3d.js';
 import { parseHeartRate, hrvFromRR } from '../heart.js';
 import { readFileSync } from 'node:fs';
-import { midiMessages, createMidiOut, MIDI_CC } from '../midi-out.js';
+import { midiMessages, createMidiOut, MIDI_CC, BAND_CC, CHORD_NOTE } from '../midi-out.js';
 import { midiControl } from '../midi-in.js';
 import { createUreterModel } from '../ureter-model.js';
 import { stereoDepth, stereoDepthSetting, setStereoDepth, setClientSafe, CLIENT_MAX_DEPTH } from '../stereo-depth.js';
@@ -156,9 +156,13 @@ const half = { S: 0.5, F: 0.5, C: 0.5, A: 0.5, G: 0.5, L: 0.5, PV: 0.5 };
 const midiLast = {};
 const midiFirst = midiMessages({ modes: half, bpm: 100, t: 0, phase: 0, crossed: -1 }, midiLast);
 const midiAgain = midiMessages({ modes: half, bpm: 100, t: 0, phase: 0, crossed: 1 }, midiLast);
-const midiFirstOk = midiFirst.length === 10 && midiFirst.filter(m => m[0] === 0xb0 && m[2] === 64).length === 8
+const ch1 = list => list.filter(m => (m[0] & 0x0f) === 0);
+const band = midiFirst.filter(m => (m[0] & 0x0f) === 1);
+// the band (ISS-115): tension 0.5*0.5 + 0.3*0.5 + 0.2*0.5 = 0.5 -> CC 33 = 64, the chord pad 60 + 3
+const bandOk = band.some(m => m[0] === 0xb1 && m[1] === BAND_CC.tension && m[2] === 64) && band.some(m => m[0] === 0x91 && m[1] === CHORD_NOTE + 3);
+const midiFirstOk = bandOk && ch1(midiFirst).length === 10 && ch1(midiFirst).filter(m => m[0] === 0xb0 && m[2] === 64).length === 8
   && midiFirst.some(m => m[1] === MIDI_CC.T && m[2] === 0) && midiFirst.some(m => m[0] === 0x90 && m[1] === 36);
-const midiAgainOk = midiAgain.length === 1 && midiAgain[0][0] === 0x90 && midiAgain[0][1] === 49;
+const midiAgainOk = ch1(midiAgain).length === 1 && ch1(midiAgain)[0][0] === 0x90 && ch1(midiAgain)[0][1] === 49;
 const shim = new Map([['soma-midi-out', 'loopMIDI']]);
 globalThis.localStorage = { getItem: k => shim.get(k) ?? null, setItem: (k, v) => shim.set(k, String(v)) };
 const sent = [];
@@ -167,8 +171,8 @@ const winA = createMidiOut({ requestAccess: access, id: 'a' });
 const winB = createMidiOut({ requestAccess: access, id: 'b' });
 winA.send({ modes: half }); winB.send({ modes: half });
 await winA.ready; await winB.ready;
-const fromA = winA.send({ modes: half }).length;
-const fromB = winB.send({ modes: half }).length;
+const fromA = ch1(winA.send({ modes: half })).length;
+const fromB = ch1(winB.send({ modes: half })).length;
 delete globalThis.localStorage;
 
 // PAST (memory kernel and the defence cascade): from FIGHT, calm, 15 s, how often recall ends in FREEZE
@@ -279,7 +283,7 @@ const checks = [
   // FLY into the Mandelbulb (flight3d.js)
   ['midi: a frame sends the seven modes, heart and time as CCs and the phase as a note', Number(midiFirstOk), 1, 1],
   ['midi: unchanged values are not resent; a crossed threshold plays its note', Number(midiAgainOk), 1, 1],
-  ['midi: of two windows, only one sends (the lease)', Number(fromA === 7 && fromB === 0 && sent.length === 7 && winA.status.includes('loopMIDI')), 1, 1],
+  ['midi: of two windows, only one sends (the lease)', Number(fromA === 7 && fromB === 0 && ch1(sent).length === 7 && winA.status.includes('loopMIDI')), 1, 1],
   ['barrier: transmission rises at every step down the scales (stone to electron)', Number(BARRIERS.every((b, k) => k === 0 || exponent(b) < exponent(BARRIERS[k - 1]))), 1, 1],
   ['barrier: the stone, the cell and the membrane never pass (T < 1e-300)', Number(BARRIERS.slice(0, 3).every(b => transmission(b) < 1e-300)), 1, 1],
   ['barrier: at the quantum gap an electron tunnels about one try in eight (T)', transmission(BARRIERS[5]), 0.08, 0.2],

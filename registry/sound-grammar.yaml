@@ -8,8 +8,9 @@
 #
 # Two kinds of channel:
 #   heard:   in the app's own music (code: a file and an anchor that must be in it);
-#   planned: an external instrument the Soma Machine would steer over MIDI (via: scaler | instrument
-#            | daw), not built yet; each with its label (all interpretive until a paper says more).
+#   planned: an external instrument the Soma Machine steers over MIDI (via: scaler | instrument
+#            | daw); each with its label (all interpretive until a paper says more). Those already
+#            sent by MIDI OUT (midi-out.js, channel 2) carry `midi:` and a code anchor, checked.
 # The score's modes (S safety, F fear, C curiosity, A awe, G grief, L language, PV pre-verbal) are
 # parts of an emotion blend (term emotion-blend).
 schema_version: 1
@@ -73,24 +74,32 @@ channels:
     kind: planned
     via: scaler
     what: "the next chord: resolution when the state settles into a well, a suspension while it climbs a barrier"
+    midi: "channel 2, notes 60-66: the chord pad for the tension (bind Scaler's pads to them)"
+    code: {file: apps/instrument/visuals/soma-field-operator/midi-out.js, anchor: "chord: Math.min(6, Math.floor(tension * 7))"}
     expresses: [attractor, barrier]
     label: interpretive
   - id: bass-motion
     kind: planned
     via: scaler
     what: "the bass walks while the gradient is gentle, leaps when it is steep"
+    midi: "channel 2, CC 30: how fast the tension moves"
+    code: {file: apps/instrument/visuals/soma-field-operator/midi-out.js, anchor: "last.motion = 0.9 * (last.motion ?? 0)"}
     expresses: [energy-descent]
     label: interpretive
   - id: drum-density
     kind: planned
     via: instrument
     what: "a steady ride when the field is cool, denser and syncopated as Φ heats the landscape"
+    midi: "channel 2, CC 31"
+    code: {file: apps/instrument/visuals/soma-field-operator/midi-out.js, anchor: "density: clamp01(0.5 * m.F + 0.3 * m.C + 0.2 * m.A)"}
     expresses: [limbic-field]
     label: interpretive
   - id: guitar-drive
     kind: planned
     via: instrument
     what: "clean when regulated, drive and wide reverb as the temperature rises"
+    midi: "channel 2, CC 32"
+    code: {file: apps/instrument/visuals/soma-field-operator/midi-out.js, anchor: "drive: clamp01(0.7 * m.F + 0.3 * m.PV)"}
     expresses: [limbic-field]
     label: interpretive
   - id: section-tacet
