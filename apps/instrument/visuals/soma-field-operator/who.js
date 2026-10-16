@@ -36,6 +36,16 @@ export function who() { const w = read(KEY); return PROFILES[w] ? w : null; }
 export function profile() { return PROFILES[who() ?? 'u']; }
 export function setWho(id) { if (!PROFILES[id]) return; write(KEY, id); tell(); }
 export function rooted() { return read(ROOT) === '1'; }
-export function setRooted(on) { write(ROOT, on ? '1' : null); tell(); }
+// ROOTED switches RICE on (the author's extras: neon, code rain, the Root Monster's tours), and off
+// again on leaving if it was ROOTED that switched it (rice.js; private art still needs the local
+// bridge, so nothing private reaches anyone else)
+export function setRooted(on) {
+  write(ROOT, on ? '1' : null);
+  import('./rice.js').then(({ rice, setRice }) => {
+    if (on && !rice()) { setRice(true); write('soma-rice-by-root', '1'); }
+    if (!on && read('soma-rice-by-root') === '1') { setRice(false); write('soma-rice-by-root', null); }
+  });
+  tell();
+}
 export const clearanceOk = text => String(text ?? '').replace(/[\s_\-.,!'"]/g, '').toLowerCase() === CLEARANCE;
 export function placeName(key) { return (rooted() ? NAMES.rooted : NAMES[who() ?? 'u'])[key] ?? key; }

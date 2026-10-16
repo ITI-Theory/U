@@ -1,0 +1,59 @@
+# The programme's presence (ISS-109): every place [T]-Theory appears, who it is for, and the
+# places it must link to. Sherlock checks it (`make -C sherlock presence`, sherlock/presence.py):
+# each place's file links to the places it should, and names the programme the same way. The
+# author decides what to claim; this file says what is claimed. Unclaimed names are listed so
+# their availability can be checked by hand (no network lookups here).
+
+name: "[T]-Theory"
+holder: "Alistair Johnson"
+attribution: "Alistair Johnson, [T]-Theory, t-theory.org"
+
+places:
+  web:
+    title: "t-theory.org"
+    url: https://www.t-theory.org
+    for: [u, scientist]
+    file: ../t-theory.org/index.html
+    links_to: [github-org, app, orcid]
+    should_link_to: [notebook]          # "ask the theory" before the app (ISS-111)
+  app:
+    title: "The Soma Machine"
+    url: https://www.t-theory.org/app/
+    for: [u, scientist]
+    file: apps/instrument/visuals/soma-field-operator/index.html
+    links_to: []
+    should_link_to: [web]
+  github-org:
+    title: "ITI-Theory on GitHub"
+    url: https://github.com/ITI-Theory
+    for: [scientist]
+  repo-u:
+    title: "U: the working repository"
+    url: https://github.com/ITI-Theory/U
+    for: [scientist]
+    file: README.md
+    links_to: [github-org, dist, orcid]
+    should_link_to: [web]
+  dist:
+    title: "Dist: the publications"
+    url: https://github.com/ITI-Theory/Dist
+    for: [scientist]
+  orcid:
+    title: "ORCID"
+    url: https://orcid.org/0009-0007-2194-0850
+    for: [scientist]
+  notebook:
+    title: "MOTHER: the public NotebookLM notebook"
+    url: https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944
+    for: [u, scientist]
+  zenodo:
+    title: "Zenodo (the DOIs)"
+    url: https://zenodo.org
+    for: [scientist]
+    status: waiting for ZENODO_TOKEN
+
+# names not claimed yet: to check by hand, then the author decides (ISS-109)
+candidates:
+  domains: [t-theory.com, tttheory.org, tttheory.com, t-theory.net]
+  handles: ["@ttheory", "@t_theory", "@tttheory"]
+  networks: [X, Bluesky, Mastodon, YouTube, Instagram, LinkedIn]

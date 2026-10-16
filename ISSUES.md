@@ -5616,6 +5616,11 @@ which is fine as long as ROOTED holds nothing that must stay private.
       SCIENTIST starts in the level view, register SPECIALIST; names differ (MINI GOLF / THE
       BASINS; SOMA WORLD when rooted). Still: the companion links (Field Atlas, papers, Fractal
       Thesis), more defaults, a registry file.
+- [x] What ROOTED switches on (16 Oct): RICE (the author's extras: neon, code rain, the Root
+      Monster's tours; private art still needs the local bridge, so nothing private reaches
+      anyone else), the teletype sounds and rewards, SOMA WORLD, the stargate earlier and hotter
+      (from Φ 0.6), the Root Monster's tour in the guide; MOTHER lists it on access and at
+      /rooted. Leaving root switches RICE back off if ROOTED switched it on.
 - [~] ROOTED by MOTHER only (author 15:27: the password in the page's source, "welcome to the
       world of hacking", HelloWorld): REQUEST ACCESS in MOTHER, she asks for the clearance code,
       HelloWorld (spaces and case ignored) roots the machine; LEAVE ROOT goes back; not in
@@ -5656,10 +5661,14 @@ Facts (checked 16 Oct): copyright Alistair Johnson; text, papers, figures and da
 code Apache-2.0 (README, LICENSE-CC-BY, LICENSE-APACHE). [T]-Theory is the work's name, not a
 legal person, so it cannot hold a licence: the licensor stays Alistair Johnson; the suggested
 attribution can name both ("Alistair Johnson, [T]-Theory, t-theory.org").
-- [ ] A presence registry (registry/presence.yaml): every place the programme appears (web,
-      GitHub, NotebookLM, Zenodo, ORCID, Lulu, socials, domains) with its URL, owner, status.
-- [ ] A Sherlock check: each place links to the others it should, the names agree, the licence
-      line agrees; broken or missing links fail.
+- [x] A presence registry (registry/presence.yaml): the web site, the app, GitHub (org, U, Dist),
+      ORCID, the public notebook, Zenodo; who each is for; the links each must and should have;
+      the names not claimed yet.
+- [x] A Sherlock check (make -C sherlock presence; sherlock/presence.py): a missing required link
+      fails, a missing wanted one is a gap; the holder agrees with registry/licences.yaml. Closed
+      two gaps: the app's splash and U's README now link to t-theory.org. One gap left, for the
+      author to publish: t-theory.org should link to the public notebook ("ask the theory"
+      before the app).
 - [ ] Names and domains: check availability (t-theory.com, tttheory and variants; X, Bluesky,
       Mastodon, YouTube, Instagram, LinkedIn); the author decides what to claim. Not checked yet.
 - [ ] A marketing plan, short: who each place is for (scientist, U), what it says, how often.

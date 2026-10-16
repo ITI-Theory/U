@@ -435,7 +435,10 @@ export function createCathedral3D() {
       if (!viewOut) scene.fog.density = 0.09 - 0.04 * corridor;
       // the stargate: narrow passage x the field near its top, eased in and out (no flashing)
       const narrow = 1 - Math.max(0, Math.min(1, (radiusAt(u) - 0.34) / 0.16));
-      const want = viewOut ? 0 : narrow * Math.max(0, Math.min(1, (fx - 0.85) / 0.1));
+      // ROOTED: the stargate comes in earlier and runs hotter (ISS-108: effects are ROOTED's)
+      const rootedNow = (() => { try { return localStorage.getItem('soma-rooted') === '1'; } catch { return false; } })();
+      const gateFrom = rootedNow ? 0.6 : 0.85;
+      const want = viewOut ? 0 : narrow * Math.max(0, Math.min(1, (fx - gateFrom) / 0.1)) * (rootedNow ? 1.4 : 1);
       gateNow += (want - gateNow) * Math.min(1, dt * 1.5);
       gateU.uTime.value = state.time;
       gateU.uGate.value = gateNow;

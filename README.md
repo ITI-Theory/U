@@ -5,7 +5,7 @@ M-theory compactification, type-checked in Lean 4, and applied across academic d
 
 **Author**: Alistair Johnson · Independent Researcher · Zurich, Switzerland
 **ORCID**: [0009-0007-2194-0850](https://orcid.org/0009-0007-2194-0850)
-**Org**: [ITI-Theory](https://github.com/ITI-Theory) · **Distribution**: [ITI-Theory/Dist](https://github.com/ITI-Theory/Dist)
+**Org**: [ITI-Theory](https://github.com/ITI-Theory) · **Distribution**: [ITI-Theory/Dist](https://github.com/ITI-Theory/Dist) · **Web**: [t-theory.org](https://www.t-theory.org) (the Soma Machine)
 
 Papers, DOIs and their publication status are kept in one place only:
 [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml).

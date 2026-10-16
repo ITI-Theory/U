@@ -539,13 +539,23 @@ export function createMother({ getContext }) {
   // clearance code (in the page's source, for those who look). Not in /help, on purpose. /who
   // changes who is exploring; LEAVE ROOT (or /unroot) goes back.
   let awaitingCode = false;
+  const ROOTED_MENU = [
+    'THE MACHINE IS YOURS. NOTHING IN HERE IS DANGEROUS.',
+    '  SOMA WORLD ......... THE WORLDS, THE THEME-PARK EDITION',
+    '  TELETYPE ........... MOTHER SPEAKS IN 1979 (/teletype off TO SILENCE)',
+    '  RICE ............... THE EXTRAS: NEON, CODE RAIN, THE ROOT MONSTER',
+    '  THE STARGATE ....... IN THE CATHEDRAL\'S AQUEDUCT, EARLIER AND HOTTER',
+    '  THE ROOT MONSTER ... HIS TOUR, IN THE GUIDE',
+    '  COMPANION .......... THE FRACTAL THESIS',
+    'TYPE /rooted FOR THIS LIST. LEAVE ROOT TO GO BACK.',
+  ].join('\n');
   function accessGate(text) {
     const said = text.trim();
     const echo = shown => { const q = document.createElement('div'); q.className = 'mother-line mother-question'; q.textContent = `> ${shown}`; log.append(q); };
     if (awaitingCode) {
       awaitingCode = false;
       echo('●'.repeat(Math.min(12, said.length)));
-      if (clearanceOk(said)) { setRooted(true); boot(); type('CLEARANCE ACCEPTED. WELCOME TO ROOTED. THE MACHINE IS YOURS: MORE EFFECTS, LOUDER MUSIC, THE THEME PARK. NOTHING IN HERE IS DANGEROUS. (LEAVE ROOT TO GO BACK.)'); }
+      if (clearanceOk(said)) { setRooted(true); boot(); type(`CLEARANCE ACCEPTED. WELCOME TO ROOTED.\n${ROOTED_MENU}`); }
       else { bleep('no'); type('CLEARANCE DENIED. THE CODE IS NOT A SECRET, ONLY HIDDEN. LOOK CLOSER AT THIS MACHINE.'); }
       return true;
     }
@@ -563,6 +573,7 @@ export function createMother({ getContext }) {
       type('ROOT RELEASED. THE MACHINE IS BACK TO ITS SCIENCE.');
       return true;
     }
+    if (/^\/rooted\b/i.test(said) && rooted()) { echo(said); trill(0.3); type(ROOTED_MENU); return true; }
     const tt = said.match(/^\/teletype\s+(on|off)\b/i);
     if (tt) {
       echo(said);

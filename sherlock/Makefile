@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -33,6 +33,7 @@ help:
 	$(info   leakage     model objects said to be body parts (OpenCyc's), no map stated (ISS-094))
 	$(info   grammar     the app's pictures against the model, both ways: the chocolate-bar test (ISS-104))
 	$(info   impact      where the programme could have an impact: Penrose's chapters x evidence x doubts (bld/sherlock/impact.md; ISS-106))
+	$(info   presence    the web site, GitHub, the app and the notebook link to each other (registry/presence.yaml; ISS-109))
 	$(info   neighbours  the Wizard: OpenCyc neighbours of the concepts that no paper or book names (ISS-092))
 	$(info   towers      the programme's Lean exported for the city of code (bld/sherlock/towers.json; about 25 min))
 	$(info   clinical    sentences claiming a clinical effect with no hedge or evidence label (bld/sherlock/clinical.md; seconds))
@@ -128,6 +129,9 @@ grammar:
 
 impact:
 	$(PYTHON) impact.py
+
+presence:
+	$(PYTHON) presence.py
 
 level-types:
 	$(PYTHON) level_types.py $(if $(WRITE),--write,)
