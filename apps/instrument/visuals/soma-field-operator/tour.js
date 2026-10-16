@@ -181,7 +181,7 @@ export function placeOf(view) {
 }
 const ROUTE_KEY = 'soma-route';
 export function myRoute() { try { return JSON.parse(localStorage.getItem(ROUTE_KEY) || '[]'); } catch { return []; } }
-function saveRoute(r) { try { localStorage.setItem(ROUTE_KEY, JSON.stringify(r.slice(0, 24))); } catch { /* private mode */ } }
+function saveRoute(r) { try { localStorage.setItem(ROUTE_KEY, JSON.stringify(r.slice(0, 24))); } catch { /* private mode */ } globalThis.dispatchEvent?.(new CustomEvent('soma-route')); }
 // where you are, as a tour view (the keys a tour may set)
 function hereView() {
   const p = new URLSearchParams(location.hash.slice(1));

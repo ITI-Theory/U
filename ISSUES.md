@@ -5712,9 +5712,11 @@ one thing.
       placeOf), like a terminal's; a click goes there. GUIDE in the explorer's top bar opens it.
 - [x] Tours as tabs (all presets); THE GUIDE lists them (the welcome first; the Root Monster's
       only when rooted); a route planner: + HERE adds where you are to MY ROUTE, played as tabs.
-- [~] WHEREAMI (whereami.js): a live terminal readout, top right: time, place, scale (floor,
-      level, metres), body part, layer and Φ; click $ whereami to fold. Still: the route overlay
-      on THE WORLDS.
+- [x] WHEREAMI (whereami.js): a live terminal readout, top right: time, place, scale (floor,
+      level, metres), body part, layer and Φ; click $ whereami to fold. (16 Oct: the route overlay
+      on THE WORLDS: each dome holding a stop of MY ROUTE wears a pulsing green ring and
+      "MY ROUTE 1 · 2"; worlds3d.js nodeForView maps a route view to its dome; tour.js says
+      'soma-route' when the route changes.)
 - [x] The introductions: registry/tours/welcome-u.yaml and welcome-scientist.yaml, five tabs each,
       opened after WHO IS EXPLORING? (step through, or PLAY). (16 Oct: the last tab points to
       GUIDE, which lists the companion with its links.)

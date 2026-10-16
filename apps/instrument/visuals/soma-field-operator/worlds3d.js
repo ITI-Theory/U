@@ -48,6 +48,33 @@ export const TREE = {
 const NODES = new Map();
 (function index(n, parent = null) { n.parent = parent; NODES.set(n.id, n); for (const c of n.children ?? []) { c.color ??= n.color; index(c, n); } })(TREE);
 
+// MY ROUTE on the map (ISS-110): the dome a route stop is in, and every dome that holds it, wears
+// a green ring and the stop numbers (tour.js keeps the route and says 'soma-route' when it changes)
+const ROUTE_COLOR = '#56f0a2';
+export function nodeForView(view) {
+  const p = new URLSearchParams(view ?? '');
+  const v = p.get('voyage'), lvl = p.get('level');
+  if (v && v !== 'worlds') {
+    const on = [...NODES.values()].filter(n => n.stop === v);
+    return (on.find(n => n.place && p.get(n.place) === '1') ?? on.find(n => !n.place) ?? on[0])?.id ?? null;
+  }
+  if (lvl) return [...NODES.values()].find(n => n.level === lvl)?.id ?? null;
+  return null;
+}
+function routeMarks() {
+  let steps = [];
+  try { steps = JSON.parse(localStorage.getItem('soma-route') || '[]'); } catch { /* private mode */ }
+  const marks = new Map();
+  steps.forEach((st, i) => {
+    for (let n = NODES.get(nodeForView(st?.view)); n && n !== TREE; n = n.parent) {
+      const a = marks.get(n.id) ?? [];
+      if (!a.includes(i + 1)) a.push(i + 1);
+      marks.set(n.id, a);
+    }
+  });
+  return marks;
+}
+
 // a name on a dark plate, kept the same size on screen
 function plate(text, color, sub = '') {
   const c = document.createElement('canvas');
@@ -409,16 +436,32 @@ export function createWorlds3D() {
     glass.renderOrder = 5;
     const mini = new THREE.Group();
     const tick = (MINIS[n.mini] ?? MINIS.foam)(mini, n.color);
-    g.add(board, rim, mini, glass);
+    const routeRing = new THREE.Mesh(new THREE.TorusGeometry(D * 1.26, 0.06, 8, 96), new THREE.MeshBasicMaterial({ color: ROUTE_COLOR, transparent: true, opacity: 0.9 }));
+    routeRing.rotation.x = Math.PI / 2;
+    routeRing.visible = false;
+    g.add(board, rim, mini, glass, routeRing);
     g.scale.setScalar(0.001);
     scene.add(g);
     const name = plate(n.title, n.color, n.scale ?? '');
     name.visible = false;
     scene.add(name);
-    const d = { n, g, board, rim, glass, mini, tick, name, pos: new THREE.Vector3(), scale: new THREE.Vector3(0.001, 0.001, 0.001), tPos: new THREE.Vector3(), tScale: new THREE.Vector3(), tName: 0, nameS: 0, fade: 1, tFade: 1, hot: 0, role: 'hidden' };
+    const d = { n, g, board, rim, glass, mini, tick, name, routeRing, routeTag: null, routeText: '', pos: new THREE.Vector3(), scale: new THREE.Vector3(0.001, 0.001, 0.001), tPos: new THREE.Vector3(), tScale: new THREE.Vector3(), tName: 0, nameS: 0, fade: 1, tFade: 1, hot: 0, role: 'hidden' };
     domes.set(n.id, d);
+    markRoute(d);
     return d;
   }
+  let marks = routeMarks();
+  function markRoute(d) {
+    const nums = marks.get(d.n.id);
+    const text = nums ? `MY ROUTE ${nums.slice(0, 6).join(' · ')}${nums.length > 6 ? ' …' : ''}` : '';
+    if (text === d.routeText) return;
+    d.routeText = text;
+    if (d.routeTag) { scene.remove(d.routeTag); d.routeTag.material.map?.dispose(); d.routeTag.material.dispose(); d.routeTag = null; }
+    if (text) { d.routeTag = plate(text, ROUTE_COLOR); d.routeTag.visible = false; scene.add(d.routeTag); }
+  }
+  const onRoute = () => { marks = routeMarks(); for (const d of domes.values()) markRoute(d); };
+  globalThis.addEventListener?.('soma-route', onRoute);
+  globalThis.addEventListener?.('storage', e => { if (e.key === 'soma-route') onRoute(); });
 
   let current = TREE;   // the node whose children are in view
   let highlight = 0;    // the child the fader points at
@@ -500,6 +543,8 @@ export function createWorlds3D() {
         d.board.visible = d.role !== 'outer';
         d.rim.visible = d.role !== 'outer';
         d.rim.scale.setScalar(1 + 0.06 * d.hot);
+        d.routeRing.visible = Boolean(d.routeTag) && d.role !== 'outer' && d.g.visible;
+        if (d.routeRing.visible) d.routeRing.material.opacity = 0.55 + 0.35 * Math.sin(clock * 2.4);
         if (d.mini.visible) d.tick(clock, fx);
         // the name: a plate above the dome, its size on screen fixed by the role
         d.nameS += ((s.labels === false ? 0 : d.tName) - d.nameS) * k;
@@ -508,6 +553,14 @@ export function createWorlds3D() {
           d.name.position.copy(d.pos).add(new THREE.Vector3(0, D * d.scale.y + 0.7, 0));
           const w = 0.2 * d.nameS * (1 + 0.15 * d.hot);
           d.name.scale.set(w, w * d.name.userData.aspect, 1);
+        }
+        if (d.routeTag) {
+          d.routeTag.visible = d.name.visible && d.role !== 'outer';
+          if (d.routeTag.visible) {
+            const w = 0.16 * d.nameS;
+            d.routeTag.position.copy(d.pos).add(new THREE.Vector3(0, D * d.scale.y + 0.7 + 1.6 * d.nameS, 0));
+            d.routeTag.scale.set(w, w * d.routeTag.userData.aspect, 1);
+          }
         }
       }
       stars.rotation.y = clock * 0.004;
