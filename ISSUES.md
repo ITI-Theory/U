@@ -5020,36 +5020,41 @@ so the papers' gap stands.
 (papers, then app), the Gallery's A3 and projector editions (ISS-097), the overview (ISS-100,
 done), SNAP and palace FX (done, in the app), the UAT walkaround's findings.
 
-## ISS-102: UAT walkaround, 14 Oct evening: findings — OPEN
+## ISS-102: UAT walkaround, 14 Oct evening: findings — CLOSED
 {{Tags area.app, area.uat}}
-{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** every finding fixed (the last, the cathedral's neon pass, today); the next walk is UAT (`uat/checklist.yaml`, `app-cathedral`).
 
 The author walks the app on the real desk (SNAP + SAY, palace FX, the overview); findings are
 stacked for the next big build (ISS-101's stack).
 
-- [ ] (20:55) The cathedral is hard to find: the button says CAVE (say CATHEDRAL), it shows
+- [x] (16 Oct, checked: the button says CATHEDRAL, `cave=1` is its address, THE WORLDS has its dome) (20:55) The cathedral is hard to find: the button says CAVE (say CATHEDRAL), it shows
       only at the BRAIN stop, and it has no address of its own (add `cave=1`, so it can be
       linked, toured and put on the overview desk).
 - [x] (15 Oct: FLOORS ▤ in the palace lists its 21 floors, a pick rides there) (21:00) The palace has no elevator panel: the floors are the level elevator's 21 levels,
       so the palace should show the same elevator (pick a floor, not ▲ twenty times), and the
       field's controls should act there: POKE (a thought arriving in the hall), THOUGHTS, Φ
       (now the palace FX).
-- [ ] (21:05) The cave is a tube, not a cave: make a huge, majestic hall with the tunnels
+- [x] (16 Oct, checked: the GREAT HALL, atrium3d.js 'brain' (ISS-103), is the hub with the glomus as a chandelier; the cathedral is its nave) (21:05) The cave is a tube, not a cave: make a huge, majestic hall with the tunnels
       flowing from it. Sourced shape: the atrium (trigone) of the lateral ventricle is the
       ventricles' real great hall, where body, occipital and temporal horns meet and the
       choroid plexus is largest (the glomus): a domed hub, the glomus as a chandelier of
       curtains, the passages leaving it (frontal horn; temporal horn, the limbic route of
       ISS-101; occipital horn; through the foramen to the third ventricle, the aqueduct, the
       fourth). Proportions stay for the eye (the real ventricles hold about 25 ml).
-- [ ] (21:05) Thought bubbles: smaller, the picture inside abstracted (a filter, so it reads as
+- [x] (16 Oct, checked: cathedral3d.js VISUAL THOUGHTS) (21:05) Thought bubbles: smaller, the picture inside abstracted (a filter, so it reads as
       a thought, not a photograph), and no automatic popping: a bubble drifts past unless
       clicked; a click goes into the thought.
-- [ ] (21:20, HAL-UAT, uat/RC3/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
+- [x] (done at 21:26, below) (21:20, HAL-UAT, uat/RC3/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
       dive, not a picture: the author on 25 June 2026 asked for "bubbles rotating with a fractal
       world inside... go into the bubbles... the music matching (a granular synthesiser)". So a
       click on a bubble flies into it: the thought's own fractal world (a Mandelbulb in the
       thought's tint), granular sound; the small abstract bubble stays (this evening's change).
-- [ ] (HAL-UAT) For the cave rebuild: neon, not medicine ("you're not doing medicine, we're
+- [x] (16 Oct: cathedral3d.js, the neon pass: dark blue-black stone and black mortar; neon in a
+      share of the joints, blue, violet, pink, slow pulses along the nave, brighter with Φ, giving way
+      to the white corridor; violet-glowing ribs; the choroid plexus bioluminescent pink; deep-blue
+      water and marine snow. The palace contradiction stays noted.) (HAL-UAT) For the cave rebuild: neon, not medicine ("you're not doing medicine, we're
       doing sci-fi... neon blue, neon purple, neon pink always win"); grime against glow (neon
       on gauze in a rough barn, "techno-baroque brutalism"); words go out in the deep river
       (past Threshold 2); the visitor is the pilot. And a contradiction to weigh: the author

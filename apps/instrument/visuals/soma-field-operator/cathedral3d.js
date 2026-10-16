@@ -54,20 +54,21 @@ function stoneTexture() {
   const c = document.createElement('canvas');
   c.width = c.height = 512;
   const g = c.getContext('2d');
-  g.fillStyle = '#6d6676';
+  g.fillStyle = '#06050b';
   g.fillRect(0, 0, 512, 512);
-  // ashlar blocks with mortar, and grain
+  // ashlar blocks with mortar (dark, where the neon runs), and grain
   for (let row = 0; row < 16; row++) {
     const off = (row % 2) * 32;
     for (let col = -1; col < 9; col++) {
       const x = col * 64 + off, y = row * 32;
-      const v = 95 + Math.random() * 40;
-      g.fillStyle = `rgb(${v},${v - 6},${v + 10})`;
+      // ISS-102 (HAL-UAT): neon, not medicine; grime against glow: dark blue-black stone
+      const v = 20 + Math.random() * 26;
+      g.fillStyle = `rgb(${v - 6},${v},${v + 22})`;
       g.fillRect(x + 2, y + 2, 60, 28);
     }
   }
   for (let k = 0; k < 9000; k++) {
-    g.fillStyle = `rgba(${Math.random() < 0.5 ? '255,250,240' : '30,20,40'},${0.05 + 0.1 * Math.random()})`;
+    g.fillStyle = `rgba(${Math.random() < 0.5 ? '120,170,255' : '4,2,10'},${0.04 + 0.08 * Math.random()})`;
     g.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
   }
   const t = new THREE.CanvasTexture(c);
@@ -107,8 +108,8 @@ export function createCathedral3D() {
   const canvas = renderer.domElement;
   canvas.className = 'explorer__gl';
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#05030a');
-  scene.fog = new THREE.FogExp2('#0a0612', 0.09);
+  scene.background = new THREE.Color('#020a16');
+  scene.fog = new THREE.FogExp2('#03101f', 0.09);
   const camera = new THREE.PerspectiveCamera(72, 1, 0.02, 60);
   const stereo = new THREE.StereoCamera();
   stereo.eyeSep = 0.06;
@@ -149,8 +150,48 @@ export function createCathedral3D() {
   walls.material.emissive = new THREE.Color('#eef2ff');
   walls.material.emissiveMap = panelTexture();
   walls.material.emissiveIntensity = 0;
-  const FOG_LOW = new THREE.Color('#0a0612'), FOG_HIGH = new THREE.Color('#d8e0ff');
+  const FOG_LOW = new THREE.Color('#03101f'), FOG_HIGH = new THREE.Color('#d8e0ff');
   scene.add(walls);
+  // THE NEON (ISS-102, HAL-UAT: "neon blue, neon purple, neon pink always win"; grime against glow,
+  // techno-baroque brutalism; the author's search, 16 Oct: a hacker's neon cathedral under water):
+  // some of the stone's joints carry neon, blue, violet or pink, with slow pulses running along
+  // the nave; brighter with Φ, giving way to the white corridor near the top. Interpretive.
+  const neonU = { uTime: { value: 0 }, uGlow: { value: 0 } };
+  const neon = new THREE.Mesh(tube, new THREE.ShaderMaterial({
+    uniforms: neonU, transparent: true, depthWrite: false, side: THREE.BackSide, blending: THREE.AdditiveBlending,
+    vertexShader: 'varying vec2 vUv; varying float vD; void main() { vUv = uv; vec4 w = modelMatrix * vec4(position, 1.0); vD = distance(w.xyz, cameraPosition); gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: /* glsl */`
+      uniform float uTime; uniform float uGlow; varying vec2 vUv; varying float vD;
+      float h(float n) { return fract(sin(n * 91.345) * 47453.21); }
+      void main() {
+        vec2 t = vec2(vUv.x * 24.0, vUv.y * 3.0);
+        vec2 f = fract(t);
+        float row = floor(f.y * 16.0), ry = fract(f.y * 16.0);
+        float bx = f.x * 8.0 + mod(row, 2.0) * 0.5, cx = fract(bx);
+        float seam = max(1.0 - smoothstep(0.0, 0.1, min(ry, 1.0 - ry)), 1.0 - smoothstep(0.0, 0.035, min(cx, 1.0 - cx)));
+        float id = floor(t.x) * 131.0 + floor(t.y) * 17.0 + row * 7.0 + floor(bx);
+        float lit = step(0.55, h(id));
+        float pulse = 0.35 + 0.65 * pow(0.5 + 0.5 * sin(t.x * 0.9 - uTime * 1.3 + row * 0.7), 6.0);
+        vec3 blue = vec3(0.2, 0.75, 1.0), violet = vec3(0.6, 0.35, 1.0), pink = vec3(1.0, 0.3, 0.75);
+        float pick = h(id + 5.0);
+        vec3 c = pick < 0.4 ? blue : pick < 0.75 ? violet : pink;
+        float a = seam * lit * pulse * exp(-vD * 0.22) * uGlow;
+        gl_FragColor = vec4(c * a * 2.6, 1.0);
+      }`,
+  }));
+  neon.renderOrder = 4;
+  neon.frustumCulled = false;
+  scene.add(neon);
+  // under water (the CSF is water): marine snow drifting up past the visitor
+  const SNOW = 700;
+  const snowPos = new Float32Array(SNOW * 3);
+  for (let k = 0; k < SNOW * 3; k++) snowPos[k] = (Math.random() - 0.5) * 6;
+  const snowGeo = new THREE.BufferGeometry();
+  snowGeo.setAttribute('position', new THREE.BufferAttribute(snowPos, 3));
+  const fleck = (() => { const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d'); const r = g.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, 'rgba(255,255,255,1)'); r.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = r; g.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
+  const snow = new THREE.Points(snowGeo, new THREE.PointsMaterial({ color: '#8fd8ff', map: fleck, size: 0.03, transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending }));
+  snow.frustumCulled = false;
+  scene.add(snow);
   // THE STARGATE (author, 15 Oct 22:52: "almost bright white, a Space Odyssey passage"): in the
   // narrow passages (the aqueduct, the foramen) and only with the field near its top (Φ ≥ 0.85),
   // slit-scan streaks of the field's light rush past along the walls, the app's colours whitening
@@ -185,7 +226,7 @@ export function createCathedral3D() {
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   // vaulting ribs where the hall is wide (the nave and the crossing)
-  const ribMat = new THREE.MeshStandardMaterial({ color: '#8d8496', roughness: 0.7 });
+  const ribMat = new THREE.MeshStandardMaterial({ color: '#141026', emissive: '#7a3cff', emissiveIntensity: 0.45, roughness: 0.55, metalness: 0.3 });
   for (let k = 0; k <= 60; k++) {
     const u = k / 60;
     const r = radiusAt(u);
@@ -212,7 +253,7 @@ export function createCathedral3D() {
     tufts.push({ top, down: up.clone().negate(), beads: 3 + Math.floor(Math.random() * 4), phase: Math.random() * 6 });
   }
   const beadCount = tufts.reduce((n, t) => n + t.beads, 0);
-  const beads = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), new THREE.MeshStandardMaterial({ color: '#d9506f', emissive: '#4a0f1e', roughness: 0.45 }), beadCount);
+  const beads = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), new THREE.MeshStandardMaterial({ color: '#c02a8c', emissive: '#ff2fa8', emissiveIntensity: 0.55, roughness: 0.3, transparent: true, opacity: 0.85 }), beadCount);
   scene.add(beads);
   const bead = new THREE.Object3D();
   function swayTufts(time) {
@@ -231,8 +272,8 @@ export function createCathedral3D() {
   swayTufts(0);
 
   // the field: three moving lights along the halls, their colours the field's modes
-  scene.add(new THREE.AmbientLight('#3a3050', 0.6));
-  const lamp = new THREE.PointLight('#fff2d8', 1.6, 7, 1.4);
+  scene.add(new THREE.AmbientLight('#24407a', 0.6));
+  const lamp = new THREE.PointLight('#9ec4ff', 1.1, 6, 1.5);
   scene.add(lamp);
   const field = ['#5ee7ff', '#a78bfa', '#ff7aa8'].map(color => { const l = new THREE.PointLight(color, 0, 9, 1.2); scene.add(l); return l; });
 
@@ -430,6 +471,20 @@ export function createCathedral3D() {
       // the corridor: from Φ 0.45 the blocks light up as panels and the far end whitens
       const corridor = viewOut ? 0 : Math.max(0, Math.min(1, (fx - 0.45) / 0.45)) ** 1.5;
       walls.material.emissiveIntensity = 1.1 * corridor;
+      neonU.uTime.value = state.time;
+      neonU.uGlow.value = viewOut ? 0 : (0.45 + 0.9 * fx) * (1 - 0.85 * corridor);
+      neon.visible = neonU.uGlow.value > 0.01;
+      snow.visible = !viewOut;
+      if (!viewOut) {
+        const sp = snowGeo.attributes.position;
+        for (let k = 0; k < SNOW; k++) {
+          let y = sp.getY(k) + dt * (0.05 + 0.04 * ((k % 7) / 7));
+          if (y > 3) y -= 6;
+          sp.setY(k, y);
+        }
+        sp.needsUpdate = true;
+        snow.position.copy(camera.position);
+      }
       scene.fog.color.copy(FOG_LOW).lerp(FOG_HIGH, 0.75 * corridor);
       scene.background.copy(scene.fog.color);
       if (!viewOut) scene.fog.density = 0.09 - 0.04 * corridor;
