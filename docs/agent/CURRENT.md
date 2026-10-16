@@ -38,7 +38,7 @@ labels; 2D | 3D in the bar. Then, with the author walking it tonight:
 
 ## Next: the release, by 21 October 2026 (ISS-114, the epic)
 
-1. Content freeze end of Sat 17 Oct; the big build; release-check all PASS.
+1. Content freeze end of Sat 17 Oct (confirmed by the author, 16 Oct); the big build; release-check all PASS.
 2. Sun 18: the author's UAT reading and app walk; fixes.
 3. Mon 19: make dist; the Zenodo sandbox rehearsal (the author's token).
 4. Tue 20: Zenodo live; the DOIs everywhere; the print editions listed on Lulu at cost.

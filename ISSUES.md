@@ -5879,7 +5879,7 @@ Plan (Copilot's proposal; the author's days are marked AUTHOR):
   production notebook; announce (optional).
 
 Tasks:
-- [ ] Content freeze, end of 17 Oct (author to confirm).
+- [x] Content freeze, end of 17 Oct: confirmed by the author, 16 Oct (plan as written).
 - [ ] The big build and release-check all PASS (ISS-001).
 - [ ] UAT reading and the app walk (AUTHOR).
 - [ ] make dist, checksums, Dist committed (ISS-001).
