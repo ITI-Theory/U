@@ -116,6 +116,10 @@ matter is the controlled vocabulary enforced by `bin/issues-check`:
 - `fields:` is the complete allowed field list for `{{Fields ...}}` macros.
 - A non-empty `epic=` field requires a reciprocal detail file at
 	`prj/.adm/issues/<epic>.md` with `fields.issue=ISS-NNN`.
+- A CLOSED issue keeps no empty box: each is `[x]` done or `[-]` not done
+	(superseded, moved or won't do, as the closing note says).
+- Issue tasks are dev tasks. The author's steps go on the desk (ISS-081,
+	`bin/remind`); walks, reads and tests go in `uat/checklist.yaml` (`HAL uat`).
 
 Validate changes with:
 

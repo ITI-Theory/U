@@ -97,6 +97,23 @@ function Pandoc(document)
     end
   end
 
+  -- A closed issue settles every box: [x] done or [-] not done; none left empty.
+  local text = "\n" .. issues_content:gsub("\r\n", "\n")
+  local starts = {}
+  for pos in text:gmatch("()\n## ISS%-%d%d%d:") do table.insert(starts, pos) end
+  table.insert(starts, #text + 1)
+  for i = 1, #starts - 1 do
+    local section = text:sub(starts[i] + 1, starts[i + 1] - 1)
+    local id, heading = section:match("^## (ISS%-%d%d%d):([^\n]*)")
+    if heading:match("CLOSED%s*$") then
+      for line in (section .. "\n"):gmatch("([^\n]*)\n") do
+        if line:match("^%s*%- %[ %]") then
+          fail(id .. " is CLOSED but has an empty box: " .. line:sub(1, 70))
+        end
+      end
+    end
+  end
+
   local epic_values = {}
   for _, value in ipairs(macro_values(issues_content, "Fields")) do
     for _, assignment in ipairs(split(value, ",")) do

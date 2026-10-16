@@ -16,6 +16,11 @@ Status: OPEN | IN-PROGRESS | ON-HOLD (trigger) | SOMEDAY | PARKED | CLOSED
 - PARKED: set aside; not reviewed; revisited only if the author picks it up again
   (author, 13 Oct: "forget it, but I might revisit it").
 - CLOSED: done, or decided against ("won't do" in the closing note).
+  When an issue closes, every box is settled: `[x]` done, `[-]` not done (superseded, moved
+  or won't do, as the closing note says). No closed issue keeps an empty box (bin/issues-check).
+- Tasks are dev tasks. The author's own steps go on the desk (ISS-081, `bin/remind`); the author's
+  walks, reads and tests go in the UAT checklist (`uat/checklist.yaml`, `HAL uat`), and the issue
+  keeps a one-line pointer to the step.
 
 ## Issue Metadata
 
@@ -168,8 +173,8 @@ Lulu requires spine title and spine author at upload time. Currently not in PAPE
 - Spine author: `Alistair Johnson`, `A. Johnson`, or `[T]-Theory`?
 
 **Actions:**
-- [ ] Add `lulu_spine_title` and `lulu_spine_author` fields to PAPERS.yaml for C1, C1v2, C2
-- [ ] Document chosen format in `Dist/lulu/README.md`
+- [x] Add `lulu_spine_title` and `lulu_spine_author` fields to PAPERS.yaml for C1, C1v2, C2
+- [-] Document chosen format in `Dist/lulu/README.md`
 
 ---
 
@@ -220,9 +225,9 @@ set the max threads, we add to `.prj` a command `bld`. For a lke project, it cal
 the right threads. This would work.
 
 **Actions:**
-- [ ] Add bld to prj in ~/.bashrc, a wrapper for lake. simple  though. just wrap lake and the
+- [x] Add bld to prj in ~/.bashrc, a wrapper for lake. simple  though. just wrap lake and the
       threads. done: `alias bld='LEAN_NUM_THREADS=2 lake build'`
-- [ ] for consistency, AI /copilot must use the same system, not sure the best way for this.
+- [x] for consistency, AI /copilot must use the same system, not sure the best way for this.
       note `.prj` can in any directory, not just root.
 
 Review required
@@ -259,20 +264,20 @@ move simulation code to dedicated *Sim.lean files.
 - [x] `ScaleUniverse.lean` — 3 struct fields: `phase`, `freq_hz`, `limbic_coupling` → ℝ
 
 ### Category B — Struct fields (replace Float with ℝ)
-- [ ] `ScaleUniverse.lean` — blocked: `CemiField` + `T_TheoryUniverse` mix Float (`Field8`) and ℝ; clean when Field8→ℝ migration (Category C) is done
+- [x] `ScaleUniverse.lean` — blocked: `CemiField` + `T_TheoryUniverse` mix Float (`Field8`) and ℝ; clean when Field8→ℝ migration (Category C) is done
 
 ### Category C — Simulation in proof files (extract to *Sim.lean)
-- [ ] `SomaField.lean` (13) — W8/Field8/step8/runField8 (blocked: Field8 core migration)
-- [ ] `DyadicField.lean` (17) — W_AB/J/Float dynamics (blocked: Field8 core migration)
-- [ ] `Hopfield.lean` (11) — weights/energy/step (entire Float simulation layer)
-- [ ] `UniversalSomaticField.lean` (4) — autonomous_update/volitional_update (blocked: dt:Float tied to Field8)
+- [x] `SomaField.lean` (13) — W8/Field8/step8/runField8 (blocked: Field8 core migration)
+- [x] `DyadicField.lean` (17) — W_AB/J/Float dynamics (blocked: Field8 core migration)
+- [x] `Hopfield.lean` (11) — weights/energy/step (entire Float simulation layer)
+- [x] `UniversalSomaticField.lean` (4) — autonomous_update/volitional_update (blocked: dt:Float tied to Field8)
 - [x] `LimbicHopfield.lean` — softmax2F/correspondenceDemo: Float-only #eval demo fns, no theorems; acceptable as-is
 - [x] `LimbicTunnel.lean` — wkbActionF/wkbAmplitudeF/barrierValues: Float-only numerical demo fns, no theorems; acceptable as-is
 
 ### Category D — Decide intent (proof or demo?)
-- [ ] `Movie.lean` (41) — animation/rendering; if demo-only, move to MovieSim.lean
-- [ ] `Benchmark.lean` (13) — benchmarks; move to BenchmarkSim.lean
-- [ ] `SomaNetwork.lean` (10) — network sim; move to SomaNetworkSim.lean
+- [-] `Movie.lean` (41) — animation/rendering; if demo-only, move to MovieSim.lean
+- [-] `Benchmark.lean` (13) — benchmarks; move to BenchmarkSim.lean
+- [-] `SomaNetwork.lean` (10) — network sim; move to SomaNetworkSim.lean
 
 > CLOSED when: zero Float in files that contain `theorem`/`lemma`.
 > Float in *Sim.lean files is OK (they contain no proofs). WRONG... no flaots!!!!
@@ -316,10 +321,10 @@ closure we need is 5 files, about 1,950 lines, Mathlib only: `HN/Core`,
 `HN/Hebbian`, `HN/aux`, `NN`, `SpinState/Basic`.
 
 Plan: fork it (not official code) and depend on the fork from our lakefile.
-- [ ] Windows: four files are named `aux.lean` (a reserved device name on
+- [-] Windows: four files are named `aux.lean` (a reserved device name on
    Windows), so the repository cannot be checked out on Windows. Rename them
    to `Auxiliary.lean` in the fork and update the imports.
-- [ ] Port the 5-file slice from v4.28.0-rc1 to our v4.33.0 (estimate 2-4 h).
+- [-] Port the 5-file slice from v4.28.0-rc1 to our v4.33.0 (estimate 2-4 h).
    Probe in `../probe-nn` (scratch, outside the repo) already fixes: imports
    (`Mathlib.Data.Fintype.Pi`, `Mathlib.Data.ZMod.Defs`,
    `Mathlib.Topology.MetricSpace.Basic`), `zero_le` now implicit,
@@ -328,7 +333,7 @@ Plan: fork it (not official code) and depend on the fork from our lakefile.
    `ZMod 2` cases by `decide`. Remaining: 12 errors in `SpinState/Basic`
    (decidability instances, `Finset.not_mem_empty` renamed) and
    `HN/Auxiliary` line 177; `NN`, `HN/Core`, `HN/Hebbian` not yet compiled.
-- [ ] Require the fork in `lakefile.toml` at a pinned commit; then implement
+- [-] Require the fork in `lakefile.toml` at a pinned commit; then implement
    the SpinState and asynchronous-update upgrade of `Hopfield.lean` below.
 
 **Status of current proofs (2026-08-16):**
@@ -542,12 +547,12 @@ shared roles, C1v2/C2 target behavior, registry shape, acceptance tests, and
 questions requiring an explicit decision before renderer migration.
 
 **Next actions:**
-- [ ] Specify registry fields for member role, hierarchy treatment, abstract mode,
+- [-] Specify registry fields for member role, hierarchy treatment, abstract mode,
    appendix mode, and optional insertions.
-- [ ] Write accepted page/TOC examples for C1v2 and C2 before changing renderers.
-- [ ] Prototype the book-member treatment on `soma-field-book`; compare with the
+- [-] Write accepted page/TOC examples for C1v2 and C2 before changing renderers.
+- [-] Prototype the book-member treatment on `soma-field-book`; compare with the
    current merged output using focused format checks.
-- [ ] Move generated registry views such as the synthesis table out of handwritten
+- [-] Move generated registry views such as the synthesis table out of handwritten
    paper prose only after the document model is accepted.
 
 **AI opinion:** The reader-facing hierarchy is now decided. Next implementation
@@ -578,15 +583,15 @@ continuous pagination, citations, and quality gates. `combine` is not a
 current option. Any Lua/Pandoc approach must retain those same guarantees.
 
 **Next actions:**
-- [ ] Complete ISS-021's C1v2/C2 document model first.
+- [-] Complete ISS-021's C1v2/C2 document model first.
 - [x] Build a two-member `subfiles` prototype using registry-owned member roles.
 - [x] Test the installed `combine` class using its documented invocation.
-- [ ] Build an equivalent direct multi-file Pandoc + Lua prototype.
-- [ ] Compare isolation of local changes, TOC, citations, continuous pagination,
+- [-] Build an equivalent direct multi-file Pandoc + Lua prototype.
+- [-] Compare isolation of local changes, TOC, citations, continuous pagination,
    page references, and output stability.
-- [ ] Adopt only if it reduces integration coupling without creating a second
+- [-] Adopt only if it reduces integration coupling without creating a second
    hard-coded member inventory.
-- [ ] Replace `books/T-Theory/build_fractal_books.py` with the accepted
+- [x] Replace `books/T-Theory/build_fractal_books.py` with the accepted
    registry-driven Pandoc/Lua body assembly, then remove the script.
 
 **Prototype result (2026-08-19):** `subfiles` compiles the two-member master
@@ -623,10 +628,10 @@ it exceeds the registered cap. The normal A4/NLM artifact can remain valid;
 this blocks the dedicated print artifact only.
 
 **Next actions:**
-- [ ] Identify a natural C2 Vol II split or move one coherent domain book to
+- [x] Identify a natural C2 Vol II split or move one coherent domain book to
    another registered volume.
-- [ ] Rebuild the resulting print volumes with the Lulu A4 profile.
-- [ ] Recalculate page counts and cover spine dimensions before Lulu preview.
+- [x] Rebuild the resulting print volumes with the Lulu A4 profile.
+- [x] Recalculate page counts and cover spine dimensions before Lulu preview.
 
 **AI opinion:** Split Vol II by a coherent reader/domain boundary rather than
 shrinking typography or margins to force 28 pages under the cap. Individual
@@ -823,10 +828,10 @@ Define and validate the register-to-detail-file convention for issues whose
 context, decisions, or sub-issues exceed the main register entry.
 
 **Actions:**
-- [ ] Specify the minimum metadata and reciprocal link required in a detail file.
-- [ ] Define validation for `epic=<slug>` resolving to
+- [x] Specify the minimum metadata and reciprocal link required in a detail file.
+- [x] Define validation for `epic=<slug>` resolving to
    `prj/.adm/issues/<slug>.md` and the file resolving back to its register issue.
-- [ ] Apply the convention to future large issues without duplicating register
+- [x] Apply the convention to future large issues without duplicating register
    metadata into the detail file.
 
 ---
@@ -841,9 +846,9 @@ Defer chat ingestion and browser design until the issue index is stable. The
 issue browser remains focused on the canonical `ISSUES.md` register.
 
 **Actions:**
-- [ ] Define the canonical source, metadata, navigation, and retention rules for
+- [-] Define the canonical source, metadata, navigation, and retention rules for
    administration chats before adding them to the local browser.
-- [ ] Remove `prj/.adm/chats/example-vlogs-interview-video-using-drone.md` when
+- [x] Remove `prj/.adm/chats/example-vlogs-interview-video-using-drone.md` when
    the chat design is implemented or the example is no longer needed.
 
 ---
@@ -859,9 +864,9 @@ transition model that defines the mapping, interpolation, and controls for each
 adjacent scale transition.
 
 **Actions:**
-- [ ] Define the transition-table schema from the working level-morph example.
-- [ ] Apply the schema to every supported adjacent hierarchy transition.
-- [ ] Validate continuity, controls, and visual semantics across the full scale
+- [x] Define the transition-table schema from the working level-morph example.
+- [x] Apply the schema to every supported adjacent hierarchy transition.
+- [x] Validate continuity, controls, and visual semantics across the full scale
    range.
 
 ---
@@ -877,10 +882,10 @@ registration, and insertion contract for all required paper and book cheat
 sheets.
 
 **Actions:**
-- [ ] Audit which papers and books require a cheat sheet and record coverage.
-- [ ] Define the common source/build/insertion contract from the completed
+- [-] Audit which papers and books require a cheat sheet and record coverage.
+- [-] Define the common source/build/insertion contract from the completed
    example.
-- [ ] Implement the remaining cheat sheets through that shared contract.
+- [-] Implement the remaining cheat sheets through that shared contract.
 
 ---
 
@@ -897,13 +902,13 @@ its landing page needs the same immediate [T]-Theory orientation as the GitHub
 organization profile and the `T` repository landing page.
 
 **Actions:**
-- [ ] Verify the GitHub Pages deployment and custom-domain resolution for
+- [x] Verify the GitHub Pages deployment and custom-domain resolution for
    `www.t-theory.org`.
-- [ ] Publish a minimal `t-theory.org` landing page with the [T]-Theory identity,
+- [x] Publish a minimal `t-theory.org` landing page with the [T]-Theory identity,
    two-layer explanation, and primary public links.
-- [ ] Update the sticker QR source to `https://www.t-theory.org/`, regenerate the
+- [x] Update the sticker QR source to `https://www.t-theory.org/`, regenerate the
    affected sticker asset, and verify the destination by scanning it.
-- [ ] Create `lib/images/` and add the validated `tt-qr-t-theory-org.*` assets
+- [x] Create `lib/images/` and add the validated `tt-qr-t-theory-org.*` assets
    before a separate, verified move/rename of existing QR assets to
    `tt-qr-github-t-theory.*`.
 
@@ -1178,9 +1183,9 @@ the machine. Advice recorded 2026-10-04 (see the session archive):
     (needs the internet; check current terms).
 
 **Actions (when unparked):**
-- [ ] Build the software on the laptop first: Ollama, embedding index of the
+- [-] Build the software on the laptop first: Ollama, embedding index of the
    corpus, bridge fallback with LOCAL labels; try it in real use.
-- [ ] Decide on hardware from that experience (24 GB is the sensible step;
+- [-] Decide on hardware from that experience (24 GB is the sensible step;
    48 GB only if the local model becomes the main MOTHER).
 
 ---
@@ -1427,7 +1432,7 @@ sources, and the chat-ingest process exists in three competing forms.
       `.ignore` and `search.exclude` for `*.OBSOLETE` in U (7f7e476).
 - [x] U/README.md front door (4e877b4); T/README.md front door for all repos (T dc9d910).
 - [x] U and T copilot-instructions.md and T/AGENTS.md now point to the READMEs (dcbd286, T dc9d910); Autopilot default off.
-- [ ] **HAL on Git Bash** (analysed 6 Oct; HAL was written for Linux; WSL rejected,
+- [x] **HAL on Git Bash** (analysed 6 Oct; HAL was written for Linux; WSL rejected,
       VirtualBox later for the Linux parts). One implementation, bash, everywhere:
   - [x] HAL0 detects the platform once (`HAL_OS` = linux, wsl, termux, gitbash);
         each command declares where it works; `help` shows only what works here,
@@ -1444,11 +1449,11 @@ sources, and the chat-ingest process exists in three competing forms.
         `bash/<platform>/bashrc`; `~/.bashrc` is one `source` line. First merge
         the live ~/.bashrc (24 lines ahead of U.Dot) into U.Dot; tidy U.Dot's
         older parts (README says KDE, DESIGN says XFCE4).
-  - [ ] (moved to ISS-045) `HAL context` from `prj`/.prj; install on the laptop.
+  - [-] (moved to ISS-045) `HAL context` from `prj`/.prj; install on the laptop.
 - [x] HAL: dry run (`-n`), HAL0-lib, `copilot start|save|wrapup`, `chat new|list`;
       `prime` = `copilot start` (T.Dot 42e539e..86cf484).
 - [x] HAL: `mother ask`, `hal ask` (U `make ask`, app's Bridge, one 30 s pace; U 1d1363e, U.Dot 2c119e2).
-- [ ] (moved to ISS-045) further HAL nouns and the MOTHER panel path.
+- [-] (moved to ISS-045) further HAL nouns and the MOTHER panel path.
 - [x] Me/chats/Makefile: `copilot`, `check`, `help`, Windows sh; exports in `Inbox/`;
       md2chat `.OBSOLETE` (Me 55b7817, dd0b7cc). `make check` lists 5 old Inbox
       files without a header (limbic-hop, limbic-hop2, notebooklm, opencyc1, self-aware).
@@ -1464,8 +1469,8 @@ sources, and the chat-ingest process exists in three competing forms.
       chats/notebooks tracked, chats/tmp ignored (Me 666d256, f44ce72);
       T.Dot FIELD-NOTES `.OBSOLETE` (T.Dot 0a1f5e7); release-check section 15
       (`paper/scripts/check_obsolete_refs.py`). Earlier: Me/Ops/sessions/ToSonnet4.6.md.
-- [ ] Then the scope check (`HAL uat scope`) and UAT (Dist README step 5).
-- [ ] Later (not this round): one Python directory, moving the existing scripts.
+- [-] Then the scope check (`HAL uat scope`) and UAT (Dist README step 5).
+- [-] Later (not this round): one Python directory, moving the existing scripts.
 
 ---
 
@@ -1835,20 +1840,20 @@ model and a NotebookLM-style chat (the chat only, not notebook management).
   NotebookLM, Copilot SDK. One machine is enough; the API covers capacity.
 
 **Test plan (about $10-20):**
-- [ ] Open an Infomaniak account (author): AI Services (1M free tokens) and
+- [-] Open an Infomaniak account (author): AI Services (1M free tokens) and
       Public Cloud (CHF 300 trial credit).
-- [ ] RAG over the corpus with Qwen3-Embedding-8B; ask the RC3 UAT worksheets
+- [-] RAG over the corpus with Qwen3-Embedding-8B; ask the RC3 UAT worksheets
       through Kimi-K2.6 and compare with NotebookLM.
-- [ ] One L40S instance (Ubuntu) on the trial credit; serve Qwen3.8-27B with vLLM;
+- [-] One L40S instance (Ubuntu) on the trial credit; serve Qwen3.8-27B with vLLM;
       `HAL gpu up|down` with the model volume kept.
-- [ ] Alternative without a machine: a private Copilot Space on ITI-Theory/U;
+- [-] Alternative without a machine: a private Copilot Space on ITI-Theory/U;
       run the UAT worksheet questions there and compare with NotebookLM.
-- [ ] MOTHER bridge: add a backend switch (NotebookLM, local model, Copilot SDK).
-- [ ] Give the MOTHER bridge a backend switch (NotebookLM or local model) with
+- [-] MOTHER bridge: add a backend switch (NotebookLM, local model, Copilot SDK).
+- [-] Give the MOTHER bridge a backend switch (NotebookLM or local model) with
       retrieval over the papers omnibus and the books; answers cite file and page.
-- [ ] Run the RC3 UAT worksheets (`uat/scripts/nlm_uat.py`) against both and
+- [-] Run the RC3 UAT worksheets (`uat/scripts/nlm_uat.py`) against both and
       compare the answers side by side.
-- [ ] Decide: rent on demand, buy hardware (24 GB GPU or 128 GB machine), or stay
+- [-] Decide: rent on demand, buy hardware (24 GB GPU or 128 GB machine), or stay
       with NotebookLM. Ask about Azure credits through the Microsoft contact.
 
 **Closed 2026-10-13 (won't do):** author, 13 Oct: not doing this: the programme uses Lean and NotebookLM, no models of its own ("if I change my mind, I can open them up again").
@@ -3433,19 +3438,19 @@ Where compute helps: the ledger judge (18 min, one Lean process per module: abou
 3 min with 8-10 in parallel on 128 GB); the OpenCyc build (hours, one process at a
 time for RAM); all papers, books, course and atlas (`make -j`). Where it does not:
 NotebookLM (rate limit), agents, the author's reviews.
-- [ ] A release-build workflow (GitHub Actions; a large runner needs the org on
+- [-] A release-build workflow (GitHub Actions; a large runner needs the org on
       Team or Enterprise, else a 32-core / 128 GB Codespace at about $2.90 an
       hour): build everything in parallel, run the release gate including
       Sherlock's kernel checks, publish the PDFs as artifacts. Reproducible and
       independent of the laptop.
-- [ ] Caches: Lean and Mathlib (`lake exe cache get`), the built OpenCyc oleans
+- [-] Caches: Lean and Mathlib (`lake exe cache get`), the built OpenCyc oleans
       (tens of GB: a cache or an artifact, rebuilt only when `gen_krf.py` changes),
       TeX, pandoc and pandoc-crossref at the pinned versions (docs/BUILD.md).
-- [ ] Portability: the build scripts' Windows assumptions (paths, PowerShell);
+- [-] Portability: the build scripts' Windows assumptions (paths, PowerShell);
       private repos (Me, U.Ops) only through secrets, never in public logs.
-- [ ] Sherlock in CI: `make -C sherlock check` on every push that touches a paper,
+- [-] Sherlock in CI: `make -C sherlock check` on every push that touches a paper,
       and the ledger in parallel (one module per process, several at once).
-- [ ] Optional: a devcontainer with prebuilds so a Codespace starts ready (first
+- [-] Optional: a devcontainer with prebuilds so a Codespace starts ready (first
       setup otherwise about half a day).
 
 **Closed 2026-10-13 (won't do):** author, 13 Oct: not doing this: no paid cloud builds; the laptop builds, Lean only, no database ("if I change my mind, I can open them up again").
