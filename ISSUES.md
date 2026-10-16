@@ -6082,6 +6082,20 @@ What it cannot check, so what is needed (then choose the music option):
       shapes it; (2) the score drives the sound directly (ISS-107 B, the tensor film); (3) existing
       music modified by the trajectory (a piano through Scaler 3, the mix), where the emotion lives
       only in the modification; (4) curation, scenes cut to music (ISS-107 A). Ableton waits (ISS-112).
+- Scaler 3 (asked 16 Oct 20:30; facts from Scaler Music's own MIDI Output DAW Routing Guide and the
+  Sound On Sound review): keys bound to chords (MIDI in); the Arrange page's tracks follow one chord
+  track, each with a Motion and its own MIDI output channel or none; it hosts third-party VST/AU
+  instruments itself; Ableton Live takes one MIDI channel per instance, so one synced instance per
+  instrument (Scaler 3.1's multi-instance sync); Reaper, Bitwig, Cubase and Logic 11 take several
+  channels from one instance. Unconfirmed: a MIDI learn of its own (two summaries disagree); a DAW can
+  map any parameter the plug-in exposes, which ones it exposes is to be seen in the author's Live.
+  H-AL (answers private, Me): the author planned exactly this in late August, a jazz quartet re-voiced
+  by Scaler 3 and steered by BRECVEMA ("this would be the project in a nutshell"); the ensemble levels
+  give the mapping: a section as one field (SwarmPropagator, K = 1), sections following inside the
+  Arnold tongue and answering outside it (DyadicField's coupling J, kernel-checked; call-and-response
+  as a retarded echo is new, interpretive), the conductor as the source term, a section silent below
+  the threshold. Existing parts verified on disk: apps/instrument/server.py, midi_input.py,
+  field_render.py, ableton_m4l/movie_osc_receiver.maxpat.
 
 ## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — OPEN
 
