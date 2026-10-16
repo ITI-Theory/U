@@ -115,6 +115,13 @@ app-start:
 app-publish:
 	$(PYTHON) $(APP_DIR)/scripts/publish.py $(if $(DRY),--dry-run,)
 
+# A DJ mix read into a cue sheet for the SHOW film (ISS-107 A1): make show-cues MIX="path/to/mix.wav"
+# -> bld/show/cues.json (tempo curve, tracked beats, bars, 16-bar phrases, breakdowns, builds, drops).
+# The mix is personal: only its file name goes into the cue sheet, and bld/ is not committed.
+.PHONY: show-cues
+show-cues:
+	$(PYTHON) lib/show/cues.py "$(MIX)"
+
 # The home page of https://www.t-theory.org from web/home.md (pandoc, no script writes markup).
 # `make web` builds bld/web/index.html to look at; `make web-publish` copies it into the site
 # repo (../t-theory.org); the author commits and pushes there when it should go live.

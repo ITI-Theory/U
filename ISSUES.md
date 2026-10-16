@@ -5624,7 +5624,12 @@ zooming in, no UI: a movie. Part B: take part A and make it a tensor film. "Late
 step" (22:24).
 
 Plan (Copilot, agreed in outline):
-- [ ] A1. Read the mix: tempo, bars, 16/32-bar phrases, breakdowns, builds and drops (numpy;
+- [x] (16 Oct: lib/show/cues.py, `make show-cues MIX=...`, numpy only, 13 s for the 90 minutes.
+      Captain Hook at Ozora 2017: 140.1 BPM rising to 141.6 (a tempo curve, not one number), beats
+      tracked along it (kick onsets 4 to 19 times stronger on the beat than off it, start to end),
+      3162 bars, 198 phrases of 16 bars, 64 breakdowns, 37 builds, 63 drops. Only the file name
+      goes into bld/show/cues.json.)
+      A1. Read the mix: tempo, bars, 16/32-bar phrases, breakdowns, builds and drops (numpy;
       librosa if needed) into a cue sheet (bld/show/cues.json).
 - [ ] A2. SHOW mode, behind ROOTED (140 BPM psytrance is ROOTED, DESIGN.md / HAL 15 Oct): plays
       the mix from the author's disk, clean picture (no chrome, labels off), scenes change on
