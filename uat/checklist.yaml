@@ -74,6 +74,39 @@ steps:
     title: "The towers of code and the Root Monster's tour"
     url: "#tour=root-monster"
     do: "follow the tour; click a tower; open a floor"
+  - id: app-who
+    kind: app
+    title: "The way in: the splash, the choice (U blue, the scientist red), ROOTED through MOTHER (ISS-108)"
+    url: ""
+    do: "a private window (or MOTHER /who u|scientist): the splash, then the two buttons; U: the welcome tour, THE WORLDS; the scientist: the welcome tour, THE BASINS, the level view; MOTHER: REQUEST ACCESS and the code from the page source: the ROOTED badge, the Nostromo sounds, RICE, the Root Monster, SOMA WORLD; LEAVE ROOT puts it all back"
+  - id: app-guide
+    kind: app
+    title: "The guide: tours as tabs, MY ROUTE, WHEREAMI (ISS-110)"
+    url: "#voyage=worlds"
+    do: "GUIDE: the tabs named by place, a click goes there; THE GUIDE's list; + HERE at three places, then play MY ROUTE; the WHEREAMI readout follows (time, place, scale, body part, Φ); click it to fold"
+  - id: app-model
+    kind: app
+    title: "The model explains itself: THE MODEL HERE on the card; THE WHOLE MODEL as nine tabs (ISS-108)"
+    url: "#voyage=brain&dim=11&phi=0.6"
+    do: "open the card's THE MODEL HERE; each claim has its label (THEORY-STATUS); THE WHOLE MODEL: step the nine tabs; does anything claim more than its label?"
+  - id: app-poke
+    kind: app
+    title: "POKE you can learn from: IMPULSE, RESPONSE, RETURN named over every view (ISS-108)"
+    url: "#voyage=human&dim=11&phi=0.5"
+    do: "POKE at the human, the brain, the landscape and the worlds; can a newcomer read what happened from the rings and the labels?"
+  - id: app-worlds
+    kind: app
+    title: "THE WORLDS: the sea course, mini golf (the five fields), a tower's SOURCE, the cathedral corridor, the stargate (ISS-105)"
+    url: "#voyage=worlds"
+    do: "fly the sea course; mini golf: the five small fields change shape with the slider and have their rim; enter a tower and open its SOURCE; the corridor; Φ above 0.6 for the stargate"
+  - id: app-tour-wording
+    kind: manual
+    title: "The urologist's tour (ureter, stent mode): the author reviews the wording (ISS-052)"
+    do: "play the ureter tour; mark any line to put in your own words; no clinical claims (calculi sizes, laser settings stay out); send the list to Copilot (c)"
+  - id: app-vsix
+    kind: manual
+    title: "The VS Code extension: install the VSIX and try it (ISS-090)"
+    do: "npm run package in apps/vscode; code --install-extension apps/vscode/bld/soma-machine-0.1.0.vsix; open the Soma Machine view; the 14 stops, WAY IN among them"
   # 4. the film (ISS-052): watch it whole, record it, review every line
   - id: film-river-90
     kind: app
@@ -101,12 +134,16 @@ steps:
   # 5. hardware and decisions
   - id: hw-strap-twister
     kind: manual
-    title: "Hardware: the Twister (MIDI IN), Ableton (MIDI OUT via loopMIDI); the chest strap is parked (ISS-091)"
+    title: "Hardware: the Twister (MIDI IN), Ableton (MIDI OUT via loopMIDI)"
     do: "Engine Room: MIDI IN on, turn CC 0-9; MIDI OUT to Ableton"
+  - id: hw-strap
+    kind: manual
+    title: "Hardware: one heart-rate strap or arm band end to end (ISS-091, ISS-111)"
+    do: "Chrome or Edge; a Polar Verity Sense, Polar H10, Wahoo TICKR or similar: the STRAP button on the SCORE stop; the heart follows it; LOOP on, a rising heart slows the film; RMSSD, breaths a minute and coherence look plausible; note the model so the app's STRAP help can name it"
   - id: hw-screens
     kind: manual
-    title: "Screens: a LAYOUT on the real monitors; a tablet through the relay"
-    do: "Engine Room LAYOUT; make relay LAN=1; open a tablet with ?relay=…&token=…"
+    title: "Screens: a LAYOUT on the real monitors; a tablet through the relay; the overview on the real desk (ISS-100)"
+    do: "Engine Room LAYOUT; make relay LAN=1; open a tablet with ?relay=…&token=…; the overview on the 32-inch screen with the tablets"
   - id: decide-lulu
     kind: manual
     title: "Decision: verify the three-volume Lulu split"

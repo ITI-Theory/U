@@ -2611,9 +2611,10 @@ Steps:
 - [ ] Film, next (development): titles and credits; OpenStax Anatomy & Physiology (CC BY;
       Calibre 163, in the HAL-UAT `medical` group, not yet loaded) as the reference for
       accurate anatomy in the body, ureter and brain stops.
-- [ ] (13 Oct, checked: the stent mode is done, app README "URETER / stent mode"; the
-      author's review of the tour wording is left) Urologist, next: the author reviews the tour wording; a stent mode (persistent signal after the stone);
-      calculi sizes and laser settings stay out (no clinical claims).
+- [x] (13 Oct, checked: the stent mode is done, app README "URETER / stent mode") Urologist: a
+      stent mode (persistent signal after the stone); calculi sizes and laser settings stay out
+      (no clinical claims). The author's review of the tour wording is UAT: `uat/checklist.yaml`,
+      step `app-tour-wording`.
 - [ ] (13 Oct night, part: the dive follows the landscape state (explorer.js mindDrive): H sets
       each dive's power, |grad H| the roll, T_eff the colour, a crossing into another valley the
       burst; explorer-check: calm, no burst; hot with the resource, a crossing. Left: branching
@@ -4576,7 +4577,8 @@ gives the same Sherlock commands and opens the app in the browser. Picked up if 
 extension is wanted as the back door for distribution, after Mk 1.
 
 (Unparked 13 Oct afternoon, author: prepare it, the local steps only; do not publish yet.)
-- [ ] Author: try the VSIX in VS Code (`npm run package` in apps/vscode).
+- [x] Package the VSIX (`npm run package` in apps/vscode). Trying it is UAT: `uat/checklist.yaml`,
+      step `app-vsix`.
       (14 Oct 04:30: packaged, apps/vscode/bld/soma-machine-0.1.0.vsix, 9.5 MB, 333 files; install with
       `code --install-extension apps/vscode/bld/soma-machine-0.1.0.vsix`. The WAY IN stop was missing
       from its list (13 of the app's 14) and from View in Soma Machine's words; added.)
@@ -4614,9 +4616,7 @@ packets; waits for a real strap.
       clinical measures; to test with a strap in UAT.
 - [ ] Uses beyond the score (author, 13 Oct: "I can see the benefit"): the body stop's heart, the
       landscape's noise, the dyad's rhythm from a real heart; the author to say which he sees.
-- [ ] UAT with a real strap (Polar, Garmin, Wahoo ...): ♥ STRAP on the SCORE stop; ♥ follows
-      it; LOOP on, a rising heart slows the film; RMSSD, breaths a minute and coherence look
-      plausible. Then put the strap back into uat/checklist.yaml's `hw-strap-twister` step.
+- UAT with a real strap: moved to `uat/checklist.yaml`, step `hw-strap` (16 Oct).
 
 ---
 
@@ -4954,7 +4954,7 @@ the overview can be the app's own views in frames that follow one another.
       short label on each saying what it is for, expand/minimise.
 - [x] (14 Oct: a fresh start goes there after the abstract; a link keeps its own view) The
       jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
-- [ ] Author UAT: on the real desk (the 32-inch screen and the tablets).
+- UAT on the real desk (the 32-inch screen and the tablets): `uat/checklist.yaml`, step `hw-screens`.
 - [ ] The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
       matter and in the Gallery.
 
@@ -5656,6 +5656,7 @@ which is fine as long as ROOTED holds nothing that must stay private.
       derived-under-assumptions). The app explains itself from it: the card's THE MODEL HERE lists
       the claims a place shows, with their labels; THE WHOLE MODEL plays them as a tour of nine tabs
       (generated from registry/model.yaml, never copied).
+- UAT (the author's walk): `uat/checklist.yaml`, steps `app-who`, `app-model`, `app-poke`.
 
 ## ISS-109: The programme's presence: web, GitHub, app, names, licence, checked by Sherlock — OPEN
 
@@ -5708,6 +5709,7 @@ one thing.
       on THE WORLDS.
 - [~] The introductions: registry/tours/welcome-u.yaml and welcome-scientist.yaml, five tabs each,
       opened after WHO IS EXPLORING? (step through, or PLAY). Still: links to the papers.
+- UAT (the author's walk): `uat/checklist.yaml`, step `app-guide`.
 
 ## ISS-111: HAL's voice both ways, the wearable, and how to describe the Soma Machine — OPEN
 
@@ -5744,7 +5746,8 @@ Facts and Copilot's view:
 - [ ] Speech to text in HAL (faster-whisper) for UAT: speak a finding, HAL writes it down.
 - [ ] Better speech: Kokoro alongside Piper; choose by ear.
 - [ ] The "ask the theory first" path on the web page, then the app.
-- [ ] Test one arm band end to end; name it in the app's STRAP help.
+- [ ] Name the tested arm band in the app's STRAP help (the test is UAT: `uat/checklist.yaml`,
+      step `hw-strap`).
 - [ ] The pitch, for U and for the scientist, labelled; through the clinical check.
 - [ ] (author 16 Oct 15:52) HAL follows access: a user with the web (a public notebook) gets
       MOTHER; HAL (the API through the bridge, the author's private notebook) is the author's
@@ -5886,7 +5889,8 @@ Plan (Copilot's proposal; the author's days are marked AUTHOR):
 Tasks:
 - [x] Content freeze, end of 17 Oct: confirmed by the author, 16 Oct (plan as written).
 - [ ] The big build and release-check all PASS (ISS-001).
-- [ ] UAT reading and the app walk (AUTHOR).
+- [ ] UAT reading and the app walk (AUTHOR): `HAL uat` runs `uat/checklist.yaml` (the gates, the
+      PDFs, the app walk, hardware, decisions).
 - [ ] make dist, checksums, Dist committed (ISS-001).
 - [ ] Zenodo: sandbox rehearsal, then live; DOIs everywhere (ISS-001; tokens: AUTHOR, environment
       only, never a file).
