@@ -8,7 +8,8 @@ import { createThread, chirp } from './mother-thread.js';
 import { FitAddon } from '@xterm/addon-fit';
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
-import { eras, levels, questions } from './generated/app-data.js';
+import { eras, levels, questions, regions } from './generated/app-data.js';
+import { FEELINGS } from './explorer.js';
 import { createVoice } from './voice.js';
 import { displayName, isRenamed } from './names.js';
 import { rooted, setRooted, clearanceOk, setWho, PROFILES } from './who.js';
@@ -29,7 +30,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off', '/feel <a mood>'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -583,6 +584,26 @@ export function createMother({ getContext }) {
       try { localStorage.setItem('soma-teletype', tt[1].toLowerCase()); } catch { /* private mode */ }
       type(`TELETYPE ${tt[1].toUpperCase()}.`);
       return true;
+    }
+    // navigation by words (ISS-099): /feel <a mood>, or a short "I feel ...", flies to the limbic
+    // hinge with that feeling and opens WHERE IS THIS FEELING? (the words: registry/regions.yaml)
+    const fm = said.match(/^\/feel\s+(.+)/i) || (said.split(/\s+/).length <= 5 && said.match(/^(?:i\s+feel|i'?m\s+feeling|i\s+am\s+feeling|feeling)\s+(.+)/i));
+    if (fm) {
+      const want = ` ${fm[1].toLowerCase().replace(/[.!?,;:]/g, ' ').replace(/\s+/g, ' ').trim()} `;
+      const hit = Object.entries(regions?.feelings ?? {}).find(([, f]) => (f.words ?? []).some(w => want.includes(` ${w} `)));
+      if (hit) {
+        echo(said);
+        const [id] = hit;
+        type(`FEELING: ${FEELINGS[id]?.label ?? id.toUpperCase()}. TAKING YOU TO THE LIMBIC HINGE.`);
+        location.hash = `voyage=limbic&dim=11&feel=${id}`;
+        dispatchEvent(new CustomEvent('soma-where-open'));
+        return true;
+      }
+      if (/^\/feel/i.test(said)) {
+        echo(said);
+        type("I DON'T KNOW THAT WORD YET. TRY: AFRAID, ANGRY, SAD, HAPPY, CALM, NUMB, ON EDGE, FOCUSED.");
+        return true;
+      }
     }
     const m = said.match(/^\/who\s+(u|scientist)\b/i);
     if (m) {

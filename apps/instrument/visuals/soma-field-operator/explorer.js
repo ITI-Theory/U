@@ -3499,6 +3499,8 @@ export function createExplorer(hooks = {}) {
   const phiInput = root.querySelector('.explorer__phi input');
   const phiOut = root.querySelector('.explorer__phi output');
   const card = root.querySelector('.explorer__card');
+  // MOTHER's /feel (ISS-099): arrive with WHERE IS THIS FEELING? open
+  addEventListener('soma-where-open', () => setTimeout(() => { const w = card.querySelector('.explorer__where'); if (w && !w.hidden) w.open = true; }, 700));
   const feelRow = root.querySelector('.explorer__feel');
   const resourceButton = root.querySelector('[data-act="resource"]');
   const wayInButton = root.querySelector('[data-act="wayin"]');

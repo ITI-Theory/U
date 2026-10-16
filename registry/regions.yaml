@@ -25,37 +25,46 @@ pattern:
   sources: [saarimaki2016discrete]
 
 # the app's feelings (explorer.js FEELINGS) and the basic emotion each is closest to in these
-# studies; null where none of them studied it
+# studies; null where none of them studied it. `words`: what a visitor may type to MOTHER (/feel,
+# or a short "I feel ...") to fly there (ISS-099, navigation by words); everyday words, not a diagnosis
 feelings:
   fight:
+    words: [angry, anger, mad, furious, irritated, annoyed, rage, cross, frustrated]
     basic: anger
     say: Anger has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
     sources: [vytal2010neuroimaging, saarimaki2016discrete]
   flight:
+    words: [afraid, scared, fear, frightened, anxious, anxiety, nervous, panic, panicky, worried, uneasy]
     basic: fear
     say: Fear has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
     sources: [vytal2010neuroimaging, saarimaki2016discrete]
   grief:
+    words: [sad, sadness, grief, grieving, loss, down, heartbroken, lonely, low, tearful]
     basic: sadness
     say: Sadness has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
     sources: [vytal2010neuroimaging, saarimaki2016discrete]
   joy:
+    words: [happy, joy, joyful, glad, delighted, elated, cheerful, good]
     basic: happiness
     say: Happiness has a consistent and discriminable pattern across neuroimaging studies, and it can be read from the whole-brain pattern above; no single region holds it.
     sources: [vytal2010neuroimaging, saarimaki2016discrete]
   calm:
+    words: [calm, relaxed, peaceful, safe, fine, okay, ok, settled, content]
     basic: null
     say: Calm is not one of the basic emotions these studies tested; the app shows the shared pattern only, and the body figure follows the bodily maps.
     sources: []
   freeze:
+    words: [frozen, freeze, numb, stuck, shut down, paralysed, paralyzed, blank]
     basic: null
     say: Freeze is a defence state, not one of the basic emotions these studies tested; its picture here is an artistic placement.
     sources: []
   vigilance:
+    words: [on edge, alert, watchful, jumpy, hypervigilant, tense, wired]
     basic: null
     say: Hypervigilance is a state of threat monitoring, not one of the basic emotions these studies tested; its picture here is an artistic placement.
     sources: []
   flow:
+    words: [focused, absorbed, in the zone, flow, immersed]
     basic: null
     say: Flow is a state of absorbed attention, not one of the basic emotions these studies tested; its picture here is an artistic placement.
     sources: []

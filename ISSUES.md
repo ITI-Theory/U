@@ -4969,7 +4969,10 @@ The app becomes a gallery of thoughts rather than of fractal images.
       no such source yet.)
       A sourced map from moods and thoughts to regions, honest about localisation (emotions are
       distributed in today's neuroscience; "regions associated with", not "the seat of").
-- [ ] Navigation by words (type or say a mood), then the flight to the region and its panel.
+- [x] Navigation by words (type or say a mood), then the flight to the region and its panel.
+      (16 Oct: MOTHER `/feel <a mood>`, or a short "I feel ..."; everyday words per feeling in
+      registry/regions.yaml; the flight to the limbic hinge with that feeling and WHERE IS THIS
+      FEELING? open. Saying it: the browser's dictation for now; UAT `app-feel`.)
 
 ## ISS-100: The whole cockpit at once: an overview screen that shows how the screens fit together — OPEN
 {{Tags area.app, area.instrument}}

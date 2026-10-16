@@ -107,6 +107,11 @@ steps:
     kind: manual
     title: "The VS Code extension: install the VSIX and try it (ISS-090)"
     do: "npm run package in apps/vscode; code --install-extension apps/vscode/bld/soma-machine-0.1.0.vsix; open the Soma Machine view; the 14 stops, WAY IN among them"
+  - id: app-feel
+    kind: app
+    title: "Say how you feel: MOTHER flies to it and says where it is in the brain, sourced (ISS-099)"
+    url: "#voyage=worlds&dim=11"
+    do: "MOTHER: type 'I feel anxious', then '/feel numb', then '/feel blorp'; the limbic hinge with that feeling, WHERE IS THIS FEELING? open, each line labelled, the DOI links work; does anything claim a region is the seat of a feeling?"
   - id: app-show
     kind: manual
     title: "SHOW mode, the music film: the mix drives the machine (ROOTED; ISS-107)"
