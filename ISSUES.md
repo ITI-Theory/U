@@ -5632,8 +5632,10 @@ which is fine as long as ROOTED holds nothing that must stay private.
       notebook chosen she still answers her own commands and says how to choose one.
 - [x] FX is used twice: the bar is now Φ THE FIELD and its hints say Φ; FX is kept for ROOTED's
       effects. (Internal names unchanged.)
-- [ ] POKE more pronounced and more visual, for learning: the impulse, where it goes, what it
-      does, then the return.
+- [x] POKE more pronounced and more visual, for learning (pokefx.js): over every view, the
+      IMPULSE (a pulse falls in), the RESPONSE (rings spread, an echo), the RETURN (it settles),
+      each named beside it with the mechanisms chosen; the model's response kernel drawn,
+      interpretive.
 - [ ] A high-level model of [T]-Theory that Sherlock can check the app, the web site and the
       repository against (the levels, the dimensions, the operators, the claims and their
       labels), and that the app uses to explain itself.

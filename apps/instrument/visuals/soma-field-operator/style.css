@@ -825,3 +825,10 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .whereami__out { margin: 2px 0 0; white-space: pre-wrap; font: inherit; }
 .whereami--folded .whereami__out { display: none; }
 .screen-cockpit .whereami, .screen-engine .whereami, .screen-maintenance .whereami, .atlas-capture .whereami, .ui-clean .whereami { display: none; }
+
+/* POKE, plain (ISS-108): rings over every view, the phase named beside them */
+.pokefx { position: fixed; inset: 0; z-index: 205; width: 100vw; height: 100vh; pointer-events: none; }
+.pokefx__tag { position: fixed; z-index: 206; margin: 0; padding: 4px 8px; max-width: 280px; border-left: 2px solid #ff7ad9; background: rgba(5,7,14,.78); font: 11px/1.4 'Space Mono', monospace; color: #e8eefc; pointer-events: none; }
+.pokefx__tag[hidden] { display: none; }
+.pokefx__tag b { color: #ff7ad9; letter-spacing: .14em; margin-right: 6px; }
+.pokefx__tag small { display: block; color: #ffd166; font-size: 10px; }

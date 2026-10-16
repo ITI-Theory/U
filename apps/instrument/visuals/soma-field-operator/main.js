@@ -10,6 +10,7 @@ import { FieldAudio } from './audio/field-audio.js';
 import { createMother } from './mother.js';
 import { who, setWho, profile, rooted } from './who.js';
 import { createWhereAmI } from './whereami.js';
+import { createPokeFx } from './pokefx.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
@@ -2684,7 +2685,11 @@ thoughtNoiseInput.addEventListener('input', () => {
 thoughtThresholdInput.addEventListener('input', () => {
   state.thoughtThreshold = Number(thoughtThresholdInput.value);
 });
+const pokeFx = screenRole === 'level' ? createPokeFx() : null;
 function firePoke(strength = state.limbic) {
+  // the three phases drawn plain over the view (ISS-108): impulse, response, return
+  const mech = mechanismsOn() ? mechanisms.filter(m => state.selectedMechanisms.has(m.id)).map(m => m.name).join(' + ') : '';
+  pokeFx?.fire({ strength: 0.5 + 0.5 * (Number(strength) || 0), mech });
   if (explorer.open) explorer.poke(strength);
   state.impulse = 1;
   state.pokeRunning = true;
