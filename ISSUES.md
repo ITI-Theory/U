@@ -4024,8 +4024,10 @@ Copilot, 13 Oct:
       cannot run in a browser; `node-client`/`pynvim` drive a native nvim, so a coupling of
       MOTHER's `/shell` Neovim to the machine through the bridge is a later option.
 - (moved to ISS-090, parked, 13 Oct) Try the VSIX; "Sherlock: Set up"; the Marketplace and Open VSX.
-- [ ] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
-      the author says so).
+- [x] Web: t-theory.org and the GitHub organisation for Mk 1 (plan; nothing published before
+      the author says so). (16 Oct: the site's source is web/home.md, `make web`, `make
+      web-publish`; the org page corrected (.github 48db1a2); publishing is ISS-114's step on the
+      21st, when the author pushes the site.)
 - [x] (from ISS-081, author, 13 Oct: not the author's) (ISS-047) Autopilot correction (note
       9): it is for speech-to-text; the AI repeats back before acting, and a planned task is
       armed before it is confirmed. Update the Autopilot rule in T README/AGENTS with the
