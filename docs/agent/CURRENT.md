@@ -26,8 +26,18 @@ the site on the 21st) and `web/PITCH.md`; the names checked (`registry/presence.
 splash credit line; the cathedral's neon pass and the palace to the great hall's standard; the
 Dark Matter Lord (`make -C sherlock rivals`) and the BOFH (`make -C sherlock bofh`).
 
-**Waiting on the author:** the jargon trap in the Gateway book (before the freeze; ISS-081); the
-public notebook (ec1a7e74 or 16368cb3); the Zenodo tokens; the Lulu account; the UAT walk.
+**Evening (16 Oct):** the cheat sheets stand on their own (a credit line on every page,
+`make -C sherlock standalone`, release-check 12a); the Gateway book's glossary (Words You Will
+Meet); the QR codes decoded by `make -C sherlock presence`; the Gallery's pictures checked as the
+programme's own (release-check 14d); spoken UAT notes (`v` in `HAL uat`, uat/scripts/dictate.py);
+Kokoro beside Piper in the bridge (`voices.py`, choose by ear); the mix read into a cue sheet
+(`make show-cues`) and SHOW mode (ROOTED, MOTHER /show); where a feeling is in the brain, sourced
+(registry/regions.yaml) and `/feel` in MOTHER; ISS-115 records what Sherlock needs before a piece
+can carry the author's emotions (a sound grammar, read-back, provenance). Closed: ISS-099.
+
+**Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
+ear; the Dark Matter Lord's two gaps; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
+tokens; the Lulu account; the UAT walk (now 33 steps).
 
 ## Next: the release, by 21 October 2026 (ISS-114, the epic)
 

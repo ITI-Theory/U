@@ -6040,6 +6040,10 @@ this epic's file, HAL's verbatim answer records exempt from the .OBSOLETE check.
 for their days: the Lean appendix PDF is stale (the big build, Sat 17) and three PDFs are not in Dist
 yet (P25, SH1, C2-vol3: make dist, Mon 19). The warnings are expected: GAP-5 is tracked,
 EmotionCyc's #check_failure is a deliberate negative test, 46 records await Zenodo (Tue 20).
+Progress, 16 Oct (20:20): release-check 25 PASS / 3 WARN / 3 FAIL; the three are for their days
+(the Lean appendix in Saturday's big build, before the omnibus; Dist's three PDFs and its two old
+cheat sheets at make dist on Monday). New gates since the morning: 12a every cheat sheet stands on
+its own, 14d every Gallery picture the programme's own.
 Out of scope for the 21st (kept open, not blockers): ISS-105's levels-view shell and art pass,
 ISS-107 the films, ISS-112 the clock, ISS-111 the voice.
 
