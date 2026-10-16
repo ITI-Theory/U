@@ -4099,6 +4099,11 @@ other work.
 - [ ] (ISS-094) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
       the Gestalt paper's somatic claims name no interoception or predictive processing (add a
       line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
+- [ ] (ISS-094) The jargon trap, before the content freeze (end of Sat 17): `make -C sherlock bofh`,
+      bld/sherlock/bofh.md lists 16 hard terms with no plain-words bridge in the general reader's
+      documents, most in the Gateway book and booklets (G2 holonomy, gauge field on a D3-brane,
+      Calabi-Yau moduli). Gloss them, or say the Gateway may assume them; Copilot can draft the
+      glosses for you to approve.
 - [x] (ISS-041) Read the course through, then the release decision (the chapter-opening
       banners are ISS-051). Decided (author, 13 Oct 21:18): the course goes in the release, "it's good".
 - [x] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder
@@ -4692,9 +4697,11 @@ declared name, 460 to 586 citations, 0 disagree) and its was/now reading ran acr
 paragraph (fixed: the sentence); the booklets' summary page claimed "0 extra axioms", a G₂
 obligation "closed" by a flat product and a "quantum advantage real" from a simulation (fixed).
 
-## ISS-094: Every check has a nasty: Moriarty, the Dark Matter Lord, the BOFH — OPEN
+## ISS-094: Every check has a nasty: Moriarty, the Dark Matter Lord, the BOFH — CLOSED
 {{Tags area.proofs, area.books, area.instrument}}
-{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-16, epic=ISS-055-sherlock}}
+
+**Closed 2026-10-16:** the three adversaries are built (`make moriarty`, `make -C sherlock rivals`, `make -C sherlock bofh`); what they found for the author is on the desk (ISS-081); the app's BOFH is the UAT's `monster-bofh`.
 
 Author, 13 Oct: each of the three levels has an adversary, and a check that has never been
 attacked has not passed. Sherlock (verification, built right) has Moriarty, the breaker who
@@ -4774,7 +4781,15 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       law). The AI proposes rivals (with Cyc's neighbourhood and the bibliography), the author judges.
 - [x] (13 Oct: uat/*-nlm-uat.md C-6 and TC-4, uat/checklist.yaml monster-bofh) The BOFH: hostile
       questions and out-of-context quotes; misuse of the app.
-- [ ] The BOFH, H-AL's further attacks: poke during scale transitions, 11D controls below sigma 7,
+- [x] (16 Oct: registry/bofh.yaml, sherlock/bofh.py, `make -C sherlock bofh` -> bld/sherlock/bofh.md.
+      Leakage: a feeling put on a level OpenCyc says cannot bear one, in the level's text or a tour
+      line shown there, unhedged and not about its persons: 2 candidates, both ordinary (a group's
+      "emotional climate"; the model's "feeling layer"). The jargon trap: 16 first uses with no
+      plain-words bridge in the 6 general-reader documents, most in the Gateway book and booklets
+      (G2 holonomy, a gauge field on a D3-brane, Calabi-Yau moduli): to the author's desk.
+      Poke during scale transitions and 11D below sigma 7 are the app's: the UAT's `monster-bofh`
+      step, and 11D falls back to 8D at the quantum scales already.)
+      The BOFH, H-AL's further attacks: poke during scale transitions, 11D controls below sigma 7,
       emotion labels leaking into non-biological scales; the jargon trap (a general-reader section,
       the Gateway booklet, lapsing into untranslated string theory without a reader bridge).
 

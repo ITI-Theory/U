@@ -1,0 +1,23 @@
+# The BOFH's further attacks (ISS-094, H-AL's list): misreadings a hostile or hurried reader will
+# make. `make -C sherlock bofh` (sherlock/bofh.py) -> bld/sherlock/bofh.md. Candidates for a person
+# to read, not verdicts. Patterns are case-insensitive Python regular expressions.
+
+# 1. Emotion labels leaking into scales that cannot feel: a sentence in a level's text (or a tour
+# line shown at that level) that puts a feeling on a substrate OpenCyc says cannot bear one
+# (registry/level-types.yaml, bears_feelings: refuted), with no negation or hedge in the sentence.
+leakage:
+  emotion: '\b(fear|afraid|anger|angry|grief|griev\w*|joy|shame|ashamed|sad(ness)?|love[sd]?|anxi\w+|panic\w*|trauma\w*|feels?|feelings?|emotions?|emotional|mood|suffer\w*|hurt\w*|lonel\w+)\b'
+  hedge: '\b(not|no|never|nor|nothing|without|unsupported|metaphor\w*|analog\w*|as if|like a|picture|borrowed|vocabulary|word|neither|cannot|isn.t|doesn.t|rather than|only (in|as)|instead|open-hypothesis|Emotional Dynamics)\b'
+  # a sentence about the persons in a group (or a body, a brain's owner) is not leakage: they can feel
+  persons: '\b(persons?|people|members?|individuals?|humans?|each|patients?|you|author|bod(y|ies)|two|partners?|therapists?|clients?|crowd science)\b'
+
+# 2. The jargon trap: in a document for the general reader, a hard term's first use with no bridge
+# (a plain-words gloss) within `window` characters after it.
+jargon:
+  documents: [bld/books/book-gateway.pdf, bld/books/booklet-gateway-*.pdf]
+  papers_levels: [popular, undergraduate]   # Dist/PAPERS.yaml `level`; their built PDFs in bld/papers
+  window: 240
+  terms: ['Calabi[- ]Yau', 'compactif\w+', 'holonomy', '\bG[_ ]?2\b', 'Hamiltonian', 'Lagrangian', 'eigen\w+', 'Hilbert space',
+          "Green'?s function", 'renormali[sz]\w+', 'gauge (field|theory|symmetry)', '\bmanifold', 'M-theory', 'string theory', 'worldsheet',
+          'tensor rank', 'attractor', 'Hopfield', 'adiabatic', '\bIsing\b', 'spinor', 'Fourier']
+  bridge: '(that is|i\.e\.|meaning|which means|in plain (words|English)|in other words|think of|imagine|for example|e\.g\.|a way of|simply|is a (kind|sort|type) of|is the (name|word) for|picture|like a|\()'
