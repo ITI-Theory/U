@@ -5499,6 +5499,11 @@ grammar's three gaps closed by it.
       slope at its own temperature, warmed by Φ. Cut the grass shallow and easy; the dentist
       deep, leaning FREEZE; the tax return steep with high barriers; fix the bike leaning
       FIGHT; call mum with the resource. Illustrative values, labelled.
+- [x] (author 02:04: "the 5 mini FFF have lost their functionality, don't change shape with the
+      slider, no top rim") Fixed: each board's temperature follows the field's (Φ) scaled by its
+      own, so all six change shape together with the slider (deep and walled when cool, flat
+      when hot); each has the rim up to the square's top edge again; their relief is kept at
+      their size.
 - [ ] SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
       ROOTED, the unlocked mode); the science mode keeps THE WORLDS. With ROOTED.
 - [ ] Next: the levels view in the shell (fix 4) after the author's walk; the art pass (fix 10),

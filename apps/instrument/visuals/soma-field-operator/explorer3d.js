@@ -14,6 +14,7 @@ import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 
 const SIZE = 2.9;
+const T_MID = 0.55;   // the field's temperature at Φ 0.5 (explorer.js T0 + SIGMA / 2)
 const N = 110;
 const TRAIL = 160;
 
@@ -159,15 +160,20 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
     { T: 0.12, J: 0.45, depth: 0.9, tilt: [0], lean: 0.08, hue: 0.28 },        // call mum: the resource is there
   ];
   const BN = Math.round(N / 2);
-  function boardSurface(b) {
+  // its temperature follows the field's (Φ), scaled by its own: the shapes move with the slider
+  const boardT = (b, T) => T * (0.55 + 0.45 * b.shape.T / 0.12);
+  function boardSurface(b, T) {
     const lean = b.shape.tilt.reduce(([ax, ay], k) => [ax + wells[k][0], ay + wells[k][1]], [0, 0]);
-    const E = (x, y) => energy(x, y, 1 / b.shape.T, b.shape.J) * b.shape.depth - b.shape.lean * (lean[0] * x + lean[1] * y);
+    const E = (x, y) => energy(x, y, 1 / boardT(b, T), b.shape.J) * b.shape.depth - b.shape.lean * (lean[0] * x + lean[1] * y);
     const ref = E(0, 0);
-    b.h = (x, y) => Math.max(-0.5, Math.min(0.35, E(x, y) - ref)) * 0.95;
+    // the rim: every board rises to the same top edge as the square in front
+    const rim = (x, y) => 0.35 * Math.min(1, Math.max(0, (Math.max(Math.abs(x), Math.abs(y)) - 1.05) / 0.35)) ** 2;
+    b.h = (x, y) => Math.max(rim(x, y), Math.max(-0.5, Math.min(0.35, E(x, y) - ref))) * 0.95;
     b.E = E;
+    b.T = boardT(b, T);
   }
-  function paintBoard(b, phi) {
-    boardSurface(b);
+  function paintBoard(b, phi, T) {
+    boardSurface(b, T);
     const pos = b.geo.attributes.position, col = b.geo.attributes.color;
     const hue = 0.52 - 0.46 * phi + b.shape.hue;
     for (let i = 0; i < pos.count; i++) {
@@ -186,6 +192,7 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
   const LOAD_ANGLES = [-2.6, -2.05, -1.5708, -1.09, -0.54];   // around the back and the sides
   const BOARD = 0.5;
   let boards = null;
+  let lastPhi = 0.5, lastT = T_MID;
   let zoom = 0;
   // ATTENTION (author, 16 Oct 00:40): one ball is neon purple, the thought attended to now; it moves
   // to whichever thought pulls hardest (one whose ball has left SAFE), else now and then on its
@@ -224,7 +231,7 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
       lg.setAttribute('position', new THREE.Float32BufferAttribute(lp, 3));
       const lines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: '#5ee7ff', transparent: true, opacity: 0.35 }));
       group.add(new THREE.Mesh(geo, terrain.material), lines);
-      group.scale.setScalar(BOARD);
+      group.scale.set(BOARD, BOARD * 1.7, BOARD);   // their relief kept at their size
       // the same ball and trail as the square in front, in the board's own coordinates
       const ghost = new THREE.Mesh(ball.geometry, ball.material.clone());
       const tg = new THREE.BufferGeometry();
@@ -237,7 +244,7 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
       scene.add(group, strut);
       const w = wells[k % wells.length];
       const b = { name, shape: LOAD_SHAPES[k], geo, lines, group, ghost, trailLine, glows, strut, px: w[0] * 0.6, py: w[1] * 0.6, path: [], angle: LOAD_ANGLES[k], out: 0 };
-      paintBoard(b, 0.5);
+      paintBoard(b, lastPhi, lastT);
       return b;
     });
   }
@@ -264,7 +271,8 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
       if (next !== key) {
         key = next;
         rebuild(state.phi, state.T, state.J);
-        if (boards) for (const b of boards) paintBoard(b, state.phi);
+        lastPhi = state.phi; lastT = state.T;
+        if (boards) for (const b of boards) paintBoard(b, state.phi, state.T);
       }
       // swing over the mountains on the near side, the city on the horizon behind them
       if (state.golf && !boards) makeBoards();
@@ -287,7 +295,7 @@ export function createLandscape3D({ energy, wells, city = [], skyline = [] }) {
           // on its own slope, at its own temperature (warmer with Φ)
           const gx = (b.E(b.px + e, b.py) - b.E(b.px - e, b.py)) / (2 * e);
           const gy = (b.E(b.px, b.py + e) - b.E(b.px, b.py - e)) / (2 * e);
-          const hb = b.shape.T * (0.6 + 1.2 * (state.phi ?? 0.5));
+          const hb = b.T * 0.35;
           b.px = Math.max(-1.35, Math.min(1.35, b.px - gx * 0.6 * dt + Math.sqrt(2 * hb * dt) * 1.4 * (Math.random() - 0.5)));
           b.py = Math.max(-1.35, Math.min(1.35, b.py - gy * 0.6 * dt + Math.sqrt(2 * hb * dt) * 1.4 * (Math.random() - 0.5)));
           b.ghost.position.copy(local(b, b.px, b.py, 0.06));
