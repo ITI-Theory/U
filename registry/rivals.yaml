@@ -1,0 +1,33 @@
+# The Dark Matter Lord (ISS-094): the Wizard's rivals. For each family of claims, the simpler
+# rival a document must name and answer: the author's Disconfirmation Rule 4, "a formally
+# stronger competing mapping explains the same data with fewer assumptions", and the Wizard's
+# scope discipline (the D1 boundary: one case is not a law). A built document that makes the
+# claim (a `claims` pattern in its text) and never names the rival (no `names` pattern) is listed
+# for the author to judge (`make -C sherlock rivals`, sherlock/rivals.py): the AI proposes, the
+# author judges; naming is not answering, so a named rival is only a pointer to read.
+# Patterns are case-insensitive Python regular expressions.
+
+rivals:
+  classical-annealing:
+    rival: "classical annealing, Langevin noise or modern Hopfield networks: the same basins without 11D or tunnelling"
+    claims: ['quantum annealing (reaches|finds|escapes|explains)', 'quantum tunnell?ing (between|into|out of|across)', 'quantum advantage', 'tunnell?ing (between|into|out of) (basins|wells|attractors)', 'reaches basins that']
+    names: ['simulated annealing', 'Langevin', 'modern Hopfield', 'Ramsauer', 'classical (annealing|baseline|noise)']
+  interoception:
+    rival: "interoception and predictive processing: Craig's lamina I pathway, Friston's active inference"
+    claims: ['emotions? (is|are|as) (a |the )?field', 'felt in the body', 'bodily sensations?', 'body map', 'somatic (experience|sensation)', 'embodied emotion']
+    names: ['interocept', 'predictive (processing|coding)', 'active inference', 'Friston', 'lamina I', 'free[- ]energy principle']
+  pure-cemi:
+    rival: "pure CEMI: McFadden's conscious electromagnetic field in ordinary 4D Maxwell, no extra dimensions"
+    claims: ['consciousness (is|arises from|as|in) (an? |the )?(brain.s )?(electromagnetic|EM) field', "brain'?s (own )?electromagnetic field (is|carries|binds|integrates)", 'CEMI (field|theory|hypothesis) (is|says|holds|proposes)']
+    names: ['McFadden', 'Maxwell']
+  d1-breach:
+    rival: "the D1 boundary: one case (N = 1) is not a law"
+    claims: ["the author'?s (own )?(case|experience|recovery|trauma|clinical picture)", 'this case study', 'first[- ]person (account|report)']
+    names: ['N\s*=\s*1\b', 'single[- ]case', 'n[- ]of[- ]1', 'one case', 'does not generali[sz]e', 'cannot be generali[sz]ed', 'not a law']
+
+# the built documents read (globs under U), as the reader gets them; the reference list is not read
+documents:
+  - bld/books/book-*.pdf
+  - bld/books/ttheory-vol*.pdf
+  - bld/papers/*.pdf
+  - bld/textbook/*.pdf

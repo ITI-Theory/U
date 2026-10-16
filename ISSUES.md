@@ -4096,6 +4096,9 @@ other work.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
+- [ ] (ISS-094) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
+      the Gestalt paper's somatic claims name no interoception or predictive processing (add a
+      line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
 - [x] (ISS-041) Read the course through, then the release decision (the chapter-opening
       banners are ISS-051). Decided (author, 13 Oct 21:18): the course goes in the release, "it's good".
 - [x] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder
@@ -4721,7 +4724,7 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       sorry count in prose with no Lean name (ISS-093 lesson 1), and "the matrix $W$ is the
       amygdala" (biological leakage in prose; the typing check, ISS-063, sees only axioms). Moriarty
       (b) below is where these get attacked.
-- [ ] Moriarty (b), stress tests of the claims (H-AL's first attacks): axiom smuggling (prose
+- [x] Moriarty (b), stress tests of the claims (H-AL's first attacks): axiom smuggling (prose
       "kernel-verified" over FieldAxioms or a placeholder); biological leakage (a D9-11 matrix
       equated with tissue without a transduction map: the typing check, ISS-063); matrix
       non-generalisation (QUANT-EXP-1 and FM-HN reachability under random non-symmetric couplings
@@ -4759,7 +4762,12 @@ asked (uat/RC3/hal-adversaries-2026-10-13.md); its corrections are taken in:
       figure caption and the Physics, Philosophy and Law books quote the measured figures
       (f40d138, a8114ae). P2's German, French and Italian versions keep the old abstract: not in
       this release (author, 01:55); update them before they are published.)
-- [ ] The Dark Matter Lord (the Wizard's rivals): for each book's central claims, does it name
+- [x] (16 Oct: registry/rivals.yaml, sherlock/rivals.py, `make -C sherlock rivals` ->
+      bld/sherlock/rivals.md: 51 built documents x 4 rivals, the claim found by pattern, the
+      reference list not read; 62 named, 2 gaps for the author (ISS-081): the Gestalt paper's
+      somatic claims name no interoception; SH1 quotes "quantum advantage" as a fault, likely
+      fine. Naming is not answering: the named ones are pointers to read.)
+      The Dark Matter Lord (the Wizard's rivals): for each book's central claims, does it name
       and answer the simpler rival: classical annealing, Langevin noise or modern Hopfield networks
       without 11D or tunnelling; interoception and predictive processing (Craig's lamina I, Friston's
       active inference); pure CEMI (McFadden, 4D Maxwell); and the D1 breach (N = 1 presented as a
