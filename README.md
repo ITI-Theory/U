@@ -138,3 +138,4 @@ Copyright 2026 Alistair Johnson (ORCID 0009-0007-2194-0850).
 - **Code (apps, scripts, build files, Lean proofs, Sherlock):** [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0),
   full text in [LICENSE-APACHE](LICENSE-APACHE) (Mathlib's licence).
 - **Third-party material** keeps its own licence and is listed in the CREDITS files next to it.
+- **Credit:** please attribute "Alistair Johnson, [T]-Theory, t-theory.org".

@@ -115,6 +115,19 @@ app-start:
 app-publish:
 	$(PYTHON) $(APP_DIR)/scripts/publish.py $(if $(DRY),--dry-run,)
 
+# The home page of https://www.t-theory.org from web/home.md (pandoc, no script writes markup).
+# `make web` builds bld/web/index.html to look at; `make web-publish` copies it into the site
+# repo (../t-theory.org); the author commits and pushes there when it should go live.
+.PHONY: web web-publish
+web: bld/web/index.html
+
+bld/web/index.html: web/home.md
+	mkdir -p $(dir $@)
+	pandoc $< --from=markdown --to=html5 --standalone --eol=lf --output=$@
+
+web-publish: bld/web/index.html
+	cp $< ../t-theory.org/index.html
+
 relay:
 	cd apps/instrument/mother && $(MOTHER_PY) relay.py $(if $(LAN),--lan,)
 

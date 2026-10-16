@@ -5682,10 +5682,16 @@ attribution can name both ("Alistair Johnson, [T]-Theory, t-theory.org").
       two gaps: the app's splash and U's README now link to t-theory.org. One gap left, for the
       author to publish: t-theory.org should link to the public notebook ("ask the theory"
       before the app).
-- [ ] Names and domains: check availability (t-theory.com, tttheory and variants; X, Bluesky,
-      Mastodon, YouTube, Instagram, LinkedIn); the author decides what to claim. Not checked yet.
-- [ ] A marketing plan, short: who each place is for (scientist, U), what it says, how often.
-- [ ] The suggested attribution line in README, the app's About and the web site.
+- [x] Names and domains: check availability (t-theory.com, tttheory and variants; X, Bluesky,
+      Mastodon, YouTube, Instagram, LinkedIn); the author decides what to claim. (16 Oct:
+      checked, registry/presence.yaml `candidates`: tttheory.org and t-theory.net free, t-theory.com
+      taken; Bluesky @t-theory.org possible with our domain; YouTube @t-theory free; X, Instagram,
+      LinkedIn need a login, by hand.)
+- [x] A marketing plan, short: who each place is for (scientist, U), what it says, how often.
+      (16 Oct: web/PITCH.md, "Where it goes"; Copilot's proposal, the author decides.)
+- [x] The suggested attribution line in README, the app's About and the web site. (16 Oct:
+      web/home.md "Licence and credit"; README's Licence; the app has no About, so the splash
+      carries one small credit line.)
 
 ## ISS-110: Tours as tabs, a route planner, and WHEREAMI — OPEN
 
@@ -5745,10 +5751,13 @@ Facts and Copilot's view:
   to your mind; a guided tour, not therapy.
 - [ ] Speech to text in HAL (faster-whisper) for UAT: speak a finding, HAL writes it down.
 - [ ] Better speech: Kokoro alongside Piper; choose by ear.
-- [ ] The "ask the theory first" path on the web page, then the app.
+- [x] The "ask the theory first" path on the web page, then the app. (16 Oct: web/home.md, built
+      by `make web`, copied by `make web-publish` into ../t-theory.org; Sherlock's presence check
+      reads the source: 10 linked, 0 gaps. Live when the author pushes the site, Wed 21.)
 - [ ] Name the tested arm band in the app's STRAP help (the test is UAT: `uat/checklist.yaml`,
       step `hw-strap`).
-- [ ] The pitch, for U and for the scientist, labelled; through the clinical check.
+- [x] The pitch, for U and for the scientist, labelled; through the clinical check. (16 Oct:
+      web/PITCH.md; Sherlock's clinical check: 0 candidates.)
 - [ ] (author 16 Oct 15:52) HAL follows access: a user with the web (a public notebook) gets
       MOTHER; HAL (the API through the bridge, the author's private notebook) is the author's
       only. Private material goes to HAL only, e.g. the last film (ISS-107: the mix and the
@@ -5810,7 +5819,8 @@ clear of therapy claims.
       (galaxies, stars, planets .sc, SpaceEngine's format) and a README; the author copies it into
       SpaceEngine's addons. The River Film: a galaxy, 6 stars, 16 worlds; the 2021 film too.
 - [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
-- [ ] The pitch, written: "create a new universe", humorous, labelled.
+- [x] The pitch, written: "create a new universe", humorous, labelled. (16 Oct: web/PITCH.md,
+      the author's words, then the score-to-universe generator, `speculative`.)
 
 ## ISS-113: The organisation's READMEs, and the old jokes worth keeping — OPEN
 

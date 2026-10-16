@@ -13,9 +13,8 @@ places:
     title: "t-theory.org"
     url: https://www.t-theory.org
     for: [u, scientist]
-    file: ../t-theory.org/index.html
-    links_to: [github-org, app, orcid]
-    should_link_to: [notebook]          # "ask the theory" before the app (ISS-111)
+    file: web/home.md                   # built by `make web`, copied by `make web-publish`
+    links_to: [github-org, app, orcid, notebook, zenodo]   # "ask the theory" first (ISS-111)
   app:
     title: "The Soma Machine"
     url: https://www.t-theory.org/app/
@@ -48,12 +47,24 @@ places:
     for: [u, scientist]
   zenodo:
     title: "Zenodo (the DOIs)"
-    url: https://zenodo.org
+    url: https://zenodo.org/communities/iti-theory
     for: [scientist]
     status: waiting for ZENODO_TOKEN
 
-# names not claimed yet: to check by hand, then the author decides (ISS-109)
+# names not claimed yet; the author decides (ISS-109). Checked 16 Oct 2026 (RDAP for domains,
+# the public APIs for handles); "taken" is by someone else unless the author says it is his.
 candidates:
-  domains: [t-theory.com, tttheory.org, tttheory.com, t-theory.net]
-  handles: ["@ttheory", "@t_theory", "@tttheory"]
-  networks: [X, Bluesky, Mastodon, YouTube, Instagram, LinkedIn]
+  domains:
+    free: [tttheory.org, t-theory.net]
+    taken: [t-theory.com (expires 2027-02-01), tttheory.com, ttheory.org, ttheory.com]
+  bluesky:
+    free: ["@t-theory.org (the domain as the handle)", "@ttheory.bsky.social", "@t-theory.bsky.social", "@tttheory.bsky.social"]
+  mastodon.social:
+    free: ["@ttheory", "@t_theory", "@tttheory"]
+  youtube:
+    free: ["@t-theory"]
+    taken: ["@ttheory", "@tttheory"]
+  github:
+    free: [ttheory, tttheory]
+    taken: [t-theory (an empty account, 2023)]
+  by_hand: [X, Instagram, LinkedIn]   # need a login to check
