@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -37,6 +37,7 @@ help:
 	$(info   rivals      the Dark Matter Lord: claims whose simpler rival is never named (registry/rivals.yaml; ISS-094))
 	$(info   bofh        the BOFH: feelings on levels that cannot feel; jargon with no bridge for the general reader (ISS-094))
 	$(info   standalone  every cheat sheet stands on its own: identity, its own words, its own references)
+	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
 	$(info   model       the high-level model of [T]-Theory: its pointers resolve, its labels hold (registry/model.yaml; ISS-108))
 	$(info   neighbours  the Wizard: OpenCyc neighbours of the concepts that no paper or book names (ISS-092))
 	$(info   towers      the programme's Lean exported for the city of code (bld/sherlock/towers.json; about 25 min))
@@ -145,6 +146,9 @@ bofh:
 
 standalone:
 	$(PYTHON) standalone.py
+
+gallery:
+	$(PYTHON) gallery_sources.py
 
 model:
 	$(PYTHON) model.py

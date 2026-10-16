@@ -4895,7 +4895,10 @@ also as a new view in the app, the Gallery.
       and per stage of the programme, where the pink and blue enter.
 - [ ] Filters for images and video (pencil, retro black-and-white, distortion driven by the field),
       in the app and in the build; which are ROOTED.
-- [ ] Sources and licences: the collection as inspiration only (its works are others'
+- [x] (16 Oct: checked, and kept so: sherlock/gallery_sources.py, `make -C sherlock gallery`,
+      release-check 14d: every plate and the cover is an app capture, a gallery capture or a SNAP;
+      88 of 88 today. Anything else fails.)
+      Sources and licences: the collection as inspiration only (its works are others'
       copyright); the book's images made by the programme (renders, captures, filters), or
       public domain, or licensed.
 - [ ] The Gallery view in the Soma Machine.

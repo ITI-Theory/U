@@ -256,6 +256,15 @@ else
   echo "$LIC_CHECK" | sed 's/^/    /'
 fi
 
+hdr "14d. A Gallery of Thoughts: every picture the programme's own (ISS-097)"
+GALLERY=$(py sherlock/gallery_sources.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "Every plate is an app capture, a gallery capture or a SNAP: nobody else's picture"
+else
+  fail "A Gallery plate is not the programme's own"
+fi
+echo "$GALLERY" | sed 's/^/    /'
+
 hdr "15. Nothing live depends on .OBSOLETE files"
 OBSOLETE_CHECK=$(py paper/scripts/check_obsolete_refs.py 2>&1)
 if [[ $? -eq 0 ]]; then
