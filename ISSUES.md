@@ -4891,9 +4891,11 @@ soma: distortion as the field's amplitude), pencil. The author's avant-garde col
 inspiration. The original idea, years ago: drone footage for the video. The finished pictures
 also as a new view in the app, the Gallery.
 
-- [ ] The book's plan: the two clocks on the registry's eras (registry/eras.yaml), a style per era
+- [x] (done in the first draft, 14 Oct: registry/gallery.yaml, 12 rooms on the development clock, four
+      era rooms, `stage:<t>` for where the pink and blue enter) The book's plan: the two clocks on the registry's eras (registry/eras.yaml), a style per era
       and per stage of the programme, where the pink and blue enter.
-- [ ] Filters for images and video (pencil, retro black-and-white, distortion driven by the field),
+- [~] (the build's: lib/art/filters.py, pencil, stage, engraving, abstraction_1911, retro_bw,
+      distort; the app's and video: after the release) Filters for images and video (pencil, retro black-and-white, distortion driven by the field),
       in the app and in the build; which are ROOTED.
 - [x] (16 Oct: checked, and kept so: sherlock/gallery_sources.py, `make -C sherlock gallery`,
       release-check 14d: every plate and the cover is an app capture, a gallery capture or a SNAP;
