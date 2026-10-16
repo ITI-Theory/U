@@ -54,8 +54,8 @@ terms:
     paper: paper/soma/path-sensitive-transitions
 channels:
   - id: phi-light
-    what: "the Φ LIMBIC / FX slider's light and heat in every view"
-    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "Φ LIMBIC / FX"}
+    what: "the Φ THE FIELD slider's light and heat in every view"
+    code: {file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "Φ THE FIELD"}
     expresses: [limbic-field]
   - id: thought-sea
     what: "the THOUGHT stop: the sub-threshold sea, the gold threshold plane, a swell crossing it becomes an emotion at 8D, then a thought at 11D"

@@ -1,5 +1,5 @@
 ---
-tags: area.app, area.build, area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, area.visualize, project.soma-field-operator, projection.3d, release, uat
+tags: area.app, area.build, area.instrument, area.ops, area.papers, area.books, area.theory, area.proofs, area.clinical, area.visualize, area.uat, area.sherlock, area.physics, area.art, area.release, area.hal, project.soma-field-operator, projection.3d, release, uat
 fields: date.created, date.start, date.end, epic
 ---
 

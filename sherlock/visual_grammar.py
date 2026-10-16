@@ -17,6 +17,9 @@ from pathlib import Path
 
 import yaml
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 U = Path(__file__).resolve().parents[1]
 REG = U / "registry" / "visual-grammar.yaml"
 OUT = U / "bld" / "sherlock" / "visual-grammar.md"

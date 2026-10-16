@@ -11,7 +11,8 @@ read, build or cite it.
    link to it.
 2. No live tracked file refers to the old name of something that is now
    `.OBSOLETE` (a dangling reference), unless that old name exists again.
-   Append-only logs in APPEND_ONLY are skipped.
+   Append-only logs in APPEND_ONLY, and HAL's verbatim answer records
+   (uat/**/hal-*-answers.md), are skipped.
 
 Exit 1 on failure.
 """
@@ -30,6 +31,7 @@ ALLOWED = {".ignore", ".vscode/settings.json", "bin/release-check",
 # Historical records, never rewritten: field notes, and Phase Dot (pasted chat transcripts,
 # whose compose files and the like belong to other machines, not to this repository)
 APPEND_ONLY = {"paper/FIELD-NOTES.md"}
+RECORD = re.compile(r"^uat/.*/hal-[^/]*-answers\.md$")
 TEXT = {".md", ".py", ".lua", ".sh", ".js", ".mjs", ".ts", ".yaml", ".yml",
         ".tex", ".json", ".toml", ".txt", ".html", ".css", ".lean", ".mk", ""}
 MAX_BYTES = 3_000_000
@@ -96,7 +98,7 @@ def main() -> int:
             for m in MD_LINK.finditer(text):
                 line = text[: m.start()].count("\n") + 1
                 failures.append(f"{rel}:{line}: links to a {SUFFIX} file (name it, do not link it)")
-        if rel in APPEND_ONLY or rx is None:
+        if rel in APPEND_ONLY or RECORD.match(rel) or rx is None:
             continue
         for m in rx.finditer(text):
             line = text[: m.start()].count("\n") + 1
