@@ -4095,6 +4095,8 @@ other work.
       -0.3. A slip in the illustrative example, or meant? If a slip, -0.3 at both places.
 - [ ] (ISS-112) Recurring, monthly (author 16 Oct): update Ableton Live and its third-party plugins;
       the Soma set stays on stock devices so an update cannot break it.
+- [ ] (ISS-111) Choose H-AL's voice by ear: bld/voice/compare/index.md (Piper's H-AL and eight
+      Kokoro voices, the same lines); then set voice_engine and kokoro_voice (mother README, Voice).
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -5808,7 +5810,11 @@ Facts and Copilot's view:
       `small.en`, word-perfect on a test sentence. In `HAL uat` (uat.py): `v` at a step is a spoken
       note, and `v` at any note prompt speaks it; what was heard is shown to keep or correct.
       Standalone: `python uat/scripts/dictate.py`.)
-- [ ] Better speech: Kokoro alongside Piper; choose by ear.
+- [x] Better speech: Kokoro alongside Piper; choose by ear. (16 Oct: the bridge has both engines,
+      `voice_engine` piper | kokoro; Kokoro-82M is Apache-2.0, so it is also the licence-clean public
+      voice ISS-082 wanted; `voices.py` renders the same lines in Piper's H-AL and eight Kokoro
+      voices to bld/voice/compare/. Round trip through dictate.py: Kokoro word-perfect, Piper's
+      H-AL heard "stone" as "storm". The choice is the author's: ISS-081.)
 - [x] The "ask the theory first" path on the web page, then the app. (16 Oct: web/home.md, built
       by `make web`, copied by `make web-publish` into ../t-theory.org; Sherlock's presence check
       reads the source: 10 linked, 0 gaps. Live when the author pushes the site, Wed 21.)

@@ -146,8 +146,60 @@ def voice_model() -> Path:
     return Path(configured).expanduser() if configured else DEFAULT_VOICE_MODEL
 
 
+# Kokoro (ISS-111, "choose by ear"): a second engine, Apache-2.0 (Kokoro-82M), so licence-clean
+# for a public voice (ISS-082), through kokoro-onnx; the model files live outside the repo in
+# ~/.voice-admin/models/kokoro/. local_config "voice_engine": "piper" | "kokoro";
+# "kokoro_voice" (default bm_george, a British male voice).
+KOKORO_DIR = Path.home() / ".voice-admin" / "models" / "kokoro"
+_KOKORO = None
+
+
+def kokoro_available() -> bool:
+    try:
+        import kokoro_onnx  # noqa: F401
+    except ImportError:
+        return False
+    return (KOKORO_DIR / "kokoro-v1.0.onnx").exists() and (KOKORO_DIR / "voices-v1.0.bin").exists()
+
+
+def voice_engine() -> str | None:
+    want = os.environ.get("MOTHER_VOICE_ENGINE") or local_config().get("voice_engine")
+    piper = PiperVoice is not None and voice_model().exists()
+    if want == "kokoro" and kokoro_available():
+        return "kokoro"
+    if want in (None, "", "piper") and piper:
+        return "piper"
+    return "kokoro" if kokoro_available() else ("piper" if piper else None)
+
+
 def voice_available() -> bool:
-    return PiperVoice is not None and voice_model().exists()
+    return voice_engine() is not None
+
+
+def synthesize_kokoro(text: str, voice: str | None = None) -> bytes:
+    global _KOKORO
+    import io
+    import re as _re
+    import wave
+    import numpy as np
+    delivery = {**HAL_DELIVERY, **(local_config().get("hal_delivery") or {})}
+    voice = voice or local_config().get("kokoro_voice") or "bm_george"
+    with VOICE_LOCK:
+        if _KOKORO is None:
+            from kokoro_onnx import Kokoro
+            _KOKORO = Kokoro(str(KOKORO_DIR / "kokoro-v1.0.onnx"), str(KOKORO_DIR / "voices-v1.0.bin"))
+        parts, rate = [], 24000
+        for sentence in [x for x in _re.split(r"(?<=[.!?])\s+", text.strip()) if x] or [text]:
+            samples, rate = _KOKORO.create(sentence, voice=voice, speed=1 / delivery["length_scale"], lang="en-gb" if voice.startswith("b") else "en-us")
+            parts += [samples, np.zeros(int(rate * delivery["sentence_pause"]), dtype="float32")]
+    pcm = (np.clip(np.concatenate(parts[:-1]), -1, 1) * 32767).astype("<i2").tobytes()
+    buffer = io.BytesIO()
+    with wave.open(buffer, "wb") as wav:
+        wav.setnchannels(1)
+        wav.setsampwidth(2)
+        wav.setframerate(rate)
+        wav.writeframes(pcm)
+    return buffer.getvalue()
 
 
 # The H-AL-ifier's delivery (ISS-054, ISS-065 D5): any stock Piper voice made H-AL by
@@ -157,6 +209,12 @@ HAL_DELIVERY = {"length_scale": 1.15, "noise_scale": 0.55, "noise_w_scale": 0.5,
 
 
 def synthesize(text: str) -> bytes:
+    if voice_engine() == "kokoro":
+        return synthesize_kokoro(text)
+    return synthesize_piper(text)
+
+
+def synthesize_piper(text: str) -> bytes:
     global _VOICE
     import io
     import re as _re
@@ -656,7 +714,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def _speak(self) -> None:
         if not voice_available():
-            self._json(404, {"error": "H-AL voice not installed (pip install piper-tts; see README)"})
+            self._json(404, {"error": "H-AL voice not installed (pip install piper-tts or kokoro-onnx; see README)"})
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))

@@ -112,6 +112,21 @@ Another model path can be set with `voice_model` in `mother.local.json` or
 `MOTHER_VOICE_MODEL`. `GET /health` reports `"voice": true` when it is ready;
 `POST /speak {"text": "..."}` returns `audio/wav` (localhost origins only).
 
+A second engine, Kokoro (Kokoro-82M, Apache-2.0, so fine for a public voice), runs on the CPU
+through kokoro-onnx (ISS-111):
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install kokoro-onnx
+$d = "$HOME\.voice-admin\models\kokoro"; New-Item -ItemType Directory -Force $d
+foreach ($f in 'kokoro-v1.0.onnx', 'voices-v1.0.bin') {
+  curl.exe -sSL -o "$d\$f" "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f" }
+.\.venv\Scripts\python.exe voices.py   # the same lines in every voice: U/bld/voice/compare/
+```
+
+Choose by ear, then set `"voice_engine": "kokoro"` and `"kokoro_voice": "bm_george"` (or any
+other) in `mother.local.json`, or `MOTHER_VOICE_ENGINE`. Without a setting the bridge uses
+Piper when the H-AL model is there, else Kokoro. Both get the H-AL-ifier's delivery.
+
 ## Observatory mode and tours
 
 Tick OBSERVATORY (or `/observatory on`). Each question then asks the notebook
