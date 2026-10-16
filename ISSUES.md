@@ -5894,5 +5894,11 @@ Tasks:
       paper. The Field Atlas at bookfactory later (ISS-040).
 - [ ] Tag U and Dist together; CURRENT.md and the README updated.
 - [ ] Which notebook is the public one (ec1a7e74 or 16368cb3, ISS-113): AUTHOR.
+Progress, 16 Oct (evening): release-check dry run, 21 PASS / 5 FAIL at first, then 24 PASS / 3 WARN /
+2 FAIL after fixes (c27aa69): the Φ slider's Sherlock anchor (renamed Φ THE FIELD), the new area tags,
+this epic's file, HAL's verbatim answer records exempt from the .OBSOLETE check. The two left are
+for their days: the Lean appendix PDF is stale (the big build, Sat 17) and three PDFs are not in Dist
+yet (P25, SH1, C2-vol3: make dist, Mon 19). The warnings are expected: GAP-5 is tracked,
+EmotionCyc's #check_failure is a deliberate negative test, 46 records await Zenodo (Tue 20).
 Out of scope for the 21st (kept open, not blockers): ISS-105's levels-view shell and art pass,
 ISS-107 the films, ISS-112 the clock, ISS-111 the voice.
