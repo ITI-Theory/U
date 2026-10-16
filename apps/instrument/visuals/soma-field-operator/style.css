@@ -847,3 +847,4 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .tour-card__companion b { color: var(--cyan, #14e5ff); font-size: 10px; letter-spacing: .06em; }
 .tour-card__companion a { color: #e8eefc; }
 .tour-card__companion span { color: rgba(232,238,252,.6); }
+.mother-settings__note { display: block; margin-top: 4px; color: rgba(232,238,252,.55); font: 400 9px/1.4 'Space Mono', monospace; }

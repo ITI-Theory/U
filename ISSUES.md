@@ -5812,7 +5812,10 @@ Facts and Copilot's view:
       step `hw-strap`).
 - [x] The pitch, for U and for the scientist, labelled; through the clinical check. (16 Oct:
       web/PITCH.md; Sherlock's clinical check: 0 candidates.)
-- [ ] (author 16 Oct 15:52) HAL follows access: a user with the web (a public notebook) gets
+- [x] (16 Oct: checked, it holds by construction: the bridge answers only localhost origins
+      (bridge.py LOCAL_ORIGIN), so the published app at t-theory.org can never reach H-AL, even on
+      the author's machine; said in the app, under MOTHER's mode in SETTINGS.)
+      (author 16 Oct 15:52) HAL follows access: a user with the web (a public notebook) gets
       MOTHER; HAL (the API through the bridge, the author's private notebook) is the author's
       only. Private material goes to HAL only, e.g. the last film (ISS-107: the mix and the
       film stay out of the repository and Dist). Today: MOTHER's H-AL persona answers only in

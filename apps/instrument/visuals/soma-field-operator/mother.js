@@ -152,7 +152,8 @@ export function createMother({ getContext }) {
       <option value="api">API / LOCAL BRIDGE</option>
     </select>
     <input id="mother-notebook" type="url" placeholder="Public NotebookLM notebook URL" autocomplete="off" />
-    <input id="mother-bridge" type="url" placeholder="${DEFAULT_BRIDGE}" autocomplete="off" />`;
+    <input id="mother-bridge" type="url" placeholder="${DEFAULT_BRIDGE}" autocomplete="off" />
+    <small class="mother-settings__note">WEB: MOTHER, the public notebook, for everyone. API: H-AL, through a bridge on this machine only (it answers localhost pages, never the web site), so the author's private notebook and material stay with him (ISS-111).</small>`;
   document.querySelector('.settings-panel')?.append(settings);
   const modeSelect = settings.querySelector('#mother-mode');
   const notebookInput = settings.querySelector('#mother-notebook');
