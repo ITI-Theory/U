@@ -107,6 +107,10 @@ steps:
     kind: manual
     title: "The VS Code extension: install the VSIX and try it (ISS-090)"
     do: "npm run package in apps/vscode; code --install-extension apps/vscode/bld/soma-machine-0.1.0.vsix; open the Soma Machine view; the 14 stops, WAY IN among them"
+  - id: app-show
+    kind: manual
+    title: "SHOW mode, the music film: the mix drives the machine (ROOTED; ISS-107)"
+    do: "make show-cues MIX=<the Ozora WAV>; in the app, rooted: MOTHER /show; pick the WAV and bld/show/cues.json; PLAY; do the scenes change on phrases and drops, does Φ pulse with the kick, is the picture clean? Then REC + PLAY for a minute (share this tab with audio) and check the webm"
   # 4. the film (ISS-052): watch it whole, record it, review every line
   - id: film-river-90
     kind: app
