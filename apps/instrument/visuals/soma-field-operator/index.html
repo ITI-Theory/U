@@ -9,6 +9,21 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <!--
+      Hello, reader of source. Welcome to the world of hacking.
+
+      You found it: there is more to this machine than its two doors. Open MOTHER (ASK MOTHER),
+      type REQUEST ACCESS, and when she asks for your clearance code, give her:
+
+          HelloWorld
+
+      the first words every program ever says. Please don't tell anyone the password, or they
+      won't have the fun of finding it. They may need your help, though: give them clues.
+      (Try: "look at the source", "every program's first words", "ask MOTHER for access".)
+
+      Nothing in there is dangerous: more effects, louder music, a theme park. Enjoy it.
+                                                                              -- A.J.
+    -->
     <main>
       <canvas id="operator" aria-label="Soma Field Operator visual"></canvas>
       <div id="compare-labels" class="compare-labels" hidden aria-hidden="true"><span>4D / PHYSICS BASELINE</span><span id="compare-right">T-THEORY / 11D</span></div>
@@ -25,6 +40,17 @@
           <code id="abstract-splash-source" class="abstract-splash__source"></code>
           <button id="abstract-splash-enter" class="abstract-splash__enter" type="button">OK / ENTER</button>
           <a class="abstract-splash__overview" href="./overview.html">FIRST TIME? SEE HOW IT FITS TOGETHER</a>
+        </div>
+      </section>
+      <section id="who-choice" class="who-choice" role="dialog" aria-modal="true" aria-labelledby="who-choice-title" hidden>
+        <div class="who-choice__frame">
+          <p class="abstract-splash__kicker">[T]-THEORY / SOMA MACHINE</p>
+          <h2 id="who-choice-title">WHO IS EXPLORING?</h2>
+          <div class="who-choice__doors">
+            <button type="button" class="who-choice__door who-choice__door--u" data-who="u"><b>U</b><span>anyone · a mind and body explorer · monsters live here · with the Field Atlas</span></button>
+            <button type="button" class="who-choice__door who-choice__door--scientist" data-who="scientist"><b>THE SCIENTIST</b><span>everything, at a high level · the levels, the equations, the evidence, the Lean · with the papers</span></button>
+          </div>
+          <p class="who-choice__note">You can change this later in SETTINGS.</p>
         </div>
       </section>
       <section class="field-readout" aria-label="Field controls">

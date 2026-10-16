@@ -5603,15 +5603,21 @@ Copilot's view: yes, and it simplifies a lot. Blue and red read as the two pills
 the scientist (the whole truth, the papers) fits. A hidden mode in a static web app is
 concealment for a cleaner experience, not security: anyone reading the code can find it,
 which is fine as long as ROOTED holds nothing that must stay private.
-- [ ] The choice screen after the splash (U blue left, THE SCIENTIST red right), remembered;
-      changeable later in SETTINGS.
-- [ ] A profile per user: the defaults (labels, reader register, the companion it points to),
-      the first place (U: THE WORLDS; the scientist: the level view or the papers' map?), and
-      the names (MINI GOLF may suit U; the scientist may want THE BASINS). Kept in a registry.
-- [ ] ROOTED by MOTHER only: typed in MOTHER, never shown otherwise; SOMA WORLD and the rest
-      of ISS-095 behind it.
-- [ ] FX is used twice: in ROOTED it is effects (audio-visual); in the app the Φ bar is the
-      limbic field. Rename the bar (Φ, THE FIELD) and keep FX for ROOTED's effects.
+- [x] The choice screen after the splash (U blue left, THE SCIENTIST red right), remembered;
+      changeable later in SETTINGS (EXPLORING AS ⇄) and in MOTHER (/who u, /who scientist).
+      who.js; index.html #who-choice. Asked once, on a fresh start.
+- [~] A profile per user (who.js PROFILES): U starts in THE WORLDS, register GENERAL; THE
+      SCIENTIST starts in the level view, register SPECIALIST; names differ (MINI GOLF / THE
+      BASINS; SOMA WORLD when rooted). Still: the companion links (Field Atlas, papers, Fractal
+      Thesis), more defaults, a registry file.
+- [~] ROOTED by MOTHER only (author 15:27: the password in the page's source, "welcome to the
+      world of hacking", HelloWorld): REQUEST ACCESS in MOTHER, she asks for the clearance code,
+      HelloWorld (spaces and case ignored) roots the machine; LEAVE ROOT goes back; not in
+      /help. index.html carries the welcome comment with the code and "don't tell anyone, give
+      them clues". Rooted: the ROOTED badge, SOMA WORLD, the Root Monster's name (hidden
+      otherwise). Still: what ROOTED switches on (ISS-095: the effects, the music, the theme park).
+- [x] FX is used twice: the bar is now Φ THE FIELD and its hints say Φ; FX is kept for ROOTED's
+      effects. (Internal names unchanged.)
 - [ ] POKE more pronounced and more visual, for learning: the impulse, where it goes, what it
       does, then the return.
 - [ ] A high-level model of [T]-Theory that Sherlock can check the app, the web site and the

@@ -1,0 +1,41 @@
+// who.js: the three users (ISS-108, author 16 Oct). After the splash a small screen asks who
+// you are: U (blue, left: anyone, universal; monsters live here; first a companion to the Field
+// Atlas) or THE SCIENTIST (red, right: everything at a high level; first a companion to the
+// papers). The third, ROOTED (first a companion to the Fractal Thesis), is never offered: you
+// ask MOTHER for access and give her the clearance code (it is in the page's source, for those
+// who look). Nothing in ROOTED is dangerous; it is tone, effects and extras, not secrets. Kept
+// in this browser only.
+
+export const PROFILES = {
+  u: {
+    id: 'u', label: 'U', side: 'blue', reader: 'general', companion: 'the Field Atlas',
+    start: 'level=human-vertebrate&voyage=worlds&dim=11&phi=0.6',
+    says: 'Anyone. A mind and body explorer: start in THE WORLDS and go through the glass.',
+  },
+  scientist: {
+    id: 'scientist', label: 'THE SCIENTIST', side: 'red', reader: 'specialist', companion: 'the papers',
+    start: 'level=human-vertebrate&dim=11',
+    says: 'Everything, at a high level: the levels, the equations, the evidence and the Lean, beside the papers.',
+  },
+};
+// names that differ by who you are (the ids never change)
+const NAMES = {
+  u: { worlds: 'THE WORLDS', golf: 'MINI GOLF' },
+  scientist: { worlds: 'THE WORLDS', golf: 'THE BASINS' },
+  rooted: { worlds: 'SOMA WORLD', golf: 'MINI GOLF' },
+};
+const KEY = 'soma-who', ROOT = 'soma-rooted';
+// the clearance code MOTHER asks for (also in index.html, in a comment, for those who look)
+export const CLEARANCE = 'helloworld';
+
+const read = k => { try { return localStorage.getItem(k); } catch { return null; } };
+const write = (k, v) => { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch { /* private mode */ } };
+const tell = () => globalThis.dispatchEvent?.(new CustomEvent('soma-who', { detail: { who: who(), rooted: rooted() } }));
+
+export function who() { const w = read(KEY); return PROFILES[w] ? w : null; }
+export function profile() { return PROFILES[who() ?? 'u']; }
+export function setWho(id) { if (!PROFILES[id]) return; write(KEY, id); tell(); }
+export function rooted() { return read(ROOT) === '1'; }
+export function setRooted(on) { write(ROOT, on ? '1' : null); tell(); }
+export const clearanceOk = text => String(text ?? '').replace(/[\s_\-.,!'"]/g, '').toLowerCase() === CLEARANCE;
+export function placeName(key) { return (rooted() ? NAMES.rooted : NAMES[who() ?? 'u'])[key] ?? key; }

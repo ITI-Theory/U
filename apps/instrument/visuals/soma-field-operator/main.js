@@ -8,6 +8,7 @@ import { getScaleMorphism } from './scale-morphisms.js';
 import { get, has as hasRenderer, register } from './renderers/index.js';
 import { FieldAudio } from './audio/field-audio.js';
 import { createMother } from './mother.js';
+import { who, setWho, profile, rooted } from './who.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
 import { createTimeAxis } from './time-axis.js';
@@ -74,7 +75,8 @@ const readerRegisters = [
   { id: 'general', label: 'GENERAL' },
   { id: 'specialist', label: 'SPECIALIST', persona: 'root-monster' },
 ];
-const readerLabel = entry => (entry.persona ? `${entry.label} · ${displayName(entry.persona)}` : entry.label);
+// the Root Monster is ROOTED's: its name shows only to those who are rooted (ISS-108)
+const readerLabel = entry => (entry.persona && (entry.persona !== 'root-monster' || rooted()) ? `${entry.label} · ${displayName(entry.persona)}` : entry.label);
 
 function clampIndex(index, length) {
   return Math.max(0, Math.min(Math.max(0, length - 1), index));
@@ -230,20 +232,37 @@ appendSourceLink(abstractSplashSource, sourceResolver.abstract_source);
 // One screen (author, 14 Oct, ISS-100; 16 Oct: THE WORLDS, the app's map of itself, is the entry
 // point): a fresh start goes there after the abstract; the other screens show what
 // the thoughts are right now (overview.html shows how they fit together).
-const DEFAULT_VIEW = 'level=human-vertebrate&voyage=worlds&dim=11&phi=0.6';
+// Who is exploring (ISS-108, who.js) sets where a fresh start goes: U to THE WORLDS, the
+// scientist to the level view (the papers' zoom).
 // Fresh means opened without an address of its own (the app writes one at start-up).
 const freshStart = !location.hash.replace(/^#/, '') && screenRole === 'level';
 function openDefaultView() {
   if (!freshStart || location.hash.includes('voyage=')) return;
   const params = new URLSearchParams(location.hash.replace(/^#/, ''));
-  for (const [key, value] of new URLSearchParams(DEFAULT_VIEW)) params.set(key, value);
+  for (const [key, value] of new URLSearchParams(profile().start)) params.set(key, value);
   // the start-up address names the first floor (Quantum Foam); the human's floor replaces it
   params.delete('path');
   location.hash = params.toString();
 }
+// WHO IS EXPLORING? (ISS-108): asked once, after the splash; changeable in SETTINGS
+const whoChoice = document.querySelector('#who-choice');
+whoChoice?.addEventListener('click', event => {
+  const b = event.target.closest('[data-who]');
+  if (!b) return;
+  setWho(b.dataset.who);
+  whoChoice.hidden = true;
+  applyProfile();
+  openDefaultView();
+});
+// the profile's reading register; the rest follows from who.js where it is used
+function applyProfile() {
+  const select = document.querySelector('#reader-register');
+  if (select && select.value !== profile().reader) { select.value = profile().reader; select.dispatchEvent(new Event('change')); }
+}
 abstractSplashEnter.addEventListener('click', () => {
   sessionStorage.setItem('zusf-abstract-acknowledged', 'true');
   abstractSplash.hidden = true;
+  if (!who() && whoChoice && freshStart) { whoChoice.hidden = false; return; }
   openDefaultView();
 });
 if (sessionStorage.getItem('zusf-abstract-acknowledged') === 'true') {
@@ -1778,6 +1797,8 @@ canonicalStart.value = state.canonicalStart;
 canonicalEnd.value = state.canonicalEnd;
 for (const registerEntry of readerRegisters) readerRegisterSelect.add(new Option(readerLabel(registerEntry), registerEntry.id));
 addEventListener('soma-names', () => [...readerRegisterSelect.options].forEach((option, k) => { option.text = readerLabel(readerRegisters[k]); }));
+// rooted or not changes the specialist register's label (the Root Monster is ROOTED's)
+addEventListener('soma-who', () => [...readerRegisterSelect.options].forEach((option, k) => { option.text = readerLabel(readerRegisters[k]); }));
 readerRegisterSelect.value = state.reader;
 for (const preset of displayPresets) displayPreset.add(new Option(preset.label, preset.id));
 displayPreset.add(new Option('CUSTOM', 'custom'));

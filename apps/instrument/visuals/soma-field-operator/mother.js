@@ -11,6 +11,7 @@ import '@xterm/xterm/css/xterm.css';
 import { eras, levels, questions } from './generated/app-data.js';
 import { createVoice } from './voice.js';
 import { displayName, isRenamed } from './names.js';
+import { rooted, setRooted, clearanceOk, setWho, PROFILES } from './who.js';
 import { EVIDENCE_LABELS, createTourPlayer, extractTourBlock, parseTourBlock, presetIds, presetTour, resolveTour } from './tour.js';
 
 const STORAGE = {
@@ -27,7 +28,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -530,6 +531,43 @@ export function createMother({ getContext }) {
     return false;
   }
 
+  // ACCESS (ISS-108): ROOTED is never offered; you ask MOTHER for it, and she asks for your
+  // clearance code (in the page's source, for those who look). Not in /help, on purpose. /who
+  // changes who is exploring; LEAVE ROOT (or /unroot) goes back.
+  let awaitingCode = false;
+  function accessGate(text) {
+    const said = text.trim();
+    const echo = shown => { const q = document.createElement('div'); q.className = 'mother-line mother-question'; q.textContent = `> ${shown}`; log.append(q); };
+    if (awaitingCode) {
+      awaitingCode = false;
+      echo('●'.repeat(Math.min(12, said.length)));
+      if (clearanceOk(said)) { setRooted(true); type('CLEARANCE ACCEPTED. WELCOME TO ROOTED. THE MACHINE IS YOURS: MORE EFFECTS, LOUDER MUSIC, THE THEME PARK. NOTHING IN HERE IS DANGEROUS. (LEAVE ROOT TO GO BACK.)'); }
+      else type('CLEARANCE DENIED. THE CODE IS NOT A SECRET, ONLY HIDDEN. LOOK CLOSER AT THIS MACHINE.');
+      return true;
+    }
+    if (/^(\/root|request\s+access|request\s+clearance|access\s+request)\b/i.test(said)) {
+      echo(said);
+      if (rooted()) { type('YOU ARE ALREADY ROOTED.'); return true; }
+      awaitingCode = true;
+      type('ACCESS RESTRICTED. ENTER CLEARANCE CODE.');
+      return true;
+    }
+    if (/^(\/unroot|leave\s+root)\b/i.test(said)) {
+      echo(said);
+      setRooted(false);
+      type('ROOT RELEASED. THE MACHINE IS BACK TO ITS SCIENCE.');
+      return true;
+    }
+    const m = said.match(/^\/who\s+(u|scientist)\b/i);
+    if (m) {
+      echo(said);
+      setWho(m[1].toLowerCase());
+      type(`EXPLORING AS ${PROFILES[m[1].toLowerCase()].label}.`);
+      return true;
+    }
+    return false;
+  }
+
   function type(text, speed = 12) {
     typing = typing.then(() => new Promise(resolve => {
       let index = 0;
@@ -611,6 +649,7 @@ export function createMother({ getContext }) {
     const question = input.value.trim();
     if (!question) return;
     input.value = '';
+    if (accessGate(question)) return;
     if (question.startsWith('/') && handleCommand(question)) return;
     remember(question);
     voice.stop();

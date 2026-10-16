@@ -69,6 +69,7 @@ import { createLook, LOOK } from './look.js';
 import { createHeartStrap, hrvFromRR } from './heart.js';
 import { createVoice } from './voice.js';
 import { createSnapper } from './snap.js';
+import { who, setWho, rooted, placeName, PROFILES } from './who.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -172,7 +173,7 @@ const CAPTIONS = {
   },
   human: {
     title: 'THE JELLYFISH HUMAN', label: 'interpretive',
-    4: 'The whole person as the SOMA Machine draws them, the humanoid of the Field Atlas: body, fields and the brain on top. Raise Φ (the FX bar) and it glows; go on (→ or BODY) to dive inside. An educational model, not a medical or diagnostic tool.',
+    4: 'The whole person as the SOMA Machine draws them, the humanoid of the Field Atlas: body, fields and the brain on top. Raise Φ (the field bar) and it glows; go on (→ or BODY) to dive inside. An educational model, not a medical or diagnostic tool.',
   },
   body: {
     title: 'THE BODY', label: 'interpretive',
@@ -805,7 +806,7 @@ function golfLabels(ctx, env, g) {
   env = { ...env, gl: g };
   if (env.labels) {
     const { u } = env;
-    label(ctx, u, `THE MINI GOLF · the ball: ${env.gl.at}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
+    label(ctx, u, `${placeName('golf')} · the ball: ${env.gl.at}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
     label(ctx, u, 'six of the model\'s basins as holes; a way between two is wide where the barrier is low, thin where it is high; two lanes, one each way; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
     if (env.gl.worries) label(ctx, u, `WORRY: ${env.gl.worries} imagined ${env.gl.worries === 1 ? 'run' : 'runs'}; they never move the ball, but it is drawn their way (V, visual imagery: J_internal)`, 0, 0.74, '#a78bfa', 'center', 0.022);
     hint(ctx, u, `POKE: kick the ball · Φ: hotter, it hops more · RESOURCE: the bridge out of FREEZE${env.resource ? ' (on)' : ''} · C-PTSD (settings): more worry · 2D: the map · 3D: the frame`, 0, 0.84, COLORS.violet, 'center', 0.019);
@@ -1094,7 +1095,7 @@ function makeBrain() {
           label(ctx, u, env.caveOut ? `THE CATHEDRAL FROM OUTSIDE · the visitor is in ${caveGl.hall} (the white spire)` : `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
           label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
           hint(ctx, u, `VISUAL THOUGHTS: ${artMode === 'art' ? 'avant-garde art' : artMode === 'both' ? 'the programme\'s figures and avant-garde art' : 'the programme\'s own figures'} in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
-          hint(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · FX: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
+          hint(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · Φ: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
         }
         return;
       }
@@ -2188,7 +2189,7 @@ function makeUreter() {
       label(ctx, u, `T ≈ exp(−2d·√(2m(V−E))/ħ) = ${formatT(b)}`, 0, 0.84, COLORS.gold, 'center', 0.028);
       label(ctx, u, reason(b), 0, 0.92, COLORS.dim, 'center', 0.022);
       if (wallEvent.until > t) label(ctx, u, wallEvent.text, 0, -0.57, wallEvent.text.startsWith('TUNNEL') ? COLORS.cyan : COLORS.orange, 'center', 0.03);
-      else hint(ctx, u, 'POKE: send it at the wall · ▼ ▲: the elevator, a scale down or up · FX: the graphics', 0, -0.57, COLORS.dim, 'center', 0.022);
+      else hint(ctx, u, 'POKE: send it at the wall · ▼ ▲: the elevator, a scale down or up · Φ: the field', 0, -0.57, COLORS.dim, 'center', 0.022);
       if (b.id === 'quantum' || b.id === 'atom') {
         const lines = ['Tunnelling in the body and brain, honestly:',
           'established: electrons and protons tunnel in enzymes and the respiratory chain;',
@@ -2676,7 +2677,7 @@ function makeWorlds() {
         });
       }
       if (env.labels) {
-        label(ctx, u, env.gl?.path ? env.gl.path.join('  ›  ') : 'THE WORLDS', 0, -0.72, '#e8d8ff', 'center', 0.034);
+        label(ctx, u, env.gl?.path ? [placeName('worlds'), ...env.gl.path.slice(1)].join('  ›  ') : placeName('worlds'), 0, -0.72, '#e8d8ff', 'center', 0.034);
         label(ctx, u, 'the zoom as glass domes, each a scale model of the real thing; a map, never the territory; interpretive', 0, -0.66, COLORS.dim, 'center', 0.019);
         hint(ctx, u, 'click a dome to go in · the fader at the left: the zoom; ▼ in, ▲ out · the small domes at the back: the way across', 0, 0.84, COLORS.violet, 'center', 0.02);
       }
@@ -3324,7 +3325,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" class="explorer__places-toggle" aria-expanded="false" title="All the places and how they join (P)">PLACES ▾</button>
       <nav class="explorer__places" aria-label="Places" hidden>${PLACE_MAP.map(([name, entries]) => `<section class="explorer__group"><h3 class="explorer__group-name">${name}</h3>${entries.map(e => `<div class="explorer__place"><button type="button" data-stop="${e.stop}">${STOP_TITLES[e.stop]}</button>${(e.places ?? []).map(([pl, label]) => `<button type="button" class="explorer__sub" data-place="${e.stop}:${pl}">› ${label}</button>`).join('')}${e.doors || e.note ? `<small>${e.doors ?? e.note}</small>` : ''}</div>`).join('')}</section>`).join('')}</nav>
       <div class="explorer__layers" role="group" aria-label="Layers">${[4, 8, 11].map(d => `<button type="button" data-dim="${d}">${d}D</button>`).join('')}</div>
-      <label class="explorer__phi">Φ LIMBIC / FX <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
+      <label class="explorer__phi">Φ THE FIELD <input type="range" min="0" max="1" step="0.01" aria-label="Limbic field Phi" /><output></output></label>
       <button type="button" data-act="poke">POKE</button>
       <button type="button" data-act="mech" aria-expanded="false" title="BRECVEMA (P9): the eight music-affect mechanisms that compose the poke's forcing J(t); choose, then POKE">MECHANISMS ▾</button>
       <button type="button" data-act="fleave" title="Leave this thought unresolved: it stays below the line and adds to the load (Escape)">◂ LEAVE IT</button>
@@ -3404,7 +3405,7 @@ export function createExplorer(hooks = {}) {
     const drawer = document.createElement('section');
     drawer.className = 'explorer__drawer';
     drawer.hidden = true;
-    drawer.innerHTML = '<h2>SETTINGS · the film stock</h2><p class="explorer__drawer-note">Set once and left; recorded with every somagram.</p>';
+    drawer.innerHTML = '<h2>SETTINGS · the film stock</h2><p class="explorer__drawer-note">Set once and left; recorded with every somagram.</p><button type="button" data-act="who" title="Who is exploring: U (anyone, with the Field Atlas) or THE SCIENTIST (everything, with the papers)">EXPLORING AS: U ⇄</button>';
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'explorer__settings';
@@ -3422,6 +3423,11 @@ export function createExplorer(hooks = {}) {
     const phi = drawer.querySelector('.explorer__phi');
     if (phi) deck.prepend(phi);
     bar.querySelector('.explorer__layers')?.after(toggle);
+    const badge = document.createElement('span');
+    badge.className = 'who-badge';
+    badge.textContent = 'ROOTED';
+    badge.hidden = true;
+    bar.querySelector('.explorer__title')?.after(badge);
     // the views (ISS-105, author 22:32): 2D | 3D beside 4D 8D 11D, as in the levels view
     const views = document.createElement('div');
     views.className = 'explorer__layers explorer__views';
@@ -3935,7 +3941,7 @@ export function createExplorer(hooks = {}) {
     const t = (PLACE_PARENT[st.stop] ?? []).map(s => (ATRIUMS[s] ? [s, 'hall', hallName(s)] : [s, '', STOP_TITLES[s]]));
     const here = STOP_TITLES[st.stop] ?? '';
     if (st.stop === 'thought' && st.choices) t.push(['thought', 'hall', 'MIND CHAMBER'], ['thought', 'choices', 'THE COURSE']);
-    else if (st.stop === 'landscape' && st.golf) t.push(['landscape', '', 'LANDSCAPE'], ['landscape', 'golf', 'MINI GOLF']);
+    else if (st.stop === 'landscape' && st.golf) t.push(['landscape', '', 'LANDSCAPE'], ['landscape', 'golf', placeName('golf')]);
     else if (st.hall && ATRIUMS[st.stop]) t.push([st.stop, 'hall', hallName(st.stop)]);
     else if (st.stop === 'brain' && st.palace) t.push(['brain', 'hall', 'BRAIN · GREAT HALL'], ['brain', 'palace', 'MIND PALACE']);
     else if (st.stop === 'brain' && st.cave) t.push(['brain', 'hall', 'BRAIN · GREAT HALL'], ['brain', 'cave', 'CATHEDRAL']);
@@ -3967,6 +3973,14 @@ export function createExplorer(hooks = {}) {
     return CAPTIONS[st.stop];
   }
   function syncUi() {
+    // who is exploring (ISS-108): the switch, the ROOTED badge, the names that differ
+    const whoButton = root.querySelector('[data-act="who"]');
+    if (whoButton) whoButton.textContent = `EXPLORING AS: ${PROFILES[who() ?? 'u'].label} ⇄`;
+    const rootBadge = root.querySelector('.who-badge');
+    if (rootBadge) rootBadge.hidden = !rooted();
+    STOP_TITLES.worlds = placeName('worlds');
+    for (const b of root.querySelectorAll('[data-stop="worlds"]')) b.textContent = STOP_TITLES.worlds;
+    for (const b of root.querySelectorAll('[data-place="landscape:golf"]')) b.textContent = `› ${placeName('golf')}`;
     if (typeof syncZoom === 'function') syncZoom();
     const courseOn = Boolean(focusGl) || (st.stop === 'thought' && st.choices);
     const golfOn = st.stop === 'landscape' && st.golf && !st.view3d;
@@ -4032,7 +4046,7 @@ export function createExplorer(hooks = {}) {
     hallButton.hidden = !ATRIUMS[st.stop];
     choicesButton.hidden = st.stop !== 'thought';
     const golfButton = root.querySelector('[data-act="golf"]');
-    if (golfButton) { golfButton.hidden = st.stop !== 'landscape'; golfButton.classList.toggle('active', st.golf); }
+    if (golfButton) { golfButton.hidden = st.stop !== 'landscape'; golfButton.classList.toggle('active', st.golf); golfButton.textContent = placeName('golf'); }
     const strutRow = root.querySelector('[data-act="strut"]');
     if (strutRow) strutRow.hidden = !(st.stop === 'landscape' && st.golf && st.view3d);
     choicesButton.classList.toggle('active', st.choices);
@@ -4581,6 +4595,9 @@ export function createExplorer(hooks = {}) {
       if (st.cave) { st.view3d = true; st.hall = false; }
       syncUi();
       hooks.onChange?.();
+    } else if (b.dataset.act === 'who') {
+      setWho(who() === 'scientist' ? 'u' : 'scientist');
+      syncUi();
     } else if (b.dataset.act === 'golf') {
       st.golf = !st.golf;
       if (st.golf) st.view3d = true;
@@ -4689,6 +4706,9 @@ export function createExplorer(hooks = {}) {
     event.preventDefault();
   });
 
+  // who is exploring changed (here, in MOTHER, or in another window of this browser)
+  addEventListener('soma-who', () => syncUi());
+  addEventListener('storage', event => { if (event.key === 'soma-who' || event.key === 'soma-rooted') syncUi(); });
   const api = {
     // the open tower of the city of code and its floor (the hash keys tower and floor)
     // a tower asked for by a link counts before the next frame opens its panel (the hash is rewritten at once)
