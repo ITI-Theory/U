@@ -6,24 +6,16 @@
 // who look). Nothing in ROOTED is dangerous; it is tone, effects and extras, not secrets. Kept
 // in this browser only.
 
-export const PROFILES = {
-  u: {
-    id: 'u', label: 'U', side: 'blue', reader: 'general', companion: 'the Field Atlas',
-    start: 'level=human-vertebrate&voyage=worlds&dim=11&phi=0.6',
-    says: 'Anyone. A mind and body explorer: start in THE WORLDS and go through the glass.',
-  },
-  scientist: {
-    id: 'scientist', label: 'THE SCIENTIST', side: 'red', reader: 'specialist', companion: 'the papers',
-    start: 'level=human-vertebrate&dim=11',
-    says: 'Everything, at a high level: the levels, the equations, the evidence and the Lean, beside the papers.',
-  },
-};
+import { users } from './generated/app-data.js';
+
+// the profiles, their names and companions: registry/users.yaml (generate.py resolves the links)
+const fromRegistry = id => ({ id, ...users[id], companion: users[id]?.companion?.name ?? '', links: users[id]?.companion?.items ?? [] });
+export const PROFILES = { u: fromRegistry('u'), scientist: fromRegistry('scientist') };
+export const ROOTED_PROFILE = fromRegistry('rooted');
 // names that differ by who you are (the ids never change)
-const NAMES = {
-  u: { worlds: 'THE WORLDS', golf: 'MINI GOLF' },
-  scientist: { worlds: 'THE WORLDS', golf: 'THE BASINS' },
-  rooted: { worlds: 'SOMA WORLD', golf: 'MINI GOLF' },
-};
+const NAMES = { u: users.u?.names ?? {}, scientist: users.scientist?.names ?? {}, rooted: users.rooted?.names ?? {} };
+// your companion now: ROOTED's when rooted, else the profile's (THE GUIDE shows it)
+export function companion() { return rooted() ? ROOTED_PROFILE : profile(); }
 const KEY = 'soma-who', ROOT = 'soma-rooted';
 // the clearance code MOTHER asks for (also in index.html, in a comment, for those who look)
 export const CLEARANCE = 'helloworld';

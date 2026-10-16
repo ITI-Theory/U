@@ -7,6 +7,7 @@
 import { eras, levels, models, paths, questions, scores, tours, viewers, zUSFAbstract } from './generated/app-data.js';
 import { OVERLAYS, createPresentationStage } from './presentation.js';
 import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
+import { companion } from './who.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
@@ -248,7 +249,15 @@ export function createTourPlayer({ voice, narration }) {
     // the Root Monster's tour is ROOTED's (ISS-108)
     const ids = [welcome, ...presetIds().filter(id => !id.startsWith('welcome-') && (isRooted || id !== 'root-monster'))];
     tabsEl.innerHTML = '';
-    sayEl.innerHTML = `<span class="tour-card__menu">${ids.map(id => `<button type="button" data-preset="${id}">${PRESETS.get(id)?.title ?? id}</button>`).join('')}<button type="button" data-preset="my-route" ${route.length ? '' : 'disabled'}>MY ROUTE (${route.length})</button>${route.length ? '<button type="button" data-act="clear-route">CLEAR MY ROUTE</button>' : ''}</span><small>+ HERE, on any tour or here, adds where you are to MY ROUTE.</small>`;
+    sayEl.innerHTML = `<span class="tour-card__menu">${ids.map(id => `<button type="button" data-preset="${id}">${PRESETS.get(id)?.title ?? id}</button>`).join('')}<button type="button" data-preset="my-route" ${route.length ? '' : 'disabled'}>MY ROUTE (${route.length})</button>${route.length ? '<button type="button" data-act="clear-route">CLEAR MY ROUTE</button>' : ''}</span><small>+ HERE, on any tour or here, adds where you are to MY ROUTE.</small>${companionHtml()}`;
+  }
+  // your companion (registry/users.yaml, ISS-108): links where published, "coming" where not
+  function companionHtml() {
+    const c = companion();
+    if (!c?.links?.length) return '';
+    const esc = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+    const items = c.links.map(l => l.url ? `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title)}</a>` : `<span>${esc(l.title)} (coming)</span>`);
+    return `<span class="tour-card__companion"><b>YOUR COMPANION: ${esc(c.companion).toUpperCase()}</b>${items.join('')}</span>`;
   }
   // Tours are narrated unless the visitor turns the sound off (kept in localStorage).
   let sound = (() => { try { return localStorage.getItem('tour-sound') !== 'off'; } catch { return true; } })();

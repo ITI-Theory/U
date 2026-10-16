@@ -1,0 +1,36 @@
+# The three users (ISS-108, author 16 Oct): who each is, where the app starts them, what places
+# are called for them, and their companion. The app reads this through scripts/generate.py
+# (generated/app-data.js `users`); who.js keeps only the logic. A companion is a list of ids:
+# a Dist/PAPERS.yaml id (a DOI link once published), `presence:<place>` (registry/presence.yaml),
+# or a repository path (shown by name, "coming", until it is published). Never copy a URL here.
+
+users:
+  u:
+    label: U
+    side: blue
+    reader: general
+    start: level=human-vertebrate&voyage=worlds&dim=11&phi=0.6
+    says: "Anyone. A mind and body explorer: start in THE WORLDS and go through the glass."
+    companion:
+      name: the Field Atlas
+      sources: [Part2/book/field-atlas, presence:notebook]
+    names: {worlds: THE WORLDS, golf: MINI GOLF}
+  scientist:
+    label: THE SCIENTIST
+    side: red
+    reader: specialist
+    start: level=human-vertebrate&dim=11
+    says: "Everything, at a high level: the levels, the equations, the evidence and the Lean, beside the papers."
+    companion:
+      name: the papers
+      sources: [P11, P4, C1v2, presence:notebook, presence:github-org]
+    names: {worlds: THE WORLDS, golf: THE BASINS}
+  # never offered: MOTHER grants it (who.js CLEARANCE); tone and extras, not secrets
+  rooted:
+    label: ROOTED
+    side: green
+    reader: specialist
+    companion:
+      name: the Fractal Thesis
+      sources: [C2]
+    names: {worlds: SOMA WORLD, golf: MINI GOLF}

@@ -20,5 +20,5 @@ steps:
   label: interpretive
 - view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.6
   say: 'Back to the worlds. Everything here is a picture of a model, not a reading of you. Monsters live
-    here, and so does the Field Atlas. Go where you like.'
+    here, and so does the Field Atlas. GUIDE shows your companion and asks the theory. Go where you like.'
   label: interpretive

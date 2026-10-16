@@ -20,5 +20,5 @@ steps:
   label: simulated
 - view: level=human-vertebrate&voyage=worlds&dim=11&reader=specialist
   say: 'The map of all of it. Read each claim with its label and its paper; the code is one click into
-    any tower. Go where you like.'
+    any tower. GUIDE lists the papers, with their DOIs. Go where you like.'
   label: interpretive

@@ -842,3 +842,8 @@ body.t-theory-off .equation-wall .equation-notes span:nth-child(2) { display: no
 .explorer__model li { margin-bottom: 5px; }
 .explorer__model li .explorer__label { display: inline-block; margin-right: 4px; font-size: 9px; }
 .explorer__model [data-model-tour] { font-size: 10px; }
+/* THE GUIDE: your companion (registry/users.yaml, ISS-108) */
+.tour-card__companion { display: flex; flex-direction: column; gap: 3px; margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(20,229,255,.25); font-size: 11px; }
+.tour-card__companion b { color: var(--cyan, #14e5ff); font-size: 10px; letter-spacing: .06em; }
+.tour-card__companion a { color: #e8eefc; }
+.tour-card__companion span { color: rgba(232,238,252,.6); }

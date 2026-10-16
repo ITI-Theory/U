@@ -5619,10 +5619,12 @@ which is fine as long as ROOTED holds nothing that must stay private.
 - [x] The choice screen after the splash (U blue left, THE SCIENTIST red right), remembered;
       changeable later in SETTINGS (EXPLORING AS ⇄) and in MOTHER (/who u, /who scientist).
       who.js; index.html #who-choice. Asked once, on a fresh start.
-- [~] A profile per user (who.js PROFILES): U starts in THE WORLDS, register GENERAL; THE
-      SCIENTIST starts in the level view, register SPECIALIST; names differ (MINI GOLF / THE
-      BASINS; SOMA WORLD when rooted). Still: the companion links (Field Atlas, papers, Fractal
-      Thesis), more defaults, a registry file.
+- [x] A profile per user: U starts in THE WORLDS, register GENERAL; THE SCIENTIST starts in the
+      level view, register SPECIALIST; names differ (MINI GOLF / THE BASINS; SOMA WORLD when
+      rooted). (16 Oct: the registry file, registry/users.yaml, read through generate.py; the
+      companions resolved there, DOI links for papers, the notebook and GitHub from
+      registry/presence.yaml, the Field Atlas named "coming" until published; THE GUIDE shows
+      YOUR COMPANION, ROOTED's is the Fractal Thesis; the welcome tours point to it.)
 - [x] What ROOTED switches on (16 Oct): RICE (the author's extras: neon, code rain, the Root
       Monster's tours; private art still needs the local bridge, so nothing private reaches
       anyone else), the teletype sounds and rewards, SOMA WORLD, the stargate earlier and hotter
@@ -5713,8 +5715,9 @@ one thing.
 - [~] WHEREAMI (whereami.js): a live terminal readout, top right: time, place, scale (floor,
       level, metres), body part, layer and Φ; click $ whereami to fold. Still: the route overlay
       on THE WORLDS.
-- [~] The introductions: registry/tours/welcome-u.yaml and welcome-scientist.yaml, five tabs each,
-      opened after WHO IS EXPLORING? (step through, or PLAY). Still: links to the papers.
+- [x] The introductions: registry/tours/welcome-u.yaml and welcome-scientist.yaml, five tabs each,
+      opened after WHO IS EXPLORING? (step through, or PLAY). (16 Oct: the last tab points to
+      GUIDE, which lists the companion with its links.)
 - UAT (the author's walk): `uat/checklist.yaml`, step `app-guide`.
 
 ## ISS-111: HAL's voice both ways, the wearable, and how to describe the Soma Machine — OPEN
