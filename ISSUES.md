@@ -5631,11 +5631,21 @@ Plan (Copilot, agreed in outline):
       goes into bld/show/cues.json.)
       A1. Read the mix: tempo, bars, 16/32-bar phrases, breakdowns, builds and drops (numpy;
       librosa if needed) into a cue sheet (bld/show/cues.json).
-- [ ] A2. SHOW mode, behind ROOTED (140 BPM psytrance is ROOTED, DESIGN.md / HAL 15 Oct): plays
+- [x] (16 Oct: show.js, ROOTED, MOTHER /show: pick the mix and its cue sheet from the disk, nothing
+      uploaded; the audio's clock drives it: scenes cycle every two phrases (the great hall, the
+      cathedral, the mind chamber, the sea, the palace, the fractal flight, THE WORLDS) and move on at
+      every drop, Φ a base by section (0.28 in a breakdown, rising through a build, 1 at the drop and
+      decaying) plus a kick on every beat, a strong POKE at each drop; a clean picture (ui=clean,
+      labels off, no chrome, no cursor); Esc ends it. Tested headless on a synthetic mix: Φ 0.34 in the
+      breakdown, 0.81 at the end of the build, 1.00 at the drop, the scene changed at the drop. Found
+      and fixed on the way: ROOTED's SOMA WORLD rename wiped the card's THE MODEL HERE box.)
+      A2. SHOW mode, behind ROOTED (140 BPM psytrance is ROOTED, DESIGN.md / HAL 15 Oct): plays
       the mix from the author's disk, clean picture (no chrome, labels off), scenes change on
       phrase boundaries (great hall, cathedral, mind chamber, the sea, palace, fractal dives),
       Φ pulses on the kick, zoom on builds, a dive or a zap on drops.
-- [ ] A3. Record in real time on the author's GPU (the browser's MediaRecorder: canvas + audio
+- [~] (16 Oct: REC + PLAY in the show panel records the tab, picture and sound, to webm (the
+      browser's screen capture; pick this tab with its audio); untested headless; mp4 by ffmpeg.)
+      A3. Record in real time on the author's GPU (the browser's MediaRecorder: canvas + audio
       to webm, or OBS); ffmpeg to mp4 (`winget install ffmpeg`). Headless rendering is too slow.
 - [ ] B. The tensor film: the music drives the model, not the edit. The energy envelope sets Φ;
       BRECVEMA's R (rhythmic entrainment) and M (musical expectancy) are the terms: builds raise

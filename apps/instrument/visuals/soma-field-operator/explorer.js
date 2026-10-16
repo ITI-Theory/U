@@ -3997,7 +3997,8 @@ export function createExplorer(hooks = {}) {
     const rootBadge = root.querySelector('.who-badge');
     if (rootBadge) rootBadge.hidden = !rooted();
     STOP_TITLES.worlds = placeName('worlds');
-    for (const b of root.querySelectorAll('[data-stop="worlds"]')) b.textContent = STOP_TITLES.worlds;
+    // buttons only: the card's THE MODEL HERE box also carries data-stop (it once wiped it, rooted)
+    for (const b of root.querySelectorAll('button[data-stop="worlds"]')) b.textContent = STOP_TITLES.worlds;
     for (const b of root.querySelectorAll('[data-place="landscape:golf"]')) b.textContent = `› ${placeName('golf')}`;
     if (typeof syncZoom === 'function') syncZoom();
     const courseOn = Boolean(focusGl) || (st.stop === 'thought' && st.choices);
