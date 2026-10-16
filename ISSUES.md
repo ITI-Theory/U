@@ -6083,3 +6083,31 @@ What it cannot check, so what is needed (then choose the music option):
       music modified by the trajectory (a piano through Scaler 3, the mix), where the emotion lives
       only in the modification; (4) curation, scenes cut to music (ISS-107 A). Ableton waits (ISS-112).
 
+## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — OPEN
+
+{{Tags area.sherlock, area.release}}
+{{Fields date.created=2026-10-16, date.start=2026-10-16, date.end=, epic=ISS-114-release-2026-10-21}}
+
+Author, 16 Oct 20:40: "the Phase Dot stuff will not be published, it all stays private ... and we
+need to check that." U is public (github.com/ITI-Theory/U); Me is private.
+
+- [x] The check (16 Oct): sherlock/privacy.py, `make -C sherlock privacy`, release-check 14e. It
+      reads the private material in Me (the author's own turns in Phase Dot, since the machines'
+      answers echo the public drafts; H-AL's private answers; the film notes) and every public place
+      (U's tracked text, Dist, t-theory.org, the organisation's page), and fails on a public file
+      sharing five or more 12-word runs with it that the published sources do not also contain,
+      unless cleared, and on any marker. The cleared list and the markers are private
+      (Me/Ops/privacy.yaml): a list of what must not be said would say it. First run: 60 files
+      overlapped; with the author's turns only, 28; 23 cleared by Copilot's triage as the author's
+      own prompts reused in public on purpose (the UAT questions and results, prompt text in the
+      code, the paper registry), for the author to confirm.
+- [x] H-AL's answers quote the author's chats, so uat/scripts/hal_uat.py now writes them to Me
+      (Me/notebooklm/hal-answers/); the questions stay in U. Today's two (never written, Scaler)
+      are there.
+- [ ] AUTHOR: five public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
+      (a raw NotebookLM transcript of the author's prompts, 4393 runs); H-AL's answers that quote the
+      author's chat words: uat/RC3/hal-cathedral-2026-10-14-answers.md (55), hal-einstein-2026-10-15 (6),
+      hal-final-design-2026-10-15 (20), hal-universe-2026-10-16 (214). Moving them takes them out of
+      the tree, not out of git's history; history would need a rewrite of a public repository.
+- [ ] AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
+

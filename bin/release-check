@@ -265,6 +265,16 @@ else
 fi
 echo "$GALLERY" | sed 's/^/    /'
 
+hdr "14e. What is private stays private (ISS-116; needs the private repository, Me)"
+PRIVACY=$(py sherlock/privacy.py 2>&1)
+if [[ $? -eq 0 ]]; then
+  ok "No public place carries the author's private words (Phase Dot, H-AL's answers, the film notes)"
+else
+  fail "Private material in a public place: read Me/Ops/privacy-report.md"
+fi
+echo "$PRIVACY" | grep -v "^  FAIL" | sed 's/^/    /'
+echo "$PRIVACY" | grep -c "^  FAIL" | sed 's/^/    possible leaks or markers: /'
+
 hdr "15. Nothing live depends on .OBSOLETE files"
 OBSOLETE_CHECK=$(py paper/scripts/check_obsolete_refs.py 2>&1)
 if [[ $? -eq 0 ]]; then

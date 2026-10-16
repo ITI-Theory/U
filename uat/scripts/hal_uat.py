@@ -4,7 +4,8 @@
     apps/instrument/mother/.venv/Scripts/python uat/scripts/hal_uat.py uat/RC3/hal-uat-questions-rc3.2.md
 
 Each question goes through apps/instrument/mother/ask.py (one code path and one pace with the
-app and the terminal). Answers: <file>-answers.md, each under its heading.
+app and the terminal). Answers: <file>-answers.md, each under its heading, in the private repository
+(Me/notebooklm/hal-answers/), because H-AL quotes the author's chats (sherlock/privacy.py).
 """
 from __future__ import annotations
 
@@ -33,7 +34,13 @@ def main(argv):
                            text=True, encoding="utf-8", errors="replace", env=env)
         answer = r.stdout.strip() or f"(no answer; exit {r.returncode}: {r.stderr.strip()[-400:]})"
         out += [f"## {title.strip()}", "", answer, ""]
-        dest = src.with_name(src.stem + "-answers.md")
+        # H-AL answers by quoting the author's chats, which are private (author, 16 Oct): the answers go
+    # to the private repository, Me, when it is here; the questions stay where they are.
+    private = Path(__file__).resolve().parents[3].parent / "Me" / "notebooklm" / "hal-answers"
+    dest = (private if private.parent.exists() else src.parent) / (src.stem + "-answers.md")
+    if not private.parent.exists():
+        print("warning: Me is not here; the answers are written beside the questions: do not commit them")
+    private.mkdir(exist_ok=True) if private.parent.exists() else None
         dest.write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
     print(f"written: {dest}")
     return 0
