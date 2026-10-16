@@ -5641,12 +5641,14 @@ which is fine as long as ROOTED holds nothing that must stay private.
       IMPULSE (a pulse falls in), the RESPONSE (rings spread, an echo), the RETURN (it settles),
       each named beside it with the mechanisms chosen; the model's response kernel drawn,
       interpretive.
-- [~] A high-level model of [T]-Theory (registry/model.yaml): nine claims (one field, eleven
+- [x] A high-level model of [T]-Theory (registry/model.yaml): nine claims (one field, eleven
       dimensions, the emotion algebra, the landscape, limbic heat, the trauma well, the
       threshold, the dyad, the cosmic partition), each pointing to its concepts, visual-grammar
       terms, levels, papers and where the app shows it; Sherlock checks it (make -C sherlock
       model): 0 broken pointers; it caught one over-label (the emotion algebra, now
-      derived-under-assumptions). Still: the app explaining itself from it (the guide, the card).
+      derived-under-assumptions). The app explains itself from it: the card's THE MODEL HERE lists
+      the claims a place shows, with their labels; THE WHOLE MODEL plays them as a tour of nine tabs
+      (generated from registry/model.yaml, never copied).
 
 ## ISS-109: The programme's presence: web, GitHub, app, names, licence, checked by Sherlock — OPEN
 

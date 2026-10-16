@@ -13,7 +13,7 @@ import { createFlight3D, worldFor, worldName } from './flight3d.js';
 import { createTunnel3D } from './tunnel3d.js';
 import { createScorePlayer, MODE_IDS, viewerField, presetParams, viewerTransform, viewerStep } from './score.js';
 import { rice } from './rice.js';
-import { scores, viewers, cycSkyline, thoughtImages, models as paletteModels, levels as paletteLevels } from './generated/app-data.js';
+import { scores, viewers, cycSkyline, thoughtImages, models as paletteModels, levels as paletteLevels, modelClaims } from './generated/app-data.js';
 // the River Film (The Tensor), by id; kf picks another film (registry/scores, e.g. fis-2021).
 // The twin view (?tw=1): one film, two viewers (S = R(e*, kappa, e_V)): left the viewer of now
 // (neutral), right a viewer preset (pv, registry/viewers; default v2021, as I was in 2021) plus
@@ -3384,7 +3384,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="close" aria-label="Close the mind-body explorer">✕</button>
     </header>
     <div class="explorer__feel" role="group" aria-label="Feeling">${Object.entries(FEELINGS).map(([id, f]) => `<button type="button" data-feel="${id}">${f.label}</button>`).join('')}</div>
-    <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span><details class="explorer__read"><summary>THIS FLOOR · its mathematics and evidence</summary><div class="explorer__slot" data-slot="read"></div></details></aside>`;
+    <aside class="explorer__card" aria-live="polite"><h2></h2><p></p><span class="explorer__label"></span><details class="explorer__model"><summary>THE MODEL HERE</summary><ul></ul><button type="button" data-model-tour>THE WHOLE MODEL, CLAIM BY CLAIM ▸</button></details><details class="explorer__read"><summary>THIS FLOOR · its mathematics and evidence</summary><div class="explorer__slot" data-slot="read"></div></details></aside>`;
   document.body.append(root);
   const canvas = root.querySelector('canvas');
   const mainCtx = canvas.getContext('2d');
@@ -4141,6 +4141,14 @@ export function createExplorer(hooks = {}) {
     const tag = card.querySelector('.explorer__label');
     tag.textContent = cap.label;
     tag.dataset.label = cap.label;
+    // THE MODEL HERE (ISS-108): the programme's claims that this place shows, with their labels
+    const here = Object.entries(modelClaims ?? {}).filter(([, c]) => (c.shown_at ?? []).includes(st.stop));
+    const modelBox = card.querySelector('.explorer__model');
+    if (modelBox && modelBox.dataset.stop !== st.stop) {
+      modelBox.dataset.stop = st.stop;
+      modelBox.hidden = !here.length;
+      modelBox.querySelector('ul').innerHTML = here.map(([, c]) => `<li><span class="explorer__label" data-label="${c.label}">${c.label}</span> ${String(c.say).replace(/</g, '&lt;')}</li>`).join('');
+    }
   }
 
   function background(t, w = viewW()) {
@@ -4519,6 +4527,7 @@ export function createExplorer(hooks = {}) {
   root.addEventListener('click', event => {
     const b = event.target.closest('button');
     if (!b) return;
+    if (b.dataset.modelTour !== undefined) { dispatchEvent(new CustomEvent('soma-play-tour', { detail: { id: 'the-model' } })); return; }
     if (b.dataset.place && !b.dataset.crumb) { const [s, pl] = b.dataset.place.split(':'); navTo(s, pl); }
     else if (b.dataset.stop) go(b.dataset.stop);
     else if (b.dataset.dim) hooks.onDim?.(Number(b.dataset.dim));
