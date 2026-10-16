@@ -5828,10 +5828,14 @@ The READMEs (five in .github-private, two in .github):
 - .github-private/profile/README.md: the page members of the organisation see (13 August).
 - .github-private/README.md, README copy.md, profile/README copy.md, profile/README.original.md:
   leftovers from May; README.original.md holds the manifesto.
-- [ ] (author's call) .github/README.md: replace with one line pointing to the profile, so the
-      withdrawn claims are no longer public.
-- [ ] (author's call) .github-private: keep the manifesto (move README.original.md to
-      profile/MANIFESTO.md), delete the copies, bring the members' page up to date.
+- [x] (author 17:00: yes) .github/README.md is a pointer now; and the public organisation page
+      (profile/README.md) had the same withdrawn claims: corrected to THEORY-STATUS (no `sorry`,
+      axioms named; OS by OSforGFF, the USF identification interpretive; no "first valid QFT"),
+      the app at t-theory.org/app (.github 48db1a2). Still two notebook links in use: the org
+      page and Dist say ec1a7e74..., the app's MOTHER says 16368cb3...; the author to say which.
+- [x] .github-private: the manifesto of 16 May 2026, 01:18 (commit e143065, four minutes after the
+      repository) kept as profile/MANIFESTO.md; the copies deleted; the members' page refreshed from
+      the public one, with a link to the manifesto (4ee958a).
 - [ ] The jokes on the web (t-theory.org, for U): the cipher, the one-letter recursive acronym
       (T is for Theory, Type, Tensor, techno and trance), "we don't do middle"; humour, labelled.
 - [x] The beep in MOTHER's voice: bin/mother-beep.ps1 (a data trill, two rising bleeps; -Need adds
