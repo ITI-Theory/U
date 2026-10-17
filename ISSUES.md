@@ -6066,6 +6066,11 @@ Plan (Copilot's proposal; the author's days are marked AUTHOR):
 Tasks:
 - [x] Content freeze, end of 17 Oct: confirmed by the author, 16 Oct (plan as written).
 - [ ] The big build and release-check all PASS (ISS-001).
+      (17 Oct, the freeze: `make all lean-appendix` built in 44 minutes, no errors; ℒ and ⟹ were missing
+      from the code font in the omnibus and the Lean appendix, now drawn through the math fonts and both
+      rebuilt; the Atlas's Lulu edition rebuilt, 359 pages, PASS; the Wizard covers everything, the
+      Atlas 23 of 23 tours. release-check: 27 PASS, 3 FAIL: Dist's PDFs and cheat sheets (Monday's
+      `make dist`), and the six privacy files (the author's decision, ISS-116).)
 - [ ] UAT reading and the app walk (AUTHOR): `HAL uat` runs `uat/checklist.yaml` (the gates, the
       PDFs, the app walk, hardware, decisions).
 - [ ] make dist, checksums, Dist committed (ISS-001).
@@ -6199,10 +6204,12 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
 - [x] H-AL's answers quote the author's chats, so uat/scripts/hal_uat.py now writes them to Me
       (Me/notebooklm/hal-answers/); the questions stay in U. Today's two (never written, Scaler)
       are there.
-- [ ] AUTHOR: five public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
+- [ ] AUTHOR: six public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
       (a raw NotebookLM transcript of the author's prompts, 4393 runs); H-AL's answers that quote the
-      author's chat words: uat/RC3/hal-cathedral-2026-10-14-answers.md (55), hal-einstein-2026-10-15 (6),
-      hal-final-design-2026-10-15 (20), hal-universe-2026-10-16 (214). Moving them takes them out of
+      author's chat words: uat/RC3/hal-cathedral-2026-10-14-answers.md (60), hal-einstein-2026-10-15 (8),
+      hal-final-design-2026-10-15 (25), hal-minigolf-2026-10-15 (9; over the line since 17 Oct, as more
+      of the author's chats reached Me), hal-universe-2026-10-16 (320). (17 Oct: release-check's only
+      non-Monday FAIL.) Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
 - [ ] AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
 - [ ] AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
