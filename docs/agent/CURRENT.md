@@ -65,6 +65,15 @@ film; tours draw their jumps (veil.js; the wormhole ROOTED's, a fade by default)
 Atlas's voyage recaptured (42 plates) with the halls, THE WORLDS and THE COURSE. The big build running
 (bld/logs/big-build-2026-10-17.log); then release-check, the Wizard again, the art book's editions.
 
+**17 Oct, night (the author: "fix 95, 101, 103, 104, 107 first, then test in one go"):** done and tested
+headless in one pass, no page errors: the three elevators and the desk's preset (ISS-101), the limbic road,
+paper drafts for the author's OK (docs/drafts/ISS-101-frequency-and-limbic.md); the ROOTED gate, rule and
+presets (registry/rooted.yaml), a ray-traced Morris-Thorne wormhole (wormhole.html), a thought's own
+elevator, the rooted Atlas (Part2/book/rooted-atlas, 20 pages, check PASS) (ISS-095); the cosmos hall and
+display-resolution textures (ISS-103); the mind chamber's paths (ISS-104); the tensor film from music and
+the LED film (ISS-107). Left for the author: the drafts, HAL's brief on the inside (ISS-104), UAT
+`app-elevators`, `app-limbic-road`, `app-wormhole`, `app-rooted`, `app-4k`.
+
 **Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
 ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
 tokens; the Lulu account; the UAT walk (now 33 steps).
