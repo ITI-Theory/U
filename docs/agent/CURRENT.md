@@ -74,6 +74,12 @@ display-resolution textures (ISS-103); the mind chamber's paths (ISS-104); the t
 the LED film (ISS-107). Left for the author: the drafts, HAL's brief on the inside (ISS-104), UAT
 `app-elevators`, `app-limbic-road`, `app-wormhole`, `app-rooted`, `app-4k`.
 
+**18 Oct, after midnight (the author on the audio; Copilot on the rest until input is needed):** ISS-105
+phase 3 (the TELEMETRY drawer, the neurotype into the mind chamber, the pulse down to the heart);
+ISS-052 finished but the granular sound (the glass brain, MEMORY in 3D, FLY's solved fluid, the way
+up's side roads); the RICE lensing skin; load.py --replace for go-live; the Jumbo's cut measured
+(322 pages, options in ISS-087). No audio file touched. What is left needs the author or Monday.
+
 **Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
 ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
 tokens; the Lulu account; the UAT walk (now 33 steps).
