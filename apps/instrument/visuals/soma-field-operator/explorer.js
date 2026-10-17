@@ -2303,6 +2303,10 @@ const MODE_COLORS = { S: '#3fd0c9', F: '#ff4d5e', C: '#ffd166', A: '#a78bfa', G:
 
 let scoreModes = null;
 let scoreT = 0;
+// FILM (film.js): a compiled film's modes for this frame (the viewer's baseline already in them) and
+// its story-time; while set they replace the score player's, and the live knobs still override
+let filmModes = null;
+let filmT = 0;
 let midiInStatus = 'off';
 // the score as MIDI for Ableton (ISS-073), when the Engine Room switches it on
 const midiOut = createMidiOut();
@@ -2373,8 +2377,9 @@ function makeScore() {
       viewer = viewerField(bpmS, hdot, hrv);
       lastEnv = env;
       if (`${env.ap}` !== pilotKey) { pilotKey = `${env.ap}`; pilotStarted = false; pilotSaid = {}; pilotText = ''; handedOver = false; }
-      if (!env.ap || pilotStarted) player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
-      scoreModes = pilotModes(player.modes(viewer, env.kr), env);
+      if (filmModes) player.seek(filmT);
+      else if (!env.ap || pilotStarted) player.step(env.dt, { kr: env.kr, hdot, bpm: bpmS });
+      scoreModes = pilotModes(filmModes ? { ...filmModes } : player.modes(viewer, env.kr), env);
       scoreT = player.t;
       // H-AL thinks aloud about the modes it still flies: one line at a time, at most every 6 s
       pilotClock += env.dt;
@@ -4929,6 +4934,8 @@ export function createExplorer(hooks = {}) {
     setFeel(f) { if (FEELINGS[f]) { st.feel = f; syncUi(); } },
     setResource(on) { st.resource = Boolean(on); syncUi(); },
     setLabels(on) { st.labels = Boolean(on); },
+    // FILM: the compiled modes and story-time of the frame now playing, or null to hand back
+    setFilm(modes, t = 0) { filmModes = modes ?? null; filmT = Number(t) || 0; },
     refresh() { syncUi(); },
     // where the level view's controls go while the explorer is open: poke, look, read
     slot(name) { return root.querySelector(`.explorer__slot[data-slot="${name}"]`); },

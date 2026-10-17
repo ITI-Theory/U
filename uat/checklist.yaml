@@ -121,6 +121,11 @@ steps:
     title: "The grand tour: every main place in order, each saying what happens next; the three FLY windows (docs/PIPELINE.md)"
     url: "#voyage=worlds&dim=11"
     do: "GUIDE: The grand tour; step through all 18; is each place right, is each jump (dive, doorway, elevator, tube, cut) the right kind, and are the three windows (inside a body, the earth, space) the views you want to fly in?"
+  - id: app-film
+    kind: app
+    title: "FILM: a compiled film plays in sync; the knobs move it from zero (docs/PIPELINE.md)"
+    url: "#voyage=worlds&dim=11"
+    do: "In a terminal: node apps/instrument/visuals/soma-field-operator/scripts/compile-film.mjs --minutes 10 (or --viewer cptsd). In MOTHER type /film, pick bld/film/grand-tour.river-film.neutral.timeline.json, PLAY (try 10x). Do the places follow in order, does the fade into the river look right, and at the score do the knobs (PILOT: MANUAL) still move it?"
   - id: app-physical-places
     kind: app
     title: "The physical places on their own: the halls and the tubes, no mind layers (ISS-104 step 1)"

@@ -12,6 +12,7 @@ import { who, setWho, profile, rooted } from './who.js';
 import { createWhereAmI } from './whereami.js';
 import { createPokeFx } from './pokefx.js';
 import { createShow } from './show.js';
+import { createFilm } from './film.js';
 import { createGallery } from './gallery.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
@@ -2690,6 +2691,8 @@ thoughtThresholdInput.addEventListener('input', () => {
 const pokeFx = screenRole === 'level' ? createPokeFx() : null;
 // SHOW mode, the music film (ISS-107; ROOTED, MOTHER /show)
 if (screenRole === 'level') createShow({ explorer });
+// FILM, a compiled film played in sync (ISS-117; MOTHER /film; docs/PIPELINE.md)
+if (screenRole === 'level') createFilm({ explorer });
 // A Gallery of Thoughts (ISS-097)
 if (screenRole === 'level') createGallery();
 function firePoke(strength = state.limbic) {

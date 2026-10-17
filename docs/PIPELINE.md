@@ -44,9 +44,12 @@ fourteen labels built from the modes; the eight mechanisms (BRECVEMA) say how a 
    0.20 and fear 0.70; cptsd 0.00 and 0.90.
 4. **Render**: the pictures from the places and the modes (each stop's renderer, by the visual grammar);
    the sound from the same frames (by the sound grammar; to come).
-5. **Perform** (run time): the app plays the compiled timeline in sync and adds only small live
-   overrides: the knobs (AUTOPILOT, CO-PILOT, MANUAL), the strap, a poke, Φ. An override is mixed with
-   the compiled value, never recompiled.
+5. **Perform** (run time): FILM (film.js; MOTHER `/film`) plays the compiled timeline on its own clock:
+   the places in order, each declared jump drawn, the compiled modes driving the score frame by frame.
+   Only small live overrides are added: the knobs (CO-PILOT, MANUAL override the modes they own), the
+   strap, a poke, Φ; never a recompile. Each frame is announced as `soma-film-frame` (time, story-time,
+   place, the compiled modes, the band's controls) and each jump as `soma-transition`: what the sound
+   plays from.
 6. **Record**: REC in SHOW, or the screen recorder; the read-back checks the recording carries the score
    (`make -C sherlock readback`).
 

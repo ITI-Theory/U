@@ -6241,8 +6241,13 @@ picture and sound if they can be.
       visuals from music; the author on 12 July, verified in the chat); the observatory mode as designed
       (3 Oct) and built; the compose and perform split in The Tensor and the June chats (the decay to zero,
       the trauma baseline that fights back, the override lock). HAL-UAT now holds this week's chat (volume 15).
-- [ ] The app plays a compiled timeline (run time): SHOW-like playback of bld/film/*.timeline.json, the
-      places and the modes in sync, the knobs as small overrides mixed in.
+- [x] (20:50) The app plays a compiled film (film.js, MOTHER /film): a bld/film timeline picked from disk,
+      played on its own clock (1x, 10x, 60x for review); the places in order, each declared jump through
+      the veil; the compiled modes drive the score frame by frame (the score player follows the film's
+      story-time), the live knobs (PILOT) still override on top; `soma-film-frame` every frame (time,
+      story-time, place, compiled modes, the band) and `soma-transition` every jump, for the sound.
+      Checked headless with a 2-minute cut: 12 places in 70 s in order, every jump announced, no errors.
+      UAT `app-film`.
 - [x] (19:05, author: "psytrance 3d mandelbulb fractal neon cave ... that's what I mean, or better") The
       neon cave (flight3d.js): inside a fractal, an Apollonian packing with a tunnel carved along a
       winding path; dark stone, neon veins (cyan, magenta, violet, lime), a glow gathered along each ray,
