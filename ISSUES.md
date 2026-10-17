@@ -4894,6 +4894,10 @@ stratifies, as Lean's universes do (`Type : Type` is Girard's paradox). The usef
 world is a map of the one around it, one level up; maps nest without end, a map that is its
 territory breaks (the lesson of the identity axioms, ISS-063, at the scale of the whole).
 
+      (17 Oct, part: the wormhole as a tour's jump is built and ROOTED's: `via: wormhole`, a flight down
+      the neon cave between two places (veil.js, registry/transitions.yaml `rooted: true`), drawn as a fade
+      in the default. Still open: the Morris-Thorne wormhole for the default, and stepping inside a
+      thought bubble with its own elevator.)
 - [x] Lean: `SomaPhilosophy.lean` section 5, core Lean: `no_complete_self_model` (Cantor, no
       axioms), `level_up_represents` (the singleton map is injective; propext),
       `nest_maps_not_territory` (the elevator's floors: an injection to the next floor, no
@@ -4906,7 +4910,8 @@ territory breaks (the lesson of the identity axioms, ISS-063, at the scale of th
 - [x] Soma Machine: the palace's caption said "the palace of the mind is the universe", the
       category error itself; now "a map of the universe, one level up, never the universe itself".
 - [ ] Stepping inside a thought bubble (and its elevator): ROOTED, ISS-095.
-- [ ] Rebuild the volumes, the Atlas and the app's capture at release (with the next build).
+- [x] (17 Oct, the freeze build: `make all` rebuilt the volumes and the Atlas; the voyage's 42 plates
+      recaptured, ISS-087) Rebuild the volumes, the Atlas and the app's capture at release (with the next build).
 
 ---
 
