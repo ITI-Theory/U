@@ -4951,7 +4951,11 @@ lib/art/filters.py (pencil, stage, engraving, abstraction_1911, retro_bw, distor
 lib/art/gallery.py (plates per format, tones for the labels); Part2/book/gallery-of-thoughts
 (`make lulu|a3|projector|check`, layout in filters/gallery.lua). Lulu proof: 49 pages.
 - [ ] The author reads the proof: the rooms, the texts (drafts in his voice), the plates.
-- [ ] A3 and projector builds checked; the Lulu cover; an even page count if Lulu wants one.
+- [x] (17 Oct, the freeze) A3 and projector builds checked: `make check a3 projector` PASS, no missing
+      characters or files; the print editions padded to an even count (a blank last page when the pages
+      shipped out are odd, templates/gallery-header.tex; not the projector's 16:9 deck): Lulu A4 and A3
+      104 pages, the projector 103.
+- [ ] The Lulu cover (Lulu's template for the size and page count, at order time; AUTHOR's account).
 
 Author, 14 Oct evening: A3 landscape is in the budget (a sliding tier: 100 pages CHF 300, 150
 CHF 385, 200 CHF 468, 300 CHF 633); "only good art" sets the length (the curator's cut:
@@ -5186,8 +5190,10 @@ plexus.
       floor, their names and their twenty routes, moved word for word from atrium3d.js, which reads them
       through generate.py; the look stays in the code. generate.py stops the build if a route goes
       nowhere the explorer knows or a floor is not a level (tested with a broken route).)
-- [ ] A registry of hubs (registry/hubs.yaml): per elevator floor, its hall (shape, texture,
-      FX), its routes (to which stop or tunnel), the elevator at its entrance.
+- [x] (16 Oct, the feature hour; checked 17 Oct) A registry of hubs (registry/hubs.yaml): per elevator floor, its hall (shape, texture,
+      FX), its routes (to which stop or tunnel), the elevator at its entrance. (The words, the floor
+      and the routes are in the registry, every route checked at build; the look, fog, light and
+      walls, stays in atrium3d.js by decision, as the registry's header says.)
 - [x] (14 Oct, prototype; author UAT) First hub: the brain's great hall (the atrium),
       greathall3d.js: a flooded dome of dark stone with neon veins (fractal noise; FX folds
       it, as the palace), light shafts from above, the glomus as a chandelier of curtains, the

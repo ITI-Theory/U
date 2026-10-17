@@ -52,3 +52,6 @@
   \end{tikzpicture}\mbox{}\clearpage}
 \newenvironment{galleryintro}{\clearpage\pagecolor[HTML]{F4F0E6}\vspace*{\fill}\begin{minipage}{0.62\textwidth}\gallerytext}{\end{minipage}\vspace*{\fill}\clearpage\nopagecolor}
 \newenvironment{gallerycolophon}{\clearpage\pagecolor[HTML]{F4F0E6}\vspace*{\fill}\begin{minipage}{0.62\textwidth}\gallerylabelfont\setlength\parskip{0.6\baselineskip}}{\end{minipage}\clearpage}
+% The print editions need an even page count (Lulu; the A3 printer): a blank last page when the
+% count of pages shipped out is odd. Not the projector's deck (16:9, wider than 1.7:1).
+\AtEndDocument{\clearpage\nopagecolor\ifdim\paperwidth>1.7\paperheight\else\ifodd\ReadonlyShipoutCounter\thispagestyle{empty}\mbox{}\clearpage\fi\fi}
