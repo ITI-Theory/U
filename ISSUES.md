@@ -2401,7 +2401,7 @@ Steps:
       Going back to HUMAN flies out again. The MIND-BODY EXPLORER button opens
       at HUMAN; the tour pulls out to it before the voyage into the body and
       ends on it.
-- [ ] (17 Oct night, part: (2) THE GLASS BRAIN, brain3d.js, opt-in GLASS at the brain stop (`glass=1`): the see-through cortex, the limbic system inside, orbiting, the field's shells at the elevator's band; the 2D diagram stays the default and the Atlas's plate. (1) the landscape and (4) the neuron were 3D already; left: (3) the body inside the jellyfish human) 3D explorer (author, 10 Oct: "the mind explorer needs to be 3D like the DT
+- [x] (17 Oct night: (2) THE GLASS BRAIN, brain3d.js, opt-in GLASS at the brain stop (`glass=1`): the see-through cortex, the limbic system inside, orbiting, the field's shells at the elevator's band; the 2D diagram stays the default and the Atlas's plate. (1) the landscape, (3) the body and the neuron were 3D already; (4) the network now too: network3d.js, MEMORY's 49 cells on a curved sheet lit by state, the links Hebb's rule makes, the three memories above as orbs as bright as the overlap; the 2D grid stays the map and the print mode) [all four done] 3D explorer (author, 10 Oct: "the mind explorer needs to be 3D like the DT
       explorer, nice to have"). Opinion (Copilot): yes, and in the same three.js
       scene as the level view, so the dive never leaves 3D. Order by value:
       (1) the landscape as a real terrain mesh to fly over (the "mountains",

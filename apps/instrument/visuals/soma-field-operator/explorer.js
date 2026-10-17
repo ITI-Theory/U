@@ -69,6 +69,7 @@ import { createCathedral3D } from './cathedral3d.js';
 import { createPalace3D } from './palace3d.js';
 import { createAtrium3D } from './atrium3d.js';
 import { createBrain3D } from './brain3d.js';
+import { createNetwork3D } from './network3d.js';
 import { createPaths3D } from './paths3d.js';
 import { createMiniGolf3D } from './minigolf3d.js';
 import { createWorlds3D, TREE } from './worlds3d.js';
@@ -3083,6 +3084,15 @@ function makeNetwork() {
     draw(ctx, env) {
       const { u, dim, phi } = env;
       const best = weights.indexOf(Math.max(...weights));
+      // 3D (ISS-052): the same network, its cells on a curved sheet, the memories above
+      if (env.gl?.network) {
+        env.gl.render({ time: env.t, x, flips, weights, dim, stereo: env.stereo, phi });
+        if (env.labels) {
+          label(ctx, u, `MEMORY · RECALLED: ${MEMORY_NAMES[best].toUpperCase()}`, 0, -0.72, MEMORY_COLORS[MEMORY_NAMES[best]], 'center', 0.034);
+          label(ctx, u, MEMORY_NAMES.map((n, k) => `${n.toUpperCase()} ${Math.round(weights[k] * 100)}%`).join(' · ') + ' · a Hopfield network: 49 cells, three memories stored by Hebb\'s rule; the state falls into the nearest (simulated)', 0, -0.66, COLORS.dim, 'center', 0.02);
+        }
+        return;
+      }
       if (dim >= 11) {
         let r = 0, g = 0, b = 0;
         for (const [k, name] of MEMORY_NAMES.entries()) {
@@ -4038,6 +4048,7 @@ export function createExplorer(hooks = {}) {
     // the brain's own cave: the ventricles as a cathedral (ISS-077)
     'brain-cave': () => createCathedral3D(),
     'brain-glass': () => createBrain3D(),
+    network: () => createNetwork3D({ patterns: PATTERNS, names: MEMORY_NAMES, colors: MEMORY_COLORS }),
     // the mind palace: the zoom dial's 21 levels as floors (ISS-078)
     'brain-palace': () => createPalace3D(PALACE_FLOORS),
     // the atriums (ISS-103): the brain's great hall, the heart's left atrium
