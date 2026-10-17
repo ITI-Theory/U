@@ -4968,9 +4968,11 @@ filing for SOMAGRAM, check before a commercial cover).
 - [ ] The author's shoot with SNAP: the cathedral (calm, one thought, it grows, seven, the
       echo) and the palace's cosmos floor with the field at full.
 
-## ISS-098: Levels of visualisation, by viewer (double dispatch) — OPEN
+## ISS-098: Levels of visualisation, by viewer (double dispatch) — CLOSED
 {{Tags area.visualize, area.app, area.books}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** the registry of views is in, checked; its gaps are the next pictures (registry/views.yaml).
 
 Author, 14 Oct: as the tests have levels (Sherlock, the Wizard, the Monster), so should the
 pictures: how to visualise [T]-Theory, a book, a chapter, a section, an equation (the Visualize
