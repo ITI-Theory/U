@@ -162,6 +162,10 @@ steps:
     kind: manual
     title: "Screens: a LAYOUT on the real monitors; a tablet through the relay; the overview on the real desk (ISS-100)"
     do: "Engine Room LAYOUT; make relay LAN=1; open a tablet with ?relay=…&token=…; the overview on the 32-inch screen with the tablets"
+  - id: hw-projector
+    kind: manual
+    title: "The 3D projector: every stop in true 3D and 3D side by side, on the 100-inch screen (ISS-052, ISS-027)"
+    do: "SETTINGS: 3D SBS; walk HUMAN, BODY, LIMBIC, NEURON, THOUGHT, LANDSCAPE, DYAD with the glasses; is the depth comfortable (DEPTH in the Engine Room); does anything sit wrong in depth?"
   - id: decide-lulu
     kind: manual
     title: "Decision: verify the three-volume Lulu split"

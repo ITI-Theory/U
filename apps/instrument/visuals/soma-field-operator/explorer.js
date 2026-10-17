@@ -50,6 +50,16 @@ const PILOT_LINES = {
 const pilotLine = (id, value, up) => PILOT_LINES[id][up ? 0 : 1].replace('{n}', String(Math.round(value * 9)));
 const filmNumber = f => `No. ${Math.max(0, scores?.findIndex(s => s.id === f?.id) ?? 0) + 1}`;
 const filmName = (f, kx) => (kx >= 1 ? f?.title ?? '' : filmNumber(f));
+// the film's titles and credits (ISS-052; ?film=1): the opening card for its first seconds, the
+// credits at its end; the outside works are those of CREDITS.md that the film uses
+const FILM_CREDITS = [
+  'the score, the model and the film: Alistair Johnson',
+  'the music: generated from the score (explorer-music.js)',
+  'anatomy after OpenStax, Anatomy and Physiology 2e, CC BY 4.0',
+  '3D: three.js (MIT)',
+  'a picture of a model, not a reading of you · interpretive',
+  '© 2026 Alistair Johnson · [T]-Theory · CC BY 4.0 · t-theory.org',
+];
 const viewerPreset = id => viewers?.find(v => v.id === (id || 'v2021')) ?? viewers?.find(v => v.id === 'neutral') ?? null;
 import { createExplorerMusic } from './explorer-music.js';
 import { createMidiOut } from './midi-out.js';
@@ -2567,6 +2577,26 @@ function makeScore() {
         ctx.restore();
       }
       if (player.t >= 0.999 && env.kx > 0) label(ctx, u, `Next time, try it with fewer words: ${WORDS[env.kx - 1]} (WORDS)`, 0, 0.58, COLORS.gold, 'center', 0.028);
+      // the film's opening card (its first 8 s) and its credits (at the end), film mode only
+      if (env.film) {
+        const secs = player.t * player.seconds;
+        const fade = (x, a, b) => Math.max(0, Math.min(1, (x - a) / 1.5, (b - x) / 1.5));
+        const open = fade(secs, -1, 8);
+        if (open > 0) {
+          ctx.save();
+          ctx.globalAlpha = open;
+          label(ctx, u, (film?.title ?? '').toUpperCase(), 0, -0.08, COLORS.ink, 'center', 0.075);
+          label(ctx, u, 'Alistair Johnson · [T]-Theory', 0, 0.04, COLORS.dim, 'center', 0.032);
+          ctx.restore();
+        }
+        if (player.t >= 0.999) {
+          ctx.save();
+          ctx.globalAlpha = 0.95;
+          label(ctx, u, (film?.title ?? '').toUpperCase(), 0, -0.36, COLORS.ink, 'center', 0.05);
+          FILM_CREDITS.forEach((line, k) => label(ctx, u, line, 0, -0.24 + k * 0.07, k === FILM_CREDITS.length - 1 ? COLORS.dim : COLORS.ink, 'center', 0.03));
+          ctx.restore();
+        }
+      }
       // RICE (ISS-075): crew alerting, as a glass cockpit does: red WARNING, amber CAUTION,
       // cyan ADVISORY, read from the score and the heart. Model alerts, not clinical ones.
       if (rice()) {

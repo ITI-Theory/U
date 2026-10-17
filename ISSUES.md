@@ -2471,7 +2471,8 @@ Steps:
       the body, the quantum flicker), three tour stops, and two Sherlock
       concepts (limbic-tunnelling, classical-trapping; 25 concepts, 7
       kernel-verified).
-- [ ] (13 Oct night, part: NEURON in true 3D (explorer3d.js createNeuron3D): the 2D stop's own
+- [x] (16 Oct: the dev work is done; watching them on the projector in 3D SBS is UAT: `uat/checklist.yaml`,
+      step `hw-projector`.) (13 Oct night, part: NEURON in true 3D (explorer3d.js createNeuron3D): the 2D stop's own
       cell lifted into space, saltatory spikes, field rings at 11D, the neighbour behind, labels
       projected; 3D SBS as the other stops. LIMBIC in 3D (createLimbic3D): the eleven dimensions as
       an hourglass, seven body rings narrowing to the limbic ring D8, whose band widens with Phi,
@@ -2608,7 +2609,10 @@ Steps:
 - [x] (13 Oct: the checks moved to the UAT list, uat/checklist.yaml steps `film-river-90`,
       `film-record`, `film-review`) The full River Film, its recording and the author's
       review of every line.
-- [ ] Film, next (development): titles and credits; OpenStax Anatomy & Physiology (CC BY;
+- [~] (16 Oct: titles and credits done: in film mode (?film=1) the score's title and the author open
+      the film for its first eight seconds; at its end the credits, with the outside works the film
+      uses from CREDITS.md and the licence line. Still: OpenStax A&P as the anatomy reference.)
+      Film, next (development): titles and credits; OpenStax Anatomy & Physiology (CC BY;
       Calibre 163, in the HAL-UAT `medical` group, not yet loaded) as the reference for
       accurate anatomy in the body, ureter and brain stops.
 - [x] (13 Oct, checked: the stent mode is done, app README "URETER / stent mode") Urologist: a
