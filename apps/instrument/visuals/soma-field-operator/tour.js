@@ -14,14 +14,14 @@ import { createVeil } from './veil.js';
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
-  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor', 'uo', 'uv', 'palace', 'pf', 'hall', 'cave', 'choices', 'golf', 'band', 'bhz', 'lfly', 'led', 'glass']);
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor', 'uo', 'uv', 'palace', 'pf', 'hall', 'cave', 'choices', 'golf', 'band', 'bhz', 'lfly', 'led', 'glass', 'art']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
   voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session', 'cave'], tw: ['0', '1'], kx: ['0', '1', '2', '3', '4'], ab: ['a', 'b'], ap: ['auto', 'co', 'manual'], uo: ['1', '2', '3', '4'], uv: ['in', 'out', 'both'],
   palace: ['0', '1'], hall: ['0', '1'], cave: ['0', '1'], choices: ['0', '1'], golf: ['0', '1'],
-  band: ['delta', 'theta', 'alpha', 'beta', 'gamma'], lfly: ['0', '1'], led: ['0', '1'], glass: ['0', '1'],
+  band: ['delta', 'theta', 'alpha', 'beta', 'gamma'], lfly: ['0', '1'], led: ['0', '1'], glass: ['0', '1'], art: ['pencil', 'retro', 'distort'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
 const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;

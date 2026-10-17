@@ -4887,9 +4887,9 @@ Order (author): after the release.
 
 ---
 
-## ISS-096: Universes inside universes: nest maps, never the territory — OPEN
+## ISS-096: Universes inside universes: nest maps, never the territory — CLOSED
 {{Tags area.books, area.proofs, area.app}}
-{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=2026-10-18, epic=}}
 
 Author, 14 Oct 15:00: "we exist in one universe; in the Soma Machine a mind explorer, a mind
 palace with an elevator, another universe or the same? my thought bubbles, can I go inside each,
@@ -4942,8 +4942,9 @@ also as a new view in the app, the Gallery.
 - [x] (done in the first draft, 14 Oct: registry/gallery.yaml, 12 rooms on the development clock, four
       era rooms, `stage:<t>` for where the pink and blue enter) The book's plan: the two clocks on the registry's eras (registry/eras.yaml), a style per era
       and per stage of the programme, where the pink and blue enter.
-- [~] (the build's: lib/art/filters.py, pencil, stage, engraving, abstraction_1911, retro_bw,
-      distort; the app's and video: after the release) Filters for images and video (pencil, retro black-and-white, distortion driven by the field),
+- [x] (the build's: lib/art/filters.py, pencil, stage, engraving, abstraction_1911, retro_bw,
+      distort; 18 Oct: the app's too, art-looks.js, ROOTED's: `art=pencil|retro|distort`, DISTORT's
+      ripple as strong as Φ, three presets; video is a recording of the filtered view, SHOW's REC) Filters for images and video (pencil, retro black-and-white, distortion driven by the field),
       in the app and in the build; which are ROOTED.
 - [x] (16 Oct: checked, and kept so: sherlock/gallery_sources.py, `make -C sherlock gallery`,
       release-check 14d: every plate and the cover is an app capture, a gallery capture or a SNAP;
@@ -5185,9 +5186,9 @@ stacked for the next big build (ISS-101's stack).
 - [x] (21:26) The palace gives way to the manifold: above Φ 0.5 its walls bend and fold (a
       vertex shader, a few moving modes, banded light), calm round the door; a line says so.
 
-## ISS-103: Hub halls: every elevator exit opens into a place, and routes go off from it — OPEN
+## ISS-103: Hub halls: every elevator exit opens into a place, and routes go off from it — CLOSED
 {{Tags area.app}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=, date.end=2026-10-18, epic=}}
 
 Author, 14 Oct 21:58: the jellyfish human is an abstract body that only sort of looks human;
 each elevator exit should start in a hall, gallery or cave, an abstract 3D place in high
@@ -6299,4 +6300,10 @@ picture and sound if they can be.
       dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
       the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
 - [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
+- [ ] (author, 18 Oct 00:52, an idea for the audio work: "this is ui for audio", SSL 360 Link's mixer)
+      A console for the 32 knobs after it: a strip per mode (the fader its value, the knobs its
+      sub-knobs), meters showing the compiled value against the live override, groups for the band's
+      voices (as SSL's DRUMS, KEYS, GUITARS, VOCALS), a centre section with the master and the scope;
+      the knobs' MIDI already lands there (MIDI IN, the Twister's banks). With the audio, the author's
+      call.
 

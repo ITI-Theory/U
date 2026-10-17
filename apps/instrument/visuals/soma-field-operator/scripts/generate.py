@@ -613,7 +613,7 @@ def load_questions(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 TOUR_KEYS = {"level", "path", "lens", "dim", "model", "reader", "era", "compare", "contours", "q", "labels", "ui",
              "voyage", "phi", "feel", "resource", "kv", "st", "bpm", "kr", "kd", "kt", "kw", "km", "kc",
-             "kf", "tw", "pv", "ca", "cs", "cp", "kx", "ab", "ap", "tower", "floor", "uo", "uv", "palace", "pf", "hall", "cave", "choices", "golf", "band", "bhz", "lfly", "led", "glass"}
+             "kf", "tw", "pv", "ca", "cs", "cp", "kx", "ab", "ap", "tower", "floor", "uo", "uv", "palace", "pf", "hall", "cave", "choices", "golf", "band", "bhz", "lfly", "led", "glass", "art"}
 TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie", "general", "specialist"},
               "compare": {"0", "1"}, "contours": {"0", "1"}, "labels": {"on", "off"}, "ui": {"clean"},
               # The mind explorer (explorer.js; same lists as STOPS and FEELINGS there).
@@ -624,7 +624,7 @@ TOUR_FIXED = {"lens": {"on", "off"}, "dim": {"4", "8", "11"}, "reader": {"cookie
               "kx": {"0", "1", "2", "3", "4"}, "ab": {"a", "b"},
               "ap": {"auto", "co", "manual"}, "uo": {"1", "2", "3", "4"}, "uv": {"in", "out", "both"},
               "hall": {"0", "1"}, "cave": {"0", "1"}, "choices": {"0", "1"}, "golf": {"0", "1"},
-              "band": {"delta", "theta", "alpha", "beta", "gamma"}, "lfly": {"0", "1"}, "led": {"0", "1"}, "glass": {"0", "1"}}
+              "band": {"delta", "theta", "alpha", "beta", "gamma"}, "lfly": {"0", "1"}, "led": {"0", "1"}, "glass": {"0", "1"}, "art": {"pencil", "retro", "distort"}}
 # phi (the limbic field, the FX bar): a number from 0 to 1, as tour.js PHI.
 TOUR_PHI = r"^(0(\.\d{1,3})?|1(\.0{1,3})?)$"
 # Presentation overlays drawn by presentation.js (same list as OVERLAYS there).

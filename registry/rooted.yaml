@@ -24,6 +24,9 @@ presets:
   - {id: limbic-road, title: "THE LIMBIC ROAD", view: "level=whole-brain-cemi&voyage=brain&cave=1&lfly=1&dim=11&phi=0.85", say: "out of the temporal horn through the limbic system, lit"}
   - {id: radio-140, title: "THE RADIO AT 140 BPM", view: "level=whole-brain-cemi&voyage=brain&dim=11&bhz=2.33&phi=0.8", say: "the brain's field tuned to psytrance's beat"}
   - {id: led-2021, title: "THE 2021 FILM ON LEDS", view: "voyage=score&kc=river&kf=fis-2021&kx=0&dim=11&led=1", say: "the 2021 river trip as an old AI's LED matrix (ISS-107: Frankie Teardrop's look)"}
+  - {id: art-pencil, title: "THE CATHEDRAL IN PENCIL", view: "level=whole-brain-cemi&voyage=brain&cave=1&dim=11&phi=0.6&art=pencil", say: "the Gallery's pencil filter, live (ISS-097)"}
+  - {id: art-retro, title: "THE RIVER ON OLD FILM", view: "voyage=score&kc=river&dim=11&art=retro", say: "black and white, hard contrast and grain"}
+  - {id: art-distort, title: "THE MIND CHAMBER, DISTORTED BY THE FIELD", view: "level=whole-brain-cemi&voyage=thought&hall=1&dim=11&phi=0.8&art=distort", say: "the picture rippled as hard as the field is high"}
   - {id: mandelbulb, title: "THE MANDELBULB DIVE", view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.9", say: "FLY into the mind, the field high"}
 # The rooted Atlas (ISS-095: "completely over the top, multi-page spreads of high-resolution fractals,
 # just because"): an art edition, no science claims, outside the publication registry. Each a 4K capture

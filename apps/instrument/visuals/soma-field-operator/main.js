@@ -15,10 +15,13 @@ import { createShow } from './show.js';
 import { createFilm } from './film.js';
 import { setLed, led } from './led.js';
 import { syncLensSkin } from './lens.js';
+import { setArtLook, artLook, artLookField } from './art-looks.js';
 // the lensing skin (RICE): on load, and when another window or the Engine Room switches it
 syncLensSkin();
 addEventListener('storage', e => { if (e.key === 'soma-lens' || e.key === 'soma-rice') syncLensSkin(); });
 setInterval(syncLensSkin, 2000);
+// the DISTORT look follows the field (ISS-097)
+setInterval(() => { if (artLook() === 'distort') artLookField(explorer.phi ?? 0.5, performance.now() / 1000); }, 100);
 import { createVeil } from './veil.js';
 let elevatorVeil = null;
 import { createGallery } from './gallery.js';
@@ -1264,6 +1267,7 @@ function readHashState() {
     lfly: params.get('lfly'),
     led: params.get('led'),
     glass: params.get('glass'),
+    art: params.get('art'),
   };
 }
 
@@ -1799,6 +1803,7 @@ function applyVoyage(hashState) {
   explorer.setBand(hashState.band, hashState.bhz);
   explorer.setLimbicFly(hashState.lfly);
   explorer.setGlass(hashState.glass);
+  setArtLook(hashState.art);
   setLed(hashState.led === '1');
   explorer.setUreter({ uo: hashState.uo, uv: hashState.uv });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
@@ -2396,6 +2401,7 @@ function hashForState() {
     if (state.voyage === 'brain' && explorer.cave) params.set('cave', '1');
     if (state.voyage === 'brain' && explorer.cave && explorer.limbicFly) params.set('lfly', '1');
     if (led()) params.set('led', '1');
+    if (artLook()) params.set('art', artLook());
     if (state.voyage === 'brain' && explorer.glass) params.set('glass', '1');
     if (state.voyage === 'brain' && explorer.band) params.set('band', explorer.band);
     if (state.voyage === 'brain' && explorer.bandHz) params.set('bhz', explorer.bandHz.toFixed(2));
