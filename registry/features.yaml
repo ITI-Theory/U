@@ -1,0 +1,42 @@
+# Every Soma Machine feature, tagged science or show (ISS-095, author 14 Oct: "the Soma Machine is, by
+# default, science, as it is; everything there because it looks good moves into presets behind
+# ROOTED"). Copilot's proposal, 16 Oct 2026, for the author to approve feature by feature: set
+# `approved: true` (or change the tag) and the code follows. Sherlock checks each feature's anchor is
+# still in its file (`make -C sherlock features`), so the list cannot drift from the app.
+#
+#   science: in the default; it shows the model (the visual and sound grammars) or sourced anatomy
+#            and physics, with its label
+#   show:    there because it looks or sounds good, or entertains; ROOTED's (or already behind it)
+#   both:    the science stays in the default, a show skin goes to ROOTED (named in `split`)
+schema_version: 1
+features:
+  # --- the places ---
+  - {id: level-view, what: "the level elevator: twenty-one floors, cell to cosmos, each with its equation and evidence", file: apps/instrument/visuals/soma-field-operator/elevator.js, anchor: "export function createElevator", tag: science, approved: false}
+  - {id: jellyfish-human, what: "the whole body as one field, the home view", file: apps/instrument/visuals/soma-field-operator/explorer3d.js, anchor: "export function createBody3D", tag: science, approved: false}
+  - {id: the-worlds, what: "THE WORLDS, the glass domes: the zoom as a map", file: apps/instrument/visuals/soma-field-operator/worlds3d.js, anchor: "export function createWorlds3D", tag: science, approved: false, note: "a map, never the territory; SOMA WORLD is its ROOTED name"}
+  - {id: atriums, what: "the halls: the great hall, the heart, the soma, the mind chamber (registry/hubs.yaml)", file: apps/instrument/visuals/soma-field-operator/atrium3d.js, anchor: "export function createAtrium3D", tag: both, split: "the anatomy and the routes are science; the neon veins and jellyfish are show", approved: false}
+  - {id: cathedral, what: "the ventricles as a cathedral, under water", file: apps/instrument/visuals/soma-field-operator/cathedral3d.js, anchor: "export function createCathedral3D", tag: both, split: "the ventricles' route is anatomy; the neon stone, the 2001 corridor and the stargate are show", approved: false}
+  - {id: palace, what: "the mind palace: the method of loci, twenty-one floors", file: apps/instrument/visuals/soma-field-operator/palace3d.js, anchor: "export function createPalace3D", tag: both, split: "the method of loci is real psychology; the folding manifold walls are show", approved: false}
+  - {id: way-in, what: "the way in: heart to brain through the arteries", file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "THE WAY IN (ISS-077)", tag: science, approved: false}
+  - {id: ureter, what: "the stone as a process: four stages, the stent mode", file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "stent", tag: science, approved: false}
+  - {id: neuron, what: "the neuron in 3D: spikes, the field rings", file: apps/instrument/visuals/soma-field-operator/explorer3d.js, anchor: "export function createNeuron3D", tag: science, approved: false}
+  - {id: limbic, what: "the limbic hinge", file: apps/instrument/visuals/soma-field-operator/explorer3d.js, anchor: "export function createLimbic3D", tag: science, approved: false}
+  - {id: landscape, what: "the energy landscape: wells, barriers, the ball", file: apps/instrument/visuals/soma-field-operator/explorer3d.js, anchor: "export function createLandscape3D", tag: science, approved: false}
+  - {id: mini-golf, what: "mini golf: the six basins and the load", file: apps/instrument/visuals/soma-field-operator/minigolf3d.js, anchor: "export function createMiniGolf3D", tag: both, split: "the basins and barriers are the model (THE BASINS for the scientist); the golf is show", approved: false}
+  - {id: the-course, what: "THE COURSE: thoughts over a sea, the path problem", file: apps/instrument/visuals/soma-field-operator/paths3d.js, anchor: "export function createPaths3D", tag: science, approved: false}
+  - {id: dyad, what: "two people, coupled: drift and lock", file: apps/instrument/visuals/soma-field-operator/explorer3d.js, anchor: "export function createDyad3D", tag: science, approved: false}
+  - {id: flight, what: "FLY: the fractal flight, the Mandelbulb dive", file: apps/instrument/visuals/soma-field-operator/flight3d.js, anchor: "export function createFlight3D", tag: show, approved: false, note: "the author's own idea and the Gallery's fractals; a picture, not the model"}
+  - {id: score, what: "the SCORE: the River Film, telemetry over time, the twin view", file: apps/instrument/visuals/soma-field-operator/score.js, anchor: "export function createScorePlayer", tag: science, approved: false}
+  # --- effects and extras ---
+  - {id: poke-fx, what: "POKE's IMPULSE / RESPONSE / RETURN rings and labels", file: apps/instrument/visuals/soma-field-operator/pokefx.js, anchor: "export function createPokeFx", tag: science, approved: false}
+  - {id: rice, what: "RICE: neon, code rain, the Root Monster's tours", file: apps/instrument/visuals/soma-field-operator/rice.js, anchor: "export function rice", tag: show, approved: true, note: "already ROOTED's (who.js setRooted)"}
+  - {id: teletype, what: "MOTHER's 1979 teletype sounds and rewards", file: apps/instrument/visuals/soma-field-operator/nostromo.js, anchor: "teletype", tag: show, approved: true, note: "already ROOTED's"}
+  - {id: show-mode, what: "SHOW: a mix drives the machine as a film", file: apps/instrument/visuals/soma-field-operator/show.js, anchor: "export function createShow", tag: show, approved: true, note: "already ROOTED's"}
+  - {id: thought-bubbles, what: "visual thoughts: bubbles with the programme's figures", file: apps/instrument/visuals/soma-field-operator/cathedral3d.js, anchor: "VISUAL THOUGHTS", tag: both, split: "a thought arising is the model's threshold; the soap-film look is show", approved: false}
+  - {id: stereo, what: "stereo 3D (side by side, the glasses)", file: apps/instrument/visuals/soma-field-operator/stereo-depth.js, anchor: "export function updateStereo", tag: show, approved: false}
+  - {id: music, what: "MUSIC: the generative pad, bells, the heartbeat", file: apps/instrument/visuals/soma-field-operator/explorer-music.js, anchor: "export function createExplorerMusic", tag: both, split: "the channels in registry/sound-grammar.yaml are science; the key per world and the heartbeat are decorative", approved: false}
+  - {id: gallery, what: "A Gallery of Thoughts: the art book's rooms", file: apps/instrument/visuals/soma-field-operator/gallery.js, anchor: "export function createGallery", tag: show, approved: false, note: "art, labelled; the pictures are the programme's own"}
+  - {id: whereami, what: "WHEREAMI: time, place, scale, body part, Φ", file: apps/instrument/visuals/soma-field-operator/whereami.js, anchor: "whereami", tag: science, approved: false}
+  - {id: where-feeling, what: "WHERE IS THIS FEELING? (sourced meta-analyses) and MOTHER's /feel", file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "WHERE IS THIS FEELING?", tag: science, approved: false}
+  - {id: snap, what: "SNAP: a somagram, the picture and its [T]-stop", file: apps/instrument/visuals/soma-field-operator/explorer.js, anchor: "SNAP (S)", tag: show, approved: false, note: "a camera, for the Gallery"}
+  - {id: midi, what: "MIDI OUT: the score and the band to Ableton or Scaler", file: apps/instrument/visuals/soma-field-operator/midi-out.js, anchor: "export function createMidiOut", tag: both, split: "the score's modes are science; the band's mapping is interpretive (ISS-115)", approved: false}

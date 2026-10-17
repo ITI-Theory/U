@@ -4104,6 +4104,8 @@ other work.
 - [ ] (ISS-092) Read H-AL's "never written" (Me/notebooklm/hal-answers/hal-never-written-2026-10-16-answers.md,
       private): ten ideas from the chats no book covers, and five things a reader would miss. Decide
       what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
+- [ ] (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
+      true`, or change the tag); `make -C sherlock features` lists what is still awaiting.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -4838,7 +4840,12 @@ nothing explicit); a confirm gate, not age verification. The rooted Atlas is an 
 no science claims, kept out of the publication registry or as its own art record; bookfactory's
 Jumbo suits big spreads.
 
-- [ ] Inventory: every Soma Machine feature, tagged science or show, for the author to approve
+- [~] (16 Oct: registry/features.yaml, Copilot's proposal: 28 features, 14 science, 7 show (FLY, stereo,
+      the Gallery, SNAP; RICE, the teletype and SHOW already ROOTED's), 7 both with their split (the
+      cathedral's route is anatomy, its neon and stargate show; the palace's method of loci is real,
+      its folding walls show); `make -C sherlock features` checks each anchor. Awaiting the author's
+      approval, feature by feature (ISS-081).)
+      Inventory: every Soma Machine feature, tagged science or show, for the author to approve
       (candidates for show: the Mandelbulb dive, the cathedral, MUNCH's bedtime tour, the visual
       rhymes, stereo effects, the elevator).
 - [ ] ROOTED in the app: the unlock (Engine Room, the Root Monster), the presets, the elevator's
