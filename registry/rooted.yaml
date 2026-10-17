@@ -1,0 +1,39 @@
+# registry/rooted.yaml: ROOTED, the Soma Machine's unlocked mode (ISS-095). The default is science; what
+# is there because it looks good, and what is experimental, lives here behind the gate (author, 14 Oct:
+# "ROOTED is over 18, so it can be more relaxed"). The rule is shown at the gate (rooted-gate.js) after
+# MOTHER's clearance code, and entering is a confirmation, not age verification. The presets are
+# MOTHER's /preset <id> and the Engine Room's ROOTED list; every view is checked at build like a tour
+# step (scripts/generate.py).
+schema_version: 1
+rule:
+  title: ROOTED IS OVER 18
+  allows:
+    - "stronger language in the companions and MOTHER"
+    - "darker material, the author's own (the film notes' themes), labelled as his"
+    - "intense visuals at full strength: the neon, the stargate, the wormholes, the LED film, SHOW at 140 BPM"
+    - "experimental instruments that are not readings of anyone (the RADIO's entrainment)"
+  never:
+    - "clinical claims or advice; nothing here diagnoses or treats"
+    - "anything sexually explicit"
+    - "another person's private material"
+    - "a science label on a show feature (registry/features.yaml keeps them apart)"
+  warning: "Flashing light, strobing colour and fast motion. If light can trigger seizures for you, or for anyone watching, do not enter."
+presets:
+  - {id: neon-cave, title: "THE NEON CAVE", view: "voyage=score&kc=cave&dim=11&kv=1", say: "the River Film flying a psytrance cave"}
+  - {id: stargate, title: "THE STARGATE", view: "level=whole-brain-cemi&voyage=brain&cave=1&dim=11&phi=0.97", say: "the cathedral with the field near full: the aqueduct opens"}
+  - {id: limbic-road, title: "THE LIMBIC ROAD", view: "level=whole-brain-cemi&voyage=brain&cave=1&lfly=1&dim=11&phi=0.85", say: "out of the temporal horn through the limbic system, lit"}
+  - {id: radio-140, title: "THE RADIO AT 140 BPM", view: "level=whole-brain-cemi&voyage=brain&dim=11&bhz=2.33&phi=0.8", say: "the brain's field tuned to psytrance's beat"}
+  - {id: led-2021, title: "THE 2021 FILM ON LEDS", view: "voyage=score&kc=river&kf=fis-2021&kx=0&dim=11&led=1", say: "the 2021 river trip as an old AI's LED matrix (ISS-107: Frankie Teardrop's look)"}
+  - {id: mandelbulb, title: "THE MANDELBULB DIVE", view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.9", say: "FLY into the mind, the field high"}
+# The rooted Atlas (ISS-095: "completely over the top, multi-page spreads of high-resolution fractals,
+# just because"): an art edition, no science claims, outside the publication registry. Each a 4K capture
+# of the app (capture.mjs --only rooted), laid across two facing pages (Part2/book/rooted-atlas).
+atlas:
+  - {id: r-mandelbulb, view: "level=whole-brain-cemi&voyage=flight&dim=11&phi=0.9&labels=off", settle: 9000, title: "The Mandelbulb, falling in"}
+  - {id: r-neon-cave, view: "voyage=score&kc=cave&dim=11&st=0.62&kv=0.1&kx=0&labels=off", settle: 9000, title: "The neon cave, at the deep river"}
+  - {id: r-neon-cave-awe, view: "voyage=score&kc=cave&dim=11&st=0.72&kv=0.1&kx=0&labels=off", settle: 9000, title: "The neon cave, at awe"}
+  - {id: r-cosmic-web, view: "level=cosmic-web&voyage=flight&dim=11&phi=0.7&labels=off", settle: 7000, title: "The cosmic web"}
+  - {id: r-quantum-foam, view: "level=quantum-foam&voyage=flight&dim=11&phi=0.7&labels=off", settle: 7000, title: "The quantum foam"}
+  - {id: r-inner-sea, view: "level=human-vertebrate&voyage=flight&dim=11&phi=0.7&labels=off", settle: 7000, title: "The inner sea"}
+  - {id: r-stargate, view: "level=whole-brain-cemi&voyage=brain&cave=1&dim=11&phi=0.97&labels=off", settle: 9000, title: "The stargate in the aqueduct"}
+  - {id: r-limbic-road, view: "level=whole-brain-cemi&voyage=brain&cave=1&lfly=1&dim=11&phi=0.85&labels=off", settle: 12000, title: "The limbic road"}

@@ -8,6 +8,7 @@
 // this tab), so scene changes are no problem. Esc ends it. Interpretive: a show, not a reading.
 
 import { rooted } from './who.js';
+import { musicModesAt } from './music-score.js';
 
 // the scenes, cycled on phrase boundaries (hash views the explorer already knows)
 const SCENES = [
@@ -18,6 +19,7 @@ const SCENES = [
   'voyage=brain&palace=1&dim=11&ui=clean&labels=off',        // the palace
   'voyage=flight&dim=11&ui=clean&labels=off',                // the fractal flight
   'voyage=worlds&dim=11&ui=clean&labels=off',                // THE WORLDS
+  'voyage=score&kc=cave&dim=11&ui=clean&labels=off',         // the neon cave, the music as its score
 ];
 const PHRASES_PER_SCENE = 2;
 
@@ -92,6 +94,8 @@ export function createShow({ explorer }) {
     if (sinceDrop < 4) base = Math.max(base, 1 - sinceDrop * 0.1);
     const kick = sec?.kind === 'breakdown' ? 0 : Math.exp(-beatPhase(t) * 7) * 0.22;
     explorer.setPhi?.(Math.min(1, base + kick));
+    // the tensor film from music (ISS-107 B): the music's form as the score's modes
+    explorer.setFilm?.(musicModesAt(cues, t), Math.min(1, t / Math.max(1, cues.duration)));
     if (audio.ended) stop();
   }
   async function start(rec) {
@@ -125,6 +129,7 @@ export function createShow({ explorer }) {
   function stop() {
     cancelAnimationFrame(raf);
     audio.pause();
+    explorer.setFilm?.(null);
     document.body.classList.remove('show-mode');
     explorer.setLabels?.(true);
     if (/ui=clean|labels=off/.test(location.hash)) location.hash = location.hash.replace(/&?(ui=clean|labels=off)/g, '');

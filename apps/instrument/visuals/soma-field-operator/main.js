@@ -13,6 +13,9 @@ import { createWhereAmI } from './whereami.js';
 import { createPokeFx } from './pokefx.js';
 import { createShow } from './show.js';
 import { createFilm } from './film.js';
+import { setLed, led } from './led.js';
+import { createVeil } from './veil.js';
+let elevatorVeil = null;
 import { createGallery } from './gallery.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
@@ -1251,6 +1254,10 @@ function readHashState() {
     golf: params.get('golf'),
     cave: params.get('cave'),
     pf: params.get('pf'),
+    band: params.get('band'),
+    bhz: params.get('bhz'),
+    lfly: params.get('lfly'),
+    led: params.get('led'),
   };
 }
 
@@ -1387,7 +1394,13 @@ const explorer = createExplorer({
   ],
 });
 const elevator = createElevator({
-  onFloor: index => setPathStep(index),
+  // ROOTED rides between floors through a wormhole (the elevator's sci-fi twin, ISS-095)
+  onFloor: index => {
+    if (!rooted()) { setPathStep(index); return; }
+    elevatorVeil ??= createVeil();
+    elevatorVeil.run('wormhole 3s on now', () => setPathStep(index));
+  },
+  onWormhole: () => { location.href = './wormhole.html'; },
   // an elevator exit opens into the stop's atrium where it has one (ISS-103)
   onStepOut: stop => { explorer.enterAtrium(stop); openExplorerAt(stop); },
   // FLY ▸ on any floor: ride there, then fly through that level's world
@@ -1395,6 +1408,10 @@ const elevator = createElevator({
     setPathStep(index);
     openExplorerAt('flight');
   },
+  // the dimension and frequency elevators (ISS-101): each floor is an address, as a tour step is
+  onDimension: f => { location.hash = `level=${f.stop === 'body' ? 'human-vertebrate' : 'whole-brain-cemi'}&voyage=${f.stop}&dim=${f.dim}&phi=${explorer.phi.toFixed(2)}`; },
+  onBand: band => { location.hash = `level=whole-brain-cemi&voyage=brain&dim=11&band=${band}&phi=${explorer.phi.toFixed(2)}`; },
+  onRadio: hz => { location.hash = `level=whole-brain-cemi&voyage=brain&dim=11&bhz=${hz.toFixed(2)}&phi=${explorer.phi.toFixed(2)}`; },
 });
 // Floors are the current model's levels; the car rides state.visualScale between them.
 function updateElevator() {
@@ -1773,6 +1790,9 @@ function applyVoyage(hashState) {
   explorer.setChoices(hashState.choices);
   explorer.setGolf(hashState.golf);
   explorer.setCave(hashState.cave);
+  explorer.setBand(hashState.band, hashState.bhz);
+  explorer.setLimbicFly(hashState.lfly);
+  setLed(hashState.led === '1');
   explorer.setUreter({ uo: hashState.uo, uv: hashState.uv });
   if (hashState.resource !== null) explorer.setResource(hashState.resource === '1');
   explorer.setLabels(hashState.labels !== 'off');
@@ -2367,6 +2387,10 @@ function hashForState() {
     if (explorer.choices) params.set('choices', '1');
     if (explorer.golf) params.set('golf', '1');
     if (state.voyage === 'brain' && explorer.cave) params.set('cave', '1');
+    if (state.voyage === 'brain' && explorer.cave && explorer.limbicFly) params.set('lfly', '1');
+    if (led()) params.set('led', '1');
+    if (state.voyage === 'brain' && explorer.band) params.set('band', explorer.band);
+    if (state.voyage === 'brain' && explorer.bandHz) params.set('bhz', explorer.bandHz.toFixed(2));
     if (state.voyage === 'brain' && explorer.palace) {
       params.set('palace', '1');
       params.set('pf', String(explorer.palace.floor));

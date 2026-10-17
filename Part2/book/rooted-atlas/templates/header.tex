@@ -1,0 +1,22 @@
+% The rooted Atlas (ISS-095): black pages, the pictures across facing pages.
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\pagecolor{black}\color[HTML]{E8EEFC}
+\setlength{\parskip}{0.7\baselineskip}
+\newcommand{\rootedtitle}{\thispagestyle{empty}\vspace*{0.3\textheight}{\fontsize{44}{50}\selectfont\color[HTML]{FF7AD9}THE ROOTED ATLAS\par}\vspace{1em}{\Large\color[HTML]{5EE7FF}The Soma Machine's fractals, over the top\par}\vspace{2em}{\large Alistair Johnson\par}\clearpage}
+\newenvironment{rootedintro}{\clearpage\thispagestyle{empty}\vspace*{\fill}\begin{minipage}{0.86\textwidth}\large}{\end{minipage}\vspace*{\fill}\clearpage}
+% a spread starts on a left (even) page; the left half of the picture there, the right half facing
+\newcommand{\rootedspread}[2]{%
+  \clearpage\ifodd\value{page}\thispagestyle{empty}\mbox{}\clearpage\fi
+  \thispagestyle{empty}\noindent\begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=0] at (current page.north west) {\adjustimage{trim=0 0 {.5\width} 0,clip,width=\paperwidth,height=\paperheight}{#1}};
+  \end{tikzpicture}\clearpage
+  \thispagestyle{empty}\noindent\begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=0] at (current page.north west) {\adjustimage{trim={.5\width} 0 0 0,clip,width=\paperwidth,height=\paperheight}{#1}};
+    \node[anchor=south east,text=white,font=\small\ttfamily,inner sep=12mm] at (current page.south east) {#2};
+  \end{tikzpicture}\clearpage}
+\newcommand{\rootedmissing}[2]{\clearpage\thispagestyle{empty}\vspace*{\fill}\begin{center}{\Large #2}\par\medskip NOT CAPTURED: #1 (make -C Part2/book/rooted-atlas captures)\end{center}\vspace*{\fill}\clearpage}
+\newcommand{\rootedcolophon}{\clearpage\thispagestyle{empty}\vspace*{\fill}\begin{minipage}{0.86\textwidth}\small Rendered by the Soma Machine (apps/instrument/visuals/soma-field-operator) at 3840 by 2160, captured headless (capture.mjs, ROOTED's list in registry/rooted.yaml). An art edition: no claim in it is a scientific one; the Field Atlas and the papers carry those.\end{minipage}\vspace*{\fill}}
+% the print editions need an even page count: a blank last page when the count is odd
+\AtEndDocument{\clearpage\ifodd\ReadonlyShipoutCounter\thispagestyle{empty}\mbox{}\clearpage\fi}

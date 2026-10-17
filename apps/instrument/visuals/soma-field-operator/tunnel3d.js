@@ -12,7 +12,7 @@
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { XS } from './ureter-model.js';
-import { applyLook } from './look.js';
+import { applyLook, hiresCanvas } from './look.js';
 import { createVessel } from './vessel.js';
 
 function seeded(seed) {
@@ -134,9 +134,7 @@ for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <
 // and a grainy surface (a canvas texture used as colour and bump). Bipyramids on the faces of
 // bipyramids, three generations, one instanced mesh (about 170 crystals).
 function stoneTexture() {
-  const c = document.createElement('canvas');
-  c.width = c.height = 256;
-  const g = c.getContext('2d');
+  const { c, g } = hiresCanvas(256);
   g.fillStyle = '#d8c07a';
   g.fillRect(0, 0, 256, 256);
   for (let k = 0; k < 2600; k++) {

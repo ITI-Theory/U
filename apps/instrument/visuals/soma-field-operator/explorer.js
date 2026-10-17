@@ -120,7 +120,7 @@ export const STOP_LEVELS = {
   ureter: { level: 'human-vertebrate', dim: 4 },
   score: { level: 'whole-brain-cemi', dim: 11 },
 };
-export const LEVEL_STOPS = { 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
+export const LEVEL_STOPS = { 'cosmic-web': 'worlds', 'human-vertebrate': 'human', 'whole-brain-cemi': 'brain', 'cellular-synaptic': 'neuron', dyad: 'dyad' };
 // THE SPINE (ISS-105, DESIGN.md): the places grouped, so the row reads as a map, not a list
 // THE PLACES MAP (ISS-105, fix 5): one PLACES ▾ button opens it; each stop with the places in it
 // (the atriums, the palace, the cathedral, the course) and the doorways that join them
@@ -348,6 +348,28 @@ function dot(ctx, u, x, y, r, color, alpha = 1) {
   ctx.fill();
   ctx.restore();
 }
+
+// THE FREQUENCY ELEVATOR (ISS-101): the brain's rhythms by band, as EEG measures them (sourced: the
+// standard bands; Buzsaki and Draguhn 2004, Science 304:1926). Drawn SLOW times slower than real, so
+// gamma is a calm ring, never a flicker. Which of the model's types a band carries no paper says yet:
+// a model gap, labelled.
+export const BANDS = [
+  { id: 'delta', lo: 0.5, hi: 4, f: 2, color: '#8ecbff', say: 'deep sleep' },
+  { id: 'theta', lo: 4, hi: 8, f: 6, color: '#a78bfa', say: 'drowsiness, memory and navigation (the hippocampus)' },
+  { id: 'alpha', lo: 8, hi: 13, f: 10, color: '#3fd0c9', say: 'relaxed wakefulness, eyes closed' },
+  { id: 'beta', lo: 13, hi: 30, f: 20, color: '#ffd166', say: 'active, focused thinking' },
+  { id: 'gamma', lo: 30, hi: 100, f: 40, color: '#ff7aa8', say: 'binding and attention (40 Hz, the CEMI papers\' band)' },
+];
+export const BAND_SLOW = 20;
+
+// a thought's own elevator (ROOTED, ISS-095): worlds nested inside it, a map of a map (ISS-096)
+const THOUGHT_FLOORS = [
+  { name: 'THE SURFACE', sector: 'mind' },
+  { name: 'THE CAVE INSIDE', sector: 'cave' },
+  { name: 'ITS SEA', sector: 'organismal' },
+  { name: 'ITS FOAM', sector: 'micro-physical' },
+  { name: 'A UNIVERSE', sector: 'cosmological' },
+];
 
 function ripples(ctx, u, x, y, t, period, maxR, color, alpha, squash = 1) {
   ctx.save();
@@ -801,7 +823,7 @@ const PLACE_CAPTIONS = {
     4: 'The thought you clicked opens into its course while the chamber blurs and carries on. Considerations rise over the dome; when it settles the thought resolves, or stays below the line and adds to the load. Escape leaves it unresolved. A scripted example of the process, not a reading of a mind.',
   },
 };
-const ATRIUMS = { brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' }, neuron: { gl: 'neuron-atrium', button: 'THE SOMA' }, thought: { gl: 'thought-atrium', button: 'MIND CHAMBER' } };
+const ATRIUMS = { worlds: { gl: 'worlds-hall', button: 'THE COSMOS' }, brain: { gl: 'brain-hall', button: 'GREAT HALL' }, body: { gl: 'body-atrium', button: 'THE HEART' }, neuron: { gl: 'neuron-atrium', button: 'THE SOMA' }, thought: { gl: 'thought-atrium', button: 'MIND CHAMBER' } };
 let atriumGl = null;
 // THE PATHS (ISS-104): drawn instead of the THOUGHT stop's scene when chosen
 let choicesGl = null;
@@ -1059,6 +1081,7 @@ function makeBrain() {
       if (caveGl) {
         caveGl.vividness = env.vivid ?? 0.8;
         caveGl.outside = env.caveOut;
+        caveGl.limbic = env.limbicFly;
         caveGl.onPop = img => popHandler?.(img);
         caveGl.render({ time: t, phi, speed: 0.004 + 0.006 * phi, stereo: env.stereo });
         // the 2D view (author, 15 Oct: "a biology textbook diagram ... I really like it"): no stone,
@@ -1104,8 +1127,8 @@ function makeBrain() {
           }
         }
         if (env.labels) {
-          label(ctx, u, env.caveOut ? `THE CATHEDRAL FROM OUTSIDE · the visitor is in ${caveGl.hall} (the white spire)` : `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
-          label(ctx, u, 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
+          label(ctx, u, env.caveOut ? `THE CATHEDRAL FROM OUTSIDE · the visitor is in ${caveGl.hall} (the white spire)` : env.limbicFly ? `THE LIMBIC ROAD · ${caveGl.hall}` : `THE CATHEDRAL · ${caveGl.hall}`, 0, -0.72, '#e8d8ff', 'center', 0.034);
+          label(ctx, u, env.limbicFly && !env.caveOut ? 'out of the temporal horn: the amygdala in front of its tip, the hippocampus its floor, the fornix arching to the mammillary bodies, the cingulate above; the order is anatomy (sourced, OpenStax), the shapes are for the eye' : 'the ventricles, the brain\'s own cave, full of cerebrospinal fluid; the curtains are the choroid plexus; the light is the field', 0, -0.65, COLORS.dim, 'center', 0.02);
           hint(ctx, u, `VISUAL THOUGHTS: ${artMode === 'art' ? 'avant-garde art' : artMode === 'both' ? 'the programme\'s figures and avant-garde art' : 'the programme\'s own figures'} in bubbles; come close or click one to pop in · VIVIDNESS ${Math.round(100 * (env.vivid ?? 0.8))}%${(env.vivid ?? 0.8) < 0.05 ? ' (aphantasia: the bubble, no picture)' : ''}`, 0, 0.78, '#ffd166', 'center', 0.02);
           hint(ctx, u, `POKE: a thought in the stone${(env.cp ?? 0) > 0.05 ? ' · C-PTSD: it echoes, and so does the music' : ''}${env.thoughts ? ' · THOUGHTS: avalanches in the walls' : ''} · Φ: the field's light`, 0, 0.84, COLORS.violet, 'center', 0.02);
         }
@@ -1192,7 +1215,10 @@ function makeBrain() {
         }
       }
       if (dim >= 11) {
-        ripples(ctx, u, -0.05, 0.1, t, 1.3 - 0.5 * phi, 0.75, COLORS.cyan, 0.4, 0.75);
+        // a band (the frequency elevator) sets the ripples' rate and colour; ROOTED's radio any rate
+        const band = BANDS.find(x => x.id === env.band);
+        const hz = env.bandHz > 0 ? env.bandHz : band?.f ?? 0;
+        ripples(ctx, u, -0.05, 0.1, t, hz ? BAND_SLOW / hz : 1.3 - 0.5 * phi, 0.75, band?.color ?? (hz ? '#ff7ad9' : COLORS.cyan), hz ? 0.75 : 0.4, 0.75);
         ctx.strokeStyle = COLORS.violet;
         ctx.lineWidth = 1;
         for (let k = 0; k < 6; k++) {
@@ -1208,6 +1234,13 @@ function makeBrain() {
         }
       }
       ctx.restore();
+      // the band's words, outside the cerebrum's clip
+      const bandNow = BANDS.find(x => x.id === env.band);
+      const hzNow = env.bandHz > 0 ? env.bandHz : bandNow?.f ?? 0;
+      if (dim >= 11 && hzNow && env.labels) {
+        label(ctx, u, env.bandHz > 0 ? `THE RADIO (ROOTED) · tuned to ${hzNow.toFixed(2)} Hz${Math.abs(hzNow - 140 / 60) < 0.01 ? ' (140 BPM: psytrance\'s beat)' : ''} · entrainment, experimental, not a reading` : `EEG BAND: ${bandNow.id.toUpperCase()} · ${bandNow.lo} to ${bandNow.hi} Hz · ${bandNow.say}`, 0, -0.66, bandNow?.color ?? '#ff7ad9', 'center', 0.028);
+        label(ctx, u, `sourced: the EEG bands (Buzsaki and Draguhn 2004) · drawn ${BAND_SLOW}x slower than real · which of the model's types a band carries no paper says yet: a model gap (interpretive)`, 0, -0.61, COLORS.dim, 'center', 0.019);
+      }
       // deep limbic structures
       ctx.save();
       ctx.lineCap = 'round';
@@ -3389,7 +3422,7 @@ export function createExplorer(hooks = {}) {
       <button type="button" data-act="pplace" title="Place a thought in this hall (the method of loci)">PLACE</button>
       <button type="button" data-act="mindful" aria-pressed="false" title="MINDFUL (ISS-078): attending without grasping. Thoughts still arise; none pokes the next. The field is not pushed down. Pain arrives but heats the head less">MINDFUL</button>
       <button type="button" data-act="art" title="What the visual thoughts show (ISS-077): the programme's own figures, avant-garde art (public-domain Kandinsky and Klee from museum CC0 files; with RICE on, also the author's own art books, on this machine only), or both">PICTURES: FIGURES</button>
-      <button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
+      <button type="button" data-act="limbicfly" title="THE LIMBIC ROAD (ISS-101): fly on from the temporal horn through the limbic system: the amygdala, the hippocampus, the fornix to the mammillary bodies, the cingulate above">LIMBIC ▸</button><button type="button" data-act="caveout" title="The cathedral from outside (ISS-078): the halls as an abstract castle, a spire on each hall, windows that flare when a thought fires inside">OUTSIDE</button>
       <label class="explorer__strut" data-act="strut" title="THE LOAD: how far the unresolved thoughts stand from the one in front">STRUTS <input type="range" min="0" max="1" step="0.01" value="0.5" aria-label="Strut length" /></label>
       <button type="button" data-act="golf" title="THE MINI GOLF (author, 15 Oct): six of the model's basins as holes, the ways between them as fairways, wires, slides, a bridge and a tunnel; the ball is the state; worry balls run imagined paths">MINI GOLF</button>
       <button type="button" data-act="choices" title="THE COURSE (ISS-104): the inside of a thought that sticks: each consideration a ripple across the holes, height the cost, colour the feeling; in the MIND CHAMBER, click a thought to focus it">THE COURSE</button>
@@ -3563,6 +3596,7 @@ export function createExplorer(hooks = {}) {
   const hallButton = root.querySelector('[data-act="hall"]');
   const choicesButton = root.querySelector('[data-act="choices"]');
   const caveOutButton = root.querySelector('[data-act="caveout"]');
+  const limbicFlyButton = root.querySelector('[data-act="limbicfly"]');
   const artButton = root.querySelector('[data-act="art"]');
   const mindfulButton = root.querySelector('[data-act="mindful"]');
   const palaceButtons = ['palace', 'pup', 'pdown', 'pdoor', 'pplace', 'pfloors'].map(a => root.querySelector(`[data-act="${a}"]`));
@@ -3576,7 +3610,7 @@ export function createExplorer(hooks = {}) {
   const pop = document.createElement('section');
   pop.className = 'explorer__pop';
   pop.hidden = true;
-  pop.innerHTML = '<figure><img alt="" /><figcaption><p class="explorer__pop-caption"></p><p class="explorer__pop-formula"></p><p class="explorer__pop-doc"></p></figcaption></figure><nav class="explorer__pop-nav"><button type="button" data-pop="picture">SEE THE PICTURE</button><button type="button" data-pop="close">◂ BACK TO THE CATHEDRAL</button></nav>';
+  pop.innerHTML = '<figure><img alt="" /><figcaption><p class="explorer__pop-caption"></p><p class="explorer__pop-formula"></p><p class="explorer__pop-doc"></p></figcaption></figure><nav class="explorer__pop-nav"><button type="button" data-pop="picture">SEE THE PICTURE</button><button type="button" data-pop="close">◂ BACK TO THE CATHEDRAL</button></nav><nav class="explorer__pop-lift" hidden><b>ITS OWN ELEVATOR (ROOTED)</b>' + THOUGHT_FLOORS.map((f, k) => `<button type="button" data-tfloor="${k}">${f.name}</button>`).join('') + '<small>worlds inside the thought: maps, never the territory (ISS-096)</small></nav>';
   root.append(pop);
   const closePop = () => {
     pop.classList.remove('is-open', 'show-picture');
@@ -3590,8 +3624,11 @@ export function createExplorer(hooks = {}) {
   popHandler = img => {
     if (!img || !pop.hidden) return;
     const g = stageGl('thought-dive');
+    // ROOTED: the thought has its own elevator, worlds inside it (ISS-095)
+    pop.querySelector('.explorer__pop-lift').hidden = !rooted();
+    for (const b of pop.querySelectorAll('[data-tfloor]')) b.classList.toggle('active', b.dataset.tfloor === '0');
     if (g) {
-      inThought = { img, start: performance.now() };
+      inThought = { img, start: performance.now(), floor: 0 };
       g.canvas.style.filter = `hue-rotate(${Math.round(hueOf(thoughtTint(img)) - 300)}deg) saturate(1.15)`;
       g.canvas.classList.remove('explorer__dive-in');
       void g.canvas.offsetWidth;
@@ -3615,6 +3652,12 @@ export function createExplorer(hooks = {}) {
   pop.addEventListener('click', event => {
     event.stopPropagation();
     const b = event.target.closest('[data-pop]');
+    const tf = event.target.closest('[data-tfloor]');
+    if (tf && inThought && rooted()) {
+      inThought.floor = Number(tf.dataset.tfloor);
+      for (const x of pop.querySelectorAll('[data-tfloor]')) x.classList.toggle('active', x === tf);
+      return;
+    }
     if (b?.dataset.pop === 'picture') { pop.classList.toggle('show-picture'); b.textContent = pop.classList.contains('show-picture') ? 'HIDE THE PICTURE' : 'SEE THE PICTURE'; }
     else if (b?.dataset.pop === 'close' || !inThought) closePop();
   });
@@ -3906,7 +3949,7 @@ export function createExplorer(hooks = {}) {
   const scene = id => (scenes[id] ??= FACTORIES[id]());
   const rand = seeded(3);
   const particles = Array.from({ length: 70 }, () => ({ x: rand(), y: rand(), z: 0.3 + rand() * 0.7, r: rand() }));
-  const st = { strut: 0.5, golf: false, choices: false, hall: false, open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
+  const st = { band: '', bandHz: 0, limbicFly: false, strut: 0.5, golf: false, choices: false, hall: false, open: false, stop: 'body', from: null, transStart: 0, forward: true, phi: 0.2, feel: 'calm', resource: false, labels: true,
     diving: false, enterStart: 0, view3d: localStorage.getItem('soma-explorer-3d') !== '0',
     stereo: STEREO_MODES.includes(new URLSearchParams(location.search).get('stereo')) ? new URLSearchParams(location.search).get('stereo')
       : STEREO_MODES.includes(localStorage.getItem('soma-stereo')) ? localStorage.getItem('soma-stereo') : 'off',
@@ -3961,6 +4004,8 @@ export function createExplorer(hooks = {}) {
     'body-atrium': () => createAtrium3D('heart'),
     'neuron-atrium': () => createAtrium3D('neuron'),
     'thought-atrium': () => createAtrium3D('mind'),
+    // THE COSMOS (ISS-103): the hall at the top of the zoom, THE WORLDS' own
+    'worlds-hall': () => createAtrium3D('cosmos'),
     // THE PATHS (ISS-104): the path problem, on the land
     'thought-paths': () => createPaths3D({ loop: true }),
     // the course inside a thought that sticks, opened in place in the mind chamber
@@ -4112,6 +4157,8 @@ export function createExplorer(hooks = {}) {
     mindfulButton.classList.toggle('active', st.mindful);
     mindfulButton.setAttribute('aria-pressed', String(st.mindful));
     caveOutButton.classList.toggle('active', st.caveOut);
+    limbicFlyButton.hidden = st.stop !== 'brain' || !st.cave;
+    limbicFlyButton.classList.toggle('active', st.limbicFly);
     artButton.hidden = st.stop !== 'brain' || !st.cave;
     artButton.textContent = `PICTURES: ${artMode.toUpperCase()}`;
     artButton.classList.toggle('active', artMode !== 'figures');
@@ -4382,7 +4429,7 @@ export function createExplorer(hooks = {}) {
     const u = Math.min(lw, h * 1.05) * 0.48;
     const sector = hooks.levelSector?.() ?? 'organismal';
     const env = { t, dt, u, w: lw, h, dpr, cx: lw / 2, cy: h * 0.5, dim: dim(), phi: st.phi, feel: st.feel, resource: st.resource, labels: st.labels, alpha: 1, stereo: st.stereo,
-      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, mindful: st.mindful, palace: st.palace, hall: st.hall, golf: st.golf && st.stop === 'landscape', strut: st.strut, choices: st.choices && st.stop === 'thought', atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
+      sector, world: worldFor(hooks.levelId?.(), sector), kv: st.kv, st: st.st, bpm: st.bpm, kr: st.kr, kd: st.kd, kt: st.kt, kw: st.kw, km: st.km, kc: st.kc, kf: st.kf, tw: st.tw, pv: st.pv, ca: st.ca, cs: st.cs, cp: st.cp, kx: st.kx, ab: st.ab, ap: st.ap, own: st.own, knobs: st.knobs, past: st.past, thoughts: st.thoughts, pain: st.pain, painFrom: st.painFrom, cave: st.cave, vivid: st.vivid, uo: st.uo, uv: st.uv, body: st.body, vig: st.vig, caveOut: st.caveOut, limbicFly: st.limbicFly && st.cave, band: st.stop === 'brain' ? st.band : '', bandHz: st.stop === 'brain' ? st.bandHz : 0, mindful: st.mindful, palace: st.palace, hall: st.hall, golf: st.golf && st.stop === 'landscape', strut: st.strut, choices: st.choices && st.stop === 'thought', atrium: st.hall ? ATRIUMS[st.stop] ?? null : null, palaceFloor: palaceFloorWanted, music: music.enabled, strap: strap.connected, rr: rrIntervals, film: st.film, levelLabel: hooks.levelLabel?.(hooks.levelId?.()) ?? '' };
     // the music's pulse: the score's tempo in PROJECTION, the heart's in MIRROR, between in
     // RESONANCE (so in PROJECTION a heart drawn towards it is entrainment, not an echo)
     const pulse = st.stop === 'score' && scoreModes ? (1 - st.kr) * scoreTempo(scoreModes) + st.kr * st.bpm : st.bpm;
@@ -4413,7 +4460,7 @@ export function createExplorer(hooks = {}) {
       const g = gls['thought-dive'];
       if (g) {
         if (performance.now() - inThought.start > 1000) showGl(g);
-        g.render({ sector: 'mind', phi: Math.max(0.55, st.phi), time: t, stereo: st.stereo });
+        g.render({ sector: THOUGHT_FLOORS[inThought.floor ?? 0]?.sector ?? 'mind', phi: Math.max(0.55, st.phi), time: t, stereo: st.stereo });
         mainCtx.setTransform(1, 0, 0, 1, 0, 0);
         mainCtx.clearRect(0, 0, canvas.width, canvas.height);
         music.update({ sector: 'organismal', phi: st.phi, resource: false, score: INTO_THOUGHT, bpm: st.bpm, echo: 0 });
@@ -4661,6 +4708,10 @@ export function createExplorer(hooks = {}) {
     } else if (b.dataset.act === 'caveout') {
       st.caveOut = !st.caveOut;
       syncUi();
+    } else if (b.dataset.act === 'limbicfly') {
+      st.limbicFly = !st.limbicFly;
+      syncUi();
+      hooks.onChange?.();
     } else if (b.dataset.act === 'art') {
       artMode = ART_MODES[(ART_MODES.indexOf(artMode) + 1) % ART_MODES.length];
       syncUi();
@@ -4934,6 +4985,16 @@ export function createExplorer(hooks = {}) {
     setFeel(f) { if (FEELINGS[f]) { st.feel = f; syncUi(); } },
     setResource(on) { st.resource = Boolean(on); syncUi(); },
     setLabels(on) { st.labels = Boolean(on); },
+    // the frequency elevator (ISS-101): an EEG band, or (ROOTED's radio) a frequency in Hz
+    setBand(band, hz) {
+      st.band = BANDS.some(x => x.id === band) ? band : '';
+      const f = Number(hz);
+      st.bandHz = Number.isFinite(f) && f >= 0.5 && f <= 100 ? f : 0;
+    },
+    get band() { return st.band; },
+    get bandHz() { return st.bandHz; },
+    setLimbicFly(on) { if (on !== null && on !== undefined) st.limbicFly = String(on) === '1' || on === true; },
+    get limbicFly() { return st.limbicFly; },
     // FILM: the compiled modes and story-time of the frame now playing, or null to hand back
     setFilm(modes, t = 0) { filmModes = modes ?? null; filmT = Number(t) || 0; },
     refresh() { syncUi(); },

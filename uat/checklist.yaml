@@ -126,6 +126,31 @@ steps:
     title: "FILM: a compiled film plays in sync; the knobs move it from zero (docs/PIPELINE.md)"
     url: "#voyage=worlds&dim=11"
     do: "In a terminal: node apps/instrument/visuals/soma-field-operator/scripts/compile-film.mjs --minutes 10 (or --viewer cptsd). In MOTHER type /film, pick bld/film/grand-tour.river-film.neutral.timeline.json, PLAY (try 10x). Do the places follow in order, does the fade into the river look right, and at the score do the knobs (PILOT: MANUAL) still move it?"
+  - id: app-elevators
+    kind: app
+    title: "The three elevators: SCALE, DIMENSION (D1-11), FREQUENCY (the EEG bands); the overview desk's THE THREE ELEVATORS (ISS-101)"
+    url: "#level=human-vertebrate&dim=11"
+    do: "In the elevator, DIMENSION: press D8 (the limbic view), D11 (the mind). FREQUENCY: press GAMMA, then THETA: do the brain's ripples and the words read right? Is the RADIO greyed n/a? Then overview.html?desk=elevators."
+  - id: app-limbic-road
+    kind: app
+    title: "The limbic road from the cathedral; the cosmos hall; the mind chamber's paths (ISS-101, ISS-103, ISS-104)"
+    url: "#level=whole-brain-cemi&voyage=brain&cave=1&lfly=1&dim=11&phi=0.8"
+    do: "Ride the limbic road a full minute: amygdala, hippocampus, fornix, mammillary bodies, the cingulate above; is the anatomy where it should be? Then #level=cosmic-web&voyage=worlds&hall=1 (THE COSMOS) and #voyage=thought&hall=1 (the paths leaving the chamber)."
+  - id: app-wormhole
+    kind: app
+    title: "A Morris-Thorne wormhole, ray-traced, with its embedding diagram (ISS-095)"
+    url: "wormhole.html"
+    do: "Drag to look round; move the slider through the throat; FLY THROUGH. Do the labels say enough (a solution; none observed; exotic matter)?"
+  - id: app-rooted
+    kind: app
+    title: "ROOTED: the gate and its rule, the presets, the radio, a thought's own elevator, the LED film (ISS-095, ISS-107)"
+    url: "#voyage=worlds&dim=11"
+    do: "In MOTHER: /root and the code; read the rule at the gate: right for you? ENTER. /rooted lists the presets; try /preset led-2021, /preset radio-140, /preset limbic-road. In the cathedral pop a thought: its own elevator. Ride the elevator a floor: the wormhole."
+  - id: app-4k
+    kind: hw
+    title: "The textures on the 4K screen (ISS-103)"
+    url: "#level=whole-brain-cemi&voyage=brain&cave=1&dim=11"
+    do: "On the 32-inch 4K screen, full screen: is the cathedral's stone sharp now, and the tunnel's wall (#voyage=tunnel)?"
   - id: app-physical-places
     kind: app
     title: "The physical places on their own: the halls and the tubes, no mind layers (ISS-104 step 1)"

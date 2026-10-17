@@ -51,3 +51,14 @@ hubs:
       - {id: choices, angle: 0.95, label: "THE COURSE", sub: "should I do it? each consideration a ripple across the holes (click a thought to focus it)", color: '#5ee7ff'}
       - {id: network, angle: -1.95, label: "MEMORY", sub: "a network: recall blended with a fading trace", color: '#a78bfa'}
       - {id: limbic, angle: 1.95, label: "THE LIMBIC HINGE", sub: "the gate seen from the side: the amygdala, the hippocampus", color: '#ff4d5e'}
+  cosmos:
+    stop: worlds
+    floor: cosmic-web
+    title: "THE COSMOS · the top of the zoom"
+    sub: "the hall at the top of the elevator (the palace's top floor, the author's 'the cosmos'): stars all round, galaxies turning slowly, the cosmic web's filaments between them; the field's grammar at its largest scale; a map, not the sky"
+    routes:
+      - {id: flight, angle: 0, label: "THE COSMIC WEB", sub: "fly it: galaxies on filaments round the voids", color: '#9fd8ff'}
+      - {id: palace, angle: -0.95, label: "THE PALACE'S TOP FLOOR", sub: "the method of loci at the largest scale", color: '#5ee7ff'}
+      - {id: landscape, angle: 0.95, label: "THE LANDSCAPE", sub: "the same grammar, wells and barriers, at your scale", color: '#ffd166'}
+      - {id: human, angle: -1.95, label: "DOWN TO YOU", sub: "the jellyfish human, twenty-six decades down", color: '#ff7aa8'}
+      - {id: worlds, angle: 1.95, label: "THE WORLDS", sub: "the zoom as glass domes", color: '#a78bfa'}

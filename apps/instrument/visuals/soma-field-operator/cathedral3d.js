@@ -11,7 +11,7 @@
 import { updateStereo } from './stereo-depth.js';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { applyLook } from './look.js';
+import { applyLook, hiresCanvas } from './look.js';
 
 // VISUAL THOUGHTS (ISS-077): soap bubbles with a figure inside. The shell is a thin film
 // (three.js iridescence: the colours of a soap film, 200-900 nm thick) reflecting a soft room;
@@ -50,10 +50,49 @@ const ROUTE = [
   { p: [2.4, -1.0, 3.2], r: 0.9, name: 'THE TEMPORAL HORN' },
 ];
 
-function stoneTexture() {
+// THE LIMBIC ROAD (ISS-101): out of the temporal horn's tip into the limbic system, the ventricles
+// as the road. Sourced (OpenStax A&P 2e): the hippocampus forms the floor of the temporal horn, the
+// amygdala lies just in front of its tip, the fornix arches from the hippocampus over the thalamus
+// down to the mammillary bodies of the hypothalamus, and the cingulate gyrus lies above the corpus
+// callosum, over the body of the lateral ventricle. The order and the neighbours are anatomy; the
+// shapes and sizes are for the eye.
+const LIMBIC = {
+  hippocampus: { pts: [[2.95, 0.7, 4.6], [2.95, -0.35, 4.2], [2.85, -1.15, 3.55], [2.7, -1.45, 3.0]], r: 0.2, color: '#ffd166', label: 'HIPPOCAMPUS' },
+  amygdala: { at: [2.2, -1.95, 2.35], r: 0.3, color: '#ff4d5e', label: 'AMYGDALA' },
+  fornix: { pts: [[2.55, 1.9, 3.75], [2.0, 3.05, 2.45], [1.15, 3.25, 1.0], [0.6, 2.4, 0.15], [0.35, 1.0, -0.05], [0.3, -0.05, 0.05]], r: 0.08, color: '#a78bfa', label: 'FORNIX' },
+  mammillary: { at: [[0.17, -0.3, 0.1], [0.43, -0.3, 0.1]], r: 0.11, color: '#ff7aa8', label: 'MAMMILLARY BODIES' },
+  cingulate: { pts: [[0.9, 4.5, -2.3], [1.5, 5.1, -0.5], [1.9, 5.2, 1.5], [2.1, 4.6, 3.3], [2.2, 3.7, 4.6]], r: 0.26, color: '#5ee7ff', label: 'CINGULATE GYRUS' },
+};
+const LIMBIC_ROUTE = [
+  { p: [2.4, -1.0, 3.2], name: 'THE TEMPORAL HORN: ITS TIP' },
+  { p: [1.8, -1.2, 2.6], name: 'THE AMYGDALA, IN FRONT OF THE TIP' },
+  { p: [1.95, -0.55, 3.75], name: 'THE HIPPOCAMPUS: THE HORN\'S FLOOR' },
+  { p: [1.95, 0.55, 4.35], name: 'THE HIPPOCAMPUS' },
+  { p: [2.2, 1.7, 3.55], name: 'THE FORNIX LEAVES THE HIPPOCAMPUS' },
+  { p: [1.75, 2.7, 2.2], name: 'THE FORNIX: ITS ARCH (THE CINGULATE ABOVE)' },
+  { p: [0.95, 2.85, 0.75], name: 'THE FORNIX: OVER THE THALAMUS' },
+  { p: [0.7, 1.15, 0.15], name: 'THE FORNIX: ITS COLUMN' },
+  { p: [0.3, 0.25, 0.5], name: 'THE MAMMILLARY BODIES: THE HYPOTHALAMUS' },
+];
+
+function labelSprite(text, color) {
   const c = document.createElement('canvas');
-  c.width = c.height = 512;
+  c.width = 512; c.height = 64;
   const g = c.getContext('2d');
+  g.font = '700 30px "Space Mono", monospace';
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.shadowColor = color;
+  g.shadowBlur = 12;
+  g.fillStyle = color;
+  g.fillText(text, 256, 32);
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, fog: false }));
+  sprite.scale.set(1.6, 0.2, 1);
+  return sprite;
+}
+
+function stoneTexture() {
+  const { c, g } = hiresCanvas(512);
   g.fillStyle = '#06050b';
   g.fillRect(0, 0, 512, 512);
   // ashlar blocks with mortar (dark, where the neon runs), and grain
@@ -81,9 +120,7 @@ function stoneTexture() {
 // THE CORRIDOR (author, 15 Oct 23:09: "with FX on it moves towards" 2001's corridor): the same
 // blocks as light panels, white with dark seams, lit as the field rises
 function panelTexture() {
-  const c = document.createElement('canvas');
-  c.width = c.height = 512;
-  const g = c.getContext('2d');
+  const { c, g } = hiresCanvas(512);
   g.fillStyle = '#000000';
   g.fillRect(0, 0, 512, 512);
   for (let row = 0; row < 16; row++) {
@@ -226,6 +263,8 @@ export function createCathedral3D() {
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   // vaulting ribs where the hall is wide (the nave and the crossing)
+  const ribs = new THREE.Group();
+  scene.add(ribs);
   const ribMat = new THREE.MeshStandardMaterial({ color: '#141026', emissive: '#7a3cff', emissiveIntensity: 0.45, roughness: 0.55, metalness: 0.3 });
   for (let k = 0; k <= 60; k++) {
     const u = k / 60;
@@ -235,7 +274,7 @@ export function createCathedral3D() {
     const c = curve.getPointAt(u);
     rib.position.copy(c);
     rib.lookAt(c.clone().add(curve.getTangentAt(u)));
-    scene.add(rib);
+    ribs.add(rib);
   }
 
   // the choroid plexus: grape-like tufts hanging from the roof, swaying in the CSF (where
@@ -372,12 +411,45 @@ export function createCathedral3D() {
   let viewOut = false;
   let orbitA = 0.6;
 
+  // the limbic road: its structures (seen on the road and from outside) and the camera's path
+  const limbic = new THREE.Group();
+  limbic.visible = false;
+  scene.add(limbic);
+  for (const s of Object.values(LIMBIC)) {
+    const mat = new THREE.MeshStandardMaterial({ color: s.color, emissive: s.color, emissiveIntensity: 0.55, roughness: 0.5, transparent: true, opacity: 0.85 });
+    let anchor;
+    if (s.pts) {
+      const c = new THREE.CatmullRomCurve3(s.pts.map(q => new THREE.Vector3(...q)));
+      limbic.add(new THREE.Mesh(new THREE.TubeGeometry(c, 64, s.r, 14, false), mat));
+      anchor = c.getPointAt(0.5);
+    } else {
+      for (const at of Array.isArray(s.at[0]) ? s.at : [s.at]) {
+        const m = new THREE.Mesh(new THREE.SphereGeometry(s.r, 24, 16), mat);
+        m.position.set(...at);
+        if (s.label === 'AMYGDALA') m.scale.set(1, 0.75, 1.35);
+        limbic.add(m);
+      }
+      anchor = new THREE.Vector3(...(Array.isArray(s.at[0]) ? s.at[0] : s.at));
+    }
+    const tag = labelSprite(s.label, s.color);
+    tag.position.copy(anchor).add(new THREE.Vector3(0, s.r + 0.22, 0));
+    limbic.add(tag);
+  }
+  const limbicCurve = new THREE.CatmullRomCurve3(LIMBIC_ROUTE.map(s => new THREE.Vector3(...s.p)), false, 'catmullrom', 0.5);
+  const limbicLength = limbicCurve.getLength();
+  const roadAt = lu => LIMBIC_ROUTE[Math.min(LIMBIC_ROUTE.length - 1, Math.round(lu * (LIMBIC_ROUTE.length - 1)))].name;
+  let road = false;
+  let lu = 0;
+
   let u = 0.01;
   let last = 0;
   const COLORS = ['#3fd0c9', '#ff4d5e', '#ffd166', '#a78bfa', '#8ecbff', '#e8eefc', '#ff7aa8'];
   return {
     canvas,
-    get hall() { return hallAt(u); },
+    get hall() { return road ? roadAt(lu) : hallAt(u); },
+    // the limbic road (ISS-101): fly on from the temporal horn through the limbic system
+    get limbic() { return road; },
+    set limbic(on) { if (Boolean(on) !== road) { road = Boolean(on); lu = 0; } },
     get outside() { return viewOut; },
     set outside(on) { viewOut = Boolean(on); },
     get bubbleCount() { return bubbles.filter(b => !b.popping).length; },
@@ -441,7 +513,10 @@ export function createCathedral3D() {
       const p = curve.getPointAt(u);
       const ahead = curve.getPointAt(Math.min(0.999, u + 0.012));
       outside.visible = viewOut;
-      walls.visible = !viewOut;
+      // on the limbic road the ventricles' walls are behind the visitor: the structures, lit, in the dark
+      walls.visible = !viewOut && !road;
+      ribs.visible = beads.visible = !road;
+      limbic.visible = road || viewOut;
       scene.fog.density = viewOut ? 0.012 : 0.09;
       outsideLights[0].intensity = viewOut ? 1.4 : 0;
       outsideLights[1].intensity = viewOut ? 0.7 : 0;
@@ -461,6 +536,13 @@ export function createCathedral3D() {
         }
         panes.instanceColor.needsUpdate = true;
         for (const s of spireTips) s.tip.material.color.set(s.name === hallAt(u) ? '#ffffff' : '#ffd166');
+      } else if (road) {
+        // the limbic road: about a minute from the horn's tip to the mammillary bodies, then again
+        lu += dt * Math.max(0.004, state.speed ?? 0.006) * (routeLength / limbicLength) * 0.5;
+        if (lu > 0.995) lu = 0;
+        camera.position.copy(limbicCurve.getPointAt(lu));
+        camera.lookAt(limbicCurve.getPointAt(Math.min(0.999, lu + 0.03)));
+        applyLook(camera);
       } else {
         camera.position.copy(p).add(new THREE.Vector3(0, -0.15 * radiusAt(u), 0));
         camera.lookAt(ahead);
@@ -469,11 +551,11 @@ export function createCathedral3D() {
       lamp.position.copy(camera.position);
       const fx = Math.max(0, Math.min(1, state.phi ?? 0.5));
       // the corridor: from Φ 0.45 the blocks light up as panels and the far end whitens
-      const corridor = viewOut ? 0 : Math.max(0, Math.min(1, (fx - 0.45) / 0.45)) ** 1.5;
+      const corridor = viewOut || road ? 0 : Math.max(0, Math.min(1, (fx - 0.45) / 0.45)) ** 1.5;
       walls.material.emissiveIntensity = 1.1 * corridor;
       neonU.uTime.value = state.time;
       neonU.uGlow.value = viewOut ? 0 : (0.45 + 0.9 * fx) * (1 - 0.85 * corridor);
-      neon.visible = neonU.uGlow.value > 0.01;
+      neon.visible = neonU.uGlow.value > 0.01 && !road;
       snow.visible = !viewOut;
       if (!viewOut) {
         const sp = snowGeo.attributes.position;
@@ -498,7 +580,7 @@ export function createCathedral3D() {
       gateU.uTime.value = state.time;
       gateU.uGate.value = gateNow;
       gateU.uWhite.value = Math.max(0, Math.min(1, (fx - 0.93) / 0.07)) * gateNow;
-      gate.visible = gateNow > 0.002;
+      gate.visible = gateNow > 0.002 && !road;
       field.forEach((l, k) => {
         const lu = (u + 0.03 + 0.04 * k + 0.02 * Math.sin(state.time * 0.4 + k * 2)) % 1;
         l.position.copy(curve.getPointAt(Math.min(0.999, lu)));

@@ -4,6 +4,22 @@
 // share the field's state, each keeps its own place) with a label saying what it is for.
 // Click a screen to make it big (its controls come back); MINIMISE or Esc puts it back.
 
+// The desk's presets (?desk=<id>): THE DAY, the default below; THE THREE ELEVATORS (ISS-101): the
+// main screen the scale elevator (the jellyfish human, the lift beside it), one tablet the dimension
+// elevator's picture (the limbic hinge, D8), one the frequency elevator's (the brain's field by
+// band), one the limbic road (the cathedral's way on through the limbic system): one field, three axes.
+export const DESKS = {
+  elevators: {
+    title: 'THE THREE ELEVATORS',
+    screens: [
+      { id: 'main', place: 'main', view: 'voyage=human&dim=11&phi=0.6', title: 'THE MAIN SCREEN: SCALE', say: 'The scale elevator: the jellyfish human, and the lift beside it from a cell to the cosmos. One field, its first axis.' },
+      { id: 'dimension', place: 'tablet', view: 'level=whole-brain-cemi&voyage=limbic&dim=8&phi=0.6', title: 'TABLET 1: DIMENSION', say: 'The dimension elevator\'s picture: the limbic hinge, D8, between the body\'s D1-7 and the mind\'s D9-11 (P20, P14).' },
+      { id: 'frequency', place: 'tablet', view: 'level=whole-brain-cemi&voyage=brain&dim=11&band=gamma&phi=0.6', title: 'TABLET 2: FREQUENCY', say: 'The frequency elevator: the brain\'s field by EEG band (sourced), drawn slowed; what a band means in the model is a gap.' },
+      { id: 'road', place: 'tablet', view: 'level=whole-brain-cemi&voyage=brain&cave=1&lfly=1&dim=11&phi=0.5', title: 'TABLET 3: THE LIMBIC ROAD', say: 'From the cathedral\'s temporal horn on through the limbic system: amygdala, hippocampus, fornix, the mammillary bodies.' },
+    ],
+  },
+};
+
 export const SCREENS = [
   { id: 'main', place: 'main', view: 'voyage=human&dim=11&phi=0.6',
     title: 'THE MAIN SCREEN: YOU',
@@ -36,6 +52,17 @@ function setSmall(frame, small) {
 }
 
 function build() {
+  const desk = DESKS[new URLSearchParams(location.search).get('desk')] ?? null;
+  const screens = desk?.screens ?? SCREENS;
+  const switcher = document.querySelector('#ov-desk');
+  if (switcher) {
+    switcher.textContent = desk ? 'THE DESK: THE DAY' : 'THE DESK: THE THREE ELEVATORS';
+    switcher.addEventListener('click', () => {
+      const url = new URL(location.href);
+      if (desk) url.searchParams.delete('desk'); else url.searchParams.set('desk', 'elevators');
+      location.href = url.toString();
+    });
+  }
   const main = document.querySelector('#ov-main');
   const tablets = document.querySelector('#ov-tablets');
   let expanded = null;
@@ -56,7 +83,7 @@ function build() {
     figure.querySelector('.ov-min').focus();
   };
 
-  SCREENS.forEach((screen, k) => {
+  screens.forEach((screen, k) => {
     const figure = document.createElement('figure');
     figure.className = `ov-screen ov-screen--${screen.place}`;
     figure.dataset.screen = screen.id;
@@ -87,7 +114,7 @@ function build() {
   document.querySelectorAll('.ov-bezel').forEach(bezel => fit.observe(bezel));
 
   document.querySelector('#ov-open').addEventListener('click', () => {
-    SCREENS.forEach((screen, k) => {
+    screens.forEach((screen, k) => {
       window.open(frameUrl(screen, { small: false }), `soma-overview-${screen.id}`,
         `popup,width=${screen.place === 'main' ? 1280 : 900},height=${screen.place === 'main' ? 800 : 600},left=${60 + 60 * k},top=${60 + 50 * k}`);
     });

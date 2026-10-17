@@ -58,7 +58,7 @@ function parseArgs(argv) {
     else if (key === 'levels' || key === 'paths' || key === 'plates') args[key] = new Set(value.split(','));
     else args[key] = key === 'out' ? path.resolve(value) : value;
   }
-  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage', 'gallery'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, voyage, or gallery');
+  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage', 'gallery', 'rooted'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, voyage, or gallery');
   return args;
 }
 
@@ -300,7 +300,7 @@ async function main() {
     }
   }
 
-  if (args.only === 'voyage' || args.only === 'gallery') {
+  if (args.only === 'voyage' || args.only === 'gallery' || args.only === 'rooted') {
     // The Voyage Inside (ISS-087): each plate from a fresh page (no state carried over), the
     // view's address plus atlas=1 (no controls), the acts pressed in order, then a screenshot.
     // --only gallery takes the views of registry/gallery.yaml's `captures` (A Gallery of
@@ -312,6 +312,9 @@ async function main() {
     let groups;
     if (args.only === 'gallery') {
       groups = [{ plates: readYaml(path.join(repoRoot, 'registry/gallery.yaml')).captures ?? [] }];
+    } else if (args.only === 'rooted') {
+      // the rooted Atlas's spreads (ISS-095): registry/rooted.yaml `atlas`
+      groups = [{ plates: readYaml(path.join(repoRoot, 'registry/rooted.yaml')).atlas ?? [] }];
     } else {
       const atlas = readYaml(path.join(repoRoot, 'Part2/book/field-atlas/atlas.yaml'));
       // each sector's world (its opening FLY view), the mind palace's halls, the voyage's stops
@@ -350,7 +353,7 @@ async function main() {
     }
   }
 
-  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage' && args.only !== 'gallery') {
+  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage' && args.only !== 'gallery' && args.only !== 'rooted') {
     for (const route of data.paths) {
       if (args.paths && !args.paths.has(route.id)) continue;
       await mkdir(path.join(args.out, 'console', route.id), { recursive: true });
@@ -372,7 +375,7 @@ async function main() {
   await browser.close();
   await server.close();
 
-  if (args.only === 'voyage' || args.only === 'gallery') {
+  if (args.only === 'voyage' || args.only === 'gallery' || args.only === 'rooted') {
     // its own manifest: the level captures' manifest and contact sheet stay as they were
     await writeFile(path.join(args.out, 'voyage/manifest.json'), `${JSON.stringify({ generated: manifest.generated, viewport: manifest.viewport, voyage: manifest.voyage, errors: pageErrors }, null, 2)}\n`);
     console.log(`\n${manifest.voyage.length} voyage plates -> ${path.join(args.out, 'voyage')}`);

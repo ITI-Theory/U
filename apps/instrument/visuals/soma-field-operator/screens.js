@@ -20,6 +20,8 @@
 import { createVoice } from './voice.js';
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice, voiceStyle, setVoiceStyle } from './rice.js';
+import { rooted, setRooted } from './who.js';
+import { rootedRule } from './generated/app-data.js';
 import { stereoDepth, stereoDepthSetting, setStereoDepth, clientSafe, setClientSafe, CLIENT_MAX_DEPTH } from './stereo-depth.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
 import { midiInOn, setMidiIn, MIDI_IN_MAP } from './midi-in.js';
@@ -404,6 +406,12 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
         <p class="engine-room__hint">VOICE: MS, the browser's Microsoft Natural voices (Edge, Windows 11); H-AL, his Piper voice through the bridge with the HAL effect (MOTHER stays Natural).</p>
         <button type="button" data-voice-style="ms">VOICE: MS</button><button type="button" data-voice-style="hal">VOICE: H-AL</button>
       </fieldset>
+      <fieldset data-rooted><legend>ROOTED</legend>
+        <p class="engine-room__hint">The unlocked mode (ISS-095): the show and the experiments, over 18, behind a gate. The way in is MOTHER's clearance (<code>/root</code>; the code is hidden in this machine, not secret), then the rule at the gate.</p>
+        <p class="engine-room__hint engine-room__rooted-status"></p>
+        <div class="engine-room__presets">${(rootedRule?.presets ?? []).map(p => `<button type="button" data-preset="${p.id}" title="${p.say}">${p.title}</button>`).join('')}</div>
+        <button type="button" data-unroot="1">LEAVE ROOTED</button>
+      </fieldset>
       <fieldset data-midi><legend>MIDI OUT (ABLETON)</legend>
         <p class="engine-room__hint">The score as MIDI, channel 1: CC ${Object.entries(MIDI_CC).map(([id, cc]) => `${cc} ${id}`).join(', ')}; a phase plays note ${PHASE_NOTE}+, a threshold note ${THRESHOLD_NOTE}+. Into a virtual port (loopMIDI), then Ableton's MIDI Map. Chrome asks once.</p>
         <label>PORT<input type="text" maxlength="60" data-midi-port placeholder="loopMIDI" /></label>
@@ -529,6 +537,9 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   showDepth();
 
   function sync() {
+    const isRooted = rooted();
+    room.querySelector('.engine-room__rooted-status').textContent = isRooted ? 'ROOTED: on. The presets open in this window.' : 'ROOTED: off. The presets wait behind the gate.';
+    for (const b of room.querySelectorAll('[data-preset], [data-unroot]')) b.disabled = !isRooted;
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
     for (const b of room.querySelectorAll('[data-voice-style]')) b.classList.toggle('active', b.dataset.voiceStyle === voiceStyle());
     const relayLine = room.querySelector('.engine-room__relay-status');
@@ -569,6 +580,11 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.rice) setRice(button.dataset.rice === '1');
+    if (button.dataset.preset && rooted()) {
+      const preset = (rootedRule?.presets ?? []).find(p => p.id === button.dataset.preset);
+      if (preset) location.hash = preset.view;
+    }
+    if (button.dataset.unroot) { setRooted(false); sync(); }
     if (button.dataset.voiceStyle) { setVoiceStyle(button.dataset.voiceStyle); sync(); }
     if (button.dataset.midiin) setMidiIn(button.dataset.midiin === '1');
     if (button.dataset.relay) {
@@ -592,4 +608,5 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
   setInterval(loadUsage, 120000);
   loadUsage();
   sync();
+  addEventListener('soma-who', sync);
 }

@@ -893,3 +893,43 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 .gallery__plate [data-act="next"] { position: fixed; right: 18px; top: 50%; padding: 10px 14px; }
 .gallery[hidden], .gallery__plate[hidden] { display: none; }
 .gallery__plate [data-act="back"] { position: fixed; right: 18px; top: 16px; padding: 6px 12px; }
+/* the three elevators (ISS-101) and the radio (ISS-095) */
+.elevator__axes { display: flex; gap: 4px; margin-bottom: 6px; }
+.elevator__axes button { flex: 1; padding: 4px 0; font: 700 10px/1 'Space Mono', monospace; letter-spacing: .06em; color: var(--text); background: rgba(5,7,14,.6); border: 1px solid rgba(20,229,255,.35); cursor: pointer; }
+.elevator__axes button.active { color: #070a16; background: #5ee7ff; }
+.elevator__note { margin: 0 0 6px; font-size: 10px; line-height: 1.4; color: rgba(234,245,255,.7); }
+.elevator__dims, .elevator__bands { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.elevator__dims button, .elevator__bands button { width: 100%; text-align: left; padding: 4px 6px; font: 11px/1.25 'Space Mono', monospace; color: var(--text); background: rgba(5,7,14,.55); border: 1px solid rgba(20,229,255,.22); cursor: pointer; }
+.elevator__dims button b { display: inline-block; width: 30px; color: #5ee7ff; }
+.elevator__dims button.is-hinge { border-color: #ff7aa8; }
+.elevator__dims button.is-hinge b { color: #ff7aa8; }
+.elevator__bands button { border-left: 4px solid var(--band); }
+.elevator__bands button b { display: inline-block; width: 52px; color: var(--band); }
+.elevator__dims button.is-current, .elevator__bands button.is-current { background: rgba(94,231,255,.16); }
+.elevator__radio { margin: 8px 0 0; padding: 6px 8px; border: 1px dashed rgba(255,122,217,.6); font: 10px/1.4 'Space Mono', monospace; display: grid; gap: 4px; }
+.elevator__radio legend { color: #ff7ad9; font-weight: 700; letter-spacing: .06em; }
+.elevator__radio[disabled] { opacity: .38; filter: grayscale(1); }
+.elevator__na { font-style: normal; margin-left: 6px; color: rgba(234,245,255,.8); }
+.elevator__radio button { justify-self: start; padding: 3px 8px; font: 700 10px/1 'Space Mono', monospace; color: #070a16; background: #ff7ad9; border: 0; cursor: pointer; }
+/* ROOTED's LED film look (led.js, ISS-107) */
+.led-look .explorer canvas { filter: url(#led-matrix) brightness(1.25); -webkit-mask-image: radial-gradient(circle, #000 52%, transparent 60%); mask-image: radial-gradient(circle, #000 52%, transparent 60%); -webkit-mask-size: var(--led-cell) var(--led-cell); mask-size: var(--led-cell) var(--led-cell); }
+.led-look .explorer { background: #000; }
+.led-scan { display: none; }
+.led-look .led-scan { display: block; position: fixed; left: 0; right: 0; height: 14vh; top: -14vh; z-index: 201; pointer-events: none; background: linear-gradient(rgba(255,60,20,0), rgba(255,60,20,.08), rgba(255,60,20,0)); animation: led-scan 9s linear infinite; }
+@keyframes led-scan { to { transform: translateY(128vh); } }
+/* the ROOTED gate (rooted-gate.js, ISS-095) */
+.rooted-gate__card { max-width: 620px; padding: 22px 26px; color: #ffd6f0; border: 1px solid #ff7ad9; background: rgba(12,4,16,.97); box-shadow: 0 0 50px rgba(255,122,217,.25); font: 12px/1.5 'Space Mono', monospace; }
+.rooted-gate__card h2 { margin: 0 0 8px; color: #ff7ad9; letter-spacing: .1em; }
+.rooted-gate__card h3 { margin: 12px 0 4px; font-size: 11px; color: #5ee7ff; letter-spacing: .08em; }
+.rooted-gate__card ul { margin: 0; padding-left: 18px; }
+.rooted-gate__warning { padding: 8px 10px; color: #070a16; background: #ffd166; font-weight: 700; }
+.rooted-gate__card nav { display: flex; gap: 10px; margin-top: 16px; }
+.rooted-gate__card button { padding: 8px 14px; font: 700 11px/1 'Space Mono', monospace; cursor: pointer; border: 1px solid #ff7ad9; color: #070a16; background: #ff7ad9; }
+.rooted-gate__card button[data-gate="no"] { color: #ff7ad9; background: transparent; }
+.engine-room__presets { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+/* a thought's own elevator (ROOTED, ISS-095) */
+.explorer__pop-lift { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font: 10px/1.3 'Space Mono', monospace; color: #ff7ad9; }
+.explorer__pop-lift[hidden] { display: none; }
+.explorer__pop-lift button { padding: 4px 8px; font: 700 10px/1 'Space Mono', monospace; color: #ff7ad9; background: rgba(12,4,16,.8); border: 1px solid #ff7ad9; cursor: pointer; }
+.explorer__pop-lift button.active { color: #070a16; background: #ff7ad9; }
+.explorer__pop-lift small { flex-basis: 100%; color: rgba(255,214,240,.7); }

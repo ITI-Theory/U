@@ -72,6 +72,12 @@ const KINDS = {
       { id: 'brain', angle: 1.95, label: 'UP TO THE GREAT HALL', sub: 'the brain, eighty-six billion cells up', color: '#ff4d5e' },
     ],
   },
+  cosmos: {
+    title: 'THE COSMOS · the top of the zoom',
+    sub: 'stars all round, galaxies turning, the cosmic web between them; a map, not the sky',
+    fog: '#02030a', fogHigh: '#0b1030', shaft: [0.7, 0.8, 1.0], ridge: 0, beat: 0,
+    routes: [],
+  },
   mind: {
     title: 'THE MIND CHAMBER · through the limbic gate',
     sub: 'below the gold plane the field is real but not felt; a swell that crosses becomes a feeling, lifted, a thought; each sphere shows its expression (cores: the emotions; fused: blend; clamped: dampen; the spark: the mechanism); with C-PTSD some stay; interpretive, from the model',
@@ -398,6 +404,54 @@ const WORDS = ['cut the grass', 'book the dentist', 'answer the email', 'fix the
 const THRESHOLD_Y = -3.2;
 const FLOOR_Y = -7.2;
 
+// THE COSMOS (ISS-103): the hall at the top of the zoom. Stars on the vault, three spiral galaxies
+// turning slowly, the cosmic web's filaments joining knots between them. A picture of the scale, not
+// a sky chart (interpretive).
+function cosmosAnatomy(scene, rnd, U, dot) {
+  const NS = 3200, sp = new Float32Array(NS * 3), sc = new Float32Array(NS * 3);
+  for (let i = 0; i < NS; i++) {
+    const v = new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize().multiplyScalar(11 + 2.5 * rnd());
+    sp.set([v.x, v.y * SQUASH + 1, v.z], i * 3);
+    const c = new THREE.Color().setHSL(0.55 + 0.15 * rnd(), 0.5, 0.65 + 0.3 * rnd());
+    sc.set([c.r, c.g, c.b], i * 3);
+  }
+  const sg = new THREE.BufferGeometry();
+  sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
+  sg.setAttribute('color', new THREE.Float32BufferAttribute(sc, 3));
+  scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ map: dot, size: 0.09, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })));
+  const galaxies = [[-4.5, 2.6, -4, '#9fd8ff'], [4.8, 3.4, -2.5, '#ffd6a0'], [0.5, 4.6, -7, '#d9b8ff']].map(([x, y, z, col], k) => {
+    const n = 2400, gp = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) {
+      const arm = i % 2, r = Math.pow(rnd(), 0.6) * 2.2, a = r * 2.6 + arm * Math.PI + (rnd() - 0.5) * 0.5;
+      gp.set([Math.cos(a) * r, (rnd() - 0.5) * 0.12 * (2.4 - r), Math.sin(a) * r], i * 3);
+    }
+    const gg = new THREE.BufferGeometry();
+    gg.setAttribute('position', new THREE.Float32BufferAttribute(gp, 3));
+    const g = new THREE.Points(gg, new THREE.PointsMaterial({ map: dot, color: col, size: 0.07, transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending }));
+    g.position.set(x, y, z);
+    g.rotation.set(0.5 + 0.4 * k, 0.3 * k, 0.2);
+    scene.add(g);
+    return g;
+  });
+  // the web: knots joined to their nearest neighbours
+  const knots = Array.from({ length: 28 }, () => new THREE.Vector3((rnd() - 0.5) * 18, 0.5 + rnd() * 7, -1 + (rnd() - 0.5) * 18));
+  const lp = [];
+  for (const a of knots) {
+    const near = knots.filter(b => b !== a).sort((p, q) => p.distanceTo(a) - q.distanceTo(a)).slice(0, 2);
+    for (const b of near) lp.push(a.x, a.y, a.z, b.x, b.y, b.z);
+  }
+  const lg = new THREE.BufferGeometry();
+  lg.setAttribute('position', new THREE.Float32BufferAttribute(lp, 3));
+  const web = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: '#6f8cff', transparent: true, opacity: 0.25, depthWrite: false, blending: THREE.AdditiveBlending }));
+  scene.add(web);
+  return {
+    update(dt, state) {
+      galaxies.forEach((g, k) => { g.rotation.y += dt * (0.03 + 0.015 * k) * (1 + (state.fx ?? 0)); });
+      web.material.opacity = 0.18 + 0.3 * (state.fx ?? 0);
+    },
+  };
+}
+
 function mindAnatomy(scene, rnd, U, dot) {
   const texts = new Map();
   const label = (text, color) => {
@@ -566,6 +620,41 @@ function mindAnatomy(scene, rnd, U, dot) {
     scene.add(g);
     parked.push({ g, ring, tag });
   }
+  // PATHS (DESIGN.md, ISS-104): tubes leaving the chamber, one per option of a plan; signals run out
+  // along them; the one travelled before is grooved and brighter (the route matters: path-sensitive
+  // transitions, open hypothesis). Interpretive.
+  const paths = [];
+  [[-2.3, 3.2, 0], [-0.8, 4.4, 1], [0.8, 3.6, 0], [2.4, 4.8, 0]].forEach(([a, h, travelled], k) => {
+    const out = new THREE.Vector3(Math.sin(a) * 13.2, h, -1 + Math.cos(a) * 13.2);
+    const curve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(Math.sin(a) * 2.2, THRESHOLD_Y + 1.1, -1 + Math.cos(a) * 2.2),
+      new THREE.Vector3(Math.sin(a) * 6.5, h * 0.55 + 0.6 * k, -1 + Math.cos(a) * 6.5),
+      out,
+    ]);
+    const color = travelled ? '#ffd166' : '#5ee7ff';
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 80, travelled ? 0.32 : 0.24, 16, false), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: travelled ? 0.22 : 0.12, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+    scene.add(tube);
+    if (travelled) {
+      for (let g = 1; g < 12; g++) {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.025, 6, 24), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending }));
+        ring.position.copy(curve.getPointAt(g / 12));
+        ring.lookAt(curve.getPointAt(Math.min(1, g / 12 + 0.01)));
+        scene.add(ring);
+      }
+    }
+    const pulses = [0, 1, 2].map(j => {
+      const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: dot, color, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+      sp.scale.setScalar(travelled ? 0.7 : 0.5);
+      sp.userData.u = j / 3;
+      scene.add(sp);
+      return sp;
+    });
+    const tag = label(travelled ? 'THE PATH TAKEN BEFORE: grooved' : 'A PATH: an option', color);
+    tag.position.copy(out).add(new THREE.Vector3(0, 0.9, 0));
+    scene.add(tag);
+    paths.push({ curve, pulses, tag, speed: travelled ? 0.12 : 0.07 });
+  });
+
   return {
     park,
     get load() { return parked.length; },
@@ -588,6 +677,13 @@ function mindAnatomy(scene, rnd, U, dot) {
       pos.needsUpdate = true;
       foam.material.opacity = 0.45 + 0.35 * fx;
       planeLabel.visible = state.labels !== false;
+      for (const pa of paths) {
+        pa.tag.visible = state.labels !== false;
+        for (const sp of pa.pulses) {
+          sp.userData.u = (sp.userData.u + dt * pa.speed * (1 + fx)) % 1;
+          sp.position.copy(pa.curve.getPointAt(sp.userData.u));
+        }
+      }
       // new thoughts, more as the field heats
       if (thoughts.length < 44 && rnd() < (0.25 + 0.9 * heat) * dt) spawn(state);
       // too many staying: the oldest is let go
@@ -778,7 +874,7 @@ export function createAtrium3D(kind = 'brain') {
   }
 
   if (kind === 'mind') scene.environment = bubbleEnvironment(renderer);   // the soap films reflect a soft room
-  const anatomy = ({ heart: heartAnatomy, neuron: neuronAnatomy, mind: mindAnatomy }[kind] ?? brainAnatomy)(scene, rnd, U, dot);
+  const anatomy = ({ heart: heartAnatomy, neuron: neuronAnatomy, mind: mindAnatomy, cosmos: cosmosAnatomy }[kind] ?? brainAnatomy)(scene, rnd, U, dot);
 
   // MOTES: fine particles rising slowly through the medium
   const MOTES = 1400;

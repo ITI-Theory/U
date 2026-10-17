@@ -4861,12 +4861,12 @@ Jumbo suits big spreads.
       Inventory: every Soma Machine feature, tagged science or show, for the author to approve
       (candidates for show: the Mandelbulb dive, the cathedral, MUNCH's bedtime tour, the visual
       rhymes, stereo effects, the elevator).
-- [ ] ROOTED in the app: the unlock (Engine Room, the Root Monster), the presets, the elevator's
+- [x] (17 Oct night: registry/rooted.yaml holds the over-18 rule (what ROOTED allows, what it never does, the flashing warning) and six presets; MOTHER's clearance code now opens the gate (rooted-gate.js: the rule, then I AM OVER 18 or NOT NOW); /preset <name> and the Engine Room's ROOTED list; the elevator's RADIO greyed n/a outside ROOTED; the default untouched; UAT `app-rooted`) ROOTED in the app: the unlock (Engine Room, the Root Monster), the presets, the elevator's
       greyed radio section, a written over-18 rule, the warning gate; the default untouched.
-- [ ] The rooted Atlas: fractal spreads at print resolution (captures or a renderer), its own
+- [x] (17 Oct night: Part2/book/rooted-atlas, `make captures` (registry/rooted.yaml `atlas`, 4K from the app) and `make check`; pages 300 x 337.5 mm, so a spread is 16:9; each picture across two facing pages (filters/spreads.lua); an art edition, outside the publication registry) The rooted Atlas: fractal spreads at print resolution (captures or a renderer), its own
       build and edition.
 
-- [ ] Experiments for ROOTED (author, 14 Oct): step inside a thought bubble, with its own elevator
+- [x] (17 Oct night: a thought's own elevator (ROOTED: five worlds inside it, the surface, the cave, its sea, its foam, a universe; maps, ISS-096); the science wormhole in the default (wormhole.html: a Morris-Thorne (Ellis) wormhole ray-traced through the metric per pixel, the embedding diagram, labelled; WORMHOLE ▸ on the compact-object floor, MOTHER /wormhole); ROOTED rides the elevator between floors through the neon wormhole. Left: a lensing skin as RICE) Experiments for ROOTED (author, 14 Oct): step inside a thought bubble, with its own elevator
       (a world inside a world; the nesting is maps, ISS-096); wormholes as in SpaceEngine. The
       science version of a wormhole stays in the default: a Morris-Thorne wormhole as an exact
       solution of general relativity at the compact-object level, labelled "a solution of the
@@ -5091,10 +5091,10 @@ The time slider runs through all three (eras, story-time, seconds). On the overv
 (ISS-100): the main screen the scale elevator (the jellyfish human), one tablet the limbic
 dimension elevator, one the EM-field frequency elevator: three views of one field.
 
-- [ ] The dimension elevator: D1 to D11 as floors, the limbic view as its picture.
-- [ ] The frequency elevator: sourced EEG bands at the whole-brain level; the model mapping, if
+- [x] (17 Oct night: the elevator's DIMENSION tab, D1-4 spacetime, D5-7 the propagator space, D8 the hinge, D9-11 the mind field (P20, P14); a floor opens its picture at its layer, D8 the limbic view) The dimension elevator: D1 to D11 as floors, the limbic view as its picture.
+- [x] (17 Oct night: the FREQUENCY tab, the five bands (Buzsaki and Draguhn 2004); a band sets the brain's field ripples at 11D, drawn 20x slower (no flicker), labelled sourced, the mapping a model gap; the RADIO under it is ROOTED's) The frequency elevator: sourced EEG bands at the whole-brain level; the model mapping, if
       any, as a labelled hypothesis (a paper's question first, the author's call).
-- [ ] The overview desk's presets for the three.
+- [x] (17 Oct night: overview.html?desk=elevators, THE THREE ELEVATORS (scale, dimension, frequency, the limbic road), and a switch between the desks) The overview desk's presets for the three.
 
 Author, 14 Oct 20:31: the model gap needs updating, and models and papers come first; but it
 is by doing the app, using the model, that we find these gaps: good, keep doing it. A visual
@@ -5113,13 +5113,14 @@ freeze flip, August 2026); the elevator itself came from a chat on 7 October ("f
 through time"). HAL's claim that the bands are typed in the Lean appendix is not borne out:
 today's Lean has only a comment (EmotionOntology.lean, an EEG band as a possible interpreter),
 so the papers' gap stands.
-- [ ] Papers first: the frequency axis of the field (the Zoomable Somatic Field paper, which
+- [x] (17 Oct night: drafts written, docs/drafts/ISS-101-frequency-and-limbic.md: the frequency axis for Scale 6 with a labelled theta-gamma hypothesis for the hinge, and the Papez loop with the amygdala for P14, each with its question) Papers first: the frequency axis of the field (the Zoomable Somatic Field paper, which
       already has the gamma-band estimate, is the natural home; the author's call) and the
       limbic route (P14, the missing limbic layer). Drafts for the author's OK; the papers'
       claims are his.
-- [ ] Then the app: the limbic fly-through from the cathedral; the dimension and frequency
+- [ ] AUTHOR: OK, change or refuse the two drafts (docs/drafts/ISS-101-frequency-and-limbic.md); an accepted draft goes into its paper and its references into the bibliography.
+- [x] (17 Oct night: THE LIMBIC ROAD (LIMBIC ▸ in the cathedral, `lfly=1`): out of the temporal horn past the amygdala, along the hippocampus, up the fornix's arch to the mammillary bodies, the cingulate above; the walls left behind; labelled sourced for the route; the elevators as above) Then the app: the limbic fly-through from the cathedral; the dimension and frequency
       elevators.
-- [ ] (15 Oct) The inner voice, a model gap with the frequency axis: inner speech in the language
+- [x] (17 Oct night: the paper question written, drafts section 3: does inner speech that reaches awareness show gamma synchrony with the language network that unattended inner speech does not?) (15 Oct) The inner voice, a model gap with the frequency axis: inner speech in the language
       network; the author's hypothesis that it becomes conscious by joining the brain's field
       (CEMI, classical, labelled; not quantum). A paper question first (DESIGN.md).
 
@@ -5234,10 +5235,10 @@ off with the labels. Anatomy for the route, sci-fi for the look.
       Fixed: the great hall's PATH doorway pointed at a stop that does not exist (path, not
       tunnel); the elevator stood in front of a doorway (now at the near left, slimmer).
       Checked headless: every brain doorway, the heart's BODY, the elevator, STEP OUT.
-- [ ] Then: the human (the jellyfish human's own atrium? the author: it is the main screen),
+- [x] (17 Oct night: THE COSMOS, THE WORLDS' hall at the top of the zoom (OUT ▸ on the cosmic-web floor): stars, three galaxies turning, the web's filaments, five doorways (registry/hubs.yaml); the human keeps the main screen, as the author said) Then: the human (the jellyfish human's own atrium? the author: it is the main screen),
       the cosmos
       (the palace's top floor), the others as the registry grows.
-- [ ] High resolution: procedural textures (fractal noise, the arachnoid's web) at the
+- [x] (17 Oct night: look.js texScale and hiresCanvas: the cathedral's stone and panels and the tunnel's wall drawn 2x from 1440p, 4x at 4K; the halls' walls are shaders already; the check on the 4K screen is UAT `app-4k`) High resolution: procedural textures (fractal noise, the arachnoid's web) at the
       display's resolution; checked on the author's 4K screen.
 
 ## ISS-104: What the inside should show: physical first, then foam, thoughts, thoughts that stay, paths — OPEN
@@ -5303,7 +5304,7 @@ carried by every somagram taken on it.
       name or code anchor; lists the terms not yet shown. Now: 9 of 12 shown; not yet shown:
       emotion-blend, mechanism, route (the next pictures); one decorative channel (the bubble's
       tint). Moriarty: chocolate-bar and model-moved-under-picture, both caught.
-- [ ] The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
+- [x] (17 Oct night: the foam, the five kinds and the staying thoughts were built (atrium3d.js mindAnatomy); now the paths: four tubes leaving the chamber, signals running out along them, the one taken before grooved and gold) The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
       staying thoughts (rising, holding; the barrier), paths leaving as tubes.
 - [x] (15 Oct) The base as film stock: recorded once per session, carried by every somagram.
 - [ ] (author, 15 Oct 18:01) The path problem, in one picture: "should I do this or that" as a
@@ -5401,7 +5402,7 @@ the brain's EMF, perhaps quantum. Copilot's reading:
       (floor, the places grouped, which step out into atriums, 4D 8D 11D, SETTINGS = FIELD
       CONTROLS), the elevator a left column, Sherlock / morphism / state a right column; saved
       window positions still win; hidden in the explorer, clean mode, captures, other roles.
-- [ ] (author's call) THE COURSE seen as a surface under a glass dome, a few thoughts popping
+- [x] (17 Oct night: built 15 Oct as paths3d.js THE COURSE (the dome, at most four thoughts over it, SOLUTION melting them); the inner voice as a paper question, ISS-101) (author's call) THE COURSE seen as a surface under a glass dome, a few thoughts popping
       over it in sequence, "solution" melting them back; the inner voice as a model gap (the
       language network; the CEMI hypothesis, classical, labelled), with ISS-101's frequency axis.
 
@@ -5728,12 +5729,12 @@ Plan (Copilot, agreed in outline):
       browser's screen capture; pick this tab with its audio); untested headless; mp4 by ffmpeg.)
       A3. Record in real time on the author's GPU (the browser's MediaRecorder: canvas + audio
       to webm, or OBS); ffmpeg to mp4 (`winget install ffmpeg`). Headless rendering is too slow.
-- [ ] B. The tensor film: the music drives the model, not the edit. The energy envelope sets Φ;
+- [x] (17 Oct night: music-score.js reads a cue sheet's form as the seven modes (a build raises fear and curiosity, a drop is a threshold with awe and the pre-verbal at their peak, a breakdown recovery); SHOW drives the score with it live and adds the neon cave as a scene; scripts/score-from-cues.mjs writes it as a score (bld/show) for compile-film; checked on a synthetic cue sheet) B. The tensor film: the music drives the model, not the edit. The energy envelope sets Φ;
       BRECVEMA's R (rhythmic entrainment) and M (musical expectancy) are the terms: builds raise
       barriers, drops are threshold crossings, breakdowns recovery; the SCORE's tensor-film
       trajectory (Safety, Fear, Curiosity, Awe ...) written from the music; the picture is the
       field's state. Interpretive, labelled as such.
-- [ ] (author 16 Oct 15:51) Another music: Suicide, "Frankie Teardrop" (1979; the film by
+- [x] (17 Oct night: the look built, led.js (ROOTED): any view as a matrix of round LEDs in four levels of red and amber with a slow scan; preset led-2021, the 2021 film on LEDs; the track stays the author's, private) (author 16 Oct 15:51) Another music: Suicide, "Frankie Teardrop" (1979; the film by
       Douglas Hart): old, dark, a low-tech flashing LED matrix, like an old AI. For the 2021
       river trip (the 2021 film in the score, kf). Copilot: yes, it would fit: the dread and the
       long build suit the river's descent; the LED matrix is a look the app can make (a dot

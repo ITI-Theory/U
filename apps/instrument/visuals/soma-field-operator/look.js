@@ -64,3 +64,19 @@ export function applyLook(camera) {
   camera.rotateY(LOOK.yaw);
   camera.rotateX(LOOK.pitch);
 }
+
+// Procedural textures at the display's resolution (ISS-103): a wall texture drawn at 512 px is soft on
+// a 4K screen. texScale() is how many times larger to draw it: 1 up to 1080p, 2 from 1440p, 4 at 4K;
+// a texture keeps its drawing code and scales its context (hiresCanvas).
+export function texScale() {
+  const px = Math.max(globalThis.screen?.width ?? 1920, globalThis.screen?.height ?? 1080) * (globalThis.devicePixelRatio || 1);
+  return px >= 3800 ? 4 : px >= 2500 ? 2 : 1;
+}
+export function hiresCanvas(size) {
+  const k = texScale();
+  const c = document.createElement('canvas');
+  c.width = c.height = size * k;
+  const g = c.getContext('2d');
+  g.scale(k, k);
+  return { c, g };
+}

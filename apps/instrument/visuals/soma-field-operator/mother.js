@@ -8,7 +8,8 @@ import { createThread, chirp } from './mother-thread.js';
 import { FitAddon } from '@xterm/addon-fit';
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
-import { eras, levels, questions, regions } from './generated/app-data.js';
+import { eras, levels, questions, regions, rootedRule } from './generated/app-data.js';
+import { openRootedGate } from './rooted-gate.js';
 import { FEELINGS } from './explorer.js';
 import { createVoice } from './voice.js';
 import { displayName, isRenamed } from './names.js';
@@ -30,7 +31,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off', '/feel <a mood>', '/film'];
+const SLASH_COMMANDS = ['/help', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off', '/feel <a mood>', '/film', '/wormhole'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -550,6 +551,9 @@ export function createMother({ getContext }) {
     '  THE ROOT MONSTER ... HIS TOUR, IN THE GUIDE',
     '  COMPANION .......... THE FRACTAL THESIS',
     '  SHOW ............... A MIX AND ITS CUE SHEET AS A FILM (/show)',
+    '  THE RADIO .......... THE ELEVATOR\'S FREQUENCY TAB: TUNE THE FIELD',
+    '  PRESETS ............ /preset <name>:',
+    ...(rootedRule?.presets ?? []).map(p => `    ${p.id.padEnd(16, '.')} ${p.title}`),
     'TYPE /rooted FOR THIS LIST. LEAVE ROOT TO GO BACK.',
   ].join('\n');
   function accessGate(text) {
@@ -558,7 +562,11 @@ export function createMother({ getContext }) {
     if (awaitingCode) {
       awaitingCode = false;
       echo('●'.repeat(Math.min(12, said.length)));
-      if (clearanceOk(said)) { setRooted(true); boot(); type(`CLEARANCE ACCEPTED. WELCOME TO ROOTED.\n${ROOTED_MENU}`); }
+      // the code opens the gate (ISS-095): the over-18 rule and a confirmation; only ENTER roots
+      if (clearanceOk(said)) {
+        type('CLEARANCE ACCEPTED. READ THE RULE AT THE GATE.');
+        openRootedGate({ onEnter: () => { boot(); type(`WELCOME TO ROOTED.\n${ROOTED_MENU}`); }, onDecline: () => type('THE GATE STAYS SHUT. THE MACHINE IS STILL ITS SCIENCE.') });
+      }
       else { bleep('no'); type('CLEARANCE DENIED. THE CODE IS NOT A SECRET, ONLY HIDDEN. LOOK CLOSER AT THIS MACHINE.'); }
       return true;
     }
@@ -576,7 +584,18 @@ export function createMother({ getContext }) {
       type('ROOT RELEASED. THE MACHINE IS BACK TO ITS SCIENCE.');
       return true;
     }
+    const pm = said.match(/^\/preset\s+([\w-]+)/i);
+    if (pm && rooted()) {
+      echo(said);
+      const preset = (rootedRule?.presets ?? []).find(p => p.id === pm[1].toLowerCase());
+      if (!preset) { bleep('no'); type(`NO PRESET ${pm[1].toUpperCase()}. /rooted LISTS THEM.`); return true; }
+      trill(0.3);
+      type(`${preset.title}: ${preset.say.toUpperCase()}.`);
+      location.hash = preset.view;
+      return true;
+    }
     if (/^\/rooted\b/i.test(said) && rooted()) { echo(said); trill(0.3); type(ROOTED_MENU); return true; }
+    if (/^\/wormhole\b/i.test(said)) { echo(said); trill(0.3); type('A MORRIS-THORNE WORMHOLE: AN EXACT SOLUTION OF THE EQUATIONS. NONE OBSERVED. OPENING.'); setTimeout(() => { location.href = './wormhole.html'; }, 900); return true; }
     if (/^\/film\b/i.test(said)) { echo(said); trill(0.3); type('FILM. PICK A COMPILED FILM (bld/film). IT PLAYS AS ZERO; THE KNOBS MOVE IT FROM THERE. ESC ENDS IT.'); dispatchEvent(new CustomEvent('soma-film')); return true; }
     if (/^\/show\b/i.test(said) && rooted()) { echo(said); trill(0.4); type('SHOW MODE. PICK THE MIX AND ITS CUE SHEET. ESC ENDS IT.'); dispatchEvent(new CustomEvent('soma-show')); return true; }
     const tt = said.match(/^\/teletype\s+(on|off)\b/i);

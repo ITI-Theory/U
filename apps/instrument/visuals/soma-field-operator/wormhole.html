@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A wormhole · the Soma Machine</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; color: #e8eefc; font: 12px/1.45 'Space Mono', monospace; overflow: hidden; }
+  #wh-view { position: fixed; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; }
+  .wh-panel { position: fixed; left: 14px; top: 14px; width: 360px; padding: 12px 14px; background: rgba(5,7,14,.82); border: 1px solid rgba(94,231,255,.4); }
+  .wh-panel h1 { margin: 0 0 6px; font-size: 14px; letter-spacing: .08em; color: #5ee7ff; }
+  .wh-panel p { margin: 4px 0; color: rgba(232,238,252,.82); }
+  .wh-label { display: inline-block; padding: 1px 6px; margin-right: 4px; color: #070a16; background: #5ee7ff; font-weight: 700; }
+  .wh-panel label { display: block; margin-top: 8px; }
+  .wh-panel input[type=range] { width: 100%; }
+  .wh-panel button { margin: 6px 6px 0 0; padding: 5px 10px; font: 700 11px/1 'Space Mono', monospace; color: #070a16; background: #5ee7ff; border: 0; cursor: pointer; }
+  #wh-embed { display: block; width: 100%; height: 170px; margin-top: 8px; background: #05070e; border: 1px solid rgba(94,231,255,.2); }
+</style>
+</head>
+<body>
+<canvas id="wh-view"></canvas>
+<section class="wh-panel">
+  <h1>A WORMHOLE</h1>
+  <p><span class="wh-label">SOURCED</span> A Morris-Thorne wormhole (here the simplest, Ellis's): an exact solution of Einstein's equations, at the compact-object level. <b>A solution of the equations; none observed; a traversable one needs exotic matter</b> (negative energy density).</p>
+  <p>The picture is ray-traced through the metric: every pixel's light bends round the throat. Rays that pass wider than the throat return to our sky (blue); narrower ones go through and show the other side's (gold). Drag to look round.</p>
+  <label>WHERE YOU ARE: proper distance from the throat <output id="wh-l-out"></output><input id="wh-l" type="range" min="-10" max="10" step="0.01" value="5" /></label>
+  <label><input id="wh-grid" type="checkbox" checked /> the sky's grid (to see the lensing)</label>
+  <button type="button" id="wh-fly">FLY THROUGH ▸</button><button type="button" id="wh-back">◂ THE SOMA MACHINE</button>
+  <canvas id="wh-embed" width="680" height="340"></canvas>
+  <p>The embedding diagram: the wormhole's space, one dimension dropped, as a surface; the dot is you. After Ellis (1973), Morris and Thorne (1988); the ray-tracing after James, von Tunzelmann, Franklin and Thorne (2015).</p>
+</section>
+<script type="module" src="./wormhole.js"></script>
+</body>
+</html>

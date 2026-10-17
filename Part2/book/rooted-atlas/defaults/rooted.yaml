@@ -1,0 +1,28 @@
+# The rooted Atlas (ISS-095): pages of 300 x 337.5 mm, so a spread (two facing pages) is 16:9, the
+# captures' shape. No bleed handling yet (a printer's spec decides it, bookfactory's Jumbo or Lulu).
+citeproc: false
+defaults:
+  - ../../../lib/defaults/base-pdf.yaml
+metadata-file: ../../../registry/rooted.yaml
+input-files:
+  - rooted-atlas.md
+output-file: ../../../bld/rooted-atlas/rooted-atlas.tex
+to: latex
+toc: false
+resource-path:
+  - .
+  - ../../..
+include-in-header:
+  - templates/header.tex
+variables:
+  geometry: paperwidth=300mm,paperheight=337.5mm,left=34mm,right=34mm,top=40mm,bottom=40mm
+  classoption: twoside
+  fontsize: 11pt
+  colorlinks: false
+  pagestyle: empty
+filters:
+  - filters/spreads.lua
+  - ../../../lib/format/unicode-glyphs.lua
+  - ../../../lib/format/licence.lua
+metadata:
+  plate-dir: ../../../bld/rooted-atlas/voyage

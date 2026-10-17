@@ -14,13 +14,14 @@ import { createVeil } from './veil.js';
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
   'voyage', 'phi', 'feel', 'resource', 'kv', 'st', 'bpm', 'kr', 'kd', 'kt', 'kw', 'km', 'kc',
-  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor', 'uo', 'uv', 'palace', 'pf', 'hall', 'cave', 'choices', 'golf']);
+  'kf', 'tw', 'pv', 'ca', 'cs', 'cp', 'kx', 'ab', 'ap', 'tower', 'floor', 'uo', 'uv', 'palace', 'pf', 'hall', 'cave', 'choices', 'golf', 'band', 'bhz', 'lfly', 'led']);
 const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
   voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session', 'cave'], tw: ['0', '1'], kx: ['0', '1', '2', '3', '4'], ab: ['a', 'b'], ap: ['auto', 'co', 'manual'], uo: ['1', '2', '3', '4'], uv: ['in', 'out', 'both'],
   palace: ['0', '1'], hall: ['0', '1'], cave: ['0', '1'], choices: ['0', '1'], golf: ['0', '1'],
+  band: ['delta', 'theta', 'alpha', 'beta', 'gamma'], lfly: ['0', '1'], led: ['0', '1'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
 const PHI = /^(0(\.\d{1,3})?|1(\.0{1,3})?)$/;
@@ -76,6 +77,7 @@ export function viewProblems(view) {
     else if (key === 'kw' && !(Number(value) >= 0.5 && Number(value) <= 2)) problems.push(`kw=${value} not from 0.5 to 2`);
     else if (key === 'km' && !value.split(',').every(id => SCORE_MODES.includes(id))) problems.push(`km=${value} not a list of ${SCORE_MODES.join(',')}`);
     else if (key === 'kv' && !(Number(value) >= 0.1 && Number(value) <= 3)) problems.push(`kv=${value} not from 0.1 to 3`);
+    else if (key === 'bhz' && !(/^\d+(\.\d+)?$/.test(value) && Number(value) >= 0.5 && Number(value) <= 100)) problems.push(`bhz=${value} not from 0.5 to 100 Hz`);
     else if (key === 'bpm' && !(/^\d+$/.test(value) && Number(value) >= 50 && Number(value) <= 140)) problems.push(`bpm=${value} not from 50 to 140`);
     else if (IDS[key] && !IDS[key].has(value)) problems.push(`unknown ${key} ${value}`);
   }

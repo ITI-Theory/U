@@ -10,6 +10,8 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL("./index.html", import.meta.url)),
         overview: fileURLToPath(new URL("./overview.html", import.meta.url)),
+        // a Morris-Thorne wormhole, ray-traced (ISS-095), from the compact-object floor
+        wormhole: fileURLToPath(new URL("./wormhole.html", import.meta.url)),
       },
     },
   },
