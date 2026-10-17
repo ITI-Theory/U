@@ -1,0 +1,43 @@
+# Levels of visualisation, by viewer (ISS-098, author 14 Oct: "as the tests have levels, so should the
+# pictures ... each depending on who is looking: double dispatch"). The view is chosen by both the
+# thing (its scope: the programme, a book, a chapter, a section, an equation) and the viewer (the
+# reader registers in the app: cookie, general, specialist; and the personas). Each cell points to an
+# existing view, or says `gap` and what is missing: the gaps are the next pictures to make.
+# Pointers (checked by `make -C sherlock views`): tour:<id> (registry/tours), file:<path> (in U),
+# gallery:<room id> (registry/gallery.yaml), level:<id> (a palace floor, registry/levels),
+# app:<hash> (an app view, its stop checked).
+schema_version: 1
+scopes: [programme, book, chapter, section, equation]
+viewers: [cookie, general, specialist, nurse, doctor, therapist, physicist, neuroscientist, musician, engineer]
+views:
+  programme:
+    cookie: tour:munch-bedtime
+    general: tour:welcome-u
+    specialist: tour:welcome-scientist
+    nurse: tour:hal-urologist
+    doctor: tour:for-doctors
+    therapist: tour:hal-gestalt
+    physicist: tour:for-physicists
+    neuroscientist: tour:for-neuroscientists
+    musician: tour:for-musicians
+    engineer: tour:for-engineers
+  book:
+    cookie: "gap: a picture book of a book, one plate and one line per chapter"
+    general: gallery:roots
+    specialist: file:books/T-Theory/booklet/booklet_body.md
+    therapist: tour:hal-therapist
+    physicist: tour:gravity
+    musician: tour:film-inner-voyage
+  chapter:
+    general: tour:textbook
+    specialist: tour:whats-different
+    cookie: "gap: a chapter as one room of the mind palace"
+  section:
+    general: tour:cell-to-cosmos
+    specialist: level:whole-brain-cemi
+    cookie: gap
+  equation:
+    specialist: file:paper/FORMAT.md
+    general: app:voyage=landscape&dim=11
+    cookie: tour:blue-rubber-ball
+    physicist: file:Part2/book/field-atlas/figures/app/atlas-plates/01-quantum-foam--11d.png

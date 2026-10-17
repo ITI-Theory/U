@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features
+.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -41,6 +41,7 @@ help:
 	$(info   privacy     what is private stays private: Phase Dot, H-AL's answers, the film notes (needs Me; ISS-116))
 	$(info   provenance  whose emotions a score carries, and whether the author has attested it (ISS-115))
 	$(info   features    every Soma Machine feature tagged science or show, and the author's approvals (ISS-095))
+	$(info   views       levels of visualisation by viewer: what has a view, what is a gap (ISS-098))
 	$(info   readback    REC=<recording.wav> SCORE=<id>: does a recording carry the score? (ISS-115))
 	$(info   model       the high-level model of [T]-Theory: its pointers resolve, its labels hold (registry/model.yaml; ISS-108))
 	$(info   neighbours  the Wizard: OpenCyc neighbours of the concepts that no paper or book names (ISS-092))
@@ -163,6 +164,9 @@ provenance:
 
 features:
 	$(PYTHON) features.py
+
+views:
+	$(PYTHON) views.py
 
 readback:
 	$(PYTHON) readback.py "$(REC)" $(SCORE)

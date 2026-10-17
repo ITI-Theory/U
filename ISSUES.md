@@ -4977,7 +4977,12 @@ pictures: how to visualise [T]-Theory, a book, a chapter, a section, an equation
 macro is the equation level), and each depending on who is looking: double dispatch, the view
 chosen by both the thing and the viewer.
 
-- [ ] A registry of views: scope (programme, book, chapter, section, equation) by viewer (the
+- [x] (16 Oct: registry/views.yaml, `make -C sherlock views`: 5 scopes × 10 viewers (cookie, general,
+      specialist; nurse, doctor, therapist, physicist, neuroscientist, musician, engineer); 23 cells
+      point to an existing view (a tour, a file, a Gallery room, a palace floor, an app view), each
+      checked; 3 named gaps (a picture book of a book, a chapter as a palace room, a section for a
+      child); 24 not yet considered, for the author.)
+      A registry of views: scope (programme, book, chapter, section, equation) by viewer (the
       reader registers already in the app: Cookie, General, Specialist; and the personas: a nurse,
       a physicist ...), each pointing to an existing view where one exists (a figure, an Atlas
       plate, a tour, a palace floor, a Gallery piece) and naming the gaps.
