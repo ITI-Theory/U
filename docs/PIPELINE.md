@@ -73,7 +73,7 @@ via: wormhole 4s on bar    the neon cave's tunnel, landing on a bar line
 | doorway | quick | a glide through a hall's door | the reverb carries through the door |
 | elevator | medium | a change of level, the floors passing | a sweep, lower going up the scales |
 | tube | medium | a flight down a tube (FLY, the way in) | the rush of motion, the drone carried |
-| wormhole | medium | the neon cave's tunnel, where no road joins two places | a riser into the drop |
+| wormhole | medium | the neon cave's tunnel, where no road joins two places (ROOTED; a fade in the default, ISS-095) | a riser into the drop |
 
 A step without `via:` gets a kind inferred from the two views. The compiler writes every transition
 with its kind, seconds and sync, so the sound knows when a jump starts, how long it takes and where it

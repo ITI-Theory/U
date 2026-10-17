@@ -26,6 +26,7 @@ features:
   - {id: the-course, what: "THE COURSE: thoughts over a sea, the path problem", file: apps/instrument/visuals/soma-field-operator/paths3d.js, anchor: "export function createPaths3D", tag: science, approved: false}
   - {id: dyad, what: "two people, coupled: drift and lock", file: apps/instrument/visuals/soma-field-operator/explorer3d.js, anchor: "export function createDyad3D", tag: science, approved: false}
   - {id: flight, what: "FLY: the fractal flight, the Mandelbulb dive", file: apps/instrument/visuals/soma-field-operator/flight3d.js, anchor: "export function createFlight3D", tag: show, approved: false, note: "the author's own idea and the Gallery's fractals; a picture, not the model"}
+  - {id: neon-cave, what: "THE NEON CAVE: the score's fifth setting, a flight inside a fractal (kc=cave)", file: apps/instrument/visuals/soma-field-operator/flight3d.js, anchor: "export function cavePath", tag: show, approved: false, note: "the author's psytrance cave, 17 Oct; the score drives it by the visual grammar, the cave is art; the wormhole into it is ROOTED (registry/transitions.yaml)"}
   - {id: score, what: "the SCORE: the River Film, telemetry over time, the twin view", file: apps/instrument/visuals/soma-field-operator/score.js, anchor: "export function createScorePlayer", tag: science, approved: false}
   # --- effects and extras ---
   - {id: poke-fx, what: "POKE's IMPULSE / RESPONSE / RETURN rings and labels", file: apps/instrument/visuals/soma-field-operator/pokefx.js, anchor: "export function createPokeFx", tag: science, approved: false}

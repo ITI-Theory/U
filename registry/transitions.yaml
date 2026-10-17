@@ -67,6 +67,10 @@ kinds:
     sync: bar
     picture: the neon cave's tunnel (flight3d.js, the cave), between places with no road between them
     sound: a riser into the drop; the new place lands on the downbeat
+    # ISS-095: flying through a wormhole between places is ROOTED (the elevator's sci-fi twin); in the
+    # science default a wormhole jump is drawn as a fade, and the sound may still rise into the drop
+    rooted: true
+    default_as: fade
 
 # `style:` on a step is a directive to the renderers ("punk rock here", "a lullaby", "film
 # noir"): free words, kept until the next `style:` (`style: none` clears it). Non-functional:
