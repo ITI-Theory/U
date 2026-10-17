@@ -5946,10 +5946,12 @@ clear of therapy claims.
 - [x] The pitch, written: "create a new universe", humorous, labelled. (16 Oct: web/PITCH.md,
       the author's words, then the score-to-universe generator, `speculative`.)
 
-## ISS-113: The organisation's READMEs, and the old jokes worth keeping — OPEN
+## ISS-113: The organisation's READMEs, and the old jokes worth keeping — CLOSED
 
 {{Tags area.release}}
-{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-16, date.start=, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** the READMEs sorted, the manifesto kept, the jokes on the web; the public notebook choice is ISS-114's.
 
 Author, 16 Oct 16:48: the org README has changed a lot; find the recursive fractal acronym, the
 Jason Bourne jokes, "I/we don't do middle" (when?); maybe for the web. And: why several READMEs?
