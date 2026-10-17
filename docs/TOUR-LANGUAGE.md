@@ -48,7 +48,7 @@ mathematics belongs in the answer, not in the tour.
 ## Presentations
 
 Preset tours in `registry/tours/` may be longer spoken presentations (for example
-`hal-presentation`, about ten minutes). Three optional step fields serve them:
+`hal-presentation`, about ten minutes). Optional step fields serve them:
 
 - `abstract:` shows the opening abstract over the view: `0` with nothing
   highlighted, `n` with paragraph `n` highlighted.
@@ -66,6 +66,13 @@ Preset tours in `registry/tours/` may be longer spoken presentations (for exampl
   opens: `weak`, `strong`, or `twice` (two strong pokes two seconds apart, to
   show that the second one lands differently). The state panel shows the
   response at the human, dyad, whole-brain and neuron levels (theory lens on).
+- `via:` how the step is arrived at, for the picture and the sound together:
+  `kind [seconds"s"] [on sync]`, the kinds `cut`, `fade`, `dive`, `doorway`,
+  `elevator`, `tube`, `wormhole`, the syncs `now`, `beat`, `bar`, `phrase`
+  (`via: wormhole 4s on bar`). Without it the kind is inferred. The vocabulary:
+  `registry/transitions.yaml`; the meaning: `docs/PIPELINE.md`.
+- `style:` a few words for the renderers ("punk rock"), kept until the next
+  `style:` (`none` clears it). It never changes the state.
 
 With `ui=clean` the tour card becomes a HUD line at the bottom of the window.
 

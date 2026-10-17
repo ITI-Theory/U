@@ -8,6 +8,7 @@ import { eras, levels, models, paths, questions, scores, tours, viewers, zUSFAbs
 import { OVERLAYS, createPresentationStage } from './presentation.js';
 import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { companion } from './who.js';
+import { parseVia, styleProblem } from './transitions.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
@@ -17,7 +18,7 @@ const FIXED = {
   lens: ['on', 'off'], dim: ['4', '8', '11'], reader: ['cookie', 'general', 'specialist'],
   compare: ['0', '1'], contours: ['0', '1'], labels: ['on', 'off'], ui: ['clean'],
   // The mind explorer (explorer.js): its stops, feelings and the RESOURCE switch.
-  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session'], tw: ['0', '1'], kx: ['0', '1', '2', '3', '4'], ab: ['a', 'b'], ap: ['auto', 'co', 'manual'], uo: ['1', '2', '3', '4'], uv: ['in', 'out', 'both'],
+  voyage: VOYAGE_STOPS, feel: Object.keys(FEELINGS), resource: ['0', '1'], kr: ['0', '0.5', '1'], kc: ['mind', 'river', 'body', 'session', 'cave'], tw: ['0', '1'], kx: ['0', '1', '2', '3', '4'], ab: ['a', 'b'], ap: ['auto', 'co', 'manual'], uo: ['1', '2', '3', '4'], uv: ['in', 'out', 'both'],
   palace: ['0', '1'], hall: ['0', '1'], cave: ['0', '1'], choices: ['0', '1'], golf: ['0', '1'],
 };
 // phi (the limbic field, the FX bar) is a number from 0 to 1.
@@ -42,6 +43,8 @@ export function stageProblems(step) {
   if (step.voice !== undefined && !VOICES.includes(step.voice)) problems.push(`voice ${step.voice} not one of ${VOICES.join(', ')}`);
   if (step.pause !== undefined && !(Number.isFinite(step.pause) && step.pause >= 0 && step.pause <= 30)) problems.push(`pause ${step.pause} not in 0..30 seconds`);
   if (step.overview !== undefined && ![0, 1].includes(step.overview)) problems.push(`overview ${step.overview} not 0 or 1`);
+  if (step.via !== undefined && parseVia(step.via).problem) problems.push(parseVia(step.via).problem);
+  if (styleProblem(step.style)) problems.push(styleProblem(step.style));
   if (step.abstract !== undefined && !(Number.isInteger(step.abstract) && step.abstract >= 0 && step.abstract <= ABSTRACT_PARAGRAPHS)) problems.push(`abstract ${step.abstract} not in 0..${ABSTRACT_PARAGRAPHS}`);
   return problems;
 }
@@ -104,7 +107,7 @@ export function parseTourBlock(text) {
     }
     if (!step && key === 'tour') parsed.tour = value;
     else if (!step && key === 'title') parsed.title = value;
-    else if (step && ['view', 'say', 'label', 'overlay', 'poke'].includes(key)) step[key] = value;
+    else if (step && ['view', 'say', 'label', 'overlay', 'poke', 'via', 'style'].includes(key)) step[key] = value;
     else if (step && key === 'dwell') step.dwell = Number(value);
     else if (step && key === 'abstract') step.abstract = Number(value);
     else if (step && key === 'overview') step.overview = Number(value);

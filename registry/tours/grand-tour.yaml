@@ -3,7 +3,8 @@ title: The grand tour
 summary: 'Every main place of the Soma Machine, in order, each saying what happens next (author, 17 Oct:
   "a tour of all the main pages in the app ... for each page, what happens next"). The visual
   storyboard for the music that comes later: the cockpit looks out on three worlds, space, earth and the
-  inside of a body.'
+  inside of a body. Each step may say how it is arrived at (`via:`, registry/transitions.yaml); the rest
+  are inferred.'
 steps:
 - view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
   overview: 1
@@ -13,6 +14,7 @@ steps:
   say: 'THE WORLDS: the zoom as glass domes, quantum to cosmos. Next we go through the glass into the human.'
   label: interpretive
 - view: level=human-vertebrate&voyage=human&dim=11&phi=0.5
+  via: dive
   say: 'The jellyfish human, the home view: a body, its fields, a brain on top. Next, the chest: into the heart.'
   label: interpretive
 - view: level=human-vertebrate&voyage=body&hall=1&dim=11&phi=0.5
@@ -46,17 +48,24 @@ steps:
   say: 'The soma, the cell body of a neuron: the nucleus, the stacked walls. Next, out to two people.'
   label: interpretive
 - view: level=dyad&voyage=dyad&dim=11&phi=0.4
+  via: fade 4s on bar
   say: 'The dyad: two rhythms that drift, then lock. Next, the cockpit window: three worlds to fly.'
   label: interpretive
 - view: level=human-vertebrate&voyage=flight&dim=11&phi=0.6
+  via: cut
   say: 'Fly, inside a body: an inner sea of coral and plankton. Next, the earth.'
   label: interpretive
 - view: level=geological&voyage=flight&dim=11&phi=0.6
   say: 'Fly, the earth: folded strata, dust in the wind. Next, space.'
   label: interpretive
 - view: level=cosmic-web&voyage=flight&dim=11&phi=0.6
-  say: 'Fly, space: the cosmic web, galaxies on filaments round the voids. Next, the score that drives it all.'
+  say: 'Fly, space: the cosmic web, galaxies on filaments round the voids. Next, a wormhole, into the neon cave.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=score&kc=cave&dim=11
+  via: wormhole 4s on bar
+  say: 'The neon cave, inside the fractal: the same score, awe opening the cave, fear narrowing it. Next, the river.'
   label: interpretive
 - view: level=human-vertebrate&voyage=score&kc=river&dim=11
+  via: fade 6s on phrase
   say: 'The score: the River Film, the emotions over time, the same state every view reads. This is where the music will join.'
   label: interpretive

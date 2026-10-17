@@ -9,12 +9,13 @@
 //   node scripts/compile-film.mjs [--tour grand-tour] [--score river-film] [--viewer neutral] [--minutes 90] [--fps 10]
 //   -> ../../../../bld/film/<tour>.<score>.<viewer>.timeline.json
 
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tours, scores, viewers } from '../generated/app-data.js';
 import { presetParams, viewerTransform, viewerStep, MODE_IDS } from '../score.js';
 import { bandControls } from '../midi-out.js';
+import { parseVia } from '../transitions.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const arg = (name, fallback) => { const i = process.argv.indexOf(`--${name}`); return i > 0 ? process.argv[i + 1] : fallback; };
@@ -38,8 +39,13 @@ function modesAt(t) {
   return Object.fromEntries(MODE_IDS.map((id, k) => [id, +(a.v[k] + (b.v[k] - a.v[k]) * f).toFixed(4)]));
 }
 
-// the places: each tour step an equal share of the film (a step's `dwell` would weight it later)
-const places = tour.steps.map((s, k) => ({ index: k, view: s.view, from: (k / tour.steps.length) * seconds, to: ((k + 1) / tour.steps.length) * seconds, say: s.say }));
+// the places: each tour step an equal share of the film (a step's `dwell` would weight it later).
+// A step's `style:` (a directive to the renderers, non-functional) holds until the next one.
+let style = null;
+const places = tour.steps.map((s, k) => {
+  if (s.style !== undefined) style = s.style === 'none' ? null : s.style;
+  return { index: k, view: s.view, from: (k / tour.steps.length) * seconds, to: ((k + 1) / tour.steps.length) * seconds, say: s.say, style };
+});
 const params = presetParams(viewer);
 const frames = [];
 let state = null;
@@ -54,16 +60,22 @@ for (let n = 0; n <= seconds * fps; n++) {
   frames.push({ time: +time.toFixed(2), t: +t.toFixed(5), place: place < 0 ? places.length - 1 : place, modes, compiled,
     band: { tension: +b.tension.toFixed(3), chord: b.chord, motion: +b.motion.toFixed(3), density: +b.density.toFixed(3), drive: +b.drive.toFixed(3) } });
 }
-// a transition (a morphism between places) at each place boundary: its kind from the two views
+// a transition (a morphism between places) at each place boundary (registry/transitions.yaml): the
+// step's own `via:` when it has one, else the kind inferred from the two views, with that kind's defaults
 const kindOf = (a, b) => {
   const va = new URLSearchParams(a), vb = new URLSearchParams(b);
-  if (va.get('voyage') === 'worlds') return 'dive-through-glass';
-  if (va.get('hall') === '1' && vb.get('voyage') !== va.get('voyage')) return 'doorway-glide';
+  if (va.get('voyage') === 'worlds') return 'dive';
+  if (va.get('hall') === '1' && vb.get('voyage') !== va.get('voyage')) return 'doorway';
   if (va.get('level') !== vb.get('level')) return 'elevator';
-  if (vb.get('voyage') === 'flight' || vb.get('voyage') === 'wayin') return 'tube-flight';
+  if (vb.get('voyage') === 'flight' || vb.get('voyage') === 'wayin') return 'tube';
   return 'cut';
 };
-const transitions = places.slice(1).map((p, k) => ({ at: +p.from.toFixed(2), from: k, to: k + 1, kind: kindOf(places[k].view, p.view) }));
+const transitions = places.slice(1).map((p, k) => {
+  const declared = tour.steps[k + 1].via;
+  const via = parseVia(declared ?? kindOf(places[k].view, p.view));
+  if (via.problem) throw new Error(`step ${k + 2}: ${via.problem}`);
+  return { at: +p.from.toFixed(2), from: k, to: k + 1, kind: via.kind, seconds: via.seconds, sync: via.sync, speed: via.speed, declared: declared !== undefined };
+});
 const out = resolve(here, '../../../../../bld/film', `${tourId}.${scoreId}.${viewerId}.timeline.json`);
 mkdirSync(dirname(out), { recursive: true });
 const doc = { schema: 'soma-film-timeline/1', compiled: new Date().toISOString(), tour: tourId, score: scoreId, viewer: viewerId,
@@ -73,4 +85,3 @@ writeFileSync(out, JSON.stringify(doc));
 console.log(`${out}: ${places.length} places, ${transitions.length} transitions, ${frames.length} frames (${minutes} min at ${fps} fps)`);
 const kinds = transitions.reduce((m, x) => ({ ...m, [x.kind]: (m[x.kind] ?? 0) + 1 }), {});
 console.log('transitions:', JSON.stringify(kinds));
-void readFileSync;

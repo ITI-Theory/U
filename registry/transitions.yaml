@@ -1,0 +1,76 @@
+# registry/transitions.yaml: how a tour moves from one place to the next (the morphism), for the
+# picture and the sound alike (author, 17 Oct: "one way is slow, another an instantaneous switch ...
+# audio needs to know"). docs/PIPELINE.md, "Transitions and style".
+#
+# In a tour step, `via:` says how the step is arrived at:
+#
+#   via   ::= kind [ seconds "s" ] [ "on" sync ]
+#   kind  ::= one of the kinds below
+#   sync  ::= now | beat | bar | phrase
+#
+#   via: cut                 instant, on the next beat (the kind's defaults)
+#   via: fade 6s             slow, six seconds
+#   via: wormhole 4s on bar  the neon tunnel, four seconds, landing on a bar line
+#
+# A step without `via:` gets the kind inferred from the two views (scripts/compile-film.mjs).
+# Checked at build (scripts/generate.py) and when a tour is read (tour.js); the compiled film
+# carries every transition with its kind, seconds and sync, for both renderers.
+
+syncs:
+  now: at once, off the grid
+  beat: on the next beat
+  bar: on the next bar line
+  phrase: on the next phrase (8 or 16 bars)
+
+max_seconds: 20
+
+kinds:
+  cut:
+    speed: instant
+    seconds: 0
+    sync: beat
+    picture: the new place at once
+    sound: the new place's sound on the next beat; the old stops, no tail
+  fade:
+    speed: slow
+    seconds: 3
+    sync: bar
+    picture: a crossfade through the field's colour
+    sound: a crossfade over the same seconds
+  dive:
+    speed: quick
+    seconds: 1.3
+    sync: beat
+    picture: through the glass (the worlds' bubbles, a thought), the zoom fade
+    sound: a filter opens as the glass gives; the new place enters on the beat
+  doorway:
+    speed: quick
+    seconds: 1.3
+    sync: beat
+    picture: a glide through a hall's door
+    sound: the room's reverb carries through the door, then the next room's
+  elevator:
+    speed: medium
+    seconds: 2
+    sync: bar
+    picture: the elevator, a change of level (scale), the floors passing
+    sound: a sweep, down in pitch going up the scales (larger is lower), up going down
+  tube:
+    speed: medium
+    seconds: 4
+    sync: bar
+    picture: a flight down a tube (FLY, the way in)
+    sound: the rush of motion, the drone carried through
+  wormhole:
+    speed: medium
+    seconds: 3
+    sync: bar
+    picture: the neon cave's tunnel (flight3d.js, the cave), between places with no road between them
+    sound: a riser into the drop; the new place lands on the downbeat
+
+# `style:` on a step is a directive to the renderers ("punk rock here", "a lullaby", "film
+# noir"): free words, kept until the next `style:` (`style: none` clears it). Non-functional:
+# a style never changes the state (the place, the modes, the field); each renderer realises it
+# within its grammar (registry/visual-grammar.yaml, registry/sound-grammar.yaml) or leaves it.
+style:
+  max_length: 80

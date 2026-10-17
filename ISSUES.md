@@ -6238,6 +6238,22 @@ picture and sound if they can be.
       the trauma baseline that fights back, the override lock). HAL-UAT now holds this week's chat (volume 15).
 - [ ] The app plays a compiled timeline (run time): SHOW-like playback of bld/film/*.timeline.json, the
       places and the modes in sync, the knobs as small overrides mixed in.
-- [ ] Transitions as declared kinds in the explorer (today: the zoom fade, the dive, the doorway glide), so
-      a compiled film and the sound can follow them.
+- [x] (19:05, author: "psytrance 3d mandelbulb fractal neon cave ... that's what I mean, or better") The
+      neon cave (flight3d.js): inside a fractal, an Apollonian packing with a tunnel carved along a
+      winding path; dark stone, neon veins (cyan, magenta, violet, lime), a glow gathered along each ray,
+      pulses down the tunnel, violet haze; the score drives it (awe opens it, fear narrows it and turns
+      it cold, safety warms it, grief greys it, pre-verbal deepens it; Φ the speed, POKE a flash; uBeat
+      waits for the sound). SETTING: CAVE on the score (kc=cave); in the grand tour, arrived at by
+      wormhole. (The "up to 12" of 14 Oct was fractals in the cathedral, not threads: the shaders run on
+      the GPU, one at a time; a crowd of them is for offline rendering.)
+- [x] (19:20, author: "do we have a Transition markup ... audio needs to know"; "the text says I want
+      this part to have punk rock ... a non-functional requirement") The transition grammar
+      (registry/transitions.yaml): `via: kind [seconds"s"] [on sync]`, seven kinds (cut, fade, dive,
+      doorway, elevator, tube, wormhole), each with its picture and its sound, syncs now, beat, bar,
+      phrase; checked at build and when a tour is read (transitions.js); the compiler writes each
+      transition's kind, seconds and sync. `style:` on a step (a directive to the renderers, kept until
+      the next, never changing the state) travels on every place of the compiled film. docs/PIPELINE.md,
+      docs/TOUR-LANGUAGE.md.
+- [ ] The explorer draws each declared kind (today: the zoom fade, the dive, the doorway glide; next the
+      fade, the cut on the beat, and the wormhole through the neon cave).
 

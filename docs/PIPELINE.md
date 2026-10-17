@@ -53,18 +53,41 @@ fourteen labels built from the modes; the eight mechanisms (BRECVEMA) say how a 
 ## The places and the jumps between them (the morphisms)
 
 The places are the map: THE WORLDS' domes, the hubs' halls and doorways, the explorer's stops. A jump
-from one to the next is one of five kinds (named by `compile-film.mjs`, drawn by the explorer):
+from one to the next is a transition, declared once for the picture and the sound together in
+`registry/transitions.yaml`. A tour step says how it is arrived at:
 
-| Kind | When | Picture |
-|---|---|---|
-| dive-through-glass | from THE WORLDS into a dome | the camera falls through the glass |
-| doorway-glide | from a hall through a doorway | a glide into the portal |
-| elevator | a change of level (scale) | the elevator's ride, the fader |
-| tube-flight | into a tube (the arteries, FLY) | a flight along it |
-| cut | anything else | a cut |
+```
+via   ::= kind [ seconds "s" ] [ "on" sync ]
+sync  ::= now | beat | bar | phrase
 
-The sound should make the same jump in its own way (a dive as a filter sweep, a doorway as a reverb
-change, the elevator as a pitch glide), declared in the sound grammar; if it cannot, it is an effect.
+via: cut                   instant, on the next beat
+via: fade 6s on phrase     slow
+via: wormhole 4s on bar    the neon cave's tunnel, landing on a bar line
+```
+
+| Kind | Speed | Picture | Sound |
+|---|---|---|---|
+| cut | instant | the new place at once | on the next beat, no tail |
+| fade | slow | a crossfade through the field's colour | a crossfade, the same seconds |
+| dive | quick | through the glass (a dome, a thought) | a filter opens as the glass gives |
+| doorway | quick | a glide through a hall's door | the reverb carries through the door |
+| elevator | medium | a change of level, the floors passing | a sweep, lower going up the scales |
+| tube | medium | a flight down a tube (FLY, the way in) | the rush of motion, the drone carried |
+| wormhole | medium | the neon cave's tunnel, where no road joins two places | a riser into the drop |
+
+A step without `via:` gets a kind inferred from the two views. The compiler writes every transition
+with its kind, seconds and sync, so the sound knows when a jump starts, how long it takes and where it
+lands (a cut on the beat, a wormhole on the bar). Checked at build (`npm run generate`) and when a tour
+is read (tour.js); a sound that cannot make a jump plays it as an effect. Today the explorer draws its
+own jumps (the zoom fade, the dive, the doorway glide); drawing each declared kind, the wormhole among
+them, is ISS-117's open box.
+
+**Style.** A step may carry `style:` ("punk rock", "a lullaby", "film noir"): a directive to the
+renderers, kept until the next `style:` (`style: none` clears it). It is non-functional: it never
+changes the state (the place, the modes, the field). It travels in the compiled film on every place,
+and each renderer realises it within its grammar (`registry/visual-grammar.yaml`,
+`registry/sound-grammar.yaml`) or leaves it. A person's own words ("I want this part to have punk
+rock") become a `style:` in the interview, with the sentence kept as provenance.
 
 ## The cockpit's three windows
 

@@ -34,6 +34,7 @@ const WORLDS = {
   geological: { fog: '#140c08', name: 'THE FOLDED STRATA', motes: '#ffd9b0' },
   network: { fog: '#0a0a14', name: 'THE NETWORK', motes: '#ffe6a0' },
   mind: { fog: '#05030c', name: 'THE MANDELBULB · THE MIND', motes: '#ffb6e8' },
+  cave: { fog: '#07020f', name: 'THE NEON CAVE · INSIDE THE FRACTAL', motes: '#ff7ad9' },
   river: { fog: '#1b1f16', name: 'THE RIVER · UPRIVER', motes: '#ffe9a8' },
 };
 WORLDS.systemic = WORLDS.network;
@@ -486,6 +487,156 @@ function createBulb() {
   };
 }
 
+// ---------------------------------------------------------------- the neon cave, raymarched
+
+// Inside a fractal (author, 17 Oct: "psytrance 3d mandelbulb fractal neon cave"): an
+// Apollonian packing (sphere inversions folded into a lattice, an endless cave of
+// bubbles and arches) with a tunnel carved along a winding path, so the flight never
+// hits a wall. Dark stone; neon veins where the orbit trap runs thin (cyan, magenta,
+// violet, lime); a glow gathered along every ray; pulses of light travelling down the
+// tunnel; violet haze. With a score: awe opens the cave (the inversion scale), safety
+// warms the neon, fear narrows the tunnel and turns it cold and hard, grief takes the
+// colour out, pre-verbal deepens the fractal; Phi is the speed and the glow, POKE a flash.
+// uBeat is left for the sound (a kick lights the veins).
+export const CAVE_PERIOD = 40;
+export function cavePath(z) {
+  return [0.32 * Math.sin(z * 0.15708) + 0.12 * Math.sin(z * 0.471239), 0.22 * Math.sin(z * 0.314159 + 1.0)];
+}
+const CAVE_FRAG = `
+precision highp float;
+uniform vec4 uView;
+uniform mat4 uCamWorld;
+uniform mat4 uProjInv;
+uniform float uTime, uPhi, uSurge, uScore, uFade, uTexture, uBeat;
+uniform float uS, uF, uA, uG, uPV;
+vec2 path(float z) { return vec2(0.32 * sin(z * 0.15708) + 0.12 * sin(z * 0.471239), 0.22 * sin(z * 0.314159 + 1.0)); }
+float grain() { return fract(sin(dot(gl_FragCoord.xy + floor(uTime * 24.0) * 7.31, vec2(12.9898, 78.233))) * 43758.5453) - 0.5; }
+vec3 neon(float t) {
+  t = fract(t) * 4.0;
+  vec3 c0 = vec3(0.0, 0.95, 1.0), c1 = vec3(1.0, 0.1, 0.8), c2 = vec3(0.5, 0.15, 1.0), c3 = vec3(0.55, 1.0, 0.1);
+  if (t < 1.0) return mix(c0, c1, smoothstep(0.0, 1.0, t));
+  if (t < 2.0) return mix(c1, c2, smoothstep(1.0, 2.0, t));
+  if (t < 3.0) return mix(c2, c3, smoothstep(2.0, 3.0, t));
+  return mix(c3, c0, smoothstep(3.0, 4.0, t));
+}
+float caveScale() { return uScore > 0.5 ? 1.08 + 0.32 * uA : 1.15 + 0.12 * sin(uTime * 0.03); }
+float tubeR() { return uScore > 0.5 ? 0.2 - 0.09 * uF : 0.2; }
+float gCut; // 1 where the carved tunnel, not the fractal, is the nearest surface
+float de(vec3 p, out vec4 orb) {
+  vec3 q = p;
+  float sc = 1.0; orb = vec4(1e3);
+  float s = caveScale();
+  float iters = uScore > 0.5 ? 6.0 + 3.0 * uPV : 8.0;
+  for (int i = 0; i < 9; i++) {
+    if (float(i) >= iters) break;
+    q = -1.0 + 2.0 * fract(0.5 * q + 0.5);
+    float r2 = dot(q, q);
+    orb = min(orb, vec4(abs(q), r2));
+    float k = s / r2;
+    q *= k; sc *= k;
+  }
+  float d = 0.25 * abs(q.y) / sc;
+  float cut = tubeR() - length(p.xy - path(p.z));
+  gCut = step(d, cut);
+  return max(d, cut);
+}
+void main() {
+  vec2 ndc = ((gl_FragCoord.xy - uView.xy) / uView.zw) * 2.0 - 1.0;
+  vec4 target = uProjInv * vec4(ndc, 1.0, 1.0);
+  vec3 dir = normalize((uCamWorld * vec4(normalize(target.xyz / target.w), 0.0)).xyz);
+  vec3 ro = (uCamWorld * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+  float hue0 = uScore > 0.5 ? mix(0.55, 0.22, uS) + 0.25 * uF : 0.02 * uTime;
+  float glowK = 0.6 + 1.4 * uPhi + 2.5 * uSurge + 1.5 * uBeat;
+  vec3 glow = vec3(0.0);
+  float t = 0.0, steps = 0.0; bool hit = false; vec4 orb;
+  for (int i = 0; i < 100; i++) {
+    vec3 p = ro + dir * t;
+    float d = de(p, orb);
+    // the glow gathers from the fractal only, not right beside the camera, and by the length
+    // travelled (not per step), so rays grazing a wall do not pile it up
+    glow += (1.0 - gCut) * smoothstep(0.03, 0.35, t) * neon(hue0 + orb.w * 0.6 + p.z * 0.02) * exp(-d * 90.0) * min(d * 0.85, 0.02) * 1.6;
+    if (d < 0.00035 * (1.0 + t * 4.0)) { hit = true; break; }
+    t += d * 0.85;
+    steps += 1.0;
+    if (t > 5.0) break;
+  }
+  vec3 fogC = vec3(0.03, 0.008, 0.07) + vec3(0.12, 0.02, 0.18) * uSurge;
+  vec3 col = fogC;
+  if (hit) {
+    vec3 p = ro + dir * t;
+    float cutHit = gCut;
+    vec4 o2;
+    float e = 0.0004 * (1.0 + t * 4.0);
+    vec3 n = normalize(vec3(
+      de(p + vec3(e, 0, 0), o2) - de(p - vec3(e, 0, 0), o2),
+      de(p + vec3(0, e, 0), o2) - de(p - vec3(0, e, 0), o2),
+      de(p + vec3(0, 0, e), o2) - de(p - vec3(0, 0, e), o2)));
+    float ao = clamp(1.0 - steps / 70.0, 0.0, 1.0);
+    vec3 L = normalize(vec3(path(p.z + 0.3) - p.xy, -0.4));
+    float diff = clamp(dot(n, L), 0.0, 1.0);
+    vec3 hue = neon(hue0 + orb.w * 0.6 + p.z * 0.02);
+    vec3 stone = vec3(0.025, 0.02, 0.05) + 0.08 * hue * (1.0 - 0.7 * cutHit);
+    float hard = (30.0 + 120.0 * (uScore > 0.5 ? uF : 0.3) + 80.0 * uTexture) * (1.0 + 3.0 * cutHit);
+    // on the tunnel's cut faces (dark glass) the fractal's cross-section shows as thin lines
+    // (not orb.y: the packing's floors lie on y planes, where it would light the whole floor)
+    float vein = exp(-min(orb.x, orb.z) * hard) * (1.0 - 0.4 * cutHit);
+    float pulse = pow(0.5 + 0.5 * sin(p.z * 3.0 + uTime * (1.5 + 3.0 * uPhi)), 6.0);
+    vec3 emit = hue * vein * (0.9 + 1.4 * uPhi + 2.0 * pulse + 2.0 * uSurge + 2.0 * uBeat);
+    // the walls beside the camera stay dark silhouettes, framing the lit depth
+    emit *= 0.2 + 0.8 * smoothstep(0.04, 0.35, t);
+    float rim = pow(1.0 - abs(dot(n, -dir)), 3.0);
+    col = stone * (0.2 + 0.8 * diff) * ao + emit * (0.4 + 0.6 * ao) + rim * 0.25 * (1.0 - 0.8 * cutHit) * hue;
+    col = mix(col, fogC, 1.0 - exp(-t * 0.55));
+  }
+  col += glow * glowK;
+  if (uScore > 0.5) {
+    float warm = uS * 0.35;
+    col = mix(col, col * vec3(1.25, 0.85, 0.7), warm);
+    col = mix(col, vec3(dot(col, vec3(0.3, 0.59, 0.11))), 0.85 * uG);
+  }
+  col += 0.25 * uTexture * grain() * (0.3 + col);
+  col = col / (1.0 + col) * 1.35;
+  col = pow(clamp(col, 0.0, 1.0), vec3(0.85));
+  gl_FragColor = vec4(mix(col, vec3(1.0, 0.86, 0.96), uFade), 1.0);
+}`;
+
+function createCave() {
+  const material = new THREE.ShaderMaterial({
+    vertexShader: 'void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }',
+    fragmentShader: CAVE_FRAG,
+    uniforms: {
+      uView: { value: new THREE.Vector4() }, uCamWorld: { value: new THREE.Matrix4() }, uProjInv: { value: new THREE.Matrix4() },
+      uTime: { value: 0 }, uPhi: { value: 0 }, uSurge: { value: 0 }, uScore: { value: 0 }, uFade: { value: 0 }, uTexture: { value: 0 }, uBeat: { value: 0 },
+      uS: { value: 0 }, uF: { value: 0 }, uA: { value: 0 }, uG: { value: 0 }, uPV: { value: 0 },
+    },
+    depthTest: false, depthWrite: false,
+  });
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+  quad.frustumCulled = false;
+  const scene = new THREE.Scene();
+  scene.add(quad);
+  const ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  return {
+    render(renderer, eye, view, state) {
+      const u = material.uniforms;
+      u.uView.value.copy(view);
+      eye.updateMatrixWorld();
+      u.uCamWorld.value.copy(eye.matrixWorld);
+      u.uProjInv.value.copy(eye.projectionMatrixInverse);
+      const sc = state.score;
+      u.uScore.value = sc ? 1 : 0;
+      if (sc) for (const k of ['S', 'F', 'A', 'G', 'PV']) u[`u${k}`].value = sc[k];
+      u.uTime.value = state.time;
+      u.uPhi.value = state.phi;
+      u.uSurge.value = state.surge;
+      u.uFade.value = state.fade ?? 0;
+      u.uTexture.value = state.texture ?? 0;
+      u.uBeat.value = state.beat ?? 0;
+      renderer.render(scene, ortho);
+    },
+  };
+}
+
 // The same distance estimate on the CPU (double precision), to find where a dive lands.
 function bulbDE(px, py, pz, power, morph, iters) {
   let x = px, y = py, z = pz, dr = 1, r = 0;
@@ -563,6 +714,8 @@ export function createFlight3D() {
   let tiles = [];
   let sector = '';
   let bulb = null;
+  let cave = null;
+  let caveZ = 0;
   let orbit = 0;
   let travelled = 0;
   let surge = 0;
@@ -588,7 +741,7 @@ export function createFlight3D() {
     sector = next;
     for (const t of tiles) scene.remove(t);
     const world = WORLDS[sector] ?? WORLDS.organismal;
-    if (sector === 'mind') {
+    if (sector === 'mind' || sector === 'cave') {
       tiles = [];
       return;
     }
@@ -628,6 +781,48 @@ export function createFlight3D() {
       surge = Math.max(0, surge - dt * 0.6);
       const speed = 1.2 + 3.5 * state.phi + 8 * surge;
       travelled += speed * dt;
+      const drawRay = (obj, rayState) => {
+        renderer.getSize(size);
+        const pr = renderer.getPixelRatio();
+        if (state.stereo === 'half' || state.stereo === 'full') {
+          camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
+          camera.updateProjectionMatrix();
+          camera.updateMatrixWorld();
+          stereoCamera.update(camera);
+          renderer.setScissorTest(true);
+          for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
+            renderer.setViewport(x, 0, size.x / 2, size.y);
+            renderer.setScissor(x, 0, size.x / 2, size.y);
+            obj.render(renderer, eye, new THREE.Vector4(x * pr, 0, (size.x / 2) * pr, size.y * pr), rayState);
+          }
+          renderer.setScissorTest(false);
+          renderer.setViewport(0, 0, size.x, size.y);
+        } else {
+          camera.aspect = size.x / size.y;
+          camera.updateProjectionMatrix();
+          obj.render(renderer, camera, new THREE.Vector4(0, 0, size.x * pr, size.y * pr), rayState);
+        }
+      };
+      if (state.sector === 'cave') {
+        // the flight down the carved tunnel: forward is -z; the path repeats every CAVE_PERIOD
+        // (the cave's lattice does too), so the camera's z stays small and the shader precise
+        cave ??= createCave();
+        const sc = state.score;
+        const caveSpeed = 0.12 * speed * (sc ? 0.6 + 0.8 * sc.C : 1) * (sc ? 1 - 0.5 * sc.G : 1);
+        caveZ = mod(caveZ - caveSpeed * dt, CAVE_PERIOD);
+        const z = caveZ - CAVE_PERIOD;
+        const [x, y] = cavePath(z);
+        const [ax, ay] = cavePath(z - 0.7);
+        camera.position.set(x, y, z);
+        const bank = 0.35 * Math.sin(state.time * 0.07) + 2.5 * (ax - x);
+        camera.up.set(Math.sin(bank), Math.cos(bank), 0);
+        camera.lookAt(ax, ay, z - 0.7);
+        camera.near = 0.005;
+        stereoCamera.eyeSep = 0.015 * stereoDepth();
+        this.depth = 0;
+        drawRay(cave, { phi: state.phi, time: state.time, surge, score: sc ?? null, texture: state.texture ?? 0, beat: state.beat ?? 0, fade: 0 });
+        return;
+      }
       if (state.sector === 'mind') {
         bulb ??= createBulb();
         const tt = state.time;
@@ -680,27 +875,7 @@ export function createFlight3D() {
         // the eye separation and the near plane follow the dive (stereo stays fusable deep in)
         stereoCamera.eyeSep = (!sc && dive ? Math.min(0.12, 0.04 * dive.d) : 0.12) * stereoDepth();
         camera.near = Math.max(1e-6, Math.min(0.05, (dive?.d ?? 1) * 0.1));
-        renderer.getSize(size);
-        const pr = renderer.getPixelRatio();
-        const full = new THREE.Vector4(0, 0, size.x * pr, size.y * pr);
-        if (state.stereo === 'half' || state.stereo === 'full') {
-          camera.aspect = state.stereo === 'half' ? size.x / size.y : size.x / 2 / size.y;
-          camera.updateProjectionMatrix();
-          camera.updateMatrixWorld();
-          stereoCamera.update(camera);
-          renderer.setScissorTest(true);
-          for (const [x, eye] of [[0, stereoCamera.cameraL], [size.x / 2, stereoCamera.cameraR]]) {
-            renderer.setViewport(x, 0, size.x / 2, size.y);
-            renderer.setScissor(x, 0, size.x / 2, size.y);
-            bulb.render(renderer, eye, new THREE.Vector4(x * pr, 0, (size.x / 2) * pr, size.y * pr), bulbState);
-          }
-          renderer.setScissorTest(false);
-          renderer.setViewport(0, 0, size.x, size.y);
-        } else {
-          camera.aspect = size.x / size.y;
-          camera.updateProjectionMatrix();
-          bulb.render(renderer, camera, full, bulbState);
-        }
+        drawRay(bulb, bulbState);
         return;
       }
       if (!tiles.length) return;
