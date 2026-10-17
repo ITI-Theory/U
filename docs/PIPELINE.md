@@ -23,10 +23,12 @@ What each sense may express of the state is declared: pictures in `registry/visu
 in `registry/sound-grammar.yaml`, the same thirteen model terms. A channel that expresses nothing
 undeclared fails Sherlock (`make -C sherlock grammar`).
 
-The emotions: the score carries seven modes; the Lean ontology (`paper/proofs/EmotionOntology.lean`)
-types fourteen labels and Plutchik's eight atoms with their dyads (the 32), built from the modes as
-constructions; the eight mechanisms (BRECVEMA) say how a feeling was evoked. The modes are the
-contract; the 32 are derived from them, not 32 more channels to drive.
+The emotions: the score carries seven modes. The 32 are the 32 knobs on screen (two banks of 16 on a
+MIDI Fighter Twister; ISS-053): nobody sets 32 by hand, so they come in layers, the seven modes (or
+thirteen music emotions) as the macros a person sets by answering questions, each driving its
+sub-knobs. A viewer's baseline may move all 32; the compiler bakes it in, so the film plays as zero and
+the live knobs are small moves from there. The Lean ontology (`paper/proofs/EmotionOntology.lean`) types
+fourteen labels built from the modes; the eight mechanisms (BRECVEMA) say how a feeling was evoked.
 
 ## The stages
 
