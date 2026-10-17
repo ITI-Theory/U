@@ -597,6 +597,8 @@ function mindAnatomy(scene, rnd, U, dot) {
     else ringFx(at, m ? SPARK[m] : '#ffffff', 1.4, 0, 0.5);
     // the pulse down to the heart (the somatic loop): a thought acts on the body
     lineFx(at, new THREE.Vector3(0, FLOOR_Y, -1), '#a78bfa', 0.9);
+    // ... and it arrives (ISS-105 phase 3): the explorer raises the heart a little, the heart heats the foam
+    globalThis.dispatchEvent?.(new CustomEvent('soma-heart-pulse', { detail: { kind: th.kind, expression: th.e.name, mechanism: th.e.m ?? null } }));
     // echoes (the memory kernel; C-PTSD): fainter rings, later
     const echoes = Math.round((state.cp ?? 0) * 4);
     for (let k = 1; k <= echoes; k++) ringFx(at, '#a78bfa', 1.3, 0.45 * k, 0.5 + 0.25 * k);
@@ -671,7 +673,10 @@ function mindAnatomy(scene, rnd, U, dot) {
       const fx = state.fx ?? 0;
       // the foam: bubbling, faster and higher as Φ heats the chamber
       const pos = fg.attributes.position;
-      const heat = Math.min(1, fx + 0.12 * parked.length);   // the load heats the chamber
+      // the load heats the chamber, and so does the heart the thoughts have raised (the somatic loop)
+      // the neurotype sets the chamber's temperature, P13's operator T = T0 (1 + 0.8 ADHD - 0.6 ASD)
+      const temp = Math.max(0.3, 1 + 0.8 * (state.ca ?? 0) - 0.6 * (state.cs ?? 0));
+      const heat = Math.min(1, (fx + 0.12 * parked.length + 0.3 * (state.heart ?? 0)) * temp);
       for (let i = 0; i < NF; i++) pos.setY(i, base[i] + (0.18 + 0.35 * heat) * Math.sin(state.time * (1.2 + 2.5 * heat) + phase[i]));
       for (const q of parked) { q.ring.rotation.x += dt * 0.4; q.g.position.y += 0.002 * Math.sin(state.time * 1.3 + q.g.position.x); q.tag.visible = state.labels !== false; }
       pos.needsUpdate = true;

@@ -151,6 +151,11 @@ steps:
     title: "The textures on the 4K screen (ISS-103)"
     url: "#level=whole-brain-cemi&voyage=brain&cave=1&dim=11"
     do: "On the 32-inch 4K screen, full screen: is the cathedral's stone sharp now, and the tunnel's wall (#voyage=tunnel)?"
+  - id: app-telemetry
+    kind: app
+    title: "The telemetry drawer and the pulse down to the heart; the glass brain; the lens skin (ISS-105, ISS-052, ISS-095)"
+    url: "#level=whole-brain-cemi&voyage=thought&hall=1&dim=11&phi=0.8"
+    do: "TELEMETRY: watch the heart climb a few bpm as thoughts ignite and settle back; try ADHD and ASD in SETTINGS (the chamber hotter, cooler). Then the brain stop, GLASS. Then in the Engine Room, RICE ON and LENS ON, and move the pointer over THE WORLDS."
   - id: app-physical-places
     kind: app
     title: "The physical places on their own: the halls and the tubes, no mind layers (ISS-104 step 1)"

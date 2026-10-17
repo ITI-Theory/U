@@ -21,6 +21,7 @@ import { createVoice } from './voice.js';
 import { DEFAULT_NAMES, displayNames, setDisplayName } from './names.js';
 import { rice, setRice, voiceStyle, setVoiceStyle } from './rice.js';
 import { rooted, setRooted } from './who.js';
+import { lensSkin, setLensSkin } from './lens.js';
 import { rootedRule } from './generated/app-data.js';
 import { stereoDepth, stereoDepthSetting, setStereoDepth, clientSafe, setClientSafe, CLIENT_MAX_DEPTH } from './stereo-depth.js';
 import { midiOutSetting, setMidiOut, MIDI_CC, PHASE_NOTE, THRESHOLD_NOTE } from './midi-out.js';
@@ -403,6 +404,8 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
       <fieldset data-rice><legend>RICE</legend>
         <p class="engine-room__hint">The author's options (ricing): crew alerts at the score stop, and more as they arrive. Every window of this browser follows.</p>
         <button type="button" data-rice="1">ON</button><button type="button" data-rice="0">OFF</button>
+        <p class="engine-room__hint">LENS SKIN: a point mass's gravitational lens follows the pointer over every view (with RICE on; ISS-095). The science version is the wormhole (WORMHOLE ▸ on the compact-object floor).</p>
+        <button type="button" data-lens="1">LENS: ON</button><button type="button" data-lens="0">LENS: OFF</button>
         <p class="engine-room__hint">VOICE: MS, the browser's Microsoft Natural voices (Edge, Windows 11); H-AL, his Piper voice through the bridge with the HAL effect (MOTHER stays Natural).</p>
         <button type="button" data-voice-style="ms">VOICE: MS</button><button type="button" data-voice-style="hal">VOICE: H-AL</button>
       </fieldset>
@@ -541,6 +544,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     room.querySelector('.engine-room__rooted-status').textContent = isRooted ? 'ROOTED: on. The presets open in this window.' : 'ROOTED: off. The presets wait behind the gate.';
     for (const b of room.querySelectorAll('[data-preset], [data-unroot]')) b.disabled = !isRooted;
     for (const b of room.querySelectorAll('[data-rice]')) b.classList.toggle('active', (b.dataset.rice === '1') === rice());
+    for (const b of room.querySelectorAll('[data-lens]')) b.classList.toggle('active', (b.dataset.lens === '1') === lensSkin());
     for (const b of room.querySelectorAll('[data-voice-style]')) b.classList.toggle('active', b.dataset.voiceStyle === voiceStyle());
     const relayLine = room.querySelector('.engine-room__relay-status');
     if (!relayLine.textContent.startsWith('Saved')) relayLine.textContent = `Relay: ${screens.relayStatus}`;
@@ -580,6 +584,7 @@ export function createEngineRoom({ screens, setParam, readParams, styleKeys }) {
     }
     if (button.dataset.layout) openLayout(button.dataset.layout);
     if (button.dataset.rice) setRice(button.dataset.rice === '1');
+    if (button.dataset.lens) { setLensSkin(button.dataset.lens === '1'); sync(); }
     if (button.dataset.preset && rooted()) {
       const preset = (rootedRule?.presets ?? []).find(p => p.id === button.dataset.preset);
       if (preset) location.hash = preset.view;

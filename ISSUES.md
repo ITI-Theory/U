@@ -126,7 +126,8 @@ SHA-256 manifests. Dist is unchanged until UAT acceptance (Dist/README.md step 7
 
 - [ ] (from ISS-080) At go-live, refresh H-AL's memory: `make -C Me/chats collate`, then
       replace HAL-UAT's chat volumes (load.py adds by title and never replaces: give it a
-      replace option). (ISS-049) Then `collate` (item above) and refresh HAL-UAT's chat
+      replace option; 17 Oct: done, `make -C Me/notebooklm load NB=HAL-UAT GROUPS=... REPLACE=1`, the old copy
+      deleted only once the new one is processed). (ISS-049) Then `collate` (item above) and refresh HAL-UAT's chat
       volumes (NotebookLM usage: `make nlm-usage`; uploads cost little, questions about 1.6%
       each).
 
@@ -2400,7 +2401,7 @@ Steps:
       Going back to HUMAN flies out again. The MIND-BODY EXPLORER button opens
       at HUMAN; the tour pulls out to it before the voyage into the body and
       ends on it.
-- [ ] 3D explorer (author, 10 Oct: "the mind explorer needs to be 3D like the DT
+- [ ] (17 Oct night, part: (2) THE GLASS BRAIN, brain3d.js, opt-in GLASS at the brain stop (`glass=1`): the see-through cortex, the limbic system inside, orbiting, the field's shells at the elevator's band; the 2D diagram stays the default and the Atlas's plate. (1) the landscape and (4) the neuron were 3D already; left: (3) the body inside the jellyfish human) 3D explorer (author, 10 Oct: "the mind explorer needs to be 3D like the DT
       explorer, nice to have"). Opinion (Copilot): yes, and in the same three.js
       scene as the level view, so the dive never leaves 3D. Order by value:
       (1) the landscape as a real terrain mesh to fly over (the "mountains",
@@ -4866,7 +4867,7 @@ Jumbo suits big spreads.
 - [x] (17 Oct night: Part2/book/rooted-atlas, `make captures` (registry/rooted.yaml `atlas`, 4K from the app) and `make check`; pages 300 x 337.5 mm, so a spread is 16:9; each picture across two facing pages (filters/spreads.lua); an art edition, outside the publication registry) The rooted Atlas: fractal spreads at print resolution (captures or a renderer), its own
       build and edition.
 
-- [x] (17 Oct night: a thought's own elevator (ROOTED: five worlds inside it, the surface, the cave, its sea, its foam, a universe; maps, ISS-096); the science wormhole in the default (wormhole.html: a Morris-Thorne (Ellis) wormhole ray-traced through the metric per pixel, the embedding diagram, labelled; WORMHOLE ▸ on the compact-object floor, MOTHER /wormhole); ROOTED rides the elevator between floors through the neon wormhole. Left: a lensing skin as RICE) Experiments for ROOTED (author, 14 Oct): step inside a thought bubble, with its own elevator
+- [x] (17 Oct night: a thought's own elevator (ROOTED: five worlds inside it, the surface, the cave, its sea, its foam, a universe; maps, ISS-096); the science wormhole in the default (wormhole.html: a Morris-Thorne (Ellis) wormhole ray-traced through the metric per pixel, the embedding diagram, labelled; WORMHOLE ▸ on the compact-object floor, MOTHER /wormhole); ROOTED rides the elevator between floors through the neon wormhole. then the lensing skin as RICE: lens.js, a point mass's lens following the pointer over every view, the Engine Room's LENS with RICE on) Experiments for ROOTED (author, 14 Oct): step inside a thought bubble, with its own elevator
       (a world inside a world; the nesting is maps, ISS-096); wormholes as in SpaceEngine. The
       science version of a wormhole stays in the default: a Morris-Thorne wormhole as an exact
       solution of general relativity at the compact-object level, labelled "a solution of the
@@ -4909,7 +4910,7 @@ territory breaks (the lesson of the identity axioms, ISS-063, at the scale of th
 - [x] Field Atlas, the mind palace spread: a paragraph, "Is the palace another universe?".
 - [x] Soma Machine: the palace's caption said "the palace of the mind is the universe", the
       category error itself; now "a map of the universe, one level up, never the universe itself".
-- [ ] Stepping inside a thought bubble (and its elevator): ROOTED, ISS-095.
+- [x] (17 Oct night, ISS-095: a thought's own elevator, five worlds inside it, captioned as maps) Stepping inside a thought bubble (and its elevator): ROOTED, ISS-095.
 - [x] (17 Oct, the freeze build: `make all` rebuilt the volumes and the Atlas; the voyage's 42 plates
       recaptured, ISS-087) Rebuild the volumes, the Atlas and the app's capture at release (with the next build).
 
@@ -5307,7 +5308,7 @@ carried by every somagram taken on it.
 - [x] (17 Oct night: the foam, the five kinds and the staying thoughts were built (atrium3d.js mindAnatomy); now the paths: four tubes leaving the chamber, signals running out along them, the one taken before grooved and gold) The mind chamber: foam, pops by kind (words, pictures, feelings, pain, flashbacks),
       staying thoughts (rising, holding; the barrier), paths leaving as tubes.
 - [x] (15 Oct) The base as film stock: recorded once per session, carried by every somagram.
-- [ ] (author, 15 Oct 18:01) The path problem, in one picture: "should I do this or that" as a
+- [x] (built 15 Oct 18:04; replaced the same evening by THE COURSE, the process agreed below, paths3d.js) (author, 15 Oct 18:01) The path problem, in one picture: "should I do this or that" as a
       tree of paths laid over farmland with gentle hills; movement on all the paths at once; five
       or six flashes that stay lit, the hot spots of the paths; then the sequence, one at a time,
       from the popping we already have: path, then wave, then sequence. Copilot: it joins the
@@ -5443,7 +5444,7 @@ grammar's three gaps closed by it.
       terms) and kind (words, picture, feeling, pain, flashback), the mechanism's spark, the
       pulse down, echoes, thoughts that stay behind a ridge with C-PTSD (up to 30). The visual
       grammar now shows 11 of 12 terms (route still to come: the paths).
-- [ ] Phase 3: the drawers wired; the pulse down to the heart.
+- [x] (17 Oct night: the TELEMETRY drawer, the right one: Φ, the heart with the thoughts' share, P13's temperature T0 (1 + 0.8 ADHD - 0.6 ASD), the chamber's latest thought (kind, expression, mechanism), the load, the score tape, and the claims made at this place with their labels (registry/model.yaml); settings into the chamber: the neurotype now sets its temperature; the pulse down arrives: each ignition raises the heart up to +16 bpm, decaying over seconds, and the raised heart heats the foam (the somatic loop, interpretive); the music's heartbeat left as it is while the audio is reworked) Phase 3: the drawers wired; the pulse down to the heart.
 - [ ] Phase 4: more places (ISS-103).
 - [x] (16 Oct, checked: they belong to POKE: the explorer's MECHANISMS ▾ popover, "POKE · the
       mechanisms and the inputs", BRECVEMA's eight to choose, with the levels' own POKE inputs lent
