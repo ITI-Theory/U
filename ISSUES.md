@@ -2620,10 +2620,10 @@ Steps:
       stent mode (persistent signal after the stone); calculi sizes and laser settings stay out
       (no clinical claims). The author's review of the tour wording is UAT: `uat/checklist.yaml`,
       step `app-tour-wording`.
-- [ ] (13 Oct night, part: the dive follows the landscape state (explorer.js mindDrive): H sets
+- [x] (17 Oct night: done but the granular sound, moved to the audio work) (13 Oct night, part: the dive follows the landscape state (explorer.js mindDrive): H sets
       each dive's power, |grad H| the roll, T_eff the colour, a crossing into another valley the
       burst; explorer-check: calm, no burst; hot with the resource, a crossing. Left: branching
-      paths, the granular sound of motion, fluid as a flow solver; 17 Oct night: the fluid is solved now, flight3d.js createFluid, Stam's stable fluids on a 48 x 28 grid, divergence-free, stirred harder with Φ, POKE a vortex; left: branching paths, and the granular sound, with the audio)
+      paths, the granular sound of motion, fluid as a flow solver; 17 Oct night: the fluid is solved now, flight3d.js createFluid, Stam's stable fluids on a 48 x 28 grid, divergence-free, stirred harder with Φ, POKE a vortex; and the branching paths: three gates of the way up have a side road with a lower gate, taken when the main gate is shut and the side road's open (tunnel3d.js); left only the granular sound of motion, which goes with the author's audio overhaul)
       (10 Oct 23:40: FLY at Whole Brain dives INTO the Mandelbulb: down the line of
       sight to a surface point, zoom to x40,000 at fixed detail (16 iterations), Φ the
       speed, POKE deeper, a burst and a new dive; stereo eye separation follows the

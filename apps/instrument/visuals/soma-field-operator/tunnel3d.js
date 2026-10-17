@@ -260,8 +260,28 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
       m.lookAt(p.clone().add(tangent));
       scene.add(m);
     }
-    return { u, height, ring, iris, open: 0 };
+    return { u, height, ring, iris, open: 0, bypass: null };
   });
+  // BRANCHING PATHS (ISS-052: "several tunnels; which one a thought takes depends on the gates"):
+  // three gates have a side road, a narrower tube arching round them with its own, lower gate; when
+  // the main gate is shut and the side road's is open, the signal takes the side road and rejoins
+  // after the gate (the field's barriers decide the route, not the signal). POKE still means
+  // tunnelling straight through.
+  const up = new THREE.Vector3(0, 1, 0);
+  for (const k of gates.length ? [2, 5, 7] : []) {
+    const g = gates[k];
+    const a = curve.getPointAt((g.u - 0.035 + 1) % 1), z = curve.getPointAt((g.u + 0.035) % 1), m = curve.getPointAt(g.u);
+    const out = new THREE.Vector3().crossVectors(curve.getTangentAt(g.u), up).normalize();
+    const side = new THREE.CatmullRomCurve3([a, a.clone().lerp(m, 0.5).addScaledVector(out, 2.2), m.clone().addScaledVector(out, 3.2), z.clone().lerp(m, 0.5).addScaledVector(out, 2.2), z]);
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(side, 60, 0.42, 14, false), new THREE.MeshBasicMaterial({ color: '#a78bfa', transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false }));
+    scene.add(tube);
+    const at = side.getPointAt(0.5), tan = side.getTangentAt(0.5);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.46, 0.035, 8, 32), new THREE.MeshBasicMaterial({ color: '#ffd166' }));
+    const iris = new THREE.Mesh(new THREE.CircleGeometry(0.44, 32), new THREE.MeshBasicMaterial({ color: '#ff4d5e', transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
+    for (const mm of [ring, iris]) { mm.position.copy(at); mm.lookAt(at.clone().add(tan)); scene.add(mm); }
+    g.bypass = { curve: side, ring, iris, height: Math.max(0.08, g.height - 0.3), open: 0 };
+  }
+  let onBypass = null;   // { g, s }: the signal on a side road, s from 0 to 1
 
   // the thought
   const ball = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 14), new THREE.MeshBasicMaterial({ color: '#fff4c2' }));
@@ -691,11 +711,32 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
         g.iris.scale.setScalar(Math.max(0.001, 1 - g.open));
         g.iris.material.opacity = 0.35 * (1 - g.open);
         g.ring.material.color.set(g.open > 0.5 ? '#3fd0c9' : '#ffd166');
+        if (g.bypass) {
+          const b = g.bypass;
+          b.open += ((state.phi >= b.height - lowered ? 1 : 0) - b.open) * Math.min(1, dt * 2.5);
+          b.iris.scale.setScalar(Math.max(0.001, 1 - b.open));
+          b.iris.material.opacity = 0.35 * (1 - b.open);
+          b.ring.material.color.set(b.open > 0.5 ? '#3fd0c9' : '#ffd166');
+        }
       }
       // the next gate ahead
       const ahead = gates.map(g => ({ g, d: (g.u - u + 1) % 1 })).sort((a, b) => a.d - b.d)[0];
-      const closed = ahead.g.open < 0.5 && ahead.d < 0.022;
-      if (closed) {
+      const closed = !onBypass && ahead.g.open < 0.5 && ahead.d < 0.022;
+      if (onBypass) {
+        // on the side road: through its gate if open, else wait at it
+        const b = onBypass.g.bypass;
+        const atGate = onBypass.s < 0.5 && onBypass.s > 0.44;
+        if (!(atGate && b.open < 0.5)) onBypass.s += dt * (0.25 + 0.4 * state.phi);
+        if (onBypass.s >= 1) {
+          u = (onBypass.g.u + 0.035) % 1;
+          onBypass = null;
+          event = { text: 'REJOINED the main road after the side road', until: state.time + 2 };
+        }
+      } else if (closed && ahead.g.bypass && ahead.g.bypass.open > 0.5 && !pokeWanted) {
+        onBypass = { g: ahead.g, s: 0 };
+        blockedAt = -1;
+        event = { text: 'TOOK THE SIDE ROAD: the main gate is shut, the side road\'s lower gate open', until: state.time + 3 };
+      } else if (closed) {
         speed = 0;
         blockedAt = gates.indexOf(ahead.g);
         if (pokeWanted) {
@@ -719,12 +760,18 @@ export function createTunnel3D({ ureter = false, vessel = false } = {}) {
       const p = curve.getPointAt(u);
       ball.position.copy(p);
       ball.visible = !ureter;
+      const sideRoad = onBypass?.g.bypass.curve ?? null;
+      if (sideRoad) ball.position.copy(sideRoad.getPointAt(Math.min(1, onBypass.s)));
       if (!ureter && blood.mesh.visible) blood.update(dt, speed);
       halo.scale.setScalar(1 + 0.25 * Math.sin(state.time * 6));
       const behind = curve.getPointAt((u - 0.03 * dir + 1) % 1);
       camera.position.copy(behind).add(new THREE.Vector3(0, ureter ? 0 : 0.45, 0));
       if (light) light.position.copy(camera.position);
       camera.lookAt(curve.getPointAt((u + 0.01 * dir + 1) % 1));
+      if (sideRoad) {
+        camera.position.copy(sideRoad.getPointAt(Math.max(0, onBypass.s - 0.12))).add(new THREE.Vector3(0, 0.3, 0));
+        camera.lookAt(sideRoad.getPointAt(Math.min(1, onBypass.s + 0.06)));
+      }
       applyLook(camera);
       if (ureter && state.ureter) for (const r of rings) r.ring.visible = false;
       if (ureter && view !== 'scope' && stone.size > 0) {
