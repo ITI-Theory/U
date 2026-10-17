@@ -50,6 +50,13 @@ the dyad, the landscape's noise); the film's titles and credits; levels of visua
 (registry/views.yaml, `make -C sherlock views`). Closed: ISS-079, 092, 098, 109, 113. The music
 notebook upload (HAL-UAT-MUSIC, 38 old sources + 11 music) is planned in Me and paused.
 
+**The visual pipeline (17 Oct, ISS-117; the audio comes after it):** docs/PIPELINE.md (one state; compose
+once, the viewer's baseline compiled on top, perform with small live overrides; five kinds of jump; the
+three FLY windows; questions in, pictures out; a new tool's save and see); the grand tour
+(registry/tours/grand-tour.yaml, 18 places, UAT `app-grand-tour`); the film compiler
+(scripts/compile-film.mjs, to bld/film/*.timeline.json, for picture and sound). Open: the app playing a
+compiled timeline; transitions as declared kinds.
+
 **Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
 ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
 tokens; the Lulu account; the UAT walk (now 33 steps).
