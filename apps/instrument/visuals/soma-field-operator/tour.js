@@ -9,6 +9,7 @@ import { OVERLAYS, createPresentationStage } from './presentation.js';
 import { FEELINGS, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { companion } from './who.js';
 import { parseVia, styleProblem } from './transitions.js';
+import { createVeil } from './veil.js';
 
 export const EVIDENCE_LABELS = ['kernel-verified', 'derived-under-assumptions', 'simulated', 'empirical-result', 'interpretive', 'open-hypothesis'];
 const TOUR_KEYS = new Set(['level', 'path', 'lens', 'dim', 'model', 'reader', 'era', 'compare', 'contours', 'q', 'labels', 'ui',
@@ -274,6 +275,16 @@ export function createTourPlayer({ voice, narration }) {
   let auto = false;
   let token = 0;
   let timer = null;
+  let veil = null;
+
+  // the style in force at a step: the last `style:` at or before it (`none` clears it)
+  function styleAt(k) {
+    for (let i = k; i >= 0; i--) {
+      const st = tour.steps[i].style;
+      if (st !== undefined) return st === 'none' ? null : st;
+    }
+    return null;
+  }
 
   function showView(view) {
     const params = new URLSearchParams(view);
@@ -299,7 +310,15 @@ export function createTourPlayer({ voice, narration }) {
     labelEl.textContent = step.label ? LABEL_TEXT[step.label] : '';
     labelEl.dataset.label = step.label ?? '';
     sayEl.textContent = step.say;
-    showView(step.view);
+    // the jump into this step, declared or not, and the style in force: for the sound
+    // (registry/transitions.yaml); a declared fade or wormhole is drawn by the veil
+    const via = step.via ? parseVia(step.via) : null;
+    dispatchEvent(new CustomEvent('soma-transition', { detail: { index, view: step.view, via: step.via ?? null, kind: via?.kind ?? null, seconds: via?.seconds ?? null, sync: via?.sync ?? null, style: styleAt(index) } }));
+    if (step.via) {
+      veil ??= createVeil();
+      await veil.run(step.via, () => { if (mine === token) showView(step.view); });
+      if (mine !== token) return;
+    } else showView(step.view);
     stage.setOverlay(step.overlay ?? null);
     // Other windows (screens.js) show the line as a HUD.
     dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: tour.title, count: countEl.textContent, label: step.label ?? '', labelText: step.label ? LABEL_TEXT[step.label] : '', say: step.say } }));

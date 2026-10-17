@@ -42,16 +42,19 @@ voyage:
     - file: voyage/01-the-jellyfish-human.md
       plates:
         - {id: human, view: "voyage=human&dim=11&phi=0.6"}
+        - {id: worlds, view: "level=human-vertebrate&voyage=worlds&dim=11&phi=0.5", settle: 4000}
     - file: voyage/02-the-body.md
       plates:
         - {id: body-fight, view: "voyage=body&dim=4&phi=0.6&feel=fight"}
         - {id: body-grief, view: "voyage=body&dim=4&phi=0.6&feel=grief"}
+        - {id: heart-atrium, view: "level=human-vertebrate&voyage=body&hall=1&dim=11&phi=0.5", settle: 4000}
     - file: voyage/03-the-way-in.md
       plates:
         - {id: wayin, view: "voyage=wayin&dim=4&phi=0.5"}
     - file: voyage/04-the-brain.md
       plates:
         - {id: brain, view: "voyage=brain&dim=8&phi=0.6"}
+        - {id: great-hall, view: "level=whole-brain-cemi&voyage=brain&hall=1&dim=11&phi=0.5", settle: 4000}
     - file: voyage/05-the-cathedral.md
       plates:
         - {id: cave-inside, view: "voyage=brain&dim=11&phi=0.6", acts: [cave]}
@@ -66,9 +69,12 @@ voyage:
     - file: voyage/08-emotion-and-thought.md
       plates:
         - {id: thought, view: "voyage=thought&dim=11&phi=0.6", acts: [poke, poke], act_wait: 700, settle: 2500}
+        - {id: mind-chamber, view: "level=whole-brain-cemi&voyage=thought&hall=1&dim=11&phi=0.5", settle: 4000}
+        - {id: the-course, view: "level=whole-brain-cemi&voyage=thought&choices=1&dim=11&phi=0.5", settle: 4000}
     - file: voyage/09-one-neuron.md
       plates:
         - {id: neuron, view: "voyage=neuron&dim=11&phi=0.6"}
+        - {id: soma, view: "level=cellular-synaptic&voyage=neuron&hall=1&dim=11&phi=0.5", settle: 4000}
     - file: voyage/10-memory.md
       plates:
         - {id: memory, view: "voyage=network&dim=11&phi=0.5"}

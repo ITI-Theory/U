@@ -9,3 +9,9 @@ The explorer is a view inside the same machine as the level ladder: the human le
 ::: {.plate id="human"}
 The jellyfish human, the Atlas's humanoid at 11D: body, fields and the brain on top, glowing with the limbic field. A picture of the model, not of anatomy (`interpretive`).
 :::
+
+Before the human there is the map. THE WORLDS draws the zoom as glass domes on a dark plain, one dome per stretch of the ladder, from the quantum foam to the cosmic web; the voyage goes through the glass of the human dome. The domes are a map of the levels, not places in the universe: worlds nest inside worlds in the picture only, and the territory is the ladder of length scales the atlas's sectors set out `interpretive`.
+
+::: {.plate id="worlds"}
+THE WORLDS: the zoom as glass domes, quantum to cosmos, one per stretch of the level ladder. A map, not the territory (`interpretive`).
+:::

@@ -78,9 +78,11 @@ via: wormhole 4s on bar    the neon cave's tunnel, landing on a bar line
 A step without `via:` gets a kind inferred from the two views. The compiler writes every transition
 with its kind, seconds and sync, so the sound knows when a jump starts, how long it takes and where it
 lands (a cut on the beat, a wormhole on the bar). Checked at build (`npm run generate`) and when a tour
-is read (tour.js); a sound that cannot make a jump plays it as an effect. Today the explorer draws its
-own jumps (the zoom fade, the dive, the doorway glide); drawing each declared kind, the wormhole among
-them, is ISS-117's open box.
+is read (tour.js); a sound that cannot make a jump plays it as an effect. At run time every tour step
+announces its jump and the style in force as the browser event `soma-transition` ({kind, seconds,
+sync, style, view}), for the sound to follow. The explorer draws the dive, the doorway and the elevator
+itself; a declared fade is drawn by the veil (veil.js) over its seconds, the view changing at the
+midpoint; the wormhole is a flight down the neon cave when ROOTED, a fade in the default (ISS-095).
 
 **Style.** A step may carry `style:` ("punk rock", "a lullaby", "film noir"): a directive to the
 renderers, kept until the next `style:` (`style: none` clears it). It is non-functional: it never

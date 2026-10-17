@@ -4488,6 +4488,11 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
       tour, the towers export at 641f3b4: 1,116 declarations, none on sorry, none of True) 5. The city of code for the 11D chapter: the landscape as one world, a tower of Lean with
       floors and axiom beams (about 4 pages).
 - [x] (13 Oct night: voyage stop 15, the same story-time in mind, river, body and session) 6. The Tensor's score in its four settings: mind, river, body, session (about 4 pages).
+- [x] (17 Oct, the freeze) The voyage brought up to the app as it ships: all 42 plates recaptured
+      (the cathedral's neon pass, the palace restyled), and seven new plates in the stops they belong
+      to: THE WORLDS (stop 1), the heart's left atrium (2), the great hall (4), the mind chamber and THE
+      COURSE (8), the soma (9); anatomy `sourced` (OpenStax A&P 2e), the looks `interpretive`; the
+      halls named in the part's opening as its crossroads. The neon cave stays out (show, ROOTED's).
 - [ ] Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).
@@ -6254,6 +6259,10 @@ picture and sound if they can be.
       transition's kind, seconds and sync. `style:` on a step (a directive to the renderers, kept until
       the next, never changing the state) travels on every place of the compiled film. docs/PIPELINE.md,
       docs/TOUR-LANGUAGE.md.
-- [ ] The explorer draws each declared kind (today: the zoom fade, the dive, the doorway glide; next the
-      fade, the cut on the beat, and the wormhole through the neon cave).
+- [x] (20:25) A tour draws its declared jumps (veil.js): a fade over the step's seconds, the view
+      changing when the veil is full; the wormhole a flight down the neon cave when ROOTED, a fade in
+      the default (ISS-095); the dive, the doorway and the elevator stay the explorer's own. Every step
+      dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
+      the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
+- [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
 

@@ -9,3 +9,9 @@ As the limbic field rises the explorer lets the amygdala glow and the prefrontal
 ::: {.plate id="brain"}
 The brain from the side, at 8D: the fast low road from thalamus to amygdala and the slower high road through the cortex (LeDoux). Schematic (`sourced` for the two roads, `interpretive` for the glow).
 :::
+
+Inside, the brain's hall is the atrium of a lateral ventricle, where its body and its posterior and inferior horns meet, full of cerebrospinal fluid; the choroid plexus, which makes that fluid, is largest here. From the lateral ventricles the fluid passes through the interventricular foramina to the third ventricle and down the cerebral aqueduct to the fourth [@openstax2022anatomy] `sourced`. The plate's curtains are the choroid plexus; its webs borrow the arachnoid's trabeculae from the space outside the brain, and the water's light and the scale are for the eye `interpretive`. The doorways lead down to the cathedral of the ventricles, through the limbic gate to the mind chamber, up the way a signal climbs, to the mind palace and back down the arteries.
+
+::: {.plate id="great-hall"}
+The great hall: the atrium of the lateral ventricle under cerebrospinal fluid, the choroid plexus as curtains, doorways to the brain's stops (`sourced` for the anatomy, `interpretive` for the look).
+:::
