@@ -5620,7 +5620,7 @@ grammar's three gaps closed by it.
       own, so all six change shape together with the slider (deep and walled when cool, flat
       when hot); each has the rim up to the square's top edge again; their relief is kept at
       their size.
-- [ ] SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
+- [x] (16 Oct, checked: who.js NAMES, rooted: SOMA WORLD; the U and the scientist keep THE WORLDS) SOMA WORLD (author 01:05): THE WORLDS' name in ROOTED only, the theme-park edition (ISS-095:
       ROOTED, the unlocked mode); the science mode keeps THE WORLDS. With ROOTED.
 - [ ] Next: the levels view in the shell (fix 4), after the author's walk (UAT, `uat/checklist.yaml`).
 - [~] The art pass (fix 10), starting with the palace (and the cathedral's pale 3D stone). (16 Oct:
