@@ -57,6 +57,14 @@ three FLY windows; questions in, pictures out; a new tool's save and see); the g
 (scripts/compile-film.mjs, to bld/film/*.timeline.json, for picture and sound). Open: the app playing a
 compiled timeline; transitions as declared kinds.
 
+**Later, 17 Oct (the freeze evening; the author: papers, books, then the Soma Machine; complete before
+the audio):** the neon cave (the score's SETTING: CAVE, show); the transition grammar
+(registry/transitions.yaml: `via: kind [secs] [on sync]`; `style:` directives) through to the compiled
+film; tours draw their jumps (veil.js; the wormhole ROOTED's, a fade by default) and announce
+`soma-transition`; FILM plays a compiled film in sync (film.js, MOTHER /film, `soma-film-frame`). The
+Atlas's voyage recaptured (42 plates) with the halls, THE WORLDS and THE COURSE. The big build running
+(bld/logs/big-build-2026-10-17.log); then release-check, the Wizard again, the art book's editions.
+
 **Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
 ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
 tokens; the Lulu account; the UAT walk (now 33 steps).
