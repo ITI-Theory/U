@@ -357,6 +357,67 @@ function river(rand) {
   return group;
 }
 
+// THE FLUID (ISS-052: "fluid as a real flow solver"): the motes ride an incompressible 2D flow
+// across the view, solved each frame on a coarse grid by Stam's stable fluids (semi-Lagrangian
+// advection, a pressure projection by Jacobi iterations, so the flow is divergence-free), periodic at
+// the edges. Three slow stirrers keep it moving, harder as the field Φ rises; POKE throws a vortex in.
+// The forward drift (the flight's speed) is added on top. A picture of a flow, not a model of one.
+function createFluid(W = 48, H = 28, spanX = 24, spanY = 14) {
+  const n = W * H, h = spanX / W;
+  let u = new Float32Array(n), v = new Float32Array(n);
+  const u0 = new Float32Array(n), v0 = new Float32Array(n), p = new Float32Array(n), div = new Float32Array(n);
+  const id = (i, j) => (((j % H) + H) % H) * W + (((i % W) + W) % W);
+  const bilerp = (f, x, y) => {
+    const i = Math.floor(x), j = Math.floor(y), a = x - i, c = y - j;
+    return (1 - a) * (1 - c) * f[id(i, j)] + a * (1 - c) * f[id(i + 1, j)] + (1 - a) * c * f[id(i, j + 1)] + a * c * f[id(i + 1, j + 1)];
+  };
+  function swirl(cx, cy, strength, R, dt) {   // tangential push round (cx, cy), in cells
+    for (let j = Math.floor(cy - R); j <= cy + R; j++) {
+      for (let i = Math.floor(cx - R); i <= cx + R; i++) {
+        const dx = i - cx, dy = j - cy, d = Math.hypot(dx, dy);
+        if (d < 0.5 || d > R) continue;
+        const f = strength * (1 - d / R) * dt;
+        const k = id(i, j);
+        u[k] += (-dy / d) * f;
+        v[k] += (dx / d) * f;
+      }
+    }
+  }
+  return {
+    // velocities in cells per second; stirrers: [{ x, y (cells), strength, r }]
+    step(dt, stirrers) {
+      for (const st of stirrers) swirl(st.x, st.y, st.strength, st.r, dt);
+      u0.set(u); v0.set(v);
+      for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+        const k = j * W + i;
+        u[k] = bilerp(u0, i - dt * u0[k], j - dt * v0[k]);
+        v[k] = bilerp(v0, i - dt * u0[k], j - dt * v0[k]);
+      }
+      for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+        div[j * W + i] = -0.5 * (u[id(i + 1, j)] - u[id(i - 1, j)] + v[id(i, j + 1)] - v[id(i, j - 1)]);
+      }
+      p.fill(0);
+      for (let it = 0; it < 20; it++) {
+        for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+          p[j * W + i] = (div[j * W + i] + p[id(i - 1, j)] + p[id(i + 1, j)] + p[id(i, j - 1)] + p[id(i, j + 1)]) / 4;
+        }
+      }
+      for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+        const k = j * W + i;
+        u[k] = 0.995 * (u[k] - 0.5 * (p[id(i + 1, j)] - p[id(i - 1, j)]));
+        v[k] = 0.995 * (v[k] - 0.5 * (p[id(i, j + 1)] - p[id(i, j - 1)]));
+      }
+    },
+    // the flow at a world point (x across, y up), in world units per second
+    at(x, y) {
+      const cx = (x + spanX / 2) / h, cy = (y + spanY / 2) / h;
+      return [bilerp(u, cx, cy) * h, bilerp(v, cx, cy) * h];
+    },
+    vortex(x, y, strength) { swirl((x + spanX / 2) / h, (y + spanY / 2) / h, strength, 7, 1); },
+    get size() { return [W, H]; },
+  };
+}
+
 const BUILDERS = { river, cosmological: cosmicWeb, 'micro-physical': quantumFoam, organismal: innerSea, collective: murmuration, geological: foldedStrata, network: networkWorld, systemic: networkWorld, 'named-solution': innerSea };
 
 // ---------------------------------------------------------------- the Mandelbulb, raymarched
@@ -736,6 +797,7 @@ export function createFlight3D() {
   }
   const motes = points(motePos, null, 0.05, 0.6);
   scene.add(motes);
+  const fluid = createFluid();
 
   function build(next) {
     sector = next;
@@ -768,6 +830,7 @@ export function createFlight3D() {
     },
     poke(strength = 1) {
       surge = Math.max(surge, 0.6 + 0.6 * strength);
+      fluid.vortex((Math.random() - 0.5) * 14, (Math.random() - 0.5) * 8, (Math.random() < 0.5 ? -1 : 1) * (14 + 10 * strength));
     },
     // state: { sector, phi, time, stereo }
     render(state) {
@@ -884,14 +947,18 @@ export function createFlight3D() {
       tiles[1].position.z = offset - TILE;
       // the copy whose tile has the animation drives both (they share geometry through clone)
       tiles[0].userData.animate?.(state.time);
-      // the fluid: a divergence-free swirl, and the forward drift
+      // the fluid (a solved flow, createFluid), and the forward drift
       const t = state.time;
+      const [FW, FH] = fluid.size;
+      const stir = 0.6 + 2.6 * state.phi;
+      fluid.step(dt, [0, 1, 2].map(k => ({ x: FW / 2 + Math.cos(t * 0.05 + k * 2.1) * FW * 0.3, y: FH / 2 + Math.sin(t * 0.04 + k * 2.1) * FH * 0.3, strength: (k % 2 ? -1 : 1) * stir, r: 9 })));
       for (let i = 0; i < MOTES; i++) {
         const k = i * 3;
-        const x = motePos[k];
-        const y = motePos[k + 1];
-        motePos[k] += (Math.sin(y * 0.4 + t * 0.3) * 0.6) * dt;
-        motePos[k + 1] += (Math.cos(x * 0.35 + t * 0.25) * 0.4) * dt;
+        const [fu, fv] = fluid.at(motePos[k], motePos[k + 1]);
+        motePos[k] += fu * dt;
+        motePos[k + 1] += fv * dt;
+        if (motePos[k] > 12) motePos[k] -= 24; else if (motePos[k] < -12) motePos[k] += 24;
+        if (motePos[k + 1] > 7) motePos[k + 1] -= 14; else if (motePos[k + 1] < -7) motePos[k + 1] += 14;
         motePos[k + 2] += speed * dt;
         if (motePos[k + 2] > 2) {
           motePos[k + 2] -= 42;
