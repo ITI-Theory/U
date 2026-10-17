@@ -42,6 +42,14 @@ provenance of the scores (`make -C sherlock provenance`), read-back of a recordi
 (`make -C sherlock readback`); the band over MIDI OUT (channel 2: chord pads 60-66, CC 30-33) for
 Scaler 3, which the author is setting up.
 
+**The feature hour (16 Oct, late):** the jokes on the web (web/home.md); the overview as a tour stop
+(`overview: 1`); the Gallery in the app (GALLERY, 13 rooms, 87 plates); the hubs registry
+(registry/hubs.yaml, checked at build); every feature tagged science or show (registry/features.yaml,
+`make -C sherlock features`, for the author's approval); the strap beyond the score (the body's heart,
+the dyad, the landscape's noise); the film's titles and credits; levels of visualisation by viewer
+(registry/views.yaml, `make -C sherlock views`). Closed: ISS-079, 092, 098, 109, 113. The music
+notebook upload (HAL-UAT-MUSIC, 38 old sources + 11 music) is planned in Me and paused.
+
 **Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
 ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
 tokens; the Lulu account; the UAT walk (now 33 steps).
