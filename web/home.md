@@ -29,6 +29,18 @@ the build on [GitHub](https://github.com/ITI-Theory). In the app, take the red b
 
 *The app is a preview: in user acceptance testing, not a release.*
 
+## What does the T stand for?
+
+T is for Theory, and Theory is for T. Also for Type (the Lean proofs are made of types), for
+Tensor (a lot bigger than M for matrix), and on a good night for techno and trance: a one-letter
+recursive acronym, a fractal of a name. Or, as a spy novel would put it: *T is for Tensor, and
+Tensor is for The Tensor, and The Tensor is for T.*
+
+The programme's motto is older than its papers: **we don't do middle**. All or nothing, the field
+or its dual.
+
+*Humour: this section claims nothing.*
+
 ## Licence and credit
 
 Text, papers, books and figures: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

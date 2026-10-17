@@ -5985,7 +5985,8 @@ The READMEs (five in .github-private, two in .github):
 - [x] .github-private: the manifesto of 16 May 2026, 01:18 (commit e143065, four minutes after the
       repository) kept as profile/MANIFESTO.md; the copies deleted; the members' page refreshed from
       the public one, with a link to the manifesto (4ee958a).
-- [ ] The jokes on the web (t-theory.org, for U): the cipher, the one-letter recursive acronym
+- [x] (16 Oct: web/home.md, "What does the T stand for?": the recursive acronym, the cipher, "we
+      don't do middle"; labelled humour; live with the site on the 21st) The jokes on the web (t-theory.org, for U): the cipher, the one-letter recursive acronym
       (T is for Theory, Type, Tensor, techno and trance), "we don't do middle"; humour, labelled.
 - [x] The beep in MOTHER's voice: bin/mother-beep.ps1 (a data trill, two rising bleeps; -Need adds
       a lower third, a question). Copilot's call to the author from now on.
