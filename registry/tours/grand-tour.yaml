@@ -1,0 +1,62 @@
+id: grand-tour
+title: The grand tour
+summary: 'Every main place of the Soma Machine, in order, each saying what happens next (author, 17 Oct:
+  "a tour of all the main pages in the app ... for each page, what happens next"). The visual
+  storyboard for the music that comes later: the cockpit looks out on three worlds, space, earth and the
+  inside of a body.'
+steps:
+- view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
+  overview: 1
+  say: 'The whole instrument first: one big screen and three small ones, one field. Next, the map.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
+  say: 'THE WORLDS: the zoom as glass domes, quantum to cosmos. Next we go through the glass into the human.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=human&dim=11&phi=0.5
+  say: 'The jellyfish human, the home view: a body, its fields, a brain on top. Next, the chest: into the heart.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=body&hall=1&dim=11&phi=0.5
+  say: 'The heart, the left atrium: the body''s hub. Next, the way in: through the valve and up the arteries.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=wayin&dim=11&phi=0.5
+  say: 'The way in, a flight through the arteries to the brain: the first of the inside views. Next, the great hall.'
+  label: interpretive
+- view: level=whole-brain-cemi&voyage=brain&hall=1&dim=11&phi=0.5
+  say: 'The great hall, the brain''s own cave under water, doorways all round. Next, down into the cathedral.'
+  label: interpretive
+- view: level=whole-brain-cemi&voyage=brain&cave=1&dim=11&phi=0.5
+  say: 'The cathedral: the ventricles, neon in the stone. Raise the field and the stone lights. Next, up to the palace.'
+  label: interpretive
+- view: level=whole-brain-cemi&voyage=brain&palace=1&dim=11&phi=0.5
+  say: 'The mind palace: twenty-one floors, the method of loci. Next, through the limbic gate.'
+  label: interpretive
+- view: level=whole-brain-cemi&voyage=limbic&dim=11&phi=0.5
+  say: 'The limbic hinge: body below, mind above. Next, the mind chamber, where thoughts arise.'
+  label: interpretive
+- view: level=whole-brain-cemi&voyage=thought&hall=1&dim=11&phi=0.5
+  say: 'The mind chamber: below the gold plane the field is real but not felt; a swell becomes a thought. Next, the course.'
+  label: interpretive
+- view: level=whole-brain-cemi&voyage=thought&choices=1&dim=11&phi=0.5
+  say: 'The course: should I do it? Each consideration a ripple across the sea. Next, the landscape underneath it all.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=landscape&golf=1&dim=11&phi=0.5
+  say: 'The landscape as mini golf: six basins and the ways between. Next, down to one cell.'
+  label: interpretive
+- view: level=cellular-synaptic&voyage=neuron&hall=1&dim=11&phi=0.5
+  say: 'The soma, the cell body of a neuron: the nucleus, the stacked walls. Next, out to two people.'
+  label: interpretive
+- view: level=dyad&voyage=dyad&dim=11&phi=0.4
+  say: 'The dyad: two rhythms that drift, then lock. Next, the cockpit window: three worlds to fly.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=flight&dim=11&phi=0.6
+  say: 'Fly, inside a body: an inner sea of coral and plankton. Next, the earth.'
+  label: interpretive
+- view: level=geological&voyage=flight&dim=11&phi=0.6
+  say: 'Fly, the earth: folded strata, dust in the wind. Next, space.'
+  label: interpretive
+- view: level=cosmic-web&voyage=flight&dim=11&phi=0.6
+  say: 'Fly, space: the cosmic web, galaxies on filaments round the voids. Next, the score that drives it all.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=score&kc=river&dim=11
+  say: 'The score: the River Film, the emotions over time, the same state every view reads. This is where the music will join.'
+  label: interpretive

@@ -116,6 +116,11 @@ steps:
     kind: manual
     title: "Attest the scores: are these your emotions? (ISS-115, provenance)"
     do: "python sherlock/provenance.py; play each score in the app (SCORE stop: river-film, then fis-2021, which is Copilot's estimate from your 2021 notes); correct the numbers you disagree with; then set attested: {by: Alistair Johnson, on: <date>} in registry/scores/<id>.yaml"
+  - id: app-grand-tour
+    kind: app
+    title: "The grand tour: every main place in order, each saying what happens next; the three FLY windows (docs/PIPELINE.md)"
+    url: "#voyage=worlds&dim=11"
+    do: "GUIDE: The grand tour; step through all 18; is each place right, is each jump (dive, doorway, elevator, tube, cut) the right kind, and are the three windows (inside a body, the earth, space) the views you want to fly in?"
   - id: app-physical-places
     kind: app
     title: "The physical places on their own: the halls and the tubes, no mind layers (ISS-104 step 1)"

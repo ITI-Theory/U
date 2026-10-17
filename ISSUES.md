@@ -6204,3 +6204,40 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
       comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
       move the score to Me.
 
+## ISS-117: The visual pipeline first: one state, compiled once, played live — OPEN
+
+{{Tags area.app, area.art}}
+{{Fields date.created=2026-10-17, date.start=2026-10-17, date.end=, epic=}}
+
+Author, 17 Oct 18:41: before the audio this evening, the visuals must be done: a tour of all the main
+places, each saying what happens next; motion means flying, so the cockpit needs three windows (space,
+earth, inside bodies); base + override everywhere; compile time and run time (compose and perform): cut a
+film once with zero user adjustments, compile the user's baseline on top so it plays as zero, then small
+live overrides; the same information for video and audio, formalised, and the pipeline too; the tools
+(SpaceEngine, the fractal programs, the company named after Kandinsky's condition); the questions asked
+of H-AL or a therapist; a new tool's save-and-see; the jumps between places (morphisms), done alike in
+picture and sound if they can be.
+
+- [x] docs/PIPELINE.md: the contract (place, modes, field, events, body), the stages (source, compose once,
+      the baseline compiled on top, render, perform with live overrides, record), the five jumps, the three
+      windows, questions in and pictures out, save and see.
+- [x] The grand tour (registry/tours/grand-tour.yaml): 18 places, each saying what happens next, the three
+      FLY windows among them (FLY's world follows the level's sector: an inner sea, the strata, the cosmic
+      web); every place rendered and checked headless (one apparent stale overlay at the great hall was the
+      headless frame rate, 7 fps: the 1.3 s transition runs on the app's clock). UAT `app-grand-tour`.
+- [x] The compiler (apps/.../scripts/compile-film.mjs): a tour over a score with a viewer's baseline, once,
+      to bld/film/<tour>.<score>.<viewer>.timeline.json at 10 fps: the places, the transitions by kind, the
+      score's modes, the modes with the baseline compiled on top (score.js viewerTransform, viewerStep), the
+      band's controls (midi-out.js). river-film at 45 minutes: neutral safety 0.20 fear 0.70, cptsd 0.00 and
+      0.90. The same file for the sound later.
+- [x] H-AL asked (uat/RC3/hal-pipeline-2026-10-17.md; answers private, Me): the tools (SpaceEngine,
+      Mandelbulb 3D and Mandelbulber, TouchDesigner, Blender, Spout; the TouchDesigner Mandelbulb script is
+      in Me's takeout, verified); the company is Synesthesia (synesthesia.live, a VJ program that makes
+      visuals from music; the author on 12 July, verified in the chat); the observatory mode as designed
+      (3 Oct) and built; the compose and perform split in The Tensor and the June chats (the decay to zero,
+      the trauma baseline that fights back, the override lock). HAL-UAT now holds this week's chat (volume 15).
+- [ ] The app plays a compiled timeline (run time): SHOW-like playback of bld/film/*.timeline.json, the
+      places and the modes in sync, the knobs as small overrides mixed in.
+- [ ] Transitions as declared kinds in the explorer (today: the zoom fade, the dive, the doorway glide), so
+      a compiled film and the sound can follow them.
+
