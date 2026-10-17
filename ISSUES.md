@@ -3996,9 +3996,11 @@ Copilot, 13 Oct:
 
 **Closed 2026-10-13:** done; what was left moved on: see the pointer above.
 
-## ISS-079: [T]-Theory Mk 1 (V1, 21 Oct) and the VS Code extension as a back door — OPEN
+## ISS-079: [T]-Theory Mk 1 (V1, 21 Oct) and the VS Code extension as a back door — CLOSED
 {{Tags area.ops, area.app, area.instrument}}
 {{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-21, epic=}}
+
+**Closed 2026-10-16:** nothing left open: Mk 1 is ISS-114 (the release epic); its last task, the web plan, is done.
 
 Author, 13 Oct 18:28: a Sherlock plug-in with a Lean scribe is a lot of work for no return;
 instead ship the Soma Machine inside the Sherlock extension ("view in Soma Machine"): a back
@@ -4644,9 +4646,11 @@ packets; waits for a real strap.
 
 ---
 
-## ISS-092: The Wizard's checks: what a book promises, what is next to it, what was never written — OPEN
+## ISS-092: The Wizard's checks: what a book promises, what is next to it, what was never written — CLOSED
 {{Tags area.proofs, area.books}}
-{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=ISS-055-sherlock}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-16, epic=ISS-055-sherlock}}
+
+**Closed 2026-10-16:** nothing left open: the Wizard checks are built; the never-written answers are on the desk (ISS-081).
 
 Author, 13 Oct afternoon: before the UAT and asking H-AL whether we covered everything, add it to
 Sherlock: a definition of what each book is expected to cover, and the big question, "is there
@@ -5750,10 +5754,12 @@ which is fine as long as ROOTED holds nothing that must stay private.
       (generated from registry/model.yaml, never copied).
 - UAT (the author's walk): `uat/checklist.yaml`, steps `app-who`, `app-model`, `app-poke`.
 
-## ISS-109: The programme's presence: web, GitHub, app, names, licence, checked by Sherlock — OPEN
+## ISS-109: The programme's presence: web, GitHub, app, names, licence, checked by Sherlock — CLOSED
 
 {{Tags area.release, area.sherlock}}
-{{Fields date.created=2026-10-16, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-16, date.start=, date.end=2026-10-16, epic=}}
+
+**Closed 2026-10-16:** nothing left open: presence is checked by Sherlock (0 gaps); the QR codes decoded; publishing is ISS-114.
 
 Author, 16 Oct 15:16: t-theory.org and ITI-Theory on GitHub. The GitHub repository is dry, but
 right for the scientist: keep it that way, and t-theory.org can stay. The web site, GitHub and
