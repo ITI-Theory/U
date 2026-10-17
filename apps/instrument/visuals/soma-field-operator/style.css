@@ -866,3 +866,30 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 .explorer__where small a { color: inherit; }
 /* THE OVERVIEW as a tour's first stop (ISS-100): the desk over the app, above the tour card's row */
 .presentation-overview { position: fixed; z-index: 205; left: 4vw; top: 35vh; width: 92vw; height: calc(53vh - 40px); border: 1px solid rgba(20,229,255,.45); border-radius: 6px; background: #05070e; box-shadow: 0 0 40px rgba(20,229,255,.15); }
+/* A Gallery of Thoughts (gallery.js, ISS-097): rooms at the left, the room's text and plates, a plate large */
+.gallery { position: fixed; inset: 0; z-index: 430; display: grid; grid-template-columns: 240px 1fr; grid-template-rows: auto 1fr; background: #06050c; color: #e8eefc; font-family: 'Space Mono', monospace; }
+.gallery__head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 16px; padding: 14px 20px; border-bottom: 1px solid rgba(255,59,206,.35); }
+.gallery__head h2 { margin: 0; font: 800 22px/1 'Syne', sans-serif; letter-spacing: .02em; }
+.gallery__head p { margin: 0; color: rgba(232,238,252,.6); font-size: 12px; }
+.gallery__head button { margin-left: auto; width: auto; flex: 0 0 auto; padding: 4px 12px; }
+.gallery button { border: 1px solid rgba(20,229,255,.4); background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.gallery__rooms { overflow-y: auto; padding: 10px; border-right: 1px solid rgba(20,229,255,.2); display: flex; flex-direction: column; gap: 6px; }
+.gallery__rooms button { text-align: left; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; font-size: 12px; }
+.gallery__rooms button small { color: rgba(232,238,252,.55); font-size: 10px; }
+.gallery__rooms button.active { border-color: #ff3bce; background: rgba(255,59,206,.08); }
+.gallery__room { overflow-y: auto; padding: 18px 26px 40px; }
+.gallery__room h3 { margin: 0 0 10px; font: 700 18px/1.2 'Syne', sans-serif; }
+.gallery__room h3 small { color: rgba(232,238,252,.55); font: 400 11px 'Space Mono', monospace; margin-left: 8px; }
+.gallery__room p { max-width: 78ch; color: rgba(232,238,252,.82); font-size: 12px; line-height: 1.6; }
+.gallery__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 18px; }
+.gallery__grid button { padding: 0; border-color: rgba(232,238,252,.15); aspect-ratio: 303 / 216; overflow: hidden; }
+.gallery__grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+.gallery__grid button:hover img { transform: scale(1.04); }
+.gallery__plate { position: fixed; inset: 0; z-index: 431; margin: 0; display: grid; place-items: center; background: rgba(3,2,8,.96); }
+.gallery__plate img { max-width: 92vw; max-height: 80vh; box-shadow: 0 0 60px rgba(0,0,0,.6); }
+.gallery__plate figcaption { max-width: 80ch; text-align: center; font-size: 13px; line-height: 1.5; }
+.gallery__plate figcaption small { display: block; margin-top: 6px; color: rgba(232,238,252,.55); font-size: 11px; }
+.gallery__plate [data-act="prev"] { position: fixed; left: 18px; top: 50%; padding: 10px 14px; }
+.gallery__plate [data-act="next"] { position: fixed; right: 18px; top: 50%; padding: 10px 14px; }
+.gallery[hidden], .gallery__plate[hidden] { display: none; }
+.gallery__plate [data-act="back"] { position: fixed; right: 18px; top: 16px; padding: 6px 12px; }

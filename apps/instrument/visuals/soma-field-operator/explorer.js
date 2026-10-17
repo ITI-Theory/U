@@ -3440,6 +3440,14 @@ export function createExplorer(hooks = {}) {
     guideButton.title = 'The tours, as tabs; MY ROUTE (+ HERE adds where you are)';
     guideButton.addEventListener('click', event => { event.stopPropagation(); dispatchEvent(new CustomEvent('soma-guide')); });
     motherButton.before(guideButton);
+    // A Gallery of Thoughts (ISS-097): the art book's rooms and plates
+    const galleryButton = document.createElement('button');
+    galleryButton.type = 'button';
+    galleryButton.className = 'explorer__guide';
+    galleryButton.textContent = 'GALLERY';
+    galleryButton.title = 'A Gallery of Thoughts: the art book, room by room';
+    galleryButton.addEventListener('click', event => { event.stopPropagation(); dispatchEvent(new CustomEvent('soma-gallery')); });
+    motherButton.before(galleryButton);
     const badge = document.createElement('span');
     badge.className = 'who-badge';
     badge.textContent = 'ROOTED';

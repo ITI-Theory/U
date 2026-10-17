@@ -4916,7 +4916,11 @@ also as a new view in the app, the Gallery.
       Sources and licences: the collection as inspiration only (its works are others'
       copyright); the book's images made by the programme (renders, captures, filters), or
       public domain, or licensed.
-- [ ] The Gallery view in the Soma Machine.
+- [x] The Gallery view in the Soma Machine. (16 Oct: gallery.js, GALLERY in the explorer's top bar:
+      the 13 rooms on the programme's clock with their dates and texts, the 87 rendered plates (the
+      book's own, bld/gallery/plates, copied by generate.py to public/gallery at 1600 px, 20 MB,
+      loaded lazily), a plate large with its caption and [T]-stop, arrows and Esc. Candidates the
+      author has not chosen are left out. UAT `app-gallery`.)
 
 Author, 14 Oct 17:33: the name is *A Gallery of Thoughts*; A3 is the aim, Lulu A4 the short-term
 proof, and a projector edition (it looks good big); video later; no drone footage (the app's
