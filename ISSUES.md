@@ -5155,6 +5155,10 @@ worlds (flight3d.js). The brain's hub is anatomy, not invention: the atrium of t
 ventricle (ISS-102); the cobwebs are real, the arachnoid mater is named for its web-like
 trabeculae, crossing the fluid-filled subarachnoid space; the tissue curtains are the choroid
 plexus.
+- [x] (16 Oct: registry/hubs.yaml, the four halls (brain, heart, neuron, mind) with their stop, their
+      floor, their names and their twenty routes, moved word for word from atrium3d.js, which reads them
+      through generate.py; the look stays in the code. generate.py stops the build if a route goes
+      nowhere the explorer knows or a floor is not a level (tested with a broken route).)
 - [ ] A registry of hubs (registry/hubs.yaml): per elevator floor, its hall (shape, texture,
       FX), its routes (to which stop or tunnel), the elevator at its entrance.
 - [x] (14 Oct, prototype; author UAT) First hub: the brain's great hall (the atrium),

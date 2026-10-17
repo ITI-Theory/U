@@ -1,0 +1,53 @@
+# The hubs (ISS-103): every elevator exit opens into a place, a hall, with routes going off it, as a
+# game's hub world has. One entry per hall: the explorer stop it belongs to, the elevator floor (a level
+# id) it opens from, its name and the line under it, and its routes (the doorways): where each goes (a
+# stop, or one of the stop's own places: cathedral, palace, choices, bloodstream), its name, the line
+# under it, its colour and its angle round the hall (0 straight ahead, in radians). The hall's look
+# (fog, light, walls) stays in atrium3d.js; the words and the routes are here. generate.py checks every
+# route goes somewhere the explorer knows. Anatomy for the route, sci-fi for the look; interpretive.
+schema_version: 1
+hubs:
+  brain:
+    stop: brain
+    floor: whole-brain-cemi
+    title: "THE GREAT HALL · the atrium of the lateral ventricle"
+    sub: "the brain's own cave, under water (cerebrospinal fluid): the curtains are the choroid plexus at its largest, the webs the arachnoid's trabeculae; proportions for the eye"
+    routes:
+      - {id: cathedral, angle: 0, label: "THE CATHEDRAL", sub: "down the foramen and the aqueduct to the fourth ventricle", color: '#a78bfa'}
+      - {id: thought, angle: -0.95, label: "THE LIMBIC GATE", sub: "the hinge between body and mind: into the mind chamber", color: '#ff7aa8'}
+      - {id: tunnel, angle: 0.95, label: "THE WAY UP", sub: "a signal from the body, through the gates to the cortex", color: '#ffd166'}
+      - {id: palace, angle: -1.95, label: "THE MIND PALACE", sub: "twenty-one floors: the method of loci", color: '#5ee7ff'}
+      - {id: wayin, angle: 1.95, label: "THE ARTERIES", sub: "back the way in, to the heart", color: '#ff4d5e'}
+  heart:
+    stop: body
+    floor: human-vertebrate
+    title: "THE HEART · the left atrium"
+    sub: "blood fresh from the lungs pours in through the four pulmonary veins (the light); in the floor the mitral valve opens to the left ventricle with every beat; the ridges are the pectinate muscles; proportions for the eye"
+    routes:
+      - {id: wayin, angle: 0, label: "THE WAY IN", sub: "through the mitral valve and the ventricle, up the aorta and the carotid to the brain", color: '#ff4d5e'}
+      - {id: body, angle: -0.95, label: "THE BODY", sub: "what a feeling does, organ by organ", color: '#ffd166'}
+      - {id: bloodstream, angle: 0.95, label: "THE BLOODSTREAM", sub: "the score's body setting: the submarine in the blood", color: '#ff7aa8'}
+      - {id: human, angle: -1.95, label: "THE JELLYFISH HUMAN", sub: "the whole body as one field", color: '#5ee7ff'}
+      - {id: ureter, angle: 1.95, label: "THE URETER", sub: "down the aorta to the kidney, and the stone", color: '#a78bfa'}
+  neuron:
+    stop: neuron
+    floor: cellular-synaptic
+    title: "THE SOMA · the cell body of a neuron"
+    sub: "the nucleus in the middle (chromatin, the nucleolus within); the walls stacked with rough endoplasmic reticulum (the Nissl substance); microtubules run to the axon hillock; mitochondria drift; proportions for the eye"
+    routes:
+      - {id: neuron, angle: 0, label: "THE AXON HILLOCK", sub: "where the spike begins: the whole neuron, firing", color: '#ffd166'}
+      - {id: network, angle: -0.95, label: "THE DENDRITES", sub: "out along the branches to the other cells: memory as a network", color: '#5ee7ff'}
+      - {id: thought, angle: 0.95, label: "THE SUB-THRESHOLD SEA", sub: "many cells together: a swell that crosses becomes a feeling", color: '#ff7aa8'}
+      - {id: tunnel, angle: -1.95, label: "THE WAY UP", sub: "a signal, cell by cell, from the body to the cortex", color: '#a78bfa'}
+      - {id: brain, angle: 1.95, label: "UP TO THE GREAT HALL", sub: "the brain, eighty-six billion cells up", color: '#ff4d5e'}
+  mind:
+    stop: thought
+    floor: whole-brain-cemi
+    title: "THE MIND CHAMBER · through the limbic gate"
+    sub: "below the gold plane the field is real but not felt; a swell that crosses becomes a feeling, lifted, a thought; each sphere shows its expression (cores: the emotions; fused: blend; clamped: dampen; the spark: the mechanism); with C-PTSD some stay; interpretive, from the model"
+    routes:
+      - {id: brain, angle: 0, label: "BACK TO THE GREAT HALL", sub: "through the limbic gate, into the body", color: '#ff7aa8'}
+      - {id: tunnel, angle: -0.95, label: "THE WAY UP", sub: "where the signals come from: body to cortex", color: '#ffd166'}
+      - {id: choices, angle: 0.95, label: "THE COURSE", sub: "should I do it? each consideration a ripple across the holes (click a thought to focus it)", color: '#5ee7ff'}
+      - {id: network, angle: -1.95, label: "MEMORY", sub: "a network: recall blended with a fading trace", color: '#a78bfa'}
+      - {id: limbic, angle: 1.95, label: "THE LIMBIC HINGE", sub: "the gate seen from the side: the amygdala, the hippocampus", color: '#ff4d5e'}

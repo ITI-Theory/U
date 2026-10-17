@@ -24,6 +24,7 @@
 // THE MIND: the Mind Chamber (DESIGN.md), behind the great hall's limbic gate: see mindAnatomy.
 
 import { updateStereo } from './stereo-depth.js';
+import { hubs } from './generated/app-data.js';
 import * as THREE from 'three';
 import { applyLook } from './look.js';
 import { bubbleMaterial, bubbleEnvironment, tickBubbles } from './bubble.js';
@@ -84,6 +85,10 @@ const KINDS = {
     ],
   },
 };
+// the words and the routes come from registry/hubs.yaml (ISS-103); the look stays above
+for (const [kind, hub] of Object.entries(hubs ?? {})) {
+  if (KINDS[kind]) Object.assign(KINDS[kind], { title: hub.title, sub: hub.sub, routes: hub.routes });
+}
 // the brain's routes, for anything that lists them
 export const HALL_ROUTES = KINDS.brain.routes;
 
