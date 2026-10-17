@@ -637,6 +637,8 @@ def tour_stage_errors(step: dict[str, Any], abstract_paragraphs: int) -> list[st
         problems.append(f"voice {step['voice']!r} not in ['hal', 'mother', 'munch']")
     if step.get("poke") is not None and step["poke"] not in TOUR_POKES:
         problems.append(f"poke {step['poke']!r} not in {sorted(TOUR_POKES)}")
+    if step.get("overview") is not None and step["overview"] not in (0, 1):
+        problems.append(f"overview {step['overview']!r} not 0 or 1")
     pause = step.get("pause")
     if pause is not None and not (isinstance(pause, (int, float)) and not isinstance(pause, bool) and 0 <= pause <= 30):
         problems.append(f"pause {pause!r} must be 0 to 30 seconds")

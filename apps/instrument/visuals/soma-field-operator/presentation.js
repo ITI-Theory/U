@@ -320,11 +320,25 @@ export function createPresentationStage() {
     paragraphs[paragraph - 1]?.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
 
+  // THE OVERVIEW (ISS-100): the author's desk with its four live screens (overview.html), as a tour's
+  // first stop, so the visitor sees how the screens fit together before going in
+  let overview = null;
+  function setOverview(on) {
+    if (!on) { overview?.remove(); overview = null; return; }
+    if (overview) return;
+    overview = document.createElement('iframe');
+    overview.className = 'presentation-overview';
+    overview.title = 'How the Soma Machine fits together';
+    overview.src = new URL('./overview.html', location.href).href;
+    document.body.append(overview);
+  }
+
   function clear() {
     setOverlay(null);
     setAbstract(null);
+    setOverview(false);
   }
 
   addEventListener('resize', () => { if (overlay) resize(); });
-  return { setOverlay, setAbstract, clear };
+  return { setOverlay, setAbstract, setOverview, clear };
 }

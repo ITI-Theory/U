@@ -52,6 +52,9 @@ Preset tours in `registry/tours/` may be longer spoken presentations (for exampl
 
 - `abstract:` shows the opening abstract over the view: `0` with nothing
   highlighted, `n` with paragraph `n` highlighted.
+- `overview: 1` shows the overview over the view (ISS-100): the author's desk, one
+  big screen and three tablets, each a live view, so the visitor sees how the screens
+  fit together; the first stop of the welcome tours and the presentation.
 - `overlay:` draws one idea faintly over the view, beside the abstract text or
   above the tour card: `ripple` (the Green's function: tap once, the field
   rings), `dimensions` (4 + 3 + 1 + 3 = 11), `zoom` (the zoom dial from

@@ -10,6 +10,12 @@ steps:
     author did. My job is only to translate it into plain words.
   pause: 1
 - view: level=human-vertebrate&lens=on&dim=8&ui=clean
+  overview: 1
+  say: 'First, the whole instrument at once. One big screen and three small ones, each a live view of the
+    same field: the body and its elevator above, and beneath it a thought, a body feeling and an
+    emotional score. Move the field on one, and every screen answers.'
+  label: interpretive
+- view: level=human-vertebrate&lens=on&dim=8&ui=clean
   abstract: 0
   say: 'Behind me is the abstract, the one-page summary every research paper opens with. It is dense and
     full of mathematics, so let us agree on one rule: whenever a symbol floats past, forget the maths,

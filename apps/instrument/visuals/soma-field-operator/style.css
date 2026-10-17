@@ -864,3 +864,5 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 .explorer__where summary { cursor: pointer; color: var(--cyan, #14e5ff); font-size: 10px; letter-spacing: .06em; }
 .explorer__where p { margin: 6px 0; font-size: 11px; line-height: 1.45; }
 .explorer__where small a { color: inherit; }
+/* THE OVERVIEW as a tour's first stop (ISS-100): the desk over the app, above the tour card's row */
+.presentation-overview { position: fixed; z-index: 205; left: 4vw; top: 35vh; width: 92vw; height: calc(53vh - 40px); border: 1px solid rgba(20,229,255,.45); border-radius: 6px; background: #05070e; box-shadow: 0 0 40px rgba(20,229,255,.15); }

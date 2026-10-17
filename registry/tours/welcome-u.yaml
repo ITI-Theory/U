@@ -3,6 +3,12 @@ title: Welcome, U
 summary: 'The first tour for anyone (ISS-108, ISS-110): what the Soma Machine is, and the first places to go.'
 steps:
 - view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.6
+  overview: 1
+  say: 'First, the whole machine at once: one big screen and three small ones, each a live view of the
+    same field. The big one is the body and the elevator; the small ones are a thought, a feeling and
+    the score. Click one to make it large.'
+  label: interpretive
+- view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.6
   say: 'Welcome. This is the Soma Machine, a mind and body explorer. Each glass dome is a world, from
     the quantum foam to the cosmic web. Click one to go through its glass.'
   label: interpretive

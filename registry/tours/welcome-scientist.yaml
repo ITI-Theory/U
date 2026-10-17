@@ -3,6 +3,12 @@ title: Welcome, scientist
 summary: 'The first tour for the scientist (ISS-108, ISS-110): the programme at a high level, beside the papers.'
 steps:
 - view: level=human-vertebrate&lens=on&dim=11&reader=specialist
+  overview: 1
+  say: 'The instrument at a glance: four screens, one field. The main screen is the level elevator, from
+    the quantum foam to the cosmic web; the three beneath are the same state seen as a thought, a body
+    feeling and an emotional score. Each is a live view you can enlarge.'
+  label: interpretive
+- view: level=human-vertebrate&lens=on&dim=11&reader=specialist
   say: 'Welcome. The splash was the programme in one paragraph: one field, twenty-one scales, eleven
     dimensions. This view is the zoom: each floor is a level, with its equation and its evidence.'
   label: interpretive

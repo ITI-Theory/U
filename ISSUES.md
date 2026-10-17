@@ -5019,7 +5019,10 @@ the overview can be the app's own views in frames that follow one another.
 - [x] (14 Oct: a fresh start goes there after the abstract; a link keeps its own view) The
       jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
 - UAT on the real desk (the 32-inch screen and the tablets): `uat/checklist.yaml`, step `hw-screens`.
-- [ ] The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
+- [~] (16 Oct: a tour step `overview: 1` (presentation.js, tour.js, generate.py, docs/TOUR-LANGUAGE.md)
+      shows the desk over the view; the first stop of welcome-u and welcome-scientist, the second of
+      H-AL's presentation, after the greeting. Still: the plates in the Atlas and the Gallery.)
+      The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
       matter and in the Gallery.
 
 ## ISS-101: Three elevators: scale, dimension, frequency (the limbic and EM-field views) — OPEN

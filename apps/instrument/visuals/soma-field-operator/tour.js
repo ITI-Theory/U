@@ -41,6 +41,7 @@ export function stageProblems(step) {
   if (step.poke !== undefined && !POKES[step.poke]) problems.push(`poke ${step.poke} not one of ${Object.keys(POKES).join(', ')}`);
   if (step.voice !== undefined && !VOICES.includes(step.voice)) problems.push(`voice ${step.voice} not one of ${VOICES.join(', ')}`);
   if (step.pause !== undefined && !(Number.isFinite(step.pause) && step.pause >= 0 && step.pause <= 30)) problems.push(`pause ${step.pause} not in 0..30 seconds`);
+  if (step.overview !== undefined && ![0, 1].includes(step.overview)) problems.push(`overview ${step.overview} not 0 or 1`);
   if (step.abstract !== undefined && !(Number.isInteger(step.abstract) && step.abstract >= 0 && step.abstract <= ABSTRACT_PARAGRAPHS)) problems.push(`abstract ${step.abstract} not in 0..${ABSTRACT_PARAGRAPHS}`);
   return problems;
 }
@@ -106,6 +107,7 @@ export function parseTourBlock(text) {
     else if (step && ['view', 'say', 'label', 'overlay', 'poke'].includes(key)) step[key] = value;
     else if (step && key === 'dwell') step.dwell = Number(value);
     else if (step && key === 'abstract') step.abstract = Number(value);
+    else if (step && key === 'overview') step.overview = Number(value);
     else if (step && key === 'pause') step.pause = Number(value);
   }
   return parsed;
@@ -299,6 +301,7 @@ export function createTourPlayer({ voice, narration }) {
     // Other windows (screens.js) show the line as a HUD.
     dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: tour.title, count: countEl.textContent, label: step.label ?? '', labelText: step.label ? LABEL_TEXT[step.label] : '', say: step.say } }));
     stage.setAbstract(Number.isInteger(step.abstract) ? step.abstract : null);
+    stage.setOverview(step.overview === 1);
     (POKES[step.poke] ?? []).forEach((strength, number) => {
       setTimeout(() => {
         if (mine === token) dispatchEvent(new CustomEvent('soma-tour-poke', { detail: { strength } }));
