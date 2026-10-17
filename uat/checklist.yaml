@@ -116,6 +116,11 @@ steps:
     kind: manual
     title: "Attest the scores: are these your emotions? (ISS-115, provenance)"
     do: "python sherlock/provenance.py; play each score in the app (SCORE stop: river-film, then fis-2021, which is Copilot's estimate from your 2021 notes); correct the numbers you disagree with; then set attested: {by: Alistair Johnson, on: <date>} in registry/scores/<id>.yaml"
+  - id: app-physical-places
+    kind: app
+    title: "The physical places on their own: the halls and the tubes, no mind layers (ISS-104 step 1)"
+    url: "#voyage=brain&hall=1&dim=11&phi=0.4"
+    do: "the great hall, its doorways; the heart (voyage=body&hall=1); the soma (voyage=neuron&hall=1); the tubes: WAY IN, the cathedral, the way up, the ureter; do they read as places you could stand in, anatomy for the route, sci-fi for the look?"
   - id: app-gallery
     kind: app
     title: "A Gallery of Thoughts in the app: the rooms, the plates large (ISS-097)"

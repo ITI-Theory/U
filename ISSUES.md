@@ -5275,7 +5275,9 @@ instrument that makes it (the app's SNAP, the Soma Machine as camera); the Somat
 sound engine (9 June); the [T]-stop is the per-shot reading (like an f-stop: what stood out at
 that moment); the film stock is the base for the session (HAL's list above), recorded once and
 carried by every somagram taken on it.
-- [ ] Step 1, physical only: the atriums and their tubes as places (ISS-103), without the mind
+- [x] (16 Oct: in the app: the three physical halls, the great hall, the heart, the soma (registry/hubs.yaml),
+      and the tubes, the arteries (WAY IN), the ventricles (the cathedral), the way up, the ureter; the walk on
+      their own is UAT `app-physical-places`) Step 1, physical only: the atriums and their tubes as places (ISS-103), without the mind
       layers, for UAT on their own.
 - [ ] The author's chat with HAL on the inside (the brief); his take decides the design.
 - [x] (15 Oct, author: "add these checks; as the model develops we need them") The visual
