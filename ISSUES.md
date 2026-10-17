@@ -5455,7 +5455,7 @@ grammar's three gaps closed by it.
       pulse down, echoes, thoughts that stay behind a ridge with C-PTSD (up to 30). The visual
       grammar now shows 11 of 12 terms (route still to come: the paths).
 - [x] (17 Oct night: the TELEMETRY drawer, the right one: Φ, the heart with the thoughts' share, P13's temperature T0 (1 + 0.8 ADHD - 0.6 ASD), the chamber's latest thought (kind, expression, mechanism), the load, the score tape, and the claims made at this place with their labels (registry/model.yaml); settings into the chamber: the neurotype now sets its temperature; the pulse down arrives: each ignition raises the heart up to +16 bpm, decaying over seconds, and the raised heart heats the foam (the somatic loop, interpretive); the music's heartbeat left as it is while the audio is reworked) Phase 3: the drawers wired; the pulse down to the heart.
-- [ ] Phase 4: more places (ISS-103).
+- [x] (18 Oct: ISS-103 closed: five halls from the hubs registry, the cosmos the newest; the limbic road, the glass brain, MEMORY in 3D) Phase 4: more places (ISS-103).
 - [x] (16 Oct, checked: they belong to POKE: the explorer's MECHANISMS ▾ popover, "POKE · the
       mechanisms and the inputs", BRECVEMA's eight to choose, with the levels' own POKE inputs lent
       into it, main.js LENT) (15 Oct 20:46, author) The BRECVEMA settings for POKE seem to have disappeared: check
