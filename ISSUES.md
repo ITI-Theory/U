@@ -4497,6 +4497,15 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
 - [ ] Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).
+- [ ] AUTHOR: the Jumbo cut. (17 Oct night: `make -C Part2/book/field-atlas bookfactory` gives 322
+      pages against bookfactory's 300; at least 22 to go, about 26 with a margin. The Lulu A4 edition,
+      359 pages, and the A3, 321, stay whole. Pages by part (the A3 layout, close to the Jumbo's):
+      Sector III 62, the Voyage Inside 48, Sector V 45, Sector IV 34, Sector I 32, Sector II 26, What's
+      Different? 13, T4 with the city of code 9, the back matter 21. Options, any mix to 26: (a) the city
+      of code, about 4; (b) the score in four settings, about 4; (c) What's Different? to the app and the
+      cheat sheets only, 13; (d) the Voyage's seven new plates (the halls, THE WORLDS, THE COURSE) kept
+      for Lulu and A3 only, about 7; (e) the five sector openers (the fractal worlds), 5; (f) Paths and
+      the Time Axis, 8. Copilot's pick: (a) + (b) + (c) + (e) = 26, which keeps the voyage whole.)
 Not for print: twin view, A/B, the consulting room, SCRIBE, the control room, MIDI, the voices.
 
 ---
