@@ -4642,7 +4642,11 @@ packets; waits for a real strap.
       estimates. explorer-check: breathing 15/min recovered, a slow 6/min rhythm coherent,
       irregular beats not, a calm coherent heart raises Safety. Estimates for the film, not
       clinical measures; to test with a strap in UAT.
-- [ ] Uses beyond the score (author, 13 Oct: "I can see the benefit"): the body stop's heart, the
+- [x] (16 Oct: all three, only while a strap is connected, the default unchanged: the BODY stop's heart
+      beats at the viewer's rate; the DYAD's first person runs at it (calm still locks, r 0.92 at 72
+      bpm); low heart-rate variability shakes the landscape's ball more (RMSSD 20 ms twice, 80 ms half;
+      explorer.js hrvNoise; interpretive). The author keeps the ones he likes; UAT `hw-strap`.)
+      Uses beyond the score (author, 13 Oct: "I can see the benefit"): the body stop's heart, the
       landscape's noise, the dyad's rhythm from a real heart; the author to say which he sees.
 - UAT with a real strap: moved to `uat/checklist.yaml`, step `hw-strap` (16 Oct).
 

@@ -157,7 +157,7 @@ steps:
   - id: hw-strap
     kind: manual
     title: "Hardware: one heart-rate strap or arm band end to end (ISS-091, ISS-111)"
-    do: "Chrome or Edge; a Polar Verity Sense, Polar H10, Wahoo TICKR or similar: the STRAP button on the SCORE stop; the heart follows it; LOOP on, a rising heart slows the film; RMSSD, breaths a minute and coherence look plausible; note the model so the app's STRAP help can name it"
+    do: "Chrome or Edge; a Polar Verity Sense, Polar H10, Wahoo TICKR or similar: the STRAP button on the SCORE stop; the heart follows it; LOOP on, a rising heart slows the film; RMSSD, breaths a minute and coherence look plausible; note the model so the app's STRAP help can name it; then the BODY stop (the heart beats with yours), the DYAD (the first person at your rate) and the LANDSCAPE (a stressed heart shakes the ball): keep which?"
   - id: hw-screens
     kind: manual
     title: "Screens: a LAYOUT on the real monitors; a tablet through the relay; the overview on the real desk (ISS-100)"

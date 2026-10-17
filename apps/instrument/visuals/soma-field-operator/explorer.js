@@ -480,7 +480,8 @@ function makeBody() {
     focus: [0, -0.8 * BODY_SCALE + BODY_SHIFT],
     enter: [0.06 * BODY_SCALE, -0.45 * BODY_SCALE + BODY_SHIFT],
     tick(env) {
-      beatPhase += env.dt * (60 + 60 * env.phi) / 60;
+      // the body's heart: the viewer's own with a strap (ISS-091), else the field's (60 + 60 Φ)
+      beatPhase += env.dt * (env.strap ? env.bpm : 60 + 60 * env.phi) / 60;
       if (env.dim < 8) return;
       const rate = 0.5 + 3 * env.phi;
       for (const name of ['armL', 'armR', 'legL', 'legR', 'spine']) {
@@ -1666,8 +1667,8 @@ function makeThought() {
 // below 2K: calm locks, hot drifts, hot with the resource locks (scripts/explorer-check.mjs).
 const DYAD = { rate: 1, gap: phi => 0.03 + 0.12 * phi, coupling: resource => 0.3 + (resource ? 0.5 : 0), noise: phi => 0.02 + 0.1 * phi };
 
-export function dyadStep(s, phi, resource, dt) {
-  const w = TAU * DYAD.rate;
+export function dyadStep(s, phi, resource, dt, rate = DYAD.rate) {
+  const w = TAU * rate;
   const dw = TAU * DYAD.gap(phi);
   const K = DYAD.coupling(resource);
   const D = DYAD.noise(phi);
@@ -1690,7 +1691,9 @@ function makeDyad() {
     tick(env) {
       clock += env.dt;
       const sub = 3;
-      for (let k = 0; k < sub; k++) r = dyadStep(s, env.phi, env.resource, env.dt / sub);
+      // with a strap the first person's rhythm is the viewer's own heart (ISS-091)
+      const rate = env.strap && env.bpm > 0 ? env.bpm / 60 : DYAD.rate;
+      for (let k = 0; k < sub; k++) r = dyadStep(s, env.phi, env.resource, env.dt / sub, rate);
       rupture = Math.max(0, rupture - env.dt * 0.5);
       smooth += (r - smooth) * Math.min(1, env.dt / 2);
       history.push([clock, r]);
@@ -3100,10 +3103,14 @@ const BALL_LIMIT = 1.37;
 export const FORCING = { A: 0.12, P: 8 };
 export const scoreTempo = m => Math.max(48, Math.min(110, 52 + 30 * (m.F ?? 0) + 10 * (m.C ?? 0) - 8 * (m.S ?? 0)));
 
-function landscapeStep(ball, phi, resource, dt, forcing = null) {
+// with a strap, low heart-rate variability (RMSSD below about 40 ms, a sign of stress) shakes the
+// ball more, high variability less (ISS-091; interpretive: a picture of the body's arousal)
+export const hrvNoise = rmssd => (Number.isFinite(rmssd) && rmssd > 0 ? Math.max(0.5, Math.min(2, 40 / rmssd)) : 1);
+
+function landscapeStep(ball, phi, resource, dt, forcing = null, noise = 1) {
   const T = temperature(phi);
   const J = (resource ? RESOURCE_J : 0) + (forcing ? FORCING.A * Math.cos((2 * Math.PI * forcing.time) / FORCING.P) : 0);
-  const D = 0.002 + 0.06 * phi * phi;
+  const D = (0.002 + 0.06 * phi * phi) * noise;
   const sub = 4;
   const h = Math.min(dt, 0.05) * 2.5 / sub;
   for (let k = 0; k < sub; k++) {
@@ -3165,7 +3172,8 @@ function makeLandscape() {
     tick(env) {
       lastEnv = env;
       theta += env.dt * 0.07;
-      landscapeStep(ball, env.phi, env.resource, env.dt, env.music ? { time: env.t } : null);
+      const hrv = env.strap && env.rr?.length > 20 ? hrvFromRR(env.rr) : null;
+      landscapeStep(ball, env.phi, env.resource, env.dt, env.music ? { time: env.t } : null, hrvNoise(hrv?.rmssd));
       trail.push([ball.x, ball.y]);
       if (trail.length > 160) trail.shift();
     },
