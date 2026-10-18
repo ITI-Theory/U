@@ -6,7 +6,7 @@ is heard and written down.
 
 Speaking: Azure's neural voices when AZURE_SPEECH_KEY and AZURE_SPEECH_REGION are set (in the
 environment only, never in a file; the free tier, 0.5 million characters a month, is plenty;
-default en-GB-RyanNeural), else Kokoro on this machine (bm_george). Hearing: Whisper large-v3 on
+default en-GB-RyanNeural), else Kokoro on this machine (bf_emma, at a natural pace). Hearing: Whisper large-v3 on
 this machine (the GPU when it can, else the CPU), so the author's voice never leaves it. A beep
 starts the listening; two and a half seconds of quiet after speech end it. Answers are private:
 Me/todo/answers/<date>.md (the question, the transcript, the time).
@@ -54,13 +54,26 @@ def tts_azure(text: str, voice: str) -> bytes:
     return urllib.request.urlopen(req, timeout=30).read()
 
 
+def tts_kokoro(text: str, voice: str) -> bytes:
+    """Kokoro at a natural pace: not H-AL's delivery (slowed, long pauses), which is for H-AL."""
+    from kokoro_onnx import Kokoro
+    models = Path.home() / ".voice-admin" / "models" / "kokoro"
+    k = Kokoro(str(models / "kokoro-v1.0.onnx"), str(models / "voices-v1.0.bin"))
+    samples, rate = k.create(text, voice=voice, speed=1.05, lang="en-gb" if voice.startswith("b") else "en-us")
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(rate)
+        w.writeframes((np.clip(samples, -1, 1) * 32767).astype("<i2").tobytes())
+    return buf.getvalue()
+
+
 def speak(text: str, voice: str | None) -> str:
     if os.environ.get("AZURE_SPEECH_KEY") and os.environ.get("AZURE_SPEECH_REGION"):
         data, engine = tts_azure(text, voice or "en-GB-RyanNeural"), "azure"
     else:
-        sys.path.insert(0, str(HERE))
-        from bridge import synthesize_kokoro
-        data, engine = synthesize_kokoro(text, voice if voice and "Neural" not in voice else "bm_george"), "kokoro"
+        data, engine = tts_kokoro(text, voice if voice and "Neural" not in voice else "bf_emma"), "kokoro"
     a, rate = wav_to_array(data)
     sd.play(a, rate)
     sd.wait()

@@ -6313,7 +6313,7 @@ picture and sound if they can be.
       dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
       the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
 - [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
-- [ ] (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
+- [~] (18 Oct 20:45: `make obs-soma` builds the "Soma" collection: scenes Soma Machine (the app as a browser source, checked rendering in OBS), Live, SpaceEngine, projectM, Camera (background removal), Mix (SpaceEngine, the app in Screen blend, projectM added at 35%, the camera small); a 600 ms fade; recordings to Videos\Soma as hybrid MP4 on NVENC. Left: the app switching scenes) (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
       sound's: installed 18 Oct (OBS 32; background removal, shaderfilter, Move transition, the Stream Deck
       plugin; obs-websocket built in). To do: a Soma scene collection (the app, projectM, SpaceEngine, the
       camera with its background removed, as layers with blend modes), and the app switching OBS's scenes
