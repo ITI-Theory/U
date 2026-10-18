@@ -5117,7 +5117,7 @@ the amygdala lies just in front of its tip, the fornix arches from the hippocamp
 ventricles to the hypothalamus (mammillary bodies), and the cingulate gyrus lies above the
 corpus callosum over the body of the ventricle: a sourced route through the limbic system with
 the ventricles as the road.
-HAL-UAT (14 Oct, uat/RC3/hal-cathedral-2026-10-14-answers.md): the author's chats give the
+HAL-UAT (14 Oct, Me/notebooklm/hal-answers/hal-cathedral-2026-10-14-answers.md): the author's chats give the
 frequency elevator a basis (40 Hz gamma with McFadden's CEMI, the Zoomable paper's wavenumber
 estimate; the EEG bands, June 2026; 140 BPM entrainment and Arnold tongues, the trance and
 freeze flip, August 2026); the elevator itself came from a chat on 7 October ("fly sideways
@@ -5165,7 +5165,7 @@ stacked for the next big build (ISS-101's stack).
 - [x] (16 Oct, checked: cathedral3d.js VISUAL THOUGHTS) (21:05) Thought bubbles: smaller, the picture inside abstracted (a filter, so it reads as
       a thought, not a photograph), and no automatic popping: a bubble drifts past unless
       clicked; a click goes into the thought.
-- [x] (done at 21:26, below) (21:20, HAL-UAT, uat/RC3/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
+- [x] (done at 21:26, below) (21:20, HAL-UAT, Me/notebooklm/hal-answers/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
       dive, not a picture: the author on 25 June 2026 asked for "bubbles rotating with a fractal
       world inside... go into the bubbles... the music matching (a granular synthesiser)". So a
       click on a bubble flies into it: the thought's own fractal world (a Mandelbulb in the
@@ -5287,7 +5287,7 @@ HopfieldAsync); leaving a well is tunnelling (LimbicTunnel); the past acts throu
 kernel (TemporalDynamics); transitions depend on the route (the path-sensitive transitions
 paper: the paths). So the chamber holds the foam, the pops and the staying thoughts, and the
 paths leave it as tubes: the two shapes of step 1.
-HAL-UAT on the names (uat/RC3/hal-names-2026-10-15-answers.md): all three are the author's own,
+HAL-UAT on the names (Me/notebooklm/hal-answers/hal-names-2026-10-15-answers.md): all three are the author's own,
 9 June 2026 (chats-vol02): the Somatron, the playable sound engine (after the Mellotron); the
 SomaGram, the field projected into light (the optical counterpart); the SomaGraph, the field's
 map (also "the Mountain is the ultimate SomaGraph"). The [T]-stop and film-and-ISO are new (15
@@ -5428,7 +5428,7 @@ At 17:20 he asked Copilot to hold the design conversation with HAL-UAT for him, 
 draw up the final version for his review.
 
 The design: apps/instrument/visuals/soma-field-operator/DESIGN.md (from
-uat/RC3/hal-final-design-2026-10-15-answers.md and -q5-answers.md, checked against the Lean;
+Me/notebooklm/hal-answers/hal-final-design-2026-10-15-answers.md and -q5-answers.md, checked against the Lean;
 HAL's two errors corrected: the blend is an algebra, not a weighted simplex; the band is the
 layer, not the EEG bands). Every element a place, a view, a control or a setting; one shell
 (top bar with the elevator dial and breadcrumb, bottom deck, two drawers); today's 14 stops
@@ -5665,7 +5665,7 @@ Author, 15 Oct 19:43: where does [T]-Theory overlap with Einstein; are wormholes
 places; can Sherlock, with Penrose's list, find where the programme could have an impact
 ("casino style, worth a shot")?
 
-HAL-UAT (uat/RC3/hal-einstein-2026-10-15-answers.md), checked against the repository:
+HAL-UAT (Me/notebooklm/hal-answers/hal-einstein-2026-10-15-answers.md), checked against the repository:
 - Einstein overlaps: general relativity as the non-living limit (LocalGR.lean; the bridges
   `linearised_einstein`, `g2_holonomy_implies_rigid_attractor` are axioms); the linearised field
   equation as the Green's function at the cosmological scale; the cosmological constant and FLRW
@@ -5985,7 +5985,7 @@ Machine, Ableton and the film share a tempo; (3) SpaceEngine flown by the score 
 scripting, camera paths), later. The pitch is good and true to the programme: making a model
 universe is a way to look at this one, a map, not the territory; keep it humorous, and keep it
 clear of therapy claims.
-- [x] HAL (16 Oct, uat/RC3/hal-universe-2026-10-16-answers.md), checked against the repository:
+- [x] HAL (16 Oct, Me/notebooklm/hal-answers/hal-universe-2026-10-16-answers.md), checked against the repository:
       SpaceEngine (author, June/July: "I've got the deluxe version of SpaceEngine ... planets ...
       the universe ... how do we merge these video things live"): a two-engine plan (the app for
       the small scales, SpaceEngine for the cosmic ones, by .se scripts and Spout), set aside for
@@ -6240,7 +6240,7 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
 - [x] H-AL's answers quote the author's chats, so uat/scripts/hal_uat.py now writes them to Me
       (Me/notebooklm/hal-answers/); the questions stay in U. Today's two (never written, Scaler)
       are there.
-- [ ] AUTHOR: six public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
+- [x] (18 Oct 21:2x, the author: "move all six to Me": moved to Me/notebooklm/uat-rc1/ and Me/notebooklm/hal-answers/, the references repointed; U's git history still holds the old copies; three more over the line by then, moved the same way: the final-design questions and its Q5 answers, the names answers) AUTHOR: six public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
       (a raw NotebookLM transcript of the author's prompts, 4393 runs); H-AL's answers that quote the
       author's chat words: uat/RC3/hal-cathedral-2026-10-14-answers.md (60), hal-einstein-2026-10-15 (8),
       hal-final-design-2026-10-15 (25), hal-minigolf-2026-10-15 (9; over the line since 17 Oct, as more

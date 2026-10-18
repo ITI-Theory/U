@@ -2142,7 +2142,7 @@ In May, the system narrows. Johnson does not initially ask for a universal proof
 
 Still in May, the ASO-Cyc morphism idea appears. Then comes the generator/filter correction: hallucination as associative generation, code as deterministic filter. The architecture stabilises around Markdown, Sherlock, a reasoner, Sherlock again, and the user.
 
-By August, in RC1 and UAT material, Sherlock has become a document and release layer. The author asks for a Sherlock-style data printout with inductions and abductive inductions. `open-hypothesis` NotebookLM produces `primary_inductions`, `abductive_inferences`, `moriarty_check`, and `rdf_triple_replay`.  The author then warns that release candidates are non-peer-reviewed and that late-night AI chats are not reliable evidence.  He also treats the new cheat-sheet material as a mock-up rather than implementation in `U/uat/RC1/Brainstorm.md`. That sentence is the precise guardrail for the book. Sherlock exists as an idea, a philosophy, a set of mock-ups, some ontology plumbing (`paper/scripts/schema.tql.OBSOLETE`, `paper/scripts/load_opencyc.py.OBSOLETE`, `paper/scripts/query_cyc.py.OBSOLETE`, `paper/scripts/query_emotions.tql.OBSOLETE`) and two proof-status-adjacent Lean files (`EmotionOntology.lean`, `FieldProofs.lean`). It does not exist as the completed programme imagined in the chats. `interpretive` <!-- not-lean -->
+By August, in RC1 and UAT material, Sherlock has become a document and release layer. The author asks for a Sherlock-style data printout with inductions and abductive inductions. `open-hypothesis` NotebookLM produces `primary_inductions`, `abductive_inferences`, `moriarty_check`, and `rdf_triple_replay`.  The author then warns that release candidates are non-peer-reviewed and that late-night AI chats are not reliable evidence.  He also treats the new cheat-sheet material as a mock-up rather than implementation in the author's RC1 brainstorm notes (private). That sentence is the precise guardrail for the book. Sherlock exists as an idea, a philosophy, a set of mock-ups, some ontology plumbing (`paper/scripts/schema.tql.OBSOLETE`, `paper/scripts/load_opencyc.py.OBSOLETE`, `paper/scripts/query_cyc.py.OBSOLETE`, `paper/scripts/query_emotions.tql.OBSOLETE`) and two proof-status-adjacent Lean files (`EmotionOntology.lean`, `FieldProofs.lean`). It does not exist as the completed programme imagined in the chats. `interpretive` <!-- not-lean -->
 
 ## October 2026: Sherlock built
 
@@ -2235,7 +2235,7 @@ That limit is not a weakness. It is the reason Sherlock matters. The proposed fr
 
 The chats are best understood as a laboratory notebook in Reichenbach's sense: they belong to the context of discovery, not by themselves to the context of justification [@reichenbach1938experience].  This is not a minor distinction for [T]-Theory. The programme did not first appear as a clean sequence of definitions, lemmas, simulations, and papers. It appeared through months of exchanges with machines: questions, wrong turns, overstatements, jokes, hallucinated certificates, useful analogies, administrative failures, corrected drafts, code sketches, and gradually hardened claims. `interpretive`
 
-The author knows this. In `U/uat/RC1/Brainstorm.md`, he warns that the Markdown files are "random chats" with AIs, late-night brainstorming, perhaps containing facts but not to be relied on as facts. In `Me/chats/Inbox/20260609_213834_Rosetta_Stone_of_ASO.md`, he wants to "turn the ai chat into source code" and make the provenance visible. These two attitudes are not contradictory. They are the two halves of an epistemology: preserve discovery; do not confuse it with justification.
+The author knows this. In his RC1 brainstorm notes (private), he warns that the Markdown files are "random chats" with AIs, late-night brainstorming, perhaps containing facts but not to be relied on as facts. In `Me/chats/Inbox/20260609_213834_Rosetta_Stone_of_ASO.md`, he wants to "turn the ai chat into source code" and make the provenance visible. These two attitudes are not contradictory. They are the two halves of an epistemology: preserve discovery; do not confuse it with justification.
 
 This chapter therefore has a narrow thesis. AI-assisted research in [T]-Theory is not a new epistemology. It is a faster, noisier, more associative library, notebook, and hypothesis generator whose outputs require stronger filters than ordinary prose because their fluency hides their status. The safest summary is the programme's repeated "faster library" formulation in the Mathematical Co-identification paper (P3) and the Rosetta chat record.
 
@@ -2390,14 +2390,14 @@ The lesson generalises beyond [T]-Theory. AI can help a philosopher or scientist
 ## Ledger {.unnumbered .unlisted}
 | Claim | Label | Source |
 |---|---|---|
-| The chats are context of discovery, not authority by themselves. | `interpretive` | `U/uat/RC1/Brainstorm.md`; [@reichenbach1938experience] |
-| NotebookLM UAT is a source-bounded validation/review process, not proof of scientific truth. | `derived-under-assumptions` | `U/uat/ttheory-nlm-uat.md`; `U/uat/RC1/Brainstorm.md` |
-| Invented hashes, certificates, and `VERIFIED_WITHOUT_SORRY` strings show why filters are necessary. | `interpretive` | `Me/chats/lean and markdown.md`; `U/uat/RC1/Brainstorm.md` |
+| The chats are context of discovery, not authority by themselves. | `interpretive` | the author's RC1 brainstorm notes (private); [@reichenbach1938experience] |
+| NotebookLM UAT is a source-bounded validation/review process, not proof of scientific truth. | `derived-under-assumptions` | `U/uat/ttheory-nlm-uat.md`; the author's RC1 brainstorm notes (private) |
+| Invented hashes, certificates, and `VERIFIED_WITHOUT_SORRY` strings show why filters are necessary. | `interpretive` | `Me/chats/lean and markdown.md`; the author's RC1 brainstorm notes (private) |
 | No real `sorry` remains in the Lean surface (since October 2026); "fully verified" is still false while axioms and placeholders remain. | `derived-under-assumptions` | `paper/scripts/count_sorries.py`; `paper/FieldAxioms.lean` |
 | MCI is a disciplined abductive heuristic with falsification protocol, not the truth-maker. | `interpretive` | Mathematical Co-identification paper (P3); `Me/chats/Inbox/20260808_181828_Rosetta_notes.md` |
 | QUANT-EXP-1 is exact statevector simulation evidence for model-class reachability, not hardware, therapy, or consciousness evidence. | `simulated` | Quantum Soma Penrose paper (P2); `paper/soma/quantum-soma-penrose/` |
 | AI accelerates hypothesis generation and source search but does not change the logic of justification. | `interpretive` | Mathematical Co-identification paper (P3); [@reichenbach1938experience] |
-| Distrust of AI flattery becomes part of the programme's method through Sherlock, Moriarty, UAT, and ledgers. | `interpretive` | `Me/chats/Inbox/history_western_philosophy.md`; `Me/chats/Inbox/SherlockBS2.md`; `U/uat/RC1/Brainstorm.md` |
+| Distrust of AI flattery becomes part of the programme's method through Sherlock, Moriarty, UAT, and ledgers. | `interpretive` | `Me/chats/Inbox/history_western_philosophy.md`; `Me/chats/Inbox/SherlockBS2.md`; the author's RC1 brainstorm notes (private) |
 
 ```{=latex}
 \part{The Hard Problem Revisited}
@@ -3161,7 +3161,7 @@ The main historical source files include:
 - `Me/chats/lean.md`
 - `Me/chats/lean and markdown.md`
 - `Me/chats/Inbox/20260808_181828_Rosetta_notes.md`
-- `U/uat/RC1/Brainstorm.md`
+- the author's RC1 brainstorm notes (private)
 
 The broader *Phase Dot* compilation remains incomplete and is not treated here as a checked source file.
 
