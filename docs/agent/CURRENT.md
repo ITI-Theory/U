@@ -6,89 +6,41 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (16 Oct 2026, evening)
+## Now (19 Oct 2026, 01:00)
 
-**The release epic is ISS-114** (by Wed 21 Oct; content freeze end of Sat 17, confirmed). A
-release-check dry run: 24 PASS, 2 FAIL, both for their days (the Lean appendix PDF in the big
-build; three PDFs into Dist at `make dist`).
+**Two lines of work.** `main` is the release line (ISS-114, Wed 21 Oct). `audio` is the audio work
+(ISS-118, from tag `pre-audio-2026-10-18`): NKS reader, the rig, the Soma script for Live, the eight
+knobs (Macros 1-7 the feelings, 8 the field; the app now sends Φ as CC 29). `main` is merged into
+`audio` regularly; `audio` goes into `main` when the author says.
 
-**Housekeeping (author, 16 Oct):** issue tasks are dev tasks; the author's steps are on the desk
-(ISS-081, `bin/remind`); his walks, reads and tests are UAT (`uat/checklist.yaml`, `HAL uat`),
-with a pointer left in the issue. A closed issue keeps no empty box (`[x]` done, `[-]` not done;
-`bin/issues-check` enforces it). Closed today: ISS-094, ISS-102, ISS-108, ISS-110.
+**The music is private** (author, 18 Oct): it runs on his machine only, the Soma Machine generates
+nothing, it passes its emotional score in; the output must be free (information about music, never
+its notes). Me/music: compose.py (the score to MusicXML and MIDI), brief.py (YouTube text only),
+preview.py, to_live.py (`make live`: the score straight into Live over AbletonOSC, tested: 646 notes).
+What the project uses is kept by hand in Me/Ops/music-inventory.md (as the author adds things);
+where things live in Me/Ops/locations.md and OneDrive\lib\README.md (pkg installers, lib content,
+prj work). Installed 18-19 Oct: Phase Plant, Scaler 3, Serum 2 (its orchestra: strings, winds,
+choir; content in OneDrive\lib\xfer), OBS with plugins, ffmpeg, AbletonOSC (Live slot 1, answering).
+Left in Live: Configure Serum 2's and Phase Plant's Macro 1-8 (Live hides big plugins' parameters).
 
-**Done today:** the three users (who.js, `registry/users.yaml` with companions resolved by
-generate.py; THE GUIDE shows YOUR COMPANION), MOTHER's ROOTED gate and the Nostromo sounds, tours
-as tabs, MY ROUTE (also on THE WORLDS' domes), WHEREAMI, POKE's IMPULSE/RESPONSE/RETURN, the model
-(`registry/model.yaml`, `make -C sherlock model`), presence (`make -C sherlock presence`: 0 gaps);
-the web site's source (`web/home.md`, `make web`, `make web-publish`; live when the author pushes
-the site on the 21st) and `web/PITCH.md`; the names checked (`registry/presence.yaml`); the
-splash credit line; the cathedral's neon pass and the palace to the great hall's standard; the
-Dark Matter Lord (`make -C sherlock rivals`) and the BOFH (`make -C sherlock bofh`).
+**Closed 18 Oct:** ISS-087 (the Jumbo cut by edition, 294 pages), ISS-100 (the overview plate),
+ISS-101 (the frequency axis and the limbic route in their papers), ISS-116 (privacy: eight files to
+Me, the markers). Also: the Gestalt paper names interoception (ISS-094), the rivals check 0 gaps,
+46 features approved (the gate after the release), the 2021 score's header neutral, the River Film
+attested. Tools: `make show-film` (the music film recorded), `make film-render` (frame by frame at
+4K), `make obs-soma` (OBS's Soma collection) and MOTHER's `/obs`, interview.py (Isa, Kokoro
+bf_isabella 0.9, asks; Whisper large-v3 hears; answers in Me/todo/answers), macfac.py on a private
+case folder (ISS-063's inversion test drafted in Me/film/cases, for the author to confirm).
 
-**Evening (16 Oct):** the cheat sheets stand on their own (a credit line on every page,
-`make -C sherlock standalone`, release-check 12a); the Gateway book's glossary (Words You Will
-Meet); the QR codes decoded by `make -C sherlock presence`; the Gallery's pictures checked as the
-programme's own (release-check 14d); spoken UAT notes (`v` in `HAL uat`, uat/scripts/dictate.py);
-Kokoro beside Piper in the bridge (`voices.py`, choose by ear); the mix read into a cue sheet
-(`make show-cues`) and SHOW mode (ROOTED, MOTHER /show); where a feeling is in the brain, sourced
-(registry/regions.yaml) and `/feel` in MOTHER; ISS-115 records what Sherlock needs before a piece
-can carry the author's emotions (a sound grammar, read-back, provenance). Closed: ISS-099.
-
-**Later (16 Oct, 21:20):** what is private stays private (ISS-116: `make -C sherlock privacy`,
-release-check 14e; H-AL's answers now go to Me, never U, which is public; five old files await the
-author's decision); Sherlock for music (ISS-115): the sound grammar (`make -C sherlock grammar`),
-provenance of the scores (`make -C sherlock provenance`), read-back of a recording against a score
-(`make -C sherlock readback`); the band over MIDI OUT (channel 2: chord pads 60-66, CC 30-33) for
-Scaler 3, which the author is setting up.
-
-**The feature hour (16 Oct, late):** the jokes on the web (web/home.md); the overview as a tour stop
-(`overview: 1`); the Gallery in the app (GALLERY, 13 rooms, 87 plates); the hubs registry
-(registry/hubs.yaml, checked at build); every feature tagged science or show (registry/features.yaml,
-`make -C sherlock features`, for the author's approval); the strap beyond the score (the body's heart,
-the dyad, the landscape's noise); the film's titles and credits; levels of visualisation by viewer
-(registry/views.yaml, `make -C sherlock views`). Closed: ISS-079, 092, 098, 109, 113. The music
-notebook upload (HAL-UAT-MUSIC, 38 old sources + 11 music) is planned in Me and paused.
-
-**The visual pipeline (17 Oct, ISS-117; the audio comes after it):** docs/PIPELINE.md (one state; compose
-once, the viewer's baseline compiled on top, perform with small live overrides; five kinds of jump; the
-three FLY windows; questions in, pictures out; a new tool's save and see); the grand tour
-(registry/tours/grand-tour.yaml, 18 places, UAT `app-grand-tour`); the film compiler
-(scripts/compile-film.mjs, to bld/film/*.timeline.json, for picture and sound). Open: the app playing a
-compiled timeline; transitions as declared kinds.
-
-**Later, 17 Oct (the freeze evening; the author: papers, books, then the Soma Machine; complete before
-the audio):** the neon cave (the score's SETTING: CAVE, show); the transition grammar
-(registry/transitions.yaml: `via: kind [secs] [on sync]`; `style:` directives) through to the compiled
-film; tours draw their jumps (veil.js; the wormhole ROOTED's, a fade by default) and announce
-`soma-transition`; FILM plays a compiled film in sync (film.js, MOTHER /film, `soma-film-frame`). The
-Atlas's voyage recaptured (42 plates) with the halls, THE WORLDS and THE COURSE. The big build running
-(bld/logs/big-build-2026-10-17.log); then release-check, the Wizard again, the art book's editions.
-
-**17 Oct, night (the author: "fix 95, 101, 103, 104, 107 first, then test in one go"):** done and tested
-headless in one pass, no page errors: the three elevators and the desk's preset (ISS-101), the limbic road,
-paper drafts for the author's OK (docs/drafts/ISS-101-frequency-and-limbic.md); the ROOTED gate, rule and
-presets (registry/rooted.yaml), a ray-traced Morris-Thorne wormhole (wormhole.html), a thought's own
-elevator, the rooted Atlas (Part2/book/rooted-atlas, 20 pages, check PASS) (ISS-095); the cosmos hall and
-display-resolution textures (ISS-103); the mind chamber's paths (ISS-104); the tensor film from music and
-the LED film (ISS-107). Left for the author: the drafts, HAL's brief on the inside (ISS-104), UAT
-`app-elevators`, `app-limbic-road`, `app-wormhole`, `app-rooted`, `app-4k`.
-
-**18 Oct, after midnight (the author on the audio; Copilot on the rest until input is needed):** ISS-105
-phase 3 (the TELEMETRY drawer, the neurotype into the mind chamber, the pulse down to the heart);
-ISS-052 finished but the granular sound (the glass brain, MEMORY in 3D, FLY's solved fluid, the way
-up's side roads); the RICE lensing skin; load.py --replace for go-live; the Jumbo's cut measured
-(322 pages, options in ISS-087). No audio file touched. What is left needs the author or Monday.
-
-**Waiting on the author:** HAL's login (then the never-written questions, ISS-092); the voice by
-ear; the Dark Matter Lord's two gaps; ISS-116's five files and the fis-2021 header; attesting the scores; the public notebook (ec1a7e74 or 16368cb3); the Zenodo
-tokens; the Lulu account; the UAT walk (now 33 steps).
+**Waiting on the author:** the facts of the inversion test; the strap test (ISS-111); the Gallery's
+proof, cover, cut and SNAP shoot (ISS-097); the real show film (90 minutes); the Azure Speech role
+(the free account exists, optional); the Zenodo tokens and the Lulu account (release days).
 
 ## Next: the release, by 21 October 2026 (ISS-114, the epic)
 
 1. Content freeze end of Sat 17 Oct (confirmed by the author, 16 Oct); the big build; release-check all PASS.
 2. Sun 18: the author's UAT reading and app walk; fixes.
-3. Mon 19: make dist; the Zenodo sandbox rehearsal (the author's token).
+3. Mon 19: make dist; the Zenodo sandbox rehearsal (the author's token); release-check (privacy now clean).
 4. Tue 20: Zenodo live; the DOIs everywhere; the print editions listed on Lulu at cost.
 5. Wed 21: the app published as a release, the web site, the tags.
 Kept open, not blockers: ISS-105 (levels shell, art pass), ISS-107, ISS-111, ISS-112.
