@@ -3222,7 +3222,7 @@ different scales (ZSF's "same as always").
       exists from all of OpenCyc (10 of 10, about a minute); SLICE=1 writes the same
       facts as axioms for the fast loop (the author's slice-first method). Next: the
       programme's own types anchored to them, beyond the emotions (EmotionCyc).
-- [ ] The inversion test (author, 13 Oct, on Me/film/art-fis-2021-08.md, the FIS notes of
+- [~] (18 Oct 23:3x, steps 1 and 2, the author's go: sherlock/macfac.py takes a private case folder (`check|report --cases <dir>`: its own tests and vocabulary, sources frozen in its own repository; the full report stays beside the cases, U gets only scores and predicate names, bld/sherlock/macfac-private.md); Me/film/cases: seven cases (three films, four institutions; relations only, neutral entities, every fact citing its line of the frozen notes), 33 facts, the author's five "==" lines as the tests; check: 0 problems. A draft run, facts unconfirmed: 4 of the 9 claimed pairs share nothing as the notes describe them, and the inversion (line 125) shares nothing; the 2021 notes describe the films and the institutions in different words, so the relations the author named on 13 Oct (conditioning the outward behaviour, the victim blamed) are not yet in them. Next: the author confirms or corrects the facts, by voice, one at a time) The inversion test (author, 13 Oct, on Me/film/art-fis-2021-08.md, the FIS notes of
       Aug 2021): "linking bad people from bad films and inverting their persona onto
       'normal' people, who underneath are the same". That is structure mapping's own claim:
       analogy follows shared relations, not attributes. The thug in *Made in Britain*,

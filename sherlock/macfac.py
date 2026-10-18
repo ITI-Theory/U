@@ -2,6 +2,12 @@
 
     python sherlock/macfac.py check     # validate registry/cases (vocabulary, arity, frozen sources, lines)
     python sherlock/macfac.py report    # retrieval for every case, the tests, the shared core -> bld/sherlock/macfac.md
+    python sherlock/macfac.py check|report --cases <dir>   # a private case folder (e.g. Me/film/cases)
+
+A private case folder (ISS-063, the inversion test) has its own cases, tests.yaml and, if needed,
+vocabulary.yaml (predicates added to U's); its sources are frozen in that folder's own repository
+(Me). Its report keeps the facts and the quotes beside the cases (<dir>/report.md, private); U gets
+only the scores and the predicate names (bld/sherlock/macfac-private.md).
 
 MAC/FAC after Forbus, Gentner & Law (1995). MAC ("many are called"): each case's
 content vector counts its predicates (nested ones too); the dot product of two
@@ -38,8 +44,15 @@ OUT = U / "bld" / "sherlock"
 MAC_KEEP = 4  # candidates MAC passes to FAC
 
 
+def repo_of(folder: Path) -> Path:
+    r = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=folder, capture_output=True, text=True)
+    return Path(r.stdout.strip()) if r.returncode == 0 else U
+
+
 def load():
-    vocab = yaml.safe_load((CASES / "vocabulary.yaml").read_text(encoding="utf-8"))["predicates"]
+    vocab = yaml.safe_load((U / "registry" / "cases" / "vocabulary.yaml").read_text(encoding="utf-8"))["predicates"]
+    if CASES != U / "registry" / "cases" and (CASES / "vocabulary.yaml").exists():
+        vocab = {**vocab, **(yaml.safe_load((CASES / "vocabulary.yaml").read_text(encoding="utf-8")) or {}).get("predicates", {})}
     cases = {}
     for f in sorted(CASES.glob("*.yaml")):
         if f.name in ("vocabulary.yaml", "tests.yaml"):
@@ -54,7 +67,7 @@ def load():
 
 
 def frozen(src: dict) -> str | None:
-    r = subprocess.run(["git", "show", f"{src['commit']}:{src['file']}"], cwd=U, capture_output=True)
+    r = subprocess.run(["git", "show", f"{src['commit']}:{src['file']}"], cwd=repo_of(CASES), capture_output=True)
     if r.returncode:
         return None
     if hashlib.sha256(r.stdout).hexdigest() != src["sha256"]:
@@ -147,6 +160,7 @@ def macfac(probe: str, cases: dict) -> list[tuple[str, float, float]]:
 
 def report() -> int:
     vocab, cases, tests = load()
+    private = CASES != U / "registry" / "cases"
     md = ["# Sherlock MAC/FAC: where else does this structure occur?", "",
           f"{len(cases)} cases, {sum(len(c['_facts']) for c in cases.values())} facts "
           f"(registry/cases; vocabulary of {len(vocab)} predicates). Similarity: the structure-mapping "
@@ -166,6 +180,7 @@ def report() -> int:
     md += ["## The tests: the documents' own sameness claims", ""]
     for t in tests:
         md += [f"### {t['id']} ({t['document']}, line {t['line']})", "", f"> {t['quote']}", ""]
+        safe = [f"### {t['id']}", ""]
         for a, b in t.get("pairs", []):
             ab, ba, chosen = similarity(cases[a]["_facts"], cases[b]["_facts"])
             found = [cid for cid, _, _ in macfac(a, cases)]
@@ -180,6 +195,9 @@ def report() -> int:
                       + (f"MAC/FAC retrieves it (rank {rank} of {len(found)})." if rank else
                          f"MAC/FAC does not retrieve it (finds {', '.join(found[:3])})."))
             md += [f"  - shared: {show(x)} ~ {show(y)}" for _, x, y in chosen[:8]]
+            safe.append(f"- similarity {(ab + ba) / 2:.2f}, rank {order.index(b) + 1} of {len(order)}; "
+                        + (f"MAC/FAC retrieves the claimed partner (rank {rank})" if rank else "MAC/FAC does not retrieve it")
+                        + f"; shared predicates: {', '.join(sorted({x[0] for _, x, _ in chosen})) or 'none'}")
         if t.get("cases"):
             ids = [c for c in t["cases"] if c in cases]
             sims = {(a, b): sum(similarity(cases[a]["_facts"], cases[b]["_facts"])[:2]) / 2
@@ -195,19 +213,33 @@ def report() -> int:
                       + (", ".join(sorted(p for p, n in core.items() if n == len(ids))) or "none"))
             md.append("- in at least half: " + ", ".join(sorted(p for p, n in core.items() if 2 * n >= len(ids))))
         md.append("")
+        if private:
+            SAFE.extend(safe + [""])
     md += ["## Retrieval for every case (MAC/FAC, best three)", ""]
     for cid in cases:
         hits = macfac(cid, cases)[:3]
         md.append(f"- **{cid}** ({cases[cid].get('name', '')}): "
                   + "; ".join(f"{h} {s:.2f}" for h, _, s in hits))
     OUT.mkdir(parents=True, exist_ok=True)
+    if private:
+        (CASES / "report.md").write_text("\n".join(md) + "\n", encoding="utf-8", newline="\n")
+        head = ["# Sherlock MAC/FAC on a private case folder: the scores only", "",
+                f"{len(cases)} cases, {sum(len(c['_facts']) for c in cases.values())} facts, {len(tests)} tests. The cases, "
+                "their facts and the quotes stay in the private folder (its report.md).", ""]
+        (OUT / "macfac-private.md").write_text("\n".join(head + SAFE) + "\n", encoding="utf-8", newline="\n")
+        print(f"{CASES / 'report.md'} (private); bld/sherlock/macfac-private.md (scores only): {len(cases)} cases, {len(tests)} tests")
+        return 0
     (OUT / "macfac.md").write_text("\n".join(md) + "\n", encoding="utf-8", newline="\n")
     print(f"bld/sherlock/macfac.md: {len(cases)} cases, {len(tests)} tests")
     return 0
 
 
+SAFE: list[str] = []
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
+    if "--cases" in sys.argv:
+        CASES = Path(sys.argv[sys.argv.index("--cases") + 1]).resolve()
     if cmd == "check":
         sys.exit(check())
     if cmd == "report":
