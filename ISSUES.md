@@ -5076,9 +5076,9 @@ the overview can be the app's own views in frames that follow one another.
       The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
       matter and in the Gallery.
 
-## ISS-101: Three elevators: scale, dimension, frequency (the limbic and EM-field views) — OPEN
+## ISS-101: Three elevators: scale, dimension, frequency (the limbic and EM-field views) — CLOSED
 {{Tags area.app, area.theory}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=2026-10-18, epic=}}
 
 Author, 14 Oct 20:30: the elevator view is a 3D space viewer from small to large with a time
 slider (so 4D?); the brain views sit in other dimensions but are part of the same thing; could
@@ -5128,7 +5128,7 @@ so the papers' gap stands.
       already has the gamma-band estimate, is the natural home; the author's call) and the
       limbic route (P14, the missing limbic layer). Drafts for the author's OK; the papers'
       claims are his.
-- [ ] AUTHOR: OK, change or refuse the two drafts (docs/drafts/ISS-101-frequency-and-limbic.md); an accepted draft goes into its paper and its references into the bibliography.
+- [x] (18 Oct 21:1x, the author: "put them in the papers as written") AUTHOR: OK, change or refuse the two drafts (docs/drafts/ISS-101-frequency-and-limbic.md); an accepted draft goes into its paper and its references into the bibliography. (Done: the frequency axis and the theta-gamma hypothesis at the end of the Zoomable paper's Scale 6; the route through the hinge in P14 before the coupling equations; Buzsáki and Draguhn 2004, Canolty 2006, Lisman and Jensen 2013, Papez 1937 checked against Crossref and added; both papers rebuilt, every citation resolved.)
 - [x] (17 Oct night: THE LIMBIC ROAD (LIMBIC ▸ in the cathedral, `lfly=1`): out of the temporal horn past the amygdala, along the hippocampus, up the fornix's arch to the mammillary bodies, the cingulate above; the walls left behind; labelled sourced for the route; the elevators as above) Then the app: the limbic fly-through from the cathedral; the dimension and frequency
       elevators.
 - [x] (17 Oct night: the paper question written, drafts section 3: does inner speech that reaches awareness show gamma synchrony with the language network that unattended inner speech does not?) (15 Oct) The inner voice, a model gap with the frequency axis: inner speech in the language

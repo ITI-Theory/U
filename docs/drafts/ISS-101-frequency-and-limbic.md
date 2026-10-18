@@ -1,7 +1,7 @@
 # Drafts for the papers: the field's frequency axis and the limbic route (ISS-101)
 
-Status: **drafts for the author's OK** (17 Oct 2026). Nothing here is in a paper yet; the papers'
-claims are the author's. Each claim carries its evidence label (`docs/agent/THEORY-STATUS.md`).
+Status: **accepted as written** (the author, 18 Oct 2026); sections 1 and 2 are in their papers. The
+papers' claims are the author's. Each claim carries its evidence label (`docs/agent/THEORY-STATUS.md`).
 New references are given in full; they go into `paper/bibliography.bib` when a draft is accepted.
 The app already shows both, labelled (the elevator's FREQUENCY and DIMENSION tabs; the cathedral's
 LIMBIC road), so the papers would catch up with what the app has found, as the author asked

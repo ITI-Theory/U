@@ -554,6 +554,25 @@ the FM-HN architecture (§7) provides the runtime coupling to the limbic field.
 **Consciousness threshold:** Awareness emerges when the CEMI field amplitude
 $\phi \geq T_c = \sqrt{2}$ (normalised units). Proved: `UniversalSomaticField.consciousness_dichotomy`.
 
+**The frequency axis.** The wavenumber above uses one frequency, the gamma band's 40 Hz. The
+brain's field is not one frequency but a spectrum of rhythms, conventionally divided into bands:
+delta (0.5-4 Hz), theta (4-8 Hz), alpha (8-13 Hz), beta (13-30 Hz) and gamma (30-100 Hz)
+[@buzsaki2004neuronal] `sourced`. The same equation holds in each band with its own
+$k = \omega / c_\text{neural}$, so the brain level is a family of scales in frequency, as the
+zoom is a family in length `derived-under-assumptions` (the same dispersion, assumed across the
+bands). Coherent oscillation is a proposed mechanism by which neural groups communicate
+[@fries2005mechanism] `sourced` (as a proposal in the literature). Which of the model's types a
+band carries is not derived here; one testable reading is offered below.
+
+**A hypothesis: the hinge as cross-frequency coupling.** If the limbic hinge (D8) and the
+cortical mind field (D9-11) are carried by different bands, theta for the hippocampal-limbic
+rhythm and gamma for cortical binding, then the hinge between them is theta-gamma coupling, in
+which the phase of a slow rhythm modulates the amplitude of a fast one
+[@canolty2006high; @lisman2013theta] `sourced` (that the coupling exists). That the model's D8 to
+D9-11 correspondence *is* this coupling is `open-hypothesis`: it predicts that an emotion becoming
+a thought (the model's two readings of one event) shows as stronger theta-gamma coupling between
+limbic and cortical sites at that moment.
+
 ---
 
 ## Scale 7 — Organism ($10^{0}$ m)
