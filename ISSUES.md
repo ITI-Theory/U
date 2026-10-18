@@ -6363,37 +6363,8 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       the sound. Author's notes for it, 18 Oct 18:59: he owns Traktor 4, and its remix slots are a good
       way for a user to pick different final instruments ("when I saw the layouts again, I liked it");
       and more than one output: play one while the next is being worked out.
-- [x] (18 Oct, 19:00-19:20) The design round: the author, Copilot, HAL (six questions:
-      uat/RC3/hal-score-design-2026-10-18.md; answers in Me/notebooklm/hal-answers). Agreed so far:
-      - Three layers. The emotional score e*(t) is the master and never changes ("the notes are the
-        invariant; the sound is the realisation"). Under it the musical score, the tune: notes, kept
-        as MusicXML (LilyPond or Dorico to print, MIDI derived). Under that the performance (the rig,
-        the Soma script, built).
-      - The composer (compose time) fixes the notes; the conductor (play time, the user) changes only
-        how they are played: tempo rubato, dynamics, timbre, space (the CCs already in the rig).
-      - The tune is found, not copied (the author: "Velvet -> MIDI clip, legal"): a track he likes is
-        a query, never material. Its fingerprint (tempo, key and mode; per bar the contour, intervals,
-        rhythm, density; per piece the form and energy arc; his text about it) searches a library of
-        clips that may be used, at bar, phrase or piece level, e.g. the Moonlight Sonata's third
-        movement for a bass line. The transcription made for the query is thrown away, in Me.
-      - The rights gate, four classes, one per source, checked by Sherlock: public domain (reMIDI's
-        factory MIDI, its manual: "public domain non-copyright files organized into folders based on
-        musical genre"; IMSLP, Mutopia, music21's corpus; scores, not recordings) and the author's own
-        playing: in his pieces and shipped; licensed to him (W.A. Production's Ascension, 1,887 clips
-        by role, genre and key, OneDrive\lib; NI Drum Lab, 901; Scaler, reMIDI 2 packs to check):
-        in his rendered pieces, mixed with other parts, never shipped (the EULA: original purchaser
-        only, non-transferable, never isolated); reference (YouTube links in OneDrive\tmp\music,
-        739, as AJ-WiKi's gen-youtube lists them; his albums): a query only, or the platform's own
-        embed. So the app's search covers public domain and his own; his studio adds the licensed.
-      - Composing from the found tune: the counterpoint engines (inversion, species, canon,
-        contrary motion), the emotion-to-music map of The Tensor (safety, fear, curiosity, awe,
-        grief, language, pre-verbal), build-up, peak, drop and walk-off as CC envelopes.
-      - Zoom: the same tune at every scale; the clock division and the timbre change (foam: Dick
-        Dale's drip, 32nds; the oscillator: Link Wray's Rumble, drones), crossfaded.
-      - Outputs: Traktor-style remix slots (sub-mix stems; the user picks each slot's final
-        instrument) and two outputs, A playing while B is prepared, then crossfaded; 12-24 live
-        instruments at once, the rest Device Off.
-      - HAL corrected: its "melody extracted from Waiting for the Man" is superseded by the gate;
-        the Three.js rolling ribbon (a bass line and two melodies, like Traktor's waveform) was AI
-        Mode's proposal, not built; the author owns reMIDI 1.0 here and 2, not 4.
+- [x] (18 Oct, 19:00-19:30) The design round held (HAL's six questions: uat/RC3/hal-score-design-
+      2026-10-18.md). The author: the music work is private, on his machine only; the Soma Machine
+      generates nothing, it passes its emotional score in. The output must be free: information
+      about music (text, form, feel) is used, never its notes. Design and work: Me/music.
 
