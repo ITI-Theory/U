@@ -6,7 +6,7 @@
 
 A private case folder (ISS-063, the inversion test) has its own cases, tests.yaml and, if needed,
 vocabulary.yaml (predicates added to U's); its sources are frozen in that folder's own repository
-(Me). Its report keeps the facts and the quotes beside the cases (<dir>/report.md, private); U gets
+(Me). Its report keeps the facts and the quotes beside the cases (<dir>/report.txt, private: generated, so not itself a privacy source); U gets
 only the scores and the predicate names (bld/sherlock/macfac-private.md).
 
 MAC/FAC after Forbus, Gentner & Law (1995). MAC ("many are called"): each case's
@@ -222,12 +222,12 @@ def report() -> int:
                   + "; ".join(f"{h} {s:.2f}" for h, _, s in hits))
     OUT.mkdir(parents=True, exist_ok=True)
     if private:
-        (CASES / "report.md").write_text("\n".join(md) + "\n", encoding="utf-8", newline="\n")
+        (CASES / "report.txt").write_text("\n".join(md) + "\n", encoding="utf-8", newline="\n")
         head = ["# Sherlock MAC/FAC on a private case folder: the scores only", "",
                 f"{len(cases)} cases, {sum(len(c['_facts']) for c in cases.values())} facts, {len(tests)} tests. The cases, "
-                "their facts and the quotes stay in the private folder (its report.md).", ""]
+                "their facts and the quotes stay in the private folder (its report.txt).", ""]
         (OUT / "macfac-private.md").write_text("\n".join(head + SAFE) + "\n", encoding="utf-8", newline="\n")
-        print(f"{CASES / 'report.md'} (private); bld/sherlock/macfac-private.md (scores only): {len(cases)} cases, {len(tests)} tests")
+        print(f"{CASES / 'report.txt'} (private); bld/sherlock/macfac-private.md (scores only): {len(cases)} cases, {len(tests)} tests")
         return 0
     (OUT / "macfac.md").write_text("\n".join(md) + "\n", encoding="utf-8", newline="\n")
     print(f"bld/sherlock/macfac.md: {len(cases)} cases, {len(tests)} tests")

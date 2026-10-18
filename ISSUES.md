@@ -5941,7 +5941,7 @@ Facts and Copilot's view:
 - [x] The "ask the theory first" path on the web page, then the app. (16 Oct: web/home.md, built
       by `make web`, copied by `make web-publish` into ../t-theory.org; Sherlock's presence check
       reads the source: 10 linked, 0 gaps. Live when the author pushes the site, Wed 21.)
-- [ ] Name the tested arm band in the app's STRAP help (the test is UAT: `uat/checklist.yaml`,
+- [ ] (18 Oct 23:2x, the author by voice: "not yet": no strap tested so far) Name the tested arm band in the app's STRAP help (the test is UAT: `uat/checklist.yaml`,
       step `hw-strap`).
 - [x] The pitch, for U and for the scientist, labelled; through the clinical check. (16 Oct:
       web/PITCH.md; Sherlock's clinical check: 0 candidates.)
@@ -6251,7 +6251,7 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
       of the author's chats reached Me), hal-universe-2026-10-16 (320). (17 Oct: release-check's only
       non-Monday FAIL.) Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
-- [ ] AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
+- [x] (18 Oct 23:2x, by voice: "nothing to do with freemasonries": the marker and its forms in Me/Ops/privacy.yaml; the check: 0 markers in 1,123 public files; the author can add more at any time) AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
 - [x] (18 Oct, the author: "shorten the header to one neutral line": done) AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
       comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
       move the score to Me.
