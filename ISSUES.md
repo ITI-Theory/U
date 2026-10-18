@@ -4497,7 +4497,7 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
 - [x] (17 Oct: the voyage recaptured, 42 plates and 7 hall plates with prose and credits; bookfactory built, 322 pages: the cut is the author's, below) Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).
-- [ ] AUTHOR: the Jumbo cut. (17 Oct night: `make -C Part2/book/field-atlas bookfactory` gives 322
+- [x] (18 Oct 21:4x, the author: "Copilot's pick: a + b + c + e": atlas.yaml `editions: bookfactory: omit` (the city of code, What's Different?, the sector openers, the score stop), chosen by defaults/bookfactory.yaml `atlas-edition`, honoured by lib/format/registry.lua; bookfactory: PASS, 294 pages; the A3 unchanged, 321) AUTHOR: the Jumbo cut. (17 Oct night: `make -C Part2/book/field-atlas bookfactory` gives 322
       pages against bookfactory's 300; at least 22 to go, about 26 with a margin. The Lulu A4 edition,
       359 pages, and the A3, 321, stay whole. Pages by part (the A3 layout, close to the Jumbo's):
       Sector III 62, the Voyage Inside 48, Sector V 45, Sector IV 34, Sector I 32, Sector II 26, What's

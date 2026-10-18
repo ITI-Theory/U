@@ -468,15 +468,18 @@ local function plated_section(file, plates, prefix, level, id, missing)
   return out
 end
 
-local function voyage_part(voyage, missing)
+local function voyage_part(voyage, missing, omit)
+  omit = omit or {}
   local out = {}
   local intro = read_markdown_doc(ATLAS .. "/" .. voyage.file)
   local intro_meta = meta_to_lua(intro.meta) or {}
   out[#out + 1] = header(1, intro_meta.title or "The Voyage Inside", "part-voyage-inside")
   append(out, maybe_columns(intro.blocks))
   for number, stop in ipairs(voyage.stops or {}) do
+    if omit[stop.file] then goto next_stop end
     local slug = stop.file:match("([^/]+)%.md$") or ("stop-" .. number)
     append(out, plated_section(stop.file, stop.plates, "V" .. number, 2, "voyage-" .. slug:gsub("^%d+%-", ""), missing))
+    ::next_stop::
   end
   return out
 end
@@ -865,6 +868,10 @@ end
 
 local function build_atlas(meta)
   local atlas = meta_to_lua(meta)
+  -- an edition may leave parts out (atlas.yaml `editions`, chosen by the defaults' `atlas-edition`)
+  local omit = {}
+  local edition = atlas["atlas-edition"]
+  for _, part in ipairs(edition and atlas.editions and atlas.editions[edition] and atlas.editions[edition].omit or {}) do omit[part] = true end
   local levels = load_levels()
   local labels = {}
   for id, data in pairs(levels) do labels[id] = data.label or id end
@@ -901,7 +908,7 @@ local function build_atlas(meta)
     for _, name in ipairs(atlas.theory or {}) do
       append(out, theory_chapter(ATLAS .. "/" .. name))
       local city = atlas.code_city
-      if city and city.after == name then append(out, plated_section(city.file, city.plates, "C", 2, "code-city", missing)) end
+      if city and city.after == name and not omit.code_city then append(out, plated_section(city.file, city.plates, "C", 2, "code-city", missing)) end
     end
     out[#out + 1] = header(1, "Part II: Field Atlas", "part-ii-field-atlas")
   end
@@ -916,7 +923,7 @@ local function build_atlas(meta)
       if b.t == "Div" and b.classes:includes("plate") then world_caption = caption_inlines(b) else body[#body + 1] = b end
     end
     append(out, maybe_columns(body))
-    if sector.world then
+    if sector.world and not omit.sector_worlds then
       local src = "figures/app/voyage/" .. sector.world.id .. ".png"
       local caption = pandoc.Inlines({pandoc.Str("Figure S" .. number .. " —"), pandoc.Space()})
       if world_caption then caption:extend(world_caption) else missing[#missing + 1] = "caption for " .. sector.world.id end
@@ -937,9 +944,9 @@ local function build_atlas(meta)
     end
     local extras = {concepts = concepts or {}, reading = reading, read_with = read_with}
     for _, level_id in ipairs(sector.levels or {}) do append(out, level_spread(level_id, ordinal[level_id], labels, edges, examples, missing, paths, captions, extras)) end
-    if atlas.voyage and tonumber(tostring(atlas.voyage.after_sector)) == number then append(out, voyage_part(atlas.voyage, missing)) end
+    if atlas.voyage and tonumber(tostring(atlas.voyage.after_sector)) == number then append(out, voyage_part(atlas.voyage, missing, omit)) end
   end
-  if atlas.questions ~= false then append(out, questions_part(load_questions(), labels)) end
+  if atlas.questions ~= false and not omit.questions then append(out, questions_part(load_questions(), labels)) end
   append(out, models_part(models, labels))
   append(out, paths_part(paths, labels, edges, examples, missing))
   append(out, time_axis_part(eras_meta.eras or {}, labels))

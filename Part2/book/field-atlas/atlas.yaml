@@ -132,3 +132,10 @@ time_axis:
   source: registry/eras.yaml
   placement: after-paths
 back: [back/1-open-questions.md, back/2-glossary.md, back/3-sources-and-credits.md, back/4-colophon.md]
+
+# Editions that leave parts out (the Jumbo cut, ISS-087; the author chose it 18 Oct 2026: bookfactory
+# allows 300 pages). The edition is chosen by its defaults file (metadata atlas-edition). Lulu A4 and
+# the A3 stay whole.
+editions:
+  bookfactory:
+    omit: [code_city, questions, sector_worlds, voyage/15-the-score.md]
