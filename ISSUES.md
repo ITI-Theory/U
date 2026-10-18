@@ -3222,7 +3222,7 @@ different scales (ZSF's "same as always").
       exists from all of OpenCyc (10 of 10, about a minute); SLICE=1 writes the same
       facts as axioms for the fast loop (the author's slice-first method). Next: the
       programme's own types anchored to them, beyond the emotions (EmotionCyc).
-- [ ] The inversion test (author, 13 Oct, on Me/film/art-fis-2021-08.md, the FIS notes of
+- [~] (18 Oct 23:3x, steps 1 and 2, the author's go: sherlock/macfac.py takes a private case folder (`check|report --cases <dir>`: its own tests and vocabulary, sources frozen in its own repository; the full report stays beside the cases, U gets only scores and predicate names, bld/sherlock/macfac-private.md); Me/film/cases: seven cases (three films, four institutions; relations only, neutral entities, every fact citing its line of the frozen notes), 33 facts, the author's five "==" lines as the tests; check: 0 problems. A draft run, facts unconfirmed: 4 of the 9 claimed pairs share nothing as the notes describe them, and the inversion (line 125) shares nothing; the 2021 notes describe the films and the institutions in different words, so the relations the author named on 13 Oct (conditioning the outward behaviour, the victim blamed) are not yet in them. Next: the author confirms or corrects the facts, by voice, one at a time) The inversion test (author, 13 Oct, on Me/film/art-fis-2021-08.md, the FIS notes of
       Aug 2021): "linking bad people from bad films and inverting their persona onto
       'normal' people, who underneath are the same". That is structure mapping's own claim:
       analogy follows shared relations, not attributes. The thug in *Made in Britain*,
@@ -4109,12 +4109,12 @@ other work.
 - [ ] (ISS-092) Read H-AL's "never written" (Me/notebooklm/hal-answers/hal-never-written-2026-10-16-answers.md,
       private): ten ideas from the chats no book covers, and five things a reader would miss. Decide
       what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
-- [ ] (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
+- [x] (18 Oct: all approved as proposed) (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
       true`, or change the tag); `make -C sherlock features` lists what is still awaiting.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
-- [~] (ISS-094; 18 Oct 20:55, the author by voice: "All of it": the paragraph is in the Gestalt paper (after the comparative table), Seth 2013 and Friston 2010 in the bibliography, the paper rebuilt, the rivals check: interoception named; left: SH1's "quantum advantage", likely fine) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
+- [x] (18 Oct 21:2x: SH1 judged fine by the author, registry/rivals.yaml `judged`; rivals: 0 gaps to judge) (ISS-094; 18 Oct 20:55, the author by voice: "All of it": the paragraph is in the Gestalt paper (after the comparative table), Seth 2013 and Friston 2010 in the bibliography, the paper rebuilt, the rivals check: interoception named; left: SH1's "quantum advantage", likely fine) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
       the Gestalt paper's somatic claims name no interoception or predictive processing (add a
       line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
 - [x] (16 Oct, author: "you go for it": done. The Gateway book's Reader's Compass has a glossary,
@@ -4436,9 +4436,9 @@ every public repository says what it gives, and every borrowed thing says where 
 
 ---
 
-## ISS-087: Field Atlas, the print edition with the new graphics (about 300 pages) — OPEN
+## ISS-087: Field Atlas, the print edition with the new graphics (about 300 pages) — CLOSED
 {{Tags area.books, area.app, area.visualize}}
-{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-18, epic=}}
 
 Author, 13 Oct 22:33: the Atlas prints differently (bookfactory.ch, not Lulu), so do it first;
 it depends on the app, and a lot has been added since it was laid out (4 Oct; triptychs 9 Oct).
@@ -4497,7 +4497,7 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
 - [x] (17 Oct: the voyage recaptured, 42 plates and 7 hall plates with prose and credits; bookfactory built, 322 pages: the cut is the author's, below) Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).
-- [ ] AUTHOR: the Jumbo cut. (17 Oct night: `make -C Part2/book/field-atlas bookfactory` gives 322
+- [x] (18 Oct 21:4x, the author: "Copilot's pick: a + b + c + e": atlas.yaml `editions: bookfactory: omit` (the city of code, What's Different?, the sector openers, the score stop), chosen by defaults/bookfactory.yaml `atlas-edition`, honoured by lib/format/registry.lua; bookfactory: PASS, 294 pages; the A3 unchanged, 321) AUTHOR: the Jumbo cut. (17 Oct night: `make -C Part2/book/field-atlas bookfactory` gives 322
       pages against bookfactory's 300; at least 22 to go, about 26 with a margin. The Lulu A4 edition,
       359 pages, and the A3, 321, stay whole. Pages by part (the A3 layout, close to the Jumbo's):
       Sector III 62, the Voyage Inside 48, Sector V 45, Sector IV 34, Sector I 32, Sector II 26, What's
@@ -4863,7 +4863,7 @@ nothing explicit); a confirm gate, not age verification. The rooted Atlas is an 
 no science claims, kept out of the publication registry or as its own art record; bookfactory's
 Jumbo suits big spreads.
 
-- [~] (16 Oct: registry/features.yaml, Copilot's proposal: 28 features, 14 science, 7 show (FLY, stereo,
+- [x] (18 Oct 21:3x, the author: "approve all as proposed": all 46 features approved, registry/features.yaml; `make -C sherlock features`: 21 science, 15 show, 10 both, 0 awaiting, 0 problems) (16 Oct: registry/features.yaml, Copilot's proposal: 28 features, 14 science, 7 show (FLY, stereo,
       the Gallery, SNAP; RICE, the teletype and SHOW already ROOTED's), 7 both with their split (the
       cathedral's route is anatomy, its neon and stargate show; the palace's method of loci is real,
       its folding walls show); `make -C sherlock features` checks each anchor. Awaiting the author's
@@ -4883,6 +4883,10 @@ Jumbo suits big spreads.
       equations; none observed; a traversable one needs exotic matter" (an embedding diagram, and
       the lensing view by a ray-traced shader); flying through one between floors, the palace or a
       bubble is ROOTED (the elevator's sci-fi twin); a lensing skin is RICE.
+- [ ] The code follows the tags (after the release, the author's order): six show features are not
+      yet behind ROOTED: FLY (the fractal flight), THE COSMOS hall, the lensing skin, stereo, the
+      Gallery, SNAP; and the ten "both" features' show skins (the cathedral's neon and stargate, the
+      palace's folding walls, the golf ...). Then features.py checks the gate, not only the tag.
 Order (author): after the release.
 
 ---
@@ -5040,9 +5044,9 @@ The app becomes a gallery of thoughts rather than of fractal images.
       registry/regions.yaml; the flight to the limbic hinge with that feeling and WHERE IS THIS
       FEELING? open. Saying it: the browser's dictation for now; UAT `app-feel`.)
 
-## ISS-100: The whole cockpit at once: an overview screen that shows how the screens fit together — OPEN
+## ISS-100: The whole cockpit at once: an overview screen that shows how the screens fit together — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=, date.end=2026-10-18, epic=}}
 
 Author, 14 Oct 18:00. A flight simulator has a real cockpit and the rest is maths. The Soma
 Machine is the other way round: the cockpit is real (the user, the screens, the tablets) and
@@ -5070,15 +5074,15 @@ the overview can be the app's own views in frames that follow one another.
 - [x] (14 Oct: a fresh start goes there after the abstract; a link keeps its own view) The
       jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
 - UAT on the real desk (the 32-inch screen and the tablets): `uat/checklist.yaml`, step `hw-screens`.
-- [~] (16 Oct: a tour step `overview: 1` (presentation.js, tour.js, generate.py, docs/TOUR-LANGUAGE.md)
+- [x] (18 Oct 22:3x: the plate, scripts/capture-overview.mjs, 3840 x 2160 on the GPU: figures/app/overview.png, in the Atlas front matter (How to read this atlas) and the Gallery's Soma Machine room (october-desk); bookfactory PASS 294 pages, the Gallery check PASS 104) (16 Oct: a tour step `overview: 1` (presentation.js, tour.js, generate.py, docs/TOUR-LANGUAGE.md)
       shows the desk over the view; the first stop of welcome-u and welcome-scientist, the second of
       H-AL's presentation, after the greeting. Still: the plates in the Atlas and the Gallery.)
       The overview as the first stop of the tours and the demo; a plate of it in the Atlas front
       matter and in the Gallery.
 
-## ISS-101: Three elevators: scale, dimension, frequency (the limbic and EM-field views) — OPEN
+## ISS-101: Three elevators: scale, dimension, frequency (the limbic and EM-field views) — CLOSED
 {{Tags area.app, area.theory}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=2026-10-14, date.end=2026-10-18, epic=}}
 
 Author, 14 Oct 20:30: the elevator view is a 3D space viewer from small to large with a time
 slider (so 4D?); the brain views sit in other dimensions but are part of the same thing; could
@@ -5117,7 +5121,7 @@ the amygdala lies just in front of its tip, the fornix arches from the hippocamp
 ventricles to the hypothalamus (mammillary bodies), and the cingulate gyrus lies above the
 corpus callosum over the body of the ventricle: a sourced route through the limbic system with
 the ventricles as the road.
-HAL-UAT (14 Oct, uat/RC3/hal-cathedral-2026-10-14-answers.md): the author's chats give the
+HAL-UAT (14 Oct, Me/notebooklm/hal-answers/hal-cathedral-2026-10-14-answers.md): the author's chats give the
 frequency elevator a basis (40 Hz gamma with McFadden's CEMI, the Zoomable paper's wavenumber
 estimate; the EEG bands, June 2026; 140 BPM entrainment and Arnold tongues, the trance and
 freeze flip, August 2026); the elevator itself came from a chat on 7 October ("fly sideways
@@ -5128,7 +5132,7 @@ so the papers' gap stands.
       already has the gamma-band estimate, is the natural home; the author's call) and the
       limbic route (P14, the missing limbic layer). Drafts for the author's OK; the papers'
       claims are his.
-- [ ] AUTHOR: OK, change or refuse the two drafts (docs/drafts/ISS-101-frequency-and-limbic.md); an accepted draft goes into its paper and its references into the bibliography.
+- [x] (18 Oct 21:1x, the author: "put them in the papers as written") AUTHOR: OK, change or refuse the two drafts (docs/drafts/ISS-101-frequency-and-limbic.md); an accepted draft goes into its paper and its references into the bibliography. (Done: the frequency axis and the theta-gamma hypothesis at the end of the Zoomable paper's Scale 6; the route through the hinge in P14 before the coupling equations; Buzsáki and Draguhn 2004, Canolty 2006, Lisman and Jensen 2013, Papez 1937 checked against Crossref and added; both papers rebuilt, every citation resolved.)
 - [x] (17 Oct night: THE LIMBIC ROAD (LIMBIC ▸ in the cathedral, `lfly=1`): out of the temporal horn past the amygdala, along the hippocampus, up the fornix's arch to the mammillary bodies, the cingulate above; the walls left behind; labelled sourced for the route; the elevators as above) Then the app: the limbic fly-through from the cathedral; the dimension and frequency
       elevators.
 - [x] (17 Oct night: the paper question written, drafts section 3: does inner speech that reaches awareness show gamma synchrony with the language network that unattended inner speech does not?) (15 Oct) The inner voice, a model gap with the frequency axis: inner speech in the language
@@ -5165,7 +5169,7 @@ stacked for the next big build (ISS-101's stack).
 - [x] (16 Oct, checked: cathedral3d.js VISUAL THOUGHTS) (21:05) Thought bubbles: smaller, the picture inside abstracted (a filter, so it reads as
       a thought, not a photograph), and no automatic popping: a bubble drifts past unless
       clicked; a click goes into the thought.
-- [x] (done at 21:26, below) (21:20, HAL-UAT, uat/RC3/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
+- [x] (done at 21:26, below) (21:20, HAL-UAT, Me/notebooklm/hal-answers/hal-cathedral-2026-10-14-answers.md) Going into a thought is a
       dive, not a picture: the author on 25 June 2026 asked for "bubbles rotating with a fractal
       world inside... go into the bubbles... the music matching (a granular synthesiser)". So a
       click on a bubble flies into it: the thought's own fractal world (a Mandelbulb in the
@@ -5287,7 +5291,7 @@ HopfieldAsync); leaving a well is tunnelling (LimbicTunnel); the past acts throu
 kernel (TemporalDynamics); transitions depend on the route (the path-sensitive transitions
 paper: the paths). So the chamber holds the foam, the pops and the staying thoughts, and the
 paths leave it as tubes: the two shapes of step 1.
-HAL-UAT on the names (uat/RC3/hal-names-2026-10-15-answers.md): all three are the author's own,
+HAL-UAT on the names (Me/notebooklm/hal-answers/hal-names-2026-10-15-answers.md): all three are the author's own,
 9 June 2026 (chats-vol02): the Somatron, the playable sound engine (after the Mellotron); the
 SomaGram, the field projected into light (the optical counterpart); the SomaGraph, the field's
 map (also "the Mountain is the ultimate SomaGraph"). The [T]-stop and film-and-ISO are new (15
@@ -5428,7 +5432,7 @@ At 17:20 he asked Copilot to hold the design conversation with HAL-UAT for him, 
 draw up the final version for his review.
 
 The design: apps/instrument/visuals/soma-field-operator/DESIGN.md (from
-uat/RC3/hal-final-design-2026-10-15-answers.md and -q5-answers.md, checked against the Lean;
+Me/notebooklm/hal-answers/hal-final-design-2026-10-15-answers.md and -q5-answers.md, checked against the Lean;
 HAL's two errors corrected: the blend is an algebra, not a weighted simplex; the band is the
 layer, not the EEG bands). Every element a place, a view, a control or a setting; one shell
 (top bar with the elevator dial and breadcrumb, bottom deck, two drawers); today's 14 stops
@@ -5665,7 +5669,7 @@ Author, 15 Oct 19:43: where does [T]-Theory overlap with Einstein; are wormholes
 places; can Sherlock, with Penrose's list, find where the programme could have an impact
 ("casino style, worth a shot")?
 
-HAL-UAT (uat/RC3/hal-einstein-2026-10-15-answers.md), checked against the repository:
+HAL-UAT (Me/notebooklm/hal-answers/hal-einstein-2026-10-15-answers.md), checked against the repository:
 - Einstein overlaps: general relativity as the non-living limit (LocalGR.lean; the bridges
   `linearised_einstein`, `g2_holonomy_implies_rigid_attractor` are axioms); the linearised field
   equation as the Green's function at the cosmological scale; the cosmological constant and FLRW
@@ -5937,7 +5941,7 @@ Facts and Copilot's view:
 - [x] The "ask the theory first" path on the web page, then the app. (16 Oct: web/home.md, built
       by `make web`, copied by `make web-publish` into ../t-theory.org; Sherlock's presence check
       reads the source: 10 linked, 0 gaps. Live when the author pushes the site, Wed 21.)
-- [ ] Name the tested arm band in the app's STRAP help (the test is UAT: `uat/checklist.yaml`,
+- [ ] (18 Oct 23:2x, the author by voice: "not yet": no strap tested so far) Name the tested arm band in the app's STRAP help (the test is UAT: `uat/checklist.yaml`,
       step `hw-strap`).
 - [x] The pitch, for U and for the scientist, labelled; through the clinical check. (16 Oct:
       web/PITCH.md; Sherlock's clinical check: 0 candidates.)
@@ -5985,7 +5989,7 @@ Machine, Ableton and the film share a tempo; (3) SpaceEngine flown by the score 
 scripting, camera paths), later. The pitch is good and true to the programme: making a model
 universe is a way to look at this one, a map, not the territory; keep it humorous, and keep it
 clear of therapy claims.
-- [x] HAL (16 Oct, uat/RC3/hal-universe-2026-10-16-answers.md), checked against the repository:
+- [x] HAL (16 Oct, Me/notebooklm/hal-answers/hal-universe-2026-10-16-answers.md), checked against the repository:
       SpaceEngine (author, June/July: "I've got the deluxe version of SpaceEngine ... planets ...
       the universe ... how do we merge these video things live"): a two-engine plan (the app for
       the small scales, SpaceEngine for the cosmic ones, by .se scripts and Spout), set aside for
@@ -6219,10 +6223,10 @@ What it cannot check, so what is needed (then choose the music option):
   (option 3). To check before a published piece: its licence for use in released works. Whether 4
   adds anything needed: open (its MIDI export and browsing, not the model, decide).
 
-## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — OPEN
+## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — CLOSED
 
 {{Tags area.sherlock, area.release}}
-{{Fields date.created=2026-10-16, date.start=2026-10-16, date.end=, epic=ISS-114-release-2026-10-21}}
+{{Fields date.created=2026-10-16, date.start=2026-10-16, date.end=2026-10-18, epic=ISS-114-release-2026-10-21}}
 
 Author, 16 Oct 20:40: "the Phase Dot stuff will not be published, it all stays private ... and we
 need to check that." U is public (github.com/ITI-Theory/U); Me is private.
@@ -6240,15 +6244,15 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
 - [x] H-AL's answers quote the author's chats, so uat/scripts/hal_uat.py now writes them to Me
       (Me/notebooklm/hal-answers/); the questions stay in U. Today's two (never written, Scaler)
       are there.
-- [ ] AUTHOR: six public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
+- [x] (18 Oct 21:2x, the author: "move all six to Me": moved to Me/notebooklm/uat-rc1/ and Me/notebooklm/hal-answers/, the references repointed; U's git history still holds the old copies; three more over the line by then, moved the same way: the final-design questions and its Q5 answers, the names answers) AUTHOR: six public files fail, for a decision (keep public, or move to Me): uat/RC1/Brainstorm.md
       (a raw NotebookLM transcript of the author's prompts, 4393 runs); H-AL's answers that quote the
       author's chat words: uat/RC3/hal-cathedral-2026-10-14-answers.md (60), hal-einstein-2026-10-15 (8),
       hal-final-design-2026-10-15 (25), hal-minigolf-2026-10-15 (9; over the line since 17 Oct, as more
       of the author's chats reached Me), hal-universe-2026-10-16 (320). (17 Oct: release-check's only
       non-Monday FAIL.) Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
-- [ ] AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
-- [ ] AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
+- [x] (18 Oct 23:2x, by voice: "nothing to do with freemasonries": the marker and its forms in Me/Ops/privacy.yaml; the check: 0 markers in 1,123 public files; the author can add more at any time) AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
+- [x] (18 Oct, the author: "shorten the header to one neutral line": done) AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
       comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
       move the score to Me.
 
@@ -6313,7 +6317,7 @@ picture and sound if they can be.
       dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
       the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
 - [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
-- [~] (18 Oct 20:45: `make obs-soma` builds the "Soma" collection: scenes Soma Machine (the app as a browser source, checked rendering in OBS), Live, SpaceEngine, projectM, Camera (background removal), Mix (SpaceEngine, the app in Screen blend, projectM added at 35%, the camera small); a 600 ms fade; recordings to Videos\Soma as hybrid MP4 on NVENC. Left: the app switching scenes) (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
+- [x] (18 Oct 20:45: `make obs-soma` builds the "Soma" collection: scenes Soma Machine (the app as a browser source, checked rendering in OBS), Live, SpaceEngine, projectM, Camera (background removal), Mix (SpaceEngine, the app in Screen blend, projectM added at 35%, the camera small); a 600 ms fade; recordings to Videos\Soma as hybrid MP4 on NVENC; 18 Oct 22:5x: the app switches OBS's scenes through MOTHER's bridge (POST /obs, the password read from OBS's own settings, never sent to the browser): MOTHER's `/obs` lists the scenes, `/obs live` flips (a name or its start), and any tour, film or button can flip with the `soma-obs` event; tested: Mix, Soma Machine, an unknown name answered with the list) (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
       sound's: installed 18 Oct (OBS 32; background removal, shaderfilter, Move transition, the Stream Deck
       plugin; obs-websocket built in). To do: a Soma scene collection (the app, projectM, SpaceEngine, the
       camera with its background removed, as layers with blend modes), and the app switching OBS's scenes
@@ -6340,7 +6344,7 @@ picture and sound if they can be.
       time), the narration as the reader speaks it, cues in the margin (CUT, FADE, WORMHOLE, the drop),
       the noir cards as act breaks. Built like the books (pandoc, a Lua filter, a template; no script
       writes markup); a PDF to read from, and a recording made from it can replace the voice.
-- [ ] The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
+- [x] (18 Oct 22:xx: `make film-render FILM=... [FROM TO FPS AUDIO]`, scripts/render-film.mjs: the page gets a virtual clock (performance.now, Date.now, timers, requestAnimationFrame, the running CSS and Web Animations), frozen when the film starts and stepped 1/fps a frame; a new place loads in real time while the clock waits; the picture clean (ui=clean, labels off, atlas=1); FILM can now seek (soma-film-seek). Tested on the grand tour: 3 s at 3840 x 2160, 90 frames, about 0.24 s a frame (a 90-minute film about 11 hours, so in parts), headless on the GPU (Intel Iris Xe through ANGLE; the NVIDIA needs Windows' graphics setting for Chrome). Left: the zoom fader's thin line at the left edge in atlas mode) The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
       4K with full detail however long it takes, ffmpeg joining them with the sound; smooth 4K fractal
       flights the laptop cannot do live, for FILM and for show-film.
 - [ ] (author, 18 Oct 00:52, an idea for the audio work: "this is ui for audio", SSL 360 Link's mixer)

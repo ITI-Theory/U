@@ -36,3 +36,4 @@ filters:
   - ../../../lib/format/licence.lua
 metadata:
   programme-papers: ../../../registry/papers.yaml
+  atlas-edition: bookfactory   # the Jumbo cut: atlas.yaml editions

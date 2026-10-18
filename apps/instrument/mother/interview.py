@@ -76,15 +76,33 @@ def speak(text: str, voice: str | None) -> str:
     else:
         data, engine = tts_kokoro(text, voice if voice and "Neural" not in voice else "bf_isabella"), "kokoro"
     a, rate = wav_to_array(data)
-    sd.play(a, rate)
-    sd.wait()
+    play(a, rate)
     return engine
+
+
+def play(a, rate):
+    """INTERVIEW_OUTPUT, else the Matrix's input 1 (as Chrome), else the default, else the first that opens."""
+    # the author's routing (18 Oct): Chrome and the voice play to VB-Audio Matrix's input 1
+    names = [os.environ.get("INTERVIEW_OUTPUT", ""), "VBMatrix In 1"]
+    later = ["Speakers (Avid Pro Tools | Duet)", "Speakers (Realtek"]
+    devices = sd.query_devices()
+    pick = lambda ns: [i for n in ns if n for i, d in enumerate(devices) if n in d["name"] and d["max_output_channels"] > 0]
+    tries = pick(names) + [None] + pick(later)
+    for dev in tries:
+        try:
+            sd.play(a, rate, device=dev)
+            sd.wait()
+            if dev is not None:
+                print(f"(played on {devices[dev]['name']})")
+            return
+        except sd.PortAudioError:
+            continue
+    print("(no output device would open)")
 
 
 def beep(freq: float, secs: float = 0.15):
     t = np.arange(int(44100 * secs)) / 44100
-    sd.play(0.25 * np.sin(2 * np.pi * freq * t) * np.minimum(1, (secs - t) / 0.03), 44100)
-    sd.wait()
+    play(0.25 * np.sin(2 * np.pi * freq * t) * np.minimum(1, (secs - t) / 0.03), 44100)
 
 
 def listen(device: int | None, max_secs: float) -> np.ndarray:
@@ -141,7 +159,7 @@ def main():
     ap.add_argument("--voice")
     ap.add_argument("--model", default="large-v3")
     ap.add_argument("--input", type=int)
-    ap.add_argument("--max", type=float, default=120)
+    ap.add_argument("--max", type=float, default=45)
     ap.add_argument("--say-only", action="store_true")
     a = ap.parse_args()
     model, where = (None, None) if a.say_only else load_model(a.model)

@@ -90,7 +90,7 @@ Sherlock is a design and a philosophy, not an implemented program.
   Note: `20260509-sparql.md` contains little actual SPARQL or OWL.
 - `Me/chats/lean.md`, `lean and markdown.md`, `n types.md`: Lean entry and
   literate proofs.
-- `uat/RC1/Brainstorm.md`: Sherlock as the book cheat-sheet audit layer (Why,
+- `Me/notebooklm/uat-rc1/Brainstorm.md` (private since 18 Oct): Sherlock as the book cheat-sheet audit layer (Why,
   Field Notes, Sherlock); verification (Sherlock) versus validation (the Wizard).
 - `Me/chats/Inbox/20260808_181828_Rosetta_notes.md`, `Me/chats/tmp/RC1.1.md`:
   middle and late development.

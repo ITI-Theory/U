@@ -150,6 +150,19 @@ $$\Phi_\text{limbic}(t) \in [0, 1]$$
 where $\Phi = 0$ denotes homeostatic calm and $\Phi = 1$ denotes maximum
 threat activation (fight/flight/freeze).
 
+**The route through the hinge.** In the brain the limbic structures form a loop around the
+ventricles: the hippocampus, which forms the floor of the lateral ventricle's temporal horn,
+projects through the fornix, which arches over the thalamus, to the mammillary bodies of the
+hypothalamus; from there the mammillothalamic tract runs to the anterior thalamus, which
+projects to the cingulate gyrus above the corpus callosum, and the cingulum returns to the
+hippocampal region: the circuit Papez proposed as the substrate of emotion [@papez1937proposed]
+`sourced` (the anatomy; Papez's functional claim is historical, and the hippocampus is now known
+chiefly for memory). The amygdala, just in front of the temporal horn's tip, is the structure
+later work placed at the centre of fear and threat [@ledoux1996emotional] `sourced`. We take
+this loop, with the amygdala, as the anatomical carrier of the $D_8$ hinge `interpretive`: the
+place where the body field's signals (through the hypothalamus) and the cortical field (through
+the cingulate) meet.
+
 ## The Two Coupling Equations
 
 We introduce two runtime modulation equations binding $\Phi_\text{limbic}$

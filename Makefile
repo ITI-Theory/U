@@ -118,6 +118,13 @@ app-publish:
 # A DJ mix read into a cue sheet for the SHOW film (ISS-107 A1): make show-cues MIX="path/to/mix.wav"
 # -> bld/show/cues.json (tempo curve, tracked beats, bars, 16-bar phrases, breakdowns, builds, drops).
 # The mix is personal: only its file name goes into the cue sheet, and bld/ is not committed.
+# A compiled film rendered frame by frame (ISS-117): a virtual clock, each frame drawn at 4K however
+# long it takes, ffmpeg joining them. make film-render FILM=bld/film/<x>.timeline.json [FROM=s TO=s]
+# [FPS=30] [AUDIO=wav]; bld/film/render/<name>/<name>.mp4. About 0.25 s a frame at 4K on this laptop.
+.PHONY: film-render
+film-render:
+	cd $(APP_DIR) && node scripts/render-film.mjs --film "$(abspath $(FILM))" $(if $(FROM),--from $(FROM),) $(if $(TO),--to $(TO),) $(if $(FPS),--fps $(FPS),) $(if $(AUDIO),--audio "$(abspath $(AUDIO))",)
+
 # OBS as the video desk (ISS-117): the "Soma" scene collection (the app, Live, SpaceEngine, projectM,
 # the camera, and a Mix of them) built over obs-websocket. REPLACE=1 builds it again.
 .PHONY: obs-soma

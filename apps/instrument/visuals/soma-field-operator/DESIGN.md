@@ -2,7 +2,7 @@
 
 The app, not the printed books, is the programme's show piece (author, 15 Oct). This is the
 design it is built to, drawn up by Copilot from a conversation with HAL-UAT (the notebook of the
-author's chats; uat/RC3/hal-final-design-2026-10-15-answers.md and -q5-answers.md), checked
+author's chats; Me/notebooklm/hal-answers/hal-final-design-2026-10-15-answers.md and -q5-answers.md), checked
 against the Lean, for the author's review. Decisions are the author's; open ones are listed last.
 
 ## What it is

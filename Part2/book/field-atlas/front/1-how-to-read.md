@@ -14,4 +14,8 @@ Three badges keep the claims honest. FORMAL means that a named formal statement 
 
 All pictures in this edition come from the Soma Machine app or from original figures made for the programme. A reader can open the same view at https://www.t-theory.org/ by choosing the level, the path, and the lens state. In print, the atlas fixes a view. In the app, the same registry can be explored: lens off, lens on, or with individual layers added.
 
+The app is meant to be seen whole, as a cockpit is: one big screen and three tablets beneath it, each showing one thing, the limbic field shared between them. The overview below is the app's own picture of that desk.
+
+![How it fits together: the Soma Machine on the author's desk. The main screen is the jellyfish human, the body as one field, with the level elevator beside it; the three tablets show what you are thinking (emotion and thought), what your body feels, and the score.](figures/app/overview.png){width=100%}
+
 One equation recurs because it is the atlas's response grammar: $(\nabla^2 + k^2)G = \delta$. In plain words, a point-like impulse is applied to a medium, and the Green's function $G$ tells how that medium responds everywhere else. The Laplacian $\nabla^2$ measures spatial spreading; $k$ sets the characteristic wavelength or inverse length; $\delta$ marks the local poke. Different levels have different substrates and parameters, but the question is often the same: if this system is struck here, what pattern of response can travel, resonate, decay, or reorganise there?

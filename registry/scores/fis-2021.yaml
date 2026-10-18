@@ -1,11 +1,5 @@
-# The 2021 film: the author's 2021 story (the private FIS notes, Me/film), the River Film's
-# journey run the other way: downstream from the mountains into the city, the savagery rising
-# with civilisation, the point of no return, the descent, no return. A first score, estimated
-# by Copilot from the notes (11 Oct 2026), for the author to correct. Sherlock's structure
-# mapping (river-vs-fis, private) found 66% shared structure with the River Film (P8): the
-# same departure, descent, threshold and encounter; the return replaced by death.
-# The twin view fits the 2021 viewer preset from this score and the River Film
-# (scripts/fit_viewer.py). Keyframes: t -> [S, F, C, A, G, L, PV].
+# The 2021 film: a first score, estimated by Copilot from the author's private notes, for him to
+# correct (ISS-116: header kept neutral). Keyframes: t -> [S, F, C, A, G, L, PV].
 id: fis-2021
 title: The 2021 Film
 version: '0.1'
