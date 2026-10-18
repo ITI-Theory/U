@@ -6248,7 +6248,7 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
       non-Monday FAIL.) Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
 - [ ] AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
-- [ ] AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
+- [x] (18 Oct, the author: "shorten the header to one neutral line": done) AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
       comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
       move the score to Me.
 
