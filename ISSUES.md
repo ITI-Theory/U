@@ -4114,7 +4114,7 @@ other work.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
-- [ ] (ISS-094) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
+- [ ] (ISS-094; 18 Oct: a draft for the interoception gap, docs/drafts/ISS-094-gestalt-interoception.md, with two references checked against Crossref) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
       the Gestalt paper's somatic claims name no interoception or predictive processing (add a
       line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
 - [x] (16 Oct, author: "you go for it": done. The Gateway book's Reader's Compass has a glossary,
@@ -4494,7 +4494,7 @@ everything, printed at Lulu with the other books (Lulu takes A4 landscape, up to
       to: THE WORLDS (stop 1), the heart's left atrium (2), the great hall (4), the mind chamber and THE
       COURSE (8), the soma (9); anatomy `sourced` (OpenStax A&P 2e), the looks `interpretive`; the
       halls named in the part's opening as its crossroads. The neon cave stays out (show, ROOTED's).
-- [ ] Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
+- [x] (17 Oct: the voyage recaptured, 42 plates and 7 hall plates with prose and credits; bookfactory built, 322 pages: the cut is the author's, below) Capture routes for explorer stops (capture.mjs), plates, prose (labelled), credits in
       back/3-sources-and-credits.md; build `make -C Part2/book/field-atlas bookfactory`; then the
       print steps in ISS-001 (pages to check, bleed, spine width, cover).
 - [ ] AUTHOR: the Jumbo cut. (17 Oct night: `make -C Part2/book/field-atlas bookfactory` gives 322
