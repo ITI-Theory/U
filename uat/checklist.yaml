@@ -156,6 +156,11 @@ steps:
     title: "The telemetry drawer and the pulse down to the heart; the glass brain; the lens skin (ISS-105, ISS-052, ISS-095)"
     url: "#level=whole-brain-cemi&voyage=thought&hall=1&dim=11&phi=0.8"
     do: "TELEMETRY: watch the heart climb a few bpm as thoughts ignite and settle back; try ADHD and ASD in SETTINGS (the chamber hotter, cooler). Then the brain stop, GLASS. Then in the Engine Room, RICE ON and LENS ON, and move the pointer over THE WORLDS."
+  - id: audio-poc
+    kind: hw
+    title: "Audio proof of concept: the score moves a plugin in Live through the Soma script (ISS-118)"
+    url: "#voyage=score&kc=mind&dim=11&kv=1"
+    do: "Start Live; Softube Modular on a track; Settings > Link, Tempo & MIDI > Control Surface: Soma, Input: a Bome virtual port. In the app, Engine Room > MIDI OUT: the same port, ON. Play the score: does Modular's first parameter follow awe? Live's Log.txt shows the Soma: lines; tell Copilot, who reads soma-devices.json next. Then, with SSL Native Channel Strip 2 and 360: fear on the compressor's threshold, safety on the low shelf."
   - id: app-physical-places
     kind: app
     title: "The physical places on their own: the halls and the tubes, no mind layers (ISS-104 step 1)"

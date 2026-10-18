@@ -120,3 +120,28 @@ channels:
     what: "the tempo the band locks to: rhythmic entrainment, one of the eight mechanisms"
     expresses: [mechanism]
     label: interpretive
+  # --- planned in the DAW (ISS-118): the score's modes on plugin parameters by name, through the Soma
+  # control script in Live (lib/audio/ableton/Soma), the targets in registry/audio/rig.yaml, the names
+  # from the plugins' NKS presets where they have them (lib/audio/nks.py) ---
+  - id: daw-fear-dynamics
+    kind: planned
+    via: daw
+    what: "fear tightens the dynamics: the channel strip's compressor threshold falls as fear rises"
+    midi: "channel 1, CC 21 (the score's F), through the Soma script to SSL Native Channel Strip 2, Compressor: Threshold"
+    expresses: [emotion-blend]
+    label: interpretive
+  - id: daw-safety-low
+    kind: planned
+    via: daw
+    what: "safety warms the low end: the channel strip's low shelf rises with safety"
+    midi: "channel 1, CC 20 (the score's S), to SSL Native Channel Strip 2, LF: Low Gain"
+    expresses: [emotion-blend]
+    label: interpretive
+  - id: daw-poc-modular
+    kind: planned
+    via: daw
+    what: "the proof of concept: the score's awe on a parameter of Softube Modular, to prove the chain from the score to a plugin"
+    midi: "channel 1, CC 23 (the score's A), to Softube Modular's first host parameter (named once the script has listed them)"
+    expresses: [emotion-blend]
+    label: interpretive
+

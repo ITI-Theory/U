@@ -1,0 +1,20 @@
+# registry/audio/rig.yaml (ISS-118): which plugin parameter each of the score's modes moves, in the
+# DAW, through the Soma control script (lib/audio/ableton/Soma). The Soma Machine's MIDI OUT sends the
+# score on channel 1 (midi-out.js: CC 20-26 the modes S F C A G L PV, 0..1 as 0..127); the script turns
+# each CC into the named parameter of the named device, wherever it sits in the Live set.
+#
+# A target names its parameter one of three ways:
+#   nks: [section, name]  from the plugin's NKS presets (lib/audio/nks.py): checked against the knob
+#                         pages, so a typo or a plugin update shows at build, not in the studio
+#   param: "name"         Live's own name for it (the script lists them all: soma-devices.json)
+#   param_index: n        the n-th parameter Live shows (0 is the device's on/off)
+# range: the part of the parameter's travel the mode sweeps, from mode 0 to mode 1 (may run downwards).
+# channel: the sound grammar's channel it realises (registry/sound-grammar.yaml); Sherlock checks it.
+# `make live-rig` compiles this into the script's rig.json; `make live-install` puts the script into
+# Live's User Library (Remote Scripts). Then in Live: Settings > Link, Tempo & MIDI > Control Surface:
+# Soma, Input: the virtual port the app's MIDI OUT sends to (Bome Virtual MIDI here).
+schema_version: 1
+targets:
+  - {channel: daw-fear-dynamics, mode: F, cc: 21, device: "SSL Native Channel Strip 2", nks: [Compressor, Threshold], range: [0.75, 0.3]}
+  - {channel: daw-safety-low, mode: S, cc: 20, device: "SSL Native Channel Strip 2", nks: [LF, Low Gain], range: [0.45, 0.65]}
+  - {channel: daw-poc-modular, mode: A, cc: 23, device: "Modular", param_index: 1, range: [0.0, 1.0]}

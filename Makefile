@@ -125,6 +125,18 @@ show-cues:
 # NKS presets read (lib/audio/nks.py): make nks DIR="path/to/presets" [JSON=1] -> a library summary, or
 # FILE=... for one preset's card (the knob pages: section, name, VST parameter id). The plugins'
 # machine-readable manual, for the sound side (ISS-118).
+# The Soma control script for Ableton Live (ISS-118): the score's CCs move named plugin parameters.
+# make live-rig [NKS=<folder of NKS presets>]  registry/audio/rig.yaml -> bld/live/rig.json (NKS names checked)
+# make live-install                            the script and its rig into Live's User Library (Remote Scripts)
+# make live-test                               the script tested outside Live (a faked Live)
+.PHONY: live-rig live-install live-test
+live-rig:
+	$(PYTHON) lib/audio/rig.py $(if $(NKS),--nks "$(NKS)",)
+live-install: live-rig
+	$(PYTHON) lib/audio/live_install.py
+live-test:
+	$(PYTHON) lib/audio/test_soma.py
+
 .PHONY: nks
 nks:
 	@$(PYTHON) lib/audio/nks.py --self-test >/dev/null && echo "nks self-test: PASS"

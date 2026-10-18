@@ -6336,9 +6336,23 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       installed here.
 - [ ] The author's NKS libraries: the wrapper packs, and the NI products once installed and scanned
       (then the reader learns Komplete Kontrol's database, which holds every preset and its tags).
-- [ ] From the score to the sound: a rig file naming, per plugin, which NKS parameters the score's
-      modes and the band's controls drive (by section and name, so a preset change keeps the map); and
-      the bridge into Ableton that turns our MIDI into those parameters (a Live remote script or a Max
-      for Live device: Live addresses a plugin's parameters by name and order). The author's call on the
-      plugins and the design.
+- [x] (18 Oct; the author: "can you use NKS with the SSL 360? that's a milestone ... for a test, use
+      Modular") SSL 360 itself has no MIDI, OSC or API (SSL's 360 Link guide; Sound On Sound): it
+      controls SSL's plugins, which sit in the DAW as ordinary VST3s, and shows what they do; so the way
+      in is through the DAW, the plugins' parameters named by NKS, and 360 follows. Built: the rig
+      (registry/audio/rig.yaml: a CC of the score to a device's parameter, by NKS section and name, by
+      Live's name or by position, each realising a planned DAW channel of the sound grammar, three added:
+      daw-fear-dynamics, daw-safety-low, daw-poc-modular); its compiler (lib/audio/rig.py, `make
+      live-rig NKS=...`: NKS names checked against the presets, e.g. Compressor: Threshold, VST parameter
+      589759996); the Soma control script for Live (lib/audio/ableton/Soma: the CCs forwarded, the
+      device found anywhere in the set, racks included, the parameter by name or position, the range
+      swept; soma-devices.json lists every device's parameters as Live names them); a test with a faked
+      Live (`make live-test`, PASS); `make live-install` put it in the User Library. Sherlock's grammar
+      check: 0 problems.
+- [ ] AUTHOR (the proof of concept, UAT `audio-poc`): start Live; a track with Softube Modular; Settings >
+      Link, Tempo & MIDI > Control Surface: Soma, Input: a Bome virtual port; in the app, Engine Room >
+      MIDI OUT: that port, ON; play the score (the River Film): Modular's first parameter follows awe.
+      Then Copilot reads soma-devices.json and names Modular's real parameters in the rig.
+- [ ] The SSL milestone: with SSL Native Channel Strip 2 on a track (and 360 open), fear moves the
+      compressor's threshold and safety the low shelf, by their NKS names; 360 shows it.
 
