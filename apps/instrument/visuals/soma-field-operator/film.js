@@ -93,5 +93,7 @@ export function createFilm({ explorer }) {
   });
   addEventListener('keydown', event => { if (event.key === 'Escape' && document.body.classList.contains('film-mode')) stop(); });
   addEventListener('soma-film', () => { panel.hidden = false; });
+  // seek (the frame renderer, scripts/render-film.mjs, starts mid-film): the film's clock moved to `seconds`
+  addEventListener('soma-film-seek', event => { t0 = performance.now() - (Number(event.detail?.seconds) || 0) * 1000 / speed; });
   return { open() { panel.hidden = false; }, stop, get playing() { return Boolean(raf); } };
 }

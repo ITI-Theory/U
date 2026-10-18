@@ -6344,7 +6344,7 @@ picture and sound if they can be.
       time), the narration as the reader speaks it, cues in the margin (CUT, FADE, WORMHOLE, the drop),
       the noir cards as act breaks. Built like the books (pandoc, a Lua filter, a template; no script
       writes markup); a PDF to read from, and a recording made from it can replace the voice.
-- [ ] The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
+- [x] (18 Oct 22:xx: `make film-render FILM=... [FROM TO FPS AUDIO]`, scripts/render-film.mjs: the page gets a virtual clock (performance.now, Date.now, timers, requestAnimationFrame, the running CSS and Web Animations), frozen when the film starts and stepped 1/fps a frame; a new place loads in real time while the clock waits; the picture clean (ui=clean, labels off, atlas=1); FILM can now seek (soma-film-seek). Tested on the grand tour: 3 s at 3840 x 2160, 90 frames, about 0.24 s a frame (a 90-minute film about 11 hours, so in parts), headless on the GPU (Intel Iris Xe through ANGLE; the NVIDIA needs Windows' graphics setting for Chrome). Left: the zoom fader's thin line at the left edge in atlas mode) The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
       4K with full detail however long it takes, ffmpeg joining them with the sound; smooth 4K fractal
       flights the laptop cannot do live, for FILM and for show-film.
 - [ ] (author, 18 Oct 00:52, an idea for the audio work: "this is ui for audio", SSL 360 Link's mixer)
