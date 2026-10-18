@@ -113,11 +113,15 @@ export function createShow({ explorer }) {
           a.download = `soma-show-${(cues.source || 'mix').replace(/\.[^.]+$/, '').replace(/[^\w-]+/g, '-')}.webm`;
           a.click();
         };
-        recorder.start(1000);
       } catch { status.textContent = 'recording not allowed: playing without it'; recorder = null; }
     }
     panel.hidden = true;
     document.body.classList.add('show-mode');
+    // the first scene drawn before the film starts, so it does not open on the page behind it
+    location.hash = SCENES[0];
+    explorer.setLabels?.(false);
+    await new Promise(r => setTimeout(r, 1500));
+    recorder?.start(1000);
     sceneAt = -1;
     prevT = 0;
     dropsSoFar = 0;

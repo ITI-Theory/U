@@ -118,9 +118,22 @@ app-publish:
 # A DJ mix read into a cue sheet for the SHOW film (ISS-107 A1): make show-cues MIX="path/to/mix.wav"
 # -> bld/show/cues.json (tempo curve, tracked beats, bars, 16-bar phrases, breakdowns, builds, drops).
 # The mix is personal: only its file name goes into the cue sheet, and bld/ is not committed.
-.PHONY: show-cues
+# OBS as the video desk (ISS-117): the "Soma" scene collection (the app, Live, SpaceEngine, projectM,
+# the camera, and a Mix of them) built over obs-websocket. REPLACE=1 builds it again.
+.PHONY: obs-soma
+obs-soma:
+	$(PYTHON) lib/video/obs_soma.py $(if $(REPLACE),--replace,)
+
+.PHONY: show-cues show-film
 show-cues:
 	$(PYTHON) lib/show/cues.py "$(MIX)"
+
+# The music film recorded (ISS-107 A3): the mix read into its cue sheet, then SHOW played and recorded in
+# real time in a browser window on this GPU (the tab capture accepted by itself): webm and mp4 in
+# bld/show. SECONDS=N ends it early; MUTE=1 keeps the speakers quiet (the sound is then silent).
+show-film:
+	$(PYTHON) lib/show/cues.py "$(MIX)"
+	cd $(APP_DIR) && node scripts/record-show.mjs --mix "$(abspath $(MIX))" --cues "$(CURDIR)/bld/show/cues.json" --out "$(CURDIR)/bld/show" $(if $(SECONDS),--seconds $(SECONDS),) $(if $(MUTE),--mute,)
 
 # NKS presets read (lib/audio/nks.py): make nks DIR="path/to/presets" [JSON=1] -> a library summary, or
 # FILE=... for one preset's card (the knob pages: section, name, VST parameter id). The plugins'

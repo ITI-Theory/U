@@ -123,6 +123,12 @@ foreach ($f in 'kokoro-v1.0.onnx', 'voices-v1.0.bin') {
 .\.venv\Scripts\python.exe voices.py   # the same lines in every voice: U/bld/voice/compare/
 ```
 
+Voice both ways at the desk (ISS-111): `.venv\Scripts\python interview.py "<question>" [--id ISS-n]`
+speaks the question (Kokoro here; Azure's neural voices only if AZURE_SPEECH_KEY and
+AZURE_SPEECH_REGION are set), beeps, listens until 2.5 s of quiet, and transcribes on this
+machine with Whisper large-v3 (`pip install faster-whisper sounddevice nvidia-cublas-cu12
+nvidia-cudnn-cu12`; the GPU when CUDA runs, else the CPU). Answers go to Me/todo/answers.
+
 Choose by ear, then set `"voice_engine": "kokoro"` and `"kokoro_voice": "bm_george"` (or any
 other) in `mother.local.json`, or `MOTHER_VOICE_ENGINE`. Without a setting the bridge uses
 Piper when the H-AL model is there, else Kokoro. Both get the H-AL-ifier's delivery.

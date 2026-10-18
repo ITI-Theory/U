@@ -4114,7 +4114,7 @@ other work.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
-- [ ] (ISS-094; 18 Oct: a draft for the interoception gap, docs/drafts/ISS-094-gestalt-interoception.md, with two references checked against Crossref) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
+- [~] (ISS-094; 18 Oct 20:55, the author by voice: "All of it": the paragraph is in the Gestalt paper (after the comparative table), Seth 2013 and Friston 2010 in the bibliography, the paper rebuilt, the rivals check: interoception named; left: SH1's "quantum advantage", likely fine) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
       the Gestalt paper's somatic claims name no interoception or predictive processing (add a
       line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
 - [x] (16 Oct, author: "you go for it": done. The Gateway book's Reader's Compass has a glossary,
@@ -5736,10 +5736,19 @@ Plan (Copilot, agreed in outline):
       the mix from the author's disk, clean picture (no chrome, labels off), scenes change on
       phrase boundaries (great hall, cathedral, mind chamber, the sea, palace, fractal dives),
       Φ pulses on the kick, zoom on builds, a dive or a zap on drops.
-- [~] (16 Oct: REC + PLAY in the show panel records the tab, picture and sound, to webm (the
-      browser's screen capture; pick this tab with its audio); untested headless; mp4 by ffmpeg.)
+- [x] (18 Oct: `make show-film MIX=... [SECONDS=N] [MUTE=1]`: the mix read into its cue sheet, then
+      scripts/record-show.mjs opens the app in a real window on this GPU as ROOTED, loads SHOW, presses REC +
+      PLAY and accepts the tab capture itself (--auto-accept-this-tab-capture); webm, then mp4 by ffmpeg
+      (installed: winget Gyan.FFmpeg 9.0.2). Tested on a synthetic 56 s mix (140 BPM, a breakdown, a build,
+      a drop): 34 s recorded, 3360 x 1890 h264 with AAC, the great hall through the breakdown and the cut
+      to the cathedral at the drop. Fixed: the film opened on the page behind the first scene (show.js now
+      draws the first scene, then starts the recorder and the music together). With MUTE the sound track
+      is silent, so the real run is heard.)
       A3. Record in real time on the author's GPU (the browser's MediaRecorder: canvas + audio
       to webm, or OBS); ffmpeg to mp4 (`winget install ffmpeg`). Headless rendering is too slow.
+- [ ] AUTHOR: the real film, 90 minutes in real time (the window must stay in front): `make show-film
+      MIX="<the Captain Hook Ozora 2017 WAV>"`; bld/show/*.mp4, private. (By hand, as before: REC + PLAY in the show panel, pick
+      this tab with its audio.)
 - [x] (17 Oct night: music-score.js reads a cue sheet's form as the seven modes (a build raises fear and curiosity, a drop is a threshold with awe and the pre-verbal at their peak, a breakdown recovery); SHOW drives the score with it live and adds the neon cave as a scene; scripts/score-from-cues.mjs writes it as a score (bld/show) for compile-film; checked on a synthetic cue sheet) B. The tensor film: the music drives the model, not the edit. The energy envelope sets Φ;
       BRECVEMA's R (rhythmic entrainment) and M (musical expectancy) are the terms: builds raise
       barriers, drops are threshold crossings, breakdowns recovery; the SCORE's tensor-film
@@ -6173,6 +6182,10 @@ What it cannot check, so what is needed (then choose the music option):
       attestation (UAT `attest-scores`).)
       Provenance: a score's author and the author's attestation that it is his (first person, N = 1,
       labelled), so Sherlock can tell his emotion from someone else's material or a generator's.
+- [x] (18 Oct 20:33) The River Film attested: asked aloud at the desk (MOTHER interview.py, Kokoro's
+      voice; the answer heard by Whisper large-v3 on this GPU): "Yes, I think that's fine. Thanks for
+      asking." registry/scores/river-film.yaml `attested`; `make -C sherlock provenance`: the author's,
+      attested. Found on the way: YAML reads an unquoted `on:` as True, so the check now accepts both.
 - [ ] Then the options for sound, Copilot's order (the author chooses): (1) the author performs (his
       voice reading the story, or the Soma Machine ridden live: knobs, the heart strap) and the field
       shapes it; (2) the score drives the sound directly (ISS-107 B, the tensor film); (3) existing
@@ -6300,6 +6313,36 @@ picture and sound if they can be.
       dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
       the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
 - [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
+- [~] (18 Oct 20:45: `make obs-soma` builds the "Soma" collection: scenes Soma Machine (the app as a browser source, checked rendering in OBS), Live, SpaceEngine, projectM, Camera (background removal), Mix (SpaceEngine, the app in Screen blend, projectM added at 35%, the camera small); a 600 ms fade; recordings to Videos\Soma as hybrid MP4 on NVENC. Left: the app switching scenes) (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
+      sound's: installed 18 Oct (OBS 32; background removal, shaderfilter, Move transition, the Stream Deck
+      plugin; obs-websocket built in). To do: a Soma scene collection (the app, projectM, SpaceEngine, the
+      camera with its background removed, as layers with blend modes), and the app switching OBS's scenes
+      over obs-websocket, so a flip to Live or SpaceEngine is a transition, not a window jump.
+- [ ] (author 18 Oct 20:4x) The film's words, by level, and a way out to the abstract: "for new chapters,
+      if a break is wanted, use the style of the noir in my Gateway book; text that follows chapter, section,
+      subsection, where you can turn down the amount of text you see on the page or in another window, or
+      the voice you hear; the voice must not say 'chapter, section', it should be natural; the idea is to
+      encourage users to go fully abstract." Design (Copilot): the score's phases become chapters (a name
+      and a line, as the River Film has), with sections and their text under them. A chapter break is a
+      noir card: the Gateway's look (books/T-Theory/noir-page.md: near-black #1A1A1A, a double art-deco
+      gold frame #D4AF37, cream text #FDFBF7, centred between ◇ ◇ ◇ rules, the line in italics, a bold
+      capital tagline under a gold hairline), a few seconds, then the picture. Three channels, each with
+      its own dial: TEXT on the picture (all, headings only, none), TEXT in a second window (the whole
+      text, following the film, for a second screen), VOICE (Kokoro reads the prose only, never the
+      structure: no "chapter", no numbers; full, the chapter lines only, none). One ABSTRACT control fades
+      all three out, leaving picture and sound, a small ◇ to bring them back; the film is complete without
+      words.
+      The voice (author 18 Oct 20:47, by ear from four: "Isabella, YES YES"): Kokoro bf_isabella at 0.9, a
+      planetarium narrator, relaxed, no effects (MOTHER interview.py's default too).
+- [ ] (author 18 Oct 20:44) The film's SCRIPT, printed like a play: "if I want to read this in myself,
+      bingo, there is the film script." From the compiled film (the tour, its places and timings, the
+      score's chapters and lines, the transitions and the music's cues): scene headings (the place, the
+      time), the narration as the reader speaks it, cues in the margin (CUT, FADE, WORMHOLE, the drop),
+      the noir cards as act breaks. Built like the books (pandoc, a Lua filter, a template; no script
+      writes markup); a PDF to read from, and a recording made from it can replace the voice.
+- [ ] The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
+      4K with full detail however long it takes, ffmpeg joining them with the sound; smooth 4K fractal
+      flights the laptop cannot do live, for FILM and for show-film.
 - [ ] (author, 18 Oct 00:52, an idea for the audio work: "this is ui for audio", SSL 360 Link's mixer)
       A console for the 32 knobs after it: a strip per mode (the fader its value, the knobs its
       sub-knobs), meters showing the compiled value against the live override, groups for the band's
@@ -6367,4 +6410,12 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       2026-10-18.md). The author: the music work is private, on his machine only; the Soma Machine
       generates nothing, it passes its emotional score in. The output must be free: information
       about music (text, form, feel) is used, never its notes. Design and work: Me/music.
+- [ ] (author 18 Oct 20:5x) The narration as a pipeline, like the chats (raw, HAL, Copilot, the book):
+      RAW: every line the voice speaks kept with its text, its place in the film (chapter, section), the
+      voice and settings (Kokoro bf_isabella 0.9, or the author's own reading), the model, a hash of the
+      text; Whisper hears each take back and the words are compared with the text (a misread word fails).
+      SHERLOCK: the text checked like any claim (evidence labels, provenance, no structure read aloud, no
+      private material in a public film). ABLETON: the passed takes into Live for the treatment (EQ,
+      dynamics, the room: the SSL chain, the autoSeries for first settings), bounced as stems. Then the
+      film. Private takes stay in Me.
 

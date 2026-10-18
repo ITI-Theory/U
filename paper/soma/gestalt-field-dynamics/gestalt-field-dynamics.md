@@ -142,6 +142,22 @@ under stated assumptions, not historical or clinical equivalence claims:
 
 ---
 
+**Relation to interoception and predictive processing.** The somatic column of the table has
+established accounts which the model sits beside and does not replace. Interoception, the
+sense of the physiological condition of the body, has a described pathway from lamina I of
+the spinal cord to the posterior and then the anterior insula [@craig2003] `sourced`.
+Predictive-processing accounts treat felt emotion as the brain's inference about the causes
+of interoceptive signals [@seth2013interoceptive], within a general principle that the brain
+minimises prediction error [@friston2010free] `sourced` (as theories in the literature).
+Gestalt's figure emerging from the ground of the body, which the table models as a
+sub-threshold fluctuation crossing the perception threshold, would be described in those
+accounts as an interoceptive prediction error large and precise enough to reach awareness;
+and a fixed gestalt, a chronically regulated state, as a prior held with such precision that
+errors no longer revise it `interpretive`. The Soma-Field model proposes a field-level
+vocabulary in which the same events can be stated; it gives no evidence that its perception
+threshold and the predictive account's precision are the same quantity. That identification
+is a question for testing, not a claim of this paper `hypothesis`.
+
 # Mathematical Derivations and Structural Proofs
 
 To make these co-identifications precise, we provide three mathematical

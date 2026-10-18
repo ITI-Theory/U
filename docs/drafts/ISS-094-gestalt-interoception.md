@@ -1,7 +1,7 @@
 # Draft for the Gestalt paper: interoception and predictive processing (ISS-094)
 
-Status: **a draft for the author's OK** (18 Oct 2026). Nothing here is in the paper yet; the
-paper's claims are the author's. Each claim carries its evidence label
+Status: **accepted, all of it** (the author, by voice, 18 Oct 2026 20:55: "All of it"); in the paper.
+The paper's claims are the author's. Each claim carries its evidence label
 (`docs/agent/THEORY-STATUS.md`). New references are given in full; they go into
 `paper/bibliography.bib` when the draft is accepted.
 
