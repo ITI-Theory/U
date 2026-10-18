@@ -4109,7 +4109,7 @@ other work.
 - [ ] (ISS-092) Read H-AL's "never written" (Me/notebooklm/hal-answers/hal-never-written-2026-10-16-answers.md,
       private): ten ideas from the chats no book covers, and five things a reader would miss. Decide
       what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
-- [ ] (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
+- [x] (18 Oct: all approved as proposed) (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
       true`, or change the tag); `make -C sherlock features` lists what is still awaiting.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
@@ -4863,7 +4863,7 @@ nothing explicit); a confirm gate, not age verification. The rooted Atlas is an 
 no science claims, kept out of the publication registry or as its own art record; bookfactory's
 Jumbo suits big spreads.
 
-- [~] (16 Oct: registry/features.yaml, Copilot's proposal: 28 features, 14 science, 7 show (FLY, stereo,
+- [x] (18 Oct 21:3x, the author: "approve all as proposed": all 46 features approved, registry/features.yaml; `make -C sherlock features`: 21 science, 15 show, 10 both, 0 awaiting, 0 problems) (16 Oct: registry/features.yaml, Copilot's proposal: 28 features, 14 science, 7 show (FLY, stereo,
       the Gallery, SNAP; RICE, the teletype and SHOW already ROOTED's), 7 both with their split (the
       cathedral's route is anatomy, its neon and stargate show; the palace's method of loci is real,
       its folding walls show); `make -C sherlock features` checks each anchor. Awaiting the author's
@@ -4883,6 +4883,10 @@ Jumbo suits big spreads.
       equations; none observed; a traversable one needs exotic matter" (an embedding diagram, and
       the lensing view by a ray-traced shader); flying through one between floors, the palace or a
       bubble is ROOTED (the elevator's sci-fi twin); a lensing skin is RICE.
+- [ ] The code follows the tags (after the release, the author's order): six show features are not
+      yet behind ROOTED: FLY (the fractal flight), THE COSMOS hall, the lensing skin, stereo, the
+      Gallery, SNAP; and the ten "both" features' show skins (the cathedral's neon and stargate, the
+      palace's folding walls, the golf ...). Then features.py checks the gate, not only the tag.
 Order (author): after the release.
 
 ---
