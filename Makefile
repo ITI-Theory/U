@@ -118,6 +118,12 @@ app-publish:
 # A DJ mix read into a cue sheet for the SHOW film (ISS-107 A1): make show-cues MIX="path/to/mix.wav"
 # -> bld/show/cues.json (tempo curve, tracked beats, bars, 16-bar phrases, breakdowns, builds, drops).
 # The mix is personal: only its file name goes into the cue sheet, and bld/ is not committed.
+# OBS as the video desk (ISS-117): the "Soma" scene collection (the app, Live, SpaceEngine, projectM,
+# the camera, and a Mix of them) built over obs-websocket. REPLACE=1 builds it again.
+.PHONY: obs-soma
+obs-soma:
+	$(PYTHON) lib/video/obs_soma.py $(if $(REPLACE),--replace,)
+
 .PHONY: show-cues show-film
 show-cues:
 	$(PYTHON) lib/show/cues.py "$(MIX)"
