@@ -6307,3 +6307,38 @@ picture and sound if they can be.
       the knobs' MIDI already lands there (MIDI IN, the Twister's banks). With the audio, the author's
       call.
 
+## ISS-118: The audio work: NKS as the plugins' manual, then the sound from the score — OPEN
+
+{{Tags area.app, area.art}}
+{{Fields date.created=2026-10-18, date.start=2026-10-18, date.end=, epic=}}
+
+Author, 18 Oct 18:02: the audio work starts (on branch `audio`, after tag `pre-audio-2026-10-18`, so
+main stays the release line). First task: "I use plugins that use Native Instruments NKS; some need
+third-party NKS wrappers ... if you were able to understand the NKS grammar in the files, would that
+help you link to the audio rather than pure MIDI, even if it's a case of using the NKS to work out the
+MIDI you have to send, rather than just read the manual every time? NKS is useful for me, it's one of
+my personal music standards; useful for you too? That would be a result."
+
+Copilot: yes. An NKS preset says, in a form a program can read, which of a plugin's parameters
+matter, what they are called, how they are grouped and their parameter ids (what a host automates),
+and it tags the preset (types, and for instruments the character modes: Dark, Warm ...). So the score's
+feelings can drive named parameters rather than guessed CCs, and presets can be chosen by their tags.
+- [x] (18 Oct) The reader: lib/audio/nks.py (`make nks DIR=...|FILE=... [JSON=1]`): the RIFF `NIKS`
+      container, NISI (the summary), NICA (the knob pages: section, name, VST parameter id), PLID (the
+      VST3 class id or VST2 magic); its own small MessagePack decoder (no new dependency); a self-test
+      that writes a preset and reads it back. Checked on real files: the community's SSL NKS presets
+      (community.native-instruments.com/discussion/28818: SSL Complete, SSL X-Delay, SSL Native Channel
+      Strip 2), 699 presets of 24 plugins read with no problem, e.g. Channel Strip 2's six pages (Master,
+      Solo and Process, EQ by band, Dynamics, Gate and Sidechain).
+- [x] (18 Oct) Where things are: the author's packages in OneDrive\pkg (big: indexed, never walked; NI's
+      products there are installer ISOs), installed libraries in OneDrive\lib (Me/Ops/locations.md).
+      No third-party NKS wrapper packs are on this PC yet, and Kontakt and Komplete Kontrol are not
+      installed here.
+- [ ] The author's NKS libraries: the wrapper packs, and the NI products once installed and scanned
+      (then the reader learns Komplete Kontrol's database, which holds every preset and its tags).
+- [ ] From the score to the sound: a rig file naming, per plugin, which NKS parameters the score's
+      modes and the band's controls drive (by section and name, so a preset change keeps the map); and
+      the bridge into Ableton that turns our MIDI into those parameters (a Live remote script or a Max
+      for Live device: Live addresses a plugin's parameters by name and order). The author's call on the
+      plugins and the design.
+

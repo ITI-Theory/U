@@ -122,6 +122,14 @@ app-publish:
 show-cues:
 	$(PYTHON) lib/show/cues.py "$(MIX)"
 
+# NKS presets read (lib/audio/nks.py): make nks DIR="path/to/presets" [JSON=1] -> a library summary, or
+# FILE=... for one preset's card (the knob pages: section, name, VST parameter id). The plugins'
+# machine-readable manual, for the sound side (ISS-118).
+.PHONY: nks
+nks:
+	@$(PYTHON) lib/audio/nks.py --self-test >/dev/null && echo "nks self-test: PASS"
+	$(PYTHON) lib/audio/nks.py "$(or $(FILE),$(DIR))" $(if $(JSON),--json,)
+
 # The home page of https://www.t-theory.org from web/home.md (pandoc, no script writes markup).
 # `make web` builds bld/web/index.html to look at; `make web-publish` copies it into the site
 # repo (../t-theory.org); the author commits and pushes there when it should go live.
