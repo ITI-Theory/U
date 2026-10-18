@@ -25,6 +25,12 @@ rivals:
     claims: ["the author'?s (own )?(case|experience|recovery|trauma|clinical picture)", 'this case study', 'first[- ]person (account|report)']
     names: ['N\s*=\s*1\b', 'single[- ]case', 'n[- ]of[- ]1', 'one case', 'does not generali[sz]e', 'cannot be generali[sz]ed', 'not a law']
 
+# the author's verdicts on gaps (Rule 4: the AI proposes, the author judges): a judged gap shows as
+# `judged` and is no longer counted
+judged:
+  - {document: sherlock-compiler.pdf, rival: classical-annealing, verdict: fine, by: Alistair Johnson, 'on': '2026-10-18',
+     why: "the compiler quotes a simulated \"quantum advantage\" as one of the faults its checks catch; it does not claim one"}
+
 # the built documents read (globs under U), as the reader gets them; the reference list is not read
 documents:
   - bld/books/book-*.pdf
