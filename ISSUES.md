@@ -6223,10 +6223,10 @@ What it cannot check, so what is needed (then choose the music option):
   (option 3). To check before a published piece: its licence for use in released works. Whether 4
   adds anything needed: open (its MIDI export and browsing, not the model, decide).
 
-## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — OPEN
+## ISS-116: What is private stays private: Phase Dot, H-AL's answers, the film notes — CLOSED
 
 {{Tags area.sherlock, area.release}}
-{{Fields date.created=2026-10-16, date.start=2026-10-16, date.end=, epic=ISS-114-release-2026-10-21}}
+{{Fields date.created=2026-10-16, date.start=2026-10-16, date.end=2026-10-18, epic=ISS-114-release-2026-10-21}}
 
 Author, 16 Oct 20:40: "the Phase Dot stuff will not be published, it all stays private ... and we
 need to check that." U is public (github.com/ITI-Theory/U); Me is private.
