@@ -32,7 +32,8 @@ def main() -> int:
             problems.append(f"{f.name}: provenance lacks {', '.join(missing)}")
             continue
         att = p.get("attested")
-        ok_att = isinstance(att, dict) and att.get("by") and att.get("on")
+        # YAML 1.1 reads an unquoted `on:` key as True; accept both spellings
+        ok_att = isinstance(att, dict) and att.get("by") and (att.get("on") or att.get(True))
         if not ok_att:
             waiting += 1
         own = p["made_by"] in ("the author", p["author"])

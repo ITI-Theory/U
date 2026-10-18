@@ -6182,6 +6182,10 @@ What it cannot check, so what is needed (then choose the music option):
       attestation (UAT `attest-scores`).)
       Provenance: a score's author and the author's attestation that it is his (first person, N = 1,
       labelled), so Sherlock can tell his emotion from someone else's material or a generator's.
+- [x] (18 Oct 20:33) The River Film attested: asked aloud at the desk (MOTHER interview.py, Kokoro's
+      voice; the answer heard by Whisper large-v3 on this GPU): "Yes, I think that's fine. Thanks for
+      asking." registry/scores/river-film.yaml `attested`; `make -C sherlock provenance`: the author's,
+      attested. Found on the way: YAML reads an unquoted `on:` as True, so the check now accepts both.
 - [ ] Then the options for sound, Copilot's order (the author chooses): (1) the author performs (his
       voice reading the story, or the Soma Machine ridden live: knobs, the heart strap) and the field
       shapes it; (2) the score drives the sound directly (ISS-107 B, the tensor film); (3) existing
