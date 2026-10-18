@@ -6332,6 +6332,14 @@ picture and sound if they can be.
       structure: no "chapter", no numbers; full, the chapter lines only, none). One ABSTRACT control fades
       all three out, leaving picture and sound, a small ◇ to bring them back; the film is complete without
       words.
+      The voice (author 18 Oct 20:47, by ear from four: "Isabella, YES YES"): Kokoro bf_isabella at 0.9, a
+      planetarium narrator, relaxed, no effects (MOTHER interview.py's default too).
+- [ ] (author 18 Oct 20:44) The film's SCRIPT, printed like a play: "if I want to read this in myself,
+      bingo, there is the film script." From the compiled film (the tour, its places and timings, the
+      score's chapters and lines, the transitions and the music's cues): scene headings (the place, the
+      time), the narration as the reader speaks it, cues in the margin (CUT, FADE, WORMHOLE, the drop),
+      the noir cards as act breaks. Built like the books (pandoc, a Lua filter, a template; no script
+      writes markup); a PDF to read from, and a recording made from it can replace the voice.
 - [ ] The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
       4K with full detail however long it takes, ffmpeg joining them with the sound; smooth 4K fractal
       flights the laptop cannot do live, for FILM and for show-film.
