@@ -6355,4 +6355,12 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       Then Copilot reads soma-devices.json and names Modular's real parameters in the rig.
 - [ ] The SSL milestone: with SSL Native Channel Strip 2 on a track (and 360 open), fear moves the
       compressor's threshold and safety the low shelf, by their NKS names; 360 shows it.
+- [x] (18 Oct) The author's AI Mode chats on the music imported from Google Takeout (usm, gmail) and
+      loaded into HAL-UAT (group music-chats, Me/notebooklm): scoring for 196 players in Live 12; SSL 360
+      vs Softube; classical-music MIDI; and the seed of the score, "my day summed up as 5-10 tracks, in
+      order ... music to MIDI, chop the MIDI ... the input to an orchestral piece, the first movement".
+- [ ] The score design round (the author, Copilot, HAL): the musical score, the original tune, before
+      the sound. Author's notes for it, 18 Oct 18:59: he owns Traktor 4, and its remix slots are a good
+      way for a user to pick different final instruments ("when I saw the layouts again, I liked it");
+      and more than one output: play one while the next is being worked out.
 
