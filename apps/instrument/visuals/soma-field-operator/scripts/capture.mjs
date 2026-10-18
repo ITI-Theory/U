@@ -379,6 +379,12 @@ async function main() {
     // its own manifest: the level captures' manifest and contact sheet stay as they were
     await writeFile(path.join(args.out, 'voyage/manifest.json'), `${JSON.stringify({ generated: manifest.generated, viewport: manifest.viewport, voyage: manifest.voyage, errors: pageErrors }, null, 2)}\n`);
     console.log(`\n${manifest.voyage.length} voyage plates -> ${path.join(args.out, 'voyage')}`);
+    // the overview, the desk with its four screens (ISS-100), for the Atlas front matter and the Gallery
+    if (args.only === 'voyage') {
+      const { spawnSync } = await import('node:child_process');
+      const overview = spawnSync(process.execPath, [fileURLToPath(new URL('./capture-overview.mjs', import.meta.url)), '--out', path.join(args.out, 'overview.png')], { stdio: 'inherit' });
+      if (overview.status !== 0) process.exitCode = 1;
+    }
     if (pageErrors.length) process.exitCode = 1;
     process.exit();
   }
