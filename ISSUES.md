@@ -4436,9 +4436,9 @@ every public repository says what it gives, and every borrowed thing says where 
 
 ---
 
-## ISS-087: Field Atlas, the print edition with the new graphics (about 300 pages) — OPEN
+## ISS-087: Field Atlas, the print edition with the new graphics (about 300 pages) — CLOSED
 {{Tags area.books, area.app, area.visualize}}
-{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=, epic=}}
+{{Fields date.created=2026-10-13, date.start=2026-10-13, date.end=2026-10-18, epic=}}
 
 Author, 13 Oct 22:33: the Atlas prints differently (bookfactory.ch, not Lulu), so do it first;
 it depends on the app, and a lot has been added since it was laid out (4 Oct; triptychs 9 Oct).
