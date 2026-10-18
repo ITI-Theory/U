@@ -5736,10 +5736,19 @@ Plan (Copilot, agreed in outline):
       the mix from the author's disk, clean picture (no chrome, labels off), scenes change on
       phrase boundaries (great hall, cathedral, mind chamber, the sea, palace, fractal dives),
       Φ pulses on the kick, zoom on builds, a dive or a zap on drops.
-- [~] (16 Oct: REC + PLAY in the show panel records the tab, picture and sound, to webm (the
-      browser's screen capture; pick this tab with its audio); untested headless; mp4 by ffmpeg.)
+- [x] (18 Oct: `make show-film MIX=... [SECONDS=N] [MUTE=1]`: the mix read into its cue sheet, then
+      scripts/record-show.mjs opens the app in a real window on this GPU as ROOTED, loads SHOW, presses REC +
+      PLAY and accepts the tab capture itself (--auto-accept-this-tab-capture); webm, then mp4 by ffmpeg
+      (installed: winget Gyan.FFmpeg 9.0.2). Tested on a synthetic 56 s mix (140 BPM, a breakdown, a build,
+      a drop): 34 s recorded, 3360 x 1890 h264 with AAC, the great hall through the breakdown and the cut
+      to the cathedral at the drop. Fixed: the film opened on the page behind the first scene (show.js now
+      draws the first scene, then starts the recorder and the music together). With MUTE the sound track
+      is silent, so the real run is heard.)
       A3. Record in real time on the author's GPU (the browser's MediaRecorder: canvas + audio
       to webm, or OBS); ffmpeg to mp4 (`winget install ffmpeg`). Headless rendering is too slow.
+- [ ] AUTHOR: the real film, 90 minutes in real time (the window must stay in front): `make show-film
+      MIX="<the Captain Hook Ozora 2017 WAV>"`; bld/show/*.mp4, private. (By hand, as before: REC + PLAY in the show panel, pick
+      this tab with its audio.)
 - [x] (17 Oct night: music-score.js reads a cue sheet's form as the seven modes (a build raises fear and curiosity, a drop is a threshold with awe and the pre-verbal at their peak, a breakdown recovery); SHOW drives the score with it live and adds the neon cave as a scene; scripts/score-from-cues.mjs writes it as a score (bld/show) for compile-film; checked on a synthetic cue sheet) B. The tensor film: the music drives the model, not the edit. The energy envelope sets Φ;
       BRECVEMA's R (rhythmic entrainment) and M (musical expectancy) are the terms: builds raise
       barriers, drops are threshold crossings, breakdowns recovery; the SCORE's tensor-film

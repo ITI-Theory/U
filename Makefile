@@ -118,9 +118,16 @@ app-publish:
 # A DJ mix read into a cue sheet for the SHOW film (ISS-107 A1): make show-cues MIX="path/to/mix.wav"
 # -> bld/show/cues.json (tempo curve, tracked beats, bars, 16-bar phrases, breakdowns, builds, drops).
 # The mix is personal: only its file name goes into the cue sheet, and bld/ is not committed.
-.PHONY: show-cues
+.PHONY: show-cues show-film
 show-cues:
 	$(PYTHON) lib/show/cues.py "$(MIX)"
+
+# The music film recorded (ISS-107 A3): the mix read into its cue sheet, then SHOW played and recorded in
+# real time in a browser window on this GPU (the tab capture accepted by itself): webm and mp4 in
+# bld/show. SECONDS=N ends it early; MUTE=1 keeps the speakers quiet (the sound is then silent).
+show-film:
+	$(PYTHON) lib/show/cues.py "$(MIX)"
+	cd $(APP_DIR) && node scripts/record-show.mjs --mix "$(abspath $(MIX))" --cues "$(CURDIR)/bld/show/cues.json" --out "$(CURDIR)/bld/show" $(if $(SECONDS),--seconds $(SECONDS),) $(if $(MUTE),--mute,)
 
 # The home page of https://www.t-theory.org from web/home.md (pandoc, no script writes markup).
 # `make web` builds bld/web/index.html to look at; `make web-publish` copies it into the site
