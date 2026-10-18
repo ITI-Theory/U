@@ -293,6 +293,27 @@ def auth_expired(error: Exception) -> bool:
     return any(mark in text for mark in ("CSRF", "Authentication", "auth", "login", "401", "403"))
 
 
+
+# OBS as the video desk (ISS-117): the app flips OBS's scene through here, so the password OBS
+# generated stays in OBS's own settings (read at each call, never sent to the browser).
+def obs_scene(scene: str = "") -> dict:
+    import obsws_python as obs
+    cfg = json.loads((Path(os.environ["APPDATA"]) / "obs-studio" / "plugin_config" / "obs-websocket" / "config.json").read_text(encoding="utf-8"))
+    if not cfg.get("server_enabled"):
+        return {"error": "OBS's websocket is off (make obs-soma switches it on)"}
+    try:
+        c = obs.ReqClient(host="localhost", port=cfg.get("server_port", 4455), password=cfg.get("server_password", ""), timeout=5)
+    except (ConnectionRefusedError, OSError):
+        return {"error": "OBS is not running (start it, Scene Collection: Soma)"}
+    scenes = [s["sceneName"] for s in reversed(c.get_scene_list().scenes)]
+    if scene:
+        match = next((s for s in scenes if s.lower() == scene.lower()), None) or next((s for s in scenes if s.lower().startswith(scene.lower())), None)
+        if not match:
+            return {"error": f"no scene {scene}", "scenes": scenes}
+        c.set_current_program_scene(match)
+        scene = match
+    return {"scene": scene or c.get_current_program_scene().scene_name, "scenes": scenes, "collection": c.get_scene_collection_list().current_scene_collection_name}
+
 class Bridge:
     """One event loop and one NotebookLM client shared by all requests."""
 
@@ -746,6 +767,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(200, prove_decl(str(data.get("module", "")), str(data.get("name", ""))))
             except Exception as error:
                 self._json(400, {"error": f"{type(error).__name__}: {error}"})
+            return
+        if self.path == "/obs":
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                data = json.loads(self.rfile.read(min(length, 2000)) or b"{}")
+                self._json(200, obs_scene(str(data.get("scene", "")).strip()))
+            except Exception as error:
+                self._json(502, {"error": f"OBS: {type(error).__name__}: {error}"})
             return
         if self.path == "/speak":
             if not self._origin_ok():
