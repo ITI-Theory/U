@@ -6318,6 +6318,20 @@ picture and sound if they can be.
       plugin; obs-websocket built in). To do: a Soma scene collection (the app, projectM, SpaceEngine, the
       camera with its background removed, as layers with blend modes), and the app switching OBS's scenes
       over obs-websocket, so a flip to Live or SpaceEngine is a transition, not a window jump.
+- [ ] (author 18 Oct 20:4x) The film's words, by level, and a way out to the abstract: "for new chapters,
+      if a break is wanted, use the style of the noir in my Gateway book; text that follows chapter, section,
+      subsection, where you can turn down the amount of text you see on the page or in another window, or
+      the voice you hear; the voice must not say 'chapter, section', it should be natural; the idea is to
+      encourage users to go fully abstract." Design (Copilot): the score's phases become chapters (a name
+      and a line, as the River Film has), with sections and their text under them. A chapter break is a
+      noir card: the Gateway's look (books/T-Theory/noir-page.md: near-black #1A1A1A, a double art-deco
+      gold frame #D4AF37, cream text #FDFBF7, centred between ◇ ◇ ◇ rules, the line in italics, a bold
+      capital tagline under a gold hairline), a few seconds, then the picture. Three channels, each with
+      its own dial: TEXT on the picture (all, headings only, none), TEXT in a second window (the whole
+      text, following the film, for a second screen), VOICE (Kokoro reads the prose only, never the
+      structure: no "chapter", no numbers; full, the chapter lines only, none). One ABSTRACT control fades
+      all three out, leaving picture and sound, a small ◇ to bring them back; the film is complete without
+      words.
 - [ ] The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
       4K with full detail however long it takes, ffmpeg joining them with the sound; smooth 4K fractal
       flights the laptop cannot do live, for FILM and for show-film.
