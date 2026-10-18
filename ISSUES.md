@@ -6309,6 +6309,14 @@ picture and sound if they can be.
       dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
       the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
 - [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
+- [ ] (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
+      sound's: installed 18 Oct (OBS 32; background removal, shaderfilter, Move transition, the Stream Deck
+      plugin; obs-websocket built in). To do: a Soma scene collection (the app, projectM, SpaceEngine, the
+      camera with its background removed, as layers with blend modes), and the app switching OBS's scenes
+      over obs-websocket, so a flip to Live or SpaceEngine is a transition, not a window jump.
+- [ ] The film rendered frame by frame on this GPU (offered 18 Oct): the clock stepped, each frame drawn at
+      4K with full detail however long it takes, ffmpeg joining them with the sound; smooth 4K fractal
+      flights the laptop cannot do live, for FILM and for show-film.
 - [ ] (author, 18 Oct 00:52, an idea for the audio work: "this is ui for audio", SSL 360 Link's mixer)
       A console for the 32 knobs after it: a strip per mode (the fader its value, the knobs its
       sub-knobs), meters showing the compiled value against the live override, groups for the band's
