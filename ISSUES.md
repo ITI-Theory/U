@@ -4114,7 +4114,7 @@ other work.
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
-- [ ] (ISS-094; 18 Oct: a draft for the interoception gap, docs/drafts/ISS-094-gestalt-interoception.md, with two references checked against Crossref) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
+- [~] (ISS-094; 18 Oct 20:55, the author by voice: "All of it": the paragraph is in the Gestalt paper (after the comparative table), Seth 2013 and Friston 2010 in the bibliography, the paper rebuilt, the rivals check: interoception named; left: SH1's "quantum advantage", likely fine) Judge the Dark Matter Lord's gaps (`make -C sherlock rivals`, bld/sherlock/rivals.md):
       the Gestalt paper's somatic claims name no interoception or predictive processing (add a
       line, or say why not); SH1 quotes "quantum advantage" as a fault (likely fine).
 - [x] (16 Oct, author: "you go for it": done. The Gateway book's Reader's Compass has a glossary,
