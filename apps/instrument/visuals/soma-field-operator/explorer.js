@@ -2470,7 +2470,7 @@ function makeScore() {
       } else twinModes = null;
       if (player.justCrossed >= 0) burst = true;
       const phase = player.phase();
-      midiOut.send({ modes: scoreModes, bpm: bpmS, t: player.t, phase: (player.phaseList ?? []).indexOf(phase), crossed: player.justCrossed, dt: env.dt });
+      midiOut.send({ modes: scoreModes, phi: env.phi, bpm: bpmS, t: player.t, phase: (player.phaseList ?? []).indexOf(phase), crossed: player.justCrossed, dt: env.dt });
       // browsers only speak after the viewer has touched the page: wait for that, then say the
       // phase the film is in
       const mayspeak = typeof navigator === 'undefined' || (navigator.userActivation?.hasBeenActive ?? true);

@@ -2,7 +2,7 @@
 // can be the score's instrument. Opt-in from the Engine Room; Web MIDI (Chrome) into a
 // virtual port (loopMIDI on Windows), then out through the audio interface.
 //   channel 1, CC 20-26: the seven modes S F C A G L PV (0..1 as 0..127)
-//   channel 1, CC 27: the heart (40..160 bpm as 0..127); CC 28: story-time (0..1)
+//   channel 1, CC 27: the heart (40..160 bpm as 0..127); CC 28: story-time (0..1); CC 29: the limbic field Φ (0..1)
 //   channel 1, notes 36+: a phase begins (36 the first phase): map to scene launches
 //   channel 1, notes 48+: a threshold is crossed (48 the first threshold)
 //   channel 2, the band (ISS-115; registry/sound-grammar.yaml's planned channels, a first,
@@ -12,7 +12,7 @@
 // Only one window sends (a short lease in localStorage), so a layout of four windows does
 // not send four times.
 
-export const MIDI_CC = { S: 20, F: 21, C: 22, A: 23, G: 24, L: 25, PV: 26, HR: 27, T: 28 };
+export const MIDI_CC = { S: 20, F: 21, C: 22, A: 23, G: 24, L: 25, PV: 26, HR: 27, T: 28, PHI: 29 };
 export const BAND_CC = { motion: 30, density: 31, drive: 32, tension: 33 };
 export const CHORD_NOTE = 60;
 export const PHASE_NOTE = 36;
@@ -63,6 +63,7 @@ export function midiMessages(state, last = {}) {
   for (const id of ['S', 'F', 'C', 'A', 'G', 'L', 'PV']) if (state.modes?.[id] !== undefined) cc(id, state.modes[id]);
   if (state.bpm > 0) cc('HR', (state.bpm - 40) / 120);
   if (state.t !== undefined) cc('T', state.t);
+  if (state.phi !== undefined) cc('PHI', state.phi);
   if (state.phase !== undefined && state.phase >= 0 && last.phase !== state.phase) {
     last.phase = state.phase;
     out.push([0x90, Math.min(127, PHASE_NOTE + state.phase), 100]);

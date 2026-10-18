@@ -13,8 +13,20 @@
 # `make live-rig` compiles this into the script's rig.json; `make live-install` puts the script into
 # Live's User Library (Remote Scripts). Then in Live: Settings > Link, Tempo & MIDI > Control Surface:
 # Soma, Input: the virtual port the app's MIDI OUT sends to (Bome Virtual MIDI here).
+#
+# The eight knobs (the author, 19 Oct): every synth patch puts the seven feelings on Macros 1-7 (S F
+# C A G L PV) and the limbic field on Macro 8 (CC 29); a patch kept for the project is saved as a
+# "Soma" version with its macros set so. The score always turns the same eight knobs.
 schema_version: 1
 targets:
+  - {channel: daw-feeling-macros, mode: S, cc: 20, device: "Phase Plant", nks: [MACROS, Macro 1], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: F, cc: 21, device: "Phase Plant", nks: [MACROS, Macro 2], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: C, cc: 22, device: "Phase Plant", nks: [MACROS, Macro 3], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: A, cc: 23, device: "Phase Plant", nks: [MACROS, Macro 4], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: G, cc: 24, device: "Phase Plant", nks: [MACROS, Macro 5], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: L, cc: 25, device: "Phase Plant", nks: [MACROS, Macro 6], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: PV, cc: 26, device: "Phase Plant", nks: [MACROS, Macro 7], range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: PHI, cc: 29, device: "Phase Plant", nks: [MACROS, Macro 8], range: [0.0, 1.0]}
   - {channel: daw-fear-dynamics, mode: F, cc: 21, device: "SSL Native Channel Strip 2", nks: [Compressor, Threshold], range: [0.75, 0.3]}
   - {channel: daw-safety-low, mode: S, cc: 20, device: "SSL Native Channel Strip 2", nks: [LF, Low Gain], range: [0.45, 0.65]}
   - {channel: daw-poc-modular, mode: A, cc: 23, device: "Modular", param_index: 1, range: [0.0, 1.0]}

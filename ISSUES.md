@@ -6414,6 +6414,12 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       2026-10-18.md). The author: the music work is private, on his machine only; the Soma Machine
       generates nothing, it passes its emotional score in. The output must be free: information
       about music (text, form, feel) is used, never its notes. Design and work: Me/music.
+- [x] (19 Oct 00:1x, the author: "re macros, yes") The eight knobs: every synth patch puts the seven
+      feelings on Macros 1-7 (S F C A G L PV) and the limbic field on Macro 8; the app's MIDI OUT now sends
+      Φ as CC 29; the rig maps CC 20-26 and 29 to Phase Plant's Macro 1-8 by their NKS names (MACROS:
+      Macro n, checked: 10 of 11 targets against NKS); the sound grammar's planned channel
+      daw-feeling-macros. Left: a "Soma" version of each patch kept, its macros routed inside the synth
+      (what fear does to that sound is the patch's own design, made in the synth); Serum 2 the same once in.
 - [ ] (author 18 Oct 20:5x) The narration as a pipeline, like the chats (raw, HAL, Copilot, the book):
       RAW: every line the voice speaks kept with its text, its place in the film (chapter, section), the
       voice and settings (Kokoro bf_isabella 0.9, or the author's own reading), the model, a hash of the

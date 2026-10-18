@@ -137,6 +137,13 @@ channels:
     midi: "channel 1, CC 20 (the score's S), to SSL Native Channel Strip 2, LF: Low Gain"
     expresses: [emotion-blend]
     label: interpretive
+  - id: daw-feeling-macros
+    kind: planned
+    via: daw
+    what: "the eight knobs: every synth patch (Phase Plant, Serum 2) puts the seven feelings on Macros 1-7 and the field on Macro 8; each patch decides what a feeling does to its sound, the score always turns the same knob"
+    midi: "channel 1, CC 20-26 (S F C A G L PV) and CC 29 (the field) to Macro 1-8, through the Soma script"
+    expresses: [emotion-blend, limbic-field]
+    label: interpretive
   - id: daw-poc-modular
     kind: planned
     via: daw
