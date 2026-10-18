@@ -5044,9 +5044,9 @@ The app becomes a gallery of thoughts rather than of fractal images.
       registry/regions.yaml; the flight to the limbic hinge with that feeling and WHERE IS THIS
       FEELING? open. Saying it: the browser's dictation for now; UAT `app-feel`.)
 
-## ISS-100: The whole cockpit at once: an overview screen that shows how the screens fit together — OPEN
+## ISS-100: The whole cockpit at once: an overview screen that shows how the screens fit together — CLOSED
 {{Tags area.app, area.instrument}}
-{{Fields date.created=2026-10-14, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-10-14, date.start=, date.end=2026-10-18, epic=}}
 
 Author, 14 Oct 18:00. A flight simulator has a real cockpit and the rest is maths. The Soma
 Machine is the other way round: the cockpit is real (the user, the screens, the tablets) and
@@ -5074,7 +5074,7 @@ the overview can be the app's own views in frames that follow one another.
 - [x] (14 Oct: a fresh start goes there after the abstract; a link keeps its own view) The
       jellyfish human (`voyage=human`) as the default view when the app opens on one screen.
 - UAT on the real desk (the 32-inch screen and the tablets): `uat/checklist.yaml`, step `hw-screens`.
-- [~] (16 Oct: a tour step `overview: 1` (presentation.js, tour.js, generate.py, docs/TOUR-LANGUAGE.md)
+- [x] (18 Oct 22:3x: the plate, scripts/capture-overview.mjs, 3840 x 2160 on the GPU: figures/app/overview.png, in the Atlas front matter (How to read this atlas) and the Gallery's Soma Machine room (october-desk); bookfactory PASS 294 pages, the Gallery check PASS 104) (16 Oct: a tour step `overview: 1` (presentation.js, tour.js, generate.py, docs/TOUR-LANGUAGE.md)
       shows the desk over the view; the first stop of welcome-u and welcome-scientist, the second of
       H-AL's presentation, after the greeting. Still: the plates in the Atlas and the Gallery.)
       The overview as the first stop of the tours and the demo; a plate of it in the Atlas front

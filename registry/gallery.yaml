@@ -231,6 +231,8 @@ rooms:
     t: 1
     file: rooms/11-the-soma-machine.md
     plates:
+      - {id: october-desk, src: Part2/book/field-atlas/figures/app/overview.png, chain: ["stage:1"],
+         caption: "How it fits together: the desk, one big screen and three tablets."}
       - {id: october-brain, src: Part2/book/field-atlas/figures/app/voyage/brain.png, chain: ["stage:1"],
          caption: "The brain, as the Soma Machine shows it."}
       - {id: october-cave, src: Part2/book/field-atlas/figures/app/voyage/cave-inside.png, chain: ["stage:1"],
