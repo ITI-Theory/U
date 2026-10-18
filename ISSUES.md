@@ -6008,7 +6008,7 @@ clear of therapy claims.
 - [x] The generator: python lib/universe/universe.py <score> writes bld/universe/<score>/catalogs
       (galaxies, stars, planets .sc, SpaceEngine's format) and a README; the author copies it into
       SpaceEngine's addons. The River Film: a galaxy, 6 stars, 16 worlds; the 2021 film too.
-- [ ] Ableton Link via the relay (a small bridge), and the score's tempo shared.
+- [~] (19 Oct: the one clock taken from Live itself, through MOTHER's bridge and AbletonOSC, rather than Ableton Link: /live/clock, live-clock.js; Link itself still open, for Traktor and other machines) Ableton Link via the relay (a small bridge), and the score's tempo shared.
 - [ ] (author 16 Oct, 18:2x: "configuring Live will be a pain: loads of third-party plugins, and they
       need updating") Not now; when it is done: one Soma set made of Live's stock devices only (opens
       anywhere, no plugin churn), loopMIDI, and AbletonOSC (a free remote script: tempo, clips, notes,
@@ -6316,7 +6316,7 @@ picture and sound if they can be.
       the default (ISS-095); the dive, the doorway and the elevator stay the explorer's own. Every step
       dispatches `soma-transition` (kind, seconds, sync, style, view) for the sound. Checked headless:
       the events, the fade's opacity, the cave inside the veil above the explorer (z 207).
-- [ ] The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
+- [~] (19 Oct 01:2x: MOTHER's bridge holds the line to Live (AbletonOSC): Live's position read 20 times a second, tempo, transport, metre; each beat streamed to the app (GET /live/clock; /live/state); live-clock.js predicts Live's next beat, bar or phrase and veil.js starts the fade early enough that the cut, at its midpoint, lands on it (a declared `on beat|bar|phrase`); without Live nothing changes. Tested: the link reads Live (74 BPM, 4/4, transport); the beats themselves untested, because Live's playhead did not move tonight (its audio engine on the Matrix's virtual ASIO); the app builds) The cut on the beat (with the sound: the jump waits for the next beat or bar of the clock).
 - [x] (18 Oct 20:45: `make obs-soma` builds the "Soma" collection: scenes Soma Machine (the app as a browser source, checked rendering in OBS), Live, SpaceEngine, projectM, Camera (background removal), Mix (SpaceEngine, the app in Screen blend, projectM added at 35%, the camera small); a 600 ms fade; recordings to Videos\Soma as hybrid MP4 on NVENC; 18 Oct 22:5x: the app switches OBS's scenes through MOTHER's bridge (POST /obs, the password read from OBS's own settings, never sent to the browser): MOTHER's `/obs` lists the scenes, `/obs live` flips (a name or its start), and any tour, film or button can flip with the `soma-obs` event; tested: Mix, Soma Machine, an unknown name answered with the list) (author 18 Oct 20:25: "OBS, let's get this now, and use it") OBS as the video desk, as the SSL is the
       sound's: installed 18 Oct (OBS 32; background removal, shaderfilter, Move transition, the Stream Deck
       plugin; obs-websocket built in). To do: a Soma scene collection (the app, projectM, SpaceEngine, the
