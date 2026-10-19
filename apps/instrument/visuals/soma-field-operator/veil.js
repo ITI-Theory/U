@@ -1,13 +1,15 @@
 // veil.js: a tour step's declared transition, drawn (registry/transitions.yaml, docs/PIPELINE.md). The
 // explorer draws its own jumps (the zoom fade, the dive, the doorway glide); a step's `via:` adds what it
 // does not: a fade over the step's seconds, and the wormhole, a flight down the neon cave, when ROOTED
-// (in the default a wormhole is drawn as its `default_as`, a fade). The view changes at the midpoint.
+// (in the default a wormhole is drawn as its `default_as`, a fade). The view changes at the midpoint;
+// with Live's clock (live-clock.js) the midpoint lands on Live's next beat, bar or phrase (`on sync`).
 // Every step also tells the sound what the jump is (the event `soma-transition`).
 
 import { transitions } from './generated/app-data.js';
 import { parseVia } from './transitions.js';
 import { rooted } from './who.js';
 import { createFlight3D } from './flight3d.js';
+import { connectLiveClock, msToNext, periodMs } from './live-clock.js';
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 // the end of a CSS fade, or the time it should have taken plus a margin (a busy page starts it late)
@@ -44,8 +46,19 @@ export function createVeil() {
     if (via.problem) { apply(); return via; }
     const def = transitions?.kinds?.[via.kind] ?? {};
     const drawn = def.rooted && !rooted() ? def.default_as ?? 'fade' : via.kind;
-    if (drawn !== 'fade' && drawn !== 'wormhole') { apply(); return { ...via, drawn }; }
+    const veiled = drawn === 'fade' || drawn === 'wormhole';
     const half = Math.max(0.2, via.seconds / 2);
+    // on the beat: wait so the cut (the midpoint, or at once when not veiled) falls on Live's next one
+    connectLiveClock();
+    const toSync = msToNext(via.sync);
+    if (toSync !== null) {
+      const lead = veiled ? half * 1000 : 0;
+      const period = Math.max(1, periodMs(via.sync) ?? 1);
+      let delay = toSync - lead;
+      while (delay < 0) delay += period;  // too close: the one after
+      if (delay > 0 && delay < 60000) await wait(delay);
+    }
+    if (!veiled) { apply(); return { ...via, drawn }; }
     void el.offsetWidth; // a fresh element has no style yet: flush it, so the fade runs from 0
     el.style.transition = `opacity ${half}s ease-in`;
     el.style.opacity = '1';

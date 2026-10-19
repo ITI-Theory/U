@@ -31,6 +31,7 @@ import socket
 import struct
 import subprocess
 import threading
+import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
@@ -552,6 +553,75 @@ def _ws_recv(sock: socket.socket) -> tuple[int, bytes]:
     return opcode, payload
 
 
+
+# Live's clock (ISS-112 one clock, ISS-117 the cut on the beat): the bridge holds the line to Ableton Live
+# (AbletonOSC: Live listens on UDP 11000 and answers on 11001, one listener at a time), listens to Live's
+# beat, tempo, transport and metre, and streams each beat to the app (GET /live/clock, server-sent events;
+# GET /live/state for a snapshot). Started on the first request; nothing runs while no page asks.
+class LiveLink:
+    def __init__(self) -> None:
+        self.lock = threading.Condition()
+        self.state = {"beat": None, "position": None, "tempo": None, "playing": None, "numerator": 4, "n": 0, "at": None}
+        self.started = False
+        self.error: str | None = None
+
+    def start(self) -> bool:
+        with self.lock:
+            if self.started:
+                return self.error is None
+            self.started = True
+        try:
+            from pythonosc.dispatcher import Dispatcher
+            from pythonosc.osc_server import ThreadingOSCUDPServer
+            from pythonosc.udp_client import SimpleUDPClient
+            d = Dispatcher()
+            d.map("/live/song/get/current_song_time", self._song_time)
+            for key, addr in (("tempo", "tempo"), ("playing", "is_playing"), ("numerator", "signature_numerator")):
+                d.map(f"/live/song/get/{addr}", self._setter(key))
+            self.server = ThreadingOSCUDPServer(("127.0.0.1", 11001), d)
+            threading.Thread(target=self.server.serve_forever, daemon=True).start()
+            self.client = SimpleUDPClient("127.0.0.1", 11000)
+            threading.Thread(target=self._poll, daemon=True).start()
+        except (ImportError, OSError) as error:
+            self.error = f"Live's line not opened: {error} (another program may hold UDP 11001)"
+        return self.error is None
+
+    def _poll(self) -> None:
+        # the song position 20 times a second (AbletonOSC's own beat listener sends only the first beat here);
+        # tempo, transport and metre once a second
+        k = 0
+        while True:
+            self.client.send_message("/live/song/get/current_song_time", [])
+            if k % 20 == 0:
+                for addr in ("tempo", "is_playing", "signature_numerator"):
+                    self.client.send_message(f"/live/song/get/{addr}", [])
+            k += 1
+            time.sleep(0.05)
+
+    def _setter(self, key: str):
+        def handler(_addr, *args) -> None:
+            with self.lock:
+                self.state[key] = args[0] if args else None
+                self.lock.notify_all()
+        return handler
+
+    def _song_time(self, _addr, *args) -> None:
+        if not args:
+            return
+        beat = int(args[0])
+        with self.lock:
+            self.state["position"] = float(args[0])
+            if beat != self.state["beat"]:
+                self.state.update(beat=beat, at=time.time(), n=self.state["n"] + 1)
+                self.lock.notify_all()
+
+    def snapshot(self) -> dict:
+        with self.lock:
+            return {**self.state, "error": self.error}
+
+
+LIVE = LiveLink()
+
 class Handler(BaseHTTPRequestHandler):
     bridge: Bridge
 
@@ -578,12 +648,47 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _live_clock(self) -> None:
+        """Server-sent events: one message per beat of Live's clock, a comment every few seconds between."""
+        if not self._origin_ok():
+            self._json(403, {"error": "local origins only"})
+            return
+        if not LIVE.start():
+            self._json(503, LIVE.snapshot())
+            return
+        self.send_response(200)
+        self._cors()
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-cache")
+        self.end_headers()
+        seen = -1
+        try:
+            while True:
+                with LIVE.lock:
+                    LIVE.lock.wait(timeout=5)
+                    state = dict(LIVE.state)
+                if state["n"] != seen:
+                    seen = state["n"]
+                    self.wfile.write(f"data: {json.dumps(state)}\n\n".encode("utf-8"))
+                else:
+                    self.wfile.write(b": waiting\n\n")
+                self.wfile.flush()
+        except (BrokenPipeError, ConnectionAbortedError, ConnectionResetError):
+            pass
+
     def do_OPTIONS(self) -> None:  # noqa: N802
         self.send_response(204)
         self._cors()
         self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
+        if self.path == "/live/state":
+            LIVE.start()
+            self._json(200, LIVE.snapshot())
+            return
+        if self.path == "/live/clock":
+            self._live_clock()
+            return
         if urlparse(self.path).path == "/shell":
             self._shell_ws()
             return
