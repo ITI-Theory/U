@@ -58,6 +58,7 @@ track:                 # one per part (Violins I, Horns, Choir ...): one source 
       role: source     # what the instrument IS
       device: Serum 2
       or: [Phase Plant]   # the Atmosphere's tracks (the Pad, the Sub Bass): Phase Plant is a synth
+      by_group: {Atmosphere: Phase Plant}   # the source a group's tracks use when it is not the first (the console reads it)
       default: on
       setting: >-
         the part's preset (its multisample); the source design (a second oscillator in Spectral or
