@@ -43,7 +43,8 @@ fourteen labels built from the modes; the eight mechanisms (BRECVEMA) say how a 
    compiling, so a viewer's own film plays "as zero". Example, river-film at 45 minutes: neutral safety
    0.20 and fear 0.70; cptsd 0.00 and 0.90.
 4. **Render**: the pictures from the places and the modes (each stop's renderer, by the visual grammar);
-   the sound from the same frames (by the sound grammar; to come).
+   the sound from the same frames (by the sound grammar), made in Ableton Live and nowhere else, on
+   tracks built to the studio standard (`registry/studio/standard.yaml`, ISS-120) and bounced by Live.
 5. **Perform** (run time): FILM (film.js; MOTHER `/film`) plays the compiled timeline on its own clock:
    the places in order, each declared jump drawn, the compiled modes driving the score frame by frame.
    Only small live overrides are added: the knobs (CO-PILOT, MANUAL override the modes they own), the

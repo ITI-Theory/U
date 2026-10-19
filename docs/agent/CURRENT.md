@@ -10,7 +10,8 @@ the other working documents are listed in [docs/agent/README.md](README.md).
 
 **Rule (author, 19 Oct 19:5x): music is made in Ableton Live, never outside it.** No renderer, sampler
 or synth of our own makes the sound (Me/music's render.py and preview.py retired); Live plays and
-bounces it.
+bounces it. Tracks follow the studio standard (`registry/studio/standard.yaml`, a draft); every open
+point of the studio work is in ISS-120.
 
 **Two lines of work.** `main` is the release line (ISS-114, Wed 21 Oct). `audio` is the audio work
 (ISS-118, from tag `pre-audio-2026-10-18`): NKS reader, the rig, the Soma script for Live, the eight

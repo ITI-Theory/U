@@ -6385,3 +6385,81 @@ three realisations (the film, the orchestra, the printed score).
 - [ ] When the film is recorded: its numbers (length, frames, the cuts landing on Live's beats) into the
       paper; the beat landing is untested until Live's playhead runs (ISS-117).
 - [ ] Sherlock's affidavit for P26 (`make -C sherlock`), as for the other papers.
+
+## ISS-120: The studio, done professionally: the standard track, Live and Serum 2, the console — OPEN
+
+{{Tags area.instrument, area.art, area.build}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 2026 (the evening the symphony was orchestrated): "lets go pro ... no more quick wins,
+hacks"; "use Ableton Live"; "a standard ... a STD track is: Serum, PP ... SSL standard ... if a track
+doesn't need PP, it turns it off"; "this is a turning point: this time last week we added Sherlock, this
+Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md and Me/music/README.md:
+**music is made in Ableton Live, never outside it** (Me/music's render.py and preview.py retired).
+
+**The standard**
+- [x] The standard, version 1, a draft: `registry/studio/standard.yaml` (a track: Serum 2, Phase Plant
+      on the track's audio, Snap Heap off, SSL Native Channel Strip 2; sends to Space and Designed
+      space; groups Strings, Winds, Brass, Choir, Electronics with Phase Plant off, SSL Bus Compressor
+      2, UAD colour off; the returns; the master; the versions neutral, C-PTSD, ASD, ADHD as settings
+      and macro automation on the same slots). A slot not needed is off, never removed; anything not
+      declared is a proposal to the author, never installed, downloaded or generated.
+- [ ] AUTHOR: approve or change it (the strip's standard settings; UAD's colour; the hall; the master's
+      glue and limiter; the delivery loudness).
+- [ ] AUTHOR, in Live: the standard as Live's own (a track preset or rack "Soma Standard" in the User
+      Library, a template set).
+- [ ] Sherlock checks a Live set against the standard (each track's slots, in order; nothing undeclared).
+- [ ] The test of one track, by the author's hands: a violin, Serum 2 into Phase Plant (audio in): the
+      input works, Live passes the macros, the CPU of two instances.
+
+**Live and the River Film**
+- [ ] HAL: `uat/RC3/hal-live-workflow-2026-10-19.md` (what the author decided in the chats; Live's
+      Freeze, Bounce in Place, stems; templates; Serum 2's presets). Then the way to keep 16 Serum 2s
+      playable: freeze per track, bounce per group or per section.
+- [ ] Movement 11 (Awe and the Pre-verbal II, canon, 7.6 min) into Live on standard tracks, Serum 2's
+      orchestral presets chosen by the author; bounced by Live.
+- [ ] The versions: the neutral master, then C-PTSD, ASD, ADHD (Phase Plant and Snap Heap per
+      instrument, the macros' automation from the viewer's baseline); bounced per version, stems per group.
+- [ ] Live's playhead (it did not run on 18 Oct: the audio engine on the Matrix's virtual ASIO; the MOTU
+      8A's own ASIO is the studio's way).
+- [ ] Orchestration: in movement 7 (Fear and Curiosity) the first violins play one bar in 149 (the
+      violas and clarinet lead): the author's ear decides.
+
+**Sound design**
+- [ ] Source design in Serum 2, per instrument: a second oscillator on the same recording in Spectral
+      (timbre shift, scan rate) or Granular mode, Sample mode's moving loop points and FM or PM warp,
+      blended by the eight macros (fear: the loop catches; grief: darker, slower; the pre-verbal:
+      grains; "slightly wrong": a few percent off). The full Serum 2 manual (inside Serum 2) into
+      OneDrive\lib\manuals.
+- [ ] Phase Plant's roles: the state after Serum 2 (the field's response, `interpretive`), the special
+      voices (sub, pad, pulse, impacts), the transitions' sounds, designing spaces (an impulse response
+      stretched, reversed or grained, bounced in Live, loaded in Live's Convolution Reverb or Serum 2's
+      Convolve).
+- [ ] HAL: `uat/RC3/hal-console-2026-10-19.md` Q2 and Q4 ("OK, but slightly wrong" by feeling; effects
+      by feeling).
+
+**The console**
+- [ ] The design (Copilot, 19 Oct; HAL Q1 and Q3): Console 1 Mk III's idea over the author's plugins:
+      sections Source, Feel, Wrong, EQ, Dynamics, Drive, Space, Out; any plugin placed by its NKS
+      sections and types (58 plugins' maps on disk, more with Komplete Kontrol); a channel view (one
+      track, the sections around the field, plain words) and a desk view (four groups by four levels:
+      the deck); the Twister the channel's knobs, the F1 the deck (pads, four faders), the M32 one
+      section with NKS names. Not like Live.
+- [ ] A private index of the NKS plugins by section (Me), the console's data.
+- [ ] AUTHOR: the Studio manuals notebook (OneDrive\lib\manuals and its README; SSL's guides as web
+      sources); UAD's and Melodyne's manuals into the folder once installed.
+
+**The pipeline**
+- [ ] The workflow as a graph of assets, each registered once and reused (a film frame a book
+      picture, a stem in the app); the tree of tabs, four outputs each, as a view over it.
+- [ ] A definition at every boundary (the spotting: the emotional score; picture lock: compose once;
+      the turnover; the deliverables), each checked by Sherlock; the standard is the first.
+- [ ] Post as a stage: per track inside it (the strip), per group the stems, the master to a delivery
+      spec.
+- [ ] POKE everywhere: a poke reaches every screen (the screens share state, not events: send it on
+      their channel) and every place answers it visibly.
+
+**Housekeeping**
+- [ ] AUTHOR: push today's commits (U main, Dist, Me: nothing pushed since the morning).
+- [ ] AUTHOR: ISS-116's marker is in the public history (commit 86181e5, 18 Oct; removed from the tree
+      19 Oct): rewrite the history or leave it.
