@@ -158,6 +158,38 @@ def macfac(probe: str, cases: dict) -> list[tuple[str, float, float]]:
     return sorted(out, key=lambda x: -x[2])
 
 
+def template_of(cases: dict, tests: list) -> frozenset:
+    """The template: predicates in at least half of the cases of a document's general claim (P11's catalogue
+    states equation, propagator, substrate, wavenumber in every section); "beyond the template" measures
+    what two cases share once those are dropped."""
+    general = [t for t in tests if t.get("cases")]
+    if not general:
+        return frozenset()
+    ids = [c for c in general[0]["cases"] if c in cases]
+    n = Counter(p for c in ids for p in set(content(cases[c]["_facts"])))
+    return frozenset(p for p, k in n.items() if 2 * k >= len(ids))
+
+
+def routes() -> list[dict]:
+    """Every pair a document claims has the same structure, with its quote, line and Sherlock's two scores:
+    the similarity (mean of both directions) and the similarity beyond the template. The [T]-Elevator's
+    WORM reads these when the app is built (ISS-121)."""
+    _, cases, tests = load()
+    template = template_of(cases, tests)
+    def strip(c):
+        return [e for e in cases[c]["_facts"] if e[0] not in template]
+    out = []
+    for t in tests:
+        for a, b in t.get("pairs", []):
+            if a not in cases or b not in cases:
+                continue
+            ab, ba, _ = similarity(cases[a]["_facts"], cases[b]["_facts"])
+            bab, bba, _ = similarity(strip(a), strip(b))
+            out.append({"test": t["id"], "document": t["document"], "line": t["line"], "quote": t["quote"],
+                        "a": a, "b": b, "similarity": round((ab + ba) / 2, 2), "beyond": round((bab + bba) / 2, 2)})
+    return out
+
+
 def report() -> int:
     vocab, cases, tests = load()
     private = CASES != U / "registry" / "cases"
@@ -166,15 +198,7 @@ def report() -> int:
           f"(registry/cases; vocabulary of {len(vocab)} predicates). Similarity: the structure-mapping "
           "score over the probe's score against itself, mean of both directions (1 = the same structure "
           "as written; 0 = nothing maps).", ""]
-    # the template: predicates in at least half of the cases of a document's general claim
-    # (P11's catalogue states equation, propagator, substrate, wavenumber in every section);
-    # "beyond the template" measures what the cases share once those are dropped
-    general = [t for t in tests if t.get("cases")]
-    template = frozenset()
-    if general:
-        ids = [c for c in general[0]["cases"] if c in cases]
-        n = Counter(p for c in ids for p in set(content(cases[c]["_facts"])))
-        template = frozenset(p for p, k in n.items() if 2 * k >= len(ids))
+    template = template_of(cases, tests)
     md += [f"Template predicates (in at least half of the general claim's cases): "
            f"{', '.join(sorted(template)) or 'none'}.", ""]
     md += ["## The tests: the documents' own sameness claims", ""]

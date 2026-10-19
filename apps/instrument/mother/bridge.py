@@ -672,6 +672,109 @@ def deck(cmd: str, slot: str = "", option: str = "", level: int = 0) -> dict:
     return {"error": f"unknown deck command {cmd}"}
 
 
+# The rooms (ISS-122): what exists on the author's machine, for the Music Room and the Cinema. A room shows; it
+# makes nothing (music is made in Ableton Live, ISS-120; films by the compiler). Local origins only; a file is
+# served only from inside its own folder.
+AUDIO = {".wav": "audio/wav", ".flac": "audio/flac", ".mp3": "audio/mpeg", ".aif": "audio/aiff", ".aiff": "audio/aiff"}
+VIDEO = {".mp4": "video/mp4", ".mkv": "video/x-matroska", ".mov": "video/quicktime", ".webm": "video/webm"}
+FILM_DIR = Path(__file__).resolve().parents[3] / "bld" / "film"
+
+
+def live_dir() -> Path:
+    configured = local_config().get("live_dir")
+    return Path(configured) if configured else Path.home() / "OneDrive" / "prj" / "Music" / "Soma"
+
+
+def recordings_dir() -> Path:
+    configured = local_config().get("recordings_dir")
+    return Path(configured) if configured else Path.home() / "Videos" / "Soma"
+
+
+def _files(root: Path, kinds, pattern: str = "**/*") -> list[dict]:
+    if not root.is_dir():
+        return []
+    out = []
+    for p in sorted(root.glob(pattern)):
+        if p.is_file() and p.suffix.lower() in kinds:
+            st = p.stat()
+            out.append({"name": p.relative_to(root).as_posix(), "bytes": st.st_size, "modified": int(st.st_mtime)})
+    return out
+
+
+def music_room() -> dict:
+    """The Music Room's private side: the latest printed suite (its movements, its pages and costs), Live's
+    bounces (Me/music/bounces) and the Live sets."""
+    d = music_dir()
+    if not d.is_dir():
+        return {"error": f"no music at {d} (the music is private: Me/music)"}
+    out: dict = {"suite": None, "print": None, "bounces": _files(d / "bounces", AUDIO), "live_sets": _files(live_dir(), {".als"}, "*.als")}
+    takes = sorted((d / "bld" / "print").glob("*-suite*/movements.json"), key=lambda p: p.stat().st_mtime)
+    if takes:
+        mv = json.loads(takes[-1].read_text(encoding="utf-8"))
+        out["suite"] = {"take": mv.get("take"), "title": mv.get("title"),
+                        "movements": [{k: m.get(k) for k in ("title", "part", "phases", "minutes", "bars")} for m in mv.get("movements", [])]}
+        pr = takes[-1].parent / "PRINT.md"
+        if pr.exists():
+            text = pr.read_text(encoding="utf-8")
+            conductor = re.search(r"\| \*\*The set\*\* \| (\d+) \| \*\*(\d+)\*\*", text)
+            parts = re.search(r"(\d+) parts, (\d+) pages in all, about \*\*(\d+)\*\*", text)
+            currency = re.search(r"\(([A-Z]{3});", text)
+            out["print"] = {"conductor_pages": int(conductor.group(1)) if conductor else None, "conductor_cost": int(conductor.group(2)) if conductor else None,
+                            "parts": int(parts.group(1)) if parts else None, "parts_pages": int(parts.group(2)) if parts else None,
+                            "parts_cost": int(parts.group(3)) if parts else None, "currency": currency.group(1) if currency else ""}
+    return out
+
+
+def cinema_room() -> dict:
+    """The Cinema's private side: the compiled films (U/bld/film) and the recordings (OBS, Videos/Soma)."""
+    films = []
+    for p in sorted(FILM_DIR.glob("*.timeline.json")) if FILM_DIR.is_dir() else []:
+        try:
+            doc = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if doc.get("schema") == "soma-film-timeline/1":
+            films.append({"name": p.name, "tour": doc.get("tour"), "score": doc.get("score"), "viewer": doc.get("viewer"),
+                          "minutes": doc.get("minutes"), "places": len(doc.get("places") or []), "jumps": len(doc.get("transitions") or [])})
+    return {"films": films, "recordings": _files(recordings_dir(), VIDEO)}
+
+
+# The Writers' Room (ISS-123): four authors by four reader levels; sherlock/writers.py does the work (the scores,
+# the differences, a pick, writing the picks into the target); the room shows it. The passages are private
+# (Me/writers: H-AL's versions draw on the author's chats).
+def writers_dir() -> Path:
+    configured = local_config().get("writers_dir")
+    return Path(configured) if configured else Path(__file__).resolve().parents[5] / "Me" / "writers"
+
+
+def _writers(*args: str) -> subprocess.CompletedProcess:
+    py = shutil.which("python") or "python"
+    tool = Path(__file__).resolve().parents[3] / "sherlock" / "writers.py"
+    return subprocess.run([py, str(tool), *args, "--dir", str(writers_dir())], capture_output=True, text=True, encoding="utf-8", timeout=300)
+
+
+def writers_room() -> dict:
+    d = writers_dir()
+    if not d.is_dir():
+        return {"error": f"no passages at {d} (the passages are private: Me/writers)"}
+    r = _writers("report")
+    if r.returncode:
+        return {"error": (r.stderr or r.stdout).strip()[-400:]}
+    out = []
+    for rep in sorted(d.glob("*/report.json")):
+        out.append(json.loads(rep.read_text(encoding="utf-8")))
+    return {"passages": out}
+
+
+def writers_act(cmd: str, pid: str, level: str = "", author: str = "") -> dict:
+    if not re.fullmatch(r"[a-z0-9-]+", pid or "") or (cmd == "pick" and not (re.fullmatch(r"[a-z]+", level) and re.fullmatch(r"[a-z]+", author))):
+        return {"error": "a passage id, and for a pick a level and an author"}
+    r = _writers("pick", pid, level, author) if cmd == "pick" else _writers("apply", pid) if cmd == "apply" else None
+    if r is None:
+        return {"error": f"unknown command {cmd}"}
+    return {"ok": r.returncode == 0, "said": (r.stdout or r.stderr).strip()[-400:]}
+
+
 class Handler(BaseHTTPRequestHandler):
     bridge: Bridge
 
@@ -745,6 +848,25 @@ class Handler(BaseHTTPRequestHandler):
         if urlparse(self.path).path.startswith("/art/"):
             self._art(unquote(urlparse(self.path).path[len("/art/"):]))
             return
+        route = urlparse(self.path).path
+        if route in ("/music/room", "/cinema/room", "/writers/room"):
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            try:
+                self._json(200, music_room() if route == "/music/room" else cinema_room() if route == "/cinema/room" else writers_room())
+            except Exception as error:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
+            return
+        if route.startswith("/music/bounce/"):
+            self._serve(music_dir() / "bounces", unquote(route[len("/music/bounce/"):]), AUDIO)
+            return
+        if route.startswith("/cinema/film/"):
+            self._serve(FILM_DIR, unquote(route[len("/cinema/film/"):]), {".json": "application/json"})
+            return
+        if route.startswith("/cinema/recording/"):
+            self._serve(recordings_dir(), unquote(route[len("/cinema/recording/"):]), VIDEO)
+            return
         if self.path == "/usage":
             try:
                 self._json(200, nlm_usage.usage())
@@ -762,6 +884,54 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, {"ok": True, "notebook": self.bridge.notebook, "baseline": self.bridge.baseline, "hal": bool(self.bridge.hal), "voice": voice_available(), "shell": shell_status(bool(origin and LOCAL_ORIGIN.match(origin)))})
         else:
             self._json(404, {"error": "not found"})
+
+    def _serve(self, root: Path, rel: str, kinds: dict) -> None:
+        """A file for a room (ISS-122): inside `root` only, of the given kinds, local origins only; streamed, with
+        byte ranges so audio and video can seek."""
+        if not self._origin_ok():
+            self._json(403, {"error": "local origins only"})
+            return
+        root = root.resolve()
+        path = (root / rel).resolve()
+        if root not in path.parents or not path.is_file() or path.suffix.lower() not in kinds:
+            self._json(404, {"error": "not found"})
+            return
+        size = path.stat().st_size
+        start, end = 0, size - 1
+        m = re.match(r"bytes=(\d*)-(\d*)$", self.headers.get("Range", ""))
+        if m and (m.group(1) or m.group(2)):
+            if m.group(1):
+                start = int(m.group(1))
+                end = min(int(m.group(2)), size - 1) if m.group(2) else size - 1
+            else:
+                start = max(0, size - int(m.group(2)))
+        if start > end:
+            self.send_response(416)
+            self._cors()
+            self.send_header("Content-Range", f"bytes */{size}")
+            self.end_headers()
+            return
+        self.send_response(206 if m and (m.group(1) or m.group(2)) else 200)
+        self._cors()
+        self.send_header("Content-Type", kinds[path.suffix.lower()])
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(end - start + 1))
+        if m and (m.group(1) or m.group(2)):
+            self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        try:
+            with path.open("rb") as f:
+                f.seek(start)
+                left = end - start + 1
+                while left > 0:
+                    chunk = f.read(min(1 << 20, left))
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
+                    left -= len(chunk)
+        except (BrokenPipeError, ConnectionAbortedError, ConnectionResetError):
+            pass
 
     def _art(self, rel: str) -> None:
         """The author's private art (ISS-077): files under ART_DIR only, local origins only."""
@@ -922,6 +1092,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(200, prove_decl(str(data.get("module", "")), str(data.get("name", ""))))
             except Exception as error:
                 self._json(400, {"error": f"{type(error).__name__}: {error}"})
+            return
+        if self.path == "/writers":
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                data = json.loads(self.rfile.read(min(length, 2000)) or b"{}")
+                self._json(200, writers_act(str(data.get("cmd", "")), str(data.get("id", "")), str(data.get("level", "")), str(data.get("author", ""))))
+            except Exception as error:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
             return
         if self.path == "/deck":
             if not self._origin_ok():

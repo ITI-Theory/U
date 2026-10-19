@@ -1,0 +1,59 @@
+# The rooms of the Soma Machine (ISS-122). Author, 19 Oct 2026: "if we have an engine room, have we got a music
+# room, and or a gallery? ... Cinema". A room is a workplace with its purpose, its people and its four outputs
+# (the tabs with four outputs, ISS-120). The rooms show what exists; they make nothing themselves: music is
+# made in Ableton Live (the rule, ISS-120), films by the compiler and Live's clock (docs/PIPELINE.md).
+# Each output names how it is made; `private: true` outputs live on the author's machine and are read through
+# MOTHER's bridge (local origins only), never published. `opens`: the event that opens a room, or the address of
+# its window (the Engine Room is a screen of its own); the [T]-Elevator's map has a door to each (ISS-121).
+schema_version: 1
+rooms:
+  engine:
+    title: THE ENGINE ROOM
+    for: the operator
+    say: "Every setting in one place: the screens, the camera, the effects, the relay."
+    opens: "?screen=engine"
+    outputs:
+      - {name: layouts, how: "LAYOUT in the engine room (ISS-069)"}
+      - {name: presets, how: "the settings drawer; RICE (ISS-075)"}
+      - {name: the machine's state, how: "WHEREAMI; the address of any view"}
+      - {name: logs, how: "MOTHER's bridge; make -C sherlock"}
+  music:
+    title: THE MUSIC ROOM
+    for: the composer and the musician
+    say: "The score, its versions and the deck; Live is the instrument behind it, and every sound you hear here is Live's own bounce."
+    opens: "soma-music-room"
+    outputs:
+      - {name: the printed score, how: "make -C ../Me/music print (A3 full score, A4 parts, the costs)", private: true}
+      - {name: the stems, how: "bounced by Live, per group (registry/studio/standard.yaml), into Me/music/bounces", private: true}
+      - {name: the master, how: "bounced by Live, the neutral version, into Me/music/bounces", private: true}
+      - {name: the Live set, how: "saved by the author (OneDrive\\prj\\Music\\Soma)", private: true}
+  gallery:
+    title: A GALLERY OF THOUGHTS
+    for: the public and the reader
+    say: "The art book's rooms and plates; the public face of what the machine makes."
+    opens: "soma-gallery"
+    outputs:
+      - {name: plates, how: "make -C Part2/book/gallery-of-thoughts plates"}
+      - {name: the art book, how: "make -C Part2/book/gallery-of-thoughts"}
+      - {name: book figures, how: "npm run capture (registry/gallery.yaml)"}
+      - {name: the film's stills, how: "make film-render"}
+  cinema:
+    title: THE CINEMA
+    for: the viewer
+    say: "The film, compiled once with a viewer's baseline in it, played on Live's clock; its versions and the recordings."
+    opens: "soma-cinema"
+    outputs:
+      - {name: the film, how: "node scripts/compile-film.mjs (bld/film), played by FILM"}
+      - {name: its versions, how: "node scripts/compile-film.mjs --viewer <neutral | cptsd | asd | adhd>"}
+      - {name: trailers, how: "make film-render (a range, 4K, frame by frame)"}
+      - {name: the recordings, how: "OBS's Soma collection (make obs-soma), into Videos\\Soma", private: true}
+  writers:
+    title: "THE WRITERS' ROOM"
+    for: the author, choosing among four authors
+    say: "Four authors (the author, H-AL, Copilot, MOTHER) by four reader levels; Sherlock scores each version against its level as a guide, the top scorer first; the author picks, and the pick keeps its author."
+    opens: "soma-writers-room"
+    outputs:
+      - {name: the chosen text, how: "PICK, then WRITE THE PICKS (python sherlock/writers.py apply <id>), into the target between its markers"}
+      - {name: the credits, how: "every pick keeps its author and its date (Me/writers/<id>/passage.yaml)", private: true}
+      - {name: the scores, how: "python sherlock/writers.py report (length, sentences, bridges, labels: a guide, never a verdict)"}
+      - {name: the differences, how: "each version against the level's top scorer, word by word"}

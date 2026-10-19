@@ -948,3 +948,112 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 .deck-panel .deck-slots { display: grid; gap: 8px; margin: 10px 0; }
 .deck-panel .deck-slot { display: grid; grid-template-columns: 7em 1fr; align-items: center; gap: 8px; font: 700 11px/1.2 'Space Mono', monospace; }
 .deck-panel .deck-slot select { width: 100%; min-width: 0; }
+
+/* The [T]-Elevator (televator.js, ISS-121): four moves and a clock, the moving map; above the explorer too */
+.televator { position: fixed; z-index: 31; right: 14px; bottom: 56px; width: 300px; max-height: calc(100vh - 120px); overflow: auto; padding: 8px 10px; color: var(--text); background: rgba(5,7,14,.86); border: 1px solid rgba(20,229,255,.45); font: 10.5px/1.4 'Space Mono', monospace; }
+.explorer-open .televator.wm-panel, .explorer-open .televator { visibility: visible !important; pointer-events: auto !important; z-index: 216 !important; }
+.ui-clean .televator { visibility: hidden; }
+.levels-shell .televator { right: auto; bottom: auto; left: 384px; top: 160px; }  /* a fresh layout: beside the elevator's column, clear of the readouts on the right */
+.televator__head { margin-bottom: 6px; letter-spacing: .05em; color: #14e5ff; }
+.televator__head b { font-weight: 700; }
+.televator__where { color: #9fb3d8; }
+.televator__pad { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "up fwd" "down worm"; gap: 4px; }
+.televator__pad [data-move="up"] { grid-area: up; } .televator__pad [data-move="down"] { grid-area: down; }
+.televator__pad [data-move="forward"] { grid-area: fwd; } .televator__pad [data-move="worm"] { grid-area: worm; }
+.televator__pad button, .televator__row button { width: auto; margin: 0; padding: 5px 0; font: 700 10px/1 'Space Mono', monospace; letter-spacing: .06em; color: var(--text); background: rgba(5,7,14,.6); border: 1px solid rgba(20,229,255,.35); cursor: pointer; }
+.televator__pad button.active { background: rgba(20,229,255,.18); border-color: #14e5ff; color: #fff; }
+.televator__pad button:disabled { opacity: .35; cursor: default; }
+.televator__pad [data-move="worm"] { border-color: rgba(167,139,250,.55); }
+.televator__view { min-height: 40px; margin: 6px 0; }
+.televator__say { margin: 0 0 2px; }
+.televator__why { margin: 0; color: #9fb3d8; font-size: 9.5px; }
+.televator__why summary { cursor: pointer; color: #ffd166; letter-spacing: .06em; font-size: 9px; }
+.televator__badge { padding: 0 4px; border: 1px solid rgba(255,209,102,.6); color: #ffd166; font-style: normal; font-size: 8.5px; letter-spacing: .06em; }
+.televator__sub { margin: 2px 0; color: #9fb3d8; font-size: 9.5px; }
+.televator__next { margin: 4px 0 0; }
+.televator__row { display: flex; gap: 4px; margin: 4px 0; }
+.televator__row button { flex: 0 0 34px; }
+.televator__row .televator__go { flex: 1; }
+.televator__go { width: auto; margin: 0; cursor: pointer; color: #fff; background: rgba(20,229,255,.14); border: 1px solid #14e5ff; font: 700 10px/1 'Space Mono', monospace; padding: 5px 8px; }
+/* the tube: the next entrance seen down a tunnel of rings in its colour */
+.televator__tube { position: relative; height: 92px; margin: 2px 0; border-radius: 4px; overflow: hidden; display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--tube) 85%, white) 0 7%, transparent 8%),
+    repeating-radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--tube) 55%, transparent) 0 2px, transparent 3px 13px),
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--tube) 30%, #05070e) 0, #05070e 72%);
+  animation: televator-tube 2.4s linear infinite; }
+.televator__tube span { position: relative; padding: 2px 6px; background: rgba(5,7,14,.72); border: 1px solid var(--tube); color: #fff; font-weight: 700; letter-spacing: .05em; font-size: 9.5px; }
+@keyframes televator-tube { from { background-size: 100% 100%, 100% 100%, 100% 100%; } 50% { background-size: 100% 100%, 112% 112%, 100% 100%; } to { background-size: 100% 100%, 100% 100%, 100% 100%; } }
+.televator__worms { margin: 0; padding: 0; list-style: none; max-height: 210px; overflow: auto; }
+.televator__worms li { margin: 0 0 6px; padding-bottom: 5px; border-bottom: 1px dashed rgba(167,139,250,.3); }
+.televator__worms .televator__go { border-color: #a78bfa; background: rgba(167,139,250,.14); }
+.televator__worms q { color: #e8eefc; font-style: italic; }
+.televator__worms small { color: #9fb3d8; }
+.televator__bars { display: flex; gap: 4px; margin: 3px 0; }
+.televator__bars i { flex: 1; font-style: normal; font-size: 8.5px; padding: 1px 3px; background: linear-gradient(90deg, rgba(20,229,255,.35) calc(var(--v) * 100%), rgba(255,255,255,.05) 0); }
+.televator__bars i.beyond { background: linear-gradient(90deg, rgba(167,139,250,.5) calc(var(--v) * 100%), rgba(255,255,255,.05) 0); }
+.televator__time { display: grid; grid-template-columns: auto 1fr; gap: 2px 6px; align-items: center; margin: 4px 0; }
+.televator__time output { grid-column: 1 / -1; color: #9fb3d8; font-size: 9.5px; }
+.televator__map { width: 100%; height: auto; display: block; margin-top: 2px; border-top: 1px solid rgba(20,229,255,.2); }
+.televator__map .shaft { stroke: rgba(20,229,255,.25); stroke-width: 1; }
+.televator__map .floor { stroke: rgba(255,255,255,.07); stroke-width: 1; }
+.televator__map .floor.here { stroke: rgba(20,229,255,.55); }
+.televator__map .lbl { fill: #6f83a8; font-size: 6.5px; text-anchor: end; }
+.televator__map .lbl.here { fill: #e8eefc; }
+.televator__map .col { fill: #14e5ff; font-size: 7px; text-anchor: middle; letter-spacing: .05em; }
+.televator__map text.col[x="8"] { text-anchor: start; }
+.televator__map .worm { fill: none; stroke: #a78bfa; stroke-width: 1.3; stroke-dasharray: 3 2; }
+.televator__map .fwd { fill: none; stroke: #ff7aa8; stroke-width: 1.4; }
+.televator__map .halo { fill: rgba(20,229,255,.18); stroke: rgba(20,229,255,.6); }
+.televator__map .car { fill: #14e5ff; }
+.televator__map .era { stroke: rgba(255,209,102,.35); stroke-width: 1; }
+.televator__map .era.here { stroke: #ffd166; stroke-width: 2; }
+/* The rooms (rooms.js, ISS-122): the Gallery's shell, the four outputs, the lists */
+.room h4 { margin: 18px 0 6px; font: 700 12px/1.2 'Space Mono', monospace; letter-spacing: .06em; color: #14e5ff; }
+.room h4 small { color: rgba(232,238,252,.5); font-weight: 400; margin-left: 6px; }
+.room__outputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0 18px; max-width: 980px; }
+.room__output { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border: 1px solid rgba(232,238,252,.18); background: rgba(255,255,255,.02); }
+.room__output b { font-size: 12px; letter-spacing: .06em; }
+.room__output span { font-size: 12px; color: rgba(232,238,252,.6); }
+.room__output.is-made { border-color: rgba(86,240,162,.55); }
+.room__output.is-made span { color: #7dff9a; }
+.room__output small { color: rgba(232,238,252,.45); font-size: 10px; }
+.room__note { color: rgba(232,238,252,.55) !important; font-size: 11px !important; }
+.room__list { padding-left: 18px; font-size: 12px; line-height: 1.7; max-width: 980px; }
+.room__list small { color: rgba(232,238,252,.55); }
+.room__list audio, .room__list video { width: min(640px, 100%); margin: 4px 0 8px; }
+.room__list button, .room__actions button { width: auto; margin: 0 6px 0 0; padding: 4px 10px; font-size: 11px; }
+.room__actions button:disabled { opacity: .45; cursor: default; }
+.room__table { border-collapse: collapse; font-size: 11px; margin: 4px 0 8px; }
+.room__table th, .room__table td { padding: 4px 10px; border-bottom: 1px solid rgba(232,238,252,.12); text-align: left; }
+.room__table th { color: rgba(232,238,252,.5); font-weight: 400; }
+.room--music .gallery__rooms button.active { border-color: #14e5ff; background: rgba(20,229,255,.08); }
+.room--cinema .gallery__rooms button.active { border-color: #ffd166; background: rgba(255,209,102,.08); }
+.room__list--plain { list-style: none; padding-left: 0; }
+
+/* The Writers' Room (rooms.js, ISS-123): a row per level, the top scorer first */
+.writers__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.writers__cell { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 1px solid rgba(232,238,252,.16); background: rgba(255,255,255,.02); font-size: 11.5px; line-height: 1.55; }
+.writers__cell header { display: flex; justify-content: space-between; gap: 8px; }
+.writers__cell small { color: rgba(232,238,252,.5); font-size: 9.5px; }
+.writers__cell p { margin: 0; flex: 1; color: rgba(232,238,252,.86); }
+.writers__cell ins { text-decoration: none; background: rgba(86,240,162,.16); color: #b8ffd0; }
+.writers__cell del { color: rgba(255,122,168,.75); font-size: 10px; }
+.writers__cell.is-top { border-color: rgba(255,209,102,.6); }
+.writers__cell.is-picked { border-color: #7dff9a; box-shadow: 0 0 0 1px rgba(125,255,154,.4) inset; }
+.writers__cell.is-missing { opacity: .55; border-style: dashed; }
+.writers__cell button { width: auto; margin: 0; padding: 4px 10px; font-size: 11px; align-self: flex-start; }
+.writers__score { font-weight: 700; color: #ffd166; }
+.room--writers .gallery__rooms button.active { border-color: #ffd166; background: rgba(255,209,102,.08); }
+.room__said { color: #7dff9a !important; }
+
+.televator__where b { color: #e8eefc; font-weight: 700; }
+.televator__map .route { fill: none; stroke: rgba(255,209,102,.55); stroke-width: 1.2; }
+.televator__map .stop { fill: rgba(255,209,102,.35); stroke: #ffd166; stroke-width: .8; }
+.televator__map .stop.now { fill: #ffd166; }
+.televator__map .stop.next { fill: #fff; stroke: #ffd166; stroke-width: 1.6; }
+.televator__map .stopnum { fill: #ffd166; font-size: 6px; }
+.televator__map .door { cursor: pointer; }
+.televator__map .door rect { fill: rgba(20,229,255,.06); stroke: rgba(20,229,255,.45); stroke-width: .8; }
+.televator__map .door:hover rect, .televator__map .door:focus rect { fill: rgba(20,229,255,.2); stroke: #14e5ff; }
+.televator__map .door text { fill: #e8eefc; font-size: 6.5px; text-anchor: middle; letter-spacing: .04em; pointer-events: none; }
+.televator__map text.col.end { text-anchor: end; }

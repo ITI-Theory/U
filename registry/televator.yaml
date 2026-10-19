@@ -1,0 +1,104 @@
+# The [T]-Elevator (ISS-121): one device for every move. "[T]" is read as Theory and as Time.
+# Author, 19 Oct 2026: "a generic device that looks like the elevator ... the tube up and down, a forward
+# tube and maybe a worm tube; the fwd is stay at the same dimension, but move to mind; the graphics for
+# fwd could include a vis of the next entrance; and a slider for time too".
+#
+# The moves read data that already exists; this file only declares what links it:
+#   UP / DOWN   the levels (registry/levels), the elevator's floors
+#   FORWARD     the floor's hall and its doorways (registry/hubs.yaml); where a floor has no hall, the
+#               next reading of the same floor (4D body, 8D feeling, 11D mind)
+#   WORM        the documents' own sameness claims (registry/cases/tests.yaml) between two places, each
+#               with Sherlock's MAC/FAC similarity and its share beyond the template (sherlock/macfac.py,
+#               computed when the app is built: read, never copied)
+#   TIME        the eras (registry/eras.yaml); an era has its level
+# generate.py checks every level, case and stop named here exists.
+schema_version: 1
+
+# Which MAC/FAC case describes each place. A level P11's catalogue does not list has no case (and so no
+# worm); a case may stand for an explorer stop, not a level.
+cases:
+  levels:
+    quantum-foam: zsf-scale-0
+    string-boundary: zsf-scale-1
+    nuclear: zsf-scale-2
+    atomic: zsf-scale-3
+    molecular: zsf-scale-4
+    cellular-synaptic: zsf-scale-5
+    whole-brain-cemi: zsf-scale-6
+    human-vertebrate: zsf-scale-7
+    animal-swarm: zsf-scale-8
+    society-city: zsf-scale-9
+    geological: zsf-scale-10
+    planetary: zsf-scale-11
+    orbital-system: zsf-scale-12
+    stellar: zsf-scale-13
+    compact-object: zsf-scale-14
+    galactic-disc: zsf-scale-15-16
+    galactic-halo: zsf-scale-15-16
+    galaxy-cluster: zsf-scale-17-18
+    cosmic-filaments: zsf-scale-17-18
+    observable-universe: zsf-scale-19-20
+    cosmic-web: zsf-scale-19-20
+  stops:
+    limbic: zsf-limbic-double-well
+
+# The readings of one floor, left to right on the moving map: FORWARD's other kind of move.
+aspects:
+  - {dim: 4, name: BODY, say: "the floor as matter: substrate, space and time"}
+  - {dim: 8, name: FEELING, say: "the same floor as a response: the propagator, the limbic hinge"}
+  - {dim: 11, name: MIND, say: "the same floor as meaning: the mind field"}
+
+# Where the explorer's stops sit on the moving map: a floor and a reading (the limbic hinge is D8, the
+# mind chamber 11D; P20, P14).
+map_stops:
+  worlds: {level: cosmic-web, dim: 4}
+  human: {level: human-vertebrate, dim: 4}
+  body: {level: human-vertebrate, dim: 4}
+  wayin: {level: human-vertebrate, dim: 4}
+  brain: {level: whole-brain-cemi, dim: 4}
+  limbic: {level: whole-brain-cemi, dim: 8}
+  tunnel: {level: whole-brain-cemi, dim: 8}
+  thought: {level: whole-brain-cemi, dim: 11}
+  landscape: {level: whole-brain-cemi, dim: 11}
+  neuron: {level: cellular-synaptic, dim: 4}
+  network: {level: cellular-synaptic, dim: 8}
+  dyad: {level: dyad, dim: 8}
+
+# The four moves and the clock: the words on the device, the transition each is drawn as
+# (registry/transitions.yaml), and what each means, labelled (THEORY-STATUS).
+moves:
+  up:
+    label: UP
+    via: elevator 1.5s on now
+    say: "the same thing, larger"
+    philosophy: "part and whole: the levels of science; the zoomable field (P11); more is different (Anderson 1972)"
+    label_status: interpretive
+  down:
+    label: DOWN
+    via: elevator 1.5s on now
+    say: "the same thing, smaller"
+    philosophy: "part and whole, the other way: what a level is made of"
+    label_status: interpretive
+  forward:
+    label: FORWARD
+    via: doorway 1.2s on now
+    say: "the same scale, another description: the next entrance"
+    philosophy: "the mind-body problem: walk inside a brain as through a mill and you find parts pushing parts, never a perception (Leibniz, Monadology 17); FORWARD changes the aspect, not the scale, as Russell's neutral monism has mind and matter as two arrangements of one stuff"
+    label_status: interpretive
+  worm:
+    label: WORM
+    via: wormhole 3s on now
+    say: "no road between, the same structure: a jump the documents claim, scored by Sherlock"
+    philosophy: "analogy as structure mapping (Gentner 1983): a jump allowed only where structure is shared, and the score shown; beyond the template is what the two share besides the one equation every floor obeys"
+    label_status: interpretive
+  time:
+    label: TIME
+    via: fade 1s on now
+    say: "when: the eras, from the Planck epoch to the history of philosophy"
+    philosophy: "becoming; the history of philosophy as time-invariant structure"
+    label_status: interpretive
+
+# How many floors: both. The shaft is continuous (the field's model is scale-free); the world is bounded
+# (the Planck length below, the observable universe above: about 60 orders of magnitude); the floors are
+# whole-number stops, the levels the papers cover. Between floors the car is in the shaft.
+floors_note: "The shaft is continuous; the floors are the levels the papers cover; the world is bounded by the Planck length and the observable universe (about 60 orders of magnitude)."

@@ -3,7 +3,7 @@
 # DO NOT EDIT -- run: make generate
 
 # Candidate build inputs adopted from PAPERS.yaml at generation time.
-REGISTRY_PAPER_TARGETS := main quantum method synthesis substrate book pov tensor music temporal zsf exp limbic osqft intqft geo gestalt preverbal swarm usf cosconst darkmatter phenomena g2break pathsens sh1 demo-case lean-appendix omnibus-a4
+REGISTRY_PAPER_TARGETS := main quantum method synthesis substrate book pov tensor music temporal zsf exp limbic osqft intqft geo gestalt preverbal swarm usf cosconst darkmatter phenomena g2break pathsens sh1 film demo-case lean-appendix omnibus-a4
 REGISTRY_PAPER_ROYAL_TARGETS := omnibus-royal
 REGISTRY_FRACTAL_PREREQUISITES := 
 REGISTRY_FRACTAL_TARGETS := fractal-thesis vol1 vol2 vol3 book-gateway book-physics book-neuroscience book-clinical-psychology book-computer-science book-formal-mathematics book-consciousness book-complex-systems book-music-arts book-geophysics book-social-science book-economics book-law book-ppe book-psychiatry-asd
@@ -37,6 +37,7 @@ dist-papers: registry-papers
 	cp -f $(PAPERS_BLD)/g2-symmetry-breaking.pdf                     $(DIST)/papers/g2-symmetry-breaking.pdf
 	cp -f $(PAPERS_BLD)/path-sensitive-transitions.pdf               $(DIST)/papers/path-sensitive-transitions.pdf
 	cp -f $(PAPERS_BLD)/sherlock-compiler.pdf                        $(DIST)/papers/sherlock-compiler.pdf
+	cp -f $(PAPERS_BLD)/compose-once-play-live.pdf                   $(DIST)/papers/compose-once-play-live.pdf
 	cp -f $(PAPERS_BLD)/SFT-DEMO-CASE.pdf                            $(DIST)/papers/SFT-DEMO-CASE.pdf
 	cp -f $(PAPERS_BLD)/lean-proofs-appendix.pdf                     $(DIST)/papers/lean-proofs-appendix.pdf
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/papers/omnibus-a4.pdf
@@ -93,6 +94,7 @@ zenodo-papers: registry-papers
 	cp -f $(PAPERS_BLD)/g2-symmetry-breaking.pdf                     $(DIST)/zenodo/P24-g2-symmetry-breaking.pdf
 	cp -f $(PAPERS_BLD)/path-sensitive-transitions.pdf               $(DIST)/zenodo/P25-path-sensitive-transitions.pdf
 	cp -f $(PAPERS_BLD)/sherlock-compiler.pdf                        $(DIST)/zenodo/SH1-sherlock-compiler.pdf
+	cp -f $(PAPERS_BLD)/compose-once-play-live.pdf                   $(DIST)/zenodo/P26-compose-once-play-live.pdf
 	cp -f $(PAPERS_BLD)/omnibus-a4.pdf                               $(DIST)/zenodo/C1v2-omnibus.pdf
 
 zenodo-ttheory: registry-fractal

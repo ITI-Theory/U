@@ -323,7 +323,7 @@ export function createTourPlayer({ voice, narration }) {
     } else showView(step.view);
     stage.setOverlay(step.overlay ?? null);
     // Other windows (screens.js) show the line as a HUD.
-    dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: tour.title, count: countEl.textContent, label: step.label ?? '', labelText: step.label ? LABEL_TEXT[step.label] : '', say: step.say } }));
+    dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: tour.title, count: countEl.textContent, label: step.label ?? '', labelText: step.label ? LABEL_TEXT[step.label] : '', say: step.say, index, views: tour.steps.map(s => s.view) } }));
     stage.setAbstract(Number.isInteger(step.abstract) ? step.abstract : null);
     stage.setOverview(step.overview === 1);
     (POKES[step.poke] ?? []).forEach((strength, number) => {

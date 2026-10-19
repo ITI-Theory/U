@@ -6,7 +6,8 @@
 // veil, the rest the explorer's own), the compiled modes driving the score's pictures frame by frame,
 // and the live knobs (PILOT: CO-PILOT, MANUAL) still overriding on top. Every frame is announced as
 // `soma-film-frame` (time, story-time, place, the compiled modes, the band's controls) and every jump as
-// `soma-transition`, for the sound to follow. MOTHER's /film opens it; the file is read from your disk.
+// `soma-transition`, for the sound to follow. MOTHER's /film opens it; the file is read from your disk, or the
+// Cinema hands one over (`soma-film-load`).
 
 import { createVeil } from './veil.js';
 
@@ -28,15 +29,16 @@ export function createFilm({ explorer }) {
   const status = panel.querySelector('.show-panel__status');
   let doc = null, raf = 0, t0 = 0, placeAt = -1, veil = null, busy = false, speed = 1;
 
-  panel.querySelector('input').addEventListener('change', async event => {
-    const f = event.target.files?.[0];
-    doc = null;
-    if (f) {
-      try { doc = JSON.parse(await f.text()); } catch { doc = null; }
-      if (doc?.schema !== 'soma-film-timeline/1' || !doc.frames?.length) doc = null;
-    }
+  function useDoc(d) {
+    doc = d?.schema === 'soma-film-timeline/1' && d.frames?.length ? d : null;
     status.textContent = doc ? `${doc.tour} · ${doc.score} · ${doc.viewer}: ${doc.places.length} places, ${doc.minutes} min, ${doc.transitions.length} jumps` : 'not a compiled film (soma-film-timeline/1)';
     panel.querySelector('[data-act="play"]').disabled = !doc;
+  }
+  panel.querySelector('input').addEventListener('change', async event => {
+    const f = event.target.files?.[0];
+    let d = null;
+    if (f) { try { d = JSON.parse(await f.text()); } catch { d = null; } }
+    useDoc(d);
   });
   panel.querySelector('[data-act="speed"]').addEventListener('change', event => {
     // keep the film's time where it is when the speed changes
@@ -93,6 +95,8 @@ export function createFilm({ explorer }) {
   });
   addEventListener('keydown', event => { if (event.key === 'Escape' && document.body.classList.contains('film-mode')) stop(); });
   addEventListener('soma-film', () => { panel.hidden = false; });
+  // a film handed over by name (the Cinema, ISS-122): { doc, play }
+  addEventListener('soma-film-load', event => { useDoc(event.detail?.doc); if (doc && event.detail?.play) start(); else panel.hidden = false; });
   // seek (the frame renderer, scripts/render-film.mjs, starts mid-film): the film's clock moved to `seconds`
   addEventListener('soma-film-seek', event => { t0 = performance.now() - (Number(event.detail?.seconds) || 0) * 1000 / speed; });
   return { open() { panel.hidden = false; }, stop, get playing() { return Boolean(raf); } };

@@ -1,0 +1,79 @@
+# The studio standard: what every track, group, return and the master of a Soma Machine Live set is made of
+# (ISS-120). Author, 19 Oct 2026: "a standard ... a STD track is: Serum, PP ... and in the strip, SSL standard
+# ... if a track doesn't need, say, PP, it turns it off"; "if you don't know what a std track has, either you
+# will use nothing or randomly download, install stuff, even generating stuff with Python".
+#
+# The rules:
+# - Music is made in Ableton Live (author, 19 Oct): Live plays it, Live bounces it. No sound of our own making.
+# - Anything not declared here is a proposal to the author: never installed, downloaded or generated.
+# - A slot not needed is turned off, never removed: every track has the same shape, so the console, the
+#   versions and the checks find the same slots in the same places.
+# - Changed only by the author's decision; each change a new version.
+# - In Live the standard is Live's own: a track preset or rack in the User Library ("Soma Standard") and a
+#   template set, made by the author's hands; this file says what they hold.
+version: 1
+status: draft          # for the author to approve or change
+macros: [S, F, C, A, G, L, PV, Phi]   # Macros 1-8 wherever a slot has macros: the eight feelings (the rig)
+
+track:                 # one per part (Violins I, Horns, Choir ...): one Serum 2 per instrument
+  slots:
+    - slot: 1
+      role: source     # what the instrument IS
+      device: Serum 2
+      default: on
+      setting: >-
+        the part's preset (its multisample); the source design (a second oscillator in Spectral or
+        Granular mode on the same recording, blended by the macros) per instrument
+    - slot: 2
+      role: state      # what the field does to it: the response
+      device: Phase Plant
+      input: the track's audio
+      default: on
+      neutral: macros at zero change nothing (the master is the neutral version)
+    - slot: 3
+      role: wrong      # "OK, but slightly wrong": frequency shift, a few cents, comb, bitcrush, wow
+      device: Snap Heap
+      default: off
+    - slot: 4
+      role: modular    # the author, 19 Oct 23:2x: "modular should be added as well ... a very handy beast"
+      device: Softube Modular FX
+      input: the track's audio
+      default: off
+      setting: >-
+        modules per instrument and version: Mutable Instruments Clouds (grains: the pre-verbal) and Rings (the
+        field ringing in response), Doepfer A-188-1 BBD (memory's wobbling echoes) and A-101-2 Vactrol LPG
+        (slow decay), Buchla 296e (the spectrum shaped: grief), 4ms SMR (resonance: awe), Intellijel Rubicon,
+        uFold II and Korgasmatron II (wrong at the source: fear, C-PTSD)
+    - slot: 5
+      role: strip
+      device: SSL Native Channel Strip 2
+      default: on
+      setting: standard (to be set by the author, the strip's starting point for every track)
+  sends:
+    - {to: Space, default: standard}            # the shared hall
+    - {to: Designed space, default: off}        # Phase Plant's designed spaces
+  installed: {Serum 2: yes, Phase Plant: yes, Snap Heap: installing, Softube Modular FX: yes (13 add-ons, 19 Oct), SSL Native Channel Strip 2: installing}
+
+group:                 # the stems
+  names: [Strings, Winds, Brass, Choir, Electronics]
+  slots:
+    - {slot: 1, role: state, device: Phase Plant, default: off, note: "a group's state, where a whole section bends together"}
+    - {slot: 2, role: glue, device: SSL Native Bus Compressor 2, default: on}
+    - {slot: 3, role: colour, device: "UAD (Mix Edition; which one is open)", default: off}
+
+returns:
+  - {name: Space, role: the hall, device: "open (Live's Convolution Reverb with a hall, or SSL FlexVerb)"}
+  - {name: Designed space, role: the spaces Phase Plant designs, device: "Softube LoadIR (any impulse response), or Live's Convolution Reverb, or Serum 2's Convolve on the track"}
+
+master:
+  slots:
+    - {slot: 1, role: glue, device: open}
+    - {slot: 2, role: loudness, device: "open (SSL X-Limit, T-RackS)"}
+  delivery: open      # streaming about -14 LUFS; broadcast -23; film as the venue asks
+
+versions:              # one session; a version is the same slots with other settings and macro automation
+  neutral: the master; slots 2 and 3 neutral
+  cptsd: slots 2 and 3 per instrument, the macros' automation from the viewer's baseline (as the film's viewer presets)
+  asd: as cptsd
+  adhd: as cptsd
+  bounce: "per version, stems per group (how, and per section or not: HAL, uat/RC3/hal-live-workflow-2026-10-19.md)"

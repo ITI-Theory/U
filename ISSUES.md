@@ -4111,6 +4111,19 @@ other work.
       what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
 - [x] (18 Oct: all approved as proposed) (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
       true`, or change the tag); `make -C sherlock features` lists what is still awaiting.
+- [ ] (ISS-120) The studio: approve or change the standard (registry/studio/standard.yaml); make it
+      Live's own (a track preset or rack "Soma Standard", a template set); the one-track test (a
+      violin: Serum 2 into Phase Plant, audio in: the input, the macros, the CPU).
+- [ ] (ISS-120) HAL: create the Studio manuals notebook (OneDrive\lib\manuals and its README; SSL's
+      two guides as web sources), then ask uat/RC3/hal-live-workflow-2026-10-19.md and
+      hal-console-2026-10-19.md; the answers into Me as before. Save Serum 2's full manual (inside
+      Serum 2) into the folder; UAD's and Melodyne's once installed.
+- [ ] (ISS-120) Push today's commits (U main, Dist, Me); decide on ISS-116's marker in the public
+      history (commit 86181e5): rewrite or leave.
+- [ ] (ISS-123) NotebookLM's login has expired: `notebooklm login` in apps/instrument/mother/.venv (a browser
+      opens; sign in); then H-AL and MOTHER can write their versions in the Writers' Room.
+- [ ] (ISS-119) Read P26, Compose Once, Play Live (paper/soma/compose-once-play-live), and name the
+      suite's thirteen movements (Me/music/movements.yaml `titles:`).
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -6251,7 +6264,7 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
       of the author's chats reached Me), hal-universe-2026-10-16 (320). (17 Oct: release-check's only
       non-Monday FAIL.) Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
-- [x] (18 Oct 23:2x, by voice: "nothing to do with freemasonries": the marker and its forms in Me/Ops/privacy.yaml; the check: 0 markers in 1,123 public files; the author can add more at any time) AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
+- [x] (18 Oct 23:2x, set by voice: the marker and its forms in Me/Ops/privacy.yaml; the check: 0 markers in 1,123 public files; the author can add more at any time) AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
 - [x] (18 Oct, the author: "shorten the header to one neutral line": done) AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
       comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
       move the score to Me.
@@ -6441,3 +6454,224 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       dynamics, the room: the SSL chain, the autoSeries for first settings), bounced as stems. Then the
       film. Private takes stay in Me.
 
+## ISS-119: The film written up: a paper (P26) and its chapter in Music and the Arts — OPEN
+
+{{Tags area.papers, area.books, area.art}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 17:21: "is this new AV film documented, written up? Will it need a new paper and or new
+book, as part of the fractal thesis? ... if yes, I would rather we start NOW"; 17:3x: "forget release
+dates ... no future v2 ... now please". Scope (Copilot): one paper, no new book. Book 8, Music and the
+Arts, already holds the theory (composition as attractor traversal; the River Film as a score; the Soma
+Machine as labelled practice); what is new is the build, the method (compose once, play live; the
+viewer's baseline compiled in; one transition grammar and one clock for picture and sound) and its
+three realisations (the film, the orchestra, the printed score).
+
+- [x] The paper, P26: `paper/soma/compose-once-play-live/compose-once-play-live.md` ("Compose Once, Play
+      Live: An Emotional Score Compiled to Picture and Sound"), `make -C paper film`; 12 references (8 new
+      in paper/bibliography.bib, the DOIs checked on Crossref); evidence labelled (`simulated` the
+      software, `empirical-result` the notes counted in Live, `interpretive` every feeling-to-medium
+      mapping, `open-hypothesis` the three studies that would test it). In Dist/PAPERS.yaml as P26,
+      pending-review; `make generate` run.
+- [x] Its chapter in Book 8: "Reading Compose Once, Play Live" with the paper embedded
+      (books/T-Theory/music-arts/book-music-arts.md); the book builds, 196 pages.
+- [x] (author 19 Oct: "20 minutes per movement is too long ... look at Planets by Holst") The printed
+      score is a suite: the 90 minutes carved into 13 movements of 5.6 to 8.0 minutes in four parts
+      (the story's turns), each its own section with its own mode, lead and a cadence; the paper's
+      printed-score section says so. The realiser and the score are private (Me/music: `make movements`,
+      `make print`).
+- [ ] The author reads the paper: the framing, the title, the realiser described but kept private (its
+      map in full, its code not), the movement titles (by feeling until he names them).
+- [ ] When the film is recorded: its numbers (length, frames, the cuts landing on Live's beats) into the
+      paper; the beat landing is untested until Live's playhead runs (ISS-117).
+- [ ] Sherlock's affidavit for P26 (`make -C sherlock`), as for the other papers.
+
+## ISS-120: The studio, done professionally: the standard track, Live and Serum 2, the console — OPEN
+
+{{Tags area.instrument, area.art, area.build}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 2026 (the evening the symphony was orchestrated): "lets go pro ... no more quick wins,
+hacks"; "use Ableton Live"; "a standard ... a STD track is: Serum, PP ... SSL standard ... if a track
+doesn't need PP, it turns it off"; "this is a turning point: this time last week we added Sherlock, this
+Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md and Me/music/README.md:
+**music is made in Ableton Live, never outside it** (Me/music's render.py and preview.py retired).
+
+**The standard**
+- [x] The standard, version 1, a draft: `registry/studio/standard.yaml` (a track: Serum 2, Phase Plant
+      on the track's audio, Snap Heap off, SSL Native Channel Strip 2; sends to Space and Designed
+      space; groups Strings, Winds, Brass, Choir, Electronics with Phase Plant off, SSL Bus Compressor
+      2, UAD colour off; the returns; the master; the versions neutral, C-PTSD, ASD, ADHD as settings
+      and macro automation on the same slots). A slot not needed is off, never removed; anything not
+      declared is a proposal to the author, never installed, downloaded or generated.
+- [x] (19 Oct 23:2x, the author: "modular should be added as well": Softube Modular FX is the track's slot 4, off by default,
+      its 13 add-ons named for the feelings; LoadIR plays the designed spaces) Modular in the standard.
+- [ ] AUTHOR: approve or change it (the strip's standard settings; UAD's colour; the hall; the master's
+      glue and limiter; the delivery loudness).
+- [ ] AUTHOR, in Live: the standard as Live's own (a track preset or rack "Soma Standard" in the User
+      Library, a template set).
+- [x] (19 Oct 23:4x: sherlock/studio.py, `make -C sherlock studio [SET=<set.als>] [TRACKS=<regex>]`: reads a Live set (gzipped
+      XML, racks' branches in order), and per standard track, group, return and the master says a slot missing or out of
+      order (problems), an undeclared device (a proposal to the author), and on or off (shown, never judged); a device
+      the standard still calls open is not checked yet; a self-test on synthetic sets; read against the author's own
+      sets, the plugin names come through) Sherlock checks a Live set against the standard (each track's slots, in order; nothing undeclared).
+- [ ] The test of one track, by the author's hands: a violin, Serum 2 into Phase Plant (audio in): the
+      input works, Live passes the macros, the CPU of two instances.
+
+**Live and the River Film**
+- [ ] HAL: `uat/RC3/hal-live-workflow-2026-10-19.md` (what the author decided in the chats; Live's
+      Freeze, Bounce in Place, stems; templates; Serum 2's presets). Then the way to keep 16 Serum 2s
+      playable: freeze per track, bounce per group or per section.
+- [ ] Movement 11 (Awe and the Pre-verbal II, canon, 7.6 min) into Live on standard tracks, Serum 2's
+      orchestral presets chosen by the author; bounced by Live.
+- [ ] The versions: the neutral master, then C-PTSD, ASD, ADHD (Phase Plant and Snap Heap per
+      instrument, the macros' automation from the viewer's baseline); bounced per version, stems per group.
+- [ ] Live's playhead (it did not run on 18 Oct: the audio engine on the Matrix's virtual ASIO; the MOTU
+      8A's own ASIO is the studio's way).
+- [ ] Orchestration: in movement 7 (Fear and Curiosity) the first violins play one bar in 149 (the
+      violas and clarinet lead): the author's ear decides.
+
+**Sound design**
+- [ ] Source design in Serum 2, per instrument: a second oscillator on the same recording in Spectral
+      (timbre shift, scan rate) or Granular mode, Sample mode's moving loop points and FM or PM warp,
+      blended by the eight macros (fear: the loop catches; grief: darker, slower; the pre-verbal:
+      grains; "slightly wrong": a few percent off). The full Serum 2 manual (inside Serum 2) into
+      OneDrive\lib\manuals.
+- [ ] Phase Plant's roles: the state after Serum 2 (the field's response, `interpretive`), the special
+      voices (sub, pad, pulse, impacts), the transitions' sounds, designing spaces (an impulse response
+      stretched, reversed or grained, bounced in Live, loaded in Live's Convolution Reverb or Serum 2's
+      Convolve).
+- [ ] HAL: `uat/RC3/hal-console-2026-10-19.md` Q2 and Q4 ("OK, but slightly wrong" by feeling; effects
+      by feeling).
+
+**The console**
+- [ ] The design (Copilot, 19 Oct; HAL Q1 and Q3): Console 1 Mk III's idea over the author's plugins:
+      sections Source, Feel, Wrong, EQ, Dynamics, Drive, Space, Out; any plugin placed by its NKS
+      sections and types (58 plugins' maps on disk, more with Komplete Kontrol); a channel view (one
+      track, the sections around the field, plain words) and a desk view (four groups by four levels:
+      the deck); the Twister the channel's knobs, the F1 the deck (pads, four faders), the M32 one
+      section with NKS names. Not like Live.
+- [ ] A private index of the NKS plugins by section (Me), the console's data.
+- [ ] AUTHOR: the Studio manuals notebook (OneDrive\lib\manuals and its README; SSL's guides as web
+      sources); UAD's and Melodyne's manuals into the folder once installed.
+
+**The pipeline**
+- [ ] The workflow as a graph of assets, each registered once and reused (a film frame a book
+      picture, a stem in the app); the tree of tabs, four outputs each, as a view over it.
+- [ ] A definition at every boundary (the spotting: the emotional score; picture lock: compose once;
+      the turnover; the deliverables), each checked by Sherlock; the standard is the first.
+- [ ] Post as a stage: per track inside it (the strip), per group the stems, the master to a delivery
+      spec.
+- [ ] POKE everywhere: a poke reaches every screen (the screens share state, not events: send it on
+      their channel) and every place answers it visibly.
+
+**Housekeeping**
+- [ ] AUTHOR: push today's commits (U main, Dist, Me: nothing pushed since the morning).
+- [ ] AUTHOR: ISS-116's marker is in the public history (commit 86181e5, 18 Oct; removed from the tree
+      19 Oct): rewrite the history or leave it.
+
+## ISS-121: The [T]-Elevator (the Televator): one device for every move, and the moving map — OPEN
+
+{{Tags area.app, area.theory, area.books}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 20:50: "say I am in the brain, there is an elevator, like a tube up or down ... but how do
+I move to the mind from here, I need a jump ... a generic device that looks like the elevator, but
+more mixes in with the level: the tube up and down, a forward tube and maybe a worm tube ... the fwd is
+stay at the same dimension, but move to mind; the graphics for fwd could include a vis of the next
+entrance; and a slider for time too ... it is an elevator, but also a Time Elevator: [T]-Elevator, a
+Televator ... does this link to philosophy, science ... how many layers can we go here, inf or ints?
+... and the moving map?" "It will look GREAT in the books."
+
+The design (Copilot, agreed 20:52): the elevator (ISS-052, ISS-101: SCALE, DIMENSION, FREQUENCY) grows
+into the [T]-Elevator, "[T]" read as Theory and as Time. Four moves and a clock:
+
+| Control | Moves | Data | Philosophy (`interpretive`) |
+|---|---|---|---|
+| UP / DOWN (the shaft) | scale: the same thing, larger or smaller | the levels (registry/levels) | part and whole: the levels of science, P11's zoomable field; "more is different" |
+| FORWARD (the tube, the next entrance shown in it) | aspect: the same scale, another description; brain to mind | the hubs' routes (registry/hubs.yaml) and the readings 4D, 8D, 11D | the mind-body problem: Leibniz's mill (walk inside, find no perception), answered by a change of aspect, not of scale: Russell's neutral monism |
+| WORM | analogy: no road, the same structure | the documents' sameness claims (registry/cases/tests.yaml), each with Sherlock's MAC/FAC similarity and its share beyond the template | analogy as structure mapping (Gentner): a jump allowed only where structure is shared, and its score shown |
+| TIME (the slider) | when | the eras (registry/eras.yaml) | becoming; the history of philosophy as time-invariant structure |
+
+How many floors: both. The shaft is continuous (the field's model is scale-free); the world is
+bounded (the Planck length below, the observable universe above: about 60 orders of magnitude); the
+floors are whole-number stops, the levels the papers cover. Between floors the car is in the shaft,
+between descriptions.
+
+- [x] (19 Oct 21:3x) The link between the app's levels and P11's scales (the MAC/FAC cases), declared once and
+      checked (registry), not guessed by code: registry/televator.yaml (21 levels and the limbic stop; the
+      explorer's stops on the map), checked by generate.py.
+- [x] (19 Oct 21:3x; better than a generated file: read, never copied) Sherlock's MAC/FAC gives the worm's routes:
+      sherlock/macfac.py routes() (the template now one function; the report unchanged, 0 lines differ), called by
+      generate.py when the app is built: 77 claimed pairs, 13 places with wormholes (the orbital system ~ the
+      atom 0.91 and 0.90 beyond the template; the molecular floor ~ the limbic double well 0.14 and 0.17, which P11
+      calls identical in structure).
+- [x] (19 Oct 21:5x: televator.js, its own panel [T] above the explorer too; UP and DOWN the floors (in the explorer to the floor's stop); FORWARD the tube in the next entrance's colour, the floor's halls and their doorways (at the brain: THE GREAT HALL and THE MIND CHAMBER, brain to mind), else the floor's other readings; WORM the floor's claimed analogies with both scores and the paper's words; TIME the eras; WHAT IT MEANS folded; every move an address and a soma-transition. 
+pm run check:televator: 19 checks in a browser, all pass; registry/features.yaml (awaiting the author); UAT app-televator) The [T]-Elevator in the app: the four moves and the time slider on the elevator; FORWARD shows
+      the next entrance (its name, its line, its colour) before the move; WORM lists the claimed
+      analogies of the floor with Sherlock's scores, labelled; each move is a declared transition
+      (elevator, tube, wormhole, fade: registry/transitions.yaml) with its sound event.
+- [x] (19 Oct 23:1x: the map is in the device: floors up the side, BODY FEELING MIND across, the eras as ticks along the bottom, the car where you are (a stop at its reading), the wormholes as arcs, FORWARD's arrow; WHEREAMI's reading is now one function (whereami.js whereAmI) the device's header shares; the route drawn on the map, a playing tour's steps (this one and the next lit; tour.js now announces the step addresses) else MY ROUTE; the five rooms as doors along the top. `npm run check:televator`: 25 checks, all pass) The moving map: where you are on three axes (scale up the side, aspect across, time along the
+      bottom), the wormholes as arcs; WHEREAMI and the route planner (ISS-110) fold into it.
+- [~] (19 Oct: checked headless, UAT app-televator, panels in bld/televator/) Checked headless (every move, every floor), a UAT entry, plates for the books (the Gallery, the
+      Atlas: the Televator and the moving map as figures), and the philosophy reading drafted for the
+      Philosophy book (the author's call).
+
+## ISS-122: The rooms: the Music Room and the Cinema (beside the Engine Room and the Gallery) — OPEN
+
+{{Tags area.app, area.art}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 20:40: "if we have an engine room, have we got a music room, and or a gallery? ...
+Cinema ... sounds grander". A room is a workplace with its own purpose, its people and its four outputs
+(the tabs with four outputs, ISS-120's pipeline); the Engine Room (a screen role) and A Gallery of
+Thoughts (ISS-097) exist.
+
+| Room | For | In it | Its four outputs |
+|---|---|---|---|
+| Engine Room | the operator | settings, screens, the camera, the relay | layouts, presets, the machine's state, logs |
+| Music Room | the composer and musician | the console (ISS-120), the deck, the score and its movements, the versions | the printed score, the stems, the master, the Live set |
+| Gallery | the public, the reader | the art book's plates, the film's stills, score pages | plates, the art book, book figures, stills |
+| Cinema | the viewer | the film, per viewer version | the film, its versions, trailers, the recording |
+
+- [x] (19 Oct 22:2x: rooms.js, THE MUSIC ROOM from the explorer's top bar: its four outputs (registry/rooms.yaml; the printed suite's 97 A3 pages and costs read from Me/music), THE SCORE (13 movements by part), THE VERSIONS (each viewer, with Live's bounces to listen to from Me/music/bounces/<viewer>/, none yet), THE STANDARD (registry/studio/standard.yaml), OPEN THE DECK; the private side through MOTHER's bridge (/music/room, /music/bounce/: local origins only, inside its folder only, byte ranges); without the bridge the public side still shows. 
+pm run check:rooms: 16 checks in a browser, all pass. Left: the room as a place on the map) The Music Room: a room in the app (a place with a doorway, as the halls are) holding the deck,
+      the score's movements, and, when built, the console; Live is the instrument behind it (the rule:
+      music is made in Live); listening is Live's bounces of each version.
+- [x] (19 Oct 22:2x: THE CINEMA from the top bar: its four outputs, THE FILMS (bld/film: PLAY hands one to FILM, soma-film-load, and it runs; Esc ends it), THE VERSIONS (each viewer, compiled or the command to compile it), THE RECORDINGS (Videos/Soma, OBS: none yet); /cinema/room, /cinema/film/, /cinema/recording/) The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.
+- [~] (19 Oct 23:1x: the rooms are doors on the [T]-Elevator's map (registry/rooms.yaml `opens`), each opened with a doorway transition the sound hears; left: the Gallery as the asset registry's face, with ISS-120's pipeline) The rooms on the map: entered by doorway transitions; the Gallery as the public face of the asset
+      registry (ISS-120's pipeline: a film frame a plate, a plate a book figure).
+
+## ISS-123: Text as a 4x4: four authors, chosen per passage — OPEN
+
+{{Tags area.books, area.sherlock}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 20:50: "if we have the 4x4 reMIDI, we could do the same for text: like having four
+authors, the top scorer right at the top; we could even use a JS git-merge-ish thing to mix all four to
+one". Copilot: a writers' room (Hollywood: one writer after another, the director merges); a literal
+merge makes conflicts, not blends, so the deck's way: four authors are the four slots, each passage a
+step, the author picks A, B, C, D or a blend; the merge tooling shows where they differ and agree; each
+spot shows the best-checked option first (Sherlock's score: claims that hold, evidence labels, length
+for the level); every sentence keeps its author (provenance, a writing credit). AI is one author of
+four, never the one who decides.
+
+- [x] (19 Oct 22:5x; the author's choices, 22:3x: the four authors the author, H-AL, Copilot, MOTHER; the rows the reader levels
+      cookie, general, specialist and the film's one line; the tool does the work and its answer goes to the Writers' Room)
+      The format: a passage's four versions side by side (registry or a draft folder), the author's
+      pick recorded with its provenance. A passage is a private folder (Me/writers/<id>/: passage.yaml with its brief,
+      target and picks; <author>.<level>.md); sherlock/writers.py check, report, ask (H-AL and MOTHER write theirs
+      through mother/ask.py), pick, apply (the picks into the target between <!-- writers:<id>:<level> --> markers,
+      the credit inside); `make -C sherlock writers`. The first passage: televator-forward (brain to mind, Leibniz's
+      mill, Russell), Copilot's four versions written; its target the draft docs/drafts/ISS-121-televator-philosophy.md.
+- [x] (19 Oct) Sherlock's score per version (its checks on claims and labels; the level's length): length for the level,
+      sentence length, bridges (registry/bofh.yaml's jargon list, below specialist), the evidence label at
+      specialist; their mean; a guide, never a verdict.
+- [x] (19 Oct) The view: four columns, the differences marked, the top scorer first; the pick writes the text: THE
+      WRITERS' ROOM (rooms.js, WRITERS in the top bar): a row per level, the top scorer first (★), each version's
+      score, parts and words, its differences from the top word by word, PICK; a missing version says how it gets
+      written; WRITE THE PICKS. Through MOTHER's bridge (/writers/room, POST /writers). `npm run check:rooms`:
+      24 checks in a browser (a pick and a write tested in a throwaway copy, never in the author's passage).
+- [ ] AUTHOR: H-AL's and MOTHER's versions: NotebookLM's login has expired (19 Oct 22:4x): `notebooklm login`
+      in apps/instrument/mother/.venv, then `python sherlock/writers.py ask televator-forward --author hal`
+      (and mother); your own versions: author.<level>.md in Me/writers/televator-forward (or by voice). Then pick.

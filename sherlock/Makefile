@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -146,6 +146,16 @@ presence:
 
 rivals:
 	$(PYTHON) rivals.py
+
+# The Writers' Room (ISS-123): four authors by four reader levels, scored and compared (Me/writers, private)
+writers:
+	$(PYTHON) writers.py check
+	$(PYTHON) writers.py report
+
+# A Live set against the studio standard (ISS-120): SET=<set.als> (default the newest in the Live folder), TRACKS=<regex>
+studio:
+	$(PYTHON) studio.py --self-test
+	$(PYTHON) studio.py $(if $(SET),"$(SET)",) $(if $(TRACKS),--tracks "$(TRACKS)",)
 
 bofh:
 	$(PYTHON) bofh.py

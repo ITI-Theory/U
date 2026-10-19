@@ -439,6 +439,18 @@ This is also the paper that reminds the volume to keep its ambition testable. If
 
 {{AddPage}}
 
+# Reading Compose Once, Play Live
+
+*Compose Once, Play Live* is the build that *The Tensor* proposed. It takes the River Film's emotional score and compiles three works from it: a film in the Soma Machine, an orchestra of sixteen parts with an electronic layer, and a printed conductor's score in four movements. Read it after *The Tensor*: that paper says a film can be defined by its emotional path; this one shows what it takes to make the path the single source of picture and sound `simulated`.
+
+Composers should read it for its two times. Compose time decides everything that can be decided once, including the viewer's own baseline, which is compiled in so that a fearful viewer's film starts from where that viewer is; performance time adds only small live moves on one clock shared with the DAW. This is the old division between composer and performer made strict, and it makes a performance repeatable and its live part legible `interpretive`.
+
+Its limits are stated in the paper and matter here. The checks it reports (every note in range, the music's energy following the score's arousal) show that the realiser did what it was told, not that anyone feels the river. The paper ends with three studies that would test it: the arc heard, container independence, and the baseline compiled. It also answers the question its tools raise, whose music this is, in the way this volume would: the person writes the feeling and chooses among the options `open-hypothesis`.
+
+{{AddPaper ../../paper/soma/compose-once-play-live/compose-once-play-live.md}}
+
+{{AddPage}}
+
 # Conclusion: Composing with the Field
 
 This volume has argued for a disciplined, labelled, and testable field aesthetics. Its strongest claim is not that [T]-Theory has proved why music moves us. It has not. Its strongest claim is that music-induced affect can be modelled as a response trajectory in a forced, damped, noisy, memory-bearing field, with BRECVEMA mechanisms interpreted as distinct parameter operations `open-hypothesis`.

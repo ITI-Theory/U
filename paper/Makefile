@@ -39,6 +39,7 @@ $(eval $(call register, ttheory-phenomena,                citeproc, en,  phenome
 $(eval $(call register, sherlock-compiler,                citeproc, en,    sh1      ))
 $(eval $(call register, path-sensitive-transitions,       citeproc, en,    pathsens))
 $(eval $(call register, sherlock-llm,                     citeproc, en,    sh2      ))
+$(eval $(call register, compose-once-play-live,           citeproc, en,    film     ))
 $(eval $(call register, SFT-DEMO-CASE,                     citeproc, en,  demo-case))
 
 # Derived target lists (computed from registry)
