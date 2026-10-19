@@ -34,6 +34,7 @@ import { createPanelManager } from './panels.js';
 import { createScreens, createEngineRoom, createMaintenanceDeck, screenRole, LINKED_KEYS } from './screens.js';
 import { createExplorer, LEVEL_STOPS, STOPS as VOYAGE_STOPS } from './explorer.js';
 import { createElevator } from './elevator.js';
+import { createTelevator } from './televator.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
@@ -2919,6 +2920,38 @@ panelManager.registerPanel(sherlockPanel, { id: 'sherlock', title: 'SHERLOCK', d
 // The elevator (elevator.js, ISS-052): the zoom as floors; STEP OUT into the explorer.
 document.body.append(elevator.element);
 panelManager.registerPanel(elevator.element, { id: 'elevator', title: 'ELEVATOR', dockLabel: 'LIFT', minWidth: 300, minHeight: 160 });
+// The [T]-Elevator (televator.js, ISS-121): every move from where you are, in the levels view and in
+// the explorer; each move an address, as a tour step is, so a link, a tour and a move are the same.
+const televator = createTelevator({
+  context: () => ({
+    levelId: state.levelId, floors: activeZoom().scales, index: activeModelIndex(), dim: state.level,
+    dims: [4, ...(state.tTheory ? [8] : []), ...(state.tTheory && elevenDimensionalAvailable(state.levelId) ? [11] : [])],
+    eraId: state.eraId, stop: explorer.open ? explorer.stop : null, inHall: explorer.open && explorer.hall,
+  }),
+  step: delta => {
+    const zoom = activeZoom();
+    const next = zoom.scales[Math.max(0, Math.min(zoom.scales.length - 1, activeModelIndex() + delta))];
+    if (!explorer.open) { setPathStep(activeModelIndex() + delta); return; }
+    televatorGo(LEVEL_STOPS[next] ? { level: next, voyage: LEVEL_STOPS[next] } : { level: next });
+  },
+  go: address => televatorGo(address),
+  aspect: d => document.querySelector(`.hierarchy-button[data-level="${d}"]`)?.click(),
+  era: era => selectEra(era),
+  via: (text, apply) => { elevatorVeil ??= createVeil(); elevatorVeil.run(text, apply); },
+});
+function televatorGo(address) {
+  const params = new URLSearchParams(hashForState().slice(1));
+  for (const k of ['voyage', 'hall', 'cave', 'palace', 'pf', 'choices', 'kc', 'era']) params.delete(k);
+  if (address.level && address.level !== state.levelId) params.delete('path');
+  for (const [k, v] of Object.entries(address)) params.set(k, String(v));
+  if (address.voyage && !params.has('phi')) params.set('phi', explorer.phi.toFixed(2));
+  location.hash = params.toString();
+}
+document.body.append(televator.element);
+panelManager.registerPanel(televator.element, { id: 'televator', title: '[T]-ELEVATOR', dockLabel: '[T]', minWidth: 280, minHeight: 220 });
+addEventListener('hashchange', () => televator.update());
+setInterval(() => televator.update(), 400);
+televator.update();
 // THE SPINE in the levels view (ISS-105, DESIGN.md): one app. The same top bar as the explorer
 // (SOMA MACHINE, where you are, the places, 4D 8D 11D, SETTINGS); a default arrangement for a
 // fresh start (styles only: a saved window position is inline and always wins): the elevator a

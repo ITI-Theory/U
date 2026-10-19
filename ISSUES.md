@@ -6503,17 +6503,22 @@ bounded (the Planck length below, the observable universe above: about 60 orders
 floors are whole-number stops, the levels the papers cover. Between floors the car is in the shaft,
 between descriptions.
 
-- [ ] The link between the app's levels and P11's scales (the MAC/FAC cases), declared once and
-      checked (registry), not guessed by code.
-- [ ] Sherlock's MAC/FAC writes the worm's routes (the claimed pairs, the quote and line, the
-      similarity, beyond the template) as a generated registry file the app reads.
-- [ ] The [T]-Elevator in the app: the four moves and the time slider on the elevator; FORWARD shows
+- [x] (19 Oct 21:3x) The link between the app's levels and P11's scales (the MAC/FAC cases), declared once and
+      checked (registry), not guessed by code: registry/televator.yaml (21 levels and the limbic stop; the
+      explorer's stops on the map), checked by generate.py.
+- [x] (19 Oct 21:3x; better than a generated file: read, never copied) Sherlock's MAC/FAC gives the worm's routes:
+      sherlock/macfac.py routes() (the template now one function; the report unchanged, 0 lines differ), called by
+      generate.py when the app is built: 77 claimed pairs, 13 places with wormholes (the orbital system ~ the
+      atom 0.91 and 0.90 beyond the template; the molecular floor ~ the limbic double well 0.14 and 0.17, which P11
+      calls identical in structure).
+- [x] (19 Oct 21:5x: televator.js, its own panel [T] above the explorer too; UP and DOWN the floors (in the explorer to the floor's stop); FORWARD the tube in the next entrance's colour, the floor's halls and their doorways (at the brain: THE GREAT HALL and THE MIND CHAMBER, brain to mind), else the floor's other readings; WORM the floor's claimed analogies with both scores and the paper's words; TIME the eras; WHAT IT MEANS folded; every move an address and a soma-transition. 
+pm run check:televator: 19 checks in a browser, all pass; registry/features.yaml (awaiting the author); UAT app-televator) The [T]-Elevator in the app: the four moves and the time slider on the elevator; FORWARD shows
       the next entrance (its name, its line, its colour) before the move; WORM lists the claimed
       analogies of the floor with Sherlock's scores, labelled; each move is a declared transition
       (elevator, tube, wormhole, fade: registry/transitions.yaml) with its sound event.
-- [ ] The moving map: where you are on three axes (scale up the side, aspect across, time along the
+- [~] (19 Oct: the map is in the device: floors up the side, BODY FEELING MIND across, the eras as ticks along the bottom, the car where you are (a stop at its reading), the wormholes as arcs, FORWARD's arrow; left: WHEREAMI and the route planner folded in) The moving map: where you are on three axes (scale up the side, aspect across, time along the
       bottom), the wormholes as arcs; WHEREAMI and the route planner (ISS-110) fold into it.
-- [ ] Checked headless (every move, every floor), a UAT entry, plates for the books (the Gallery, the
+- [~] (19 Oct: checked headless, UAT app-televator, panels in bld/televator/) Checked headless (every move, every floor), a UAT entry, plates for the books (the Gallery, the
       Atlas: the Televator and the moving map as figures), and the philosophy reading drafted for the
       Philosophy book (the author's call).
 

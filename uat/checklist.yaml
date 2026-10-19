@@ -126,6 +126,11 @@ steps:
     title: "FILM: a compiled film plays in sync; the knobs move it from zero (docs/PIPELINE.md)"
     url: "#voyage=worlds&dim=11"
     do: "In a terminal: node apps/instrument/visuals/soma-field-operator/scripts/compile-film.mjs --minutes 10 (or --viewer cptsd). In MOTHER type /film, pick bld/film/grand-tour.river-film.neutral.timeline.json, PLAY (try 10x). Do the places follow in order, does the fade into the river look right, and at the score do the knobs (PILOT: MANUAL) still move it?"
+  - id: app-televator
+    kind: app
+    title: "The [T]-Elevator: every move from where you are, and the moving map (ISS-121)"
+    url: "#level=whole-brain-cemi&lens=on&dim=4"
+    do: "Open [T] (the dock). At the brain: FORWARD, cycle the tube to THE MIND CHAMBER, GO: are you in the mind, the device still there? In the Great Hall: FORWARD to THE LIMBIC GATE. At the molecular floor: WORM: the limbic system with Sherlock's scores (0.14, 0.17) and P11's own words; GO. UP and DOWN, then TIME to an era. Does it look and read right; is the philosophy (WHAT IT MEANS) what you mean? `npm run check:televator` runs the same walk headless."
   - id: app-elevators
     kind: app
     title: "The three elevators: SCALE, DIMENSION (D1-11), FREQUENCY (the EEG bands); the overview desk's THE THREE ELEVATORS (ISS-101)"
