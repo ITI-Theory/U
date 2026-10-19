@@ -157,9 +157,14 @@ live-install: live-rig
 live-test:
 	$(PYTHON) lib/audio/test_soma.py
 
-.PHONY: nks
+# The console's index (ISS-120): every NKS plugin by the console's sections (registry/audio/console.yaml) into Me/music/console
+# (private): make console-index [NKS_DIRS="<folder> ..."]
+.PHONY: nks console-index
 nks:
 	@$(PYTHON) lib/audio/nks.py --self-test >/dev/null && echo "nks self-test: PASS"
+console-index:
+	$(PYTHON) lib/audio/console_index.py --self-test
+	$(PYTHON) lib/audio/console_index.py $(NKS_DIRS)
 	$(PYTHON) lib/audio/nks.py "$(or $(FILE),$(DIR))" $(if $(JSON),--json,)
 
 # The home page of https://www.t-theory.org from web/home.md (pandoc, no script writes markup).

@@ -1,0 +1,22 @@
+# The console (ISS-120): Softube Console 1's idea over the author's own plugins. Fixed sections in a fixed order,
+# one job per control; any plugin placed by what its NKS presets say about it (the controls' section and name, the
+# preset's types), so a new plugin lands in its sections without hand mapping. The rules are public; the index of
+# the author's plugins they produce is private (Me/music/console: lib/audio/console_index.py).
+#
+# How a control is placed: an instrument's controls are its SOURCE, except its macros (FEEL); an effect's control
+# goes to the first section in `order` whose patterns match its NKS section name, else its own name, else OTHER.
+# A plugin's home section: as declared below (where the studio standard has decided), else the first section whose
+# patterns match the plugin's own name, else where most of its controls land, else its NKS types.
+schema_version: 1
+order: [feel, wrong, eq, dynamics, drive, space, out]
+# declared homes (registry/studio/standard.yaml): a container's home is its slot, not its controls
+homes: {Snap Heap: wrong, Phase Plant: source, Modular FX: wrong, Serum 2: source}
+sections:
+  source: {name: SOURCE, say: "the instrument: what the track is (Serum 2, Phase Plant, Kontakt)"}
+  feel: {name: FEEL, say: "the eight macros: Safety, Fear, Curiosity, Awe, Grief, Language, the Pre-verbal, Phi", patterns: ['\bmacros?\b']}
+  wrong: {name: WRONG, say: "OK, but slightly wrong: frequency shift, a few cents, comb, crush, reverse, fold, grains", patterns: ['freq(uency)? ?shift', 'tape ?stop', '\bring\b', '\bcomb\b', 'crush', 'revers', '\bpitch', 'formant', '\bfold', 'detune', '\bwow\b', 'flutter', '\bgrain', 'stutter', 'glitch']}
+  eq: {name: EQ AND FILTER, say: "the tone: bands, shelves, the filters", patterns: ['\beq\b', 'equali', '\bband', '\b(l|lm|hm|h)?mf\b', '\blf\b', '\bhf\b', 'low ?pass', 'high ?pass', '\bfilter', 'cutoff', '\breso', '\bbell\b', 'shelf', '\btilt\b', '\bq\b']}
+  dynamics: {name: DYNAMICS, say: "compression, gates, limiting, de-essing", patterns: ['compress', 'threshold', '\bratio', '\battack', '\brelease', 'dynamic', '\bgate\b', 'expand', '\blimit', '\bknee\b', 'make ?up', 'de-?ess', 'transient', 'sidechain|s/c']}
+  drive: {name: DRIVE, say: "saturation, distortion, tape, tubes, amps", patterns: ['\bdrive', 'satur', 'distort', '\btape\b', '\btube', '\bshape', '\bclip', 'warmth', 'harmonic', 'overdrive', '\bfuzz', '\bamp\b', 'amplifier', '\bcab\b', '\bheat\b']}
+  space: {name: SPACE, say: "the room and the time: reverb, delay, width, movement", patterns: ['reverb', '\bdelay', '\becho', '\bspace', '\broom\b', '\bhall\b', '\bplate\b', '\bdecay', '\bsize\b', 'pre-?delay', '\bwidth', 'stereo', 'chorus', 'flang', '\bphas', 'ensemble', 'rotary', 'damp']}
+  out: {name: OUT, say: "what leaves the track: level, pan, mix, trims", patterns: ['output', '\bout\b', '\bmaster\b', '\bfader', 'volume', '\blevel\b', '\bmix\b', 'dry/?wet', '\bpan\b', 'bypass', '\btrim\b', '\binput\b', '\bgain\b']}

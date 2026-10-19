@@ -6551,7 +6551,10 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       track, the sections around the field, plain words) and a desk view (four groups by four levels:
       the deck); the Twister the channel's knobs, the F1 the deck (pads, four faders), the M32 one
       section with NKS names. Not like Live.
-- [ ] A private index of the NKS plugins by section (Me), the console's data.
+- [x] (19 Oct 23:5x, on the audio branch: registry/audio/console.yaml, the rules (public): sections in order, patterns on an NKS
+      control's section and name, declared homes where the standard decided; lib/audio/console_index.py, `make console-index`
+      (a self-test of the placing): 58 plugins from about 2,000 presets in Me/music/console (private): homes Dynamics 14,
+      Space 14, EQ and filter 13, Wrong 9, Drive 5, Out 2, Source 1) A private index of the NKS plugins by section (Me), the console's data.
 - [ ] AUTHOR: the Studio manuals notebook (OneDrive\lib\manuals and its README; SSL's guides as web
       sources); UAD's and Melodyne's manuals into the folder once installed.
 
