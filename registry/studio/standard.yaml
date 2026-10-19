@@ -30,19 +30,27 @@ changes:
         as an instrument only; an instrument cannot take another's audio in Live. Snap Heap is Kilohearts' effect
         (the same Snapins and modulation; Multipass for bands), so the state on audio is Snap Heap's. Phase Plant
         is a source: the Atmosphere's tracks (the Pad, the Sub Bass), as on 17 Oct.
-      - The groups merged (17 Oct's and v1's), the locked CC map, Ozone 9 Advanced on the master, the CPU budget.
+      - The groups merged (17 Oct's and v1's), the CC lanes (the feelings as macros), Ozone 9 Advanced on the master, the CPU budget.
       - >-
         Four desks (the author: "add the rest to an alternative ... 4 outputs perhaps? SSL, Ozone, UAD, Live"):
         the same set mixed by four houses; one desk on at a time.
 macros: [S, F, C, A, G, L, PV, Phi]   # Macros 1-8 wherever a slot has macros: the eight feelings (the rig)
-cc:                    # the lanes the app sends (locked 17 Oct, the author's chats; H-AL, Me/notebooklm/hal-answers)
-  1: timbre (cutoff, brightness)
-  11: expression
-  19: wavetable position (Serum 2's, and Phase Plant's on the Atmosphere)
-  20: "drive (the wavefolder, Snap Heap's Distortion): timbral counterpoint, anxiety heard as harshness"
-  21: "comb filter or the reverb send (which one: the author's)"
-  22: gate
-  note: the feelings drive macros 1-8; the CCs are fixed lanes, mapped in Live to macros or parameters
+cc:                    # what the app sends (the author, 19 Oct: the app sends the feelings, the patch decides the sound)
+  1: "timbre (cutoff, brightness): the score's lane"
+  11: "expression: the score's lane"
+  19: "wavetable position (Serum 2's, and Phase Plant's on the Atmosphere): the score's lane"
+  20: "S, safety: Macro 1"
+  21: "F, fear: Macro 2"
+  22: "C, curiosity: Macro 3"
+  23: "A, awe: Macro 4"
+  24: "G, grief: Macro 5"
+  25: "L, language: Macro 6"
+  26: "PV, the pre-verbal: Macro 7"
+  29: "Φ, the field: Macro 8"
+  note: >-
+    The feelings as the rig sends them (registry/audio/rig.yaml, the audio branch, 18 Oct). The 17 Oct chats'
+    lanes for drive, the comb and the gate (CC 20-22) are no longer lanes: they are what the macros do in each
+    patch (drive from fear: timbral counterpoint), so the sound is decided in one place, the patch in Live.
 
 track:                 # one per part (Violins I, Horns, Choir ...): one source per instrument
   slots:
@@ -94,7 +102,7 @@ group:                 # the stems; the author, 19 Oct: 17 Oct's groups, with th
     Choir: [Choir]
     Atmosphere: [Pad, Sub Bass, Pulse, Impact]
   slots:
-    - {slot: 1, role: state, device: Snap Heap, or: [Multipass], default: on, note: "the section bends together: the macros' feelings, CC 20 and 21 (17 Oct)"}
+    - {slot: 1, role: state, device: Snap Heap, or: [Multipass], default: on, note: "the section bends together: the feelings on its macros (drive, the comb, the gate among what they do)"}
     - {slot: 2, role: glue, desk: glue, default: on}
     - {slot: 3, role: colour, desk: colour, default: off}
 
