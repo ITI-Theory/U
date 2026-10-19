@@ -6420,6 +6420,18 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       Macro n, checked: 10 of 11 targets against NKS); the sound grammar's planned channel
       daw-feeling-macros. Left: a "Soma" version of each patch kept, its macros routed inside the synth
       (what fear does to that sound is the patch's own design, made in the synth); Serum 2 the same once in.
+- [~] (author 19 Oct 02:2x: "NI's remix approach, 4 x 4, 4 tracks, 4 levels, and in the app a drop-down of the
+      options in the loaded pack ... the key is a drop-down box to pick the underlying MIDI, directly or not")
+      The remix deck. Four slots (lead, harmony, bass, texture) by four levels (calm, moving, tense, peak: the
+      score's own states), one 8-bar clip each, same key and tempo, so any cell plays with any other; a pack
+      lists each slot's options: directly a MIDI source (an option the author was offered from reMIDI's
+      public-domain library, his own MIDI), or a source the composer works from (a Scaler 3 template's
+      progression, an invented theme, a bass style, a texture). A pick rebuilds the clips that depend on it (the
+      bass and the texture follow the harmony). The human chooses, the tool proposes: what reMIDI's licence
+      asks, and the author's own rule. Done (19 Oct, private, Me/music/deck.py: list, set, render, load into
+      Live as four tracks by four scenes). Left: the app's drop-downs (one per slot, the loaded pack's options;
+      a pick goes through MOTHER's bridge to the deck, then into Live), the level moved by the score or the hand,
+      and Traktor's remix decks as a second player (audio stems of the cells).
 - [ ] (author 18 Oct 20:5x) The narration as a pipeline, like the chats (raw, HAL, Copilot, the book):
       RAW: every line the voice speaks kept with its text, its place in the film (chapter, section), the
       voice and settings (Kokoro bf_isabella 0.9, or the author's own reading), the model, a hash of the
