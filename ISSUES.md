@@ -4120,6 +4120,8 @@ other work.
       Serum 2) into the folder; UAD's and Melodyne's once installed.
 - [ ] (ISS-120) Push today's commits (U main, Dist, Me); decide on ISS-116's marker in the public
       history (commit 86181e5): rewrite or leave.
+- [ ] (ISS-123) NotebookLM's login has expired: `notebooklm login` in apps/instrument/mother/.venv (a browser
+      opens; sign in); then H-AL and MOTHER can write their versions in the Writers' Room.
 - [ ] (ISS-119) Read P26, Compose Once, Play Live (paper/soma/compose-once-play-live), and name the
       suite's thirteen movements (Me/music/movements.yaml `titles:`).
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
@@ -6561,7 +6563,22 @@ spot shows the best-checked option first (Sherlock's score: claims that hold, ev
 for the level); every sentence keeps its author (provenance, a writing credit). AI is one author of
 four, never the one who decides.
 
-- [ ] The format: a passage's four versions side by side (registry or a draft folder), the author's
-      pick recorded with its provenance.
-- [ ] Sherlock's score per version (its checks on claims and labels; the level's length).
-- [ ] The view: four columns, the differences marked, the top scorer first; the pick writes the text.
+- [x] (19 Oct 22:5x; the author's choices, 22:3x: the four authors the author, H-AL, Copilot, MOTHER; the rows the reader levels
+      cookie, general, specialist and the film's one line; the tool does the work and its answer goes to the Writers' Room)
+      The format: a passage's four versions side by side (registry or a draft folder), the author's
+      pick recorded with its provenance. A passage is a private folder (Me/writers/<id>/: passage.yaml with its brief,
+      target and picks; <author>.<level>.md); sherlock/writers.py check, report, ask (H-AL and MOTHER write theirs
+      through mother/ask.py), pick, apply (the picks into the target between <!-- writers:<id>:<level> --> markers,
+      the credit inside); `make -C sherlock writers`. The first passage: televator-forward (brain to mind, Leibniz's
+      mill, Russell), Copilot's four versions written; its target the draft docs/drafts/ISS-121-televator-philosophy.md.
+- [x] (19 Oct) Sherlock's score per version (its checks on claims and labels; the level's length): length for the level,
+      sentence length, bridges (registry/bofh.yaml's jargon list, below specialist), the evidence label at
+      specialist; their mean; a guide, never a verdict.
+- [x] (19 Oct) The view: four columns, the differences marked, the top scorer first; the pick writes the text: THE
+      WRITERS' ROOM (rooms.js, WRITERS in the top bar): a row per level, the top scorer first (★), each version's
+      score, parts and words, its differences from the top word by word, PICK; a missing version says how it gets
+      written; WRITE THE PICKS. Through MOTHER's bridge (/writers/room, POST /writers). `npm run check:rooms`:
+      24 checks in a browser (a pick and a write tested in a throwaway copy, never in the author's passage).
+- [ ] AUTHOR: H-AL's and MOTHER's versions: NotebookLM's login has expired (19 Oct 22:4x): `notebooklm login`
+      in apps/instrument/mother/.venv, then `python sherlock/writers.py ask televator-forward --author hal`
+      (and mother); your own versions: author.<level>.md in Me/writers/televator-forward (or by voice). Then pick.

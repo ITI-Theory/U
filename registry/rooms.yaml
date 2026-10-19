@@ -44,3 +44,12 @@ rooms:
       - {name: its versions, how: "node scripts/compile-film.mjs --viewer <neutral | cptsd | asd | adhd>"}
       - {name: trailers, how: "make film-render (a range, 4K, frame by frame)"}
       - {name: the recordings, how: "OBS's Soma collection (make obs-soma), into Videos\\Soma", private: true}
+  writers:
+    title: "THE WRITERS' ROOM"
+    for: the author, choosing among four authors
+    say: "Four authors (the author, H-AL, Copilot, MOTHER) by four reader levels; Sherlock scores each version against its level as a guide, the top scorer first; the author picks, and the pick keeps its author."
+    outputs:
+      - {name: the chosen text, how: "PICK, then WRITE THE PICKS (python sherlock/writers.py apply <id>), into the target between its markers"}
+      - {name: the credits, how: "every pick keeps its author and its date (Me/writers/<id>/passage.yaml)", private: true}
+      - {name: the scores, how: "python sherlock/writers.py report (length, sentences, bridges, labels: a guide, never a verdict)"}
+      - {name: the differences, how: "each version against the level's top scorer, word by word"}

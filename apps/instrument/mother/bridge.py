@@ -739,6 +739,42 @@ def cinema_room() -> dict:
     return {"films": films, "recordings": _files(recordings_dir(), VIDEO)}
 
 
+# The Writers' Room (ISS-123): four authors by four reader levels; sherlock/writers.py does the work (the scores,
+# the differences, a pick, writing the picks into the target); the room shows it. The passages are private
+# (Me/writers: H-AL's versions draw on the author's chats).
+def writers_dir() -> Path:
+    configured = local_config().get("writers_dir")
+    return Path(configured) if configured else Path(__file__).resolve().parents[5] / "Me" / "writers"
+
+
+def _writers(*args: str) -> subprocess.CompletedProcess:
+    py = shutil.which("python") or "python"
+    tool = Path(__file__).resolve().parents[3] / "sherlock" / "writers.py"
+    return subprocess.run([py, str(tool), *args, "--dir", str(writers_dir())], capture_output=True, text=True, encoding="utf-8", timeout=300)
+
+
+def writers_room() -> dict:
+    d = writers_dir()
+    if not d.is_dir():
+        return {"error": f"no passages at {d} (the passages are private: Me/writers)"}
+    r = _writers("report")
+    if r.returncode:
+        return {"error": (r.stderr or r.stdout).strip()[-400:]}
+    out = []
+    for rep in sorted(d.glob("*/report.json")):
+        out.append(json.loads(rep.read_text(encoding="utf-8")))
+    return {"passages": out}
+
+
+def writers_act(cmd: str, pid: str, level: str = "", author: str = "") -> dict:
+    if not re.fullmatch(r"[a-z0-9-]+", pid or "") or (cmd == "pick" and not (re.fullmatch(r"[a-z]+", level) and re.fullmatch(r"[a-z]+", author))):
+        return {"error": "a passage id, and for a pick a level and an author"}
+    r = _writers("pick", pid, level, author) if cmd == "pick" else _writers("apply", pid) if cmd == "apply" else None
+    if r is None:
+        return {"error": f"unknown command {cmd}"}
+    return {"ok": r.returncode == 0, "said": (r.stdout or r.stderr).strip()[-400:]}
+
+
 class Handler(BaseHTTPRequestHandler):
     bridge: Bridge
 
@@ -813,12 +849,12 @@ class Handler(BaseHTTPRequestHandler):
             self._art(unquote(urlparse(self.path).path[len("/art/"):]))
             return
         route = urlparse(self.path).path
-        if route in ("/music/room", "/cinema/room"):
+        if route in ("/music/room", "/cinema/room", "/writers/room"):
             if not self._origin_ok():
                 self._json(403, {"error": "local origins only"})
                 return
             try:
-                self._json(200, music_room() if route == "/music/room" else cinema_room())
+                self._json(200, music_room() if route == "/music/room" else cinema_room() if route == "/cinema/room" else writers_room())
             except Exception as error:
                 self._json(500, {"error": f"{type(error).__name__}: {error}"})
             return
@@ -1056,6 +1092,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(200, prove_decl(str(data.get("module", "")), str(data.get("name", ""))))
             except Exception as error:
                 self._json(400, {"error": f"{type(error).__name__}: {error}"})
+            return
+        if self.path == "/writers":
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                data = json.loads(self.rfile.read(min(length, 2000)) or b"{}")
+                self._json(200, writers_act(str(data.get("cmd", "")), str(data.get("id", "")), str(data.get("level", "")), str(data.get("author", ""))))
+            except Exception as error:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
             return
         if self.path == "/deck":
             if not self._origin_ok():

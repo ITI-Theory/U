@@ -135,7 +135,7 @@ steps:
     kind: app
     title: "The Music Room and the Cinema: the rooms beside the Engine Room and the Gallery (ISS-122)"
     url: "#voyage=brain&hall=1"
-    do: "With MOTHER's bridge running: MUSIC ROOM in the top bar: the four outputs (the printed suite's pages and costs), THE SCORE (13 movements in 4 parts), THE VERSIONS, THE STANDARD; OPEN THE DECK. CINEMA: THE FILMS, PLAY one (Esc ends it). Do the rooms say what you mean, and are the four outputs the right four? `npm run check:rooms` runs the same walk headless."
+    do: "With MOTHER's bridge running: MUSIC ROOM in the top bar: the four outputs (the printed suite's pages and costs), THE SCORE (13 movements in 4 parts), THE VERSIONS, THE STANDARD; OPEN THE DECK. CINEMA: THE FILMS, PLAY one (Esc ends it). WRITERS: the passage's four levels, the top scorer first, the missing versions saying how they get written; PICK one, WRITE THE PICKS into the draft (docs/drafts/ISS-121-televator-philosophy.md). Do the rooms say what you mean, and are the four outputs the right four? `npm run check:rooms` runs the same walk headless."
   - id: app-elevators
     kind: app
     title: "The three elevators: SCALE, DIMENSION (D1-11), FREQUENCY (the EEG bands); the overview desk's THE THREE ELEVATORS (ISS-101)"

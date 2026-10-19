@@ -1,10 +1,12 @@
 // rooms.js: the Music Room and the Cinema (ISS-122), beside the Engine Room and A Gallery of Thoughts. Author,
 // 19 Oct 2026: "if we have an engine room, have we got a music room, and or a gallery? ... Cinema". A room is a
-// workplace with its purpose, its people and its four outputs (registry/rooms.yaml). A room shows what exists
+// workplace with its purpose, its people and its four outputs (registry/rooms.yaml). The Writers' Room (ISS-123):
+// four authors by four reader levels, scored and compared by sherlock/writers.py; the author picks. A room shows what exists
 // and opens the tools; it makes nothing: music is made in Ableton Live (ISS-120, the rule), films by the
 // compiler (docs/PIPELINE.md). The public side (the rooms, the studio standard, the viewers) is the registry's;
 // the private side (the suite, the print, Live's bounces, the compiled films, the recordings) comes through
-// MOTHER's bridge, local only. Opened from the explorer's top bar (events 'soma-music-room', 'soma-cinema').
+// MOTHER's bridge, local only. Opened from the explorer's top bar (events 'soma-music-room', 'soma-cinema',
+// 'soma-writers-room').
 
 import { rooms as ROOMS, studio as STUDIO, viewers as VIEWERS } from './generated/app-data.js';
 
@@ -47,7 +49,7 @@ function createRoom(id, sectionsOf) {
   async function open() {
     root.hidden = false;
     body.innerHTML = '<p>Looking at what exists…</p>';
-    data = await fetchJson(`/${id === 'music' ? 'music' : 'cinema'}/room`);
+    data = await fetchJson(`/${id}/room`);
     sections = sectionsOf(room, data);
     nav.innerHTML = sections.map((s, i) => `<button type="button" data-section="${i}"><b>${esc(s.title)}</b><small>${esc(s.sub ?? '')}</small></button>`).join('');
     show(section);
@@ -61,7 +63,22 @@ function createRoom(id, sectionsOf) {
     else if (b.dataset.act === 'close') close();
     else if (b.dataset.event) { close(); dispatchEvent(new CustomEvent(b.dataset.event)); }
     else if (b.dataset.film) playFilm(b.dataset.film, close, b);
+    else if (b.dataset.pick || b.dataset.apply) act(b);
   });
+  async function act(b) {
+    b.disabled = true;
+    const body = b.dataset.apply ? { cmd: 'apply', id: b.dataset.apply } : { cmd: 'pick', id: b.dataset.pick, level: b.dataset.level, author: b.dataset.author };
+    let said = '';
+    try { said = (await (await fetch(`${bridge()}/writers`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })).json()).said ?? ''; }
+    catch { said = 'MOTHER\'s bridge is not running'; }
+    const keep = section;
+    await open();
+    show(keep);
+    const note = document.createElement('p');
+    note.className = 'room__note room__said';
+    note.textContent = said;
+    body.cmd && root.querySelector('.gallery__room')?.prepend(note);
+  }
   addEventListener('keydown', event => { if (!root.hidden && event.key === 'Escape') { event.stopPropagation(); close(); } }, true);
   return { open, close, root };
 }
@@ -149,10 +166,56 @@ function cinemaSections(room, data) {
   ];
 }
 
+const LEVEL_NAMES = { cookie: 'FOR A NEWCOMER', general: 'FOR A GENERAL READER', specialist: 'FOR A SPECIALIST', line: "THE FILM'S ONE LINE" };
+function cell(p, level, c, k, picked) {
+  const text = c.diff?.length
+    ? c.diff.map(([op, s]) => op === 'same' ? esc(s) : op === 'add' ? `<ins>${esc(s)}</ins>` : `<del>${esc(s)}</del>`).join(' ')
+    : esc(c.text);
+  const parts = Object.entries(c.parts).map(([k2, v]) => `${k2} ${v.toFixed(2)}`).join(' · ');
+  return `<div class="writers__cell${k === 0 ? ' is-top' : ''}${picked ? ' is-picked' : ''}">
+    <header><b>${k === 0 ? '★ ' : ''}${esc(c.name)}</b><span class="writers__score" title="${esc(parts)}">${c.score.toFixed(2)}</span></header>
+    <small>${c.words} words · ${esc(parts)}${k ? ` · ${Math.round(c.agreement * 100)}% as the top` : ''}${c.traps?.length ? ` · unbridged: ${esc(c.traps.join(', '))}` : ''}</small>
+    <p>${text}</p>
+    <button type="button" data-pick="${esc(p.id)}" data-level="${esc(level)}" data-author="${esc(c.author)}">${picked ? '✓ PICKED' : 'PICK'}</button></div>`;
+}
+function missing(p, level, author, name) {
+  const how = author === 'author' ? `write ${author}.${level}.md in Me/writers/${p.id} (or by voice)`
+    : author === 'copilot' ? 'Copilot writes it'
+    : `python sherlock/writers.py ask ${p.id} --author ${author} --level ${level} (NotebookLM)`;
+  return `<div class="writers__cell is-missing"><header><b>${esc(name)}</b></header><small>not written yet</small><p class="room__note">${esc(how)}</p></div>`;
+}
+function writersSections(room, data) {
+  const ps = data?.passages ?? [];
+  const levels = ps.flatMap(p => Object.values(p.levels));
+  const picks = ps.flatMap(p => Object.entries(p.levels).filter(([, r]) => r.pick).map(([lv, r]) => `${p.id} ${lv}: ${r.pick}`));
+  const versions = levels.reduce((n, r) => n + r.cells.length, 0);
+  const status = [
+    picks.length ? `${picks.length} of ${levels.length} levels picked` : '',
+    picks.length ? picks.join('; ') : '',
+    versions ? `${versions} versions scored` : '',
+    versions ? `${levels.reduce((n, r) => n + Math.max(0, r.cells.length - 1), 0)} compared with their level's top` : '',
+  ];
+  return [
+    { title: 'THE FOUR OUTPUTS', sub: `${ps.length} passage${ps.length === 1 ? '' : 's'}`, html: `<h3>${esc(room.title)} <small>its four outputs</small></h3>${privateNote(data)}${outputs(room, status)}
+      <p>The score is a guide for the author, never a verdict: length and sentences for the level, no unexplained jargon below specialist, the evidence label at specialist. AI is one author of four; the author picks.</p>` },
+    ...ps.map(p => ({ title: p.title || p.id, sub: p.id, html: `<h3>${esc(p.title)} <small>${esc(p.id)}</small></h3>
+      <p class="room__note">${esc(p.brief)}</p>
+      ${Object.entries(p.levels).map(([lv, r]) => {
+        const have = new Set(r.cells.map(c => c.author));
+        const pickedAuthor = String(r.pick ?? '').split(' ')[0];
+        return `<h4>${esc(LEVEL_NAMES[lv] ?? lv)} <small>${esc(r.say)} · ${r.band[0]}-${r.band[1]} words${r.pick ? ` · picked: ${esc(r.pick)}` : ''}</small></h4>
+          <div class="writers__row">${r.cells.map((c, k) => cell(p, lv, c, k, c.author === pickedAuthor)).join('')}${Object.entries(p.authors).filter(([a]) => !have.has(a)).map(([a, name]) => missing(p, lv, a, name)).join('')}</div>`;
+      }).join('')}
+      <p class="room__actions"><button type="button" data-apply="${esc(p.id)}">WRITE THE PICKS INTO ${esc(p.target?.file ?? 'THE TARGET')}</button></p>` })),
+  ];
+}
+
 export function createRooms() {
   const music = createRoom('music', musicSections);
   const cinema = createRoom('cinema', cinemaSections);
   addEventListener('soma-music-room', () => music.open());
   addEventListener('soma-cinema', () => cinema.open());
-  return { music, cinema };
+  const writers = createRoom('writers', writersSections);
+  addEventListener('soma-writers-room', () => writers.open());
+  return { music, cinema, writers };
 }

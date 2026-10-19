@@ -7,6 +7,7 @@
 //   2. the Cinema: the compiled films, PLAY hands one to FILM and the film runs; Esc ends it;
 //   3. the bridge serves a room's file only from inside its folder, with byte ranges (206), and nothing
 //      outside it (404);
+//   3b. the Writers' Room shows a passage's 4x4 (looked at, never picked in); pick and write tested in a throwaway copy;
 //   4. without the bridge, a room says the private side is the author's and still shows the public side.
 // Screenshots to bld/rooms/. Usage: npm run check:rooms. Exit 1 on any failure or page error.
 
@@ -90,6 +91,41 @@ try {
     await page.waitForTimeout(500);
     ok(!(await page.evaluate(() => document.body.classList.contains('film-mode'))), 'Esc ends the film');
   }
+  // the Writers' Room: looked at, never picked in (a pick is the author's)
+  await page.goto(`${base}#level=whole-brain-cemi&lens=on&dim=4&voyage=brain&hall=1`, { waitUntil: 'domcontentloaded', timeout: 120000 });
+  await page.waitForSelector('.explorer__guide', { timeout: 60000 });
+  await page.waitForTimeout(2000);
+  await page.locator('.explorer__guide', { hasText: 'WRITERS' }).click();
+  await page.waitForSelector('.room--writers:not([hidden]) .room__output', { timeout: 60000 });
+  const wr = await (await fetch(`http://127.0.0.1:${PORT}/writers/room`)).json();
+  ok((await text(page, '.room--writers .gallery__room')).includes('THE CHOSEN TEXT'), "the Writers' Room shows its four outputs");
+  if (wr.passages?.length) {
+    const pas = wr.passages[0];
+    const body = await section(page, 'writers', pas.title);
+    ok(['FOR A NEWCOMER', 'FOR A GENERAL READER', 'FOR A SPECIALIST', "THE FILM'S ONE LINE"].every(l => body.includes(l)), 'a passage shows its four levels');
+    const tops = await page.locator('.room--writers .writers__cell.is-top').count();
+    ok(tops === Object.values(pas.levels).filter(r => r.cells.length).length, `each level with a version has its top scorer first (${tops})`);
+    ok(body.includes('not written yet') && body.includes('writers.py ask'), 'a missing version says how it gets written');
+    await page.locator('.room--writers').screenshot({ path: path.join(out, 'writers-1-passage.png') });
+  }
+  // pick and write, in a throwaway copy with a throwaway target (U/bld), deleted afterwards
+  const py3 = process.platform === 'win32' ? 'python' : 'python3';
+  const tool = path.resolve(appDir, '../../../../sherlock/writers.py');
+  const tmp = path.resolve(appDir, '../../../../bld/writers-check');
+  const run = args => new Promise(res => { const c = spawn(py3, [tool, ...args, '--dir', tmp], { stdio: ['ignore', 'pipe', 'pipe'] }); let o = ''; c.stdout.on('data', d => { o += d; }); c.stderr.on('data', d => { o += d; }); c.on('close', code => res({ code, o })); });
+  const { rm, writeFile, readFile } = await import('node:fs/promises');
+  await rm(tmp, { recursive: true, force: true });
+  await mkdir(path.join(tmp, 'p1'), { recursive: true });
+  await writeFile(path.join(tmp, 'p1', 'passage.yaml'), 'id: p1\ntitle: A check\nbrief: a check passage\ntarget: {file: bld/writers-check/target.md}\npicks: {}\n');
+  await writeFile(path.join(tmp, 'p1', 'copilot.line.md'), 'The mind is not upstairs from the brain.\n');
+  await writeFile(path.join(tmp, 'p1', 'author.line.md'), 'Same floor, another way of seeing it, said plainly.\n');
+  await writeFile(path.join(tmp, 'target.md'), 'before\n<!-- writers:p1:line -->\n<!-- /writers:p1:line -->\nafter\n');
+  ok((await run(['check'])).code === 0, 'writers.py check: the throwaway passage is well formed');
+  ok((await run(['pick', 'p1', 'line', 'author'])).code === 0, 'writers.py pick records the choice');
+  ok((await run(['apply', 'p1'])).code === 0, 'writers.py apply writes the picks');
+  const written = await readFile(path.join(tmp, 'target.md'), 'utf8');
+  ok(written.includes('<!-- writers:p1:line by the author, picked') && written.includes('Same floor, another way') && written.startsWith('before') && written.trim().endsWith('after'), 'the pick lands between its markers, with its credit, and nothing else moves');
+  await rm(tmp, { recursive: true, force: true });
   // 3. the bridge's files: ranges inside the folder, nothing outside
   if (cine.films.length) {
     const r = await fetch(`http://127.0.0.1:${PORT}/cinema/film/${encodeURIComponent(cine.films[0].name)}`, { headers: { Range: 'bytes=0-99' } });

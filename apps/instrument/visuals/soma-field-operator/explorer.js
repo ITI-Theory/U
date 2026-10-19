@@ -3575,7 +3575,7 @@ export function createExplorer(hooks = {}) {
     galleryButton.addEventListener('click', event => { event.stopPropagation(); dispatchEvent(new CustomEvent('soma-gallery')); });
     motherButton.before(galleryButton);
     // the Music Room and the Cinema (ISS-122): the rooms beside the Gallery
-    for (const [label, ev, title] of [['MUSIC ROOM', 'soma-music-room', 'The Music Room: the score, its versions, the deck; Live is the instrument behind it'], ['CINEMA', 'soma-cinema', 'The Cinema: the compiled films, their versions, the recordings']]) {
+    for (const [label, ev, title] of [['MUSIC ROOM', 'soma-music-room', 'The Music Room: the score, its versions, the deck; Live is the instrument behind it'], ['CINEMA', 'soma-cinema', 'The Cinema: the compiled films, their versions, the recordings'], ['WRITERS', 'soma-writers-room', "The Writers' Room: four authors by four reader levels; the top scorer first; you pick"]]) {
       const roomButton = document.createElement('button');
       roomButton.type = 'button';
       roomButton.className = 'explorer__guide';
