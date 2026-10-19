@@ -1,12 +1,14 @@
 # soma.py: the Soma control script's surface (ISS-118). For each target in rig.json, a CC on a MIDI
-# channel moves one parameter of one device: the device is found by name anywhere in the set (tracks,
-# returns, the master, inside racks), the parameter by one of its names (from NKS: "Threshold",
+# channel moves one parameter on every device of a name: the devices are found by name anywhere in the set
+# (tracks, returns, the master, inside racks; a target's `tracks` pattern narrows it), so a feeling reaches
+# every instrument's macro; the parameter by one of its names (from NKS: "Threshold",
 # "Compressor Threshold" ...) or by position; the CC's 0..127 sweeps the target's range of the
 # parameter's travel. On start, and when a target cannot be found, it writes soma-devices.json beside
 # itself: every device and parameter name Live shows, so the rig can be corrected from facts. All it
 # does is logged to Live's Log.txt, prefixed "Soma:".
 import json
 import os
+import re
 import time
 
 import Live
@@ -82,44 +84,58 @@ class Soma(ControlSurface):
             for d in _devices(track):
                 yield track, d
 
-    def _find(self, t):
-        want = t["device"].lower()
-        for track, d in self._all_devices():
-            if want in (d.name or "").lower() or want in (getattr(d, "class_display_name", "") or "").lower():
-                params = list(d.parameters)
-                if "param_index" in t:
-                    idx = t["param_index"]
-                    if 0 <= idx < len(params):
-                        return params[idx]
-                    continue
-                names = [n.lower() for n in t.get("names", [])]
-                for p in params:  # an exact name first
-                    if (p.name or "").lower() in names:
-                        return p
-                for p in params:  # then a name containing one of them
-                    if any(n and n in (p.name or "").lower() for n in names):
-                        return p
+    @staticmethod
+    def _param(d, t):
+        params = list(d.parameters)
+        if "param_index" in t:
+            idx = t["param_index"]
+            return params[idx] if 0 <= idx < len(params) else None
+        names = [n.lower() for n in t.get("names", [])]
+        for p in params:  # an exact name first
+            if (p.name or "").lower() in names:
+                return p
+        for p in params:  # then a name containing one of them
+            if any(n and n in (p.name or "").lower() for n in names):
+                return p
         return None
 
+    def _find(self, t):
+        """The parameter on every device of the target's name (the feelings reach every source: a set has one
+        Serum 2 per instrument, 20 Oct); `tracks`, a pattern on the track's name, narrows it."""
+        want = t["device"].lower()
+        tracks = re.compile(t["tracks"], re.I) if t.get("tracks") else None
+        found = []
+        for track, d in self._all_devices():
+            if tracks and not tracks.search(track.name or ""):
+                continue
+            if want in (d.name or "").lower() or want in (getattr(d, "class_display_name", "") or "").lower():
+                p = self._param(d, t)
+                if p is not None:
+                    found.append(p)
+        return found
+
     def _apply(self, i, t, x):
-        p = self._cache.get(i)
-        if p is None:
-            p = self._find(t)
-            if p is None:
+        hit = self._cache.get(i)
+        ps = hit[1] if hit and time.time() - hit[0] < 5 else None  # found again every few seconds: a device added inside a track
+        if not ps:
+            ps = self._find(t)
+            if not ps:
                 self._dump_soon("no %s in %s" % (t.get("names") or t.get("param_index"), t["device"]))
                 return
-            self._cache[i] = p
-            self.log_message("Soma: CC %d -> %s (%s)" % (t["cc"], p.name, t["device"]))
+            if not hit or len(hit[1]) != len(ps):
+                self.log_message("Soma: CC %d -> %s (%s, %d)" % (t["cc"], ps[0].name, t["device"], len(ps)))
+            self._cache[i] = (time.time(), ps)
         lo, hi = t.get("range", [0.0, 1.0])
         f = lo + (hi - lo) * x
-        v = p.min + (p.max - p.min) * f
-        if getattr(p, "is_quantized", False):
-            v = round(v)
-        try:
-            p.value = max(p.min, min(p.max, v))
-        except Exception as e:  # a parameter that cannot be set (e.g. automation locked): forget it
-            self.log_message("Soma: cannot set %s (%s)" % (p.name, e))
-            self._cache.pop(i, None)
+        for p in list(ps):
+            v = p.min + (p.max - p.min) * f
+            if getattr(p, "is_quantized", False):
+                v = round(v)
+            try:
+                p.value = max(p.min, min(p.max, v))
+            except Exception as e:  # a parameter that cannot be set (e.g. automation locked): found again next time
+                self.log_message("Soma: cannot set %s (%s)" % (p.name, e))
+                self._cache.pop(i, None)
 
     # ------------------------------------------------------------------ the list of devices
 

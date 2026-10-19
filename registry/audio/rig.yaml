@@ -9,6 +9,8 @@
 #   param: "name"         Live's own name for it (the script lists them all: soma-devices.json)
 #   param_index: n        the n-th parameter Live shows (0 is the device's on/off)
 # range: the part of the parameter's travel the mode sweeps, from mode 0 to mode 1 (may run downwards).
+# tracks: (optional) a pattern on the track's name; without it a target moves the parameter on EVERY device of
+#   that name in the set (20 Oct: one Serum 2 per instrument, so a feeling reaches all of them).
 # channel: the sound grammar's channel it realises (registry/sound-grammar.yaml); Sherlock checks it.
 # `make live-rig` compiles this into the script's rig.json; `make live-install` puts the script into
 # Live's User Library (Remote Scripts). Then in Live: Settings > Link, Tempo & MIDI > Control Surface:
@@ -27,6 +29,16 @@ targets:
   - {channel: daw-feeling-macros, mode: L, cc: 25, device: "Phase Plant", nks: [MACROS, Macro 6], range: [0.0, 1.0]}
   - {channel: daw-feeling-macros, mode: PV, cc: 26, device: "Phase Plant", nks: [MACROS, Macro 7], range: [0.0, 1.0]}
   - {channel: daw-feeling-macros, mode: PHI, cc: 29, device: "Phase Plant", nks: [MACROS, Macro 8], range: [0.0, 1.0]}
+  # Serum 2, the source of the standard track (registry/studio/standard.yaml): the same eight macros. No NKS map for
+  # Serum 2 here, so Live's names; to confirm in soma-devices.json once a set with Serum 2 has run the script.
+  - {channel: daw-feeling-macros, mode: S, cc: 20, device: "Serum 2", param: "Macro 1", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: F, cc: 21, device: "Serum 2", param: "Macro 2", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: C, cc: 22, device: "Serum 2", param: "Macro 3", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: A, cc: 23, device: "Serum 2", param: "Macro 4", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: G, cc: 24, device: "Serum 2", param: "Macro 5", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: L, cc: 25, device: "Serum 2", param: "Macro 6", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: PV, cc: 26, device: "Serum 2", param: "Macro 7", range: [0.0, 1.0]}
+  - {channel: daw-feeling-macros, mode: PHI, cc: 29, device: "Serum 2", param: "Macro 8", range: [0.0, 1.0]}
   - {channel: daw-fear-dynamics, mode: F, cc: 21, device: "SSL Native Channel Strip 2", nks: [Compressor, Threshold], range: [0.75, 0.3]}
   - {channel: daw-safety-low, mode: S, cc: 20, device: "SSL Native Channel Strip 2", nks: [LF, Low Gain], range: [0.45, 0.65]}
   - {channel: daw-poc-modular, mode: A, cc: 23, device: "Modular", param_index: 1, range: [0.0, 1.0]}

@@ -83,7 +83,9 @@ def main() -> int:
     strip = Device("SSL Native Channel Strip 2", [Param("Input Trim", -20, 20), Param("Compressor Threshold", -20, 10), Param("LF Low Gain", -16.5, 16.5)])
     modular = Device("Modular", [Param("Macro 1"), Param("Macro 2")])
     rack = Device("Audio Effect Rack", [], chains=[Chain([modular])])
-    song = types.SimpleNamespace(tracks=[Track("Vox", [strip])], return_tracks=[Track("A-Reverb", [rack])], master_track=Track("Master", []),
+    serums = [Device("Serum 2", [Param(f"Macro {k}") for k in range(1, 9)]) for _ in range(2)]
+    violins, violas = Track("Violins I", [serums[0]]), Track("Violas", [serums[1]])
+    song = types.SimpleNamespace(tracks=[Track("Vox", [strip]), violins, violas], return_tracks=[Track("A-Reverb", [rack])], master_track=Track("Master", []),
                                  add_tracks_listener=lambda f: None, remove_tracks_listener=lambda f: None)
     c_instance = types.SimpleNamespace(song=song, handle=lambda: 1)
     with tempfile.TemporaryDirectory() as d:
@@ -93,13 +95,15 @@ def main() -> int:
             {"cc": 21, "midi_channel": 0, "device": "SSL Native Channel Strip 2", "range": [0.75, 0.3], "names": ["Threshold", "Compressor Threshold"]},
             {"cc": 20, "midi_channel": 0, "device": "SSL Native Channel Strip 2", "range": [0.45, 0.65], "names": ["Low Gain", "LF Low Gain"]},
             {"cc": 23, "midi_channel": 0, "device": "Modular", "range": [0.0, 1.0], "param_index": 1},
+            {"cc": 22, "midi_channel": 0, "device": "Serum 2", "range": [0.0, 1.0], "names": ["Macro 3"]},
+            {"cc": 24, "midi_channel": 0, "device": "Serum 2", "range": [0.0, 1.0], "names": ["Macro 5"], "tracks": "^Violas$"},
         ]}
         (pkg / "rig.json").write_text(json.dumps(rig), encoding="utf-8")
         sys.path.insert(0, d)
         import Soma  # noqa: E402
         s = Soma.create_instance(c_instance)
         s.build_midi_map(0)
-        assert sorted(live.MidiMap.forwarded) == [(0, 20), (0, 21), (0, 23)], live.MidiMap.forwarded
+        assert sorted(live.MidiMap.forwarded) == [(0, 20), (0, 21), (0, 22), (0, 23), (0, 24)], live.MidiMap.forwarded
         s.receive_midi((0xB0, 21, 127))   # fear full: the threshold at 30% of its travel
         thr = strip.parameters[2]
         assert abs(thr.value - (-20 + 30 * 0.3)) < 1e-6, thr.value
@@ -110,10 +114,22 @@ def main() -> int:
         assert abs(low.value - (-16.5 + 33 * (0.45 + 0.2 * 64 / 127))) < 1e-6, low.value
         s.receive_midi((0xB0, 23, 127))   # awe full: Modular's first host parameter, inside a rack
         assert modular.parameters[1].value == 1.0, modular.parameters[1].value
+        s.receive_midi((0xB0, 22, 127))   # curiosity full: Macro 3 on every Serum 2 (one per instrument)
+        assert [d.parameters[3].value for d in serums] == [1.0, 1.0], [d.parameters[3].value for d in serums]
+        s.receive_midi((0xB0, 24, 127))   # grief, narrowed to the violas: one Serum 2
+        assert [d.parameters[5].value for d in serums] == [0.0, 1.0], [d.parameters[5].value for d in serums]
+        late = Device("Serum 2", [Param(f"Macro {k}") for k in range(1, 9)])
+        violins.devices.append(late)      # a third added inside a track: found once the cache is a few seconds old
+        Soma.soma.time.time, real = (lambda: real() + 10), Soma.soma.time.time
+        try:
+            s.receive_midi((0xB0, 22, 0))
+        finally:
+            Soma.soma.time.time = real
+        assert [d.parameters[3].value for d in serums + [late]] == [0.0, 0.0, 0.0], [d.parameters[3].value for d in serums + [late]]
         s.receive_midi((0xB0, 99, 5))     # not ours: passed on
         assert s.unhandled == [(0xB0, 99, 5)], s.unhandled
         listed = json.loads((pkg / "soma-devices.json").read_text(encoding="utf-8"))
-        assert [x["device"] for x in listed["devices"]] == ["SSL Native Channel Strip 2", "Audio Effect Rack", "Modular"], listed
+        assert [x["device"] for x in listed["devices"]] == ["SSL Native Channel Strip 2", "Serum 2", "Serum 2", "Audio Effect Rack", "Modular"], listed
         assert any("CC 21 -> Compressor Threshold" in m for m in s.log), s.log
         print("\n".join(s.log))
     print("soma script test: PASS")

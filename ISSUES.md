@@ -6534,6 +6534,16 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       order (problems), an undeclared device (a proposal to the author), and on or off (shown, never judged); a device
       the standard still calls open is not checked yet; a self-test on synthetic sets; read against the author's own
       sets, the plugin names come through) Sherlock checks a Live set against the standard (each track's slots, in order; nothing undeclared).
+- [x] (20 Oct 01:xx, branch audio: lib/audio/ableton/Soma/soma.py, registry/audio/rig.yaml, lib/audio/test_soma.py) The feelings
+      reach every instrument: the Soma script moved one device per target (the first found in the set), so with one
+      Serum 2 per instrument a feeling turned one violin's macro; now every device of the name (a target's `tracks`
+      pattern narrows it; found again every few seconds, so a device added inside a track is reached). Serum 2's
+      Macros 1-8 on CC 20-26 and 29 beside Phase Plant's (Live's names "Macro 1".. unconfirmed: soma-devices.json
+      once a set with Serum 2 runs the script). `make live-test` passes; `make live-rig` 19 targets, 10 checked
+      against NKS; installed (`make live-install`; Live reads it at its next start).
+- [ ] AUTHOR: the 18 Oct rig's SSL targets (fear: the strip's compressor threshold; safety: its low shelf) now move
+      every SSL Native Channel Strip 2 in the set (one per track): keep (the whole orchestra tightens with fear),
+      narrow them (`tracks:`), or drop them (the patch decides the sound).
 - [ ] The test of one track, by the author's hands: a violin to standard (Serum 2, Snap Heap, the desk's
       strip) in the Violins A group (Snap Heap on): Live passes the macros and the CC lanes, the CPU of the
       chain. (Corrected 19 Oct: Phase Plant takes no audio, so not "Serum 2 into Phase Plant".)

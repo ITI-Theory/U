@@ -13,6 +13,7 @@ the sound grammar (registry/sound-grammar.yaml).
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -62,6 +63,12 @@ def main(argv: list[str]) -> int:
         lo, hi = (t.get("range") or [0.0, 1.0])
         entry = {"cc": t["cc"], "midi_channel": t.get("midi_channel", 1) - 1, "device": t["device"], "range": [float(lo), float(hi)],
                  "mode": t.get("mode"), "grammar": t.get("channel")}
+        if t.get("tracks"):
+            try:
+                re.compile(t["tracks"])
+                entry["tracks"] = t["tracks"]
+            except re.error as e:
+                problems.append(f"{where}: tracks {t['tracks']!r} is not a pattern ({e})")
         if "nks" in t:
             section, name = t["nks"]
             entry["names"] = [name, f"{section} {name}", f"{section}: {name}", f"{section} - {name}"]
