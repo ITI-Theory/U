@@ -6429,7 +6429,7 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       progression, an invented theme, a bass style, a texture). A pick rebuilds the clips that depend on it (the
       bass and the texture follow the harmony). The human chooses, the tool proposes: what reMIDI's licence
       asks, and the author's own rule. Done (19 Oct, private, Me/music/deck.py: list, set, render, load into
-      Live as four tracks by four scenes). Left: the app's drop-downs (one per slot, the loaded pack's options;
+      Live as four tracks by four scenes; the app's DECK, MOTHER /deck, a drop-down per slot and four levels, through the bridge's /deck: tested, a pick rebuilt the clips and loaded them, 1,130 of 1,130 notes in Live). Left: (done: the app's drop-downs, one per slot, the loaded pack's options;
       a pick goes through MOTHER's bridge to the deck, then into Live), the level moved by the score or the hand,
       and Traktor's remix decks as a second player (audio stems of the cells).
 - [ ] (author 18 Oct 20:5x) The narration as a pipeline, like the chats (raw, HAL, Copilot, the book):
