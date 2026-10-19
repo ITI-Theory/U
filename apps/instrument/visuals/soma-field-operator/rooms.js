@@ -112,7 +112,9 @@ function musicSections(room, data) {
     const mine = bounces.filter(b => b.name.toLowerCase().startsWith(`${v.id}/`));
     return `<h4>${esc(v.title)} <small>${esc(v.id)}</small></h4>${mine.length ? `<ul class="room__list">${mine.map(player).join('')}</ul>` : '<p class="room__note">Not bounced yet: Live bounces this version (the same slots, its own settings and macro automation).</p>'}`;
   }).join('');
-  const slot = s => `<tr><td>${esc(s.slot)}</td><td>${esc(s.role)}</td><td>${esc(s.device)}</td><td>${esc(s.default)}</td></tr>`;
+  // YAML reads on and off as true and false: say them as the standard does
+  const onOff = v => (v === true ? 'on' : v === false ? 'off' : v ?? '');
+  const slot = s => `<tr><td>${esc(s.slot)}</td><td>${esc(s.role)}</td><td>${esc(s.device)}</td><td>${esc(onOff(s.default))}</td></tr>`;
   return [
     { title: 'THE FOUR OUTPUTS', sub: 'what this room makes', html: `<h3>${esc(room.title)} <small>its four outputs</small></h3>${privateNote(data)}${outputs(room, status)}
       <p>Every sound here is Live's own bounce: music is made in Ableton Live, never outside it. Live is the instrument behind this room.</p>

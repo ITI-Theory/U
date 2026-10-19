@@ -35,6 +35,16 @@ track:                 # one per part (Violins I, Horns, Choir ...): one Serum 2
       device: Snap Heap
       default: off
     - slot: 4
+      role: modular    # the author, 19 Oct 23:2x: "modular should be added as well ... a very handy beast"
+      device: Softube Modular FX
+      input: the track's audio
+      default: off
+      setting: >-
+        modules per instrument and version: Mutable Instruments Clouds (grains: the pre-verbal) and Rings (the
+        field ringing in response), Doepfer A-188-1 BBD (memory's wobbling echoes) and A-101-2 Vactrol LPG
+        (slow decay), Buchla 296e (the spectrum shaped: grief), 4ms SMR (resonance: awe), Intellijel Rubicon,
+        uFold II and Korgasmatron II (wrong at the source: fear, C-PTSD)
+    - slot: 5
       role: strip
       device: SSL Native Channel Strip 2
       default: on
@@ -42,7 +52,7 @@ track:                 # one per part (Violins I, Horns, Choir ...): one Serum 2
   sends:
     - {to: Space, default: standard}            # the shared hall
     - {to: Designed space, default: off}        # Phase Plant's designed spaces
-  installed: {Serum 2: yes, Phase Plant: yes, Snap Heap: installing, SSL Native Channel Strip 2: installing}
+  installed: {Serum 2: yes, Phase Plant: yes, Snap Heap: installing, Softube Modular FX: yes (13 add-ons, 19 Oct), SSL Native Channel Strip 2: installing}
 
 group:                 # the stems
   names: [Strings, Winds, Brass, Choir, Electronics]
@@ -53,7 +63,7 @@ group:                 # the stems
 
 returns:
   - {name: Space, role: the hall, device: "open (Live's Convolution Reverb with a hall, or SSL FlexVerb)"}
-  - {name: Designed space, role: the spaces Phase Plant designs, device: "Live's Convolution Reverb (or Serum 2's Convolve on the track)"}
+  - {name: Designed space, role: the spaces Phase Plant designs, device: "Softube LoadIR (any impulse response), or Live's Convolution Reverb, or Serum 2's Convolve on the track"}
 
 master:
   slots:
