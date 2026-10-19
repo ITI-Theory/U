@@ -291,7 +291,14 @@ which the full score and every part are laid out. The modern layer is not
 printed as notes: it becomes a one-line Electronics staff of cues for the
 conductor ("Live: pad in, impact"), because it is played by the DAW, not from
 paper `simulated`. Draft engravings count the pages, and the pages the cost,
-so that a printed set is a build target like any other.
+so that a printed set is a build target like any other: for the 90-minute
+suite, 97 A3 pages of full score (silent staves hidden after each movement's
+first system, as film scores are laid out), bound as four volumes of 17 to 36
+pages, one per part, and 314 A4 pages of players' parts `simulated`. One
+proof page of the parts showed what a listener might not notice: in *Fear and
+Curiosity* the first violins play one bar in 149, because the violas and
+clarinet lead. The printed part is a check on the orchestration as well as its
+product.
 
 # Authorship
 
