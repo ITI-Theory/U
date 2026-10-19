@@ -619,8 +619,58 @@ class LiveLink:
         with self.lock:
             return {**self.state, "error": self.error}
 
+    def pause(self) -> bool:
+        """Free Live's reply port for another program (the deck's loader); resume() takes it back."""
+        if not self.started or self.error:
+            return False
+        self.server.shutdown()
+        self.server.server_close()
+        self.started = False
+        return True
+
+    def send(self, address: str, *args) -> None:
+        from pythonosc.udp_client import SimpleUDPClient
+        (self.client if self.started and not self.error else SimpleUDPClient("127.0.0.1", 11000)).send_message(address, list(args))
+
 
 LIVE = LiveLink()
+
+# The remix deck (ISS-118): the author's private deck (Me/music/deck.py) behind the app's drop-downs. The
+# bridge only runs it: list the pack's options, set a pick (the clips rebuilt and loaded into Live), fire a
+# level (a scene). Where the deck lives: local_config "music_dir", else ../Me/music beside the repositories.
+DECK_SCENE = 10
+
+
+def music_dir() -> Path:
+    configured = local_config().get("music_dir")
+    return Path(configured) if configured else Path(__file__).resolve().parents[5] / "Me" / "music"
+
+
+def deck(cmd: str, slot: str = "", option: str = "", level: int = 0) -> dict:
+    d = music_dir()
+    if not (d / "deck.py").exists():
+        return {"error": f"no deck at {d} (the music is private: Me/music)"}
+    py = shutil.which("python") or "python"
+    if cmd == "list":
+        r = subprocess.run([py, "-c", "import json, deck; print(json.dumps({'options': deck.options(), 'selection': deck.selection(), "
+                            "'slots': deck.SLOTS, 'levels': list(deck.LEVELS)}))"], cwd=d, capture_output=True, text=True, timeout=120)
+        return json.loads(r.stdout) if r.returncode == 0 else {"error": r.stderr.strip()[-400:]}
+    if cmd == "set":
+        r = subprocess.run([py, "deck.py", "set", slot, option], cwd=d, capture_output=True, text=True, timeout=600)
+        if r.returncode:
+            return {"error": (r.stderr or r.stdout).strip()[-400:]}
+        resumed = LIVE.pause()
+        try:
+            r2 = subprocess.run([py, "deck.py", "load", "--scene", str(DECK_SCENE)], cwd=d, capture_output=True, text=True, timeout=600)
+        finally:
+            if resumed:
+                LIVE.start()
+        return {"set": f"{slot} = {option}", "live": (r2.stdout or r2.stderr).strip()[-300:]}
+    if cmd == "level":
+        LIVE.send("/live/scene/fire", DECK_SCENE - 1 + int(level))
+        return {"level": int(level)}
+    return {"error": f"unknown deck command {cmd}"}
+
 
 class Handler(BaseHTTPRequestHandler):
     bridge: Bridge
@@ -872,6 +922,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(200, prove_decl(str(data.get("module", "")), str(data.get("name", ""))))
             except Exception as error:
                 self._json(400, {"error": f"{type(error).__name__}: {error}"})
+            return
+        if self.path == "/deck":
+            if not self._origin_ok():
+                self._json(403, {"error": "local origins only"})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                data = json.loads(self.rfile.read(min(length, 4000)) or b"{}")
+                self._json(200, deck(str(data.get("cmd", "list")), str(data.get("slot", "")), str(data.get("option", "")), int(data.get("level", 0) or 0)))
+            except Exception as error:
+                self._json(500, {"error": f"{type(error).__name__}: {error}"})
             return
         if self.path == "/obs":
             if not self._origin_ok():

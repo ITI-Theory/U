@@ -31,7 +31,7 @@ const STORAGE = {
 const DEFAULT_BRIDGE = 'http://127.0.0.1:8765';
 // The programme's public notebook (NotebookLM is now served from notebook.google.com).
 const DEFAULT_NOTEBOOK = 'https://notebook.google.com/notebook/16368cb3-6c5f-47b3-8e79-781b77084944';
-const SLASH_COMMANDS = ['/help', '/obs', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off', '/feel <a mood>', '/film', '/wormhole'];
+const SLASH_COMMANDS = ['/help', '/obs', '/deck', '/persona mother', '/persona hal', '/compare on', '/compare off', '/speak on', '/speak off', '/speak diff', '/stop', '/observatory on', '/observatory off', '/tours', '/tour', '/play', '/clear', '/shell', '/path', '/path clear', '/who u', '/who scientist', '/teletype on', '/teletype off', '/feel <a mood>', '/film', '/wormhole'];
 const COMPLETION_IDS = [...levels.map(level => level.id), ...questions.map(question => question.id), ...eras.map(era => era.id), ...presetIds()].sort();
 
 // NotebookLM has no system prompt, so observatory mode appends this to the question.
@@ -608,6 +608,7 @@ export function createMother({ getContext }) {
     // Mix ...: flip, don't rebuild); through MOTHER's bridge, which keeps OBS's password
     const om = said.match(/^\/obs\b\s*(.*)$/i);
     if (om) { echo(said); obsScene(om[1].trim()).then(r => type(r.error ? `OBS: ${r.error.toUpperCase()}${r.scenes ? `. SCENES: ${r.scenes.join(', ').toUpperCase()}` : ''}` : `OBS ${r.collection?.toUpperCase() ?? ''}: ${r.scene.toUpperCase()}. SCENES: ${r.scenes.join(', ').toUpperCase()}.`)); return true; }
+    if (/^\/deck\b/i.test(said)) { echo(said); trill(0.3); type('THE DECK. FOUR SLOTS, FOUR LEVELS. PICK EACH SLOT\'S SOURCE; THE LEVELS LAUNCH LIVE\'S SCENES.'); dispatchEvent(new CustomEvent('soma-deck')); return true; }
     if (/^\/film\b/i.test(said)) { echo(said); trill(0.3); type('FILM. PICK A COMPILED FILM (bld/film). IT PLAYS AS ZERO; THE KNOBS MOVE IT FROM THERE. ESC ENDS IT.'); dispatchEvent(new CustomEvent('soma-film')); return true; }
     if (/^\/show\b/i.test(said) && rooted()) { echo(said); trill(0.4); type('SHOW MODE. PICK THE MIX AND ITS CUE SHEET. ESC ENDS IT.'); dispatchEvent(new CustomEvent('soma-show')); return true; }
     const tt = said.match(/^\/teletype\s+(on|off)\b/i);
