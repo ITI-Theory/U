@@ -6417,11 +6417,17 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       2, UAD colour off; the returns; the master; the versions neutral, C-PTSD, ASD, ADHD as settings
       and macro automation on the same slots). A slot not needed is off, never removed; anything not
       declared is a proposal to the author, never installed, downloaded or generated.
+- [x] (19 Oct 23:2x, the author: "modular should be added as well": Softube Modular FX is the track's slot 4, off by default,
+      its 13 add-ons named for the feelings; LoadIR plays the designed spaces) Modular in the standard.
 - [ ] AUTHOR: approve or change it (the strip's standard settings; UAD's colour; the hall; the master's
       glue and limiter; the delivery loudness).
 - [ ] AUTHOR, in Live: the standard as Live's own (a track preset or rack "Soma Standard" in the User
       Library, a template set).
-- [ ] Sherlock checks a Live set against the standard (each track's slots, in order; nothing undeclared).
+- [x] (19 Oct 23:4x: sherlock/studio.py, `make -C sherlock studio [SET=<set.als>] [TRACKS=<regex>]`: reads a Live set (gzipped
+      XML, racks' branches in order), and per standard track, group, return and the master says a slot missing or out of
+      order (problems), an undeclared device (a proposal to the author), and on or off (shown, never judged); a device
+      the standard still calls open is not checked yet; a self-test on synthetic sets; read against the author's own
+      sets, the plugin names come through) Sherlock checks a Live set against the standard (each track's slots, in order; nothing undeclared).
 - [ ] The test of one track, by the author's hands: a violin, Serum 2 into Phase Plant (audio in): the
       input works, Live passes the macros, the CPU of two instances.
 
