@@ -162,10 +162,10 @@ live-test:
 .PHONY: nks console-index
 nks:
 	@$(PYTHON) lib/audio/nks.py --self-test >/dev/null && echo "nks self-test: PASS"
+	$(PYTHON) lib/audio/nks.py "$(or $(FILE),$(DIR))" $(if $(JSON),--json,)
 console-index:
 	$(PYTHON) lib/audio/console_index.py --self-test
 	$(PYTHON) lib/audio/console_index.py $(NKS_DIRS)
-	$(PYTHON) lib/audio/nks.py "$(or $(FILE),$(DIR))" $(if $(JSON),--json,)
 
 # The home page of https://www.t-theory.org from web/home.md (pandoc, no script writes markup).
 # `make web` builds bld/web/index.html to look at; `make web-publish` copies it into the site
