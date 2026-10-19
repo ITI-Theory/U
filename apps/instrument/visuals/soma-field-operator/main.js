@@ -36,6 +36,7 @@ import { createExplorer, LEVEL_STOPS, STOPS as VOYAGE_STOPS } from './explorer.j
 import { createElevator } from './elevator.js';
 import { createTelevator } from './televator.js';
 import { createRooms } from './rooms.js';
+import { createConsole } from './console.js';
 import { anchorsForLevel } from './renderers/lib/anchors.js';
 
 // Every renderers/*.js module registers itself through its default export
@@ -2739,6 +2740,8 @@ if (screenRole === 'level') createDeck();
 if (screenRole === 'level') createGallery();
 // The Music Room and the Cinema (ISS-122): beside the Engine Room and the Gallery
 if (screenRole === 'level') createRooms();
+// The console (ISS-120), from the Music Room
+if (screenRole === 'level') createConsole();
 function firePoke(strength = state.limbic) {
   // the three phases drawn plain over the view (ISS-108): impulse, response, return
   const mech = mechanismsOn() ? mechanisms.filter(m => state.selectedMechanisms.has(m.id)).map(m => m.name).join(' + ') : '';

@@ -6578,12 +6578,23 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       and Q4 ("OK, but slightly wrong" by feeling; effects by feeling).
 
 **The console**
-- [ ] The design (Copilot, 19 Oct; HAL Q1 and Q3): Console 1 Mk III's idea over the author's plugins:
+- [x] (20 Oct 01:xx, branch audio: console.js, registry/audio/console.yaml (roles, twister), MOTHER's /music/console,
+      `npm run check:console` 25 checks, screenshots in bld/console) The design (Copilot, 19 Oct; HAL Q1 and Q3): Console 1 Mk III's idea over the author's plugins:
       sections Source, Feel, Wrong, EQ, Dynamics, Drive, Space, Out; any plugin placed by its NKS
       sections and types (58 plugins' maps on disk, more with Komplete Kontrol); a channel view (one
       track, the sections around the field, plain words) and a desk view (four groups by four levels:
       the deck); the Twister the channel's knobs, the F1 the deck (pads, four faders), the M32 one
-      section with NKS names. Not like Live.
+      section with NKS names. Not like Live. Built: the CHANNEL (a standard track's chain from the standard, with
+      the desk chosen, spread over the eight sections; a container in its slot's section and FEEL, any other plugin
+      in every section its NKS controls land in, the knobs before the switches) and the DESK (the nine groups, the
+      two returns, the master as vertical strips, SSL 360's big screen, not SSL's); two virtual Twisters: bank 1
+      the app's knobs (midi-in.js), bank 2 the channel's sixteen fixed jobs (factory CC 16-31), each naming what it
+      turns on this track with this desk (the SSL strip's NKS names); LISTEN lights a knob turned or pushed, and
+      its section. The Twister has no touch sensing (push switches only): it lights on a turn or push. The console
+      shows and listens; it sends nothing (Live does the sound). The F1 and M32 are not drawn yet.
+- [ ] AUTHOR: bank 2's sixteen jobs (registry/audio/console.yaml `twister`), a proposal: EQ low, low mid, high
+      mid, high; threshold, ratio, release, gate; the state's amount, how wrong, modular, width; the two sends,
+      pan, level. Then mapped in Live (MIDI Map, or the Soma script on the selected track).
 - [x] (19 Oct 23:5x, on the audio branch: registry/audio/console.yaml, the rules (public): sections in order, patterns on an NKS
       control's section and name, declared homes where the standard decided; lib/audio/console_index.py, `make console-index`
       (a self-test of the placing): 58 plugins from about 2,000 presets in Me/music/console (private): homes Dynamics 14,
@@ -6670,8 +6681,7 @@ Thoughts (ISS-097) exist.
 | Gallery | the public, the reader | the art book's plates, the film's stills, score pages | plates, the art book, book figures, stills |
 | Cinema | the viewer | the film, per viewer version | the film, its versions, trailers, the recording |
 
-- [x] (19 Oct 22:2x: rooms.js, THE MUSIC ROOM from the explorer's top bar: its four outputs (registry/rooms.yaml; the printed suite's 97 A3 pages and costs read from Me/music), THE SCORE (13 movements by part), THE VERSIONS (each viewer, with Live's bounces to listen to from Me/music/bounces/<viewer>/, none yet), THE STANDARD (registry/studio/standard.yaml), OPEN THE DECK; the private side through MOTHER's bridge (/music/room, /music/bounce/: local origins only, inside its folder only, byte ranges); without the bridge the public side still shows. 
-pm run check:rooms: 16 checks in a browser, all pass. Left: the room as a place on the map) The Music Room: a room in the app (a place with a doorway, as the halls are) holding the deck,
+- [x] (19 Oct 22:2x: rooms.js, THE MUSIC ROOM from the explorer's top bar: its four outputs (registry/rooms.yaml; the printed suite's 97 A3 pages and costs read from Me/music), THE SCORE (13 movements by part), THE VERSIONS (each viewer, with Live's bounces to listen to from Me/music/bounces/<viewer>/, none yet), THE STANDARD (registry/studio/standard.yaml), OPEN THE DECK; the private side through MOTHER's bridge (/music/room, /music/bounce/: local origins only, inside its folder only, byte ranges); without the bridge the public side still shows. `npm run check:rooms`: 16 checks in a browser, all pass. Left: the room as a place on the map) The Music Room: a room in the app (a place with a doorway, as the halls are) holding the deck,
       the score's movements, and, when built, the console; Live is the instrument behind it (the rule:
       music is made in Live); listening is Live's bounces of each version.
 - [x] (19 Oct 22:2x: THE CINEMA from the top bar: its four outputs, THE FILMS (bld/film: PLAY hands one to FILM, soma-film-load, and it runs; Esc ends it), THE VERSIONS (each viewer, compiled or the command to compile it), THE RECORDINGS (Videos/Soma, OBS: none yet); /cinema/room, /cinema/film/, /cinema/recording/) The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.

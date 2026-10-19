@@ -725,6 +725,16 @@ def music_room() -> dict:
     return out
 
 
+def console_index() -> dict:
+    """The console's private side (ISS-120): the author's plugins by section, from their NKS presets
+    (Me/music/console/index.json: lib/audio/console_index.py, `make console-index` on the audio branch)."""
+    p = music_dir() / "console" / "index.json"
+    if not p.exists():
+        return {"error": f"no console index at {p} (make console-index: the plugins are private, Me/music/console)"}
+    doc = json.loads(p.read_text(encoding="utf-8"))
+    return {"plugins": doc.get("plugins") or {}, "modified": int(p.stat().st_mtime)}
+
+
 def cinema_room() -> dict:
     """The Cinema's private side: the compiled films (U/bld/film) and the recordings (OBS, Videos/Soma)."""
     films = []
@@ -849,12 +859,13 @@ class Handler(BaseHTTPRequestHandler):
             self._art(unquote(urlparse(self.path).path[len("/art/"):]))
             return
         route = urlparse(self.path).path
-        if route in ("/music/room", "/cinema/room", "/writers/room"):
+        if route in ("/music/room", "/cinema/room", "/writers/room", "/music/console"):
             if not self._origin_ok():
                 self._json(403, {"error": "local origins only"})
                 return
             try:
-                self._json(200, music_room() if route == "/music/room" else cinema_room() if route == "/cinema/room" else writers_room())
+                self._json(200, music_room() if route == "/music/room" else console_index() if route == "/music/console"
+                           else cinema_room() if route == "/cinema/room" else writers_room())
             except Exception as error:
                 self._json(500, {"error": f"{type(error).__name__}: {error}"})
             return

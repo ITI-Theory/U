@@ -20,3 +20,35 @@ sections:
   drive: {name: DRIVE, say: "saturation, distortion, tape, tubes, amps", patterns: ['\bdrive', 'satur', 'distort', '\btape\b', '\btube', '\bshape', '\bclip', 'warmth', 'harmonic', 'overdrive', '\bfuzz', '\bamp\b', 'amplifier', '\bcab\b', '\bheat\b']}
   space: {name: SPACE, say: "the room and the time: reverb, delay, width, movement", patterns: ['reverb', '\bdelay', '\becho', '\bspace', '\broom\b', '\bhall\b', '\bplate\b', '\bdecay', '\bsize\b', 'pre-?delay', '\bwidth', 'stereo', 'chorus', 'flang', '\bphas', 'ensemble', 'rotary', 'damp']}
   out: {name: OUT, say: "what leaves the track: level, pan, mix, trims", patterns: ['output', '\bout\b', '\bmaster\b', '\bfader', 'volume', '\blevel\b', '\bmix\b', 'dry/?wet', '\bpan\b', 'bypass', '\btrim\b', '\binput\b', '\bgain\b']}
+
+# The console's screen (ISS-120; apps/instrument/visuals/soma-field-operator/console.js, from the Music Room). The
+# studio standard's slots (registry/studio/standard.yaml) by role -> the section each sits in. A container (a declared
+# home above) shows in its section and in FEEL (its macros); any other plugin in every section its controls land in.
+roles: {source: source, state: feel, wrong: wrong, modular: wrong, strip: eq, glue: dynamics, colour: drive, hall: space, master: out}
+
+# Two Twisters on the screen, as the author asked (May 2026: "a representation of my physical interface ... two sets,
+# each one a virtual MIDI Twister"). Bank 1 is the app's (midi-in.js: the feelings, Phi, depth, velocity; the app sends
+# the feelings on to Live as CC 20-26 and 29). Bank 2 is the channel's: a fixed job per knob, the same on every track
+# (Console 1's idea), the MIDI Fighter Twister's factory CCs 16-31 on channel 1 (pushes on channel 2). A knob lights
+# when it is turned or pushed: the Twister's encoders have push switches, no touch sensing.
+# A PROPOSAL until the author approves; Live maps bank 2 onto the selected track's devices.
+twister:
+  bank: 2
+  cc_first: 16
+  knobs:   # row by row; strip: the job on the desk's strip, by its NKS [section, name] (the SSL desk's here)
+    - {section: eq, job: low, strip: [LF, Low Gain]}
+    - {section: eq, job: low mid, strip: [LMF, LM Gain]}
+    - {section: eq, job: high mid, strip: [HMF, HM Gain]}
+    - {section: eq, job: high, strip: [HF, High Gain]}
+    - {section: dynamics, job: threshold, strip: [Compressor, Threshold]}
+    - {section: dynamics, job: ratio, strip: [Compressor, Ratio]}
+    - {section: dynamics, job: release, strip: [Compressor, Release]}
+    - {section: dynamics, job: gate, strip: [Gate / Expander, Threshold]}
+    - {section: feel, job: the state's amount, slot: 2}
+    - {section: wrong, job: how wrong, slot: 3}
+    - {section: wrong, job: modular, slot: 4}
+    - {section: space, job: width, strip: [Stereo, Width]}
+    - {section: space, job: to the Space, send: Space}
+    - {section: space, job: to the designed space, send: Designed space}
+    - {section: out, job: pan, strip: [Stereo, Pan]}
+    - {section: out, job: level, strip: [Master, Fader]}

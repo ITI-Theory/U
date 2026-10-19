@@ -135,7 +135,7 @@ function musicSections(room, data) {
   return [
     { title: 'THE FOUR OUTPUTS', sub: 'what this room makes', html: `<h3>${esc(room.title)} <small>its four outputs</small></h3>${privateNote(data)}${outputs(room, status)}
       <p>Every sound here is Live's own bounce: music is made in Ableton Live, never outside it. Live is the instrument behind this room.</p>
-      <p class="room__actions"><button type="button" data-event="soma-deck">OPEN THE DECK</button> <button type="button" disabled title="ISS-120: Console 1's idea over the author's plugins">THE CONSOLE · to come</button></p>` },
+      <p class="room__actions"><button type="button" data-event="soma-deck">OPEN THE DECK</button> <button type="button" data-event="soma-console" title="ISS-120: Console 1's idea over the author's plugins">OPEN THE CONSOLE</button></p>` },
     { title: 'THE SCORE', sub: suite ? `${suite.movements.length} movements` : 'private', html: suite
       ? `<h3>${esc(suite.title)} <small>${esc(suite.take)}</small></h3>${parts.map(p => `<h4>${esc(p.name)}</h4><ul class="room__list room__list--plain">${p.movements.map(m => `<li><b>${esc(m.title)}</b> <small>${esc((m.phases ?? []).join(', '))} · ${m.bars} bars · ${m.minutes} min</small></li>`).join('')}</ul>`).join('')}
         <p class="room__note">The movements are named by their two leading feelings until the author names them (Me/music/movements.yaml).</p>`
