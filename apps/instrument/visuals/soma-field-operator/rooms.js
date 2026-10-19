@@ -114,7 +114,24 @@ function musicSections(room, data) {
   }).join('');
   // YAML reads on and off as true and false: say them as the standard does
   const onOff = v => (v === true ? 'on' : v === false ? 'off' : v ?? '');
-  const slot = s => `<tr><td>${esc(s.slot)}</td><td>${esc(s.role)}</td><td>${esc(s.device)}</td><td>${esc(onOff(s.default))}</td></tr>`;
+  // a slot: one device, its alternatives, or the chosen desk's (a device written as a list is several, in order)
+  const devs = v => (Array.isArray(v) ? v.join(' + ') : v ?? '');
+  const filled = s => (s.desk ? `the desk's ${s.desk}` : [s.device, ...(s.or ?? [])].map(devs).join(' or '));
+  const slot = s => `<tr><td>${esc(s.slot)}</td><td>${esc(s.role)}</td><td>${esc(filled(s))}</td><td>${esc(onOff(s.default))}</td></tr>`;
+  const houses = Object.entries(STUDIO?.desks?.houses ?? {});
+  const deskCols = ['strip', 'glue', 'colour', 'hall', 'master'];
+  const desks = houses.length
+    ? `<h4>THE DESKS <small>the house that mixes: one on at a time, ${esc(STUDIO.desks.default)} by default</small></h4>
+       <table class="room__table"><tr><th>desk</th>${deskCols.map(c => `<th>${c}</th>`).join('')}</tr>${houses.map(([id, h]) => `<tr><td>${esc(id)}</td>${deskCols.map(c => `<td>${esc(devs(h[c]))}</td>`).join('')}</tr>`).join('')}</table>
+       <p class="room__note">${esc(STUDIO.desks.rule ?? '')}</p>`
+    : '';
+  const lanes = Object.entries(STUDIO?.cc ?? {}).filter(([k]) => /^\d+$/.test(k));
+  const cc = lanes.length
+    ? `<h4>THE CC LANES <small>what the app sends; the feelings drive macros 1-8</small></h4><table class="room__table"><tr><th>CC</th><th>lane</th></tr>${lanes.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>`
+    : '';
+  const budget = STUDIO?.budget
+    ? `<h4>THE BUDGET</h4><p class="room__note">${esc(STUDIO.budget.live_sources)} sources live at once; the rest ${esc(STUDIO.budget.the_rest)}. ${esc(STUDIO.budget.groups)}.</p>`
+    : '';
   return [
     { title: 'THE FOUR OUTPUTS', sub: 'what this room makes', html: `<h3>${esc(room.title)} <small>its four outputs</small></h3>${privateNote(data)}${outputs(room, status)}
       <p>Every sound here is Live's own bounce: music is made in Ableton Live, never outside it. Live is the instrument behind this room.</p>
@@ -129,7 +146,8 @@ function musicSections(room, data) {
         <p>Every track has the same shape; a slot not needed is off, never removed; anything not declared is a proposal to the author.</p>
         <h4>A TRACK</h4><table class="room__table"><tr><th>slot</th><th>role</th><th>device</th><th>default</th></tr>${STUDIO.track.slots.map(slot).join('')}</table>
         <h4>A GROUP <small>${esc((STUDIO.group?.names ?? []).join(', '))}</small></h4><table class="room__table"><tr><th>slot</th><th>role</th><th>device</th><th>default</th></tr>${(STUDIO.group?.slots ?? []).map(slot).join('')}</table>
-        <h4>THE MASTER</h4><table class="room__table"><tr><th>slot</th><th>role</th><th>device</th><th>default</th></tr>${(STUDIO.master?.slots ?? []).map(s => slot({ ...s, default: '' })).join('')}</table>`
+        <h4>THE MASTER</h4><table class="room__table"><tr><th>slot</th><th>role</th><th>device</th><th>default</th></tr>${(STUDIO.master?.slots ?? []).map(s => slot({ ...s, default: '' })).join('')}</table>
+        ${desks}${cc}${budget}`
       : '<p>No studio standard yet (registry/studio/standard.yaml).</p>' },
   ];
 }

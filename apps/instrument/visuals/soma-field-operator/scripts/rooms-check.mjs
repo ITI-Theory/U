@@ -66,7 +66,9 @@ try {
   const versions = await section(page, 'music', 'THE VERSIONS');
   ok(versions.includes('Neutral'), 'the versions list the viewers');
   const standard = await section(page, 'music', 'THE STANDARD');
-  ok(['Serum 2', 'Phase Plant', 'SSL Native Channel Strip 2'].every(d => standard.includes(d)), 'the studio standard: Serum 2, Phase Plant, SSL Channel Strip 2');
+  ok(['Serum 2 or Phase Plant', 'Snap Heap', "the desk's strip", 'SSL Native Channel Strip 2', 'API Vision Channel Strip', 'Channel EQ + Compressor'].every(d => standard.includes(d)),
+    'the studio standard: the source (Serum 2 or Phase Plant), Snap Heap, the desks (SSL, iZotope, UAD, Live)');
+  ok(standard.includes('THE CC LANES') && standard.includes('wavetable position') && standard.includes('THE BUDGET'), 'the standard shows the CC lanes and the budget');
   await page.locator('.room--music').screenshot({ path: path.join(out, 'music-3-standard.png') });
   await section(page, 'music', 'THE FOUR OUTPUTS');
   await page.locator('.room--music button', { hasText: 'OPEN THE DECK' }).click();

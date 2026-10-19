@@ -25,7 +25,7 @@ rooms:
     outputs:
       - {name: the printed score, how: "make -C ../Me/music print (A3 full score, A4 parts, the costs)", private: true}
       - {name: the stems, how: "bounced by Live, per group (registry/studio/standard.yaml), into Me/music/bounces", private: true}
-      - {name: the master, how: "bounced by Live, the neutral version, into Me/music/bounces", private: true}
+      - {name: the master, how: "bounced by Live, each version through the chosen desk (SSL, iZotope, UAD or Live: the standard's desks), into Me/music/bounces", private: true}
       - {name: the Live set, how: "saved by the author (OneDrive\\prj\\Music\\Soma)", private: true}
   gallery:
     title: A GALLERY OF THOUGHTS

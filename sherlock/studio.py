@@ -7,7 +7,11 @@ set (.als: gzipped XML) and says, track by track:
     a slot missing         the standard's device for that slot is not on the track
     out of order           the devices are there, not in the standard's order
     undeclared             a device the standard does not name: a proposal to the author, never a fault in itself
-and, for information only, each slot's on or off (a version changes settings, never the shape).
+    two desks on           a desk slot (strip, glue, colour, hall, master) with more than one house sounding
+and, for information only, each slot's on or off and its desk (a version changes settings, never the shape). A slot
+is one device, alternatives (`or`) or the desks' (`desk`: any house's device fills it); a device given as a list is
+several in that order. Live's own devices are known by their names (the set stores tags: Eq8, GlueCompressor);
+a rack is a container: its devices are read in place and the rack itself is never a proposal.
 
     python sherlock/studio.py [<set.als>]        # default: the newest set in the author's Live folder
     python sherlock/studio.py --tracks "^RF"     # which MIDI tracks are standard tracks (a regex; default all)
@@ -33,6 +37,18 @@ def norm(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", str(s).lower())
 
 
+# the tags Live writes for its own devices (read from the Core Library's presets), by the names the standard uses
+LIVE_NAMES = {"ChannelEq": "Channel EQ", "Compressor2": "Compressor", "GlueCompressor": "Glue Compressor",
+              "Limiter": "Limiter", "Hybrid": "Hybrid Reverb", "Roar": "Roar", "Saturator": "Saturator", "Eq8": "EQ Eight",
+              "DrumBuss": "Drum Buss", "Reverb": "Reverb", "StereoGain": "Utility", "AudioEffectGroupDevice": "Audio Effect Rack",
+              "InstrumentGroupDevice": "Instrument Rack", "MidiEffectGroupDevice": "MIDI Effect Rack", "DrumGroupDevice": "Drum Rack",
+              "AutoFilter": "Auto Filter", "UltraAnalog": "Analog", "OriginalSimpler": "Simpler", "MultiSampler": "Sampler",
+              "InstrumentVector": "Wavetable", "MxDeviceAudioEffect": "Max Audio Effect", "MxDeviceInstrument": "Max Instrument",
+              "MxDeviceMidiEffect": "Max MIDI Effect"}
+RACKS = {"AudioEffectGroupDevice", "InstrumentGroupDevice", "MidiEffectGroupDevice", "DrumGroupDevice"}
+OPEN = re.compile(r"\bopen\b")
+
+
 def same(device: str, slot: str) -> bool:
     """A device in Live is the standard's slot if the names agree, ignoring case, spaces and a maker's prefix
     ("Modular FX" is "Softube Modular FX")."""
@@ -40,26 +56,69 @@ def same(device: str, slot: str) -> bool:
     return bool(a) and bool(b) and (a == b or a.endswith(b) or b.endswith(a))
 
 
-def devices(chain) -> list[dict]:
-    """The devices of a chain in order; a rack's branches are read in place (its devices follow the rack)."""
+def devices(chain, parent_on: bool = True) -> list[dict]:
+    """The devices of a chain in order; a rack's branches are read in place (its devices follow the rack, off when
+    the rack is off)."""
     out = []
     if chain is None:
         return out
     for d in list(chain):
         on = d.find("On/Manual")
-        entry = {"tag": d.tag, "on": (on.attrib.get("Value") == "true") if on is not None else True}
+        entry = {"tag": d.tag, "rack": d.tag in RACKS,
+                 "on": parent_on and ((on.attrib.get("Value") == "true") if on is not None else True)}
         if d.tag in ("PluginDevice", "AuPluginDevice"):
             info = d.find("PluginDesc")
             names = [e.attrib.get("Value") for e in (info.iter() if info is not None else []) if e.tag in ("Name", "PlugName") and e.attrib.get("Value")]
-            entry["name"] = names[0] if names else "a plugin"
+            entry["names"] = names[:1] or ["a plugin"]
         else:
             user = d.find("UserName")
-            entry["name"] = (user.attrib.get("Value") if user is not None and user.attrib.get("Value") else d.tag)
+            named = user.attrib.get("Value") if user is not None else ""
+            entry["names"] = [n for n in (named, LIVE_NAMES.get(d.tag, d.tag)) if n]
+        entry["name"] = entry["names"][0]
         out.append(entry)
         branches = d.find("Branches")
         for br in list(branches) if branches is not None else []:   # a rack: each branch's own chain, in order
-            out.extend(devices(next(br.iter("Devices"), None)))
+            out.extend(devices(next(br.iter("Devices"), None), entry["on"]))
     return out
+
+
+def match(entry: dict, name: str) -> bool:
+    return any(same(n, name) for n in entry["names"])
+
+
+def candidates(slot: dict, standard: dict) -> list[tuple[str, list[str]]]:
+    """What fills a slot: (who, devices in order). A desk slot: each house's device, houses with the same device
+    together ("ssl/izotope/uad"); otherwise the device and its alternatives. A device still open is not checked."""
+    raw = []
+    if slot.get("desk"):
+        houses = ((standard.get("desks") or {}).get("houses")) or {}
+        raw = [(h, (v or {}).get(slot["desk"])) for h, v in houses.items()]
+    else:
+        raw = [("", slot.get("device"))] + [("", o) for o in slot.get("or") or []]
+    merged: dict[tuple, list[str]] = {}
+    for who, v in raw:
+        names = tuple(str(n) for n in (v if isinstance(v, list) else [v]) if n)
+        if names and not any(OPEN.search(n) for n in names):
+            merged.setdefault(names, []).append(who)
+    return [("/".join(w for w in whos if w), list(names)) for names, whos in merged.items()]
+
+
+def find(have: list[dict], names: list[str], after: int, used: set) -> tuple[list[int] | None, bool]:
+    """The devices' places in order after `after`; else anywhere in order (then out of order); else none."""
+    def seq(start: int) -> list[int] | None:
+        idx, pos = [], start
+        for n in names:
+            i = next((i for i, d in enumerate(have) if i > pos and i not in used and match(d, n)), None)
+            if i is None:
+                return None
+            idx.append(i)
+            pos = i
+        return idx
+    got = seq(after)
+    if got:
+        return got, True
+    got = seq(-1)
+    return got, False
 
 
 def read_set(path: Path) -> dict:
@@ -78,27 +137,38 @@ def read_set(path: Path) -> dict:
     return {"file": path.name, "live": root.attrib.get("MinorVersion", ""), "tracks": tracks}
 
 
-def check_chain(have: list[dict], slots: list[dict]) -> tuple[list[str], list[str], list[str]]:
-    """Problems (missing, out of order), proposals (undeclared) and notes (on or off) for one chain."""
-    problems, proposals, notes = [], [], []
-    # a device the standard still calls open (not yet chosen: "open", "which one is open") is not checked yet
-    declared = [s for s in slots if not re.search(r"\bopen\b", str(s.get("device", "")))]
-    used = set()
+def check_chain(have: list[dict], slots: list[dict], standard: dict) -> tuple[list[str], list[str], list[str]]:
+    """Problems (missing, out of order, two desks on), proposals (undeclared) and notes (on or off) for one chain."""
+    problems, notes = [], []
+    used: set[int] = set()
     last = -1
-    for s in declared:
-        dev = str(s.get("device", ""))
-        hits = [i for i, d in enumerate(have) if same(d["name"], dev)]
-        if not hits:
-            problems.append(f"slot {s.get('slot', '?')} ({s.get('role', '')}: {dev}) missing")
+    for s in slots:
+        cands = candidates(s, standard)
+        if not cands:            # still open: not chosen yet, not checked yet
             continue
-        i = next((h for h in hits if h > last), hits[0])
-        if i < last:
-            problems.append(f"slot {s.get('slot', '?')} ({dev}) out of order")
-        last = max(last, i)
-        used.add(i)
+        n = s.get("slot", "?")
+        what = f"the desk's {s['desk']}" if s.get("desk") else " or ".join(" + ".join(c[1]) for c in cands)
+        found = []
+        for who, names in cands:
+            idx, in_order = find(have, names, last, used)
+            if idx:
+                used.update(idx)
+                found.append((who, names, idx, in_order, any(have[i]["on"] for i in idx)))
+        if not found:
+            problems.append(f"slot {n} ({s.get('role', '')}: {what}) missing")
+            continue
+        sounding = [f for f in found if f[4]]
+        if s.get("desk") and len(sounding) > 1:
+            problems.append(f"slot {n} ({s.get('role', '')}): {len(sounding)} desks on ({', '.join(f[0] for f in sounding)}): one desk at a time")
+        main = (sounding or found)[0]
+        if not main[3]:
+            problems.append(f"slot {n} ({' + '.join(main[1])}) out of order")
+        last = max(last, max(main[2]))
         want = s.get("default")
-        notes.append(f"{dev} {'on' if have[i]['on'] else 'off'}" + (f" (the standard's default: {'on' if want else 'off'})" if isinstance(want, bool) and want != have[i]["on"] else ""))
-    proposals = [d["name"] for i, d in enumerate(have) if i not in used]
+        for who, names, _idx, _ok, on in found:
+            label = " + ".join(names) + (f" [{who}]" if who else "")
+            notes.append(f"{label} {'on' if on else 'off'}" + (f" (the standard's default: {'on' if want else 'off'})" if (who, names) == main[:2] and isinstance(want, bool) and want != on else ""))
+    proposals = [d["name"] for i, d in enumerate(have) if i not in used and not d["rack"]]
     return problems, proposals, notes
 
 
@@ -112,12 +182,12 @@ def check(set_: dict, standard: dict, tracks_re: str = "") -> dict:
         elif t["kind"] == "GroupTrack" and norm(t["name"]) in groups:
             role, slots = "group", (standard.get("group") or {}).get("slots") or []
         elif t["kind"] == "ReturnTrack" and norm(t["name"]) in returns:
-            role, slots = "return", [{"slot": 1, "role": returns[norm(t["name"])].get("role", ""), "device": returns[norm(t["name"])].get("device", "")}]
+            role, slots = "return", [{**returns[norm(t["name"])], "slot": 1}]
         elif t["kind"] == "MainTrack":
             role, slots = "master", (standard.get("master") or {}).get("slots") or []
         else:
             continue
-        problems, proposals, notes = check_chain(t["devices"], slots)
+        problems, proposals, notes = check_chain(t["devices"], slots, standard)
         result.append({"track": t["name"], "kind": t["kind"], "role": role, "problems": problems, "proposals": proposals, "notes": notes})
     return {"file": set_["file"], "live": set_["live"], "version": standard.get("version"), "tracks": result}
 
@@ -146,24 +216,50 @@ def newest_set() -> Path | None:
     return sets[-1] if sets else None
 
 
-def synthetic(tracks: list[tuple[str, str, list[tuple[str, bool]]]]) -> bytes:
-    """A minimal Live set: (kind, name, [(plugin name, on)])."""
-    def plugin(n, on):
-        return (f'<PluginDevice><On><Manual Value="{str(on).lower()}"/></On><PluginDesc><Vst3PluginInfo><Name Value="{n}"/>'
+def synthetic(tracks: list[tuple]) -> bytes:
+    """A minimal Live set: (kind, name, devices); a device is (plugin name, on), ("live:<Tag>", on) for Live's own,
+    or ("rack:<name>", on, [chain, ...]) for a rack; a "MainTrack" is the set's main track."""
+    def device(d):
+        n, on = d[0], str(d[1]).lower()
+        if n.startswith("rack:"):
+            chains = "".join(f'<AudioEffectBranch><DeviceChain><AudioToAudioDeviceChain><Devices>{"".join(device(x) for x in c)}'
+                             f'</Devices></AudioToAudioDeviceChain></DeviceChain></AudioEffectBranch>' for c in d[2])
+            return (f'<AudioEffectGroupDevice><On><Manual Value="{on}"/></On><UserName Value="{n[5:]}"/>'
+                    f'<Branches>{chains}</Branches></AudioEffectGroupDevice>')
+        if n.startswith("live:"):
+            return f'<{n[5:]}><On><Manual Value="{on}"/></On><UserName Value=""/></{n[5:]}>'
+        return (f'<PluginDevice><On><Manual Value="{on}"/></On><PluginDesc><Vst3PluginInfo><Name Value="{n}"/>'
                 f'</Vst3PluginInfo></PluginDesc></PluginDevice>')
-    body = "".join(f'<{k}><Name><EffectiveName Value="{n}"/></Name><DeviceChain><DeviceChain><Devices>{"".join(plugin(*d) for d in ds)}'
-                   f'</Devices></DeviceChain></DeviceChain></{k}>' for k, n, ds in tracks)
-    return gzip.compress(f'<Ableton MinorVersion="12.0_test"><LiveSet><Tracks>{body}</Tracks></LiveSet></Ableton>'.encode())
+
+    def track(k, n, ds):
+        return (f'<{k}><Name><EffectiveName Value="{n}"/></Name><DeviceChain><DeviceChain><Devices>{"".join(device(d) for d in ds)}'
+                f'</Devices></DeviceChain></DeviceChain></{k}>')
+    body = "".join(track(*t) for t in tracks if t[0] != "MainTrack")
+    main = "".join(track(*t) for t in tracks if t[0] == "MainTrack")
+    return gzip.compress(f'<Ableton MinorVersion="12.0_test"><LiveSet><Tracks>{body}</Tracks>{main}</LiveSet></Ableton>'.encode())
 
 
 def self_test(standard: dict) -> int:
     import tempfile
-    std = [("Serum 2", True), ("Phase Plant", True), ("Snap Heap", False), ("Modular FX", False), ("SSL Native Channel Strip 2", True)]
+    head = [("Serum 2", True), ("Snap Heap", False), ("Snap Heap", False), ("Modular FX", False)]
+    std = head + [("SSL Native Channel Strip 2", True)]
+    desk_rack = ("rack:Desk", True, [[("SSL Native Channel Strip 2", True)], [("Neutron 3", False)],
+                                     [("API Vision Channel Strip", False)], [("live:ChannelEq", False), ("live:Compressor2", False)]])
     cases = {
-        "a standard track": ([("MidiTrack", "Violins I", std)], 0, 0),
-        "Phase Plant missing, a Valhalla added": ([("MidiTrack", "Celli", [d for d in std if d[0] != "Phase Plant"] + [("ValhallaRoom", True)])], 1, 1),
+        "a standard track (the SSL desk)": ([("MidiTrack", "Violins I", std)], 0, 0),
+        "the UAD desk's strip": ([("MidiTrack", "Violas", head + [("UADx API Vision Channel Strip", True)])], 0, 0),
+        "the Live desk: Channel EQ, then Compressor": ([("MidiTrack", "Flute", head + [("live:ChannelEq", True), ("live:Compressor2", True)])], 0, 0),
+        "two desks on": ([("MidiTrack", "Horns", std + [("API Vision Channel Strip", True)])], 1, 0),
+        "the four desks in a rack, one on": ([("MidiTrack", "Celli", head + [desk_rack])], 0, 0),
+        "a Snap Heap missing, a Valhalla added": ([("MidiTrack", "Celli", std[:2] + std[3:] + [("ValhallaRoom", True)])], 1, 1),
         "the strip before the source": ([("MidiTrack", "Horns", [std[4]] + std[:4])], 1, 0),
-        "a group to standard": ([("GroupTrack", "Strings", [("Phase Plant", False), ("SSL Native Bus Compressor 2", True)])], 0, 0),
+        "the Atmosphere's Pad: Phase Plant the source": ([("MidiTrack", "Pad", [("Phase Plant", True)] + std[1:])], 0, 0),
+        "a group to standard": ([("GroupTrack", "Violins A", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 0, 0),
+        "a group without its state": ([("GroupTrack", "Brass Low", [("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 1, 0),
+        "the master: Ozone 9": ([("MainTrack", "Main", [("Ozone 9", True)])], 0, 0),
+        "the master, the Live desk": ([("MainTrack", "Main", [("live:GlueCompressor", True), ("live:Limiter", True)])], 0, 0),
+        "the hall: UAD's Lexicon 224": ([("ReturnTrack", "Space", [("Lexicon 224", True)])], 0, 0),
+        "a designed space: Live's Hybrid Reverb": ([("ReturnTrack", "Designed space", [("live:Hybrid", True)])], 0, 0),
     }
     fails = 0
     with tempfile.TemporaryDirectory() as tmp:
@@ -175,7 +271,8 @@ def self_test(standard: dict) -> int:
             got_x = sum(len(t["proposals"]) for t in r["tracks"])
             ok = got_p == want_problems and got_x == want_proposals
             fails += not ok
-            print(f"{'ok  ' if ok else 'FAIL'} {title}: {got_p} problem(s), {got_x} proposal(s)")
+            print(f"{'ok  ' if ok else 'FAIL'} {title}: {got_p} problem(s), {got_x} proposal(s)"
+                  + ("" if ok else f" {[(t['problems'], t['proposals']) for t in r['tracks']]}"))
     return 1 if fails else 0
 
 
