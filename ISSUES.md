@@ -6539,10 +6539,11 @@ Thoughts (ISS-097) exist.
 | Gallery | the public, the reader | the art book's plates, the film's stills, score pages | plates, the art book, book figures, stills |
 | Cinema | the viewer | the film, per viewer version | the film, its versions, trailers, the recording |
 
-- [ ] The Music Room: a room in the app (a place with a doorway, as the halls are) holding the deck,
+- [x] (19 Oct 22:2x: rooms.js, THE MUSIC ROOM from the explorer's top bar: its four outputs (registry/rooms.yaml; the printed suite's 97 A3 pages and costs read from Me/music), THE SCORE (13 movements by part), THE VERSIONS (each viewer, with Live's bounces to listen to from Me/music/bounces/<viewer>/, none yet), THE STANDARD (registry/studio/standard.yaml), OPEN THE DECK; the private side through MOTHER's bridge (/music/room, /music/bounce/: local origins only, inside its folder only, byte ranges); without the bridge the public side still shows. 
+pm run check:rooms: 16 checks in a browser, all pass. Left: the room as a place on the map) The Music Room: a room in the app (a place with a doorway, as the halls are) holding the deck,
       the score's movements, and, when built, the console; Live is the instrument behind it (the rule:
       music is made in Live); listening is Live's bounces of each version.
-- [ ] The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.
+- [x] (19 Oct 22:2x: THE CINEMA from the top bar: its four outputs, THE FILMS (bld/film: PLAY hands one to FILM, soma-film-load, and it runs; Esc ends it), THE VERSIONS (each viewer, compiled or the command to compile it), THE RECORDINGS (Videos/Soma, OBS: none yet); /cinema/room, /cinema/film/, /cinema/recording/) The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.
 - [ ] The rooms on the map: entered by doorway transitions; the Gallery as the public face of the asset
       registry (ISS-120's pipeline: a film frame a plate, a plate a book figure).
 

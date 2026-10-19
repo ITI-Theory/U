@@ -1007,3 +1007,25 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 .televator__map .car { fill: #14e5ff; }
 .televator__map .era { stroke: rgba(255,209,102,.35); stroke-width: 1; }
 .televator__map .era.here { stroke: #ffd166; stroke-width: 2; }
+/* The rooms (rooms.js, ISS-122): the Gallery's shell, the four outputs, the lists */
+.room h4 { margin: 18px 0 6px; font: 700 12px/1.2 'Space Mono', monospace; letter-spacing: .06em; color: #14e5ff; }
+.room h4 small { color: rgba(232,238,252,.5); font-weight: 400; margin-left: 6px; }
+.room__outputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0 18px; max-width: 980px; }
+.room__output { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border: 1px solid rgba(232,238,252,.18); background: rgba(255,255,255,.02); }
+.room__output b { font-size: 12px; letter-spacing: .06em; }
+.room__output span { font-size: 12px; color: rgba(232,238,252,.6); }
+.room__output.is-made { border-color: rgba(86,240,162,.55); }
+.room__output.is-made span { color: #7dff9a; }
+.room__output small { color: rgba(232,238,252,.45); font-size: 10px; }
+.room__note { color: rgba(232,238,252,.55) !important; font-size: 11px !important; }
+.room__list { padding-left: 18px; font-size: 12px; line-height: 1.7; max-width: 980px; }
+.room__list small { color: rgba(232,238,252,.55); }
+.room__list audio, .room__list video { width: min(640px, 100%); margin: 4px 0 8px; }
+.room__list button, .room__actions button { width: auto; margin: 0 6px 0 0; padding: 4px 10px; font-size: 11px; }
+.room__actions button:disabled { opacity: .45; cursor: default; }
+.room__table { border-collapse: collapse; font-size: 11px; margin: 4px 0 8px; }
+.room__table th, .room__table td { padding: 4px 10px; border-bottom: 1px solid rgba(232,238,252,.12); text-align: left; }
+.room__table th { color: rgba(232,238,252,.5); font-weight: 400; }
+.room--music .gallery__rooms button.active { border-color: #14e5ff; background: rgba(20,229,255,.08); }
+.room--cinema .gallery__rooms button.active { border-color: #ffd166; background: rgba(255,209,102,.08); }
+.room__list--plain { list-style: none; padding-left: 0; }
