@@ -13,6 +13,7 @@ import { createWhereAmI } from './whereami.js';
 import { createPokeFx } from './pokefx.js';
 import { createShow } from './show.js';
 import { createFilm } from './film.js';
+import { createDeck } from './deck.js';
 import { setLed, led } from './led.js';
 import { syncLensSkin } from './lens.js';
 import { setArtLook, artLook, artLookField } from './art-looks.js';
@@ -2731,6 +2732,7 @@ const pokeFx = screenRole === 'level' ? createPokeFx() : null;
 if (screenRole === 'level') createShow({ explorer });
 // FILM, a compiled film played in sync (ISS-117; MOTHER /film; docs/PIPELINE.md)
 if (screenRole === 'level') createFilm({ explorer });
+if (screenRole === 'level') createDeck();
 // A Gallery of Thoughts (ISS-097)
 if (screenRole === 'level') createGallery();
 function firePoke(strength = state.limbic) {
