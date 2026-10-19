@@ -6251,7 +6251,7 @@ need to check that." U is public (github.com/ITI-Theory/U); Me is private.
       of the author's chats reached Me), hal-universe-2026-10-16 (320). (17 Oct: release-check's only
       non-Monday FAIL.) Moving them takes them out of
       the tree, not out of git's history; history would need a rewrite of a public repository.
-- [x] (18 Oct 23:2x, by voice: "nothing to do with freemasonries": the marker and its forms in Me/Ops/privacy.yaml; the check: 0 markers in 1,123 public files; the author can add more at any time) AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
+- [x] (18 Oct 23:2x, set by voice: the marker and its forms in Me/Ops/privacy.yaml; the check: 0 markers in 1,123 public files; the author can add more at any time) AUTHOR: the markers, words or phrases that must never be public (Me/Ops/privacy.yaml, `markers:`).
 - [x] (18 Oct, the author: "shorten the header to one neutral line": done) AUTHOR: registry/scores/fis-2021.yaml (public) summarises the private 2021 film notes in its header
       comment (the story's arc in a few lines; the check does not flag a paraphrase): keep, shorten, or
       move the score to Me.
@@ -6354,3 +6354,34 @@ picture and sound if they can be.
       the knobs' MIDI already lands there (MIDI IN, the Twister's banks). With the audio, the author's
       call.
 
+## ISS-119: The film written up: a paper (P26) and its chapter in Music and the Arts — OPEN
+
+{{Tags area.papers, area.books, area.art}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 17:21: "is this new AV film documented, written up? Will it need a new paper and or new
+book, as part of the fractal thesis? ... if yes, I would rather we start NOW"; 17:3x: "forget release
+dates ... no future v2 ... now please". Scope (Copilot): one paper, no new book. Book 8, Music and the
+Arts, already holds the theory (composition as attractor traversal; the River Film as a score; the Soma
+Machine as labelled practice); what is new is the build, the method (compose once, play live; the
+viewer's baseline compiled in; one transition grammar and one clock for picture and sound) and its
+three realisations (the film, the orchestra, the printed score).
+
+- [x] The paper, P26: `paper/soma/compose-once-play-live/compose-once-play-live.md` ("Compose Once, Play
+      Live: An Emotional Score Compiled to Picture and Sound"), `make -C paper film`; 12 references (8 new
+      in paper/bibliography.bib, the DOIs checked on Crossref); evidence labelled (`simulated` the
+      software, `empirical-result` the notes counted in Live, `interpretive` every feeling-to-medium
+      mapping, `open-hypothesis` the three studies that would test it). In Dist/PAPERS.yaml as P26,
+      pending-review; `make generate` run.
+- [x] Its chapter in Book 8: "Reading Compose Once, Play Live" with the paper embedded
+      (books/T-Theory/music-arts/book-music-arts.md); the book builds, 196 pages.
+- [x] (author 19 Oct: "20 minutes per movement is too long ... look at Planets by Holst") The printed
+      score is a suite: the 90 minutes carved into 13 movements of 5.6 to 8.0 minutes in four parts
+      (the story's turns), each its own section with its own mode, lead and a cadence; the paper's
+      printed-score section says so. The realiser and the score are private (Me/music: `make movements`,
+      `make print`).
+- [ ] The author reads the paper: the framing, the title, the realiser described but kept private (its
+      map in full, its code not), the movement titles (by feeling until he names them).
+- [ ] When the film is recorded: its numbers (length, frames, the cuts landing on Live's beats) into the
+      paper; the beat landing is untested until Live's playhead runs (ISS-117).
+- [ ] Sherlock's affidavit for P26 (`make -C sherlock`), as for the other papers.

@@ -423,6 +423,19 @@ canonical_papers:
     make_alias: sh1
     references_minimum: 5
 
+  - id: P26
+    slug: compose-once-play-live
+    title: "Compose Once, Play Live: An Emotional Score Compiled to Picture and Sound"
+    discipline: "Music and media arts; affective computing"
+    level: "masters"
+    doi: null
+    status: pending-review
+    notes: "Drafted 19 Oct 2026 (ISS-119): the River Film's emotional score compiled once to a film (the Soma Machine), an orchestra with an electronic layer and a printed score (a suite of 13 movements in 4 parts); the viewer's baseline compiled in; one transition grammar and one clock for picture and sound; the authorship answer. Read in the Music and the Arts book."
+    file: papers/compose-once-play-live.pdf
+    make_class: citeproc
+    make_langs: en
+    make_alias: film
+    references_minimum: 5
 datasets:
 
   - id: E1
