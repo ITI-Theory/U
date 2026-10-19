@@ -23,6 +23,22 @@ const PLACE = (stop, p) => {
   return '';
 };
 
+// The reading itself, from an address: shared by WHEREAMI and the [T]-Elevator's moving map (ISS-121), so the
+// two always say the same thing.
+export function whereAmI(hash) {
+  const p = new URLSearchParams(String(hash ?? '').replace(/^#/, ''));
+  const stop = p.get('voyage');
+  const lv = LEVEL.get(p.get('level'));
+  const k = FLOORS.indexOf(p.get('level'));
+  return {
+    time: new Date().toTimeString().slice(0, 8),
+    place: stop ? [STOP[stop] ?? stop.toUpperCase(), PLACE(stop, p)].filter(Boolean).join(' › ') : 'THE LEVEL VIEW',
+    scale: `${k >= 0 ? `FLOOR ${k + 1} · ` : ''}${String(lv?.label ?? '?').toUpperCase()}${lv?.length_scale ? ` · ${lv.length_scale}` : ''}`,
+    body: stop ? BODY[stop] ?? '' : (lv?.sector === 'organismal' ? 'the whole body' : 'beyond the body'),
+    layer: `${p.get('dim') ?? '11'}D${p.get('phi') ? ` · Φ ${Number(p.get('phi')).toFixed(2)}` : ''}`,
+  };
+}
+
 export function createWhereAmI() {
   const el = document.createElement('section');
   el.className = 'whereami';
@@ -39,20 +55,8 @@ export function createWhereAmI() {
   });
   const pad = s => s.padEnd(6);
   function update() {
-    const p = new URLSearchParams(location.hash.slice(1));
-    const stop = p.get('voyage');
-    const lv = LEVEL.get(p.get('level'));
-    const k = FLOORS.indexOf(p.get('level'));
-    const t = new Date();
-    const place = stop ? [STOP[stop] ?? stop.toUpperCase(), PLACE(stop, p)].filter(Boolean).join(' › ') : 'THE LEVEL VIEW';
-    const lines = [
-      `${pad('time')} ${t.toTimeString().slice(0, 8)}`,
-      `${pad('place')} ${place}`,
-      `${pad('scale')} ${k >= 0 ? `FLOOR ${k + 1} · ` : ''}${String(lv?.label ?? '?').toUpperCase()}${lv?.length_scale ? ` · ${lv.length_scale}` : ''}`,
-      `${pad('body')} ${stop ? BODY[stop] ?? '' : (lv?.sector === 'organismal' ? 'the whole body' : 'beyond the body')}`,
-      `${pad('layer')} ${p.get('dim') ?? '11'}D${p.get('phi') ? ` · Φ ${Number(p.get('phi')).toFixed(2)}` : ''}`,
-    ];
-    out.textContent = lines.join('\n');
+    const r = whereAmI(location.hash);
+    out.textContent = [['time', r.time], ['place', r.place], ['scale', r.scale], ['body', r.body], ['layer', r.layer]].map(([k, v]) => `${pad(k)} ${v}`).join('\n');
   }
   update();
   addEventListener('hashchange', update);

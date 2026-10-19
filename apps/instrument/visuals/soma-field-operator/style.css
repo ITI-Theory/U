@@ -1045,3 +1045,15 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 .writers__score { font-weight: 700; color: #ffd166; }
 .room--writers .gallery__rooms button.active { border-color: #ffd166; background: rgba(255,209,102,.08); }
 .room__said { color: #7dff9a !important; }
+
+.televator__where b { color: #e8eefc; font-weight: 700; }
+.televator__map .route { fill: none; stroke: rgba(255,209,102,.55); stroke-width: 1.2; }
+.televator__map .stop { fill: rgba(255,209,102,.35); stroke: #ffd166; stroke-width: .8; }
+.televator__map .stop.now { fill: #ffd166; }
+.televator__map .stop.next { fill: #fff; stroke: #ffd166; stroke-width: 1.6; }
+.televator__map .stopnum { fill: #ffd166; font-size: 6px; }
+.televator__map .door { cursor: pointer; }
+.televator__map .door rect { fill: rgba(20,229,255,.06); stroke: rgba(20,229,255,.45); stroke-width: .8; }
+.televator__map .door:hover rect, .televator__map .door:focus rect { fill: rgba(20,229,255,.2); stroke: #14e5ff; }
+.televator__map .door text { fill: #e8eefc; font-size: 6.5px; text-anchor: middle; letter-spacing: .04em; pointer-events: none; }
+.televator__map text.col.end { text-anchor: end; }

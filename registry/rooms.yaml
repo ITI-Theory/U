@@ -3,7 +3,8 @@
 # (the tabs with four outputs, ISS-120). The rooms show what exists; they make nothing themselves: music is
 # made in Ableton Live (the rule, ISS-120), films by the compiler and Live's clock (docs/PIPELINE.md).
 # Each output names how it is made; `private: true` outputs live on the author's machine and are read through
-# MOTHER's bridge (local origins only), never published.
+# MOTHER's bridge (local origins only), never published. `opens`: the event that opens a room, or the address of
+# its window (the Engine Room is a screen of its own); the [T]-Elevator's map has a door to each (ISS-121).
 schema_version: 1
 rooms:
   engine:
@@ -20,6 +21,7 @@ rooms:
     title: THE MUSIC ROOM
     for: the composer and the musician
     say: "The score, its versions and the deck; Live is the instrument behind it, and every sound you hear here is Live's own bounce."
+    opens: "soma-music-room"
     outputs:
       - {name: the printed score, how: "make -C ../Me/music print (A3 full score, A4 parts, the costs)", private: true}
       - {name: the stems, how: "bounced by Live, per group (registry/studio/standard.yaml), into Me/music/bounces", private: true}
@@ -39,6 +41,7 @@ rooms:
     title: THE CINEMA
     for: the viewer
     say: "The film, compiled once with a viewer's baseline in it, played on Live's clock; its versions and the recordings."
+    opens: "soma-cinema"
     outputs:
       - {name: the film, how: "node scripts/compile-film.mjs (bld/film), played by FILM"}
       - {name: its versions, how: "node scripts/compile-film.mjs --viewer <neutral | cptsd | asd | adhd>"}
@@ -48,6 +51,7 @@ rooms:
     title: "THE WRITERS' ROOM"
     for: the author, choosing among four authors
     say: "Four authors (the author, H-AL, Copilot, MOTHER) by four reader levels; Sherlock scores each version against its level as a guide, the top scorer first; the author picks, and the pick keeps its author."
+    opens: "soma-writers-room"
     outputs:
       - {name: the chosen text, how: "PICK, then WRITE THE PICKS (python sherlock/writers.py apply <id>), into the target between its markers"}
       - {name: the credits, how: "every pick keeps its author and its date (Me/writers/<id>/passage.yaml)", private: true}

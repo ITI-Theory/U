@@ -6518,7 +6518,7 @@ pm run check:televator: 19 checks in a browser, all pass; registry/features.yaml
       the next entrance (its name, its line, its colour) before the move; WORM lists the claimed
       analogies of the floor with Sherlock's scores, labelled; each move is a declared transition
       (elevator, tube, wormhole, fade: registry/transitions.yaml) with its sound event.
-- [~] (19 Oct: the map is in the device: floors up the side, BODY FEELING MIND across, the eras as ticks along the bottom, the car where you are (a stop at its reading), the wormholes as arcs, FORWARD's arrow; left: WHEREAMI and the route planner folded in) The moving map: where you are on three axes (scale up the side, aspect across, time along the
+- [x] (19 Oct 23:1x: the map is in the device: floors up the side, BODY FEELING MIND across, the eras as ticks along the bottom, the car where you are (a stop at its reading), the wormholes as arcs, FORWARD's arrow; WHEREAMI's reading is now one function (whereami.js whereAmI) the device's header shares; the route drawn on the map, a playing tour's steps (this one and the next lit; tour.js now announces the step addresses) else MY ROUTE; the five rooms as doors along the top. `npm run check:televator`: 25 checks, all pass) The moving map: where you are on three axes (scale up the side, aspect across, time along the
       bottom), the wormholes as arcs; WHEREAMI and the route planner (ISS-110) fold into it.
 - [~] (19 Oct: checked headless, UAT app-televator, panels in bld/televator/) Checked headless (every move, every floor), a UAT entry, plates for the books (the Gallery, the
       Atlas: the Televator and the moving map as figures), and the philosophy reading drafted for the
@@ -6546,7 +6546,7 @@ pm run check:rooms: 16 checks in a browser, all pass. Left: the room as a place 
       the score's movements, and, when built, the console; Live is the instrument behind it (the rule:
       music is made in Live); listening is Live's bounces of each version.
 - [x] (19 Oct 22:2x: THE CINEMA from the top bar: its four outputs, THE FILMS (bld/film: PLAY hands one to FILM, soma-film-load, and it runs; Esc ends it), THE VERSIONS (each viewer, compiled or the command to compile it), THE RECORDINGS (Videos/Soma, OBS: none yet); /cinema/room, /cinema/film/, /cinema/recording/) The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.
-- [ ] The rooms on the map: entered by doorway transitions; the Gallery as the public face of the asset
+- [~] (19 Oct 23:1x: the rooms are doors on the [T]-Elevator's map (registry/rooms.yaml `opens`), each opened with a doorway transition the sound hears; left: the Gallery as the asset registry's face, with ISS-120's pipeline) The rooms on the map: entered by doorway transitions; the Gallery as the public face of the asset
       registry (ISS-120's pipeline: a film frame a plate, a plate a book figure).
 
 ## ISS-123: Text as a 4x4: four authors, chosen per passage — OPEN

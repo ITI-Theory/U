@@ -7,6 +7,7 @@
 //   4. WORM at the molecular floor lists the limbic system with Sherlock's scores; the jump arrives there;
 //   5. WORM at the atomic floor ranks the orbital system first (the most structure beyond the template);
 //   6. UP and DOWN change the floor by one; TIME to an era moves to the era's level;
+//   7. the moving map: MY ROUTE as a path, a playing tour's next step lit, the rooms as doors that open them;
 // every move tells the sound (soma-transition). Screenshots of the panel to bld/televator/ for review and
 // the books. Usage: npm run check:televator. Exit 1 on any failure or page error.
 
@@ -67,6 +68,7 @@ try {
   ok(await param('voyage') === 'thought' && await param('hall') === '1', 'GO enters the mind chamber (voyage=thought, hall=1)');
   ok(await page.evaluate(() => document.body.classList.contains('explorer-open')), 'the explorer is open');
   ok(await page.locator('.televator').isVisible(), 'the device stays visible above the explorer');
+  ok((await page.locator('.televator__where').innerText()).includes('MIND CHAMBER'), "the header says WHEREAMI's place (THOUGHT › MIND CHAMBER)");
   await shot('2-in-the-mind');
   await page.screenshot({ path: path.join(out, '2-in-the-mind-full.png') });
   // 3. the Great Hall's doorways: THE LIMBIC GATE
@@ -112,6 +114,20 @@ try {
   await page.waitForTimeout(2500);
   ok(Boolean(await param('era')), `TIME moves to an era (${era})`);
   await shot('6-time');
+  // 7. the moving map: MY ROUTE as a path, a playing tour's next step lit, the rooms as doors
+  await page.evaluate(() => localStorage.setItem('soma-route', JSON.stringify([
+    { view: 'level=human-vertebrate&voyage=human&dim=4' }, { view: 'level=whole-brain-cemi&voyage=brain&hall=1&dim=4' }, { view: 'level=whole-brain-cemi&voyage=thought&dim=11' }])) || dispatchEvent(new CustomEvent('soma-route')));
+  await goto('level=whole-brain-cemi&lens=on&dim=4');
+  ok(await page.locator('.televator__map .route').count() === 1 && await page.locator('.televator__map .stop').count() === 3, 'MY ROUTE is drawn on the map: a path through its 3 stops');
+  await page.evaluate(() => dispatchEvent(new CustomEvent('soma-tour-step', { detail: { title: 'A tour', index: 0, views: ['level=human-vertebrate&voyage=human', 'level=whole-brain-cemi&voyage=brain&hall=1', 'level=whole-brain-cemi&voyage=thought'] } })));
+  await page.waitForTimeout(800);
+  ok(await page.locator('.televator__map .stop.next').count() === 1 && await page.locator('.televator__map .stop.now').count() === 1, "a playing tour: this step and the next lit");
+  await shot('7-map-route');
+  ok(await page.locator('.televator__map .door').count() === 5, 'the five rooms are doors along the top of the map');
+  await page.locator('.televator__map .door[data-room="music"]').click();
+  await page.waitForTimeout(1500);
+  ok(await page.locator('.room--music').isVisible(), 'the MUSIC door opens the Music Room');
+  await page.locator('.room--music [data-act="close"]').click();
   const kinds = await page.evaluate(() => window.__transitions.filter(t => t.from === 'televator').map(t => t.move));
   ok(['forward', 'worm', 'up', 'down', 'time'].every(k => kinds.includes(k)), `every move told the sound (${[...new Set(kinds)].join(', ')})`);
   ok(errors.length === 0, `no page errors${errors.length ? `: ${errors.slice(0, 3).join(' | ')}` : ''}`);

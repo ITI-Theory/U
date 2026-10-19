@@ -10,9 +10,12 @@
 //   TIME       the eras (registry/eras.yaml); an era has its level
 // Every move is a declared transition (registry/televator.yaml `via`, registry/transitions.yaml) and tells
 // the sound (`soma-transition`). The moving map: floors up the side, readings across, eras along the
-// bottom, the wormholes as arcs. What each move means is labelled interpretive (THEORY-STATUS).
+// bottom, the wormholes as arcs, the route (a playing tour, else MY ROUTE) and the rooms as doors along the top;
+// the place is WHEREAMI's own reading. What each move means is labelled interpretive (THEORY-STATUS).
 
-import { televator as TV, hubs as HUBS, eras as ERAS, levels as LEVELS } from './generated/app-data.js';
+import { televator as TV, hubs as HUBS, eras as ERAS, levels as LEVELS, rooms as ROOMS } from './generated/app-data.js';
+import { whereAmI } from './whereami.js';
+import { myRoute } from './tour.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const LABEL = new Map((LEVELS ?? []).map(l => [l.id, l.label]));
@@ -65,13 +68,27 @@ export function createTelevator(hooks) {
     <label class="televator__time"><span>${esc(MOVES.time?.label ?? 'TIME')}</span>
       <input type="range" min="0" max="${Math.max(0, (ERAS?.length ?? 1) - 1)}" step="1" value="0" aria-label="Time: the eras">
       <output></output></label>
-    <svg class="televator__map" viewBox="0 0 240 190" role="img" aria-label="The moving map: floors up the side, readings across, eras along the bottom"></svg>`;
+    <svg class="televator__map" viewBox="0 0 240 212" role="img" aria-label="The moving map: the rooms along the top, floors up the side, readings across, eras along the bottom, the route"></svg>`;
   const where = el.querySelector('.televator__where');
   const view = el.querySelector('.televator__view');
   const slider = el.querySelector('.televator__time input');
   const sliderOut = el.querySelector('.televator__time output');
   const map = el.querySelector('.televator__map');
   let mode = null;            // null | 'forward' | 'worm'
+  // the route on the map: the tour playing, else MY ROUTE
+  let route = { title: 'MY ROUTE', views: myRoute().map(s => s.view), index: null };
+  addEventListener('soma-tour-step', e => { route = { title: e.detail?.title ?? 'the tour', views: e.detail?.views ?? [], index: e.detail?.index ?? null }; key = ''; });
+  addEventListener('soma-tour-end', () => { route = { title: 'MY ROUTE', views: myRoute().map(s => s.view), index: null }; key = ''; });
+  addEventListener('soma-route', () => { if (route.index === null) { route = { title: 'MY ROUTE', views: myRoute().map(s => s.view), index: null }; key = ''; } });
+  const openRoom = id => {
+    const opens = ROOMS?.[id]?.opens;
+    if (!opens) return;
+    announce('room', 'doorway 1s on now', null);
+    if (opens.startsWith('?')) open(opens, `soma-${id}`);
+    else dispatchEvent(new CustomEvent(opens));
+  };
+  map.addEventListener('click', event => { const d = event.target.closest('[data-room]'); if (d) openRoom(d.dataset.room); });
+  map.addEventListener('keydown', event => { const d = event.target.closest('[data-room]'); if (d && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); openRoom(d.dataset.room); } });
   let pick = 0;               // the entrance shown in the tube
   let key = '';
 
@@ -110,7 +127,8 @@ export function createTelevator(hooks) {
     const ents = entrances(c);
     pick = Math.min(pick, Math.max(0, ents.length - 1));
     const era = ERAS?.find(e => e.id === c.eraId);
-    where.textContent = `FLOOR ${c.index + 1}/${c.floors.length} ${placeName({ level: c.levelId })}${c.stop ? ` · ${STOP_NAMES[c.stop] ?? c.stop.toUpperCase()}` : ''} · ${c.dim}D${era ? ` · ${era.label}` : ''}`;
+    const here = whereAmI(location.hash);
+    where.innerHTML = `<b>${esc(here.place)}</b> · ${esc(here.body)}<br>FLOOR ${c.index + 1}/${c.floors.length} ${esc(placeName({ level: c.levelId }))}${c.stop ? ` · ${esc(STOP_NAMES[c.stop] ?? c.stop.toUpperCase())}` : ''} · ${esc(here.layer)}${era ? ` · ${esc(era.label)}` : ''}`;
     for (const b of el.querySelectorAll('[data-move]')) {
       b.classList.toggle('active', b.dataset.move === mode);
       if (b.dataset.move === 'up') b.disabled = c.index >= c.floors.length - 1;
@@ -145,7 +163,7 @@ export function createTelevator(hooks) {
 
   function drawMap(c) {
     const n = c.floors.length;
-    const top = 8, bottom = 150, left = 92;
+    const top = 32, bottom = 172, left = 92;
     const colX = d => left + 30 + ASPECTS.findIndex(a => a.dim === d) * 52;
     const rowY = i => bottom - (n <= 1 ? 0 : (i / (n - 1)) * (bottom - top));
     const parts = [];
@@ -169,15 +187,36 @@ export function createTelevator(hooks) {
       const bulge = Math.max(hereX, x2) + 30 + Math.abs(rowY(hereRow) - y2) * 0.25;
       parts.push(`<path d="M${hereX} ${rowY(hereRow)} Q ${bulge} ${(rowY(hereRow) + y2) / 2} ${x2} ${y2}" class="worm" style="opacity:${0.35 + 0.65 * best}"/>`);
     }
+    // the route: a playing tour's steps, else MY ROUTE (the route planner, ISS-110); the next step lit
+    const pts = route.views.map(v => {
+      const q = new URLSearchParams(String(v).replace(/^#/, ''));
+      const at = q.get('voyage') && TV?.mapStops?.[q.get('voyage')] ? TV.mapStops[q.get('voyage')] : { level: q.get('level'), dim: Number(q.get('dim') ?? 4) };
+      return c.floors.includes(at.level) ? { x: colX([4, 8, 11].includes(Number(at.dim)) ? Number(at.dim) : 4), y: rowY(c.floors.indexOf(at.level)) } : null;
+    });
+    const drawn = pts.map((pt, i) => pt && { ...pt, i }).filter(Boolean);
+    if (drawn.length > 1) parts.push(`<polyline points="${drawn.map(pt => `${pt.x},${pt.y}`).join(' ')}" class="route"/>`);
+    for (const pt of drawn) {
+      const cls = route.index === null ? '' : pt.i === route.index + 1 ? ' next' : pt.i === route.index ? ' now' : '';
+      parts.push(`<circle cx="${pt.x}" cy="${pt.y}" r="${cls ? 4.2 : 3}" class="stop${cls}"><title>${esc(route.title)} · step ${pt.i + 1}</title></circle><text x="${pt.x + 5}" y="${pt.y - 4}" class="stopnum">${pt.i + 1}</text>`);
+    }
+    // the rooms: a door each, along the top (registry/rooms.yaml); a door opens its room
+    const ids = Object.keys(ROOMS ?? {});
+    ids.forEach((id, k) => {
+      const w = 224 / Math.max(1, ids.length);
+      const x = 8 + k * w;
+      const name = String(ROOMS[id].title ?? id).replace(/^(THE|A) /, '').split(' ')[0];
+      parts.push(`<g class="door" data-room="${esc(id)}" role="button" tabindex="0"><title>${esc(ROOMS[id].title)}: ${esc(ROOMS[id].say ?? '')}</title><rect x="${x + 2}" y="4" width="${w - 4}" height="16" rx="2"/><text x="${x + w / 2}" y="15">${esc(name)}</text></g>`);
+    });
+    parts.push(`<text x="232" y="29" class="col end">THE ROOMS ↑</text>`);
     if (mode === 'forward') parts.push(`<path d="M${hereX + 6} ${rowY(hereRow)} l14 0 m-5 -4 l5 4 l-5 4" class="fwd"/>`);
     parts.push(`<circle cx="${hereX}" cy="${rowY(hereRow)}" r="7" class="halo"/><circle cx="${hereX}" cy="${rowY(hereRow)}" r="3.5" class="car"/>`);
     // the clock along the bottom: every era a tick, the one in force lit
     const m = ERAS?.length ?? 0;
     ERAS?.forEach((e, k) => {
       const x = 8 + (m <= 1 ? 0 : (k / (m - 1)) * 224);
-      parts.push(`<line x1="${x}" y1="176" x2="${x}" y2="${e.id === c.eraId ? 168 : 173}" class="era${e.id === c.eraId ? ' here' : ''}"><title>${esc(e.label)} · ${esc(e.time?.display ?? '')}</title></line>`);
+      parts.push(`<line x1="${x}" y1="198" x2="${x}" y2="${e.id === c.eraId ? 190 : 195}" class="era${e.id === c.eraId ? ' here' : ''}"><title>${esc(e.label)} · ${esc(e.time?.display ?? '')}</title></line>`);
     });
-    parts.push(`<text x="8" y="188" class="col">TIME</text>`);
+    parts.push(`<text x="8" y="210" class="col">TIME</text>`);
     map.innerHTML = parts.join('');
   }
 
@@ -228,7 +267,7 @@ export function createTelevator(hooks) {
   // called often (the app's loop): redraw only when where you are has changed
   function update() {
     const c = ctx();
-    const k = [c.levelId, c.index, c.dim, c.eraId, c.stop, c.inHall, mode, pick].join('|');
+    const k = [c.levelId, c.index, c.dim, c.eraId, c.stop, c.inHall, mode, pick, location.hash].join('|');
     if (k === key) return;
     key = k;
     const ei = ERAS?.findIndex(e => e.id === c.eraId) ?? -1;
