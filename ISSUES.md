@@ -6436,7 +6436,10 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
 - [ ] AUTHOR: approve or change version 2 (the strip's standard settings; the groups' members; the desks'
       devices; the delivery loudness).
 - [ ] The desks' plugin names as Live lists them, once the SSL and iZotope installs are done and Live has
-      rescanned (Live's plugin database: the names Sherlock matches).
+      rescanned (Live's plugin database: the names Sherlock matches). 20 Oct 00:5x: SSL's 22 VST3s on disk, none
+      in Live's list yet (they need activating; Live's scanner was running); Native Bus Compressor 2 (the SSL
+      desk's glue) not on disk; X-Saturator installs as "v6" (Sherlock now ignores a version tag; a self-test
+      case); no SSL NKS files found yet (ProgramData, Documents, Program Files).
 - [ ] AUTHOR, in Live: the standard as Live's own (a track preset or rack "Soma Standard" in the User
       Library, a template set).
 - [x] (19 Oct 23:4x: sherlock/studio.py, `make -C sherlock studio [SET=<set.als>] [TRACKS=<regex>]`: reads a Live set (gzipped
