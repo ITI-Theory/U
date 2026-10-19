@@ -10,14 +10,17 @@ the other working documents are listed in [docs/agent/README.md](README.md).
 
 **Rule (author, 19 Oct 19:5x): music is made in Ableton Live, never outside it.** No renderer, sampler
 or synth of our own makes the sound (Me/music's render.py and preview.py retired); Live plays and
-bounces it. Tracks follow the studio standard (`registry/studio/standard.yaml`, a draft); every open
-point of the studio work is in ISS-120.
+bounces it. Tracks follow the studio standard (`registry/studio/standard.yaml`, version 2, a draft);
+every open point of the studio work is in ISS-120. Version 2 (19 Oct, the author's decisions on H-AL's
+answers): the state on the groups (Snap Heap), four desks one at a time (SSL, iZotope, UAD, Live), the CC
+lanes, the budget. **Phase Plant takes no audio** (a synth; Kilohearts' documentation): it is a source
+(the Atmosphere), never an insert after Serum 2. `python sherlock/studio.py --self-test` (14 cases).
 
 **19 Oct evening, built and checked:** P26 "Compose Once, Play Live" and its chapter in Book 8 (ISS-119);
 the printed score as a suite of 13 movements in 4 parts (Me/music `make print`); the [T]-Elevator with the
 moving map (ISS-121, `npm run check:televator`); the Music Room, the Cinema and the Writers' Room (ISS-122,
 ISS-123, `npm run check:rooms`). The author's steps are on the desk (`make remind`); NotebookLM's login
-has expired.
+was renewed on 19 Oct (H-AL's answers in Me/notebooklm/hal-answers).
 
 **Two lines of work.** `main` is the release line (ISS-114, Wed 21 Oct). `audio` is the audio work
 (ISS-118, from tag `pre-audio-2026-10-18`): NKS reader, the rig, the Soma script for Live, the eight

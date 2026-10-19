@@ -4111,9 +4111,10 @@ other work.
       what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
 - [x] (18 Oct: all approved as proposed) (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
       true`, or change the tag); `make -C sherlock features` lists what is still awaiting.
-- [ ] (ISS-120) The studio: approve or change the standard (registry/studio/standard.yaml); make it
-      Live's own (a track preset or rack "Soma Standard", a template set); the one-track test (a
-      violin: Serum 2 into Phase Plant, audio in: the input, the macros, the CPU).
+- [ ] (ISS-120) The studio: approve or change the standard, version 2 (registry/studio/standard.yaml: the
+      state on the groups, the desks, the CC lanes; Phase Plant a source, as it takes no audio); make it
+      Live's own (a track preset or rack "Soma Standard", the Desk rack or a set per desk, a template set);
+      the one-track test (a violin to standard in its group: the macros, the lanes, the CPU).
 - [ ] (ISS-120) HAL: create the Studio manuals notebook (OneDrive\lib\manuals and its README; SSL's
       two guides as web sources), then ask uat/RC3/hal-live-workflow-2026-10-19.md and
       hal-console-2026-10-19.md; the answers into Me as before. Save Serum 2's full manual (inside
@@ -6506,8 +6507,22 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       declared is a proposal to the author, never installed, downloaded or generated.
 - [x] (19 Oct 23:2x, the author: "modular should be added as well": Softube Modular FX is the track's slot 4, off by default,
       its 13 add-ons named for the feelings; LoadIR plays the designed spaces) Modular in the standard.
-- [ ] AUTHOR: approve or change it (the strip's standard settings; UAD's colour; the hall; the master's
-      glue and limiter; the delivery loudness).
+- [x] (19 Oct, the author's decisions on H-AL's answers; Copilot's facts) The standard, version 2: the state on the
+      groups (Snap Heap on; the track's state and wrong slots off, on where a version bends one instrument), as the
+      author decided on 17 Oct; the groups merged (Violins A and B, Violas, Bass, Woodwinds, Brass High and Low,
+      Choir, Atmosphere; the 20 parts placed); the locked CC lanes (1 timbre, 11 expression, 19 wavetable, 20 drive,
+      21 comb or reverb, 22 gate); Ozone 9 Advanced on the master; the budget (16-24 sources live, the rest Frozen
+      or stems; a group cannot be frozen); four desks, one on at a time (SSL, iZotope, UAD, Live: the Live desk
+      needs no licence). A correction: **Phase Plant cannot follow Serum 2 on a track**: it is a synth with no
+      audio input (Kilohearts' documentation; Live lists it as an instrument only). The state on audio is Snap
+      Heap's (the same Snapins and modulation); Phase Plant is a source (the Atmosphere) and, proposed, the designer
+      of spaces (an impulse through its Snapins, resampled in Live, played by LoadIR). Sherlock's check knows
+      alternatives, desks (two on is a problem), Live's own devices and racks; the Music Room shows the desks, the
+      lanes and the budget.
+- [ ] AUTHOR: approve or change version 2 (the strip's standard settings; the groups' members; CC 21: the comb or
+      the reverb send; the desks' devices; the delivery loudness).
+- [ ] The desks' plugin names as Live lists them, once the SSL and iZotope installs are done and Live has
+      rescanned (Live's plugin database: the names Sherlock matches).
 - [ ] AUTHOR, in Live: the standard as Live's own (a track preset or rack "Soma Standard" in the User
       Library, a template set).
 - [x] (19 Oct 23:4x: sherlock/studio.py, `make -C sherlock studio [SET=<set.als>] [TRACKS=<regex>]`: reads a Live set (gzipped
@@ -6515,8 +6530,9 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       order (problems), an undeclared device (a proposal to the author), and on or off (shown, never judged); a device
       the standard still calls open is not checked yet; a self-test on synthetic sets; read against the author's own
       sets, the plugin names come through) Sherlock checks a Live set against the standard (each track's slots, in order; nothing undeclared).
-- [ ] The test of one track, by the author's hands: a violin, Serum 2 into Phase Plant (audio in): the
-      input works, Live passes the macros, the CPU of two instances.
+- [ ] The test of one track, by the author's hands: a violin to standard (Serum 2, Snap Heap, the desk's
+      strip) in the Violins A group (Snap Heap on): Live passes the macros and the CC lanes, the CPU of the
+      chain. (Corrected 19 Oct: Phase Plant takes no audio, so not "Serum 2 into Phase Plant".)
 
 **Live and the River Film**
 - [ ] HAL: `uat/RC3/hal-live-workflow-2026-10-19.md` (what the author decided in the chats; Live's
@@ -6537,12 +6553,15 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       blended by the eight macros (fear: the loop catches; grief: darker, slower; the pre-verbal:
       grains; "slightly wrong": a few percent off). The full Serum 2 manual (inside Serum 2) into
       OneDrive\lib\manuals.
-- [ ] Phase Plant's roles: the state after Serum 2 (the field's response, `interpretive`), the special
-      voices (sub, pad, pulse, impacts), the transitions' sounds, designing spaces (an impulse response
-      stretched, reversed or grained, bounced in Live, loaded in Live's Convolution Reverb or Serum 2's
-      Convolve).
-- [ ] HAL: `uat/RC3/hal-console-2026-10-19.md` Q2 and Q4 ("OK, but slightly wrong" by feeling; effects
-      by feeling).
+- [ ] Phase Plant's roles (a synth: no audio input, corrected 19 Oct): the Atmosphere's voices (sub, pad,
+      pulse, impacts), the transitions' sounds, designing spaces (an impulse played through its Snapins,
+      stretched, reversed or grained, resampled in Live, played by LoadIR or Live's Hybrid Reverb). The
+      field's response on the instruments is Snap Heap's (the same Snapins and modulation).
+- [x] (19 Oct: Me/notebooklm/hal-answers/hal-console-2026-10-19-answers.md: the 17 Oct decisions (Serum dry,
+      Snap Heap on the groups, Phase Plant for the atmospheres, CC 20 drive as timbral counterpoint), C-PTSD as
+      a state that will not settle (98% feedback, the jammed loop, the whiteout), the feelings' treatments; the
+      "slightly wrong" column mostly H-AL's synthesis, marked so) HAL: `uat/RC3/hal-console-2026-10-19.md` Q2
+      and Q4 ("OK, but slightly wrong" by feeling; effects by feeling).
 
 **The console**
 - [ ] The design (Copilot, 19 Oct; HAL Q1 and Q3): Console 1 Mk III's idea over the author's plugins:

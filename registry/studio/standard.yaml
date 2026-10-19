@@ -11,24 +11,53 @@
 # - Changed only by the author's decision; each change a new version.
 # - In Live the standard is Live's own: a track preset or rack in the User Library ("Soma Standard") and a
 #   template set, made by the author's hands; this file says what they hold.
-version: 1
+# - A slot names one device, or alternatives (`or`), or a desk's device (`desk`: the chosen desk's, below); a
+#   device written as a list is several devices in that order.
+version: 2
 status: draft          # for the author to approve or change
+changes:
+  - version: 2
+    date: "2026-10-19"
+    by: the author (the decisions) and Copilot (the facts)
+    what:
+      - >-
+        The state is on the groups (the author, 19 Oct, keeping his 17 Oct decision: "keep the Serum 2 patches
+        dry ... Snap Heap on the group bus ... the same modulation as Phase Plant, one light insert"); a track's
+        state and wrong slots stay, off, for the versions' fine changes per instrument.
+      - >-
+        A correction (Copilot's, from the makers' documents): Phase Plant cannot follow Serum 2 on a track. It is
+        an instrument with five generators and no audio input (kilohearts.com/docs/phase_plant), and Live lists it
+        as an instrument only; an instrument cannot take another's audio in Live. Snap Heap is Kilohearts' effect
+        (the same Snapins and modulation; Multipass for bands), so the state on audio is Snap Heap's. Phase Plant
+        is a source: the Atmosphere's tracks (the Pad, the Sub Bass), as on 17 Oct.
+      - The groups merged (17 Oct's and v1's), the locked CC map, Ozone 9 Advanced on the master, the CPU budget.
+      - >-
+        Four desks (the author: "add the rest to an alternative ... 4 outputs perhaps? SSL, Ozone, UAD, Live"):
+        the same set mixed by four houses; one desk on at a time.
 macros: [S, F, C, A, G, L, PV, Phi]   # Macros 1-8 wherever a slot has macros: the eight feelings (the rig)
+cc:                    # the lanes the app sends (locked 17 Oct, the author's chats; H-AL, Me/notebooklm/hal-answers)
+  1: timbre (cutoff, brightness)
+  11: expression
+  19: wavetable position (Serum 2's, and Phase Plant's on the Atmosphere)
+  20: "drive (the wavefolder, Snap Heap's Distortion): timbral counterpoint, anxiety heard as harshness"
+  21: "comb filter or the reverb send (which one: the author's)"
+  22: gate
+  note: the feelings drive macros 1-8; the CCs are fixed lanes, mapped in Live to macros or parameters
 
-track:                 # one per part (Violins I, Horns, Choir ...): one Serum 2 per instrument
+track:                 # one per part (Violins I, Horns, Choir ...): one source per instrument
   slots:
     - slot: 1
       role: source     # what the instrument IS
       device: Serum 2
+      or: [Phase Plant]   # the Atmosphere's tracks (the Pad, the Sub Bass): Phase Plant is a synth
       default: on
       setting: >-
         the part's preset (its multisample); the source design (a second oscillator in Spectral or
         Granular mode on the same recording, blended by the macros) per instrument
     - slot: 2
-      role: state      # what the field does to it: the response
-      device: Phase Plant
-      input: the track's audio
-      default: on
+      role: state      # what the field does to this one instrument: the versions' fine changes
+      device: Snap Heap
+      default: off     # the state is the group's (below); on where a version bends one instrument
       neutral: macros at zero change nothing (the master is the neutral version)
     - slot: 3
       role: wrong      # "OK, but slightly wrong": frequency shift, a few cents, comb, bitcrush, wow
@@ -37,7 +66,6 @@ track:                 # one per part (Violins I, Horns, Choir ...): one Serum 2
     - slot: 4
       role: modular    # the author, 19 Oct 23:2x: "modular should be added as well ... a very handy beast"
       device: Softube Modular FX
-      input: the track's audio
       default: off
       setting: >-
         modules per instrument and version: Mutable Instruments Clouds (grains: the pre-verbal) and Rings (the
@@ -46,34 +74,70 @@ track:                 # one per part (Violins I, Horns, Choir ...): one Serum 2
         uFold II and Korgasmatron II (wrong at the source: fear, C-PTSD)
     - slot: 5
       role: strip
-      device: SSL Native Channel Strip 2
+      desk: strip
       default: on
-      setting: standard (to be set by the author, the strip's starting point for every track)
+      setting: "the desk's strip, standard (set by the author: the starting point for every track)"
   sends:
     - {to: Space, default: standard}            # the shared hall
-    - {to: Designed space, default: off}        # Phase Plant's designed spaces
-  installed: {Serum 2: yes, Phase Plant: yes, Snap Heap: installing, Softube Modular FX: yes (13 add-ons, 19 Oct), SSL Native Channel Strip 2: installing}
+    - {to: Designed space, default: off}        # the designed spaces
 
-group:                 # the stems
-  names: [Strings, Winds, Brass, Choir, Electronics]
+group:                 # the stems; the author, 19 Oct: 17 Oct's groups, with the Choir, the Atmosphere as the electronics
+  names: [Violins A, Violins B, Violas, Bass, Woodwinds, Brass High, Brass Low, Choir, Atmosphere]
+  members:             # the score's 20 parts (Me/music/orchestra.py); Copilot's placing, the author's to move
+    Violins A: [Violins I]
+    Violins B: [Violins II, Strings Tremolo, Strings Pizz, Strings Muted]
+    Violas: [Violas]
+    Bass: [Celli, Contrabasses]
+    Woodwinds: [Flute, Clarinet, Bassoon]
+    Brass High: [Horns, Trumpets]
+    Brass Low: [Trombones, Tuba]
+    Choir: [Choir]
+    Atmosphere: [Pad, Sub Bass, Pulse, Impact]
   slots:
-    - {slot: 1, role: state, device: Phase Plant, default: off, note: "a group's state, where a whole section bends together"}
-    - {slot: 2, role: glue, device: SSL Native Bus Compressor 2, default: on}
-    - {slot: 3, role: colour, device: "UAD (Mix Edition; which one is open)", default: off}
+    - {slot: 1, role: state, device: Snap Heap, or: [Multipass], default: on, note: "the section bends together: the macros' feelings, CC 20 and 21 (17 Oct)"}
+    - {slot: 2, role: glue, desk: glue, default: on}
+    - {slot: 3, role: colour, desk: colour, default: off}
 
 returns:
-  - {name: Space, role: the hall, device: "open (Live's Convolution Reverb with a hall, or SSL FlexVerb)"}
-  - {name: Designed space, role: the spaces Phase Plant designs, device: "Softube LoadIR (any impulse response), or Live's Convolution Reverb, or Serum 2's Convolve on the track"}
+  - {name: Space, role: the hall, desk: hall}
+  - name: Designed space
+    role: the designed spaces (any impulse response)
+    device: Softube LoadIR
+    or: [Hybrid Reverb]   # Live's own, with a convolution side
+    proposal: >-
+      Phase Plant as the designer of spaces (the author: "Phase Plant as the IR manipulator"): an impulse played
+      through Phase Plant's Snapins on a track of its own, resampled in Live into a new impulse response, which
+      LoadIR plays. The sound stays Live's.
 
 master:
   slots:
-    - {slot: 1, role: glue, device: open}
-    - {slot: 2, role: loudness, device: "open (SSL X-Limit, T-RackS)"}
+    - {slot: 1, role: glue and loudness, desk: master, note: "Ozone 9 Advanced (the author, 19 Oct): one instance, its modules (the Maximizer, the Imager, Tonal Balance Control)"}
   delivery: open      # streaming about -14 LUFS; broadcast -23; film as the venue asks
 
+desks:                 # the house that mixes; the same set, the same slots, four sounds (the Music Room's fourth output)
+  # Plugin names to confirm in Live's own list once the SSL and iZotope installs are done (Live rescans).
+  houses:
+    ssl:     {strip: SSL Native Channel Strip 2, glue: SSL Native Bus Compressor 2, colour: SSL Native X-Saturator, hall: SSL Native FlexVerb, master: Ozone 9}
+    izotope: {strip: Neutron 3, glue: Neutron 3 Compressor, colour: Neutron 3 Exciter, hall: open, master: Ozone 9}
+    uad:     {strip: API Vision Channel Strip, glue: API 2500, colour: Studer A800, hall: Lexicon 224, master: Ozone 9}
+    live:    {strip: [Channel EQ, Compressor], glue: Glue Compressor, colour: Saturator, hall: Hybrid Reverb, master: [Glue Compressor, Limiter]}
+  default: ssl
+  rule: >-
+    One desk on at a time. In Live a desk is a rack's chain or the set saved per desk; a rack's chains all
+    receive the audio and only the selected ones sound (Live 12 manual, Racks: chain select zones), so the
+    desks not chosen are turned off, not only unselected. The Live desk needs no licence: anyone with Live
+    opens it.
+  installed: {ssl: installing (19 Oct), izotope: to install (owned), uad: yes (19 Oct), live: yes}
+
+budget:                # H-AL, 19 Oct (the author's earlier decisions): what the machine can carry
+  live_sources: 16-24  # Serum 2 or Phase Plant instances playing at once
+  the_rest: Frozen (Live's Freeze Track) or played from bounced stems with the source off; swapped in when a part changes
+  groups: a group track cannot be frozen (Live 12 manual, 38.1.4), so the group's chain stays light (Snap Heap)
+
 versions:              # one session; a version is the same slots with other settings and macro automation
-  neutral: the master; slots 2 and 3 neutral
-  cptsd: slots 2 and 3 per instrument, the macros' automation from the viewer's baseline (as the film's viewer presets)
+  neutral: the master; every state and wrong slot neutral
+  cptsd: the groups' state from the viewer's baseline (the film's viewer presets); a track's slots 2 and 3 on where one instrument bends
   asd: as cptsd
   adhd: as cptsd
-  bounce: "per version, stems per group (how, and per section or not: HAL, uat/RC3/hal-live-workflow-2026-10-19.md)"
+  bounce: "per version and desk, stems per group (how, and per section or not: HAL, uat/RC3/hal-live-workflow-2026-10-19.md)"
+installed: {Serum 2: yes, Phase Plant: yes, Snap Heap: installing, Multipass: no (a proposal), Softube Modular FX: yes (13 add-ons, 19 Oct), Softube LoadIR: yes}
