@@ -50,9 +50,9 @@ OPEN = re.compile(r"\bopen\b")
 
 
 def same(device: str, slot: str) -> bool:
-    """A device in Live is the standard's slot if the names agree, ignoring case, spaces and a maker's prefix
-    ("Modular FX" is "Softube Modular FX")."""
-    a, b = norm(device), norm(slot)
+    """A device in Live is the standard's slot if the names agree, ignoring case, spaces, a maker's prefix
+    ("Modular FX" is "Softube Modular FX") and a version tag ("SSL Native X-Saturator v6": SSL's files, 20 Oct)."""
+    a, b = (re.sub(r"v\d+$", "", norm(n)) for n in (device, slot))
     return bool(a) and bool(b) and (a == b or a.endswith(b) or b.endswith(a))
 
 
@@ -256,6 +256,7 @@ def self_test(standard: dict) -> int:
         "the Atmosphere's Pad: Phase Plant the source": ([("MidiTrack", "Pad", [("Phase Plant", True)] + std[1:])], 0, 0),
         "a group to standard": ([("GroupTrack", "Violins A", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 0, 0),
         "a group without its state": ([("GroupTrack", "Brass Low", [("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 1, 0),
+        "SSL's names as installed (a version tag)": ([("GroupTrack", "Choir", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator v6", False)])], 0, 0),
         "the master: Ozone 9": ([("MainTrack", "Main", [("Ozone 9", True)])], 0, 0),
         "the master, the Live desk": ([("MainTrack", "Main", [("live:GlueCompressor", True), ("live:Limiter", True)])], 0, 0),
         "the hall: UAD's Lexicon 224": ([("ReturnTrack", "Space", [("Lexicon 224", True)])], 0, 0),
