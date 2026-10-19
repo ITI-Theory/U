@@ -4111,6 +4111,17 @@ other work.
       what, if anything, goes in a book (the freeze is the end of Sat 17), and what stays private.
 - [x] (18 Oct: all approved as proposed) (ISS-095) Approve the science/show tags, feature by feature: registry/features.yaml (`approved:
       true`, or change the tag); `make -C sherlock features` lists what is still awaiting.
+- [ ] (ISS-120) The studio: approve or change the standard (registry/studio/standard.yaml); make it
+      Live's own (a track preset or rack "Soma Standard", a template set); the one-track test (a
+      violin: Serum 2 into Phase Plant, audio in: the input, the macros, the CPU).
+- [ ] (ISS-120) HAL: create the Studio manuals notebook (OneDrive\lib\manuals and its README; SSL's
+      two guides as web sources), then ask uat/RC3/hal-live-workflow-2026-10-19.md and
+      hal-console-2026-10-19.md; the answers into Me as before. Save Serum 2's full manual (inside
+      Serum 2) into the folder; UAD's and Melodyne's once installed.
+- [ ] (ISS-120) Push today's commits (U main, Dist, Me); decide on ISS-116's marker in the public
+      history (commit 86181e5): rewrite or leave.
+- [ ] (ISS-119) Read P26, Compose Once, Play Live (paper/soma/compose-once-play-live), and name the
+      suite's thirteen movements (Me/music/movements.yaml `titles:`).
 - [ ] (ISS-027) Calibrate the stereo on the Atom with the glasses: which layout the
       projector takes, and a comfortable depth (the DEPTH slider in the engine room,
       ISS-052).
@@ -6463,3 +6474,88 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
 - [ ] AUTHOR: push today's commits (U main, Dist, Me: nothing pushed since the morning).
 - [ ] AUTHOR: ISS-116's marker is in the public history (commit 86181e5, 18 Oct; removed from the tree
       19 Oct): rewrite the history or leave it.
+
+## ISS-121: The [T]-Elevator (the Televator): one device for every move, and the moving map — OPEN
+
+{{Tags area.app, area.theory, area.books}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 20:50: "say I am in the brain, there is an elevator, like a tube up or down ... but how do
+I move to the mind from here, I need a jump ... a generic device that looks like the elevator, but
+more mixes in with the level: the tube up and down, a forward tube and maybe a worm tube ... the fwd is
+stay at the same dimension, but move to mind; the graphics for fwd could include a vis of the next
+entrance; and a slider for time too ... it is an elevator, but also a Time Elevator: [T]-Elevator, a
+Televator ... does this link to philosophy, science ... how many layers can we go here, inf or ints?
+... and the moving map?" "It will look GREAT in the books."
+
+The design (Copilot, agreed 20:52): the elevator (ISS-052, ISS-101: SCALE, DIMENSION, FREQUENCY) grows
+into the [T]-Elevator, "[T]" read as Theory and as Time. Four moves and a clock:
+
+| Control | Moves | Data | Philosophy (`interpretive`) |
+|---|---|---|---|
+| UP / DOWN (the shaft) | scale: the same thing, larger or smaller | the levels (registry/levels) | part and whole: the levels of science, P11's zoomable field; "more is different" |
+| FORWARD (the tube, the next entrance shown in it) | aspect: the same scale, another description; brain to mind | the hubs' routes (registry/hubs.yaml) and the readings 4D, 8D, 11D | the mind-body problem: Leibniz's mill (walk inside, find no perception), answered by a change of aspect, not of scale: Russell's neutral monism |
+| WORM | analogy: no road, the same structure | the documents' sameness claims (registry/cases/tests.yaml), each with Sherlock's MAC/FAC similarity and its share beyond the template | analogy as structure mapping (Gentner): a jump allowed only where structure is shared, and its score shown |
+| TIME (the slider) | when | the eras (registry/eras.yaml) | becoming; the history of philosophy as time-invariant structure |
+
+How many floors: both. The shaft is continuous (the field's model is scale-free); the world is
+bounded (the Planck length below, the observable universe above: about 60 orders of magnitude); the
+floors are whole-number stops, the levels the papers cover. Between floors the car is in the shaft,
+between descriptions.
+
+- [ ] The link between the app's levels and P11's scales (the MAC/FAC cases), declared once and
+      checked (registry), not guessed by code.
+- [ ] Sherlock's MAC/FAC writes the worm's routes (the claimed pairs, the quote and line, the
+      similarity, beyond the template) as a generated registry file the app reads.
+- [ ] The [T]-Elevator in the app: the four moves and the time slider on the elevator; FORWARD shows
+      the next entrance (its name, its line, its colour) before the move; WORM lists the claimed
+      analogies of the floor with Sherlock's scores, labelled; each move is a declared transition
+      (elevator, tube, wormhole, fade: registry/transitions.yaml) with its sound event.
+- [ ] The moving map: where you are on three axes (scale up the side, aspect across, time along the
+      bottom), the wormholes as arcs; WHEREAMI and the route planner (ISS-110) fold into it.
+- [ ] Checked headless (every move, every floor), a UAT entry, plates for the books (the Gallery, the
+      Atlas: the Televator and the moving map as figures), and the philosophy reading drafted for the
+      Philosophy book (the author's call).
+
+## ISS-122: The rooms: the Music Room and the Cinema (beside the Engine Room and the Gallery) — OPEN
+
+{{Tags area.app, area.art}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 20:40: "if we have an engine room, have we got a music room, and or a gallery? ...
+Cinema ... sounds grander". A room is a workplace with its own purpose, its people and its four outputs
+(the tabs with four outputs, ISS-120's pipeline); the Engine Room (a screen role) and A Gallery of
+Thoughts (ISS-097) exist.
+
+| Room | For | In it | Its four outputs |
+|---|---|---|---|
+| Engine Room | the operator | settings, screens, the camera, the relay | layouts, presets, the machine's state, logs |
+| Music Room | the composer and musician | the console (ISS-120), the deck, the score and its movements, the versions | the printed score, the stems, the master, the Live set |
+| Gallery | the public, the reader | the art book's plates, the film's stills, score pages | plates, the art book, book figures, stills |
+| Cinema | the viewer | the film, per viewer version | the film, its versions, trailers, the recording |
+
+- [ ] The Music Room: a room in the app (a place with a doorway, as the halls are) holding the deck,
+      the score's movements, and, when built, the console; Live is the instrument behind it (the rule:
+      music is made in Live); listening is Live's bounces of each version.
+- [ ] The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.
+- [ ] The rooms on the map: entered by doorway transitions; the Gallery as the public face of the asset
+      registry (ISS-120's pipeline: a film frame a plate, a plate a book figure).
+
+## ISS-123: Text as a 4x4: four authors, chosen per passage — OPEN
+
+{{Tags area.books, area.sherlock}}
+{{Fields date.created=2026-10-19, date.start=2026-10-19, date.end=, epic=}}
+
+Author, 19 Oct 20:50: "if we have the 4x4 reMIDI, we could do the same for text: like having four
+authors, the top scorer right at the top; we could even use a JS git-merge-ish thing to mix all four to
+one". Copilot: a writers' room (Hollywood: one writer after another, the director merges); a literal
+merge makes conflicts, not blends, so the deck's way: four authors are the four slots, each passage a
+step, the author picks A, B, C, D or a blend; the merge tooling shows where they differ and agree; each
+spot shows the best-checked option first (Sherlock's score: claims that hold, evidence labels, length
+for the level); every sentence keeps its author (provenance, a writing credit). AI is one author of
+four, never the one who decides.
+
+- [ ] The format: a passage's four versions side by side (registry or a draft folder), the author's
+      pick recorded with its provenance.
+- [ ] Sherlock's score per version (its checks on claims and labels; the level's length).
+- [ ] The view: four columns, the differences marked, the top scorer first; the pick writes the text.
