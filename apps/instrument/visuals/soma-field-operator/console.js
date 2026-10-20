@@ -44,12 +44,15 @@ function fill(slot, desk, group) {
   return list(slot.by_group?.[group] ?? slot.device);
 }
 
+// a container the standard declares (Snap Heap, Modular, Serum 2, Phase Plant): its macros are the feelings
+const isContainer = device => Object.keys(RULES?.homes ?? {}).some(h => norm(h) && (norm(device).endsWith(norm(h)) || norm(h).endsWith(norm(device))));
+
 // the sections a device sits in. A container (a declared home: Snap Heap, Modular, Serum 2, Phase Plant) sits where
 // its slot's role says, and in FEEL for its macros; any other plugin in its own section (its name, else its index's
 // home, else its slot's) and every section its NKS controls land in.
 export function placement(device, role, plug) {
   const roleHome = RULES?.roles?.[role] ?? 'out';
-  const declared = Object.keys(RULES?.homes ?? {}).some(h => norm(h) && (norm(device).endsWith(norm(h)) || norm(h).endsWith(norm(device))));
+  const declared = isContainer(device);
   if (declared || plug?.kind === 'INST') return [...new Set([roleHome, ...(plug?.sections?.feel?.length || declared ? ['feel'] : [])])];
   const byName = (RULES?.order ?? []).find(id => PATTERNS[id].some(p => p.test(device)));
   const own = byName ?? plug?.home ?? roleHome;
@@ -137,7 +140,7 @@ export function createConsole() {
   const status = root.querySelector('.console__status');
   const trackSel = root.querySelector('[data-track]');
   const deskSel = root.querySelector('[data-desk]');
-  let plugins = {}, note = '', view = 'channel', midi = null;
+  let plugins = {}, note = '', view = 'channel', midi = null, focus = RULES?.m32?.focus ?? 'eq';
 
   // the knobs first; switches (on/off, routing, bypass) after them
   const SWITCH = /\benable|\bbypass|invert|\bto\b|\bpre\b|\bsolo\b|\bsafe\b|listen|\block\b|oversampl|external|\bcut\b|\bpeak\b|fast attack|series|\bbell\b/i;
@@ -147,6 +150,23 @@ export function createConsole() {
     if (!cs.length) return '';
     return cs.slice(0, SHOWN).map(c => `<li><span class="console__k"></span>${esc(c.name)}<small>${esc(c.section)}</small></li>`).join('')
       + (cs.length > SHOWN ? `<li class="console__more">+${cs.length - SHOWN} more</li>` : '');
+  }
+
+  // the M32: its knobs on the section in focus, the NKS names of the first devices there with controls (knobs first)
+  function m32(cols) {
+    const n = RULES?.m32?.knobs ?? 8;
+    const names = cols[focus].filter(c => c.plug).flatMap(c => [...(c.plug.sections?.[focus] ?? [])]
+      .sort((a, b) => SWITCH.test(a.name) - SWITCH.test(b.name)).map(k => ({ device: c.device, ...k }))).slice(0, n);
+    const knobs = Array.from({ length: n }, (_, i) => names[i]);
+    return `<div class="m32" data-section="${esc(focus)}"><h4>M32 · ${esc(NAME(focus))} <small>click a section to bring it here</small></h4>
+      <div class="m32__display">${knobs.map(k => `<div class="m32__knob"><span class="console__k"></span><b>${esc(k?.name ?? '—')}</b><small>${esc(k ? `${k.device.replace(/^SSL Native /, '')} · ${k.section}` : '')}</small></div>`).join('')}</div></div>`;
+  }
+  // the F1: the deck's slots by its levels (a pad launches that level), its faders the slots' levels
+  function f1() {
+    const slots = RULES?.f1?.slots ?? [], levels = RULES?.f1?.levels ?? [];
+    return `<div class="f1"><h4>F1 · THE DECK <small>pads: the slots by the levels · faders: the slots</small></h4>
+      <div class="f1__pads">${levels.map((lv, r) => slots.map(s => `<span class="f1__pad" style="--r:${r}" title="${esc(`${s}, ${lv}`)}">${esc(lv)}</span>`).join('')).join('')}</div>
+      <div class="f1__faders">${slots.map(s => `<div class="f1__fader"><div class="console__fader"><span></span></div><small>${esc(s)}</small></div>`).join('')}</div></div>`;
   }
 
   function renderChannel() {
@@ -166,12 +186,14 @@ export function createConsole() {
         <h3>${esc(NAME(s))}</h3><p>${esc(RULES?.sections?.[s]?.say ?? '')}</p>
         ${s === 'feel' ? `<ul class="console__feelings">${feel.map(f => `<li><b>${esc(f.name)}</b><small>CC ${f.cc} · ${esc(f.macro)}</small></li>`).join('')}</ul>` : ''}
         ${cols[s].map(c => `<div class="console__device${c.on ? ' is-on' : ''}"><header><span class="console__led"></span><b>${esc(c.device)}</b><small>${esc(c.where)} · ${c.on ? 'on' : 'off'}</small></header>
-          ${c.send ? '' : `<ul>${s === 'feel' && !c.plug ? '<li class="console__none">its macros 1-8: the feelings</li>' : controls(c.plug, s)}</ul>`}</div>`).join('')
+          ${c.send ? '' : `<ul>${s === 'feel' && (!c.plug || isContainer(c.device)) ? '<li class="console__none">its macros 1-8: the feelings</li>' : controls(c.plug, s)}</ul>`}</div>`).join('')
           || '<p class="console__empty">nothing on this track</p>'}
       </div>`).join('');
     twisters.innerHTML = `
       <div class="twister"><h4>TWISTER · BANK 1 <small>the app's knobs</small></h4><div class="twister__grid">${appKnobs().map(k => knobHtml(k, 1)).join('')}</div></div>
-      <div class="twister"><h4>TWISTER · BANK ${esc(RULES?.twister?.bank ?? 2)} <small>${esc(track)}'s fixed jobs · a proposal</small></h4><div class="twister__grid">${channelKnobs(chain, plugins).map(k => knobHtml(k, 2)).join('')}</div></div>`;
+      <div class="twister"><h4>TWISTER · BANK ${esc(RULES?.twister?.bank ?? 2)} <small>${esc(track)}'s fixed jobs · a proposal</small></h4><div class="twister__grid">${channelKnobs(chain, plugins).map(k => knobHtml(k, 2)).join('')}</div></div>
+      ${m32(cols)}${f1()}`;
+    board.querySelector(`.console__section[data-section="${focus}"]`)?.classList.add('is-focus');
     status.textContent = `${track} (${group}) · the ${desk.toUpperCase()} desk · ${note}`;
   }
 
@@ -239,7 +261,11 @@ export function createConsole() {
   root.addEventListener('click', event => {
     event.stopPropagation();
     const b = event.target.closest('button');
-    if (!b) return;
+    if (!b) {
+      const sec = event.target.closest('.console__board--channel .console__section');
+      if (sec) { focus = sec.dataset.section; render(); }
+      return;
+    }
     if (b.dataset.view) {
       view = b.dataset.view;
       for (const x of root.querySelectorAll('[data-view]')) x.classList.toggle('active', x === b);

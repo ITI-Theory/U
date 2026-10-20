@@ -90,7 +90,8 @@ try {
   await pick(page, '[data-track]', 'Pad');
   const sources = await page.locator('.console__section[data-section="source"] .console__device b').allInnerTexts();
   ok(sources.join() === 'Phase Plant', `the Atmosphere's Pad: Phase Plant the source (${sources.join(', ')})`);
-  if (havePlugins) ok((await col(page, 'feel')).includes('Timbre'), 'Phase Plant\'s macros from its NKS map in FEEL');
+  ok((await col(page, 'feel')).includes('Phase Plant') && (await col(page, 'feel')).includes('its macros 1-8: the feelings') && !(await col(page, 'feel')).includes('Timbre'),
+    'FEEL: Phase Plant\'s macros are the feelings (not one preset\'s labels)');
   // 3. the desks
   await pick(page, '[data-track]', 'Violins I');
   await pick(page, '[data-desk]', 'uad');
@@ -115,6 +116,14 @@ try {
   ok(await page.locator('.twister__knob[data-bank="2"][data-cc="31"]').evaluate(e => e.classList.contains('is-pushed')), 'a push (channel 2) lights its dot');
   await page.evaluate(() => window.__twister(0xb0, 1, 64));
   ok(await page.locator('.twister__knob[data-bank="1"][data-cc="1"]').evaluate(e => e.classList.contains('is-touched')), 'bank 1: the app\'s Fear knob lights');
+  // the M32 and the F1
+  const m32 = () => page.locator('.m32__display').innerText();
+  ok((await text(page, '.m32 h4')).includes('EQ AND FILTER') && (havePlugins ? (await m32()).includes('Low Gain') : true), 'the M32: EQ in focus, its NKS names (Low Gain)');
+  await page.locator('.console__section[data-section="dynamics"] h3').click();
+  await page.waitForTimeout(250);
+  ok((await text(page, '.m32 h4')).includes('DYNAMICS') && (havePlugins ? (await m32()).includes('Threshold') : true), 'a section clicked comes to the M32 (DYNAMICS: Threshold)');
+  ok(await page.locator('.console__section.is-focus').getAttribute('data-section') === 'dynamics', 'the section in focus is marked');
+  ok(await page.locator('.f1__pad').count() === 16 && await page.locator('.f1__fader').count() === 4 && (await text(page, '.f1')).includes('texture'), 'the F1: the deck, 16 pads and 4 faders (lead to texture)');
   await page.locator('.console').screenshot({ path: path.join(out, 'console-3-twisters.png') });
   // 5. the desk view
   await page.locator('.console [data-view="desk"]').click();

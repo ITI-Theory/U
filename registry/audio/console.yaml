@@ -52,3 +52,10 @@ twister:
     - {section: space, job: to the designed space, send: Designed space}
     - {section: out, job: pan, strip: [Stereo, Pan]}
     - {section: out, job: level, strip: [Master, Fader]}
+
+# The other two controllers on the screen (ISS-120; Copilot's design, 19 Oct). The M32 (Komplete Kontrol): its eight
+# knobs on one section of the track, the NKS names on its display; the section in focus is the one clicked on the
+# screen (EQ AND FILTER first). The F1 (Traktor Kontrol F1): the deck (deck.js, Me/music/deck.py), its 4 x 4 pads the
+# slots by the levels (a pad launches that level), its four faders the slots' levels. Drawn, not yet mapped.
+m32: {knobs: 8, focus: eq}
+f1: {slots: [lead, harmony, bass, texture], levels: [calm, moving, tense, peak]}

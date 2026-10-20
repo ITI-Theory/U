@@ -1124,3 +1124,35 @@ body.show-mode .pokefx__tag, body.show-mode .snap-toast { display: none !importa
 /* a poke answered (ISS-120, screens.js): every window's edge flashes, whatever it shows */
 body.screen-poked::after { content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; box-shadow: inset 0 0 0 3px #ff3bce, inset 0 0 60px rgba(255,59,206,.45); animation: screenPoked .9s ease-out forwards; }
 @keyframes screenPoked { from { opacity: 1; } to { opacity: 0; } }
+/* the M32 and the F1 (console.js) */
+.console__twisters { flex-wrap: wrap; align-items: flex-start; }
+.console__board--channel .console__section { cursor: pointer; }
+.console__section.is-focus { outline: 1px dashed var(--hue); outline-offset: -4px; }
+.m32 h4, .f1 h4 { margin: 0 0 6px; font-size: 11px; letter-spacing: .08em; color: var(--hue, #14e5ff); }
+.m32 h4 small, .f1 h4 small { color: rgba(232,238,252,.5); font-weight: 400; margin-left: 6px; }
+.m32__display { display: grid; grid-template-columns: repeat(4, 104px); gap: 6px; padding: 10px; border-radius: 6px; background: #05070d; box-shadow: inset 0 0 0 1px rgba(232,238,252,.12), 0 0 18px rgba(20,229,255,.08); }
+.m32__knob { display: grid; justify-items: center; gap: 3px; padding: 6px 2px; border-top: 2px solid var(--hue); background: rgba(255,255,255,.02); }
+.m32__knob .console__k { width: 22px; height: 22px; }
+.m32__knob b { font-size: 10px; text-align: center; line-height: 1.15; }
+.m32__knob small { font-size: 8.5px; color: rgba(232,238,252,.4); text-align: center; }
+.f1 { --hue: #ff3bce; }
+.f1__pads { display: grid; grid-template-columns: repeat(4, 44px); gap: 5px; padding: 8px; border-radius: 6px; background: #0d0c14; }
+.f1__pad { display: grid; place-items: center; height: 44px; border-radius: 4px; font-size: 8.5px; color: rgba(232,238,252,.75); background: color-mix(in srgb, #ff3bce calc(12% + var(--r) * 14%), #14121e); box-shadow: inset 0 0 0 1px rgba(255,59,206,.35); }
+.f1__faders { display: grid; grid-template-columns: repeat(4, 44px); gap: 5px; padding: 6px 8px 0; }
+.f1__fader { display: grid; justify-items: center; }
+.f1__fader .console__fader { height: 70px; margin: 0 auto 4px; }
+.f1__fader small { font-size: 8.5px; color: rgba(232,238,252,.5); }
+/* the controllers in one row under the board (compact; the board keeps the height) */
+.console__twisters { flex-wrap: nowrap; gap: 18px; padding: 8px 14px 10px; overflow-x: auto; }
+.twister__grid { grid-template-columns: repeat(4, 78px); gap: 3px; padding: 6px; }
+.twister__knob { padding: 3px 1px; }
+.twister__ring { width: 26px; height: 26px; -webkit-mask: radial-gradient(circle, transparent 8px, #000 9px); mask: radial-gradient(circle, transparent 8px, #000 9px); }
+.twister__dot { top: 12px; width: 6px; height: 6px; }
+.twister__knob b { font-size: 8.5px; }
+.m32__display { grid-template-columns: repeat(4, 92px); padding: 6px; }
+.f1 { display: grid; grid-template-columns: auto auto; column-gap: 8px; align-content: start; }
+.f1 h4 { grid-column: 1 / -1; }
+.f1__pads { grid-template-columns: repeat(4, 34px); gap: 4px; padding: 6px; }
+.f1__pad { height: 34px; font-size: 7.5px; }
+.f1__faders { grid-template-columns: repeat(4, 34px); gap: 4px; padding: 6px 0 0; }
+.f1__fader .console__fader { height: 118px; }

@@ -1166,7 +1166,7 @@ def load_console() -> dict[str, Any]:
     errors += [f"console role {r}: section {s!r} unknown" for r, s in (c.get("roles") or {}).items() if s not in sections]
     if errors:
         raise SystemExit("\n".join(errors))
-    return {k: c.get(k) for k in ("order", "homes", "sections", "roles", "twister")}
+    return {k: c.get(k) for k in ("order", "homes", "sections", "roles", "twister", "m32", "f1")}
 
 
 def load_users() -> dict[str, Any]:

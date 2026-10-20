@@ -6596,7 +6596,9 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       the app's knobs (midi-in.js), bank 2 the channel's sixteen fixed jobs (factory CC 16-31), each naming what it
       turns on this track with this desk (the SSL strip's NKS names); LISTEN lights a knob turned or pushed, and
       its section. The Twister has no touch sensing (push switches only): it lights on a turn or push. The console
-      shows and listens; it sends nothing (Live does the sound). The F1 and M32 are not drawn yet.
+      shows and listens; it sends nothing (Live does the sound). 20 Oct 02:5x: the M32 (its eight knobs on the section clicked, the NKS names, the knobs first)
+      and the F1 (the deck: the slots by the levels on 4 x 4 pads, the slots on its faders), drawn, not yet mapped; in FEEL
+      a source's or container's macros say "the feelings" (Serum 2's NKS labels are one preset's: "LPass"); 29 checks.
 - [x] (20 Oct, the author: "you pick": the proposal stands) AUTHOR: bank 2's sixteen jobs (registry/audio/console.yaml `twister`), a proposal: EQ low, low mid, high
       mid, high; threshold, ratio, release, gate; the state's amount, how wrong, modular, width; the two sends,
       pan, level. Then mapped in Live (MIDI Map, or the Soma script on the selected track).
