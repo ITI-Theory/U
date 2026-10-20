@@ -133,8 +133,48 @@ const transitions = places.slice(1).map((p, k) => {
 });
 const out = resolve(here, '../../../../../bld/film', `${tourId}.${scoreId}.${viewerId}.timeline.json`);
 mkdirSync(dirname(out), { recursive: true });
+
+// the narration track (with --takes): every take placed at its scene's speech, one WAV beside the timeline that
+// FILM plays as the film's clock. Takes of 16-bit PCM, all at one rate (the narrator's, or the author's exported so).
+function readWav(path) {
+  const b = readFileSync(path);
+  let p = 12, fmt = null, data = null;
+  while (p + 8 <= b.length) {
+    const id = b.toString('ascii', p, p + 4), size = b.readUInt32LE(p + 4);
+    if (id === 'fmt ') fmt = { format: b.readUInt16LE(p + 8), channels: b.readUInt16LE(p + 10), rate: b.readUInt32LE(p + 12), bits: b.readUInt16LE(p + 22) };
+    if (id === 'data') data = b.subarray(p + 8, p + 8 + size);
+    p += 8 + size + (size % 2);
+  }
+  if (!fmt || !data || fmt.format !== 1 || fmt.bits !== 16) return null;
+  const all = new Int16Array(data.buffer, data.byteOffset, Math.floor(data.length / 2));
+  if (fmt.channels === 1) return { rate: fmt.rate, samples: all };
+  const mono = new Int16Array(Math.floor(all.length / fmt.channels));
+  for (let i = 0; i < mono.length; i++) mono[i] = all[i * fmt.channels];
+  return { rate: fmt.rate, samples: mono };
+}
+let narration = null;
+if (narrated && takesDir) {
+  const clips = places.map((pl, k) => {
+    const take = parts[k].take;
+    if (!take || !pl.speech) return null;
+    const wav = readWav(join(takesDir, take.file.replace(/\.words\.json$/, '.wav')));
+    return wav ? { at: pl.speech.from - take.words[0].start, ...wav } : null;
+  }).filter(Boolean);
+  const rate = clips[0]?.rate;
+  if (rate && clips.every(c => c.rate === rate)) {
+    const track = new Int16Array(Math.ceil(seconds * rate));
+    for (const c of clips) track.set(c.samples.subarray(0, Math.max(0, track.length - Math.round(c.at * rate))), Math.max(0, Math.round(c.at * rate)));
+    const header = Buffer.alloc(44);
+    header.write('RIFF', 0); header.writeUInt32LE(36 + track.byteLength, 4); header.write('WAVE', 8); header.write('fmt ', 12);
+    header.writeUInt32LE(16, 16); header.writeUInt16LE(1, 20); header.writeUInt16LE(1, 22); header.writeUInt32LE(rate, 24);
+    header.writeUInt32LE(rate * 2, 28); header.writeUInt16LE(2, 32); header.writeUInt16LE(16, 34); header.write('data', 36); header.writeUInt32LE(track.byteLength, 40);
+    narration = `${tourId}.${scoreId}.${viewerId}.narration.wav`;
+    writeFileSync(resolve(dirname(out), narration), Buffer.concat([header, Buffer.from(track.buffer)]));
+    console.log(`narration: ${clips.length} takes of ${places.length} places -> ${narration}`);
+  } else console.log('narration: none (no takes, or takes at different rates)');
+}
 const doc = { schema: 'soma-film-timeline/1', compiled: new Date().toISOString(), tour: tourId, score: scoreId, viewer: viewerId,
-  minutes, fps, modes: MODE_IDS, places, transitions, frames, ...(narrated ? { voice: voice.map(([a, b]) => [+a.toFixed(2), +b.toFixed(2)]) } : {}),
+  minutes, fps, modes: MODE_IDS, places, transitions, frames, ...(narrated ? { voice: voice.map(([a, b]) => [+a.toFixed(2), +b.toFixed(2)]) } : {}), ...(narration ? { narration } : {}),
   note: 'Compiled once (compose time). At run time the app plays it in sync and adds only live overrides (knobs, the strap, a poke). Interpretive: the band and the transitions are proposals (ISS-115, docs/PIPELINE.md).' };
 writeFileSync(out, JSON.stringify(doc));
 console.log(`${out}: ${places.length} places, ${transitions.length} transitions, ${frames.length} frames (${minutes} min at ${fps} fps)`);

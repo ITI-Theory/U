@@ -27,7 +27,11 @@ export function createFilm({ explorer }) {
     <small>Esc ends the film.</small>`;
   document.body.append(panel);
   const status = panel.querySelector('.show-panel__status');
-  let doc = null, raf = 0, t0 = 0, placeAt = -1, veil = null, busy = false, speed = 1;
+  let doc = null, raf = 0, t0 = 0, placeAt = -1, veil = null, busy = false, speed = 1, voice = null;
+  // the narration (ISS-125): a narrated film's voice track beside its timeline, served by MOTHER (/cinema/film/);
+  // while it plays it is the film's clock, so the words and the places stay together
+  const bridge = () => { try { return (localStorage.getItem('mother-bridge-url') || 'http://127.0.0.1:8765').replace(/\/$/, ''); } catch { return 'http://127.0.0.1:8765'; } };
+  const voiceTime = () => (voice && !voice.paused && voice.readyState >= 2 ? voice.currentTime : null);
 
   function useDoc(d) {
     doc = d?.schema === 'soma-film-timeline/1' && d.frames?.length ? d : null;
@@ -64,7 +68,7 @@ export function createFilm({ explorer }) {
 
   function frame(now) {
     raf = requestAnimationFrame(frame);
-    const time = ((now - t0) / 1000) * speed;
+    const time = voiceTime() ?? ((now - t0) / 1000) * speed;
     const n = Math.min(doc.frames.length - 1, Math.max(0, Math.floor(time * doc.fps)));
     const f = doc.frames[n];
     if (f.place !== placeAt && !busy) enter(f.place);
@@ -80,11 +84,19 @@ export function createFilm({ explorer }) {
     placeAt = -1;
     busy = false;
     t0 = performance.now();
+    voice?.pause();
+    voice = null;
+    if (doc.narration && speed === 1) {
+      voice = new Audio(`${bridge()}/cinema/film/${encodeURIComponent(doc.narration)}`);
+      voice.play().catch(() => { voice = null; });   // no bridge, or the browser refused: the film runs on its own clock
+    }
     raf = requestAnimationFrame(frame);
   }
   function stop() {
     cancelAnimationFrame(raf);
     raf = 0;
+    voice?.pause();
+    voice = null;
     explorer.setFilm?.(null);
     document.body.classList.remove('film-mode');
   }
@@ -98,6 +110,10 @@ export function createFilm({ explorer }) {
   // a film handed over by name (the Cinema, ISS-122): { doc, play }
   addEventListener('soma-film-load', event => { useDoc(event.detail?.doc); if (doc && event.detail?.play) start(); else panel.hidden = false; });
   // seek (the frame renderer, scripts/render-film.mjs, starts mid-film): the film's clock moved to `seconds`
-  addEventListener('soma-film-seek', event => { t0 = performance.now() - (Number(event.detail?.seconds) || 0) * 1000 / speed; });
+  addEventListener('soma-film-seek', event => {
+    const s = Number(event.detail?.seconds) || 0;
+    t0 = performance.now() - s * 1000 / speed;
+    if (voice) voice.currentTime = s;
+  });
   return { open() { panel.hidden = false; }, stop, get playing() { return Boolean(raf); } };
 }

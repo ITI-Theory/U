@@ -873,7 +873,7 @@ class Handler(BaseHTTPRequestHandler):
             self._serve(music_dir() / "bounces", unquote(route[len("/music/bounce/"):]), AUDIO)
             return
         if route.startswith("/cinema/film/"):
-            self._serve(FILM_DIR, unquote(route[len("/cinema/film/"):]), {".json": "application/json"})
+            self._serve(FILM_DIR, unquote(route[len("/cinema/film/"):]), {".json": "application/json", ".wav": "audio/wav"})
             return
         if route.startswith("/cinema/recording/"):
             self._serve(recordings_dir(), unquote(route[len("/cinema/recording/"):]), VIDEO)
