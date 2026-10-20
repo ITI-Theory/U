@@ -1307,6 +1307,40 @@ def load_reminders() -> list[dict[str, Any]]:
     return remind.read_author_steps(REPO_ROOT / "ISSUES.md")
 
 
+def load_scenes(ids: dict[str, set], errors: list[str]) -> dict[str, dict[str, Any]]:
+    """registry/scenes.yaml (ISS-125): one scene per place, its words per user, recorded once and used by any tour.
+    Checked: unique ids, a valid view, each user's words open or {say, label}, a hook of two lines and two lines."""
+    path = REGISTRY_ROOT / "scenes.yaml"
+    if not path.exists():
+        return {}
+    doc = load_yaml(path) or {}
+    users = doc.get("users") or ["u"]
+    out: dict[str, dict[str, Any]] = {}
+    for i, sc in enumerate(doc.get("scenes") or [], 1):
+        where = f"{path}: scene {i} ({sc.get('id')})"
+        sid = sc.get("id")
+        if not sid or sid in out:
+            errors.append(f"{where}: an id, once")
+            continue
+        for problem in tour_view_errors(str(sc.get("view", "")), ids):
+            errors.append(f"{where}: {problem}")
+        for user in users:
+            words = sc.get(user)
+            if words == "open":
+                continue
+            if not isinstance(words, dict) or not str(words.get("say", "")).strip():
+                errors.append(f"{where}: {user}: the words (say) or `open`")
+                continue
+            if words.get("label") not in EVIDENCE_LABELS:
+                errors.append(f"{where}: {user}: label must be one of {sorted(EVIDENCE_LABELS)}")
+            hook = words.get("hook")
+            if hook is not None and not all(isinstance(hook.get(k), list) and len(hook[k]) == 2 and all(isinstance(x, str) and x.strip() for x in hook[k])
+                                            for k in ("question", "answer")):
+                errors.append(f"{where}: {user}: a hook is a question of two lines and an answer of two lines")
+        out[sid] = sc
+    return out
+
+
 def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], eras: list[dict[str, Any]]) -> list[dict[str, Any]]:
     tour_dir = REGISTRY_ROOT / "tours"
     if not tour_dir.exists():
@@ -1368,9 +1402,33 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
         tour["steps"] = steps
 
     generated = [tour_dir / f"{stem}.yaml" for stem in raw if not (tour_dir / f"{stem}.yaml").exists()]
+    scenes = load_scenes(ids, errors)
+
+    # A step `scene: <id>` (registry/scenes.yaml, ISS-125): the scene's view, its words for the tour's user (U by
+    # default) and their label; the step's own keys (pause, dwell, poke, film) win.
+    def resolve(step: Any, tour: dict[str, Any], where: str) -> Any:
+        if not isinstance(step, dict) or "scene" not in step:
+            return step
+        sc = scenes.get(step["scene"])
+        user = step.get("user") or tour.get("user") or "u"
+        if sc is None:
+            errors.append(f"{where}: unknown scene {step['scene']!r} (registry/scenes.yaml)")
+            return step
+        words = sc.get(user)
+        if not isinstance(words, dict):
+            errors.append(f"{where}: scene {step['scene']!r} has no words for {user!r} yet")
+            return step
+        out = {"view": sc["view"], "say": " ".join(str(words.get("say", "")).split()), "label": words.get("label")}
+        if sc.get("poke"):
+            out["poke"] = sc["poke"]
+        out.update({k: v for k, v in step.items() if k != "user"})
+        return out
+
     for path in sorted(tour_dir.glob("*.yaml")) + generated:
         tour = raw[path.stem]
         expand(tour, path)
+        if isinstance(tour.get("steps"), list):
+            tour["steps"] = [resolve(s, tour, f"{path}: step {i}") for i, s in enumerate(tour["steps"], 1)]
         if tour.get("id") != path.stem:
             errors.append(f"{path}: id {tour.get('id')!r} must match file name {path.stem!r}")
         for key in ("title", "summary"):

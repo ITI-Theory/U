@@ -7,10 +7,11 @@
 // controls (midi-out.js bandControls, interpretive) are compiled too, for the sound to come.
 //
 //   node scripts/compile-film.mjs [--tour grand-tour] [--score river-film] [--viewer neutral] [--minutes 90] [--fps 10]
+//                                 [--takes <the author's takes: OneDrive\prj\Voice\takes>]
 //   -> ../../../../bld/film/<tour>.<score>.<viewer>.timeline.json
 
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tours, scores, viewers } from '../generated/app-data.js';
 import { presetParams, viewerTransform, viewerStep, MODE_IDS } from '../score.js';
@@ -26,8 +27,7 @@ const score = scores.find(s => s.id === scoreId);
 const viewer = viewers.find(v => v.id === viewerId) ?? null;
 if (!tour) throw new Error(`no tour ${tourId}`);
 if (!score) throw new Error(`no score ${scoreId}`);
-const minutes = Number(arg('minutes', score.minutes ?? 90));
-const seconds = minutes * 60;
+const minutesArg = arg('minutes', null);
 
 // the score's modes at story-time t in [0, 1] (linear between keyframes, as the player does)
 const keys = score.keyframes.map(k => (Array.isArray(k) ? { t: k[0], v: k[1] } : { t: k.t, v: MODE_IDS.map(id => k[id]) }));
@@ -39,12 +39,67 @@ function modesAt(t) {
   return Object.fromEntries(MODE_IDS.map((id, k) => [id, +(a.v[k] + (b.v[k] - a.v[k]) * f).toFixed(4)]));
 }
 
-// the places: each tour step an equal share of the film (a step's `dwell` would weight it later).
-// A step's `style:` (a directive to the renderers, non-functional) holds until the next one.
-let style = null;
+// A narrated film (ISS-125: a tour of scenes, or steps with `pause`): each place lasts a breath, its speech and
+// its pause. The speech is the author's take when one exists (--takes <dir>: the latest *-<scene>.words.json,
+// Me/voice/transcribe.py: its words' times), else estimated (130 words a minute). The times he speaks are the
+// film's voice map (`voice`): the orchestra writes around them (Me/music orchestra.py --voice). --minutes then
+// stretches or shrinks the pauses only, never the speech. Otherwise each step is an equal share of the film.
+const WPM = 130, BREATH = 1.5, GAP = 0.8;
+const takesDir = arg('takes', null);
+function takeFor(scene) {
+  if (!takesDir || !scene || !existsSync(takesDir)) return null;
+  const files = readdirSync(takesDir).filter(f => f.endsWith(`-${scene}.words.json`)).sort();
+  if (!files.length) return null;
+  const words = JSON.parse(readFileSync(join(takesDir, files.at(-1)), 'utf8')).words ?? [];
+  return words.length ? { file: files.at(-1), words } : null;
+}
+const narrated = tour.steps.some(s => s.pause !== undefined || s.scene);
+const parts = tour.steps.map(s => {
+  const take = narrated ? takeFor(s.scene) : null;
+  const words = String(s.say ?? '').split(/\s+/).filter(Boolean).length;
+  const speech = take ? take.words.at(-1).end - take.words[0].start : (words / WPM) * 60;
+  return { take, speech, pause: Number(s.pause ?? 4) };
+});
+let seconds;
+if (narrated) {
+  const fixed = parts.reduce((a, p) => a + BREATH + p.speech, 0), pauses = parts.reduce((a, p) => a + p.pause, 0);
+  if (minutesArg !== null) {
+    const f = Math.max(0.2, (Number(minutesArg) * 60 - fixed) / Math.max(1, pauses));
+    for (const p of parts) p.pause *= f;
+  }
+  seconds = parts.reduce((a, p) => a + BREATH + p.speech + p.pause, 0);
+} else seconds = Number(minutesArg ?? score.minutes ?? 90) * 60;
+const minutes = +(seconds / 60).toFixed(2);
+
+// the places. A step's `style:` (a directive to the renderers, non-functional) holds until the next one.
+let style = null, clock = 0;
+const voice = [];
 const places = tour.steps.map((s, k) => {
   if (s.style !== undefined) style = s.style === 'none' ? null : s.style;
-  return { index: k, view: s.view, from: (k / tour.steps.length) * seconds, to: ((k + 1) / tour.steps.length) * seconds, say: s.say, style };
+  let from, to, speech = null;
+  if (narrated) {
+    const p = parts[k];
+    from = clock;
+    to = clock + BREATH + p.speech + p.pause;
+    clock = to;
+    if (p.speech > 0) {
+      speech = { from: +(from + BREATH).toFixed(2), to: +(from + BREATH + p.speech).toFixed(2), take: p.take?.file ?? null };
+      if (p.take) {                                    // the take's phrases: the words, split at the breaths
+        const t0 = p.take.words[0].start;
+        let run = null;
+        for (const w of p.take.words) {
+          const a = from + BREATH + (w.start - t0), b = from + BREATH + (w.end - t0);
+          if (run && a - run[1] <= GAP) run[1] = b;
+          else { if (run) voice.push(run); run = [a, b]; }
+        }
+        if (run) voice.push(run);
+      } else voice.push([speech.from, speech.to]);
+    }
+  } else {
+    from = (k / tour.steps.length) * seconds;
+    to = ((k + 1) / tour.steps.length) * seconds;
+  }
+  return { index: k, view: s.view, from, to, say: s.say, style, ...(s.scene ? { scene: s.scene } : {}), ...(speech ? { speech } : {}) };
 });
 const params = presetParams(viewer);
 const frames = [];
@@ -79,7 +134,7 @@ const transitions = places.slice(1).map((p, k) => {
 const out = resolve(here, '../../../../../bld/film', `${tourId}.${scoreId}.${viewerId}.timeline.json`);
 mkdirSync(dirname(out), { recursive: true });
 const doc = { schema: 'soma-film-timeline/1', compiled: new Date().toISOString(), tour: tourId, score: scoreId, viewer: viewerId,
-  minutes, fps, modes: MODE_IDS, places, transitions, frames,
+  minutes, fps, modes: MODE_IDS, places, transitions, frames, ...(narrated ? { voice: voice.map(([a, b]) => [+a.toFixed(2), +b.toFixed(2)]) } : {}),
   note: 'Compiled once (compose time). At run time the app plays it in sync and adds only live overrides (knobs, the strap, a poke). Interpretive: the band and the transitions are proposals (ISS-115, docs/PIPELINE.md).' };
 writeFileSync(out, JSON.stringify(doc));
 console.log(`${out}: ${places.length} places, ${transitions.length} transitions, ${frames.length} frames (${minutes} min at ${fps} fps)`);

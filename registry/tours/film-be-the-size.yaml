@@ -1,0 +1,121 @@
+# A film as a tour of scenes (ISS-125): each step's view, words and label come from registry/scenes.yaml.
+id: film-be-the-size
+title: Be the size (a film, about thirty minutes)
+summary: 'The author''s 30-minute film and tour of the app, made of scenes (registry/scenes.yaml, ISS-125), his
+  voice over the flight. Act one: be the size, from your own out to the cosmic web, then in to the foam, each size
+  with its own now (its response time) and its neighbour. Act two: inside the instrument, the main screens. Act
+  three: the poke, the field at every size, and back to you. Draft words (Copilot''s, 20 Oct): the author corrects
+  every scene before he records it; his takes will pace it. Play with ?film=1#tour=film-be-the-size.'
+acts:
+- title: 'Act one: be the size'
+  scenes:
+  - being-the-size
+  - you-are-here
+  - be-the-flock
+  - be-the-city
+  - be-the-rock
+  - be-the-planet
+  - be-the-orbits
+  - be-the-star
+  - be-the-remnant
+  - be-the-galaxy
+  - be-the-halo
+  - be-the-cluster
+  - be-the-filaments
+  - be-the-universe
+  - be-the-web
+  - be-the-brain
+  - be-the-cell
+  - be-the-molecule
+  - be-the-atom
+  - be-the-nucleus
+  - be-the-boundary
+  - foam
+- title: 'Act two: inside the instrument'
+  scenes:
+  - the-worlds
+  - the-jellyfish
+  - the-heart
+  - the-way-in
+  - the-great-hall
+  - the-cathedral
+  - the-mind-palace
+  - the-limbic-hinge
+  - the-mind-chamber
+  - the-course
+  - the-landscape
+- title: 'Act three: the field at every size'
+  scenes:
+  - the-poke
+  - back-to-you
+steps:
+- scene: being-the-size
+  pause: 30
+- scene: you-are-here
+  pause: 30
+- scene: be-the-flock
+  pause: 30
+- scene: be-the-city
+  pause: 30
+- scene: be-the-rock
+  pause: 30
+- scene: be-the-planet
+  pause: 30
+- scene: be-the-orbits
+  pause: 30
+- scene: be-the-star
+  pause: 30
+- scene: be-the-remnant
+  pause: 30
+- scene: be-the-galaxy
+  pause: 30
+- scene: be-the-halo
+  pause: 30
+- scene: be-the-cluster
+  pause: 30
+- scene: be-the-filaments
+  pause: 30
+- scene: be-the-universe
+  pause: 30
+- scene: be-the-web
+  pause: 30
+- scene: be-the-brain
+  pause: 30
+- scene: be-the-cell
+  pause: 30
+- scene: be-the-molecule
+  pause: 30
+- scene: be-the-atom
+  pause: 30
+- scene: be-the-nucleus
+  pause: 30
+- scene: be-the-boundary
+  pause: 30
+- scene: foam
+  pause: 30
+- scene: the-worlds
+  pause: 22
+- scene: the-jellyfish
+  pause: 22
+- scene: the-heart
+  pause: 22
+- scene: the-way-in
+  pause: 22
+- scene: the-great-hall
+  pause: 22
+- scene: the-cathedral
+  pause: 22
+- scene: the-mind-palace
+  pause: 22
+- scene: the-limbic-hinge
+  pause: 22
+- scene: the-mind-chamber
+  pause: 22
+- scene: the-course
+  pause: 22
+- scene: the-landscape
+  pause: 22
+- scene: the-poke
+  pause: 22
+- scene: back-to-you
+  pause: 22

@@ -1,0 +1,560 @@
+# The scenes (ISS-125): one per place, recorded once, used everywhere. The author, 20 Oct 2026: "for each screen
+# view ... we need text and speech, and we just string it together ... reusable, rather than just for this film".
+# A scene is a place in the app (its view) with its words for each user (registry/users.yaml: u, scientist,
+# rooted), its evidence label, and for U its hook (a question and its answer, two lines each: the scene's own
+# theme, Me/music/hook.py). The author's spoken takes are private (OneDrive\prj\Voice\takes, named by scene). A
+# tour step says `scene: <id>` (its view, say and label come from here; `user:` on the tour picks the words, U by
+# default); a film is a tour of scenes, paced by the takes once they exist.
+#
+# The zoom (the author, 20 Oct): when we change the zoom we should feel that we ARE that size: its "now" (the
+# level's response time, registry/levels: how long it takes to answer) and its neighbour (what it couples to).
+# The levels' facts are the level files'; a scene's words say them for a listener and must agree with them.
+# Status: draft (Copilot's words, 20 Oct); the author corrects every scene before he records it.
+schema_version: 1
+users: [u, scientist, rooted]
+scenes:
+  # ---------------------------------------------------------------- the opening
+  - id: being-the-size
+    view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        When I see a picture of a man, or a picture of a mountain, the pictures may be the same size, but in my
+        head I see two different scales. Seeing a picture of a mountain is different again from standing at its
+        foot, or sitting on its summit. Yet even on the summit I don't feel the mountain next door the way I feel
+        a person sitting next to me. I have climbed, but my eyes are still the size they were. So in this film,
+        when we change size, we try to BE that size: to feel how long its moment lasts, and who its neighbour is.
+      hook:
+        question:
+          - "Can I be the size of the thing I see?"
+          - "Can my now grow long, or shrink to a spark?"
+        answer:
+          - "Only if my eyes forget their own size,"
+          - "and I feel what the next one of me feels."
+    scientist: open
+    rooted: open
+  - id: you-are-here
+    view: level=human-vertebrate&voyage=human&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        Start here, at your own size: about a metre or two, a body with a brain on top. Your "now" is about ten
+        seconds: a breath or two, a sentence, the time it takes something to reach you and for you to answer it.
+        Your neighbour is the person beside you. Remember how that feels. Every size we visit has a now and a
+        neighbour of its own.
+      hook:
+        question:
+          - "How long is now, for someone my size?"
+          - "Who is the one beside me, breathing too?"
+        answer:
+          - "A breath or two, a sentence, a turn of the head;"
+          - "you, and the warmth of you, close."
+    scientist: open
+    rooted: open
+  # ---------------------------------------------------------------- out: be the size
+  - id: be-the-flock
+    view: level=animal-swarm&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Now be the flock. Thousands of birds, no leader, and no group mind; each one only watches a few
+        neighbours. And yet the flock turns as one: a wave of heading crosses it faster than copying, bird by
+        bird, could carry it. As a flock your now is about a second. Your neighbour is the next flock, or the
+        hawk.
+      hook:
+        question:
+          - "Who decides when a thousand wings turn?"
+          - "Is there a leader I cannot see?"
+        answer:
+          - "No one decides: the turn runs through us all,"
+          - "faster than any one of us could tell."
+    scientist: open
+    rooted: open
+  - id: be-the-city
+    view: level=society-city&lens=on&dim=8
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        Be the city: a few kilometres of streets, rules, habits and people, all connected. A change in a city,
+        a rumour, a fashion, a fear, spreads along its connections, and the streets and networks shape where it
+        can go. A city's now is long: about ten days for a change to run through it. Its neighbour is the next
+        city, trading with it, copying it, competing.
+      hook:
+        question:
+          - "How does a city hear the news?"
+          - "How long before every street has heard?"
+        answer:
+          - "Along the roads, the wires, the friends of friends:"
+          - "ten days, and the whole town knows."
+    scientist: open
+    rooted: open
+  - id: be-the-rock
+    view: level=geological&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the rock: plates and faults hundreds of kilometres long. Rock holds stress for an enormously long
+        time, and a quake is the moment the stored stress moves at once. Your now is hundreds of thousands of
+        years. Your neighbour is the plate you grind against.
+      hook:
+        question:
+          - "What does the mountain carry in its stone?"
+          - "How long can it hold before it moves?"
+        answer:
+          - "Every push it never answered, held;"
+          - "then, in a minute, all of it, at once."
+    scientist: open
+    rooted: open
+  - id: be-the-planet
+    view: level=planetary&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the planet: thousands of kilometres of rock, metal, ocean and air, with a magnetic field around it.
+        Strike it hard enough, as a great earthquake does, and the whole Earth rings like a bell for days; its
+        deepest note takes nearly an hour. These are physical feedbacks, not feelings. Your neighbour is the
+        Moon, pulling the tides up and down your sides twice a day.
+      hook:
+        question:
+          - "If you strike the whole Earth, does it sing?"
+          - "How long before the ringing dies?"
+        answer:
+          - "For days it rings, its deepest note an hour,"
+          - "and the Moon keeps pulling at the sea."
+    scientist: open
+    rooted: open
+  - id: be-the-orbits
+    view: level=orbital-system&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the system of orbits: planets and moons falling around each other, forever missing. Each mass bends
+        the paths of the others. Your now is months: the time for a world to swing round. Your neighbours are
+        all of you at once, every body pulling every other.
+      hook:
+        question:
+          - "Why does the falling never end?"
+          - "Why does the Moon not reach the ground?"
+        answer:
+          - "Because it is always falling past;"
+          - "we are all falling, and always missing."
+    scientist: open
+    rooted: open
+  - id: be-the-star
+    view: level=stellar&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the star: a ball of hot plasma, held together by gravity and held up by its own pressure. Here is a
+        surprise. A star is a hundred times wider than the Earth, but its now is short: the Sun's surface rises
+        and falls every five minutes, and from those ripples we map the inside of the Sun. Being big is not the
+        same as being slow.
+      hook:
+        question:
+          - "Can something so vast be quick to answer?"
+          - "What is the Sun doing every five minutes?"
+        answer:
+          - "It breathes, it rings, it ripples on its skin,"
+          - "and we read its heart from the sound."
+    scientist: open
+    rooted: open
+  - id: be-the-remnant
+    view: level=compact-object&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be what is left when a big star dies: a neutron star, or a black hole, matter crushed beyond anything on
+        Earth. Disturb it, and it rings down like a struck bell, in a few thousandths of a second. The densest
+        things answer fastest. Your neighbour may be another one, spiralling in, until the two become one.
+      hook:
+        question:
+          - "What is left when the great fire is gone?"
+          - "How fast does the heaviest thing reply?"
+        answer:
+          - "A bell of crushed light, struck once;"
+          - "a thousandth of a second, and still."
+    scientist: open
+    rooted: open
+  - id: be-the-galaxy
+    view: level=galactic-disc&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the galaxy: a turning disc of a hundred billion stars, gas and dust. Waves of density sweep round it
+        like traffic jams, lighting new stars where they pass. Your now is one turn of the disc, a couple of
+        hundred million years. Your neighbour is Andromeda, coming towards you; in a few billion years you will
+        meet.
+      hook:
+        question:
+          - "How long is a day for a turning sea of stars?"
+          - "Who is coming, slowly, across the dark?"
+        answer:
+          - "One turn, two hundred million years;"
+          - "and Andromeda, our neighbour, on her way."
+    scientist: open
+    rooted: open
+  - id: be-the-halo
+    view: level=galactic-halo&lens=on&compare=1&contours=1
+    status: draft
+    u:
+      label: open-hypothesis
+      say: >-
+        Be the halo: the wide, unseen region around the galaxy. Galaxies spin too fast for the matter we can
+        see; something holds them together, and we know it only from how stars move and how light bends. The
+        programme offers its own reading of what that is; it is a proposal, and it is labelled so.
+      hook:
+        question:
+          - "What holds the spinning stars from flying free?"
+          - "What is the dark that has a weight?"
+        answer:
+          - "We see it only by how the bright things move:"
+          - "a shape we feel, and do not see."
+    scientist: open
+    rooted: open
+  - id: be-the-cluster
+    view: level=galaxy-cluster&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the cluster: hundreds or thousands of galaxies held in one shared field of gravity. Here the
+        neighbours are whole galaxies, falling through one another. Your now is billions of years.
+      hook:
+        question:
+          - "When galaxies are neighbours, how do they meet?"
+          - "Do they collide, or pass like ghosts?"
+        answer:
+          - "Their stars slip by, so far apart they never touch;"
+          - "only the gas and the gravity collide."
+    scientist: open
+    rooted: open
+  - id: be-the-filaments
+    view: level=cosmic-filaments&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the threads: giant filaments where galaxies and dark matter gather, with vast empty voids between
+        them. They still carry the pattern of tiny differences from when the universe was young. Your now is
+        billions of years, and your memory is older still.
+      hook:
+        question:
+          - "Where do the galaxies gather, and why there?"
+          - "What is the web remembering?"
+        answer:
+          - "Along the threads the first small ripples drew;"
+          - "the young universe, still in the old."
+    scientist: open
+    rooted: open
+  - id: be-the-universe
+    view: level=observable-universe&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be everything we can see: the largest region from which light has had time to reach us. It is
+        expanding; it was once hot; and it is still faintly ringing, in the microwave glow left over from its
+        youth. This is cosmic structure, not a mind in space.
+      hook:
+        question:
+          - "How far can the oldest light have come?"
+          - "Is the whole of it still ringing?"
+        answer:
+          - "From the edge of all that we can see,"
+          - "the first glow, cooling, faintly humming still."
+    scientist: open
+    rooted: open
+  - id: be-the-web
+    view: level=cosmic-web&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the web: the largest pattern there is, galaxies, threads and empty spaces, mapped from end to end.
+        It is a structure we can map, not a living thing. And here the zoom turns round: at this size, you
+        cannot see yourself at all. So let's go back, and then go in.
+      hook:
+        question:
+          - "At the largest size of all, where am I?"
+          - "Can the web of everything see me?"
+        answer:
+          - "Too small to find, and still a part of it;"
+          - "turn round, and go back in."
+    scientist: open
+    rooted: open
+  # ---------------------------------------------------------------- in: be the size
+  - id: be-the-brain
+    view: level=whole-brain-cemi&lens=on&dim=8
+    status: draft
+    u:
+      label: open-hypothesis
+      say: >-
+        Back to you, and in. Be your brain: billions of nerve cells signalling at once, making a pattern of
+        electrical activity we can measure. Its now is about a tenth of a second: a glance, a flicker. Whether
+        that shared pattern is part of what you experience is a hypothesis, and the app labels it so.
+      hook:
+        question:
+          - "How quick is a thought, from the inside?"
+          - "What do a billion signals make, together?"
+        answer:
+          - "A tenth of a second, a glance;"
+          - "a pattern, and maybe more: we ask, we do not know."
+    scientist: open
+    rooted: open
+  - id: be-the-cell
+    view: level=cellular-synaptic&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be one nerve cell. Small nudges arrive from your neighbours; below a threshold they fade away, above it
+        you fire, all or nothing, a spike about a thousandth of a second long. Your neighbour is the next cell,
+        across a gap called a synapse.
+      hook:
+        question:
+          - "How much must I be pushed before I speak?"
+          - "What happens to the whispers below?"
+        answer:
+          - "Enough, and I fire, all of me, at once;"
+          - "the rest fades, quietly, and is gone."
+    scientist: open
+    rooted: open
+  - id: be-the-molecule
+    view: level=molecular&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be a molecule: atoms joined into a shape. A molecule's work is its shape; change the shape and you
+        change what it does. Your bonds vibrate in about a tenth of a millionth of a millionth of a second.
+      hook:
+        question:
+          - "What does a molecule do with its shape?"
+          - "What happens if the shape is bent?"
+        answer:
+          - "Its shape is its work, its key, its word;"
+          - "bend it, and it says something else."
+    scientist: open
+    rooted: open
+  - id: be-the-atom
+    view: level=atomic&lens=on&compare=1
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be an atom: a tiny nucleus in a cloud of electrons. Nudge it with light and it answers only at certain
+        colours, the lines of its spectrum, measured with great precision. Your neighbour is the next atom;
+        share electrons with it, and together you become a molecule.
+      hook:
+        question:
+          - "Why does an atom answer only certain light?"
+          - "What happens when two atoms share?"
+        answer:
+          - "It has its notes, like a string;"
+          - "and two that share become something new."
+    scientist: open
+    rooted: open
+  - id: be-the-nucleus
+    view: level=nuclear&lens=on&dim=8
+    status: draft
+    u:
+      label: empirical-result
+      say: >-
+        Be the nucleus, the atom's heart: particles bound by forces that reach only the tiniest distance. A
+        nudge here fades almost before it starts. Your now is far shorter than anything we can imagine.
+      hook:
+        question:
+          - "How far can the strongest grip reach out?"
+          - "How long does a nudge last, in here?"
+        answer:
+          - "Hardly past itself, it holds what it can touch;"
+          - "and gone before it can be felt."
+    scientist: open
+    rooted: open
+  - id: be-the-boundary
+    view: level=string-boundary&lens=on&dim=4
+    status: draft
+    u:
+      label: open-hypothesis
+      say: >-
+        Below that, the pictures become models rather than photographs. Some physics imagines tiny vibrating
+        strings beneath the particles. This is a model boundary, not something anyone has seen, and the app
+        says so.
+      hook:
+        question:
+          - "What lies beneath the smallest thing we know?"
+          - "Is it real, or the shape of our maths?"
+        answer:
+          - "A model, played like a string, not seen;"
+          - "we draw the edge, and say it is an edge."
+    scientist: open
+    rooted: open
+  - id: foam
+    view: level=quantum-foam&lens=off&dim=4
+    status: draft
+    u:
+      label: open-hypothesis
+      say: >-
+        And at the very bottom, the smallest size we can talk about at all, space itself may not be smooth. A
+        cautious picture: a foam of possibilities, never seen directly. Here your now would be shorter than any
+        clock could tick. This is where the climb begins.
+      hook:
+        question:
+          - "What is there, before there is a where?"
+          - "Smaller than small, where space has no floor?"
+        answer:
+          - "Only a foam of maybes, rising and gone:"
+          - "the first sea the field will be written on."
+    scientist: open
+    rooted: open
+  # ---------------------------------------------------------------- the main screens (drafts from the grand tour's words)
+  - id: the-worlds
+    view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        This is the instrument itself. The worlds: every size we just visited, as glass domes, from the quantum
+        to the cosmos. One field runs through them all. Next, through the glass, into the human.
+    scientist: open
+    rooted: open
+  - id: the-jellyfish
+    view: level=human-vertebrate&voyage=human&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The jellyfish human, the home view: a body, its fields, a brain on top. Raise the field and watch it
+        respond. Next, the chest: into the heart.
+    scientist: open
+    rooted: open
+  - id: the-heart
+    view: level=human-vertebrate&voyage=body&hall=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The heart, the left atrium: the body's hub, and the beat that gives the music its tempo. Next, the way
+        in: through the valve and up the arteries.
+    scientist: open
+    rooted: open
+  - id: the-way-in
+    view: level=human-vertebrate&voyage=wayin&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The way in: a flight through the arteries to the brain, the first of the inside views. Next, the great
+        hall.
+    scientist: open
+    rooted: open
+  - id: the-great-hall
+    view: level=whole-brain-cemi&voyage=brain&hall=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The great hall, the brain's own cave under water, with doorways all round. Each doorway leads to a
+        different way of seeing the same field. Next, down into the cathedral.
+    scientist: open
+    rooted: open
+  - id: the-cathedral
+    view: level=whole-brain-cemi&voyage=brain&cave=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The cathedral: the brain's ventricles, neon in the stone. Raise the field and the stone lights up. Next,
+        up to the palace.
+    scientist: open
+    rooted: open
+  - id: the-mind-palace
+    view: level=whole-brain-cemi&voyage=brain&palace=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The mind palace: twenty-one floors, one for each size we visited, an old memory method made into a
+        building. Next, through the limbic gate.
+    scientist: open
+    rooted: open
+  - id: the-limbic-hinge
+    view: level=whole-brain-cemi&voyage=limbic&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The limbic hinge: the body below, the mind above, and the feelings at the joint between them. Next, the
+        mind chamber, where thoughts arise.
+    scientist: open
+    rooted: open
+  - id: the-mind-chamber
+    view: level=whole-brain-cemi&voyage=thought&hall=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The mind chamber. Below the gold plane the field is real but not felt; when a swell rises through it,
+        it becomes a thought. Next, the course a thought takes.
+    scientist: open
+    rooted: open
+  - id: the-course
+    view: level=whole-brain-cemi&voyage=thought&choices=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The course: should I do it? Each consideration is a ripple across the sea, and the ripples meet. Next,
+        the landscape underneath it all.
+    scientist: open
+    rooted: open
+  - id: the-landscape
+    view: level=human-vertebrate&voyage=landscape&golf=1&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        The landscape, as mini golf: six basins, the moods we settle into, and the ways between them. A push
+        can roll you from one to the next, or not quite.
+    scientist: open
+    rooted: open
+  # ---------------------------------------------------------------- the close
+  - id: the-poke
+    view: level=human-vertebrate&voyage=human&dim=11&phi=0.6
+    poke: strong
+    status: draft
+    u:
+      label: simulated
+      say: >-
+        The poke: something touches you. Watch the response run out through the field, and then come back to
+        rest: impulse, response, return. The same three steps, at every size we visited.
+    scientist: open
+    rooted: open
+  - id: back-to-you
+    view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
+    status: draft
+    u:
+      label: interpretive
+      say: >-
+        So we come back to your own size, a metre or two, a now of ten seconds, and the person beside you. But
+        perhaps you feel it a little differently now: the flock you are part of, the city you are a street of,
+        and the cells, each with its own small now, that make the moment you are in.
+      hook:
+        question:
+          - "Now that I have been so large and so small,"
+          - "what size am I, here, again?"
+        answer:
+          - "Exactly this size: one now among the nows,"
+          - "with someone beside me, breathing too."
+    scientist: open
+    rooted: open
