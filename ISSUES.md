@@ -6523,8 +6523,8 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
 - [ ] AUTHOR: approve or change version 2 (the strip's standard settings; the groups' members; the desks'
       devices; the delivery loudness).
 - [x] (20 Oct 02:1x: SSL's 22 and UAD's 30 in Live's list; the standard's desks use Live's names (UAD's are long:
-      "UADx API 2500 Bus Compressor"); SSL Native Bus Compressor 2 is not the author's: the SSL glue is SSL G3 MultiBusComp,
-      Copilot's pick (the author: "you pick"); Sherlock's self-test on Live's names, 15 of 15) The desks' plugin names
+      "UADx API 2500 Bus Compressor"); SSL Native Bus Compressor 2 installed at 02:1x and in Live's list, the SSL glue as planned
+      (G3 MultiBusComp for an hour); Sherlock's self-test on Live's names, 15 of 15) The desks' plugin names
       as Live lists them, once the SSL and iZotope installs are done and Live has
       rescanned (Live's plugin database: the names Sherlock matches).
 - [ ] iZotope's names (Neutron 3, Ozone 9) and Softube LoadIR, once installed and in Live's list. 20 Oct 00:5x: SSL's 22 VST3s on disk, none
