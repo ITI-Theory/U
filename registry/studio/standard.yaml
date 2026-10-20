@@ -111,12 +111,12 @@ returns:
   - {name: Space, role: the hall, desk: hall}
   - name: Designed space
     role: the designed spaces (any impulse response)
-    device: Softube LoadIR
-    or: [Hybrid Reverb]   # Live's own, with a convolution side
+    device: Hybrid Reverb   # Live's own: its convolution side loads any impulse response (a WAV dropped on it); no licence
+    # (20 Oct: Softube LoadIR, named in the 19 Oct installs, is not on disk nor in Softube's Amplifiers: dropped)
     proposal: >-
       Phase Plant as the designer of spaces (the author: "Phase Plant as the IR manipulator"): an impulse played
       through Phase Plant's Snapins on a track of its own, resampled in Live into a new impulse response, which
-      LoadIR plays. The sound stays Live's.
+      Hybrid Reverb plays. The sound stays Live's.
 
 master:
   slots:
@@ -138,7 +138,7 @@ desks:                 # the house that mixes; the same set, the same slots, fou
     receive the audio and only the selected ones sound (Live 12 manual, Racks: chain select zones), so the
     desks not chosen are turned off, not only unselected. The Live desk needs no licence: anyone with Live
     opens it.
-  installed: {ssl: "yes (20 Oct, 23 in Live)", izotope: to install (owned), uad: "yes (30 in Live)", live: "yes"}
+  installed: {ssl: "yes (20 Oct, 23 in Live)", izotope: "yes (20 Oct: Neutron 3 and its modules, Ozone 9, Nectar 3, RX 7 in Live)", uad: "yes (30 in Live)", live: "yes"}
 
 budget:                # H-AL, 19 Oct (the author's earlier decisions): what the machine can carry
   live_sources: 16-24  # Serum 2 or Phase Plant instances playing at once
@@ -151,4 +151,4 @@ versions:              # one session; a version is the same slots with other set
   asd: as cptsd
   adhd: as cptsd
   bounce: "per version and desk, stems per group (how, and per section or not: HAL, uat/RC3/hal-live-workflow-2026-10-19.md)"
-installed: {Serum 2: "yes", Phase Plant: "yes", Snap Heap: "yes (in Live, 20 Oct)", Multipass: no (a proposal), Softube Modular FX: "yes (13 add-ons, 19 Oct)", Softube LoadIR: "no VST3 on disk (20 Oct): to install from Softube Central"}
+installed: {Serum 2: "yes", Phase Plant: "yes", Snap Heap: "yes (in Live, 20 Oct)", Multipass: no (a proposal), Softube Modular FX: "yes (13 add-ons, 19 Oct)"}
